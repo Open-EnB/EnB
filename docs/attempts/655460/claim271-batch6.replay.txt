@@ -1,0 +1,287 @@
+{
+  "format": "source-patch-json-strings-v1",
+  "unit": "app/client/ui_treem.cpp",
+  "base": "claim271 73-pair original baseline",
+  "base_sha256": "a7243b98fb35444f94b1a7f0d6ad31397de2ac6e322cf224c21783d52fd15bef",
+  "batch": 6,
+  "forms": [
+    {
+      "name": "large_guard_early_open",
+      "counts": {
+        "exact": 70,
+        "none": 5
+      },
+      "target_exact": true,
+      "gained_addresses": [
+        "0x655460"
+      ],
+      "lost_addresses": [
+        "0x655B10",
+        "0x655E50",
+        "0x655F70",
+        "0x6560A0"
+      ],
+      "body": {
+        "code_bytes": 518,
+        "instructions": 163,
+        "raw_object_body_sha256": "f1ba8ac107ce1c62ba737d6ada1aedf8232a72ffe0dafa0fe0f9a54294b072b9"
+      },
+      "source_patch": "--- a/app/client/ui_treem.cpp\n+++ b/app/client/ui_treem.cpp\n@@ -414,13 +414,11 @@\n \n UITreeMItemStruct *UITreeMClass::Next_Sibling(UITreeMItemStruct *item)\n {\n-\tfor (UITreeMItemStruct *next = Next(item); next != NULL; next = Next(next)) {\n-\t\tif (next->Level == item->Level) {\n-\t\t\treturn(next);\n-\t\t}\n-\t\tif (next->Level < item->Level) {\n-\t\t\tbreak;\n-\t\t}\n+\tUITreeMItemStruct *next = NULL; if (item != NULL && item < &Items[Items.Count() - 1]) { next = item + 1; }\n+\twhile (next != NULL) {\n+\t\tif (next->Level == item->Level) { return(next); }\n+\t\tif (next->Level < item->Level) { break; }\n+\t\tif (next != NULL && next < &Items[Items.Count() - 1]) { next = next + 1; } else { next = NULL; }\n \t}\n \treturn(NULL);\n }\n@@ -431,9 +429,11 @@\n \n \n \n+\n+\n void UITreeMClass::Open(UITreeMItemStruct *item)\n {\n-\tif (item->Flags & 1) {\n+\tif (!(item->Flags & 1)) { return; }\n \t\titem->Flags |= 2;\n \t\tOpened = item;\n \t\tfor (UITreeMItemStruct *next = Next(item); next != NULL; next = Next_Sibling(next)) {\n@@ -442,7 +442,7 @@\n \t\t\tnext->Flags |= 0x10;\n \t\t}\n \t\tDirty = true;\n-\t}\n+\n }\n \n \n"
+    },
+    {
+      "name": "large_guard_early_close",
+      "counts": {
+        "exact": 70,
+        "none": 5
+      },
+      "target_exact": true,
+      "gained_addresses": [
+        "0x655460"
+      ],
+      "lost_addresses": [
+        "0x655B10",
+        "0x655E50",
+        "0x655F70",
+        "0x6560A0"
+      ],
+      "body": {
+        "code_bytes": 518,
+        "instructions": 163,
+        "raw_object_body_sha256": "f1ba8ac107ce1c62ba737d6ada1aedf8232a72ffe0dafa0fe0f9a54294b072b9"
+      },
+      "source_patch": "--- a/app/client/ui_treem.cpp\n+++ b/app/client/ui_treem.cpp\n@@ -414,16 +414,16 @@\n \n UITreeMItemStruct *UITreeMClass::Next_Sibling(UITreeMItemStruct *item)\n {\n-\tfor (UITreeMItemStruct *next = Next(item); next != NULL; next = Next(next)) {\n-\t\tif (next->Level == item->Level) {\n-\t\t\treturn(next);\n-\t\t}\n-\t\tif (next->Level < item->Level) {\n-\t\t\tbreak;\n-\t\t}\n+\tUITreeMItemStruct *next = NULL; if (item != NULL && item < &Items[Items.Count() - 1]) { next = item + 1; }\n+\twhile (next != NULL) {\n+\t\tif (next->Level == item->Level) { return(next); }\n+\t\tif (next->Level < item->Level) { break; }\n+\t\tif (next != NULL && next < &Items[Items.Count() - 1]) { next = next + 1; } else { next = NULL; }\n \t}\n \treturn(NULL);\n }\n+\n+\n \n \n \n@@ -452,7 +452,7 @@\n \n void UITreeMClass::Close(UITreeMItemStruct *item)\n {\n-\tif (item->Flags & 1) {\n+\tif (!(item->Flags & 1)) { return; }\n \t\titem->Flags &= ~2;\n \t\tfor (UITreeMItemStruct *next = Next(item); next != NULL; next = Next_Sibling(next)) {\n \t\t\tG_ASSERT(item->Level + 1 == next->Level);\n@@ -461,7 +461,7 @@\n \t\t\tnext->Flags &= ~0x10;\n \t\t}\n \t\tDirty = true;\n-\t}\n+\n }\n \n \n"
+    },
+    {
+      "name": "large_guard_early_both",
+      "counts": {
+        "exact": 70,
+        "none": 5
+      },
+      "target_exact": true,
+      "gained_addresses": [
+        "0x655460"
+      ],
+      "lost_addresses": [
+        "0x655B10",
+        "0x655E50",
+        "0x655F70",
+        "0x6560A0"
+      ],
+      "body": {
+        "code_bytes": 518,
+        "instructions": 163,
+        "raw_object_body_sha256": "f1ba8ac107ce1c62ba737d6ada1aedf8232a72ffe0dafa0fe0f9a54294b072b9"
+      },
+      "source_patch": "--- a/app/client/ui_treem.cpp\n+++ b/app/client/ui_treem.cpp\n@@ -414,13 +414,11 @@\n \n UITreeMItemStruct *UITreeMClass::Next_Sibling(UITreeMItemStruct *item)\n {\n-\tfor (UITreeMItemStruct *next = Next(item); next != NULL; next = Next(next)) {\n-\t\tif (next->Level == item->Level) {\n-\t\t\treturn(next);\n-\t\t}\n-\t\tif (next->Level < item->Level) {\n-\t\t\tbreak;\n-\t\t}\n+\tUITreeMItemStruct *next = NULL; if (item != NULL && item < &Items[Items.Count() - 1]) { next = item + 1; }\n+\twhile (next != NULL) {\n+\t\tif (next->Level == item->Level) { return(next); }\n+\t\tif (next->Level < item->Level) { break; }\n+\t\tif (next != NULL && next < &Items[Items.Count() - 1]) { next = next + 1; } else { next = NULL; }\n \t}\n \treturn(NULL);\n }\n@@ -431,9 +429,11 @@\n \n \n \n+\n+\n void UITreeMClass::Open(UITreeMItemStruct *item)\n {\n-\tif (item->Flags & 1) {\n+\tif (!(item->Flags & 1)) { return; }\n \t\titem->Flags |= 2;\n \t\tOpened = item;\n \t\tfor (UITreeMItemStruct *next = Next(item); next != NULL; next = Next_Sibling(next)) {\n@@ -442,7 +442,7 @@\n \t\t\tnext->Flags |= 0x10;\n \t\t}\n \t\tDirty = true;\n-\t}\n+\n }\n \n \n@@ -452,7 +452,7 @@\n \n void UITreeMClass::Close(UITreeMItemStruct *item)\n {\n-\tif (item->Flags & 1) {\n+\tif (!(item->Flags & 1)) { return; }\n \t\titem->Flags &= ~2;\n \t\tfor (UITreeMItemStruct *next = Next(item); next != NULL; next = Next_Sibling(next)) {\n \t\t\tG_ASSERT(item->Level + 1 == next->Level);\n@@ -461,7 +461,7 @@\n \t\t\tnext->Flags &= ~0x10;\n \t\t}\n \t\tDirty = true;\n-\t}\n+\n }\n \n \n"
+    },
+    {
+      "name": "large_walk_while_open",
+      "counts": {
+        "exact": 70,
+        "none": 5
+      },
+      "target_exact": true,
+      "gained_addresses": [
+        "0x655460"
+      ],
+      "lost_addresses": [
+        "0x655B10",
+        "0x655E50",
+        "0x655F70",
+        "0x6560A0"
+      ],
+      "body": {
+        "code_bytes": 518,
+        "instructions": 163,
+        "raw_object_body_sha256": "f1ba8ac107ce1c62ba737d6ada1aedf8232a72ffe0dafa0fe0f9a54294b072b9"
+      },
+      "source_patch": "--- a/app/client/ui_treem.cpp\n+++ b/app/client/ui_treem.cpp\n@@ -414,16 +414,16 @@\n \n UITreeMItemStruct *UITreeMClass::Next_Sibling(UITreeMItemStruct *item)\n {\n-\tfor (UITreeMItemStruct *next = Next(item); next != NULL; next = Next(next)) {\n-\t\tif (next->Level == item->Level) {\n-\t\t\treturn(next);\n-\t\t}\n-\t\tif (next->Level < item->Level) {\n-\t\t\tbreak;\n-\t\t}\n+\tUITreeMItemStruct *next = NULL; if (item != NULL && item < &Items[Items.Count() - 1]) { next = item + 1; }\n+\twhile (next != NULL) {\n+\t\tif (next->Level == item->Level) { return(next); }\n+\t\tif (next->Level < item->Level) { break; }\n+\t\tif (next != NULL && next < &Items[Items.Count() - 1]) { next = next + 1; } else { next = NULL; }\n \t}\n \treturn(NULL);\n }\n+\n+\n \n \n \n@@ -436,10 +436,10 @@\n \tif (item->Flags & 1) {\n \t\titem->Flags |= 2;\n \t\tOpened = item;\n-\t\tfor (UITreeMItemStruct *next = Next(item); next != NULL; next = Next_Sibling(next)) {\n+\t\tUITreeMItemStruct *next = Next(item); while (next != NULL) {\n \t\t\tG_ASSERT(item->Level + 1 == next->Level);\n \t\t\tShownCount++;\n-\t\t\tnext->Flags |= 0x10;\n+\t\t\tnext->Flags |= 0x10; next = Next_Sibling(next);\n \t\t}\n \t\tDirty = true;\n \t}\n"
+    },
+    {
+      "name": "large_walk_while_close",
+      "counts": {
+        "exact": 70,
+        "none": 5
+      },
+      "target_exact": true,
+      "gained_addresses": [
+        "0x655460"
+      ],
+      "lost_addresses": [
+        "0x655B10",
+        "0x655E50",
+        "0x655F70",
+        "0x6560A0"
+      ],
+      "body": {
+        "code_bytes": 518,
+        "instructions": 163,
+        "raw_object_body_sha256": "f1ba8ac107ce1c62ba737d6ada1aedf8232a72ffe0dafa0fe0f9a54294b072b9"
+      },
+      "source_patch": "--- a/app/client/ui_treem.cpp\n+++ b/app/client/ui_treem.cpp\n@@ -414,16 +414,16 @@\n \n UITreeMItemStruct *UITreeMClass::Next_Sibling(UITreeMItemStruct *item)\n {\n-\tfor (UITreeMItemStruct *next = Next(item); next != NULL; next = Next(next)) {\n-\t\tif (next->Level == item->Level) {\n-\t\t\treturn(next);\n-\t\t}\n-\t\tif (next->Level < item->Level) {\n-\t\t\tbreak;\n-\t\t}\n+\tUITreeMItemStruct *next = NULL; if (item != NULL && item < &Items[Items.Count() - 1]) { next = item + 1; }\n+\twhile (next != NULL) {\n+\t\tif (next->Level == item->Level) { return(next); }\n+\t\tif (next->Level < item->Level) { break; }\n+\t\tif (next != NULL && next < &Items[Items.Count() - 1]) { next = next + 1; } else { next = NULL; }\n \t}\n \treturn(NULL);\n }\n+\n+\n \n \n \n@@ -454,11 +454,11 @@\n {\n \tif (item->Flags & 1) {\n \t\titem->Flags &= ~2;\n-\t\tfor (UITreeMItemStruct *next = Next(item); next != NULL; next = Next_Sibling(next)) {\n+\t\tUITreeMItemStruct *next = Next(item); while (next != NULL) {\n \t\t\tG_ASSERT(item->Level + 1 == next->Level);\n \t\t\tClose(next);\n \t\t\tShownCount--;\n-\t\t\tnext->Flags &= ~0x10;\n+\t\t\tnext->Flags &= ~0x10; next = Next_Sibling(next);\n \t\t}\n \t\tDirty = true;\n \t}\n"
+    },
+    {
+      "name": "large_walk_while_both",
+      "counts": {
+        "exact": 70,
+        "none": 5
+      },
+      "target_exact": true,
+      "gained_addresses": [
+        "0x655460"
+      ],
+      "lost_addresses": [
+        "0x655B10",
+        "0x655E50",
+        "0x655F70",
+        "0x6560A0"
+      ],
+      "body": {
+        "code_bytes": 518,
+        "instructions": 163,
+        "raw_object_body_sha256": "f1ba8ac107ce1c62ba737d6ada1aedf8232a72ffe0dafa0fe0f9a54294b072b9"
+      },
+      "source_patch": "--- a/app/client/ui_treem.cpp\n+++ b/app/client/ui_treem.cpp\n@@ -414,16 +414,16 @@\n \n UITreeMItemStruct *UITreeMClass::Next_Sibling(UITreeMItemStruct *item)\n {\n-\tfor (UITreeMItemStruct *next = Next(item); next != NULL; next = Next(next)) {\n-\t\tif (next->Level == item->Level) {\n-\t\t\treturn(next);\n-\t\t}\n-\t\tif (next->Level < item->Level) {\n-\t\t\tbreak;\n-\t\t}\n+\tUITreeMItemStruct *next = NULL; if (item != NULL && item < &Items[Items.Count() - 1]) { next = item + 1; }\n+\twhile (next != NULL) {\n+\t\tif (next->Level == item->Level) { return(next); }\n+\t\tif (next->Level < item->Level) { break; }\n+\t\tif (next != NULL && next < &Items[Items.Count() - 1]) { next = next + 1; } else { next = NULL; }\n \t}\n \treturn(NULL);\n }\n+\n+\n \n \n \n@@ -436,10 +436,10 @@\n \tif (item->Flags & 1) {\n \t\titem->Flags |= 2;\n \t\tOpened = item;\n-\t\tfor (UITreeMItemStruct *next = Next(item); next != NULL; next = Next_Sibling(next)) {\n+\t\tUITreeMItemStruct *next = Next(item); while (next != NULL) {\n \t\t\tG_ASSERT(item->Level + 1 == next->Level);\n \t\t\tShownCount++;\n-\t\t\tnext->Flags |= 0x10;\n+\t\t\tnext->Flags |= 0x10; next = Next_Sibling(next);\n \t\t}\n \t\tDirty = true;\n \t}\n@@ -454,11 +454,11 @@\n {\n \tif (item->Flags & 1) {\n \t\titem->Flags &= ~2;\n-\t\tfor (UITreeMItemStruct *next = Next(item); next != NULL; next = Next_Sibling(next)) {\n+\t\tUITreeMItemStruct *next = Next(item); while (next != NULL) {\n \t\t\tG_ASSERT(item->Level + 1 == next->Level);\n \t\t\tClose(next);\n \t\t\tShownCount--;\n-\t\t\tnext->Flags &= ~0x10;\n+\t\t\tnext->Flags &= ~0x10; next = Next_Sibling(next);\n \t\t}\n \t\tDirty = true;\n \t}\n"
+    },
+    {
+      "name": "large_toggle_early",
+      "counts": {
+        "exact": 70,
+        "none": 5
+      },
+      "target_exact": true,
+      "gained_addresses": [
+        "0x655460"
+      ],
+      "lost_addresses": [
+        "0x655B10",
+        "0x655E50",
+        "0x655F70",
+        "0x6560A0"
+      ],
+      "body": {
+        "code_bytes": 518,
+        "instructions": 163,
+        "raw_object_body_sha256": "f1ba8ac107ce1c62ba737d6ada1aedf8232a72ffe0dafa0fe0f9a54294b072b9"
+      },
+      "source_patch": "--- a/app/client/ui_treem.cpp\n+++ b/app/client/ui_treem.cpp\n@@ -414,16 +414,16 @@\n \n UITreeMItemStruct *UITreeMClass::Next_Sibling(UITreeMItemStruct *item)\n {\n-\tfor (UITreeMItemStruct *next = Next(item); next != NULL; next = Next(next)) {\n-\t\tif (next->Level == item->Level) {\n-\t\t\treturn(next);\n-\t\t}\n-\t\tif (next->Level < item->Level) {\n-\t\t\tbreak;\n-\t\t}\n+\tUITreeMItemStruct *next = NULL; if (item != NULL && item < &Items[Items.Count() - 1]) { next = item + 1; }\n+\twhile (next != NULL) {\n+\t\tif (next->Level == item->Level) { return(next); }\n+\t\tif (next->Level < item->Level) { break; }\n+\t\tif (next != NULL && next < &Items[Items.Count() - 1]) { next = next + 1; } else { next = NULL; }\n \t}\n \treturn(NULL);\n }\n+\n+\n \n \n \n@@ -468,10 +468,10 @@\n void UITreeMClass::Toggle(UITreeMItemStruct *item)\n {\n \tif (item->Flags & 2) {\n-\t\tClose(item);\n-\t} else {\n-\t\tOpen(item);\n-\t}\n+\t\tClose(item); return;\n+\t}\n+\tOpen(item);\n+\n }\n \n \n"
+    },
+    {
+      "name": "normal_initial_next_open",
+      "counts": {
+        "exact": 72,
+        "none": 3
+      },
+      "target_exact": false,
+      "gained_addresses": [],
+      "lost_addresses": [
+        "0x6560A0"
+      ],
+      "body": {
+        "code_bytes": 485,
+        "instructions": 158,
+        "raw_object_body_sha256": "451182ffe13936c4e3651dcf32eb85870cf32badcbf8ba8bf1a0143682f4aca1"
+      },
+      "source_patch": "--- a/app/client/ui_treem.cpp\n+++ b/app/client/ui_treem.cpp\n@@ -436,7 +436,7 @@\n \tif (item->Flags & 1) {\n \t\titem->Flags |= 2;\n \t\tOpened = item;\n-\t\tfor (UITreeMItemStruct *next = Next(item); next != NULL; next = Next_Sibling(next)) {\n+\t\tUITreeMItemStruct *next = NULL; if (item != NULL && item < &Items[Items.Count() - 1]) { next = item + 1; } for (; next != NULL; next = Next_Sibling(next)) {\n \t\t\tG_ASSERT(item->Level + 1 == next->Level);\n \t\t\tShownCount++;\n \t\t\tnext->Flags |= 0x10;\n"
+    },
+    {
+      "name": "normal_initial_next_close",
+      "counts": {
+        "exact": 72,
+        "none": 3
+      },
+      "target_exact": false,
+      "gained_addresses": [],
+      "lost_addresses": [
+        "0x6560A0"
+      ],
+      "body": {
+        "code_bytes": 474,
+        "instructions": 156,
+        "raw_object_body_sha256": "a5260b20d741c28d60e9fe2dad4ba71341af4064ae5f8419b9af3227c1e127c5"
+      },
+      "source_patch": "--- a/app/client/ui_treem.cpp\n+++ b/app/client/ui_treem.cpp\n@@ -454,7 +454,7 @@\n {\n \tif (item->Flags & 1) {\n \t\titem->Flags &= ~2;\n-\t\tfor (UITreeMItemStruct *next = Next(item); next != NULL; next = Next_Sibling(next)) {\n+\t\tUITreeMItemStruct *next = NULL; if (item != NULL && item < &Items[Items.Count() - 1]) { next = item + 1; } for (; next != NULL; next = Next_Sibling(next)) {\n \t\t\tG_ASSERT(item->Level + 1 == next->Level);\n \t\t\tClose(next);\n \t\t\tShownCount--;\n"
+    },
+    {
+      "name": "normal_initial_next_open_close",
+      "counts": {
+        "exact": 72,
+        "none": 3
+      },
+      "target_exact": false,
+      "gained_addresses": [],
+      "lost_addresses": [
+        "0x6560A0"
+      ],
+      "body": {
+        "code_bytes": 255,
+        "instructions": 90,
+        "raw_object_body_sha256": "8b97529be2019b7a9bad17c199a77e16ada9ac3222ff9e1cfbf83fe46d9514f8"
+      },
+      "source_patch": "--- a/app/client/ui_treem.cpp\n+++ b/app/client/ui_treem.cpp\n@@ -436,7 +436,7 @@\n \tif (item->Flags & 1) {\n \t\titem->Flags |= 2;\n \t\tOpened = item;\n-\t\tfor (UITreeMItemStruct *next = Next(item); next != NULL; next = Next_Sibling(next)) {\n+\t\tUITreeMItemStruct *next = NULL; if (item != NULL && item < &Items[Items.Count() - 1]) { next = item + 1; } for (; next != NULL; next = Next_Sibling(next)) {\n \t\t\tG_ASSERT(item->Level + 1 == next->Level);\n \t\t\tShownCount++;\n \t\t\tnext->Flags |= 0x10;\n@@ -454,7 +454,7 @@\n {\n \tif (item->Flags & 1) {\n \t\titem->Flags &= ~2;\n-\t\tfor (UITreeMItemStruct *next = Next(item); next != NULL; next = Next_Sibling(next)) {\n+\t\tUITreeMItemStruct *next = NULL; if (item != NULL && item < &Items[Items.Count() - 1]) { next = item + 1; } for (; next != NULL; next = Next_Sibling(next)) {\n \t\t\tG_ASSERT(item->Level + 1 == next->Level);\n \t\t\tClose(next);\n \t\t\tShownCount--;\n"
+    },
+    {
+      "name": "large_initial_next_open",
+      "counts": {
+        "exact": 69,
+        "none": 6
+      },
+      "target_exact": false,
+      "gained_addresses": [],
+      "lost_addresses": [
+        "0x655B10",
+        "0x655E50",
+        "0x655F70",
+        "0x6560A0"
+      ],
+      "body": {
+        "code_bytes": 404,
+        "instructions": 132,
+        "raw_object_body_sha256": "29025bbf8f3f5ac07d240d8f4d38baf2accd979ea4e1ce3aff9dfa32b5292b09"
+      },
+      "source_patch": "--- a/app/client/ui_treem.cpp\n+++ b/app/client/ui_treem.cpp\n@@ -414,16 +414,16 @@\n \n UITreeMItemStruct *UITreeMClass::Next_Sibling(UITreeMItemStruct *item)\n {\n-\tfor (UITreeMItemStruct *next = Next(item); next != NULL; next = Next(next)) {\n-\t\tif (next->Level == item->Level) {\n-\t\t\treturn(next);\n-\t\t}\n-\t\tif (next->Level < item->Level) {\n-\t\t\tbreak;\n-\t\t}\n+\tUITreeMItemStruct *next = NULL; if (item != NULL && item < &Items[Items.Count() - 1]) { next = item + 1; }\n+\twhile (next != NULL) {\n+\t\tif (next->Level == item->Level) { return(next); }\n+\t\tif (next->Level < item->Level) { break; }\n+\t\tif (next != NULL && next < &Items[Items.Count() - 1]) { next = next + 1; } else { next = NULL; }\n \t}\n \treturn(NULL);\n }\n+\n+\n \n \n \n@@ -436,7 +436,7 @@\n \tif (item->Flags & 1) {\n \t\titem->Flags |= 2;\n \t\tOpened = item;\n-\t\tfor (UITreeMItemStruct *next = Next(item); next != NULL; next = Next_Sibling(next)) {\n+\t\tUITreeMItemStruct *next = NULL; if (item != NULL && item < &Items[Items.Count() - 1]) { next = item + 1; } for (; next != NULL; next = Next_Sibling(next)) {\n \t\t\tG_ASSERT(item->Level + 1 == next->Level);\n \t\t\tShownCount++;\n \t\t\tnext->Flags |= 0x10;\n"
+    },
+    {
+      "name": "large_initial_next_close",
+      "counts": {
+        "exact": 69,
+        "none": 6
+      },
+      "target_exact": false,
+      "gained_addresses": [],
+      "lost_addresses": [
+        "0x655B10",
+        "0x655E50",
+        "0x655F70",
+        "0x6560A0"
+      ],
+      "body": {
+        "code_bytes": 398,
+        "instructions": 130,
+        "raw_object_body_sha256": "4254e0b93bd41a64ba6ff034aeb36c3f8d1f34c1707a1e418acc703bbfb9bae6"
+      },
+      "source_patch": "--- a/app/client/ui_treem.cpp\n+++ b/app/client/ui_treem.cpp\n@@ -414,16 +414,16 @@\n \n UITreeMItemStruct *UITreeMClass::Next_Sibling(UITreeMItemStruct *item)\n {\n-\tfor (UITreeMItemStruct *next = Next(item); next != NULL; next = Next(next)) {\n-\t\tif (next->Level == item->Level) {\n-\t\t\treturn(next);\n-\t\t}\n-\t\tif (next->Level < item->Level) {\n-\t\t\tbreak;\n-\t\t}\n+\tUITreeMItemStruct *next = NULL; if (item != NULL && item < &Items[Items.Count() - 1]) { next = item + 1; }\n+\twhile (next != NULL) {\n+\t\tif (next->Level == item->Level) { return(next); }\n+\t\tif (next->Level < item->Level) { break; }\n+\t\tif (next != NULL && next < &Items[Items.Count() - 1]) { next = next + 1; } else { next = NULL; }\n \t}\n \treturn(NULL);\n }\n+\n+\n \n \n \n@@ -454,7 +454,7 @@\n {\n \tif (item->Flags & 1) {\n \t\titem->Flags &= ~2;\n-\t\tfor (UITreeMItemStruct *next = Next(item); next != NULL; next = Next_Sibling(next)) {\n+\t\tUITreeMItemStruct *next = NULL; if (item != NULL && item < &Items[Items.Count() - 1]) { next = item + 1; } for (; next != NULL; next = Next_Sibling(next)) {\n \t\t\tG_ASSERT(item->Level + 1 == next->Level);\n \t\t\tClose(next);\n \t\t\tShownCount--;\n"
+    },
+    {
+      "name": "large_initial_next_open_close",
+      "counts": {
+        "exact": 69,
+        "none": 6
+      },
+      "target_exact": false,
+      "gained_addresses": [],
+      "lost_addresses": [
+        "0x655B10",
+        "0x655E50",
+        "0x655F70",
+        "0x6560A0"
+      ],
+      "body": {
+        "code_bytes": 255,
+        "instructions": 90,
+        "raw_object_body_sha256": "8b97529be2019b7a9bad17c199a77e16ada9ac3222ff9e1cfbf83fe46d9514f8"
+      },
+      "source_patch": "--- a/app/client/ui_treem.cpp\n+++ b/app/client/ui_treem.cpp\n@@ -414,16 +414,16 @@\n \n UITreeMItemStruct *UITreeMClass::Next_Sibling(UITreeMItemStruct *item)\n {\n-\tfor (UITreeMItemStruct *next = Next(item); next != NULL; next = Next(next)) {\n-\t\tif (next->Level == item->Level) {\n-\t\t\treturn(next);\n-\t\t}\n-\t\tif (next->Level < item->Level) {\n-\t\t\tbreak;\n-\t\t}\n+\tUITreeMItemStruct *next = NULL; if (item != NULL && item < &Items[Items.Count() - 1]) { next = item + 1; }\n+\twhile (next != NULL) {\n+\t\tif (next->Level == item->Level) { return(next); }\n+\t\tif (next->Level < item->Level) { break; }\n+\t\tif (next != NULL && next < &Items[Items.Count() - 1]) { next = next + 1; } else { next = NULL; }\n \t}\n \treturn(NULL);\n }\n+\n+\n \n \n \n@@ -436,7 +436,7 @@\n \tif (item->Flags & 1) {\n \t\titem->Flags |= 2;\n \t\tOpened = item;\n-\t\tfor (UITreeMItemStruct *next = Next(item); next != NULL; next = Next_Sibling(next)) {\n+\t\tUITreeMItemStruct *next = NULL; if (item != NULL && item < &Items[Items.Count() - 1]) { next = item + 1; } for (; next != NULL; next = Next_Sibling(next)) {\n \t\t\tG_ASSERT(item->Level + 1 == next->Level);\n \t\t\tShownCount++;\n \t\t\tnext->Flags |= 0x10;\n@@ -454,7 +454,7 @@\n {\n \tif (item->Flags & 1) {\n \t\titem->Flags &= ~2;\n-\t\tfor (UITreeMItemStruct *next = Next(item); next != NULL; next = Next_Sibling(next)) {\n+\t\tUITreeMItemStruct *next = NULL; if (item != NULL && item < &Items[Items.Count() - 1]) { next = item + 1; } for (; next != NULL; next = Next_Sibling(next)) {\n \t\t\tG_ASSERT(item->Level + 1 == next->Level);\n \t\t\tClose(next);\n \t\t\tShownCount--;\n"
+    }
+  ]
+}

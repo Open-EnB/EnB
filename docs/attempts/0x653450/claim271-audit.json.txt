@@ -1,0 +1,879 @@
+{
+  "model": "gpt-6.1-sol (high)",
+  "baseline_object": "/home/dev/Projects/EnB/.work/claim-271/653450/runs/batch1-ow5fsvme/baseline/ui_trade.obj",
+  "final_object": "/home/dev/Projects/EnB/.work/claim-271/653450/runs/final-m8bd73gn/final/ui_trade.obj",
+  "symbol_address_before": 91,
+  "symbol_address_after": 94,
+  "gains": [
+    [
+      "?Unknown_653450@UITradeClass@@QAEXXZ",
+      "0x653450"
+    ],
+    [
+      "?assign@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAEAAV12@PBDI@Z",
+      "0x42D050"
+    ],
+    [
+      "?insert@?$vector@HV?$allocator@H@std@@@std@@QAEXPAHIABH@Z",
+      "0x4A0880"
+    ]
+  ],
+  "losses": [],
+  "audited_gains": [
+    {
+      "symbol": "?Unknown_653450@UITradeClass@@QAEXXZ",
+      "address": "0x653450",
+      "object_span": 928,
+      "executable_bytes": 914,
+      "instructions": 281,
+      "all_fixed_bytes_branches_returns_equal": true,
+      "relocations": [
+        {
+          "offset": 3,
+          "kind": 6,
+          "symbol": "$L120597",
+          "addend": 0,
+          "retail_value": "0xabc880",
+          "resolved": "0xabc880",
+          "basis": "explicit EH layout"
+        },
+        {
+          "offset": 9,
+          "kind": 6,
+          "symbol": "__except_list",
+          "addend": 0,
+          "retail_value": "0x0",
+          "resolved": "0x0",
+          "basis": "FS:[0]"
+        },
+        {
+          "offset": 17,
+          "kind": 6,
+          "symbol": "__except_list",
+          "addend": 0,
+          "retail_value": "0x0",
+          "resolved": "0x0",
+          "basis": "FS:[0]"
+        },
+        {
+          "offset": 52,
+          "kind": 6,
+          "symbol": "??_C@_0EJ@EAMM@Z?3?2home?2dev?2Projects?2EnB?2?4work?2c@",
+          "addend": 0,
+          "retail_value": "0xb8bf74",
+          "resolved": "0xb8bf74",
+          "basis": "__FILE__ basename only"
+        },
+        {
+          "offset": 57,
+          "kind": 6,
+          "symbol": "??_C@_07EDIK@?$CBbutton?$AA@",
+          "addend": 0,
+          "retail_value": "0xb8c1d4",
+          "resolved": "0xb8c1d4",
+          "basis": "literal including terminator"
+        },
+        {
+          "offset": 62,
+          "kind": 20,
+          "symbol": "?Fail_If_Report@@YAXPBD0H@Z",
+          "addend": 0,
+          "retail_value": "0x402c3e",
+          "resolved": "0x4e9450",
+          "basis": "symbol map/fresh exact/helper header evidence; incremental thunk resolved"
+        },
+        {
+          "offset": 78,
+          "kind": 6,
+          "symbol": "__except_list",
+          "addend": 0,
+          "retail_value": "0x0",
+          "resolved": "0x0",
+          "basis": "FS:[0]"
+        },
+        {
+          "offset": 99,
+          "kind": 6,
+          "symbol": "??_C@_0EJ@EAMM@Z?3?2home?2dev?2Projects?2EnB?2?4work?2c@",
+          "addend": 0,
+          "retail_value": "0xb8bf74",
+          "resolved": "0xb8bf74",
+          "basis": "__FILE__ basename only"
+        },
+        {
+          "offset": 104,
+          "kind": 6,
+          "symbol": "??_C@_0L@CNHD@?$CBsd_render?$AA@",
+          "addend": 0,
+          "retail_value": "0xb8c038",
+          "resolved": "0xb8c038",
+          "basis": "literal including terminator"
+        },
+        {
+          "offset": 109,
+          "kind": 20,
+          "symbol": "?Fail_If_Report@@YAXPBD0H@Z",
+          "addend": 0,
+          "retail_value": "0x402c3e",
+          "resolved": "0x4e9450",
+          "basis": "symbol map/fresh exact/helper header evidence; incremental thunk resolved"
+        },
+        {
+          "offset": 125,
+          "kind": 6,
+          "symbol": "__except_list",
+          "addend": 0,
+          "retail_value": "0x0",
+          "resolved": "0x0",
+          "basis": "FS:[0]"
+        },
+        {
+          "offset": 148,
+          "kind": 6,
+          "symbol": "??_C@_0EJ@EAMM@Z?3?2home?2dev?2Projects?2EnB?2?4work?2c@",
+          "addend": 0,
+          "retail_value": "0xb8bf74",
+          "resolved": "0xb8bf74",
+          "basis": "__FILE__ basename only"
+        },
+        {
+          "offset": 153,
+          "kind": 6,
+          "symbol": "??_C@_0O@KDHO@?$CBtrade_render?$AA@",
+          "addend": 0,
+          "retail_value": "0xb8c028",
+          "resolved": "0xb8c028",
+          "basis": "literal including terminator"
+        },
+        {
+          "offset": 158,
+          "kind": 20,
+          "symbol": "?Fail_If_Report@@YAXPBD0H@Z",
+          "addend": 0,
+          "retail_value": "0x402c3e",
+          "resolved": "0x4e9450",
+          "basis": "symbol map/fresh exact/helper header evidence; incremental thunk resolved"
+        },
+        {
+          "offset": 174,
+          "kind": 6,
+          "symbol": "__except_list",
+          "addend": 0,
+          "retail_value": "0x0",
+          "resolved": "0x0",
+          "basis": "FS:[0]"
+        },
+        {
+          "offset": 186,
+          "kind": 20,
+          "symbol": "?Peek_Inv_Data@InvRenderClass@@QAEPAVInvDataClass@@XZ",
+          "addend": 0,
+          "retail_value": "0x402c0c",
+          "resolved": "0x68d620",
+          "basis": "symbol map/fresh exact/helper header evidence; incremental thunk resolved"
+        },
+        {
+          "offset": 193,
+          "kind": 20,
+          "symbol": "?Unknown_688830@InvDataClass@@QAEPAVInvDataPeekClass@@XZ",
+          "addend": 0,
+          "retail_value": "0x417567",
+          "resolved": "0x688830",
+          "basis": "symbol map/fresh exact/helper header evidence; incremental thunk resolved"
+        },
+        {
+          "offset": 221,
+          "kind": 20,
+          "symbol": "?erase@?$vector@HV?$allocator@H@std@@@std@@QAEPAHPAH0@Z",
+          "addend": 0,
+          "retail_value": "0x416653",
+          "resolved": "0x4a0b20",
+          "basis": "symbol map/fresh exact/helper header evidence; incremental thunk resolved"
+        },
+        {
+          "offset": 227,
+          "kind": 6,
+          "symbol": "?Instance@OptionClass@@2PAV1@A",
+          "addend": 0,
+          "retail_value": "0xbe8b38",
+          "resolved": "0xbe8b38",
+          "basis": {
+            "same data symbol in prior exact functions": [
+              [
+                "?Unknown_54@UITradeClass@@UAEXXZ",
+                "0x650A40",
+                1725
+              ],
+              [
+                "?Unknown_68@UITradeClass@@UAE_NH@Z",
+                "0x651830",
+                413
+              ],
+              [
+                "?Unknown_6539A0@UITradeClass@@QAEXXZ",
+                "0x6539A0",
+                5
+              ],
+              [
+                "?Unknown_6539A0@UITradeClass@@QAEXXZ",
+                "0x6539A0",
+                43
+              ],
+              [
+                "?Unknown_653A80@UITradeClass@@QAEXXZ",
+                "0x653A80",
+                13
+              ]
+            ]
+          }
+        },
+        {
+          "offset": 232,
+          "kind": 6,
+          "symbol": "??_C@_0BD@OGKL@Trade_Sort_By_Name?$AA@",
+          "addend": 0,
+          "retail_value": "0xb8bfec",
+          "resolved": "0xb8bfec",
+          "basis": "literal including terminator"
+        },
+        {
+          "offset": 237,
+          "kind": 20,
+          "symbol": "?Get_Bool@OptionClass@@QAE_NPBD@Z",
+          "addend": 0,
+          "retail_value": "0x414fb0",
+          "resolved": "0x7f9610",
+          "basis": "symbol map/fresh exact/helper header evidence; incremental thunk resolved"
+        },
+        {
+          "offset": 256,
+          "kind": 20,
+          "symbol": "?Unknown_6A7990@SlotDataClass@@QAEHXZ",
+          "addend": 0,
+          "retail_value": "0x4028dd",
+          "resolved": "0x6a7990",
+          "basis": "symbol map/fresh exact/helper header evidence; incremental thunk resolved"
+        },
+        {
+          "offset": 281,
+          "kind": 20,
+          "symbol": "?Unknown_6A7A00@SlotDataClass@@QAEHI@Z",
+          "addend": 0,
+          "retail_value": "0x402bf3",
+          "resolved": "0x6a7a00",
+          "basis": "symbol map/fresh exact/helper header evidence; incremental thunk resolved"
+        },
+        {
+          "offset": 298,
+          "kind": 20,
+          "symbol": "?Get_Price@InvDataPeekClass@@QAE?AVMoneyClass@@H@Z",
+          "addend": 0,
+          "retail_value": "0x409c28",
+          "resolved": "0x689da0",
+          "basis": "symbol map/fresh exact/helper header evidence; incremental thunk resolved"
+        },
+        {
+          "offset": 320,
+          "kind": 20,
+          "symbol": "?_Tidy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEX_N@Z",
+          "addend": 0,
+          "retail_value": "0x402b76",
+          "resolved": "0x42a820",
+          "basis": "symbol map/fresh exact/helper header evidence; incremental thunk resolved"
+        },
+        {
+          "offset": 325,
+          "kind": 6,
+          "symbol": "??_C@_00A@?$AA@",
+          "addend": 0,
+          "retail_value": "0xbda908",
+          "resolved": "0xbda908",
+          "basis": "literal including terminator"
+        },
+        {
+          "offset": 341,
+          "kind": 6,
+          "symbol": "??_C@_00A@?$AA@",
+          "addend": 0,
+          "retail_value": "0xbda908",
+          "resolved": "0xbda908",
+          "basis": "literal including terminator"
+        },
+        {
+          "offset": 350,
+          "kind": 20,
+          "symbol": "?assign@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAEAAV12@PBDI@Z",
+          "addend": 0,
+          "retail_value": "0x41750d",
+          "resolved": "0x42d050",
+          "basis": "symbol map/fresh exact/helper header evidence; incremental thunk resolved"
+        },
+        {
+          "offset": 369,
+          "kind": 20,
+          "symbol": "?Get_Item@InvDataPeekClass@@QAEPAUInvDataPeekItemStruct@@H_N@Z",
+          "addend": 0,
+          "retail_value": "0x404a66",
+          "resolved": "0x68aaa0",
+          "basis": "symbol map/fresh exact/helper header evidence; incremental thunk resolved"
+        },
+        {
+          "offset": 379,
+          "kind": 6,
+          "symbol": "?npos@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@2IB",
+          "addend": 0,
+          "retail_value": "0xae70a8",
+          "resolved": "0xae70a8",
+          "basis": {
+            "same data symbol in prior exact functions": [
+              [
+                "?assign@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAEAAV12@ABV12@II@Z",
+                "0x42CAB0",
+                54
+              ]
+            ]
+          }
+        },
+        {
+          "offset": 394,
+          "kind": 20,
+          "symbol": "?assign@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAEAAV12@ABV12@II@Z",
+          "addend": 0,
+          "retail_value": "0x414e75",
+          "resolved": "0x42cab0",
+          "basis": "symbol map/fresh exact/helper header evidence; incremental thunk resolved"
+        },
+        {
+          "offset": 451,
+          "kind": 20,
+          "symbol": "?_Tidy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEX_N@Z",
+          "addend": 0,
+          "retail_value": "0x402b76",
+          "resolved": "0x42a820",
+          "basis": "symbol map/fresh exact/helper header evidence; incremental thunk resolved"
+        },
+        {
+          "offset": 456,
+          "kind": 6,
+          "symbol": "??_C@_00A@?$AA@",
+          "addend": 0,
+          "retail_value": "0xbda908",
+          "resolved": "0xbda908",
+          "basis": "literal including terminator"
+        },
+        {
+          "offset": 480,
+          "kind": 20,
+          "symbol": "?_Grow@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAE_NI_N@Z",
+          "addend": 0,
+          "retail_value": "0x412215",
+          "resolved": "0x42a970",
+          "basis": "symbol map/fresh exact/helper header evidence; incremental thunk resolved"
+        },
+        {
+          "offset": 497,
+          "kind": 6,
+          "symbol": "??_C@_00A@?$AA@",
+          "addend": 0,
+          "retail_value": "0xbda908",
+          "resolved": "0xbda908",
+          "basis": "literal including terminator"
+        },
+        {
+          "offset": 519,
+          "kind": 20,
+          "symbol": "?_Eos@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEXI@Z",
+          "addend": 0,
+          "retail_value": "0x41121b",
+          "resolved": "0x42a940",
+          "basis": "symbol map/fresh exact/helper header evidence; incremental thunk resolved"
+        },
+        {
+          "offset": 540,
+          "kind": 20,
+          "symbol": "?Get_Item@InvDataPeekClass@@QAEPAUInvDataPeekItemStruct@@H_N@Z",
+          "addend": 0,
+          "retail_value": "0x404a66",
+          "resolved": "0x68aaa0",
+          "basis": "symbol map/fresh exact/helper header evidence; incremental thunk resolved"
+        },
+        {
+          "offset": 550,
+          "kind": 6,
+          "symbol": "?npos@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@2IB",
+          "addend": 0,
+          "retail_value": "0xae70a8",
+          "resolved": "0xae70a8",
+          "basis": {
+            "same data symbol in prior exact functions": [
+              [
+                "?assign@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAEAAV12@ABV12@II@Z",
+                "0x42CAB0",
+                54
+              ]
+            ]
+          }
+        },
+        {
+          "offset": 566,
+          "kind": 20,
+          "symbol": "?assign@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAEAAV12@ABV12@II@Z",
+          "addend": 0,
+          "retail_value": "0x414e75",
+          "resolved": "0x42cab0",
+          "basis": "symbol map/fresh exact/helper header evidence; incremental thunk resolved"
+        },
+        {
+          "offset": 579,
+          "kind": 6,
+          "symbol": "?_C@?1??_Nullstr@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@CAPBDXZ@4DB",
+          "addend": 0,
+          "retail_value": "0xae70a4",
+          "resolved": "0xae70a4",
+          "basis": {
+            "same data symbol in prior exact functions": [
+              [
+                "?Unknown_652450@UITradeClass@@QAEX_N@Z",
+                "0x652450",
+                333
+              ],
+              [
+                "?Unknown_652890@UITradeClass@@QAEXXZ",
+                "0x652890",
+                432
+              ],
+              [
+                "?Unknown_652890@UITradeClass@@QAEXXZ",
+                "0x652890",
+                445
+              ],
+              [
+                "?Unknown_652C60@UITradeClass@@QAEXXZ",
+                "0x652C60",
+                266
+              ],
+              [
+                "?assign@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAEAAV12@ABV12@II@Z",
+                "0x42CAB0",
+                248
+              ],
+              [
+                "?assign@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAEAAV12@ABV12@II@Z",
+                "0x42CAB0",
+                313
+              ],
+              [
+                "?assign@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAEAAV12@ABV12@II@Z",
+                "0x42CAB0",
+                468
+              ]
+            ]
+          }
+        },
+        {
+          "offset": 601,
+          "kind": 20,
+          "symbol": "?compare@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QBEHIIPBDI@Z",
+          "addend": 0,
+          "retail_value": "0x40e58e",
+          "resolved": "0x42db80",
+          "basis": "symbol map/fresh exact/helper header evidence; incremental thunk resolved"
+        },
+        {
+          "offset": 625,
+          "kind": 20,
+          "symbol": "?_Tidy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEX_N@Z",
+          "addend": 0,
+          "retail_value": "0x402b76",
+          "resolved": "0x42a820",
+          "basis": "symbol map/fresh exact/helper header evidence; incremental thunk resolved"
+        },
+        {
+          "offset": 648,
+          "kind": 20,
+          "symbol": "?Get_Price@InvDataPeekClass@@QAE?AVMoneyClass@@H@Z",
+          "addend": 0,
+          "retail_value": "0x409c28",
+          "resolved": "0x689da0",
+          "basis": "symbol map/fresh exact/helper header evidence; incremental thunk resolved"
+        },
+        {
+          "offset": 668,
+          "kind": 20,
+          "symbol": "??M@YA_NABVMoneyClass@@0@Z",
+          "addend": 0,
+          "retail_value": "0x40c423",
+          "resolved": "0x4f0680",
+          "basis": "symbol map/fresh exact/helper header evidence; incremental thunk resolved"
+        },
+        {
+          "offset": 728,
+          "kind": 20,
+          "symbol": "?insert@?$vector@HV?$allocator@H@std@@@std@@QAEXPAHIABH@Z",
+          "addend": 0,
+          "retail_value": "0x40d2e7",
+          "resolved": "0x4a0880",
+          "basis": "symbol map/fresh exact/helper header evidence; incremental thunk resolved"
+        },
+        {
+          "offset": 777,
+          "kind": 20,
+          "symbol": "?insert@?$vector@HV?$allocator@H@std@@@std@@QAEXPAHIABH@Z",
+          "addend": 0,
+          "retail_value": "0x40d2e7",
+          "resolved": "0x4a0880",
+          "basis": "symbol map/fresh exact/helper header evidence; incremental thunk resolved"
+        },
+        {
+          "offset": 793,
+          "kind": 20,
+          "symbol": "?_Tidy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEX_N@Z",
+          "addend": 0,
+          "retail_value": "0x402b76",
+          "resolved": "0x42a820",
+          "basis": "symbol map/fresh exact/helper header evidence; incremental thunk resolved"
+        },
+        {
+          "offset": 820,
+          "kind": 20,
+          "symbol": "?insert@?$vector@HV?$allocator@H@std@@@std@@QAEXPAHIABH@Z",
+          "addend": 0,
+          "retail_value": "0x40d2e7",
+          "resolved": "0x4a0880",
+          "basis": "symbol map/fresh exact/helper header evidence; incremental thunk resolved"
+        },
+        {
+          "offset": 830,
+          "kind": 20,
+          "symbol": "??3@YAXPAX@Z",
+          "addend": 0,
+          "retail_value": "0x412b7a",
+          "resolved": "0x4e9d10",
+          "basis": "symbol map/fresh exact/helper header evidence; incremental thunk resolved"
+        },
+        {
+          "offset": 873,
+          "kind": 20,
+          "symbol": "?Unknown_6A7990@SlotDataClass@@QAEHXZ",
+          "addend": 0,
+          "retail_value": "0x4028dd",
+          "resolved": "0x6a7990",
+          "basis": "symbol map/fresh exact/helper header evidence; incremental thunk resolved"
+        },
+        {
+          "offset": 906,
+          "kind": 6,
+          "symbol": "__except_list",
+          "addend": 0,
+          "retail_value": "0x0",
+          "resolved": "0x0",
+          "basis": "FS:[0]"
+        }
+      ],
+      "indirect_calls": [
+        [
+          "0x6534d7",
+          "dword ptr [eax + 0x24]"
+        ],
+        [
+          "0x6537ca",
+          "dword ptr [eax + 0xb0]"
+        ]
+      ]
+    },
+    {
+      "symbol": "?assign@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAEAAV12@PBDI@Z",
+      "address": "0x42D050",
+      "object_span": 160,
+      "executable_bytes": 156,
+      "instructions": 67,
+      "all_fixed_bytes_branches_returns_equal": true,
+      "relocations": [
+        {
+          "offset": 14,
+          "kind": 20,
+          "symbol": "?_Xlen@std@@YAXXZ",
+          "addend": 0,
+          "retail_value": "0xa17e50",
+          "resolved": "0xa17e50",
+          "basis": "symbol map/fresh exact/helper header evidence; incremental thunk resolved"
+        },
+        {
+          "offset": 72,
+          "kind": 20,
+          "symbol": "?_Tidy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEX_N@Z",
+          "addend": 0,
+          "retail_value": "0x402b76",
+          "resolved": "0x42a820",
+          "basis": "symbol map/fresh exact/helper header evidence; incremental thunk resolved"
+        },
+        {
+          "offset": 100,
+          "kind": 20,
+          "symbol": "?_Tidy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEX_N@Z",
+          "addend": 0,
+          "retail_value": "0x402b76",
+          "resolved": "0x42a820",
+          "basis": "symbol map/fresh exact/helper header evidence; incremental thunk resolved"
+        },
+        {
+          "offset": 108,
+          "kind": 20,
+          "symbol": "?_Copy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEXI@Z",
+          "addend": 0,
+          "retail_value": "0x414a38",
+          "resolved": "0x42ab30",
+          "basis": "symbol map/fresh exact/helper header evidence; incremental thunk resolved"
+        }
+      ],
+      "indirect_calls": []
+    },
+    {
+      "symbol": "?insert@?$vector@HV?$allocator@H@std@@@std@@QAEXPAHIABH@Z",
+      "address": "0x4A0880",
+      "object_span": 528,
+      "executable_bytes": 521,
+      "instructions": 216,
+      "all_fixed_bytes_branches_returns_equal": true,
+      "relocations": [
+        {
+          "offset": 90,
+          "kind": 20,
+          "symbol": "??2@YAPAXI@Z",
+          "addend": 0,
+          "retail_value": "0x41066d",
+          "resolved": "0x4e9cb0",
+          "basis": "symbol map/fresh exact/helper header evidence; incremental thunk resolved"
+        },
+        {
+          "offset": 218,
+          "kind": 20,
+          "symbol": "??3@YAXPAX@Z",
+          "addend": 0,
+          "retail_value": "0x412b7a",
+          "resolved": "0x4e9d10",
+          "basis": "symbol map/fresh exact/helper header evidence; incremental thunk resolved"
+        }
+      ],
+      "indirect_calls": []
+    }
+  ],
+  "EH": {
+    "handler": "0xabc880",
+    "section_base": "0xabc860",
+    "section_bytes": 42,
+    "all_handler_and_cleanup_bytes_equal": true,
+    "relocations": [
+      {
+        "offset": 4,
+        "kind": 20,
+        "symbol": "??1MoneyClass@@QAE@XZ",
+        "addend": 0,
+        "retail_value": "0x4105a0",
+        "resolved": "0x4a7780",
+        "basis": "symbol map/fresh exact/helper header evidence; incremental thunk resolved"
+      },
+      {
+        "offset": 12,
+        "kind": 20,
+        "symbol": "??1?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAE@XZ",
+        "addend": 0,
+        "retail_value": "0x4134fd",
+        "resolved": "0x42a6c0",
+        "basis": "symbol map/fresh exact/helper header evidence; incremental thunk resolved"
+      },
+      {
+        "offset": 20,
+        "kind": 20,
+        "symbol": "??1?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAE@XZ",
+        "addend": 0,
+        "retail_value": "0x4134fd",
+        "resolved": "0x42a6c0",
+        "basis": "symbol map/fresh exact/helper header evidence; incremental thunk resolved"
+      },
+      {
+        "offset": 28,
+        "kind": 20,
+        "symbol": "??1MoneyClass@@QAE@XZ",
+        "addend": 0,
+        "retail_value": "0x4105a0",
+        "resolved": "0x4a7780",
+        "basis": "symbol map/fresh exact/helper header evidence; incremental thunk resolved"
+      },
+      {
+        "offset": 33,
+        "kind": 6,
+        "symbol": "$T120589",
+        "addend": 0,
+        "retail_value": "0xb3a608",
+        "resolved": "0xb3a608",
+        "basis": "explicit EH layout"
+      },
+      {
+        "offset": 38,
+        "kind": 20,
+        "symbol": "___CxxFrameHandler",
+        "addend": 0,
+        "retail_value": "0xa25ac4",
+        "resolved": "0xa25ac4",
+        "basis": "symbol map/fresh exact/helper header evidence; incremental thunk resolved"
+      }
+    ],
+    "FuncInfo": "0xb3a608",
+    "words": [
+      429065504,
+      4,
+      11773480,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "unwind_map": "0xb3a628",
+    "unwind": [
+      {
+        "state": 0,
+        "parent": -1,
+        "cleanup": "0xabc860",
+        "section_offset": 0
+      },
+      {
+        "state": 1,
+        "parent": 0,
+        "cleanup": "0xabc868",
+        "section_offset": 8
+      },
+      {
+        "state": 2,
+        "parent": 1,
+        "cleanup": "0xabc870",
+        "section_offset": 16
+      },
+      {
+        "state": 3,
+        "parent": 1,
+        "cleanup": "0xabc878",
+        "section_offset": 24
+      }
+    ],
+    "lifetimes": [
+      "state0: outer MoneyClass price",
+      "state1: outer string name, constructed from empty literal before state1",
+      "state2: inner other-name string; insert before cleanup",
+      "state3: inner other-price MoneyClass; insert before cleanup"
+    ]
+  },
+  "prior_exact_bodies_and_relocation_identities_unchanged": [
+    "??0?$hashtable@HHU?$hash@H@std@@U?$_Identity@H@2@U?$equal_to@H@2@V?$allocator@H@2@@std@@QAE@IABU?$hash@H@1@ABU?$equal_to@H@1@@Z",
+    "??0UITradeClass@@QAE@PAVSClient@@@Z",
+    "??1?$RefCountPtr@VInvDataClass@@@@QAE@XZ",
+    "??1?$RefCountPtr@VPDAInterfaceClass@@@@QAE@XZ",
+    "??1?$RefCountPtr@VRenderObjClass@@@@QAE@XZ",
+    "??1?$RefCountPtr@VTextureClass@@@@QAE@XZ",
+    "??1?$RefCountPtr@VUIInvClass@@@@QAE@XZ",
+    "??1?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAE@XZ",
+    "??1?$hash_set@HU?$hash@H@std@@U?$equal_to@H@2@V?$allocator@H@2@@std@@QAE@XZ",
+    "??1?$vector@HV?$allocator@H@std@@@std@@QAE@XZ",
+    "??1?$vector@PAU?$_Hashtable_node@H@std@@V?$_Bucket_allocator@PAU?$_Hashtable_node@H@std@@@2@@std@@QAE@XZ",
+    "??1?$vector@V?$RefCountPtr@VInvDataClass@@@@V?$allocator@V?$RefCountPtr@VInvDataClass@@@@@std@@@std@@QAE@XZ",
+    "??1InterfaceSortScopeClass@@QAE@XZ",
+    "??1MoneyClass@@QAE@XZ",
+    "??1UITradeClass@@UAE@XZ",
+    "??4?$RefCountPtr@VInvDataClass@@@@QAEABV0@ABV0@@Z",
+    "??_EUITradeClass@@W3AEPAXI@Z",
+    "??_EUITradeClass@@WDI@AEPAXI@Z",
+    "??_GUITradeClass@@UAEPAXI@Z",
+    "??_H@YGXPAXIHP6EX0@Z@Z",
+    "?Cast@?$UnknownRTTIClass@V?$DeltaTemplateClass@VMoneyClass@@@@@@SAPAV?$DeltaTemplateClass@VMoneyClass@@@@PAVDeltaClass@@@Z",
+    "?Create_Get@@YA?AV?$RefCountPtr@VInvDataClass@@@@PAVInvDataClass@@@Z",
+    "?Create_Get@@YA?AV?$RefCountPtr@VRenderObjClass@@@@PAVRenderObjClass@@@Z",
+    "?Create_NEW@@YA?AV?$RefCountPtr@VRenderObjClass@@@@PAVRenderObjClass@@@Z",
+    "?Create_Peek@@YA?AV?$RefCountPtr@VPDAInterfaceClass@@@@PAVPDAInterfaceClass@@@Z",
+    "?Create_Peek@@YA?AV?$RefCountPtr@VTextureClass@@@@PAVTextureClass@@@Z",
+    "?Delete_This@RefCountClass@@UAEXXZ",
+    "?Get_Target_Node@GClass@@UAEPAV?$ContextDataNode@PAVGClass@@PAV1@@@XZ",
+    "?Get_Targeting_List@GClass@@UAEPAV?$List@PAV?$ContextDataNode@PAVGClass@@PAV1@@@@@XZ",
+    "?Unknown_04@UnknownGadgetBase00Class@@UAEPAVGenericNode@@XZ",
+    "?Unknown_08@UnknownGadgetBase00Class@@UAEXXZ",
+    "?Unknown_0C@GClass@@UAEPBDXZ",
+    "?Unknown_1C@GClass@@UAEHXZ",
+    "?Unknown_20@GClass@@UAEHXZ",
+    "?Unknown_24@GClass@@UAEHXZ",
+    "?Unknown_28@GClass@@UAEHXZ",
+    "?Unknown_2C@GClass@@UAEHXZ",
+    "?Unknown_4A1930@UnknownGadgetBase04Class@@UAE_NHHH@Z",
+    "?Unknown_54@UITradeClass@@UAEXXZ",
+    "?Unknown_58@UITradeClass@@UAEXXZ",
+    "?Unknown_5C@UITradeClass@@UAEXXZ",
+    "?Unknown_60@UITradeClass@@UAEXXZ",
+    "?Unknown_651EC0@UITradeClass@@QAE_NXZ",
+    "?Unknown_652030@UITradeClass@@QAEXXZ",
+    "?Unknown_652360@UITradeClass@@QAEXXZ",
+    "?Unknown_652450@UITradeClass@@QAEX_N@Z",
+    "?Unknown_652670@UITradeClass@@QAEXXZ",
+    "?Unknown_652890@UITradeClass@@QAEXXZ",
+    "?Unknown_652BA0@UITradeClass@@QAEX_N0@Z",
+    "?Unknown_652C60@UITradeClass@@QAEXXZ",
+    "?Unknown_652E70@UITradeClass@@QAEXXZ",
+    "?Unknown_652EB0@UITradeClass@@QAE_NXZ",
+    "?Unknown_652FF0@UITradeClass@@QAEXXZ",
+    "?Unknown_6531F0@UITradeClass@@QAEX_N@Z",
+    "?Unknown_6539A0@UITradeClass@@QAEXXZ",
+    "?Unknown_653A80@UITradeClass@@QAEXXZ",
+    "?Unknown_68@UITradeClass@@UAE_NH@Z",
+    "?Unknown_6C@InterfaceClass@@UAEXAAVINIClass@@@Z",
+    "?Unknown_70@InterfaceClass@@UAEXPAVControlKeysManager@@@Z",
+    "?Unknown_74@InterfaceClass@@UAEXPAVControlKeysManager@@@Z",
+    "?Unknown_78@InterfaceClass@@UAE_NPAX@Z",
+    "?Unknown_8C@SlotDataInterface@@UAEPAVInterfaceClass@@XZ",
+    "?Unknown_90@UIInvClass@@UAEPAVInterfaceClass@@XZ",
+    "?Unknown_94@SlotDataInterface@@UAEPAVInterfaceClass@@XZ",
+    "?Unknown_A0@SlotDataInterface@@UAE_NPAVSlotDataGadgetClass@@@Z",
+    "?Unknown_A8@UIInvClass@@UAEPBDXZ",
+    "?Unknown_B0@UITradeClass@@UAEXXZ",
+    "?Unknown_C8@UITradeClass@@UAEXXZ",
+    "?Unknown_CC@UITradeClass@@UAEXXZ",
+    "?Unknown_D0@UITradeClass@@UAEXXZ",
+    "?_Construct@std@@YAXPAPAU?$_Hashtable_node@H@1@ABQAU21@@Z",
+    "?_Construct@std@@YAXPAV?$RefCountPtr@VInvDataClass@@@@ABV2@@Z",
+    "?_Copy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEXI@Z",
+    "?_Eos@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEXI@Z",
+    "?_Grow@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAE_NI_N@Z",
+    "?_Lower_bound@std@@YAPBKPBK0ABKPAH@Z",
+    "?_Split@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEXXZ",
+    "?_Tidy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEX_N@Z",
+    "?assign@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAEAAV12@ABV12@II@Z",
+    "?compare@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QBEHIIPBDI@Z",
+    "?erase@?$vector@HV?$allocator@H@std@@@std@@QAEPAHPAH0@Z",
+    "?id@?$ctype@G@std@@$E",
+    "?insert@?$vector@PAU?$_Hashtable_node@H@std@@V?$_Bucket_allocator@PAU?$_Hashtable_node@H@std@@@2@@std@@QAEXPAPAU?$_Hashtable_node@H@2@IABQAU32@@Z",
+    "?insert@?$vector@V?$RefCountPtr@VInvDataClass@@@@V?$allocator@V?$RefCountPtr@VInvDataClass@@@@@std@@@std@@QAEXPAV?$RefCountPtr@VInvDataClass@@@@IABV3@@Z",
+    "?insert_unique_noresize@?$hashtable@HHU?$hash@H@std@@U?$_Identity@H@2@U?$equal_to@H@2@V?$allocator@H@2@@std@@QAE?AU?$pair@U?$_Hashtable_iterator@HHU?$hash@H@std@@U?$_Identity@H@2@U?$equal_to@H@2@V?$allocator@H@2@@std@@_N@2@ABH@Z",
+    "?max_size@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QBEIXZ",
+    "?resize@?$hashtable@HHU?$hash@H@std@@U?$_Identity@H@2@U?$equal_to@H@2@V?$allocator@H@2@@std@@QAEXI@Z",
+    "?size@?$vector@PAU?$_Hashtable_node@H@std@@V?$_Bucket_allocator@PAU?$_Hashtable_node@H@std@@@2@@std@@QBEIXZ",
+    "_$E243",
+    "_$E245",
+    "_$E319"
+  ],
+  "vtable": [
+    {
+      "symbol": "??_7UITradeClass@@6B@",
+      "bytes": 8,
+      "unchanged_bytes_and_relocation_identities": true
+    },
+    {
+      "symbol": "??_7UITradeClass@@6BUnknownGadgetBase04Class@@@",
+      "bytes": 8,
+      "unchanged_bytes_and_relocation_identities": true
+    },
+    {
+      "symbol": "??_7UITradeClass@@6BUnknownGadgetBase00Class@@@",
+      "bytes": 212,
+      "unchanged_bytes_and_relocation_identities": true
+    }
+  ],
+  "vtable_slot_B0_target": "0x6538E0",
+  "file_path_comparison": "basename only"
+}

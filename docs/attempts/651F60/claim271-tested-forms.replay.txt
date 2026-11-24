@@ -1,0 +1,108 @@
+{
+  "target": "0x651F60",
+  "symbol": "UITradeClass::Unknown_651F60",
+  "base_commit": "ef0c55e5",
+  "unit": "app/client/ui_trade.cpp",
+  "baseline_sha256": "13fc927027d31368e8ade7f38ca14d726379eeeb0bf41b02cc673928afe1c967",
+  "valid_forms": 18,
+  "baseline_controls": 1,
+  "invalid_forms": 0,
+  "uncompiled_forms": 0,
+  "source_adopted": false,
+  "whole_unit_exact_symbol_pairs_before_and_after": 91,
+  "symbol_and_file_address_gains": [],
+  "symbol_and_file_address_losses": [],
+  "evidence": "Retail has three separate filter calls. At -1, edx is zeroed and passed twice after the receiver load; shift arm separately pushes immediate zero. Baseline hoists one immediate-zero push before the -1 test. All ordinary category/index/filter/receiver locals, independent argument-site assignments, and void conditional emit baseline target bytes. Switch and distinct refresh-tail/outer control forms change output but worsen residue. No existing helper boundary was found to justify a new zero-producing wrapper. No inline-helper loop applies: target consists of three out-of-line filter calls and out-of-line refresh calls. No header, helper, pragma, volatile, asm, dead read, UB or unsequenced local assignment introduced. No new exact body needs a relocation/EH audit. All variants preserve source physical assertion lines; source tree untouched. Native objdiff similarity remains 0.67; diagnostic normalization finds six instruction-edit rows, ignoring direct branch target addresses and relocatable calls, but is not exact proof.",
+  "forms": [
+    {
+      "name": "category_local",
+      "source_sha256": "838db342bcf6ce7500172f1fafd3770a6c22a9dddac614a6f49f0c568dca6a6d",
+      "patch": "--- a/app/client/ui_trade.cpp\n+++ b/app/client/ui_trade.cpp\n@@ -610,10 +610,10 @@\n \t\t\tif (index >= Unknown138) index = Unknown138 - 1;\n \t\t\tif (index < 0) index = 0;\n \t\t\tUnknown13C = index;\n-\t\t\tif (Unknown120[index] == -1) {\n+\t\t\tint category = Unknown120[index]; if (category == -1) {\n \t\t\t\tinv->Unknown_688870(0, 0);\n \t\t\t} else {\n-\t\t\t\tinv->Unknown_688870(1 << Unknown120[index], 0);\n+\t\t\t\tinv->Unknown_688870(1 << category, 0);\n \t\t\t}\n \t\t}\n \t} else {\n"
+    },
+    {
+      "name": "index_reuse",
+      "source_sha256": "b3f8536b670ddaaff15d503cec39c69b97608db185c1356bc1f7be9cf15d4de2",
+      "patch": "--- a/app/client/ui_trade.cpp\n+++ b/app/client/ui_trade.cpp\n@@ -610,10 +610,10 @@\n \t\t\tif (index >= Unknown138) index = Unknown138 - 1;\n \t\t\tif (index < 0) index = 0;\n \t\t\tUnknown13C = index;\n-\t\t\tif (Unknown120[index] == -1) {\n+\t\t\tindex = Unknown120[index]; if (index == -1) {\n \t\t\t\tinv->Unknown_688870(0, 0);\n \t\t\t} else {\n-\t\t\t\tinv->Unknown_688870(1 << Unknown120[index], 0);\n+\t\t\t\tinv->Unknown_688870(1 << index, 0);\n \t\t\t}\n \t\t}\n \t} else {\n"
+    },
+    {
+      "name": "zero_locals",
+      "source_sha256": "bf9fc3f93ed32bf2c0c898082aaecc895883828af002108df45e4b9574d54c45",
+      "patch": "--- a/app/client/ui_trade.cpp\n+++ b/app/client/ui_trade.cpp\n@@ -611,7 +611,7 @@\n \t\t\tif (index < 0) index = 0;\n \t\t\tUnknown13C = index;\n \t\t\tif (Unknown120[index] == -1) {\n-\t\t\t\tinv->Unknown_688870(0, 0);\n+\t\t\t\tunsigned int mask = 0; const std::hash_set<int> *ids = NULL; inv->Unknown_688870(mask, ids);\n \t\t\t} else {\n \t\t\t\tinv->Unknown_688870(1 << Unknown120[index], 0);\n \t\t\t}\n"
+    },
+    {
+      "name": "branch_mask",
+      "source_sha256": "549f235a866f6b3823977c77d4aecc468e52ec1fb8e07a00a98a1c05c709834f",
+      "patch": "--- a/app/client/ui_trade.cpp\n+++ b/app/client/ui_trade.cpp\n@@ -611,9 +611,9 @@\n \t\t\tif (index < 0) index = 0;\n \t\t\tUnknown13C = index;\n \t\t\tif (Unknown120[index] == -1) {\n-\t\t\t\tinv->Unknown_688870(0, 0);\n+\t\t\t\tunsigned int mask = 0; inv->Unknown_688870(mask, NULL);\n \t\t\t} else {\n-\t\t\t\tinv->Unknown_688870(1 << Unknown120[index], 0);\n+\t\t\t\tunsigned int mask = 1 << Unknown120[index]; inv->Unknown_688870(mask, NULL);\n \t\t\t}\n \t\t}\n \t} else {\n"
+    },
+    {
+      "name": "zero_receiver",
+      "source_sha256": "202d23617f459548581ffb9260694ee8eceb3cdfcb1e53c9ecaefa5f5d5055ee",
+      "patch": "--- a/app/client/ui_trade.cpp\n+++ b/app/client/ui_trade.cpp\n@@ -611,7 +611,7 @@\n \t\t\tif (index < 0) index = 0;\n \t\t\tUnknown13C = index;\n \t\t\tif (Unknown120[index] == -1) {\n-\t\t\t\tinv->Unknown_688870(0, 0);\n+\t\t\t\tInvDataClass *selected = inv; selected->Unknown_688870(0, NULL);\n \t\t\t} else {\n \t\t\t\tinv->Unknown_688870(1 << Unknown120[index], 0);\n \t\t\t}\n"
+    },
+    {
+      "name": "arg_mask",
+      "source_sha256": "5cca97fc4b82e8c1d4f497eae3a17571b8f7ceeaa347acd4234bb8b7224fd859",
+      "patch": "--- a/app/client/ui_trade.cpp\n+++ b/app/client/ui_trade.cpp\n@@ -611,7 +611,7 @@\n \t\t\tif (index < 0) index = 0;\n \t\t\tUnknown13C = index;\n \t\t\tif (Unknown120[index] == -1) {\n-\t\t\t\tinv->Unknown_688870(0, 0);\n+\t\t\t\tunsigned int mask; inv->Unknown_688870(mask = 0, 0);\n \t\t\t} else {\n \t\t\t\tinv->Unknown_688870(1 << Unknown120[index], 0);\n \t\t\t}\n"
+    },
+    {
+      "name": "arg_ids",
+      "source_sha256": "fa44c4d6ee1bc397c4f28d2e3b73a389dd44ea496ef21a75e13efa939e46ccb0",
+      "patch": "--- a/app/client/ui_trade.cpp\n+++ b/app/client/ui_trade.cpp\n@@ -611,7 +611,7 @@\n \t\t\tif (index < 0) index = 0;\n \t\t\tUnknown13C = index;\n \t\t\tif (Unknown120[index] == -1) {\n-\t\t\t\tinv->Unknown_688870(0, 0);\n+\t\t\t\tconst std::hash_set<int> *ids; inv->Unknown_688870(0, ids = NULL);\n \t\t\t} else {\n \t\t\t\tinv->Unknown_688870(1 << Unknown120[index], 0);\n \t\t\t}\n"
+    },
+    {
+      "name": "arg_both",
+      "source_sha256": "2e7299d2e226afcc4bc610cedcafa2db289ee4ac88740f96124783f01e2cb1b3",
+      "patch": "--- a/app/client/ui_trade.cpp\n+++ b/app/client/ui_trade.cpp\n@@ -611,7 +611,7 @@\n \t\t\tif (index < 0) index = 0;\n \t\t\tUnknown13C = index;\n \t\t\tif (Unknown120[index] == -1) {\n-\t\t\t\tinv->Unknown_688870(0, 0);\n+\t\t\t\tunsigned int mask; const std::hash_set<int> *ids; inv->Unknown_688870(mask = 0, ids = NULL);\n \t\t\t} else {\n \t\t\t\tinv->Unknown_688870(1 << Unknown120[index], 0);\n \t\t\t}\n"
+    },
+    {
+      "name": "arg_receiver",
+      "source_sha256": "49e439126dbc74c45252a77b13c1a6ae5512bad66af7a0aff2896e9a65cd70aa",
+      "patch": "--- a/app/client/ui_trade.cpp\n+++ b/app/client/ui_trade.cpp\n@@ -611,7 +611,7 @@\n \t\t\tif (index < 0) index = 0;\n \t\t\tUnknown13C = index;\n \t\t\tif (Unknown120[index] == -1) {\n-\t\t\t\tinv->Unknown_688870(0, 0);\n+\t\t\t\tInvDataClass *selected; (selected = inv)->Unknown_688870(0, 0);\n \t\t\t} else {\n \t\t\t\tinv->Unknown_688870(1 << Unknown120[index], 0);\n \t\t\t}\n"
+    },
+    {
+      "name": "condition_category",
+      "source_sha256": "cd17362a6763e9df003b7b96936a8eab78796f376b2ba8ceedafeae3dc8dca5b",
+      "patch": "--- a/app/client/ui_trade.cpp\n+++ b/app/client/ui_trade.cpp\n@@ -610,10 +610,10 @@\n \t\t\tif (index >= Unknown138) index = Unknown138 - 1;\n \t\t\tif (index < 0) index = 0;\n \t\t\tUnknown13C = index;\n-\t\t\tif (Unknown120[index] == -1) {\n+\t\t\tint category; if ((category = Unknown120[index]) == -1) {\n \t\t\t\tinv->Unknown_688870(0, 0);\n \t\t\t} else {\n-\t\t\t\tinv->Unknown_688870(1 << Unknown120[index], 0);\n+\t\t\t\tinv->Unknown_688870(1 << category, 0);\n \t\t\t}\n \t\t}\n \t} else {\n"
+    },
+    {
+      "name": "category_switch",
+      "source_sha256": "d28231e9f9146918f19b9f50c5eed92e95dd6890bafd8cb24170af183706f77d",
+      "patch": "--- a/app/client/ui_trade.cpp\n+++ b/app/client/ui_trade.cpp\n@@ -610,10 +610,9 @@\n \t\t\tif (index >= Unknown138) index = Unknown138 - 1;\n \t\t\tif (index < 0) index = 0;\n \t\t\tUnknown13C = index;\n-\t\t\tif (Unknown120[index] == -1) {\n-\t\t\t\tinv->Unknown_688870(0, 0);\n-\t\t\t} else {\n-\t\t\t\tinv->Unknown_688870(1 << Unknown120[index], 0);\n+\t\t\tswitch (Unknown120[index]) {\n+\t\t\tcase -1: inv->Unknown_688870(0, 0); break;\n+\t\t\tdefault: inv->Unknown_688870(1 << Unknown120[index], 0); break;\n \t\t\t}\n \t\t}\n \t} else {\n@@ -625,6 +624,7 @@\n \tUnknown170 = -1;\n \tUnknown_653450();\n }\n+\n \n // @0x652030\n void UITradeClass::Unknown_652030()\n"
+    },
+    {
+      "name": "zero_tail",
+      "source_sha256": "fd007a7264ad6a25d15d6e90c7c4c12c544f78c6138b5cd69c890974f12bee88",
+      "patch": "--- a/app/client/ui_trade.cpp\n+++ b/app/client/ui_trade.cpp\n@@ -611,7 +611,7 @@\n \t\t\tif (index < 0) index = 0;\n \t\t\tUnknown13C = index;\n \t\t\tif (Unknown120[index] == -1) {\n-\t\t\t\tinv->Unknown_688870(0, 0);\n+\t\t\t\tinv->Unknown_688870(0, 0); Unknown_652360(); UnknownB4 = -1; Unknown_C8(); Unknown170 = -1; Unknown_653450(); return;\n \t\t\t} else {\n \t\t\t\tinv->Unknown_688870(1 << Unknown120[index], 0);\n \t\t\t}\n"
+    },
+    {
+      "name": "shift_tail",
+      "source_sha256": "d37a4176360661803403955b7d63e71502f22b287db3ab702948fe421cd6e281",
+      "patch": "--- a/app/client/ui_trade.cpp\n+++ b/app/client/ui_trade.cpp\n@@ -613,7 +613,7 @@\n \t\t\tif (Unknown120[index] == -1) {\n \t\t\t\tinv->Unknown_688870(0, 0);\n \t\t\t} else {\n-\t\t\t\tinv->Unknown_688870(1 << Unknown120[index], 0);\n+\t\t\t\tinv->Unknown_688870(1 << Unknown120[index], 0); Unknown_652360(); UnknownB4 = -1; Unknown_C8(); Unknown170 = -1; Unknown_653450(); return;\n \t\t\t}\n \t\t}\n \t} else {\n"
+    },
+    {
+      "name": "void_conditional",
+      "source_sha256": "a669f925c5eb1e2d918c1f00d43037ba1d9f9b526bc8af7534350991887ba95e",
+      "patch": "--- a/app/client/ui_trade.cpp\n+++ b/app/client/ui_trade.cpp\n@@ -610,11 +610,7 @@\n \t\t\tif (index >= Unknown138) index = Unknown138 - 1;\n \t\t\tif (index < 0) index = 0;\n \t\t\tUnknown13C = index;\n-\t\t\tif (Unknown120[index] == -1) {\n-\t\t\t\tinv->Unknown_688870(0, 0);\n-\t\t\t} else {\n-\t\t\t\tinv->Unknown_688870(1 << Unknown120[index], 0);\n-\t\t\t}\n+\t\t\t(Unknown120[index] == -1) ? inv->Unknown_688870(0, 0) : inv->Unknown_688870(1 << Unknown120[index], 0);\n \t\t}\n \t} else {\n \t\tUnknown13C = -2;\n@@ -625,6 +621,10 @@\n \tUnknown170 = -1;\n \tUnknown_653450();\n }\n+\n+\n+\n+\n \n // @0x652030\n void UITradeClass::Unknown_652030()\n"
+    },
+    {
+      "name": "outer_early_goto",
+      "source_sha256": "02ea0ef64e6f71f32fa0546b59daa8156838eada98e6edc79c4ea0b1cae557fe",
+      "patch": "--- a/app/client/ui_trade.cpp\n+++ b/app/client/ui_trade.cpp\n@@ -602,29 +602,29 @@\n void UITradeClass::Unknown_651F60(int index)\n {\n \tInvDataClass *inv = Unknown_59FE10();\n-\tif (Unknown138 > 0) {\n-\t\tif (index == -2) {\n-\t\t\tinv->Unknown_688870(0, 0);\n-\t\t\tUnknown13C = -2;\n-\t\t} else {\n-\t\t\tif (index >= Unknown138) index = Unknown138 - 1;\n-\t\t\tif (index < 0) index = 0;\n-\t\t\tUnknown13C = index;\n-\t\t\tif (Unknown120[index] == -1) {\n+\tif (Unknown138 <= 0) { Unknown13C = -2; goto refresh; }\n+\tif (index == -2) { inv->Unknown_688870(0, 0); Unknown13C = -2; goto refresh; }\n+\tif (index >= Unknown138) index = Unknown138 - 1;\n+\t\tif (index < 0) index = 0;\n+\t\tUnknown13C = index;\n+\t\tif (Unknown120[index] == -1) {\n \t\t\t\tinv->Unknown_688870(0, 0);\n \t\t\t} else {\n \t\t\t\tinv->Unknown_688870(1 << Unknown120[index], 0);\n \t\t\t}\n-\t\t}\n-\t} else {\n-\t\tUnknown13C = -2;\n-\t}\n-\tUnknown_652360();\n-\tUnknownB4 = -1;\n-\tUnknown_C8();\n-\tUnknown170 = -1;\n-\tUnknown_653450();\n-}\n+refresh:\n+\tUnknown_652360(); UnknownB4 = -1; Unknown_C8(); Unknown170 = -1; Unknown_653450();\n+}\n+\n+\n+\n+\n+\n+\n+\n+\n+\n+\n \n // @0x652030\n void UITradeClass::Unknown_652030()\n"
+    },
+    {
+      "name": "nested_else_if",
+      "source_sha256": "ace58507614dfbe54d19660fe667886e52f85f16acc1230f10dd1ed52fccec00",
+      "patch": "--- a/app/client/ui_trade.cpp\n+++ b/app/client/ui_trade.cpp\n@@ -602,29 +602,29 @@\n void UITradeClass::Unknown_651F60(int index)\n {\n \tInvDataClass *inv = Unknown_59FE10();\n-\tif (Unknown138 > 0) {\n-\t\tif (index == -2) {\n-\t\t\tinv->Unknown_688870(0, 0);\n-\t\t\tUnknown13C = -2;\n-\t\t} else {\n-\t\t\tif (index >= Unknown138) index = Unknown138 - 1;\n-\t\t\tif (index < 0) index = 0;\n-\t\t\tUnknown13C = index;\n-\t\t\tif (Unknown120[index] == -1) {\n+\tif (Unknown138 <= 0) { Unknown13C = -2; }\n+\telse if (index == -2) { inv->Unknown_688870(0, 0); Unknown13C = -2; }\n+\telse { if (index >= Unknown138) index = Unknown138 - 1;\n+\t\tif (index < 0) index = 0;\n+\t\tUnknown13C = index;\n+\t\tif (Unknown120[index] == -1) {\n \t\t\t\tinv->Unknown_688870(0, 0);\n \t\t\t} else {\n \t\t\t\tinv->Unknown_688870(1 << Unknown120[index], 0);\n-\t\t\t}\n-\t\t}\n-\t} else {\n-\t\tUnknown13C = -2;\n-\t}\n-\tUnknown_652360();\n-\tUnknownB4 = -1;\n-\tUnknown_C8();\n-\tUnknown170 = -1;\n-\tUnknown_653450();\n-}\n+\t\t\t} }\n+\tUnknown_652360(); UnknownB4 = -1; Unknown_C8(); Unknown170 = -1; Unknown_653450();\n+}\n+\n+\n+\n+\n+\n+\n+\n+\n+\n+\n+\n \n // @0x652030\n void UITradeClass::Unknown_652030()\n"
+    },
+    {
+      "name": "normal_early_goto",
+      "source_sha256": "7ce3f1a874cac6c113582a43a62e0d9675d15fb99abbb679ecf0e913a3b17096",
+      "patch": "--- a/app/client/ui_trade.cpp\n+++ b/app/client/ui_trade.cpp\n@@ -603,28 +603,28 @@\n {\n \tInvDataClass *inv = Unknown_59FE10();\n \tif (Unknown138 > 0) {\n-\t\tif (index == -2) {\n-\t\t\tinv->Unknown_688870(0, 0);\n-\t\t\tUnknown13C = -2;\n-\t\t} else {\n-\t\t\tif (index >= Unknown138) index = Unknown138 - 1;\n-\t\t\tif (index < 0) index = 0;\n-\t\t\tUnknown13C = index;\n-\t\t\tif (Unknown120[index] == -1) {\n+\t\tif (index != -2) { if (index >= Unknown138) index = Unknown138 - 1;\n+\t\tif (index < 0) index = 0;\n+\t\tUnknown13C = index;\n+\t\tif (Unknown120[index] == -1) {\n \t\t\t\tinv->Unknown_688870(0, 0);\n \t\t\t} else {\n \t\t\t\tinv->Unknown_688870(1 << Unknown120[index], 0);\n-\t\t\t}\n-\t\t}\n-\t} else {\n-\t\tUnknown13C = -2;\n-\t}\n-\tUnknown_652360();\n-\tUnknownB4 = -1;\n-\tUnknown_C8();\n-\tUnknown170 = -1;\n-\tUnknown_653450();\n-}\n+\t\t\t} goto refresh; }\n+\t\tinv->Unknown_688870(0, 0);\n+\t}\n+\tUnknown13C = -2;\n+refresh:\n+\tUnknown_652360(); UnknownB4 = -1; Unknown_C8(); Unknown170 = -1; Unknown_653450();\n+}\n+\n+\n+\n+\n+\n+\n+\n+\n \n // @0x652030\n void UITradeClass::Unknown_652030()\n"
+    },
+    {
+      "name": "both_category_tails",
+      "source_sha256": "5ac4d1cade13205f085e065fc0a830904a07d1152a7fad7851d108b6ac08afc8",
+      "patch": "--- a/app/client/ui_trade.cpp\n+++ b/app/client/ui_trade.cpp\n@@ -611,9 +611,9 @@\n \t\t\tif (index < 0) index = 0;\n \t\t\tUnknown13C = index;\n \t\t\tif (Unknown120[index] == -1) {\n-\t\t\t\tinv->Unknown_688870(0, 0);\n+\t\t\t\tinv->Unknown_688870(0, 0); Unknown_652360(); UnknownB4 = -1; Unknown_C8(); Unknown170 = -1; Unknown_653450(); return;\n \t\t\t} else {\n-\t\t\t\tinv->Unknown_688870(1 << Unknown120[index], 0);\n+\t\t\t\tinv->Unknown_688870(1 << Unknown120[index], 0); Unknown_652360(); UnknownB4 = -1; Unknown_C8(); Unknown170 = -1; Unknown_653450(); return;\n \t\t\t}\n \t\t}\n \t} else {\n"
+    }
+  ]
+}

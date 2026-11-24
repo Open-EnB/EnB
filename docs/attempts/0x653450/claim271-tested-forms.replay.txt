@@ -1,0 +1,147 @@
+{
+  "schema": 1,
+  "address": "0x653450",
+  "model": "gpt-6.1-sol (high)",
+  "unit": "app/client/ui_trade.cpp",
+  "source_baseline_commit": "ef0c55e5",
+  "baseline_source_sha256": "13fc927027d31368e8ade7f38ca14d726379eeeb0bf41b02cc673928afe1c967",
+  "valid_tested_forms": 5,
+  "baseline_controls": 1,
+  "final_controls": 1,
+  "invalid_forms": 0,
+  "uncompiled_forms": [
+    "insert_overload_noslot",
+    "insert_flag"
+  ],
+  "uncompiled_reason": "runner stopped after first exact result in batch3",
+  "source_evidence": [
+    "Client has three insert sites, with name-success at653758 and price-success at653783 before scope cleanup; exhaustion appends at653727. Goto leaves the inner scope without dereferencing an invalidated iterator.",
+    "Client loads *it before by_name branch; cache current slot before branch.",
+    "Client state1 starts after empty assignment, showing std::string name(\"\") construction rather than default construction plus assignment. States2 and3 identify name-first ordering.",
+    "VC6 VECTOR: insert(iterator,value) wraps insert(iterator,1,value); push_back wraps insert(end(),value). The real overload depth explains all three out-of-line 3arg insertion calls and changes string inlining without a budget spender or invented helper."
+  ],
+  "tests": [
+    {
+      "name": "branch_inserts",
+      "source_sha256": "95a657aef705656a7715c02a6e7df3bbc2d47f70d6637094ec383b4c4745056a",
+      "patch": "--- a/app/client/ui_trade.cpp\n+++ b/app/client/ui_trade.cpp\n@@ -926,18 +926,18 @@\n \t\tInvDataPeekItemStruct *item = peek->Get_Item(slot, true);\n \t\tif (item) name = item->Name;\n \t\tstd::vector<int>::iterator it;\n-\t\tfor (it = Unknown17C.begin(); it != Unknown17C.end(); it++) {\n-\t\t\tif (!by_name) {\n-\t\t\t\tMoneyClass other = peek->Get_Price(*it);\n-\t\t\t\tif (operator<(price, other)) break;\n-\t\t\t} else {\n+\t\tfor (it = Unknown17C.begin(); ; it++) {\n+\t\t\tif (it == Unknown17C.end()) { Unknown17C.insert(Unknown17C.end(), 1, slot); break; }\n+\t\t\tif (by_name) {\n \t\t\t\tstd::string other(\"\");\n \t\t\t\tInvDataPeekItemStruct *other_item = peek->Get_Item(*it, true);\n \t\t\t\tif (other_item) other = other_item->Name;\n-\t\t\t\tif (name.compare(other) < 0) break;\n-\t\t\t}\n-\t\t}\n-\t\tUnknown17C.insert(it, 1, slot);\n+\t\t\t\tif (name.compare(other) < 0) { Unknown17C.insert(it, 1, slot); break; }\n+\t\t\t} else {\n+\t\t\t\tMoneyClass other = peek->Get_Price(*it);\n+\t\t\t\tif (operator<(price, other)) { Unknown17C.insert(it, 1, slot); break; }\n+\t\t\t}\n+\t\t}\n \t}\n \tUnknown_B0();\n }\n",
+      "exact": false,
+      "gains": [
+        [
+          "?assign@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAEAAV12@PBDI@Z",
+          "0x42D050"
+        ],
+        [
+          "?insert@?$vector@HV?$allocator@H@std@@@std@@QAEXPAHIABH@Z",
+          "0x4A0880"
+        ]
+      ],
+      "losses": []
+    },
+    {
+      "name": "branch_goto",
+      "source_sha256": "feda60d0e1ebc7b79455a2af470d1056f68c677c5467e34e84cc26bfd0a2fad0",
+      "patch": "--- a/app/client/ui_trade.cpp\n+++ b/app/client/ui_trade.cpp\n@@ -927,21 +927,21 @@\n \t\tif (item) name = item->Name;\n \t\tstd::vector<int>::iterator it;\n \t\tfor (it = Unknown17C.begin(); it != Unknown17C.end(); it++) {\n-\t\t\tif (!by_name) {\n-\t\t\t\tMoneyClass other = peek->Get_Price(*it);\n-\t\t\t\tif (operator<(price, other)) break;\n-\t\t\t} else {\n+\t\t\tif (by_name) {\n \t\t\t\tstd::string other(\"\");\n \t\t\t\tInvDataPeekItemStruct *other_item = peek->Get_Item(*it, true);\n \t\t\t\tif (other_item) other = other_item->Name;\n-\t\t\t\tif (name.compare(other) < 0) break;\n-\t\t\t}\n-\t\t}\n-\t\tUnknown17C.insert(it, 1, slot);\n+\t\t\t\tif (name.compare(other) < 0) { Unknown17C.insert(it, 1, slot); goto inserted; }\n+\t\t\t} else {\n+\t\t\t\tMoneyClass other = peek->Get_Price(*it);\n+\t\t\t\tif (operator<(price, other)) { Unknown17C.insert(it, 1, slot); goto inserted; }\n+\t\t\t}\n+\t\t}\n+\t\tUnknown17C.insert(Unknown17C.end(), 1, slot);\n+inserted:;\n \t}\n \tUnknown_B0();\n }\n-\n // @0x6538E0\n void UITradeClass::Unknown_B0()\n {\n",
+      "exact": false,
+      "gains": [
+        [
+          "?assign@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAEAAV12@PBDI@Z",
+          "0x42D050"
+        ],
+        [
+          "?insert@?$vector@HV?$allocator@H@std@@@std@@QAEXPAHIABH@Z",
+          "0x4A0880"
+        ]
+      ],
+      "losses": []
+    },
+    {
+      "name": "name_ctor",
+      "source_sha256": "9161dfa6b23dc7fa9fe9d2899afbd313aad54ed8e4e48bd18a825181542d7c94",
+      "patch": "--- a/app/client/ui_trade.cpp\n+++ b/app/client/ui_trade.cpp\n@@ -921,27 +921,27 @@\n \tfor (int i = 0; i < SlotData->Unknown_6A7990(); i++) {\n \t\tint slot = SlotData->Unknown_6A7A00(i);\n \t\tMoneyClass price = peek->Get_Price(slot);\n-\t\tstd::string name;\n-\t\tname = \"\";\n+\t\tstd::string name(\"\");\n+\n \t\tInvDataPeekItemStruct *item = peek->Get_Item(slot, true);\n \t\tif (item) name = item->Name;\n \t\tstd::vector<int>::iterator it;\n \t\tfor (it = Unknown17C.begin(); it != Unknown17C.end(); it++) {\n-\t\t\tif (!by_name) {\n-\t\t\t\tMoneyClass other = peek->Get_Price(*it);\n-\t\t\t\tif (operator<(price, other)) break;\n-\t\t\t} else {\n+\t\t\tif (by_name) {\n \t\t\t\tstd::string other(\"\");\n \t\t\t\tInvDataPeekItemStruct *other_item = peek->Get_Item(*it, true);\n \t\t\t\tif (other_item) other = other_item->Name;\n-\t\t\t\tif (name.compare(other) < 0) break;\n-\t\t\t}\n-\t\t}\n-\t\tUnknown17C.insert(it, 1, slot);\n+\t\t\t\tif (name.compare(other) < 0) { Unknown17C.insert(it, 1, slot); goto inserted; }\n+\t\t\t} else {\n+\t\t\t\tMoneyClass other = peek->Get_Price(*it);\n+\t\t\t\tif (operator<(price, other)) { Unknown17C.insert(it, 1, slot); goto inserted; }\n+\t\t\t}\n+\t\t}\n+\t\tUnknown17C.insert(Unknown17C.end(), 1, slot);\n+inserted:;\n \t}\n \tUnknown_B0();\n }\n-\n // @0x6538E0\n void UITradeClass::Unknown_B0()\n {\n",
+      "exact": false,
+      "gains": [
+        [
+          "?assign@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAEAAV12@PBDI@Z",
+          "0x42D050"
+        ],
+        [
+          "?insert@?$vector@HV?$allocator@H@std@@@std@@QAEXPAHIABH@Z",
+          "0x4A0880"
+        ]
+      ],
+      "losses": []
+    },
+    {
+      "name": "name_ctor_slot",
+      "source_sha256": "d02740f25102cda4b0eb75746312fa09647df93fc1880f802c6a74757138b8ba",
+      "patch": "--- a/app/client/ui_trade.cpp\n+++ b/app/client/ui_trade.cpp\n@@ -921,27 +921,27 @@\n \tfor (int i = 0; i < SlotData->Unknown_6A7990(); i++) {\n \t\tint slot = SlotData->Unknown_6A7A00(i);\n \t\tMoneyClass price = peek->Get_Price(slot);\n-\t\tstd::string name;\n-\t\tname = \"\";\n+\t\tstd::string name(\"\");\n+\n \t\tInvDataPeekItemStruct *item = peek->Get_Item(slot, true);\n \t\tif (item) name = item->Name;\n \t\tstd::vector<int>::iterator it;\n \t\tfor (it = Unknown17C.begin(); it != Unknown17C.end(); it++) {\n-\t\t\tif (!by_name) {\n-\t\t\t\tMoneyClass other = peek->Get_Price(*it);\n-\t\t\t\tif (operator<(price, other)) break;\n+\t\t\tint other_slot = *it; if (by_name) {\n+\t\t\t\tstd::string other(\"\");\n+\t\t\t\tInvDataPeekItemStruct *other_item = peek->Get_Item(other_slot, true);\n+\t\t\t\tif (other_item) other = other_item->Name;\n+\t\t\t\tif (name.compare(other) < 0) { Unknown17C.insert(it, 1, slot); goto inserted; }\n \t\t\t} else {\n-\t\t\t\tstd::string other(\"\");\n-\t\t\t\tInvDataPeekItemStruct *other_item = peek->Get_Item(*it, true);\n-\t\t\t\tif (other_item) other = other_item->Name;\n-\t\t\t\tif (name.compare(other) < 0) break;\n-\t\t\t}\n-\t\t}\n-\t\tUnknown17C.insert(it, 1, slot);\n+\t\t\t\tMoneyClass other = peek->Get_Price(other_slot);\n+\t\t\t\tif (operator<(price, other)) { Unknown17C.insert(it, 1, slot); goto inserted; }\n+\t\t\t}\n+\t\t}\n+\t\tUnknown17C.insert(Unknown17C.end(), 1, slot);\n+inserted:;\n \t}\n \tUnknown_B0();\n }\n-\n // @0x6538E0\n void UITradeClass::Unknown_B0()\n {\n",
+      "exact": false,
+      "gains": [
+        [
+          "?assign@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAEAAV12@PBDI@Z",
+          "0x42D050"
+        ],
+        [
+          "?insert@?$vector@HV?$allocator@H@std@@@std@@QAEXPAHIABH@Z",
+          "0x4A0880"
+        ]
+      ],
+      "losses": []
+    },
+    {
+      "name": "insert_overload",
+      "source_sha256": "d95609df3986d846470aeae954b3048e3ac16ea6d01b358c3085ca04f8619dda",
+      "patch": "--- a/app/client/ui_trade.cpp\n+++ b/app/client/ui_trade.cpp\n@@ -921,27 +921,27 @@\n \tfor (int i = 0; i < SlotData->Unknown_6A7990(); i++) {\n \t\tint slot = SlotData->Unknown_6A7A00(i);\n \t\tMoneyClass price = peek->Get_Price(slot);\n-\t\tstd::string name;\n-\t\tname = \"\";\n+\t\tstd::string name(\"\");\n+\n \t\tInvDataPeekItemStruct *item = peek->Get_Item(slot, true);\n \t\tif (item) name = item->Name;\n \t\tstd::vector<int>::iterator it;\n \t\tfor (it = Unknown17C.begin(); it != Unknown17C.end(); it++) {\n-\t\t\tif (!by_name) {\n-\t\t\t\tMoneyClass other = peek->Get_Price(*it);\n-\t\t\t\tif (operator<(price, other)) break;\n+\t\t\tint other_slot = *it; if (by_name) {\n+\t\t\t\tstd::string other(\"\");\n+\t\t\t\tInvDataPeekItemStruct *other_item = peek->Get_Item(other_slot, true);\n+\t\t\t\tif (other_item) other = other_item->Name;\n+\t\t\t\tif (name.compare(other) < 0) { Unknown17C.insert(it, slot); goto inserted; }\n \t\t\t} else {\n-\t\t\t\tstd::string other(\"\");\n-\t\t\t\tInvDataPeekItemStruct *other_item = peek->Get_Item(*it, true);\n-\t\t\t\tif (other_item) other = other_item->Name;\n-\t\t\t\tif (name.compare(other) < 0) break;\n-\t\t\t}\n-\t\t}\n-\t\tUnknown17C.insert(it, 1, slot);\n+\t\t\t\tMoneyClass other = peek->Get_Price(other_slot);\n+\t\t\t\tif (operator<(price, other)) { Unknown17C.insert(it, slot); goto inserted; }\n+\t\t\t}\n+\t\t}\n+\t\tUnknown17C.push_back(slot);\n+inserted:;\n \t}\n \tUnknown_B0();\n }\n-\n // @0x6538E0\n void UITradeClass::Unknown_B0()\n {\n",
+      "exact": true,
+      "gains": [
+        [
+          "?Unknown_653450@UITradeClass@@QAEXXZ",
+          "0x653450"
+        ],
+        [
+          "?assign@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAEAAV12@PBDI@Z",
+          "0x42D050"
+        ],
+        [
+          "?insert@?$vector@HV?$allocator@H@std@@@std@@QAEXPAHIABH@Z",
+          "0x4A0880"
+        ]
+      ],
+      "losses": []
+    }
+  ],
+  "controls": [
+    {
+      "name": "baseline",
+      "source_sha256": "13fc927027d31368e8ade7f38ca14d726379eeeb0bf41b02cc673928afe1c967",
+      "patch": "",
+      "exact": false,
+      "gains": [],
+      "losses": []
+    },
+    {
+      "name": "final",
+      "source_sha256": "0583b2a4af3795a25e88442d598d725c731af43a7eb74e8514958bc33eb55e14",
+      "patch": "--- a/app/client/ui_trade.cpp\n+++ b/app/client/ui_trade.cpp\n@@ -903,7 +903,7 @@\n \n \n \n-// NOT EXACT: inline budget, as TR1's stash (docs/attempts/0x653450): ours inlines the string assigns the client calls out of line\n+\n // @0x653450\n void UITradeClass::Unknown_653450()\n {\n@@ -921,27 +921,27 @@\n \tfor (int i = 0; i < SlotData->Unknown_6A7990(); i++) {\n \t\tint slot = SlotData->Unknown_6A7A00(i);\n \t\tMoneyClass price = peek->Get_Price(slot);\n-\t\tstd::string name;\n-\t\tname = \"\";\n+\t\tstd::string name(\"\");\n \t\tInvDataPeekItemStruct *item = peek->Get_Item(slot, true);\n \t\tif (item) name = item->Name;\n \t\tstd::vector<int>::iterator it;\n \t\tfor (it = Unknown17C.begin(); it != Unknown17C.end(); it++) {\n-\t\t\tif (!by_name) {\n-\t\t\t\tMoneyClass other = peek->Get_Price(*it);\n-\t\t\t\tif (operator<(price, other)) break;\n+\t\t\tint other_slot = *it;\n+\t\t\tif (by_name) {\n+\t\t\t\tstd::string other(\"\");\n+\t\t\t\tInvDataPeekItemStruct *other_item = peek->Get_Item(other_slot, true);\n+\t\t\t\tif (other_item) other = other_item->Name;\n+\t\t\t\tif (name.compare(other) < 0) { Unknown17C.insert(it, slot); goto inserted; }\n \t\t\t} else {\n-\t\t\t\tstd::string other(\"\");\n-\t\t\t\tInvDataPeekItemStruct *other_item = peek->Get_Item(*it, true);\n-\t\t\t\tif (other_item) other = other_item->Name;\n-\t\t\t\tif (name.compare(other) < 0) break;\n-\t\t\t}\n-\t\t}\n-\t\tUnknown17C.insert(it, 1, slot);\n+\t\t\t\tMoneyClass other = peek->Get_Price(other_slot);\n+\t\t\t\tif (operator<(price, other)) { Unknown17C.insert(it, slot); goto inserted; }\n+\t\t\t}\n+\t\t}\n+\t\tUnknown17C.push_back(slot);\n+inserted:;\n \t}\n \tUnknown_B0();\n }\n-\n // @0x6538E0\n void UITradeClass::Unknown_B0()\n {\n",
+      "exact": true,
+      "gains": [
+        [
+          "?Unknown_653450@UITradeClass@@QAEXXZ",
+          "0x653450"
+        ],
+        [
+          "?assign@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAEAAV12@PBDI@Z",
+          "0x42D050"
+        ],
+        [
+          "?insert@?$vector@HV?$allocator@H@std@@@std@@QAEXPAHIABH@Z",
+          "0x4A0880"
+        ]
+      ],
+      "losses": []
+    }
+  ],
+  "audit_file": "claim271-audit.json.txt",
+  "scope": "Only653450 and its reserved trailing padding changed; all physical assertion lines preserved; no header/helper/compiler setting/dead read/asm/volatile changed."
+}
