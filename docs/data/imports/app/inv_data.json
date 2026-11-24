@@ -1,5 +1,7 @@
 {
- "ambiguous": [],
+ "ambiguous": [
+  "0x436420"
+ ],
  "copy": "reconstructed",
  "description": "RECONSTRUCTED: app\\client\\inv_data.cpp, an inventory's slot data (InvDataClass): the client's __FILE__ 'e:\\build\\beta\\G\\app\\Client\\inv_data.cpp' (0xB8FDC4), asserts l.97 / l.143 (0x6889F0) and l.343 (0x689100); object 0x688410-0x6894FF; ID1 2026-11-10",
  "expected": {},
@@ -9,7 +11,6 @@
   "0x42F250",
   "0x45CC10",
   "0x4A0850",
-  "0x4A0880",
   "0x4A0B70",
   "0x4A0B90",
   "0x4A0BD0",
@@ -58,7 +59,6 @@
   "0x42F250",
   "0x45CC10",
   "0x4A0850",
-  "0x4A0880",
   "0x4A0B70",
   "0x4A0B90",
   "0x4A0BD0",

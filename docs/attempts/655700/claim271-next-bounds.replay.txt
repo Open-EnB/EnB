@@ -1,0 +1,310 @@
+{
+  "format": "exact-text-replacements-v1",
+  "unit": "app/client/ui_treem.cpp",
+  "origin": "reconstructed retail Next helper body, expanded at Next_Sibling real call sites; used initial bounds bool changes TU caller allocation",
+  "replacements": [
+    [
+      "UITreeMItemStruct *UITreeMClass::Next_Sibling(UITreeMItemStruct *item)\n{\n\tfor (UITreeMItemStruct *next = Next(item); next != NULL; next = Next(next)) {\n\t\tif (next->Level == item->Level) {\n\t\t\treturn(next);\n\t\t}\n\t\tif (next->Level < item->Level) {\n\t\t\tbreak;\n\t\t}\n\t}\n\treturn(NULL);\n}\n\n\n\n\n\n\n\n",
+      "UITreeMItemStruct *UITreeMClass::Next_Sibling(UITreeMItemStruct *item)\n{\n\tbool valid = item != NULL && item < &Items[Items.Count() - 1]; UITreeMItemStruct *next = valid ? item + 1 : NULL;\n\twhile (next != NULL) {\n\t\tif (next->Level == item->Level) { return(next); }\n\t\tif (next->Level < item->Level) { break; }\n\t\tnext = (next != NULL && next < &Items[Items.Count() - 1]) ? next + 1 : NULL;\n\t}\n\treturn(NULL);\n}\n\n\n\n\n\n\n\n\n\n"
+    ],
+    [
+      "// NOT EXACT (0.80, order-only): the client loads the line offset before Lines.Vector (0x6557D7); the rest is the same",
+      ""
+    ]
+  ],
+  "audit": {
+    "baseline_object": "/home/dev/Projects/EnB/.work/claim-271/655460/runs/baseline-w4g7pjmh/baseline/ui_treem.obj",
+    "final_object": ".work/claim-271/655460/runs/refresh-final-ql024b6z/refresh_final/ui_treem.obj",
+    "symbol_pairs_before": 73,
+    "symbol_pairs_after": 74,
+    "gains": [
+      [
+        "?Refresh@UITreeMClass@@UAE_NXZ",
+        "0x655700"
+      ]
+    ],
+    "losses": [],
+    "audits": [
+      {
+        "symbol": "?Refresh@UITreeMClass@@UAE_NXZ",
+        "address": "0x655700",
+        "code_bytes": 734,
+        "instructions": 237,
+        "all_fixed_bytes_branches_and_returns_equal": true,
+        "EH": "no registration/cleanup or lifetime state in either body",
+        "relocations": [
+          {
+            "offset": 161,
+            "symbol": "??_C@_0FB@JADL@Z?3?2home?2dev?2Projects?2EnB?2?4work?2c@",
+            "type": 6,
+            "addend": 0,
+            "retail_value": "0xb8c240",
+            "resolved": "0xb8c240",
+            "basis": "__FILE__ basename only"
+          },
+          {
+            "offset": 166,
+            "symbol": "??_C@_04MPOO@item?$AA@",
+            "type": 6,
+            "addend": 0,
+            "retail_value": "0xb738d8",
+            "resolved": "0xb738d8",
+            "basis": "literal including terminator"
+          },
+          {
+            "offset": 171,
+            "symbol": "?G_Assert_Report@@YAXPBD0H@Z",
+            "type": 20,
+            "addend": 0,
+            "retail_value": "0x40aa51",
+            "resolved": "0x4e9410",
+            "basis": "known symbol/fresh exact map, thunk resolved"
+          },
+          {
+            "offset": 361,
+            "symbol": "??_C@_0FB@JADL@Z?3?2home?2dev?2Projects?2EnB?2?4work?2c@",
+            "type": 6,
+            "addend": 0,
+            "retail_value": "0xb8c240",
+            "resolved": "0xb8c240",
+            "basis": "__FILE__ basename only"
+          },
+          {
+            "offset": 366,
+            "symbol": "??_C@_05NAGO@false?$AA@",
+            "type": 6,
+            "addend": 0,
+            "retail_value": "0xb6f5e0",
+            "resolved": "0xb6f5e0",
+            "basis": "literal including terminator"
+          },
+          {
+            "offset": 371,
+            "symbol": "?G_Assert_Report@@YAXPBD0H@Z",
+            "type": 20,
+            "addend": 0,
+            "retail_value": "0x40aa51",
+            "resolved": "0x4e9410",
+            "basis": "known symbol/fresh exact map, thunk resolved"
+          },
+          {
+            "offset": 411,
+            "symbol": "??_C@_0FB@JADL@Z?3?2home?2dev?2Projects?2EnB?2?4work?2c@",
+            "type": 6,
+            "addend": 0,
+            "retail_value": "0xb8c240",
+            "resolved": "0xb8c240",
+            "basis": "__FILE__ basename only"
+          },
+          {
+            "offset": 416,
+            "symbol": "??_C@_0BP@LNPK@prev?9?$DOLevel?5?$CL?51?5?$DN?$DN?5item?9?$DOLevel?$AA@",
+            "type": 6,
+            "addend": 0,
+            "retail_value": "0xb8c2a0",
+            "resolved": "0xb8c2a0",
+            "basis": "literal including terminator"
+          },
+          {
+            "offset": 421,
+            "symbol": "?G_Assert_Report@@YAXPBD0H@Z",
+            "type": 20,
+            "addend": 0,
+            "retail_value": "0x40aa51",
+            "resolved": "0x4e9410",
+            "basis": "known symbol/fresh exact map, thunk resolved"
+          },
+          {
+            "offset": 441,
+            "symbol": "?Change_Text@FontSys@@QAEXPBDH@Z",
+            "type": 20,
+            "addend": 0,
+            "retail_value": "0x4139ad",
+            "resolved": "0x6cdbc0",
+            "basis": "known symbol/fresh exact map, thunk resolved"
+          },
+          {
+            "offset": 592,
+            "symbol": "?Next_Shown@UITreeMClass@@QAEPAUUITreeMItemStruct@@PAU2@@Z",
+            "type": 20,
+            "addend": 0,
+            "retail_value": "0x41959c",
+            "resolved": "0x655b10",
+            "basis": "known symbol/fresh exact map, thunk resolved"
+          },
+          {
+            "offset": 614,
+            "symbol": "??_C@_01FCOA@?5?$AA@",
+            "type": 6,
+            "addend": 0,
+            "retail_value": "0xb6e948",
+            "resolved": "0xb6e948",
+            "basis": "literal including terminator"
+          },
+          {
+            "offset": 619,
+            "symbol": "?Change_Text@FontSys@@QAEXPBDH@Z",
+            "type": 20,
+            "addend": 0,
+            "retail_value": "0x4139ad",
+            "resolved": "0x6cdbc0",
+            "basis": "known symbol/fresh exact map, thunk resolved"
+          }
+        ],
+        "indirect_calls": [
+          [
+            "0x655728",
+            "dword ptr [eax + 0xc]"
+          ],
+          [
+            "0x655739",
+            "dword ptr [edx + 8]"
+          ],
+          [
+            "0x6558ca",
+            "dword ptr [edx + 0x40]"
+          ],
+          [
+            "0x6558d4",
+            "dword ptr [eax + 0x40]"
+          ],
+          [
+            "0x6558ed",
+            "dword ptr [edx + 0x90]"
+          ],
+          [
+            "0x6558fe",
+            "dword ptr [edx + 0x90]"
+          ],
+          [
+            "0x655914",
+            "dword ptr [edx + 0x40]"
+          ],
+          [
+            "0x655922",
+            "dword ptr [eax + 0x90]"
+          ],
+          [
+            "0x65592f",
+            "dword ptr [eax + 0x40]"
+          ],
+          [
+            "0x65593c",
+            "dword ptr [edx + 0x40]"
+          ],
+          [
+            "0x655976",
+            "dword ptr [edx + 0x40]"
+          ],
+          [
+            "0x655983",
+            "dword ptr [eax + 0x40]"
+          ]
+        ]
+      },
+      {
+        "symbol": "?Next_Sibling@UITreeMClass@@QAEPAUUITreeMItemStruct@@PAU2@@Z",
+        "address": "0x655de0",
+        "code_bytes": 74,
+        "instructions": 28,
+        "all_fixed_bytes_branches_and_returns_equal": true,
+        "EH": "no registration/cleanup or lifetime state in either body",
+        "relocations": [],
+        "indirect_calls": []
+      }
+    ],
+    "retained_exact_bodies_and_relocation_identities_unchanged": [
+      "??0UITreeMClass@@QAE@AAVUIMeshClass@@PAVUIViewClass@@PAVLayerClass@@PBD_N@Z",
+      "??1?$DynamicVectorClass@UUITreeMItemStruct@@@@UAE@XZ",
+      "??1?$DynamicVectorClass@UUITreeMLineStruct@@@@UAE@XZ",
+      "??1?$VectorClass@PAUUITreeMItemStruct@@@@UAE@XZ",
+      "??1InterfaceSortScopeClass@@QAE@XZ",
+      "??1UITreeMClass@@UAE@XZ",
+      "??8?$VectorClass@PAUUITreeMItemStruct@@@@UBE_NABV0@@Z",
+      "??8?$VectorClass@UUITreeMItemStruct@@@@UBE_NABV0@@Z",
+      "??8?$VectorClass@UUITreeMLineStruct@@@@UBE_NABV0@@Z",
+      "??_EUITreeMClass@@W3AEPAXI@Z",
+      "??_EUITreeMClass@@WDI@AEPAXI@Z",
+      "??_G?$DynamicVectorClass@UUITreeMItemStruct@@@@UAEPAXI@Z",
+      "??_G?$DynamicVectorClass@UUITreeMLineStruct@@@@UAEPAXI@Z",
+      "??_G?$VectorClass@PAUUITreeMItemStruct@@@@UAEPAXI@Z",
+      "??_G?$VectorClass@UUITreeMItemStruct@@@@UAEPAXI@Z",
+      "??_G?$VectorClass@UUITreeMLineStruct@@@@UAEPAXI@Z",
+      "??_GUITreeMClass@@UAEPAXI@Z",
+      "??_H@YGXPAXIHP6EX0@Z@Z",
+      "?Add@UITreeMClass@@UAEXHPBD@Z",
+      "?Add_Child@UITreeMClass@@UAEXHPBDH@Z",
+      "?Clear@?$DynamicVectorClass@UUITreeMItemStruct@@@@UAEXXZ",
+      "?Clear@?$DynamicVectorClass@UUITreeMLineStruct@@@@UAEXXZ",
+      "?Clear@?$VectorClass@PAUUITreeMItemStruct@@@@UAEXXZ",
+      "?Clear@?$VectorClass@UUITreeMItemStruct@@@@UAEXXZ",
+      "?Clear@?$VectorClass@UUITreeMLineStruct@@@@UAEXXZ",
+      "?Close@UITreeMClass@@QAEXPAUUITreeMItemStruct@@@Z",
+      "?Delete_This@RefCountClass@@UAEXXZ",
+      "?Find@UITreeMClass@@QAEHH@Z",
+      "?Get_Target_Node@GClass@@UAEPAV?$ContextDataNode@PAVGClass@@PAV1@@@XZ",
+      "?Get_Targeting_List@GClass@@UAEPAV?$List@PAV?$ContextDataNode@PAVGClass@@PAV1@@@@@XZ",
+      "?ID@?$DynamicVectorClass@UUITreeMItemStruct@@@@UAEHABUUITreeMItemStruct@@@Z",
+      "?ID@?$DynamicVectorClass@UUITreeMItemStruct@@@@UAEHPBUUITreeMItemStruct@@@Z",
+      "?ID@?$DynamicVectorClass@UUITreeMLineStruct@@@@UAEHABUUITreeMLineStruct@@@Z",
+      "?ID@?$DynamicVectorClass@UUITreeMLineStruct@@@@UAEHPBUUITreeMLineStruct@@@Z",
+      "?ID@?$VectorClass@PAUUITreeMItemStruct@@@@UAEHABQAUUITreeMItemStruct@@@Z",
+      "?ID@?$VectorClass@PAUUITreeMItemStruct@@@@UAEHPBQAUUITreeMItemStruct@@@Z",
+      "?ID@?$VectorClass@UUITreeMItemStruct@@@@UAEHABUUITreeMItemStruct@@@Z",
+      "?ID@?$VectorClass@UUITreeMItemStruct@@@@UAEHPBUUITreeMItemStruct@@@Z",
+      "?ID@?$VectorClass@UUITreeMLineStruct@@@@UAEHABUUITreeMLineStruct@@@Z",
+      "?ID@?$VectorClass@UUITreeMLineStruct@@@@UAEHPBUUITreeMLineStruct@@@Z",
+      "?Next@UITreeMClass@@QAEPAUUITreeMItemStruct@@PAU2@@Z",
+      "?Next_Shown@UITreeMClass@@QAEPAUUITreeMItemStruct@@PAU2@@Z",
+      "?Next_Sibling@UITreeMClass@@QAEPAUUITreeMItemStruct@@PAU2@@Z",
+      "?Open@UITreeMClass@@QAEXPAUUITreeMItemStruct@@@Z",
+      "?Parent@UITreeMClass@@QAEPAUUITreeMItemStruct@@PAU2@@Z",
+      "?Prev@UITreeMClass@@QAEPAUUITreeMItemStruct@@PAU2@@Z",
+      "?Resize@?$DynamicVectorClass@UUITreeMItemStruct@@@@UAE_NHPBUUITreeMItemStruct@@@Z",
+      "?Resize@?$DynamicVectorClass@UUITreeMLineStruct@@@@UAE_NHPBUUITreeMLineStruct@@@Z",
+      "?Resize@?$VectorClass@PAUUITreeMItemStruct@@@@UAE_NHPBQAUUITreeMItemStruct@@@Z",
+      "?Resize@?$VectorClass@UUITreeMItemStruct@@@@UAE_NHPBUUITreeMItemStruct@@@Z",
+      "?Resize@?$VectorClass@UUITreeMLineStruct@@@@UAE_NHPBUUITreeMLineStruct@@@Z",
+      "?Toggle@UITreeMClass@@QAEXPAUUITreeMItemStruct@@@Z",
+      "?Unknown_04@UnknownGadgetBase00Class@@UAEPAVGenericNode@@XZ",
+      "?Unknown_08@UnknownGadgetBase00Class@@UAEXXZ",
+      "?Unknown_0C@GClass@@UAEPBDXZ",
+      "?Unknown_1C@GClass@@UAEHXZ",
+      "?Unknown_20@GClass@@UAEHXZ",
+      "?Unknown_24@GClass@@UAEHXZ",
+      "?Unknown_28@GClass@@UAEHXZ",
+      "?Unknown_2C@GClass@@UAEHXZ",
+      "?Unknown_4A1930@UnknownGadgetBase04Class@@UAE_NHHH@Z",
+      "?Unknown_54@UITreeMClass@@UAEXXZ",
+      "?Unknown_58@UITreeMClass@@UAEXXZ",
+      "?Unknown_5C@UITreeMClass@@UAEXXZ",
+      "?Unknown_60@UITreeMClass@@UAEXXZ",
+      "?Unknown_64@InterfaceClass@@UAEXXZ",
+      "?Unknown_6C@InterfaceClass@@UAEXAAVINIClass@@@Z",
+      "?Unknown_70@InterfaceClass@@UAEXPAVControlKeysManager@@@Z",
+      "?Unknown_74@InterfaceClass@@UAEXPAVControlKeysManager@@@Z",
+      "?Unknown_78@InterfaceClass@@UAE_NPAX@Z",
+      "?Update_Scroll_Bar@UITreeMClass@@QAEXXZ",
+      "?id@?$ctype@G@std@@$E",
+      "_$E244"
+    ],
+    "vtables": [
+      {
+        "symbol": "??_7UITreeMClass@@6B@",
+        "size": 8,
+        "bytes_and_relocation_identities_unchanged": true
+      },
+      {
+        "symbol": "??_7UITreeMClass@@6BUnknownGadgetBase04Class@@@",
+        "size": 8,
+        "bytes_and_relocation_identities_unchanged": true
+      },
+      {
+        "symbol": "??_7UITreeMClass@@6BUnknownGadgetBase00Class@@@",
+        "size": 148,
+        "bytes_and_relocation_identities_unchanged": true
+      }
+    ],
+    "callback": "no new callback or vtable entries; Refresh calls gadget/font virtuals at fixed identical slots"
+  }
+}

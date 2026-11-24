@@ -262,7 +262,7 @@ void UITradeClass::Unknown_5C()
 	Unknown17C.clear();
 	UIInvClass::Unknown_5C();
 }
-// NOT EXACT: register (the box's +0x34 through edx, -1 kept in ebx; explain.py names a relocation: symbols.json's stale return type for 0x695680)
+
 // @0x651510
 void UITradeClass::Unknown_60()
 {
@@ -272,17 +272,25 @@ void UITradeClass::Unknown_60()
 	bool can_sell_stack = false;
 	RefCountPtr<UIInvClass> cargo = PDA->Unknown_695680();
 	if (cargo) {
-		if (cargo->UnknownB4 != Unknown140) {
-			Close_Box();
-			Unknown140 = cargo->UnknownB4;
+		int selected = cargo->UnknownB4;
+		if (Unknown140 != selected) {
+			if (Get_View() && Get_View()->Get_Unknown34()) {
+				Get_View()->Get_Unknown34()->Unknown_5896C0("BUY_CONFIRMATION");
+			}
+			Unknown174 = 0;
+			int current = cargo->UnknownB4;
+			Unknown140 = current;
 		}
 		if (cargo && cargo->UnknownB4 != -1) {
-			InvDataPeekClass *peek = cargo->Unknown_59FE10()->Unknown_688830(); int count = peek->Get_Stack_Count(cargo->UnknownB4);
+			InvDataPeekClass *peek = cargo->Unknown_59FE10()->Unknown_688830();
+			int selected = cargo->UnknownB4;
+			int count = peek->Get_Stack_Count(selected);
 			if (count > 0) {
 				can_sell = true;
 			} else {
-				cargo->UnknownB4 = -1;
-				cargo->Unknown_C8();
+				UIInvClass *window = cargo.Peek();
+				window->UnknownB4 = -1;
+				window->Unknown_C8();
 			}
 			if (count > 1) can_sell_stack = true;
 		}
@@ -315,14 +323,6 @@ void UITradeClass::Unknown_60()
 	if (!PDA->Unknown_695CE0()) Unknown_5C();
 	UIInvClass::Unknown_60();
 }
-
-
-
-
-
-
-
-
 
 
 
@@ -903,7 +903,7 @@ void UITradeClass::Unknown_6531F0(bool arg)
 
 
 
-// NOT EXACT: inline budget, as TR1's stash (docs/attempts/0x653450): ours inlines the string assigns the client calls out of line
+
 // @0x653450
 void UITradeClass::Unknown_653450()
 {
@@ -921,27 +921,27 @@ void UITradeClass::Unknown_653450()
 	for (int i = 0; i < SlotData->Unknown_6A7990(); i++) {
 		int slot = SlotData->Unknown_6A7A00(i);
 		MoneyClass price = peek->Get_Price(slot);
-		std::string name;
-		name = "";
+		std::string name("");
 		InvDataPeekItemStruct *item = peek->Get_Item(slot, true);
 		if (item) name = item->Name;
 		std::vector<int>::iterator it;
 		for (it = Unknown17C.begin(); it != Unknown17C.end(); it++) {
-			if (!by_name) {
-				MoneyClass other = peek->Get_Price(*it);
-				if (operator<(price, other)) break;
-			} else {
+			int other_slot = *it;
+			if (by_name) {
 				std::string other("");
-				InvDataPeekItemStruct *other_item = peek->Get_Item(*it, true);
+				InvDataPeekItemStruct *other_item = peek->Get_Item(other_slot, true);
 				if (other_item) other = other_item->Name;
-				if (name.compare(other) < 0) break;
+				if (name.compare(other) < 0) { Unknown17C.insert(it, slot); goto inserted; }
+			} else {
+				MoneyClass other = peek->Get_Price(other_slot);
+				if (operator<(price, other)) { Unknown17C.insert(it, slot); goto inserted; }
 			}
 		}
-		Unknown17C.insert(it, 1, slot);
+		Unknown17C.push_back(slot);
+inserted:;
 	}
 	Unknown_B0();
 }
-
 // @0x6538E0
 void UITradeClass::Unknown_B0()
 {

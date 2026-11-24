@@ -1,0 +1,173 @@
+{
+  "format": "source-patch-json-string-v1",
+  "model": "gpt-6.1-sol (high)",
+  "target": "0x655460",
+  "base_commit": "e450e450",
+  "unit": "app/client/ui_treem.cpp",
+  "valid_tested_forms": 1,
+  "baseline_controls": 1,
+  "invalid_compiles": 0,
+  "uncompiled_semantic_forms": 0,
+  "hypothesis": "Put the proven used-validity-condition/conditional-return idiom in actual Next while retaining committed Next_Sibling exactly; cross-leads/report.md section1; this placement was absent from the prior 65 forms.",
+  "base_source_sha256": "330ef689fd11fcfb03bfe8c8c9904db5b95fd5c92b49ea729ea250b6a5d97227",
+  "candidate_source_sha256": "d9764202255bb94e580218c7565a5632a0777fbc6ad93b104ce547647ad2183e",
+  "candidate_source_patch": "--- a/app/client/ui_treem.cpp\n+++ b/app/client/ui_treem.cpp\n@@ -338,11 +338,11 @@\n \n UITreeMItemStruct *UITreeMClass::Next(UITreeMItemStruct *item)\n {\n-\tif (item != NULL && item < &Items[Items.Count() - 1]) {\n-\t\treturn(item + 1);\n-\t}\n-\treturn(NULL);\n-}\n+\tbool valid = item != NULL && item < &Items[Items.Count() - 1];\n+\treturn(valid ? item + 1 : NULL);\n+}\n+\n+\n \n \n \n",
+  "source_scope": "actual Next and its trailing blank padding only; Next_Sibling and all assertions unchanged",
+  "audit": {
+    "baseline_object": "/home/dev/Projects/EnB/.work/claim-271/tree-followup/runs/batch1-nv0eaiq8/baseline/ui_treem.obj",
+    "candidate_object": "/home/dev/Projects/EnB/.work/claim-271/tree-followup/runs/batch1-nv0eaiq8/actual_next_valid/ui_treem.obj",
+    "symbol_pairs_before": 74,
+    "symbol_pairs_after": 74,
+    "gains": [],
+    "losses": [],
+    "identical_function_bodies_and_relocation_identities": [
+      "??_H@YGXPAXIHP6EX0@Z@Z",
+      "??0UITreeMClass@@QAE@AAVUIMeshClass@@PAVUIViewClass@@PAVLayerClass@@PBD_N@Z",
+      "?Delete_This@RefCountClass@@UAEXXZ",
+      "?Unknown_04@UnknownGadgetBase00Class@@UAEPAVGenericNode@@XZ",
+      "?Unknown_08@UnknownGadgetBase00Class@@UAEXXZ",
+      "?Unknown_4A1930@UnknownGadgetBase04Class@@UAE_NHHH@Z",
+      "?Unknown_0C@GClass@@UAEPBDXZ",
+      "?Unknown_1C@GClass@@UAEHXZ",
+      "?Unknown_20@GClass@@UAEHXZ",
+      "?Unknown_24@GClass@@UAEHXZ",
+      "?Unknown_28@GClass@@UAEHXZ",
+      "?Unknown_2C@GClass@@UAEHXZ",
+      "?Get_Target_Node@GClass@@UAEPAV?$ContextDataNode@PAVGClass@@PAV1@@@XZ",
+      "?Get_Targeting_List@GClass@@UAEPAV?$List@PAV?$ContextDataNode@PAVGClass@@PAV1@@@@@XZ",
+      "?Unknown_64@InterfaceClass@@UAEXXZ",
+      "?Unknown_6C@InterfaceClass@@UAEXAAVINIClass@@@Z",
+      "?Unknown_70@InterfaceClass@@UAEXPAVControlKeysManager@@@Z",
+      "?Unknown_74@InterfaceClass@@UAEXPAVControlKeysManager@@@Z",
+      "?Unknown_78@InterfaceClass@@UAE_NPAX@Z",
+      "??_GUITreeMClass@@UAEPAXI@Z",
+      "??1?$DynamicVectorClass@UUITreeMItemStruct@@@@UAE@XZ",
+      "??1?$DynamicVectorClass@UUITreeMLineStruct@@@@UAE@XZ",
+      "?Unknown_54@UITreeMClass@@UAEXXZ",
+      "??1UITreeMClass@@UAE@XZ",
+      "?Add@UITreeMClass@@UAEXHPBD@Z",
+      "?Add_Child@UITreeMClass@@UAEXHPBDH@Z",
+      "?Unknown_58@UITreeMClass@@UAEXXZ",
+      "??1InterfaceSortScopeClass@@QAE@XZ",
+      "?Unknown_5C@UITreeMClass@@UAEXXZ",
+      "?Unknown_60@UITreeMClass@@UAEXXZ",
+      "?Unknown_68@UITreeMClass@@UAE_NH@Z",
+      "?Refresh@UITreeMClass@@UAE_NXZ",
+      "?Prev@UITreeMClass@@QAEPAUUITreeMItemStruct@@PAU2@@Z",
+      "?Next@UITreeMClass@@QAEPAUUITreeMItemStruct@@PAU2@@Z",
+      "?Next_Shown@UITreeMClass@@QAEPAUUITreeMItemStruct@@PAU2@@Z",
+      "?Parent@UITreeMClass@@QAEPAUUITreeMItemStruct@@PAU2@@Z",
+      "?Next_Sibling@UITreeMClass@@QAEPAUUITreeMItemStruct@@PAU2@@Z",
+      "?Open@UITreeMClass@@QAEXPAUUITreeMItemStruct@@@Z",
+      "?Close@UITreeMClass@@QAEXPAUUITreeMItemStruct@@@Z",
+      "?Toggle@UITreeMClass@@QAEXPAUUITreeMItemStruct@@@Z",
+      "?Find@UITreeMClass@@QAEHH@Z",
+      "?Update_Scroll_Bar@UITreeMClass@@QAEXXZ",
+      "?Clear@?$DynamicVectorClass@UUITreeMItemStruct@@@@UAEXXZ",
+      "?ID@?$DynamicVectorClass@UUITreeMItemStruct@@@@UAEHPBUUITreeMItemStruct@@@Z",
+      "?Clear@?$DynamicVectorClass@UUITreeMLineStruct@@@@UAEXXZ",
+      "?ID@?$DynamicVectorClass@UUITreeMLineStruct@@@@UAEHPBUUITreeMLineStruct@@@Z",
+      "??8?$VectorClass@UUITreeMItemStruct@@@@UBE_NABV0@@Z",
+      "?Resize@?$VectorClass@UUITreeMItemStruct@@@@UAE_NHPBUUITreeMItemStruct@@@Z",
+      "?Clear@?$VectorClass@UUITreeMItemStruct@@@@UAEXXZ",
+      "?ID@?$VectorClass@UUITreeMItemStruct@@@@UAEHABUUITreeMItemStruct@@@Z",
+      "?ID@?$VectorClass@UUITreeMItemStruct@@@@UAEHPBUUITreeMItemStruct@@@Z",
+      "?Resize@?$DynamicVectorClass@UUITreeMItemStruct@@@@UAE_NHPBUUITreeMItemStruct@@@Z",
+      "?ID@?$DynamicVectorClass@UUITreeMItemStruct@@@@UAEHABUUITreeMItemStruct@@@Z",
+      "??8?$VectorClass@UUITreeMLineStruct@@@@UBE_NABV0@@Z",
+      "?Resize@?$VectorClass@UUITreeMLineStruct@@@@UAE_NHPBUUITreeMLineStruct@@@Z",
+      "?Clear@?$VectorClass@UUITreeMLineStruct@@@@UAEXXZ",
+      "?ID@?$VectorClass@UUITreeMLineStruct@@@@UAEHABUUITreeMLineStruct@@@Z",
+      "?ID@?$VectorClass@UUITreeMLineStruct@@@@UAEHPBUUITreeMLineStruct@@@Z",
+      "?Resize@?$DynamicVectorClass@UUITreeMLineStruct@@@@UAE_NHPBUUITreeMLineStruct@@@Z",
+      "?ID@?$DynamicVectorClass@UUITreeMLineStruct@@@@UAEHABUUITreeMLineStruct@@@Z",
+      "??1?$VectorClass@PAUUITreeMItemStruct@@@@UAE@XZ",
+      "??8?$VectorClass@PAUUITreeMItemStruct@@@@UBE_NABV0@@Z",
+      "?Resize@?$VectorClass@PAUUITreeMItemStruct@@@@UAE_NHPBQAUUITreeMItemStruct@@@Z",
+      "?Clear@?$VectorClass@PAUUITreeMItemStruct@@@@UAEXXZ",
+      "?ID@?$VectorClass@PAUUITreeMItemStruct@@@@UAEHABQAUUITreeMItemStruct@@@Z",
+      "?ID@?$VectorClass@PAUUITreeMItemStruct@@@@UAEHPBQAUUITreeMItemStruct@@@Z",
+      "??_G?$VectorClass@UUITreeMItemStruct@@@@UAEPAXI@Z",
+      "??_G?$DynamicVectorClass@UUITreeMItemStruct@@@@UAEPAXI@Z",
+      "??_G?$VectorClass@UUITreeMLineStruct@@@@UAEPAXI@Z",
+      "??_G?$DynamicVectorClass@UUITreeMLineStruct@@@@UAEPAXI@Z",
+      "??_G?$VectorClass@PAUUITreeMItemStruct@@@@UAEPAXI@Z",
+      "_$E244",
+      "?id@?$ctype@G@std@@$E",
+      "??_EUITreeMClass@@W3AEPAXI@Z",
+      "??_EUITreeMClass@@WDI@AEPAXI@Z"
+    ],
+    "changed_function_bodies_or_relocation_identities": [],
+    "vtables": [
+      {
+        "symbol": "??_7UITreeMClass@@6B@",
+        "bytes": 8,
+        "raw_bytes_and_relocation_identities_unchanged": true
+      },
+      {
+        "symbol": "??_7UITreeMClass@@6BUnknownGadgetBase04Class@@@",
+        "bytes": 8,
+        "raw_bytes_and_relocation_identities_unchanged": true
+      },
+      {
+        "symbol": "??_7UITreeMClass@@6BUnknownGadgetBase00Class@@@",
+        "bytes": 148,
+        "raw_bytes_and_relocation_identities_unchanged": true
+      }
+    ],
+    "file_comparison": "__FILE__ basename only",
+    "production_source_unchanged_sha256": "330ef689fd11fcfb03bfe8c8c9904db5b95fd5c92b49ea729ea250b6a5d97227",
+    "source_equivalence": "short-circuit item null and end-bound checks preserved; item+1 evaluated only when valid; same null result; trivial bool adds no lifetime/EH state",
+    "conclusion": "Actual Next used validity bool/conditional-return canonicalizes; no target residue cut, no further combinations justified by authorized lead."
+  },
+  "metrics": [
+    {
+      "name": "baseline",
+      "explain": {
+        "symbol": "UITreeMClass::Unknown_68",
+        "mangled": "?Unknown_68@UITreeMClass@@UAE_NH@Z",
+        "address": "0x655460",
+        "ours": 204,
+        "client": 163,
+        "residue": 104,
+        "residue_regs": 66,
+        "tables": [],
+        "branch": {
+          "bytes": [
+            671,
+            518
+          ],
+          "size": 4,
+          "target": 0
+        },
+        "class": "inline-budget",
+        "reason": "5 calls in ours, 7 in the client; 2 callees only in the client"
+      }
+    },
+    {
+      "name": "actual_next_valid",
+      "explain": {
+        "symbol": "UITreeMClass::Unknown_68",
+        "mangled": "?Unknown_68@UITreeMClass@@UAE_NH@Z",
+        "address": "0x655460",
+        "ours": 204,
+        "client": 163,
+        "residue": 104,
+        "residue_regs": 66,
+        "tables": [],
+        "branch": {
+          "bytes": [
+            671,
+            518
+          ],
+          "size": 4,
+          "target": 0
+        },
+        "class": "inline-budget",
+        "reason": "5 calls in ours, 7 in the client; 2 callees only in the client"
+      }
+    }
+  ],
+  "result": "No gain or loss. All 75 compiled bodies and relocation identities unchanged, all three UITreeM vtables unchanged. Target remains 671 bytes/104 masked rows versus518 retail. Source not adopted. No further combinations tested because the precise idiom does not cut residue.",
+  "production_confirmation": "Shared ui_treem source remains the freshly compiled baseline; no source edit or additional production compile needed."
+}

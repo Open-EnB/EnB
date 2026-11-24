@@ -1,0 +1,204 @@
+{
+  "schema": 1,
+  "address": "0x657430",
+  "symbol": "UIVaultClass::Unknown_54",
+  "unit": "app/client/ui_vault.cpp",
+  "model": "gpt-6.1-sol (high)",
+  "baseline_source_sha256": "9d473e52b2b4836c7e0c92f8b97c81680849470620d17c7c5ea049889b9ba922",
+  "valid_tested_forms": 27,
+  "baseline_controls": 1,
+  "final_controls": 0,
+  "invalid_forms": 10,
+  "uncompiled_forms": 0,
+  "outcome": "No source adopted. All valid forms preserve all54 exact symbol/address pairs and identical file/address sets, gaining none. Baseline source remains authoritative.",
+  "baseline": {
+    "object_span_with_fill": 1072,
+    "body_bytes_to_return": 1059,
+    "instruction_edit_rows": 6,
+    "register_masked_rows": 2,
+    "setup": "retail match: EBX=37, name cursor to stack, then gadget cursor EBP",
+    "tail": "EDX cursor reload; inc EBX; add EDX4; add EBP4; store EDX; retail EDI reload; add EBP4; add EDI4; inc EBX; store EDI"
+  },
+  "best_diagnostic": {
+    "name": "name_then_index",
+    "instruction_edit_rows": 2,
+    "register_masked_rows": 2,
+    "source": "explicit const char** name cursor; loop++name then++i; id=i+37",
+    "tail": "all raw nonrelocated loop-tail bytes match retail",
+    "residue": "only initialization order: object stores name cursor before EBX=37; retail initializes EBX then name cursor",
+    "kept": false,
+    "reason": "No exact target or helper gain; a diagnostic improvement alone is not kept"
+  },
+  "history_read": "Own4forms/2rows; cargo sibling6forms/2rows. Nov21 Get_View subsets not repeated. Earlier direct id indexing/pointer-walk sibling failures treated as history, not new evidence.",
+  "hypotheses": [
+    "Early mutable button slot reference and both actual indexed-lvalue references; authentic first-use/lifetime lever affects tail register but leaves six rows.",
+    "Named id-derived index and declaration outside loop; direct id relation destroys implicit induction shape,29-76 rows; declared index canonicalizes to baseline.",
+    "Separate semantic index/id counters and their step ordering;41-42 rows. Explicit while form canonicalizes to baseline.",
+    "Mixed explicit button/name cursor and indexed other array, with source increments in both orders: name then index uniquely fixes tail and cuts six rows to two.",
+    "Index-before-name initialization, cursor in for-init, combined initialization, external id, id-minus37 loop condition, read-only table-element cursor, button-slot and name references; none removes remaining setup swap."
+  ],
+  "scope": "Every valid form changes only Unknown_54 and preserves all physical FAIL_IF/G_ASSERT lines and total line count. No header, pragma, flags, volatile, asm, UB, unsequenced argument assignment, dead spender or forcing wrapper.",
+  "audit": "No newly exact body and no C++ source adopted, so no new relocation/EH/vtable audit claimed. Native baseline and best raw diffs inspected; basename-only __FILE__ comparison, no full-app build.",
+  "stop_reason": "Actual native residue is isolated to setup order for the best authentic cursor source. All grounded local lifetime, real index and cursor forms leave it or worsen it. No actual indexed helper exists in this class; inventing a forcing accessor has no client evidence. Await a concrete source/helper precedent.",
+  "symbol_address_pairs_before_and_after": 54,
+  "symbol_address_gains": [],
+  "symbol_address_losses": [],
+  "file_address_gains": [],
+  "file_address_losses": [],
+  "forms": [
+    {
+      "name": "slot_ref",
+      "source_sha256": "b1acc0cae797cd88861599e8979d80ce7a7db34a2f44f86bf996861429be5faa",
+      "patch": "--- a/app/client/ui_vault.cpp\n+++ b/app/client/ui_vault.cpp\n@@ -129,20 +129,20 @@\n \t}\n \tint first = ((GadgetClass *)first_bttn)->Unknown0C;\n \tfor (int i = 0; i < NUM_BUTTONS; i++) {\n-\t\tint id = i + 37;\n+\t\tint id = i + 37; ButtonGadgetClass *&button = Buttons3[i];\n \t\tRenderObjClass *robj = InterfaceMesh->Get_Sub_Object_By_Name(VaultButtonNames[i]);\n \t\tUnknown_496AE0(robj, 0);\n \t\tif (id == 38) {\n-\t\t\tButtons3[i] = new ButtonGadgetClass(robj, 5, 3);\n+\t\t\tbutton = new ButtonGadgetClass(robj, 5, 3);\n \t\t} else if (id == 39) {\n-\t\t\tButtons3[i] = new ButtonGadgetClass(robj, 0x50, 3);\n+\t\t\tbutton = new ButtonGadgetClass(robj, 0x50, 3);\n \t\t} else {\n-\t\t\tButtons3[i] = new ButtonGadgetClass(robj, 0x55, 3);\n-\t\t}\n-\t\tGadgetClass::Set_Tooltip(Buttons3[i], \"UI_VAULT\", VaultButtonNames[i]);\n-\t\tButtons3[i]->Unknown_65FFA0(first);\n+\t\t\tbutton = new ButtonGadgetClass(robj, 0x55, 3);\n+\t\t}\n+\t\tGadgetClass::Set_Tooltip(button, \"UI_VAULT\", VaultButtonNames[i]);\n+\t\tbutton->Unknown_65FFA0(first);\n \t\trobj->Release_Ref();\n-\t\tUnknown64.Unknown_6870E0(Buttons3[i], id, View, 1, 0);\n+\t\tUnknown64.Unknown_6870E0(button, id, View, 1, 0);\n \t}\n \tFilter = Create_NEW(new UIComboBoxClass(this, Client->As_Space_Client(), InterfaceMesh.Peek(), \"filter\", 0x2B, 0x2A, 0x19, 0xC, \"Combo01\"));\n \tFilter->Unknown_5417D0(this);\n"
+    },
+    {
+      "name": "paired_ref",
+      "source_sha256": "b8f29198c5671591eabd074cf81f33cd9a1dc3f99fe6d69689fbe45839c5410d",
+      "patch": "--- a/app/client/ui_vault.cpp\n+++ b/app/client/ui_vault.cpp\n@@ -129,20 +129,20 @@\n \t}\n \tint first = ((GadgetClass *)first_bttn)->Unknown0C;\n \tfor (int i = 0; i < NUM_BUTTONS; i++) {\n-\t\tint id = i + 37;\n-\t\tRenderObjClass *robj = InterfaceMesh->Get_Sub_Object_By_Name(VaultButtonNames[i]);\n+\t\tint id = i + 37; ButtonGadgetClass *&button = Buttons3[i]; const char *&button_name = VaultButtonNames[i];\n+\t\tRenderObjClass *robj = InterfaceMesh->Get_Sub_Object_By_Name(button_name);\n \t\tUnknown_496AE0(robj, 0);\n \t\tif (id == 38) {\n-\t\t\tButtons3[i] = new ButtonGadgetClass(robj, 5, 3);\n+\t\t\tbutton = new ButtonGadgetClass(robj, 5, 3);\n \t\t} else if (id == 39) {\n-\t\t\tButtons3[i] = new ButtonGadgetClass(robj, 0x50, 3);\n+\t\t\tbutton = new ButtonGadgetClass(robj, 0x50, 3);\n \t\t} else {\n-\t\t\tButtons3[i] = new ButtonGadgetClass(robj, 0x55, 3);\n-\t\t}\n-\t\tGadgetClass::Set_Tooltip(Buttons3[i], \"UI_VAULT\", VaultButtonNames[i]);\n-\t\tButtons3[i]->Unknown_65FFA0(first);\n+\t\t\tbutton = new ButtonGadgetClass(robj, 0x55, 3);\n+\t\t}\n+\t\tGadgetClass::Set_Tooltip(button, \"UI_VAULT\", button_name);\n+\t\tbutton->Unknown_65FFA0(first);\n \t\trobj->Release_Ref();\n-\t\tUnknown64.Unknown_6870E0(Buttons3[i], id, View, 1, 0);\n+\t\tUnknown64.Unknown_6870E0(button, id, View, 1, 0);\n \t}\n \tFilter = Create_NEW(new UIComboBoxClass(this, Client->As_Space_Client(), InterfaceMesh.Peek(), \"filter\", 0x2B, 0x2A, 0x19, 0xC, \"Combo01\"));\n \tFilter->Unknown_5417D0(this);\n"
+    },
+    {
+      "name": "named_index",
+      "source_sha256": "b61cca89cfe849f8d082b0158da3605ecddc0d25a133d1efffe6cd8a0a7c0b16",
+      "patch": "--- a/app/client/ui_vault.cpp\n+++ b/app/client/ui_vault.cpp\n@@ -128,21 +128,21 @@\n \t\treturn;\n \t}\n \tint first = ((GadgetClass *)first_bttn)->Unknown0C;\n-\tfor (int i = 0; i < NUM_BUTTONS; i++) {\n-\t\tint id = i + 37;\n-\t\tRenderObjClass *robj = InterfaceMesh->Get_Sub_Object_By_Name(VaultButtonNames[i]);\n+\tfor (int id = 37; id < 37 + NUM_BUTTONS; id++) {\n+\t\tint button_index = id - 37;\n+\t\tRenderObjClass *robj = InterfaceMesh->Get_Sub_Object_By_Name(VaultButtonNames[button_index]);\n \t\tUnknown_496AE0(robj, 0);\n \t\tif (id == 38) {\n-\t\t\tButtons3[i] = new ButtonGadgetClass(robj, 5, 3);\n+\t\t\tButtons3[button_index] = new ButtonGadgetClass(robj, 5, 3);\n \t\t} else if (id == 39) {\n-\t\t\tButtons3[i] = new ButtonGadgetClass(robj, 0x50, 3);\n+\t\t\tButtons3[button_index] = new ButtonGadgetClass(robj, 0x50, 3);\n \t\t} else {\n-\t\t\tButtons3[i] = new ButtonGadgetClass(robj, 0x55, 3);\n-\t\t}\n-\t\tGadgetClass::Set_Tooltip(Buttons3[i], \"UI_VAULT\", VaultButtonNames[i]);\n-\t\tButtons3[i]->Unknown_65FFA0(first);\n+\t\t\tButtons3[button_index] = new ButtonGadgetClass(robj, 0x55, 3);\n+\t\t}\n+\t\tGadgetClass::Set_Tooltip(Buttons3[button_index], \"UI_VAULT\", VaultButtonNames[button_index]);\n+\t\tButtons3[button_index]->Unknown_65FFA0(first);\n \t\trobj->Release_Ref();\n-\t\tUnknown64.Unknown_6870E0(Buttons3[i], id, View, 1, 0);\n+\t\tUnknown64.Unknown_6870E0(Buttons3[button_index], id, View, 1, 0);\n \t}\n \tFilter = Create_NEW(new UIComboBoxClass(this, Client->As_Space_Client(), InterfaceMesh.Peek(), \"filter\", 0x2B, 0x2A, 0x19, 0xC, \"Combo01\"));\n \tFilter->Unknown_5417D0(this);\n"
+    },
+    {
+      "name": "named_index_slot_ref",
+      "source_sha256": "8e12b4b4ed8f4642a792e68d1a4d699ae2e864148838dacb2e1d15faeb87fe36",
+      "patch": "--- a/app/client/ui_vault.cpp\n+++ b/app/client/ui_vault.cpp\n@@ -128,21 +128,21 @@\n \t\treturn;\n \t}\n \tint first = ((GadgetClass *)first_bttn)->Unknown0C;\n-\tfor (int i = 0; i < NUM_BUTTONS; i++) {\n-\t\tint id = i + 37;\n-\t\tRenderObjClass *robj = InterfaceMesh->Get_Sub_Object_By_Name(VaultButtonNames[i]);\n+\tfor (int id = 37; id < 37 + NUM_BUTTONS; id++) {\n+\t\tint button_index = id - 37; ButtonGadgetClass *&button = Buttons3[button_index];\n+\t\tRenderObjClass *robj = InterfaceMesh->Get_Sub_Object_By_Name(VaultButtonNames[button_index]);\n \t\tUnknown_496AE0(robj, 0);\n \t\tif (id == 38) {\n-\t\t\tButtons3[i] = new ButtonGadgetClass(robj, 5, 3);\n+\t\t\tbutton = new ButtonGadgetClass(robj, 5, 3);\n \t\t} else if (id == 39) {\n-\t\t\tButtons3[i] = new ButtonGadgetClass(robj, 0x50, 3);\n+\t\t\tbutton = new ButtonGadgetClass(robj, 0x50, 3);\n \t\t} else {\n-\t\t\tButtons3[i] = new ButtonGadgetClass(robj, 0x55, 3);\n-\t\t}\n-\t\tGadgetClass::Set_Tooltip(Buttons3[i], \"UI_VAULT\", VaultButtonNames[i]);\n-\t\tButtons3[i]->Unknown_65FFA0(first);\n+\t\t\tbutton = new ButtonGadgetClass(robj, 0x55, 3);\n+\t\t}\n+\t\tGadgetClass::Set_Tooltip(button, \"UI_VAULT\", VaultButtonNames[button_index]);\n+\t\tbutton->Unknown_65FFA0(first);\n \t\trobj->Release_Ref();\n-\t\tUnknown64.Unknown_6870E0(Buttons3[i], id, View, 1, 0);\n+\t\tUnknown64.Unknown_6870E0(button, id, View, 1, 0);\n \t}\n \tFilter = Create_NEW(new UIComboBoxClass(this, Client->As_Space_Client(), InterfaceMesh.Peek(), \"filter\", 0x2B, 0x2A, 0x19, 0xC, \"Combo01\"));\n \tFilter->Unknown_5417D0(this);\n"
+    },
+    {
+      "name": "declared_index",
+      "source_sha256": "2a0c6113a36fb2d77c1bf2274ba26f950c16557bb69c833d64ab02c9687cb51e",
+      "patch": "--- a/app/client/ui_vault.cpp\n+++ b/app/client/ui_vault.cpp\n@@ -128,7 +128,7 @@\n \t\treturn;\n \t}\n \tint first = ((GadgetClass *)first_bttn)->Unknown0C;\n-\tfor (int i = 0; i < NUM_BUTTONS; i++) {\n+\tint i; for (i = 0; i < NUM_BUTTONS; i++) {\n \t\tint id = i + 37;\n \t\tRenderObjClass *robj = InterfaceMesh->Get_Sub_Object_By_Name(VaultButtonNames[i]);\n \t\tUnknown_496AE0(robj, 0);\n"
+    },
+    {
+      "name": "index_then_id",
+      "source_sha256": "1894eb1456698d726f5dfe735b164a7d777ebbae00a8d06d90106e8b96ccf046",
+      "patch": "--- a/app/client/ui_vault.cpp\n+++ b/app/client/ui_vault.cpp\n@@ -128,8 +128,8 @@\n \t\treturn;\n \t}\n \tint first = ((GadgetClass *)first_bttn)->Unknown0C;\n-\tfor (int i = 0; i < NUM_BUTTONS; i++) {\n-\t\tint id = i + 37;\n+\tfor (int i = 0, id = 37; i < NUM_BUTTONS; i++, id++) {\n+\n \t\tRenderObjClass *robj = InterfaceMesh->Get_Sub_Object_By_Name(VaultButtonNames[i]);\n \t\tUnknown_496AE0(robj, 0);\n \t\tif (id == 38) {\n"
+    },
+    {
+      "name": "index_then_id_slot",
+      "source_sha256": "19a8c23add83e0693c8c91aeecd36c068ddbf9c2485de0501a2801eca09c9c54",
+      "patch": "--- a/app/client/ui_vault.cpp\n+++ b/app/client/ui_vault.cpp\n@@ -128,21 +128,21 @@\n \t\treturn;\n \t}\n \tint first = ((GadgetClass *)first_bttn)->Unknown0C;\n-\tfor (int i = 0; i < NUM_BUTTONS; i++) {\n-\t\tint id = i + 37;\n-\t\tRenderObjClass *robj = InterfaceMesh->Get_Sub_Object_By_Name(VaultButtonNames[i]);\n+\tfor (int i = 0, id = 37; i < NUM_BUTTONS; i++, id++) {\n+\n+\t\tButtonGadgetClass *&button = Buttons3[i]; RenderObjClass *robj = InterfaceMesh->Get_Sub_Object_By_Name(VaultButtonNames[i]);\n \t\tUnknown_496AE0(robj, 0);\n \t\tif (id == 38) {\n-\t\t\tButtons3[i] = new ButtonGadgetClass(robj, 5, 3);\n+\t\t\tbutton = new ButtonGadgetClass(robj, 5, 3);\n \t\t} else if (id == 39) {\n-\t\t\tButtons3[i] = new ButtonGadgetClass(robj, 0x50, 3);\n+\t\t\tbutton = new ButtonGadgetClass(robj, 0x50, 3);\n \t\t} else {\n-\t\t\tButtons3[i] = new ButtonGadgetClass(robj, 0x55, 3);\n-\t\t}\n-\t\tGadgetClass::Set_Tooltip(Buttons3[i], \"UI_VAULT\", VaultButtonNames[i]);\n-\t\tButtons3[i]->Unknown_65FFA0(first);\n+\t\t\tbutton = new ButtonGadgetClass(robj, 0x55, 3);\n+\t\t}\n+\t\tGadgetClass::Set_Tooltip(button, \"UI_VAULT\", VaultButtonNames[i]);\n+\t\tbutton->Unknown_65FFA0(first);\n \t\trobj->Release_Ref();\n-\t\tUnknown64.Unknown_6870E0(Buttons3[i], id, View, 1, 0);\n+\t\tUnknown64.Unknown_6870E0(button, id, View, 1, 0);\n \t}\n \tFilter = Create_NEW(new UIComboBoxClass(this, Client->As_Space_Client(), InterfaceMesh.Peek(), \"filter\", 0x2B, 0x2A, 0x19, 0xC, \"Combo01\"));\n \tFilter->Unknown_5417D0(this);\n"
+    },
+    {
+      "name": "id_then_index",
+      "source_sha256": "92c152f8baeea798541ee44519aa4ff93b548b0415319882bb283595eb098869",
+      "patch": "--- a/app/client/ui_vault.cpp\n+++ b/app/client/ui_vault.cpp\n@@ -128,8 +128,8 @@\n \t\treturn;\n \t}\n \tint first = ((GadgetClass *)first_bttn)->Unknown0C;\n-\tfor (int i = 0; i < NUM_BUTTONS; i++) {\n-\t\tint id = i + 37;\n+\tfor (int i = 0, id = 37; i < NUM_BUTTONS; id++, i++) {\n+\n \t\tRenderObjClass *robj = InterfaceMesh->Get_Sub_Object_By_Name(VaultButtonNames[i]);\n \t\tUnknown_496AE0(robj, 0);\n \t\tif (id == 38) {\n"
+    },
+    {
+      "name": "id_then_index_slot",
+      "source_sha256": "bc46fa1f211e81be329e3f5f19177a8e88a3003fbd6eb451dad2f4188da8556b",
+      "patch": "--- a/app/client/ui_vault.cpp\n+++ b/app/client/ui_vault.cpp\n@@ -128,21 +128,21 @@\n \t\treturn;\n \t}\n \tint first = ((GadgetClass *)first_bttn)->Unknown0C;\n-\tfor (int i = 0; i < NUM_BUTTONS; i++) {\n-\t\tint id = i + 37;\n-\t\tRenderObjClass *robj = InterfaceMesh->Get_Sub_Object_By_Name(VaultButtonNames[i]);\n+\tfor (int i = 0, id = 37; i < NUM_BUTTONS; id++, i++) {\n+\n+\t\tButtonGadgetClass *&button = Buttons3[i]; RenderObjClass *robj = InterfaceMesh->Get_Sub_Object_By_Name(VaultButtonNames[i]);\n \t\tUnknown_496AE0(robj, 0);\n \t\tif (id == 38) {\n-\t\t\tButtons3[i] = new ButtonGadgetClass(robj, 5, 3);\n+\t\t\tbutton = new ButtonGadgetClass(robj, 5, 3);\n \t\t} else if (id == 39) {\n-\t\t\tButtons3[i] = new ButtonGadgetClass(robj, 0x50, 3);\n+\t\t\tbutton = new ButtonGadgetClass(robj, 0x50, 3);\n \t\t} else {\n-\t\t\tButtons3[i] = new ButtonGadgetClass(robj, 0x55, 3);\n-\t\t}\n-\t\tGadgetClass::Set_Tooltip(Buttons3[i], \"UI_VAULT\", VaultButtonNames[i]);\n-\t\tButtons3[i]->Unknown_65FFA0(first);\n+\t\t\tbutton = new ButtonGadgetClass(robj, 0x55, 3);\n+\t\t}\n+\t\tGadgetClass::Set_Tooltip(button, \"UI_VAULT\", VaultButtonNames[i]);\n+\t\tbutton->Unknown_65FFA0(first);\n \t\trobj->Release_Ref();\n-\t\tUnknown64.Unknown_6870E0(Buttons3[i], id, View, 1, 0);\n+\t\tUnknown64.Unknown_6870E0(button, id, View, 1, 0);\n \t}\n \tFilter = Create_NEW(new UIComboBoxClass(this, Client->As_Space_Client(), InterfaceMesh.Peek(), \"filter\", 0x2B, 0x2A, 0x19, 0xC, \"Combo01\"));\n \tFilter->Unknown_5417D0(this);\n"
+    },
+    {
+      "name": "while_index",
+      "source_sha256": "779be8342a5c1953db227d84cc75285f312fffc7ee9510b4d55e337581d58447",
+      "patch": "--- a/app/client/ui_vault.cpp\n+++ b/app/client/ui_vault.cpp\n@@ -128,8 +128,7 @@\n \t\treturn;\n \t}\n \tint first = ((GadgetClass *)first_bttn)->Unknown0C;\n-\tfor (int i = 0; i < NUM_BUTTONS; i++) {\n-\t\tint id = i + 37;\n+\tint i = 0; while (i < NUM_BUTTONS) { int id = i + 37;\n \t\tRenderObjClass *robj = InterfaceMesh->Get_Sub_Object_By_Name(VaultButtonNames[i]);\n \t\tUnknown_496AE0(robj, 0);\n \t\tif (id == 38) {\n@@ -143,6 +142,7 @@\n \t\tButtons3[i]->Unknown_65FFA0(first);\n \t\trobj->Release_Ref();\n \t\tUnknown64.Unknown_6870E0(Buttons3[i], id, View, 1, 0);\n+\t++i;\n \t}\n \tFilter = Create_NEW(new UIComboBoxClass(this, Client->As_Space_Client(), InterfaceMesh.Peek(), \"filter\", 0x2B, 0x2A, 0x19, 0xC, \"Combo01\"));\n \tFilter->Unknown_5417D0(this);\n"
+    },
+    {
+      "name": "button_then_index",
+      "source_sha256": "6698ba0facb75d70ddcee51db4d79cc6e002ece9a51ea77975499f17790d2f2f",
+      "patch": "--- a/app/client/ui_vault.cpp\n+++ b/app/client/ui_vault.cpp\n@@ -128,21 +128,21 @@\n \t\treturn;\n \t}\n \tint first = ((GadgetClass *)first_bttn)->Unknown0C;\n-\tfor (int i = 0; i < NUM_BUTTONS; i++) {\n+\tButtonGadgetClass **button = Buttons3; for (int i = 0; i < NUM_BUTTONS; ++button, ++i) {\n \t\tint id = i + 37;\n \t\tRenderObjClass *robj = InterfaceMesh->Get_Sub_Object_By_Name(VaultButtonNames[i]);\n \t\tUnknown_496AE0(robj, 0);\n \t\tif (id == 38) {\n-\t\t\tButtons3[i] = new ButtonGadgetClass(robj, 5, 3);\n+\t\t\t(*button) = new ButtonGadgetClass(robj, 5, 3);\n \t\t} else if (id == 39) {\n-\t\t\tButtons3[i] = new ButtonGadgetClass(robj, 0x50, 3);\n+\t\t\t(*button) = new ButtonGadgetClass(robj, 0x50, 3);\n \t\t} else {\n-\t\t\tButtons3[i] = new ButtonGadgetClass(robj, 0x55, 3);\n-\t\t}\n-\t\tGadgetClass::Set_Tooltip(Buttons3[i], \"UI_VAULT\", VaultButtonNames[i]);\n-\t\tButtons3[i]->Unknown_65FFA0(first);\n+\t\t\t(*button) = new ButtonGadgetClass(robj, 0x55, 3);\n+\t\t}\n+\t\tGadgetClass::Set_Tooltip((*button), \"UI_VAULT\", VaultButtonNames[i]);\n+\t\t(*button)->Unknown_65FFA0(first);\n \t\trobj->Release_Ref();\n-\t\tUnknown64.Unknown_6870E0(Buttons3[i], id, View, 1, 0);\n+\t\tUnknown64.Unknown_6870E0((*button), id, View, 1, 0);\n \t}\n \tFilter = Create_NEW(new UIComboBoxClass(this, Client->As_Space_Client(), InterfaceMesh.Peek(), \"filter\", 0x2B, 0x2A, 0x19, 0xC, \"Combo01\"));\n \tFilter->Unknown_5417D0(this);\n"
+    },
+    {
+      "name": "button_after_index",
+      "source_sha256": "bdaf9d45853ffa6fbceefa27ff9a862d1748a8b7f70567ec0aabd6b2e202fde7",
+      "patch": "--- a/app/client/ui_vault.cpp\n+++ b/app/client/ui_vault.cpp\n@@ -128,21 +128,21 @@\n \t\treturn;\n \t}\n \tint first = ((GadgetClass *)first_bttn)->Unknown0C;\n-\tfor (int i = 0; i < NUM_BUTTONS; i++) {\n+\tButtonGadgetClass **button = Buttons3; for (int i = 0; i < NUM_BUTTONS; ++i, ++button) {\n \t\tint id = i + 37;\n \t\tRenderObjClass *robj = InterfaceMesh->Get_Sub_Object_By_Name(VaultButtonNames[i]);\n \t\tUnknown_496AE0(robj, 0);\n \t\tif (id == 38) {\n-\t\t\tButtons3[i] = new ButtonGadgetClass(robj, 5, 3);\n+\t\t\t(*button) = new ButtonGadgetClass(robj, 5, 3);\n \t\t} else if (id == 39) {\n-\t\t\tButtons3[i] = new ButtonGadgetClass(robj, 0x50, 3);\n+\t\t\t(*button) = new ButtonGadgetClass(robj, 0x50, 3);\n \t\t} else {\n-\t\t\tButtons3[i] = new ButtonGadgetClass(robj, 0x55, 3);\n-\t\t}\n-\t\tGadgetClass::Set_Tooltip(Buttons3[i], \"UI_VAULT\", VaultButtonNames[i]);\n-\t\tButtons3[i]->Unknown_65FFA0(first);\n+\t\t\t(*button) = new ButtonGadgetClass(robj, 0x55, 3);\n+\t\t}\n+\t\tGadgetClass::Set_Tooltip((*button), \"UI_VAULT\", VaultButtonNames[i]);\n+\t\t(*button)->Unknown_65FFA0(first);\n \t\trobj->Release_Ref();\n-\t\tUnknown64.Unknown_6870E0(Buttons3[i], id, View, 1, 0);\n+\t\tUnknown64.Unknown_6870E0((*button), id, View, 1, 0);\n \t}\n \tFilter = Create_NEW(new UIComboBoxClass(this, Client->As_Space_Client(), InterfaceMesh.Peek(), \"filter\", 0x2B, 0x2A, 0x19, 0xC, \"Combo01\"));\n \tFilter->Unknown_5417D0(this);\n"
+    },
+    {
+      "name": "name_then_index",
+      "source_sha256": "16b52deb3d13a665694102f0f017724b63acd50d9a4046d212f750a04b85c703",
+      "patch": "--- a/app/client/ui_vault.cpp\n+++ b/app/client/ui_vault.cpp\n@@ -128,9 +128,9 @@\n \t\treturn;\n \t}\n \tint first = ((GadgetClass *)first_bttn)->Unknown0C;\n-\tfor (int i = 0; i < NUM_BUTTONS; i++) {\n+\tconst char **name = VaultButtonNames; for (int i = 0; i < NUM_BUTTONS; ++name, ++i) {\n \t\tint id = i + 37;\n-\t\tRenderObjClass *robj = InterfaceMesh->Get_Sub_Object_By_Name(VaultButtonNames[i]);\n+\t\tRenderObjClass *robj = InterfaceMesh->Get_Sub_Object_By_Name((*name));\n \t\tUnknown_496AE0(robj, 0);\n \t\tif (id == 38) {\n \t\t\tButtons3[i] = new ButtonGadgetClass(robj, 5, 3);\n@@ -139,7 +139,7 @@\n \t\t} else {\n \t\t\tButtons3[i] = new ButtonGadgetClass(robj, 0x55, 3);\n \t\t}\n-\t\tGadgetClass::Set_Tooltip(Buttons3[i], \"UI_VAULT\", VaultButtonNames[i]);\n+\t\tGadgetClass::Set_Tooltip(Buttons3[i], \"UI_VAULT\", (*name));\n \t\tButtons3[i]->Unknown_65FFA0(first);\n \t\trobj->Release_Ref();\n \t\tUnknown64.Unknown_6870E0(Buttons3[i], id, View, 1, 0);\n"
+    },
+    {
+      "name": "name_after_index",
+      "source_sha256": "52d26242d6f29370f681d129cc84a9a2e85636ee60c92b2de49a87146330d9c5",
+      "patch": "--- a/app/client/ui_vault.cpp\n+++ b/app/client/ui_vault.cpp\n@@ -128,9 +128,9 @@\n \t\treturn;\n \t}\n \tint first = ((GadgetClass *)first_bttn)->Unknown0C;\n-\tfor (int i = 0; i < NUM_BUTTONS; i++) {\n+\tconst char **name = VaultButtonNames; for (int i = 0; i < NUM_BUTTONS; ++i, ++name) {\n \t\tint id = i + 37;\n-\t\tRenderObjClass *robj = InterfaceMesh->Get_Sub_Object_By_Name(VaultButtonNames[i]);\n+\t\tRenderObjClass *robj = InterfaceMesh->Get_Sub_Object_By_Name((*name));\n \t\tUnknown_496AE0(robj, 0);\n \t\tif (id == 38) {\n \t\t\tButtons3[i] = new ButtonGadgetClass(robj, 5, 3);\n@@ -139,7 +139,7 @@\n \t\t} else {\n \t\t\tButtons3[i] = new ButtonGadgetClass(robj, 0x55, 3);\n \t\t}\n-\t\tGadgetClass::Set_Tooltip(Buttons3[i], \"UI_VAULT\", VaultButtonNames[i]);\n+\t\tGadgetClass::Set_Tooltip(Buttons3[i], \"UI_VAULT\", (*name));\n \t\tButtons3[i]->Unknown_65FFA0(first);\n \t\trobj->Release_Ref();\n \t\tUnknown64.Unknown_6870E0(Buttons3[i], id, View, 1, 0);\n"
+    },
+    {
+      "name": "while_slot_fixed",
+      "source_sha256": "4dff69fe39ca6b695526a68328b854d350222b602dad34d28014f3123b7df316",
+      "patch": "--- a/app/client/ui_vault.cpp\n+++ b/app/client/ui_vault.cpp\n@@ -128,21 +128,21 @@\n \t\treturn;\n \t}\n \tint first = ((GadgetClass *)first_bttn)->Unknown0C;\n-\tfor (int i = 0; i < NUM_BUTTONS; i++) {\n-\t\tint id = i + 37;\n+\tint i = 0; while (i < NUM_BUTTONS) { int id = i + 37; ButtonGadgetClass *&button = Buttons3[i];\n \t\tRenderObjClass *robj = InterfaceMesh->Get_Sub_Object_By_Name(VaultButtonNames[i]);\n \t\tUnknown_496AE0(robj, 0);\n \t\tif (id == 38) {\n-\t\t\tButtons3[i] = new ButtonGadgetClass(robj, 5, 3);\n+\t\t\tbutton = new ButtonGadgetClass(robj, 5, 3);\n \t\t} else if (id == 39) {\n-\t\t\tButtons3[i] = new ButtonGadgetClass(robj, 0x50, 3);\n+\t\t\tbutton = new ButtonGadgetClass(robj, 0x50, 3);\n \t\t} else {\n-\t\t\tButtons3[i] = new ButtonGadgetClass(robj, 0x55, 3);\n-\t\t}\n-\t\tGadgetClass::Set_Tooltip(Buttons3[i], \"UI_VAULT\", VaultButtonNames[i]);\n-\t\tButtons3[i]->Unknown_65FFA0(first);\n+\t\t\tbutton = new ButtonGadgetClass(robj, 0x55, 3);\n+\t\t}\n+\t\tGadgetClass::Set_Tooltip(button, \"UI_VAULT\", VaultButtonNames[i]);\n+\t\tbutton->Unknown_65FFA0(first);\n \t\trobj->Release_Ref();\n-\t\tUnknown64.Unknown_6870E0(Buttons3[i], id, View, 1, 0);\n+\t\tUnknown64.Unknown_6870E0(button, id, View, 1, 0);\n+\t++i;\n \t}\n \tFilter = Create_NEW(new UIComboBoxClass(this, Client->As_Space_Client(), InterfaceMesh.Peek(), \"filter\", 0x2B, 0x2A, 0x19, 0xC, \"Combo01\"));\n \tFilter->Unknown_5417D0(this);\n"
+    },
+    {
+      "name": "index_before_name",
+      "source_sha256": "b28381a2d9b11115bf0cb298a7ea94c6a8e1a3f9cad41334a95d7480407f4445",
+      "patch": "--- a/app/client/ui_vault.cpp\n+++ b/app/client/ui_vault.cpp\n@@ -128,9 +128,9 @@\n \t\treturn;\n \t}\n \tint first = ((GadgetClass *)first_bttn)->Unknown0C;\n-\tfor (int i = 0; i < NUM_BUTTONS; i++) {\n+\tint i = 0; const char **name = VaultButtonNames; for (; i < NUM_BUTTONS; ++name, ++i) {\n \t\tint id = i + 37;\n-\t\tRenderObjClass *robj = InterfaceMesh->Get_Sub_Object_By_Name(VaultButtonNames[i]);\n+\t\tRenderObjClass *robj = InterfaceMesh->Get_Sub_Object_By_Name((*name));\n \t\tUnknown_496AE0(robj, 0);\n \t\tif (id == 38) {\n \t\t\tButtons3[i] = new ButtonGadgetClass(robj, 5, 3);\n@@ -139,7 +139,7 @@\n \t\t} else {\n \t\t\tButtons3[i] = new ButtonGadgetClass(robj, 0x55, 3);\n \t\t}\n-\t\tGadgetClass::Set_Tooltip(Buttons3[i], \"UI_VAULT\", VaultButtonNames[i]);\n+\t\tGadgetClass::Set_Tooltip(Buttons3[i], \"UI_VAULT\", (*name));\n \t\tButtons3[i]->Unknown_65FFA0(first);\n \t\trobj->Release_Ref();\n \t\tUnknown64.Unknown_6870E0(Buttons3[i], id, View, 1, 0);\n"
+    },
+    {
+      "name": "name_for_init",
+      "source_sha256": "f769b8b5f148401f8458a946181985a5a8555c8a74f57a0891ff5dd60136b6a2",
+      "patch": "--- a/app/client/ui_vault.cpp\n+++ b/app/client/ui_vault.cpp\n@@ -128,9 +128,9 @@\n \t\treturn;\n \t}\n \tint first = ((GadgetClass *)first_bttn)->Unknown0C;\n-\tfor (int i = 0; i < NUM_BUTTONS; i++) {\n+\tint i = 0; for (const char **name = VaultButtonNames; i < NUM_BUTTONS; ++name, ++i) {\n \t\tint id = i + 37;\n-\t\tRenderObjClass *robj = InterfaceMesh->Get_Sub_Object_By_Name(VaultButtonNames[i]);\n+\t\tRenderObjClass *robj = InterfaceMesh->Get_Sub_Object_By_Name((*name));\n \t\tUnknown_496AE0(robj, 0);\n \t\tif (id == 38) {\n \t\t\tButtons3[i] = new ButtonGadgetClass(robj, 5, 3);\n@@ -139,7 +139,7 @@\n \t\t} else {\n \t\t\tButtons3[i] = new ButtonGadgetClass(robj, 0x55, 3);\n \t\t}\n-\t\tGadgetClass::Set_Tooltip(Buttons3[i], \"UI_VAULT\", VaultButtonNames[i]);\n+\t\tGadgetClass::Set_Tooltip(Buttons3[i], \"UI_VAULT\", (*name));\n \t\tButtons3[i]->Unknown_65FFA0(first);\n \t\trobj->Release_Ref();\n \t\tUnknown64.Unknown_6870E0(Buttons3[i], id, View, 1, 0);\n"
+    },
+    {
+      "name": "combined_init",
+      "source_sha256": "177a7fe8ce24b610674ec4f7b5efe77953f21aaf0c64bf61c3f780ec0a7437e8",
+      "patch": "--- a/app/client/ui_vault.cpp\n+++ b/app/client/ui_vault.cpp\n@@ -128,9 +128,9 @@\n \t\treturn;\n \t}\n \tint first = ((GadgetClass *)first_bttn)->Unknown0C;\n-\tfor (int i = 0; i < NUM_BUTTONS; i++) {\n+\tint i; const char **name; for (i = 0, name = VaultButtonNames; i < NUM_BUTTONS; ++name, ++i) {\n \t\tint id = i + 37;\n-\t\tRenderObjClass *robj = InterfaceMesh->Get_Sub_Object_By_Name(VaultButtonNames[i]);\n+\t\tRenderObjClass *robj = InterfaceMesh->Get_Sub_Object_By_Name((*name));\n \t\tUnknown_496AE0(robj, 0);\n \t\tif (id == 38) {\n \t\t\tButtons3[i] = new ButtonGadgetClass(robj, 5, 3);\n@@ -139,7 +139,7 @@\n \t\t} else {\n \t\t\tButtons3[i] = new ButtonGadgetClass(robj, 0x55, 3);\n \t\t}\n-\t\tGadgetClass::Set_Tooltip(Buttons3[i], \"UI_VAULT\", VaultButtonNames[i]);\n+\t\tGadgetClass::Set_Tooltip(Buttons3[i], \"UI_VAULT\", (*name));\n \t\tButtons3[i]->Unknown_65FFA0(first);\n \t\trobj->Release_Ref();\n \t\tUnknown64.Unknown_6870E0(Buttons3[i], id, View, 1, 0);\n"
+    },
+    {
+      "name": "cursor_id_index_condition",
+      "source_sha256": "fa4af85fcbc46c060f4a5d2b5b45419a2bbfd4c1254113e6444ae63289ccbcb4",
+      "patch": "--- a/app/client/ui_vault.cpp\n+++ b/app/client/ui_vault.cpp\n@@ -128,9 +128,9 @@\n \t\treturn;\n \t}\n \tint first = ((GadgetClass *)first_bttn)->Unknown0C;\n-\tfor (int i = 0; i < NUM_BUTTONS; i++) {\n-\t\tint id = i + 37;\n-\t\tRenderObjClass *robj = InterfaceMesh->Get_Sub_Object_By_Name(VaultButtonNames[i]);\n+\tconst char **name = VaultButtonNames; for (int id = 37; id - 37 < NUM_BUTTONS; ++name, ++id) {\n+\t\tint i = id - 37;\n+\t\tRenderObjClass *robj = InterfaceMesh->Get_Sub_Object_By_Name((*name));\n \t\tUnknown_496AE0(robj, 0);\n \t\tif (id == 38) {\n \t\t\tButtons3[i] = new ButtonGadgetClass(robj, 5, 3);\n@@ -139,7 +139,7 @@\n \t\t} else {\n \t\t\tButtons3[i] = new ButtonGadgetClass(robj, 0x55, 3);\n \t\t}\n-\t\tGadgetClass::Set_Tooltip(Buttons3[i], \"UI_VAULT\", VaultButtonNames[i]);\n+\t\tGadgetClass::Set_Tooltip(Buttons3[i], \"UI_VAULT\", (*name));\n \t\tButtons3[i]->Unknown_65FFA0(first);\n \t\trobj->Release_Ref();\n \t\tUnknown64.Unknown_6870E0(Buttons3[i], id, View, 1, 0);\n"
+    },
+    {
+      "name": "cursor_id_first",
+      "source_sha256": "a0d5933b9988b46c0c4b8a17277f80c76c36ee1c30adbe7a185de511831d17c4",
+      "patch": "--- a/app/client/ui_vault.cpp\n+++ b/app/client/ui_vault.cpp\n@@ -128,9 +128,9 @@\n \t\treturn;\n \t}\n \tint first = ((GadgetClass *)first_bttn)->Unknown0C;\n-\tfor (int i = 0; i < NUM_BUTTONS; i++) {\n-\t\tint id = i + 37;\n-\t\tRenderObjClass *robj = InterfaceMesh->Get_Sub_Object_By_Name(VaultButtonNames[i]);\n+\tint id = 37; const char **name = VaultButtonNames; for (; id - 37 < NUM_BUTTONS; ++name, ++id) {\n+\t\tint i = id - 37;\n+\t\tRenderObjClass *robj = InterfaceMesh->Get_Sub_Object_By_Name((*name));\n \t\tUnknown_496AE0(robj, 0);\n \t\tif (id == 38) {\n \t\t\tButtons3[i] = new ButtonGadgetClass(robj, 5, 3);\n@@ -139,7 +139,7 @@\n \t\t} else {\n \t\t\tButtons3[i] = new ButtonGadgetClass(robj, 0x55, 3);\n \t\t}\n-\t\tGadgetClass::Set_Tooltip(Buttons3[i], \"UI_VAULT\", VaultButtonNames[i]);\n+\t\tGadgetClass::Set_Tooltip(Buttons3[i], \"UI_VAULT\", (*name));\n \t\tButtons3[i]->Unknown_65FFA0(first);\n \t\trobj->Release_Ref();\n \t\tUnknown64.Unknown_6870E0(Buttons3[i], id, View, 1, 0);\n"
+    },
+    {
+      "name": "cursor_index_external_id",
+      "source_sha256": "076f87067fa84415976760a4c74036871c9d1b050e77cfeb4acf63ec990a417c",
+      "patch": "--- a/app/client/ui_vault.cpp\n+++ b/app/client/ui_vault.cpp\n@@ -128,9 +128,9 @@\n \t\treturn;\n \t}\n \tint first = ((GadgetClass *)first_bttn)->Unknown0C;\n-\tfor (int i = 0; i < NUM_BUTTONS; i++) {\n-\t\tint id = i + 37;\n-\t\tRenderObjClass *robj = InterfaceMesh->Get_Sub_Object_By_Name(VaultButtonNames[i]);\n+\tint id; const char **name = VaultButtonNames; for (int i = 0; i < NUM_BUTTONS; ++name, ++i) {\n+\t\tid = i + 37;\n+\t\tRenderObjClass *robj = InterfaceMesh->Get_Sub_Object_By_Name((*name));\n \t\tUnknown_496AE0(robj, 0);\n \t\tif (id == 38) {\n \t\t\tButtons3[i] = new ButtonGadgetClass(robj, 5, 3);\n@@ -139,7 +139,7 @@\n \t\t} else {\n \t\t\tButtons3[i] = new ButtonGadgetClass(robj, 0x55, 3);\n \t\t}\n-\t\tGadgetClass::Set_Tooltip(Buttons3[i], \"UI_VAULT\", VaultButtonNames[i]);\n+\t\tGadgetClass::Set_Tooltip(Buttons3[i], \"UI_VAULT\", (*name));\n \t\tButtons3[i]->Unknown_65FFA0(first);\n \t\trobj->Release_Ref();\n \t\tUnknown64.Unknown_6870E0(Buttons3[i], id, View, 1, 0);\n"
+    },
+    {
+      "name": "cursor_slot_ref_valid",
+      "source_sha256": "781bc8eb9a54bf221f9a167ad37514d2643f1f7977cd0f08f395d1126aa3717c",
+      "patch": "--- a/app/client/ui_vault.cpp\n+++ b/app/client/ui_vault.cpp\n@@ -128,21 +128,21 @@\n \t\treturn;\n \t}\n \tint first = ((GadgetClass *)first_bttn)->Unknown0C;\n-\tfor (int i = 0; i < NUM_BUTTONS; i++) {\n-\t\tint id = i + 37;\n-\t\tRenderObjClass *robj = InterfaceMesh->Get_Sub_Object_By_Name(VaultButtonNames[i]);\n+\tconst char **name = VaultButtonNames; for (int i = 0; i < NUM_BUTTONS; ++name, ++i) {\n+\t\tint id = i + 37; ButtonGadgetClass *&button = Buttons3[i];\n+\t\tRenderObjClass *robj = InterfaceMesh->Get_Sub_Object_By_Name((*name));\n \t\tUnknown_496AE0(robj, 0);\n \t\tif (id == 38) {\n-\t\t\tButtons3[i] = new ButtonGadgetClass(robj, 5, 3);\n+\t\t\tbutton = new ButtonGadgetClass(robj, 5, 3);\n \t\t} else if (id == 39) {\n-\t\t\tButtons3[i] = new ButtonGadgetClass(robj, 0x50, 3);\n+\t\t\tbutton = new ButtonGadgetClass(robj, 0x50, 3);\n \t\t} else {\n-\t\t\tButtons3[i] = new ButtonGadgetClass(robj, 0x55, 3);\n-\t\t}\n-\t\tGadgetClass::Set_Tooltip(Buttons3[i], \"UI_VAULT\", VaultButtonNames[i]);\n-\t\tButtons3[i]->Unknown_65FFA0(first);\n+\t\t\tbutton = new ButtonGadgetClass(robj, 0x55, 3);\n+\t\t}\n+\t\tGadgetClass::Set_Tooltip(button, \"UI_VAULT\", (*name));\n+\t\tbutton->Unknown_65FFA0(first);\n \t\trobj->Release_Ref();\n-\t\tUnknown64.Unknown_6870E0(Buttons3[i], id, View, 1, 0);\n+\t\tUnknown64.Unknown_6870E0(button, id, View, 1, 0);\n \t}\n \tFilter = Create_NEW(new UIComboBoxClass(this, Client->As_Space_Client(), InterfaceMesh.Peek(), \"filter\", 0x2B, 0x2A, 0x19, 0xC, \"Combo01\"));\n \tFilter->Unknown_5417D0(this);\n"
+    },
+    {
+      "name": "cursor_id_index_condition_slot_valid",
+      "source_sha256": "cfaa039bc8eace40ed1a31e02e4328dde2b1bf68fdcde9d60cbe3cdfceb91252",
+      "patch": "--- a/app/client/ui_vault.cpp\n+++ b/app/client/ui_vault.cpp\n@@ -128,21 +128,21 @@\n \t\treturn;\n \t}\n \tint first = ((GadgetClass *)first_bttn)->Unknown0C;\n-\tfor (int i = 0; i < NUM_BUTTONS; i++) {\n-\t\tint id = i + 37;\n-\t\tRenderObjClass *robj = InterfaceMesh->Get_Sub_Object_By_Name(VaultButtonNames[i]);\n+\tconst char **name = VaultButtonNames; for (int id = 37; id - 37 < NUM_BUTTONS; ++name, ++id) {\n+\t\tint i = id - 37; ButtonGadgetClass *&button = Buttons3[i];\n+\t\tRenderObjClass *robj = InterfaceMesh->Get_Sub_Object_By_Name((*name));\n \t\tUnknown_496AE0(robj, 0);\n \t\tif (id == 38) {\n-\t\t\tButtons3[i] = new ButtonGadgetClass(robj, 5, 3);\n+\t\t\tbutton = new ButtonGadgetClass(robj, 5, 3);\n \t\t} else if (id == 39) {\n-\t\t\tButtons3[i] = new ButtonGadgetClass(robj, 0x50, 3);\n+\t\t\tbutton = new ButtonGadgetClass(robj, 0x50, 3);\n \t\t} else {\n-\t\t\tButtons3[i] = new ButtonGadgetClass(robj, 0x55, 3);\n-\t\t}\n-\t\tGadgetClass::Set_Tooltip(Buttons3[i], \"UI_VAULT\", VaultButtonNames[i]);\n-\t\tButtons3[i]->Unknown_65FFA0(first);\n+\t\t\tbutton = new ButtonGadgetClass(robj, 0x55, 3);\n+\t\t}\n+\t\tGadgetClass::Set_Tooltip(button, \"UI_VAULT\", (*name));\n+\t\tbutton->Unknown_65FFA0(first);\n \t\trobj->Release_Ref();\n-\t\tUnknown64.Unknown_6870E0(Buttons3[i], id, View, 1, 0);\n+\t\tUnknown64.Unknown_6870E0(button, id, View, 1, 0);\n \t}\n \tFilter = Create_NEW(new UIComboBoxClass(this, Client->As_Space_Client(), InterfaceMesh.Peek(), \"filter\", 0x2B, 0x2A, 0x19, 0xC, \"Combo01\"));\n \tFilter->Unknown_5417D0(this);\n"
+    },
+    {
+      "name": "cursor_id_first_slot_valid",
+      "source_sha256": "333d6e9f6b5f0d003f5365f575491e9998e0719bb6b7904d1e3fc9b123147ea2",
+      "patch": "--- a/app/client/ui_vault.cpp\n+++ b/app/client/ui_vault.cpp\n@@ -128,21 +128,21 @@\n \t\treturn;\n \t}\n \tint first = ((GadgetClass *)first_bttn)->Unknown0C;\n-\tfor (int i = 0; i < NUM_BUTTONS; i++) {\n-\t\tint id = i + 37;\n-\t\tRenderObjClass *robj = InterfaceMesh->Get_Sub_Object_By_Name(VaultButtonNames[i]);\n+\tint id = 37; const char **name = VaultButtonNames; for (; id - 37 < NUM_BUTTONS; ++name, ++id) {\n+\t\tint i = id - 37; ButtonGadgetClass *&button = Buttons3[i];\n+\t\tRenderObjClass *robj = InterfaceMesh->Get_Sub_Object_By_Name((*name));\n \t\tUnknown_496AE0(robj, 0);\n \t\tif (id == 38) {\n-\t\t\tButtons3[i] = new ButtonGadgetClass(robj, 5, 3);\n+\t\t\tbutton = new ButtonGadgetClass(robj, 5, 3);\n \t\t} else if (id == 39) {\n-\t\t\tButtons3[i] = new ButtonGadgetClass(robj, 0x50, 3);\n+\t\t\tbutton = new ButtonGadgetClass(robj, 0x50, 3);\n \t\t} else {\n-\t\t\tButtons3[i] = new ButtonGadgetClass(robj, 0x55, 3);\n-\t\t}\n-\t\tGadgetClass::Set_Tooltip(Buttons3[i], \"UI_VAULT\", VaultButtonNames[i]);\n-\t\tButtons3[i]->Unknown_65FFA0(first);\n+\t\t\tbutton = new ButtonGadgetClass(robj, 0x55, 3);\n+\t\t}\n+\t\tGadgetClass::Set_Tooltip(button, \"UI_VAULT\", (*name));\n+\t\tbutton->Unknown_65FFA0(first);\n \t\trobj->Release_Ref();\n-\t\tUnknown64.Unknown_6870E0(Buttons3[i], id, View, 1, 0);\n+\t\tUnknown64.Unknown_6870E0(button, id, View, 1, 0);\n \t}\n \tFilter = Create_NEW(new UIComboBoxClass(this, Client->As_Space_Client(), InterfaceMesh.Peek(), \"filter\", 0x2B, 0x2A, 0x19, 0xC, \"Combo01\"));\n \tFilter->Unknown_5417D0(this);\n"
+    },
+    {
+      "name": "cursor_const_elements_valid",
+      "source_sha256": "16c58e7e9f6f6e01d9552a9f7b9f59eb315afa81bee2039eeaa0ecf86bacae33",
+      "patch": "--- a/app/client/ui_vault.cpp\n+++ b/app/client/ui_vault.cpp\n@@ -128,9 +128,9 @@\n \t\treturn;\n \t}\n \tint first = ((GadgetClass *)first_bttn)->Unknown0C;\n-\tfor (int i = 0; i < NUM_BUTTONS; i++) {\n+\tconst char * const *name = VaultButtonNames; for (int i = 0; i < NUM_BUTTONS; ++name, ++i) {\n \t\tint id = i + 37;\n-\t\tRenderObjClass *robj = InterfaceMesh->Get_Sub_Object_By_Name(VaultButtonNames[i]);\n+\t\tRenderObjClass *robj = InterfaceMesh->Get_Sub_Object_By_Name((*name));\n \t\tUnknown_496AE0(robj, 0);\n \t\tif (id == 38) {\n \t\t\tButtons3[i] = new ButtonGadgetClass(robj, 5, 3);\n@@ -139,7 +139,7 @@\n \t\t} else {\n \t\t\tButtons3[i] = new ButtonGadgetClass(robj, 0x55, 3);\n \t\t}\n-\t\tGadgetClass::Set_Tooltip(Buttons3[i], \"UI_VAULT\", VaultButtonNames[i]);\n+\t\tGadgetClass::Set_Tooltip(Buttons3[i], \"UI_VAULT\", (*name));\n \t\tButtons3[i]->Unknown_65FFA0(first);\n \t\trobj->Release_Ref();\n \t\tUnknown64.Unknown_6870E0(Buttons3[i], id, View, 1, 0);\n"
+    },
+    {
+      "name": "cursor_name_reference_valid",
+      "source_sha256": "15d6e334a3b412073002362ec08b84f1944e4a4f5390ca1b841e11af9effacf7",
+      "patch": "--- a/app/client/ui_vault.cpp\n+++ b/app/client/ui_vault.cpp\n@@ -128,9 +128,9 @@\n \t\treturn;\n \t}\n \tint first = ((GadgetClass *)first_bttn)->Unknown0C;\n-\tfor (int i = 0; i < NUM_BUTTONS; i++) {\n-\t\tint id = i + 37;\n-\t\tRenderObjClass *robj = InterfaceMesh->Get_Sub_Object_By_Name(VaultButtonNames[i]);\n+\tconst char **name = VaultButtonNames; for (int i = 0; i < NUM_BUTTONS; ++name, ++i) {\n+\t\tint id = i + 37; const char *&button_name = *name;\n+\t\tRenderObjClass *robj = InterfaceMesh->Get_Sub_Object_By_Name(button_name);\n \t\tUnknown_496AE0(robj, 0);\n \t\tif (id == 38) {\n \t\t\tButtons3[i] = new ButtonGadgetClass(robj, 5, 3);\n@@ -139,7 +139,7 @@\n \t\t} else {\n \t\t\tButtons3[i] = new ButtonGadgetClass(robj, 0x55, 3);\n \t\t}\n-\t\tGadgetClass::Set_Tooltip(Buttons3[i], \"UI_VAULT\", VaultButtonNames[i]);\n+\t\tGadgetClass::Set_Tooltip(Buttons3[i], \"UI_VAULT\", button_name);\n \t\tButtons3[i]->Unknown_65FFA0(first);\n \t\trobj->Release_Ref();\n \t\tUnknown64.Unknown_6870E0(Buttons3[i], id, View, 1, 0);\n"
+    },
+    {
+      "name": "cursor_const_name_reference_valid",
+      "source_sha256": "40ed958bd8cb0d737bab9ba3bf7c63cba7046a298f0517edcdb5ae73a336d052",
+      "patch": "--- a/app/client/ui_vault.cpp\n+++ b/app/client/ui_vault.cpp\n@@ -128,9 +128,9 @@\n \t\treturn;\n \t}\n \tint first = ((GadgetClass *)first_bttn)->Unknown0C;\n-\tfor (int i = 0; i < NUM_BUTTONS; i++) {\n-\t\tint id = i + 37;\n-\t\tRenderObjClass *robj = InterfaceMesh->Get_Sub_Object_By_Name(VaultButtonNames[i]);\n+\tconst char **name = VaultButtonNames; for (int i = 0; i < NUM_BUTTONS; ++name, ++i) {\n+\t\tint id = i + 37; const char * const &button_name = *name;\n+\t\tRenderObjClass *robj = InterfaceMesh->Get_Sub_Object_By_Name(button_name);\n \t\tUnknown_496AE0(robj, 0);\n \t\tif (id == 38) {\n \t\t\tButtons3[i] = new ButtonGadgetClass(robj, 5, 3);\n@@ -139,7 +139,7 @@\n \t\t} else {\n \t\t\tButtons3[i] = new ButtonGadgetClass(robj, 0x55, 3);\n \t\t}\n-\t\tGadgetClass::Set_Tooltip(Buttons3[i], \"UI_VAULT\", VaultButtonNames[i]);\n+\t\tGadgetClass::Set_Tooltip(Buttons3[i], \"UI_VAULT\", button_name);\n \t\tButtons3[i]->Unknown_65FFA0(first);\n \t\trobj->Release_Ref();\n \t\tUnknown64.Unknown_6870E0(Buttons3[i], id, View, 1, 0);\n"
+    }
+  ],
+  "controls": [
+    {
+      "name": "baseline",
+      "source_sha256": "9d473e52b2b4836c7e0c92f8b97c81680849470620d17c7c5ea049889b9ba922"
+    }
+  ],
+  "invalid_note": "One truncated while-slot source, three broad replacements reaching the constructor, then six offset-sliced bodies failed compilation. Excluded completely. Final generator uses per-source signature/next-function markers, balanced braces, prefix/suffix comparison, total line and physical assertion guards.",
+  "invalid_names": [
+    "while_slot",
+    "cursor_slot_ref",
+    "cursor_id_index_condition_slot",
+    "cursor_id_first_slot",
+    "cursor_slot_ref_fixed",
+    "cursor_id_index_condition_slot_fixed",
+    "cursor_id_first_slot_fixed",
+    "cursor_const_elements",
+    "cursor_name_reference",
+    "cursor_const_name_reference"
+  ]
+}

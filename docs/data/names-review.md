@@ -19358,15 +19358,16 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_652FF0` | `app/client/ui_trade.cpp:270` | untagged neutral name (D10) |
 | 1 | `Unknown_695680` | `app/client/ui_trade.cpp:273` | untagged neutral name (D10) |
 | 1 | `UnknownB4` | `app/client/ui_trade.cpp:275` | untagged neutral name (D10) |
-| 1 | `Unknown_59FE10` | `app/client/ui_trade.cpp:280` | untagged neutral name (D10) |
-| 1 | `Unknown_688830` | `app/client/ui_trade.cpp:280` | untagged neutral name (D10) |
-| 1 | `Unknown_C8` | `app/client/ui_trade.cpp:285` | untagged neutral name (D10) |
-| 1 | `Unknown_18` | `app/client/ui_trade.cpp:290` | untagged neutral name (D10) |
-| 1 | `Unknown_652030` | `app/client/ui_trade.cpp:294` | untagged neutral name (D10) |
-| 1 | `Unknown_688870` | `app/client/ui_trade.cpp:296` | untagged neutral name (D10) |
-| 1 | `Unknown_A4` | `app/client/ui_trade.cpp:298` | untagged neutral name (D10) |
-| 1 | `Unknown_40` | `app/client/ui_trade.cpp:301` | untagged neutral name (D10) |
-| 1 | `Unknown_695CE0` | `app/client/ui_trade.cpp:315` | untagged neutral name (D10) |
+| 1 | `Get_Unknown34` | `app/client/ui_trade.cpp:277` | untagged neutral name (D10) |
+| 1 | `Unknown_59FE10` | `app/client/ui_trade.cpp:285` | untagged neutral name (D10) |
+| 1 | `Unknown_688830` | `app/client/ui_trade.cpp:285` | untagged neutral name (D10) |
+| 1 | `Unknown_C8` | `app/client/ui_trade.cpp:293` | untagged neutral name (D10) |
+| 1 | `Unknown_18` | `app/client/ui_trade.cpp:298` | untagged neutral name (D10) |
+| 1 | `Unknown_652030` | `app/client/ui_trade.cpp:302` | untagged neutral name (D10) |
+| 1 | `Unknown_688870` | `app/client/ui_trade.cpp:304` | untagged neutral name (D10) |
+| 1 | `Unknown_A4` | `app/client/ui_trade.cpp:306` | untagged neutral name (D10) |
+| 1 | `Unknown_40` | `app/client/ui_trade.cpp:309` | untagged neutral name (D10) |
+| 1 | `Unknown_695CE0` | `app/client/ui_trade.cpp:323` | untagged neutral name (D10) |
 | 1 | `Unknown_68` | `app/client/ui_trade.cpp:405` | untagged neutral name (D10) |
 | 1 | `Unknown_5A02E0` | `app/client/ui_trade.cpp:415` | untagged neutral name (D10) |
 | 1 | `Unknown_652890` | `app/client/ui_trade.cpp:422` | untagged neutral name (D10) |
@@ -19392,7 +19393,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Get_Unknown0D0` | `app/client/ui_trade.cpp:698` | untagged neutral name (D10) |
 | 1 | `Unknown20` | `app/client/ui_trade.cpp:737` | untagged neutral name (D10) |
 | 1 | `Unknown_5A00C0` | `app/client/ui_trade.cpp:741` | untagged neutral name (D10) |
-| 1 | `Get_Unknown34` | `app/client/ui_trade.cpp:745` | untagged neutral name (D10) |
 | 1 | `Unknown_588A70` | `app/client/ui_trade.cpp:745` | untagged neutral name (D10) |
 | 1 | `Unknown_652BA0` | `app/client/ui_trade.cpp:761` | untagged neutral name (D10) |
 | 1 | `Unknown_695630` | `app/client/ui_trade.cpp:785` | untagged neutral name (D10) |
@@ -19400,7 +19400,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_652EB0` | `app/client/ui_trade.cpp:823` | untagged neutral name (D10) |
 | 1 | `Unknown_5890B0` | `app/client/ui_trade.cpp:850` | untagged neutral name (D10) |
 | 1 | `Unknown_5A03B0` | `app/client/ui_trade.cpp:859` | untagged neutral name (D10) |
-| 1 | `Unknown_B0` | `app/client/ui_trade.cpp:942` | untagged neutral name (D10) |
+| 1 | `Unknown_B0` | `app/client/ui_trade.cpp:943` | untagged neutral name (D10) |
 | 1 | `Unknown_B4` | `app/client/ui_trade.cpp:952` | untagged neutral name (D10) |
 | 1 | `Unknown_653A80` | `app/client/ui_trade.cpp:963` | untagged neutral name (D10) |
 | 1 | `ui_trade.h` | `app/client/ui_trade.h:5` | provisional header name for ui_trade.cpp |

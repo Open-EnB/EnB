@@ -1,0 +1,204 @@
+{
+  "target": "0x655460",
+  "model": "gpt-6.1-sol (high)",
+  "valid_tested_forms": 65,
+  "controls": {
+    "original_baseline": 1,
+    "Refresh_marker_final_control": 1,
+    "post_Refresh_baseline": 1
+  },
+  "compile_failures": 0,
+  "uncompiled_semantic_forms": 0,
+  "preparation_errors": "three setup assertions/manifest-name validation failures corrected before compile; not counted as forms",
+  "result": "Park parent at unchanged residue; keep incidental Refresh +1/-0 in commit 29559695. The selected Refresh form is included among these 65, not an additional claim form.",
+  "baseline": "/home/dev/Projects/EnB/.work/claim-271/655460/runs/baseline-w4g7pjmh/baseline",
+  "preserved_74_baseline": "/home/dev/Projects/EnB/.work/claim-271/655460/runs/batch7-x2lee211/baseline",
+  "parent_baseline_metrics": {
+    "code_bytes": 671,
+    "retail_bytes": 518,
+    "instructions": [
+      204,
+      163
+    ],
+    "masked_rows": 104
+  },
+  "best_parent_diagnostic": {
+    "status": "diagnostic only, not adopted",
+    "source": "/home/dev/Projects/EnB/.work/claim-271/655460/forms/ns_expand_both_guard/ui_treem.cpp",
+    "object": "/home/dev/Projects/EnB/.work/claim-271/655460/runs/batch3-izkfrokj/ns_expand_both_guard/ui_treem.obj",
+    "code_bytes": 518,
+    "instructions": 163,
+    "fixed_bytes_branches_returns_equal": true,
+    "relocations": [
+      {
+        "offset": 107,
+        "symbol": "?SyncTime@WW3D@@0IA",
+        "type": 6,
+        "addend": 0,
+        "retail_value": "0xbfae3c",
+        "resolved": "0xbfae3c",
+        "basis": "known/fresh exact symbol; Sync globals independently grounded by exact WW3D::Sync 0x918200"
+      },
+      {
+        "offset": 113,
+        "symbol": "?PreviousSyncTime@WW3D@@0IA",
+        "type": 6,
+        "addend": 0,
+        "retail_value": "0xbfae40",
+        "resolved": "0xbfae40",
+        "basis": "known/fresh exact symbol; Sync globals independently grounded by exact WW3D::Sync 0x918200"
+      },
+      {
+        "offset": 256,
+        "symbol": "??_C@_0FI@DCCB@Z?3?2home?2dev?2Projects?2EnB?2?4work?2c@",
+        "type": 6,
+        "addend": 0,
+        "retail_value": "0xb8c240",
+        "resolved": "0xb8c240",
+        "basis": "__FILE__ basename only"
+      },
+      {
+        "offset": 261,
+        "symbol": "??_C@_0BP@KGFM@item?9?$DOLevel?5?$CL?51?5?$DN?$DN?5next?9?$DOLevel?$AA@",
+        "type": 6,
+        "addend": 0,
+        "retail_value": "0xb8c278",
+        "resolved": "0xb8c278",
+        "basis": "literal including terminator"
+      },
+      {
+        "offset": 266,
+        "symbol": "?G_Assert_Report@@YAXPBD0H@Z",
+        "type": 20,
+        "addend": 0,
+        "retail_value": "0x40aa51",
+        "resolved": "0x4e9410",
+        "basis": "known/fresh exact symbol; Sync globals independently grounded by exact WW3D::Sync 0x918200"
+      },
+      {
+        "offset": 277,
+        "symbol": "?Close@UITreeMClass@@QAEXPAUUITreeMItemStruct@@@Z",
+        "type": 20,
+        "addend": 0,
+        "retail_value": "0x40e273",
+        "resolved": "0x655f70",
+        "basis": "known/fresh exact symbol; Sync globals independently grounded by exact WW3D::Sync 0x918200"
+      },
+      {
+        "offset": 306,
+        "symbol": "?Next_Sibling@UITreeMClass@@QAEPAUUITreeMItemStruct@@PAU2@@Z",
+        "type": 20,
+        "addend": 0,
+        "retail_value": "0x4138b3",
+        "resolved": "0x655de0",
+        "basis": "known/fresh exact symbol; Sync globals independently grounded by exact WW3D::Sync 0x918200"
+      },
+      {
+        "offset": 390,
+        "symbol": "??_C@_0FI@DCCB@Z?3?2home?2dev?2Projects?2EnB?2?4work?2c@",
+        "type": 6,
+        "addend": 0,
+        "retail_value": "0xb8c240",
+        "resolved": "0xb8c240",
+        "basis": "__FILE__ basename only"
+      },
+      {
+        "offset": 395,
+        "symbol": "??_C@_0BP@KGFM@item?9?$DOLevel?5?$CL?51?5?$DN?$DN?5next?9?$DOLevel?$AA@",
+        "type": 6,
+        "addend": 0,
+        "retail_value": "0xb8c278",
+        "resolved": "0xb8c278",
+        "basis": "literal including terminator"
+      },
+      {
+        "offset": 400,
+        "symbol": "?G_Assert_Report@@YAXPBD0H@Z",
+        "type": 20,
+        "addend": 0,
+        "retail_value": "0x40aa51",
+        "resolved": "0x4e9410",
+        "basis": "known/fresh exact symbol; Sync globals independently grounded by exact WW3D::Sync 0x918200"
+      },
+      {
+        "offset": 432,
+        "symbol": "?Next_Sibling@UITreeMClass@@QAEPAUUITreeMItemStruct@@PAU2@@Z",
+        "type": 20,
+        "addend": 0,
+        "retail_value": "0x4138b3",
+        "resolved": "0x655de0",
+        "basis": "known/fresh exact symbol; Sync globals independently grounded by exact WW3D::Sync 0x918200"
+      },
+      {
+        "offset": 445,
+        "symbol": "??_C@_0BA@NPB@TextClick01?4wav?$AA@",
+        "type": 6,
+        "addend": 0,
+        "retail_value": "0xb7ce24",
+        "resolved": "0xb7ce24",
+        "basis": "literal including terminator"
+      },
+      {
+        "offset": 457,
+        "symbol": "?Play_2D_Sound@SoundLibraryClass@@SAPAVAudibleSoundClass@@PBDH@Z",
+        "type": 20,
+        "addend": 0,
+        "retail_value": "0x411b99",
+        "resolved": "0x43ed30",
+        "basis": "known/fresh exact symbol; Sync globals independently grounded by exact WW3D::Sync 0x918200"
+      }
+    ],
+    "EH": "none",
+    "callback": "one ScrollBar virtual call at slot 0xA8; same retail bytes and receiver flow; no added slot",
+    "gains": [
+      "0x655460"
+    ],
+    "losses": [
+      "0x655B10",
+      "0x655E50",
+      "0x655F70",
+      "0x6560A0"
+    ]
+  },
+  "zero_loss_parent": "unchanged 671-byte body; no parent gain without losses",
+  "artifacts": [
+    {
+      "path": "docs/attempts/655460/claim271-batch1.replay.txt",
+      "forms": 8,
+      "bytes": 7560
+    },
+    {
+      "path": "docs/attempts/655460/claim271-batch2.replay.txt",
+      "forms": 11,
+      "bytes": 10797
+    },
+    {
+      "path": "docs/attempts/655460/claim271-batch3.replay.txt",
+      "forms": 6,
+      "bytes": 7091
+    },
+    {
+      "path": "docs/attempts/655460/claim271-batch4.replay.txt",
+      "forms": 14,
+      "bytes": 18626
+    },
+    {
+      "path": "docs/attempts/655460/claim271-batch5.replay.txt",
+      "forms": 11,
+      "bytes": 14329
+    },
+    {
+      "path": "docs/attempts/655460/claim271-batch6.replay.txt",
+      "forms": 13,
+      "bytes": 21697
+    },
+    {
+      "path": "docs/attempts/655460/claim271-batch7.replay.txt",
+      "forms": 2,
+      "bytes": 2390
+    }
+  ],
+  "Refresh_evidence": "docs/attempts/655700/claim271-next-bounds.replay.txt",
+  "independent_Refresh_audit": ".work/claim-271/655700-independent-audit.md",
+  "stop_reason": "Natural real-helper scans, Next expansions and guard/conditional thresholds, caller control flow and clicked-item toggle/sound region exhausted. Exact parent has the same four standalone caller losses. No supported zero-loss window, forcing helper, pragma, dead spender, volatile or UB adopted."
+}
