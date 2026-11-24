@@ -1,0 +1,254 @@
+{
+  "head": "4f0e67310d27864e18ada7b3f9f099af19387c22",
+  "target": "0x5CA9F0",
+  "prior_valid": 27,
+  "followup_valid": 23,
+  "setup_errors": [
+    "one initial batch generation assertion; no compilation occurred"
+  ],
+  "controls": "Initial and final controls 55 exact symbol/address pairs; no gain or loss for any candidate.",
+  "conditions": "Original flags and basename; physical G_ASSERT and FAIL_IF lines unchanged. All other exact pairs retained by native match. Full body, EH and relocation identities not audited as no candidate matched.",
+  "analysis": "Baseline differs by destructive row add instead of LEA EAX and by Create_Peek argument preparation. Row-first produces LEA ECX and EDX and shifts slider/loop registers. Scoped font temporaries change later cleanup. Loop variations did not fix the row allocation. No lossless gain; maintainers independently verify.",
+  "rows": [
+    {
+      "form": "baseline",
+      "source_sha256": "91b141f734b163abd9242741939edd393729b93027f8edb8606eb11b7515377e",
+      "masked_sha256": "d956950e1e5fefad966aacd174c3275c4f993a7ac24e65fab6d241867f481250",
+      "span": 1232,
+      "similarity": 0.69,
+      "symbol_gains": 0,
+      "symbol_losses": 0,
+      "patch": ""
+    },
+    {
+      "form": "common_lt",
+      "source_sha256": "383e7959b392cf5aa0b5736e853f734538515cba3ec5b73747d6e4a8fdd0ca56",
+      "masked_sha256": "2f2972a53a8d024fcfa833a9dbb7da54c1565281e953fb003e42702e3a1abb8f",
+      "span": 1232,
+      "similarity": 0.68,
+      "symbol_gains": 0,
+      "symbol_losses": 0,
+      "patch": "--- baseline\n+++ common_lt\n@@ -264,14 +264,14 @@\n \t\tbttn = Primary[key - 15];\n \t\tlp = key - 15;\n-\t\tEditPrimary = true;\n+\n \t} else if (key >= 26 && key <= 36) {\n \t\tbttn = Secondary[key - 26];\n \t\tlp = key - 26;\n-\t\tEditPrimary = false;\n+\n \t} else {\n \t\treturn(false);\n \t}\n+\tEditPrimary = key < 26;\n \tif (!bttn) return(false);\n-\n \n \n"
+    },
+    {
+      "form": "common_le",
+      "source_sha256": "56ddf0e0ab352c100f382c421c87c3545105377c648ae1e65db6202bdd7be3ad",
+      "masked_sha256": "0ef6c9b7c53e3ccb364db15387257fde010b09dbf11c7735f0478bfdd47a02c6",
+      "span": 1232,
+      "similarity": 0.68,
+      "symbol_gains": 0,
+      "symbol_losses": 0,
+      "patch": "--- baseline\n+++ common_le\n@@ -264,14 +264,14 @@\n \t\tbttn = Primary[key - 15];\n \t\tlp = key - 15;\n-\t\tEditPrimary = true;\n+\n \t} else if (key >= 26 && key <= 36) {\n \t\tbttn = Secondary[key - 26];\n \t\tlp = key - 26;\n-\t\tEditPrimary = false;\n+\n \t} else {\n \t\treturn(false);\n \t}\n+\tEditPrimary = key <= 25;\n \tif (!bttn) return(false);\n-\n \n \n"
+    },
+    {
+      "form": "common_ge",
+      "source_sha256": "4239bf02044bf44e7c99d97c2960fbfb3381b2fbc061ab32e8b9548eb6756155",
+      "masked_sha256": "2f2972a53a8d024fcfa833a9dbb7da54c1565281e953fb003e42702e3a1abb8f",
+      "span": 1232,
+      "similarity": 0.68,
+      "symbol_gains": 0,
+      "symbol_losses": 0,
+      "patch": "--- baseline\n+++ common_ge\n@@ -264,14 +264,14 @@\n \t\tbttn = Primary[key - 15];\n \t\tlp = key - 15;\n-\t\tEditPrimary = true;\n+\n \t} else if (key >= 26 && key <= 36) {\n \t\tbttn = Secondary[key - 26];\n \t\tlp = key - 26;\n-\t\tEditPrimary = false;\n+\n \t} else {\n \t\treturn(false);\n \t}\n+\tEditPrimary = !(key >= 26);\n \tif (!bttn) return(false);\n-\n \n \n"
+    },
+    {
+      "form": "row_before_index",
+      "source_sha256": "4f2f3f6ae71723a2ce248a2d8747eb328c6dafea5257a1db7fed9ac093960e3e",
+      "masked_sha256": "91e4f867f0986ee6eb480813e908fd5a656cd45eed5b50671938c2fd37fc3370",
+      "span": 1232,
+      "similarity": 0.68,
+      "symbol_gains": 0,
+      "symbol_losses": 0,
+      "patch": "--- baseline\n+++ row_before_index\n@@ -262,10 +262,10 @@\n \tint lp;\t\t\t\t\t\t\t\t\t\t\t\t// NAME 1: neutral (D10)\n \tif (key >= 15 && key <= 25) {\n+\t\tlp = key - 15;\n \t\tbttn = Primary[key - 15];\n-\t\tlp = key - 15;\n \t\tEditPrimary = true;\n \t} else if (key >= 26 && key <= 36) {\n+\t\tlp = key - 26;\n \t\tbttn = Secondary[key - 26];\n-\t\tlp = key - 26;\n \t\tEditPrimary = false;\n \t} else {\n"
+    },
+    {
+      "form": "order_021",
+      "source_sha256": "8f53165dd7fdd531713c0fff0a6e4a57f96410c4b00bc6978781d211fa16087d",
+      "masked_sha256": "79a3a1273fe5de4dbd651d0fd4eb3c4215f031ab212d21bf92b176fee0ec0b2c",
+      "span": 1232,
+      "similarity": 0.69,
+      "symbol_gains": 0,
+      "symbol_losses": 0,
+      "patch": "--- baseline\n+++ order_021\n@@ -263,10 +263,10 @@\n \tif (key >= 15 && key <= 25) {\n \t\tbttn = Primary[key - 15];\n+\t\tEditPrimary = true;\n \t\tlp = key - 15;\n-\t\tEditPrimary = true;\n \t} else if (key >= 26 && key <= 36) {\n \t\tbttn = Secondary[key - 26];\n+\t\tEditPrimary = false;\n \t\tlp = key - 26;\n-\t\tEditPrimary = false;\n \t} else {\n \t\treturn(false);\n"
+    },
+    {
+      "form": "order_120",
+      "source_sha256": "018996b07e9a7616cd7d95565a6de1e983b0757c851d0c729381341ad8176d0d",
+      "masked_sha256": "04c37907b4977e447db1a843281ee881630f3749477506071bbfe559defe8af6",
+      "span": 1216,
+      "similarity": 0.68,
+      "symbol_gains": 0,
+      "symbol_losses": 0,
+      "patch": "--- baseline\n+++ order_120\n@@ -262,11 +262,11 @@\n \tint lp;\t\t\t\t\t\t\t\t\t\t\t\t// NAME 1: neutral (D10)\n \tif (key >= 15 && key <= 25) {\n-\t\tbttn = Primary[key - 15];\n \t\tlp = key - 15;\n \t\tEditPrimary = true;\n+\t\tbttn = Primary[key - 15];\n \t} else if (key >= 26 && key <= 36) {\n-\t\tbttn = Secondary[key - 26];\n \t\tlp = key - 26;\n \t\tEditPrimary = false;\n+\t\tbttn = Secondary[key - 26];\n \t} else {\n \t\treturn(false);\n"
+    },
+    {
+      "form": "order_201",
+      "source_sha256": "3e3260710d306863ea6d9f71aaf20d3311ee6061d7cffc67ca00fd366c852a02",
+      "masked_sha256": "a627d6637d240c5780d3f8ff8fa1f2de63fcc6a404c3ba248e363972352bd459",
+      "span": 1232,
+      "similarity": 0.68,
+      "symbol_gains": 0,
+      "symbol_losses": 0,
+      "patch": "--- baseline\n+++ order_201\n@@ -262,11 +262,11 @@\n \tint lp;\t\t\t\t\t\t\t\t\t\t\t\t// NAME 1: neutral (D10)\n \tif (key >= 15 && key <= 25) {\n+\t\tEditPrimary = true;\n \t\tbttn = Primary[key - 15];\n \t\tlp = key - 15;\n-\t\tEditPrimary = true;\n \t} else if (key >= 26 && key <= 36) {\n+\t\tEditPrimary = false;\n \t\tbttn = Secondary[key - 26];\n \t\tlp = key - 26;\n-\t\tEditPrimary = false;\n \t} else {\n \t\treturn(false);\n"
+    },
+    {
+      "form": "order_210",
+      "source_sha256": "b7a73849b401b312cc99fc62d4178bec1637e1b7e6611eebda1de684a35bdb01",
+      "masked_sha256": "04c37907b4977e447db1a843281ee881630f3749477506071bbfe559defe8af6",
+      "span": 1216,
+      "similarity": 0.68,
+      "symbol_gains": 0,
+      "symbol_losses": 0,
+      "patch": "--- baseline\n+++ order_210\n@@ -262,11 +262,11 @@\n \tint lp;\t\t\t\t\t\t\t\t\t\t\t\t// NAME 1: neutral (D10)\n \tif (key >= 15 && key <= 25) {\n+\t\tEditPrimary = true;\n+\t\tlp = key - 15;\n \t\tbttn = Primary[key - 15];\n-\t\tlp = key - 15;\n-\t\tEditPrimary = true;\n \t} else if (key >= 26 && key <= 36) {\n+\t\tEditPrimary = false;\n+\t\tlp = key - 26;\n \t\tbttn = Secondary[key - 26];\n-\t\tlp = key - 26;\n-\t\tEditPrimary = false;\n \t} else {\n \t\treturn(false);\n"
+    },
+    {
+      "form": "sum_reversed",
+      "source_sha256": "906fd7a4bc839ae3c91b17799d0c6ed01b6d97e850712e99832bbb482f70cdd4",
+      "masked_sha256": "d956950e1e5fefad966aacd174c3275c4f993a7ac24e65fab6d241867f481250",
+      "span": 1232,
+      "similarity": 0.69,
+      "symbol_gains": 0,
+      "symbol_losses": 0,
+      "patch": "--- baseline\n+++ sum_reversed\n@@ -289,5 +289,5 @@\n \n \tstd::vector<KeyMappingStruct *>::iterator keys_it = CurrentKeys.begin();\n-\tint count = (int)(Slider->Get_Value() + lp);\t\t// NAME 1: neutral (D10)\n+\tint count = (int)(lp + Slider->Get_Value());\t\t// NAME 1: neutral (D10)\n \twhile (count--) {\n \t\tFAIL_IF(keys_it == CurrentKeys.end()) break;\n"
+    },
+    {
+      "form": "sum_float",
+      "source_sha256": "fdfdc62c73844b8ec52113f7a83f9f44eaceb28a65c635d0b84d77fcc82a22af",
+      "masked_sha256": "d956950e1e5fefad966aacd174c3275c4f993a7ac24e65fab6d241867f481250",
+      "span": 1232,
+      "similarity": 0.69,
+      "symbol_gains": 0,
+      "symbol_losses": 0,
+      "patch": "--- baseline\n+++ sum_float\n@@ -289,5 +289,5 @@\n \n \tstd::vector<KeyMappingStruct *>::iterator keys_it = CurrentKeys.begin();\n-\tint count = (int)(Slider->Get_Value() + lp);\t\t// NAME 1: neutral (D10)\n+\tint count = (int)(Slider->Get_Value() + (float)lp);\t\t// NAME 1: neutral (D10)\n \twhile (count--) {\n \t\tFAIL_IF(keys_it == CurrentKeys.end()) break;\n"
+    },
+    {
+      "form": "sum_double",
+      "source_sha256": "c6d2707b1668a5635c70369c27901993b03876f710af57d4fde01f52832bf152",
+      "masked_sha256": "d956950e1e5fefad966aacd174c3275c4f993a7ac24e65fab6d241867f481250",
+      "span": 1232,
+      "similarity": 0.69,
+      "symbol_gains": 0,
+      "symbol_losses": 0,
+      "patch": "--- baseline\n+++ sum_double\n@@ -289,5 +289,5 @@\n \n \tstd::vector<KeyMappingStruct *>::iterator keys_it = CurrentKeys.begin();\n-\tint count = (int)(Slider->Get_Value() + lp);\t\t// NAME 1: neutral (D10)\n+\tint count = (int)((double)Slider->Get_Value() + lp);\t\t// NAME 1: neutral (D10)\n \twhile (count--) {\n \t\tFAIL_IF(keys_it == CurrentKeys.end()) break;\n"
+    },
+    {
+      "form": "raw_font",
+      "source_sha256": "6c53d3dad12c44753f9c4addf82375b5644bd8c06d0458bacd07cd94764c0a3f",
+      "masked_sha256": "5bc9449fbc2d5e319bd0fdc28d4b75db42911a536e8e6de4e62d1775387e9d5d",
+      "span": 1232,
+      "similarity": 0.69,
+      "symbol_gains": 0,
+      "symbol_losses": 0,
+      "patch": "--- baseline\n+++ raw_font\n@@ -298,5 +298,5 @@\n \t\tEditKey = *keys_it;\n \t\tif (EditKey) {\n-\t\t\tKeyPress->Set_Text(Create_Peek(((RObjGadgetClass *)bttn)->Unknown34));\n+\t\t\tFontSys *font = ((RObjGadgetClass *)bttn)->Unknown34; KeyPress->Set_Text(Create_Peek(font));\n \t\t\tKeyPress->Unknown_40(true);\n \t\t\treturn(true);\n"
+    },
+    {
+      "form": "raw_button",
+      "source_sha256": "84cddd0f85dea140d33f97d38285a623f83da483905887390b8c93ac23c5e582",
+      "masked_sha256": "d956950e1e5fefad966aacd174c3275c4f993a7ac24e65fab6d241867f481250",
+      "span": 1232,
+      "similarity": 0.69,
+      "symbol_gains": 0,
+      "symbol_losses": 0,
+      "patch": "--- baseline\n+++ raw_button\n@@ -298,5 +298,5 @@\n \t\tEditKey = *keys_it;\n \t\tif (EditKey) {\n-\t\t\tKeyPress->Set_Text(Create_Peek(((RObjGadgetClass *)bttn)->Unknown34));\n+\t\t\tRObjGadgetClass *button = (RObjGadgetClass *)bttn; KeyPress->Set_Text(Create_Peek(button->Unknown34));\n \t\t\tKeyPress->Unknown_40(true);\n \t\t\treturn(true);\n"
+    },
+    {
+      "form": "raw_both",
+      "source_sha256": "4eb2001de9e190582767972d034d89d07530ae98bc6043c342f6effdb5758c59",
+      "masked_sha256": "5bc9449fbc2d5e319bd0fdc28d4b75db42911a536e8e6de4e62d1775387e9d5d",
+      "span": 1232,
+      "similarity": 0.69,
+      "symbol_gains": 0,
+      "symbol_losses": 0,
+      "patch": "--- baseline\n+++ raw_both\n@@ -298,5 +298,5 @@\n \t\tEditKey = *keys_it;\n \t\tif (EditKey) {\n-\t\t\tKeyPress->Set_Text(Create_Peek(((RObjGadgetClass *)bttn)->Unknown34));\n+\t\t\tRObjGadgetClass *button = (RObjGadgetClass *)bttn; FontSys *font = button->Unknown34; KeyPress->Set_Text(Create_Peek(font));\n \t\t\tKeyPress->Unknown_40(true);\n \t\t\treturn(true);\n"
+    },
+    {
+      "form": "scoped_copy",
+      "source_sha256": "36c469e026401a50f2471e51a49505bcd5d9d1e2d71ce5ecba39baa2ae64c5eb",
+      "masked_sha256": "9ae1d15efb8200e3b5638b8ecf8f5edbda9a68613c57570c3396166de216c33b",
+      "span": 1232,
+      "similarity": 0.68,
+      "symbol_gains": 0,
+      "symbol_losses": 0,
+      "patch": "--- baseline\n+++ scoped_copy\n@@ -298,5 +298,5 @@\n \t\tEditKey = *keys_it;\n \t\tif (EditKey) {\n-\t\t\tKeyPress->Set_Text(Create_Peek(((RObjGadgetClass *)bttn)->Unknown34));\n+\t\t\t{ RefCountPtr<FontSys> text = Create_Peek(((RObjGadgetClass *)bttn)->Unknown34); KeyPress->Set_Text(text); }\n \t\t\tKeyPress->Unknown_40(true);\n \t\t\treturn(true);\n"
+    },
+    {
+      "form": "scoped_ctor",
+      "source_sha256": "c00e29c7e93844ab5f4d3928eec0385f1d0dd4c5fe9a583d035758c1601c7e0f",
+      "masked_sha256": "9ae1d15efb8200e3b5638b8ecf8f5edbda9a68613c57570c3396166de216c33b",
+      "span": 1232,
+      "similarity": 0.68,
+      "symbol_gains": 0,
+      "symbol_losses": 0,
+      "patch": "--- baseline\n+++ scoped_ctor\n@@ -298,5 +298,5 @@\n \t\tEditKey = *keys_it;\n \t\tif (EditKey) {\n-\t\t\tKeyPress->Set_Text(Create_Peek(((RObjGadgetClass *)bttn)->Unknown34));\n+\t\t\t{ RefCountPtr<FontSys> text(Create_Peek(((RObjGadgetClass *)bttn)->Unknown34)); KeyPress->Set_Text(text); }\n \t\t\tKeyPress->Unknown_40(true);\n \t\t\treturn(true);\n"
+    },
+    {
+      "form": "scoped_font",
+      "source_sha256": "c44f4425914d496a918ac7a81961bb1246d4a101b45236b4a307197600a455d7",
+      "masked_sha256": "6b05257d34f8f6cfcbdd4909b5a84804eb01b9b3fb34a0e6f7591e1887cad477",
+      "span": 1232,
+      "similarity": 0.69,
+      "symbol_gains": 0,
+      "symbol_losses": 0,
+      "patch": "--- baseline\n+++ scoped_font\n@@ -298,5 +298,5 @@\n \t\tEditKey = *keys_it;\n \t\tif (EditKey) {\n-\t\t\tKeyPress->Set_Text(Create_Peek(((RObjGadgetClass *)bttn)->Unknown34));\n+\t\t\t{ FontSys *font = ((RObjGadgetClass *)bttn)->Unknown34; RefCountPtr<FontSys> text = Create_Peek(font); KeyPress->Set_Text(text); }\n \t\t\tKeyPress->Unknown_40(true);\n \t\t\treturn(true);\n"
+    },
+    {
+      "form": "base_for_post",
+      "source_sha256": "0a80dee01381230e5246aff54496e5a00e8cf9da69cfa2d2430db8b3b460e625",
+      "masked_sha256": "d956950e1e5fefad966aacd174c3275c4f993a7ac24e65fab6d241867f481250",
+      "span": 1232,
+      "similarity": 0.69,
+      "symbol_gains": 0,
+      "symbol_losses": 0,
+      "patch": "--- baseline\n+++ base_for_post\n@@ -290,5 +290,5 @@\n \tstd::vector<KeyMappingStruct *>::iterator keys_it = CurrentKeys.begin();\n \tint count = (int)(Slider->Get_Value() + lp);\t\t// NAME 1: neutral (D10)\n-\twhile (count--) {\n+\tfor (; count--; ) {\n \t\tFAIL_IF(keys_it == CurrentKeys.end()) break;\n \t\tkeys_it++;\n"
+    },
+    {
+      "form": "base_for_nonzero",
+      "source_sha256": "22868d292491c74fde6eb2c4565cc2b8bf621c6492c5ce7c27e5b1eaf85bec3a",
+      "masked_sha256": "cfb416397d49797602f380f87345eb8868e0f265a08100f72281f2a1ada226b7",
+      "span": 1216,
+      "similarity": 0.67,
+      "symbol_gains": 0,
+      "symbol_losses": 0,
+      "patch": "--- baseline\n+++ base_for_nonzero\n@@ -290,5 +290,5 @@\n \tstd::vector<KeyMappingStruct *>::iterator keys_it = CurrentKeys.begin();\n \tint count = (int)(Slider->Get_Value() + lp);\t\t// NAME 1: neutral (D10)\n-\twhile (count--) {\n+\tfor (; count != 0; count--) {\n \t\tFAIL_IF(keys_it == CurrentKeys.end()) break;\n \t\tkeys_it++;\n"
+    },
+    {
+      "form": "base_while_nonzero",
+      "source_sha256": "8dd18bc7490aea56b93d8236d8e9f908a6c95ca0e940c0c41cc59f920eef755c",
+      "masked_sha256": "10f19ed80d70dcb0f643fa4cb63c4b92fbb634013da612fc3622f344f0538cf6",
+      "span": 1216,
+      "similarity": 0.67,
+      "symbol_gains": 0,
+      "symbol_losses": 0,
+      "patch": "--- baseline\n+++ base_while_nonzero\n@@ -290,5 +290,5 @@\n \tstd::vector<KeyMappingStruct *>::iterator keys_it = CurrentKeys.begin();\n \tint count = (int)(Slider->Get_Value() + lp);\t\t// NAME 1: neutral (D10)\n-\twhile (count--) {\n+\twhile (count != 0) { count--;\n \t\tFAIL_IF(keys_it == CurrentKeys.end()) break;\n \t\tkeys_it++;\n"
+    },
+    {
+      "form": "rowfirst_for_post",
+      "source_sha256": "29b881f065e507d431f6bac90d6ea12913aa78111af86953195eea21e71f8ea0",
+      "masked_sha256": "91e4f867f0986ee6eb480813e908fd5a656cd45eed5b50671938c2fd37fc3370",
+      "span": 1232,
+      "similarity": 0.68,
+      "symbol_gains": 0,
+      "symbol_losses": 0,
+      "patch": "--- baseline\n+++ rowfirst_for_post\n@@ -262,10 +262,10 @@\n \tint lp;\t\t\t\t\t\t\t\t\t\t\t\t// NAME 1: neutral (D10)\n \tif (key >= 15 && key <= 25) {\n+\t\tlp = key - 15;\n \t\tbttn = Primary[key - 15];\n-\t\tlp = key - 15;\n \t\tEditPrimary = true;\n \t} else if (key >= 26 && key <= 36) {\n+\t\tlp = key - 26;\n \t\tbttn = Secondary[key - 26];\n-\t\tlp = key - 26;\n \t\tEditPrimary = false;\n \t} else {\n@@ -290,5 +290,5 @@\n \tstd::vector<KeyMappingStruct *>::iterator keys_it = CurrentKeys.begin();\n \tint count = (int)(Slider->Get_Value() + lp);\t\t// NAME 1: neutral (D10)\n-\twhile (count--) {\n+\tfor (; count--; ) {\n \t\tFAIL_IF(keys_it == CurrentKeys.end()) break;\n \t\tkeys_it++;\n"
+    },
+    {
+      "form": "rowfirst_for_nonzero",
+      "source_sha256": "d75ef902652a945fb363bbd25a115a0d964e6fc3e744bddbd32926b88d0cba0c",
+      "masked_sha256": "f071b7d0aede847d45868f8ddd656ebb54ccb123ae71b955d3a92701975bfd73",
+      "span": 1216,
+      "similarity": 0.65,
+      "symbol_gains": 0,
+      "symbol_losses": 0,
+      "patch": "--- baseline\n+++ rowfirst_for_nonzero\n@@ -262,10 +262,10 @@\n \tint lp;\t\t\t\t\t\t\t\t\t\t\t\t// NAME 1: neutral (D10)\n \tif (key >= 15 && key <= 25) {\n+\t\tlp = key - 15;\n \t\tbttn = Primary[key - 15];\n-\t\tlp = key - 15;\n \t\tEditPrimary = true;\n \t} else if (key >= 26 && key <= 36) {\n+\t\tlp = key - 26;\n \t\tbttn = Secondary[key - 26];\n-\t\tlp = key - 26;\n \t\tEditPrimary = false;\n \t} else {\n@@ -290,5 +290,5 @@\n \tstd::vector<KeyMappingStruct *>::iterator keys_it = CurrentKeys.begin();\n \tint count = (int)(Slider->Get_Value() + lp);\t\t// NAME 1: neutral (D10)\n-\twhile (count--) {\n+\tfor (; count != 0; count--) {\n \t\tFAIL_IF(keys_it == CurrentKeys.end()) break;\n \t\tkeys_it++;\n"
+    },
+    {
+      "form": "rowfirst_while_nonzero",
+      "source_sha256": "76cf78ec68023a5a77074aa906b332b65f961c56741a7a6f944fb102c484b2e7",
+      "masked_sha256": "be15bb84c035e38bd2d1c2dc996e2ec24b19de0f620030bbae80f5e979a83588",
+      "span": 1216,
+      "similarity": 0.65,
+      "symbol_gains": 0,
+      "symbol_losses": 0,
+      "patch": "--- baseline\n+++ rowfirst_while_nonzero\n@@ -262,10 +262,10 @@\n \tint lp;\t\t\t\t\t\t\t\t\t\t\t\t// NAME 1: neutral (D10)\n \tif (key >= 15 && key <= 25) {\n+\t\tlp = key - 15;\n \t\tbttn = Primary[key - 15];\n-\t\tlp = key - 15;\n \t\tEditPrimary = true;\n \t} else if (key >= 26 && key <= 36) {\n+\t\tlp = key - 26;\n \t\tbttn = Secondary[key - 26];\n-\t\tlp = key - 26;\n \t\tEditPrimary = false;\n \t} else {\n@@ -290,5 +290,5 @@\n \tstd::vector<KeyMappingStruct *>::iterator keys_it = CurrentKeys.begin();\n \tint count = (int)(Slider->Get_Value() + lp);\t\t// NAME 1: neutral (D10)\n-\twhile (count--) {\n+\twhile (count != 0) { count--;\n \t\tFAIL_IF(keys_it == CurrentKeys.end()) break;\n \t\tkeys_it++;\n"
+    }
+  ]
+}
