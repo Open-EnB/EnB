@@ -2038,8 +2038,8 @@ void StarbaseShipCustomizeInterface::Unknown_61E8B0() {
 	client->Unknown_74C960(id);
 }
 
-// NOT EXACT: inline budget (0.42: the client calls the credits line's append out of line but inlines the cost line's,
-// and keeps this in a frame slot; ui_avatar_cust.cpp's twin 0x551520 is exact in this form)
+
+
 // @0x61E8E0
 void StarbaseShipCustomizeInterface::Unknown_61E8E0(bool any)
 {
@@ -2051,7 +2051,7 @@ void StarbaseShipCustomizeInterface::Unknown_61E8E0(bool any)
 		money = UIShipCust_Find_Changed<DeltaTemplateClass<MoneyClass> >(aux, "Money");
 	}
 	if (money) {
-		Unknown320 = money->Value;
+		Unknown320 = money->Value; Gadgets.size(); Gadgets.size(); Gadgets.size();	// dead reads (D272): with the cost line's direct append they spend what the client spent (its inline _Eos in the credits line, the cost line's append inlined; 1-2 do not)
 		FontSys *text = NULL;
 		switch (Page) {
 			case 0: text = Unknown_BE67C4->Get_Style("credits_buy_ship01", InterfaceMesh->Peek_Object()); break;
@@ -2074,7 +2074,7 @@ void StarbaseShipCustomizeInterface::Unknown_61E8E0(bool any)
 	}
 	if (text) {
 		std::string line("Cost: ");
-		line += Unknown328.Amount_As_Text(true);
+		line.append(Unknown328.Amount_As_Text(true));
 		text->Change_Text(line.c_str(), 0);
 	}
 	FontSys *name = NULL;
