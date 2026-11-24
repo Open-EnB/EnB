@@ -266,7 +266,7 @@ const char *MusicManagerClass::Get_Current_Name()
 }
 
 // @0x43B1C0
-// NOT EXACT: register allocation and inline budget (explain.py: 488 bytes vs 494, 0.46): the client keeps type in ebx and calls the vector's _Destroy 0x43BC60 after the first erase, here type is in ebp and both erases are inline
+// the dead themes.size() after the first erase (D272) sends its _Destroy 0x43BC60 out of line as the client's; the second erase inlines it
 void MusicManagerClass::Queue_Themes(int type, int race)
 {
 	int count = Themes[type].size();
@@ -282,7 +282,7 @@ void MusicManagerClass::Queue_Themes(int type, int race)
 		if (themes.size() > 1) {
 			for (std::vector<MusicThemeClass *>::iterator itor = themes.begin(); itor != themes.end(); itor++) {
 				if (Lists[type].LastTheme == *itor) {
-					themes.erase(itor);
+					themes.erase(itor); themes.size();
 					break;
 				}
 			}
