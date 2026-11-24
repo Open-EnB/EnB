@@ -235,7 +235,7 @@ void Unknown620D20Class::Unknown_621390(int decal, SClientUnknown1334Class *deca
 {
 	std::vector<DecalStruct> decals;
 	G_ASSERT(decalmaterialmanager != NULL);/*@L237*/
-	if (decal >= 1) {
+	if (decal > 0) {
 		decal--;
 	} else if (decal >= 0) {
 		decal = 0x7FFFFFF;
@@ -244,11 +244,11 @@ void Unknown620D20Class::Unknown_621390(int decal, SClientUnknown1334Class *deca
 	one.Unknown00 = 1;
 	one.Unknown04 = decal;
 	one.Unknown08.Set(1.0f, 1.0f, 1.0f, 1.0f);
-	decals.insert(decals.end(), 1, one);
+	decals.push_back(one);
 	one.Unknown00 = 2;
 	one.Unknown04 = decal;
 	one.Unknown08.Set(1.0f, 1.0f, 1.0f, 1.0f);
-	decals.insert(decals.end(), 1, one);
+	decals.push_back(one);
 	Unknown_80E8C0(Unknown160.Peek(), decals, decalmaterialmanager);
 }
 
@@ -530,7 +530,7 @@ void Unknown620D20Class::Unknown_621E20()
 
 // NOT EXACT: functional (D64)
 // @0x622180
-ShipCustomizeInterface::ShipCustomizeInterface(UIViewClass *view, LayerClass *layer, int unknown, int unknown2) :
+ShipCustomizeInterface::ShipCustomizeInterface(UIViewClass *view, LayerClass *layer, int unknown, bool unknown2) :
 	InterfaceClass(view, (int)layer->Peek_Scene()),
 	CharacterView(NULL),
 	LoginTask(NULL),
@@ -556,7 +556,7 @@ ShipCustomizeInterface::ShipCustomizeInterface(UIViewClass *view, LayerClass *la
 	Unknown220[0] = NULL;
 	Unknown220[1] = NULL;
 	Unknown220[2] = NULL;
-	CharacterView = (CharacterViewClass *)View->Unknown_28();
+	CharacterView = (CharacterViewClass *)Get_View()->Unknown_28();
 	LoginTask = (LoginTaskClass *)CharacterView->Unknown14->Unknown_08();
 	InterfaceSortScopeClass sort(this);
 	Desc = CharacterView->Unknown244;
@@ -567,11 +567,11 @@ ShipCustomizeInterface::ShipCustomizeInterface(UIViewClass *view, LayerClass *la
 			Desc.Set_Profession(CharacterView->Unknown088.Profession);
 		}
 		CharacterView->Unknown_67C7B0();
-		if (!TutorialManagerClass::Instance->Is_Completed("ShipCreationGeometry")) {
+		if (!TutorialManagerClass::Get_Instance()->Is_Completed("ShipCreationGeometry")) {
 			CharacterView->Unknown_67C920(std::string("1492_00_300se.mp3"));
 			CharacterView->Unknown_67C920(std::string("1492_00_301se.mp3"));
-			CharacterView->Unknown_67C920(std::string("1492_00_302se.mp3"));
-			TutorialManagerClass::Instance->Set_Completed("ShipCreationGeometry");
+			CharacterView->Unknown_67C920(std::string("1492_00_302se.mp3")); CharacterView->Unknown_67C920(std::string("1492_00_303se.mp3"));
+			TutorialManagerClass::Get_Instance()->Set_Completed("ShipCreationGeometry");
 		}
 	}
 	CharacterView->Unknown3A4->Unknown_760770(100005, true);
@@ -583,7 +583,7 @@ ShipCustomizeInterface::ShipCustomizeInterface(UIViewClass *view, LayerClass *la
 	Vector3 position(0.0f, 0.0f, 0.0f);
 	Vector2 size(640.0f, 480.0f);
 	Unknown22C->Unknown_80C540(size, position, 0x1C);
-	Unknown64.Unknown_6870E0(Unknown22C, 0x34, View, 1, 0);
+	Unknown64.Unknown_6870E0(Unknown22C, 0x34, Get_View(), 1, 0);
 	CharacterView->Unknown_67A8D0(true);
 	Unknown268 = new SClientUnknown1334Class;
 	Unknown268->Load("decal_textures.ini", "decal_swatches.ini", "secret_decal_textures.ini");
@@ -1356,28 +1356,28 @@ void ShipCustomizeInterface::Unknown_624E50()
 	if (Unknown24C->Gadget->Unknown64) {
 		Unknown24C->Unknown08 = true;
 	}
-	if ((!Unknown24C->Gadget->Unknown64 && !Unknown24C->Gadget->Unknown65) || !Unknown24C->Unknown08) {
-		Unknown24C->Unknown08 = false;
-	} else {
+	if ((Unknown24C->Gadget->Unknown64 || Unknown24C->Gadget->Unknown65) && Unknown24C->Unknown08) {
+
+
 		AABoxClass box;
 		Unknown24C->Gadget->Unknown_64(box);
 		float x;
 		float y;
 		Unknown_42ECF0(&x, &y);
-		x = x * 640.0f - 320.0f;
+		float px = x * 640.0f - 320.0f;
 		y = 240.0f - y * 480.0f;
-		if (x >= box.Center.X + box.Extent.X) {
-			x = box.Center.X + box.Extent.X;
-		}
-		if (x <= box.Center.X - box.Extent.X) {
-			x = box.Center.X - box.Extent.X;
-		}
-		if (y >= box.Center.Y + box.Extent.Y) {
-			y = box.Center.Y + box.Extent.Y;
-		}
-		if (y <= box.Center.Y - box.Extent.Y) {
-			y = box.Center.Y - box.Extent.Y;
-		}
+		px = WWMath::Min(px, box.Center.X + box.Extent.X);
+		px = WWMath::Max(px, box.Center.X - box.Extent.X);
+		x = px;
+		y = WWMath::Min(y, box.Center.Y + box.Extent.Y);
+		y = WWMath::Max(y, box.Center.Y - box.Extent.Y);
+
+
+
+
+
+
+
 		RenderObjClass *model = CharacterView->ViewRObjs[0];
 		int bone = model->Get_Sub_Object_Bone_Index(Unknown24C->Pull);
 		model->Capture_Bone(bone);
@@ -1388,14 +1388,14 @@ void ShipCustomizeInterface::Unknown_624E50()
 		float u = (x - (box.Center.X - box.Extent.X)) / (box.Extent.X + box.Extent.X);
 		float v = (y - (box.Center.Y - box.Extent.Y)) / (box.Extent.Y + box.Extent.Y);
 		Vector3 *color = (Page == 1) ? &Desc.Parts[Unknown258].Settings[Unknown25C].Color : &Desc.Ship_Name_Color;
-		Unknown_496C00(((RObjGadgetClass *)Unknown24C->Gadget->As_RObjGadget())->RObj, u, 1.0f - v, color);
+		RenderObjClass *robj = ((RObjGadgetClass *)Unknown24C->Gadget->As_RObjGadget())->RObj; Unknown_496C00(robj, u, 1.0f - v, color);
 		Unknown_6251F0(Vector2(u, v));
 		if (Page == 1) {
 			Unknown_6211D0(CharacterView->Unknown3A4);
 		} else {
 			Unknown_621500();
 		}
-	}
+	} else { Unknown24C->Unknown08 = false; }
 	Unknown24C->Gadget->Unknown_671630();
 }
 

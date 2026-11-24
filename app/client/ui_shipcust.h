@@ -72,7 +72,7 @@ struct ShipCustGadgetStruct	// NAME 1: neutral (D10)
 class ShipCustomizeInterface : public InterfaceClass, public Unknown620D20Class	// NAME 5: the client's RTTI
 {
 public:
-	ShipCustomizeInterface(UIViewClass *view, LayerClass *layer, int unknown, int unknown2);	// 0x622180 (charview.cpp's 0x679160: the mode before was 5, 0)  // NAME 1 [view, layer, unknown, unknown2]: as charview.cpp's
+	ShipCustomizeInterface(UIViewClass *view, LayerClass *layer, int unknown, bool unknown2);	// 0x622180 (charview.cpp's 0x679160: the mode before was 5, 0; unknown2 a bool: the client tests it as a byte, mov al,[esp+0x50]; test al,al)  // NAME 1 [view, layer, unknown, unknown2]: as charview.cpp's
 	virtual ~ShipCustomizeInterface();				// 0x622B90 (0x622A30 the deleting one)
 	virtual void Unknown_60();						// +0x60 0x622FC0 (every frame)
 	virtual bool Unknown_68(int key);				// +0x68 0x623080 (the events)  // NAME 1 [key]: InterfaceClass's
