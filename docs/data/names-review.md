@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1970 |
 | 2 | describes what the code does | 5010 |
-| 1 | neutral placeholder | 25167 |
+| 1 | neutral placeholder | 25169 |
 
 ## For review (score 3 and below)
 
@@ -10065,6 +10065,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_44` | `app/client/tooltip.cpp:237` | untagged neutral name (D10) |
 | 1 | `Unknown14` | `app/client/tooltip.cpp:239` | untagged neutral name (D10) |
 | 1 | `Unknown2C_08` | `app/client/tooltip.cpp:276` | untagged neutral name (D10) |
+| 1 | `font` | `app/client/tooltip.cpp:312` | alias of the first line's font for the splitter |
+| 1 | `gadget` | `app/client/tooltip.cpp:315` | selected current gadget, read in the chosen branch |
 | 1 | `Unknown_6CE910` | `app/client/tooltip.cpp:344` | untagged neutral name (D10) |
 | 1 | `Unknown51C800Class` | `app/client/tooltip.cpp:345` | untagged neutral name (D10) |
 | 1 | `Unknown_65B650` | `app/client/tooltip.cpp:362` | untagged neutral name (D10) |

@@ -309,10 +309,10 @@ void UIViewUnknown30Class::Unknown_6ABC60()
 	if (Unknown0C || CurGadget == NULL || View == NULL) {
 		return;
 	}
-	const RefCountPtr<Font32Class> &font = Lines[0]->Font;
+	const RefCountPtr<Font32Class> &font = Lines[0]->Font; // NAME 1: alias of the first line's font for the splitter
 	FontSplitStringClass split(font);
 	int width = 100;
-	GadgetClass *gadget;
+	GadgetClass *gadget; // NAME 1: selected current gadget, read in the chosen branch
 	const char *text;
 	if (Unknown0E) {
 		gadget = CurGadget;
