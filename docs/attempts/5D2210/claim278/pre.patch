@@ -1,0 +1,12 @@
+--- baseline/ui_pda_equip.cpp
++++ pre/ui_pda_equip.cpp
+@@ -370,3 +370,3 @@
+ 	RefCountPtr<TextureClass> blank = Create_Get(WW3DAssetManager::Get_Instance()->Get_Texture("im_blank.tga", MIP_LEVELS_ALL, WW3D_FORMAT_UNKNOWN, true));
+-	for (i = weapons; i < future_weapon_count; i++, weapon_idx++) {
++	for (i = weapons; i < future_weapon_count; ++i, ++weapon_idx) {
+ 
+@@ -380,3 +380,3 @@
+ 	}
+-	for (i = devices; i < future_device_count; i++, device_idx++) {
++	for (i = devices; i < future_device_count; ++i, ++device_idx) {
+ 

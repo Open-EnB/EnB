@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-593 entries in 247 files.
+592 entries in 246 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -379,7 +379,6 @@ edit the comments in the code, not this file.
 | `app/client/ui_pda_cargo.cpp:66` | `UIPdaCargoClass::UIPdaCargoClass` | marker | NOT EXACT: functional from the pseudocode (D64) 0x5CF9B0 |
 | `app/client/ui_pda_cargo.cpp:112` | `UIPdaCargoClass::Unknown_54` | marker | NOT EXACT: functional from the pseudocode (D64) 0x5CFE40 |
 | `app/client/ui_pda_cargo.cpp:293` | `UIPdaCargoClass::Unknown_5D0A50` | marker | NOT EXACT: functional from the pseudocode (D64): ui_attrb.cpp's 0x547C20 for this window's 'Credits' 0x5D0A50 |
-| `app/client/ui_pda_equip.cpp:294` | `UIPdaEquipClass::Unknown_B0` | marker | NOT EXACT: functional from the pseudocode (D64) @0x5D2210 |
 | `app/client/ui_petition_entry.cpp:44` | `UIPetitionEntryClass::Unknown_54` | marker | NOT EXACT: register (the two TextGadgetClass setters give the client's one load per call; left: the Entry_Field00 Create_Get's vtable / result registers, the TextGadgetClass constructor's flags / model registers, the first Unknown_6870E0's view in eax (client edx); GV3) 0x5D4890 |
 | `app/client/ui_petition_player_entry.cpp:303` | `UIPetitionPlayerNameClass::Unknown_68` | marker | NOT EXACT: inline-budget (the client calls rtti.h's DeltaStringClass cast 0x4099A8 out of line at both lookups, ours inlines it; as co.cpp's 0x6FF4B0) 0x5D6EE0 |
 | `app/client/ui_radio_admin.cpp:246` | `UIRadioAdminClass::Unknown_5E5360` | marker | NOT EXACT: inline budget and stack slots (cases 5 and 6: the client destroys the channel's temporary inline and expands the selected name's assignment in case 6, its temporaries at other frame offsets) |

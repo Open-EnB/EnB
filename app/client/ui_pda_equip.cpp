@@ -291,7 +291,7 @@ template <class T> static inline void Close_PDA_Of(T *space) { space->PDAInterfa
 
 
 
-// NOT EXACT: functional from the pseudocode (D64)
+
 // @0x5D2210
 void UIPdaEquipClass::Unknown_B0()
 {
@@ -368,7 +368,7 @@ void UIPdaEquipClass::Unknown_B0()
 	int future_device_count = future_devices->Value;
 
 	RefCountPtr<TextureClass> blank = Create_Get(WW3DAssetManager::Get_Instance()->Get_Texture("im_blank.tga", MIP_LEVELS_ALL, WW3D_FORMAT_UNKNOWN, true));
-	for (i = weapons; i < future_weapon_count; i++, weapon_idx++) {
+	for (i = weapons; i < future_weapon_count; ) {
 
 		FAIL_IF(weapon_idx > LAST_WEAPON_SLOT) break;
 		if (Frames[weapon_idx]) {
@@ -376,9 +376,9 @@ void UIPdaEquipClass::Unknown_B0()
 			Buttons[weapon_idx]->RObjGadgetClass::Unknown_90(blank.Peek());
 			Buttons[weapon_idx]->Unknown_8C(false);
 			GadgetClass::Set_Tooltip(Buttons[weapon_idx], "UI_PDA_EQUIP", "FUTURE_WEAPON");
-		}
+		} weapon_idx++; i++;
 	}
-	for (i = devices; i < future_device_count; i++, device_idx++) {
+	for (i = devices; i < future_device_count; ) {
 
 
 
@@ -389,7 +389,7 @@ void UIPdaEquipClass::Unknown_B0()
 			Buttons[device_idx]->RObjGadgetClass::Unknown_90(blank.Peek());
 			Buttons[device_idx]->Unknown_8C(false);
 			GadgetClass::Set_Tooltip(Buttons[device_idx], "UI_PDA_EQUIP", "FUTURE_DEVICE");
-		}
+		} device_idx++; i++;
 	}
 }
 
