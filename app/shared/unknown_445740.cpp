@@ -309,7 +309,7 @@ Vector3 SteeringClass::Follow(const SteeringVehicleStruct &vehicle, const Steeri
 	return result;
 }
 
-// NOT EXACT: field-offset (explain.py): the inlined two-argument Seek's offset loads in another order (fsub +0x3C / +0x44; 23 rows); the avoidance part matches with Follow's form (result assigned, early returns)
+// NOT EXACT: register (explain.py; 13 rows): ours keeps result.Z in edx for the second return, so its two return blocks stay apart where the client reloads it and shares one (forms in attempts.csv)
 // 0x447480
 Vector3 SteeringClass::Seek(const SteeringVehicleStruct &vehicle, const Vector3 &target, PxWrapper *proxim)
 {
@@ -322,10 +322,10 @@ Vector3 SteeringClass::Seek(const SteeringVehicleStruct &vehicle, const Vector3 
 	if (result.Length2() > 0.0001f) {
 		return result;
 	}
-	return Seek(vehicle, target);
+	result = Seek(vehicle, target);
+	return result;
 }
 
-// NOT EXACT: field-offset (explain.py): the inlined two-argument Evade (through Seek)'s offset loads in another order (fsub +0x3C / +0x44; 23 rows); the avoidance part matches with Follow's form (result assigned, early returns)
 // 0x447690
 Vector3 SteeringClass::Evade(const SteeringVehicleStruct &vehicle, const SteeringTargetStruct &target, PxWrapper *proxim)
 {
@@ -338,7 +338,8 @@ Vector3 SteeringClass::Evade(const SteeringVehicleStruct &vehicle, const Steerin
 	if (result.Length2() > 0.0001f) {
 		return result;
 	}
-	return Evade(vehicle, target, 500.0f);
+	result = Evade(vehicle, target, 500.0f);
+	return result;
 }
 
 // NOT EXACT: shape (explain.py): the client copies the result twice (a second local) and orders the length sums otherwise
