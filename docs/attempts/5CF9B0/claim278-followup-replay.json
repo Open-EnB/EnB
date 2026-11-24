@@ -1,0 +1,265 @@
+{
+  "address": "0x5CF9B0",
+  "unit": "app/client/ui_pda_cargo.cpp",
+  "baseline_head": "db55171f",
+  "valid_followup": 24,
+  "valid_prior": 26,
+  "initial_controls": 1,
+  "final_controls": 1,
+  "precompile_generator_errors": 1,
+  "compiled_failures": 0,
+  "outcome": "No production changes; 64 exact symbol/address pairs retained; constructor remains nonexact. Baseline and final control both 64.",
+  "observations": "Retail calls _Eos for initial empty string and inlines later assignment; baseline does the reverse. Best 0.74 uses memset and does not change this inversion. No exact target; relocation and EH identity not claimed. Source asserts unchanged. Local native proof requires maintainer VC6 verification.",
+  "forms": [
+    {
+      "name": "baseline",
+      "source_sha256": "16fab78b7f751be6449ed1aaf778671051935a7b9d9e7e5f902e9081ac2c0403",
+      "masked_target_sha256": "e4d2704f0db719d55b1b55df8a958f1e27c8ca80004d5f7e27a54850b68e0654",
+      "object_bytes": 608,
+      "similarity": "0.73",
+      "gained": [],
+      "lost": [],
+      "patch": ""
+    },
+    {
+      "name": "mesh_null",
+      "source_sha256": "0f706cf9dd088f7eec3d1793df30120b53ad7db9756c3a82da24f731dd94c301",
+      "masked_target_sha256": "e4d2704f0db719d55b1b55df8a958f1e27c8ca80004d5f7e27a54850b68e0654",
+      "object_bytes": 608,
+      "similarity": "0.73",
+      "gained": [],
+      "lost": [],
+      "patch": "--- a/ui_pda_cargo.cpp\n+++ b/ui_pda_cargo.cpp\n@@ -67,7 +67,7 @@\n // 0x5CF9B0\n UIPdaCargoClass::UIPdaCargoClass(SClient *client, PDAInterfaceClass *pda) :\n \tUIInvClass(client, 10),\n-\tPDA(pda),\n+\tPDA(pda), InterfaceMesh(NULL),\n \tSlider(NULL),\n \tSortIndex(0),\n \tSortReverse(false), FilterName(\"\")\n"
+    },
+    {
+      "name": "filter_null",
+      "source_sha256": "1f9c57e0a69881274458f0a7823bdfc91d5536237a49df1692d6a79f9b499f86",
+      "masked_target_sha256": "e4d2704f0db719d55b1b55df8a958f1e27c8ca80004d5f7e27a54850b68e0654",
+      "object_bytes": 608,
+      "similarity": "0.73",
+      "gained": [],
+      "lost": [],
+      "patch": "--- a/ui_pda_cargo.cpp\n+++ b/ui_pda_cargo.cpp\n@@ -68,7 +68,7 @@\n UIPdaCargoClass::UIPdaCargoClass(SClient *client, PDAInterfaceClass *pda) :\n \tUIInvClass(client, 10),\n \tPDA(pda),\n-\tSlider(NULL),\n+\tFilter(NULL), Slider(NULL),\n \tSortIndex(0),\n \tSortReverse(false), FilterName(\"\")\n {\n"
+    },
+    {
+      "name": "both_null",
+      "source_sha256": "2f785e87a67b580f0ca0a6eada655b5c52f9c7db18bffc531aa6ba57d56a1cc3",
+      "masked_target_sha256": "e4d2704f0db719d55b1b55df8a958f1e27c8ca80004d5f7e27a54850b68e0654",
+      "object_bytes": 608,
+      "similarity": "0.73",
+      "gained": [],
+      "lost": [],
+      "patch": "--- a/ui_pda_cargo.cpp\n+++ b/ui_pda_cargo.cpp\n@@ -67,8 +67,8 @@\n // 0x5CF9B0\n UIPdaCargoClass::UIPdaCargoClass(SClient *client, PDAInterfaceClass *pda) :\n \tUIInvClass(client, 10),\n-\tPDA(pda),\n-\tSlider(NULL),\n+\tPDA(pda), InterfaceMesh(NULL),\n+\tFilter(NULL), Slider(NULL),\n \tSortIndex(0),\n \tSortReverse(false), FilterName(\"\")\n {\n"
+    },
+    {
+      "name": "assign_scope",
+      "source_sha256": "622ba9c7dded80ec9bf85f1a0ede146fbf2016732790ffffde6f63ed51b2110e",
+      "masked_target_sha256": "e4d2704f0db719d55b1b55df8a958f1e27c8ca80004d5f7e27a54850b68e0654",
+      "object_bytes": 608,
+      "similarity": "0.73",
+      "gained": [],
+      "lost": [],
+      "patch": "--- a/ui_pda_cargo.cpp\n+++ b/ui_pda_cargo.cpp\n@@ -78,7 +78,7 @@\n \tOptionClass *options = OptionClass::Instance; if (options) {\n \t\tSortIndex = options->Get_Bool(\"Inv_Sort_Cargo\");\n \t\tSortReverse = options->Get_Bool(\"Inv_Sort_Cargo_Reverse\");\n-\t\tFilterName = options->Get_String(\"Inv_Filter_Cargo\");\n+\t\t{ FilterName = options->Get_String(\"Inv_Filter_Cargo\"); }\n \t}\n \tUnknown_BE67BC->Load(\"fa_pdainv.ini\");\n }\n"
+    },
+    {
+      "name": "sort_scope",
+      "source_sha256": "ec6eb64cb15fdcd52bbcd3c50bed50d067035e29082c097efa3a9601f395d0f4",
+      "masked_target_sha256": "e4d2704f0db719d55b1b55df8a958f1e27c8ca80004d5f7e27a54850b68e0654",
+      "object_bytes": 608,
+      "similarity": "0.73",
+      "gained": [],
+      "lost": [],
+      "patch": "--- a/ui_pda_cargo.cpp\n+++ b/ui_pda_cargo.cpp\n@@ -76,8 +76,8 @@\n \t\tButtons5[i] = NULL;\n \t}\n \tOptionClass *options = OptionClass::Instance; if (options) {\n-\t\tSortIndex = options->Get_Bool(\"Inv_Sort_Cargo\");\n-\t\tSortReverse = options->Get_Bool(\"Inv_Sort_Cargo_Reverse\");\n+\t\t{ SortIndex = options->Get_Bool(\"Inv_Sort_Cargo\"); }\n+\t\t{ SortReverse = options->Get_Bool(\"Inv_Sort_Cargo_Reverse\"); }\n \t\tFilterName = options->Get_String(\"Inv_Filter_Cargo\");\n \t}\n \tUnknown_BE67BC->Load(\"fa_pdainv.ini\");\n"
+    },
+    {
+      "name": "bool_local",
+      "source_sha256": "ce2c94b9e66b56d0c3959dfff7e917d71573b79763f240d690c270ffe31b965d",
+      "masked_target_sha256": "86624ec0e694bdaec3d1b689333166c3c73c57304c5111f728129ceecbbcc211",
+      "object_bytes": 608,
+      "similarity": "0.72",
+      "gained": [],
+      "lost": [],
+      "patch": "--- a/ui_pda_cargo.cpp\n+++ b/ui_pda_cargo.cpp\n@@ -76,7 +76,7 @@\n \t\tButtons5[i] = NULL;\n \t}\n \tOptionClass *options = OptionClass::Instance; if (options) {\n-\t\tSortIndex = options->Get_Bool(\"Inv_Sort_Cargo\");\n+\t\t{ bool value = options->Get_Bool(\"Inv_Sort_Cargo\"); SortIndex = value; }\n \t\tSortReverse = options->Get_Bool(\"Inv_Sort_Cargo_Reverse\");\n \t\tFilterName = options->Get_String(\"Inv_Filter_Cargo\");\n \t}\n"
+    },
+    {
+      "name": "operator",
+      "source_sha256": "42a34def128bfb82cefddd377dbc78aaad0ef74438fcc95f929ca308ee8ee9c1",
+      "masked_target_sha256": "e4d2704f0db719d55b1b55df8a958f1e27c8ca80004d5f7e27a54850b68e0654",
+      "object_bytes": 608,
+      "similarity": "0.73",
+      "gained": [],
+      "lost": [],
+      "patch": "--- a/ui_pda_cargo.cpp\n+++ b/ui_pda_cargo.cpp\n@@ -78,7 +78,7 @@\n \tOptionClass *options = OptionClass::Instance; if (options) {\n \t\tSortIndex = options->Get_Bool(\"Inv_Sort_Cargo\");\n \t\tSortReverse = options->Get_Bool(\"Inv_Sort_Cargo_Reverse\");\n-\t\tFilterName = options->Get_String(\"Inv_Filter_Cargo\");\n+\t\tFilterName.operator=(options->Get_String(\"Inv_Filter_Cargo\"));\n \t}\n \tUnknown_BE67BC->Load(\"fa_pdainv.ini\");\n }\n"
+    },
+    {
+      "name": "operator_memset",
+      "source_sha256": "1f04dc5f40b3f46ea93c5c7d93b521935ec8ba5860789eee127bde8a399c1aaa",
+      "masked_target_sha256": "85ff6f4c880107da2cd89ce9ab728186839ff2a492e608d558d4ff98cc8aa45e",
+      "object_bytes": 592,
+      "similarity": "0.74",
+      "gained": [],
+      "lost": [],
+      "patch": "--- a/ui_pda_cargo.cpp\n+++ b/ui_pda_cargo.cpp\n@@ -72,13 +72,13 @@\n \tSortIndex(0),\n \tSortReverse(false), FilterName(\"\")\n {\n-\tfor (int i = 0; i < NUM_BUTTONS; i++) {\n-\t\tButtons5[i] = NULL;\n-\t}\n+\tmemset(Buttons5, 0, sizeof(Buttons5));\n+\n+\n \tOptionClass *options = OptionClass::Instance; if (options) {\n \t\tSortIndex = options->Get_Bool(\"Inv_Sort_Cargo\");\n \t\tSortReverse = options->Get_Bool(\"Inv_Sort_Cargo_Reverse\");\n-\t\tFilterName = options->Get_String(\"Inv_Filter_Cargo\");\n+\t\tFilterName.operator=(options->Get_String(\"Inv_Filter_Cargo\"));\n \t}\n \tUnknown_BE67BC->Load(\"fa_pdainv.ini\");\n }\n"
+    },
+    {
+      "name": "reverse_local",
+      "source_sha256": "8cd31f8a5c114aa961c7001e51aafabbeb901323fbb268a8e44faabef5992550",
+      "masked_target_sha256": "e4d2704f0db719d55b1b55df8a958f1e27c8ca80004d5f7e27a54850b68e0654",
+      "object_bytes": 608,
+      "similarity": "0.73",
+      "gained": [],
+      "lost": [],
+      "patch": "--- a/ui_pda_cargo.cpp\n+++ b/ui_pda_cargo.cpp\n@@ -77,7 +77,7 @@\n \t}\n \tOptionClass *options = OptionClass::Instance; if (options) {\n \t\tSortIndex = options->Get_Bool(\"Inv_Sort_Cargo\");\n-\t\tSortReverse = options->Get_Bool(\"Inv_Sort_Cargo_Reverse\");\n+\t\t{ bool value = options->Get_Bool(\"Inv_Sort_Cargo_Reverse\"); SortReverse = value; }\n \t\tFilterName = options->Get_String(\"Inv_Filter_Cargo\");\n \t}\n \tUnknown_BE67BC->Load(\"fa_pdainv.ini\");\n"
+    },
+    {
+      "name": "both_local",
+      "source_sha256": "af53dc68bc331f53ab14879ef06ce78a4df82fe1ee569bfbeab52d5d3400d60e",
+      "masked_target_sha256": "86624ec0e694bdaec3d1b689333166c3c73c57304c5111f728129ceecbbcc211",
+      "object_bytes": 608,
+      "similarity": "0.72",
+      "gained": [],
+      "lost": [],
+      "patch": "--- a/ui_pda_cargo.cpp\n+++ b/ui_pda_cargo.cpp\n@@ -76,8 +76,8 @@\n \t\tButtons5[i] = NULL;\n \t}\n \tOptionClass *options = OptionClass::Instance; if (options) {\n-\t\tSortIndex = options->Get_Bool(\"Inv_Sort_Cargo\");\n-\t\tSortReverse = options->Get_Bool(\"Inv_Sort_Cargo_Reverse\");\n+\t\t{ bool value = options->Get_Bool(\"Inv_Sort_Cargo\"); SortIndex = value; }\n+\t\t{ bool value = options->Get_Bool(\"Inv_Sort_Cargo_Reverse\"); SortReverse = value; }\n \t\tFilterName = options->Get_String(\"Inv_Filter_Cargo\");\n \t}\n \tUnknown_BE67BC->Load(\"fa_pdainv.ini\");\n"
+    },
+    {
+      "name": "reverse_local_memset",
+      "source_sha256": "92066a5df3c45b4b3aeaf9d242553d77030639aebe5e2540645bf38a04bd1855",
+      "masked_target_sha256": "85ff6f4c880107da2cd89ce9ab728186839ff2a492e608d558d4ff98cc8aa45e",
+      "object_bytes": 592,
+      "similarity": "0.74",
+      "gained": [],
+      "lost": [],
+      "patch": "--- a/ui_pda_cargo.cpp\n+++ b/ui_pda_cargo.cpp\n@@ -72,12 +72,12 @@\n \tSortIndex(0),\n \tSortReverse(false), FilterName(\"\")\n {\n-\tfor (int i = 0; i < NUM_BUTTONS; i++) {\n-\t\tButtons5[i] = NULL;\n-\t}\n+\tmemset(Buttons5, 0, sizeof(Buttons5));\n+\n+\n \tOptionClass *options = OptionClass::Instance; if (options) {\n \t\tSortIndex = options->Get_Bool(\"Inv_Sort_Cargo\");\n-\t\tSortReverse = options->Get_Bool(\"Inv_Sort_Cargo_Reverse\");\n+\t\t{ bool value = options->Get_Bool(\"Inv_Sort_Cargo_Reverse\"); SortReverse = value; }\n \t\tFilterName = options->Get_String(\"Inv_Filter_Cargo\");\n \t}\n \tUnknown_BE67BC->Load(\"fa_pdainv.ini\");\n"
+    },
+    {
+      "name": "sort_cast",
+      "source_sha256": "cfac6afad4308cde0bc1b7feef42b3947ec670eba2a57665ea89fd2f8a500248",
+      "masked_target_sha256": "e4d2704f0db719d55b1b55df8a958f1e27c8ca80004d5f7e27a54850b68e0654",
+      "object_bytes": 608,
+      "similarity": "0.73",
+      "gained": [],
+      "lost": [],
+      "patch": "--- a/ui_pda_cargo.cpp\n+++ b/ui_pda_cargo.cpp\n@@ -76,7 +76,7 @@\n \t\tButtons5[i] = NULL;\n \t}\n \tOptionClass *options = OptionClass::Instance; if (options) {\n-\t\tSortIndex = options->Get_Bool(\"Inv_Sort_Cargo\");\n+\t\tSortIndex = (int)options->Get_Bool(\"Inv_Sort_Cargo\");\n \t\tSortReverse = options->Get_Bool(\"Inv_Sort_Cargo_Reverse\");\n \t\tFilterName = options->Get_String(\"Inv_Filter_Cargo\");\n \t}\n"
+    },
+    {
+      "name": "init_zero",
+      "source_sha256": "6fd046dc3028c79d3fcfe1114fc605fe0748111bc7c98588a490a8c75adb1669",
+      "masked_target_sha256": "e4d2704f0db719d55b1b55df8a958f1e27c8ca80004d5f7e27a54850b68e0654",
+      "object_bytes": 608,
+      "similarity": "0.73",
+      "gained": [],
+      "lost": [],
+      "patch": "--- a/ui_pda_cargo.cpp\n+++ b/ui_pda_cargo.cpp\n@@ -68,9 +68,9 @@\n UIPdaCargoClass::UIPdaCargoClass(SClient *client, PDAInterfaceClass *pda) :\n \tUIInvClass(client, 10),\n \tPDA(pda),\n-\tSlider(NULL),\n+\tSlider(0),\n \tSortIndex(0),\n-\tSortReverse(false), FilterName(\"\")\n+\tSortReverse(0), FilterName(\"\")\n {\n \tfor (int i = 0; i < NUM_BUTTONS; i++) {\n \t\tButtons5[i] = NULL;\n"
+    },
+    {
+      "name": "explicit_none",
+      "source_sha256": "3eb20b4606910640bc9e4a40314d93c23f6038224095382e74a3937fbfdb5b34",
+      "masked_target_sha256": "e4d2704f0db719d55b1b55df8a958f1e27c8ca80004d5f7e27a54850b68e0654",
+      "object_bytes": 608,
+      "similarity": "0.73",
+      "gained": [],
+      "lost": [],
+      "patch": "--- a/ui_pda_cargo.cpp\n+++ b/ui_pda_cargo.cpp\n@@ -67,8 +67,8 @@\n // 0x5CF9B0\n UIPdaCargoClass::UIPdaCargoClass(SClient *client, PDAInterfaceClass *pda) :\n \tUIInvClass(client, 10),\n-\tPDA(pda),\n-\tSlider(NULL),\n+\tPDA(pda), InterfaceMesh(0),\n+\tFilter(0), Slider(NULL),\n \tSortIndex(0),\n \tSortReverse(false), FilterName(\"\")\n {\n"
+    },
+    {
+      "name": "const_sort",
+      "source_sha256": "fd1b1f18329dac6e12caf6fd9580ba6d9cb983ebcecb64b5bdda21c4b6eb76c7",
+      "masked_target_sha256": "86624ec0e694bdaec3d1b689333166c3c73c57304c5111f728129ceecbbcc211",
+      "object_bytes": 608,
+      "similarity": "0.72",
+      "gained": [],
+      "lost": [],
+      "patch": "--- a/ui_pda_cargo.cpp\n+++ b/ui_pda_cargo.cpp\n@@ -76,7 +76,7 @@\n \t\tButtons5[i] = NULL;\n \t}\n \tOptionClass *options = OptionClass::Instance; if (options) {\n-\t\tSortIndex = options->Get_Bool(\"Inv_Sort_Cargo\");\n+\t\t{ const bool value = options->Get_Bool(\"Inv_Sort_Cargo\"); SortIndex = value; }\n \t\tSortReverse = options->Get_Bool(\"Inv_Sort_Cargo_Reverse\");\n \t\tFilterName = options->Get_String(\"Inv_Filter_Cargo\");\n \t}\n"
+    },
+    {
+      "name": "const_reverse",
+      "source_sha256": "1e3212fe104ad8ffe3314c85fed4bc389d433c8f2ab34ad856d1815293aa7bc2",
+      "masked_target_sha256": "e4d2704f0db719d55b1b55df8a958f1e27c8ca80004d5f7e27a54850b68e0654",
+      "object_bytes": 608,
+      "similarity": "0.73",
+      "gained": [],
+      "lost": [],
+      "patch": "--- a/ui_pda_cargo.cpp\n+++ b/ui_pda_cargo.cpp\n@@ -77,7 +77,7 @@\n \t}\n \tOptionClass *options = OptionClass::Instance; if (options) {\n \t\tSortIndex = options->Get_Bool(\"Inv_Sort_Cargo\");\n-\t\tSortReverse = options->Get_Bool(\"Inv_Sort_Cargo_Reverse\");\n+\t\t{ const bool value = options->Get_Bool(\"Inv_Sort_Cargo_Reverse\"); SortReverse = value; }\n \t\tFilterName = options->Get_String(\"Inv_Filter_Cargo\");\n \t}\n \tUnknown_BE67BC->Load(\"fa_pdainv.ini\");\n"
+    },
+    {
+      "name": "int_sort",
+      "source_sha256": "00f01f3c5465759c7f8be0cff0739346ff9fbb61bd4cdb866bfdb1290cf31846",
+      "masked_target_sha256": "e4d2704f0db719d55b1b55df8a958f1e27c8ca80004d5f7e27a54850b68e0654",
+      "object_bytes": 608,
+      "similarity": "0.73",
+      "gained": [],
+      "lost": [],
+      "patch": "--- a/ui_pda_cargo.cpp\n+++ b/ui_pda_cargo.cpp\n@@ -76,7 +76,7 @@\n \t\tButtons5[i] = NULL;\n \t}\n \tOptionClass *options = OptionClass::Instance; if (options) {\n-\t\tSortIndex = options->Get_Bool(\"Inv_Sort_Cargo\");\n+\t\t{ int value = options->Get_Bool(\"Inv_Sort_Cargo\"); SortIndex = value; }\n \t\tSortReverse = options->Get_Bool(\"Inv_Sort_Cargo_Reverse\");\n \t\tFilterName = options->Get_String(\"Inv_Filter_Cargo\");\n \t}\n"
+    },
+    {
+      "name": "assign_parens",
+      "source_sha256": "78506aec088f9508d24e0a43bfffa0e848b1100456fb01ccaa34329e67fb1dd4",
+      "masked_target_sha256": "e4d2704f0db719d55b1b55df8a958f1e27c8ca80004d5f7e27a54850b68e0654",
+      "object_bytes": 608,
+      "similarity": "0.73",
+      "gained": [],
+      "lost": [],
+      "patch": "--- a/ui_pda_cargo.cpp\n+++ b/ui_pda_cargo.cpp\n@@ -78,7 +78,7 @@\n \tOptionClass *options = OptionClass::Instance; if (options) {\n \t\tSortIndex = options->Get_Bool(\"Inv_Sort_Cargo\");\n \t\tSortReverse = options->Get_Bool(\"Inv_Sort_Cargo_Reverse\");\n-\t\tFilterName = options->Get_String(\"Inv_Filter_Cargo\");\n+\t\t(FilterName = options->Get_String(\"Inv_Filter_Cargo\"));\n \t}\n \tUnknown_BE67BC->Load(\"fa_pdainv.ini\");\n }\n"
+    },
+    {
+      "name": "branch_split",
+      "source_sha256": "b0ea23706c330b1f9412cf9823490902ffbbdf2830d29804b386250c3f022e11",
+      "masked_target_sha256": "e4d2704f0db719d55b1b55df8a958f1e27c8ca80004d5f7e27a54850b68e0654",
+      "object_bytes": 608,
+      "similarity": "0.73",
+      "gained": [],
+      "lost": [],
+      "patch": "--- a/ui_pda_cargo.cpp\n+++ b/ui_pda_cargo.cpp\n@@ -76,12 +76,12 @@\n \t\tButtons5[i] = NULL;\n \t}\n \tOptionClass *options = OptionClass::Instance; if (options) {\n-\t\tSortIndex = options->Get_Bool(\"Inv_Sort_Cargo\");\n-\t\tSortReverse = options->Get_Bool(\"Inv_Sort_Cargo_Reverse\");\n-\t\tFilterName = options->Get_String(\"Inv_Filter_Cargo\");\n+\t\tSortIndex = options->Get_Bool(\"Inv_Sort_Cargo\"); } if (options) { SortReverse = options->Get_Bool(\"Inv_Sort_Cargo_Reverse\"); } if (options) { FilterName = options->Get_String(\"Inv_Filter_Cargo\");\n \t}\n \tUnknown_BE67BC->Load(\"fa_pdainv.ini\");\n }\n+\n+\n \n \n // 0x5CFCE0\n"
+    },
+    {
+      "name": "branch_nested",
+      "source_sha256": "d320dc559bee3c4841eb8ae57f9c10d0d8e5c179e237fedaccbc23fffe132b59",
+      "masked_target_sha256": "e4d2704f0db719d55b1b55df8a958f1e27c8ca80004d5f7e27a54850b68e0654",
+      "object_bytes": 608,
+      "similarity": "0.73",
+      "gained": [],
+      "lost": [],
+      "patch": "--- a/ui_pda_cargo.cpp\n+++ b/ui_pda_cargo.cpp\n@@ -76,12 +76,12 @@\n \t\tButtons5[i] = NULL;\n \t}\n \tOptionClass *options = OptionClass::Instance; if (options) {\n-\t\tSortIndex = options->Get_Bool(\"Inv_Sort_Cargo\");\n-\t\tSortReverse = options->Get_Bool(\"Inv_Sort_Cargo_Reverse\");\n-\t\tFilterName = options->Get_String(\"Inv_Filter_Cargo\");\n+\t\t{ SortIndex = options->Get_Bool(\"Inv_Sort_Cargo\"); { SortReverse = options->Get_Bool(\"Inv_Sort_Cargo_Reverse\"); { FilterName = options->Get_String(\"Inv_Filter_Cargo\"); } } }\n \t}\n \tUnknown_BE67BC->Load(\"fa_pdainv.ini\");\n }\n+\n+\n \n \n // 0x5CFCE0\n"
+    },
+    {
+      "name": "both_scoped_memset",
+      "source_sha256": "b3da0520ed40bd0a95300a586d07cfc826a285351963a93f898047eac2afa196",
+      "masked_target_sha256": "aa2622e046c7db649270fe87cf0f63d5b2cb896a2f8e615d60fee1aa1213502b",
+      "object_bytes": 608,
+      "similarity": "0.74",
+      "gained": [],
+      "lost": [],
+      "patch": "--- a/ui_pda_cargo.cpp\n+++ b/ui_pda_cargo.cpp\n@@ -72,12 +72,12 @@\n \tSortIndex(0),\n \tSortReverse(false), FilterName(\"\")\n {\n-\tfor (int i = 0; i < NUM_BUTTONS; i++) {\n-\t\tButtons5[i] = NULL;\n-\t}\n+\tmemset(Buttons5, 0, sizeof(Buttons5));\n+\n+\n \tOptionClass *options = OptionClass::Instance; if (options) {\n-\t\tSortIndex = options->Get_Bool(\"Inv_Sort_Cargo\");\n-\t\tSortReverse = options->Get_Bool(\"Inv_Sort_Cargo_Reverse\");\n+\t\t{ bool value = options->Get_Bool(\"Inv_Sort_Cargo\"); SortIndex = value; }\n+\t\t{ bool value = options->Get_Bool(\"Inv_Sort_Cargo_Reverse\"); SortReverse = value; }\n \t\tFilterName = options->Get_String(\"Inv_Filter_Cargo\");\n \t}\n \tUnknown_BE67BC->Load(\"fa_pdainv.ini\");\n"
+    },
+    {
+      "name": "bool_compare",
+      "source_sha256": "848a10ddcaed3577e7e262f50c0522511ba82f2e1424c35e28699587b535b4f7",
+      "masked_target_sha256": "0153863810ef4fd38e0810cf4e095223a2c3b0be03150a7c7a4183ddca3190a7",
+      "object_bytes": 608,
+      "similarity": "0.68",
+      "gained": [],
+      "lost": [],
+      "patch": "--- a/ui_pda_cargo.cpp\n+++ b/ui_pda_cargo.cpp\n@@ -76,7 +76,7 @@\n \t\tButtons5[i] = NULL;\n \t}\n \tOptionClass *options = OptionClass::Instance; if (options) {\n-\t\tSortIndex = options->Get_Bool(\"Inv_Sort_Cargo\");\n+\t\tSortIndex = (options->Get_Bool(\"Inv_Sort_Cargo\") != false);\n \t\tSortReverse = options->Get_Bool(\"Inv_Sort_Cargo_Reverse\");\n \t\tFilterName = options->Get_String(\"Inv_Filter_Cargo\");\n \t}\n"
+    },
+    {
+      "name": "array_ptr_count",
+      "source_sha256": "28b0ea9feca18c6a82b31b845aff9f2970dd09adc9d110112cc04bb78fd5348d",
+      "masked_target_sha256": "e4d2704f0db719d55b1b55df8a958f1e27c8ca80004d5f7e27a54850b68e0654",
+      "object_bytes": 608,
+      "similarity": "0.73",
+      "gained": [],
+      "lost": [],
+      "patch": "--- a/ui_pda_cargo.cpp\n+++ b/ui_pda_cargo.cpp\n@@ -72,8 +72,8 @@\n \tSortIndex(0),\n \tSortReverse(false), FilterName(\"\")\n {\n-\tfor (int i = 0; i < NUM_BUTTONS; i++) {\n-\t\tButtons5[i] = NULL;\n+\tButtonGadgetClass **p = Buttons5; for (int i = 0; i < NUM_BUTTONS; i++) {\n+\t\t*p++ = NULL;\n \t}\n \tOptionClass *options = OptionClass::Instance; if (options) {\n \t\tSortIndex = options->Get_Bool(\"Inv_Sort_Cargo\");\n"
+    },
+    {
+      "name": "array_ptr_end",
+      "source_sha256": "82180657a634929ae8073e7fdc25f6326f7e18f0a96feeb5233d9cf7496e5473",
+      "masked_target_sha256": "066a5f283eff357c408e947e3587d5b365c25511556c66fe5dc12755143ac03f",
+      "object_bytes": 608,
+      "similarity": "0.73",
+      "gained": [],
+      "lost": [],
+      "patch": "--- a/ui_pda_cargo.cpp\n+++ b/ui_pda_cargo.cpp\n@@ -72,8 +72,8 @@\n \tSortIndex(0),\n \tSortReverse(false), FilterName(\"\")\n {\n-\tfor (int i = 0; i < NUM_BUTTONS; i++) {\n-\t\tButtons5[i] = NULL;\n+\tButtonGadgetClass **p = Buttons5; while (p < Buttons5 + NUM_BUTTONS) {\n+\t\t*p++ = NULL;\n \t}\n \tOptionClass *options = OptionClass::Instance; if (options) {\n \t\tSortIndex = options->Get_Bool(\"Inv_Sort_Cargo\");\n"
+    }
+  ]
+}
