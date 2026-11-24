@@ -1612,16 +1612,16 @@ std::string CharacterViewAvatarClass::Unknown_781D10(int anim)
 }
 
 // 0x781EA0
-// NOT EXACT: functional for POC (D64), register (ebx for the zero where the client has ebp; the client keeps Unknown314 = 1 apart from = n)
+// NOT EXACT: registers and two schedules (200/200 rows; the client compares Unknown210 in memory and adds delay into a copy; D5 2026-11-24: audited against the client's bytes)
 void CharacterViewAvatarClass::Unknown_781EA0()
 {
 	int delay = PlayerNLP->Personality->Get_Fidget_Delay();
 	Unknown220 = true;
 	if (SpeechSound) {
 		SpeechSound->Stop(1);
-		SpeechSound = NULL;
 
 	}
+	SpeechSound = NULL;
 	char name[32];
 	if (Unknown210 != 0) {
 		_snprintf(name, 0x20, "sit_breathe");

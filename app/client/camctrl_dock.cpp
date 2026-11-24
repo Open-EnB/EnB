@@ -119,7 +119,7 @@ void CameraController06Class::Unknown_0C()
 }
 
 // @0x792750
-// NOT EXACT: stack slots and register choices differ (same length, 0x760 bytes); functional
+// NOT EXACT: registers only (566/566 rows, the client's stack slots; D5 2026-11-24: every call, member offset and constant audited against the client's bytes)
 void CameraController06Class::Unknown_792750()
 {
 	ClientObjectClass *target = Client->Find_Object(Client->Unknown13AC);
@@ -180,7 +180,7 @@ void CameraController06Class::Unknown_792750()
 		end_offset.X = ini.Get_Float(section, "EX", 0.0f);
 		end_offset.Y = ini.Get_Float(section, "EY", 0.0f);
 		end_offset.Z = ini.Get_Float(section, "EZ", 0.0f);
-		angle = ini.Get_Float(section, "Angle", Unknown_B04AF8) * (WWMATH_PI / 180.0f);
+		angle = DEG_TO_RADF(ini.Get_Float(section, "Angle", Unknown_B04AF8));
 		radius = ini.Get_Float(section, "Radius", Unknown_B04AFC);
 		char bone[100];
 		if (ini.Get_String(section, "Bone", "", bone, 100)) {
@@ -195,7 +195,7 @@ void CameraController06Class::Unknown_792750()
 			}
 			Unknown14 = true;
 			start_offset = Unknown_Rotate(tm, start_offset);
-			end = tm.Get_Translation() + Unknown_Rotate(tm, end_offset);
+			end = tm.Get_Translation(); end += Unknown_Rotate(tm, end_offset);
 		} else {
 			Unknown14 = false;
 		}
@@ -260,15 +260,15 @@ void CameraController06Class::Unknown_792750()
 	}
 
 	angle = Unknown_BDB1C0.Get_Float() * angle;
-	if (Unknown_BDB1C0(0, 1) == 1) {
-		angle = WWMATH_PI - angle;
+	switch (Unknown_BDB1C0(0, 1)) { default: break;
+		case 1: angle = WWMATH_PI - angle; break;
 	}
 	float s = WWMath::Sin(angle);
 	float c = WWMath::Cos(angle);
 	Vector3 offset(lead, c * radius * scale, s * radius * scale);
 	Matrix3D tm;
 	tm.Obj_Look_At(start, end, 0.0f);
-	Unknown0C->Position = tm * offset;
+	Vector3 position = tm * offset; { CameraModule79C8E0Class *module = Unknown0C; module->Position.X = position.X; module->Position.Y = position.Y; module->Position.Z = position.Z; }
 	Unknown0C->Unknown14 = true;
 	Unknown0C->Unknown18 = Client->AvatarID;
 	Unknown0C->Unknown_04();
@@ -286,5 +286,5 @@ void CameraController06Class::Unknown_792750()
 ** Flags are read afresh at each test ('test byte ptr [esi+8], 1', then 'mov; shr; test dl, 1'): only a volatile
 ** read gives that (camctrl.h's Get_Flag); a plain inline or a bitfield is CSE'd into one load.
 ** 0x792750 reads the rotation inline with rows built right to left (Unknown_Rotate; the library's Rotate_Vector
-** member is a call) and adds the bone's translation to the end point (Get_Translation() + rotated).
+** member is a call) and adds the bone's translation to the end point (end = Get_Translation(); end += rotated).
 */
