@@ -290,26 +290,22 @@ void UIPdaCargoClass::Unknown_5D0A20(bool on)
 	UnknownB8_0 = on;
 }
 
-// NOT EXACT: functional from the pseudocode (D64): ui_attrb.cpp's 0x547C20 for this window's 'Credits'
+template<class C> inline C *Cargo_Find_Valid(DeltaCompoundClass *root, const char *str) { NameClass n(str); C *t = Unknown_Find_Field<C>(root, n); return (t && t->Unknown70) ? t : NULL; } template<class C> inline C *Cargo_Find_Valid_Outer(DeltaCompoundClass *root, const char *str) { return Cargo_Find_Valid<C>(root, str); } template<class C> inline C *Cargo_Find_Changed(DeltaCompoundClass *root, const char *str) { NameClass n(str); C *t = Unknown_Find_Field<C>(root, n); return (t && t->Unknown70 > 1) ? t : NULL; } // NAME 1: neutral; two lookup layers as ui_attrb_skills.cpp 0x54A640
 // 0x5D0A50
 void UIPdaCargoClass::Unknown_5D0A50(bool all)
 {
 	DeltaCompoundClass *aux = (DeltaCompoundClass *)Client->As_Space_Client()->AuxData;
-	NameClass name("Money");
-	DeltaTemplateClass<MoneyClass> *field = NULL;
+	MoneyClass money;
+	DeltaTemplateClass<MoneyClass> *field;
 	if (all) {
-		field = Unknown_Find_Field<DeltaTemplateClass<MoneyClass> >(aux, name);
+		field = Cargo_Find_Valid_Outer<DeltaTemplateClass<MoneyClass> >(aux, "Money");
 	} else {
-		if (!aux) return;
-		field = Unknown_Find_Field<DeltaTemplateClass<MoneyClass> >(aux, name);
-		if (!field || field->Unknown70 < 2) return;
+		field = Cargo_Find_Changed<DeltaTemplateClass<MoneyClass> >(aux, "Money");
 	}
+	if (!all && !field) return;
+	if (field) money = field->Value;
 	FontSys *font = Unknown_BE67C4->Get_Style("Credits", InterfaceMesh.Peek());
 	if (font) {
-		MoneyClass money;
-		if (field) {
-			money = field->Value;
-		}
 		std::string text = "Credits: ";
 		text += money.Amount_As_Text(true);
 		font->Change_Text(text.c_str(), 0);

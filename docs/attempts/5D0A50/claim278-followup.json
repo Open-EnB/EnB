@@ -1,0 +1,527 @@
+{
+  "head": "70b60f4a5b382ec2811cc79c160e09e679fe2d48",
+  "prior_valid": 25,
+  "new_valid": 3,
+  "controls": 2,
+  "invalid_or_uncompiled": 0,
+  "not_executed": [
+    "set_inline_changed"
+  ],
+  "forms": [
+    {
+      "form": "baseline",
+      "source_sha256": "4719cfb32a2ee98f90f17b84674bd93266470a10d9a85980272bb68226c0bb28",
+      "masked_code_sha256": "3b8aa113a881e189d5dc09ae150c2bc32c9342efe59b7351c39e34ac3ce31b6f",
+      "object_size_with_alignment": 592,
+      "target_exact": false,
+      "gained": [],
+      "lost": [],
+      "patch": ""
+    },
+    {
+      "form": "set_literal",
+      "source_sha256": "74885a69f5bd059003cc7d4176a235661d9e15b54b63f41623404b15194327df",
+      "masked_code_sha256": "37282d8fa233a944e63bbdaee90add8c4bcba56abfb65ca8714a7d75b2be8fc4",
+      "object_size_with_alignment": 544,
+      "target_exact": false,
+      "gained": [
+        [
+          "?Cast@?$UnknownRTTIClass@V?$DeltaTemplateClass@VMoneyClass@@@@@@SAPAV?$DeltaTemplateClass@VMoneyClass@@@@PAVDeltaClass@@@Z",
+          "0x5481C0"
+        ],
+        [
+          "?Unknown_Find_Field@@YAPAV?$DeltaTemplateClass@VMoneyClass@@@@PAVDeltaCompoundClass@@ABVNameClass@@@Z",
+          "0x5466A0"
+        ]
+      ],
+      "lost": [],
+      "patch": "--- a/app/client/ui_pda_cargo.cpp\n+++ b/app/client/ui_pda_cargo.cpp\n@@ -290,30 +290,22 @@\n \tUnknownB8_0 = on;\n }\n \n-// NOT EXACT: functional from the pseudocode (D64): ui_attrb.cpp's 0x547C20 for this window's 'Credits'\n+template<class C> inline C *Cargo_Find_Changed(DeltaCompoundClass *root, const char *str) { NameClass n(str); C *t = Unknown_Find_Field<C>(root, n); return (t && t->Unknown70 > 1) ? t : NULL; } // NOT EXACT: functional from the pseudocode (D64): ui_attrb.cpp's 0x547C20 for this window's 'Credits'\n // 0x5D0A50\n void UIPdaCargoClass::Unknown_5D0A50(bool all)\n {\n-\tDeltaCompoundClass *aux = (DeltaCompoundClass *)Client->As_Space_Client()->AuxData;\n-\tNameClass name(\"Money\");\n-\tDeltaTemplateClass<MoneyClass> *field = NULL;\n-\tif (all) {\n-\t\tfield = Unknown_Find_Field<DeltaTemplateClass<MoneyClass> >(aux, name);\n-\t} else {\n-\t\tif (!aux) return;\n-\t\tfield = Unknown_Find_Field<DeltaTemplateClass<MoneyClass> >(aux, name);\n-\t\tif (!field || field->Unknown70 < 2) return;\n-\t}\n-\tFontSys *font = Unknown_BE67C4->Get_Style(\"Credits\", InterfaceMesh.Peek());\n-\tif (font) {\n-\t\tMoneyClass money;\n-\t\tif (field) {\n-\t\t\tmoney = field->Value;\n-\t\t}\n-\t\tstd::string text = \"Credits: \";\n-\t\ttext += money.Amount_As_Text(true);\n-\t\tfont->Change_Text(text.c_str(), 0);\n-\t}\n+    DeltaCompoundClass *aux = (DeltaCompoundClass *)Client->As_Space_Client()->AuxData;\n+    MoneyClass money;\n+    DeltaTemplateClass<MoneyClass> *field;\n+    if (all) { field = Unknown_Find_Set_Field<DeltaTemplateClass<MoneyClass> >(aux, \"Money\"); } else { field = Cargo_Find_Changed<DeltaTemplateClass<MoneyClass> >(aux, \"Money\"); }\n+    if (!all && !field) return;\n+    if (field) money = field->Value;\n+    FontSys *font = Unknown_BE67C4->Get_Style(\"Credits\", InterfaceMesh.Peek());\n+    if (font) {\n+        std::string text = \"Credits: \";\n+        text += money.Amount_As_Text(true);\n+        font->Change_Text(text.c_str(), 0);\n+    }\n }\n \n // the client's format strings 'Inv_Sort%d_Name' / _primary / _secondary / _tertiary (0xB83A7C, 0xB83A64, 0xB83A48, 0xB83A30)\n"
+    },
+    {
+      "form": "set_local",
+      "source_sha256": "e544460d81c355654d5f6b39027b45dd70f85a84e5fe75d49627ca2d8a7abe70",
+      "masked_code_sha256": "b6f89dd857ab4b0fe5de71b7a95c106010702768d43d011d4bd63508c7b6dfe1",
+      "object_size_with_alignment": 544,
+      "target_exact": false,
+      "gained": [
+        [
+          "?Cast@?$UnknownRTTIClass@V?$DeltaTemplateClass@VMoneyClass@@@@@@SAPAV?$DeltaTemplateClass@VMoneyClass@@@@PAVDeltaClass@@@Z",
+          "0x5481C0"
+        ],
+        [
+          "?Unknown_Find_Field@@YAPAV?$DeltaTemplateClass@VMoneyClass@@@@PAVDeltaCompoundClass@@ABVNameClass@@@Z",
+          "0x5466A0"
+        ]
+      ],
+      "lost": [],
+      "patch": "--- a/app/client/ui_pda_cargo.cpp\n+++ b/app/client/ui_pda_cargo.cpp\n@@ -290,30 +290,22 @@\n \tUnknownB8_0 = on;\n }\n \n-// NOT EXACT: functional from the pseudocode (D64): ui_attrb.cpp's 0x547C20 for this window's 'Credits'\n+template<class C> inline C *Cargo_Find_Changed(DeltaCompoundClass *root, const char *str) { NameClass n(str); C *t = Unknown_Find_Field<C>(root, n); return (t && t->Unknown70 > 1) ? t : NULL; } // NOT EXACT: functional from the pseudocode (D64): ui_attrb.cpp's 0x547C20 for this window's 'Credits'\n // 0x5D0A50\n void UIPdaCargoClass::Unknown_5D0A50(bool all)\n {\n-\tDeltaCompoundClass *aux = (DeltaCompoundClass *)Client->As_Space_Client()->AuxData;\n-\tNameClass name(\"Money\");\n-\tDeltaTemplateClass<MoneyClass> *field = NULL;\n-\tif (all) {\n-\t\tfield = Unknown_Find_Field<DeltaTemplateClass<MoneyClass> >(aux, name);\n-\t} else {\n-\t\tif (!aux) return;\n-\t\tfield = Unknown_Find_Field<DeltaTemplateClass<MoneyClass> >(aux, name);\n-\t\tif (!field || field->Unknown70 < 2) return;\n-\t}\n-\tFontSys *font = Unknown_BE67C4->Get_Style(\"Credits\", InterfaceMesh.Peek());\n-\tif (font) {\n-\t\tMoneyClass money;\n-\t\tif (field) {\n-\t\t\tmoney = field->Value;\n-\t\t}\n-\t\tstd::string text = \"Credits: \";\n-\t\ttext += money.Amount_As_Text(true);\n-\t\tfont->Change_Text(text.c_str(), 0);\n-\t}\n+    DeltaCompoundClass *aux = (DeltaCompoundClass *)Client->As_Space_Client()->AuxData;\n+    MoneyClass money;\n+    DeltaTemplateClass<MoneyClass> *field;\n+    if (all) { field = Unknown_Find_Set_Field<DeltaTemplateClass<MoneyClass> >(aux, NameClass(\"Money\")); } else { field = Cargo_Find_Changed<DeltaTemplateClass<MoneyClass> >(aux, \"Money\"); }\n+    if (!all && !field) return;\n+    if (field) money = field->Value;\n+    FontSys *font = Unknown_BE67C4->Get_Style(\"Credits\", InterfaceMesh.Peek());\n+    if (font) {\n+        std::string text = \"Credits: \";\n+        text += money.Amount_As_Text(true);\n+        font->Change_Text(text.c_str(), 0);\n+    }\n }\n \n // the client's format strings 'Inv_Sort%d_Name' / _primary / _secondary / _tertiary (0xB83A7C, 0xB83A64, 0xB83A48, 0xB83A30)\n"
+    },
+    {
+      "form": "layer_valid",
+      "source_sha256": "abe0fda5c973444d3a9a6d2ac2ac90286b8de3c790ecdf524dc960ed81d654ef",
+      "masked_code_sha256": "092c89099e068d06ceaa8c168a0ad9b51ecaa9adf54b86101cdda3d3eb3a9aff",
+      "object_size_with_alignment": 576,
+      "target_exact": true,
+      "gained": [
+        [
+          "?Cast@?$UnknownRTTIClass@V?$DeltaTemplateClass@VMoneyClass@@@@@@SAPAV?$DeltaTemplateClass@VMoneyClass@@@@PAVDeltaClass@@@Z",
+          "0x5481C0"
+        ],
+        [
+          "?Unknown_5D0A50@UIPdaCargoClass@@QAEX_N@Z",
+          "0x5D0A50"
+        ],
+        [
+          "?Unknown_Find_Field@@YAPAV?$DeltaTemplateClass@VMoneyClass@@@@PAVDeltaCompoundClass@@ABVNameClass@@@Z",
+          "0x5466A0"
+        ]
+      ],
+      "lost": [],
+      "patch": "--- a/app/client/ui_pda_cargo.cpp\n+++ b/app/client/ui_pda_cargo.cpp\n@@ -290,30 +290,22 @@\n \tUnknownB8_0 = on;\n }\n \n-// NOT EXACT: functional from the pseudocode (D64): ui_attrb.cpp's 0x547C20 for this window's 'Credits'\n+template<class C> inline C *Cargo_Find_Valid(DeltaCompoundClass *root, const char *str) { NameClass n(str); C *t = Unknown_Find_Field<C>(root, n); return (t && t->Unknown70) ? t : NULL; } template<class C> inline C *Cargo_Find_Valid_Outer(DeltaCompoundClass *root, const char *str) { return Cargo_Find_Valid<C>(root, str); } template<class C> inline C *Cargo_Find_Changed(DeltaCompoundClass *root, const char *str) { NameClass n(str); C *t = Unknown_Find_Field<C>(root, n); return (t && t->Unknown70 > 1) ? t : NULL; } // NOT EXACT: functional from the pseudocode (D64): ui_attrb.cpp's 0x547C20 for this window's 'Credits'\n // 0x5D0A50\n void UIPdaCargoClass::Unknown_5D0A50(bool all)\n {\n-\tDeltaCompoundClass *aux = (DeltaCompoundClass *)Client->As_Space_Client()->AuxData;\n-\tNameClass name(\"Money\");\n-\tDeltaTemplateClass<MoneyClass> *field = NULL;\n-\tif (all) {\n-\t\tfield = Unknown_Find_Field<DeltaTemplateClass<MoneyClass> >(aux, name);\n-\t} else {\n-\t\tif (!aux) return;\n-\t\tfield = Unknown_Find_Field<DeltaTemplateClass<MoneyClass> >(aux, name);\n-\t\tif (!field || field->Unknown70 < 2) return;\n-\t}\n-\tFontSys *font = Unknown_BE67C4->Get_Style(\"Credits\", InterfaceMesh.Peek());\n-\tif (font) {\n-\t\tMoneyClass money;\n-\t\tif (field) {\n-\t\t\tmoney = field->Value;\n-\t\t}\n-\t\tstd::string text = \"Credits: \";\n-\t\ttext += money.Amount_As_Text(true);\n-\t\tfont->Change_Text(text.c_str(), 0);\n-\t}\n+    DeltaCompoundClass *aux = (DeltaCompoundClass *)Client->As_Space_Client()->AuxData;\n+    MoneyClass money;\n+    DeltaTemplateClass<MoneyClass> *field;\n+    if (all) { field = Cargo_Find_Valid_Outer<DeltaTemplateClass<MoneyClass> >(aux, \"Money\"); } else { field = Cargo_Find_Changed<DeltaTemplateClass<MoneyClass> >(aux, \"Money\"); }\n+    if (!all && !field) return;\n+    if (field) money = field->Value;\n+    FontSys *font = Unknown_BE67C4->Get_Style(\"Credits\", InterfaceMesh.Peek());\n+    if (font) {\n+        std::string text = \"Credits: \";\n+        text += money.Amount_As_Text(true);\n+        font->Change_Text(text.c_str(), 0);\n+    }\n }\n \n // the client's format strings 'Inv_Sort%d_Name' / _primary / _secondary / _tertiary (0xB83A7C, 0xB83A64, 0xB83A48, 0xB83A30)\n"
+    },
+    {
+      "form": "final",
+      "source_sha256": "16fab78b7f751be6449ed1aaf778671051935a7b9d9e7e5f902e9081ac2c0403",
+      "masked_code_sha256": "092c89099e068d06ceaa8c168a0ad9b51ecaa9adf54b86101cdda3d3eb3a9aff",
+      "object_size_with_alignment": 576,
+      "target_exact": true,
+      "gained": [
+        [
+          "?Cast@?$UnknownRTTIClass@V?$DeltaTemplateClass@VMoneyClass@@@@@@SAPAV?$DeltaTemplateClass@VMoneyClass@@@@PAVDeltaClass@@@Z",
+          "0x5481C0"
+        ],
+        [
+          "?Unknown_5D0A50@UIPdaCargoClass@@QAEX_N@Z",
+          "0x5D0A50"
+        ],
+        [
+          "?Unknown_Find_Field@@YAPAV?$DeltaTemplateClass@VMoneyClass@@@@PAVDeltaCompoundClass@@ABVNameClass@@@Z",
+          "0x5466A0"
+        ]
+      ],
+      "lost": [],
+      "patch": "--- a/app/client/ui_pda_cargo.cpp\n+++ b/app/client/ui_pda_cargo.cpp\n@@ -290,26 +290,22 @@\n \tUnknownB8_0 = on;\n }\n \n-// NOT EXACT: functional from the pseudocode (D64): ui_attrb.cpp's 0x547C20 for this window's 'Credits'\n+template<class C> inline C *Cargo_Find_Valid(DeltaCompoundClass *root, const char *str) { NameClass n(str); C *t = Unknown_Find_Field<C>(root, n); return (t && t->Unknown70) ? t : NULL; } template<class C> inline C *Cargo_Find_Valid_Outer(DeltaCompoundClass *root, const char *str) { return Cargo_Find_Valid<C>(root, str); } template<class C> inline C *Cargo_Find_Changed(DeltaCompoundClass *root, const char *str) { NameClass n(str); C *t = Unknown_Find_Field<C>(root, n); return (t && t->Unknown70 > 1) ? t : NULL; } // NAME 1: neutral; two lookup layers as ui_attrb_skills.cpp 0x54A640\n // 0x5D0A50\n void UIPdaCargoClass::Unknown_5D0A50(bool all)\n {\n \tDeltaCompoundClass *aux = (DeltaCompoundClass *)Client->As_Space_Client()->AuxData;\n-\tNameClass name(\"Money\");\n-\tDeltaTemplateClass<MoneyClass> *field = NULL;\n+\tMoneyClass money;\n+\tDeltaTemplateClass<MoneyClass> *field;\n \tif (all) {\n-\t\tfield = Unknown_Find_Field<DeltaTemplateClass<MoneyClass> >(aux, name);\n+\t\tfield = Cargo_Find_Valid_Outer<DeltaTemplateClass<MoneyClass> >(aux, \"Money\");\n \t} else {\n-\t\tif (!aux) return;\n-\t\tfield = Unknown_Find_Field<DeltaTemplateClass<MoneyClass> >(aux, name);\n-\t\tif (!field || field->Unknown70 < 2) return;\n-\t}\n+\t\tfield = Cargo_Find_Changed<DeltaTemplateClass<MoneyClass> >(aux, \"Money\");\n+\t}\n+\tif (!all && !field) return;\n+\tif (field) money = field->Value;\n \tFontSys *font = Unknown_BE67C4->Get_Style(\"Credits\", InterfaceMesh.Peek());\n \tif (font) {\n-\t\tMoneyClass money;\n-\t\tif (field) {\n-\t\t\tmoney = field->Value;\n-\t\t}\n \t\tstd::string text = \"Credits: \";\n \t\ttext += money.Amount_As_Text(true);\n \t\tfont->Change_Text(text.c_str(), 0);\n"
+    }
+  ],
+  "baseline_pairs": 61,
+  "final_pairs": 64,
+  "retail_executable_bytes": 569,
+  "target_audit": {
+    "body_bytes": 571,
+    "body_and_branches_exact": true,
+    "body_relocations": [
+      [
+        "0x3",
+        "$L109531",
+        "0xab62c8",
+        "0xab62c8",
+        6,
+        "00000000"
+      ],
+      [
+        "0x9",
+        "__except_list",
+        "0x0",
+        "0x0",
+        6,
+        "00000000"
+      ],
+      [
+        "0x11",
+        "__except_list",
+        "0x0",
+        "0x0",
+        6,
+        "00000000"
+      ],
+      [
+        "0x49",
+        "??_C@_05COBC@Money?$AA@",
+        "0xb79ed8",
+        "0xb79ed8",
+        6,
+        "00000000"
+      ],
+      [
+        "0x58",
+        "??0NameClass@@QAE@PBD@Z",
+        "0xffe474d4",
+        "0x4ad380",
+        20,
+        "00000000"
+      ],
+      [
+        "0x63",
+        "?Unknown_Find_Field@@YAPAV?$DeltaTemplateClass@VMoneyClass@@@@PAVDeltaCompoundClass@@ABVNameClass@@@Z",
+        "0xffe472cb",
+        "0x5466a0",
+        20,
+        "00000000"
+      ],
+      [
+        "0x97",
+        "?Unknown_BE67C4@@3PAVFontManagerClass@@A",
+        "0xbe67c4",
+        "0xbe67c4",
+        6,
+        "00000000"
+      ],
+      [
+        "0x9d",
+        "??_C@_07NGJJ@Credits?$AA@",
+        "0xb7ca70",
+        "0xb7ca70",
+        6,
+        "00000000"
+      ],
+      [
+        "0xa2",
+        "?Get_Style@FontManagerClass@@QAEPAVFontSys@@PBDPAVRenderObjClass@@@Z",
+        "0xffe31ba8",
+        "0x6d25d0",
+        20,
+        "00000000"
+      ],
+      [
+        "0xc4",
+        "?_Tidy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEX_N@Z",
+        "0xffe3205e",
+        "0x42a820",
+        20,
+        "00000000"
+      ],
+      [
+        "0xc9",
+        "??_C@_09FGOJ@Credits?3?5?$AA@",
+        "0xb7abe0",
+        "0xb7abe0",
+        6,
+        "00000000"
+      ],
+      [
+        "0xe1",
+        "?_Grow@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAE_NI_N@Z",
+        "0xffe416e0",
+        "0x42a970",
+        20,
+        "00000000"
+      ],
+      [
+        "0xf2",
+        "??_C@_09FGOJ@Credits?3?5?$AA@",
+        "0xb7abe0",
+        "0xb7abe0",
+        6,
+        "00000000"
+      ],
+      [
+        "0x123",
+        "?Amount_As_Text@MoneyClass@@QBE?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@_N@Z",
+        "0xffe3d8cd",
+        "0x4f00c0",
+        20,
+        "00000000"
+      ],
+      [
+        "0x129",
+        "?npos@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@2IB",
+        "0xae70a8",
+        "0xae70a8",
+        6,
+        "00000000"
+      ],
+      [
+        "0x13b",
+        "?append@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAEAAV12@ABV12@II@Z",
+        "0xffe40f0b",
+        "0x42cf30",
+        20,
+        "00000000"
+      ],
+      [
+        "0x16a",
+        "??0NameClass@@QAE@PBD@Z",
+        "0xffe473c2",
+        "0x4ad380",
+        20,
+        "00000000"
+      ],
+      [
+        "0x179",
+        "?Get_Lookup@DeltaCompoundClass@@QAEPAVLookupClass@@XZ",
+        "0xffe3e2f4",
+        "0x4a5510",
+        20,
+        "00000000"
+      ],
+      [
+        "0x185",
+        "?Find@LookupClass@@QAEPAVDeltaClass@@ABVNameClass@@@Z",
+        "0xffe3b67e",
+        "0x4ac9f0",
+        20,
+        "00000000"
+      ],
+      [
+        "0x193",
+        "?Cast@?$UnknownRTTIClass@V?$DeltaTemplateClass@VMoneyClass@@@@@@SAPAV?$DeltaTemplateClass@VMoneyClass@@@@PAVDeltaClass@@@Z",
+        "0xffe426e6",
+        "0x5481c0",
+        20,
+        "00000000"
+      ],
+      [
+        "0x1a4",
+        "??_C@_0GJ@KGGE@Z?3?2home?2dev?2Projects?2EnB?2?4work?2c@",
+        "0xb767dc",
+        "0xb767dc",
+        6,
+        "00000000"
+      ],
+      [
+        "0x1a9",
+        "??_C@_01PEAM@t?$AA@",
+        "0xb767d8",
+        "0xb767d8",
+        6,
+        "00000000"
+      ],
+      [
+        "0x1ae",
+        "?G_Assert_Report@@YAXPBD0H@Z",
+        "0xffe39e4f",
+        "0x4e9410",
+        20,
+        "00000000"
+      ],
+      [
+        "0x1be",
+        "__except_list",
+        "0x0",
+        "0x0",
+        6,
+        "00000000"
+      ],
+      [
+        "0x1d5",
+        "??3@YAXPAX@Z",
+        "0xffe41f51",
+        "0x4e9d10",
+        20,
+        "00000000"
+      ],
+      [
+        "0x1e5",
+        "?_C@?1??_Nullstr@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@CAPBDXZ@4DB",
+        "0xae70a4",
+        "0xae70a4",
+        6,
+        "00000000"
+      ],
+      [
+        "0x1ef",
+        "?Change_Text@FontSys@@QAEXPBDH@Z",
+        "0xffe42d6a",
+        "0x6cdbc0",
+        20,
+        "00000000"
+      ],
+      [
+        "0x214",
+        "__except_list",
+        "0x0",
+        "0x0",
+        6,
+        "00000000"
+      ],
+      [
+        "0x221",
+        "??3@YAXPAX@Z",
+        "0xffe41f05",
+        "0x4e9d10",
+        20,
+        "00000000"
+      ],
+      [
+        "0x231",
+        "__except_list",
+        "0x0",
+        "0x0",
+        6,
+        "00000000"
+      ]
+    ],
+    "handler": "0xab62c8",
+    "funcinfo": "0xb34218",
+    "funcinfo_words": [
+      429065504,
+      3,
+      11747896,
+      0,
+      0,
+      0,
+      0
+    ],
+    "unwind_predecessors": [
+      -1,
+      0,
+      1
+    ],
+    "states": [
+      {
+        "address": "0xab62b0",
+        "relocations": [
+          [
+            "0x4",
+            "??1MoneyClass@@QAE@XZ",
+            "0xff95a2e8",
+            "0x4a7780",
+            20,
+            "00000000"
+          ]
+        ]
+      },
+      {
+        "address": "0xab62b8",
+        "relocations": [
+          [
+            "0x4",
+            "??1?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAE@XZ",
+            "0xff95d23d",
+            "0x42a6c0",
+            20,
+            "00000000"
+          ]
+        ]
+      },
+      {
+        "address": "0xab62c0",
+        "relocations": [
+          [
+            "0x4",
+            "??1?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAE@XZ",
+            "0xff95d235",
+            "0x42a6c0",
+            20,
+            "00000000"
+          ]
+        ]
+      }
+    ],
+    "helpers": [
+      {
+        "symbol": "?Unknown_Find_Field@@YAPAV?$DeltaTemplateClass@VMoneyClass@@@@PAVDeltaCompoundClass@@ABVNameClass@@@Z",
+        "address": "0x5466a0",
+        "length": 80,
+        "relocations": [
+          [
+            "0xc",
+            "?Get_Lookup@DeltaCompoundClass@@QAEPAVLookupClass@@XZ",
+            "0xffec8811",
+            "0x4a5510",
+            20,
+            "00000000"
+          ],
+          [
+            "0x18",
+            "?Find@LookupClass@@QAEPAVDeltaClass@@ABVNameClass@@@Z",
+            "0xffec5b9b",
+            "0x4ac9f0",
+            20,
+            "00000000"
+          ],
+          [
+            "0x26",
+            "?UnknownGlobal@?$DeltaTemplateClass@VMoneyClass@@@@2HA",
+            "0xbe3a94",
+            "0xbe3a94",
+            6,
+            "00000000"
+          ],
+          [
+            "0x35",
+            "??_C@_0GJ@KGGE@Z?3?2home?2dev?2Projects?2EnB?2?4work?2c@",
+            "0xb767dc",
+            "0xb767dc",
+            6,
+            "00000000"
+          ],
+          [
+            "0x3a",
+            "??_C@_01PEAM@t?$AA@",
+            "0xb767d8",
+            "0xb767d8",
+            6,
+            "00000000"
+          ],
+          [
+            "0x41",
+            "?G_Assert_Report@@YAXPBD0H@Z",
+            "0xffec436c",
+            "0x4e9410",
+            20,
+            "00000000"
+          ]
+        ],
+        "unwind": null
+      },
+      {
+        "symbol": "?Cast@?$UnknownRTTIClass@V?$DeltaTemplateClass@VMoneyClass@@@@@@SAPAV?$DeltaTemplateClass@VMoneyClass@@@@PAVDeltaClass@@@Z",
+        "address": "0x5481c0",
+        "length": 53,
+        "relocations": [
+          [
+            "0xb",
+            "??_C@_0GG@FMMP@Z?3?2home?2dev?2Projects?2EnB?2?4work?2c@",
+            "0xb78528",
+            "0xb78528",
+            6,
+            "00000000"
+          ],
+          [
+            "0x10",
+            "??_C@_01KCAO@b?$AA@",
+            "0xb78524",
+            "0xb78524",
+            6,
+            "00000000"
+          ],
+          [
+            "0x15",
+            "?G_Assert_Report@@YAXPBD0H@Z",
+            "0xffec2878",
+            "0x4e9410",
+            20,
+            "00000000"
+          ],
+          [
+            "0x25",
+            "?UnknownGlobal@?$DeltaTemplateClass@VMoneyClass@@@@2HA",
+            "0xbe3a94",
+            "0xbe3a94",
+            6,
+            "00000000"
+          ]
+        ],
+        "unwind": null
+      }
+    ],
+    "prior_exact_pairs_unchanged": 61
+  },
+  "semantics": "Money constructed before field lookup. Each branch constructs Name once; lookup is performed once, including null and type assertion handling in auxdata.h; valid accepts state >0, changed accepts state >1 and returns on missing field. Value copied before font lookup; text and string lifetimes, call ordering and failure branches independently verified by bytes, relocations and three EH cleanup states. Inline-only forwarding layer is a hypothesis supported by ui_attrb_skills.cpp:179 and ledger-exact 0x54A640, not direct evidence of original source structure. No callbacks occur within Name lookup beyond calls shown by exact body and helper audits.",
+  "holders": {
+    "0x5466A0": [
+      "ui_manu",
+      "ui_ptrade",
+      "ui_avatar_cust",
+      "ui_refinery"
+    ],
+    "0x5481C0": [
+      "ui_trade",
+      "ui_attrb",
+      "ui_ship_cust",
+      "ui_refinery"
+    ]
+  },
+  "note": "Local native VC6 result; maintainer verification remains authoritative. Patches are JSON-encoded exact unified diffs, roundtrip-validated and patch --dry-run checked against HEAD baseline. Final is a separate production-source control."
+}
