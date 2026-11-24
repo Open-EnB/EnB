@@ -2224,7 +2224,7 @@ void ClientObjectClass::Unknown_6FEAC0()
 
 
 
-// NOT EXACT: order (the client sums the transform's products in another order; explain.py says field-offset; 2 forms)
+// The sphere moved by slot +0x28's transform (Matrix3D * Vector3: the client's sum order is VC6's own, the source's is EA's)
 // 0x6FEC40
 void ClientObjectClass::Unknown_6FEC40(SphereClass *sphere)
 {
