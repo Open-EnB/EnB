@@ -627,6 +627,9 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
 * **Nested inline layers plus one dead read after the outer layer:** each layer alone cuts one call, so two invented layers (inv_render's file-static Unknown_Cannot_Use / Unknown_Refresh) and one D272 dead read after the outer one are tried together (0x68C6B0, 27 -> 8 masked).
 * **One helper can need two source forms when its callers' inline patterns differ:** split at the callers (two helpers, one per pattern), not inside the helper. A header helper's body form, not only its layers, decides which nested callee a big caller cuts, because a callee costs its source size (auxdata.h's Unknown_Find_Set_Field as if / if / return, starmap_pip 0x7C30E0; file-static Delete_Labels / Delete_Label layers put ??_G and the erase at depth 3 for 0x7C2D00 / 0x7C2DF0).
 * **Where a dead read sits decides which layer is cut:** reads inside the inlined callee, right after its nested site, move the cut up a layer; reads in the caller cut the deepest expansion (two dead reads in the inlined Get_Child moved chat_filter 0x4E2D60's cut up one layer).
+* **Two identical `+=` / appends inline differently:** the client's second one sits one layer shallower (0x61E8E0: the append on the cost line, with three dead `Gadgets.size()` reads).
+* **A deep dead read costs more budget than a shallow one** (ui_manu: five deep dead reads, within D272's six). Fewer rows than the client's means a missing statement, not budget.
+* **`Find_Field` plus a hand-written set test is not `Unknown_Find_Set_Field`** (chatgadg 0x65E840 / 0x65E5E0 matched through the helper and a `Vector3` translation form).
 
 **Register-only, order-only** (two attempts, then the stop rule)
 
@@ -740,6 +743,12 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
 * **An index local in a font-text setter:** `int i = index;` gives the client's load order (ui_manu 0x5B5320 and its setters).
 
 * **A `lea` operand order follows the set of locals in the caller:** sweep combinations of which locals exist, not statement order. A counter per loop is needed only while a written-out `operator=` stands in for the implicit one (see Field offset, layout).
+* **A register held across the function (`edi` = `&member`)** comes from a pointer or reference local declared where the client first computes it (orbitalmanager 0x4F2CB0: the `Direction` reference).
+* **A member read into a local after the call shifts `eax` / `ecx` / `edx` in the inlined copies** (sclient 0x749590 / 0x749A70).
+* **Swapped `ecx` / `edx` can come from the previous statement** (0x6FF7A0, 0x466F60).
+* **A bare index lands in the zero register** (ui_manu 0x5B2480 / 0x5B2BD0).
+* **Compare a folded form against a kept one:** the client keeps a reference to the global where a plain read folds (Get_Font 0x76EB70: the length through a reference).
+* **`string::_Eos` base / index order (`[eax+ecx]` against `[ecx+eax]`) is not behaviour** (ui_starbase 0x634140).
 
 **Shape: returns, tails, loops, switches**
 
@@ -861,6 +870,13 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
 * **Case labels in another order give identical code:** the switch's bytes follow the jump table, not the label order in the source (ui_registration 0x5FBD30).
 
 * **A row loop that starts from a pre-loop row copy makes VC6 fold src into `[src - dst + dst]`:** assigning src at the row's end keeps it stepped as the client has it (env_map 0x760770, 106 -> 75 masked).
+* **A return from the function's own `if` instead of an `else` pushes `ebp` in the prologue** (sclient 0x749A70 / 0x749ED0).
+* **`return F(...)` against `result = F(...); return result`** differ (steering Evade 0x447690 is exact with the second form).
+* **An `||` return cross-jumps the FAIL_IF tails:** route the test through an inline helper (ui_manu 0x5B2480).
+* **An index loop that takes `&a[i]` into a pointer** (optdlg 0x846FC0 / 0x846CD0: the client reloads `Choices`; `&controls[index]` matched).
+* **EH state numbers give the case order** (0x63DFE0: case 3 before 4, states at 0x63E129 / 0x63E178; 0x56B700's constructor form).
+* **An extra release in an inlined copy is a `RefCountPtr::operator=`** (the camctrl_land seeds).
+* **A call-count difference can be a merged call site, not a missing call** (camctrl_takeoff 0x796440: 16 against 17).
 
 **Frame and stack slots**
 
@@ -916,6 +932,9 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
 
 * **A copy-initialised local where the client re-reads a slot:** `RefCountPtr<T> route = expr;` against a default-constructed local assigned later changes whether the client's second read hits the slot (0x522860: the re-read at 0x5268BA, 58 -> 56).
 * **An iterator initialised in its declaration from an out-of-line find can leave a spare frame slot:** declare it, then assign (fontmanager 0x6D1600).
+* **A wrong argument shows only as stack-slot rows,** under masked residue or 'identical' (galaxy_map_render 0x7AC130 passed its own flags where the client passes its 2nd and 3rd arguments to 0x7AD090; evidence: the pushes at 0x7AC1E8 / 0x7AC1EF).
+* **`NameClass` slot pairing across the arms of one function** (co 0x6FF7A0: about 98 forms, none moved it).
+* **An address-taken DWORD constant used twice** is one DWORD local (landdmap 0x466F60's spacing array).
 
 **Constructors, destructors, vtables**
 
@@ -1118,6 +1137,7 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
 * **A float local with a dead initialiser declared ahead** is not kept in st0 after its real definition (fstp + reload instead of fst).
 
 * **`Translate(float, float, float)` and `Translate(const Vector3 &)` compile differently:** the float overload gave the client's frame (0xE4) at avatar_pip 0x7E3A20.
+* **VC6 reassociates three-term x87 sums** (0x61E8E0).
 
 **Reading the client**
 
@@ -1799,7 +1819,7 @@ are in 3.0.
   blank lines; a static generated stand-in is reported "defined but not compiled"; `explain.py` wants appfile's own
   object path (`.work/<agent>/appfile/obj/X.obj`). `match --pool` reads stdin: inside a `while read` loop it eats the loop's input (add `< /dev/null`).
 * **appfile.py's `match` keys nested-struct methods by full name, objmatch demangles without the outer class** (2026-11): appfile.py's match key for a nested-struct method is its full name, the demangled object name lacks the outer class: a missing match for such a method may be the key, not the code.
-* **`attempts.py check` matches by bare member name** (2026-11): a row for one class's member can refuse or allow another class's same-named one. A `trybatch.py` variant with an empty SYMBOL can resolve to a function whose comment names the address.
+* **`attempts.py check` matches by bare member name** (2026-11): a row for one class's member can refuse or allow another class's same-named one. A `trybatch.py` variant with an empty SYMBOL can resolve to a function whose comment names the address. Also a trap: a SYMBOL on a base object whose mangled name the form changes (ui_shipcust).
 * **`tools/re/siblings.py`** ranks the parked and blocked functions by an exact sibling in the tree; its 'untried' column is a keyword match of attempts rows, so read the rows before treating a lead as new.
 * **appfile.py, `match` and `show` limits:** `match` wipes the agent's `appfile/obj` on every run, so two runs of same-named drafts under one `--agent` overwrite each other's object (FileNotFoundError or another variant's result): run variants in series or one `ENB_AGENT` each. `match` refuses "the object lacks void" for a parenthesised definition `static void (Name)(...)` unless `--allow-missing`. Operator members (`??_5`, `??U`) and nested-class members (the demangled name drops the outer class) show as no marker: `--allow-missing` too. `show` refuses a file app-functions.json does not attribute (a new file): a throwaway wrapper that sets the range's `file` in memory gives show and draft (Tools item: a `--range` option). A `#line` in a draft is easy to lose when the file goes into the tree: count the padding from the draft without it.
 * **`attempts.py record --forms` takes a count; `--blocker` one class from a fixed list (2026-11-16, QE / F1):** `short`
@@ -2003,6 +2023,8 @@ are in 3.0.
 * **A trybatch row count can run past the function's end** (0x68F510: rows beyond the last instruction): check the rows ours / client before reading the count.
 * **tryv2 under a busy importer lock:** a run that times out while queued for the lock runs nothing, and tryv2 gives up behind a busy lock: use `appfile match` on mark.py drafts. A variant that adds lines shifts later `__LINE__`.
 * **appfile match on a library file** uses the app's /GX unless you pass the library's own `--flags` (ww3d2's); explain.py needs a virtual's UAE decoration to find it. Parallel appfile runs need distinct `ENB_AGENT`, and `$(... &)` drops it.
+* **budgetdev.py: a device that is free for the exact functions can hold a NOT EXACT function's cut** (an optdlg device was dropped by an apply that measured exact pairs only): measure every function's residue in the file.
+* **A stale marker plus its blank padding is credited to the next function** (galaxy_map_render's blanked markers): check the neighbour's pairs after blanking one.
 
 ### 3.7 Harnesses, programs, unattended runs
 
@@ -2345,6 +2367,7 @@ Edit scripts:
   `m_UnknownXX` in app/ broke it (12 compile errors, soundlib's pairs lost). Check every renamed name against
   the libraries' headers, and run a full verify (D159).
 * **`wt.py bring-over` cherry-picks,** so `git merge-base --is-ancestor <builder commit>` stays false after a landing: compare the file's content instead. `commit_mine` edits names-review.md by row, so its "Score 5" totals line stays stale: restore the working copy after committing.
+* **A partly adopted stashed seed:** diff it hunk by hunk against the client, not file against file (camctrl_dock / camctrl_land / avatar seeds).
 
 ### 3.9 Library-specific
 
