@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1970 |
 | 2 | describes what the code does | 5010 |
-| 1 | neutral placeholder | 25172 |
+| 1 | neutral placeholder | 25174 |
 
 ## For review (score 3 and below)
 
@@ -3937,6 +3937,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6B3D00` | `app/client/gadget.cpp:888` | untagged neutral name (D10) |
 | 1 | `Unknown_6608F0` | `app/client/gadget.cpp:909` | untagged neutral name (D10) |
 | 1 | `Is_Unknown2C_00` | `app/client/gadget.cpp:919` | untagged neutral name (D10) |
+| 1 | `Is_Unknown2C_02_03` | `app/client/gadget.cpp:1032` | neutral (D10) |
+| 1 | `Is_Unknown2C_02` | `app/client/gadget.cpp:1032` | untagged neutral name (D10) |
 | 1 | `Unknown_6B3F50` | `app/client/gadget.cpp:1073` | untagged neutral name (D10) |
 | 1 | `Unknown_B08C90` | `app/client/gadget.cpp:1127` | untagged neutral name (D10) |
 | 1 | `Unknown_B08C94` | `app/client/gadget.cpp:1128` | untagged neutral name (D10) |

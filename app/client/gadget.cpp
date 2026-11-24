@@ -1029,28 +1029,28 @@ void GadgetClass::Toggle_Unknown2C_00()
 
 
 
-// NOT EXACT: shape (written from the client's 0x6609A0 for the proof-of-concept client: the flash's frame, a
-// one-second pulse unless the gadget is held under the pointer)
+static inline bool Is_Unknown2C_02_03(GadgetClass *gadget) { return((bool)(gadget->Is_Unknown2C_02() ? gadget->Unknown2C_03 : 0)); }	// (inline: one word load, as ui_talkt.cpp's)  // NAME 1: neutral (D10)
+// 0x6609A0 (the flash's frame: a one-second pulse unless the gadget is held under the pointer)
 void GadgetClass::Unknown_6609A0()
 {
 	FAIL_IF(!Flash) return;
 	float alpha = 1.0f;
 	bool pulse = true;
-	if (!Unknown2C_02 || !Unknown2C_03) {
+	if (Is_Unknown2C_02_03(this)) {
 		if (Flash->Unknown0C) {
-			if (!Unknown2C_0B) {
-				Unknown_6607D0();
-				return;
+			pulse = false;
+		} else {
+			Flash->Unknown0C = true;
+		}
+	} else {
+		if (Flash->Unknown0C) {
+			if (Unknown2C_0B) {
+				Flash->Unknown0C = false; return;
 			}
-			Flash->Unknown0C = false;
-			return;
+			Unknown_6607D0(); return;
 		}
 		float t = (float)(Unknown_Get_Ticks() % 1000) * 0.001f - 0.5f;
-		alpha = (t >= 0.0f) ? (t + t) : (t * -2.0f);
-	} else if (!Flash->Unknown0C) {
-		Flash->Unknown0C = true;
-	} else {
-		pulse = false;
+		alpha = (t < 0.0f) ? (t * -2.0f) : (t + t);
 	}
 	float frame = 0.0f;
 	Vector3 position;
@@ -1066,7 +1066,7 @@ void GadgetClass::Unknown_6609A0()
 		}
 	}
 	Vector3 current = Flash->Clone->Get_Position();
-	if (position.X != current.X || position.Y != current.Y || position.Z != current.Z) {
+	if (position != current) {
 		Flash->Clone->Set_Position(position);
 	}
 	if (Flash->Indicator) {
