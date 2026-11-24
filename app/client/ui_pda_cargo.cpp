@@ -63,7 +63,7 @@ static const char *CargoFilterNames[] = {	// NAME 1: neutral (D10)
 	NULL
 };
 
-// NOT EXACT: functional from the pseudocode (D64)
+// the dead FilterName.size() (D272, no bytes) sends FilterName("")'s _Eos out of line and inlines the Get_String assignment's, as the client (the vault's 0x656FF0)
 // 0x5CF9B0
 UIPdaCargoClass::UIPdaCargoClass(SClient *client, PDAInterfaceClass *pda) :
 	UIInvClass(client, 10),
@@ -72,6 +72,7 @@ UIPdaCargoClass::UIPdaCargoClass(SClient *client, PDAInterfaceClass *pda) :
 	SortIndex(0),
 	SortReverse(false), FilterName("")
 {
+	FilterName.size();
 	for (int i = 0; i < NUM_BUTTONS; i++) {
 		Buttons5[i] = NULL;
 	}
@@ -82,7 +83,6 @@ UIPdaCargoClass::UIPdaCargoClass(SClient *client, PDAInterfaceClass *pda) :
 	}
 	Unknown_BE67BC->Load("fa_pdainv.ini");
 }
-
 
 // 0x5CFCE0
 UIPdaCargoClass::~UIPdaCargoClass()
