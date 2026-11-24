@@ -1,0 +1,1 @@
+{"format": "unified-diff", "patch": "--- baseline/viewbttn.cpp\n+++ unqualified_late/viewbttn.cpp\n@@ -396,7 +396,7 @@\n \treturn(true);\n }\n \n-void UnknownAFE0B8Class::Unknown_04()\n+inline void UnknownAFE0B8Class::Unknown_04()\n {\n \tUnknown04 = -1;\n \tUnknown08 = -1;\n"}

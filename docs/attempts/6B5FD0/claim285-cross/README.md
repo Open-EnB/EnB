@@ -1,0 +1,3 @@
+# Claim 285 cross-cycle: direct grid reset and definition order
+
+Four compiled variants against b8924959 combine the actual grid constructor's direct qualified or unqualified reset call with the reset definition before or after its callers; declaration and definition are explicitly inline. Both header and cpp JSON patches are required for each form and roundtrip against that revision. All four produce the same 208-byte constructor and 48-byte factory as the current control, with only the base-destructor EH state in the constructor and no factory frame. All preserve 42 current exact symbol/address and file/address pairs, including 0x6B58A0. Neither 0x6B56A0 nor 0x6B5FD0 matches. Scoped native TU match uses basename-only __FILE__.
