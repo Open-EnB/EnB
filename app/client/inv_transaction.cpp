@@ -114,8 +114,8 @@ void InvTransactionClass::Unknown_6908E0(Unknown6908E0Class *arg)
 
 
 
-
-// NOT EXACT: 0x690AA0, 17 rows: register, and the client keeps State = 2 before the else
+static inline bool Unknown_Busy(InvTransactionClass *t) { return(t->State != 0 || t->Unknown_6910C0()); }	// NAME 1: neutral (D10)
+// The State test and the query test (the later-defined 0x6910C0, inlined) through one inline helper: one return block, as the client
 // 0x690AA0
 bool InvTransactionClass::Unknown_690AA0(int from_inv, int from_slot, int num, bool all, int to_inv, int to_slot)	// NAME 3 [from_inv, from_slot, num, all]: the FAIL_IFs; NAME 1 [to_inv, to_slot]: Unknown_690D20's packet
 {
@@ -124,27 +124,27 @@ bool InvTransactionClass::Unknown_690AA0(int from_inv, int from_slot, int num, b
 	FAIL_IF(!all && (num == MAX_ITEMS)) return(false);
 	FAIL_IF(from_inv == INV_NONE) return(false);
 	FAIL_IF(from_slot < 0) return(false);
-	if (State != 0) return(false);
-	if (DropQuery->Active) {
-		if (!strcmp(DropQuery->Type, "UI_TRANSACTION_DUMP_ITEM")) return(false);
-	}
+	if (Unknown_Busy(this)) return(false);
+
+
+
 	FromSlot = from_slot;
 	FromInv = from_inv;
 	ToInv = to_inv;
 	ToSlot = to_slot;
 	Num = num;
-	if (num == 1 || all) {
+	bool one = (num == 1 || all);	// NAME 1 [one]: neutral
+	if (one) {
 		State = 2;
-		goto done;
-	}
-	{
+	} else {
 		InterfaceSortClass sort(View, true);	// NAME 1 [sort]: neutral
 		State = 1;
-		QuantityGadget->Max = Num;
-		QuantityGadget->Unknown_54(View->Unknown2C, 0);
+		QuantityGadget->Set_Max(Num);
+		GadgetListManagerClass *manager = View->Unknown2C;	QuantityGadget->Unknown_54(manager, 0);	// NAME 1 [manager]: the slot's parameter
 		QuantityGadget->Unknown_40(true);
 	}
-done:
+
+
 	Unknown_690D20();
 	return(true);
 }
