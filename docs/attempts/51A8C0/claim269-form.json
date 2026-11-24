@@ -1,0 +1,103 @@
+{
+  "address": "0x51A8C0",
+  "unit": "app/client/dynamic_window_move.cpp",
+  "form": "out-of-class definition after Create",
+  "tested_forms": 1,
+  "requested_model": "gpt-6.1-sol (high)",
+  "patches": {
+    "app/client/dynamic_window_move.cpp": "--- a/app/client/dynamic_window_move.cpp\n+++ b/app/client/dynamic_window_move.cpp\n@@ -10,7 +10,7 @@\n {\n \treturn(Create_NEW(new DynamicWindowMoveClass(window)));\n }\n-\n+DynamicWindowMoveClass::DynamicWindowMoveClass(UIDynamicWindowClass *window) : Window(window) {}\n // 0x51A940\n void DynamicWindowMoveClass::Set_Position(const Vector3 &position)\n {\n",
+    "app/client/dynamic_window_move.h": "--- a/app/client/dynamic_window_move.h\n+++ b/app/client/dynamic_window_move.h\n@@ -12,7 +12,7 @@\n class DynamicWindowMoveClass : public Unknown_AFB794Class  // NAME 3: class-from-file (D24) for app\\Client\\dynamic_window_move.cpp\n {\n public:\n-\tDynamicWindowMoveClass(UIDynamicWindowClass *window) : Window(window) {}\t\t\t\t// 0x51A8C0  // NAME 1 [window]: neutral\n+\tDynamicWindowMoveClass(UIDynamicWindowClass *window);\t\t\t\t// 0x51A8C0  // NAME 1 [window]: neutral\n \tvirtual ~DynamicWindowMoveClass() {}\t\t\t\t\t\t\t\t\t\t\t\t\t\t// +0x04 0x51A920 (deleting 0x51A8F0)\n \tvirtual void Set_Position(const Vector3 &position);\t\t\t\t\t\t\t\t\t\t// +0x08 0x51A940 (the window's Unknown_58A580)\n \tvirtual Vector3 Get_Position();\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t// +0x0C 0x51A980 (the window's Get_Center, z 0)\n"
+  },
+  "physical_assert_lines_unchanged": true,
+  "physical_file_line_counts_unchanged": true,
+  "before_exact_symbols": 39,
+  "after_exact_symbols": 40,
+  "gained_addresses": [
+    "0x51A8C0"
+  ],
+  "lost_addresses": [],
+  "body_bytes": 25,
+  "fixed_bytes": 21,
+  "masked_differences": 0,
+  "target_relocations": [
+    {
+      "offset": 18,
+      "size": 4,
+      "type": 6,
+      "symbol": "??_7DynamicWindowMoveClass@@6B@",
+      "addend": "00000000"
+    }
+  ],
+  "target_vtable": [
+    {
+      "offset": 0,
+      "symbol": "?Delete_This@RefCountClass@@UAEXXZ",
+      "type": 6,
+      "addend": 0,
+      "client_slot": "0x406573",
+      "client_target": "0x45cc10"
+    },
+    {
+      "offset": 4,
+      "symbol": "??_EDynamicWindowMoveClass@@UAEPAXI@Z",
+      "type": 6,
+      "addend": 0,
+      "client_slot": "0x40edef",
+      "client_target": "0x51a8f0"
+    },
+    {
+      "offset": 8,
+      "symbol": "?Set_Position@DynamicWindowMoveClass@@UAEXABVVector3@@@Z",
+      "type": 6,
+      "addend": 0,
+      "client_slot": "0x415f19",
+      "client_target": "0x51a940"
+    },
+    {
+      "offset": 12,
+      "symbol": "?Get_Position@DynamicWindowMoveClass@@UAE?AVVector3@@XZ",
+      "type": 6,
+      "addend": 0,
+      "client_slot": "0x415c94",
+      "client_target": "0x51a980"
+    },
+    {
+      "offset": 16,
+      "symbol": "?Peek_Object@DynamicWindowMoveClass@@UAEPAVRenderObjClass@@XZ",
+      "type": 6,
+      "addend": 0,
+      "client_slot": "0x40c261",
+      "client_target": "0x51a8a0"
+    }
+  ],
+  "preserved_gadget_deleting_destructor": {
+    "client_thunk": "0x40a9d9",
+    "target": "0x51AEC0",
+    "relocations": [
+      {
+        "offset": 4,
+        "size": 4,
+        "type": 20,
+        "symbol": "??1DynamicWindowMoveGadgetClass@@UAE@XZ",
+        "addend": "00000000"
+      },
+      {
+        "offset": 17,
+        "size": 4,
+        "type": 20,
+        "symbol": "??3@YAXPAX@Z",
+        "addend": "00000000"
+      }
+    ]
+  },
+  "eh": "No new constructor EH; prior EH section bytes, relocation target identities and addends unchanged.",
+  "preserved_exact_bodies": 39,
+  "normalization": "Only __FILE__ directory and compiler-generated local label numbers normalized; literal basename, local section and offset, EH section bytes and all EH relocations checked. Full __FILE__ path equality is not claimed.",
+  "header_consumers": [
+    "app/client/dynamic_window_move.cpp"
+  ],
+  "source_evidence": "Retail client.exe 0x51A8C0 is a standalone six-instruction constructor with no direct callers; existing inline header form emits no copy. A non-inline cpp definition emits the exact copy while the existing factory remains byte-identical.",
+  "failed_forms": [],
+  "stop_reason": "Target exact on first evidence-backed form with positive file/address gain and no losses.",
+  "final_confirmation": "Fresh final source compile repeats 40 exact symbols, sole gain 0x51A8C0, no losses; every exact body, relocation target/addend and EH section identical to audited candidate under stated normalization."
+}

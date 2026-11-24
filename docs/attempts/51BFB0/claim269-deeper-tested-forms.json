@@ -1,0 +1,116 @@
+{
+  "address": "0x51BFB0",
+  "unit": "app/client/dynamic_window_multi_line_text.cpp",
+  "baseline_commit": "045a2b849354988e9ca7b039d7afa7c75ace50b3",
+  "baseline_sha256": "f1c4d4bda2424937e70a6811124d268d1ab61481ac7f030a80c06bf5bf8e4b29",
+  "model": "gpt-6.1-sol(high)",
+  "valid_noncontrol_forms": 6,
+  "fresh_baseline_builds": 1,
+  "final_confirmation_builds": 1,
+  "invalid_probes": 0,
+  "proposed_but_uncompiled_excluded": [
+    "displayed_in_count"
+  ],
+  "hypotheses": [
+    "A computed wrapped-text extent held in the existing Vector2 class might supply the original value boundary; constructor/assignment/Set variants leave residue or change frame, so reject.",
+    "Computing height before the necessary DisplayedLines assignment may make the real intervening integer member write materialize height before comparison. This source order is natural and absent from all prior 30 forms."
+  ],
+  "forms": [
+    {
+      "name": "vector_ctor_width",
+      "source_sha256": "3f1f2e47dc226a4bf574a56940601c7dd013ab5a543752f4d7006fd7a1d885b5",
+      "patch": "--- a/app/client/dynamic_window_multi_line_text.cpp\n+++ b/app/client/dynamic_window_multi_line_text.cpp\n@@ -330,11 +330,11 @@\n \tsplit.Split(Text.c_str(), width, 0);\n \tint count = split.Count();\n \tDisplayedLines = count;\n-\tfloat height = count * CharacterHeight;\n-\tif (height > Size.Y) {\n-\t\tSize.Y = height;\n+\tVector2 extent(width, count * CharacterHeight);\n+\tif (extent.Y > Size.Y) {\n+\t\tSize.Y = extent.Y;\n \t\tVector2 min_size = Get_Min_Size();\n-\t\tmin_size.Y = height;\n+\t\tmin_size.Y = extent.Y;\n \t\tSet_Min_Size(min_size);\n \t}\n \n",
+      "residue": 2,
+      "residue_regs": 2,
+      "code_bytes": [
+        774,
+        778
+      ],
+      "class": "shape",
+      "gained": [],
+      "lost": [],
+      "target_exact": false
+    },
+    {
+      "name": "vector_ctor_zero",
+      "source_sha256": "e03e1f32fda4b05d4bfd87853e84f9c45950bc73e90dae15661b474a07fd1afa",
+      "patch": "--- a/app/client/dynamic_window_multi_line_text.cpp\n+++ b/app/client/dynamic_window_multi_line_text.cpp\n@@ -330,11 +330,11 @@\n \tsplit.Split(Text.c_str(), width, 0);\n \tint count = split.Count();\n \tDisplayedLines = count;\n-\tfloat height = count * CharacterHeight;\n-\tif (height > Size.Y) {\n-\t\tSize.Y = height;\n+\tVector2 extent(0.0f, count * CharacterHeight);\n+\tif (extent.Y > Size.Y) {\n+\t\tSize.Y = extent.Y;\n \t\tVector2 min_size = Get_Min_Size();\n-\t\tmin_size.Y = height;\n+\t\tmin_size.Y = extent.Y;\n \t\tSet_Min_Size(min_size);\n \t}\n \n",
+      "residue": 2,
+      "residue_regs": 2,
+      "code_bytes": [
+        774,
+        778
+      ],
+      "class": "shape",
+      "gained": [],
+      "lost": [],
+      "target_exact": false
+    },
+    {
+      "name": "vector_assign",
+      "source_sha256": "d144ca42c2f3c540a609d4b3670d55815e5f3ca79e6b5b2369faae95f9b2ad79",
+      "patch": "--- a/app/client/dynamic_window_multi_line_text.cpp\n+++ b/app/client/dynamic_window_multi_line_text.cpp\n@@ -330,11 +330,11 @@\n \tsplit.Split(Text.c_str(), width, 0);\n \tint count = split.Count();\n \tDisplayedLines = count;\n-\tfloat height = count * CharacterHeight;\n-\tif (height > Size.Y) {\n-\t\tSize.Y = height;\n+\tVector2 extent; extent.Y = count * CharacterHeight;\n+\tif (extent.Y > Size.Y) {\n+\t\tSize.Y = extent.Y;\n \t\tVector2 min_size = Get_Min_Size();\n-\t\tmin_size.Y = height;\n+\t\tmin_size.Y = extent.Y;\n \t\tSet_Min_Size(min_size);\n \t}\n \n",
+      "residue": 2,
+      "residue_regs": 2,
+      "code_bytes": [
+        777,
+        778
+      ],
+      "class": "frame",
+      "gained": [],
+      "lost": [],
+      "target_exact": false
+    },
+    {
+      "name": "vector_copy_size",
+      "source_sha256": "c768164bc11b05dcf9c0161a99061cd04d1f5c0610c9cd5ebb66045b18c84f32",
+      "patch": "--- a/app/client/dynamic_window_multi_line_text.cpp\n+++ b/app/client/dynamic_window_multi_line_text.cpp\n@@ -330,11 +330,11 @@\n \tsplit.Split(Text.c_str(), width, 0);\n \tint count = split.Count();\n \tDisplayedLines = count;\n-\tfloat height = count * CharacterHeight;\n-\tif (height > Size.Y) {\n-\t\tSize.Y = height;\n+\tVector2 extent = Size; extent.Y = count * CharacterHeight;\n+\tif (extent.Y > Size.Y) {\n+\t\tSize.Y = extent.Y;\n \t\tVector2 min_size = Get_Min_Size();\n-\t\tmin_size.Y = height;\n+\t\tmin_size.Y = extent.Y;\n \t\tSet_Min_Size(min_size);\n \t}\n \n",
+      "residue": 2,
+      "residue_regs": 2,
+      "code_bytes": [
+        777,
+        778
+      ],
+      "class": "frame",
+      "gained": [],
+      "lost": [],
+      "target_exact": false
+    },
+    {
+      "name": "vector_set",
+      "source_sha256": "ea1df61ab22b98e7b4ace8f418a96fc0b454cc985dcf6db519ee6c20d25e1d48",
+      "patch": "--- a/app/client/dynamic_window_multi_line_text.cpp\n+++ b/app/client/dynamic_window_multi_line_text.cpp\n@@ -330,11 +330,11 @@\n \tsplit.Split(Text.c_str(), width, 0);\n \tint count = split.Count();\n \tDisplayedLines = count;\n-\tfloat height = count * CharacterHeight;\n-\tif (height > Size.Y) {\n-\t\tSize.Y = height;\n+\tVector2 extent; extent.Set(width, count * CharacterHeight);\n+\tif (extent.Y > Size.Y) {\n+\t\tSize.Y = extent.Y;\n \t\tVector2 min_size = Get_Min_Size();\n-\t\tmin_size.Y = height;\n+\t\tmin_size.Y = extent.Y;\n \t\tSet_Min_Size(min_size);\n \t}\n \n",
+      "residue": 2,
+      "residue_regs": 2,
+      "code_bytes": [
+        774,
+        778
+      ],
+      "class": "shape",
+      "gained": [],
+      "lost": [],
+      "target_exact": false
+    },
+    {
+      "name": "displayed_after_height",
+      "source_sha256": "701f5b20a99460f221a02e59a673782fbfc9d677a4faf3d3e0e37894b08ee7e8",
+      "patch": "--- a/app/client/dynamic_window_multi_line_text.cpp\n+++ b/app/client/dynamic_window_multi_line_text.cpp\n@@ -329,8 +329,8 @@\n \tFontSplitStringClass split(SampleFont->Font, Text.c_str(), width, 0);\n \tsplit.Split(Text.c_str(), width, 0);\n \tint count = split.Count();\n+\tfloat height = count * CharacterHeight;\n \tDisplayedLines = count;\n-\tfloat height = count * CharacterHeight;\n \tif (height > Size.Y) {\n \t\tSize.Y = height;\n \t\tVector2 min_size = Get_Min_Size();\n",
+      "residue": 0,
+      "residue_regs": 0,
+      "code_bytes": [
+        778,
+        778
+      ],
+      "class": "identical",
+      "gained": [
+        [
+          "?Split_Lines@DynamicWindowMultiLineTextClass@@IAEXM@Z",
+          "0x51BFB0"
+        ]
+      ],
+      "lost": [],
+      "target_exact": true
+    }
+  ],
+  "observation": "The source order height=product; DisplayedLines=count; if(height>Size.Y) gives retail fstp/fld. The final MOV to DisplayedLines is nevertheless scheduled before FILD in both original and exact objects. A compiler phase-order explanation is inference; the controlled native build proves this source form reproduces the client."
+}

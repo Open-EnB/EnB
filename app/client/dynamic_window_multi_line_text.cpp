@@ -81,19 +81,19 @@ void DynamicWindowMultiLineTextClass::Set_Text(const std::string &text)
 	Dirty = true;
 	Refresh();
 }
-
+static inline unsigned int Or_Flags(unsigned int &dst, unsigned int bits) { dst |= bits; return(dst); }	// NAME 2: what it does (D185 variant: the returned copy keeps the client's second register)
 void DynamicWindowMultiLineTextClass::Set_Min_Size(const Vector2 &min_size)
 {
 	MinSize = min_size;
 	Refresh();
 	Invalidate();
 }
-// NOT EXACT: the client keeps the new flags in a second register (esi, then edx) for the compare
+
 void DynamicWindowMultiLineTextClass::Set_Flags(unsigned int flags)
 {
 	unsigned int old_flags = Flags;
-	unsigned int new_flags = old_flags | flags;
-	Flags = new_flags;
+	unsigned int new_flags = Or_Flags(Flags, flags);
+
 	if (new_flags != old_flags) {
 		Invalidate();
 	}
@@ -107,13 +107,13 @@ void DynamicWindowMultiLineTextClass::Clear_Flags(unsigned int flags)
 		Invalidate();
 	}
 }
-// NOT EXACT: the client stores the cleared flags, reloads them and ORs in the new bits; this form folds both into one store
+
 void DynamicWindowMultiLineTextClass::Set_Alignment(unsigned int flags)
 {
 	unsigned int old_flags = Flags;
 	Flags &= ~0xF0;
-	Flags |= flags & 0xF0;
-	if (Flags != old_flags) {
+	unsigned int new_flags = Or_Flags(Flags, flags & 0xF0);
+	if (new_flags != old_flags) {
 		Invalidate();
 	}
 }
@@ -305,16 +305,16 @@ void DynamicWindowMultiLineTextClass::Clear_Lines()
 	TopLineIndex = 0;
 	DisplayedLines = 0;
 }
-// NOT EXACT: functional: the split, the push_back and the per-line temporaries differ
+
 void DynamicWindowMultiLineTextClass::Split_Lines(float width)
 {
-	for (std::vector< RefCountPtr<DynamicWindowElementClass> >::iterator it = Lines.begin(); it != Lines.end(); ++it) {
-		(*it)->Remove_From_Scene();
-		(*it)->Clear_Parent();
-	}
-	Lines.erase(Lines.begin(), Lines.end());
-	TopLineIndex = 0;
-	DisplayedLines = 0;
+	Clear_Lines();
+
+
+
+
+
+
 
 
 
@@ -329,8 +329,8 @@ void DynamicWindowMultiLineTextClass::Split_Lines(float width)
 	FontSplitStringClass split(SampleFont->Font, Text.c_str(), width, 0);
 	split.Split(Text.c_str(), width, 0);
 	int count = split.Count();
-	DisplayedLines = count;
 	float height = count * CharacterHeight;
+	DisplayedLines = count;
 	if (height > Size.Y) {
 		Size.Y = height;
 		Vector2 min_size = Get_Min_Size();

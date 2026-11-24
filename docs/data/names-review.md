@@ -10,7 +10,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 227 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1970 |
-| 2 | describes what the code does | 5009 |
+| 2 | describes what the code does | 5010 |
 | 1 | neutral placeholder | 25163 |
 
 ## For review (score 3 and below)
@@ -2925,10 +2925,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Window` | `app/client/dynamic_window_move.h:22` | neutral (D10) |
 | 1 | `DynamicWindowMoveGadgetClass` | `app/client/dynamic_window_move.h:26` | neutral (D10) |
 | 1 | `gadget` | `app/client/dynamic_window_move.h:29` | neutral |
-| 1 | `Unknown_30` | `app/client/dynamic_window_move.h:30` | untagged neutral name (D10) |
-| 1 | `UnknownA4` | `app/client/dynamic_window_move.h:32` | neutral (D10) |
-| 1 | `window` | `app/client/dynamic_window_move.h:35` | neutral |
-| 1 | `Unknown_51A9C0` | `app/client/dynamic_window_move.h:35` | untagged neutral name (D10) |
+| 1 | `Unknown_30` | `app/client/dynamic_window_move.h:31` | untagged neutral name (D10) |
+| 1 | `UnknownA4` | `app/client/dynamic_window_move.h:33` | neutral (D10) |
+| 1 | `window` | `app/client/dynamic_window_move.h:36` | neutral |
+| 1 | `Unknown_51A9C0` | `app/client/dynamic_window_move.h:36` | untagged neutral name (D10) |
 | 1 | `Unknown78` | `app/client/dynamic_window_multi_line_text.cpp:58` | untagged neutral name (D10) |
 | 1 | `Unknown_6D5A80` | `app/client/dynamic_window_multi_line_text.cpp:63` | untagged neutral name (D10) |
 | 1 | `font_name, sample_font, min_size, flags` | `app/client/dynamic_window_multi_line_text.h:29` | the FAIL_IFs'; Set_Min_Size's; the base's |
@@ -25775,6 +25775,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `DynamicWindowHorizontalClass` | `app/client/dynamic_window_horizontal.h:21` | class from file (D24), dynamic_window_horizontal.cpp |
 | 2 | `DynamicWindowIconClass` | `app/client/dynamic_window_icon.h:25` | class from file (D24), dynamic_window_icon.cpp |
 | 2 | `render_object, size` | `app/client/dynamic_window_icon.h:28` | Create's FAIL_IF names; NAME 1 [flags]: the base's |
+| 2 | `Or_Flags` | `app/client/dynamic_window_multi_line_text.cpp:84` | what it does (D185 variant: the returned copy keeps the client's second register) |
 | 2 | `DynamicWindowMultiLineTextClass` | `app/client/dynamic_window_multi_line_text.h:26` | class from file (D24) |
 | 2 | `DynamicWindowRenderObjectClass` | `app/client/dynamic_window_render_object.h:73` | class from file (D24), dynamic_window_render_object.cpp |
 | 2 | `DynamicWindowTextClass` | `app/client/dynamic_window_text.h:23` | class from file (D24) |
