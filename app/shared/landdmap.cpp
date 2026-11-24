@@ -146,20 +146,20 @@ void LandUnknown466BE0Class::Read_Registry(void)
 }
 
 
-// NOT EXACT: frame (0x466F60: 0x218, the client 0x220; 18 rows with registers masked, 68 without; the client copies X / Y spacing through
-// stack temporaries before the scaling multiplies, stores the integer 1 of constant 4 twice (+0x5C and +0x4C), and
-// swaps ecx / edx in the three GetTransform calls; docs/attempts/466F60/tryv2_forms.py, attempts.csv)
+// NOT EXACT: frame (0x466F60: 0x21C, the client 0x220; 21 masked rows in the scaling: the client copies X / Y spacing into stack
+// temporaries with integer moves before the multiplies, ours loads the spacing array onto the x87; the DWORD one read as constant
+// 4's float bits gives the client's second store of 1 (+0x4C); docs/attempts/466F60/, attempts.csv)
 void LandUnknown466BE0Class::Unknown_466F60(RenderInfoClass &rinfo)
 {
 	if (!Unknown11) {
 		return;
 	}
+	float spacing[3] = { Field->Get_Spacing(), Field->Get_YSpacing(), Field->Get_VScale() };
 	float size = (float)(unsigned int)Field->Get_Size();
-	float xs = Field->Get_Spacing() * size;
-	float ys = Field->Get_YSpacing() * size;
-	float zs = Field->Get_VScale() * size;
 	D3DXMATRIX scale;
-	D3DXMatrixScaling(&scale, xs, ys, zs);
+	D3DXMatrixScaling(&scale, spacing[0] * size, spacing[1] * size, spacing[2] * size);
+
+
 
 	D3DXMATRIX proj;
 	D3DXMATRIX view;
@@ -214,12 +214,12 @@ void LandUnknown466BE0Class::Unknown_466F60(RenderInfoClass &rinfo)
 	}
 	Unknown_468D50();
 
+	DWORD one = 1;
 	float tess[4];
-	tess[0] = TessellationRate;
-	tess[1] = 0.0f;
-	tess[2] = 32.0f;
-	*(DWORD *)&tess[3] = 1;
+	tess[0] = TessellationRate; tess[1] = 0.0f; tess[2] = 32.0f;
+	tess[3] = *(float *)&one;
 	DX8Wrapper::_Get_D3D_Device8()->SetVertexShaderConstant(4, tess, 1);
+
 	D3DXVECTOR4 c5(1.0f, 0.0f, 0.0f, 0.0f);
 	DX8Wrapper::_Get_D3D_Device8()->SetVertexShaderConstant(5, &c5, 1);
 
