@@ -1,0 +1,57 @@
+{
+  "base_commit": "10d57902",
+  "base_sha256": "44fb24709156cbb0ae08e84c320a40a739311aa80fecf77690822eb0c82fb144",
+  "control": "96 exact, Load_Chunks 122/104 masked/register-masked rows 719 bytes, Load_Entry 358/262 rows 1088 bytes; retail sizes 589 and 1063 bytes",
+  "tested": [
+    {
+      "name": "direct_return",
+      "sha256": "8b0ae35abe3885881f196ae96abae69eaf36cbf2414b3b6aace934882a3f9b69",
+      "facts": "Chunks 124/106 rows, 724 bytes; Entry 292/263, 1099 bytes; lost 0x488F20",
+      "patch": "--- a/app/shared/spln_db.cpp\n+++ b/app/shared/spln_db.cpp\n@@ -2080,11 +2080,11 @@\n \t\t\treturn false;\n \t\t}\n \t}\n-\tif (cload.Read(*string, length) >= length) {\n-\t\treturn true;\n-\t}\n-\treturn false;\n-}\n+\treturn cload.Read(*string, length) >= length;\n+}\n+\n+\n+\n \n \n bool SplineDatabaseClass::Write_String(ChunkSaveClass &csave, const char *string)\n"
+    },
+    {
+      "name": "failed_read_first",
+      "sha256": "4db0bd2a3ff868758b3ce06a4037c4c8bb0d10177d3f7762129b72b715662baa",
+      "facts": "Chunks 122/104 rows, 719 bytes; Entry 358/262, 1088 bytes; all 96 exact held",
+      "patch": "--- a/app/shared/spln_db.cpp\n+++ b/app/shared/spln_db.cpp\n@@ -2080,10 +2080,10 @@\n \t\t\treturn false;\n \t\t}\n \t}\n-\tif (cload.Read(*string, length) >= length) {\n-\t\treturn true;\n-\t}\n-\treturn false;\n+\tif (cload.Read(*string, length) < length) {\n+\t\treturn false;\n+\t}\n+\treturn true;\n }\n \n \n"
+    },
+    {
+      "name": "length_sizeof",
+      "sha256": "ac0b62bce5b0d117c446633f328228e7de5c8786aa4cef786b0d542fc8d4d818",
+      "facts": "same metrics and 96 pairs as baseline",
+      "patch": "--- a/app/shared/spln_db.cpp\n+++ b/app/shared/spln_db.cpp\n@@ -2067,7 +2067,7 @@\n bool SplineDatabaseClass::Read_String(ChunkLoadClass &cload, char **string)\n {\n \tunsigned int length;\n-\tif (cload.Read(&length, 4) < 4) {\n+\tif (cload.Read(&length, sizeof(length)) < sizeof(length)) {\n \t\treturn false;\n \t}\n \tif (length == 0) {\n"
+    },
+    {
+      "name": "zero_else",
+      "sha256": "18838dceaf1ba6598b2240e1d4c50f42d90ba000df82aca2835c793a3e1d9486",
+      "facts": "same metrics and 96 pairs as baseline",
+      "patch": "--- a/app/shared/spln_db.cpp\n+++ b/app/shared/spln_db.cpp\n@@ -2073,7 +2073,7 @@\n \tif (length == 0) {\n \t\t*string = NULL;\n \t\treturn true;\n-\t}\n+\t} else {\n \tif (*string == NULL) {\n \t\t*string = new char[length];\n \t\tif (*string == NULL) {\n@@ -2083,7 +2083,7 @@\n \tif (cload.Read(*string, length) >= length) {\n \t\treturn true;\n \t}\n-\treturn false;\n+\treturn false; }\n }\n \n \n"
+    },
+    {
+      "name": "zero_reverse",
+      "sha256": "9c7027fe0eea27b5c558b2dc72f3c70eb73cd26275cf9576751a3d7bc3b85b29",
+      "facts": "Chunks 123/104 rows, 719 bytes; Entry 337/275, 1088 bytes; lost 0x488F20",
+      "patch": "--- a/app/shared/spln_db.cpp\n+++ b/app/shared/spln_db.cpp\n@@ -2070,10 +2070,7 @@\n \tif (cload.Read(&length, 4) < 4) {\n \t\treturn false;\n \t}\n-\tif (length == 0) {\n-\t\t*string = NULL;\n-\t\treturn true;\n-\t}\n+\tif (length != 0) {\n \tif (*string == NULL) {\n \t\t*string = new char[length];\n \t\tif (*string == NULL) {\n@@ -2084,7 +2081,10 @@\n \t\treturn true;\n \t}\n \treturn false;\n-}\n+\t} else { *string = NULL; return true; }\n+}\n+\n+\n \n \n bool SplineDatabaseClass::Write_String(ChunkSaveClass &csave, const char *string)\n"
+    },
+    {
+      "name": "reuse_count",
+      "sha256": "4894061e22a235679fd6f5a4099b4a85b489129f593af06289efc2f7c10daad6",
+      "facts": "Chunks 119/118 rows, 717 bytes; all 96 exact held",
+      "patch": "--- a/app/shared/spln_db.cpp\n+++ b/app/shared/spln_db.cpp\n@@ -1869,7 +1869,7 @@\n \tif (!cload.Close_Chunk()) {\n \t\treturn false;\n \t}\n-\tfor (unsigned int index = 0; index < header->Count; index++) {\n+\tfor (count = 0; count < header->Count; count++) {\n \t\tSplineEntryClass *entry = Load_Entry(cload);\n \t\tif (entry == NULL) {\n \t\t\treturn false;\n"
+    },
+    {
+      "name": "keynames_reference",
+      "sha256": "9d82e3c5a6d29ffa3729a9e3b5a3148bb7f39d24dc856fbf025fa60ae79550bb",
+      "facts": "Chunks 122/104 rows, 719 bytes; all 96 exact held",
+      "patch": "--- a/app/shared/spln_db.cpp\n+++ b/app/shared/spln_db.cpp\n@@ -1857,13 +1857,13 @@\n \tif (!cload.Open_Chunk() || cload.Cur_Chunk_ID() != 0x808 || cload.Read(&count, 4) < 4) {\n \t\treturn false;\n \t}\n-\tchar *name = NULL;\n-\tKeyNames.Resize(count + 1);\n+\tDynamicVectorClass<char *> &key_names = KeyNames; char *name = NULL;\n+\tkey_names.Resize(count + 1);\n \tfor (unsigned int i = 0; i < count; i++) {\n \t\tif (!Read_String(cload, &name)) {\n \t\t\treturn false;\n \t\t}\n-\t\tKeyNames.Add(name);\n+\t\tkey_names.Add(name);\n \t\tname = NULL;\n \t}\n \tif (!cload.Close_Chunk()) {\n"
+    },
+    {
+      "name": "reuse_reference",
+      "sha256": "27b961098cd6be4692daf0cb92ff8f785e51c39b6acac3ace73bc9e86793f88e",
+      "facts": "Chunks 119/118 rows, 717 bytes; all 96 exact held",
+      "patch": "--- a/app/shared/spln_db.cpp\n+++ b/app/shared/spln_db.cpp\n@@ -1857,19 +1857,19 @@\n \tif (!cload.Open_Chunk() || cload.Cur_Chunk_ID() != 0x808 || cload.Read(&count, 4) < 4) {\n \t\treturn false;\n \t}\n-\tchar *name = NULL;\n-\tKeyNames.Resize(count + 1);\n+\tDynamicVectorClass<char *> &key_names = KeyNames; char *name = NULL;\n+\tkey_names.Resize(count + 1);\n \tfor (unsigned int i = 0; i < count; i++) {\n \t\tif (!Read_String(cload, &name)) {\n \t\t\treturn false;\n \t\t}\n-\t\tKeyNames.Add(name);\n+\t\tkey_names.Add(name);\n \t\tname = NULL;\n \t}\n \tif (!cload.Close_Chunk()) {\n \t\treturn false;\n \t}\n-\tfor (unsigned int index = 0; index < header->Count; index++) {\n+\tfor (count = 0; count < header->Count; count++) {\n \t\tSplineEntryClass *entry = Load_Entry(cload);\n \t\tif (entry == NULL) {\n \t\t\treturn false;\n"
+    }
+  ],
+  "count": "8 valid forms, 1 successful control, 1 sandbox-denied uncompiled baseline, 0 invalid; no source retained",
+  "caveat": "Full body and relocation audits not performed because no candidate gained a pair. Return forms modifying Read_String affect Load_Entry; none is justified for retention."
+}
