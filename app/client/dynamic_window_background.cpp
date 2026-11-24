@@ -405,6 +405,6 @@ Vector2 DynamicWindowBackgroundClass::Fit_Size(const Vector2 &position, const Ve
 **	'!child' on 339); then the template instances RefCountPtr<RenderObjClass>::Clear-like 0x517030,
 **	Create_NEW<DynamicWindowAnimationDataClass> 0x517060 and AutoPoolClass<HAnimComboDataClass,256>'s
 **	allocator 0x5170F0. NOT EXACT (D64): Get 0x515AB0 (marked); the data's
-**	inline destructor 0x515E20 is 6 bytes longer than the client's (its three strings' destructors).
+**	implicit destructor 0x515E20 matches; declaring an empty destructor adds a 6-byte own-vtable store.
 **	The direct calls of the base's slots are qualified calls (DynamicWindowRenderObjectClass::...).
 */

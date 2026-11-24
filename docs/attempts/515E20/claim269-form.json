@@ -1,0 +1,143 @@
+{
+  "address": "0x515E20",
+  "unit": "app/client/dynamic_window_background.cpp",
+  "header": "app/client/dynamic_window_background.h",
+  "form": "implicit destructor (remove explicit empty destructor)",
+  "patch": "--- a/app/client/dynamic_window_background.cpp\n+++ b/app/client/dynamic_window_background.cpp\n@@ -405,6 +405,6 @@\n **\t'!child' on 339); then the template instances RefCountPtr<RenderObjClass>::Clear-like 0x517030,\n **\tCreate_NEW<DynamicWindowAnimationDataClass> 0x517060 and AutoPoolClass<HAnimComboDataClass,256>'s\n **\tallocator 0x5170F0. NOT EXACT (D64): Get 0x515AB0 (marked); the data's\n-**\tinline destructor 0x515E20 is 6 bytes longer than the client's (its three strings' destructors).\n+**\timplicit destructor 0x515E20 matches; declaring an empty destructor adds a 6-byte own-vtable store.\n **\tThe direct calls of the base's slots are qualified calls (DynamicWindowRenderObjectClass::...).\n */\n--- a/app/client/dynamic_window_background.h\n+++ b/app/client/dynamic_window_background.h\n@@ -38,7 +38,7 @@\n \t\tAnimYName(\"\")\n \t{\n \t}\n-\tvirtual ~DynamicWindowAnimationDataClass() {}\t\t\t\t\t\t\t\t\t\t\t\t// +0x04 0x515E20 (deleting 0x515DF0)\n+\n \n \tvoid Load(INIClass &ini, const char *section);\t\t\t\t\t\t\t\t\t\t\t\t// 0x515F00 (G_ASSERT 'AnimMin.I >= 0' ...)  // NAME 1 [Load, ini, section]\n \tstatic RefCountPtr<DynamicWindowAnimationDataClass> Get(const std::string &name);\t\t\t// 0x515AB0 (dynawin.ini, its 'Use' entry inherits)  // NAME 1 [Get, name]\n",
+  "physical_line_count_unchanged": true,
+  "prior_attempts": 0,
+  "hypotheses_tested": 1,
+  "nonbaseline_forms_compiled": 1,
+  "forms_compiled": [
+    "baseline",
+    "implicit_dtor"
+  ],
+  "uncompiled_plans": [
+    "ordinary out-of-line empty destructor; exact result ended batch before this diagnostic"
+  ],
+  "baseline_class": "shape",
+  "baseline_extra_instruction": "mov dword ptr [esi], DynamicWindowAnimationDataClass vtable",
+  "baseline_extra_body_bytes": 6,
+  "final_body_bytes": 166,
+  "final_aligned_span_bytes": 176,
+  "unmasked_differing_bytes": 0,
+  "relocations": [
+    {
+      "offset": 35,
+      "type": 20,
+      "symbol": "??3@YAXPAX@Z",
+      "addend": 0,
+      "client_target": "0x412b7a",
+      "resolved_client_target": "0x4e9d10",
+      "known_targets": [
+        "0x4e9d10"
+      ],
+      "matches_known": true
+    },
+    {
+      "offset": 80,
+      "type": 20,
+      "symbol": "??3@YAXPAX@Z",
+      "addend": 0,
+      "client_target": "0x412b7a",
+      "resolved_client_target": "0x4e9d10",
+      "known_targets": [
+        "0x4e9d10"
+      ],
+      "matches_known": true
+    },
+    {
+      "offset": 132,
+      "type": 6,
+      "symbol": "??_7RefCountClass@@6B@",
+      "addend": 0,
+      "client_target": "0xae7fb0",
+      "resolved_client_target": "0xae7fb0",
+      "known_targets": [
+        "0xae7fb0"
+      ],
+      "matches_known": true
+    },
+    {
+      "offset": 141,
+      "type": 20,
+      "symbol": "??3@YAXPAX@Z",
+      "addend": 0,
+      "client_target": "0x412b7a",
+      "resolved_client_target": "0x4e9d10",
+      "known_targets": [
+        "0x4e9d10"
+      ],
+      "matches_known": true
+    },
+    {
+      "offset": 159,
+      "type": 6,
+      "symbol": "??_7RefCountClass@@6B@",
+      "addend": 0,
+      "client_target": "0xae7fb0",
+      "resolved_client_target": "0xae7fb0",
+      "known_targets": [
+        "0xae7fb0"
+      ],
+      "matches_known": true
+    }
+  ],
+  "eh_cleanup_audit": {
+    "has_fs_registration": false,
+    "exception_funclets_for_destructor": [],
+    "retail_string_order": [
+      68,
+      52,
+      36
+    ],
+    "inline_string_refcount_or_delete": true,
+    "base_vtable_target": "0xAE7FB0"
+  },
+  "consumer_closure": {
+    "consumers": [
+      "app/client/dynamic_window_background.cpp",
+      "app/client/dynamic_window_class.cpp",
+      "app/client/gd_dynamicwindow.cpp",
+      "app/client/tooltip.cpp",
+      "app/client/ui_dynamicwindow.cpp",
+      "app/client/ui_item_examination.cpp",
+      "app/client/ui_item_examination_attributes.cpp",
+      "app/client/ui_item_examination_description.cpp",
+      "app/client/ui_item_examination_options.cpp",
+      "app/client/ui_item_examination_property_router.cpp",
+      "app/client/ui_item_examination_specials.cpp",
+      "app/client/ui_ping.cpp",
+      "app/client/ui_skill_info.cpp",
+      "app/client/ui_slot_info.cpp",
+      "app/client/ui_starbase.cpp",
+      "app/client/ui_starmap.cpp",
+      "app/client/ui_symbolchat.cpp",
+      "app/client/ui_talkt.cpp",
+      "app/client/unknown_56e170.cpp",
+      "app/client/unknown_644e50.cpp",
+      "app/client/unknown_646170.cpp",
+      "app/client/unknown_msgbox.cpp"
+    ],
+    "headers": [
+      "app/client/dynamic_window_background.h",
+      "app/client/dynamic_window_class.h",
+      "app/client/ui_item_examination.h",
+      "app/client/ui_item_examination_attributes.h",
+      "app/client/ui_item_examination_description.h",
+      "app/client/ui_item_examination_options.h",
+      "app/client/ui_item_examination_specials.h"
+    ],
+    "method": "Conservative case-insensitive include-basename transitive closure across every tracked repository C/C++ file. Conditional includes included."
+  },
+  "fresh_consumer_count": 22,
+  "fresh_consumer_compiles": 44,
+  "file_address_gain": [
+    [
+      "app/client/dynamic_window_background.cpp",
+      "0x515E20"
+    ]
+  ],
+  "file_address_loss": [],
+  "evidence": "Retail client.exe 0x515E20 lacks own-vtable store and has RefCountClass vtable stores on both exits; implicit destructor produces its bytes. All five relocation targets and zero addends audited."
+}

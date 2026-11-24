@@ -1,0 +1,29 @@
+{
+  "address": "0x51B820",
+  "unit": "app/client/dynamic_window_multi_line_text.cpp",
+  "form": "reuse-returning-Or_Flags",
+  "patch": "--- a/app/client/dynamic_window_multi_line_text.cpp\n+++ b/app/client/dynamic_window_multi_line_text.cpp\n@@ -107,13 +107,13 @@\n \t\tInvalidate();\n \t}\n }\n-// NOT EXACT: the client stores the cleared flags, reloads them and ORs in the new bits; this form folds both into one store\n+\n void DynamicWindowMultiLineTextClass::Set_Alignment(unsigned int flags)\n {\n \tunsigned int old_flags = Flags;\n \tFlags &= ~0xF0;\n-\tFlags |= flags & 0xF0;\n-\tif (Flags != old_flags) {\n+\tunsigned int new_flags = Or_Flags(Flags, flags & 0xF0);\n+\tif (new_flags != old_flags) {\n \t\tInvalidate();\n \t}\n }\n",
+  "physical_line_count_unchanged": true,
+  "physical_assert_lines_unchanged": true,
+  "baseline_class": "shape",
+  "baseline_masked_residue": 15,
+  "final_raw_differing_bytes": 0,
+  "body_bytes": 45,
+  "aligned_span_bytes": 48,
+  "relocations": [],
+  "virtual_call_identity": {
+    "client_vtable": "0xaed784",
+    "slot": "0x18",
+    "client_slot_target": "0x418f9d",
+    "resolved_target": "0x51b860",
+    "object_slot_relocations": [
+      [
+        0,
+        "?Invalidate@DynamicWindowMultiLineTextClass@@UAEXXZ",
+        6
+      ]
+    ]
+  },
+  "source": "client.exe 0x51B820 plus exact multiline Set_Flags 0x51B7C0 and exact alignment siblings 0x518BE0, 0x51CAE0 and 0x51EFB0 (D185)",
+  "requested_model": "gpt-6.1-sol high"
+}

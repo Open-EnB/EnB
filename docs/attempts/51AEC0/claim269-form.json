@@ -1,0 +1,59 @@
+{
+  "address": "0x51AEC0",
+  "unit": "app/client/dynamic_window_move.cpp",
+  "form": "explicit-empty-inline-virtual-destructor",
+  "patch": "diff --git a/app/client/dynamic_window_move.h b/app/client/dynamic_window_move.h\nindex ad24b7cf..e39052f8 100644\n--- a/app/client/dynamic_window_move.h\n+++ b/app/client/dynamic_window_move.h\n@@ -27,6 +27,7 @@ class DynamicWindowMoveGadgetClass : public MovableUIBackGadget  // NAME 1: neut\n {\n public:\n \tDynamicWindowMoveGadgetClass(const RefCountPtr<RenderObjClass> &model, const RefCountPtr<Unknown_AFB794Class> &target, GadgetClass *gadget);\t// 0x51AE00  // NAME 1 [gadget]: neutral\n+\tvirtual ~DynamicWindowMoveGadgetClass() {}\t\t\t\t\t\t\t\t// 0x51AEC0 (deleting 0x51AE90)\n \tvirtual bool Unknown_30(float x, float y) { return(UnknownA4->Unknown_30(x, y)); }\t\t// +0x30 0x51AEE0\n \n \tGadgetClass *UnknownA4;\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t// +0xA4 (the window's gadget)  // NAME 1: neutral (D10)\n",
+  "physical_cpp_assert_lines_unchanged": [
+    58,
+    59,
+    60
+  ],
+  "baseline_exact_symbols": 40,
+  "final_exact_symbols": 41,
+  "gains": [
+    "0x51AEC0"
+  ],
+  "losses": [],
+  "baseline_form": "implicit destructor, lone jmp to base, missing retail own-vtable store",
+  "target": {
+    "symbol": "??1DynamicWindowMoveGadgetClass@@UAE@XZ",
+    "body_bytes": 11,
+    "aligned_span_bytes": 16,
+    "unmasked_differences": 0,
+    "relocations": [
+      {
+        "offset": 2,
+        "size": 4,
+        "type": 6,
+        "symbol": "??_7DynamicWindowMoveGadgetClass@@6B@",
+        "addend": "00000000"
+      },
+      {
+        "offset": 7,
+        "size": 4,
+        "type": 20,
+        "symbol": "??1MovableUIBackGadget@@UAE@XZ",
+        "addend": "00000000"
+      }
+    ],
+    "client_vtable": "0xAED628",
+    "base_destructor_thunk": "0x403f30",
+    "base_destructor_target": "0x674860",
+    "disassembly": [
+      "0051AEC0 c70128d6ae00 mov dword ptr [ecx], 0xaed628",
+      "0051AEC6 e96590eeff jmp 0x403f30",
+      "0051AECB 90 nop ",
+      "0051AECC 90 nop ",
+      "0051AECD 90 nop ",
+      "0051AECE 90 nop ",
+      "0051AECF 90 nop "
+    ],
+    "eh_cleanup": "No own EH frame/funclet; tail-jump to the existing out-of-line base destructor. Base owns all nontrivial members. Added subclass member is raw GadgetClass pointer. All unit EH bytes and canonical relocation targets/addends unchanged."
+  },
+  "all_40_retained_exact_bodies_targets_and_addends_unchanged": true,
+  "unit_eh_sections_unchanged": true,
+  "header_consumers": [
+    "app/client/dynamic_window_move.cpp"
+  ],
+  "source": "client.exe 0x51AEC0 own-vtable store 0xAED628 and tail jump through 0x403F30 to MovableUIBackGadget::~MovableUIBackGadget 0x674860; deleting destructor 0x51AE90 calls this via 0x40A9D9"
+}

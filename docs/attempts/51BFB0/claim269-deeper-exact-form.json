@@ -1,0 +1,713 @@
+{
+  "address": "0x51BFB0",
+  "unit": "app/client/dynamic_window_multi_line_text.cpp",
+  "baseline_commit": "045a2b849354988e9ca7b039d7afa7c75ace50b3",
+  "baseline_sha256": "f1c4d4bda2424937e70a6811124d268d1ab61481ac7f030a80c06bf5bf8e4b29",
+  "model": "gpt-6.1-sol(high)",
+  "final_sha256": "d69d9f01bc1292bf39ac3d6959caba36d4b60969c64a61d6845af5248b2c89c9",
+  "patch": "--- a/app/client/dynamic_window_multi_line_text.cpp\n+++ b/app/client/dynamic_window_multi_line_text.cpp\n@@ -305,7 +305,7 @@\n \tTopLineIndex = 0;\n \tDisplayedLines = 0;\n }\n-// NOT EXACT: height comparison retains x87 precision; client rounds height to float (fstp/fld)\n+\n void DynamicWindowMultiLineTextClass::Split_Lines(float width)\n {\n \tClear_Lines();\n@@ -329,8 +329,8 @@\n \tFontSplitStringClass split(SampleFont->Font, Text.c_str(), width, 0);\n \tsplit.Split(Text.c_str(), width, 0);\n \tint count = split.Count();\n+\tfloat height = count * CharacterHeight;\n \tDisplayedLines = count;\n-\tfloat height = count * CharacterHeight;\n \tif (height > Size.Y) {\n \t\tSize.Y = height;\n \t\tVector2 min_size = Get_Min_Size();\n",
+  "status": "exact",
+  "gain": {
+    "exact_symbols_before": 63,
+    "exact_symbols_after": 64,
+    "file_address_pairs_before": 63,
+    "file_address_pairs_after": 64,
+    "addresses": [
+      "0x51BFB0"
+    ],
+    "losses": []
+  },
+  "proof": {
+    "baseline_exact_symbol_pairs": 63,
+    "final_exact_symbol_pairs": 64,
+    "gains": [
+      [
+        "?Split_Lines@DynamicWindowMultiLineTextClass@@IAEXM@Z",
+        "0x51BFB0"
+      ]
+    ],
+    "losses": [],
+    "all_prior_exact_bodies_and_relocation_identities_unchanged": [
+      "??0DynamicWindowMultiLineTextClass@@QAE@ABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@ABV?$RefCountPtr@VFontSys@@@@ABVVector2@@I@Z",
+      "??1?$RefCountPtr@VDynamicWindowElementClass@@@@QAE@XZ",
+      "??1?$RefCountPtr@VDynamicWindowMultiLineTextClass@@@@QAE@XZ",
+      "??1?$RefCountPtr@VFontSys@@@@QAE@XZ",
+      "??1?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAE@XZ",
+      "??1?$vector@V?$RefCountPtr@VDynamicWindowElementClass@@@@V?$allocator@V?$RefCountPtr@VDynamicWindowElementClass@@@@@std@@@std@@QAE@XZ",
+      "??1DynamicWindowElementClass@@UAE@XZ",
+      "??1DynamicWindowMultiLineTextClass@@UAE@XZ",
+      "??4?$RefCountPtr@VDynamicWindowElementClass@@@@QAEABV0@ABV0@@Z",
+      "??_G?$RefCountPtr@VDynamicWindowElementClass@@@@QAEPAXI@Z",
+      "??_GDynamicWindowElementClass@@UAEPAXI@Z",
+      "??_GDynamicWindowMultiLineTextClass@@UAEPAXI@Z",
+      "??_GRefCountClass@@MAEPAXI@Z",
+      "??_H@YGXPAXIHP6EX0@Z@Z",
+      "?Add_To_Scene@DynamicWindowMultiLineTextClass@@UAEXPAVSceneClass@@@Z",
+      "?Child_Changed@DynamicWindowMultiLineTextClass@@UAEXAAVDynamicWindowElementClass@@@Z",
+      "?Clear_Flags@DynamicWindowMultiLineTextClass@@UAEXI@Z",
+      "?Clear_Lines@DynamicWindowMultiLineTextClass@@IAEXXZ",
+      "?Clear_Parent@DynamicWindowMultiLineTextClass@@UAEXXZ",
+      "?Create@DynamicWindowMultiLineTextClass@@SA?AV?$RefCountPtr@VDynamicWindowMultiLineTextClass@@@@ABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@ABVVector2@@I@Z",
+      "?Create_NEW@@YA?AV?$RefCountPtr@VDynamicWindowMultiLineTextClass@@@@PAVDynamicWindowMultiLineTextClass@@@Z",
+      "?Create_NEW@@YA?AV?$RefCountPtr@VFontSys@@@@PAVFontSys@@@Z",
+      "?Delete_This@RefCountClass@@UAEXXZ",
+      "?Get_Bounds@DynamicWindowMultiLineTextClass@@UAEXAAVAABoxClass@@@Z",
+      "?Get_Container@DynamicWindowMultiLineTextClass@@UAEPAVDynamicWindowContainerClass@@XZ",
+      "?Get_Level@DynamicWindowMultiLineTextClass@@UAEHXZ",
+      "?Get_Min_Size@DynamicWindowMultiLineTextClass@@UAE?AVVector2@@XZ",
+      "?Get_Size@DynamicWindowMultiLineTextClass@@UAE?AVVector2@@XZ",
+      "?Has_Flags@DynamicWindowMultiLineTextClass@@UAE_NI@Z",
+      "?Invalidate@DynamicWindowMultiLineTextClass@@UAEXXZ",
+      "?Is_Dirty@DynamicWindowMultiLineTextClass@@UAE_NXZ",
+      "?Layout@DynamicWindowMultiLineTextClass@@UAEXABVVector2@@0@Z",
+      "?Peek_Scene@DynamicWindowMultiLineTextClass@@UAEPAVSceneClass@@XZ",
+      "?Position_Lines@DynamicWindowMultiLineTextClass@@IAEXXZ",
+      "?Refresh@DynamicWindowMultiLineTextClass@@IAEXXZ",
+      "?Remove_All_Children@DynamicWindowMultiLineTextClass@@UAEX_N@Z",
+      "?Remove_Child@DynamicWindowMultiLineTextClass@@UAE_NABV?$RefCountPtr@VDynamicWindowElementClass@@@@@Z",
+      "?Remove_From_Scene@DynamicWindowMultiLineTextClass@@UAEXXZ",
+      "?Scroll_Down@DynamicWindowMultiLineTextClass@@QAEXXZ",
+      "?Scroll_Up@DynamicWindowMultiLineTextClass@@QAEXXZ",
+      "?Set_Alignment@DynamicWindowMultiLineTextClass@@UAEXI@Z",
+      "?Set_Flags@DynamicWindowMultiLineTextClass@@UAEXI@Z",
+      "?Set_Level@DynamicWindowMultiLineTextClass@@UAEXH@Z",
+      "?Set_Min_Size@DynamicWindowMultiLineTextClass@@UAEXABVVector2@@@Z",
+      "?Set_Parent@DynamicWindowMultiLineTextClass@@UAEXPAVDynamicWindowContainerClass@@@Z",
+      "?Set_Position@DynamicWindowMultiLineTextClass@@UAEXABVVector2@@@Z",
+      "?Set_Text@DynamicWindowMultiLineTextClass@@QAEXABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z",
+      "?_Construct@std@@YAXPAV?$RefCountPtr@VDynamicWindowElementClass@@@@ABV2@@Z",
+      "?_Copy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEXI@Z",
+      "?_Destroy@?$vector@V?$RefCountPtr@VDynamicWindowElementClass@@@@V?$allocator@V?$RefCountPtr@VDynamicWindowElementClass@@@@@std@@@std@@IAEXPAV?$RefCountPtr@VDynamicWindowElementClass@@@@0@Z",
+      "?_Eos@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEXI@Z",
+      "?_Grow@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAE_NI_N@Z",
+      "?_Split@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEXXZ",
+      "?_Tidy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEX_N@Z",
+      "?assign@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAEAAV12@ABV12@II@Z",
+      "?assign@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAEAAV12@PBDI@Z",
+      "?copy@std@@YAPAV?$RefCountPtr@VDynamicWindowElementClass@@@@PAV2@00@Z",
+      "?erase@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAEAAV12@II@Z",
+      "?erase@?$vector@V?$RefCountPtr@VDynamicWindowElementClass@@@@V?$allocator@V?$RefCountPtr@VDynamicWindowElementClass@@@@@std@@@std@@QAEPAV?$RefCountPtr@VDynamicWindowElementClass@@@@PAV3@0@Z",
+      "?id@?$ctype@G@std@@$E",
+      "?insert@?$vector@V?$RefCountPtr@VDynamicWindowElementClass@@@@V?$allocator@V?$RefCountPtr@VDynamicWindowElementClass@@@@@std@@@std@@QAEXPAV?$RefCountPtr@VDynamicWindowElementClass@@@@IABV3@@Z",
+      "?max_size@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QBEIXZ",
+      "_$E228"
+    ],
+    "parent": {
+      "symbol": "?Split_Lines@DynamicWindowMultiLineTextClass@@IAEXM@Z",
+      "shape": {
+        "symbol": "DynamicWindowMultiLineTextClass::Split_Lines",
+        "mangled": "?Split_Lines@DynamicWindowMultiLineTextClass@@IAEXM@Z",
+        "address": "0x51BFB0",
+        "ours": 266,
+        "client": 266,
+        "residue": 0,
+        "residue_regs": 0,
+        "tables": [],
+        "branch": {
+          "bytes": [
+            778,
+            778
+          ],
+          "size": 0,
+          "target": 0
+        },
+        "class": "identical",
+        "reason": "nothing differs once stack offsets are masked"
+      },
+      "aligned_raw_instructions_verified": 266,
+      "owner_vtable": {
+        "address": "0xAED784",
+        "slots": [
+          {
+            "offset": 0,
+            "client_field": "0xaed784",
+            "type": 6,
+            "symbol": "?Delete_This@RefCountClass@@UAEXXZ",
+            "addend": 0,
+            "client_value": "0x406573",
+            "resolved": "0x45cc10",
+            "basis": "known client function resolved through incremental thunk"
+          },
+          {
+            "offset": 4,
+            "client_field": "0xaed788",
+            "type": 6,
+            "symbol": "??_EDynamicWindowMultiLineTextClass@@UAEPAXI@Z",
+            "addend": 0,
+            "client_value": "0x4122bf",
+            "resolved": "0x51b340",
+            "basis": "known client function resolved through incremental thunk"
+          },
+          {
+            "offset": 8,
+            "client_field": "0xaed78c",
+            "type": 6,
+            "symbol": "?Set_Min_Size@DynamicWindowMultiLineTextClass@@UAEXABVVector2@@@Z",
+            "addend": 0,
+            "client_value": "0x4156fe",
+            "resolved": "0x51b730",
+            "basis": "known client function resolved through incremental thunk"
+          },
+          {
+            "offset": 12,
+            "client_field": "0xaed790",
+            "type": 6,
+            "symbol": "?Set_Flags@DynamicWindowMultiLineTextClass@@UAEXI@Z",
+            "addend": 0,
+            "client_value": "0x4159bf",
+            "resolved": "0x51b7c0",
+            "basis": "known client function resolved through incremental thunk"
+          },
+          {
+            "offset": 16,
+            "client_field": "0xaed794",
+            "type": 6,
+            "symbol": "?Clear_Flags@DynamicWindowMultiLineTextClass@@UAEXI@Z",
+            "addend": 0,
+            "client_value": "0x411c5c",
+            "resolved": "0x51b7f0",
+            "basis": "known client function resolved through incremental thunk"
+          },
+          {
+            "offset": 20,
+            "client_field": "0xaed798",
+            "type": 6,
+            "symbol": "?Set_Alignment@DynamicWindowMultiLineTextClass@@UAEXI@Z",
+            "addend": 0,
+            "client_value": "0x407d42",
+            "resolved": "0x51b820",
+            "basis": "known client function resolved through incremental thunk"
+          },
+          {
+            "offset": 24,
+            "client_field": "0xaed79c",
+            "type": 6,
+            "symbol": "?Invalidate@DynamicWindowMultiLineTextClass@@UAEXXZ",
+            "addend": 0,
+            "client_value": "0x418f9d",
+            "resolved": "0x51b860",
+            "basis": "known client function resolved through incremental thunk"
+          },
+          {
+            "offset": 28,
+            "client_field": "0xaed7a0",
+            "type": 6,
+            "symbol": "?Is_Dirty@DynamicWindowMultiLineTextClass@@UAE_NXZ",
+            "addend": 0,
+            "client_value": "0x4049f8",
+            "resolved": "0x51b890",
+            "basis": "known client function resolved through incremental thunk"
+          },
+          {
+            "offset": 32,
+            "client_field": "0xaed7a4",
+            "type": 6,
+            "symbol": "?Get_Min_Size@DynamicWindowMultiLineTextClass@@UAE?AVVector2@@XZ",
+            "addend": 0,
+            "client_value": "0x4094c1",
+            "resolved": "0x51b8b0",
+            "basis": "known client function resolved through incremental thunk"
+          },
+          {
+            "offset": 36,
+            "client_field": "0xaed7a8",
+            "type": 6,
+            "symbol": "?Has_Flags@DynamicWindowMultiLineTextClass@@UAE_NI@Z",
+            "addend": 0,
+            "client_value": "0x4086ca",
+            "resolved": "0x51b8e0",
+            "basis": "known client function resolved through incremental thunk"
+          },
+          {
+            "offset": 40,
+            "client_field": "0xaed7ac",
+            "type": 6,
+            "symbol": "?Layout@DynamicWindowMultiLineTextClass@@UAEXABVVector2@@0@Z",
+            "addend": 0,
+            "client_value": "0x413160",
+            "resolved": "0x51b910",
+            "basis": "known client function resolved through incremental thunk"
+          },
+          {
+            "offset": 44,
+            "client_field": "0xaed7b0",
+            "type": 6,
+            "symbol": "?Get_Size@DynamicWindowMultiLineTextClass@@UAE?AVVector2@@XZ",
+            "addend": 0,
+            "client_value": "0x4012e4",
+            "resolved": "0x51ba90",
+            "basis": "known client function resolved through incremental thunk"
+          },
+          {
+            "offset": 48,
+            "client_field": "0xaed7b4",
+            "type": 6,
+            "symbol": "?Get_Bounds@DynamicWindowMultiLineTextClass@@UAEXAAVAABoxClass@@@Z",
+            "addend": 0,
+            "client_value": "0x407b44",
+            "resolved": "0x51bac0",
+            "basis": "known client function resolved through incremental thunk"
+          },
+          {
+            "offset": 52,
+            "client_field": "0xaed7b8",
+            "type": 6,
+            "symbol": "?Set_Parent@DynamicWindowMultiLineTextClass@@UAEXPAVDynamicWindowContainerClass@@@Z",
+            "addend": 0,
+            "client_value": "0x401adc",
+            "resolved": "0x51bb30",
+            "basis": "known client function resolved through incremental thunk"
+          },
+          {
+            "offset": 56,
+            "client_field": "0xaed7bc",
+            "type": 6,
+            "symbol": "?Clear_Parent@DynamicWindowMultiLineTextClass@@UAEXXZ",
+            "addend": 0,
+            "client_value": "0x41405b",
+            "resolved": "0x51bbb0",
+            "basis": "known client function resolved through incremental thunk"
+          },
+          {
+            "offset": 60,
+            "client_field": "0xaed7c0",
+            "type": 6,
+            "symbol": "?Get_Container@DynamicWindowMultiLineTextClass@@UAEPAVDynamicWindowContainerClass@@XZ",
+            "addend": 0,
+            "client_value": "0x402adb",
+            "resolved": "0x51bc00",
+            "basis": "known client function resolved through incremental thunk"
+          },
+          {
+            "offset": 64,
+            "client_field": "0xaed7c4",
+            "type": 6,
+            "symbol": "?Add_To_Scene@DynamicWindowMultiLineTextClass@@UAEXPAVSceneClass@@@Z",
+            "addend": 0,
+            "client_value": "0x4043a4",
+            "resolved": "0x51bc20",
+            "basis": "known client function resolved through incremental thunk"
+          },
+          {
+            "offset": 68,
+            "client_field": "0xaed7c8",
+            "type": 6,
+            "symbol": "?Remove_From_Scene@DynamicWindowMultiLineTextClass@@UAEXXZ",
+            "addend": 0,
+            "client_value": "0x40b84d",
+            "resolved": "0x51bc90",
+            "basis": "known client function resolved through incremental thunk"
+          },
+          {
+            "offset": 72,
+            "client_field": "0xaed7cc",
+            "type": 6,
+            "symbol": "?Peek_Scene@DynamicWindowMultiLineTextClass@@UAEPAVSceneClass@@XZ",
+            "addend": 0,
+            "client_value": "0x4158f2",
+            "resolved": "0x51bcd0",
+            "basis": "known client function resolved through incremental thunk"
+          },
+          {
+            "offset": 76,
+            "client_field": "0xaed7d0",
+            "type": 6,
+            "symbol": "?Set_Level@DynamicWindowMultiLineTextClass@@UAEXH@Z",
+            "addend": 0,
+            "client_value": "0x4112b1",
+            "resolved": "0x51bcf0",
+            "basis": "known client function resolved through incremental thunk"
+          },
+          {
+            "offset": 80,
+            "client_field": "0xaed7d4",
+            "type": 6,
+            "symbol": "?Get_Level@DynamicWindowMultiLineTextClass@@UAEHXZ",
+            "addend": 0,
+            "client_value": "0x401839",
+            "resolved": "0x51bd30",
+            "basis": "known client function resolved through incremental thunk"
+          },
+          {
+            "offset": 84,
+            "client_field": "0xaed7d8",
+            "type": 6,
+            "symbol": "?Set_Position@DynamicWindowMultiLineTextClass@@UAEXABVVector2@@@Z",
+            "addend": 0,
+            "client_value": "0x40f7fe",
+            "resolved": "0x51bd50",
+            "basis": "known client function resolved through incremental thunk"
+          }
+        ]
+      },
+      "all_direct_relocations": [
+        {
+          "offset": 2,
+          "client_field": "0x51bfb2",
+          "type": 6,
+          "symbol": "__except_list",
+          "addend": 0,
+          "client_value": "0x0",
+          "resolved": "0x0",
+          "basis": "FS:[0]"
+        },
+        {
+          "offset": 9,
+          "client_field": "0x51bfb9",
+          "type": 6,
+          "symbol": "$L75561",
+          "addend": 0,
+          "client_value": "0xaab4d8",
+          "resolved": "0xaab4d8",
+          "basis": "EH section and FuncInfo location"
+        },
+        {
+          "offset": 17,
+          "client_field": "0x51bfc1",
+          "type": 6,
+          "symbol": "__except_list",
+          "addend": 0,
+          "client_value": "0x0",
+          "resolved": "0x0",
+          "basis": "FS:[0]"
+        },
+        {
+          "offset": 77,
+          "client_field": "0x51bffd",
+          "type": 20,
+          "symbol": "?erase@?$vector@V?$RefCountPtr@VDynamicWindowElementClass@@@@V?$allocator@V?$RefCountPtr@VDynamicWindowElementClass@@@@@std@@@std@@QAEPAV?$RefCountPtr@VDynamicWindowElementClass@@@@PAV3@0@Z",
+          "addend": 0,
+          "client_value": "0x402ce3",
+          "resolved": "0x519950",
+          "basis": "known client function resolved through incremental thunk"
+        },
+        {
+          "offset": 86,
+          "client_field": "0x51c006",
+          "type": 6,
+          "symbol": "__real@4@00000000000000000000",
+          "addend": 0,
+          "client_value": "0xae7244",
+          "resolved": "0xae7244",
+          "basis": "floating literal exact bytes and width"
+        },
+        {
+          "offset": 114,
+          "client_field": "0x51c022",
+          "type": 6,
+          "symbol": "??_C@_0GF@FAFM@Z?3?2home?2dev?2Projects?2EnB?2?4work?2c@",
+          "addend": 0,
+          "client_value": "0xb76c68",
+          "resolved": "0xb76c68",
+          "basis": "__FILE__ basename (scratch prefix intentionally different)"
+        },
+        {
+          "offset": 119,
+          "client_field": "0x51c027",
+          "type": 6,
+          "symbol": "??_C@_0BF@HGLP@CharacterHeight?5?$DM?$DN?50?$AA@",
+          "addend": 0,
+          "client_value": "0xb76cec",
+          "resolved": "0xb76cec",
+          "basis": "literal bytes including null terminator"
+        },
+        {
+          "offset": 124,
+          "client_field": "0x51c02c",
+          "type": 20,
+          "symbol": "?Fail_If_Report@@YAXPBD0H@Z",
+          "addend": 0,
+          "client_value": "0x402c3e",
+          "resolved": "0x4e9450",
+          "basis": "known client function resolved through incremental thunk"
+        },
+        {
+          "offset": 141,
+          "client_field": "0x51c03d",
+          "type": 6,
+          "symbol": "__except_list",
+          "addend": 0,
+          "client_value": "0x0",
+          "resolved": "0x0",
+          "basis": "FS:[0]"
+        },
+        {
+          "offset": 159,
+          "client_field": "0x51c04f",
+          "type": 6,
+          "symbol": "?_C@?1??_Nullstr@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@CAPBDXZ@4DB",
+          "addend": 0,
+          "client_value": "0xae70a4",
+          "resolved": "0xae70a4",
+          "basis": "STL empty string singleton"
+        },
+        {
+          "offset": 184,
+          "client_field": "0x51c068",
+          "type": 20,
+          "symbol": "??0FontSplitStringClass@@QAE@ABV?$RefCountPtr@VFont32Class@@@@PBDMH@Z",
+          "addend": 0,
+          "client_value": "0x416ed7",
+          "resolved": "0x4fa8f0",
+          "basis": "known client function resolved through incremental thunk"
+        },
+        {
+          "offset": 200,
+          "client_field": "0x51c078",
+          "type": 6,
+          "symbol": "?_C@?1??_Nullstr@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@CAPBDXZ@4DB",
+          "addend": 0,
+          "client_value": "0xae70a4",
+          "resolved": "0xae70a4",
+          "basis": "STL empty string singleton"
+        },
+        {
+          "offset": 212,
+          "client_field": "0x51c084",
+          "type": 20,
+          "symbol": "?Split@SplitStringClass@@QAE_NPBDMH@Z",
+          "addend": 0,
+          "client_value": "0x418a2f",
+          "resolved": "0x4f9d90",
+          "basis": "known client function resolved through incremental thunk"
+        },
+        {
+          "offset": 221,
+          "client_field": "0x51c08d",
+          "type": 20,
+          "symbol": "?Count@SplitStringClass@@QAEIXZ",
+          "addend": 0,
+          "client_value": "0x417e2c",
+          "resolved": "0x4fa710",
+          "basis": "known client function resolved through incremental thunk"
+        },
+        {
+          "offset": 328,
+          "client_field": "0x51c0f8",
+          "type": 20,
+          "symbol": "?Get@SplitStringClass@@QAEPBDI@Z",
+          "addend": 0,
+          "client_value": "0x416112",
+          "resolved": "0x4fa740",
+          "basis": "known client function resolved through incremental thunk"
+        },
+        {
+          "offset": 348,
+          "client_field": "0x51c10c",
+          "type": 20,
+          "symbol": "?_Tidy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEX_N@Z",
+          "addend": 0,
+          "client_value": "0x402b76",
+          "resolved": "0x42a820",
+          "basis": "known client function resolved through incremental thunk"
+        },
+        {
+          "offset": 371,
+          "client_field": "0x51c123",
+          "type": 20,
+          "symbol": "?assign@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAEAAV12@PBDI@Z",
+          "addend": 0,
+          "client_value": "0x41750d",
+          "resolved": "0x42d050",
+          "basis": "known client function resolved through incremental thunk"
+        },
+        {
+          "offset": 399,
+          "client_field": "0x51c13f",
+          "type": 20,
+          "symbol": "?Create@DynamicWindowTextClass@@SA?AV?$RefCountPtr@VDynamicWindowTextClass@@@@ABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@0I@Z",
+          "addend": 0,
+          "client_value": "0x402734",
+          "resolved": "0x51d290",
+          "basis": "known client function resolved through incremental thunk"
+        },
+        {
+          "offset": 469,
+          "client_field": "0x51c185",
+          "type": 6,
+          "symbol": "??_C@_0GF@FAFM@Z?3?2home?2dev?2Projects?2EnB?2?4work?2c@",
+          "addend": 0,
+          "client_value": "0xb76c68",
+          "resolved": "0xb76c68",
+          "basis": "__FILE__ basename (scratch prefix intentionally different)"
+        },
+        {
+          "offset": 474,
+          "client_field": "0x51c18a",
+          "type": 6,
+          "symbol": "??_C@_0O@EAAF@?$CBline_element?$AA@",
+          "addend": 0,
+          "client_value": "0xb76cdc",
+          "resolved": "0xb76cdc",
+          "basis": "literal bytes including null terminator"
+        },
+        {
+          "offset": 479,
+          "client_field": "0x51c18f",
+          "type": 20,
+          "symbol": "?Fail_If_Report@@YAXPBD0H@Z",
+          "addend": 0,
+          "client_value": "0x402c3e",
+          "resolved": "0x4e9450",
+          "basis": "known client function resolved through incremental thunk"
+        },
+        {
+          "offset": 535,
+          "client_field": "0x51c1c7",
+          "type": 20,
+          "symbol": "?_Tidy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEX_N@Z",
+          "addend": 0,
+          "client_value": "0x402b76",
+          "resolved": "0x42a820",
+          "basis": "known client function resolved through incremental thunk"
+        },
+        {
+          "offset": 559,
+          "client_field": "0x51c1df",
+          "type": 20,
+          "symbol": "?insert@?$vector@V?$RefCountPtr@VDynamicWindowElementClass@@@@V?$allocator@V?$RefCountPtr@VDynamicWindowElementClass@@@@@std@@@std@@QAEXPAV?$RefCountPtr@VDynamicWindowElementClass@@@@IABV3@@Z",
+          "addend": 0,
+          "client_value": "0x4147bd",
+          "resolved": "0x5195e0",
+          "basis": "known client function resolved through incremental thunk"
+        },
+        {
+          "offset": 700,
+          "client_field": "0x51c26c",
+          "type": 20,
+          "symbol": "??3@YAXPAX@Z",
+          "addend": 0,
+          "client_value": "0x412b7a",
+          "resolved": "0x4e9d10",
+          "basis": "known client function resolved through incremental thunk"
+        },
+        {
+          "offset": 754,
+          "client_field": "0x51c2a2",
+          "type": 20,
+          "symbol": "??1FontSplitStringClass@@UAE@XZ",
+          "addend": 0,
+          "client_value": "0x410aaf",
+          "resolved": "0x4fa9f0",
+          "basis": "known client function resolved through incremental thunk"
+        },
+        {
+          "offset": 768,
+          "client_field": "0x51c2b0",
+          "type": 6,
+          "symbol": "__except_list",
+          "addend": 0,
+          "client_value": "0x0",
+          "resolved": "0x0",
+          "basis": "FS:[0]"
+        }
+      ],
+      "remaining_difference": [],
+      "returns": 2,
+      "local_branch_targets_and_sizes_equal": true,
+      "eh": {
+        "handler": "0xaab4d8",
+        "section_base": "0xaab4c0",
+        "bytes": 34,
+        "nonrelocated_bytes_equal": true,
+        "relocations": [
+          {
+            "offset": 4,
+            "client_field": "0xaab4c4",
+            "type": 20,
+            "symbol": "??1FontSplitStringClass@@UAE@XZ",
+            "addend": 0,
+            "client_value": "0x410aaf",
+            "resolved": "0x4fa9f0",
+            "basis": "known client function resolved through incremental thunk"
+          },
+          {
+            "offset": 12,
+            "client_field": "0xaab4cc",
+            "type": 20,
+            "symbol": "??1?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAE@XZ",
+            "addend": 0,
+            "client_value": "0x4134fd",
+            "resolved": "0x42a6c0",
+            "basis": "known client function resolved through incremental thunk"
+          },
+          {
+            "offset": 20,
+            "client_field": "0xaab4d4",
+            "type": 20,
+            "symbol": "??1?$RefCountPtr@VDynamicWindowElementClass@@@@QAE@XZ",
+            "addend": 0,
+            "client_value": "0x40a736",
+            "resolved": "0x517030",
+            "basis": {
+              "byte_identical_COMDAT_at_client_target": "0x517030",
+              "length": 30,
+              "nested_relocations": []
+            }
+          },
+          {
+            "offset": 25,
+            "client_field": "0xaab4d9",
+            "type": 6,
+            "symbol": "$T75555",
+            "addend": 0,
+            "client_value": "0xb28d78",
+            "resolved": "0xb28d78",
+            "basis": "EH section and FuncInfo location"
+          },
+          {
+            "offset": 30,
+            "client_field": "0xaab4de",
+            "type": 20,
+            "symbol": "___CxxFrameHandler",
+            "addend": 0,
+            "client_value": "0xa25ac4",
+            "resolved": "0xa25ac4",
+            "basis": "known client function resolved through incremental thunk"
+          }
+        ],
+        "FuncInfo_address": "0xb28d78",
+        "FuncInfo_words": [
+          429065504,
+          3,
+          11701656,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "unwind_map_address": "0xb28d98",
+        "unwind": [
+          {
+            "state": 0,
+            "to_state": -1,
+            "cleanup": "0xaab4c0",
+            "cleanup_offset": 0
+          },
+          {
+            "state": 1,
+            "to_state": 0,
+            "cleanup": "0xaab4c8",
+            "cleanup_offset": 8
+          },
+          {
+            "state": 2,
+            "to_state": 1,
+            "cleanup": "0xaab4d0",
+            "cleanup_offset": 16
+          }
+        ],
+        "lifetime_order": [
+          "FontSplitStringClass split",
+          "std::string line",
+          "RefCountPtr<DynamicWindowElementClass> line_element"
+        ],
+        "temporary_factory_result": "RefCountPtr<DynamicWindowTextClass> released before line_element null test; its construction is guarded by parent state1; all three retail EH cleanup funclets and states match."
+      }
+    },
+    "source_semantics": "Compute height before assigning DisplayedLines=count. CharacterHeight and Size.Y are disjoint members; count is a captured value. VC6 schedules the integer member write ahead of FILD but materializes height across the source assignment. All getters/calls, container operations and named string/RefCountPtr lifetimes remain in their prior order. No volatile, helpers, flags, asm or UB."
+  },
+  "scope": "Only reorder the existing height computation and DisplayedLines assignment; blank the obsolete NOT EXACT marker while preserving every physical assert line. No helper, header, flags, volatile, arithmetic regrouping, assembly, artificial barriers or undefined behavior. Existing Clear_Lines gain preserved.",
+  "verification_limit": "Native VC6 SP4 compiler/object proof only; authoritative maintainer importer remains pending."
+}
