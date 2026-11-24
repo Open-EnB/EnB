@@ -1,0 +1,1 @@
+Four compiled forms against da91c62e: the actual sibling allocation factory is used as the constructor inline layer, defined before or after, inline or non-inline. JSON patches round-trip against that revision. All four retain the same constructor bytes and single-state cleanup as the control. See attempts.csv.
