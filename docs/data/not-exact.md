@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-594 entries in 248 files.
+593 entries in 247 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -376,7 +376,6 @@ edit the comments in the code, not this file.
 | `app/client/ui_missn.cpp:685` | `UIMissnClass::Unknown_5C66D0` | marker | NOT EXACT: register (the client reloads CurrentMissions[CurrentMission] for the packets' arguments, hoisted above the branch; this keeps the FAIL_IF's pointer) |
 | `app/client/ui_mount.cpp:262` | `UIMountClass::Build` | marker | NOT EXACT (1.00, attempts.py 0x5C77A0): r53/r54 p.Y floor intermediate store (3 masked); 60/62 regions and 0x164 frame match 0x5C77A0 |
 | `app/client/ui_option_control_keys.cpp:185` | `UIOptionControlKeysClass::Unknown_68` | marker | NOT EXACT: register allocation (similarity 0.69): the client computes the row (key - 15 / key - 26) with lea into eax, this form adds into ebx; the rest aligns 0x5CA9F0 |
-| `app/client/ui_option_font.cpp:37` | `OptionFontInterface::OptionFontInterface` | marker | NOT EXACT: shape (similarity 0.49; forms: indexed for, for with break, two-pointer while): the client builds the first string's copy with _Tidy out of line and the second inline 0x5CC350 |
 | `app/client/ui_pda_cargo.cpp:66` | `UIPdaCargoClass::UIPdaCargoClass` | marker | NOT EXACT: functional from the pseudocode (D64) 0x5CF9B0 |
 | `app/client/ui_pda_cargo.cpp:112` | `UIPdaCargoClass::Unknown_54` | marker | NOT EXACT: functional from the pseudocode (D64) 0x5CFE40 |
 | `app/client/ui_pda_cargo.cpp:293` | `UIPdaCargoClass::Unknown_5D0A50` | marker | NOT EXACT: functional from the pseudocode (D64): ui_attrb.cpp's 0x547C20 for this window's 'Credits' 0x5D0A50 |
