@@ -167,7 +167,7 @@ done:
 
 
 
-// NOT EXACT: 0x690D20, 20 rows: register and order of the packet's arguments
+// The packet is a temporary: Send_Packet takes the constructor's return (eax), the EH state stored after the push
 // 0x690D20
 void InvTransactionClass::Unknown_690D20()
 {
@@ -177,7 +177,7 @@ void InvTransactionClass::Unknown_690D20()
 		Num = QuantityGadget->Value;
 		if (!QuantityGadget->Finished) return;
 		QuantityGadget->Unknown_40(false);
-		QuantityGadget->Unknown_58(View->Unknown2C);
+		GadgetListManagerClass *manager = View->Unknown2C;	QuantityGadget->Unknown_58(manager);	// NAME 1 [manager]: the slot's parameter
 		if (Num == 0) {
 			State = 0;
 			return;
@@ -226,19 +226,19 @@ void InvTransactionClass::Unknown_690D20()
 		} else if (ToInv == 11) {
 			if (FromInv != 12 && FromInv != 14) {
 				if (!active) {
-					DropQuery->Unknown_588A70("UI_TRANSACTION_DUMP_ITEM", true, 0, 0, false, false);
+					DropQuery->Unknown_588A70("UI_TRANSACTION_DUMP_ITEM", true, 0, 0, false, false); return;
 				}
-				return;
+				State = 0; return;
 			}
 			ToInv = 1;
 		}
 		State = 3;
 	}
 	if (State != 3) return;
-	ClientClass *client = View->Unknown4C;	// NAME 1 [client, packet]: neutral
+	ClientClass *client = View->Unknown4C;	// NAME 1 [client]: neutral
 	if (client) {
-		InventoryMovePacketClass packet(client->ShipID, (InventoryEnum)FromInv, FromSlot, (InventoryEnum)ToInv, ToSlot, Num);
-		client->Send_Packet(&packet);
+		int id = client->ShipID;	// NAME 1 [id]: neutral
+		client->Send_Packet(&InventoryMovePacketClass(id, (InventoryEnum)FromInv, FromSlot, (InventoryEnum)ToInv, ToSlot, Num));
 	}
 	State = 0;
 }
