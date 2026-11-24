@@ -57,13 +57,14 @@ static const char *VaultFilterNames[] = {	// NAME 1: neutral (D10)
 	NULL
 };
 
-// NOT EXACT: functional from the pseudocode (D64)
+// the dead FilterName.size() (D272, no bytes) sends FilterName("")'s _Eos out of line and inlines the Get_String assignment's, as the client
 // 0x656FF0
 UIVaultClass::UIVaultClass(SClient *client) :
 	UIInvClass(client, 17),
 	SortIndex(0),
 	SortReverse(false), FilterName("")
 {
+	FilterName.size();
 	for (int i = 0; i < NUM_BUTTONS; i++) {
 		Buttons3[i] = NULL;
 	}
@@ -74,7 +75,6 @@ UIVaultClass::UIVaultClass(SClient *client) :
 	}
 	Unknown_BE67BC->Load("fa_vault00a.ini");
 }
-
 
 // 0x6572F0
 UIVaultClass::~UIVaultClass()
@@ -211,7 +211,7 @@ void UIVaultClass::Unknown_7C(UIViewClass *view, bool arg)
 	}
 }
 
-// NOT EXACT: functional from the pseudocode (D64)
+// the filter's tail nested in the non-empty test: one shared exit, the client's late ebx / ebp / edi pushes
 // 0x657AA0
 bool UIVaultClass::Unknown_68(int key)
 {
@@ -239,17 +239,17 @@ bool UIVaultClass::Unknown_68(int key)
 	}
 	SoundLibraryClass::Play_2D_Sound("TextClick03.wav", 2);
 	FilterName = Filter->Get_Selected_Text();
-	if (FilterName.size() == 0) {
-		return(true);
+	if (FilterName.size() != 0) {
+		StringOptionStruct *option = OptionClass::Instance->Find_String("Inv_Filter_Vault");
+		if (option) {
+			option->Value = FilterName.c_str();
+		}
+		Unknown_62F620(FilterName.c_str());
+		Unknown_B0();
 	}
-	StringOptionStruct *option = OptionClass::Instance->Find_String("Inv_Filter_Vault");
-	if (option) {
-		option->Value = FilterName.c_str();
-	}
-	Unknown_62F620(FilterName.c_str());
-	Unknown_B0();
 	return(true);
 }
+
 
 // the client's format strings 'Inv_Sort%d_Name' / _primary / _secondary / _tertiary (0xB83A7C, 0xB83A64, 0xB83A48, 0xB83A30)
 // 0x657DA0
@@ -300,9 +300,9 @@ void UIVaultClass::Unknown_657DA0(bool reverse)
 **	its own deleting destructor 0x6572C0 (the second and third tables), and ui_verb.cpp's constructor 0x6580B0 opens
 **	the next object. The cargo window's sibling (ui_pda_cargo.cpp): the same members from +0xD0 without the PDA, three
 **	buttons, a slider made and handed to the gadget list without a member.
-**	Not exact (one round each, attempts.csv): the constructor inlines string::_Eos in the Get_String assignment and calls
-**	it for FilterName("") (the client: the other way round; inline budget, as the cargo window's 0x5CF9B0); Unknown_54's
-**	button loop bumps its two pointers in the other order (as 0x5CFE40); Unknown_68 pushes ebx / ebp / edi at entry
-**	where the client pushes them late for the filter's tail (shrink-wrapping; the tail inside its case is the same);
+**	The constructor: a dead FilterName.size() at the body's top swaps which string site calls _Eos (D272; 22 -> 0 masked,
+**	2026-11-24; the cargo window's 0x5CF9B0 has the same swap). Not exact (attempts.csv): Unknown_54's
+**	button loop bumps its two pointers in the other order (as 0x5CFE40). Unknown_68's late pushes (shrink-wrapping) came
+**	with the filter's tail nested in `if (FilterName.size() != 0)` (an early return there pushed them at entry);
 **	0x657DA0 loads the packet's arguments in another order (Client first in the client's).
 */
