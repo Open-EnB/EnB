@@ -2344,7 +2344,7 @@ void RegistrationInterface::Unknown_5F9EB0()
 	}
 }
 
-// NOT EXACT: field-offset (explain.py; 340 instructions each: register choice in the inlined operator= into +0x2CC and the 'EB' compare)
+// NOT EXACT: register (340 instructions each, no layout difference: the inlined vector operator= calls x.size() before size() in the client; eax/ecx/edx in the +0x2CC copy and the 'EB' compare)
 // @0x5FA0B0
 void RegistrationInterface::Unknown_5FA0B0()
 {
