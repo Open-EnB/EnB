@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1970 |
 | 2 | describes what the code does | 5010 |
-| 1 | neutral placeholder | 25163 |
+| 1 | neutral placeholder | 25166 |
 
 ## For review (score 3 and below)
 
@@ -15043,6 +15043,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_B832D8` | `app/client/ui_option_font.cpp:24` | neutral (D10) |
 | 1 | `Unknown_B832E8` | `app/client/ui_option_font.cpp:25` | neutral (D10) |
 | 1 | `name` | `app/client/ui_option_font.cpp:49` | neutral (D10) |
+| 1 | `font` | `app/client/ui_option_font.cpp:50` | temporary font name |
+| 1 | `label` | `app/client/ui_option_font.cpp:51` | temporary label |
 | 1 | `Get_Unknown98` | `app/client/ui_option_font.cpp:52` | untagged neutral name (D10) |
 | 1 | `Unknown_66E460` | `app/client/ui_option_font.cpp:61` | untagged neutral name (D10) |
 | 1 | `Unknown_54` | `app/client/ui_option_font.cpp:126` | untagged neutral name (D10) |
@@ -15248,14 +15250,15 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_5D0D20` | `app/client/ui_pda_cargo.cpp:231` | untagged neutral name (D10) |
 | 1 | `Unknown_6607D0` | `app/client/ui_pda_cargo.cpp:232` | untagged neutral name (D10) |
 | 1 | `Unknown_695A00` | `app/client/ui_pda_cargo.cpp:241` | untagged neutral name (D10) |
-| 1 | `Unknown_B0` | `app/client/ui_pda_cargo.cpp:261` | untagged neutral name (D10) |
+| 1 | `Unknown_B0` | `app/client/ui_pda_cargo.cpp:259` | untagged neutral name (D10) |
 | 1 | `Unknown_60` | `app/client/ui_pda_cargo.cpp:267` | untagged neutral name (D10) |
 | 1 | `Unknown_7C` | `app/client/ui_pda_cargo.cpp:276` | untagged neutral name (D10) |
 | 1 | `Unknown_5D0A20` | `app/client/ui_pda_cargo.cpp:288` | untagged neutral name (D10) |
 | 1 | `UnknownB8_0` | `app/client/ui_pda_cargo.cpp:290` | untagged neutral name (D10) |
-| 1 | `Unknown_Find_Field` | `app/client/ui_pda_cargo.cpp:301` | untagged neutral name (D10) |
-| 1 | `Unknown70` | `app/client/ui_pda_cargo.cpp:305` | untagged neutral name (D10) |
-| 1 | `Unknown_74D990` | `app/client/ui_pda_cargo.cpp:344` | untagged neutral name (D10) |
+| 1 | `Cargo_Find_Valid` | `app/client/ui_pda_cargo.cpp:293` | neutral; two lookup layers as ui_attrb_skills.cpp 0x54A640 |
+| 1 | `Unknown_Find_Field` | `app/client/ui_pda_cargo.cpp:293` | untagged neutral name (D10) |
+| 1 | `Unknown70` | `app/client/ui_pda_cargo.cpp:293` | untagged neutral name (D10) |
+| 1 | `Unknown_74D990` | `app/client/ui_pda_cargo.cpp:340` | untagged neutral name (D10) |
 | 1 | `ui_pda_cargo.h` | `app/client/ui_pda_cargo.h:4` | provisional header name for ui_pda_cargo.cpp |
 | 1 | `Unknown669FB0Class` | `app/client/ui_pda_cargo.h:15` | untagged neutral name (D10) |
 | 1 | `NUM_BUTTONS` | `app/client/ui_pda_cargo.h:24` | the set-up's loop over 0xB83820 (gadgets 13..17) |
