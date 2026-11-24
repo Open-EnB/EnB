@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-589 entries in 246 files.
+588 entries in 245 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -274,7 +274,6 @@ edit the comments in the code, not this file.
 | `app/client/tasks/tsk_login.cpp:829` | `LoginTaskClass::Unknown_64` | marker | NOT EXACT: register-only (one 'return true' at the end shares the client's tails; left: the version's Major in edx (client eax) and the CANCEL box's ecx / edx; attempts.py show 0x7698E0) 0x7698E0 |
 | `app/client/tasks/tsk_login.cpp:1098` | `LoginTaskClass::Fetch_EA_Ticket` | marker | NOT EXACT: shape (the client merges the two message boxes' tails; attempts.py show 0x76A7B0) 0x76A7B0 |
 | `app/client/textgadg.cpp:389` | `TextGadgetClass::Unknown_6AAD10` | marker | NOT EXACT: registers and stack (0.58; 0x128 bytes of locals in the client, 0x12C here): the client keeps the text in ebx and &Text in ebp (recomputed after the width loop), here &Text in ebx and the text spilled |
-| `app/client/tooltip.cpp:268` | `UIViewUnknown30Class::Unknown_6ABC10` | marker | NOT EXACT: shape (0.48): the client keeps the split loop whole (width from the stack, 'lines = MAX_LINES' on the latch); VC6 peels the first pass here |
 | `app/client/ui_analyze.cpp:126` | `UIAnalyzeClass::Unknown_54` | marker | NOT EXACT: register (after the button loop the client keeps the zero in ebp and the space client in ebx, ours the other way round, and loads the name table's pointer before the gadget pointer; 0-based loop, named key event, the icon loop 1-based, the buffer at the top: no) (0x5439F0) @0x5439F0 |
 | `app/client/ui_analyze.cpp:314` | `UIAnalyzeClass::Unknown_60` | marker | NOT EXACT: inline budget (the first 'Validity' find through Unknown_Find_Valid, out of line 0x5465C0 as the client; the second through Unknown_Find_Root_Field, its Cast 0x5468D0 out of line as the client; the client also calls the 'Mode' Cast 0x546920 out of line, and the blocks' registers differ; 0x544C50's index local and two dead reads at the end cut it 190 -> 57) (0x5443F0) @0x5443F0 |
 | `app/client/ui_analyze.cpp:488` | `UIAnalyzeClass::Unknown_544D80` | marker | NOT EXACT: inline budget (the client calls the 'NegotiatedCost' and 'CriticalSuccessProbability' finds out of line, Unknown_Find_Field 0x417D82 / 0x4138E0 thunks, and the 'SuccessProbability' Cast; ours inlines them) (0x544D80) @0x544D80 |

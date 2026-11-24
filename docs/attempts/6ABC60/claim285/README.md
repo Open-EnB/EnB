@@ -1,0 +1,1 @@
+Eighteen compiled forms and controls, replayed against tooltip.cpp at cd72b627. Original and final byte/relocation evidence is in the claim report; only the final corrected base-element overload calls the retail target. See attempts.csv.

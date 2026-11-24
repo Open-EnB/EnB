@@ -265,7 +265,7 @@ void UIViewUnknown30Class::Unknown_6AB930(GadgetClass *gadget)
 	}
 }
 
-// NOT EXACT: shape (0.48): the client keeps the split loop whole (width from the stack, 'lines = MAX_LINES' on the latch); VC6 peels the first pass here
+
 
 void UIViewUnknown30Class::Unknown_6ABC10()
 {
@@ -304,26 +304,26 @@ void UIViewUnknown30Class::Unknown_6ABC10()
 
 
 
-
-
-
-
-
-
-
-
-
 void UIViewUnknown30Class::Unknown_6ABC60()
 {
 	if (Unknown0C || CurGadget == NULL || View == NULL) {
 		return;
 	}
-	FontSplitStringClass split(Lines[0]->Font);
+	const RefCountPtr<Font32Class> &font = Lines[0]->Font;
+	FontSplitStringClass split(font);
 	int width = 100;
-	const char *text = Unknown0E ? CurGadget->Unknown24 : CurGadget->Get_Unknown14();
-	int lines;
-	int tries = 0;
-	do {
+	GadgetClass *gadget;
+	const char *text;
+	if (Unknown0E) {
+		gadget = CurGadget;
+		text = gadget->Unknown24;
+	} else {
+		gadget = CurGadget;
+		text = gadget->Get_Unknown14();
+	}
+	int lines = MAX_LINES;
+	int tries;
+	for (tries = 0; tries < MAX_LINES;) {
 		split.Split(text, (float)width, 0);
 		lines = split.Count();
 		tries++;
@@ -336,13 +336,13 @@ void UIViewUnknown30Class::Unknown_6ABC60()
 		if (width < 600) {
 			width += 50;
 		}
-	} while (tries < MAX_LINES);
-	lines = MAX_LINES;
+		lines = MAX_LINES;
+	}
 fits:
 	for (int i = 0; i < lines; i++) {
 		Lines[i]->Change_Text(split.Get(i), 2);
 		Lines[i]->Unknown_6CE910(!CurGadget->Is_Enabled());
-		Unknown51C800Class *element = new Unknown51C800Class(Lines[i], 6);
+		DynamicWindowElementClass *element = new Unknown51C800Class(Lines[i], 6);
 		Window->Add_Object(element, i);
 		element->Release_Ref();
 	}
