@@ -1,0 +1,330 @@
+{
+  "base_commit": "1d347441b463a69e658bbf92ef59f989154c86fb",
+  "base_sha256": "09cc8d76c00a87a2770b5914d513fa97277673af43a8ad41181bdf7d22ec0993",
+  "unit": "app/client/inv_data_peek.cpp",
+  "target": "0x68A090",
+  "baseline_group": {
+    "length": 384,
+    "masked_sha256": "2cde1d844bb9371aa926bf7ee3ab515b72d449a9440163ce05c169a9d5f31bcd"
+  },
+  "baseline_matches": "/home/dev/Projects/EnB/.work/claim-281/runs/baseline-i584yjg9/baseline/matches.json",
+  "forms": [
+    {
+      "name": "wrap_cstr_both",
+      "classification": "valid candidate",
+      "edits": [
+        {
+          "start": 2841,
+          "end": 2842,
+          "old": "\n",
+          "new": "static inline std::string String_Value(const char *s) { return(s); }\n"
+        },
+        {
+          "start": 3195,
+          "end": 3289,
+          "old": "\tFAIL_IF(!encoded_info_delta_string) return(NULL);\n\treturn(encoded_info_delta_string->Get());\n",
+          "new": "\tFAIL_IF(!encoded_info_delta_string) return(String_Value(NULL));\n\treturn(String_Value(encoded_info_delta_string->Get()));\n"
+        }
+      ],
+      "source_sha256": "7ba52eebc367807c005ff8c35adc4c24e04adb0752f9ee8160928dcd76bc8864",
+      "object": "/home/dev/Projects/EnB/.work/claim-281/runs/forms2-iw_3un5e/wrap_cstr_both/inv_data_peek.obj",
+      "matches": "/home/dev/Projects/EnB/.work/claim-281/runs/forms2-iw_3un5e/wrap_cstr_both/matches.json",
+      "compiled": true,
+      "target_exact": false,
+      "gained_addresses": [],
+      "lost_addresses": [],
+      "symbol_gains": [],
+      "symbol_losses": [],
+      "body_group": {
+        "length": 144,
+        "masked_sha256": "85cc264ab94a4d3277dd7466b027bffa7a8ad36b54934dca306d3876dacfb69b"
+      }
+    },
+    {
+      "name": "wrap_cstr_fail",
+      "classification": "valid candidate",
+      "edits": [
+        {
+          "start": 2841,
+          "end": 2842,
+          "old": "\n",
+          "new": "static inline std::string String_Value(const char *s) { return(s); }\n"
+        },
+        {
+          "start": 3195,
+          "end": 3246,
+          "old": "\tFAIL_IF(!encoded_info_delta_string) return(NULL);\n",
+          "new": "\tFAIL_IF(!encoded_info_delta_string) return(String_Value(NULL));\n"
+        }
+      ],
+      "source_sha256": "bbf72cd157d18ee3c665df793522d34b6ecdc1a97d5ba82f8365117db77e7a16",
+      "object": "/home/dev/Projects/EnB/.work/claim-281/runs/forms2-iw_3un5e/wrap_cstr_fail/inv_data_peek.obj",
+      "matches": "/home/dev/Projects/EnB/.work/claim-281/runs/forms2-iw_3un5e/wrap_cstr_fail/matches.json",
+      "compiled": true,
+      "target_exact": false,
+      "gained_addresses": [],
+      "lost_addresses": [],
+      "symbol_gains": [],
+      "symbol_losses": [],
+      "body_group": {
+        "length": 304,
+        "masked_sha256": "21dfb991379cc346c55c6ee46963d50c396a3d468da4b995fc74b773f8f26375"
+      }
+    },
+    {
+      "name": "wrap_cstr_success",
+      "classification": "valid candidate",
+      "edits": [
+        {
+          "start": 2841,
+          "end": 2842,
+          "old": "\n",
+          "new": "static inline std::string String_Value(const char *s) { return(s); }\n"
+        },
+        {
+          "start": 3246,
+          "end": 3289,
+          "old": "\treturn(encoded_info_delta_string->Get());\n",
+          "new": "\treturn(String_Value(encoded_info_delta_string->Get()));\n"
+        }
+      ],
+      "source_sha256": "a319fed0b8680cd4e06b6c2957a8eee4272c3362d9c7576977b8415860a0eb95",
+      "object": "/home/dev/Projects/EnB/.work/claim-281/runs/forms2-iw_3un5e/wrap_cstr_success/inv_data_peek.obj",
+      "matches": "/home/dev/Projects/EnB/.work/claim-281/runs/forms2-iw_3un5e/wrap_cstr_success/matches.json",
+      "compiled": true,
+      "target_exact": false,
+      "gained_addresses": [],
+      "lost_addresses": [],
+      "symbol_gains": [],
+      "symbol_losses": [],
+      "body_group": {
+        "length": 208,
+        "masked_sha256": "4dfa5884cb15355c1634c51f27cd33d82e3ca7f6993194f89728ca8445b71b40"
+      }
+    },
+    {
+      "name": "wrap_delta",
+      "classification": "valid candidate",
+      "edits": [
+        {
+          "start": 2841,
+          "end": 2842,
+          "old": "\n",
+          "new": "static inline const char *String_Value(DeltaStringClass *d) { return(d->Get()); }\n"
+        },
+        {
+          "start": 3246,
+          "end": 3289,
+          "old": "\treturn(encoded_info_delta_string->Get());\n",
+          "new": "\treturn(String_Value(encoded_info_delta_string));\n"
+        }
+      ],
+      "source_sha256": "ba3cfeed2c149f78d1e0bc1c2c235154a5c20a3cdc12a526306bd73570e7d5a2",
+      "object": "/home/dev/Projects/EnB/.work/claim-281/runs/forms2-iw_3un5e/wrap_delta/inv_data_peek.obj",
+      "matches": "/home/dev/Projects/EnB/.work/claim-281/runs/forms2-iw_3un5e/wrap_delta/matches.json",
+      "compiled": true,
+      "target_exact": false,
+      "gained_addresses": [],
+      "lost_addresses": [],
+      "symbol_gains": [],
+      "symbol_losses": [],
+      "body_group": {
+        "length": 384,
+        "masked_sha256": "2cde1d844bb9371aa926bf7ee3ab515b72d449a9440163ce05c169a9d5f31bcd"
+      }
+    },
+    {
+      "name": "wrap_value",
+      "classification": "valid candidate",
+      "edits": [
+        {
+          "start": 2841,
+          "end": 2842,
+          "old": "\n",
+          "new": "static inline std::string String_Value(DeltaStringClass *d) { return(d->Get()); }\n"
+        },
+        {
+          "start": 3246,
+          "end": 3289,
+          "old": "\treturn(encoded_info_delta_string->Get());\n",
+          "new": "\treturn(String_Value(encoded_info_delta_string));\n"
+        }
+      ],
+      "source_sha256": "0d800dc8fabd1823f601fa8d123826076166da424f483bed932386d8d6e0fe04",
+      "object": "/home/dev/Projects/EnB/.work/claim-281/runs/forms2-iw_3un5e/wrap_value/inv_data_peek.obj",
+      "matches": "/home/dev/Projects/EnB/.work/claim-281/runs/forms2-iw_3un5e/wrap_value/matches.json",
+      "compiled": true,
+      "target_exact": false,
+      "gained_addresses": [],
+      "lost_addresses": [],
+      "symbol_gains": [],
+      "symbol_losses": [],
+      "body_group": {
+        "length": 208,
+        "masked_sha256": "723777c6fb9a15e6594cbf943c99af092d156f0aec09906c9e0b864c48c62f88"
+      }
+    },
+    {
+      "name": "wrap_null",
+      "classification": "valid candidate",
+      "edits": [
+        {
+          "start": 2841,
+          "end": 2842,
+          "old": "\n",
+          "new": "static inline std::string String_Value() { return((const char *)NULL); }\n"
+        },
+        {
+          "start": 3195,
+          "end": 3246,
+          "old": "\tFAIL_IF(!encoded_info_delta_string) return(NULL);\n",
+          "new": "\tFAIL_IF(!encoded_info_delta_string) return(String_Value());\n"
+        }
+      ],
+      "source_sha256": "2800f700e1cef540e8536a7415e6293005668c59fb4f2f51d8d3f30692901f4d",
+      "object": "/home/dev/Projects/EnB/.work/claim-281/runs/forms2-iw_3un5e/wrap_null/inv_data_peek.obj",
+      "matches": "/home/dev/Projects/EnB/.work/claim-281/runs/forms2-iw_3un5e/wrap_null/matches.json",
+      "compiled": true,
+      "target_exact": false,
+      "gained_addresses": [],
+      "lost_addresses": [],
+      "symbol_gains": [],
+      "symbol_losses": [],
+      "body_group": {
+        "length": 304,
+        "masked_sha256": "b55b5b8bfc934a20c20667ba3410bc5293830d1f43d5463facd4560779884330"
+      }
+    },
+    {
+      "name": "wrap_cast",
+      "classification": "valid candidate",
+      "edits": [
+        {
+          "start": 2841,
+          "end": 2842,
+          "old": "\n",
+          "new": "static inline DeltaStringClass *String_Field(DeltaClass *d) { return(UnknownRTTIClass<DeltaStringClass>::Cast(d)); }\n"
+        },
+        {
+          "start": 3086,
+          "end": 3195,
+          "old": "\tDeltaStringClass *encoded_info_delta_string = UnknownRTTIClass<DeltaStringClass>::Cast(Get_Field(slot, 9));\n",
+          "new": "\tDeltaStringClass *encoded_info_delta_string = String_Field(Get_Field(slot, 9));\n"
+        }
+      ],
+      "source_sha256": "0d713208832371076bd64261366f07a26aff31c5f3a7f7bf3ab20f8f55c44b4d",
+      "object": "/home/dev/Projects/EnB/.work/claim-281/runs/forms2-iw_3un5e/wrap_cast/inv_data_peek.obj",
+      "matches": "/home/dev/Projects/EnB/.work/claim-281/runs/forms2-iw_3un5e/wrap_cast/matches.json",
+      "compiled": true,
+      "target_exact": false,
+      "gained_addresses": [],
+      "lost_addresses": [],
+      "symbol_gains": [],
+      "symbol_losses": [],
+      "body_group": {
+        "length": 384,
+        "masked_sha256": "2cde1d844bb9371aa926bf7ee3ab515b72d449a9440163ce05c169a9d5f31bcd"
+      }
+    },
+    {
+      "name": "wrap_raw",
+      "classification": "valid candidate",
+      "edits": [
+        {
+          "start": 2841,
+          "end": 2842,
+          "old": "\n",
+          "new": "static inline const char *String_Value(const char *s) { return(s); }\n"
+        },
+        {
+          "start": 3195,
+          "end": 3289,
+          "old": "\tFAIL_IF(!encoded_info_delta_string) return(NULL);\n\treturn(encoded_info_delta_string->Get());\n",
+          "new": "\tFAIL_IF(!encoded_info_delta_string) return(String_Value(NULL));\n\treturn(String_Value(encoded_info_delta_string->Get()));\n"
+        }
+      ],
+      "source_sha256": "45a8d91634a7485af39737054f1d83c58eb70f1012b7b9966357f707e809e8ce",
+      "object": "/home/dev/Projects/EnB/.work/claim-281/runs/forms2-iw_3un5e/wrap_raw/inv_data_peek.obj",
+      "matches": "/home/dev/Projects/EnB/.work/claim-281/runs/forms2-iw_3un5e/wrap_raw/matches.json",
+      "compiled": true,
+      "target_exact": false,
+      "gained_addresses": [
+        "0x42D050"
+      ],
+      "lost_addresses": [],
+      "symbol_gains": [
+        [
+          "?assign@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAEAAV12@PBDI@Z",
+          "0x42D050"
+        ]
+      ],
+      "symbol_losses": [],
+      "body_group": {
+        "length": 336,
+        "masked_sha256": "f0c9b8779e8b1c634c1dec9515a7a96cf965eceeced97c283d10abf55ac4e8a3"
+      }
+    },
+    {
+      "name": "wrap_ref",
+      "classification": "valid candidate",
+      "edits": [
+        {
+          "start": 2841,
+          "end": 2842,
+          "old": "\n",
+          "new": "static inline std::string String_Value(const char * const &s) { return(s); }\n"
+        },
+        {
+          "start": 3195,
+          "end": 3289,
+          "old": "\tFAIL_IF(!encoded_info_delta_string) return(NULL);\n\treturn(encoded_info_delta_string->Get());\n",
+          "new": "\tFAIL_IF(!encoded_info_delta_string) return(String_Value(NULL));\n\treturn(String_Value(encoded_info_delta_string->Get()));\n"
+        }
+      ],
+      "source_sha256": "09ef51504dd189cbe10821884e57cd77b2a0878b7440d58cf21ec584a3018c24",
+      "object": "/home/dev/Projects/EnB/.work/claim-281/runs/forms2-iw_3un5e/wrap_ref/inv_data_peek.obj",
+      "matches": "/home/dev/Projects/EnB/.work/claim-281/runs/forms2-iw_3un5e/wrap_ref/matches.json",
+      "compiled": true,
+      "target_exact": false,
+      "gained_addresses": [],
+      "lost_addresses": [],
+      "symbol_gains": [],
+      "symbol_losses": [],
+      "body_group": {
+        "length": 144,
+        "masked_sha256": "495a5150d768b17f0b876297be2aa2e4e40ad360e3145c3a839283a5a7bac03d"
+      }
+    },
+    {
+      "name": "wrap_value_alt",
+      "classification": "valid candidate",
+      "edits": [
+        {
+          "start": 2841,
+          "end": 2842,
+          "old": "\n",
+          "new": "static inline std::string String_Value(DeltaStringClass *d) { return(std::string(d->Get())); }\n"
+        },
+        {
+          "start": 3246,
+          "end": 3289,
+          "old": "\treturn(encoded_info_delta_string->Get());\n",
+          "new": "\treturn(String_Value(encoded_info_delta_string));\n"
+        }
+      ],
+      "source_sha256": "ff30cba24bdabf8c1440d2cb871498eba3f306ae1f985e536f1b1cabfefbcbcb",
+      "object": "/home/dev/Projects/EnB/.work/claim-281/runs/forms2-iw_3un5e/wrap_value_alt/inv_data_peek.obj",
+      "matches": "/home/dev/Projects/EnB/.work/claim-281/runs/forms2-iw_3un5e/wrap_value_alt/matches.json",
+      "compiled": true,
+      "target_exact": false,
+      "gained_addresses": [],
+      "lost_addresses": [],
+      "symbol_gains": [],
+      "symbol_losses": [],
+      "body_group": {
+        "length": 208,
+        "masked_sha256": "723777c6fb9a15e6594cbf943c99af092d156f0aec09906c9e0b864c48c62f88"
+      }
+    }
+  ]
+}
