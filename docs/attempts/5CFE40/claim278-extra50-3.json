@@ -1,0 +1,142 @@
+{
+  "head": "d6f8f38c",
+  "target": "0x5CFE40",
+  "baseline_pairs": 64,
+  "valid_candidates": 50,
+  "invalid_candidates": [
+    "made_index: Buttons is a vector, illegal indirection"
+  ],
+  "control": "fresh HEAD and prior best seed, 64 pairs; final HEAD 64 pairs",
+  "rows": [
+    {
+      "name": "uchar_index",
+      "source_sha256": "69518b0d471ee6011d53af28b8fee69901355708b78186d0b9475655f46b49c7",
+      "masked_target_sha256": "aee2f28024746c4f9306a57fa28ea66c24b87bbaf19f268970b2a96102324187",
+      "object_span": 1168,
+      "stack_reservation": "0x10",
+      "calls": 46,
+      "masked_instruction_rows": 39,
+      "symbol_gains": [],
+      "symbol_losses": [],
+      "old_method_whitespace_overlap": [],
+      "patch": "--- a/ui_pda_cargo.cpp\n+++ b/ui_pda_cargo.cpp\n@@ -132,7 +132,7 @@\n \t}\n \tint first = ((GadgetClass *)first_bttn)->Unknown0C;\n-\tfor (int i = 0; i < NUM_BUTTONS; i++) {\n+\tconst char **name = CargoButtonNames; for (unsigned char i = 0; i < NUM_BUTTONS; ) {\n \t\tint id = i + 13;\n-\t\tRenderObjClass *robj = InterfaceMesh->Get_Sub_Object_By_Name(CargoButtonNames[i]);\n+\t\tRenderObjClass *robj = InterfaceMesh->Get_Sub_Object_By_Name((*name));\n \t\tUnknown_496AE0(robj, 0);\n \t\tif (id == 15) {\n@@ -143,8 +143,8 @@\n \t\t\tButtons5[i] = new ButtonGadgetClass(robj, 0x55, 3);\n \t\t}\n-\t\tGadgetClass::Set_Tooltip(Buttons5[i], \"UI_PDA_CARGO\", CargoButtonNames[i]);\n+\t\tGadgetClass::Set_Tooltip(Buttons5[i], \"UI_PDA_CARGO\", (*name));\n \t\tButtons5[i]->Unknown_65FFA0(first);\n \t\trobj->Release_Ref();\n-\t\tUnknown64.Unknown_6870E0(Buttons5[i], id, View, 1, 0);\n+\t\tUnknown64.Unknown_6870E0(Buttons5[i], id, View, 1, 0); ++name; ++i;\n \t}\n \n"
+    },
+    {
+      "name": "unsigned_id",
+      "source_sha256": "6e3678e241238e87199e2c4acf1f23f22aeb79d7bd8f5830caf7aed706bf10e9",
+      "masked_target_sha256": "bb6dcb82a91b627cb8e0523fef192eb0720d72b344ddea86e17ed377f5983d57",
+      "object_span": 1152,
+      "stack_reservation": "0xc",
+      "calls": 46,
+      "masked_instruction_rows": 2,
+      "symbol_gains": [],
+      "symbol_losses": [],
+      "old_method_whitespace_overlap": [],
+      "patch": "--- a/ui_pda_cargo.cpp\n+++ b/ui_pda_cargo.cpp\n@@ -132,7 +132,7 @@\n \t}\n \tint first = ((GadgetClass *)first_bttn)->Unknown0C;\n-\tfor (int i = 0; i < NUM_BUTTONS; i++) {\n-\t\tint id = i + 13;\n-\t\tRenderObjClass *robj = InterfaceMesh->Get_Sub_Object_By_Name(CargoButtonNames[i]);\n+\tconst char **name = CargoButtonNames; for (int i = 0; i < NUM_BUTTONS; ) {\n+\t\tunsigned int id = i + 13;\n+\t\tRenderObjClass *robj = InterfaceMesh->Get_Sub_Object_By_Name((*name));\n \t\tUnknown_496AE0(robj, 0);\n \t\tif (id == 15) {\n@@ -143,8 +143,8 @@\n \t\t\tButtons5[i] = new ButtonGadgetClass(robj, 0x55, 3);\n \t\t}\n-\t\tGadgetClass::Set_Tooltip(Buttons5[i], \"UI_PDA_CARGO\", CargoButtonNames[i]);\n+\t\tGadgetClass::Set_Tooltip(Buttons5[i], \"UI_PDA_CARGO\", (*name));\n \t\tButtons5[i]->Unknown_65FFA0(first);\n \t\trobj->Release_Ref();\n-\t\tUnknown64.Unknown_6870E0(Buttons5[i], id, View, 1, 0);\n+\t\tUnknown64.Unknown_6870E0(Buttons5[i], id, View, 1, 0); ++name; ++i;\n \t}\n \n"
+    },
+    {
+      "name": "short_id",
+      "source_sha256": "a89b95218b49ab6d10df385a1df6651023060b5b8caf43bb4c64ff59ed685f24",
+      "masked_target_sha256": "07b629b1ae7447bb2b68085f39afa634cbedc580281b9e04e7f44a7fe8747076",
+      "object_span": 1152,
+      "stack_reservation": "0xc",
+      "calls": 46,
+      "masked_instruction_rows": 35,
+      "symbol_gains": [],
+      "symbol_losses": [],
+      "old_method_whitespace_overlap": [],
+      "patch": "--- a/ui_pda_cargo.cpp\n+++ b/ui_pda_cargo.cpp\n@@ -132,7 +132,7 @@\n \t}\n \tint first = ((GadgetClass *)first_bttn)->Unknown0C;\n-\tfor (int i = 0; i < NUM_BUTTONS; i++) {\n-\t\tint id = i + 13;\n-\t\tRenderObjClass *robj = InterfaceMesh->Get_Sub_Object_By_Name(CargoButtonNames[i]);\n+\tconst char **name = CargoButtonNames; for (int i = 0; i < NUM_BUTTONS; ) {\n+\t\tshort id = i + 13;\n+\t\tRenderObjClass *robj = InterfaceMesh->Get_Sub_Object_By_Name((*name));\n \t\tUnknown_496AE0(robj, 0);\n \t\tif (id == 15) {\n@@ -143,8 +143,8 @@\n \t\t\tButtons5[i] = new ButtonGadgetClass(robj, 0x55, 3);\n \t\t}\n-\t\tGadgetClass::Set_Tooltip(Buttons5[i], \"UI_PDA_CARGO\", CargoButtonNames[i]);\n+\t\tGadgetClass::Set_Tooltip(Buttons5[i], \"UI_PDA_CARGO\", (*name));\n \t\tButtons5[i]->Unknown_65FFA0(first);\n \t\trobj->Release_Ref();\n-\t\tUnknown64.Unknown_6870E0(Buttons5[i], id, View, 1, 0);\n+\t\tUnknown64.Unknown_6870E0(Buttons5[i], id, View, 1, 0); ++name; ++i;\n \t}\n \n"
+    },
+    {
+      "name": "id_add_reverse",
+      "source_sha256": "8b33c7153fab903c6274cf20a8225a8ac14768274b5f521f777ea077867138d4",
+      "masked_target_sha256": "bb6dcb82a91b627cb8e0523fef192eb0720d72b344ddea86e17ed377f5983d57",
+      "object_span": 1152,
+      "stack_reservation": "0xc",
+      "calls": 46,
+      "masked_instruction_rows": 2,
+      "symbol_gains": [],
+      "symbol_losses": [],
+      "old_method_whitespace_overlap": [],
+      "patch": "--- a/ui_pda_cargo.cpp\n+++ b/ui_pda_cargo.cpp\n@@ -132,7 +132,7 @@\n \t}\n \tint first = ((GadgetClass *)first_bttn)->Unknown0C;\n-\tfor (int i = 0; i < NUM_BUTTONS; i++) {\n-\t\tint id = i + 13;\n-\t\tRenderObjClass *robj = InterfaceMesh->Get_Sub_Object_By_Name(CargoButtonNames[i]);\n+\tconst char **name = CargoButtonNames; for (int i = 0; i < NUM_BUTTONS; ) {\n+\t\tint id = 13 + i;\n+\t\tRenderObjClass *robj = InterfaceMesh->Get_Sub_Object_By_Name((*name));\n \t\tUnknown_496AE0(robj, 0);\n \t\tif (id == 15) {\n@@ -143,8 +143,8 @@\n \t\t\tButtons5[i] = new ButtonGadgetClass(robj, 0x55, 3);\n \t\t}\n-\t\tGadgetClass::Set_Tooltip(Buttons5[i], \"UI_PDA_CARGO\", CargoButtonNames[i]);\n+\t\tGadgetClass::Set_Tooltip(Buttons5[i], \"UI_PDA_CARGO\", (*name));\n \t\tButtons5[i]->Unknown_65FFA0(first);\n \t\trobj->Release_Ref();\n-\t\tUnknown64.Unknown_6870E0(Buttons5[i], id, View, 1, 0);\n+\t\tUnknown64.Unknown_6870E0(Buttons5[i], id, View, 1, 0); ++name; ++i;\n \t}\n \n"
+    },
+    {
+      "name": "name_before_first",
+      "source_sha256": "2d79f0cdd4d54b5366cbc87a909f8175e9cf7cdaadd11438297abbf22197d587",
+      "masked_target_sha256": "5a02c70999a3792d02e6ba92b1621d5b1982070577667e0c3164abdc037d684f",
+      "object_span": 1152,
+      "stack_reservation": "0xc",
+      "calls": 46,
+      "masked_instruction_rows": 2,
+      "symbol_gains": [],
+      "symbol_losses": [],
+      "old_method_whitespace_overlap": [],
+      "patch": "--- a/ui_pda_cargo.cpp\n+++ b/ui_pda_cargo.cpp\n@@ -131,8 +131,8 @@\n \t\treturn;\n \t}\n-\tint first = ((GadgetClass *)first_bttn)->Unknown0C;\n-\tfor (int i = 0; i < NUM_BUTTONS; i++) {\n+\tconst char **name = CargoButtonNames; int first = ((GadgetClass *)first_bttn)->Unknown0C; for (int i = 0; i < NUM_BUTTONS; ) {\n+\n \t\tint id = i + 13;\n-\t\tRenderObjClass *robj = InterfaceMesh->Get_Sub_Object_By_Name(CargoButtonNames[i]);\n+\t\tRenderObjClass *robj = InterfaceMesh->Get_Sub_Object_By_Name((*name));\n \t\tUnknown_496AE0(robj, 0);\n \t\tif (id == 15) {\n@@ -143,8 +143,8 @@\n \t\t\tButtons5[i] = new ButtonGadgetClass(robj, 0x55, 3);\n \t\t}\n-\t\tGadgetClass::Set_Tooltip(Buttons5[i], \"UI_PDA_CARGO\", CargoButtonNames[i]);\n+\t\tGadgetClass::Set_Tooltip(Buttons5[i], \"UI_PDA_CARGO\", (*name));\n \t\tButtons5[i]->Unknown_65FFA0(first);\n \t\trobj->Release_Ref();\n-\t\tUnknown64.Unknown_6870E0(Buttons5[i], id, View, 1, 0);\n+\t\tUnknown64.Unknown_6870E0(Buttons5[i], id, View, 1, 0); ++name; ++i;\n \t}\n \n"
+    },
+    {
+      "name": "uninit_then_first",
+      "source_sha256": "8d47b7bce895196f19607e3059bf8c056fe25d8836171519ac7c0f2f636c9b79",
+      "masked_target_sha256": "bb6dcb82a91b627cb8e0523fef192eb0720d72b344ddea86e17ed377f5983d57",
+      "object_span": 1152,
+      "stack_reservation": "0xc",
+      "calls": 46,
+      "masked_instruction_rows": 2,
+      "symbol_gains": [],
+      "symbol_losses": [],
+      "old_method_whitespace_overlap": [],
+      "patch": "--- a/ui_pda_cargo.cpp\n+++ b/ui_pda_cargo.cpp\n@@ -131,8 +131,8 @@\n \t\treturn;\n \t}\n-\tint first = ((GadgetClass *)first_bttn)->Unknown0C;\n-\tfor (int i = 0; i < NUM_BUTTONS; i++) {\n+\tconst char **name; int first = ((GadgetClass *)first_bttn)->Unknown0C; name = CargoButtonNames; for (int i = 0; i < NUM_BUTTONS; ) {\n+\n \t\tint id = i + 13;\n-\t\tRenderObjClass *robj = InterfaceMesh->Get_Sub_Object_By_Name(CargoButtonNames[i]);\n+\t\tRenderObjClass *robj = InterfaceMesh->Get_Sub_Object_By_Name((*name));\n \t\tUnknown_496AE0(robj, 0);\n \t\tif (id == 15) {\n@@ -143,8 +143,8 @@\n \t\t\tButtons5[i] = new ButtonGadgetClass(robj, 0x55, 3);\n \t\t}\n-\t\tGadgetClass::Set_Tooltip(Buttons5[i], \"UI_PDA_CARGO\", CargoButtonNames[i]);\n+\t\tGadgetClass::Set_Tooltip(Buttons5[i], \"UI_PDA_CARGO\", (*name));\n \t\tButtons5[i]->Unknown_65FFA0(first);\n \t\trobj->Release_Ref();\n-\t\tUnknown64.Unknown_6870E0(Buttons5[i], id, View, 1, 0);\n+\t\tUnknown64.Unknown_6870E0(Buttons5[i], id, View, 1, 0); ++name; ++i;\n \t}\n \n"
+    },
+    {
+      "name": "first_then_name_address",
+      "source_sha256": "deaa5e332f8f56a5ded892d0b58fedc917306fc1d17b0025c38c4fa609583be1",
+      "masked_target_sha256": "bb6dcb82a91b627cb8e0523fef192eb0720d72b344ddea86e17ed377f5983d57",
+      "object_span": 1152,
+      "stack_reservation": "0xc",
+      "calls": 46,
+      "masked_instruction_rows": 2,
+      "symbol_gains": [],
+      "symbol_losses": [],
+      "old_method_whitespace_overlap": [],
+      "patch": "--- a/ui_pda_cargo.cpp\n+++ b/ui_pda_cargo.cpp\n@@ -131,8 +131,8 @@\n \t\treturn;\n \t}\n-\tint first = ((GadgetClass *)first_bttn)->Unknown0C;\n-\tfor (int i = 0; i < NUM_BUTTONS; i++) {\n+\tint first = ((GadgetClass *)first_bttn)->Unknown0C; const char **name = &CargoButtonNames[0]; for (int i = 0; i < NUM_BUTTONS; ) {\n+\n \t\tint id = i + 13;\n-\t\tRenderObjClass *robj = InterfaceMesh->Get_Sub_Object_By_Name(CargoButtonNames[i]);\n+\t\tRenderObjClass *robj = InterfaceMesh->Get_Sub_Object_By_Name((*name));\n \t\tUnknown_496AE0(robj, 0);\n \t\tif (id == 15) {\n@@ -143,8 +143,8 @@\n \t\t\tButtons5[i] = new ButtonGadgetClass(robj, 0x55, 3);\n \t\t}\n-\t\tGadgetClass::Set_Tooltip(Buttons5[i], \"UI_PDA_CARGO\", CargoButtonNames[i]);\n+\t\tGadgetClass::Set_Tooltip(Buttons5[i], \"UI_PDA_CARGO\", (*name));\n \t\tButtons5[i]->Unknown_65FFA0(first);\n \t\trobj->Release_Ref();\n-\t\tUnknown64.Unknown_6870E0(Buttons5[i], id, View, 1, 0);\n+\t\tUnknown64.Unknown_6870E0(Buttons5[i], id, View, 1, 0); ++name; ++i;\n \t}\n \n"
+    },
+    {
+      "name": "name_first_i",
+      "source_sha256": "8de5c2737fc11488e5de6e4965af0a96779d0d4fd0eb031206dfaa2ce5737028",
+      "masked_target_sha256": "5a02c70999a3792d02e6ba92b1621d5b1982070577667e0c3164abdc037d684f",
+      "object_span": 1152,
+      "stack_reservation": "0xc",
+      "calls": 46,
+      "masked_instruction_rows": 2,
+      "symbol_gains": [],
+      "symbol_losses": [],
+      "old_method_whitespace_overlap": [],
+      "patch": "--- a/ui_pda_cargo.cpp\n+++ b/ui_pda_cargo.cpp\n@@ -131,8 +131,8 @@\n \t\treturn;\n \t}\n-\tint first = ((GadgetClass *)first_bttn)->Unknown0C;\n-\tfor (int i = 0; i < NUM_BUTTONS; i++) {\n+\tconst char **name = CargoButtonNames; int first = ((GadgetClass *)first_bttn)->Unknown0C; int i = 0; for (; i < NUM_BUTTONS; ) {\n+\n \t\tint id = i + 13;\n-\t\tRenderObjClass *robj = InterfaceMesh->Get_Sub_Object_By_Name(CargoButtonNames[i]);\n+\t\tRenderObjClass *robj = InterfaceMesh->Get_Sub_Object_By_Name((*name));\n \t\tUnknown_496AE0(robj, 0);\n \t\tif (id == 15) {\n@@ -143,8 +143,8 @@\n \t\t\tButtons5[i] = new ButtonGadgetClass(robj, 0x55, 3);\n \t\t}\n-\t\tGadgetClass::Set_Tooltip(Buttons5[i], \"UI_PDA_CARGO\", CargoButtonNames[i]);\n+\t\tGadgetClass::Set_Tooltip(Buttons5[i], \"UI_PDA_CARGO\", (*name));\n \t\tButtons5[i]->Unknown_65FFA0(first);\n \t\trobj->Release_Ref();\n-\t\tUnknown64.Unknown_6870E0(Buttons5[i], id, View, 1, 0);\n+\t\tUnknown64.Unknown_6870E0(Buttons5[i], id, View, 1, 0); ++name; ++i;\n \t}\n \n"
+    },
+    {
+      "name": "i_name_first",
+      "source_sha256": "951279eabd7d8c072a521a05bc21437e3f5de5dfa9f57e16dc01a29576183545",
+      "masked_target_sha256": "5a02c70999a3792d02e6ba92b1621d5b1982070577667e0c3164abdc037d684f",
+      "object_span": 1152,
+      "stack_reservation": "0xc",
+      "calls": 46,
+      "masked_instruction_rows": 2,
+      "symbol_gains": [],
+      "symbol_losses": [],
+      "old_method_whitespace_overlap": [],
+      "patch": "--- a/ui_pda_cargo.cpp\n+++ b/ui_pda_cargo.cpp\n@@ -131,8 +131,8 @@\n \t\treturn;\n \t}\n-\tint first = ((GadgetClass *)first_bttn)->Unknown0C;\n-\tfor (int i = 0; i < NUM_BUTTONS; i++) {\n+\tint i = 0; const char **name = CargoButtonNames; int first = ((GadgetClass *)first_bttn)->Unknown0C; for (; i < NUM_BUTTONS; ) {\n+\n \t\tint id = i + 13;\n-\t\tRenderObjClass *robj = InterfaceMesh->Get_Sub_Object_By_Name(CargoButtonNames[i]);\n+\t\tRenderObjClass *robj = InterfaceMesh->Get_Sub_Object_By_Name((*name));\n \t\tUnknown_496AE0(robj, 0);\n \t\tif (id == 15) {\n@@ -143,8 +143,8 @@\n \t\t\tButtons5[i] = new ButtonGadgetClass(robj, 0x55, 3);\n \t\t}\n-\t\tGadgetClass::Set_Tooltip(Buttons5[i], \"UI_PDA_CARGO\", CargoButtonNames[i]);\n+\t\tGadgetClass::Set_Tooltip(Buttons5[i], \"UI_PDA_CARGO\", (*name));\n \t\tButtons5[i]->Unknown_65FFA0(first);\n \t\trobj->Release_Ref();\n-\t\tUnknown64.Unknown_6870E0(Buttons5[i], id, View, 1, 0);\n+\t\tUnknown64.Unknown_6870E0(Buttons5[i], id, View, 1, 0); ++name; ++i;\n \t}\n \n"
+    },
+    {
+      "name": "name_i_first",
+      "source_sha256": "859fac815a777ccbece264326217619970ce2c8bd7041d0f8bfebb63810756c8",
+      "masked_target_sha256": "5a02c70999a3792d02e6ba92b1621d5b1982070577667e0c3164abdc037d684f",
+      "object_span": 1152,
+      "stack_reservation": "0xc",
+      "calls": 46,
+      "masked_instruction_rows": 2,
+      "symbol_gains": [],
+      "symbol_losses": [],
+      "old_method_whitespace_overlap": [],
+      "patch": "--- a/ui_pda_cargo.cpp\n+++ b/ui_pda_cargo.cpp\n@@ -131,8 +131,8 @@\n \t\treturn;\n \t}\n-\tint first = ((GadgetClass *)first_bttn)->Unknown0C;\n-\tfor (int i = 0; i < NUM_BUTTONS; i++) {\n+\tconst char **name = CargoButtonNames; int i = 0; int first = ((GadgetClass *)first_bttn)->Unknown0C; for (; i < NUM_BUTTONS; ) {\n+\n \t\tint id = i + 13;\n-\t\tRenderObjClass *robj = InterfaceMesh->Get_Sub_Object_By_Name(CargoButtonNames[i]);\n+\t\tRenderObjClass *robj = InterfaceMesh->Get_Sub_Object_By_Name((*name));\n \t\tUnknown_496AE0(robj, 0);\n \t\tif (id == 15) {\n@@ -143,8 +143,8 @@\n \t\t\tButtons5[i] = new ButtonGadgetClass(robj, 0x55, 3);\n \t\t}\n-\t\tGadgetClass::Set_Tooltip(Buttons5[i], \"UI_PDA_CARGO\", CargoButtonNames[i]);\n+\t\tGadgetClass::Set_Tooltip(Buttons5[i], \"UI_PDA_CARGO\", (*name));\n \t\tButtons5[i]->Unknown_65FFA0(first);\n \t\trobj->Release_Ref();\n-\t\tUnknown64.Unknown_6870E0(Buttons5[i], id, View, 1, 0);\n+\t\tUnknown64.Unknown_6870E0(Buttons5[i], id, View, 1, 0); ++name; ++i;\n \t}\n \n"
+    }
+  ]
+}
