@@ -1,0 +1,26 @@
+// C5 2026-11-24 best: help_XZY, masked residue 11 -> 2, frame 0x18 vs the client 0x24 (raw rows 18 both); not applied
+void Unknown_75B8F0(RenderObjClass *obj, const Vector3 &sun, const Vector3 &camera)
+{
+	if (obj) {
+		StringClass name(obj->Get_Name(), true);
+		strlwr(name.Peek_Buffer());
+		if (strncmp(name, "plt", 3) == 0) {
+			Vector3 dir = camera - obj->Get_Position();
+			dir.Normalize();
+			float cx = Vector3::Cross_Product_X(dir, sun);
+			float cy = Vector3::Cross_Product_Y(dir, sun);
+			float cz = Vector3::Cross_Product_Z(dir, sun);
+			float sine = Vector3(cx, cy, cz).Length();
+			float cosine = dir.X * sun.X + dir.Z * sun.Z + dir.Y * sun.Y;
+			if (cz < 0.0f) {
+				sine = -sine;
+			}
+			float angle = WWMath::Atan2(sine, cosine);
+			if (angle < 0.0f) {
+				angle += (2.0f * WWMATH_PI);
+			}
+			float phase = 1.0f - angle * (1.0f / (2.0f * WWMATH_PI));
+			Unknown_75BB50(obj, phase);
+		}
+	}
+}
