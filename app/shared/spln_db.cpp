@@ -1388,31 +1388,31 @@ void SplineDatabaseClass::Pack(int count, SplineEntryClass **EntryArray, char *b
 
 
 
-// NOT EXACT: shape (written from the pseudocode: the count loop and the merge path)
+
 // @0x486F60
 void SplineDatabaseClass::Unpack(char *buffer)
-{
-	unsigned short count = *(unsigned short *)buffer;
-	buffer += 2;
+{ char *cursor = buffer;
+	unsigned short count = *(unsigned short *)cursor;
+	cursor += 2;
 	while (count--) {
-		unsigned int key = *(unsigned int *)buffer;
-		buffer += 4;
+		unsigned int key = *(unsigned int *)cursor;
+		cursor += 4;
 		if (key != 0) {
 			SplineEntryClass *existing = Find(key);
 			if (existing != NULL) {
-				existing->Unpack(&buffer);
+				buffer = cursor; existing->Unpack(&buffer); cursor = buffer;
 			} else {
-				SplineEntryClass *entry = new SplineEntryClass(&buffer);
-				HashNodeClass<SplineEntryClass *> *node = new HashNodeClass<SplineEntryClass *>(entry, key);
-				Splines.Add(node);
-				if (node == NULL) {
+				buffer = cursor; SplineEntryClass *entry = new SplineEntryClass(&buffer); cursor = buffer;
+				HashNodeClass<SplineEntryClass *> *node = Splines.Add(entry, key);
+
+				if (node != NULL) { HasSplines = true; } else {
 					G_ASSERT(false);
 					if (entry != NULL) {
 						delete entry;
 					}
-				} else {
-					HasSplines = true;
 				}
+
+
 			}
 		}
 	}
