@@ -109,7 +109,7 @@ void CameraController05Class::Unknown_0C()
 }
 
 // @0x793CE0
-// NOT EXACT: written from the client's code and Ghidra's (0x830 bytes; the temporaries' order and slots differ), functional
+// NOT EXACT: registers only (432/432 rows, the client's stack slots; D5 2026-11-24: every call, member offset and constant audited against the client's bytes)
 void CameraController05Class::Unknown_793CE0()
 {
 	ClientObjectClass *target = Client->Find_Object(Client->Unknown13B8);
@@ -126,8 +126,8 @@ void CameraController05Class::Unknown_793CE0()
 	float radius = target->Unknown_30();
 	Vector3 dir = ship_pos - target_pos;
 	dir.Normalize();
-	Vector3 side = Vector3::Cross_Product(Vector3(0.0f, 0.0f, 1.0f), dir);
-	Vector3 up = Vector3::Cross_Product(dir, side);
+	Vector3 side; Vector3::Cross_Product(Vector3(0.0f, 0.0f, 1.0f), dir, &side);
+	Vector3 up; Vector3::Cross_Product(dir, side, &up);
 	if (Unknown_BDB1C0(0, 1)) {
 		side = -side;
 	}
@@ -135,7 +135,7 @@ void CameraController05Class::Unknown_793CE0()
 	Vector3 from = target_pos + dir * radius * 0.5f;
 	Vector3 to = target_pos + offset;
 	tm.Look_At(from, to, 0.0f);
-	Unknown0C->Unknown08 = tm;
+	{ CameraModule79C4A0Class *module = Unknown0C; module->Unknown08[0] = tm[0]; module->Unknown08[1] = tm[1]; module->Unknown08[2] = tm[2]; }
 	Unknown0C->Unknown38 = Unknown_BDB1C0(0, 1) ? Unknown_B04D30 : -Unknown_B04D30;
 	Unknown0C->Unknown3C = 2;
 	Unknown0C->Unknown_04();
@@ -148,8 +148,8 @@ void CameraController05Class::Unknown_793CE0()
 	dir *= 100.0f;
 	offset *= 1000.0f;
 	spline->Add_Key(key0, 0.0f);
-	Vector3 tangent0 = -dir;
-	spline->Set_Tangents(0, tangent0, tangent0);
+	
+	spline->Set_Tangents(0, -dir, -dir);
 	spline->Add_Key(key1, 1.0f);
 	Vector3 tangent1 = offset - dir * 5.0f;
 	spline->Set_Tangents(1, tangent1, tangent1);
