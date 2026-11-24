@@ -1,0 +1,172 @@
+{
+  "base_commit": "1d347441b463a69e658bbf92ef59f989154c86fb",
+  "base_sha256": "09cc8d76c00a87a2770b5914d513fa97277673af43a8ad41181bdf7d22ec0993",
+  "unit": "app/client/inv_data_peek.cpp",
+  "target": "0x68A090",
+  "baseline_group": {
+    "length": 384,
+    "masked_sha256": "2cde1d844bb9371aa926bf7ee3ab515b72d449a9440163ce05c169a9d5f31bcd"
+  },
+  "baseline_matches": "/home/dev/Projects/EnB/.work/claim-281/runs/baseline-i584yjg9/baseline/matches.json",
+  "forms": [
+    {
+      "name": "fail_assignment",
+      "classification": "valid candidate",
+      "edits": [
+        {
+          "start": 3195,
+          "end": 3246,
+          "old": "\tFAIL_IF(!encoded_info_delta_string) return(NULL);\n",
+          "new": "\tFAIL_IF(!encoded_info_delta_string) { std::string value; value = (const char *)NULL; return(value); }\n"
+        },
+        {
+          "start": 6031,
+          "end": 6082,
+          "old": "\tFAIL_IF(!encoded_info_delta_string) return(NULL);\n",
+          "new": "\tFAIL_IF(!encoded_info_delta_string) { std::string value; value = (const char *)NULL; return(value); }\n"
+        }
+      ],
+      "source_sha256": "28163110eacf9cd0ddfadba1753e2f9e3fef353cb15b0a167caf5e071f8e751c",
+      "object": "/home/dev/Projects/EnB/.work/claim-281/runs/forms4-yp0ogwl1/fail_assignment/inv_data_peek.obj",
+      "matches": "/home/dev/Projects/EnB/.work/claim-281/runs/forms4-yp0ogwl1/fail_assignment/matches.json",
+      "compiled": true,
+      "target_exact": false,
+      "gained_addresses": [
+        "0x42A6C0",
+        "0x42CAB0",
+        "0x42CD30",
+        "0x42D120"
+      ],
+      "lost_addresses": [],
+      "symbol_gains": [
+        [
+          "??1?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAE@XZ",
+          "0x42A6C0"
+        ],
+        [
+          "?_Split@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEXXZ",
+          "0x42CD30"
+        ],
+        [
+          "?assign@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAEAAV12@ABV12@II@Z",
+          "0x42CAB0"
+        ],
+        [
+          "?max_size@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QBEIXZ",
+          "0x42D120"
+        ]
+      ],
+      "symbol_losses": [],
+      "body_group": {
+        "length": 400,
+        "masked_sha256": "65e5c04c7f030212ef687f84c3fdc5591db993697ef126eb54a53430eb4c67da"
+      }
+    },
+    {
+      "name": "fail_assign_method",
+      "classification": "valid candidate",
+      "edits": [
+        {
+          "start": 3195,
+          "end": 3246,
+          "old": "\tFAIL_IF(!encoded_info_delta_string) return(NULL);\n",
+          "new": "\tFAIL_IF(!encoded_info_delta_string) { std::string value; value.assign((const char *)NULL); return(value); }\n"
+        },
+        {
+          "start": 6031,
+          "end": 6082,
+          "old": "\tFAIL_IF(!encoded_info_delta_string) return(NULL);\n",
+          "new": "\tFAIL_IF(!encoded_info_delta_string) { std::string value; value.assign((const char *)NULL); return(value); }\n"
+        }
+      ],
+      "source_sha256": "31c822cb699fed6d821bb553160b54369e7714deea207f742afff3081e7d4dcb",
+      "object": "/home/dev/Projects/EnB/.work/claim-281/runs/forms4-yp0ogwl1/fail_assign_method/inv_data_peek.obj",
+      "matches": "/home/dev/Projects/EnB/.work/claim-281/runs/forms4-yp0ogwl1/fail_assign_method/matches.json",
+      "compiled": true,
+      "target_exact": false,
+      "gained_addresses": [
+        "0x42A6C0",
+        "0x42CAB0",
+        "0x42CD30",
+        "0x42D120"
+      ],
+      "lost_addresses": [],
+      "symbol_gains": [
+        [
+          "??1?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAE@XZ",
+          "0x42A6C0"
+        ],
+        [
+          "?_Split@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEXXZ",
+          "0x42CD30"
+        ],
+        [
+          "?assign@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAEAAV12@ABV12@II@Z",
+          "0x42CAB0"
+        ],
+        [
+          "?max_size@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QBEIXZ",
+          "0x42D120"
+        ]
+      ],
+      "symbol_losses": [],
+      "body_group": {
+        "length": 400,
+        "masked_sha256": "65e5c04c7f030212ef687f84c3fdc5591db993697ef126eb54a53430eb4c67da"
+      }
+    },
+    {
+      "name": "fail_assign_pre",
+      "classification": "valid candidate",
+      "edits": [
+        {
+          "start": 3195,
+          "end": 3246,
+          "old": "\tFAIL_IF(!encoded_info_delta_string) return(NULL);\n",
+          "new": "\tstd::string value; FAIL_IF(!encoded_info_delta_string) { value = (const char *)NULL; return(value); }\n"
+        },
+        {
+          "start": 6031,
+          "end": 6082,
+          "old": "\tFAIL_IF(!encoded_info_delta_string) return(NULL);\n",
+          "new": "\tstd::string value; FAIL_IF(!encoded_info_delta_string) { value = (const char *)NULL; return(value); }\n"
+        }
+      ],
+      "source_sha256": "d08aaaaebc18a9cf94840ad38284c192b6dfa4c1160baea4d289083f34798f7c",
+      "object": "/home/dev/Projects/EnB/.work/claim-281/runs/forms4-yp0ogwl1/fail_assign_pre/inv_data_peek.obj",
+      "matches": "/home/dev/Projects/EnB/.work/claim-281/runs/forms4-yp0ogwl1/fail_assign_pre/matches.json",
+      "compiled": true,
+      "target_exact": false,
+      "gained_addresses": [
+        "0x42A6C0",
+        "0x42CAB0",
+        "0x42CD30",
+        "0x42D120"
+      ],
+      "lost_addresses": [],
+      "symbol_gains": [
+        [
+          "??1?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAE@XZ",
+          "0x42A6C0"
+        ],
+        [
+          "?_Split@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEXXZ",
+          "0x42CD30"
+        ],
+        [
+          "?assign@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAEAAV12@ABV12@II@Z",
+          "0x42CAB0"
+        ],
+        [
+          "?max_size@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QBEIXZ",
+          "0x42D120"
+        ]
+      ],
+      "symbol_losses": [],
+      "body_group": {
+        "length": 448,
+        "masked_sha256": "1daf06f9fadde918c2ec4a67c16fe81dd24072914538bdc487d423cb98081012"
+      }
+    }
+  ]
+}
