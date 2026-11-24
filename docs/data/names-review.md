@@ -10,8 +10,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 227 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1970 |
-| 2 | describes what the code does | 5010 |
-| 1 | neutral placeholder | 25174 |
+| 2 | describes what the code does | 5014 |
+| 1 | neutral placeholder | 25179 |
 
 ## For review (score 3 and below)
 
@@ -941,6 +941,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown0C` | `app/client/camctrl_land.h:39` | untagged neutral name (D10) |
 | 1 | `Unknown10` | `app/client/camctrl_land.h:40` | untagged neutral name (D10) |
 | 1 | `Unknown14` | `app/client/camctrl_land.h:41` | untagged neutral name (D10) |
+| 1 | `Unknown_Rotate` | `app/client/camctrl_pland.cpp:22` | 794D5E..E8A inline rotation, matching dock helper |
 | 1 | `Unknown_BDB1C0` | `app/client/camctrl_pland.cpp:23` | 0xBDB1C0, the camera controllers' generator outside this file |
 | 1 | `Unknown_B9E3B0` | `app/client/camctrl_pland.cpp:24` | neutral (D10): 0x794A90's section id |
 | 1 | `Unknown0C` | `app/client/camctrl_pland.cpp:29` | untagged neutral name (D10) |
@@ -960,9 +961,13 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_2C` | `app/client/camctrl_pland.cpp:104` | untagged neutral name (D10) |
 | 1 | `Unknown_28` | `app/client/camctrl_pland.cpp:105` | untagged neutral name (D10) |
 | 1 | `Unknown_6E6E30` | `app/client/camctrl_pland.cpp:110` | untagged neutral name (D10) |
-| 1 | `Unknown18` | `app/client/camctrl_pland.cpp:161` | untagged neutral name (D10) |
-| 1 | `Unknown718510Class` | `app/client/camctrl_pland.cpp:164` | untagged neutral name (D10) |
-| 1 | `Unknown_30` | `app/client/camctrl_pland.cpp:165` | untagged neutral name (D10) |
+| 1 | `configured_up` | `app/client/camctrl_pland.cpp:135` | 794CB9..D00 stores; 7950EE/FC copy into constructor start_up |
+| 1 | `end_pos` | `app/client/camctrl_pland.cpp:136` | 794D5A..94 saved endpoint translation |
+| 1 | `rotated` | `app/client/camctrl_pland.cpp:148` | 794E3A..E92 rotation-return object copied to raw tangent |
+| 1 | `normalized` | `app/client/camctrl_pland.cpp:149` | 794E96..EF7 result before down product |
+| 1 | `Unknown18` | `app/client/camctrl_pland.cpp:163` | untagged neutral name (D10) |
+| 1 | `Unknown718510Class` | `app/client/camctrl_pland.cpp:166` | untagged neutral name (D10) |
+| 1 | `Unknown_30` | `app/client/camctrl_pland.cpp:167` | untagged neutral name (D10) |
 | 1 | `CameraController07Class` | `app/client/camctrl_pland.h:11` | neutral (D10) |
 | 1 | `Unknown_04` | `app/client/camctrl_pland.h:16` | untagged neutral name (D10) |
 | 1 | `Unknown_08` | `app/client/camctrl_pland.h:17` | untagged neutral name (D10) |
@@ -1041,8 +1046,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_79B6B0` | `app/client/camctrl_takeoff.cpp:123` | untagged neutral name (D10) |
 | 1 | `Unknown3C` | `app/client/camctrl_takeoff.cpp:132` | untagged neutral name (D10) |
 | 1 | `Unknown4C` | `app/client/camctrl_takeoff.cpp:132` | untagged neutral name (D10) |
-| 1 | `Unknown30` | `app/client/camctrl_takeoff.cpp:134` | untagged neutral name (D10) |
 | 1 | `Unknown24` | `app/client/camctrl_takeoff.cpp:134` | untagged neutral name (D10) |
+| 1 | `Unknown30` | `app/client/camctrl_takeoff.cpp:134` | untagged neutral name (D10) |
 | 1 | `Unknown718D70Class` | `app/client/camctrl_takeoff.cpp:137` | untagged neutral name (D10) |
 | 1 | `Unknown_30` | `app/client/camctrl_takeoff.cpp:137` | untagged neutral name (D10) |
 | 1 | `Unknown18` | `app/client/camctrl_takeoff.cpp:145` | untagged neutral name (D10) |
@@ -24706,7 +24711,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_Dyn54` | `app/shared/unknown_445740.cpp:106` | untagged neutral name (D10) |
 | 1 | `Unknown_Dyn48` | `app/shared/unknown_445740.cpp:108` | untagged neutral name (D10) |
 | 1 | `Unknown04` | `app/shared/unknown_445740.cpp:111` | untagged neutral name (D10) |
-| 1 | `Unknown_Test` | `app/shared/unknown_445740.cpp:433` | untagged neutral name (D10) |
+| 1 | `Unknown_Test` | `app/shared/unknown_445740.cpp:434` | untagged neutral name (D10) |
 | 1 | `unknown_445740.h` | `app/shared/unknown_445740.h:6` | provisional header name (D137: the client names neither file) |
 | 1 | `SteeringVehicleStruct` | `app/shared/unknown_445740.h:17` | what the behaviours read of it |
 | 1 | `Transform` | `app/shared/unknown_445740.h:19` | its type |
@@ -25469,6 +25474,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `std:` | `app/client/buff_database.h:48` | describes what it holds |
 | 2 | `Inside` | `app/client/camctl.h:29` | what it holds |
 | 2 | `Client` | `app/client/camctrl.h:26` | what it holds (the manager's) |
+| 2 | `model_box` | `app/client/camctrl_takeoff.cpp:241` | 0x796b98 |
+| 2 | `local_box` | `app/client/camctrl_takeoff.cpp:242` | identity basis and model box, 0x796bd8 |
+| 2 | `end_box` | `app/client/camctrl_takeoff.cpp:243` | 0x796da1 and 0x796e42 |
+| 2 | `Make_Identity` | `app/client/camctrl_takeoff.cpp:244` | 0x796cc2 |
 | 2 | `new_state` | `app/client/camera_manager.h:42` | its FAIL_IF; NAME 1 [state]: neutral |
 | 2 | `Set_Heading` | `app/client/camera_manager.h:46` | sclient.cpp's |
 | 2 | `Set_Distance` | `app/client/camera_manager.h:47` | sclient.cpp's |
