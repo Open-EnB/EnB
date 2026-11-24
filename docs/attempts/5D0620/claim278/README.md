@@ -32,3 +32,6 @@ cleanup funclets; the final virtual call uses the same receiver and vtable
 offset as retail. Full run artifacts stay in `.work/claim-278/5D0620/`; no
 retail bytes or object files are published. Maintainer verification remains
 required before landing.
+
+Adjacent `*.replay.txt` files contain JSON with the exact unified diff in
+the `patch` field. Decode that string before applying; whitespace is preserved.

@@ -1,5 +1,7 @@
 # Claim 278: 0x5CA9F0 replay
 
+Patch blocks encode exact unified-diff text as JSON; decode the `patch` field before applying.
+
 Fresh HEAD bd393322; 27 valid candidates in four analyzed batches. Original and final unchanged controls each 55 exact symbol/address pairs. All variants have zero pair changes. One initial Wine socket failure and two source-generation assertion failures occurred before any valid compilation; excluded. No compiler failures or uncompiled candidate forms. Original app flags, basename and physical assertion lines preserved. Masked hashes identify output groups, not full proof.
 
 | form | source SHA-256 | masked target SHA-256 | object span | similarity | gains / losses |
@@ -49,774 +51,162 @@ Masked code groups:
 
 ### key_sub
 
-```diff
---- baseline/ui_option_control_keys.cpp
-+++ key_sub/ui_option_control_keys.cpp
-@@ -261,6 +261,6 @@
- 	GadgetClass *bttn;									// NAME 1: neutral (D10)
--	int lp;												// NAME 1: neutral (D10)
-+	       												// NAME 1: neutral (D10)
- 	if (key >= 15 && key <= 25) {
- 		bttn = Primary[key - 15];
--		lp = key - 15;
-+		key -= 15;
- 		EditPrimary = true;
-@@ -268,3 +268,3 @@
- 		bttn = Secondary[key - 26];
--		lp = key - 26;
-+		key -= 26;
- 		EditPrimary = false;
-@@ -290,3 +290,3 @@
- 	std::vector<KeyMappingStruct *>::iterator keys_it = CurrentKeys.begin();
--	int count = (int)(Slider->Get_Value() + lp);		// NAME 1: neutral (D10)
-+	int count = (int)(Slider->Get_Value() + key);		// NAME 1: neutral (D10)
- 	while (count--) {
+```json
+{"patch": "--- baseline/ui_option_control_keys.cpp\n+++ key_sub/ui_option_control_keys.cpp\n@@ -261,6 +261,6 @@\n \tGadgetClass *bttn;\t\t\t\t\t\t\t\t\t// NAME 1: neutral (D10)\n-\tint lp;\t\t\t\t\t\t\t\t\t\t\t\t// NAME 1: neutral (D10)\n+\t       \t\t\t\t\t\t\t\t\t\t\t\t// NAME 1: neutral (D10)\n \tif (key >= 15 && key <= 25) {\n \t\tbttn = Primary[key - 15];\n-\t\tlp = key - 15;\n+\t\tkey -= 15;\n \t\tEditPrimary = true;\n@@ -268,3 +268,3 @@\n \t\tbttn = Secondary[key - 26];\n-\t\tlp = key - 26;\n+\t\tkey -= 26;\n \t\tEditPrimary = false;\n@@ -290,3 +290,3 @@\n \tstd::vector<KeyMappingStruct *>::iterator keys_it = CurrentKeys.begin();\n-\tint count = (int)(Slider->Get_Value() + lp);\t\t// NAME 1: neutral (D10)\n+\tint count = (int)(Slider->Get_Value() + key);\t\t// NAME 1: neutral (D10)\n \twhile (count--) {\n"}
 ```
 
 ### key_assign
 
-```diff
---- baseline/ui_option_control_keys.cpp
-+++ key_assign/ui_option_control_keys.cpp
-@@ -261,6 +261,6 @@
- 	GadgetClass *bttn;									// NAME 1: neutral (D10)
--	int lp;												// NAME 1: neutral (D10)
-+	       												// NAME 1: neutral (D10)
- 	if (key >= 15 && key <= 25) {
- 		bttn = Primary[key - 15];
--		lp = key - 15;
-+		key = key - 15;
- 		EditPrimary = true;
-@@ -268,3 +268,3 @@
- 		bttn = Secondary[key - 26];
--		lp = key - 26;
-+		key = key - 26;
- 		EditPrimary = false;
-@@ -290,3 +290,3 @@
- 	std::vector<KeyMappingStruct *>::iterator keys_it = CurrentKeys.begin();
--	int count = (int)(Slider->Get_Value() + lp);		// NAME 1: neutral (D10)
-+	int count = (int)(Slider->Get_Value() + key);		// NAME 1: neutral (D10)
- 	while (count--) {
+```json
+{"patch": "--- baseline/ui_option_control_keys.cpp\n+++ key_assign/ui_option_control_keys.cpp\n@@ -261,6 +261,6 @@\n \tGadgetClass *bttn;\t\t\t\t\t\t\t\t\t// NAME 1: neutral (D10)\n-\tint lp;\t\t\t\t\t\t\t\t\t\t\t\t// NAME 1: neutral (D10)\n+\t       \t\t\t\t\t\t\t\t\t\t\t\t// NAME 1: neutral (D10)\n \tif (key >= 15 && key <= 25) {\n \t\tbttn = Primary[key - 15];\n-\t\tlp = key - 15;\n+\t\tkey = key - 15;\n \t\tEditPrimary = true;\n@@ -268,3 +268,3 @@\n \t\tbttn = Secondary[key - 26];\n-\t\tlp = key - 26;\n+\t\tkey = key - 26;\n \t\tEditPrimary = false;\n@@ -290,3 +290,3 @@\n \tstd::vector<KeyMappingStruct *>::iterator keys_it = CurrentKeys.begin();\n-\tint count = (int)(Slider->Get_Value() + lp);\t\t// NAME 1: neutral (D10)\n+\tint count = (int)(Slider->Get_Value() + key);\t\t// NAME 1: neutral (D10)\n \twhile (count--) {\n"}
 ```
 
 ### key_plus
 
-```diff
---- baseline/ui_option_control_keys.cpp
-+++ key_plus/ui_option_control_keys.cpp
-@@ -261,6 +261,6 @@
- 	GadgetClass *bttn;									// NAME 1: neutral (D10)
--	int lp;												// NAME 1: neutral (D10)
-+	       												// NAME 1: neutral (D10)
- 	if (key >= 15 && key <= 25) {
- 		bttn = Primary[key - 15];
--		lp = key - 15;
-+		key += -15;
- 		EditPrimary = true;
-@@ -268,3 +268,3 @@
- 		bttn = Secondary[key - 26];
--		lp = key - 26;
-+		key += -26;
- 		EditPrimary = false;
-@@ -290,3 +290,3 @@
- 	std::vector<KeyMappingStruct *>::iterator keys_it = CurrentKeys.begin();
--	int count = (int)(Slider->Get_Value() + lp);		// NAME 1: neutral (D10)
-+	int count = (int)(Slider->Get_Value() + key);		// NAME 1: neutral (D10)
- 	while (count--) {
+```json
+{"patch": "--- baseline/ui_option_control_keys.cpp\n+++ key_plus/ui_option_control_keys.cpp\n@@ -261,6 +261,6 @@\n \tGadgetClass *bttn;\t\t\t\t\t\t\t\t\t// NAME 1: neutral (D10)\n-\tint lp;\t\t\t\t\t\t\t\t\t\t\t\t// NAME 1: neutral (D10)\n+\t       \t\t\t\t\t\t\t\t\t\t\t\t// NAME 1: neutral (D10)\n \tif (key >= 15 && key <= 25) {\n \t\tbttn = Primary[key - 15];\n-\t\tlp = key - 15;\n+\t\tkey += -15;\n \t\tEditPrimary = true;\n@@ -268,3 +268,3 @@\n \t\tbttn = Secondary[key - 26];\n-\t\tlp = key - 26;\n+\t\tkey += -26;\n \t\tEditPrimary = false;\n@@ -290,3 +290,3 @@\n \tstd::vector<KeyMappingStruct *>::iterator keys_it = CurrentKeys.begin();\n-\tint count = (int)(Slider->Get_Value() + lp);\t\t// NAME 1: neutral (D10)\n+\tint count = (int)(Slider->Get_Value() + key);\t\t// NAME 1: neutral (D10)\n \twhile (count--) {\n"}
 ```
 
 ### equal_null
 
-```diff
---- baseline/ui_option_control_keys.cpp
-+++ equal_null/ui_option_control_keys.cpp
-@@ -261,6 +261,6 @@
- 	GadgetClass *bttn;									// NAME 1: neutral (D10)
--	int lp;												// NAME 1: neutral (D10)
-+	       												// NAME 1: neutral (D10)
- 	if (key >= 15 && key <= 25) {
- 		bttn = Primary[key - 15];
--		lp = key - 15;
-+		key -= 15;
- 		EditPrimary = true;
-@@ -268,3 +268,3 @@
- 		bttn = Secondary[key - 26];
--		lp = key - 26;
-+		key -= 26;
- 		EditPrimary = false;
-@@ -273,3 +273,3 @@
- 	}
--	if (!bttn) return(false);
-+	if (bttn == NULL) return(false);
- 
-@@ -290,3 +290,3 @@
- 	std::vector<KeyMappingStruct *>::iterator keys_it = CurrentKeys.begin();
--	int count = (int)(Slider->Get_Value() + lp);		// NAME 1: neutral (D10)
-+	int count = (int)(Slider->Get_Value() + key);		// NAME 1: neutral (D10)
- 	while (count--) {
+```json
+{"patch": "--- baseline/ui_option_control_keys.cpp\n+++ equal_null/ui_option_control_keys.cpp\n@@ -261,6 +261,6 @@\n \tGadgetClass *bttn;\t\t\t\t\t\t\t\t\t// NAME 1: neutral (D10)\n-\tint lp;\t\t\t\t\t\t\t\t\t\t\t\t// NAME 1: neutral (D10)\n+\t       \t\t\t\t\t\t\t\t\t\t\t\t// NAME 1: neutral (D10)\n \tif (key >= 15 && key <= 25) {\n \t\tbttn = Primary[key - 15];\n-\t\tlp = key - 15;\n+\t\tkey -= 15;\n \t\tEditPrimary = true;\n@@ -268,3 +268,3 @@\n \t\tbttn = Secondary[key - 26];\n-\t\tlp = key - 26;\n+\t\tkey -= 26;\n \t\tEditPrimary = false;\n@@ -273,3 +273,3 @@\n \t}\n-\tif (!bttn) return(false);\n+\tif (bttn == NULL) return(false);\n \n@@ -290,3 +290,3 @@\n \tstd::vector<KeyMappingStruct *>::iterator keys_it = CurrentKeys.begin();\n-\tint count = (int)(Slider->Get_Value() + lp);\t\t// NAME 1: neutral (D10)\n+\tint count = (int)(Slider->Get_Value() + key);\t\t// NAME 1: neutral (D10)\n \twhile (count--) {\n"}
 ```
 
 ### equal_zero
 
-```diff
---- baseline/ui_option_control_keys.cpp
-+++ equal_zero/ui_option_control_keys.cpp
-@@ -261,6 +261,6 @@
- 	GadgetClass *bttn;									// NAME 1: neutral (D10)
--	int lp;												// NAME 1: neutral (D10)
-+	       												// NAME 1: neutral (D10)
- 	if (key >= 15 && key <= 25) {
- 		bttn = Primary[key - 15];
--		lp = key - 15;
-+		key -= 15;
- 		EditPrimary = true;
-@@ -268,3 +268,3 @@
- 		bttn = Secondary[key - 26];
--		lp = key - 26;
-+		key -= 26;
- 		EditPrimary = false;
-@@ -273,3 +273,3 @@
- 	}
--	if (!bttn) return(false);
-+	if (bttn == 0) return(false);
- 
-@@ -290,3 +290,3 @@
- 	std::vector<KeyMappingStruct *>::iterator keys_it = CurrentKeys.begin();
--	int count = (int)(Slider->Get_Value() + lp);		// NAME 1: neutral (D10)
-+	int count = (int)(Slider->Get_Value() + key);		// NAME 1: neutral (D10)
- 	while (count--) {
+```json
+{"patch": "--- baseline/ui_option_control_keys.cpp\n+++ equal_zero/ui_option_control_keys.cpp\n@@ -261,6 +261,6 @@\n \tGadgetClass *bttn;\t\t\t\t\t\t\t\t\t// NAME 1: neutral (D10)\n-\tint lp;\t\t\t\t\t\t\t\t\t\t\t\t// NAME 1: neutral (D10)\n+\t       \t\t\t\t\t\t\t\t\t\t\t\t// NAME 1: neutral (D10)\n \tif (key >= 15 && key <= 25) {\n \t\tbttn = Primary[key - 15];\n-\t\tlp = key - 15;\n+\t\tkey -= 15;\n \t\tEditPrimary = true;\n@@ -268,3 +268,3 @@\n \t\tbttn = Secondary[key - 26];\n-\t\tlp = key - 26;\n+\t\tkey -= 26;\n \t\tEditPrimary = false;\n@@ -273,3 +273,3 @@\n \t}\n-\tif (!bttn) return(false);\n+\tif (bttn == 0) return(false);\n \n@@ -290,3 +290,3 @@\n \tstd::vector<KeyMappingStruct *>::iterator keys_it = CurrentKeys.begin();\n-\tint count = (int)(Slider->Get_Value() + lp);\t\t// NAME 1: neutral (D10)\n+\tint count = (int)(Slider->Get_Value() + key);\t\t// NAME 1: neutral (D10)\n \twhile (count--) {\n"}
 ```
 
 ### not_equal_else
 
-```diff
---- baseline/ui_option_control_keys.cpp
-+++ not_equal_else/ui_option_control_keys.cpp
-@@ -261,6 +261,6 @@
- 	GadgetClass *bttn;									// NAME 1: neutral (D10)
--	int lp;												// NAME 1: neutral (D10)
-+	       												// NAME 1: neutral (D10)
- 	if (key >= 15 && key <= 25) {
- 		bttn = Primary[key - 15];
--		lp = key - 15;
-+		key -= 15;
- 		EditPrimary = true;
-@@ -268,3 +268,3 @@
- 		bttn = Secondary[key - 26];
--		lp = key - 26;
-+		key -= 26;
- 		EditPrimary = false;
-@@ -273,3 +273,3 @@
- 	}
--	if (!bttn) return(false);
-+	if (bttn != NULL) {} else return(false);
- 
-@@ -290,3 +290,3 @@
- 	std::vector<KeyMappingStruct *>::iterator keys_it = CurrentKeys.begin();
--	int count = (int)(Slider->Get_Value() + lp);		// NAME 1: neutral (D10)
-+	int count = (int)(Slider->Get_Value() + key);		// NAME 1: neutral (D10)
- 	while (count--) {
+```json
+{"patch": "--- baseline/ui_option_control_keys.cpp\n+++ not_equal_else/ui_option_control_keys.cpp\n@@ -261,6 +261,6 @@\n \tGadgetClass *bttn;\t\t\t\t\t\t\t\t\t// NAME 1: neutral (D10)\n-\tint lp;\t\t\t\t\t\t\t\t\t\t\t\t// NAME 1: neutral (D10)\n+\t       \t\t\t\t\t\t\t\t\t\t\t\t// NAME 1: neutral (D10)\n \tif (key >= 15 && key <= 25) {\n \t\tbttn = Primary[key - 15];\n-\t\tlp = key - 15;\n+\t\tkey -= 15;\n \t\tEditPrimary = true;\n@@ -268,3 +268,3 @@\n \t\tbttn = Secondary[key - 26];\n-\t\tlp = key - 26;\n+\t\tkey -= 26;\n \t\tEditPrimary = false;\n@@ -273,3 +273,3 @@\n \t}\n-\tif (!bttn) return(false);\n+\tif (bttn != NULL) {} else return(false);\n \n@@ -290,3 +290,3 @@\n \tstd::vector<KeyMappingStruct *>::iterator keys_it = CurrentKeys.begin();\n-\tint count = (int)(Slider->Get_Value() + lp);\t\t// NAME 1: neutral (D10)\n+\tint count = (int)(Slider->Get_Value() + key);\t\t// NAME 1: neutral (D10)\n \twhile (count--) {\n"}
 ```
 
 ### positive_else
 
-```diff
---- baseline/ui_option_control_keys.cpp
-+++ positive_else/ui_option_control_keys.cpp
-@@ -261,6 +261,6 @@
- 	GadgetClass *bttn;									// NAME 1: neutral (D10)
--	int lp;												// NAME 1: neutral (D10)
-+	       												// NAME 1: neutral (D10)
- 	if (key >= 15 && key <= 25) {
- 		bttn = Primary[key - 15];
--		lp = key - 15;
-+		key -= 15;
- 		EditPrimary = true;
-@@ -268,3 +268,3 @@
- 		bttn = Secondary[key - 26];
--		lp = key - 26;
-+		key -= 26;
- 		EditPrimary = false;
-@@ -273,3 +273,3 @@
- 	}
--	if (!bttn) return(false);
-+	if (bttn) {} else return(false);
- 
-@@ -290,3 +290,3 @@
- 	std::vector<KeyMappingStruct *>::iterator keys_it = CurrentKeys.begin();
--	int count = (int)(Slider->Get_Value() + lp);		// NAME 1: neutral (D10)
-+	int count = (int)(Slider->Get_Value() + key);		// NAME 1: neutral (D10)
- 	while (count--) {
+```json
+{"patch": "--- baseline/ui_option_control_keys.cpp\n+++ positive_else/ui_option_control_keys.cpp\n@@ -261,6 +261,6 @@\n \tGadgetClass *bttn;\t\t\t\t\t\t\t\t\t// NAME 1: neutral (D10)\n-\tint lp;\t\t\t\t\t\t\t\t\t\t\t\t// NAME 1: neutral (D10)\n+\t       \t\t\t\t\t\t\t\t\t\t\t\t// NAME 1: neutral (D10)\n \tif (key >= 15 && key <= 25) {\n \t\tbttn = Primary[key - 15];\n-\t\tlp = key - 15;\n+\t\tkey -= 15;\n \t\tEditPrimary = true;\n@@ -268,3 +268,3 @@\n \t\tbttn = Secondary[key - 26];\n-\t\tlp = key - 26;\n+\t\tkey -= 26;\n \t\tEditPrimary = false;\n@@ -273,3 +273,3 @@\n \t}\n-\tif (!bttn) return(false);\n+\tif (bttn) {} else return(false);\n \n@@ -290,3 +290,3 @@\n \tstd::vector<KeyMappingStruct *>::iterator keys_it = CurrentKeys.begin();\n-\tint count = (int)(Slider->Get_Value() + lp);\t\t// NAME 1: neutral (D10)\n+\tint count = (int)(Slider->Get_Value() + key);\t\t// NAME 1: neutral (D10)\n \twhile (count--) {\n"}
 ```
 
 ### negated_comparison
 
-```diff
---- baseline/ui_option_control_keys.cpp
-+++ negated_comparison/ui_option_control_keys.cpp
-@@ -261,6 +261,6 @@
- 	GadgetClass *bttn;									// NAME 1: neutral (D10)
--	int lp;												// NAME 1: neutral (D10)
-+	       												// NAME 1: neutral (D10)
- 	if (key >= 15 && key <= 25) {
- 		bttn = Primary[key - 15];
--		lp = key - 15;
-+		key -= 15;
- 		EditPrimary = true;
-@@ -268,3 +268,3 @@
- 		bttn = Secondary[key - 26];
--		lp = key - 26;
-+		key -= 26;
- 		EditPrimary = false;
-@@ -273,3 +273,3 @@
- 	}
--	if (!bttn) return(false);
-+	if (!(bttn != NULL)) return(false);
- 
-@@ -290,3 +290,3 @@
- 	std::vector<KeyMappingStruct *>::iterator keys_it = CurrentKeys.begin();
--	int count = (int)(Slider->Get_Value() + lp);		// NAME 1: neutral (D10)
-+	int count = (int)(Slider->Get_Value() + key);		// NAME 1: neutral (D10)
- 	while (count--) {
+```json
+{"patch": "--- baseline/ui_option_control_keys.cpp\n+++ negated_comparison/ui_option_control_keys.cpp\n@@ -261,6 +261,6 @@\n \tGadgetClass *bttn;\t\t\t\t\t\t\t\t\t// NAME 1: neutral (D10)\n-\tint lp;\t\t\t\t\t\t\t\t\t\t\t\t// NAME 1: neutral (D10)\n+\t       \t\t\t\t\t\t\t\t\t\t\t\t// NAME 1: neutral (D10)\n \tif (key >= 15 && key <= 25) {\n \t\tbttn = Primary[key - 15];\n-\t\tlp = key - 15;\n+\t\tkey -= 15;\n \t\tEditPrimary = true;\n@@ -268,3 +268,3 @@\n \t\tbttn = Secondary[key - 26];\n-\t\tlp = key - 26;\n+\t\tkey -= 26;\n \t\tEditPrimary = false;\n@@ -273,3 +273,3 @@\n \t}\n-\tif (!bttn) return(false);\n+\tif (!(bttn != NULL)) return(false);\n \n@@ -290,3 +290,3 @@\n \tstd::vector<KeyMappingStruct *>::iterator keys_it = CurrentKeys.begin();\n-\tint count = (int)(Slider->Get_Value() + lp);\t\t// NAME 1: neutral (D10)\n+\tint count = (int)(Slider->Get_Value() + key);\t\t// NAME 1: neutral (D10)\n \twhile (count--) {\n"}
 ```
 
 ### equal_reversed
 
-```diff
---- baseline/ui_option_control_keys.cpp
-+++ equal_reversed/ui_option_control_keys.cpp
-@@ -261,6 +261,6 @@
- 	GadgetClass *bttn;									// NAME 1: neutral (D10)
--	int lp;												// NAME 1: neutral (D10)
-+	       												// NAME 1: neutral (D10)
- 	if (key >= 15 && key <= 25) {
- 		bttn = Primary[key - 15];
--		lp = key - 15;
-+		key -= 15;
- 		EditPrimary = true;
-@@ -268,3 +268,3 @@
- 		bttn = Secondary[key - 26];
--		lp = key - 26;
-+		key -= 26;
- 		EditPrimary = false;
-@@ -273,3 +273,3 @@
- 	}
--	if (!bttn) return(false);
-+	if (NULL == bttn) return(false);
- 
-@@ -290,3 +290,3 @@
- 	std::vector<KeyMappingStruct *>::iterator keys_it = CurrentKeys.begin();
--	int count = (int)(Slider->Get_Value() + lp);		// NAME 1: neutral (D10)
-+	int count = (int)(Slider->Get_Value() + key);		// NAME 1: neutral (D10)
- 	while (count--) {
+```json
+{"patch": "--- baseline/ui_option_control_keys.cpp\n+++ equal_reversed/ui_option_control_keys.cpp\n@@ -261,6 +261,6 @@\n \tGadgetClass *bttn;\t\t\t\t\t\t\t\t\t// NAME 1: neutral (D10)\n-\tint lp;\t\t\t\t\t\t\t\t\t\t\t\t// NAME 1: neutral (D10)\n+\t       \t\t\t\t\t\t\t\t\t\t\t\t// NAME 1: neutral (D10)\n \tif (key >= 15 && key <= 25) {\n \t\tbttn = Primary[key - 15];\n-\t\tlp = key - 15;\n+\t\tkey -= 15;\n \t\tEditPrimary = true;\n@@ -268,3 +268,3 @@\n \t\tbttn = Secondary[key - 26];\n-\t\tlp = key - 26;\n+\t\tkey -= 26;\n \t\tEditPrimary = false;\n@@ -273,3 +273,3 @@\n \t}\n-\tif (!bttn) return(false);\n+\tif (NULL == bttn) return(false);\n \n@@ -290,3 +290,3 @@\n \tstd::vector<KeyMappingStruct *>::iterator keys_it = CurrentKeys.begin();\n-\tint count = (int)(Slider->Get_Value() + lp);\t\t// NAME 1: neutral (D10)\n+\tint count = (int)(Slider->Get_Value() + key);\t\t// NAME 1: neutral (D10)\n \twhile (count--) {\n"}
 ```
 
 ### boolean_cast
 
-```diff
---- baseline/ui_option_control_keys.cpp
-+++ boolean_cast/ui_option_control_keys.cpp
-@@ -261,6 +261,6 @@
- 	GadgetClass *bttn;									// NAME 1: neutral (D10)
--	int lp;												// NAME 1: neutral (D10)
-+	       												// NAME 1: neutral (D10)
- 	if (key >= 15 && key <= 25) {
- 		bttn = Primary[key - 15];
--		lp = key - 15;
-+		key -= 15;
- 		EditPrimary = true;
-@@ -268,3 +268,3 @@
- 		bttn = Secondary[key - 26];
--		lp = key - 26;
-+		key -= 26;
- 		EditPrimary = false;
-@@ -273,3 +273,3 @@
- 	}
--	if (!bttn) return(false);
-+	if (bool(bttn) == false) return(false);
- 
-@@ -290,3 +290,3 @@
- 	std::vector<KeyMappingStruct *>::iterator keys_it = CurrentKeys.begin();
--	int count = (int)(Slider->Get_Value() + lp);		// NAME 1: neutral (D10)
-+	int count = (int)(Slider->Get_Value() + key);		// NAME 1: neutral (D10)
- 	while (count--) {
+```json
+{"patch": "--- baseline/ui_option_control_keys.cpp\n+++ boolean_cast/ui_option_control_keys.cpp\n@@ -261,6 +261,6 @@\n \tGadgetClass *bttn;\t\t\t\t\t\t\t\t\t// NAME 1: neutral (D10)\n-\tint lp;\t\t\t\t\t\t\t\t\t\t\t\t// NAME 1: neutral (D10)\n+\t       \t\t\t\t\t\t\t\t\t\t\t\t// NAME 1: neutral (D10)\n \tif (key >= 15 && key <= 25) {\n \t\tbttn = Primary[key - 15];\n-\t\tlp = key - 15;\n+\t\tkey -= 15;\n \t\tEditPrimary = true;\n@@ -268,3 +268,3 @@\n \t\tbttn = Secondary[key - 26];\n-\t\tlp = key - 26;\n+\t\tkey -= 26;\n \t\tEditPrimary = false;\n@@ -273,3 +273,3 @@\n \t}\n-\tif (!bttn) return(false);\n+\tif (bool(bttn) == false) return(false);\n \n@@ -290,3 +290,3 @@\n \tstd::vector<KeyMappingStruct *>::iterator keys_it = CurrentKeys.begin();\n-\tint count = (int)(Slider->Get_Value() + lp);\t\t// NAME 1: neutral (D10)\n+\tint count = (int)(Slider->Get_Value() + key);\t\t// NAME 1: neutral (D10)\n \twhile (count--) {\n"}
 ```
 
 ### conditional_return
 
-```diff
---- baseline/ui_option_control_keys.cpp
-+++ conditional_return/ui_option_control_keys.cpp
-@@ -261,6 +261,6 @@
- 	GadgetClass *bttn;									// NAME 1: neutral (D10)
--	int lp;												// NAME 1: neutral (D10)
-+	       												// NAME 1: neutral (D10)
- 	if (key >= 15 && key <= 25) {
- 		bttn = Primary[key - 15];
--		lp = key - 15;
-+		key -= 15;
- 		EditPrimary = true;
-@@ -268,3 +268,3 @@
- 		bttn = Secondary[key - 26];
--		lp = key - 26;
-+		key -= 26;
- 		EditPrimary = false;
-@@ -273,3 +273,3 @@
- 	}
--	if (!bttn) return(false);
-+	if (bttn ? false : true) return(false);
- 
-@@ -290,3 +290,3 @@
- 	std::vector<KeyMappingStruct *>::iterator keys_it = CurrentKeys.begin();
--	int count = (int)(Slider->Get_Value() + lp);		// NAME 1: neutral (D10)
-+	int count = (int)(Slider->Get_Value() + key);		// NAME 1: neutral (D10)
- 	while (count--) {
+```json
+{"patch": "--- baseline/ui_option_control_keys.cpp\n+++ conditional_return/ui_option_control_keys.cpp\n@@ -261,6 +261,6 @@\n \tGadgetClass *bttn;\t\t\t\t\t\t\t\t\t// NAME 1: neutral (D10)\n-\tint lp;\t\t\t\t\t\t\t\t\t\t\t\t// NAME 1: neutral (D10)\n+\t       \t\t\t\t\t\t\t\t\t\t\t\t// NAME 1: neutral (D10)\n \tif (key >= 15 && key <= 25) {\n \t\tbttn = Primary[key - 15];\n-\t\tlp = key - 15;\n+\t\tkey -= 15;\n \t\tEditPrimary = true;\n@@ -268,3 +268,3 @@\n \t\tbttn = Secondary[key - 26];\n-\t\tlp = key - 26;\n+\t\tkey -= 26;\n \t\tEditPrimary = false;\n@@ -273,3 +273,3 @@\n \t}\n-\tif (!bttn) return(false);\n+\tif (bttn ? false : true) return(false);\n \n@@ -290,3 +290,3 @@\n \tstd::vector<KeyMappingStruct *>::iterator keys_it = CurrentKeys.begin();\n-\tint count = (int)(Slider->Get_Value() + lp);\t\t// NAME 1: neutral (D10)\n+\tint count = (int)(Slider->Get_Value() + key);\t\t// NAME 1: neutral (D10)\n \twhile (count--) {\n"}
 ```
 
 ### late_ternary
 
-```diff
---- baseline/ui_option_control_keys.cpp
-+++ late_ternary/ui_option_control_keys.cpp
-@@ -264,3 +264,3 @@
- 		bttn = Primary[key - 15];
--		lp = key - 15;
-+		
- 		EditPrimary = true;
-@@ -268,3 +268,3 @@
- 		bttn = Secondary[key - 26];
--		lp = key - 26;
-+		
- 		EditPrimary = false;
-@@ -274,3 +274,3 @@
- 	if (!bttn) return(false);
--
-+	lp = key - (EditPrimary ? 15 : 26);
- 
+```json
+{"patch": "--- baseline/ui_option_control_keys.cpp\n+++ late_ternary/ui_option_control_keys.cpp\n@@ -264,3 +264,3 @@\n \t\tbttn = Primary[key - 15];\n-\t\tlp = key - 15;\n+\t\t\n \t\tEditPrimary = true;\n@@ -268,3 +268,3 @@\n \t\tbttn = Secondary[key - 26];\n-\t\tlp = key - 26;\n+\t\t\n \t\tEditPrimary = false;\n@@ -274,3 +274,3 @@\n \tif (!bttn) return(false);\n-\n+\tlp = key - (EditPrimary ? 15 : 26);\n \n"}
 ```
 
 ### late_bool_math
 
-```diff
---- baseline/ui_option_control_keys.cpp
-+++ late_bool_math/ui_option_control_keys.cpp
-@@ -264,3 +264,3 @@
- 		bttn = Primary[key - 15];
--		lp = key - 15;
-+		
- 		EditPrimary = true;
-@@ -268,3 +268,3 @@
- 		bttn = Secondary[key - 26];
--		lp = key - 26;
-+		
- 		EditPrimary = false;
-@@ -274,3 +274,3 @@
- 	if (!bttn) return(false);
--
-+	lp = key - (26 - 11 * (int)EditPrimary);
- 
+```json
+{"patch": "--- baseline/ui_option_control_keys.cpp\n+++ late_bool_math/ui_option_control_keys.cpp\n@@ -264,3 +264,3 @@\n \t\tbttn = Primary[key - 15];\n-\t\tlp = key - 15;\n+\t\t\n \t\tEditPrimary = true;\n@@ -268,3 +268,3 @@\n \t\tbttn = Secondary[key - 26];\n-\t\tlp = key - 26;\n+\t\t\n \t\tEditPrimary = false;\n@@ -274,3 +274,3 @@\n \tif (!bttn) return(false);\n-\n+\tlp = key - (26 - 11 * (int)EditPrimary);\n \n"}
 ```
 
 ### late_range
 
-```diff
---- baseline/ui_option_control_keys.cpp
-+++ late_range/ui_option_control_keys.cpp
-@@ -264,3 +264,3 @@
- 		bttn = Primary[key - 15];
--		lp = key - 15;
-+		
- 		EditPrimary = true;
-@@ -268,3 +268,3 @@
- 		bttn = Secondary[key - 26];
--		lp = key - 26;
-+		
- 		EditPrimary = false;
-@@ -274,3 +274,3 @@
- 	if (!bttn) return(false);
--
-+	lp = key - (key <= 25 ? 15 : 26);
- 
+```json
+{"patch": "--- baseline/ui_option_control_keys.cpp\n+++ late_range/ui_option_control_keys.cpp\n@@ -264,3 +264,3 @@\n \t\tbttn = Primary[key - 15];\n-\t\tlp = key - 15;\n+\t\t\n \t\tEditPrimary = true;\n@@ -268,3 +268,3 @@\n \t\tbttn = Secondary[key - 26];\n-\t\tlp = key - 26;\n+\t\t\n \t\tEditPrimary = false;\n@@ -274,3 +274,3 @@\n \tif (!bttn) return(false);\n-\n+\tlp = key - (key <= 25 ? 15 : 26);\n \n"}
 ```
 
 ### late_range2
 
-```diff
---- baseline/ui_option_control_keys.cpp
-+++ late_range2/ui_option_control_keys.cpp
-@@ -264,3 +264,3 @@
- 		bttn = Primary[key - 15];
--		lp = key - 15;
-+		
- 		EditPrimary = true;
-@@ -268,3 +268,3 @@
- 		bttn = Secondary[key - 26];
--		lp = key - 26;
-+		
- 		EditPrimary = false;
-@@ -274,3 +274,3 @@
- 	if (!bttn) return(false);
--
-+	lp = key - (key < 26 ? 15 : 26);
- 
+```json
+{"patch": "--- baseline/ui_option_control_keys.cpp\n+++ late_range2/ui_option_control_keys.cpp\n@@ -264,3 +264,3 @@\n \t\tbttn = Primary[key - 15];\n-\t\tlp = key - 15;\n+\t\t\n \t\tEditPrimary = true;\n@@ -268,3 +268,3 @@\n \t\tbttn = Secondary[key - 26];\n-\t\tlp = key - 26;\n+\t\t\n \t\tEditPrimary = false;\n@@ -274,3 +274,3 @@\n \tif (!bttn) return(false);\n-\n+\tlp = key - (key < 26 ? 15 : 26);\n \n"}
 ```
 
 ### late_ternary_row
 
-```diff
---- baseline/ui_option_control_keys.cpp
-+++ late_ternary_row/ui_option_control_keys.cpp
-@@ -264,3 +264,3 @@
- 		bttn = Primary[key - 15];
--		lp = key - 15;
-+		
- 		EditPrimary = true;
-@@ -268,3 +268,3 @@
- 		bttn = Secondary[key - 26];
--		lp = key - 26;
-+		
- 		EditPrimary = false;
-@@ -274,3 +274,3 @@
- 	if (!bttn) return(false);
--
-+	lp = key <= 25 ? key - 15 : key - 26;
- 
+```json
+{"patch": "--- baseline/ui_option_control_keys.cpp\n+++ late_ternary_row/ui_option_control_keys.cpp\n@@ -264,3 +264,3 @@\n \t\tbttn = Primary[key - 15];\n-\t\tlp = key - 15;\n+\t\t\n \t\tEditPrimary = true;\n@@ -268,3 +268,3 @@\n \t\tbttn = Secondary[key - 26];\n-\t\tlp = key - 26;\n+\t\t\n \t\tEditPrimary = false;\n@@ -274,3 +274,3 @@\n \tif (!bttn) return(false);\n-\n+\tlp = key <= 25 ? key - 15 : key - 26;\n \n"}
 ```
 
 ### late_range2_row
 
-```diff
---- baseline/ui_option_control_keys.cpp
-+++ late_range2_row/ui_option_control_keys.cpp
-@@ -264,3 +264,3 @@
- 		bttn = Primary[key - 15];
--		lp = key - 15;
-+		
- 		EditPrimary = true;
-@@ -268,3 +268,3 @@
- 		bttn = Secondary[key - 26];
--		lp = key - 26;
-+		
- 		EditPrimary = false;
-@@ -274,3 +274,3 @@
- 	if (!bttn) return(false);
--
-+	lp = key < 26 ? key - 15 : key - 26;
- 
+```json
+{"patch": "--- baseline/ui_option_control_keys.cpp\n+++ late_range2_row/ui_option_control_keys.cpp\n@@ -264,3 +264,3 @@\n \t\tbttn = Primary[key - 15];\n-\t\tlp = key - 15;\n+\t\t\n \t\tEditPrimary = true;\n@@ -268,3 +268,3 @@\n \t\tbttn = Secondary[key - 26];\n-\t\tlp = key - 26;\n+\t\t\n \t\tEditPrimary = false;\n@@ -274,3 +274,3 @@\n \tif (!bttn) return(false);\n-\n+\tlp = key < 26 ? key - 15 : key - 26;\n \n"}
 ```
 
 ### late_conditional_row
 
-```diff
---- baseline/ui_option_control_keys.cpp
-+++ late_conditional_row/ui_option_control_keys.cpp
-@@ -264,3 +264,3 @@
- 		bttn = Primary[key - 15];
--		lp = key - 15;
-+		
- 		EditPrimary = true;
-@@ -268,3 +268,3 @@
- 		bttn = Secondary[key - 26];
--		lp = key - 26;
-+		
- 		EditPrimary = false;
-@@ -274,3 +274,3 @@
- 	if (!bttn) return(false);
--
-+	lp = EditPrimary ? key - 15 : key - 26;
- 
+```json
+{"patch": "--- baseline/ui_option_control_keys.cpp\n+++ late_conditional_row/ui_option_control_keys.cpp\n@@ -264,3 +264,3 @@\n \t\tbttn = Primary[key - 15];\n-\t\tlp = key - 15;\n+\t\t\n \t\tEditPrimary = true;\n@@ -268,3 +268,3 @@\n \t\tbttn = Secondary[key - 26];\n-\t\tlp = key - 26;\n+\t\t\n \t\tEditPrimary = false;\n@@ -274,3 +274,3 @@\n \tif (!bttn) return(false);\n-\n+\tlp = EditPrimary ? key - 15 : key - 26;\n \n"}
 ```
 
 ### post_local
 
-```diff
---- baseline/ui_option_control_keys.cpp
-+++ post_local/ui_option_control_keys.cpp
-@@ -261,6 +261,6 @@
- 	GadgetClass *bttn;									// NAME 1: neutral (D10)
--	int lp;												// NAME 1: neutral (D10)
-+													// NAME 1: neutral (D10)
- 	if (key >= 15 && key <= 25) {
- 		bttn = Primary[key - 15];
--		lp = key - 15;
-+		key = key - 15;
- 		EditPrimary = true;
-@@ -268,3 +268,3 @@
- 		bttn = Secondary[key - 26];
--		lp = key - 26;
-+		key = key - 26;
- 		EditPrimary = false;
-@@ -274,3 +274,3 @@
- 	if (!bttn) return(false);
--
-+	int lp = key;
- 
+```json
+{"patch": "--- baseline/ui_option_control_keys.cpp\n+++ post_local/ui_option_control_keys.cpp\n@@ -261,6 +261,6 @@\n \tGadgetClass *bttn;\t\t\t\t\t\t\t\t\t// NAME 1: neutral (D10)\n-\tint lp;\t\t\t\t\t\t\t\t\t\t\t\t// NAME 1: neutral (D10)\n+\t\t\t\t\t\t\t\t\t\t\t\t\t// NAME 1: neutral (D10)\n \tif (key >= 15 && key <= 25) {\n \t\tbttn = Primary[key - 15];\n-\t\tlp = key - 15;\n+\t\tkey = key - 15;\n \t\tEditPrimary = true;\n@@ -268,3 +268,3 @@\n \t\tbttn = Secondary[key - 26];\n-\t\tlp = key - 26;\n+\t\tkey = key - 26;\n \t\tEditPrimary = false;\n@@ -274,3 +274,3 @@\n \tif (!bttn) return(false);\n-\n+\tint lp = key;\n \n"}
 ```
 
 ### assignment_condition
 
-```diff
---- baseline/ui_option_control_keys.cpp
-+++ assignment_condition/ui_option_control_keys.cpp
-@@ -261,6 +261,6 @@
- 	GadgetClass *bttn;									// NAME 1: neutral (D10)
--	int lp;												// NAME 1: neutral (D10)
-+	       												// NAME 1: neutral (D10)
- 	if (key >= 15 && key <= 25) {
- 		bttn = Primary[key - 15];
--		lp = key - 15;
-+		key -= 15;
- 		EditPrimary = true;
-@@ -268,3 +268,3 @@
- 		bttn = Secondary[key - 26];
--		lp = key - 26;
-+		key -= 26;
- 		EditPrimary = false;
-@@ -290,3 +290,3 @@
- 	std::vector<KeyMappingStruct *>::iterator keys_it = CurrentKeys.begin();
--	int count = (int)(Slider->Get_Value() + lp);		// NAME 1: neutral (D10)
-+	int count = (int)(Slider->Get_Value() + key);		// NAME 1: neutral (D10)
- 	while (count--) {
-@@ -297,4 +297,3 @@
- 	if (keys_it != CurrentKeys.end()) {
--		EditKey = *keys_it;
--		if (EditKey) {
-+		if ((EditKey = *keys_it)) {
- 			KeyPress->Set_Text(Create_Peek(((RObjGadgetClass *)bttn)->Unknown34));
-@@ -303,2 +302,3 @@
- 		}
-+
- 		G_ASSERT(false);
+```json
+{"patch": "--- baseline/ui_option_control_keys.cpp\n+++ assignment_condition/ui_option_control_keys.cpp\n@@ -261,6 +261,6 @@\n \tGadgetClass *bttn;\t\t\t\t\t\t\t\t\t// NAME 1: neutral (D10)\n-\tint lp;\t\t\t\t\t\t\t\t\t\t\t\t// NAME 1: neutral (D10)\n+\t       \t\t\t\t\t\t\t\t\t\t\t\t// NAME 1: neutral (D10)\n \tif (key >= 15 && key <= 25) {\n \t\tbttn = Primary[key - 15];\n-\t\tlp = key - 15;\n+\t\tkey -= 15;\n \t\tEditPrimary = true;\n@@ -268,3 +268,3 @@\n \t\tbttn = Secondary[key - 26];\n-\t\tlp = key - 26;\n+\t\tkey -= 26;\n \t\tEditPrimary = false;\n@@ -290,3 +290,3 @@\n \tstd::vector<KeyMappingStruct *>::iterator keys_it = CurrentKeys.begin();\n-\tint count = (int)(Slider->Get_Value() + lp);\t\t// NAME 1: neutral (D10)\n+\tint count = (int)(Slider->Get_Value() + key);\t\t// NAME 1: neutral (D10)\n \twhile (count--) {\n@@ -297,4 +297,3 @@\n \tif (keys_it != CurrentKeys.end()) {\n-\t\tEditKey = *keys_it;\n-\t\tif (EditKey) {\n+\t\tif ((EditKey = *keys_it)) {\n \t\t\tKeyPress->Set_Text(Create_Peek(((RObjGadgetClass *)bttn)->Unknown34));\n@@ -303,2 +302,3 @@\n \t\t}\n+\n \t\tG_ASSERT(false);\n"}
 ```
 
 ### assignment_nonnull
 
-```diff
---- baseline/ui_option_control_keys.cpp
-+++ assignment_nonnull/ui_option_control_keys.cpp
-@@ -261,6 +261,6 @@
- 	GadgetClass *bttn;									// NAME 1: neutral (D10)
--	int lp;												// NAME 1: neutral (D10)
-+	       												// NAME 1: neutral (D10)
- 	if (key >= 15 && key <= 25) {
- 		bttn = Primary[key - 15];
--		lp = key - 15;
-+		key -= 15;
- 		EditPrimary = true;
-@@ -268,3 +268,3 @@
- 		bttn = Secondary[key - 26];
--		lp = key - 26;
-+		key -= 26;
- 		EditPrimary = false;
-@@ -290,3 +290,3 @@
- 	std::vector<KeyMappingStruct *>::iterator keys_it = CurrentKeys.begin();
--	int count = (int)(Slider->Get_Value() + lp);		// NAME 1: neutral (D10)
-+	int count = (int)(Slider->Get_Value() + key);		// NAME 1: neutral (D10)
- 	while (count--) {
-@@ -297,4 +297,3 @@
- 	if (keys_it != CurrentKeys.end()) {
--		EditKey = *keys_it;
--		if (EditKey) {
-+		if ((EditKey = *keys_it) != NULL) {
- 			KeyPress->Set_Text(Create_Peek(((RObjGadgetClass *)bttn)->Unknown34));
-@@ -303,2 +302,3 @@
- 		}
-+
- 		G_ASSERT(false);
+```json
+{"patch": "--- baseline/ui_option_control_keys.cpp\n+++ assignment_nonnull/ui_option_control_keys.cpp\n@@ -261,6 +261,6 @@\n \tGadgetClass *bttn;\t\t\t\t\t\t\t\t\t// NAME 1: neutral (D10)\n-\tint lp;\t\t\t\t\t\t\t\t\t\t\t\t// NAME 1: neutral (D10)\n+\t       \t\t\t\t\t\t\t\t\t\t\t\t// NAME 1: neutral (D10)\n \tif (key >= 15 && key <= 25) {\n \t\tbttn = Primary[key - 15];\n-\t\tlp = key - 15;\n+\t\tkey -= 15;\n \t\tEditPrimary = true;\n@@ -268,3 +268,3 @@\n \t\tbttn = Secondary[key - 26];\n-\t\tlp = key - 26;\n+\t\tkey -= 26;\n \t\tEditPrimary = false;\n@@ -290,3 +290,3 @@\n \tstd::vector<KeyMappingStruct *>::iterator keys_it = CurrentKeys.begin();\n-\tint count = (int)(Slider->Get_Value() + lp);\t\t// NAME 1: neutral (D10)\n+\tint count = (int)(Slider->Get_Value() + key);\t\t// NAME 1: neutral (D10)\n \twhile (count--) {\n@@ -297,4 +297,3 @@\n \tif (keys_it != CurrentKeys.end()) {\n-\t\tEditKey = *keys_it;\n-\t\tif (EditKey) {\n+\t\tif ((EditKey = *keys_it) != NULL) {\n \t\t\tKeyPress->Set_Text(Create_Peek(((RObjGadgetClass *)bttn)->Unknown34));\n@@ -303,2 +302,3 @@\n \t\t}\n+\n \t\tG_ASSERT(false);\n"}
 ```
 
 ### iterator_check
 
-```diff
---- baseline/ui_option_control_keys.cpp
-+++ iterator_check/ui_option_control_keys.cpp
-@@ -261,6 +261,6 @@
- 	GadgetClass *bttn;									// NAME 1: neutral (D10)
--	int lp;												// NAME 1: neutral (D10)
-+	       												// NAME 1: neutral (D10)
- 	if (key >= 15 && key <= 25) {
- 		bttn = Primary[key - 15];
--		lp = key - 15;
-+		key -= 15;
- 		EditPrimary = true;
-@@ -268,3 +268,3 @@
- 		bttn = Secondary[key - 26];
--		lp = key - 26;
-+		key -= 26;
- 		EditPrimary = false;
-@@ -290,3 +290,3 @@
- 	std::vector<KeyMappingStruct *>::iterator keys_it = CurrentKeys.begin();
--	int count = (int)(Slider->Get_Value() + lp);		// NAME 1: neutral (D10)
-+	int count = (int)(Slider->Get_Value() + key);		// NAME 1: neutral (D10)
- 	while (count--) {
-@@ -298,3 +298,3 @@
- 		EditKey = *keys_it;
--		if (EditKey) {
-+		if (*keys_it) {
- 			KeyPress->Set_Text(Create_Peek(((RObjGadgetClass *)bttn)->Unknown34));
+```json
+{"patch": "--- baseline/ui_option_control_keys.cpp\n+++ iterator_check/ui_option_control_keys.cpp\n@@ -261,6 +261,6 @@\n \tGadgetClass *bttn;\t\t\t\t\t\t\t\t\t// NAME 1: neutral (D10)\n-\tint lp;\t\t\t\t\t\t\t\t\t\t\t\t// NAME 1: neutral (D10)\n+\t       \t\t\t\t\t\t\t\t\t\t\t\t// NAME 1: neutral (D10)\n \tif (key >= 15 && key <= 25) {\n \t\tbttn = Primary[key - 15];\n-\t\tlp = key - 15;\n+\t\tkey -= 15;\n \t\tEditPrimary = true;\n@@ -268,3 +268,3 @@\n \t\tbttn = Secondary[key - 26];\n-\t\tlp = key - 26;\n+\t\tkey -= 26;\n \t\tEditPrimary = false;\n@@ -290,3 +290,3 @@\n \tstd::vector<KeyMappingStruct *>::iterator keys_it = CurrentKeys.begin();\n-\tint count = (int)(Slider->Get_Value() + lp);\t\t// NAME 1: neutral (D10)\n+\tint count = (int)(Slider->Get_Value() + key);\t\t// NAME 1: neutral (D10)\n \twhile (count--) {\n@@ -298,3 +298,3 @@\n \t\tEditKey = *keys_it;\n-\t\tif (EditKey) {\n+\t\tif (*keys_it) {\n \t\t\tKeyPress->Set_Text(Create_Peek(((RObjGadgetClass *)bttn)->Unknown34));\n"}
 ```
 
 ### local_mapping
 
-```diff
---- baseline/ui_option_control_keys.cpp
-+++ local_mapping/ui_option_control_keys.cpp
-@@ -261,6 +261,6 @@
- 	GadgetClass *bttn;									// NAME 1: neutral (D10)
--	int lp;												// NAME 1: neutral (D10)
-+	       												// NAME 1: neutral (D10)
- 	if (key >= 15 && key <= 25) {
- 		bttn = Primary[key - 15];
--		lp = key - 15;
-+		key -= 15;
- 		EditPrimary = true;
-@@ -268,3 +268,3 @@
- 		bttn = Secondary[key - 26];
--		lp = key - 26;
-+		key -= 26;
- 		EditPrimary = false;
-@@ -290,3 +290,3 @@
- 	std::vector<KeyMappingStruct *>::iterator keys_it = CurrentKeys.begin();
--	int count = (int)(Slider->Get_Value() + lp);		// NAME 1: neutral (D10)
-+	int count = (int)(Slider->Get_Value() + key);		// NAME 1: neutral (D10)
- 	while (count--) {
-@@ -295,6 +295,6 @@
- 	}
--
- 	if (keys_it != CurrentKeys.end()) {
--		EditKey = *keys_it;
--		if (EditKey) {
-+		KeyMappingStruct *mapping = *keys_it;
-+		EditKey = mapping;
-+		if (mapping) {
- 			KeyPress->Set_Text(Create_Peek(((RObjGadgetClass *)bttn)->Unknown34));
+```json
+{"patch": "--- baseline/ui_option_control_keys.cpp\n+++ local_mapping/ui_option_control_keys.cpp\n@@ -261,6 +261,6 @@\n \tGadgetClass *bttn;\t\t\t\t\t\t\t\t\t// NAME 1: neutral (D10)\n-\tint lp;\t\t\t\t\t\t\t\t\t\t\t\t// NAME 1: neutral (D10)\n+\t       \t\t\t\t\t\t\t\t\t\t\t\t// NAME 1: neutral (D10)\n \tif (key >= 15 && key <= 25) {\n \t\tbttn = Primary[key - 15];\n-\t\tlp = key - 15;\n+\t\tkey -= 15;\n \t\tEditPrimary = true;\n@@ -268,3 +268,3 @@\n \t\tbttn = Secondary[key - 26];\n-\t\tlp = key - 26;\n+\t\tkey -= 26;\n \t\tEditPrimary = false;\n@@ -290,3 +290,3 @@\n \tstd::vector<KeyMappingStruct *>::iterator keys_it = CurrentKeys.begin();\n-\tint count = (int)(Slider->Get_Value() + lp);\t\t// NAME 1: neutral (D10)\n+\tint count = (int)(Slider->Get_Value() + key);\t\t// NAME 1: neutral (D10)\n \twhile (count--) {\n@@ -295,6 +295,6 @@\n \t}\n-\n \tif (keys_it != CurrentKeys.end()) {\n-\t\tEditKey = *keys_it;\n-\t\tif (EditKey) {\n+\t\tKeyMappingStruct *mapping = *keys_it;\n+\t\tEditKey = mapping;\n+\t\tif (mapping) {\n \t\t\tKeyPress->Set_Text(Create_Peek(((RObjGadgetClass *)bttn)->Unknown34));\n"}
 ```
 
 ### local_member_check
 
-```diff
---- baseline/ui_option_control_keys.cpp
-+++ local_member_check/ui_option_control_keys.cpp
-@@ -261,6 +261,6 @@
- 	GadgetClass *bttn;									// NAME 1: neutral (D10)
--	int lp;												// NAME 1: neutral (D10)
-+	       												// NAME 1: neutral (D10)
- 	if (key >= 15 && key <= 25) {
- 		bttn = Primary[key - 15];
--		lp = key - 15;
-+		key -= 15;
- 		EditPrimary = true;
-@@ -268,3 +268,3 @@
- 		bttn = Secondary[key - 26];
--		lp = key - 26;
-+		key -= 26;
- 		EditPrimary = false;
-@@ -290,3 +290,3 @@
- 	std::vector<KeyMappingStruct *>::iterator keys_it = CurrentKeys.begin();
--	int count = (int)(Slider->Get_Value() + lp);		// NAME 1: neutral (D10)
-+	int count = (int)(Slider->Get_Value() + key);		// NAME 1: neutral (D10)
- 	while (count--) {
-@@ -295,5 +295,5 @@
- 	}
--
- 	if (keys_it != CurrentKeys.end()) {
--		EditKey = *keys_it;
-+		KeyMappingStruct *mapping = *keys_it;
-+		EditKey = mapping;
- 		if (EditKey) {
+```json
+{"patch": "--- baseline/ui_option_control_keys.cpp\n+++ local_member_check/ui_option_control_keys.cpp\n@@ -261,6 +261,6 @@\n \tGadgetClass *bttn;\t\t\t\t\t\t\t\t\t// NAME 1: neutral (D10)\n-\tint lp;\t\t\t\t\t\t\t\t\t\t\t\t// NAME 1: neutral (D10)\n+\t       \t\t\t\t\t\t\t\t\t\t\t\t// NAME 1: neutral (D10)\n \tif (key >= 15 && key <= 25) {\n \t\tbttn = Primary[key - 15];\n-\t\tlp = key - 15;\n+\t\tkey -= 15;\n \t\tEditPrimary = true;\n@@ -268,3 +268,3 @@\n \t\tbttn = Secondary[key - 26];\n-\t\tlp = key - 26;\n+\t\tkey -= 26;\n \t\tEditPrimary = false;\n@@ -290,3 +290,3 @@\n \tstd::vector<KeyMappingStruct *>::iterator keys_it = CurrentKeys.begin();\n-\tint count = (int)(Slider->Get_Value() + lp);\t\t// NAME 1: neutral (D10)\n+\tint count = (int)(Slider->Get_Value() + key);\t\t// NAME 1: neutral (D10)\n \twhile (count--) {\n@@ -295,5 +295,5 @@\n \t}\n-\n \tif (keys_it != CurrentKeys.end()) {\n-\t\tEditKey = *keys_it;\n+\t\tKeyMappingStruct *mapping = *keys_it;\n+\t\tEditKey = mapping;\n \t\tif (EditKey) {\n"}
 ```
 
 ### local_assignment_check
 
-```diff
---- baseline/ui_option_control_keys.cpp
-+++ local_assignment_check/ui_option_control_keys.cpp
-@@ -261,6 +261,6 @@
- 	GadgetClass *bttn;									// NAME 1: neutral (D10)
--	int lp;												// NAME 1: neutral (D10)
-+	       												// NAME 1: neutral (D10)
- 	if (key >= 15 && key <= 25) {
- 		bttn = Primary[key - 15];
--		lp = key - 15;
-+		key -= 15;
- 		EditPrimary = true;
-@@ -268,3 +268,3 @@
- 		bttn = Secondary[key - 26];
--		lp = key - 26;
-+		key -= 26;
- 		EditPrimary = false;
-@@ -290,3 +290,3 @@
- 	std::vector<KeyMappingStruct *>::iterator keys_it = CurrentKeys.begin();
--	int count = (int)(Slider->Get_Value() + lp);		// NAME 1: neutral (D10)
-+	int count = (int)(Slider->Get_Value() + key);		// NAME 1: neutral (D10)
- 	while (count--) {
-@@ -297,4 +297,4 @@
- 	if (keys_it != CurrentKeys.end()) {
--		EditKey = *keys_it;
--		if (EditKey) {
-+		KeyMappingStruct *mapping = *keys_it;
-+		if ((EditKey = mapping)) {
- 			KeyPress->Set_Text(Create_Peek(((RObjGadgetClass *)bttn)->Unknown34));
+```json
+{"patch": "--- baseline/ui_option_control_keys.cpp\n+++ local_assignment_check/ui_option_control_keys.cpp\n@@ -261,6 +261,6 @@\n \tGadgetClass *bttn;\t\t\t\t\t\t\t\t\t// NAME 1: neutral (D10)\n-\tint lp;\t\t\t\t\t\t\t\t\t\t\t\t// NAME 1: neutral (D10)\n+\t       \t\t\t\t\t\t\t\t\t\t\t\t// NAME 1: neutral (D10)\n \tif (key >= 15 && key <= 25) {\n \t\tbttn = Primary[key - 15];\n-\t\tlp = key - 15;\n+\t\tkey -= 15;\n \t\tEditPrimary = true;\n@@ -268,3 +268,3 @@\n \t\tbttn = Secondary[key - 26];\n-\t\tlp = key - 26;\n+\t\tkey -= 26;\n \t\tEditPrimary = false;\n@@ -290,3 +290,3 @@\n \tstd::vector<KeyMappingStruct *>::iterator keys_it = CurrentKeys.begin();\n-\tint count = (int)(Slider->Get_Value() + lp);\t\t// NAME 1: neutral (D10)\n+\tint count = (int)(Slider->Get_Value() + key);\t\t// NAME 1: neutral (D10)\n \twhile (count--) {\n@@ -297,4 +297,4 @@\n \tif (keys_it != CurrentKeys.end()) {\n-\t\tEditKey = *keys_it;\n-\t\tif (EditKey) {\n+\t\tKeyMappingStruct *mapping = *keys_it;\n+\t\tif ((EditKey = mapping)) {\n \t\t\tKeyPress->Set_Text(Create_Peek(((RObjGadgetClass *)bttn)->Unknown34));\n"}
 ```
 
 ### compare_reversed
 
-```diff
---- baseline/ui_option_control_keys.cpp
-+++ compare_reversed/ui_option_control_keys.cpp
-@@ -261,6 +261,6 @@
- 	GadgetClass *bttn;									// NAME 1: neutral (D10)
--	int lp;												// NAME 1: neutral (D10)
-+	       												// NAME 1: neutral (D10)
- 	if (key >= 15 && key <= 25) {
- 		bttn = Primary[key - 15];
--		lp = key - 15;
-+		key -= 15;
- 		EditPrimary = true;
-@@ -268,3 +268,3 @@
- 		bttn = Secondary[key - 26];
--		lp = key - 26;
-+		key -= 26;
- 		EditPrimary = false;
-@@ -290,3 +290,3 @@
- 	std::vector<KeyMappingStruct *>::iterator keys_it = CurrentKeys.begin();
--	int count = (int)(Slider->Get_Value() + lp);		// NAME 1: neutral (D10)
-+	int count = (int)(Slider->Get_Value() + key);		// NAME 1: neutral (D10)
- 	while (count--) {
-@@ -298,3 +298,3 @@
- 		EditKey = *keys_it;
--		if (EditKey) {
-+		if (NULL != EditKey) {
- 			KeyPress->Set_Text(Create_Peek(((RObjGadgetClass *)bttn)->Unknown34));
+```json
+{"patch": "--- baseline/ui_option_control_keys.cpp\n+++ compare_reversed/ui_option_control_keys.cpp\n@@ -261,6 +261,6 @@\n \tGadgetClass *bttn;\t\t\t\t\t\t\t\t\t// NAME 1: neutral (D10)\n-\tint lp;\t\t\t\t\t\t\t\t\t\t\t\t// NAME 1: neutral (D10)\n+\t       \t\t\t\t\t\t\t\t\t\t\t\t// NAME 1: neutral (D10)\n \tif (key >= 15 && key <= 25) {\n \t\tbttn = Primary[key - 15];\n-\t\tlp = key - 15;\n+\t\tkey -= 15;\n \t\tEditPrimary = true;\n@@ -268,3 +268,3 @@\n \t\tbttn = Secondary[key - 26];\n-\t\tlp = key - 26;\n+\t\tkey -= 26;\n \t\tEditPrimary = false;\n@@ -290,3 +290,3 @@\n \tstd::vector<KeyMappingStruct *>::iterator keys_it = CurrentKeys.begin();\n-\tint count = (int)(Slider->Get_Value() + lp);\t\t// NAME 1: neutral (D10)\n+\tint count = (int)(Slider->Get_Value() + key);\t\t// NAME 1: neutral (D10)\n \twhile (count--) {\n@@ -298,3 +298,3 @@\n \t\tEditKey = *keys_it;\n-\t\tif (EditKey) {\n+\t\tif (NULL != EditKey) {\n \t\t\tKeyPress->Set_Text(Create_Peek(((RObjGadgetClass *)bttn)->Unknown34));\n"}
 ```
 
 ### compare_boolean
 
-```diff
---- baseline/ui_option_control_keys.cpp
-+++ compare_boolean/ui_option_control_keys.cpp
-@@ -261,6 +261,6 @@
- 	GadgetClass *bttn;									// NAME 1: neutral (D10)
--	int lp;												// NAME 1: neutral (D10)
-+	       												// NAME 1: neutral (D10)
- 	if (key >= 15 && key <= 25) {
- 		bttn = Primary[key - 15];
--		lp = key - 15;
-+		key -= 15;
- 		EditPrimary = true;
-@@ -268,3 +268,3 @@
- 		bttn = Secondary[key - 26];
--		lp = key - 26;
-+		key -= 26;
- 		EditPrimary = false;
-@@ -290,3 +290,3 @@
- 	std::vector<KeyMappingStruct *>::iterator keys_it = CurrentKeys.begin();
--	int count = (int)(Slider->Get_Value() + lp);		// NAME 1: neutral (D10)
-+	int count = (int)(Slider->Get_Value() + key);		// NAME 1: neutral (D10)
- 	while (count--) {
-@@ -298,3 +298,3 @@
- 		EditKey = *keys_it;
--		if (EditKey) {
-+		if (!!EditKey) {
- 			KeyPress->Set_Text(Create_Peek(((RObjGadgetClass *)bttn)->Unknown34));
+```json
+{"patch": "--- baseline/ui_option_control_keys.cpp\n+++ compare_boolean/ui_option_control_keys.cpp\n@@ -261,6 +261,6 @@\n \tGadgetClass *bttn;\t\t\t\t\t\t\t\t\t// NAME 1: neutral (D10)\n-\tint lp;\t\t\t\t\t\t\t\t\t\t\t\t// NAME 1: neutral (D10)\n+\t       \t\t\t\t\t\t\t\t\t\t\t\t// NAME 1: neutral (D10)\n \tif (key >= 15 && key <= 25) {\n \t\tbttn = Primary[key - 15];\n-\t\tlp = key - 15;\n+\t\tkey -= 15;\n \t\tEditPrimary = true;\n@@ -268,3 +268,3 @@\n \t\tbttn = Secondary[key - 26];\n-\t\tlp = key - 26;\n+\t\tkey -= 26;\n \t\tEditPrimary = false;\n@@ -290,3 +290,3 @@\n \tstd::vector<KeyMappingStruct *>::iterator keys_it = CurrentKeys.begin();\n-\tint count = (int)(Slider->Get_Value() + lp);\t\t// NAME 1: neutral (D10)\n+\tint count = (int)(Slider->Get_Value() + key);\t\t// NAME 1: neutral (D10)\n \twhile (count--) {\n@@ -298,3 +298,3 @@\n \t\tEditKey = *keys_it;\n-\t\tif (EditKey) {\n+\t\tif (!!EditKey) {\n \t\t\tKeyPress->Set_Text(Create_Peek(((RObjGadgetClass *)bttn)->Unknown34));\n"}
 ```

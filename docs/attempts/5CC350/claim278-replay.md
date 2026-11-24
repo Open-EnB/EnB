@@ -1,5 +1,7 @@
 # Claim 278: 0x5CC350 replay
 
+Patch blocks encode exact unified-diff text as JSON; decode the `patch` field before applying.
+
 Fresh HEAD a5f1534b, 26 valid candidates in four analyzed batches. Baseline 52 exact symbol/address pairs; final 53, +0x5CC350 and no losses. All candidates compiled and preserved all 52. Original app flags, basename and assertion lines 130, 136, 371 and 374 preserved. The retail and local audit use a private client and VC6; maintainer verification remains required. Masked hashes group code, not relocation or EH proof.
 
 | form | source SHA-256 | masked target SHA-256 | span | similarity | gains / losses |
@@ -54,449 +56,156 @@ Masked code groups:
 
 ### named_font
 
-```diff
---- baseline/ui_option_font.cpp
-+++ named_font/ui_option_font.cpp
-@@ -49,3 +49,3 @@
- 		const char *name = font_names[i];				// NAME 1: neutral (D10)
--		FontNames.push_back(std::string(name));
-+		{ std::string font(name); FontNames.push_back(font); }
- 		Labels.push_back(std::string(labels[i]));
+```json
+{"patch": "--- baseline/ui_option_font.cpp\n+++ named_font/ui_option_font.cpp\n@@ -49,3 +49,3 @@\n \t\tconst char *name = font_names[i];\t\t\t\t// NAME 1: neutral (D10)\n-\t\tFontNames.push_back(std::string(name));\n+\t\t{ std::string font(name); FontNames.push_back(font); }\n \t\tLabels.push_back(std::string(labels[i]));\n"}
 ```
 
 ### named_label
 
-```diff
---- baseline/ui_option_font.cpp
-+++ named_label/ui_option_font.cpp
-@@ -50,3 +50,3 @@
- 		FontNames.push_back(std::string(name));
--		Labels.push_back(std::string(labels[i]));
-+		{ std::string label(labels[i]); Labels.push_back(label); }
- 		Settings.push_back(OptionFontSettingStruct(fontDatabase->Get_Font_File_Index(name), fontDatabase->Get_Scale(name), fontDatabase->Get_Spacing(name), fontDatabase->Get_Unknown98(name)));
+```json
+{"patch": "--- baseline/ui_option_font.cpp\n+++ named_label/ui_option_font.cpp\n@@ -50,3 +50,3 @@\n \t\tFontNames.push_back(std::string(name));\n-\t\tLabels.push_back(std::string(labels[i]));\n+\t\t{ std::string label(labels[i]); Labels.push_back(label); }\n \t\tSettings.push_back(OptionFontSettingStruct(fontDatabase->Get_Font_File_Index(name), fontDatabase->Get_Scale(name), fontDatabase->Get_Spacing(name), fontDatabase->Get_Unknown98(name)));\n"}
 ```
 
 ### named_both
 
-```diff
---- baseline/ui_option_font.cpp
-+++ named_both/ui_option_font.cpp
-@@ -49,4 +49,4 @@
- 		const char *name = font_names[i];				// NAME 1: neutral (D10)
--		FontNames.push_back(std::string(name));
--		Labels.push_back(std::string(labels[i]));
-+		{ std::string font(name); FontNames.push_back(font); }
-+		{ std::string label(labels[i]); Labels.push_back(label); }
- 		Settings.push_back(OptionFontSettingStruct(fontDatabase->Get_Font_File_Index(name), fontDatabase->Get_Scale(name), fontDatabase->Get_Spacing(name), fontDatabase->Get_Unknown98(name)));
+```json
+{"patch": "--- baseline/ui_option_font.cpp\n+++ named_both/ui_option_font.cpp\n@@ -49,4 +49,4 @@\n \t\tconst char *name = font_names[i];\t\t\t\t// NAME 1: neutral (D10)\n-\t\tFontNames.push_back(std::string(name));\n-\t\tLabels.push_back(std::string(labels[i]));\n+\t\t{ std::string font(name); FontNames.push_back(font); }\n+\t\t{ std::string label(labels[i]); Labels.push_back(label); }\n \t\tSettings.push_back(OptionFontSettingStruct(fontDatabase->Get_Font_File_Index(name), fontDatabase->Get_Scale(name), fontDatabase->Get_Spacing(name), fontDatabase->Get_Unknown98(name)));\n"}
 ```
 
 ### implicit_both
 
-```diff
---- baseline/ui_option_font.cpp
-+++ implicit_both/ui_option_font.cpp
-@@ -49,4 +49,4 @@
- 		const char *name = font_names[i];				// NAME 1: neutral (D10)
--		FontNames.push_back(std::string(name));
--		Labels.push_back(std::string(labels[i]));
-+		FontNames.push_back(name);
-+		Labels.push_back(labels[i]);
- 		Settings.push_back(OptionFontSettingStruct(fontDatabase->Get_Font_File_Index(name), fontDatabase->Get_Scale(name), fontDatabase->Get_Spacing(name), fontDatabase->Get_Unknown98(name)));
+```json
+{"patch": "--- baseline/ui_option_font.cpp\n+++ implicit_both/ui_option_font.cpp\n@@ -49,4 +49,4 @@\n \t\tconst char *name = font_names[i];\t\t\t\t// NAME 1: neutral (D10)\n-\t\tFontNames.push_back(std::string(name));\n-\t\tLabels.push_back(std::string(labels[i]));\n+\t\tFontNames.push_back(name);\n+\t\tLabels.push_back(labels[i]);\n \t\tSettings.push_back(OptionFontSettingStruct(fontDatabase->Get_Font_File_Index(name), fontDatabase->Get_Scale(name), fontDatabase->Get_Spacing(name), fontDatabase->Get_Unknown98(name)));\n"}
 ```
 
 ### ptr_post
 
-```diff
---- baseline/ui_option_font.cpp
-+++ ptr_post/ui_option_font.cpp
-@@ -47,6 +47,6 @@
- 	memset(Sliders, 0, sizeof(Sliders));
--	for (int i = 0; font_names[i] && *font_names[i] && labels[i] && *labels[i]; i++) {
--		const char *name = font_names[i];				// NAME 1: neutral (D10)
--		FontNames.push_back(std::string(name));
--		Labels.push_back(std::string(labels[i]));
-+	for (; *font_names && **font_names && *labels && **labels; font_names++, labels++) {
-+		const char *name = *font_names;				// NAME 1: neutral (D10)
-+		{ std::string font(name); FontNames.push_back(font); }
-+		{ std::string label(*labels); Labels.push_back(label); }
- 		Settings.push_back(OptionFontSettingStruct(fontDatabase->Get_Font_File_Index(name), fontDatabase->Get_Scale(name), fontDatabase->Get_Spacing(name), fontDatabase->Get_Unknown98(name)));
+```json
+{"patch": "--- baseline/ui_option_font.cpp\n+++ ptr_post/ui_option_font.cpp\n@@ -47,6 +47,6 @@\n \tmemset(Sliders, 0, sizeof(Sliders));\n-\tfor (int i = 0; font_names[i] && *font_names[i] && labels[i] && *labels[i]; i++) {\n-\t\tconst char *name = font_names[i];\t\t\t\t// NAME 1: neutral (D10)\n-\t\tFontNames.push_back(std::string(name));\n-\t\tLabels.push_back(std::string(labels[i]));\n+\tfor (; *font_names && **font_names && *labels && **labels; font_names++, labels++) {\n+\t\tconst char *name = *font_names;\t\t\t\t// NAME 1: neutral (D10)\n+\t\t{ std::string font(name); FontNames.push_back(font); }\n+\t\t{ std::string label(*labels); Labels.push_back(label); }\n \t\tSettings.push_back(OptionFontSettingStruct(fontDatabase->Get_Font_File_Index(name), fontDatabase->Get_Scale(name), fontDatabase->Get_Spacing(name), fontDatabase->Get_Unknown98(name)));\n"}
 ```
 
 ### ptr_pre
 
-```diff
---- baseline/ui_option_font.cpp
-+++ ptr_pre/ui_option_font.cpp
-@@ -47,6 +47,6 @@
- 	memset(Sliders, 0, sizeof(Sliders));
--	for (int i = 0; font_names[i] && *font_names[i] && labels[i] && *labels[i]; i++) {
--		const char *name = font_names[i];				// NAME 1: neutral (D10)
--		FontNames.push_back(std::string(name));
--		Labels.push_back(std::string(labels[i]));
-+	for (; *font_names && **font_names && *labels && **labels; ++font_names, ++labels) {
-+		const char *name = *font_names;				// NAME 1: neutral (D10)
-+		{ std::string font(name); FontNames.push_back(font); }
-+		{ std::string label(*labels); Labels.push_back(label); }
- 		Settings.push_back(OptionFontSettingStruct(fontDatabase->Get_Font_File_Index(name), fontDatabase->Get_Scale(name), fontDatabase->Get_Spacing(name), fontDatabase->Get_Unknown98(name)));
+```json
+{"patch": "--- baseline/ui_option_font.cpp\n+++ ptr_pre/ui_option_font.cpp\n@@ -47,6 +47,6 @@\n \tmemset(Sliders, 0, sizeof(Sliders));\n-\tfor (int i = 0; font_names[i] && *font_names[i] && labels[i] && *labels[i]; i++) {\n-\t\tconst char *name = font_names[i];\t\t\t\t// NAME 1: neutral (D10)\n-\t\tFontNames.push_back(std::string(name));\n-\t\tLabels.push_back(std::string(labels[i]));\n+\tfor (; *font_names && **font_names && *labels && **labels; ++font_names, ++labels) {\n+\t\tconst char *name = *font_names;\t\t\t\t// NAME 1: neutral (D10)\n+\t\t{ std::string font(name); FontNames.push_back(font); }\n+\t\t{ std::string label(*labels); Labels.push_back(label); }\n \t\tSettings.push_back(OptionFontSettingStruct(fontDatabase->Get_Font_File_Index(name), fontDatabase->Get_Scale(name), fontDatabase->Get_Spacing(name), fontDatabase->Get_Unknown98(name)));\n"}
 ```
 
 ### label_ptr
 
-```diff
---- baseline/ui_option_font.cpp
-+++ label_ptr/ui_option_font.cpp
-@@ -47,6 +47,6 @@
- 	memset(Sliders, 0, sizeof(Sliders));
--	for (int i = 0; font_names[i] && *font_names[i] && labels[i] && *labels[i]; i++) {
-+	for (int i = 0; font_names[i] && *font_names[i] && *labels && **labels; i++, labels++) {
- 		const char *name = font_names[i];				// NAME 1: neutral (D10)
--		FontNames.push_back(std::string(name));
--		Labels.push_back(std::string(labels[i]));
-+		{ std::string font(name); FontNames.push_back(font); }
-+		{ std::string label(*labels); Labels.push_back(label); }
- 		Settings.push_back(OptionFontSettingStruct(fontDatabase->Get_Font_File_Index(name), fontDatabase->Get_Scale(name), fontDatabase->Get_Spacing(name), fontDatabase->Get_Unknown98(name)));
+```json
+{"patch": "--- baseline/ui_option_font.cpp\n+++ label_ptr/ui_option_font.cpp\n@@ -47,6 +47,6 @@\n \tmemset(Sliders, 0, sizeof(Sliders));\n-\tfor (int i = 0; font_names[i] && *font_names[i] && labels[i] && *labels[i]; i++) {\n+\tfor (int i = 0; font_names[i] && *font_names[i] && *labels && **labels; i++, labels++) {\n \t\tconst char *name = font_names[i];\t\t\t\t// NAME 1: neutral (D10)\n-\t\tFontNames.push_back(std::string(name));\n-\t\tLabels.push_back(std::string(labels[i]));\n+\t\t{ std::string font(name); FontNames.push_back(font); }\n+\t\t{ std::string label(*labels); Labels.push_back(label); }\n \t\tSettings.push_back(OptionFontSettingStruct(fontDatabase->Get_Font_File_Index(name), fontDatabase->Get_Scale(name), fontDatabase->Get_Spacing(name), fontDatabase->Get_Unknown98(name)));\n"}
 ```
 
 ### font_ptr
 
-```diff
---- baseline/ui_option_font.cpp
-+++ font_ptr/ui_option_font.cpp
-@@ -47,6 +47,6 @@
- 	memset(Sliders, 0, sizeof(Sliders));
--	for (int i = 0; font_names[i] && *font_names[i] && labels[i] && *labels[i]; i++) {
--		const char *name = font_names[i];				// NAME 1: neutral (D10)
--		FontNames.push_back(std::string(name));
--		Labels.push_back(std::string(labels[i]));
-+	for (int i = 0; *font_names && **font_names && labels[i] && *labels[i]; font_names++, i++) {
-+		const char *name = *font_names;				// NAME 1: neutral (D10)
-+		{ std::string font(name); FontNames.push_back(font); }
-+		{ std::string label(labels[i]); Labels.push_back(label); }
- 		Settings.push_back(OptionFontSettingStruct(fontDatabase->Get_Font_File_Index(name), fontDatabase->Get_Scale(name), fontDatabase->Get_Spacing(name), fontDatabase->Get_Unknown98(name)));
+```json
+{"patch": "--- baseline/ui_option_font.cpp\n+++ font_ptr/ui_option_font.cpp\n@@ -47,6 +47,6 @@\n \tmemset(Sliders, 0, sizeof(Sliders));\n-\tfor (int i = 0; font_names[i] && *font_names[i] && labels[i] && *labels[i]; i++) {\n-\t\tconst char *name = font_names[i];\t\t\t\t// NAME 1: neutral (D10)\n-\t\tFontNames.push_back(std::string(name));\n-\t\tLabels.push_back(std::string(labels[i]));\n+\tfor (int i = 0; *font_names && **font_names && labels[i] && *labels[i]; font_names++, i++) {\n+\t\tconst char *name = *font_names;\t\t\t\t// NAME 1: neutral (D10)\n+\t\t{ std::string font(name); FontNames.push_back(font); }\n+\t\t{ std::string label(labels[i]); Labels.push_back(label); }\n \t\tSettings.push_back(OptionFontSettingStruct(fontDatabase->Get_Font_File_Index(name), fontDatabase->Get_Scale(name), fontDatabase->Get_Spacing(name), fontDatabase->Get_Unknown98(name)));\n"}
 ```
 
 ### label_p
 
-```diff
---- baseline/ui_option_font.cpp
-+++ label_p/ui_option_font.cpp
-@@ -47,6 +47,6 @@
- 	memset(Sliders, 0, sizeof(Sliders));
--	for (int i = 0; font_names[i] && *font_names[i] && labels[i] && *labels[i]; i++) {
--		const char *name = font_names[i];				// NAME 1: neutral (D10)
--		FontNames.push_back(std::string(name));
--		Labels.push_back(std::string(labels[i]));
-+	for (const char **p = labels; font_names[p-labels] && *font_names[p-labels] && *p && **p; ++p) {
-+		const char *name = font_names[p-labels];				// NAME 1: neutral (D10)
-+		{ std::string font(name); FontNames.push_back(font); }
-+		{ std::string label(*p); Labels.push_back(label); }
- 		Settings.push_back(OptionFontSettingStruct(fontDatabase->Get_Font_File_Index(name), fontDatabase->Get_Scale(name), fontDatabase->Get_Spacing(name), fontDatabase->Get_Unknown98(name)));
+```json
+{"patch": "--- baseline/ui_option_font.cpp\n+++ label_p/ui_option_font.cpp\n@@ -47,6 +47,6 @@\n \tmemset(Sliders, 0, sizeof(Sliders));\n-\tfor (int i = 0; font_names[i] && *font_names[i] && labels[i] && *labels[i]; i++) {\n-\t\tconst char *name = font_names[i];\t\t\t\t// NAME 1: neutral (D10)\n-\t\tFontNames.push_back(std::string(name));\n-\t\tLabels.push_back(std::string(labels[i]));\n+\tfor (const char **p = labels; font_names[p-labels] && *font_names[p-labels] && *p && **p; ++p) {\n+\t\tconst char *name = font_names[p-labels];\t\t\t\t// NAME 1: neutral (D10)\n+\t\t{ std::string font(name); FontNames.push_back(font); }\n+\t\t{ std::string label(*p); Labels.push_back(label); }\n \t\tSettings.push_back(OptionFontSettingStruct(fontDatabase->Get_Font_File_Index(name), fontDatabase->Get_Scale(name), fontDatabase->Get_Spacing(name), fontDatabase->Get_Unknown98(name)));\n"}
 ```
 
 ### font_p
 
-```diff
---- baseline/ui_option_font.cpp
-+++ font_p/ui_option_font.cpp
-@@ -47,6 +47,6 @@
- 	memset(Sliders, 0, sizeof(Sliders));
--	for (int i = 0; font_names[i] && *font_names[i] && labels[i] && *labels[i]; i++) {
--		const char *name = font_names[i];				// NAME 1: neutral (D10)
--		FontNames.push_back(std::string(name));
--		Labels.push_back(std::string(labels[i]));
-+	for (const char **p = font_names; *p && **p && labels[p-font_names] && *labels[p-font_names]; ++p) {
-+		const char *name = *p;				// NAME 1: neutral (D10)
-+		{ std::string font(name); FontNames.push_back(font); }
-+		{ std::string label(labels[p-font_names]); Labels.push_back(label); }
- 		Settings.push_back(OptionFontSettingStruct(fontDatabase->Get_Font_File_Index(name), fontDatabase->Get_Scale(name), fontDatabase->Get_Spacing(name), fontDatabase->Get_Unknown98(name)));
+```json
+{"patch": "--- baseline/ui_option_font.cpp\n+++ font_p/ui_option_font.cpp\n@@ -47,6 +47,6 @@\n \tmemset(Sliders, 0, sizeof(Sliders));\n-\tfor (int i = 0; font_names[i] && *font_names[i] && labels[i] && *labels[i]; i++) {\n-\t\tconst char *name = font_names[i];\t\t\t\t// NAME 1: neutral (D10)\n-\t\tFontNames.push_back(std::string(name));\n-\t\tLabels.push_back(std::string(labels[i]));\n+\tfor (const char **p = font_names; *p && **p && labels[p-font_names] && *labels[p-font_names]; ++p) {\n+\t\tconst char *name = *p;\t\t\t\t// NAME 1: neutral (D10)\n+\t\t{ std::string font(name); FontNames.push_back(font); }\n+\t\t{ std::string label(labels[p-font_names]); Labels.push_back(label); }\n \t\tSettings.push_back(OptionFontSettingStruct(fontDatabase->Get_Font_File_Index(name), fontDatabase->Get_Scale(name), fontDatabase->Get_Spacing(name), fontDatabase->Get_Unknown98(name)));\n"}
 ```
 
 ### zero_loops
 
-```diff
---- baseline/ui_option_font.cpp
-+++ zero_loops/ui_option_font.cpp
-@@ -45,8 +45,8 @@
- {
--	memset(Buttons, 0, sizeof(Buttons));
--	memset(Sliders, 0, sizeof(Sliders));
-+	for (int j = 0; j < 4; j++) Buttons[j] = NULL;
-+	for (int k = 0; k < OPTION_FONT_SLIDERS; k++) Sliders[k] = NULL;
- 	for (int i = 0; font_names[i] && *font_names[i] && labels[i] && *labels[i]; i++) {
- 		const char *name = font_names[i];				// NAME 1: neutral (D10)
--		FontNames.push_back(std::string(name));
--		Labels.push_back(std::string(labels[i]));
-+		{ std::string font(name); FontNames.push_back(font); }
-+		{ std::string label(labels[i]); Labels.push_back(label); }
- 		Settings.push_back(OptionFontSettingStruct(fontDatabase->Get_Font_File_Index(name), fontDatabase->Get_Scale(name), fontDatabase->Get_Spacing(name), fontDatabase->Get_Unknown98(name)));
+```json
+{"patch": "--- baseline/ui_option_font.cpp\n+++ zero_loops/ui_option_font.cpp\n@@ -45,8 +45,8 @@\n {\n-\tmemset(Buttons, 0, sizeof(Buttons));\n-\tmemset(Sliders, 0, sizeof(Sliders));\n+\tfor (int j = 0; j < 4; j++) Buttons[j] = NULL;\n+\tfor (int k = 0; k < OPTION_FONT_SLIDERS; k++) Sliders[k] = NULL;\n \tfor (int i = 0; font_names[i] && *font_names[i] && labels[i] && *labels[i]; i++) {\n \t\tconst char *name = font_names[i];\t\t\t\t// NAME 1: neutral (D10)\n-\t\tFontNames.push_back(std::string(name));\n-\t\tLabels.push_back(std::string(labels[i]));\n+\t\t{ std::string font(name); FontNames.push_back(font); }\n+\t\t{ std::string label(labels[i]); Labels.push_back(label); }\n \t\tSettings.push_back(OptionFontSettingStruct(fontDatabase->Get_Font_File_Index(name), fontDatabase->Get_Scale(name), fontDatabase->Get_Spacing(name), fontDatabase->Get_Unknown98(name)));\n"}
 ```
 
 ### zero_button_loop
 
-```diff
---- baseline/ui_option_font.cpp
-+++ zero_button_loop/ui_option_font.cpp
-@@ -45,3 +45,3 @@
- {
--	memset(Buttons, 0, sizeof(Buttons));
-+	for (int j = 0; j < 4; j++) Buttons[j] = NULL;
- 	memset(Sliders, 0, sizeof(Sliders));
-@@ -49,4 +49,4 @@
- 		const char *name = font_names[i];				// NAME 1: neutral (D10)
--		FontNames.push_back(std::string(name));
--		Labels.push_back(std::string(labels[i]));
-+		{ std::string font(name); FontNames.push_back(font); }
-+		{ std::string label(labels[i]); Labels.push_back(label); }
- 		Settings.push_back(OptionFontSettingStruct(fontDatabase->Get_Font_File_Index(name), fontDatabase->Get_Scale(name), fontDatabase->Get_Spacing(name), fontDatabase->Get_Unknown98(name)));
+```json
+{"patch": "--- baseline/ui_option_font.cpp\n+++ zero_button_loop/ui_option_font.cpp\n@@ -45,3 +45,3 @@\n {\n-\tmemset(Buttons, 0, sizeof(Buttons));\n+\tfor (int j = 0; j < 4; j++) Buttons[j] = NULL;\n \tmemset(Sliders, 0, sizeof(Sliders));\n@@ -49,4 +49,4 @@\n \t\tconst char *name = font_names[i];\t\t\t\t// NAME 1: neutral (D10)\n-\t\tFontNames.push_back(std::string(name));\n-\t\tLabels.push_back(std::string(labels[i]));\n+\t\t{ std::string font(name); FontNames.push_back(font); }\n+\t\t{ std::string label(labels[i]); Labels.push_back(label); }\n \t\tSettings.push_back(OptionFontSettingStruct(fontDatabase->Get_Font_File_Index(name), fontDatabase->Get_Scale(name), fontDatabase->Get_Spacing(name), fontDatabase->Get_Unknown98(name)));\n"}
 ```
 
 ### zero_slider_loop
 
-```diff
---- baseline/ui_option_font.cpp
-+++ zero_slider_loop/ui_option_font.cpp
-@@ -46,7 +46,7 @@
- 	memset(Buttons, 0, sizeof(Buttons));
--	memset(Sliders, 0, sizeof(Sliders));
-+	for (int j = 0; j < OPTION_FONT_SLIDERS; j++) Sliders[j] = NULL;
- 	for (int i = 0; font_names[i] && *font_names[i] && labels[i] && *labels[i]; i++) {
- 		const char *name = font_names[i];				// NAME 1: neutral (D10)
--		FontNames.push_back(std::string(name));
--		Labels.push_back(std::string(labels[i]));
-+		{ std::string font(name); FontNames.push_back(font); }
-+		{ std::string label(labels[i]); Labels.push_back(label); }
- 		Settings.push_back(OptionFontSettingStruct(fontDatabase->Get_Font_File_Index(name), fontDatabase->Get_Scale(name), fontDatabase->Get_Spacing(name), fontDatabase->Get_Unknown98(name)));
+```json
+{"patch": "--- baseline/ui_option_font.cpp\n+++ zero_slider_loop/ui_option_font.cpp\n@@ -46,7 +46,7 @@\n \tmemset(Buttons, 0, sizeof(Buttons));\n-\tmemset(Sliders, 0, sizeof(Sliders));\n+\tfor (int j = 0; j < OPTION_FONT_SLIDERS; j++) Sliders[j] = NULL;\n \tfor (int i = 0; font_names[i] && *font_names[i] && labels[i] && *labels[i]; i++) {\n \t\tconst char *name = font_names[i];\t\t\t\t// NAME 1: neutral (D10)\n-\t\tFontNames.push_back(std::string(name));\n-\t\tLabels.push_back(std::string(labels[i]));\n+\t\t{ std::string font(name); FontNames.push_back(font); }\n+\t\t{ std::string label(labels[i]); Labels.push_back(label); }\n \t\tSettings.push_back(OptionFontSettingStruct(fontDatabase->Get_Font_File_Index(name), fontDatabase->Get_Scale(name), fontDatabase->Get_Spacing(name), fontDatabase->Get_Unknown98(name)));\n"}
 ```
 
 ### zero_button_assign
 
-```diff
---- baseline/ui_option_font.cpp
-+++ zero_button_assign/ui_option_font.cpp
-@@ -45,3 +45,3 @@
- {
--	memset(Buttons, 0, sizeof(Buttons));
-+	Buttons[0] = Buttons[1] = Buttons[2] = Buttons[3] = NULL;
- 	memset(Sliders, 0, sizeof(Sliders));
-@@ -49,4 +49,4 @@
- 		const char *name = font_names[i];				// NAME 1: neutral (D10)
--		FontNames.push_back(std::string(name));
--		Labels.push_back(std::string(labels[i]));
-+		{ std::string font(name); FontNames.push_back(font); }
-+		{ std::string label(labels[i]); Labels.push_back(label); }
- 		Settings.push_back(OptionFontSettingStruct(fontDatabase->Get_Font_File_Index(name), fontDatabase->Get_Scale(name), fontDatabase->Get_Spacing(name), fontDatabase->Get_Unknown98(name)));
+```json
+{"patch": "--- baseline/ui_option_font.cpp\n+++ zero_button_assign/ui_option_font.cpp\n@@ -45,3 +45,3 @@\n {\n-\tmemset(Buttons, 0, sizeof(Buttons));\n+\tButtons[0] = Buttons[1] = Buttons[2] = Buttons[3] = NULL;\n \tmemset(Sliders, 0, sizeof(Sliders));\n@@ -49,4 +49,4 @@\n \t\tconst char *name = font_names[i];\t\t\t\t// NAME 1: neutral (D10)\n-\t\tFontNames.push_back(std::string(name));\n-\t\tLabels.push_back(std::string(labels[i]));\n+\t\t{ std::string font(name); FontNames.push_back(font); }\n+\t\t{ std::string label(labels[i]); Labels.push_back(label); }\n \t\tSettings.push_back(OptionFontSettingStruct(fontDatabase->Get_Font_File_Index(name), fontDatabase->Get_Scale(name), fontDatabase->Get_Spacing(name), fontDatabase->Get_Unknown98(name)));\n"}
 ```
 
 ### zero_slider_assign
 
-```diff
---- baseline/ui_option_font.cpp
-+++ zero_slider_assign/ui_option_font.cpp
-@@ -46,7 +46,7 @@
- 	memset(Buttons, 0, sizeof(Buttons));
--	memset(Sliders, 0, sizeof(Sliders));
-+	Sliders[0] = Sliders[1] = Sliders[2] = Sliders[3] = Sliders[4] = NULL;
- 	for (int i = 0; font_names[i] && *font_names[i] && labels[i] && *labels[i]; i++) {
- 		const char *name = font_names[i];				// NAME 1: neutral (D10)
--		FontNames.push_back(std::string(name));
--		Labels.push_back(std::string(labels[i]));
-+		{ std::string font(name); FontNames.push_back(font); }
-+		{ std::string label(labels[i]); Labels.push_back(label); }
- 		Settings.push_back(OptionFontSettingStruct(fontDatabase->Get_Font_File_Index(name), fontDatabase->Get_Scale(name), fontDatabase->Get_Spacing(name), fontDatabase->Get_Unknown98(name)));
+```json
+{"patch": "--- baseline/ui_option_font.cpp\n+++ zero_slider_assign/ui_option_font.cpp\n@@ -46,7 +46,7 @@\n \tmemset(Buttons, 0, sizeof(Buttons));\n-\tmemset(Sliders, 0, sizeof(Sliders));\n+\tSliders[0] = Sliders[1] = Sliders[2] = Sliders[3] = Sliders[4] = NULL;\n \tfor (int i = 0; font_names[i] && *font_names[i] && labels[i] && *labels[i]; i++) {\n \t\tconst char *name = font_names[i];\t\t\t\t// NAME 1: neutral (D10)\n-\t\tFontNames.push_back(std::string(name));\n-\t\tLabels.push_back(std::string(labels[i]));\n+\t\t{ std::string font(name); FontNames.push_back(font); }\n+\t\t{ std::string label(labels[i]); Labels.push_back(label); }\n \t\tSettings.push_back(OptionFontSettingStruct(fontDatabase->Get_Font_File_Index(name), fontDatabase->Get_Scale(name), fontDatabase->Get_Spacing(name), fontDatabase->Get_Unknown98(name)));\n"}
 ```
 
 ### zero_both_assign
 
-```diff
---- baseline/ui_option_font.cpp
-+++ zero_both_assign/ui_option_font.cpp
-@@ -45,8 +45,8 @@
- {
--	memset(Buttons, 0, sizeof(Buttons));
--	memset(Sliders, 0, sizeof(Sliders));
-+	Buttons[0] = Buttons[1] = Buttons[2] = Buttons[3] = NULL;
-+	Sliders[0] = Sliders[1] = Sliders[2] = Sliders[3] = Sliders[4] = NULL;
- 	for (int i = 0; font_names[i] && *font_names[i] && labels[i] && *labels[i]; i++) {
- 		const char *name = font_names[i];				// NAME 1: neutral (D10)
--		FontNames.push_back(std::string(name));
--		Labels.push_back(std::string(labels[i]));
-+		{ std::string font(name); FontNames.push_back(font); }
-+		{ std::string label(labels[i]); Labels.push_back(label); }
- 		Settings.push_back(OptionFontSettingStruct(fontDatabase->Get_Font_File_Index(name), fontDatabase->Get_Scale(name), fontDatabase->Get_Spacing(name), fontDatabase->Get_Unknown98(name)));
+```json
+{"patch": "--- baseline/ui_option_font.cpp\n+++ zero_both_assign/ui_option_font.cpp\n@@ -45,8 +45,8 @@\n {\n-\tmemset(Buttons, 0, sizeof(Buttons));\n-\tmemset(Sliders, 0, sizeof(Sliders));\n+\tButtons[0] = Buttons[1] = Buttons[2] = Buttons[3] = NULL;\n+\tSliders[0] = Sliders[1] = Sliders[2] = Sliders[3] = Sliders[4] = NULL;\n \tfor (int i = 0; font_names[i] && *font_names[i] && labels[i] && *labels[i]; i++) {\n \t\tconst char *name = font_names[i];\t\t\t\t// NAME 1: neutral (D10)\n-\t\tFontNames.push_back(std::string(name));\n-\t\tLabels.push_back(std::string(labels[i]));\n+\t\t{ std::string font(name); FontNames.push_back(font); }\n+\t\t{ std::string label(labels[i]); Labels.push_back(label); }\n \t\tSettings.push_back(OptionFontSettingStruct(fontDatabase->Get_Font_File_Index(name), fontDatabase->Get_Scale(name), fontDatabase->Get_Spacing(name), fontDatabase->Get_Unknown98(name)));\n"}
 ```
 
 ### zero_fill
 
-```diff
---- baseline/ui_option_font.cpp
-+++ zero_fill/ui_option_font.cpp
-@@ -45,8 +45,8 @@
- {
--	memset(Buttons, 0, sizeof(Buttons));
--	memset(Sliders, 0, sizeof(Sliders));
-+	std::fill(Buttons, Buttons + 4, (GadgetClass *)NULL);
-+	std::fill(Sliders, Sliders + OPTION_FONT_SLIDERS, (GadgetSlider *)NULL);
- 	for (int i = 0; font_names[i] && *font_names[i] && labels[i] && *labels[i]; i++) {
- 		const char *name = font_names[i];				// NAME 1: neutral (D10)
--		FontNames.push_back(std::string(name));
--		Labels.push_back(std::string(labels[i]));
-+		{ std::string font(name); FontNames.push_back(font); }
-+		{ std::string label(labels[i]); Labels.push_back(label); }
- 		Settings.push_back(OptionFontSettingStruct(fontDatabase->Get_Font_File_Index(name), fontDatabase->Get_Scale(name), fontDatabase->Get_Spacing(name), fontDatabase->Get_Unknown98(name)));
+```json
+{"patch": "--- baseline/ui_option_font.cpp\n+++ zero_fill/ui_option_font.cpp\n@@ -45,8 +45,8 @@\n {\n-\tmemset(Buttons, 0, sizeof(Buttons));\n-\tmemset(Sliders, 0, sizeof(Sliders));\n+\tstd::fill(Buttons, Buttons + 4, (GadgetClass *)NULL);\n+\tstd::fill(Sliders, Sliders + OPTION_FONT_SLIDERS, (GadgetSlider *)NULL);\n \tfor (int i = 0; font_names[i] && *font_names[i] && labels[i] && *labels[i]; i++) {\n \t\tconst char *name = font_names[i];\t\t\t\t// NAME 1: neutral (D10)\n-\t\tFontNames.push_back(std::string(name));\n-\t\tLabels.push_back(std::string(labels[i]));\n+\t\t{ std::string font(name); FontNames.push_back(font); }\n+\t\t{ std::string label(labels[i]); Labels.push_back(label); }\n \t\tSettings.push_back(OptionFontSettingStruct(fontDatabase->Get_Font_File_Index(name), fontDatabase->Get_Scale(name), fontDatabase->Get_Spacing(name), fontDatabase->Get_Unknown98(name)));\n"}
 ```
 
 ### zero_elements
 
-```diff
---- baseline/ui_option_font.cpp
-+++ zero_elements/ui_option_font.cpp
-@@ -45,8 +45,8 @@
- {
--	memset(Buttons, 0, sizeof(Buttons));
--	memset(Sliders, 0, sizeof(Sliders));
-+	memset(Buttons, 0, 4 * sizeof(*Buttons));
-+	memset(Sliders, 0, OPTION_FONT_SLIDERS * sizeof(*Sliders));
- 	for (int i = 0; font_names[i] && *font_names[i] && labels[i] && *labels[i]; i++) {
- 		const char *name = font_names[i];				// NAME 1: neutral (D10)
--		FontNames.push_back(std::string(name));
--		Labels.push_back(std::string(labels[i]));
-+		{ std::string font(name); FontNames.push_back(font); }
-+		{ std::string label(labels[i]); Labels.push_back(label); }
- 		Settings.push_back(OptionFontSettingStruct(fontDatabase->Get_Font_File_Index(name), fontDatabase->Get_Scale(name), fontDatabase->Get_Spacing(name), fontDatabase->Get_Unknown98(name)));
+```json
+{"patch": "--- baseline/ui_option_font.cpp\n+++ zero_elements/ui_option_font.cpp\n@@ -45,8 +45,8 @@\n {\n-\tmemset(Buttons, 0, sizeof(Buttons));\n-\tmemset(Sliders, 0, sizeof(Sliders));\n+\tmemset(Buttons, 0, 4 * sizeof(*Buttons));\n+\tmemset(Sliders, 0, OPTION_FONT_SLIDERS * sizeof(*Sliders));\n \tfor (int i = 0; font_names[i] && *font_names[i] && labels[i] && *labels[i]; i++) {\n \t\tconst char *name = font_names[i];\t\t\t\t// NAME 1: neutral (D10)\n-\t\tFontNames.push_back(std::string(name));\n-\t\tLabels.push_back(std::string(labels[i]));\n+\t\t{ std::string font(name); FontNames.push_back(font); }\n+\t\t{ std::string label(labels[i]); Labels.push_back(label); }\n \t\tSettings.push_back(OptionFontSettingStruct(fontDatabase->Get_Font_File_Index(name), fontDatabase->Get_Scale(name), fontDatabase->Get_Spacing(name), fontDatabase->Get_Unknown98(name)));\n"}
 ```
 
 ### ne_null
 
-```diff
---- baseline/ui_option_font.cpp
-+++ ne_null/ui_option_font.cpp
-@@ -47,6 +47,6 @@
- 	memset(Sliders, 0, sizeof(Sliders));
--	for (int i = 0; font_names[i] && *font_names[i] && labels[i] && *labels[i]; i++) {
-+	for (int i = 0; font_names[i] != NULL && *font_names[i] != 0 && labels[i] != NULL && *labels[i] != 0; i++) {
- 		const char *name = font_names[i];				// NAME 1: neutral (D10)
--		FontNames.push_back(std::string(name));
--		Labels.push_back(std::string(labels[i]));
-+		{ std::string font(name); FontNames.push_back(font); }
-+		{ std::string label(labels[i]); Labels.push_back(label); }
- 		Settings.push_back(OptionFontSettingStruct(fontDatabase->Get_Font_File_Index(name), fontDatabase->Get_Scale(name), fontDatabase->Get_Spacing(name), fontDatabase->Get_Unknown98(name)));
+```json
+{"patch": "--- baseline/ui_option_font.cpp\n+++ ne_null/ui_option_font.cpp\n@@ -47,6 +47,6 @@\n \tmemset(Sliders, 0, sizeof(Sliders));\n-\tfor (int i = 0; font_names[i] && *font_names[i] && labels[i] && *labels[i]; i++) {\n+\tfor (int i = 0; font_names[i] != NULL && *font_names[i] != 0 && labels[i] != NULL && *labels[i] != 0; i++) {\n \t\tconst char *name = font_names[i];\t\t\t\t// NAME 1: neutral (D10)\n-\t\tFontNames.push_back(std::string(name));\n-\t\tLabels.push_back(std::string(labels[i]));\n+\t\t{ std::string font(name); FontNames.push_back(font); }\n+\t\t{ std::string label(labels[i]); Labels.push_back(label); }\n \t\tSettings.push_back(OptionFontSettingStruct(fontDatabase->Get_Font_File_Index(name), fontDatabase->Get_Scale(name), fontDatabase->Get_Spacing(name), fontDatabase->Get_Unknown98(name)));\n"}
 ```
 
 ### ne_zero
 
-```diff
---- baseline/ui_option_font.cpp
-+++ ne_zero/ui_option_font.cpp
-@@ -47,6 +47,6 @@
- 	memset(Sliders, 0, sizeof(Sliders));
--	for (int i = 0; font_names[i] && *font_names[i] && labels[i] && *labels[i]; i++) {
-+	for (int i = 0; font_names[i] != 0 && *font_names[i] != 0 && labels[i] != 0 && *labels[i] != 0; i++) {
- 		const char *name = font_names[i];				// NAME 1: neutral (D10)
--		FontNames.push_back(std::string(name));
--		Labels.push_back(std::string(labels[i]));
-+		{ std::string font(name); FontNames.push_back(font); }
-+		{ std::string label(labels[i]); Labels.push_back(label); }
- 		Settings.push_back(OptionFontSettingStruct(fontDatabase->Get_Font_File_Index(name), fontDatabase->Get_Scale(name), fontDatabase->Get_Spacing(name), fontDatabase->Get_Unknown98(name)));
+```json
+{"patch": "--- baseline/ui_option_font.cpp\n+++ ne_zero/ui_option_font.cpp\n@@ -47,6 +47,6 @@\n \tmemset(Sliders, 0, sizeof(Sliders));\n-\tfor (int i = 0; font_names[i] && *font_names[i] && labels[i] && *labels[i]; i++) {\n+\tfor (int i = 0; font_names[i] != 0 && *font_names[i] != 0 && labels[i] != 0 && *labels[i] != 0; i++) {\n \t\tconst char *name = font_names[i];\t\t\t\t// NAME 1: neutral (D10)\n-\t\tFontNames.push_back(std::string(name));\n-\t\tLabels.push_back(std::string(labels[i]));\n+\t\t{ std::string font(name); FontNames.push_back(font); }\n+\t\t{ std::string label(labels[i]); Labels.push_back(label); }\n \t\tSettings.push_back(OptionFontSettingStruct(fontDatabase->Get_Font_File_Index(name), fontDatabase->Get_Scale(name), fontDatabase->Get_Spacing(name), fontDatabase->Get_Unknown98(name)));\n"}
 ```
 
 ### reverse_cmp
 
-```diff
---- baseline/ui_option_font.cpp
-+++ reverse_cmp/ui_option_font.cpp
-@@ -47,6 +47,6 @@
- 	memset(Sliders, 0, sizeof(Sliders));
--	for (int i = 0; font_names[i] && *font_names[i] && labels[i] && *labels[i]; i++) {
-+	for (int i = 0; NULL != font_names[i] && 0 != *font_names[i] && NULL != labels[i] && 0 != *labels[i]; i++) {
- 		const char *name = font_names[i];				// NAME 1: neutral (D10)
--		FontNames.push_back(std::string(name));
--		Labels.push_back(std::string(labels[i]));
-+		{ std::string font(name); FontNames.push_back(font); }
-+		{ std::string label(labels[i]); Labels.push_back(label); }
- 		Settings.push_back(OptionFontSettingStruct(fontDatabase->Get_Font_File_Index(name), fontDatabase->Get_Scale(name), fontDatabase->Get_Spacing(name), fontDatabase->Get_Unknown98(name)));
+```json
+{"patch": "--- baseline/ui_option_font.cpp\n+++ reverse_cmp/ui_option_font.cpp\n@@ -47,6 +47,6 @@\n \tmemset(Sliders, 0, sizeof(Sliders));\n-\tfor (int i = 0; font_names[i] && *font_names[i] && labels[i] && *labels[i]; i++) {\n+\tfor (int i = 0; NULL != font_names[i] && 0 != *font_names[i] && NULL != labels[i] && 0 != *labels[i]; i++) {\n \t\tconst char *name = font_names[i];\t\t\t\t// NAME 1: neutral (D10)\n-\t\tFontNames.push_back(std::string(name));\n-\t\tLabels.push_back(std::string(labels[i]));\n+\t\t{ std::string font(name); FontNames.push_back(font); }\n+\t\t{ std::string label(labels[i]); Labels.push_back(label); }\n \t\tSettings.push_back(OptionFontSettingStruct(fontDatabase->Get_Font_File_Index(name), fontDatabase->Get_Scale(name), fontDatabase->Get_Spacing(name), fontDatabase->Get_Unknown98(name)));\n"}
 ```
 
 ### negated
 
-```diff
---- baseline/ui_option_font.cpp
-+++ negated/ui_option_font.cpp
-@@ -47,6 +47,6 @@
- 	memset(Sliders, 0, sizeof(Sliders));
--	for (int i = 0; font_names[i] && *font_names[i] && labels[i] && *labels[i]; i++) {
-+	for (int i = 0; !(!font_names[i] || !*font_names[i] || !labels[i] || !*labels[i]); i++) {
- 		const char *name = font_names[i];				// NAME 1: neutral (D10)
--		FontNames.push_back(std::string(name));
--		Labels.push_back(std::string(labels[i]));
-+		{ std::string font(name); FontNames.push_back(font); }
-+		{ std::string label(labels[i]); Labels.push_back(label); }
- 		Settings.push_back(OptionFontSettingStruct(fontDatabase->Get_Font_File_Index(name), fontDatabase->Get_Scale(name), fontDatabase->Get_Spacing(name), fontDatabase->Get_Unknown98(name)));
+```json
+{"patch": "--- baseline/ui_option_font.cpp\n+++ negated/ui_option_font.cpp\n@@ -47,6 +47,6 @@\n \tmemset(Sliders, 0, sizeof(Sliders));\n-\tfor (int i = 0; font_names[i] && *font_names[i] && labels[i] && *labels[i]; i++) {\n+\tfor (int i = 0; !(!font_names[i] || !*font_names[i] || !labels[i] || !*labels[i]); i++) {\n \t\tconst char *name = font_names[i];\t\t\t\t// NAME 1: neutral (D10)\n-\t\tFontNames.push_back(std::string(name));\n-\t\tLabels.push_back(std::string(labels[i]));\n+\t\t{ std::string font(name); FontNames.push_back(font); }\n+\t\t{ std::string label(labels[i]); Labels.push_back(label); }\n \t\tSettings.push_back(OptionFontSettingStruct(fontDatabase->Get_Font_File_Index(name), fontDatabase->Get_Scale(name), fontDatabase->Get_Spacing(name), fontDatabase->Get_Unknown98(name)));\n"}
 ```
 
 ### double_not
 
-```diff
---- baseline/ui_option_font.cpp
-+++ double_not/ui_option_font.cpp
-@@ -47,6 +47,6 @@
- 	memset(Sliders, 0, sizeof(Sliders));
--	for (int i = 0; font_names[i] && *font_names[i] && labels[i] && *labels[i]; i++) {
-+	for (int i = 0; !!font_names[i] && !!*font_names[i] && !!labels[i] && !!*labels[i]; i++) {
- 		const char *name = font_names[i];				// NAME 1: neutral (D10)
--		FontNames.push_back(std::string(name));
--		Labels.push_back(std::string(labels[i]));
-+		{ std::string font(name); FontNames.push_back(font); }
-+		{ std::string label(labels[i]); Labels.push_back(label); }
- 		Settings.push_back(OptionFontSettingStruct(fontDatabase->Get_Font_File_Index(name), fontDatabase->Get_Scale(name), fontDatabase->Get_Spacing(name), fontDatabase->Get_Unknown98(name)));
+```json
+{"patch": "--- baseline/ui_option_font.cpp\n+++ double_not/ui_option_font.cpp\n@@ -47,6 +47,6 @@\n \tmemset(Sliders, 0, sizeof(Sliders));\n-\tfor (int i = 0; font_names[i] && *font_names[i] && labels[i] && *labels[i]; i++) {\n+\tfor (int i = 0; !!font_names[i] && !!*font_names[i] && !!labels[i] && !!*labels[i]; i++) {\n \t\tconst char *name = font_names[i];\t\t\t\t// NAME 1: neutral (D10)\n-\t\tFontNames.push_back(std::string(name));\n-\t\tLabels.push_back(std::string(labels[i]));\n+\t\t{ std::string font(name); FontNames.push_back(font); }\n+\t\t{ std::string label(labels[i]); Labels.push_back(label); }\n \t\tSettings.push_back(OptionFontSettingStruct(fontDatabase->Get_Font_File_Index(name), fontDatabase->Get_Scale(name), fontDatabase->Get_Spacing(name), fontDatabase->Get_Unknown98(name)));\n"}
 ```
 
 ### indexed_chars
 
-```diff
---- baseline/ui_option_font.cpp
-+++ indexed_chars/ui_option_font.cpp
-@@ -47,6 +47,6 @@
- 	memset(Sliders, 0, sizeof(Sliders));
--	for (int i = 0; font_names[i] && *font_names[i] && labels[i] && *labels[i]; i++) {
-+	for (int i = 0; font_names[i] && font_names[i][0] && labels[i] && labels[i][0]; i++) {
- 		const char *name = font_names[i];				// NAME 1: neutral (D10)
--		FontNames.push_back(std::string(name));
--		Labels.push_back(std::string(labels[i]));
-+		{ std::string font(name); FontNames.push_back(font); }
-+		{ std::string label(labels[i]); Labels.push_back(label); }
- 		Settings.push_back(OptionFontSettingStruct(fontDatabase->Get_Font_File_Index(name), fontDatabase->Get_Scale(name), fontDatabase->Get_Spacing(name), fontDatabase->Get_Unknown98(name)));
+```json
+{"patch": "--- baseline/ui_option_font.cpp\n+++ indexed_chars/ui_option_font.cpp\n@@ -47,6 +47,6 @@\n \tmemset(Sliders, 0, sizeof(Sliders));\n-\tfor (int i = 0; font_names[i] && *font_names[i] && labels[i] && *labels[i]; i++) {\n+\tfor (int i = 0; font_names[i] && font_names[i][0] && labels[i] && labels[i][0]; i++) {\n \t\tconst char *name = font_names[i];\t\t\t\t// NAME 1: neutral (D10)\n-\t\tFontNames.push_back(std::string(name));\n-\t\tLabels.push_back(std::string(labels[i]));\n+\t\t{ std::string font(name); FontNames.push_back(font); }\n+\t\t{ std::string label(labels[i]); Labels.push_back(label); }\n \t\tSettings.push_back(OptionFontSettingStruct(fontDatabase->Get_Font_File_Index(name), fontDatabase->Get_Scale(name), fontDatabase->Get_Spacing(name), fontDatabase->Get_Unknown98(name)));\n"}
 ```
 
 ### char_ne
 
-```diff
---- baseline/ui_option_font.cpp
-+++ char_ne/ui_option_font.cpp
-@@ -47,6 +47,6 @@
- 	memset(Sliders, 0, sizeof(Sliders));
--	for (int i = 0; font_names[i] && *font_names[i] && labels[i] && *labels[i]; i++) {
-+	for (int i = 0; font_names[i] && font_names[i][0] != 0 && labels[i] && labels[i][0] != 0; i++) {
- 		const char *name = font_names[i];				// NAME 1: neutral (D10)
--		FontNames.push_back(std::string(name));
--		Labels.push_back(std::string(labels[i]));
-+		{ std::string font(name); FontNames.push_back(font); }
-+		{ std::string label(labels[i]); Labels.push_back(label); }
- 		Settings.push_back(OptionFontSettingStruct(fontDatabase->Get_Font_File_Index(name), fontDatabase->Get_Scale(name), fontDatabase->Get_Spacing(name), fontDatabase->Get_Unknown98(name)));
+```json
+{"patch": "--- baseline/ui_option_font.cpp\n+++ char_ne/ui_option_font.cpp\n@@ -47,6 +47,6 @@\n \tmemset(Sliders, 0, sizeof(Sliders));\n-\tfor (int i = 0; font_names[i] && *font_names[i] && labels[i] && *labels[i]; i++) {\n+\tfor (int i = 0; font_names[i] && font_names[i][0] != 0 && labels[i] && labels[i][0] != 0; i++) {\n \t\tconst char *name = font_names[i];\t\t\t\t// NAME 1: neutral (D10)\n-\t\tFontNames.push_back(std::string(name));\n-\t\tLabels.push_back(std::string(labels[i]));\n+\t\t{ std::string font(name); FontNames.push_back(font); }\n+\t\t{ std::string label(labels[i]); Labels.push_back(label); }\n \t\tSettings.push_back(OptionFontSettingStruct(fontDatabase->Get_Font_File_Index(name), fontDatabase->Get_Scale(name), fontDatabase->Get_Spacing(name), fontDatabase->Get_Unknown98(name)));\n"}
 ```
 
 ### ternary_checks
 
-```diff
---- baseline/ui_option_font.cpp
-+++ ternary_checks/ui_option_font.cpp
-@@ -47,6 +47,6 @@
- 	memset(Sliders, 0, sizeof(Sliders));
--	for (int i = 0; font_names[i] && *font_names[i] && labels[i] && *labels[i]; i++) {
-+	for (int i = 0; font_names[i] ? (*font_names[i] ? (labels[i] ? *labels[i] != 0 : false) : false) : false; i++) {
- 		const char *name = font_names[i];				// NAME 1: neutral (D10)
--		FontNames.push_back(std::string(name));
--		Labels.push_back(std::string(labels[i]));
-+		{ std::string font(name); FontNames.push_back(font); }
-+		{ std::string label(labels[i]); Labels.push_back(label); }
- 		Settings.push_back(OptionFontSettingStruct(fontDatabase->Get_Font_File_Index(name), fontDatabase->Get_Scale(name), fontDatabase->Get_Spacing(name), fontDatabase->Get_Unknown98(name)));
+```json
+{"patch": "--- baseline/ui_option_font.cpp\n+++ ternary_checks/ui_option_font.cpp\n@@ -47,6 +47,6 @@\n \tmemset(Sliders, 0, sizeof(Sliders));\n-\tfor (int i = 0; font_names[i] && *font_names[i] && labels[i] && *labels[i]; i++) {\n+\tfor (int i = 0; font_names[i] ? (*font_names[i] ? (labels[i] ? *labels[i] != 0 : false) : false) : false; i++) {\n \t\tconst char *name = font_names[i];\t\t\t\t// NAME 1: neutral (D10)\n-\t\tFontNames.push_back(std::string(name));\n-\t\tLabels.push_back(std::string(labels[i]));\n+\t\t{ std::string font(name); FontNames.push_back(font); }\n+\t\t{ std::string label(labels[i]); Labels.push_back(label); }\n \t\tSettings.push_back(OptionFontSettingStruct(fontDatabase->Get_Font_File_Index(name), fontDatabase->Get_Scale(name), fontDatabase->Get_Spacing(name), fontDatabase->Get_Unknown98(name)));\n"}
 ```

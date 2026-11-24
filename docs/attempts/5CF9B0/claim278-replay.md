@@ -1,5 +1,7 @@
 # Claim 278 — 0x5CF9B0 replay evidence
 
+Patch blocks encode exact unified-diff text as JSON; decode the `patch` field before applying.
+
 Fresh HEAD 14fd2e8a. One initial and one final baseline control, 26 valid candidates, one compiler failure (ambiguous zero-length constructor), and one sandbox setup failure. Native VC6 SP4 compilation uses original app flags and basename; physical assert lines verified. All successful candidates matched against the same whole-unit baseline. Hash covers target bytes with relocation fields zeroed including alignment; identical hashes are compiler duplicates. Similarity is heuristic, not byte proof.
 
 | form | source SHA-256 | masked target SHA-256 | object bytes | similarity | symbol gains / losses |
@@ -36,344 +38,156 @@ Retail calls string::_Eos during initial empty-string construction and inlines i
 
 ### assign
 
-```diff
---- baseline/ui_pda_cargo.cpp
-+++ assign/ui_pda_cargo.cpp
-@@ -80,3 +80,3 @@
- 		SortReverse = options->Get_Bool("Inv_Sort_Cargo_Reverse");
--		FilterName = options->Get_String("Inv_Filter_Cargo");
-+		FilterName.assign(options->Get_String("Inv_Filter_Cargo"));
- 	}
+```json
+{"patch": "--- baseline/ui_pda_cargo.cpp\n+++ assign/ui_pda_cargo.cpp\n@@ -80,3 +80,3 @@\n \t\tSortReverse = options->Get_Bool(\"Inv_Sort_Cargo_Reverse\");\n-\t\tFilterName = options->Get_String(\"Inv_Filter_Cargo\");\n+\t\tFilterName.assign(options->Get_String(\"Inv_Filter_Cargo\"));\n \t}\n"}
 ```
 
 ### assign_range
 
-```diff
---- baseline/ui_pda_cargo.cpp
-+++ assign_range/ui_pda_cargo.cpp
-@@ -80,3 +80,3 @@
- 		SortReverse = options->Get_Bool("Inv_Sort_Cargo_Reverse");
--		FilterName = options->Get_String("Inv_Filter_Cargo");
-+		FilterName.assign(options->Get_String("Inv_Filter_Cargo"), 0, std::string::npos);
- 	}
+```json
+{"patch": "--- baseline/ui_pda_cargo.cpp\n+++ assign_range/ui_pda_cargo.cpp\n@@ -80,3 +80,3 @@\n \t\tSortReverse = options->Get_Bool(\"Inv_Sort_Cargo_Reverse\");\n-\t\tFilterName = options->Get_String(\"Inv_Filter_Cargo\");\n+\t\tFilterName.assign(options->Get_String(\"Inv_Filter_Cargo\"), 0, std::string::npos);\n \t}\n"}
 ```
 
 ### array_memset
 
-```diff
---- baseline/ui_pda_cargo.cpp
-+++ array_memset/ui_pda_cargo.cpp
-@@ -74,5 +74,5 @@
- {
--	for (int i = 0; i < NUM_BUTTONS; i++) {
--		Buttons5[i] = NULL;
--	}
-+	memset(Buttons5, 0, sizeof(Buttons5));
-+
-+
- 	OptionClass *options = OptionClass::Instance; if (options) {
+```json
+{"patch": "--- baseline/ui_pda_cargo.cpp\n+++ array_memset/ui_pda_cargo.cpp\n@@ -74,5 +74,5 @@\n {\n-\tfor (int i = 0; i < NUM_BUTTONS; i++) {\n-\t\tButtons5[i] = NULL;\n-\t}\n+\tmemset(Buttons5, 0, sizeof(Buttons5));\n+\n+\n \tOptionClass *options = OptionClass::Instance; if (options) {\n"}
 ```
 
 ### array_chain
 
-```diff
---- baseline/ui_pda_cargo.cpp
-+++ array_chain/ui_pda_cargo.cpp
-@@ -74,5 +74,5 @@
- {
--	for (int i = 0; i < NUM_BUTTONS; i++) {
--		Buttons5[i] = NULL;
--	}
-+	Buttons5[0] = Buttons5[1] = Buttons5[2] = Buttons5[3] = Buttons5[4] = NULL;
-+
-+
- 	OptionClass *options = OptionClass::Instance; if (options) {
+```json
+{"patch": "--- baseline/ui_pda_cargo.cpp\n+++ array_chain/ui_pda_cargo.cpp\n@@ -74,5 +74,5 @@\n {\n-\tfor (int i = 0; i < NUM_BUTTONS; i++) {\n-\t\tButtons5[i] = NULL;\n-\t}\n+\tButtons5[0] = Buttons5[1] = Buttons5[2] = Buttons5[3] = Buttons5[4] = NULL;\n+\n+\n \tOptionClass *options = OptionClass::Instance; if (options) {\n"}
 ```
 
 ### named
 
-```diff
---- baseline/ui_pda_cargo.cpp
-+++ named/ui_pda_cargo.cpp
-@@ -80,3 +80,3 @@
- 		SortReverse = options->Get_Bool("Inv_Sort_Cargo_Reverse");
--		FilterName = options->Get_String("Inv_Filter_Cargo");
-+		std::string value = options->Get_String("Inv_Filter_Cargo"); FilterName = value;
- 	}
+```json
+{"patch": "--- baseline/ui_pda_cargo.cpp\n+++ named/ui_pda_cargo.cpp\n@@ -80,3 +80,3 @@\n \t\tSortReverse = options->Get_Bool(\"Inv_Sort_Cargo_Reverse\");\n-\t\tFilterName = options->Get_String(\"Inv_Filter_Cargo\");\n+\t\tstd::string value = options->Get_String(\"Inv_Filter_Cargo\"); FilterName = value;\n \t}\n"}
 ```
 
 ### init_default
 
-```diff
---- baseline/ui_pda_cargo.cpp
-+++ init_default/ui_pda_cargo.cpp
-@@ -72,3 +72,3 @@
- 	SortIndex(0),
--	SortReverse(false), FilterName("")
-+	SortReverse(false)
- {
+```json
+{"patch": "--- baseline/ui_pda_cargo.cpp\n+++ init_default/ui_pda_cargo.cpp\n@@ -72,3 +72,3 @@\n \tSortIndex(0),\n-\tSortReverse(false), FilterName(\"\")\n+\tSortReverse(false)\n {\n"}
 ```
 
 ### init_temp
 
-```diff
---- baseline/ui_pda_cargo.cpp
-+++ init_temp/ui_pda_cargo.cpp
-@@ -72,3 +72,3 @@
- 	SortIndex(0),
--	SortReverse(false), FilterName("")
-+	SortReverse(false), FilterName(std::string(""))
- {
+```json
+{"patch": "--- baseline/ui_pda_cargo.cpp\n+++ init_temp/ui_pda_cargo.cpp\n@@ -72,3 +72,3 @@\n \tSortIndex(0),\n-\tSortReverse(false), FilterName(\"\")\n+\tSortReverse(false), FilterName(std::string(\"\"))\n {\n"}
 ```
 
 ### init_allocator
 
-```diff
---- baseline/ui_pda_cargo.cpp
-+++ init_allocator/ui_pda_cargo.cpp
-@@ -72,3 +72,3 @@
- 	SortIndex(0),
--	SortReverse(false), FilterName("")
-+	SortReverse(false), FilterName("", std::allocator<char>())
- {
+```json
+{"patch": "--- baseline/ui_pda_cargo.cpp\n+++ init_allocator/ui_pda_cargo.cpp\n@@ -72,3 +72,3 @@\n \tSortIndex(0),\n-\tSortReverse(false), FilterName(\"\")\n+\tSortReverse(false), FilterName(\"\", std::allocator<char>())\n {\n"}
 ```
 
 ### if_instance
 
-```diff
---- baseline/ui_pda_cargo.cpp
-+++ if_instance/ui_pda_cargo.cpp
-@@ -77,6 +77,6 @@
- 	}
--	OptionClass *options = OptionClass::Instance; if (options) {
--		SortIndex = options->Get_Bool("Inv_Sort_Cargo");
--		SortReverse = options->Get_Bool("Inv_Sort_Cargo_Reverse");
--		FilterName = options->Get_String("Inv_Filter_Cargo");
-+	if (OptionClass::Instance) {
-+		SortIndex = OptionClass::Instance->Get_Bool("Inv_Sort_Cargo");
-+		SortReverse = OptionClass::Instance->Get_Bool("Inv_Sort_Cargo_Reverse");
-+		FilterName = OptionClass::Instance->Get_String("Inv_Filter_Cargo");
- 	}
+```json
+{"patch": "--- baseline/ui_pda_cargo.cpp\n+++ if_instance/ui_pda_cargo.cpp\n@@ -77,6 +77,6 @@\n \t}\n-\tOptionClass *options = OptionClass::Instance; if (options) {\n-\t\tSortIndex = options->Get_Bool(\"Inv_Sort_Cargo\");\n-\t\tSortReverse = options->Get_Bool(\"Inv_Sort_Cargo_Reverse\");\n-\t\tFilterName = options->Get_String(\"Inv_Filter_Cargo\");\n+\tif (OptionClass::Instance) {\n+\t\tSortIndex = OptionClass::Instance->Get_Bool(\"Inv_Sort_Cargo\");\n+\t\tSortReverse = OptionClass::Instance->Get_Bool(\"Inv_Sort_Cargo_Reverse\");\n+\t\tFilterName = OptionClass::Instance->Get_String(\"Inv_Filter_Cargo\");\n \t}\n"}
 ```
 
 ### if_ne_null
 
-```diff
---- baseline/ui_pda_cargo.cpp
-+++ if_ne_null/ui_pda_cargo.cpp
-@@ -77,3 +77,3 @@
- 	}
--	OptionClass *options = OptionClass::Instance; if (options) {
-+	OptionClass *options = OptionClass::Instance; if (options != NULL) {
- 		SortIndex = options->Get_Bool("Inv_Sort_Cargo");
+```json
+{"patch": "--- baseline/ui_pda_cargo.cpp\n+++ if_ne_null/ui_pda_cargo.cpp\n@@ -77,3 +77,3 @@\n \t}\n-\tOptionClass *options = OptionClass::Instance; if (options) {\n+\tOptionClass *options = OptionClass::Instance; if (options != NULL) {\n \t\tSortIndex = options->Get_Bool(\"Inv_Sort_Cargo\");\n"}
 ```
 
 ### if_notnull
 
-```diff
---- baseline/ui_pda_cargo.cpp
-+++ if_notnull/ui_pda_cargo.cpp
-@@ -77,3 +77,3 @@
- 	}
--	OptionClass *options = OptionClass::Instance; if (options) {
-+	OptionClass *options = OptionClass::Instance; if (!!options) {
- 		SortIndex = options->Get_Bool("Inv_Sort_Cargo");
+```json
+{"patch": "--- baseline/ui_pda_cargo.cpp\n+++ if_notnull/ui_pda_cargo.cpp\n@@ -77,3 +77,3 @@\n \t}\n-\tOptionClass *options = OptionClass::Instance; if (options) {\n+\tOptionClass *options = OptionClass::Instance; if (!!options) {\n \t\tSortIndex = options->Get_Bool(\"Inv_Sort_Cargo\");\n"}
 ```
 
 ### if_early
 
-```diff
---- baseline/ui_pda_cargo.cpp
-+++ if_early/ui_pda_cargo.cpp
-@@ -77,3 +77,3 @@
- 	}
--	OptionClass *options = OptionClass::Instance; if (options) {
-+	OptionClass *options = OptionClass::Instance; if (!options) { Unknown_BE67BC->Load("fa_pdainv.ini"); return; } {
- 		SortIndex = options->Get_Bool("Inv_Sort_Cargo");
+```json
+{"patch": "--- baseline/ui_pda_cargo.cpp\n+++ if_early/ui_pda_cargo.cpp\n@@ -77,3 +77,3 @@\n \t}\n-\tOptionClass *options = OptionClass::Instance; if (options) {\n+\tOptionClass *options = OptionClass::Instance; if (!options) { Unknown_BE67BC->Load(\"fa_pdainv.ini\"); return; } {\n \t\tSortIndex = options->Get_Bool(\"Inv_Sort_Cargo\");\n"}
 ```
 
 ### array_index_down
 
-```diff
---- baseline/ui_pda_cargo.cpp
-+++ array_index_down/ui_pda_cargo.cpp
-@@ -74,4 +74,4 @@
- {
--	for (int i = 0; i < NUM_BUTTONS; i++) {
--		Buttons5[i] = NULL;
-+	for (int i = NUM_BUTTONS; i > 0; i--) {
-+		Buttons5[i - 1] = NULL;
- 	}
+```json
+{"patch": "--- baseline/ui_pda_cargo.cpp\n+++ array_index_down/ui_pda_cargo.cpp\n@@ -74,4 +74,4 @@\n {\n-\tfor (int i = 0; i < NUM_BUTTONS; i++) {\n-\t\tButtons5[i] = NULL;\n+\tfor (int i = NUM_BUTTONS; i > 0; i--) {\n+\t\tButtons5[i - 1] = NULL;\n \t}\n"}
 ```
 
 ### array_ptr
 
-```diff
---- baseline/ui_pda_cargo.cpp
-+++ array_ptr/ui_pda_cargo.cpp
-@@ -74,4 +74,4 @@
- {
--	for (int i = 0; i < NUM_BUTTONS; i++) {
--		Buttons5[i] = NULL;
-+	for (ButtonGadgetClass **p = Buttons5; p != Buttons5 + NUM_BUTTONS; p++) {
-+		*p = NULL;
- 	}
+```json
+{"patch": "--- baseline/ui_pda_cargo.cpp\n+++ array_ptr/ui_pda_cargo.cpp\n@@ -74,4 +74,4 @@\n {\n-\tfor (int i = 0; i < NUM_BUTTONS; i++) {\n-\t\tButtons5[i] = NULL;\n+\tfor (ButtonGadgetClass **p = Buttons5; p != Buttons5 + NUM_BUTTONS; p++) {\n+\t\t*p = NULL;\n \t}\n"}
 ```
 
 ### array_do
 
-```diff
---- baseline/ui_pda_cargo.cpp
-+++ array_do/ui_pda_cargo.cpp
-@@ -74,5 +74,5 @@
- {
--	for (int i = 0; i < NUM_BUTTONS; i++) {
--		Buttons5[i] = NULL;
--	}
-+	int i = 0; do {
-+		Buttons5[i++] = NULL;
-+	} while (i < NUM_BUTTONS);
- 	OptionClass *options = OptionClass::Instance; if (options) {
+```json
+{"patch": "--- baseline/ui_pda_cargo.cpp\n+++ array_do/ui_pda_cargo.cpp\n@@ -74,5 +74,5 @@\n {\n-\tfor (int i = 0; i < NUM_BUTTONS; i++) {\n-\t\tButtons5[i] = NULL;\n-\t}\n+\tint i = 0; do {\n+\t\tButtons5[i++] = NULL;\n+\t} while (i < NUM_BUTTONS);\n \tOptionClass *options = OptionClass::Instance; if (options) {\n"}
 ```
 
 ### array_while
 
-```diff
---- baseline/ui_pda_cargo.cpp
-+++ array_while/ui_pda_cargo.cpp
-@@ -74,4 +74,4 @@
- {
--	for (int i = 0; i < NUM_BUTTONS; i++) {
--		Buttons5[i] = NULL;
-+	int i = 0; while (i < NUM_BUTTONS) {
-+		Buttons5[i++] = NULL;
- 	}
+```json
+{"patch": "--- baseline/ui_pda_cargo.cpp\n+++ array_while/ui_pda_cargo.cpp\n@@ -74,4 +74,4 @@\n {\n-\tfor (int i = 0; i < NUM_BUTTONS; i++) {\n-\t\tButtons5[i] = NULL;\n+\tint i = 0; while (i < NUM_BUTTONS) {\n+\t\tButtons5[i++] = NULL;\n \t}\n"}
 ```
 
 ### array_post
 
-```diff
---- baseline/ui_pda_cargo.cpp
-+++ array_post/ui_pda_cargo.cpp
-@@ -74,4 +74,4 @@
- {
--	for (int i = 0; i < NUM_BUTTONS; i++) {
--		Buttons5[i] = NULL;
-+	for (int i = 0; i != NUM_BUTTONS;) {
-+		Buttons5[i++] = NULL;
- 	}
+```json
+{"patch": "--- baseline/ui_pda_cargo.cpp\n+++ array_post/ui_pda_cargo.cpp\n@@ -74,4 +74,4 @@\n {\n-\tfor (int i = 0; i < NUM_BUTTONS; i++) {\n-\t\tButtons5[i] = NULL;\n+\tfor (int i = 0; i != NUM_BUTTONS;) {\n+\t\tButtons5[i++] = NULL;\n \t}\n"}
 ```
 
 ### array_fill
 
-```diff
---- baseline/ui_pda_cargo.cpp
-+++ array_fill/ui_pda_cargo.cpp
-@@ -74,5 +74,5 @@
- {
--	for (int i = 0; i < NUM_BUTTONS; i++) {
--		Buttons5[i] = NULL;
--	}
-+	std::fill(Buttons5, Buttons5 + NUM_BUTTONS, (ButtonGadgetClass *)NULL);
-+
-+
- 	OptionClass *options = OptionClass::Instance; if (options) {
+```json
+{"patch": "--- baseline/ui_pda_cargo.cpp\n+++ array_fill/ui_pda_cargo.cpp\n@@ -74,5 +74,5 @@\n {\n-\tfor (int i = 0; i < NUM_BUTTONS; i++) {\n-\t\tButtons5[i] = NULL;\n-\t}\n+\tstd::fill(Buttons5, Buttons5 + NUM_BUTTONS, (ButtonGadgetClass *)NULL);\n+\n+\n \tOptionClass *options = OptionClass::Instance; if (options) {\n"}
 ```
 
 ### array_size
 
-```diff
---- baseline/ui_pda_cargo.cpp
-+++ array_size/ui_pda_cargo.cpp
-@@ -74,4 +74,4 @@
- {
--	for (int i = 0; i < NUM_BUTTONS; i++) {
--		Buttons5[i] = NULL;
-+	for (unsigned int i = 0; i < sizeof(Buttons5) / sizeof(Buttons5[0]); ++i) {
-+		Buttons5[i] = 0;
- 	}
+```json
+{"patch": "--- baseline/ui_pda_cargo.cpp\n+++ array_size/ui_pda_cargo.cpp\n@@ -74,4 +74,4 @@\n {\n-\tfor (int i = 0; i < NUM_BUTTONS; i++) {\n-\t\tButtons5[i] = NULL;\n+\tfor (unsigned int i = 0; i < sizeof(Buttons5) / sizeof(Buttons5[0]); ++i) {\n+\t\tButtons5[i] = 0;\n \t}\n"}
 ```
 
 ### string_bound
 
-```diff
---- baseline/ui_pda_cargo.cpp
-+++ string_bound/ui_pda_cargo.cpp
-@@ -80,3 +80,3 @@
- 		SortReverse = options->Get_Bool("Inv_Sort_Cargo_Reverse");
--		FilterName = options->Get_String("Inv_Filter_Cargo");
-+		const std::string &value = options->Get_String("Inv_Filter_Cargo"); FilterName = value;
- 	}
+```json
+{"patch": "--- baseline/ui_pda_cargo.cpp\n+++ string_bound/ui_pda_cargo.cpp\n@@ -80,3 +80,3 @@\n \t\tSortReverse = options->Get_Bool(\"Inv_Sort_Cargo_Reverse\");\n-\t\tFilterName = options->Get_String(\"Inv_Filter_Cargo\");\n+\t\tconst std::string &value = options->Get_String(\"Inv_Filter_Cargo\"); FilterName = value;\n \t}\n"}
 ```
 
 ### string_named_assign
 
-```diff
---- baseline/ui_pda_cargo.cpp
-+++ string_named_assign/ui_pda_cargo.cpp
-@@ -80,3 +80,3 @@
- 		SortReverse = options->Get_Bool("Inv_Sort_Cargo_Reverse");
--		FilterName = options->Get_String("Inv_Filter_Cargo");
-+		std::string value = options->Get_String("Inv_Filter_Cargo"); FilterName.assign(value);
- 	}
+```json
+{"patch": "--- baseline/ui_pda_cargo.cpp\n+++ string_named_assign/ui_pda_cargo.cpp\n@@ -80,3 +80,3 @@\n \t\tSortReverse = options->Get_Bool(\"Inv_Sort_Cargo_Reverse\");\n-\t\tFilterName = options->Get_String(\"Inv_Filter_Cargo\");\n+\t\tstd::string value = options->Get_String(\"Inv_Filter_Cargo\"); FilterName.assign(value);\n \t}\n"}
 ```
 
 ### string_bound_assign
 
-```diff
---- baseline/ui_pda_cargo.cpp
-+++ string_bound_assign/ui_pda_cargo.cpp
-@@ -80,3 +80,3 @@
- 		SortReverse = options->Get_Bool("Inv_Sort_Cargo_Reverse");
--		FilterName = options->Get_String("Inv_Filter_Cargo");
-+		const std::string &value = options->Get_String("Inv_Filter_Cargo"); FilterName.assign(value);
- 	}
+```json
+{"patch": "--- baseline/ui_pda_cargo.cpp\n+++ string_bound_assign/ui_pda_cargo.cpp\n@@ -80,3 +80,3 @@\n \t\tSortReverse = options->Get_Bool(\"Inv_Sort_Cargo_Reverse\");\n-\t\tFilterName = options->Get_String(\"Inv_Filter_Cargo\");\n+\t\tconst std::string &value = options->Get_String(\"Inv_Filter_Cargo\"); FilterName.assign(value);\n \t}\n"}
 ```
 
 ### sort_ternary
 
-```diff
---- baseline/ui_pda_cargo.cpp
-+++ sort_ternary/ui_pda_cargo.cpp
-@@ -78,3 +78,3 @@
- 	OptionClass *options = OptionClass::Instance; if (options) {
--		SortIndex = options->Get_Bool("Inv_Sort_Cargo");
-+		SortIndex = options->Get_Bool("Inv_Sort_Cargo") ? 1 : 0;
- 		SortReverse = options->Get_Bool("Inv_Sort_Cargo_Reverse");
+```json
+{"patch": "--- baseline/ui_pda_cargo.cpp\n+++ sort_ternary/ui_pda_cargo.cpp\n@@ -78,3 +78,3 @@\n \tOptionClass *options = OptionClass::Instance; if (options) {\n-\t\tSortIndex = options->Get_Bool(\"Inv_Sort_Cargo\");\n+\t\tSortIndex = options->Get_Bool(\"Inv_Sort_Cargo\") ? 1 : 0;\n \t\tSortReverse = options->Get_Bool(\"Inv_Sort_Cargo_Reverse\");\n"}
 ```
 
 ### sort_reverse_bool
 
-```diff
---- baseline/ui_pda_cargo.cpp
-+++ sort_reverse_bool/ui_pda_cargo.cpp
-@@ -79,3 +79,3 @@
- 		SortIndex = options->Get_Bool("Inv_Sort_Cargo");
--		SortReverse = options->Get_Bool("Inv_Sort_Cargo_Reverse");
-+		SortReverse = options->Get_Bool("Inv_Sort_Cargo_Reverse") != false;
- 		FilterName = options->Get_String("Inv_Filter_Cargo");
+```json
+{"patch": "--- baseline/ui_pda_cargo.cpp\n+++ sort_reverse_bool/ui_pda_cargo.cpp\n@@ -79,3 +79,3 @@\n \t\tSortIndex = options->Get_Bool(\"Inv_Sort_Cargo\");\n-\t\tSortReverse = options->Get_Bool(\"Inv_Sort_Cargo_Reverse\");\n+\t\tSortReverse = options->Get_Bool(\"Inv_Sort_Cargo_Reverse\") != false;\n \t\tFilterName = options->Get_String(\"Inv_Filter_Cargo\");\n"}
 ```
 
 ### options_declare
 
-```diff
---- baseline/ui_pda_cargo.cpp
-+++ options_declare/ui_pda_cargo.cpp
-@@ -77,3 +77,3 @@
- 	}
--	OptionClass *options = OptionClass::Instance; if (options) {
-+	OptionClass *options; if ((options = OptionClass::Instance) != NULL) {
- 		SortIndex = options->Get_Bool("Inv_Sort_Cargo");
+```json
+{"patch": "--- baseline/ui_pda_cargo.cpp\n+++ options_declare/ui_pda_cargo.cpp\n@@ -77,3 +77,3 @@\n \t}\n-\tOptionClass *options = OptionClass::Instance; if (options) {\n+\tOptionClass *options; if ((options = OptionClass::Instance) != NULL) {\n \t\tSortIndex = options->Get_Bool(\"Inv_Sort_Cargo\");\n"}
 ```
 
 ### init_range
 
-```diff
---- baseline/ui_pda_cargo.cpp
-+++ init_range/ui_pda_cargo.cpp
-@@ -72,3 +72,3 @@
- 	SortIndex(0),
--	SortReverse(false), FilterName("")
-+	SortReverse(false), FilterName("", (std::string::size_type)0)
- {
+```json
+{"patch": "--- baseline/ui_pda_cargo.cpp\n+++ init_range/ui_pda_cargo.cpp\n@@ -72,3 +72,3 @@\n \tSortIndex(0),\n-\tSortReverse(false), FilterName(\"\")\n+\tSortReverse(false), FilterName(\"\", (std::string::size_type)0)\n {\n"}
 ```
