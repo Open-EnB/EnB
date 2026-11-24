@@ -3202,7 +3202,7 @@ static inline CharacterViewAvatarClass *Unknown_Player_Avatar(SClient *client, u
 	std::hash_map<unsigned, CharacterViewAvatarClass *>::const_iterator it = client->Unknown1394.find(id);
 	if (it != client->Unknown1394.end() && (*it).second) {
 		CharacterViewAvatarClass *object = (*it).second->Unknown_77E3F0();
-		object->Unknown_780810(client->EnvironmentMapManager);
+		EnvironmentMapManagerClass *env = client->EnvironmentMapManager; object->Unknown_780810(env);
 		return(object); }
 	return(NULL); }
 
@@ -3242,7 +3242,7 @@ static inline CharacterViewAvatarClass *Unknown_Player_Avatar(SClient *client, u
 
 
 
-// NOT EXACT: register (explain.py relocation through __FILE__, then register): 296 against 297 instructions, every call as the client's; `buffer + skip` and the EH state are scheduled after the vector's members, eax / ecx swapped around the packet's assigns and Send_Packet
+// NOT EXACT: order-only (explain.py): 296 instructions as the client's; `buffer + skip` and the EH state are scheduled after the vector's members (the client computes buffer + skip first); a rest local before the vector gives the client's order but swaps text / skip between ebp / ebx
 // 0x749590 (0x74ABC0): '/tell <player> <message>' ('/t'): the avatar's chat stream and the line to the server
 bool SClient::Unknown_749590(const char *text)
 {
@@ -3293,7 +3293,7 @@ bool SClient::Unknown_749590(const char *text)
 
 
 
-// NOT EXACT: register-only (explain.py): 264 instructions as the client's; the client pushes ebp in the prologue (ours after the '/reply' test), eax / ecx swapped at 0x780810's argument and the assigns
+
 // 0x749A70 (0x74ABC0): '/reply <message>' ('/r'): as '/tell', to the chat panel's last sender (its Unknown1D8)
 bool SClient::Unknown_749A70(const char *text)
 {
@@ -3309,18 +3309,18 @@ bool SClient::Unknown_749A70(const char *text)
 	if ((int)strlen(buffer) > skip) {
 		if (strcmp(ChatPanel->Unknown1D8.c_str(), "") == 0) {
 			Unknown_74D990(0x11, "Unable to reply - nothing to reply to.", 0);
-		} else {
-			CharacterViewAvatarClass *avatar = Unknown_Player_Avatar(this, Get_Avatar_ID());
-			if (avatar) {
-				char *message = buffer + skip;
-				avatar->Unknown_781760(message);
-				ClientChatRequestPacketClass packet(1, Unknown1138);
-				packet.Unknown14 = std::string(ChatPanel->Unknown1D8.c_str());
-				packet.Unknown_878D90(avatar->Unknown_7817E0());
-				packet.Unknown34 = std::string(message);
-				Send_Packet(&packet);
-				Print(0x10, "To %s: %s", ChatPanel->Unknown1D8.c_str(), message);
-			}
+			return(true);
+		}
+		CharacterViewAvatarClass *avatar = Unknown_Player_Avatar(this, Get_Avatar_ID());
+		if (avatar) {
+			char *message = buffer + skip;
+			avatar->Unknown_781760(message);
+			int id = Unknown1138; ClientChatRequestPacketClass packet(1, id);
+			packet.Unknown14 = std::string(ChatPanel->Unknown1D8.c_str());
+			packet.Unknown_878D90(avatar->Unknown_7817E0());
+			packet.Unknown34 = std::string(message);
+			Send_Packet(&packet);
+			Print(0x10, "To %s: %s", ChatPanel->Unknown1D8.c_str(), message);
 		}
 	} else {
 		ChatPanel->Unknown_567540(1);
