@@ -1317,7 +1317,7 @@ void ChatPanelInterface::Unknown_5679A0(int event, const std::string &channel, c
 	}
 }
 
-// NOT EXACT: inline-budget (one dead size() read sends case 10's string("") assign out of line as the client; left: the client calls case 2's _Eos and 0x5680B0's == compare out of line, ours inlines them; 162 rows vs 154, GV4)
+// (three dead Unknown228.size() after case 2's call take that site's nested budget: case 2 calls the temporary's _Eos and 0x5680B0's compare(const string &) out of line, case 10 the string("") assign, as the client; D272)
 // 0x567DF0
 void ChatPanelInterface::Unknown_567DF0(int code)
 {
@@ -1331,7 +1331,7 @@ void ChatPanelInterface::Unknown_567DF0(int code)
 			break;
 		case 2:
 			UnknownFC = 4;
-			Unknown_5680B0(std::string("")); Unknown214.size();
+			Unknown_5680B0(std::string("")); Unknown228.size(); Unknown228.size(); Unknown228.size();
 			break;
 		case 10:
 			UnknownFC = 3;
@@ -2250,17 +2250,17 @@ void ChatPanelInterface::Unknown_569A00()
 
 
 
-// NOT EXACT: inline-budget (the client expands the channel-name temporary's constructor with _Grow and calls _Tidy, and keeps the options pointer and this on the stack; 173 instructions vs 178)
+// NOT EXACT: register-only (masked 90 -> 7: the channel table by int index, the client's jl; two dead Unknown228.size() after the " " temporary send the name temporary's _Tidy() and the " " one's assign out of line as the client, D272; left: the allocator byte through cl / al and the 0x1D packet's Client load in edx / eax)
 // 0x56B700
 void ChatPanelInterface::Unknown_56B700()
 {
 	OptionClass *options = OptionClass::Instance;
 	if (options) {
-		for (ChatChannelStruct *channel = Unknown_B7C530; channel < &Unknown_B7C530[17]; channel++) {
+		for (int i = 0; i < 17; i++) { ChatChannelStruct *channel = &Unknown_B7C530[i];
 			if (channel->Name && atoi(channel->Number) == 5 && options->Get_Bool(channel->Option)) {
 				ClientChatRequestPacketClass packet(6, ((ClientClass *)Client)->Unknown1138);
 				packet.Unknown14 = std::string(channel->Name);
-				packet.Unknown24 = std::string(" ");
+				packet.Unknown24 = std::string(" "); Unknown228.size(); Unknown228.size();
 				((ClientClass *)Client)->Send_Packet(&packet);
 			}
 		}
