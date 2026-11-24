@@ -2959,7 +2959,7 @@ void UIStarbaseClass::Unknown_63DCD0(int facility)
 }
 
 
-// NOT EXACT: 0x63DFE0, functional (frame: 0x50 against the client's 0x54, its three early-out blocks kept in place with their own epilogues where ours merges two at the end; O4)
+// NOT EXACT: 0x63DFE0, functional (frame: 0x50 against the client's 0x54, its three early-out blocks kept in place with their own epilogues where ours merges two at the end; O4; case 3 before case 4: the client's EH states number case 3's packet temporary 0; D4 2026-11-24: every differing region codegen)
 // 0x63DFE0 (0x638390's frame: the symbol chat menu's chosen option for the avatar UnknownC0.C: 2 a chat to it, 3 a trade
 // (ACTION 20), 4 ACTION 10)
 void UIStarbaseClass::Unknown_63DFE0()
@@ -2983,9 +2983,6 @@ void UIStarbaseClass::Unknown_63DFE0()
 		int option = Unknown1F8->Unknown_645DC0();
 		if (option) {
 			switch (option) {
-				case 4:
-					sclient->Send_Packet(&ActionPacketClass(sclient->Get_Avatar_ID(), 10, savatar->Unknown00, 0));
-					break;
 				case 3:
 					{
 						SBaseViewClass *view = (SBaseViewClass *)sclient->Unknown135C;
@@ -2993,6 +2990,9 @@ void UIStarbaseClass::Unknown_63DFE0()
 							sclient->Send_Packet(&ActionPacketClass(sclient->Get_Avatar_ID(), 0x14, savatar->Unknown00, 0));
 						}
 					}
+					break;
+				case 4:
+					sclient->Send_Packet(&ActionPacketClass(sclient->Get_Avatar_ID(), 10, savatar->Unknown00, 0));
 					break;
 				case 2:
 					if (savatar->Avatar) {
