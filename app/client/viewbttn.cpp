@@ -157,7 +157,7 @@ ViewButtonClass::~ViewButtonClass()
 
 
 
-// NOT EXACT: register allocation only (explain.py; attempts.csv)
+
 bool ViewButtonClass::Unknown_2C(KernelEventClass *event, float x, float y, unsigned int mask)
 {
 	if (!(Mask & mask)) return(false);
@@ -172,7 +172,7 @@ bool ViewButtonClass::Unknown_2C(KernelEventClass *event, float x, float y, unsi
 	} else if (mask & 0x44) {
 		Unknown_6C();
 	}
-	ClientObjectClass *hover = View->Radar->Hover;
+	RadarSystemClass *radar = View->Radar; ClientObjectClass *hover = radar->Hover;	// NAME 1 [radar]: the view's Radar
 	bool turn = (!shift && ((mask & 0x20) || ((mask & 0x10) && hover == NULL)));
 	bool lock_speed = false;
 	bool lock_orient = false;
@@ -193,12 +193,12 @@ bool ViewButtonClass::Unknown_2C(KernelEventClass *event, float x, float y, unsi
 				Unknown49 = false;
 			} else if (x > 0.25f && x < 0.75 && y > 0.2f && y < 0.8) {
 				if (!Unknown49) {
-					sclient->Send_Packet(&MovePacketClass(sclient->AvatarID, 0));
+					sclient->Send_Packet(&MovePacketClass(sclient->Get_Avatar_ID(), 0));
 					sclient->Unknown_745E40(1, false);
 					Unknown49 = true;
 				}
 			} else if (Unknown49) {
-				sclient->Send_Packet(&MovePacketClass(sclient->AvatarID, 4));
+				sclient->Send_Packet(&MovePacketClass(sclient->Get_Avatar_ID(), 4));
 				sclient->Unknown_745E40(0, false);
 				Unknown49 = false;
 			}
@@ -223,7 +223,7 @@ bool ViewButtonClass::Unknown_2C(KernelEventClass *event, float x, float y, unsi
 		Unknown4A = false;
 		if (Unknown49) {
 			if (ThrottleRightMouse && !Unknown_Cpit_Moving(View) && !lock_speed) {
-				sclient->Send_Packet(&MovePacketClass(sclient->AvatarID, 4));
+				sclient->Send_Packet(&MovePacketClass(sclient->Get_Avatar_ID(), 4));
 				sclient->Unknown_745E40(0, false);
 			}
 			Unknown49 = false;
