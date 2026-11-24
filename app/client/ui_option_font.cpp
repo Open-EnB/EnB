@@ -34,7 +34,7 @@ static const char *Unknown_B832E8[4] = { NULL, "ok_opt_font", "cancel_opt_font",
 
 
 
-// NOT EXACT: shape (similarity 0.49; forms: indexed for, for with break, two-pointer while): the client builds the first string's copy with _Tidy out of line and the second inline
+
 // 0x5CC350
 OptionFontInterface::OptionFontInterface(SClient *client, const char **font_names, const char **labels, const std::string &title) :
 	ChatPanelUIBase(client),
@@ -45,10 +45,10 @@ OptionFontInterface::OptionFontInterface(SClient *client, const char **font_name
 {
 	memset(Buttons, 0, sizeof(Buttons));
 	memset(Sliders, 0, sizeof(Sliders));
-	for (int i = 0; font_names[i] && *font_names[i] && labels[i] && *labels[i]; i++) {
+	for (int i = 0; font_names[i] ? (*font_names[i] ? (labels[i] ? *labels[i] != 0 : false) : false) : false; i++) {
 		const char *name = font_names[i];				// NAME 1: neutral (D10)
-		FontNames.push_back(std::string(name));
-		Labels.push_back(std::string(labels[i]));
+		{ std::string font(name); FontNames.push_back(font); }		// NAME 1 [font]: temporary font name
+		{ std::string label(labels[i]); Labels.push_back(label); }	// NAME 1 [label]: temporary label
 		Settings.push_back(OptionFontSettingStruct(fontDatabase->Get_Font_File_Index(name), fontDatabase->Get_Scale(name), fontDatabase->Get_Spacing(name), fontDatabase->Get_Unknown98(name)));
 	}
 }
