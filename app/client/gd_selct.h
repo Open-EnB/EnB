@@ -35,7 +35,7 @@ public:
 
 	bool Finished;										// +0x40 (a click or key let go: inv_transaction.cpp reads Value then)  // NAME 1: what slot +0x2C does with it
 	bool Armed;											// +0x41 (the button or key that finishes went down on this gadget)  // NAME 1: what slot +0x2C does with it
-	int Max;											// +0x44 (inv_transaction.cpp's stack count)  // NAME 1: what slot +0x40 does with it
+	void Set_Max(int max) { Max = max; }	int Max;											// +0x44 (inv_transaction.cpp's stack count; Set_Max inline: its 0x690AA0 loads the gadget into ecx)  // NAME 1 [Max, Set_Max]: what slot +0x40 does with it
 	int Value;											// +0x48 (the number picked; 0 when cancelled)  // NAME 1: what inv_transaction.cpp reads
 	StrEditClass *Edit;									// +0x4C (10 digits, flags 0xC4)  // NAME 1: its type
 	FontSys *Text;										// +0x50 (GD_SELECT_FONT: the number)  // NAME 1: what it shows
