@@ -161,19 +161,19 @@ OrbitalObject *OrbitalObject::Create(INIClass &ini, const char *section, ClientC
 }
 
 
-// NOT EXACT: the products' order and the temporaries' stack slots differ (similarity 0.53 before the rotations took the client's axes, Z then X)
+// NOT EXACT: frame 0x90 equal, masked residue 10 rows: the client copies all of z out of rot (rot's slots then hold y), this form one of three
 void OrbitalObject::Update(CameraClass *camera, float time)
 {
 	WWPROFILE("OrbitalObject::Update");
-	float orbit = (time * OrbitsPerHour * 2.0f + StartAngle) * WWMATH_PI;
+	Vector3 down(0, 0, -1); float orbit = (time * OrbitsPerHour * 2.0f + StartAngle) * WWMATH_PI;
 	Matrix3D rot(true);
 	rot.Rotate_Z(RZ * WWMATH_PI);
 	float a = RX * WWMATH_PI;
 	rot.Rotate_X(sinf(a), cosf(a));
 	rot.Rotate_Y(sinf(-orbit), cosf(-orbit));
-	Matrix3D::Rotate_Vector(rot, Vector3(0, 0, -1), &Direction);
-	Vector3 pos = Distance * Direction + camera->Get_Transform().Get_Translation();
-	Vector3 x = -Direction;
+	Vector3 *pdir = &Direction; Matrix3D::Rotate_Vector(rot, down, pdir); Vector3 &dir = *pdir;
+	Vector3 pos = Distance * dir + camera->Get_Transform().Get_Translation();
+	Vector3 x = -dir;
 	Vector3 z;
 	rot.Get_X_Vector(&z);
 	Vector3 y;
@@ -182,7 +182,7 @@ void OrbitalObject::Update(CameraClass *camera, float time)
 	tm.Set(x, y, z, pos);
 	Object->Set_Transform(tm);
 	if (EmitsLight) {
-		Angle = (float)(WWMATH_PI / 2 - acos(Direction.Z));
+		Angle = WWMATH_PI / 2 - (float)acos(dir.Z);
 		Time = Angle * (1.0f / WWMATH_PI) + 0.5f;
 		LightIntensityR->Evaluate(Time, &LightValue.X);
 		LightIntensityG->Evaluate(Time, &LightValue.Y);
