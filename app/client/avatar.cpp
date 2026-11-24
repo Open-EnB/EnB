@@ -1612,7 +1612,7 @@ std::string CharacterViewAvatarClass::Unknown_781D10(int anim)
 }
 
 // 0x781EA0
-// NOT EXACT: registers and two schedules (200/200 rows; the client compares Unknown210 in memory and adds delay into a copy; D5 2026-11-24: audited against the client's bytes)
+// NOT EXACT: registers and two schedules (201/200 rows: the client compares Unknown210 in memory and loads PlayerNLP before the name; D5 2026-11-24: audited against the client's bytes)
 void CharacterViewAvatarClass::Unknown_781EA0()
 {
 	int delay = PlayerNLP->Personality->Get_Fidget_Delay();
@@ -1625,7 +1625,7 @@ void CharacterViewAvatarClass::Unknown_781EA0()
 	char name[32];
 	if (Unknown210 != 0) {
 		_snprintf(name, 0x20, "sit_breathe");
-	} else if ((float)(delay + Unknown224) < Unknown22C) {
+	} else if (Unknown22C > (float)(delay + Unknown224)) {
 		if (Unknown244 > 3) {
 			_snprintf(name, 0x20, "bored");
 			Unknown244 = 0;
