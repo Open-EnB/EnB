@@ -1,0 +1,20 @@
+{
+  "format": "exact-text-replacements-v1",
+  "unit": "app/shared/spln_db.cpp",
+  "scope": "Create_Blend only",
+  "replacements": [
+    [
+      "description != NULL && strlen(description) >= 0x80",
+      "description != NULL && strlen(spline_name) >= 0x80"
+    ]
+  ],
+  "baseline_sha256": "9becb309c93e1598bc077951f79a5f5c02e8a6251e850206a22792dd5a2374f5",
+  "variant_sha256": "d75842a5105cb5db9bd7f84540f329360ccfc598560a1ef34d286d024eadba57",
+  "result": "one valid tested variant; exact symbol/address gains 0 losses 0; 95 exact rows before and after; objdiff 0.56 to 0.59. Client 0x486296 tests description, then 0x48629E mov edi,esi scans spline_name. Changed form reproduces registers and instructions through the constructor call. Find is still inlined twice while retail calls hash Find.",
+  "counts": {
+    "valid_tested_inputs": 1,
+    "controls": 1,
+    "invalid": 0,
+    "uncompiled_proposals": 0
+  }
+}

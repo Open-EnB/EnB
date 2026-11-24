@@ -1,0 +1,227 @@
+{
+  "target": "0x486F60",
+  "baseline_sha256": "9becb309c93e1598bc077951f79a5f5c02e8a6251e850206a22792dd5a2374f5",
+  "control": "95 exact; target unmatched",
+  "tests": [
+    {
+      "name": "overload",
+      "sha256": "37b74a157bf63c6d7cf48dcd2ab6f3d37caf7a6dd3cd2757ddd5d033a8ca0440",
+      "patch": "--- baseline/spln_db.cpp\n+++ overload/spln_db.cpp\n@@ -1403,8 +1403,8 @@\n \t\t\t\texisting->Unpack(&buffer);\n \t\t\t} else {\n \t\t\t\tSplineEntryClass *entry = new SplineEntryClass(&buffer);\n-\t\t\t\tHashNodeClass<SplineEntryClass *> *node = new HashNodeClass<SplineEntryClass *>(entry, key);\n-\t\t\t\tSplines.Add(node);\n+\t\t\t\tHashNodeClass<SplineEntryClass *> *node = Splines.Add(entry, key);\n+\n \t\t\t\tif (node == NULL) {\n \t\t\t\t\tG_ASSERT(false);\n \t\t\t\t\tif (entry != NULL) {\n"
+    },
+    {
+      "name": "cursor",
+      "sha256": "8b3b54630f006e6dcb8e856164c2d958a7935abbc6002d96714b48587050750a",
+      "patch": "--- baseline/spln_db.cpp\n+++ cursor/spln_db.cpp\n@@ -1391,18 +1391,18 @@\n // NOT EXACT: shape (written from the pseudocode: the count loop and the merge path)\n // @0x486F60\n void SplineDatabaseClass::Unpack(char *buffer)\n-{\n-\tunsigned short count = *(unsigned short *)buffer;\n-\tbuffer += 2;\n+{ char *cursor = buffer;\n+\tunsigned short count = *(unsigned short *)cursor;\n+\tcursor += 2;\n \twhile (count--) {\n-\t\tunsigned int key = *(unsigned int *)buffer;\n-\t\tbuffer += 4;\n+\t\tunsigned int key = *(unsigned int *)cursor;\n+\t\tcursor += 4;\n \t\tif (key != 0) {\n \t\t\tSplineEntryClass *existing = Find(key);\n \t\t\tif (existing != NULL) {\n-\t\t\t\texisting->Unpack(&buffer);\n+\t\t\t\texisting->Unpack(&cursor);\n \t\t\t} else {\n-\t\t\t\tSplineEntryClass *entry = new SplineEntryClass(&buffer);\n+\t\t\t\tSplineEntryClass *entry = new SplineEntryClass(&cursor);\n \t\t\t\tHashNodeClass<SplineEntryClass *> *node = new HashNodeClass<SplineEntryClass *>(entry, key);\n \t\t\t\tSplines.Add(node);\n \t\t\t\tif (node == NULL) {\n"
+    },
+    {
+      "name": "both",
+      "sha256": "790c6050298f448c65e5075f35d30e84e5d232717f913a5361f9afbc12e68d58",
+      "patch": "--- baseline/spln_db.cpp\n+++ both/spln_db.cpp\n@@ -1391,20 +1391,20 @@\n // NOT EXACT: shape (written from the pseudocode: the count loop and the merge path)\n // @0x486F60\n void SplineDatabaseClass::Unpack(char *buffer)\n-{\n-\tunsigned short count = *(unsigned short *)buffer;\n-\tbuffer += 2;\n+{ char *cursor = buffer;\n+\tunsigned short count = *(unsigned short *)cursor;\n+\tcursor += 2;\n \twhile (count--) {\n-\t\tunsigned int key = *(unsigned int *)buffer;\n-\t\tbuffer += 4;\n+\t\tunsigned int key = *(unsigned int *)cursor;\n+\t\tcursor += 4;\n \t\tif (key != 0) {\n \t\t\tSplineEntryClass *existing = Find(key);\n \t\t\tif (existing != NULL) {\n-\t\t\t\texisting->Unpack(&buffer);\n+\t\t\t\texisting->Unpack(&cursor);\n \t\t\t} else {\n-\t\t\t\tSplineEntryClass *entry = new SplineEntryClass(&buffer);\n-\t\t\t\tHashNodeClass<SplineEntryClass *> *node = new HashNodeClass<SplineEntryClass *>(entry, key);\n-\t\t\t\tSplines.Add(node);\n+\t\t\t\tSplineEntryClass *entry = new SplineEntryClass(&cursor);\n+\t\t\t\tHashNodeClass<SplineEntryClass *> *node = Splines.Add(entry, key);\n+\n \t\t\t\tif (node == NULL) {\n \t\t\t\t\tG_ASSERT(false);\n \t\t\t\t\tif (entry != NULL) {\n"
+    },
+    {
+      "name": "spill",
+      "sha256": "f77a79aafcd746a54f5226bdd202348f5372f758825f19ff55bdeb7353d8f55f",
+      "patch": "--- baseline/spln_db.cpp\n+++ spill/spln_db.cpp\n@@ -1391,20 +1391,20 @@\n // NOT EXACT: shape (written from the pseudocode: the count loop and the merge path)\n // @0x486F60\n void SplineDatabaseClass::Unpack(char *buffer)\n-{\n-\tunsigned short count = *(unsigned short *)buffer;\n-\tbuffer += 2;\n+{ char *cursor = buffer;\n+\tunsigned short count = *(unsigned short *)cursor;\n+\tcursor += 2;\n \twhile (count--) {\n-\t\tunsigned int key = *(unsigned int *)buffer;\n-\t\tbuffer += 4;\n+\t\tunsigned int key = *(unsigned int *)cursor;\n+\t\tcursor += 4;\n \t\tif (key != 0) {\n \t\t\tSplineEntryClass *existing = Find(key);\n \t\t\tif (existing != NULL) {\n-\t\t\t\texisting->Unpack(&buffer);\n+\t\t\t\tbuffer = cursor; existing->Unpack(&buffer); cursor = buffer;\n \t\t\t} else {\n-\t\t\t\tSplineEntryClass *entry = new SplineEntryClass(&buffer);\n-\t\t\t\tHashNodeClass<SplineEntryClass *> *node = new HashNodeClass<SplineEntryClass *>(entry, key);\n-\t\t\t\tSplines.Add(node);\n+\t\t\t\tbuffer = cursor; SplineEntryClass *entry = new SplineEntryClass(&buffer); cursor = buffer;\n+\t\t\t\tHashNodeClass<SplineEntryClass *> *node = Splines.Add(entry, key);\n+\n \t\t\t\tif (node == NULL) {\n \t\t\t\t\tG_ASSERT(false);\n \t\t\t\t\tif (entry != NULL) {\n"
+    },
+    {
+      "name": "invert",
+      "sha256": "35a6ba5c25e14677307f05499c33e39423050b28fc4badd30b026295b0fa2280",
+      "patch": "--- baseline/spln_db.cpp\n+++ invert/spln_db.cpp\n@@ -1403,16 +1403,16 @@\n \t\t\t\texisting->Unpack(&buffer);\n \t\t\t} else {\n \t\t\t\tSplineEntryClass *entry = new SplineEntryClass(&buffer);\n-\t\t\t\tHashNodeClass<SplineEntryClass *> *node = new HashNodeClass<SplineEntryClass *>(entry, key);\n-\t\t\t\tSplines.Add(node);\n-\t\t\t\tif (node == NULL) {\n+\t\t\t\tHashNodeClass<SplineEntryClass *> *node = Splines.Add(entry, key);\n+\n+\t\t\t\tif (node != NULL) { HasSplines = true; } else {\n \t\t\t\t\tG_ASSERT(false);\n \t\t\t\t\tif (entry != NULL) {\n \t\t\t\t\t\tdelete entry;\n \t\t\t\t\t}\n-\t\t\t\t} else {\n-\t\t\t\t\tHasSplines = true;\n \t\t\t\t}\n+\n+\n \t\t\t}\n \t\t}\n \t}\n"
+    },
+    {
+      "name": "spill_invert",
+      "sha256": "1b9489327b4c19a932636787a9e955dd76ac81c0898b5b037a0544778ea9254f",
+      "patch": "--- baseline/spln_db.cpp\n+++ spill_invert/spln_db.cpp\n@@ -1391,28 +1391,28 @@\n // NOT EXACT: shape (written from the pseudocode: the count loop and the merge path)\n // @0x486F60\n void SplineDatabaseClass::Unpack(char *buffer)\n-{\n-\tunsigned short count = *(unsigned short *)buffer;\n-\tbuffer += 2;\n+{ char *cursor = buffer;\n+\tunsigned short count = *(unsigned short *)cursor;\n+\tcursor += 2;\n \twhile (count--) {\n-\t\tunsigned int key = *(unsigned int *)buffer;\n-\t\tbuffer += 4;\n+\t\tunsigned int key = *(unsigned int *)cursor;\n+\t\tcursor += 4;\n \t\tif (key != 0) {\n \t\t\tSplineEntryClass *existing = Find(key);\n \t\t\tif (existing != NULL) {\n-\t\t\t\texisting->Unpack(&buffer);\n+\t\t\t\tbuffer = cursor; existing->Unpack(&buffer); cursor = buffer;\n \t\t\t} else {\n-\t\t\t\tSplineEntryClass *entry = new SplineEntryClass(&buffer);\n-\t\t\t\tHashNodeClass<SplineEntryClass *> *node = new HashNodeClass<SplineEntryClass *>(entry, key);\n-\t\t\t\tSplines.Add(node);\n-\t\t\t\tif (node == NULL) {\n+\t\t\t\tbuffer = cursor; SplineEntryClass *entry = new SplineEntryClass(&buffer); cursor = buffer;\n+\t\t\t\tHashNodeClass<SplineEntryClass *> *node = Splines.Add(entry, key);\n+\n+\t\t\t\tif (node != NULL) { HasSplines = true; } else {\n \t\t\t\t\tG_ASSERT(false);\n \t\t\t\t\tif (entry != NULL) {\n \t\t\t\t\t\tdelete entry;\n \t\t\t\t\t}\n-\t\t\t\t} else {\n-\t\t\t\t\tHasSplines = true;\n \t\t\t\t}\n+\n+\n \t\t\t}\n \t\t}\n \t}\n"
+    }
+  ],
+  "final": "96 exact; target gained; zero symbol/address losses",
+  "audit": {
+    "body_bytes": 435,
+    "body_and_branches_exact": true,
+    "body_relocations": [
+      [
+        "0x3",
+        "$L28608",
+        "0xaa4966",
+        "0xaa4966",
+        6,
+        "00000000"
+      ],
+      [
+        "0x9",
+        "__except_list",
+        "0x0",
+        "0x0",
+        6,
+        "00000000"
+      ],
+      [
+        "0x11",
+        "__except_list",
+        "0x0",
+        "0x0",
+        6,
+        "00000000"
+      ],
+      [
+        "0x95",
+        "?Unpack@SplineEntryClass@@QAEXPAPAD@Z",
+        "0xfff8f8a8",
+        "0x489830",
+        20,
+        "00000000"
+      ],
+      [
+        "0xa9",
+        "??2@YAPAXI@Z",
+        "0xfff89660",
+        "0x4e9cb0",
+        20,
+        "00000000"
+      ],
+      [
+        "0xc4",
+        "??0SplineEntryClass@@QAE@PAPAD@Z",
+        "0xfff91ccd",
+        "0x489480",
+        20,
+        "00000000"
+      ],
+      [
+        "0xd9",
+        "??2@YAPAXI@Z",
+        "0xfff89630",
+        "0x4e9cb0",
+        20,
+        "00000000"
+      ],
+      [
+        "0xf5",
+        "??0GenericNode@@QAE@XZ",
+        "0xfff8fa4b",
+        "0x48a060",
+        20,
+        "00000000"
+      ],
+      [
+        "0x101",
+        "??_7?$HashNodeClass@PAVSplineEntryClass@@VHashDefaultUserClass@@@@6B@",
+        "0xaea4b4",
+        "0xaea4b4",
+        6,
+        "00000000"
+      ],
+      [
+        "0x12d",
+        "?Add@?$HashListClass@PAVSplineEntryClass@@VHashDefaultUserClass@@$0CAA@@@QAEPAV?$HashNodeClass@PAVSplineEntryClass@@VHashDefaultUserClass@@@@PAV2@@Z",
+        "0xfff7da75",
+        "0x48ad60",
+        20,
+        "00000000"
+      ],
+      [
+        "0x144",
+        "??_C@_0EI@OBCI@Z?3?2home?2dev?2Projects?2EnB?2?4work?2c@",
+        "0xb71d98",
+        "0xb71d98",
+        6,
+        "00000000"
+      ],
+      [
+        "0x149",
+        "??_C@_05NAGO@false?$AA@",
+        "0xb6f5e0",
+        "0xb6f5e0",
+        6,
+        "00000000"
+      ],
+      [
+        "0x14e",
+        "?G_Assert_Report@@YAXPBD0H@Z",
+        "0xfff8399f",
+        "0x4e9410",
+        20,
+        "00000000"
+      ],
+      [
+        "0x162",
+        "??3@YAXPAX@Z",
+        "0xfff8bab4",
+        "0x4e9d10",
+        20,
+        "00000000"
+      ],
+      [
+        "0x172",
+        "??3@YAXPAX@Z",
+        "0xfff8baa4",
+        "0x4e9d10",
+        20,
+        "00000000"
+      ],
+      [
+        "0x188",
+        "??3@YAXPAX@Z",
+        "0xfff8ba8e",
+        "0x4e9d10",
+        20,
+        "00000000"
+      ],
+      [
+        "0x1a9",
+        "__except_list",
+        "0x0",
+        "0x0",
+        6,
+        "00000000"
+      ]
+    ],
+    "handler": "0xaa4966",
+    "funcinfo": "0xb20ab0",
+    "funcinfo_words": [
+      429065504,
+      2,
+      11668176,
+      0,
+      0,
+      0,
+      0
+    ],
+    "unwind_predecessors": [
+      -1,
+      -1
+    ],
+    "states": [
+      {
+        "address": "0xaa4950",
+        "relocations": [
+          [
+            "0x5",
+            "??3@YAXPAX@Z",
+            "0xff96e221",
+            "0x4e9d10",
+            20,
+            "00000000"
+          ]
+        ]
+      },
+      {
+        "address": "0xaa495b",
+        "relocations": [
+          [
+            "0x5",
+            "??3@YAXPAX@Z",
+            "0xff96e216",
+            "0x4e9d10",
+            20,
+            "00000000"
+          ]
+        ]
+      }
+    ]
+  },
+  "notes": "Indirect virtual delete uses pointer from entry+0x20 and vtable slot zero, compared in full body; actual dynamic type runtime-dependent. __FILE__ verified by basename only.",
+  "semantics": "Cursor is the current stream position. Immediately before either existing-entry Unpack(char**) or the new entry constructor(char**), assign it to buffer and afterward reload cursor from buffer, allowing each actual API to advance it. The two-byte count and every four-byte key advance cursor directly. No cached value crosses a call. Add(entry,key) allocates the node, sets list-created ownership bit 0x20, then invokes Add(node). State 0 frees entry allocation on constructor throw; state 1 frees node allocation on its constructor throw.",
+  "counts": "Six valid noncontrol forms; one baseline and one final confirmation; no invalid or uncompiled proposals. Their generated bodies and matching sets are not assumed unique.",
+  "retained": "95 baseline exact function bodies have identical nonrelocated bytes and relocation identities after normalization of generated local label numbers and __FILE__ basename; no independent audit of their existing EH handlers claimed."
+}

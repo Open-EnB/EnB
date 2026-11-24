@@ -1,0 +1,30 @@
+{
+  "format": "exact-text-replacements-v1",
+  "unit": "app/shared/spln_db.cpp",
+  "scope": "Resolve body and Find(const char*, int) helper, latter scoped to function",
+  "replacements": {
+    "r5": [
+      "bool SplineDatabaseClass::Resolve(void)\n{\n\tbool ok = true;\n\tfor (HashNodeClass<SplineEntryClass *> *node = Splines.First_Valid(); node != NULL; node = node->Next_Valid()) {\n\t\tSplineEntryClass *entry = node->Get();\n\t\tif (entry->Type == TYPE_COLOR) {\n\t\t\tchar name[128];\n\t\t\tstrcpy(name, entry->Name);\n\t\t\tstrcat(name, \"_R\");\n\t\t\tchar *suffix = &name[strlen(name) - 1];\n\t\t\tSplineEntryClass *component = Find(name);\n\t\t\tif (component != NULL) {\n\t\t\t\tcomponent->Hidden = true;\n\t\t\t} else {\n\t\t\t\tok = false;\n\t\t\t}\n\t\t\t*suffix = 'G';\n\t\t\tcomponent = Find(name);\n\t\t\tif (component != NULL) {\n\t\t\t\tcomponent->Hidden = true;\n\t\t\t} else {\n\t\t\t\tok = false;\n\t\t\t}\n\t\t\t*suffix = 'B';\n\t\t\tcomponent = Find(name);\n\t\t\tif (component != NULL) {\n\t\t\t\tcomponent->Hidden = true;\n\t\t\t} else {\n\t\t\t\tok = false;\n\t\t\t}\n\t\t} else if (entry->Type == TYPE_BLEND) {\n\t\t\tHashNodeClass<SplineEntryClass *> *found = Splines.Find(entry->AlphaKey);\n\t\t\tif (found == NULL || found->Get() == NULL) {\n\t\t\t\tok = false;\n\t\t\t}\n\t\t\tfound = Splines.Find(entry->BetaKey);\n\t\t\tif (found == NULL || found->Get() == NULL) {\n\t\t\t\tok = false;\n\t\t\t}\n\t\t}\n\t}\n\treturn ok;\n}",
+      "bool SplineDatabaseClass::Resolve(void)\n{\n\tHashNodeClass<SplineEntryClass *> *node = Splines.First_Valid();\n\tbool ok = true; while (node != NULL) {\n\t\tSplineEntryClass *entry = node->Get();\n\t\tif (entry->Type == TYPE_COLOR) {\n\t\t\tchar name[128];\n\t\t\tstrcpy(name, entry->Name);\n\t\t\tstrcat(name, \"_R\");\n\t\t\tchar *suffix = &name[strlen(name) - 1];\n\t\t\tSplineEntryClass *component = Find(name);\n\t\t\tif (component == NULL) {\n\t\t\t\tok = false;\n\t\t\t} else {\n\t\t\t\tcomponent->Hidden = true;\n\t\t\t}\n\t\t\t*suffix = 'G';\n\t\t\tcomponent = Find(name);\n\t\t\tif (component == NULL) {\n\t\t\t\tok = false;\n\t\t\t} else {\n\t\t\t\tcomponent->Hidden = true;\n\t\t\t}\n\t\t\t*suffix = 'B';\n\t\t\tcomponent = Find(name);\n\t\t\tif (component != NULL) {\n\t\t\t\tcomponent->Hidden = true;\n\t\t\t} else {\n\t\t\t\tok = false;\n\t\t\t}\n\t\t} else if (entry->Type == TYPE_BLEND) {\n\t\t\tHashNodeClass<SplineEntryClass *> *found = Splines.Find(entry->AlphaKey);\n\t\t\tif (found == NULL || found->Get() == NULL) {\n\t\t\t\tok = false;\n\t\t\t}\n\t\t\tfound = Splines.Find(entry->BetaKey);\n\t\t\tif (found == NULL || found->Get() == NULL) {\n\t\t\t\tok = false;\n\t\t\t}\n\t\t} node = node->Next_Valid();\n\t}\n\treturn ok;\n}"
+    ],
+    "keylocal": [
+      "HashNodeClass<SplineEntryClass *> *node = Splines.Find(Get_Key(spline_name));",
+      "unsigned int key = Get_Key(spline_name); HashNodeClass<SplineEntryClass *> *node = Splines.Find(key);"
+    ]
+  },
+  "sha256": {
+    "baseline": "44fb24709156cbb0ae08e84c320a40a739311aa80fecf77690822eb0c82fb144",
+    "r5": "0b745acecf1dd3911b2529824a2125f74a0b35126b69d6b6f786a31737a2f4f1",
+    "baseline_keylocal": "06a3c4d94b10d3f5c55c853fb5edd64e238d3cf7317e1b1f2ae53cef0aba8071",
+    "r5_keylocal": "dc044236eb93efc9aa9a85fcfce4f9545d7a812dcf68d556048042bd1470c2de"
+  },
+  "counts": {
+    "controls": 1,
+    "valid_tested_inputs": 3,
+    "invalid": 0,
+    "uncompiled_proposals": 0,
+    "distinct_resolve_outputs": 4
+  },
+  "results": "All four inputs 96 exact symbol/address pairs with zero changes; baseline Resolve masked 103 rows code 591/513; r5 24 rows 542/513; baseline_keylocal 102 rows 591/513; r5_keylocal 22 rows 542/513. r5 follows prior documented form, helper local sequences used Get_Key result before Splines.Find; alpha still inlined. Create_Blend 58 and Get_Color_Curves 35 rows unchanged across helper test. Helper 112-byte object body identical with non-file relocation targets and addends identical; __FILE__ relocation string varies by scratch path, basename identical. None kept.",
+  "r5_padding_newlines_after_body": 0
+}
