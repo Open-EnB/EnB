@@ -19152,7 +19152,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_Clear1` | `app/client/ui_talkt.cpp:63` | neutral (D10): a codeless layer |
 | 1 | `Unknown_Clear` | `app/client/ui_talkt.cpp:64` | neutral (D10): a codeless layer |
 | 1 | `Unknown_Append` | `app/client/ui_talkt.cpp:65` | neutral (D10): a codeless layer |
-| 1 | `Is_Unknown2C_03` | `app/client/ui_talkt.cpp:66` | neutral (D10) |
+| 1 | `Is_Unknown2C_02_03` | `app/client/ui_talkt.cpp:66` | neutral (D10) |
+| 1 | `Is_Unknown2C_02` | `app/client/ui_talkt.cpp:66` | untagged neutral name (D10) |
 | 1 | `Unknown2C_03` | `app/client/ui_talkt.cpp:66` | untagged neutral name (D10) |
 | 1 | `Unknown5BB320Class` | `app/client/ui_talkt.cpp:70` | untagged neutral name (D10) |
 | 1 | `Unknown150` | `app/client/ui_talkt.cpp:77` | untagged neutral name (D10) |
@@ -19199,7 +19200,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_64DD50` | `app/client/ui_talkt.cpp:713` | untagged neutral name (D10) |
 | 1 | `Unknown_42EB20` | `app/client/ui_talkt.cpp:750` | untagged neutral name (D10) |
 | 1 | `Unknown_64E370` | `app/client/ui_talkt.cpp:801` | untagged neutral name (D10) |
-| 1 | `Is_Unknown2C_02` | `app/client/ui_talkt.cpp:848` | untagged neutral name (D10) |
 | 1 | `Unknown51C800Class` | `app/client/ui_talkt.cpp:899` | untagged neutral name (D10) |
 | 1 | `Unknown34` | `app/client/ui_talkt.cpp:919` | untagged neutral name (D10) |
 | 1 | `Unknown_64EEA0` | `app/client/ui_talkt.cpp:931` | untagged neutral name (D10) |
