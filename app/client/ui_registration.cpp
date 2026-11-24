@@ -2120,7 +2120,7 @@ void RegistrationInterface::Unknown_5F98C0(int from, int to)
 // @0x5F9A90
 void RegistrationInterface::Unknown_5F9A90()
 {
-	for (std::vector<RegistrationUnknown5A8Struct>::iterator it = Unknown5A8.begin(); it != Unknown5A8.end(); it++) {
+	Unknown5A8.size(); for (std::vector<RegistrationUnknown5A8Struct>::iterator it = Unknown5A8.begin(); it != Unknown5A8.end(); it++) {
 		Unknown108[0x22].Combo->Add_Item((*it).Unknown04.c_str());
 	}
 }
