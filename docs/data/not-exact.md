@@ -46,10 +46,10 @@ edit the comments in the code, not this file.
 | `app/client/camctrl_dock.cpp:122` | `CameraController06Class::Unknown_792750` | marker | NOT EXACT: stack slots and register choices differ (same length, 0x760 bytes); functional |
 | `app/client/camctrl_entersector.cpp:61` | `CameraController04Class::Unknown_793740` | marker | NOT EXACT: one operand order (offset.Z *= scale.Z: ours loads scale.Z first); functional |
 | `app/client/camctrl_land.cpp:112` | `CameraController05Class::Unknown_793CE0` | marker | NOT EXACT: written from the client's code and Ghidra's (0x830 bytes; the temporaries' order and slots differ), functional |
-| `app/client/camctrl_pland.cpp:115` | `CameraController07Class::Unknown_794A90` | marker | NOT EXACT: field-offset: a [reg + N] displacement differs; functional |
-| `app/client/camctrl_stargate.cpp:103` | `CameraController03Class::Unknown_795C80` | marker | NOT EXACT: field-offset: a [reg + N] displacement differs; functional |
-| `app/client/camctrl_takeoff.cpp:119` | `CameraController09Class::Unknown_08` | marker | NOT EXACT: shape: the same callees, 16 calls in ours and 17 in the client; functional |
-| `app/client/camctrl_takeoff.cpp:210` | `CameraController09Class::Unknown_796920` | marker | NOT EXACT: field-offset: a [reg + N] displacement differs; functional |
+| `app/client/camctrl_pland.cpp:115` | `CameraController07Class::Unknown_794A90` | marker | NOT EXACT: register-only: one moved copy and five tail registers; every call, literal and member offset is the client's; functional |
+| `app/client/camctrl_stargate.cpp:103` | `CameraController03Class::Unknown_795C80` | marker | NOT EXACT: register-only: registers and one spill slot; every call, literal and member offset is the client's; functional |
+| `app/client/camctrl_takeoff.cpp:119` | `CameraController09Class::Unknown_08` | marker | NOT EXACT: field-offset (registers only): the prologue's push edi and a matrix copy's registers; 17 calls as the client; functional |
+| `app/client/camctrl_takeoff.cpp:210` | `CameraController09Class::Unknown_796920` | marker | NOT EXACT: shape: the retry counter's slot, loop entry and scheduling; every call, literal and member offset is the client's; functional |
 | `app/client/camctrl_tractor.cpp:73` | `CameraController08Class::Unknown_797570` | marker | NOT EXACT: the register choice (edx / ebp for 3) and the duplicated !ship test differ; functional |
 | `app/client/camctrl_tractor.cpp:116` | `CameraController08Class::Unknown_797770` | marker | NOT EXACT: a few operand loads and slots differ (16 rows); functional |
 | `app/client/camera_manager.cpp:252` | `CameraManagerClass::Unknown_799E40` | marker | NOT EXACT: 0x799E40 (frame order: the client puts target at -0x10 above the 12-byte block locals and Sqrt's float above the avatar position temporary, ours the reverse; bit 15's Length2 keeps Y and Z on the FPU in the client) 0x799E40 |

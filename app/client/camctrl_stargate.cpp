@@ -100,7 +100,7 @@ void CameraController03Class::Unknown_0C()
 }
 
 // @0x795C80
-// NOT EXACT: field-offset: a [reg + N] displacement differs; functional
+// NOT EXACT: register-only: registers and one spill slot; every call, literal and member offset is the client's; functional
 void CameraController03Class::Unknown_795C80(bool phase)
 {
 	FAIL_IF(!Client->Get_Avatar()) {
@@ -110,39 +110,39 @@ void CameraController03Class::Unknown_795C80(bool phase)
 	float distance = CameraManagerClass::Unknown_79B6B0();
 	ClientObjectClass *gate = Client->Find_Object(Client->Unknown13BC);
 	if (gate && gate->Unknown_6F5B70()) {
-		Vector3 pos;
+		Vector3 pos; Vector3 offset;
 		if (phase) {
 			Matrix3D tm = gate->Unknown_28(true);
 			float angle = Unknown_BDB1C0.Get_Float() * (WWMATH_PI / 4.0f);
-			if (Unknown18 == 0) {
-				angle = WWMATH_PI - angle;
-			} else if (Unknown18 == 2) {
-				angle = -angle;
-			} else if (Unknown18 == 3) {
-				angle = angle + WWMATH_PI;
+			switch (Unknown18) {
+				case 0: angle = WWMATH_PI - angle; break;
+				case 2: angle = -angle; break;
+				case 3: angle = angle + WWMATH_PI; break;
 			}
-			float s = sin(angle);
-			float c = cos(angle);
-			pos = tm * Vector3(5.0f * distance, 3.0f * distance * c, 3.0f * distance * s);
+
+
+			float s = WWMath::Sin(angle);
+			float c = WWMath::Cos(angle); c *= distance; s *= distance;
+			offset.Set(5.0f * distance, c * 3.0f, s * 3.0f); pos = tm * offset;
 		} else {
 			Matrix3D avatar_tm = Client->Get_Avatar()->Unknown_28(false);
-			Vector3 avatar_pos = Client->Get_Avatar()->Unknown_24();
+			avatar_tm.Set_Translation(Client->Get_Avatar()->Unknown_24());
 			float angle = Unknown_BDB1C0.Get_Float() * (WWMATH_PI / 4.0f);
 			Unknown18 = Unknown_BDB1C0() % 4;
-			if (Unknown18 == 1) {
-				angle = WWMATH_PI - angle;
-			} else if (Unknown18 == 2) {
-				angle = angle + WWMATH_PI;
-			} else if (Unknown18 == 3) {
-				angle = -angle;
+			switch (Unknown18) {
+				case 1: angle = WWMATH_PI - angle; break;
+				case 2: angle = angle + WWMATH_PI; break;
+				case 3: angle = -angle; break;
 			}
-			float s = sin(angle);
-			float c = cos(angle);
-			Matrix3D lookat;
-			lookat.Obj_Look_At(avatar_pos, gate->Unknown_24(), 0.0f);
-			pos = lookat * Vector3(3.0f * distance, 1.5f * distance * c, 1.5f * distance * s);
+
+
+			float s = WWMath::Sin(angle);
+			float c = WWMath::Cos(angle); c *= distance; s *= distance;
+			offset.Set(3.0f * distance, c * 1.5f, s * 1.5f); Matrix3D lookat;
+			lookat.Obj_Look_At(avatar_tm.Get_Translation(), gate->Unknown_24(), 0.0f);
+			pos = lookat * offset;
 		}
-		Unknown0C->Position = pos;
+		{ CameraModule79C8E0Class *module = Unknown0C; module->Position.X = pos.X; module->Position.Y = pos.Y; module->Position.Z = pos.Z; }
 		Unknown0C->Unknown14 = true;
 		Unknown0C->Unknown18 = Client->AvatarID;
 		Unknown0C->Unknown_04();

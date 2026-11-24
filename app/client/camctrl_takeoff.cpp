@@ -10,7 +10,7 @@
 #include "obbox.h"
 #include "castres.h"
 #include "scene.h"
-#include "camera.h"
+#include "aabox.h"
 #include "matrix3d.h"
 #include "wwmath.h"
 #include "..\shared\g_assert.h"
@@ -116,7 +116,7 @@ void CameraController09Class::Unknown_04()
 }
 
 // @0x796440
-// NOT EXACT: shape: the same callees, 16 calls in ours and 17 in the client; functional
+// NOT EXACT: field-offset (registers only): the prologue's push edi and a matrix copy's registers; 17 calls as the client; functional
 void CameraController09Class::Unknown_08(Vector3 *pos, Quaternion *rot, int *mode, int *target)
 {
 	ClientObjectClass *ship = Client->Get_Avatar();
@@ -131,33 +131,33 @@ void CameraController09Class::Unknown_08(Vector3 *pos, Quaternion *rot, int *mod
 		Quaternion q;
 		Slerp(q, Unknown3C, Unknown4C, t * t);
 		Matrix3D tm = Build_Matrix3D(q);
-		Vector3 p = (Unknown30 - Unknown24) * t + Unknown24;
+		Vector3 p = Lerp(Unknown24, Unknown30, t);
 		tm.Set_Translation(p);
-		if (ship->PositionalState && ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
+		if (ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
 			((Unknown718D70Class *)ship->PositionalState)->Unknown_30(Client->Unknown10BC, tm);
 			*mode = 2;
 			return;
 		}
-	} else if (elapsed < 5000) {
+	} else if (elapsed < 5000) { Matrix3D tm;
 		if (!Unknown5C) {
 			Unknown5C = true;
-			Matrix3D lookat;
-			lookat.Obj_Look_At(Unknown30, Unknown18, 0.0f);
-			float angle = (Unknown_BDB1C0.Get_Float() - 0.5f) * 30.0f * (WWMATH_PI / 180.0f);
-			if (Unknown_BDB1C0(0, 1) == 1) {
+			
+			tm.Obj_Look_At(Unknown30, Unknown18, 0.0f);
+			float angle = (Unknown_BDB1C0.Get_Float() - 0.5f) * 30.0f; angle *= (WWMATH_PI / 180.0f);
+			switch (Unknown_BDB1C0(0, 1)) { case 1:
 				angle = WWMATH_PI - angle;
 			}
 			float dist = (Unknown_BDB1C0.Get_Float() * 7.0f + 10.0f) * distance;
-			float s = sin(angle);
-			float c = cos(angle);
-			Unknown0C->Position = lookat * Vector3(dist, c * 1.5f * distance, s * 1.5f * distance);
+			float s = WWMath::Sin(angle);
+			float c = WWMath::Cos(angle); c *= 1.5f; c *= distance; s *= 1.5f; s *= distance;
+			Vector3 offset(dist, c, s); Unknown0C->Position = tm * offset;
 			Unknown0C->Unknown_04();
 		}
 		float t = (float)(elapsed - 2000) * 0.00033333333f;
-		Matrix3D tm = Build_Matrix3D(Unknown4C);
-		Vector3 p = (Unknown18 - Unknown30) * t + Unknown30;
+		tm = Build_Matrix3D(Unknown4C);
+		Vector3 p; Lerp(Unknown30, Unknown18, t, &p);
 		tm.Set_Translation(p);
-		if (ship->PositionalState && ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
+		if (ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
 			((Unknown718D70Class *)ship->PositionalState)->Unknown_30(Client->Unknown10BC, tm);
 			*mode = 2;
 			return;
@@ -207,7 +207,7 @@ bool CameraController09Class::Unknown_14()
 	return(Client->Unknown10BC - Unknown10 > 2000);
 }
 // @0x796920
-// NOT EXACT: field-offset: a [reg + N] displacement differs; functional
+// NOT EXACT: shape: the retry counter's slot, loop entry and scheduling; every call, literal and member offset is the client's; functional
 void CameraController09Class::Unknown_796920()
 {
 	ClientObjectClass *ship = Client->Get_Avatar();
@@ -220,38 +220,34 @@ void CameraController09Class::Unknown_796920()
 	}
 
 	Unknown24 = ship->Unknown_24();
-	Unknown30 = Unknown24;
-	Unknown30.Z += Unknown_BDB1C0.Get_Float() * 500.0f + 100.0f;
+	Unknown30 = Vector3(Unknown24.X, Unknown24.Y, (Unknown_BDB1C0.Get_Float() * 500.0f + 100.0f) + Unknown24.Z);
 	Unknown3C = Build_Quaternion(ship->Unknown_28(true));
 
-	for (int i = 0; i <= 10; ++i) {
+	int i = 0; while (true) {
 		if (i >= 10) {
-			Unknown18 = Unknown30;
-			Unknown18.Z += 5000.0f;
+			Unknown18 = Vector3(Unknown30.X, Unknown30.Y, Unknown30.Z + 5000.0f);
 			break;
 		}
-		float pitch = (Unknown_BDB1C0.Get_Float() * 30.0f + 30.0f) * (WWMATH_PI / 180.0f);
+		++i; float pitch = Unknown_BDB1C0.Get_Float() * 30.0f; pitch += 30.0f; pitch *= (WWMATH_PI / 180.0f);
 		float yaw = (Unknown_BDB1C0.Get_Float() * 315.0f + 45.0f) * (WWMATH_PI / 180.0f);
-		Matrix3D ship_tm = ship->Unknown_28(true);
-		float zrot = ship_tm.Get_Z_Rotation();
-		float c_p = cos(pitch);
-		float s_p = sin(pitch);
-		float c_y = cos(zrot + yaw);
-		float s_y = sin(zrot + yaw);
-		Vector3 dir(c_y * c_p, s_y * c_p, s_p);
+		yaw += ship->Unknown_28(true).Get_Z_Rotation();
+		float c_p = WWMath::Cos(pitch);
+		float s_p = WWMath::Sin(pitch);
+		Matrix3D rotation(true); rotation.Rotate_Z(yaw);
+		Vector3 dir = rotation * Vector3(c_p, 0.0f, s_p);
 		Vector3 offset = dir * 5000.0f;
 		Unknown18 = Unknown30 + offset;
 
-		CameraClass *cam = (CameraClass *)Client->MainView->Unknown_7C();
-		OBBoxClass box = cam->Get_Near_Clip_Bounding_Box();
-		OBBoxClass moved;
-		Vector3 delta = Unknown18 - Unknown30;
-		Matrix3D shift(true);
-		shift.Set_Translation(delta);
-		OBBoxClass::Transform(shift, box, &moved);
+		AABoxClass model_box; ship_ro->Get_Obj_Space_Bounding_Box(model_box); // NAME 2: 0x796b98
+		OBBoxClass local_box(Vector3(0.0f, 0.0f, 0.0f), model_box.Extent); // NAME 2: identity basis and model box, 0x796bd8
+		OBBoxClass start_box, end_box; // NAME 2: 0x796da1 and 0x796e42
+		rotation.Make_Identity(); rotation = ship->Unknown_28(true); // NAME 2: 0x796cc2
+		rotation.Set_Translation(Unknown30);
+		OBBoxClass::Transform(rotation, local_box, &start_box);
+		rotation.Set_Translation(Unknown18);
+		OBBoxClass::Transform(rotation, local_box, &end_box);
 		CastResultStruct result;
-		MainViewSceneClass *scene = (MainViewSceneClass *)Client->MainView->Unknown_64();
-		scene->Unknown_75FB00(moved, box, delta, &result, ship_ro, false);
+		((MainViewSceneClass *)Client->MainView->Unknown_64())->Unknown_75FB00(start_box, end_box, dir * 1000000.0f, &result, ship_ro, false);
 		if (result.Fraction >= 1.0f) {
 			break;
 		}
@@ -262,13 +258,13 @@ void CameraController09Class::Unknown_796920()
 	Unknown4C = Build_Quaternion(lookat);
 
 	float distance = CameraManagerClass::Unknown_79B6B0();
-	float angle = Unknown_BDB1C0.Get_Float() * 360.0f * (WWMATH_PI / 180.0f);
-	Vector3 mid = (Unknown24 + Unknown30) * 0.5f;
-	Matrix3D mid_lookat;
-	mid_lookat.Obj_Look_At(mid, Unknown30, 0.0f);
-	float s = sin(angle);
-	float c = cos(angle);
-	Unknown0C->Position = mid_lookat * Vector3(0.0f, c * 1.5f * distance, s * 1.5f * distance);
+	float angle = Unknown_BDB1C0.Get_Float() * 360.0f; angle *= (WWMATH_PI / 180.0f);
+
+
+	lookat.Obj_Look_At((Unknown24 + Unknown30) * 0.5f, Unknown30, 0.0f);
+	float s = WWMath::Sin(angle);
+	float c = WWMath::Cos(angle); s = s * distance * 1.5f; c = c * distance * 1.5f;
+	Vector3 camera_position = lookat * Vector3(0.0f, c, s); { CameraModule79C8E0Class *module = Unknown0C; module->Position.X = camera_position.X; module->Position.Y = camera_position.Y; module->Position.Z = camera_position.Z; }
 	Unknown0C->Unknown14 = true;
 	Unknown0C->Unknown18 = Client->AvatarID;
 	Unknown0C->Unknown_04();
