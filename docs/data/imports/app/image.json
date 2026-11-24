@@ -19,7 +19,8 @@
   "0x76E990",
   "0x76E9D0",
   "0x76EB10",
-  "0x76EB40"
+  "0x76EB40",
+  "0x76EB70"
  ],
  "merged": [],
  "name": "client/html/image/image.cpp",

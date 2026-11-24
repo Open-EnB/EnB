@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-585 entries in 245 files.
+584 entries in 245 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -169,7 +169,6 @@ edit the comments in the code, not this file.
 | `app/client/html/image/gifload.cpp:334` | `HtmlGifImageClass::Decode` | marker | NOT EXACT: 0x76D990, functional (D64): Bennett's structure and the client's branch order, but the register allocation differs throughout (the client keeps 0 in edi and bufptr in edi later, frame 0x40 vs 0x3C) |
 | `app/client/html/image/gifload.cpp:491` | `HtmlGifImageClass::Get_Next_Code` | marker | NOT EXACT: 0x76DF60, one instruction: the client reads ret for the final mask with a word load, ours a dword |
 | `app/client/html/image/image.cpp:27` | `HtmlImageClass::Draw` | marker | NOT EXACT: 0x76E610, functional (D64): the client builds dest at x, y and subtracts the clip origin in place after the second Get_Width / Get_Height pair (frame order); no form tried matches (see attempts.csv) |
-| `app/client/html/image/image.cpp:157` | `Get_Font` | marker | NOT EXACT: 0x76EB70, functional (D64): frame 0x118 vs 0x110 (the client keeps add()'s pos in the POINT's slot and does not fold its pos > Entries_ test) |
 | `app/client/influence.cpp:125` | `NebulaClass::NebulaClass` | marker | NOT EXACT (0.99, attempts.py 0x7E87C0): scheduler: red/green/blue fild order across Get_Int push in sky_color (r61, 8 masked); 76/77 regions and 0x340 frame match (DataNode 0x7E9910 & SphereClass::Init kept out of line) |
 | `app/client/influence.cpp:335` | `NebulaClass::Unknown_08` | marker | NOT EXACT (0.86, attempts.py 0x7E9560): shape: the client saves ebx / ebp / esi after the Object == NULL return, ours saves ebp / esi at entry |
 | `app/client/inv_data.cpp:163` | `InvDataClass::Unknown_20` | marker | NOT EXACT: functional from the pseudocode (D64) 0x688B90 |

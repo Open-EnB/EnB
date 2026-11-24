@@ -154,8 +154,8 @@ bool HtmlFileLoaderClass::Open(char *url)
 
 static ArrayList<HtmlFontStruct> FontCache;
 
-// NOT EXACT: 0x76EB70, functional (D64): frame 0x118 vs 0x110 (the client keeps add()'s pos in the POINT's slot and
-// does not fold its pos > Entries_ test)
+// 0x76EB70: the SaveDC block closes POINT pt before add (its slot then holds add()'s pos and growVector's new vector,
+// frame 0x110), and the length read through a reference keeps add()'s pos > Entries_ test unfolded, as the client
 HFONT Get_Font(HDC hdc, char *face, int width, int height, int flags)
 {
 	HtmlFontStruct entry;
@@ -168,43 +168,46 @@ HFONT Get_Font(HDC hdc, char *face, int width, int height, int flags)
 	if (hdc == NULL)
 		return(NULL);
 
-	SaveDC(hdc);
-	SetGraphicsMode(hdc, GM_ADVANCED);
-	ModifyWorldTransform(hdc, NULL, MWT_IDENTITY);
-	SetViewportOrgEx(hdc, 0, 0, NULL);
-	SetWindowOrgEx(hdc, 0, 0, NULL);
+	HFONT font;
+	{
+		SaveDC(hdc);
+		SetGraphicsMode(hdc, GM_ADVANCED);
+		ModifyWorldTransform(hdc, NULL, MWT_IDENTITY);
+		SetViewportOrgEx(hdc, 0, 0, NULL);
+		SetWindowOrgEx(hdc, 0, 0, NULL);
 
-	POINT pt;
-	pt.x = width;
-	pt.y = height;
-	DPtoLP(hdc, &pt, 1);
+		POINT pt;
+		pt.x = width;
+		pt.y = height;
+		DPtoLP(hdc, &pt, 1);
 
-	LOGFONT lf;
-	lf.lfHeight = -pt.y;
-	lf.lfWidth = 0;
-	lf.lfEscapement = 0;
-	lf.lfOrientation = 0;
-	lf.lfWeight = (flags & 1) ? 700 : 0;
-	lf.lfItalic = (flags & 2) ? 1 : 0;
-	lf.lfUnderline = (flags & 4) ? 1 : 0;
-	lf.lfStrikeOut = (flags & 8) ? 1 : 0;
-	lf.lfCharSet = 0;
-	lf.lfOutPrecision = 0;
-	lf.lfClipPrecision = 0;
-	lf.lfQuality = 0;
-	lf.lfPitchAndFamily = 0;
-	strcpy(lf.lfFaceName, face);
+		LOGFONT lf;
+		lf.lfHeight = -pt.y;
+		lf.lfWidth = 0;
+		lf.lfEscapement = 0;
+		lf.lfOrientation = 0;
+		lf.lfWeight = (flags & 1) ? 700 : 0;
+		lf.lfItalic = (flags & 2) ? 1 : 0;
+		lf.lfUnderline = (flags & 4) ? 1 : 0;
+		lf.lfStrikeOut = (flags & 8) ? 1 : 0;
+		lf.lfCharSet = 0;
+		lf.lfOutPrecision = 0;
+		lf.lfClipPrecision = 0;
+		lf.lfQuality = 0;
+		lf.lfPitchAndFamily = 0;
+		strcpy(lf.lfFaceName, face);
 
-	HFONT font = CreateFontIndirect(&lf);
-	if (width != 0) {
-		TEXTMETRIC tm;
-		font = (HFONT)SelectObject(hdc, font);
-		GetTextMetrics(hdc, &tm);
-		DeleteObject(SelectObject(hdc, font));
-		lf.lfWidth = (int)(tm.tmAveCharWidth * fabs(pt.x) / fabs(pt.y) + 0.5);
 		font = CreateFontIndirect(&lf);
+		if (width != 0) {
+			TEXTMETRIC tm;
+			font = (HFONT)SelectObject(hdc, font);
+			GetTextMetrics(hdc, &tm);
+			DeleteObject(SelectObject(hdc, font));
+			lf.lfWidth = (int)(tm.tmAveCharWidth * fabs(pt.x) / fabs(pt.y) + 0.5);
+			font = CreateFontIndirect(&lf);
+		}
+		RestoreDC(hdc, -1);
 	}
-	RestoreDC(hdc, -1);
 
 	if (font == NULL)
 		return(NULL);
@@ -214,7 +217,8 @@ HFONT Get_Font(HDC hdc, char *face, int width, int height, int flags)
 	entry.Height = height;
 	entry.Flags = flags;
 	entry.Font = font;
-	FontCache.add(entry, FontCache.length());
+	ArrayList<HtmlFontStruct> &cache = FontCache;	// the length read through it: add()'s pos > Entries_ test stays (the client's)
+	FontCache.add(entry, cache.length());
 	return(font);
 }
 
