@@ -261,11 +261,11 @@ void Unknown620D20Class::Unknown_621500()
 }
 
 
-// NOT EXACT: functional (D64)
+
 // @0x621530
 char *Unknown620D20Class::Unknown_621530(int race, int part, int style, int variant)
 {
-	int number = style + 1;
+	style++; variant++;
 	char race_char = 'T';
 	char part_char = 'H';
 	switch (race) {
@@ -281,10 +281,10 @@ char *Unknown620D20Class::Unknown_621530(int race, int part, int style, int vari
 			break;
 		case 1:
 			part_char = 'P';
-			switch (style) {
-				case 0: number = 2; break;
-				case 1: number = 1; break;
-				case 2: number = 3; break;
+			switch (style - 1) {
+				case 0: style = 2; break;
+				case 1: style = 1; break;
+				case 2: style = 3; break;
 			}
 
 
@@ -294,10 +294,10 @@ char *Unknown620D20Class::Unknown_621530(int race, int part, int style, int vari
 			break;
 		case 3:
 			part_char = 'E';
-			number = 0;
+			style = 0;
 			break;
 	}
-	_snprintf(Unknown_BE5E2C, sizeof(Unknown_BE5E2C), "S%c%c%d%d", race_char, part_char, number, variant + 1);
+	_snprintf(Unknown_BE5E2C, sizeof(Unknown_BE5E2C), "S%c%c%d%d", race_char, part_char, style, variant);
 	return(Unknown_BE5E2C);
 }
 
