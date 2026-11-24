@@ -31,10 +31,10 @@ void Unknown_812390(RenderObjClass *robj, std::vector<ColorizationRegionStruct> 
 // The decals by slot (0x18 bytes each, 16 slots: DecalStruct's layout, the slot in +0x00, 0x7FFFFFF in +0x04 for none)
 #define MAX_NUM_DECAL_SLOTS 16	// NAME 3: the FAIL_IF's 'slot_id >= MAX_NUM_DECAL_SLOTS'
 
-// NOT EXACT: functional (D64), from the disassembly (attempts.py show 0x80EAF0): a mesh named '[prefix.]decalNN' gets slot NN's material (an
-// empty slot's from the library, else the slot's decal tinted by its colour): the mesh made unique, its passes, two
-// texture stages, shader and vertex material replaced and its material info rebuilt; anything else recurses over its
-// sub-objects
+static void Unknown_Assign(Unknown619280Class &d, const Unknown619280Class &s) { d = s; }	// (inline: 0x80EAF0 calls operator= 0x75DA20 out of line one layer down)  // NAME 1: neutral (D10)
+// A mesh named '[prefix.]decalNN' gets slot NN's material (an empty slot's from the library, else the slot's decal
+// tinted by its colour): the mesh made unique, its passes, two texture stages, shader and vertex material replaced and
+// its material info rebuilt; anything else recurses over its sub-objects
 // @0x80EAF0
 static void (Unknown_80EAF0)(RenderObjClass *robj, DecalStruct *slots, SClientUnknown1334Class *decal_ini)	// NAME 1 [all]: what 0x80E8C0 passes (the name in parentheses: clienttest.py stands the calls in by a macro)
 {
@@ -60,22 +60,22 @@ static void (Unknown_80EAF0)(RenderObjClass *robj, DecalStruct *slots, SClientUn
 				slot_id = MAX_NUM_DECAL_SLOTS - 1;
 			}
 			Unknown619280Class mat_desc;
-			mat_desc = decal_ini->Unknown74;
+			Unknown_Assign(mat_desc, decal_ini->Unknown74);
 			if (slots[slot_id].Unknown04 != 0x7FFFFFF) {
 				decal_ini->Unknown_75CB10(slots[slot_id].Unknown04, slots[slot_id].Unknown08, &mat_desc);
 			}
 			MeshClass *mesh = (MeshClass *)robj;
-			mesh->Make_Unique(mesh->Peek_Model()->Has_Polygon_Renderers());
+			bool force_meshmdl_clone = mesh->Peek_Model()->Has_Polygon_Renderers(); mesh->Make_Unique(force_meshmdl_clone);
 			MeshModelClass *model = mesh->Peek_Model();
 			RefCountPtr<MaterialInfoClass> matinfo = Create_Get(mesh->Get_Material_Info());
 			matinfo->Reset();	// the client calls Free (0x951E20) directly: private in the tree's matinfo.h
 			model->Set_Pass_Count(mat_desc.Unknown00);
-			for (int pass = 0; pass < mat_desc.Unknown00; pass++) {
-				for (int stage = 0; stage < 2; stage++) {
-					TextureClass *texture = mat_desc.Unknown04[pass][stage].Peek();
-					model->Set_Single_Texture(texture, pass, stage);
-					if (texture) {
-						matinfo->Add_Texture(texture);
+			for (unsigned int pass = 0; pass < mat_desc.Unknown00; pass++) {	// unsigned: the client's jbe / jb
+				for (unsigned int stage = 0; stage < 2; stage++) {
+					// no texture local: the client reads the slot again after Set_Single_Texture
+					model->Set_Single_Texture(mat_desc.Unknown04[pass][stage].Peek(), pass, stage);
+					if (mat_desc.Unknown04[pass][stage].Peek()) {
+						matinfo->Add_Texture(mat_desc.Unknown04[pass][stage].Peek());
 					}
 				}
 				model->Set_Single_Shader(mat_desc.Unknown24[pass], pass);
@@ -139,7 +139,7 @@ static void Unknown_80F020(RenderObjClass *robj, std::vector<ColorizationRegionS
 	}
 }
 
-// NOT EXACT: functional (D64): 0x80F020 from region 0 with the environment-map manager's axis (+0x10)
+// 0x80F020 from region 0 with the environment-map manager's axis (+0x10)
 // @0x80EFF0
 void Unknown_80EFF0(RenderObjClass *model, std::vector<ColorizationRegionStruct> &regions, EnvironmentMapManagerClass *unknown)
 {
