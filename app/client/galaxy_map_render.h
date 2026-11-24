@@ -261,7 +261,7 @@ public:
 	void Unknown_7ABDD0(const RefCountPtr<GalaxyMapRenderGateClass> &gate);	// 0x7ABDD0  // NAME 1 [gate]: what it stores
 	void Unknown_7ABFE0();									// 0x7ABFE0
 	void Unknown_7AC070(bool invert);						// 0x7AC070  // NAME 1 [invert]: as 0x7ABA70's
-	void Unknown_7AC130(bool visible, bool show_gates, bool show_name, bool place_name);	// 0x7AC130 (FAIL_IF '!robj')  // NAME 1 [visible, show_gates, show_name, place_name]: what it does with them
+	void Unknown_7AC130(bool visible, bool show_inter, bool show_intra, bool place_name);	// 0x7AC130 (FAIL_IF '!robj')  // NAME 1 [visible, place_name]: what it does with them; show_inter / show_intra are 0x7AD090's flags (the client passes its 2nd and 3rd arguments)
 	const RefCountPtr<GalaxyMapRenderGateClass> &Unknown_7AC7B0(const RefCountPtr<GalaxyMapRenderSectorClass> &to);	// 0x7AC7B0  // NAME 1 [to]: what it compares
 
 	RefCountPtr<GalaxyMapSectorClass> Data;					// +0x18  // NAME 2: what it holds
@@ -297,7 +297,7 @@ public:
 
 	bool Unknown_7ACBB0(std::hash_map<int, RefCountPtr<GalaxyMapRenderSectorClass> > &sectors);	// 0x7ACBB0  // NAME 1 [sectors]: what it finds
 	void Unknown_7ACEF0(INIClass &ini);						// 0x7ACEF0 (FAIL_IF '!From', '!To')  // NAME 1 [ini]: the caller's
-	float Unknown_7AD090(bool hide_inter, bool hide_intra, bool place);	// 0x7AD090 (FAIL_IF '!line')  // NAME 1 [hide_inter, hide_intra, place]: what it does with them
+	float Unknown_7AD090(bool show_inter, bool show_intra, bool place);	// 0x7AD090 (FAIL_IF '!line')  // NAME 1 [show_inter, show_intra, place]: what it does with them (the line is hidden when the flag for its kind, inter- or intra-system, is false)
 	float Unknown_7AD5B0(const Vector3 &point);				// 0x7AD5B0: the distance to the line, -1 off it  // NAME 1 [point]: neutral
 	void Unknown_7AD850(const Vector3 &point);				// 0x7AD850 (FAIL_IF '!line', '!to_name', '!from_name')  // NAME 3 [to_name, from_name]: the FAIL_IFs'
 	void Unknown_7ADFC0(const Vector3 &a, const Vector3 &b);	// 0x7ADFC0  // NAME 1 [a, b]: neutral
