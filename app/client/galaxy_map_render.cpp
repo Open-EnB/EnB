@@ -533,7 +533,7 @@ bool GalaxyMapRenderClass::Unknown_7A7560()
 
 
 
-// NOT EXACT: order: the calls and inlining are the client's (0x7ADFC0 inlined with both 0x7AC070s); the client squares the inlined lengths' components in another x87 order (x, z, y)
+
 void GalaxyMapRenderClass::Unknown_7A7D70(bool changed)
 {
 	if (changed) {
@@ -566,157 +566,157 @@ void GalaxyMapRenderClass::Unknown_7A7D70(bool changed)
 		PickedGate->Unknown_7ADFC0(Point, PickedGatePoint);
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // NOT EXACT: written from the client's code (see attempts.csv)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 void GalaxyMapRenderClass::Unknown_7A83D0(SphereClass &sphere, bool arg)
 {
 	if (PickedSystem) {
@@ -922,7 +922,7 @@ static GalaxyMapRenderSectorClass *New_Item(const RefCountPtr<GalaxyMapSectorCla
 {
 	return(new GalaxyMapRenderSectorClass(data));
 }
-// NOT EXACT: written from the client's code (see attempts.csv)
+
 
 
 
@@ -1257,10 +1257,10 @@ const SphereClass &GalaxyMapRenderSystemClass::Unknown_7AAB60(GalaxyMapClientCla
 
 
 
-
-		FAIL_IF(!*it) { continue; }
+		const RefCountPtr<GalaxyMapRenderSectorClass> &sector = *it;
+		FAIL_IF(!sector) { continue; }
 		Vector3 point;
-		(*it)->Unknown_7AB8B0(map, pos, &point);
+		sector->Unknown_7AB8B0(map, pos, &point);
 		points.push_back(point);
 	}
 	((GalaxyMapRObjClass *)robj)->Unknown_7B3440(points);
@@ -1276,9 +1276,9 @@ const SphereClass &GalaxyMapRenderSystemClass::Unknown_7AAB60(GalaxyMapClientCla
 void GalaxyMapRenderSystemClass::Unknown_7AADA0()
 {
 	for (std::vector<RefCountPtr<GalaxyMapRenderSectorClass> >::iterator it = Sectors.begin(); it != Sectors.end(); ++it) {
-
-		FAIL_IF(!*it) { continue; }
-		(*it)->Unknown_7AC130(true, false, true, false);
+		const RefCountPtr<GalaxyMapRenderSectorClass> &sector = *it;
+		FAIL_IF(!sector) { continue; }
+		sector->Unknown_7AC130(true, false, true, false);
 	}
 }
 
@@ -1607,7 +1607,7 @@ bool GalaxyMapRenderGateClass::Unknown_7ACBB0(RenderSectorsType &sectors)
 	From->Gates.push_back(Create_Peek(this));
 	return(true);
 }
-// NOT EXACT: written from the client's code (see attempts.csv)
+
 
 
 
@@ -1758,7 +1758,7 @@ float GalaxyMapRenderGateClass::Unknown_7AD5B0(const Vector3 &point)
 	}
 	return(fabs(((p.X - b2.X) * dy - (p.Y - b2.Y) * dx) / len));
 }
-// NOT EXACT: written from the client's code (see attempts.csv)
+
 
 
 
@@ -1986,7 +1986,7 @@ void GalaxyMapRenderGateClass::Unknown_7ADFC0(const Vector3 &a, const Vector3 &b
 {
 	Vector3 pos;
 	To->Get_Position(pos);
-	bool flipped = (a - pos).Length() > (b - pos).Length();
+	bool flipped = Vector3::Distance(a, pos) > Vector3::Distance(b, pos);
 
 	if (flipped != Flipped) {
 		Flipped = flipped;
