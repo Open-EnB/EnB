@@ -63,7 +63,7 @@ inline void Unknown_Empty(std::string &text) { text.erase(); }	// NAME 1: neutra
 inline void Unknown_Clear1(std::vector<TalkTreeResponseStruct> &responses) { responses.clear(); }	// NAME 1: neutral (D10): a codeless layer
 inline void Unknown_Clear(std::vector<TalkTreeResponseStruct> &responses) { Unknown_Clear1(responses); }	// NAME 1: neutral (D10): a codeless layer
 inline void Unknown_Append(std::string &text, const char *more) { text += more; }	// NAME 1: neutral (D10): a codeless layer
-inline bool Is_Unknown2C_03(GadgetClass *gadget) { return(gadget->Unknown2C_03); }	// NAME 1: neutral (D10)
+inline bool Is_Unknown2C_02_03(GadgetClass *gadget) { return((bool)(gadget->Is_Unknown2C_02() ? gadget->Unknown2C_03 : 0)); }	// (inline: 0x64E7A0's bit test, one word load)  // NAME 1: neutral (D10)
 
 // NOT EXACT: 0x64B6E0 (the constructor: the +0x174 stores scheduled after the fill's setup)
 UITalkTreeClass::UITalkTreeClass(SClient *client, int mode) :
@@ -836,7 +836,7 @@ void UITalkTreeClass::Unknown_64E640()
 	SpeechFile.erase();
 }
 
-// NOT EXACT: 0x64E7A0 (Unknown_64E7A0: registers only: the bit test, and the 0x497300 call's return slot loaded before its argument)
+// 0x64E7A0
 void UITalkTreeClass::Unknown_64E7A0()
 {
 	RefCountPtr<RenderObjClass> bttn_obj;
@@ -845,7 +845,7 @@ void UITalkTreeClass::Unknown_64E7A0()
 		if (!Buttons[lp]->Is_Enabled()) {
 			break;
 		}
-		if (Buttons[lp]->Is_Unknown2C_02() && Is_Unknown2C_03(Buttons[lp])) {
+		if (Is_Unknown2C_02_03(Buttons[lp])) {
 			bttn_obj = Unknown_497300(Buttons[lp]->Peek_Render_Obj());
 			active = lp - 1;
 			break;
