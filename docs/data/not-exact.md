@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-584 entries in 245 files.
+580 entries in 245 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -181,7 +181,6 @@ edit the comments in the code, not this file.
 | `app/client/inv_render.cpp:1014` | `Unknown68DC20Class::Unknown_28` | marker | NOT EXACT: 0x68F510, 22 rows: the client multiplies by -3600000 and adds; it calls max_size and _Eos in the last append 0x68F510 |
 | `app/client/inv_trade_render.cpp:64` | `InvTradeRenderClass::Unknown_2C` | marker | NOT EXACT: 0x68FE10, 26 rows: register and block order (the item's name arm sits after the function's last jump in the client) 0x68FE10 |
 | `app/client/inv_transaction.cpp:118` | `InvTransactionClass::Unknown_690AA0` | marker | NOT EXACT: 0x690AA0, 17 rows: register, and the client keeps State = 2 before the else 0x690AA0 |
-| `app/client/inv_transaction.cpp:170` | `InvTransactionClass::Unknown_690D20` | marker | NOT EXACT: 0x690D20, 20 rows: register and order of the packet's arguments 0x690D20 |
 | `app/client/item/client_item_property_builder.cpp:26` | `ClientItemPropertyBuilderClass::Unknown_521C10` | marker | NOT EXACT: 0x521C10 (0.85, register allocation only: the Unknown529810 property's Create and its Route take edx / eax where ours take eax / edx; tried a local id, a named RefCountPtr, both worse) |
 | `app/client/item/client_item_property_builder.cpp:82` | `ClientItemPropertyBuilderClass::Unknown_522860` | marker | NOT EXACT: 0x522860 (functional, masked residue 56 rows, frame 0x66C as the client's: 25 dead Data.Peek() reads in the gap above FAIL_IF (D272) and a copy-initialised RefCountPtr<const ClientItemPropertyClass> local at the Mode Route (the client re-reads it from its slot) spend the inline budget, so the Modes Create's three string constructors and the separator's destructor go out of line and case... |
 | `app/client/item/client_item_property_builder.cpp:883` | `ClientItemPropertyBuilderClass::Unknown_5285A0` | mention | NOT EXACT. The callees in files the tree does not have yet are declared in client_item_property_builder.h (interim, D137). CIPB, run 2026-11-17b: 0x527F40 exact once 0x528460 takes the ItemEffectDescriptionClass (its vector at +0) and reads Get_Effects() in the loop: the extra inline accessor layer is the budget that sends both strings' _Tidy out of line and puts delta above delta2 in the frame. 0... |
@@ -421,7 +420,6 @@ edit the comments in the code, not this file.
 | `app/client/ui_talkt.cpp:287` | `UITalkTreeClass::Unknown_5C` | marker | NOT EXACT: 0x64C8D0 (Unknown_5C: inline budget, _Eos / _Tidy out of line in the client) |
 | `app/client/ui_talkt.cpp:357` | `UITalkTreeClass::Unknown_90` | marker | NOT EXACT: 0x64CC90 (Unknown_90: the vector's _Destroy out of line in the client) |
 | `app/client/ui_talkt.cpp:618` | `UITalkTreeClass::Unknown_60` | marker | NOT EXACT: 0x64D770 (Unknown_60, inline budget: SpeechFile.erase()'s nested _Grow calls max_size out of line in the client, inlined in ours) |
-| `app/client/ui_talkt.cpp:839` | `UITalkTreeClass::Unknown_64E7A0` | marker | NOT EXACT: 0x64E7A0 (Unknown_64E7A0: registers only: the bit test, and the 0x497300 call's return slot loaded before its argument) |
 | `app/client/ui_trade.cpp:600` | `UITradeClass::Unknown_651F60` | marker | NOT EXACT: 0x651F60's -1 call pushes a zeroed edx twice, ours shares the other call's push 0 (register residue) @0x651F60 |
 | `app/client/ui_trade.cpp:998` | `UITradeClass::Unknown_653A80` | mention | NOT EXACT. Evidence: the asserts' names ('PDA', '!InterfaceMesh', 'StandardBttnTexture', 'SelectedBttnTexture'); the buttons' sub-objects from the table 0xB8BE98 ('category00'..'category05', 'buy', 'buy_stack', 'sell', 'sellall', 'compare', 'sort', 'exit'); +0x150 holds three InvDataClass (0x688410 with types 1-3), +0x160 is gd_inv_slider.cpp's slider. Forms: the box is reached through Get_View()-... |
 | `app/client/ui_treem.cpp:190` | `UITreeMClass::Unknown_68` | marker | NOT EXACT (0.27, inline-budget): the client calls Next_Sibling (0x655DE0) out of line in the inlined Open / Close loops; ours inlines it |
