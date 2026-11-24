@@ -668,7 +668,7 @@ bool ChatGadgetClass::Unknown_65E520()
 	return(false);
 }
 
-// 0x65E5E0  // NOT EXACT: functional (D64)
+// 0x65E5E0
 bool ChatGadgetClass::Unknown_65E5E0()
 {
 	SClient *sclient = (SClient *)Client->As_Space_Client();
@@ -678,9 +678,9 @@ bool ChatGadgetClass::Unknown_65E5E0()
 		text[0] = 0;
 		if (target->AuxData != NULL) {
 			NameClass field("Name");
-			DeltaStringClass *name = Unknown_Find_Field<DeltaStringClass>((DeltaCompoundClass *)target->AuxData, field);
-			if (name != NULL && !name->Unknown70) name = NULL;
+			DeltaStringClass *name = Unknown_Find_Set_Field<DeltaStringClass>((DeltaCompoundClass *)target->AuxData, field);
 			const char *string = name->String;
+
 			if (string != NULL && *string != 0) {
 				sprintf(text, "Target '%s' at ", string);
 			}
@@ -688,8 +688,8 @@ bool ChatGadgetClass::Unknown_65E5E0()
 		if (text[0] == 0) {
 			sprintf(text, "Target at ");
 		}
-		Matrix3D transform = target->Unknown_28(true);
-		sprintf(text + strlen(text), "(%1.2f, %1.2f, %1.2f) ", transform[0][3] * 0.001f, transform[1][3] * 0.001f, transform[2][3] * 0.001f);
+		Matrix3D transform = target->Unknown_28(true); Vector3 position = transform.Get_Translation();
+		sprintf(text + strlen(text), "(%1.2f, %1.2f, %1.2f) ", position.X * 0.001f, position.Y * 0.001f, position.Z * 0.001f);
 		Edit->Insert(text);
 		Changed = true;
 		return(true);
@@ -722,7 +722,7 @@ void ChatGadgetClass::Unknown_65E7C0(bool reply)
 
 
 
-// 0x65E840  // NOT EXACT: functional (D64)
+// 0x65E840
 bool ChatGadgetClass::Unknown_65E840()
 {
 	SClient *sclient = (SClient *)Client->As_Space_Client();
@@ -733,9 +733,9 @@ bool ChatGadgetClass::Unknown_65E840()
 	ClientObjectClass *target;
 	if (sclient->MainView != NULL && (target = sclient->MainView->Unknown_5C()) != NULL && target->Unknown_6F5A40() && target->AuxData != NULL) {
 		NameClass field("Owner");
-		DeltaStringClass *owner = Unknown_Find_Field<DeltaStringClass>((DeltaCompoundClass *)target->AuxData, field);
-		if (owner != NULL && !owner->Unknown70) owner = NULL;
+		DeltaStringClass *owner = Unknown_Find_Set_Field<DeltaStringClass>((DeltaCompoundClass *)target->AuxData, field);
 		const char *string = owner->String;
+
 		if (string != NULL && *string != 0) {
 			std::string name(string);
 			unsigned int start = name.find('[');
