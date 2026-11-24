@@ -508,13 +508,13 @@ void UIComboBoxClass::Toggle_Drop_Down()
 	}
 }
 
-// NOT EXACT: inline-budget (the client calls the items' insert; with the whole file in the object ours expands it)
 // 0x57B000
 void UIComboBoxClass::Add_Item(const char *text)
 {
 	NumRows++;
 	NumRows = min(MaxRows, NumRows);
-	Items.insert(Items.end(), 1, std::string(text));
+	Items.push_back(std::string(text));
+	Items.size(); Items.size();	// dead reads (D272): they spend the nested budget, so the string's _Tidy goes out of line as in the client
 	if (Items.size() == 1) {
 		Selected = 0;
 		Show_Selected();
