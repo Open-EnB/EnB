@@ -9632,7 +9632,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `TARGET_FIND_UNKNOWN_100` | `app/client/target_find.h:31` | neutral (D10): Unknown_74D780, or a Reaction of 0 or 1 |
 | 1 | `TARGET_FIND_UNKNOWN_200` | `app/client/target_find.h:32` | neutral (D10): a non-avatar with any other Reaction |
 | 1 | `TargetFindEntryStruct` | `app/client/target_find.h:36` | neutral (D10) |
-| 1 | `Select` | `app/client/target_find.h:52` | neutral by what callers hand it |
+| 1 | `it` | `app/client/target_find.h:52` | neutral by what callers hand it |
 | 1 | `Select_Nearest_100` | `app/client/target_find.h:62` | neutral (D10) |
 | 1 | `Select_Nearest_200` | `app/client/target_find.h:63` | neutral (D10) |
 | 1 | `robj, make_geometry_unique` | `app/client/target_reticle.cpp:22` | as eff_o.cpp's |
@@ -16780,8 +16780,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_B08CA0` | `app/client/ui_registration.cpp:45` | 0xB08CA0 (textgadg.h's flags) |
 | 1 | `Unknown_B08CB4` | `app/client/ui_registration.cpp:46` | 0xB08CB4 (textgadg.h's flags) |
 | 1 | `Unknown_BE5DC8` | `app/client/ui_registration.cpp:47` | 0xBE5DC8 |
-| 1 | `Unknown_B08CB8` | `app/client/ui_registration.cpp:47` | untagged neutral name (D10) |
 | 1 | `Unknown_B08CAC` | `app/client/ui_registration.cpp:47` | untagged neutral name (D10) |
+| 1 | `Unknown_B08CB8` | `app/client/ui_registration.cpp:47` | untagged neutral name (D10) |
 | 1 | `Unknown_BE5DC4` | `app/client/ui_registration.cpp:48` | 0xBE5DC4 |
 | 1 | `Unknown_BE5DE4` | `app/client/ui_registration.cpp:49` | 0xBE5DE4 |
 | 1 | `Unknown_B08CB0` | `app/client/ui_registration.cpp:49` | untagged neutral name (D10) |
@@ -27930,7 +27930,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Index` | `app/common/average.h:124` | what it holds |
 | 2 | `race, prof` | `app/common/chartemplate.cpp:83` | the FAIL_IFs'; NAME 1 [Unknown_82F350]: neutral (D10) |
 | 2 | `template_idx` | `app/common/chartemplate.cpp:90` | the FAIL_IF's; NAME 1 [Unknown_82F3C0]: as ui_class.cpp's |
-| 2 | `Init` | `app/common/chartemplate.h:37` | reads 'chartemplate.ini' on the first reference |
+| 2 | `x82F400` | `app/common/chartemplate.h:37` | reads 'chartemplate.ini' on the first reference |
 | 2 | `Shutdown` | `app/common/chartemplate.h:38` | frees the templates with the last reference |
 | 2 | `Get_Template` | `app/common/chartemplate.h:39` | what it returns |
 | 2 | `Get_First` | `app/common/chartemplate.h:40` | Get_Template(0) |
@@ -28570,14 +28570,14 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Get_Flag_Count` | `app/packets/pkflag.h:27` | what pkflag.cpp's asserts call it (flag_max) |
 | 2 | `Write_Flags` | `app/packets/pkflag.h:29` | what it does |
 | 2 | `Read_Flags` | `app/packets/pkflag.h:30` | what it does |
-| 2 | `Get_Flag_Size` | `app/packets/pkflag.h:31` | what it returns |
+| 2 | `writes` | `app/packets/pkflag.h:31` | what it returns |
 | 2 | `Add_Flagged` | `app/packets/pkflag.h:34` | what it does |
 | 2 | `Get_Flagged` | `app/packets/pkflag.h:35` | what it does |
 | 2 | `Flagged_Size` | `app/packets/pkflag.h:36` | what it returns |
 | 2 | `Set_Flag` | `app/packets/pkflag.h:37` | what it does |
 | 2 | `Is_Flag_Set` | `app/packets/pkflag.h:38` | what it returns |
 | 2 | `Get_Type` | `app/packets/pkgadget.h:33` | what it returns (the opcode Build sends), as SuperLinePacketClass's |
-| 2 | `Get_Name` | `app/packets/pkgadget.h:34` | what it returns (Print's name), as MessageLinePacketClass's |
+| 2 | `x8879D0` | `app/packets/pkgadget.h:34` | what it returns (Print's name), as MessageLinePacketClass's |
 | 2 | `Owned` | `app/packets/pkgadget.h:39` | what it means |
 | 2 | `Get_Type` | `app/packets/pkgadget.h:51` | as GadgetPacketClass's |
 | 2 | `Get_Name` | `app/packets/pkgadget.h:52` | as GadgetPacketClass's |
@@ -28683,7 +28683,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `DefaultTargetOffset` | `app/packets/pkpointeffect.cpp:7` | what it holds |
 | 2 | `DefaultSpeedup` | `app/packets/pkpointeffect.cpp:8` | what it holds |
 | 2 | `Get_Size` | `app/packets/pkpointeffect.h:36` | what it returns |
-| 2 | `Get_Flags` | `app/packets/pkpointeffect.h:37` | what it returns |
+| 2 | `sent` | `app/packets/pkpointeffect.h:37` | what it returns |
 | 2 | `Channel` | `app/packets/pkpointeffect.h:46` | Get_Channel returns it |
 | 2 | `Get_Size` | `app/packets/pkpointeffect.h:82` | what it returns |
 | 2 | `Get_Flags` | `app/packets/pkpointeffect.h:83` | what it returns |
@@ -29429,8 +29429,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `KVPointerAccessorClass` | `app/shared/kv_encoder_base.h:33` | what it does |
 | 2 | `KVEncoderDataClass` | `app/shared/kv_encoder_base.h:46` | after the asserts' Data |
 | 2 | `Flags` | `app/shared/kv_encoder_base.h:51` | after the asserts' FlagList |
-| 2 | `Make_Key` | `app/shared/kv_encoder_base.h:63` | describes what it does |
-| 2 | `Push_Prefix` | `app/shared/kv_encoder_base.h:64` | describes what it does |
+| 2 | `name` | `app/shared/kv_encoder_base.h:63` | describes what it does |
+| 2 | `x4B40F0` | `app/shared/kv_encoder_base.h:64` | describes what it does |
 | 2 | `Pop_Prefix` | `app/shared/kv_encoder_base.h:65` | describes what it does |
 | 2 | `Set_Prefix` | `app/shared/kv_encoder_base.h:66` | describes what it does |
 | 2 | `Get_Flags` | `app/shared/kv_encoder_base.h:67` | describes what it does |
@@ -29554,7 +29554,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `FogRange` | `app/shared/landdmap.h:74` | +0x88, FogEnd - FogStart |
 | 2 | `sample_indices` | `app/shared/lookup_table.cpp:15` | what it holds |
 | 2 | `Compare_Samples` | `app/shared/lookup_table.cpp:199` | what it does |
-| 2 | `Lookup` | `app/shared/lookup_table.h:38` | what it does (the self-test's floor->Lookup(index)) |
+| 2 | `slot` | `app/shared/lookup_table.h:38` | what it does (the self-test's floor->Lookup(index)) |
 | 2 | `Create` | `app/shared/lookup_table.h:40` | what it does |
 | 2 | `ContinuousLookupTableClass` | `app/shared/lookup_table.h:44` | the ini's type name |
 | 2 | `Create` | `app/shared/lookup_table.h:50` | what it does |
@@ -29574,7 +29574,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `InterpolatedLookupTableClass` | `app/shared/lookup_table.h:107` | the ini's type name |
 | 2 | `Create` | `app/shared/lookup_table.h:113` | what it does |
 | 2 | `LookupTableSetClass` | `app/shared/lookup_table.h:117` | what it holds |
-| 2 | `Lookup` | `app/shared/lookup_table.h:123` | what it does |
+| 2 | `x4ED0B0` | `app/shared/lookup_table.h:123` | what it does |
 | 2 | `Get` | `app/shared/lookup_table.h:124` | what it does |
 | 2 | `Load` | `app/shared/lookup_table.h:126` | what it does |
 | 2 | `LookupTableManagerClass` | `app/shared/lookup_table.h:132` | what it does |
@@ -29933,7 +29933,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Load_Hermite` | `app/shared/spln_db.h:185` | a Hermite curve's keys and tangents (0x488DC0) |
 | 2 | `Read_String` | `app/shared/spln_db.h:187` | a length-prefixed string (0x488F20) |
 | 2 | `ShowHidden` | `app/shared/spln_db.h:190` | +0x000, the name iteration (0x4869C0) returns hidden entries too when set |
-| 2 | `Splines` | `app/shared/spln_db.h:192` | the entries by CRC_String(name) |
+| 2 | `Splines` | `app/shared/spln_db.h:192` | the entries by CRC::String(name) |
 | 2 | `KeyNames` | `app/shared/spln_db.h:194` | chunk 0x808's names; entry 0 is NULL |
 | 2 | `Filename` | `app/shared/spln_db.h:196` | the assert 'database_filename' names the argument kept here |
 | 2 | `Iterator` | `app/shared/spln_db.h:198` | +0x844, the name iteration's node (0x4869C0, 0x486A40) |
@@ -30044,7 +30044,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `PxBoxCallback` | `app/shared/unknown_px_callbacks.h:24` | what it does |
 | 2 | `object, callback, extent` | `app/shared/unknown_px_callbacks.h:27` | what it stores |
 | 2 | `object, src` | `app/shared/unknown_px_callbacks.h:28` | as PxBox's |
-| 2 | `Callback` | `app/shared/unknown_px_callbacks.h:38` | as PxPollCallback's |
+| 2 | `x24` | `app/shared/unknown_px_callbacks.h:38` | as PxPollCallback's |
 | 2 | `Extent` | `app/shared/unknown_px_callbacks.h:39` | as above |
 | 2 | `BandwidthEntryClass` | `app/wwudp/bandwidthaccounting.cpp:34` | describes what it holds |
 | 2 | `Ip` | `app/wwudp/bandwidthaccounting.cpp:39` | +0x00 (host order) |
@@ -31469,7 +31469,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `pkflag.h` | `app/packets/pkflag.h:17` | after the client's pkflag.cpp (D57) |
 | 3 | `FlagPacketClass` | `app/packets/pkflag.h:24` | after the client's file pkflag.cpp (D24) |
 | 3 | `GadgetPacketClass` | `app/packets/pkgadget.h:21` | the client's Print text 'Gadget Control' |
-| 3 | `Function` | `app/packets/pkgadget.h:36` | the client's Print text 'Function=' |
+| 3 | `are` | `app/packets/pkgadget.h:36` | the client's Print text 'Function=' |
 | 3 | `Name` | `app/packets/pkgadget.h:37` | the client's Print text 'Name=' |
 | 3 | `Size` | `app/packets/pkgadget.h:38` | the client's Print text 'Size=' |
 | 3 | `Type` | `app/packets/pkgalaxymap.h:35` | the client's Print text 'Type=' |
