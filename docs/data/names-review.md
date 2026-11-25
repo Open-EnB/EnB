@@ -30094,7 +30094,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `LastOutIndex` | `app/wwudp/bandwidthaccounting.cpp:100` | 0xBB13F4 |
 | 2 | `Reset_Channel` | `app/wwudp/cordcon.cpp:34` | Reset's body |
 | 2 | `current` | `app/wwudp/cordcon.cpp:1435` | the copy of now the expiry loop compares |
-| 2 | `percent` | `app/wwudp/cordcon.cpp:1854` | the share of first sends |
+| 2 | `first` | `app/wwudp/cordcon.cpp:1854` | the share of first sends |
 | 2 | `Cord_Put_Small` | `app/wwudp/cordcon.cpp:1947` | what it does (the client has no name) |
 | 2 | `Cord_Put_Seq` | `app/wwudp/cordcon.cpp:1957` | what it does (the client has no name) |
 | 2 | `Cord_Get_Small` | `app/wwudp/cordcon.cpp:1967` | what it does (the client has no name) |

@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-543 entries in 241 files.
+542 entries in 241 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -545,7 +545,7 @@ edit the comments in the code, not this file.
 | `app/wwudp/cordcon.cpp:72` | `CordChannelClass::Copy` | mention | NOT EXACT (functional, 0.14: inline budget): member by member in the client's order (the lists through wlib's operator=, the vectors emptied and refilled one record at a time). The client inlines ArrayList::clear, CordListClass's clear and getPointer and calls get / add, the vectors' erase / insert and the second size() out of line; ours inlines erase / insert and calls clear, Clear and Get. |
 | `app/wwudp/cordcon.cpp:270` | `CordCon::openc` | mention | NOT EXACT (0.48): the client opens odd channels, the server even ones: the unused one written least recently, the search going on from where it stopped after two more are made. Not reproduced: the client's dead test on the first index (`sete` / `test cl, 1`). |
 | `app/wwudp/cordcon.cpp:701` | `CordCon::examinePacket` | marker | NOT EXACT (0.73, explain.py: shape, 20 masked rows): the client's ntohs / ntohl arguments go through eax (the counter at +3, the CRC at +5, the first loop's seq), ours ecx / edx, and it keeps the channel in ebp over the channel-adding loop where we reload it; attempts.py show 0x8514D0. |
-| `app/wwudp/cordcon.cpp:1417` | `CordCon::pumpInternal` | marker | NOT EXACT: 0x853A30 (0.76, explain.py: literal, EH state 9 vs 10 for the resend copy; frame slots of index and the Xtimes): the client's four Xtime copies of now, its send block (profiled memcpys, Set_Header_CRC inlined, push_back). pumpClose; every 8 calls the unreliable (mode 1 / 4) sent records older than 6 round trips are dropped (the client logs 'Removing unreliable'); then the records by pri... |
+| `app/wwudp/cordcon.cpp:1417` | `CordCon::pumpInternal` | marker | NOT EXACT: 0x853A30 (masked 32; attempts.csv 0x853A30): the client's unwind map (FuncInfo 0xB56678) has two NULL-action states, 9 and 13, one after each send block's Write profile (an object in a branch the optimiser folded away, as vector::swap's else branch gives 0x688F70), so its resend copy is state 0xA and the final profiles 0xB / 0xC; its resend erase loads Channels_[channel] once. pumpClose... |
 | `app/wwudp/cordcon.cpp:1978` | `Cord_Get_Seq` | marker | NOT EXACT (0x854C90, 0.84, explain.py: order-only): the client loads `value` between the call and the 0xFFFF mask of the short branch, ours after the mask (12 forms tried: attempts.py show 0x854C90). |
 | `app/wwudp/cordmgr.cpp:7` | `CordMgr::CordMgr` | mention | NOT EXACT, D42: the data path). The client's log calls (E&B's log 0x4BC130 with __FILE__ / __LINE__, category "UDP") sit on their lines, 592 and 1272, INFMSG on 1120 (D25): the blank stretches below hold the place of the functions not rebuilt. Notes at the end. |
 | `app/wwudp/cordmgr.cpp:197` | `CordMgr::Pump_Connections` | marker | NOT EXACT: 0x858A60. SYN1 (0, protocol, session) while waiting for ACK1, SYN2 (2, protocol, session, ACK1's two words, 0x4000, the key's length, the encrypted key) while waiting for ACK2, each again a second after the last; a connection 60 s old becomes a CordCon without a socket (the caller finds it, closed) and leaves the list. |
