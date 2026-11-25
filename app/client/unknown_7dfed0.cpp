@@ -1,7 +1,7 @@
 // Earth & Beyond client (reconstruction): app\client\unknown_7dfed0.cpp. PROVISIONAL file name (D137).
 #include "unknown_7dfed0.h"
 #include <stdlib.h>
-
+#include <string>
 void Sub14CImplClass::Unknown_5F00C0()
 {
 	IUnknown *stream = Unknown18.Get_Unknown1C();
