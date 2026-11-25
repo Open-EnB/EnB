@@ -603,13 +603,14 @@ def compare_drawlogs(a, b, tol=None):
             unmatched += max(i2 - i1, j2 - j1)
             if first_unmatched is None:
                 first_unmatched = i1
-    fields, first, deltas, bad = {}, None, [], {}
+    fields, first, deltas, bad, field_draws = {}, None, [], {}, []
     mat = {k: 0.0 for k in DRAW_MATRICES}
     for i, j in pairs:
         fa, fb = a['draws'][i][0], b['draws'][j][0]
         diff = sorted(k for k in set(fa) | set(fb) if fa.get(k) != fb.get(k))
         for k in diff:
             fields.setdefault(k, i)
+            field_draws.append((i, k))
         if diff and first is None:
             first = [i, diff]
         dd = {}
@@ -629,7 +630,192 @@ def compare_drawlogs(a, b, tol=None):
     if mat['sets'] > tol(None, 'sets'):
         bad['sets'] = [1, 0, mat['sets']]
     return {'counts': [a['count'], b['count']], 'unmatched': unmatched, 'first_unmatched': first_unmatched,
-            'fields': fields, 'first': first, 'matrix': mat, 'deltas': deltas, 'bad': bad, 'sets': kinds_same}
+            'fields': fields, 'field_draws': field_draws, 'pairs': pairs, 'first': first, 'matrix': mat,
+            'deltas': deltas, 'bad': bad, 'sets': kinds_same}
+
+
+# The multiset compare (2026-11-25): a scene that moves (a playback's asteroids switching LOD, ships changing the draw
+# order) reads as DIFF in the ordered compare above although every state, texture and object is there. Here a frame
+# is a multiset of draw states (every flat field but the LOD's prims and verts). A state of the run that no stored
+# run has passes when its nearest stored state differs only in fields that differ so between the stored runs
+# themselves (the same rule the other way for a stored state the run lacks); each state's draws are paired with the
+# stored run's nearest first by world translation, and each pair's world matrices must be within that stored draw's
+# own spread over the other stored runs (times DRAW_MATRIX_SLACK, plus DRAW_MATRIX_FLOOR: a still draw stays still);
+# the draw counts per state, the textures as a set and the frame's views and projections within the stored runs'
+# largest difference among themselves (the counts and matrices times DRAW_MATRIX_SLACK). Each measure is taken
+# against the stored run the run is closest to in it.
+MULTISET_LOD = ('prims', 'verts')
+_STATE_HEAD = ('call', 'prim', 'fvf', 'stride', 'tex0.w', 'tex0.h', 'tex0.format', 'tex1.w', 'tex1.h', 'tex1.format')
+
+
+def _state(flat):
+    return tuple(sorted((k, v) for k, v in flat.items() if k not in MULTISET_LOD))
+
+
+def _texture(flat, s):
+    v = tuple(flat.get(f'tex{s}.{k}') for k in TEX_FIELDS)
+    return None if all(x is None for x in v) else v
+
+
+def _ms_prep(log):
+    """A loaded draw log -> {'groups': {state: [(draw index, world)]}, 'tex': set, 'cams': {kind: [matrix]}}."""
+    from collections import defaultdict
+    if '_ms' in log:
+        return log['_ms']
+    groups = defaultdict(list)
+    for i, (f, m) in enumerate(log['draws']):
+        groups[_state(f)].append((i, m['world'], (f.get('prims'), f.get('verts'))))
+    tex = {t for f, _ in log['draws'] for t in (_texture(f, 0), _texture(f, 1)) if t}
+    cams = {}
+    for kind in ('view', 'proj'):
+        xs = [m for k, m in log['sets'] if k == kind and m is not None]
+        cams[kind] = [(n, m, None) for n, m in enumerate(xs) if m not in xs[:n]]
+    log['_ms'] = {'groups': dict(groups), 'tex': tex, 'cams': cams}
+    return log['_ms']
+
+
+def _pair_nearest(xa, xb):
+    """Two lists of (key, matrix, lod) -> [(key a, key b, element difference)]: the draws of the same LOD (prims,
+    verts: the same mesh) paired nearest first by translation, then the rest nearest first (an object that switched
+    its LOD)."""
+    def tr(m):
+        return m[12:15] if m and len(m) >= 15 and None not in m[12:15] else (0.0, 0.0, 0.0)
+    cand = sorted((xa[i][2] != xb[j][2], sum((x - y) ** 2 for x, y in zip(tr(xa[i][1]), tr(xb[j][1]))), i, j)
+                  for i in range(len(xa)) for j in range(len(xb)))
+    used_a, used_b, out = set(), set(), []
+    for _, _, i, j in cand:
+        if i in used_a or j in used_b:
+            continue
+        used_a.add(i)
+        used_b.add(j)
+        out.append((xa[i][0], xb[j][0], _mdelta(xa[i][1], xb[j][1])))
+    return out
+
+
+def _state_fields(a, b):
+    return [k for (k, x), (_, y) in zip(a, b) if x != y]
+
+
+def _nearest_fields(state, pool):
+    """The fields in which `state` differs from its nearest state of `pool` (same field names; the same draw call,
+    primitive, FVF and textures' sizes first), or None when pool has no state with the same fields."""
+    names = [k for k, _ in state]
+    head = {k: v for k, v in state if k in _STATE_HEAD}
+    best = None
+    for near in (True, False):
+        for s in pool:
+            if [k for k, _ in s] != names or (near and any(dict(s).get(k) != v for k, v in head.items())):
+                continue
+            d = _state_fields(state, s)
+            if best is None or len(d) < len(best):
+                best = d
+        if best is not None:
+            return best
+    return best
+
+
+def _odd_states(xa, xb, varying):
+    """States of xa missing from xb whose nearest xb state differs in a field outside `varying` -> [(state, fields)]."""
+    out = []
+    for s in xa:
+        if s in xb:
+            continue
+        d = _nearest_fields(s, xb)
+        if d is None or not set(d) <= varying:
+            out.append((s, d))
+    return out
+
+
+def multiset_noise(stored):
+    """Loaded stored logs -> what they differ by among themselves: 'varying' (fields in which a state of one differs
+    from the nearest state of another), 'draws' (the largest multiset distance of the draw states), 'textures' (the
+    largest number of textures in one and not the other), 'cams' (the largest view / projection difference), 'spread'
+    ([{draw index: the largest world difference to its partner in another run}] per log)."""
+    preps = [_ms_prep(lg) for lg in stored]
+    nz = {'varying': set(), 'draws': 0, 'textures': 0, 'cams': 0.0, 'spread': [{} for _ in stored]}
+    for x, y in itertools.permutations(range(len(stored)), 2):
+        px, py = preps[x], preps[y]
+        for s in px['groups']:
+            if s not in py['groups']:
+                nz['varying'] |= set(_nearest_fields(s, py['groups']) or [])
+        if x > y:
+            continue
+        nz['draws'] = max(nz['draws'], _count_distance(px, py))
+        nz['textures'] = max(nz['textures'], len(px['tex'] ^ py['tex']))
+        nz['cams'] = max(nz['cams'], _cams_distance(px, py))
+        for s in set(px['groups']) & set(py['groups']):
+            for i, j, d in _pair_nearest(px['groups'][s], py['groups'][s]):
+                nz['spread'][x][i] = max(nz['spread'][x].get(i, 0.0), d)
+                nz['spread'][y][j] = max(nz['spread'][y].get(j, 0.0), d)
+    return nz
+
+
+def _count_distance(pa, pb):
+    return sum(abs(len(pa['groups'].get(s, ())) - len(pb['groups'].get(s, ())))
+               for s in set(pa['groups']) | set(pb['groups']))
+
+
+def _cams_distance(pa, pb):
+    return max((d for kind in ('view', 'proj') for _, _, d in
+                _pair_nearest(pa['cams'][kind], pb['cams'][kind])), default=0.0)
+
+
+def _state_desc(state):
+    f = dict(state)
+    t = f"tex {f['tex0.w']}x{f['tex0.h']} fmt {f['tex0.format']}" if f.get('tex0.w') is not None else 'no texture'
+    fvf = f'{f["fvf"]:#x}' if isinstance(f.get('fvf'), int) else f.get('fvf')
+    return f"{f.get('call')} prim {f.get('prim')}, fvf {fvf}, {t}"
+
+
+def multiset_measures(mine, stored, nz):
+    """The run's loaded draw log against each loaded stored one -> one dict per stored log: 'extra' / 'missing'
+    (_odd_states both ways), 'draws', 'textures', 'cams', 'worlds' ([(draw of mine, draw of the stored log,
+    difference, allowed)] of the pairs over their allowance)."""
+    pm = _ms_prep(mine)
+    out = []
+    for k, lg in enumerate(stored):
+        ps = _ms_prep(lg)
+        worlds = []
+        for s in set(pm['groups']) & set(ps['groups']):
+            for i, j, d in _pair_nearest(pm['groups'][s], ps['groups'][s]):
+                allowed = DRAW_MATRIX_SLACK * nz['spread'][k].get(j, 0.0) + DRAW_MATRIX_FLOOR
+                if d > allowed:
+                    worlds.append((i, j, d, allowed))
+        out.append({'extra': _odd_states(pm['groups'], ps['groups'], nz['varying']),
+                    'missing': _odd_states(ps['groups'], pm['groups'], nz['varying']),
+                    'draws': _count_distance(pm, ps), 'textures': len(pm['tex'] ^ ps['tex']),
+                    'cams': _cams_distance(pm, ps), 'worlds': sorted(worlds)})
+    return out
+
+
+def multiset_verdict(mine, stored):
+    """A run's loaded draw log against the loaded stored ones, as multisets -> (True | False, text)."""
+    nz = multiset_noise(stored)
+    ms = multiset_measures(mine, stored, nz)
+    st = min(ms, key=lambda m: len(m['extra']) + len(m['missing']))
+    wo = min(ms, key=lambda m: len(m['worlds']))
+    draws = min(m['draws'] for m in ms)
+    texs = min(m['textures'] for m in ms)
+    cams = min(m['cams'] for m in ms)
+    parts = []
+    if st['extra'] or st['missing']:
+        s, d = (st['extra'] or st['missing'])[0]
+        parts.append(f'{len(st["extra"])} draw states not stored, {len(st["missing"])} stored ones missing (e.g. '
+                     f'{"extra" if st["extra"] else "missing"} {_state_desc(s)}: '
+                     f'{", ".join((d or ["no stored state with its fields"])[:4])})')
+    if texs > nz['textures']:
+        parts.append(f'{texs} textures differ (stored runs by up to {nz["textures"]})')
+    if draws > DRAW_MATRIX_SLACK * nz['draws']:
+        parts.append(f'draw counts per state {draws} apart (stored runs up to {nz["draws"]})')
+    if cams > DRAW_MATRIX_SLACK * nz['cams'] + DRAW_MATRIX_FLOOR:
+        parts.append(f'views / projections up to {cams:.4g} apart (stored runs {nz["cams"]:.4g})')
+    if wo['worlds']:
+        i, j, d, allowed = max(wo['worlds'], key=lambda w: w[2] - w[3])
+        parts.append(f'world matrices of {len(wo["worlds"])} draws out of the stored spread (worst {_draw_desc(mine, i)}'
+                     f' {d:.4g}, allowed {allowed:.4g})')
+    if parts:
+        return False, 'as a multiset: ' + '; '.join(parts)
+    return True, f'the same as a multiset (draw counts per state {draws} apart, stored runs up to {nz["draws"]})'
 
 
 def _canon(log):
@@ -698,7 +884,7 @@ def drawlog_verdict(mine_path, stored_paths, nzd):
     lo, hi = nzd.get('draws', [None, None])
     sets_spread = (nzd.get('matrix_spread') or {}).get('sets', 0.0)
     mine = load_drawlog(mine_path)
-    best = None
+    best, loaded = None, []
     for p in stored_paths:
         if is_lfs_pointer(p):
             return False, f'{os.path.basename(p)} is a Git LFS pointer: run git lfs pull'
@@ -708,7 +894,8 @@ def drawlog_verdict(mine_path, stored_paths, nzd):
         def tol(j, k, spread=spread):
             v = sets_spread if j is None else spread.get(str(j), {}).get(k, 0.0)
             return float('inf') if v is None else DRAW_MATRIX_SLACK * v + DRAW_MATRIX_FLOOR
-        c = compare_drawlogs(mine, load_drawlog(p), tol)
+        loaded.append(load_drawlog(p))
+        c = compare_drawlogs(mine, loaded[-1], tol)
         bad_fields = sorted((f for f in c['fields'] if f not in allowed), key=lambda f: (c['fields'][f], f))
         bad_count = c['unmatched'] > nzd.get('unmatched_max', 0) or (
             c['unmatched'] and lo is not None and not lo <= mine['count'] <= hi)
@@ -724,13 +911,17 @@ def drawlog_verdict(mine_path, stored_paths, nzd):
     if bad_fields:
         i = c['fields'][bad_fields[0]]
         here = [f for f in bad_fields if c['fields'][f] == i]
+        n_draws = len({i for i, f in c['field_draws'] if f in bad_fields})
         parts.append(f'first difference {_draw_desc(mine, i)}: {", ".join(here[:6])}'
                      + (f' (+{len(here) - 6})' if len(here) > 6 else '')
-                     + f'; {len(bad_fields)} fields differ in all')
+                     + f'; {len(bad_fields)} fields differ in {n_draws} of {len(c["pairs"])} paired draws')
     if c['bad']:
         parts.append('matrices ' + ', '.join(f'{k} in {n} draws from draw {f0} (up to {w:.4g})'
                                              for k, (n, f0, w) in sorted(c['bad'].items())))
-    return False, '; '.join(parts)
+    ok, text = multiset_verdict(mine, loaded)
+    if ok:          # the ordered compare's differences are a moving scene's: order, LOD, matrices within the spread
+        return True, f'{mine["count"]} draws, {text} (in order: {"; ".join(parts[1:])})'
+    return False, '; '.join(parts) + '; ' + text
 
 
 # ---------------------------------------------------------------- noise
@@ -739,7 +930,7 @@ def stored_runs(scen_dir):
     return sorted(d for d in os.listdir(scen_dir) if os.path.isfile(os.path.join(scen_dir, d, 'manifest.json')))
 
 
-def run_entries(scen_dir, name):
+def run_entries(scen_dir, name, superseded=None):
     """The stored runs of scenario name in scen_dir (a scenario's folder, or a set's that ran it):
     [{'run', 'dir', 'verdict', 'shots', 'drawlogs', 'packets', 'order'}]."""
     out = []
@@ -755,7 +946,16 @@ def run_entries(scen_dir, name):
         out.append({'run': r, 'dir': d, 'verdict': e['verdict'], 'shots': e.get('shots', []),
                     'drawlogs': e.get('drawlogs', []), 'order': man.get('order', [man['scenario']]),
                     'audio': e.get('audio') and os.path.join(d, e['audio']),
-                    'packets': read_json(os.path.join(d, 'packets.json')).get(name, [])})
+                    'packets': read_json(os.path.join(d, 'packets.json')).get(name, []),
+                    'scn': (man.get('scenario_files') or {}).get(f'tools/harness/e2e/{name}.scn')})
+    # like with like (2026-11-25): runs of an older text of the scenario's own file (play1.scn's shot moved to a
+    # fixed playback time) are left out once a newer text has been captured
+    newest = out[-1]['scn'] if out else None
+    if newest is not None:
+        old = [x['run'] for x in out if x['scn'] not in (None, newest)]
+        out = [x for x in out if x['scn'] in (None, newest)]
+        if superseded is not None:
+            superseded.extend(old)
     return out
 
 
@@ -1550,7 +1750,7 @@ def verify_run(args):
             mine_audio.update(session_audio(d, here)[0])
     holders = [(c, e, s, d, dir_scenarios(d)) for c, e, s, d in scenario_dirs(store)
                if (not client or c == client) and (not env or e == env)]
-    bad, used = 0, set()
+    bad, apart, used = 0, 0, set()
     for name in names:
         # a set folder when --set names it; else a run of several scenarios prefers a set that ran this one, and a
         # run of one scenario the scenario's own folder
@@ -1565,14 +1765,15 @@ def verify_run(args):
             bad += 1
             continue
         c, e, s, d, held = cands[0]
-        ents = run_entries(d, name)
+        superseded = []
+        ents = run_entries(d, name, superseded)
         nz = read_json(os.path.join(d, 'noise.json'))
         nzs = nz['scenarios'].get(name, {}) if 'set' in nz else nz
-        what, notes = [], []
+        what, notes, hard = [], [], []     # hard: differences no scenario order explains (the verdict, a shot)
         v = e2e.verdict(results[name])
         stored_v = sorted({en['verdict'] for en in ents})
         if v not in stored_v:
-            what.append(f'verdict {v}, stored {"/".join(stored_v)}')
+            hard.append(f'verdict {v}, stored {"/".join(stored_v)}')
         mine = packets.get(name, [])
         theirs = [en['packets'] for en in ents]
         if mine not in theirs:
@@ -1600,7 +1801,7 @@ def verify_run(args):
             for key, f in en['drawlogs']:
                 stored_logs.setdefault(key, []).append(os.path.join(en['dir'], f))
         mine_shots = dict(shot_keys(shots.get(name, [])))
-        logs_same, logs_none = 0, 0
+        logs_same, logs_none, logs_ms = 0, 0, 0
         for key in sorted(mine_shots):
             ok, text = drawlog_verdict(drawlog_path(mine_shots[key]), stored_logs.get(key, []),
                                        nzs.get('shots', {}).get(key, {}).get('drawlog'))
@@ -1608,12 +1809,13 @@ def verify_run(args):
                 logs_none += 1
             elif ok:
                 logs_same += 1
+                logs_ms += 'as a multiset' in text
             else:
                 what.append(f'draw log {key}: {text}')
         within = 0
         for key in sorted(set(stored_shots) | set(mine_shots)):
             if key not in mine_shots or key not in stored_shots:
-                what.append(f'shot {key} ' + ('not taken' if key not in mine_shots else 'not in the baseline'))
+                hard.append(f'shot {key} ' + ('not taken' if key not in mine_shots else 'not in the baseline'))
                 continue
             ptrs = [p for p in stored_shots[key] if is_lfs_pointer(p)]
             if ptrs:
@@ -1630,16 +1832,27 @@ def verify_run(args):
         if a_ok is False:
             what.append(f'audio {a_text}')
         line = f'{len(mine)} packets, shots {within} of {len(set(stored_shots) | set(mine_shots))} within noise'
-        line += (f', draw logs {logs_same} of {len(mine_shots)} the same' if logs_same or not logs_none else '') + \
+        line += (f', draw logs {logs_same} of {len(mine_shots)} the same' + (f' ({logs_ms} as a multiset)' if logs_ms
+                                                                            else '')
+                 if logs_same or not logs_none else '') + \
             (f', no draw log stored for {logs_none}' if logs_none else '')
         line += f', audio the same ({a_text})' if a_ok else f', {a_text}'
-        print(f'{name}: {"DIFF " + "; ".join(what) if what else "SAME " + line}'
-              + (f' ({"; ".join(notes)})' if notes else '') + f'  [{c}/{e}/{s}, {len(ents)} runs]')
-        bad += bool(what)
+        # packets, shots, draw logs and audio carry state from the scenario before (texture address modes, draw
+        # order, matrices: retail itself differs so): after another scenario than stored they are not comparable
+        apart_here = bool(what) and not hard and bool(notes)
+        if apart_here:
+            head = 'NOT COMPARABLE (scenario order differs: compare a run in the stored order) ' + '; '.join(what)
+        else:
+            head = 'DIFF ' + '; '.join(hard + what) if hard or what else 'SAME ' + line
+        print(f'{name}: {head}' + (f' ({"; ".join(notes)})' if notes else '') + f'  [{c}/{e}/{s}, {len(ents)} runs'
+              + (f'; {len(superseded)} of an older {name}.scn left out' if superseded else '') + ']')
+        bad += bool(hard or what) and not apart_here
+        apart += apart_here
     missed = skipped_scenarios(args, dirs, results, names, holders, used)
-    print(f'baseline verify --run: {len(names) - bad} of {len(names)} scenarios the same as the baseline'
+    print(f'baseline verify --run: {len(names) - bad - apart} of {len(names)} scenarios the same as the baseline'
+          + (f', {apart} not comparable (run after another scenario than stored)' if apart else '')
           + (f'; {missed} stored scenario(s) of the set not in the run (named above)' if missed else ''))
-    return 1 if bad or (missed and args.set) else 0
+    return 1 if bad or (missed and args.set) else 3 if apart else 0
 
 
 _SESSION_HEAD = re.compile(r' session of \d+: (.+?); exe ')
