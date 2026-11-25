@@ -224,6 +224,13 @@ class Unlanded(GitRepo):
                        capture_output=True, check=True)
         self.assertEqual(wt.own_commits('refs/heads/wt/T', wt.landed_refs()), [])
 
+    def test_empty_commit_counts_as_landed(self):
+        p = self.worktree('T')
+        run(p, 'commit', '-q', '--allow-empty', '-m', 'Start run x')   # the run's marker; a merge drops it
+        self.assertEqual(wt.own_commits('refs/heads/wt/T', wt.landed_refs()), [])
+        commit(p, 'builder work', **{'new_dot_txt': 'x\n'})
+        self.assertEqual([s for _, s in wt.own_commits('refs/heads/wt/T', wt.landed_refs())], ['builder work'])
+
     def test_list_unlanded(self):
         a = self.worktree('A')
         commit(a, 'A work', **{'a_dot_txt': 'a\n'})

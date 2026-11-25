@@ -456,8 +456,8 @@ def _identities(up, cwd=None):
 def own_commits(branch, upstreams, cwd=None):
     """[(sha, subject)], oldest first: BRANCH's commits landed on none of UPSTREAMS. Landed: reachable from one; a
     commit there with the same author time, author and subject (a cherry-pick or rebase of it, even one whose
-    generated files took the target's side); patch-equivalent to one of its commits (`git cherry`); or touching
-    generated files only (regenerated anyway). Shared by `remove`, `list --unlanded`, pacing.py and run_branch.py
+    generated files took the target's side); patch-equivalent to one of its commits (`git cherry`); touching
+    generated files only (regenerated anyway); or empty (run_branch.py start's marker, which a merge drops). Shared by `remove`, `list --unlanded`, pacing.py and run_branch.py
     cleanup."""
     if not upstreams:
         raise ValueError('own_commits: no upstream to compare with')
@@ -470,7 +470,7 @@ def own_commits(branch, upstreams, cwd=None):
     left = {c for c, ident in reach if ident not in known}
     for c in sorted(left):
         names = git('diff-tree', '--no-commit-id', '--name-only', '-r', '--root', c, cwd=cwd).splitlines()
-        if names and all(generated(p) for p in names):
+        if all(generated(p) for p in names):           # empty too: a merge drops it ("Start run" markers)
             left.discard(c)
     for up in upstreams:
         if not left:
