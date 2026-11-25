@@ -1753,7 +1753,7 @@ bool SplineDatabaseClass::Save_Entry(ChunkSaveClass &csave, SplineEntryClass *en
 	if (!Save_Curve(csave, entry)) {
 		return false;
 	}
-	return csave.End_Chunk();
+	if (csave.End_Chunk()) return true; return false;
 }
 
 

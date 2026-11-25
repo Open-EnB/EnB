@@ -2323,24 +2323,24 @@ void ClientObjectClass::Unknown_6FEF70(SubPartsPacket *packet)
 
 
 inline unsigned Unknown_Changed(DeltaClass *d) { return(d->Unknown70); }	// +0x70: 2 when the field changed since the last update, 1 when set, 0 when not  // NAME 1: neutral (D10)
-// 0x6FF4B0  // NOT EXACT: inline-budget (the client calls rtti.h's cast 0x5469C0 at all four lookups and the string assign's helpers; ours inlines them)
+// 0x6FF4B0  // NOT EXACT: inline-budget (the client calls rtti.h's cast 0x5469C0 at all four lookups, ours inlines them; its four NameClass slots are unshared, frame 0xD0: one full-expression of temporaries gives that frame but keeps the casts inline)
 void ClientObjectClass::Get_Name(std::string &name)
 {
 	DeltaStringClass *t;
-	if (Unknown_6F5A40()) {
-		NameClass owner("Owner");
-		t = Unknown_Find_Field<DeltaStringClass>((DeltaCompoundClass *)AuxData, owner);
-		if (!t || !t->Unknown70) {
-			NameClass field("Name");
-			t = Unknown_Find_Field<DeltaStringClass>((DeltaCompoundClass *)AuxData, field);
-		}
-	} else {
-		NameClass field("Name");
-		t = Unknown_Find_Field<DeltaStringClass>((DeltaCompoundClass *)AuxData, field);
-		if (!t || !t->Unknown70) {
-			NameClass owner("Owner");
-			t = Unknown_Find_Field<DeltaStringClass>((DeltaCompoundClass *)AuxData, owner);
-		}
+
+	switch (Type) {
+		case 1: {
+			NameClass owner("Owner"); t = Unknown_Find_Field<DeltaStringClass>((DeltaCompoundClass *)AuxData, owner);
+			if (!t || !t->Unknown70) {
+				NameClass field("Name"); t = Unknown_Find_Field<DeltaStringClass>((DeltaCompoundClass *)AuxData, field);
+			}
+		} break;
+		default: {
+			NameClass field("Name"); t = Unknown_Find_Field<DeltaStringClass>((DeltaCompoundClass *)AuxData, field);
+			if (!t || !t->Unknown70) {
+				NameClass owner("Owner"); t = Unknown_Find_Field<DeltaStringClass>((DeltaCompoundClass *)AuxData, owner);
+			}
+		} break;
 	}
 	name = (t && t->Unknown70) ? t->String : "Unknown";
 }
