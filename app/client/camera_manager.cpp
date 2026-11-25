@@ -249,7 +249,7 @@ bool CameraManagerClass::Unknown_799DA0(int *new_state, int state)
 	}
 	return(result);
 }
-// NOT EXACT: 0x799E40 (bit 15's x87 sum: the client adds (Z*Z + X*X) + Y*Y, ours (X*X + Y*Y) + Z*Z; Sqrt's float sits below the 12-byte temporary slot in ours, above it in the client)
+
 // 0x799E40
 void CameraManagerClass::Unknown_799E40()
 {
@@ -271,7 +271,7 @@ void CameraManagerClass::Unknown_799E40()
 			ClientObjectClass *dest = Client->Find_Object(path.Get_Current());
 			if (dest) {
 				Vector3 dest_pos = dest->Unknown_24();
-				float dist = (dest_pos - Client->Get_Avatar()->Unknown_24()).Length();
+				Vector3 diff = dest_pos - Client->Get_Avatar()->Unknown_24(); float dist = diff.Length();
 				if (dist - (dest->Unknown_30() + 75.0f) < 15000.0f) {
 					warp = false;
 				}
@@ -361,7 +361,7 @@ void CameraManagerClass::Unknown_799E40()
 			ClientObjectClass *target = Client->Find_Object(Camera_Target_ID(Client));
 			ClientObjectClass *avatar = Client->Get_Avatar();
 			if (target && avatar) {
-				const Vector3 &target_pos = target->Unknown_24(); Vector3 diff = target_pos - avatar->Unknown_24();
+				Vector3 target_pos = target->Unknown_24(); Vector3 diff = target_pos - avatar->Unknown_24();
 				float radius = target->Unknown_30(); float d2 = diff.Length2();
 				if (d2 > (radius * radius + 5625.0f) * 2.0f) {
 					Unknown_799DA0(&new_state, 8);

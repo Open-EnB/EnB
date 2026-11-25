@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-544 entries in 241 files.
+543 entries in 241 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -49,7 +49,6 @@ edit the comments in the code, not this file.
 | `app/client/camctrl_takeoff.cpp:210` | `CameraController09Class::Unknown_796920` | marker | NOT EXACT: shape: the retry counter's slot, loop entry and scheduling; every call, literal and member offset is the client's; functional |
 | `app/client/camctrl_tractor.cpp:73` | `CameraController08Class::Unknown_797570` | marker | NOT EXACT: the register choice (edx / ebp for 3) and the duplicated !ship test differ; functional |
 | `app/client/camctrl_tractor.cpp:116` | `CameraController08Class::Unknown_797770` | marker | NOT EXACT: a few operand loads and slots differ (16 rows); functional |
-| `app/client/camera_manager.cpp:252` | `CameraManagerClass::Unknown_799E40` | marker | NOT EXACT: 0x799E40 (bit 15's x87 sum: the client adds (Z*Z + X*X) + Y*Y, ours (X*X + Y*Y) + Z*Z; Sqrt's float sits below the 12-byte temporary slot in ours, above it in the client) 0x799E40 |
 | `app/client/camera_manager.cpp:706` | `CameraManagerClass::Unknown_79B6B0` | mention | NOT EXACT (CS1, 2026-11-07). 0x799E40's inlining: 0x79B330 inline for its first 17 requests and 0x799DA0 for 23 sites only with 0x79B330 written without a bit local (with it, the requests 15 and 16 lose theirs to the budget); the 'bit' local form is exact out of line too. 0x7998B0's shifted box needs Set_Translation (Matrix3D(-delta) copies through the FPU). |
 | `app/client/cameraeffects.cpp:85` | `CameraEffectsClass::Unknown_34` | marker | NOT EXACT: shape, behaviour checked: codegen only (camera move r26, 11 rows: the client keeps d.X on the x87 past d.Y's copy, fxch st(2) / fadd st(2), and pops it after; d sits at force's slot, its Y at -84) 0x6E2CC0: the ship's 'Shake.Force*' and 'Shake.Damage' fields start a shake and a jitter; every effect adds to +0x18 (the finished ones deleted), the camera moved by it (each axis wrapped into... |
 | `app/client/cammod_chase.cpp:145` | `ChaseCameraModuleClass::Unknown_79BFC0` | marker | NOT EXACT: 0.90, the inlining is the client's; left: the client negates dir.Y before it copies the translation, and its first inline Rotate_X adds row 0's products in the other order |
