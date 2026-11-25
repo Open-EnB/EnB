@@ -5748,5 +5748,17 @@
   "symbol": "?Set_Color@BoxRenderObjClass@@QAEXABVVector3@@@Z",
   "evidence": "boxrobj.cpp's run (Set_Name 0x998880, Init 0x9988E0, Shutdown 0x998980): it writes Color +0xAC..+0xB4, the tree's boxrobj.obj copy is byte-identical and its ledger shard holds 0x9988B0; the EA copies' bytematch had named it SegmentedLineClass's by a Renegade layout coincidence (S2, run 2026-11-24-night)",
   "replaces": "?Set_Color@SegmentedLineClass@@QAEXABVVector3@@@Z"
+ },
+ {
+  "address": "0x6E5460",
+  "symbol": "?Unknown_30@UnknownB0009CEffectClass@@UAEXABVVector3@@@Z",
+  "evidence": "the binary end's vtable 0xB0009C slot +0x30 holds the thunk 0x412B3E, which jumps to 0x6E5460; it writes SourcePosition +0xA8..+0xB0 (eff_o.h), emitted in eff_line.cpp's run and credited there by the ledger; the EA copies' bytematch had named it BoxRenderObjClass::Set_Color by a layout coincidence (K1, run 2026-11-24-night)",
+  "replaces": "?Set_Color@BoxRenderObjClass@@QAEXABVVector3@@@Z"
+ },
+ {
+  "address": "0x6E54A0",
+  "symbol": "?Unknown_38@UnknownB0009CEffectClass@@UAEXABVVector3@@@Z",
+  "evidence": "the binary end's vtable 0xB0009C slot +0x38 holds the thunk 0x410686, which jumps to 0x6E54A0; it writes TargetPosition +0xB4..+0xBC (eff_o.h), emitted in eff_line.cpp's run and credited there by the ledger; the EA copies' bytematch had named it SegmentedLineClass::Set_Color by a layout coincidence (K1, run 2026-11-24-night)",
+  "replaces": "?Set_Color@SegmentedLineClass@@QAEXABVVector3@@@Z"
  }
 ]
