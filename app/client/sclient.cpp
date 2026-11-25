@@ -403,13 +403,13 @@ void SClient::Load_INIs()
 	INIUsers++;
 }
 
-// NOT EXACT: register (19 masked rows: scratch registers of single loads, the vtable load before Load_INIs, the Create_NEW temporaries' lea / push, the FOV copy, the Font assignment's order); the shape is the client's: 0x74C9D0 inlined with its converting operator= 0x758970 out of line, the camera mode through SOptionsClass's base in edi, Unknown12B0 a DurationClass, the typed connect (attempts.py show 0x741180)
+static inline PxProcessClass *Unknown_Px_Process(SClient *client) { return(client->PxProcess); } static inline void Unknown_Set_FOV(CameraManagerClass *cm, float fov) { cm->FOV = fov; }	// SClient::Init 0x741180: PxProcess and CameraManager->FOV through inline accessors (the client's registers at Load_INIs / ChatPanel / FOV / Font)  // NAME 1 [Unknown_Px_Process, Unknown_Set_FOV, client, cm, fov]: neutral
 // 0x741180
 void SClient::Init()
 {
 	Unknown_BE67BC->Load(0);
 	VerbManager = new VerbManagerClass(this);
-	PxProcessClass::Push(PxProcess);
+	PxProcessClass::Push(Unknown_Px_Process(this));
 	MeshClass::Legacy_Meshes_Fogged = false;
 	Unknown_745350();
 	Unknown13CC.Unknown_765010();
@@ -475,7 +475,7 @@ void SClient::Init()
 	CameraManager->Set_Tilt(mode.Tilt);
 	CameraManager->Set_Elevation_Offset(mode.ElevationOffset);
 	CameraManager->Unknown_79B4B0(CameraMode == 0);
-	{ float fov = mode.FOV; CameraManager->FOV = fov; }	// fld / fstp in the client
+	Unknown_Set_FOV(CameraManager, mode.FOV);	// fld / fstp in the client (inline setter)
 	Unknown_744C10();
 
 	MusicManager = new MusicManagerClass;

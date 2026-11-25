@@ -2805,6 +2805,9 @@
 "data:?LastTime@BandwidthAccountingClass@@2IA": [
 "0xBF4080"
 ],
+"data:?Legacy_Meshes_Fogged@MeshClass@@2_NA": [
+"0xBBB084"
+],
 "data:?Listeners@TCPConnection@@2V?$set@PAVTCPListenerClass@@U?$less@PAVTCPListenerClass@@@std@@V?$allocator@PAVTCPListenerClass@@@3@@std@@A": [
 "0xBE91A8"
 ],
