@@ -18,8 +18,8 @@
 # reverse: arrows yaw 80 / 145 and pitch 70 / 99 degrees in 1.5 s, the gadget's reverse 743 back, the warp 49928).
 # Ours (the stand-in build of 2026-11-21 06:14) passes too, and `compare` finds the SAME 201 packets (each down of
 # A / Z sends a MOVE: hold VK for S posts a fixed count of downs). The shots after the turns are never comparable
-# (shot_mask.txt); those at the start pose are: ours is 5-8 of 255 darker in Jupiter (space_entered 49.8 against
-# retail's 55.9 / 57.5), the sector brightness fault E2 found in sector 4505.
+# (shot_mask.txt); those at the start pose are: from the store's database state ours and retail draw space_entered
+# alike (2026-11-25: 187 draws, mean 49.0 against 49.2-49.3, 2-3 cells; the 2026-11-21 49.8 / 55.9 was another state).
 # Run: e2e.py --live --retail --db-snapshot 7 --instance space run sp_flight (it moves Elanor; the snapshot puts
 # her back).
 name: space flight: thrust gadget, A / Z, arrow keys, right-button steering, warp to a nav point

@@ -94,7 +94,7 @@ P0 before the port starts; P1 before the phase that needs it; P2 when convenient
 | SP-04 | P1 | Tractor beam on loot; rescue | camctrl_tractor 0x797570 / 0x797770, rescue | Camera pose, packets | R |
 | SP-05 | P1 | Galaxy map and starmap: zoom, pan, select, plot a route | galaxy_map_render (5), starmap_pip 0x7C2060, nav_list_line_draw 0x7B9DC0 | Draw log, shots | R |
 | SP-06 | P1 | Combat with debris, explosions, camera shake | debrsint (2), cameraeffects, frameint 0x53EB00 | Draw log, shots by brightness, pose | R |
-| SP-07 | P1 | Planet view render mode; the darker-sector lead from play1 | mainview Render_Planet_Mode 0x50E6E0, 0x512400; enbscene Apply_Projectors (field-offset) | Draw log, shots | R |
+| SP-07 | P1 | Planet view render mode (play1's 'darker sector 4505' was the shot's phase, not the client: at one point of the playback ours and retail draw the same, 2026-11-25) | mainview Render_Planet_Mode 0x50E6E0, 0x512400; enbscene Apply_Projectors (field-offset) | Draw log, shots | R |
 | SP-08 | P1 | Ship decals and environment maps on several hulls | shiputils 0x80EAF0, 0x80EFF0, 0x812390; env_map_manager | Draw log (textures per mesh) | R |
 | SP-09 | P2 | Scripted in-game movie. None shipped in the live game (the user), so no scenario can reach it: a load-and-step unit check of the path only | mclient (2), mv3dsnd (2) | Shots, audio log | R |
 | SP-10 | P2 | Recordings 2–6 as scenarios | Broad | Packets, alive | R |
@@ -240,6 +240,32 @@ Open items from this week's captures:
   0x5A3440). At HEAD (a9fa08ee3) ours and retail both pass it live, one after the other (2026-11-25 07:30-07:37).
   Open: the scenario still fails on a board without an Explore job (RefreshJobs draws each of up to 9 slots from
   four job missions at random; one accepted job is gone until the next 5-minute refresh).
+* **Recorded-session shots at one point of the playback, and a draw-log compare a moving scene passes** (2026-11-25,
+  PH): antreplay plays a sector session at the recorded pace from the client's LOGIN whatever the client's load takes
+  (6-25 s), so play1's `alive 20` after the load put its shot in the recording's flight or its rest. `e2e.py`'s
+  `wait-since` waits for a time after a line; play1's sector shot is `play1_p52` (52 s into the playback, where the
+  recording's second camera is at rest). Three retail runs and two of ours agree on every view at each second of
+  33-44 s and at 30-60 s by fours (the main view to 1 unit, the second camera to 32); the brightness and draw counts
+  of ours and retail match at every point (51-53 of 255, 543-726 draws). Between 38 and 44 s a planet at (-42794,
+  -83151) switches from three passes to two and back on both clients (ours at 37-38 s in one run of three, retail
+  at 38-39 s: within the shots' timing). The default set was captured again on retail three times for the new shot
+  (store runs 20261125-172233, -172745, -173302; the older three stay for the other 24 scenarios and are left out
+  for play1, whose text changed). `baseline.py verify --run` compares a draw log that fails in order again as a
+  multiset (states, textures, counts per state, worlds within retail's own leave-one-out spread), and a scenario run
+  after another than stored is NOT COMPARABLE (exit 3), not DIFF. Ours at HEAD (a9fa08ee3's client) on the default
+  set: 23 of 25 SAME (19 on the earlier compare and store); left: play1's p52 shot 17 cells against retail's 9 (3 runs; the mean 53.3
+  against 50.8-52.8, draw log SAME) and world_entry's turning home planet (draw 7, 420 against an allowed 210: the
+  wall clock, `shot_mask.txt` masks it in shots).
+* play1's `play1_entered` (wait-quiet proxy 2 after the session line) is the loading screen in most runs (13 draws,
+  the 2D camera only): the load has a 2 s quiet in its middle. `_play10` waits for the loading screen's close
+  instead (its fc_map_load00.ini is read again then). play1_windows' w_* shots are not at fixed playback points
+  either (they read SAME now by the multiset compare).
+* The Jupiter note (sp_flight's space_entered 49.8 on ours against retail's 55.9 / 57.5, 2026-11-21) is not a
+  difference: from the store's database state (Net7 restarted, as the space set's capture), ours at HEAD (a9fa08ee3's
+  client) draws space_entered at the same camera with the same 187 draws, mean 49.0 against the stored retail runs'
+  49.2-49.3 and a retail run in the same hold 49.3; the draw log is SAME against the three stored runs (as a
+  multiset: 12 world matrices within 0.64 unit, as many as a retail run has against the others), the shot 2-3 cells
+  of 256, the packets of the whole scenario the same. The 2026-11-21 numbers came from another database state.
 * Ours-versus-retail has only been run on a stale exe of 2026-11-21 (the default set 18 SAME and 7 DIFF, the station set 0 of 9 SAME). Those results are not findings until the build at HEAD is compared.
 
 ## 8. Three baselines over time
