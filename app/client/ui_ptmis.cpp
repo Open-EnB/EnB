@@ -97,15 +97,15 @@ inline void UIPTMisClass::Unknown_Make_Rows()
 	char name[32];
 	int i = 0;
 	while (true) {
-		sprintf(name, "Mission_%02d_PT_MIS", i);
+		sprintf(name, "Mission%02d_PT_MIS", i);
 		FontSys *mission = Unknown_BE67C4->Get_Style(name, ListScreen);
 		if (!mission) break;
 		UIPTMisRowStruct *row = new UIPTMisRowStruct;
 		Unknown0B8.push_back(row);
 		row->Mission = mission;
-		sprintf(name, "Request_%02d_PT_MIS", i);
+		sprintf(name, "Request%02d_PT_MIS", i);
 		row->Request = Unknown_BE67C4->Get_Style(name, ListScreen);
-		sprintf(name, "Payoutval_%02d_PT_MIS", i);
+		sprintf(name, "Payoutval%02d_PT_MIS", i);
 		row->Payout = Unknown_BE67C4->Get_Style(name, ListScreen);
 		i++;
 	}
@@ -117,14 +117,14 @@ inline void UIPTMisClass::Unknown_Make_Buttons()
 	if (!Unknown0D0) {
 		unsigned int j;
 		for (j = 0; j < Unknown0B8.size(); j++) {
-			sprintf(name, "B_%02d", j);
+			sprintf(name, "B%02d", j);
 			RenderObjClass *robj = ListScreen->Get_Sub_Object_By_Name(name);
 			GadgetClass *button = new ButtonGadgetClass(robj, Layer, 0x55, 0);
 			robj->Release_Ref();
 			Unknown64.Unknown_6870E0(button, j + 5, View, 1, 0);
 		}
 		for (j = 0; j < 3; j++) {
-			sprintf(name, "S_%02d", j);
+			sprintf(name, "S%02d", j);
 			RenderObjClass *robj = ListScreen->Get_Sub_Object_By_Name(name);
 			GadgetClass *button = new ButtonGadgetClass(robj, Layer, 0x55, 0);
 			robj->Release_Ref();
