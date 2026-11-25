@@ -1,0 +1,93 @@
+# ===== v1_73B150.py
+HYPOTHESIS = ('B3 b1 (0x73B150, residue 272: panel held in ebx across the channel copy where the client spills it, the '
+              'tail merges that follow the registers): the definition-count lever (workflow 3.1.2, 2026-11-24): k = 1..8 '
+              'dead-initialised ints at the function top, and k = 1..4 right before the panel read')
+FILE = 'app/client/cpacket.cpp'
+SYMBOL = 'ClientChatEventPacketClass::Process_Packet'
+ADDRESS = 0x73B150
+
+_SRC = open(FILE, encoding='latin-1', newline='').read()
+_LINES = _SRC.split('\n')
+_A, _B = 2493, 2512
+
+
+def _form(edits):
+    new = list(_LINES)
+    for n, t in edits.items():
+        new[n - 1] = t
+    return [('\n'.join(_LINES[_A - 1:_B]), '\n'.join(new[_A - 1:_B]))]
+
+
+def L(n):
+    return _LINES[n - 1]
+
+
+assert L(2493).strip() == 'SClient *sclient = (SClient *)instance;'
+assert L(2509).strip() == 'ChatPanelInterface *panel = sclient->ChatPanel.Peek();'
+assert L(2511) == '' and L(2512) == ''
+
+
+def top(k):
+    return _form({2493: L(2493) + ''.join(' int dead%d = 0;' % j for j in range(k))})
+
+
+def mid(k):
+    return _form({2511: '\t' + ''.join('int dead%d = 0; ' % j for j in range(k))})
+
+
+FORMS = {}
+for k in range(1, 9):
+    FORMS['top%d' % k] = top(k)
+for k in range(1, 5):
+    FORMS['mid%d' % k] = mid(k)
+# ===== v2_73B150.py
+HYPOTHESIS = ('B3 b2 (0x73B150): the client reads panel->UnknownD8 / DC / E4 / E8 into four stack slots before the '
+              'channel copy (0x73B2E4-0x73B313) and uses the d8 / dc locals in cases 19-22 (0x73BBE3 [esp+0x44]); that '
+              'form cost 415 before (PT8 / FC, panel took a register): the client form combined with the '
+              'definition-count lever (k = 0..8 dead-initialised ints at the top, workflow 3.1.2 of 2026-11-24)')
+FILE = 'app/client/cpacket.cpp'
+SYMBOL = 'ClientChatEventPacketClass::Process_Packet'
+ADDRESS = 0x73B150
+
+_SRC = open(FILE, encoding='latin-1', newline='').read()
+_LINES = _SRC.split('\n')
+_A, _B = 2493, 2656
+
+
+def _form(edits):
+    new = list(_LINES)
+    for n, t in edits.items():
+        new[n - 1] = t
+    return [('\n'.join(_LINES[_A - 1:_B]), '\n'.join(new[_A - 1:_B]))]
+
+
+def L(n):
+    return _LINES[n - 1]
+
+
+assert L(2511) == '' and L(2512) == ''
+assert L(2513).strip() == 'UIRadioListClass *e4 = panel->UnknownE4;'
+for n in (2633, 2640):
+    assert L(n).strip() == 'if (panel->UnknownD8) {'
+for n in (2647, 2654):
+    assert L(n).strip() == 'if (panel->UnknownDC) {'
+
+LOC = {
+    2511: '\tUIPlayerOptClass *d8 = panel->UnknownD8;',
+    2512: '\tUIFriendsClass *dc = panel->UnknownDC;',
+    2633: '\t\t\tif (d8) {', 2634: L(2634).replace('panel->UnknownD8->', 'd8->'),
+    2640: '\t\t\tif (d8) {', 2641: L(2641).replace('panel->UnknownD8->', 'd8->'),
+    2647: '\t\t\tif (dc) {', 2648: L(2648).replace('panel->UnknownDC->', 'dc->'),
+    2654: '\t\t\tif (dc) {', 2655: L(2655).replace('panel->UnknownDC->', 'dc->'),
+}
+assert L(2493).strip() == 'SClient *sclient = (SClient *)instance;'
+
+
+def form(k):
+    d = dict(LOC)
+    if k:
+        d[2493] = L(2493) + ''.join(' int dead%d = 0;' % j for j in range(k))
+    return _form(d)
+
+
+FORMS = {'loc%d' % k: form(k) for k in range(0, 9)}
