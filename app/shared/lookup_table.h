@@ -118,9 +118,9 @@ class LookupTableSetClass : public RefCountClass  // NAME 2: what it holds
 {
 public:
 	LookupTableSetClass();																			// 0x4ECC10
-	virtual ~LookupTableSetClass();																// 0x4ECE50
+	protected: virtual ~LookupTableSetClass();																// 0x4ECE50
 
-	float Lookup(const std::string &name, float index);									// 0x4ED0B0  // NAME 2: what it does
+	public: float Lookup(const std::string &name, float index);									// 0x4ED0B0  // NAME 2: what it does
 	RefCountPtr<LookupTableClass> Get(const std::string &name);							// 0x4ED220  // NAME 2: what it does
 
 	static RefCountPtr<LookupTableSetClass> Load(const std::string &filename);		// 0x4EC7D0  // NAME 2: what it does
