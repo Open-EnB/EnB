@@ -1,0 +1,83 @@
+{
+  "baseline_sha256": "d1b775a3eb1fb19befbc40056c5ca49633e3afd57870da4fd33bedbfb4c39af3",
+  "forms": [
+    {
+      "name": "tm_translation_copy",
+      "source_sha256": "93dcebf976ee73e14f030a1321bb4c836a002dda5d4433c956afe4342ef9a064",
+      "masked_rows": 143,
+      "register_masked_rows": 129,
+      "code_bytes": [
+        1381,
+        1659
+      ],
+      "symbol_gains": [],
+      "symbol_losses": [],
+      "patch": "--- ui_starbase.cpp\n+++ ui_starbase.cpp\n@@ -4095,7 +4095,7 @@\n \t\tsavatar->Unknown10->Set_Transform(guild_tm);\n \t}\n \tVector3 camera = UnknownB0->Unknown6C->Get_Position();\n-\tVector3 pos = tm.Get_Translation();\n+\tVector3 pos = Matrix3D(tm).Get_Translation();\n \tfloat scale = 25.0f / (pos - camera).Length();\n \tif (scale > 2.0f) {\n \t\tscale = 2.0f;\n"
+    },
+    {
+      "name": "camera_transform_copy",
+      "source_sha256": "53ab378959acd7c4b3573cb5b3a2a263df1e5108ac1a4a0a91ca81a4dcf84a0a",
+      "masked_rows": 203,
+      "register_masked_rows": 187,
+      "code_bytes": [
+        1403,
+        1659
+      ],
+      "symbol_gains": [],
+      "symbol_losses": [],
+      "patch": "--- ui_starbase.cpp\n+++ ui_starbase.cpp\n@@ -4094,7 +4094,7 @@\n \t\tguild_tm[2][3] = 0.0f;\n \t\tsavatar->Unknown10->Set_Transform(guild_tm);\n \t}\n-\tVector3 camera = UnknownB0->Unknown6C->Get_Position();\n+\tVector3 camera = UnknownB0->Unknown6C->Get_Transform().Get_Translation();\n \tVector3 pos = tm.Get_Translation();\n \tfloat scale = 25.0f / (pos - camera).Length();\n \tif (scale > 2.0f) {\n"
+    },
+    {
+      "name": "screen_tm_copy",
+      "source_sha256": "313bd128a324ed4d674ff9192cd00faf2534aeb1031b1ec5974d94be76ba1590",
+      "masked_rows": 179,
+      "register_masked_rows": 158,
+      "code_bytes": [
+        1480,
+        1659
+      ],
+      "symbol_gains": [],
+      "symbol_losses": [],
+      "patch": "--- ui_starbase.cpp\n+++ ui_starbase.cpp\n@@ -4062,7 +4062,7 @@\n \t\ttm[2][3] += savatar->AmbientAvatar->Unknown_77D9F0(true) + 1.5f;\n \t}\n \tVector3 screen;\n-\tUnknown_585FD0(UnknownB0->Unknown6C.Peek(), tm.Get_Translation(), &screen);\n+\tUnknown_585FD0(UnknownB0->Unknown6C.Peek(), Matrix3D(tm).Get_Translation(), &screen);\n \tMatrix3D tag_tm = savatar->NameTag->Get_Transform();\n \tif (screen.Z < 0.0f) {\n \t\ttag_tm[0][3] = screen.X * 640.0f;\n@@ -4082,7 +4082,7 @@\n \t\t\tguild = savatar->AmbientAvatar->Get_Bone_Transform(\"ROOTTRANSFORM\");\n \t\t\tguild[2][3] += savatar->AmbientAvatar->Unknown_77D9F0(true) + 0.5f;\n \t\t}\n-\t\tUnknown_585FD0(UnknownB0->Unknown6C.Peek(), guild.Get_Translation(), &screen);\n+\t\tUnknown_585FD0(UnknownB0->Unknown6C.Peek(), Matrix3D(guild).Get_Translation(), &screen);\n \t\tMatrix3D guild_tm = savatar->Unknown10->Get_Transform();\n \t\tif (screen.Z < 0.0f) {\n \t\t\tguild_tm[0][3] = screen.X * 640.0f;\n"
+    },
+    {
+      "name": "named_heights",
+      "source_sha256": "a447a4189a701029df686273593ba7888b444912da8effb8c786e8a7ac06a15f",
+      "masked_rows": 141,
+      "register_masked_rows": 127,
+      "code_bytes": [
+        1385,
+        1659
+      ],
+      "symbol_gains": [],
+      "symbol_losses": [],
+      "patch": "--- ui_starbase.cpp\n+++ ui_starbase.cpp\n@@ -4056,10 +4056,10 @@\n \tMatrix3D tm(true);\n \tif (savatar->Avatar) {\n \t\ttm = savatar->Avatar->Get_Bone_Transform(\"ROOTTRANSFORM\");\n-\t\ttm[2][3] += savatar->Avatar->Unknown_77D9F0(true) + 1.5f;\n+\t\tfloat height = savatar->Avatar->Unknown_77D9F0(true); tm[2][3] += height + 1.5f;\n \t} else if (savatar->AmbientAvatar) {\n \t\ttm = savatar->AmbientAvatar->Get_Bone_Transform(\"ROOTTRANSFORM\");\n-\t\ttm[2][3] += savatar->AmbientAvatar->Unknown_77D9F0(true) + 1.5f;\n+\t\tfloat height = savatar->AmbientAvatar->Unknown_77D9F0(true); tm[2][3] += height + 1.5f;\n \t}\n \tVector3 screen;\n \tUnknown_585FD0(UnknownB0->Unknown6C.Peek(), tm.Get_Translation(), &screen);\n@@ -4077,10 +4077,10 @@\n \t\tMatrix3D guild(true);\n \t\tif (savatar->Avatar) {\n \t\t\tguild = savatar->Avatar->Get_Bone_Transform(\"ROOTTRANSFORM\");\n-\t\t\tguild[2][3] += savatar->Avatar->Unknown_77D9F0(true) + 0.5f;\n+\t\t\tfloat height = savatar->Avatar->Unknown_77D9F0(true); guild[2][3] += height + 0.5f;\n \t\t} else if (savatar->AmbientAvatar) {\n \t\t\tguild = savatar->AmbientAvatar->Get_Bone_Transform(\"ROOTTRANSFORM\");\n-\t\t\tguild[2][3] += savatar->AmbientAvatar->Unknown_77D9F0(true) + 0.5f;\n+\t\t\tfloat height = savatar->AmbientAvatar->Unknown_77D9F0(true); guild[2][3] += height + 0.5f;\n \t\t}\n \t\tUnknown_585FD0(UnknownB0->Unknown6C.Peek(), guild.Get_Translation(), &screen);\n \t\tMatrix3D guild_tm = savatar->Unknown10->Get_Transform();\n"
+    },
+    {
+      "name": "named_distance",
+      "source_sha256": "a0d0cfe2b15c96c3f4192349474c7a1c511d1ac17c5082b7d8d0d3ec63d2a38c",
+      "masked_rows": 143,
+      "register_masked_rows": 129,
+      "code_bytes": [
+        1381,
+        1659
+      ],
+      "symbol_gains": [],
+      "symbol_losses": [],
+      "patch": "--- ui_starbase.cpp\n+++ ui_starbase.cpp\n@@ -4096,7 +4096,7 @@\n \t}\n \tVector3 camera = UnknownB0->Unknown6C->Get_Position();\n \tVector3 pos = tm.Get_Translation();\n-\tfloat scale = 25.0f / (pos - camera).Length();\n+\tVector3 delta = pos - camera; float scale = 25.0f / delta.Length();\n \tif (scale > 2.0f) {\n \t\tscale = 2.0f;\n \t}\n"
+    },
+    {
+      "name": "named_translation",
+      "source_sha256": "3b006fa7a931764df6b5c3235b966abeb8b816b739eda502b6e413d23c222ec7",
+      "masked_rows": 143,
+      "register_masked_rows": 129,
+      "code_bytes": [
+        1393,
+        1659
+      ],
+      "symbol_gains": [],
+      "symbol_losses": [],
+      "patch": "--- ui_starbase.cpp\n+++ ui_starbase.cpp\n@@ -4062,7 +4062,7 @@\n \t\ttm[2][3] += savatar->AmbientAvatar->Unknown_77D9F0(true) + 1.5f;\n \t}\n \tVector3 screen;\n-\tUnknown_585FD0(UnknownB0->Unknown6C.Peek(), tm.Get_Translation(), &screen);\n+\tVector3 tag_pos = tm.Get_Translation(); Unknown_585FD0(UnknownB0->Unknown6C.Peek(), tag_pos, &screen);\n \tMatrix3D tag_tm = savatar->NameTag->Get_Transform();\n \tif (screen.Z < 0.0f) {\n \t\ttag_tm[0][3] = screen.X * 640.0f;\n@@ -4082,7 +4082,7 @@\n \t\t\tguild = savatar->AmbientAvatar->Get_Bone_Transform(\"ROOTTRANSFORM\");\n \t\t\tguild[2][3] += savatar->AmbientAvatar->Unknown_77D9F0(true) + 0.5f;\n \t\t}\n-\t\tUnknown_585FD0(UnknownB0->Unknown6C.Peek(), guild.Get_Translation(), &screen);\n+\t\tVector3 guild_pos = guild.Get_Translation(); Unknown_585FD0(UnknownB0->Unknown6C.Peek(), guild_pos, &screen);\n \t\tMatrix3D guild_tm = savatar->Unknown10->Get_Transform();\n \t\tif (screen.Z < 0.0f) {\n \t\t\tguild_tm[0][3] = screen.X * 640.0f;\n"
+    }
+  ]
+}
