@@ -37,9 +37,9 @@ static void Unknown_Join(std::list<std::string> &list, std::string &out)
 
 
 
-KVEncoderBaseClass::KVEncoderBaseClass(KVListClass *list, int flags, const char *prefix) :
+KVEncoderBaseClass::KVEncoderBaseClass(KVListClass &list, int flags, const char *prefix) :	// a reference: retail's ??0KVEncoderBaseClass@@QAE@AAVKVListClass@@HPBD@Z (thunk order, IM3 / N1)
 	Data(0),
-	List(list)
+	List(&list)
 {
 	Data = new KVEncoderDataClass;
 	G_ASSERT(Data);
