@@ -6,7 +6,7 @@
 #include "catmullromspline.h"
 #include "chunkio.h"
 #include "ffactory.h"
-#include "realcrc.h"
+#include "crc.h"
 #include "wwfile.h"
 #include <windows.h>
 #include <string.h>
@@ -1449,7 +1449,7 @@ void SplineDatabaseClass::Free_Key_Names(void)
 
 unsigned int SplineDatabaseClass::Get_Key(const char *name)
 {
-	return CRC_String(name);
+	return CRC::String(name);
 }
 
 
@@ -2808,10 +2808,10 @@ SplineEntryClass::SplineEntryClass(int type, const char *name, const char *descr
 		case SplineDatabaseClass::TYPE_BLEND:
 			Curve = new CatmullRomSpline1DClass;
 			if (alpha_clr != NULL) {
-				AlphaKey = CRC_String(alpha_clr);
+				AlphaKey = CRC::String(alpha_clr);
 			}
 			if (beta_clr != NULL) {
-				BetaKey = CRC_String(beta_clr);
+				BetaKey = CRC::String(beta_clr);
 			}
 			break;
 
@@ -3021,7 +3021,7 @@ int SplineEntryClass::Get_Packed_Size(void)
 char *SplineEntryClass::Pack(char *buffer)
 {
 	char *p = buffer;
-	*(unsigned int *)p = CRC_String(Name);
+	*(unsigned int *)p = CRC::String(Name);
 	int size = 5;
 	p += sizeof(unsigned int);
 	const char &type = (const char &)Type;
@@ -3243,7 +3243,7 @@ inline GenericNode::GenericNode(void) : NextNode(0), PrevNode(0) {}
 **	client.exe 0x4845F0-0x489590 (spln_db.cpp, 44 asserts: spline_name, base_name, alpha_clr,
 **	beta_clr, resolution, database_filename, EntryArray[i], ...), the file's code in the client's
 **	order; the asserts sit on the client's lines (D25). VIDTEST.EXE's 2002 copy is 0x41C660-0x420F50.
-**	The entries live in wwlib's HashListClass (512 hash values) keyed by CRC_String of the name
+**	The entries live in wwlib's HashListClass (512 hash values) keyed by CRC::String of the name
 **	(0x9D4840, Get_Key 0x4873E0); the find helper (0x486BB0, line 1223) and HashListClass::Find are
 **	inlined in most callers.
 **
