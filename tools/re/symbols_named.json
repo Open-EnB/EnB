@@ -5736,5 +5736,17 @@
   "evidence": "class renamed to the client's name: the receiver in MemberCallback<ClientObjectClass, ScannerInterface, ..., PlayerObjectRelationshipChangeEvent> (callback table 0xAF7300, its Type() 0x6101A0 returns the descriptor named '.PBV?$MemberCallback@VClientObjectClass@@VScannerInterface@@P82@AEXPAVPlayerObjectRelationshipChangeEvent@@PAV1@@ZV3@@SignalBaseClass@@'; the method 0x60ED10); the name it replaces is the tree's earlier one (M1, run 2026-11-24-night)",
   "kind": "vtable",
   "replaces": "??_7?$MemberCallback@VClientObjectClass@@VUIScanClass@@P82@AEXPAVPlayerObjectRelationshipChangeEvent@@PAV1@@ZV3@@SignalBaseClass@@6B@"
+ },
+ {
+  "address": "0x969300",
+  "symbol": "?Set_Color@SegmentedLineClass@@QAEXABVVector3@@@Z",
+  "evidence": "segline.cpp's run (Get_Num_Points 0x968FC0 .. Set_Width 0x9692C0, Set_Texture_Tile_Factor 0x9693C0, Render 0x9695A0): it writes LineRenderer.Color +0xB0..+0xB8 after Set_Width's +0xAC, the tree's segline.obj copy is byte-identical and its ledger shard holds 0x969300; called by SegmentedLineClass users only (0x4983A0, 0x7B3F00, 0x7B43F0); the EA copies' bytematch had named it BoxRenderObjClass's by a Generals layout coincidence (S2, run 2026-11-24-night)",
+  "replaces": "?Set_Color@BoxRenderObjClass@@QAEXABVVector3@@@Z"
+ },
+ {
+  "address": "0x9988B0",
+  "symbol": "?Set_Color@BoxRenderObjClass@@QAEXABVVector3@@@Z",
+  "evidence": "boxrobj.cpp's run (Set_Name 0x998880, Init 0x9988E0, Shutdown 0x998980): it writes Color +0xAC..+0xB4, the tree's boxrobj.obj copy is byte-identical and its ledger shard holds 0x9988B0; the EA copies' bytematch had named it SegmentedLineClass's by a Renegade layout coincidence (S2, run 2026-11-24-night)",
+  "replaces": "?Set_Color@SegmentedLineClass@@QAEXABVVector3@@@Z"
  }
 ]
