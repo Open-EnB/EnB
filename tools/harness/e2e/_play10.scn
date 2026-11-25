@@ -18,9 +18,14 @@ name: a recorded session played to its end: /play 10 on the Broadcast channel (Z
 # camera: ACTION 8 in the same ms), and on the replay the target panel's Land icon sends nothing; the take-off
 # camera (state 9) is asked for by the warp button on a planet, which on Endriago's surface (CLIENT_TYPE 1, left by
 # the launchpad gate) does nothing (key Q and a click, retail). Neither the landing (state 5 / 7) nor the take-off
-# camera runs on this recording: they need a live run. The shots s2 to s5 wait on 'Render: Frame Rate', which the
-# frame before the loading screen also prints: they can show the sector before (s4 and s5 do) or the one after a
-# short one (s2 is session 3's space, not the starbase); a load is better waited for on its files (wait-quiet proxy).
+# camera runs on this recording: they need a live run.
+# Each sector's shot (2026-11-25, PH): the loading screen's fc_map_load00.ini is read when it opens (0.3 s before the
+# session's LOGIN) and again when it closes (2.4-3.3 s after it; the first frame of the sector follows in the same
+# 0.05 s), then the sector's files load for 1.4-5.8 s more (a 1 s quiet on the proxy's log), and a starbase logs
+# 'Changing room from -1' about 5 s after the close (it logs no frame rate). The first 'Render: Frame Rate' after
+# the session line was too early or too late: s2 waited past the starbase (no frame rate there) into session 3's
+# space, s3 then matched at once, s4's first frame still had the camera of the sector before and s5's was black
+# (R10's runs A-1 to A-4). The shots now wait for the close, the starbase's room, then the quiet.
 timeout: 700
 messages: on
 include _login
@@ -33,27 +38,34 @@ expect-event antprox 'command "/play 10"' within 10
 wait-event antprox 'sent SERVER_HANDOFF' within 20
 wait-event antprox 'Sector connection #[0-9]+: playback of 10, sector session 1 of 6' within 60
 move 640,600
-wait-event msg 'Render: Frame Rate' within 90
+wait-event proxy 'ini.fc_map_load00[.]ini.*= ok' within 60
+wait-quiet proxy 1 within 30
 shot play10_s1
 wait-event antprox 'Sector connection #[0-9]+: playback of 10, sector session 2 of 6' within 120
 move 640,600
-wait-event msg 'Render: Frame Rate' within 90
+wait-event proxy 'ini.fc_map_load00[.]ini.*= ok' within 60
+wait-event msg 'Sbase: .*Changing room from -1' within 30
+wait-quiet proxy 1 within 30
 shot play10_s2
 wait-event antprox 'Sector connection #[0-9]+: playback of 10, sector session 3 of 6' within 120
 move 640,600
-wait-event msg 'Render: Frame Rate' within 90
+wait-event proxy 'ini.fc_map_load00[.]ini.*= ok' within 60
+wait-quiet proxy 1 within 30
 shot play10_s3
 wait-event antprox 'Sector connection #[0-9]+: playback of 10, sector session 4 of 6' within 200
 move 640,600
-wait-event msg 'Render: Frame Rate' within 90
+wait-event proxy 'ini.fc_map_load00[.]ini.*= ok' within 60
+wait-quiet proxy 1 within 30
 shot play10_s4
 wait-event antprox 'Sector connection #[0-9]+: playback of 10, sector session 5 of 6' within 200
 move 640,600
-wait-event msg 'Render: Frame Rate' within 90
+wait-event proxy 'ini.fc_map_load00[.]ini.*= ok' within 60
+wait-quiet proxy 1 within 30
 shot play10_s5
 wait-event antprox 'Sector connection #[0-9]+: playback of 10, sector session 6 of 6' within 200
 move 640,600
-wait-event msg 'Render: Frame Rate' within 90
+wait-event proxy 'ini.fc_map_load00[.]ini.*= ok' within 60
+wait-quiet proxy 1 within 30
 shot play10_s6
 wait-event antprox 'Playback of 10: end of the recording; back to' within 300
 wait-event antprox 'sent SERVER_HANDOFF.*back to' within 10
