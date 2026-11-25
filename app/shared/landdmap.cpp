@@ -458,26 +458,26 @@ void LandUnknown466BE0Class::Unknown_468240(CameraClass &camera, const D3DXMATRI
 	Planes[3] = -(D3DXVECTOR4(m._41, m._42, m._43, m._44) + D3DXVECTOR4(m._21, m._22, m._23, m._24));
 }
 
-// NOT EXACT: functional, from the disassembly and pseudocode of 0x468760
+// 0x468760: the box against the four side planes: 0 outside one, 1 crossing one, 2 inside all (the client's form)
 int LandUnknown466BE0Class::Unknown_468760(const Vector3 &center, const Vector3 &extent)
 {
-	Vector3 lo = center - extent;
-	Vector3 hi = center + extent;
+	float lox = center.X - extent.X;
+	float loy = center.Y - extent.Y;
+	float loz = center.Z - extent.Z;
+	float hix = center.X + extent.X;
+	float hiy = extent.Y + center.Y;
+	float hiz = extent.Z + center.Z;
 	for (int i = 0; i < 4; i++) {
 		const D3DXVECTOR4 &p = Planes[i];
-		// near: the corner with the smallest distance along the plane's normal; far: the largest
-		float nx = (p.x < 0.0f) ? hi.X : lo.X;
-		float fx = (p.x < 0.0f) ? lo.X : hi.X;
-		float ny = (p.y < 0.0f) ? hi.Y : lo.Y;
-		float fy = (p.y < 0.0f) ? lo.Y : hi.Y;
-		float nz = (p.z < 0.0f) ? hi.Z : lo.Z;
-		float fz = (p.z < 0.0f) ? lo.Z : hi.Z;
-		if (nz * p.z + nx * p.x + ny * p.y + p.w > 0.0f) {
-			return 0;
-		}
-		if (fz * p.z + fx * p.x + fy * p.y + p.w >= 0.0f) {
-			return 1;
-		}
+		// near: the corner with the smallest distance along the plane's normal (kept on the FPU); far: the largest
+		float nx, ny, nz;
+		D3DXVECTOR4 f;	// the far corner: a 4-vector (the client's frame 0x24 holds its unused w)
+		if (p.x >= 0.0f) { nx = lox; f.x = hix; } else { nx = hix; f.x = lox; }
+		if (p.y >= 0.0f) { ny = loy; f.y = hiy; } else { ny = hiy; f.y = loy; }
+		if (p.z >= 0.0f) { nz = loz; f.z = hiz; } else { nz = hiz; f.z = loz; }
+		float d = p.w;
+		if (d + (ny * p.y + (nz * p.z + nx * p.x)) > 0.0f) { return 0; }
+		if (d + (f.y * p.y + (f.z * p.z + f.x * p.x)) >= 0.0f) { return 1; }
 	}
 	return 2;
 }
@@ -589,7 +589,7 @@ void LandUnknown466BE0Class::Unknown_468D50(void)
 **	the dtor), the unused generic shader maker 0x468010, the hardware check 0x4680D0 (inlined in the ctor), the cells' release
 **	0x4688F0 (inlined in the dtor, 0x467A50 and 0x468920), two empty members 0x467E00 / 0x467E20 (D99 rows) and the box
 **	around eight points 0x468BE0 (six float extremes, the centre through float locals, fabs), the buffers' builder
-**	0x467A50 (16-bit index products, a D3DX vertex struct, each lock pointer in its own block). Functional,
-**	NOT EXACT (Matrox only, never run): the draw
-**	0x466F60 and its helpers 0x468240, 0x468760, 0x468920, 0x468D50.
+**	0x467A50 (16-bit index products, a D3DX vertex struct, each lock pointer in its own block), the box against the
+**	side planes 0x468760 (one test per axis, the far corner a D3DXVECTOR4, the sums as the client adds them). Functional,
+**	NOT EXACT (Matrox only, never run): the draw 0x466F60 and its helpers 0x468240, 0x468920, 0x468D50.
 */
