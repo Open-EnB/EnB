@@ -692,7 +692,9 @@ without the export still runs (`no stand-in marker` in e2e.log; later scenarios 
 **Shots on events:** `shot NAME` writes the proxy's trigger file (`D3D8SHOT_TRIGGER`, d3d8shot.c: looked at every
 8th Present); the next frame is saved as `shot_NAME_NNNNN.png` from the client's own back buffer (D69). The proxy
 in `build/d3d8shot/` must be current: `python tools/harness/run_reference.py build` after any change to
-d3d8shot.c (a proxy of 2026-11-04 ignored the trigger, and every shot step waited out its 15 s).
+d3d8shot.c (a proxy of 2026-11-04 ignored the trigger, and every shot step waited out its 15 s). A trigger file
+the proxy cannot open yet, or reads empty, is read again at a later Present (2026-11-25: taken at once it was
+saved as `shot_shot_N`, the shot's name lost, while e2e still logged it taken).
 **Draw log per shot (test-plan C3):** e2e sets `D3D8SHOT_DRAWLOG=1` for every session, so each shot is taken one
 frame after the trigger was seen (the trigger file stays until then) and that frame's draw calls go to
 `shot_NAME_NNNNN.json` beside the image (written before it): every draw (call, primitive type and count, vertices,
@@ -868,6 +870,30 @@ the last name. Live antprox logs opcode numbers; e2e appends the names (`... = s
   Jove's Fury and `_sb_home` fails at its first walk-to, pose ~116000,-224000): `e2e.py --live localhost
   --retail --instance NAME run _sb_dock` (named only) logs in, targets the station (641,1009, SET_TARGET) and
   docks (the target panel's right verb, 1238,672, until SERVER_HANDOFF); then run the `sb_*` set again.
+- **The Vault and the rooms (test-plan UI-04 and UI-03, 2026-11-25):** `sb_vault_ops` opens the Vault with
+  Shift+I, drags cargo column 1 row 1 onto the vault's row 2 column 1 and back (INVENTORY_MOVE each, the server's
+  AUX_DATA), then the Sort button (821,300) three times with the left button (the sort key, 0x657DA0 false) and
+  twice with the right (the reverse flag: 'BUTTON01' is two gadgets on one mesh, button masks 5 and 0x50), each an
+  INVENTORY_SORT, and its exit box (866,331). Net-7 sorts at most once in 10 s (`Player::HandleInventorySort`, else
+  'Cargo sort machine resetting'), so each later sort waits `alive 10.5`. The cargo ends as it began (the database's
+  slots too); the vault ends sorted by the client's starting key (the server keeps that order in memory: after
+  an `sb_*` run's database restore the first run shows the stored order again). `sb_rooms` walks
+  Jove's Fury's four rooms (0 hangar, 1 main deck, 2 bazaar, 3 lounge: net7 `starbase_rooms` 41-44), a `pose` and a
+  shot (with its draw log) per spot, opens and closes every terminal (`starbase_terminals`: room 1's analyze,
+  manufacturing and refining, room 3's jobs and Intergalactic Net, whose JWEB00 window loads a live page from the
+  internet; close box 1259,215), an `aim_` shot of each terminal's view before its click, the NPC name tags in the
+  room shots, and leaves: the hangar's ship clicked (770,284 at 50,-5 facing -124: room 0 -> -1, STARBASE_REQUEST,
+  the hand-off to space), docked again as `_sb_dock` and walked home (~470 s on retail). Two traps of the walk: a
+  turn in place drifts the avatar a few units, so each terminal is approached on a heading close to its `face`
+  (manufacturing from the dismantling spot: from -47,30 the turn left the terminal off its screen point); and a
+  terminal is lit (its tooltip, the click taken) only with the avatar in reach, the refinery's edge at camera y
+  about -5.0 (-4.8 refused on retail and ours alike), so its last leg aims past it (-5.5 tol 2.5) against the walk's
+  2.5-4.2 units of coast. Retail's own spread over three runs: the terminal shots identical (0 cells, the same draw
+  logs; the job board's rows are the server's random jobs), the vault and cargo windows identical, the room shots
+  up to 95 of 256 cells (ambient avatars, animated models, the arrival pose). Ours at a9fa08ee3 (2026-11-25): both
+  pass with the SAME packets and the same server answers (AUX_DATA lengths) to every move and sort, the vault and
+  cargo windows identical to retail's after every step, every terminal shot identical, the room shots inside
+  retail's spread. The live compare reads packet names only; the server's answers stand in for the payloads.
 
 **Smoke set (D237):** a landing that changes the client's behaviour runs `e2e.py run --exe <its worktree's
 build\programs\client\client.exe> --instance <name>` and lands only with every line as expected.
