@@ -727,10 +727,10 @@ unsigned SClient::Set_Avatar_ID(unsigned id)
 	return(ClientClass::Set_Avatar_ID(id));
 }
 #include "..\packets\pkclientchat.h"
-// 0x744D80 (out of line for 0x6B58A0, auto-inlined into 0x7436A0's camera keys; Init has the block written out). Unknown12B0 is one __int64: the zero-extended clock is stored as a pair (low, then the 0 high half) above the next load in every copy (here, 0x7436A0's four, ctrngadg's 0x50ABC0, Init's)
+// 0x744D80 (out of line for 0x6B58A0, auto-inlined into 0x7436A0's camera keys; Init has the block written out). Unknown12B0 (one DurationClass) set through its Time: the conversion (the constructor and the template's user operator=) makes this too heavy to inline four times into 0x7436A0 as the client does; Init and ctrngadg assign through it (their high half from xor reg, reg, as the client's). The mode through SOptionsClass::Current_Camera_Mode(): 0x7436A0's case-3 copy reads it through this+0x1150
 void SClient::Unknown_744D80() {
-	Unknown12B0 = Unknown10BC;
-	CameraModeStruct &mode = CameraModes[CameraMode];
+	Unknown12B0.Time = Unknown10BC;
+	CameraModeStruct &mode = Current_Camera_Mode();
 	CameraManager->Set_Heading(mode.Heading);
 	CameraManager->Set_Distance(mode.Distance);
 	CameraManager->Set_Tilt(mode.Tilt);
