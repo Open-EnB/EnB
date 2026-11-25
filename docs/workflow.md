@@ -1719,7 +1719,9 @@ are in 3.0.
   already lost 0x758210 no longer drops it from the set; after a rebase with watched addresses lost the sweep's summary window is wrong: read its per-value rows and the sets file for the values where all three are exact): check 0x758210 / 0x702240 in `.work/log/sendpad.log`. `appfile.py match`, its draft compiles and single-file compiles pad and break ties through a
   different window than verify (a constant set of false losses, tie-break pairs it cannot see): decide with sendpad.py / the full verify only.
   A member added to a header that sclient.cpp or co.cpp includes flips pad-sensitive pairs beyond the
-  watch list (client_item_property_builder.cpp in §3.9 has the case).
+  watch list (client_item_property_builder.cpp in §3.9 has the case). The window's middle is not safe either:
+  skill_data.cpp includes aux_roots_send.h, so skill_data 0x4A0880 / 0x6A4F40 follow the send pad but are not
+  watched (a middle value of 50 lost both; 57 kept them): confirm the set value with one full verify.
 * **More pad-sensitive headers:** declarations added to a header reached through sbaseview.h move sclient's send pad 0x758210 (a declaration stays local in the .cpp that needs it); replacing aux_roots.h's views with an include of a new header lost the six padded constructors (0x702240, 0x7045F0): keep co.cpp's declaration count, with money.h's guard pattern. Out-of-class definitions of member templates compile in VC6 (only explicit specialisations hit C1001): a way to add a member without changing a pad-sensitive header (a plain overload in kv_encoder_base.h cost the send pad and 0x597080). Members added to aux_roots_types.h move skill_data 0x6A4F40, client_lego_impl 0x72D5F0 and sbaseview 0x6A1180 like a pad window; `appfile.py` cannot see it, only the full verify does.
 * **Names inside a header guard macro** (money.h's `__X_ALL` pattern) cannot be enumerators of a type declared outside the guard: use anonymous enums, with casts where an enum value is returned or passed (C2440 / C2665).
 * **Keeping both pads still:** put members only one file needs behind a guard macro defined only by its users
