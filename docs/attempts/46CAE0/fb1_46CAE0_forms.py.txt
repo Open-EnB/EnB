@@ -1,0 +1,153 @@
+# ---- v1_46CAE0.py ----
+HYPOTHESIS = (
+    'Compute_Lighting FB1 batch 1: the residue is the commutative order of Unknown120C + n * 4 in the unlit loop '
+    '(the client: n * 4 base / destination, the pointer second, as in the two sky branches that already match; '
+    'ours the pointer first). The same statements give the client order in the sky branches, so the order follows '
+    "the symbols' or temporaries' numbering, not the text: move the unlit loop's symbols (n, i, j, the colour "
+    'pointer) to other scopes / declaration positions, give it its own pointer variable, put the unlit branch '
+    'first in the source.'
+)
+FILE = 'app/shared/unknown_46c730.cpp'
+SYMBOL = 'LandClass::Compute_Lighting'
+ADDRESS = 0x46CAE0
+
+SRC = open('C:/EnBDevelopment/EnB/.work/wt/FB1/app/shared/unknown_46c730.cpp', encoding='utf-8').read()
+A = SRC.index('void LandClass::Compute_Lighting(void)')
+B = SRC.index('\n}\n', A) + 3
+FUNC = SRC[A:B]
+U = FUNC.rindex("\t} else {\n\t\tfor (unsigned int j")
+HEAD = FUNC[:U]
+UNLIT = FUNC[U:]
+
+DECL = "\tunsigned char *color;\n"
+FORJ = "\t\tfor (unsigned int j = UpdateMin.J;"
+FORI = "\t\t\tfor (unsigned int i = UpdateMin.I;"
+NDEF = "\t\t\t\tunsigned int n = Field->Get_Size() * j + i;\n"
+STORE = "\t\t\t\tUnknown120C[n] = SkyColorDX8;\n"
+COLOR = "\t\t\t\tcolor = (unsigned char *)&Unknown120C[n];\n"
+
+
+def sub(text, old, new):
+    assert text.count(old) == 1, (old, text.count(old))
+    return text.replace(old, new)
+
+
+def form(head=None, unlit=None):
+    h = HEAD
+    u = UNLIT
+    for old, new in head or []:
+        h = sub(h, old, new)
+    for old, new in unlit or []:
+        u = sub(u, old, new)
+    text = h + u
+    assert text.count('\n') == FUNC.count('\n'), (text.count('\n'), FUNC.count('\n'))
+    return [(FUNC, text)]
+
+
+def unlit_bytes(text):
+    """every use of color in the unlit loop through a block pointer c"""
+    out = sub(text, COLOR, "\t\t\t\tunsigned char *c = (unsigned char *)&Unknown120C[n];\n")
+    return out.replace('color[', 'c[')
+
+
+def swapped():
+    """the unlit branch first: if (!Lighting.Valid) { unlit } else { valid }"""
+    body_start = HEAD.index("\tif (Lighting.Valid) {\n")
+    pre = HEAD[:body_start]
+    valid = HEAD[body_start + len("\tif (Lighting.Valid) {\n"):]
+    unlit = UNLIT[len("\t} else {\n"):]
+    end = unlit.rindex("\t}\n}\n")
+    text = pre + "\tif (!Lighting.Valid) {\n" + unlit[:end] + "\t} else {\n" + valid + "\t}\n}\n"
+    assert text.count('\n') == FUNC.count('\n'), (text.count('\n'), FUNC.count('\n'))
+    return [(FUNC, text)]
+
+
+FORMS = {
+    'a1_n_top': form([(DECL, "\tunsigned char *color; unsigned int n;\n")], [(NDEF, "\t\t\t\tn = Field->Get_Size() * j + i;\n")]),
+    'a1b_n_first': form([(DECL, "\tunsigned int n; unsigned char *color;\n")], [(NDEF, "\t\t\t\tn = Field->Get_Size() * j + i;\n")]),
+    'a2_n_else': form(None, [("\t} else {\n", "\t} else { unsigned int n;\n"), (NDEF, "\t\t\t\tn = Field->Get_Size() * j + i;\n")]),
+    'a3_n_jloop': form(None, [(FORI, "\t\t\tunsigned int n; for (unsigned int i = UpdateMin.I;"), (NDEF, "\t\t\t\tn = Field->Get_Size() * j + i;\n")]),
+    'a4_ij_top': form([(DECL, "\tunsigned char *color; unsigned int i, j;\n")], [(FORJ, "\t\tfor (j = UpdateMin.J;"), (FORI, "\t\t\tfor (i = UpdateMin.I;")]),
+    'a4b_ij_else': form(None, [("\t} else {\n", "\t} else { unsigned int i, j;\n"), (FORJ, "\t\tfor (j = UpdateMin.J;"), (FORI, "\t\t\tfor (i = UpdateMin.I;")]),
+    'a5_nij_top': form([(DECL, "\tunsigned char *color; unsigned int i, j, n;\n")], [(FORJ, "\t\tfor (j = UpdateMin.J;"), (FORI, "\t\t\tfor (i = UpdateMin.I;"), (NDEF, "\t\t\t\tn = Field->Get_Size() * j + i;\n")]),
+    'a6_own_c': [(FUNC, HEAD + unlit_bytes(UNLIT))],
+    'a7_c_before': [(FUNC, HEAD + sub(sub(UNLIT, STORE, "\t\t\t\tunsigned char *c; Unknown120C[n] = SkyColorDX8;\n"), COLOR, "\t\t\t\tc = (unsigned char *)&Unknown120C[n];\n").replace('color[', 'c['))],
+    'a8_unlit_first': swapped(),
+    'a9_lm_ptr': form(None, [(STORE, "\t\t\t\tunsigned int *lm = &Unknown120C[n]; *lm = SkyColorDX8;\n")]),
+    'a10_byte_store': form(None, [(STORE, "\t\t\t\t*(unsigned int *)&((unsigned char *)Unknown120C)[n * 4] = SkyColorDX8;\n"), (COLOR, "\t\t\t\tcolor = &((unsigned char *)Unknown120C)[n * 4];\n")]),
+    'a11_byte_color': form(None, [(COLOR, "\t\t\t\tcolor = &((unsigned char *)Unknown120C)[n * 4];\n")]),
+    'a12_ptr_plus': form(None, [(COLOR, "\t\t\t\tcolor = (unsigned char *)(Unknown120C + n);\n")]),
+    'a13_n_plus_ptr': form(None, [(COLOR, "\t\t\t\tcolor = (unsigned char *)(n + Unknown120C);\n")]),
+    'a14_star_store': form(None, [(STORE, "\t\t\t\t*(Unknown120C + n) = SkyColorDX8;\n")]),
+    'a15_n_plus_store': form(None, [(STORE, "\t\t\t\t*(n + Unknown120C) = SkyColorDX8;\n"), (COLOR, "\t\t\t\tcolor = (unsigned char *)(n + Unknown120C);\n")]),
+    'a16_color_first': form(None, [(STORE + COLOR, "\t\t\t\tcolor = (unsigned char *)&Unknown120C[n];\n\t\t\t\tUnknown120C[n] = SkyColorDX8;\n")]),
+    'a17_sky_local': form(None, [(STORE, "\t\t\t\tunsigned int s = SkyColorDX8; Unknown120C[n] = s;\n")]),
+}
+
+# ---- v2_46CAE0.py ----
+HYPOTHESIS = (
+    'Compute_Lighting FB1 batch 2: in the branches that match, n is defined in an earlier block than the lightmap '
+    'store (before the horizon tests) and VC6 forms n * 4 + pointer; in the unlit loop n is defined in the '
+    "store's own block and ours forms pointer + n * 4. So the client's unlit n is a leaf there, not the "
+    'expression: probe what keeps VC6 from substituting it (a block boundary between the definition and the '
+    'store, two definitions, a variable shared with the other loops, const / register).'
+)
+FILE = 'app/shared/unknown_46c730.cpp'
+SYMBOL = 'LandClass::Compute_Lighting'
+ADDRESS = 0x46CAE0
+
+SRC = open('C:/EnBDevelopment/EnB/.work/wt/FB1/app/shared/unknown_46c730.cpp', encoding='utf-8').read()
+A = SRC.index('void LandClass::Compute_Lighting(void)')
+B = SRC.index('\n}\n', A) + 3
+FUNC = SRC[A:B]
+U = FUNC.rindex("\t} else {\n\t\tfor (unsigned int j")
+HEAD = FUNC[:U]
+UNLIT = FUNC[U:]
+
+DECL = "\tunsigned char *color;\n"
+NDEF = "\t\t\t\tunsigned int n = Field->Get_Size() * j + i;\n"
+NDEF5 = "\t\t\t\tunsigned int n = Field->Get_Size() * j + i;\n\t\t\t\thorizon = Unknown1E8[n];\n"
+NDEF5E = "\t\t\t\tunsigned int n = Field->Get_Size() * j + i;\n\t\t\t\thorizon = Unknown1EC[n];\n"
+STORE = "\t\t\t\tUnknown120C[n] = SkyColorDX8;\n"
+LAST = "\t\t\t\tcolor[0] = (unsigned char)((c0 * f2) >> 8);\n"
+NASSIGN = "\t\t\t\tn = Field->Get_Size() * j + i;\n"
+
+
+def sub(text, old, new):
+    assert text.count(old) == 1, (old, text.count(old))
+    return text.replace(old, new)
+
+
+def form(head=None, unlit=None):
+    h = HEAD
+    u = UNLIT
+    for old, new in head or []:
+        h = sub(h, old, new)
+    for old, new in unlit or []:
+        u = sub(u, old, new)
+    text = h + u
+    assert text.count('\n') == FUNC.count('\n'), (text.count('\n'), FUNC.count('\n'))
+    return [(FUNC, text)]
+
+
+TOPN = (DECL, "\tunsigned char *color; unsigned int n;\n")
+L1 = (NDEF5, NASSIGN + "\t\t\t\thorizon = Unknown1E8[n];\n")
+L2 = (NDEF5E, NASSIGN + "\t\t\t\thorizon = Unknown1EC[n];\n")
+
+FORMS = {
+    'm1_label': form(None, [(STORE, "\t\t\t\tstore: Unknown120C[n] = SkyColorDX8;\n")]),
+    'm2_if_sky': form(None, [(STORE, "\t\t\t\tif (sky != NULL) Unknown120C[n] = SkyColorDX8;\n")]),
+    'm3_two_defs': form(None, [(NDEF, "\t\t\t\tunsigned int n = i; n += Field->Get_Size() * j;\n")]),
+    'm5_n_all': form([TOPN, L1, L2], [(NDEF, NASSIGN)]),
+    'm6_n_first': form([TOPN, L1], [(NDEF, NASSIGN)]),
+    'm6b_n_second': form([TOPN, L2], [(NDEF, NASSIGN)]),
+    'm7_do0': form(None, [(STORE, "\t\t\t\tdo { Unknown120C[n] = SkyColorDX8;\n"), (LAST, LAST[:-1] + " } while (0);\n")]),
+    'm8_forever': form(None, [(STORE, "\t\t\t\tfor (;;) { Unknown120C[n] = SkyColorDX8;\n"), (LAST, LAST[:-1] + " break; }\n")]),
+    'm10_register': form(None, [(NDEF, "\t\t\t\tregister unsigned int n = Field->Get_Size() * j + i;\n")]),
+    'm12_const': form(None, [(NDEF, "\t\t\t\tconst unsigned int n = Field->Get_Size() * j + i;\n")]),
+    'm13_if_n': form(None, [(STORE, "\t\t\t\tif (n == 0xFFFFFFFF) continue; Unknown120C[n] = SkyColorDX8;\n")]),
+    'm14_n_in_cond': form(None, [("\t\t\tfor (unsigned int i = UpdateMin.I; i < (unsigned int)UpdateMax.I; i++) {\n" + NDEF,
+                                  "\t\t\tunsigned int n; for (unsigned int i = UpdateMin.I; n = Field->Get_Size() * j + i, i < (unsigned int)UpdateMax.I; i++) {\n\n")]),
+    'm15_n_volatile': form(None, [(NDEF, "\t\t\t\tvolatile unsigned int n = Field->Get_Size() * j + i;\n")]),
+}
+

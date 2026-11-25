@@ -3623,7 +3623,7 @@ bool ScriptedMovieViewClass::Hide_Object(ScriptedMovieLineClass *params, bool hi
 #include "nstrdup.h"
 #include <algorithm>
 #define DEFAULT_STRING_SIZE 512	// NAME 3 [DEFAULT_STRING_SIZE]: the assert's 'count < DEFAULT_STRING_SIZE' (0x200)
-// NOT EXACT: register (0.82, 2 masked rows): the client sets p (esi) before the tab loop, ours after it
+// (two for loops over q: the tabs, then the leading blanks, where q follows p; a blank skip on p alone puts p = line after the tab loop)
 // 0x8099B0: the script loaded: one command a line ('<frame> <command>,<parameters>', ';' a comment; FRAME_PAD
 // and SOUNDTRACK set the view, CREATE_SFX lines also run at once), the lines sorted by frame (0x7FFEA0)
 void ScriptedMovieViewClass::Unknown_8099B0(const char *filename)
@@ -3659,9 +3659,9 @@ void ScriptedMovieViewClass::Unknown_8099B0(const char *filename)
 		line[count - 1] = 0;
 		total_count += count + 1;
 		count = 0;
-		char *p;
-		for (p = line; *p != 0; p++) if (*p == '\t') *p = ' '; p = line;
-		while (*p != 0 && *p <= ' ') p++;
+		char *p = line; char *q;
+		for (q = line; *q != 0; q++) if (*q == '\t') *q = ' ';
+		for (q = line; *q != 0 && *p <= ' '; q = ++p);
 		unsigned int len = strlen(p);
 		while (len != 0 && p[len - 1] <= ' ') p[--len] = 0;
 		if (*p == 0 || *p == ';') {
