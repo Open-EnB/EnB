@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1970 |
 | 2 | describes what the code does | 5014 |
-| 1 | neutral placeholder | 25192 |
+| 1 | neutral placeholder | 25190 |
 
 ## For review (score 3 and below)
 
@@ -14834,8 +14834,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `UnknownD8` | `app/client/ui_missn.h:53` | untagged neutral name (D10) |
 | 1 | `Unknown_Strip_Tags` | `app/client/ui_missn.h:55` | neutral (D10) |
 | 1 | `Unknown_496AE0` | `app/client/ui_mount.cpp:18` | untagged neutral name (D10) |
-| 1 | `UnknownBF9330` | `app/client/ui_mount.cpp:29` | neutral (D10) |
-| 1 | `UnknownBF92D0` | `app/client/ui_mount.cpp:30` | neutral (D10) |
 | 1 | `Unknown401` | `app/client/ui_mount.cpp:39` | untagged neutral name (D10) |
 | 1 | `Unknown402` | `app/client/ui_mount.cpp:40` | untagged neutral name (D10) |
 | 1 | `Unknown_54` | `app/client/ui_mount.cpp:49` | untagged neutral name (D10) |
