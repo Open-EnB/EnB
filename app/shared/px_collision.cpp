@@ -92,46 +92,45 @@ void PxCollision::Unknown_453C20()
 }
 
 // 0x453F10
-// NOT EXACT: register (the setup copies through eax alone where ours uses ecx / edx too: the client keeps self / other in ecx / edi from the start; moving their initialisation to the top made it worse, 151 -> 198 rows; attempts.py show 0x453F10)
+// NOT EXACT: register-only (masked residue 18: RT1's variant v5, the edge products scalar-first, self / other at the top and no delta local, 151 -> 18; attempts.py show 0x453F10)
 bool PxCollision::Unknown_453F10(const Vector3 &apos, const Vector3 &bpos)
 {
 	Matrix3D atm = A->Unknown_Dyn3C();
 	Matrix3D btm = B->Unknown_Dyn3C();
 	AABoxClass abox = A->Unknown_Dyn7C();
 	AABoxClass bbox = B->Unknown_Dyn7C();
+	int self = 0;
+	int other = 1;
 	Vector3 pos[2];
 	Vector3 extent[2];
 	Vector3 axis[2][3];
 	Vector3 edge[2][3];
-	pos[0] = apos;
-	pos[1] = bpos;
 	extent[0] = abox.Extent;
 	extent[1] = bbox.Extent;
+	pos[0] = apos;
+	pos[1] = bpos;
 	axis[0][0] = atm.Get_X_Vector();
 	axis[0][1] = atm.Get_Y_Vector();
 	axis[0][2] = atm.Get_Z_Vector();
 	axis[1][0] = btm.Get_X_Vector();
 	axis[1][1] = btm.Get_Y_Vector();
 	axis[1][2] = btm.Get_Z_Vector();
-	edge[0][0] = axis[0][0] * abox.Extent.X;
-	edge[0][1] = axis[0][1] * abox.Extent.Y;
-	edge[0][2] = axis[0][2] * abox.Extent.Z;
-	edge[1][0] = axis[1][0] * bbox.Extent.X;
-	edge[1][1] = axis[1][1] * bbox.Extent.Y;
-	edge[1][2] = axis[1][2] * bbox.Extent.Z;
+	edge[0][0] = abox.Extent.X * axis[0][0];
+	edge[0][1] = abox.Extent.Y * axis[0][1];
+	edge[0][2] = abox.Extent.Z * axis[0][2];
+	edge[1][0] = bbox.Extent.X * axis[1][0];
+	edge[1][1] = bbox.Extent.Y * axis[1][1];
+	edge[1][2] = bbox.Extent.Z * axis[1][2];
 	float best = 100000.0f;
-	int self = 0;
-	int other = 1;
 	for (int i = 0; i < 2; i++) {
 		if (i == 1) {
 			self = 1;
 			other = 0;
 		}
 		for (int j = 0; j < 3; j++) {
-			Vector3 delta = pos[other] - pos[self];
 			Vector3 n = axis[self][j];
+			float d = (pos[other] - pos[self]) * n;
 			Vector3 p = pos[other];
-			float d = delta * n;
 			if (d >= 0.0f) {
 				d = -d;
 			} else {
@@ -168,6 +167,7 @@ bool PxCollision::Unknown_453F10(const Vector3 &apos, const Vector3 &bpos)
 	}
 	return(true);
 }
+
 
 
 
