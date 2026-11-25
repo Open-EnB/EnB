@@ -245,3 +245,69 @@ symbols.json follows the objects. 76 are name-only (access, const, pointer cv, p
 changes expected, so no crediting change; the 6 int ones need a compile (signedness can change code). The link: the
 one client build (non-incremental, from `app.lib`) does not order by name, so nothing moves; in an incremental link
 (the `objs` trial) each correction moves one thunk into retail's bucket.
+
+### 5.3 The missing pieces, and the library members
+
+Measured 2026-11-25 (image builder IM4, week plan 2026-11-24 §2 D questions 3 and 4) with trial links of
+run/2026-11-25's objects (the app.lib build of 05:13, master 9cd27adf5) and `tools/re/rsrc.py`, `rich.py`,
+`members.py`; the link wrapper is `.work/im4/pdblink.py` (build.py's link with extra batch lines: a `subst E:`
+for the PDB path, a second incremental link, the libraries' order, a replaced library). The one client build at the
+run's head: **118,494 of 8,642,625 bytes in place (1.37 %)**. Each trial adds to the row before it:
+
+| Trial (`--tag`) | Added | imagediff in place | What it shows |
+|---|---|---|---|
+| `objs` | IM2's object list (§5.1) on the current objects | 632,912 (7.32 %) | the baseline (IM2's 7.47 % was the objects of 2026-11-24 23:11) |
+| `res` | `build/res/client.res` (`rsrc.py extract`) on the object list | 637,349 (7.37 %) | `.rsrc` 8,156 of 8,156 bytes equal at retail's RVA, 8,132 by section offset (the 12 data entries' RVAs), 0 in place: it lands at 0xBD0000, inside retail's `.data`, whose zeros give the +4,437 by chance |
+| `pdb` | `/pdb:e:\build\beta\G\app\main\client_release\main.pdb` (E: a subst in the VM) | 637,395 | the NB10 record is 65 bytes as retail's, 60 equal (the signature, the age); the debug entry's SizeOfData |
+| `wl` | wlib's 8 pulled members, wnet's 4 and wwlib's rawfile.obj on the line (retail's order) | 664,637 (7.69 %) | +27,288 over `res` (`.text` +20,800, `.rdata` +6,149); runs 2,689 -> 2,434 |
+| `lo` | retail's library order (below) | 665,587 (7.70 %) | member order: longest common order 49.7 % -> 85.6 % of retail's 533 library members |
+| `lo2` | WINMM and OLE32 with the first import libraries, VC6's `DDRAW.LIB` for the DX8 SDK's, the Miles import library naming `mss32.dll` | 665,115 (7.70 %) | the 17 import descriptors in retail's order with retail's DLL names; the rich header's 17 (product, build) kinds are retail's |
+| `lo3` | the Miles import library in the long format (`lib /convert`) | **665,282 (7.70 %)** | `e_lfanew` 0x128 as retail (headers 3,708 -> 3,875 of 4,096); the best trial |
+| `upd3` | `lo` then an incremental link after two changed objects (COFF stamp and @comp.id changed) | | NB10 age 2, the debug entry's stamp and the NB10 signature kept, the rich header and `e_lfanew` rewritten: retail's marks (§5) |
+
+In place the trials gain little past `wl`: every section after `.text`'s first bytes is displaced until the code
+sizes match (`.text` 0x67E0CC against 0x6E58DD). The pieces below are measured on their own terms.
+
+**Question 3: the pieces a VC6 link can reproduce.**
+
+| Piece | Retail | Reproduced by | Bytes |
+|---|---|---|---|
+| `.rsrc` | 0xC47000, 0x1FDC bytes: VERSIONINFO (product "main", `main.exe`, its comment the build's user and time: Tue Mar 16 2004 05:46:17 PM, 01:46:17 UTC, 23 s before the file header's stamp: the update rebuilt the resources), a TYPELIB (`MSFT`, 1,544 bytes), DIALOGs 104-112 (captions "Earth & Beyond", "Create Character", ...), one STRINGTABLE block (the build's time, date and user); CVTRES 5.00.1735 (rich pair 6/1735) | `rsrc.py extract` writes them as a .res in the order of their data; LINK's CVTRES (the VM's is 5.00.1735) gives the section byte for byte | 8,156, all once `.rsrc` starts at 0xC47000 (the sections before it end where retail's do) |
+| Entry point | 0xA2B674 = `_WinMainCRTStartup` (LIBCMT wincrt0.obj, exact) | LINK's default entry, nothing to set | 4; in place when the library region lines up to wincrt0 (`lo3`: 0x9C94AE) |
+| Debug directory | one CodeView entry, 28 bytes at `.rdata`'s start; NB10 record (65 bytes) after the last section | `/pdb:` with retail's path gives SizeOfData 65 and 60 of the record's 65 bytes; an incremental update after a changed object gives age 2 (`upd3`) | 28 + 65; left: three link-time stamps (file header 0x4057AE00, debug entry and NB10 signature 0x4021A831: 12 bytes) that LINK 6.00 takes from the clock (no option), and PointerToRawData (the file's layout) |
+| DOS header and stub | LINK 6.00's 0x80 bytes | every link: 128 of 128 equal once `e_lfanew` is 0x128 (`lo3`) | 128 |
+| Rich header | 0x80-0x120: 17 pairs, key 0xDF765B66 | `rich.py`: the key is 0x80 + the stub's bytes rotated + each pair rotated by its count; it recomputes on retail and every trial. With retail's pairs over `lo3`'s stub the key is retail's. `lo3` has retail's 17 kinds; its order differs in the first five (LINK lists a kind by first sight, newest first) | 160 bytes, equal only with retail's counts and order |
+| `e_lfanew` and the PE header after it | 0x128 | the rich block's end + 8 in `lo`, `lo3` and the one client build; 24 bytes after it in `objs`, `res`, `pdb`, 16 in `lo2` (the slack follows the inputs; its rule is not known) | +167 header bytes (`lo2` -> `lo3`) |
+
+The rich header's counts that still differ in `lo3` (`rich.py --diff`): C++ 12.00.8799 objects **1,054 against 914**
+(retail's link took 140 more translation units of E&B's and Westwood's code than ours: files merged in our tree or
+members it pulls that ours lacks; not resolved), C 12.00.8797 201 against 204, cvtomf/aliasobj 7291 11 against 10,
+Import0 312 against 299 (13 imported functions: retail imports GDI32 29 and USER32 60, ours 17 and 59). The
+import-member pair 4/8447 is 96 as retail's once mss32.lib is long format (81 Miles imports + 9 Bink + 6
+descriptors), and 19/8034 is 21 with VC6's `DDRAW.LIB` (the DX8 SDK's ddraw.lib carries 37/8755, a kind retail
+does not have).
+
+**Question 4: the library members** (`members.py` on the `res` map; `.work/im4/members/`).
+
+| Finding | Evidence | In the trial |
+|---|---|---|
+| wlib (configfile, critsec, streamer, unknown_8b45b0, wdebug, wstring, wtime, xtime), wnet (tcpcon, tcpmgr, tcpqueue, udp) and wwlib's rawfile.obj are **app objects** in retail: thunked, in the app region | their 233 paired functions all lie in retail's app region (0x683BE0-0x8C0600), none in its library region | `wl`: +27,288 bytes |
+| Retail's library order: WS2_32, WINMM, ADVAPI32, KERNEL32, USER32, GDI32, OLE32, wwmath, d3dx8, ww3d2, wwlib, wwdebug, VFW32, wwaudio, mss32, wwsaveload, COMCTL32, SHELL32, authlogin, wwshade, WININET, binkmovie, LIBCPMT, LIBCMT, COMSUPP, OLEAUT32, URLMON, DDRAW, binkw32 | the member runs (wwmath 0x8C1F10, d3dx8 0x8E3B36, ww3d2 0x909540, wwlib 0x9C7850, wwdebug 0x9E9F70, wwaudio 0x9EE9B0, wwsaveload 0xA03C30, wwshade 0xA07CE0, binkmovie 0xA16250, LIBCPMT 0xA18314, LIBCMT 0xA25A2C); the import stubs between them (WS2_32's at 0x8C1B64 before wwmath, AVIFIL32's at 0x9EE980, mss32's 81 at 0xA03A10, COMCTL32 / SHELL32 / authlogin at 0xA07CB0, WININET at 0xA159A0, binkw32 at 0xA41C3A); the import descriptors' order | `lo2`: descriptors in retail's order; members in order 85.6 % (d3dx8, LIBCPMT, wwshade, binkmovie 100 %, LIBCMT 86 %, ww3d2 76 %, wwaudio 59 %: inside a library the members come in the order LINK resolves their symbols, not by the library's order) |
+| Retail's ddraw import library is VC6's `DDRAW.LIB` | rich 19/8034 21, no 37/8755 | `lo2` |
+| Retail's Miles import library: long format, LIB 6.00.8447, DLL name `mss32.dll` | rich 4/8447 96; the descriptor's name; ours (`mkmss32.py`) links its stub as `Mss32.dll` and LINK 6.00 writes short-format members | `lo2`, `lo3` |
+| ww3d2's **w3dexclusionlist.obj is ours only** (7 functions, 2,000 bytes) | pulled by hanimmgr.cpp's `Free_All_Anims_With_Exclusion_List` (and `Create_Asset_List` beside it): neither is in retail, whose `Free_All_Anims` 0x964BE0 is followed by `Add_Anim` 0x964C40; no name, RTTI or string of the class in retail; nothing calls the two | still linked |
+| wwlib's stimer.obj (2 functions, 128 bytes), imported for ddraw.cpp (EXTRA_FILES) | no retail address named | still linked |
+| The CRT, LIBCPMT, COMSUPP and d3dx8: no member difference shown | `.work/libs/m_*.json`: every member exact in retail but not in our map shares its addresses with a member ours pulls (identical code, `cprintf`/`output`, `wfopen`/`fopen`, d3dx8's inline vectors ...) or lies inside another function (`_wctype.obj`'s 17-byte `isw*` inside `isalpha`); our members without an exact retail address are the matcher's `short` (23 bytes or less) or `multiple` (memcpy and memmove, both in retail at 0xA25F50 and 0xA2C150); open: `wcscmp.obj` (53 bytes, `none`). LIBCIMT (the old iostreams, 6 members) has no match data | |
+| Retail's library region outside our members' runs: 239 gaps, 103,866 bytes | `held` 36 gaps, 30,023 bytes (every function an exact match: statics our map does not list); `part` 18, 10,901; `unnamed` 185, 62,942 bytes, 743 functions: in our libraries' blocks about 30 KB (ww3d2 13,600, wwlib 4,640, wwmath 4,336, ...: their unmatched functions; binkmovie's 0xA16C90 gap of 12 is subtitlemanager.obj's place, its names not in symbols.json), in the CRT's about 37 KB (LIBCMT 15,106; LIBCPMT 17,419, the app's `std::` COMDATs placed among its members; COMSUPP/LIBCMT 4,408) | |
+
+App objects: every one of the 651 the trials link holds retail addresses (the ledger's `in_tree`); §5's object runs
+are their placement measure.
+
+**What it implies (proposals for the user; nothing of the one client build changed).** In the order of their
+bytes: (1) the app objects on the link line with wlib's, wnet's and rawfile.obj (the incremental `objs` link, with
+§5.1's thunk order); (2) retail's library order, VC6's DDRAW.LIB, a long-format `mss32.lib` naming `mss32.dll`
+(`mkmss32.py`: `/out:mss32.dll`, then `lib /convert`); (3) the resources from client.exe (`rsrc.py extract`, no outside
+data) on the link line; (4) `/pdb:` with retail's path (an E: subst in the VM); (5) the three stamps and the age
+only by an incremental update and the link times themselves, which LINK takes from the clock: left to imagediff's
+"set at the end" unless the user wants a post-link stamp. In the code (the coordinator's call, D246):
+hanimmgr.cpp's two exclusion-list functions and w3dexclusionlist.cpp are not retail's.
