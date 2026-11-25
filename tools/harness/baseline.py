@@ -56,6 +56,11 @@ import subprocess
 import sys
 import time
 
+try:
+    import numpy as _np                         # optional: the multiset compare's large groups
+except ImportError:
+    _np = None
+
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(os.path.dirname(HERE))
 sys.path.insert(0, HERE)
@@ -680,15 +685,27 @@ def _pair_nearest(xa, xb):
     its LOD)."""
     def tr(m):
         return m[12:15] if m and len(m) >= 15 and None not in m[12:15] else (0.0, 0.0, 0.0)
-    cand = sorted((xa[i][2] != xb[j][2], sum((x - y) ** 2 for x, y in zip(tr(xa[i][1]), tr(xb[j][1]))), i, j)
-                  for i in range(len(xa)) for j in range(len(xb)))
+    if len(xa) * len(xb) > 400 and _np is not None:      # numpy's order: the same (lod, distance, i, j) keys
+        ta, tb = _np.array([tr(x[1]) for x in xa], float), _np.array([tr(x[1]) for x in xb], float)
+        dist = ((ta[:, None, :] - tb[None, :, :]) ** 2).sum(axis=2)
+        lod = _np.array([[x[2] != y[2] for y in xb] for x in xa])
+        ii, jj = _np.meshgrid(_np.arange(len(xa)), _np.arange(len(xb)), indexing='ij')
+        order = _np.lexsort((jj.ravel(), ii.ravel(), dist.ravel(), lod.ravel()))
+        cand = zip(ii.ravel()[order].tolist(), jj.ravel()[order].tolist())
+    else:
+        cand = ((i, j) for _, _, i, j in sorted(
+            (xa[i][2] != xb[j][2], sum((x - y) ** 2 for x, y in zip(tr(xa[i][1]), tr(xb[j][1]))), i, j)
+            for i in range(len(xa)) for j in range(len(xb))))
     used_a, used_b, out = set(), set(), []
-    for _, _, i, j in cand:
+    want = min(len(xa), len(xb))
+    for i, j in cand:
         if i in used_a or j in used_b:
             continue
         used_a.add(i)
         used_b.add(j)
         out.append((xa[i][0], xb[j][0], _mdelta(xa[i][1], xb[j][1])))
+        if len(out) == want:
+            break
     return out
 
 
@@ -714,16 +731,27 @@ def _nearest_fields(state, pool):
     return best
 
 
-def _odd_states(xa, xb, varying):
-    """States of xa missing from xb whose nearest xb state differs in a field outside `varying` -> [(state, fields)]."""
-    out = []
-    for s in xa:
-        if s in xb:
-            continue
-        d = _nearest_fields(s, xb)
-        if d is None or not set(d) <= varying:
-            out.append((s, d))
-    return out
+def _pair_stats(px, py):
+    """What the multiset compare needs of two prepared logs, kept in px for py (a leave-one-out asks again):
+    'missing' {state of px not in py: _nearest_fields}, 'draws', 'textures', 'cams', 'pairs' [(draw of px, draw of py,
+    world difference)]."""
+    memo = px.setdefault('memo', {})
+    if id(py) not in memo:
+        gx, gy = px['groups'], py['groups']
+        back = py.get('memo', {}).get(id(px))
+        memo[id(py)] = {
+            'missing': {st: _nearest_fields(st, gy) for st in gx if st not in gy},
+            'draws': back['draws'] if back else _count_distance(px, py),
+            'textures': len(px['tex'] ^ py['tex']),
+            'cams': back['cams'] if back else _cams_distance(px, py),
+            'pairs': [(i, j, d) for j, i, d in back['pairs']] if back else
+            [(i, j, d) for st in set(gx) & set(gy) for i, j, d in _pair_nearest(gx[st], gy[st])]}
+    return memo[id(py)]
+
+
+def _odd_states(px, py, varying):
+    """States of px missing from py whose nearest py state differs in a field outside `varying` -> [(state, fields)]."""
+    return [(st, d) for st, d in _pair_stats(px, py)['missing'].items() if d is None or not set(d) <= varying]
 
 
 def multiset_noise(stored):
@@ -734,19 +762,17 @@ def multiset_noise(stored):
     preps = [_ms_prep(lg) for lg in stored]
     nz = {'varying': set(), 'draws': 0, 'textures': 0, 'cams': 0.0, 'spread': [{} for _ in stored]}
     for x, y in itertools.permutations(range(len(stored)), 2):
-        px, py = preps[x], preps[y]
-        for s in px['groups']:
-            if s not in py['groups']:
-                nz['varying'] |= set(_nearest_fields(s, py['groups']) or [])
+        ps = _pair_stats(preps[x], preps[y])
+        for d in ps['missing'].values():
+            nz['varying'] |= set(d or [])
         if x > y:
             continue
-        nz['draws'] = max(nz['draws'], _count_distance(px, py))
-        nz['textures'] = max(nz['textures'], len(px['tex'] ^ py['tex']))
-        nz['cams'] = max(nz['cams'], _cams_distance(px, py))
-        for s in set(px['groups']) & set(py['groups']):
-            for i, j, d in _pair_nearest(px['groups'][s], py['groups'][s]):
-                nz['spread'][x][i] = max(nz['spread'][x].get(i, 0.0), d)
-                nz['spread'][y][j] = max(nz['spread'][y].get(j, 0.0), d)
+        nz['draws'] = max(nz['draws'], ps['draws'])
+        nz['textures'] = max(nz['textures'], ps['textures'])
+        nz['cams'] = max(nz['cams'], ps['cams'])
+        for i, j, d in ps['pairs']:
+            nz['spread'][x][i] = max(nz['spread'][x].get(i, 0.0), d)
+            nz['spread'][y][j] = max(nz['spread'][y].get(j, 0.0), d)
     return nz
 
 
@@ -774,17 +800,15 @@ def multiset_measures(mine, stored, nz):
     pm = _ms_prep(mine)
     out = []
     for k, lg in enumerate(stored):
-        ps = _ms_prep(lg)
+        pk = _ms_prep(lg)
+        ps = _pair_stats(pm, pk)
         worlds = []
-        for s in set(pm['groups']) & set(ps['groups']):
-            for i, j, d in _pair_nearest(pm['groups'][s], ps['groups'][s]):
-                allowed = DRAW_MATRIX_SLACK * nz['spread'][k].get(j, 0.0) + DRAW_MATRIX_FLOOR
-                if d > allowed:
-                    worlds.append((i, j, d, allowed))
-        out.append({'extra': _odd_states(pm['groups'], ps['groups'], nz['varying']),
-                    'missing': _odd_states(ps['groups'], pm['groups'], nz['varying']),
-                    'draws': _count_distance(pm, ps), 'textures': len(pm['tex'] ^ ps['tex']),
-                    'cams': _cams_distance(pm, ps), 'worlds': sorted(worlds)})
+        for i, j, d in ps['pairs']:
+            allowed = DRAW_MATRIX_SLACK * nz['spread'][k].get(j, 0.0) + DRAW_MATRIX_FLOOR
+            if d > allowed:
+                worlds.append((i, j, d, allowed))
+        out.append({'extra': _odd_states(pm, pk, nz['varying']), 'missing': _odd_states(pk, pm, nz['varying']),
+                    'draws': ps['draws'], 'textures': ps['textures'], 'cams': ps['cams'], 'worlds': sorted(worlds)})
     return out
 
 
