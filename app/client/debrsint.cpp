@@ -3,10 +3,10 @@
 #include "debrsint.h"
 #include "sclient.h"
 #include "ini.h"
-#include "assetmgr.h"
+#include "enbassetmgr.h"
 #include "texture.h"
 #include "..\shared\g_assert.h"
-// NOT EXACT: functional (D64), register-only (ebx / edi / ebp swapped; two rounds: the fade clamps' temporaries)
+
 // 0x53D250
 DebrisInterfaceClass::DebrisInterfaceClass(UIViewClass *view, SimpleSceneClass *scene, INIClass &ini) :
 	InterfaceClass(view, (int)scene),
@@ -17,7 +17,6 @@ DebrisInterfaceClass::DebrisInterfaceClass(UIViewClass *view, SimpleSceneClass *
 	int index = 0;
 	sprintf(section, "Debris%02d", index);
 	while (ini.Find_Section(section)) {
-		TextureClass *texture = NULL;
 		float spacing = ini.Get_Float(section, "Spacing", 200.0f);
 		float size = ini.Get_Float(section, "Size", 0.0001f);
 		float min_dist = ini.Get_Float(section, "MinDist", 0.0f);
@@ -56,9 +55,10 @@ DebrisInterfaceClass::DebrisInterfaceClass(UIViewClass *view, SimpleSceneClass *
 		if (rows_columns_log2 > 4) {
 			rows_columns_log2 = 4;
 		}
+		TextureClass *texture = NULL;
 		ini.Get_String(section, "Texture", "", texture_name, 255);
 		if (texture_name[0] != '\0') {
-			texture = WW3DAssetManager::Get_Instance()->Get_Texture(texture_name);
+			texture = AssetManager->Get_Texture(texture_name);
 		}
 		float blur_time = ini.Get_Float(section, "BlurTime", 0.0f);
 		DebrisFieldClass *field = new DebrisFieldClass(spacing, size, min_dist, max_dist, r, g, b, a, additive, texture, fade_in, fade_out, primitive, rows_columns_log2, blur_time);
