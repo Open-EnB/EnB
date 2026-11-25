@@ -1,0 +1,210 @@
+{
+  "baseline_sha256": "d1b775a3eb1fb19befbc40056c5ca49633e3afd57870da4fd33bedbfb4c39af3",
+  "forms": [
+    {
+      "name": "default_matrix",
+      "source_sha256": "6d92b1ab626b204b8b1c095dadb2de63e912b8edfd34d37bdaf873e0649d2fb8",
+      "masked_rows": 176,
+      "register_masked_rows": 92,
+      "code_bytes": [
+        1416,
+        1292
+      ],
+      "symbol_gains": [],
+      "symbol_losses": [],
+      "patch": "--- ui_starbase.cpp\n+++ ui_starbase.cpp\n@@ -3213,9 +3213,9 @@\n {\n \tCastResultStruct result;\n \tMatrix3D tm(true);\n-\ttm.Set_Translation(avatar->Unknown330.Get_Translation());\n-\n-\n+\tMatrix3D avatar_tm;\n+\tavatar_tm = avatar->Unknown330;\n+\ttm.Set_Translation(avatar_tm.Get_Translation());\n \ttm[2][3] += avatar->Unknown_77D9F0(true);\n \tVector3 move(0.0f, 0.0f, -50.0f);\n \tOBBoxClass box(Vector3(0.0f, 0.0f, 0.0f), Vector3(0.5f, 0.5f, 0.5f));\n"
+    },
+    {
+      "name": "position_copy",
+      "source_sha256": "8f03be765952d7b36730d30120e3afabf91a9bacaf990226355e8dcd0b592cc9",
+      "masked_rows": 72,
+      "register_masked_rows": 64,
+      "code_bytes": [
+        1205,
+        1292
+      ],
+      "symbol_gains": [],
+      "symbol_losses": [],
+      "patch": "--- ui_starbase.cpp\n+++ ui_starbase.cpp\n@@ -3213,8 +3213,8 @@\n {\n \tCastResultStruct result;\n \tMatrix3D tm(true);\n-\ttm.Set_Translation(avatar->Unknown330.Get_Translation());\n-\n+\tVector3 position = avatar->Unknown330.Get_Translation();\n+\ttm.Set_Translation(position);\n \n \ttm[2][3] += avatar->Unknown_77D9F0(true);\n \tVector3 move(0.0f, 0.0f, -50.0f);\n"
+    },
+    {
+      "name": "position_ref",
+      "source_sha256": "6cdb0fe855438f2b792153d947b6aafb2eabaaa5068c10ed50a9f5674479a1e8",
+      "masked_rows": 72,
+      "register_masked_rows": 64,
+      "code_bytes": [
+        1205,
+        1292
+      ],
+      "symbol_gains": [
+        [
+          "_$E345",
+          "0x644DE0"
+        ]
+      ],
+      "symbol_losses": [
+        [
+          "_$E344",
+          "0x644DE0"
+        ]
+      ],
+      "patch": "--- ui_starbase.cpp\n+++ ui_starbase.cpp\n@@ -3213,8 +3213,8 @@\n {\n \tCastResultStruct result;\n \tMatrix3D tm(true);\n-\ttm.Set_Translation(avatar->Unknown330.Get_Translation());\n-\n+\tconst Vector3 &position = avatar->Unknown330.Get_Translation();\n+\ttm.Set_Translation(position);\n \n \ttm[2][3] += avatar->Unknown_77D9F0(true);\n \tVector3 move(0.0f, 0.0f, -50.0f);\n"
+    },
+    {
+      "name": "copy_matrix_position",
+      "source_sha256": "bef9b498c06c21bc588dabd5ad5ab75d57894371938baa14fc285f0976ffa883",
+      "masked_rows": 175,
+      "register_masked_rows": 80,
+      "code_bytes": [
+        1410,
+        1292
+      ],
+      "symbol_gains": [],
+      "symbol_losses": [],
+      "patch": "--- ui_starbase.cpp\n+++ ui_starbase.cpp\n@@ -3213,9 +3213,9 @@\n {\n \tCastResultStruct result;\n \tMatrix3D tm(true);\n-\ttm.Set_Translation(avatar->Unknown330.Get_Translation());\n-\n-\n+\tMatrix3D avatar_tm = avatar->Unknown330;\n+\tVector3 position = avatar_tm.Get_Translation();\n+\ttm.Set_Translation(position);\n \ttm[2][3] += avatar->Unknown_77D9F0(true);\n \tVector3 move(0.0f, 0.0f, -50.0f);\n \tOBBoxClass box(Vector3(0.0f, 0.0f, 0.0f), Vector3(0.5f, 0.5f, 0.5f));\n"
+    },
+    {
+      "name": "height_local",
+      "source_sha256": "fadab4832ee6906d80b2008e71784e228969a8db41f1a4c7f9564c79f6aa37b1",
+      "masked_rows": 83,
+      "register_masked_rows": 75,
+      "code_bytes": [
+        1209,
+        1292
+      ],
+      "symbol_gains": [],
+      "symbol_losses": [],
+      "patch": "--- ui_starbase.cpp\n+++ ui_starbase.cpp\n@@ -3214,9 +3214,9 @@\n \tCastResultStruct result;\n \tMatrix3D tm(true);\n \ttm.Set_Translation(avatar->Unknown330.Get_Translation());\n-\n-\n-\ttm[2][3] += avatar->Unknown_77D9F0(true);\n+\tfloat height = avatar->Unknown_77D9F0(true);\n+\n+\ttm[2][3] += height;\n \tVector3 move(0.0f, 0.0f, -50.0f);\n \tOBBoxClass box(Vector3(0.0f, 0.0f, 0.0f), Vector3(0.5f, 0.5f, 0.5f));\n \tOBBoxClass world;\n"
+    },
+    {
+      "name": "temporary",
+      "source_sha256": "eb15a4b61e0cfc5d5163f641690b0bc57b1abb0221095f629ebdbfcc14987f46",
+      "masked_rows": 33,
+      "register_masked_rows": 25,
+      "code_bytes": [
+        1279,
+        1292
+      ],
+      "symbol_gains": [],
+      "symbol_losses": [],
+      "patch": "--- ui_starbase.cpp\n+++ ui_starbase.cpp\n@@ -3213,7 +3213,7 @@\n {\n \tCastResultStruct result;\n \tMatrix3D tm(true);\n-\ttm.Set_Translation(avatar->Unknown330.Get_Translation());\n+\ttm.Set_Translation(Matrix3D(avatar->Unknown330).Get_Translation());\n \n \n \ttm[2][3] += avatar->Unknown_77D9F0(true);\n"
+    },
+    {
+      "name": "temp_position",
+      "source_sha256": "86cb6b1defdd44d2421a4c893b8b0c2610d5379b1bcde0f4690bd25677b427b2",
+      "masked_rows": 33,
+      "register_masked_rows": 25,
+      "code_bytes": [
+        1279,
+        1292
+      ],
+      "symbol_gains": [],
+      "symbol_losses": [],
+      "patch": "--- ui_starbase.cpp\n+++ ui_starbase.cpp\n@@ -3213,8 +3213,8 @@\n {\n \tCastResultStruct result;\n \tMatrix3D tm(true);\n-\ttm.Set_Translation(avatar->Unknown330.Get_Translation());\n-\n+\tVector3 position = Matrix3D(avatar->Unknown330).Get_Translation();\n+\ttm.Set_Translation(position);\n \n \ttm[2][3] += avatar->Unknown_77D9F0(true);\n \tVector3 move(0.0f, 0.0f, -50.0f);\n"
+    },
+    {
+      "name": "temp_height",
+      "source_sha256": "dc1585c0c29ecbcb86041f64637c798b3ad235e85e76cb003db598180a7ea41d",
+      "masked_rows": 26,
+      "register_masked_rows": 18,
+      "code_bytes": [
+        1283,
+        1292
+      ],
+      "symbol_gains": [],
+      "symbol_losses": [],
+      "patch": "--- ui_starbase.cpp\n+++ ui_starbase.cpp\n@@ -3213,10 +3213,10 @@\n {\n \tCastResultStruct result;\n \tMatrix3D tm(true);\n-\ttm.Set_Translation(avatar->Unknown330.Get_Translation());\n-\n-\n-\ttm[2][3] += avatar->Unknown_77D9F0(true);\n+\ttm.Set_Translation(Matrix3D(avatar->Unknown330).Get_Translation());\n+\tfloat height = avatar->Unknown_77D9F0(true);\n+\n+\ttm[2][3] += height;\n \tVector3 move(0.0f, 0.0f, -50.0f);\n \tOBBoxClass box(Vector3(0.0f, 0.0f, 0.0f), Vector3(0.5f, 0.5f, 0.5f));\n \tOBBoxClass world;\n"
+    },
+    {
+      "name": "temp_reverse",
+      "source_sha256": "a059ecb0820c0681545359803b92ee5f29a7fe93db185a0d528f700bf7e1da74",
+      "masked_rows": 64,
+      "register_masked_rows": 56,
+      "code_bytes": [
+        1279,
+        1292
+      ],
+      "symbol_gains": [],
+      "symbol_losses": [],
+      "patch": "--- ui_starbase.cpp\n+++ ui_starbase.cpp\n@@ -3213,7 +3213,7 @@\n {\n \tCastResultStruct result;\n \tMatrix3D tm(true);\n-\ttm.Set_Translation(avatar->Unknown330.Get_Translation());\n+\ttm.Set_Translation(Matrix3D(avatar->Unknown330).Get_Translation());\n \n \n \ttm[2][3] += avatar->Unknown_77D9F0(true);\n@@ -3228,7 +3228,7 @@\n \tOBBoxCollisionTestClass local_test(test, inv);\n \tif (Unknown_Model()->Cast_OBBox(local_test)) {\n \t\tMatrix3D m = avatar->Unknown330;\n-\t\tm.Set_Translation(tm.Get_Translation() + move * result.Fraction);\n+\t\tm.Set_Translation(move * result.Fraction + tm.Get_Translation());\n \t\tavatar->Unknown330 = m;\n \t}\n \tavatar->Unknown23C = result.SurfaceType;\n"
+    },
+    {
+      "name": "temp_hit",
+      "source_sha256": "91b7bc2bab68a9ad4988ff23aebbcb4eac0abfee74dc23cc7b0ab7578536d2f6",
+      "masked_rows": 23,
+      "register_masked_rows": 23,
+      "code_bytes": [
+        1267,
+        1292
+      ],
+      "symbol_gains": [],
+      "symbol_losses": [],
+      "patch": "--- ui_starbase.cpp\n+++ ui_starbase.cpp\n@@ -3213,7 +3213,7 @@\n {\n \tCastResultStruct result;\n \tMatrix3D tm(true);\n-\ttm.Set_Translation(avatar->Unknown330.Get_Translation());\n+\ttm.Set_Translation(Matrix3D(avatar->Unknown330).Get_Translation());\n \n \n \ttm[2][3] += avatar->Unknown_77D9F0(true);\n@@ -3228,7 +3228,7 @@\n \tOBBoxCollisionTestClass local_test(test, inv);\n \tif (Unknown_Model()->Cast_OBBox(local_test)) {\n \t\tMatrix3D m = avatar->Unknown330;\n-\t\tm.Set_Translation(tm.Get_Translation() + move * result.Fraction);\n+\t\tVector3 hit = move * result.Fraction; hit += tm.Get_Translation(); m.Set_Translation(hit);\n \t\tavatar->Unknown330 = m;\n \t}\n \tavatar->Unknown23C = result.SurfaceType;\n"
+    },
+    {
+      "name": "temp_copy_matrix",
+      "source_sha256": "df7565f819084c91f195f812aeecaee03c143f55ee479b07d54cedb94f54f68f",
+      "masked_rows": 175,
+      "register_masked_rows": 80,
+      "code_bytes": [
+        1410,
+        1292
+      ],
+      "symbol_gains": [],
+      "symbol_losses": [],
+      "patch": "--- ui_starbase.cpp\n+++ ui_starbase.cpp\n@@ -3213,8 +3213,8 @@\n {\n \tCastResultStruct result;\n \tMatrix3D tm(true);\n-\ttm.Set_Translation(avatar->Unknown330.Get_Translation());\n-\n+\tMatrix3D avatar_tm = avatar->Unknown330;\n+\ttm.Set_Translation(avatar_tm.Get_Translation());\n \n \ttm[2][3] += avatar->Unknown_77D9F0(true);\n \tVector3 move(0.0f, 0.0f, -50.0f);\n"
+    },
+    {
+      "name": "height_hit",
+      "source_sha256": "7bdbac84eda536d6cf19f4528c8707b9d55af811aeb719a1137699a157d79f78",
+      "masked_rows": 16,
+      "register_masked_rows": 16,
+      "code_bytes": [
+        1271,
+        1292
+      ],
+      "symbol_gains": [],
+      "symbol_losses": [],
+      "patch": "--- ui_starbase.cpp\n+++ ui_starbase.cpp\n@@ -3213,10 +3213,10 @@\n {\n \tCastResultStruct result;\n \tMatrix3D tm(true);\n-\ttm.Set_Translation(avatar->Unknown330.Get_Translation());\n-\n-\n-\ttm[2][3] += avatar->Unknown_77D9F0(true);\n+\ttm.Set_Translation(Matrix3D(avatar->Unknown330).Get_Translation());\n+\tfloat height = avatar->Unknown_77D9F0(true);\n+\n+\ttm[2][3] += height;\n \tVector3 move(0.0f, 0.0f, -50.0f);\n \tOBBoxClass box(Vector3(0.0f, 0.0f, 0.0f), Vector3(0.5f, 0.5f, 0.5f));\n \tOBBoxClass world;\n@@ -3228,7 +3228,7 @@\n \tOBBoxCollisionTestClass local_test(test, inv);\n \tif (Unknown_Model()->Cast_OBBox(local_test)) {\n \t\tMatrix3D m = avatar->Unknown330;\n-\t\tm.Set_Translation(tm.Get_Translation() + move * result.Fraction);\n+\t\tVector3 hit = move * result.Fraction; hit += tm.Get_Translation(); m.Set_Translation(hit);\n \t\tavatar->Unknown330 = m;\n \t}\n \tavatar->Unknown23C = result.SurfaceType;\n"
+    },
+    {
+      "name": "height_hit_reverse",
+      "source_sha256": "6138368ff0e507a5202fc0b19f77ff7c7f30b37e86a27b7a7c0f6db5d2575f1e",
+      "masked_rows": 47,
+      "register_masked_rows": 47,
+      "code_bytes": [
+        1292,
+        1292
+      ],
+      "symbol_gains": [],
+      "symbol_losses": [],
+      "patch": "--- ui_starbase.cpp\n+++ ui_starbase.cpp\n@@ -3213,10 +3213,10 @@\n {\n \tCastResultStruct result;\n \tMatrix3D tm(true);\n-\ttm.Set_Translation(avatar->Unknown330.Get_Translation());\n-\n-\n-\ttm[2][3] += avatar->Unknown_77D9F0(true);\n+\ttm.Set_Translation(Matrix3D(avatar->Unknown330).Get_Translation());\n+\tfloat height = avatar->Unknown_77D9F0(true);\n+\n+\ttm[2][3] += height;\n \tVector3 move(0.0f, 0.0f, -50.0f);\n \tOBBoxClass box(Vector3(0.0f, 0.0f, 0.0f), Vector3(0.5f, 0.5f, 0.5f));\n \tOBBoxClass world;\n@@ -3228,7 +3228,7 @@\n \tOBBoxCollisionTestClass local_test(test, inv);\n \tif (Unknown_Model()->Cast_OBBox(local_test)) {\n \t\tMatrix3D m = avatar->Unknown330;\n-\t\tm.Set_Translation(tm.Get_Translation() + move * result.Fraction);\n+\t\tVector3 hit = tm.Get_Translation(); hit += move * result.Fraction; m.Set_Translation(hit);\n \t\tavatar->Unknown330 = m;\n \t}\n \tavatar->Unknown23C = result.SurfaceType;\n"
+    },
+    {
+      "name": "height_hit_assign",
+      "source_sha256": "3285b50e2d8d311e3a7d5e121989bac8e1d82bd13c54e3e18ce1a2f9df553cd1",
+      "masked_rows": 26,
+      "register_masked_rows": 18,
+      "code_bytes": [
+        1283,
+        1292
+      ],
+      "symbol_gains": [],
+      "symbol_losses": [],
+      "patch": "--- ui_starbase.cpp\n+++ ui_starbase.cpp\n@@ -3213,10 +3213,10 @@\n {\n \tCastResultStruct result;\n \tMatrix3D tm(true);\n-\ttm.Set_Translation(avatar->Unknown330.Get_Translation());\n-\n-\n-\ttm[2][3] += avatar->Unknown_77D9F0(true);\n+\ttm.Set_Translation(Matrix3D(avatar->Unknown330).Get_Translation());\n+\tfloat height = avatar->Unknown_77D9F0(true);\n+\n+\ttm[2][3] += height;\n \tVector3 move(0.0f, 0.0f, -50.0f);\n \tOBBoxClass box(Vector3(0.0f, 0.0f, 0.0f), Vector3(0.5f, 0.5f, 0.5f));\n \tOBBoxClass world;\n@@ -3228,7 +3228,7 @@\n \tOBBoxCollisionTestClass local_test(test, inv);\n \tif (Unknown_Model()->Cast_OBBox(local_test)) {\n \t\tMatrix3D m = avatar->Unknown330;\n-\t\tm.Set_Translation(tm.Get_Translation() + move * result.Fraction);\n+\t\tVector3 hit = tm.Get_Translation() + move * result.Fraction; m.Set_Translation(hit);\n \t\tavatar->Unknown330 = m;\n \t}\n \tavatar->Unknown23C = result.SurfaceType;\n"
+    },
+    {
+      "name": "height_hit_mult",
+      "source_sha256": "420f3aa2b049761696907e250e09d27d9e18f3fe67e84bb3651e44a200f60404",
+      "masked_rows": 9,
+      "register_masked_rows": 9,
+      "code_bytes": [
+        1271,
+        1292
+      ],
+      "symbol_gains": [],
+      "symbol_losses": [],
+      "patch": "--- ui_starbase.cpp\n+++ ui_starbase.cpp\n@@ -3213,10 +3213,10 @@\n {\n \tCastResultStruct result;\n \tMatrix3D tm(true);\n-\ttm.Set_Translation(avatar->Unknown330.Get_Translation());\n-\n-\n-\ttm[2][3] += avatar->Unknown_77D9F0(true);\n+\ttm.Set_Translation(Matrix3D(avatar->Unknown330).Get_Translation());\n+\tfloat height = avatar->Unknown_77D9F0(true);\n+\n+\ttm[2][3] += height;\n \tVector3 move(0.0f, 0.0f, -50.0f);\n \tOBBoxClass box(Vector3(0.0f, 0.0f, 0.0f), Vector3(0.5f, 0.5f, 0.5f));\n \tOBBoxClass world;\n@@ -3228,7 +3228,7 @@\n \tOBBoxCollisionTestClass local_test(test, inv);\n \tif (Unknown_Model()->Cast_OBBox(local_test)) {\n \t\tMatrix3D m = avatar->Unknown330;\n-\t\tm.Set_Translation(tm.Get_Translation() + move * result.Fraction);\n+\t\tVector3 hit = move; hit *= result.Fraction; hit += tm.Get_Translation(); m.Set_Translation(hit);\n \t\tavatar->Unknown330 = m;\n \t}\n \tavatar->Unknown23C = result.SurfaceType;\n"
+    }
+  ]
+}

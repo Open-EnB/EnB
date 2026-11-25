@@ -1,0 +1,192 @@
+{
+  "baseline_sha256": "d1b775a3eb1fb19befbc40056c5ca49633e3afd57870da4fd33bedbfb4c39af3",
+  "forms": [
+    {
+      "name": "height_local",
+      "source_sha256": "b1fbbd2bd785ee7deb82c61a90cb11695f6a3cb0b7d7de65f79e97b0f874b0b4",
+      "masked_rows": 157,
+      "register_masked_rows": 28,
+      "code_bytes": [
+        1512,
+        1543
+      ],
+      "patch": "--- ui_starbase.cpp\n+++ ui_starbase.cpp\n@@ -3726,7 +3726,7 @@\n \tMatrix3D start(true);\n \tCharacterViewAvatarClass *avatar = UnknownC0.D->Avatar.Peek();\n \tstart.Set_Translation(avatar->Get_Transform().Get_Translation());\n-\tstart[2][3] += avatar->Unknown_77D9F0(true) + 1.0f;\n+\tfloat height = avatar->Unknown_77D9F0(true) + 1.0f; start[2][3] += height;\n \tVector3 move = tm.Get_Translation() - start.Get_Translation();\n \tOBBoxClass box(Vector3(0.0f, 0.0f, 0.0f), Vector3(0.5f, 0.5f, 0.5f));\n \tOBBoxClass world;\n"
+    },
+    {
+      "name": "height_separate",
+      "source_sha256": "6912fa8cf0ceda87e49f58f86bddc14ef6b1a3e949e23bb620748dff2cf0df21",
+      "masked_rows": 160,
+      "register_masked_rows": 33,
+      "code_bytes": [
+        1508,
+        1543
+      ],
+      "patch": "--- ui_starbase.cpp\n+++ ui_starbase.cpp\n@@ -3726,7 +3726,7 @@\n \tMatrix3D start(true);\n \tCharacterViewAvatarClass *avatar = UnknownC0.D->Avatar.Peek();\n \tstart.Set_Translation(avatar->Get_Transform().Get_Translation());\n-\tstart[2][3] += avatar->Unknown_77D9F0(true) + 1.0f;\n+\tstart[2][3] = (avatar->Unknown_77D9F0(true) + 1.0f) + start[2][3];\n \tVector3 move = tm.Get_Translation() - start.Get_Translation();\n \tOBBoxClass box(Vector3(0.0f, 0.0f, 0.0f), Vector3(0.5f, 0.5f, 0.5f));\n \tOBBoxClass world;\n"
+    },
+    {
+      "name": "avatar_reload",
+      "source_sha256": "f6bcb8a5bf951aa013baf848bb8e3fae8172d1fbee4677956c2d822266a8caa2",
+      "masked_rows": 15,
+      "register_masked_rows": 15,
+      "code_bytes": [
+        1515,
+        1543
+      ],
+      "patch": "--- ui_starbase.cpp\n+++ ui_starbase.cpp\n@@ -3726,7 +3726,7 @@\n \tMatrix3D start(true);\n \tCharacterViewAvatarClass *avatar = UnknownC0.D->Avatar.Peek();\n \tstart.Set_Translation(avatar->Get_Transform().Get_Translation());\n-\tstart[2][3] += avatar->Unknown_77D9F0(true) + 1.0f;\n+\tstart[2][3] += UnknownC0.D->Avatar.Peek()->Unknown_77D9F0(true) + 1.0f;\n \tVector3 move = tm.Get_Translation() - start.Get_Translation();\n \tOBBoxClass box(Vector3(0.0f, 0.0f, 0.0f), Vector3(0.5f, 0.5f, 0.5f));\n \tOBBoxClass world;\n"
+    },
+    {
+      "name": "position_local",
+      "source_sha256": "cdaa621f4299fb092b961b6eb5fc19e5a24fb666724150563586b604d7a807a0",
+      "masked_rows": 161,
+      "register_masked_rows": 38,
+      "code_bytes": [
+        1508,
+        1543
+      ],
+      "patch": "--- ui_starbase.cpp\n+++ ui_starbase.cpp\n@@ -3725,7 +3725,7 @@\n \tCastResultStruct result;\n \tMatrix3D start(true);\n \tCharacterViewAvatarClass *avatar = UnknownC0.D->Avatar.Peek();\n-\tstart.Set_Translation(avatar->Get_Transform().Get_Translation());\n+\tVector3 position = avatar->Get_Transform().Get_Translation(); start.Set_Translation(position);\n \tstart[2][3] += avatar->Unknown_77D9F0(true) + 1.0f;\n \tVector3 move = tm.Get_Translation() - start.Get_Translation();\n \tOBBoxClass box(Vector3(0.0f, 0.0f, 0.0f), Vector3(0.5f, 0.5f, 0.5f));\n"
+    },
+    {
+      "name": "move_inplace",
+      "source_sha256": "6cdca555eb5bbcf0e7f81028d57a8b865c3a561de5bdae0e6506a7d0e5b79da0",
+      "masked_rows": 168,
+      "register_masked_rows": 45,
+      "code_bytes": [
+        1510,
+        1543
+      ],
+      "patch": "--- ui_starbase.cpp\n+++ ui_starbase.cpp\n@@ -3727,7 +3727,7 @@\n \tCharacterViewAvatarClass *avatar = UnknownC0.D->Avatar.Peek();\n \tstart.Set_Translation(avatar->Get_Transform().Get_Translation());\n \tstart[2][3] += avatar->Unknown_77D9F0(true) + 1.0f;\n-\tVector3 move = tm.Get_Translation() - start.Get_Translation();\n+\tVector3 move = tm.Get_Translation(); move -= start.Get_Translation();\n \tOBBoxClass box(Vector3(0.0f, 0.0f, 0.0f), Vector3(0.5f, 0.5f, 0.5f));\n \tOBBoxClass world;\n \tOBBoxClass::Transform(start, box, &world);\n"
+    },
+    {
+      "name": "hit_inplace",
+      "source_sha256": "eaa8af608000c465e1a0f7970b5a3a1763c98ebc80424fc7f77449111222d8d3",
+      "masked_rows": 161,
+      "register_masked_rows": 38,
+      "code_bytes": [
+        1508,
+        1543
+      ],
+      "patch": "--- ui_starbase.cpp\n+++ ui_starbase.cpp\n@@ -3738,7 +3738,7 @@\n \tOBBoxCollisionTestClass local_test(test, inv);\n \tMatrix3D out = tm;\n \tif (Unknown_Model()->Cast_OBBox(local_test)) {\n-\t\tVector3 hit = start.Get_Translation() + move * result.Fraction;\n+\t\tVector3 hit = move * result.Fraction; hit += start.Get_Translation();\n \t\tout.Set_Translation((hit + Unknown1BC.Get_Translation()) * 0.5f);\n \t}\n \tUnknown1BC = out;\n"
+    },
+    {
+      "name": "reload_height_local",
+      "source_sha256": "8db06c90eafee5c6612911efba83f8b1ee61cc8cec957cf0310022b2b304d81a",
+      "masked_rows": 7,
+      "register_masked_rows": 7,
+      "code_bytes": [
+        1519,
+        1543
+      ],
+      "patch": "--- ui_starbase.cpp\n+++ ui_starbase.cpp\n@@ -3726,7 +3726,7 @@\n \tMatrix3D start(true);\n \tCharacterViewAvatarClass *avatar = UnknownC0.D->Avatar.Peek();\n \tstart.Set_Translation(avatar->Get_Transform().Get_Translation());\n-\tstart[2][3] += avatar->Unknown_77D9F0(true) + 1.0f;\n+\tfloat height = UnknownC0.D->Avatar.Peek()->Unknown_77D9F0(true) + 1.0f; start[2][3] += height;\n \tVector3 move = tm.Get_Translation() - start.Get_Translation();\n \tOBBoxClass box(Vector3(0.0f, 0.0f, 0.0f), Vector3(0.5f, 0.5f, 0.5f));\n \tOBBoxClass world;\n"
+    },
+    {
+      "name": "reload_height_reverse",
+      "source_sha256": "bdb2f8e8d7ef7aa63e216ed02fd6579336c9ef6c5b722b49be24c976b17111f9",
+      "masked_rows": 12,
+      "register_masked_rows": 12,
+      "code_bytes": [
+        1515,
+        1543
+      ],
+      "patch": "--- ui_starbase.cpp\n+++ ui_starbase.cpp\n@@ -3726,7 +3726,7 @@\n \tMatrix3D start(true);\n \tCharacterViewAvatarClass *avatar = UnknownC0.D->Avatar.Peek();\n \tstart.Set_Translation(avatar->Get_Transform().Get_Translation());\n-\tstart[2][3] += avatar->Unknown_77D9F0(true) + 1.0f;\n+\tstart[2][3] = (UnknownC0.D->Avatar.Peek()->Unknown_77D9F0(true) + 1.0f) + start[2][3];\n \tVector3 move = tm.Get_Translation() - start.Get_Translation();\n \tOBBoxClass box(Vector3(0.0f, 0.0f, 0.0f), Vector3(0.5f, 0.5f, 0.5f));\n \tOBBoxClass world;\n"
+    },
+    {
+      "name": "reload_height_add",
+      "source_sha256": "38068a8da3f16e9636c96e5c99f8033bb10a7997a704c98b4be75478abc1badf",
+      "masked_rows": 12,
+      "register_masked_rows": 12,
+      "code_bytes": [
+        1515,
+        1543
+      ],
+      "patch": "--- ui_starbase.cpp\n+++ ui_starbase.cpp\n@@ -3726,7 +3726,7 @@\n \tMatrix3D start(true);\n \tCharacterViewAvatarClass *avatar = UnknownC0.D->Avatar.Peek();\n \tstart.Set_Translation(avatar->Get_Transform().Get_Translation());\n-\tstart[2][3] += avatar->Unknown_77D9F0(true) + 1.0f;\n+\tstart[2][3] = start[2][3] + (UnknownC0.D->Avatar.Peek()->Unknown_77D9F0(true) + 1.0f);\n \tVector3 move = tm.Get_Translation() - start.Get_Translation();\n \tOBBoxClass box(Vector3(0.0f, 0.0f, 0.0f), Vector3(0.5f, 0.5f, 0.5f));\n \tOBBoxClass world;\n"
+    },
+    {
+      "name": "reload_separate_z",
+      "source_sha256": "d06c73922d7550bcec476c56507966232cb375129e7e687bcbc0713b0f684ee8",
+      "masked_rows": 7,
+      "register_masked_rows": 7,
+      "code_bytes": [
+        1519,
+        1543
+      ],
+      "patch": "--- ui_starbase.cpp\n+++ ui_starbase.cpp\n@@ -3726,7 +3726,7 @@\n \tMatrix3D start(true);\n \tCharacterViewAvatarClass *avatar = UnknownC0.D->Avatar.Peek();\n \tstart.Set_Translation(avatar->Get_Transform().Get_Translation());\n-\tstart[2][3] += avatar->Unknown_77D9F0(true) + 1.0f;\n+\tfloat z = UnknownC0.D->Avatar.Peek()->Unknown_77D9F0(true) + 1.0f; start[2][3] = start[2][3] + z;\n \tVector3 move = tm.Get_Translation() - start.Get_Translation();\n \tOBBoxClass box(Vector3(0.0f, 0.0f, 0.0f), Vector3(0.5f, 0.5f, 0.5f));\n \tOBBoxClass world;\n"
+    },
+    {
+      "name": "reload_pos_local",
+      "source_sha256": "89ac3b030a51ed1ab2e3e7853b7e88a0af48ac8f5c7d20f5ce95a05638972d3d",
+      "masked_rows": 15,
+      "register_masked_rows": 15,
+      "code_bytes": [
+        1515,
+        1543
+      ],
+      "patch": "--- ui_starbase.cpp\n+++ ui_starbase.cpp\n@@ -3725,8 +3725,8 @@\n \tCastResultStruct result;\n \tMatrix3D start(true);\n \tCharacterViewAvatarClass *avatar = UnknownC0.D->Avatar.Peek();\n-\tstart.Set_Translation(avatar->Get_Transform().Get_Translation());\n-\tstart[2][3] += avatar->Unknown_77D9F0(true) + 1.0f;\n+\tVector3 position = avatar->Get_Transform().Get_Translation(); start.Set_Translation(position);\n+\tstart[2][3] += UnknownC0.D->Avatar.Peek()->Unknown_77D9F0(true) + 1.0f;\n \tVector3 move = tm.Get_Translation() - start.Get_Translation();\n \tOBBoxClass box(Vector3(0.0f, 0.0f, 0.0f), Vector3(0.5f, 0.5f, 0.5f));\n \tOBBoxClass world;\n"
+    },
+    {
+      "name": "reload_hit_inplace",
+      "source_sha256": "367a13dbad30634a56ce323b7ec1027cbde038a03f5d82f03395deca49d00fe4",
+      "masked_rows": 15,
+      "register_masked_rows": 15,
+      "code_bytes": [
+        1515,
+        1543
+      ],
+      "patch": "--- ui_starbase.cpp\n+++ ui_starbase.cpp\n@@ -3726,7 +3726,7 @@\n \tMatrix3D start(true);\n \tCharacterViewAvatarClass *avatar = UnknownC0.D->Avatar.Peek();\n \tstart.Set_Translation(avatar->Get_Transform().Get_Translation());\n-\tstart[2][3] += avatar->Unknown_77D9F0(true) + 1.0f;\n+\tstart[2][3] += UnknownC0.D->Avatar.Peek()->Unknown_77D9F0(true) + 1.0f;\n \tVector3 move = tm.Get_Translation() - start.Get_Translation();\n \tOBBoxClass box(Vector3(0.0f, 0.0f, 0.0f), Vector3(0.5f, 0.5f, 0.5f));\n \tOBBoxClass world;\n@@ -3738,7 +3738,7 @@\n \tOBBoxCollisionTestClass local_test(test, inv);\n \tMatrix3D out = tm;\n \tif (Unknown_Model()->Cast_OBBox(local_test)) {\n-\t\tVector3 hit = start.Get_Translation() + move * result.Fraction;\n+\t\tVector3 hit = move * result.Fraction; hit += start.Get_Translation();\n \t\tout.Set_Translation((hit + Unknown1BC.Get_Translation()) * 0.5f);\n \t}\n \tUnknown1BC = out;\n"
+    },
+    {
+      "name": "previous_local",
+      "source_sha256": "e8a9d0f0766c594c2e41c83a91379cd918080271619c69b8e2442f9ad9f89759",
+      "masked_rows": 7,
+      "register_masked_rows": 7,
+      "code_bytes": [
+        1519,
+        1543
+      ],
+      "patch": "--- ui_starbase.cpp\n+++ ui_starbase.cpp\n@@ -3726,7 +3726,7 @@\n \tMatrix3D start(true);\n \tCharacterViewAvatarClass *avatar = UnknownC0.D->Avatar.Peek();\n \tstart.Set_Translation(avatar->Get_Transform().Get_Translation());\n-\tstart[2][3] += avatar->Unknown_77D9F0(true) + 1.0f;\n+\tfloat height = UnknownC0.D->Avatar.Peek()->Unknown_77D9F0(true) + 1.0f; start[2][3] += height;\n \tVector3 move = tm.Get_Translation() - start.Get_Translation();\n \tOBBoxClass box(Vector3(0.0f, 0.0f, 0.0f), Vector3(0.5f, 0.5f, 0.5f));\n \tOBBoxClass world;\n@@ -3739,7 +3739,7 @@\n \tMatrix3D out = tm;\n \tif (Unknown_Model()->Cast_OBBox(local_test)) {\n \t\tVector3 hit = start.Get_Translation() + move * result.Fraction;\n-\t\tout.Set_Translation((hit + Unknown1BC.Get_Translation()) * 0.5f);\n+\t\tVector3 previous = Unknown1BC.Get_Translation(); out.Set_Translation((hit + previous) * 0.5f);\n \t}\n \tUnknown1BC = out;\n \treturn(out);\n"
+    },
+    {
+      "name": "sum_local",
+      "source_sha256": "3faa25dbf98e2cb48d512fb1f8cdab2c9db5ad872c0ef7dadf26ef9e56066526",
+      "masked_rows": 7,
+      "register_masked_rows": 7,
+      "code_bytes": [
+        1519,
+        1543
+      ],
+      "patch": "--- ui_starbase.cpp\n+++ ui_starbase.cpp\n@@ -3726,7 +3726,7 @@\n \tMatrix3D start(true);\n \tCharacterViewAvatarClass *avatar = UnknownC0.D->Avatar.Peek();\n \tstart.Set_Translation(avatar->Get_Transform().Get_Translation());\n-\tstart[2][3] += avatar->Unknown_77D9F0(true) + 1.0f;\n+\tfloat height = UnknownC0.D->Avatar.Peek()->Unknown_77D9F0(true) + 1.0f; start[2][3] += height;\n \tVector3 move = tm.Get_Translation() - start.Get_Translation();\n \tOBBoxClass box(Vector3(0.0f, 0.0f, 0.0f), Vector3(0.5f, 0.5f, 0.5f));\n \tOBBoxClass world;\n@@ -3739,7 +3739,7 @@\n \tMatrix3D out = tm;\n \tif (Unknown_Model()->Cast_OBBox(local_test)) {\n \t\tVector3 hit = start.Get_Translation() + move * result.Fraction;\n-\t\tout.Set_Translation((hit + Unknown1BC.Get_Translation()) * 0.5f);\n+\t\tVector3 previous = Unknown1BC.Get_Translation(); Vector3 sum = hit + previous; out.Set_Translation(sum * 0.5f);\n \t}\n \tUnknown1BC = out;\n \treturn(out);\n"
+    },
+    {
+      "name": "previous_reverse",
+      "source_sha256": "ac6d72ecc838ef9d2a0f9e5852c52b1f5de5dfa82ad366507d6771fda00d5008",
+      "masked_rows": 7,
+      "register_masked_rows": 7,
+      "code_bytes": [
+        1519,
+        1543
+      ],
+      "patch": "--- ui_starbase.cpp\n+++ ui_starbase.cpp\n@@ -3726,7 +3726,7 @@\n \tMatrix3D start(true);\n \tCharacterViewAvatarClass *avatar = UnknownC0.D->Avatar.Peek();\n \tstart.Set_Translation(avatar->Get_Transform().Get_Translation());\n-\tstart[2][3] += avatar->Unknown_77D9F0(true) + 1.0f;\n+\tfloat height = UnknownC0.D->Avatar.Peek()->Unknown_77D9F0(true) + 1.0f; start[2][3] += height;\n \tVector3 move = tm.Get_Translation() - start.Get_Translation();\n \tOBBoxClass box(Vector3(0.0f, 0.0f, 0.0f), Vector3(0.5f, 0.5f, 0.5f));\n \tOBBoxClass world;\n@@ -3739,7 +3739,7 @@\n \tMatrix3D out = tm;\n \tif (Unknown_Model()->Cast_OBBox(local_test)) {\n \t\tVector3 hit = start.Get_Translation() + move * result.Fraction;\n-\t\tout.Set_Translation((hit + Unknown1BC.Get_Translation()) * 0.5f);\n+\t\tVector3 previous = Unknown1BC.Get_Translation(); out.Set_Translation((previous + hit) * 0.5f);\n \t}\n \tUnknown1BC = out;\n \treturn(out);\n"
+    },
+    {
+      "name": "reverse",
+      "source_sha256": "231ffdb7d7c0caf7d342d99fc0a70233083e11408ce37c65e8a2d2e17c4d900a",
+      "masked_rows": 7,
+      "register_masked_rows": 7,
+      "code_bytes": [
+        1519,
+        1543
+      ],
+      "patch": "--- ui_starbase.cpp\n+++ ui_starbase.cpp\n@@ -3726,7 +3726,7 @@\n \tMatrix3D start(true);\n \tCharacterViewAvatarClass *avatar = UnknownC0.D->Avatar.Peek();\n \tstart.Set_Translation(avatar->Get_Transform().Get_Translation());\n-\tstart[2][3] += avatar->Unknown_77D9F0(true) + 1.0f;\n+\tfloat height = UnknownC0.D->Avatar.Peek()->Unknown_77D9F0(true) + 1.0f; start[2][3] += height;\n \tVector3 move = tm.Get_Translation() - start.Get_Translation();\n \tOBBoxClass box(Vector3(0.0f, 0.0f, 0.0f), Vector3(0.5f, 0.5f, 0.5f));\n \tOBBoxClass world;\n@@ -3739,7 +3739,7 @@\n \tMatrix3D out = tm;\n \tif (Unknown_Model()->Cast_OBBox(local_test)) {\n \t\tVector3 hit = start.Get_Translation() + move * result.Fraction;\n-\t\tout.Set_Translation((hit + Unknown1BC.Get_Translation()) * 0.5f);\n+\t\tout.Set_Translation((Unknown1BC.Get_Translation() + hit) * 0.5f);\n \t}\n \tUnknown1BC = out;\n \treturn(out);\n"
+    },
+    {
+      "name": "hit_assign",
+      "source_sha256": "8f06419d1355667ec0d8df297939dd05d7bd5cfd3556669ff733123bfb3fcbd1",
+      "masked_rows": 7,
+      "register_masked_rows": 7,
+      "code_bytes": [
+        1519,
+        1543
+      ],
+      "patch": "--- ui_starbase.cpp\n+++ ui_starbase.cpp\n@@ -3726,7 +3726,7 @@\n \tMatrix3D start(true);\n \tCharacterViewAvatarClass *avatar = UnknownC0.D->Avatar.Peek();\n \tstart.Set_Translation(avatar->Get_Transform().Get_Translation());\n-\tstart[2][3] += avatar->Unknown_77D9F0(true) + 1.0f;\n+\tfloat height = UnknownC0.D->Avatar.Peek()->Unknown_77D9F0(true) + 1.0f; start[2][3] += height;\n \tVector3 move = tm.Get_Translation() - start.Get_Translation();\n \tOBBoxClass box(Vector3(0.0f, 0.0f, 0.0f), Vector3(0.5f, 0.5f, 0.5f));\n \tOBBoxClass world;\n@@ -3739,7 +3739,7 @@\n \tMatrix3D out = tm;\n \tif (Unknown_Model()->Cast_OBBox(local_test)) {\n \t\tVector3 hit = start.Get_Translation() + move * result.Fraction;\n-\t\tout.Set_Translation((hit + Unknown1BC.Get_Translation()) * 0.5f);\n+\t\tVector3 previous = Unknown1BC.Get_Translation(); hit += previous; out.Set_Translation(hit * 0.5f);\n \t}\n \tUnknown1BC = out;\n \treturn(out);\n"
+    }
+  ]
+}

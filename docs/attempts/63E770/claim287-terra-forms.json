@@ -1,0 +1,82 @@
+{
+  "baseline_sha256": "d1b775a3eb1fb19befbc40056c5ca49633e3afd57870da4fd33bedbfb4c39af3",
+  "forms": [
+    {
+      "name": "double_cast",
+      "source_sha256": "99e24c0737b6128589ecea009fd66fb74f36d9f1f50b1866aaa5305f00a426b3",
+      "raw_sha256": "748a35fe05e4db5e858e6af442acb07e3fb1ebd60864959a8f3d28cc06598225",
+      "masked_sha256": "748a35fe05e4db5e858e6af442acb07e3fb1ebd60864959a8f3d28cc06598225",
+      "patch": "--- ui_starbase.cpp\n+++ ui_starbase.cpp\n@@ -3863,7 +3863,7 @@\n // 0x63E770\n void UIStarbaseClass::Unknown_63E770()\n {\n-\tfloat time = WW3D::Get_Frame_Time() * 0.001f;\n+\tfloat time = (double)WW3D::Get_Frame_Time() * 0.001f;\n \tstd::list<UIStarbaseUnknownECStruct *>::iterator it = UnknownEC.begin();\n \twhile (it != UnknownEC.end()) {\n \t\tUIStarbaseUnknownECStruct *entry = *it;\n"
+    },
+    {
+      "name": "uint_local",
+      "source_sha256": "1892585ad7e5f376e43d152bc2639f127c0e30b83c53a7e2f011c01646c62a29",
+      "raw_sha256": "fd93a1c4a2a5e4a6fa79114873c6fd30d24ba222bf47f0ea1172b4ff02ef72aa",
+      "masked_sha256": "fd93a1c4a2a5e4a6fa79114873c6fd30d24ba222bf47f0ea1172b4ff02ef72aa",
+      "patch": "--- ui_starbase.cpp\n+++ ui_starbase.cpp\n@@ -3863,7 +3863,7 @@\n // 0x63E770\n void UIStarbaseClass::Unknown_63E770()\n {\n-\tfloat time = WW3D::Get_Frame_Time() * 0.001f;\n+\tunsigned int frame = WW3D::Get_Frame_Time(); float time = frame * 0.001f;\n \tstd::list<UIStarbaseUnknownECStruct *>::iterator it = UnknownEC.begin();\n \twhile (it != UnknownEC.end()) {\n \t\tUIStarbaseUnknownECStruct *entry = *it;\n"
+    },
+    {
+      "name": "double_local",
+      "source_sha256": "8632a5094a88c967f8fb3a785cdc2a743142cd00d4ef2643a0768c7aed73791f",
+      "raw_sha256": "fa93283ec3a541dbd07f2ea52735bd6fa6cbfda8e36311e99737a1b67c27290c",
+      "masked_sha256": "fa93283ec3a541dbd07f2ea52735bd6fa6cbfda8e36311e99737a1b67c27290c",
+      "patch": "--- ui_starbase.cpp\n+++ ui_starbase.cpp\n@@ -3863,7 +3863,7 @@\n // 0x63E770\n void UIStarbaseClass::Unknown_63E770()\n {\n-\tfloat time = WW3D::Get_Frame_Time() * 0.001f;\n+\tdouble frame = WW3D::Get_Frame_Time(); float time = frame * 0.001f;\n \tstd::list<UIStarbaseUnknownECStruct *>::iterator it = UnknownEC.begin();\n \twhile (it != UnknownEC.end()) {\n \t\tUIStarbaseUnknownECStruct *entry = *it;\n"
+    },
+    {
+      "name": "uint64",
+      "source_sha256": "c2914aebd2cd6f64d62bebccf01db5136eeafe80b91b6e11a5b1782ff0d8c38e",
+      "raw_sha256": "fd93a1c4a2a5e4a6fa79114873c6fd30d24ba222bf47f0ea1172b4ff02ef72aa",
+      "masked_sha256": "fd93a1c4a2a5e4a6fa79114873c6fd30d24ba222bf47f0ea1172b4ff02ef72aa",
+      "patch": "--- ui_starbase.cpp\n+++ ui_starbase.cpp\n@@ -3863,7 +3863,7 @@\n // 0x63E770\n void UIStarbaseClass::Unknown_63E770()\n {\n-\tfloat time = WW3D::Get_Frame_Time() * 0.001f;\n+\tunsigned __int64 frame = WW3D::Get_Frame_Time(); float time = frame * 0.001f;\n \tstd::list<UIStarbaseUnknownECStruct *>::iterator it = UnknownEC.begin();\n \twhile (it != UnknownEC.end()) {\n \t\tUIStarbaseUnknownECStruct *entry = *it;\n"
+    },
+    {
+      "name": "int64",
+      "source_sha256": "5723592d6116be661d9e2a073817ecb6694c2efd538b5e44fad064147957e640",
+      "raw_sha256": "fd93a1c4a2a5e4a6fa79114873c6fd30d24ba222bf47f0ea1172b4ff02ef72aa",
+      "masked_sha256": "fd93a1c4a2a5e4a6fa79114873c6fd30d24ba222bf47f0ea1172b4ff02ef72aa",
+      "patch": "--- ui_starbase.cpp\n+++ ui_starbase.cpp\n@@ -3863,7 +3863,7 @@\n // 0x63E770\n void UIStarbaseClass::Unknown_63E770()\n {\n-\tfloat time = WW3D::Get_Frame_Time() * 0.001f;\n+\t__int64 frame = WW3D::Get_Frame_Time(); float time = frame * 0.001f;\n \tstd::list<UIStarbaseUnknownECStruct *>::iterator it = UnknownEC.begin();\n \twhile (it != UnknownEC.end()) {\n \t\tUIStarbaseUnknownECStruct *entry = *it;\n"
+    },
+    {
+      "name": "uint64_cast",
+      "source_sha256": "821bf05a6b3697609fbddfc0203143907e00443c744c08843d74eb1fbdefe2a1",
+      "raw_sha256": "fd93a1c4a2a5e4a6fa79114873c6fd30d24ba222bf47f0ea1172b4ff02ef72aa",
+      "masked_sha256": "fd93a1c4a2a5e4a6fa79114873c6fd30d24ba222bf47f0ea1172b4ff02ef72aa",
+      "patch": "--- ui_starbase.cpp\n+++ ui_starbase.cpp\n@@ -3863,7 +3863,7 @@\n // 0x63E770\n void UIStarbaseClass::Unknown_63E770()\n {\n-\tfloat time = WW3D::Get_Frame_Time() * 0.001f;\n+\tfloat time = (unsigned __int64)WW3D::Get_Frame_Time() * 0.001f;\n \tstd::list<UIStarbaseUnknownECStruct *>::iterator it = UnknownEC.begin();\n \twhile (it != UnknownEC.end()) {\n \t\tUIStarbaseUnknownECStruct *entry = *it;\n"
+    },
+    {
+      "name": "int64_cast",
+      "source_sha256": "962f887d4065252c8ab96d6c6e79299a28923f4947e0f5e3b386310f18bb79c9",
+      "raw_sha256": "fd93a1c4a2a5e4a6fa79114873c6fd30d24ba222bf47f0ea1172b4ff02ef72aa",
+      "masked_sha256": "fd93a1c4a2a5e4a6fa79114873c6fd30d24ba222bf47f0ea1172b4ff02ef72aa",
+      "patch": "--- ui_starbase.cpp\n+++ ui_starbase.cpp\n@@ -3863,7 +3863,7 @@\n // 0x63E770\n void UIStarbaseClass::Unknown_63E770()\n {\n-\tfloat time = WW3D::Get_Frame_Time() * 0.001f;\n+\tfloat time = (__int64)WW3D::Get_Frame_Time() * 0.001f;\n \tstd::list<UIStarbaseUnknownECStruct *>::iterator it = UnknownEC.begin();\n \twhile (it != UnknownEC.end()) {\n \t\tUIStarbaseUnknownECStruct *entry = *it;\n"
+    },
+    {
+      "name": "for_init",
+      "source_sha256": "3b907d6d35345ff170f7a9fd2803230413053ce9c380ce916d0aedded71242ca",
+      "raw_sha256": "fd93a1c4a2a5e4a6fa79114873c6fd30d24ba222bf47f0ea1172b4ff02ef72aa",
+      "masked_sha256": "fd93a1c4a2a5e4a6fa79114873c6fd30d24ba222bf47f0ea1172b4ff02ef72aa",
+      "patch": "--- ui_starbase.cpp\n+++ ui_starbase.cpp\n@@ -3864,8 +3864,8 @@\n void UIStarbaseClass::Unknown_63E770()\n {\n \tfloat time = WW3D::Get_Frame_Time() * 0.001f;\n-\tstd::list<UIStarbaseUnknownECStruct *>::iterator it = UnknownEC.begin();\n-\twhile (it != UnknownEC.end()) {\n+\t\n+\tfor (std::list<UIStarbaseUnknownECStruct *>::iterator it = UnknownEC.begin(); it != UnknownEC.end();) {\n \t\tUIStarbaseUnknownECStruct *entry = *it;\n \t\tentry->Time += time;\n \t\tUIStarbaseUnknownD4TableClass::iterator found = UnknownD4.find(entry->ID); UIStarbaseUnknownD4TableClass::const_iterator last = UnknownD4.end();\n"
+    },
+    {
+      "name": "iterator_decl",
+      "source_sha256": "a16f90fac2a82846975110c0f6716473bad41d5a6a9e381d75bb9bc621c74320",
+      "raw_sha256": "fd93a1c4a2a5e4a6fa79114873c6fd30d24ba222bf47f0ea1172b4ff02ef72aa",
+      "masked_sha256": "fd93a1c4a2a5e4a6fa79114873c6fd30d24ba222bf47f0ea1172b4ff02ef72aa",
+      "patch": "--- ui_starbase.cpp\n+++ ui_starbase.cpp\n@@ -3863,8 +3863,8 @@\n // 0x63E770\n void UIStarbaseClass::Unknown_63E770()\n {\n-\tfloat time = WW3D::Get_Frame_Time() * 0.001f;\n-\tstd::list<UIStarbaseUnknownECStruct *>::iterator it = UnknownEC.begin();\n+\tstd::list<UIStarbaseUnknownECStruct *>::iterator it; float time = WW3D::Get_Frame_Time() * 0.001f;\n+\tit = UnknownEC.begin();\n \twhile (it != UnknownEC.end()) {\n \t\tUIStarbaseUnknownECStruct *entry = *it;\n \t\tentry->Time += time;\n"
+    },
+    {
+      "name": "scale_local",
+      "source_sha256": "fc5cf768109be824e3594a33671c6c1521ab0a5d414b10eb2241307de3c25567",
+      "raw_sha256": "fa93283ec3a541dbd07f2ea52735bd6fa6cbfda8e36311e99737a1b67c27290c",
+      "masked_sha256": "fa93283ec3a541dbd07f2ea52735bd6fa6cbfda8e36311e99737a1b67c27290c",
+      "patch": "--- ui_starbase.cpp\n+++ ui_starbase.cpp\n@@ -3863,7 +3863,7 @@\n // 0x63E770\n void UIStarbaseClass::Unknown_63E770()\n {\n-\tfloat time = WW3D::Get_Frame_Time() * 0.001f;\n+\tdouble frame = WW3D::Get_Frame_Time(); float scale = 0.001f; float time = frame * scale;\n \tstd::list<UIStarbaseUnknownECStruct *>::iterator it = UnknownEC.begin();\n \twhile (it != UnknownEC.end()) {\n \t\tUIStarbaseUnknownECStruct *entry = *it;\n"
+    },
+    {
+      "name": "scale_static",
+      "source_sha256": "a8d86e8f06b85b86a25b4d33152dd3069899a92374a5b18b7feb0903e149e736",
+      "raw_sha256": "9ff46b168c2c37507896561b358808205122a0e8eaf7a71acf0a39b6cd4b9ddb",
+      "masked_sha256": "9ff46b168c2c37507896561b358808205122a0e8eaf7a71acf0a39b6cd4b9ddb",
+      "patch": "--- ui_starbase.cpp\n+++ ui_starbase.cpp\n@@ -3863,7 +3863,7 @@\n // 0x63E770\n void UIStarbaseClass::Unknown_63E770()\n {\n-\tfloat time = WW3D::Get_Frame_Time() * 0.001f;\n+\tdouble frame = WW3D::Get_Frame_Time(); static const float scale = 0.001f; float time = frame * scale;\n \tstd::list<UIStarbaseUnknownECStruct *>::iterator it = UnknownEC.begin();\n \twhile (it != UnknownEC.end()) {\n \t\tUIStarbaseUnknownECStruct *entry = *it;\n"
+    }
+  ]
+}
