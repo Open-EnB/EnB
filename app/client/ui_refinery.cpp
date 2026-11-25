@@ -454,7 +454,7 @@ void UIRefineryClass::Unknown_5ECEF0()
 	if (Unknown0AF0 != 0) {
 		can_stack = false;
 	}
-	if (Unknown0AF0 == 0 && can_go) {
+	if (can_go && Unknown0AF0 == 0) {
 		Unknown0BC[2]->Unknown_40(true);
 		go->Unknown_Set_2FC(1.0f);
 	} else {

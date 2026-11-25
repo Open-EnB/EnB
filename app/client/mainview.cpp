@@ -684,7 +684,7 @@ WW3DErrorType MainViewClass::Render_Space_Mode(float znear, float zfar)
 	return(WW3D_ERROR_OK);
 }
 
-// NOT EXACT: similarity 0.67 (functional from the pseudocode; the inline choices differ); attempts.csv 0x50E6E0
+// NOT EXACT: functional from the pseudocode, masked residue 35 (the Unknown10FA-set branch first: VC6 spends the inline budget there as the client); attempts.csv 0x50E6E0
 WW3DErrorType MainViewClass::Render_Planet_Mode(float znear, float zfar)
 {
 	WWPROFILE("MainView::Render_Planet_Mode");
@@ -713,19 +713,19 @@ WW3DErrorType MainViewClass::Render_Planet_Mode(float znear, float zfar)
 	float budget = (float)LandPolyBudget - cost;
 	if (budget <= 0.0f) budget = 0.0f;
 	PredictiveLODOptimizerClass::Optimize_LODs(budget);
-	if (!Client->Unknown10FA) {
-		if (Unknown16C.Length2() < 0.3f && !under) {
+	if (Client->Unknown10FA) {
+		if (!under) {
+			Unknown_50D060();
 			Unknown_50D1E0();
+			Unknown_50CE00(near2, far2);
 		}
+	} else {
+		if (Unknown16C.Length2() < 0.3f && !under) { Unknown_50D1E0(); }
 		Unknown_50CE00(near2, far2);
 		if (!under) {
 			Unknown_50CF70();
 			Unknown_50D060();
 		}
-	} else if (!under) {
-		Unknown_50D060();
-		Unknown_50D1E0();
-		Unknown_50CE00(near2, far2);
 	}
 	Unknown_50D310(znear, zfar);
 	Unknown_50D430(near2, far2);
