@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1970 |
 | 2 | describes what the code does | 5014 |
-| 1 | neutral placeholder | 25191 |
+| 1 | neutral placeholder | 25192 |
 
 ## For review (score 3 and below)
 
@@ -1128,6 +1128,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_64` | `app/client/camera_manager.cpp:194` | untagged neutral name (D10) |
 | 1 | `Unknown_24` | `app/client/camera_manager.cpp:197` | untagged neutral name (D10) |
 | 1 | `Unknown_30` | `app/client/camera_manager.cpp:210` | untagged neutral name (D10) |
+| 1 | `Camera_Target_ID` | `app/client/camera_manager.cpp:232` | neutral (D10): one inline layer at 0x799E40's bit 15 lookup (its Get_Avatar / Unknown_24 vtable registers, workflow.md 3.1.2 off-by-one rotation) |
+| 1 | `Unknown13B4` | `app/client/camera_manager.cpp:232` | untagged neutral name (D10) |
 | 1 | `Unknown_799DA0` | `app/client/camera_manager.cpp:235` | untagged neutral name (D10) |
 | 1 | `Unknown_79B4F0` | `app/client/camera_manager.cpp:239` | untagged neutral name (D10) |
 | 1 | `Unknown_7E7700` | `app/client/camera_manager.cpp:247` | untagged neutral name (D10) |
@@ -1135,7 +1137,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_79B330` | `app/client/camera_manager.cpp:260` | untagged neutral name (D10) |
 | 1 | `Unknown_7BD960` | `app/client/camera_manager.cpp:268` | untagged neutral name (D10) |
 | 1 | `Unknown_74D730` | `app/client/camera_manager.cpp:297` | untagged neutral name (D10) |
-| 1 | `Unknown13B4` | `app/client/camera_manager.cpp:361` | untagged neutral name (D10) |
 | 1 | `Unknown_0C` | `app/client/camera_manager.cpp:490` | untagged neutral name (D10) |
 | 1 | `Unknown_08` | `app/client/camera_manager.cpp:498` | untagged neutral name (D10) |
 | 1 | `Unknown_6FC970` | `app/client/camera_manager.cpp:505` | untagged neutral name (D10) |
