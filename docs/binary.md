@@ -399,19 +399,19 @@ follows `#ifdef` / `#if defined` (`pp.py`) predicts all 745 objects' ctype, Perm
 exactly (595 + 150, 134 + 611, 2 + 743). The 40 extra are no single header: 31 objects reach `<string>` (a header
 that includes it for `std::string`, which `<vector>`'s `<stdexcept>` / `<xstring>` already declares; only
 `<string>` itself instantiates the facet), 17 reach permstr.h, money.cpp includes `<iostream>`. wt/IM6A cuts
-31 of them (980 -> 949 app initialisers) where the client's table says so, with no pair lost but one (the commits name each object's evidence; the font split costs FontDatabaseClass::Load_Init 0x6BF330 two instructions' order, a D240 row):
+32 of them (980 -> 948 app initialisers) where the client's table says so, with no pair lost but one (the commits name each object's evidence; the font split costs FontDatabaseClass::Load_Init 0x6BF330 two instructions' order, a D240 row):
 land.h's `<string>` (4 objects), money.cpp's `<iostream>` (2), permstr.h in six .cpp files whose credited
 PermStringInit opens the next object (0x52CF40, 0x669F60, 0x7231C0, 0x560880, 0x5AF980, 0x5DBF70),
 KVEncoderClass out of delta.h into kv_encoder.h (6), header splits by class (expr_lexer_match.h,
 packets/relationship.h, kv_accessor.h, string_value.h, kv_string_encoder.h, fontsys.h, fontstring.h, smouse.h,
 packets/packet_data.h) each included where its declarations stood, and unknown_7cef30.h's `<string>` moved into its
-two .cpp files. Left (9 initialisers net; the objects named per retail run, some of them attribution noise at run edges): the objects that include a large part of the client
-(viewbttn, mainview, mv3dview, ui_analyze, loadingview, main_client, starmap_data, unknown_675120, unknown_6af220:
+two .cpp files, and unknown_675120.cpp takes UIMeshClass from ui_mesh.h, not sclient.h. Left (8 initialisers net; the objects named per retail run, some of them attribution noise at run edges): the objects that include a large part of the client
+(unknown_6af220's guard 0x6B2410 sits after ui_guild_list's misplaced run, a pair of run-edge noise; viewbttn, mainview, mv3dview, ui_analyze, loadingview, main_client, starmap_data:
 their .cpp's own include lists, not one header), interface_scene (hash_map.h's `<string>` for `hash<string>`: 11
 other objects reach `<string>` only through it and keep the guard in retail), message_filter / message_server (one guard between
 their runs, provisional placements), and the PermStringInits of objects that reach permstr.h through kv_pair.h /
 name.h (avatar_desc, unknown_445740, ui_mfd_extended_context_strings, unknown_644e50, unknown_646170, loadingview).
-At wt/IM6A's head (2d532dc9c) the one client build has 118,844 of 8,642,625 bytes in place (1.38 %) and §5.3's
+At wt/IM6A's head less its last commit (2d532dc9c) the one client build has 118,844 of 8,642,625 bytes in place (1.38 %) and §5.3's
 `all` trial 1,267,244 (14.66 %; `.text` 0x6E8651, +11,636 over retail's on this run head; `e_lfanew` 0x130 by the
 key's rule); at its second commit the two were 119,023 and 1,268,026: with the layout still displaced, the
 initialisers' bytes do not show in place yet (the CRT table is 124 bytes shorter, 31 initialiser functions fewer).
