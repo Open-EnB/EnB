@@ -62,6 +62,8 @@ These run against retail on Windows. Each one makes a whole family of baselines 
 | C6 | **Input: modifier keys and key chords** in the scenario language and the proxy | Shift, Ctrl, Alt, held keys | Vault (Shift+I) and the other screens the scenarios can't reach today |
 | C7 | **UI layout query** in place of the hand-kept 87-entry `gadgets.txt` | Gadget rectangles by name from the client | Other resolutions; the port |
 
+Two notes on running the client. When several instances run at once, the harness (`clientrun.py`) renames `enb_mutex_lock` to a name of the same length in each instance's copy of the exe, so `app/main/main_client.cpp` stays as the client has it. A run that does this records the original and the patched exe hashes in its manifest; this recording is to be added. Replay runs use the C# antprox 1.1.0 with antreplay 1.1.0 (machine key `antprox_replay`), because the Rust antprox 1.2 cannot /REPLAY yet. This split is temporary and goes when the Rust proxy replays.
+
 ## 4. New test cases
 
 P0 before the port starts; P1 before the phase that needs it; P2 when convenient; Baseline: **R** retail, **O** our build
@@ -101,7 +103,7 @@ P0 before the port starts; P1 before the phase that needs it; P2 when convenient
 
 | ID | Pri | Test | Oracle | Base |
 |---|---|---|---|---|
-| AU-01 | P0 | The audio event log (C2) for every existing scenario: which samples, music themes and streams start and stop, in order | Event sequence, with timing tolerance | R |
+| AU-01 | P0 | The audio event log (C2) for every existing scenario: which samples, music themes and streams start and stop, in order. Streams and 3D sounds are compared strictly and 2D UI sounds by count. In station scenes retail's own 3D audio varies between runs (random footstep and greeting samples; streams and 3D sounds identical in 0 of 9 station scenarios, 22 of 25 default, 1 of 4 space), so the strict compare has to be relaxed there by the stored noise (to be built). A missing `_AIL_open_3D_listener@4` import in our exe is an `/incremental:no` pruning artifact: compare import counts against the incremental trial link | Event sequence, with timing tolerance | R |
 | AU-02 | P0 | 3D sound: engine, weapons and explosions at known positions in sp_combat and sp_flight | Position, volume and listener per event, with tolerance | R |
 | AU-03 | P1 | Music manager: theme changes by sector and combat, silence tails, Load_INI | Event log | R |
 | AU-04 | P1 | Bridge and sector ambient sounds | Event log | R |
@@ -203,12 +205,18 @@ The unattended week of 2026-11-24 (`docs/week-plan-2026-11-24.md`, kind C). Sess
 | 5 | C6 modifier keys and chords | 1 | open |
 | 6 | Recording 10 on retail and on ours with pose capture at the gate, the landing and the take-off (SP-01, SP-02 first pass; B-01, B-02) | 1 | open |
 | 7 | C2 the MSS32 logging proxy | 2 | done 2026-11-25: `build/mss32log/mss32.dll` (344 of 344 exports) in every capture (`--audio`), cut per scenario into `audio-NAME.json`; retail's streams / 3D sequence identical run to run in 22 of 25 default scenarios, 0 of 9 station (random footstep and greeting samples), 1 of 4 space; 2D counts equal in 16 of 25, 8 of 9, 4 of 4 |
-| 8 | M1's captures: the e2e default set, sb_* and sp_* three times each on retail into the store, retail's own noise measured | 2 | advanced 2026-11-25 (store `2efe4b9`, a fresh clone verifies): default set 3 x 284-308 s (shots at most 254 / 256 cells, play1's flight), station set of 9 3 x 751-793 s (at most 94 / 256) with sb_emote_dock and sb_manufacture_make alone (SESSION_OWN), space set of 4 3 x 227-229 s with a restart each (at most 218 / 256); packets equal in every scenario; sp_combat not stored: fails after sp_chat_private at step 32 (no OBJECT_EFFECT after Rally) and alone at steps 31 and 21 |
+| 8 | M1's captures: the e2e default set, sb_* and sp_* three times each on retail into the store, retail's own noise measured | 2 | advanced 2026-11-25 (store `2efe4b9`, a fresh clone verifies): default set 3 x 284-308 s (shots at most 254 / 256 cells, play1's flight), station set of 9 3 x 751-793 s (at most 94 / 256) with sb_emote_dock and sb_manufacture_make alone (SESSION_OWN), space set of 4 3 x 227-229 s with a restart each (at most 218 / 256); packets equal in every scenario; sp_combat is not stored because it fails on retail: twice in the set at step 32 (`sent OBJECT_EFFECT` not seen within 15 s after Rally), alone at step 31 (no SKILL_ABILITY sent) and at step 21 (no CREATE after /createmob). It has to be fixed on retail before its baseline is captured |
 | 9 | SP-01 to SP-03 live; UI-03; UI-04 | 3 | open |
 | 10 | UI-01 and UI-02 with the database snapshot; AU-01 over the existing sets (B-04) | 3 | open |
 | 11 | SP-05 (B-03), UI-05 (B-06), the manufacturing shot (B-05); B-07's scenarios named | 5 | open |
 | 12 | RD-01, RD-02, AU-02, MV-01, WB-01 to WB-03, LY-01, LY-02 | 5, 6 | open |
-| 13 | IMG-02 at every handoff; IMG-03's questions (the week plan's kind D) | every | 1.38 % (2026-11-24) |
+| 13 | **Supporting accounts** for the multi-client cases: extra accounts and characters generated from the canonical account scripts in the store (`inputs/db`), with an instance-to-account mapping in the harness | built when the first such case is written | open: needed only for player groups, in-space group formation flying and the proxy's authoritative-positioning test; the baseline is always captured from the admin account's client, and the supporting clients need no shots or draw logs; all accounts are restored once before the case starts, because an in-place restore logs every player out; only as many accounts as the case needs; baselines are not duplicated per account (the user, 2026-11-25) |
+| 14 | IMG-02 at every handoff; IMG-03's questions (the week plan's kind D) | every | 1.38 % (2026-11-24) |
+
+Open items from this week's captures:
+
+* The space runs' `messages.log` is 49 to 58 MB a run in plain git, which draws GitHub's large-file warning on push. Move it to LFS or cap its size.
+* Ours-versus-retail has only been run on a stale exe of 2026-11-21 (the default set 18 SAME and 7 DIFF, the station set 0 of 9 SAME). Those results are not findings until the build at HEAD is compared.
 
 ## 8. Three baselines over time
 
@@ -264,6 +272,7 @@ The modernization fork starts from a commit that meets all of these. They are a 
 * **The baseline store is the private repository `Open-EnB/baselines`**, cloned beside the tree (`C:\EnBDevelopment\baselines` on this machine; the path comes from the machine config file). It holds observations derived from running the client (PNG frames, JSON logs, text, manifests) and the run inputs: the replay captures, the record tracks and the test database snapshots. It never holds the game's files. It is not encrypted: the repository is private and stays private. PNG frames and the captures go through Git LFS. All three runs' frames are kept.
 * **Tools and scenarios stay in `Open-EnB/EnB`**, which is public, so nothing derived from running the game is committed there.
 * **The local Net-7 database may be snapshotted and restored** around UI-01 and UI-02, with a test account.
+* **Baselines are not duplicated per account (2026-11-25).** The multi-client cases (item 13 of section 7) capture their baseline from the admin account's client only; the supporting accounts have no baselines of their own.
 * **Recording 10 holds a stargate jump, a planet landing and a take-off.** No scripted in-game movie shipped in the live game, so SP-09 is a unit check only.
 
 ### Open questions for you
