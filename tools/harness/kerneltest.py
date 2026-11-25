@@ -93,7 +93,9 @@ def build(out):
         for p in SOURCES:
             f.write('#include "' + os.path.relpath(os.path.join(REPO, p), stage) + '"\n')
     B.PROGRAMS['kerneltest'] = {'dir': os.path.relpath(stage, REPO), 'flags': B.I.LIB_FLAGS['app'],
-                                'subsystem': 'console', 'runtime': []}
+                                'subsystem': 'console', 'runtime': [],
+                                # app.lib's objects the tasks pull reach wlib / wnet (CritSec, Wstring, TCPCon, UDP)
+                                'libs': ['app', 'wnet', 'wlib'] + B.LINK_LIBS[1:]}
     B.link_program('kerneltest', out)
     exe = os.path.join(out, 'programs', 'kerneltest', 'kerneltest.exe')
     if not os.path.exists(exe):
