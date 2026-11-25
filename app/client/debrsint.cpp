@@ -3,7 +3,7 @@
 #include "debrsint.h"
 #include "sclient.h"
 #include "ini.h"
-#include "enbassetmgr.h"
+#include "..\shared\enbassetmgr.h"
 #include "texture.h"
 #include "..\shared\g_assert.h"
 
