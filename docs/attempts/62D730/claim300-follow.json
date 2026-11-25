@@ -1,0 +1,20 @@
+[
+  {
+    "name": "follow_shared",
+    "base_sha256": "9b0676edc9bc2a30a99ec9ba19bf2280d4b199d859507e04b0573fddf5599632",
+    "source_sha256": "6386a5b7f9a90b436dcf9649d6fc642e6518b18230ff52f94040522124abcbec",
+    "patch": "--- a/app/client/ui_skills.cpp\n+++ b/app/client/ui_skills.cpp\n@@ -196,15 +196,15 @@\n \tSkillAbilityDataPeekClass abilities = data->Abilities;\n \tint ability = skill_render->Unknown34;\n \tif (ability != -1) {\n-\t\tif (!abilities.Get_Can_Be_Used_While_Incapacitated(ability) && Client->As_Space_Client()->Unknown_750B60()) {\n-\t\t\tClient->As_Space_Client()->Unknown_74D990(0x11, \"Cannot perform action while incapacitated.\", 0);\n-\t\t} else {\n-\t\t\t((ClientClass *)Client)->Send_Packet(&SkillPacket_88Class(((ClientClass *)Client)->AvatarID, 0, ability));\n-\t\t}\n-\t}\n-}\n-\n-\n+\t\tif (abilities.Get_Can_Be_Used_While_Incapacitated(ability)) goto send;\n+\t\tif (!Client->As_Space_Client()->Unknown_750B60()) goto send;\n+\t\tClient->As_Space_Client()->Unknown_74D990(0x11, \"Cannot perform action while incapacitated.\", 0);\n+\t\tgoto done;\n+\tsend:\n+\t\t((ClientClass *)Client)->Send_Packet(&SkillPacket_88Class(((ClientClass *)Client)->AvatarID, 0, ability));\n+\tdone:;\n+\t}\n+}\n \n \n \n"
+  },
+  {
+    "name": "follow_nested",
+    "base_sha256": "9b0676edc9bc2a30a99ec9ba19bf2280d4b199d859507e04b0573fddf5599632",
+    "source_sha256": "810a72e03b3f13da4ff2d6571d81c4d2360f73cfbc9c3ee9c22be8c84f6bdfd8",
+    "patch": "--- a/app/client/ui_skills.cpp\n+++ b/app/client/ui_skills.cpp\n@@ -196,16 +196,16 @@\n \tSkillAbilityDataPeekClass abilities = data->Abilities;\n \tint ability = skill_render->Unknown34;\n \tif (ability != -1) {\n-\t\tif (!abilities.Get_Can_Be_Used_While_Incapacitated(ability) && Client->As_Space_Client()->Unknown_750B60()) {\n-\t\t\tClient->As_Space_Client()->Unknown_74D990(0x11, \"Cannot perform action while incapacitated.\", 0);\n-\t\t} else {\n-\t\t\t((ClientClass *)Client)->Send_Packet(&SkillPacket_88Class(((ClientClass *)Client)->AvatarID, 0, ability));\n-\t\t}\n-\t}\n-}\n-\n-\n-\n+\t\tif (!abilities.Get_Can_Be_Used_While_Incapacitated(ability)) {\n+\t\t\tif (Client->As_Space_Client()->Unknown_750B60()) {\n+\t\t\t\tClient->As_Space_Client()->Unknown_74D990(0x11, \"Cannot perform action while incapacitated.\", 0);\n+\t\t\t\tgoto done;\n+\t\t\t}\n+\t\t}\n+\t\t((ClientClass *)Client)->Send_Packet(&SkillPacket_88Class(((ClientClass *)Client)->AvatarID, 0, ability));\n+\tdone:;\n+\t}\n+}\n \n \n \n"
+  },
+  {
+    "name": "follow_bool",
+    "base_sha256": "9b0676edc9bc2a30a99ec9ba19bf2280d4b199d859507e04b0573fddf5599632",
+    "source_sha256": "eeedc54c89cc28997a12b438727148ec80f5bf9a143c87a80a29016cce27ec6f",
+    "patch": "--- a/app/client/ui_skills.cpp\n+++ b/app/client/ui_skills.cpp\n@@ -196,15 +196,15 @@\n \tSkillAbilityDataPeekClass abilities = data->Abilities;\n \tint ability = skill_render->Unknown34;\n \tif (ability != -1) {\n-\t\tif (!abilities.Get_Can_Be_Used_While_Incapacitated(ability) && Client->As_Space_Client()->Unknown_750B60()) {\n+\t\tbool can_send = abilities.Get_Can_Be_Used_While_Incapacitated(ability);\n+\t\tif (!can_send) can_send = !Client->As_Space_Client()->Unknown_750B60();\n+\t\tif (can_send) {\n+\t\t\t((ClientClass *)Client)->Send_Packet(&SkillPacket_88Class(((ClientClass *)Client)->AvatarID, 0, ability));\n+\t\t} else {\n \t\t\tClient->As_Space_Client()->Unknown_74D990(0x11, \"Cannot perform action while incapacitated.\", 0);\n-\t\t} else {\n-\t\t\t((ClientClass *)Client)->Send_Packet(&SkillPacket_88Class(((ClientClass *)Client)->AvatarID, 0, ability));\n-\t\t}\n-\t}\n-}\n-\n-\n+\t\t}\n+\t}\n+}\n \n \n \n"
+  }
+]
