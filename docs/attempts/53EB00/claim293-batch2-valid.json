@@ -1,0 +1,209 @@
+{
+  "description": "Line patches against tree3 baseline; each [start,end,replacement_lines] uses zero-based half-open indices. Apply in reverse order.",
+  "records": [
+    {
+      "name": "ordered_0",
+      "base_sha256": "f1017264c71f9eec83b4287e3486674ef7671eb6bd2fe2a16ac779baa2d4b727",
+      "source_sha256": "26a04b03783f0384b5e45e6c79ad632595f5d2acd5cdf43c1b0dc56abb15bb9c",
+      "line_patch": [
+        [
+          210,
+          211,
+          [
+            "\t\tint free_count; text.Format(\n"
+          ]
+        ],
+        [
+          234,
+          235,
+          [
+            "\t\t\t(free_count = WWMemoryLogClass::Get_Free_Count(), WWMemoryLogClass::Get_Allocate_Count() - free_count),\n"
+          ]
+        ]
+      ],
+      "compiled": true,
+      "body_bytes": 1584,
+      "body_sha256": "b845fde377a98f30d538da3aa7d274023f2668dec33f868a3e5ca7812e8c42c5",
+      "target_exact": false,
+      "gained": [],
+      "lost": []
+    },
+    {
+      "name": "ordered_1",
+      "base_sha256": "f1017264c71f9eec83b4287e3486674ef7671eb6bd2fe2a16ac779baa2d4b727",
+      "source_sha256": "69f0baa789e96e41a58ab675e81678634da1af48c82f8f16741d2450618c55db",
+      "line_patch": [
+        [
+          210,
+          211,
+          [
+            "\t\tint locked_count; text.Format(\n"
+          ]
+        ],
+        [
+          235,
+          236,
+          [
+            "\t\t\t(locked_count = TextureClass::_Get_Total_Locked_Surface_Count(), TextureClass::_Get_Total_Texture_Count() - locked_count),\n"
+          ]
+        ]
+      ],
+      "compiled": true,
+      "body_bytes": 1584,
+      "body_sha256": "af15b2fe3d50b3cc6a288575f130313c164e4f68a3110b549c64826372b44a58",
+      "target_exact": false,
+      "gained": [],
+      "lost": []
+    },
+    {
+      "name": "ordered_2",
+      "base_sha256": "f1017264c71f9eec83b4287e3486674ef7671eb6bd2fe2a16ac779baa2d4b727",
+      "source_sha256": "634ab81ff6ed9ec50f41f538bfa1cb2ad9bcc798d274fecef8691a577df85a1a",
+      "line_patch": [
+        [
+          210,
+          211,
+          [
+            "\t\tint locked_size; text.Format(\n"
+          ]
+        ],
+        [
+          236,
+          237,
+          [
+            "\t\t\t(float)((locked_size = TextureClass::_Get_Total_Locked_Surface_Size(), TextureClass::_Get_Total_Texture_Size() - locked_size)) / (1024.0f * 1024.0f),\n"
+          ]
+        ]
+      ],
+      "compiled": true,
+      "body_bytes": 1568,
+      "body_sha256": "7d018b15c5082530e7e303cf89eb4df4be88c11fe48f9e44a40a282589784c88",
+      "target_exact": false,
+      "gained": [],
+      "lost": []
+    },
+    {
+      "name": "ordered_0_1_2",
+      "base_sha256": "f1017264c71f9eec83b4287e3486674ef7671eb6bd2fe2a16ac779baa2d4b727",
+      "source_sha256": "0027fa16cfc525aedfed62c8a0f6fce007a14e6e50d83f37cd1974a7f9fa55ee",
+      "line_patch": [
+        [
+          210,
+          211,
+          [
+            "\t\tint free_count, locked_count, locked_size; text.Format(\n"
+          ]
+        ],
+        [
+          234,
+          237,
+          [
+            "\t\t\t(free_count = WWMemoryLogClass::Get_Free_Count(), WWMemoryLogClass::Get_Allocate_Count() - free_count),\n",
+            "\t\t\t(locked_count = TextureClass::_Get_Total_Locked_Surface_Count(), TextureClass::_Get_Total_Texture_Count() - locked_count),\n",
+            "\t\t\t(float)((locked_size = TextureClass::_Get_Total_Locked_Surface_Size(), TextureClass::_Get_Total_Texture_Size() - locked_size)) / (1024.0f * 1024.0f),\n"
+          ]
+        ]
+      ],
+      "compiled": true,
+      "body_bytes": 1600,
+      "body_sha256": "a419fd0f7aaf91a602442342fef8b17cce3de90095a7707172f40ee4d5be8b87",
+      "target_exact": false,
+      "gained": [],
+      "lost": []
+    },
+    {
+      "name": "loop_reverse_condition",
+      "base_sha256": "f1017264c71f9eec83b4287e3486674ef7671eb6bd2fe2a16ac779baa2d4b727",
+      "source_sha256": "ce6680ed9faa0a648bffdd8ed82d241939834a89b6d6ed3764e7e8c67043e6ca",
+      "line_patch": [
+        [
+          245,
+          246,
+          [
+            "\t\tfor (int i = 0; count > i; ++i) {\n"
+          ]
+        ]
+      ],
+      "compiled": true,
+      "body_bytes": 1568,
+      "body_sha256": "0bf6c1b557fc20fb82e33f3c10969df077866bf69f50355d3623c6d4dc70bfd6",
+      "target_exact": false,
+      "gained": [],
+      "lost": []
+    },
+    {
+      "name": "loop_pointer",
+      "base_sha256": "f1017264c71f9eec83b4287e3486674ef7671eb6bd2fe2a16ac779baa2d4b727",
+      "source_sha256": "a95d055bb4ba7ebcb1c3d8ae911de233556482fb53866b4326fda1c2c0ac31dc",
+      "line_patch": [
+        [
+          250,
+          251,
+          [
+            "\t\t\t\ttext.operator+=(line);\n"
+          ]
+        ],
+        [
+          262,
+          263,
+          [
+            "\t\ttext.operator+=(line);\n"
+          ]
+        ],
+        [
+          264,
+          265,
+          [
+            "\t\ttext.operator+=(line);\n"
+          ]
+        ]
+      ],
+      "compiled": true,
+      "body_bytes": 1568,
+      "body_sha256": "0bf6c1b557fc20fb82e33f3c10969df077866bf69f50355d3623c6d4dc70bfd6",
+      "target_exact": false,
+      "gained": [],
+      "lost": []
+    },
+    {
+      "name": "line_explicit",
+      "base_sha256": "f1017264c71f9eec83b4287e3486674ef7671eb6bd2fe2a16ac779baa2d4b727",
+      "source_sha256": "e54dfb72ca697e1104fe3768b19d7d1647abaf5fcc3a4b3056bc707fd2da8eec",
+      "line_patch": [
+        [
+          248,
+          249,
+          [
+            "\t\t\t\tStringClass line(0, false);\n"
+          ]
+        ]
+      ],
+      "compiled": true,
+      "body_bytes": 1568,
+      "body_sha256": "0bf6c1b557fc20fb82e33f3c10969df077866bf69f50355d3623c6d4dc70bfd6",
+      "target_exact": false,
+      "gained": [],
+      "lost": []
+    },
+    {
+      "name": "fps_append_constref",
+      "base_sha256": "f1017264c71f9eec83b4287e3486674ef7671eb6bd2fe2a16ac779baa2d4b727",
+      "source_sha256": "ab04f809c9def99427fa5049a46a817de5db4a9c870e9c62a370b16f40a37757",
+      "line_patch": [
+        [
+          250,
+          251,
+          [
+            "\t\t\t\tconst StringClass &result = line; text += result;\n"
+          ]
+        ]
+      ],
+      "compiled": true,
+      "body_bytes": 1568,
+      "body_sha256": "0bf6c1b557fc20fb82e33f3c10969df077866bf69f50355d3623c6d4dc70bfd6",
+      "target_exact": false,
+      "gained": [],
+      "lost": []
+    }
+  ]
+}

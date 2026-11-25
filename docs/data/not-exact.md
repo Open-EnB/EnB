@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-542 entries in 239 files.
+540 entries in 238 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -85,8 +85,6 @@ edit the comments in the code, not this file.
 | `app/client/ctrngadg.cpp:118` | `CtrnGadgetClass::Unknown_2C` | marker | NOT EXACT: shape, 0.69 (explain.py): the release block is laid out after the Ctrl test, the wheel's default gets its own epilogue, 0 for +0x12B4 from ebx (see attempts.csv) @0x50ABC0 |
 | `app/client/ctrngadg.cpp:226` | `CtrnGadgetClass::Unknown_2C` | mention | NOT EXACT): with the window focused (input.cpp 0x42EE90) and the task focused (SClient 0x74B5E0), a pointer move (+0x48 / +0x4C its last x, y) turns the camera (camera_manager.cpp's 0x79B370-0x79B410, the pitch clamped to +-1.4835 = 85 degrees, scaled by the frame time and 0.1) or the bridge's view (bridge_int.cpp 0x53CA00 / 0x53C980) while Shift or Ctrl is down; the wheel (0x101 / 0x102) zooms by... |
 | `app/client/debris.h:39` | `?` | mention | NOT EXACT) |
-| `app/client/debrsint.cpp:9` | `DebrisInterfaceClass::DebrisInterfaceClass` | marker | NOT EXACT: functional (D64), register-only (ebx / edi / ebp swapped; two rounds: the fade clamps' temporaries) 0x53D250 |
-| `app/client/debrsint.cpp:150` | `DebrisInterfaceClass::Unknown_68` | marker | NOT EXACT: functional (D64), order-only (key 10's colour: the red's spill after the blue's multiply) 0x53D9F0 |
 | `app/client/dynamic_window_background.cpp:407` | `DynamicWindowBackgroundClass::Fit_Size` | mention | NOT EXACT (D64): Get 0x515AB0 (marked); the data's implicit destructor 0x515E20 matches; declaring an empty destructor adds a 6-byte own-vtable store. The direct calls of the base's slots are qualified calls (DynamicWindowRenderObjectClass::...). |
 | `app/client/eff_line.cpp:258` | `LineEffectClass::Unknown_6E6030` | marker | NOT EXACT: stack slots only (every instruction is the client's once stack offsets are masked; the ax < ay result temporary stores at 0x20 where the client coalesces it into p at 0x2c, 0x6E6406 / 0x6E6434); attempts.py show 0x6E6030 |
 | `app/client/eff_seek.cpp:110` | `SpiralSeekEffectClass::Unknown_1C` | marker | NOT EXACT: shape (the frame 0xB0, the sine's slot and the kept product radius * s are the client's; the client has point above rate above direction where this has rate, direction, point, and it stores point.X before rate.X from the FPU stack, 0x6F0E3D); attempts.py show 0x6F0D40 0x6F0D40 |

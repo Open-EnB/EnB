@@ -1,0 +1,363 @@
+{
+  "description": "Line patches against tree3 baseline; each [start,end,replacement_lines] uses zero-based half-open indices. Apply in reverse order.",
+  "records": [
+    {
+      "name": "fps_helper_video_append",
+      "base_sha256": "f1017264c71f9eec83b4287e3486674ef7671eb6bd2fe2a16ac779baa2d4b727",
+      "source_sha256": "11089fd439e49d85e9cce30be96fd749a27284de901344c7c6fc1a14cc5600ff",
+      "line_patch": [
+        [
+          195,
+          196,
+          [
+            "static inline void Frame_FPS_Line(StringClass &text, StringClass &line, float rate) { line.Format(\"FPS = %4.0f\\n\", rate); text += line; } static inline void Frame_Video_Line(StringClass &text, StringClass &line) { line.Format(\"%d bytes free (AGP + Video)\\n\", DX8Wrapper::Get_Free_Texture_RAM()); text += line; } static inline void Frame_Append(StringClass &to, const StringClass &from) { to += from; } static inline void Frame_Memory_Line(StringClass &text, int i, unsigned memory) { StringClass line; line.Format(\"%s : %2.2fMb\\n\", WWMemoryLogClass::Get_Category_Name(i), (float)memory / (1024.0f * 1024.0f)); text += line; } static inline void Frame_Display_Memory_Line(StringClass &text, int i, unsigned memory) { Frame_Memory_Line(text, i, memory); }\n"
+          ]
+        ],
+        [
+          248,
+          251,
+          [
+            "\t\t\t\tFrame_Display_Memory_Line(text, i, memory);\n",
+            "\n",
+            "\n"
+          ]
+        ],
+        [
+          261,
+          263,
+          [
+            "\t\tFrame_FPS_Line(text, line, FrameRate);\n",
+            "\n"
+          ]
+        ],
+        [
+          264,
+          265,
+          [
+            "\t\tFrame_Append(text, line);\n"
+          ]
+        ]
+      ],
+      "compiled": true,
+      "body_bytes": 1360,
+      "body_sha256": "5e317dc20ffabf5522268f4ec8976b51397f192ee4db4cf8e3a2ad958428fdfe",
+      "target_exact": false,
+      "gained": [
+        [
+          "??0StringClass@@QAE@H_N@Z",
+          "0x53F1C0"
+        ],
+        [
+          "??YStringClass@@QAEABV0@ABV0@@Z",
+          "0x510BE0"
+        ]
+      ],
+      "lost": [
+        [
+          "?Store_Length@StringClass@@AAEXH@Z",
+          "0x48E910"
+        ]
+      ]
+    },
+    {
+      "name": "video_helper_fps_append",
+      "base_sha256": "f1017264c71f9eec83b4287e3486674ef7671eb6bd2fe2a16ac779baa2d4b727",
+      "source_sha256": "d1f0d8f63deb8434a5de3cbec816d4a56b739224134be7d8817f039b705e4fdc",
+      "line_patch": [
+        [
+          195,
+          196,
+          [
+            "static inline void Frame_FPS_Line(StringClass &text, StringClass &line, float rate) { line.Format(\"FPS = %4.0f\\n\", rate); text += line; } static inline void Frame_Video_Line(StringClass &text, StringClass &line) { line.Format(\"%d bytes free (AGP + Video)\\n\", DX8Wrapper::Get_Free_Texture_RAM()); text += line; } static inline void Frame_Append(StringClass &to, const StringClass &from) { to += from; } static inline void Frame_Memory_Line(StringClass &text, int i, unsigned memory) { StringClass line; line.Format(\"%s : %2.2fMb\\n\", WWMemoryLogClass::Get_Category_Name(i), (float)memory / (1024.0f * 1024.0f)); text += line; } static inline void Frame_Display_Memory_Line(StringClass &text, int i, unsigned memory) { Frame_Memory_Line(text, i, memory); }\n"
+          ]
+        ],
+        [
+          248,
+          251,
+          [
+            "\t\t\t\tFrame_Display_Memory_Line(text, i, memory);\n",
+            "\n",
+            "\n"
+          ]
+        ],
+        [
+          262,
+          265,
+          [
+            "\t\tFrame_Append(text, line);\n",
+            "\t\tFrame_Video_Line(text, line);\n",
+            "\n"
+          ]
+        ]
+      ],
+      "compiled": true,
+      "body_bytes": 1360,
+      "body_sha256": "5e317dc20ffabf5522268f4ec8976b51397f192ee4db4cf8e3a2ad958428fdfe",
+      "target_exact": false,
+      "gained": [
+        [
+          "??0StringClass@@QAE@H_N@Z",
+          "0x53F1C0"
+        ],
+        [
+          "??YStringClass@@QAEABV0@ABV0@@Z",
+          "0x510BE0"
+        ]
+      ],
+      "lost": [
+        [
+          "?Store_Length@StringClass@@AAEXH@Z",
+          "0x48E910"
+        ]
+      ]
+    },
+    {
+      "name": "both_loop_count_scope",
+      "base_sha256": "f1017264c71f9eec83b4287e3486674ef7671eb6bd2fe2a16ac779baa2d4b727",
+      "source_sha256": "e499f032291b08a2cb15567abe733c509e29c40b07ba098cd1fbebce2509a31d",
+      "line_patch": [
+        [
+          195,
+          196,
+          [
+            "static inline void Frame_FPS_Line(StringClass &text, StringClass &line, float rate) { line.Format(\"FPS = %4.0f\\n\", rate); text += line; } static inline void Frame_Video_Line(StringClass &text, StringClass &line) { line.Format(\"%d bytes free (AGP + Video)\\n\", DX8Wrapper::Get_Free_Texture_RAM()); text += line; } static inline void Frame_Memory_Line(StringClass &text, int i, unsigned memory) { StringClass line; line.Format(\"%s : %2.2fMb\\n\", WWMemoryLogClass::Get_Category_Name(i), (float)memory / (1024.0f * 1024.0f)); text += line; } static inline void Frame_Display_Memory_Line(StringClass &text, int i, unsigned memory) { Frame_Memory_Line(text, i, memory); }\n"
+          ]
+        ],
+        [
+          244,
+          246,
+          [
+            "\n",
+            "\t\tfor (int count = WWMemoryLogClass::Get_Category_Count(), i = 0; i < count; i++) {\n"
+          ]
+        ],
+        [
+          248,
+          251,
+          [
+            "\t\t\t\tFrame_Display_Memory_Line(text, i, memory);\n",
+            "\n",
+            "\n"
+          ]
+        ],
+        [
+          261,
+          265,
+          [
+            "\t\tFrame_FPS_Line(text, line, FrameRate);\n",
+            "\n",
+            "\t\tFrame_Video_Line(text, line);\n",
+            "\n"
+          ]
+        ]
+      ],
+      "compiled": true,
+      "body_bytes": 1360,
+      "body_sha256": "5e317dc20ffabf5522268f4ec8976b51397f192ee4db4cf8e3a2ad958428fdfe",
+      "target_exact": false,
+      "gained": [
+        [
+          "??0StringClass@@QAE@H_N@Z",
+          "0x53F1C0"
+        ],
+        [
+          "??YStringClass@@QAEABV0@ABV0@@Z",
+          "0x510BE0"
+        ]
+      ],
+      "lost": [
+        [
+          "?Store_Length@StringClass@@AAEXH@Z",
+          "0x48E910"
+        ]
+      ]
+    },
+    {
+      "name": "both_loop_count_reorder",
+      "base_sha256": "f1017264c71f9eec83b4287e3486674ef7671eb6bd2fe2a16ac779baa2d4b727",
+      "source_sha256": "9c7f9d921c192d78929ebf5709d9be9f9989186b0c078bd6e52bfe3fe58284c4",
+      "line_patch": [
+        [
+          195,
+          196,
+          [
+            "static inline void Frame_FPS_Line(StringClass &text, StringClass &line, float rate) { line.Format(\"FPS = %4.0f\\n\", rate); text += line; } static inline void Frame_Video_Line(StringClass &text, StringClass &line) { line.Format(\"%d bytes free (AGP + Video)\\n\", DX8Wrapper::Get_Free_Texture_RAM()); text += line; } static inline void Frame_Memory_Line(StringClass &text, int i, unsigned memory) { StringClass line; line.Format(\"%s : %2.2fMb\\n\", WWMemoryLogClass::Get_Category_Name(i), (float)memory / (1024.0f * 1024.0f)); text += line; } static inline void Frame_Display_Memory_Line(StringClass &text, int i, unsigned memory) { Frame_Memory_Line(text, i, memory); }\n"
+          ]
+        ],
+        [
+          244,
+          246,
+          [
+            "\n",
+            "\t\tfor (int i = 0, count = WWMemoryLogClass::Get_Category_Count(); i < count; i++) {\n"
+          ]
+        ],
+        [
+          248,
+          251,
+          [
+            "\t\t\t\tFrame_Display_Memory_Line(text, i, memory);\n",
+            "\n",
+            "\n"
+          ]
+        ],
+        [
+          261,
+          265,
+          [
+            "\t\tFrame_FPS_Line(text, line, FrameRate);\n",
+            "\n",
+            "\t\tFrame_Video_Line(text, line);\n",
+            "\n"
+          ]
+        ]
+      ],
+      "compiled": true,
+      "body_bytes": 1360,
+      "body_sha256": "28d14a68dba0325644930ea80f66b85e303933bef40ec2dd582ff408136faed1",
+      "target_exact": false,
+      "gained": [
+        [
+          "??0StringClass@@QAE@H_N@Z",
+          "0x53F1C0"
+        ],
+        [
+          "??YStringClass@@QAEABV0@ABV0@@Z",
+          "0x510BE0"
+        ]
+      ],
+      "lost": [
+        [
+          "?Store_Length@StringClass@@AAEXH@Z",
+          "0x48E910"
+        ]
+      ]
+    },
+    {
+      "name": "fps_helper_video_append_loop_reorder",
+      "base_sha256": "f1017264c71f9eec83b4287e3486674ef7671eb6bd2fe2a16ac779baa2d4b727",
+      "source_sha256": "171558bf3581334ec86a9fe911869031aaf3ad13f03e4001cb2dee334f1513f1",
+      "line_patch": [
+        [
+          195,
+          196,
+          [
+            "static inline void Frame_FPS_Line(StringClass &text, StringClass &line, float rate) { line.Format(\"FPS = %4.0f\\n\", rate); text += line; } static inline void Frame_Video_Line(StringClass &text, StringClass &line) { line.Format(\"%d bytes free (AGP + Video)\\n\", DX8Wrapper::Get_Free_Texture_RAM()); text += line; } static inline void Frame_Append(StringClass &to, const StringClass &from) { to += from; } static inline void Frame_Memory_Line(StringClass &text, int i, unsigned memory) { StringClass line; line.Format(\"%s : %2.2fMb\\n\", WWMemoryLogClass::Get_Category_Name(i), (float)memory / (1024.0f * 1024.0f)); text += line; } static inline void Frame_Display_Memory_Line(StringClass &text, int i, unsigned memory) { Frame_Memory_Line(text, i, memory); }\n"
+          ]
+        ],
+        [
+          244,
+          246,
+          [
+            "\n",
+            "\t\tfor (int i = 0, count = WWMemoryLogClass::Get_Category_Count(); i < count; i++) {\n"
+          ]
+        ],
+        [
+          248,
+          251,
+          [
+            "\t\t\t\tFrame_Display_Memory_Line(text, i, memory);\n",
+            "\n",
+            "\n"
+          ]
+        ],
+        [
+          261,
+          263,
+          [
+            "\t\tFrame_FPS_Line(text, line, FrameRate);\n",
+            "\n"
+          ]
+        ],
+        [
+          264,
+          265,
+          [
+            "\t\tFrame_Append(text, line);\n"
+          ]
+        ]
+      ],
+      "compiled": true,
+      "body_bytes": 1360,
+      "body_sha256": "28d14a68dba0325644930ea80f66b85e303933bef40ec2dd582ff408136faed1",
+      "target_exact": false,
+      "gained": [
+        [
+          "??0StringClass@@QAE@H_N@Z",
+          "0x53F1C0"
+        ],
+        [
+          "??YStringClass@@QAEABV0@ABV0@@Z",
+          "0x510BE0"
+        ]
+      ],
+      "lost": [
+        [
+          "?Store_Length@StringClass@@AAEXH@Z",
+          "0x48E910"
+        ]
+      ]
+    },
+    {
+      "name": "video_helper_fps_append_loop_reorder",
+      "base_sha256": "f1017264c71f9eec83b4287e3486674ef7671eb6bd2fe2a16ac779baa2d4b727",
+      "source_sha256": "670b8795dcdc4b4e57f71abba8d9e22c446d88284d12696d20646db5d37c65f3",
+      "line_patch": [
+        [
+          195,
+          196,
+          [
+            "static inline void Frame_FPS_Line(StringClass &text, StringClass &line, float rate) { line.Format(\"FPS = %4.0f\\n\", rate); text += line; } static inline void Frame_Video_Line(StringClass &text, StringClass &line) { line.Format(\"%d bytes free (AGP + Video)\\n\", DX8Wrapper::Get_Free_Texture_RAM()); text += line; } static inline void Frame_Append(StringClass &to, const StringClass &from) { to += from; } static inline void Frame_Memory_Line(StringClass &text, int i, unsigned memory) { StringClass line; line.Format(\"%s : %2.2fMb\\n\", WWMemoryLogClass::Get_Category_Name(i), (float)memory / (1024.0f * 1024.0f)); text += line; } static inline void Frame_Display_Memory_Line(StringClass &text, int i, unsigned memory) { Frame_Memory_Line(text, i, memory); }\n"
+          ]
+        ],
+        [
+          244,
+          246,
+          [
+            "\n",
+            "\t\tfor (int i = 0, count = WWMemoryLogClass::Get_Category_Count(); i < count; i++) {\n"
+          ]
+        ],
+        [
+          248,
+          251,
+          [
+            "\t\t\t\tFrame_Display_Memory_Line(text, i, memory);\n",
+            "\n",
+            "\n"
+          ]
+        ],
+        [
+          262,
+          265,
+          [
+            "\t\tFrame_Append(text, line);\n",
+            "\t\tFrame_Video_Line(text, line);\n",
+            "\n"
+          ]
+        ]
+      ],
+      "compiled": true,
+      "body_bytes": 1360,
+      "body_sha256": "28d14a68dba0325644930ea80f66b85e303933bef40ec2dd582ff408136faed1",
+      "target_exact": false,
+      "gained": [
+        [
+          "??0StringClass@@QAE@H_N@Z",
+          "0x53F1C0"
+        ],
+        [
+          "??YStringClass@@QAEABV0@ABV0@@Z",
+          "0x510BE0"
+        ]
+      ],
+      "lost": [
+        [
+          "?Store_Length@StringClass@@AAEXH@Z",
+          "0x48E910"
+        ]
+      ]
+    }
+  ]
+}
