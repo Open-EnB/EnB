@@ -226,6 +226,12 @@ The unattended week of 2026-11-24 (`docs/week-plan-2026-11-24.md`, kind C). Sess
 Open items from this week's captures:
 
 * The space runs' `messages.log` is 49 to 58 MB a run in plain git, which draws GitHub's large-file warning on push. Move it to LFS or cap its size.
+* `baseline.py verify --run` took only a run's `-session` subfolder, and compared what it found there without naming
+  the rest (session 0's live station run of ours: 5 of 9; the other 4 ran in the fresh session e2e starts after a
+  failure). Fixed 2026-11-25: `--run` takes the e2e `--out` folder (its newest run's session folders; an earlier run's
+  are named and left out), a scenario run in a fresh session says so, and every scenario not compared is named with
+  its reason (a stored set's the run lacks: `SKIP` under `--set`, exit 1). Session 0's run read that way: 9 of 9
+  compared.
 * Ours-versus-retail has only been run on a stale exe of 2026-11-21 (the default set 18 SAME and 7 DIFF, the station set 0 of 9 SAME). Those results are not findings until the build at HEAD is compared.
 
 ## 8. Three baselines over time

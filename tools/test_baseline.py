@@ -435,6 +435,78 @@ class Sets(unittest.TestCase):
         self.assertIn('box-64x64/default, 3 runs', out)
 
 
+def make_session(out, stamp, order, listed, failed=()):
+    """An e2e session folder <stamp>-session under an e2e --out folder: make_set_run's, with e2e's head line
+    ('session of N: ...; exe ...', the scenarios it was given) and FAILED's results failed."""
+    d = make_set_run(out, f'{stamp}-session', order=order, stored=False, logs=drawlog())
+    with open(os.path.join(d, 'e2e.log')) as fh:
+        body = fh.read()
+    with open(os.path.join(d, 'e2e.log'), 'w') as fh:
+        fh.write(f'00:00:00 session of {len(listed)}: {", ".join(listed)}; exe C:/x/client.exe, instance t, '
+                 f'out {d}\n' + body)
+    for n in failed:
+        with open(os.path.join(d, f'result-{n}.json'), 'w') as fh:
+            json.dump({'name': n, 'passed': False, 'expected_fail': None, 'failure': 'x'}, fh)
+    return d
+
+
+class OutFolders(unittest.TestCase):
+    """verify --run with e2e's --out folder (a run continued in a fresh session after a failure: a session folder
+    each) and the set's scenarios a run leaves out (2026-11-25: the station set, 5 of 9 compared, 4 unnamed)."""
+
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory()
+        self.store = self.tmp.name
+        self.sdir = os.path.join(self.store, 'runs', 'retail-00000000', 'box-64x64', 'default')
+        for k in range(3):
+            make_set_run(self.sdir, f'20261125-00000{k}', order=('a', 'b', 'c'), logs=drawlog())
+        baseline.write_noise(self.sdir)
+        self.out = os.path.join(self.tmp.name, 'out')
+        make_session(self.out, '20261125-010000', ('a', 'b'), ('a', 'b', 'c'), failed=('b',))
+        make_session(self.out, '20261125-010500', ('c',), ('c',))
+        os.makedirs(os.path.join(self.out, '20261125-010000-db-snapshot'))     # e2e --db-snapshot's: no e2e.log
+
+    def tearDown(self):
+        self.tmp.cleanup()
+
+    def run_verify(self, run, *extra):
+        out = io.StringIO()
+        with contextlib.redirect_stdout(out):
+            rc = baseline.main(['verify'] + list(extra) + ['--store', self.store, '--run', run, '--set', 'default',
+                                                           '--allow-stale'])
+        return rc, out.getvalue()
+
+    def test_out_folder_compares_every_session(self):
+        rc, out = self.run_verify(self.out)
+        self.assertIn('an e2e --out folder: 2 session(s)', out)
+        self.assertIn('a: SAME', out)
+        self.assertIn('b: DIFF verdict FAIL', out)
+        self.assertIn('c: SAME', out)
+        self.assertIn('run after the login (a fresh session), stored after b', out)
+        self.assertIn('2 of 3 scenarios the same', out)
+        self.assertNotIn('SKIP', out)
+
+    def test_an_earlier_run_in_the_same_out_folder_is_left_out(self):
+        make_session(self.out, '20261124-230000', ('a', 'b', 'c'), ('a', 'b', 'c'))
+        rc, out = self.run_verify(self.out)
+        self.assertIn('1 older session folder(s) of an earlier run left out (20261124-230000-session', out)
+        self.assertIn('2 of 3 scenarios the same', out)
+
+    def test_one_session_names_the_scenarios_it_lacks(self):
+        rc, out = self.run_verify(os.path.join(self.out, '20261125-010000-session'))
+        self.assertEqual(rc, 1)
+        self.assertIn('SKIP: c (1 of the set\'s 3: listed in session 20261125-010000-session, which ended after b '
+                      'failed', out)
+        self.assertIn('1 of 2 scenarios the same as the baseline; 1 stored scenario(s) of the set not in the run', out)
+
+    def test_never_listed_and_not_named(self):
+        rc, out = self.run_verify(os.path.join(self.out, '20261125-010500-session'))
+        self.assertIn("SKIP: a, b (2 of the set's 3: never listed in the run's sessions", out)
+        rc, out = self.run_verify(self.out, 'a')
+        self.assertIn('not compared: b, c (in the run, not named on the command line)', out)
+        self.assertEqual(rc, 0, out)
+
+
 def write(path, data=b'x'):
     os.makedirs(os.path.dirname(path), exist_ok=True)
     with open(path, 'wb') as f:
