@@ -527,9 +527,12 @@ Each script has its usage in its docstring; `python tools/harness/X.py --help` w
 | `kerneltest.py` | `tests/kerneltest` (task kernel, scripted tasks, 35 expected trace lines); `build` then `run`. `taskstest.cpp` beside it has no script of its own | pool VM |
 | `clienttest.py` | `tests/clienttest` (ClientClass's lists, the DEBUG setters and the redirect, SClient::Process_Packets through cpacket.cpp's handlers on a capture's messages; trace against `expected.txt`); `build` then `run` | pool VM, the reference decoder's trace.jsonl |
 | `movietest.py` | `tests/movietest`: the movie task plays a Bink movie (kernel-map step 7); `build` stages Renegade's BinkMovie source from `roots.EA_ROOT`, `run` copies `binkw32.dll` and the movie from the retail install (read only) and runs in `.work/harness/movietest` | retail install, pool VM |
-| `clientrun.py` | runs our client, the one client build (`build/programs/client/client.exe`, `client.map` beside it, linked from every library with no stand-in: `tools/vc6/build.py link --program client`; a worktree's own `build/` in a worktree; `--exe PATH` another), or a copy of retail. The runtime data stays outside git in `CLIENT_DATA_ROOT`, `C:\EnBDevelopment\ClientPOC` (the user's folder, its name kept): `run` copies the exe and its map into its `release` folder and starts it there (windowed or full screen is the registry's; `--fullscreen` has no effect), kills it by PID after `--seconds`, and digests `_except.txt` (and a `stubs.log` when an older stand-in exe wrote one: repeats folded, the first `CRASH:` line named from `client.map`); `log` digests the last run. `run --shots N,M` saves the client's own back buffer at those Present calls through the d3d8shot proxy (`build/d3d8shot/d3d8.dll`, copied beside the exe for the run and deleted after it; never a screen grab, D69) as `.work/poc/shots/HHMMSS/frame_NNNNN.png` with the proxy's `d3d8shot.log`. The login screen presents thousands of frames a second (frame 120000 is about 25 s in), so pick large numbers. Each run's first failure goes in `.work/poc/runs.md`. **Several at once:** `--instance NAME` runs in `CLIENT_DATA_ROOT\inst\NAME\release` beside its own `inst\NAME\Data` (`client\ini` and `client\output` copied once, every other folder a junction to `CLIENT_DATA_ROOT\Data`'s: antprox `/REPLAY` rewrites `auth.ini`'s AAIUrl / LKeyUrl at each start, and with one shared `auth.ini` the first-started client sent its account login to the other replay server; own `_except.txt`, proxy, shots `.work/poc/shots/NAME-HHMMSS`; prints `client pid N`), `--exe PATH` runs another tree's link output, e.g. `<worktree>\build\programs\client\client.exe` (must exist), `replay --input FILE [--seconds N] [--shots N,M]` runs the same against antprox `/REPLAY` (antprox is the frozen 1.0.0 release, `AntaresProxy\releases\antprox-1.0.0-win-x64\antprox.exe`, commit 22ebc7a; `ANTPROX_EXE` overrides it with another build; the client is the child of that antprox; its output goes in the shot folder; CLIENT ARGS after `--` become `/CLIENTOP:` switches); `--messages` (run, replay) adds `-ENABLE_MESSAGES` and `msglisten.py` (`<shots dir>\messages.log`); the instance's copy of the exe gets its own mutex name and the proxy's `D3D8SHOT_CURSOR=off` stops the cursor warp (below). `clean --instance NAME | --all | --older HOURS` deletes instances (junctions into `CLIENT_DATA_ROOT\Data` unlinked, never followed; a running client's instance kept): each builder its own before reporting, the coordinator `--all` at handoff. **`replay` also prints the client's exit** (D191: antprox.out's "Client exited" against the last input's time, or "still running when this run killed it"). **`--ea`** (with `--instance`, D200) runs the instance in `EA_DATA_ROOT\inst\NAME` (`C:\EnBDevelopment\ClientPOC_EA`) over that folder's `Data` and DLLs, EA's final data (P-EA1-1; local, never committed); the exe stays the tree's client, `--exe`'s or `--retail`'s, and `clean` covers both folders' instances. **`replay --retail`** (D190; needs `--instance` and `--shots`) runs a copy of `INSTALL\release\client.exe` in the instance folder under the d3d8shot proxy with `D3D8SHOT_INPUT=1` (`Hook_Input` in d3d8shot.c patches the client's user32 imports to read the posted messages, as it does for ours; rebuild the proxy with `run_reference.py build` for it) and posts BM_CLICK to the terms box's "I Agree"; the same `--input` file as ours; character select needs frames in the hundreds to few thousands (`--shots 300,1000,3000`), not the login screen's 100000s. `dumpcmp.py A B` compares two draw dumps (`D3D8SHOT_DUMP=N` in the environment) draw by draw. A dump on an event: with `D3D8SHOT_DUMP=0` in the environment (buffers shadowed from the start, no frame listed), an e2e `shot dump_NAME` step also dumps the frame after the shot (`draws_NNNNN.bin` and its `tex_*` in the run folder; e2e/sp_galaxymap.scn). It writes `*.th6` thumbnails beside the mixes in `CLIENT_DATA_ROOT\Data\client\mixfiles` (as the client does) | every library built, `mkauthlogin.py`, pool VM for the link |
+| `clientrun.py` | runs our client, the one client build (`build/programs/client/client.exe`, `client.map` beside it, linked from every library with no stand-in: `tools/vc6/build.py link --program client`; a worktree's own `build/` in a worktree; `--exe PATH` another), or a copy of retail. The runtime data stays outside git in `CLIENT_DATA_ROOT`, `C:\EnBDevelopment\ClientPOC` (the user's folder, its name kept): `run` copies the exe and its map into its `release` folder and starts it there (windowed or full screen is the registry's; `--fullscreen` has no effect), kills it by PID after `--seconds`, and digests `_except.txt` (and a `stubs.log` when an older stand-in exe wrote one: repeats folded, the first `CRASH:` line named from `client.map`); `log` digests the last run. `run --shots N,M` saves the client's own back buffer at those Present calls through the d3d8shot proxy (`build/d3d8shot/d3d8.dll`, copied beside the exe for the run and deleted after it; never a screen grab, D69) as `.work/poc/shots/HHMMSS/frame_NNNNN.png` with the proxy's `d3d8shot.log`. The login screen presents thousands of frames a second (frame 120000 is about 25 s in), so pick large numbers. Each run's first failure goes in `.work/poc/runs.md`. **Several at once:** `--instance NAME` runs in `CLIENT_DATA_ROOT\inst\NAME\release` beside its own `inst\NAME\Data` (`client\ini` and `client\output` copied once, every other folder a junction to `CLIENT_DATA_ROOT\Data`'s: antprox `/REPLAY` rewrites `auth.ini`'s AAIUrl / LKeyUrl at each start, and with one shared `auth.ini` the first-started client sent its account login to the other replay server; own `_except.txt`, proxy, shots `.work/poc/shots/NAME-HHMMSS`; prints `client pid N`), `--exe PATH` runs another tree's link output, e.g. `<worktree>\build\programs\client\client.exe` (must exist), `replay --input FILE [--seconds N] [--shots N,M]` runs the same against antprox `/REPLAY` (antprox is machine.py's `antprox`, the Rust port `AntaresProxy-Rust\target\release\antprox-rs.exe` since 2026-11-24, the C# 1.0.0 release before; `ANTPROX_EXE` overrides it with another build; the client is the child of that antprox; its output goes in the shot folder; CLIENT ARGS after `--` become `/CLIENTOP:` switches); `--messages` (run, replay) adds `-ENABLE_MESSAGES` and `msglisten.py` (`<shots dir>\messages.log`); the instance's copy of the exe gets its own mutex name and the proxy's `D3D8SHOT_CURSOR=off` stops the cursor warp (below). `clean --instance NAME | --all | --older HOURS` deletes instances (junctions into `CLIENT_DATA_ROOT\Data` unlinked, never followed; a running client's instance kept): each builder its own before reporting, the coordinator `--all` at handoff. **`replay` also prints the client's exit** (D191: antprox.out's "Client exited" against the last input's time, or "still running when this run killed it"). **`--ea`** (with `--instance`, D200) runs the instance in `EA_DATA_ROOT\inst\NAME` (`C:\EnBDevelopment\ClientPOC_EA`) over that folder's `Data` and DLLs, EA's final data (P-EA1-1; local, never committed); the exe stays the tree's client, `--exe`'s or `--retail`'s, and `clean` covers both folders' instances. **`replay --retail`** (D190; needs `--instance` and `--shots`) runs a copy of `INSTALL\release\client.exe` in the instance folder under the d3d8shot proxy with `D3D8SHOT_INPUT=1` (`Hook_Input` in d3d8shot.c patches the client's user32 imports to read the posted messages, as it does for ours; rebuild the proxy with `run_reference.py build` for it) and posts BM_CLICK to the terms box's "I Agree"; the same `--input` file as ours; character select needs frames in the hundreds to few thousands (`--shots 300,1000,3000`), not the login screen's 100000s. `dumpcmp.py A B` compares two draw dumps (`D3D8SHOT_DUMP=N` in the environment) draw by draw. A dump on an event: with `D3D8SHOT_DUMP=0` in the environment (buffers shadowed from the start, no frame listed), an e2e `shot dump_NAME` step also dumps the frame after the shot (`draws_NNNNN.bin` and its `tex_*` in the run folder; e2e/sp_galaxymap.scn). It writes `*.th6` thumbnails beside the mixes in `CLIENT_DATA_ROOT\Data\client\mixfiles` (as the client does) | every library built, `mkauthlogin.py`, pool VM for the link |
 | `e2e.py` | end-to-end scenarios for client builds (D237): `tools/harness/e2e/*.scn`, one client session for all of them, event-driven steps, tagged input through the proxy, shots on events, the gen stand-ins per scenario (section below) | the linked client (`build.py link --program client`, every library and binkmovie built at that tree's head), antprox, a current proxy |
 | `run_vidtest.py`, `vidtest_sbs.py`, `run_reference.py`, `drawdump.py`, `symbolize.py`, `bmp2png.py`, `d3d8shot.c` | vidtest (above) | |
+| `mss32log.c`, `audiolog.py`, `tools/test_audiolog.py` | the audio event log (test-plan C2): a logging MSS32.DLL proxy, its build and its log's reader (below, "Audio log") | a pool VM for the build; an instance (`e2e.py --audio`) |
+| `machine.py`, `machine.example.json` | the per-machine config: every path outside the tree (below, "Machine config and the baseline store") | nothing |
+| `baseline.py`, `tools/test_baseline.py` | the baseline store `Open-EnB/baselines`: capture retail runs with manifests and noise, verify them (no game needed), compare a run (below) | the store's checkout; capture: retail, the local Net-7 server |
 | `msglisten.py` | listens to a running client's debug-message server (the client's `-ENABLE_MESSAGES`: app/shared/message/msgserv.cpp's MsgServer on the first free TCP port of 9999-10009, bound to every interface by the client's own code, so run it on this host only). `msglisten.py [--pid PID | --port P] [--out FILE] [--seconds N] [--levels MASK] [--modules A,B] [--files F,G] [--prefix TEXT] [--raw]`: `--pid` finds that client's port with netstat (several clients each get their own) and waits for it; it sends one filter record (`S` name `` ` `` levels `` ` `` modules `` ` `` files `` ` `` prefix, `\0`-ended, empty fields as ' ') and prints each `M` record (level `` ` `` [sender,]category `` ` `` file `` ` `` line `` ` `` x `` ` `` y `` ` `` sec.usec `` ` `` text, `\0`-ended) as `HH:MM:SS.uuuuuu LEVEL category: text  file(line)`. The client drops messages while no listener is connected and accepts one at most once a second in the server's run (the kernel task, every 200 ms, and after each error report), so start-up asserts before WinMain's 'adding message server to kernel' never arrive. `clientrun.py run|replay --messages` starts the client with `-ENABLE_MESSAGES` (replay: antprox `/CLIENTOP:`) and msglisten beside it into `<shots dir>\messages.log` | a client started with `-ENABLE_MESSAGES` |
 | `artdir.py` | the art folder default of drawcheck, vidtest_sbs and run_vidtest (D120): `build/art` when it exists, else a warning | `build/art` (`cp -rp` of EBCONFIG) |
 | `vidtest_e2e.py` | starts vidtest as E&BConfig does (its command line, `CreateProcessA` with a relative name, E&BConfig's working directory = a copy of EBCONFIG at `build/programs/vidtest/e2e_ebconfig`, never the install) and reads `results.ini` as E&BConfig does; `--original` runs the retail VIDTEST (which has no `-nomsgbox`; ours gets it appended) | built vidtest, retail EBCONFIG folder to copy |
@@ -553,7 +556,7 @@ the rest run in a fresh session (a crash or a window left open does not fail the
 (2026-11-14: its stand-in left the world changed, e.g. the pop-up browser never destroyed). The run ends early, the
 rest printed `FAIL ... not run`, when a second crash is at the same place as an earlier one (the same exception
 code, instruction and first return addresses) or when two sessions in a row fail before the world. `--separate` gives every
-scenario its own client. Logs in `.work/e2e/HHMMSS-session/` (`HHMMSS-NAME` for a single scenario): `e2e.log`
+scenario its own client. Logs in `.work/e2e/YYYYMMDD-HHMMSS-session/` (`YYYYMMDD-HHMMSS-NAME` for a single scenario; `--out DIR` or `ENB_E2E_OUT` moves the root): `e2e.log`
 (each step, each match), `events.log` (every line of antprox.out, stubs.log, messages.log and d3d8shot.log with
 its time, written as lines arrive with repeated identical `G_ASSERT` / `FAIL_IF` lines folded to counts), `result-NAME.json`, `stubs.log`, `antprox.out`, `d3d8shot.log`, the shots.
 
@@ -578,7 +581,7 @@ home connection's START_ACK, and passes when the client is back in the home sect
 starts docked logs no 'Render: Frame Rate' on either client: its entry waits on ui_starbase.cpp's 'Changing room
 from -1' instead (`_play7`). Run them by name, `e2e.py run _play8 _play9 _play10 [--retail --instance X]`, at a
 handoff and after landings in starbase or packet code. Two runs at once (retail and ours, other instances) may
-start in the same second: the second's folder is `HHMMSS-NAME-2`.
+start in the same second: the second's folder is `YYYYMMDD-HHMMSS-NAME-2`.
 
 **No timed waits where an event exists:** steps advance on events (the replay server's `VERSION_RESPONSE`,
 `GLOBAL_AVATAR_LIST`, `GLOBAL_TICKET_REQUEST`, `START_ACK`). Where the client logs nothing at "ready", two steps
@@ -631,7 +634,7 @@ packets and shots depend on what ran before it in the session (play1 play1_windo
 retail run: a CLIENT_CHAT_REQUEST and five home cells differed that the paired run has equal). `_faction_rows`
 (named only) hovers and clicks the Faction tab's first row: the probe that showed retail's rows are off too
 (no tooltip, no selection), yet drawn. Both runs' logs and manifests are
-`.work/e2e/retail-HHMMSS-{ours,retail}.{log,json}`. `run --manifest FILE` writes any run's manifest (each scenario's
+`.work/e2e/retail-YYYYMMDD-HHMMSS-{ours,retail}.{log,json}`. `run --manifest FILE` writes any run's manifest (each scenario's
 verdict and session folder: a run whose failure started a fresh session has several), and `compare` takes a
 manifest, a folder, or folders joined by `,` on each side, shots included (`--no-shots`: packets and verdicts).
 **Shots:** the same `shot` step's back buffer from both clients (D69), paired by name in scenario order (.bmp, or
@@ -662,6 +665,13 @@ without the export still runs (`no stand-in marker` in e2e.log; later scenarios 
 8th Present); the next frame is saved as `shot_NAME_NNNNN.png` from the client's own back buffer (D69). The proxy
 in `build/d3d8shot/` must be current: `python tools/harness/run_reference.py build` after any change to
 d3d8shot.c (a proxy of 2026-11-04 ignored the trigger, and every shot step waited out its 15 s).
+**Draw log per shot (test-plan C3):** e2e sets `D3D8SHOT_DRAWLOG=1` for every session, so each shot is taken one
+frame after the trigger was seen (the trigger file stays until then) and that frame's draw calls go to
+`shot_NAME_NNNNN.json` beside the image (written before it): every draw (call, primitive type and count, vertices,
+stride, FVF, the textures of stages 0 and 1, the world matrix, 34 render states, 13 stage states of stages 0 and
+1), the frame's distinct view and projection matrices with the order they were set in, and each texture drawn
+(creation parameters and an FNV-1a 64 hash of level 0's contents at that frame). The schema is above
+d3d8shot.c's `Log_Draw`. Without the variable nothing changes (the shot in the trigger's own frame, no JSON).
 `expect-ink SHOT X,Y,W,H MIN` (2026-11-21) asserts on that shot: at least MIN pixels in the box whose brightest
 channel reaches 200 (`INK_LEVEL`; the UI's text is near white on the dark blue panels), so a scenario checks that a list
 was filled, not only that its packets went (sb_refinery's ore rows, sb_manufacture's second category level).
@@ -672,10 +682,11 @@ the server) runs the `sb_*` scenarios (and only those; the default set leaves th
 server through antprox `/SERVER:SERVER /NET7BIN:DIR /OPCODES` instead of `/REPLAY`. SERVER defaults to
 `localhost`, `--net7bin` to the user's local 2010 server (`C:\EnBDevelopment\Net7\bin_local`, account admin /
 admin, safe for any scenario). `--antprox-arg ARG` (repeatable; `--antprox-arg=ARG` when ARG starts with `-`)
-appends ARG to antprox's command line. `ANTPROX_EXE` then defaults to AntaresProxy's dev publish: the frozen
-1.0.0 (D253) cannot bind loopback. Both clients run live: the retail copy (`--retail`) and ours (`--exe`, default
-this tree's build), which the dev publish (2026-11-16, AntaresProxy W33) launches unmodified on EA-UDP since it
-cannot patch an unknown build. The login (`_login_live.scn`) clicks the username field twice (the login screen
+appends ARG to antprox's command line. The proxy is machine.py's `antprox`, the same one replay runs use (since
+2026-11-25: the store's antprox-rs.exe; the C# dev publish's role here, while the frozen 1.0.0 could not bind
+loopback (D253), has ended). Both clients run live: the retail copy (`--retail`) and ours (`--exe`, default
+this tree's build), which the C# dev publish launched unmodified on EA-UDP since it cannot patch an unknown build
+(not re-checked with antprox-rs). The login (`_login_live.scn`) clicks the username field twice (the login screen
 swallows the first click) and clears each field (End, 14 Backspaces) before typing, since the client remembers
 the last name. Live antprox logs opcode numbers; e2e appends the names (`... = sent TALK_TREE` is the server's,
 `= received NAME` the client's), so steps match on names as in replay.
@@ -684,15 +695,33 @@ the last name. Live antprox logs opcode numbers; e2e appends the names (`... = s
   `e2e.py --live --db-snapshot run sb_...` first dumps AVATAR's (default 6) rows of the play tables (`DB_TABLES`:
   inventory, vault, trade, equipment, ammo, level info with the credits, missions, recipes, skills, factions,
   exploration, position, avatar_info, ship_data / ship_info) from the `net7-mysql` container into
-  `.work/e2e/<HHMMSS>-db-snapshot/avatar<N>.sql`, a ready restore script (one transaction: `DELETE ... WHERE
+  `.work/e2e/<YYYYMMDD-HHMMSS>-db-snapshot/avatar<N>.sql`, a ready restore script (one transaction: `DELETE ... WHERE
   avatar_id = N` per table, the dumped INSERTs; foreign key checks off in that session only, since avatar_data and
-  ship_* reference avatar_info). After the run, also when it fails or is interrupted, it stops Net7.exe (and
+  ship_* reference avatar_info). After the run, also when it fails or is interrupted, it restores the rows in place (next bullet; before 2026-11-24 it stopped Net7.exe (and
   Net7SSL.exe), runs the script, and starts Net7.exe again in its own console, ready when UDP port 3693 is bound
-  (~100 s; the server log cannot be read while Net7.exe runs). The stop is needed: Net-7 writes each change through
+  (~100 s; the server log cannot be read while Net7.exe runs) and started it again). The stop was needed: Net-7 writes each change through
   as it happens and reads the rows at login, but a killed client stays in the server until its link-dead drop,
   which queues hull, sector and ammo saves of its own (`PlayerManager::DropPlayerFromSector`). Nothing outside the
   avatar's rows is touched; to undo by hand, pipe the script into `docker exec -i net7-mysql sh -c 'mysql -uroot
   -p"$MYSQL_ROOT_PASSWORD" net7_user'` with the server stopped.
+- **Restoring in place (control port, 2026-11-24):** Net7.exe has a loopback UDP control port (`Net7/Net7/ControlPort.cpp`):
+  `e2e.net7_control_port` takes machine.py `net7_control_port` (`ENB_NET7_CONTROL_PORT`) when set, else the last
+  `control_port=` line of `<net7_bin>\Net7Config.cfg` (the server reads it at start), else 3810; 0 is off. Commands:
+  `STATUS` (`READY players=N saves=idle|busy ssl=0|1 quiesced=0|1`, or `STARTING`), `QUIESCE` (logs every player out,
+  drains the save queue, refuses logins; `QUIESCED`, or `ERROR timeout` after 30 s) and `RESUME`. `net7_ready` is
+  `READY` with `ssl=1` and `quiesced=0` (a server left quiesced refuses logins). `e2e.db_restore` (--db-snapshot and
+  baseline.py's database step) uses them when STATUS says READY: QUIESCE, the scripts, RESUME, 0.4-0.8 s, no restart (a
+  client still logged in, or link-dead, is dropped by the QUIESCE, so no late save overwrites the rows: checked 70 s after
+  a sb_buysell run). Without the control port, after a failed QUIESCE (undone with a RESUME first), or with
+  `ENB_NET7_RESTART=1` / `restart=True`, it stops Net7.exe, restores and starts it (`e2e.net7_start`): 5-6 s since the
+  start-up rework (was ~80-100 s); a server that answers is first given up to `NET7_SAVE_WAIT` (20 s) for STATUS to show
+  `saves=idle`, so the kill does not cut a save. Each script is its own transaction, applied in order; a failure stops
+  there, names the script (`restore FAILED at PATH (N of M scripts applied before it ...)`) and makes db_restore return
+  False (the server is still resumed or started). Its `info` dict records the mode (`in-place` | `restart`), the seconds,
+  the port, the STATUS line after and the failed script. Not reset by an in-place restore: the server's world state (MOBs
+  killed or created, asteroids mined or `/create`d, the job board's generated jobs, the accounts cache), which is why a
+  space set (`sp_*`: `sp_combat` creates and kills a MOB) is captured with a restart before each run (baseline.py
+  `--restart`, its default for a list with an `sp_` scenario); the `sb_*` station scenarios do not depend on it.
 - **Where the avatar is:** `D3D8SHOT_CAMERA=FILE` makes the proxy write the frame's first view matrices to FILE
   (every 2nd Present). The first is the room camera; the avatar is 6.4 units ahead of it. Each room has its own
   coordinates; the room changes show in messages.log (`Changing room from A to B`).
@@ -804,6 +833,186 @@ build\programs\client\client.exe> --instance <name>` and lands only with every l
 `vidtest_e2e.py` and `vidtest_exitcodes.py` stay two scripts: one reproduces E&BConfig's launch
 (ctypes `CreateProcessA`, the working directory trick, the results.ini reader) and one drives
 many cases by posting window messages; they share no code worth extracting.
+
+## Machine config and the baseline store (`machine.py`, `baseline.py`; test-plan C1)
+
+**`machine.py`** holds every path the harness reads outside the tree: `client_data` (ClientPOC), `ea_data`
+(ClientPOC_EA), `retail_install`, `antprox_dir` (the proxy pair's folder: the store's `tools/antprox`, default
+`<baselines>/tools/antprox`), `antprox` (live runs' proxy: `<antprox_dir>/antprox-rs.exe`, the
+Rust port 1.2.0.0), `antprox_replay` (replay runs' proxy until antprox-rs can replay: `<antprox_dir>/antprox.exe`, C# 1.1.0), `antreplay` (the replay server antprox `/REPLAY` starts: `<antprox_dir>/antreplay.exe`, C#
+1.1.0; antprox looks for it beside itself, so clientrun.py passes `/REPLAYEXE:` only when it is elsewhere; without
+the folder both fall back to AntaresProxy-Rust's `target\release` and AntaresProxy's `releases\antprox-1.1.0-win-x64`,
+and machine.py's printout says so), `net7_bin`,
+`baselines` (the store's checkout), `captures` (AntaresProxy's), `recordings` (the folder antprox `/REPLAY` reads,
+`/RECORDINGS:`; default `<baselines>/inputs/captures`, the store's copy of the replay set: clientrun.py passes it
+when the folder exists, else antprox's own default `%LOCALAPPDATA%\AntaresProxy\recordings`), and `label` (this
+machine's name in the store, default a slug of the GPU's name). Each key: its environment variable
+(`ENB_CLIENT_DATA`, `ENB_EA_DATA`, `ENB_RETAIL_INSTALL`, `ENB_ANTPROX_DIR`, `ANTPROX_EXE` (it also overrides `antprox_replay`), `ENB_ANTPROX_REPLAY`, `ENB_ANTREPLAY`, `ENB_NET7_BIN`,
+`ENB_BASELINES`, `ENB_CAPTURES`, `ENB_RECORDINGS`, `ENB_MACHINE_LABEL`), else the config file (`ENB_MACHINE`, else `~/.enb/machine.json`; `machine.example.json`;
+relative paths are relative to the file), else a default beside the main checkout (a worktree's `.git` file is
+followed to it). `python tools/harness/machine.py` prints each resolved path, its source and whether it exists.
+clientrun.py, e2e.py and run_reference.py take their paths from it. (`tools/re/roots.py` still names the
+build-side roots: EA, SDK, references.)
+
+**`baseline.py`** keeps retail runs in the private store `Open-EnB/baselines` (README there: layout, LFS, the
+rule: observations and run inputs only, never the game's files):
+
+```
+python tools/harness/baseline.py capture NAME... [--runs 3] [--live [SERVER]] [--restart | --no-restart] [--no-db-restore] [--no-audio] [--db-snapshot [AVATAR]] [--instance bl]
+python tools/harness/baseline.py capture --set SET [NAME...] [--runs 3] [--live [SERVER]] [--restart | --no-restart]   # one session a run
+python tools/harness/baseline.py verify [NAME...]            # every stored file against its manifest's SHA-256
+python tools/harness/baseline.py verify --run RUN [--client C] [--env E]    # an e2e run against the baseline
+python tools/harness/baseline.py list
+python tools/harness/baseline.py inputs [SET...] [--write] [--save-db] [--apply-db]   # the run inputs
+```
+
+`capture` runs `e2e.py --retail --keep --out <store>/.staging` once per run and scenario (each scenario its own
+client, scenario after scenario; until `--runs` PASS runs or more than `--retries` failed ones). With `--live` it
+first puts the store's database state back (`inputs/db`, below; in place through Net7.exe's control port, under a second; restarted instead with `ENB_NET7_RESTART=1`, about 6 s)
+before every run, unless `--no-db-restore`; `--restart` restarts Net7.exe for it before every run instead (also with
+`--no-db-restore`: a restart without scripts), the default when a named scenario is a space one (`sp_*`: MOBs, asteroids
+and spawned mobs stay in the server's memory across an in-place restore; `--no-restart` overrides). The manifest's
+`server` records what was done: `mode` (live / replay), `restore` (`in-place` | `restart` | `none`), `seconds`,
+`db_scripts` (one SHA-256 over the applied scripts' paths and hashes), `status` (the control port's STATUS line after
+it), `control_port`, `failed` (a script that failed: the run then stops), with `db.restored_before` as before; a
+set's manifest also has `session_seconds`. It stores each PASS as `runs/<client>/<env>/<scenario>/<UTC YYYYMMDD-HHMMSS>/`
+(`<client>` `retail-<8 hex of the exe's SHA-256>`, `<env>` `<label>-<W>x<H>` from the shots) with e2e.log,
+events.log, antprox.out, d3d8shot.log, camera.txt, messages.log, result-NAME.json, the scenario's shots, a
+`packets.json` (e2e.sent_packets) and `manifest.json` (client SHA-256, data id: a hash over (path, size) of the
+data root plus the content of files up to 16 KB; the client's registry settings, read only: HKLM's 32-bit view
+and UAC's VirtualStore copy that a run reads; the instance's `Data\client\ini` hash; resolution, GPU, driver, OS;
+the d3d8 proxy's SHA-256; antprox's file name, `/DESCRIBE` version and SHA-256 and antreplay's name, version and
+SHA-256 (with `used`: false for a live run, which does not start it); EnB commit and dirty flag;
+the scenario's files' SHA-256; the server mode, with `server.db.restored_before` (each restored script's
+SHA-256) for a live run and `server.recordings` (the folder, its set hash, whether it is the store's copy) for a
+replay run; every kept file's SHA-256 and size), then rewrites the scenario's
+`noise.json` (every stored run against every other, raw `shot_diff`, no shot mask: differing cells and mean per
+pair, the max per shot; whether packets and verdicts were equal). A failed run is reported and stays in
+`.staging`. `verify` needs neither the game nor Windows; a file still a Git LFS pointer is reported as "run git
+lfs pull". `verify --run` (an e2e session folder, folders joined by `,`, an e2e `--manifest` file or a stored
+run): verdict equal, packets equal to at least one stored run's, each shot's differing cells against its
+best-matching stored run at most the noise max; one SAME / DIFF line per scenario.
+
+**Sets** (the user, 2026-11-25): `capture --set SET [NAME...]` runs the scenarios (none named: e2e's default set,
+`e2e.scenario_names`) as ONE e2e session a run, the way e2e runs its default set: one client, the login once, each
+later scenario its own steps; three runs are three client launches. Scenarios that need a session of their own
+(`SESSION_OWN` in baseline.py: `sb_emote_dock`, which starts in the hangar the login leaves the character in and ends
+docked there again, while every other station scenario's own steps start and end in the concourse: after it,
+sb_buysell's first walk hits a wall) are taken out of a set and captured alone, each in its own scenario folder. A run is stored only when every scenario
+passed in that one session (e2e starts a fresh session after a failure: such a run is reported and left in
+`.staging`), under `runs/<client>/<env>/<SET>/<UTC run>/`: one session's logs, every scenario's result, shots and draw
+logs, `packets.json` {scenario: packets}, and a manifest with `set`, `order` (the scenarios as run) and `scenarios`
+([{name, verdict, failure, shots, drawlogs}]). Its `noise.json` is keyed by scenario, then shot (`scenarios`), with
+`order_equal`. A scenario captured alone keeps its own folder (the earlier runs stay valid). `verify --run` finds each
+scenario of the run inside the stored folders (`dir_scenarios`): a run of several scenarios prefers a set that ran
+it, a run of one its own folder, `--set SET` names one; it says when the scenario ran after a different one than in
+the stored run ("scenario order differs": state carried from the scenario before can explain a difference). A live
+set restores the database state once a run, before the session.
+
+**Draw logs** (test-plan C3; d3d8shot `D3D8SHOT_DRAWLOG`, above): a stored run keeps each shot's
+`shot_NAME_NNNNN.json` (manifest `drawlogs`: [key, file]). `noise.json` gives each shot a `drawlog` entry: the runs,
+whether their logs are `identical` (all but the frame number), the draw count range, the `varying` fields, the
+largest number of draws without a partner, `matrix_spread` (view, proj, world, sets: the largest element difference
+between two runs) and the file sizes. The compare (`compare_drawlogs`): each draw flattened to fields (`call prim
+prims verts stride fvf`, `tex0.*` / `tex1.*` the texture's parameters and hash, `rs.NAME`, `ts0.NAME`, `ts1.NAME`), the
+two logs' draws aligned on (call, prim, fvf, stride) with difflib so one draw more does not shift the rest, then
+field by field; matrices within `DRAW_MATRIX_SLACK` (1.5) times the stored spread plus `DRAW_MATRIX_FLOOR` (1e-4).
+`verify --run` per shot: SAME when equal to a stored run's log or different only in fields and draw counts the stored
+runs vary in themselves; else DIFF with the counts, the first differing draw and its fields, and the matrices out of
+tolerance. A run stored before the draw log (2026-11-24's) reads "no draw log stored", not a failure.
+
+**Audio** (test-plan C2; `capture` runs e2e with `--audio` unless `--no-audio`): the session's `audio.jsonl` is cut
+per scenario by the results' `tick_start` / `tick_end` (e2e.py writes GetTickCount at a scenario's start and end; the
+log's `tick` is the same clock): a scenario gets every event after the previous scenario's end up to its own (the first
+one the client's start and the login too; what follows the last end is left out). Each is stored as `audio-NAME.json`
+(manifest `audio`): `sequence` (the open / start / stop / end / pause / resume / close events in order: event, handle
+kind `m` stream / `t` 3D / `s` 2D, sound (a stream's file or a sample's `hash:size`), the loop count at a start, the frame
+`f` and ms `t`), `names` (`hash:size` -> file, from the `load` events), `counts` (per sound, each event kind's count:
+the per-frame volume / position events are counted, never stored), `events`, `ticks`, `frames`. The raw log is kept
+as `audio.jsonl` only below 1 MB (`AUDIO_RAW_MAX`; a long session's is 5-10 MB); the manifest's `audio_log` gives its
+size, SHA-256, event count and `kept`. `noise.json` per scenario: `audio` with `strict_identical` (the `m` / `t`
+sequence of event, kind, sound and loop the same in every run), `strict_first_diff`, `loose` (each 2D `event kind
+sound`'s count range over the runs), `loose_equal`, `events`. `verify --run` cuts the run's log the same way and
+compares the `m` / `t` sequence strictly (equal to one stored run's; else the first difference against the stored run
+it agrees with longest) and each 2D count within the stored range (else the first out of range); a run stored without
+audio reads "no audio stored".
+
+**The run inputs** (`<store>/inputs/`, test-plan section 7 item 2): `captures/` the replay set (the ten /REPLAY
+entries of nine recordings, each `.pcapng` with its recorder `.json`, as in AntaresProxy's `captures/`; Git LFS),
+`records/<YYYYMMDD-HHMMSS>/` the tracks of the e2e record sessions the scenarios came from (`recorded.txt`,
+`track.txt`, `camera.txt`; local start time), `db/` the database state (`account1.sql`, `avatar6.sql` ...
+`avatar8.sql`, `content/` and a README: how to bring a stock Net-7 database to it). `inputs/manifest.json`: each
+file's SHA-256 and size; for a capture its replay ids (`REPLAY_IDS` in baseline.py: from the scenarios, else the
+numbering rule) and the scenarios that `/play` it; for a track the scenarios that cite its record folder; one
+hash per set (`sets.captures.sha256` is the recordings folder's identity in a replay run's manifest). `inputs`
+checks every file against it (so does `verify`); `--write` rewrites it from the files; `--save-db` dumps account
+1's row and every avatar of it (all 23 `net7_user` tables keyed by `avatar_id`: e2e.py `DB_AVATAR_TABLES`) as
+delete-then-insert scripts that also create the rows on a stock database; `--apply-db` restores them.
+`--db-snapshot` keeps its 17 tables.
+
+**The proxies** (`<store>/tools/antprox/`): `antprox-rs.exe`, `antprox.exe` (C# 1.1.0, replay runs; below) and `antreplay.exe` (Git LFS) with a `manifest.json`
+(version, SHA-256, size, the path each was copied from and that repository's HEAD then); `baseline.py tools --add
+EXE...` copies and records one, `tools` and `verify` check them. Replay through the pair does not work yet
+(2026-11-24): antprox-rs 1.2.0.0 logs "the original profile (P1) is not built yet in the Rust proxy. Nothing was
+started" for `/REPLAY` (startup.rs: `/REPLAY` selects the original profile, which has no session code; the parsed
+`/REPLAYEXE:` and `/RECORDINGS:` are read by nothing), so antreplay.exe is never started. Replay runs therefore start
+the C# release from the store (`antprox_replay`, below) until then.
+Tests: `tools/test_baseline.py` (CI's `python -m unittest discover -s tools -p "test_*.py"` runs it; under
+tools/harness it was never collected), with the draw-log compare on synthetic logs.
+
+**Two proxies for now (the user, 2026-11-25):** live runs start machine.py `antprox` (antprox-rs 1.2.0.0), replay
+runs `antprox_replay` (`<antprox_dir>/antprox.exe`, the C# 1.1.0 release beside antreplay 1.1.0;
+`ENB_ANTPROX_REPLAY`; clientrun.py `antprox_exe`). The split exists only because antprox-rs 1.2 cannot replay ("the
+original profile (P1) is not built yet") and goes when it can. `ANTPROX_EXE` still overrides whichever a run uses.
+A replay run's manifest names the proxy it started (`antprox`), antreplay (`used`: true) and the recordings set.
+
+## Audio log (`mss32log.c`, `audiolog.py`; test-plan C2)
+
+The audio counterpart of d3d8shot: `build/mss32log/mss32.dll`, an MSS32.DLL proxy that logs the client's Miles
+calls as JSON lines and passes every call on unchanged. **Facts (2026-11-24):** retail, the install, ClientPOC and
+ClientPOC_EA carry one Mss32.dll (SHA-256 `6f34ef0d…79cc`, Miles 6.1a, RAD 2001), 344 named exports at ordinals
+1-344 (stdcall `_AIL_x@N`, among them `_DllMain@12`; fastcall `@stream_background@0`; 23 cdecl). Retail client.exe
+imports 81 of them by name, our build 80 (no `_AIL_open_3D_listener@4`); mssfast.m3d (34) and mssds3dh.m3d (19)
+and mp3dec.asi (6) import from `mss32.dll` too, so they bind to the proxy: only calls whose return address is
+in the main exe's image are logged.
+
+**Build:** `python tools/harness/audiolog.py build [--pool 1]` (pool VM, `cl /MT /O2`, as d3d8shot): 64 functions
+written out with mss.h 6.1a's prototypes (`SDK/radtools/include_enb`), the other 280 naked `jmp [ptr]` thunks
+generated by `audiolog.py gen` from the DLL's export table (argument bytes from the decorated names). Exports
+are `__declspec(dllexport)`, no .def (toolchain.md, Miles fixes: a .def loses the decoration); the build checks
+the built DLL's names and ordinals against the real one (344 of 344 the same). A wrapper with the wrong
+argument bytes would export another name and fail that check.
+
+**Use:** `e2e.py run ... --audio` (or `ENB_E2E_AUDIO=1`; default off) puts it in the instance for the session:
+`clientrun.Inst.use_audio_log` copies the source's Mss32.dll to `mss32r.dll` and the proxy over `Mss32.dll`
+(instances only, never the shared release folder), sets `MSS32LOG_FILE=<run>/audio.jsonl`, and
+`unuse_audio_log` puts the real DLL back at the end. Without `MSS32LOG_FILE` the proxy logs nothing.
+
+**Schema** (one object a line, keys in this order): `i` (0 the header `log`, then 1, 2, ...), `t` (ms since the
+log opened, QueryPerformanceCounter), `tick` (GetTickCount, d3d8shot.log's clock), `f` (the D3D frame: d3d8shot's
+`D3d8shot_Frame` export since 2026-11-24, the frame being drawn numbered as the shots are (Presented + 1); absent
+with an older d3d8.dll), `ev`, then the fields. Handles are ids in creation order: `d` driver, `p` 3D provider, `f` filter, `l`
+listener, `s` 2D sample, `t` 3D sample, `m` stream, `u` unseen. Events: `startup`, `shutdown`, `preference`
+(n, v), `driver_open` (api, h, rate, ch, bits) / `driver_close`, `master_volume`, `provider_enum` (h, name),
+`provider_open` (h, ret), `provider_close`, `listener_open` / `listener_close`, `speaker_type`, `room_type`,
+`filter_enum`, `filter_pref`, `alloc` / `release` / `init`, `load` (a memory sample: type, size, hash =
+FNV-1a 64 of the bytes; a 3D sample's size is its RIFF length), `open` (a stream: file, sample), `close`,
+`start`, `stop`, `end`, `pause`, `resume` (with `pos_ms` / `len_ms`, a 3D sample's `pos` / `len` in bytes, read
+just before), `volume`, `pan`, `rate`, `loop`, `loop_block`, `seek_ms`, `seek`, `processor`, `position` (x, y, z),
+`orientation` (fx..uz), `velocity`, `distances` (max, min), `effects`, `cone`. Events on a sound carry `snd`: the
+stream's file, or `hash:size`; `audiolog.py` names those from the data's mix files (MIX1 entries of the same
+size, hashed; cached in `.work/audio-names.json`).
+
+**Reader:** `audiolog.py summary RUN`, `sequence RUN [--kinds mt]`, `diff A B [--kinds mt] [--counts]
+[--time-tol MS] [--all --float-tol X]` (module docstring). **Run-to-run noise (retail, replay, 2026-11-24):**
+world_entry twice: streams and 3D samples (`--kinds mt`, 59 items) identical; the 2D UI sounds follow the
+virtual cursor's hovers (one more `sfx_mouse_over_21.wav` in one run, the clicks interleaved differently).
+Per-frame events (`volume` on streams, `position`, `orientation`) scale with the frame rate: 4897 against 1066
+events in two 28 s runs. play1 twice differs in content: the station greeting voice is picked at random
+(`1492_00_325Se.mp3` against `323Se`) and the flight differs (68 s against 86 s, other ship sounds), so AU-01
+compares world_entry-like stretches by `--kinds mt` sequence and longer ones by `--counts` with a tolerance.
+Retail against ours (world_entry): `--kinds mt` and `--counts` identical, `--all` identical for the first 157
+events (to the first hover difference).
 
 ## Quirks
 

@@ -32,11 +32,13 @@ import time
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.dirname(os.path.dirname(HERE))
 sys.path.insert(0, os.path.join(REPO, 'tools', 'vc6'))
-INSTALL = os.path.join(os.environ.get('ENB_RETAIL_INSTALL') or r'C:\Program Files (x86)\EA GAMES\Earth & Beyond', 'EBCONFIG')
+sys.path.insert(0, HERE)
+import machine                  # noqa: E402  (retail_install: ENB_RETAIL_INSTALL, the machine config, the default)
+INSTALL = os.path.join(machine.get('retail_install'), 'EBCONFIG')
 OUT = os.path.join(REPO, 'build', 'programs', 'vidtest')
 DLL_DIR = os.path.join(REPO, 'build', 'd3d8shot')
 
-DEF = 'LIBRARY d3d8\r\nEXPORTS\r\n    Direct3DCreate8=_Direct3DCreate8@4\r\n'
+DEF = 'LIBRARY d3d8\r\nEXPORTS\r\n    Direct3DCreate8=_Direct3DCreate8@4\r\n    D3d8shot_Frame=_D3d8shot_Frame@0\r\n'
 
 
 def build(pool):
@@ -71,7 +73,7 @@ def build(pool):
     print(open(os.path.join(DLL_DIR, 'build.log'), encoding='latin1').read().strip()[-1500:])
     if os.path.exists(os.path.join(DLL_DIR, 'exports.txt')):
         ex = open(os.path.join(DLL_DIR, 'exports.txt'), encoding='latin1').read()
-        print('exports Direct3DCreate8:', 'Direct3DCreate8' in ex)
+        print('exports Direct3DCreate8:', 'Direct3DCreate8' in ex, ' D3d8shot_Frame:', 'D3d8shot_Frame' in ex)
 
 
 def run(a):

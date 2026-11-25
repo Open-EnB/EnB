@@ -114,7 +114,10 @@ import time
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(os.path.dirname(HERE))
 SCN = os.path.join(HERE, 'e2e')
-OUT = os.path.join(ROOT, '.work', 'e2e')
+# the session root: --out DIR, else ENB_E2E_OUT, else .work/e2e (baseline.py capture points it into the store's
+# .staging); every session folder is named STAMP-NAME, STAMP the local time as %Y%m%d-%H%M%S
+OUT = os.environ.get('ENB_E2E_OUT') or os.path.join(ROOT, '.work', 'e2e')
+STAMP = '%Y%m%d-%H%M%S'
 ORDER = ['world_entry', 'starmap', 'options', 'pda_pages', 'cargo', 'chat']
 # Scenarios that must run after everything else (one that leaves the world changed where no following scenario may
 # use it: it then costs no extra client start). None today.
@@ -849,7 +852,7 @@ class Session:
         tag = scs[0]['name'] if len(scs) == 1 else 'session'
         # Two runs started in the same second (another instance) must not share a folder: their antprox.out and
         # e2e.log would be one file, and each run would wait on the other's lines.
-        base = os.path.join(OUT, time.strftime('%H%M%S') + '-' + tag)
+        base = os.path.join(OUT, time.strftime(STAMP) + '-' + tag)
         self.out, n = base, 1
         while True:
             try:
@@ -866,10 +869,15 @@ class Session:
         # record: a person plays, so untagged input passes (the proxy logs it 'input: untagged ...')
         self.record = bool(getattr(args, 'record', False))
         self.proxy = self.inst.use_proxy(env, self.out, input=True, tag=not self.record)
+        # test-plan C2: the Miles calls to audio.jsonl (audiolog.py reads it); off unless --audio / ENB_E2E_AUDIO=1
+        self.audio = bool(getattr(args, 'audio', False)) or os.environ.get('ENB_E2E_AUDIO') == '1'
+        if self.audio:
+            self.inst.use_audio_log(env, os.path.join(self.out, 'audio.jsonl'))
         self.trigger = os.path.join(self.out, 'trigger.txt')
         self.shot_frames = {}           # shot NAME -> the newest frame before its step (expect-ink reads a newer one)
         self.camera = os.path.join(self.out, 'camera.txt')
         env.update(D3D8SHOT_CAMERA=self.camera)
+        env.update(D3D8SHOT_DRAWLOG='1')    # every shot also writes shot_NAME_<frame>.json, its draw log (test-plan C3)
         env.update(D3D8SHOT_TRIGGER=self.trigger, D3D8SHOT_MAX=str(3000 if self.record else 20 * len(scs)))
         self.messages = args.messages or any(sc['messages'] for sc in scs)
         files = {'antprox': os.path.join(self.out, 'antprox.out'), 'stubs': self.inst.log,
@@ -982,6 +990,7 @@ class Session:
         try:
             first = not self.logged_in
             t_start = ev.now()
+            tick_start = gettickcount()
             deadline = time.time() + sc['timeout']
             for src in ('stubs', 'proxy'):        # an older stand-in exe's handler; the d3d8shot proxy's (any exe)
                 standing.append({'source': src, 'pattern': re.compile('^CRASH:'), 'line': '(always)',
@@ -1227,6 +1236,7 @@ class Session:
             res = {'name': sc['name'], 'passed': fail is None, 'failure': fail, 'expected_fail': sc['expected_fail'],
                    'gen': gens, 'gen_own': own, 'hand_own': hand_own, 'human_dropped': seen['human'], 'crash': crash[:1],
                    'out': self.out, 'seconds': round(ev.now() - t_start, 1),
+                   'tick_start': tick_start, 'tick_end': gettickcount(),
                    'login_failed': fail is not None and first and not reached_own}
             if crash and self.inst.map and os.path.exists(self.inst.map):
                 import symbolize
@@ -1251,6 +1261,8 @@ class Session:
         time.sleep(1)
         if os.path.exists(self.proxy):
             os.remove(self.proxy)
+        if self.audio:
+            self.inst.unuse_audio_log()
         self.cp.stop_listener(self.listener, self.inst, self.out if self.messages else None)
         self.ev.poll()
         self.ev.close()
@@ -1264,9 +1276,6 @@ class Session:
                 bmp2png.write_png(bmp[:-4] + '.png', w, h, rows)
                 os.remove(bmp)
         self.elog.close()
-
-
-LIVE_ANTPROX = r'C:\EnBDevelopment\AntaresProxy\src\Proxy\Antprox\bin\Release\net10.0\win-x64\publish\antprox.exe'
 
 
 def live_mode(args):
@@ -1364,6 +1373,18 @@ def crash_place(res):
         return None
     m = re.match(r'CRASH: code (\w+) at (\w+) \(address \w+\) stack:((?: \w+)*)', res['crash'][0])
     return (m.group(1), m.group(2)) + tuple(m.group(3).split()[:4]) if m else res['crash'][0][:60]
+
+
+def gettickcount():
+    """GetTickCount (ms; the clock of d3d8shot.log and of the audio log's "tick"), None off Windows. A result's
+    tick_start / tick_end bound its scenario in a session's logs (baseline.py: each scenario's audio)."""
+    try:
+        import ctypes
+        f = ctypes.windll.kernel32.GetTickCount
+        f.restype = ctypes.c_uint32
+        return int(f())
+    except (AttributeError, OSError):
+        return None
 
 
 def run_all(scs, args, report):
@@ -1819,7 +1840,7 @@ def compare(ours, retail, shots=True, detail=True, grid=SHOT_GRID, tol=SHOT_TOL)
 def retail_check(args):
     """`retail`: our build and the retail client through the same scenarios at once (two instances), then compare;
     --retail-run MANIFEST reuses a retail run instead of running it again."""
-    stamp = time.strftime('%H%M%S')
+    stamp = time.strftime(STAMP)
     me = os.path.abspath(__file__)
     jobs = {}
     sides = [('ours', ['--instance', args.instance + '-ours'] + (['--exe', args.exe] if args.exe else []))]
@@ -1828,7 +1849,7 @@ def retail_check(args):
     for side, extra in sides:
         man = os.path.join(OUT, f'retail-{stamp}-{side}.json')
         log = os.path.join(OUT, f'retail-{stamp}-{side}.log')
-        cmd = [sys.executable, me, 'run'] + list(args.names) + extra + ['--manifest', man] + \
+        cmd = [sys.executable, me, 'run'] + list(args.names) + extra + ['--manifest', man, '--out', OUT] + \
               (['--messages'] if args.messages else [])
         jobs[side] = (subprocess.Popen(cmd, stdout=open(log, 'w', encoding='utf-8'), stderr=subprocess.STDOUT,
                                        cwd=ROOT), man, log)
@@ -1897,7 +1918,12 @@ DB_TABLES = ('avatar_ammo', 'avatar_equipment', 'avatar_exploration', 'avatar_fa
              'avatar_inventory_items', 'avatar_level_info', 'avatar_mission_progress', 'avatar_position',
              'avatar_recipes', 'avatar_skill_levels', 'avatar_trade_items', 'avatar_vault_items', 'faction_data',
              'missions_completed', 'ship_data', 'ship_info')
+# every net7_user table keyed by avatar_id: the whole character, for the store's database state (baseline.py
+# inputs --save-db) that must also create the character on a stock database (01_import.sh's)
+DB_AVATAR_TABLES = DB_TABLES + ('avatar_data', 'avatar_gm_items', 'friends_lists', 'guild_members', 'ignore_lists',
+                                'warning_levels')
 NET7_READY_PORT = 3693          # the last sector port Net7.exe opens ("Port: 3693" in its log, UDP)
+NET7_CONTROL_PORT = 3810        # Net7.exe's loopback control port (Net7\Net7\ControlPort.cpp; control_port= in its cfg)
 
 
 def db_exec(sql_cmd):
@@ -1933,11 +1959,34 @@ def _db_run(argv, stdin=None):
     return r.stdout
 
 
-def db_snapshot(avatar, folder):
-    """Dumps AVATAR's rows into FOLDER/avatar<N>.sql (the restore script, ready to run). Returns its path."""
+def db_snapshot(avatar, folder, tables=DB_TABLES):
+    """Dumps AVATAR's rows of TABLES into FOLDER/avatar<N>.sql (the restore script, ready to run: it deletes the
+    avatar's rows of TABLES and inserts the dumped ones, so it also creates them where absent). Returns its path."""
     os.makedirs(folder, exist_ok=True)
     path = os.path.join(folder, f'avatar{int(avatar)}.sql')
-    sql = db_restore_sql(avatar, _db_run(db_dump_cmd(avatar)))
+    sql = db_restore_sql(avatar, _db_run(db_dump_cmd(avatar, tables)), tables)
+    with open(path, 'w', encoding='utf-8', newline='\n') as f:
+        f.write(sql)
+    return path
+
+
+def db_account_avatars(account):
+    """The avatar ids of ACCOUNT (net7_user.avatar_info), ascending."""
+    out = _db_run(db_exec(f'mysql -uroot @PW -N -B -e "SELECT avatar_id FROM avatar_info WHERE account_id='
+                          f'{int(account)} ORDER BY avatar_id" {DB_SCHEMA}'))
+    return [int(x) for x in out.split()]
+
+
+def db_account_snapshot(account, folder):
+    """Dumps ACCOUNT's row of net7_user.accounts into FOLDER/account<N>.sql: delete it, insert it (one transaction).
+    Returns its path."""
+    os.makedirs(folder, exist_ok=True)
+    rows = _db_run(db_exec(f'mysqldump -uroot @PW --no-create-info --skip-triggers --complete-insert '
+                           f'--skip-add-locks --skip-comments --compact --where="id={int(account)}" {DB_SCHEMA} accounts'))
+    sql = ('SET FOREIGN_KEY_CHECKS=0;\nSET autocommit=0;\nSTART TRANSACTION;\n'
+           f'DELETE FROM `accounts` WHERE `id` = {int(account)};\n' + rows.rstrip() +
+           '\nCOMMIT;\nSET FOREIGN_KEY_CHECKS=1;\n')
+    path = os.path.join(folder, f'account{int(account)}.sql')
     with open(path, 'w', encoding='utf-8', newline='\n') as f:
         f.write(sql)
     return path
@@ -1967,35 +2016,190 @@ def _udp_bound(port):
     return any(f':{port} ' in ln for ln in r.stdout.splitlines())
 
 
-def net7_start(net7bin, within=240):
-    """Starts Net7.exe in its own console (as start_server.bat does) and waits until its last sector port is bound
-    (its log cannot be read while it runs: it holds the file without sharing). Returns True when ready."""
+def net7_control_port(net7bin=None):
+    """Net7.exe's control port: machine.py `net7_control_port` (env ENB_NET7_CONTROL_PORT) when set, else the
+    last `control_port=` line of NET7BIN's Net7Config.cfg (Net7.cpp reads it at start; NET7BIN default machine.py
+    net7_bin), else NET7_CONTROL_PORT. 0: the server runs without it."""
+    sys.path.insert(0, HERE)
+    import machine
+    v = machine.get('net7_control_port')
+    if v not in (None, ''):
+        return int(v)
+    port = NET7_CONTROL_PORT
+    try:
+        with open(os.path.join(net7bin or machine.get('net7_bin'), 'Net7Config.cfg'), encoding='latin1') as f:
+            for ln in f:
+                k, sep, val = ln.partition('=')
+                if sep and k.strip().lower() == 'control_port':
+                    try:
+                        port = int(val.strip())
+                    except ValueError:
+                        pass
+    except OSError:
+        pass
+    return port
+
+
+def net7_control(cmd, timeout=2.0, port=None):
+    """Sends CMD to Net7.exe's control port (PORT, default net7_control_port()); its one-line reply, or None (no
+    Net7.exe, or one built without the control port: an older build, or control_port=0)."""
+    import socket
+    port = net7_control_port() if port is None else port
+    if not port:
+        return None
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    s.settimeout(timeout)
+    try:
+        s.sendto(cmd.encode(), ('127.0.0.1', port))
+        return s.recv(512).decode(errors='replace')
+    except OSError:                 # timeout, or WSAECONNRESET when nothing listens on the port
+        return None
+    finally:
+        s.close()
+
+
+def net7_status(line):
+    """STATUS's reply as a dict: {'state': 'READY'|'STARTING', 'players', 'saves', 'ssl', 'quiesced'} (strings);
+    None for no reply. ControlPort.cpp: "READY players=N saves=idle|busy ssl=0|1 quiesced=0|1"."""
+    if not line:
+        return None
+    words = line.split()
+    d = {'state': words[0]}
+    for w in words[1:]:
+        k, sep, v = w.partition('=')
+        if sep:
+            d[k] = v
+    return d
+
+
+def net7_ready(port=None):
+    """True when Net7.exe takes logins: every sector up, Net7SSL registered and no QUIESCE in force (control port
+    STATUS: READY, ssl=1, quiesced=0), or, for a build without the control port, its last sector port bound."""
+    st = net7_status(net7_control('STATUS', port=port))
+    if st is not None:
+        return st['state'] == 'READY' and st.get('ssl') == '1' and st.get('quiesced') == '0'
+    return _udp_bound(NET7_READY_PORT)
+
+
+NET7_SAVE_WAIT = 20.0           # s the restart path waits for an idle save queue before it stops Net7.exe
+
+
+def net7_wait_saves(port=None, within=NET7_SAVE_WAIT):
+    """Waits (at most WITHIN s) until STATUS shows the save queue idle (saves=idle) -> (idle, the last STATUS
+    line); idle None when Net7.exe does not answer."""
+    end = time.time() + within
+    while True:
+        line = net7_control('STATUS', port=port)
+        st = net7_status(line)
+        if st is None:
+            return None, None
+        if st.get('saves') == 'idle':
+            return True, line
+        if time.time() >= end:
+            return False, line
+        time.sleep(0.25)
+
+
+def net7_start(net7bin, within=240, port=None):
+    """Starts Net7.exe in its own console (as start_server.bat does) and waits until it is ready (net7_ready; its
+    log cannot be read while it runs: it holds the file without sharing). Returns True when ready."""
+    port = net7_control_port(net7bin) if port is None else port
     subprocess.Popen([os.path.join(net7bin, 'Net7.exe')], cwd=net7bin,
                      creationflags=getattr(subprocess, 'CREATE_NEW_CONSOLE', 0))
     end = time.time() + within
     while time.time() < end:
-        if _udp_bound(NET7_READY_PORT):
+        if net7_ready(port):
             return True
-        time.sleep(2)
+        time.sleep(0.5)
     return False
 
 
-def db_restore(path, net7bin, log=print):
-    """Stops Net7.exe, runs the restore script PATH, starts Net7.exe again (also when the restore fails)."""
-    log(f'e2e: --db-snapshot: stopping Net7.exe to restore {path}')
+def _db_apply(paths):
+    """Runs each restore script, one transaction each, in order -> (applied paths, the failed path or None, its
+    error). Stops at the first failure: the scripts before it stay applied (each is its own transaction)."""
+    done = []
+    for p in paths:
+        try:
+            with open(p, encoding='utf-8') as f:
+                _db_run(db_restore_cmd(), f.read())
+        except (OSError, RuntimeError) as e:
+            return done, p, str(e)
+        done.append(p)
+    return done, None, None
+
+
+def _db_failed(tag, paths, done, bad, err):
+    return (f'{tag}: restore FAILED at {bad} ({len(done)} of {len(paths)} scripts applied before it, the rest not '
+            f'run): {err}')
+
+
+def db_restore(path, net7bin, log=print, tag='e2e: --db-snapshot', restart=None, info=None):
+    """Runs the restore script PATH (or a list of them, in order; one transaction each) and returns True when
+    every script applied and Net7.exe is ready again.
+
+    A running Net7.exe with the control port is restored in place, in about a second: QUIESCE (every player
+    logged out, the save queue drained, new logins refused), the scripts, RESUME. Player state is read from the
+    database at login, so nothing else needs reloading; world state (MOBs, asteroids) carries over from the last
+    run. Otherwise, or with RESTART (default: env ENB_NET7_RESTART=1), Net7.exe is stopped for the restore and
+    started again (also when the restore fails). A QUIESCE that fails is undone (RESUME) before that restart, and
+    the restart waits (NET7_SAVE_WAIT) for STATUS to show the save queue idle before it stops the server.
+    INFO (a dict) gets: restore 'in-place' | 'restart', seconds, control_port, status (STATUS after), scripts,
+    failed (the script that failed, or None), ok."""
+    paths = [path] if isinstance(path, str) else list(path)
+    if restart is None:
+        restart = os.environ.get('ENB_NET7_RESTART') == '1'
+    port = net7_control_port(net7bin)
+    info = {} if info is None else info
+    info.update(control_port=port, scripts=list(paths), failed=None)
+    t0 = time.time()
+
+    def done_(mode, ok, bad):
+        info.update(restore=mode, seconds=round(time.time() - t0, 2), failed=bad, ok=bool(ok),
+                    status=net7_control('STATUS', port=port))
+        return bool(ok)
+
+    st = None
+    for _ in range(3):              # a busy main loop (a player being dropped) can miss one 2 s wait (2026-11-24)
+        st = net7_control('STATUS', port=port)
+        if st is not None or not port:
+            break
+    if not restart and (st or '').startswith('READY'):
+        q = net7_control('QUIESCE', timeout=40, port=port)
+        if q == 'QUIESCED':
+            try:
+                done, bad, err = _db_apply(paths)
+            finally:
+                r = net7_control('RESUME', timeout=10, port=port)
+            log(_db_failed(tag, paths, done, bad, err) if bad else
+                f'{tag}: rows restored in place ({", ".join(paths)})')
+            ok = r == 'RESUMED' and net7_ready(port)
+            log(f'{tag}: Net7.exe ' + (f'ready in {time.time() - t0:.1f} s (no restart)' if ok else
+                                       f'not ready after the in-place restore (RESUME: {r!r})'))
+            return done_('in-place', ok and not bad, bad)
+        r = net7_control('RESUME', timeout=10, port=port)
+        log(f'{tag}: QUIESCE failed ({q!r}), RESUME sent ({r!r}); restarting Net7.exe for the restore instead')
+    elif not restart:
+        log(f'{tag}: no in-place restore: STATUS on port {port} answered {st!r}')
+    if net7_status(st) is not None:
+        idle, last = net7_wait_saves(port)
+        if idle is False:
+            log(f'{tag}: the save queue is still busy after {NET7_SAVE_WAIT:.0f} s ({last!r}); stopping anyway')
+    log(f'{tag}: stopping Net7.exe to restore {", ".join(paths)}')
     net7_stop(net7bin)
     end = time.time() + 30
     while _udp_bound(NET7_READY_PORT) and time.time() < end:
         time.sleep(1)
+    done, bad = [], None
     try:
-        with open(path, encoding='utf-8') as f:
-            _db_run(db_restore_cmd(), f.read())
-        log('e2e: --db-snapshot: rows restored')
+        done, bad, err = _db_apply(paths)
+        log(_db_failed(tag, paths, done, bad, err) if bad else f'{tag}: rows restored')
     finally:
-        t0 = time.time()
-        ok = net7_start(net7bin)
-        log('e2e: --db-snapshot: Net7.exe ' + (f'ready in {time.time() - t0:.0f} s' if ok else
-                                                 f'not ready (port {NET7_READY_PORT} not bound)'))
+        t1 = time.time()
+        ok = net7_start(net7bin, port=port)
+        log(f'{tag}: Net7.exe ' + (f'ready in {time.time() - t1:.0f} s' if ok else
+                                   'not ready (no READY with ssl=1 quiesced=0 on the control port, or port '
+                                   f'{NET7_READY_PORT} not bound)'))
+    return done_('restart', ok and not bad, bad)
 
 
 def main(argv=None):
@@ -2005,12 +2209,15 @@ def main(argv=None):
     ap.add_argument('--instance', default='e2e', help='clientrun.py instance name (default e2e)')
     ap.add_argument('--exe', help='our exe, its .map beside it (default: this tree\'s build/programs/client/client.exe)')
     ap.add_argument('--messages', action='store_true', help='-ENABLE_MESSAGES and msglisten (source msg)')
+    ap.add_argument('--audio', action='store_true',
+                    help='the mss32log proxy: audio.jsonl in the run folder (test-plan C2; env ENB_E2E_AUDIO=1)')
     ap.add_argument('--keep', action='store_true', help='keep the instance (default: clientrun.py cleans it at the end)')
     ap.add_argument('--separate', action='store_true', help='a client of its own for every scenario (default: one session)')
     ap.add_argument('--retail', action='store_true', help='run a copy of the retail client (needs --instance; D190)')
     ap.add_argument('--live', nargs='?', const='localhost', metavar='SERVER',
                     help='a live server in place of antprox /REPLAY (default localhost: the local Net-7 server)')
-    ap.add_argument('--net7bin', default='C:\\EnBDevelopment\\Net7\\bin_local', help="--live: antprox's /NET7BIN")
+    ap.add_argument('--net7bin', help="--live: antprox's /NET7BIN (default machine.py net7_bin)")
+    ap.add_argument('--out', metavar='DIR', help='the session root in place of .work/e2e (env ENB_E2E_OUT)')
     ap.add_argument('--antprox-arg', action='append', metavar='ARG',
                     help='--live: one more antprox argument (repeatable; an ARG starting with - needs --antprox-arg=ARG)')
     ap.add_argument('--db-snapshot', nargs='?', const=6, type=int, metavar='AVATAR',
@@ -2023,10 +2230,13 @@ def main(argv=None):
     ap.add_argument('--retail-run', metavar='MANIFEST', help='retail: reuse this retail run instead of a new one')
     args = ap.parse_args(argv)
     args.record = args.command == 'record'
-    if args.live:
-        # The frozen antprox 1.0.0 (D253) cannot reach a server on 127.0.0.1 (its UDP socket is not bound to
-        # loopback: AntaresProxy f50bf76 is the fix), so --live runs the dev publish unless ANTPROX_EXE names one.
-        os.environ.setdefault('ANTPROX_EXE', LIVE_ANTPROX)
+    global OUT
+    if args.out:
+        OUT = os.path.abspath(args.out)
+    if args.net7bin is None:
+        sys.path.insert(0, HERE)
+        import machine
+        args.net7bin = machine.get('net7_bin')
     if args.record:
         if args.retail and args.instance == 'e2e':
             print('e2e: --retail needs --instance NAME of its own')
@@ -2075,7 +2285,7 @@ def main(argv=None):
         if not args.live:
             print('e2e: --db-snapshot needs --live')
             return 2
-        snap = db_snapshot(args.db_snapshot, os.path.join(OUT, time.strftime('%H%M%S') + '-db-snapshot'))
+        snap = db_snapshot(args.db_snapshot, os.path.join(OUT, time.strftime(STAMP) + '-db-snapshot'))
         print(f'e2e: --db-snapshot: avatar {args.db_snapshot} saved to {snap}', flush=True)
     t0 = time.time()
     try:

@@ -139,24 +139,31 @@ def stop_listener(listener, inst=None, out=None):
             f.write(l + '\n')
 
 # The client's runtime data (release\ with the DLLs, Data\, inst\ instances): outside git, the user's folder (its
-# name is kept); EA_DATA_ROOT the same over EA's final data set (--ea)
-CLIENT_DATA_ROOT = r'C:\EnBDevelopment\ClientPOC'
-EA_DATA_ROOT = r'C:\EnBDevelopment\ClientPOC_EA'
+# name is kept); EA_DATA_ROOT the same over EA's final data set (--ea). The paths come from machine.py (env, the
+# machine config file, else the defaults beside the main checkout: C:\EnBDevelopment\... on the user's machine).
+import machine                                  # noqa: E402
+CLIENT_DATA_ROOT = machine.get('client_data')
+EA_DATA_ROOT = machine.get('ea_data')
 RELEASE = os.path.join(CLIENT_DATA_ROOT, 'release')
 EA_RELEASE = os.path.join(EA_DATA_ROOT, 'release')
-RETAIL = os.path.join(os.environ.get('ENB_RETAIL_INSTALL') or r'C:\Program Files (x86)\EA GAMES\Earth & Beyond',
-                      'release', 'client.exe')
+RETAIL = os.path.join(machine.get('retail_install'), 'release', 'client.exe')     # ENB_RETAIL_INSTALL overrides
 EXE = os.path.join(RELEASE, 'client.exe')       # where a run without --instance copies the exe to
 MAP = os.path.join(RELEASE, 'client.map')
 LOG = os.path.join(RELEASE, 'stubs.log')
 EXCEPT = os.path.join(RELEASE, '_except.txt')
-# The frozen antprox 1.0.0 release (AntaresProxy 22ebc7a, tag v1.0.0; antreplay.exe beside it; SHA-256 in
-# AntaresProxy\releases\SHA256SUMS-1.0.0.txt). ANTPROX_EXE overrides it, e.g. with a dev publish
-# (...\src\Proxy\Antprox\bin\Release\net10.0\win-x64\publish\antprox.exe, which every dev publish overwrites).
-ANTPROX = os.environ.get('ANTPROX_EXE') or \
-    r'C:\EnBDevelopment\AntaresProxy\releases\antprox-1.0.0-win-x64\antprox.exe'
+# antprox (machine.py antprox): the Rust port, AntaresProxy-Rust\target\release\antprox-rs.exe, since 2026-11-24
+# (before it, the C# 1.0.0 release AntaresProxy\releases\antprox-1.0.0-win-x64). ANTPROX_EXE overrides it. /REPLAY
+# needs antreplay.exe beside the exe. antprox is found and killed by PID, never by its file name.
+ANTPROX = machine.get('antprox')                    # live runs (start_antprox with a mode)
+ANTPROX_REPLAY = machine.get('antprox_replay')      # /REPLAY runs: the C# 1.1.0 until antprox-rs can replay
+
+
+def antprox_exe(mode=None):
+    """The antprox a run starts: machine.py antprox for a live run (mode), antprox_replay for /REPLAY."""
+    return ANTPROX if mode else ANTPROX_REPLAY
 ROOT = os.path.dirname(os.path.dirname(HERE))
 PROXY = os.path.join(ROOT, 'build', 'd3d8shot', 'd3d8.dll')
+AUDIO_PROXY = os.path.join(ROOT, 'build', 'mss32log', 'mss32.dll')     # test-plan C2 (audiolog.py build)
 SHOTS = os.path.join(ROOT, '.work', 'poc', 'shots')
 # the one client build of this tree (a worktree's own build/ in a worktree): every run's default exe
 CLIENT_EXE = os.path.join(ROOT, 'build', 'programs', 'client', 'client.exe')
@@ -249,6 +256,24 @@ class Inst:
         elif self.name:
             env['D3D8SHOT_CURSOR'] = 'off'
         return proxy
+
+    def use_audio_log(self, env, log):
+        """The mss32log proxy (test-plan C2, tools/harness/mss32log.c, built by audiolog.py build): the source's
+        Mss32.dll copied beside the exe as mss32r.dll, the proxy over Mss32.dll, MSS32LOG_FILE=log. An instance
+        only (never the shared release folder); unuse_audio_log puts the real DLL back."""
+        if not self.name:
+            raise SystemExit('the audio log needs --instance (it replaces the instance\'s Mss32.dll)')
+        if not os.path.exists(AUDIO_PROXY):
+            raise SystemExit(f'{AUDIO_PROXY} missing: python tools/harness/audiolog.py build')
+        shutil.copyfile(os.path.join(self.source, 'Mss32.dll'), os.path.join(self.dir, 'mss32r.dll'))
+        shutil.copyfile(AUDIO_PROXY, os.path.join(self.dir, 'Mss32.dll'))
+        env['MSS32LOG_FILE'] = log
+
+    def unuse_audio_log(self):
+        """The real Mss32.dll back in the instance (prepare would restore it too: its size differs)."""
+        if self.name and os.path.exists(os.path.join(self.dir, 'mss32r.dll')):
+            shutil.copy2(os.path.join(self.source, 'Mss32.dll'), os.path.join(self.dir, 'Mss32.dll'))
+            os.remove(os.path.join(self.dir, 'mss32r.dll'))
 
     # Data\client's folders the instance gets its own copy of (antprox writes ini\auth.ini); the rest are junctions
     OWN = {'ini', 'output'}
@@ -585,6 +610,22 @@ def convert_shots(out):
         print(f'd3d8shot.log: {len(presents)} frame lines; the last: {presents[-1].strip() if presents else "-"}')
 
 
+def replay_exe_args():
+    """['/REPLAYEXE:<machine.py antreplay>'] when that exe is not the antreplay.exe beside antprox (where antprox
+    looks by default), else []."""
+    rp = machine.get('antreplay')
+    beside = os.path.join(os.path.dirname(os.path.abspath(ANTPROX_REPLAY)), 'antreplay.exe')
+    if not rp or os.path.normcase(os.path.abspath(rp)) == os.path.normcase(beside):
+        return []
+    return ['/REPLAYEXE:' + rp]
+
+
+def recordings_folder():
+    """machine.py's recordings folder when it exists (antprox /REPLAY's /RECORDINGS:), else None."""
+    path = machine.get('recordings')
+    return path if path and os.path.isdir(path) else None
+
+
 def start_antprox(inst, out, env, args, mode=None):
     """antprox /REPLAY starting inst's client (out\antprox.out, out\antprox-logs); (antprox, client PID or None,
     start time). Used by replay and tools/harness/e2e.py. mode: antprox's arguments in place of /REPLAY (a live
@@ -605,7 +646,12 @@ def start_antprox(inst, out, env, args, mode=None):
             except OSError:
                 pass
             time.sleep(0.2)
-    a = subprocess.Popen([ANTPROX] + list(mode or ['/REPLAY']) + ['/CLIENT:' + inst.exe, '/LOGDIR:' + logdir]
+    # /REPLAY reads machine.py's recordings (the store's copy of the replay set) when that folder exists; else
+    # antprox's own default (%LOCALAPPDATA%/AntaresProxy/recordings)
+    recs = recordings_folder() if not mode else None
+    a = subprocess.Popen([antprox_exe(mode)] + list(mode or ['/REPLAY']) + (['/RECORDINGS:' + recs] if recs else [])
+                         + ([] if mode else replay_exe_args())
+                         + ['/CLIENT:' + inst.exe, '/LOGDIR:' + logdir]
                          + ['/CLIENTOP:' + x.lstrip('-') for x in args], cwd=inst.dir, env=env,  # antprox adds the '-'
                          stdout=open(os.path.join(out, 'antprox.out'), 'w'), stderr=subprocess.STDOUT)
     start = time.time()

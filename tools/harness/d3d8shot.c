@@ -22,6 +22,9 @@
 **                   shot_<the file's first line>_NNNNN.bmp and the file deleted (tools/harness/e2e.py's 'shot' step:
 **                   a shot on an event, not at a frame number). A first line 'mark NAME' is a marker instead:
 **                   logged, and passed to the program's exported Stub_Log_Mark when it has one
+**   D3D8SHOT_DRAWLOG 1: a trigger shot is taken one frame later, and that frame's draw calls, textures and view
+**                   and projection matrices go to shot_<name>_NNNNN.json beside it (the draw log, below
+**                   Log_Draw; test-plan C3). Off: nothing changes
 **   D3D8SHOT_CAMERA a file path: at every 2nd Present the frame's view matrices are written to it, one line each
 **                   ('frame N view K of M' and the 16 floats of the K-th SetTransform(D3DTS_VIEW) of the frame, the
 **                   first 4 distinct ones): where the program's camera is, for a harness that steers by it
@@ -62,6 +65,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <float.h>
 
 /* IDirect3D8 slot 15 CreateDevice; IDirect3DDevice8 slots 15 Present, 16 GetBackBuffer,
    27 CreateImageSurface, 28 CopyRects; IDirect3DSurface8 slots 2 Release, 8 GetDesc,
@@ -118,6 +122,11 @@ static int				Presented = 0;
 static char				Trigger[MAX_PATH];		/* D3D8SHOT_TRIGGER, empty: none */
 static char				TriggerName[64];		/* the shot's name while it is saved */
 static CRITICAL_SECTION	LogLock;
+
+/* The draw log (D3D8SHOT_DRAWLOG): the frame being logged (0: none), and the SetTransform hook's part */
+static int				DrawLog = 0;
+static int				LogFrame = 0;
+static void Log_Set(DWORD state, const float *m);
 
 /* The draw dump (D3D8SHOT_DUMP) */
 static void Log(const char *format, ...);
@@ -303,6 +312,7 @@ static HRESULT STDMETHODCALLTYPE Hook_Set_Transform(void *dev, DWORD state, cons
 {
 	int k = state == 256 ? 0 : state == 2 ? 1 : state == 3 ? 2 : -1;
 	if (k >= 0 && m) memcpy(Matrices[k], m, sizeof(Matrices[k]));
+	if (LogFrame && m && (k == 1 || k == 2) && Presented + 1 == LogFrame) Log_Set(state, m);
 	if (k == 1 && m && Camera[0]) {
 		int i;
 		ViewSets++;
@@ -558,9 +568,299 @@ static void Log_Lights(void *dev, int draw)
 	Log("%s\n", line);
 }
 
+/*
+** The draw log (D3D8SHOT_DRAWLOG=1; tools/harness/e2e.py sets it for every session; test-plan C3). A trigger shot
+** is then taken one frame later than without it: the trigger seen at Present N arms frame N+1, every draw call of
+** that frame is logged, and at Present N+1 shot_NAME_<N+1>.json is written, then the back buffer saved as
+** shot_NAME_<N+1>.bmp, then the trigger file deleted (e2e waits for that). Between shots the hooks only compare
+** the frame number. The JSON (one draw per line, fixed key order, floats "%.7g" with -0 written 0, NaN null):
+**   format, shot, frame; counts {draws, DIP, DP, DPUP, DIPUP, views, projections, textures, lost};
+**   render_states, stage_states: the names of the values in each draw's rs and ts[stage] (stages 0 and 1);
+**   textures: each texture drawn in the frame, in first-draw order: id, type (3 texture, 4 volume, 5 cube),
+**     w, h, format, levels, usage, pool and hash (FNV-1a 64 of level 0's rows read now, the X bits of X8R8G8B8,
+**     X1R5G5B5 and X4R4G4B4 masked; null when the format or the surface can't be read);
+**   views, projections: the distinct view and projection matrices of the frame (16 floats, D3D's rows);
+**   sets: each SetTransform(VIEW / PROJECTION) of the frame in order: {draw: the draws before it, view|proj: index};
+**   draws: i, call (DIP DrawIndexedPrimitive, DP DrawPrimitive, DPUP, DIPUP), prim (D3DPRIMITIVETYPE), prims,
+**     verts (DIP / DIPUP: NumVertices; DP / DPUP: from the primitive count), stride (stream 0's, or the UP call's),
+**     fvf (the vertex shader: an FVF code), tex [stage 0, stage 1] (an index into textures, -1 none), view and proj
+**     (indices into views and projections, read back with GetTransform), world (16 floats), rs, ts.
+** Pointers and buffer offsets (start index, base vertex, min index) are left out: they differ run to run.
+*/
+#define LOG_MATS	256
+#define LOG_TEX		1024
+typedef struct { char *Text; int Len, Cap; } Buf;
+typedef struct {
+	void *Tex;
+	UINT Type, Width, Height, Format, Levels, Usage, Pool;
+	int Hashed;
+	unsigned __int64 Hash;
+} LogTex;
+static Buf				LogDraws, LogSets;
+static int				LogDrawCount, LogCalls[4], LogLost;
+static float			LogViews[LOG_MATS][16], LogProjs[LOG_MATS][16];
+static int				LogViewCount, LogProjCount;
+static LogTex			LogTexs[LOG_TEX];
+static int				LogTexCount;
+static const DWORD LogStates[] = {
+	7, 14, 15, 19, 20, 22, 27, 28, 34, 35, 36, 37, 47, 60, 137, 139, 140, 141, 145, 147, 148, 48, 9, 24,
+	8, 23, 25, 26, 29, 52, 143, 146, 168, 171
+};
+static const char *LogStateNames[] = {
+	"ZENABLE", "ZWRITEENABLE", "ALPHATESTENABLE", "SRCBLEND", "DESTBLEND", "CULLMODE", "ALPHABLENDENABLE",
+	"FOGENABLE", "FOGCOLOR", "FOGTABLEMODE", "FOGSTART", "FOGEND", "ZBIAS", "TEXTUREFACTOR", "LIGHTING", "AMBIENT",
+	"FOGVERTEXMODE", "COLORVERTEX", "DIFFUSEMATERIALSOURCE", "AMBIENTMATERIALSOURCE", "EMISSIVEMATERIALSOURCE",
+	"RANGEFOGENABLE", "SHADEMODE", "ALPHAREF",
+	"FILLMODE", "ZFUNC", "ALPHAFUNC", "DITHERENABLE", "SPECULARENABLE", "STENCILENABLE", "NORMALIZENORMALS",
+	"SPECULARMATERIALSOURCE", "COLORWRITEENABLE", "BLENDOP"
+};
+static const DWORD LogStageStates[] = { 1, 2, 3, 4, 5, 6, 11, 24, 13, 14, 16, 17, 18 };
+static const char *LogStageStateNames[] = {
+	"COLOROP", "COLORARG1", "COLORARG2", "ALPHAOP", "ALPHAARG1", "ALPHAARG2", "TEXCOORDINDEX",
+	"TEXTURETRANSFORMFLAGS", "ADDRESSU", "ADDRESSV", "MAGFILTER", "MINFILTER", "MIPFILTER"
+};
+#define SLOT_TEX_GETLEVELCOUNT	13
+typedef DWORD (STDMETHODCALLTYPE *GetLevelCountType)(void *);
+
+static void Buf_Add(Buf *b, const char *format, ...)
+{
+	va_list va;
+	int n;
+	for (;;) {
+		if (b->Text && b->Cap - b->Len > 1) {
+			va_start(va, format);
+			n = _vsnprintf(b->Text + b->Len, b->Cap - b->Len - 1, format, va);
+			va_end(va);
+			if (n >= 0 && n < b->Cap - b->Len - 1) {
+				b->Len += n;
+				b->Text[b->Len] = 0;
+				return;
+			}
+		}
+		{
+			int cap = b->Cap ? b->Cap * 2 : 1 << 16;
+			char *t = (char *)realloc(b->Text, cap);
+			if (!t) return;
+			b->Text = t;
+			b->Cap = cap;
+		}
+	}
+}
+
+static void Fmt_Float(char *t, float f)
+{
+	double d = f;
+	if (!_finite(d)) strcpy(t, "null");
+	else if (d == 0) strcpy(t, "0");
+	else { _snprintf(t, 31, "%.7g", d); t[31] = 0; }
+}
+
+static void Buf_Floats(Buf *b, const float *m, int n)
+{
+	char t[32];
+	int i;
+	Buf_Add(b, "[");
+	for (i = 0; i < n; i++) {
+		Fmt_Float(t, m[i]);
+		Buf_Add(b, i ? ",%s" : "%s", t);
+	}
+	Buf_Add(b, "]");
+}
+
+static int Log_Matrix(float (*list)[16], int *count, const float *m)
+{
+	int i;
+	for (i = 0; i < *count; i++) if (!memcmp(list[i], m, sizeof(list[i]))) return i;
+	if (*count >= LOG_MATS) { LogLost++; return -1; }
+	memcpy(list[*count], m, sizeof(list[0]));
+	return (*count)++;
+}
+
+static void Log_Set(DWORD state, const float *m)
+{
+	int k = state == 2 ? Log_Matrix(LogViews, &LogViewCount, m) : Log_Matrix(LogProjs, &LogProjCount, m);
+	Buf_Add(&LogSets, "%s{\"draw\":%d,\"%s\":%d}", LogSets.Len ? ",\n" : "", LogDrawCount,
+		state == 2 ? "view" : "proj", k);
+}
+
+/* level 0's bytes as the program sees them: FNV-1a 64 over the rows (pitch padding left out) */
+static int Hash_Texture(void *dev, void *tex, const SurfaceDesc *d, unsigned __int64 *hash)
+{
+	void *copy = NULL;
+	LockedRect lr;
+	unsigned __int64 h = 0xcbf29ce484222325ui64;
+	UINT bpp = 0, block = 0, row, rows, x, y, mask = 0;
+	switch (d->Format) {
+	case 21: bpp = 4; break;
+	case 22: bpp = 4; mask = 3; break;						/* X8R8G8B8: every 4th byte (x % 4 == 3) */
+	case 20: bpp = 3; break;
+	case 23: case 25: case 26: case 29: case 41: case 51: bpp = 2; break;
+	case 24: case 30: bpp = 2; mask = 1; break;				/* X1R5G5B5, X4R4G4B4: the high byte's X bits */
+	case 27: case 28: case 40: case 50: case 52: bpp = 1; break;
+	case 0x31545844: block = 8; break;						/* DXT1 */
+	case 0x32545844: case 0x33545844: case 0x34545844: case 0x35545844: block = 16; break;
+	}
+	if (block) { row = ((d->Width + 3) / 4) * block; rows = (d->Height + 3) / 4; }
+	else if (bpp) { row = d->Width * bpp; rows = d->Height; }
+	else return 0;
+	if (FAILED(((TexLockRectType)VT(tex, SLOT_TEX_LOCKRECT))(tex, 0, &lr, NULL, 0x10 /* READONLY */))) {
+		void *level = NULL;
+		HRESULT hr = ((GetSurfaceLevelType)VT(tex, SLOT_TEX_GETSURFACELEVEL))(tex, 0, &level);
+		if (SUCCEEDED(hr)) hr = ((CreateImageSurfaceType)VT(dev, SLOT_CREATEIMAGESURFACE))(dev, d->Width, d->Height, d->Format, &copy);
+		if (SUCCEEDED(hr)) hr = ((CopyRectsType)VT(dev, SLOT_COPYRECTS))(dev, level, NULL, 0, copy, NULL);
+		if (level) ((ReleaseType)VT(level, SLOT_RELEASE))(level);
+		if (SUCCEEDED(hr)) hr = ((LockRectType)VT(copy, SLOT_LOCKRECT))(copy, &lr, NULL, 0x10);
+		if (FAILED(hr)) {
+			if (copy) ((ReleaseType)VT(copy, SLOT_RELEASE))(copy);
+			return 0;
+		}
+	}
+	for (y = 0; y < rows; y++) {
+		const unsigned char *p = (const unsigned char *)lr.Bits + lr.Pitch * (int)y;
+		for (x = 0; x < row; x++) {
+			unsigned char c = p[x];
+			if (mask == 3 && (x & 3) == 3) c = 0;
+			else if (mask == 1 && (x & 1) == 1) c = (unsigned char)(d->Format == 24 ? c & 0x7F : c & 0x0F);
+			h ^= c;
+			h *= 0x100000001b3ui64;
+		}
+	}
+	if (copy) {
+		((UnlockRectType)VT(copy, SLOT_UNLOCKRECT))(copy);
+		((ReleaseType)VT(copy, SLOT_RELEASE))(copy);
+	} else {
+		((TexUnlockRectType)VT(tex, SLOT_TEX_UNLOCKRECT))(tex, 0);
+	}
+	*hash = h;
+	return 1;
+}
+
+static int Log_Texture(void *dev, void *tex)
+{
+	LogTex *t;
+	SurfaceDesc d;
+	int i;
+	if (!tex) return -1;
+	for (i = 0; i < LogTexCount; i++) if (LogTexs[i].Tex == tex) return i;
+	if (LogTexCount >= LOG_TEX) { LogLost++; return -1; }
+	t = &LogTexs[LogTexCount];
+	memset(t, 0, sizeof(*t));
+	t->Tex = tex;
+	t->Type = ((GetTypeType)VT(tex, SLOT_BUF_GETTYPE))(tex);
+	if (t->Type == 3 /* D3DRTYPE_TEXTURE */) {
+		memset(&d, 0, sizeof(d));
+		if (SUCCEEDED(((GetLevelDescType)VT(tex, SLOT_TEX_GETLEVELDESC))(tex, 0, &d))) {
+			t->Width = d.Width; t->Height = d.Height; t->Format = d.Format; t->Usage = d.Usage; t->Pool = d.Pool;
+			t->Hashed = Hash_Texture(dev, tex, &d, &t->Hash);
+		}
+		t->Levels = ((GetLevelCountType)VT(tex, SLOT_TEX_GETLEVELCOUNT))(tex);
+	}
+	return LogTexCount++;
+}
+
+static UINT Prim_Verts(UINT type, UINT prims)
+{
+	return type == 1 ? prims : type == 2 ? prims * 2 : type == 3 ? prims + 1 : type == 4 ? prims * 3 : prims + 2;
+}
+
+static void Log_Draw(void *dev, int call, UINT type, UINT prims, UINT verts, UINT stride)
+{
+	static const char *calls[4] = { "DIP", "DP", "DPUP", "DIPUP" };
+	int v, p, t0, t1, n;
+	UINT i;
+	char t[32];
+	Query_State(dev);
+	v = Log_Matrix(LogViews, &LogViewCount, Matrices[1]);
+	p = Log_Matrix(LogProjs, &LogProjCount, Matrices[2]);
+	t0 = Log_Texture(dev, Textures[0]);
+	t1 = Log_Texture(dev, Textures[1]);
+	Buf_Add(&LogDraws, "%s{\"i\":%d,\"call\":\"%s\",\"prim\":%u,\"prims\":%u,\"verts\":%u,\"stride\":%u,\"fvf\":%lu,"
+		"\"tex\":[%d,%d],\"view\":%d,\"proj\":%d,\"world\":", LogDrawCount ? ",\n" : "", LogDrawCount, calls[call],
+		type, prims, verts, call < 2 ? Stride0 : stride, Shader, t0, t1, v, p);
+	Buf_Floats(&LogDraws, Matrices[0], 16);
+	Buf_Add(&LogDraws, ",\"rs\":[");
+	for (i = 0; i < sizeof(LogStates) / sizeof(LogStates[0]); i++) {
+		DWORD x = 0;
+		((GetRenderStateType)VT(dev, SLOT_GETRENDERSTATE))(dev, LogStates[i], &x);
+		if (LogStates[i] == 36 || LogStates[i] == 37) {		/* FOGSTART, FOGEND: floats */
+			Fmt_Float(t, *(float *)&x);
+			Buf_Add(&LogDraws, i ? ",%s" : "%s", t);
+		} else {
+			Buf_Add(&LogDraws, i ? ",%lu" : "%lu", x);
+		}
+	}
+	Buf_Add(&LogDraws, "],\"ts\":[");
+	for (n = 0; n < 2; n++) {
+		Buf_Add(&LogDraws, n ? ",[" : "[");
+		for (i = 0; i < sizeof(LogStageStates) / sizeof(LogStageStates[0]); i++) {
+			DWORD x = 0;
+			((GetStageStateType)VT(dev, SLOT_GETSTAGESTATE))(dev, n, LogStageStates[i], &x);
+			Buf_Add(&LogDraws, i ? ",%lu" : "%lu", x);
+		}
+		Buf_Add(&LogDraws, "]");
+	}
+	Buf_Add(&LogDraws, "]}");
+	LogDrawCount++;
+	LogCalls[call]++;
+}
+
+static void Start_Draw_Log(int frame)
+{
+	LogFrame = frame;
+	LogDraws.Len = LogSets.Len = 0;
+	LogDrawCount = LogLost = LogViewCount = LogProjCount = LogTexCount = 0;
+	memset(LogCalls, 0, sizeof(LogCalls));
+}
+
+static void Write_Draw_Log(int frame)
+{
+	Buf b;
+	char name[MAX_PATH];
+	FILE *fp;
+	int i;
+	memset(&b, 0, sizeof(b));
+	Buf_Add(&b, "{\"format\":\"d3d8shot-drawlog 1\",\"shot\":\"%s\",\"frame\":%d,\n", TriggerName, frame);
+	Buf_Add(&b, "\"counts\":{\"draws\":%d,\"DIP\":%d,\"DP\":%d,\"DPUP\":%d,\"DIPUP\":%d,\"views\":%d,\"projections\":%d,"
+		"\"textures\":%d,\"lost\":%d},\n", LogDrawCount, LogCalls[0], LogCalls[1], LogCalls[2], LogCalls[3],
+		LogViewCount, LogProjCount, LogTexCount, LogLost);
+	Buf_Add(&b, "\"render_states\":[");
+	for (i = 0; i < (int)(sizeof(LogStateNames) / sizeof(LogStateNames[0])); i++) Buf_Add(&b, i ? ",\"%s\"" : "\"%s\"", LogStateNames[i]);
+	Buf_Add(&b, "],\n\"stage_states\":[");
+	for (i = 0; i < (int)(sizeof(LogStageStateNames) / sizeof(LogStageStateNames[0])); i++) Buf_Add(&b, i ? ",\"%s\"" : "\"%s\"", LogStageStateNames[i]);
+	Buf_Add(&b, "],\n\"textures\":[\n");
+	for (i = 0; i < LogTexCount; i++) {
+		LogTex *t = &LogTexs[i];
+		Buf_Add(&b, "%s{\"id\":%d,\"type\":%u,\"w\":%u,\"h\":%u,\"format\":%u,\"levels\":%u,\"usage\":%lu,\"pool\":%u,\"hash\":",
+			i ? ",\n" : "", i, t->Type, t->Width, t->Height, t->Format, t->Levels, t->Usage, t->Pool);
+		if (t->Hashed) Buf_Add(&b, "\"%016I64x\"}", t->Hash);
+		else Buf_Add(&b, "null}");
+	}
+	Buf_Add(&b, "],\n\"views\":[\n");
+	for (i = 0; i < LogViewCount; i++) { if (i) Buf_Add(&b, ",\n"); Buf_Floats(&b, LogViews[i], 16); }
+	Buf_Add(&b, "],\n\"projections\":[\n");
+	for (i = 0; i < LogProjCount; i++) { if (i) Buf_Add(&b, ",\n"); Buf_Floats(&b, LogProjs[i], 16); }
+	Buf_Add(&b, "],\n\"sets\":[\n%s],\n\"draws\":[\n%s]}\n", LogSets.Text ? LogSets.Text : "",
+		LogDraws.Text ? LogDraws.Text : "");
+	_snprintf(name, sizeof(name) - 1, "%s\\shot_%s_%05d.json", Dir, TriggerName, frame);
+	name[sizeof(name) - 1] = 0;
+	fp = b.Text ? fopen(name, "wb") : NULL;
+	if (fp) {
+		fwrite(b.Text, b.Len, 1, fp);
+		fclose(fp);
+	}
+	Log("frame %d: draw log %s: %d draws (DIP %d, DP %d, DPUP %d, DIPUP %d), %d textures, %d views, %d projections, "
+		"%d lost, %d bytes\n", frame, fp ? name : "NOT WRITTEN", LogDrawCount, LogCalls[0], LogCalls[1], LogCalls[2],
+		LogCalls[3], LogTexCount, LogViewCount, LogProjCount, LogLost, b.Len);
+	free(b.Text);
+	LogFrame = 0;
+}
+
+#define LOGGING()	(LogFrame && Presented + 1 == LogFrame)
+
 static HRESULT STDMETHODCALLTYPE Hook_Draw_Indexed(void *dev, UINT type, UINT minidx, UINT count, UINT start, UINT prims)
 {
 	int frame = Presented + 1;
+	if (LOGGING()) Log_Draw(dev, 0, type, prims, count, 0);
 	if (Dumping(frame)) {
 		Shadow *vs, *is;
 		UINT head[10], n, i, isz;
@@ -614,12 +914,14 @@ static HRESULT STDMETHODCALLTYPE Hook_Draw_Indexed(void *dev, UINT type, UINT mi
 
 static HRESULT STDMETHODCALLTYPE Hook_Draw_Primitive(void *dev, UINT type, UINT start, UINT prims)
 {
+	if (LOGGING()) Log_Draw(dev, 1, type, prims, Prim_Verts(type, prims), 0);
 	if (Dumping(Presented + 1)) { Open_Dump(Presented + 1); DumpOther++; }
 	return RealDrawPrimitive(dev, type, start, prims);
 }
 
 static HRESULT STDMETHODCALLTYPE Hook_Draw_Primitive_UP(void *dev, UINT type, UINT prims, const void *data, UINT stride)
 {
+	if (LOGGING()) Log_Draw(dev, 2, type, prims, Prim_Verts(type, prims), stride);
 	if (Dumping(Presented + 1)) { Open_Dump(Presented + 1); DumpOther++; }
 	return RealDrawPrimitiveUP(dev, type, prims, data, stride);
 }
@@ -627,6 +929,7 @@ static HRESULT STDMETHODCALLTYPE Hook_Draw_Primitive_UP(void *dev, UINT type, UI
 static HRESULT STDMETHODCALLTYPE Hook_Draw_Indexed_UP(void *dev, UINT type, UINT minidx, UINT count, UINT prims,
 	const void *idx, UINT fmt, const void *data, UINT stride)
 {
+	if (LOGGING()) Log_Draw(dev, 3, type, prims, count, stride);
 	if (Dumping(Presented + 1)) { Open_Dump(Presented + 1); DumpOther++; }
 	return RealDrawIndexedUP(dev, type, minidx, count, prims, idx, fmt, data, stride);
 }
@@ -648,6 +951,16 @@ static void Hook_Dump(void *dev)
 	HOOK(dev, SLOT_CREATEVB, RealCreateVB, CreateBufferType, Hook_Create_VB);
 	HOOK(dev, SLOT_CREATEIB, RealCreateIB, CreateBufferType, Hook_Create_IB);
 	if (!Presented) Log("draw dump hooks installed (%d frames)\n", DumpCount);
+}
+
+/* the draw log's hooks (D3D8SHOT_DRAWLOG): the draw calls and SetTransform, no buffer shadows */
+static void Hook_Draw_Log(void *dev)
+{
+	HOOK(dev, SLOT_SETTRANSFORM, RealSetTransform, SetTransformType, Hook_Set_Transform);
+	HOOK(dev, SLOT_DRAWPRIMITIVE, RealDrawPrimitive, DrawPrimitiveType, Hook_Draw_Primitive);
+	HOOK(dev, SLOT_DRAWINDEXED, RealDrawIndexed, DrawIndexedType, Hook_Draw_Indexed);
+	HOOK(dev, SLOT_DRAWPRIMITIVEUP, RealDrawPrimitiveUP, DrawPrimitiveUPType, Hook_Draw_Primitive_UP);
+	HOOK(dev, SLOT_DRAWINDEXEDUP, RealDrawIndexedUP, DrawIndexedUPType, Hook_Draw_Indexed_UP);
 }
 
 static void Log(const char *format, ...)
@@ -804,10 +1117,18 @@ static HRESULT STDMETHODCALLTYPE Hook_Present(void *dev, const RECT *src, const 
 	}
 	if (DumpFile && !Dumping(Presented + 1)) Close_Dump();
 	if (DumpCount > 0) Hook_Dump(dev);		/* again: the runtime rewrites slots of its vtable copy */
+	if (DrawLog) Hook_Draw_Log(dev);
 	if (Wanted(Presented)) {
 		Save_Back_Buffer(dev, Presented);
 	}
-	if (Trigger[0] && (Presented & 7) == 0 && GetFileAttributesA(Trigger) != (DWORD)-1) {
+	if (LogFrame && LogFrame <= Presented) {	/* the logged frame is the one being presented: its log, then its shot */
+		Write_Draw_Log(Presented);
+		Save_Back_Buffer(dev, Presented);
+		DeleteFileA(Trigger);
+		TriggerName[0] = 0;
+		return RealPresent(dev, src, dst, wnd, dirty);
+	}
+	if (Trigger[0] && !LogFrame && (Presented & 7) == 0 && GetFileAttributesA(Trigger) != (DWORD)-1) {
 		FILE *t = fopen(Trigger, "r");
 		int i;
 		TriggerName[0] = 0;
@@ -837,12 +1158,17 @@ static HRESULT STDMETHODCALLTYPE Hook_Present(void *dev, const RECT *src, const 
 			}
 		}
 		if (!TriggerName[0]) strcpy(TriggerName, "shot");
+		if (DumpCount > 0 && DumpCount < 64 && !strncmp(TriggerName, "dump_", 5)) {
+			Dumps[DumpCount++] = Presented + 1 + DrawLog;		/* the frame after the shot */
+			Log("frame %d: dumping frame %d\n", Presented, Presented + 1 + DrawLog);
+		}
+		if (DrawLog) {			/* the next frame is logged and saved; the trigger file stays until then */
+			Log("frame %d: trigger %s (draw log: frame %d)\n", Presented, TriggerName, Presented + 1);
+			Start_Draw_Log(Presented + 1);
+			return RealPresent(dev, src, dst, wnd, dirty);
+		}
 		DeleteFileA(Trigger);
 		Log("frame %d: trigger %s\n", Presented, TriggerName);
-		if (DumpCount > 0 && DumpCount < 64 && !strncmp(TriggerName, "dump_", 5)) {
-			Dumps[DumpCount++] = Presented + 1;		/* the next frame's draws */
-			Log("frame %d: dumping frame %d\n", Presented, Presented + 1);
-		}
 		Save_Back_Buffer(dev, Presented);
 		TriggerName[0] = 0;
 	}
@@ -861,6 +1187,7 @@ static HRESULT STDMETHODCALLTYPE Hook_Create_Device(void *d3d, UINT adapter, UIN
 			Patch(slot, (void *)Hook_Present);
 		}
 		if (DumpCount > 0) Hook_Dump(*device);
+		if (DrawLog) Hook_Draw_Log(*device);
 	}
 	return hr;
 }
@@ -1095,6 +1422,8 @@ static void Init(void)
 			Dumps[DumpCount++] = atoi(p);
 		}
 	}
+	DrawLog = GetEnvironmentVariableA("D3D8SHOT_DRAWLOG", frames, sizeof(frames)) && frames[0] == '1';
+	if (DrawLog) Log("draw log on (D3D8SHOT_DRAWLOG): a trigger shot is taken one frame later, with its JSON\n");
 	GetSystemDirectoryA(path, sizeof(path));
 	strcat(path, "\\d3d8.dll");
 	Real = LoadLibraryA(path);
@@ -1208,6 +1537,14 @@ void * WINAPI Direct3DCreate8(UINT version)
 		}
 	}
 	return d3d;
+}
+
+/* The frame being drawn, numbered as the shots are (shot_NAME_<frame>: Presented + 1, the frame whose draws a
+** draw log records): the mss32log proxy (mss32log.c) reads it for each audio event's "f". Exported by name
+** (run_reference.py's .def). */
+unsigned long WINAPI D3d8shot_Frame(void)
+{
+	return (unsigned long)(Presented + 1);
 }
 
 BOOL WINAPI DllMain(HINSTANCE inst, DWORD reason, LPVOID reserved)

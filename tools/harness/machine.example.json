@@ -1,0 +1,15 @@
+{
+  "comment": "Copy to ~/.enb/machine.json (or name it in ENB_MACHINE) and keep only the keys this machine moves; relative paths are relative to this file. tools/harness/machine.py prints what each key resolves to.",
+  "client_data": "D:\\EnB\\ClientPOC",
+  "ea_data": "D:\\EnB\\ClientPOC_EA",
+  "retail_install": "C:\\Program Files (x86)\\EA GAMES\\Earth & Beyond",
+  "antprox_dir": "D:\\EnB\\baselines\\tools\\antprox",
+  "antprox": "D:\\EnB\\baselines\\tools\\antprox\\antprox-rs.exe",
+  "antprox_replay": "D:\\EnB\\baselines\\tools\\antprox\\antprox.exe",
+  "antreplay": "D:\\EnB\\baselines\\tools\\antprox\\antreplay.exe",
+  "net7_bin": "D:\\EnB\\Net7\\bin_local",
+  "baselines": "D:\\EnB\\baselines",
+  "captures": "D:\\EnB\\AntaresProxy\\captures",
+  "recordings": "D:\\EnB\\baselines\\inputs\\captures",
+  "label": "rtx4070-desk"
+}
