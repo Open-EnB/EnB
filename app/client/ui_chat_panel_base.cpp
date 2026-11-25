@@ -34,7 +34,7 @@ ChatPanelUIBase::ChatPanelUIBase(SClient *client) :
 ChatPanelUIBase::~ChatPanelUIBase()
 {
 	if (MovableBackGadget != NULL) {
-		GadgetClass::Get_Signal_Map().disconnect((GadgetClass *)MovableBackGadget, this, &ChatPanelUIBase::On_Back_Gadget_Moved, DestroyGadgetEvent());
+		GadgetClass::Get_Signal_Map().disconnect(MovableBackGadget, this, &ChatPanelUIBase::On_Back_Gadget_Moved, MovableUIBackGadgetMoved());
 	}
 	const char *name = IniName.c_str();
 	if (name != NULL) {
@@ -143,7 +143,7 @@ UIBackGadget *ChatPanelUIBase::Add_Back_Gadget(bool movable, const Vector3 &offs
 	if (movable) {
 		gadget = MovableBackGadget = new MovableUIBackGadget(InterfaceMesh, offset);
 		if (MovableBackGadget) {
-			GadgetClass::Get_Signal_Map().connect((GadgetClass *)MovableBackGadget, this, &ChatPanelUIBase::On_Back_Gadget_Moved);
+			GadgetClass::Get_Signal_Map().connect(MovableBackGadget, this, &ChatPanelUIBase::On_Back_Gadget_Moved);
 		}
 	} else {
 		gadget = new UIBackGadget(InterfaceMesh);
@@ -198,9 +198,9 @@ void ChatPanelUIBase::Unknown_8C(const RefCountPtr<RenderObjClass> &robj)
 }
 
 // 0x56DEE0
-void ChatPanelUIBase::On_Back_Gadget_Moved(DestroyGadgetEvent *event, GadgetClass *sender)
+void ChatPanelUIBase::On_Back_Gadget_Moved(MovableUIBackGadgetMoved *event, MovableUIBackGadget *sender)
 {
-	if (sender == (GadgetClass *)MovableBackGadget) {
+	if (sender == MovableBackGadget) {
 		Unknown_9C();
 	}
 }
@@ -214,7 +214,7 @@ void ChatPanelUIBase::On_Back_Gadget_Moved(DestroyGadgetEvent *event, GadgetClas
 ** (0x56D510 a button, 0x56D6F0 a check button, 0x56D8D0 a slider) and its back gadget (0x56D970).
 ** The FAIL_IFs fix the lines: 94 / 97 (0x56D510), 113 / 116 (0x56D6F0), 141 (0x56D970), 162 (0x56DB20).
 ** 0x56DEE0 handles MovableUIBackGadgetMoved (the client's RTTI 0xB7D5E8 names the callback
-** MemberCallback<MovableUIBackGadget, ChatPanelUIBase, ..., MovableUIBackGadgetMoved>); the tree's parameter types
-** (DestroyGadgetEvent, GadgetClass) are an earlier guess that compiles to the same code: retyping them renames the
-** callback's nine short functions 0x56DF10-0x56E130, which symbols.json holds under the old names.
+** MemberCallback<MovableUIBackGadget, ChatPanelUIBase, ..., MovableUIBackGadgetMoved>); the earlier guess (DestroyGadgetEvent,
+** GadgetClass) compiled to the same bytes but its Event_Type never matched the move signal (Emit_To 0x4F7A60 compares it)
+** and matched GadgetClass::Destroy's: R6, run 2026-11-24-night (the callback's functions 0x56DF10-0x56E130 renamed).
 */
