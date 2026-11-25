@@ -1030,8 +1030,8 @@ public:
 	ClientObjectClass *Get_Target();	TargetingClass *Targeting;	// 0x744FE0: the main view's slot +0x5C (targeting.cpp)  // NAME 2: what it returns; +0x12A4 Init  // NAME 2: the asserts'
 	CameraManagerClass *CameraManager;					// +0x12A8 Init  // NAME 3: its file's
 	int Unknown12AC;									// +0x12AC (the constructor leaves it)
-	int Unknown12B0;									// +0x12B0 Init: the base's Unknown10BC
-	int Unknown12B4;									// +0x12B4
+	DurationClass Unknown12B0;							// +0x12B0 Init: the base's Unknown10BC, zero-extended: every client write stores the pair (the clock, then 0: 0x741771, 0x744D8A, 0x50AC98; the constructor's 0x7406D7 two zeros), nothing reads it
+	// +0x12B4: Unknown12B0's high half
 	RefCountClass *Unknown12B8;							// +0x12B8 (0x74C370: released, set, referenced)
 	SClientUnknown12BCClass *Unknown12BC;				// +0x12BC (Shutdown deletes it)
 	DeltaPlayerClass *AuxData;							// +0x12C0 (0x7518A0's G_ASSERT '!AuxData' before its new; AUX_DATA 27 decodes into it)  // NAME 3: the assert's name

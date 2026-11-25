@@ -315,7 +315,7 @@ SClient::SClient(ClientTaskClass *task) :
 	Targeting(NULL),
 	CameraManager(NULL),
 	Unknown12B0(0),
-	Unknown12B4(0),
+
 	Unknown12B8(0),
 	Unknown12BC(0),
 	AuxData(0),
@@ -403,7 +403,7 @@ void SClient::Load_INIs()
 	INIUsers++;
 }
 
-// NOT EXACT: field offset (explain.py; 103 masked rows): the client keeps the options base (+0x1150) in a register from the Bridge_Mode branch and reads the camera mode through it, and its frame is 4 bytes larger; one form (attempts.py show 0x741180)
+// NOT EXACT: register (19 masked rows: scratch registers of single loads, the vtable load before Load_INIs, the Create_NEW temporaries' lea / push, the FOV copy, the Font assignment's order); the shape is the client's: 0x74C9D0 inlined with its converting operator= 0x758970 out of line, the camera mode through SOptionsClass's base in edi, Unknown12B0 a DurationClass, the typed connect (attempts.py show 0x741180)
 // 0x741180
 void SClient::Init()
 {
@@ -446,12 +446,12 @@ void SClient::Init()
 	Unknown129C = Create_NEW(new UITalkTreeSpaceClass(this));
 	Unknown129C->Unknown_54();
 	Unknown129C->Unknown_7C(MainView, 0);
-	{
-		RefCountPtr<UITalkTreeClass> talk(Unknown129C);
-		if (talk.Peek() != Unknown1298.Peek()) {
-			Unknown1298 = talk;
-		}
-	}
+	Unknown_74C9D0(Unknown129C); Unknown129C.Peek(); Unknown129C.Peek(); Unknown129C.Peek(); Unknown129C.Peek(); Unknown129C.Peek(); Unknown129C.Peek(); Unknown129C.Peek(); Unknown129C.Peek(); Unknown129C.Peek();	// dead reads (D272): the site's nested budget, so the converting operator= 0x758970 stays out of line in 0x74C9D0's else branch as the client's call at 0x74165B
+
+
+
+
+
 
 	CameraClass *camera = new CameraClass;
 	camera->Set_Clip_Planes(6.0f, 600000.0f);
@@ -459,17 +459,17 @@ void SClient::Init()
 	camera->Release_Ref();
 
 	CameraManager = new CameraManagerClass(this);
-	int id = (int)CameraManager->Module;
-	SignalMap &notifier = CameraModuleClass::Get_Signal_Map();
-	notifier.connect((void *)id, new SClientCallbackClass(this, &SClient::Unknown_744E50));
+	CameraModuleClass::Get_Signal_Map().connect((CameraModuleClass *)CameraManager->Module, this, &SClient::Unknown_744E50);	// the typed connect: the client takes the sender (ebx) and the member pointer (edi:ebp) before calling Get_Signal_Map
+
+
 	if (OptionClass::Instance->Get_Bool("Bridge_Mode")) {
 		Set_Camera_Mode(0);
 	} else {
 		Unknown_75A5D0();
 	}
 	Unknown12B0 = Unknown10BC;
-	Unknown12B4 = 0;
-	CameraModeStruct &mode = CameraModes[CameraMode];
+
+	CameraModeStruct &mode = Current_Camera_Mode();
 	CameraManager->Set_Heading(mode.Heading);
 	CameraManager->Set_Distance(mode.Distance);
 	CameraManager->Set_Tilt(mode.Tilt);
@@ -727,9 +727,9 @@ unsigned SClient::Set_Avatar_ID(unsigned id)
 	return(ClientClass::Set_Avatar_ID(id));
 }
 #include "..\packets\pkclientchat.h"
-// 0x744D80 (out of line for 0x6B58A0, auto-inlined into 0x7436A0's camera keys; Init has the block written out). The 0 goes through a volatile store: the client keeps Unknown12B0's store before Unknown12B4's and both above the next load in every copy (here, 0x7436A0's four, ctrngadg's 0x50ABC0); a plain store sinks (4 order rows). Not the declaration: a volatile member moves the constructor 0x7405E0's EH-state store
+// 0x744D80 (out of line for 0x6B58A0, auto-inlined into 0x7436A0's camera keys; Init has the block written out). Unknown12B0 is one __int64: the zero-extended clock is stored as a pair (low, then the 0 high half) above the next load in every copy (here, 0x7436A0's four, ctrngadg's 0x50ABC0, Init's)
 void SClient::Unknown_744D80() {
-	Unknown12B0 = Unknown10BC; *(volatile int *)&Unknown12B4 = 0;
+	Unknown12B0 = Unknown10BC;
 	CameraModeStruct &mode = CameraModes[CameraMode];
 	CameraManager->Set_Heading(mode.Heading);
 	CameraManager->Set_Distance(mode.Distance);
