@@ -147,7 +147,7 @@ void DebrisInterfaceClass::Unknown_60()
 
 
 
-// NOT EXACT: functional (D64), order-only (key 10's colour: the red's spill after the blue's multiply)
+
 // 0x53D9F0
 bool DebrisInterfaceClass::Unknown_68(int key)
 {
@@ -170,19 +170,19 @@ bool DebrisInterfaceClass::Unknown_68(int key)
 			field->Size *= 1.5;
 			break;
 		case 4:
-			field->Size *= 0.6666667;
+			field->Size *= 0.6666666666667;
 			break;
 		case 5:
 			field->MaxDist *= 1.5;
 			break;
 		case 6:
-			field->MaxDist *= 0.6666667;
+			field->MaxDist *= 0.6666666666667;
 			break;
 		case 7:
 			field->MinDist *= 1.5;
 			break;
 		case 8:
-			field->MinDist *= 0.6666667;
+			field->MinDist *= 0.6666666666667;
 			break;
 		case 9:
 			switch (field->Unknown_6BB440()) {
@@ -211,12 +211,12 @@ bool DebrisInterfaceClass::Unknown_68(int key)
 					float r = field->Color.X * 1.2f;
 					float g = field->Color.Y * 1.2f;
 					float b = field->Color.Z * 1.2f;
-					field->Set_Color((r > 1.0f) ? 1.0 : r, (g > 1.0f) ? 1.0 : g, (b > 1.0f) ? 1.0 : b);
+					r = (r > 1.0f) ? 1.0 : r;
+					g = (g > 1.0f) ? 1.0 : g;
+					b = (b > 1.0f) ? 1.0 : b;
+					field->Set_Color(r, g, b);
 					return(true);
 				}
-
-
-
 
 
 				default:
