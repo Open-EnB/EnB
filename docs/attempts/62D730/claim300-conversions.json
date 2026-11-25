@@ -1,0 +1,26 @@
+[
+  {
+    "name": "clientcast",
+    "base_sha256": "9b0676edc9bc2a30a99ec9ba19bf2280d4b199d859507e04b0573fddf5599632",
+    "source_sha256": "16562e2f722dc225c5e295c4b96e23b8431f858dde97879ca6bcb29ad5f479ea",
+    "patch": "--- a/app/client/ui_skills.cpp\n+++ b/app/client/ui_skills.cpp\n@@ -196,8 +196,8 @@\n \tSkillAbilityDataPeekClass abilities = data->Abilities;\n \tint ability = skill_render->Unknown34;\n \tif (ability != -1) {\n-\t\tif (!abilities.Get_Can_Be_Used_While_Incapacitated(ability) && Client->As_Space_Client()->Unknown_750B60()) {\n-\t\t\tClient->As_Space_Client()->Unknown_74D990(0x11, \"Cannot perform action while incapacitated.\", 0);\n+\t\tif (!abilities.Get_Can_Be_Used_While_Incapacitated(ability) && ((SClient *)((ClientClass *)Client)->As_Space_Client())->Unknown_750B60()) {\n+\t\t\t((SClient *)((ClientClass *)Client)->As_Space_Client())->Unknown_74D990(0x11, \"Cannot perform action while incapacitated.\", 0);\n \t\t} else {\n \t\t\t((ClientClass *)Client)->Send_Packet(&SkillPacket_88Class(((ClientClass *)Client)->AvatarID, 0, ability));\n \t\t}\n"
+  },
+  {
+    "name": "clientcast_avatar",
+    "base_sha256": "9b0676edc9bc2a30a99ec9ba19bf2280d4b199d859507e04b0573fddf5599632",
+    "source_sha256": "40948813f11de4ff55f10941d6cbd2912a6a1e498646aef09d144d1c2f2143fa",
+    "patch": "--- a/app/client/ui_skills.cpp\n+++ b/app/client/ui_skills.cpp\n@@ -196,10 +196,10 @@\n \tSkillAbilityDataPeekClass abilities = data->Abilities;\n \tint ability = skill_render->Unknown34;\n \tif (ability != -1) {\n-\t\tif (!abilities.Get_Can_Be_Used_While_Incapacitated(ability) && Client->As_Space_Client()->Unknown_750B60()) {\n-\t\t\tClient->As_Space_Client()->Unknown_74D990(0x11, \"Cannot perform action while incapacitated.\", 0);\n+\t\tif (!abilities.Get_Can_Be_Used_While_Incapacitated(ability) && ((SClient *)((ClientClass *)Client)->As_Space_Client())->Unknown_750B60()) {\n+\t\t\t((SClient *)((ClientClass *)Client)->As_Space_Client())->Unknown_74D990(0x11, \"Cannot perform action while incapacitated.\", 0);\n \t\t} else {\n-\t\t\t((ClientClass *)Client)->Send_Packet(&SkillPacket_88Class(((ClientClass *)Client)->AvatarID, 0, ability));\n+\t\t\t((ClientClass *)Client)->Send_Packet(&SkillPacket_88Class(((ClientClass *)Client)->Get_Avatar_ID(), 0, ability));\n \t\t}\n \t}\n }\n"
+  },
+  {
+    "name": "basecast",
+    "base_sha256": "9b0676edc9bc2a30a99ec9ba19bf2280d4b199d859507e04b0573fddf5599632",
+    "source_sha256": "539f72795bed3fc643ea39224cd4a771d324d74ad21268e377822c08ab52248a",
+    "patch": "--- a/app/client/ui_skills.cpp\n+++ b/app/client/ui_skills.cpp\n@@ -196,10 +196,10 @@\n \tSkillAbilityDataPeekClass abilities = data->Abilities;\n \tint ability = skill_render->Unknown34;\n \tif (ability != -1) {\n-\t\tif (!abilities.Get_Can_Be_Used_While_Incapacitated(ability) && Client->As_Space_Client()->Unknown_750B60()) {\n-\t\t\tClient->As_Space_Client()->Unknown_74D990(0x11, \"Cannot perform action while incapacitated.\", 0);\n+\t\tif (!abilities.Get_Can_Be_Used_While_Incapacitated(ability) && ((InterfaceClass *)this)->Client->As_Space_Client()->Unknown_750B60()) {\n+\t\t\t((InterfaceClass *)this)->Client->As_Space_Client()->Unknown_74D990(0x11, \"Cannot perform action while incapacitated.\", 0);\n \t\t} else {\n-\t\t\t((ClientClass *)Client)->Send_Packet(&SkillPacket_88Class(((ClientClass *)Client)->AvatarID, 0, ability));\n+\t\t\t((ClientClass *)((InterfaceClass *)this)->Client)->Send_Packet(&SkillPacket_88Class(((ClientClass *)((InterfaceClass *)this)->Client)->AvatarID, 0, ability));\n \t\t}\n \t}\n }\n"
+  },
+  {
+    "name": "basecast_avatar",
+    "base_sha256": "9b0676edc9bc2a30a99ec9ba19bf2280d4b199d859507e04b0573fddf5599632",
+    "source_sha256": "ea37b455c6164c065876003a8ee3185d01f651e0aa8d5e10e411accf14d999d2",
+    "patch": "--- a/app/client/ui_skills.cpp\n+++ b/app/client/ui_skills.cpp\n@@ -196,10 +196,10 @@\n \tSkillAbilityDataPeekClass abilities = data->Abilities;\n \tint ability = skill_render->Unknown34;\n \tif (ability != -1) {\n-\t\tif (!abilities.Get_Can_Be_Used_While_Incapacitated(ability) && Client->As_Space_Client()->Unknown_750B60()) {\n-\t\t\tClient->As_Space_Client()->Unknown_74D990(0x11, \"Cannot perform action while incapacitated.\", 0);\n+\t\tif (!abilities.Get_Can_Be_Used_While_Incapacitated(ability) && ((InterfaceClass *)this)->Client->As_Space_Client()->Unknown_750B60()) {\n+\t\t\t((InterfaceClass *)this)->Client->As_Space_Client()->Unknown_74D990(0x11, \"Cannot perform action while incapacitated.\", 0);\n \t\t} else {\n-\t\t\t((ClientClass *)Client)->Send_Packet(&SkillPacket_88Class(((ClientClass *)Client)->AvatarID, 0, ability));\n+\t\t\t((ClientClass *)((InterfaceClass *)this)->Client)->Send_Packet(&SkillPacket_88Class(((ClientClass *)((InterfaceClass *)this)->Client)->Get_Avatar_ID(), 0, ability));\n \t\t}\n \t}\n }\n"
+  }
+]
