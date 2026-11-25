@@ -898,7 +898,8 @@ best-matching stored run at most the noise max; one SAME / DIFF line per scenari
 later scenario its own steps; three runs are three client launches. Scenarios that need a session of their own
 (`SESSION_OWN` in baseline.py: `sb_emote_dock`, which starts in the hangar the login leaves the character in and ends
 docked there again, while every other station scenario's own steps start and end in the concourse: after it,
-sb_buysell's first walk hits a wall) are taken out of a set and captured alone, each in its own scenario folder. A run is stored only when every scenario
+sb_buysell's first walk hits a wall; `sb_manufacture_make`, which after sb_buysell in one session never sees
+`sent ITEM_BASE` at step 84 and passes alone) are taken out of a set and captured alone, each in its own scenario folder. A run is stored only when every scenario
 passed in that one session (e2e starts a fresh session after a failure: such a run is reported and left in
 `.staging`), under `runs/<client>/<env>/<SET>/<UTC run>/`: one session's logs, every scenario's result, shots and draw
 logs, `packets.json` {scenario: packets}, and a manifest with `set`, `order` (the scenarios as run) and `scenarios`

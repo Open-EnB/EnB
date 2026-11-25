@@ -72,8 +72,10 @@ VOLATILE = {'client.exe', 'client.map', 'd3d8.dll', 'stubs.log', '_except.txt', 
 # Scenarios that need a session of their own: sb_emote_dock starts where the login leaves the character (the hangar,
 # room 0; every other station scenario's own steps start in the concourse, room 1, and end there) and ends docked in
 # the hangar again, so it can neither follow nor precede another scenario in one session (2026-11-24: sb_buysell
-# after it, 'walk-to -44,-38: not moving'). A set's capture runs each of them alone, as a scenario folder of its own
-SESSION_OWN = ('sb_emote_dock',)
+# after it, 'walk-to -44,-38: not moving'). sb_manufacture_make fails after sb_buysell in one session (2026-11-24:
+# step 84, "wait-event antprox 'sent ITEM_BASE': not seen within 20 s") and passes alone. A set's capture runs each
+# of them alone, as a scenario folder of its own
+SESSION_OWN = ('sb_emote_dock', 'sb_manufacture_make')
 SMALL = 16 * 1024               # data id: files up to this size are hashed by content, larger ones by size only
 
 
