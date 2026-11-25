@@ -23,10 +23,12 @@ set) run as one e2e session a run, stored as runs/<client>/<env>/<SET>/<run>/ wh
 (manifest: set, order, scenarios; noise.json keyed by scenario, then shot). Each shot's draw log
 (shot_NAME_<frame>.json, d3d8shot D3D8SHOT_DRAWLOG) is kept and compared structurally (the draw-log section). verify checks every stored file against its
 manifest's SHA-256 (a Git LFS pointer is reported as "run git lfs pull"); it needs neither the game nor Windows.
-verify --run compares an e2e run (a session folder, several joined by ',', an e2e --manifest file, or a stored
-run's manifest.json) with the stored runs of the same client and env: the verdict, the packets (equal to at least
-one stored run's) and each shot (its differing cells against the best-matching stored run at most noise.json's
-max for that shot). One line per scenario, SAME or DIFF; exit 1 on any DIFF or problem.
+verify --run compares an e2e run (a session folder, the e2e --out folder: its newest run's session folders, several
+joined by ',', an e2e --manifest file, or a stored run's manifest.json) with the stored runs of the same client and
+env: the verdict, the packets (equal to at least one stored run's) and each shot (its differing cells against the
+best-matching stored run at most noise.json's max for that shot). One line per scenario, SAME or DIFF; then every
+scenario not compared, and why: the run's left out by NAME arguments, a stored set's the run has no result for
+(SKIP under --set). Exit 1 on any DIFF or problem, or a SKIP.
 
 inputs/ holds what a second device needs to repeat a run: captures/ (the replay set antprox /REPLAY reads, machine.py
 `recordings`), records/<YYYYMMDD-HHMMSS>/ (e2e record's tracks), db/ (the test account's row and its avatars'
@@ -801,20 +803,30 @@ def scenario_noise(entries):
             **({'audio': au} if au else {})}
 
 
-def _run_order(dirs, man):
-    """The scenarios of an e2e run in the order run: an e2e --manifest's list, else e2e.log's 'scenario NAME' lines."""
+def _session_orders(dirs, man):
+    """The scenarios of an e2e run in the order run, one list per client session: a stored manifest's order (one
+    session), else each folder's e2e.log 'scenario NAME' lines (a run continued in a fresh session after a failure
+    has a folder per session)."""
     if man is not None:
-        return list(man.get('order', [man.get('scenario')]))
-    order = []
+        return [list(man.get('order', [man.get('scenario')]))]
+    out, seen = [], set()
     for d in dirs:
         log = os.path.join(d, 'e2e.log')
         if os.path.exists(log):
+            order = []
             with open(log, encoding='utf-8', errors='replace') as f:
                 for line in f:
                     p = line.split()
-                    if len(p) >= 3 and p[1] == 'scenario' and p[2] not in order:
+                    if len(p) >= 3 and p[1] == 'scenario' and p[2] not in seen:
                         order.append(p[2])
-    return order
+                        seen.add(p[2])
+            out.append(order)
+    return out
+
+
+def _run_order(dirs, man):
+    """The scenarios of an e2e run in the order run (every session's, _session_orders, in turn)."""
+    return [n for o in _session_orders(dirs, man) for n in o]
 
 
 def compute_noise(scen_dir):
@@ -1382,13 +1394,56 @@ def verify_store(args):
     return 1 if bad else 0
 
 
+def _is_session(d):
+    """An e2e session folder: its own e2e.log or result-*.json."""
+    return os.path.isfile(os.path.join(d, 'e2e.log')) or any(
+        f.startswith('result-') and f.endswith('.json') for f in os.listdir(d))
+
+
+def out_sessions(top, out=print):
+    """An e2e --out folder -> its newest run's session folders, oldest first; a session folder (or anything not a
+    folder) -> [top]. The sessions are the subfolders <YYYYmmdd-HHMMSS>-<tag> with an e2e.log (e2e names them by
+    its STAMP, so their names sort by start). A run is one session, plus one for the rest after each failure
+    (e2e.run_all), so its sessions' scenarios do not repeat: walking from the newest, a session that holds a
+    scenario a newer one already holds belongs to an earlier run into the same --out; those are named and left out,
+    as are sessions without a result older than the run's first."""
+    if not os.path.isdir(top) or _is_session(top):
+        return [top]
+    import e2e
+    subs = sorted(os.path.join(top, f) for f in os.listdir(top)
+                  if os.path.isfile(os.path.join(top, f, 'e2e.log')))
+    if not subs:
+        return [top]
+    run, seen = [], set()
+    for k in range(len(subs) - 1, -1, -1):
+        names = set(e2e.run_results([subs[k]]))
+        if names & seen:
+            old = subs[:k + 1]
+            out(f'baseline: {top}: {len(old)} older session folder(s) of an earlier run left out '
+                f'({", ".join(os.path.basename(s) for s in old)}; repeat {", ".join(sorted(names & seen))}); '
+                'give one as --run to compare it')
+            break
+        seen |= names
+        run.insert(0, subs[k])
+    while len(run) > 1 and not e2e.run_results([run[0]]):
+        run.pop(0)
+    if len(run) > 1 or run[0] != top:
+        out(f'baseline: {top}: an e2e --out folder: {len(run)} session(s) '
+            + ', '.join(f'{os.path.basename(s)} ({len(e2e.run_results([s]))} results)' for s in run))
+    return run
+
+
 def _run_input(run):
-    """RUN -> (e2e run folders, a stored manifest or None)."""
+    """RUN -> (e2e run folders, a stored manifest or None). An e2e --out folder stands for its newest run's session
+    folders (out_sessions)."""
     import e2e
     if os.path.basename(run) == 'manifest.json' or os.path.isfile(os.path.join(run, 'manifest.json')):
         d = os.path.dirname(run) if run.endswith('manifest.json') else run
         return [d], read_json(os.path.join(d, 'manifest.json'))
-    return e2e.run_dirs(run), None
+    dirs = []
+    for d in e2e.run_dirs(run):
+        dirs += [s for s in out_sessions(d) if s not in dirs]
+    return dirs, None
 
 
 # The top-level folders the client build is linked from (build.py: app plus the EA-derived and E&B libraries,
@@ -1481,22 +1536,21 @@ def verify_run(args):
     if not names:
         print(f'baseline: no result-*.json in {args.run}')
         return 1
-    order = _run_order(dirs, man)
+    sessions = _session_orders(dirs, man)
+    order = [n for o in sessions for n in o]
     mine_audio = {}
     if man is not None:                 # a stored run: its audio-NAME.json files
         for en in (man.get('scenarios') or [dict(man, name=man.get('scenario'))]):
             if en.get('audio'):
                 mine_audio[en['name']] = read_json(os.path.join(dirs[0], en['audio']))
     else:
-        for d in dirs:
-            here = [(n, r) for n, r in results.items() if os.path.normcase(os.path.abspath(r.get('out') or ''))
-                    == os.path.normcase(os.path.abspath(d))] or ([(n, r) for n, r in results.items()]
-                                                                if len(dirs) == 1 else [])
+        for d in dirs:                  # the results read from this folder (its 'out' may name where it ran)
+            here = [(n, results[n]) for n in e2e.run_results([d]) if n in results]
             here.sort(key=lambda nr: order.index(nr[0]) if nr[0] in order else 1 << 20)
             mine_audio.update(session_audio(d, here)[0])
     holders = [(c, e, s, d, dir_scenarios(d)) for c, e, s, d in scenario_dirs(store)
                if (not client or c == client) and (not env or e == env)]
-    bad = 0
+    bad, used = 0, set()
     for name in names:
         # a set folder when --set names it; else a run of several scenarios prefers a set that ran this one, and a
         # run of one scenario the scenario's own folder
@@ -1524,12 +1578,21 @@ def verify_run(args):
         if mine not in theirs:
             what.append(f'packets {len(mine)}, stored {"/".join(str(len(t)) for t in theirs)} (equal to none)')
         stored_order = ents[-1]['order'] if ents else []
+        used.add((c, e, s))
         if len(held) > 1 or len(order) > 1:
-            before_mine = order[:order.index(name)] if name in order else None
+            mine_s = next((o for o in sessions if name in o), None)
+            before_mine = mine_s[:mine_s.index(name)] if mine_s else None
             before_theirs = stored_order[:stored_order.index(name)] if name in stored_order else None
-            if before_mine != before_theirs:
-                notes.append(f'run after {before_mine[-1] if before_mine else "the login"}, stored after '
-                             f'{before_theirs[-1] if before_theirs else "the login"} (scenario order differs)')
+            fresh = mine_s is not None and mine_s is not sessions[0]
+            prev_mine = before_mine[-1] if before_mine else None
+            prev_theirs = before_theirs[-1] if before_theirs else None
+            if prev_mine != prev_theirs:
+                notes.append(f'run after {prev_mine or "the login"}' + (' (a fresh session)' if fresh else '')
+                             + f', stored after {prev_theirs or "the login"} (scenario order differs)')
+            elif before_mine != before_theirs:
+                notes.append(f'run after {prev_mine} in a fresh session from {mine_s[0]}, stored after it in one '
+                             f'from {stored_order[0] if stored_order else "?"} (scenario order differs)' if fresh else
+                             f'run after {prev_mine} as stored, earlier scenarios differ (scenario order differs)')
         stored_shots, stored_logs = {}, {}
         for en in ents:
             for key, f in en['shots']:
@@ -1573,8 +1636,62 @@ def verify_run(args):
         print(f'{name}: {"DIFF " + "; ".join(what) if what else "SAME " + line}'
               + (f' ({"; ".join(notes)})' if notes else '') + f'  [{c}/{e}/{s}, {len(ents)} runs]')
         bad += bool(what)
-    print(f'baseline verify --run: {len(names) - bad} of {len(names)} scenarios the same as the baseline')
-    return 1 if bad else 0
+    missed = skipped_scenarios(args, dirs, results, names, holders, used)
+    print(f'baseline verify --run: {len(names) - bad} of {len(names)} scenarios the same as the baseline'
+          + (f'; {missed} stored scenario(s) of the set not in the run (named above)' if missed else ''))
+    return 1 if bad or (missed and args.set) else 0
+
+
+_SESSION_HEAD = re.compile(r' session of \d+: (.+?); exe ')
+
+
+def e2e_results_in(dirs, base):
+    """{scenario: result} of the run folder among DIRS named BASE."""
+    import e2e
+    return e2e.run_results([d for d in dirs if os.path.basename(d) == base])
+
+
+def skipped_scenarios(args, dirs, results, names, holders, used, out=print):
+    """verify --run: names every scenario it did not compare, and why: the run's results left out by NAME arguments,
+    and each set's stored scenarios the run has no result for (a set the run was compared with, or --set's). A
+    scenario e2e listed in a session's head line but wrote no result for was not run (a stop after a repeated crash
+    or a failed login) or its session died; one never listed was not in the run's e2e command, or its session
+    folder was not given. Returns the count of the sets' scenarios the run lacks (verify fails on them under --set)."""
+    unnamed = [n for n in results if n not in names]
+    if unnamed:
+        out(f'not compared: {", ".join(unnamed)} (in the run, not named on the command line)')
+    listed = {}
+    for d in dirs:
+        log = os.path.join(d, 'e2e.log')
+        if os.path.isfile(log):
+            with open(log, encoding='utf-8', errors='replace') as f:
+                for line in itertools.islice(f, 5):
+                    m = _SESSION_HEAD.search(line)
+                    if m:
+                        for n in m.group(1).split(', '):
+                            listed.setdefault(n, os.path.basename(d))
+    sets = [h for h in holders if len(h[4]) > 1 and ((h[0], h[1], h[2]) in used or (args.set and h[2] == args.set))]
+    missed = 0
+    for c, e, s, d, held in sets:
+        miss = [n for n in held if n not in results and (not args.names or n in args.names)]
+        if not miss:
+            continue
+        missed += len(miss)
+        why = {}
+        for n in miss:
+            if n not in listed:
+                w = ("never listed in the run's sessions: not in its e2e command, or its session folder not given "
+                     '(give the e2e --out folder)')
+            else:
+                failed = [r for r, res in e2e_results_in(dirs, listed[n]).items() if not res.get('passed')]
+                w = (f'listed in session {listed[n]}, which ended after {failed[-1]} failed: e2e ran the rest in a '
+                     'fresh session folder (give the e2e --out folder)' if failed else
+                     f'listed in session {listed[n]}, no result: not run (e2e stopped the run) or its client died')
+            why.setdefault(w, []).append(n)
+        for w, ns in why.items():
+            out(f'{"SKIP" if args.set else "not compared"}: {", ".join(ns)} ({len(ns)} of the set\'s {len(held)}: '
+                f'{w})  [{c}/{e}/{s}]')
+    return missed
 
 
 def list_store(args):
