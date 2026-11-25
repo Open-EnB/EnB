@@ -44,6 +44,41 @@ class ParserTest(unittest.TestCase):
         self.assertEqual(sc['steps'][7]['source'], 'any')        # the proxy's d3d8shot.log or a stubs.log
         self.assertEqual(sc['steps'][8]['within'], 15.0)       # expect-event's default
 
+    def test_wait_since(self):
+        sc = P("wait-since antprox 'sector session 2 of 2' 40\nwait-since files x 0\n")
+        a, b = sc['steps']
+        self.assertEqual((a['op'], a['source'], a['pattern'].pattern, a['seconds']),
+                         ('wait-since', 'antprox', 'sector session 2 of 2', 40.0))
+        self.assertEqual(b['source'], 'proxy')
+        self.assertEqual(e2e._desc(a), "antprox 'sector session 2 of 2' 40")
+        for bad in ("wait-since antprox x\n", "wait-since nowhere x 4\n", "wait-since antprox x soon\n",
+                    "wait-since antprox x -1\n", "wait-since antprox ( 4\n"):
+            with self.assertRaises(e2e.ScenarioError, msg=bad):
+                P(bad)
+
+    def test_since_time_newest_line_or_the_wait_that_matched(self):
+        t = [0.0]
+        ev = e2e.Events({}, clock=lambda: t[0])
+        pat = re.compile('playback of 1, sector session 2')
+        for when, text in ((1.0, 'playback of 1, sector session 2 of 2'), (2.0, 'other'),
+                           (3.0, 'playback of 1, sector session 2 of 2 again')):
+            t[0] = when
+            ev.add('antprox', text)
+        self.assertEqual(e2e.since_time(ev, [], 'antprox', pat, 0), 3.0)        # the newest
+        self.assertIsNone(e2e.since_time(ev, [], 'antprox', pat, 3))          # before the scenario: not its own
+        self.assertIsNone(e2e.since_time(ev, [], 'proxy', pat, 0))
+        hit = (5.0, 'antprox', 'Sector connection #3: playback of 1, sector session 2 of 2 (ea:9b25)')
+        self.assertEqual(e2e.since_time(ev, [hit], 'antprox', pat, 3), 5.0)  # a wait's own pattern was another
+        self.assertIsNone(e2e.since_time(ev, [hit], 'proxy', pat, 3))
+        ev2 = e2e.Events({}, clock=lambda: t[0], window=2)                     # the line left the window
+        t[0] = 1.0
+        ev2.add('antprox', 'playback of 1, sector session 2 of 2')
+        for _ in range(3):
+            ev2.add('proxy', 'file opened')
+        self.assertIsNone(e2e.since_time(ev2, [], 'antprox', pat, 0))
+        self.assertEqual(e2e.since_time(ev2, [(1.0, 'antprox', 'playback of 1, sector session 2 of 2')],
+                                        'antprox', pat, 0), 1.0)
+
     def test_wait_quiet_and_click_until(self):
         sc = P("wait-quiet files 1.5\nwait-quiet proxy 0.5 within 9\n"
                "click 640,512 until antprox 'VERSION_RESPONSE' every 0.25 within 100\n"
@@ -86,7 +121,7 @@ class ParserTest(unittest.TestCase):
 
     def test_errors(self):
         for bad in ("bogus 1\n", "click gadget nowhere\n", "click 10\n", "wait-event nosuch 'x'\n",
-                    "wait-event antprox '('\n", "key enter\n", "shot 'a b'\n", "text a b\n", "alive\n",
+                    "wait-event antprox '('\n", "key nosuchkey\n", "shot 'a b'\n", "text a b\n", "alive\n",
                     "unknown: header\nalive 1\n", "", "expect-no stubs\n", "wait-event antprox x within soon\n"):
             with self.assertRaises(e2e.ScenarioError, msg=bad):
                 P(bad)

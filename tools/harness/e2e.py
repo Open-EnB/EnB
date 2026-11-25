@@ -64,6 +64,10 @@ The format (one step a line, '#' comments, shell-style quoting):
     stray click X,Y|gadget NAME / stray key KEYS the same input UNtagged, as a person's would be (the tag's
                                   self-test: the proxy must drop it and log 'NOT REPLAYED')
     alive S                       S seconds pass with the client running and no expect-no line matched
+    wait-since SOURCE PATTERN S   until S seconds after the newest SOURCE line matching PATTERN in this scenario (a
+                                  wait-event's match counts): a shot at a fixed point of a playback, which antreplay
+                                  plays at the recorded pace from the sector's LOGIN, whatever the client's load
+                                  took; fails when the step starts more than SINCE_LATE past that point
     walk-to X,Y [tol T] [within S]  a starbase: the avatar walks to X,Y (the room's floor plane, units of the
                                   client's camera) in a closed loop on the camera the proxy reports each frame
                                   (D3D8SHOT_CAMERA): turn towards the point (right button drag), hold the walk key,
@@ -513,6 +517,17 @@ def parse(text, name='?', gadgets=None, loader=None, _depth=0):
                 st.update(source=_source(args[0]), quiet=float(args[1]), within=within)
             except ValueError:
                 raise ScenarioError(f'{where}: wait-quiet SOURCE SECONDS [within S]')
+        elif op == 'wait-since':
+            try:
+                if len(args) != 3 or args[0] not in SOURCES:
+                    raise ValueError
+                secs = float(args[2])
+                if secs < 0:
+                    raise ValueError
+            except ValueError:
+                raise ScenarioError(f'{where}: wait-since SOURCE PATTERN SECONDS (until SECONDS after the newest '
+                                    f'line matching PATTERN in this scenario)')
+            st.update(source=_source(args[0]), pattern=_regex(args[1], where), seconds=secs)
         elif op == 'stand-in':
             if len(args) != 1:
                 raise ScenarioError(f'{where}: stand-in PATTERN (a stubs.log line, e.g. the first call of a stand-in)')
@@ -931,6 +946,25 @@ class Events:
             self._log = None
 
 
+SINCE_LATE = 1.0        # wait-since: a step that starts more than this past its moment fails (the shot would be late)
+
+
+def since_time(ev, matched, source, pattern, start_line):
+    """wait-since's line: the time (Events seconds) of the newest line from `start_line` on matching source and
+    pattern, among Events' window and the lines this scenario's wait-event / expect-event steps matched (`matched`,
+    (t, source, text): a long load pushes a line out of the sliding window); None when there is none."""
+    ev.poll()
+    t = max((when for when, src, text in matched if (source == 'any' or src == source) and pattern.search(text)),
+            default=None)
+    rel = max(0, start_line - ev.base)
+    for i in range(len(ev.lines) - 1, rel - 1, -1):
+        when, src, text = ev.lines[i]
+        if (source == 'any' or src == source) and pattern.search(text):
+            t = when if t is None else max(t, when)
+            break
+    return t
+
+
 def find(lines, source, pattern, start=0):
     """Index of the first line at or after start whose source matches (any: every source) and whose text the
     regex pattern searches, or None."""
@@ -1089,6 +1123,7 @@ class Session:
         posted = []                 # this scenario's input steps so far (click ... until ... redo K)
         reached_own = False
         start_line = ev.total
+        matched = []                # the lines this scenario's waits and expects matched, (t, source, text) (wait-since)
         own_from = 0
         seen = {'stubs': [], 'human': 0, 'marker': False}
 
@@ -1144,6 +1179,7 @@ class Session:
                             return f, False
                         if w.hit is not None:
                             note(f'  matched at {w.hit[0]:.1f} s: {w.hit[2][:200]}')
+                            matched.append(w.hit)
                             return None, True
                         if time.time() > end:
                             return what, False
@@ -1320,6 +1356,23 @@ class Session:
                     while time.time() < end and not fail:
                         fail = tick()
                         time.sleep(0.05)
+                elif op == 'wait-since':
+                    fail = tick()
+                    if not fail:
+                        t = since_time(ev, matched, st['source'], st['pattern'], start_line)
+                        if t is None:
+                            fail = (f'{st["line"]}: wait-since {st["source"]} {st["pattern"].pattern!r}: no such line '
+                                    f'in this scenario')
+                        else:
+                            late = ev.now() - (t + st['seconds'])
+                            if late > SINCE_LATE:
+                                fail = (f'{st["line"]}: wait-since {st["seconds"]:g} s: the moment passed {late:.1f} s '
+                                        f'ago (the line at {t:.1f} s; a slower step before it)')
+                            else:
+                                while ev.now() < t + st['seconds'] and not fail:
+                                    fail = tick()
+                                    time.sleep(0.005)
+                                note(f'  at {ev.now() - t:.2f} s after the line at {t:.1f} s')
                 elif op == 'shot':
                     fail = tick()
                     if not fail:
@@ -1556,6 +1609,8 @@ def _desc(st):
                 + (f' until {st["until"]["source"]} {st["until"]["pattern"].pattern!r}' if st.get('until') else ''))
     if st['op'] == 'wait-quiet':
         return f'{st["source"]} {st["quiet"]:g}'
+    if st['op'] == 'wait-since':
+        return f'{st["source"]} {st["pattern"].pattern!r} {st["seconds"]:g}'
     if st['op'] in ('walk-to', 'face'):
         return ','.join(f'{v:g}' for v in st['to']) + f' tol {st["tol"]:g}'
     if st['op'] == 'hold' and 'secs' in st:
