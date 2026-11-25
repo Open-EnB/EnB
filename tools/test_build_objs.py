@@ -44,7 +44,10 @@ class ReadObjs(unittest.TestCase):
         self.assertIn(':2:', str(e.exception))
 
     def test_duplicate_basename_refused(self):
-        self.write('app/obj/a.obj\napp/obj/A.obj\n')
+        # a second folder: on a case-sensitive file system app/obj/A.obj would not exist
+        os.makedirs(os.path.join(self.out, 'lib', 'obj'))
+        open(os.path.join(self.out, 'lib', 'obj', 'A.obj'), 'wb').close()
+        self.write('app/obj/a.obj\nlib/obj/A.obj\n')
         with self.assertRaises(SystemExit) as e:
             build.read_objs(self.list, self.out)
         self.assertIn('twice', str(e.exception))
