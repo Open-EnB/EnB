@@ -1,0 +1,194 @@
+{
+  "description": "Line patches against tree3 baseline; each [start,end,replacement_lines] uses zero-based half-open indices. Apply in reverse order.",
+  "records": [
+    {
+      "name": "double_layer",
+      "base_sha256": "f1017264c71f9eec83b4287e3486674ef7671eb6bd2fe2a16ac779baa2d4b727",
+      "source_sha256": "e0903e40279349903db7577e813125be801528763be924057e4a27e335469bc2",
+      "line_patch": [
+        [
+          195,
+          196,
+          [
+            "static inline void Frame_Memory_Line(StringClass &text, int i, unsigned memory) { StringClass line; line.Format(\"%s : %2.2fMb\\n\", WWMemoryLogClass::Get_Category_Name(i), (float)memory / (1024.0f * 1024.0f)); text += line; } static inline void Frame_Display_Memory_Line(StringClass &text, int i, unsigned memory) { Frame_Memory_Line(text, i, memory); }\n"
+          ]
+        ],
+        [
+          248,
+          251,
+          [
+            "\t\t\t\tFrame_Display_Memory_Line(text, i, memory);\n",
+            "\n",
+            "\n"
+          ]
+        ]
+      ],
+      "compiled": true,
+      "body_bytes": 1472,
+      "body_sha256": "8729dbd47a7e8c81859c09c581cd97c3292ff81a0ca7334d0f1814df56043e99",
+      "target_exact": false,
+      "gained": [
+        [
+          "??0StringClass@@QAE@H_N@Z",
+          "0x53F1C0"
+        ],
+        [
+          "??YStringClass@@QAEABV0@ABV0@@Z",
+          "0x510BE0"
+        ]
+      ],
+      "lost": []
+    },
+    {
+      "name": "helper_string_ref",
+      "base_sha256": "f1017264c71f9eec83b4287e3486674ef7671eb6bd2fe2a16ac779baa2d4b727",
+      "source_sha256": "379be1ebedf9fc11a310830fadb1eddd5a584be7ac9ea255242ed659affc420c",
+      "line_patch": [
+        [
+          195,
+          196,
+          [
+            "static inline void Frame_Memory_Line(StringClass &text, int i, unsigned memory) { StringClass line; StringClass &detail = line; detail.Format(\"%s : %2.2fMb\\n\", WWMemoryLogClass::Get_Category_Name(i), (float)memory / (1024.0f * 1024.0f)); text += detail; }\n"
+          ]
+        ],
+        [
+          248,
+          251,
+          [
+            "\t\t\t\tFrame_Memory_Line(text, i, memory);\n",
+            "\n",
+            "\n"
+          ]
+        ]
+      ],
+      "compiled": true,
+      "body_bytes": 1456,
+      "body_sha256": "180427e606e328dfd30b3bac6d4b18c0a87845ad46144a83233d893b9b216673",
+      "target_exact": false,
+      "gained": [
+        [
+          "??YStringClass@@QAEABV0@ABV0@@Z",
+          "0x510BE0"
+        ]
+      ],
+      "lost": []
+    },
+    {
+      "name": "loop_count_ref",
+      "base_sha256": "f1017264c71f9eec83b4287e3486674ef7671eb6bd2fe2a16ac779baa2d4b727",
+      "source_sha256": "97eb22361fa967df0d6176bacd04cccd6d7e3c55d43aaff826609f9f739d49ba",
+      "line_patch": [
+        [
+          195,
+          196,
+          [
+            "static inline void Frame_Memory_Line(StringClass &text, int i, unsigned memory) { StringClass line; line.Format(\"%s : %2.2fMb\\n\", WWMemoryLogClass::Get_Category_Name(i), (float)memory / (1024.0f * 1024.0f)); text += line; }\n"
+          ]
+        ],
+        [
+          244,
+          245,
+          [
+            "\t\tconst int count = WWMemoryLogClass::Get_Category_Count();\n"
+          ]
+        ],
+        [
+          248,
+          251,
+          [
+            "\t\t\t\tFrame_Memory_Line(text, i, memory);\n",
+            "\n",
+            "\n"
+          ]
+        ]
+      ],
+      "compiled": true,
+      "body_bytes": 1456,
+      "body_sha256": "180427e606e328dfd30b3bac6d4b18c0a87845ad46144a83233d893b9b216673",
+      "target_exact": false,
+      "gained": [
+        [
+          "??YStringClass@@QAEABV0@ABV0@@Z",
+          "0x510BE0"
+        ]
+      ],
+      "lost": []
+    },
+    {
+      "name": "memory_bool",
+      "base_sha256": "f1017264c71f9eec83b4287e3486674ef7671eb6bd2fe2a16ac779baa2d4b727",
+      "source_sha256": "5b775b9e1c1980f70ee0b0dd0d8a5fe4dc65787e4c75772ad97768bb17e2c4e7",
+      "line_patch": [
+        [
+          195,
+          196,
+          [
+            "static inline void Frame_Memory_Line(StringClass &text, int i, unsigned memory) { StringClass line; line.Format(\"%s : %2.2fMb\\n\", WWMemoryLogClass::Get_Category_Name(i), (float)memory / (1024.0f * 1024.0f)); text += line; }\n"
+          ]
+        ],
+        [
+          247,
+          251,
+          [
+            "\t\t\tif (memory) {\n",
+            "\t\t\t\tFrame_Memory_Line(text, i, memory);\n",
+            "\n",
+            "\n"
+          ]
+        ]
+      ],
+      "compiled": true,
+      "body_bytes": 1456,
+      "body_sha256": "180427e606e328dfd30b3bac6d4b18c0a87845ad46144a83233d893b9b216673",
+      "target_exact": false,
+      "gained": [
+        [
+          "??YStringClass@@QAEABV0@ABV0@@Z",
+          "0x510BE0"
+        ]
+      ],
+      "lost": []
+    },
+    {
+      "name": "local_frame_assign",
+      "base_sha256": "f1017264c71f9eec83b4287e3486674ef7671eb6bd2fe2a16ac779baa2d4b727",
+      "source_sha256": "4fa2b51958afd99400560edef5f2c9b8832470d40c12d8b490a5efbbf65d57fd",
+      "line_patch": [
+        [
+          195,
+          196,
+          [
+            "static inline void Frame_Memory_Line(StringClass &text, int i, unsigned memory) { StringClass line; line.Format(\"%s : %2.2fMb\\n\", WWMemoryLogClass::Get_Category_Name(i), (float)memory / (1024.0f * 1024.0f)); text += line; }\n"
+          ]
+        ],
+        [
+          198,
+          199,
+          [
+            "\tunsigned frame_time; frame_time = WW3D::Get_Frame_Time();\n"
+          ]
+        ],
+        [
+          248,
+          251,
+          [
+            "\t\t\t\tFrame_Memory_Line(text, i, memory);\n",
+            "\n",
+            "\n"
+          ]
+        ]
+      ],
+      "compiled": true,
+      "body_bytes": 1456,
+      "body_sha256": "180427e606e328dfd30b3bac6d4b18c0a87845ad46144a83233d893b9b216673",
+      "target_exact": false,
+      "gained": [
+        [
+          "??YStringClass@@QAEABV0@ABV0@@Z",
+          "0x510BE0"
+        ]
+      ],
+      "lost": []
+    }
+  ]
+}

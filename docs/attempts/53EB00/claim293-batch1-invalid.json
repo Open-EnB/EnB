@@ -1,0 +1,129 @@
+{
+  "description": "Line patches against tree3 baseline; each [start,end,replacement_lines] uses zero-based half-open indices. Apply in reverse order.",
+  "records": [
+    {
+      "name": "append_loop_difference",
+      "base_sha256": "f1017264c71f9eec83b4287e3486674ef7671eb6bd2fe2a16ac779baa2d4b727",
+      "source_sha256": "eedcf78b4ace1d2e9a7e6c863be71bb5b767cc456933fe172354c21c22c541a1",
+      "line_patch": [
+        [
+          195,
+          196,
+          [
+            "static inline int Frame_Difference(int a, int b) { return a - b; }\n"
+          ]
+        ],
+        [
+          234,
+          237,
+          [
+            "\t\t\tFrame_Difference(WWMemoryLogClass::Get_Allocate_Count(), WWMemoryLogClass::Get_Free_Count()),\n",
+            "\t\t\tFrame_Difference(TextureClass::_Get_Total_Texture_Count(), TextureClass::_Get_Total_Locked_Surface_Count()),\n",
+            "\t\t\t(float)(Frame_Difference(TextureClass::_Get_Total_Texture_Size(), TextureClass::_Get_Total_Locked_Surface_Size())) / (1024.0f * 1024.0f),\n"
+          ]
+        ],
+        [
+          250,
+          251,
+          [
+            "\t\t\t\tFrame_Append(text, line);\n"
+          ]
+        ]
+      ],
+      "compiled": false,
+      "error": "frameint.cpp\nZ:\\home\\dev\\Projects\\EnB\\.work\\claim-293\\53EB00\\variants\\append_loop_difference\\frameint.cpp(251) : error C2065: 'Frame_Append' : undeclared identifier\n"
+    },
+    {
+      "name": "append_fps_difference",
+      "base_sha256": "f1017264c71f9eec83b4287e3486674ef7671eb6bd2fe2a16ac779baa2d4b727",
+      "source_sha256": "90406a3538e559b7f0991eb1a80a0f7874633378d806ab3601c062d041eaa604",
+      "line_patch": [
+        [
+          195,
+          196,
+          [
+            "static inline int Frame_Difference(int a, int b) { return a - b; }\n"
+          ]
+        ],
+        [
+          234,
+          237,
+          [
+            "\t\t\tFrame_Difference(WWMemoryLogClass::Get_Allocate_Count(), WWMemoryLogClass::Get_Free_Count()),\n",
+            "\t\t\tFrame_Difference(TextureClass::_Get_Total_Texture_Count(), TextureClass::_Get_Total_Locked_Surface_Count()),\n",
+            "\t\t\t(float)(Frame_Difference(TextureClass::_Get_Total_Texture_Size(), TextureClass::_Get_Total_Locked_Surface_Size())) / (1024.0f * 1024.0f),\n"
+          ]
+        ],
+        [
+          250,
+          251,
+          [
+            "\t\t\t\tFrame_Append(text, line);\n"
+          ]
+        ],
+        [
+          262,
+          263,
+          [
+            "\t\tFrame_Append(text, line);\n"
+          ]
+        ],
+        [
+          264,
+          265,
+          [
+            "\t\tFrame_Append(text, line);\n"
+          ]
+        ]
+      ],
+      "compiled": false,
+      "error": "frameint.cpp\nZ:\\home\\dev\\Projects\\EnB\\.work\\claim-293\\53EB00\\variants\\append_fps_difference\\frameint.cpp(251) : error C2065: 'Frame_Append' : undeclared identifier\n"
+    },
+    {
+      "name": "append_all_difference",
+      "base_sha256": "f1017264c71f9eec83b4287e3486674ef7671eb6bd2fe2a16ac779baa2d4b727",
+      "source_sha256": "90406a3538e559b7f0991eb1a80a0f7874633378d806ab3601c062d041eaa604",
+      "line_patch": [
+        [
+          195,
+          196,
+          [
+            "static inline int Frame_Difference(int a, int b) { return a - b; }\n"
+          ]
+        ],
+        [
+          234,
+          237,
+          [
+            "\t\t\tFrame_Difference(WWMemoryLogClass::Get_Allocate_Count(), WWMemoryLogClass::Get_Free_Count()),\n",
+            "\t\t\tFrame_Difference(TextureClass::_Get_Total_Texture_Count(), TextureClass::_Get_Total_Locked_Surface_Count()),\n",
+            "\t\t\t(float)(Frame_Difference(TextureClass::_Get_Total_Texture_Size(), TextureClass::_Get_Total_Locked_Surface_Size())) / (1024.0f * 1024.0f),\n"
+          ]
+        ],
+        [
+          250,
+          251,
+          [
+            "\t\t\t\tFrame_Append(text, line);\n"
+          ]
+        ],
+        [
+          262,
+          263,
+          [
+            "\t\tFrame_Append(text, line);\n"
+          ]
+        ],
+        [
+          264,
+          265,
+          [
+            "\t\tFrame_Append(text, line);\n"
+          ]
+        ]
+      ],
+      "compiled": false,
+      "error": "frameint.cpp\nZ:\\home\\dev\\Projects\\EnB\\.work\\claim-293\\53EB00\\variants\\append_all_difference\\frameint.cpp(251) : error C2065: 'Frame_Append' : undeclared identifier\n"
+    }
+  ]
+}

@@ -1,0 +1,109 @@
+{
+  "description": "Line patches against tree3 baseline; each [start,end,replacement_lines] uses zero-based half-open indices. Apply in reverse order.",
+  "records": [
+    {
+      "name": "fps_2_layers",
+      "base_sha256": "f1017264c71f9eec83b4287e3486674ef7671eb6bd2fe2a16ac779baa2d4b727",
+      "source_sha256": "2bcfdfbdef4d51c69cad54a9daab1901cfc02b06dbc0e4fe8767595561f29c37",
+      "line_patch": [
+        [
+          195,
+          196,
+          [
+            "static inline void Frame_Append(StringClass &to, const StringClass &from) { to += from; } static inline void Frame_Append_2(StringClass &to, const StringClass &from) { Frame_Append(to, from); } static inline void Frame_Memory_Line(StringClass &text, int i, unsigned memory) { StringClass line; line.Format(\"%s : %2.2fMb\\n\", WWMemoryLogClass::Get_Category_Name(i), (float)memory / (1024.0f * 1024.0f)); text += line; } static inline void Frame_Display_Memory_Line(StringClass &text, int i, unsigned memory) { Frame_Memory_Line(text, i, memory); }\n"
+          ]
+        ],
+        [
+          248,
+          251,
+          [
+            "\t\t\t\tFrame_Display_Memory_Line(text, i, memory);\n",
+            "\n",
+            "\n"
+          ]
+        ],
+        [
+          262,
+          263,
+          [
+            "\t\tFrame_Append_2(text, line);\n"
+          ]
+        ],
+        [
+          264,
+          265,
+          [
+            "\t\tFrame_Append_2(text, line);\n"
+          ]
+        ]
+      ],
+      "compiled": true,
+      "body_bytes": 1424,
+      "body_sha256": "32c46a89d30f977d76b5bf8d45a2a8dd7a0b031af86d5366f5156178d3c9deaa",
+      "target_exact": false,
+      "gained": [
+        [
+          "??0StringClass@@QAE@H_N@Z",
+          "0x53F1C0"
+        ],
+        [
+          "??YStringClass@@QAEABV0@ABV0@@Z",
+          "0x510BE0"
+        ]
+      ],
+      "lost": []
+    },
+    {
+      "name": "fps_3_layers",
+      "base_sha256": "f1017264c71f9eec83b4287e3486674ef7671eb6bd2fe2a16ac779baa2d4b727",
+      "source_sha256": "8e7a014884d340b50d7717c1abc62221378aa769c4301439c4bc8b172ee87df9",
+      "line_patch": [
+        [
+          195,
+          196,
+          [
+            "static inline void Frame_Append(StringClass &to, const StringClass &from) { to += from; } static inline void Frame_Append_2(StringClass &to, const StringClass &from) { Frame_Append(to, from); } static inline void Frame_Append_3(StringClass &to, const StringClass &from) { Frame_Append_2(to, from); } static inline void Frame_Memory_Line(StringClass &text, int i, unsigned memory) { StringClass line; line.Format(\"%s : %2.2fMb\\n\", WWMemoryLogClass::Get_Category_Name(i), (float)memory / (1024.0f * 1024.0f)); text += line; } static inline void Frame_Display_Memory_Line(StringClass &text, int i, unsigned memory) { Frame_Memory_Line(text, i, memory); }\n"
+          ]
+        ],
+        [
+          248,
+          251,
+          [
+            "\t\t\t\tFrame_Display_Memory_Line(text, i, memory);\n",
+            "\n",
+            "\n"
+          ]
+        ],
+        [
+          262,
+          263,
+          [
+            "\t\tFrame_Append_3(text, line);\n"
+          ]
+        ],
+        [
+          264,
+          265,
+          [
+            "\t\tFrame_Append_3(text, line);\n"
+          ]
+        ]
+      ],
+      "compiled": true,
+      "body_bytes": 1424,
+      "body_sha256": "32c46a89d30f977d76b5bf8d45a2a8dd7a0b031af86d5366f5156178d3c9deaa",
+      "target_exact": false,
+      "gained": [
+        [
+          "??0StringClass@@QAE@H_N@Z",
+          "0x53F1C0"
+        ],
+        [
+          "??YStringClass@@QAEABV0@ABV0@@Z",
+          "0x510BE0"
+        ]
+      ],
+      "lost": []
+    }
+  ]
+}
