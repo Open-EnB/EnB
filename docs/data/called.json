@@ -621,9 +621,6 @@
 "?Build_Quaternion@@YA?AVQuaternion@@ABVMatrix3D@@@Z": [
 "0x8D2710"
 ],
-"?CRC_String@@YAKPBDK@Z": [
-"0x9D4840"
-],
 "?Cast_OBBox@MeshGeometryClass@@QAE_NAAVOBBoxCollisionTestClass@@@Z": [
 "0x92AE70"
 ],
@@ -1769,6 +1766,9 @@
 ],
 "?Stop_Root_Profile@WWProfileManager@@SAXXZ": [
 "0x9EAAD0"
+],
+"?String@CRC@@SAKPBDK@Z": [
+"0x9D4840"
 ],
 "?Sync@WW3D@@SAXI@Z": [
 "0x918200"
