@@ -439,13 +439,13 @@ void UIMountClass::Build()
 	if (d <= 0.01f) d = 0.01f;
 	float scale_left = 1.0f / d;
 	double dd = 1.0 - ((1.0f - max_x) - w);
-	if (dd <= 0.01) dd = 0.01;
+	if (dd <= 0.01f) dd = 0.01f;
 	float scale_right = (float)(1.0 / dd);
 	dd = 1.0 - ((1.0 - -min_y) - button_h);
-	if (dd <= 0.01) dd = 0.01;
+	if (dd <= 0.01f) dd = 0.01f;
 	float scale_down = (float)(1.0 / dd);
 	dd = 1.0 - ((1.0f - max_y) - button_h);
-	if (dd <= 0.01) dd = 0.01;
+	if (dd <= 0.01f) dd = 0.01f;
 	float scale_up = (float)(1.0 / dd);
 	int j;
 	for (j = 0; j < count; j++) {
