@@ -1116,7 +1116,7 @@ void AvatarCreationInterface::Unknown_559350()
 	Unknown08C->Unknown_67C380(&Unknown170, desc->Desc.Gender);
 }
 
-// NOT EXACT: functional (D64), from the client's 0x5594B0 (AvatarDescClass's assignment)
+// From the client's 0x5594B0 (AvatarDescClass's assignment)
 // 0x5594B0
 void CharacterViewClass::Unknown_5594B0(AvatarDescClass desc)
 {
