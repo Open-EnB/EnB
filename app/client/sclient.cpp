@@ -4133,10 +4133,6 @@ void SClient::Unknown_74BF00(int mode)
 
 
 
-
-
-
-
 // 0x74BF80
 ClientObjectClass *SClient::Unknown_74BF80()
 {
@@ -4151,39 +4147,43 @@ ClientObjectClass *SClient::Unknown_74BF80()
 #include "sbaseview.h"	// UIStarbaseClass, SBaseViewClass (0x74BFB0's Info, '/starbase reset', 0x74D950, the chat-event colour)
 #include "sbase_info.h"	// StarbaseInfoClass: the starbase view's Info (0x74BFB0)
 template<class C> inline C *Unknown_Find_Valid(DeltaCompoundClass *root, const NameClass &name) { C *t = Unknown_Find_Field<C>(root, name); return((t != NULL && t->Unknown70 != 0) ? t : NULL); }	// (cameraeffects.cpp's, ui_mfd.cpp's)  // NAME 1: neutral (D10)
-// NOT EXACT: inline budget (explain.py: 23 calls, the client 26): the client calls the const_iterator conversion 0x755BD0 twice, the first Unknown_Find_Field and the other three's Cast out of line, ours inlines them; 14 forms, the closest (21 rows) stashed (attempts.py show 0x74BFB0)
+// NOT EXACT: registers (masked residue 48, was 81): the type, the avatar's description and the levels through file-static layers and two dead size() reads after the find (D272) give the client's 26 calls (conversions 0x755BD0, the first Find_Field 0x514B60, the Casts 0x531590 out of line); left: the client keeps type in ebp and race in ebx, ours spills type; attempts.py show 0x74BFB0
 // 0x74BFB0 (0x744690, after the listener: every frame): MusicManagerClass::Update's type, level, race and theme race, then the aux data's MusicID
-void SClient::Unknown_74BFB0()
+static inline int Unknown_Field_Value(DeltaCompoundClass *root, const NameClass &name) { return(Unknown_Find_Valid<DeltaTemplateClass<int> >(root, name)->Value); }	// NAME 1: neutral (D10)
+// 0x74BFB0's layers (the client calls the conversions 0x755BD0, the first Find_Field and the Casts out of line)
+static inline int Unknown_Music_Type(SClient *client, int &theme_race)	// NAME 1: neutral (D10)
 {
 	int type = 0;
+	if (client->ViewMode == 6) { type = -1;
+	} else if (client->CameraManager && client->CameraManager->Unknown_79B630()) { type = -1;
+	} else if (client->CameraManager && client->CameraManager->Unknown_79B650()) { type = 4;
+	} else if (client->CurrentView && client->CurrentView == client->Unknown135C) {
+		type = 3; SBaseViewClass *view = (SBaseViewClass *)client->Unknown135C;
+		if (view && view->Info) { theme_race = view->Info->Style; if (theme_race > 2) theme_race = 8; }
+	} else if (client->ViewMode == 1 || client->ViewMode == 5) { type = 2; }
+	return(type);
+}
+static inline AvatarDescClass *Unknown_Avatar_Desc(SClient *client)	// NAME 1: neutral (D10)
+{
+	std::hash_map<unsigned, CharacterViewAvatarClass *>::const_iterator it = client->Unknown1394.find(client->Get_Avatar_ID());
+	if (it == client->Unknown1394.end() || !(*it).second) return(NULL);
+	return(&(*it).second->Desc);
+}
+void SClient::Unknown_74BFB0()
+{
 	int theme_race = 8;
-	if (ViewMode == 6) {
-		type = -1;
-	} else if (CameraManager && CameraManager->Unknown_79B630()) {
-		type = -1;
-	} else if (CameraManager && CameraManager->Unknown_79B650()) {
-		type = 4;
-	} else if (CurrentView && CurrentView == Unknown135C) {
-		type = 3;
-		SBaseViewClass *view = (SBaseViewClass *)Unknown135C;
-		if (view && view->Info) {
-			theme_race = view->Info->Style;
-			if (theme_race > 2) theme_race = 8;
-		}
-	} else if (ViewMode == 1 || ViewMode == 5) {
-		type = 2;
-	}
+	int type = Unknown_Music_Type(this, theme_race);
 	if (Unknown_74D730()) type = 1;
-	std::hash_map<unsigned, CharacterViewAvatarClass *>::const_iterator it = Unknown1394.find(Get_Avatar_ID());
-	if (it == Unknown1394.end() || !(*it).second) return;
-	AvatarDescClass *desc = &(*it).second->Desc;
+	AvatarDescClass *desc = Unknown_Avatar_Desc(this);
+	Unknown1394.size();
+	Unknown1394.size();
 	if (!desc) return;
 	int race = desc->Race;
 
 	G_ASSERT(AuxData);
-	int level = Unknown_Find_Valid<DeltaTemplateClass<int> >((DeltaCompoundClass *)AuxData, NameClass("RPGInfo.CombatLevel"))->Value;
-	level += Unknown_Find_Valid<DeltaTemplateClass<int> >((DeltaCompoundClass *)AuxData, NameClass("RPGInfo.TradeLevel"))->Value;
-	level += Unknown_Find_Valid<DeltaTemplateClass<int> >((DeltaCompoundClass *)AuxData, NameClass("RPGInfo.ExploreLevel"))->Value;
+	int level = Unknown_Field_Value((DeltaCompoundClass *)AuxData, NameClass("RPGInfo.CombatLevel"));
+	level += Unknown_Field_Value((DeltaCompoundClass *)AuxData, NameClass("RPGInfo.TradeLevel"));
+	level += Unknown_Field_Value((DeltaCompoundClass *)AuxData, NameClass("RPGInfo.ExploreLevel"));
 	MusicManager->Update(type, level, race, theme_race);
 	DeltaTemplateClass<int> *music = Unknown_Find_Field<DeltaTemplateClass<int> >((DeltaCompoundClass *)AuxData, NameClass("MusicID"));
 	if (music && music->Unknown70 > 1) {
