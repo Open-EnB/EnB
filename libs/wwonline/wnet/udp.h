@@ -100,7 +100,7 @@ class UDP
   sint32           Bind(uint32 IP,uint16 port);
   sint32           Bind(char *Host,uint16 port);
   void             Close(void);  // E&B: 0x8BFCA0  // NAME 2: closes the socket
-  sint32           SetBlocking(bit8 block,sint32 sock=-1);  // E&B: public, any socket (0x8BFD00)
+ private: sint32 SetBlocking(bit8 block,sint32 sock=-1); public:  // E&B: private as matchbot's, any socket (0x8BFD00)
   sint32           Write(uint8 *msg,uint32 len,uint32 IP,uint16 port);
   sint32           Read(uint8 *msg,uint32 len,sockaddr_in *from);
   sockStat         GetStatus(void);
@@ -137,3 +137,5 @@ class UDP
 //       0x8C0060 and an empty member 0x8C00E0 (after ClearStatus 0x8C0040, before GetStatus) have no caller in the
 //       client; Set_Accounting_Callback 0x8C05E0 / Clear_Accounting_Callback 0x8C0600 (bandwidthaccounting.cpp's
 //       constructor 0x84C795 / destructor 0x84C868): app/wwudp/udp.h's declarations, same mangled names
+// EnB: UDP::SetBlocking (line 103, 2026-11-25): private again, as matchbot's: retail's ?SetBlocking@UDP@@AAEJDJ@Z hashes
+//       into the bucket window of its thunk slot (thunk order, IM3 / N1); only UDP's own Bind calls it

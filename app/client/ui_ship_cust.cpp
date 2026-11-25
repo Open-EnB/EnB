@@ -120,8 +120,8 @@ typedef SignalBaseClass::MemberCallback<GadgetClass, StarbaseShipCustomizeInterf
 
 
 // @0x6181B0
-StarbaseShipCustomizeInterface::StarbaseShipCustomizeInterface(UIViewClass *view, LayerClass *layer) :
-	Unknown5BB320Class(new UIMeshClass("BUY_SHIP01", 1), view, *layer),
+StarbaseShipCustomizeInterface::StarbaseShipCustomizeInterface(UIViewClass *view, LayerClass &layer) :	// a reference: retail's ...@PAVUIViewClass@@AAVLayerClass@@@Z (thunk order, IM3 / N1)
+	Unknown5BB320Class(new UIMeshClass("BUY_SHIP01", 1), view, layer),
 	SBaseView((SBaseViewClass *)view->Unknown_30()),
 	Unknown234(false),
 	Unknown235(false),
@@ -134,7 +134,7 @@ StarbaseShipCustomizeInterface::StarbaseShipCustomizeInterface(UIViewClass *view
 	Unknown2D8(NULL),
 	Unknown2DC(NULL),
 	Unknown2E0(NULL),
-	Layer(layer),
+	Layer(&layer),
 	Page(0),
 	Unknown2FC(false),
 	Unknown300(NULL),

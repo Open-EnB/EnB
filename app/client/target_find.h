@@ -49,7 +49,7 @@ class TargetFindClass	// NAME 3: class-from-file (D24) for target_find.cpp
 public:
 	TargetFindClass(SClient *client);								// 0x7C3F10
 	virtual ~TargetFindClass();										// +0x00 0x7C3F60 (deleting), 0x7C3F90
-	virtual ClientObjectClass *Select(ClientObjectClass *co);		// +0x04 0x7C3F40: returns co; the derived class overrides it  // NAME 1: neutral by what callers hand it
+	protected: virtual ClientObjectClass *Select(ClientObjectClass *co); public:		// +0x04 0x7C3F40: returns co; the derived class overrides it  // NAME 1: neutral by what callers hand it
 
 	ClientObjectClass *Select_Next(ClientObjectClass *co);			// 0x7C3FB0 (no filter)  // NAME 2: what it does
 	ClientObjectClass *Find_Next(ClientObjectClass *co);			// 0x7C3FF0: the object after co, or the nearest  // NAME 2: what it does
