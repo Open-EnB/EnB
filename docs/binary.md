@@ -108,7 +108,7 @@ stamp or the PDB signature.
 | Library members (0x8C1B64-0xA420AC) are packed, alignment only, with no thunks | 8,029 of 8,030 contributions with under 16 bytes of int3 after them |
 | One reserve after the library code | 392,020 int3 at 0xA420AC = 24.90 % of the 1,574,216 library bytes (our trial link of libraries only, `client-inc`: 1,258,622 = 25.08 % of 5,018,050) |
 | The thunk table at the start of `.text` | 5 int3, then 19,983 contiguous `jmp rel32` 0x401005-0x419650 (18,691 targets), then 65,504 int3 to the first app slot 0x429630 |
-| Thunk order is not by target, by name or by object | steps to a higher target 8,029 of 19,982 (40 %); to a higher decorated name 7,058 of 14,276 (49 %); adjacent slots of one object 59 of 6,066 pairs with both objects known. The rule is open (question 2) |
+| Thunk order: LINK's symbol hash table, not target, name or object (rule below) | steps to a higher target 8,029 of 19,982 (40 %); to a higher decorated name 7,058 of 14,276 (49 %); adjacent slots of one object 59 of 6,066 pairs with both objects known |
 | Two thunks for one address in a full link: aliases only | 1,286 targets are deleting destructors (`??_G` / `??_E` names, or the flag test in the body) |
 | An object's own functions in one run, in its section order | 761 of 770 objects (11,434 named functions with one owning object of ours); the 13 out-of-run pieces (37 functions) are 7 names symbols.json holds at two addresses (byte-identical small functions: `Set_Color` 0x6E5460 / 0x969300, ...) and our tree's placements (`DeltaVisitorClass::Visit_Children` 0x4B0860 in unknown_root.cpp sits in delta_visitor's run; `Unknown_684E00` in deffont.cpp; `Bitmap2DObjClass`'s ctor 0x974420 in bmp2d.cpp sits in render2d's run); none at the end of `.text` |
 
@@ -140,3 +140,64 @@ older source state is needed for any function's bytes). Placement is the cost:
   names (the slots and holes above give the sizes to 16 bytes; the DirLock constructors' old signatures are
   unknown), then an incremental link of the final objects; or accepting the update's marks (48 slots, 22
   guests, 7 thunks, under 30 KB of `.text`) as a documented residue.
+
+### 5.1 The trial link with the app's objects, and the thunk table's order rule
+
+Measured 2026-11-25 (image builder IM2, week plan 2026-11-24 §2 D question 2).
+
+**The `objs` trial link.** `build.py link --program client --tag objs --objs LIST --link-flag=-debug
+--link-flag=-incremental:yes --link-flag=-fixed:no` puts the 651 app objects that the one client build pulls from
+`app.lib` on the link line before the libraries (app.lib stays after them; it adds 2 members the one build does not
+pull, spline.obj and unknown_px_callbacks.obj, 44 symbols, packed among the libraries). Object order: each object's
+median retail address of its own (non-COMDAT) functions that `.work/imagediff/layout.tsv` places in the app range
+(480 objects), then the 171 with none placed in the one build's map order (`.work/im2/objorder.py`). No LNK4001; the
+image is 8,134,718 bytes (retail 8,642,625). imagediff: **645,557 of 8,642,625 bytes in place (7.47 %)** (`.text`
+511,769 = 7.1 %), against 2.64 % for `client-inc` and 1.38 % for the one client build.
+
+| The full link's rules, on our image | Figure |
+|---|---|
+| Thunk table | 0x401005-0x416A4F, 17,730 thunks, 16,610 targets (the same start as retail's; retail 19,983) |
+| 64 KB reserve | first app slot 0x426A50 = up16(table end + 0x10000): retail's 0x429630 = up16(0x41962D + 0x10000) is the same rule |
+| up16(S + S/4) | 16,610 of 16,610 app functions at a section start (S from the object's section) |
+| Libraries packed, reserve | 9,052 of 9,053 contributions under 16 bytes of int3; then 399,774 int3 = 24.58 % of the library bytes (retail 24.90 %) |
+
+**The order rule.** The thunk table is written in the order of LINK's external-symbol hash table. LINK.EXE 6.00
+(the toolchain's, 0x432343-0x432391) hashes a decorated name byte by byte, c signed:
+`h = h + (c << 18) + c + ((h >> 1) ^ h)` (32-bit), then `h %= 0x1ECA9D3B`; the table is a linear-hashing table
+(Larson): bucket = `h % maxp`, or `h % (2 * maxp)` when that is below the split pointer p; a bucket splits when
+16 * count / size exceeds 0x30. The thunks follow the buckets in index order, and in a bucket the symbol first seen
+**last** comes first (its chain is newest first; first sight = the objects' COFF symbol tables in link order,
+definitions and references alike). `tools/re/linklayout.py` has the hash (`lhash`, `bucket`, `fit_split`,
+`predict_order`) and `--thunk-order`.
+
+| Candidate (brief IM2) | Our `objs` table: adjacent pairs reproduced | Retail |
+|---|---|---|
+| object order, then each object's defined functions in symbol-table order | 1 of 16,029 (0.0 %) | 1 of 12,041 |
+| COFF symbol-table order, first sight (defined or not) | 1 of 16,609 | 0 of 12,132 |
+| first reference in link order (relocations, then definitions) | 3 of 16,609 | 4 of 12,132 |
+| per section: its function, then its relocations' targets | 4 of 16,609 | 4 of 12,132 |
+| our `objs` table's own order | (itself) | 148 of 11,553 (1.3 %) |
+| **LINK's hash order** (maxp 8192, p fitted: 5,839 ours, 6,856 retail), chains newest first by symbol-table first sight | **13,514 of 13,546 (99.76 %)** pairs whose targets have one name each (15,532 of 17,729 with the aliases' first map name) | names on the order below |
+
+How it was found: a second trial link with the object order reversed (`--tag objsrev`) kept the table's order
+between buckets (longest common order 66.9 % of names) and reversed it inside them (adjacent pairs reversed 29.5 %);
+probe links of C functions with chosen names (`.work/im2/hashprobe.py`: 52 single letters, `aa`..`bz`, `f0000`..`f3999`
+forwards and backwards) gave bucket groups no textbook hash fits; the hash was then read from LINK.EXE's code
+(`.work/im2/findhash.py`: a byte loop with shifts ending in a `div`). Every probe order is non-decreasing in its
+buckets (53 of 53, 1001 of 1001, 4001 of 4001 slots).
+
+**Retail follows the same rule; it checks names.** Retail's named slots (symbols.json; the deleting destructors under
+both `??_G` and `??_E`) against the hash with maxp 8192: the longest run of non-decreasing buckets is greatest at
+p = 6,856 (more symbols than our link: 1,017 more buckets at load 3, about 3,000 symbols); on it lie **2,791 of the
+10,675 names without "Unknown"** (26.1 %), and **7 of the 3,602 "Unknown" names** (0.2 %, chance: those names are
+ours, retail's hash to elsewhere). By kind, without "Unknown": destructors `??1` 33 %, other names 24 %, `std::` 21 %,
+deleting destructors 20 %, constructors 16 %. A name on the order is retail's exact decorated name (calling
+convention, const, every parameter type included); one off it is not (or its slot's neighbours are wrong). Per slot:
+`.work/linklayout/thunknames.tsv` (slot, target, bucket, on_order, name).
+
+**What it implies.** The thunk table's order is a function of the set of external symbol names (and their first-sight
+order inside a bucket), not of the object order: reproducing retail's table, and with it the 81,747 rel32 operands
+that reach it, needs retail's exact decorated name for every thunked function (about 2,800 of 14,277 named slots
+have it now; 5,706 slots have no name) and the same total symbol count in LINK's table (p = 6,856 against our 5,839),
+then the object order for the chains. The same hash makes the table a name oracle: a proposed name for a slot can be
+checked against its neighbours' buckets without a link.

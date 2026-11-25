@@ -94,5 +94,52 @@ class Runs(unittest.TestCase):
         self.assertEqual([(p['obj'], p['start'], p['main']['start']) for p in pieces], [('a', 4, 1)])
 
 
+# The order of a VC6 incremental link's thunk table, observed on probe links of 2026-11-25 (one C file of functions
+# with these names, `link /debug /incremental:yes /fixed:no` on a pool VM; .work/im2/hashprobe.py)
+PROBE_TWO = ('_main _aa _ab _ba _ac _bb _ad _bc _ae _bd _af _be _ag _bf _ah _bg _ai _bh _aj _bi _ak _bj _al _bk _am '
+             '_bl _an _bm _ao _bn _ap _bo _aq _bp _ar _bq _as _br _at _bs _au _bt _av _bu _aw _bv _ax _bw _ay _bx _az '
+             '_by _bz').split()
+# the same probe with f0000..f0999: the table's first bucket, the functions defined in ascending order
+PROBE_F1000_HEAD = ['_f0550', '_f0450', '_f0340', '_f0260', '_f0551', '_f0451', '_f0341', '_f0261']
+
+
+class ThunkOrder(unittest.TestCase):
+    def test_hash(self):
+        # h = h + (c << 18) + c + ((h >> 1) ^ h) per byte, then mod 0x1ECA9D3B
+        self.assertEqual(linklayout.lhash(''), 0)
+        self.assertEqual(linklayout.lhash('a'), (97 << 18) + 97)
+        self.assertEqual(linklayout.lhash('_main'), 340373223)
+
+    def test_bucket(self):
+        # below the split pointer the bucket takes one more bit
+        h = 3 * 64 + 5
+        self.assertEqual(linklayout.bucket(h, 64, 0), 5)
+        self.assertEqual(linklayout.bucket(h, 64, 6), 69)
+
+    def test_probe_order_is_bucket_order(self):
+        hs = [linklayout.lhash(n) for n in PROBE_TWO]
+        p = linklayout.fit_split(hs, 64)
+        bs = [linklayout.bucket(h, 64, p) for h in hs]
+        self.assertEqual(bs, sorted(bs))
+
+    def test_chain_newest_first(self):
+        first_seen = {n: i for i, n in enumerate(sorted(PROBE_F1000_HEAD))}
+        self.assertEqual(linklayout.predict_order(PROBE_F1000_HEAD, first_seen, 128, 104), PROBE_F1000_HEAD)
+
+    def test_name_check(self):
+        # slots named in bucket order, one of them with a name that hashes elsewhere
+        names = sorted(['_a%d' % i for i in range(40)], key=lambda n: linklayout.bucket(linklayout.lhash(n), 64, 0))
+        names[20] = '_invented_name'
+        table = [(0x1000 + 5 * i, 0x2000 + 16 * i) for i in range(len(names))]
+        names_of = {t: [n] for (_, t), n in zip(table, names)}
+        p, rows = linklayout.name_check(table, names_of, 64, 0)
+        off = [r[2] for r in rows if not r[4]]
+        self.assertLessEqual(len(off), 2)
+        self.assertIn('_invented_name', off)
+
+    def test_lnds(self):
+        self.assertEqual(linklayout.lnds_members([1, 5, 2, 2, 3, 0, 4]), [0, 2, 3, 4, 6])
+
+
 if __name__ == '__main__':
     unittest.main()

@@ -546,11 +546,34 @@ UNRES = re.compile(r'error LNK20(?:01|19): unresolved external symbol (?:"([^"]*
                    r'(?: referenced in function (?:"[^"]*" \((\S+?)\)|(\S+)))?')
 
 
-def link_program(name, out, deploy=True, extra_link=(), tag=None):
+def read_objs(path, out):
+    """A trial link's object list (--objs): one object file per line, a path relative to `out` (app/obj/x.obj) or
+    absolute; blank lines and # comments skipped. Every file must exist and the basenames be unique (they go over
+    into one directory). Returns the paths in the file's order."""
+    objs, seen = [], {}
+    for n, line in enumerate(open(path, encoding='utf-8'), 1):
+        line = line.split('#', 1)[0].strip()
+        if not line:
+            continue
+        f = line if os.path.isabs(line) else os.path.join(out, line)
+        if not os.path.exists(f):
+            raise SystemExit(f'{path}:{n}: no such object {f}')
+        b = os.path.basename(f).lower()
+        if b in seen:
+            raise SystemExit(f'{path}:{n}: {b} twice (also line {seen[b]})')
+        seen[b] = n
+        objs.append(f)
+    return objs
+
+
+def link_program(name, out, deploy=True, extra_link=(), tag=None, objs=()):
     """link_one; for a strict program (client) a compile error, an unresolved symbol or no exe fails (exit 1);
     the harness programs (clienttest, udpreplay, ...) get the summary back and run their own gen_stubs pass.
-    deploy is kept for the callers' signature: no program deploys anywhere."""
-    summary = link_one(name, out, extra_link=extra_link, trial=tag)
+    deploy is kept for the callers' signature: no program deploys anywhere. objs: object files put on the link
+    line, in order, before the libraries (a trial link only: --objs needs --tag)."""
+    if objs and not tag:
+        raise SystemExit('--objs is for a trial link: give --tag')
+    summary = link_one(name, out, extra_link=extra_link, trial=tag, extra_objs=objs)
     if not PROGRAMS[name].get('strict'):
         return summary
     dst = os.path.join(out, 'programs', name + ('-' + tag if tag else ''))
@@ -705,6 +728,7 @@ def main():
     ap.add_argument('--holder-pid', type=int)
     ap.add_argument('--link-flag', action='append', default=[], metavar='OPT',
                     help='link: a linker option added after ours, e.g. --link-flag=-incremental:yes (repeatable; with --tag; write - for /: Git Bash turns a leading / into a path)')
+    ap.add_argument('--objs', metavar='LIST', help='link: a file listing object files (relative to --out, e.g. app/obj/x.obj) put on the link line in its order before the libraries; with --tag (a trial link)')
     ap.add_argument('--tag', help='link: write to programs/<name>-TAG/ (a trial link; the one client build stays)')
     ap.add_argument('--no-deploy', action='store_true', help='link: no effect (no program deploys); kept for old callers')
     ap.add_argument('--allow-dirty', action='store_true',
@@ -717,13 +741,14 @@ def main():
         return
     if a.command == 'link':
         progs = a.program or list(PROGRAMS)
+        objs = read_objs(a.objs, a.out) if a.objs else []
         if a.pool:
             with I.pool_lease(a.pool, a.holder_pid):
                 for p in progs:
-                    link_program(p, a.out, not a.no_deploy, a.link_flag, a.tag)
+                    link_program(p, a.out, not a.no_deploy, a.link_flag, a.tag, objs)
         else:
             for p in progs:
-                link_program(p, a.out, not a.no_deploy, a.link_flag, a.tag)
+                link_program(p, a.out, not a.no_deploy, a.link_flag, a.tag, objs)
         return
     libs = a.lib or ORDER
     changed = dirty(libs)

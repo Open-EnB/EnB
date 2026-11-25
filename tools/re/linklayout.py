@@ -12,9 +12,18 @@ lays out a full link by rules this tool checks, and an incremental update leaves
                   signature) keeps its old thunk too, so its target has two thunks (a full link gives two thunks
                   to one address only for aliases: the scalar / vector deleting destructors ??_G / ??_E)
     object runs   own functions (not COMDAT, or COMDAT NODUPLICATES) of one object sit in one run in a full link
+    thunk order   the table follows LINK's external-symbol hash table (link.exe 6.00 0x432343-0x432391, a linear-
+                  hashing table): buckets in index order, within a bucket the symbol first seen last (in the
+                  objects' symbol tables, link order) first. lhash() is the hash, bucket() the address; the table's
+                  split state (maxp, p) follows from the total symbol count and is fitted here. A name of
+                  symbols.json is consistent when its bucket falls in the longest non-decreasing run of the named
+                  slots' buckets: retail's exact decorated name (an invented name lands there by chance only)
 
     python tools/re/linklayout.py                       retail client.exe (function starts from clientimage)
     python tools/re/linklayout.py --objects             also the object runs (symbols.json against build/*/obj)
+    python tools/re/linklayout.py --thunk-order         also the hash order and the name check (thunknames.tsv)
+    python tools/re/linklayout.py --thunk-order --client build/programs/client-objs/client.exe \
+        --map build/programs/client-objs/client.map     the same on a trial link, its names from its map
 
 Summary on stdout; contributions.tsv (every slot off the rule, guests with their hosts), thunks.tsv (the doubly
 reached targets and the table's last 64 slots), runs.tsv (out-of-run pieces, --objects) in --out
@@ -222,6 +231,103 @@ def stamps(data):
     return stamp, out
 
 
+# VC6 LINK.EXE (6.00, the toolchain's) keeps its external symbols in a linear-hashing table (Larson): the hash
+# below (0x432343-0x432372), then bucket = h % maxp, or h % (2 * maxp) for buckets below the split pointer p
+# (0x432374-0x432391); it splits bucket p when 16 * count / size exceeds 0x30. The incremental thunk table is
+# written in bucket order, each bucket's chain newest first.
+LHASH_PRIME = 0x1ECA9D3B
+
+
+def lhash(name):
+    """LINK's symbol hash of a decorated name: per byte c (signed), h = h + (c << 18) + c + ((h >> 1) ^ h)."""
+    h = 0
+    for c in name.encode('latin1'):
+        if c >= 0x80:
+            c -= 0x100
+        h = (h + ((c << 18) & 0xFFFFFFFF) + c + ((h >> 1) ^ h)) & 0xFFFFFFFF
+    return h % LHASH_PRIME
+
+
+def bucket(h, maxp, p):
+    """The linear-hashing bucket of hash h with `maxp` base buckets and split pointer p."""
+    b = h % maxp
+    return h % (2 * maxp) if b < p else b
+
+
+def lnds_members(seq):
+    """Indexes of one longest non-decreasing subsequence of seq."""
+    tails, tails_i, prev = [], [], [None] * len(seq)
+    for i, x in enumerate(seq):
+        k = bisect.bisect_right(tails, x)
+        if k == len(tails):
+            tails.append(x)
+            tails_i.append(i)
+        else:
+            tails[k] = x
+            tails_i[k] = i
+        prev[i] = tails_i[k - 1] if k else None
+    out, i = [], tails_i[-1] if tails_i else None
+    while i is not None:
+        out.append(i)
+        i = prev[i]
+    return out[::-1]
+
+
+def fit_split(hashes, maxp):
+    """The split pointer p in [0, maxp) whose buckets give `hashes` (in slot order) the longest non-decreasing
+    run: a coarse pass every maxp // 128, then every value around the best."""
+    def score(p):
+        return len(lnds_members([bucket(h, maxp, p) for h in hashes]))
+    step = max(1, maxp // 128)
+    best = max(range(0, maxp, step), key=score)
+    return max(range(max(0, best - step), min(maxp, best + step)), key=score)
+
+
+def predict_order(names, first_seen, maxp, p):
+    """The thunk table's order for a set of names: bucket ascending, within a bucket the later first sight first
+    (first_seen: name -> its index in the order the linker met the symbols)."""
+    return sorted(set(names), key=lambda n: (bucket(lhash(n), maxp, p), -first_seen.get(n, -1)))
+
+
+def map_names(path):
+    """{VA: [names]} from a VC6 link map's .text lines (publics and statics)."""
+    pub = re.compile(r'^\s*0001:[0-9a-f]{8}\s+(\S+)\s+([0-9a-f]{8})\s')
+    out = collections.defaultdict(list)
+    for line in open(path, encoding='latin1'):
+        m = pub.match(line)
+        if m and m.group(1) not in out[int(m.group(2), 16)]:
+            out[int(m.group(2), 16)].append(m.group(1))
+    return out
+
+
+def name_check(table, names_of, maxp, p=None):
+    """Each slot's name (one name per target; a target with several takes the one whose bucket fits best) and
+    whether it lies on the longest non-decreasing bucket run. Returns (p, rows [(slot, target, name, bucket, on)])."""
+    first = [names_of.get(t, []) for _, t in table]
+    single = [(i, n[0]) for i, n in enumerate(first) if len(n) == 1]
+    if p is None:
+        p = fit_split([lhash(n) for _, n in single], maxp)
+    named = [(i, n[0] if len(n) == 1 else None, n) for i, n in enumerate(first) if n]
+    anchors = [(i, bucket(lhash(n), maxp, p)) for i, n in single]
+    on = {anchors[k][0] for k in lnds_members([b for _, b in anchors])}
+    ai = sorted(on)
+    ab = dict(anchors)
+    rows = []
+    for i, n, alln in named:
+        s, t = table[i]
+        if n is None:
+            # aliases: the name whose bucket lies between the nearest anchors
+            j = bisect.bisect_left(ai, i)
+            lo = ab[ai[j - 1]] if j > 0 else 0
+            hi = ab[ai[j]] if j < len(ai) else 1 << 31
+            fits = [x for x in alln if lo <= bucket(lhash(x), maxp, p) <= hi]
+            n = fits[0] if fits else alln[0]
+            rows.append((s, t, n, bucket(lhash(n), maxp, p), bool(fits)))
+        else:
+            rows.append((s, t, n, bucket(lhash(n), maxp, p), i in on))
+    return p, rows
+
+
 def rel32_into(body, base, starts, lo, hi):
     """Count the `call` / `jmp rel32` decoded by a linear sweep from each start whose target is in [lo, hi)."""
     import capstone
@@ -236,6 +342,34 @@ def rel32_into(body, base, starts, lo, hi):
     return n
 
 
+def pe_text(path):
+    """(.text bytes, its VA) of any PE image (clientimage loads the retail client only)."""
+    d = open(path, 'rb').read()
+    pe = struct.unpack_from('<I', d, 0x3C)[0]
+    nsec, = struct.unpack_from('<H', d, pe + 6)
+    opt, = struct.unpack_from('<H', d, pe + 20)
+    imagebase, = struct.unpack_from('<I', d, pe + 24 + 28)
+    for i in range(nsec):
+        name, vsize, va, rsize, raw = struct.unpack_from('<8sIIII', d, pe + 24 + opt + 40 * i)
+        if name.rstrip(b'\0') == b'.text':
+            return d[raw:raw + min(vsize, rsize)], imagebase + va
+    raise SystemExit(f'{path}: no .text')
+
+
+def thunk_report(table, names_of, a):
+    """--thunk-order: the split fit, the name check's summary line and thunknames.tsv in a.out."""
+    p, rows_ = name_check(table, names_of, a.maxp, a.split)
+    by = collections.Counter(('Unknown' if 'Unknown' in r[2] else 'other', r[4]) for r in rows_)
+    print(f'thunk order: LINK\'s linear hash, maxp {a.maxp}, split p {p} ({"given" if a.split is not None else "fitted"}); '
+          f'named slots {len(rows_):,} of {len(table):,}; on the bucket order: names without "Unknown" '
+          f'{by[("other", True)]:,} of {by[("other", True)] + by[("other", False)]:,}, "Unknown" names '
+          f'{by[("Unknown", True)]:,} of {by[("Unknown", True)] + by[("Unknown", False)]:,}')
+    with open(os.path.join(a.out, 'thunknames.tsv'), 'w') as f:
+        f.write('slot\ttarget\tbucket\ton_order\tname\n')
+        for s_, t, nm, b, ok in rows_:
+            f.write(f"0x{s_:X}\t0x{t:X}\t{b}\t{'yes' if ok else 'no'}\t{nm}\n")
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__.split('\n')[0])
     ap.add_argument('--client', default=clientimage.DEFAULT_CLIENT)
@@ -243,7 +377,22 @@ def main():
     ap.add_argument('--objs', default=os.path.join(REPO, 'build', '*', 'obj', '*.obj'),
                     help='--objects: our objects (a worktree has no build/: give the main tree)')
     ap.add_argument('--out', default=os.path.join(REPO, '.work', 'linklayout'))
+    ap.add_argument('--thunk-order', action='store_true',
+                    help='also the thunk table against LINK\'s hash order: the split fit and the name check')
+    ap.add_argument('--map', help='--thunk-order: name the targets from this link map (a trial link) instead of '
+                    'symbols.json')
+    ap.add_argument('--maxp', type=int, default=8192, help='--thunk-order: the hash table\'s base buckets (8192)')
+    ap.add_argument('--split', type=int, help='--thunk-order: the split pointer p (default: fitted)')
     a = ap.parse_args()
+    os.makedirs(a.out, exist_ok=True)
+    if a.map:
+        # a trial link: only the thunk order, its names from its own map
+        body, ts = pe_text(a.client)
+        table = thunk_table(body, ts)
+        print(f'thunk table {table[0][0]:#x}-{table[-1][0] + 5:#x}: {len(table):,} thunks, '
+              f'{len({t for _, t in table}):,} targets')
+        thunk_report(table, map_names(a.map), a)
+        return 0
     ci = clientimage.ClientImage(a.client)
     ts, te, raw = ci.section('.text')
     body = ci.data[raw:raw + te - ts]
@@ -352,6 +501,19 @@ def main():
                 first = names[p['start']]
                 f.write(f"0x{p['start']:X}\t0x{p['end']:X}\t{p['n']}\t{p['obj']}\t0x{m['start']:X}\t0x{m['end']:X}\t{m['n']}"
                         f"\t{'yes' if p in named2 else 'no'}\t{first}\n")
+    if a.thunk_order:
+        names_of = {}
+        for s_ in json.load(open(SYMBOLS)):
+            if s_.get('kind') == 'function' and s_['symbol'] not in names_of.setdefault(int(s_['address'], 16), []):
+                names_of[int(s_['address'], 16)].append(s_['symbol'])
+        # a deleting destructor has two thunks (??_G scalar, ??_E vector) to one address; symbols.json holds one
+        for va, ns in names_of.items():
+            for nm in list(ns):
+                if nm.startswith(('??_G', '??_E')):
+                    twin = ('??_E' if nm.startswith('??_G') else '??_G') + nm[4:]
+                    if twin not in ns:
+                        ns.append(twin)
+        thunk_report(table, names_of, a)
     print(f'tables in {os.path.relpath(a.out, REPO)}')
     return 0
 
