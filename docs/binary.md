@@ -221,26 +221,27 @@ Our off names' own buckets lie uniformly against their windows (13 within 16 buc
 uniform gives 17 and 268): the off names are not nearly right, most are other names (deleting destructors of
 classes RTTI names lie on the order 30 of 36, those of classes we named 693 of 2,087).
 
-**Corrections** (87,303 variants of the 7,882 off names: access, virtual, static, const, calling convention, a
+**Corrections** (76,043 variants of 6,697 off names: access, virtual, static, const, calling convention, a
 parameter's or the return type's integer kind, pointer cv, pointer <-> reference, class key, case, `??_G` / `??_E`;
-91 names the parser does not cover). Near hits per kind against the null (the same variants against the window moved
+91 names the parser does not cover; the 1,185 members of `std::` classes are left out: their signatures are the
+library headers', and their hits were impossible ones such as `vector::insert`'s `size_type`). Near hits per kind against the null (the same variants against the window moved
 to a random place, 20 times; it keeps each variant's distance from our bucket, which matters: an int edit of the last
 parameter moves the bucket by a median 53, the tail of the name is not mixed):
 
 | Kind | Near hits / null | Reading |
 |---|---|---|
-| access (public / protected / private) | 53 / 7.0 | real: 46 above chance (protected virtual destructors `MAE` with their `??_G`, private helpers `AAE`) |
-| int (H / I / J / K / _N ...) | 21 / 3.8 | real, 17 above chance; can change code |
-| const (`QAE` -> `QBE`) | 18 / 2.3 | real, 16 above chance (`KVTripleListClass::Find`, the `Has_*` packet getters, `Xtime` operators) |
-| pointer <-> reference | 8 / 1.9 | real, 6 above |
-| pointer cv (`PAV` <-> `PBV`) | 5 / 1.6 | real, 3 above |
-| case, ret, callconv, virtual, static, `??_G` / `??_E`, class key | 13 / 14.7, 6 / 4.1, 5 / 3.8, 2 / 3.3, 1 / 1.0, 0 / 0.7, 0 / 1.2 | chance: none confirmed (callconv is what byte-exact functions predict) |
+| access (public / protected / private) | 53 / 6.7 | real: 46 above chance (protected virtual destructors `MAE` with their `??_G`, private helpers `AAE`) |
+| int (H / I / J / K / _N ...) | 20 / 4.2 | real, 16 above chance; can change code |
+| const (`QAE` -> `QBE`) | 18 / 2.2 | real, 16 above chance (`KVTripleListClass::Find`, the `Has_*` packet getters, `Xtime` operators) |
+| pointer <-> reference | 7 / 1.7 | real, 5 above (`PAVLayerClass` -> `AAVLayerClass` in three interfaces' constructors, `PAVKVListClass` -> `AAV` in `KVEncoderClass` and its base) |
+| pointer cv (`PAV` <-> `PBV`) | 4 / 1.1 | real, 3 above |
+| case, ret, callconv, virtual, static, `??_G` / `??_E`, class key | 13 / 14.4, 6 / 3.5, 4 / 3.6, 2 / 3.2, 1 / 1.2, 0 / 0.2, 0 / 0.5 | chance: none confirmed (callconv is what byte-exact functions predict) |
 
-107 off names have exactly one near hit; the 85 of the five real kinds are the proposals (47 access, 18 const,
-8 pointer <-> reference, 7 int, 5 pointer cv; about 13 of them expected by chance; 31 class-consistent: the same
-change confirmed at another slot of the class). 81 of the 85 are `exact` in symbols.json (the name comes from our
+103 off names have exactly one near hit; the 82 of the five real kinds are the proposals (47 access, 18 const,
+7 pointer <-> reference, 6 int, 4 pointer cv; about 12 of them expected by chance; 31 class-consistent: the same
+change confirmed at another slot of the class). 78 of the 82 are `exact` in symbols.json (the name comes from our
 object), and none of the corrected names exists in our objects: each is a change of the source declaration, and
-symbols.json follows the objects. 78 are name-only (access, const, pointer cv, pointer <-> reference): no code byte
-changes expected, so no crediting change; the 7 int ones need a compile (signedness can change code). The link: the
+symbols.json follows the objects. 76 are name-only (access, const, pointer cv, pointer <-> reference): no code byte
+changes expected, so no crediting change; the 6 int ones need a compile (signedness can change code). The link: the
 one client build (non-incremental, from `app.lib`) does not order by name, so nothing moves; in an incremental link
 (the `objs` trial) each correction moves one thunk into retail's bucket.

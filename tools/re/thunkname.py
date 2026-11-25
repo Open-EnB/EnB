@@ -450,6 +450,12 @@ def edit_key(kind, variant):
     return kind, ''
 
 
+def std_member(name):
+    """A function of a std:: class (template): its decorated signature is the library header's, not ours."""
+    p = parse(name)
+    return bool(p) and name[p['first'][1]:p['name'][1]].endswith('@std@@')
+
+
 def wrap_in(b, lo, hi):
     return lo <= b <= hi if lo <= hi else (b >= lo or b <= hi)
 
@@ -488,6 +494,9 @@ def check(table, names_of, sources, maxp=8192, p=None, tail=0, null=20, seed=1, 
     nulls = collections.Counter()
     for r in out:
         if not r['name'] or r['on'] or r['appended'] or r['window'] is None:
+            continue
+        if std_member(r['name']):
+            r['std'] = True
             continue
         vs = variants(r['name'])
         r['nvariants'] = len(vs)
@@ -586,11 +595,12 @@ def report(rows, nulls, p, nb, a, ours):
               f'off with anchors on both sides {len(tw):,}: {widths(tw)}')
     unnamed = [r for r in rows if not r['name'] and not r['appended'] and r['window']]
     print(f'unnamed slots with anchors on both sides {len(unnamed):,}: {widths(unnamed)}')
-    tested = [r for r in named if not r['on'] and r['window'] and not unk(r)]
+    tested = [r for r in named if not r['on'] and r['window'] and not unk(r) and not r.get('std')]
     hits = collections.Counter(k for r in tested for k, _ in r['hits'])
     near = collections.Counter(k for r in tested for k, _ in r['near'])
     one = [r for r in tested if len(r['near']) == 1]
-    print(f'corrections tested on {len(tested):,} off names without "Unknown" '
+    print(f'corrections tested on {len(tested):,} off names without "Unknown" (std:: members apart: '
+          f'{sum(1 for r in named if r.get("std") and not unk(r)):,}) '
           f'({sum(r.get("nvariants", 0) for r in tested):,} variants; names the grammar does not cover '
           f'{sum(1 for r in tested if parse(r["name"]) is None):,}); names with a window hit '
           f'{sum(1 for r in tested if r["hits"]):,}, with a near hit {sum(1 for r in tested if r["near"]):,}, '
