@@ -233,7 +233,7 @@ Vector3 StateNode::Unknown_14(int time)
 
 
 
-void StateNode::Set_Motion(int time, float *speed, float *acceleration, float *turn_rate, float *tilt_rate)
+void StateNode::Set_Motion(unsigned int time, float *speed, float *acceleration, float *turn_rate, float *tilt_rate)
 {
 	G_ASSERT(0);
 	Unknown_Debug_Print("Bad function call! StateNode::Set_Motion()");
@@ -773,7 +773,7 @@ StateNode *Unknown710110Class::Unknown_710260()
 
 // NOT EXACT: 0x7102B0 shape (3 rows): the client stores Unknown3C (fst) before the flag; here the flag store comes first.
 // (-1.0f * a) * 10000 keeps the client's fchs and the two branches' merged fmul (-a * 10000 folds into one constant)
-void Unknown710110Class::Set_Motion(int time, float *speed, float *acceleration, float *turn_rate, float *tilt_rate)
+void Unknown710110Class::Set_Motion(unsigned int time, float *speed, float *acceleration, float *turn_rate, float *tilt_rate)
 {
 	Unknown710530Class *motion = (Unknown710530Class *)Current;
 	motion->Unknown_04(time - (time - motion->Time) % 100);
@@ -1337,7 +1337,7 @@ Vector3 Unknown7119B0Class::Unknown_18(int time)
 }
 
 
-void Unknown7119B0Class::Set_Motion(int time, float *speed, float *acceleration, float *turn_rate, float *tilt_rate)
+void Unknown7119B0Class::Set_Motion(unsigned int time, float *speed, float *acceleration, float *turn_rate, float *tilt_rate)
 {
 	if (StartState) {
 		StartState->Set_Motion(time, speed, acceleration, turn_rate, tilt_rate);
@@ -1520,7 +1520,7 @@ Vector3 Unknown7125F0Class::Unknown_18(int time)
 
 
 
-void Unknown7125F0Class::Set_Motion(int time, float *speed, float *acceleration, float *turn_rate, float *tilt_rate)
+void Unknown7125F0Class::Set_Motion(unsigned int time, float *speed, float *acceleration, float *turn_rate, float *tilt_rate)
 {
 	G_ASSERT(StartState && EndState);
 	StartState->Set_Motion(time, speed, acceleration, turn_rate, tilt_rate);
@@ -1636,7 +1636,7 @@ void Unknown712DB0Class::Unknown_7132F0(unsigned int start_time, unsigned int en
 }
 
 
-void Unknown712DB0Class::Set_Motion(int time, float *speed, float *acceleration, float *turn_rate, float *tilt_rate)
+void Unknown712DB0Class::Set_Motion(unsigned int time, float *speed, float *acceleration, float *turn_rate, float *tilt_rate)
 {
 	Unknown7125F0Class::Set_Motion(time, speed, acceleration, turn_rate, tilt_rate);
 	Unknown_7132F0(time, EndTime);

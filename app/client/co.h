@@ -167,7 +167,7 @@ public:
 class ClientObjectClass : public UnknownB02C90Class, public MultiFixedPoolDecalSystemClass		// NAME 3: the RTTI's .?AVClientObjectClass@@ for co.cpp's class, not tied to this layout by a vtable
 {
 public:
-	ClientObjectClass(ClientClass *client, int type, unsigned id);	// 0x6F2820 (CREATE 4 passes its SClient, the packet's Type and GameID)  // NAME 2 [client, type, id]: what CREATE passes
+	ClientObjectClass(ClientClass *client, int type, int id);	// 0x6F2820 (CREATE 4 passes its SClient, the packet's Type and GameID)  // NAME 2 [client, type, id]: what CREATE passes
 	virtual ~ClientObjectClass();						// +0x00 0x6F2FE0 (scalar deleting 0x6F2F30; ClientClass's destructor deletes through it)
 	virtual void Unknown_1C();							// +0x1C 0x6F5120 (the aux data's slot +0x20)
 	virtual void Unknown_20();							// +0x20 0x6F3C60 (FAIL_IF '!RenderObject' l.1779 inline: 0x6FD2C0)

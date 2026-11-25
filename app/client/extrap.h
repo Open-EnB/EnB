@@ -43,7 +43,7 @@ public:
 	virtual Vector3 Unknown_14(int time);	// +0x14 0x70F180 (Unknown_1C's rotation rate)  // NAME 2 [time]: as Unknown_04's
 	virtual Vector3 Unknown_18(int time) { return(Vector3(0.0f, 0.0f, 0.0f)); }	// +0x18 0x70F2D0  // NAME 2 [time]: as Unknown_04's
 	virtual void Unknown_1C(int time, Vector3 *position, Quaternion *orientation, Vector3 *velocity, float *speed, Vector3 *rotrate, bool unknown) = 0;	// +0x1C (pure)  // NAME 3 [position, orientation, velocity, speed, rotrate]: the client's asserts 'position->Is_Valid()' ... (0x70F630)  // NAME 1 [unknown]: neutral
-	virtual void Set_Motion(int time, float *speed, float *acceleration, float *turn_rate, float *tilt_rate);	// +0x20 0x70F1D0 (the base asserts)  // NAME 3: the client's assert text  // NAME 2 [time, speed, acceleration, turn_rate, tilt_rate]: the aux fields postate's 0x717430 reads for them
+	virtual void Set_Motion(unsigned int time, float *speed, float *acceleration, float *turn_rate, float *tilt_rate);	// +0x20 0x70F1D0 (the base asserts)  // NAME 3: the client's assert text  // NAME 2 [time, speed, acceleration, turn_rate, tilt_rate]: the aux fields postate's 0x717430 reads for them
 	virtual void End_Tilt(int time, float rate);	// +0x24 0x70F210 (the base asserts)  // NAME 3: the client's assert text  // NAME 2 [time, rate]: what postate's 0x7179A0 passes
 	virtual StateNode *Unknown_28(int time) { return(this); }	// +0x28 0x70F300 (the node to use from now on: a blend returns its end node once it is over)  // NAME 2 [time]: as Unknown_04's
 };
@@ -167,7 +167,7 @@ class Unknown710110Class : public Unknown70F4F0Class	// NAME 1: neutral (D10)
 public:
 	Unknown710110Class();	// 0x710230 (inlined in 0x710260)
 	Unknown710110Class(AdvancedPositionalUpdatePacketClass *packet);	// 0x710110  // NAME 1 [packet]: what postate's state passes
-	virtual void Set_Motion(int time, float *speed, float *acceleration, float *turn_rate, float *tilt_rate);	// +0x20 0x7102B0  // NAME 2: as the base's
+	virtual void Set_Motion(unsigned int time, float *speed, float *acceleration, float *turn_rate, float *tilt_rate);	// +0x20 0x7102B0  // NAME 2: as the base's
 	virtual void End_Tilt(int time, float rate);	// +0x24 0x710410  // NAME 2: as the base's
 	bool Unknown_7104A0();	// 0x7104A0 (Current's 0x711490)
 	StateNode *Unknown_710260();	// 0x710260 (a new node on a copy of Current; postate's 0x7179A0 continues from it)
@@ -188,7 +188,7 @@ public:
 	virtual ~Unknown7119B0Class();	// 0x711C80 (0x711C50 scalar deleting)
 	virtual Vector3 Unknown_18(int time);	// +0x18 0x7120A0  // NAME 2 [time]: as the base's
 	virtual void Unknown_1C(int time, Vector3 *position, Quaternion *orientation, Vector3 *velocity, float *speed, Vector3 *rotrate, bool unknown);	// +0x1C 0x711D60  // NAME 2: as the base's
-	virtual void Set_Motion(int time, float *speed, float *acceleration, float *turn_rate, float *tilt_rate);	// +0x20 0x7120F0  // NAME 2: as the base's
+	virtual void Set_Motion(unsigned int time, float *speed, float *acceleration, float *turn_rate, float *tilt_rate);	// +0x20 0x7120F0  // NAME 2: as the base's
 	virtual StateNode *Unknown_28(int time);	// +0x28 0x711D10  // NAME 2 [time]: as the base's
 	void Unknown_712170(int time, Vector3 *position, Vector3 *velocity);	// 0x712170 (the Hermite curve's point and tangent; 'time >= StartTime && time <= EndTime')  // NAME 3 [time]: the client's assert  // NAME 2 [position, velocity]: what Unknown_1C does with them
 	void Unknown_712480(int time);	// 0x712480 (a new start at time: Set_Motion's)  // NAME 2 [time]: what Set_Motion passes
@@ -214,7 +214,7 @@ public:
 	virtual ~Unknown7125F0Class();	// 0x7126F0 (0x7126C0 scalar deleting)
 	virtual Vector3 Unknown_18(int time);	// +0x18 0x712C10  // NAME 2 [time]: as the base's
 	virtual void Unknown_1C(int time, Vector3 *position, Quaternion *orientation, Vector3 *velocity, float *speed, Vector3 *rotrate, bool unknown);	// +0x1C 0x712780  // NAME 2: as the base's
-	virtual void Set_Motion(int time, float *speed, float *acceleration, float *turn_rate, float *tilt_rate);	// +0x20 0x712C60  // NAME 2: as the base's
+	virtual void Set_Motion(unsigned int time, float *speed, float *acceleration, float *turn_rate, float *tilt_rate);	// +0x20 0x712C60  // NAME 2: as the base's
 	virtual void End_Tilt(int time, float rate);	// +0x24 0x712CF0  // NAME 2: as the base's
 	virtual StateNode *Unknown_28(int time);	// +0x28 0x712D60  // NAME 2 [time]: as the base's
 
@@ -241,7 +241,7 @@ public:
 	Unknown712DB0Class(StateNode *start, StateNode *end, unsigned int start_time, unsigned int end_time);	// 0x712DB0  // NAME 2 [start, end, start_time, end_time]: as the base's
 	virtual Vector3 Unknown_18(int time);	// +0x18 0x7132A0  // NAME 2 [time]: as the base's
 	virtual void Unknown_1C(int time, Vector3 *position, Quaternion *orientation, Vector3 *velocity, float *speed, Vector3 *rotrate, bool unknown);	// +0x1C 0x712FA0  // NAME 2: as the base's
-	virtual void Set_Motion(int time, float *speed, float *acceleration, float *turn_rate, float *tilt_rate);	// +0x20 0x713370  // NAME 2: as the base's
+	virtual void Set_Motion(unsigned int time, float *speed, float *acceleration, float *turn_rate, float *tilt_rate);	// +0x20 0x713370  // NAME 2: as the base's
 	virtual void End_Tilt(int time, float rate);	// +0x24 0x713450  // NAME 2: as the base's
 	void Unknown_7132F0(unsigned int start_time, unsigned int end_time);	// 0x7132F0 (takes both states again)  // NAME 2 [start_time, end_time]: the members it sets
 
@@ -287,7 +287,7 @@ class Unknown714340Class : public StateNode	// NAME 1: neutral (D10)
 public:
 	Unknown714340Class(SClient *client, FormationPositionalUpdatePacketClass *packet);	// 0x714340  // NAME 1 [client, packet]: what postate's state passes
 	virtual void Unknown_1C(int time, Vector3 *position, Quaternion *orientation, Vector3 *velocity, float *speed, Vector3 *rotrate, bool unknown);	// +0x1C 0x714410  // NAME 2: as the base's
-	virtual void Set_Motion(int time, float *speed, float *acceleration, float *turn_rate, float *tilt_rate) {}	// +0x20 0x7147B0  // NAME 2: as the base's
+	virtual void Set_Motion(unsigned int time, float *speed, float *acceleration, float *turn_rate, float *tilt_rate) {}	// +0x20 0x7147B0  // NAME 2: as the base's
 	virtual void End_Tilt(int time, float rate) {}	// +0x24 0x7147D0  // NAME 2: as the base's
 
 	SClient *Client;		// +0x04  // NAME 2: what the state passes
