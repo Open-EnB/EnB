@@ -1665,13 +1665,13 @@ Unknown713520Class::Unknown713520Class(PlanetPositionalUpdatePacketClass *packet
 }
 
 
-// NOT EXACT: 0x713670 register (residue 12, rows 274/274: Translate(Vector3(OrbitDist, 0, 0)) spends the budget so Rotate_Z(-angle) goes out of line (0x577940) as the client; left: x87 operand order in Rotate_Z)
+// NOT EXACT: 0x713670 register (residue 6, rows 274/274; center / point declared before transform; Translate(Vector3(OrbitDist, 0, 0)) spends the budget so Rotate_Z(-angle) goes out of line (0x577940) as the client; left: x87 operand order in Rotate_Z)
 void Unknown713520Class::Unknown_1C(int time, Vector3 *position, Quaternion *orientation, Vector3 *velocity, float *speed, Vector3 *rotrate, bool unknown)
 {
 	float dt = (float)(time - Time);
-	Matrix3D transform = Matrix3D::Identity;
 	Vector3 center(0.0f, 0.0f, 0.0f);
 	Vector3 point(0.0f, 0.0f, 0.0f);
+	Matrix3D transform = Matrix3D::Identity;
 	if (position || velocity) {
 		ClientObjectClass *object;
 		if (OrbitID == 0 || (object = Client->Find_Object(OrbitID)) == 0) {
