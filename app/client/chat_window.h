@@ -22,7 +22,7 @@
 class ChatFontSys : public FontSys  // NAME 2: a FontSys (0x4EC bytes, vtable 0xAFBF28) holding a chat line
 {
 public:
-	ChatFontSys(const char *name) : FontSys(name, 0, "") { Set_Sort_Level(10); }
+	ChatFontSys(const char *name) : FontSys(name, 0, " ") { Set_Sort_Level(10); }
 
 	void Set_Line(const RefCountPtr<ChatLineClass> &line)  // NAME 2: what it does
 	{
