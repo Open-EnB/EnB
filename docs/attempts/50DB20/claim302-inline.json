@@ -1,0 +1,36 @@
+{
+  "base": "/home/dev/Projects/EnB/.work/claim-302/tree/app/client/mainview.cpp",
+  "base_sha256": "502d811c3e4388c6de67d6bbbfc7cfd1893a5a5b07ceba1b8fa905975945c427",
+  "forms": [
+    {
+      "name": "inline_far_before",
+      "sha256": "d7b239ed1a90e8e32e83988c13a81b3c2e1baa83ecf36e2ad6306c3195e9c0e6",
+      "patch": "--- mainview.cpp\n+++ mainview.cpp\n@@ -626,7 +626,7 @@\n \tfloat old_near, old_far;\n \tCamera->Get_Clip_Planes(old_near, old_far);\n \tfloat near2, far2;\n-\tUnknown_50CCF0(&near2, &far2);\n+\tfloat v = tan(Camera->Get_Vertical_FOV() * 0.5f); float h = tan(Camera->Get_Horizontal_FOV() * 0.5f); far2 = Orbitals->Get_Unknown54(); near2 = (1.0f / WWMath::Sqrt(h * h + v * v + 1.0f)) * Orbitals->Unknown50;\n \tCamera->Set_Clip_Planes(near2, far2);\n \tUnknown11C->Visibility_Check(Camera);\n \tCamera->Set_Clip_Planes(znear, zfar);\n",
+      "classification": "diagnostic: bypasses inlined checks"
+    },
+    {
+      "name": "inline_far_after",
+      "sha256": "377969fce8863719553bfb0436e7cbc0a411e36b192d40b41d5214e3ea67230c",
+      "patch": "--- mainview.cpp\n+++ mainview.cpp\n@@ -626,7 +626,7 @@\n \tfloat old_near, old_far;\n \tCamera->Get_Clip_Planes(old_near, old_far);\n \tfloat near2, far2;\n-\tUnknown_50CCF0(&near2, &far2);\n+\tfloat v = tan(Camera->Get_Vertical_FOV() * 0.5f); float h = tan(Camera->Get_Horizontal_FOV() * 0.5f); near2 = (1.0f / WWMath::Sqrt(h * h + v * v + 1.0f)) * Orbitals->Unknown50; far2 = Orbitals->Get_Unknown54();\n \tCamera->Set_Clip_Planes(near2, far2);\n \tUnknown11C->Visibility_Check(Camera);\n \tCamera->Set_Clip_Planes(znear, zfar);\n",
+      "classification": "diagnostic: bypasses inlined checks"
+    },
+    {
+      "name": "inline_far_early",
+      "sha256": "28f5fb62fee1f540e66f459eed4c7c9be8dc853db7fd36a222742fb44b465470",
+      "patch": "--- mainview.cpp\n+++ mainview.cpp\n@@ -626,7 +626,7 @@\n \tfloat old_near, old_far;\n \tCamera->Get_Clip_Planes(old_near, old_far);\n \tfloat near2, far2;\n-\tUnknown_50CCF0(&near2, &far2);\n+\tfar2 = Orbitals->Get_Unknown54(); float v = tan(Camera->Get_Vertical_FOV() * 0.5f); float h = tan(Camera->Get_Horizontal_FOV() * 0.5f); near2 = (1.0f / WWMath::Sqrt(h * h + v * v + 1.0f)) * Orbitals->Unknown50;\n \tCamera->Set_Clip_Planes(near2, far2);\n \tUnknown11C->Visibility_Check(Camera);\n \tCamera->Set_Clip_Planes(znear, zfar);\n",
+      "classification": "diagnostic: bypasses inlined checks"
+    },
+    {
+      "name": "inline_split",
+      "sha256": "3f22a48f2e4dfac6a5d8d1c409a55f724e716a85bb273e21ec2bb4e3c1852f6a",
+      "patch": "--- mainview.cpp\n+++ mainview.cpp\n@@ -626,7 +626,7 @@\n \tfloat old_near, old_far;\n \tCamera->Get_Clip_Planes(old_near, old_far);\n \tfloat near2, far2;\n-\tUnknown_50CCF0(&near2, &far2);\n+\tfloat v = tan(Camera->Get_Vertical_FOV() * 0.5f); float h = tan(Camera->Get_Horizontal_FOV() * 0.5f); float inv = 1.0f / WWMath::Sqrt(h * h + v * v + 1.0f); far2 = Orbitals->Get_Unknown54(); near2 = inv * Orbitals->Unknown50;\n \tCamera->Set_Clip_Planes(near2, far2);\n \tUnknown11C->Visibility_Check(Camera);\n \tCamera->Set_Clip_Planes(znear, zfar);\n",
+      "classification": "diagnostic: bypasses inlined checks"
+    },
+    {
+      "name": "inline_divide",
+      "sha256": "bfdd8e74fd1633b70d843861c5c9e060b4ebf9432a711e72458968b30deee4e8",
+      "patch": "--- mainview.cpp\n+++ mainview.cpp\n@@ -626,7 +626,7 @@\n \tfloat old_near, old_far;\n \tCamera->Get_Clip_Planes(old_near, old_far);\n \tfloat near2, far2;\n-\tUnknown_50CCF0(&near2, &far2);\n+\tfloat v = tan(Camera->Get_Vertical_FOV() * 0.5f); float h = tan(Camera->Get_Horizontal_FOV() * 0.5f); far2 = Orbitals->Get_Unknown54(); near2 = Orbitals->Unknown50 / WWMath::Sqrt(h * h + v * v + 1.0f);\n \tCamera->Set_Clip_Planes(near2, far2);\n \tUnknown11C->Visibility_Check(Camera);\n \tCamera->Set_Clip_Planes(znear, zfar);\n",
+      "classification": "diagnostic: bypasses inlined checks"
+    }
+  ]
+}

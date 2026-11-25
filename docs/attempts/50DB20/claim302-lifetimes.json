@@ -1,0 +1,36 @@
+{
+  "base": "/home/dev/Projects/EnB/.work/claim-302/tree/app/client/mainview.cpp",
+  "base_sha256": "502d811c3e4388c6de67d6bbbfc7cfd1893a5a5b07ceba1b8fa905975945c427",
+  "forms": [
+    {
+      "name": "declare_reverse",
+      "sha256": "f2b77a05c36966fec76c88954ec9b1e5c62d034498d4b05074d5b7755422ba5c",
+      "patch": "--- mainview.cpp\n+++ mainview.cpp\n@@ -625,7 +625,7 @@\n \tPredictiveLODOptimizerClass::Clear();\n \tfloat old_near, old_far;\n \tCamera->Get_Clip_Planes(old_near, old_far);\n-\tfloat near2, far2;\n+\tfloat far2, near2;\n \tUnknown_50CCF0(&near2, &far2);\n \tCamera->Set_Clip_Planes(near2, far2);\n \tUnknown11C->Visibility_Check(Camera);\n",
+      "classification": "valid"
+    },
+    {
+      "name": "old_reverse",
+      "sha256": "b3eda015d8634fd6dd878c7f6c15203c17d724d1e711745c365ac16582efbe3b",
+      "patch": "--- mainview.cpp\n+++ mainview.cpp\n@@ -623,7 +623,7 @@\n \tDazzleRenderObjClass::Set_Current_Dazzle_Layer(DazzleLayer);\n \tUnknown_50CC10(); float cost = PredictiveLODOptimizerClass::Get_Total_Cost();\n \tPredictiveLODOptimizerClass::Clear();\n-\tfloat old_near, old_far;\n+\tfloat old_far, old_near;\n \tCamera->Get_Clip_Planes(old_near, old_far);\n \tfloat near2, far2;\n \tUnknown_50CCF0(&near2, &far2);\n",
+      "classification": "valid"
+    },
+    {
+      "name": "result_temp",
+      "sha256": "82ddd1a815ae620180a739e99c5d5be810b7b29f06fdfb546922ec178b42acd8",
+      "patch": "--- mainview.cpp\n+++ mainview.cpp\n@@ -616,7 +616,7 @@\n {\n \tWWPROFILE(\"MainView::Render_Gas_Giant_Mode\");\n \tUpdate(Camera, false);\n-\tWW3DErrorType error = WW3D::Begin_Render(false, true);\n+\tconst WW3DErrorType error = WW3D::Begin_Render(false, true);\n \tif (error != WW3D_ERROR_OK) {\n \t\treturn(error);\n \t}\n",
+      "classification": "valid"
+    },
+    {
+      "name": "budget_convert",
+      "sha256": "8c46d18e044b7317812078a67efbbe6bc0e6dd4dba312246e69a9cf264d4af42",
+      "patch": "--- mainview.cpp\n+++ mainview.cpp\n@@ -632,7 +632,7 @@\n \tCamera->Set_Clip_Planes(znear, zfar);\n \tScene->Visibility_Check(Camera);\n \tCamera->Set_Clip_Planes(old_near, old_far);\n-\tfloat budget = (float)PolyBudget - cost;\n+\tfloat budget = PolyBudget; budget -= cost;\n \tif (budget <= 0.0f) budget = 0.0f;\n \tPredictiveLODOptimizerClass::Optimize_LODs(budget);\n \tUnknown_50CE00(near2, far2);\n",
+      "classification": "valid"
+    },
+    {
+      "name": "cost_const",
+      "sha256": "185ca112513f200d0e390466f405c295723dd2ffddab1f9eedba95b86656ac41",
+      "patch": "--- mainview.cpp\n+++ mainview.cpp\n@@ -621,7 +621,7 @@\n \t\treturn(error);\n \t}\n \tDazzleRenderObjClass::Set_Current_Dazzle_Layer(DazzleLayer);\n-\tUnknown_50CC10(); float cost = PredictiveLODOptimizerClass::Get_Total_Cost();\n+\tUnknown_50CC10(); const float cost = PredictiveLODOptimizerClass::Get_Total_Cost();\n \tPredictiveLODOptimizerClass::Clear();\n \tfloat old_near, old_far;\n \tCamera->Get_Clip_Planes(old_near, old_far);\n",
+      "classification": "valid"
+    }
+  ]
+}
