@@ -60,8 +60,8 @@ class MovableUIBackGadget : public UIBackGadget	// NAME 5: the client's RTTI .?A
 public:
 	MovableUIBackGadget(const RefCountPtr<RenderObjClass> &model, const Vector3 &offset);	// 0x674310 (the target: the model itself)  // NAME 1 [model, offset]: what it does with them
 	MovableUIBackGadget(const RefCountPtr<RenderObjClass> &model, const RefCountPtr<Unknown_AFB794Class> &target);	// 0x674740  // NAME 1 [model, target]: what it does with them
-	virtual ~MovableUIBackGadget();						// +0x00 0x674860 (deleting 0x674710)
-	virtual bool Unknown_2C(KernelEventClass *event, float x, float y, unsigned int mask);	// +0x2C 0x6748F0  // NAME 1 [event, x, y, mask]: the base's
+	protected: virtual ~MovableUIBackGadget();						// +0x00 0x674860 (deleting 0x674710)
+	public: virtual bool Unknown_2C(KernelEventClass *event, float x, float y, unsigned int mask);	// +0x2C 0x6748F0  // NAME 1 [event, x, y, mask]: the base's
 
 	RefCountPtr<Unknown_AFB794Class> Unknown60;			// +0x60 (the target)
 	bool Unknown64;										// +0x64 (it moved on the last event)

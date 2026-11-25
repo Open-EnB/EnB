@@ -28,10 +28,10 @@ public:
 	PxBoxList(void *owner, const PxBoxList &src);		// 0x44D7B0 (the vector starts empty)  // NAME 2 [owner, src]: as PxBox's
 	virtual ~PxBoxList();								// 0x44D800 (deleting 0x44D780)
 
-	virtual void On_Enter(PxBox *box);					// 0x44D840 (FAIL_IF l.41)
+	protected: virtual void On_Enter(PxBox *box);					// 0x44D840 (FAIL_IF l.41)
 	virtual void On_Exit(PxBox *box);					// 0x44DA90 (FAIL_IF l.54)
 
-	std::vector<PxBox *> Boxes;							// +0x20 (the client's name, the FAIL_IFs 'Boxes.end()')
+	public: std::vector<PxBox *> Boxes;							// +0x20 (the client's name, the FAIL_IFs 'Boxes.end()')
 };
 
 /*
