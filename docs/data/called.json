@@ -624,6 +624,9 @@
 "?CRC_String@@YAKPBDK@Z": [
 "0x9D4840"
 ],
+"?Cast_OBBox@MeshGeometryClass@@QAE_NAAVOBBoxCollisionTestClass@@@Z": [
+"0x92AE70"
+],
 "?Clear@INIClass@@QAE_NPBD0@Z": [
 "0x9C8020"
 ],
@@ -1110,6 +1113,9 @@
 ],
 "?Internal_Remove_List_Head@GenericMultiListClass@@IAEPAVMultiListObjectClass@@XZ": [
 "0x9D1430"
+],
+"?Intersect_OBBox@MeshGeometryClass@@QAE_NAAVOBBoxIntersectionTestClass@@@Z": [
+"0x92AEA0"
 ],
 "?Intersect_Screen_Point_RenderObject@IntersectionClass@@QAE_NMMABVLayerClass@@PAVRenderObjClass@@PAVIntersectionResultClass@@@Z": [
 "0x966500"
