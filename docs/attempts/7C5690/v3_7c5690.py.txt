@@ -1,0 +1,118 @@
+HYPOTHESIS = (
+    'TargetReticleClass::Update 0x7C5690 GN4 batch 3 (final batch before D271 stop rule): test untried levers around '
+    'inlined Get_Value (0x7C5BD1..0x7C5C05): (1) G_ASSERT macro forms (if (!(expr)) / do-while) right before test al,al, '
+    '(2) Peek_Client_Object() inline accessor at 1..4 sites in Update (as Peek_Client() fixed 0x53BD40), '
+    '(3) Client->Unknown10BC without cast / via unsigned long / through SClient *c = Client, '
+    '(4) shield assigned via else -1.0f (like co.cpp / cameraeffects.cpp), (5) DeltaInterpolatorClass::Get_Value '
+    'with volatile Unknown24C read or local bool done = Unknown24C.'
+)
+FILE = 'app/client/target_reticle.cpp'
+SYMBOL = 'TargetReticleClass::Update'
+ADDRESS = 0x7C5690
+
+SRC = open('C:/EnBDevelopment/EnB/.work/wt/GN4/app/client/target_reticle.cpp', encoding='utf-8').read()
+A = SRC.index('void TargetReticleClass::Update(')
+B = SRC.index('\n}\n', A) + 3
+FUNC = SRC[A:B]
+
+DI = 'app/shared/auxdata/delta_interpolator.h'
+DUR = 'app/shared/duration.h'
+DT = 'app/shared/auxdata/delta_template.h'
+GA = 'app/shared/g_assert.h'
+
+NOOP_DT = (DT, '#ifndef __DELTA_TEMPLATE_H\n', '#ifndef __DELTA_TEMPLATE_H\n')
+NOOP_GA = (GA, '#ifndef', '#ifndef')
+NOOP_DUR = (DUR, '#ifndef __DURATION_H\n', '#ifndef __DURATION_H\n')
+NOOP_DI = (DI, '#ifndef __DELTA_INTERPOLATOR_H\n', '#ifndef __DELTA_INTERPOLATOR_H\n')
+
+OLD_GA = '#define G_ASSERT(expr)\t((expr) ? (void)0 : G_Assert_Report(#expr, __FILE__, __LINE__))\n'
+OLD_GV = (
+    '\t\tif (Unknown24C || time == LastTime) {\n'
+    '\t\t\treturn LastValue;\n'
+    '\t\t}\n'
+    '\t\treturn Update(time);\n'
+)
+
+def form(*edits, extra=None):
+    t = FUNC
+    for old, new in edits:
+        assert t.count(old) == 1, (old, t.count(old))
+        t = t.replace(old, new)
+    assert t.count('\n') == FUNC.count('\n'), (t.count('\n'), FUNC.count('\n'))
+    out = [(FILE, FUNC, t)]
+    if extra:
+        out.extend(extra)
+    return out
+
+FORMS = {
+    # 1. G_ASSERT macro forms
+    'ga_if': [
+        (GA, OLD_GA, '#define G_ASSERT(expr)\tif (!(expr)) G_Assert_Report(#expr, __FILE__, __LINE__)\n'),
+        NOOP_DI, NOOP_DT, NOOP_DUR,
+    ],
+    'ga_dowhile': [
+        (GA, OLD_GA, '#define G_ASSERT(expr)\tdo { if (!(expr)) G_Assert_Report(#expr, __FILE__, __LINE__); } while (0)\n'),
+        NOOP_DI, NOOP_DT, NOOP_DUR,
+    ],
+    'ga_and': [
+        (GA, OLD_GA, '#define G_ASSERT(expr)\t((!(expr)) && (G_Assert_Report(#expr, __FILE__, __LINE__), 1))\n'),
+        NOOP_DI, NOOP_DT, NOOP_DUR,
+    ],
+    # 2. Peek_Client_Object() at sites before Get_Value
+    'peek_co_aux': form(
+        ('ClientObject->AuxData', 'Peek_Client_Object()->AuxData'),
+    ),
+    'peek_co_gdata': form(
+        ('Get_Gutter_Data(ClientObject, false)', 'Get_Gutter_Data(Peek_Client_Object(), false)'),
+    ),
+    'peek_co_rdata': form(
+        ('Get_Radar_Data(ClientObject, false)', 'Get_Radar_Data(Peek_Client_Object(), false)'),
+    ),
+    'peek_co_all3': form(
+        ('Get_Radar_Data(ClientObject, false)', 'Get_Radar_Data(Peek_Client_Object(), false)'),
+        ('Get_Gutter_Data(ClientObject, false)', 'Get_Gutter_Data(Peek_Client_Object(), false)'),
+        ('ClientObject->AuxData', 'Peek_Client_Object()->AuxData'),
+    ),
+    # 3. Client / Unknown10BC call-site forms
+    'clock_nocast': form(
+        ('DurationClass((unsigned)Client->Unknown10BC)', 'DurationClass(Client->Unknown10BC)'),
+    ),
+    'clock_ulong': form(
+        ('DurationClass((unsigned)Client->Unknown10BC)', 'DurationClass((unsigned long)Client->Unknown10BC)'),
+    ),
+    'client_local': form(
+        ('shield = percent->Get_Value(DurationClass((unsigned)Client->Unknown10BC));',
+         'SClient *c = Client; shield = percent->Get_Value(DurationClass((unsigned)c->Unknown10BC));'),
+    ),
+    # 4. shield init / else form
+    'shield_else': form(
+        ('\t\tfloat shield = -1.0f;\n\t\tDeltaCompoundClass *aux = (DeltaCompoundClass *)ClientObject->AuxData;\n\t\tif (aux != NULL) {\n',
+         '\t\tfloat shield;\n\t\tDeltaCompoundClass *aux = (DeltaCompoundClass *)ClientObject->AuxData;\n\t\tif (aux != NULL) {\n'),
+        ('\t\t\t\tshield = percent->Get_Value(DurationClass((unsigned)Client->Unknown10BC));\n\t\t\t}\n\t\t}\n',
+         '\t\t\t\tshield = percent->Get_Value(DurationClass((unsigned)Client->Unknown10BC));\n\t\t\t} else shield = -1.0f;\n\t\t} else shield = -1.0f;\n'),
+    ),
+    # 5. Get_Value local bool / member order / assert+ne combo
+    'gv_bool_u24c': [
+        (DI, OLD_GV, '\t\tbool done = Unknown24C;\n\t\tif (done || time == LastTime) return LastValue;\n\t\treturn Update(time);\n\n'),
+        NOOP_DT, NOOP_GA, NOOP_DUR,
+    ],
+    'gv_assert_if_ne': [
+        (GA, OLD_GA, '#define G_ASSERT(expr)\tif (!(expr)) G_Assert_Report(#expr, __FILE__, __LINE__)\n'),
+        (DI, OLD_GV, '\t\tif (!Unknown24C && time != LastTime) {\n\t\t\treturn Update(time);\n\t\t}\n\t\treturn LastValue;\n'),
+        NOOP_DT, NOOP_DUR,
+    ],
+    'gv_assert_if_swap': [
+        (GA, OLD_GA, '#define G_ASSERT(expr)\tif (!(expr)) G_Assert_Report(#expr, __FILE__, __LINE__)\n'),
+        (DI, OLD_GV, '\t\tif (Unknown24C || LastTime == time) {\n\t\t\treturn LastValue;\n\t\t}\n\t\treturn Update(time);\n'),
+        NOOP_DT, NOOP_DUR,
+    ],
+    'gv_explicit_this': [
+        (DI, OLD_GV, '\t\tif (this->Unknown24C || time == this->LastTime) {\n\t\t\treturn this->LastValue;\n\t\t}\n\t\treturn this->Update(time);\n'),
+        NOOP_DT, NOOP_GA, NOOP_DUR,
+    ],
+    'gv_inline_lastval': [
+        (DI, '\tfloat Get_Value(const DurationClass &time)', '\tinline float Get_Value(const DurationClass &time)'),
+        (DI, OLD_GV, '\t\tif (Unknown24C || time == LastTime) return(LastValue);\n\t\telse return(Update(time));\n\n\n'),
+        NOOP_DT, NOOP_GA, NOOP_DUR,
+    ],
+}

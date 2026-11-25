@@ -104,7 +104,7 @@ TargetReticleClass::~TargetReticleClass()
 	Unknown_BE67BC->Unload("fc_radar.ini");
 }
 
-// NOT EXACT: 0x7C5690, register rotation only (13 rows at the inlined time == LastTime: eax / ecx for ecx / eax, edx / eax for ecx / eax, eax for ecx at LastValue); same length (1990 bytes)
+// (exact; a local SClient *c = Client before DurationClass(...) gives VC6's exact register sequence inside inlined Get_Value)
 // @0x7C5690
 void TargetReticleClass::Update(const Vector3 &pos, float size)
 {
@@ -271,7 +271,7 @@ void TargetReticleClass::Update(const Vector3 &pos, float size)
 
 			DeltaInterpolatorClass *percent = Find_L1(aux, "ShieldPercent");
 			if (percent != NULL && percent->Unknown70 != 0) {
-				shield = percent->Get_Value(DurationClass((unsigned)Client->Unknown10BC));
+				SClient *c = Client; shield = percent->Get_Value(DurationClass((unsigned)c->Unknown10BC));
 			}
 		}
 
