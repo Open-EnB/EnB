@@ -18,6 +18,11 @@
 #include <string>
 #include <windows.h>
 #include "kernel.h"
+// KernelClass::Run_One_Cycle and Process_Input are protected (retail's MAE / IAE names): a derived class reaches them for the test
+struct KernelHarness : public KernelClass {
+	static bool Cycle(KernelClass *k) { return (k->*(&KernelHarness::Run_One_Cycle))(); }
+	static bool Input(KernelClass *k) { return (k->*(&KernelHarness::Process_Input))(); }
+};
 #include "..\..\..\app\client\tasks\tsk_movie.h"
 #include "..\..\..\app\client\tasks\tsk_smovie.h"
 #include "..\..\..\app\client\tasks\tsk_menu.h"
@@ -161,7 +166,7 @@ bool Unknown_5FAE70() { return false; }
 bool Unknown_5FAD50() { return false; }
 void Fail_If_Report(const char *expr, const char *, int line) { fprintf(Out, "fail_if %s (line %d)\n", expr, line); }
 // client_lego_impl.cpp's bone maps (tsk_smovie.cpp calls them; declared as far as these stand-ins need)
-class ClientLegoImplClass { public: static void Init_Bone_Maps(const std::string &filename); static void Shutdown_Bone_Maps(void); };
+// (ClientLegoImplClass itself: client_lego_impl.h, which the task headers now include)
 void ClientLegoImplClass::Init_Bone_Maps(const std::string &ini) { fprintf(Out, "load assets %s\n", ini.c_str()); }
 void ClientLegoImplClass::Shutdown_Bone_Maps(void) { fprintf(Out, "free assets\n"); }
 
@@ -355,7 +360,7 @@ int Tasks_Test(FILE *out, const char *bik)
 	int cycles = 0;
 	while (Contains(kernel, movie) && movie->Index == 0 && cycles < 100000) {
 		Clock += 16;
-		kernel->Run_One_Cycle();
+		KernelHarness::Cycle(kernel);
 		cycles++;
 		if (cycles == 1) {
 			fprintf(Out, "yield movie early: %d\n", (int)movie->Yield_Focus());
@@ -365,18 +370,18 @@ int Tasks_Test(FILE *out, const char *bik)
 		Begin_Renders == Rendered ? "bracketed" : "unbracketed");
 	// the second movie: a key in its first 3 s is ignored, one after 3 s skips it
 	Clock += 16;
-	kernel->Run_One_Cycle();									// its first Render: Start_Time
+	KernelHarness::Cycle(kernel);									// its first Render: Start_Time
 	Pending.Key = 0x20;
 	Pending.Flags = 0;
 	Has_Pending = true;
 	Clock += 16;
-	kernel->Run_One_Cycle();
+	KernelHarness::Cycle(kernel);
 	fprintf(Out, "key before 3 s: movie %s\n", Contains(kernel, movie) ? "kept" : "removed");
 	Sleep(3100);
 	Pending.Key = 0x20;
 	Has_Pending = true;
 	Clock += 16;
-	kernel->Run_One_Cycle();									// skipped: Stop, then Run ends the list
+	KernelHarness::Cycle(kernel);									// skipped: Stop, then Run ends the list
 	fprintf(Out, "key after 3 s: movie %s, focus %s\n", Contains(kernel, movie) ? "kept" : "removed",
 		Focus_Name(kernel, movie, smovie, menu));
 
@@ -387,7 +392,7 @@ int Tasks_Test(FILE *out, const char *bik)
 	cycles = 0;
 	while (Contains(kernel, menu) && cycles < 50) {
 		Clock += 16;
-		kernel->Run_One_Cycle();
+		KernelHarness::Cycle(kernel);
 		cycles++;
 		if (!Contains(kernel, smovie) && smovie != NULL) {
 			fprintf(Out, "smovie removed after %d cycles\n", cycles);
