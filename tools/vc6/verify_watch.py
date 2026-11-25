@@ -38,7 +38,8 @@ D66 moves (every lost address held by another file, none lost outright) fail the
 comments `/accept-d66 SHA` naming the head; the next pass verifies it again, and verify_pr.py then counts the
 moves as accepted (success, named in the status and the comment), so the PR merges or lands like one that lost
 nothing. A pair lost outright still fails: the user decides (D66) and no command passes it.
-One pass at a time (.work/verify/watch.lock); log .work/verify/watch.log.
+One pass at a time (.work/verify/watch.lock); a verify_pr.py running past VERIFY_TIMEOUT (90 min) is killed with
+its children and retried by the next pass. Log .work/verify/watch.log.
 """
 import argparse
 import datetime as dt
@@ -63,6 +64,7 @@ LOCK = os.path.join(OUT, 'watch.lock')
 AUTOMERGE = os.path.join(OUT, 'automerge')
 VERIFIER = wt.wt_path('verifier')
 TASK = 'EnB verify watch'
+VERIFY_TIMEOUT = 90 * 60    # seconds one verify_pr.py may run before the pass kills it and moves on
 LANDING = 'verified/pr'
 MAINTAINER = {'OWNER', 'MEMBER'}
 APPROVE = re.compile(r'^/verify-approved\s+([0-9a-f]{7,40})\b', re.I | re.M)
@@ -355,7 +357,17 @@ def once(dry=False):
                     continue
                 args = [sys.executable, os.path.join(HERE, 'verify_pr.py'), str(n)] + (['--approved'] if approved else [])
                 with open(os.path.join(OUT, f'pr{n}.run.log'), 'w', encoding='utf-8', newline='\n') as f:
-                    rc = subprocess.run(args, cwd=ROOT, stdout=f, stderr=subprocess.STDOUT).returncode
+                    p = subprocess.Popen(args, cwd=ROOT, stdout=f, stderr=subprocess.STDOUT)
+                    try:
+                        rc = p.wait(timeout=VERIFY_TIMEOUT)
+                    except subprocess.TimeoutExpired:
+                        rc = None           # kill the whole tree (verify.py, its ssh), not just verify_pr.py
+                        subprocess.run(['taskkill', '/PID', str(p.pid), '/T', '/F'], capture_output=True)
+                        p.wait()
+                if rc is None:              # no vc6-verify result was posted, so the next pass runs it again
+                    log(f'#{n}: verify_pr killed after {VERIFY_TIMEOUT // 60} min (.work/verify/pr{n}.run.log); '
+                        f'retrying next pass')
+                    continue
                 if rc == verify_pr.GATED:
                     set_status(r, head, 'pending', WAITING + head[:7])
                     verify_pr.gh('api', '-X', 'POST', f'repos/{r}/issues/{n}/comments', '-f', 'body='

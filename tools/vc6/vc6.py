@@ -83,7 +83,10 @@ BS = chr(92)
 
 
 def ssh_args():
-    return ['-i', KEY, '-o', 'BatchMode=yes', '-o', 'ConnectTimeout=10']
+    # Keepalives: a connection dropped under a running command (seen on a VM's first minute after a cold boot)
+    # otherwise leaves ssh waiting forever; with them it fails after about a minute of silence.
+    return ['-i', KEY, '-o', 'BatchMode=yes', '-o', 'ConnectTimeout=10',
+            '-o', 'ServerAliveInterval=15', '-o', 'ServerAliveCountMax=4']
 
 
 def ssh(command, check=True):
