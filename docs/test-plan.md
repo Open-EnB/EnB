@@ -77,7 +77,7 @@ P0 before the port starts; P1 before the phase that needs it; P2 when convenient
 | UI-03 | P0 | Starbase: enter, walk every room, change rooms, open every terminal, name tags, leave | ui_starbase (9: 0x634140, 0x6366A0, 0x639630, 0x63AC60, 0x63DFE0, 0x640F50, 0x63E930, 0x63E770, 0x63F490) | Shots and draw log per room, camera pose, packets | R |
 | UI-04 | P0 | Vault: Shift+I, deposit, withdraw, sort (needs C6) | ui_vault (3) | Packets, shots | R |
 | UI-05 | P1 | PDA cargo and equipment: move, stack, equip, unequip, Credits line | ui_pda_cargo (4), ui_pda_equip 0x5D2210, ship_equip_pip | Packets, shots | R |
-| UI-06 | P1 | PDA faction page (a known DIFF today: find out why) | pda_faction | Shot | R |
+| UI-06 | P1 | PDA faction page (SAME against retail since 2026-11-25: 0x58E6F0 calls GadgetClass::Unknown_40 as the client) | pda_faction | Shot | R |
 | UI-07 | P1 | Skills, slot data and slot info windows | ui_skills 0x62D730, ui_slot_data, ui_slot_info 0x630070 | Shots | R |
 | UI-08 | P1 | Chat: tabs, channels, scroll-back, long lines, symbol chat | chatgadg (4), ui_chat_panel 0x5689D0, ui_symbolchat 0x64A9B0 | Packets, shots | R |
 | UI-09 | P1 | The screens scenarios can't reach today: ui_pterm / ptmis / ptnew / ptppl, ui_manu_util, ui_avatar_dialog, ui_interrupt, ui_skill_info, ui_dynamicwindow, ui_scan, ui_shard | ui_scan 0x60D8D0, ui_shard 0x616220 and others | Shots, packets | R |
@@ -191,6 +191,7 @@ A difference between retail and ours is never settled by widening a tolerance. T
 | B-17 | 2026-11-25 | /resetship confirmation 0x74ABC0 | Confirmation text differed from the client's string 0xB9A12C | Functional entry reading | fixed, not exercised | none yet: a new case |
 | B-18 | 2026-11-25 | Short strings: chat font label 0x56C7E0, ChatFontSys 0x67E670, trade texts 0x68FE10 / 0x6902E0, ephemeral-line ini defaults 0x5A4B50 / 0x5A5DA0, starbase light labels 0x6474C0, a nameless skill 0x817070, "Dest: ?" 0x7C91A0 | `""` where the client passes `" "` (0xB6E948) or `"?"` | L1 audit (literal scan) | fixed, not exercised | UI-08, UI-03, UI-07, SP-05; none yet for the ephemeral-line defaults (a new case) |
 | B-19 | 2026-11-25 | Constants as packed bytes: Get_Vertex_Color 0x470EF0 and its 27 copies in 0x470F80 (1/255 as 0x3B808080), 0x473780 / 0x473BC0 (0.7071068f), float-widened tolerances in fp_tt 0x449540 / 0x449EA0, 0x447E20, ui_mount, 0x8494C0, the exact double in ship_pip 0x80CE10 | Land vertex colours and some tolerances differed in the last bits; the ship_pip double is invisible | L1 audit (relocation targets and constants) | fixed, not exercised | none yet: a new case, land vertex colours |
+| B-20 | 2026-11-25 | FontSys::Update_Text 0x6D64C0 | Line height computed as ((float)U * Scale) * 480 / H where the client computes (Scale * 480) * U / H (0x6D664D); under D3D8's single-precision FPU a scaled font's line could round one pixel taller or shorter | Opus max round on a parked function; behaudit fpu check | fixed, not exercised | UI-10 and a new case: a font with Scale != 1, several lines, against retail |
 
 ## 6. Porting the harness itself
 
