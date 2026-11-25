@@ -80,7 +80,7 @@ void ClientObjectClass::Unknown_6F3810(RenderObjClass *model)
 }
 
 // 0x6F2820
-ClientObjectClass::ClientObjectClass(ClientClass *client, int type, unsigned id) :
+ClientObjectClass::ClientObjectClass(ClientClass *client, int type, int id) :
 	UnknownB02C90Class(this),
 	MultiFixedPoolDecalSystemClass(3, (const uint32 *)Unknown_B93ACC),
 	Client(client),

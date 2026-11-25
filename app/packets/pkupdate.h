@@ -158,7 +158,7 @@ public:
 class PlanetPositionalUpdatePacketClass : public PacketClass
 {
 public:
-	PlanetPositionalUpdatePacketClass(int game_id, int time_stamp, const Vector3 &position, int orbit_id, float orbit_dist, float orbit_angle, float orbit_rate, float rotate_angle, float rotate_rate, float tilt_angle);	// 0x8ADCC0 (never called)  // NAME 2 [game_id, time_stamp, position, orbit_id, orbit_dist, orbit_angle, orbit_rate, rotate_angle, rotate_rate, tilt_angle]: the members they set
+	PlanetPositionalUpdatePacketClass(int game_id, unsigned int time_stamp, const Vector3 &position, int orbit_id, float orbit_dist, float orbit_angle, float orbit_rate, float rotate_angle, float rotate_rate, float tilt_angle);	// 0x8ADCC0 (never called)  // NAME 2 [game_id, time_stamp, position, orbit_id, orbit_dist, orbit_angle, orbit_rate, rotate_angle, rotate_rate, tilt_angle]: the members they set
 	PlanetPositionalUpdatePacketClass(RawPacketClass *raw);	// 0x8ADDF0
 	virtual RawPacketClass *Build();	// +0x04 0x8ADF10
 	virtual bool Process_Packet(void *client);	// +0x08 0x734A40 (cpacket.cpp)

@@ -441,7 +441,7 @@ AdvancedPositionalUpdatePacketClass *AdvancedPositionalUpdatePacketClass::Clone(
 	return(new AdvancedPositionalUpdatePacketClass(*this));
 }
 
-PlanetPositionalUpdatePacketClass::PlanetPositionalUpdatePacketClass(int game_id, int time_stamp, const Vector3 &position, int orbit_id, float orbit_dist, float orbit_angle, float orbit_rate, float rotate_angle, float rotate_rate, float tilt_angle) :
+PlanetPositionalUpdatePacketClass::PlanetPositionalUpdatePacketClass(int game_id, unsigned int time_stamp, const Vector3 &position, int orbit_id, float orbit_dist, float orbit_angle, float orbit_rate, float rotate_angle, float rotate_rate, float tilt_angle) :
 	GameID(game_id),
 	TimeStamp(time_stamp),
 	Position(position),
