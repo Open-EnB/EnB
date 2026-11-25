@@ -31,10 +31,10 @@ char *Value_To_String(char *buf, int size, CharTemplateEnum value);		// 0x82F310
 
 class CharTemplateClass {	// NAME 3: built by convention from chartemplate.cpp (D24)
 public:
-	CharTemplateClass(int index, INIClass &ini);	// 0x82F7D0
+	private: CharTemplateClass(int index, INIClass &ini);	// 0x82F7D0
 	~CharTemplateClass();							// 0x82FC30
 
-	static void Init();								// 0x82F400  // NAME 2: reads 'chartemplate.ini' on the first reference
+	public: static void Init();								// 0x82F400  // NAME 2: reads 'chartemplate.ini' on the first reference
 	static void Shutdown();							// 0x82F740  // NAME 2: frees the templates with the last reference
 	static CharTemplateClass *Get_Template(int index);	// 0x82FF90  // NAME 2: what it returns
 	static CharTemplateClass *Get_First();			// 0x830000  // NAME 2: Get_Template(0)

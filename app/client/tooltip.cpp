@@ -60,7 +60,7 @@ bool Unknown_42EC60(int button, int arg);		// 0x42EC60 (input.cpp: a button or k
 
 
 
-UIViewUnknown30Class::UIViewUnknown30Class(UIViewClass *view) :
+ToolTipClass::ToolTipClass(UIViewClass *view) :
 	View(view),
 	CurGadget(NULL),
 	Unknown08(0),
@@ -81,7 +81,7 @@ UIViewUnknown30Class::UIViewUnknown30Class(UIViewClass *view) :
 }
 
 
-UIViewUnknown30Class::~UIViewUnknown30Class()
+ToolTipClass::~ToolTipClass()
 {
 	Unknown_6AB930(NULL);
 	for (int i = 0; i < MAX_LINES; i++) {
@@ -92,7 +92,7 @@ UIViewUnknown30Class::~UIViewUnknown30Class()
 
 
 
-void UIViewUnknown30Class::Unknown_6AB5B0() {
+void ToolTipClass::Unknown_6AB5B0() {
 	if (Hides != 0 || View == NULL || View->Unknown2C == NULL) {
 		return; }
 	GadgetClass *gadget = GadgetClass::Unknown_65F5F0(View->Unknown2C, false, true);
@@ -176,7 +176,7 @@ void UIViewUnknown30Class::Unknown_6AB5B0() {
 
 
 
-bool UIViewUnknown30Class::Unknown_6AB850()
+bool ToolTipClass::Unknown_6AB850()
 {
 	FAIL_IF(!Hides) {
 		return(false);
@@ -185,7 +185,7 @@ bool UIViewUnknown30Class::Unknown_6AB850()
 }
 
 
-bool UIViewUnknown30Class::Unknown_6AB890()
+bool ToolTipClass::Unknown_6AB890()
 {
 	Hides++;
 	Unknown_6AB930(NULL);
@@ -193,7 +193,7 @@ bool UIViewUnknown30Class::Unknown_6AB890()
 }
 
 
-void UIViewUnknown30Class::Unknown_6AB8C0()
+void ToolTipClass::Unknown_6AB8C0()
 {
 	if (CurGadget) {
 		Unknown08 = Unknown_Get_Ticks();
@@ -205,17 +205,17 @@ void UIViewUnknown30Class::Unknown_6AB8C0()
 
 
 
-void UIViewUnknown30Class::Unknown_6AB8F0(DestroyGadgetEvent *event, GadgetClass *gadget)
+void ToolTipClass::Unknown_6AB8F0(DestroyGadgetEvent *event, GadgetClass *gadget)
 {
 	FAIL_IF(CurGadget != gadget) {
 		return;
 	}
 	Unknown_6AB930(NULL);
 }
-static inline void Unknown_Remove_Callback(SignalMap &map, GadgetClass *gadget, UIViewUnknown30Class *view) { SignalBaseClass::MemberCallback<GadgetClass, UIViewUnknown30Class, void (UIViewUnknown30Class::*)(DestroyGadgetEvent *, GadgetClass *), DestroyGadgetEvent> callback(view, &UIViewUnknown30Class::Unknown_6AB8F0); map.Remove(gadget, callback); } static inline void Unknown_Remove_Destroy(GadgetClass *gadget, UIViewUnknown30Class *view) { Unknown_Remove_Callback(GadgetClass::Get_Signal_Map(), gadget, view); }	// NAME 1: neutral (D10); two inline layers and a named callback: the client calls the callback's constructor 0x6AC050 out of line and passes its address by lea
+static inline void Unknown_Remove_Callback(SignalMap &map, GadgetClass *gadget, ToolTipClass *view) { SignalBaseClass::MemberCallback<GadgetClass, ToolTipClass, void (ToolTipClass::*)(DestroyGadgetEvent *, GadgetClass *), DestroyGadgetEvent> callback(view, &ToolTipClass::Unknown_6AB8F0); map.Remove(gadget, callback); } static inline void Unknown_Remove_Destroy(GadgetClass *gadget, ToolTipClass *view) { Unknown_Remove_Callback(GadgetClass::Get_Signal_Map(), gadget, view); }	// NAME 1: neutral (D10); two inline layers and a named callback: the client calls the callback's constructor 0x6AC050 out of line and passes its address by lea
 
 
-void UIViewUnknown30Class::Unknown_6AB930(GadgetClass *gadget)
+void ToolTipClass::Unknown_6AB930(GadgetClass *gadget)
 {
 	if (CurGadget) {
 		if (Unknown0E) {
@@ -250,7 +250,7 @@ void UIViewUnknown30Class::Unknown_6AB930(GadgetClass *gadget)
 			delay = OptionClass::Instance->Get_Float("Interface_Tooltip_Delay") * delay * 0.01f;
 		}
 		Unknown08 += delay;
-		GadgetClass::Get_Signal_Map().Add(CurGadget, this, &UIViewUnknown30Class::Unknown_6AB8F0);
+		GadgetClass::Get_Signal_Map().Add(CurGadget, this, &ToolTipClass::Unknown_6AB8F0);
 		if (Unknown_42EC60(0x12, 0)) {
 			if (CurGadget->Unknown24) {
 				UIViewClass *view = View->Unknown_20();
@@ -267,7 +267,7 @@ void UIViewUnknown30Class::Unknown_6AB930(GadgetClass *gadget)
 
 
 
-void UIViewUnknown30Class::Unknown_6ABC10()
+void ToolTipClass::Unknown_6ABC10()
 {
 	if (Unknown0C) {
 		Window->Remove_All(false);
@@ -304,7 +304,7 @@ void UIViewUnknown30Class::Unknown_6ABC10()
 
 
 
-void UIViewUnknown30Class::Unknown_6ABC60()
+void ToolTipClass::Unknown_6ABC60()
 {
 	if (Unknown0C || CurGadget == NULL || View == NULL) {
 		return;
@@ -354,7 +354,7 @@ fits:
 }
 
 
-void UIViewUnknown30Class::Unknown_6ABE90()
+void ToolTipClass::Unknown_6ABE90()
 {
 	LoginUnknown18Class *mouse = (LoginUnknown18Class *)View->Unknown_44();
 	if (mouse) {

@@ -29,8 +29,8 @@ class RenderStateListClass;
 class RenderStateClass : public Node<RenderStateClass *>	// NAME 2: rs_track.cpp's assert names State and Get_Render_State_List()
 {
 public:
-	RenderStateClass(RenderStateListClass *list, int id, int link_id, unsigned int flags);	// 0x457B60 (rs_robj.cpp's constructors call it)  // NAME 1 [list, id, link_id, flags]: the members they set
-	RenderStateClass(RenderStateListClass *list, const RenderStateClass &source);	// 0x457BE0 (the derived states' copies)  // NAME 1 [list, source]: neutral
+	RenderStateClass(const RenderStateListClass *list, int id, int link_id, unsigned int flags);	// 0x457B60 (rs_robj.cpp's constructors call it)  // NAME 1 [list, id, link_id, flags]: the members they set
+	RenderStateClass(const RenderStateListClass *list, const RenderStateClass &source);	// 0x457BE0 (the derived states' copies)  // NAME 1 [list, source]: neutral
 	virtual ~RenderStateClass();									// 0x457D20 (deleting 0x457BB0)
 	virtual RenderStateClass *Unknown_04(RenderStateListClass *list) = 0;	// +0x04 (pure: E&B's _purecall 0x9CCD10; 0x458970 clones into list)  // NAME 1 [list]: neutral
 	virtual void Unknown_08(RsTrackClass *owner, int link_id) {}	// +0x08 0x458590 (INIT_RENDER_STATE 47)  // NAME 1 [owner, link_id]: neutral; what 0x460880 passes

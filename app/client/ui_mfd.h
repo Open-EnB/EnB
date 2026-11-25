@@ -136,7 +136,7 @@ public:
 	virtual void Unknown_90();							// 0x5BE860
 };
 
-// The display UIScanClass builds on (constructor 0x5BE980: flag 1; tables 0xAF3758 / 0xAF374C / 0xAF3740 / 0xAF372C)
+// The display ScannerInterface builds on (constructor 0x5BE980: flag 1; tables 0xAF3758 / 0xAF374C / 0xAF3740 / 0xAF372C)
 class Unknown5BE980Class : public UIMFDClass	// NAME 1: neutral (D10)
 {
 public:

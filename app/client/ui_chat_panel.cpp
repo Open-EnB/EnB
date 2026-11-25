@@ -1371,7 +1371,7 @@ void ChatPanelInterface::Unknown_5685C0()
 {
 	if (UnknownF8) {
 		if (Unknown10D) {
-			InterfaceClass::Get_Signal_Map().Remove((InterfaceClass *)UnknownF8.Peek(), this, &ChatPanelInterface::Unknown_56C7B0, OptionFontInterfaceEvent());
+			InterfaceClass::Get_Signal_Map().Remove((OptionFontInterface *)UnknownF8.Peek(), this, &ChatPanelInterface::Unknown_56C7B0, OptionFontInterfaceEvent());
 			Unknown10D = false;
 		}
 		UnknownF8->Unknown_7C(NULL, 0);
@@ -2447,7 +2447,7 @@ void ChatPanelInterface::Unknown_56C730(ChatWindowInterfaceEvent *event, ChatWin
 }
 
 // 0x56C7B0
-void ChatPanelInterface::Unknown_56C7B0(OptionFontInterfaceEvent *event, InterfaceClass *sender)
+void ChatPanelInterface::Unknown_56C7B0(OptionFontInterfaceEvent *event, OptionFontInterface *sender)
 {
 	if (sender == UnknownF8.Peek() && ChatInt) ChatInt->Unknown_571430();
 }
@@ -2460,7 +2460,7 @@ void ChatPanelInterface::Unknown_56C7E0()
 	const char *split_names[] = { "FONT_CHAT_LINE_00", "FONT_CHAT_LINE_01", NULL };	// NAME 1: neutral (D10)
 	const char *split_labels[] = { "Player Chat Font", "Game Message Font" };		// NAME 1: neutral (D10)
 	const char *single_names[] = { "FONT_CHAT_LINE_00", NULL };					// NAME 1: neutral (D10)
-	const char *single_labels[] = { "" };											// NAME 1: neutral (D10)
+	const char *single_labels[] = { " " };											// NAME 1: neutral (D10)
 	if (Unknown134 == 1) {
 		UnknownF8 = Create_Get((ChatPanelUIBase *)new OptionFontInterface(Client->As_Space_Client(), single_names, single_labels, std::string("Chat Font Settings")));
 	} else {
@@ -2469,7 +2469,7 @@ void ChatPanelInterface::Unknown_56C7E0()
 	UnknownF8->Unknown_54();
 	UnknownF8->Unknown_7C(View, 1);
 	Unknown10D = true;
-	InterfaceClass::Get_Signal_Map().Add((InterfaceClass *)UnknownF8.Peek(), this, &ChatPanelInterface::Unknown_56C7B0);
+	InterfaceClass::Get_Signal_Map().Add((OptionFontInterface *)UnknownF8.Peek(), this, &ChatPanelInterface::Unknown_56C7B0);
 }
 
 

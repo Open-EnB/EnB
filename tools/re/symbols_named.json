@@ -2315,8 +2315,9 @@
  },
  {
   "address": "0x536640",
-  "symbol": "??1?$RefCountPtr@VUIItemExaminationOptionClass@@@@QAE@XZ",
-  "evidence": "UIItemExaminationOptionsClass::Rebuild 0x535A10 (ui_item_examination_options.cpp): unwind funclet 0xAAD583 'lea ecx, [ebp - 0x14]; jmp' reaches it, the same state's funclet in the object jumps to this symbol, and its body matches at 0x536640 (funclet-only callers, objmatch's tie-break never proposes it); FD 2026-11-15"
+  "symbol": "??1?$RefCountPtr@VItemOptionObject@@@@QAE@XZ",
+  "evidence": "UIItemExaminationOptionsClass::Rebuild 0x535A10 (ui_item_examination_options.cpp): unwind funclet 0xAAD583 'lea ecx, [ebp - 0x14]; jmp' reaches it, the same state's funclet in the object jumps to this symbol, and its body matches at 0x536640 (funclet-only callers, objmatch's tie-break never proposes it); FD 2026-11-15; class renamed to the client's name: the receiver in MemberCallback<ToggleButtonDynamicWindow, ItemOptionObject, ..., ToggleButtonStateEvent> (callback table 0xAEE684; the method 0x536450; the tooltip name 'ItemOptionObject' 0x535CB0 sets); the name it replaces is the tree's earlier one (M1, run 2026-11-24-night)",
+  "replaces": "??1?$RefCountPtr@VUIItemExaminationOptionClass@@@@QAE@XZ"
  },
  {
   "address": "0x538940",
@@ -2716,8 +2717,9 @@
  },
  {
   "address": "0x6ABFD0",
-  "symbol": "??1?$MemberCallback@VGadgetClass@@VUIViewUnknown30Class@@P82@AEXPAVDestroyGadgetEvent@@PAV1@@ZV3@@SignalBaseClass@@UAE@XZ",
-  "evidence": "UIViewUnknown30Class::Unknown_6AB930 0x6AB930 (tooltip.cpp; not exact: paired by its whole unwind map, 2 states, found at no other client function): unwind funclet 0xAC1508 'lea ecx, [ebp - 0x34]; jmp' reaches it, the same state's funclet in the object jumps to this symbol, and its body matches at 0x6ABFD0 (short: no pair until D188 takes funclet evidence); FD2 2026-11-15 (C37)"
+  "symbol": "??1?$MemberCallback@VGadgetClass@@VToolTipClass@@P82@AEXPAVDestroyGadgetEvent@@PAV1@@ZV3@@SignalBaseClass@@UAE@XZ",
+  "evidence": "UIViewUnknown30Class::Unknown_6AB930 0x6AB930 (tooltip.cpp; not exact: paired by its whole unwind map, 2 states, found at no other client function): unwind funclet 0xAC1508 'lea ecx, [ebp - 0x34]; jmp' reaches it, the same state's funclet in the object jumps to this symbol, and its body matches at 0x6ABFD0 (short: no pair until D188 takes funclet evidence); FD2 2026-11-15 (C37); class renamed to the client's name: the receiver in MemberCallback<GadgetClass, ToolTipClass, ..., DestroyGadgetEvent> (callback table 0xAFDB28; the method 0x6AB8F0; tooltip.cpp's class); the name it replaces is the tree's earlier one (M1, run 2026-11-24-night)",
+  "replaces": "??1?$MemberCallback@VGadgetClass@@VUIViewUnknown30Class@@P82@AEXPAVDestroyGadgetEvent@@PAV1@@ZV3@@SignalBaseClass@@UAE@XZ"
  },
  {
   "address": "0x56CC70",
@@ -3742,9 +3744,9 @@
  },
  {
   "address": "0x610040",
-  "symbol": "?Remove@SignalMap@@QAEXPAVClientObjectClass@@PAVUIScanClass@@P83@AEXPAVPlayerObjectRelationshipChangeEvent@@0@ZABV4@@Z",
-  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's retype (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
-  "replaces": "?disconnect@SignalMap@@QAEXPAVClientObjectClass@@PAVUIScanClass@@P83@AEXPAVPlayerObjectRelationshipChangeEvent@@0@ZABV4@@Z"
+  "symbol": "?Remove@SignalMap@@QAEXPAVClientObjectClass@@PAVScannerInterface@@P83@AEXPAVPlayerObjectRelationshipChangeEvent@@0@ZABV4@@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's retype (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17); class renamed to the client's name: the receiver in MemberCallback<ClientObjectClass, ScannerInterface, ..., PlayerObjectRelationshipChangeEvent> (callback table 0xAF7300, its Type() 0x6101A0 returns the descriptor named '.PBV?$MemberCallback@VClientObjectClass@@VScannerInterface@@P82@AEXPAVPlayerObjectRelationshipChangeEvent@@PAV1@@ZV3@@SignalBaseClass@@'; the method 0x60ED10); the name it replaces is the tree's earlier one (M1, run 2026-11-24-night)",
+  "replaces": "?Remove@SignalMap@@QAEXPAVClientObjectClass@@PAVUIScanClass@@P83@AEXPAVPlayerObjectRelationshipChangeEvent@@0@ZABV4@@Z"
  },
  {
   "address": "0x612510",
@@ -4606,9 +4608,9 @@
  },
  {
   "address": "0x56DEE0",
-  "symbol": "?On_Back_Gadget_Moved@ChatPanelUIBase@@QAEXPAVDestroyGadgetEvent@@PAVGadgetClass@@@Z",
-  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
-  "replaces": "?Unknown_56DEE0@ChatPanelUIBase@@QAEXPAVDestroyGadgetEvent@@PAVGadgetClass@@@Z"
+  "symbol": "?On_Back_Gadget_Moved@ChatPanelUIBase@@QAEXPAVMovableUIBackGadgetMoved@@PAVMovableUIBackGadget@@@Z",
+  "evidence": "0x56DEE0's callback retyped to the client's types: Sender_Type 0x56DF30 / Event_Type 0x56DF70 return the type descriptors 0xB7D5C0 '.?AVMovableUIBackGadget@@' / 0xB7D688 '.?AVMovableUIBackGadgetMoved@@' (RTTI 0xB7D5E8 names the callback); the name it replaces is the earlier guess's (P3, run 2026-11-24-night)",
+  "replaces": "?On_Back_Gadget_Moved@ChatPanelUIBase@@QAEXPAVDestroyGadgetEvent@@PAVGadgetClass@@@Z"
  },
  {
   "address": "0x57A330",
@@ -5379,5 +5381,384 @@
   "symbol": "??_GFont3DInstanceClass@@UAEPAXI@Z",
   "evidence": "0x982A30 stores ??_7Font3DInstanceClass@@6B@ (0xB12F40) and ??_7RefCountClass@@6B@ (0xAE7FB0), sits between Font3DInstanceClass ctor 0x9829C0 and dtor 0x982A80, and is slot 0 of Font3DInstanceClass vtable 0xB12F40 (vtables-ww3d2.json); bytematch-ww3d2 R mislabelled it SoundRenderObjPrototypeClass (whose PrototypeClass base vtable is 0xAEA5B4) (2026-11-21)",
   "replaces": "??_GSoundRenderObjPrototypeClass@@UAEPAXI@Z"
+ },
+ {
+  "address": "0x56DF10",
+  "symbol": "??1?$MemberCallback@VMovableUIBackGadget@@VChatPanelUIBase@@P82@AEXPAVMovableUIBackGadgetMoved@@PAV1@@ZV3@@SignalBaseClass@@UAE@XZ",
+  "evidence": "0x56DEE0's callback retyped to the client's types: Sender_Type 0x56DF30 / Event_Type 0x56DF70 return the type descriptors 0xB7D5C0 '.?AVMovableUIBackGadget@@' / 0xB7D688 '.?AVMovableUIBackGadgetMoved@@' (RTTI 0xB7D5E8 names the callback); the name it replaces is the earlier guess's (P3, run 2026-11-24-night)",
+  "replaces": "??1?$MemberCallback@VGadgetClass@@VChatPanelUIBase@@P82@AEXPAVDestroyGadgetEvent@@PAV1@@ZV3@@SignalBaseClass@@UAE@XZ"
+ },
+ {
+  "address": "0x56DF30",
+  "symbol": "?Sender_Type@?$MemberCallback@VMovableUIBackGadget@@VChatPanelUIBase@@P82@AEXPAVMovableUIBackGadgetMoved@@PAV1@@ZV3@@SignalBaseClass@@UBEABVtype_info@@XZ",
+  "evidence": "0x56DEE0's callback retyped to the client's types: Sender_Type 0x56DF30 / Event_Type 0x56DF70 return the type descriptors 0xB7D5C0 '.?AVMovableUIBackGadget@@' / 0xB7D688 '.?AVMovableUIBackGadgetMoved@@' (RTTI 0xB7D5E8 names the callback); the name it replaces is the earlier guess's (P3, run 2026-11-24-night)",
+  "replaces": "?Sender_Type@?$MemberCallback@VGadgetClass@@VChatPanelUIBase@@P82@AEXPAVDestroyGadgetEvent@@PAV1@@ZV3@@SignalBaseClass@@UBEABVtype_info@@XZ"
+ },
+ {
+  "address": "0x56DF50",
+  "symbol": "?Type@?$MemberCallback@VMovableUIBackGadget@@VChatPanelUIBase@@P82@AEXPAVMovableUIBackGadgetMoved@@PAV1@@ZV3@@SignalBaseClass@@UBEABVtype_info@@XZ",
+  "evidence": "0x56DEE0's callback retyped to the client's types: Sender_Type 0x56DF30 / Event_Type 0x56DF70 return the type descriptors 0xB7D5C0 '.?AVMovableUIBackGadget@@' / 0xB7D688 '.?AVMovableUIBackGadgetMoved@@' (RTTI 0xB7D5E8 names the callback); the name it replaces is the earlier guess's (P3, run 2026-11-24-night)",
+  "replaces": "?Type@?$MemberCallback@VGadgetClass@@VChatPanelUIBase@@P82@AEXPAVDestroyGadgetEvent@@PAV1@@ZV3@@SignalBaseClass@@UBEABVtype_info@@XZ"
+ },
+ {
+  "address": "0x56DF70",
+  "symbol": "?Event_Type@?$EventCallbackClass@VMovableUIBackGadgetMoved@@@SignalBaseClass@@UBEABVtype_info@@XZ",
+  "evidence": "0x56DEE0's callback retyped to the client's types: Sender_Type 0x56DF30 / Event_Type 0x56DF70 return the type descriptors 0xB7D5C0 '.?AVMovableUIBackGadget@@' / 0xB7D688 '.?AVMovableUIBackGadgetMoved@@' (RTTI 0xB7D5E8 names the callback); the name it replaces is the earlier guess's (P3, run 2026-11-24-night)",
+  "replaces": "?Event_Type@?$EventCallbackClass@VDestroyGadgetEvent@@@SignalBaseClass@@UBEABVtype_info@@XZ"
+ },
+ {
+  "address": "0x56DF90",
+  "symbol": "?Is_Equal@?$MemberCallback@VMovableUIBackGadget@@VChatPanelUIBase@@P82@AEXPAVMovableUIBackGadgetMoved@@PAV1@@ZV3@@SignalBaseClass@@UBE_NABVCallbackClass@2@@Z",
+  "evidence": "0x56DEE0's callback retyped to the client's types: Sender_Type 0x56DF30 / Event_Type 0x56DF70 return the type descriptors 0xB7D5C0 '.?AVMovableUIBackGadget@@' / 0xB7D688 '.?AVMovableUIBackGadgetMoved@@' (RTTI 0xB7D5E8 names the callback); the name it replaces is the earlier guess's (P3, run 2026-11-24-night)",
+  "replaces": "?Is_Equal@?$MemberCallback@VGadgetClass@@VChatPanelUIBase@@P82@AEXPAVDestroyGadgetEvent@@PAV1@@ZV3@@SignalBaseClass@@UBE_NABVCallbackClass@2@@Z"
+ },
+ {
+  "address": "0x56E010",
+  "symbol": "?Call@?$MemberCallback@VMovableUIBackGadget@@VChatPanelUIBase@@P82@AEXPAVMovableUIBackGadgetMoved@@PAV1@@ZV3@@SignalBaseClass@@UAEXPAX0@Z",
+  "evidence": "0x56DEE0's callback retyped to the client's types: Sender_Type 0x56DF30 / Event_Type 0x56DF70 return the type descriptors 0xB7D5C0 '.?AVMovableUIBackGadget@@' / 0xB7D688 '.?AVMovableUIBackGadgetMoved@@' (RTTI 0xB7D5E8 names the callback); the name it replaces is the earlier guess's (P3, run 2026-11-24-night)",
+  "replaces": "?Call@?$MemberCallback@VGadgetClass@@VChatPanelUIBase@@P82@AEXPAVDestroyGadgetEvent@@PAV1@@ZV3@@SignalBaseClass@@UAEXPAX0@Z"
+ },
+ {
+  "address": "0x56E070",
+  "symbol": "??_G?$MemberCallback@VMovableUIBackGadget@@VChatPanelUIBase@@P82@AEXPAVMovableUIBackGadgetMoved@@PAV1@@ZV3@@SignalBaseClass@@UAEPAXI@Z",
+  "evidence": "0x56DEE0's callback retyped to the client's types: Sender_Type 0x56DF30 / Event_Type 0x56DF70 return the type descriptors 0xB7D5C0 '.?AVMovableUIBackGadget@@' / 0xB7D688 '.?AVMovableUIBackGadgetMoved@@' (RTTI 0xB7D5E8 names the callback); the name it replaces is the earlier guess's (P3, run 2026-11-24-night)",
+  "replaces": "??_G?$MemberCallback@VGadgetClass@@VChatPanelUIBase@@P82@AEXPAVDestroyGadgetEvent@@PAV1@@ZV3@@SignalBaseClass@@UAEPAXI@Z"
+ },
+ {
+  "address": "0x56E0A0",
+  "symbol": "??0?$EventCallbackClass@VMovableUIBackGadgetMoved@@@SignalBaseClass@@QAE@XZ",
+  "evidence": "0x56DEE0's callback retyped to the client's types: Sender_Type 0x56DF30 / Event_Type 0x56DF70 return the type descriptors 0xB7D5C0 '.?AVMovableUIBackGadget@@' / 0xB7D688 '.?AVMovableUIBackGadgetMoved@@' (RTTI 0xB7D5E8 names the callback); the name it replaces is the earlier guess's (P3, run 2026-11-24-night)",
+  "replaces": "??0?$EventCallbackClass@VDestroyGadgetEvent@@@SignalBaseClass@@QAE@XZ"
+ },
+ {
+  "address": "0x56E0C0",
+  "symbol": "?Is_Equal@?$EventCallbackClass@VMovableUIBackGadgetMoved@@@SignalBaseClass@@UBE_NABVCallbackClass@2@@Z",
+  "evidence": "0x56DEE0's callback retyped to the client's types: Sender_Type 0x56DF30 / Event_Type 0x56DF70 return the type descriptors 0xB7D5C0 '.?AVMovableUIBackGadget@@' / 0xB7D688 '.?AVMovableUIBackGadgetMoved@@' (RTTI 0xB7D5E8 names the callback); the name it replaces is the earlier guess's (P3, run 2026-11-24-night)",
+  "replaces": "?Is_Equal@?$EventCallbackClass@VDestroyGadgetEvent@@@SignalBaseClass@@UBE_NABVCallbackClass@2@@Z"
+ },
+ {
+  "address": "0x56E100",
+  "symbol": "??_G?$EventCallbackClass@VMovableUIBackGadgetMoved@@@SignalBaseClass@@UAEPAXI@Z",
+  "evidence": "0x56DEE0's callback retyped to the client's types: Sender_Type 0x56DF30 / Event_Type 0x56DF70 return the type descriptors 0xB7D5C0 '.?AVMovableUIBackGadget@@' / 0xB7D688 '.?AVMovableUIBackGadgetMoved@@' (RTTI 0xB7D5E8 names the callback); the name it replaces is the earlier guess's (P3, run 2026-11-24-night)",
+  "replaces": "??_G?$EventCallbackClass@VDestroyGadgetEvent@@@SignalBaseClass@@UAEPAXI@Z"
+ },
+ {
+  "address": "0x56E130",
+  "symbol": "??1?$EventCallbackClass@VMovableUIBackGadgetMoved@@@SignalBaseClass@@UAE@XZ",
+  "evidence": "0x56DEE0's callback retyped to the client's types: Sender_Type 0x56DF30 / Event_Type 0x56DF70 return the type descriptors 0xB7D5C0 '.?AVMovableUIBackGadget@@' / 0xB7D688 '.?AVMovableUIBackGadgetMoved@@' (RTTI 0xB7D5E8 names the callback); the name it replaces is the earlier guess's (P3, run 2026-11-24-night)",
+  "replaces": "??1?$EventCallbackClass@VDestroyGadgetEvent@@@SignalBaseClass@@UAE@XZ"
+ },
+ {
+  "address": "0xAF0174",
+  "symbol": "??_7?$MemberCallback@VMovableUIBackGadget@@VChatPanelUIBase@@P82@AEXPAVMovableUIBackGadgetMoved@@PAV1@@ZV3@@SignalBaseClass@@6B@",
+  "evidence": "0x56DEE0's callback retyped to the client's types: Sender_Type 0x56DF30 / Event_Type 0x56DF70 return the type descriptors 0xB7D5C0 '.?AVMovableUIBackGadget@@' / 0xB7D688 '.?AVMovableUIBackGadgetMoved@@' (RTTI 0xB7D5E8 names the callback); the name it replaces is the earlier guess's (P3, run 2026-11-24-night)",
+  "kind": "vtable",
+  "replaces": "??_7?$MemberCallback@VGadgetClass@@VChatPanelUIBase@@P82@AEXPAVDestroyGadgetEvent@@PAV1@@ZV3@@SignalBaseClass@@6B@"
+ },
+ {
+  "address": "0xAF0190",
+  "symbol": "??_7?$EventCallbackClass@VMovableUIBackGadgetMoved@@@SignalBaseClass@@6B@",
+  "evidence": "0x56DEE0's callback retyped to the client's types: Sender_Type 0x56DF30 / Event_Type 0x56DF70 return the type descriptors 0xB7D5C0 '.?AVMovableUIBackGadget@@' / 0xB7D688 '.?AVMovableUIBackGadgetMoved@@' (RTTI 0xB7D5E8 names the callback); the name it replaces is the earlier guess's (P3, run 2026-11-24-night)",
+  "kind": "vtable",
+  "replaces": "??_7?$EventCallbackClass@VDestroyGadgetEvent@@@SignalBaseClass@@6B@"
+ },
+ {
+  "address": "0x56C7B0",
+  "symbol": "?Unknown_56C7B0@ChatPanelInterface@@QAEXPAVOptionFontInterfaceEvent@@PAVOptionFontInterface@@@Z",
+  "evidence": "ChatPanelInterface's font callback retyped to the client's sender: RTTI 0xB7D308 '.PBV?$MemberCallback@VOptionFontInterface@@VChatPanelInterface@@P82@AEXPAVOptionFontInterfaceEvent@@PAV1@@ZV3@@SignalBaseClass@@' (Type 0x56CFA0's descriptor), Sender_Type 0x56CF80 returns 0xB7D2E0 '.?AVOptionFontInterface@@'; the name it replaces is the earlier guess's (P3, run 2026-11-24-night)",
+  "replaces": "?Unknown_56C7B0@ChatPanelInterface@@QAEXPAVOptionFontInterfaceEvent@@PAVInterfaceClass@@@Z"
+ },
+ {
+  "address": "0x56CF40",
+  "symbol": "??1?$MemberCallback@VOptionFontInterface@@VChatPanelInterface@@P82@AEXPAVOptionFontInterfaceEvent@@PAV1@@ZV3@@SignalBaseClass@@UAE@XZ",
+  "evidence": "ChatPanelInterface's font callback retyped to the client's sender: RTTI 0xB7D308 '.PBV?$MemberCallback@VOptionFontInterface@@VChatPanelInterface@@P82@AEXPAVOptionFontInterfaceEvent@@PAV1@@ZV3@@SignalBaseClass@@' (Type 0x56CFA0's descriptor), Sender_Type 0x56CF80 returns 0xB7D2E0 '.?AVOptionFontInterface@@'; the name it replaces is the earlier guess's (P3, run 2026-11-24-night)",
+  "replaces": "??1?$MemberCallback@VInterfaceClass@@VChatPanelInterface@@P82@AEXPAVOptionFontInterfaceEvent@@PAV1@@ZV3@@SignalBaseClass@@UAE@XZ"
+ },
+ {
+  "address": "0x56CF80",
+  "symbol": "?Sender_Type@?$MemberCallback@VOptionFontInterface@@VChatPanelInterface@@P82@AEXPAVOptionFontInterfaceEvent@@PAV1@@ZV3@@SignalBaseClass@@UBEABVtype_info@@XZ",
+  "evidence": "ChatPanelInterface's font callback retyped to the client's sender: RTTI 0xB7D308 '.PBV?$MemberCallback@VOptionFontInterface@@VChatPanelInterface@@P82@AEXPAVOptionFontInterfaceEvent@@PAV1@@ZV3@@SignalBaseClass@@' (Type 0x56CFA0's descriptor), Sender_Type 0x56CF80 returns 0xB7D2E0 '.?AVOptionFontInterface@@'; the name it replaces is the earlier guess's (P3, run 2026-11-24-night)",
+  "replaces": "?Sender_Type@?$MemberCallback@VInterfaceClass@@VChatPanelInterface@@P82@AEXPAVOptionFontInterfaceEvent@@PAV1@@ZV3@@SignalBaseClass@@UBEABVtype_info@@XZ"
+ },
+ {
+  "address": "0x56CFA0",
+  "symbol": "?Type@?$MemberCallback@VOptionFontInterface@@VChatPanelInterface@@P82@AEXPAVOptionFontInterfaceEvent@@PAV1@@ZV3@@SignalBaseClass@@UBEABVtype_info@@XZ",
+  "evidence": "ChatPanelInterface's font callback retyped to the client's sender: RTTI 0xB7D308 '.PBV?$MemberCallback@VOptionFontInterface@@VChatPanelInterface@@P82@AEXPAVOptionFontInterfaceEvent@@PAV1@@ZV3@@SignalBaseClass@@' (Type 0x56CFA0's descriptor), Sender_Type 0x56CF80 returns 0xB7D2E0 '.?AVOptionFontInterface@@'; the name it replaces is the earlier guess's (P3, run 2026-11-24-night)",
+  "replaces": "?Type@?$MemberCallback@VInterfaceClass@@VChatPanelInterface@@P82@AEXPAVOptionFontInterfaceEvent@@PAV1@@ZV3@@SignalBaseClass@@UBEABVtype_info@@XZ"
+ },
+ {
+  "address": "0x56CFC0",
+  "symbol": "?Event_Type@?$MemberCallback@VOptionFontInterface@@VChatPanelInterface@@P82@AEXPAVOptionFontInterfaceEvent@@PAV1@@ZV3@@SignalBaseClass@@UBEABVtype_info@@XZ",
+  "evidence": "ChatPanelInterface's font callback retyped to the client's sender: RTTI 0xB7D308 '.PBV?$MemberCallback@VOptionFontInterface@@VChatPanelInterface@@P82@AEXPAVOptionFontInterfaceEvent@@PAV1@@ZV3@@SignalBaseClass@@' (Type 0x56CFA0's descriptor), Sender_Type 0x56CF80 returns 0xB7D2E0 '.?AVOptionFontInterface@@'; the name it replaces is the earlier guess's (P3, run 2026-11-24-night)",
+  "replaces": "?Event_Type@?$MemberCallback@VInterfaceClass@@VChatPanelInterface@@P82@AEXPAVOptionFontInterfaceEvent@@PAV1@@ZV3@@SignalBaseClass@@UBEABVtype_info@@XZ"
+ },
+ {
+  "address": "0x56D040",
+  "symbol": "?Is_Equal@?$MemberCallback@VOptionFontInterface@@VChatPanelInterface@@P82@AEXPAVOptionFontInterfaceEvent@@PAV1@@ZV3@@SignalBaseClass@@UBE_NABVCallbackClass@2@@Z",
+  "evidence": "ChatPanelInterface's font callback retyped to the client's sender: RTTI 0xB7D308 '.PBV?$MemberCallback@VOptionFontInterface@@VChatPanelInterface@@P82@AEXPAVOptionFontInterfaceEvent@@PAV1@@ZV3@@SignalBaseClass@@' (Type 0x56CFA0's descriptor), Sender_Type 0x56CF80 returns 0xB7D2E0 '.?AVOptionFontInterface@@'; the name it replaces is the earlier guess's (P3, run 2026-11-24-night)",
+  "replaces": "?Is_Equal@?$MemberCallback@VInterfaceClass@@VChatPanelInterface@@P82@AEXPAVOptionFontInterfaceEvent@@PAV1@@ZV3@@SignalBaseClass@@UBE_NABVCallbackClass@2@@Z"
+ },
+ {
+  "address": "0x56D0C0",
+  "symbol": "?Call@?$MemberCallback@VOptionFontInterface@@VChatPanelInterface@@P82@AEXPAVOptionFontInterfaceEvent@@PAV1@@ZV3@@SignalBaseClass@@UAEXPAX0@Z",
+  "evidence": "ChatPanelInterface's font callback retyped to the client's sender: RTTI 0xB7D308 '.PBV?$MemberCallback@VOptionFontInterface@@VChatPanelInterface@@P82@AEXPAVOptionFontInterfaceEvent@@PAV1@@ZV3@@SignalBaseClass@@' (Type 0x56CFA0's descriptor), Sender_Type 0x56CF80 returns 0xB7D2E0 '.?AVOptionFontInterface@@'; the name it replaces is the earlier guess's (P3, run 2026-11-24-night)",
+  "replaces": "?Call@?$MemberCallback@VInterfaceClass@@VChatPanelInterface@@P82@AEXPAVOptionFontInterfaceEvent@@PAV1@@ZV3@@SignalBaseClass@@UAEXPAX0@Z"
+ },
+ {
+  "address": "0x56D200",
+  "symbol": "??_G?$MemberCallback@VOptionFontInterface@@VChatPanelInterface@@P82@AEXPAVOptionFontInterfaceEvent@@PAV1@@ZV3@@SignalBaseClass@@UAEPAXI@Z",
+  "evidence": "ChatPanelInterface's font callback retyped to the client's sender: RTTI 0xB7D308 '.PBV?$MemberCallback@VOptionFontInterface@@VChatPanelInterface@@P82@AEXPAVOptionFontInterfaceEvent@@PAV1@@ZV3@@SignalBaseClass@@' (Type 0x56CFA0's descriptor), Sender_Type 0x56CF80 returns 0xB7D2E0 '.?AVOptionFontInterface@@'; the name it replaces is the earlier guess's (P3, run 2026-11-24-night)",
+  "replaces": "??_G?$MemberCallback@VInterfaceClass@@VChatPanelInterface@@P82@AEXPAVOptionFontInterfaceEvent@@PAV1@@ZV3@@SignalBaseClass@@UAEPAXI@Z"
+ },
+ {
+  "address": "0xAEFFDC",
+  "symbol": "??_7?$MemberCallback@VOptionFontInterface@@VChatPanelInterface@@P82@AEXPAVOptionFontInterfaceEvent@@PAV1@@ZV3@@SignalBaseClass@@6B@",
+  "evidence": "ChatPanelInterface's font callback retyped to the client's sender: RTTI 0xB7D308 '.PBV?$MemberCallback@VOptionFontInterface@@VChatPanelInterface@@P82@AEXPAVOptionFontInterfaceEvent@@PAV1@@ZV3@@SignalBaseClass@@' (Type 0x56CFA0's descriptor), Sender_Type 0x56CF80 returns 0xB7D2E0 '.?AVOptionFontInterface@@'; the name it replaces is the earlier guess's (P3, run 2026-11-24-night)",
+  "kind": "vtable",
+  "replaces": "??_7?$MemberCallback@VInterfaceClass@@VChatPanelInterface@@P82@AEXPAVOptionFontInterfaceEvent@@PAV1@@ZV3@@SignalBaseClass@@6B@"
+ },
+ {
+  "address": "0x5136A0",
+  "symbol": "?Unknown_5136A0@MainViewClass@@QAEPAVScannerInterface@@XZ",
+  "evidence": "class renamed to the client's name: the receiver in MemberCallback<ClientObjectClass, ScannerInterface, ..., PlayerObjectRelationshipChangeEvent> (callback table 0xAF7300, its Type() 0x6101A0 returns the descriptor named '.PBV?$MemberCallback@VClientObjectClass@@VScannerInterface@@P82@AEXPAVPlayerObjectRelationshipChangeEvent@@PAV1@@ZV3@@SignalBaseClass@@'; the method 0x60ED10); the name it replaces is the tree's earlier one (M1, run 2026-11-24-night)",
+  "replaces": "?Unknown_5136A0@MainViewClass@@QAEPAVUIScanClass@@XZ"
+ },
+ {
+  "address": "0x536610",
+  "symbol": "?Create_NEW@@YA?AV?$RefCountPtr@VItemOptionObject@@@@PAVItemOptionObject@@@Z",
+  "evidence": "class renamed to the client's name: the receiver in MemberCallback<ToggleButtonDynamicWindow, ItemOptionObject, ..., ToggleButtonStateEvent> (callback table 0xAEE684; the method 0x536450; the tooltip name 'ItemOptionObject' 0x535CB0 sets); the name it replaces is the tree's earlier one (M1, run 2026-11-24-night)",
+  "replaces": "?Create_NEW@@YA?AV?$RefCountPtr@VUIItemExaminationOptionClass@@@@PAVUIItemExaminationOptionClass@@@Z"
+ },
+ {
+  "address": "0x60D800",
+  "symbol": "??0ScannerInterface@@QAE@PAVUIViewClass@@PAVLayerClass@@@Z",
+  "evidence": "class renamed to the client's name: the receiver in MemberCallback<ClientObjectClass, ScannerInterface, ..., PlayerObjectRelationshipChangeEvent> (callback table 0xAF7300, its Type() 0x6101A0 returns the descriptor named '.PBV?$MemberCallback@VClientObjectClass@@VScannerInterface@@P82@AEXPAVPlayerObjectRelationshipChangeEvent@@PAV1@@ZV3@@SignalBaseClass@@'; the method 0x60ED10); the name it replaces is the tree's earlier one (M1, run 2026-11-24-night)",
+  "replaces": "??0UIScanClass@@QAE@PAVUIViewClass@@PAVLayerClass@@@Z"
+ },
+ {
+  "address": "0x60D8A0",
+  "symbol": "??_GScannerInterface@@UAEPAXI@Z",
+  "evidence": "class renamed to the client's name: the receiver in MemberCallback<ClientObjectClass, ScannerInterface, ..., PlayerObjectRelationshipChangeEvent> (callback table 0xAF7300, its Type() 0x6101A0 returns the descriptor named '.PBV?$MemberCallback@VClientObjectClass@@VScannerInterface@@P82@AEXPAVPlayerObjectRelationshipChangeEvent@@PAV1@@ZV3@@SignalBaseClass@@'; the method 0x60ED10); the name it replaces is the tree's earlier one (M1, run 2026-11-24-night)",
+  "replaces": "??_GUIScanClass@@UAEPAXI@Z"
+ },
+ {
+  "address": "0x60D8D0",
+  "symbol": "?Unknown_54@ScannerInterface@@UAEXXZ",
+  "evidence": "class renamed to the client's name: the receiver in MemberCallback<ClientObjectClass, ScannerInterface, ..., PlayerObjectRelationshipChangeEvent> (callback table 0xAF7300, its Type() 0x6101A0 returns the descriptor named '.PBV?$MemberCallback@VClientObjectClass@@VScannerInterface@@P82@AEXPAVPlayerObjectRelationshipChangeEvent@@PAV1@@ZV3@@SignalBaseClass@@'; the method 0x60ED10); the name it replaces is the tree's earlier one (M1, run 2026-11-24-night)",
+  "replaces": "?Unknown_54@UIScanClass@@UAEXXZ"
+ },
+ {
+  "address": "0x60DF90",
+  "symbol": "??1ScannerInterface@@UAE@XZ",
+  "evidence": "class renamed to the client's name: the receiver in MemberCallback<ClientObjectClass, ScannerInterface, ..., PlayerObjectRelationshipChangeEvent> (callback table 0xAF7300, its Type() 0x6101A0 returns the descriptor named '.PBV?$MemberCallback@VClientObjectClass@@VScannerInterface@@P82@AEXPAVPlayerObjectRelationshipChangeEvent@@PAV1@@ZV3@@SignalBaseClass@@'; the method 0x60ED10); the name it replaces is the tree's earlier one (M1, run 2026-11-24-night)",
+  "replaces": "??1UIScanClass@@UAE@XZ"
+ },
+ {
+  "address": "0x60E1E0",
+  "symbol": "?Unknown_58@ScannerInterface@@UAEXXZ",
+  "evidence": "class renamed to the client's name: the receiver in MemberCallback<ClientObjectClass, ScannerInterface, ..., PlayerObjectRelationshipChangeEvent> (callback table 0xAF7300, its Type() 0x6101A0 returns the descriptor named '.PBV?$MemberCallback@VClientObjectClass@@VScannerInterface@@P82@AEXPAVPlayerObjectRelationshipChangeEvent@@PAV1@@ZV3@@SignalBaseClass@@'; the method 0x60ED10); the name it replaces is the tree's earlier one (M1, run 2026-11-24-night)",
+  "replaces": "?Unknown_58@UIScanClass@@UAEXXZ"
+ },
+ {
+  "address": "0x60E2C0",
+  "symbol": "?Unknown_5C@ScannerInterface@@UAEXXZ",
+  "evidence": "class renamed to the client's name: the receiver in MemberCallback<ClientObjectClass, ScannerInterface, ..., PlayerObjectRelationshipChangeEvent> (callback table 0xAF7300, its Type() 0x6101A0 returns the descriptor named '.PBV?$MemberCallback@VClientObjectClass@@VScannerInterface@@P82@AEXPAVPlayerObjectRelationshipChangeEvent@@PAV1@@ZV3@@SignalBaseClass@@'; the method 0x60ED10); the name it replaces is the tree's earlier one (M1, run 2026-11-24-night)",
+  "replaces": "?Unknown_5C@UIScanClass@@UAEXXZ"
+ },
+ {
+  "address": "0x60E300",
+  "symbol": "?Unknown_68@ScannerInterface@@UAE_NH@Z",
+  "evidence": "class renamed to the client's name: the receiver in MemberCallback<ClientObjectClass, ScannerInterface, ..., PlayerObjectRelationshipChangeEvent> (callback table 0xAF7300, its Type() 0x6101A0 returns the descriptor named '.PBV?$MemberCallback@VClientObjectClass@@VScannerInterface@@P82@AEXPAVPlayerObjectRelationshipChangeEvent@@PAV1@@ZV3@@SignalBaseClass@@'; the method 0x60ED10); the name it replaces is the tree's earlier one (M1, run 2026-11-24-night)",
+  "replaces": "?Unknown_68@UIScanClass@@UAE_NH@Z"
+ },
+ {
+  "address": "0x60E480",
+  "symbol": "?Unknown_60@ScannerInterface@@UAEXXZ",
+  "evidence": "class renamed to the client's name: the receiver in MemberCallback<ClientObjectClass, ScannerInterface, ..., PlayerObjectRelationshipChangeEvent> (callback table 0xAF7300, its Type() 0x6101A0 returns the descriptor named '.PBV?$MemberCallback@VClientObjectClass@@VScannerInterface@@P82@AEXPAVPlayerObjectRelationshipChangeEvent@@PAV1@@ZV3@@SignalBaseClass@@'; the method 0x60ED10); the name it replaces is the tree's earlier one (M1, run 2026-11-24-night)",
+  "replaces": "?Unknown_60@UIScanClass@@UAEXXZ"
+ },
+ {
+  "address": "0x60E540",
+  "symbol": "?Unknown_60E540@ScannerInterface@@QAEXPAVClientObjectClass@@ABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@1H@Z",
+  "evidence": "class renamed to the client's name: the receiver in MemberCallback<ClientObjectClass, ScannerInterface, ..., PlayerObjectRelationshipChangeEvent> (callback table 0xAF7300, its Type() 0x6101A0 returns the descriptor named '.PBV?$MemberCallback@VClientObjectClass@@VScannerInterface@@P82@AEXPAVPlayerObjectRelationshipChangeEvent@@PAV1@@ZV3@@SignalBaseClass@@'; the method 0x60ED10); the name it replaces is the tree's earlier one (M1, run 2026-11-24-night)",
+  "replaces": "?Unknown_60E540@UIScanClass@@QAEXPAVClientObjectClass@@ABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@1H@Z"
+ },
+ {
+  "address": "0x60E580",
+  "symbol": "?Unknown_88@ScannerInterface@@UAEXPAVClientObjectClass@@@Z",
+  "evidence": "class renamed to the client's name: the receiver in MemberCallback<ClientObjectClass, ScannerInterface, ..., PlayerObjectRelationshipChangeEvent> (callback table 0xAF7300, its Type() 0x6101A0 returns the descriptor named '.PBV?$MemberCallback@VClientObjectClass@@VScannerInterface@@P82@AEXPAVPlayerObjectRelationshipChangeEvent@@PAV1@@ZV3@@SignalBaseClass@@'; the method 0x60ED10); the name it replaces is the tree's earlier one (M1, run 2026-11-24-night)",
+  "replaces": "?Unknown_88@UIScanClass@@UAEXPAVClientObjectClass@@@Z"
+ },
+ {
+  "address": "0x60ED10",
+  "symbol": "?Unknown_60ED10@ScannerInterface@@QAEXPAVPlayerObjectRelationshipChangeEvent@@PAVClientObjectClass@@@Z",
+  "evidence": "class renamed to the client's name: the receiver in MemberCallback<ClientObjectClass, ScannerInterface, ..., PlayerObjectRelationshipChangeEvent> (callback table 0xAF7300, its Type() 0x6101A0 returns the descriptor named '.PBV?$MemberCallback@VClientObjectClass@@VScannerInterface@@P82@AEXPAVPlayerObjectRelationshipChangeEvent@@PAV1@@ZV3@@SignalBaseClass@@'; the method 0x60ED10); the name it replaces is the tree's earlier one (M1, run 2026-11-24-night)",
+  "replaces": "?Unknown_60ED10@UIScanClass@@QAEXPAVPlayerObjectRelationshipChangeEvent@@PAVClientObjectClass@@@Z"
+ },
+ {
+  "address": "0x60ED60",
+  "symbol": "?Unknown_60ED60@ScannerInterface@@QAEXPAVClientObjectClass@@ABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@1H@Z",
+  "evidence": "class renamed to the client's name: the receiver in MemberCallback<ClientObjectClass, ScannerInterface, ..., PlayerObjectRelationshipChangeEvent> (callback table 0xAF7300, its Type() 0x6101A0 returns the descriptor named '.PBV?$MemberCallback@VClientObjectClass@@VScannerInterface@@P82@AEXPAVPlayerObjectRelationshipChangeEvent@@PAV1@@ZV3@@SignalBaseClass@@'; the method 0x60ED10); the name it replaces is the tree's earlier one (M1, run 2026-11-24-night)",
+  "replaces": "?Unknown_60ED60@UIScanClass@@QAEXPAVClientObjectClass@@ABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@1H@Z"
+ },
+ {
+  "address": "0x60EFE0",
+  "symbol": "?Unknown_60EFE0@ScannerInterface@@QAEXPAVClientObjectClass@@@Z",
+  "evidence": "class renamed to the client's name: the receiver in MemberCallback<ClientObjectClass, ScannerInterface, ..., PlayerObjectRelationshipChangeEvent> (callback table 0xAF7300, its Type() 0x6101A0 returns the descriptor named '.PBV?$MemberCallback@VClientObjectClass@@VScannerInterface@@P82@AEXPAVPlayerObjectRelationshipChangeEvent@@PAV1@@ZV3@@SignalBaseClass@@'; the method 0x60ED10); the name it replaces is the tree's earlier one (M1, run 2026-11-24-night)",
+  "replaces": "?Unknown_60EFE0@UIScanClass@@QAEXPAVClientObjectClass@@@Z"
+ },
+ {
+  "address": "0x6100C0",
+  "symbol": "?Add@SignalMap@@QAEXPAVClientObjectClass@@PAVScannerInterface@@P83@AEXPAVPlayerObjectRelationshipChangeEvent@@0@ZABV4@@Z",
+  "evidence": "class renamed to the client's name: the receiver in MemberCallback<ClientObjectClass, ScannerInterface, ..., PlayerObjectRelationshipChangeEvent> (callback table 0xAF7300, its Type() 0x6101A0 returns the descriptor named '.PBV?$MemberCallback@VClientObjectClass@@VScannerInterface@@P82@AEXPAVPlayerObjectRelationshipChangeEvent@@PAV1@@ZV3@@SignalBaseClass@@'; the method 0x60ED10); the name it replaces is the tree's earlier one (M1, run 2026-11-24-night)",
+  "replaces": "?Add@SignalMap@@QAEXPAVClientObjectClass@@PAVUIScanClass@@P83@AEXPAVPlayerObjectRelationshipChangeEvent@@0@ZABV4@@Z"
+ },
+ {
+  "address": "0x610160",
+  "symbol": "??1?$MemberCallback@VClientObjectClass@@VScannerInterface@@P82@AEXPAVPlayerObjectRelationshipChangeEvent@@PAV1@@ZV3@@SignalBaseClass@@UAE@XZ",
+  "evidence": "class renamed to the client's name: the receiver in MemberCallback<ClientObjectClass, ScannerInterface, ..., PlayerObjectRelationshipChangeEvent> (callback table 0xAF7300, its Type() 0x6101A0 returns the descriptor named '.PBV?$MemberCallback@VClientObjectClass@@VScannerInterface@@P82@AEXPAVPlayerObjectRelationshipChangeEvent@@PAV1@@ZV3@@SignalBaseClass@@'; the method 0x60ED10); the name it replaces is the tree's earlier one (M1, run 2026-11-24-night)",
+  "replaces": "??1?$MemberCallback@VClientObjectClass@@VUIScanClass@@P82@AEXPAVPlayerObjectRelationshipChangeEvent@@PAV1@@ZV3@@SignalBaseClass@@UAE@XZ"
+ },
+ {
+  "address": "0x610180",
+  "symbol": "?Sender_Type@?$MemberCallback@VClientObjectClass@@VScannerInterface@@P82@AEXPAVPlayerObjectRelationshipChangeEvent@@PAV1@@ZV3@@SignalBaseClass@@UBEABVtype_info@@XZ",
+  "evidence": "class renamed to the client's name: the receiver in MemberCallback<ClientObjectClass, ScannerInterface, ..., PlayerObjectRelationshipChangeEvent> (callback table 0xAF7300, its Type() 0x6101A0 returns the descriptor named '.PBV?$MemberCallback@VClientObjectClass@@VScannerInterface@@P82@AEXPAVPlayerObjectRelationshipChangeEvent@@PAV1@@ZV3@@SignalBaseClass@@'; the method 0x60ED10); the name it replaces is the tree's earlier one (M1, run 2026-11-24-night)",
+  "replaces": "?Sender_Type@?$MemberCallback@VClientObjectClass@@VUIScanClass@@P82@AEXPAVPlayerObjectRelationshipChangeEvent@@PAV1@@ZV3@@SignalBaseClass@@UBEABVtype_info@@XZ"
+ },
+ {
+  "address": "0x6101A0",
+  "symbol": "?Type@?$MemberCallback@VClientObjectClass@@VScannerInterface@@P82@AEXPAVPlayerObjectRelationshipChangeEvent@@PAV1@@ZV3@@SignalBaseClass@@UBEABVtype_info@@XZ",
+  "evidence": "class renamed to the client's name: the receiver in MemberCallback<ClientObjectClass, ScannerInterface, ..., PlayerObjectRelationshipChangeEvent> (callback table 0xAF7300, its Type() 0x6101A0 returns the descriptor named '.PBV?$MemberCallback@VClientObjectClass@@VScannerInterface@@P82@AEXPAVPlayerObjectRelationshipChangeEvent@@PAV1@@ZV3@@SignalBaseClass@@'; the method 0x60ED10); the name it replaces is the tree's earlier one (M1, run 2026-11-24-night)",
+  "replaces": "?Type@?$MemberCallback@VClientObjectClass@@VUIScanClass@@P82@AEXPAVPlayerObjectRelationshipChangeEvent@@PAV1@@ZV3@@SignalBaseClass@@UBEABVtype_info@@XZ"
+ },
+ {
+  "address": "0x6101E0",
+  "symbol": "?Is_Equal@?$MemberCallback@VClientObjectClass@@VScannerInterface@@P82@AEXPAVPlayerObjectRelationshipChangeEvent@@PAV1@@ZV3@@SignalBaseClass@@UBE_NABVCallbackClass@2@@Z",
+  "evidence": "class renamed to the client's name: the receiver in MemberCallback<ClientObjectClass, ScannerInterface, ..., PlayerObjectRelationshipChangeEvent> (callback table 0xAF7300, its Type() 0x6101A0 returns the descriptor named '.PBV?$MemberCallback@VClientObjectClass@@VScannerInterface@@P82@AEXPAVPlayerObjectRelationshipChangeEvent@@PAV1@@ZV3@@SignalBaseClass@@'; the method 0x60ED10); the name it replaces is the tree's earlier one (M1, run 2026-11-24-night)",
+  "replaces": "?Is_Equal@?$MemberCallback@VClientObjectClass@@VUIScanClass@@P82@AEXPAVPlayerObjectRelationshipChangeEvent@@PAV1@@ZV3@@SignalBaseClass@@UBE_NABVCallbackClass@2@@Z"
+ },
+ {
+  "address": "0x610260",
+  "symbol": "?Call@?$MemberCallback@VClientObjectClass@@VScannerInterface@@P82@AEXPAVPlayerObjectRelationshipChangeEvent@@PAV1@@ZV3@@SignalBaseClass@@UAEXPAX0@Z",
+  "evidence": "class renamed to the client's name: the receiver in MemberCallback<ClientObjectClass, ScannerInterface, ..., PlayerObjectRelationshipChangeEvent> (callback table 0xAF7300, its Type() 0x6101A0 returns the descriptor named '.PBV?$MemberCallback@VClientObjectClass@@VScannerInterface@@P82@AEXPAVPlayerObjectRelationshipChangeEvent@@PAV1@@ZV3@@SignalBaseClass@@'; the method 0x60ED10); the name it replaces is the tree's earlier one (M1, run 2026-11-24-night)",
+  "replaces": "?Call@?$MemberCallback@VClientObjectClass@@VUIScanClass@@P82@AEXPAVPlayerObjectRelationshipChangeEvent@@PAV1@@ZV3@@SignalBaseClass@@UAEXPAX0@Z"
+ },
+ {
+  "address": "0x610430",
+  "symbol": "??_G?$MemberCallback@VClientObjectClass@@VScannerInterface@@P82@AEXPAVPlayerObjectRelationshipChangeEvent@@PAV1@@ZV3@@SignalBaseClass@@UAEPAXI@Z",
+  "evidence": "class renamed to the client's name: the receiver in MemberCallback<ClientObjectClass, ScannerInterface, ..., PlayerObjectRelationshipChangeEvent> (callback table 0xAF7300, its Type() 0x6101A0 returns the descriptor named '.PBV?$MemberCallback@VClientObjectClass@@VScannerInterface@@P82@AEXPAVPlayerObjectRelationshipChangeEvent@@PAV1@@ZV3@@SignalBaseClass@@'; the method 0x60ED10); the name it replaces is the tree's earlier one (M1, run 2026-11-24-night)",
+  "replaces": "??_G?$MemberCallback@VClientObjectClass@@VUIScanClass@@P82@AEXPAVPlayerObjectRelationshipChangeEvent@@PAV1@@ZV3@@SignalBaseClass@@UAEPAXI@Z"
+ },
+ {
+  "address": "0x610540",
+  "symbol": "??_EScannerInterface@@W3AEPAXI@Z",
+  "evidence": "class renamed to the client's name: the receiver in MemberCallback<ClientObjectClass, ScannerInterface, ..., PlayerObjectRelationshipChangeEvent> (callback table 0xAF7300, its Type() 0x6101A0 returns the descriptor named '.PBV?$MemberCallback@VClientObjectClass@@VScannerInterface@@P82@AEXPAVPlayerObjectRelationshipChangeEvent@@PAV1@@ZV3@@SignalBaseClass@@'; the method 0x60ED10); the name it replaces is the tree's earlier one (M1, run 2026-11-24-night)",
+  "replaces": "??_EUIScanClass@@W3AEPAXI@Z"
+ },
+ {
+  "address": "0x610550",
+  "symbol": "??_EScannerInterface@@WDI@AEPAXI@Z",
+  "evidence": "class renamed to the client's name: the receiver in MemberCallback<ClientObjectClass, ScannerInterface, ..., PlayerObjectRelationshipChangeEvent> (callback table 0xAF7300, its Type() 0x6101A0 returns the descriptor named '.PBV?$MemberCallback@VClientObjectClass@@VScannerInterface@@P82@AEXPAVPlayerObjectRelationshipChangeEvent@@PAV1@@ZV3@@SignalBaseClass@@'; the method 0x60ED10); the name it replaces is the tree's earlier one (M1, run 2026-11-24-night)",
+  "replaces": "??_EUIScanClass@@WDI@AEPAXI@Z"
+ },
+ {
+  "address": "0x610560",
+  "symbol": "??_EScannerInterface@@WIE@AEPAXI@Z",
+  "evidence": "class renamed to the client's name: the receiver in MemberCallback<ClientObjectClass, ScannerInterface, ..., PlayerObjectRelationshipChangeEvent> (callback table 0xAF7300, its Type() 0x6101A0 returns the descriptor named '.PBV?$MemberCallback@VClientObjectClass@@VScannerInterface@@P82@AEXPAVPlayerObjectRelationshipChangeEvent@@PAV1@@ZV3@@SignalBaseClass@@'; the method 0x60ED10); the name it replaces is the tree's earlier one (M1, run 2026-11-24-night)",
+  "replaces": "??_EUIScanClass@@WIE@AEPAXI@Z"
+ },
+ {
+  "address": "0x6AB320",
+  "symbol": "??0ToolTipClass@@QAE@PAVUIViewClass@@@Z",
+  "evidence": "class renamed to the client's name: the receiver in MemberCallback<GadgetClass, ToolTipClass, ..., DestroyGadgetEvent> (callback table 0xAFDB28; the method 0x6AB8F0; tooltip.cpp's class); the name it replaces is the tree's earlier one (M1, run 2026-11-24-night)",
+  "replaces": "??0UIViewUnknown30Class@@QAE@PAVUIViewClass@@@Z"
+ },
+ {
+  "address": "0x6AB4D0",
+  "symbol": "??1ToolTipClass@@QAE@XZ",
+  "evidence": "class renamed to the client's name: the receiver in MemberCallback<GadgetClass, ToolTipClass, ..., DestroyGadgetEvent> (callback table 0xAFDB28; the method 0x6AB8F0; tooltip.cpp's class); the name it replaces is the tree's earlier one (M1, run 2026-11-24-night)",
+  "replaces": "??1UIViewUnknown30Class@@QAE@XZ"
+ },
+ {
+  "address": "0x6AB850",
+  "symbol": "?Unknown_6AB850@ToolTipClass@@QAE_NXZ",
+  "evidence": "class renamed to the client's name: the receiver in MemberCallback<GadgetClass, ToolTipClass, ..., DestroyGadgetEvent> (callback table 0xAFDB28; the method 0x6AB8F0; tooltip.cpp's class); the name it replaces is the tree's earlier one (M1, run 2026-11-24-night)",
+  "replaces": "?Unknown_6AB850@UIViewUnknown30Class@@QAE_NXZ"
+ },
+ {
+  "address": "0x6AB890",
+  "symbol": "?Unknown_6AB890@ToolTipClass@@QAE_NXZ",
+  "evidence": "class renamed to the client's name: the receiver in MemberCallback<GadgetClass, ToolTipClass, ..., DestroyGadgetEvent> (callback table 0xAFDB28; the method 0x6AB8F0; tooltip.cpp's class); the name it replaces is the tree's earlier one (M1, run 2026-11-24-night)",
+  "replaces": "?Unknown_6AB890@UIViewUnknown30Class@@QAE_NXZ"
+ },
+ {
+  "address": "0x6AB8C0",
+  "symbol": "?Unknown_6AB8C0@ToolTipClass@@QAEXXZ",
+  "evidence": "class renamed to the client's name: the receiver in MemberCallback<GadgetClass, ToolTipClass, ..., DestroyGadgetEvent> (callback table 0xAFDB28; the method 0x6AB8F0; tooltip.cpp's class); the name it replaces is the tree's earlier one (M1, run 2026-11-24-night)",
+  "replaces": "?Unknown_6AB8C0@UIViewUnknown30Class@@QAEXXZ"
+ },
+ {
+  "address": "0x6AB8F0",
+  "symbol": "?Unknown_6AB8F0@ToolTipClass@@QAEXPAVDestroyGadgetEvent@@PAVGadgetClass@@@Z",
+  "evidence": "class renamed to the client's name: the receiver in MemberCallback<GadgetClass, ToolTipClass, ..., DestroyGadgetEvent> (callback table 0xAFDB28; the method 0x6AB8F0; tooltip.cpp's class); the name it replaces is the tree's earlier one (M1, run 2026-11-24-night)",
+  "replaces": "?Unknown_6AB8F0@UIViewUnknown30Class@@QAEXPAVDestroyGadgetEvent@@PAVGadgetClass@@@Z"
+ },
+ {
+  "address": "0x6ABE90",
+  "symbol": "?Unknown_6ABE90@ToolTipClass@@QAEXXZ",
+  "evidence": "class renamed to the client's name: the receiver in MemberCallback<GadgetClass, ToolTipClass, ..., DestroyGadgetEvent> (callback table 0xAFDB28; the method 0x6AB8F0; tooltip.cpp's class); the name it replaces is the tree's earlier one (M1, run 2026-11-24-night)",
+  "replaces": "?Unknown_6ABE90@UIViewUnknown30Class@@QAEXXZ"
+ },
+ {
+  "address": "0xAF7220",
+  "symbol": "??_7ScannerInterface@@6BUnknownObjectWatchClass@@@",
+  "evidence": "class renamed to the client's name: the receiver in MemberCallback<ClientObjectClass, ScannerInterface, ..., PlayerObjectRelationshipChangeEvent> (callback table 0xAF7300, its Type() 0x6101A0 returns the descriptor named '.PBV?$MemberCallback@VClientObjectClass@@VScannerInterface@@P82@AEXPAVPlayerObjectRelationshipChangeEvent@@PAV1@@ZV3@@SignalBaseClass@@'; the method 0x60ED10); the name it replaces is the tree's earlier one (M1, run 2026-11-24-night)",
+  "kind": "vtable",
+  "replaces": "??_7UIScanClass@@6BUnknownObjectWatchClass@@@"
+ },
+ {
+  "address": "0xAF7234",
+  "symbol": "??_7ScannerInterface@@6BInterfaceClass@@@",
+  "evidence": "class renamed to the client's name: the receiver in MemberCallback<ClientObjectClass, ScannerInterface, ..., PlayerObjectRelationshipChangeEvent> (callback table 0xAF7300, its Type() 0x6101A0 returns the descriptor named '.PBV?$MemberCallback@VClientObjectClass@@VScannerInterface@@P82@AEXPAVPlayerObjectRelationshipChangeEvent@@PAV1@@ZV3@@SignalBaseClass@@'; the method 0x60ED10); the name it replaces is the tree's earlier one (M1, run 2026-11-24-night)",
+  "kind": "vtable",
+  "replaces": "??_7UIScanClass@@6BInterfaceClass@@@"
+ },
+ {
+  "address": "0xAF724C",
+  "symbol": "??_7ScannerInterface@@6BUnknownGadgetBase00Class@@@",
+  "evidence": "class renamed to the client's name: the receiver in MemberCallback<ClientObjectClass, ScannerInterface, ..., PlayerObjectRelationshipChangeEvent> (callback table 0xAF7300, its Type() 0x6101A0 returns the descriptor named '.PBV?$MemberCallback@VClientObjectClass@@VScannerInterface@@P82@AEXPAVPlayerObjectRelationshipChangeEvent@@PAV1@@ZV3@@SignalBaseClass@@'; the method 0x60ED10); the name it replaces is the tree's earlier one (M1, run 2026-11-24-night)",
+  "kind": "vtable",
+  "replaces": "??_7UIScanClass@@6BUnknownGadgetBase00Class@@@"
+ },
+ {
+  "address": "0xAF7300",
+  "symbol": "??_7?$MemberCallback@VClientObjectClass@@VScannerInterface@@P82@AEXPAVPlayerObjectRelationshipChangeEvent@@PAV1@@ZV3@@SignalBaseClass@@6B@",
+  "evidence": "class renamed to the client's name: the receiver in MemberCallback<ClientObjectClass, ScannerInterface, ..., PlayerObjectRelationshipChangeEvent> (callback table 0xAF7300, its Type() 0x6101A0 returns the descriptor named '.PBV?$MemberCallback@VClientObjectClass@@VScannerInterface@@P82@AEXPAVPlayerObjectRelationshipChangeEvent@@PAV1@@ZV3@@SignalBaseClass@@'; the method 0x60ED10); the name it replaces is the tree's earlier one (M1, run 2026-11-24-night)",
+  "kind": "vtable",
+  "replaces": "??_7?$MemberCallback@VClientObjectClass@@VUIScanClass@@P82@AEXPAVPlayerObjectRelationshipChangeEvent@@PAV1@@ZV3@@SignalBaseClass@@6B@"
+ },
+ {
+  "address": "0x969300",
+  "symbol": "?Set_Color@SegmentedLineClass@@QAEXABVVector3@@@Z",
+  "evidence": "segline.cpp's run (Get_Num_Points 0x968FC0 .. Set_Width 0x9692C0, Set_Texture_Tile_Factor 0x9693C0, Render 0x9695A0): it writes LineRenderer.Color +0xB0..+0xB8 after Set_Width's +0xAC, the tree's segline.obj copy is byte-identical and its ledger shard holds 0x969300; called by SegmentedLineClass users only (0x4983A0, 0x7B3F00, 0x7B43F0); the EA copies' bytematch had named it BoxRenderObjClass's by a Generals layout coincidence (S2, run 2026-11-24-night)",
+  "replaces": "?Set_Color@BoxRenderObjClass@@QAEXABVVector3@@@Z"
+ },
+ {
+  "address": "0x9988B0",
+  "symbol": "?Set_Color@BoxRenderObjClass@@QAEXABVVector3@@@Z",
+  "evidence": "boxrobj.cpp's run (Set_Name 0x998880, Init 0x9988E0, Shutdown 0x998980): it writes Color +0xAC..+0xB4, the tree's boxrobj.obj copy is byte-identical and its ledger shard holds 0x9988B0; the EA copies' bytematch had named it SegmentedLineClass's by a Renegade layout coincidence (S2, run 2026-11-24-night)",
+  "replaces": "?Set_Color@SegmentedLineClass@@QAEXABVVector3@@@Z"
+ },
+ {
+  "address": "0x6E5460",
+  "symbol": "?Unknown_30@UnknownB0009CEffectClass@@UAEXABVVector3@@@Z",
+  "evidence": "the binary end's vtable 0xB0009C slot +0x30 holds the thunk 0x412B3E, which jumps to 0x6E5460; it writes SourcePosition +0xA8..+0xB0 (eff_o.h), emitted in eff_line.cpp's run and credited there by the ledger; the EA copies' bytematch had named it BoxRenderObjClass::Set_Color by a layout coincidence (K1, run 2026-11-24-night)",
+  "replaces": "?Set_Color@BoxRenderObjClass@@QAEXABVVector3@@@Z"
+ },
+ {
+  "address": "0x6E54A0",
+  "symbol": "?Unknown_38@UnknownB0009CEffectClass@@UAEXABVVector3@@@Z",
+  "evidence": "the binary end's vtable 0xB0009C slot +0x38 holds the thunk 0x410686, which jumps to 0x6E54A0; it writes TargetPosition +0xB4..+0xBC (eff_o.h), emitted in eff_line.cpp's run and credited there by the ledger; the EA copies' bytematch had named it SegmentedLineClass::Set_Color by a layout coincidence (K1, run 2026-11-24-night)",
+  "replaces": "?Set_Color@SegmentedLineClass@@QAEXABVVector3@@@Z"
  }
 ]

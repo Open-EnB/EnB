@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "unknown_685e80.h"
 #include "..\..\wwlib\ini.h"
-#include "..\..\ww3d2\assetmgr.h"
+#include "..\shared\enbassetmgr.h"		// AssetManager (0xBDADC0: the client's 0x685EEB reads it, not WW3DAssetManager::TheInstance 0xBFAEE0)
 #include "..\..\ww3d2\texture.h"
 
 // @0x685E80
@@ -14,7 +14,7 @@ Unknown_685E80Class::Unknown_685E80Class(int id, INIClass &ini, const char *sect
 	ToolTip = ini.Get_Alloc_String(section, "ToolTip", "");
 	UserData = ini.Get_Int(section, "UserData", 0);
 	ini.Get_String(section, "Texture", "", texture_name, 255);
-	Texture = WW3DAssetManager::Get_Instance()->Get_Texture(texture_name, MIP_LEVELS_1, WW3D_FORMAT_UNKNOWN, true);
+	Texture = AssetManager->Get_Texture(texture_name, MIP_LEVELS_1, WW3D_FORMAT_UNKNOWN, true);
 }
 
 // @0x685F90

@@ -1124,7 +1124,7 @@ void SBaseViewClass::Unknown_69F8F0(int type, int arg)
 				client->ChatPanel->Unknown_568690();
 			}
 			if (!AvatarUI) {
-				AvatarUI = Create_Get(new StarbaseAvatarCreationInterface(this, Unknown7C));
+				AvatarUI = Create_Get(new StarbaseAvatarCreationInterface(this, *Unknown7C));
 				AvatarUI->Unknown_54();
 				Unknown_6B4940(AvatarUI.Peek());
 				AvatarUI->Unknown_7C(this, true);
@@ -1147,7 +1147,7 @@ void SBaseViewClass::Unknown_69F8F0(int type, int arg)
 				client->ChatPanel->Unknown_568690();
 			}
 			if (!ShipUI) {
-				ShipUI = Create_Get(new StarbaseShipCustomizeInterface(this, Unknown7C));
+				ShipUI = Create_Get(new StarbaseShipCustomizeInterface(this, *Unknown7C));
 				Unknown_6B4940(ShipUI.Peek());
 				ShipUI->Unknown_54();
 				ShipUI->Unknown_7C(this, true);

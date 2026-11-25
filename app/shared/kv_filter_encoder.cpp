@@ -4,7 +4,7 @@
 
 // @0x4B5AD0
 KVFilterEncoderClass::KVFilterEncoderClass(KVListClass *list, int flags, const char *prefix) :
-	KVEncoderClass(list, flags, prefix)
+	KVEncoderClass(*list, flags, prefix)
 {
 }
 

@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "ui_cpit.h"
-#include "ui_scan.h"	// UIScanClass (0x60D800): +0x88 is UIMFDClass's watched Object (UnknownObjectWatchClass at +0x84)
+#include "ui_scan.h"	// ScannerInterface (0x60D800): +0x88 is UIMFDClass's watched Object (UnknownObjectWatchClass at +0x84)
 #include "client.h"
 #include "..\packets\pkaction.h"
 #include "..\packets\pkskillstringrq.h"
@@ -304,7 +304,7 @@ void UICpitClass::Unknown_54()
 	Unknown0CC = new UICpitInvClass(this, sclient, 4);
 	Unknown0CC->Unknown_54();
 	Unknown0CC->Unknown_7C(View, 0);
-	Scan = new UIScanClass(View->As_Main_View(), &Layer);
+	Scan = new ScannerInterface(View->As_Main_View(), &Layer);
 	Scan->Unknown_54();
 	View->Unknown_6B4940(Scan);
 	Unknown0D0 = new UIPowerClass(InterfaceMesh->Peek_Object(), &Layer, this, -1);

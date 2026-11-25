@@ -12,7 +12,7 @@ class SClient;
 class RenderObjClass;
 class ButtonGadgetClass;		// unknown_675120.h's buttons
 class UIComboBoxClass;			// ui_combobox.h's combo box (the filter)
-class Unknown669FB0Class;		// gd_inv_slider.h's inventory slider
+class GadgetInvSlider;		// gd_inv_slider.h's inventory slider
 class PDAInterfaceClass;		// pdaint.h's PDA
 
 // The cargo window (0x10C bytes, tables 0xAF4AD4 / 0xAF4AC8 / 0xAF4ABC; pdaint.cpp's set-up 0x693230 makes it: the key
@@ -39,7 +39,7 @@ public:
 	RefCountPtr<RenderObjClass> InterfaceMesh;			// +0xD4 ('TSI04A'; FAIL_IF '!InterfaceMesh')  // NAME 3: the FAIL_IF's
 	ButtonGadgetClass *Buttons5[NUM_BUTTONS];			// +0xD8 ('BUTTON01' vault, 'BUTTON02' equipment, 'BUTTON03' sort / reverse, 'EXIT')  // NAME 1: neutral (the base has Buttons)
 	RefCountPtr<UIComboBoxClass> Filter;				// +0xEC ('filter', 'Combo01'; the items 0xB83834)  // NAME 2: its sub-object's name
-	Unknown669FB0Class *Slider;							// +0xF0 (gadget 19)  // NAME 2: its type's file
+	GadgetInvSlider *Slider;							// +0xF0 (gadget 19)  // NAME 2: its type's file
 	int SortIndex;										// +0xF4 (0..2: 'Inv_Sort%d_Name'; the option 'Inv_Sort_Cargo')  // NAME 2: what it holds
 	bool SortReverse;									// +0xF8 (the option 'Inv_Sort_Cargo_Reverse')  // NAME 2: the option's
 	std::string FilterName;								// +0xFC (the option 'Inv_Filter_Cargo')  // NAME 2: the option's

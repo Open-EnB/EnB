@@ -41,7 +41,7 @@ public:
 	virtual bool Process_Packet(void *client);	// +0x08 0x73AE40 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x87EE40 (0x4C a note: 3 bytes more than Build adds, D95(a))
 	virtual int Print(char *buffer, int len);	// +0x10 0x87EE60 ('NoteList:')
-	bool Add_Note(int unknown00, int unknown04, const char *unknown08);	// 0x87EE90: up to 16 notes  // NAME 2: what it does
+	bool Add_Note(int unknown00, long unknown04, const char *unknown08);	// 0x87EE90: up to 16 notes  // NAME 2: what it does
 
 	std::list<NoteListEntryStruct> Notes;	// +0x0C (the allocator byte; +0x10 the head node, +0x14 the size)  // NAME 2: what it holds
 };
@@ -50,7 +50,7 @@ public:
 class NoteContentPacketClass : public PacketClass
 {
 public:
-	NoteContentPacketClass(int unknown0c, const char *unknown10, const char *unknown54);	// 0x87EF50
+	NoteContentPacketClass(long unknown0c, const char *unknown10, const char *unknown54);	// 0x87EF50
 	NoteContentPacketClass(RawPacketClass *raw);	// 0x87F020
 	virtual ~NoteContentPacketClass();	// +0x00 0x87EFF0 / 0x87F0E0
 	virtual RawPacketClass *Build();	// +0x04 0x87F110

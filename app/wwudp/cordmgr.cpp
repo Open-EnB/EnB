@@ -119,7 +119,7 @@ bool CordMgr::Unlisten(unsigned int ip, unsigned short port)
 // 0x858EC0: a data socket with fewer than MaxPerSocket_ connections, else a new one (ports 3755-3759, else
 // any) with the largest buffers it can get; the session id is the manager's counter (+0x1337 each time), the
 // key Randval() << 24 ^ Randval() (SecureRandomClass) when the connection is encrypted.
-int CordMgr::Connect(unsigned int ip, unsigned short port, bool encrypt)
+int CordMgr::Connect(unsigned long ip, unsigned short port, bool encrypt)
 {
 	int index = -1;
 	CordDataSocketClass *record;

@@ -27,11 +27,11 @@ public:
 	RenderObjClass *Create_Render_Obj(const char *name, float scale, float *hsv) { return Create_Render_Obj(name, scale, *(Vector3 *)hsv); }
 	RenderObjClass *Unknown_78(const char *name, float scale, float *hsv) { return Create_Render_Obj(name, scale, *(Vector3 *)hsv); }	// NAME 1 [Unknown_78]: compatibility alias for Create_Render_Obj
 
-	void Post_Process(RenderObjClass *robj);										// NAME 3 [Post_Process]: its profile string
+	private: void Post_Process(RenderObjClass *robj);										// NAME 3 [Post_Process]: its profile string
 	void Make_Mesh_Unique(RenderObjClass *robj, bool geometry, bool colors);	// NAME 5: EA hueshift enbassetmgr.h
 	void Make_HLOD_Unique(RenderObjClass *robj, bool geometry, bool colors);	// NAME 5: EA hueshift enbassetmgr.h
 	void Make_Unique(RenderObjClass *robj, bool geometry, bool colors);			// NAME 5: EA hueshift enbassetmgr.h
-	void Recolor_Vertex_Material(VertexMaterialClass *vmat, Vector3 &hsv_shift);	// NAME 5: EA hueshift enbassetmgr.h
+	public: void Recolor_Vertex_Material(VertexMaterialClass *vmat, Vector3 &hsv_shift);	// NAME 5: EA hueshift enbassetmgr.h
 	void Recolor_Vertices(unsigned int *color, int count, Vector3 &hsv_shift);		// NAME 5: EA hueshift enbassetmgr.h
 	TextureClass *Recolor_Texture(TextureClass *texture, float *hsv);				// NAME 5: EA hueshift enbassetmgr.h
 	TextureClass *Recolor_Texture(const char *name, float *hsv, MipCountType mip);	// 0x48B7B0 (the client's symbol; mip goes to Get_Texture)  // NAME 1 [name, mip]: what it passes on

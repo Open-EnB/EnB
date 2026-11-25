@@ -31,10 +31,10 @@ RenderObjClass *Unknown_466920Class::Clone() const
 	return(new Unknown_466920Class(*this));
 }
 
-// 0x466B20: on the static sort list at its level while sorting is on, else drawn as a plain line
+// 0x466B20: on the static sort list at its level while static sort lists are on, else drawn as a plain line
 void Unknown_466920Class::Render(RenderInfoClass &rinfo)
 {
-	if (WW3D::Is_Sorting_Enabled() && SortLevel) {
+	if (WW3D::Are_Static_Sort_Lists_Enabled() && SortLevel) {
 		WW3D::Add_To_Static_Sort_List(this, SortLevel);
 		return;
 	}

@@ -393,7 +393,7 @@ Vector3 SteeringTurnClass::Turn(const Vector3 &desired, const SteeringVehicleStr
 	Matrix3D::Inverse_Rotate_Vector(vehicle.Transform, vehicle.Velocity + desired, &local);
 	local.Normalize();
 	float yaw = 0.0f;
-	if (local.X < -0.0001f || fabs(local.Y) > 0.0001) {
+	if (local.X < -0.0001f || fabs(local.Y) > 0.0001f) {
 		Vector2 flat(local.X, local.Y);
 		flat.Normalize();
 		yaw = flat.X;
@@ -407,7 +407,7 @@ Vector3 SteeringTurnClass::Turn(const Vector3 &desired, const SteeringVehicleStr
 		}
 	}
 	float pitch = 0.0f;
-	if (fabs(desired.Z) > 0.0001) {
+	if (fabs(desired.Z) > 0.0001f) {
 		Vector2 flat(local.X, local.Z);
 		flat.Normalize();
 		pitch = flat.X;

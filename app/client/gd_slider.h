@@ -24,8 +24,8 @@ class GadgetSlider : public RObjGadgetClass	// NAME 5: the client's RTTI .?AVGad
 {
 public:
 	GadgetSlider(bool arg, LayerClass *layer = NULL);	// 0x66DFC0
-	virtual ~GadgetSlider();							// +0x00 0x66E1D0 (deleting 0x66E1A0)
-	virtual RenderObjClass *Unknown_24(Vector3 *position, float *frame, bool indicator);	// +0x24 0x66F8E0
+	protected: virtual ~GadgetSlider();							// +0x00 0x66E1D0 (deleting 0x66E1A0)
+	public: virtual RenderObjClass *Unknown_24(Vector3 *position, float *frame, bool indicator);	// +0x24 0x66F8E0
 	virtual bool Unknown_2C(KernelEventClass *event, float x, float y, unsigned int mask);	// +0x2C 0x66F330
 	virtual bool Unknown_30(float x, float y);			// +0x30 0x66EF00
 	virtual void Unknown_40(bool on);					// +0x40 0x66EDE0

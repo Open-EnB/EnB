@@ -32,10 +32,10 @@ public:
 	virtual void Detach(PxList *list);					// 0x452000
 	virtual void Update();								// 0x452020 (the box to the extent around the position)
 	virtual void Add_Filter(int mask, int test);		// 0x4520A0
-	virtual void On_Enter(PxBox *box);					// 0x4520D0 (PX_EVENT_ENTER)
+	protected: virtual void On_Enter(PxBox *box);					// 0x4520D0 (PX_EVENT_ENTER)
 	virtual void On_Exit(PxBox *box);					// 0x452100 (PX_EVENT_EXIT)
 
-	PxCallbackFunction Callback;						// +0x24  // NAME 2: as PxPollCallback's
+	public: PxCallbackFunction Callback;						// +0x24  // NAME 2: as PxPollCallback's
 	Vector3 Extent;										// +0x28  // NAME 2: as above
 };
 

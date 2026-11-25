@@ -44,7 +44,7 @@ public:
 class SimplePositionalUpdatePacketClass : public PacketClass  // NAME 3: the client's Print text 'Simple_Positional_Update'
 {
 public:
-	SimplePositionalUpdatePacketClass();	// 0x8ABE20
+	protected: SimplePositionalUpdatePacketClass(); public:	// 0x8ABE20
 	SimplePositionalUpdatePacketClass(int priority, int game_id, unsigned int time_stamp, const Vector3 &pos, const Quaternion &orient, const Vector3 &vel);	// 0x8ABF40 (its asserts' names)
 	SimplePositionalUpdatePacketClass(RawPacketClass *raw);	// 0x8AC1B0
 	virtual RawPacketClass *Build();	// +0x04 0x8AC3E0
@@ -75,7 +75,7 @@ public:
 	virtual bool Process_Packet(void *client);	// +0x08 0x734BF0 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x8AE370
 	virtual int Print(char *buffer, int len);	// +0x10 0x8AE3D0
-	virtual int Get_Type();	// +0x28 0x8AE350
+	protected: virtual int Get_Type(); public:	// +0x28 0x8AE350
 
 	int Print_Tractor(char *buffer, int len);	// 0x8AE390 (Print's second half, inlined there)  // NAME 2: what it prints
 
@@ -121,15 +121,15 @@ public:
 
 	int Get_Size(unsigned int flags);	// 0x8AD220 (the payload's bytes for these flags)  // NAME 2: what it returns
 	unsigned int Get_Flags();	// 0x8AD300 (the bit of each field that differs from its default)  // NAME 2: what it returns
-	bool Has_Current_Speed();	// 0x8AD690 (flag 0; inlined in Get_Flags)  // NAME 2: what it tests
+	bool Has_Current_Speed() const;	// 0x8AD690 (flag 0; inlined in Get_Flags)  // NAME 2: what it tests
 	bool Has_Set_Speed();	// 0x8AD6C0 (flag 1)  // NAME 2: what it tests
-	bool Has_Acceleration();	// 0x8AD6F0 (flag 2)  // NAME 2: what it tests
+	bool Has_Acceleration() const;	// 0x8AD6F0 (flag 2)  // NAME 2: what it tests
 	bool Has_RotY();	// 0x8AD730 (flag 3)  // NAME 2: what it tests
 	bool Has_DesiredY();	// 0x8AD760 (flag 4: not the default, +-pi by RotY's sign)  // NAME 2: what it tests
 	bool Has_RotZ();	// 0x8AD7E0 (flag 5)  // NAME 2: what it tests
 	bool Has_DesiredZ();	// 0x8AD810 (flag 6: not the default, +-1000 by RotZ's sign)  // NAME 2: what it tests
 	bool Has_Imparted();	// 0x8AD890 (flag 7: ImpartedVelocity, -Spin, -Roll, -Pitch)  // NAME 2: what it tests
-	bool Has_Update_Period();	// 0x8AD980 (flag 8: not 500)  // NAME 2: what it tests
+	bool Has_Update_Period() const;	// 0x8AD980 (flag 8: not 500)  // NAME 2: what it tests
 	bool Unknown_8ADB20();	// 0x8ADB20 (CurrentSpeed or SetSpeed above WWMATH_EPSILON, or ImpartedVelocity's Length2 above it; postate.cpp's types 4 and 8 ask it)  // NAME 1: neutral (D10)
 	AdvancedPositionalUpdatePacketClass *Clone();	// 0x8ADBA0 (never called: a new copy)  // NAME 2: what it does
 
@@ -158,7 +158,7 @@ public:
 class PlanetPositionalUpdatePacketClass : public PacketClass
 {
 public:
-	PlanetPositionalUpdatePacketClass(int game_id, int time_stamp, const Vector3 &position, int orbit_id, float orbit_dist, float orbit_angle, float orbit_rate, float rotate_angle, float rotate_rate, float tilt_angle);	// 0x8ADCC0 (never called)  // NAME 2 [game_id, time_stamp, position, orbit_id, orbit_dist, orbit_angle, orbit_rate, rotate_angle, rotate_rate, tilt_angle]: the members they set
+	PlanetPositionalUpdatePacketClass(int game_id, unsigned int time_stamp, const Vector3 &position, int orbit_id, float orbit_dist, float orbit_angle, float orbit_rate, float rotate_angle, float rotate_rate, float tilt_angle);	// 0x8ADCC0 (never called)  // NAME 2 [game_id, time_stamp, position, orbit_id, orbit_dist, orbit_angle, orbit_rate, rotate_angle, rotate_rate, tilt_angle]: the members they set
 	PlanetPositionalUpdatePacketClass(RawPacketClass *raw);	// 0x8ADDF0
 	virtual RawPacketClass *Build();	// +0x04 0x8ADF10
 	virtual bool Process_Packet(void *client);	// +0x08 0x734A40 (cpacket.cpp)

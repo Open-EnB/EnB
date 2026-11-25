@@ -90,7 +90,7 @@ public:
 	virtual bool Cycle_Focus();							// +0x00 0x443270  // NAME 1: what it does
 	virtual bool Shutdown();							// +0x04 0x4432A0  // NAME 2: the tasks' Shutdown, all
 	virtual bool Process_Messages();					// +0x08 0x443710  // NAME 2: what it does
-	virtual bool Run_One_Cycle();						// +0x0C 0x443820 ('KernelClass::Run_One_Cycle')
+	protected: virtual bool Run_One_Cycle(); public:	// +0x0C 0x443820 ('KernelClass::Run_One_Cycle'; protected: retail's ?Run_One_Cycle@KernelClass@@MAE_NXZ by the thunk order; kerneltest reaches it through a derived class)
 	virtual bool Is_Running();							// +0x10 0x443B90  // NAME 2: what it does
 	virtual bool Handle_Key(KernelEventClass *event);	// +0x14 0x443E20  // NAME 2: what it does
 
@@ -105,7 +105,7 @@ public:
 	TaskClass *Get_Focus();								// 0x443BF0  // NAME 2: what it does
 	void Next_Focus();									// 0x443C10  // NAME 2: what it does
 	bool Set_Focus(TaskClass *task);					// 0x443CD0  // NAME 2: what it does
-	bool Process_Input();								// 0x443D90: Process_Messages' input step alone  // NAME 2: what it does
+	protected: bool Process_Input(); public:			// 0x443D90: Process_Messages' input step alone (protected: retail's ?Process_Input@KernelClass@@IAE_NXZ by the thunk order)  // NAME 2: what it does
 	void Pump_Messages();								// 0x443E90: Process_Messages' message loop alone  // NAME 2: what it does
 
 	static KernelClass *Instance;						// 0xBDADBC (the assert 'Instance == NULL')

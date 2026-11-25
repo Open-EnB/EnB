@@ -29,7 +29,7 @@ public:
 	virtual ~MessageLinePacketClass();	// +0x00 0x89D870 / 0x89D970
 	virtual RawPacketClass *Build();	// +0x04 0x89D9C0
 	virtual int Get_Data_Size();	// +0x0C 0x89DAB0
-	virtual int Print(char *buffer, int len);	// +0x10 0x89DAF0
+	protected: virtual int Print(char *buffer, int len); public:	// +0x10 0x89DAF0
 	virtual int Get_Channel() { return(-2); }	// +0x18 0x86E6A0
 	virtual int Get_Priority() { return(0); }	// +0x1C 0x86E680
 	virtual int Get_Type() = 0;	// +0x28  // NAME 2: what the derived classes' return (their opcode)

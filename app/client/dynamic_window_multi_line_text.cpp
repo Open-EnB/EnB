@@ -425,5 +425,5 @@ void DynamicWindowMultiLineTextClass::Position_Lines()
 **	the FAIL_IF's condition is false, i.e. only while every line is shown), Position_Lines 0x51C580; then the
 **	template instances 0x51C600-0x51C780. 0x51AEE0 (a call through +0xA4's slot +0x30) and 0x51C800-0x51C910
 **	(a render-object element with table 0xAED85C) are outside this file's classes and not rebuilt.
-**	NOT EXACT (D64): the functions marked, written from the pseudocode, functional.
+**	Every client function of the file is exact.
 */

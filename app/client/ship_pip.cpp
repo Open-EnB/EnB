@@ -417,7 +417,7 @@ void ShipPipClass::Unknown_78()
 			Unknown_90();
 			return;
 		}
-		if (fabs(x) >= 0.0001f || fabs(y) >= 0.0001f) {
+		if (fabs(x) >= 0.0001 || fabs(y) >= 0.0001) {
 			Quaternion q;
 			if (Type == 0) {
 				q = Trackball(0.0f, 0.0f, x, y, 0.8f);

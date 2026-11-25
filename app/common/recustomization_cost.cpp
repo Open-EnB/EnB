@@ -71,7 +71,7 @@ int RecustomizationCostClass::Unknown_8493F0(AvatarDescClass *oldavatar, AvatarD
 // A colour moved by more than the tolerance
 static inline bool Color_Moved(const Vector3 &newcolor, const Vector3 &oldcolor)	// NAME 1: what it does
 {
-	if (fabs(oldcolor.X - newcolor.X) > 0.0001 || fabs(oldcolor.Y - newcolor.Y) > 0.0001 || fabs(oldcolor.Z - newcolor.Z) > 0.0001) return(true);
+	if (fabs(oldcolor.X - newcolor.X) > 0.0001f || fabs(oldcolor.Y - newcolor.Y) > 0.0001f || fabs(oldcolor.Z - newcolor.Z) > 0.0001f) return(true);
 	return(false);
 }
 

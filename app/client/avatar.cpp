@@ -1666,37 +1666,37 @@ void CharacterViewAvatarClass::Unknown_781EA0()
 
 
 // 0x782200
-// NOT EXACT: functional for POC (D64)
+// the clears are 0x785480 (uncalled: inlined here); the dead size() after 0x781B50's site leaves its ??_G 0x781C10 out of line (D272)
 void CharacterViewAvatarClass::Unknown_782200()
 {
 	std::string name;
 	Unknown220 = false;
-	Unknown250 = 0.0f;
-	Unknown258 = 0.0f;
-	Unknown264 = 0.0f;
-	Unknown268 = 0.0f;
+	Unknown_785480();
+
+
+
 	if (Unknown248 > 0) {
-		name = Unknown_781D10(PlayerNLP->Unknown_78EE00(Unknown248, Unknown210 != 0));
+		name = Unknown_781D10(NLP_Of(this)->Unknown_78EE00(Unknown248, Unknown210 != 0));
 		Unknown_7831C0(name.c_str());
 		int frames;
 		if (Unknown0C0[1]) {
 			frames = Unknown0C0[1]->Get_Num_Frames();
+			Unknown248 = (Unknown248 - frames < 0) ? 0 : Unknown248 - frames;
 		} else {
 			frames = Unknown0C0[0]->Get_Num_Frames();
+			Unknown248 = (Unknown248 - frames < 0) ? 0 : Unknown248 - frames;
 		}
-		int left = Unknown248 - frames;
-		Unknown248 = (left < 0) ? 0 : left;
 
 	} else {
 	Unknown_AvatarQueueStruct *entry = Unknown_781B20();
 	if (entry != NULL) {
 		int anim;
 		if (Unknown210 != 0) {
-			int delay = PlayerNLP->Personality->Get_Speech_Delay();
+			int delay = NLP_Of(this)->Personality->Get_Speech_Delay();
 			int phonemes[256];
 			int count = Unknown_BE856C->Phonemes.Unknown_791400(entry->Text, phonemes, 0xFF);
 			anim = PlayerNLP->Unknown_78EE00(count * delay, true);
-			name = Unknown_781D10(anim);
+			name = Unknown_781D10(anim); Unknown_7831C0(name.c_str());
 		} else {
 			anim = entry->Anim;
 			if (entry->Mood >= 0) {
@@ -1704,9 +1704,9 @@ void CharacterViewAvatarClass::Unknown_782200()
 			}
 			Unknown22C = 0.0f;
 			Unknown244 = 0;
-			name = Unknown_781D10(anim);
+			name = Unknown_781D10(anim); Unknown_7831C0(name.c_str());
 		}
-		Unknown_7831C0(name.c_str());
+
 		if (Unknown0BC && (Unknown0C0[0] || Unknown0C0[1])) {
 			Unknown0BC->Release_Keys();
 			Unknown_782FF0(entry->Text);
@@ -1716,7 +1716,7 @@ void CharacterViewAvatarClass::Unknown_782200()
 			}
 			Unknown_783470();
 		}
-		Unknown_781B50(entry);
+		Unknown_781B50(entry); Unknown2A0.size();
 	}
 	if (Unknown_781B20() == NULL && Unknown248 == 0) {
 		Unknown208 = 0;

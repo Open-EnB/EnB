@@ -140,7 +140,7 @@ public:
 		MAX_SEAS = 2,			// NAME 2: the sea arrays at +0x140..+0x170 (2 each; Load_Assets clamps to 2)
 	};
 
-	LandClass(void);
+	private: LandClass(void); public:
 	virtual ~LandClass(void);
 
 // NAME 2: Create, Load_Assets describe VIDTEST 0x4068F0 / 0x405750 and the client's 0x46A3A0 / 0x4691D0 ("LoadAssets" in symbols.json)

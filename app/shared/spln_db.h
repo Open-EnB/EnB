@@ -10,7 +10,7 @@
 **	("\\.\mailslot\G\SplineDatabaseUpdate").
 **
 **	The client's layout (ctor 0x4845F0, dtor 0x484810; 0x850 bytes as VIDTEST's 0x41C660):
-**	  +0x000 a bool, +0x004 Splines: wwlib's HashListClass of entries keyed by CRC_String(name),
+**	  +0x000 a bool, +0x004 Splines: wwlib's HashListClass of entries keyed by CRC::String(name),
 **	  512 hash values (List +0x004, HashTable +0x020, NumRecords +0x820, UsedValues +0x824),
 **	  +0x828 KeyNames (DynamicVectorClass<char *>, entry 0 NULL), +0x840 Filename, +0x844 an int,
 **	  +0x848 HasSplines, +0x84C the mailslot handle (INVALID_HANDLE_VALUE).
@@ -65,7 +65,7 @@ public:
 	char *					Pack(char *buffer);
 // NAME 2: the inverse: a packed entry read into this one (0x489830), or a new entry from one (0x489480)
 	void						Unpack(char **buffer);
-	SplineEntryClass(char **buffer);
+	SplineEntryClass(char *&buffer);
 	void						Print(FileClass *file, unsigned int depth);
 // NAME 2: after the assert 'name != NULL' and the file's header
 	char *					Name;					// +0x00
@@ -77,12 +77,12 @@ public:
 	Curve1DClass *			Curve;				// +0x20
 	SplineEntryClass *	Alpha;				// +0x24 (resolved from AlphaKey)
 	SplineEntryClass *	Beta;					// +0x28 (resolved from BetaKey)
-	unsigned int			AlphaKey;			// +0x2C CRC_String(alpha_clr)
-	unsigned int			BetaKey;				// +0x30 CRC_String(beta_clr)
+	unsigned int			AlphaKey;			// +0x2C CRC::String(alpha_clr)
+	unsigned int			BetaKey;				// +0x30 CRC::String(beta_clr)
 	SplineEntryClass *	Red;					// +0x34 NAME 1: (not yet seen read)
 	SplineEntryClass *	Green;				// +0x38 NAME 1
 	SplineEntryClass *	Blue;					// +0x3C NAME 1
-	unsigned int			RedKey;				// +0x40 CRC_String(name + "_R")
+	unsigned int			RedKey;				// +0x40 CRC::String(name + "_R")
 	unsigned int			GreenKey;			// +0x44
 	unsigned int			BlueKey;				// +0x48
 };
@@ -189,7 +189,7 @@ protected:
 
 // NAME 2: +0x000, the name iteration (0x4869C0) returns hidden entries too when set
 	bool																		ShowHidden;
-// NAME 2: the entries by CRC_String(name)
+// NAME 2: the entries by CRC::String(name)
 	HashListClass<SplineEntryClass *, HashDefaultUserClass, 512>	Splines;
 // NAME 2: chunk 0x808's names; entry 0 is NULL
 	DynamicVectorClass<char *>											KeyNames;

@@ -538,9 +538,9 @@ void RadarSystemClass::Unknown_7BDD50(RadarSystemDataCacheClass &entry, const Re
 
 
 
-
-		FAIL_IF(!entry.ClientObject) return;
-		RenderObjClass *robj = entry.ClientObject->RenderObject;
+		ClientObjectClass *co = entry.ClientObject;
+		FAIL_IF(!co) return;
+		RenderObjClass *robj = co->RenderObject;
 		if (robj) {
 			if (entry.Get_Is_In_Range()) {
 				if (!robj->Peek_Scene()) {

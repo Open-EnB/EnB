@@ -39,7 +39,7 @@ public:
 	~KVListClass();															// 0x4B6520 (deletes the pairs)
 
 	void Add(KVPairClass *item);											// 0x4B6760 (line 23): replaces (and deletes) a pair with the same key  // NAME 2: describes what it does
-	KVPairClass *Find(const char *key);									// 0x4B69A0 (line 51)  // NAME 2: describes what it does
+	KVPairClass *Find(const char *key) const;									// 0x4B69A0 (line 51)  // NAME 2: describes what it does
 	const char *Get_Type_Name(const char *key);						// 0x4B6A80 (line 68)  // NAME 2: describes what it does
 	const char *Get_Value_String(const char *key);					// 0x4B6B60 (line 82; a static 0x1000-byte buffer, 0xBE3B60)  // NAME 2: describes what it does
 	char *Get_Value_String(const char *key, char *buf, int size);	// 0x4B6BF0 (line 97)

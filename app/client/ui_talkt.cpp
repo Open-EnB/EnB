@@ -197,7 +197,7 @@ void UITalkTreeClass::Unknown_54()
 	Buttons[BTTN_EXIT] = new ButtonGadgetClass(InterfaceMesh, "EXIT", 0x55, 3);
 	Unknown64.Unknown_6870E0(Buttons[BTTN_EXIT], BTTN_EXIT, View, 1, 0);
 	GadgetClass::Set_Tooltip(Buttons[BTTN_EXIT], "UI_TALKTREE", "EXIT");
-	RefCountPtr<RenderObjClass> frame = Create_Get(InterfaceMesh->Get_Sub_Object_By_Name("frame01"));
+	RefCountPtr<RenderObjClass> frame = Create_Peek(InterfaceMesh->Get_Sub_Object_By_Name("frame01"));	// 0x64C134: Create_Peek (0x497300 adds a reference)
 	Unknown64.Unknown_6870E0(new UIBackGadget(frame), 12, View, 1, 0);
 	((ControlKeyListClass *)&Unknown4C)->Add(KernelEventClass(0x1B), (void *)11);
 	RenderObjClass *npc_line = InterfaceMesh->Get_Sub_Object_By_Name("TALK00");

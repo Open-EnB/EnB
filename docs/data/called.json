@@ -273,7 +273,7 @@
 "??0Wstring@@QAE@XZ": [
 "0x8B5D90"
 ],
-"??0Wtime@@QAE@AAV0@@Z": [
+"??0Wtime@@QAE@ABV0@@Z": [
 "0x8B81A0"
 ],
 "??0Wtime@@QAE@K@Z": [
@@ -504,7 +504,7 @@
 "??9Wstring@@QBEDABV0@@Z": [
 "0x8B6070"
 ],
-"??HXtime@@QAE?AV0@AAV0@@Z": [
+"??HXtime@@QBE?AV0@ABV0@@Z": [
 "0x8BB6A0"
 ],
 "??MXtime@@QBEDABV0@@Z": [
@@ -621,8 +621,8 @@
 "?Build_Quaternion@@YA?AVQuaternion@@ABVMatrix3D@@@Z": [
 "0x8D2710"
 ],
-"?CRC_String@@YAKPBDK@Z": [
-"0x9D4840"
+"?Cast_OBBox@MeshGeometryClass@@QAE_NAAVOBBoxCollisionTestClass@@@Z": [
+"0x92AE70"
 ],
 "?Clear@INIClass@@QAE_NPBD0@Z": [
 "0x9C8020"
@@ -713,12 +713,6 @@
 ],
 "?DestroyBrowser@DX8WebBrowser@@SAXPBD@Z": [
 "0x920990"
-],
-"?Draw_Line_16@HtmlViewClass@@QAEXHHHHHHHHHH@Z": [
-"0x777EE0"
-],
-"?Draw_Line_32@HtmlViewClass@@QAEXHHHHHHHHHH@Z": [
-"0x7778E0"
 ],
 "?Draw_Strip@DX8Wrapper@@SAXGGGG@Z": [
 "0x925480"
@@ -864,12 +858,6 @@
 "?Get_Bounding_Sphere@MeshGeometryClass@@QAEXPAVSphereClass@@@Z": [
 "0x92A8E0"
 ],
-"?Get_Category_Count@WWMemoryLogClass@@SAHXZ": [
-"0x9ED6E0"
-],
-"?Get_Category_Name@WWMemoryLogClass@@SAPBDH@Z": [
-"0x9ED6F0"
-],
 "?Get_Clip_Planes@CameraClass@@QBEXAAM0@Z": [
 "0x945950"
 ],
@@ -878,9 +866,6 @@
 ],
 "?Get_Culling_System@CullableClass@@QBEPAVCullSystemClass@@XZ": [
 "0x8C8E60"
-],
-"?Get_Current_Allocated_Memory@WWMemoryLogClass@@SAHH@Z": [
-"0x9ED700"
 ],
 "?Get_DX8_Render_State_Value_Name@DX8Wrapper@@SAXAAVStringClass@@W4_D3DRENDERSTATETYPE@@I@Z": [
 "0x927BF0"
@@ -1020,28 +1005,6 @@
 "?Get_Time_Since_Reset@WWProfileManager@@SAMXZ": [
 "0x9EAD70"
 ],
-"?Get_Total_Allocated_Memory@IndexBufferClass@@SAIXZ": [
-"0x94C390",
-"0x94F000"
-],
-"?Get_Total_Allocated_Memory@VertexBufferClass@@SAIXZ": [
-"0x950DF0"
-],
-"?Get_Total_Allocated_Size@FastAllocatorGeneral@@QAEIXZ": [
-"0x9DAD20"
-],
-"?Get_Total_Allocation_Count@FastAllocatorGeneral@@QAEIXZ": [
-"0x9DAD60"
-],
-"?Get_Total_Buffer_Count@IndexBufferClass@@SAIXZ": [
-"0x94EFE0"
-],
-"?Get_Total_Buffer_Count@VertexBufferClass@@SAIXZ": [
-"0x950DD0"
-],
-"?Get_Total_Heap_Size@FastAllocatorGeneral@@QAEIXZ": [
-"0x9DACE0"
-],
 "?Get_UV_Offset_Rate@SegmentedLineClass@@QAE?AVVector2@@XZ": [
 "0x969200"
 ],
@@ -1116,6 +1079,9 @@
 ],
 "?Internal_Remove_List_Head@GenericMultiListClass@@IAEPAVMultiListObjectClass@@XZ": [
 "0x9D1430"
+],
+"?Intersect_OBBox@MeshGeometryClass@@QAE_NAAVOBBoxIntersectionTestClass@@@Z": [
+"0x92AEA0"
 ],
 "?Intersect_Screen_Point_RenderObject@IntersectionClass@@QAE_NMMABVLayerClass@@PAVRenderObjClass@@PAVIntersectionResultClass@@@Z": [
 "0x966500"
@@ -1440,9 +1406,6 @@
 ],
 "?Reset_Colors@ParticleBufferClass@@QAEXAAU?$ParticlePropertyStruct@VVector3@@@@@Z": [
 "0x95EF40"
-],
-"?Reset_Counters@WWMemoryLogClass@@SAXXZ": [
-"0x9EDEF0"
 ],
 "?Reset_Current_Static_Sort_Lists_To_Default@WW3D@@SAXXZ": [
 "0x919080"
@@ -1804,6 +1767,9 @@
 "?Stop_Root_Profile@WWProfileManager@@SAXXZ": [
 "0x9EAAD0"
 ],
+"?String@CRC@@SAKPBDK@Z": [
+"0x9D4840"
+],
 "?Sync@WW3D@@SAXI@Z": [
 "0x918200"
 ],
@@ -1827,12 +1793,6 @@
 ],
 "?Uninitialised_Grow@StringClass@@AAEXH@Z": [
 "0x9CF3D0"
-],
-"?Unknown_Get_Textures_Applied_Last_Frame@TextureBaseClass@@SAIXZ": [
-"0x94B910"
-],
-"?Unknown_Reset_Statistics@FastAllocatorGeneral@@QAEXXZ": [
-"0x9DADA0"
 ],
 "?Unknown_Restore_Device@WW3D@@SA?AW4WW3DErrorType@@XZ": [
 "0x9179D0"
@@ -1875,19 +1835,6 @@
 ],
 "?YFlip@Targa@@QAEXXZ": [
 "0x9D33D0"
-],
-"?_Get_Total_Locked_Surface_Count@TextureBaseClass@@SAHXZ": [
-"0x94C980"
-],
-"?_Get_Total_Locked_Surface_Size@TextureBaseClass@@SAHXZ": [
-"0x94C280"
-],
-"?_Get_Total_Texture_Count@TextureBaseClass@@SAHXZ": [
-"0x94C7B0"
-],
-"?_Get_Total_Texture_Size@TextureBaseClass@@SAHXZ": [
-"0x94C390",
-"0x94F000"
 ],
 "?_Getfacet@locale@std@@QBEPBVfacet@12@I_N@Z": [
 "0xA1A3E3"
@@ -2496,8 +2443,6 @@
 "0xC416C7"
 ],
 "data:??_C@_00A@?$AA@": [
-"0xB6E948",
-"0xB831F8",
 "0xBDA908"
 ],
 "data:??_R0?AVCameraModuleClass@@@8": [
@@ -2522,7 +2467,6 @@
 "0xB79520"
 ],
 "data:??_R0?AVDestroyGadgetEvent@@@8": [
-"0xB7D688",
 "0xB8CA28"
 ],
 "data:??_R0?AVFlashingGadgetEvent@@@8": [
@@ -2532,8 +2476,7 @@
 "0xB72EA0"
 ],
 "data:??_R0?AVGadgetClass@@@8": [
-"0xB78F08",
-"0xB7D5C0"
+"0xB78F08"
 ],
 "data:??_R0?AVGadgetCollectionInterface@@@8": [
 "0xB76F18"
@@ -2549,9 +2492,6 @@
 ],
 "data:??_R0?AVGadgetSliderEvent@@@8": [
 "0xB8D5E8"
-],
-"data:??_R0?AVInterfaceClass@@@8": [
-"0xB7D2E0"
 ],
 "data:??_R0?AVKeysSavedEvent@@@8": [
 "0xB795E8"
@@ -2613,7 +2553,7 @@
 "data:??_R0PBV?$MemberCallback@VClientObjectClass@@VRadarDataClass@@P82@AEXPAVPlayerObjectRelationshipChangeEvent@@PAV1@@ZV3@@SignalBaseClass@@@8": [
 "0xB9F0D0"
 ],
-"data:??_R0PBV?$MemberCallback@VClientObjectClass@@VUIScanClass@@P82@AEXPAVPlayerObjectRelationshipChangeEvent@@PAV1@@ZV3@@SignalBaseClass@@@8": [
+"data:??_R0PBV?$MemberCallback@VClientObjectClass@@VScannerInterface@@P82@AEXPAVPlayerObjectRelationshipChangeEvent@@PAV1@@ZV3@@SignalBaseClass@@@8": [
 "0xB88B50"
 ],
 "data:??_R0PBV?$MemberCallback@VControlKeysManager@@VInterfaceClass@@P82@AEXPAVKeysSavedEvent@@PAV1@@ZV3@@SignalBaseClass@@@8": [
@@ -2627,9 +2567,6 @@
 ],
 "data:??_R0PBV?$MemberCallback@VGadgetClass@@VBridgeInterface@@P82@AEXPAVFlashingGadgetEvent@@PAV1@@ZV3@@SignalBaseClass@@@8": [
 "0xB78F28"
-],
-"data:??_R0PBV?$MemberCallback@VGadgetClass@@VChatPanelUIBase@@P82@AEXPAVDestroyGadgetEvent@@PAV1@@ZV3@@SignalBaseClass@@@8": [
-"0xB7D5E8"
 ],
 "data:??_R0PBV?$MemberCallback@VGadgetClass@@VClassSelectInterface@@P82@AEXPAVFlashingGadgetEvent@@PAV1@@ZV3@@SignalBaseClass@@@8": [
 "0xB7E308"
@@ -2646,14 +2583,20 @@
 "data:??_R0PBV?$MemberCallback@VGadgetClass@@VStarbaseShipCustomizeInterface@@P82@AEXPAVFlashingGadgetEvent@@PAV1@@ZV3@@SignalBaseClass@@@8": [
 "0xB89BB0"
 ],
-"data:??_R0PBV?$MemberCallback@VGadgetClass@@VUIViewUnknown30Class@@P82@AEXPAVDestroyGadgetEvent@@PAV1@@ZV3@@SignalBaseClass@@@8": [
+"data:??_R0PBV?$MemberCallback@VGadgetClass@@VToolTipClass@@P82@AEXPAVDestroyGadgetEvent@@PAV1@@ZV3@@SignalBaseClass@@@8": [
 "0xB91998"
 ],
 "data:??_R0PBV?$MemberCallback@VGadgetCollectionInterface@@VToggleButtonDynamicWindow@@P82@AEXPAVGadgetEvent@@PAV1@@ZV3@@SignalBaseClass@@@8": [
 "0xB76F48"
 ],
-"data:??_R0PBV?$MemberCallback@VInterfaceClass@@VChatPanelInterface@@P82@AEXPAVOptionFontInterfaceEvent@@PAV1@@ZV3@@SignalBaseClass@@@8": [
+"data:??_R0PBV?$MemberCallback@VMovableUIBackGadget@@VChatPanelUIBase@@P82@AEXPAVMovableUIBackGadgetMoved@@PAV1@@ZV3@@SignalBaseClass@@@8": [
+"0xB7D5E8"
+],
+"data:??_R0PBV?$MemberCallback@VOptionFontInterface@@VChatPanelInterface@@P82@AEXPAVOptionFontInterfaceEvent@@PAV1@@ZV3@@SignalBaseClass@@@8": [
 "0xB7D308"
+],
+"data:??_R0PBV?$MemberCallback@VSlotDataClass@@VGadgetInvSlider@@P82@AEXPAVSlotDataEventDataChange@@PAV1@@ZV3@@SignalBaseClass@@@8": [
+"0xB8D100"
 ],
 "data:??_R0PBV?$MemberCallback@VSlotDataClass@@VSlotDataInterface@@P82@AEXPAVSlotDataEventDataChange@@PAV1@@ZV3@@SignalBaseClass@@@8": [
 "0xB8A5E8"
@@ -2661,10 +2604,7 @@
 "data:??_R0PBV?$MemberCallback@VSlotDataClass@@VSlotDataShortcutInterface@@P82@AEXPAVSlotDataEventDataChange@@PAV1@@ZV3@@SignalBaseClass@@@8": [
 "0xB8A7B8"
 ],
-"data:??_R0PBV?$MemberCallback@VSlotDataClass@@VUnknown669FB0Class@@P82@AEXPAVSlotDataEventDataChange@@PAV1@@ZV3@@SignalBaseClass@@@8": [
-"0xB8D100"
-],
-"data:??_R0PBV?$MemberCallback@VToggleButtonDynamicWindow@@VUIItemExaminationOptionClass@@P82@AEXPAVToggleButtonStateEvent@@PAV1@@ZV3@@SignalBaseClass@@@8": [
+"data:??_R0PBV?$MemberCallback@VToggleButtonDynamicWindow@@VItemOptionObject@@P82@AEXPAVToggleButtonStateEvent@@PAV1@@ZV3@@SignalBaseClass@@@8": [
 "0xB789B0"
 ],
 "data:??_R0PBV?$MemberCallback@XVInterfaceClass@@P81@AEXPAVGadgetGroupToFrontEvent@@PAX@ZV2@@SignalBaseClass@@@8": [
@@ -2836,8 +2776,7 @@
 "0xBFAE4F"
 ],
 "data:?IsSortingEnabled@WW3D@@0_NA": [
-"0xBB9644",
-"0xBFAE50"
+"0xBB9644"
 ],
 "data:?KeyRepeatCount@@3HA": [
 "0xBDAA84"
@@ -2996,7 +2935,6 @@
 "0xC07630"
 ],
 "data:?TheInstance@WW3DAssetManager@@1PAV1@A": [
-"0xBDADC0",
 "0xBFAEE0"
 ],
 "data:?ThumbnailEnabled@WW3D@@0_NA": [
@@ -3170,65 +3108,39 @@
 "0xB0804C"
 ],
 "data:?Unknown_B08C90@@3HB": [
-"0xB08CAC",
-"0xB08CB0"
+"0xB08C90"
 ],
 "data:?Unknown_B08C94@@3HB": [
-"0xB08CA0"
+"0xB08C94"
 ],
 "data:?Unknown_B08C98@@3HB": [
-"0xB08CAC",
-"0xB08CB0",
-"0xB08CB8"
+"0xB08C98"
 ],
 "data:?Unknown_B08C9C@@3HB": [
-"0xB08C9C",
-"0xB08CAC",
-"0xB08CB0",
-"0xB08CB4"
+"0xB08C9C"
 ],
 "data:?Unknown_B08CA0@@3HB": [
-"0xB08C94",
-"0xB08CA0",
-"0xB08CB4",
-"0xB08CB8"
+"0xB08CA0"
 ],
 "data:?Unknown_B08CA8@@3HB": [
 "0xB08CA8"
 ],
 "data:?Unknown_B08CAC@@3HB": [
-"0xB08C90",
-"0xB08C98",
-"0xB08C9C",
-"0xB08CAC",
-"0xB08CB4",
-"0xB08CB8",
-"0xB08CC0"
-],
-"data:?Unknown_B08CB0@@3HB": [
-"0xB08C90",
-"0xB08C98",
-"0xB08C9C",
-"0xB08CB0",
-"0xB08CB8"
-],
-"data:?Unknown_B08CB4@@3HB": [
-"0xB08C9C",
-"0xB08CA0",
 "0xB08CAC"
 ],
+"data:?Unknown_B08CB0@@3HB": [
+"0xB08CB0"
+],
+"data:?Unknown_B08CB4@@3HB": [
+"0xB08CB4"
+],
 "data:?Unknown_B08CB8@@3HB": [
-"0xB08C98",
-"0xB08CA0",
-"0xB08CAC",
-"0xB08CB0",
 "0xB08CB8"
 ],
 "data:?Unknown_B08CBC@@3HB": [
 "0xB08CBC"
 ],
 "data:?Unknown_B08CC0@@3HB": [
-"0xB08CAC",
 "0xB08CC0"
 ],
 "data:?Unknown_B08CC4@@3HB": [
@@ -3878,9 +3790,6 @@
 "data:__real@4@3fe995217d0000000000": [
 "0xAED02C"
 ],
-"data:__real@4@3feb8000000000000000": [
-"0xAEEDD0"
-],
 "data:__real@4@3feb8637bd0000000000": [
 "0xAE7928"
 ],
@@ -3945,12 +3854,14 @@
 "data:__real@4@3ff780806e0000000000": [
 "0xAFEB6C"
 ],
+"data:__real@4@3ff78080800000000000": [
+"0xAE981C"
+],
 "data:__real@4@3ff78080808080808000": [
 "0xAE8BB4"
 ],
 "data:__real@4@3ff78080810000000000": [
 "0xAE8BB4",
-"0xAE981C",
 "0xAFE934"
 ],
 "data:__real@4@3ff7a3d70a0000000000": [
@@ -4362,9 +4273,6 @@
 "0xAF2C98"
 ],
 "data:__real@8@3ff1d1b7170000000000": [
-"0xAE7850"
-],
-"data:__real@8@3ff1d1b71758e2196800": [
 "0xAE7850"
 ],
 "data:__real@8@3ff583126e978d4fe000": [

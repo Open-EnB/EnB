@@ -229,7 +229,7 @@ void CameraManagerClass::Unknown_7998B0(int id)
 
 
 
-
+static inline int Camera_Target_ID(SClient *client) { return(client->Unknown13B4); }	// NAME 1: neutral (D10): one inline layer at 0x799E40's bit 15 lookup (its Get_Avatar / Unknown_24 vtable registers, workflow.md 3.1.2 off-by-one rotation)
 
 // 0x799DA0
 bool CameraManagerClass::Unknown_799DA0(int *new_state, int state)
@@ -249,7 +249,7 @@ bool CameraManagerClass::Unknown_799DA0(int *new_state, int state)
 	}
 	return(result);
 }
-// NOT EXACT: 0x799E40 (frame order: the client puts target at -0x10 above the 12-byte block locals and Sqrt's float above the avatar position temporary, ours the reverse; bit 15's Length2 keeps Y and Z on the FPU in the client)
+// NOT EXACT: 0x799E40 (bit 15's x87 sum: the client adds (Z*Z + X*X) + Y*Y, ours (X*X + Y*Y) + Z*Z; Sqrt's float sits below the 12-byte temporary slot in ours, above it in the client)
 // 0x799E40
 void CameraManagerClass::Unknown_799E40()
 {
@@ -358,12 +358,12 @@ void CameraManagerClass::Unknown_799E40()
 		Unknown_799DA0(&new_state, 1);
 	} else if (Unknown_79B330(15)) {
 		if (!Client->Unknown_74D730()) {
-			ClientObjectClass *target = Client->Find_Object(Client->Unknown13B4);
+			ClientObjectClass *target = Client->Find_Object(Camera_Target_ID(Client));
 			ClientObjectClass *avatar = Client->Get_Avatar();
 			if (target && avatar) {
-				Vector3 target_pos = target->Unknown_24(); Vector3 diff = target_pos - avatar->Unknown_24();
-				float radius = target->Unknown_30();
-				if (diff.Length2() > (radius * radius + 5625.0f) * 2.0f) {
+				const Vector3 &target_pos = target->Unknown_24(); Vector3 diff = target_pos - avatar->Unknown_24();
+				float radius = target->Unknown_30(); float d2 = diff.Length2();
+				if (d2 > (radius * radius + 5625.0f) * 2.0f) {
 					Unknown_799DA0(&new_state, 8);
 				}
 			}

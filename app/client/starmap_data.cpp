@@ -278,7 +278,7 @@ void StarmapDataClass::Create_Mesh()
 	RObj2Texture r2t(size, Vector2i(0, 0), Vector2i(0, 0));
 	r2t.Orthographic = true;
 	r2t.Format = WW3D_FORMAT_R5G6B5;
-	Texture = Create_Peek(r2t.Render_TextureMap(robj, &sphere));
+	Texture = Create_Get(r2t.Render_TextureMap(robj, &sphere));
 	Mesh = Create_NEW((DynamicMeshClass *)new StarmapMeshClass(Unknown_B9F38C, Unknown_B9F390));
 	Mesh->Disable_Sort();
 	Mesh->Set_Sort_Level(4);

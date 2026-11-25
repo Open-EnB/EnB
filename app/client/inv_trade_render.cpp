@@ -83,7 +83,7 @@ void InvTradeRenderClass::Unknown_2C(bool force)
 			if (stack > 1) {
 				StackText->Unknown_6CE420(0, "%d per stack", stack);
 			} else {
-				StackText->Unknown_6CE420(0, "");
+				StackText->Unknown_6CE420(0, " ");
 			}
 		}
 		if (OwnedTextValue) {
@@ -96,7 +96,7 @@ void InvTradeRenderClass::Unknown_2C(bool force)
 			} else if (owned > 0) {
 				OwnedTextValue->Unknown_6CE420(0, "Owned: %d", owned);
 			} else {
-				OwnedTextValue->Unknown_6CE420(0, "");
+				OwnedTextValue->Unknown_6CE420(0, " ");
 			}
 		}
 
@@ -114,7 +114,7 @@ void InvTradeRenderClass::Unknown_2C(bool force)
 			Unknown688830Item *item = (Unknown688830Item *)data->Get_Item(slot, true);
 			name = !item ? (G_ASSERT(item), std::string("Item Unknown")) : item->Unknown14;
 			DescriptionGroup->Unknown_6D0A70(Unknown58.c_str(), name.c_str());
-			DescriptionGroup->Unknown_6D0A70(Unknown68.c_str(), "");
+			DescriptionGroup->Unknown_6D0A70(Unknown68.c_str(), " ");
 		}
 	}
 	if (force) {
@@ -161,7 +161,7 @@ void InvTradeRenderClass::Unknown_6902E0(RenderObjClass *robj, int index, const 
 
 	DescriptionGroup = Unknown_BE67C4->Find(robj);
 	G_ASSERT(DescriptionGroup);
-	DescriptionGroup->Unknown_6D0A70(Unknown58.c_str(), "");
+	DescriptionGroup->Unknown_6D0A70(Unknown58.c_str(), " ");
 	sprintf(name, "cost%02d_%s", index, suffix);
 	CostText = Create_Get(Unknown_BE67C4->Get_Style(name, robj));
 

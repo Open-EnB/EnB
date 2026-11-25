@@ -384,9 +384,9 @@ static const float UIAvatarCustRise = 1.0f;				// 0xAEF678 (+0xC8)  // NAME 1: n
 typedef SignalBaseClass::MemberCallback<GadgetClass, StarbaseAvatarCreationInterface, void (StarbaseAvatarCreationInterface::*)(FlashingGadgetEvent *, GadgetClass *), FlashingGadgetEvent> UIAvatarCustCallbackClass;	// NAME 1 [UIAvatarCustCallbackClass]: neutral (D10)
 
 // 0x54B7B0
-StarbaseAvatarCreationInterface::StarbaseAvatarCreationInterface(UIViewClass *view, LayerClass *layer) :
-	Unknown5BB320Class(new UIMeshClass("buy_avatar00", -1), view, *layer),
-	Unknown0AC(layer),
+StarbaseAvatarCreationInterface::StarbaseAvatarCreationInterface(UIViewClass *view, LayerClass &layer) :	// a reference: retail's ...@PAVUIViewClass@@AAVLayerClass@@@Z (thunk order, IM3 / N1)
+	Unknown5BB320Class(new UIMeshClass("buy_avatar00", -1), view, layer),
+	Unknown0AC(&layer),
 	Unknown0B0(3),
 	Unknown0B4((SBaseViewClass *)view->Unknown_30()),
 	Unknown0B8(NULL),

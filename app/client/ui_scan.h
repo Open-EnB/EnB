@@ -7,7 +7,7 @@
 #include "ui_mfd.h"
 #include "..\shared\duration.h"
 
-class UIScanClass;
+class ScannerInterface;
 class LineDisplayClientClass;
 
 #include "ui_interrupt.h"	// the threat's +0x2C: ui_interrupt.cpp's progress display (Unknown59E2C0Class, moved there: O15)
@@ -24,16 +24,16 @@ class PlayerObjectRelationshipChangeEvent;
 class UIScanThreatClass	// NAME 1: neutral (D10)
 {
 public:
-	UIScanThreatClass(UIScanClass *owner);				// 0x60FBA0 (out of line, no caller; inline in 0x60D8D0)  // NAME 2 [owner]: what it holds
+	UIScanThreatClass(ScannerInterface *owner);				// 0x60FBA0 (out of line, no caller; inline in 0x60D8D0)  // NAME 2 [owner]: what it holds
 	~UIScanThreatClass();
-	UIScanClass *Get_Interface() { return(Owner); }		// (inline: 0x60FEE0's G_ASSERT 'Get_Interface()->Is_Active()', as UIGroupClass's members')  // NAME 3: the assert's
+	ScannerInterface *Get_Interface() { return(Owner); }		// (inline: 0x60FEE0's G_ASSERT 'Get_Interface()->Is_Active()', as UIGroupClass's members')  // NAME 3: the assert's
 	void Unknown_60FEE0();								// 0x60FEE0 (the scanner's 0x60E580 when the target goes; the destructor between hide and show)
 	void Unknown_Update();								// 0x60FD90 (out of line, no caller; inline in 0x60F1A0: the progress display's state and redraw)  // NAME 1: neutral (D10)
 	void Unknown_Clear();								// 0x60FDC0 (out of line, no caller; inline in 0x60E6A0, and 0x60FEE0's after its assert: the progress display deleted, the state and name cleared)  // NAME 1: neutral (D10)
 	void Unknown_Set_Sort_Level(int sort_level);		// 0x610010 (out of line, no caller; inline in 0x60E6A0: ro_funcs' 0x496730 on +0x30, dec_if_match 1)  // NAME 1 [Unknown_Set_Sort_Level, sort_level]: 0x496730's
 	void Unknown_Refresh();								// 0x60FD50 (out of line, no caller; inline in 0x60DF90 and 0x60F1A0: 0x60FEE0 between the owner's hide and show)  // NAME 1: neutral (D10)
 
-	UIScanClass *Owner;									// +0x00  // NAME 2: what it holds
+	ScannerInterface *Owner;									// +0x00  // NAME 2: what it holds
 	std::string AbilityName;							// +0x04 (the constructor's ''; 0x60E6A0: the target's InterruptibleAbilityName or 'Unknown Skill', shown on +0x14)  // NAME 2: what it holds
 	RefCountPtr<FontSys> Unknown14;						// +0x14 (the destructor's 0x51C630; 0x60F1A0's 'Interrupted!' and the rest, 0x60FEE0's hide)
 	bool Unknown18;										// +0x18 (0x60F1A0: set with the time +0x20, cleared when the delay has passed)
@@ -47,11 +47,11 @@ public:
 // The scanner (0x1B0 bytes, tables 0xAF724C / 0xAF7240 / 0xAF7234 / 0xAF7220; constructor 0x60D800, destructor 0x60DF90,
 // deleting 0x60D8A0): the cockpit's +0xD4, the display Unknown5BE980Class over the 'TSI08A' mesh, its two target buttons,
 // the verb window and the con / faction labels
-class UIScanClass : public Unknown5BE980Class	// NAME 3: class-from-file (D24) for ui_scan.cpp
+class ScannerInterface : public Unknown5BE980Class	// NAME 5: the client's RTTI (the receiver of the callback 0xAF7300: MemberCallback<ClientObjectClass, ScannerInterface, ...>)
 {
 public:
-	UIScanClass(UIViewClass *view, LayerClass *layer);	// 0x60D800 (the cockpit's set-up passes the main view and its layer)  // NAME 1 [view, layer]: what 0x57DD20 passes
-	virtual ~UIScanClass();								// 0x60DF90 (deleting 0x60D8A0)
+	ScannerInterface(UIViewClass *view, LayerClass *layer);	// 0x60D800 (the cockpit's set-up passes the main view and its layer)  // NAME 1 [view, layer]: what 0x57DD20 passes
+	virtual ~ScannerInterface();								// 0x60DF90 (deleting 0x60D8A0)
 	virtual void Unknown_54();							// 0x60D8D0
 	virtual void Unknown_58();							// 0x60E1E0
 	virtual void Unknown_5C();							// 0x60E2C0

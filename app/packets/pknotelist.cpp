@@ -43,7 +43,7 @@ int NoteListPacketClass::Print(char *buffer, int)
 	return(sprintf(buffer, "NoteList:"));
 }
 
-bool NoteListPacketClass::Add_Note(int unknown00, int unknown04, const char *unknown08)
+bool NoteListPacketClass::Add_Note(int unknown00, long unknown04, const char *unknown08)
 {
 	if (Notes.size() > 15) {
 		return(false);
@@ -56,7 +56,7 @@ bool NoteListPacketClass::Add_Note(int unknown00, int unknown04, const char *unk
 	return(true);
 }
 
-NoteContentPacketClass::NoteContentPacketClass(int unknown0c, const char *unknown10, const char *unknown54) :
+NoteContentPacketClass::NoteContentPacketClass(long unknown0c, const char *unknown10, const char *unknown54) :
 	Unknown0C(unknown0c),
 	Unknown54(0)
 {

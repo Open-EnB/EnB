@@ -1,0 +1,53 @@
+# Batch 2 for 0x782200 (CM, Opus round one). per_arm_reset (res 8) leaves only the queue entry's delete: ours inlines
+# ~Unknown_AvatarQueueStruct, the client calls ??_G 0x781C10 out of line. Hypotheses:
+#  reset_single: is the per-arm clamp needed at all once the reset helper (0x785480, no callers: inlined) spends?
+#  nlp3: NLP_Of at the third PlayerNLP use spends one more inline level before 781B50's site (budget -> ??_G out)
+#  plain2: PlayerNLP direct at the second use (measures what NLP_Of buys there)
+#  reset_after220: the reset before `Unknown220 = false` (store order)
+#  dead_size: a dead vector size() after 781B50's site (diagnostic: the nested budget of that site)
+import re
+FILE = 'app/client/avatar.cpp'
+SYMBOL = 'CharacterViewAvatarClass::Unknown_782200'
+ADDRESS = 0x782200
+_src = open(r'C:/EnBDevelopment/EnB/.work/wt/CM/docs/attempts/782200/cross-target-clamp.txt', encoding='latin-1').read()
+_forms = {}
+for m in re.finditer(r'^# (\w+) \((?:control|new form)\)\n(.*?)(?=^# |\Z)', _src, re.S | re.M):
+    _forms[m.group(1)] = m.group(2).strip('\n') + '\n'
+P = _forms['per_arm_reset']
+
+
+def rep(s, old, new, n=1):
+    assert s.count(old) == n, (old, s.count(old))
+    return s.replace(old, new)
+
+
+_clamp1 = ('\t\t\tframes = Unknown0C0[1]->Get_Num_Frames();\n'
+           '\t\t\tUnknown248 = (Unknown248 - frames < 0) ? 0 : Unknown248 - frames;\n')
+_clamp0 = ('\t\t\tframes = Unknown0C0[0]->Get_Num_Frames();\n'
+           '\t\t\tUnknown248 = (Unknown248 - frames < 0) ? 0 : Unknown248 - frames;\n'
+           '\t\t}\n')
+FORMS = {
+    'per_arm_reset': P,
+    'reset_single': rep(rep(P, _clamp1, '\t\t\tframes = Unknown0C0[1]->Get_Num_Frames();\n\n'),
+                        _clamp0, '\t\t\tframes = Unknown0C0[0]->Get_Num_Frames();\n\t\t}\n'
+                        '\t\tUnknown248 = (Unknown248 - frames < 0) ? 0 : Unknown248 - frames;\n'),
+    'nlp3': rep(P, 'anim = PlayerNLP->Unknown_78EE00(count * delay, true);',
+                'anim = NLP_Of(this)->Unknown_78EE00(count * delay, true);'),
+    'plain2': rep(P, 'int delay = NLP_Of(this)->Personality', 'int delay = PlayerNLP->Personality'),
+    'reset_after220': rep(P, '\tUnknown220 = false;\n\tUnknown_785480();\n', '\tUnknown_785480();\n\tUnknown220 = false;\n'),
+    'dead_size': rep(P, '\t\tUnknown_781B50(entry);\n', '\t\tUnknown_781B50(entry); Unknown2A0.size();\n'),
+}
+# Batch 3 for 0x782200 (CM): dead_size (a dead Unknown2A0.size() after 781B50's site, D272) is exact (+1, -0).
+# Look for a form without a dead read that spends the same nested budget at that site:
+#  null_entry: `entry = NULL;` after the site (a dead store)
+#  entry_again: the final test through `entry = Unknown_781B20();` (a named reuse)
+#  empty_test: the final test on the vector itself ... kept as 781B20 (client tests *begin): diagnostic only
+#  dead_begin: Unknown2A0.begin() (one level) instead of size()
+exec(open(r'C:/EnBDevelopment/EnB/.work/cm/v782200_b2.py').read().split('FORMS = {')[0])
+FORMS = {
+    'dead_size': rep(P, '\t\tUnknown_781B50(entry);\n', '\t\tUnknown_781B50(entry); Unknown2A0.size();\n'),
+    'null_entry': rep(P, '\t\tUnknown_781B50(entry);\n', '\t\tUnknown_781B50(entry); entry = NULL;\n'),
+    'entry_again': rep(P, '\tif (Unknown_781B20() == NULL && Unknown248 == 0) {\n',
+                       '\tentry = Unknown_781B20(); if (entry == NULL && Unknown248 == 0) {\n'),
+    'dead_begin': rep(P, '\t\tUnknown_781B50(entry);\n', '\t\tUnknown_781B50(entry); Unknown2A0.begin();\n'),
+}

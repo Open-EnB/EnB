@@ -80,7 +80,7 @@ void ClientObjectClass::Unknown_6F3810(RenderObjClass *model)
 }
 
 // 0x6F2820
-ClientObjectClass::ClientObjectClass(ClientClass *client, int type, unsigned id) :
+ClientObjectClass::ClientObjectClass(ClientClass *client, int type, int id) :
 	UnknownB02C90Class(this),
 	MultiFixedPoolDecalSystemClass(3, (const uint32 *)Unknown_B93ACC),
 	Client(client),
@@ -1886,7 +1886,7 @@ void ClientObjectClass::Unknown_6FD310()
 
 
 
-// 0x6FD7A0 (the engine sounds 0x6FDBD0 call it for a type-1 object in view mode 1): the engine models
+// 0x6FD7A0 (the engine sounds 0x6FDBD0 call it for a type-1 object in view mode 1; its four creates read E&B's AssetManager 0xBDADC0 at 0x6FD82E / 0x6FD872 / 0x6FD909 / 0x6FD9A0, not WW3DAssetManager::TheInstance 0xBFAEE0): the engine models
 // plnt_eng_p1 / p2 and ste01p1 / p2, hidden, on every 'exhaust' bone of robj and its sub-objects
 void ClientObjectClass::Unknown_6FD7A0(RenderObjClass *robj)
 {
@@ -1895,22 +1895,22 @@ void ClientObjectClass::Unknown_6FD7A0(RenderObjClass *robj)
 	for (int i = 0; i < count; i++) {
 		const char *bone = robj->Get_Bone_Name(i); if (strnicmp(bone, "exhaust", 7) == 0) {
 			robj->Remove_Sub_Objects_From_Bone(i);
-			RefCountPtr<RenderObjClass> obj = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("plnt_eng_p1"));
+			RefCountPtr<RenderObjClass> obj = Create_Get(AssetManager->Create_Render_Obj("plnt_eng_p1"));
 			if (obj) {
 				robj->Add_Sub_Object_To_Bone(obj.Peek(), i);
 				obj->Set_Hidden(true);
 			}
-			obj = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("plnt_eng_p2"));
+			obj = Create_Get(AssetManager->Create_Render_Obj("plnt_eng_p2"));
 			if (obj) {
 				robj->Add_Sub_Object_To_Bone(obj.Peek(), i);
 				obj->Set_Hidden(true);
 			}
-			obj = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("ste01p1"));
+			obj = Create_Get(AssetManager->Create_Render_Obj("ste01p1"));
 			if (obj) {
 				robj->Add_Sub_Object_To_Bone(obj.Peek(), i);
 				obj->Set_Hidden(true);
 			}
-			obj = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("ste01p2"));
+			obj = Create_Get(AssetManager->Create_Render_Obj("ste01p2"));
 			if (obj) {
 				robj->Add_Sub_Object_To_Bone(obj.Peek(), i);
 				obj->Set_Hidden(true);

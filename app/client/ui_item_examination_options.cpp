@@ -41,7 +41,7 @@ void UIItemExaminationOptionsClass::Rebuild()
 		Add_Element(Frame);
 		std::sort(Options.begin(), Options.end());
 		for (std::vector< RefCountPtr<ClientItemPropertyOptionClass> >::iterator it = Options.begin(); it != Options.end(); ++it) {
-			RefCountPtr<UIItemExaminationOptionClass> option = Create_NEW(new UIItemExaminationOptionClass(*it, Listener));
+			RefCountPtr<ItemOptionObject> option = Create_NEW(new ItemOptionObject(*it, Listener));
 			List->Add_Element(option);
 		}
 	}
@@ -54,7 +54,7 @@ void UIItemExaminationOptionsClass::Clear()
 	Options.clear();
 }
 
-UIItemExaminationOptionClass::UIItemExaminationOptionClass(const RefCountPtr<ClientItemPropertyOptionClass> &option, GadgetCollectionInterface *listener) :
+ItemOptionObject::ItemOptionObject(const RefCountPtr<ClientItemPropertyOptionClass> &option, GadgetCollectionInterface *listener) :
 	DynamicWindowHorizontalClass(6),
 	Option(option),
 	Listener(listener),
@@ -69,7 +69,7 @@ UIItemExaminationOptionClass::UIItemExaminationOptionClass(const RefCountPtr<Cli
 	Toggle = ToggleButtonDynamicWindow::Create(textures, button_size, listener, 0);
 	Toggle->Set_Min_Size(min_size);
 	Toggle->Set_State(option->Unknown_14() ? 1 : 0);
-	Unknown_4F7EF0().Add(Toggle.Peek(), this, &UIItemExaminationOptionClass::On_Toggle_State, ToggleButtonStateEvent());
+	Unknown_4F7EF0().Add(Toggle.Peek(), this, &ItemOptionObject::On_Toggle_State, ToggleButtonStateEvent());
 	Add_Element(Toggle);
 	RefCountPtr<DynamicWindowTextClass> label = DynamicWindowTextClass::Create("OPTION00_IEI00", option->Label, 0x12);
 	Add_Element(label);
@@ -82,9 +82,9 @@ UIItemExaminationOptionClass::UIItemExaminationOptionClass(const RefCountPtr<Cli
 	}
 }
 
-UIItemExaminationOptionClass::~UIItemExaminationOptionClass()
+ItemOptionObject::~ItemOptionObject()
 {
-	Unknown_4F7EF0().disconnect(Toggle.Peek(), this, &UIItemExaminationOptionClass::On_Toggle_State, ToggleButtonStateEvent());
+	Unknown_4F7EF0().disconnect(Toggle.Peek(), this, &ItemOptionObject::On_Toggle_State, ToggleButtonStateEvent());
 	if (Gadget != NULL) {
 		Listener->Unknown84_0C(Gadget);
 		GadgetClass::Destroy(Gadget);
@@ -170,7 +170,7 @@ UIItemExaminationOptionClass::~UIItemExaminationOptionClass()
 
 
 
-void UIItemExaminationOptionClass::On_Toggle_State(ToggleButtonStateEvent *event, ToggleButtonDynamicWindow *toggle)
+void ItemOptionObject::On_Toggle_State(ToggleButtonStateEvent *event, ToggleButtonDynamicWindow *toggle)
 {
 	FAIL_IF(!event) return;
 	FAIL_IF(!Option) return;

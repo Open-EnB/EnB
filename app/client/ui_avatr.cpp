@@ -1116,7 +1116,7 @@ void AvatarCreationInterface::Unknown_559350()
 	Unknown08C->Unknown_67C380(&Unknown170, desc->Desc.Gender);
 }
 
-// NOT EXACT: functional (D64), from the client's 0x5594B0 (AvatarDescClass's assignment)
+// From the client's 0x5594B0 (AvatarDescClass's assignment)
 // 0x5594B0
 void CharacterViewClass::Unknown_5594B0(AvatarDescClass desc)
 {
@@ -1670,7 +1670,7 @@ void AvatarCreationInterface::Unknown_557290()
 		Unknown_557950(1, 0, 0);
 		desc->Unknown_7857D0(Unknown_BDBB84(0, Unknown2E8->Unknown20));
 		Unknown_558170();
-		Unknown_55A550(1, 0.0f, 0.0f, 0.0f);
+		Unknown_55A550(1, false, 0.0f, 0.0f);
 	}
 	if (Unknown088 == 0 || Unknown088 == 2) {
 		int body = Unknown_BDBB84(0, 2);
@@ -1682,7 +1682,7 @@ void AvatarCreationInterface::Unknown_557290()
 		Unknown_557950(5, 0, 0);
 		Unknown_557950(6, 0, 0);
 		Unknown_558060();
-		Unknown_55A550(0, 0.0f, 0.0f, 0.0f);
+		Unknown_55A550(0, false, 0.0f, 0.0f);
 	}
 	Unknown_559350();
 	desc->Unknown_780810(Unknown08C->Peek_Unknown3A4());

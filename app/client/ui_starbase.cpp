@@ -3207,16 +3207,16 @@ void UIStarbaseClass::Unknown_6415B0()
 
 
 // NOT EXACT: 0x640F50, functional (the avatar dropped onto the room's model: a 0.5 box swept 50 down from its position at
-// its height; the client copies the position through a Matrix3D temporary and keeps a smaller frame; B1)
+// its height; register: the hit's x87 schedule, 9 rows; SB 2026-11-24: every differing region codegen; B1)
 // 0x640F50
 void UIStarbaseClass::Unknown_640F50(CharacterViewAvatarClass *avatar)
 {
 	CastResultStruct result;
 	Matrix3D tm(true);
-	tm.Set_Translation(avatar->Unknown330.Get_Translation());
+	tm.Set_Translation(Matrix3D(avatar->Unknown330).Get_Translation());
 
 
-	tm[2][3] += avatar->Unknown_77D9F0(true);
+	tm.Adjust_Z_Translation(avatar->Unknown_77D9F0(true));
 	Vector3 move(0.0f, 0.0f, -50.0f);
 	OBBoxClass box(Vector3(0.0f, 0.0f, 0.0f), Vector3(0.5f, 0.5f, 0.5f));
 	OBBoxClass world;
@@ -3228,7 +3228,7 @@ void UIStarbaseClass::Unknown_640F50(CharacterViewAvatarClass *avatar)
 	OBBoxCollisionTestClass local_test(test, inv);
 	if (Unknown_Model()->Cast_OBBox(local_test)) {
 		Matrix3D m = avatar->Unknown330;
-		m.Set_Translation(tm.Get_Translation() + move * result.Fraction);
+		Vector3 hit = move; hit *= result.Fraction; hit += tm.Get_Translation(); m.Set_Translation(hit);
 		avatar->Unknown330 = m;
 	}
 	avatar->Unknown23C = result.SurfaceType;
@@ -3717,7 +3717,7 @@ Unknown78A910AvatarClass *UIStarbaseClass::Unknown_642740(StarbaseNPCClass *npc)
 
 
 
-// NOT EXACT: 0x63E930, functional (shape: the client builds the box and matrices through ??_H temporaries and keeps other x87 copies; as 0x640F50; O4)
+// NOT EXACT: 0x63E930, functional (shape: the hit's Vector3 temporaries, 7 rows; Adjust_Z_Translation gives the client's z + (h + 1); O4)
 // 0x63E930 (0x63B310: the camera transform pulled in against the room's model: a 0.5 box swept from above the avatar's
 // head to the camera; on a hit the camera halfway between the hit and the last camera position +0x1BC, kept there)
 Matrix3D UIStarbaseClass::Unknown_63E930(const Matrix3D &tm)
@@ -3726,7 +3726,7 @@ Matrix3D UIStarbaseClass::Unknown_63E930(const Matrix3D &tm)
 	Matrix3D start(true);
 	CharacterViewAvatarClass *avatar = UnknownC0.D->Avatar.Peek();
 	start.Set_Translation(avatar->Get_Transform().Get_Translation());
-	start[2][3] += avatar->Unknown_77D9F0(true) + 1.0f;
+	start.Adjust_Z_Translation(UnknownC0.D->Avatar.Peek()->Unknown_77D9F0(true) + 1.0f);
 	Vector3 move = tm.Get_Translation() - start.Get_Translation();
 	OBBoxClass box(Vector3(0.0f, 0.0f, 0.0f), Vector3(0.5f, 0.5f, 0.5f));
 	OBBoxClass world;
@@ -4038,7 +4038,7 @@ void UIStarbaseClass::Unknown_6425D0(const char *name, const Vector3 &color)
 
 
 void Unknown_585FD0(CameraClass *camera, const Vector3 &point, Vector3 *screen);	// 0x585FD0 (cdecl: a point to the screen, z < 0 in front)  // NAME 1 [camera, point, screen]: neutral
-// NOT EXACT: 0x63F490, functional (shape: the client's Matrix3D temporaries through ??_H and its x87 copies, as 0x63E930; O4)
+// NOT EXACT: 0x63F490, functional (literal: the client keeps 0.0 on the x87 stack from the screen z test for tm[2][3], 29 rows; O4)
 // 0x63F490 (0x63AC60: an avatar's name tags put on the screen above its 'ROOTTRANSFORM' bone, sized by its distance from
 // the camera (25 / distance, at most 2), hidden when it is too far or the room's model is between them)
 void UIStarbaseClass::Unknown_63F490(UIStarbaseUnknownCCClass *savatar)
@@ -4056,10 +4056,10 @@ void UIStarbaseClass::Unknown_63F490(UIStarbaseUnknownCCClass *savatar)
 	Matrix3D tm(true);
 	if (savatar->Avatar) {
 		tm = savatar->Avatar->Get_Bone_Transform("ROOTTRANSFORM");
-		tm[2][3] += savatar->Avatar->Unknown_77D9F0(true) + 1.5f;
+		tm.Adjust_Z_Translation(savatar->Avatar->Unknown_77D9F0(true) + 1.5f);
 	} else if (savatar->AmbientAvatar) {
 		tm = savatar->AmbientAvatar->Get_Bone_Transform("ROOTTRANSFORM");
-		tm[2][3] += savatar->AmbientAvatar->Unknown_77D9F0(true) + 1.5f;
+		tm.Adjust_Z_Translation(savatar->AmbientAvatar->Unknown_77D9F0(true) + 1.5f);
 	}
 	Vector3 screen;
 	Unknown_585FD0(UnknownB0->Unknown6C.Peek(), tm.Get_Translation(), &screen);
@@ -4077,16 +4077,16 @@ void UIStarbaseClass::Unknown_63F490(UIStarbaseUnknownCCClass *savatar)
 		Matrix3D guild(true);
 		if (savatar->Avatar) {
 			guild = savatar->Avatar->Get_Bone_Transform("ROOTTRANSFORM");
-			guild[2][3] += savatar->Avatar->Unknown_77D9F0(true) + 0.5f;
+			guild.Adjust_Z_Translation(savatar->Avatar->Unknown_77D9F0(true) + 0.5f);
 		} else if (savatar->AmbientAvatar) {
 			guild = savatar->AmbientAvatar->Get_Bone_Transform("ROOTTRANSFORM");
-			guild[2][3] += savatar->AmbientAvatar->Unknown_77D9F0(true) + 0.5f;
+			guild.Adjust_Z_Translation(savatar->AmbientAvatar->Unknown_77D9F0(true) + 0.5f);
 		}
-		Unknown_585FD0(UnknownB0->Unknown6C.Peek(), guild.Get_Translation(), &screen);
-		Matrix3D guild_tm = savatar->Unknown10->Get_Transform();
-		if (screen.Z < 0.0f) {
-			guild_tm[0][3] = screen.X * 640.0f;
-			guild_tm[1][3] = screen.Y * -480.0f;
+		Vector3 guild_screen; Unknown_585FD0(UnknownB0->Unknown6C.Peek(), guild.Get_Translation(), &guild_screen);
+		Matrix3D guild_tm; guild_tm = savatar->Unknown10->Get_Transform();
+		if (guild_screen.Z < 0.0f) {
+			guild_tm[0][3] = guild_screen.X * 640.0f;
+			guild_tm[1][3] = guild_screen.Y * -480.0f;
 		} else {
 			guild_tm[0][3] = 3000.0f;
 			guild_tm[1][3] = 3000.0f;
@@ -4094,10 +4094,10 @@ void UIStarbaseClass::Unknown_63F490(UIStarbaseUnknownCCClass *savatar)
 		guild_tm[2][3] = 0.0f;
 		savatar->Unknown10->Set_Transform(guild_tm);
 	}
-	Vector3 camera = UnknownB0->Unknown6C->Get_Position();
-	Vector3 pos = tm.Get_Translation();
-	float scale = 25.0f / (pos - camera).Length();
-	if (scale > 2.0f) {
+	Matrix3D camera_tm = UnknownB0->Unknown6C->Get_Transform();
+	float distance = (tm.Get_Translation() - camera_tm.Get_Translation()).Length();
+	float scale = 25.0f / distance;
+	if (2.0f < scale) {
 		scale = 2.0f;
 	}
 	savatar->NameTag->Unknown2F4[0] = scale;
@@ -4106,7 +4106,7 @@ void UIStarbaseClass::Unknown_63F490(UIStarbaseUnknownCCClass *savatar)
 		savatar->Unknown10->Unknown4C5 = false;
 		savatar->Unknown10->Unknown2F4[0] = scale;
 	}
-	bool hidden = Unknown_63F0D0(camera, pos);
+	bool hidden = Unknown_63F0D0(camera_tm.Get_Translation(), tm.Get_Translation());
 	if (scale < 0.5f || hidden) {
 		if (savatar->NameTag->Unknown440 == 1) {
 			savatar->NameTag->Unknown_6CE7D0(2);

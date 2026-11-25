@@ -291,13 +291,13 @@ extern const int Unknown_B08CAC; extern const int Unknown_B08CBC; extern const i
 
 
 // 0x55C650
-AvatarSelectionInterface::AvatarSelectionInterface(UIViewClass *view, LayerClass *layer) :
-	InterfaceClass(view, (int)layer->Peek_Scene()),
+AvatarSelectionInterface::AvatarSelectionInterface(UIViewClass *view, LayerClass &layer) :	// a reference: retail's ...@PAVUIViewClass@@AAVLayerClass@@@Z (thunk order, IM3 / N1)
+	InterfaceClass(view, (int)layer.Peek_Scene()),
 	Unknown084(NULL), Unknown088(NULL), Unknown08C(0), Unknown090(-1),
 	Unknown094(false), Unknown095(false), Unknown096(false), Unknown097(false), Unknown098(false),
 	Unknown0EC(0), Unknown0F0(0), Unknown0F4(-1),
 	Unknown0F8(false), Unknown0F9(false), Unknown0FA(false), Unknown0FB(false), Unknown0FC(false), Unknown0FD(false),
-	Unknown100(-1), Layer(layer), Unknown118(NULL), Unknown120(false)
+	Unknown100(-1), Layer(&layer), Unknown118(NULL), Unknown120(false)
 {
 	InterfaceSortScopeClass sort(this);
 	memset(Unknown09C, 0, sizeof(Unknown09C));
@@ -329,7 +329,7 @@ AvatarSelectionInterface::AvatarSelectionInterface(UIViewClass *view, LayerClass
 		strcpy(name, Unknown_B7B8E0[i]);
 		RenderObjClass *robj = model->Get_Sub_Object_By_Name(name);
 		Unknown_496AE0(robj, 0);
-		GadgetClass *gadget = new ButtonGadgetClass(robj, *layer, 0x55, 3);
+		GadgetClass *gadget = new ButtonGadgetClass(robj, layer, 0x55, 3);
 		Unknown09C[i] = gadget;
 		Unknown64.Unknown_6870E0(gadget, i + 1, View, 1, 1);
 		robj->Release_Ref();
@@ -339,7 +339,7 @@ AvatarSelectionInterface::AvatarSelectionInterface(UIViewClass *view, LayerClass
 	if (Unknown088->Unknown1138) {
 		RenderObjClass *robj = model->Get_Sub_Object_By_Name("click_me");
 		Unknown_496AE0(robj, 0);
-		Unknown118 = new ButtonGadgetClass(robj, *layer, 0x55, 3);
+		Unknown118 = new ButtonGadgetClass(robj, layer, 0x55, 3);
 		Unknown64.Unknown_6870E0(Unknown118, 0x11, View, 1, 1);
 		robj->Release_Ref();
 	} else {
@@ -1167,7 +1167,7 @@ void AvatarSelectionInterface::Unknown_55F760()
 		Unknown10C[i] = new ButtonGadgetClass(robj.Peek(), *Layer, 0x55, 3);
 		Unknown64.Unknown_6870E0(Unknown10C[i], i + 1, View, 1, 0);
 	}
-	Unknown114 = new TextGadgetClass(this, 20, "ENTRY_NAME_BUDDYREF1", BuddyReferralUI.Peek(), Unknown_B08CC0 | Unknown_B08CBC | Unknown_B08CAC, 0);
+	Unknown114 = new TextGadgetClass(this, 20, "ENTRY_NAME_BUDDYREF1", BuddyReferralUI.Peek(), Unknown_B08CAC | Unknown_B08CBC | Unknown_B08CC0, 0);
 	Unknown114->Unknown_28(Layer);
 	Unknown114->Cursor->Set_Color(Vector4(1.0f, 1.0f, 1.0f, 1.0f));
 	Unknown114->Set_Text("", false);

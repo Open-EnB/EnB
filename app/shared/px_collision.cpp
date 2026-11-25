@@ -228,7 +228,7 @@ bool PxCollision::Unknown_453F10(const Vector3 &apos, const Vector3 &bpos)
 
 
 // 0x454730
-// NOT EXACT: order (the first inlined OBBoxClass::Transform, A's box with both reps, multiplies centre by matrix where ours loads the matrix first: 18 rows; frame and every other instruction match; attempts.py show 0x454730)
+// (the dead copies on line 239 set the first inlined OBBoxClass::Transform's product order: VC6 orders it by its count of definitions; attempts.py show 0x454730)
 bool PxCollision::Unknown_454730(MeshGeometryClass *aobj_coll_rep, MeshGeometryClass *bobj_coll_rep)
 {
 	FAIL_IF(!(aobj_coll_rep || bobj_coll_rep)) return(false);
@@ -236,7 +236,7 @@ bool PxCollision::Unknown_454730(MeshGeometryClass *aobj_coll_rep, MeshGeometryC
 		Matrix3D atm = A->Unknown_Dyn3C();
 		AABoxClass abox = A->Unknown_Dyn7C();
 		OBBoxClass aobox(abox.Center, abox.Extent);
-		OBBoxClass awbox;
+		OBBoxClass awbox; Vector3 center = abox.Center; float cx = abox.Center.X;	// dead (D272): the client multiplies the next Transform's centre first only with these (any four dead definitions in the function do it)
 		OBBoxClass::Transform(atm, aobox, &awbox);
 		OBBoxIntersectionTestClass atest(awbox, COLLISION_TYPE_ALL);
 		Matrix3D btm = B->Unknown_Dyn3C();
@@ -328,7 +328,7 @@ PxObject::~PxObject()
 ** '!(aobj_coll_rep || bobj_coll_rep)' on line 234 (asserts.txt files it under px_callback_type.cpp). Process, its
 ** first test and the response 0x453C20 are rebuilt (PX3: each object with slot +0x88 set gets an impulse along
 ** Unknown08 through slot +0xA0; with both, the closing speed, clamped at -0.25 and halved when negative, times the
-** reduced mass and the mean of slot +0x94 plus one). 0x454730 (PX4, NOT EXACT) tests the objects' world OBBoxes
+** reduced mass and the mean of slot +0x94 plus one). 0x454730 (PX4; exact with B1's dead copies, 2026-11-25) tests the objects' world OBBoxes
 ** (each DynObj's slot +0x7C box turned by its slot +0x3C transform) against the meshes: with both meshes an
 ** OBBoxIntersectionTestClass each way (Unknown08 set to (1, 0, 0)); with one, the other object's box swept by its
 ** slot +0x40 velocity (OBBoxCollisionTestClass) cast in the mesh's space, the hit normal turned back into

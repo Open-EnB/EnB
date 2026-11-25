@@ -10,7 +10,7 @@ class SClient;
 class UICpitClass;
 class UIMeshClass;
 class ButtonGadgetClass;
-class Unknown669FB0Class;	// gd_inv_slider.h's
+class GadgetInvSlider;	// gd_inv_slider.h's
 
 // The cockpit's hulk (+0xC8, kind 2) and harvest (+0xCC, kind 4) windows (0xE4 bytes, tables 0xAF0E80 / 0xAF0E74 /
 // 0xAF0E68): an inventory window on the model 'PSI09A' with its eight slots 'PSI09A.s%02d', the button X_SPECIALS
@@ -30,7 +30,7 @@ public:
 	UICpitClass *Cpit;									// +0xD0  // NAME 2: what it holds
 	UIMeshClass *UIMesh;								// +0xD4 ('PSI09A'; the destructor deletes it)  // NAME 2: its type
 	ButtonGadgetClass *Unknown0D8;						// +0xD8 ('X_SPECIALS', id 9)
-	Unknown669FB0Class *Slider;							// +0xDC (id 10)  // NAME 2: its type (as ui_pda_cargo.cpp's)
+	GadgetInvSlider *Slider;							// +0xDC (id 10)  // NAME 2: its type (as ui_pda_cargo.cpp's)
 	bool Unknown0E0;									// +0xE0 (open: 0x585840 turns it)
 	bool Unknown0E1;									// +0xE1 (the animation running: 0x5857C0 clears it at its end)
 };

@@ -749,6 +749,8 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
 * **A bare index lands in the zero register** (ui_manu 0x5B2480 / 0x5B2BD0).
 * **Compare a folded form against a kept one:** the client keeps a reference to the global where a plain read folds (Get_Font 0x76EB70: the length through a reference).
 * **`string::_Eos` base / index order (`[eax+ecx]` against `[ecx+eax]`) is not behaviour** (ui_starbase 0x634140).
+* **The count of definitions orders commutative x87 products:** VC6 orders the operands by how many definitions a variable has in the whole function, not by source text (0x454730 was exact with exactly four dead-initialised scalar locals; one to three and five to eight were not); unused uninitialised locals count nothing. Diagnostic: sweep k dead ints, then look for a form (D272) with the same effect. `float d2 = v.Length2();` after a call keeps the vector's components on the x87; a `const T &` bound to a call temporary packs like a named local. explain.py reports `fld st(0)` against `fld st(1)` as "literal": that is x87 operand order.
+* **Blend terms and a cached factor:** in a blend that caches a factor in a static, assigning the inverse factor first stops VC6 caching alpha in a register. VC6 fixes the evaluation order of OR'd blend terms whatever the source order; a pixel cast such as `(unsigned short)c` in one term moves it first.
 
 **Shape: returns, tails, loops, switches**
 
@@ -877,6 +879,7 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
 * **EH state numbers give the case order** (0x63DFE0: case 3 before 4, states at 0x63E129 / 0x63E178; 0x56B700's constructor form).
 * **An extra release in an inlined copy is a `RefCountPtr::operator=`** (the camctrl_land seeds).
 * **A call-count difference can be a merged call site, not a missing call** (camctrl_takeoff 0x796440: 16 against 17).
+* **A branch flag at residue 0 can be VC6 merging identical return blocks:** the client keeps two tails where ours has one (or the reverse); list the aligned jumps that differ before blaming the logic.
 
 **Frame and stack slots**
 
@@ -935,6 +938,7 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
 * **A wrong argument shows only as stack-slot rows,** under masked residue or 'identical' (galaxy_map_render 0x7AC130 passed its own flags where the client passes its 2nd and 3rd arguments to 0x7AD090; evidence: the pushes at 0x7AC1E8 / 0x7AC1EF).
 * **`NameClass` slot pairing across the arms of one function** (co 0x6FF7A0: about 98 forms, none moved it).
 * **An address-taken DWORD constant used twice** is one DWORD local (landdmap 0x466F60's spacing array).
+* **Block-scoped loop declarations** give separate frame slots per if-branch; declare the variable once at the top when the client shares one slot.
 
 **Constructors, destructors, vtables**
 
@@ -1033,10 +1037,12 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
   "string differs" (not only `__FILE__`); about 6 of 45 such functions were real string differences (2026-11-16,
   BS3, SD: `.work/BS3/strdiff.py`, `.work/SD/strscan.py`). Verify credits a function whose literal differs, so a
   string fix shows 0 / 0 pairs: read the text, not the count.
+* **`extern` globals that nothing defines link only while their object stays unreferenced** (UnknownBF9330 / UnknownBF92D0 in ui_mount): define the real global (here Matrix3D::Identity / RotateZ90) before the object gains a user.
 
 **Literal, floats**
 
 * **VC6 factors `a*2 + b*2*c` into `2*(a + b*c)`;** `c*(b*2.0f)` stops it; `x*(WWMATH_PI/4.0)` gives the client's `fmul qword`. `Matrix3D(true)` + `Set_Translation` and the 12-float constructor store in different orders: read the client's store order; `Transform_Vector` on a camera-depth term gives the client's stack layout.
+* **An OR chain of memory constants loads last to first** (`a|b|c` reads c first): a source chain written in the client's reading order compiles byte-exact but names every constant wrong.
 * **Floats through integer registers or the FPU:** an int-register copy of a float member means a reference
   accessor or a plain assignment; an inline accessor is the form when the client copies the float through the FPU
   (`fld` / `fstp`); `c + 0, 0 - s` is `Matrix3D::Rotate_Z` on an identity; `WWMath::Sin` / `Cos` are asm inlines; a
@@ -1137,7 +1143,8 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
 * **A float local with a dead initialiser declared ahead** is not kept in st0 after its real definition (fstp + reload instead of fst).
 
 * **`Translate(float, float, float)` and `Translate(const Vector3 &)` compile differently:** the float overload gave the client's frame (0xE4) at avatar_pip 0x7E3A20.
-* **VC6 reassociates three-term x87 sums** (0x61E8E0).
+* **VC6 reassociates three-term x87 sums** (0x61E8E0). `m[2][3] += f() + c` compiles as (f + z) + c; `m.Adjust_Z_Translation(f() + c)` gives the client's z + (f + c). Comparing a float constant with a relative tolerance hides a 1-ulp error: compare the packed bytes.
+* **A float constant passed to or stored into a `bool` compiles silently** (no C4800 / C4305) as a garbage `imm8` that varies between builds and reads as true: write `false` / `true` for bool arguments.
 
 **Reading the client**
 
@@ -1215,7 +1222,7 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
 * **VC6 C1001 deducing `T` from `hash_map<std::string, T*>&`:** template the helper on all of hash_map's
   parameters, or on the whole map (`template<class M> void f(M &)`); `T::iterator` in the signature also ICEs.
   VC6 has no `snprintf` (use `_snprintf`): the miss shows only as "1 errors" in verify's summary line and
-  gains nothing. A VC6 `std::list` member at +0x10 puts its allocator byte there, head +0x14, size +0x18.
+  gains nothing. A VC6 `std::list` member at +0x10 puts its allocator byte there, head +0x14, size +0x18. The same ICE hits `HashListClass<T *>` deduced in a template helper: write all three parameters, `template<class T, class U, int N> f(HashListClass<T,U,N>&)`.
 * **A hash_map loop's iterator declared in the `for` header** (fontdatabase 0x6C4F50): VC6 makes it
   `begin()`'s return slot and keeps its node in memory. The client declares it before the loop and assigns it
   in the `for` (`iterator it; for (it = T.begin(); ...)`); a const_iterator copy puts the table pointer in a
@@ -1462,7 +1469,7 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
   MemberCallback(...))`; a dtor whose callback's base ctor is out of line is `Get_Signal_Map().Remove(sender,
   this, &fn, Event())` over unknown_signalbase.h's `EventCallbackClass<EVENT>`; removing a derived class's own
   Event_Type override loses other files' short MemberCallback pairs. A template body identical across
-  instances (MemberCallback's Is_Equal / Call / ??_G) pairs only inside the compiling file's window.
+  instances (MemberCallback's Is_Equal / Call / ??_G) pairs only inside the compiling file's window. A MemberCallback instance in a masked-exact function can carry a guessed template type: relocations hide wrong typeids, and the Event_Type typeid decides whether Emit_To 0x4F7A60 calls back at all. Check each instance's Sender_Type / Event_Type / Type descriptors against the client's `mov eax, imm` (the RTTI name sits at +8). VC6's linker folds identical Event_Type / Sender_Type bodies of MemberCallback instances (FlashingGadgetEvent: the client has 7 functions where we have 15 symbols), so per-descriptor function counts differ for that alone: compare per callback-table slot.
 * **iostreams:** `std::stringstream` compiles byte-exact from VC6's own `<sstream>`
   (unique_design_id_lookup.cpp); operator<<(int), operator>>(int&) and stringstream::str still differ as
   library code: no include helps. When a toolchain iostream instance (operator<< / >>) differs while its EH states match, compare which facet vtable slot it calls (num_put 0x10, num_get 0x1C): a slot difference means the argument type in our source is wrong (unsigned against int).
@@ -1478,8 +1485,10 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
 Shared-tree effects on verify and commits (other builders' uncommitted work, the working ledger, commit_mine)
 are in 3.0.
 
-* **Exact with the wrong object: objmatch masks every relocated field** (2026-11): the matcher checks no target outside D80's ties, so an exact function can use another preset, string, global or vtable of the same shape (a galaxy map picture drawn with `_PresetAlpha2DShader` where the client's 0xC01180 is Additive2D: exact, wrong blend). When a visual or behaviour is wrong in an exact function, compare its relocation targets with the client's bytes; `python tools/re/relocaudit.py` lists the exact functions whose targets differ. It is a report, not a crediting rule: stale symbols.json duplicates and fold / deleting-destructor rows give false hits.
+* **Exact with the wrong object: objmatch masks every relocated field** (2026-11): the matcher checks no target outside D80's ties, so an exact function can use another preset, string, global or vtable of the same shape (a galaxy map picture drawn with `_PresetAlpha2DShader` where the client's 0xC01180 is Additive2D: exact, wrong blend). When a visual or behaviour is wrong in an exact function, compare its relocation targets with the client's bytes; `python tools/re/relocaudit.py` lists the exact functions whose targets differ. It is a report, not a crediting rule: stale symbols.json duplicates and fold / deleting-destructor rows give false hits. A FAIL_IF / assert whose text differs is credited exact too (relocations are masked), and an assert's `__LINE__` drifts when a header gains lines above an inline's G_ASSERT (input.h): only the pushed constant shows it. A data relocation whose symbol maps to several client addresses in docs/data/called.json matches any of them, so an exact function can read the wrong global (0x466B20: IsSortingEnabled mapped to 0xBB9644 and 0xBFAE50, the client reads 0xBFAE50): when a draw-order or behaviour difference points at an exact function, check its data references with `client.py dis`. `CoffObject.literal()` (tools/re/objmatch.py) returns None for the empty literal `??_C@_00A@?$AA@`, so a scan built on it skips every `""` site.
+* **A relocaudit `call` row whose callee is a tiny setter / getter can be a bytematch name swap between EA copies** (identical shapes, different offsets): check the callee's placement and the ledger shard that credits it before calling it a wrong call. `relocaudit.py --only` filters on the relocation symbol, not the object or file.
 * **`verify.py --lib`** takes `--lib a --lib b` or `--lib a,b`; a name the ledger does not hold exits non-zero.
+* **A verify started with `&` inside a shell call keeps running detached,** holding the importer lock and its VM lease: run it in the foreground or as a background task you can stop.
 * **A new app file is not compiled until it is `git add -N`'d and has a ledger shard** (`ledger.py describe`):
   before that the verify builds nothing new and reports no change. A file added while a verify waits for the
   lock gives "a description without a file block".
@@ -1616,7 +1625,7 @@ are in 3.0.
   entries (a retype or the rename of a short virtual does the same; `--apply-named` rewrites them as source `named`, dropping length and proof); out-of-line conversions
   need their client addresses named there before their callers match. A symbols_named.json
   rename alone can change pairs: rerun the verify before keeping such a gain. A source rename that leaves a symbols.json name stale drops that name silently out of the objects (a scan after each rename finds them; `symbols.py --apply-named` with `replaces` rows fixes them without a regeneration), and retyping a template argument means renaming that type's function names there too, not only its vtables: twin instances with identical bodies otherwise lose their name tie-break and drop out as lost outright. Check `lost outright` for short
-  pairs before keeping a change. Example: an inline `Get_Desc` lost a folded RefCountPtr `Peek` / `operator->`. A name alone does not credit a short (D188): name the vtable (kind `vtable`) to credit the slots' shorts.
+  pairs before keeping a change. Example: an inline `Get_Desc` lost a folded RefCountPtr `Peek` / `operator->`. A name alone does not credit a short (D188): name the vtable (kind `vtable`) to credit the slots' shorts. Renaming a short inline drops it from short_known (not in_tree) until symbols.json is regenerated.
 * **symbols_named.json mangled names must use VC6 back-references (`PAV1@`), else they silently match nothing
   (2026-11-16, F1):** read the name from the object (`objdiff.py OBJ --list`). Naming one of several same-byte template
   copies can push other files' tie-broken copies onto it: pairs_cmp after every naming.
@@ -1730,7 +1739,7 @@ are in 3.0.
   leased VM's IP in a runner. `clienttest.py build` has no `--pool`: set `ENB_VC6_HOSTS`; in a worktree give
   build.py `--pool 1` (without it build / link failed with FileNotFoundError on cl.log). A build on a
   just-released lease fails every file and deletes app.lib, and the POC then silently runs the old exe: check the
-  build output says 'compiled'. Without `--pool` it also compiles on a VM lacking the worktree's programs/ files (C1083, then LNK2005s; L2, 2026-11-14). An app build on shared leases can die partway with "no object, no error": a private `build.py --pool 1` lease compiles the whole app.
+  build output says 'compiled'. Without `--pool` it also compiles on a VM lacking the worktree's programs/ files (C1083, then LNK2005s; L2, 2026-11-14). An app build on shared leases can die partway with "no object, no error": a private `build.py --pool 1` lease compiles the whole app. A fresh worktree whose app build fails with "no object" is on the shared, stale `.work/vc6_hosts.json`: use `--pool 1`.
 * **A killed or stopped job keeps its pool lease:** a killed verify, auxpad sweep or `appfile.py match` stays
   leased (under its agent, or `importer-PID`): `pool.py release --agent NAME`; killing verify's bash wrapper leaves verify.py running and holding its lease. Never TaskStop a verify queued for the importer lock: its Windows python keeps its place, later dies on ssh 0xC0000142 and leaves an `importer-PID` lease whose holder pid is claude.exe (it looks alive): kill the python pid. TaskStop on a Git Bash loop of
   `appfile.py --pool` runs leaves the Windows python children re-leasing VMs as the agent: kill them by PID
@@ -1823,7 +1832,7 @@ are in 3.0.
 * **`tools/re/siblings.py`** ranks the parked and blocked functions by an exact sibling in the tree; its 'untried' column is a keyword match of attempts rows, so read the rows before treating a lead as new.
 * **appfile.py, `match` and `show` limits:** `match` wipes the agent's `appfile/obj` on every run, so two runs of same-named drafts under one `--agent` overwrite each other's object (FileNotFoundError or another variant's result): run variants in series or one `ENB_AGENT` each. `match` refuses "the object lacks void" for a parenthesised definition `static void (Name)(...)` unless `--allow-missing`. Operator members (`??_5`, `??U`) and nested-class members (the demangled name drops the outer class) show as no marker: `--allow-missing` too. `show` refuses a file app-functions.json does not attribute (a new file): a throwaway wrapper that sets the range's `file` in memory gives show and draft (Tools item: a `--range` option). A `#line` in a draft is easy to lose when the file goes into the tree: count the padding from the draft without it.
 * **`attempts.py record --forms` takes a count; `--blocker` one class from a fixed list (2026-11-16, QE / F1):** `short`
-  and `type` are refused; free text goes in `--evidence`.
+  and `type` are refused; free text goes in `--evidence`. `--forms` takes an int; `--blocker` takes `order`, not `order-only`. `residue_of` reads the first `residue N` token ("residue 14 -> 10" counts 14).
 * **appfile.py drafts and header copies on the pool:** a header copied into a draft directory to shadow the tree's stays
   on that pool VM after it is deleted locally and silently shadows later drafts there (one draft compiled to different
   sizes on two VMs): use a fresh draft directory per header experiment.
@@ -1989,6 +1998,8 @@ are in 3.0.
   it: check each callee's `ret N` and the caller's pushes before writing a member. Read a template's value type
   from Ghidra's mangled name (`...I_` is unsigned int: a `hash_map<string, int>` lost two pairs to the other
   instance).
+* **`client.py dis` annotates only strings of 3+ characters:** `" "`, `"?"`, `"0"` show as bare addresses; read short strings from the image.
+* **A relocation, literal or argument audit run on stale objects or a stale exe reports rows already fixed:** compare the object's (exe's, library's) time with its file's last commit first. An import or call-site count that differs only through `/incremental:no` pruning (an uncalled function's import, e.g. `_AIL_open_3D_listener@4` via 0x9F1820) is no gap: compare against the incremental trial link.
 * **A map field's name is not its meaning** (ui_registration 'Next' 0x5FBD30: the radio-driven states could never advance):
   RegistrationButtonStruct +0x04 was named RObj, but 0x5F2B20's stack slot that fills it holds the button's id (renamed int
   `Id`; 0x5F33E0 returns int, still exact). Read the filling function's stack slot before trusting a map field's name (O8, 2026-11-15).
@@ -2005,7 +2016,7 @@ are in 3.0.
 * **client.map stack frames in a CRASH line are a raw stack scan, and some are stale:** confirm a call chain by
   disassembling OUR linked exe (pefile + capstone; `tools/re/client.py` refuses a non-retail exe). There is no
   tool for it in the tree yet (progress.md §4, Tools).
-* **explain.py, 2026-11 limits:** it stops at the auxdata.h `__FILE__` string relocation (D41) on co.cpp's finds (use objdiff row counts); its client window overruns a function whose next start is not verified, inflating the masked residue (cut it at the client's `ret`, `.work/nf/ex.py`); and it masks jump targets, so a branch that skips one store reads as "identical once masked" and can be misread as a relocation / slot class: run `.work/JD/rowdiff.py OBJ SYMBOL ADDR` (branches whose targets differ) or `.work/Q1-relcheck.py` first. A NULL test whose `je` jumps past the `= NULL` store is `if (p) { release; p = NULL; }`, not REF_PTR_RELEASE / `RefCountPtr = NULL` (both store unconditionally).
+* **explain.py, 2026-11 limits:** it stops at the auxdata.h `__FILE__` string relocation (D41) on co.cpp's finds (use objdiff row counts); its client window overruns a function whose next start is not verified, inflating the masked residue (cut it at the client's `ret`, `.work/nf/ex.py`); and it masks jump targets, so a branch that skips one store reads as "identical once masked" and can be misread as a relocation / slot class: run `.work/JD/rowdiff.py OBJ SYMBOL ADDR` (branches whose targets differ) or `.work/Q1-relcheck.py` first. A NULL test whose `je` jumps past the `= NULL` store is `if (p) { release; p = NULL; }`, not REF_PTR_RELEASE / `RefCountPtr = NULL` (both store unconditionally). Its first-mismatch `[reg+N]` line is not evidence of a wrong member when the blocks are ordered differently: count the displacements on each side first. Its relocation check is lenient (two swapped globals pass when both appear on both sides); a strict per-relocation compare is needed. objdiff truncates long rows in our column, which hides immediates. Look objects up by mangled name, never demangled: overloads pair with the wrong body.
 * **`appfile.py match`, 2026-11:** it prints nothing / "0 of 0 markers" for files whose functions carry `// 0xADDR:` comments and no `// @0x` markers: run objdiff.py on `.work/<ID>/appfile/obj/<file>.obj`, or add the marker in a draft copy. In its exact list, dead `vector.size()` reads add template instances (_Ucopy, _Ufill, insert) as "exact": other objects' copies, not gains.
 * **names.py** reads `// NAME 1: neutral` after a `static std::string X(...)` declaration as naming `std:`: use `// NAME 1 [X]: ...`.
 * **Crediting-tool scripts hard-code a worktree:** a crediting session's measure.py / census.py carry `MREPO = .work/wt/<id>` of the session that wrote them: set it to your own worktree before running, or they read another tree's objects.
@@ -2018,7 +2029,7 @@ are in 3.0.
 * **A vtable alignment between two candidate slot orders can look proven when both put the same kind of stub (`ret 4`) in the checked slot:** check every slot's body. symbols.json's vtable-proved slot names then carry the wrong order and lose pairs when the header is fixed, until `replaces` rows are added.
 * **Tool arguments:** `verify.py --pool` takes an integer (the VM count). `appfile.py match --diff` needs the full `Class::Method` name and a `// @0xADDR` marker on an existing blank line (a new line shifts asserts). It cannot find operators (`??_5`, `??U`): use `objdiff.py .work/<ID>/appfile/obj/X.obj MANGLED ADDR`.
 * **Unwind funclets show a function's local `RefCountPtr` types:** N funclets jumping to one destructor means N locals of one instantiation; use them before retyping locals.
-* **trybatch traps:** a file's NOT EXACT markers go stale when a later edit fixes a function (half of one brief's list was already exact): `trybatch.py base` each marker before a round; form names that differ only by case share one overlay folder on Windows and mix their results (the tool now refuses such names); a variant that changes the line count shifts later `__LINE__` (put dead forms on existing lines; the tool flags the shift); a header hunk appended after a `//` comment is commented out; a draft header reached through another header needs a no-op hunk on every intermediate header (the symptom is C1083 or a compile that shows no change), and a draft-folder header copy does not shadow a quoted include from another header; hunk anchors must be unique in the whole file and stay unique after the earlier hunks (hunks that overlap fail); a hunk on aux_roots.h alone is ignored (add a no-op hunk on aux_roots_all.h); a variants file must be self-contained (no exec of another variants file; chain with `rsplit`); the masked `res` can rise as a form nears the client (read objdiff and compare region sums); two threads on one VM collide on sync.tar; `listing.asm` is written only with `--slots`; region diffs are kept only for the best form (`trybatch.py regions` on that form's object); a form that changes a function's mangled name makes trybatch fall back to another function's marker, so it measures a different function (use `trybatch.py regions OBJ MANGLED ADDR`); `identical` masks branch targets; a lever's cost to another instance in the file is invisible to its single-symbol measure (sweep the file with appfile); names from attempts.csv go stale (pass an empty `SYMBOL`); SYMBOL resolves on the base object and reuses its mangled name, so a form that changes a signature fails "no such symbol" (change the tree first, then empty SYMBOL), and a new function absent from the base object reports "not in the object" for every form (measure with `trybatch.py regions <form>/obj/X.obj MANGLED ADDR`); a header with relative includes fails to compile in the overlay (use a same-depth local copy in the .cpp); the whole-function `res` can jump while the per-region sum is small when a block moves (check the spans), and masked 0 can hide raw x87 rows (measure raw too on near-exact functions); wildcarded relocations make same-shape initialisers all match. Header forms for app / shared / auxdata headers fail on their sibling relative includes: edit the header in your own worktree with no other batch running, `trybatch base`, restore. A header member added to a widely included class can flip another file only under verify (`--file-check` cannot see it). A variants helper module named `grp` shadows the stdlib; two runs of one variants file started in the same second collide on the batch directory.
+* **trybatch traps:** a file's NOT EXACT markers go stale when a later edit fixes a function (half of one brief's list was already exact): `trybatch.py base` each marker before a round; form names that differ only by case share one overlay folder on Windows and mix their results (the tool now refuses such names); a variant that changes the line count shifts later `__LINE__` (put dead forms on existing lines; the tool flags the shift); a header hunk appended after a `//` comment is commented out; a draft header reached through another header needs a no-op hunk on every intermediate header (the symptom is C1083 or a compile that shows no change), and a draft-folder header copy does not shadow a quoted include from another header; hunk anchors must be unique in the whole file and stay unique after the earlier hunks (hunks that overlap fail); a hunk on aux_roots.h alone is ignored (add a no-op hunk on aux_roots_all.h); a variants file must be self-contained (no exec of another variants file; chain with `rsplit`); the masked `res` can rise as a form nears the client (read objdiff and compare region sums); two threads on one VM collide on sync.tar; `listing.asm` is written only with `--slots`; region diffs are kept only for the best form (`trybatch.py regions` on that form's object); a form that changes a function's mangled name makes trybatch fall back to another function's marker, so it measures a different function (use `trybatch.py regions OBJ MANGLED ADDR`); `identical` masks branch targets; a lever's cost to another instance in the file is invisible to its single-symbol measure (sweep the file with appfile); names from attempts.csv go stale (pass an empty `SYMBOL`); SYMBOL resolves on the base object and reuses its mangled name, so a form that changes a signature fails "no such symbol" (change the tree first, then empty SYMBOL), and a new function absent from the base object reports "not in the object" for every form (measure with `trybatch.py regions <form>/obj/X.obj MANGLED ADDR`); a header with relative includes fails to compile in the overlay (use a same-depth local copy in the .cpp); the whole-function `res` can jump while the per-region sum is small when a block moves (check the spans), and masked 0 can hide raw x87 rows (measure raw too on near-exact functions); wildcarded relocations make same-shape initialisers all match. Header forms for app / shared / auxdata headers fail on their sibling relative includes: edit the header in your own worktree with no other batch running, `trybatch base`, restore. A header member added to a widely included class can flip another file only under verify (`--file-check` cannot see it). A variants helper module named `grp` shadows the stdlib; two runs of one variants file started in the same second collide on the batch directory. A hunk's anchor is the tree's text: after a commit re-anchor it, and an anchor that repeats in the file fails (anchor on the whole function's text).
 * **trybatch.py compiles the tree of the path it is started by:** run from the main tree's path it compiles the main tree and ignores the worktree's header hunks, so run it from inside the worktree. Even there a header hunk can fail to take effect (an indirectly included header is ignored unless the including header is overlaid too): measure a header-dependent form in a worktree whose header edit is committed (`trybatch.py base` shows it).
 * **A trybatch row count can run past the function's end** (0x68F510: rows beyond the last instruction): check the rows ours / client before reading the count.
 * **tryv2 under a busy importer lock:** a run that times out while queued for the lock runs nothing, and tryv2 gives up behind a busy lock: use `appfile match` on mark.py drafts. A variant that adds lines shifts later `__LINE__`.
@@ -2188,7 +2199,7 @@ clienttest (`python tools/harness/clienttest.py build|run`):
   header-changing branch; `--tree` needs a path); clienttest has its own library list: a commit
   that adds a Win32 import (ShellExecuteExA) fails linkgate with an unresolved `__imp__...` until the library (SHELL32.LIB) is added to clienttest.py and
   the program's build.py entry. ATL headers compile in the VMs. A virtual destructor in a layout header breaks the
-  harness stand-ins: run linkgate after the layout commit, before the first verify.
+  harness stand-ins: run linkgate after the layout commit, before the first verify. After a wlib / wnet header change, rebuild those libraries in the main tree and in each worktree before a link check (`linkgate.py check --lib wlib --lib wnet`).
 * **clienttest's fakes.** Set a fake only for the section that needs it, so other handlers' FAIL_IF paths stay
   covered (the radar stays NULL for WARP_INDEX 156). Fake objects called through a slot need a `__stdcall`
   slot with the callee's argument count (Set_LOD_Bias, slot 75; ~ClientObjectClass deletes AuxData through
@@ -2198,6 +2209,7 @@ clienttest (`python tools/harness/clienttest.py build|run`):
   KernelClass and an empty KeyQueueClass. Synthetic sections that create models run after section (3), or they
   renumber its models; a packet whose member classes are gen stubs (no vtable) can't go through Build: call
   Process_Packet on a value-built packet.
+* **tests/udpreplay/wtime_replay.cpp re-implements Xtime's members:** an Xtime signature change must be copied there (else clienttest / udpreplay stop linking).
 * **clienttest's data files.** co.cpp's loader 0x6F51D0 reads basset.ini, Set_Model's radius 0x6F39F0 and the
   mount points 0x7251C0 read cbasset.ini, from the working directory (clienttest's copies in its data folder).
   Once eff_o.obj links in it needs tests/clienttest/data/effect.ini (EA's shipped EFFECT sections for the
@@ -2258,6 +2270,7 @@ The client (the one client build; instances and your own build: builders.md §2 
   window; with `--retail` the kill ends antprox before it logs "Client exited", so the exit line says "still
   running when killed". Retail character select presents only a few thousand frames in ~50 s: shots at 300 /
   1000 / 3000.
+* **A draw-log DIFF in a replay scenario with a flying ship is usually shot timing or retail noise:** before hunting a code cause, compare against each stored retail run (pairwise unpaired counts, retail against retail), not the verdict's "stored N". Draws that differ only in a moving object's world matrix come from shots taken later after world entry; trail-ribbon draws (tex 112072, fvf 0x252) vary 2-17 per shot in retail, and option_control_closed's 64x64-texture draw varies 16 / 18 / 20 prims in retail itself.
 
 Programs and tests (VIDTEST, kerneltest, drawcheck):
 
@@ -2670,6 +2683,7 @@ are alphabetical; add a note under its file's heading (merge with what is there)
 * Declarations added to tsk_game.h flip ui_radio_main 0x5E9410 in verify's path only (the BrowserType enum's position compensates). The five
   `map<string,string>` instances 0x6B15E0, 0x6B1A40, 0x6B1EC0, 0x6B1F40, 0x6B1FC0 belong to the window object 0x6AF220: exact settings_store code calls
   them out of line as the client does, so the window's file must hold them.
+* A new name in a widely included header (even `friend struct X;` in kernel.h) can move fragile order-only functions in other files (settings_store 0x7CB8F0): reach test access through a derived class instead.
 
 #### sgistl hash_map (attrib_dir.cpp, ini_manager.cpp)
 

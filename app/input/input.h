@@ -171,9 +171,9 @@ inline void Unknown_Track_Mouse(int delta)	// NAME 1 [Unknown_Track_Mouse, delta
 {
 	TrackMouseCounter += delta;
 
-
-
 	G_ASSERT((TrackMouseCounter >= 0) && (TrackMouseCounter <= 1));
 }
+
+
 
 #endif //__INPUT_H

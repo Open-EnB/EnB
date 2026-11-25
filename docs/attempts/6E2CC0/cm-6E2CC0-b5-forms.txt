@@ -1,0 +1,28 @@
+# Batch 5 for 0x6E2CC0 (CM, Opus; two batches without a cut before it: the last one allowed). Base = adj_x (res 11,
+# committed). Hypothesis: the copy's form decides d.X's x87 lifetime: an assignment after a default construction, a
+# const copy, the components through operator[], or the sum into x first.
+import runpy
+_b = runpy.run_path(r'C:/EnBDevelopment/EnB/.work/cm/v6E2CC0_b2.py')
+FILE, SYMBOL, ADDRESS = _b['FILE'], _b['SYMBOL'], _b['ADDRESS']
+(_, OLD), = _b['FORMS']['adj_x']
+
+
+def F(*lines):
+    assert len(lines) == 7, len(lines)
+    return [(OLD, ''.join('\t\t\t' + l + '\n' for l in lines))]
+
+
+C = 'const Matrix3D &cur = camera->Get_Transform();'
+X = 'float x = cur.Get_X_Translation();'
+Z = 'float z = cur.Get_Z_Translation();'
+FORMS = {
+    'assign': F(C, X, Z, 'Matrix3D tm = cur; Vector3 d; d = Unknown18;', 'tm.Set_X_Translation(x); tm.Adjust_X_Translation(d.X);',
+                'tm.Set_Z_Translation(z);', 'tm.Adjust_Y_Translation(d.Y);'),
+    'const_d': F(C, X, Z, 'Matrix3D tm = cur; const Vector3 d = Unknown18;',
+                 'tm.Set_X_Translation(x); tm.Adjust_X_Translation(d.X);', 'tm.Set_Z_Translation(z);',
+                 'tm.Adjust_Y_Translation(d.Y);'),
+    'index': F(C, X, Z, 'Matrix3D tm = cur; Vector3 d = Unknown18;', 'tm.Set_X_Translation(x); tm.Adjust_X_Translation(d[0]);',
+               'tm.Set_Z_Translation(z);', 'tm.Adjust_Y_Translation(d[1]);'),
+    'sum_x': F(C, X, Z, 'Matrix3D tm = cur; Vector3 d = Unknown18;', 'x += d.X; tm.Set_X_Translation(x);',
+               'tm.Set_Z_Translation(z);', 'tm.Adjust_Y_Translation(d.Y);'),
+}
