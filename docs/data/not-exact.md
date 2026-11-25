@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-577 entries in 245 files.
+574 entries in 244 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -179,7 +179,6 @@ edit the comments in the code, not this file.
 | `app/client/inv_render.cpp:631` | `Unknown68DC20Class::Unknown_2C` | marker | NOT EXACT: 0x68E360, masked residue 15 rows: register only: ours evaluates the two sound ternaries into eax for one merged call, the client pushes the literals in each branch 0x68E360 |
 | `app/client/inv_render.cpp:1014` | `Unknown68DC20Class::Unknown_28` | marker | NOT EXACT: 0x68F510, 22 rows: the client multiplies by -3600000 and adds; it calls max_size and _Eos in the last append 0x68F510 |
 | `app/client/inv_trade_render.cpp:64` | `InvTradeRenderClass::Unknown_2C` | marker | NOT EXACT: 0x68FE10, 26 rows: register and block order (the item's name arm sits after the function's last jump in the client) 0x68FE10 |
-| `app/client/inv_transaction.cpp:118` | `InvTransactionClass::Unknown_690AA0` | marker | NOT EXACT: 0x690AA0, 17 rows: register, and the client keeps State = 2 before the else 0x690AA0 |
 | `app/client/item/client_item_property_builder.cpp:26` | `ClientItemPropertyBuilderClass::Unknown_521C10` | marker | NOT EXACT: 0x521C10 (0.85, register allocation only: the Unknown529810 property's Create and its Route take edx / eax where ours take eax / edx; tried a local id, a named RefCountPtr, both worse) |
 | `app/client/item/client_item_property_builder.cpp:82` | `ClientItemPropertyBuilderClass::Unknown_522860` | marker | NOT EXACT: 0x522860 (functional, masked residue 56 rows, frame 0x66C as the client's: 25 dead Data.Peek() reads in the gap above FAIL_IF (D272) and a copy-initialised RefCountPtr<const ClientItemPropertyClass> local at the Mode Route (the client re-reads it from its slot) spend the inline budget, so the Modes Create's three string constructors and the separator's destructor go out of line and case... |
 | `app/client/item/client_item_property_builder.cpp:883` | `ClientItemPropertyBuilderClass::Unknown_5285A0` | mention | NOT EXACT. The callees in files the tree does not have yet are declared in client_item_property_builder.h (interim, D137). CIPB, run 2026-11-17b: 0x527F40 exact once 0x528460 takes the ItemEffectDescriptionClass (its vector at +0) and reads Get_Effects() in the loop: the extra inline accessor layer is the budget that sends both strings' _Tidy out of line and puts delta above delta2 in the frame. 0... |
@@ -344,8 +343,6 @@ edit the comments in the code, not this file.
 | `app/client/ui_manu.cpp:135` | `UIManuClass::~UIManuClass` | marker | NOT EXACT: register (the loop's two pointers in edi / ebp the other way round) (0x5AFCD0) |
 | `app/client/ui_manu.cpp:478` | `UIManuClass::Unknown_60` | marker | NOT EXACT: inline budget (the nested PreviousAttempts lookup/Name boundary still differs; ManufactureComponents and Validity Casts 0x5B7210 / 0x5468D0 are recovered) (0x5B1230) |
 | `app/client/ui_manu.cpp:545` | `UIManuClass::Unknown_68` | marker | NOT EXACT: inline budget (in the inlined 0x5B1ED0 the client calls both finds out of line, 0x5B70C0) (0x5B16C0) |
-| `app/client/ui_manu.cpp:785` | `UIManuClass::Unknown_5B2480` | marker | NOT EXACT: register (the 'Validity' find out of line as the client, 0x5465C0, through two inline layers; the inlined copies of 0x5B1AF0 load the mesh and the name in each other's registers) (0x5B2480) |
-| `app/client/ui_manu.cpp:889` | `UIManuClass::Unknown_5B2BD0` | marker | NOT EXACT: inline budget (the client calls the 'PrimaryCategories' find out of line, 0x5467F0, and vector<DeltaClass *>::size in the inlined tree checks) (0x5B2BD0) |
 | `app/client/ui_manu.cpp:939` | `UIManuClass::Unknown_5B2FE0` | marker | NOT EXACT: order (the find and its out-of-line Cast 0x5B72B0 as the client's through the set test; the client loads Client and its vtable while it walks to the item id) (0x5B2FE0) |
 | `app/client/ui_manu.cpp:1005` | `UIManuClass::Unknown_5B3640` | marker | NOT EXACT: inline budget (the client calls rtti.h's Cast out of line, 0x5B7260, in both finds: ours calls the first find 0x5B70C0 and inlines the second Cast) (0x5B3640) |
 | `app/client/ui_manu.cpp:1115` | `UIManuClass::Unknown_5B3E00` | marker | NOT EXACT: inline budget (the find out of line as the client's, 0x5467F0, through two inline layers; the first two passes are 0x5B3B90 / 0x5B3CA0 inlined, calling 0x5B3CA0 / 0x5B3D70 as the client; left: the third pass's inlined 0x5B3D70, whose vector size the client calls out of line) (0x5B3E00) |

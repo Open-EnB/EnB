@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1970 |
 | 2 | describes what the code does | 5014 |
-| 1 | neutral placeholder | 25179 |
+| 1 | neutral placeholder | 25182 |
 
 ## For review (score 3 and below)
 
@@ -4886,7 +4886,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_40` | `app/client/gd_selct.h:34` | untagged neutral name (D10) |
 | 1 | `Finished` | `app/client/gd_selct.h:36` | what slot +0x2C does with it |
 | 1 | `Armed` | `app/client/gd_selct.h:37` | what slot +0x2C does with it |
-| 1 | `Max` | `app/client/gd_selct.h:38` | what slot +0x40 does with it |
+| 1 | `Max, Set_Max` | `app/client/gd_selct.h:38` | what slot +0x40 does with it |
 | 1 | `Value` | `app/client/gd_selct.h:39` | what inv_transaction.cpp reads |
 | 1 | `Edit` | `app/client/gd_selct.h:40` | its type |
 | 1 | `Text` | `app/client/gd_selct.h:41` | what it shows |
@@ -5910,9 +5910,13 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_744B60` | `app/client/inv_transaction.cpp:59` | untagged neutral name (D10) |
 | 1 | `Unknown135C` | `app/client/inv_transaction.cpp:60` | untagged neutral name (D10) |
 | 1 | `Get_Unknown34` | `app/client/inv_transaction.cpp:60` | untagged neutral name (D10) |
+| 1 | `Unknown_Busy` | `app/client/inv_transaction.cpp:117` | neutral (D10) |
+| 1 | `Unknown_6910C0` | `app/client/inv_transaction.cpp:117` | untagged neutral name (D10) |
 | 1 | `Unknown_690AA0` | `app/client/inv_transaction.cpp:120` | untagged neutral name (D10) |
-| 1 | `sort` | `app/client/inv_transaction.cpp:141` | neutral |
-| 1 | `Unknown2C` | `app/client/inv_transaction.cpp:144` | untagged neutral name (D10) |
+| 1 | `one` | `app/client/inv_transaction.cpp:136` | neutral |
+| 1 | `sort` | `app/client/inv_transaction.cpp:140` | neutral |
+| 1 | `manager` | `app/client/inv_transaction.cpp:143` | the slot's parameter |
+| 1 | `Unknown2C` | `app/client/inv_transaction.cpp:143` | untagged neutral name (D10) |
 | 1 | `Unknown_690D20` | `app/client/inv_transaction.cpp:148` | untagged neutral name (D10) |
 | 1 | `manager` | `app/client/inv_transaction.cpp:180` | the slot's parameter |
 | 1 | `Unknown_58` | `app/client/inv_transaction.cpp:180` | untagged neutral name (D10) |
@@ -5922,7 +5926,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_588A70` | `app/client/inv_transaction.cpp:229` | untagged neutral name (D10) |
 | 1 | `client` | `app/client/inv_transaction.cpp:238` | neutral |
 | 1 | `id` | `app/client/inv_transaction.cpp:240` | neutral |
-| 1 | `Unknown_6910C0` | `app/client/inv_transaction.cpp:286` | untagged neutral name (D10) |
 | 1 | `Unknown690880ViewClass` | `app/client/inv_transaction.h:18` | untagged neutral name (D10) |
 | 1 | `Unknown6908E0Class` | `app/client/inv_transaction.h:19` | untagged neutral name (D10) |
 | 1 | `ViewUnknown34Class` | `app/client/inv_transaction.h:20` | untagged neutral name (D10) |
@@ -14278,10 +14281,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_5B28E0` | `app/client/ui_manu.cpp:830` | untagged neutral name (D10) |
 | 1 | `Unknown_5B2990` | `app/client/ui_manu.cpp:847` | untagged neutral name (D10) |
 | 1 | `Unknown_A4` | `app/client/ui_manu.cpp:855` | untagged neutral name (D10) |
-| 1 | `Unknown084` | `app/client/ui_manu.cpp:901` | untagged neutral name (D10) |
+| 1 | `Unknown084` | `app/client/ui_manu.cpp:897` | untagged neutral name (D10) |
 | 1 | `Unknown_5B3B90` | `app/client/ui_manu.cpp:903` | untagged neutral name (D10) |
 | 1 | `Unknown_5B3CA0` | `app/client/ui_manu.cpp:909` | untagged neutral name (D10) |
-| 1 | `Unknown230` | `app/client/ui_manu.cpp:914` | untagged neutral name (D10) |
+| 1 | `Unknown230` | `app/client/ui_manu.cpp:913` | untagged neutral name (D10) |
 | 1 | `Unknown_5B2F20` | `app/client/ui_manu.cpp:928` | untagged neutral name (D10) |
 | 1 | `Unknown_5B3580` | `app/client/ui_manu.cpp:994` | untagged neutral name (D10) |
 | 1 | `Unknown2F4` | `app/client/ui_manu.cpp:1065` | untagged neutral name (D10) |
