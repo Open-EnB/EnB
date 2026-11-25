@@ -1414,7 +1414,7 @@ bool CordCon::pump(Xtime &now)
 }
 
 
-// NOT EXACT: 0x853A30 (0.76, explain.py: literal, EH state 9 vs 10 for the resend copy; frame slots of index and the Xtimes): the client's four Xtime copies of now, its send block (profiled memcpys, Set_Header_CRC inlined, push_back).
+// NOT EXACT: 0x853A30 (masked 32; attempts.csv 0x853A30): the client's unwind map (FuncInfo 0xB56678) has two NULL-action states, 9 and 13, one after each send block's Write profile (an object in a branch the optimiser folded away, as vector::swap's else branch gives 0x688F70), so its resend copy is state 0xA and the final profiles 0xB / 0xC; its resend erase loads Channels_[channel] once.
 // pumpClose; every 8 calls the unreliable (mode 1 / 4) sent records older than 6 round trips are
 // dropped (the client logs 'Removing unreliable'); then the records by priority
 // (getHighestPriorityMessage) while the send window allows (CordStatsClass::Allow), packed into
@@ -1452,7 +1452,7 @@ bool CordCon::pumpInternal(Xtime &now)
 		for (int i = 0; i < count; i++) {
 			CordChannelClass *c = Active_[i];
 			if (c->Mode == 1 || c->Mode == 4) {
-				std::vector<CordMessageClass>::iterator it = c->Sent.begin();
+				index = 0; std::vector<CordMessageClass>::iterator it = c->Sent.begin();
 				while (it != c->Sent.end()) {
 					if (it->SendCount != 0 && (current - it->SentTime) > expiry) {
 						Stats_->InFlight -= it->Length;
@@ -1765,13 +1765,13 @@ bool CordCon::pumpInternal(Xtime &now)
 		BytesSent_ += m->Length;
 		Stats_->SecondBytes += m->Length;
 		if (m->SendCount == 0) {
-			if (m->Length != 0 && Channels_[channel]->Mode == 3) {
+			if (m->Length > 0 && Channels_[channel]->Mode == 3) {
 				reliable++;
 			}
 			Stats_->Add_In_Flight(m->Length);
 		} else {
 			Resends_++;
-			if (m->Length != 0 && Channels_[channel]->Mode == 3) {
+			if (m->Length > 0 && Channels_[channel]->Mode == 3) {
 				reliable++;
 				resent++;
 			}
@@ -1851,7 +1851,7 @@ bool CordCon::pumpInternal(Xtime &now)
 		LastSend_ = now.getTime_t();
 	}
 	if (reliable != 0) {
-		int percent = 100 - ((reliable - resent) * 100) / reliable;	// NAME 2: the share of first sends
+		int first = reliable - resent; int percent = 100 - (first * 100) / reliable;	// NAME 2: the share of first sends
 		for (int i = reliable; i > 0; i--) {
 			Quality_ = (int)((unsigned int)(Quality_ * 19 + percent) / 20);
 		}
