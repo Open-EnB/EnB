@@ -714,12 +714,6 @@
 "?DestroyBrowser@DX8WebBrowser@@SAXPBD@Z": [
 "0x920990"
 ],
-"?Draw_Line_16@HtmlViewClass@@QAEXHHHHHHHHHH@Z": [
-"0x777EE0"
-],
-"?Draw_Line_32@HtmlViewClass@@QAEXHHHHHHHHHH@Z": [
-"0x7778E0"
-],
 "?Draw_Strip@DX8Wrapper@@SAXGGGG@Z": [
 "0x925480"
 ],

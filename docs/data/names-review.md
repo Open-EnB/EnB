@@ -5372,7 +5372,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown138` | `app/client/html/htmlview.cpp:1327` | untagged neutral name (D10) |
 | 1 | `Get_Unknown13C` | `app/client/html/htmlview.cpp:1538` | untagged neutral name (D10) |
 | 1 | `Get_Unknown138` | `app/client/html/htmlview.cpp:1543` | untagged neutral name (D10) |
-| 1 | `UnknownHtmlDrawClass` | `app/client/html/htmlview.cpp:1639` | untagged neutral name (D10) |
+| 1 | `Alpha32` | `app/client/html/htmlview.cpp:1590` | 0xC41550, the 32-bit blend's alpha & 0xFF (written, then read back by the products) |
+| 1 | `InvAlpha32` | `app/client/html/htmlview.cpp:1591` | 0xC41554, 0xFF - Alpha32 (assigned first) |
+| 1 | `Alpha16` | `app/client/html/htmlview.cpp:1691` | 0xC4153C, the 16-bit (555) blend's alpha & 0xFF |
+| 1 | `InvAlpha16` | `app/client/html/htmlview.cpp:1692` | 0xC4154C, 0xFF - Alpha16 (assigned first) |
+| 1 | `UnknownHtmlDrawClass` | `app/client/html/htmlview.cpp:1829` | untagged neutral name (D10) |
 | 1 | `HtmlLinkStruct` | `app/client/html/htmlview.h:11` | element of the view's +0x14 list |
 | 1 | `Get_Unknown13C` | `app/client/html/htmlview.h:42` | untagged neutral name (D10) |
 | 1 | `Get_Unknown138` | `app/client/html/htmlview.h:43` | untagged neutral name (D10) |

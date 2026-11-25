@@ -1587,8 +1587,198 @@ void HtmlViewClass::Draw_Line(int x1, int y1, int x2, int y2, int clipx, int cli
 }
 
 #pragma auto_inline(off)
+static unsigned int Alpha32;  // NAME 1: 0xC41550, the 32-bit blend's alpha & 0xFF (written, then read back by the products)
+static unsigned int InvAlpha32;  // NAME 1: 0xC41554, 0xFF - Alpha32 (assigned first)
+
+#define BLEND32(dst, col, alph) \
+	{ \
+		c = *(dst); \
+		InvAlpha32 = 0xFF - ((alph) & 0xFF); \
+		Alpha32 = (alph) & 0xFF; \
+		*(dst) = ((((c & 0xFF0000) * InvAlpha32 + ((col) & 0xFF0000) * Alpha32) & 0xFF0000FF) | \
+			(((c & 0xFF00) * InvAlpha32 + ((col) & 0xFF00) * Alpha32) & 0xFF0000) | \
+			((c & 0xFF) * InvAlpha32 + ((col) & 0xFF) * Alpha32)) >> 8; \
+	}
+
+void HtmlViewClass::Draw_Line_32(int x1, int y1, int x2, int y2, int clipx, int clipy, int clipw, int cliph, int color, int alpha)
+{
+	int count, right, bottom, pitch, dx, dy, sx, sy, err;
+	unsigned int *buffer, *p;
+	unsigned int c;
+
+	count = 0;
+	right = clipx + clipw;
+	bottom = clipy + cliph;
+
+	buffer = (unsigned int *)Surf->Lock();
+	if (buffer == NULL)
+		return;
+
+	pitch = Surf->Stride() / 4;
+	p = buffer + (y1 * pitch + x1);
+	dx = x2 - x1;
+	dy = y2 - y1;
+	if (dx < 0) {
+		dx = -dx;
+		sx = -1;
+	} else {
+		sx = 1;
+	}
+	if (dy < 0) {
+		dy = -dy;
+		sy = -1;
+	} else {
+		sy = 1;
+	}
+
+	if (dy < dx) {
+		err = dx >> 2;
+		while (x1 != x2) {
+			if (count == 1) {
+				if (x1 >= clipx && x1 < right && y1 >= clipy && y1 < bottom) {
+					BLEND32(p, color, alpha);
+				}
+				count = 0;
+			}
+			count++;
+			err += dy;
+			if (err > dx) {
+				err -= dx;
+				y1 += sy;
+				p += sy * pitch;
+			}
+			x1 += sx;
+			p += sx;
+		}
+		if (count == 1 && x1 >= clipx && x1 < right && y1 >= clipy && y1 < bottom) {
+			BLEND32(p, color, alpha);
+		}
+	} else {
+		err = dy >> 1;
+		while (y1 != y2) {
+			if (count == 1) {
+				if (x1 >= clipx && x1 < right && y1 >= clipy && y1 < bottom) {
+					BLEND32(p, color, alpha);
+				}
+				count = 0;
+			}
+			count++;
+			err += dx;
+			if (err > dy) {
+				err -= dy;
+				x1 += sx;
+				p += sx;
+			}
+			y1 += sy;
+			p += sy * pitch;
+		}
+		if (count == 1 && x1 >= clipx && x1 < right && y1 >= clipy && y1 < bottom) {
+			BLEND32(p, color, alpha);
+		}
+	}
+
+	Surf->Unlock();
+}
+#pragma auto_inline(on)
+
+#pragma auto_inline(off)
 void HtmlViewClass::Draw_Line_24(int, int, int, int, int, int, int, int, int, int)
 {
+}
+#pragma auto_inline(on)
+
+#pragma auto_inline(off)
+static unsigned int Alpha16;  // NAME 1: 0xC4153C, the 16-bit (555) blend's alpha & 0xFF
+static unsigned int InvAlpha16;  // NAME 1: 0xC4154C, 0xFF - Alpha16 (assigned first)
+
+#define BLEND16(dst, col, alph) \
+	{ \
+		c = *(dst); \
+		InvAlpha16 = 0xFF - ((alph) & 0xFF); \
+		Alpha16 = (alph) & 0xFF; \
+		*(dst) = (unsigned short)((((((unsigned short)c & 0x3E0) * InvAlpha16 + ((col) & 0x3E0) * Alpha16) >> 8) & 0x3E0) | \
+			((((c & 0x7C00) * InvAlpha16 + ((col) & 0x7C00) * Alpha16) >> 8) & 0x7C00) | \
+			(((c & 0x1F) * InvAlpha16 + ((col) & 0x1F) * Alpha16) >> 8)); \
+	}
+
+void HtmlViewClass::Draw_Line_16(int x1, int y1, int x2, int y2, int clipx, int clipy, int clipw, int cliph, int color, int alpha)
+{
+	int count, right, bottom, pitch, dx, dy, sx, sy, err;
+	unsigned short *buffer, *p;
+	unsigned int c;
+
+	count = 0;
+	right = clipx + clipw;
+	bottom = clipy + cliph;
+
+	buffer = (unsigned short *)Surf->Lock();
+	if (buffer == NULL)
+		return;
+
+	pitch = Surf->Stride() / 2;
+	p = buffer + (y1 * pitch + x1);
+	dx = x2 - x1;
+	dy = y2 - y1;
+	if (dx < 0) {
+		dx = -dx;
+		sx = -1;
+	} else {
+		sx = 1;
+	}
+	if (dy < 0) {
+		dy = -dy;
+		sy = -1;
+	} else {
+		sy = 1;
+	}
+
+	if (dy < dx) {
+		err = dx >> 2;
+		while (x1 != x2) {
+			if (count == 1) {
+				if (x1 >= clipx && x1 < right && y1 >= clipy && y1 < bottom) {
+					BLEND16(p, (unsigned int)color, alpha);
+				}
+				count = 0;
+			}
+			count++;
+			err += dy;
+			if (err > dx) {
+				err -= dx;
+				y1 += sy;
+				p += sy * pitch;
+			}
+			x1 += sx;
+			p += sx;
+		}
+		if (count == 1 && x1 >= clipx && x1 < right && y1 >= clipy && y1 < bottom) {
+			BLEND16(p, (unsigned int)color, alpha);
+		}
+	} else {
+		err = dy >> 1;
+		while (y1 != y2) {
+			if (count == 1) {
+				if (x1 >= clipx && x1 < right && y1 >= clipy && y1 < bottom) {
+					BLEND16(p, (unsigned int)color, alpha);
+				}
+				count = 0;
+			}
+			count++;
+			err += dx;
+			if (err > dy) {
+				err -= dy;
+				x1 += sx;
+				p += sx;
+			}
+			y1 += sy;
+			p += sy * pitch;
+		}
+		if (count == 1 && x1 >= clipx && x1 < right && y1 >= clipy && y1 < bottom) {
+			BLEND16(p, (unsigned int)color, alpha);
+		}
+	}
+
+	Surf->Unlock();
 }
 #pragma auto_inline(on)
 
@@ -1623,9 +1813,9 @@ static int Get_Value(int offset, Wstring &tag, Wstring &value)
 **	* So far: the frame drawing the client calls from 0x7767A0, on an object whose +0 is a wwlib Surface
 **	  (slots +0x34 Lock, +0x38 Unlock, +0x40 Bytes_Per_Pixel, +0x44 Stride): Draw_Bevel 0x777630 and
 **	  Draw_Line 0x7777C0 exact, the empty 24-bit line 0x777EC0 exact at its marker (3 bytes; kept out of
-**	  line by auto_inline(off), as the client calls it). Not yet: the 32-bit and 16-bit alpha line
-**	  drawers 0x7778E0 / 0x777EE0 (alpha factors in the statics 0xC41550 / 0xC41554 and 0xC4153C /
-**	  0xC4154C), the view and its parser. The class sits here until the view's header exists.
+**	  line by auto_inline(off), as the client calls it). The 32-bit and 16-bit alpha line drawers
+**	  0x7778E0 / 0x777EE0 (alpha factors in the statics 0xC41550 / 0xC41554 and 0xC4153C / 0xC4154C)
+**	  exact since B2 (2026-11-25), see below. The class sits here until the view's header exists.
 **	* The functions with asserts sit on the client's lines (D25): Add_Data's G_ASSERT(0) on 158, Add_Text's
 **	  two on 1114 / 1115; the blank lines before Add_Text keep the parser 0x7710D0 (its assert on 926) a gap.
 **	* HV2 (2026-11-01): the view, HtmlViewClass (htmlview.h), 0x76FFD0-0x770720, every function exact. The
@@ -1637,8 +1827,12 @@ static int Get_Value(int offset, Wstring &tag, Wstring &value)
 **	  its result unused); Update tests the byte Dirty into a bool set in a branch.
 **	  Its constructor, destructor, Clear, Open and Clear_* have no callers in the client; image.cpp's
 **	  0x76E9D0 calls 0x770860, which calls Layout and Render. HV1's UnknownHtmlDrawClass is the view (+0 its
-**	  wwlib Surface: Get_Width / Get_Height size Layout's block). Draw_Line_32 0x7778E0: parked at 0.18
-**	  (attempts.csv): the form of Draw_Line_16 compiles to the same shape but keeps alpha, not x1, cached.
+**	  wwlib Surface: Get_Width / Get_Height size Layout's block). Draw_Line_32 0x7778E0 / Draw_Line_16
+**	  0x777EE0 (B2, 2026-11-25): a dotted Bresenham (every second pixel) clipped to clipx..clipx + clipw,
+**	  alpha-blended into the locked surface (32-bit: 8:8:8, the alpha byte cleared; 16-bit: 555 masks).
+**	  Both exact once the blend assigns InvAlpha before Alpha (else alpha stays cached in a register and
+**	  the whole function's allocation rotates); the 16-bit one also needs its 0x3E0 term's pixel read as
+**	  (unsigned short)c, which alone puts that term first (an unsigned short c instead adds and 0xffff).
 **	* HtmlBlockClass's inline getters (Get_X / Get_Y / Get_Width / Get_Height) are why the client reads a
 **	  field before an out-of-line call in one expression (Click, Draw_Block); the RECTs are filled bottom,
 **	  top, left, right. NOT EXACT: Render (the parent bounds' stores), Hit_Test (its loop top), Add_Text
@@ -1667,6 +1861,6 @@ static int Get_Value(int offset, Wstring &tag, Wstring &value)
 **	  shift local: both arms end in one tail-merged sub), the rest with the setter. The statics 0xBE83F0 / 0xBE83F4 / 0xBE83F8 count table, row and
 **	  cell depth and are never read. Block +0x1BC (LineStartX) is the line's start x (tables and lists
 **	  move it), +0x1C0 / +0x1C4 the laid-out content's width / height (set at the parser's end).
-**	* Not yet: Draw_Line_16 / Draw_Line_32. The font cache 0x76EB70 (Get_Font, declared in htmlview.h) is not this file's: it and
+**	* The font cache 0x76EB70 (Get_Font, declared in htmlview.h) is not this file's: it and
 **	  0x76E9D0 (the object before, image.cpp's vtable slot) share its static ArrayList at 0xBE82E0.
 */
