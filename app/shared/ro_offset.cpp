@@ -55,7 +55,7 @@ void OffsetRenderObjClass::Render(RenderInfoClass &rinfo)
 }
 
 // 0x47F860
-void OffsetRenderObjClass::Set_Offset(const Vector3 &offset)
+void OffsetRenderObjClass::Set_Offset(Vector3 &offset)	// not const: retail's ?Set_Offset@OffsetRenderObjClass@@QAEXAAVVector3@@@Z (thunk order, IM3 / N1)
 {
 	Offset = offset;
 	if (Proxied != NULL) {
