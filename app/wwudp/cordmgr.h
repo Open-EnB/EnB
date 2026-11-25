@@ -105,7 +105,7 @@ public:
 	bool Process_ACK2_Packet(unsigned char *data, int len, sockaddr_in *from, UDP *socket, int unknown);	// 0x85ABB0
 	// Starts a connection to ip:port on a data socket with room (else a new one bound to 3755-3759, else any port)
 	// and returns its session id. 0x858EC0
-	int Connect(unsigned int ip, unsigned short port, bool encrypt);	// NAME 2: what it does
+	int Connect(unsigned long ip, unsigned short port, bool encrypt);	// NAME 2: what it does
 	// Sends SYN1 / SYN2 for the connections in the handshake (0x858A60, reduced: every call, no
 	// resend timer or time-out).
 	bool Pump_Connections();

@@ -38,7 +38,7 @@ public:
 static const char *Matrix_Keys[12] = { "Xx", "Xy", "Xz", "Yx", "Yy", "Yz", "Zx", "Zy", "Zz", "Tx", "Ty", "Tz" };	// NAME 2: what it holds
 
 // @0x4B1790
-KVEncoderClass::KVEncoderClass(KVListClass *list, int flags, const char *prefix) :
+KVEncoderClass::KVEncoderClass(KVListClass &list, int flags, const char *prefix) :	// a reference: retail's ??0KVEncoderClass@@QAE@AAVKVListClass@@HPBD@Z (thunk order, IM3 / N1)
 	KVEncoderBaseClass(list, flags, prefix)
 {
 }

@@ -57,7 +57,7 @@ public:
 class KVEncoderBaseClass  // NAME 3: by convention (D24) from the client's file kv_encoder_base.cpp
 {
 public:
-	KVEncoderBaseClass(KVListClass *list, int flags, const char *prefix);	// 0x4B3850
+	KVEncoderBaseClass(KVListClass &list, int flags, const char *prefix);	// 0x4B3850
 	virtual ~KVEncoderBaseClass();												// +0x00 0x4B3B90 (deleting 0x4B3B10)
 
 	protected: const char *Make_Key(const char *name);									// 0x4B3D60 the prefixes, then name  // NAME 2: describes what it does

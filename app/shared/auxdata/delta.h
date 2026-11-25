@@ -54,7 +54,7 @@ public:
 class KVEncoderClass : public KVEncoderBaseClass  // NAME 2: kv_encoder_base.cpp's base's encoder, in kv_encoder.cpp (D206)
 {
 public:
-	KVEncoderClass(KVListClass *list, int flags, const char *prefix);	// 0x4B1790 (kv_encoder.cpp; vtable 0xAEB460)
+	KVEncoderClass(KVListClass &list, int flags, const char *prefix);	// 0x4B1790 (kv_encoder.cpp; vtable 0xAEB460)
 	virtual void Add_Child(int mask, const char *name, DeltaInterfaceClass *child);	// +0x04 0x4B1820 a key/value object under the name  // NAME 2: what it does
 	// the typed adds, pure here (_purecall in 0xAEB460); KVFilterEncoderClass (kv_encoder.h; vtable 0xAEB6B8) has
 	// their bodies 0x4B18C0-0x4B1950 (D206). shipcust_desc.cpp's colours go through +0x10.
