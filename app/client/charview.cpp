@@ -263,7 +263,7 @@ void CharacterViewClass::Unknown_08()
 			Unknown1B4 = new LoginInterface(this, Unknown074);
 			break;
 		case 2:
-			Unknown1B4 = new AvatarSelectionInterface(this, Unknown074);
+			Unknown1B4 = new AvatarSelectionInterface(this, *Unknown074);
 			break;
 		case 3:
 			Unknown1B4 = new Unknown574710InterfaceClass(this, Unknown074);

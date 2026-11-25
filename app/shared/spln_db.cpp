@@ -1402,7 +1402,7 @@ void SplineDatabaseClass::Unpack(char *buffer)
 			if (existing != NULL) {
 				buffer = cursor; existing->Unpack(&buffer); cursor = buffer;
 			} else {
-				buffer = cursor; SplineEntryClass *entry = new SplineEntryClass(&buffer); cursor = buffer;
+				buffer = cursor; SplineEntryClass *entry = new SplineEntryClass(buffer); cursor = buffer;
 				HashNodeClass<SplineEntryClass *> *node = Splines.Add(entry, key);
 
 				if (node != NULL) { HasSplines = true; } else {
@@ -2867,7 +2867,7 @@ SplineEntryClass::SplineEntryClass(int type, const char *name, const char *descr
 	}
 }
 
-SplineEntryClass::SplineEntryClass(char **buffer)
+SplineEntryClass::SplineEntryClass(char *&buffer)	// a reference: retail's ??0SplineEntryClass@@QAE@AAPAD@Z (thunk order, IM3 / N1)
 {
 	Alpha = Beta = NULL;
 	AlphaKey = BetaKey = 0;
@@ -2881,7 +2881,7 @@ SplineEntryClass::SplineEntryClass(char **buffer)
 	strcpy(Name, "<no description>");
 	Type = -1;
 	Params.Value[3] = Params.Value[1] = Params.Value[0] = Params.Value[2] = 0;
-	Unpack(buffer);
+	Unpack(&buffer);
 }
 
 SplineEntryClass::~SplineEntryClass(void)

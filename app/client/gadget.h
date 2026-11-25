@@ -85,7 +85,7 @@ public:
 	virtual void Unknown_54(GadgetListManagerClass *manager, InterfaceClass *iface);	// +0x54 0x6600F0 (FAIL_IF '!manager': onto the manager, 0x661700; 'InList')  // NAME 2 [manager]: the FAIL_IF's; NAME 1 [iface]: what intrface.cpp passes (its +0x78)
 	virtual void Unknown_58(GadgetListManagerClass *manager);			// +0x58 0x660140 (FAIL_IF '!manager': off the manager, 0x6617E0)  // NAME 2 [manager]: the FAIL_IF's
 	virtual int Get_Id() { return(Id); }								// +0x5C 0x50AAA0  // NAME 1: neutral (D10): the member it returns
-	virtual bool Is_Enabled() { return(Unknown2C_05); }					// +0x60 0x50AAC0 (bit 5 of +0x2C: slot +0x40's)  // NAME 3: gd_key_press.cpp's FAIL_IF 'Is_Enabled()' l.135, where it calls this slot
+	virtual bool Is_Enabled() const { return(Unknown2C_05); }					// +0x60 0x50AAC0 (bit 5 of +0x2C: slot +0x40's)  // NAME 3: gd_key_press.cpp's FAIL_IF 'Is_Enabled()' l.135, where it calls this slot
 	virtual void Unknown_64(AABoxClass &box);							// +0x64 0x6602F0 (zero)  // NAME 1 [box]: what it fills
 	virtual bool Unknown_68();											// +0x68 0x6601E0 (G_ASSERT '*sticky == NULL': held by the last event's buttons)
 	virtual void Unknown_6C();											// +0x6C 0x660250 (G_ASSERT '*sticky == this': released)

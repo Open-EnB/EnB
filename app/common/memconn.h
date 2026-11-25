@@ -46,7 +46,7 @@ public:
 class MemoryConnectionClass : public ConnectionClass	// NAME 1: after the file memconn.cpp
 {
 public:
-	MemoryConnectionClass();										// 0x826480
+	private: MemoryConnectionClass(); public:										// 0x826480
 	virtual ~MemoryConnectionClass();								// +0x00 0x8264B0 / 0x8264E0
 	virtual bool Send_Message(RawPacketClass *packet);				// +0x04 0x826550 (asserts: not supported)
 	virtual bool Send_Packet(PacketClass *vp);						// +0x08 0x826580
