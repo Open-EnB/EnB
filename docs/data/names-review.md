@@ -7898,8 +7898,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown1D8` | `app/client/sclient.cpp:3310` | untagged neutral name (D10) |
 | 1 | `Unknown_567540` | `app/client/sclient.cpp:3326` | untagged neutral name (D10) |
 | 1 | `Unknown_749ED0` | `app/client/sclient.cpp:3338` | untagged neutral name (D10) |
-| 1 | `Unknown_5682C0` | `app/client/sclient.cpp:3384` | untagged neutral name (D10) |
-| 1 | `Get_Unknown1138` | `app/client/sclient.cpp:3414` | untagged neutral name (D10) |
+| 1 | `Unknown_5682C0` | `app/client/sclient.cpp:3392` | untagged neutral name (D10) |
+| 1 | `Get_Unknown1138` | `app/client/sclient.cpp:3417` | untagged neutral name (D10) |
 | 1 | `Unknown_74BB50` | `app/client/sclient.cpp:4059` | untagged neutral name (D10) |
 | 1 | `Unknown_74BC20` | `app/client/sclient.cpp:4087` | untagged neutral name (D10) |
 | 1 | `Unknown_74BD90` | `app/client/sclient.cpp:4112` | untagged neutral name (D10) |
