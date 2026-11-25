@@ -1727,7 +1727,7 @@ Base copy: reconstructed. Headers: 691 from reconstructed.
 | shared/kv_tripl.cpp | reconstructed | 57 | 0 | - | - | - |  |
 | shared/kv_util.cpp | reconstructed | 6 | 0 | - | - | - |  |
 | shared/land.cpp | reconstructed | 118 | 1 | - | - | - |  |
-| shared/landdmap.cpp | reconstructed | 26 | 0 | - | - | - |  |
+| shared/landdmap.cpp | reconstructed | 27 | 0 | - | - | - |  |
 | common/lego_identifier.cpp | reconstructed | 49 | 0 | - | - | - |  |
 | client/line2d.cpp | reconstructed | 103 | 0 | - | - | - |  |
 | shared/auxdata/linearbu.cpp | reconstructed | 21 | 0 | - | - | - |  |
@@ -1943,7 +1943,7 @@ Base copy: reconstructed. Headers: 691 from reconstructed.
 | shared/safe_ptr.cpp | reconstructed | 5 | 0 | - | - | - |  |
 | client/sbase_info.cpp | reconstructed | 65 | 0 | - | - | - |  |
 | client/sbaseview.cpp | reconstructed | 159 | 0 | - | - | - |  |
-| client/sclient.cpp | reconstructed | 603 | 0 | - | - | - |  |
+| client/sclient.cpp | reconstructed | 602 | 0 | - | - | - |  |
 | client/scriptedmovie.cpp | reconstructed | 159 | 0 | - | - | - |  |
 | client/scriptedmovieline.cpp | reconstructed | 5 | 0 | - | - | - |  |
 | common/sector_types.cpp | reconstructed | 7 | 0 | - | - | - |  |
