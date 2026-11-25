@@ -322,12 +322,12 @@ const char *InvDataClass::Unknown_689100(int inv_type, int list)
 				case 4: return("VendorInventory");
 				case 5: return("Equipped");
 				case 6: return("Cargo");
+				case 18: return("HarvestableResources");
 				case 12: return("ManufactureTarget");
 				case 13: return("ManufactureComponents");
 				case 14: return("ManufactureOverride");
 				case 16:
 				case 17: return("Inventory.PlayerTrade");
-				case 18: return("HarvestableResources");
 				case 19: return("RewardInventory");
 				case 20: return("OverflowInventory");
 			}
