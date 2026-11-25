@@ -5604,7 +5604,7 @@ bool SClient::Unknown_34(const char *text)
 			ViewUnknown34Class *dialog;
 			if (ui_view && (dialog = ui_view->Get_Unknown34()) != NULL) {
 				Unknown1378 = 1;
-				dialog->Unknown_588A70("YES_NO", 0, "This will reset all ship systems, leaving you vulnerable to attack for a short time. Continue?", 0x140, 0, 0);
+				dialog->Unknown_588A70("YES_NO", 0, "This will reset all ship systems, leaving you vulnerable to attack.  Are you sure you want to continue?", 0x140, 0, 0);
 			}
 		}
 		return(true);
