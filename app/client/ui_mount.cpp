@@ -26,8 +26,8 @@ void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);	// 0x496AE
 
 
 
-extern Matrix3D UnknownBF9330;	// 0xBF9330 (the model's transform)  // NAME 1: neutral (D10)
-extern Matrix3D UnknownBF92D0;	// 0xBF92D0 (the model's transform with +0x402)  // NAME 1: neutral (D10)
+// 0xBF9330 is Matrix3D::Identity (relocaudit's data map: 11 of 11 exact readers; R6, run 2026-11-24-night)
+// 0xBF92D0 is Matrix3D::RotateZ90 (matrix3d.obj's 8th initialiser 0x8C2380 fills it with 0 -1 0 / 1 0 0 / 0 0 1; P3, run 2026-11-24-night)
 
 // 0x5C73B0
 UIMountClass::UIMountClass(SClient *client, CameraClass *camera, int kind, int unused) :
@@ -290,9 +290,9 @@ void UIMountClass::Build()
 		if (!Model) return;
 	}
 	if (Unknown402) {
-		Model->Set_Transform(UnknownBF92D0);
+		Model->Set_Transform(Matrix3D::RotateZ90);
 	} else {
-		Model->Set_Transform(UnknownBF9330);
+		Model->Set_Transform(Matrix3D::Identity);
 	}
 	int bone = Model->Get_Bone_Index("VP_TL");
 	if (!bone) return;

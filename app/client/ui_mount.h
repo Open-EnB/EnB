@@ -49,7 +49,7 @@ public:
 	float Distance;										// +0x3FC the camera's distance that shows the model whole (-1)  // NAME 2: describes what it holds
 	bool Built;											// +0x400  // NAME 2: describes what it holds
 	bool Unknown401;									// +0x401 (true)  // NAME 1: neutral (D10)
-	bool Unknown402;									// +0x402 (chooses the model's transform: 0xBF92D0 when set, else 0xBF9330)  // NAME 1: neutral (D10)
+	bool Unknown402;									// +0x402 (chooses the model's transform: Matrix3D::RotateZ90 0xBF92D0 when set, else Matrix3D::Identity 0xBF9330)  // NAME 1: neutral (D10)
 	bool Shown;											// +0x403  // NAME 2: describes what it holds
 };
 
