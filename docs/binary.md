@@ -383,3 +383,70 @@ What it implies (proposals, nothing of the one client build changed): (1) wt/IM5
 ww3d2 / wwlib (1,232 bytes of `.text`); (2) the `ctype<unsigned short>` instantiations: find the header that makes
 21 objects instantiate the wide facet (their includes against a retail-like object's); (3) the 47 code-less
 objects from `.data` / `.rdata` (each data-only object of retail is a run of globals in object order).
+
+### 5.5 The extra initialisers' causes, and the 47 code-less objects in the data sections
+
+Measured 2026-11-25 (image builder IM6, week plan 2026-11-24 Â§2 D) on run/2026-11-25 (wt/IM6A, every library
+rebuilt there) with the scripts in `.work/im6/` (`seg.py`, `incall2.py` / `pp.py`, `datamap2.py`, `datalayout.py`,
+`dataspan.py`, `spanref.py`).
+
+**The initialisers (Â§5.4's 40).** Retail's table is read per object with two rules the code shows: an object's
+`.CRT$XCU` entries are contiguous, `<string>`'s guarded `ctype<unsigned short>::id` initialiser is its last
+(workflow 3.3), and an initialiser's code lies in its object's code, a header static's (permstr.h's
+PermStringInit) at the object's start, the ctype guard at its end; so a PermStringInit right after an object's
+guard or code opens the next object. Ours per object come from the `.obj` files: a walk of each file's includes that
+follows `#ifdef` / `#if defined` (`pp.py`) predicts all 745 objects' ctype, PermStringInit and ios initialisers
+exactly (595 + 150, 134 + 611, 2 + 743). The 40 extra are no single header: 31 objects reach `<string>` (a header
+that includes it for `std::string`, which `<vector>`'s `<stdexcept>` / `<xstring>` already declares; only
+`<string>` itself instantiates the facet), 17 reach permstr.h, money.cpp includes `<iostream>`. wt/IM6A cuts
+31 of them (980 -> 949 app initialisers) where the client's table says so, with no pair lost but one (the commits name each object's evidence; the font split costs FontDatabaseClass::Load_Init 0x6BF330 two instructions' order, a D240 row):
+land.h's `<string>` (4 objects), money.cpp's `<iostream>` (2), permstr.h in six .cpp files whose credited
+PermStringInit opens the next object (0x52CF40, 0x669F60, 0x7231C0, 0x560880, 0x5AF980, 0x5DBF70),
+KVEncoderClass out of delta.h into kv_encoder.h (6), header splits by class (expr_lexer_match.h,
+packets/relationship.h, kv_accessor.h, string_value.h, kv_string_encoder.h, fontsys.h, fontstring.h, smouse.h,
+packets/packet_data.h) each included where its declarations stood, and unknown_7cef30.h's `<string>` moved into its
+two .cpp files. Left (9 initialisers net; the objects named per retail run, some of them attribution noise at run edges): the objects that include a large part of the client
+(viewbttn, mainview, mv3dview, ui_analyze, loadingview, main_client, starmap_data, unknown_675120, unknown_6af220:
+their .cpp's own include lists, not one header), interface_scene (hash_map.h's `<string>` for `hash<string>`: 11
+other objects reach `<string>` only through it and keep the guard in retail), message_filter / message_server (one guard between
+their runs, provisional placements), and the PermStringInits of objects that reach permstr.h through kv_pair.h /
+name.h (avatar_desc, unknown_445740, ui_mfd_extended_context_strings, unknown_644e50, unknown_646170, loadingview).
+At wt/IM6A's head (2d532dc9c) the one client build has 118,844 of 8,642,625 bytes in place (1.38 %) and §5.3's
+`all` trial 1,267,244 (14.66 %; `.text` 0x6E8651, +11,636 over retail's on this run head; `e_lfanew` 0x130 by the
+key's rule); at its second commit the two were 119,023 and 1,268,026: with the layout still displaced, the
+initialisers' bytes do not show in place yet (the CRT table is 124 bytes shorter, 31 initialiser functions fewer).
+
+**The 47 objects: data.** Retail's addresses of our globals come from the DIR32 relocations of every exact
+function (relaudit's reading; statics and literals keyed by object). Placed by our owning object and ordered by
+link index, the data sections follow our object order: `.rdata` 1,832 symbols of 587 objects, 1,809 on the
+longest rising chain; `.bss` 617 of 259, 609; `.data` 456 of 167, 402 (the 40 others are `.bss`'s first objects,
+past `.data`'s raw end). Literals and float constants are pooled (`""` at 0xB6E944 is read by 227 objects), so
+they are left out. Off the chain, with retail's neighbours:
+
+| Retail | Ours | Between (retail order) | Reading |
+|---|---|---|---|
+| 0xBA8C20-0xBA8C50, 13 `char *` (the chat channel names, "General" ... "Enforcers") | ui_chat_panel.cpp's `Unknown_BA8C20` ... | chartemplate.obj and color_common.obj (ours between: chat_defs, circbuff, item_template) | chat_defs.cpp's globals, not ui_chat_panel's |
+| 0xB90C60 `_Unknown_B90C60` (5) | ui_starbase.cpp | pdaint.obj and sbaseview.obj (ours between: two objects) | another object's static |
+| 0xB08C90-0xB08CC4, 13 `const int` | gadget.obj | recustomization_cost and bandwidthaccounting | per-object copies of a header's consts (relaudit's case): the majority copy, no placement |
+| 0xB0804C `const int` | gd_attrb_skills.obj | ship_pip and time_mgr | the same |
+| `___stl_prime_list` at 0xAE70AC, 0xAE7270, 0xAECC50, 0xAF8ED0, 0xAFF270 | 5 objects | each the first includer's | SGI's per-object static const |
+| 0xBDBE48, 0xBDC064 `_PermStringInit` | unknown_445740, fp_ita | main / unknown_445560 | the PermStringInit statics of the neighbour, as the CRT table says |
+| 0xC404F8-0xC41554 (5 symbols) | htmlview (4), mainview | after the last app object | past every app object's `.bss` |
+| 0xB10ED0 vtable `DynamicVectorClass<PlayingSoundStruct *>`, 0xB26858 `bad_cast`'s throw info | unknown_fontsound, money | after the app objects | COMDATs LINK placed with the libraries' |
+
+Spans (`dataspan.py`: retail's distance between two anchors against ours, our objects' plain sections and the
+pooled COMDATs each owns first): `.data` +148,064 bytes over 140 anchor objects, `.rdata` +41,068 over 58, `.bss`
++23,891 over 259. The large ones are tables and literal pools of objects of ours (guild_strings' GM texts
+0xBA9B00-0xBAE0B8, ui_registration's 0xB85EF8-0xB8892C, sclient's chat commands 0xB98088-0xB9B9D4,
+co's 0xB0069C-0xB01FE4 `.rdata`, ...): `spanref.py` finds every one read from the objects between its anchors and,
+for pooled literals and floats, from objects anywhere: none is data that no object of ours reads. Retail's
+`__FILE__` strings name 437 `.cpp` files: every one is a file of ours (wnet's tcpqueue.cpp in libs/), so no file
+with an assert was merged into another.
+
+**What the 47 are.** No code of their own (Â§5.4), no initialiser, no data run of their own that the relocations of
+our exact functions reach, and no assert: translation units whose release build compiles to nothing linkable
+(files under `#ifdef` of a debug or tool build, declaration-only files; E&B's objects are on the command line, so
+LINK keeps an empty object and counts it in the rich header), or data read only by functions not yet exact
+(those spans are listed above). They cost the image only the rich header's C++ count (and through the key,
+`e_lfanew`, Â§5.4); 47 empty C++ objects on the trial's link line would raise its count to retail's (not tried: the C and cvtomf
+counts differ too).
