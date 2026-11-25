@@ -411,7 +411,7 @@ their .cpp's own include lists, not one header), interface_scene (hash_map.h's `
 other objects reach `<string>` only through it and keep the guard in retail), message_server (the guard 0x4BDFB0 is its own; `<string>` in it moves 0x4BCB50), and the PermStringInits of objects that reach permstr.h through kv_pair.h /
 name.h (avatar_desc, unknown_445740, ui_mfd_extended_context_strings, unknown_644e50, unknown_646170, loadingview).
 At wt/IM6A's head (22861ff89) the one client build has 119,292 of 8,642,625 bytes in place (1.38 %) and §5.3's
-`all` trial 1,270,813 (14.70 %; `.text` +11,636 over retail's on this run head; `e_lfanew` 0x130 by the key's
+`all` trial 1,270,813 (14.70 %; `.text` 0x6E85F1, +11,540 over retail's on this run head; `e_lfanew` 0x130 by the key's
 rule); at its second commit the two were 119,023 and 1,268,026.
 
 **The 47 objects: data.** Retail's addresses of our globals come from the DIR32 relocations of every exact
