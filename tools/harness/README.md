@@ -984,12 +984,15 @@ ordered compare fails is compared again as a multiset, against the stored logs t
 draw's state is every flat field but `prims` / `verts` (the LOD); a state of the run no stored run has passes when
 its nearest stored state (fewest fields apart; the same call, primitive, FVF and texture sizes first) differs only
 in fields that differ so between two stored runs (the same the other way for a stored state the run lacks); each
-state's draws are paired with the stored run's, the same LOD first, nearest by world translation, and each pair's
-world must be within that stored draw's own spread over the other stored runs (x `DRAW_MATRIX_SLACK`, plus the
-floor: a still draw stays still); the draw counts per state (summed differences), the set of textures and the
-frame's views and projections must be within the stored runs' largest difference among themselves (counts and
-matrices x the slack); each measure against the stored run nearest in it. SAME that way reads `draw logs K of N the
-same (M as a multiset)`. With one stored run the multiset must be equal. Tests: `tools/test_baseline.py` DrawLogs.
+state's draws are paired with the stored run's, the same LOD first, nearest by world translation, and a pair is out
+when its world differs by more than that stored draw's own spread over the other stored runs (x `DRAW_MATRIX_SLACK`,
+plus the floor); the draw counts per state (summed differences) and the set of textures may differ from the nearest
+stored run as much as two stored runs differ (the counts x the slack); the number of draws out of their spread, of
+those the draws still in every stored run, and the frame's views and projections may be as large as a stored run's
+own against the other stored runs (leave one out: a playback's objects and second camera move by the shot's timing,
+so retail has draws out of the spread two of its runs measure: 54-227 at play1's 50-55 s, against ours' 31-33); each
+measure against the stored run nearest in it. SAME that way reads `draw logs K of N the same (M as a multiset)`.
+With one stored run the multiset must be equal. Tests: `tools/test_baseline.py` DrawLogs.
 
 **Audio** (test-plan C2; `capture` runs e2e with `--audio` unless `--no-audio`): the session's `audio.jsonl` is cut
 per scenario by the results' `tick_start` / `tick_end` (e2e.py writes GetTickCount at a scenario's start and end; the
