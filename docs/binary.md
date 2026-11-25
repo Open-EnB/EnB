@@ -201,3 +201,46 @@ that reach it, needs retail's exact decorated name for every thunked function (a
 have it now; 5,706 slots have no name) and the same total symbol count in LINK's table (p = 6,856 against our 5,839),
 then the object order for the chains. The same hash makes the table a name oracle: a proposed name for a slot can be
 checked against its neighbours' buckets without a link.
+
+### 5.2 The name check: corrections the thunk order confirms
+
+Measured 2026-11-25 (image builder IM3) with `tools/re/thunkname.py` on retail and symbols.json (tables in
+`.work/im3/`: `namecheck.tsv` per named slot, `proposals.tsv`). The anchors are §5.1's on-order names (2,791
+without "Unknown", 7 with); each other slot's real name hashes into the window between the anchors around it, and
+near the bucket its slot position interpolates (thunks fill the 15,048 buckets about evenly: 94.7 % of the anchors,
+each left out in turn, lie within 3 buckets of it, 88.3 % within 2).
+
+| Slots | Figure |
+|---|---|
+| off-order names without "Unknown" | 7,884; 7,882 with anchors on both sides (80 with both adjacent slots anchors); window median 13 buckets (45 of width 1, 868 up to 4), near part median 6 (a random name lands in it 0.040 %) |
+| "Unknown" names | 3,590 off, all with anchors on both sides (47 with both adjacent slots anchors); the same widths: a candidate name costs one hash, a hit is 1 in about 2,500 by chance |
+| unnamed slots | 5,704 with anchors on both sides, the same widths |
+| our bucket fits once one bounding anchor is dropped | 18 (5 "Unknown": the chance rate), state `off-conflict` |
+
+Our off names' own buckets lie uniformly against their windows (13 within 16 buckets of it, 282 within 256;
+uniform gives 17 and 268): the off names are not nearly right, most are other names (deleting destructors of
+classes RTTI names lie on the order 30 of 36, those of classes we named 693 of 2,087).
+
+**Corrections** (87,303 variants of the 7,882 off names: access, virtual, static, const, calling convention, a
+parameter's or the return type's integer kind, pointer cv, pointer <-> reference, class key, case, `??_G` / `??_E`;
+91 names the parser does not cover). Near hits per kind against the null (the same variants against the window moved
+to a random place, 20 times; it keeps each variant's distance from our bucket, which matters: an int edit of the last
+parameter moves the bucket by a median 53, the tail of the name is not mixed):
+
+| Kind | Near hits / null | Reading |
+|---|---|---|
+| access (public / protected / private) | 53 / 7.0 | real: 46 above chance (protected virtual destructors `MAE` with their `??_G`, private helpers `AAE`) |
+| int (H / I / J / K / _N ...) | 21 / 3.8 | real, 17 above chance; can change code |
+| const (`QAE` -> `QBE`) | 18 / 2.3 | real, 16 above chance (`KVTripleListClass::Find`, the `Has_*` packet getters, `Xtime` operators) |
+| pointer <-> reference | 8 / 1.9 | real, 6 above |
+| pointer cv (`PAV` <-> `PBV`) | 5 / 1.6 | real, 3 above |
+| case, ret, callconv, virtual, static, `??_G` / `??_E`, class key | 13 / 14.7, 6 / 4.1, 5 / 3.8, 2 / 3.3, 1 / 1.0, 0 / 0.7, 0 / 1.2 | chance: none confirmed (callconv is what byte-exact functions predict) |
+
+107 off names have exactly one near hit; the 85 of the five real kinds are the proposals (47 access, 18 const,
+8 pointer <-> reference, 7 int, 5 pointer cv; about 13 of them expected by chance; 31 class-consistent: the same
+change confirmed at another slot of the class). 81 of the 85 are `exact` in symbols.json (the name comes from our
+object), and none of the corrected names exists in our objects: each is a change of the source declaration, and
+symbols.json follows the objects. 78 are name-only (access, const, pointer cv, pointer <-> reference): no code byte
+changes expected, so no crediting change; the 7 int ones need a compile (signedness can change code). The link: the
+one client build (non-incremental, from `app.lib`) does not order by name, so nothing moves; in an incremental link
+(the `objs` trial) each correction moves one thunk into retail's bucket.
