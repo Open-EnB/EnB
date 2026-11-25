@@ -1,0 +1,16 @@
+{
+  "base": "/home/dev/Projects/EnB/.work/claim-300/fresh-tree/app/client/ui_slot_data.cpp",
+  "base_sha256": "e5b213edf034ff7ab1bb92733992352f077e32e8e6fc0d0ef741068e012fdeda",
+  "forms": [
+    {
+      "name": "bit_init-cwwiwgq3/bit_init",
+      "patch": "--- ui_slot_data.cpp\n+++ ui_slot_data.cpp\n@@ -119,12 +119,12 @@\n \tUnknownA8(0),\n \tVisibleButtons(0),\n \tUnknownB0(-1),\n-\tUnknownB4(-1)\n-{\n-\tUnknownB8_0 = false;\n-\tUnknownB8_1 = false;\n-\tUnknownB8_2 = false;\n-\tUnknownB8_3 = true;\n+\tUnknownB4(-1),\n+\tUnknownB8_0(false),\n+\tUnknownB8_1(false),\n+\tUnknownB8_2(false),\n+\tUnknownB8_3(true)\n+{\n }\n \n static inline int Unknown_Button_Count(SlotDataInterface *window) { return(window->Buttons.size()); }\t// NAME 1: what it returns (the layer that leaves size() 0x62F7E0 out of line in 0x62E320)\n",
+      "sha256": "c9df6d893205f2f59b8c03eff8dd5737fe8a55aeff0daf4880bf9f80bc41dc66"
+    },
+    {
+      "name": "final-_0vat4js/final",
+      "patch": "--- ui_slot_data.cpp\n+++ ui_slot_data.cpp\n@@ -107,7 +107,7 @@\n }\n \n // 0x62DE80\n-// NOT EXACT: functional (D64), from the pseudocode\n+\n SlotDataInterface::SlotDataInterface(SClient *client) :\n \tInterfaceClass((LineDisplayClientClass *)client),\n \tShortcutUI(NULL),\n@@ -119,12 +119,12 @@\n \tUnknownA8(0),\n \tVisibleButtons(0),\n \tUnknownB0(-1),\n-\tUnknownB4(-1)\n-{\n-\tUnknownB8_0 = false;\n-\tUnknownB8_1 = false;\n-\tUnknownB8_2 = false;\n-\tUnknownB8_3 = true;\n+\tUnknownB4(-1),\n+\tUnknownB8_0(false),\n+\tUnknownB8_1(false),\n+\tUnknownB8_2(false),\n+\tUnknownB8_3(true)\n+{\n }\n \n static inline int Unknown_Button_Count(SlotDataInterface *window) { return(window->Buttons.size()); }\t// NAME 1: what it returns (the layer that leaves size() 0x62F7E0 out of line in 0x62E320)\n",
+      "sha256": "fc33277100dff0d011936391a8448c209b222c311fbec05213a06fc2658a9474"
+    }
+  ]
+}

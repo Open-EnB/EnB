@@ -132,7 +132,7 @@ void UISlotInfoClass::Unknown_5C()
 }
 
 // 0x630070
-// NOT EXACT: functional (D64), from the pseudocode
+
 bool UISlotInfoClass::Unknown_630070(UIViewClass *view, int slot, bool a, bool b)
 {
 	if (Active) {
@@ -146,21 +146,26 @@ bool UISlotInfoClass::Unknown_630070(UIViewClass *view, int slot, bool a, bool b
 	UnknownAC = slot;
 	if (slot == -1) return(false);
 	if (!Unknown_94()) return(false);
-	Unknown_58A580(Vector2(0.0f, 0.0f));
+	Vector2 position(0.0f, 0.0f);
+	Unknown_58A580(position);
 	Vector2 half(0.0f, 0.0f);
 	if (MainWindow) {
-		Vector2 size = MainWindow->Get_Size();
-		half.X = size.X * 0.5f;
-		half.Y = size.Y * 0.5f;
+		half = MainWindow->Get_Size();
+		half.X *= 0.5f;
+		half.Y *= 0.5f;
 	}
-	Vector2 position;
 	if (!b) {
 		float x, y;
 		Unknown_42ECF0(&x, &y);
 		x = x * 640.0f - 320.0f;
 		y = 240.0f - y * 480.0f;
-		position.X = (x < 0.0f) ? x + half.X : x - half.X;
-		position.Y = (y < 0.0f) ? y + half.Y : y - half.Y;
+		if (x < 0.0f) {
+			if (y < 0.0f) { position.X = x + half.X; position.Y = y + half.Y; }
+			else { position.X = x + half.X; position.Y = y - half.Y; }
+		} else {
+			if (y < 0.0f) { position.X = x - half.X; position.Y = y + half.Y; }
+			else { position.X = x - half.X; position.Y = y - half.Y; }
+		}
 	} else {
 		Get_Center(position);
 	}
@@ -168,11 +173,6 @@ bool UISlotInfoClass::Unknown_630070(UIViewClass *view, int slot, bool a, bool b
 	Unknown_7C(view, a);
 	return(true);
 }
-
-
-
-
-
 
 
 

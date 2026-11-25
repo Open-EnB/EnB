@@ -18461,7 +18461,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_630070` | `app/client/ui_slot_info.cpp:136` | untagged neutral name (D10) |
 | 1 | `Unknown_7C` | `app/client/ui_slot_info.cpp:140` | untagged neutral name (D10) |
 | 1 | `Unknown_94` | `app/client/ui_slot_info.cpp:148` | untagged neutral name (D10) |
-| 1 | `Unknown_58A580` | `app/client/ui_slot_info.cpp:149` | untagged neutral name (D10) |
+| 1 | `Unknown_58A580` | `app/client/ui_slot_info.cpp:150` | untagged neutral name (D10) |
 | 1 | `Unknown_630280` | `app/client/ui_slot_info.cpp:242` | untagged neutral name (D10) |
 | 1 | `Unknown_10` | `app/client/ui_slot_info.cpp:244` | untagged neutral name (D10) |
 | 1 | `Unknown_14` | `app/client/ui_slot_info.cpp:248` | untagged neutral name (D10) |
