@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -50,7 +50,7 @@
 
 class HAnimClass;
 class ChunkLoadClass;
-class W3DExclusionListClass;
+
 
 /*
 ** An entry for a table of anims not found, so we can quickly determine their loss
@@ -86,8 +86,8 @@ public:
 	HAnimClass *		Peek_Anim(const char * name);
 	bool					Add_Anim(HAnimClass *new_anim);
 	void			 		Free_All_Anims(void);
-	void			 		Free_All_Anims_With_Exclusion_List(const W3DExclusionListClass & exclusion_list);
-	void					Create_Asset_List(DynamicVectorClass<StringClass> & exclusion_list);
+
+
 
 	void					Register_Missing( const char * name );
 	bool					Is_Missing( const char * name );
@@ -115,3 +115,7 @@ public:
 };
 
 #endif
+
+
+// Earth & Beyond client (reconstruction): changes to Zero Hour's hanimmgr.h
+// EnB: HAnimManagerClass::Free_All_Anims_With_Exclusion_List, Create_Asset_List and the W3DExclusionListClass forward declaration dropped: not in the client (hanimmgr.cpp's EnB block)

@@ -137,6 +137,12 @@ NOT_LINKED = {
         'called by MeshModelClass::Shadow_Render 0x9589E0 at 0x958A86 / 0x958A9F; texproject.cpp); a library '
         'object nothing references is not linked, and nothing includes bw_render.h',
     ('ww3d2', 'bw_render.h'): 'its header (included only by bw_render.cpp)',
+    ('ww3d2', 'w3dexclusionlist.cpp'):
+        'Zero Hour\'s exclusion list (its users dated 12/12/2002 GH) is not in the client: its only users were hanimmgr.cpp\'s '
+        'Free_All_Anims_With_Exclusion_List and Create_Asset_List, and the client\'s Free_All_Anims 0x964BE0 is '
+        'followed directly by Add_Anim 0x964C40 (both dropped); no name, RTTI or string of W3DExclusionListClass in '
+        'client.exe; its 7 ledger addresses were all shared with other files',
+    ('ww3d2', 'w3dexclusionlist.h'): 'its header (included only by w3dexclusionlist.cpp now)',
 }
 
 

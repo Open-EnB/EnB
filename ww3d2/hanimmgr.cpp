@@ -54,7 +54,6 @@
 #include "hmorphanim.h"
 #include "chunkio.h"
 #include "wwmemlog.h"
-#include "w3dexclusionlist.h"
 #include "animatedsoundmgr.h"
 
 
@@ -332,67 +331,6 @@ void HAnimManagerClass::Free_All_Anims(void)
 }
 	
 /*********************************************************************************************** 
- * HAnimManagerClass::Free_All_Anims_With_Exclusion_List -- release animations not in the list * 
- *                                                                                             * 
- * INPUT:                                                                                      * 
- *                                                                                             * 
- * OUTPUT:                                                                                     * 
- *                                                                                             * 
- * WARNINGS:                                                                                   * 
- *                                                                                             * 
- * HISTORY:                                                                                    * 
- *   12/12/2002 GH  : Created.                                                                 * 
- *=============================================================================================*/
-void HAnimManagerClass::Free_All_Anims_With_Exclusion_List(const W3DExclusionListClass & exclusion_list)
-{
-	// Remove and Release_Ref any animation not in the exclusion list.
-	HAnimManagerIterator it( *this );
-	for( it.First(); !it.Is_Done(); it.Next() ) {
-		HAnimClass *anim = it.Get_Current_Anim();
-
-		if ((anim->Num_Refs() == 1) && (exclusion_list.Is_Excluded(anim) == false)) {
-			//WWDEBUG_SAY(("deleting HAnim %s\n",anim->Get_Name()));
-			AnimPtrTable->Remove(anim);
-			anim->Release_Ref();
-		}
-		//else
-		//{
-		//	WWDEBUG_SAY(("keeping HAnim %s (ref %d)\n",anim->Get_Name(),anim->Num_Refs()));
-		//}
-	}
-}
-
-
-/*********************************************************************************************** 
- * HAnimManagerClass::Create_Asset_List -- Create a list of the W3D files that are loaded      * 
- *                                                                                             * 
- * INPUT:                                                                                      * 
- *                                                                                             * 
- * OUTPUT:                                                                                     * 
- *                                                                                             * 
- * WARNINGS:                                                                                   * 
- *                                                                                             * 
- * HISTORY:                                                                                    * 
- *   12/12/2002 GH  : Created.                                                                 * 
- *=============================================================================================*/
-void HAnimManagerClass::Create_Asset_List(DynamicVectorClass<StringClass> & exclusion_list)
-{
-	HAnimManagerIterator it( *this );
-	for( it.First(); !it.Is_Done(); it.Next() ) {
-		HAnimClass *anim = it.Get_Current_Anim();
-
-		// File that this anim came from should be the name after the '.'
-		// Anims are named in the format: <skeleton>.<animname>
-		const char * anim_name = anim->Get_Name();
-		char * filename = strchr(anim_name,'.');
-		if (filename != NULL) {	
-			exclusion_list.Add(StringClass(filename+1));
-		}
-	}
-}
-
-
-/*********************************************************************************************** 
  * HAnimManagerClass::Add_Anim -- Adds an externally created animation to the manager			  *
  *                                                                                             * 
  * INPUT:                                                                                      * 
@@ -458,3 +396,4 @@ HAnimClass * HAnimManagerIterator::Get_Current_Anim( void )
 
 // Earth & Beyond client (reconstruction): changes to Zero Hour's hanimmgr.cpp (frozen 2026-11-07 from importer.py)
 // EnB: HAnimManagerClass::~HAnimManagerClass: from Renegade's hanimmgr.cpp (byte match)
+// EnB: HAnimManagerClass::Free_All_Anims_With_Exclusion_List and Create_Asset_List (and the include of w3dexclusionlist.h) dropped: not in the client, whose Free_All_Anims 0x964BE0 is followed directly by Add_Anim 0x964C40; no name, RTTI or string of W3DExclusionListClass in client.exe; nothing called them
