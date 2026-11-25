@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-550 entries in 243 files.
+549 entries in 243 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -31,7 +31,6 @@ edit the comments in the code, not this file.
 | `app/client/aux_roots_skill.h:5` | `?` | marker | NOT EXACT (D42) where aux_roots.h is. NAME 1 [aux_roots_skill.h]: provisional file name (the client's headers are not named by any string) |
 | `app/client/aux_roots_types.h:5` | `Unknown_Hex_String` | marker | NOT EXACT (D42) where aux_roots.h is. NAME 1 [aux_roots_types.h]: provisional file name (the client's headers are not named by any string) |
 | `app/client/avatar.cpp:1615` | `CharacterViewAvatarClass::Unknown_781EA0` | marker | NOT EXACT: registers and two schedules (201/200 rows: the client compares Unknown210 in memory and loads PlayerNLP before the name; D5 2026-11-24: audited against the client's bytes) |
-| `app/client/avatar.cpp:1669` | `CharacterViewAvatarClass::Unknown_782200` | marker | NOT EXACT: functional for POC (D64) |
 | `app/client/avatar.cpp:2380` | `CharacterViewAvatarClass::Unknown_1C4` | marker | NOT EXACT: register-allocation / inline-budget (the client keeps accel in FPU ST(0) without spilling; also some NLP/blink/face callees not inlined) |
 | `app/client/avatar.cpp:3653` | `CharacterViewAvatarClass::Unknown_788F90` | marker | NOT EXACT: inline-budget + Matrix3D copy scheduling (0x788FF3 / 0x789009 operator=(NULL) and case 4 RefCountPtr calls inlined here, out of line in client; [esi+0x338] vs [esi+0x330]) |
 | `app/client/avatar_pip.cpp:198` | `AvatarPipClass::Unknown_7E3A20` | marker | NOT EXACT: order (4 masked rows): the client pushes the light's Set_Transform argument before the last translation store; pos is a dead copy here (without it the distance's squares sum in another order) |
@@ -52,7 +51,7 @@ edit the comments in the code, not this file.
 | `app/client/camctrl_tractor.cpp:116` | `CameraController08Class::Unknown_797770` | marker | NOT EXACT: a few operand loads and slots differ (16 rows); functional |
 | `app/client/camera_manager.cpp:252` | `CameraManagerClass::Unknown_799E40` | marker | NOT EXACT: 0x799E40 (frame order: the client puts target at -0x10 above the 12-byte block locals and Sqrt's float above the avatar position temporary, ours the reverse; bit 15's Length2 keeps Y and Z on the FPU in the client) 0x799E40 |
 | `app/client/camera_manager.cpp:706` | `CameraManagerClass::Unknown_79B6B0` | mention | NOT EXACT (CS1, 2026-11-07). 0x799E40's inlining: 0x79B330 inline for its first 17 requests and 0x799DA0 for 23 sites only with 0x79B330 written without a bit local (with it, the requests 15 and 16 lose theirs to the budget); the 'bit' local form is exact out of line too. 0x7998B0's shifted box needs Set_Translation (Matrix3D(-delta) copies through the FPU). |
-| `app/client/cameraeffects.cpp:85` | `CameraEffectsClass::Unknown_34` | marker | NOT EXACT: functional (D64), shape (camera move r26: client keeps U.X on x87 fadd st(2) popped dead and copies U.Y via [ebx+4] to [esp+0x20]; r24 exact, residue 38 -> 23 rows) 0x6E2CC0: the ship's 'Shake.Force*' and 'Shake.Damage' fields start a shake and a jitter; every effect adds to +0x18 (the finished ones deleted), the camera moved by it (each axis wrapped into +-12, X / Y snapped to pixels) ... |
+| `app/client/cameraeffects.cpp:85` | `CameraEffectsClass::Unknown_34` | marker | NOT EXACT: shape, behaviour checked: codegen only (camera move r26, 11 rows: the client keeps d.X on the x87 past d.Y's copy, fxch st(2) / fadd st(2), and pops it after; d sits at force's slot, its Y at -84) 0x6E2CC0: the ship's 'Shake.Force*' and 'Shake.Damage' fields start a shake and a jitter; every effect adds to +0x18 (the finished ones deleted), the camera moved by it (each axis wrapped into... |
 | `app/client/cammod_chase.cpp:145` | `ChaseCameraModuleClass::Unknown_79BFC0` | marker | NOT EXACT: 0.90, the inlining is the client's; left: the client negates dir.Y before it copies the translation, and its first inline Rotate_X adds row 0's products in the other order |
 | `app/client/cammod_chase.h:30` | `?` | mention | NOT EXACT) // NAME 2 [des_quat, des_pos, obj]: its FAIL_IFs |
 | `app/client/chat_window.cpp:299` | `ChatWindowClass::Unknown_67F7F0` | marker | NOT EXACT: registers only (max_lines, old_size and the old font rotate; the client divides by the stack copy) |
