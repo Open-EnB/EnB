@@ -1257,7 +1257,7 @@ void LandClass::Unknown_473780(int row, float ratio, unsigned char *out)
 {
 	unsigned int row0 = (Field->Get_Mask() & row) << Field->Get_Log2();
 	float scale = ratio + ratio;
-	float diagonal = scale * 0.70710677f;
+	float diagonal = scale * 0.7071068f;
 	unsigned short *heights = Field->Get_Heights();
 	unsigned int row1 = ((row + 1) & Field->Get_Mask()) << Field->Get_Log2();
 	for (unsigned int i = 0; i < Field->Get_Size(); i++) {
@@ -1310,7 +1310,7 @@ void LandClass::Unknown_473BC0(int row, float ratio, unsigned char *out)
 {
 	unsigned int row0 = (Field->Get_Mask() & row) << Field->Get_Log2();
 	float scale = ratio + ratio;
-	float diagonal = scale * 0.70710677f;
+	float diagonal = scale * 0.7071068f;
 	unsigned short *heights = Field->Get_Heights();
 	unsigned int row1 = ((row + 1) & Field->Get_Mask()) << Field->Get_Log2();
 	for (unsigned int i = 0; i < Field->Get_Size(); i++) {
