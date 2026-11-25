@@ -2100,12 +2100,41 @@ def net7_wait_saves(port=None, within=NET7_SAVE_WAIT):
         time.sleep(0.25)
 
 
+_DETACH_CHILD = r'''
+import subprocess, sys
+f = subprocess.CREATE_NEW_CONSOLE | subprocess.CREATE_NEW_PROCESS_GROUP
+try:
+    subprocess.Popen(sys.argv[2:], cwd=sys.argv[1], creationflags=f | subprocess.CREATE_BREAKAWAY_FROM_JOB)
+except OSError:
+    subprocess.Popen(sys.argv[2:], cwd=sys.argv[1], creationflags=f)
+'''
+
+
+def _spawn_detached(argv, cwd):
+    """Starts ARGV in CWD outside the caller's process tree (2026-11-24: stopping a capture task killed the
+    Net7.exe it had started). A short-lived Python in between starts it (new console, new process group, out of
+    the caller's job object when the job allows it) and exits, so the server's parent is a process that no longer
+    exists: a tree kill of the harness or of its shell (taskkill /T, a task stop) does not reach it. Off Windows a
+    new session (start_new_session)."""
+    if os.name != 'nt':
+        subprocess.Popen(argv, cwd=cwd, start_new_session=True, stdin=subprocess.DEVNULL,
+                         stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        return
+    f = subprocess.CREATE_NEW_PROCESS_GROUP | subprocess.CREATE_NO_WINDOW
+    cmd = [sys.executable, '-I', '-c', _DETACH_CHILD, cwd] + list(argv)
+    kw = dict(stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, close_fds=True)
+    try:
+        p = subprocess.Popen(cmd, creationflags=f | subprocess.CREATE_BREAKAWAY_FROM_JOB, **kw)
+    except OSError:
+        p = subprocess.Popen(cmd, creationflags=f, **kw)
+    p.wait(30)
+
+
 def net7_start(net7bin, within=240, port=None):
     """Starts Net7.exe in its own console (as start_server.bat does) and waits until it is ready (net7_ready; its
     log cannot be read while it runs: it holds the file without sharing). Returns True when ready."""
     port = net7_control_port(net7bin) if port is None else port
-    subprocess.Popen([os.path.join(net7bin, 'Net7.exe')], cwd=net7bin,
-                     creationflags=getattr(subprocess, 'CREATE_NEW_CONSOLE', 0))
+    _spawn_detached([os.path.join(net7bin, 'Net7.exe')], net7bin)
     end = time.time() + within
     while time.time() < end:
         if net7_ready(port):
