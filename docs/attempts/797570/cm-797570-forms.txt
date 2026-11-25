@@ -1,0 +1,143 @@
+##### v797570_b1.py
+# Batch 1 for 0x797570 (CM, Opus round one). Behaviour checked: codegen only (every member, constant and call is
+# the client's). The client tests !ship twice (once on the no-target path, once after the reach test) with one
+# success tail, and holds 3 in edx over the first two returns (5 uses of 3 where ours has 4).
+# Hypothesis: a flag (reached / far) that VC6 jump-threads: the constant path is threaded straight to its own copy
+# of the !ship test, the computed path to another; or a file-static bool helper under ||.
+FILE = 'app/client/camctrl_tractor.cpp'
+SYMBOL = 'CameraController08Class::Unknown_797570'
+ADDRESS = 0x797570
+
+OLD = ('\tif (target) {\n'
+       '\t\tVector3 target_pos = target->Unknown_24();\n'
+       '\t\tVector3 delta = target_pos - ship->Unknown_24();\n'
+       '\t\tfloat radius = target->Unknown_30();\n'
+       '\t\tfloat distance = CameraManagerClass::Unknown_79B6B0();\n'
+       '\t\tif (!(delta.Length2() < radius * radius + distance * distance)) {\n'
+       '\t\t\treturn;\n'
+       '\t\t}\n'
+       '\t}\n'
+       '\tif (!ship) {\n')
+
+
+def F(*lines):
+    assert len(lines) == 10, len(lines)
+    return [(OLD, ''.join(l + '\n' for l in lines))]
+
+
+FORMS = {
+    'reached_flag': F('\tbool reached = true;',
+                      '\tif (target) {',
+                      '\t\tVector3 target_pos = target->Unknown_24();',
+                      '\t\tVector3 delta = target_pos - ship->Unknown_24();',
+                      '\t\tfloat radius = target->Unknown_30();',
+                      '\t\tfloat distance = CameraManagerClass::Unknown_79B6B0();',
+                      '\t\treached = delta.Length2() < radius * radius + distance * distance;',
+                      '\t}',
+                      '\tif (!reached) return;',
+                      '\tif (!ship) {'),
+    'far_flag': F('\tbool far = false;',
+                  '\tif (target) {',
+                  '\t\tVector3 target_pos = target->Unknown_24();',
+                  '\t\tVector3 delta = target_pos - ship->Unknown_24();',
+                  '\t\tfloat radius = target->Unknown_30();',
+                  '\t\tfloat distance = CameraManagerClass::Unknown_79B6B0();',
+                  '\t\tif (!(delta.Length2() < radius * radius + distance * distance)) far = true;',
+                  '\t}',
+                  '\tif (far) return;',
+                  '\tif (!ship) {'),
+    'reached_int': F('\tint reached = 1;',
+                     '\tif (target) {',
+                     '\t\tVector3 target_pos = target->Unknown_24();',
+                     '\t\tVector3 delta = target_pos - ship->Unknown_24();',
+                     '\t\tfloat radius = target->Unknown_30();',
+                     '\t\tfloat distance = CameraManagerClass::Unknown_79B6B0();',
+                     '\t\tif (!(delta.Length2() < radius * radius + distance * distance)) reached = 0;',
+                     '\t}',
+                     '\tif (!reached) return;',
+                     '\tif (!ship) {'),
+}
+##### v797570_b2.py
+# Batch 2 for 0x797570 (CM, Opus round one). Batch 1: the reached / far flags thread to the base's code (identical):
+# a shared !ship test is VC6's canonical output, so the client's two !ship tests are two in the source. Earlier rounds
+# duplicated the tail by hand ("unmerged success tail"). Hypothesis: the start of phase 2 is an inline helper called
+# twice (the no-target path and the in-reach path); two inline expansions are cross-jumped at the success stores but
+# keep their own !ship tests and returns.
+FILE = 'app/client/camctrl_tractor.cpp'
+SYMBOL = 'CameraController08Class::Unknown_797570'
+ADDRESS = 0x797570
+
+HOST = 'static float Unknown_B051A0 = 3.0f;\t\t\t// NAME 1: neutral (D10): the offset across it\n'
+H_FULL = ('static inline void Unknown_Begin(CameraController08Class *c, ClientObjectClass *ship) { if (!ship) { c->Unknown1C = 3; '
+          'return; } c->Unknown1C = 2; c->Unknown14 = c->Client->Unknown10BC + 1000; c->Unknown0C->Unknown18 = ship->GameID; }\n')
+H_TAIL = ('static inline void Unknown_Begin(CameraController08Class *c, ClientObjectClass *ship) { '
+          'c->Unknown1C = 2; c->Unknown14 = c->Client->Unknown10BC + 1000; c->Unknown0C->Unknown18 = ship->GameID; }\n')
+H_BOOL = ('static inline bool Unknown_Begin(CameraController08Class *c, ClientObjectClass *ship) { if (!ship) { c->Unknown1C = 3; '
+          'return false; } c->Unknown1C = 2; c->Unknown14 = c->Client->Unknown10BC + 1000; c->Unknown0C->Unknown18 = ship->GameID; return true; }\n')
+
+OLD = ('\tif (target) {\n'
+       '\t\tVector3 target_pos = target->Unknown_24();\n'
+       '\t\tVector3 delta = target_pos - ship->Unknown_24();\n'
+       '\t\tfloat radius = target->Unknown_30();\n'
+       '\t\tfloat distance = CameraManagerClass::Unknown_79B6B0();\n'
+       '\t\tif (!(delta.Length2() < radius * radius + distance * distance)) {\n'
+       '\t\t\treturn;\n'
+       '\t\t}\n'
+       '\t}\n'
+       '\tif (!ship) {\n'
+       '\t\tUnknown1C = 3;\n'
+       '\t\treturn;\n'
+       '\t}\n'
+       '\tUnknown1C = 2;\n'
+       '\tUnknown14 = Client->Unknown10BC + 1000;\n'
+       '\tUnknown0C->Unknown18 = ship->GameID;\n')
+
+
+def F(helper, *lines):
+    assert len(lines) <= 16, len(lines)
+    lines = list(lines) + [''] * (16 - len(lines))
+    return [(HOST, 'static float Unknown_B051A0 = 3.0f; ' + helper.rstrip('\n') + '\t// NAME 1: neutral (D10): the offset across it\n'), (OLD, ''.join(l + '\n' for l in lines))]
+
+
+_REACH = ['\t\tVector3 target_pos = target->Unknown_24();',
+          '\t\tVector3 delta = target_pos - ship->Unknown_24();',
+          '\t\tfloat radius = target->Unknown_30();',
+          '\t\tfloat distance = CameraManagerClass::Unknown_79B6B0();']
+FORMS = {
+    'helper_full': F(H_FULL, '\tif (!target) {', '\t\tUnknown_Begin(this, ship);', '\t\treturn;', '\t}', *_REACH,
+                     '\tif (delta.Length2() < radius * radius + distance * distance) {', '\t\tUnknown_Begin(this, ship);',
+                     '\t}', '', '', ''),
+    'helper_full_if': F(H_FULL, '\tif (target) {', *_REACH,
+                        '\t\tif (delta.Length2() < radius * radius + distance * distance) {', '\t\t\tUnknown_Begin(this, ship);',
+                        '\t\t}', '\t\treturn;', '\t}', '\tUnknown_Begin(this, ship);', '', '', ''),
+    'helper_tail': F(H_TAIL, '\tif (!target) {', '\t\tif (!ship) { Unknown1C = 3; return; }', '\t\tUnknown_Begin(this, ship);',
+                     '\t\treturn;', '\t}', *_REACH,
+                     '\tif (!(delta.Length2() < radius * radius + distance * distance)) return;',
+                     '\tif (!ship) { Unknown1C = 3; return; }', '\tUnknown_Begin(this, ship);', '', ''),
+    'helper_bool': F(H_BOOL, '\tif (!target) {', '\t\tUnknown_Begin(this, ship);', '\t\treturn;', '\t}', *_REACH,
+                     '\tif (delta.Length2() < radius * radius + distance * distance) {', '\t\tUnknown_Begin(this, ship);',
+                     '\t}', '', '', ''),
+}
+##### v797570_b3.py
+# Batch 3 for 0x797570 (CM, Opus round one). Batch 2's helper_full (res 17, rows 128/115): the no-target path's
+# helper expansion is followed by `return`, so VC6 schedules the epilogue into its success tail and does not
+# cross-jump it with the other. Hypothesis: both expansions end at the function's end (if / else), so both success
+# tails fall into the one epilogue and VC6 merges them; the !ship tests stay apart (each ends in its own return).
+import runpy
+_b = runpy.run_path(r'C:/EnBDevelopment/EnB/.work/cm/v797570_b2.py')
+FILE, SYMBOL, ADDRESS, F = _b['FILE'], _b['SYMBOL'], _b['ADDRESS'], _b['F']
+H_FULL, H_TAIL, H_BOOL, R = _b['H_FULL'], _b['H_TAIL'], _b['H_BOOL'], _b['_REACH']
+IN = 'delta.Length2() < radius * radius + distance * distance'
+FORMS = {
+    'else_full': F(H_FULL, '\tif (!target) {', '\t\tUnknown_Begin(this, ship);', '\t} else {', *R,
+                   '\t\tif (' + IN + ') {', '\t\t\tUnknown_Begin(this, ship);', '\t\t}', '\t}'),
+    'else_full_inv': F(H_FULL, '\tif (target) {', *R, '\t\tif (' + IN + ') {', '\t\t\tUnknown_Begin(this, ship);', '\t\t}',
+                       '\t} else {', '\t\tUnknown_Begin(this, ship);', '\t}'),
+    'else_tail': F(H_TAIL, '\tif (!target) {', '\t\tif (!ship) { Unknown1C = 3; return; }', '\t\tUnknown_Begin(this, ship);',
+                   '\t} else {', *R, '\t\tif (!(' + IN + ')) return;', '\t\tif (!ship) { Unknown1C = 3; return; }',
+                   '\t\tUnknown_Begin(this, ship);', '\t}'),
+    'else_manual': F('\n', '\tif (!target) {', '\t\tif (!ship) { Unknown1C = 3; return; }',
+                     '\t\tUnknown1C = 2; Unknown14 = Client->Unknown10BC + 1000; Unknown0C->Unknown18 = ship->GameID;',
+                     '\t} else {', *R, '\t\tif (!(' + IN + ')) return;', '\t\tif (!ship) { Unknown1C = 3; return; }',
+                     '\t\tUnknown1C = 2; Unknown14 = Client->Unknown10BC + 1000; Unknown0C->Unknown18 = ship->GameID;', '\t}'),
+}

@@ -1,0 +1,153 @@
+##### v6E2CC0_b1.py
+# Batch 1 for 0x6E2CC0 (CM, Opus): r26, the camera move. The client copies U.Y with an integer move into
+# [esp+0x20] = frame -84 = force.Y's slot (force is a Vector3 at -88 in an earlier block), and keeps U.X on the
+# x87 (fadd st(2), popped dead). Hypothesis: a Vector3 local copy of the move (d = Unknown18) packed at force's
+# slot: d.X used from the x87, d.Y stored through eax/ecx, d.Z dead (its store eliminated).
+FILE = 'app/client/cameraeffects.cpp'
+SYMBOL = 'CameraEffectsClass::Unknown_34'
+ADDRESS = 0x6E2CC0
+
+OLD = ('\t\t\tconst Matrix3D &cur = camera->Get_Transform();\n'
+       '\t\t\tfloat x = cur.Get_X_Translation();\n'
+       '\t\t\tfloat z = cur.Get_Z_Translation();\n'
+       '\t\t\tMatrix3D tm = cur;\n'
+       '\t\t\ttm.Set_X_Translation(x + Unknown18.X);\n'
+       '\t\t\ttm.Set_Z_Translation(z);\n'
+       '\t\t\ttm.Adjust_Y_Translation(Unknown18.Y);\n')
+
+
+def F(*lines):
+    assert len(lines) == 7, len(lines)
+    return [(OLD, ''.join('\t\t\t' + l + '\n' for l in lines))]
+
+
+FORMS = {
+    'd_before_tm': F('const Matrix3D &cur = camera->Get_Transform();',
+                     'float x = cur.Get_X_Translation();',
+                     'float z = cur.Get_Z_Translation(); Vector3 d = Unknown18;',
+                     'Matrix3D tm = cur;',
+                     'tm.Set_X_Translation(x + d.X);',
+                     'tm.Set_Z_Translation(z);',
+                     'tm.Adjust_Y_Translation(d.Y);'),
+    'd_first': F('Vector3 d = Unknown18; const Matrix3D &cur = camera->Get_Transform();',
+                 'float x = cur.Get_X_Translation();',
+                 'float z = cur.Get_Z_Translation();',
+                 'Matrix3D tm = cur;',
+                 'tm.Set_X_Translation(x + d.X);',
+                 'tm.Set_Z_Translation(z);',
+                 'tm.Adjust_Y_Translation(d.Y);'),
+    'd_after_tm': F('const Matrix3D &cur = camera->Get_Transform();',
+                    'float x = cur.Get_X_Translation();',
+                    'float z = cur.Get_Z_Translation();',
+                    'Matrix3D tm = cur; Vector3 d = Unknown18;',
+                    'tm.Set_X_Translation(x + d.X);',
+                    'tm.Set_Z_Translation(z);',
+                    'tm.Adjust_Y_Translation(d.Y);'),
+    'd_ctor': F('const Matrix3D &cur = camera->Get_Transform();',
+                'float x = cur.Get_X_Translation();',
+                'float z = cur.Get_Z_Translation();',
+                'Vector3 d(Unknown18.X, Unknown18.Y, Unknown18.Z); Matrix3D tm = cur;',
+                'tm.Set_X_Translation(x + d.X);',
+                'tm.Set_Z_Translation(z);',
+                'tm.Adjust_Y_Translation(d.Y);'),
+    'd_set_trans': F('const Matrix3D &cur = camera->Get_Transform();',
+                     'float x = cur.Get_X_Translation();',
+                     'float z = cur.Get_Z_Translation(); Vector3 d = Unknown18;',
+                     'Matrix3D tm = cur;',
+                     'tm.Set_Translation(Vector3(x + d.X, tm.Get_Y_Translation() + d.Y, z));',
+                     '',
+                     ''),
+    'dy_float': F('const Matrix3D &cur = camera->Get_Transform();',
+                  'float x = cur.Get_X_Translation();',
+                  'float z = cur.Get_Z_Translation(); float dx = move[0]; float dy = move[1];',
+                  'Matrix3D tm = cur;',
+                  'tm.Set_X_Translation(x + dx);',
+                  'tm.Set_Z_Translation(z);',
+                  'tm.Adjust_Y_Translation(dy);'),
+}
+##### v6E2CC0_b2.py
+# Batch 2 for (base: batch 1, d_after_tm res 13; left: x + d.X operand order and store scheduling)
+# Batch 1 was for 0x6E2CC0 (CM, Opus): r26, the camera move. The client copies U.Y with an integer move into
+# [esp+0x20] = frame -84 = force.Y's slot (force is a Vector3 at -88 in an earlier block), and keeps U.X on the
+# x87 (fadd st(2), popped dead). Hypothesis: a Vector3 local copy of the move (d = Unknown18) packed at force's
+# slot: d.X used from the x87, d.Y stored through eax/ecx, d.Z dead (its store eliminated).
+FILE = 'app/client/cameraeffects.cpp'
+SYMBOL = 'CameraEffectsClass::Unknown_34'
+ADDRESS = 0x6E2CC0
+
+OLD = ('\t\t\tconst Matrix3D &cur = camera->Get_Transform();\n'
+       '\t\t\tfloat x = cur.Get_X_Translation();\n'
+       '\t\t\tfloat z = cur.Get_Z_Translation();\n'
+       '\t\t\tMatrix3D tm = cur;\n'
+       '\t\t\ttm.Set_X_Translation(x + Unknown18.X);\n'
+       '\t\t\ttm.Set_Z_Translation(z);\n'
+       '\t\t\ttm.Adjust_Y_Translation(Unknown18.Y);\n')
+
+
+def F(*lines):
+    assert len(lines) == 7, len(lines)
+    return [(OLD, ''.join('\t\t\t' + l + '\n' for l in lines))]
+
+
+
+def A(x_line, tm_line, set_x, set_z, adj_y, pre_x='float x = cur.Get_X_Translation();', pre_z='float z = cur.Get_Z_Translation();'):
+    return F('const Matrix3D &cur = camera->Get_Transform();', pre_x, pre_z, tm_line, set_x, set_z, adj_y)
+
+
+T = 'Matrix3D tm = cur; Vector3 d = Unknown18;'
+FORMS = {
+    'd_after_tm': A(0, T, 'tm.Set_X_Translation(x + d.X);', 'tm.Set_Z_Translation(z);', 'tm.Adjust_Y_Translation(d.Y);'),
+    'dx_first': A(0, T, 'tm.Set_X_Translation(d.X + x);', 'tm.Set_Z_Translation(z);', 'tm.Adjust_Y_Translation(d.Y);'),
+    'z_first': A(0, T, 'tm.Set_Z_Translation(z);', 'tm.Set_X_Translation(x + d.X);', 'tm.Adjust_Y_Translation(d.Y);'),
+    'y_mid': A(0, T, 'tm.Set_X_Translation(x + d.X);', 'tm.Adjust_Y_Translation(d.Y);', 'tm.Set_Z_Translation(z);'),
+    'copy_ctor': A(0, 'Matrix3D tm = cur; Vector3 d(Unknown18);', 'tm.Set_X_Translation(x + d.X);', 'tm.Set_Z_Translation(z);', 'tm.Adjust_Y_Translation(d.Y);'),
+    'adj_x': A(0, T, 'tm.Set_X_Translation(x); tm.Adjust_X_Translation(d.X);', 'tm.Set_Z_Translation(z);', 'tm.Adjust_Y_Translation(d.Y);'),
+    'y_set': A(0, T, 'tm.Set_X_Translation(x + d.X);', 'tm.Set_Z_Translation(z);', 'tm.Set_Y_Translation(tm.Get_Y_Translation() + d.Y);'),
+}
+##### v6E2CC0_b3.py
+# Batch 3 for 0x6E2CC0 (CM, Opus). Batch 2's best adj_x (res 11): the client keeps U.X on the x87 and overwrites
+# Xt with the sum (fxch st(2); fadd st(2)), ours keeps Xt and overwrites U.X: in the client d.X is the live variable
+# and Xt a temporary. Hypothesis: no named `x` local (Xt a temporary of the sum), with d = Unknown18 after the copy.
+import runpy
+_b = runpy.run_path(r'C:/EnBDevelopment/EnB/.work/cm/v6E2CC0_b2.py')
+FILE, SYMBOL, ADDRESS, F, A, T = _b['FILE'], _b['SYMBOL'], _b['ADDRESS'], _b['F'], _b['A'], _b['T']
+C = 'const Matrix3D &cur = camera->Get_Transform();'
+FORMS = {
+    'adj_x': _b['FORMS']['adj_x'],
+    'x_temp': F(C, 'float z = cur.Get_Z_Translation();', '', T,
+                'tm.Set_X_Translation(cur.Get_X_Translation() + d.X);', 'tm.Set_Z_Translation(z);', 'tm.Adjust_Y_Translation(d.Y);'),
+    'x_temp_adj': F(C, 'float z = cur.Get_Z_Translation();', '', T,
+                    'tm.Set_X_Translation(cur.Get_X_Translation()); tm.Adjust_X_Translation(d.X);', 'tm.Set_Z_Translation(z);',
+                    'tm.Adjust_Y_Translation(d.Y);'),
+    'x_sum_local': F(C, 'float z = cur.Get_Z_Translation();', '', T,
+                     'float x = cur.Get_X_Translation() + d.X; tm.Set_X_Translation(x);', 'tm.Set_Z_Translation(z);',
+                     'tm.Adjust_Y_Translation(d.Y);'),
+    'x_first_temp': F(C, 'float x = cur.Get_X_Translation();', 'float z = cur.Get_Z_Translation();', T,
+                      'tm.Set_X_Translation(x); tm.Adjust_X_Translation(d.X); x = 0;', 'tm.Set_Z_Translation(z);',
+                      'tm.Adjust_Y_Translation(d.Y);'),
+}
+##### v6E2CC0_b4.py
+# Batch 4 for 0x6E2CC0 (CM, Opus). Best so far adj_x (res 11): left the x87 order (the client keeps U.X alive past
+# the U.Y copy and pops it after: d.X's lifetime runs past d.Y's copy). Hypotheses: d's copy placed before the
+# loads / between them; d.X read late (after d.Y) through Adjust order; the move through `move` (the float * the
+# wrap loops use).
+import runpy
+_b = runpy.run_path(r'C:/EnBDevelopment/EnB/.work/cm/v6E2CC0_b2.py')
+FILE, SYMBOL, ADDRESS, F, T = _b['FILE'], _b['SYMBOL'], _b['ADDRESS'], _b['F'], _b['T']
+C = 'const Matrix3D &cur = camera->Get_Transform();'
+X = 'float x = cur.Get_X_Translation();'
+Z = 'float z = cur.Get_Z_Translation();'
+AX = 'tm.Set_X_Translation(x); tm.Adjust_X_Translation(d.X);'
+FORMS = {
+    'adj_x': _b['FORMS']['adj_x'],
+    'd_mid': F(C, X + ' Vector3 d = Unknown18;', Z, 'Matrix3D tm = cur;', AX, 'tm.Set_Z_Translation(z);',
+               'tm.Adjust_Y_Translation(d.Y);'),
+    'd_ptr': F(C, X, Z, 'Matrix3D tm = cur; Vector3 d = *(Vector3 *)move;', AX, 'tm.Set_Z_Translation(z);',
+               'tm.Adjust_Y_Translation(d.Y);'),
+    'y_then_x': F(C, X, Z, T, 'tm.Set_X_Translation(x);', 'tm.Set_Z_Translation(z);',
+                  'tm.Adjust_Y_Translation(d.Y); tm.Adjust_X_Translation(d.X);'),
+    'cur_d': F('Vector3 d = Unknown18;', C, X, Z + ' Matrix3D tm = cur;', AX, 'tm.Set_Z_Translation(z);',
+               'tm.Adjust_Y_Translation(d.Y);'),
+    'z_cur_late': F(C, X, 'Matrix3D tm = cur; Vector3 d = Unknown18;', AX, 'tm.Set_Z_Translation(cur.Get_Z_Translation());',
+                    'tm.Adjust_Y_Translation(d.Y);', ''),
+}
