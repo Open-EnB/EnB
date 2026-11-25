@@ -1,12 +1,9 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "RecordTableClass (D24; Records from the asserts), client 0x4A9A70-0x4A9C1A: ctor (line 512, D25), dtor, Unknown_Sum, Unknown_All; the decoders (M1.2): RecordCodecClass::Decode 0x4A8FD0 (vtable 0xAEB29C), TreeCodecClass (vtables 0xAEB2AC, 0xAEB2A0): Decode 0x4A9350, Visit 0x4A9390 / 0x4A9400 (line 401), Read_Header 0x4A9710, its holder 0x4A99E0, Get_Tree_Codec 0x4A9B80; the encoder side: the record-form writer 0x4A91E0, Add 0x4A9C30 (lines 568-597, not exact), the records 0x4AA110-0x4AA320 (line 660) and their pools (mempool.h), DeltaListClass 0x4AA710 / 0x4AA750 (not exact); the update collector DeltaCollectorClass (vtable 0xAEB290; M1.3): ctor 0x4A8AF0, dtor 0x4A8B40, Visit 0x4A8CA0 / 0x4A8E60 (lines 103, 164, 169; functional, NOT EXACT)",
  "expected": {},
  "in_tree": [
-  "0x42B320",
   "0x42FCF0",
   "0x4A8A10",
   "0x4A8A40",
@@ -56,13 +53,11 @@
  "merged": [],
  "name": "shared/auxdata/encode.cpp",
  "shared": [
-  "0x42B320",
   "0x42FCF0",
   "0x4AA0D0",
   "0x4AA1F0"
  ],
  "short_known": [
-  "0x42B320",
   "0x42FCF0",
   "0x4AA0D0",
   "0x4AA1F0"

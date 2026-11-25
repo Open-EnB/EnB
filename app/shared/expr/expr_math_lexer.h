@@ -45,13 +45,6 @@ public:
 	virtual void Reset() = 0;						// +0x18  // NAME 3 [Reset]: back to the source's start
 };
 
-// A matcher: how many characters at text form one token of its kind (0: none). 4 bytes, vtable 0xAEBB30
-// (destructor 0x4C5730, Match pure).
-class ExprLexerMatchClass	// NAME 3 [ExprLexerMatchClass]: from expr_lexer_match_list.cpp
-{
-public:
-	virtual ~ExprLexerMatchClass() {}
-	virtual int Match(const char *text) = 0;		// +4  // NAME 3 [Match]
-};
+#include "expr_lexer_match.h"	// ExprLexerMatchClass
 
 #endif

@@ -7,7 +7,7 @@
 #ifndef __KV_ACC_TIME_H	// NAME 3 [kv_acc_time.h]: PROVISIONAL
 #define __KV_ACC_TIME_H
 
-#include "kv_pair.h"
+#include "kv_accessor.h"
 
 // A tick count (milliseconds of Unknown_Get_Ticks) as wall-clock seconds (vtable 0xAEB39C, 0xC bytes)
 class KVTickSecondsAccessorClass : public KVAccessorClass<unsigned int>	// NAME 2: what it does

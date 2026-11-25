@@ -45,16 +45,7 @@ public:
 	bool Get_Unknown09() const { return Unknown09; }	// NAME 1: neutral (D10)
 };
 
-// A typed value reached through the pair (the float field's interface: vtable 0xAE78D0, the destructor
-// and three pure slots). The header the client has these in is not known.
-template<class T> class KVAccessorClass  // NAME 2: after the assert's parameter accessor (kv_pair.cpp); the class name describes it
-{
-public:
-	virtual ~KVAccessorClass() {}
-	virtual const T &Get() = 0;  // NAME 2: describes what it does
-	virtual void Set(const T &value) = 0;  // NAME 2: describes what it does
-	virtual KVAccessorClass<T> *Clone() const = 0;  // NAME 2: describes what it does
-};
+#include "kv_accessor.h"	// KVAccessorClass<T>
 
 // A pair holding a typed accessor and the value it had when the pair was made (float: vtable
 // 0xAE7860, size 0x14; the constructor is inline)

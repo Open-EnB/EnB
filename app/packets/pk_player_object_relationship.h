@@ -20,26 +20,7 @@
 #include "pk.h"
 #include <vector>
 
-// A mob's reaction to the player (app\Common\faction_and_reputation.cpp's FAIL_IFs: 'reaction < 0',
-// 'reaction >= MOB_REACTION_COUNT'); only the count is known
-enum MobReactionType  // NAME 2: what it holds, after the client's MOB_REACTION_COUNT
-{
-	MOB_REACTION_COUNT = 4
-};
-
-// faction_and_reputation.cpp 0x835890 (not rebuilt): the reaction's name ('BadReaction' out of range)
-char *Value_To_String(char *buf, int size, MobReactionType reaction);  // NAME 2: as strconv_lib.h's pairs
-
-// The relationship a RELATIONSHIP packet carries: 8 bytes, copied whole (its constructor
-// 0x848C80 is out of line, Reaction 1 and IsAttacking false)
-class RelationshipClass  // NAME 2: what it holds (the packet's Print names both members)
-{
-public:
-	RelationshipClass();	// 0x848C80 (pal_mgr.cpp by position, D137)
-
-	MobReactionType Reaction;	// +0x00  // NAME 3: the client's Print text 'Reaction='
-	bool IsAttacking;	// +0x04  // NAME 3: the client's Print text 'IsAttacking='
-};
+#include "relationship.h"	// MobReactionType, RelationshipClass
 
 // opcode 137 (0x0089, RELATIONSHIP): vtable 0xB09B14, constructor 0x873C30, 0x20 bytes
 class PlayerObjectRelationshipPacket : public PacketClass

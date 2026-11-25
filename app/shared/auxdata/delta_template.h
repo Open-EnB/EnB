@@ -18,7 +18,7 @@
 
 #ifndef __DELTA_TEMPLATE_H
 #define __DELTA_TEMPLATE_H
-
+#include "..\kv_encoder.h"	// KVEncoderClass for Unknown_00's body (it includes delta.h first; line count kept: the asserts' __LINE__)
 #include "delta.h"
 #include "..\duration.h"
 #include "linearbu.h"

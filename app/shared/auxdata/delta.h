@@ -21,7 +21,6 @@
 
 #include <vector>
 #include "name.h"
-#include "..\kv_encoder_base.h"
 
 class LinearBufferClass;
 class DurationClass;
@@ -31,6 +30,7 @@ class DeltaInterfaceClass;
 class Vector3;
 class DeltaCompoundClass;
 class LookupClass;
+class KVEncoderClass;
 
 // Double dispatch (DeltaClass::Accept 0x4A4FE0 calls slot 0, DeltaCompoundClass::Accept 0x4A5650
 // slot 1). VC6 lays out overloaded virtuals in reverse declaration order, so this order gives
@@ -46,31 +46,9 @@ public:
 	void Visit_Children(DeltaCompoundClass *delta);  // NAME 2: describes what it does
 };
 
-// The argument of DeltaClass's slot 0, an encoder (the leaves call KVEncoderBaseClass's members on
-// it). DeltaCompoundClass::Unknown_00 (0x4A55D0) calls its slot 1 once per child: a slot the
-// encoder base's vtable (0xAEB62C, the destructor only) doesn't have, so the encoders the fields
-// are given derive from it.
-// The login objects hand it their own children and colours too (D104: slots +0x04-+0x10).
-class KVEncoderClass : public KVEncoderBaseClass  // NAME 2: kv_encoder_base.cpp's base's encoder, in kv_encoder.cpp (D206)
-{
-public:
-	KVEncoderClass(KVListClass &list, int flags, const char *prefix);	// 0x4B1790 (kv_encoder.cpp; vtable 0xAEB460)
-	virtual void Add_Child(int mask, const char *name, DeltaInterfaceClass *child);	// +0x04 0x4B1820 a key/value object under the name  // NAME 2: what it does
-	// the typed adds, pure here (_purecall in 0xAEB460); KVFilterEncoderClass (kv_encoder.h; vtable 0xAEB6B8) has
-	// their bodies 0x4B18C0-0x4B1950 (D206). shipcust_desc.cpp's colours go through +0x10.
-	virtual void Add_Accel(int mask, const char *name, AccelClass *value) = 0;			// +0x08  // NAME 2: what it does
-	virtual void Add_Matrix3D(int mask, const char *name, Matrix3D *value) = 0;		// +0x0C  // NAME 2: what it does
-	virtual void Add_Vector3(int mask, const char *name, Vector3 *value) = 0;			// +0x10  // NAME 2: what it does
-	virtual void Add_Matrix3D_Frame(int mask, const char *name, Matrix3D *value) = 0;	// +0x14  // NAME 2: what it does
-	virtual void Add_Vector3_Frame(int mask, const char *name, Vector3 *value) = 0;	// +0x18  // NAME 2: what it does
-
-	// the typed adds of kv_encoder.cpp that hold no slot (no caller found): one float pair per element
-	void Add_Vector3_Elements(int mask, const char *name, Vector3 *value);			// 0x4B1CC0  // NAME 2: what it does
-	void Add_Matrix3D_Elements(int mask, const char *name, Matrix3D *value);		// 0x4B1D40  // NAME 2: what it does
-	void Add_Accel_Elements(int mask, const char *name, AccelClass *value);			// 0x4B1DC0  // NAME 2: what it does
-	void Add_Vector3_Elements_Frame(int mask, const char *name, Vector3 *value);	// 0x4B1E60  // NAME 2: what it does
-	void Add_Matrix3D_Elements_Frame(int mask, const char *name, Matrix3D *value);	// 0x4B2210  // NAME 2: what it does
-};
+// KVEncoderClass, the argument of DeltaClass's slot 0, is kv_encoder.h's: this header does not reach <string>
+// (the client's objects of unknown_root, encode, unknown_changes, lookup, policy and delta_visitor have no
+// ctype<unsigned short> initialiser).
 
 // The base DeltaClass's constructor stores first (vtable 0xAEADC8: one slot, _purecall).
 #include "unknown_aeadc8.h"	// DeltaInterfaceClass

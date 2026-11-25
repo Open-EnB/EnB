@@ -1,12 +1,9 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "client 0x848130-0x848C61 (__FILE__ 0xBB0540 e:\\build\\beta\\G\\app\\Common\\pal_mgr.cpp; asserts on lines 68-70, 74, 130-132, 139-141): palette loader and sampler for palette_public.ini and palette_secret.ini",
  "expected": {},
  "in_tree": [
-  "0x42B320",
   "0x848130",
   "0x8481C0",
   "0x848250",
@@ -24,11 +21,9 @@
  "merged": [],
  "name": "common/pal_mgr.cpp",
  "shared": [
-  "0x42B320",
   "0x848BB0"
  ],
  "short_known": [
-  "0x42B320",
   "0x848BB0"
  ]
 }

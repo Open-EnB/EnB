@@ -143,7 +143,7 @@ void Unknown_848A10(int palette, float u, float v, float *rgb)
 }
 
 // 0x848C80: the next object's only function, here by position (D137, provisional)
-#include "..\packets\pk_player_object_relationship.h"
+#include "..\packets\relationship.h"
 RelationshipClass::RelationshipClass() : Reaction((MobReactionType) 1), IsAttacking(false)
 {
 }

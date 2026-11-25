@@ -13,7 +13,7 @@
 #ifndef __EXPR_LEXER_MATCHERS_H	// NAME 3 [expr_lexer_matchers.h]: interim header, no client name
 #define __EXPR_LEXER_MATCHERS_H
 
-#include "expr_math_lexer.h"
+#include "expr_lexer_match.h"
 
 // Digits; with flag 2 one decimal point among them. 8 bytes, vtable 0xAEBB24.
 class ExprLexerNumberMatchClass : public ExprLexerMatchClass	// NAME 3 [ExprLexerNumberMatchClass]: lexer type 2

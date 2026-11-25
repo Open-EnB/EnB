@@ -1,5 +1,5 @@
 // Earth & Beyond client (reconstruction): app\shared\auxdata\delta.cpp. Notes at the end of the file.
-#include "delta.h"
+#include "..\kv_encoder.h"	// delta.h and KVEncoderClass
 #include "lookup.h"
 #include "..\g_assert.h"
 int DeltaUnknownGlobal = DeltaUnknownCounter++; int DeltaCompoundClass::UnknownGlobal = DeltaUnknownCounter++;

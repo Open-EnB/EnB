@@ -8,7 +8,7 @@
 #define UNKNOWN_PACKETDATA_BODIES	// kv_encoder_base.h's typed adds (D104)
 #include "avatar_desc.h"
 #include "auxdata\linearbu.h"
-#include "kv_encoder_base.h"
+#include "kv_encoder.h"
 #include <stdio.h>
 #include <string.h>
 #include "g_assert.h"
