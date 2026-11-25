@@ -1,7 +1,7 @@
 // Earth & Beyond client (reconstruction): app\client\drag_mouse.cpp, a drag of the software mouse (the client's file per
 // its asserts, 'e:\build\beta\G\app\Client\drag_mouse.cpp' at 0xB8FC14). Notes at the end of the file.
 #include "drag_mouse.h"
-#include "tasks\tsk_login.h"
+#include "smouse.h"
 #include "..\shared\g_assert.h"
 
 
