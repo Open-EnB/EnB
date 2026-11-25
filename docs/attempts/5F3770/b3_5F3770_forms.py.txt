@@ -1,0 +1,402 @@
+# ===== v1_5F3770.py
+HYPOTHESIS = ('B3 b1: depth hypothesis for the 0x6092D0 cut (client: sites 1-6 and 8 out of line, 7 inline; ours 1-4): '
+              'a one-line file-static layer above 0x5F2F90 at case 0xC sites 5/6/8 makes their nested pair ctor one '
+              'level deeper (VC6 cuts deepest first); controls: layer at 7, at 5-8, the followers behind layers, the '
+              'country block in the client order (Unknown64 first)')
+FILE = 'app/client/ui_registration.cpp'
+SYMBOL = 'RegistrationInterface::Unknown_5F3770'
+ADDRESS = 0x5F3770
+
+_SRC = open(FILE, encoding='utf-8', newline='').read()
+_LINES = _SRC.split('\n')
+_A, _B = 1250, 1816  # helper blank lines .. end of 0x5F3770
+
+
+def _form(edits):
+    new = list(_LINES)
+    for n, t in edits.items():
+        new[n - 1] = t
+    return [('\n'.join(_LINES[_A - 1:_B]), '\n'.join(new[_A - 1:_B]))]
+
+
+assert _LINES[1264] == '' and _LINES[1263] == '' and _LINES[1262] == ''
+assert _LINES[1486].strip() == 'Unknown_5F2F90(0x19, "COMBO_COUNTRY", 0x2C, 7);'
+assert _LINES[1499].strip() == 'Unknown_5F2F90(0x22, "COMBO_CARDTYPE", 0x13, 4);'
+assert _LINES[1514].strip() == 'Unknown_5F2F90(0x14, "COMBO_MONTH", 4, 5);'
+assert _LINES[1517].strip() == 'Unknown_5F2F90(0x16, "COMBO_YEAR", 5, 5);'
+assert _LINES[1487].strip() == 'Unknown_5F9700();'
+assert _LINES[1500].strip() == 'Unknown_5F9A90();'
+assert _LINES[1518].strip().startswith('Unknown_5F98C0(')
+
+T4 = '\t\t\t\t'
+T5 = '\t\t\t\t\t'
+HELPER = ('static void Combo_Layer(RegistrationInterface *self, int id, const char *name, int a, int b) '
+          '{ self->Unknown_5F2F90(id, name, a, b); }')
+S5 = T4 + 'Combo_Layer(this, 0x19, "COMBO_COUNTRY", 0x2C, 7);'
+S6 = T4 + 'Combo_Layer(this, 0x22, "COMBO_CARDTYPE", 0x13, 4);'
+S7 = T4 + 'Combo_Layer(this, 0x14, "COMBO_MONTH", 4, 5);'
+S8 = T4 + 'Combo_Layer(this, 0x16, "COMBO_YEAR", 5, 5);'
+
+CTY = {
+    1489: T4 + 'if (!Unknown478.Unknown64.empty()) {',
+    1490: T5 + 'Unknown108[0x19].Combo->Select_Text(Unknown478.Unknown64.c_str());',
+    1491: T5 + 'Unknown108[0x19].Combo->Enable(0);',
+    1492: T4 + '} else if (Unknown3C4.Unknown80.size() != 0) {',
+    1493: T5 + 'Unknown108[0x19].Combo->Select_Text(Unknown3C4.Unknown80.c_str());',
+    1494: T5 + 'Unknown108[0x19].Combo->Enable(0);',
+    1495: T4 + '} else {',
+    1496: T5 + 'Unknown108[0x19].Combo->Select_Text(UnknownA4);',
+    1497: T4 + '}',
+    1498: '',
+    1499: '',
+}
+
+FOLLOW = {
+    1263: 'static void Follow_5F9700(RegistrationInterface *self) { self->Unknown_5F9700(); }',
+    1264: 'static void Follow_5F9A90(RegistrationInterface *self) { self->Unknown_5F9A90(); }',
+    1265: 'static void Follow_5F98C0(RegistrationInterface *self, int from, int to) { self->Unknown_5F98C0(from, to); }',
+    1488: T4 + 'Follow_5F9700(this);',
+    1501: T4 + 'Follow_5F9A90(this);',
+    1519: T4 + 'Follow_5F98C0(this, Unknown124.tm_year + 1900, Unknown124.tm_year + 1910);',
+}
+
+
+def _merge(*ds):
+    out = {}
+    for d in ds:
+        out.update(d)
+    return out
+
+
+L568 = {1262: HELPER, 1487: S5, 1500: S6, 1518: S8}
+L7 = {1262: HELPER, 1515: S7}
+L5678 = {1262: HELPER, 1487: S5, 1500: S6, 1515: S7, 1518: S8}
+
+FORMS = {
+    'cty': _form(CTY),
+    'L568': _form(L568),
+    'L7': _form(L7),
+    'L5678': _form(L5678),
+    'L568cty': _form(_merge(L568, CTY)),
+    'Lf': _form(FOLLOW),
+    'L568f': _form(_merge(L568, FOLLOW)),
+    'L568fcty': _form(_merge(L568, FOLLOW, CTY)),
+}
+# ===== v2_5F3770.py
+HYPOTHESIS = ('B3 b2: the cut comes in whole cases (1-4 / 1-8 / 1-12 in every earlier form), so the unit may be the '
+              'block: case 0xC block structure variants (the search loop block removed, MONTH in its own block, '
+              'sites 5-6 / 7-8 in two blocks, buffer declared in the YEAR block), with and without the client-order '
+              'country block')
+FILE = 'app/client/ui_registration.cpp'
+SYMBOL = 'RegistrationInterface::Unknown_5F3770'
+ADDRESS = 0x5F3770
+
+_SRC = open(FILE, encoding='utf-8', newline='').read()
+_LINES = _SRC.split('\n')
+_A, _B = 1250, 1816
+
+
+def _form(edits):
+    new = list(_LINES)
+    for n, t in edits.items():
+        new[n - 1] = t
+    return [('\n'.join(_LINES[_A - 1:_B]), '\n'.join(new[_A - 1:_B]))]
+
+
+def L(n):
+    return _LINES[n - 1]
+
+
+T3 = '\t\t\t'
+T4 = '\t\t\t\t'
+T5 = '\t\t\t\t\t'
+assert L(1476).strip() == '{' and L(1477).strip() == 'char buffer[6];'
+assert L(1503).strip() == '{' and L(1514).strip() == '}'
+assert L(1515).strip() == 'Unknown_5F2F90(0x14, "COMBO_MONTH", 4, 5);'
+assert L(1518).strip() == 'Unknown_5F2F90(0x16, "COMBO_YEAR", 5, 5);'
+assert L(1525).strip() == '}'
+
+CTY = {
+    1489: T4 + 'if (!Unknown478.Unknown64.empty()) {',
+    1490: T5 + 'Unknown108[0x19].Combo->Select_Text(Unknown478.Unknown64.c_str());',
+    1491: T5 + 'Unknown108[0x19].Combo->Enable(0);',
+    1492: T4 + '} else if (Unknown3C4.Unknown80.size() != 0) {',
+    1493: T5 + 'Unknown108[0x19].Combo->Select_Text(Unknown3C4.Unknown80.c_str());',
+    1494: T5 + 'Unknown108[0x19].Combo->Enable(0);',
+    1495: T4 + '} else {',
+    1496: T5 + 'Unknown108[0x19].Combo->Select_Text(UnknownA4);',
+    1497: T4 + '}',
+    1498: '',
+    1499: '',
+}
+
+
+def _merge(*ds):
+    out = {}
+    for d in ds:
+        out.update(d)
+    return out
+
+
+# the search loop's block removed: entry / last declared at the case level
+NOBLK = {1503: '', 1514: ''}
+# MONTH (site 7) with its Add_Items / Select in a block of its own
+M7BLK = {1515: T4 + '{ ' + L(1515).strip(), 1517: L(1517) + ' }'}
+# YEAR (site 8) and its follower / select in a block of its own, buffer declared there
+Y8BLK = {1477: '', 1518: T4 + '{ char buffer[6]; ' + L(1518).strip(), 1525: L(1525) + ' }'}
+# sites 5-6 in one block, 7-8 in another
+B56 = {1487: T4 + '{ ' + L(1487).strip(), 1514: L(1514) + ' }'}
+B78 = {1515: T4 + '{ ' + L(1515).strip(), 1525: L(1525) + ' }'}
+
+FORMS = {
+    'noblk': _form(NOBLK),
+    'm7blk': _form(M7BLK),
+    'y8blk': _form(Y8BLK),
+    'b56': _form(B56),
+    'b78': _form(B78),
+    'b56b78': _form(_merge(B56, B78)),
+    'noblk_cty': _form(_merge(NOBLK, CTY)),
+    'm7blk_cty': _form(_merge(M7BLK, CTY)),
+}
+# ===== v3_5F3770.py
+HYPOTHESIS = ('B3 b3: b2 found buffer[6] scoped to case 0xC\'s YEAR block gives the client frame 0x7C (raw 1074 -> 682, '
+              'res 422): the same narrowing in cases 10 / 0xD (buffer inside the YEAR if), buffer inside the if branch, '
+              'with the client-order country block')
+FILE = 'app/client/ui_registration.cpp'
+SYMBOL = 'RegistrationInterface::Unknown_5F3770'
+ADDRESS = 0x5F3770
+
+_SRC = open(FILE, encoding='utf-8', newline='').read()
+_LINES = _SRC.split('\n')
+_A, _B = 1250, 1816
+
+
+def _form(edits):
+    new = list(_LINES)
+    for n, t in edits.items():
+        new[n - 1] = t
+    return [('\n'.join(_LINES[_A - 1:_B]), '\n'.join(new[_A - 1:_B]))]
+
+
+def L(n):
+    return _LINES[n - 1]
+
+
+T3 = '\t\t\t'
+T4 = '\t\t\t\t'
+T5 = '\t\t\t\t\t'
+assert L(1477).strip() == 'char buffer[6];'
+assert L(1518).strip() == 'Unknown_5F2F90(0x16, "COMBO_YEAR", 5, 5);'
+assert L(1520).strip() == 'if (Unknown478.UnknownEC > 0) {'
+assert L(1525).strip() == '}'
+assert L(1387).strip().startswith('char buffer[6]; Unknown_5F2D30(0x13,')
+assert L(1389).strip() == 'if (Unknown3C4.Unknown7E > 0) {'
+assert L(1676).strip() == 'char buffer[6];'
+assert L(1721).strip() == 'Unknown_5F2F90(0x16, "COMBO_YEAR", 5, 5);'
+assert L(1723).strip() == 'if (Unknown478.UnknownEC > 0) {'
+assert L(1728).strip() == '}'
+
+CTY = {
+    1489: T4 + 'if (!Unknown478.Unknown64.empty()) {',
+    1490: T5 + 'Unknown108[0x19].Combo->Select_Text(Unknown478.Unknown64.c_str());',
+    1491: T5 + 'Unknown108[0x19].Combo->Enable(0);',
+    1492: T4 + '} else if (Unknown3C4.Unknown80.size() != 0) {',
+    1493: T5 + 'Unknown108[0x19].Combo->Select_Text(Unknown3C4.Unknown80.c_str());',
+    1494: T5 + 'Unknown108[0x19].Combo->Enable(0);',
+    1495: T4 + '} else {',
+    1496: T5 + 'Unknown108[0x19].Combo->Select_Text(UnknownA4);',
+    1497: T4 + '}',
+    1498: '',
+    1499: '',
+}
+
+
+def _merge(*ds):
+    out = {}
+    for d in ds:
+        out.update(d)
+    return out
+
+
+Y8 = {1477: '', 1518: T4 + '{ char buffer[6]; ' + L(1518).strip(), 1525: L(1525) + ' }'}
+# buffer inside the if branch of case 0xC's YEAR select
+Y8IF = {1477: '', 1520: L(1520) + ' char buffer[6];'}
+# case 10: buffer inside the YEAR if branch
+C10IF = {1387: T4 + L(1387).strip()[len('char buffer[6]; '):], 1389: L(1389) + ' char buffer[6];'}
+# case 10: buffer in a block from the YEAR site to the end of its select
+C10BLK = {1387: T4 + L(1387).strip()[len('char buffer[6]; '):],
+          1388: T4 + '{ char buffer[6]; ' + L(1388).strip(), 1393: L(1393) + ' }'}
+# case 0xD: the same two forms
+D12IF = {1676: '', 1723: L(1723) + ' char buffer[6];'}
+D12BLK = {1676: '', 1721: T4 + '{ char buffer[6]; ' + L(1721).strip(), 1728: L(1728) + ' }'}
+
+assert L(1393).strip() == '}'
+
+FORMS = {
+    'y8': _form(Y8),
+    'y8if': _form(Y8IF),
+    'y8_c10if': _form(_merge(Y8, C10IF)),
+    'y8_c10blk': _form(_merge(Y8, C10BLK)),
+    'y8_d12if': _form(_merge(Y8, D12IF)),
+    'y8_d12blk': _form(_merge(Y8, D12BLK)),
+    'y8_c10blk_d12blk': _form(_merge(Y8, C10BLK, D12BLK)),
+    'y8_cty': _form(_merge(Y8, CTY)),
+    'y8if_c10if_d12if': _form(_merge(Y8IF, C10IF, D12IF)),
+}
+# ===== v4_5F3770.py
+HYPOTHESIS = ('B3 b4 (new base: frame 0x7C): the card-type search loop in cases 0xC / 0xD: ours threads the loop exit past '
+              'the `if (entry != last)` test (an extra jmp, r208 / r282), the client falls into the compare: the test on '
+              'end() re-read, a while loop, the loop in a file-static find helper (return value through an inline '
+              'boundary, the key by reference so it is re-read each pass as the client does); the client-order country '
+              'block again at the client frame')
+FILE = 'app/client/ui_registration.cpp'
+SYMBOL = 'RegistrationInterface::Unknown_5F3770'
+ADDRESS = 0x5F3770
+
+_SRC = open(FILE, encoding='utf-8', newline='').read()
+_LINES = _SRC.split('\n')
+_A, _B = 1250, 1816
+
+
+def _form(edits):
+    new = list(_LINES)
+    for n, t in edits.items():
+        new[n - 1] = t
+    return [('\n'.join(_LINES[_A - 1:_B]), '\n'.join(new[_A - 1:_B]))]
+
+
+def L(n):
+    return _LINES[n - 1]
+
+
+T4 = '\t\t\t\t'
+T5 = '\t\t\t\t\t'
+T6 = '\t\t\t\t\t\t'
+for s in (1503, 1706):
+    assert L(s + 3).strip() == 'for (; entry != last; entry++) {', s
+    assert L(s + 8).strip() == 'if (entry != last) {', s
+
+CTY = {
+    1489: T4 + 'if (!Unknown478.Unknown64.empty()) {',
+    1490: T5 + 'Unknown108[0x19].Combo->Select_Text(Unknown478.Unknown64.c_str());',
+    1491: T5 + 'Unknown108[0x19].Combo->Enable(0);',
+    1492: T4 + '} else if (Unknown3C4.Unknown80.size() != 0) {',
+    1493: T5 + 'Unknown108[0x19].Combo->Select_Text(Unknown3C4.Unknown80.c_str());',
+    1494: T5 + 'Unknown108[0x19].Combo->Enable(0);',
+    1495: T4 + '} else {',
+    1496: T5 + 'Unknown108[0x19].Combo->Select_Text(UnknownA4);',
+    1497: T4 + '}',
+    1498: '',
+    1499: '',
+}
+
+
+def _merge(*ds):
+    out = {}
+    for d in ds:
+        out.update(d)
+    return out
+
+
+def tj_end(s):
+    return {s + 8: T5 + 'if (entry != Unknown5A8.end()) {'}
+
+
+def tj_while(s):
+    return {s + 3: T5 + 'while (entry != last) {',
+            s + 5: T6 + 'break;',
+            s + 6: T5 + '} entry++;',
+            s + 7: T5 + '}'}
+
+
+HELPER = ('static std::vector<RegistrationUnknown5A8Struct>::iterator Find_5A8(std::vector<RegistrationUnknown5A8Struct>::iterator entry, '
+          'std::vector<RegistrationUnknown5A8Struct>::iterator last, const int &key) { for (; entry != last; entry++) { '
+          'if ((*entry).Unknown00 == key) { break; } } return entry; }')
+
+
+def tj_find(s):
+    return {s + 1: T5 + 'std::vector<RegistrationUnknown5A8Struct>::iterator last = Unknown5A8.end();',
+            s + 2: T5 + 'std::vector<RegistrationUnknown5A8Struct>::iterator entry = Find_5A8(Unknown5A8.begin(), last, Unknown478.Unknown94.Unknown00);',
+            s + 3: '', s + 4: '', s + 5: '', s + 6: '', s + 7: ''}
+
+
+assert L(1265) == ''
+FIND = {1265: HELPER}
+
+FORMS = {
+    'cty': _form(CTY),
+    'tj_end': _form(_merge(tj_end(1503), tj_end(1706))),
+    'tj_while': _form(_merge(tj_while(1503), tj_while(1706))),
+    'tj_find': _form(_merge(FIND, tj_find(1503), tj_find(1706))),
+    'tj_end_C': _form(tj_end(1503)),
+    'tj_find_C': _form(_merge(FIND, tj_find(1503))),
+    'cty_tj_end': _form(_merge(CTY, tj_end(1503), tj_end(1706))),
+}
+# ===== v5_5F3770.py
+HYPOTHESIS = ('B3 b5: b4 found `if (entry != Unknown5A8.end())` (cases 0xC / 0xD) gives the client\'s loop exit (no '
+              'threaded jmp: r208 / r282 exact rows) but its two end() reads spend budget that sends a later '
+              'RefCountPtr Peek out of line (+17); trade them against the dead-read devices the file holds for this '
+              'function (5F9A90\'s Unknown5A8.size(), 5F9460\'s years->Items.size()), with --file-check')
+FILE = 'app/client/ui_registration.cpp'
+SYMBOL = 'RegistrationInterface::Unknown_5F3770'
+ADDRESS = 0x5F3770
+
+_SRC = open(FILE, encoding='utf-8', newline='').read()
+_LINES = _SRC.split('\n')
+_A, _B = 1250, 2130
+
+
+def _form(edits):
+    new = list(_LINES)
+    for n, t in edits.items():
+        new[n - 1] = t
+    return [('\n'.join(_LINES[_A - 1:_B]), '\n'.join(new[_A - 1:_B]))]
+
+
+def L(n):
+    return _LINES[n - 1]
+
+
+T4 = '\t\t\t\t'
+T5 = '\t\t\t\t\t'
+for s in (1503, 1706):
+    assert L(s + 8).strip() == 'if (entry != last) {', s
+assert L(2123).startswith('\tUnknown5A8.size(); for (')
+assert L(2088).startswith('\tint year = Selected_Year(years); years->Items.size();')
+
+CTY = {
+    1489: T4 + 'if (!Unknown478.Unknown64.empty()) {',
+    1490: T5 + 'Unknown108[0x19].Combo->Select_Text(Unknown478.Unknown64.c_str());',
+    1491: T5 + 'Unknown108[0x19].Combo->Enable(0);',
+    1492: T4 + '} else if (Unknown3C4.Unknown80.size() != 0) {',
+    1493: T5 + 'Unknown108[0x19].Combo->Select_Text(Unknown3C4.Unknown80.c_str());',
+    1494: T5 + 'Unknown108[0x19].Combo->Enable(0);',
+    1495: T4 + '} else {',
+    1496: T5 + 'Unknown108[0x19].Combo->Select_Text(UnknownA4);',
+    1497: T4 + '}',
+    1498: '',
+    1499: '',
+}
+
+
+def _merge(*ds):
+    out = {}
+    for d in ds:
+        out.update(d)
+    return out
+
+
+TJ = {1511: T5 + 'if (entry != Unknown5A8.end()) {', 1714: T5 + 'if (entry != Unknown5A8.end()) {'}
+NO5A8 = {2123: L(2123).replace('Unknown5A8.size(); ', '', 1)}
+NOYRS = {2088: L(2088).replace(' years->Items.size();', '', 1)}
+
+FORMS = {
+    'tj': _form(TJ),
+    'tj_no5a8': _form(_merge(TJ, NO5A8)),
+    'tj_noyrs': _form(_merge(TJ, NOYRS)),
+    'tj_no5a8_noyrs': _form(_merge(TJ, NO5A8, NOYRS)),
+    'no5a8': _form(NO5A8),
+    'noyrs': _form(NOYRS),
+    'tj_cty_no5a8': _form(_merge(TJ, CTY, NO5A8)),
+    'tj_cty_no5a8_noyrs': _form(_merge(TJ, CTY, NO5A8, NOYRS)),
+}
