@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1970 |
 | 2 | describes what the code does | 5014 |
-| 1 | neutral placeholder | 25182 |
+| 1 | neutral placeholder | 25183 |
 
 ## For review (score 3 and below)
 
@@ -1707,8 +1707,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_8B44E0` | `app/client/chatgadg.cpp:624` | untagged neutral name (D10) |
 | 1 | `Unknown_28` | `app/client/chatgadg.cpp:661` | untagged neutral name (D10) |
 | 1 | `Unknown_5C` | `app/client/chatgadg.cpp:676` | untagged neutral name (D10) |
-| 1 | `Unknown_Find_Field` | `app/client/chatgadg.cpp:681` | untagged neutral name (D10) |
-| 1 | `Unknown70` | `app/client/chatgadg.cpp:682` | untagged neutral name (D10) |
+| 1 | `Unknown_Find_Set_Field` | `app/client/chatgadg.cpp:681` | untagged neutral name (D10) |
 | 1 | `Unknown_65E7C0` | `app/client/chatgadg.cpp:703` | untagged neutral name (D10) |
 | 1 | `Unknown_6F5A40` | `app/client/chatgadg.cpp:734` | untagged neutral name (D10) |
 | 1 | `Unknown_5658B0` | `app/client/chatgadg.cpp:746` | untagged neutral name (D10) |
@@ -4346,7 +4345,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_7ABFE0` | `app/client/galaxy_map_render.h:262` | untagged neutral name (D10) |
 | 1 | `invert` | `app/client/galaxy_map_render.h:263` | as 0x7ABA70's |
 | 1 | `Unknown_7AC070` | `app/client/galaxy_map_render.h:263` | untagged neutral name (D10) |
-| 1 | `visible, show_gates, show_name, place_name` | `app/client/galaxy_map_render.h:264` | what it does with them |
+| 1 | `visible, place_name` | `app/client/galaxy_map_render.h:264` | what it does with them; show_inter / show_intra are 0x7AD090's flags (the client passes its 2nd and 3rd arguments) |
 | 1 | `Unknown_7AC130` | `app/client/galaxy_map_render.h:264` | untagged neutral name (D10) |
 | 1 | `to` | `app/client/galaxy_map_render.h:265` | what it compares |
 | 1 | `Unknown_7AC7B0` | `app/client/galaxy_map_render.h:265` | untagged neutral name (D10) |
@@ -4358,7 +4357,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_7ACBB0` | `app/client/galaxy_map_render.h:298` | untagged neutral name (D10) |
 | 1 | `ini` | `app/client/galaxy_map_render.h:299` | the caller's |
 | 1 | `Unknown_7ACEF0` | `app/client/galaxy_map_render.h:299` | untagged neutral name (D10) |
-| 1 | `hide_inter, hide_intra, place` | `app/client/galaxy_map_render.h:300` | what it does with them |
+| 1 | `show_inter, show_intra, place` | `app/client/galaxy_map_render.h:300` | what it does with them (the line is hidden when the flag for its kind, inter- or intra-system, is false) |
 | 1 | `Unknown_7AD090` | `app/client/galaxy_map_render.h:300` | untagged neutral name (D10) |
 | 1 | `point` | `app/client/galaxy_map_render.h:301` | neutral |
 | 1 | `Unknown_7AD5B0` | `app/client/galaxy_map_render.h:301` | untagged neutral name (D10) |
@@ -8933,10 +8932,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_80FCE0` | `app/client/shiputils.cpp:25` | untagged neutral name (D10) |
 | 1 | `Unknown_80FD10` | `app/client/shiputils.cpp:27` | untagged neutral name (D10) |
 | 1 | `Unknown_812390` | `app/client/shiputils.cpp:28` | untagged neutral name (D10) |
+| 1 | `Unknown_Assign` | `app/client/shiputils.cpp:34` | neutral (D10) |
+| 1 | `Unknown619280Class` | `app/client/shiputils.cpp:34` | untagged neutral name (D10) |
 | 1 | `all` | `app/client/shiputils.cpp:39` | what 0x80E8C0 passes (the name in parentheses: clienttest.py stands the calls in by a macro) |
 | 1 | `Unknown_80EAF0` | `app/client/shiputils.cpp:39` | untagged neutral name (D10) |
 | 1 | `SClientUnknown1334Class` | `app/client/shiputils.cpp:39` | untagged neutral name (D10) |
-| 1 | `Unknown619280Class` | `app/client/shiputils.cpp:62` | untagged neutral name (D10) |
 | 1 | `Unknown74` | `app/client/shiputils.cpp:63` | untagged neutral name (D10) |
 | 1 | `Unknown04` | `app/client/shiputils.cpp:64` | untagged neutral name (D10) |
 | 1 | `Unknown_75CB10` | `app/client/shiputils.cpp:65` | untagged neutral name (D10) |
@@ -15235,7 +15235,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_14` | `app/client/ui_pda_cargo.cpp:36` | untagged neutral name (D10) |
 | 1 | `CargoButtonNames` | `app/client/ui_pda_cargo.cpp:41` | neutral (D10) |
 | 1 | `CargoFilterNames` | `app/client/ui_pda_cargo.cpp:50` | neutral (D10) |
-| 1 | `Unknown_BE67BC` | `app/client/ui_pda_cargo.cpp:83` | untagged neutral name (D10) |
+| 1 | `Unknown_BE67BC` | `app/client/ui_pda_cargo.cpp:84` | untagged neutral name (D10) |
 | 1 | `Unknown_54` | `app/client/ui_pda_cargo.cpp:114` | untagged neutral name (D10) |
 | 1 | `Unknown58` | `app/client/ui_pda_cargo.cpp:120` | untagged neutral name (D10) |
 | 1 | `Unknown_686CC0` | `app/client/ui_pda_cargo.cpp:120` | untagged neutral name (D10) |
@@ -18865,7 +18865,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6FFF00` | `app/client/ui_starbase.cpp:2777` | untagged neutral name (D10) |
 | 1 | `Unknown_63D060` | `app/client/ui_starbase.cpp:2830` | untagged neutral name (D10) |
 | 1 | `Unknown_645DC0` | `app/client/ui_starbase.cpp:2983` | untagged neutral name (D10) |
-| 1 | `Unknown135C` | `app/client/ui_starbase.cpp:2991` | untagged neutral name (D10) |
+| 1 | `Unknown135C` | `app/client/ui_starbase.cpp:2988` | untagged neutral name (D10) |
 | 1 | `Unknown_5658B0` | `app/client/ui_starbase.cpp:2999` | untagged neutral name (D10) |
 | 1 | `Unknown_744E70` | `app/client/ui_starbase.cpp:3000` | untagged neutral name (D10) |
 | 1 | `Unknown_640150` | `app/client/ui_starbase.cpp:3081` | untagged neutral name (D10) |
@@ -19546,7 +19546,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_14` | `app/client/ui_vault.cpp:32` | untagged neutral name (D10) |
 | 1 | `VaultButtonNames` | `app/client/ui_vault.cpp:37` | neutral (D10) |
 | 1 | `VaultFilterNames` | `app/client/ui_vault.cpp:44` | neutral (D10) |
-| 1 | `Unknown_BE67BC` | `app/client/ui_vault.cpp:75` | untagged neutral name (D10) |
+| 1 | `Unknown_BE67BC` | `app/client/ui_vault.cpp:76` | untagged neutral name (D10) |
 | 1 | `Unknown_54` | `app/client/ui_vault.cpp:111` | untagged neutral name (D10) |
 | 1 | `Unknown58` | `app/client/ui_vault.cpp:117` | untagged neutral name (D10) |
 | 1 | `Unknown_686CC0` | `app/client/ui_vault.cpp:117` | untagged neutral name (D10) |
@@ -19570,7 +19570,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_68` | `app/client/ui_vault.cpp:216` | untagged neutral name (D10) |
 | 1 | `Unknown_657DA0` | `app/client/ui_vault.cpp:224` | untagged neutral name (D10) |
 | 1 | `Unknown_6607D0` | `app/client/ui_vault.cpp:225` | untagged neutral name (D10) |
-| 1 | `Unknown_B0` | `app/client/ui_vault.cpp:250` | untagged neutral name (D10) |
+| 1 | `Unknown_B0` | `app/client/ui_vault.cpp:248` | untagged neutral name (D10) |
 | 1 | `Unknown_74D990` | `app/client/ui_vault.cpp:279` | untagged neutral name (D10) |
 | 1 | `ui_vault.h` | `app/client/ui_vault.h:4` | provisional header name for ui_vault.cpp |
 | 1 | `NUM_BUTTONS` | `app/client/ui_vault.h:22` | the set-up's loop over 0xB8C2EC (gadgets 37..39) |
@@ -21826,13 +21826,14 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_846B80` | `app/common/optdlg.cpp:106` | neutral (D10), the folder browser's callback (BFFM_INITIALIZED selects the folder lpData names) |
 | 1 | `path` | `app/common/optdlg.cpp:109` | neutral |
 | 1 | `Unknown_846CD0` | `app/common/optdlg.cpp:122` | neutral (D10), a page's controls set (the page procedures inline it)  // NAME 1 [controls, dialog]: neutral |
+| 1 | `index, control` | `app/common/optdlg.cpp:124` | neutral |
 | 1 | `value` | `app/common/optdlg.cpp:142` | neutral |
 | 1 | `text` | `app/common/optdlg.cpp:144` | neutral |
 | 1 | `value` | `app/common/optdlg.cpp:149` | neutral |
 | 1 | `found` | `app/common/optdlg.cpp:152` | neutral |
 | 1 | `index` | `app/common/optdlg.cpp:169` | neutral |
 | 1 | `Unknown_846FC0` | `app/common/optdlg.cpp:180` | neutral (D10), a page's controls into the options and the file  // NAME 1 [controls, file, dialog]: neutral |
-| 1 | `control` | `app/common/optdlg.cpp:183` | neutral |
+| 1 | `index, control` | `app/common/optdlg.cpp:183` | neutral |
 | 1 | `text` | `app/common/optdlg.cpp:198` | neutral |
 | 1 | `selection` | `app/common/optdlg.cpp:209` | neutral |
 | 1 | `last` | `app/common/optdlg.cpp:210` | neutral |
