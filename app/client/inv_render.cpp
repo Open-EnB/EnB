@@ -255,7 +255,7 @@ TextureClass *InvRenderClass::Unknown_34()
 
 
 
-// NOT EXACT: 0x68CCC0, 109 rows: register only, the client adds _Len + _N of the nine inlined appends through eax
+// NOT EXACT: 0x68CCC0, register only (52 masked rows): the client computes _N + _Len (n copied into ebx, _Len through eax) and stores _Eos at [ebx+eax] in all nine inlined appends, ours the source order; the cases in the client's order (0, -1, 4, 0x40, 0x80: its tables 0x68D3B0 / 0x68D398)
 // 0x68CCC0
 const char *InvRenderClass::Unknown_28(std::string *string)
 {
@@ -296,6 +296,9 @@ const char *InvRenderClass::Unknown_28(std::string *string)
 			case 0:
 				*string += "Unused Slot\n";
 				break;
+			case -1:
+				*string += "Empty Slot\n";
+				break;
 			case 4:
 				*string += "Shields Slot\n";
 				break;
@@ -304,9 +307,6 @@ const char *InvRenderClass::Unknown_28(std::string *string)
 				break;
 			case 0x80:
 				*string += "Reactor Slot\n";
-				break;
-			case -1:
-				*string += "Empty Slot\n";
 				break;
 			default:
 				if (type & 0x1C022) {
