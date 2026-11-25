@@ -5459,5 +5459,60 @@
   "evidence": "0x56DEE0's callback retyped to the client's types: Sender_Type 0x56DF30 / Event_Type 0x56DF70 return the type descriptors 0xB7D5C0 '.?AVMovableUIBackGadget@@' / 0xB7D688 '.?AVMovableUIBackGadgetMoved@@' (RTTI 0xB7D5E8 names the callback); the name it replaces is the earlier guess's (P3, run 2026-11-24-night)",
   "kind": "vtable",
   "replaces": "??_7?$EventCallbackClass@VDestroyGadgetEvent@@@SignalBaseClass@@6B@"
+ },
+ {
+  "address": "0x56C7B0",
+  "symbol": "?Unknown_56C7B0@ChatPanelInterface@@QAEXPAVOptionFontInterfaceEvent@@PAVOptionFontInterface@@@Z",
+  "evidence": "ChatPanelInterface's font callback retyped to the client's sender: RTTI 0xB7D308 '.PBV?$MemberCallback@VOptionFontInterface@@VChatPanelInterface@@P82@AEXPAVOptionFontInterfaceEvent@@PAV1@@ZV3@@SignalBaseClass@@' (Type 0x56CFA0's descriptor), Sender_Type 0x56CF80 returns 0xB7D2E0 '.?AVOptionFontInterface@@'; the name it replaces is the earlier guess's (P3, run 2026-11-24-night)",
+  "replaces": "?Unknown_56C7B0@ChatPanelInterface@@QAEXPAVOptionFontInterfaceEvent@@PAVInterfaceClass@@@Z"
+ },
+ {
+  "address": "0x56CF40",
+  "symbol": "??1?$MemberCallback@VOptionFontInterface@@VChatPanelInterface@@P82@AEXPAVOptionFontInterfaceEvent@@PAV1@@ZV3@@SignalBaseClass@@UAE@XZ",
+  "evidence": "ChatPanelInterface's font callback retyped to the client's sender: RTTI 0xB7D308 '.PBV?$MemberCallback@VOptionFontInterface@@VChatPanelInterface@@P82@AEXPAVOptionFontInterfaceEvent@@PAV1@@ZV3@@SignalBaseClass@@' (Type 0x56CFA0's descriptor), Sender_Type 0x56CF80 returns 0xB7D2E0 '.?AVOptionFontInterface@@'; the name it replaces is the earlier guess's (P3, run 2026-11-24-night)",
+  "replaces": "??1?$MemberCallback@VInterfaceClass@@VChatPanelInterface@@P82@AEXPAVOptionFontInterfaceEvent@@PAV1@@ZV3@@SignalBaseClass@@UAE@XZ"
+ },
+ {
+  "address": "0x56CF80",
+  "symbol": "?Sender_Type@?$MemberCallback@VOptionFontInterface@@VChatPanelInterface@@P82@AEXPAVOptionFontInterfaceEvent@@PAV1@@ZV3@@SignalBaseClass@@UBEABVtype_info@@XZ",
+  "evidence": "ChatPanelInterface's font callback retyped to the client's sender: RTTI 0xB7D308 '.PBV?$MemberCallback@VOptionFontInterface@@VChatPanelInterface@@P82@AEXPAVOptionFontInterfaceEvent@@PAV1@@ZV3@@SignalBaseClass@@' (Type 0x56CFA0's descriptor), Sender_Type 0x56CF80 returns 0xB7D2E0 '.?AVOptionFontInterface@@'; the name it replaces is the earlier guess's (P3, run 2026-11-24-night)",
+  "replaces": "?Sender_Type@?$MemberCallback@VInterfaceClass@@VChatPanelInterface@@P82@AEXPAVOptionFontInterfaceEvent@@PAV1@@ZV3@@SignalBaseClass@@UBEABVtype_info@@XZ"
+ },
+ {
+  "address": "0x56CFA0",
+  "symbol": "?Type@?$MemberCallback@VOptionFontInterface@@VChatPanelInterface@@P82@AEXPAVOptionFontInterfaceEvent@@PAV1@@ZV3@@SignalBaseClass@@UBEABVtype_info@@XZ",
+  "evidence": "ChatPanelInterface's font callback retyped to the client's sender: RTTI 0xB7D308 '.PBV?$MemberCallback@VOptionFontInterface@@VChatPanelInterface@@P82@AEXPAVOptionFontInterfaceEvent@@PAV1@@ZV3@@SignalBaseClass@@' (Type 0x56CFA0's descriptor), Sender_Type 0x56CF80 returns 0xB7D2E0 '.?AVOptionFontInterface@@'; the name it replaces is the earlier guess's (P3, run 2026-11-24-night)",
+  "replaces": "?Type@?$MemberCallback@VInterfaceClass@@VChatPanelInterface@@P82@AEXPAVOptionFontInterfaceEvent@@PAV1@@ZV3@@SignalBaseClass@@UBEABVtype_info@@XZ"
+ },
+ {
+  "address": "0x56CFC0",
+  "symbol": "?Event_Type@?$MemberCallback@VOptionFontInterface@@VChatPanelInterface@@P82@AEXPAVOptionFontInterfaceEvent@@PAV1@@ZV3@@SignalBaseClass@@UBEABVtype_info@@XZ",
+  "evidence": "ChatPanelInterface's font callback retyped to the client's sender: RTTI 0xB7D308 '.PBV?$MemberCallback@VOptionFontInterface@@VChatPanelInterface@@P82@AEXPAVOptionFontInterfaceEvent@@PAV1@@ZV3@@SignalBaseClass@@' (Type 0x56CFA0's descriptor), Sender_Type 0x56CF80 returns 0xB7D2E0 '.?AVOptionFontInterface@@'; the name it replaces is the earlier guess's (P3, run 2026-11-24-night)",
+  "replaces": "?Event_Type@?$MemberCallback@VInterfaceClass@@VChatPanelInterface@@P82@AEXPAVOptionFontInterfaceEvent@@PAV1@@ZV3@@SignalBaseClass@@UBEABVtype_info@@XZ"
+ },
+ {
+  "address": "0x56D040",
+  "symbol": "?Is_Equal@?$MemberCallback@VOptionFontInterface@@VChatPanelInterface@@P82@AEXPAVOptionFontInterfaceEvent@@PAV1@@ZV3@@SignalBaseClass@@UBE_NABVCallbackClass@2@@Z",
+  "evidence": "ChatPanelInterface's font callback retyped to the client's sender: RTTI 0xB7D308 '.PBV?$MemberCallback@VOptionFontInterface@@VChatPanelInterface@@P82@AEXPAVOptionFontInterfaceEvent@@PAV1@@ZV3@@SignalBaseClass@@' (Type 0x56CFA0's descriptor), Sender_Type 0x56CF80 returns 0xB7D2E0 '.?AVOptionFontInterface@@'; the name it replaces is the earlier guess's (P3, run 2026-11-24-night)",
+  "replaces": "?Is_Equal@?$MemberCallback@VInterfaceClass@@VChatPanelInterface@@P82@AEXPAVOptionFontInterfaceEvent@@PAV1@@ZV3@@SignalBaseClass@@UBE_NABVCallbackClass@2@@Z"
+ },
+ {
+  "address": "0x56D0C0",
+  "symbol": "?Call@?$MemberCallback@VOptionFontInterface@@VChatPanelInterface@@P82@AEXPAVOptionFontInterfaceEvent@@PAV1@@ZV3@@SignalBaseClass@@UAEXPAX0@Z",
+  "evidence": "ChatPanelInterface's font callback retyped to the client's sender: RTTI 0xB7D308 '.PBV?$MemberCallback@VOptionFontInterface@@VChatPanelInterface@@P82@AEXPAVOptionFontInterfaceEvent@@PAV1@@ZV3@@SignalBaseClass@@' (Type 0x56CFA0's descriptor), Sender_Type 0x56CF80 returns 0xB7D2E0 '.?AVOptionFontInterface@@'; the name it replaces is the earlier guess's (P3, run 2026-11-24-night)",
+  "replaces": "?Call@?$MemberCallback@VInterfaceClass@@VChatPanelInterface@@P82@AEXPAVOptionFontInterfaceEvent@@PAV1@@ZV3@@SignalBaseClass@@UAEXPAX0@Z"
+ },
+ {
+  "address": "0x56D200",
+  "symbol": "??_G?$MemberCallback@VOptionFontInterface@@VChatPanelInterface@@P82@AEXPAVOptionFontInterfaceEvent@@PAV1@@ZV3@@SignalBaseClass@@UAEPAXI@Z",
+  "evidence": "ChatPanelInterface's font callback retyped to the client's sender: RTTI 0xB7D308 '.PBV?$MemberCallback@VOptionFontInterface@@VChatPanelInterface@@P82@AEXPAVOptionFontInterfaceEvent@@PAV1@@ZV3@@SignalBaseClass@@' (Type 0x56CFA0's descriptor), Sender_Type 0x56CF80 returns 0xB7D2E0 '.?AVOptionFontInterface@@'; the name it replaces is the earlier guess's (P3, run 2026-11-24-night)",
+  "replaces": "??_G?$MemberCallback@VInterfaceClass@@VChatPanelInterface@@P82@AEXPAVOptionFontInterfaceEvent@@PAV1@@ZV3@@SignalBaseClass@@UAEPAXI@Z"
+ },
+ {
+  "address": "0xAEFFDC",
+  "symbol": "??_7?$MemberCallback@VOptionFontInterface@@VChatPanelInterface@@P82@AEXPAVOptionFontInterfaceEvent@@PAV1@@ZV3@@SignalBaseClass@@6B@",
+  "evidence": "ChatPanelInterface's font callback retyped to the client's sender: RTTI 0xB7D308 '.PBV?$MemberCallback@VOptionFontInterface@@VChatPanelInterface@@P82@AEXPAVOptionFontInterfaceEvent@@PAV1@@ZV3@@SignalBaseClass@@' (Type 0x56CFA0's descriptor), Sender_Type 0x56CF80 returns 0xB7D2E0 '.?AVOptionFontInterface@@'; the name it replaces is the earlier guess's (P3, run 2026-11-24-night)",
+  "kind": "vtable",
+  "replaces": "??_7?$MemberCallback@VInterfaceClass@@VChatPanelInterface@@P82@AEXPAVOptionFontInterfaceEvent@@PAV1@@ZV3@@SignalBaseClass@@6B@"
  }
 ]

@@ -1371,7 +1371,7 @@ void ChatPanelInterface::Unknown_5685C0()
 {
 	if (UnknownF8) {
 		if (Unknown10D) {
-			InterfaceClass::Get_Signal_Map().Remove((InterfaceClass *)UnknownF8.Peek(), this, &ChatPanelInterface::Unknown_56C7B0, OptionFontInterfaceEvent());
+			InterfaceClass::Get_Signal_Map().Remove((OptionFontInterface *)UnknownF8.Peek(), this, &ChatPanelInterface::Unknown_56C7B0, OptionFontInterfaceEvent());
 			Unknown10D = false;
 		}
 		UnknownF8->Unknown_7C(NULL, 0);
@@ -2447,7 +2447,7 @@ void ChatPanelInterface::Unknown_56C730(ChatWindowInterfaceEvent *event, ChatWin
 }
 
 // 0x56C7B0
-void ChatPanelInterface::Unknown_56C7B0(OptionFontInterfaceEvent *event, InterfaceClass *sender)
+void ChatPanelInterface::Unknown_56C7B0(OptionFontInterfaceEvent *event, OptionFontInterface *sender)
 {
 	if (sender == UnknownF8.Peek() && ChatInt) ChatInt->Unknown_571430();
 }
@@ -2469,7 +2469,7 @@ void ChatPanelInterface::Unknown_56C7E0()
 	UnknownF8->Unknown_54();
 	UnknownF8->Unknown_7C(View, 1);
 	Unknown10D = true;
-	InterfaceClass::Get_Signal_Map().Add((InterfaceClass *)UnknownF8.Peek(), this, &ChatPanelInterface::Unknown_56C7B0);
+	InterfaceClass::Get_Signal_Map().Add((OptionFontInterface *)UnknownF8.Peek(), this, &ChatPanelInterface::Unknown_56C7B0);
 }
 
 
