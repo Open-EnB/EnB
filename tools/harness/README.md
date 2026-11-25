@@ -719,9 +719,15 @@ the last name. Live antprox logs opcode numbers; e2e appends the names (`... = s
   there, names the script (`restore FAILED at PATH (N of M scripts applied before it ...)`) and makes db_restore return
   False (the server is still resumed or started). Its `info` dict records the mode (`in-place` | `restart`), the seconds,
   the port, the STATUS line after and the failed script. Not reset by an in-place restore: the server's world state (MOBs
-  killed or created, asteroids mined or `/create`d, the job board's generated jobs, the accounts cache), which is why a
+  killed or created, asteroids mined or `/create`d, the job board's generated jobs), which is why a
   space set (`sp_*`: `sp_combat` creates and kills a MOB) is captured with a restart before each run (baseline.py
   `--restart`, its default for a list with an `sp_` scenario); the `sb_*` station scenarios do not depend on it.
+  The server also caches the guild roster at startup (`guild_members` joined to `avatar_data`; the Net-7 server's
+  author, 2026-11-24): a scenario that changes guild membership or rank, or a restore that changes those rows, needs
+  the restart mode. Accounts, avatar lists and player state are read from the database at each login, and no late
+  save can land on avatars 6-8 after `QUIESCED`. `net7_start` starts Net7.exe outside the harness's process tree (a
+  short-lived Python in between, a new console and process group, out of the caller's job when it allows): stopping
+  a capture task or tree-killing its shell leaves the server running (2026-11-24: it killed it before).
 - **Where the avatar is:** `D3D8SHOT_CAMERA=FILE` makes the proxy write the frame's first view matrices to FILE
   (every 2nd Present). The first is the room camera; the avatar is 6.4 units ahead of it. Each room has its own
   coordinates; the room changes show in messages.log (`Changing room from A to B`).
@@ -891,7 +897,13 @@ pair, the max per shot; whether packets and verdicts were equal). A failed run i
 `.staging`. `verify` needs neither the game nor Windows; a file still a Git LFS pointer is reported as "run git
 lfs pull". `verify --run` (an e2e session folder, folders joined by `,`, an e2e `--manifest` file or a stored
 run): verdict equal, packets equal to at least one stored run's, each shot's differing cells against its
-best-matching stored run at most the noise max; one SAME / DIFF line per scenario.
+best-matching stored run at most the noise max; one SAME / DIFF line per scenario. **Stale builds:** for a run of
+our build (e2e.log's session line names the exe; a retail run is exempt) it first prints the exe's link time (the PE
+header's TimeDateStamp, else the file's mtime) and SHA-256; when a commit touching the client's sources is newer
+(`CLIENT_SOURCES`: `app` and every other top-level folder the client links from: `binkmovie`, `libs`, `programs`,
+`stubs`, `ww3d2`, `wwaudio`, `wwdebug`, `wwlib`, `wwmath`, `wwsaveload`, `wwshade`; `git log` in the tree baseline.py
+runs from), the first line is `STALE BUILD: exe linked <time>, sources changed <time> (<n> commits since)` and verify
+exits 2 unless `--allow-stale` (the line is printed either way). An exe named but missing counts as stale.
 
 **Sets** (the user, 2026-11-25): `capture --set SET [NAME...]` runs the scenarios (none named: e2e's default set,
 `e2e.scenario_names`) as ONE e2e session a run, the way e2e runs its default set: one client, the login once, each

@@ -592,5 +592,78 @@ class LiveSets(unittest.TestCase):
         self.assertNotEqual(h, baseline.scripts_hash({'inputs/db/b.sql': '2', 'inputs/db/a.sql': '1'}))
 
 
+def fake_pe(path, stamp):
+    """A file with an MZ header, e_lfanew 0x80 and a PE signature whose COFF TimeDateStamp is STAMP."""
+    import struct
+    data = bytearray(0x100)
+    data[:2] = b'MZ'
+    struct.pack_into('<I', data, 0x3C, 0x80)
+    data[0x80:0x84] = b'PE\0\0'
+    struct.pack_into('<I', data, 0x88, stamp)
+    write(path, bytes(data))
+
+
+class StaleGuard(unittest.TestCase):
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory()
+        self.run = os.path.join(self.tmp.name, 'run')
+        self.exe = os.path.join(self.tmp.name, 'client.exe')
+        fake_pe(self.exe, 1_000_000)
+
+    def tearDown(self):
+        self.tmp.cleanup()
+
+    def log(self, retail=False):
+        write(os.path.join(self.run, 'e2e.log'),
+              (f'23:16:59 session of 2: a, b; exe {self.exe}, instance bl, out {self.run}\n'
+               f'23:17:03 antprox pid 1, client pid 2' + (' (the retail client)' if retail else '') + '\n').encode())
+
+    def guard(self, times, allow=False, retail=False):
+        self.log(retail)
+        exe, ret = baseline.run_exe([self.run])
+        lines = []
+        ok = baseline.build_guard(exe, ret, allow, times=times, out=lines.append)
+        return ok, lines
+
+    def test_pe_stamp_read(self):
+        self.assertEqual(baseline.pe_link_time(self.exe), (1_000_000, 'pe'))
+        plain = os.path.join(self.tmp.name, 'plain.bin')
+        write(plain, b'not a pe')
+        self.assertEqual(baseline.pe_link_time(plain)[1], 'mtime')
+
+    def test_exe_from_log(self):
+        self.log()
+        self.assertEqual(baseline.run_exe([self.run]), (self.exe, False))
+
+    def test_stale_fails_first_line(self):
+        ok, lines = self.guard([1_000_300, 1_000_200, 999_000])
+        self.assertFalse(ok)
+        self.assertTrue(lines[0].startswith('STALE BUILD: exe linked '))
+        self.assertIn('(2 commits since)', lines[0])
+        self.assertIn('sha256 ', lines[1])
+
+    def test_allow_stale_still_prints(self):
+        ok, lines = self.guard([1_000_300], allow=True)
+        self.assertTrue(ok)
+        self.assertTrue(lines[0].startswith('STALE BUILD:'))
+
+    def test_fresh_passes(self):
+        ok, lines = self.guard([999_000])
+        self.assertTrue(ok)
+        self.assertFalse(any(x.startswith('STALE') for x in lines))
+        self.assertIn('linked', lines[0])
+
+    def test_retail_exempt(self):
+        ok, lines = self.guard([2_000_000], retail=True)
+        self.assertTrue(ok)
+        self.assertIn('(retail)', lines[0])
+
+    def test_missing_exe_fails_closed(self):
+        os.remove(self.exe)
+        ok, lines = self.guard([1])
+        self.assertFalse(ok)
+        self.assertIn('not found', lines[0])
+
+
 if __name__ == '__main__':
     unittest.main()

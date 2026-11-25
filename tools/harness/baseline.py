@@ -47,6 +47,7 @@ import hashlib
 import itertools
 import json
 import os
+import re
 import shutil
 import struct
 import subprocess
@@ -1390,10 +1391,86 @@ def _run_input(run):
     return e2e.run_dirs(run), None
 
 
+# The top-level folders the client build is linked from (build.py: app plus the EA-derived and E&B libraries,
+# programs/client, the stand-ins): a commit to any of them after an exe's link makes that exe stale
+CLIENT_SOURCES = ('app', 'binkmovie', 'libs', 'programs', 'stubs', 'ww3d2', 'wwaudio', 'wwdebug', 'wwlib', 'wwmath',
+                  'wwsaveload', 'wwshade')
+_EXE_RE = re.compile(r'; exe (.+?), instance ')
+
+
+def run_exe(dirs):
+    """The client exe an e2e run started, from its e2e.log's session line -> (path, retail) or (None, False)."""
+    for d in dirs:
+        p = os.path.join(d, 'e2e.log')
+        if not os.path.isfile(p):
+            continue
+        with open(p, encoding='utf-8', errors='replace') as f:
+            head = list(itertools.islice(f, 40))
+        for ln in head:
+            m = _EXE_RE.search(ln)
+            if m:
+                retail = any('(the retail client)' in x for x in head)
+                return m.group(1), retail
+    return None, False
+
+
+def pe_link_time(path):
+    """PATH's link time -> (epoch seconds, 'pe' | 'mtime'): the PE header's TimeDateStamp, else the file's mtime."""
+    with open(path, 'rb') as f:
+        head = f.read(4096)
+    if head[:2] == b'MZ' and len(head) >= 0x40:
+        off = struct.unpack_from('<I', head, 0x3C)[0]
+        if off + 12 <= len(head) and head[off:off + 4] == b'PE\0\0':
+            t = struct.unpack_from('<I', head, off + 8)[0]
+            if t:
+                return t, 'pe'
+    return int(os.path.getmtime(path)), 'mtime'
+
+
+def source_commit_times(root=ROOT):
+    """Commit times (newest first) of every commit touching CLIENT_SOURCES in ROOT's checkout."""
+    r = subprocess.run(['git', 'log', '--format=%ct', 'HEAD', '--'] + list(CLIENT_SOURCES), cwd=root,
+                       capture_output=True, text=True)
+    return [int(x) for x in r.stdout.split()] if r.returncode == 0 else []
+
+
+def _when(t):
+    return datetime.datetime.fromtimestamp(t).strftime('%Y-%m-%d %H:%M:%S')
+
+
+def build_guard(exe, retail, allow_stale, times=None, out=print):
+    """verify --run's staleness guard for a run of our build: prints the exe's link time and SHA-256 and, when the
+    tree's client sources have a commit newer than the link, a first line 'STALE BUILD: ...'. Returns True when
+    verify may go on (retail, fresh, or --allow-stale)."""
+    if retail:
+        if exe and os.path.isfile(exe):
+            t, how = pe_link_time(exe)
+            out(f'exe: {exe} (retail), linked {_when(t)} ({how}), sha256 {sha256_file(exe)}')
+        return True
+    if not exe:
+        out('exe: not named in the run (no e2e.log session line): build age not checked')
+        return True
+    if not os.path.isfile(exe):
+        out(f'STALE BUILD: exe {exe} not found: link time unknown')
+        return bool(allow_stale)
+    t, how = pe_link_time(exe)
+    times = source_commit_times() if times is None else times
+    newer = [c for c in times if c > t]
+    if newer:
+        out(f'STALE BUILD: exe linked {_when(t)}, sources changed {_when(max(newer))} ({len(newer)} commits since)')
+    out(f'exe: {exe}, linked {_when(t)} ({how}), sha256 {sha256_file(exe)}'
+        + (f'; newest source commit {_when(times[0])}' if times else ''))
+    return not newer or bool(allow_stale)
+
+
 def verify_run(args):
     import e2e
     store = store_root(args)
     dirs, man = _run_input(args.run)
+    if man is None:                     # an e2e run (a stored run is retail)
+        exe, retail = run_exe(dirs)
+        if not build_guard(exe, retail, getattr(args, 'allow_stale', False)):
+            return 2
     client = args.client or (man and man['client']['name'])
     env = args.env or (man and man['env'])
     results, packets, shots = e2e.run_results(dirs), e2e.run_packets(dirs), e2e.run_shots(dirs)
@@ -1539,6 +1616,8 @@ def main(argv=None):
     ap.add_argument('--run', help='verify: an e2e run (folder, folders joined by ",", e2e manifest) or a stored manifest')
     ap.add_argument('--client', help='verify --run: the stored client (retail-XXXXXXXX)')
     ap.add_argument('--env', help='verify --run: the stored env (<label>-<W>x<H>)')
+    ap.add_argument('--allow-stale', action='store_true',
+                    help='verify --run: go on when our exe is older than the newest client-source commit')
     ap.add_argument('--set', help='capture: the scenarios as ONE e2e session a run, stored as this set (no names: '
                                   "e2e's default set); verify --run: compare with this stored set")
     args = ap.parse_args(argv)
