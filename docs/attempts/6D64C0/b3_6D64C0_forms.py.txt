@@ -98,3 +98,28 @@ def top(k):
 FORMS = {}
 for k in range(1, 9):
     FORMS['top%d' % k] = top(k)
+# ===== v4_6D64C0.py
+HYPOTHESIS = ('B3 b4 (0x6D64C0): the client\'s Get_Position branch adds a.X + 47C.X with the returned vector first '
+              '(fld [eax] / fadd [ebp+0x47C]) but Y / Z with the member first, ours member-first for all three; k = 3..7 '
+              'dead ints flip it (b3), so it follows the symbol table: natural forms for the returned vector (a named '
+              'copy, a reference, assignment then sums, compound adds)')
+FILE = 'app/client/fontsys.cpp'
+SYMBOL = 'FontSys::Update_Text'
+ADDRESS = 0x6D64C0
+
+_SRC = open(FILE, encoding='latin-1', newline='').read()
+OLD = '\t\t\tat = Get_Position() + Unknown47C + Unknown488;'
+assert _SRC.count(OLD) == 1
+
+
+def f(new):
+    return [(OLD, '\t\t\t' + new)]
+
+
+FORMS = {
+    'named': f('Vector3 pos = Get_Position(); at = pos + Unknown47C + Unknown488;'),
+    'ref': f('const Vector3 &pos = Get_Position(); at = pos + Unknown47C + Unknown488;'),
+    'assign_sum': f('at = Get_Position(); at = at + Unknown47C + Unknown488;'),
+    'compound': f('at = Get_Position(); at += Unknown47C; at += Unknown488;'),
+    'paren': f('at = (Get_Position() + Unknown47C) + Unknown488;'),
+}
