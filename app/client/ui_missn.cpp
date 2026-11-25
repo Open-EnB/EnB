@@ -511,7 +511,7 @@ void UIMissnClass::Unknown_5C5AC0(unsigned int cur_mission_idx, bool arg)
 
 
 // 0x5C5DB0
-// NOT EXACT: register (masked residue 6 rows: the client loads Reward once, into esi, across the 'Reward: ' append; a reward local of any form costs the client's allocation, this in ebp spilled and the mission in ebx spilled to new_mission's slot, back to 155 rows; the dead reads at the end bring the appends' inline / out-of-line mix to the client's: 9 append calls, the loop's inline)
+// Two devices without bytes, neither known to be the client's text (measured 2026-11-25, attempts.py show 0x5C5DB0): (1) the summary load is written at the end of both branches of the failure test: VC6 counts both as uses of the mission, then merges the equal tails into the one load the client has; with the reward local the client's code shows (Reward held in esi across the 'Reward: ' append) that one use keeps the mission in ebx and this in ebp (without it this takes ebx for the whole function); (2) the dead reads at the end bring the appends' inline / out-of-line mix to the client's: 9 append calls, the loop's inline
 void UIMissnClass::Unknown_5C5DB0(int new_mission)
 {
 	if (UnknownC4 && UnknownC4->Active) {
@@ -553,21 +553,21 @@ void UIMissnClass::Unknown_5C5DB0(int new_mission)
 	sclient->Unknown_744560(8);
 	DescriptionPanel->Set_Hidden(false);
 	UnknownD8[CurrentMission + 1]->Unknown_90(SelectedBttnTexture);
-
 	std::string text;
-	if (mission->Reward.Get() && *mission->Reward.Get()) {
+	const char *reward = mission->Reward.Get();
+	if (reward && *reward) {
 		text += "Reward: ";
-		text += mission->Reward.Get();
+		text += reward;
 		text += "\n\n";
 	}
 
 	const char *failure = mission->FailureConsequence.Get();
-	if (failure && *failure) {
+	const char *summary; if (failure && *failure) {
 		text += "Failure: ";
 		text += failure;
-		text += "\n\n";
-	}
-	const char *summary = mission->Summary.Get();
+		text += "\n\n"; summary = mission->Summary.Get();
+	} else { summary = mission->Summary.Get(); }	// the summary load written in both branches: the device described above the function
+
 	if (summary && *summary) {
 		text += summary;
 		text += "\n\n";

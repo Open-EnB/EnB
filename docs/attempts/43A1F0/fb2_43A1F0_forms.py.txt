@@ -1,0 +1,283 @@
+# ==== v1_43a1f0.py ====
+HYPOTHESIS = (
+    'FB2 batch 1 on 0x43A1F0 (6 rows: at the theme block\'s top this and name are reloaded into swapped registers, '
+    'client this edi / name ebp). 0x5C5DB0 today: such roles are a weight tie that any lighter use tips, and the '
+    'weights follow the flow graph. Diagnostics with code changes (which side is light, and by how much): one use '
+    'of name less / more, one use of this less / more in the segment and after it; then forms that move a use '
+    'without code: the type read through the section pointer, name re-read from the section for the later Gets.'
+)
+FILE = 'app/audio/musicmanager.cpp'
+SYMBOL = 'MusicManagerClass::Load_INI'
+ADDRESS = 0x43A1F0
+
+RACE = '\t\t\tMusicINI->Get_String(name, "Race", "Other", temp, sizeof(temp));\n'
+TYPE = '\t\t\tMusicINI->Get_String(name, "Type", "Wander", temp, sizeof(temp));\n'
+SECTOR = '\t\t\t\ttheme->Sector = MusicINI->Get_Int(name, "Sector", -1);\n'
+LEVEL = '\t\t\t\ttheme->LevelAvailable = MusicINI->Get_Int(name, "LevelAvailable", 0);\n'
+COUNT = '\t\t\t\tint count = MusicINI->Get_Int(name, "ComponentCount", 0);\n'
+FADE2 = '\t\t\t\t\tfloat fade_out = MusicINI->Get_Float(name, entry, 0.0f);\n'
+RACEV = '\t\t\tint theme_race = Race_From_Name(temp);\n'
+
+FORMS = {
+    # diagnostics (code changes)
+    'd_type_no_name': [(TYPE, TYPE.replace('(name, ', '("x", '))],
+    'd_race_no_name': [(RACE, RACE.replace('(name, ', '("x", '))],
+    'd_sector_no_name': [(SECTOR, SECTOR.replace('(name, ', '("x", '))],
+    'd_count_no_name': [(COUNT, COUNT.replace('(name, ', '("x", '))],
+    'd_fade2_no_name': [(FADE2, FADE2.replace('(name, ', '("x", '))],
+    'd_this_more_seg': [(RACEV, '\t\t\tint theme_race = Race_From_Name(temp); SilenceMin = 0;\n')],
+    'd_this_more_after': [(SECTOR, SECTOR[:-1] + ' SilenceMin = 0;\n')],
+    'd_level_no_this': [(LEVEL, '\t\t\t\ttheme->LevelAvailable = 0;\n')],
+    # no code expected
+    'type_via_section': [(TYPE, TYPE.replace('(name, ', '(ini_section->Section, '))],
+    'race_via_section': [(RACE, RACE.replace('(name, ', '(ini_section->Section, '))],
+    'later_via_section': [(SECTOR, SECTOR.replace('(name, ', '(ini_section->Section, ')), (LEVEL, LEVEL.replace('(name, ', '(ini_section->Section, '))],
+}
+
+# ==== v2_43a1f0.py ====
+HYPOTHESIS = (
+    'FB2 batch 2 on 0x43A1F0: batch 1: the roles are decided inside the first segment alone (strncmp to the Type '
+    'read): this 2 uses, name 2 uses, ours gives name edi; one more use of this there gives the client\'s roles, '
+    'uses after it change nothing. Read by roles (roles43.py): which spelling makes this the first or the heavier '
+    'reference there without code: MusicINI through an inline accessor (member or file-static; race / type / both '
+    '/ every theme read), the Race / Type reads in inline helpers, early continue, and the tie itself (one more '
+    'use of each, diagnostic).'
+)
+FILE = 'app/audio/musicmanager.cpp'
+HDR = 'app/audio/musicmanager.h'
+SYMBOL = 'MusicManagerClass::Load_INI'
+ADDRESS = 0x43A1F0
+
+BLANK_BLOCK = '\n\n\n\n\n\n\n// @0x43A1F0\n'
+RACE = '\t\t\tMusicINI->Get_String(name, "Race", "Other", temp, sizeof(temp));\n'
+TYPE = '\t\t\tMusicINI->Get_String(name, "Type", "Wander", temp, sizeof(temp));\n'
+RACEV = '\t\t\tint theme_race = Race_From_Name(temp);\n'
+SECTOR = '\t\t\t\ttheme->Sector = MusicINI->Get_Int(name, "Sector", -1);\n'
+LEVEL = '\t\t\t\ttheme->LevelAvailable = MusicINI->Get_Int(name, "LevelAvailable", 0);\n'
+COUNT = '\t\t\t\tint count = MusicINI->Get_Int(name, "ComponentCount", 0);\n'
+COMP = '\t\t\t\t\tMusicINI->Get_String(name, entry, "None", temp, sizeof(temp));\n'
+F1 = '\t\t\t\t\tfloat fade_in = MusicINI->Get_Float(name, entry, 0.0f);\n'
+F2 = '\t\t\t\t\tfloat fade_out = MusicINI->Get_Float(name, entry, 0.0f);\n'
+HANCHOR = '\tint Race_From_Name(const char *name);\t// 0x43B430'
+MEMBER = (HDR, HANCHOR, '\tINIClass *Get_INI() { return(MusicINI); } int Race_From_Name(const char *name);\t// 0x43B430')
+STATIC_FN = 'static inline INIClass *Unknown_Get_INI(MusicManagerClass *self) { return(self->MusicINI); } // NAME 1: neutral\n'
+STATIC = (BLANK_BLOCK, '\n' * 6 + STATIC_FN + '// @0x43A1F0\n')
+READ_RACE_FN = (
+    'static inline int Unknown_Read_Race(MusicManagerClass *self, const char *name, char *temp) { '
+    'self->MusicINI->Get_String(name, "Race", "Other", temp, 32); strupr(temp); return(self->Race_From_Name(temp)); } // NAME 1: neutral\n'
+)
+READ_TYPE_FN = (
+    'static inline int Unknown_Read_Type(MusicManagerClass *self, const char *name, char *temp) { '
+    'self->MusicINI->Get_String(name, "Type", "Wander", temp, 32); strupr(temp); return(self->Type_From_Name(temp)); } // NAME 1: neutral\n'
+)
+UPPER_FN = (
+    'static inline void Unknown_Get_Upper(MusicManagerClass *self, const char *name, const char *entry, const char *def, char *temp) { '
+    'self->MusicINI->Get_String(name, entry, def, temp, 32); strupr(temp); } // NAME 1: neutral\n'
+)
+SEG = RACE + '\t\t\tstrupr(temp);\n' + RACEV + TYPE + '\t\t\tstrupr(temp);\n\t\t\tint theme_type = Type_From_Name(temp);\n'
+
+
+def m(*lines):
+    return [MEMBER] + [(l, l.replace('MusicINI->', 'Get_INI()->')) for l in lines]
+
+
+def s(*lines):
+    return [STATIC] + [(l, l.replace('MusicINI->', 'Unknown_Get_INI(this)->')) for l in lines]
+
+
+FORMS = {
+    'm_race': m(RACE),
+    'm_type': m(TYPE),
+    'm_both': m(RACE, TYPE),
+    'm_theme_all': m(RACE, TYPE, SECTOR, LEVEL, COUNT, COMP, F1, F2),
+    'm_later_only': m(SECTOR, LEVEL, COUNT, COMP, F1, F2),
+    's_race': s(RACE),
+    's_type': s(TYPE),
+    's_both': s(RACE, TYPE),
+    'h_race': [(BLANK_BLOCK, '\n' * 6 + READ_RACE_FN + '// @0x43A1F0\n'),
+               (RACE + '\t\t\tstrupr(temp);\n' + RACEV, '\n\n\t\t\tint theme_race = Unknown_Read_Race(this, name, temp);\n')],
+    'h_both': [(BLANK_BLOCK, '\n' * 5 + READ_RACE_FN + READ_TYPE_FN + '// @0x43A1F0\n'),
+               (SEG, '\n\n\t\t\tint theme_race = Unknown_Read_Race(this, name, temp);\n\n\n\t\t\tint theme_type = Unknown_Read_Type(this, name, temp);\n')],
+    'h_upper': [(BLANK_BLOCK, '\n' * 6 + UPPER_FN + '// @0x43A1F0\n'),
+                (SEG, '\t\t\tUnknown_Get_Upper(this, name, "Race", "Other", temp);\n\n' + RACEV
+                 + '\t\t\tUnknown_Get_Upper(this, name, "Type", "Wander", temp);\n\n\t\t\tint theme_type = Type_From_Name(temp);\n')],
+    'd_tie_3_3': [(RACEV, '\t\t\tint theme_race = Race_From_Name(temp); SilenceMin = (int)name;\n')],
+    'early_continue': [
+        ('\t\tif (strncmp(name, "MusicTheme", 10) == 0) {\n', '\t\tif (strncmp(name, "MusicTheme", 10) != 0) continue; {\n'),
+    ],
+}
+
+# ==== v3_43a1f0.py ====
+HYPOTHESIS = (
+    'FB2 batch 3 on 0x43A1F0: batch 2: a 3 / 3 tie still gives name edi, so in ours a tie goes to name and the '
+    'client\'s this is heavier or first in the first segment; accessors and file-static helpers change nothing, '
+    'early continue makes this / name loop-wide (edi / ebp from the top: not the client\'s reloads). Forms: the '
+    'reads through inline MEMBER helpers (their this is a temporary made after name), dead-initialised locals from '
+    'this / name in the segment, the lookups without their dead this (static clones, diagnostic), name defined in '
+    'the block (roles read), temp at function scope.'
+)
+FILE = 'app/audio/musicmanager.cpp'
+HDR = 'app/audio/musicmanager.h'
+SYMBOL = 'MusicManagerClass::Load_INI'
+ADDRESS = 0x43A1F0
+
+BLANK_BLOCK = '\n\n\n\n\n\n\n// @0x43A1F0\n'
+RACE = '\t\t\tMusicINI->Get_String(name, "Race", "Other", temp, sizeof(temp));\n'
+TYPE = '\t\t\tMusicINI->Get_String(name, "Type", "Wander", temp, sizeof(temp));\n'
+RACEV = '\t\t\tint theme_race = Race_From_Name(temp);\n'
+TYPEV = '\t\t\tint theme_type = Type_From_Name(temp);\n'
+SEG = RACE + '\t\t\tstrupr(temp);\n' + RACEV + TYPE + '\t\t\tstrupr(temp);\n' + TYPEV
+TEMP = '\t\t\tchar temp[32];\n'
+HANCHOR = '\tint Race_From_Name(const char *name);\t// 0x43B430'
+NAME = '\t\tconst char *name = ini_section->Section;\n\t\tif (strncmp(name, "MusicTheme", 10) == 0) {\n'
+SECTION = '\tchar section[32];\n'
+
+
+def hdr(decls):
+    return (HDR, HANCHOR, '\t' + decls + ' int Race_From_Name(const char *name);\t// 0x43B430')
+
+
+def fn(text, n=1):
+    return (BLANK_BLOCK, '\n' * (7 - n) + text + '// @0x43A1F0\n')
+
+
+M_UPPER = 'inline void MusicManagerClass::Get_Upper(const char *name, const char *entry, const char *def, char *temp) { MusicINI->Get_String(name, entry, def, temp, 32); strupr(temp); }\n'
+M_RACE = 'inline int MusicManagerClass::Read_Race(const char *name, char *temp) { MusicINI->Get_String(name, "Race", "Other", temp, 32); strupr(temp); return(Race_From_Name(temp)); }\n'
+M_TYPE = 'inline int MusicManagerClass::Read_Type(const char *name, char *temp) { MusicINI->Get_String(name, "Type", "Wander", temp, 32); strupr(temp); return(Type_From_Name(temp)); }\n'
+M_RACE2 = 'inline int MusicManagerClass::Read_Race(const char *name) { char temp[32]; MusicINI->Get_String(name, "Race", "Other", temp, sizeof(temp)); strupr(temp); return(Race_From_Name(temp)); }\n'
+M_TYPE2 = 'inline int MusicManagerClass::Read_Type(const char *name) { char temp[32]; MusicINI->Get_String(name, "Type", "Wander", temp, sizeof(temp)); strupr(temp); return(Type_From_Name(temp)); }\n'
+S_RACE = 'static inline int Unknown_Race(const char *name) { if (strcmp(name, "TERRAN") == 0) { return(0); } if (strcmp(name, "JENQUAI") == 0) { return(1); } if (strcmp(name, "OTHER") == 0) { return(8); } return((strcmp(name, "PROGEN") == 0) ? 2 : 8); }\n'
+
+FORMS = {
+    'mm_upper': [hdr('void Get_Upper(const char *name, const char *entry, const char *def, char *temp);'), fn(M_UPPER),
+                 (SEG, '\t\t\tGet_Upper(name, "Race", "Other", temp);\n\n' + RACEV + '\t\t\tGet_Upper(name, "Type", "Wander", temp);\n\n' + TYPEV)],
+    'mm_race': [hdr('int Read_Race(const char *name, char *temp);'), fn(M_RACE),
+                (RACE + '\t\t\tstrupr(temp);\n' + RACEV, '\n\n\t\t\tint theme_race = Read_Race(name, temp);\n')],
+    'mm_both': [hdr('int Read_Race(const char *name, char *temp); int Read_Type(const char *name, char *temp);'), fn(M_RACE + M_TYPE, 2),
+                (SEG, '\n\n\t\t\tint theme_race = Read_Race(name, temp);\n\n\n\t\t\tint theme_type = Read_Type(name, temp);\n')],
+    'mm_both_own_temp': [hdr('int Read_Race(const char *name); int Read_Type(const char *name);'), fn(M_RACE2 + M_TYPE2, 2),
+                         (SEG, '\n\n\t\t\tint theme_race = Read_Race(name);\n\n\n\t\t\tint theme_type = Read_Type(name);\n')],
+    'u_ini_local': [(TEMP, '\t\t\tchar temp[32]; INIClass *ini = MusicINI;\n')],
+    'u_loaded_local': [(TEMP, '\t\t\tchar temp[32]; bool loaded = IsLoaded;\n')],
+    'u_self_local': [(TEMP, '\t\t\tchar temp[32]; MusicManagerClass *self = this;\n')],
+    'u_name_local': [(TEMP, '\t\t\tchar temp[32]; const char *n2 = name;\n')],
+    'd_race_static': [fn(S_RACE), (RACEV, '\t\t\tint theme_race = Unknown_Race(temp);\n')],
+    'name_in_block': [(NAME, '\t\tif (strncmp(ini_section->Section, "MusicTheme", 10) == 0) {\n\t\t\tconst char *name = ini_section->Section;\n'), (TEMP, '\n')],
+    'temp_function_scope': [(SECTION, '\tchar section[32]; char temp[32];\n'), (TEMP, '\n')],
+    'this_qualified_calls': [(RACEV, '\t\t\tint theme_race = this->Race_From_Name(temp);\n'), (TYPEV, '\t\t\tint theme_type = this->Type_From_Name(temp);\n'),
+                             (RACE, RACE.replace('MusicINI->', 'this->MusicINI->')), (TYPE, TYPE.replace('MusicINI->', 'this->MusicINI->'))],
+}
+
+# ==== v4_43a1f0.py ====
+HYPOTHESIS = (
+    'FB2 batch 4 on 0x43A1F0 (diagnostic, code changes): what settles the 2 / 2 tie of the first segment? One more '
+    'use of each (3 / 3), with this referenced first or name referenced first, at the segment\'s start or split '
+    'around the race lookup: if the first reference wins the tie, the client\'s source names this before name there.'
+)
+FILE = 'app/audio/musicmanager.cpp'
+SYMBOL = 'MusicManagerClass::Load_INI'
+ADDRESS = 0x43A1F0
+
+TEMP = '\t\t\tchar temp[32];\n'
+RACEV = '\t\t\tint theme_race = Race_From_Name(temp);\n'
+T = 'SilenceMin = 0;'
+N = 'temp[1] = name[0];'
+
+FORMS = {
+    't_this_first_split': [(TEMP, TEMP[:-1] + ' ' + T + '\n'), (RACEV, RACEV[:-1] + ' ' + N + '\n')],
+    't_name_first_split': [(TEMP, TEMP[:-1] + ' ' + N + '\n'), (RACEV, RACEV[:-1] + ' ' + T + '\n')],
+    't_this_name_start': [(TEMP, TEMP[:-1] + ' ' + T + ' ' + N + '\n')],
+    't_name_this_start': [(TEMP, TEMP[:-1] + ' ' + N + ' ' + T + '\n')],
+    't_this_name_mid': [(RACEV, RACEV[:-1] + ' ' + T + ' ' + N + '\n')],
+    't_name_this_mid': [(RACEV, RACEV[:-1] + ' ' + N + ' ' + T + '\n')],
+    't_this_only_start': [(TEMP, TEMP[:-1] + ' ' + T + '\n')],
+    't_name_only_start': [(TEMP, TEMP[:-1] + ' ' + N + '\n')],
+}
+
+# ==== v5_43a1f0.py ====
+import re
+
+HYPOTHESIS = (
+    'FB2 batch 5 on 0x43A1F0: the tie of the first segment goes to name in ours and to this in the client with the '
+    'same uses. If the tie follows the order of the symbols and the front end hands the block\'s locals over in an '
+    'order that depends on their identifiers (a hashed symbol table), the local\'s spelling settles it: the same '
+    'function with name / ini_section / temp spelled otherwise (untried lever; trybatch groups identical code).'
+)
+FILE = 'app/audio/musicmanager.cpp'
+SYMBOL = 'MusicManagerClass::Load_INI'
+ADDRESS = 0x43A1F0
+
+TEXT = open(FILE, encoding='utf-8', newline='').read().replace('\r\n', '\n')
+START = TEXT.index('void MusicManagerClass::Load_INI(int race)\n')
+END = TEXT.index('// @0x43ACE0\n')
+BODY = TEXT[START:END]
+
+
+def rename(body, old, new):
+    return re.sub(r'\b%s\b' % old, new, body)
+
+
+FORMS = {}
+for new in ('section_name', 'n', 'a', 'zz', 'sect', 'theme_name', 'pname', 'Name', 'str', 'key', 'x1', 'sectionname'):
+    b = BODY
+    # the parameter of the lookups is not in this function; only the local and its uses
+    b = rename(b, 'name', new)
+    FORMS['name_as_' + new] = [(BODY, b)]
+for new in ('section', 'sec', 's', 'entry_section', 'node'):
+    b = rename(BODY, 'ini_section', new if new != 'section' else 'ini_sec')
+    FORMS['inisec_as_' + (new if new != 'section' else 'ini_sec')] = [(BODY, b)]
+for new in ('buffer', 'buf', 'value', 'str'):
+    FORMS['temp_as_' + new] = [(BODY, rename(BODY, 'temp', new))]
+
+# ==== roles43.py ====
+"""Per form of a trybatch batch on 0x43A1F0: the rows of ours from the strncmp call to the first Get_String call
+(the reloads of this / name and the registers they take), the row count and the real differing rows.
+
+    python roles43.py BATCHDIR
+"""
+import os
+import subprocess
+import sys
+
+ROOT = 'C:/EnBDevelopment/EnB/.work/wt/FB2'
+
+
+def rows(obj):
+    out = subprocess.run([sys.executable, ROOT + '/tools/re/objdiff.py', obj, 'MusicManagerClass::Load_INI', '0x43A1F0'],
+                         capture_output=True, text=True).stdout.splitlines()
+    res = []
+    diff = 0
+    for line in out[1:]:
+        if '|' not in line:
+            continue
+        left, right = line.split('|', 1)
+        l = left[1:].strip()
+        lt = l.split(' ', 1)[1].strip() if ' ' in l else ''
+        r = right.strip()
+        rt = r.split(' ', 1)[1].strip() if ' ' in r else ''
+        if left.startswith('*') and not ('REL' in rt and lt.split(' ')[0] == rt.split(' ')[0]):
+            diff += 1
+        if lt:
+            res.append(lt)
+    return res, diff
+
+
+def main():
+    batch = sys.argv[1]
+    for form in sorted(os.listdir(batch)):
+        obj = os.path.join(batch, form, 'obj', 'musicmanager.obj')
+        if not os.path.exists(obj):
+            continue
+        rs, diff = rows(obj)
+        seg = []
+        for i, t in enumerate(rs):
+            if t == 'push 0xa':
+                j = i
+                while j < len(rs) and not rs[j].startswith('jne'):
+                    j += 1
+                seg = [u for u in rs[j + 1:j + 12] if u.startswith('mov e') or u.startswith('push e')]
+                break
+        print('%-26s rows %d real-diff %-3d %s' % (form, len(rs), diff, ' ; '.join(seg[:6])))
+
+
+main()
