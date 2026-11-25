@@ -382,6 +382,52 @@ for k in range(0, 5):
     FORMS['goto13_d%d' % k] = [(WREG, goto(1, 3, k))]
 FORMS['head_d1'] = [(WREG, HREG)]
 
+# ==== v9_5646a0.py ====
+import subprocess
+
+HYPOTHESIS = (
+    'FB2 batch 9 on 0x5646A0: 0x43A1F0 went exact the same day by the spelling of a member it inlines (the last '
+    'test as an if with a default return against a conditional expression; the member\'s own code equal). 0x5646A0 '
+    'inlines Unknown_565BC0 four times in its channel >= 6 branch: if that accessor\'s spelling gives case 3 the '
+    'client\'s _Eos row on the plain source (a label call in each of cases 0-3), the goto device can go. Spellings: '
+    'conditional expression, if / else, a result local, nested ifs, the inverted test; 0-3 dead reads; --file-check.'
+)
+FILE = 'app/client/ui_chat_panel.cpp'
+SYMBOL = 'ChatPanelInterface::Unknown_5646A0'
+ADDRESS = 0x5646A0
+
+A, Z = '// @0x5646A0\n', '// 0x564F50\n'
+WORK = open(FILE, encoding='utf-8', newline='').read().replace('\r\n', '\n')
+HEAD = subprocess.run(['git', 'show', 'dfc8c61da:' + FILE], capture_output=True).stdout.decode('utf-8').replace('\r\n', '\n')
+WREG = WORK[WORK.index(A):WORK.index(Z)]
+HREG = HEAD[HEAD.index(A):HEAD.index(Z)]
+DEAD = '\tUnknown148 = channel; Unknown238.size();\t// dead read'
+DEADLINE = HREG[HREG.index(DEAD):HREG.index('\n', HREG.index(DEAD)) + 1]
+ACC = (
+    '\tif (Unknown148 >= 6 && Unknown148 < 10) return(Unknown158[Unknown148 - 6].c_str());\n'
+    '\treturn(NULL);\n'
+)
+assert WORK.count(ACC) == 1
+X = 'Unknown158[Unknown148 - 6].c_str()'
+SPELL = {
+    'cond': '\treturn((Unknown148 >= 6 && Unknown148 < 10) ? %s : NULL);\n\n' % X,
+    'ifelse': '\tif (Unknown148 >= 6 && Unknown148 < 10) { return(%s); } else { return(NULL); }\n\n' % X,
+    'local': '\tconst char *name = NULL; if (Unknown148 >= 6 && Unknown148 < 10) { name = %s; }\n\treturn(name);\n' % X,
+    'nested': '\tif (Unknown148 >= 6) { if (Unknown148 < 10) { return(%s); } }\n\treturn(NULL);\n' % X,
+    'inverted': '\tif (Unknown148 < 6 || Unknown148 >= 10) return(NULL);\n\treturn(%s);\n' % X,
+}
+
+
+def dead(k):
+    return HREG.replace(DEADLINE, '\tUnknown148 = channel;%s\n' % (' Unknown238.size();' * k))
+
+
+FORMS = {}
+for nm, text in SPELL.items():
+    for k in (0, 1, 2, 3):
+        FORMS['%s_d%d' % (nm, k)] = [(WREG, dead(k)), (ACC, text)]
+FORMS['plain_d1'] = [(WREG, dead(1))]
+
 # ==== sib.py (reads every inlined _Eos row of a batch's objects) ====
 """Per form of a trybatch batch: every `mov byte ptr [reg + reg], 0` of our function with the two rows before it
 (the inlined _Eos sites), so a form is read apart from the budget / layout state.
