@@ -194,7 +194,7 @@ void SkillRenderClass::Unknown_2C(bool force)
 
 
 
-				G_ASSERT(false);
+				G_ASSERT(0);
 			}
 			return;
 	}

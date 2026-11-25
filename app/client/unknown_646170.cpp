@@ -502,13 +502,13 @@ void UIStarbaseLightsClass::Unknown_6474C0(int index)
 		_snprintf(buffer, sizeof(buffer), "Ambient Light", Current);
 		text->Change_Text(buffer, 0);
 		text = Unknown_BE67C4->Unknown_6D2700("near_light02a", InterfaceMesh);
-		text->Change_Text("", 0);
+		text->Change_Text(" ", 0);
 		text = Unknown_BE67C4->Unknown_6D2700("far_light02a", InterfaceMesh);
-		text->Change_Text("", 0);
+		text->Change_Text(" ", 0);
 		text = Unknown_BE67C4->Unknown_6D2700("Int_light02a", InterfaceMesh);
-		text->Change_Text("", 0);
+		text->Change_Text(" ", 0);
 		text = Unknown_BE67C4->Unknown_6D2700("Fill_light02a", InterfaceMesh);
-		text->Change_Text("", 0);
+		text->Change_Text(" ", 0);
 	}
 }
 

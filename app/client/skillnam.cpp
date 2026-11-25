@@ -63,7 +63,7 @@ inline SkillNameClass::SkillNameClass(const char *name, const char *icon, const 
 		Name = nstrdup(name);
 	} else {
 		G_ASSERT(false);
-		Name = nstrdup("");
+		Name = nstrdup("?");
 	}
 	if (icon && *icon) {
 		Icon = nstrdup(icon);
@@ -270,7 +270,7 @@ void SkillNamesDatabase::Unknown_817070(const char *ini_name, const char *ex_ini
 				trainer.append(temp);
 				trainer.append(" System");
 				if (ini.Get_Int(name.c_str(), "Learn Lvl", 0)) {
-					ini.Get_String(temp, name.c_str(), "Learn Lvl", "");
+					ini.Get_String(temp, name.c_str(), "Learn Lvl", "?");
 					trainer += " upon reaching level ";
 					trainer.append(temp);
 				}
