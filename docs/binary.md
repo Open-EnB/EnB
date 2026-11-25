@@ -318,3 +318,67 @@ data) on the link line; (4) `/pdb:` with retail's path (an E: subst in the VM); 
 only by an incremental update and the link times themselves, which LINK takes from the clock: left to imagediff's
 "set at the end" unless the user wants a post-link stamp. In the code (the coordinator's call, D246):
 hanimmgr.cpp's two exclusion-list functions and w3dexclusionlist.cpp are not retail's.
+
+### 5.4 The trial at the run's head, LINK's e_lfanew rule, the .text surplus and the 47 objects
+
+Measured 2026-11-25 (image builder IM5, week plan 2026-11-24 §2 D) on run/2026-11-25 with §5.1's thunk-order name
+corrections and hanimmgr.cpp's exclusion-list functions and w3dexclusionlist.cpp dropped (§5.3; wt/IM5A, every
+library rebuilt there), with `.work/im4/pdblink.py` and `objorder3.py` as in §5.3's `all`. The one client build of
+that tree: **117,726 of 8,642,625 bytes in place (1.36 %)**. The `all` trial: **1,274,523 (14.75 %)**, from §5.3's
+1,269,778: `.text` 907,247 in place, its size 0x6E8181 against retail's 0x6E58DD (**+10,404 bytes**, from +13,572);
+headers 3,901 of 4,096 (`e_lfanew` 0x128 as retail's, by the rule below); the rich header's C++ 12.00.8799 count
+1,006 against 1,054 (the exclusion list was one of ours only).
+
+**`e_lfanew` is a function of the rich key.** LINK.EXE 6.00 sizes the rich block at 0x43FDD0: it walks the modules,
+counts each @comp.id (newest first), computes the key (§5.3), and allocates 8 * (pairs + (key >> 5) % 3) + 0x20
+bytes; 0x445828 stores e_lfanew = 0x80 + that size (the stub's 0x80). So after 'Rich' and the key come 8, 16 or 24
+zero bytes as `(key >> 5) % 3` is 0, 1 or 2: no input of its own. Retail's key 0xDF765B66 gives 0 (0x128).
+`rich.py` prints the rule's e_lfanew beside the image's; it holds on retail, the one client build, `client-inc`,
+`objs`, `objsrev` (24 bytes after), clienttest (24), udpreplay, clientpoc and this `all` (8). An image gets retail's
+0x128 once its pairs (and so its key) are retail's; until then it is 8 bytes in three keys.
+
+**Where `.text` grows** (`tools/re/objsizes.py --map ... --ledger ...`, `growth.tsv`): the functions named once in
+both images (symbols.json, our map), kept where the two orders agree, are fixed points; the displacement change
+from each to the next, summed per object, telescopes to the region's growth.
+
+| Region | Growth | Where |
+|---|---|---|
+| app (0x429630-0x8C1B64) | +7,328 | up to 0x4E9CB0 about -1,300; 0x4E9CB0-0x5296D0 +5,700, of which WinMain's guest place (the update, §5: our WinMain in main_client.obj's run, retail's at 0x526DE0 in 0x522860's slot; -21,200 then +25,088 around it) +3,888; 0x5296D0-0x66B770 +3,000 (single functions in ui_attrb_skills, ui_avatr, ui_class, ui_manu, ui_mfd, ui_starbase ... larger or smaller, mostly cancelling); flat to the end |
+| library (0x8C1B64-0xA420AC) | +2,080 | ww3d2 +1,648 (light.obj +1,088, below), LIBCPMT +3,478 (xstrcoll: the app's `std::` COMDATs placed among its members), wwshade -1,968 and COMSUPP -1,446 (block edges); wwmath, d3dx8, wwaudio, wwsaveload exact (0); member-order swaps inside ww3d2 and wwaudio cancel (assetmgr -40,384 / line3d +37,408, render2dsentence / decalmsh 28,864, pot / colmathline 12,320, ...) |
+
+Functions of ours retail does not have, found by the growth inside one member's run (each `none` in the gaps
+reports, nothing calls them, Renegade's 2002 GTH additions as D9 excludes the Generals team's changes):
+`LightClass::Is_Within_Attenuation_Radius` and `Compute_Lighting` (2/13/2002 gth; retail's
+`Get_Obj_Space_Bounding_Box` 0x953AC0 is followed by `Load_W3D` 0x953AE0; 1,088 bytes) and
+`ChunkLoadClass::Peek_Next_Chunk` (3/4/2002 gth; `Open_Chunk` 0x9D4310 is followed by `Close_Chunk` 0x9D4370; 144
+bytes). Dropped on wt/IM5B.
+
+**The CRT initialisers.** Retail's table has 1,211 entries, ours (the `all` trial) 1,251. Per library block they are
+equal (wwmath 38, d3dx8 2, ww3d2 127, wwlib 21, wwdebug 1, wwaudio 16, wwsaveload 7, wwshade 31-32, binkmovie /
+LIBCPMT / LIBCMT / COMSUPP 27-28); the app region holds **940 in retail, 980 in ours** (each .obj's `.CRT$XCU`
+relocations give ours exactly). 21 of the 40 are `std::ctype<unsigned short>::id`'s guarded initialiser (`mov cl,
+[guard]` ...: 575 in retail's app region, 596 in ours): objects of ours that instantiate the wide `ctype` facet
+where retail's do not (a header difference, 32 bytes of code and a 48-byte slot each). By retail's object runs, 39
+objects of ours carry one initialiser more than retail's run of the same object (two in money.obj and
+unknown_46c730.obj): unknown_445740, land, unknown_46c730, unknown_474530, unknown_root, encode, unknown_changes,
+lookup, policy, delta_visitor, kv_acc, kv_acc_string, kv_acc_time, expr_lexer_matchers, money, unknown_51c800,
+main_client, client_item_property_special_maker, ui_bio, ui_login, ui_mfd_extended_context_strings, ui_popupmsg,
+unknown_644e50, unknown_646170, gd_gauge, unknown_675120, drag_mouse, loadingview, viewbttn, unknown_6ca0c0,
+fonttexture, mousetbl, enbscene, nlp, unknown_7e1e40, faction_and_reputation, unknown_galaxy, pal_mgr, udp
+(`.work/im5/xcu.py`).
+
+**The 47 C++ objects** (rich 11/8799: 1,054 in retail, 1,006 in `all`; the kind is the build's own compiler, so
+only E&B's and Westwood's objects count: the MS libraries carry other builds). They hold no code of their own:
+retail's app region outside our objects' runs is 143 gaps of 87,520 bytes and 295 functions, every one between
+two of our objects and the largest WinMain's guest place (20,944 bytes, 2 functions) and unmatched functions at
+an object's edge (11,680 in unknown_6ca0c0's, 6,544 and 6,096 in unknown_46c730's); the library region's gaps in
+our libraries' blocks are under 1,700 bytes each (statics; the large ones are LIBCPMT's, LIBCMT's and d3dx8's);
+and of retail's 940 app initialisers one (0x46C710) lies outside our objects' runs. So the 47 are translation
+units with no function and no initialiser of their own: data-only files (tables, strings, constants) or files
+whose code is all COMDATs another object supplies first, whose data our tree defines in other objects. Their
+data placement in `.data` / `.rdata` (object order) is the next measure.
+
+What it implies (proposals, nothing of the one client build changed): (1) wt/IM5B's three functions out of
+ww3d2 / wwlib (1,232 bytes of `.text`); (2) the `ctype<unsigned short>` instantiations: find the header that makes
+21 objects instantiate the wide facet (their includes against a retail-like object's); (3) the 47 code-less
+objects from `.data` / `.rdata` (each data-only object of retail is a run of globals in object order).
