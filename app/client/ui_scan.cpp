@@ -65,7 +65,7 @@ ScannerInterface::~ScannerInterface()
 	}
 }
 
-// NOT EXACT: functional (WE9; similarity 0.59): the verb window's and the fonts' set-up order and registers
+// NOT EXACT: registers (K2: 36 masked rows, was 37; rows 368/369): the client's redundant level != 0 test before level > 1 kept (0x60DD25); left: register choices (ebp/edi/ebx) and the EH state -1 from ebx (the client or ebp, -1)
 // @0x60D8D0
 void ScannerInterface::Unknown_54()
 {
@@ -232,7 +232,7 @@ void ScannerInterface::Unknown_54()
 			level = frame->Get_Sort_Level();
 		}
 	}
-	if (level > 1) {
+	if (level != 0 && level > 1) {
 		sort = level - 1;
 	}
 	ConFont->Set_Sort_Level(sort);
