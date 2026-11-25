@@ -48,7 +48,7 @@ int FpTTClass::Unknown_04(const Vector3 &target, Matrix3D *transforms, float dis
 	heading.X = x_axis.X;
 	heading.Y = x_axis.Y;
 	double abs_z = fabs(x_axis.Z);
-	if (abs_z > 0.000001) {
+	if (abs_z > 0.000001f) {
 		float len2 = x_axis.X * x_axis.X + x_axis.Y * x_axis.Y;
 		float inv = WWMath::Inv_Sqrt(len2);
 		heading.X = inv * x_axis.X;
@@ -127,7 +127,7 @@ int FpTTClass::Unknown_04(const Vector3 &target, Matrix3D *transforms, float dis
 
 	float climb_c;
 	float climb_s;
-	if (MaxSlope <= 0.0f || (fabs(slope) < 0.0001 && abs_z < 0.0001)) {
+	if (MaxSlope <= 0.0f || (fabs(slope) < 0.0001f && abs_z < 0.0001f)) {
 		climb_s = 0.0f;
 		climb_c = 1.0f;
 		pitch = 0.0f;
@@ -364,7 +364,7 @@ int FpTTClass::Unknown_08(const Vector3 &target, Matrix3D *transforms, float dis
 	heading.X = x_axis.X;
 	heading.Y = x_axis.Y;
 	double abs_z = fabs(x_axis.Z);
-	if (abs_z > 0.000001) {
+	if (abs_z > 0.000001f) {
 		float len2 = x_axis.X * x_axis.X + x_axis.Y * x_axis.Y;
 		float inv = WWMath::Inv_Sqrt(len2);
 		heading.X = inv * x_axis.X;
@@ -434,7 +434,7 @@ int FpTTClass::Unknown_08(const Vector3 &target, Matrix3D *transforms, float dis
 
 		float climb_c;
 		float climb_s;
-		if (MaxSlope > 0.0f && (fabs(slope) >= 0.0001 || abs_z >= 0.0001)) {
+		if (MaxSlope > 0.0f && (fabs(slope) >= 0.0001f || abs_z >= 0.0001f)) {
 			float c = WWMath::Inv_Sqrt(slope * slope + 1.0f);
 			Vector2 target_climb(c, c * slope);
 			bool pos_pitch = (target_climb.Y * xy_len - target_climb.X * x_axis.Z) > 0.0f;
