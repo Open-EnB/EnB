@@ -20,7 +20,7 @@ public:
 	virtual void Set_Position(const Vector3 &v);			// 0x47F750
 	virtual void Render(RenderInfoClass &rinfo);			// 0x47F7E0
 
-	void Set_Offset(const Vector3 &offset);					// 0x47F860  // NAME 2: the offset it stores, and the class's name
+	void Set_Offset(Vector3 &offset);					// 0x47F860  // NAME 2: the offset it stores, and the class's name
 
 	Vector3 Offset;											// +0xC4  // NAME 2: the class's name; Set_Transform and Set_Position add it
 
