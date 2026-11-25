@@ -232,6 +232,14 @@ Open items from this week's captures:
   are named and left out), a scenario run in a fresh session says so, and every scenario not compared is named with
   its reason (a stored set's the run lacks: `SKIP` under `--set`, exit 1). Session 0's run read that way: 9 of 9
   compared.
+* sb_jobs_accept's failure on ours in session 0 ('sent JOB_DESCRIPTION' not seen at the Explore row) is the board,
+  not the client: that JOB_LIST's payload (antprox's length 0x1EA less its 4-byte header: 486 bytes) is exactly the
+  nine jobs the Combat and Trade shots show (Looter Sweep x2, Manifest Delivery x7: Net-7's GetJobList, 16 bytes,
+  title, sponsor and '500 XP' a job), so the Explore tab was empty and its row click rightly sent nothing. The
+  terminal's code in ours is byte-exact (ui_jobs.cpp's row click 0x5A2730, list 0x5A2C50 / 0x5A3BC0, tabs
+  0x5A3440). At HEAD (a9fa08ee3) ours and retail both pass it live, one after the other (2026-11-25 07:30-07:37).
+  Open: the scenario still fails on a board without an Explore job (RefreshJobs draws each of up to 9 slots from
+  four job missions at random; one accepted job is gone until the next 5-minute refresh).
 * Ours-versus-retail has only been run on a stale exe of 2026-11-21 (the default set 18 SAME and 7 DIFF, the station set 0 of 9 SAME). Those results are not findings until the build at HEAD is compared.
 
 ## 8. Three baselines over time

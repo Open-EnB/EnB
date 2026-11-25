@@ -895,9 +895,11 @@ replay run; every kept file's SHA-256 and size), then rewrites the scenario's
 `noise.json` (every stored run against every other, raw `shot_diff`, no shot mask: differing cells and mean per
 pair, the max per shot; whether packets and verdicts were equal). A failed run is reported and stays in
 `.staging`. `verify` needs neither the game nor Windows; a file still a Git LFS pointer is reported as "run git
-lfs pull". `verify --run` (an e2e session folder, folders joined by `,`, an e2e `--manifest` file or a stored
-run): verdict equal, packets equal to at least one stored run's, each shot's differing cells against its
-best-matching stored run at most the noise max; one SAME / DIFF line per scenario. **Stale builds:** for a run of
+lfs pull". `verify --run` (an e2e session folder, the e2e `--out` folder: the session folders of its newest run, a
+fresh one after each failure; folders joined by `,`, an e2e `--manifest` file or a stored run): verdict equal,
+packets equal to at least one stored run's, each shot's differing cells against its best-matching stored run at most
+the noise max; one SAME / DIFF line per scenario, then every scenario not compared and why (left out by NAME
+arguments; a stored set's the run has no result for: `SKIP` under `--set`, exit 1). **Stale builds:** for a run of
 our build (e2e.log's session line names the exe; a retail run is exempt) it first prints the exe's link time (the PE
 header's TimeDateStamp, else the file's mtime) and SHA-256; when a commit touching the client's sources is newer
 (`CLIENT_SOURCES`: `app` and every other top-level folder the client links from: `binkmovie`, `libs`, `programs`,
@@ -919,7 +921,8 @@ logs, `packets.json` {scenario: packets}, and a manifest with `set`, `order` (th
 `order_equal`. A scenario captured alone keeps its own folder (the earlier runs stay valid). `verify --run` finds each
 scenario of the run inside the stored folders (`dir_scenarios`): a run of several scenarios prefers a set that ran
 it, a run of one its own folder, `--set SET` names one; it says when the scenario ran after a different one than in
-the stored run ("scenario order differs": state carried from the scenario before can explain a difference). A live
+the stored run ("scenario order differs": state carried from the scenario before can explain a difference; "a
+fresh session" when e2e restarted the client before it). A live
 set restores the database state once a run, before the session.
 
 **Draw logs** (test-plan C3; d3d8shot `D3D8SHOT_DRAWLOG`, above): a stored run keeps each shot's
