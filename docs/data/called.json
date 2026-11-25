@@ -273,7 +273,7 @@
 "??0Wstring@@QAE@XZ": [
 "0x8B5D90"
 ],
-"??0Wtime@@QAE@AAV0@@Z": [
+"??0Wtime@@QAE@ABV0@@Z": [
 "0x8B81A0"
 ],
 "??0Wtime@@QAE@K@Z": [
@@ -504,7 +504,7 @@
 "??9Wstring@@QBEDABV0@@Z": [
 "0x8B6070"
 ],
-"??HXtime@@QAE?AV0@AAV0@@Z": [
+"??HXtime@@QBE?AV0@ABV0@@Z": [
 "0x8BB6A0"
 ],
 "??MXtime@@QBEDABV0@@Z": [
