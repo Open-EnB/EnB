@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 231 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
-| 3 | by convention from a client-named file or sibling | 1969 |
+| 3 | by convention from a client-named file or sibling | 1970 |
 | 2 | describes what the code does | 5014 |
-| 1 | neutral placeholder | 25174 |
+| 1 | neutral placeholder | 25184 |
 
 ## For review (score 3 and below)
 
@@ -3573,16 +3573,15 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_BE67BC` | `app/client/fontdatabase.cpp:1388` | neutral (D10) |
 | 1 | `Unknown98` | `app/client/fontdatabase.h:66` | neutral (D10) |
 | 1 | `DefaultUnknown98` | `app/client/fontdatabase.h:70` | neutral (D10) |
-| 1 | `Unknown04` | `app/client/fontdatabase.h:147` | neutral (D10) |
-| 1 | `Unknown_6BE520` | `app/client/fontdatabase.h:185` | neutral (D10) |
-| 1 | `Unknown_6BF910` | `app/client/fontdatabase.h:187` | neutral (D10) |
-| 1 | `Unknown_6BFD00` | `app/client/fontdatabase.h:188` | neutral (D10) |
-| 1 | `Unknown_6C2080` | `app/client/fontdatabase.h:189` | untagged neutral name (D10) |
-| 1 | `Get_Unknown98` | `app/client/fontdatabase.h:214` | neutral (D10) |
-| 1 | `Unknown_6C1500` | `app/client/fontdatabase.h:216` | neutral (D10) |
-| 1 | `Unknown_6C1AA0` | `app/client/fontdatabase.h:217` | neutral (D10) |
-| 1 | `Unknown_6C47B0` | `app/client/fontdatabase.h:218` | neutral (D10) |
-| 1 | `Unknown_6C49C0` | `app/client/fontdatabase.h:219` | neutral (D10) |
+| 1 | `Unknown_6BE520` | `app/client/fontdatabase.h:109` | neutral (D10) |
+| 1 | `Unknown_6BF910` | `app/client/fontdatabase.h:111` | neutral (D10) |
+| 1 | `Unknown_6BFD00` | `app/client/fontdatabase.h:112` | neutral (D10) |
+| 1 | `Unknown_6C2080` | `app/client/fontdatabase.h:113` | untagged neutral name (D10) |
+| 1 | `Get_Unknown98` | `app/client/fontdatabase.h:138` | neutral (D10) |
+| 1 | `Unknown_6C1500` | `app/client/fontdatabase.h:140` | neutral (D10) |
+| 1 | `Unknown_6C1AA0` | `app/client/fontdatabase.h:141` | neutral (D10) |
+| 1 | `Unknown_6C47B0` | `app/client/fontdatabase.h:142` | neutral (D10) |
+| 1 | `Unknown_6C49C0` | `app/client/fontdatabase.h:143` | neutral (D10) |
 | 1 | `Unknown08` | `app/client/fontmanager.cpp:12` | untagged neutral name (D10) |
 | 1 | `Unknown_6CF930` | `app/client/fontmanager.cpp:17` | untagged neutral name (D10) |
 | 1 | `Unknown_6D1220` | `app/client/fontmanager.cpp:19` | untagged neutral name (D10) |
@@ -3622,132 +3621,35 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6D28C0` | `app/client/fontmanager.cpp:555` | untagged neutral name (D10) |
 | 1 | `Unknown_6D2AE0` | `app/client/fontmanager.cpp:575` | untagged neutral name (D10) |
 | 1 | `Unknown_BE67C4` | `app/client/fontmanager.cpp:611` | neutral (D10) |
-| 1 | `FontStyleColorStruct` | `app/client/fontmanager.h:36` | neutral (D10): 16 bytes, a color r, g, b (0..1) and its alpha (floats: 0x6D5170, Update_Text, 0x6CA0C0) |
-| 1 | `Unknown0C` | `app/client/fontmanager.h:39` | neutral (D10) |
-| 1 | `Unknown_6D8B90Class` | `app/client/fontmanager.h:42` | neutral (D10): 16 bytes, a 32 x 32 texture; counted in 0xBE67CC (FontSys +0x2D0 / +0x2E0) |
-| 1 | `Unknown_6D8DC0, unknown` | `app/client/fontmanager.h:48` | neutral (D10) |
-| 1 | `Unknown_6D8DC0` | `app/client/fontmanager.h:48` | untagged neutral name (D10) |
-| 1 | `Unknown_BE67D8` | `app/client/fontmanager.h:56` | neutral (D10) |
-| 1 | `object` | `app/client/fontmanager.h:62` | neutral (D10) |
-| 1 | `def, object` | `app/client/fontmanager.h:63` | neutral (D10) |
-| 1 | `Unknown_6D5170, object` | `app/client/fontmanager.h:77` | neutral (D10) |
-| 1 | `Unknown_6D5170` | `app/client/fontmanager.h:77` | untagged neutral name (D10) |
-| 1 | `Unknown_6D6390` | `app/client/fontmanager.h:78` | neutral (D10) |
-| 1 | `Unknown_Set_2FC` | `app/client/fontmanager.h:81` | neutral (D10), as ui_manu.cpp's |
-| 1 | `Unknown_6D5140` | `app/client/fontmanager.h:83` | neutral (D10) |
-| 1 | `Unknown_6CE7D0` | `app/client/fontmanager.h:84` | neutral (D10) |
-| 1 | `Unknown_6D5A80` | `app/client/fontmanager.h:86` | neutral (D10) |
-| 1 | `Unknown_6D5D40` | `app/client/fontmanager.h:87` | neutral (D10) |
-| 1 | `Unknown_6D5EF0, onoff` | `app/client/fontmanager.h:88` | neutral (D10), onoff as Set_Hidden's |
-| 1 | `Unknown_6D5EF0` | `app/client/fontmanager.h:88` | untagged neutral name (D10) |
-| 1 | `Unknown_6CD950, index, time` | `app/client/fontmanager.h:89` | neutral (D10) |
-| 1 | `Unknown_6CD950` | `app/client/fontmanager.h:89` | untagged neutral name (D10) |
-| 1 | `on` | `app/client/fontmanager.h:90` | neutral |
-| 1 | `Unknown_6D89C0` | `app/client/fontmanager.h:90` | untagged neutral name (D10) |
-| 1 | `Unknown_6CE910` | `app/client/fontmanager.h:90` | untagged neutral name (D10) |
-| 1 | `left, top, right, bottom` | `app/client/fontmanager.h:91` | what textgadg.cpp passes |
-| 1 | `Unknown_6D88F0` | `app/client/fontmanager.h:91` | untagged neutral name (D10) |
-| 1 | `Unknown_6D8650` | `app/client/fontmanager.h:92` | neutral (D10) |
-| 1 | `Unknown_6D8780, x, y` | `app/client/fontmanager.h:93` | neutral (D10) |
-| 1 | `Unknown_6D8780` | `app/client/fontmanager.h:93` | untagged neutral name (D10) |
-| 1 | `Unknown_6D8A80, on` | `app/client/fontmanager.h:96` | neutral (D10) |
-| 1 | `Unknown_6D8A80` | `app/client/fontmanager.h:96` | untagged neutral name (D10) |
-| 1 | `Unknown_6D87D0` | `app/client/fontmanager.h:97` | neutral (D10) |
-| 1 | `Unknown_6D8970, on` | `app/client/fontmanager.h:98` | neutral (D10) |
-| 1 | `Unknown_6D8940` | `app/client/fontmanager.h:98` | untagged neutral name (D10) |
-| 1 | `Unknown_6D8970` | `app/client/fontmanager.h:98` | untagged neutral name (D10) |
-| 1 | `Unknown_6D5F40` | `app/client/fontmanager.h:99` | neutral (D10) |
-| 1 | `Unknown_6D60C0` | `app/client/fontmanager.h:100` | neutral (D10) |
-| 1 | `Unknown_6CD180` | `app/client/fontmanager.h:101` | neutral (D10) |
-| 1 | `Unknown_6CD6F0` | `app/client/fontmanager.h:102` | neutral (D10) |
-| 1 | `Unknown_6CCE60` | `app/client/fontmanager.h:103` | neutral (D10) |
-| 1 | `Unknown_6CDAB0` | `app/client/fontmanager.h:104` | neutral (D10) |
-| 1 | `Unknown_6CA0C0` | `app/client/fontmanager.h:105` | neutral (D10) |
-| 1 | `Unknown_6D5B10` | `app/client/fontmanager.h:106` | neutral (D10) |
-| 1 | `Unknown_6CE4E0, font_index` | `app/client/fontmanager.h:107` | neutral (D10) |
-| 1 | `Unknown_6CE4E0` | `app/client/fontmanager.h:107` | untagged neutral name (D10) |
-| 1 | `Unknown_6CE420, unknown, format` | `app/client/fontmanager.h:108` | neutral (D10) |
-| 1 | `Unknown_6CE420` | `app/client/fontmanager.h:108` | untagged neutral name (D10) |
-| 1 | `Unknown250` | `app/client/fontmanager.h:115` | neutral (D10) |
-| 1 | `Unknown254` | `app/client/fontmanager.h:116` | neutral (D10) |
-| 1 | `Unknown26C` | `app/client/fontmanager.h:117` | neutral (D10) |
-| 1 | `Unknown270` | `app/client/fontmanager.h:118` | neutral (D10) |
-| 1 | `Unknown274` | `app/client/fontmanager.h:119` | neutral (D10) |
-| 1 | `Unknown2C4` | `app/client/fontmanager.h:124` | neutral (D10) |
-| 1 | `Unknown2C8` | `app/client/fontmanager.h:125` | neutral (D10) |
-| 1 | `Unknown2D0` | `app/client/fontmanager.h:127` | neutral (D10) |
-| 1 | `Unknown2E0` | `app/client/fontmanager.h:128` | neutral (D10) |
-| 1 | `Unknown2F0` | `app/client/fontmanager.h:129` | neutral (D10) |
-| 1 | `Unknown2F4` | `app/client/fontmanager.h:130` | neutral (D10) |
-| 1 | `Unknown300` | `app/client/fontmanager.h:131` | neutral (D10) |
-| 1 | `Unknown301` | `app/client/fontmanager.h:132` | neutral (D10) |
-| 1 | `Unknown302` | `app/client/fontmanager.h:133` | neutral (D10) |
-| 1 | `Unknown303` | `app/client/fontmanager.h:134` | neutral (D10) |
-| 1 | `Unknown402` | `app/client/fontmanager.h:135` | neutral (D10) |
-| 1 | `Unknown403` | `app/client/fontmanager.h:136` | neutral (D10) |
-| 1 | `Unknown404` | `app/client/fontmanager.h:137` | neutral (D10) |
-| 1 | `Unknown405` | `app/client/fontmanager.h:138` | neutral (D10) |
-| 1 | `Unknown406` | `app/client/fontmanager.h:139` | neutral (D10) |
-| 1 | `Unknown408` | `app/client/fontmanager.h:141` | neutral (D10) |
-| 1 | `Unknown409` | `app/client/fontmanager.h:142` | neutral (D10) |
-| 1 | `Unknown410` | `app/client/fontmanager.h:144` | neutral (D10) |
-| 1 | `Unknown414` | `app/client/fontmanager.h:145` | neutral (D10) |
-| 1 | `Unknown418` | `app/client/fontmanager.h:146` | neutral (D10) |
-| 1 | `Unknown41C` | `app/client/fontmanager.h:147` | neutral (D10) |
-| 1 | `Unknown420` | `app/client/fontmanager.h:148` | neutral (D10) |
-| 1 | `Unknown430` | `app/client/fontmanager.h:149` | neutral (D10) |
-| 1 | `Unknown440` | `app/client/fontmanager.h:150` | neutral (D10) |
-| 1 | `Unknown444` | `app/client/fontmanager.h:151` | neutral (D10) |
-| 1 | `Unknown448` | `app/client/fontmanager.h:152` | neutral (D10) |
-| 1 | `Unknown44C` | `app/client/fontmanager.h:153` | neutral (D10) |
-| 1 | `Unknown450` | `app/client/fontmanager.h:154` | neutral (D10) |
-| 1 | `Unknown454` | `app/client/fontmanager.h:155` | neutral (D10) |
-| 1 | `Unknown458` | `app/client/fontmanager.h:156` | neutral (D10) |
-| 1 | `Unknown464` | `app/client/fontmanager.h:159` | neutral (D10) |
-| 1 | `Unknown470` | `app/client/fontmanager.h:160` | neutral (D10) |
-| 1 | `Unknown47C` | `app/client/fontmanager.h:161` | neutral (D10) |
-| 1 | `Unknown488` | `app/client/fontmanager.h:162` | neutral (D10) |
-| 1 | `Unknown494` | `app/client/fontmanager.h:163` | neutral (D10) |
-| 1 | `Unknown4A4` | `app/client/fontmanager.h:164` | neutral (D10) |
-| 1 | `Unknown4B4` | `app/client/fontmanager.h:165` | neutral (D10) |
-| 1 | `Unknown4C4` | `app/client/fontmanager.h:166` | neutral (D10) |
-| 1 | `Unknown4C5` | `app/client/fontmanager.h:167` | neutral (D10) |
-| 1 | `Unknown4C6` | `app/client/fontmanager.h:168` | neutral (D10) |
-| 1 | `Unknown4C8` | `app/client/fontmanager.h:169` | neutral (D10) |
-| 1 | `Unknown4D0` | `app/client/fontmanager.h:170` | neutral (D10) |
-| 1 | `Unknown4DC` | `app/client/fontmanager.h:171` | neutral (D10) |
-| 1 | `Unknown4E0` | `app/client/fontmanager.h:172` | neutral (D10) |
-| 1 | `Unknown4E4` | `app/client/fontmanager.h:173` | neutral (D10) |
-| 1 | `Unknown4E5` | `app/client/fontmanager.h:174` | neutral (D10) |
-| 1 | `Unknown4E6` | `app/client/fontmanager.h:175` | neutral (D10) |
-| 1 | `Unknown4E7` | `app/client/fontmanager.h:176` | neutral (D10) |
-| 1 | `Unknown_6CF930, object` | `app/client/fontmanager.h:184` | neutral (D10) |
-| 1 | `Unknown_6CF930` | `app/client/fontmanager.h:184` | untagged neutral name (D10) |
-| 1 | `Unknown_All_Styles` | `app/client/fontmanager.h:186` | neutral (D10) |
-| 1 | `Unknown_Set_Styles` | `app/client/fontmanager.h:187` | neutral (D10) |
-| 1 | `Unknown_6D07D0` | `app/client/fontmanager.h:188` | neutral (D10) |
-| 1 | `Unknown_6D0890` | `app/client/fontmanager.h:189` | neutral (D10) |
-| 1 | `Unknown_6D10B0` | `app/client/fontmanager.h:190` | neutral (D10) |
-| 1 | `Unknown_6D1220` | `app/client/fontmanager.h:191` | neutral (D10) |
-| 1 | `Unknown_6D1480` | `app/client/fontmanager.h:192` | neutral (D10) |
-| 1 | `Unknown_6D1600` | `app/client/fontmanager.h:193` | neutral (D10) |
-| 1 | `Unknown_6D1010` | `app/client/fontmanager.h:194` | neutral (D10) |
-| 1 | `Unknown_6D01C0` | `app/client/fontmanager.h:195` | neutral (D10) |
-| 1 | `Unknown_6D0390` | `app/client/fontmanager.h:196` | neutral (D10) |
-| 1 | `Unknown_6D0550` | `app/client/fontmanager.h:197` | neutral (D10) |
-| 1 | `Unknown_6D0A70` | `app/client/fontmanager.h:198` | neutral (D10) |
-| 1 | `Unknown_6D0A20` | `app/client/fontmanager.h:199` | neutral (D10) |
-| 1 | `Unknown08` | `app/client/fontmanager.h:203` | neutral (D10) |
-| 1 | `Unknown_6D1C10` | `app/client/fontmanager.h:213` | neutral (D10) |
-| 1 | `Unknown_6D2310` | `app/client/fontmanager.h:218` | neutral (D10) |
-| 1 | `Unknown_6D2400` | `app/client/fontmanager.h:219` | neutral (D10) |
-| 1 | `Unknown_6D2480` | `app/client/fontmanager.h:220` | neutral (D10) |
-| 1 | `Unknown_6D2500` | `app/client/fontmanager.h:221` | neutral (D10) |
-| 1 | `Unknown_6D2580` | `app/client/fontmanager.h:222` | neutral (D10) |
-| 1 | `Unknown_6D2700` | `app/client/fontmanager.h:224` | neutral (D10) |
-| 1 | `Unknown_6D28C0` | `app/client/fontmanager.h:225` | neutral (D10) |
-| 1 | `Peek_Font` | `app/client/fontmanager.h:227` | neutral (D10) |
-| 1 | `Unknown_6D2AE0` | `app/client/fontmanager.h:229` | neutral (D10) |
+| 1 | `Unknown_6CF930, object` | `app/client/fontmanager.h:39` | neutral (D10) |
+| 1 | `Unknown_6CF930` | `app/client/fontmanager.h:39` | untagged neutral name (D10) |
+| 1 | `Unknown_All_Styles` | `app/client/fontmanager.h:41` | neutral (D10) |
+| 1 | `Unknown_Set_Styles` | `app/client/fontmanager.h:42` | neutral (D10) |
+| 1 | `Unknown_6D07D0` | `app/client/fontmanager.h:43` | neutral (D10) |
+| 1 | `Unknown_6D0890` | `app/client/fontmanager.h:44` | neutral (D10) |
+| 1 | `Unknown_6D10B0` | `app/client/fontmanager.h:45` | neutral (D10) |
+| 1 | `Unknown_6D1220` | `app/client/fontmanager.h:46` | neutral (D10) |
+| 1 | `Unknown_6D1480` | `app/client/fontmanager.h:47` | neutral (D10) |
+| 1 | `Unknown_6D1600` | `app/client/fontmanager.h:48` | neutral (D10) |
+| 1 | `Unknown_6D1010` | `app/client/fontmanager.h:49` | neutral (D10) |
+| 1 | `Unknown_6D01C0` | `app/client/fontmanager.h:50` | neutral (D10) |
+| 1 | `Unknown_6D0390` | `app/client/fontmanager.h:51` | neutral (D10) |
+| 1 | `Unknown_6D0550` | `app/client/fontmanager.h:52` | neutral (D10) |
+| 1 | `Unknown_6D0A70` | `app/client/fontmanager.h:53` | neutral (D10) |
+| 1 | `Unknown_6D0A20` | `app/client/fontmanager.h:54` | neutral (D10) |
+| 1 | `Unknown08` | `app/client/fontmanager.h:58` | neutral (D10) |
+| 1 | `Unknown_6D1C10` | `app/client/fontmanager.h:68` | neutral (D10) |
+| 1 | `Unknown_6D2310` | `app/client/fontmanager.h:73` | neutral (D10) |
+| 1 | `Unknown_6D2400` | `app/client/fontmanager.h:74` | neutral (D10) |
+| 1 | `Unknown_6D2480` | `app/client/fontmanager.h:75` | neutral (D10) |
+| 1 | `Unknown_6D2500` | `app/client/fontmanager.h:76` | neutral (D10) |
+| 1 | `Unknown_6D2580` | `app/client/fontmanager.h:77` | neutral (D10) |
+| 1 | `Unknown_6D2700` | `app/client/fontmanager.h:79` | neutral (D10) |
+| 1 | `Unknown_6D28C0` | `app/client/fontmanager.h:80` | neutral (D10) |
+| 1 | `Peek_Font` | `app/client/fontmanager.h:82` | neutral (D10) |
+| 1 | `Unknown_6D2AE0` | `app/client/fontmanager.h:84` | neutral (D10) |
+| 1 | `fontstring.h` | `app/client/fontstring.h:11` | neutral, what it declares (D10) |
+| 1 | `Unknown04` | `app/client/fontstring.h:65` | neutral (D10) |
 | 1 | `Unknown_6D5170` | `app/client/fontsys.cpp:33` | untagged neutral name (D10) |
 | 1 | `Unknown_6D6390` | `app/client/fontsys.cpp:34` | untagged neutral name (D10) |
 | 1 | `Unknown_6D5D40` | `app/client/fontsys.cpp:35` | untagged neutral name (D10) |
@@ -3821,6 +3723,106 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6D89C0` | `app/client/fontsys.cpp:1015` | untagged neutral name (D10) |
 | 1 | `Unknown_6D8A80` | `app/client/fontsys.cpp:1028` | untagged neutral name (D10) |
 | 1 | `Unknown0C` | `app/client/fontsys.cpp:1032` | untagged neutral name (D10) |
+| 1 | `fontsys.h` | `app/client/fontsys.h:11` | neutral, what it declares (D10) |
+| 1 | `FontStyleColorStruct` | `app/client/fontsys.h:25` | neutral (D10): 16 bytes, a color r, g, b (0..1) and its alpha (floats: 0x6D5170, Update_Text, 0x6CA0C0) |
+| 1 | `Unknown0C` | `app/client/fontsys.h:28` | neutral (D10) |
+| 1 | `Unknown_6D8B90Class` | `app/client/fontsys.h:31` | neutral (D10): 16 bytes, a 32 x 32 texture; counted in 0xBE67CC (FontSys +0x2D0 / +0x2E0) |
+| 1 | `Unknown_6D8DC0, unknown` | `app/client/fontsys.h:37` | neutral (D10) |
+| 1 | `Unknown_6D8DC0` | `app/client/fontsys.h:37` | untagged neutral name (D10) |
+| 1 | `Unknown_BE67D8` | `app/client/fontsys.h:45` | neutral (D10) |
+| 1 | `object` | `app/client/fontsys.h:51` | neutral (D10) |
+| 1 | `def, object` | `app/client/fontsys.h:52` | neutral (D10) |
+| 1 | `Unknown_6D5170, object` | `app/client/fontsys.h:66` | neutral (D10) |
+| 1 | `Unknown_6D5170` | `app/client/fontsys.h:66` | untagged neutral name (D10) |
+| 1 | `Unknown_6D6390` | `app/client/fontsys.h:67` | neutral (D10) |
+| 1 | `Unknown_Set_2FC` | `app/client/fontsys.h:70` | neutral (D10), as ui_manu.cpp's |
+| 1 | `Unknown_6D5140` | `app/client/fontsys.h:72` | neutral (D10) |
+| 1 | `Unknown_6CE7D0` | `app/client/fontsys.h:73` | neutral (D10) |
+| 1 | `Unknown_6D5A80` | `app/client/fontsys.h:75` | neutral (D10) |
+| 1 | `Unknown_6D5D40` | `app/client/fontsys.h:76` | neutral (D10) |
+| 1 | `Unknown_6D5EF0, onoff` | `app/client/fontsys.h:77` | neutral (D10), onoff as Set_Hidden's |
+| 1 | `Unknown_6D5EF0` | `app/client/fontsys.h:77` | untagged neutral name (D10) |
+| 1 | `Unknown_6CD950, index, time` | `app/client/fontsys.h:78` | neutral (D10) |
+| 1 | `Unknown_6CD950` | `app/client/fontsys.h:78` | untagged neutral name (D10) |
+| 1 | `on` | `app/client/fontsys.h:79` | neutral |
+| 1 | `Unknown_6D89C0` | `app/client/fontsys.h:79` | untagged neutral name (D10) |
+| 1 | `Unknown_6CE910` | `app/client/fontsys.h:79` | untagged neutral name (D10) |
+| 1 | `left, top, right, bottom` | `app/client/fontsys.h:80` | what textgadg.cpp passes |
+| 1 | `Unknown_6D88F0` | `app/client/fontsys.h:80` | untagged neutral name (D10) |
+| 1 | `Unknown_6D8650` | `app/client/fontsys.h:81` | neutral (D10) |
+| 1 | `Unknown_6D8780, x, y` | `app/client/fontsys.h:82` | neutral (D10) |
+| 1 | `Unknown_6D8780` | `app/client/fontsys.h:82` | untagged neutral name (D10) |
+| 1 | `Unknown_6D8A80, on` | `app/client/fontsys.h:85` | neutral (D10) |
+| 1 | `Unknown_6D8A80` | `app/client/fontsys.h:85` | untagged neutral name (D10) |
+| 1 | `Unknown_6D87D0` | `app/client/fontsys.h:86` | neutral (D10) |
+| 1 | `Unknown_6D8970, on` | `app/client/fontsys.h:87` | neutral (D10) |
+| 1 | `Unknown_6D8940` | `app/client/fontsys.h:87` | untagged neutral name (D10) |
+| 1 | `Unknown_6D8970` | `app/client/fontsys.h:87` | untagged neutral name (D10) |
+| 1 | `Unknown_6D5F40` | `app/client/fontsys.h:88` | neutral (D10) |
+| 1 | `Unknown_6D60C0` | `app/client/fontsys.h:89` | neutral (D10) |
+| 1 | `Unknown_6CD180` | `app/client/fontsys.h:90` | neutral (D10) |
+| 1 | `Unknown_6CD6F0` | `app/client/fontsys.h:91` | neutral (D10) |
+| 1 | `Unknown_6CCE60` | `app/client/fontsys.h:92` | neutral (D10) |
+| 1 | `Unknown_6CDAB0` | `app/client/fontsys.h:93` | neutral (D10) |
+| 1 | `Unknown_6CA0C0` | `app/client/fontsys.h:94` | neutral (D10) |
+| 1 | `Unknown_6D5B10` | `app/client/fontsys.h:95` | neutral (D10) |
+| 1 | `Unknown_6CE4E0, font_index` | `app/client/fontsys.h:96` | neutral (D10) |
+| 1 | `Unknown_6CE4E0` | `app/client/fontsys.h:96` | untagged neutral name (D10) |
+| 1 | `Unknown_6CE420, unknown, format` | `app/client/fontsys.h:97` | neutral (D10) |
+| 1 | `Unknown_6CE420` | `app/client/fontsys.h:97` | untagged neutral name (D10) |
+| 1 | `Unknown250` | `app/client/fontsys.h:104` | neutral (D10) |
+| 1 | `Unknown254` | `app/client/fontsys.h:105` | neutral (D10) |
+| 1 | `Unknown26C` | `app/client/fontsys.h:106` | neutral (D10) |
+| 1 | `Unknown270` | `app/client/fontsys.h:107` | neutral (D10) |
+| 1 | `Unknown274` | `app/client/fontsys.h:108` | neutral (D10) |
+| 1 | `Unknown2C4` | `app/client/fontsys.h:113` | neutral (D10) |
+| 1 | `Unknown2C8` | `app/client/fontsys.h:114` | neutral (D10) |
+| 1 | `Unknown2D0` | `app/client/fontsys.h:116` | neutral (D10) |
+| 1 | `Unknown2E0` | `app/client/fontsys.h:117` | neutral (D10) |
+| 1 | `Unknown2F0` | `app/client/fontsys.h:118` | neutral (D10) |
+| 1 | `Unknown2F4` | `app/client/fontsys.h:119` | neutral (D10) |
+| 1 | `Unknown300` | `app/client/fontsys.h:120` | neutral (D10) |
+| 1 | `Unknown301` | `app/client/fontsys.h:121` | neutral (D10) |
+| 1 | `Unknown302` | `app/client/fontsys.h:122` | neutral (D10) |
+| 1 | `Unknown303` | `app/client/fontsys.h:123` | neutral (D10) |
+| 1 | `Unknown402` | `app/client/fontsys.h:124` | neutral (D10) |
+| 1 | `Unknown403` | `app/client/fontsys.h:125` | neutral (D10) |
+| 1 | `Unknown404` | `app/client/fontsys.h:126` | neutral (D10) |
+| 1 | `Unknown405` | `app/client/fontsys.h:127` | neutral (D10) |
+| 1 | `Unknown406` | `app/client/fontsys.h:128` | neutral (D10) |
+| 1 | `Unknown408` | `app/client/fontsys.h:130` | neutral (D10) |
+| 1 | `Unknown409` | `app/client/fontsys.h:131` | neutral (D10) |
+| 1 | `Unknown410` | `app/client/fontsys.h:133` | neutral (D10) |
+| 1 | `Unknown414` | `app/client/fontsys.h:134` | neutral (D10) |
+| 1 | `Unknown418` | `app/client/fontsys.h:135` | neutral (D10) |
+| 1 | `Unknown41C` | `app/client/fontsys.h:136` | neutral (D10) |
+| 1 | `Unknown420` | `app/client/fontsys.h:137` | neutral (D10) |
+| 1 | `Unknown430` | `app/client/fontsys.h:138` | neutral (D10) |
+| 1 | `Unknown440` | `app/client/fontsys.h:139` | neutral (D10) |
+| 1 | `Unknown444` | `app/client/fontsys.h:140` | neutral (D10) |
+| 1 | `Unknown448` | `app/client/fontsys.h:141` | neutral (D10) |
+| 1 | `Unknown44C` | `app/client/fontsys.h:142` | neutral (D10) |
+| 1 | `Unknown450` | `app/client/fontsys.h:143` | neutral (D10) |
+| 1 | `Unknown454` | `app/client/fontsys.h:144` | neutral (D10) |
+| 1 | `Unknown458` | `app/client/fontsys.h:145` | neutral (D10) |
+| 1 | `Unknown464` | `app/client/fontsys.h:148` | neutral (D10) |
+| 1 | `Unknown470` | `app/client/fontsys.h:149` | neutral (D10) |
+| 1 | `Unknown47C` | `app/client/fontsys.h:150` | neutral (D10) |
+| 1 | `Unknown488` | `app/client/fontsys.h:151` | neutral (D10) |
+| 1 | `Unknown494` | `app/client/fontsys.h:152` | neutral (D10) |
+| 1 | `Unknown4A4` | `app/client/fontsys.h:153` | neutral (D10) |
+| 1 | `Unknown4B4` | `app/client/fontsys.h:154` | neutral (D10) |
+| 1 | `Unknown4C4` | `app/client/fontsys.h:155` | neutral (D10) |
+| 1 | `Unknown4C5` | `app/client/fontsys.h:156` | neutral (D10) |
+| 1 | `Unknown4C6` | `app/client/fontsys.h:157` | neutral (D10) |
+| 1 | `Unknown4C8` | `app/client/fontsys.h:158` | neutral (D10) |
+| 1 | `Unknown4D0` | `app/client/fontsys.h:159` | neutral (D10) |
+| 1 | `Unknown4DC` | `app/client/fontsys.h:160` | neutral (D10) |
+| 1 | `Unknown4E0` | `app/client/fontsys.h:161` | neutral (D10) |
+| 1 | `Unknown4E4` | `app/client/fontsys.h:162` | neutral (D10) |
+| 1 | `Unknown4E5` | `app/client/fontsys.h:163` | neutral (D10) |
+| 1 | `Unknown4E6` | `app/client/fontsys.h:164` | neutral (D10) |
+| 1 | `Unknown4E7` | `app/client/fontsys.h:165` | neutral (D10) |
 | 1 | `InterfaceSortClass` | `app/client/fontsys_cursor.cpp:8` | neutral (D10) |
 | 1 | `iface` | `app/client/fontsys_cursor.cpp:11` | neutral |
 | 1 | `Unknown00` | `app/client/fontsys_cursor.cpp:14` | untagged neutral name (D10) |
@@ -9362,6 +9364,31 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_515440` | `app/client/smouse.cpp:141` | untagged neutral name (D10) |
 | 1 | `Unknown_515510` | `app/client/smouse.cpp:265` | untagged neutral name (D10) |
 | 1 | `Unknown_5155A0` | `app/client/smouse.cpp:275` | untagged neutral name (D10) |
+| 1 | `smouse.h` | `app/client/smouse.h:11` | neutral, what it declares (D10) |
+| 1 | `LoginUnknown18Class` | `app/client/smouse.h:17` | neutral (D10): what LoginTaskClass +0x18 points to (smouse.cpp's software mouse) |
+| 1 | `cursor` | `app/client/smouse.h:22` | what 0x515120 passes |
+| 1 | `Unknown_515080` | `app/client/smouse.h:22` | untagged neutral name (D10) |
+| 1 | `cursor` | `app/client/smouse.h:23` | an index into mousetbl.cpp's table 0xBE7C70 |
+| 1 | `Unknown_515120` | `app/client/smouse.h:23` | untagged neutral name (D10) |
+| 1 | `Unknown_515320` | `app/client/smouse.h:24` | untagged neutral name (D10) |
+| 1 | `scene` | `app/client/smouse.h:25` | what the callers pass (the view's slot +0x3C) |
+| 1 | `Unknown_515340` | `app/client/smouse.h:25` | untagged neutral name (D10) |
+| 1 | `Unknown_5153B0` | `app/client/smouse.h:26` | untagged neutral name (D10) |
+| 1 | `Unknown_515400` | `app/client/smouse.h:27` | untagged neutral name (D10) |
+| 1 | `Unknown_515440` | `app/client/smouse.h:28` | untagged neutral name (D10) |
+| 1 | `Unknown_515510` | `app/client/smouse.h:29` | untagged neutral name (D10) |
+| 1 | `Unknown_5155A0` | `app/client/smouse.h:30` | untagged neutral name (D10) |
+| 1 | `Unknown14` | `app/client/smouse.h:32` | untagged neutral name (D10) |
+| 1 | `Unknown18` | `app/client/smouse.h:33` | untagged neutral name (D10) |
+| 1 | `Unknown00` | `app/client/smouse.h:35` | untagged neutral name (D10) |
+| 1 | `Unknown04` | `app/client/smouse.h:36` | untagged neutral name (D10) |
+| 1 | `Unknown08` | `app/client/smouse.h:37` | untagged neutral name (D10) |
+| 1 | `Unknown0C` | `app/client/smouse.h:38` | untagged neutral name (D10) |
+| 1 | `Unknown10` | `app/client/smouse.h:39` | untagged neutral name (D10) |
+| 1 | `Unknown1C` | `app/client/smouse.h:42` | untagged neutral name (D10) |
+| 1 | `Unknown20` | `app/client/smouse.h:43` | untagged neutral name (D10) |
+| 1 | `Unknown24` | `app/client/smouse.h:44` | untagged neutral name (D10) |
+| 1 | `Unknown28` | `app/client/smouse.h:45` | untagged neutral name (D10) |
 | 1 | `Unknown04` | `app/client/soptions.cpp:14` | untagged neutral name (D10) |
 | 1 | `Unknown05` | `app/client/soptions.cpp:14` | untagged neutral name (D10) |
 | 1 | `Unknown06` | `app/client/soptions.cpp:14` | untagged neutral name (D10) |
@@ -9891,75 +9918,52 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown004` | `app/client/tasks/tsk_login.h:74` | untagged neutral name (D10) |
 | 1 | `Unknown07C` | `app/client/tasks/tsk_login.h:75` | untagged neutral name (D10) |
 | 1 | `Unknown07D` | `app/client/tasks/tsk_login.h:76` | untagged neutral name (D10) |
-| 1 | `LoginUnknown18Class` | `app/client/tasks/tsk_login.h:91` | neutral (D10): what LoginTaskClass +0x18 points to (smouse.cpp's software mouse) |
-| 1 | `cursor` | `app/client/tasks/tsk_login.h:96` | what 0x515120 passes |
-| 1 | `Unknown_515080` | `app/client/tasks/tsk_login.h:96` | untagged neutral name (D10) |
-| 1 | `cursor` | `app/client/tasks/tsk_login.h:97` | an index into mousetbl.cpp's table 0xBE7C70 |
-| 1 | `Unknown_515120` | `app/client/tasks/tsk_login.h:97` | untagged neutral name (D10) |
-| 1 | `Unknown_515320` | `app/client/tasks/tsk_login.h:98` | untagged neutral name (D10) |
-| 1 | `scene` | `app/client/tasks/tsk_login.h:99` | what the callers pass (the view's slot +0x3C) |
-| 1 | `Unknown_515340` | `app/client/tasks/tsk_login.h:99` | untagged neutral name (D10) |
-| 1 | `Unknown_5153B0` | `app/client/tasks/tsk_login.h:100` | untagged neutral name (D10) |
-| 1 | `Unknown_515400` | `app/client/tasks/tsk_login.h:101` | untagged neutral name (D10) |
-| 1 | `Unknown_515440` | `app/client/tasks/tsk_login.h:102` | untagged neutral name (D10) |
-| 1 | `Unknown_515510` | `app/client/tasks/tsk_login.h:103` | untagged neutral name (D10) |
-| 1 | `Unknown_5155A0` | `app/client/tasks/tsk_login.h:104` | untagged neutral name (D10) |
-| 1 | `Unknown14` | `app/client/tasks/tsk_login.h:106` | untagged neutral name (D10) |
-| 1 | `Unknown18` | `app/client/tasks/tsk_login.h:107` | untagged neutral name (D10) |
-| 1 | `Unknown00` | `app/client/tasks/tsk_login.h:109` | untagged neutral name (D10) |
-| 1 | `Unknown04` | `app/client/tasks/tsk_login.h:110` | untagged neutral name (D10) |
-| 1 | `Unknown08` | `app/client/tasks/tsk_login.h:111` | untagged neutral name (D10) |
-| 1 | `Unknown0C` | `app/client/tasks/tsk_login.h:112` | untagged neutral name (D10) |
-| 1 | `Unknown10` | `app/client/tasks/tsk_login.h:113` | untagged neutral name (D10) |
-| 1 | `Unknown1C` | `app/client/tasks/tsk_login.h:116` | untagged neutral name (D10) |
-| 1 | `Unknown20` | `app/client/tasks/tsk_login.h:117` | untagged neutral name (D10) |
-| 1 | `Unknown24` | `app/client/tasks/tsk_login.h:118` | untagged neutral name (D10) |
-| 1 | `Unknown28` | `app/client/tasks/tsk_login.h:119` | untagged neutral name (D10) |
-| 1 | `mode` | `app/client/tasks/tsk_login.h:127` | MenuTask passes 1, or 9 (0x5FAE70 and not 0x5FAD50) |
-| 1 | `Set_Step` | `app/client/tasks/tsk_login.h:143` | what it does |
-| 1 | `Unknown_64` | `app/client/tasks/tsk_login.h:144` | untagged neutral name (D10) |
-| 1 | `Process_Packets` | `app/client/tasks/tsk_login.h:145` | what it does |
-| 1 | `Unknown_6C` | `app/client/tasks/tsk_login.h:146` | untagged neutral name (D10) |
-| 1 | `Create_Character_View` | `app/client/tasks/tsk_login.h:147` | what it does |
-| 1 | `Get_Selected` | `app/client/tasks/tsk_login.h:149` | what it returns |
-| 1 | `Get_Avatar_Descs` | `app/client/tasks/tsk_login.h:150` | what it returns |
-| 1 | `Unknown0350` | `app/client/tasks/tsk_login.h:150` | untagged neutral name (D10) |
-| 1 | `Galaxy_ID` | `app/client/tasks/tsk_login.h:151` | 0x769400 looks it up in the galaxies |
-| 1 | `Unknown_7692A0` | `app/client/tasks/tsk_login.h:152` | untagged neutral name (D10) |
-| 1 | `Unknown_7693E0` | `app/client/tasks/tsk_login.h:153` | untagged neutral name (D10) |
-| 1 | `Set_Username` | `app/client/tasks/tsk_login.h:154` | what it does |
-| 1 | `Set_Password` | `app/client/tasks/tsk_login.h:155` | what it does |
-| 1 | `Show_Message` | `app/client/tasks/tsk_login.h:156` | what it does |
-| 1 | `Show_Message` | `app/client/tasks/tsk_login.h:157` | what it does |
-| 1 | `Close_Global_Connection` | `app/client/tasks/tsk_login.h:158` | what it does |
-| 1 | `Delete_Character_View` | `app/client/tasks/tsk_login.h:159` | what it does |
-| 1 | `Fetch_EA_Ticket` | `app/client/tasks/tsk_login.h:160` | what it does |
-| 1 | `Start_Game` | `app/client/tasks/tsk_login.h:161` | what it does |
-| 1 | `Unknown_76A370` | `app/client/tasks/tsk_login.h:162` | untagged neutral name (D10) |
-| 1 | `Save_Login_Name` | `app/client/tasks/tsk_login.h:163` | what it does |
-| 1 | `Load_Login` | `app/client/tasks/tsk_login.h:164` | what it does |
-| 1 | `Unknown_768CB0` | `app/client/tasks/tsk_login.h:165` | untagged neutral name (D10) |
-| 1 | `Set_Galaxies` | `app/client/tasks/tsk_login.h:166` | what it does |
-| 1 | `Handle_Global_Error` | `app/client/tasks/tsk_login.h:167` | what it does |
-| 1 | `Handle_Global_Login` | `app/client/tasks/tsk_login.h:168` | what it does |
-| 1 | `Send_Referrer` | `app/client/tasks/tsk_login.h:169` | what it does |
-| 1 | `Handle_Referrer_Response` | `app/client/tasks/tsk_login.h:170` | what it does |
-| 1 | `Kill_Kernel` | `app/client/tasks/tsk_login.h:171` | what it does |
-| 1 | `Unknown000C` | `app/client/tasks/tsk_login.h:173` | untagged neutral name (D10) |
-| 1 | `Unknown0014` | `app/client/tasks/tsk_login.h:175` | untagged neutral name (D10) |
-| 1 | `Unknown0018` | `app/client/tasks/tsk_login.h:176` | untagged neutral name (D10) |
-| 1 | `Unknown001D` | `app/client/tasks/tsk_login.h:178` | untagged neutral name (D10) |
-| 1 | `Unknown0020` | `app/client/tasks/tsk_login.h:179` | untagged neutral name (D10) |
-| 1 | `Unknown0030` | `app/client/tasks/tsk_login.h:183` | untagged neutral name (D10) |
-| 1 | `Unknown0034` | `app/client/tasks/tsk_login.h:184` | untagged neutral name (D10) |
-| 1 | `Unknown088C` | `app/client/tasks/tsk_login.h:188` | untagged neutral name (D10) |
-| 1 | `Unknown107D` | `app/client/tasks/tsk_login.h:192` | untagged neutral name (D10) |
-| 1 | `Unknown108C` | `app/client/tasks/tsk_login.h:196` | untagged neutral name (D10) |
-| 1 | `Unknown1094` | `app/client/tasks/tsk_login.h:198` | untagged neutral name (D10) |
-| 1 | `Unknown1138` | `app/client/tasks/tsk_login.h:201` | untagged neutral name (D10) |
-| 1 | `Unknown1139` | `app/client/tasks/tsk_login.h:202` | untagged neutral name (D10) |
-| 1 | `Unknown113C` | `app/client/tasks/tsk_login.h:203` | untagged neutral name (D10) |
-| 1 | `Unknown1144` | `app/client/tasks/tsk_login.h:205` | untagged neutral name (D10) |
+| 1 | `mode` | `app/client/tasks/tsk_login.h:95` | MenuTask passes 1, or 9 (0x5FAE70 and not 0x5FAD50) |
+| 1 | `Set_Step` | `app/client/tasks/tsk_login.h:111` | what it does |
+| 1 | `Unknown_64` | `app/client/tasks/tsk_login.h:112` | untagged neutral name (D10) |
+| 1 | `Process_Packets` | `app/client/tasks/tsk_login.h:113` | what it does |
+| 1 | `Unknown_6C` | `app/client/tasks/tsk_login.h:114` | untagged neutral name (D10) |
+| 1 | `Create_Character_View` | `app/client/tasks/tsk_login.h:115` | what it does |
+| 1 | `Get_Selected` | `app/client/tasks/tsk_login.h:117` | what it returns |
+| 1 | `Get_Avatar_Descs` | `app/client/tasks/tsk_login.h:118` | what it returns |
+| 1 | `Unknown0350` | `app/client/tasks/tsk_login.h:118` | untagged neutral name (D10) |
+| 1 | `Galaxy_ID` | `app/client/tasks/tsk_login.h:119` | 0x769400 looks it up in the galaxies |
+| 1 | `Unknown_7692A0` | `app/client/tasks/tsk_login.h:120` | untagged neutral name (D10) |
+| 1 | `Unknown_7693E0` | `app/client/tasks/tsk_login.h:121` | untagged neutral name (D10) |
+| 1 | `Set_Username` | `app/client/tasks/tsk_login.h:122` | what it does |
+| 1 | `Set_Password` | `app/client/tasks/tsk_login.h:123` | what it does |
+| 1 | `Show_Message` | `app/client/tasks/tsk_login.h:124` | what it does |
+| 1 | `Show_Message` | `app/client/tasks/tsk_login.h:125` | what it does |
+| 1 | `Close_Global_Connection` | `app/client/tasks/tsk_login.h:126` | what it does |
+| 1 | `Delete_Character_View` | `app/client/tasks/tsk_login.h:127` | what it does |
+| 1 | `Fetch_EA_Ticket` | `app/client/tasks/tsk_login.h:128` | what it does |
+| 1 | `Start_Game` | `app/client/tasks/tsk_login.h:129` | what it does |
+| 1 | `Unknown_76A370` | `app/client/tasks/tsk_login.h:130` | untagged neutral name (D10) |
+| 1 | `Save_Login_Name` | `app/client/tasks/tsk_login.h:131` | what it does |
+| 1 | `Load_Login` | `app/client/tasks/tsk_login.h:132` | what it does |
+| 1 | `Unknown_768CB0` | `app/client/tasks/tsk_login.h:133` | untagged neutral name (D10) |
+| 1 | `Set_Galaxies` | `app/client/tasks/tsk_login.h:134` | what it does |
+| 1 | `Handle_Global_Error` | `app/client/tasks/tsk_login.h:135` | what it does |
+| 1 | `Handle_Global_Login` | `app/client/tasks/tsk_login.h:136` | what it does |
+| 1 | `Send_Referrer` | `app/client/tasks/tsk_login.h:137` | what it does |
+| 1 | `Handle_Referrer_Response` | `app/client/tasks/tsk_login.h:138` | what it does |
+| 1 | `Kill_Kernel` | `app/client/tasks/tsk_login.h:139` | what it does |
+| 1 | `Unknown000C` | `app/client/tasks/tsk_login.h:141` | untagged neutral name (D10) |
+| 1 | `Unknown0014` | `app/client/tasks/tsk_login.h:143` | untagged neutral name (D10) |
+| 1 | `LoginUnknown18Class` | `app/client/tasks/tsk_login.h:144` | untagged neutral name (D10) |
+| 1 | `Unknown0018` | `app/client/tasks/tsk_login.h:144` | untagged neutral name (D10) |
+| 1 | `Unknown001D` | `app/client/tasks/tsk_login.h:146` | untagged neutral name (D10) |
+| 1 | `Unknown0020` | `app/client/tasks/tsk_login.h:147` | untagged neutral name (D10) |
+| 1 | `Unknown0030` | `app/client/tasks/tsk_login.h:151` | untagged neutral name (D10) |
+| 1 | `Unknown0034` | `app/client/tasks/tsk_login.h:152` | untagged neutral name (D10) |
+| 1 | `Unknown088C` | `app/client/tasks/tsk_login.h:156` | untagged neutral name (D10) |
+| 1 | `Unknown107D` | `app/client/tasks/tsk_login.h:160` | untagged neutral name (D10) |
+| 1 | `Unknown108C` | `app/client/tasks/tsk_login.h:164` | untagged neutral name (D10) |
+| 1 | `Unknown1094` | `app/client/tasks/tsk_login.h:166` | untagged neutral name (D10) |
+| 1 | `Unknown1138` | `app/client/tasks/tsk_login.h:169` | untagged neutral name (D10) |
+| 1 | `Unknown1139` | `app/client/tasks/tsk_login.h:170` | untagged neutral name (D10) |
+| 1 | `Unknown113C` | `app/client/tasks/tsk_login.h:171` | untagged neutral name (D10) |
+| 1 | `Unknown1144` | `app/client/tasks/tsk_login.h:173` | untagged neutral name (D10) |
 | 1 | `tsk_menu.cpp` | `app/client/tasks/tsk_menu.cpp:16` | neutral name from the class's log text, sorting between tsk_login.cpp and tsk_movie.cpp (the link order) |
 | 1 | `Unknown_Debug_Print` | `app/client/tasks/tsk_menu.cpp:17` | 0x509E30 (dbgmgr.cpp), the log line |
 | 1 | `Unknown_Debug_Begin_Step` | `app/client/tasks/tsk_menu.cpp:18` | 0x509EF0 (dbgmgr.cpp), WinMain's step log |
@@ -22402,17 +22406,19 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Packet_754AClass` | `app/packets/gameedit/pkgeplan.h:65` | neutral (D10): opcode 0x754A (Print 'GameEditorPlanetUnitDetails') |
 | 1 | `Packet_7541Class` | `app/packets/gameedit/pkgespwn.h:21` | neutral (D10): opcode 0x7541 (Print 'GameEditorRequestSpawnDefaults') |
 | 1 | `Packet_7542Class` | `app/packets/gameedit/pkgespwn.h:38` | neutral (D10): opcode 0x7542 (Print 'GameEditorSpawnDefaults') |
+| 1 | `packet_data.h` | `app/packets/packet_data.h:12` | neutral, what it declares (D10) |
+| 1 | `Unknown_PacketDataClass` | `app/packets/packet_data.h:18` | neutral placeholder (D10) |
 | 1 | `Unknown_8B4510` | `app/packets/pk.cpp:9` | wwonline's 64-bit htonl (a byte-order probe, then two htonl) |
 | 1 | `Unknown_8B4560` | `app/packets/pk.cpp:10` | wwonline's 64-bit ntohl |
 | 1 | `Unknown_Create_Packet` | `app/packets/pk.cpp:13` | untagged neutral name (D10) |
 | 1 | `Unknown_869790` | `app/packets/pk.cpp:16` | untagged neutral name (D10) |
 | 1 | `Unknown_PacketDataClass` | `app/packets/pk.cpp:1091` | untagged neutral name (D10) |
 | 1 | `Unknown_14` | `app/packets/pk.cpp:1342` | untagged neutral name (D10) |
-| 1 | `Unknown_PacketDataClass` | `app/packets/pk.h:28` | neutral placeholder (D10) |
 | 1 | `PacketHeaderClass` | `app/packets/pk.h:38` | describes what it is |
 | 1 | `RawPacketClass` | `app/packets/pk.h:47` | describes what it is (the asserts call it `packet`) |
 | 1 | `Unknown_Set_Size` | `app/packets/pk.h:54` | untagged neutral name (D10) |
 | 1 | `Unknown2A` | `app/packets/pk.h:70` | untagged neutral name (D10) |
+| 1 | `Unknown_PacketDataClass` | `app/packets/pk.h:74` | untagged neutral name (D10) |
 | 1 | `Unknown_14` | `app/packets/pk.h:114` | untagged neutral name (D10) |
 | 1 | `Unknown_Create_Packet` | `app/packets/pk.h:127` | what it does |
 | 1 | `Unknown_869790` | `app/packets/pk.h:130` | neutral (D10) |
@@ -22422,9 +22428,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_8743C0` | `app/packets/pk_player_object_relationship.cpp:85` | untagged neutral name (D10) |
 | 1 | `ReactionUpdateVectorIteratorClass` | `app/packets/pk_player_object_relationship.cpp:152` | neutral (D10): what it does |
 | 1 | `AttackerUpdateVectorIteratorClass` | `app/packets/pk_player_object_relationship.cpp:244` | neutral (D10): what it does |
-| 1 | `ReactionUpdateStruct` | `app/packets/pk_player_object_relationship.h:64` | neutral (D10): what it holds |
-| 1 | `ReactionUpdateIteratorClass` | `app/packets/pk_player_object_relationship.h:74` | neutral (D10): what it does |
-| 1 | `AttackerUpdateIteratorClass` | `app/packets/pk_player_object_relationship.h:82` | neutral (D10): what it does |
+| 1 | `ReactionUpdateStruct` | `app/packets/pk_player_object_relationship.h:45` | neutral (D10): what it holds |
+| 1 | `ReactionUpdateIteratorClass` | `app/packets/pk_player_object_relationship.h:55` | neutral (D10): what it does |
+| 1 | `AttackerUpdateIteratorClass` | `app/packets/pk_player_object_relationship.h:63` | neutral (D10): what it does |
 | 1 | `Unknown_14` | `app/packets/pk_sub_parts.cpp:29` | untagged neutral name (D10) |
 | 1 | `Unknown14` | `app/packets/pkaction.cpp:8` | untagged neutral name (D10) |
 | 1 | `Unknown18` | `app/packets/pkaction.cpp:9` | untagged neutral name (D10) |
@@ -23193,6 +23199,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `game_id, drops, adds` | `app/packets/pkverbrequest.h:62` | the members' |
 | 1 | `pkversionrequest` | `app/packets/pkversionrequest.h:16` | provisional, pk + its first named class's name |
 | 1 | `pkwarpindex` | `app/packets/pkwarpindex.h:15` | provisional, pk + its first named class's name |
+| 1 | `relationship.h` | `app/packets/relationship.h:13` | neutral, what it declares (D10) |
 | 1 | `Unknown` | `app/shared/attrib_dir.cpp:1092` | untagged neutral name (D10) |
 | 1 | `Unknown1C` | `app/shared/attrib_dir_collective.cpp:33` | untagged neutral name (D10) |
 | 1 | `Unknown1C` | `app/shared/attrib_dir_collective.h:52` | neutral placeholder (D10) |
@@ -23222,27 +23229,27 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_34` | `app/shared/auxdata/delta.cpp:69` | untagged neutral name (D10) |
 | 1 | `Unknown_48` | `app/shared/auxdata/delta.cpp:138` | untagged neutral name (D10) |
 | 1 | `Unknown98` | `app/shared/auxdata/delta.cpp:153` | untagged neutral name (D10) |
-| 1 | `DeltaUnknownGlobal` | `app/shared/auxdata/delta.h:84` | neutral (D10); the counter (0xBE3B44) numbers them |
-| 1 | `DeltaUnknownCounter` | `app/shared/auxdata/delta.h:84` | untagged neutral name (D10) |
-| 1 | `Unknown_00` | `app/shared/auxdata/delta.h:91` | untagged neutral name (D10) |
-| 1 | `Unknown_0C` | `app/shared/auxdata/delta.h:94` | untagged neutral name (D10) |
-| 1 | `Unknown_10` | `app/shared/auxdata/delta.h:95` | untagged neutral name (D10) |
-| 1 | `Unknown_18` | `app/shared/auxdata/delta.h:97` | untagged neutral name (D10) |
-| 1 | `Unknown_1C` | `app/shared/auxdata/delta.h:98` | untagged neutral name (D10) |
-| 1 | `Unknown_20` | `app/shared/auxdata/delta.h:99` | untagged neutral name (D10) |
-| 1 | `Unknown_34` | `app/shared/auxdata/delta.h:105` | untagged neutral name (D10) |
-| 1 | `Unknown_38` | `app/shared/auxdata/delta.h:106` | untagged neutral name (D10) |
-| 1 | `Unknown_3C` | `app/shared/auxdata/delta.h:107` | untagged neutral name (D10) |
-| 1 | `Unknown_40` | `app/shared/auxdata/delta.h:108` | untagged neutral name (D10) |
-| 1 | `Unknown_44` | `app/shared/auxdata/delta.h:109` | untagged neutral name (D10) |
-| 1 | `Unknown04` | `app/shared/auxdata/delta.h:111` | untagged neutral name (D10) |
-| 1 | `Unknown70` | `app/shared/auxdata/delta.h:114` | untagged neutral name (D10) |
-| 1 | `Unknown78` | `app/shared/auxdata/delta.h:116` | untagged neutral name (D10) |
-| 1 | `Unknown7C` | `app/shared/auxdata/delta.h:117` | untagged neutral name (D10) |
-| 1 | `Unknown80` | `app/shared/auxdata/delta.h:118` | untagged neutral name (D10) |
-| 1 | `Unknown98` | `app/shared/auxdata/delta.h:125` | untagged neutral name (D10) |
-| 1 | `UnknownGlobal` | `app/shared/auxdata/delta.h:127` | untagged neutral name (D10) |
-| 1 | `Unknown_48` | `app/shared/auxdata/delta.h:140` | untagged neutral name (D10) |
+| 1 | `DeltaUnknownGlobal` | `app/shared/auxdata/delta.h:62` | neutral (D10); the counter (0xBE3B44) numbers them |
+| 1 | `DeltaUnknownCounter` | `app/shared/auxdata/delta.h:62` | untagged neutral name (D10) |
+| 1 | `Unknown_00` | `app/shared/auxdata/delta.h:69` | untagged neutral name (D10) |
+| 1 | `Unknown_0C` | `app/shared/auxdata/delta.h:72` | untagged neutral name (D10) |
+| 1 | `Unknown_10` | `app/shared/auxdata/delta.h:73` | untagged neutral name (D10) |
+| 1 | `Unknown_18` | `app/shared/auxdata/delta.h:75` | untagged neutral name (D10) |
+| 1 | `Unknown_1C` | `app/shared/auxdata/delta.h:76` | untagged neutral name (D10) |
+| 1 | `Unknown_20` | `app/shared/auxdata/delta.h:77` | untagged neutral name (D10) |
+| 1 | `Unknown_34` | `app/shared/auxdata/delta.h:83` | untagged neutral name (D10) |
+| 1 | `Unknown_38` | `app/shared/auxdata/delta.h:84` | untagged neutral name (D10) |
+| 1 | `Unknown_3C` | `app/shared/auxdata/delta.h:85` | untagged neutral name (D10) |
+| 1 | `Unknown_40` | `app/shared/auxdata/delta.h:86` | untagged neutral name (D10) |
+| 1 | `Unknown_44` | `app/shared/auxdata/delta.h:87` | untagged neutral name (D10) |
+| 1 | `Unknown04` | `app/shared/auxdata/delta.h:89` | untagged neutral name (D10) |
+| 1 | `Unknown70` | `app/shared/auxdata/delta.h:92` | untagged neutral name (D10) |
+| 1 | `Unknown78` | `app/shared/auxdata/delta.h:94` | untagged neutral name (D10) |
+| 1 | `Unknown7C` | `app/shared/auxdata/delta.h:95` | untagged neutral name (D10) |
+| 1 | `Unknown80` | `app/shared/auxdata/delta.h:96` | untagged neutral name (D10) |
+| 1 | `Unknown98` | `app/shared/auxdata/delta.h:103` | untagged neutral name (D10) |
+| 1 | `UnknownGlobal` | `app/shared/auxdata/delta.h:105` | untagged neutral name (D10) |
+| 1 | `Unknown_48` | `app/shared/auxdata/delta.h:118` | untagged neutral name (D10) |
 | 1 | `UnknownGlobal` | `app/shared/auxdata/delta_array.h:35` | untagged neutral name (D10) |
 | 1 | `Unknown04` | `app/shared/auxdata/delta_array.h:63` | untagged neutral name (D10) |
 | 1 | `UnknownTime` | `app/shared/auxdata/delta_interpolator.cpp:8` | untagged neutral name (D10) |
@@ -23276,8 +23283,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_34` | `app/shared/auxdata/delta_string.cpp:56` | untagged neutral name (D10) |
 | 1 | `Unknown_00` | `app/shared/auxdata/delta_string.cpp:160` | untagged neutral name (D10) |
 | 1 | `Unknown80` | `app/shared/auxdata/delta_string.cpp:162` | untagged neutral name (D10) |
-| 1 | `Unknown_00` | `app/shared/auxdata/delta_string.h:30` | untagged neutral name (D10) |
-| 1 | `UnknownGlobal` | `app/shared/auxdata/delta_string.h:41` | untagged neutral name (D10) |
+| 1 | `Unknown_00` | `app/shared/auxdata/delta_string.h:31` | untagged neutral name (D10) |
+| 1 | `UnknownGlobal` | `app/shared/auxdata/delta_string.h:42` | untagged neutral name (D10) |
 | 1 | `Unknown04` | `app/shared/auxdata/delta_template.h:32` | untagged neutral name (D10) |
 | 1 | `UnknownGlobal` | `app/shared/auxdata/delta_template.h:32` | untagged neutral name (D10) |
 | 1 | `Unknown_00` | `app/shared/auxdata/delta_template.h:34` | untagged neutral name (D10) |
@@ -23706,12 +23713,12 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_Percent` | `app/shared/graphics_settings.h:91` | neutral (D10) |
 | 1 | `Get_Height_2` | `app/shared/heightfield.h:52` | the same code at a second address (0x463CD0) |
 | 1 | `Set_Height_2` | `app/shared/heightfield.h:54` | the same code at a second address (0x463D90) |
-| 1 | `KVStringEncoderClass` | `app/shared/kv_acc_string.h:86` | interim, what it adds (D10) |
 | 1 | `Unknown_Get_Ticks` | `app/shared/kv_acc_time.cpp:5` | untagged neutral name (D10) |
+| 1 | `kv_accessor.h` | `app/shared/kv_accessor.h:12` | neutral, what it declares (D10) |
 | 1 | `Unknown_BE350C` | `app/shared/kv_encoder.cpp:6` | neutral (D10): SClient::Do_Frame's frame toggle (sclient.cpp) |
 | 1 | `Unknown_Test` | `app/shared/kv_encoder.cpp:52` | untagged neutral name (D10) |
 | 1 | `Unknown_00` | `app/shared/kv_encoder.cpp:57` | untagged neutral name (D10) |
-| 1 | `KVFilterEncoderClass` | `app/shared/kv_encoder.h:14` | neutral, what it does (D10) |
+| 1 | `KVFilterEncoderClass` | `app/shared/kv_encoder.h:41` | neutral, what it does (D10) |
 | 1 | `Unknown_Join` | `app/shared/kv_encoder_base.cpp:8` | untagged neutral name (D10) |
 | 1 | `Unknown2C` | `app/shared/kv_encoder_base.cpp:63` | untagged neutral name (D10) |
 | 1 | `Unknown1C` | `app/shared/kv_encoder_base.cpp:63` | untagged neutral name (D10) |
@@ -23728,7 +23735,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown10` | `app/shared/kv_pair_string.cpp:20` | untagged neutral name (D10) |
 | 1 | `Unknown08` | `app/shared/kv_pair_string.cpp:41` | untagged neutral name (D10) |
 | 1 | `Unknown09` | `app/shared/kv_pair_string.cpp:41` | untagged neutral name (D10) |
-| 1 | `Unknown10` | `app/shared/kv_pair_string.h:49` | untagged neutral name (D10) |
+| 1 | `Unknown10` | `app/shared/kv_pair_string.h:40` | untagged neutral name (D10) |
+| 1 | `kv_string_encoder.h` | `app/shared/kv_string_encoder.h:11` | neutral, what it declares (D10) |
+| 1 | `KVStringEncoderClass` | `app/shared/kv_string_encoder.h:21` | interim, what it adds (D10) |
 | 1 | `Add_Nothing` | `app/shared/kv_time_adds.cpp:7` | the prefix pushed and popped |
 | 1 | `Type` | `app/shared/kv_tripl.h:47` | neutral guess, a short string beside the value |
 | 1 | `Get_Type` | `app/shared/kv_tripl.h:66` | neutral guess |
@@ -24688,6 +24697,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `unused` | `app/shared/spln_db.h:163` | the client's copy takes a second argument (ret 8) it never reads |
 | 1 | `Unknown_8B44E0` | `app/shared/strconv_lib.cpp:71` | untagged neutral name (D10) |
 | 1 | `Unknown_8B44C0` | `app/shared/strconv_lib.cpp:77` | untagged neutral name (D10) |
+| 1 | `string_value.h` | `app/shared/string_value.h:11` | neutral, what it declares (D10) |
 | 1 | `Unknown_BE39F4` | `app/shared/timer_manager.cpp:6` | neutral (D10) |
 | 1 | `Unknown_4A0F90` | `app/shared/timer_manager.cpp:79` | neutral (D10) |
 | 1 | `timer_manager.h` | `app/shared/timer_manager.h:4` | the .cpp's name (D137) |
@@ -25957,137 +25967,137 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `DefaultFont` | `app/client/fontdatabase.h:67` | what 0x6C3D40 restores Font from |
 | 2 | `DefaultScale` | `app/client/fontdatabase.h:68` | what 0x6C3D40 restores Scale from |
 | 2 | `DefaultSpacing` | `app/client/fontdatabase.h:69` | what 0x6C3D40 restores Spacing from |
-| 2 | `FontStruct` | `app/client/fontdatabase.h:99` | one of the fonts in use (0xC bytes) |
-| 2 | `Name` | `app/client/fontdatabase.h:104` | what Find_Font compares |
-| 2 | `Scale` | `app/client/fontdatabase.h:105` | Scale%d is copied in |
-| 2 | `FontSoundStruct` | `app/client/fontdatabase.h:111` | a string template's sound: the ini keys Sound*ID / Sound*Vol / Sound*Dur |
-| 2 | `ID` | `app/client/fontdatabase.h:113` | the ini key |
-| 2 | `Vol` | `app/client/fontdatabase.h:114` | the ini key |
-| 2 | `Dur` | `app/client/fontdatabase.h:115` | the ini key |
-| 2 | `Reset` | `app/client/fontdatabase.h:116` | what it does |
-| 2 | `FontStringStruct` | `app/client/fontdatabase.h:119` | one string template of a string file (Template%d / String%d keys; 0xEC bytes; "NewStringInfo" by default) |
-| 2 | `Reset` | `app/client/fontdatabase.h:144` | what it does |
-| 2 | `StringID` | `app/client/fontdatabase.h:146` | the ini key |
-| 2 | `Text` | `app/client/fontdatabase.h:148` | what it holds |
-| 2 | `RenderObj` | `app/client/fontdatabase.h:149` | the ini key |
-| 2 | `Attach` | `app/client/fontdatabase.h:150` | the ini key |
-| 2 | `BlendType` | `app/client/fontdatabase.h:151` | the ini keys |
-| 2 | `FontType` | `app/client/fontdatabase.h:152` | the ini keys |
-| 2 | `Color` | `app/client/fontdatabase.h:153` | the ini keys |
-| 2 | `Justify` | `app/client/fontdatabase.h:154` | the ini key |
-| 2 | `Offset` | `app/client/fontdatabase.h:155` | the ini key |
-| 2 | `Target` | `app/client/fontdatabase.h:156` | the ini key |
-| 2 | `BoxOffset` | `app/client/fontdatabase.h:157` | the ini key |
-| 2 | `Width` | `app/client/fontdatabase.h:158` | the ini key |
-| 2 | `Wait` | `app/client/fontdatabase.h:159` | the ini key |
-| 2 | `TimeSpacing` | `app/client/fontdatabase.h:160` | the ini key |
-| 2 | `TriggerTime` | `app/client/fontdatabase.h:161` | the ini key |
-| 2 | `Spacing` | `app/client/fontdatabase.h:162` | the ini key |
-| 2 | `WrapWidth` | `app/client/fontdatabase.h:163` | the ini key |
-| 2 | `Rotate90` | `app/client/fontdatabase.h:164` | the ini key |
-| 2 | `Underline` | `app/client/fontdatabase.h:165` | the ini key |
-| 2 | `SoundOn` | `app/client/fontdatabase.h:166` | the ini keys |
-| 2 | `SoundOver` | `app/client/fontdatabase.h:167` | the ini keys |
-| 2 | `SoundClick` | `app/client/fontdatabase.h:168` | the ini keys |
-| 2 | `EffectOn` | `app/client/fontdatabase.h:169` | the ini key |
-| 2 | `EffectConst` | `app/client/fontdatabase.h:170` | the ini key |
-| 2 | `EffectOff` | `app/client/fontdatabase.h:171` | the ini key |
-| 2 | `MouseOver` | `app/client/fontdatabase.h:172` | the ini key |
-| 2 | `MouseClick` | `app/client/fontdatabase.h:173` | the ini key |
-| 2 | `EffectTriggered` | `app/client/fontdatabase.h:174` | the ini key |
-| 2 | `Reload` | `app/client/fontdatabase.h:182` | what it does |
-| 2 | `Load` | `app/client/fontdatabase.h:183` | what it does |
-| 2 | `Load_Init` | `app/client/fontdatabase.h:184` | what it does |
-| 2 | `Load_String` | `app/client/fontdatabase.h:186` | what it does |
-| 2 | `Get_Blend_Type` | `app/client/fontdatabase.h:190` | what it does |
-| 2 | `Get_Direction` | `app/client/fontdatabase.h:191` | what it does |
-| 2 | `Get_Effect_Type` | `app/client/fontdatabase.h:192` | what it does												// 0x6C2080  // NAME 1 [Unknown_6C2080]: neutral (D10) |
-| 2 | `Parse_Directions` | `app/client/fontdatabase.h:193` | what it does |
-| 2 | `Split_Four` | `app/client/fontdatabase.h:194` | what it does |
-| 2 | `Find_Font` | `app/client/fontdatabase.h:195` | what it does |
-| 2 | `Get_Info` | `app/client/fontdatabase.h:196` | as Get_Info, for a given resolution |
-| 2 | `Find_Color` | `app/client/fontdatabase.h:197` | what it does |
-| 2 | `Find_Effect` | `app/client/fontdatabase.h:198` | what it does |
-| 2 | `Find_String` | `app/client/fontdatabase.h:199` | what it does |
-| 2 | `Remove_String` | `app/client/fontdatabase.h:200` | what it does |
-| 2 | `Add_String` | `app/client/fontdatabase.h:201` | what it does |
-| 2 | `Add_Effect` | `app/client/fontdatabase.h:202` | what it does |
-| 2 | `Add_Color` | `app/client/fontdatabase.h:203` | what it does |
-| 2 | `Clear_Infos` | `app/client/fontdatabase.h:204` | what it does |
-| 2 | `Clear_Tables` | `app/client/fontdatabase.h:205` | what it does |
-| 2 | `Clear_Strings` | `app/client/fontdatabase.h:206` | what it does |
-| 2 | `Set_Font` | `app/client/fontdatabase.h:207` | what it does |
-| 2 | `Restore_Font` | `app/client/fontdatabase.h:208` | what it does |
-| 2 | `Get_Font_File_Index` | `app/client/fontdatabase.h:210` | what it does |
-| 2 | `Get_Font_File_Name` | `app/client/fontdatabase.h:211` | what it does |
-| 2 | `Get_Scale` | `app/client/fontdatabase.h:212` | what it returns |
-| 2 | `Get_Spacing` | `app/client/fontdatabase.h:213` | what it returns |
-| 2 | `Get_Info` | `app/client/fontdatabase.h:215` | the INIT section for the resolution |
-| 2 | `std:` | `app/client/fontdatabase.h:221` | the INIT sections, by resolution |
-| 2 | `std:` | `app/client/fontdatabase.h:222` | what it holds |
-| 2 | `std:` | `app/client/fontdatabase.h:223` | what it holds |
-| 2 | `std:` | `app/client/fontdatabase.h:224` | what it holds |
-| 2 | `FontStringFileStruct` | `app/client/fontdatabase.h:231` | one loaded string file (0x14 bytes) |
-| 2 | `std:` | `app/client/fontdatabase.h:235` | what it holds |
-| 2 | `Count` | `app/client/fontdatabase.h:236` | what it counts |
-| 2 | `FontStringFilesClass` | `app/client/fontdatabase.h:239` | the string files in use, counted (0x18 bytes, 0xBE67BC; fc_default.ini always) |
-| 2 | `std:` | `app/client/fontdatabase.h:245` | what it does |
-| 2 | `Find` | `app/client/fontdatabase.h:246` | what it does |
-| 2 | `Load` | `app/client/fontdatabase.h:247` | what it does |
-| 2 | `Unload` | `app/client/fontdatabase.h:248` | what it does |
-| 2 | `std:` | `app/client/fontdatabase.h:250` | what it holds |
-| 2 | `Color` | `app/client/fontmanager.h:38` | what 0x6D1010 stores |
-| 2 | `Is_Printed` | `app/client/fontmanager.h:47` | what it tests |
-| 2 | `Size` | `app/client/fontmanager.h:50` | what the constructor gives the texture |
-| 2 | `Text` | `app/client/fontmanager.h:51` | what it holds |
-| 2 | `Font` | `app/client/fontmanager.h:52` | what it holds |
-| 2 | `Texture` | `app/client/fontmanager.h:53` | what it holds |
-| 2 | `Count` | `app/client/fontmanager.h:55` | what 0x6D8B90 / 0x6D8C50 do with it |
-| 2 | `Class_ID` | `app/client/fontmanager.h:66` | RenderObjClass's |
-| 2 | `Get_Name` | `app/client/fontmanager.h:67` | RenderObjClass's |
-| 2 | `Set_Hidden` | `app/client/fontmanager.h:68` | RenderObjClass's |
-| 2 | `Is_Complete` | `app/client/fontmanager.h:69` | RenderObjClass's |
-| 2 | `Render` | `app/client/fontmanager.h:70` | RenderObjClass's |
-| 2 | `Set_Container` | `app/client/fontmanager.h:71` | RenderObjClass's |
-| 2 | `Set_Transform` | `app/client/fontmanager.h:72` | RenderObjClass's |
-| 2 | `Set_Position` | `app/client/fontmanager.h:73` | RenderObjClass's |
-| 2 | `Get_Obj_Space_Bounding_Sphere` | `app/client/fontmanager.h:74` | RenderObjClass's |
-| 2 | `Get_Obj_Space_Bounding_Box` | `app/client/fontmanager.h:75` | RenderObjClass's |
-| 2 | `Set_Color` | `app/client/fontmanager.h:80` | describes what it does |
-| 2 | `Set_Offset` | `app/client/fontmanager.h:94` | what it does |
-| 2 | `vertical, horizontal` | `app/client/fontmanager.h:95` | 1 / 2 and 3 / 4 |
-| 2 | `Info` | `app/client/fontmanager.h:110` | what it holds |
-| 2 | `Colors` | `app/client/fontmanager.h:111` | what 0x6D5170 stores |
-| 2 | `Effects` | `app/client/fontmanager.h:112` | what 0x6D5170 stores |
-| 2 | `Object` | `app/client/fontmanager.h:113` | what the constructors pass |
-| 2 | `Width` | `app/client/fontmanager.h:120` | what it holds |
-| 2 | `Height` | `app/client/fontmanager.h:121` | what it holds |
-| 2 | `Bits` | `app/client/fontmanager.h:122` | what it holds |
-| 2 | `Windowed` | `app/client/fontmanager.h:123` | what it holds |
-| 2 | `Scale` | `app/client/fontmanager.h:126` | what Find_Font writes |
-| 2 | `Underline` | `app/client/fontmanager.h:140` | what 0x6D5170 copies |
-| 2 | `FontIndex` | `app/client/fontmanager.h:143` | what 0x6D5170 indexes with |
-| 2 | `LineCount` | `app/client/fontmanager.h:157` | what 0x6CF930 stores |
-| 2 | `LineNumber` | `app/client/fontmanager.h:158` | what 0x6CF930 stores |
-| 2 | `ManagedFontClass` | `app/client/fontmanager.h:179` | what the manager holds per id (0x24 bytes; its +4 is the id) |
-| 2 | `object` | `app/client/fontmanager.h:183` | the render object Unknown_6CF930 gets |
-| 2 | `Name` | `app/client/fontmanager.h:201` | the name 0x6D1FD0 looks up in the font database |
-| 2 | `Id` | `app/client/fontmanager.h:202` | what it holds |
-| 2 | `std:` | `app/client/fontmanager.h:204` | what it holds |
-| 2 | `Remove_All` | `app/client/fontmanager.h:212` | describes what it does |
-| 2 | `Add` | `app/client/fontmanager.h:214` | describes what it does |
-| 2 | `Add` | `app/client/fontmanager.h:215` | describes what it does |
-| 2 | `Create` | `app/client/fontmanager.h:216` | describes what it does |
-| 2 | `Remove` | `app/client/fontmanager.h:217` | describes what it does |
-| 2 | `Get_Style` | `app/client/fontmanager.h:223` | describes what it does |
-| 2 | `Add` | `app/client/fontmanager.h:226` | describes what it does |
-| 2 | `Find` | `app/client/fontmanager.h:228` | describes what it does |
-| 2 | `std:` | `app/client/fontmanager.h:231` | what it holds |
-| 2 | `DebugFont` | `app/client/fontmanager.h:232` | what it holds |
+| 2 | `Reload` | `app/client/fontdatabase.h:106` | what it does |
+| 2 | `Load` | `app/client/fontdatabase.h:107` | what it does |
+| 2 | `Load_Init` | `app/client/fontdatabase.h:108` | what it does |
+| 2 | `Load_String` | `app/client/fontdatabase.h:110` | what it does |
+| 2 | `Get_Blend_Type` | `app/client/fontdatabase.h:114` | what it does |
+| 2 | `Get_Direction` | `app/client/fontdatabase.h:115` | what it does |
+| 2 | `Get_Effect_Type` | `app/client/fontdatabase.h:116` | what it does												// 0x6C2080  // NAME 1 [Unknown_6C2080]: neutral (D10) |
+| 2 | `Parse_Directions` | `app/client/fontdatabase.h:117` | what it does |
+| 2 | `Split_Four` | `app/client/fontdatabase.h:118` | what it does |
+| 2 | `Find_Font` | `app/client/fontdatabase.h:119` | what it does |
+| 2 | `Get_Info` | `app/client/fontdatabase.h:120` | as Get_Info, for a given resolution |
+| 2 | `Find_Color` | `app/client/fontdatabase.h:121` | what it does |
+| 2 | `Find_Effect` | `app/client/fontdatabase.h:122` | what it does |
+| 2 | `Find_String` | `app/client/fontdatabase.h:123` | what it does |
+| 2 | `Remove_String` | `app/client/fontdatabase.h:124` | what it does |
+| 2 | `Add_String` | `app/client/fontdatabase.h:125` | what it does |
+| 2 | `Add_Effect` | `app/client/fontdatabase.h:126` | what it does |
+| 2 | `Add_Color` | `app/client/fontdatabase.h:127` | what it does |
+| 2 | `Clear_Infos` | `app/client/fontdatabase.h:128` | what it does |
+| 2 | `Clear_Tables` | `app/client/fontdatabase.h:129` | what it does |
+| 2 | `Clear_Strings` | `app/client/fontdatabase.h:130` | what it does |
+| 2 | `Set_Font` | `app/client/fontdatabase.h:131` | what it does |
+| 2 | `Restore_Font` | `app/client/fontdatabase.h:132` | what it does |
+| 2 | `Get_Font_File_Index` | `app/client/fontdatabase.h:134` | what it does |
+| 2 | `Get_Font_File_Name` | `app/client/fontdatabase.h:135` | what it does |
+| 2 | `Get_Scale` | `app/client/fontdatabase.h:136` | what it returns |
+| 2 | `Get_Spacing` | `app/client/fontdatabase.h:137` | what it returns |
+| 2 | `Get_Info` | `app/client/fontdatabase.h:139` | the INIT section for the resolution |
+| 2 | `std:` | `app/client/fontdatabase.h:145` | the INIT sections, by resolution |
+| 2 | `std:` | `app/client/fontdatabase.h:146` | what it holds |
+| 2 | `std:` | `app/client/fontdatabase.h:147` | what it holds |
+| 2 | `std:` | `app/client/fontdatabase.h:148` | what it holds |
+| 2 | `FontStringFileStruct` | `app/client/fontdatabase.h:155` | one loaded string file (0x14 bytes) |
+| 2 | `std:` | `app/client/fontdatabase.h:159` | what it holds |
+| 2 | `Count` | `app/client/fontdatabase.h:160` | what it counts |
+| 2 | `FontStringFilesClass` | `app/client/fontdatabase.h:163` | the string files in use, counted (0x18 bytes, 0xBE67BC; fc_default.ini always) |
+| 2 | `std:` | `app/client/fontdatabase.h:169` | what it does |
+| 2 | `Find` | `app/client/fontdatabase.h:170` | what it does |
+| 2 | `Load` | `app/client/fontdatabase.h:171` | what it does |
+| 2 | `Unload` | `app/client/fontdatabase.h:172` | what it does |
+| 2 | `std:` | `app/client/fontdatabase.h:174` | what it holds |
+| 2 | `ManagedFontClass` | `app/client/fontmanager.h:34` | what the manager holds per id (0x24 bytes; its +4 is the id) |
+| 2 | `object` | `app/client/fontmanager.h:38` | the render object Unknown_6CF930 gets |
+| 2 | `Name` | `app/client/fontmanager.h:56` | the name 0x6D1FD0 looks up in the font database |
+| 2 | `Id` | `app/client/fontmanager.h:57` | what it holds |
+| 2 | `std:` | `app/client/fontmanager.h:59` | what it holds |
+| 2 | `Remove_All` | `app/client/fontmanager.h:67` | describes what it does |
+| 2 | `Add` | `app/client/fontmanager.h:69` | describes what it does |
+| 2 | `Add` | `app/client/fontmanager.h:70` | describes what it does |
+| 2 | `Create` | `app/client/fontmanager.h:71` | describes what it does |
+| 2 | `Remove` | `app/client/fontmanager.h:72` | describes what it does |
+| 2 | `Get_Style` | `app/client/fontmanager.h:78` | describes what it does |
+| 2 | `Add` | `app/client/fontmanager.h:81` | describes what it does |
+| 2 | `Find` | `app/client/fontmanager.h:83` | describes what it does |
+| 2 | `std:` | `app/client/fontmanager.h:86` | what it holds |
+| 2 | `DebugFont` | `app/client/fontmanager.h:87` | what it holds |
+| 2 | `FontStruct` | `app/client/fontstring.h:17` | one of the fonts in use (0xC bytes) |
+| 2 | `Name` | `app/client/fontstring.h:22` | what Find_Font compares |
+| 2 | `Scale` | `app/client/fontstring.h:23` | Scale%d is copied in |
+| 2 | `FontSoundStruct` | `app/client/fontstring.h:29` | a string template's sound: the ini keys Sound*ID / Sound*Vol / Sound*Dur |
+| 2 | `ID` | `app/client/fontstring.h:31` | the ini key |
+| 2 | `Vol` | `app/client/fontstring.h:32` | the ini key |
+| 2 | `Dur` | `app/client/fontstring.h:33` | the ini key |
+| 2 | `Reset` | `app/client/fontstring.h:34` | what it does |
+| 2 | `FontStringStruct` | `app/client/fontstring.h:37` | one string template of a string file (Template%d / String%d keys; 0xEC bytes; "NewStringInfo" by default) |
+| 2 | `Reset` | `app/client/fontstring.h:62` | what it does |
+| 2 | `StringID` | `app/client/fontstring.h:64` | the ini key |
+| 2 | `Text` | `app/client/fontstring.h:66` | what it holds |
+| 2 | `RenderObj` | `app/client/fontstring.h:67` | the ini key |
+| 2 | `Attach` | `app/client/fontstring.h:68` | the ini key |
+| 2 | `BlendType` | `app/client/fontstring.h:69` | the ini keys |
+| 2 | `FontType` | `app/client/fontstring.h:70` | the ini keys |
+| 2 | `Color` | `app/client/fontstring.h:71` | the ini keys |
+| 2 | `Justify` | `app/client/fontstring.h:72` | the ini key |
+| 2 | `Offset` | `app/client/fontstring.h:73` | the ini key |
+| 2 | `Target` | `app/client/fontstring.h:74` | the ini key |
+| 2 | `BoxOffset` | `app/client/fontstring.h:75` | the ini key |
+| 2 | `Width` | `app/client/fontstring.h:76` | the ini key |
+| 2 | `Wait` | `app/client/fontstring.h:77` | the ini key |
+| 2 | `TimeSpacing` | `app/client/fontstring.h:78` | the ini key |
+| 2 | `TriggerTime` | `app/client/fontstring.h:79` | the ini key |
+| 2 | `Spacing` | `app/client/fontstring.h:80` | the ini key |
+| 2 | `WrapWidth` | `app/client/fontstring.h:81` | the ini key |
+| 2 | `Rotate90` | `app/client/fontstring.h:82` | the ini key |
+| 2 | `Underline` | `app/client/fontstring.h:83` | the ini key |
+| 2 | `SoundOn` | `app/client/fontstring.h:84` | the ini keys |
+| 2 | `SoundOver` | `app/client/fontstring.h:85` | the ini keys |
+| 2 | `SoundClick` | `app/client/fontstring.h:86` | the ini keys |
+| 2 | `EffectOn` | `app/client/fontstring.h:87` | the ini key |
+| 2 | `EffectConst` | `app/client/fontstring.h:88` | the ini key |
+| 2 | `EffectOff` | `app/client/fontstring.h:89` | the ini key |
+| 2 | `MouseOver` | `app/client/fontstring.h:90` | the ini key |
+| 2 | `MouseClick` | `app/client/fontstring.h:91` | the ini key |
+| 2 | `EffectTriggered` | `app/client/fontstring.h:92` | the ini key |
 | 2 | `Step_Colour` | `app/client/fontsys.cpp:404` | one colour channel a step of 1 toward the target; inline only (Update_Text 0x6D64C0's unrolled per-channel code) |
 | 2 | `Pass_Vertex_Color` | `app/client/fontsys.cpp:411` | inline only: Update_Text's pass colour, one Set_Vertex_Color per layer (the client inlines Switch_To_Multi_Vertex_Color at both sites 0x6D6D55 / 0x6D6E24 and calls Convert_Color_Clamp); the dead read is the layer's budget (D272) |
 | 2 | `Apply_Shader` | `app/client/fontsys.cpp:413` | inline only (Update_Text) |
 | 2 | `Append_Dots` | `app/client/fontsys.cpp:415` | inline only: Update_Text's "..." (the client calls the += copy's Get_Length and Store_Length, 0x6D676E / 0x6D679B); the dead read is the layer's budget (D272) |
+| 2 | `Color` | `app/client/fontsys.h:27` | what 0x6D1010 stores |
+| 2 | `Is_Printed` | `app/client/fontsys.h:36` | what it tests |
+| 2 | `Size` | `app/client/fontsys.h:39` | what the constructor gives the texture |
+| 2 | `Text` | `app/client/fontsys.h:40` | what it holds |
+| 2 | `Font` | `app/client/fontsys.h:41` | what it holds |
+| 2 | `Texture` | `app/client/fontsys.h:42` | what it holds |
+| 2 | `Count` | `app/client/fontsys.h:44` | what 0x6D8B90 / 0x6D8C50 do with it |
+| 2 | `Class_ID` | `app/client/fontsys.h:55` | RenderObjClass's |
+| 2 | `Get_Name` | `app/client/fontsys.h:56` | RenderObjClass's |
+| 2 | `Set_Hidden` | `app/client/fontsys.h:57` | RenderObjClass's |
+| 2 | `Is_Complete` | `app/client/fontsys.h:58` | RenderObjClass's |
+| 2 | `Render` | `app/client/fontsys.h:59` | RenderObjClass's |
+| 2 | `Set_Container` | `app/client/fontsys.h:60` | RenderObjClass's |
+| 2 | `Set_Transform` | `app/client/fontsys.h:61` | RenderObjClass's |
+| 2 | `Set_Position` | `app/client/fontsys.h:62` | RenderObjClass's |
+| 2 | `Get_Obj_Space_Bounding_Sphere` | `app/client/fontsys.h:63` | RenderObjClass's |
+| 2 | `Get_Obj_Space_Bounding_Box` | `app/client/fontsys.h:64` | RenderObjClass's |
+| 2 | `Set_Color` | `app/client/fontsys.h:69` | describes what it does |
+| 2 | `Set_Offset` | `app/client/fontsys.h:83` | what it does |
+| 2 | `vertical, horizontal` | `app/client/fontsys.h:84` | 1 / 2 and 3 / 4 |
+| 2 | `Info` | `app/client/fontsys.h:99` | what it holds |
+| 2 | `Colors` | `app/client/fontsys.h:100` | what 0x6D5170 stores |
+| 2 | `Effects` | `app/client/fontsys.h:101` | what 0x6D5170 stores |
+| 2 | `Object` | `app/client/fontsys.h:102` | what the constructors pass |
+| 2 | `Width` | `app/client/fontsys.h:109` | what it holds |
+| 2 | `Height` | `app/client/fontsys.h:110` | what it holds |
+| 2 | `Bits` | `app/client/fontsys.h:111` | what it holds |
+| 2 | `Windowed` | `app/client/fontsys.h:112` | what it holds |
+| 2 | `Scale` | `app/client/fontsys.h:115` | what Find_Font writes |
+| 2 | `Underline` | `app/client/fontsys.h:129` | what 0x6D5170 copies |
+| 2 | `FontIndex` | `app/client/fontsys.h:132` | what 0x6D5170 indexes with |
+| 2 | `LineCount` | `app/client/fontsys.h:146` | what 0x6CF930 stores |
+| 2 | `LineNumber` | `app/client/fontsys.h:147` | what 0x6CF930 stores |
 | 2 | `line` | `app/client/fontsys_cursor.h:35` | the FAIL_IF's '!line'  // NAME 1 [cursorpos, insert, center]: what it does with them |
 | 2 | `Scene` | `app/client/fontsys_cursor.h:38` | what it holds |
 | 2 | `Iface` | `app/client/fontsys_cursor.h:39` | what it holds |
@@ -27145,6 +27155,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Value` | `app/client/slot_data.h:31` | describes what it does |
 | 2 | `Get_Slot` | `app/client/slot_data_render.h:54` | the accessor of Unknown20, the slot |
 | 2 | `position` | `app/client/slot_data_render.h:61` | RenderObjClass::Set_Position |
+| 2 | `Get_X` | `app/client/smouse.h:32` | what it does |
+| 2 | `Get_Y` | `app/client/smouse.h:33` | what it does |
 | 2 | `CameraModeStruct` | `app/client/soptions.h:26` | what it holds |
 | 2 | `Set_Camera_Mode` | `app/client/soptions.h:44` | what it does |
 | 2 | `Current_Camera_Mode` | `app/client/soptions.h:45` | what it returns |
@@ -27234,8 +27246,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Select_Next_Target_Filtered` | `app/client/targeting.h:31` | what it does |
 | 2 | `Select_Prev_Target_Filtered` | `app/client/targeting.h:32` | what it does |
 | 2 | `username, password` | `app/client/tasks/tsk_game.h:39` | LoginTaskClass's 0x7697A0 / 0x7697E0 get them back |
-| 2 | `Get_X` | `app/client/tasks/tsk_login.h:106` | what it does |
-| 2 | `Get_Y` | `app/client/tasks/tsk_login.h:107` | what it does |
 | 2 | `Handle_Input` | `app/client/tasks/tsk_menu.h:33` | what it does |
 | 2 | `volume` | `app/client/tasks/tsk_movie.cpp:18` | BinkSetVolume's argument |
 | 2 | `Add_Movie` | `app/client/tasks/tsk_movie.h:38` | what it does |
@@ -28506,26 +28516,23 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `std:` | `app/packets/pk_player_object_relationship.cpp:167` | what it holds |
 | 2 | `std:` | `app/packets/pk_player_object_relationship.cpp:258` | what it holds |
 | 2 | `std:` | `app/packets/pk_player_object_relationship.cpp:259` | what it holds |
-| 2 | `MobReactionType` | `app/packets/pk_player_object_relationship.h:25` | what it holds, after the client's MOB_REACTION_COUNT |
-| 2 | `Value_To_String` | `app/packets/pk_player_object_relationship.h:31` | as strconv_lib.h's pairs |
-| 2 | `RelationshipClass` | `app/packets/pk_player_object_relationship.h:35` | what it holds (the packet's Print names both members) |
-| 2 | `Relationship` | `app/packets/pk_player_object_relationship.h:58` | what it holds |
-| 2 | `Priority` | `app/packets/pk_player_object_relationship.h:59` | Get_Priority returns it |
-| 2 | `Channel` | `app/packets/pk_player_object_relationship.h:60` | Get_Channel returns it |
-| 2 | `ObjectID` | `app/packets/pk_player_object_relationship.h:69` | as RELATIONSHIP 137's ObjectID (Print's ' %d=%s') |
-| 2 | `Reaction` | `app/packets/pk_player_object_relationship.h:70` | Print shows it through the reaction's Value_To_String |
-| 2 | `Get` | `app/packets/pk_player_object_relationship.h:78` | what it does |
-| 2 | `Next` | `app/packets/pk_player_object_relationship.h:79` | what it does |
-| 2 | `Get` | `app/packets/pk_player_object_relationship.h:86` | what it does |
-| 2 | `Next` | `app/packets/pk_player_object_relationship.h:87` | what it does |
-| 2 | `Add_Reaction` | `app/packets/pk_player_object_relationship.h:102` | what it does |
+| 2 | `Relationship` | `app/packets/pk_player_object_relationship.h:39` | what it holds |
+| 2 | `Priority` | `app/packets/pk_player_object_relationship.h:40` | Get_Priority returns it |
+| 2 | `Channel` | `app/packets/pk_player_object_relationship.h:41` | Get_Channel returns it |
+| 2 | `ObjectID` | `app/packets/pk_player_object_relationship.h:50` | as RELATIONSHIP 137's ObjectID (Print's ' %d=%s') |
+| 2 | `Reaction` | `app/packets/pk_player_object_relationship.h:51` | Print shows it through the reaction's Value_To_String |
+| 2 | `Get` | `app/packets/pk_player_object_relationship.h:59` | what it does |
+| 2 | `Next` | `app/packets/pk_player_object_relationship.h:60` | what it does |
+| 2 | `Get` | `app/packets/pk_player_object_relationship.h:67` | what it does |
+| 2 | `Next` | `app/packets/pk_player_object_relationship.h:68` | what it does |
+| 2 | `Add_Reaction` | `app/packets/pk_player_object_relationship.h:83` | what it does |
+| 2 | `Get_Iterator` | `app/packets/pk_player_object_relationship.h:84` | what it returns |
+| 2 | `std:` | `app/packets/pk_player_object_relationship.h:86` | what it holds |
+| 2 | `Priority` | `app/packets/pk_player_object_relationship.h:87` | Get_Priority returns it |
+| 2 | `Add_Attacker` | `app/packets/pk_player_object_relationship.h:102` | what it does |
 | 2 | `Get_Iterator` | `app/packets/pk_player_object_relationship.h:103` | what it returns |
-| 2 | `std:` | `app/packets/pk_player_object_relationship.h:105` | what it holds |
-| 2 | `Priority` | `app/packets/pk_player_object_relationship.h:106` | Get_Priority returns it |
-| 2 | `Add_Attacker` | `app/packets/pk_player_object_relationship.h:121` | what it does |
-| 2 | `Get_Iterator` | `app/packets/pk_player_object_relationship.h:122` | what it returns |
-| 2 | `std:` | `app/packets/pk_player_object_relationship.h:125` | what it holds |
-| 2 | `Priority` | `app/packets/pk_player_object_relationship.h:126` | Get_Priority returns it |
+| 2 | `std:` | `app/packets/pk_player_object_relationship.h:106` | what it holds |
+| 2 | `Priority` | `app/packets/pk_player_object_relationship.h:107` | Get_Priority returns it |
 | 2 | `SubPartStruct` | `app/packets/pk_sub_parts.h:24` | what it holds (the assert's 'SubParts') |
 | 2 | `std:` | `app/packets/pk_sub_parts.h:28` | what it holds |
 | 2 | `Value` | `app/packets/pk_sub_parts.h:29` | what it holds |
@@ -28811,6 +28818,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `VerbRequestPacketClass` | `app/packets/pkverbrequest.h:25` | Net-7's opcode name VERB_REQUEST (the Net-7 opcode table; no structure check) |
 | 2 | `Get_Type` | `app/packets/pkverbrequest.h:34` | what it returns (the opcode Build sends), as MessageLinePacketClass's |
 | 2 | `WarpPacketClass` | `app/packets/pkwarpindex.h:23` | Net-7's opcode name WARP (the Net-7 opcode table; no structure check) |
+| 2 | `MobReactionType` | `app/packets/relationship.h:18` | what it holds, after the client's MOB_REACTION_COUNT |
+| 2 | `Value_To_String` | `app/packets/relationship.h:24` | as strconv_lib.h's pairs |
+| 2 | `RelationshipClass` | `app/packets/relationship.h:28` | what it holds (the packet's Print names both members) |
 | 2 | `Set_Target` | `app/shared/accel.h:14` | what it does |
 | 2 | `Set_Target` | `app/shared/accel.h:15` | what it does |
 | 2 | `Set_Value` | `app/shared/accel.h:16` | what it does |
@@ -28953,30 +28963,18 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `DeltaVisitorClass` | `app/shared/auxdata/delta.h:38` | describes what it does |
 | 2 | `Visit` | `app/shared/auxdata/delta.h:41` | describes what it does |
 | 2 | `Visit_Children` | `app/shared/auxdata/delta.h:46` | describes what it does |
-| 2 | `KVEncoderClass` | `app/shared/auxdata/delta.h:54` | kv_encoder_base.cpp's base's encoder, in kv_encoder.cpp (D206) |
-| 2 | `Add_Child` | `app/shared/auxdata/delta.h:58` | what it does |
-| 2 | `Add_Accel` | `app/shared/auxdata/delta.h:61` | what it does |
-| 2 | `Add_Matrix3D` | `app/shared/auxdata/delta.h:62` | what it does |
-| 2 | `Add_Vector3` | `app/shared/auxdata/delta.h:63` | what it does |
-| 2 | `Add_Matrix3D_Frame` | `app/shared/auxdata/delta.h:64` | what it does |
-| 2 | `Add_Vector3_Frame` | `app/shared/auxdata/delta.h:65` | what it does |
-| 2 | `Add_Vector3_Elements` | `app/shared/auxdata/delta.h:68` | what it does |
-| 2 | `Add_Matrix3D_Elements` | `app/shared/auxdata/delta.h:69` | what it does |
-| 2 | `Add_Accel_Elements` | `app/shared/auxdata/delta.h:70` | what it does |
-| 2 | `Add_Vector3_Elements_Frame` | `app/shared/auxdata/delta.h:71` | what it does |
-| 2 | `Add_Matrix3D_Elements_Frame` | `app/shared/auxdata/delta.h:72` | what it does |
-| 2 | `Accept` | `app/shared/auxdata/delta.h:93` | describes what it does |
-| 2 | `Set_Parent` | `app/shared/auxdata/delta.h:96` | describes what it does |
-| 2 | `As_Delta` | `app/shared/auxdata/delta.h:100` | describes what it does |
-| 2 | `As_Compound` | `app/shared/auxdata/delta.h:101` | describes what it does |
-| 2 | `Write` | `app/shared/auxdata/delta.h:104` | describes what it does |
-| 2 | `Name` | `app/shared/auxdata/delta.h:112` | describes what it does |
-| 2 | `FullName` | `app/shared/auxdata/delta.h:113` | describes what it does |
-| 2 | `Parent` | `app/shared/auxdata/delta.h:115` | describes what it does |
-| 2 | `Add` | `app/shared/auxdata/delta.h:142` | describes what it does |
-| 2 | `Get_Lookup` | `app/shared/auxdata/delta.h:143` | after the asserts' Lookup |
-| 2 | `Decode` | `app/shared/auxdata/delta.h:147` | describes what it does |
-| 2 | `Children` | `app/shared/auxdata/delta.h:150` | describes what it does |
+| 2 | `Accept` | `app/shared/auxdata/delta.h:71` | describes what it does |
+| 2 | `Set_Parent` | `app/shared/auxdata/delta.h:74` | describes what it does |
+| 2 | `As_Delta` | `app/shared/auxdata/delta.h:78` | describes what it does |
+| 2 | `As_Compound` | `app/shared/auxdata/delta.h:79` | describes what it does |
+| 2 | `Write` | `app/shared/auxdata/delta.h:82` | describes what it does |
+| 2 | `Name` | `app/shared/auxdata/delta.h:90` | describes what it does |
+| 2 | `FullName` | `app/shared/auxdata/delta.h:91` | describes what it does |
+| 2 | `Parent` | `app/shared/auxdata/delta.h:93` | describes what it does |
+| 2 | `Add` | `app/shared/auxdata/delta.h:120` | describes what it does |
+| 2 | `Get_Lookup` | `app/shared/auxdata/delta.h:121` | after the asserts' Lookup |
+| 2 | `Decode` | `app/shared/auxdata/delta.h:125` | describes what it does |
+| 2 | `Children` | `app/shared/auxdata/delta.h:128` | describes what it does |
 | 2 | `Get_Value` | `app/shared/auxdata/delta_array.h:32` | describes what it does |
 | 2 | `DeltaInterpolatorValueClass` | `app/shared/auxdata/delta_interpolator.cpp:177` | describes what it does |
 | 2 | `Owner` | `app/shared/auxdata/delta_interpolator.cpp:185` | describes what it does |
@@ -28992,9 +28990,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Value` | `app/shared/auxdata/delta_money.h:38` | describes what it does |
 | 2 | `DeltaStringValueClass` | `app/shared/auxdata/delta_string.cpp:149` | describes what it does |
 | 2 | `Owner` | `app/shared/auxdata/delta_string.cpp:157` | describes what it does |
-| 2 | `Assign` | `app/shared/auxdata/delta_string.h:34` | describes what it does |
-| 2 | `Set` | `app/shared/auxdata/delta_string.h:35` | describes what it does |
-| 2 | `Get` | `app/shared/auxdata/delta_string.h:37` | describes what it does |
+| 2 | `Assign` | `app/shared/auxdata/delta_string.h:35` | describes what it does |
+| 2 | `Set` | `app/shared/auxdata/delta_string.h:36` | describes what it does |
+| 2 | `Get` | `app/shared/auxdata/delta_string.h:38` | describes what it does |
 | 2 | `Set_Value` | `app/shared/auxdata/delta_template.h:39` | describes what it does |
 | 2 | `Value` | `app/shared/auxdata/delta_template.h:47` | describes what it does |
 | 2 | `Set_Value` | `app/shared/auxdata/delta_template.h:65` | describes what it does |
@@ -29398,15 +29396,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Array` | `app/shared/kv_acc_array.h:39` | what it holds |
 | 2 | `std:` | `app/shared/kv_acc_array.h:42` | what it holds |
 | 2 | `Make_Array_Accessor` | `app/shared/kv_acc_array.h:46` | what it does |
-| 2 | `KVFixedStringAccessorClass` | `app/shared/kv_acc_string.h:22` | what it does |
-| 2 | `KVBufferAccessorClass` | `app/shared/kv_acc_string.h:35` | what it does |
-| 2 | `KVNewStringAccessorClass` | `app/shared/kv_acc_string.h:48` | what it does |
-| 2 | `KVDupStringAccessorClass` | `app/shared/kv_acc_string.h:60` | what it does |
-| 2 | `KVStdStringAccessorClass` | `app/shared/kv_acc_string.h:72` | what it does |
-| 2 | `Add_New_String` | `app/shared/kv_acc_string.h:89` | what it does |
-| 2 | `Add_Dup_String` | `app/shared/kv_acc_string.h:90` | what it does |
-| 2 | `Add_Fixed_String` | `app/shared/kv_acc_string.h:91` | what it does |
-| 2 | `Add_Std_String` | `app/shared/kv_acc_string.h:92` | what it does |
+| 2 | `KVFixedStringAccessorClass` | `app/shared/kv_acc_string.h:21` | what it does |
+| 2 | `KVBufferAccessorClass` | `app/shared/kv_acc_string.h:34` | what it does |
+| 2 | `KVNewStringAccessorClass` | `app/shared/kv_acc_string.h:47` | what it does |
+| 2 | `KVDupStringAccessorClass` | `app/shared/kv_acc_string.h:59` | what it does |
+| 2 | `KVStdStringAccessorClass` | `app/shared/kv_acc_string.h:71` | what it does |
 | 2 | `Round_Tenths` | `app/shared/kv_acc_time.cpp:7` | what it does |
 | 2 | `KVTickSecondsAccessorClass` | `app/shared/kv_acc_time.h:13` | what it does |
 | 2 | `Value` | `app/shared/kv_acc_time.h:21` | what it holds |
@@ -29417,13 +29411,29 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `KVTenthsSpanAccessorClass` | `app/shared/kv_acc_time.h:39` | what it does |
 | 2 | `Value` | `app/shared/kv_acc_time.h:47` | what it holds |
 | 2 | `Seconds` | `app/shared/kv_acc_time.h:48` | what it holds |
+| 2 | `KVAccessorClass` | `app/shared/kv_accessor.h:17` | after the assert's parameter accessor (kv_pair.cpp); the class name describes it |
+| 2 | `Get` | `app/shared/kv_accessor.h:21` | describes what it does |
+| 2 | `Set` | `app/shared/kv_accessor.h:22` | describes what it does |
+| 2 | `Clone` | `app/shared/kv_accessor.h:23` | describes what it does |
 | 2 | `KVFrameAccessorClass` | `app/shared/kv_encoder.cpp:20` | what it does |
 | 2 | `Value0` | `app/shared/kv_encoder.cpp:33` | what it holds |
 | 2 | `Value1` | `app/shared/kv_encoder.cpp:34` | what it holds |
 | 2 | `Matrix_Keys` | `app/shared/kv_encoder.cpp:38` | what it holds |
-| 2 | `Add_Exclude` | `app/shared/kv_encoder.h:25` | what it does |
-| 2 | `Clear_Excludes` | `app/shared/kv_encoder.h:26` | what it does |
-| 2 | `std:` | `app/shared/kv_encoder.h:28` | what it holds |
+| 2 | `KVEncoderClass` | `app/shared/kv_encoder.h:18` | kv_encoder_base.cpp's base's encoder, in kv_encoder.cpp (D206) |
+| 2 | `Add_Child` | `app/shared/kv_encoder.h:22` | what it does |
+| 2 | `Add_Accel` | `app/shared/kv_encoder.h:25` | what it does |
+| 2 | `Add_Matrix3D` | `app/shared/kv_encoder.h:26` | what it does |
+| 2 | `Add_Vector3` | `app/shared/kv_encoder.h:27` | what it does |
+| 2 | `Add_Matrix3D_Frame` | `app/shared/kv_encoder.h:28` | what it does |
+| 2 | `Add_Vector3_Frame` | `app/shared/kv_encoder.h:29` | what it does |
+| 2 | `Add_Vector3_Elements` | `app/shared/kv_encoder.h:32` | what it does |
+| 2 | `Add_Matrix3D_Elements` | `app/shared/kv_encoder.h:33` | what it does |
+| 2 | `Add_Accel_Elements` | `app/shared/kv_encoder.h:34` | what it does |
+| 2 | `Add_Vector3_Elements_Frame` | `app/shared/kv_encoder.h:35` | what it does |
+| 2 | `Add_Matrix3D_Elements_Frame` | `app/shared/kv_encoder.h:36` | what it does |
+| 2 | `Add_Exclude` | `app/shared/kv_encoder.h:52` | what it does |
+| 2 | `Clear_Excludes` | `app/shared/kv_encoder.h:53` | what it does |
+| 2 | `std:` | `app/shared/kv_encoder.h:55` | what it holds |
 | 2 | `KVPointerAccessorClass` | `app/shared/kv_encoder_base.h:33` | what it does |
 | 2 | `KVEncoderDataClass` | `app/shared/kv_encoder_base.h:46` | after the asserts' Data |
 | 2 | `Flags` | `app/shared/kv_encoder_base.h:51` | after the asserts' FlagList |
@@ -29456,16 +29466,12 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Set_Value_String` | `app/shared/kv_pair.h:35` | descriptive name of the vtable slot (D57) |
 | 2 | `Is_Changed` | `app/shared/kv_pair.h:36` | descriptive name of the vtable slot (D57) |
 | 2 | `Update_Saved` | `app/shared/kv_pair.h:37` | descriptive name of the vtable slot (D57) |
-| 2 | `KVAccessorClass` | `app/shared/kv_pair.h:50` | after the assert's parameter accessor (kv_pair.cpp); the class name describes it |
-| 2 | `Get` | `app/shared/kv_pair.h:54` | describes what it does |
-| 2 | `Set` | `app/shared/kv_pair.h:55` | describes what it does |
-| 2 | `Clone` | `app/shared/kv_pair.h:56` | describes what it does |
-| 2 | `KVPairTemplateClass` | `app/shared/kv_pair.h:61` | after KVPairClass (D24) and its template role |
-| 2 | `Value` | `app/shared/kv_pair.h:86` | describes what it does |
-| 2 | `StringValueClass` | `app/shared/kv_pair_string.h:25` | describes what it does (D38) |
-| 2 | `Get` | `app/shared/kv_pair_string.h:29` | describes what it does |
-| 2 | `Set` | `app/shared/kv_pair_string.h:30` | describes what it does |
-| 2 | `Clone` | `app/shared/kv_pair_string.h:31` | describes what it does |
+| 2 | `KVPairTemplateClass` | `app/shared/kv_pair.h:52` | after KVPairClass (D24) and its template role |
+| 2 | `Value` | `app/shared/kv_pair.h:77` | describes what it does |
+| 2 | `Add_New_String` | `app/shared/kv_string_encoder.h:24` | what it does |
+| 2 | `Add_Dup_String` | `app/shared/kv_string_encoder.h:25` | what it does |
+| 2 | `Add_Fixed_String` | `app/shared/kv_string_encoder.h:26` | what it does |
+| 2 | `Add_Std_String` | `app/shared/kv_string_encoder.h:27` | what it does |
 | 2 | `Add_Tick_Seconds` | `app/shared/kv_time_adds.cpp:14` | what it does |
 | 2 | `Add_Tenths_Seconds` | `app/shared/kv_time_adds.cpp:20` | what it does |
 | 2 | `Copy_Member` | `app/shared/kv_tripl.h:43` | describes what it does |
@@ -29951,6 +29957,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Value_To_String` | `app/shared/strconv_lib.h:29` | describes what it does |
 | 2 | `String_To_Value` | `app/shared/strconv_lib.h:30` | describes what it does |
 | 2 | `Type_Name` | `app/shared/strconv_lib.h:37` | describes what it does |
+| 2 | `StringValueClass` | `app/shared/string_value.h:16` | describes what it does (D38) |
+| 2 | `Get` | `app/shared/string_value.h:20` | describes what it does |
+| 2 | `Set` | `app/shared/string_value.h:21` | describes what it does |
+| 2 | `Clone` | `app/shared/string_value.h:22` | describes what it does |
 | 2 | `Find_Mark` | `app/shared/symbol_substitution.cpp:91` | describes what it does (not in the client: inlined into both searches) |
 | 2 | `Add_Symbol` | `app/shared/symbol_substitution.h:30` | describes what it does |
 | 2 | `std:` | `app/shared/symbol_substitution.h:31` | describes what it does |
@@ -30436,12 +30446,12 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `StartTime` | `app/client/extrap.h:223` | the client's assert 'EndTime >= StartTime' |
 | 3 | `EndTime` | `app/client/extrap.h:224` | as StartTime |
 | 3 | `fontdatabase.h` | `app/client/fontdatabase.h:19` | header name assumed from the client's fontdatabase.cpp |
-| 3 | `FontDatabaseClass` | `app/client/fontdatabase.h:177` | by convention (D24) from the client's fontdatabase.cpp |
+| 3 | `FontDatabaseClass` | `app/client/fontdatabase.h:101` | by convention (D24) from the client's fontdatabase.cpp |
 | 3 | `fontmanager.h` | `app/client/fontmanager.h:17` | header name assumed from the client's fontmanager.cpp |
-| 3 | `Update_Text` | `app/client/fontmanager.h:79` | the client's label; NAME 1 [unknown]: neutral (D10) |
-| 3 | `Change_Text` | `app/client/fontmanager.h:85` | the client's label |
-| 3 | `Font` | `app/client/fontmanager.h:114` | the assert's |
-| 3 | `FontManagerClass` | `app/client/fontmanager.h:207` | by convention (D24) from the client's fontmanager.cpp |
+| 3 | `FontManagerClass` | `app/client/fontmanager.h:62` | by convention (D24) from the client's fontmanager.cpp |
+| 3 | `Update_Text` | `app/client/fontsys.h:68` | the client's label; NAME 1 [unknown]: neutral (D10) |
+| 3 | `Change_Text` | `app/client/fontsys.h:74` | the client's label |
+| 3 | `Font` | `app/client/fontsys.h:103` | the assert's |
 | 3 | `fontsys_cursor.h` | `app/client/fontsys_cursor.h:18` | the header of fontsys_cursor.cpp |
 | 3 | `FrameInterfaceClass` | `app/client/frameint.h:17` | class-from-file (D24) for frameint.cpp, as backint.cpp's BackInterfaceClass |
 | 3 | `gadget.h` | `app/client/gadget.h:20` | header name assumed from the client's gadget.cpp |
@@ -30819,6 +30829,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `Container` | `app/client/slot_data_render.h:72` | 0x6A7C00's assert |
 | 3 | `AddedToScene` | `app/client/slot_data_render.h:76` | 0x6A80D0's FAIL_IF |
 | 3 | `IsSubIcon` | `app/client/slot_data_render.h:77` | 0x6A8D00's assert |
+| 3 | `drag` | `app/client/smouse.h:29` | the FAIL_IF's |
+| 3 | `drag` | `app/client/smouse.h:30` | the FAIL_IF's |
+| 3 | `DragObject` | `app/client/smouse.h:46` | the FAIL_IFs' |
 | 3 | `soptions.h` | `app/client/soptions.h:18` | header name assumed from the client's soptions.cpp |
 | 3 | `SOptionsClass` | `app/client/soptions.h:38` | class-from-file (D24) for soptions.cpp |
 | 3 | `PolyBudget` | `app/client/soptions.h:54` | the registry value's name |
@@ -30851,9 +30864,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `tsk_game.h` | `app/client/tasks/tsk_game.h:18` | header name assumed from the client's tsk_game.cpp |
 | 3 | `ClientTaskClass` | `app/client/tasks/tsk_game.h:29` | the client's 'ClientTask' (its profile label) in LoginTaskClass's form (D24) |
 | 3 | `tsk_login.h` | `app/client/tasks/tsk_login.h:17` | header name assumed from the client's tsk_login.cpp |
-| 3 | `drag` | `app/client/tasks/tsk_login.h:103` | the FAIL_IF's |
-| 3 | `drag` | `app/client/tasks/tsk_login.h:104` | the FAIL_IF's |
-| 3 | `DragObject` | `app/client/tasks/tsk_login.h:120` | the FAIL_IFs' |
 | 3 | `MenuTaskClass` | `app/client/tasks/tsk_menu.h:23` | the client's 'MenuTask' (its log) in LoginTaskClass's form (D24) |
 | 3 | `tsk_movie.h` | `app/client/tasks/tsk_movie.h:18` | header name assumed from the client's tsk_movie.cpp |
 | 3 | `MovieTaskClass` | `app/client/tasks/tsk_movie.h:25` | after tsk_movie.cpp and LoginTaskClass (D24) |
@@ -31378,12 +31388,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `Data` | `app/packets/gameedit/pkgespwn.h:49` | the client's assert 'Data' and Print text 'DefaultValues=' |
 | 3 | `PacketClass` | `app/packets/pk.h:101` | by convention (D24) from pk.h / pk.cpp |
 | 3 | `pk_player_object_relationship.h` | `app/packets/pk_player_object_relationship.h:17` | after the client's .cpp (D57) |
-| 3 | `Reaction` | `app/packets/pk_player_object_relationship.h:40` | the client's Print text 'Reaction=' |
-| 3 | `IsAttacking` | `app/packets/pk_player_object_relationship.h:41` | the client's Print text 'IsAttacking=' |
-| 3 | `ObjectID` | `app/packets/pk_player_object_relationship.h:57` | the client's Print text 'ObjectID=' |
-| 3 | `Is_Done` | `app/packets/pk_player_object_relationship.h:77` | the client's FAIL_IF text 'Is_Done()' |
-| 3 | `Is_Done` | `app/packets/pk_player_object_relationship.h:85` | the client's FAIL_IF text 'Is_Done()' |
-| 3 | `Attacking` | `app/packets/pk_player_object_relationship.h:124` | the client's Print text 'Attacking=' |
+| 3 | `ObjectID` | `app/packets/pk_player_object_relationship.h:38` | the client's Print text 'ObjectID=' |
+| 3 | `Is_Done` | `app/packets/pk_player_object_relationship.h:58` | the client's FAIL_IF text 'Is_Done()' |
+| 3 | `Is_Done` | `app/packets/pk_player_object_relationship.h:66` | the client's FAIL_IF text 'Is_Done()' |
+| 3 | `Attacking` | `app/packets/pk_player_object_relationship.h:105` | the client's Print text 'Attacking=' |
 | 3 | `pk_sub_parts.h` | `app/packets/pk_sub_parts.h:16` | by convention from the client's pk_sub_parts.cpp (D24) |
 | 3 | `GameID` | `app/packets/pk_sub_parts.h:48` | the client's Print text 'GameID=' |
 | 3 | `GameID` | `app/packets/pkaction.h:33` | the client's Print text 'GameID=' |
@@ -31969,6 +31977,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `PlayerID` | `app/packets/pkwarpindex.h:34` | the client's Print text 'PlayerID=' |
 | 3 | `List` | `app/packets/pkwarpindex.h:35` | the client's Print text 'NavigationListSize=' |
 | 3 | `Index` | `app/packets/pkwarpindex.h:49` | the client's Print text 'Index=' |
+| 3 | `Reaction` | `app/packets/relationship.h:33` | the client's Print text 'Reaction=' |
+| 3 | `IsAttacking` | `app/packets/relationship.h:34` | the client's Print text 'IsAttacking=' |
 | 3 | `accel.h` | `app/shared/accel.h:6` | by convention from accel.cpp (D24) |
 | 3 | `AccelClass` | `app/shared/accel.h:10` | the pair's type name "AccelClass" (kv_encoder.cpp's string) |
 | 3 | `Target` | `app/shared/accel.h:29` | kv_encoder.cpp's key "Target" |
@@ -31980,13 +31990,13 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `bitset.h` | `app/shared/auxdata/bitset.h:16` | header name assumed from the client's bitset.cpp |
 | 3 | `BitSetClass` | `app/shared/auxdata/bitset.h:19` | by convention (D24) from the client's file bitset.cpp |
 | 3 | `delta.h` | `app/shared/auxdata/delta.h:19` | header name assumed from the client's delta.cpp |
-| 3 | `DeltaClass` | `app/shared/auxdata/delta.h:87` | by convention (D24) from the client's file delta.cpp (D37; earlier research notes: DeltaBase) |
-| 3 | `DeltaCompoundClass` | `app/shared/auxdata/delta.h:122` | by convention (D24) from the client's file delta.cpp (D37; earlier research notes: DeltaCompound) |
+| 3 | `DeltaClass` | `app/shared/auxdata/delta.h:65` | by convention (D24) from the client's file delta.cpp (D37; earlier research notes: DeltaBase) |
+| 3 | `DeltaCompoundClass` | `app/shared/auxdata/delta.h:100` | by convention (D24) from the client's file delta.cpp (D37; earlier research notes: DeltaCompound) |
 | 3 | `DeltaArrayClass` | `app/shared/auxdata/delta_array.h:26` | by convention (D24) from the client's file delta_array.h |
 | 3 | `DeltaInterpolatorClass` | `app/shared/auxdata/delta_interpolator.h:25` | by convention (D24) from the client's file delta_interpolator.cpp (D59) |
 | 3 | `DeltaItemArrayClass` | `app/shared/auxdata/delta_item_array.h:25` | by convention (D24) from the client's file delta_item_array.h |
 | 3 | `delta_string.h` | `app/shared/auxdata/delta_string.h:18` | header name assumed from the client's delta_string.cpp |
-| 3 | `DeltaStringClass` | `app/shared/auxdata/delta_string.h:25` | by convention (D24) from the client's file delta_string.cpp |
+| 3 | `DeltaStringClass` | `app/shared/auxdata/delta_string.h:26` | by convention (D24) from the client's file delta_string.cpp |
 | 3 | `DeltaTemplateClass` | `app/shared/auxdata/delta_template.h:27` | by convention (D24) from the client's file delta_template.h |
 | 3 | `RecordClass` | `app/shared/auxdata/encode.h:96` | after the asserts' Records (encode.cpp) |
 | 3 | `linearbu.h` | `app/shared/auxdata/linearbu.h:18` | header name assumed from the client's linearbu.cpp |
@@ -32028,6 +32038,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `Add_Matcher` | `app/shared/expr/expr_lexer_impl.h:37` | 'm' from the assert; the lexer deletes it |
 | 3 | `m_matchers` | `app/shared/expr/expr_lexer_impl.h:40` | m_ as the asserts' m |
 | 3 | `m_token` | `app/shared/expr/expr_lexer_impl.h:43` | as ExprMathTreeClass's |
+| 3 | `expr_lexer_match.h` | `app/shared/expr/expr_lexer_match.h:11` | interim header, named after expr_lexer_match_list.cpp |
+| 3 | `ExprLexerMatchClass` | `app/shared/expr/expr_lexer_match.h:16` | from expr_lexer_match_list.cpp |
 | 3 | `expr_lexer_match_list.h` | `app/shared/expr/expr_lexer_match_list.h:14` | header name assumed from the client's expr_lexer_match_list.cpp |
 | 3 | `Terminal` | `app/shared/expr/expr_lexer_match_list.h:36` | a listed token ends here |
 | 3 | `ExprLexerMatchListClass` | `app/shared/expr/expr_lexer_match_list.h:41` | class-from-file (D24) |
@@ -32054,7 +32066,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `Has_Error` | `app/shared/expr/expr_math_lexer.h:42` | no valid token, text left |
 | 3 | `Set_Source` | `app/shared/expr/expr_math_lexer.h:44` | 'source' from the assert |
 | 3 | `Reset` | `app/shared/expr/expr_math_lexer.h:45` | back to the source's start |
-| 3 | `ExprLexerMatchClass` | `app/shared/expr/expr_math_lexer.h:50` | from expr_lexer_match_list.cpp |
 | 3 | `expr_math_lexer_factory.h` | `app/shared/expr/expr_math_lexer_factory.h:14` | header name assumed from the client's expr_math_lexer_factory.cpp |
 | 3 | `ExprMathLexerFactoryClass` | `app/shared/expr/expr_math_lexer_factory.h:20` | class-from-file (D24) |
 | 3 | `Add_Operators` | `app/shared/expr/expr_math_lexer_factory.h:28` | 'lexer' from the assert |
@@ -32094,10 +32105,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `kv_pair.h` | `app/shared/kv_pair.h:18` | header name assumed from the client's kv_pair.cpp |
 | 3 | `KVPairClass` | `app/shared/kv_pair.h:25` | by convention (D24) from the client's file kv_pair.cpp |
 | 3 | `Key` | `app/shared/kv_pair.h:39` | after the assert's parameter key (kv_pair.cpp) |
-| 3 | `Accessor` | `app/shared/kv_pair.h:85` | after the assert's parameter accessor (kv_pair.cpp) |
+| 3 | `Accessor` | `app/shared/kv_pair.h:76` | after the assert's parameter accessor (kv_pair.cpp) |
 | 3 | `kv_pair_string.h` | `app/shared/kv_pair_string.h:18` | header name assumed from the client's kv_pair_string.cpp |
-| 3 | `KVPairStringClass` | `app/shared/kv_pair_string.h:35` | by convention (D24) from the client's file kv_pair_string.cpp |
-| 3 | `Accessor` | `app/shared/kv_pair_string.h:48` | after the assert's parameter accessor (kv_pair_string.cpp) |
+| 3 | `KVPairStringClass` | `app/shared/kv_pair_string.h:26` | by convention (D24) from the client's file kv_pair_string.cpp |
+| 3 | `Accessor` | `app/shared/kv_pair_string.h:39` | after the assert's parameter accessor (kv_pair_string.cpp) |
 | 3 | `kv_tripl.h` | `app/shared/kv_tripl.h:24` | by convention from the client's kv_tripl.cpp and this header's assert |
 | 3 | `KVTripleClass` | `app/shared/kv_tripl.h:37` | by convention (D24) from the client's file kv_tripl.cpp |
 | 3 | `KVTripleListClass` | `app/shared/kv_tripl.h:53` | by convention (D24) from kv_tripl.cpp, KVListClass's sibling |
