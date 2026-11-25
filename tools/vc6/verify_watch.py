@@ -54,6 +54,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 import wt  # noqa: E402
 import verify_pr  # noqa: E402
+import pool  # noqa: E402  (_pid_alive: the stale-lock test)
 sys.path.insert(1, os.path.dirname(HERE))
 from claims import budget_ok  # noqa: E402  (the GitHub API budget floor, docs/github-plan.md 4.5.3a)
 
@@ -98,7 +99,7 @@ def take_lock():
             pid = int(open(LOCK).read().strip() or 0)
         except ValueError:
             pid = 0
-        if pid and wt._pid_alive(pid):
+        if pid and pool._pid_alive(pid):
             return False
     with open(LOCK, 'w', newline='\n') as f:
         f.write(str(os.getpid()))
