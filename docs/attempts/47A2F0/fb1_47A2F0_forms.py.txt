@@ -1,0 +1,716 @@
+# ---- v1_47A2F0.py ----
+HYPOTHESIS = (
+    'Build_Decorations FB1 batch 1 (measure): the slot map says the client keeps the record counter in i\'s slot '
+    '(-32), gi in tree / info\'s slot (-20) and the third negation temporary of Rotate_Vector in -32 (ours -20, '
+    'because gi holds -32): the anonymous temporaries take whatever slot is free, so the x87 rows follow gi. '
+    'Which loops share one counter decides gi\'s slot and (FU4) the [ptr + IV] order: every sharing of i between '
+    'the proto, check and record loops, each read for slots, IV order and x87 rows apart.'
+)
+FILE = 'app/shared/unknown_474530.cpp'
+SYMBOL = 'LandClass::Build_Decorations'
+ADDRESS = 0x47A2F0
+
+SRC = open('C:/EnBDevelopment/EnB/.work/wt/FB1/app/shared/unknown_474530.cpp', encoding='utf-8').read()
+A = SRC.index('void LandClass::Build_Decorations(')
+B = SRC.index('\n}\n', A) + 3
+FUNC = SRC[A:B]
+R = FUNC.index("\t\tfor (int p = 0; p < PatchCount; p++) {\n")
+HEAD = FUNC[:R]
+REC = FUNC[R:]
+
+PROTO = "\tint i;\n\tfor (i = 0; i < proto_count; i++) {\n\t\tRefCountPtr<RenderObjClass> robj = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj(names[i].c_str()));\n"
+CHECK = "\t\tfor (i = 0; i < proto_count; i++) {\n\t\t\tbool same;\n"
+
+
+def sub(text, old, new, count=1):
+    assert text.count(old) == count, (old, text.count(old))
+    return text.replace(old, new)
+
+
+def rec_on(name, decl=False):
+    out = sub(REC, "\t\tfor (int p = 0; p < PatchCount; p++) {\n",
+              "\t\tfor (%s%s = 0; %s < PatchCount; %s++) {\n" % ('int ' if decl else '', name, name, name))
+    out = out.replace('[p]', '[%s]' % name)
+    assert '[p]' not in out
+    return out
+
+
+def proto_on(head, name):
+    out = sub(head, PROTO, PROTO.replace("\tint i;\n\tfor (i = 0; i < proto_count; i++)", "\tint i; int %s;\n\tfor (%s = 0; %s < proto_count; %s++)" % (name, name, name, name)).replace('names[i]', 'names[%s]' % name))
+    return out
+
+
+def check_on(head, name):
+    a = head.index(CHECK)
+    b = head.index("\t\tUnknown190 = has_trees;\n")
+    body = head[a:b]
+    body = body.replace("for (i = 0; i < proto_count; i++)", "for (int %s = 0; %s < proto_count; %s++)" % (name, name, name))
+    body = body.replace('trees[i]', 'trees[%s]' % name).replace('shadows[i]', 'shadows[%s]' % name)
+    assert '[i]' not in body
+    return head[:a] + body + head[b:]
+
+
+def form(head, rec):
+    text = head + rec
+    assert text.count('\n') == FUNC.count('\n'), (text.count('\n'), FUNC.count('\n'))
+    return [(FUNC, text)]
+
+
+FORMS = {
+    'noop': form(HEAD, REC.replace("p++) {\n", "p++) { // p\n", 1)),
+    'r_i': form(HEAD, rec_on('i')),
+    'r_i_proto_own': form(proto_on(HEAD, 'k'), rec_on('i')),
+    'r_i_check_own': form(check_on(HEAD, 'k'), rec_on('i')),
+    'r_i_both_own': form(check_on(proto_on(HEAD, 'k'), 'm'), rec_on('i')),
+    'r_p_check_own': form(check_on(HEAD, 'k'), REC),
+    'r_p_proto_own': form(proto_on(HEAD, 'k'), REC),
+    'r_j': form(HEAD, rec_on('j')),
+}
+
+# ---- v2_47A2F0.py ----
+HYPOTHESIS = (
+    'Build_Decorations FB1 batch 2 (diagnostic, D272 forms come after): with the record loop on i every frame slot '
+    'before the shadow block is the client\'s (batch 1: 35 slot rows -> 0), and what is left are four families of '
+    'commutative operand order (s * axis, the -X temporary, q.W * the Y / Z column, [IV + ptr]). They flip with '
+    'far-away declarations, so the order follows the symbols\' numbering: sweep k dead-initialised ints at seven '
+    'points of the function on the record-on-i form and read each family apart.'
+)
+FILE = 'app/shared/unknown_474530.cpp'
+SYMBOL = 'LandClass::Build_Decorations'
+ADDRESS = 0x47A2F0
+
+SRC = open('C:/EnBDevelopment/EnB/.work/wt/FB1/app/shared/unknown_474530.cpp', encoding='utf-8').read()
+A = SRC.index('void LandClass::Build_Decorations(')
+B = SRC.index('\n}\n', A) + 3
+FUNC = SRC[A:B]
+
+
+def sub(text, old, new, count=1):
+    assert text.count(old) == count, (old, text.count(old))
+    return text.replace(old, new)
+
+
+def rec_i(text):
+    out = sub(text, "\t\tfor (int p = 0; p < PatchCount; p++) {\n", "\t\tfor (i = 0; i < PatchCount; i++) {\n")
+    out = out.replace('[p]', '[i]')
+    return out
+
+
+BASE = rec_i(FUNC)
+POINTS = {
+    'p0': "\tint count = decorations.size();\n",
+    'p1': "\tint i;\n",
+    'p2': "\tbool has_shadows = false;\n",
+    'p3': "\t\t\tLandDecorationStruct decoration;\n",
+    'p4': "\t\t\t\t\tMatrix3D shadow;\n",
+    'p5': "\t\t\t\t\t\tQuaternion q;\n",
+    'p6': "\t\tmemset(shadow_counts, 0, PatchCount * sizeof(unsigned short));\n",
+}
+
+
+def dead(k, tag):
+    return ''.join(' int z%s%d = 0;' % (tag, n) for n in range(k))
+
+
+FORMS = {'r_i': [(FUNC, BASE)]}
+for tag, anchor in POINTS.items():
+    for k in range(1, 7):
+        if tag == 'p0':
+            new = anchor[:-1] + dead(k, tag) + "\n"
+            text = sub(BASE, anchor, new)
+        else:
+            new = anchor[:-1] + dead(k, tag) + "\n"
+            text = sub(BASE, anchor, new)
+        assert text.count('\n') == FUNC.count('\n')
+        FORMS['%s_k%d' % (tag, k)] = [(FUNC, text)]
+
+# ---- v2b_47A2F0.py ----
+HYPOTHESIS = (
+    'Build_Decorations FB1 batch 2b (diagnostic, k = 7..42 in the decoration block, D272 forms come after): with the record loop on i every frame slot '
+    'before the shadow block is the client\'s (batch 1: 35 slot rows -> 0), and what is left are four families of '
+    'commutative operand order (s * axis, the -X temporary, q.W * the Y / Z column, [IV + ptr]). They flip with '
+    'far-away declarations, so the order follows the symbols\' numbering: sweep k dead-initialised ints at seven '
+    'points of the function on the record-on-i form and read each family apart.'
+)
+FILE = 'app/shared/unknown_474530.cpp'
+SYMBOL = 'LandClass::Build_Decorations'
+ADDRESS = 0x47A2F0
+
+SRC = open('C:/EnBDevelopment/EnB/.work/wt/FB1/app/shared/unknown_474530.cpp', encoding='utf-8').read()
+A = SRC.index('void LandClass::Build_Decorations(')
+B = SRC.index('\n}\n', A) + 3
+FUNC = SRC[A:B]
+
+
+def sub(text, old, new, count=1):
+    assert text.count(old) == count, (old, text.count(old))
+    return text.replace(old, new)
+
+
+def rec_i(text):
+    out = sub(text, "\t\tfor (int p = 0; p < PatchCount; p++) {\n", "\t\tfor (i = 0; i < PatchCount; i++) {\n")
+    out = out.replace('[p]', '[i]')
+    return out
+
+
+BASE = rec_i(FUNC)
+POINTS = {
+    'p0': "\tint count = decorations.size();\n",
+    'p1': "\tint i;\n",
+    'p2': "\tbool has_shadows = false;\n",
+    'p3': "\t\t\tLandDecorationStruct decoration;\n",
+    'p4': "\t\t\t\t\tMatrix3D shadow;\n",
+    'p5': "\t\t\t\t\t\tQuaternion q;\n",
+    'p6': "\t\tmemset(shadow_counts, 0, PatchCount * sizeof(unsigned short));\n",
+}
+
+
+def dead(k, tag):
+    return ''.join(' int z%s%d = 0;' % (tag, n) for n in range(k))
+
+
+FORMS = {'r_i': [(FUNC, BASE)]}
+for tag, anchor in POINTS.items():
+    if tag not in ('p3', 'p5'):
+        continue
+    for k in ([7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 20, 22, 24, 26, 28, 30, 34, 38, 42] if tag == 'p3' else [8, 12, 16, 20]):
+        if tag == 'p0':
+            new = anchor[:-1] + dead(k, tag) + "\n"
+            text = sub(BASE, anchor, new)
+        else:
+            new = anchor[:-1] + dead(k, tag) + "\n"
+            text = sub(BASE, anchor, new)
+        assert text.count('\n') == FUNC.count('\n')
+        FORMS['%s_k%d' % (tag, k)] = [(FUNC, text)]
+
+# ---- v3_47A2F0.py ----
+HYPOTHESIS = (
+    'Build_Decorations FB1 batch 3: by the definition-count rule (0x46CAE0) the client\'s [ptr + IV] wants a record '
+    'counter with one "= 0" definition, so it is a variable of its own; yet it sits in i\'s slot (-32) and gi does '
+    'not (gi -20 with tree / info). So gi\'s scope must reach the record loop, or the counter is placed before gi: '
+    'gi / gj and the counter p declared at the block top, the function top, before the decoration loop, in both orders.'
+)
+FILE = 'app/shared/unknown_474530.cpp'
+SYMBOL = 'LandClass::Build_Decorations'
+ADDRESS = 0x47A2F0
+
+SRC = open('C:/EnBDevelopment/EnB/.work/wt/FB1/app/shared/unknown_474530.cpp', encoding='utf-8').read()
+A = SRC.index('void LandClass::Build_Decorations(')
+B = SRC.index('\n}\n', A) + 3
+FUNC = SRC[A:B]
+
+GIGJ = "\t\t\tfloat gi, gj;\n"
+FORP = "\t\tfor (int p = 0; p < PatchCount; p++) {\n"
+FORP2 = "\t\tfor (p = 0; p < PatchCount; p++) {\n"
+BLOCK = "\t{\n\t\tfor (i = 0; i < proto_count; i++) {\n\t\t\tbool same;\n"
+TOPI = "\tint i;\n"
+FORD = "\t\tfor (int d = 0; d < count; d++) {\n"
+MEMSET = "\t\tmemset(shadow_counts, 0, PatchCount * sizeof(unsigned short));\n"
+COUNT = "\tint count = decorations.size();\n"
+
+
+def sub(text, old, new, count=1):
+    assert text.count(old) == count, (old, text.count(old))
+    return text.replace(old, new)
+
+
+def form(*edits):
+    text = FUNC
+    for old, new in edits:
+        text = sub(text, old, new)
+    assert text.count('\n') == FUNC.count('\n'), (text.count('\n'), FUNC.count('\n'))
+    return [(FUNC, text)]
+
+
+NOGI = (GIGJ, "\t\t\t\n")
+FORMS = {
+    'g_block': form(NOGI, (BLOCK, BLOCK.replace("\t{\n", "\t{ float gi, gj;\n"))),
+    'g_func': form(NOGI, (TOPI, "\tint i; float gi, gj;\n")),
+    'g_func_first': form(NOGI, (COUNT, "\tfloat gi, gj; int count = decorations.size();\n")),
+    'g_before_d': form(NOGI, (MEMSET, MEMSET[:-1] + " float gi, gj;\n")),
+    'p_block': form((BLOCK, BLOCK.replace("\t{\n", "\t{ int p;\n")), (FORP, FORP2)),
+    'p_func': form((TOPI, "\tint i; int p;\n"), (FORP, FORP2)),
+    'p_before_d': form((MEMSET, MEMSET[:-1] + " int p;\n"), (FORP, FORP2)),
+    'pg_block': form(NOGI, (BLOCK, BLOCK.replace("\t{\n", "\t{ int p; float gi, gj;\n")), (FORP, FORP2)),
+    'gp_block': form(NOGI, (BLOCK, BLOCK.replace("\t{\n", "\t{ float gi, gj; int p;\n")), (FORP, FORP2)),
+    'pg_func': form(NOGI, (TOPI, "\tint i; int p; float gi, gj;\n"), (FORP, FORP2)),
+    'gp_func': form(NOGI, (TOPI, "\tint i; float gi, gj; int p;\n"), (FORP, FORP2)),
+    'pg_before_d': form(NOGI, (MEMSET, MEMSET[:-1] + " int p; float gi, gj;\n"), (FORP, FORP2)),
+    'gp_before_d': form(NOGI, (MEMSET, MEMSET[:-1] + " float gi, gj; int p;\n"), (FORP, FORP2)),
+    'p_func_g_block': form(NOGI, (TOPI, "\tint i; int p;\n"), (BLOCK, BLOCK.replace("\t{\n", "\t{ float gi, gj;\n")), (FORP, FORP2)),
+    'g_d_init': form((FORD, "\t\tfor (int d = 0, p = 0; d < count; d++) {\n"), (FORP, "\t\tfor (p = 0; p < PatchCount; p++) {\n")),
+    'gi_gj_split': form((GIGJ, "\t\t\tfloat gi; float gj;\n")),
+    'gj_gi': form((GIGJ, "\t\t\tfloat gj, gi;\n")),
+}
+
+# ---- v4_47A2F0.py ----
+HYPOTHESIS = (
+    'Build_Decorations FB1 batch 4 (diagnostic: dead-initialised floats in place of ints, k up to 28, D272 forms come after): with the record loop on i every frame slot '
+    'before the shadow block is the client\'s (batch 1: 35 slot rows -> 0), and what is left are four families of '
+    'commutative operand order (s * axis, the -X temporary, q.W * the Y / Z column, [IV + ptr]). They flip with '
+    'far-away declarations, so the order follows the symbols\' numbering: sweep k dead-initialised ints at seven '
+    'points of the function on the record-on-i form and read each family apart.'
+)
+FILE = 'app/shared/unknown_474530.cpp'
+SYMBOL = 'LandClass::Build_Decorations'
+ADDRESS = 0x47A2F0
+
+SRC = open('C:/EnBDevelopment/EnB/.work/wt/FB1/app/shared/unknown_474530.cpp', encoding='utf-8').read()
+A = SRC.index('void LandClass::Build_Decorations(')
+B = SRC.index('\n}\n', A) + 3
+FUNC = SRC[A:B]
+
+
+def sub(text, old, new, count=1):
+    assert text.count(old) == count, (old, text.count(old))
+    return text.replace(old, new)
+
+
+def rec_i(text):
+    out = sub(text, "\t\tfor (int p = 0; p < PatchCount; p++) {\n", "\t\tfor (i = 0; i < PatchCount; i++) {\n")
+    out = out.replace('[p]', '[i]')
+    return out
+
+
+BASE = rec_i(FUNC)
+POINTS = {
+    'p0': "\tint count = decorations.size();\n",
+    'p1': "\tint i;\n",
+    'p2': "\tbool has_shadows = false;\n",
+    'p3': "\t\t\tLandDecorationStruct decoration;\n",
+    'p4': "\t\t\t\t\tMatrix3D shadow;\n",
+    'p5': "\t\t\t\t\t\tQuaternion q;\n",
+    'p6': "\t\tmemset(shadow_counts, 0, PatchCount * sizeof(unsigned short));\n",
+}
+
+
+def dead(k, tag):
+    return ''.join(' float z%s%d = 0.0f;' % (tag, n) for n in range(k))
+
+
+FORMS = {'r_i': [(FUNC, BASE)]}
+for tag, anchor in POINTS.items():
+    if tag != 'p3':
+        continue
+    for k in [1, 2, 3, 4, 6, 8, 10, 11, 12, 13, 14, 15, 16, 17, 18, 20, 22, 24, 26, 28]:
+        if tag == 'p0':
+            new = anchor[:-1] + dead(k, tag) + "\n"
+            text = sub(BASE, anchor, new)
+        else:
+            new = anchor[:-1] + dead(k, tag) + "\n"
+            text = sub(BASE, anchor, new)
+        assert text.count('\n') == FUNC.count('\n')
+        FORMS['%s_k%d' % (tag, k)] = [(FUNC, text)]
+
+# ---- v5_47A2F0.py ----
+HYPOTHESIS = (
+    'Build_Decorations FB1 batch 5 (diagnostic): batches 2 / 2b / 4 show an index threshold: every dead-initialised '
+    'local (int or float, any position) moves the symbols of the inline expansions up by one, and one more of them '
+    'crosses it (call 3\'s w, z, y at k = 1..3, call 2\'s at 10..12, s at 13) and then sorts before the -X temporary; '
+    'at 12 decorations[d] flips and at 17 the frame grows, so locals shift things the client has not shifted. If the '
+    'index is the creation order, symbols created by an inline expansion inside the shadow block (before Sin) shift '
+    'only what follows: m empty inline calls there, against the same calls at the function top.'
+)
+FILE = 'app/shared/unknown_474530.cpp'
+SYMBOL = 'LandClass::Build_Decorations'
+ADDRESS = 0x47A2F0
+
+SRC = open('C:/EnBDevelopment/EnB/.work/wt/FB1/app/shared/unknown_474530.cpp', encoding='utf-8').read()
+A = SRC.index('void LandClass::Build_Decorations(')
+B = SRC.index('\n}\n', A) + 3
+FUNC = SRC[A:B]
+
+
+def sub(text, old, new, count=1):
+    assert text.count(old) == count, (old, text.count(old))
+    return text.replace(old, new)
+
+
+def rec_i(text):
+    out = sub(text, "\t\tfor (int p = 0; p < PatchCount; p++) {\n", "\t\tfor (i = 0; i < PatchCount; i++) {\n")
+    return out.replace('[p]', '[i]')
+
+
+BASE = rec_i(FUNC)
+HELP1 = "static inline void Land_Nop(int a) { } "
+HELP3 = "static inline int Land_Nop3(int a) { int b = a; return b; } "
+QDECL = "\t\t\t\t\t\tQuaternion q;\n"
+TOP = "\tint count = decorations.size();\n"
+MESHDECL = "\t\t\tLandDecorationStruct decoration;\n"
+
+
+def form(anchor, call, m, helper):
+    text = sub(BASE, anchor, anchor[:-1] + (' ' + call) * m + "\n")
+    assert text.count('\n') == FUNC.count('\n')
+    return [(FUNC, helper + text)]
+
+
+FORMS = {}
+for m in (1, 2, 3, 4, 6, 8, 10, 12, 14, 16, 20, 24, 28, 32, 40):
+    FORMS['q_nop_%d' % m] = form(QDECL, 'Land_Nop(0);', m, HELP1)
+for m in (4, 12, 16, 24):
+    FORMS['top_nop_%d' % m] = form(TOP, 'Land_Nop(0);', m, HELP1)
+for m in (1, 2, 4, 6, 8, 10, 12):
+    FORMS['q_nop3_%d' % m] = form(QDECL, 'Land_Nop3(0);', m, HELP3)
+for m in (4, 12, 20):
+    FORMS['d_nop_%d' % m] = form(MESHDECL, 'Land_Nop(0);', m, HELP1)
+
+# ---- v6_47A2F0.py ----
+HYPOTHESIS = (
+    'Build_Decorations FB1 batch 6: batch 5 found the regime: symbols of an inline expansion inside the shadow block, '
+    'before Sin (six empty three-symbol inline calls), put s and every -X product in the client\'s order with every '
+    'slot right (record loop on i); left there: q.W * v.X in calls 2 and 3 (4 rows) and [IV + ptr] in the record loop, '
+    'both right on the own-counter form. So: the same inline symbols on the own-counter form (do s and -X follow '
+    'while the IV stays?), and on the record-on-i form what moves i\'s rank: every loop on i, the declaration of i '
+    'first, a while loop, dead locals on top of the six calls, finer counts.'
+)
+FILE = 'app/shared/unknown_474530.cpp'
+SYMBOL = 'LandClass::Build_Decorations'
+ADDRESS = 0x47A2F0
+
+SRC = open('C:/EnBDevelopment/EnB/.work/wt/FB1/app/shared/unknown_474530.cpp', encoding='utf-8').read()
+A = SRC.index('void LandClass::Build_Decorations(')
+B = SRC.index('\n}\n', A) + 3
+FUNC = SRC[A:B]
+HELP3 = "static inline int Land_Nop3(int a) { int b = a; return b; } "
+QDECL = "\t\t\t\t\t\tQuaternion q;\n"
+TOPI = "\tint i;\n"
+COUNT = "\tint count = decorations.size();\n"
+DECO = "\t\t\tLandDecorationStruct decoration;\n"
+FORP = "\t\tfor (int p = 0; p < PatchCount; p++) {\n"
+END = "\t\t}\n\t\tdelete [] tree_vertices;\n"
+
+
+def sub(text, old, new, count=1):
+    assert text.count(old) == count, (old, text.count(old))
+    return text.replace(old, new)
+
+
+def rec_i(text):
+    out = sub(text, FORP, "\t\tfor (i = 0; i < PatchCount; i++) {\n")
+    return out.replace('[p]', '[i]')
+
+
+def nop3(text, m):
+    return sub(text, QDECL, QDECL[:-1] + ' Land_Nop3(0);' * m + "\n")
+
+
+def dead(text, k):
+    return sub(text, DECO, DECO[:-1] + ''.join(' int zz%d = 0;' % n for n in range(k)) + "\n")
+
+
+def done(text):
+    assert text.count('\n') == FUNC.count('\n'), (text.count('\n'), FUNC.count('\n'))
+    return [(FUNC, HELP3 + text)]
+
+
+RI = rec_i(FUNC)
+RI6 = nop3(RI, 6)
+
+
+def all_i(text):
+    out = sub(text, "\tfor (int j = 0; j < proto_count; j++) {\n\t\tMeshClass *mesh = trees[j].Peek();\n",
+              "\tfor (i = 0; i < proto_count; i++) {\n\t\tMeshClass *mesh = trees[i].Peek();\n")
+    out = sub(out, "\tfor (j = 0; j < proto_count; j++) {\n\t\tMeshClass *mesh = shadows[j].Peek();\n",
+              "\tfor (i = 0; i < proto_count; i++) {\n\t\tMeshClass *mesh = shadows[i].Peek();\n")
+    return out
+
+
+def j_first_i(text):
+    out = sub(text, "\tfor (int j = 0; j < proto_count; j++) {\n\t\tMeshClass *mesh = trees[j].Peek();\n",
+              "\tfor (i = 0; i < proto_count; i++) {\n\t\tMeshClass *mesh = trees[i].Peek();\n")
+    out = sub(out, "\tfor (j = 0; j < proto_count; j++) {\n\t\tMeshClass *mesh = shadows[j].Peek();\n",
+              "\tfor (int j = 0; j < proto_count; j++) {\n\t\tMeshClass *mesh = shadows[j].Peek();\n")
+    return out
+
+
+def as_while(text):
+    out = sub(text, "\t\tfor (i = 0; i < PatchCount; i++) {\n", "\t\ti = 0; while (i < PatchCount) {\n")
+    return sub(out, END, "\t\ti++; }\n\t\tdelete [] tree_vertices;\n")
+
+
+FORMS = {}
+for m in (1, 2, 4, 6, 8, 10):
+    FORMS['b_nop3_%d' % m] = done(nop3(FUNC, m))
+for m in (5, 7):
+    FORMS['ri_nop3_%d' % m] = done(nop3(RI, m))
+FORMS['ri6_all_i'] = done(all_i(RI6))
+FORMS['ri6_j_first_i'] = done(j_first_i(RI6))
+FORMS['ri6_i_first'] = done(sub(sub(RI6, TOPI, "\t\n"), COUNT, "\tint i; int count = decorations.size();\n"))
+FORMS['ri6_while'] = done(as_while(RI6))
+for k in (1, 2, 3, 5, 8):
+    FORMS['ri6_k%d' % k] = done(dead(RI6, k))
+FORMS['ri6_unsigned'] = done(RI6.replace("\tint i;\n", "\tunsigned int i;\n"))
+
+# ---- v7_47A2F0.py ----
+HYPOTHESIS = (
+    'Build_Decorations FB1 batch 7: (R) on the record-on-i form with the six inline calls the record loop\'s '
+    '[IV + ptr] may be the same threshold seen at decorations[d] (it flips at 12 dead locals): inline symbols created '
+    'just before the record loop or at its top shift only its own temporaries; (S) on the own-counter form (IV right) '
+    'keep i\'s slot busy over the decoration loop so gi leaves it: dead definitions / uses of i around the record '
+    'loop; (Q) the natural source of inline symbols before Sin: EA\'s Quaternion(axis, angle) defined inline in '
+    'quat.h (the client has no out-of-line copy: quat.cpp starts at Normalize 0x8D1C20) and WWMath::Acos.'
+)
+FILE = 'app/shared/unknown_474530.cpp'
+SYMBOL = 'LandClass::Build_Decorations'
+ADDRESS = 0x47A2F0
+
+SRC = open('C:/EnBDevelopment/EnB/.work/wt/FB1/app/shared/unknown_474530.cpp', encoding='utf-8').read()
+A = SRC.index('void LandClass::Build_Decorations(')
+B = SRC.index('\n}\n', A) + 3
+FUNC = SRC[A:B]
+HELP3 = "static inline int Land_Nop3(int a) { int b = a; return b; } "
+QDECL = "\t\t\t\t\t\tQuaternion q;\n"
+FORP = "\t\tfor (int p = 0; p < PatchCount; p++) {\n"
+FORI = "\t\tfor (i = 0; i < PatchCount; i++) {\n"
+NV = "\t\t\tint nv = tree_vertices[i].size();\n"
+QH = 'wwmath/quat.h'
+QDECLH = "\tWWINLINE explicit Quaternion(const Vector3 & axis,float angle);\n"
+QBODY = ("\tWWINLINE explicit Quaternion(const Vector3 & axis,float angle) { float s = WWMath::Sin(angle/2); "
+         "float c = WWMath::Cos(angle/2); X = s * axis.X; Y = s * axis.Y; Z = s * axis.Z; W = c; }\n")
+QBODY2 = ("\tWWINLINE explicit Quaternion(const Vector3 & axis,float angle) { float s = WWMath::Sin(angle/2); "
+          "float c = WWMath::Cos(angle/2); X = axis.X * s; Y = axis.Y * s; Z = axis.Z * s; W = c; }\n")
+QSRC = ("\t\t\t\t\t\tQuaternion q;\n\t\t\t\t\t\tfloat s = WWMath::Sin(angle / 2);\n\t\t\t\t\t\tfloat c = WWMath::Cos(angle / 2);\n"
+        "\t\t\t\t\t\tq.X = axis.X * s;\n\t\t\t\t\t\tq.Y = axis.Y * s;\n\t\t\t\t\t\tq.Z = axis.Z * s;\n\t\t\t\t\t\tq.W = c;\n")
+QNEW = "\t\t\t\t\t\tQuaternion q(axis, angle);\n\n\n\n\n\n\n"
+ACOS = "\t\t\t\t\t\tfloat angle = (float)acos(cosine);\n"
+ACOS2 = "\t\t\t\t\t\tfloat angle = WWMath::Acos(cosine);\n"
+
+
+def sub(text, old, new, count=1):
+    assert text.count(old) == count, (old, text.count(old))
+    return text.replace(old, new)
+
+
+def rec_i(text):
+    out = sub(text, FORP, FORI)
+    return out.replace('[p]', '[i]')
+
+
+def nop3(text, m):
+    return sub(text, QDECL, QDECL[:-1] + ' Land_Nop3(0);' * m + "\n")
+
+
+def done(text, extra=None):
+    assert text.count('\n') == FUNC.count('\n'), (text.count('\n'), FUNC.count('\n'))
+    return [(FILE, FUNC, HELP3 + text)] + (extra or [])
+
+
+RI = rec_i(FUNC)
+RI6 = nop3(RI, 6)
+B6 = nop3(FUNC, 6)
+
+FORMS = {}
+for m in (1, 2, 3, 4, 6, 8, 12):
+    FORMS['r_before_%d' % m] = done(sub(RI6, FORI, FORI[:-1].replace("\t\tfor", "\t\t" + 'Land_Nop3(0); ' * m + "for") + "\n"))
+for m in (1, 2, 4, 8):
+    FORMS['r_top_%d' % m] = done(sub(RI6, NV, NV[:-1] + ' Land_Nop3(0);' * m + "\n"))
+FORMS['s1_p_i0'] = done(sub(B6, FORP, "\t\tfor (int p = i = 0; p < PatchCount; p++) {\n"))
+FORMS['s2_i0_before'] = done(sub(B6, FORP, "\t\ti = 0; for (int p = 0; p < PatchCount; p++) {\n"))
+FORMS['s3_both_inc'] = done(sub(B6, FORP, "\t\tfor (int p = 0; p < PatchCount; p++, i++) {\n"))
+FORMS['s4_i_tracks'] = done(sub(B6, FORP, "\t\tfor (int p = i = 0; i < PatchCount; p = ++i) {\n"))
+FORMS['s5_p_copy'] = done(sub(RI6, NV, "\t\t\tint p = i; int nv = tree_vertices[i].size();\n").replace('PatchRecords[i]', 'PatchRecords[p]'))
+FORMS['s6_i_cmp'] = done(sub(B6, FORP, "\t\tfor (int p = i = 0; i < PatchCount; i++, p++) {\n"))
+FORMS['q_ctor_ri'] = [(FILE, FUNC, sub(RI, QSRC, QNEW)), (QH, QDECLH, QBODY)]
+FORMS['q_ctor2_ri'] = [(FILE, FUNC, sub(RI, QSRC, QNEW)), (QH, QDECLH, QBODY2)]
+FORMS['q_ctor_base'] = [(FILE, FUNC, sub(FUNC, QSRC, QNEW)), (QH, QDECLH, QBODY)]
+FORMS['q_ctor_acos_ri'] = [(FILE, FUNC, sub(sub(RI, QSRC, QNEW), ACOS, ACOS2)), (QH, QDECLH, QBODY)]
+FORMS['acos_ri'] = [(FILE, FUNC, sub(RI, ACOS, ACOS2))]
+FORMS['acos_base'] = [(FILE, FUNC, sub(FUNC, ACOS, ACOS2))]
+
+# ---- v8_47A2F0.py ----
+HYPOTHESIS = (
+    'Build_Decorations FB1 batch 8: batch 6 put the own-counter form at masked residue 0 with six empty inline calls '
+    'before Sin (only frame slots left): the client has more inline-expansion symbols with definitions there. Their '
+    'natural sources in the shadow block, with wwmath\'s own inline helpers: the value-returning Cross_Product, '
+    'operator * for the dot product, WWMath::Acos, Quaternion::Set / the 4-float constructor / operator [] for the '
+    'components, and their combinations.'
+)
+FILE = 'app/shared/unknown_474530.cpp'
+SYMBOL = 'LandClass::Build_Decorations'
+ADDRESS = 0x47A2F0
+
+SRC = open('C:/EnBDevelopment/EnB/.work/wt/FB1/app/shared/unknown_474530.cpp', encoding='utf-8').read()
+A = SRC.index('void LandClass::Build_Decorations(')
+B = SRC.index('\n}\n', A) + 3
+FUNC = SRC[A:B]
+T = "\t\t\t\t\t"
+CROSS = T + "Vector3 axis;\n" + T + "Vector3::Cross_Product(z, normal, &axis);\n"
+CROSS_VAL = T + "Vector3 axis = Vector3::Cross_Product(z, normal);\n" + T + "\n"
+DOT = T + "\tfloat cosine = Vector3::Dot_Product(z, normal);\n"
+DOT_OP = T + "\tfloat cosine = z * normal;\n"
+ACOS = T + "\tfloat angle = (float)acos(cosine);\n"
+ACOS2 = T + "\tfloat angle = WWMath::Acos(cosine);\n"
+QSRC = (T + "\tQuaternion q;\n" + T + "\tfloat s = WWMath::Sin(angle / 2);\n" + T + "\tfloat c = WWMath::Cos(angle / 2);\n"
+        + T + "\tq.X = axis.X * s;\n" + T + "\tq.Y = axis.Y * s;\n" + T + "\tq.Z = axis.Z * s;\n" + T + "\tq.W = c;\n")
+SC = T + "\tQuaternion q;\n" + T + "\tfloat s = WWMath::Sin(angle / 2);\n" + T + "\tfloat c = WWMath::Cos(angle / 2);\n"
+QSET = SC + T + "\tq.Set(axis.X * s, axis.Y * s, axis.Z * s, c);\n\n\n\n"
+QCTOR4 = (T + "\t\n" + T + "\tfloat s = WWMath::Sin(angle / 2);\n" + T + "\tfloat c = WWMath::Cos(angle / 2);\n"
+          + T + "\tQuaternion q(axis.X * s, axis.Y * s, axis.Z * s, c);\n\n\n\n")
+QIDX = SC + T + "\tq[0] = axis[0] * s;\n" + T + "\tq[1] = axis[1] * s;\n" + T + "\tq[2] = axis[2] * s;\n" + T + "\tq[3] = c;\n"
+QIDX2 = SC + T + "\tq[0] = axis.X * s;\n" + T + "\tq[1] = axis.Y * s;\n" + T + "\tq[2] = axis.Z * s;\n" + T + "\tq[3] = c;\n"
+QHALF = (T + "\tQuaternion q;\n" + T + "\tfloat half = angle / 2; float s = WWMath::Sin(half);\n" + T + "\tfloat c = WWMath::Cos(half);\n"
+         + T + "\tq.X = axis.X * s;\n" + T + "\tq.Y = axis.Y * s;\n" + T + "\tq.Z = axis.Z * s;\n" + T + "\tq.W = c;\n")
+QVEC = SC + T + "\tVector3 v = axis * s;\n" + T + "\tq.Set(v.X, v.Y, v.Z, c);\n\n\n"
+
+
+def sub(text, old, new, count=1):
+    assert text.count(old) == count, (old, text.count(old))
+    return text.replace(old, new)
+
+
+def form(*edits):
+    text = FUNC
+    for old, new in edits:
+        text = sub(text, old, new)
+    assert text.count('\n') == FUNC.count('\n'), (text.count('\n'), FUNC.count('\n'))
+    return [(FUNC, text)]
+
+
+FORMS = {
+    'n_cross_val': form((CROSS, CROSS_VAL)),
+    'n_dot_op': form((DOT, DOT_OP)),
+    'n_qset': form((QSRC, QSET)),
+    'n_qctor4': form((QSRC, QCTOR4)),
+    'n_qidx': form((QSRC, QIDX)),
+    'n_qidx2': form((QSRC, QIDX2)),
+    'n_qvec': form((QSRC, QVEC)),
+    'n_cross_dot': form((CROSS, CROSS_VAL), (DOT, DOT_OP)),
+    'n_cross_dot_acos': form((CROSS, CROSS_VAL), (DOT, DOT_OP), (ACOS, ACOS2)),
+    'n_cross_qset': form((CROSS, CROSS_VAL), (QSRC, QSET)),
+    'n_all_qset': form((CROSS, CROSS_VAL), (DOT, DOT_OP), (ACOS, ACOS2), (QSRC, QSET)),
+    'n_all_qidx': form((CROSS, CROSS_VAL), (DOT, DOT_OP), (ACOS, ACOS2), (QSRC, QIDX)),
+    'n_all_qctor4': form((CROSS, CROSS_VAL), (DOT, DOT_OP), (ACOS, ACOS2), (QSRC, QCTOR4)),
+    'n_acos_qset': form((ACOS, ACOS2), (QSRC, QSET)),
+    'n_acos_qidx': form((ACOS, ACOS2), (QSRC, QIDX)),
+    'n_dot_qidx': form((DOT, DOT_OP), (QSRC, QIDX)),
+    'n_half': form((QSRC, QHALF)),
+}
+
+# ---- v9_47A2F0.py ----
+HYPOTHESIS = (
+    'Build_Decorations FB1 batch 9 (diagnostic, last): on the own-counter form with the six inline calls (masked '
+    'residue 0) only frame slots are left: gi shares i\'s slot where the client puts the -X temporary and the record '
+    'counter there, and a record-loop temporary takes it before p. Equal reference counts (gi 4 / the temporary 4, '
+    'p 3 / the temporary 3) point at the same index tie-break as the operand order: shift it with dead locals, with '
+    'inline symbols before the record loop, at the decoration loop\'s top and at the function\'s top.'
+)
+FILE = 'app/shared/unknown_474530.cpp'
+SYMBOL = 'LandClass::Build_Decorations'
+ADDRESS = 0x47A2F0
+
+SRC = open('C:/EnBDevelopment/EnB/.work/wt/FB1/app/shared/unknown_474530.cpp', encoding='utf-8').read()
+A = SRC.index('void LandClass::Build_Decorations(')
+B = SRC.index('\n}\n', A) + 3
+FUNC = SRC[A:B]
+HELP3 = "static inline int Land_Nop3(int a) { int b = a; return b; } "
+QDECL = "\t\t\t\t\t\tQuaternion q;\n"
+FORP = "\t\tfor (int p = 0; p < PatchCount; p++) {\n"
+DECO = "\t\t\tLandDecorationStruct decoration;\n"
+MESH = "\t\t\tMeshClass *mesh;\n"
+COUNT = "\tint count = decorations.size();\n"
+SHADOWM = "\t\t\t\t\tMatrix3D shadow;\n"
+
+
+def sub(text, old, new, count=1):
+    assert text.count(old) == count, (old, text.count(old))
+    return text.replace(old, new)
+
+
+def nop3(text, anchor, m, before=False):
+    calls = 'Land_Nop3(0); ' * m
+    if before:
+        return sub(text, anchor, anchor.replace("for (", calls + "for (", 1))
+    return sub(text, anchor, anchor[:-1] + ' ' + calls.rstrip() + "\n")
+
+
+def dead(text, k):
+    return sub(text, DECO, DECO[:-1] + ''.join(' int zz%d = 0;' % n for n in range(k)) + "\n")
+
+
+def done(text):
+    assert text.count('\n') == FUNC.count('\n'), (text.count('\n'), FUNC.count('\n'))
+    return [(FUNC, HELP3 + text)]
+
+
+B6 = nop3(FUNC, QDECL, 6)
+FORMS = {'b6': done(B6)}
+for k in (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11):
+    FORMS['b6_k%d' % k] = done(dead(B6, k))
+for m in (1, 2, 3, 4, 6, 8):
+    FORMS['b6_rec%d' % m] = done(nop3(B6, FORP, m, before=True))
+for m in (1, 2, 3, 4, 6, 8):
+    FORMS['b6_deco%d' % m] = done(nop3(B6, MESH, m))
+for m in (1, 2, 4):
+    FORMS['b6_top%d' % m] = done(nop3(B6, COUNT, m))
+for m in (1, 2, 4, 8):
+    FORMS['b6_shadow%d' % m] = done(nop3(B6, SHADOWM, m))
+
+# ---- count47.py ----
+"""Per form of a trybatch batch of Build_Decorations: real differing rows by client window.
+
+    python count47.py BATCHDIR
+
+Windows: pre (before 0x47B3C4), sx (s * axis, 0x47B3C4-0x47B40A), rv (the three Rotate_Vector, 0x47B40A-0x47B79F),
+rec (the record loop and the rest, from 0x47B79F). A row whose only difference is a masked relocation or jump target
+is not counted.
+"""
+import os
+import subprocess
+import sys
+
+ROOT = 'C:/EnBDevelopment/EnB/.work/wt/FB1'
+WIN = [('pre', 0x47A2F0, 0x47B3C8), ('sx', 0x47B3C8, 0x47B40A), ('rv', 0x47B40A, 0x47B79F), ('rec', 0x47B79F, 0x47C580)]
+
+
+def real(lt, rt):
+    if not lt or not rt:
+        return True
+    if 'REL' in rt or 'REL' in lt or lt.startswith('j') and rt.startswith('j'):
+        if lt.split(' ')[0] == rt.split(' ')[0]:
+            return False
+    return lt != rt
+
+
+def main():
+    batch = sys.argv[1]
+    seen = {}
+    for form in sorted(os.listdir(batch)):
+        obj = os.path.join(batch, form, 'obj', 'unknown_474530.obj')
+        if not os.path.exists(obj):
+            continue
+        out = subprocess.run([sys.executable, ROOT + '/tools/re/objdiff.py', obj, 'Build_Decorations', '0x47A2F0'],
+                             capture_output=True, text=True).stdout.splitlines()
+        counts = {w[0]: 0 for w in WIN}
+        last = 0x47A2F0
+        for line in out[1:]:
+            if '|' not in line:
+                continue
+            left, right = line.split('|', 1)
+            r = right.strip()
+            if r:
+                try:
+                    last = int(r.split(' ', 1)[0], 16)
+                except ValueError:
+                    pass
+            if not left.startswith('*'):
+                continue
+            l = left[1:].strip()
+            lt = l.split(' ', 1)[1].strip() if ' ' in l else ''
+            rt = r.split(' ', 1)[1].strip() if ' ' in r else ''
+            if not real(lt, rt):
+                continue
+            for name, lo, hi in WIN:
+                if lo <= last < hi:
+                    counts[name] += 1
+        key = tuple(counts[w[0]] for w in WIN)
+        tag = ''
+        if key in seen:
+            tag = '  (as %s)' % seen[key]
+        else:
+            seen[key] = form
+        print('%-22s pre %3d  sx %2d  rv %3d  rec %3d%s' % (form, key[0], key[1], key[2], key[3], tag))
+
+
+main()
+
