@@ -400,3 +400,112 @@ FORMS = {
     'tj_cty_no5a8': _form(_merge(TJ, CTY, NO5A8)),
     'tj_cty_no5a8_noyrs': _form(_merge(TJ, CTY, NO5A8, NOYRS)),
 }
+# ===== v6_5F3770.py
+HYPOTHESIS = ('B3 b6: `if (entry != Unknown5A8.end())` (the client\'s loop exit, no threaded jmp) per case: case 0xC '
+              'alone kept res 422 with r208 26/26 in b4; case 0xD alone; both; with --file-check (both lost 0x604E70 / '
+              '0x604F50\'s out-of-line copies in b5); case 0xD with its test before the loop\'s end() local dropped')
+FILE = 'app/client/ui_registration.cpp'
+SYMBOL = 'RegistrationInterface::Unknown_5F3770'
+ADDRESS = 0x5F3770
+
+_SRC = open(FILE, encoding='utf-8', newline='').read()
+_LINES = _SRC.split('\n')
+_A, _B = 1250, 1816
+
+
+def _form(edits):
+    new = list(_LINES)
+    for n, t in edits.items():
+        new[n - 1] = t
+    return [('\n'.join(_LINES[_A - 1:_B]), '\n'.join(new[_A - 1:_B]))]
+
+
+def L(n):
+    return _LINES[n - 1]
+
+
+T5 = '\t\t\t\t\t'
+for s in (1503, 1706):
+    assert L(s + 8).strip() == 'if (entry != last) {', s
+    assert L(s + 2).strip() == 'std::vector<RegistrationUnknown5A8Struct>::iterator last = Unknown5A8.end();'
+    assert L(s + 3).strip() == 'for (; entry != last; entry++) {'
+
+
+def tj(s):
+    return {s + 8: T5 + 'if (entry != Unknown5A8.end()) {'}
+
+
+def tj_nolast(s):
+    # no last local: the loop and the test both on end()
+    return {s + 2: '', s + 3: T5 + 'for (; entry != Unknown5A8.end(); entry++) {', s + 8: T5 + 'if (entry != Unknown5A8.end()) {'}
+
+
+def _merge(*ds):
+    out = {}
+    for d in ds:
+        out.update(d)
+    return out
+
+
+FORMS = {
+    'tj_C': _form(tj(1503)),
+    'tj_D': _form(tj(1706)),
+    'tj_CD': _form(_merge(tj(1503), tj(1706))),
+    'tjn_C': _form(tj_nolast(1503)),
+    'tjn_D': _form(tj_nolast(1706)),
+    'tjn_CD': _form(_merge(tj_nolast(1503), tj_nolast(1706))),
+    'tj_C_tjn_D': _form(_merge(tj(1503), tj_nolast(1706))),
+}
+# ===== v7_5F3770.py
+HYPOTHESIS = ('B3 b7: on tj_CD (the client\'s loop exit in both card-type searches: each alone neutral, both +17 and '
+              'FILE -2), find the budget unit the client does not spend: the dead-read devices inside the inlined '
+              'followers swept together (0x5F9A90 Unknown5A8.size() 0-2, 0x5F9460 years->Items.size() 0-1, a dead '
+              'UnknownAC.size() in 0x5F9700 0-1), --file-check for the followers\' own copies')
+FILE = 'app/client/ui_registration.cpp'
+SYMBOL = 'RegistrationInterface::Unknown_5F3770'
+ADDRESS = 0x5F3770
+
+_SRC = open(FILE, encoding='utf-8', newline='').read()
+_LINES = _SRC.split('\n')
+_A, _B = 1250, 2130
+
+
+def _form(edits):
+    new = list(_LINES)
+    for n, t in edits.items():
+        new[n - 1] = t
+    return [('\n'.join(_LINES[_A - 1:_B]), '\n'.join(new[_A - 1:_B]))]
+
+
+def L(n):
+    return _LINES[n - 1]
+
+
+T5 = '\t\t\t\t\t'
+for s in (1503, 1706):
+    assert L(s + 8).strip() == 'if (entry != last) {', s
+assert L(2123).startswith('\tUnknown5A8.size(); for (')
+assert L(2088).startswith('\tint year = Selected_Year(years); years->Items.size();')
+assert L(2105).startswith('\tfor (std::vector<StringClass>::iterator it = UnknownAC.begin();')
+
+TJ = {1511: T5 + 'if (entry != Unknown5A8.end()) {', 1714: T5 + 'if (entry != Unknown5A8.end()) {'}
+A_LINE = L(2123).replace('\tUnknown5A8.size(); ', '\t', 1)
+Y_LINE = L(2088).replace(' years->Items.size();', '', 1)
+
+
+def form(a, y, c):
+    d = dict(TJ)
+    d[2123] = '\t' + 'Unknown5A8.size(); ' * a + A_LINE[1:]
+    d[2088] = L(2088) if y else Y_LINE
+    d[2105] = '\t' + 'UnknownAC.size(); ' * c + L(2105)[1:]
+    return _form(d)
+
+
+FORMS = {}
+for a in (0, 1, 2):
+    for y in (0, 1):
+        for c in (0, 1):
+            if (a, y, c) == (1, 1, 0):
+                FORMS['tj_a1y1c0'] = form(a, y, c)   # = tj_CD
+            else:
+                FORMS['tj_a%dy%dc%d' % (a, y, c)] = form(a, y, c)

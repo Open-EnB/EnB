@@ -190,3 +190,56 @@ for k in range(1, 11):
     FORMS['top%d' % k] = top(k)
 for k in range(1, 5):
     FORMS['sh%d' % k] = shadow(k)
+# ===== v6_47A2F0.py
+HYPOTHESIS = ('B3 b6 (0x47A2F0): workflow 3.1.2: "the x87 operand order of an inlined commutative product follows the '
+              'operand\'s symbol kind (a named local against a temporary)": the client never loads the -X temp first, ours '
+              'always does, as if the client\'s x / y / z / w were named locals of the function and ours inline-function '
+              'locals: the Rotate_Vector arithmetic written out at the call site (per-call blocks; v as a reference to '
+              'the column temporary or a copy; call 1 only; x / y / z / w shared by the three calls)')
+FILE = 'app/shared/unknown_474530.cpp'
+SYMBOL = 'LandClass::Build_Decorations'
+ADDRESS = 0x47A2F0
+
+_SRC = open(FILE, encoding='latin-1', newline='').read()
+_LINES = _SRC.split('\n')
+_A, _B = 768, 782
+
+
+def _form(edits):
+    new = list(_LINES)
+    for n, t in edits.items():
+        new[n - 1] = t
+    return [('\n'.join(_LINES[_A - 1:_B]), '\n'.join(new[_A - 1:_B]))]
+
+
+def L(n):
+    return _LINES[n - 1]
+
+
+T6 = '\t\t\t\t\t\t'
+assert L(778).strip() == 'q.Rotate_Vector(shadow.Get_X_Vector(), &xv);'
+assert L(779).strip() == 'q.Rotate_Vector(shadow.Get_Y_Vector(), &yv);'
+assert L(780).strip() == 'q.Rotate_Vector(shadow.Get_Z_Vector(), &zv);'
+assert L(777).strip() == 'Vector3 zv;'
+
+BODY = ('float x = q.W*v.X + (q.Y*v.Z - v.Y*q.Z); float y = q.W*v.Y - (q.X*v.Z - v.X*q.Z); '
+        'float z = q.W*v.Z + (q.X*v.Y - v.X*q.Y); float w = -(q.X*v.X + q.Y*v.Y + q.Z*v.Z); '
+        'R.X = w*(-q.X) + q.W*x + (y*(-q.Z) - (-q.Y)*z); R.Y = w*(-q.Y) + q.W*y - (x*(-q.Z) - (-q.X)*z); '
+        'R.Z = w*(-q.Z) + q.W*z + (x*(-q.Y) - (-q.X)*y);')
+BODY_SHARED = BODY.replace('float x = ', 'x = ').replace('float y = ', 'y = ').replace('float z = ', 'z = ').replace(
+    'float w = ', 'w = ')
+
+
+def call(col, res, ref=True, shared=False):
+    decl = ('const Vector3 &v = shadow.Get_%s_Vector(); ' if ref else 'Vector3 v = shadow.Get_%s_Vector(); ') % col
+    body = (BODY_SHARED if shared else BODY).replace('R.', res + '.')
+    return T6 + '{ ' + decl + body + ' }'
+
+
+FORMS = {
+    'm_ref': _form({778: call('X', 'xv'), 779: call('Y', 'yv'), 780: call('Z', 'zv')}),
+    'm_copy': _form({778: call('X', 'xv', False), 779: call('Y', 'yv', False), 780: call('Z', 'zv', False)}),
+    'm_ref1': _form({778: call('X', 'xv')}),
+    'm_shared': _form({777: L(777) + ' float x, y, z, w;', 778: call('X', 'xv', True, True),
+                       779: call('Y', 'yv', True, True), 780: call('Z', 'zv', True, True)}),
+}
