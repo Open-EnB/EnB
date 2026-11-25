@@ -1665,7 +1665,7 @@ Unknown713520Class::Unknown713520Class(PlanetPositionalUpdatePacketClass *packet
 }
 
 
-// NOT EXACT: 0x713670 inline budget: the client calls Rotate_Z(-angle) out of line (0x577940), this file inlines it
+// NOT EXACT: 0x713670 register (residue 12, rows 274/274: Translate(Vector3(OrbitDist, 0, 0)) spends the budget so Rotate_Z(-angle) goes out of line (0x577940) as the client; left: x87 operand order in Rotate_Z)
 void Unknown713520Class::Unknown_1C(int time, Vector3 *position, Quaternion *orientation, Vector3 *velocity, float *speed, Vector3 *rotrate, bool unknown)
 {
 	float dt = (float)(time - Time);
@@ -1681,7 +1681,7 @@ void Unknown713520Class::Unknown_1C(int time, Vector3 *position, Quaternion *ori
 			float angle = dt * OrbitRate + OrbitAngle;
 			transform.Translate(center);
 			transform.Rotate_Z(angle);
-			transform.Translate_X(OrbitDist);
+			transform.Translate(Vector3(OrbitDist, 0.0f, 0.0f));
 			transform.Rotate_Z(-angle);
 			point = transform.Get_Translation();
 		}
@@ -1699,13 +1699,13 @@ void Unknown713520Class::Unknown_1C(int time, Vector3 *position, Quaternion *ori
 	}
 	if (velocity) {
 		float x = center.X - point.X;
-		float y = center.Y - point.Y;
+		float y = center.Y - point.Y; Vector3 v;
 		if (OrbitRate > 0.0f) {
-			y = -y;
+			v.Set(-y, x, 0.0f);
 		} else {
-			x = -x;
+			v.Set(y, -x, 0.0f);
 		}
-		*velocity = Vector3(y, x, 0.0f) * OrbitRate;
+		*velocity = v * OrbitRate;
 	}
 	if (speed) {
 		*speed = OrbitRate * OrbitDist;
