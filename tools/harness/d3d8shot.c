@@ -1136,6 +1136,13 @@ static HRESULT STDMETHODCALLTYPE Hook_Present(void *dev, const RECT *src, const 
 			if (!fgets(TriggerName, sizeof(TriggerName), t)) TriggerName[0] = 0;
 			fclose(t);
 		}
+		if (!t || !TriggerName[0] || TriggerName[0] == '\r' || TriggerName[0] == '\n') {
+			/* the file is there but not readable yet (just renamed into place by e2e's os.replace, or held open by
+			   a scanner): read it again at a later Present. Taken now it was saved as shot_shot_N, its name lost
+			   (2026-11-25: sb_rooms' room1_npc on retail); e2e writes every trigger with its name */
+			TriggerName[0] = 0;
+			return RealPresent(dev, src, dst, wnd, dirty);
+		}
 		if (!strncmp(TriggerName, "mark ", 5)) {
 			/* a marker, not a shot: logged here, and passed to the program's own Stub_Log_Mark when it exports one
 			   (stubs/stub_log.cpp: the stand-ins' first-call flags start over, so each part of a session lists
