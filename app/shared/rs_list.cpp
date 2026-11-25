@@ -290,9 +290,11 @@ RenderStateClass *RenderStateListClass::Unknown_45ACD0(int id, int link_id, unsi
 }
 
 // 0x45AD90
-// NOT EXACT: regs (0.67): the client keeps 0 in ebp from the start and one more local
+// NOT EXACT: register (masked residue 15: the client keeps 0 in ebp from the FILE test on, ours from combo(false) on;
+// the map pointer NULL at the top and data NULL unless a PIVOTMAP0 section exists; attempts.csv 0x45AD90)
 RenderStateClass *RenderStateListClass::Unknown_45AD90(INIClass &ini, const char *section, int id)
 {
+	NamedPivotMapClass *map = NULL;
 	char file[MAX_PATH];
 	if (Unknown_45A300(ini, section, file)) {
 		Unknown_45A340(file);
@@ -304,14 +306,12 @@ RenderStateClass *RenderStateListClass::Unknown_45AD90(INIClass &ini, const char
 	int link_id = Unknown_45A4A0(ini, section);
 	unsigned int flags = Unknown_45A530(ini, section);
 	HAnimComboDataClass combo(false);
-	HAnimComboDataClass *data;
+	HAnimComboDataClass *data = NULL;
 	char name[MAX_PATH];
 	sprintf(name, "%s\\PIVOTMAP0", section);
-	if (!ini.Is_Present(name)) {
-		data = NULL;
-	} else {
+	if (ini.Is_Present(name)) {
 		data = &combo;
-		NamedPivotMapClass *map = new NamedPivotMapClass;
+		map = new NamedPivotMapClass;
 		int index = 0;
 		while (ini.Is_Present(name)) {
 			char bone[MAX_PATH];
