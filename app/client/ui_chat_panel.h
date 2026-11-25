@@ -23,7 +23,7 @@ class UIRadioAdminClass;		// ui_radio_admin.h's (+0xE8)
 #include "ui_combobox.h"	// UIComboBoxClass: the panel's combos (Combo[]; was UIChatComboClass, P-TG4-1)
 
 
-class OptionFontInterfaceEvent;
+class OptionFontInterfaceEvent;	class OptionFontInterface;	// ui_option_font.h's (0x56C7B0's sender)
 
 enum { NUM_COMBO = 5 };	// NAME 3: the assert's
 
@@ -98,7 +98,7 @@ public:
 	void Unknown_56C6A0();								// 0x56C6A0: the chat window's handler removed, the window released
 	void Unknown_56C7E0();								// 0x56C7E0 (request 12: the chat font settings)
 	void Unknown_56C730(ChatWindowInterfaceEvent *event, ChatWindowInterface *chat_int);	// 0x56C730: the chat window's event handler (FAIL_IF 'chat_int != ChatInt.Peek()' l.2441)  // NAME 3 [chat_int]: the FAIL_IF's; NAME 1 [event]: neutral
-	void Unknown_56C7B0(OptionFontInterfaceEvent *event, InterfaceClass *sender);	// 0x56C7B0: the +0xF8 window's event handler (the chat window's 0x571430)  // NAME 1 [event, sender]: neutral
+	void Unknown_56C7B0(OptionFontInterfaceEvent *event, OptionFontInterface *sender);	// 0x56C7B0: the +0xF8 window's event handler (the chat window's 0x571430; the sender's type is the callback's RTTI 0xB7D308)  // NAME 1 [event, sender]: neutral
 
 	RefCountPtr<RenderObjClass> UnknownA0;										// +0xA0
 	ButtonGadgetClass *UnknownA4[7];						// +0xA4 (the constructor clears all seven)

@@ -2493,9 +2493,6 @@
 "data:??_R0?AVGadgetSliderEvent@@@8": [
 "0xB8D5E8"
 ],
-"data:??_R0?AVInterfaceClass@@@8": [
-"0xB7D2E0"
-],
 "data:??_R0?AVKeysSavedEvent@@@8": [
 "0xB795E8"
 ],
@@ -2592,11 +2589,11 @@
 "data:??_R0PBV?$MemberCallback@VGadgetCollectionInterface@@VToggleButtonDynamicWindow@@P82@AEXPAVGadgetEvent@@PAV1@@ZV3@@SignalBaseClass@@@8": [
 "0xB76F48"
 ],
-"data:??_R0PBV?$MemberCallback@VInterfaceClass@@VChatPanelInterface@@P82@AEXPAVOptionFontInterfaceEvent@@PAV1@@ZV3@@SignalBaseClass@@@8": [
-"0xB7D308"
-],
 "data:??_R0PBV?$MemberCallback@VMovableUIBackGadget@@VChatPanelUIBase@@P82@AEXPAVMovableUIBackGadgetMoved@@PAV1@@ZV3@@SignalBaseClass@@@8": [
 "0xB7D5E8"
+],
+"data:??_R0PBV?$MemberCallback@VOptionFontInterface@@VChatPanelInterface@@P82@AEXPAVOptionFontInterfaceEvent@@PAV1@@ZV3@@SignalBaseClass@@@8": [
+"0xB7D308"
 ],
 "data:??_R0PBV?$MemberCallback@VSlotDataClass@@VSlotDataInterface@@P82@AEXPAVSlotDataEventDataChange@@PAV1@@ZV3@@SignalBaseClass@@@8": [
 "0xB8A5E8"
