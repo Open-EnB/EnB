@@ -1,6 +1,6 @@
 # E&B Test Plan
 
-The working copy of the E&B test plan (draft 4, 2026-11-24; D284). The published page is rendered from the same text; sessions change the status columns of §5 and §7 here.
+The working copy of the E&B test plan (draft 5, 2026-11-24; D284). The published page is rendered from the same text; sessions change the status columns of §5 and §7 here.
 
 One test suite for two jobs. Now: find and prove behaviour bugs in the rebuild where byte comparison cannot (the functions marked NOT EXACT). After the rebuild is frozen: the oracles that carry the modernization (SDL, OpenAL, FFmpeg), when byte comparison with `client.exe` is gone. Baselines are captured from the retail client on the user's Windows machine.
 
@@ -9,8 +9,11 @@ Companion to: E&B Cross-Platform Port Plan; Tree: master c4dadd26; Working copy:
 ## 1. Principles
 
 * **Retail is the truth.** An expected result comes from retail `client.exe` wherever the client's behaviour can be observed. Our own build is the baseline only for things retail can't show: structure layouts, library internals and parser outputs. Those tests are marked as such.
-* **Capture once, keep the baseline.** Today's e2e comparison re-runs retail every time and keeps nothing (results go only to `.work/`). New baselines are stored in a format-neutral form (PNG, JSON, text) with a manifest that names the retail build, the data version and the settings. They don't go in git (game data) but into a private baseline store with a version number.
-* **Measure retail against itself first.** Retail differs from itself between runs (up to 207 of 256 cells in playback scenes). Capture every baseline at least 3 times and set each test's tolerance from that measured noise, not by guessing.
+* **Capture once, keep the baseline.** Today's e2e comparison re-runs retail every time and its results go only to `.work/e2e`, with no date in the folder name and no record of the build, the data or the settings; no retail run of the default set, `_play7–10` or sp_* survives (checked 2026-11-24). New baselines are stored in a format-neutral form (PNG, JSON, text) with a manifest that names the retail build, the data version, the settings and the machine that captured them.
+* **Two repositories, both in git.** Tools, scenarios and this plan live in `Open-EnB/EnB` (public). Everything that comes from running the game lives in `Open-EnB/baselines` (private): baselines, their manifests, the measured noise, and the inputs a second device needs to repeat a run (replay captures, record tracks, database snapshots). The game's own files go in neither: each device supplies its install and the tools check it against the SHA-256 in the manifest.
+* **Usable on any device from the start.** No tool holds a machine's paths: one per-machine config file names the install, the POC folders, antprox, the Net-7 server and the store's checkout. Comparing a run against the store needs neither the retail client nor Windows.
+* **Measure retail against itself first.** Retail differs from itself between runs: 153 to 167 of 256 cells in sp_flight, the worst scene that is tolerated, and 207 in `w_entered`, which is skipped for that reason. Capture every baseline at least 3 times, keep all three runs, and set each test's tolerance from that measured noise, not by guessing. The figures are stored as data beside the baseline (the calibration of 2026-11-19 survives only as prose in `shot_mask.txt`).
+* **Logs cross devices, frames may not.** Packets, draw tables, camera matrices and audio events are compared across machines as they are. Frames are compared against a baseline of the same capture environment (GPU, driver, OS, resolution) until the difference between two machines has been measured the way run-to-run noise is.
 * **Oracles that survive the port.** Every test states its oracle (packets, state dump, frame, draw log, audio log, file snapshot) and how it will be observed once the D3D8 proxy is gone.
 * **Target the risk.** 179 entries in `docs/data/not-exact.md` say functional, written from, field-offset or shape. Each P0 or P1 UI and camera test names the risky functions it reaches.
 
@@ -51,13 +54,15 @@ These run against retail on Windows. Each one makes a whole family of baselines 
 
 | ID | Tool | Records | Unblocks |
 |---|---|---|---|
-| C1 | **Baseline store and manifest**: `baseline.py capture\|verify\|list` | Per-scenario folders (PNG, JSON, text), retail SHA-256, data version, resolution, N runs, measured noise | Everything below |
+| C1 | **Baseline store and manifest**: `baseline.py capture\|verify\|list`, with the per-machine config file that replaces the paths hard-coded in `clientrun.py` and `e2e.py`. e2e writes a capture straight into the store's checkout under a dated run name. `verify` runs with no retail client present | Per-scenario folders (PNG, JSON, text), all N runs kept. Manifest: retail SHA-256, data version, the client's settings (its registry keys, which are under HKLM's 32-bit view with UAC's per-user VirtualStore copy, and `Data\client\ini`, read only), resolution, GPU, driver, OS, proxy and antprox versions, the scenario's commit, the recording's or database snapshot's hash, measured noise | Everything below |
 | C2 | **MSS32.DLL logging proxy** (the same idea as d3d8shot) | Every `AIL_*` call with its sample or stream name, 2D or 3D, position, volume, pan, loop, start and stop, with a frame number | All audio tests; the Miles to OpenAL port |
-| C3 | **d3d8shot: draw and camera log per shot** | The draw table (FVF, textures, states, prim counts) and the view and projection matrices at every `SHOT` | Render tests with tolerance-free structural checks |
-| C4 | **Settings snapshot** | The client's HKCU keys and `Data\client\ini`, before and after a scenario, as a diff | Options and settings tests |
+| C3 | **d3d8shot: draw and camera log per shot**. The proxy already writes the view matrices per frame (`D3D8SHOT_CAMERA`, `camera.txt`) and has a draw dump (`D3D8SHOT_DUMP`); what is left is tying both to each `SHOT` and writing them as JSON | The draw table (FVF, textures, states, prim counts) and the view and projection matrices at every `SHOT` | Render tests with tolerance-free structural checks |
+| C4 | **Settings snapshot** (the read-only reading is part of C1's manifest) | The client's registry keys (HKLM's 32-bit view and the per-user VirtualStore copy) and `Data\client\ini`, before and after a scenario, as a diff | Options and settings tests |
 | C5 | **Frame-time log** (d3d8shot `Present` timestamps) | Per-frame times for fixed scenes | Performance baselines |
 | C6 | **Input: modifier keys and key chords** in the scenario language and the proxy | Shift, Ctrl, Alt, held keys | Vault (Shift+I) and the other screens the scenarios can't reach today |
 | C7 | **UI layout query** in place of the hand-kept 87-entry `gadgets.txt` | Gadget rectangles by name from the client | Other resolutions; the port |
+
+Two notes on running the client. When several instances run at once, the harness (`clientrun.py`) renames `enb_mutex_lock` to a name of the same length in each instance's copy of the exe, so `app/main/main_client.cpp` stays as the client has it. A run that does this records the original and the patched exe hashes in its manifest; this recording is to be added. Replay runs use the C# antprox 1.1.0 with antreplay 1.1.0 (machine key `antprox_replay`), because the Rust antprox 1.2 cannot /REPLAY yet. This split is temporary and goes when the Rust proxy replays.
 
 ## 4. New test cases
 
@@ -98,7 +103,7 @@ P0 before the port starts; P1 before the phase that needs it; P2 when convenient
 
 | ID | Pri | Test | Oracle | Base |
 |---|---|---|---|---|
-| AU-01 | P0 | The audio event log (C2) for every existing scenario: which samples, music themes and streams start and stop, in order | Event sequence, with timing tolerance | R |
+| AU-01 | P0 | The audio event log (C2) for every existing scenario: which samples, music themes and streams start and stop, in order. Streams and 3D sounds are compared strictly and 2D UI sounds by count. In station scenes retail's own 3D audio varies between runs (random footstep and greeting samples; streams and 3D sounds identical in 0 of 9 station scenarios, 22 of 25 default, 1 of 4 space), so the strict compare has to be relaxed there by the stored noise (to be built). A missing `_AIL_open_3D_listener@4` import in our exe is an `/incremental:no` pruning artifact: compare import counts against the incremental trial link | Event sequence, with timing tolerance | R |
 | AU-02 | P0 | 3D sound: engine, weapons and explosions at known positions in sp_combat and sp_flight | Position, volume and listener per event, with tolerance | R |
 | AU-03 | P1 | Music manager: theme changes by sector and combat, silence tails, Load_INI | Event log | R |
 | AU-04 | P1 | Bridge and sector ambient sounds | Event log | R |
@@ -174,8 +179,18 @@ A difference between retail and ours is never settled by widening a tolerance. T
 | B-05 | 2026-11-24 | ui_manu 0x5B2480 | A manufacturing-terminal gadget not switched on (`Unknown0CC[1]->Unknown_40(true)` missing) | L1 audit | fixed, not exercised | sb_ manufacturing, with a shot of the gadget |
 | B-06 | 2026-11-24 | inv_transaction 0x690D20 | An inventory query left its state set when it was active and not a dump: a later transaction could be refused | L1 audit | fixed, not exercised | UI-05 |
 | B-07 | 2026-11-21 | The user's nine client gaps (log entry 2026-11-21) | Six faults in our build fixed, one already working, two the server's | The user | proven live | Name each one's scenario from that log entry (session 1) |
-| B-08 | 2026-11-18 | The live station set's three faults (log entry 2026-11-18) | Buy / sell, jobs, refinery, manufacturing | L4 case | proven live | sb_* (9 of 9, retail and ours) |
+| B-08 | 2026-11-18 | The live station set's three faults (log entry 2026-11-18) | Buy / sell, jobs, refinery, manufacturing | L4 case | proven live on 2026-11-18 (9 of 9, retail and ours); on 2026-11-24 retail failed sb_buysell (0 of 4), sb_dismantle (0 of 3) and sb_emote_dock (0 of 3); the cause was the test state, not the client: avatar 6's cargo drifted between runs (gone with the database state restored before each run) and sb_emote_dock cannot share a session; all pass on retail again (2026-11-25) | sb_*; the three pass on retail again before their baselines are captured |
 | B-09 | 2026-11-16 | ui_talkt reference count | A crash on talking to a vendor | L4 case | proven live | sb_ talk |
+| B-10 | 2026-11-25 | ui_ptmis / ui_ptnew / ui_ptppl 0x5DED10 / 0x5DFDE0 / 0x5E0E00 | The petition terminal's Missions, News and People rows never found their widgets (widget-name formats had an extra `_`), and a NULL `S_00` was released | Functional entry reading | fixed, not exercised | UI-09 |
+| B-11 | 2026-11-25 | ui_chat_panel back-gadget callbacks 0x56DEE0 | Dragging a chat-panel window by its back never laid out the option-font sliders (the callbacks were typed DestroyGadgetEvent, the client's are MovableUIBackGadget(Moved)) | L1 audit (callback type descriptors) | fixed, not exercised | UI-08, with a new step: drag the chat panel by its back |
+| B-12 | 2026-11-25 | StarmapDataClass::Create_Mesh 0x7BEF50 | One starmap texture leaked per mesh (Create_Peek where the client calls Create_Get 0x51A6F0) | Functional entry reading | fixed, not exercised | SP-05, with a new case for the leak |
+| B-13 | 2026-11-25 | Unknown_466920Class::Render 0x466B20 | The nav map's two scroll-extent lines drew under the UI with wrong blend, cull and z states (IsSortingEnabled tested where the client reads AreStaticSortListsEnabled 0xBFAE50) | Draw-log compare against retail | fixed, e2e starmap shows retail's 193 draws in retail's order | e2e `starmap` |
+| B-14 | 2026-11-25 | Random Appearance 0x557290 | The head and body blend pulls were randomised too, four extra RNG draws (`0.0f` passed as `bool random`; the client pushes 0) | L1 audit (parameter slots) | fixed, not exercised | UI-01 |
+| B-15 | 2026-11-25 | Talk tree 0x64BCA0 | frame01 freed early (Create_Get where the client's 0x404C8C is Create_Peek, which takes a reference) | Functional entry reading | fixed, not exercised | sb_ talk (as B-09) |
+| B-16 | 2026-11-25 | ui_mount 0x5C77A0 | Two undefined externs are Matrix3D::Identity 0xBF9330 and RotateZ90 0xBF92D0 (the matrix initialisers' order) | Functional entry reading | fixed, not exercised | none yet: a new case, the mount window in each view |
+| B-17 | 2026-11-25 | /resetship confirmation 0x74ABC0 | Confirmation text differed from the client's string 0xB9A12C | Functional entry reading | fixed, not exercised | none yet: a new case |
+| B-18 | 2026-11-25 | Short strings: chat font label 0x56C7E0, ChatFontSys 0x67E670, trade texts 0x68FE10 / 0x6902E0, ephemeral-line ini defaults 0x5A4B50 / 0x5A5DA0, starbase light labels 0x6474C0, a nameless skill 0x817070, "Dest: ?" 0x7C91A0 | `""` where the client passes `" "` (0xB6E948) or `"?"` | L1 audit (literal scan) | fixed, not exercised | UI-08, UI-03, UI-07, SP-05; none yet for the ephemeral-line defaults (a new case) |
+| B-19 | 2026-11-25 | Constants as packed bytes: Get_Vertex_Color 0x470EF0 and its 27 copies in 0x470F80 (1/255 as 0x3B808080), 0x473780 / 0x473BC0 (0.7071068f), float-widened tolerances in fp_tt 0x449540 / 0x449EA0, 0x447E20, ui_mount, 0x8494C0, the exact double in ship_pip 0x80CE10 | Land vertex colours and some tolerances differed in the last bits; the ship_pip double is invisible | L1 audit (relocation targets and constants) | fixed, not exercised | none yet: a new case, land vertex colours |
 
 ## 6. Porting the harness itself
 
@@ -185,7 +200,7 @@ The proxy is D3D8 and Win32 only. The port needs the same observations from insi
 * **The d3d8shot and MSS32 proxies stay** for capturing retail baselines on Windows. The baselines they write are format-neutral, so the port compares against them directly.
 * **tests/ programs** (udpreplay, auxreplay, kerneltest, clienttest) get CMake targets. Their expected outputs are portable text and are reused as they are.
 * **antprox and the local Net-7 server** are Windows only (antprox is win-x64). For hosted CI, the harness gets a small cross-platform replay server that plays recordings to the client. The live sb_* and sp_* sets need a real server, so they stay on your Windows machine until Net-7 runs in a container on Linux.
-* **Win32 specifics in the Python harness** (window-message posting, process window lookup, netstat, `C:\` roots, junctions) go behind a small platform module.
+* **Win32 specifics in the Python harness** (window-message posting, process window lookup, netstat, junctions) go behind a small platform module. The machine's paths are already out of the code by then (C1's config file).
 
 ## 7. This week's order and status
 
@@ -193,22 +208,31 @@ The unattended week of 2026-11-24 (`docs/week-plan-2026-11-24.md`, kind C). Sess
 
 | Order | Item | Session | Status |
 |---|---|---|---|
-| 1 | C1 baseline store with its manifest; C3 draw and camera log per shot | 1 | open |
-| 2 | C6 modifier keys and chords | 1 | open |
-| 3 | Recording 10 on retail and on ours with pose capture at the gate, the landing and the take-off (SP-01, SP-02 first pass; B-01, B-02) | 1 | open |
-| 4 | C2 the MSS32 logging proxy | 2 | open |
-| 5 | M1's captures: the e2e default set, sb_* and sp_* three times each on retail into the store, retail's own noise measured | 2 | open |
-| 6 | SP-01 to SP-03 live; UI-03; UI-04 | 3 | open |
-| 7 | UI-01 and UI-02 with the database snapshot; AU-01 over the existing sets (B-04) | 3 | open |
-| 8 | SP-05 (B-03), UI-05 (B-06), the manufacturing shot (B-05); B-07's scenarios named | 5 | open |
-| 9 | RD-01, RD-02, AU-02, MV-01, WB-01 to WB-03, LY-01, LY-02 | 5, 6 | open |
-| 10 | IMG-02 at every handoff; IMG-03's questions (the week plan's kind D) | every | 1.38 % (2026-11-24) |
+| 1 | C1, one scenario end to end: the machine config file, the manifest, the store's layout, `sb_talk` captured three times on retail, pushed to `Open-EnB/baselines`, verified from a fresh clone | interactive, 2026-11-24 | done 2026-11-24: three PASS runs through the Rust antprox 1.2.0 (store `65f2199c`), noise at most 14 of 256 cells a shot, a fresh clone verifies and a fourth retail run is SAME; EnB's changes on `tools/2026-11-24`, not pushed |
+| 2 | The run inputs into the store: the replay captures, the record tracks, the test database snapshot | interactive, 2026-11-24 | done 2026-11-24: store `058bbce` `inputs/` (replay set 38 MB in LFS, five record tracks, account 1 and avatars 6-8 as restore scripts over the stock Net-7 dumps), `baseline.py inputs`, `/RECORDINGS:` from machine.py; the proxy pair (antprox-rs 1.2.0.0, antreplay 1.1.0) in the store's `tools/antprox` (`519cfa3`); replay through it does not work yet: antprox-rs has no original profile (P1) and never starts antreplay |
+| 3 | C3 draw and camera log per shot | 1 | done 2026-11-25: `D3D8SHOT_DRAWLOG` (e2e sets it) writes `shot_NAME_<frame>.json` per shot (draws, textures by parameters and content hash, view / projection / world); `noise.json` and `verify --run` compare them structurally, per-draw matrix tolerance; proven on replay (live server down): world_entry, play1 and the default set as one session a run (`--set default`, 3 x 300 s) into the store (`7d3406d`); ours: world_entry SAME, the default set 13 of 25 SAME; 2026-11-25: every stored run (default, station, space sets and the two scenarios alone) carries a draw log per shot (store `2efe4b9`); retail's own draw logs are identical in 1 of 55 default shots, 5 of 33 station, 0 of 24 space (draw counts and matrices vary) |
+| 4 | sb_buysell, sb_dismantle and sb_emote_dock passing on retail again (B-08) | 1 | done 2026-11-24: each from the restored database state in a client of its own, 3 / 3 PASS each into the store |
+| 5 | C6 modifier keys and chords | 1 | open |
+| 6 | Recording 10 on retail and on ours with pose capture at the gate, the landing and the take-off (SP-01, SP-02 first pass; B-01, B-02) | 1 | open |
+| 7 | C2 the MSS32 logging proxy | 2 | done 2026-11-25: `build/mss32log/mss32.dll` (344 of 344 exports) in every capture (`--audio`), cut per scenario into `audio-NAME.json`; retail's streams / 3D sequence identical run to run in 22 of 25 default scenarios, 0 of 9 station (random footstep and greeting samples), 1 of 4 space; 2D counts equal in 16 of 25, 8 of 9, 4 of 4 |
+| 8 | M1's captures: the e2e default set, sb_* and sp_* three times each on retail into the store, retail's own noise measured | 2 | advanced 2026-11-25 (store `2efe4b9`, a fresh clone verifies): default set 3 x 284-308 s (shots at most 254 / 256 cells, play1's flight), station set of 9 3 x 751-793 s (at most 94 / 256) with sb_emote_dock and sb_manufacture_make alone (SESSION_OWN), space set of 4 3 x 227-229 s with a restart each (at most 218 / 256); packets equal in every scenario; sp_combat is not stored because it fails on retail: twice in the set at step 32 (`sent OBJECT_EFFECT` not seen within 15 s after Rally), alone at step 31 (no SKILL_ABILITY sent) and at step 21 (no CREATE after /createmob). It has to be fixed on retail before its baseline is captured |
+| 9 | SP-01 to SP-03 live; UI-03; UI-04 | 3 | open |
+| 10 | UI-01 and UI-02 with the database snapshot; AU-01 over the existing sets (B-04) | 3 | open |
+| 11 | SP-05 (B-03), UI-05 (B-06), the manufacturing shot (B-05); B-07's scenarios named | 5 | open |
+| 12 | RD-01, RD-02, AU-02, MV-01, WB-01 to WB-03, LY-01, LY-02 | 5, 6 | open |
+| 13 | **Supporting accounts** for the multi-client cases: extra accounts and characters generated from the canonical account scripts in the store (`inputs/db`), with an instance-to-account mapping in the harness | built when the first such case is written | open: needed only for player groups, in-space group formation flying and the proxy's authoritative-positioning test; the baseline is always captured from the admin account's client, and the supporting clients need no shots or draw logs; all accounts are restored once before the case starts, because an in-place restore logs every player out; only as many accounts as the case needs; baselines are not duplicated per account (the user, 2026-11-25) |
+| 14 | IMG-02 at every handoff; IMG-03's questions (the week plan's kind D) | every | 1.38 % (2026-11-24) |
+
+Open items from this week's captures:
+
+* The space runs' `messages.log` is 49 to 58 MB a run in plain git, which draws GitHub's large-file warning on push. Move it to LFS or cap its size.
+* Ours-versus-retail has only been run on a stale exe of 2026-11-21 (the default set 18 SAME and 7 DIFF, the station set 0 of 9 SAME). Those results are not findings until the build at HEAD is compared.
 
 ## 8. Three baselines over time
 
 | Stage | Baseline | Where tests run |
 |---|---|---|
-| Now: reconstruction | Retail `client.exe` on real D3D8 | Your Windows machine (by hand or as a temporary self-hosted runner) |
+| Now: reconstruction | Retail `client.exe` on real D3D8 | Capture on a Windows machine with the retail install; comparison against the store on any device with a clone of it |
 | Port, phases 1–5 | Retail, for screenshots. The logs that need no GPU (draws, cameras, audio events, packets) are compared exactly | Windows machine for retail comparison; hosted runners for everything else |
 | After acceptance | The modernized client, re-captured on lavapipe (software Vulkan), with the retail-derived logs kept | GitHub-hosted runners only |
 
@@ -220,7 +244,7 @@ Every test records which baseline it compares against, so a test can move to the
 
 ### Capture foundation
 
-C1 baseline store, C3 draw and camera logs, C2 the MSS32 proxy, C6 modifier keys. Re-capture the existing 25 e2e scenarios, plus sb_* and sp_*, 3 times each, and record retail's noise.
+C1 baseline store (with the machine config file and the run inputs in the store), C3 draw and camera logs, C2 the MSS32 proxy, C6 modifier keys. Capture the existing 25 e2e scenarios, plus sb_* and sp_*, 3 times each, and record retail's noise.
 
 **M2**
 
@@ -255,12 +279,14 @@ The modernization fork starts from a commit that meets all of these. They are a 
 
 ### Decided (the user, 2026-11-24)
 
-* **The baseline store is a private git repository of its own**, so the work can go on from a laptop. It holds observations derived from running the client (PNG frames, JSON logs, text, manifests), never the game's files. Encryption is not needed while the repository is private: it would only matter if the repository could become public by mistake or if hosted runners published it in logs or artifacts. PNG frames go through Git LFS. This week the store is a local repository, `C:\EnBDevelopment\baselines`; pushing it to a private GitHub repository is one step on the user's return.
+* **The baseline store is the private repository `Open-EnB/baselines`**, cloned beside the tree (`C:\EnBDevelopment\baselines` on this machine; the path comes from the machine config file). It holds observations derived from running the client (PNG frames, JSON logs, text, manifests) and the run inputs: the replay captures, the record tracks and the test database snapshots. It never holds the game's files. It is not encrypted: the repository is private and stays private. PNG frames and the captures go through Git LFS. All three runs' frames are kept.
+* **Tools and scenarios stay in `Open-EnB/EnB`**, which is public, so nothing derived from running the game is committed there.
 * **The local Net-7 database may be snapshotted and restored** around UI-01 and UI-02, with a test account.
+* **Baselines are not duplicated per account (2026-11-25).** The multi-client cases (item 13 of section 7) capture their baseline from the admin account's client only; the supporting accounts have no baselines of their own.
 * **Recording 10 holds a stargate jump, a planet landing and a take-off.** No scripted in-game movie shipped in the live game, so SP-09 is a unit check only.
 
 ### Open questions for you
 
-1. The private GitHub repository for the baseline store: its name and owner, and whether Git LFS's quota on your plan is enough for PNG frames (about 1 MB a shot, three runs of every scenario).
+1. Whether Git LFS's quota on the organisation's plan is enough for PNG frames (about 1 MB a shot, three runs of every scenario); the first full capture will give the real figure.
 2. At M3, hosted runners would need read access to that repository (a deploy key). Acceptable, or do retail comparisons stay on your machines for good?
 3. How much of the link's reproduction (IMG-03) belongs before the freeze: the image builder's findings of this week come with a proposal.

@@ -2302,6 +2302,7 @@ Programs and tests (VIDTEST, kerneltest, drawcheck):
   `--db-snapshot`'s restore); the PDA's skill list does not open at a fixed scroll, so replayed drags from it miss;
   the number keys (Fire/Activate slot N) sent nothing on retail where a click on the slot works; E right after
   `/createmob`'s CREATE can come too early (`key 0x45 until ... REQUEST_TARGET`).
+* **The baseline tools (2026-11-25):** Net7.exe started as the harness's child dies with a stopped capture: `net7_start` starts it detached. `baseline.py capture NAMES --set SET`: names before the options, or argparse refuses them. A run stopped mid-way can leave the instance's d3d8.dll locked ("Access is denied" at the next run's cleanup). Memory pressure can stop a background shell while its e2e child keeps running: check `tasklist` before the next run. `build/d3d8shot/d3d8.dll` and the client exe in the main checkout can be days old: rebuild the proxy from the source you run, and read `verify --run`'s `STALE BUILD` line. In-place restore keeps the server's world state and guild roster: use `--restart` where the scenario depends on them. Station scenes' 3D audio (footsteps, greetings) is random in retail, so a strict compare fails for any client. Miles' own providers import from mss32.dll too: filter the audio log by caller. The Rust antprox 1.2 cannot `/REPLAY`: replay runs go through `antprox_replay` (C# 1.1.0).
 
 ### 3.8 Git, docs and scripting hygiene
 
@@ -2381,6 +2382,7 @@ Edit scripts:
   the libraries' headers, and run a full verify (D159).
 * **`wt.py bring-over` cherry-picks,** so `git merge-base --is-ancestor <builder commit>` stays false after a landing: compare the file's content instead. `commit_mine` edits names-review.md by row, so its "Score 5" totals line stays stale: restore the working copy after committing.
 * **A partly adopted stashed seed:** diff it hunk by hunk against the client, not file against file (camctrl_dock / camctrl_land / avatar seeds).
+* **A store whose files are hashed needs `* -text` in `.gitattributes`:** with `core.autocrlf=true` git rewrote the CRLF logs and every manifest hash failed on a fresh clone (the baselines store, 2026-11-24). `python -m unittest discover -s tools -p "test_*.py"` does not descend into `tools/harness` (no package): tests live in `tools/`. Git Bash rewrites `/SWITCH` arguments as paths (`MSYS_NO_PATHCONV=1`) and its heredocs eat `\r`, `\a`, `\\`: scripts go through a file.
 
 ### 3.9 Library-specific
 

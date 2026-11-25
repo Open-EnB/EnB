@@ -448,5 +448,158 @@ class DbSnapshotTest(unittest.TestCase):
         self.assertEqual(e2e.main(['run', 'sb_buysell', '--db-snapshot']), 2)
 
 
+
+class FakeNet7:
+    """A loopback UDP responder standing in for Net7.exe's control port: REPLY(cmd) -> the reply text, or None
+    (no reply); every command received is kept in .got."""
+    def __init__(self, reply):
+        import socket
+        import threading
+        self.reply, self.got = reply, []
+        self.sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        self.sock.bind(('127.0.0.1', 0))
+        self.sock.settimeout(0.1)
+        self.port = self.sock.getsockname()[1]
+        self.stop = False
+        self.thread = threading.Thread(target=self.serve, daemon=True)
+        self.thread.start()
+
+    def serve(self):
+        while not self.stop:
+            try:
+                data, addr = self.sock.recvfrom(512)
+            except OSError:
+                continue
+            cmd = data.decode()
+            self.got.append(cmd)
+            r = self.reply(cmd)
+            if r is not None:
+                self.sock.sendto(r.encode(), addr)
+
+    def close(self):
+        self.stop = True
+        self.thread.join(1)
+        self.sock.close()
+
+
+class Net7ControlTest(unittest.TestCase):
+    READY = 'READY players=0 saves=idle ssl=1 quiesced=0'
+
+    def setUp(self):
+        self.saved = {k: getattr(e2e, k) for k in ('_db_run', 'net7_stop', 'net7_start', '_udp_bound',
+                                                   'net7_control_port', 'NET7_SAVE_WAIT')}
+        self.calls = []
+        e2e._udp_bound = lambda port: False
+        e2e.net7_stop = lambda b: self.calls.append('stop')
+        e2e.net7_start = lambda b, within=240, port=None: self.calls.append('start') or True
+
+    def tearDown(self):
+        for k, v in self.saved.items():
+            setattr(e2e, k, v)
+        if getattr(self, 'fake', None):
+            self.fake.close()
+
+    def serve(self, reply):
+        self.fake = FakeNet7(reply)
+        e2e.net7_control_port = lambda net7bin=None: self.fake.port
+        return self.fake
+
+    def scripts(self, n=3):
+        d = tempfile.mkdtemp()
+        out = []
+        for i in range(n):
+            out.append(os.path.join(d, f's{i}.sql'))
+            with open(out[-1], 'w', encoding='utf-8') as f:
+                f.write(f'-- script {i}\n')
+        return out
+
+    def test_status_parse(self):
+        st = e2e.net7_status(self.READY)
+        self.assertEqual((st['state'], st['saves'], st['quiesced']), ('READY', 'idle', '0'))
+        self.assertIsNone(e2e.net7_status(None))
+
+    def test_ready_needs_quiesced_0(self):
+        state = {'q': '1'}
+        self.serve(lambda c: f'READY players=0 saves=idle ssl=1 quiesced={state["q"]}')
+        self.assertFalse(e2e.net7_ready(self.fake.port))
+        state['q'] = '0'
+        self.assertTrue(e2e.net7_ready(self.fake.port))
+
+    def test_in_place_failure_names_the_script(self):
+        f = self.serve(lambda c: {'STATUS': self.READY, 'QUIESCE': 'QUIESCED', 'RESUME': 'RESUMED'}.get(c))
+        paths = self.scripts()
+
+        def run(argv, stdin=None):
+            if 'script 1' in stdin:
+                raise RuntimeError('mysql: exit 1: ERROR 1062')
+            self.calls.append(stdin.strip())
+            return ''
+        e2e._db_run = run
+        logs, info = [], {}
+        ok = e2e.db_restore(paths, 'x', logs.append, tag='t', info=info)
+        self.assertFalse(ok)
+        self.assertEqual(self.calls, ['-- script 0'])           # stopped at the failure, nothing after it
+        self.assertTrue(any('FAILED at ' + paths[1] in m and '1 of 3' in m for m in logs), logs)
+        self.assertIn('RESUME', f.got)                          # logins allowed again
+        self.assertEqual((info['restore'], info['failed']), ('in-place', paths[1]))
+
+    def test_in_place_ok_records_info(self):
+        self.serve(lambda c: {'STATUS': self.READY, 'QUIESCE': 'QUIESCED', 'RESUME': 'RESUMED'}.get(c))
+        e2e._db_run = lambda argv, stdin=None: ''
+        info = {}
+        self.assertTrue(e2e.db_restore(self.scripts(2), 'x', lambda m: None, info=info))
+        self.assertEqual(info['restore'], 'in-place')
+        self.assertEqual(info['status'], self.READY)
+        self.assertEqual(info['control_port'], self.fake.port)
+        self.assertNotIn('stop', self.calls)
+
+    def test_quiesce_failure_resumes_then_waits_for_saves(self):
+        state = {'busy': 2}
+
+        def reply(c):
+            if c == 'STATUS':
+                if self.fake.got.count('QUIESCE') and state['busy']:
+                    state['busy'] -= 1
+                    return 'READY players=1 saves=busy ssl=1 quiesced=1'
+                return 'READY players=1 saves=idle ssl=1 quiesced=0'
+            return {'QUIESCE': 'ERROR timeout players=1 saves=busy', 'RESUME': 'RESUMED'}.get(c)
+        f = self.serve(reply)
+        e2e._db_run = lambda argv, stdin=None: self.calls.append('sql') or ''
+        info = {}
+        self.assertTrue(e2e.db_restore(self.scripts(1), 'x', lambda m: None, info=info))
+        q = f.got.index('QUIESCE')
+        self.assertEqual(f.got[q + 1], 'RESUME')
+        self.assertGreaterEqual(f.got[q + 2:].count('STATUS'), 3)  # busy, busy, idle before the stop
+        self.assertEqual(self.calls, ['stop', 'sql', 'start'])
+        self.assertEqual(info['restore'], 'restart')
+
+    def test_busy_saves_wait_is_bounded(self):
+        self.serve(lambda c: 'READY players=1 saves=busy ssl=1 quiesced=0')
+        t0 = __import__('time').time()
+        idle, last = e2e.net7_wait_saves(self.fake.port, within=0.6)
+        self.assertFalse(idle)
+        self.assertIn('saves=busy', last)
+        self.assertLess(__import__('time').time() - t0, 3)
+
+    def test_control_port_from_cfg_and_machine(self):
+        e2e.net7_control_port = self.saved['net7_control_port']
+        d = tempfile.mkdtemp()
+        old = os.environ.pop('ENB_NET7_CONTROL_PORT', None)
+        try:
+            self.assertEqual(e2e.net7_control_port(d), 3810)          # no cfg
+            with open(os.path.join(d, 'Net7Config.cfg'), 'w') as fo:
+                fo.write('domain=localhost\r\ncontrol_port=3911\r\nmysql_user=net7\r\n')
+            self.assertEqual(e2e.net7_control_port(d), 3911)
+            os.environ['ENB_NET7_CONTROL_PORT'] = '4000'
+            self.assertEqual(e2e.net7_control_port(d), 4000)
+        finally:
+            os.environ.pop('ENB_NET7_CONTROL_PORT', None)
+            if old is not None:
+                os.environ['ENB_NET7_CONTROL_PORT'] = old
+
+    def test_port_0_means_off(self):
+        self.assertIsNone(e2e.net7_control('STATUS', port=0))
+
+
 if __name__ == '__main__':
     unittest.main()
