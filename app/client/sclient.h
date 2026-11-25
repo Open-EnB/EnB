@@ -243,7 +243,7 @@ public:
 };
 
 class GadgetListManagerClass;
-class UIViewUnknown30Class;
+class ToolTipClass;
 class CameraEffectsClass;
 
 // uiview.cpp's view (0x4C bytes): the base of the six views at SClient +0x1354..+0x1368 (the slots every one of
@@ -283,7 +283,7 @@ public:
 	SimpleSceneClass *Unknown24;						// +0x24 (slots +0x3C, +0x48; checked with +0x28)
 	CameraClass *Unknown28;								// +0x28 (slot +0x4C)
 	GadgetListManagerClass *Unknown2C;					// +0x2C (Init 0x65A820 makes it, 0x4C bytes; the destructor deletes it)
-	UIViewUnknown30Class *Unknown30;					// +0x30 (Init makes it, 0x70 bytes; Shutdown deletes it)
+	ToolTipClass *Unknown30;					// +0x30 (Init makes it, 0x70 bytes; Shutdown deletes it)
 	ViewUnknown34Class *Unknown34;						// +0x34 (uiview.cpp's constructors 0x65A6C0 / 0x65B810 set it; cpacket.cpp's GROUP 30 and DIALOG 98 call it)
 	Vector2 Unknown38;									// +0x38 the view plane's min (0x65B570: the camera's, scaled by its z)
 	Vector2 Unknown40;									// +0x40 the view plane's max
@@ -368,7 +368,7 @@ public:
 };
 #endif
 // ui_scan.cpp's scanner (the cockpit's +0xD4): ui_scan.h
-class UIScanClass;
+class ScannerInterface;
 
 class IncapacitanceDetailsPacket;
 class UIMeshClass;
@@ -619,7 +619,7 @@ public:
 	void Unknown_513540(int base_asset);				// 0x513540 (SClient 0x745000)  // NAME 1 [base_asset]: SERVER_PARAMETERS 66's BackdropBaseAsset
 	void Unknown_513600(int arg);						// 0x513600 (SClient 0x7456B0 passes 0)  // NAME 1 [arg]: neutral
 	void Unknown_513630(ClientObjectClass *target, const std::string &assessment, const std::string &sound, int level);	// 0x513630 (the radar's 0x7BD6E0, the scanner's 0x60E540)  // NAME 1 [target, assessment, sound, level]: the scanner's
-	UIScanClass *Unknown_5136A0();						// 0x5136A0 (the cockpit's scanner)
+	ScannerInterface *Unknown_5136A0();						// 0x5136A0 (the cockpit's scanner)
 	void Unknown_513700(unsigned sector);				// 0x513700 (cpacket.cpp: SERVER_PARAMETERS 66)  // NAME 1 [sector]: the packet's SectorNum
 	void Unknown_5137F0(unsigned sector);				// 0x5137F0 (cpacket.cpp: SERVER_PARAMETERS 66, view mode 1)  // NAME 1 [sector]: the packet's SectorNum
 	void Unknown_513B90(unsigned sector);				// 0x513B90 (cpacket.cpp: SERVER_PARAMETERS 66, view mode 5)  // NAME 1 [sector]: the packet's SectorNum

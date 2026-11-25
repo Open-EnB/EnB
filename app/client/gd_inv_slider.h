@@ -13,11 +13,11 @@ class SlotDataEventDataChange;	// slot_data.h's (the signal's event)
 
 // The inventory slider (0x13C bytes, table 0xAFA3F4: the destructor 0x66A160 and slot +0xA4 0x66A2B0 its own; the cargo,
 // vault, trade and inventory windows make it)
-class Unknown669FB0Class : public GadgetSlider	// NAME 1: neutral (D10)
+class GadgetInvSlider : public GadgetSlider	// NAME 5: the client's RTTI (the receiver of the callback 0xAFA3D8: MemberCallback<SlotDataClass, GadgetInvSlider, ...>)
 {
 public:
-	Unknown669FB0Class(UIInvClass *inventory, LayerClass *layer);	// 0x669FB0 (FAIL_IFs '!Inventory' l.34, '!SlotData' l.37)  // NAME 3 [inventory]: the FAIL_IF's; NAME 1 [layer]: GadgetSlider's
-	virtual ~Unknown669FB0Class();						// +0x00 0x66A190 (deleting 0x66A160)
+	GadgetInvSlider(UIInvClass *inventory, LayerClass *layer);	// 0x669FB0 (FAIL_IFs '!Inventory' l.34, '!SlotData' l.37)  // NAME 3 [inventory]: the FAIL_IF's; NAME 1 [layer]: GadgetSlider's
+	virtual ~GadgetInvSlider();						// +0x00 0x66A190 (deleting 0x66A160)
 	virtual bool Unknown_30(float x, float y);			// +0x30 0x66A280 (the count refreshed, then the base's)  // NAME 1 [x, y]: GadgetClass's
 	virtual void Unknown_A4(float val, bool arg2);		// +0xA4 0x66A2B0 (the base's, then the inventory scrolled: 0x62E940)  // NAME 1 [val, arg2]: GadgetSlider's
 	void Unknown_66A300(int a, int b);					// 0x66A300 (FAIL_IFs '!Inventory' l.90, '!Is_Attached()' l.91: +0x130 / +0x134 by the slider's direction)  // NAME 1 [a, b]: neutral

@@ -39,7 +39,7 @@ void UIViewClass::Unknown_04()
 	Unknown28 = new CameraClass;
 	Unknown20 = Create_NEW(new CameraClass);
 	Unknown_40();
-	Unknown30 = new UIViewUnknown30Class(this);
+	Unknown30 = new ToolTipClass(this);
 	Unknown34 = new ViewUnknown34Class(this, LayerClass(Unknown1C, Unknown20.Peek()));
 	Unknown34->Unknown_54();
 	Unknown_6B4940(Unknown34);

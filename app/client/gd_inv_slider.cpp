@@ -19,7 +19,7 @@ public:
 
 
 // 0x669FB0
-Unknown669FB0Class::Unknown669FB0Class(UIInvClass *inventory, LayerClass *layer) :
+GadgetInvSlider::GadgetInvSlider(UIInvClass *inventory, LayerClass *layer) :
 	GadgetSlider(false, layer),
 	Inventory(inventory),
 	SlotData(),
@@ -35,15 +35,15 @@ Unknown669FB0Class::Unknown669FB0Class(UIInvClass *inventory, LayerClass *layer)
 	SlotDataClass *slot_data = Inventory->SlotData; SlotData = Create_Peek(slot_data);
 
 	FAIL_IF(!SlotData) return;
-	SlotDataClass::Unknown_6A7AB0().connect(SlotData.Peek(), this, &Unknown669FB0Class::Unknown_66A4E0);
+	SlotDataClass::Unknown_6A7AB0().connect(SlotData.Peek(), this, &GadgetInvSlider::Unknown_66A4E0);
 }
 
 
 // 0x66A190: SlotData's own destructor releases it (no explicit release)
-Unknown669FB0Class::~Unknown669FB0Class()
+GadgetInvSlider::~GadgetInvSlider()
 {
 	if (SlotData) {
-		SlotDataClass::Unknown_6A7AB0().disconnect(SlotData.Peek(), this, &Unknown669FB0Class::Unknown_66A4E0, SlotDataEventDataChange(0));
+		SlotDataClass::Unknown_6A7AB0().disconnect(SlotData.Peek(), this, &GadgetInvSlider::Unknown_66A4E0, SlotDataEventDataChange(0));
 	}
 	Inventory = NULL;
 
@@ -54,7 +54,7 @@ Unknown669FB0Class::~Unknown669FB0Class()
 
 
 // 0x66A280
-bool Unknown669FB0Class::Unknown_30(float x, float y)
+bool GadgetInvSlider::Unknown_30(float x, float y)
 {
 	Unknown_66A3C0(false);
 	return(GadgetSlider::Unknown_30(x, y));
@@ -62,7 +62,7 @@ bool Unknown669FB0Class::Unknown_30(float x, float y)
 
 
 // 0x66A2B0
-void Unknown669FB0Class::Unknown_A4(float val, bool arg2)
+void GadgetInvSlider::Unknown_A4(float val, bool arg2)
 {
 	GadgetSlider::Unknown_A4(val, arg2);
 	if (SlotsPerNotch) {
@@ -85,7 +85,7 @@ void Unknown669FB0Class::Unknown_A4(float val, bool arg2)
 
 
 // 0x66A300
-void Unknown669FB0Class::Unknown_66A300(int a, int b)
+void GadgetInvSlider::Unknown_66A300(int a, int b)
 {
 	FAIL_IF(!Inventory) return;
 	FAIL_IF(!Is_Attached()) return;
@@ -101,7 +101,7 @@ void Unknown669FB0Class::Unknown_66A300(int a, int b)
 
 
 // 0x66A3C0
-void Unknown669FB0Class::Unknown_66A3C0(bool force)
+void GadgetInvSlider::Unknown_66A3C0(bool force)
 {
 	FAIL_IF(!Is_Attached()) return;
 
@@ -117,7 +117,7 @@ void Unknown669FB0Class::Unknown_66A3C0(bool force)
 
 
 // 0x66A4E0: the switch (sub eax, 2) and Get_Value (fld / fstp)
-void Unknown669FB0Class::Unknown_66A4E0(SlotDataEventDataChange *event, SlotDataClass *slot_data)
+void GadgetInvSlider::Unknown_66A4E0(SlotDataEventDataChange *event, SlotDataClass *slot_data)
 {
 
 

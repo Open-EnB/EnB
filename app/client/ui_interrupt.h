@@ -8,7 +8,7 @@
 #include "..\shared\duration.h"
 #include "..\common\interrupt_defs.h"
 
-class UIScanClass;
+class ScannerInterface;
 class RenderObjClass;
 class LayerClass;
 class ClientObjectClass;
@@ -23,14 +23,14 @@ class TrailGaugeGadgetClass;
 class Unknown59E2C0OwnerClass	// NAME 1: neutral (D10)
 {
 public:
-	Unknown59E2C0OwnerClass(UIScanClass *owner) : Owner(owner) {}	// NAME 2 [owner]: what it holds
-	UIScanClass *Owner;									// +0x18 in the display (its +0x48 view and +0x64 gadget list)  // NAME 2: what it holds
+	Unknown59E2C0OwnerClass(ScannerInterface *owner) : Owner(owner) {}	// NAME 2 [owner]: what it holds
+	ScannerInterface *Owner;									// +0x18 in the display (its +0x48 view and +0x64 gadget list)  // NAME 2: what it holds
 };
 
 class Unknown59E2C0Class : public Unknown59E2C0OwnerClass, public UnknownObjectWatchClass	// NAME 1: neutral (D10)
 {
 public:
-	Unknown59E2C0Class(RenderObjClass *robj, LayerClass *layer, UIScanClass *owner, ClientObjectClass *object, int unknown);	// 0x59E2C0 (0x60E6A0's: the threat's model, the scanner's layer, the scanner, the target, -1)  // NAME 1 [robj, layer, owner, object, unknown]: what 0x60E6A0 passes
+	Unknown59E2C0Class(RenderObjClass *robj, LayerClass *layer, ScannerInterface *owner, ClientObjectClass *object, int unknown);	// 0x59E2C0 (0x60E6A0's: the threat's model, the scanner's layer, the scanner, the target, -1)  // NAME 1 [robj, layer, owner, object, unknown]: what 0x60E6A0 passes
 	virtual ~Unknown59E2C0Class();						// +0x00 0x59E540 (deleting 0x59E510)
 	virtual void Unknown_08(ClientObjectClass *object);	// +0x08 0x59E700 (the bars emptied, then the base's)  // NAME 1 [object]: the base's
 	virtual void Unknown_Watch_0C();					// +0x0C 0x59E680 (the bars emptied)

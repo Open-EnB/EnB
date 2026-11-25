@@ -18,7 +18,7 @@ inline DurationClass Millisecond(int ms) { return(DurationClass((__int64)ms)); }
 
 // (the view through InterfaceClass::Get_View(): the client loads the bar into edx and the view into ecx for 0x6870E0)
 // @0x59E2C0
-Unknown59E2C0Class::Unknown59E2C0Class(RenderObjClass *robj, LayerClass *layer, UIScanClass *owner, ClientObjectClass *object, int unknown) :
+Unknown59E2C0Class::Unknown59E2C0Class(RenderObjClass *robj, LayerClass *layer, ScannerInterface *owner, ClientObjectClass *object, int unknown) :
 	Unknown59E2C0OwnerClass(owner),
 	Unknown1C(NULL),
 	Unknown20(NULL),

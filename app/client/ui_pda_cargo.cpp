@@ -167,7 +167,7 @@ void UIPdaCargoClass::Unknown_54()
 	G_ASSERT(font);
 	Buttons5[0]->Unknown_98(font);
 
-	Slider = new Unknown669FB0Class(this, NULL);
+	Slider = new GadgetInvSlider(this, NULL);
 	Slider->Unknown_65FFA0(first);
 	Slider->Unknown_66E460(InterfaceMesh, true, 0);
 	Slider->Unknown_66A300(4, 3);

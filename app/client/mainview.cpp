@@ -1925,7 +1925,7 @@ void MainViewClass::Unknown_513630(ClientObjectClass *target, const std::string 
 	if (Cpit) Cpit->Scan->Unknown_60E540(target, assessment, sound, level);
 }
 
-UIScanClass *MainViewClass::Unknown_5136A0()
+ScannerInterface *MainViewClass::Unknown_5136A0()
 {
 	return(Cpit ? Cpit->Scan : NULL);
 }

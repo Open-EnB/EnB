@@ -14,7 +14,7 @@
 
 class ButtonGadgetClass;		// unknown_675120.h's buttons (+0xD4)
 class ProxyGadgetClass;			// gd_proxy.h's highlights (+0x108)
-class Unknown669FB0Class;		// gd_inv_slider.h's (+0x160)
+class GadgetInvSlider;		// gd_inv_slider.h's (+0x160)
 class SlotDataGadgetClass;		// gd_slot_data.h's slot gadgets (the base's +0x88)
 class RenderObjClass;
 class TextureClass;
@@ -68,7 +68,7 @@ public:
 	int Unknown144;										// +0x144
 	MoneyClass Money;									// +0x148 (the credits shown; 0xFFFFFFFF without the field)  // NAME 2: what it holds
 	std::vector<RefCountPtr<InvDataClass> > Unknown150;	// +0x150 (0x652670's three inventories)  // NAME 1: neutral (D10)
-	Unknown669FB0Class *Slider;								// +0x160 (destroyed by the destructor)  // NAME 2: as the other windows'
+	GadgetInvSlider *Slider;								// +0x160 (destroyed by the destructor)  // NAME 2: as the other windows'
 	RefCountPtr<PDAInterfaceClass> PDA;					// +0x164 (0x653B90's, the client's +0x1284; G_ASSERT 'PDA' l.106)  // NAME 3: the assert's
 	RefCountPtr<TextureClass> StandardBttnTexture;		// +0x168 (G_ASSERT 'StandardBttnTexture' l.190)  // NAME 3: the assert's
 	RefCountPtr<TextureClass> SelectedBttnTexture;		// +0x16C ('I_blank_SEL.tga'; G_ASSERT 'SelectedBttnTexture' l.194)  // NAME 3: the assert's

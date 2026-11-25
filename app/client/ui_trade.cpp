@@ -62,7 +62,7 @@ static const char *Unknown_B8BE98[13] = { "category00", "category01", "category0
 // intrlist.cpp's list (InterfaceClass +0x58; intrface.h declares it only under __INTRFACE_MEMBERS), as far as this file calls it
 class InterfaceUnknown58Class { public: void Unknown_686CC0(RenderObjClass *robj, SceneClass *scene); };	// 0x686CC0  // NAME 1: neutral (D10)
 void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);	// 0x496AE0 (ro_funcs.cpp, cdecl)  // NAME 1 [robj, make_geometry_unique]: as ui_manu.cpp's
-inline float Get_Slider_Value(Unknown669FB0Class *slider) { return(slider->Value); }	// (0x651510 reads it through st0: an accessor's return)  // NAME 1: neutral (D10)
+inline float Get_Slider_Value(GadgetInvSlider *slider) { return(slider->Value); }	// (0x651510 reads it through st0: an accessor's return)  // NAME 1: neutral (D10)
 inline void UITradeClass::Close_Box() { if (View && View->Unknown34) View->Unknown34->Unknown_5896C0("BUY_CONFIRMATION"); Unknown174 = 0; }	// (0x652E70's body)
 
 
@@ -210,7 +210,7 @@ void UITradeClass::Unknown_54()
 		}
 		GadgetClass *back = new UIBackGadget(InterfaceMesh);
 		Unknown64.Unknown_6870E0(back, 5, View, 1, 0);
-		Slider = new Unknown669FB0Class(this, NULL);
+		Slider = new GadgetInvSlider(this, NULL);
 		Slider->Unknown_66E460(InterfaceMesh, 0, 0);
 		Slider->Unknown_66A300(5, 1);
 		Slider->Unknown_65FFA0(id);

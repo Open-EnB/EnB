@@ -152,7 +152,7 @@ void UIVaultClass::Unknown_54()
 	Filter->Hide_Arrow(true);
 	Filter->Set_Label("Filter");
 	Unknown_62F620(FilterName.c_str());
-	Unknown669FB0Class *slider = new Unknown669FB0Class(this, NULL);
+	GadgetInvSlider *slider = new GadgetInvSlider(this, NULL);
 	slider->Unknown_65FFA0(first);
 	slider->Unknown_66E460(InterfaceMesh, false, 0);
 	slider->Unknown_66A300(6, 6);
