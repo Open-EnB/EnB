@@ -15,7 +15,7 @@
 #ifndef UNKNOWN_4BE9D0_H  // NAME 1 [unknown_4be9d0.h]: neutral (D137)
 #define UNKNOWN_4BE9D0_H
 
-#include <string>
+#include <xstring>	// std::string without <string>: no object from 0x4BDFB0 to avatar_desc's guard 0x4C4330 holds <string>'s initialiser
 
 std::string Unknown_4BE9D0(const char *name);	// NAME 1 [Unknown_4BE9D0]: neutral (D10); callers avatar_desc.cpp's 0x4C1460 / 0x4C15F0 / Convert_Names, 0x5D6DC0, 0x616220, 0x649FE0
 
