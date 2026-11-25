@@ -82,7 +82,7 @@ CameraEffectsClass::CameraEffectsClass(MainViewClass *view, SClient *client) :
 static inline DeltaTemplateClass<float> *Unknown_Shake_Field(DeltaCompoundClass *aux, const char *field) { NameClass name(field); return(Unknown_Find_Field<DeltaTemplateClass<float> >(aux, name)); }	// NAME 1: neutral (D10)
 void Unknown_491550(float *x, float *y);	// 0x491550 (unknown_490900.cpp: the point snapped to whole device pixels)  // NAME 1: neutral (D10)
 
-// NOT EXACT: functional (D64), shape (camera move r26: client keeps U.X on x87 fadd st(2) popped dead and copies U.Y via [ebx+4] to [esp+0x20]; r24 exact, residue 38 -> 23 rows)
+// NOT EXACT: shape, behaviour checked: codegen only (camera move r26, 11 rows: the client keeps d.X on the x87 past d.Y's copy, fxch st(2) / fadd st(2), and pops it after; d sits at force's slot, its Y at -84)
 // 0x6E2CC0: the ship's 'Shake.Force*' and 'Shake.Damage' fields start a shake and a jitter; every effect adds to
 // +0x18 (the finished ones deleted), the camera moved by it (each axis wrapped into +-12, X / Y snapped to pixels)
 // and the bridge told of the hit
@@ -143,10 +143,10 @@ void CameraEffectsClass::Unknown_34()
 			const Matrix3D &cur = camera->Get_Transform();
 			float x = cur.Get_X_Translation();
 			float z = cur.Get_Z_Translation();
-			Matrix3D tm = cur;
-			tm.Set_X_Translation(x + Unknown18.X);
+			Matrix3D tm = cur; Vector3 d = Unknown18;
+			tm.Set_X_Translation(x); tm.Adjust_X_Translation(d.X);
 			tm.Set_Z_Translation(z);
-			tm.Adjust_Y_Translation(Unknown18.Y);
+			tm.Adjust_Y_Translation(d.Y);
 			camera->Set_Transform(tm);
 			Unknown14 = true;
 		}
