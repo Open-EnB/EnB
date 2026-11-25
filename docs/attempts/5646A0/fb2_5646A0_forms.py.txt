@@ -266,6 +266,60 @@ for k, text in KINDS.items():
     FORMS[k + '_size'] = [(DEAD, '\tUnknown148 = channel; %s Unknown238.size();\n' % text)]
     FORMS['size_' + k] = [(DEAD, '\tUnknown148 = channel; Unknown238.size(); %s\n' % text)]
 
+# ==== v7_5646a0.py ====
+HYPOTHESIS = (
+    'FB2 batch 7 on 0x5646A0 (new evidence from 0x5C5DB0 today: statements repeated in branches are counted before '
+    'VC6 merges their equal tails, and the count moves register roles without code). Ours writes the label call '
+    'ChatInt->Unknown_B4(Unknown_B7C2B8[Unknown148]) in each of cases 0-3 and VC6 merges the four; the client\'s '
+    'single copy after case 3 may be one statement in its source. Forms with one copy (after the switch, cases 4 / '
+    '5 leaving on their own; a label in case 3 reached by goto), each with 0-4 dead reads because the budget moves; '
+    'read at the _Eos rows (sib.py) and by residue.'
+)
+FILE = 'app/client/ui_chat_panel.cpp'
+SYMBOL = 'ChatPanelInterface::Unknown_5646A0'
+ADDRESS = 0x5646A0
+
+DEAD = '\tUnknown148 = channel; Unknown238.size();\t// dead read: spends the inline budget the client spent (D272), so case 4\'s assign inlines _Eos and cases 3 / 5 keep their own Unknown_B4 calls\n'
+B4 = '\t\t\t\tChatInt->Unknown_B4(Unknown_B7C2B8[Unknown148]);\n'
+C0 = '\t\t\t\tUnknown238 = "Broadcast";\n' + B4 + '\t\t\t\tbreak;\n'
+C1 = '\t\t\t\tUnknown238 = "Local";\n' + B4 + '\t\t\t\tbreak;\n'
+C2 = '\t\t\t\tUnknown238 = "Guild";\n' + B4 + '\t\t\t\tbreak;\n'
+C3 = '\t\t\t\tUnknown238 = "Group";\n' + B4 + '\t\t\t\tbreak;\n'
+C5END = '\t\t\t\t_snprintf(buffer, sizeof(buffer), "%s:", Unknown1F4.c_str());\n\t\t\t\tChatInt->Unknown_B4(buffer);\n\t\t\t\tbreak;\n'
+C4END = '\t\t\t\t_snprintf(buffer, sizeof(buffer), "Private %s:", Unknown214.c_str());\n\t\t\t\tChatInt->Unknown_B4(buffer);\n\t\t\t\tbreak;\n\t\t\t}\n\t\t}\n\t}\n'
+PLAY = 'SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2); return(true);'
+
+
+def dead(k):
+    return (DEAD, '\tUnknown148 = channel;%s\n' % (' Unknown238.size();' * k))
+
+
+def after_switch(k):
+    return [dead(k),
+            (C0, C0.replace(B4, '')), (C1, C1.replace(B4, '')), (C2, C2.replace(B4, '')), (C3, C3.replace(B4, '')),
+            (C5END, C5END.replace('break;', PLAY)),
+            (C4END, C4END.replace('break;\n\t\t\t}\n\t\t}\n', PLAY + '\n\t\t\t}\n\t\t}\n' + B4[2:]))]
+
+
+def goto(k):
+    return [dead(k),
+            (C0, C0.replace(B4, '').replace('break;', 'goto show;')),
+            (C1, C1.replace(B4, '').replace('break;', 'goto show;')),
+            (C2, C2.replace(B4, '').replace('break;', 'goto show;')),
+            (C3, C3.replace(B4, 'show:\n' + B4))]
+
+
+def c23(k):
+    """only cases 2 and 3 share (the two with an availability test)"""
+    return [dead(k), (C2, C2.replace(B4, '').replace('break;', 'goto show;')), (C3, C3.replace(B4, 'show:\n' + B4))]
+
+
+FORMS = {}
+for k in range(0, 5):
+    FORMS['after_switch_d%d' % k] = after_switch(k)
+    FORMS['goto_d%d' % k] = goto(k)
+    FORMS['goto23_d%d' % k] = c23(k)
+
 # ==== sib.py (reads every inlined _Eos row of a batch's objects) ====
 """Per form of a trybatch batch: every `mov byte ptr [reg + reg], 0` of our function with the two rows before it
 (the inlined _Eos sites), so a form is read apart from the budget / layout state.
