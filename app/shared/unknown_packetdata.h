@@ -33,7 +33,7 @@ inline const char *Type_Name(__int64 *) { return "quad"; }				// 0x8C0F70
 #endif
 
 // The wire interface 0xAEB9EC (three pure slots) is pk.h's Unknown_PacketDataClass (P-T5-2)
-#include "..\packets\pk.h"
+#include "..\packets\packet_data.h"
 
 class Vector3;
 
