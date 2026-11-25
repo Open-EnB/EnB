@@ -800,7 +800,7 @@ void LandClass::Unknown_46F120(void)
 void LandClass::Get_Vertex_Color(unsigned int x, unsigned int y, Vector3 &color)
 {
 	unsigned char *rgb = &Colors[((y << Field->Get_Log2()) + x) * 3];
-	color.Set((float)rgb[2] * (1.0f / 255.0f), (float)rgb[1] * (1.0f / 255.0f), (float)rgb[0] * (1.0f / 255.0f));
+	color.Set((float)rgb[2] * 0.0039215684f, (float)rgb[1] * 0.0039215684f, (float)rgb[0] * 0.0039215684f);	// the client's float 0xAE981C = 0x3B808080 (1/255 rounded down; 1.0f / 255.0f is 0x3B808081)
 }
 
 // NOT EXACT: field-offset (293 masked rows: the corners' zero-offset byte sums load j2 j0 j3 j1, the client j1 j2 j0 j3; the inner
