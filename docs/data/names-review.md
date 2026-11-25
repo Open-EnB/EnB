@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1970 |
 | 2 | describes what the code does | 5014 |
-| 1 | neutral placeholder | 25184 |
+| 1 | neutral placeholder | 25187 |
 
 ## For review (score 3 and below)
 
@@ -7739,6 +7739,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown119C` | `app/client/sclient.cpp:366` | untagged neutral name (D10) |
 | 1 | `Unknown1394` | `app/client/sclient.cpp:381` | untagged neutral name (D10) |
 | 1 | `Unknown_7228C0` | `app/client/sclient.cpp:395` | untagged neutral name (D10) |
+| 1 | `Unknown_Px_Process, Unknown_Set_FOV, client, cm, fov` | `app/client/sclient.cpp:406` | neutral |
+| 1 | `Unknown_Px_Process` | `app/client/sclient.cpp:406` | untagged neutral name (D10) |
+| 1 | `Unknown_Set_FOV` | `app/client/sclient.cpp:406` | untagged neutral name (D10) |
 | 1 | `Unknown_BE67BC` | `app/client/sclient.cpp:410` | untagged neutral name (D10) |
 | 1 | `Unknown_745350` | `app/client/sclient.cpp:414` | untagged neutral name (D10) |
 | 1 | `Unknown13CC` | `app/client/sclient.cpp:415` | untagged neutral name (D10) |

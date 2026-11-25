@@ -1,0 +1,28 @@
+FB3 2026-11-25, UIStarbaseClass::Unknown_639630 0x639630: 3 trybatch batches (32 forms), residue 3 -> 3 (parked).
+Variant files: C:/EnBDevelopment/EnB/.work/fb3/v1..v3_639630.py, logs b1..b3_639630.log.
+
+The row: the lit loop's final else, savatar->Unknown14->Unknown_40(false).
+  ours    mov ebp,[ebp+0x14] / push 0 / mov ecx,ebp / mov edx,[ebp] / call [edx+0x40]
+  client  mov ecx,[ebp+0x14] / push 0 / mov edx,[ecx]              / call [edx+0x40]     (0x639D8B)
+ebp is savatar. Frame symbols all sit in the client's slots (trybatch slots: no '*'); semantics: codegen only.
+
+Measured (batch 1, code-changing diagnostic): with savatar still used after the if / else (Unknown21A = savatar->Unknown18
+!= 0 at the end of the loop body) the else reads mov ecx,[ebp+0x14] as the client. So ours puts the pointer in ebp only
+because savatar's register is free from that load on: the value is a block-crossing CSE of savatar->Unknown14 (available
+from the head test on the not-shown path, killed by the calls on the other), not a statement temporary; in the two
+arms after the calls it is a temporary and goes to ecx in both builds. But the diagnostic also moves the esi / edi
+reloads (the iterator) from before the else's call to after the if, which the client does not show.
+
+Null (identical code to the tree):
+- an index threshold over the symbols: 12 / 16 / 24 / 32 / 48 / 64 / 96 dead-initialised locals at the top (GN4: 2 / 4 / 8);
+- uses of savatar after the else that leave no code: savatar = NULL at the end of the body, an empty inline taking
+  savatar (in the else, at the end of the body), dropped reads in the else / after the inner if / at the end of the
+  body (savatar->Unknown_633010(), Unknown_Is_Shown(savatar->Unknown14), savatar->Avatar.Peek(), savatar->Unknown00,
+  if (savatar->Unknown14 == NULL) { }): VC6 drops them before the registers are chosen;
+- the else written first as an early continue; the Busy arm through a goto label after the if.
+Worse: the Busy arm (or the first arm) written after the if with continue in the others (24: the iterator leaves
+esi / edi), two copies of the else (40), a dropped Unknown_63E8F0 call (36-97, inline budget).
+
+Lead: what keeps savatar->Unknown14 from being available on the not-shown path in the client's source (then the else's
+load is a plain temporary): a kill between the head test and the else that leaves no code, or a head test that is not
+the same expression tree as the else's.
