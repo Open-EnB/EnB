@@ -102,9 +102,9 @@ EphemeralStruct::EphemeralStruct(int index, INIClass &ini) : Type(""), Text(""),
 	_snprintf(section, sizeof(section), "Ephemeral-%02d", index);
 	if (ini.Find_Section(section)) {
 		StringClass value;
-		ini.Get_String(value, section, "Type", "");
+		ini.Get_String(value, section, "Type", " ");
 		Type = value;
-		ini.Get_String(value, section, "Text", "");
+		ini.Get_String(value, section, "Text", " ");
 		Text = value;
 		int font = 0;
 		while (true) {
@@ -115,7 +115,7 @@ EphemeralStruct::EphemeralStruct(int index, INIClass &ini) : Type(""), Text(""),
 			}
 			{
 				StringClass type;
-				ini.Get_String(type, section, entry, "");
+				ini.Get_String(type, section, entry, " ");
 				FontType[font] = type;
 				_snprintf(entry, sizeof(entry), "FontChance%02d", font);
 				float chance = ini.Get_Float(section, entry, 0);
@@ -224,7 +224,7 @@ void UILineDisplayClass::Unknown_54()
 				break;
 			}
 			StringClass name;
-			strings.Get_String(name, section, "StringID", "");
+			strings.Get_String(name, section, "StringID", " ");
 			LineDisplayStringStruct *string = new LineDisplayStringStruct(name);
 			string->Show(true);
 			Strings[string->Get_Name()] = string;

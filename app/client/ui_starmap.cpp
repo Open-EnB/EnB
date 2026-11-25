@@ -752,7 +752,7 @@ bool UIStarmapClass::Unknown_7C91A0()
 				NameClass field_name("Name");
 				DeltaStringClass *name = Unknown_Find_Valid<DeltaStringClass>((DeltaCompoundClass *)object->AuxData, field_name);
 				std::string text("Dest: ");
-				text += name ? name->Get() : "";
+				text += name ? name->Get() : "?";
 				DestinationFont->Change_Text(text.c_str(), 0);
 			} else {
 				DestinationFont->Change_Text("", 0);

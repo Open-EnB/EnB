@@ -2460,7 +2460,7 @@ void ChatPanelInterface::Unknown_56C7E0()
 	const char *split_names[] = { "FONT_CHAT_LINE_00", "FONT_CHAT_LINE_01", NULL };	// NAME 1: neutral (D10)
 	const char *split_labels[] = { "Player Chat Font", "Game Message Font" };		// NAME 1: neutral (D10)
 	const char *single_names[] = { "FONT_CHAT_LINE_00", NULL };					// NAME 1: neutral (D10)
-	const char *single_labels[] = { "" };											// NAME 1: neutral (D10)
+	const char *single_labels[] = { " " };											// NAME 1: neutral (D10)
 	if (Unknown134 == 1) {
 		UnknownF8 = Create_Get((ChatPanelUIBase *)new OptionFontInterface(Client->As_Space_Client(), single_names, single_labels, std::string("Chat Font Settings")));
 	} else {
