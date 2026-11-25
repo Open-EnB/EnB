@@ -788,34 +788,77 @@ def multiset_measures(mine, stored, nz):
     return out
 
 
-def multiset_verdict(mine, stored):
-    """A run's loaded draw log against the loaded stored ones, as multisets -> (True | False, text)."""
+def _ms_score(mine, stored):
+    """The run's log against the stored ones: each measure against the stored log nearest in it -> {'states': odd
+    states both ways, 'textures', 'draws', 'cams', 'worlds': draws out of their stored spread, 'detail': ...}."""
     nz = multiset_noise(stored)
     ms = multiset_measures(mine, stored, nz)
     st = min(ms, key=lambda m: len(m['extra']) + len(m['missing']))
     wo = min(ms, key=lambda m: len(m['worlds']))
-    draws = min(m['draws'] for m in ms)
-    texs = min(m['textures'] for m in ms)
-    cams = min(m['cams'] for m in ms)
+    return {'states': len(st['extra']) + len(st['missing']), 'textures': min(m['textures'] for m in ms),
+            'draws': min(m['draws'] for m in ms), 'cams': min(m['cams'] for m in ms), 'worlds': len(wo['worlds']),
+            'st': st, 'wo': wo}
+
+
+MULTISET_MEASURES = ('states', 'textures', 'draws', 'cams', 'worlds')
+
+
+def _ms_score(mine, stored):
+    """The run's log against the stored ones, each measure against the stored log nearest in it -> {'states': odd
+    states both ways, 'textures', 'draws', 'cams', 'worlds': draws out of their stored spread, 'still': those of
+    them whose stored draw never moved between the stored runs, 'nz': multiset_noise, 'st' / 'wo': the details}."""
+    nz = multiset_noise(stored)
+    ms = multiset_measures(mine, stored, nz)
+    st = min(ms, key=lambda m: len(m['extra']) + len(m['missing']))
+    wo = min(ms, key=lambda m: len(m['worlds']))
+    still = min(sum(1 for _, j, _, lim in m['worlds'] if lim <= DRAW_MATRIX_FLOOR) for m in ms)
+    return {'states': len(st['extra']) + len(st['missing']), 'textures': min(m['textures'] for m in ms),
+            'draws': min(m['draws'] for m in ms), 'cams': min(m['cams'] for m in ms), 'worlds': len(wo['worlds']),
+            'still': still, 'nz': nz, 'st': st, 'wo': wo}
+
+
+LEAVE_ONE_OUT = ('cams', 'worlds', 'still')
+
+
+def multiset_verdict(mine, stored):
+    """A run's loaded draw log against the loaded stored ones, as multisets -> (True | False, text). No draw state
+    may be odd (_odd_states); the textures and the draw counts per state may differ from the nearest stored run as
+    much as two stored runs differ (the counts times DRAW_MATRIX_SLACK); the views' difference and the number of
+    draws out of their stored spread (and of those, draws that never moved in the stored runs) may be as large as a
+    stored run's own against the other stored runs (leave one out: a playback's objects move by the shot's timing,
+    so retail has draws out of the spread two runs measure too); with one stored run all must be zero."""
+    score = _ms_score(mine, stored)
+    nz = score['nz']
+    allowed = {k: 0 for k in LEAVE_ONE_OUT}
+    if len(stored) > 1:
+        for k in range(len(stored)):
+            own = _ms_score(stored[k], stored[:k] + stored[k + 1:])
+            for m in LEAVE_ONE_OUT:
+                allowed[m] = max(allowed[m], own[m])
     parts = []
-    if st['extra'] or st['missing']:
+    if score['states']:
+        st = score['st']
         s, d = (st['extra'] or st['missing'])[0]
         parts.append(f'{len(st["extra"])} draw states not stored, {len(st["missing"])} stored ones missing (e.g. '
                      f'{"extra" if st["extra"] else "missing"} {_state_desc(s)}: '
                      f'{", ".join((d or ["no stored state with its fields"])[:4])})')
-    if texs > nz['textures']:
-        parts.append(f'{texs} textures differ (stored runs by up to {nz["textures"]})')
-    if draws > DRAW_MATRIX_SLACK * nz['draws']:
-        parts.append(f'draw counts per state {draws} apart (stored runs up to {nz["draws"]})')
-    if cams > DRAW_MATRIX_SLACK * nz['cams'] + DRAW_MATRIX_FLOOR:
-        parts.append(f'views / projections up to {cams:.4g} apart (stored runs {nz["cams"]:.4g})')
-    if wo['worlds']:
-        i, j, d, allowed = max(wo['worlds'], key=lambda w: w[2] - w[3])
-        parts.append(f'world matrices of {len(wo["worlds"])} draws out of the stored spread (worst {_draw_desc(mine, i)}'
-                     f' {d:.4g}, allowed {allowed:.4g})')
+    if score['textures'] > nz['textures']:
+        parts.append(f'{score["textures"]} textures differ (stored runs by up to {nz["textures"]})')
+    if score['draws'] > DRAW_MATRIX_SLACK * nz['draws']:
+        parts.append(f'draw counts per state {score["draws"]} apart (stored runs up to {nz["draws"]})')
+    if score['cams'] > allowed['cams'] + DRAW_MATRIX_FLOOR:
+        parts.append(f'views / projections up to {score["cams"]:.4g} apart (a stored run against the others: '
+                     f'{allowed["cams"]:.4g})')
+    if score['worlds'] > allowed['worlds'] or score['still'] > allowed['still']:
+        i, j, d, lim = max(score['wo']['worlds'], key=lambda w: w[2] - w[3])
+        parts.append(f'world matrices of {score["worlds"]} draws out of the stored spread, {score["still"]} of them '
+                     f'still in every stored run (a stored run against the others: {allowed["worlds"]}, '
+                     f'{allowed["still"]}; worst {_draw_desc(mine, i)} {d:.4g}, allowed {lim:.4g})')
     if parts:
         return False, 'as a multiset: ' + '; '.join(parts)
-    return True, f'the same as a multiset (draw counts per state {draws} apart, stored runs up to {nz["draws"]})'
+    return True, (f'the same as a multiset (draw counts per state {score["draws"]} apart, stored runs up to '
+                  f'{nz["draws"]}; {score["worlds"]} draws out of the stored spread, a stored run against the others '
+                  f'{allowed["worlds"]})')
 
 
 def _canon(log):
