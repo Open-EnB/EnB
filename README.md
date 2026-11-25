@@ -15,7 +15,7 @@ engineered** from the executable and rebuilt until its functions match.
 ## Status
 
 <!-- progress:start -->
-As of 2026-11-24, **89.94%** of client.exe's `.text` is rebuilt: 74.04% byte for byte from source, 15.91% runtime libraries and linker output. Of E&B's own code (`.text` less runtime and linker output), **88.04%** is byte-exact (26,272 functions) and **99.98%** written in C++. Of 80,947 declarations in E&B's code, **66.8%** score 4-5 on D56's name scale (untagged names count as 5, 66.4% of all).
+As of 2026-11-25, **90.02%** of client.exe's `.text` is rebuilt: 74.12% byte for byte from source, 15.91% runtime libraries and linker output. Of E&B's own code (`.text` less runtime and linker output), **88.14%** is byte-exact (26,276 functions) and **99.93%** written in C++. Of 81,058 declarations in E&B's code, **66.8%** score 4-5 on D56's name scale (untagged names count as 5, 66.5% of all).
 
 ![Rebuild progress](docs/progress.svg)
 
