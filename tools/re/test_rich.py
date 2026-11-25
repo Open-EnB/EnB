@@ -40,6 +40,13 @@ class Rich(unittest.TestCase):
         self.assertEqual(rich.rol(0x80000001, 1), 3)
         self.assertEqual(rich.rol(5, 32), 5)
 
+    def test_lfanew_rule(self):
+        # retail: 17 pairs, key 0xDF765B66 -> (key >> 5) % 3 == 0 -> 0x128
+        self.assertEqual(rich.lfanew_of(0xDF765B66, 17), 0x128)
+        self.assertEqual(rich.lfanew_of(1 << 5, 17), 0x130)
+        self.assertEqual(rich.lfanew_of(2 << 5, 17), 0x138)
+        self.assertEqual(rich.lfanew_of(3 << 5 | 31, 17), 0x128)
+
     def test_diff(self):
         ours = [(19, 8022, 14), (11, 8799, 914), (37, 8755, 2)]
         self.assertEqual(rich.diff(ours, PAIRS), [(11, 8799, 1054, 914), (6, 1735, 1, 0), (37, 8755, 0, 2)])

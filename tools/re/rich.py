@@ -11,6 +11,11 @@ version, ...), 'Rich' and the key; every dword before 'Rich' is XORed with the k
 so the block is a function of the pair list (its order included) and the stub's bytes: an image reproduces
 retail's 0x80-0x128 only when its link had retail's set of (product, build, count), in LINK's order.
 
+The PE header follows a buffer of 8 * (pairs + (key >> 5) % 3) + 0x20 bytes, zero after the key: e_lfanew =
+0x80 + that (LINK.EXE 6.00 0x43FDD0 sizes it, 0x445828 stores 0x80 + the size; IM5, binary.md §5.4). So the 8 to
+24 zero bytes after 'Rich' are no input of their own: they follow from the key. Retail's key 0xDF765B66 gives
+(key >> 5) % 3 = 0, e_lfanew 0x128.
+
     python tools/re/rich.py [EXE ...]            each image's pairs, and whether its key recomputes
     python tools/re/rich.py --diff OURS.exe      our pairs against retail's: count differences per (product, build)
 """
@@ -71,6 +76,12 @@ def encode(dos, pairs):
     return b''.join(struct.pack('<I', w ^ key) for w in words) + b'Rich' + struct.pack('<I', key)
 
 
+def lfanew_of(key, npairs, stub=0x80):
+    """e_lfanew LINK 6.00 writes for a block of npairs pairs and this key: the stub, then 8 bytes per pair, 8 more
+    per (key >> 5) % 3, and 0x20 ('DanS', its three dwords, 'Rich', the key and 8 zero bytes)."""
+    return stub + 8 * (npairs + (key >> 5) % 3) + 0x20
+
+
 def diff(ours, client):
     """[(product, build, client count, our count)] for every pair whose count differs, client's order first."""
     a = {(p, b): c for p, b, c in client}
@@ -101,7 +112,9 @@ def main():
         start, end, key, pairs = r
         pe = struct.unpack_from('<I', d, 0x3c)[0]
         ok = key_of(d[:0x80], pairs) == key and encode(d[:0x80], pairs) == d[start:end]
-        print(f'{path}: {len(pairs)} pairs, block {start:#x}-{end:#x}, e_lfanew {pe:#x} ({pe - end} bytes after), '
+        want = lfanew_of(key, len(pairs))
+        print(f'{path}: {len(pairs)} pairs, block {start:#x}-{end:#x}, e_lfanew {pe:#x} ({pe - end} bytes after; '
+              f'LINK rule {want:#x}{"" if want == pe else " DIFFERS"}), '
               f'key {key:#010x} {"recomputes" if ok else "DOES NOT recompute"}')
         for p, b, c in pairs:
             print(f'  {p:>3}/{b:<5} {c:>5}  {PRODUCTS.get(p, "?")}')
