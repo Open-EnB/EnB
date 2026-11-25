@@ -41,15 +41,27 @@ The format (one step a line, '#' comments, shell-style quoting):
     click gadget NAME | click X,Y   rclick ... | move ...    mouse at a gadget of e2e/gadgets.txt or client pixels
     down X,Y / up X,Y             the left button pressed at a point / moved there held and let go: a drag (the
                                   client's item windows move an item on the button-up, e.g. into a terminal's slot)
-    click X,Y until SOURCE PATTERN [redo K] [every S] [within T]   the click (or key VK) again every S seconds (default 0.5)
+    click X,Y until SOURCE PATTERN [redo K] [every S] [within T]   the click (or key KEYS) again every S seconds (default 0.5)
                                   until the line is seen (default T 60 s): for input the client ignores until it is
                                   ready. redo K: each repeat first posts the K input steps before this one again
                                   (select a slot, then Enter: both are ignored while the screen's opening plays)
-    key VK                        a key (decimal or 0x hex)     text STRING    characters
+    key KEYS                      a key: a VK (decimal or 0x hex), a name (enter, esc, tab, space, backspace, up,
+                                  f1..f24, num0..num9, ` and control_keys.ini's other punctuation) or a letter; or a
+                                  chord, KEY+KEY...: shift+i, ctrl+i, alt+f1 (each key down in order, up in reverse)
+    keydown KEYS / keyup KEYS     those keys only pressed / only let go: held across the steps between (keydown
+                                  shift, key i, keyup shift); a scenario lets go of every key it holds (checked
+                                  when it is parsed; one that fails between is let go at its end)
+                                  The modifiers go as a keyboard sends them (test-plan C6): Shift's, Ctrl's, Alt's
+                                  own key-down first, and Alt without Ctrl as WM_SYSKEYDOWN / WM_SYSKEYUP with
+                                  lParam's bit 29; the client reads them back through GetKeyState / GetAsyncKeyState
+                                  (0x4307A0, 0x430CA0, 0x4314C0), which the proxy answers from the keys it passed on;
+                                  d3d8shot.log: 'input: replayed key 0x49 +shift'. A lone Alt and Alt+Space are
+                                  refused (the window menu's keyboard mode, the system menu: D69)
+    text STRING                   characters
     stand-in PATTERN              the goal is not met while stubs.log shows PATTERN from here on (a stand-in's first
                                   call): checked at the end, so the other steps still run; with `expected-fail` the
                                   scenario is XFAIL, and XPASS once the stand-in is retired
-    stray click X,Y|gadget NAME / stray key VK   the same input UNtagged, as a person's would be (the tag's
+    stray click X,Y|gadget NAME / stray key KEYS the same input UNtagged, as a person's would be (the tag's
                                   self-test: the proxy must drop it and log 'NOT REPLAYED')
     alive S                       S seconds pass with the client running and no expect-no line matched
     walk-to X,Y [tol T] [within S]  a starbase: the avatar walks to X,Y (the room's floor plane, units of the
@@ -59,9 +71,9 @@ The format (one step a line, '#' comments, shell-style quoting):
                                   move for 2 s (a wall: give a waypoint) or after S (default 30 s)
     face YAW [tol D] [within S]   turn until the camera looks along YAW degrees (default tolerance 2): what a
                                   click on something in the room needs before it (the click is a screen point)
-    hold VK until SOURCE PATTERN [within S]   the key held down until the line is seen (walk on through a door
+    hold KEY until SOURCE PATTERN [within S]  the key held down until the line is seen (walk on through a door
                                   until the room changes)
-    hold VK for S                 the key held down S seconds (flight: thrust, the arrow keys' turn and tilt)
+    hold KEY for S                the key held down S seconds (flight: thrust, the arrow keys' turn and tilt)
     rdrag X,Y for S               the right button pressed at the window's middle, the pointer held at X,Y for S
                                   seconds, let go back at the middle (flight: the ship's nose follows the pointer)
     pose-mark                     the pose now (camera at rest, at most 3 s) is what expect-pose measures from
@@ -124,7 +136,7 @@ ORDER = ['world_entry', 'starmap', 'options', 'pda_pages', 'cargo', 'chat']
 LAST = []
 STANDIN_HIT = 'stand-in hit:'
 SOURCES = ('antprox', 'stubs', 'msg', 'proxy', 'files', 'any')
-ACTIONS = ('click', 'rclick', 'move', 'down', 'up', 'key', 'text', 'stray')
+ACTIONS = ('click', 'rclick', 'move', 'down', 'up', 'key', 'keydown', 'keyup', 'text', 'stray')
 WALK_KEY = 0x41         # 'A': the starbase's walk key (the user's recording of 2026-11-15)
 
 
@@ -152,10 +164,11 @@ class Pilot:
     CX, CY = 640, 512
     REPEAT = 0.05       # hold VK for S: a key-down every 50 ms
 
-    def __init__(self, hwnd, camera, tick, note):
+    def __init__(self, hwnd, camera, tick, note, held=None):
         import ctypes
         self.user32 = ctypes.windll.user32
         self.hwnd, self.camera, self.tick, self.note = hwnd, camera, tick, note
+        self.held = set() if held is None else held     # the session's keys held down (keydown steps)
 
     def _post(self, msg, w, l):
         self.user32.PostMessageW(self.hwnd, msg, w | (0x5043 << 16), l)
@@ -239,7 +252,11 @@ class Pilot:
             self._rup()
 
     def key(self, vk, down):
-        self._post(0x100 if down else 0x101, vk, _key_lparam(vk, up=not down))
+        """vk down (again: each a fresh down, no repeat bit; the client's 0x4307A0 drops a repeat outside text entry)
+        or up, with the modifiers the session holds (an Alt held makes it WM_SYSKEYDOWN, as a keyboard)."""
+        import clientrun
+        msg, lp = clientrun.key_message(vk, not down, self.held - {vk})
+        self._post(msg, vk, lp)
 
     def hold_for(self, vk, secs, sample):
         """The key held secs seconds: a down every REPEAT seconds, as the keyboard's auto-repeat, a fixed count of
@@ -471,23 +488,23 @@ def parse(text, name='?', gadgets=None, loader=None, _depth=0):
             st.update(x=x, y=y, gadget=g, until=until)
         elif op == 'stray':
             if not args or args[0] not in ('click', 'key'):
-                raise ScenarioError(f'{where}: stray click X,Y|gadget NAME, or stray key VK')
+                raise ScenarioError(f'{where}: stray click X,Y|gadget NAME, or stray key KEYS')
             if args[0] == 'click':
                 x, y, g = _point(args[1:], gadgets, where)
                 st.update(x=x, y=y, gadget=g, what='click')
             else:
-                try:
-                    st.update(vk=int(args[1], 0), what='key')
-                except (IndexError, ValueError):
-                    raise ScenarioError(f'{where}: stray key VK')
+                if len(args) != 2:
+                    raise ScenarioError(f'{where}: stray key KEYS')
+                st.update(_keys(args[1], where), what='key')
         elif op == 'key':
             args, st['until'] = _until(op, args, where)
             if len(args) != 1:
-                raise ScenarioError(f'{where}: key VK [until SOURCE PATTERN ...]')
-            try:
-                st['vk'] = int(args[0], 0)
-            except ValueError:
-                raise ScenarioError(f'{where}: key VK (decimal or 0x hex)')
+                raise ScenarioError(f'{where}: key KEYS [until SOURCE PATTERN ...]')
+            st.update(_keys(args[0], where))
+        elif op in ('keydown', 'keyup'):
+            if len(args) != 1:
+                raise ScenarioError(f'{where}: {op} KEYS (e.g. {op} shift)')
+            st.update(_keys(args[0], where))
         elif op == 'text':
             if len(args) != 1:
                 raise ScenarioError(f'{where}: text STRING (quote it when it has spaces)')
@@ -511,14 +528,14 @@ def parse(text, name='?', gadgets=None, loader=None, _depth=0):
                 raise ScenarioError(f'{where}: walk-to X,Y [tol T] [within S] / face YAW [tol D] [within S]')
         elif op == 'hold' and len(args) == 3 and args[1] == 'for':
             try:
-                st['vk'], st['secs'] = int(args[0], 0), float(args[2])
+                st['vk'], st['secs'] = _one_key(args[0], where), float(args[2])
             except ValueError:
                 raise ScenarioError(f'{where}: hold VK for SECONDS')
         elif op == 'hold':
             args, st['within'] = _within(args, 30.0, where)
             if len(args) != 4 or args[1] != 'until':
                 raise ScenarioError(f'{where}: hold VK until SOURCE PATTERN [within S] / hold VK for SECONDS')
-            st['vk'] = int(args[0], 0)
+            st['vk'] = _one_key(args[0], where)
             st['source'], st['pattern'] = _source(args[2]), _regex(args[3], where)
         elif op == 'rdrag':
             if len(args) < 3 or args[-2] != 'for':
@@ -562,7 +579,65 @@ def parse(text, name='?', gadgets=None, loader=None, _depth=0):
         sc['steps'].append(st)
     if not sc['steps']:
         raise ScenarioError(f'{name}: no steps')
+    _check_held(sc['steps'], name)
     return sc
+
+
+def _keys(spec, where):
+    """A key step's KEYS (clientrun.parse_keys: enter, f1, a letter, a VK number, or a chord such as shift+i) ->
+    {'keys': [VK...], 'vk': the last one, 'spec': as written back}."""
+    import clientrun
+    try:
+        vks = clientrun.parse_keys(spec)
+    except ValueError as e:
+        raise ScenarioError(f'{where}: {e}')
+    return {'keys': vks, 'vk': vks[-1], 'spec': '+'.join(clientrun.key_name(v) for v in vks)}
+
+
+def _one_key(spec, where):
+    k = _keys(spec, where)['keys']
+    if len(k) != 1:
+        raise ScenarioError(f'{where}: one key here, not a chord')
+    return k[0]
+
+
+def _check_held(steps, name):
+    """Held keys (keydown / keyup) must pair up inside a scenario: a key let go that is not down, a key pressed
+    again while down (that is `hold`'s auto-repeat), or a key still down at the end are errors, so no scenario
+    leaves the next one of the session a stuck modifier. Alt pressed and let go with no other key between, or Alt
+    with Space, are refused: the window procedure turns a lone Alt into the window menu's keyboard mode and
+    Alt+Space opens the system menu, a modal menu loop (D69)."""
+    held, alt_alone = [], False
+    for st in steps:
+        op, keys, where = st['op'], st.get('keys'), st['line']
+        if op == 'stray' and st.get('what') == 'key':
+            op = 'key'
+        if op not in ('key', 'keydown', 'keyup', 'hold'):
+            continue
+        if op == 'hold':
+            keys = [st['vk']]
+        if (0x12 in held or 0x12 in keys) and 0x20 in keys:
+            raise ScenarioError(f'{where}: Alt+Space opens the system menu (a modal menu loop): not allowed')
+        if op == 'keyup':
+            for vk in keys:
+                if vk not in held:
+                    raise ScenarioError(f'{where}: keyup 0x{vk:02X}: that key is not down')
+                held.remove(vk)
+                if vk == 0x12 and alt_alone:
+                    raise ScenarioError(f'{where}: Alt pressed and let go alone (the window menu\'s keyboard mode)')
+            continue
+        for vk in keys:
+            if vk in held:
+                raise ScenarioError(f'{where}: 0x{vk:02X} is held down already (keyup it first)')
+        if op == 'key' and keys[-1] == 0x12:
+            raise ScenarioError(f'{where}: Alt pressed and let go with no key after it (the window menu\'s '
+                                f'keyboard mode): Alt goes first in a chord, alt+KEY')
+        if op == 'keydown':
+            held.extend(keys)
+        alt_alone = op == 'keydown' and keys[-1] == 0x12
+    if held:
+        raise ScenarioError(f'{name}: ' + ', '.join(f'0x{vk:02X}' for vk in held)
+                            + ' still held at the end (keyup before the scenario ends)')
 
 
 def _until(op, args, where):
@@ -868,6 +943,7 @@ class Session:
         env = dict(os.environ)
         # record: a person plays, so untagged input passes (the proxy logs it 'input: untagged ...')
         self.record = bool(getattr(args, 'record', False))
+        self.held = set()       # keys a keydown step holds down (clientrun.post_keys); let go at a scenario's end
         self.proxy = self.inst.use_proxy(env, self.out, input=True, tag=not self.record)
         # test-plan C2: the Miles calls to audio.jsonl (audiolog.py reads it); off unless --audio / ENB_E2E_AUDIO=1
         self.audio = bool(getattr(args, 'audio', False)) or os.environ.get('ENB_E2E_AUDIO') == '1'
@@ -1038,8 +1114,8 @@ class Session:
                 self.mark = ev.total
                 ev.mark_epoch()
                 self.mark_time = ev.now()
-                if op == 'key':
-                    cp.post_step(self.hwnd, 'key', str(st['vk']), tag=tag)
+                if op in ('key', 'keydown', 'keyup'):
+                    cp.post_step(self.hwnd, op, '+'.join(str(v) for v in st['keys']), tag=tag, held=self.held)
                 elif op == 'text':
                     cp.post_step(self.hwnd, 'text', st['text'], tag=tag)
                 else:
@@ -1114,7 +1190,7 @@ class Session:
                         fail = ('no tagged virtual input (d3d8shot.log has no "tagged input read" line): rebuild the '
                                 'proxy, python tools/harness/run_reference.py build')
                         break
-                    if op != 'stray' and not st.get('until'):
+                    if op not in ('stray', 'keydown', 'keyup') and not st.get('until'):     # redo K: not a held key
                         posted.append(st)
                     if op == 'stray':                         # a person's input, as the harness's self-test: untagged
                         post('key' if st['what'] == 'key' else 'click', st, tag=False)
@@ -1145,7 +1221,7 @@ class Session:
                     else:
                         post(op, st)
                 elif op in ('pose-mark', 'expect-pose'):
-                    pilot = Pilot(self.hwnd, self.camera, tick, note)
+                    pilot = Pilot(self.hwnd, self.camera, tick, note, self.held)
                     p = pilot.still(3.0)
                     if p is None:
                         fail = f'{st["line"]}: {op}: no camera file from the proxy (run_reference.py build)'
@@ -1165,7 +1241,7 @@ class Session:
                     ev.poll()
                     self.mark = ev.total
                     ev.mark_epoch()
-                    pilot = Pilot(self.hwnd, self.camera, tick, note)
+                    pilot = Pilot(self.hwnd, self.camera, tick, note, self.held)
                     samples = getattr(self, 'pose_samples', None)
                     sample = (lambda p: p is not None and samples is not None and samples.append(p))
                     if op not in ('hold', 'rdrag'):
@@ -1247,6 +1323,9 @@ class Session:
                 json.dump(res, f, indent=1)
             return res
         finally:
+            if self.held and self.hwnd is not None:      # a scenario that failed between its keydown and keyup
+                note('  let go of ' + ', '.join(f'0x{vk:02X}' for vk in sorted(self.held)))
+                cp.post_keys(self.hwnd, [(vk, True) for vk in sorted(self.held)], self.held, tag=True)
             for s in standing:
                 ev.unwatch(s['watch'])
             for s in standins:
@@ -1442,8 +1521,9 @@ def _desc(st):
         return f'{st["kind"]} {st["min"]:g}'
     if st['op'] == 'hold':
         return f'0x{st["vk"]:X} until {st["source"]} {st["pattern"].pattern!r}'
-    if st['op'] == 'key' and st.get('until'):
-        return f'0x{st["vk"]:X} until {st["until"]["source"]} {st["until"]["pattern"].pattern!r}'
+    if st['op'] in ('key', 'keydown', 'keyup') or (st['op'] == 'stray' and st.get('what') == 'key'):
+        return st['spec'] + (f' until {st["until"]["source"]} {st["until"]["pattern"].pattern!r}'
+                              if st.get('until') else '')
     return str(st.get('vk', st.get('text', st.get('seconds', st.get('shot', '')))))
 
 

@@ -601,6 +601,29 @@ fa_*.ini opens again when it closes; chat-panel drop-down items act on mouse-dow
 window is open (an Esc during the options window opens the quit menu after it closes); the chat panel's browser items
 do nothing while the settings store's +0x34 is set.
 
+**Modifier keys, chords and held keys (test-plan C6, 2026-11-25):** `key KEYS` takes a VK as before (decimal or 0x
+hex), a key's name (`enter`, `esc`, `tab`, `space`, `backspace`, the arrows, `home` ... `pgdn`, `f1`-`f24`,
+`num0`-`num9`, control_keys.ini's punctuation) or a letter, and chords joined by `+`: `key shift+i`, `key ctrl+i`,
+`key alt+f1` (each key down in order, up in reverse). `keydown KEYS` / `keyup KEYS` press or let go only, so a key
+stays down across the steps between (`keydown shift`, `key i`, `keyup shift`); `hold KEY` takes the names too.
+`clientrun.py`'s `--input` files take the same (`T key shift+i`, `T keydown shift`). They are posted as a keyboard
+sends them (`clientrun.key_message`): the modifier's own key-down first, its scan code in lParam, Alt held without
+Ctrl as WM_SYSKEYDOWN / WM_SYSKEYUP with lParam's context bit 29 (Alt's own key-up with it clear), a key-down of a
+key already down as an auto-repeat (bit 30); a plain key's messages are exactly the old `key VK`'s. client.exe reads
+the modifiers only through user32, no DirectInput or GetKeyboardState: its key handler 0x4307A0 (w32kbd.cpp, for
+WM_KEYDOWN / WM_KEYUP / WM_SYSKEYDOWN / WM_SYSKEYUP) asks `GetKeyState(VK_SHIFT / VK_CONTROL / VK_MENU)` while
+it handles the key, the key test 0x430CA0 `GetAsyncKeyState`, the mouse's 0x4314C0 `GetKeyState`, and ToAscii
+(0x42EB80) gets a key state built from the event's flags. The proxy answers GetKeyState / GetAsyncKeyState from the
+key messages it passed on (`In_Keys`; the left / right Shift, Ctrl and Alt too) and logs the modifiers down at
+each key-down, `input: replayed key 0x49 +shift` (`+ctrl`, `+alt`, ` sys` for WM_SYSKEYDOWN, ` repeat`), and each
+key-up, `input: replayed key-up 0x49`; a plain key's line is unchanged. A scenario must let go of every key it
+holds (parse error otherwise; a failure between is let go at the scenario's end), and a lone Alt or Alt+Space is
+refused (the window menu's keyboard mode, the system menu's modal loop: D69). The client drops an auto-repeat
+key-down outside text entry (0x4307A0: lParam bit 30 without bit 31), so `hold`'s downs stay fresh downs without
+bit 30, as before (a keyboard's held key would reach the client once). `sb_vault` (live) opens the Vault with
+Shift+I (control_keys.ini `[Vault] PSW_1=$I`; plain I is `[Equipment]`) and closes it with the held form, then
+toggles Ctrl+I (`[Toggle Ping]`) on and off. Unit tests: `python -m unittest tools/harness/test_keys.py`.
+
 **The exe carries no test code (2026-11-14):** the stand-in build's input and multi-instance hooks are gone. The
 d3d8shot proxy, copied beside the instance's exe for every run, gives the client its virtual cursor and keyboard
 (`D3D8SHOT_INPUT=1`, d3d8shot.c `Hook_Input`: the exe's user32 imports), exactly as it does for the retail

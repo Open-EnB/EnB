@@ -1274,6 +1274,19 @@ static void In_Screen(POINT *p) { *p = In_Cursor; if (In_Window) ClientToScreen(
    test window, or the real cursor crossing it) is logged and dropped, so only replayed input reaches the program. */
 #define IN_TAG 0x5043
 static int In_Tag_Only = 0;
+/* A keyboard's Shift, Ctrl and Alt come as VK_SHIFT / VK_CONTROL / VK_MENU; GetKeyState also knows which side:
+   right Shift by its scan code (0x36), right Ctrl and Alt by lParam's extended bit (24). client.exe asks only the
+   generic three (0x4307A0, 0x430CA0, 0x4314C0); the sides are kept as a keyboard would for any other program. */
+static void In_Side(LPMSG msg, BYTE down)
+{
+	int k = (int)(msg->wParam & 0xFF), side;
+	if (k == VK_SHIFT) side = ((msg->lParam >> 16) & 0xFF) == 0x36 ? VK_RSHIFT : VK_LSHIFT;
+	else if (k == VK_CONTROL) side = (msg->lParam & (1 << 24)) ? VK_RCONTROL : VK_LCONTROL;
+	else if (k == VK_MENU) side = (msg->lParam & (1 << 24)) ? VK_RMENU : VK_LMENU;
+	else return;
+	if (down && !(In_Keys[side] & 0x80)) In_Keys[side] ^= 0x01;
+	In_Keys[side] = (BYTE)((In_Keys[side] & ~0x80) | down);
+}
 static void In_Take(LPMSG msg)
 {
 	POINT p;
@@ -1294,7 +1307,16 @@ static void In_Take(LPMSG msg)
 		return;
 	}
 	if (msg->message == WM_KEYDOWN || msg->message == WM_SYSKEYDOWN) {
-		Log("input: %s key 0x%X\n", who, (unsigned)msg->wParam);
+		/* the modifiers down at this key (test-plan C6: what the program's GetKeyState / GetAsyncKeyState answer
+		   while it handles the key), and sys for WM_SYSKEYDOWN; nothing added for a plain key (the scenarios
+		   match '^input: replayed key 0xVK') */
+		unsigned k = (unsigned)msg->wParam & 0xFF;
+		Log("input: %s key 0x%X%s%s%s%s%s\n", who, k, (In_Keys[VK_SHIFT] & 0x80) && k != VK_SHIFT ? " +shift" : "",
+			(In_Keys[VK_CONTROL] & 0x80) && k != VK_CONTROL ? " +ctrl" : "",
+			(In_Keys[VK_MENU] & 0x80) && k != VK_MENU ? " +alt" : "", msg->message == WM_SYSKEYDOWN ? " sys" : "",
+			(msg->lParam & 0x40000000) ? " repeat" : "");
+	} else if (msg->message == WM_KEYUP || msg->message == WM_SYSKEYUP) {
+		Log("input: %s key-up 0x%X%s\n", who, (unsigned)msg->wParam & 0xFF, msg->message == WM_SYSKEYUP ? " sys" : "");
 	}
 	if ((msg->message >= WM_MOUSEFIRST && msg->message <= WM_MBUTTONDBLCLK) || msg->message == WM_KEYDOWN
 		|| msg->message == WM_CHAR) {
@@ -1312,8 +1334,10 @@ static void In_Take(LPMSG msg)
 	} else if (msg->message == WM_KEYDOWN || msg->message == WM_SYSKEYDOWN) {
 		if (!(In_Keys[msg->wParam & 0xFF] & 0x80)) In_Keys[msg->wParam & 0xFF] ^= 0x01;
 		In_Keys[msg->wParam & 0xFF] |= 0x80;
+		In_Side(msg, 0x80);
 	} else if (msg->message == WM_KEYUP || msg->message == WM_SYSKEYUP) {
 		In_Keys[msg->wParam & 0xFF] &= ~0x80;
+		In_Side(msg, 0);
 	}
 	In_Screen(&p);
 	msg->pt = p;
