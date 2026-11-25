@@ -4,6 +4,7 @@
 |---|---|
 | [progress.md](progress.md) | Log, decisions made, decisions open, next steps |
 | [prior-work.md](prior-work.md) | What earlier protocol research by the maintainer already found |
+| [test-plan.md](test-plan.md) | The E&B test plan (draft 4): the five layers of evidence, what exists, capture tools to build, the cases by risk, the bug ledger, this week's order and status, the freeze criteria, decisions. The working copy of the published page |
 | [binary.md](binary.md) | client.exe: hash, toolchain, sections, code regions, imports |
 | [source-tree.md](source-tree.md) | The original source tree, recovered from the client, and how this repository mirrors it |
 | [conventions.md](conventions.md) | Coding conventions for the rebuild |
@@ -22,7 +23,7 @@
 | [CSC.md](CSC.md) | The Character and Starship Creator (2002-09-13): what it tells us about the client, its program flow, and whether the tree could rebuild it |
 | [builders.md](builders.md) | Builder subagents: startup set per kind, rules, models (D72), report format |
 | [pipeline-plan.md](pipeline-plan.md) | Plan of 2026-11-07: the integration pipeline's failures and tooling, the EA libraries' freeze as plain source, importer.py's split and the sharded ledger; builder-side integration and the spread rule recorded for later |
-| [week-plan-2026-11-17.md](week-plan-2026-11-17.md) | Plan of the usage week 2026-11-17 to 2026-11-24 (D261, the unattended week): scheduled sessions 0-7 while the user is away, the recovery step, who merges, each coordinator's prompt. The week before (D225, the Fable reset): [archive/week-plan-2026-11-10.md](archive/week-plan-2026-11-10.md), its record (counts, pairs per point by model and kind): [archive/week-2026-11-10-record.md](archive/week-2026-11-10-record.md) |
+| [week-plan-2026-11-24.md](week-plan-2026-11-24.md) | Plan of the usage week 2026-11-24 to 2026-12-01 (D284): the allowance spent twice around the user's reset on Friday, scheduled sessions 0-6 while the user is away, the order of work (behaviour, stuck, the test plan, the image), each coordinator's prompt. The week before (D261): [archive/week-plan-2026-11-17.md](archive/week-plan-2026-11-17.md). Before that (D225, the Fable reset): [archive/week-plan-2026-11-10.md](archive/week-plan-2026-11-10.md), its record (counts, pairs per point by model and kind): [archive/week-2026-11-10-record.md](archive/week-2026-11-10-record.md) |
 | [decode-path.md](decode-path.md) | The client's AUX_DATA decode path, function by function (M1.1) |
 | [packet-flow.md](packet-flow.md) | From a received packet to the object model (2026-10-28): the Process_Packet dispatch and the frame it runs in, the client base's object tables, ClientObjectClass (bases, layout, vtable), create / find / update / remove, how AUX_DATA deltas and positional states reach an object, the object-affecting opcodes with handler addresses and rebuild states, a worked example, an unblock order |
 | [build-your-own.md](build-your-own.md) | Building the client from a fresh clone with one PowerShell script (`tools/Build-Client.ps1`, no Python on the host; downloads asked with the third-party notice): the build VM, the SDKs, the generated VC6 workspace (`tools/vc6/dsp.py`, built by `msdev /MAKE` through `tools/vc6/msdev.py`), the stand-in build, running it (D248) |

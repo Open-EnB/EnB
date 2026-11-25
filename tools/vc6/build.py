@@ -546,14 +546,14 @@ UNRES = re.compile(r'error LNK20(?:01|19): unresolved external symbol (?:"([^"]*
                    r'(?: referenced in function (?:"[^"]*" \((\S+?)\)|(\S+)))?')
 
 
-def link_program(name, out, deploy=True):
+def link_program(name, out, deploy=True, extra_link=(), tag=None):
     """link_one; for a strict program (client) a compile error, an unresolved symbol or no exe fails (exit 1);
     the harness programs (clienttest, udpreplay, ...) get the summary back and run their own gen_stubs pass.
     deploy is kept for the callers' signature: no program deploys anywhere."""
-    summary = link_one(name, out)
+    summary = link_one(name, out, extra_link=extra_link, trial=tag)
     if not PROGRAMS[name].get('strict'):
         return summary
-    dst = os.path.join(out, 'programs', name)
+    dst = os.path.join(out, 'programs', name + ('-' + tag if tag else ''))
     if summary['cl_errors']:
         raise SystemExit(f'{name}: the program does not compile (see {dst}\\cl.log)')
     if summary['unresolved'] or not summary['exe']:
@@ -561,10 +561,12 @@ def link_program(name, out, deploy=True):
     return summary
 
 
-def link_one(name, out, extra_srcs=(), force=False, extra_objs=()):
+def link_one(name, out, extra_srcs=(), force=False, extra_objs=(), extra_link=(), trial=None):
     """Compile a program and the stubs in the VM and link them against out/<lib>/<lib>.lib,
     out/mss32/mss32.lib and the system libraries. Writes out/programs/<name>/: <name>.exe,
-    <name>.map, cl.log, link.log, summary.json (unresolved symbols, stubs linked)."""
+    <name>.map, cl.log, link.log, summary.json (unresolved symbols, stubs linked). extra_link: linker
+    options added after ours (a later /incremental or /opt wins); trial: write to out/programs/<name>-<trial>/
+    instead, so a trial link (tools/re/imagediff.py) leaves the one client build alone."""
     prog = PROGRAMS[name]
     pdir = os.path.join(REPO, prog['dir']) if prog.get('dir') else None
     srcs = sorted(os.path.join(pdir, f) for f in os.listdir(pdir) if f.lower().endswith(('.cpp', '.c'))) if pdir else []
@@ -626,6 +628,7 @@ def link_one(name, out, extra_srcs=(), force=False, extra_objs=()):
         link.append('/force:unresolved')
     link += ['libs\\' + os.path.basename(o) for o in extra_objs]
     link += [os.path.basename(l) for l in libs] + (['stubs.lib'] if stubs else []) + sys_names
+    link += list(extra_link)
     local = os.path.join(os.environ.get('TEMP', '.'), f'enb_link_{name}_link_{tag}.rsp')
     open(local, 'w', newline='').write('\r\n'.join(link) + '\r\n')
     vc6.scp(local, vc6.remote(f'{work}\\link.rsp'))
@@ -633,7 +636,7 @@ def link_one(name, out, extra_srcs=(), force=False, extra_objs=()):
     lines += [f'link @link.rsp > link.log 2>&1',
               f'tar -cf ..\\link_{name}.tar *.log *.map *.exe *.txt 2>nul']
     vc6.run_bat(lines)
-    dst = os.path.join(out, 'programs', name)
+    dst = os.path.join(out, 'programs', name + ('-' + trial if trial else ''))
     os.makedirs(dst, exist_ok=True)
     for f in os.listdir(dst):
         if f.lower().endswith(('.exe', '.map', '.log')) and f.lower() not in ('vidtest.log', 'stubs.log'):
@@ -700,6 +703,9 @@ def main():
     ap.add_argument('--report', default=os.path.join(REPO, '.work', 'milestones', 'l1', 'unresolved.txt'))
     ap.add_argument('--pool', type=int, metavar='K', help='lease K VMs from pool.py, release after')
     ap.add_argument('--holder-pid', type=int)
+    ap.add_argument('--link-flag', action='append', default=[], metavar='OPT',
+                    help='link: a linker option added after ours, e.g. --link-flag=-incremental:yes (repeatable; with --tag; write - for /: Git Bash turns a leading / into a path)')
+    ap.add_argument('--tag', help='link: write to programs/<name>-TAG/ (a trial link; the one client build stays)')
     ap.add_argument('--no-deploy', action='store_true', help='link: no effect (no program deploys); kept for old callers')
     ap.add_argument('--allow-dirty', action='store_true',
                     help='build even if a library has uncommitted changes')
@@ -714,10 +720,10 @@ def main():
         if a.pool:
             with I.pool_lease(a.pool, a.holder_pid):
                 for p in progs:
-                    link_program(p, a.out, not a.no_deploy)
+                    link_program(p, a.out, not a.no_deploy, a.link_flag, a.tag)
         else:
             for p in progs:
-                link_program(p, a.out, not a.no_deploy)
+                link_program(p, a.out, not a.no_deploy, a.link_flag, a.tag)
         return
     libs = a.lib or ORDER
     changed = dirty(libs)

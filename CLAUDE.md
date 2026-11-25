@@ -46,7 +46,7 @@ reverse engineer the rest. Windows; shell is Git Bash (`/c/...` paths) or PowerS
   never the game's install folder as working directory, and never write into it (reading it in place and 
   copying from it are fine, D143); no registry changes except as stated by D181 or to keys in client.exe; 
   never push `master` (the coordinator pushes only its run branch and opens a PR, D148,
-  D157; until 2026-11-20 19:00 it also merges a PR `vc6-verify` passed by itself, D261; builders never push); `git add` by name (never stage `.claude/settings.json`: tracked, the
+  D157; until 2026-11-28 12:00 it also merges a PR `vc6-verify` passed by itself, D284; builders never push); `git add` by name (never stage `.claude/settings.json`: tracked, the
   maintainer changes it).
 - Who decides (D246). The coordinator decides, without asking, whatever client.exe's evidence, the
   verify or a measurement settles: names, types, layouts, placements, file splits, D66 / D240 losses,
