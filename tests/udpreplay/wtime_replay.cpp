@@ -114,14 +114,14 @@ Xtime &Xtime::operator -= (const Xtime &other)
 	return *this;
 }
 
-Xtime Xtime::operator - (Xtime &other)
+Xtime Xtime::operator - (const Xtime &other) const
 {
 	Xtime temp(*this);
 	temp -= other;
 	return temp;
 }
 
-Xtime Xtime::operator + (Xtime &other)
+Xtime Xtime::operator + (const Xtime &other) const
 {
 	Xtime temp(*this);
 	temp += other;
