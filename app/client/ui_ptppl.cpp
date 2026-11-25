@@ -105,17 +105,17 @@ inline void UIPTPplClass::Unknown_Make_Rows()
 	char name[32];
 	int i = 0;
 	while (true) {
-		sprintf(name, "Name_%02d_PT_PEOPLE", i);
+		sprintf(name, "Name%02d_PT_PEOPLE", i);
 		FontSys *person = Unknown_BE67C4->Get_Style(name, ListScreen);
 		if (!person) break;
 		UIPTPplRowStruct *row = new UIPTPplRowStruct;
 		Unknown0B4.push_back(row);
 		row->Name = person;
-		sprintf(name, "Prof_%02d_PT_PEOPLE", i);
+		sprintf(name, "Prof%02d_PT_PEOPLE", i);
 		row->Prof = Unknown_BE67C4->Get_Style(name, ListScreen);
-		sprintf(name, "Loc_%02d_PT_PEOPLE", i);
+		sprintf(name, "Loc%02d_PT_PEOPLE", i);
 		row->Loc = Unknown_BE67C4->Get_Style(name, ListScreen);
-		sprintf(name, "Level_%02d_PT_PEOPLE", i);
+		sprintf(name, "Level%02d_PT_PEOPLE", i);
 		row->Level = Unknown_BE67C4->Get_Style(name, ListScreen);
 		i++;
 	}
@@ -127,14 +127,14 @@ inline void UIPTPplClass::Unknown_Make_Buttons()
 	if (!Unknown0E0) {
 		unsigned int j;
 		for (j = 0; j < Unknown0B4.size(); j++) {
-			sprintf(name, "B_%02d", j);
+			sprintf(name, "B%02d", j);
 			RenderObjClass *robj = ListScreen->Get_Sub_Object_By_Name(name);
 			GadgetClass *button = new ButtonGadgetClass(robj, Layer, 0x55, 0);
 			robj->Release_Ref();
 			Unknown64.Unknown_6870E0(button, j + 6, View, 1, 0);
 		}
 		for (j = 0; j < 4; j++) {
-			sprintf(name, "S_%02d", j);
+			sprintf(name, "S%02d", j);
 			RenderObjClass *robj = ListScreen->Get_Sub_Object_By_Name(name);
 			GadgetClass *button = new ButtonGadgetClass(robj, Layer, 0x55, 0);
 			robj->Release_Ref();

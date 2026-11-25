@@ -118,15 +118,15 @@ inline void UIPTNewClass::Unknown_Make_Rows()
 	char name[32];
 	int i = 0;
 	while (true) {
-		sprintf(name, "Date_%02d_PT_NEWS", i);
+		sprintf(name, "Date%02d_PT_NEWS", i);
 		FontSys *date = Unknown_BE67C4->Get_Style(name, ListScreen);
 		if (!date) break;
 		UIPTNewRowStruct *row = new UIPTNewRowStruct;
 		Unknown0B8.push_back(row);
 		row->Date = date;
-		sprintf(name, "Location_%02d_PT_NEWS", i);
+		sprintf(name, "Location%02d_PT_NEWS", i);
 		row->Location = Unknown_BE67C4->Get_Style(name, ListScreen);
-		sprintf(name, "Title_%02d_PT_NEWS", i);
+		sprintf(name, "Title%02d_PT_NEWS", i);
 		row->Title = Unknown_BE67C4->Get_Style(name, ListScreen);
 		i++;
 	}
@@ -138,14 +138,14 @@ inline void UIPTNewClass::Unknown_Make_Buttons()
 	if (!Unknown0D0) {
 		unsigned int j;
 		for (j = 0; j < Unknown0B8.size(); j++) {
-			sprintf(name, "B_%02d", j);
+			sprintf(name, "B%02d", j);
 			RenderObjClass *robj = ListScreen->Get_Sub_Object_By_Name(name);
 			GadgetClass *button = new ButtonGadgetClass(robj, Layer, 0x55, 0);
 			robj->Release_Ref();
 			Unknown64.Unknown_6870E0(button, j + 5, View, 1, 0);
 		}
 		for (j = 0; j < 3; j++) {
-			sprintf(name, "S_%02d", j);
+			sprintf(name, "S%02d", j);
 			RenderObjClass *robj = ListScreen->Get_Sub_Object_By_Name(name);
 			GadgetClass *button = new ButtonGadgetClass(robj, Layer, 0x55, 0);
 			robj->Release_Ref();
