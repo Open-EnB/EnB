@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-537 entries in 241 files.
+535 entries in 240 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -35,7 +35,6 @@ edit the comments in the code, not this file.
 | `app/client/avatar_pip.cpp:198` | `AvatarPipClass::Unknown_7E3A20` | marker | NOT EXACT: order (4 masked rows): the client pushes the light's Set_Transform argument before the last translation store; pos is a dead copy here (without it the distance's squares sum in another order) |
 | `app/client/bar2d.cpp:10` | `?` | marker | NOT EXACT: 0.76, shape (inline budget): the client inlines Rotate_Z only in case 1 (2 and 3 call 0x577940) and Set_Dirty, and calls the last vertex's UV (0x6B71E0); ours inlines Rotate_Z in cases 1 and 2, all eight UVs and calls Set_Dirty |
 | `app/client/bar3d.cpp:214` | `Bar3DClass::Render` | marker | NOT EXACT: 0.93, shape: the client stores distance * OffsetScale and compares Offset against it in memory (fcom [esp+0x10], Offset kept on je); every Max / MAX / max / if / ternary form tried keeps it on the FPU stack (fcomp st(1)); std::_cpp_max stores it but selects through a pointer |
-| `app/client/bridge_int.cpp:310` | `BridgeInterface::Do_Frame` | marker | NOT EXACT: order (explain.py; the same length, 1866 bytes, 0.94): three operand-order pairs, the client loads the other factor first in Pre_Rotate_Z's sine / cosine products and in the last Rotate_Z's 0x53BD40 |
 | `app/client/bridge_int.cpp:534` | `BridgeInterface::Play_Animation` | marker | NOT EXACT: shape (explain.py): the same instructions in another block order (the client's numbered code follows 'get_hit' and runs into the call, 'use_controls' jumps back to it; the goto is the nearest form, not the client's) 0x53CD60 |
 | `app/client/camctl.cpp:12` | `CamCtlGadgetClass::CamCtlGadgetClass` | marker | NOT EXACT (0.36, attempts.py 0x65B930): the client stores each scaled value to a stack temporary and copies it at once, and keeps this in edi (ours esi) |
 | `app/client/camctl.cpp:96` | `CamCtlGadgetClass::Unknown_34` | mention | NOT EXACT: the constructor (order and register: the client fstp's each scaled value to a stack temporary and copies it at once; this in edi; the asserts, the base call and the zeroed members match). |
@@ -243,7 +242,6 @@ edit the comments in the code, not this file.
 | `app/client/starmap_pip.cpp:1272` | `StarmapPipClass::Is_Grouped` | marker | NOT EXACT: inline budget (0.92, attempts.py 0x7C2760): the client calls UnknownRTTIClass<DeltaCompoundClass>::Cast out of line in Unknown_Find_Field; here it is inlined (Find_Valid helpers one, two and three layers deep give the same) @0x7C2760 |
 | `app/client/starmap_pip.cpp:1293` | `StarmapPipClass::Unknown_7C2850` | marker | NOT EXACT: registers (0.94): Is_Grouped is expanded here (its NameClass and Find_Set_Field 0x7C30E0 out of line, the bool in the dead force slot); left: the avatar compare's load order, the refresh loop's Find_Object push and the ObjectList load (register choice only). attempts.csv @0x7C2850 |
 | `app/client/starmap_pip.cpp:1378` | `StarmapPipClass::Unknown_7C2D30` | mention | NOT EXACT (D64, functional; attempts.csv): 0x7C0260 (MapPipClass's slot +0x20 takes an int, the client tests a byte), 0x7C0440 (the gadget's Position.X load, the else block's place), 0x7C0C80 now exact (its max is a double compare, O5), 0x7C2060 (registers, order), 0x7C2850 (inline budget). 0x7C1770 exact with t.Y * diff.Y written diff.Y * t.Y (the operand order picks the slots; +0x68..+0x70 is on... |
-| `app/client/target_reticle.cpp:107` | `TargetReticleClass::Update` | marker | NOT EXACT: 0x7C5690, register rotation only (13 rows at the inlined time == LastTime: eax / ecx for ecx / eax, edx / eax for ecx / eax, eax for ecx at LastValue); same length (1990 bytes) @0x7C5690 |
 | `app/client/tasks/settings_store.cpp:545` | `Unknown_7CA2D0Class::Get_String` | mention | NOT EXACT (D64): 0x7CB8F0 (order-only: two instructions out of place). Other files still reach 0x7CB2E0 / 0x7CB240 / 0x7CA570 / 0x7CAD00 through local stand-in classes (ui_login.cpp, ui_popupmsg.cpp, ui_popup_browser.cpp, ui_registration.cpp, unknown_msgbox.cpp). |
 | `app/client/tasks/tsk_login.cpp:271` | `LoginTaskClass::Run` | marker | NOT EXACT: register-only (the final Process_Packets call loads the vtable in edx, the client eax; attempts.py show 0x767F50) |
 | `app/client/tasks/tsk_login.cpp:644` | `LoginTaskClass::Go_Next_Step` | marker | NOT EXACT: register-only (the client keeps 1 in ebx from before the jump table for every flag store and step 1, as Go_Back_Step; step 1 stored before the flag and step 5 without the step check as in the client; attempts.py show 0x769500) 0x769500 |
