@@ -601,5 +601,31 @@ class Net7ControlTest(unittest.TestCase):
         self.assertIsNone(e2e.net7_control('STATUS', port=0))
 
 
+class CameraTrackTest(unittest.TestCase):
+    """--camera-track: each new frame of the proxy's camera file once, every view of it."""
+
+    @unittest.skipUnless(sys.platform == 'win32', 'GetTickCount')
+    def test_track_appends_new_frames_with_all_views(self):
+        import time
+        with tempfile.TemporaryDirectory() as d:
+            cam, out = os.path.join(d, 'camera.txt'), os.path.join(d, 'camera-track.txt')
+            m = ' '.join(['1.00000', '0.00000', '0.00000', '0.00000'] * 4)
+
+            def write(frame):
+                with open(cam + '.tmp', 'w') as f:
+                    f.write(f'frame {frame} view 0 of 3: {m}\nframe {frame} view 1 of 3: {m}\n')
+                os.replace(cam + '.tmp', cam)
+            write(10)
+            tr = e2e.CameraTrack(cam, out, time.time())
+            time.sleep(0.15)
+            write(12)
+            time.sleep(0.15)
+            tr.stop()
+            with open(out) as f:
+                lines = [ln.split() for ln in f]
+            self.assertEqual([ln[2] for ln in lines], ['10', '12'])
+            self.assertTrue(all(ln[3] == '2' and len(ln) == 4 + 32 for ln in lines))
+
+
 if __name__ == '__main__':
     unittest.main()

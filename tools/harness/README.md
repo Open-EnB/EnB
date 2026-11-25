@@ -754,6 +754,14 @@ the last name. Live antprox logs opcode numbers; e2e appends the names (`... = s
 - **Where the avatar is:** `D3D8SHOT_CAMERA=FILE` makes the proxy write the frame's first view matrices to FILE
   (every 2nd Present). The first is the room camera; the avatar is 6.4 units ahead of it. Each room has its own
   coordinates; the room changes show in messages.log (`Changing room from A to B`).
+- **The camera's whole path (`--camera-track`, 2026-11-25):** a thread reads that file every 20 ms and appends each
+  new frame's views to `camera-track.txt` (`TICK T FRAME N` and N times 16 floats; TICK is GetTickCount, the clock
+  of d3d8shot.log, T the events.log clock): about every 2nd to 4th frame of the session. In space the frame's
+  first view is an orthographic one (its projection is the draw log's first) and the second the ship camera; in a
+  starbase the first is the room camera. For camera moves a shot per event only samples (a landing, a gate jump:
+  `_play10`; test-plan SP-01 / SP-02). The camera controllers draw on one generator of a fixed seed (0xBDB1C0,
+  0x1105), so where a camera holds still (the dock, warp and room cameras) is the same place on every run, to the
+  tenth of a unit on retail: compare those plateaus, not single frames.
 - **Walking steps:** `walk-to X,Y [tol T] [within S]`, `face YAW [tol D] [within S]`, `hold VK until SOURCE
   PATTERN [within S]` (walk through a door until the room changes), `pose` (logs it). They are closed loops on
   the pose, not timed input, since the avatar starts on a random pad of the hangar. Measured on retail: 'A' and a

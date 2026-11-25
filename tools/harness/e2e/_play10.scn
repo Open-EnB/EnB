@@ -8,6 +8,19 @@ name: a recorded session played to its end: /play 10 on the Broadcast channel (Z
 # on retail and on ours (E1, 2026-11-14: both PASS; the packets the same but for a VERB_REQUEST / MASTER_JOIN
 # order at two handoffs, as in play1_windows). Session 2's starbase needs Starbase_Avatar_ChangePacketClass's
 # sending constructor 0x8A3600 (play9's fault).
+# Camera poses (test-plan SP-01 / SP-02 first pass, 2026-11-25, R10): run with --camera-track (camera-track.txt).
+# The server's CAMERA_CONTROL 5 (dock at Jove's Fury, session 1) puts the dock camera (state 6) in one place for
+# about 0.7 s before the loading screen, the same place on every retail run; CAMERA_CONTROL 4 (the launchpad out of
+# planet Endriago, sector 2295, session 5) comes 0.2 s before Net-7's handoff and the stargate camera (state 3)
+# draws no frame; the warp camera of session 4 holds one place too. No event comes before either camera, and a
+# shot on the handoff line is the loading screen (tried: both clients), so the track is the pose capture. The
+# planet landing (session 4's end) was the recorded user's Land verb (ACTION 0x1D; that client ran no landing
+# camera: ACTION 8 in the same ms), and on the replay the target panel's Land icon sends nothing; the take-off
+# camera (state 9) is asked for by the warp button on a planet, which on Endriago's surface (CLIENT_TYPE 1, left by
+# the launchpad gate) does nothing (key Q and a click, retail). Neither the landing (state 5 / 7) nor the take-off
+# camera runs on this recording: they need a live run. The shots s2 to s5 wait on 'Render: Frame Rate', which the
+# frame before the loading screen also prints: they can show the sector before (s4 and s5 do) or the one after a
+# short one (s2 is session 3's space, not the starbase); a load is better waited for on its files (wait-quiet proxy).
 timeout: 700
 messages: on
 include _login

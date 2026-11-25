@@ -149,6 +149,47 @@ def _key_lparam(vk, up=False):
     return clientrun.key_lparam(vk, up)
 
 
+class CameraTrack:
+    """--camera-track: a thread that reads the proxy's camera file (D3D8SHOT_CAMERA, rewritten every 2nd Present)
+    every 20 ms and appends each new frame's view matrices (the file's first 4 distinct ones) to camera-track.txt
+    as 'TICK T FRAME N' and N times 16 floats (TICK the host's GetTickCount, the clock of d3d8shot.log's file
+    opens and audio.jsonl; T seconds since the session's events.log start): the camera's path through a whole
+    session, for comparing two clients' camera moves (a landing, a gate jump) where one shot per event only
+    samples them. In a starbase the first view is the room camera; in space the first is an orthographic one
+    (its projection is the draw log's first) and the second the ship camera. Frames between two reads are lost
+    (the file keeps only the newest), so the track is about every 2nd to 4th frame."""
+    EVERY = 0.02
+
+    def __init__(self, camera, path, t0):
+        import ctypes
+        import threading
+        self.tick = ctypes.windll.kernel32.GetTickCount
+        self.camera, self.t0, self.last = camera, t0, None
+        self.out = open(path, 'w', encoding='utf-8', newline='\n')
+        self.stop_ev = threading.Event()
+        self.thread = threading.Thread(target=self._run, daemon=True)
+        self.thread.start()
+
+    def _run(self):
+        while not self.stop_ev.wait(self.EVERY):
+            try:
+                with open(self.camera) as f:
+                    ms = [re.match(r'frame (\d+) view \d+ of \d+:(.*)', line) for line in f]
+            except OSError:
+                continue
+            ms = [m for m in ms if m and len(m.group(2).split()) == 16]
+            if not ms or ms[0].group(1) == self.last:
+                continue
+            self.last = ms[0].group(1)
+            self.out.write(f'{self.tick() & 0xFFFFFFFF} {time.time() - self.t0:.3f} {self.last} {len(ms)}'
+                           + ''.join(m.group(2) for m in ms) + '\n')
+
+    def stop(self):
+        self.stop_ev.set()
+        self.thread.join(2)
+        self.out.close()
+
+
 class Pilot:
     """The avatar's pose in a starbase from the proxy's camera file (d3d8shot.c D3D8SHOT_CAMERA: the frame's first
     view matrix is the room's camera, which trails the avatar), and the closed loops that steer by it. Measured on
@@ -966,6 +1007,8 @@ class Session:
                                                       ['-ENABLE_MESSAGES'] if self.messages else [],
                                                       mode=live_mode(args))
         self.ev = Events(files, log=os.path.join(self.out, 'events.log'))
+        self.track = (CameraTrack(self.camera, os.path.join(self.out, 'camera-track.txt'), self.ev.t0)
+                      if getattr(args, 'camera_track', False) else None)
         self.note(f'antprox pid {self.a.pid}, client pid {self.pid}' + (' (the retail client)' if self.retail else ''))
         if self.retail and self.pid:
             import threading
@@ -1334,6 +1377,8 @@ class Session:
             ev.flush_repeats()
 
     def close(self):
+        if self.track:
+            self.track.stop()
         if self.pid:
             subprocess.run(['taskkill', '/F', '/PID', str(self.pid)], capture_output=True)
         subprocess.run(['taskkill', '/F', '/T', '/PID', str(self.a.pid)], capture_output=True)
@@ -2337,6 +2382,8 @@ def main(argv=None):
     ap.add_argument('--no-shots', action='store_true', help='compare / retail: packets and verdicts only')
     ap.add_argument('--detail', action='store_true', help='retail: the packet and shot details under each DIFF')
     ap.add_argument('--retail-run', metavar='MANIFEST', help='retail: reuse this retail run instead of a new one')
+    ap.add_argument('--camera-track', action='store_true',
+                    help="camera-track.txt: the camera's view matrix about every 2nd frame, the whole session")
     args = ap.parse_args(argv)
     args.record = args.command == 'record'
     global OUT
