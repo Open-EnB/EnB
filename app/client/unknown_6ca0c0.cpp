@@ -1,7 +1,7 @@
 // Earth & Beyond client (reconstruction): app\client\unknown_6ca0c0.cpp. Notes at the end of the file.
 #include "unknown_6ca0c0.h"
-#include "fontmanager.h"
-#include "fontdatabase.h"
+#include "fontsys.h"
+#include "fontstring.h"
 #include "font32bit.h"
 #include "..\..\wwlib\ref_ptr.h"
 #include "..\..\wwlib\wwstring.h"

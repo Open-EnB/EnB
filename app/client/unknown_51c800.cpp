@@ -2,7 +2,7 @@
 // File PROVISIONAL (D137): no string; between dynamic_window_multi_line_text.cpp (to 0x51C780) and
 // dynamic_window_render_object.cpp (0x51C930), so a dynamic_window_*.cpp named between them alphabetically.
 #include "unknown_51c800.h"
-#include "fontmanager.h"
+#include "fontsys.h"
 
 RefCountPtr<RenderObjClass> Unknown_497300(RenderObjClass *robj);	// 0x497300 (cdecl, ro_funcs.cpp's neighbourhood)  // NAME 1 [robj]: as ui_avatr.cpp's
 
