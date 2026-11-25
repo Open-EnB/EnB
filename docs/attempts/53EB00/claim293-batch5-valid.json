@@ -1,0 +1,319 @@
+{
+  "description": "Line patches against tree3 baseline; each [start,end,replacement_lines] uses zero-based half-open indices. Apply in reverse order.",
+  "records": [
+    {
+      "name": "fps_append_layer",
+      "base_sha256": "f1017264c71f9eec83b4287e3486674ef7671eb6bd2fe2a16ac779baa2d4b727",
+      "source_sha256": "cdeb6b52d6b7c9a16fcea78b4a7227df219a58d5d6fca9c9a164d6a45f667d98",
+      "line_patch": [
+        [
+          195,
+          196,
+          [
+            "static inline void Frame_Append(StringClass &to, const StringClass &from) { to += from; } static inline void Frame_Memory_Line(StringClass &text, int i, unsigned memory) { StringClass line; line.Format(\"%s : %2.2fMb\\n\", WWMemoryLogClass::Get_Category_Name(i), (float)memory / (1024.0f * 1024.0f)); text += line; } static inline void Frame_Display_Memory_Line(StringClass &text, int i, unsigned memory) { Frame_Memory_Line(text, i, memory); }\n"
+          ]
+        ],
+        [
+          248,
+          251,
+          [
+            "\t\t\t\tFrame_Display_Memory_Line(text, i, memory);\n",
+            "\n",
+            "\n"
+          ]
+        ],
+        [
+          262,
+          263,
+          [
+            "\t\tFrame_Append(text, line);\n"
+          ]
+        ],
+        [
+          264,
+          265,
+          [
+            "\t\tFrame_Append(text, line);\n"
+          ]
+        ]
+      ],
+      "compiled": true,
+      "body_bytes": 1424,
+      "body_sha256": "32c46a89d30f977d76b5bf8d45a2a8dd7a0b031af86d5366f5156178d3c9deaa",
+      "target_exact": false,
+      "gained": [
+        [
+          "??0StringClass@@QAE@H_N@Z",
+          "0x53F1C0"
+        ],
+        [
+          "??YStringClass@@QAEABV0@ABV0@@Z",
+          "0x510BE0"
+        ]
+      ],
+      "lost": []
+    },
+    {
+      "name": "all_append_layer",
+      "base_sha256": "f1017264c71f9eec83b4287e3486674ef7671eb6bd2fe2a16ac779baa2d4b727",
+      "source_sha256": "9609403c255717aecaa6b313e1e4ed525deb937619a8d9eaebb37752f0c6c6d8",
+      "line_patch": [
+        [
+          195,
+          196,
+          [
+            "static inline void Frame_Append(StringClass &to, const StringClass &from) { to += from; } static inline void Frame_Memory_Line(StringClass &text, int i, unsigned memory) { StringClass line; line.Format(\"%s : %2.2fMb\\n\", WWMemoryLogClass::Get_Category_Name(i), (float)memory / (1024.0f * 1024.0f)); Frame_Append(text, line); } static inline void Frame_Display_Memory_Line(StringClass &text, int i, unsigned memory) { Frame_Memory_Line(text, i, memory); }\n"
+          ]
+        ],
+        [
+          248,
+          251,
+          [
+            "\t\t\t\tFrame_Display_Memory_Line(text, i, memory);\n",
+            "\n",
+            "\n"
+          ]
+        ],
+        [
+          262,
+          263,
+          [
+            "\t\tFrame_Append(text, line);\n"
+          ]
+        ],
+        [
+          264,
+          265,
+          [
+            "\t\tFrame_Append(text, line);\n"
+          ]
+        ]
+      ],
+      "compiled": true,
+      "body_bytes": 1424,
+      "body_sha256": "32c46a89d30f977d76b5bf8d45a2a8dd7a0b031af86d5366f5156178d3c9deaa",
+      "target_exact": false,
+      "gained": [
+        [
+          "??0StringClass@@QAE@H_N@Z",
+          "0x53F1C0"
+        ],
+        [
+          "??YStringClass@@QAEABV0@ABV0@@Z",
+          "0x510BE0"
+        ]
+      ],
+      "lost": []
+    },
+    {
+      "name": "ordered_0",
+      "base_sha256": "f1017264c71f9eec83b4287e3486674ef7671eb6bd2fe2a16ac779baa2d4b727",
+      "source_sha256": "aae09229c8ba951045e0b50900729310a487e6f1d6f41e43d768be1dc21aa892",
+      "line_patch": [
+        [
+          195,
+          196,
+          [
+            "static inline void Frame_Memory_Line(StringClass &text, int i, unsigned memory) { StringClass line; line.Format(\"%s : %2.2fMb\\n\", WWMemoryLogClass::Get_Category_Name(i), (float)memory / (1024.0f * 1024.0f)); text += line; } static inline void Frame_Display_Memory_Line(StringClass &text, int i, unsigned memory) { Frame_Memory_Line(text, i, memory); }\n"
+          ]
+        ],
+        [
+          210,
+          211,
+          [
+            "\t\tint free_count; text.Format(\n"
+          ]
+        ],
+        [
+          234,
+          235,
+          [
+            "\t\t\t(free_count = WWMemoryLogClass::Get_Free_Count(), WWMemoryLogClass::Get_Allocate_Count() - free_count),\n"
+          ]
+        ],
+        [
+          248,
+          251,
+          [
+            "\t\t\t\tFrame_Display_Memory_Line(text, i, memory);\n",
+            "\n",
+            "\n"
+          ]
+        ]
+      ],
+      "compiled": true,
+      "body_bytes": 1472,
+      "body_sha256": "a3038a7c3b84c075376c136cb452e102ac40beb8e3ce725acab490f829456094",
+      "target_exact": false,
+      "gained": [
+        [
+          "??0StringClass@@QAE@H_N@Z",
+          "0x53F1C0"
+        ],
+        [
+          "??YStringClass@@QAEABV0@ABV0@@Z",
+          "0x510BE0"
+        ]
+      ],
+      "lost": []
+    },
+    {
+      "name": "ordered_1",
+      "base_sha256": "f1017264c71f9eec83b4287e3486674ef7671eb6bd2fe2a16ac779baa2d4b727",
+      "source_sha256": "a3753091ef69d8afa604d84a079a69a70ed2db209cbd0abcaf68bf589329e4f9",
+      "line_patch": [
+        [
+          195,
+          196,
+          [
+            "static inline void Frame_Memory_Line(StringClass &text, int i, unsigned memory) { StringClass line; line.Format(\"%s : %2.2fMb\\n\", WWMemoryLogClass::Get_Category_Name(i), (float)memory / (1024.0f * 1024.0f)); text += line; } static inline void Frame_Display_Memory_Line(StringClass &text, int i, unsigned memory) { Frame_Memory_Line(text, i, memory); }\n"
+          ]
+        ],
+        [
+          210,
+          211,
+          [
+            "\t\tint locked_count; text.Format(\n"
+          ]
+        ],
+        [
+          235,
+          236,
+          [
+            "\t\t\t(locked_count = TextureClass::_Get_Total_Locked_Surface_Count(), TextureClass::_Get_Total_Texture_Count() - locked_count),\n"
+          ]
+        ],
+        [
+          248,
+          251,
+          [
+            "\t\t\t\tFrame_Display_Memory_Line(text, i, memory);\n",
+            "\n",
+            "\n"
+          ]
+        ]
+      ],
+      "compiled": true,
+      "body_bytes": 1472,
+      "body_sha256": "e717a962536ea41b785df745d339c73302fd374ed60eaea503b6fbd294a3b207",
+      "target_exact": false,
+      "gained": [
+        [
+          "??0StringClass@@QAE@H_N@Z",
+          "0x53F1C0"
+        ],
+        [
+          "??YStringClass@@QAEABV0@ABV0@@Z",
+          "0x510BE0"
+        ]
+      ],
+      "lost": []
+    },
+    {
+      "name": "ordered_2",
+      "base_sha256": "f1017264c71f9eec83b4287e3486674ef7671eb6bd2fe2a16ac779baa2d4b727",
+      "source_sha256": "2677c15d112a6241c9c976a0624f32c98763989d96c0c37345a031d9215a5e37",
+      "line_patch": [
+        [
+          195,
+          196,
+          [
+            "static inline void Frame_Memory_Line(StringClass &text, int i, unsigned memory) { StringClass line; line.Format(\"%s : %2.2fMb\\n\", WWMemoryLogClass::Get_Category_Name(i), (float)memory / (1024.0f * 1024.0f)); text += line; } static inline void Frame_Display_Memory_Line(StringClass &text, int i, unsigned memory) { Frame_Memory_Line(text, i, memory); }\n"
+          ]
+        ],
+        [
+          210,
+          211,
+          [
+            "\t\tint locked_size; text.Format(\n"
+          ]
+        ],
+        [
+          236,
+          237,
+          [
+            "\t\t\t(float)((locked_size = TextureClass::_Get_Total_Locked_Surface_Size(), TextureClass::_Get_Total_Texture_Size() - locked_size)) / (1024.0f * 1024.0f),\n"
+          ]
+        ],
+        [
+          248,
+          251,
+          [
+            "\t\t\t\tFrame_Display_Memory_Line(text, i, memory);\n",
+            "\n",
+            "\n"
+          ]
+        ]
+      ],
+      "compiled": true,
+      "body_bytes": 1472,
+      "body_sha256": "854885d8c92a85114c8e68bd81858f7b4f168261c569dd4a86ed4881fa2f6239",
+      "target_exact": false,
+      "gained": [
+        [
+          "??0StringClass@@QAE@H_N@Z",
+          "0x53F1C0"
+        ],
+        [
+          "??YStringClass@@QAEABV0@ABV0@@Z",
+          "0x510BE0"
+        ]
+      ],
+      "lost": []
+    },
+    {
+      "name": "ordered_0_1_2",
+      "base_sha256": "f1017264c71f9eec83b4287e3486674ef7671eb6bd2fe2a16ac779baa2d4b727",
+      "source_sha256": "bac34e64f54a629dfdee12f5f5714b28dfe5c456ee73b022eb44f1bd1ac5fcf3",
+      "line_patch": [
+        [
+          195,
+          196,
+          [
+            "static inline void Frame_Memory_Line(StringClass &text, int i, unsigned memory) { StringClass line; line.Format(\"%s : %2.2fMb\\n\", WWMemoryLogClass::Get_Category_Name(i), (float)memory / (1024.0f * 1024.0f)); text += line; } static inline void Frame_Display_Memory_Line(StringClass &text, int i, unsigned memory) { Frame_Memory_Line(text, i, memory); }\n"
+          ]
+        ],
+        [
+          210,
+          211,
+          [
+            "\t\tint free_count, locked_count, locked_size; text.Format(\n"
+          ]
+        ],
+        [
+          234,
+          237,
+          [
+            "\t\t\t(free_count = WWMemoryLogClass::Get_Free_Count(), WWMemoryLogClass::Get_Allocate_Count() - free_count),\n",
+            "\t\t\t(locked_count = TextureClass::_Get_Total_Locked_Surface_Count(), TextureClass::_Get_Total_Texture_Count() - locked_count),\n",
+            "\t\t\t(float)((locked_size = TextureClass::_Get_Total_Locked_Surface_Size(), TextureClass::_Get_Total_Texture_Size() - locked_size)) / (1024.0f * 1024.0f),\n"
+          ]
+        ],
+        [
+          248,
+          251,
+          [
+            "\t\t\t\tFrame_Display_Memory_Line(text, i, memory);\n",
+            "\n",
+            "\n"
+          ]
+        ]
+      ],
+      "compiled": true,
+      "body_bytes": 1488,
+      "body_sha256": "56e4afe87e308e7412ac0bd74dee1e23e3922d99f55f504ab0d868ddfc7e7e58",
+      "target_exact": false,
+      "gained": [
+        [
+          "??0StringClass@@QAE@H_N@Z",
+          "0x53F1C0"
+        ],
+        [
+          "??YStringClass@@QAEABV0@ABV0@@Z",
+          "0x510BE0"
+        ]
+      ],
+      "lost": []
+    }
+  ]
+}

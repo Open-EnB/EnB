@@ -1,0 +1,199 @@
+{
+  "description": "Line patches against tree3 baseline; each [start,end,replacement_lines] uses zero-based half-open indices. Apply in reverse order.",
+  "records": [
+    {
+      "name": "difference",
+      "base_sha256": "f1017264c71f9eec83b4287e3486674ef7671eb6bd2fe2a16ac779baa2d4b727",
+      "source_sha256": "290996ebca76358aed2a477ad37f4c436f0128c6f2093d5135d0136cd4be2814",
+      "line_patch": [
+        [
+          195,
+          196,
+          [
+            "static inline int Frame_Difference(int a, int b) { return a - b; }\n"
+          ]
+        ],
+        [
+          234,
+          237,
+          [
+            "\t\t\tFrame_Difference(WWMemoryLogClass::Get_Allocate_Count(), WWMemoryLogClass::Get_Free_Count()),\n",
+            "\t\t\tFrame_Difference(TextureClass::_Get_Total_Texture_Count(), TextureClass::_Get_Total_Locked_Surface_Count()),\n",
+            "\t\t\t(float)(Frame_Difference(TextureClass::_Get_Total_Texture_Size(), TextureClass::_Get_Total_Locked_Surface_Size())) / (1024.0f * 1024.0f),\n"
+          ]
+        ]
+      ],
+      "compiled": true,
+      "body_bytes": 1616,
+      "body_sha256": "4a54a47eed3aac4c4bed2b21ea42d12bc181511d222362a93016d001492b247d",
+      "target_exact": false,
+      "gained": [],
+      "lost": []
+    },
+    {
+      "name": "fp_swap",
+      "base_sha256": "f1017264c71f9eec83b4287e3486674ef7671eb6bd2fe2a16ac779baa2d4b727",
+      "source_sha256": "68f1e9351650e1ef17710b8c38b4dbeedf2faa439b012b0946fb65886f757776",
+      "line_patch": [
+        [
+          202,
+          203,
+          [
+            "\tFrameRate = (1.0f / ((float)frame_time * 0.001f)) * 0.1f + FrameRate * 0.9f;\n"
+          ]
+        ]
+      ],
+      "compiled": true,
+      "body_bytes": 1568,
+      "body_sha256": "0bf6c1b557fc20fb82e33f3c10969df077866bf69f50355d3623c6d4dc70bfd6",
+      "target_exact": false,
+      "gained": [],
+      "lost": []
+    },
+    {
+      "name": "difference_fp",
+      "base_sha256": "f1017264c71f9eec83b4287e3486674ef7671eb6bd2fe2a16ac779baa2d4b727",
+      "source_sha256": "cbd098f6fa7df6318667d546a6d11a34316d4d76f93016a8e6fd7e3aa5270c19",
+      "line_patch": [
+        [
+          195,
+          196,
+          [
+            "static inline int Frame_Difference(int a, int b) { return a - b; }\n"
+          ]
+        ],
+        [
+          202,
+          203,
+          [
+            "\tFrameRate = (1.0f / ((float)frame_time * 0.001f)) * 0.1f + FrameRate * 0.9f;\n"
+          ]
+        ],
+        [
+          234,
+          237,
+          [
+            "\t\t\tFrame_Difference(WWMemoryLogClass::Get_Allocate_Count(), WWMemoryLogClass::Get_Free_Count()),\n",
+            "\t\t\tFrame_Difference(TextureClass::_Get_Total_Texture_Count(), TextureClass::_Get_Total_Locked_Surface_Count()),\n",
+            "\t\t\t(float)(Frame_Difference(TextureClass::_Get_Total_Texture_Size(), TextureClass::_Get_Total_Locked_Surface_Size())) / (1024.0f * 1024.0f),\n"
+          ]
+        ]
+      ],
+      "compiled": true,
+      "body_bytes": 1616,
+      "body_sha256": "4a54a47eed3aac4c4bed2b21ea42d12bc181511d222362a93016d001492b247d",
+      "target_exact": false,
+      "gained": [],
+      "lost": []
+    },
+    {
+      "name": "append_loop",
+      "base_sha256": "f1017264c71f9eec83b4287e3486674ef7671eb6bd2fe2a16ac779baa2d4b727",
+      "source_sha256": "c9a8f7f93666d3ec0325c16bf0a689d4f952758d6c25dc22e7b37d69f23eb8f9",
+      "line_patch": [
+        [
+          195,
+          196,
+          [
+            "static inline void Frame_Append(StringClass &to, const StringClass &from) { to += from; }\n"
+          ]
+        ],
+        [
+          250,
+          251,
+          [
+            "\t\t\t\tFrame_Append(text, line);\n"
+          ]
+        ]
+      ],
+      "compiled": true,
+      "body_bytes": 1568,
+      "body_sha256": "04c53d72df3b2d521872f3d556bd00df4ab36b15fe27e4c0acff80e53afc2027",
+      "target_exact": false,
+      "gained": [],
+      "lost": []
+    },
+    {
+      "name": "append_fps",
+      "base_sha256": "f1017264c71f9eec83b4287e3486674ef7671eb6bd2fe2a16ac779baa2d4b727",
+      "source_sha256": "61e4a848e91f4ed10d7530fbc0ad973d90614b24d18f90e54dc9cb7dea8fe7a1",
+      "line_patch": [
+        [
+          195,
+          196,
+          [
+            "static inline void Frame_Append(StringClass &to, const StringClass &from) { to += from; }\n"
+          ]
+        ],
+        [
+          250,
+          251,
+          [
+            "\t\t\t\tFrame_Append(text, line);\n"
+          ]
+        ],
+        [
+          262,
+          263,
+          [
+            "\t\tFrame_Append(text, line);\n"
+          ]
+        ],
+        [
+          264,
+          265,
+          [
+            "\t\tFrame_Append(text, line);\n"
+          ]
+        ]
+      ],
+      "compiled": true,
+      "body_bytes": 1552,
+      "body_sha256": "22b6c62047f1abf0528f27c3c492e66f074586bfd868f392fa155413e8119fd7",
+      "target_exact": false,
+      "gained": [],
+      "lost": []
+    },
+    {
+      "name": "append_all",
+      "base_sha256": "f1017264c71f9eec83b4287e3486674ef7671eb6bd2fe2a16ac779baa2d4b727",
+      "source_sha256": "61e4a848e91f4ed10d7530fbc0ad973d90614b24d18f90e54dc9cb7dea8fe7a1",
+      "line_patch": [
+        [
+          195,
+          196,
+          [
+            "static inline void Frame_Append(StringClass &to, const StringClass &from) { to += from; }\n"
+          ]
+        ],
+        [
+          250,
+          251,
+          [
+            "\t\t\t\tFrame_Append(text, line);\n"
+          ]
+        ],
+        [
+          262,
+          263,
+          [
+            "\t\tFrame_Append(text, line);\n"
+          ]
+        ],
+        [
+          264,
+          265,
+          [
+            "\t\tFrame_Append(text, line);\n"
+          ]
+        ]
+      ],
+      "compiled": true,
+      "body_bytes": 1552,
+      "body_sha256": "22b6c62047f1abf0528f27c3c492e66f074586bfd868f392fa155413e8119fd7",
+      "target_exact": false,
+      "gained": [],
+      "lost": []
+    }
+  ]
+}
