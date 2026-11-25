@@ -351,7 +351,8 @@ reports, nothing calls them, Renegade's 2002 GTH additions as D9 excludes the Ge
 `LightClass::Is_Within_Attenuation_Radius` and `Compute_Lighting` (2/13/2002 gth; retail's
 `Get_Obj_Space_Bounding_Box` 0x953AC0 is followed by `Load_W3D` 0x953AE0; 1,088 bytes) and
 `ChunkLoadClass::Peek_Next_Chunk` (3/4/2002 gth; `Open_Chunk` 0x9D4310 is followed by `Close_Chunk` 0x9D4370; 144
-bytes). Dropped on wt/IM5B.
+bytes). Dropped on wt/IM5B (definitions only: blanking their declarations in light.h / chunkio.h moved
+bmp2d.cpp's registers and cost Bitmap2DObjClass's constructor 0x974420 its pair).
 
 **The CRT initialisers.** Retail's table has 1,211 entries, ours (the `all` trial) 1,251. Per library block they are
 equal (wwmath 38, d3dx8 2, ww3d2 127, wwlib 21, wwdebug 1, wwaudio 16, wwsaveload 7, wwshade 31-32, binkmovie /
