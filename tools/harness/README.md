@@ -588,7 +588,12 @@ start in the same second: the second's folder is `YYYYMMDD-HHMMSS-NAME-2`.
 stand in for the old `alive N` waits: `wait-quiet proxy S` (the screen's loading is over when its file opens stop:
 the login screen, character select's avatars, the world, a window's model) and `click ... until EVENT` (the click
 is repeated until its effect shows: the movie's 3000 ms guard, character select's opening, during which the slot
-and Enter are ignored, hence `redo 1`). `alive S` remains as an assertion (the client runs, no `expect-no` line
+and Enter are ignored, hence `redo 1`). `wait-since SOURCE PATTERN S` (2026-11-25) waits until S seconds after the
+newest line matching PATTERN in the scenario (a wait-event's match counts, even after the line left the event
+window): antreplay plays a sector session at the recorded pace from the client's LOGIN however long the client takes
+to load (6-25 s after it on retail and ours), so a shot S seconds after the playback line is at one point of the
+recording, where `wait-quiet` plus `alive 20` landed in its flight or its rest by load time; the step fails when it
+starts more than 1 s past its point. `alive S` remains as an assertion (the client runs, no `expect-no` line
 appears), not as a wait. Gadget names come from `e2e/gadgets.txt` (NAME X Y at 1280x1024, each with the replay or
 the tooltip in a shot that found it): the client does not log gadgets' names or rectangles, so a name is a table
 entry, not a lookup in the running client.
@@ -953,7 +958,12 @@ logs, `packets.json` {scenario: packets}, and a manifest with `set`, `order` (th
 scenario of the run inside the stored folders (`dir_scenarios`): a run of several scenarios prefers a set that ran
 it, a run of one its own folder, `--set SET` names one; it says when the scenario ran after a different one than in
 the stored run ("scenario order differs": state carried from the scenario before can explain a difference; "a
-fresh session" when e2e restarted the client before it). A live
+fresh session" when e2e restarted the client before it). **Such a scenario is `NOT COMPARABLE`, not DIFF, when only
+its packets, shots, draw logs or audio differ** (2026-11-25: the scenario before changes texture address modes, the
+draw order and matrices, retail against retail too: pda_faction alone against the default set read DIFF on retail
+itself); the line lists what differed and says to compare a run in the stored order. A verdict that differs or a shot
+missing on either side stays DIFF. Exit codes: 0 every scenario SAME, 1 any DIFF (or a `--set` scenario missing),
+2 a stale build, 3 no DIFF but some not comparable; the count line says how many were not comparable. A live
 set restores the database state once a run, before the session.
 
 **Draw logs** (test-plan C3; d3d8shot `D3D8SHOT_DRAWLOG`, above): a stored run keeps each shot's
@@ -965,8 +975,21 @@ prims verts stride fvf`, `tex0.*` / `tex1.*` the texture's parameters and hash, 
 two logs' draws aligned on (call, prim, fvf, stride) with difflib so one draw more does not shift the rest, then
 field by field; matrices within `DRAW_MATRIX_SLACK` (1.5) times the stored spread plus `DRAW_MATRIX_FLOOR` (1e-4).
 `verify --run` per shot: SAME when equal to a stored run's log or different only in fields and draw counts the stored
-runs vary in themselves; else DIFF with the counts, the first differing draw and its fields, and the matrices out of
-tolerance. A run stored before the draw log (2026-11-24's) reads "no draw log stored", not a failure.
+runs vary in themselves; else the multiset compare below decides, and a DIFF gives the counts, the first differing
+draw and its fields (`N fields differ in M of P paired draws`), the matrices out of tolerance, then the multiset's
+reasons. A run stored before the draw log (2026-11-24's) reads "no draw log stored", not a failure.
+**The multiset compare** (2026-11-25, `multiset_verdict`): a moving scene (a playback's asteroids switching LOD,
+ships reordering the draws) reads as DIFF in order although every state, texture and object is there, so a shot the
+ordered compare fails is compared again as a multiset, against the stored logs themselves (not noise.json): each
+draw's state is every flat field but `prims` / `verts` (the LOD); a state of the run no stored run has passes when
+its nearest stored state (fewest fields apart; the same call, primitive, FVF and texture sizes first) differs only
+in fields that differ so between two stored runs (the same the other way for a stored state the run lacks); each
+state's draws are paired with the stored run's, the same LOD first, nearest by world translation, and each pair's
+world must be within that stored draw's own spread over the other stored runs (x `DRAW_MATRIX_SLACK`, plus the
+floor: a still draw stays still); the draw counts per state (summed differences), the set of textures and the
+frame's views and projections must be within the stored runs' largest difference among themselves (counts and
+matrices x the slack); each measure against the stored run nearest in it. SAME that way reads `draw logs K of N the
+same (M as a multiset)`. With one stored run the multiset must be equal. Tests: `tools/test_baseline.py` DrawLogs.
 
 **Audio** (test-plan C2; `capture` runs e2e with `--audio` unless `--no-audio`): the session's `audio.jsonl` is cut
 per scenario by the results' `tick_start` / `tick_end` (e2e.py writes GetTickCount at a scenario's start and end; the
