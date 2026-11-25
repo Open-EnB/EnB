@@ -1,5 +1,5 @@
 #include "client_item_property_special_maker.h"
-#include "..\..\shared\auxdata\permstr.h"	// (its PermStringInitClass static: 0x52CF40, its atexit 0x52CF70)
+// (no permstr.h: 0x52CF40 follows this object's <string> initialiser 0x52CF10, so it opens profession_requirement's)
 
 
 

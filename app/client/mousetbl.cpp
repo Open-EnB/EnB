@@ -4,7 +4,7 @@
 #include "texture.h"
 #include "rendobj.h"
 #include "matinfo.h"
-#include "..\shared\auxdata\permstr.h"
+// (no permstr.h: 0x7231C0 follows this object's code and opens the next object)
 #include "mousetbl.h"
 // MCURSOR_MAX, MouseCursorStruct and the table's declaration are in mousetbl.h (shared with smouse.cpp).
 //

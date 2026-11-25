@@ -8,7 +8,7 @@
 #include "gd_slider.h"
 #include "fontmanager.h"
 #include "ui_bio.h"
-#include "..\shared\auxdata\permstr.h"	// (its PermStringInitClass static: 0xBE5B38, initialised by 0x560880)
+// (no permstr.h: 0x560880 follows this object's <string> initialiser 0x560830, so it opens ui_buff.cpp's)
 
 extern FontManagerClass *Unknown_BE67C4;			// NAME 1 [Unknown_BE67C4]: 0xBE67C4
 

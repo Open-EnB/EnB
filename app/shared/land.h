@@ -38,7 +38,7 @@
 #define __LAND_H
 
 #include <vector>
-#include <string>
+// <string> not included: the client's land objects have no ctype<unsigned short> initialiser (std::string from <vector>)
 #include <deque>
 #include "rendobj.h"
 #include "ref_ptr.h"
