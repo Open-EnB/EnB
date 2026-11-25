@@ -4038,7 +4038,7 @@ void UIStarbaseClass::Unknown_6425D0(const char *name, const Vector3 &color)
 
 
 void Unknown_585FD0(CameraClass *camera, const Vector3 &point, Vector3 *screen);	// 0x585FD0 (cdecl: a point to the screen, z < 0 in front)  // NAME 1 [camera, point, screen]: neutral
-// NOT EXACT: 0x63F490, functional (shape: the client's Matrix3D temporaries through ??_H and its x87 copies, as 0x63E930; O4)
+// NOT EXACT: 0x63F490, functional (literal: the client keeps 0.0 on the x87 stack from the screen z test for tm[2][3], 29 rows; O4)
 // 0x63F490 (0x63AC60: an avatar's name tags put on the screen above its 'ROOTTRANSFORM' bone, sized by its distance from
 // the camera (25 / distance, at most 2), hidden when it is too far or the room's model is between them)
 void UIStarbaseClass::Unknown_63F490(UIStarbaseUnknownCCClass *savatar)
@@ -4082,11 +4082,11 @@ void UIStarbaseClass::Unknown_63F490(UIStarbaseUnknownCCClass *savatar)
 			guild = savatar->AmbientAvatar->Get_Bone_Transform("ROOTTRANSFORM");
 			guild.Adjust_Z_Translation(savatar->AmbientAvatar->Unknown_77D9F0(true) + 0.5f);
 		}
-		Unknown_585FD0(UnknownB0->Unknown6C.Peek(), guild.Get_Translation(), &screen);
-		Matrix3D guild_tm = savatar->Unknown10->Get_Transform();
-		if (screen.Z < 0.0f) {
-			guild_tm[0][3] = screen.X * 640.0f;
-			guild_tm[1][3] = screen.Y * -480.0f;
+		Vector3 guild_screen; Unknown_585FD0(UnknownB0->Unknown6C.Peek(), guild.Get_Translation(), &guild_screen);
+		Matrix3D guild_tm; guild_tm = savatar->Unknown10->Get_Transform();
+		if (guild_screen.Z < 0.0f) {
+			guild_tm[0][3] = guild_screen.X * 640.0f;
+			guild_tm[1][3] = guild_screen.Y * -480.0f;
 		} else {
 			guild_tm[0][3] = 3000.0f;
 			guild_tm[1][3] = 3000.0f;
@@ -4097,7 +4097,7 @@ void UIStarbaseClass::Unknown_63F490(UIStarbaseUnknownCCClass *savatar)
 	Matrix3D camera_tm = UnknownB0->Unknown6C->Get_Transform();
 	float distance = (tm.Get_Translation() - camera_tm.Get_Translation()).Length();
 	float scale = 25.0f / distance;
-	if (scale > 2.0f) {
+	if (2.0f < scale) {
 		scale = 2.0f;
 	}
 	savatar->NameTag->Unknown2F4[0] = scale;
