@@ -61,7 +61,7 @@ class GadgetClass  // NAME 5: the client's RTTI .?AVGadgetClass@@
 {
 public:
 	GadgetClass(unsigned int mask);										// 0x65ED50 (+0x10; the id from the counter 0xB8C9E0)  // NAME 1 [mask]: slot +0x34 masks its argument with it
-	virtual ~GadgetClass();												// +0x00 0x65EE60 (G_ASSERT 'Destroyed'; deleting 0x65EDD0)
+	protected: virtual ~GadgetClass(); public:												// +0x00 0x65EE60 (G_ASSERT 'Destroyed'; deleting 0x65EDD0)
 	virtual void Unknown_04();											// +0x04 0x65EF90 (empty; Destroy calls it before the delete)
 	virtual RObjGadgetClass *As_RObjGadget() { return(NULL); }		// +0x08 0x50A8C0 (the first of five 'are you a ...' slots, +0x08 to +0x1C: NULL here, the gadget itself in the class that is one; this one gd_robj.h's RObjGadgetClass, 0x51AD20)  // NAME 2: what it answers (D239: named after the client's FAIL_IF '!gadget->As_SlotDataShortcutGadget()' of the same family)
 	virtual RObjProxyGadgetClass *As_RObjProxyGadget() { return(NULL); }								// +0x0C 0x50A8E0 (gd_proxy.h's RObjProxyGadgetClass answers this one: 0x66B510)  // NAME 2: what it answers (D239: named after the client's FAIL_IF '!gadget->As_SlotDataShortcutGadget()' of the same family)

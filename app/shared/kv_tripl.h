@@ -61,10 +61,10 @@ public:
 
 	void Add(KVTripleClass *item);																// 0x4B9690 (line 106)  // NAME 2: describes what it does
 	void Clear();																						// 0x4B9850  // NAME 2: describes what it does
-	KVTripleClass *Find(const char *key);														// 0x4B9930 (line 126)  // NAME 2: describes what it does
+	KVTripleClass *Find(const char *key) const;														// 0x4B9930 (line 126)  // NAME 2: describes what it does
 	bool Set(const char *key, const char *value, const char *type);					// 0x4B9A70  // NAME 2: describes what it does
-	const char *Get_Type(const char *key);														// 0x4B9B60 (line 153)  // NAME 1: neutral guess
-	const char *Get_Value(const char *key);													// 0x4B9BB0 (line 164)  // NAME 2: describes what it does
+	const char *Get_Type(const char *key) const;														// 0x4B9B60 (line 153)  // NAME 1: neutral guess
+	const char *Get_Value(const char *key) const;													// 0x4B9BB0 (line 164)  // NAME 2: describes what it does
 
 	int Get_Count() const { return V.size(); }  // NAME 2: describes what it does
 	KVTripleClass *Get(int index) const;  // NAME 2: describes what it does

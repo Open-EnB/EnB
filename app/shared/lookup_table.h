@@ -35,7 +35,7 @@ struct INISection;
 class LookupTableClass : public RefCountClass  // NAME 3: by convention (D24) from the client's file lookup_table.cpp
 {
 public:
-	virtual float Lookup(float index) = 0;													// slot 2  // NAME 2: what it does (the self-test's floor->Lookup(index))
+	protected: virtual ~LookupTableClass() {} public: virtual float Lookup(float index) = 0;													// slot 2  // NAME 2: what it does (the self-test's floor->Lookup(index))
 
 	static RefCountPtr<LookupTableClass> Create(const std::string &type, INISection *section);	// 0x4ED390: by the section's Type  // NAME 2: what it does
 };

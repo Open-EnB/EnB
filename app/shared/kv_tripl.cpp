@@ -121,10 +121,10 @@ void KVTripleListClass::Clear()
 
 
 
-KVTripleClass *KVTripleListClass::Find(const char *key)
+KVTripleClass *KVTripleListClass::Find(const char *key) const
 {
 	G_ASSERT(key);
-	std::hash_map<std::string, KVTripleClass *>::iterator i = Index.find(key);
+	std::hash_map<std::string, KVTripleClass *>::const_iterator i = Index.find(key);
 	if (i == Index.end()) return 0;
 	return (*i).second;
 }
@@ -148,7 +148,7 @@ bool KVTripleListClass::Set(const char *key, const char *value, const char *type
 
 
 
-const char *KVTripleListClass::Get_Type(const char *key)
+const char *KVTripleListClass::Get_Type(const char *key) const
 {
 	G_ASSERT(key);
 	KVTripleClass *triple = Find(key);
@@ -159,7 +159,7 @@ const char *KVTripleListClass::Get_Type(const char *key)
 
 
 
-const char *KVTripleListClass::Get_Value(const char *key)
+const char *KVTripleListClass::Get_Value(const char *key) const
 {
 	G_ASSERT(key);
 	KVTripleClass *triple = Find(key);

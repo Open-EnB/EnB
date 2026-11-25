@@ -40,7 +40,7 @@ Wtime::Wtime(void)
   Update();
 }
 
-Wtime::Wtime( Wtime &other )
+Wtime::Wtime( const Wtime &other )
 {
   sign=other.sign;
   sec=other.sec;
@@ -777,14 +777,14 @@ Wtime &Wtime::operator -= (const Wtime &other)
   return *this;
 }
 
-Wtime Wtime::operator - (Wtime &other)
+Wtime Wtime::operator - (const Wtime &other) const
 {
   Wtime temp(*this);
   temp-=other;
   return(temp);
 }
 
-Wtime Wtime::operator + (Wtime &other)
+Wtime Wtime::operator + (const Wtime &other) const
 {
   Wtime temp(*this);
   temp+=other;
@@ -815,7 +815,7 @@ Wtime &Wtime::operator -= (const uint32 other)
 }
 
 
-Wtime Wtime::operator - (uint32 other)
+Wtime Wtime::operator - (uint32 other) const
 {
   Wtime temp(*this);
   temp-=other;
@@ -823,7 +823,7 @@ Wtime Wtime::operator - (uint32 other)
 }
 
 
-Wtime Wtime::operator + (uint32 other)
+Wtime Wtime::operator + (uint32 other) const
 {
   Wtime temp(*this);
   temp+=other;
@@ -848,3 +848,4 @@ Wtime &Wtime::operator = (const uint32 other)
 // EnB: Line 410 at the freeze: E&B's 0x8B94C0 (`sec += x`, ret 4) and 0x8B94E0 (usec + x: sec += sum / 1000000, usec =
 //       sum % 1000000, unsigned `mul 0x431BDE83; shr 0x12` / `div 0xF4240`), between SetUsec 0x8B94A0 and Set 0x8B9520;
 //       no callers in the client
+// EnB: Wtime::Wtime (copy), operator - and + (2026-11-25): const, as wtime.h (retail's names by the thunk order)

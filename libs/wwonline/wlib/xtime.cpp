@@ -360,7 +360,7 @@ void Xtime::set(sint32 newday, sint32 newmsec)
 // Get a timeval ptr from a Xtime class
 // May fail if timeval can't hold a year this big or small
 //
-bit8 Xtime::getTimeval(struct timeval &tv)
+bit8 Xtime::getTimeval(struct timeval &tv) const
 {
   // A timeval can only hold dates from 1970-2038
   if ((day_ < 719528) || (day_ >= 719528+24855))
@@ -646,14 +646,14 @@ Xtime &Xtime::operator -= (const Xtime &other)
   return *this;
 }
 
-Xtime Xtime::operator - (Xtime &other)
+Xtime Xtime::operator - (const Xtime &other) const
 {
   Xtime temp(*this);
   temp-=other;
   return(temp);
 }
 
-Xtime Xtime::operator + (Xtime &other)
+Xtime Xtime::operator + (const Xtime &other) const
 {
   Xtime temp(*this);
   temp+=other;
@@ -683,7 +683,7 @@ Xtime &Xtime::operator -= (const time_t other)
 }
 
 
-Xtime Xtime::operator - (time_t other)
+Xtime Xtime::operator - (time_t other) const
 {
   Xtime temp(*this);
   temp-=other;
@@ -691,7 +691,7 @@ Xtime Xtime::operator - (time_t other)
 }
 
 
-Xtime Xtime::operator + (time_t other)
+Xtime Xtime::operator + (time_t other) const
 {
   Xtime temp(*this);
   temp+=other;
@@ -721,3 +721,4 @@ Xtime &Xtime::operator = (const time_t other)
 //       Get_Date_From_Day (its only caller once getYDay is gone; the static is not emitted)
 // EnB: Xtime::getTime (line 413 at the freeze): E&B's getTime 0x8BAA50 stops the month search on
 //       DaysAtMonth[isleap][i] > dayofyear (`cmp [eax], edi; jg`), matchbot's on >= (`jge`)
+// EnB: Xtime::getTimeval, operator - and + (2026-11-25): const members, as xtime.h (retail's names by the thunk order)

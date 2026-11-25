@@ -33,7 +33,7 @@ class Font32Class : public FontClass, public RefCountClass							// NAME 2: what
 
 		SurfaceClass * Peek_Surface(void) { return(Surface.Peek()); }						// 0x6BC930  // NAME 2 [Peek_Surface]: Westwood's Peek_ style
 		void Print_To_Surface(char const * str, SurfaceClass * dest);				// 0x6BC950 (FontSys 0x6D8DC0)  // NAME 2 [Print_To_Surface]: copies each character's cells to dest
-		void Update_Resolution(void);												// 0x6BCDE0, inlined into Load_Font_Image  // NAME 2 [Update_Resolution]: ScreenWidth / ScreenHeight from WW3D
+		protected: void Update_Resolution(void);												// 0x6BCDE0, inlined into Load_Font_Image  // NAME 2 [Update_Resolution]: ScreenWidth / ScreenHeight from WW3D
 
 	protected:
 		void Minimize_Font_Image(SurfaceClass * surface);								// 0x6BBE20, no caller (font3d.cpp's name, NAME 4)

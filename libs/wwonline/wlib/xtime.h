@@ -90,7 +90,7 @@ class Xtime
 
     void      set(sint32 newday, sint32 newmsec);
 
-    bit8      getTimeval(struct timeval &tv);
+    bit8      getTimeval(struct timeval &tv) const;
 
     // All of these may return -1 if the time is invalid
     int    getSecond(void) const; // Second (0-60) (60 is for a leap second)
@@ -130,13 +130,13 @@ class Xtime
     // signed
     Xtime   &operator += (const Xtime &other);
     Xtime   &operator -= (const Xtime &other);
-    Xtime    operator +  (Xtime &other);
-    Xtime    operator -  (Xtime &other);
+    Xtime    operator +  (const Xtime &other) const;
+    Xtime    operator -  (const Xtime &other) const;
 
     Xtime   &operator += (const time_t other);
     Xtime   &operator -= (const time_t other);
-    Xtime    operator +  (time_t other);
-    Xtime    operator -  (time_t other);
+    Xtime    operator +  (time_t other) const;
+    Xtime    operator -  (time_t other) const;
 
   protected:
     sint32    day_;    // days since Jan 1, 0
@@ -157,3 +157,7 @@ class Xtime
 //       0x8BA810)
 // EnB: class Xtime (line 101 at the freeze): not in the client's xtime object (setTime 0x8BA940 is followed by getTime
 //       0x8BAA50)
+// EnB: Xtime::getTimeval, operator + and - (lines 93, 133-134, 138-139, 2026-11-25): const members, the Xtime
+//       operands const references, retail's decorated names by the thunk order (IM3 / N1: ?getTimeval@Xtime@@QBE,
+//       ??GXtime@@QBE?AV0@J@Z, ??HXtime@@QBE?AV0@J@Z, ??GXtime@@QBE?AV0@ABV0@@Z, ??HXtime@@QBE?AV0@ABV0@@Z hash into
+//       the bucket windows of the slots of 0x8BA8B0, 0x8BB890, 0x8BB930, 0x8BB620, 0x8BB6A0); same code

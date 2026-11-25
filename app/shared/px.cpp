@@ -175,7 +175,7 @@ PxBox::~PxBox()
 
 
 // 0x44BA70
-void PxBox::Get_Corners(Vector3 *low, Vector3 *high)
+void PxBox::Get_Corners(Vector3 *low, Vector3 *high) const
 {
 	FAIL_IF(!(low && high)) return;
 	*low = Low->Pos;

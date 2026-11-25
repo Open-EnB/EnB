@@ -28,7 +28,7 @@ public:
 
 	void Write_Flags(RawPacketClass *raw, unsigned int flags);	// 0x887680 (1, 2 or 4 bytes)  // NAME 2: what it does
 	void Read_Flags(RawPacketClass *raw, unsigned int *flags);	// 0x8877B0  // NAME 2: what it does
-	int Get_Flag_Size();	// 0x887880 (the bytes Write_Flags writes)  // NAME 2: what it returns
+	protected: int Get_Flag_Size();	// 0x887880 (the bytes Write_Flags writes)  // NAME 2: what it returns
 };
 
 void Add_Flagged(RawPacketClass *raw, unsigned int flags, int flag, const void *data, int len);	// 0x887570  // NAME 2: what it does
