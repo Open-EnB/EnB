@@ -320,6 +320,68 @@ for k in range(0, 5):
     FORMS['goto_d%d' % k] = goto(k)
     FORMS['goto23_d%d' % k] = c23(k)
 
+# ==== v8_5646a0.py ====
+import subprocess
+
+HYPOTHESIS = (
+    'FB2 batch 8 on 0x5646A0: batch 7 made it exact with one label-call statement for cases 2 and 3 (goto) and 3-4 '
+    'dead reads: the count of copies before VC6\'s merge settles the _Eos row. A goto is not how the client would '
+    'spell it: the same state through an inline helper for the label call (in case 3, cases 2-3, cases 0-1, all '
+    'four), and other pairs sharing by goto (0-1), each over 0-6 dead reads.'
+)
+FILE = 'app/client/ui_chat_panel.cpp'
+SYMBOL = 'ChatPanelInterface::Unknown_5646A0'
+ADDRESS = 0x5646A0
+
+A, Z = '// @0x5646A0\n', '// 0x564F50\n'
+WORK = open(FILE, encoding='utf-8', newline='').read().replace('\r\n', '\n')
+HEAD = subprocess.run(['git', 'show', 'dfc8c61da:' + FILE], capture_output=True).stdout.decode('utf-8').replace('\r\n', '\n')
+WREG = WORK[WORK.index(A):WORK.index(Z)]
+HREG = HEAD[HEAD.index(A):HEAD.index(Z)]
+DEAD = '\tUnknown148 = channel; Unknown238.size();\t// dead read'
+assert DEAD in HREG
+DEADLINE = HREG[HREG.index(DEAD):HREG.index('\n', HREG.index(DEAD)) + 1]
+B4 = '\t\t\t\tChatInt->Unknown_B4(Unknown_B7C2B8[Unknown148]);\n'
+CALL = '\t\t\t\tUnknown_Call_B4(this);\n'
+FN = 'static inline void Unknown_Call_B4(ChatPanelInterface *self) { self->ChatInt->Unknown_B4(Unknown_B7C2B8[self->Unknown148]); } // NAME 1: neutral\n'
+LIT = ['"Broadcast"', '"Local"', '"Guild"', '"Group"']
+
+
+def dead(reg, k):
+    return reg.replace(DEADLINE, '\tUnknown148 = channel;%s\n' % (' Unknown238.size();' * k))
+
+
+def helper(cases, k):
+    reg = dead(HREG, k)
+    for c in cases:
+        old = '\t\t\t\tUnknown238 = %s;\n' % LIT[c] + B4
+        assert reg.count(old) == 1
+        reg = reg.replace(old, '\t\t\t\tUnknown238 = %s;\n' % LIT[c] + CALL)
+    return FN + reg
+
+
+def goto(src, dst, k):
+    reg = dead(HREG, k)
+    old = '\t\t\t\tUnknown238 = %s;\n' % LIT[src] + B4 + '\t\t\t\tbreak;\n'
+    assert reg.count(old) == 1
+    reg = reg.replace(old, '\t\t\t\tUnknown238 = %s;\n\t\t\t\tgoto show;\n' % LIT[src])
+    old = '\t\t\t\tUnknown238 = %s;\n' % LIT[dst] + B4
+    reg = reg.replace(old, '\t\t\t\tUnknown238 = %s;\nshow:\n' % LIT[dst] + B4)
+    return reg
+
+
+FORMS = {}
+for k in range(0, 7):
+    FORMS['h_all_d%d' % k] = [(WREG, helper([0, 1, 2, 3], k))]
+    FORMS['h_3_d%d' % k] = [(WREG, helper([3], k))]
+    FORMS['h_23_d%d' % k] = [(WREG, helper([2, 3], k))]
+    FORMS['h_01_d%d' % k] = [(WREG, helper([0, 1], k))]
+    FORMS['h_2_d%d' % k] = [(WREG, helper([2], k))]
+for k in range(0, 5):
+    FORMS['goto01_d%d' % k] = [(WREG, goto(0, 1, k))]
+    FORMS['goto13_d%d' % k] = [(WREG, goto(1, 3, k))]
+FORMS['head_d1'] = [(WREG, HREG)]
+
 # ==== sib.py (reads every inlined _Eos row of a batch's objects) ====
 """Per form of a trybatch batch: every `mov byte ptr [reg + reg], 0` of our function with the two rows before it
 (the inlined _Eos sites), so a form is read apart from the budget / layout state.

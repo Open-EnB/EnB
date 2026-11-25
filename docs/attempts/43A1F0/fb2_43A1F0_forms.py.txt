@@ -229,6 +229,61 @@ for new in ('section', 'sec', 's', 'entry_section', 'node'):
 for new in ('buffer', 'buf', 'value', 'str'):
     FORMS['temp_as_' + new] = [(BODY, rename(BODY, 'temp', new))]
 
+# ==== v6_43a1f0.py ====
+HYPOTHESIS = (
+    'FB2 batch 6 on 0x43A1F0 (new lever, exact on 0x5C5DB0 and 0x5646A0 the same day): VC6 counts a statement the '
+    'source repeats in both branches of a test before its late tail merge, and the count moves roles elsewhere in '
+    'the function (0x5646A0: a copy fewer in case 2 changed case 3). Load_INI has two branch pairs whose next '
+    'statement can be written in both: the section loop\'s start after the Global block (a use of this) and the '
+    'loop\'s step after the theme block (ini_section); each and both, over the budget devices (0-3 raises, 0-2 dead '
+    'size() reads), read by residue and by roles.'
+)
+FILE = 'app/audio/musicmanager.cpp'
+SYMBOL = 'MusicManagerClass::Load_INI'
+ADDRESS = 0x43A1F0
+
+GLOBAL_END = (
+    '\t\tSilenceMax = (int)(MusicINI->Get_Float(section, "SilenceMax", 0.0f) * 1000.0f);\n'
+    '\t}\n'
+    '\tfor (INISection *ini_section = MusicINI->Get_Section_List().First_Valid(); ini_section != NULL; ini_section = ini_section->Next_Valid()) {\n'
+)
+FIRST = 'ini_section = MusicINI->Get_Section_List().First_Valid();'
+DEV = '\t\t\t\tif (0) { MusicINI->Is_Loaded(); } if (0) { MusicINI->Is_Loaded(); } Themes[theme_type].push_back(theme); Themes[theme_type].size();\n'
+TAIL = DEV + '\t\t\t}\n\t\t}\n\t}\n\tIsLoaded = true;\n'
+NEXT = 'ini_section = ini_section->Next_Valid();'
+
+
+def dev(r, d):
+    return '\t\t\t\t' + 'if (0) { MusicINI->Is_Loaded(); } ' * r + 'Themes[theme_type].push_back(theme);' + ' Themes[theme_type].size();' * d + '\n'
+
+
+def form(l1, l2, r, d):
+    step = '' if l2 else ' ' + NEXT[:-1]
+    if l1:
+        head = (GLOBAL_END,
+                '\t\tSilenceMax = (int)(MusicINI->Get_Float(section, "SilenceMax", 0.0f) * 1000.0f); INISection *ini_section; %s\n'
+                '\t} else { %s }\n'
+                '\tfor (; ini_section != NULL;%s) {\n' % (FIRST, FIRST.replace('ini_section = ', 'ini_section = '), step))
+        head = (GLOBAL_END, head[1].replace('INISection *ini_section; ' + FIRST, FIRST))
+        decl = ('\tchar section[32];\n\t_snprintf(section', '\tchar section[32]; INISection *ini_section;\n\t_snprintf(section')
+        edits = [decl, head]
+    else:
+        edits = [(GLOBAL_END, GLOBAL_END.replace(' ini_section = ini_section->Next_Valid()) {', '%s) {' % step))] if l2 else []
+    if l2:
+        tail = dev(r, d) + '\t\t\t}\n\t\t\t%s\n\t\t} else { %s }\n\t}\n\tIsLoaded = true;\n' % (NEXT, NEXT)
+    else:
+        tail = dev(r, d) + '\t\t\t}\n\t\t}\n\t}\n\tIsLoaded = true;\n'
+    edits.append((TAIL, tail))
+    return edits
+
+
+FORMS = {}
+for r in (0, 1, 2, 3):
+    for d in (0, 1, 2):
+        FORMS['first_r%d_d%d' % (r, d)] = form(True, False, r, d)
+        FORMS['next_r%d_d%d' % (r, d)] = form(False, True, r, d)
+        FORMS['both_r%d_d%d' % (r, d)] = form(True, True, r, d)
+
 # ==== roles43.py ====
 """Per form of a trybatch batch on 0x43A1F0: the rows of ours from the strncmp call to the first Get_String call
 (the reloads of this / name and the registers they take), the row count and the real differing rows.
