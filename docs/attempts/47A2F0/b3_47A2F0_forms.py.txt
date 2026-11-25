@@ -148,3 +148,45 @@ FORMS = {
     'blk2': _form({653: T2 + '{ RefCountPtr<MeshClass> shadow;', 662: L(662) + ' }'}),
     'shadow_null': _form({653: T2 + 'RefCountPtr<MeshClass> shadow = NULL;'}),
 }
+# ===== v5_47A2F0.py
+HYPOTHESIS = ('B3 b5 (0x47A2F0, the definition-count lever of 2026-11-24, workflow 3.1.2: VC6 orders commutative x87 '
+              'operands by how many definitions a variable has in the whole function; 0x454730 exact with exactly four '
+              'dead-initialised ints): sweep k = 1..10 dead-initialised int locals at the function top, and k = 1..4 '
+              'at the shadow block, against the -X temp loaded first in our nine products')
+FILE = 'app/shared/unknown_474530.cpp'
+SYMBOL = 'LandClass::Build_Decorations'
+ADDRESS = 0x47A2F0
+
+_SRC = open(FILE, encoding='latin-1', newline='').read()
+_LINES = _SRC.split('\n')
+_A, _B = 645, 790
+
+
+def _form(edits):
+    new = list(_LINES)
+    for n, t in edits.items():
+        new[n - 1] = t
+    return [('\n'.join(_LINES[_A - 1:_B]), '\n'.join(new[_A - 1:_B]))]
+
+
+def L(n):
+    return _LINES[n - 1]
+
+
+assert L(645).strip() == 'int i;'
+assert L(768).strip() == 'Quaternion q;'
+
+
+def top(k):
+    return _form({645: '\tint i;' + ''.join(' int dead%d = 0;' % j for j in range(k))})
+
+
+def shadow(k):
+    return _form({768: '\t\t\t\t\t\t' + ''.join('int dead%d = 0; ' % j for j in range(k)) + 'Quaternion q;'})
+
+
+FORMS = {}
+for k in range(1, 11):
+    FORMS['top%d' % k] = top(k)
+for k in range(1, 5):
+    FORMS['sh%d' % k] = shadow(k)
