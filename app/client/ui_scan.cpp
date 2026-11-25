@@ -36,7 +36,7 @@ static const char *UIScanButtonNames[] = {	// NAME 2: what it holds
 };
 
 // @0x60D800
-UIScanClass::UIScanClass(UIViewClass *view, LayerClass *layer) :
+ScannerInterface::ScannerInterface(UIViewClass *view, LayerClass *layer) :
 	Unknown5BE980Class(view, NULL, *layer),
 	UIMesh(NULL),
 	Unknown198(-1),
@@ -49,10 +49,10 @@ UIScanClass::UIScanClass(UIViewClass *view, LayerClass *layer) :
 
 // (exact with the threat's +0x14 / +0x30 as RefCountPtr members and a plain 'delete InterruptInfo', its null test the delete's own; TL1)
 // @0x60DF90
-UIScanClass::~UIScanClass()
+ScannerInterface::~ScannerInterface()
 {
 	if (Object != NULL) {
-		Unknown_4F7EF0().Remove(Object, this, &UIScanClass::Unknown_60ED10, PlayerObjectRelationshipChangeEvent());
+		Unknown_4F7EF0().Remove(Object, this, &ScannerInterface::Unknown_60ED10, PlayerObjectRelationshipChangeEvent());
 	}
 	REF_PTR_RELEASE(Verb);
 	delete InterruptInfo;
@@ -67,7 +67,7 @@ UIScanClass::~UIScanClass()
 
 // NOT EXACT: functional (WE9; similarity 0.59): the verb window's and the fonts' set-up order and registers
 // @0x60D8D0
-void UIScanClass::Unknown_54()
+void ScannerInterface::Unknown_54()
 {
 	Create_Mesh();
 
@@ -241,7 +241,7 @@ void UIScanClass::Unknown_54()
 }
 
 // @0x60DEA0 (out of line, no caller; inline in 0x60D8D0): the 'TSI08A' mesh, placed at the screen's lower right, as the display's model
-void UIScanClass::Create_Mesh()
+void ScannerInterface::Create_Mesh()
 {
 
 
@@ -277,7 +277,7 @@ void UIScanClass::Create_Mesh()
 }
 
 // @0x60E1E0
-void UIScanClass::Unknown_58()
+void ScannerInterface::Unknown_58()
 {
 	if (!Active) {
 		InterfaceSortScopeClass sort(this);
@@ -292,7 +292,7 @@ void UIScanClass::Unknown_58()
 }
 
 // @0x60E2C0
-void UIScanClass::Unknown_5C()
+void ScannerInterface::Unknown_5C()
 {
 	if (Active) {
 		if (RObj->Peek_Scene() != NULL) {
@@ -304,7 +304,7 @@ void UIScanClass::Unknown_5C()
 
 // NOT EXACT: register (TL1; similarity 0.54, WE9's 0.51): the client keeps the key's slot for next and this in ecx, tests the key as -5 then dec, dec
 // @0x60E300
-bool UIScanClass::Unknown_68(int key)
+bool ScannerInterface::Unknown_68(int key)
 {
 	bool modifier = (Unknown_BE5F34 & 0x70) != 0;
 	bool control = (Unknown_BE5F34 & 0x800) != 0;
@@ -471,7 +471,7 @@ bool UIScanClass::Unknown_68(int key)
 
 // (exact with the gadget's Is_Unknown2C_08(): its bool return gives the client's shr / test dl, 1; TL1)
 // @0x60E480
-void UIScanClass::Unknown_60()
+void ScannerInterface::Unknown_60()
 {
 	Client->As_Space_Client();
 	SClient *sclient = Client->As_Space_Client();
@@ -491,7 +491,7 @@ void UIScanClass::Unknown_60()
 }
 
 // @0x60E540
-void UIScanClass::Unknown_60E540(ClientObjectClass *target, const std::string &assessment, const std::string &sound, int level)
+void ScannerInterface::Unknown_60E540(ClientObjectClass *target, const std::string &assessment, const std::string &sound, int level)
 {
 	Unknown_88(target);
 	Unknown_60ED60(target, assessment, sound, level);
@@ -499,18 +499,18 @@ void UIScanClass::Unknown_60E540(ClientObjectClass *target, const std::string &a
 
 // NOT EXACT: order (WE9; similarity 0.85): the client builds the old target's Remove arguments before calling 0x4F7EF0, ours after
 // @0x60E580
-void UIScanClass::Unknown_88(ClientObjectClass *object)
+void ScannerInterface::Unknown_88(ClientObjectClass *object)
 {
 	ClientObjectClass *old = Object;
 	if (object != old) {
 		Unknown_80();
 		if (old != NULL) {
-			Unknown_4F7EF0().Remove(old, this, &UIScanClass::Unknown_60ED10, PlayerObjectRelationshipChangeEvent());
+			Unknown_4F7EF0().Remove(old, this, &ScannerInterface::Unknown_60ED10, PlayerObjectRelationshipChangeEvent());
 			InterruptInfo->Unknown_60FEE0();
 		}
 		UIMFDClass::Unknown_88(object);
 		if (object != NULL) {
-			Unknown_4F7EF0().Add(object, this, &UIScanClass::Unknown_60ED10, PlayerObjectRelationshipChangeEvent());
+			Unknown_4F7EF0().Add(object, this, &ScannerInterface::Unknown_60ED10, PlayerObjectRelationshipChangeEvent());
 		}
 		Unknown_60EFE0(object);
 		Verb->Unknown_88(Object);
@@ -519,7 +519,7 @@ void UIScanClass::Unknown_88(ClientObjectClass *object)
 	}
 }
 
-// (inline in UIScanClass's destructor 0x60DF90)
+// (inline in ScannerInterface's destructor 0x60DF90)
 UIScanThreatClass::~UIScanThreatClass()
 {
 	bool active = Owner->Is_Active();
@@ -556,7 +556,7 @@ template DeltaStringClass *Unknown_Find_Field<DeltaStringClass>(DeltaCompoundCla
 // layers, and with them the cleared name's assign(const char *, size_type) (0x42D050); the client also reads the time through 0x60ECD0 (the
 // time field's Get_Value, declared in the class and defined inline after it in delta_template.h, D3 2026-11-22); registers differ
 // @0x60E6A0
-void UIScanClass::Unknown_60E6A0(ClientObjectClass *object)
+void ScannerInterface::Unknown_60E6A0(ClientObjectClass *object)
 {
 
 
@@ -641,7 +641,7 @@ void Unknown59E2C0Class::Unknown_60ECA0(DurationClass time)
 
 
 // @0x60ECF0
-SClient *UIScanClass::Get_Space_Client()
+SClient *ScannerInterface::Get_Space_Client()
 {
 	return(Client->As_Space_Client());
 }
@@ -656,7 +656,7 @@ SClient *UIScanClass::Get_Space_Client()
 
 
 // @0x60ED10
-void UIScanClass::Unknown_60ED10(PlayerObjectRelationshipChangeEvent *event, ClientObjectClass *object)
+void ScannerInterface::Unknown_60ED10(PlayerObjectRelationshipChangeEvent *event, ClientObjectClass *object)
 {
 	FAIL_IF(object != Peek_Object()) return;
 	Unknown_60EFE0(object);
@@ -675,7 +675,7 @@ void UIScanClass::Unknown_60ED10(PlayerObjectRelationshipChangeEvent *event, Cli
 
 
 // @0x60ED60
-void UIScanClass::Unknown_60ED60(ClientObjectClass *target, const std::string &assessment, const std::string &sound, int level)
+void ScannerInterface::Unknown_60ED60(ClientObjectClass *target, const std::string &assessment, const std::string &sound, int level)
 {
 	if (!target) {
 		ConFont->Set_Hidden(1);
@@ -706,7 +706,7 @@ void UIScanClass::Unknown_60ED60(ClientObjectClass *target, const std::string &a
 
 
 // @0x60EFE0
-void UIScanClass::Unknown_60EFE0(ClientObjectClass *object)
+void ScannerInterface::Unknown_60EFE0(ClientObjectClass *object)
 {
 	if (!object) {
 		ConFont->Set_Hidden(1);
@@ -726,7 +726,7 @@ void UIScanClass::Unknown_60EFE0(ClientObjectClass *object)
 	ConFont->Set_Color(color.Color1);
 }
 
-TargetingClass *UIScanClass::Get_Targeting()	// @0x60F110 (out of line, no caller; inline in 0x60E300): the cockpit's targeting, through the client
+TargetingClass *ScannerInterface::Get_Targeting()	// @0x60F110 (out of line, no caller; inline in 0x60E300): the cockpit's targeting, through the client
 {
 
 
@@ -745,7 +745,7 @@ TargetingClass *UIScanClass::Get_Targeting()	// @0x60F110 (out of line, no calle
 
 // NOT EXACT: frame / order (IB2; similarity 0.66): the Reputation finds out of line as the client (0x610370) through two inline layers typed <DeltaCompoundClass>; the client tail-merges only cases 2 and 5
 // @0x60F1A0
-void UIScanClass::Unknown_60F1A0(bool arg)
+void ScannerInterface::Unknown_60F1A0(bool arg)
 {
 	if (arg) {
 		FactionFont->Set_Hidden(1);
@@ -999,7 +999,7 @@ void UIScanClass::Unknown_60F1A0(bool arg)
 
 
 // @0x60FBA0
-UIScanThreatClass::UIScanThreatClass(UIScanClass *owner) : Owner(owner), AbilityName(""), Unknown18(false), Unknown20(0), Unknown28(0), Unknown2C(NULL)
+UIScanThreatClass::UIScanThreatClass(ScannerInterface *owner) : Owner(owner), AbilityName(""), Unknown18(false), Unknown20(0), Unknown28(0), Unknown2C(NULL)
 {
 }
 

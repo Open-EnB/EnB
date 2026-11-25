@@ -27,7 +27,7 @@
 class GadgetCollectionInterface;
 class DynamicElementGadgetClass;
 
-class UIItemExaminationAttributeClass : public DynamicWindowHorizontalClass  // NAME 2 [UIItemExaminationAttributeClass]: from 'ATTRIBUTE00_IEI00', as UIItemExaminationOptionClass
+class UIItemExaminationAttributeClass : public DynamicWindowHorizontalClass  // NAME 2 [UIItemExaminationAttributeClass]: from 'ATTRIBUTE00_IEI00', as ItemOptionObject
 {
 public:
 	UIItemExaminationAttributeClass(const RefCountPtr<ClientItemPropertyAttributeClass> &attribute, GadgetCollectionInterface *listener);	// 0x533450  // NAME 1 [attribute, listener]

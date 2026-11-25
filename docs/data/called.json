@@ -2553,7 +2553,7 @@
 "data:??_R0PBV?$MemberCallback@VClientObjectClass@@VRadarDataClass@@P82@AEXPAVPlayerObjectRelationshipChangeEvent@@PAV1@@ZV3@@SignalBaseClass@@@8": [
 "0xB9F0D0"
 ],
-"data:??_R0PBV?$MemberCallback@VClientObjectClass@@VUIScanClass@@P82@AEXPAVPlayerObjectRelationshipChangeEvent@@PAV1@@ZV3@@SignalBaseClass@@@8": [
+"data:??_R0PBV?$MemberCallback@VClientObjectClass@@VScannerInterface@@P82@AEXPAVPlayerObjectRelationshipChangeEvent@@PAV1@@ZV3@@SignalBaseClass@@@8": [
 "0xB88B50"
 ],
 "data:??_R0PBV?$MemberCallback@VControlKeysManager@@VInterfaceClass@@P82@AEXPAVKeysSavedEvent@@PAV1@@ZV3@@SignalBaseClass@@@8": [
@@ -2583,7 +2583,7 @@
 "data:??_R0PBV?$MemberCallback@VGadgetClass@@VStarbaseShipCustomizeInterface@@P82@AEXPAVFlashingGadgetEvent@@PAV1@@ZV3@@SignalBaseClass@@@8": [
 "0xB89BB0"
 ],
-"data:??_R0PBV?$MemberCallback@VGadgetClass@@VUIViewUnknown30Class@@P82@AEXPAVDestroyGadgetEvent@@PAV1@@ZV3@@SignalBaseClass@@@8": [
+"data:??_R0PBV?$MemberCallback@VGadgetClass@@VToolTipClass@@P82@AEXPAVDestroyGadgetEvent@@PAV1@@ZV3@@SignalBaseClass@@@8": [
 "0xB91998"
 ],
 "data:??_R0PBV?$MemberCallback@VGadgetCollectionInterface@@VToggleButtonDynamicWindow@@P82@AEXPAVGadgetEvent@@PAV1@@ZV3@@SignalBaseClass@@@8": [
@@ -2595,16 +2595,16 @@
 "data:??_R0PBV?$MemberCallback@VOptionFontInterface@@VChatPanelInterface@@P82@AEXPAVOptionFontInterfaceEvent@@PAV1@@ZV3@@SignalBaseClass@@@8": [
 "0xB7D308"
 ],
+"data:??_R0PBV?$MemberCallback@VSlotDataClass@@VGadgetInvSlider@@P82@AEXPAVSlotDataEventDataChange@@PAV1@@ZV3@@SignalBaseClass@@@8": [
+"0xB8D100"
+],
 "data:??_R0PBV?$MemberCallback@VSlotDataClass@@VSlotDataInterface@@P82@AEXPAVSlotDataEventDataChange@@PAV1@@ZV3@@SignalBaseClass@@@8": [
 "0xB8A5E8"
 ],
 "data:??_R0PBV?$MemberCallback@VSlotDataClass@@VSlotDataShortcutInterface@@P82@AEXPAVSlotDataEventDataChange@@PAV1@@ZV3@@SignalBaseClass@@@8": [
 "0xB8A7B8"
 ],
-"data:??_R0PBV?$MemberCallback@VSlotDataClass@@VUnknown669FB0Class@@P82@AEXPAVSlotDataEventDataChange@@PAV1@@ZV3@@SignalBaseClass@@@8": [
-"0xB8D100"
-],
-"data:??_R0PBV?$MemberCallback@VToggleButtonDynamicWindow@@VUIItemExaminationOptionClass@@P82@AEXPAVToggleButtonStateEvent@@PAV1@@ZV3@@SignalBaseClass@@@8": [
+"data:??_R0PBV?$MemberCallback@VToggleButtonDynamicWindow@@VItemOptionObject@@P82@AEXPAVToggleButtonStateEvent@@PAV1@@ZV3@@SignalBaseClass@@@8": [
 "0xB789B0"
 ],
 "data:??_R0PBV?$MemberCallback@XVInterfaceClass@@P81@AEXPAVGadgetGroupToFrontEvent@@PAX@ZV2@@SignalBaseClass@@@8": [

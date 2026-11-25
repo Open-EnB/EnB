@@ -104,7 +104,7 @@ void UICpitInvClass::Unknown_54()
 	Unknown0D8 = new ButtonGadgetClass(UIMesh, "X_SPECIALS", 0x55, 3);
 	GadgetClass::Set_Tooltip(Unknown0D8, "UI_CPIT", "X_SPECIALS");
 	Unknown64.Unknown_6870E0(Unknown0D8, 9, View, 1, 0);
-	Slider = new Unknown669FB0Class(this, NULL);
+	Slider = new GadgetInvSlider(this, NULL);
 	Slider->Unknown_66E460(robj, true, 0);
 	Slider->Unknown_66A300(4, 2);
 	Unknown64.Unknown_6870E0(Slider, 10, View, 1, 0);

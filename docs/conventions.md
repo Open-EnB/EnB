@@ -382,3 +382,13 @@ Where the client's names disagree with these conventions, the client's are used;
   ClientClass +0x18, the object rs.ini's render state lists are kept in (constructor 0x763E00); no string names its
   class: `RSLRegistryClass` by D24 from the member (NAME 3; was `Unknown763E00Class`, NAME 1) in client.h and
   unknown_763e00.h / .cpp (the provisional file name stays, D137).
+* **ScannerInterface, ItemOptionObject, GadgetInvSlider, ToolTipClass (2026-11-25, M1):** the client's type
+  descriptors of four member callbacks name their receivers (`SignalBaseClass::MemberCallback<SENDER, OBJECT, ...>`'s
+  OBJECT, the class of the handler; no `.?AV` descriptor of their own): ui_scan.cpp's window is `ScannerInterface`
+  (callback table 0xAF7300, Type() 0x6101A0, the handler 0x60ED10; was `UIScanClass`, NAME 3, D24), ui_item_examination_options.cpp's
+  option `ItemOptionObject` (0xAEE684, the handler 0x536450; was `UIItemExaminationOptionClass`, NAME 2), gd_inv_slider.cpp's
+  slider `GadgetInvSlider` (0xAFA3D8, the handler 0x66A4E0; was `Unknown669FB0Class`, NAME 1) and tooltip.cpp's window
+  `ToolTipClass` (0xAFDB28, the handler 0x6AB8F0; was `UIViewUnknown30Class`, NAME 1), NAME 5, in every file's view of
+  them; symbols_named.json's `replaces` rows carry the renamed symbols. Screen: `.work/m1/cbscan.py` (every callback's
+  Sender_Type / Event_Type / Type against the client's descriptors). Left for the queued renames: SClient's
+  (`SpaceClientClass`, 0xB032D8) and InterfaceClass's (`InterfaceMemberClass`, 0xAEEF54 / 0xAEF03C).

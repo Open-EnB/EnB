@@ -27,11 +27,11 @@ class DynamicElementGadgetClass;
 class ToggleButtonDynamicWindow;
 class ToggleButtonStateEvent;
 
-class UIItemExaminationOptionClass : public DynamicWindowHorizontalClass  // NAME 2 [UIItemExaminationOptionClass]: from the file name and 'ItemOptionObject'
+class ItemOptionObject : public DynamicWindowHorizontalClass  // NAME 5 [ItemOptionObject]: the client's RTTI (the receiver of the callback 0xAEE684: MemberCallback<ToggleButtonDynamicWindow, ItemOptionObject, ...>)
 {
 public:
-	UIItemExaminationOptionClass(const RefCountPtr<ClientItemPropertyOptionClass> &option, GadgetCollectionInterface *listener);	// 0x535CB0  // NAME 1 [option, listener]
-	virtual ~UIItemExaminationOptionClass();												// +0x04 0x5362F0 (deleting 0x5362C0)
+	ItemOptionObject(const RefCountPtr<ClientItemPropertyOptionClass> &option, GadgetCollectionInterface *listener);	// 0x535CB0  // NAME 1 [option, listener]
+	virtual ~ItemOptionObject();												// +0x04 0x5362F0 (deleting 0x5362C0)
 
 protected:
 	void On_Toggle_State(ToggleButtonStateEvent *event, ToggleButtonDynamicWindow *toggle);	// 0x536450 (FAIL_IFs '!event', '!Option': the option's slot +0x18 with the state)  // NAME 1 [On_Toggle_State, toggle]; NAME 3 [event]: the FAIL_IF's

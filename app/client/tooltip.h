@@ -4,7 +4,7 @@
 **	Original location: e:\build\beta\G\app\Client\tooltip.h (name assumed from tooltip.cpp, whose __FILE__
 **	is 0xB91938; the client holds no string of this header)
 **
-**	UIViewUnknown30Class: the gadgets' tooltip window, UIViewClass +0x30 (uiview.cpp's Init 0x65A820 makes
+**	ToolTipClass: the gadgets' tooltip window, UIViewClass +0x30 (uiview.cpp's Init 0x65A820 makes
 **	it, Shutdown deletes it). 0x70 bytes; constructor 0x6AB320 ('TOOLTIPS', 'TOOLTIP_FONT'), destructor
 **	0x6AB4D0. Its code is tooltip.cpp's (0x6AB320-0x6ABE90: the EH handlers 0xAC14A9-0xAC1533 run in one
 **	block; the asserts '!Hides' line 181, 'CurGadget != gadget' line 210, 'lines > MAX_LINES' line 331).
@@ -26,13 +26,13 @@ class GadgetClass;
 class DynamicWindowClass;
 class DestroyGadgetEvent;
 
-class UIViewUnknown30Class	// NAME 1: neutral (D10)
+class ToolTipClass	// NAME 5: the client's RTTI (the receiver of the callback 0xAFDB28: MemberCallback<GadgetClass, ToolTipClass, ...>)
 {
 public:
 	enum { MAX_LINES = 20 };	// NAME 2 [MAX_LINES]: tooltip.cpp's assert 'lines > MAX_LINES' (0x6ABC60); the constructor makes 20 fonts
 
-	UIViewUnknown30Class(UIViewClass *view);			// 0x6AB320 (Init 0x65A820 passes the view)  // NAME 1 [view]: what Init passes
-	~UIViewUnknown30Class();							// 0x6AB4D0
+	ToolTipClass(UIViewClass *view);			// 0x6AB320 (Init 0x65A820 passes the view)  // NAME 1 [view]: what Init passes
+	~ToolTipClass();							// 0x6AB4D0
 	void Unknown_6AB5B0();								// 0x6AB5B0 (UIViewClass's +0x14 0x65B470: every frame; the gadget under the pointer)
 	bool Unknown_6AB850();								// 0x6AB850 (FAIL_IF '!Hides': one hide less, true when none is left)
 	bool Unknown_6AB890();								// 0x6AB890 (one hide more, the gadget dropped; true for the first)

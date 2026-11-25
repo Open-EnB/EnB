@@ -143,7 +143,7 @@ public:
 	InterfaceClass *HulkUI;								// +0xC8 (0xE4 bytes, 0x5850E0; G_ASSERT 'HulkUI' l.1208)  // NAME 3: the assert's
 	InterfaceClass *Unknown0CC;							// +0xCC (0xE4 bytes, 0x5850E0: the harvesting window)
 	UIPowerClass *Unknown0D0;						// +0xD0 (0x28 bytes, 0x5DBFC0: ui_power.h)
-	UIScanClass *Scan;									// +0xD4 (0x1B0 bytes, 0x60D800; the main view's 0x5136A0 returns it, 0x513630 calls 0x60E540 on it)  // NAME 3: its file's (ui_scan.cpp)
+	ScannerInterface *Scan;									// +0xD4 (0x1B0 bytes, 0x60D800; the main view's 0x5136A0 returns it, 0x513630 calls 0x60E540 on it)  // NAME 3: its file's (ui_scan.cpp)
 	int Unknown0D8;										// +0xD8
 	UIScutClass *UnknownDC;								// +0xDC (0xB8 bytes, 0x610570; the main view's 0x514400 returns it)
 	RefCountPtr<UIAvatarDialogClass> Unknown0E0;				// +0xE0 (0x1B4 bytes, 0x551FB0)
