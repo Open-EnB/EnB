@@ -47,7 +47,7 @@ void UIRadioJoinClass::Unknown_54()
 		for (int i = 0; i < 4; i++) {
 			Buttons[i] = Add_Button(i + 1, Unknown_B85AB0[i], NULL);
 		}
-		Entry = new TextGadgetClass(this, 4, "TEXTFIELD_Cht03", Interface_Mesh(), Unknown_B08CAC | Unknown_B08CA8 | Unknown_B08C98, 0);
+		Entry = new TextGadgetClass(this, 4, "TEXTFIELD_Cht03", Interface_Mesh(), Unknown_B08C98 | Unknown_B08CA8 | Unknown_B08CAC, 0);
 		Entry->Set_Text("", 0);
 		Unknown64.Unknown_6870E0(Entry, 6, View, 1, 0);
 		Add_Back_Gadget(0, Vector3(0.0f, 0.0f, 0.0f));

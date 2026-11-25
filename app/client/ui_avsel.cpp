@@ -1167,7 +1167,7 @@ void AvatarSelectionInterface::Unknown_55F760()
 		Unknown10C[i] = new ButtonGadgetClass(robj.Peek(), *Layer, 0x55, 3);
 		Unknown64.Unknown_6870E0(Unknown10C[i], i + 1, View, 1, 0);
 	}
-	Unknown114 = new TextGadgetClass(this, 20, "ENTRY_NAME_BUDDYREF1", BuddyReferralUI.Peek(), Unknown_B08CC0 | Unknown_B08CBC | Unknown_B08CAC, 0);
+	Unknown114 = new TextGadgetClass(this, 20, "ENTRY_NAME_BUDDYREF1", BuddyReferralUI.Peek(), Unknown_B08CAC | Unknown_B08CBC | Unknown_B08CC0, 0);
 	Unknown114->Unknown_28(Layer);
 	Unknown114->Cursor->Set_Color(Vector4(1.0f, 1.0f, 1.0f, 1.0f));
 	Unknown114->Set_Text("", false);

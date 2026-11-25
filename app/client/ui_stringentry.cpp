@@ -62,7 +62,7 @@ void UIPTradeCreditsClass::Unknown_54()
 	}
 	RefCountPtr<RenderObjClass> model = Create_Get(InterfaceMesh->Peek_Mesh_Object()->Get_Sub_Object_By_Name("TEXT_BOX"));
 	if (Unknown0C4 == 0) {
-		Unknown0AC = new TextGadgetClass(this, Unknown0C8, "VALUE_BUTTON01", model.Peek(), Unknown_B08CAC | Unknown_B08CA8 | Unknown_B08C98, 0);
+		Unknown0AC = new TextGadgetClass(this, Unknown0C8, "VALUE_BUTTON01", model.Peek(), Unknown_B08C98 | Unknown_B08CA8 | Unknown_B08CAC, 0);
 	} else if (Unknown0C4 == 1) {
 		Unknown0AC = new TextGadgetClass(this, Unknown0C8, "VALUE_BUTTON01", model.Peek(), Unknown_B08C9C | Unknown_B08CAC, 0);
 	} else {
