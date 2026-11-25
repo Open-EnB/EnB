@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-545 entries in 242 files.
+544 entries in 241 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -88,7 +88,6 @@ edit the comments in the code, not this file.
 | `app/client/debrsint.cpp:9` | `DebrisInterfaceClass::DebrisInterfaceClass` | marker | NOT EXACT: functional (D64), register-only (ebx / edi / ebp swapped; two rounds: the fade clamps' temporaries) 0x53D250 |
 | `app/client/debrsint.cpp:150` | `DebrisInterfaceClass::Unknown_68` | marker | NOT EXACT: functional (D64), order-only (key 10's colour: the red's spill after the blue's multiply) 0x53D9F0 |
 | `app/client/dynamic_window_background.cpp:407` | `DynamicWindowBackgroundClass::Fit_Size` | mention | NOT EXACT (D64): Get 0x515AB0 (marked); the data's implicit destructor 0x515E20 matches; declaring an empty destructor adds a 6-byte own-vtable store. The direct calls of the base's slots are qualified calls (DynamicWindowRenderObjectClass::...). |
-| `app/client/dynamic_window_multi_line_text.cpp:428` | `DynamicWindowMultiLineTextClass::Position_Lines` | mention | NOT EXACT (D64): the functions marked, written from the pseudocode, functional. |
 | `app/client/eff_line.cpp:258` | `LineEffectClass::Unknown_6E6030` | marker | NOT EXACT: stack slots only (every instruction is the client's once stack offsets are masked; the ax < ay result temporary stores at 0x20 where the client coalesces it into p at 0x2c, 0x6E6406 / 0x6E6434); attempts.py show 0x6E6030 |
 | `app/client/eff_seek.cpp:110` | `SpiralSeekEffectClass::Unknown_1C` | marker | NOT EXACT: shape (the frame 0xB0, the sine's slot and the kept product radius * s are the client's; the client has point above rate above direction where this has rate, direction, point, and it stores point.X before rate.X from the FPU stack, 0x6F0E3D); attempts.py show 0x6F0D40 0x6F0D40 |
 | `app/client/emote_data.cpp:91` | `EmoteDataClass::Unknown_7E6860` | marker | NOT EXACT: control flow (the switch's default reaches the stop block placed after the compare in the client, before the active block in this build) |
