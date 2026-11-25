@@ -284,6 +284,95 @@ for r in (0, 1, 2, 3):
         FORMS['next_r%d_d%d' % (r, d)] = form(False, True, r, d)
         FORMS['both_r%d_d%d' % (r, d)] = form(True, True, r, d)
 
+# ==== v7_43a1f0.py ====
+HYPOTHESIS = (
+    'FB2 batch 7 on 0x43A1F0: the first segment\'s only tests are those of the inlined Race_From_Name, between the '
+    'two blocks whose weights settle this / name; VC6 counts what the source has before its merges, so the lookup\'s '
+    'own spelling (same out-of-line code 0x43B430 / 0x43B5A0, checked with --file-check) may move them: a result '
+    'local with one return, else-if chains, the last test as if / return, nested conditionals; for the race '
+    'lookup, the type lookup, and both.'
+)
+FILE = 'app/audio/musicmanager.cpp'
+SYMBOL = 'MusicManagerClass::Load_INI'
+ADDRESS = 0x43A1F0
+
+RACE = (
+    '\tif (strcmp(name, "TERRAN") == 0) {\n'
+    '\t\treturn(0);\n'
+    '\t}\n'
+    '\tif (strcmp(name, "JENQUAI") == 0) {\n'
+    '\t\treturn(1);\n'
+    '\t}\n'
+    '\tif (strcmp(name, "OTHER") == 0) {\n'
+    '\t\treturn(8);\n'
+    '\t}\n'
+    '\treturn((strcmp(name, "PROGEN") == 0) ? 2 : 8);\n'
+)
+TYPE = (
+    '\tif (strcmp(name, "WANDER") == 0) {\n'
+    '\t\treturn(MUSIC_THEME_WANDER);\n'
+    '\t}\n'
+    '\tif (strcmp(name, "COMBAT") == 0) {\n'
+    '\t\treturn(MUSIC_THEME_COMBAT);\n'
+    '\t}\n'
+    '\tif (strcmp(name, "PLANET") == 0) {\n'
+    '\t\treturn(MUSIC_THEME_PLANET);\n'
+    '\t}\n'
+    '\tif (strcmp(name, "STARGATE") == 0) {\n'
+    '\t\treturn(MUSIC_THEME_STARGATE);\n'
+    '\t}\n'
+    '\treturn((strcmp(name, "STARBASE") == 0) ? MUSIC_THEME_STARBASE : MUSIC_THEME_WANDER);\n'
+)
+R = [('TERRAN', '0'), ('JENQUAI', '1'), ('OTHER', '8')]
+RL = ('PROGEN', '2', '8')
+T = [('WANDER', 'MUSIC_THEME_WANDER'), ('COMBAT', 'MUSIC_THEME_COMBAT'), ('PLANET', 'MUSIC_THEME_PLANET'), ('STARGATE', 'MUSIC_THEME_STARGATE')]
+TL = ('STARBASE', 'MUSIC_THEME_STARBASE', 'MUSIC_THEME_WANDER')
+
+
+def pad(text, n):
+    return text + '\n' * (n - text.count('\n'))
+
+
+def local(rows, last, n):
+    out = '\tint result;\n'
+    for i, (k, v) in enumerate(rows):
+        out += '\t%sif (strcmp(name, "%s") == 0) { result = %s; }\n' % ('else ' if i else '', k, v)
+    out += '\telse { result = (strcmp(name, "%s") == 0) ? %s : %s; }\n\treturn(result);\n' % last
+    return pad(out, n)
+
+
+def elseif(rows, last, n):
+    out = ''
+    for i, (k, v) in enumerate(rows):
+        out += '\t%sif (strcmp(name, "%s") == 0) { return(%s); }\n' % ('else ' if i else '', k, v)
+    out += '\telse { return((strcmp(name, "%s") == 0) ? %s : %s); }\n' % last
+    return pad(out, n)
+
+
+def lastif(rows, last, n):
+    out = ''
+    for k, v in rows:
+        out += '\tif (strcmp(name, "%s") == 0) { return(%s); }\n' % (k, v)
+    out += '\tif (strcmp(name, "%s") == 0) { return(%s); }\n\treturn(%s);\n' % last
+    return pad(out, n)
+
+
+def nested(rows, last, n):
+    out = '\treturn('
+    for k, v in rows:
+        out += '(strcmp(name, "%s") == 0) ? %s : ' % (k, v)
+    out += '(strcmp(name, "%s") == 0) ? %s : %s);\n' % last
+    return pad(out, n)
+
+
+FORMS = {}
+for nm, f in (('local', local), ('elseif', elseif), ('lastif', lastif), ('nested', nested)):
+    r = (RACE, f(R, RL, RACE.count('\n')))
+    t = (TYPE, f(T, TL, TYPE.count('\n')))
+    FORMS['race_' + nm] = [r]
+    FORMS['type_' + nm] = [t]
+    FORMS['both_' + nm] = [r, t]
+
 # ==== roles43.py ====
 """Per form of a trybatch batch on 0x43A1F0: the rows of ours from the strncmp call to the first Get_String call
 (the reloads of this / name and the registers they take), the row count and the real differing rows.
