@@ -283,7 +283,7 @@ void UIPetitionPlayerNameClass::Unknown_54()
 		GadgetClass::Set_Tooltip(button, "UI_PETITION_PLAYER_ENTRY", "EDIT");
 		Add_Back_Gadget(1, Vector3(0.0f, 0.0f, 0.0f));
 		RefCountPtr<RenderObjClass> entry = Create_Get(InterfaceMesh->Get_Sub_Object_By_Name("Entry_Field01"));
-		NameEditor = new TextGadgetClass(this, 0xFA, "PLAYER_NAME_hsi03a", entry.Peek(), Unknown_B08CB0 | Unknown_B08C9C, 0);
+		NameEditor = new TextGadgetClass(this, 0xFA, "PLAYER_NAME_hsi03a", entry.Peek(), Unknown_B08C9C | Unknown_B08CB0, 0);
 		NameEditor->Set_Text("Enter name or click Import Name", 0);
 		NameEditor->Set_Unknown3B(false);
 		NameEditor->Set_Unknown58(0.9f);

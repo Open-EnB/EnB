@@ -44,21 +44,21 @@ extern const int Unknown_B08C98;  // NAME 1 [Unknown_B08C98]: 0xB08C98 (textgadg
 extern const int Unknown_B08C9C;  // NAME 1 [Unknown_B08C9C]: 0xB08C9C (textgadg.h's flags)
 extern const int Unknown_B08CA0;  // NAME 1 [Unknown_B08CA0]: 0xB08CA0 (textgadg.h's flags)
 extern const int Unknown_B08CB4;  // NAME 1 [Unknown_B08CB4]: 0xB08CB4 (textgadg.h's flags)
-static const int Unknown_BE5DC8 = Unknown_B08CB4 | Unknown_B08CB8 | Unknown_B08CA0 | Unknown_B08CAC;  // NAME 1 [Unknown_BE5DC8]: 0xBE5DC8
-static const int Unknown_BE5DC4 = Unknown_B08CB8 | Unknown_B08CA0 | Unknown_B08CAC;  // NAME 1 [Unknown_BE5DC4]: 0xBE5DC4
-static const int Unknown_BE5DE4 = Unknown_B08CB8 | Unknown_B08CB4 | Unknown_B08CA0 | Unknown_B08CB0;  // NAME 1 [Unknown_BE5DE4]: 0xBE5DE4
-static const int Unknown_BE5DCC = Unknown_B08C98 | Unknown_B08CB0;  // NAME 1 [Unknown_BE5DCC]: 0xBE5DCC
-static const int Unknown_BE5DA8 = Unknown_B08CB8 | Unknown_B08CB4 | Unknown_B08C9C | Unknown_B08CB0;  // NAME 1 [Unknown_BE5DA8]: 0xBE5DA8
-static const int Unknown_BE5DB4 = Unknown_B08C90 | Unknown_B08C9C | Unknown_B08CB0;  // NAME 1 [Unknown_BE5DB4]: 0xBE5DB4
-static const int Unknown_BE5DA4 = Unknown_B08C9C | Unknown_B08CB0;  // NAME 1 [Unknown_BE5DA4]: 0xBE5DA4
-static const int Unknown_BE5DBC = Unknown_B08C90 | Unknown_B08CB8 | Unknown_B08C98 | Unknown_B08CB0;  // NAME 1 [Unknown_BE5DBC]: 0xBE5DBC
-static const int Unknown_BE5DD4 = Unknown_B08C90 | Unknown_B08CB8 | Unknown_B08CA0 | Unknown_B08CB0;  // NAME 1 [Unknown_BE5DD4]: 0xBE5DD4
-static const int Unknown_BE5DD8 = Unknown_B08CB8 | Unknown_B08CB4 | Unknown_B08CA0 | Unknown_B08CB0;  // NAME 1 [Unknown_BE5DD8]: 0xBE5DD8
-static const int Unknown_BE5DB8 = Unknown_B08C90 | Unknown_B08CA0 | Unknown_B08CAC;  // NAME 1 [Unknown_BE5DB8]: 0xBE5DB8
-static const int Unknown_BE5DAC = Unknown_B08CB8 | Unknown_B08C94 | Unknown_B08CA0 | Unknown_B08CB0;  // NAME 1 [Unknown_BE5DAC]: 0xBE5DAC
-static const int Unknown_BE5DD0 = Unknown_B08C98 | Unknown_B08CB0;  // NAME 1 [Unknown_BE5DD0]: 0xBE5DD0
-static const int Unknown_BE5DC0 = Unknown_B08C90 | Unknown_B08CA0 | Unknown_B08CB0;  // NAME 1 [Unknown_BE5DC0]: 0xBE5DC0
-static const int Unknown_BE5DB0 = Unknown_B08C98 | Unknown_B08CB0;  // NAME 1 [Unknown_BE5DB0]: 0xBE5DB0
+static const int Unknown_BE5DC8 = Unknown_B08CAC | Unknown_B08CA0 | Unknown_B08CB8 | Unknown_B08CB4;  // NAME 1 [Unknown_BE5DC8]: 0xBE5DC8
+static const int Unknown_BE5DC4 = Unknown_B08CAC | Unknown_B08CA0 | Unknown_B08CB8;  // NAME 1 [Unknown_BE5DC4]: 0xBE5DC4
+static const int Unknown_BE5DE4 = Unknown_B08CB0 | Unknown_B08CA0 | Unknown_B08CB4 | Unknown_B08CB8;  // NAME 1 [Unknown_BE5DE4]: 0xBE5DE4
+static const int Unknown_BE5DCC = Unknown_B08CB0 | Unknown_B08C98;  // NAME 1 [Unknown_BE5DCC]: 0xBE5DCC
+static const int Unknown_BE5DA8 = Unknown_B08CB0 | Unknown_B08C9C | Unknown_B08CB4 | Unknown_B08CB8;  // NAME 1 [Unknown_BE5DA8]: 0xBE5DA8
+static const int Unknown_BE5DB4 = Unknown_B08CB0 | Unknown_B08C9C | Unknown_B08C90;  // NAME 1 [Unknown_BE5DB4]: 0xBE5DB4
+static const int Unknown_BE5DA4 = Unknown_B08CB0 | Unknown_B08C9C;  // NAME 1 [Unknown_BE5DA4]: 0xBE5DA4
+static const int Unknown_BE5DBC = Unknown_B08CB0 | Unknown_B08C98 | Unknown_B08CB8 | Unknown_B08C90;  // NAME 1 [Unknown_BE5DBC]: 0xBE5DBC
+static const int Unknown_BE5DD4 = Unknown_B08CB0 | Unknown_B08CA0 | Unknown_B08CB8 | Unknown_B08C90;  // NAME 1 [Unknown_BE5DD4]: 0xBE5DD4
+static const int Unknown_BE5DD8 = Unknown_B08CB0 | Unknown_B08CA0 | Unknown_B08CB4 | Unknown_B08CB8;  // NAME 1 [Unknown_BE5DD8]: 0xBE5DD8
+static const int Unknown_BE5DB8 = Unknown_B08CAC | Unknown_B08CA0 | Unknown_B08C90;  // NAME 1 [Unknown_BE5DB8]: 0xBE5DB8
+static const int Unknown_BE5DAC = Unknown_B08CB0 | Unknown_B08CA0 | Unknown_B08C94 | Unknown_B08CB8;  // NAME 1 [Unknown_BE5DAC]: 0xBE5DAC
+static const int Unknown_BE5DD0 = Unknown_B08CB0 | Unknown_B08C98;  // NAME 1 [Unknown_BE5DD0]: 0xBE5DD0
+static const int Unknown_BE5DC0 = Unknown_B08CB0 | Unknown_B08CA0 | Unknown_B08C90;  // NAME 1 [Unknown_BE5DC0]: 0xBE5DC0
+static const int Unknown_BE5DB0 = Unknown_B08CB0 | Unknown_B08C98;  // NAME 1 [Unknown_BE5DB0]: 0xBE5DB0
 static const int Unknown_BE5DE0 = Unknown_BE5DC8;  // NAME 1 [Unknown_BE5DE0]: 0xBE5DE0
 static const int Unknown_BE5DDC = (Unknown_BE5DAC & ~Unknown_B08CB0) | Unknown_B08CAC;  // NAME 1 [Unknown_BE5DDC]: 0xBE5DDC
 static const char *Unknown_B85ECC = "()-";  // NAME 1 [Unknown_B85ECC]: client .data 0xB85ECC

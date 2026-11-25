@@ -36,7 +36,7 @@ SelectGadgetClass::SelectGadgetClass(UIViewClass *view, int max) :
 	View(view)
 {
 	Unknown_65FFA0(-1000);
-	Edit = new StrEditClass(10, NULL, Unknown_B08CAC | Unknown_B08CA8 | Unknown_B08C98, NULL);
+	Edit = new StrEditClass(10, NULL, Unknown_B08C98 | Unknown_B08CA8 | Unknown_B08CAC, NULL);
 	Bar = new Rect3DClass(Vector4(0.0f, 0.8f, 0.3f, 1.0f), Vector4(0.1f, 0.1f, 0.1f, 0.1f));
 	Frame = new Rect3DClass(Vector4(0.1f, 1.0f, 0.1f, 1.0f), Vector4(0.1f, 0.1f, 0.1f, 0.1f));
 	Back = new Rect3DClass(Vector4(0.1f, 0.1f, 0.1f, 1.0f), Vector4(0.1f, 0.1f, 0.1f, 0.1f));
