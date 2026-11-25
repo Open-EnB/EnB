@@ -60,8 +60,8 @@ public:
 	KVEncoderBaseClass(KVListClass *list, int flags, const char *prefix);	// 0x4B3850
 	virtual ~KVEncoderBaseClass();												// +0x00 0x4B3B90 (deleting 0x4B3B10)
 
-	const char *Make_Key(const char *name);									// 0x4B3D60 the prefixes, then name  // NAME 2: describes what it does
-	void Push_Prefix(const char *name);											// 0x4B40F0  // NAME 2: describes what it does
+	protected: const char *Make_Key(const char *name);									// 0x4B3D60 the prefixes, then name  // NAME 2: describes what it does
+	public: void Push_Prefix(const char *name);											// 0x4B40F0  // NAME 2: describes what it does
 	void Pop_Prefix();																// 0x4B4300  // NAME 2: describes what it does
 	void Set_Prefix(const char *prefix);										// 0x4B45B0 (the constructor inlines it)  // NAME 2: describes what it does
 	int Get_Flags() const;															// 0x4B3F30  // NAME 2: describes what it does

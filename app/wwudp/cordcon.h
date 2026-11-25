@@ -431,7 +431,7 @@ class CordCon
 public:
 	CordCon(unsigned int ip, unsigned short port, int session, unsigned short unknown0c, bool is_server,
 		UDP *udp, int stats_arg, __int64 key);
-	~CordCon();
+	private: friend class CordMgr; friend struct CordHarness; ~CordCon(); public:	// private (the thunk order, IM3 / N1): CordMgr deletes it; CordHarness: udpreplay's encryption
 
 	// Queues a message on an open channel, in 200-byte records. 0x850C70
 	bool write(int channel, unsigned int len, const void *data, int priority);
@@ -457,10 +457,10 @@ public:
 	// The record to send next: its channel, its place in the channel's list, the record. 0x854890
 	bool getHighestPriorityMessage(int *channel, int *index, Xtime &threshold, CordMessageClass **msg, Xtime &now);
 
-	void Encrypt_Data(unsigned char *data, int len, unsigned short counter);			// 0x854D00
+	private: void Encrypt_Data(unsigned char *data, int len, unsigned short counter);			// 0x854D00
 	void Decrypt_Data(unsigned char *data, int len, unsigned short counter);			// 0x854ED0 NAME 2: Encrypt_Data's other half (RC4: the same call; no caller in the client)
 	void Set_Header_CRC(unsigned char *data, int len);								// 0x854F00 (its profile string; inlined in pumpInternal, no caller)
-	void Queue_Empty_Message();														// 0x855100 NAME 2: what it does (inlined in pump, no caller)
+	public: void Queue_Empty_Message();														// 0x855100 NAME 2: what it does (inlined in pump, no caller)
 	int Unknown_84FA80();															// 0x84FA80 (D10: returns 500, CORD_MAX_PACKET; no caller)
 	bool examinePacket(unsigned char *data, int datalen);								// 0x8514D0
 	bool buildHeader(unsigned char *out, int *len, unsigned short *counter);			// 0x8551F0

@@ -34,7 +34,7 @@ public:
 	virtual int Get_Flag_Count();	// +0x28 0x883230 (7)
 
 	int Get_Size(unsigned int flags);	// 0x882E90 (the payload's bytes for these flags)  // NAME 2: what it returns
-	unsigned int Get_Flags();	// 0x882F20 (the bit of each field that differs from its default; HSVShift's Z sets bit 5 again, so bit 6 is never sent)  // NAME 2: what it returns
+	private: unsigned int Get_Flags(); public:	// 0x882F20 (the bit of each field that differs from its default; HSVShift's Z sets bit 5 again, so bit 6 is never sent)  // NAME 2: what it returns
 
 	int EffectID;	// +0x0C (flag 0)  // NAME 3: the client's Print text 'EffectID='
 	unsigned int TimeStamp;	// +0x10 (flag 1)  // NAME 3: the client's Print text 'TimeStamp='

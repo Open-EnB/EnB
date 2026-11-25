@@ -25,9 +25,9 @@ static HANDLE Unknown_BDC098;						// 0xBDC098: the loader thread's event  // NA
 static void Unknown_458150(void *arg);				// NAME 1 [Unknown_458150, arg]: neutral (D10)
 
 // 0x457B60
-RenderStateClass::RenderStateClass(RenderStateListClass *list, int id, int link_id, unsigned int flags) :
+RenderStateClass::RenderStateClass(const RenderStateListClass *list, int id, int link_id, unsigned int flags) :	// the list a const pointer: retail's ??0RenderStateClass@@QAE@PBVRenderStateListClass@@HHI@Z (thunk order, IM3 / N1)
 	Next(NULL),
-	List(list),
+	List((RenderStateListClass *)list),
 	Unknown14(NULL),
 	ID(id),
 	LinkID(link_id),
@@ -38,9 +38,9 @@ RenderStateClass::RenderStateClass(RenderStateListClass *list, int id, int link_
 }
 
 // 0x457BE0 (deleting destructor 0x457BB0)
-RenderStateClass::RenderStateClass(RenderStateListClass *list, const RenderStateClass &source) :
+RenderStateClass::RenderStateClass(const RenderStateListClass *list, const RenderStateClass &source) :
 	Next(NULL),
-	List(list),
+	List((RenderStateListClass *)list),
 	Unknown14(NULL),
 	ID(source.ID),
 	LinkID(source.LinkID),

@@ -57,7 +57,7 @@ class Wtime
   };
 
               Wtime();  // init to system time
-              Wtime( Wtime &other );
+              Wtime( const Wtime &other );
               Wtime( uint32    other );
              ~Wtime();
 
@@ -116,13 +116,13 @@ class Wtime
     // unsigned
     Wtime   &operator += (const Wtime &other);
     Wtime   &operator -= (const Wtime &other);
-    Wtime    operator +  (Wtime &other);
-    Wtime    operator -  (Wtime &other);
+    Wtime    operator +  (const Wtime &other) const;
+    Wtime    operator -  (const Wtime &other) const;
 
     Wtime   &operator += (const uint32 other);
     Wtime   &operator -= (const uint32 other);
-    Wtime    operator +  (uint32 other);
-    Wtime    operator -  (uint32 other);
+    Wtime    operator +  (uint32 other) const;
+    Wtime    operator -  (uint32 other) const;
 
   protected:
     uint32    sec;     // seconds since Jan 1, 1970
@@ -136,3 +136,8 @@ class Wtime
 // EnB: Line 46 at the freeze: msleep's declaration (0x8B8270, wtime.cpp)
 // EnB: Line 47 at the freeze: usleep's declaration (0x8B82E0, wtime.cpp)
 // EnB: class Wtime (line 76 at the freeze): E&B's two adders between SetUsec and Set (0x8B94C0, 0x8B94E0)
+// EnB: class Wtime, operator + and - (lines 119-120, 124-125, 2026-11-25): const members, the Wtime operands const
+//       references, retail's decorated names by the thunk order (IM3 / N1: ??GWtime@@QBE?AV0@K@Z,
+//       ??HWtime@@QBE?AV0@K@Z, ??GWtime@@QBE?AV0@ABV0@@Z, ??HWtime@@QBE?AV0@ABV0@@Z hash into the bucket windows of
+//       the slots of 0x8BA1D0, 0x8BA210, 0x8BA060, 0x8BA0F0); the copy constructor (line 60) takes a const reference
+//       for their copy of *this, as Xtime's (it has no thunk: inlined); same code

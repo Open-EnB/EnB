@@ -53,7 +53,7 @@ public:
 	virtual void On_Enter(PxBox *b);						// 0x44BAF0 'PxBox::On_Enter'
 	virtual void On_Exit(PxBox *b);							// 0x44BB20 'PxBox::On_Exit'
 
-	void Get_Corners(Vector3 *low, Vector3 *high);			// 0x44BA70 (FAIL_IF '!(low && high)' l.180)  // NAME 2: what it does
+	void Get_Corners(Vector3 *low, Vector3 *high) const;			// 0x44BA70 (FAIL_IF '!(low && high)' l.180)  // NAME 2: what it does
 	void Remove();											// 0x44BB50 (FAIL_IF '!List' l.200)  // NAME 2: what it does
 	void Set_Self(int self);								// 0x44BB90  // NAME 3: the dump's "Self"
 	void Set_Test(int test);								// 0x44BBD0  // NAME 3: the dump's "Test"

@@ -56,6 +56,11 @@
 #include "udp.h"
 #include "..\..\..\libs\wwonline\wlib\xtime.h"
 
+// CordCon's Encrypt_Data is private (the client's ?Encrypt_Data@CordCon@@AAEXPAEHG@Z): its friend for the harness
+struct CordHarness {
+	static void Encrypt(CordCon *con, unsigned char *data, int len, unsigned short counter) { con->Encrypt_Data(data, len, counter); }
+};
+
 extern unsigned __int64 Replay_Time_Ms;		// wtime_replay.cpp
 static int Window_Limit = 65535;
 
@@ -279,7 +284,7 @@ static void Describe(FILE *out, CordCon *by, std::vector<unsigned char> d)
 {
 	int len = (int)d.size();
 	unsigned short counter = (unsigned short)((d[3] << 8) | d[4]);
-	by->Encrypt_Data(&d[5], len - 5, counter);
+	CordHarness::Encrypt(by, &d[5], len - 5, counter);
 	unsigned char *p = &d[0];
 	int pos = 10, n = 0;
 	if (p[9] & 1) {
@@ -349,7 +354,7 @@ static void Pump_Side(FILE *out, Session *s, Side &tx, Side &rx, int n, const ch
 		s->Generated[d]++;
 		std::vector<unsigned char> copy = Replay[tx.OutSock].Out[g];
 		unsigned short counter = (unsigned short)((copy[3] << 8) | copy[4]);
-		tx.Con->Encrypt_Data(&copy[5], (int)copy.size() - 5, counter);
+		CordHarness::Encrypt(tx.Con, &copy[5], (int)copy.size() - 5, counter);
 		if (rx.Con->examinePacket(&copy[0], (int)copy.size())) {
 			s->PeerOk[d]++;
 		}
@@ -614,7 +619,7 @@ int main(int argc, char **argv)
 		wire.push_back((unsigned char)(counter >> 8));
 		wire.push_back((unsigned char)counter);
 		wire.insert(wire.end(), dump.begin(), dump.end());
-		tx.Con->Encrypt_Data(&wire[5], (int)wire.size() - 5, (unsigned short)counter);
+		CordHarness::Encrypt(tx.Con, &wire[5], (int)wire.size() - 5, (unsigned short)counter);
 		Replay[rx.Sock].In.push_back(wire);
 
 		int rejected = Cord_Harness_Counters(rx.Con)->Rejected;

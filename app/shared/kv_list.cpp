@@ -45,13 +45,13 @@ void KVListClass::Add(KVPairClass *item)
 
 
 
-KVPairClass *KVListClass::Find(const char *key)
+KVPairClass *KVListClass::Find(const char *key) const
 {
 	if (key == 0) {
 		G_ASSERT(key);
 		return 0;
 	}
-	std::hash_map<const char *, KVPairClass *, std::hash<const char *>, KeyEqual>::iterator i = Index.find(key);
+	std::hash_map<const char *, KVPairClass *, std::hash<const char *>, KeyEqual>::const_iterator i = Index.find(key);
 	if (i == Index.end()) {
 		return 0;
 	}

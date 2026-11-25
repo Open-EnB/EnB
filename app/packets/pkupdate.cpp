@@ -349,7 +349,7 @@ unsigned int AdvancedPositionalUpdatePacketClass::Get_Flags()
 	return(flags);
 }
 
-bool AdvancedPositionalUpdatePacketClass::Has_Current_Speed()
+bool AdvancedPositionalUpdatePacketClass::Has_Current_Speed() const
 {
 	return(CurrentSpeed != 0.0f);
 }
@@ -359,7 +359,7 @@ bool AdvancedPositionalUpdatePacketClass::Has_Set_Speed()
 	return(fabs(SetSpeed - CurrentSpeed) >= WWMATH_EPSILON);
 }
 
-bool AdvancedPositionalUpdatePacketClass::Has_Acceleration()
+bool AdvancedPositionalUpdatePacketClass::Has_Acceleration() const
 {
 	return(Acceleration != 0.0f && fabs(SetSpeed - CurrentSpeed) >= WWMATH_EPSILON);
 }
@@ -408,7 +408,7 @@ bool AdvancedPositionalUpdatePacketClass::Has_Imparted()
 		|| fabs(ImpartedSpin) >= FLAG_EPSILON || fabs(ImpartedRoll) >= FLAG_EPSILON || fabs(ImpartedPitch) >= FLAG_EPSILON);
 }
 
-bool AdvancedPositionalUpdatePacketClass::Has_Update_Period()
+bool AdvancedPositionalUpdatePacketClass::Has_Update_Period() const
 {
 	return(UpdatePeriod != DEFAULT_UPDATE_PERIOD);
 }
