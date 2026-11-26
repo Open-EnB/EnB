@@ -201,12 +201,12 @@ public:
 	float Unknown10C8;									// +0x10C8
 	int Unknown10CC;									// +0x10CC (32)
 	int Unknown10D0;									// +0x10D0
-	float Unknown10D4;									// +0x10D4 (-2500)
-	float Unknown10D8;									// +0x10D8 (2500)
-	float Unknown10DC;									// +0x10DC (-1e6)
-	float Unknown10E0;									// +0x10E0 (-1e6)
-	float Unknown10E4;									// +0x10E4 (1e6)
-	float Unknown10E8;									// +0x10E8 (1e6)
+	Vector2 Unknown10D4;								// +0x10D4 (-2500, 2500: the Z band: cpacket.cpp stores a packet minimum in .X, the maximum in .Y); a Vector2 built by Vector2(x, y): only that form gives the constructor 0x726100 its store order
+										// +0x10D8 is Unknown10D4.Y
+	Vector2 Unknown10DC;								// +0x10DC (-1e6, -1e6: the X / Y minimum (cpacket.cpp stores the packets' Vector2 Min)); a Vector2 built by Vector2(x, y): only that form gives the constructor 0x726100 its store order
+										// +0x10E0 is Unknown10DC.Y
+	Vector2 Unknown10E4;								// +0x10E4 (1e6, 1e6: the X / Y maximum (cpacket.cpp stores the packets' Vector2 Max)); a Vector2 built by Vector2(x, y): only that form gives the constructor 0x726100 its store order
+										// +0x10E8 is Unknown10E4.Y
 	float Unknown10EC;									// +0x10EC (SERVER_PARAMETERS 66: FogNear)
 	float Unknown10F0;									// +0x10F0 (SERVER_PARAMETERS 66: FogFar)
 	int Unknown10F4;									// +0x10F4 (SERVER_PARAMETERS 66: DebrisMode)
@@ -218,8 +218,8 @@ public:
 	float Unknown1104;									// +0x1104 (1.2217: 70 degrees in radians)
 	bool Unknown1108;									// +0x1108 (true)
 	float Unknown110C;									// +0x110C (SERVER_PARAMETERS 66: ImpulseRate)
-	float Unknown1110;									// +0x1110 (1.0)
-	float Unknown1114;									// +0x1114 (1.0)
+	Vector2 Unknown1110;								// +0x1110 (1.0, 1.0: cpacket.cpp stores a packet DecayVelocity in .X, DecaySpin in .Y); a Vector2 built by Vector2(x, y): only that form gives the constructor 0x726100 its store order
+										// +0x1114 is Unknown1110.Y
 	int Unknown1118[3];									// +0x1118 (the constructor leaves them)
 	ConnectionClass *Connection;						// +0x1124 (the asserts 'Connection')
 	int Unknown1128;									// +0x1128

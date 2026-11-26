@@ -546,13 +546,13 @@ done:
 	if (Unknown_6F5A40()) {
 		Vector3 pos = tm.Get_Translation();
 		if (PositionalState->Get_Type() != 12 && PositionalState->Get_Type() != 13 && PositionalState->Get_Type() != PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
-			if (Clamp_Changed(pos.Z, Client->Unknown10D4, Client->Unknown10D8)) {
+			if (Clamp_Changed(pos.Z, Client->Unknown10D4.X, Client->Unknown10D4.Y)) {
 				tm.Set_Translation(pos);
 			}
 		}
 		if (PositionalState->Get_Type() != 12 && PositionalState->Get_Type() != 13 && PositionalState->Get_Type() != PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
-			bool x = Clamp_Changed(pos.X, Client->Unknown10DC, Client->Unknown10E4);
-			bool y = Clamp_Changed(pos.Y, Client->Unknown10E0, Client->Unknown10E8);
+			bool x = Clamp_Changed(pos.X, Client->Unknown10DC.X, Client->Unknown10E4.X);
+			bool y = Clamp_Changed(pos.Y, Client->Unknown10DC.Y, Client->Unknown10E4.Y);
 			if (x || y) {
 				tm.Set_Translation(pos);
 			}
@@ -741,11 +741,11 @@ Vector3 ClientObjectClass::Unknown_24()
 	Vector3 pos = PositionalState->Unknown_0C(Client->Unknown10BC);
 	if (Type == 1) {
 		if (PositionalState->Get_Type() != 12 && PositionalState->Get_Type() != 13 && PositionalState->Get_Type() != PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
-			Clamp_In_Place(pos.Z, Client->Unknown10D4, Client->Unknown10D8);
+			Clamp_In_Place(pos.Z, Client->Unknown10D4.X, Client->Unknown10D4.Y);
 		}
 		if (PositionalState->Get_Type() != 12 && PositionalState->Get_Type() != 13 && PositionalState->Get_Type() != PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
-			Clamp_In_Place(pos.X, Client->Unknown10DC, Client->Unknown10E4);
-			Clamp_In_Place(pos.Y, Client->Unknown10E0, Client->Unknown10E8);
+			Clamp_In_Place(pos.X, Client->Unknown10DC.X, Client->Unknown10E4.X);
+			Clamp_In_Place(pos.Y, Client->Unknown10DC.Y, Client->Unknown10E4.Y);
 		}
 	}
 
@@ -767,7 +767,7 @@ Vector3 ClientObjectClass::Unknown_24()
 bool ClientObjectClass::Unknown_6F4E70(Vector3 &pos)
 {
 	if (PositionalState->Get_Type() != 12 && PositionalState->Get_Type() != 13 && PositionalState->Get_Type() != PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
-		return(Clamp_In_Place(pos.Z, Client->Unknown10D4, Client->Unknown10D8));
+		return(Clamp_In_Place(pos.Z, Client->Unknown10D4.X, Client->Unknown10D4.Y));
 	}
 	return(false);
 }
@@ -776,8 +776,8 @@ bool ClientObjectClass::Unknown_6F4E70(Vector3 &pos)
 bool ClientObjectClass::Unknown_6F4F30(Vector3 &pos)
 {
 	if (PositionalState->Get_Type() != 12 && PositionalState->Get_Type() != 13 && PositionalState->Get_Type() != PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
-		bool clamped = Clamp_In_Place(pos.X, Client->Unknown10DC, Client->Unknown10E4);
-		clamped |= Clamp_In_Place(pos.Y, Client->Unknown10E0, Client->Unknown10E8);
+		bool clamped = Clamp_In_Place(pos.X, Client->Unknown10DC.X, Client->Unknown10E4.X);
+		clamped |= Clamp_In_Place(pos.Y, Client->Unknown10DC.Y, Client->Unknown10E4.Y);
 		return(clamped);
 	}
 	return(false);
