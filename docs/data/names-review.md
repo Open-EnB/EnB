@@ -9,8 +9,8 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 231 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
-| 3 | by convention from a client-named file or sibling | 1970 |
-| 2 | describes what the code does | 5014 |
+| 3 | by convention from a client-named file or sibling | 1971 |
+| 2 | describes what the code does | 5015 |
 | 1 | neutral placeholder | 25205 |
 
 ## For review (score 3 and below)
@@ -3358,12 +3358,12 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_7E7780` | `app/client/emote_data.cpp:101` | untagged neutral name (D10) |
 | 1 | `Unknown10BC` | `app/client/emote_data.cpp:104` | untagged neutral name (D10) |
 | 1 | `Unknown_6F5A40` | `app/client/emote_data.cpp:105` | untagged neutral name (D10) |
+| 1 | `Unknown_7E7620` | `app/client/emote_data.cpp:132` | untagged neutral name (D10) |
 | 1 | `Unknown_7E70A0` | `app/client/emote_data.cpp:133` | untagged neutral name (D10) |
 | 1 | `Unknown_28` | `app/client/emote_data.cpp:141` | untagged neutral name (D10) |
 | 1 | `Unknown_08` | `app/client/emote_data.cpp:143` | untagged neutral name (D10) |
 | 1 | `Unknown718D70Class` | `app/client/emote_data.cpp:146` | untagged neutral name (D10) |
 | 1 | `Unknown_30` | `app/client/emote_data.cpp:146` | untagged neutral name (D10) |
-| 1 | `Unknown_7E7620` | `app/client/emote_data.cpp:152` | untagged neutral name (D10) |
 | 1 | `Unknown_18` | `app/client/emote_data.cpp:219` | untagged neutral name (D10) |
 | 1 | `Unknown_79B2B0` | `app/client/emote_data.cpp:220` | untagged neutral name (D10) |
 | 1 | `Unknown_7E76E0` | `app/client/emote_data.cpp:224` | untagged neutral name (D10) |
@@ -3382,7 +3382,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_7E79D0` | `app/client/emote_data.h:37` | untagged neutral name (D10) |
 | 1 | `Unknown_7E7A40` | `app/client/emote_data.h:38` | untagged neutral name (D10) |
 | 1 | `Unknown_7E7A70` | `app/client/emote_data.h:39` | untagged neutral name (D10) |
-| 1 | `Unknown40` | `app/client/emote_data.h:44` | untagged neutral name (D10) |
+| 1 | `Unknown40` | `app/client/emote_data.h:45` | untagged neutral name (D10) |
 | 1 | `_Points` | `app/client/enbdazzle.cpp:17` | neutral (D10) |
 | 1 | `DazzleOccluderStruct` | `app/client/enbdazzle.cpp:20` | neutral (D10): what 0x75DEE0 collects from the scene (8 bytes) |
 | 1 | `Obj` | `app/client/enbdazzle.cpp:22` | neutral |
@@ -25867,10 +25867,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `InvDuration` | `app/client/eff_seek.h:58` | what it holds |
 | 2 | `Spline` | `app/client/eff_seek.h:76` | what it is |
 | 2 | `Curve` | `app/client/eff_seek.h:93` | what it is |
-| 2 | `std:` | `app/client/emote_data.h:41` | what it holds |
-| 2 | `StartTime` | `app/client/emote_data.h:42` | what it holds |
-| 2 | `Emote` | `app/client/emote_data.h:43` | what it holds |
-| 2 | `Sound` | `app/client/emote_data.h:45` | what it holds |
+| 2 | `std:` | `app/client/emote_data.h:42` | what it holds |
+| 2 | `StartTime` | `app/client/emote_data.h:43` | what it holds |
+| 2 | `Emote` | `app/client/emote_data.h:44` | what it holds |
+| 2 | `Sound` | `app/client/emote_data.h:46` | what it holds |
 | 2 | `Client` | `app/client/enbdazzle.h:25` | what it holds |
 | 2 | `std:` | `app/client/env_map_manager.h:35` | what it holds |
 | 2 | `Load` | `app/client/env_map_manager.h:43` | what it does |
@@ -27428,6 +27428,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `CombatBar` | `app/client/ui_experience.h:34` | the mesh object's name |
 | 2 | `TradeBar` | `app/client/ui_experience.h:35` | the mesh object's name |
 | 2 | `ExploreBar` | `app/client/ui_experience.h:36` | the mesh object's name |
+| 2 | `affiliation` | `app/client/ui_faction.cpp:248` | what it holds |
 | 2 | `UIFactionPanelClass` | `app/client/ui_faction_panel.h:26` | class from file (D24), ui_faction_panel.cpp |
 | 2 | `UIFriendsPlayerInfoClass` | `app/client/ui_friends.h:20` | what PlayersInfo holds (the asserts' 'PlayersInfo', '!friend_info') |
 | 2 | `std:` | `app/client/ui_friends.h:26` | its style's |
@@ -30445,6 +30446,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `MaxErrorDist` | `app/client/eff_seek.h:92` | the constructor's FAIL_IF 'MaxErrorDist < 0.0f' |
 | 3 | `WarpEffectClass` | `app/client/eff_warp.h:22` | effect.ini's EffectClass 'WarpEffect' (0xB92F5C), which the helper 0x6EAA40 makes |
 | 3 | `emote_data.h` | `app/client/emote_data.h:14` | header name assumed from the client's emote_data.cpp |
+| 3 | `EmoteType` | `app/client/emote_data.h:41` | assumed; the client's deque copies 0x7E6570, 0x7E7B10, 0x7E7CD0, 0x7E7D70 are this file's own, not deque<int>'s 0x756xxx |
 | 3 | `_Instances` | `app/client/enbdazzle.cpp:18` | the FAIL_IF's |
 | 3 | `Compute_Dazzle_Visibility` | `app/client/enbdazzle.h:24` | the base's |
 | 3 | `env_map_manager.h` | `app/client/env_map_manager.h:15` | beside the client's env_map_manager.cpp |
