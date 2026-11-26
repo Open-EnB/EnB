@@ -27,8 +27,8 @@ Per anchor and view:
     the retail runs' angle at the same time from the anchor, give or take TIME_SLACK (0.1 s: the anchor is a
     packet's log time, a cut lands a little either side of it), for a camera that holds its place and turns after
     the ship; the tolerance at a time T from the anchor is retail's own spread there (each retail pose within 0.25 s of
-    T against the other retail runs, and each retail frame's distance from the middle of its two neighbours: a held
-    camera that shakes, as the dock camera does by about a unit on every run) plus --tol-pos / --tol-ang (0.1 unit,
+    T against the other retail runs, and each retail frame's distance from the line between its two neighbours: a
+    camera that shakes, as the dock cameras do by a unit or two on every run) plus --tol-pos / --tol-ang (0.1 unit,
     0.1 degree): a held place stays strict
     where the phase before it (a warp's arrival, a chase camera) varies between runs;
   * timing: the seconds from the anchor to the first plateau after it (the move's length), retail's range and ours.
@@ -52,36 +52,49 @@ SPREAD_WINDOW = 0.25        # seconds: the retail poses that set the tolerance a
 # anchor is the proxy's log time of a packet, not the frame the client acted in: a cut lands up to about a tenth of
 # a second either side of it on two runs)
 TIME_SLACK = 0.1
+# seconds: a run's path is the reference for the other runs' frames over its window widened this much on each side, so
+# a frame near the window's edge on one run (whose moment falls a little earlier or later) still finds the path
+REF_MARGIN = 0.5
 
 # the camera moments of the live space scenarios (test-plan SP-01 .. SP-03); each SPEC as --anchor's
 SCENARIOS = {
     # counted from the session's start (events.log holds the login too): CAMERA_CONTROL #1 is the login's sector entry
     'sp_gate': [
+        # the warp's end: the warp camera (CameraController02Class 0x797B50) cuts from the chase camera to its exit
+        # place 4.1-4.2 s before the server's WARP_INDEX (retail, four runs: the place within 85 units); the
+        # server's own warp timing moves by 0.3 s from run to run, so the anchor is its WARP_INDEX
+        ('warp_end', r"antprox:sent WARP_INDEX$#1@-6,-1"),
         # the gate's verb (ACTION) and the ship's move toward the opening gate (the chase camera)
         ('gate_verb', r"antprox:received ACTION$#1@-1,7"),
         # the server's CAMERA_CONTROL 4 (5.8 s after the verb): the stargate camera's two or three frames before the
         # loading screen
         ('stargate_camera', r"antprox:sent CAMERA_CONTROL$#2@-0.5,1"),
         ('stargate_offset', r"antprox:sent CAMERA_CONTROL$#2@-0.3,1%rel"),
-        # Saturn's sector-entry camera (before it the stargate camera's last pose stays on the screen after the load:
+        # Saturn's sector-entry camera from 0.15 s on (before it the stargate camera's last pose stays on the screen:
         # stargate_offset compares that one)
-        ('saturn_entry', r"antprox:sent CAMERA_CONTROL$#3@-0.2,8"),
+        ('saturn_entry', r"antprox:sent CAMERA_CONTROL$#3@0.15,8"),
     ],
     'sp_land': [
-        ('endriago_entry', r"antprox:sent CAMERA_CONTROL$#2@-1,8"),
+        # each window ends before the scenario's next input (Q at about +4.5 s, W at about +6.5 s): the camera's
+        # moves after it follow the harness's input timing, not the client
+        ('endriago_entry', r"antprox:sent CAMERA_CONTROL$#2@-1,4.3"),
         # the Land verb: the planet-landing camera's held place while the ship flies its spline (B-01)
         ('land', r"antprox:received ACTION$#1@-1,6"),
-        ('surface_entry', r"antprox:sent CAMERA_CONTROL$#3@-1,8"),
+        # from the CAMERA_CONTROL on: before it the surface's first view (a top-down one, turning with the server's
+        # time since its start) is all there is
+        ('surface_entry', r"antprox:sent CAMERA_CONTROL$#3@0,6"),
         # the launchpad's CAMERA_CONTROL 4 on a planet: the take-off camera (B-02), placed at an offset from the
         # ship (relative: the ship's own place at that moment follows the server's timing)
         ('takeoff', r"antprox:sent CAMERA_CONTROL$#4@-1,2"),
         ('takeoff_offset', r"antprox:sent CAMERA_CONTROL$#4@-0.3,1%rel"),
-        ('space_entry', r"antprox:sent CAMERA_CONTROL$#5@-0.2,8"),
+        ('space_entry', r"antprox:sent CAMERA_CONTROL$#5@0.15,8"),
     ],
     'sp_dock': [
-        # the Dock verb's CAMERA_CONTROL 5: the station-landing camera, about 5 s
-        ('dock', r"antprox:sent CAMERA_CONTROL$#2@-1,6"),
-        ('launch_entry', r"antprox:sent CAMERA_CONTROL$#3@-2,8"),
+        ('warp_end', r"antprox:sent WARP_INDEX$#1@-6,-1"),
+        # the Dock verb's CAMERA_CONTROL 5: the station-landing camera, about 5 s (from the CAMERA_CONTROL on: the verb
+        # is clicked 0.2 s after the warp's end, which the server's timing places)
+        ('dock', r"antprox:sent CAMERA_CONTROL$#2@0.15,6"),
+        ('launch_entry', r"antprox:sent CAMERA_CONTROL$#3@0.15,8"),
     ],
 }
 
@@ -305,12 +318,13 @@ def angle_gap(p, samples, t):
     return min(((dist(p, q)[1], q) for q in near_in_time(samples, t)), key=lambda x: x[0], default=(None, None))
 
 
-def compare_view(wins, retail, ours, tol_pos, tol_ang, view, res):
+def compare_view(wins, retail, ours, tol_pos, tol_ang, view, res, refs=None):
     """One view's series. The place: each pose of ours against the retail runs' paths (time-free: frames fall at
     other times on each run). The angle: against the retail runs' angle at the same time from the anchor (a camera
     that holds its place and turns after the ship has its angle as a function of time). The tolerance at a time:
     retail's own spread there (SPREAD_WINDOW) plus TOL_POS / TOL_ANG. WINS: {run: samples}. Fills RES['runs'][run]
     and returns the first difference or None."""
+    refs = refs or wins
     rw = [r for r in retail if wins[r]]
     spread_pts = []
     for a in rw:
@@ -318,18 +332,19 @@ def compare_view(wins, retail, ours, tol_pos, tol_ang, view, res):
         for t, fr, p in wins[a]:
             if not others:
                 continue
-            d = min(path_nearest(p, wins[b])[0] for b in others)
-            gs = [g for g, q in (angle_gap(p, wins[b], t) for b in others) if g is not None]
+            d = min(path_nearest(p, refs[b])[0] for b in others)
+            gs = [g for g, q in (angle_gap(p, refs[b], t) for b in others) if g is not None]
             spread_pts.append((t, d, min(gs) if gs else 0.0))
 
-    # each retail run's own frame-to-frame noise: a frame's distance from the middle of its two neighbours (a held
-    # camera that shakes by a unit, the dock camera's, has it on every run; a smooth move has none; a cut, where the
-    # neighbours lie more than 5 units apart, is not noise)
+    # each retail run's own frame-to-frame noise: a frame's distance from the line between its two neighbours at
+    # its time (a camera that shakes by a unit or two, the dock cameras', has it on every run; a smooth move has
+    # none whatever the frame timing; a cut, where the neighbours lie more than 200 units apart, is not noise)
     for a in rw:
         w = wins[a]
         for (t0, f0, p0), (t1, f1, p1), (t2, f2, p2) in zip(w, w[1:], w[2:]):
-            if t2 - t0 <= 0.2 and math.dist(p0[0], p2[0]) <= 5.0:
-                mid = tuple((p0[0][i] + p2[0][i]) / 2 for i in range(3))
+            if t2 - t0 <= 0.2 and t2 > t0 and math.dist(p0[0], p2[0]) <= 200.0:
+                u = (t1 - t0) / (t2 - t0)
+                mid = tuple(p0[0][i] + u * (p2[0][i] - p0[0][i]) for i in range(3))
                 spread_pts.append((t1, math.dist(p1[0], mid), 0.0))
 
     def spread_at(t):
@@ -350,8 +365,8 @@ def compare_view(wins, retail, ours, tol_pos, tol_ang, view, res):
             continue
         worst, f1, over = (0.0, 0.0), None, []
         for t, fr, p in w:
-            d, _, q = min((path_nearest(p, wins[r]) for r in rw), key=lambda x: x[0])
-            g, qa = min(((g2, q2) for g2, q2 in (angle_gap(p, wins[r], t) for r in rw) if g2 is not None),
+            d, _, q = min((path_nearest(p, refs[r]) for r in rw), key=lambda x: x[0])
+            g, qa = min(((g2, q2) for g2, q2 in (angle_gap(p, refs[r], t) for r in rw) if g2 is not None),
                         key=lambda x: x[0], default=(0.0, None))
             worst = (max(worst[0], d), max(worst[1], g))
             sp = spread_at(t)
@@ -397,10 +412,13 @@ def compare_anchor(runs, spec, tol_pos=0.1, tol_ang=0.1):
     tracks = {n: tr for n, r, tr, ev in runs}
     for v in range(nviews):
         wins = {n: window(tracks[n], anchors[n], lo, hi, v) for n in anchors if anchors[n] is not None}
+        refs = {n: window(tracks[n], anchors[n], lo - REF_MARGIN, hi + REF_MARGIN, v) for n in wins}
         unc = 0.0
         if relative_spec(spec):
-            rel = {n: make_relative(w) for n, w in wins.items()}
-            wins = {n: w for n, (w, u) in rel.items()}
+            rel = {n: make_relative(window(tracks[n], anchors[n], min(lo, -0.3) - REF_MARGIN, hi + REF_MARGIN, v))
+                   for n in wins}
+            refs = {n: w for n, (w, u) in rel.items()}
+            wins = {n: [x for x in w if lo <= x[0] <= hi] for n, w in refs.items()}
             unc = 2 * max((u for w, u in rel.values()), default=0.0)
             res.setdefault('reference_uncertainty', {})[v] = round(unc, 3)
         for n, w in wins.items():
@@ -409,7 +427,8 @@ def compare_anchor(runs, spec, tol_pos=0.1, tol_ang=0.1):
             res['runs'][n].setdefault('views', {})[v] = {
                 'samples': len(w), 'plateaus': [(round(a, 2), round(b, 2), fmt(p)) for a, b, p in pl],
                 'move_s': round(after[0], 2) if after else None}
-        f = compare_view(wins, retail, [o for o in ours if anchors[o] is not None], tol_pos + unc, tol_ang, v, res)
+        f = compare_view(wins, retail, [o for o in ours if anchors[o] is not None], tol_pos + unc, tol_ang, v, res,
+                         refs)
         res['first_difference'] = res['first_difference'] or f
     if ours:
         res['verdict'] = 'DIFF' if res['first_difference'] else 'SAME'
