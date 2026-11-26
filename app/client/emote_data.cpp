@@ -43,7 +43,7 @@ EmoteDataClass::~EmoteDataClass()
 
 void EmoteDataClass::Unknown_7E6650(int emote)
 {
-	Queue.push_back(emote);
+	Queue.push_back((EmoteType)emote);
 }
 
 
@@ -88,7 +88,7 @@ void EmoteDataClass::Unknown_7E6650(int emote)
 
 
 
-// NOT EXACT: control flow (the switch's default reaches the stop block placed after the compare in the client, before the active block in this build)
+
 void EmoteDataClass::Unknown_7E6860()
 {
 	if (!Unknown40) {
@@ -127,9 +127,9 @@ void EmoteDataClass::Unknown_7E6860()
 			t = elapsed / SpinTime;
 			break;
 		default:
-			goto done;
+			t = 2.0f;
 	}
-	if (t <= 1.0f) {
+	if (t > 1.0f) { Unknown_7E7620(); } else {
 		Matrix3D tm = Unknown_7E70A0(t);
 		Matrix3D base(true);
 		FAIL_IF(!Peek_Client_Object()->PositionalState) return;
@@ -147,10 +147,10 @@ void EmoteDataClass::Unknown_7E6860()
 		if (Sound) {
 			Sound->Set_Transform(result);
 		}
-	} else {
-done:
-		Unknown_7E7620();
 	}
+
+
+
 }
 
 // NOT EXACT: frame (the client's frame has 4 more bytes of locals; the cases' x87 code follows from it)
@@ -326,7 +326,7 @@ bool EmoteDataClass::Unknown_7E7A70()
 **	The emote sounds 0xBA13D8 (wave, loop, roll, spin: two of each but the wave) and the four
 **	durations 0xB07598-0xB075A4 (2000, 3000, 2000, 1000 ms, each its own float: the client divides
 **	by them, fdiv, where a literal divisor compiles to a multiply) are this file's.
-**	The template instances after the file's functions: std::deque<int>'s destructor 0x7E6570,
+**	The template instances after the file's functions: std::deque<EmoteType>'s destructor 0x7E6570,
 **	operator*(Matrix3D, Matrix3D) 0x7E6E40, Create_Get 0x7E7AA0 and ~RefCountPtr<Sound3DClass>
 **	0x7E7AD0, deque's _Buyback 0x7E7B10, _Freefront 0x7E7CD0, _Growmap 0x7E7D70 and its iterator's
 **	constructor 0x7E7E00. 0x7E79D0 is inlined by the destructor, 0x7E6860, 0x7E7620 and 0x7E7700;
