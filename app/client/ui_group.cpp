@@ -728,7 +728,7 @@ extern unsigned int Unknown_BE5F34;						// gadget.cpp's: the key modifiers (0x5
 
 
 // 0x5946D0
-// NOT EXACT: (masked 5, attempts.py 0x5946D0): case 2 as if (!modifier) { .. } return(true) as case 3; case 11-15 index local k = key - 11 (add edi,-0xb); case 23-27 UIGroupMemberClass *m = Members[key - 23]; case 29-33 and case 47 single-use ClientClass *c = (ClientClass *)Client for c->Get_Avatar_ID() (r13 18/18 and r89 7/7 exact); two dead Peek()s in 0x593180 (D272); case 47 else if, 0x5979A0/0x597A60 as ifs; left: r5 17-21 (2, reg edx vs eax), r6 23-27 (2, mov ecx,eax), r96 end pad (1)
+// Exact (attempts.py 0x5946D0): case 11-15 ends with its own copy of the sound + symbol tail (its SymbolChatUI temporaries leave eax free for case 17-21; VC6 merges the copy into the end's) and both copies leave through case 47's last return(true) (label done: every return(true) jump reaches that one, 0x5950AE); case 23-27 plain (three Members[key - 23] reads); case 11-15 index local k (add edi,-0xb); case 29-33 and case 47 single-use ClientClass *c; two dead Peek()s in 0x593180 (D272); the labels and the copy are forms the bytes need, the source's own shape is not known
 bool UIGroupClass::Unknown_68(int key)
 {
 	SClient *sclient = (SClient *)((ClientClass *)Client)->As_Space_Client();
@@ -752,7 +752,7 @@ bool UIGroupClass::Unknown_68(int key)
 				targeting->Select_Group_Member(k);
 				Unknown0E8->Unknown_593180(Members[k]->Unknown18);
 			} }
-			break;
+			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2); if (SymbolChatUI) { SymbolChatUI->Unknown_5C(); } goto done;
 		default:
 			return(false);
 		case 17:
@@ -769,7 +769,7 @@ bool UIGroupClass::Unknown_68(int key)
 		case 26:
 		case 27:
 
-			{ UIGroupMemberClass *m = Members[key - 23]; if (m && strcmp(m->Unknown28, "G_TARGET") == 0) {
+			{ if (Members[key - 23] && strcmp(Members[key - 23]->Unknown28, "G_TARGET") == 0) {
 
 				((ClientClass *)Client)->Send_Packet(&RequestTargetsTargetPacketClass(((ClientClass *)Client)->Get_Avatar_ID(), Members[key - 23]->ID));
 			} }
@@ -904,14 +904,14 @@ bool UIGroupClass::Unknown_68(int key)
 				((ClientClass *)Client)->Send_Packet(&CTA_Request_PacketClass(((ClientClass *)Client)->Get_Avatar_ID(), 0, 8));
 			} else return(true);
 			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
-			return(true);
+done:			return(true);
 	}
 	SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
 symbol:
 	if (SymbolChatUI) {
 		SymbolChatUI->Unknown_5C();
 	}
-	return(true);
+	goto done;
 }
 
 
@@ -1922,7 +1922,7 @@ void UIGroupClass::Unknown_74(ControlKeysManager *manager)
 **	  the member class: constructor 0x593200, destructor 0x5932E0 (not exact), 0x5934A0 (line 403), 0x5935C0
 **	  (456), 0x593750, 0x593790, 0x593830, 0x5938A0 (563);
 **	  the window: constructor 0x593BD0, destructor 0x593D70 (scalar deleting 0x593D40), slot +0x54 0x594040
-**	  (not exact), the +0xE8 object's 0x5944A0, slot +0x60 0x5944D0 (not exact), slot +0x68 0x5946D0 (735, 751; the buttons' and keys' switch; not exact), slot +0x7C 0x595480, 0x5954C0, the member rows 0x595530 (not exact),
+**	  (not exact), the +0xE8 object's 0x5944A0, slot +0x60 0x5944D0 (not exact), slot +0x68 0x5946D0 (735, 751; the buttons' and keys' switch), slot +0x7C 0x595480, 0x5954C0, the member rows 0x595530 (not exact),
 **	  0x596040, Get_Member 0x596090,
 **	  Add_Member 0x596130 (1165, 1168), Remove_Member 0x596390 / 0x596560 (1198), 0x5966A0,
 **	  0x596770 (1260-1266; not exact), 0x596DB0, 0x596E20 (1388, 1391; not exact), 0x597000, 0x597080, 0x597200, 0x597310 (not exact),
