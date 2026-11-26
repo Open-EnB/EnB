@@ -303,7 +303,7 @@ bool ChatGadgetClass::Unknown_2C(KernelEventClass *event, float x, float y, unsi
 
 
 
-// 0x65CCD0  // NOT EXACT: registers (masked 85, attempts.py show 0x65CCD0): client.h's inline Get_Unknown1138() / Get_Avatar_ID() at the request packets, the lookups, the emote packets and case 3 / 2's chat packets (the client loads AvatarID before the Unknown_7817E0 call and keeps chatpanel in [esp+0x18] only), the shared delete text after the store block (client 0x65DA81), dead ChatPanel.Peek() reads (D272) 3 after case 6-9 and 1 after case 4's Unknown24; left: the client keeps -1 in ebx (Get_String's push, the EH resets) and text in edi, case 4 / 5's string temporaries one slot apart
+// 0x65CCD0
 void ChatGadgetClass::Unknown_65CCD0()
 {
 	SClient *sclient = (SClient *)Client->As_Space_Client();
@@ -342,7 +342,7 @@ void ChatGadgetClass::Unknown_65CCD0()
 							if (*text != '/') {
 								((SClient *)Client->As_Space_Client())->Print(0x10, "To %s: %s", chatpanel->Unknown_565BA0(), text);
 							}
-						} sclient->ChatPanel.Peek(); sclient->ChatPanel.Peek(); sclient->ChatPanel.Peek();
+						}
 						break;
 					case 1:
 						if (sclient->Unknown_744B60()) {
@@ -355,12 +355,12 @@ void ChatGadgetClass::Unknown_65CCD0()
 									char line[512] = "";
 									avatar->Unknown_7817E0()->Unknown_4C48C0(line);
 									
-									Client->Send_Packet(&ClientChatPacketClass(Client->AvatarID, line, 3, NULL));
+									Client->Send_Packet(&ClientChatPacketClass(Client->Get_Avatar_ID(), line, 3, NULL));
 								}
 							}
 						} else {
 							
-							Client->Send_Packet(&ClientChatPacketClass(Client->AvatarID, text, 3, NULL));
+							Client->Send_Packet(&ClientChatPacketClass(Client->Get_Avatar_ID(), text, 3, NULL));
 						}
 						break;
 					case 0:
@@ -374,12 +374,12 @@ void ChatGadgetClass::Unknown_65CCD0()
 									char line[512] = "";
 									avatar->Unknown_7817E0()->Unknown_4C48C0(line);
 									
-									Client->Send_Packet(&ClientChatPacketClass(Client->AvatarID, line, 4, NULL));
+									Client->Send_Packet(&ClientChatPacketClass(Client->Get_Avatar_ID(), line, 4, NULL));
 								}
 							}
 						} else {
 							
-							Client->Send_Packet(&ClientChatPacketClass(Client->AvatarID, text, 4, NULL));
+							Client->Send_Packet(&ClientChatPacketClass(Client->Get_Avatar_ID(), text, 4, NULL));
 						}
 						break;
 					case 4:
@@ -387,7 +387,7 @@ void ChatGadgetClass::Unknown_65CCD0()
 							sclient->Unknown_74D990(0x11, "Not subscribed to any channels.", 0);
 						} else {
 							ClientChatRequestPacketClass packet(0, Client->Get_Unknown1138());
-							packet.Unknown24 = chatpanel->Unknown_5682C0(); sclient->ChatPanel.Peek();
+							packet.Unknown24 = chatpanel->Unknown_5682C0();
 							packet.Unknown34 = std::string(text);
 							Client->Send_Packet(&packet);
 						}
@@ -429,12 +429,12 @@ void ChatGadgetClass::Unknown_65CCD0()
 				if (++HistoryNext == 10) {
 					HistoryNext = 0;
 				}
-				goto done;
-			}
+			} else { delete text; }
+		} else {
+			delete text;
 		}
-		delete text;
 	}
-	done: Unknown7C = false;
+	Unknown7C = false;
 	Unknown_74(false);
 	Edit->Clear();
 }

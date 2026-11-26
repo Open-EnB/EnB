@@ -435,7 +435,7 @@ void GadgetClass::Unknown_40(bool on)
 	}
 }
 
-// NOT EXACT: register / order (masked residue 22 rows, key 2 laid out after the buttons, the held flash pointer spill; written from the client's 0x65F780 for the proof-of-concept client: the input's next event to the
+// NOT EXACT: shape / order (masked residue 13 rows, 0x101/0x102 inline instead of after 0x42EC60 and the client's second cmp ax,bp in both Up tests; written from the client's 0x65F780 for the proof-of-concept client: the input's next event to the
 // manager's gadgets: the held gadget first, then every gadget under the pointer)
 KernelEventClass GadgetClass::Process_Input(GadgetListManagerClass *manager)
 {
@@ -463,16 +463,16 @@ KernelEventClass GadgetClass::Process_Input(GadgetListManagerClass *manager)
 	unsigned int mask = 0;
 	if (event.Key != 0) {
 		if (event.Key == 1) {
-			if (!(event.Flags & 0x1000)) { mask = 1; }
+			if (!(event.Flags & 0x1000)) { mask |= 1; }
 			if (event.Flags & 0x1000) { mask |= 4; }	// (the client tests Up twice)
 		} else if (event.Key == 2) {
-			if (!(event.Flags & 0x1000)) { mask = 0x10; }
+			if (!(event.Flags & 0x1000)) { mask |= 0x10; }
 			if (event.Flags & 0x1000) { mask |= 0x40; }
-		} else if (event.Key == 0x101 || event.Key == 0x102) {
-			mask = 0x1000;
 		}
 		if (mask == 0) {
-			mask = 0x100;
+			if (event.Key == 0x101 || event.Key == 0x102) {
+				mask = 0x1000;
+			} else { mask = 0x100; }
 		}
 		if (event.Is_Shift()) {
 			mask |= 0x200;

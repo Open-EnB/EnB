@@ -317,7 +317,7 @@ int FpTTClass::Unknown_04(const Vector3 &target, Matrix3D *transforms, float dis
 
 
 // 0x449EA0
-// NOT EXACT: frame/r11 climb stack layout differs (185 masked rows left; 510 -> 185)
+// NOT EXACT: register (195 masked rows, 94 with registers masked; frame 0x94 and 785 rows as the client): the pitch turns through Vector2::Rotate_Towards_Vector as the yaw does; this sits in esi (spilled) where the client keeps it in ebp, and the registers shift with it (forms in attempts.csv)
 int FpTTClass::Unknown_08(const Vector3 &target, Matrix3D *transforms, float dist, float &yaw, float &pitch, PxWrapper &proxim, float radius, DynObj *self, Vector3 *aims)
 {
 	G_ASSERT(proxim.Get_Avoidance());
@@ -432,26 +432,26 @@ int FpTTClass::Unknown_08(const Vector3 &target, Matrix3D *transforms, float dis
 		}
 		Unknown3C = dir;
 
-		float climb_c;
-		float climb_s;
+		Vector2 climb(xy_len, x_axis.Z);
+		bool pos_pitch;
 		if (MaxSlope > 0.0f && (fabs(slope) >= 0.0001f || abs_z >= 0.0001f)) {
 			float c = WWMath::Inv_Sqrt(slope * slope + 1.0f);
 			Vector2 target_climb(c, c * slope);
-			bool pos_pitch = (target_climb.Y * xy_len - target_climb.X * x_axis.Z) > 0.0f;
-			if (target_climb.Y * x_axis.Z + target_climb.X * xy_len >= MaxPitchCos) {
-				climb_c = target_climb.X; climb_s = target_climb.Y; pitch = 0.0f; Unknown44 = slope;
+
+			if (climb.Rotate_Towards_Vector(target_climb, MaxPitchSin, MaxPitchCos, pos_pitch)) {
+				pitch = 0.0f;
 			} else if (pos_pitch) {
-				climb_s = MaxPitchCos * x_axis.Z + MaxPitchSin * xy_len; climb_c = MaxPitchCos * xy_len - MaxPitchSin * x_axis.Z; pitch = MaxPitch; Unknown44 = slope;
+				pitch = MaxPitch;
 			} else {
-				float ns = -MaxPitchSin; climb_s = MaxPitchCos * x_axis.Z + ns * xy_len; climb_c = MaxPitchCos * xy_len - ns * x_axis.Z; pitch = -MaxPitch; Unknown44 = slope;
-			}
+				pitch = -MaxPitch;
+			} Unknown44 = slope;
 		} else {
-			climb_s = 0.0f; climb_c = 1.0f; pitch = 0.0f; Unknown44 = 0.0f;
+			climb.Set(1.0f, 0.0f); pitch = 0.0f; Unknown44 = 0.0f;
 		}
-		Vector3 x(climb_c * heading.X, climb_c * heading.Y, climb_s);
+		Vector3 x(climb.X * heading.X, climb.X * heading.Y, climb.Y);
 		pos += x * dist;
 		Vector3 y(-heading.Y, heading.X, 0.0f);
-		Vector3 z(-(climb_s * heading.X), y.X * climb_s, heading.X * x.X - y.X * x.Y);
+		Vector3 z(-(climb.Y * heading.X), y.X * climb.Y, heading.X * x.X - y.X * x.Y);
 
 
 

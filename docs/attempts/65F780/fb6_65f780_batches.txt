@@ -1,0 +1,234 @@
+FB6 (Fable high, run 2026-11-25-evening): the three batches of 0x65F780 (no cut, residue 13).
+
+===== gad_c1.py =====
+HYPOTHESIS = ('FB6 0x65F780 batch 1: the client keeps the second cmp ax,bp because its two Up tests are not one expression '
+              'to the front end: Up is a bit-field (kernel.h: Shift / Ctrl / Alt / Up, read through bit-fields in this very '
+              'function for Shift, Ctrl, Alt); a bit-field compared with 0 is and 0x1000 / cmp ax,bp (16-bit, the '
+              'field\'s type). Forms: the two tests through event.Up (!, == 0 / != 0, == 0 / == 1, Is_Up) and mixed with '
+              'the Flags mask, each with the kept tail (K) and the natural else-if tail (N)')
+FILE = 'app/client/gadget.cpp'
+SYMBOL = 'GadgetClass::Process_Input'
+ADDRESS = 0x65F780
+
+_lines = open(FILE, newline='').read().split('\n')
+BASE = '\n'.join(_lines[464:476]) + '\n'
+assert BASE.startswith('\t\tif (event.Key == 1) {\n'), BASE[:60]
+assert BASE.endswith('\t\t\t} else { mask = 0x100; }\n\t\t}\n'), BASE[-60:]
+
+TESTS = {
+    'flags': ('!(event.Flags & 0x1000)', 'event.Flags & 0x1000'),
+    'bf_not': ('!event.Up', 'event.Up'),
+    'bf_eq0': ('event.Up == 0', 'event.Up != 0'),
+    'bf_eq01': ('event.Up == 0', 'event.Up == 1'),
+    'bf_isup': ('!event.Is_Up()', 'event.Is_Up()'),
+    'mix_fl_bf': ('!(event.Flags & 0x1000)', 'event.Up'),
+    'mix_bf_fl': ('!event.Up', 'event.Flags & 0x1000'),
+    'mix_eq0_fl': ('event.Up == 0', 'event.Flags & 0x1000'),
+    'mix_fl_ne0': ('!(event.Flags & 0x1000)', 'event.Up != 0'),
+    'mix_fleq_bf': ('(event.Flags & 0x1000) == 0', 'event.Up'),
+}
+
+
+def form(t, tail):
+    a, b = TESTS[t]
+    s = (
+        '\t\tif (event.Key == 1) {\n'
+        '\t\t\tif (' + a + ') { mask |= 1; }\n'
+        '\t\t\tif (' + b + ') { mask |= 4; }\n'
+        '\t\t} else if (event.Key == 2) {\n'
+        '\t\t\tif (' + a + ') { mask |= 0x10; }\n'
+        '\t\t\tif (' + b + ') { mask |= 0x40; }\n'
+    )
+    if tail == 'K':
+        s += (
+            '\t\t}\n'
+            '\t\tif (mask == 0) {\n'
+            '\t\t\tif (event.Key == 0x101 || event.Key == 0x102) {\n'
+            '\t\t\t\tmask = 0x1000;\n'
+            '\t\t\t} else { mask = 0x100; }\n'
+            '\t\t}\n'
+        )
+    else:
+        s += (
+            '\t\t} else if (event.Key == 0x101 || event.Key == 0x102) {\n'
+            '\t\t\tmask = 0x1000;\n'
+            '\t\t}\n'
+            '\t\tif (mask == 0) {\n'
+            '\t\t\tmask = 0x100;\n'
+            '\t\t}\n'
+        )
+    assert s.count('\n') == BASE.count('\n')
+    return [(BASE, s)]
+
+
+FORMS = {}
+for _t in TESTS:
+    for _tail in 'KN':
+        if _t == 'flags' and _tail == 'K':
+            continue    # the tree
+        FORMS['%s_%s' % (_t, _tail)] = form(_t, _tail)
+
+===== gad_c2.py =====
+HYPOTHESIS = ('FB6 0x65F780 batch 2: B6 found a bool accessor re-tests the flag as the client does (rows 487/487) but as shr / '
+              'and al,1 / test al,al: that was the != 0 sense. The client tests and 0x1000 / cmp ax,bp twice, jne then je: '
+              'a bool of the == 0 sense (the key is down), expanded at both tests, each its own temporary so VC6 does not '
+              'merge them. Forms: a file-static inline of the down sense (by reference / by value, mask or bit-field body), '
+              'used as if (down) / if (!down), with the kept tail (K) and the natural else-if tail (N); mixed with the raw test')
+FILE = 'app/client/gadget.cpp'
+SYMBOL = 'GadgetClass::Process_Input'
+ADDRESS = 0x65F780
+
+_src = open(FILE, newline='').read()
+_lines = _src.split('\n')
+BASE = '\n'.join(_lines[464:476]) + '\n'
+assert BASE.startswith('\t\tif (event.Key == 1) {\n'), BASE[:60]
+assert BASE.endswith('\t\t\t} else { mask = 0x100; }\n\t\t}\n'), BASE[-60:]
+ANCHOR = '\t\tUnknown_6607D0();\n\t}\n}\n\n// NOT EXACT: shape / order'
+assert _src.count(ANCHOR) == 1
+
+HELPERS = {
+    'ref_mask': 'static inline bool Unknown_Is_Down(const KernelEventClass &event) { return(!(event.Flags & 0x1000)); }',
+    'ref_eq0': 'static inline bool Unknown_Is_Down(const KernelEventClass &event) { return((event.Flags & 0x1000) == 0); }',
+    'ref_bf': 'static inline bool Unknown_Is_Down(const KernelEventClass &event) { return(!event.Up); }',
+    'ref_bfeq0': 'static inline bool Unknown_Is_Down(const KernelEventClass &event) { return(event.Up == 0); }',
+    'ref_isup': 'static inline bool Unknown_Is_Down(const KernelEventClass &event) { return(!event.Is_Up()); }',
+    'val_mask': 'static inline bool Unknown_Is_Down(unsigned short flags) { return(!(flags & 0x1000)); }',
+    'val_eq0': 'static inline bool Unknown_Is_Down(unsigned short flags) { return((flags & 0x1000) == 0); }',
+    'int_eq0': 'static inline int Unknown_Is_Down(const KernelEventClass &event) { return((event.Flags & 0x1000) == 0); }',
+}
+
+
+def form(h, tail, t1=None, t2=None):
+    arg = 'event.Flags' if h.startswith('val') else 'event'
+    a = t1 or 'Unknown_Is_Down(%s)' % arg
+    b = t2 or '!Unknown_Is_Down(%s)' % arg
+    s = (
+        '\t\tif (event.Key == 1) {\n'
+        '\t\t\tif (' + a + ') { mask |= 1; }\n'
+        '\t\t\tif (' + b + ') { mask |= 4; }\n'
+        '\t\t} else if (event.Key == 2) {\n'
+        '\t\t\tif (' + a + ') { mask |= 0x10; }\n'
+        '\t\t\tif (' + b + ') { mask |= 0x40; }\n'
+    )
+    if tail == 'K':
+        s += (
+            '\t\t}\n'
+            '\t\tif (mask == 0) {\n'
+            '\t\t\tif (event.Key == 0x101 || event.Key == 0x102) {\n'
+            '\t\t\t\tmask = 0x1000;\n'
+            '\t\t\t} else { mask = 0x100; }\n'
+            '\t\t}\n'
+        )
+    else:
+        s += (
+            '\t\t} else if (event.Key == 0x101 || event.Key == 0x102) {\n'
+            '\t\t\tmask = 0x1000;\n'
+            '\t\t}\n'
+            '\t\tif (mask == 0) {\n'
+            '\t\t\tmask = 0x100;\n'
+            '\t\t}\n'
+        )
+    assert s.count('\n') == BASE.count('\n')
+    return [(ANCHOR, ANCHOR.replace('}\n\n//', '}\n' + HELPERS[h] + '\n//')), (BASE, s)]
+
+
+FORMS = {}
+for _h in HELPERS:
+    for _tail in 'KN':
+        FORMS['%s_%s' % (_h, _tail)] = form(_h, _tail)
+for _tail in 'KN':
+    FORMS['mix_raw_acc_%s' % _tail] = form('ref_mask', _tail, t1='!(event.Flags & 0x1000)')
+    FORMS['mix_acc_raw_%s' % _tail] = form('ref_mask', _tail, t2='event.Flags & 0x1000')
+    FORMS['mix_acc_isup_%s' % _tail] = form('ref_mask', _tail, t2='event.Is_Up()')
+
+===== gad_c3.py =====
+HYPOTHESIS = ('FB6 0x65F780 batch 3: the client has the same shape, exact in the tree, at 0x43BAC8 (Play_Music with '
+              'Set_Music_Type(-1) inline: cmp eax,-1 / je / cmp eax,-1 / movs / je): two tests that are different trees to '
+              'the optimizer (type != Current with type the constant; Previous != -1 with Previous a copy) and one '
+              'instruction after propagation. VC6 folds only tests that are one tree. So the two Up tests differ as trees: '
+              'a constant on the left, a copy on one side (a local of the masked bit, of the flags), a zero that is a '
+              'propagated variable, an inline with a constant argument')
+FILE = 'app/client/gadget.cpp'
+SYMBOL = 'GadgetClass::Process_Input'
+ADDRESS = 0x65F780
+
+_src = open(FILE, newline='').read()
+_lines = _src.split('\n')
+BASE = '\n'.join(_lines[462:476]) + '\n'
+assert BASE.startswith('\tunsigned int mask = 0;\n\tif (event.Key != 0) {\n\t\tif (event.Key == 1) {\n'), BASE[:80]
+assert BASE.endswith('\t\t\t} else { mask = 0x100; }\n\t\t}\n'), BASE[-60:]
+ANCHOR = '\t\tUnknown_6607D0();\n\t}\n}\n\n// NOT EXACT: shape / order'
+assert _src.count(ANCHOR) == 1
+FL = 'event.Flags & 0x1000'
+
+
+def form(a, b, tail, pre='', helper=None, a2=None, b2=None):
+    s = (
+        '\tunsigned int mask = 0;' + (' ' + pre if pre else '') + '\n'
+        '\tif (event.Key != 0) {\n'
+        '\t\tif (event.Key == 1) {\n'
+        '\t\t\tif (' + a + ') { mask |= 1; }\n'
+        '\t\t\tif (' + b + ') { mask |= 4; }\n'
+        '\t\t} else if (event.Key == 2) {\n'
+        '\t\t\tif (' + (a2 or a) + ') { mask |= 0x10; }\n'
+        '\t\t\tif (' + (b2 or b) + ') { mask |= 0x40; }\n'
+    )
+    if tail == 'K':
+        s += (
+            '\t\t}\n'
+            '\t\tif (mask == 0) {\n'
+            '\t\t\tif (event.Key == 0x101 || event.Key == 0x102) {\n'
+            '\t\t\t\tmask = 0x1000;\n'
+            '\t\t\t} else { mask = 0x100; }\n'
+            '\t\t}\n'
+        )
+    else:
+        s += (
+            '\t\t} else if (event.Key == 0x101 || event.Key == 0x102) {\n'
+            '\t\t\tmask = 0x1000;\n'
+            '\t\t}\n'
+            '\t\tif (mask == 0) {\n'
+            '\t\t\tmask = 0x100;\n'
+            '\t\t}\n'
+        )
+    assert s.count('\n') == BASE.count('\n')
+    out = [(BASE, s)]
+    if helper:
+        out.insert(0, (ANCHOR, ANCHOR.replace('}\n\n//', '}\n' + helper + '\n//')))
+    return out
+
+
+H_EQ = 'static inline bool Unknown_Up_Is(unsigned short flags, unsigned short value) { return((flags & 0x1000) == value); }'
+H_EQI = 'static inline bool Unknown_Up_Is(const KernelEventClass &event, int value) { return((event.Flags & 0x1000) == value); }'
+H_BIT = 'static inline bool Unknown_Is_Set(unsigned short flags, unsigned short bit) { return((flags & bit) != 0); }'
+H_BITI = 'static inline int Unknown_Is_Set(unsigned short flags, unsigned short bit) { return(flags & bit); }'
+SPECS = {
+    'yoda_first': dict(a='0 == (%s)' % FL, b=FL),
+    'yoda_second': dict(a='!(%s)' % FL, b='0 != (%s)' % FL),
+    'yoda_both': dict(a='0 == (%s)' % FL, b='0 != (%s)' % FL),
+    'up_local_first': dict(a='!up', b=FL, pre='unsigned short up = %s;' % FL),
+    'up_local_second': dict(a='!(%s)' % FL, b='up', pre='unsigned short up = %s;' % FL),
+    'up_int_first': dict(a='!up', b=FL, pre='int up = %s;' % FL),
+    'up_int_second': dict(a='!(%s)' % FL, b='up', pre='int up = %s;' % FL),
+    'up_bool_first': dict(a='!up', b=FL, pre='bool up = (%s) != 0;' % FL),
+    'up_bool_second': dict(a='!(%s)' % FL, b='up', pre='bool up = (%s) != 0;' % FL),
+    'flags_local_first': dict(a='!(flags & 0x1000)', b=FL, pre='unsigned short flags = event.Flags;'),
+    'flags_local_second': dict(a='!(%s)' % FL, b='flags & 0x1000', pre='unsigned short flags = event.Flags;'),
+    'zero_first': dict(a='(%s) == zero' % FL, b=FL, pre='unsigned short zero = 0;'),
+    'zero_second': dict(a='!(%s)' % FL, b='(%s) != zero' % FL, pre='unsigned short zero = 0;'),
+    'mask_first': dict(a='(%s) == mask' % FL, b=FL),
+    'mask_second': dict(a='!(%s)' % FL, b='(%s) != 0' % FL, a2='!(%s)' % FL),
+    'helper_eq_first': dict(a='Unknown_Up_Is(event.Flags, 0)', b=FL, helper=H_EQ),
+    'helper_eq_both': dict(a='Unknown_Up_Is(event.Flags, 0)', b='!Unknown_Up_Is(event.Flags, 0)', helper=H_EQ),
+    'helper_eq_01': dict(a='Unknown_Up_Is(event.Flags, 0)', b='Unknown_Up_Is(event.Flags, 0x1000)', helper=H_EQ),
+    'helper_eqi_both': dict(a='Unknown_Up_Is(event, 0)', b='!Unknown_Up_Is(event, 0)', helper=H_EQI),
+    'helper_bit_both': dict(a='!Unknown_Is_Set(event.Flags, 0x1000)', b='Unknown_Is_Set(event.Flags, 0x1000)', helper=H_BIT),
+    'helper_biti_both': dict(a='!Unknown_Is_Set(event.Flags, 0x1000)', b='Unknown_Is_Set(event.Flags, 0x1000)', helper=H_BITI),
+    'helper_biti_first': dict(a='!Unknown_Is_Set(event.Flags, 0x1000)', b=FL, helper=H_BITI),
+    'helper_biti_second': dict(a='!(%s)' % FL, b='Unknown_Is_Set(event.Flags, 0x1000)', helper=H_BITI),
+}
+del SPECS['mask_second']
+FORMS = {}
+for _n, _kw in SPECS.items():
+    for _tail in 'KN':
+        FORMS['%s_%s' % (_n, _tail)] = form(tail=_tail, **_kw)

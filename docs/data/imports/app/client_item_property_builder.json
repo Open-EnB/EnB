@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x474080"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "ClientItemPropertyBuilderClass (S: __FILE__ e:\\build\\beta\\G\\app\\Client\\item\\client_item_property_builder.cpp in the FAIL_IFs '!template_info' at lines 155 / 818 of 0x522860 / 0x527F40, D25): the constructor 0x521B80, destructor 0x521BB0 and Build 0x521BD0, which hands an item's properties to a router",
  "expected": {},
@@ -23,6 +21,7 @@
   "0x433700",
   "0x46BE90",
   "0x47CE60",
+  "0x47D010",
   "0x47D440",
   "0x47D640",
   "0x47E480",
@@ -36,6 +35,7 @@
   "0x521B80",
   "0x521BB0",
   "0x521BD0",
+  "0x521C10",
   "0x527F40",
   "0x528320",
   "0x528460",
@@ -89,6 +89,7 @@
   "0x433700",
   "0x46BE90",
   "0x47CE60",
+  "0x47D010",
   "0x47D440",
   "0x47D640",
   "0x47E480",

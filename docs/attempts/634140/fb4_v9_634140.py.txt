@@ -1,0 +1,60 @@
+HYPOTHESIS = (
+    'UIStarbaseClass::Unknown_54 0x634140 FB4 batch 9. The client stores npc to its home before it reads Unknown1C '
+    '(mov edi, eax; mov [npc], edi; mov eax, [edi+0x1c]) and reloads the register from the home after a clobber: memory '
+    'is the truth and the register a copy, which is how VC6 treats a variable whose address is taken. Hypothesis: npc '
+    'is passed by reference to an inline (its address taken, the inline folded away): a do-nothing inline taking '
+    'StarbaseNPCClass *& (before the test, in the ambient block, in the declaration), the Unknown1C test through a '
+    'const reference to the pointer, the second Find_NPC assigned through a reference or a pointer to npc, the 0x642740 '
+    'argument through a reference; on the natural ambient assign.'
+)
+FILE = 'app/client/ui_starbase.cpp'
+SYMBOL = 'UIStarbaseClass::Unknown_54'
+ADDRESS = 0x634140
+
+_SRC = open('C:/EnBDevelopment/EnB/.work/wt/FB4/app/client/ui_starbase.cpp', encoding='utf-8', newline='').read()
+_LINES = _SRC.split('\n')
+_A, _B = 677, 737
+
+
+def L(n):
+    return _LINES[n - 1]
+
+
+T3 = '\t\t\t'
+T4 = '\t\t\t\t'
+assert L(677).startswith('inline UIStarbaseUnknownCCClass::UIStarbaseUnknownCCClass()') and '//' not in L(677)
+assert L(726).strip() == 'StarbaseNPCClass *npc = RoomInfo->Find_NPC(i);'
+assert L(727).strip() == 'if (npc->Unknown1C) {'
+assert L(728).strip() == 'Unknown13C[i] = new UIStarbaseUnknownCCClass;'
+assert L(729).strip() == 'Unknown13C[i]->AmbientAvatar = Create_NEW(Unknown_642740(npc));'
+
+HELP = (' static inline void FB4_Touch(StarbaseNPCClass *&) {}'
+        ' static inline bool FB4_Amb(StarbaseNPCClass *const &npc) { return(npc->Unknown1C != 0); }'
+        ' static inline void FB4_Find(SBaseInfoRoomClassX *room, int i, StarbaseNPCClass *&npc) { npc = room->Find_NPC(i); }'
+        ' static inline StarbaseNPCClass *FB4_Get(StarbaseNPCClass *const &npc) { return(npc); }'
+        ' static inline void FB4_Ptr(StarbaseNPCClass **) {}')
+NEW = 'Unknown13C[i] = new UIStarbaseUnknownCCClass;'
+E = {
+    'touch_pre': {727: T3 + 'FB4_Touch(npc); if (npc->Unknown1C) {'},
+    'touch_amb': {728: T4 + 'FB4_Touch(npc); ' + NEW},
+    'ptr_pre': {727: T3 + 'FB4_Ptr(&npc); if (npc->Unknown1C) {'},
+    'amb_ref': {727: T3 + 'if (FB4_Amb(npc)) {'},
+    'find_ref': {726: T3 + 'StarbaseNPCClass *npc; FB4_Find(RoomInfo, i, npc);'},
+    'get_call': {729: T4 + 'Unknown13C[i]->AmbientAvatar = Create_NEW(Unknown_642740(FB4_Get(npc)));'},
+    'amb_get': {727: T3 + 'if (FB4_Amb(npc)) {', 729: T4 + 'Unknown13C[i]->AmbientAvatar = Create_NEW(Unknown_642740(FB4_Get(npc)));'},
+    'find_amb_get': {726: T3 + 'StarbaseNPCClass *npc; FB4_Find(RoomInfo, i, npc);', 727: T3 + 'if (FB4_Amb(npc)) {',
+                     729: T4 + 'Unknown13C[i]->AmbientAvatar = Create_NEW(Unknown_642740(FB4_Get(npc)));'},
+    'find_touch': {726: T3 + 'StarbaseNPCClass *npc; FB4_Find(RoomInfo, i, npc);', 727: T3 + 'FB4_Touch(npc); if (npc->Unknown1C) {'},
+}
+
+
+def form(name, room_type):
+    new = list(_LINES)
+    new[677 - 1] = L(677) + HELP.replace('SBaseInfoRoomClassX', room_type)
+    for k, t in E[name].items():
+        new[k - 1] = t
+    return [(FILE, '\n'.join(_LINES[_A - 1:_B]), '\n'.join(new[_A - 1:_B]))]
+
+
+ROOM = __import__('re').search(r'(\w+) \*RoomInfo;', open('C:/EnBDevelopment/EnB/.work/wt/FB4/app/client/sbaseview.h', encoding='utf-8').read()).group(1)
+FORMS = {n: form(n, ROOM) for n in E}

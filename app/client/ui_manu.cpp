@@ -1559,7 +1559,7 @@ static std::string Unknown_5B6060(int validity)	// NAME 1: neutral (D10)  // NAM
 	Unknown_Find_Field<DeltaTemplateClass<int> >(NULL, *(NameClass *)&validity);	// not the client's: a dead find (root NULL, unreachable: no code) spends the inline budget the client spent (D130), so the first case calls _Eos out of line as the client's
 }
 
-// NOT EXACT: frame (every call in place, the seven finds out of line as the client through two inline layers; the quality fields selected as (f && f->Unknown70 > 1) ? f : NULL and the filter bits read once before the loop, as the client's bytes, the validity value and the client pointer through locals (the client loads each argument just before its push), 0x5B1AF0's index local; masked residue 0, left: frame 0x160 against 0x140) (0x5B5320)
+// @0x5B5320
 void UIManuClass::Unknown_5B5320()
 {		DeltaTemplateClass<UnknownB01394Enum> *validity = Unknown_Manu_Raw<DeltaTemplateClass<UnknownB01394Enum> >(Unknown0BA0, "Validity");
 	if (validity && validity->Unknown70 > 1) {
@@ -1587,7 +1587,7 @@ void UIManuClass::Unknown_5B5320()
 
 
 
-	char text[64];
+	char text[32];
 	if (min && max) {
 		float min_quality = min->Value;
 		float max_quality = max->Value;

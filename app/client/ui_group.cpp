@@ -728,7 +728,7 @@ extern unsigned int Unknown_BE5F34;						// gadget.cpp's: the key modifiers (0x5
 
 
 // 0x5946D0
-// NOT EXACT: (masked 10, attempts.py 0x5946D0): case 2 as if (!modifier) { .. } return(true) as case 3; case 11-15 index local k = key - 11 (add edi,-0xb); case 23-27 UIGroupMemberClass *m = Members[key - 23] in the test (keeps Members[k] before Client); case 29-33 sclient->Get_Avatar_ID() in packet ctor; two dead Peek()s in 0x593180 (D272); case 47's second test as else if, 0x5979A0/0x597A60 as ifs; left: 23-27 (2), 29-33 (2), 47 (3), 17-21 (2), end (1)
+// NOT EXACT: (masked 5, attempts.py 0x5946D0): case 2 as if (!modifier) { .. } return(true) as case 3; case 11-15 index local k = key - 11 (add edi,-0xb); case 23-27 UIGroupMemberClass *m = Members[key - 23]; case 29-33 and case 47 single-use ClientClass *c = (ClientClass *)Client for c->Get_Avatar_ID() (r13 18/18 and r89 7/7 exact); two dead Peek()s in 0x593180 (D272); case 47 else if, 0x5979A0/0x597A60 as ifs; left: r5 17-21 (2, reg edx vs eax), r6 23-27 (2, mov ecx,eax), r96 end pad (1)
 bool UIGroupClass::Unknown_68(int key)
 {
 	SClient *sclient = (SClient *)((ClientClass *)Client)->As_Space_Client();
@@ -804,7 +804,7 @@ bool UIGroupClass::Unknown_68(int key)
 			if (modifier) goto symbol;
 			if (Members[key - 29]) {
 
-				((ClientClass *)Client)->Send_Packet(&CTA_Request_PacketClass(sclient->Get_Avatar_ID(), Members[key - 29]->ID, 12));
+				ClientClass *c = (ClientClass *)Client; ((ClientClass *)Client)->Send_Packet(&CTA_Request_PacketClass(c->Get_Avatar_ID(), Members[key - 29]->ID, 12));
 			}
 			break;
 		case 35:
@@ -896,7 +896,7 @@ bool UIGroupClass::Unknown_68(int key)
 			if (!Unknown_597A60() && Unknown_5979A0()) {
 				Unknown_597E40(false);
 
-				((ClientClass *)Client)->Send_Packet(&CTA_Request_PacketClass(((ClientClass *)Client)->Get_Avatar_ID(), 0, 7));
+				ClientClass *c = (ClientClass *)Client; ((ClientClass *)Client)->Send_Packet(&CTA_Request_PacketClass(c->Get_Avatar_ID(), 0, 7));
 			} else if (Unknown_597A60()) {
 
 				Unknown_597E40(false);
@@ -1251,9 +1251,9 @@ void UIGroupClass::Unknown_5966A0()
 
 
 
-
+template<class C> inline C *Unknown_Find_Aux_Field(DeltaCompoundClass *const &root, const char *name) { NameClass n(name); DeltaCompoundClass *r = root; return(Unknown_Find_Field<C>(r, n)); } template<class C> inline C *Unknown_Find_Aux(DeltaCompoundClass *const &root, const char *name) { return(Unknown_Find_Aux_Field<C>(root, name)); }	// NAME 1: neutral (D10): auxdata.h's find through two inline layers (ui_manu.cpp's form): out of line as the client in both branches
 // 0x596770
-// NOT EXACT: inline budget (the client calls auxdata.h's find 0x5927E0 out of line in both branches yet still calls vector::size 0x598920 and the temporary string's _Tidy out of line; a find wrapper sends the find out but frees the budget, 0.45-0.60)
+// NOT EXACT: inline budget, 69 masked rows (B10; 116 with the direct finds): the two-layer find sends both finds out of line as the client, two dead Members.size() after Add_Member spend what that frees (D272), the member loop's branch negated (the client lays Remove_Member first, it++ before the test); left: the Add_Member temporary's assign out of line (the client inlines it and calls _Grow / _Eos: the two reads between Get_Member and the test instead give that, 76), the second loop's registers; attempts.py show 0x596770
 void UIGroupClass::Unknown_596770(bool arg)
 {
 	ClientClass *client = (ClientClass *)Client;
@@ -1266,10 +1266,10 @@ void UIGroupClass::Unknown_596770(bool arg)
 	FAIL_IF(!aux) return;
 	DeltaGroupInfoClass *group;
 	if (arg) {
-		DeltaGroupInfoClass *t = Unknown_Find_Field<DeltaGroupInfoClass>(aux, "GroupInfo");
+		DeltaGroupInfoClass *t = Unknown_Find_Aux<DeltaGroupInfoClass>(aux, "GroupInfo");
 		group = (t && t->Unknown70) ? t : NULL;
 	} else {
-		DeltaGroupInfoClass *t = Unknown_Find_Field<DeltaGroupInfoClass>(aux, "GroupInfo");
+		DeltaGroupInfoClass *t = Unknown_Find_Aux<DeltaGroupInfoClass>(aux, "GroupInfo");
 		group = (t && t->Unknown70 > 1) ? t : NULL;
 	}
 	if (group) {
@@ -1283,10 +1283,10 @@ void UIGroupClass::Unknown_596770(bool arg)
 					break;
 				}
 			}
-			if (found) {
-				it++;
-			} else {
+			if (!found) {
 				it = Remove_Member(it);
+			} else {
+				it++;
 			}
 		}
 		for (int i = 0; i < 5; i++) {
@@ -1300,7 +1300,7 @@ void UIGroupClass::Unknown_596770(bool arg)
 			}
 			it = Get_Member(name);
 			if (it == Members.end()) {
-				Add_Member(name, id, position);
+				Add_Member(name, id, position); Members.size(); Members.size();
 			} else {
 				(*it)->ID = id;
 			}

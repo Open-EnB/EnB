@@ -1,0 +1,78 @@
+HYPOTHESIS = ('FB6 0x65F780 batch 4 (written, NOT RUN: the three-batch stop): the client\'s first jne lands inside what '
+              'reads as the second if\'s body (0x65F8F6 -> 0x65F902 or ebx,4), and VC6 does not thread tests it does not '
+              'unify (0x43BAC8, acticon 0x676A14: both compares kept, no retarget). So that or ebx,4 is two source '
+              'statements merged by cross-jumping: the Up bit set in an else arm and again behind the down bit, '
+              'if (!up) { mask |= 1; if (up) mask |= 4; } else { mask |= 4; }, by hand or through an inline that adds '
+              'the up bit. The second test is then a second instance and keeps its cmp; block 2 is [mask = 1; if (up)], '
+              'which VC6 emits test first, constant second (aabtreecull 0x8D966C: test eax,eax / mov esi,1 / je)')
+FILE = 'app/client/gadget.cpp'
+SYMBOL = 'GadgetClass::Process_Input'
+ADDRESS = 0x65F780
+
+_src = open(FILE, newline='').read()
+_lines = _src.split('\n')
+BASE = '\n'.join(_lines[464:476]) + '\n'
+assert BASE.startswith('\t\tif (event.Key == 1) {\n'), BASE[:60]
+assert BASE.endswith('\t\t\t} else { mask = 0x100; }\n\t\t}\n'), BASE[-60:]
+ANCHOR = '\t\tUnknown_6607D0();\n\t}\n}\n\n// NOT EXACT: shape / order'
+assert _src.count(ANCHOR) == 1
+FL = 'event.Flags & 0x1000'
+H_UP = ('static inline void Unknown_Add_Up(unsigned int &mask, const KernelEventClass &event, unsigned int bit) '
+        '{ if (event.Flags & 0x1000) { mask |= bit; } }')
+H_UPV = ('static inline unsigned int Unknown_Up_Bit(const KernelEventClass &event, unsigned int bit) '
+         '{ return((event.Flags & 0x1000) ? bit : 0); }')
+
+
+def arms(kind, down, up):
+    d, u = '0x%x' % down if down > 9 else str(down), '0x%x' % up if up > 9 else str(up)
+    if kind == 'nested':
+        return ('\t\t\tif (!(%s)) { mask |= %s; if (%s) { mask |= %s; } } else { mask |= %s; }\n\n' % (FL, d, FL, u, u))
+    if kind == 'nested_assign':
+        return ('\t\t\tif (!(%s)) { mask = %s; if (%s) { mask |= %s; } } else { mask |= %s; }\n\n' % (FL, d, FL, u, u))
+    if kind == 'reverse':
+        return ('\t\t\tif (%s) { mask |= %s; } else { mask |= %s; if (%s) { mask |= %s; } }\n\n' % (FL, u, d, FL, u))
+    if kind == 'helper_two':
+        return ('\t\t\tif (!(%s)) { mask |= %s; }\n\t\t\tUnknown_Add_Up(mask, event, %s);\n' % (FL, d, u))
+    if kind == 'helper_nested':
+        return ('\t\t\tif (!(%s)) { mask |= %s; Unknown_Add_Up(mask, event, %s); } else { mask |= %s; }\n\n' % (FL, d, u, u))
+    if kind == 'helper_both':
+        return ('\t\t\tif (!(%s)) { mask |= %s; Unknown_Add_Up(mask, event, %s); } else { Unknown_Add_Up(mask, event, %s); }\n\n'
+                % (FL, d, u, u))
+    if kind == 'value_two':
+        return ('\t\t\tif (!(%s)) { mask |= %s; }\n\t\t\tmask |= Unknown_Up_Bit(event, %s);\n' % (FL, d, u))
+    raise KeyError(kind)
+
+
+def form(kind, tail):
+    s = ('\t\tif (event.Key == 1) {\n' + arms(kind, 1, 4) + '\t\t} else if (event.Key == 2) {\n' + arms(kind, 0x10, 0x40))
+    if tail == 'K':
+        s += (
+            '\t\t}\n'
+            '\t\tif (mask == 0) {\n'
+            '\t\t\tif (event.Key == 0x101 || event.Key == 0x102) {\n'
+            '\t\t\t\tmask = 0x1000;\n'
+            '\t\t\t} else { mask = 0x100; }\n'
+            '\t\t}\n'
+        )
+    else:
+        s += (
+            '\t\t} else if (event.Key == 0x101 || event.Key == 0x102) {\n'
+            '\t\t\tmask = 0x1000;\n'
+            '\t\t}\n'
+            '\t\tif (mask == 0) {\n'
+            '\t\t\tmask = 0x100;\n'
+            '\t\t}\n'
+        )
+    assert s.count('\n') == BASE.count('\n'), (kind, s.count('\n'), BASE.count('\n'))
+    out = [(BASE, s)]
+    if kind.startswith('helper'):
+        out.insert(0, (ANCHOR, ANCHOR.replace('}\n\n//', '}\n' + H_UP + '\n//')))
+    if kind.startswith('value'):
+        out.insert(0, (ANCHOR, ANCHOR.replace('}\n\n//', '}\n' + H_UPV + '\n//')))
+    return out
+
+
+FORMS = {}
+for _k in ('nested', 'nested_assign', 'reverse', 'helper_two', 'helper_nested', 'helper_both', 'value_two'):
+    for _t in 'KN':
+        FORMS['%s_%s' % (_k, _t)] = form(_k, _t)

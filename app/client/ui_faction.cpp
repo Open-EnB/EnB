@@ -245,7 +245,7 @@ void UIFactionClass::Unknown_58DC20(bool arg)
 	}
 	if (!reputation) return;
 
-	UnknownB8->Change_Text(reputation->Affiliation.Get(), 0);
+	const char *affiliation = reputation->Affiliation.Get(); UnknownB8->Change_Text(affiliation, 0);	// NAME 2 [affiliation]: what it holds
 	int count = reputation->Faction.Children.size();
 	int shown = 0;
 	int listed = 0;

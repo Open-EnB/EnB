@@ -3679,7 +3679,7 @@ static const char *ProductBeta = "EB-BETA";  // NAME 1 [ProductBeta]: client .da
 static const char *RegistrationGameId = "2184";  // NAME 1 [RegistrationGameId]: client .data 0xB85EF0 (0x600000: 0x7D7E10's third argument, atoi'd against the game features' ids)
 // NOT EXACT: inline-budget (functional; the server boxes through 0x5FB890 and the back-outs through 0x5F8560 as the client inlines them, one per
 // branch; its cases in jump table 0x602AE4's layout order, case 3's !+0x1CE branch first, the US picks through the file member 0x603B20, inlined (its this a
-// variable: the client's add esi, -0x84 at 0x602341; two compare copies 0x6022BD / 0x602362, the other sites cross-jumped); frame 0xB18, three dead reads in case 0x10)
+// variable: the client's add esi, -0x84 at 0x602341; two compare copies 0x6022BD / 0x602362, the other sites cross-jumped); frame 0xB18, three dead reads in case 0x10, three at case 5's 5FA900 back-out; masked residue 302)
 // @0x600000
 void RegistrationInterface::Unknown_5F00C0()
 {
@@ -3883,7 +3883,7 @@ void RegistrationInterface::Unknown_5F00C0()
 					return;
 				}
 				Unknown_5FB890();
-				Unknown_5F8560();   // the client calls 0x5F89F0 at this back-out (0x60158F)
+				Unknown_5F8560(); UnknownD8.begin(); UnknownD8.begin(); UnknownD8.begin();   // the client calls 0x5F89F0 at this back-out (0x60158F); D272: dead reads (begin() / end() 3: 312 -> 302; 1-2 no change, 4-8 or size() worse)
 				return;
 			}
 			UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "The code you entered was not valid.  Please try again.", 0x140, 0, 0);
@@ -4101,7 +4101,7 @@ void RegistrationInterface::Unknown_5F00C0()
 			return;
 		case 0x10:
 			if (Unknown390.Unknown10 == 0) {
-				Unknown5A8 = Unknown1AC->Unknown_7D4530(); UnknownD8.size(); UnknownD8.size();   // D272: dead reads (swept 0-4 here x 0-5 at the end x 0-2 at case 5's back-out, vector / map kinds; one more at any line: worse)
+				Unknown5A8 = Unknown1AC->Unknown_7D4530(); UnknownD8.begin(); UnknownD8.begin();   // D272: dead reads (swept 0-4 here x 0-5 at the end x 0-2 at case 5's back-out, vector / map kinds; one more at any line: worse; begin() / end() here cut 341 -> 312, size() / empty() 341)
 				Unknown_5F3770(0xB);
 				return;
 			}

@@ -1,0 +1,564 @@
+FB6 (Fable high, run 2026-11-25-evening): the batch scripts of 0x542250, in dependency order (pip_c10's live1_live2m is the tree's form).
+
+===== pip_c1.py =====
+HYPOTHESIS = ('FB6 0x542250 batch 1: the client keeps unit at [ebp-0x40], right after target (-0x4c..-0x44), and stores it '
+              'in branch 1 without ever reading it: a dead store VC6 keeps only for a member of an address-taken aggregate. '
+              'target + unit are one SphereClass (Center, Radius; ship_pip / galaxy_map_pip take SphereClass too), its '
+              'address escaping through Look_At(pos, sphere.Center)')
+FILE = 'app/client/ship_equip_pip.cpp'
+SYMBOL = 'ShipEquipPipClass::Unknown_542250'
+ADDRESS = 0x542250
+
+_lines = open(FILE, newline='').read().split('\n')
+BASE = '\n'.join(_lines[156:198]) + '\n'
+assert BASE.startswith('\tfloat unit; Vector3 pos; Vector3 target; if (Proxy'), BASE[:60]
+assert BASE.endswith('\t\t}\n\t}\n')
+
+F = 'CameraManagerClass::Unknown_79B6B0()'
+
+
+def body(decl, init1, init2, d1, d2, pos1=None, pos2decl='', T='sphere.Center', U='sphere.Radius', u48_1=None):
+    if pos1 is None:
+        pos1 = '\t\t\tpos.Set(%s * 1.1, %s * 1.1, %s * 1.1);\n' % (U, U, U)
+    if u48_1 is None:
+        u48_1 = '\t\t\tUnknown48 = %s;\n' % U
+    s = (
+        '\t' + decl + 'if (Proxy->Proxied != robj.Peek()) {\n'
+        '\t\tProxy->Unknown_47FF70(robj.Peek());\n'
+        '\t\tProxy->Set_Transform(Matrix3D::Identity);\n'
+        '\t\tif (robj) {\n'
+        + init1 + u48_1 + pos1 +
+        '\t\t\tProxy->Set_Position(Vector3(0, 0, 0));\n'
+        '\t\t\tMatrix3D tm(true);\n'
+        '\t\t\ttm.Look_At(pos, ' + T + ', 0);\n'
+        '\t\t\tUnknown_543270(tm);\n'
+        + d1 +
+        '\t\t}\n'
+        '\t} else if (robj) {\n'
+        + init2 +
+        '\t\tif (' + U + ' != Unknown48) {\n'
+        '\t\t\tCameraClass *camera = Camera.Peek();\n'
+        '\t\t\tFAIL_IF(!camera) return;\n'
+        '\t\t\tUnknown50 = camera->Get_Transform();\n'
+        '\t\t\tMatrix3D &end = Unknown80; end = Unknown50;\n'
+        '\t\t\tend.Translate_Z(' + U + ' - Unknown48);\n'
+        '\t\t\t' + pos2decl + 'pos.Set(end.Get_X_Translation(), end.Get_Y_Translation(), end.Get_Z_Translation());\n'
+        '\t\t\tend.Look_At(pos, ' + T + ', 0);\n'
+        '\t\t\tUnknown4C = 1.0f;\n'
+        '\t\t\tUnknown48 = ' + U + ';\n'
+        '\t\t}\n'
+        '\t\tif (Unknown4C > 0.0f) {\n'
+        '\t\t\tUnknown4C -= WW3D::Get_Frame_Time() * 0.001f;\n'
+        '\t\t\tUnknown4C = WWMath::Clamp(Unknown4C, 0.0f, 1.0f);\n'
+        '\t\t\tMatrix3D tm = Lerp(Unknown50, Unknown80, 1.0f - Unknown4C);\n'
+        '\t\t\tUnknown_543270(tm);\n'
+        '\n'
+        + d2 +
+        '\n'
+        '\t\t\tif (Unknown4C == 0.0f) {\n'
+        '\t\t\t\tUnknown_542EE0(0);\n'
+        '\t\t\t}\n'
+        '\t\t}\n'
+        '\t}\n'
+    )
+    # line-neutral: pad or fail
+    n = s.count('\n')
+    want = BASE.count('\n')
+    assert n <= want, (n, want)
+    if n < want:
+        # blank lines after the first branch's init
+        s = s.replace('\t\tif (robj) {\n', '\t\tif (robj) {\n' + '\n' * (want - n), 1)
+    assert s.count('\n') == want
+    return [(BASE, s)]
+
+
+D1_S3 = '\t\t\tpos -= sphere.Center; Distance = pos.Length();\n'
+D1_LEN = '\t\t\tDistance = (pos - sphere.Center).Length();\n'
+D1_DIST = '\t\t\tDistance = Vector3::Distance(pos, sphere.Center);\n'
+D2_S3 = '\t\t\tDistance = (tm.Get_Translation() - sphere.Center).Length();\n'
+D2_DIST = '\t\t\tDistance = Vector3::Distance(tm.Get_Translation(), sphere.Center);\n'
+
+# member stores, radius first (the s3 form with the two locals as one sphere)
+I1_MEM = '\t\t\tsphere.Radius = ' + F + ';\n'
+I1_MEM_C = '\t\t\tsphere.Center.Set(0, 0, 0);\n'
+I2_MEM = '\t\tsphere.Radius = ' + F + ';\n\t\tsphere.Center.Set(0, 0, 0);\n'
+# the constructor / Init forms
+I1_INIT = '\t\t\tsphere.Init(Vector3(0, 0, 0), ' + F + ');\n'
+I2_INIT = '\t\tsphere.Init(Vector3(0, 0, 0), ' + F + ');\n\n'
+I1_CTOR = '\t\t\tSphereClass sphere(Vector3(0, 0, 0), ' + F + ');\n'
+I2_CTOR = '\t\tSphereClass sphere(Vector3(0, 0, 0), ' + F + ');\n\n'
+
+
+def mem(decl, d1, d2, **kw):
+    # radius, Unknown48, centre, pos: s3's statement order
+    U = 'sphere.Radius'
+    pos1 = I1_MEM_C + '\t\t\tpos.Set(%s * 1.1, %s * 1.1, %s * 1.1);\n' % (U, U, U)
+    return body(decl, I1_MEM, I2_MEM, d1, d2, pos1=pos1, **kw)
+
+
+FORMS = {
+    'a1_fscope_mem_s3': mem('SphereClass sphere; Vector3 pos; ', D1_S3, D2_S3),
+    'a2_fscope_mem_len': mem('SphereClass sphere; Vector3 pos; ', D1_LEN, D2_S3),
+    'a3_fscope_mem_dist': mem('SphereClass sphere; Vector3 pos; ', D1_DIST, D2_DIST),
+    'a4_fscope_mem_pos_first': mem('Vector3 pos; SphereClass sphere; ', D1_S3, D2_S3),
+    'b1_fscope_init_s3': body('SphereClass sphere; Vector3 pos; ', I1_INIT, I2_INIT, D1_S3, D2_S3),
+    'b2_fscope_init_dist': body('SphereClass sphere; Vector3 pos; ', I1_INIT, I2_INIT, D1_DIST, D2_DIST),
+    'c1_ctor_fpos_s3': body('Vector3 pos; ', I1_CTOR, I2_CTOR, D1_S3, D2_S3),
+    'c2_ctor_fpos_dist': body('Vector3 pos; ', I1_CTOR, I2_CTOR, D1_DIST, D2_DIST),
+    'c3_ctor_bpos_s3': body('', I1_CTOR, I2_CTOR.replace('\n\n', '\n\t\tVector3 pos;\n'), D1_S3, D2_S3,
+                            pos1='\t\t\tVector3 pos(sphere.Radius * 1.1, sphere.Radius * 1.1, sphere.Radius * 1.1);\n'),
+    'c4_ctor_bpos_dist': body('', I1_CTOR, I2_CTOR.replace('\n\n', '\n\t\tVector3 pos;\n'), D1_DIST, D2_DIST,
+                              pos1='\t\t\tVector3 pos(sphere.Radius * 1.1, sphere.Radius * 1.1, sphere.Radius * 1.1);\n'),
+    'c5_ctor_bpos_len': body('', I1_CTOR, I2_CTOR.replace('\n\n', '\n\t\tVector3 pos;\n'), D1_LEN, D2_S3,
+                             pos1='\t\t\tVector3 pos(sphere.Radius * 1.1, sphere.Radius * 1.1, sphere.Radius * 1.1);\n'),
+    'd1_fscope_sphere_unit_local': body('SphereClass sphere; Vector3 pos; ',
+                                        '\t\t\tfloat unit = sphere.Radius = ' + F + ';\n',
+                                        I2_MEM, D1_S3, D2_S3,
+                                        pos1=I1_MEM_C + '\t\t\tpos.Set(unit * 1.1, unit * 1.1, unit * 1.1);\n',
+                                        u48_1='\t\t\tUnknown48 = unit;\n'),
+}
+
+===== pip_c3.py =====
+HYPOTHESIS = ('FB6 0x542250 batch 3: on CM_s3_s3 (res 4: site 2 Pre_Rotate_X rows 1-2 load the row before cos) the '
+              'x87 order follows the inline-expansion symbols ahead of site 2: branch 2 forms of the sphere, the position '
+              'and the Lerp block, k dead ints as the diagnostic')
+FILE = 'app/client/ship_equip_pip.cpp'
+SYMBOL = 'ShipEquipPipClass::Unknown_542250'
+ADDRESS = 0x542250
+
+import subprocess as _sp
+_lines = _sp.run(['git', 'show', 'dbc11fb47:' + FILE], capture_output=True, check=True).stdout.decode().split('\n')
+BASE = '\n'.join(_lines[156:198]) + '\n'
+assert BASE.startswith('\tfloat unit; Vector3 pos; Vector3 target; if (Proxy'), BASE[:60]
+assert BASE.endswith('\t\t}\n\t}\n')
+
+F = 'CameraManagerClass::Unknown_79B6B0()'
+R = 'sphere.Radius'
+C = 'sphere.Center'
+
+
+def body(s1, s2, pos2='SET', end='REF', d1=None, d2=None, pos1=None, lerp=None, pre=''):
+    if pos1 is None:
+        pos1 = '\t\t\tVector3 pos(%s * 1.1, %s * 1.1, %s * 1.1);\n' % (R, R, R)
+    if d1 is None:
+        d1 = '\t\t\tpos -= sphere.Center; Distance = pos.Length();\n'
+    if d2 is None:
+        d2 = '\t\t\tDistance = (tm.Get_Translation() - sphere.Center).Length();\n'
+    if lerp is None:
+        lerp = '\t\t\tMatrix3D tm = Lerp(Unknown50, Unknown80, 1.0f - Unknown4C);\n'
+    E = 'end' if end == 'REF' else 'Unknown80'
+    endl = {'REF': '\t\t\tMatrix3D &end = Unknown80; end = Unknown50;\n',
+            'DIRECT': '\t\t\tUnknown80 = Unknown50;\n'}[end]
+    posl = {
+        'SET': '\t\t\tpos.Set(E.Get_X_Translation(), E.Get_Y_Translation(), E.Get_Z_Translation());\n',
+        'CTOR': '\t\t\tVector3 pos(E.Get_X_Translation(), E.Get_Y_Translation(), E.Get_Z_Translation());\n',
+        'GT': '\t\t\tVector3 pos = E.Get_Translation();\n',
+        'GTA': '\t\t\tpos = E.Get_Translation();\n',
+        'GTP': '\t\t\tE.Get_Translation(&pos);\n',
+        'GTPD': '\t\t\tVector3 pos; E.Get_Translation(&pos);\n',
+    }[pos2].replace('E.', E + '.')
+    s = (
+        '\t' + pre + 'if (Proxy->Proxied != robj.Peek()) {\n'
+        '\t\tProxy->Unknown_47FF70(robj.Peek());\n'
+        '\t\tProxy->Set_Transform(Matrix3D::Identity);\n'
+        '\t\tif (robj) {\n'
+        + s1 +
+        '\t\t\tUnknown48 = ' + R + ';\n'
+        + pos1 +
+        '\t\t\tProxy->Set_Position(Vector3(0, 0, 0));\n'
+        '\t\t\tMatrix3D tm(true);\n'
+        '\t\t\ttm.Look_At(pos, ' + C + ', 0);\n'
+        '\t\t\tUnknown_543270(tm);\n'
+        + d1 +
+        '\t\t}\n'
+        '\t} else if (robj) {\n'
+        + s2 +
+        '\t\tif (' + R + ' != Unknown48) {\n'
+        '\t\t\tCameraClass *camera = Camera.Peek();\n'
+        '\t\t\tFAIL_IF(!camera) return;\n'
+        '\t\t\tUnknown50 = camera->Get_Transform();\n'
+        + endl +
+        '\t\t\t' + E + '.Translate_Z(' + R + ' - Unknown48);\n'
+        + posl +
+        '\t\t\t' + E + '.Look_At(pos, ' + C + ', 0);\n'
+        '\t\t\tUnknown4C = 1.0f;\n'
+        '\t\t\tUnknown48 = ' + R + ';\n'
+        '\t\t}\n'
+        '\t\tif (Unknown4C > 0.0f) {\n'
+        '\t\t\tUnknown4C -= WW3D::Get_Frame_Time() * 0.001f;\n'
+        '\t\t\tUnknown4C = WWMath::Clamp(Unknown4C, 0.0f, 1.0f);\n'
+        + lerp +
+        '\t\t\tUnknown_543270(tm);\n'
+        + d2 +
+        '\t\t\tif (Unknown4C == 0.0f) {\n'
+        '\t\t\t\tUnknown_542EE0(0);\n'
+        '\t\t\t}\n'
+        '\t\t}\n'
+        '\t}\n'
+    )
+    # line-neutral: the FAIL_IF stays on its line, the total stays
+    want = BASE.count('\n')
+    above = s[:s.index('\t\t\tFAIL_IF')].count('\n')
+    base_above = BASE[:BASE.index('\t\t\tFAIL_IF')].count('\n')
+    assert above <= base_above, (above, base_above)
+    s = s.replace('\t\tif (robj) {\n', '\t\tif (robj) {\n' + '\n' * (base_above - above), 1)
+    n = s.count('\n')
+    assert n <= want, (n, want)
+    s = s.replace('\t\t\tif (Unknown4C == 0.0f) {\n', '\n' * (want - n) + '\t\t\tif (Unknown4C == 0.0f) {\n', 1)
+    assert s.count('\n') == want
+    assert s[:s.index('\t\t\tFAIL_IF')].count('\n') == base_above
+    return [(BASE, s)]
+
+
+S1C = '\t\t\tSphereClass sphere(Vector3(0, 0, 0), ' + F + ');\n'
+S1I = '\t\t\tSphereClass sphere; sphere.Init(Vector3(0, 0, 0), ' + F + ');\n'
+S2M = '\t\tSphereClass sphere; sphere.Radius = ' + F + '; sphere.Center.Set(0, 0, 0);\n\t\tVector3 pos;\n'
+S2M_PF = '\t\tVector3 pos; SphereClass sphere; sphere.Radius = ' + F + '; sphere.Center.Set(0, 0, 0);\n'
+S2M_NP = '\t\tSphereClass sphere; sphere.Radius = ' + F + '; sphere.Center.Set(0, 0, 0);\n'
+S2A = '\t\tSphereClass sphere; sphere.Radius = ' + F + '; sphere.Center = Vector3(0, 0, 0);\n\t\tVector3 pos;\n'
+S2X = ('\t\tSphereClass sphere; sphere.Radius = ' + F + '; sphere.Center.X = 0; sphere.Center.Y = 0; sphere.Center.Z = 0;\n'
+       '\t\tVector3 pos;\n')
+S2C = '\t\tSphereClass sphere(Vector3(0, 0, 0), ' + F + ');\n\t\tVector3 pos;\n'
+S2C_NP = '\t\tSphereClass sphere(Vector3(0, 0, 0), ' + F + ');\n'
+D2_POS = '\t\t\tpos = tm.Get_Translation(); Distance = (pos - sphere.Center).Length();\n'
+D2_POS2 = '\t\t\tVector3 at = tm.Get_Translation(); Distance = (at - sphere.Center).Length();\n'
+D2_SUB = '\t\t\tpos = tm.Get_Translation(); pos -= sphere.Center; Distance = pos.Length();\n'
+D2_SET = ('\t\t\tpos.Set(tm.Get_X_Translation(), tm.Get_Y_Translation(), tm.Get_Z_Translation()); pos -= sphere.Center; '
+          'Distance = pos.Length();\n')
+POS1SET = '\t\t\tVector3 pos; pos.Set(%s * 1.1, %s * 1.1, %s * 1.1);\n' % (R, R, R)
+
+FORMS = {
+    'cm_base': body(S1C, S2M),
+    'cm_posfirst': body(S1C, S2M_PF),
+    'cm_direct': body(S1C, S2M, end='DIRECT'),
+    'cm_pos_ctor': body(S1C, S2M_NP, pos2='CTOR'),
+    'cm_pos_gt': body(S1C, S2M_NP, pos2='GT'),
+    'cm_pos_gta': body(S1C, S2M, pos2='GTA'),
+    'cm_pos_gtp': body(S1C, S2M, pos2='GTP'),
+    'cm_pos_gtpd': body(S1C, S2M_NP, pos2='GTPD'),
+    'ca_base': body(S1C, S2A),
+    'cx_base': body(S1C, S2X),
+    'cc_pos_ctor': body(S1C, S2C_NP, pos2='CTOR'),
+    'cc_pos_gt': body(S1C, S2C_NP, pos2='GT'),
+    'cc_pos_gtp': body(S1C, S2C, pos2='GTP'),
+    'cc_pos_gta': body(S1C, S2C, pos2='GTA'),
+    'cc_direct': body(S1C, S2C, end='DIRECT'),
+    'cc_direct_gt': body(S1C, S2C_NP, end='DIRECT', pos2='GT'),
+    'cc_direct_ctor': body(S1C, S2C_NP, end='DIRECT', pos2='CTOR'),
+    'cm_direct_gt': body(S1C, S2M_NP, end='DIRECT', pos2='GT'),
+    'cm_direct_ctor': body(S1C, S2M_NP, end='DIRECT', pos2='CTOR'),
+    'cm_d2pos': body(S1C, S2M, d2=D2_POS),
+    'cm_d2at': body(S1C, S2M, d2=D2_POS2),
+    'cm_d2sub': body(S1C, S2M, d2=D2_SUB),
+    'cm_d2set': body(S1C, S2M, d2=D2_SET),
+    'cc_d2pos': body(S1C, S2C, d2=D2_POS),
+    'cc_d2at': body(S1C, S2C, d2=D2_POS2),
+    'cc_d2sub': body(S1C, S2C, d2=D2_SUB),
+    'cm_pos1set': body(S1C, S2M, pos1=POS1SET),
+    'cc_pos1set': body(S1C, S2C, pos1=POS1SET),
+}
+for _k in (1, 2, 3, 4):
+    FORMS['cm_dead%d' % _k] = body(S1C, S2M, pre=''.join('int d%d = 0; ' % i for i in range(_k)))
+    FORMS['cc_dead%d' % _k] = body(S1C, S2C, pre=''.join('int d%d = 0; ' % i for i in range(_k)))
+
+===== pip_c5.py =====
+import runpy as _runpy
+_m = _runpy.run_path('C:/EnBDevelopment/EnB/.work/fb6/pip_c3.py')
+HYPOTHESIS = ('FB6 0x542250 batch 5: p_time_t is identical (the sphere, the block position, the frame time and the Lerp '
+              'fraction as named floats). Which of the earlier devices does the exact form still need: the end '
+              'reference, pos -= centre, the member-store sphere of branch 2; simpler spellings of each')
+FILE = _m['FILE']
+SYMBOL = _m['SYMBOL']
+ADDRESS = _m['ADDRESS']
+body = _m['body']
+F = _m['F']
+S1C = _m['S1C']
+S1I = _m['S1I']
+S2M_NP = _m['S2M_NP']
+S2C_NP = _m['S2C_NP']
+LERP = '\t\t\tfloat t = 1.0f - Unknown4C; Matrix3D tm = Lerp(Unknown50, Unknown80, t);\n'
+OLD_T = '\t\t\tUnknown4C -= WW3D::Get_Frame_Time() * 0.001f;\n'
+NEW_T = '\t\t\tfloat seconds = WW3D::Get_Frame_Time() * 0.001f; Unknown4C -= seconds;\n'
+
+
+def P(s1=S1C, s2=S2M_NP, time=NEW_T, **kw):
+    kw.setdefault('pos2', 'CTOR')
+    kw.setdefault('lerp', LERP)
+    b, s = body(s1, s2, **kw)[0]
+    assert s.count(OLD_T) == 1
+    s = s.replace(OLD_T, time)
+    return [(b, s)]
+
+
+D1_LEN = '\t\t\tDistance = (pos - sphere.Center).Length();\n'
+D1_DIST = '\t\t\tDistance = Vector3::Distance(pos, sphere.Center);\n'
+D2_DIST = '\t\t\tDistance = Vector3::Distance(tm.Get_Translation(), sphere.Center);\n'
+S1M = '\t\t\tSphereClass sphere; sphere.Radius = ' + F + '; sphere.Center.Set(0, 0, 0);\n'
+S2I = '\t\tSphereClass sphere; sphere.Init(Vector3(0, 0, 0), ' + F + ');\n'
+S2CF = '\t\tSphereClass sphere; sphere.Center.Set(0, 0, 0); sphere.Radius = ' + F + ';\n'
+S2A = '\t\tSphereClass sphere; sphere.Radius = ' + F + '; sphere.Center = Vector3(0, 0, 0);\n'
+
+FORMS = {
+    'x_exact': P(),
+    'x_direct': P(end='DIRECT'),
+    'x_d1len': P(d1=D1_LEN),
+    'x_d1dist': P(d1=D1_DIST),
+    'x_d2dist': P(d2=D2_DIST),
+    'x_direct_d1len': P(end='DIRECT', d1=D1_LEN),
+    'x_direct_d1dist': P(end='DIRECT', d1=D1_DIST),
+    'x_i1': P(s1=S1I),
+    'x_m1': P(s1=S1M),
+    'x_c2': P(s2=S2C_NP),
+    'x_i2': P(s2=S2I),
+    'x_c2_notime': P(s2=S2C_NP, time=OLD_T),
+    'x_c2_not': P(s2=S2C_NP, lerp='\t\t\tMatrix3D tm = Lerp(Unknown50, Unknown80, 1.0f - Unknown4C);\n'),
+    'x_cf2': P(s2=S2CF),
+    'x_a2': P(s2=S2A),
+    'x_pos2set': P(s2=S2M_NP + '\t\tVector3 pos;\n', pos2='SET'),
+    'x_time_inline': P(time='\t\t\tfloat seconds = WW3D::Get_Frame_Time() * 0.001f; Unknown4C = WWMath::Clamp(Unknown4C - seconds, 0.0f, 1.0f);\n\n'),
+}
+_b, _s = FORMS['x_time_inline'][0]
+_s = _s.replace('\n\n\t\t\tUnknown4C = WWMath::Clamp(Unknown4C, 0.0f, 1.0f);\n', '\n\n')
+FORMS['x_time_inline'] = [(_b, _s)]
+assert _s.count('\n') == _b.count('\n'), (_s.count('\n'), _b.count('\n'))
+
+===== pip_c7.py =====
+import runpy as _runpy
+_m = _runpy.run_path('C:/EnBDevelopment/EnB/.work/fb6/pip_c5.py')
+HYPOTHESIS = ('FB6 0x542250 batch 7: the first position as member stores Y, X, Z gives the client store order and length sum '
+              '(raw 8 -> 4) and moves the definition-count threshold back (site 2 Pre_Rotate_X rows 1-2): sweep the named '
+              'floats of the Lerp block (none / seconds / t / both) and k dead ints over the member-store position')
+FILE = _m['FILE']
+SYMBOL = _m['SYMBOL']
+ADDRESS = _m['ADDRESS']
+P = _m['P']
+OLD_T = _m['OLD_T']
+NEW_T = _m['NEW_T']
+LERP = _m['LERP']
+LERP0 = '\t\t\tMatrix3D tm = Lerp(Unknown50, Unknown80, 1.0f - Unknown4C);\n'
+R = 'sphere.Radius'
+U = R + ' * 1.1'
+YXZ = '\t\t\tVector3 pos; pos.Y = %s; pos.X = %s; pos.Z = %s;\n' % (U, U, U)
+YXZ_F = '\t\t\tVector3 pos; float scale = %s; pos.Y = scale; pos.X = scale; pos.Z = scale;\n' % U
+YXZ_C = '\t\t\tVector3 pos; pos.Y = pos.X = %s; pos.Z = %s;\n' % (U, U)
+YXZ_C3 = '\t\t\tVector3 pos; pos.Z = pos.X = pos.Y = %s;\n' % U
+YZX = '\t\t\tVector3 pos; pos.Y = %s; pos.Z = %s; pos.X = %s;\n' % (U, U, U)
+YX_Z = '\t\t\tVector3 pos; pos.Y = %s; pos.X = pos.Y; pos.Z = pos.Y;\n' % U
+
+
+def dead(k):
+    return ''.join('int d%d = 0; ' % i for i in range(k))
+
+
+FORMS = {}
+for _n, _time, _lerp in (('none', OLD_T, LERP0), ('sec', NEW_T, LERP0), ('t', OLD_T, LERP), ('both', NEW_T, LERP)):
+    for _k in (0, 1, 2, 3):
+        FORMS['yxz_%s_d%d' % (_n, _k)] = P(pos1=YXZ, time=_time, lerp=_lerp, pre=dead(_k))
+for _n, _p in (('f', YXZ_F), ('c', YXZ_C), ('c3', YXZ_C3), ('yzx', YZX), ('yx_z', YX_Z)):
+    FORMS['%s_none' % _n] = P(pos1=_p, time=OLD_T, lerp=LERP0)
+    FORMS['%s_both' % _n] = P(pos1=_p, time=NEW_T, lerp=LERP)
+
+# the tree holds x_exact now: the hunks replace the working file's text of the same lines
+_cur = '\n'.join(open(FILE, newline='').read().split('\n')[156:198]) + '\n'
+assert _cur.startswith('\tif (Proxy->Proxied != robj.Peek()) {') and _cur.endswith('\t\t}\n\t}\n')
+FORMS = {k: [(_cur, v[0][1])] for k, v in FORMS.items()}
+
+===== pip_c8.py =====
+import itertools as _it
+import runpy as _runpy
+_m = _runpy.run_path('C:/EnBDevelopment/EnB/.work/fb6/pip_c5.py')
+HYPOTHESIS = ('FB6 0x542250 batch 8: yxz_both_d3 is exact (member-store position, seconds, t and three dead ints): the '
+              'dead ints are the diagnostic of workflow 3.1.2 (five definitions needed). Sweep every subset of the named '
+              'locals the function can carry (seconds, t, the Translate_Z delta, a changed bool, the model pointer, a '
+              'named distance in either branch) over the member-store position, to find the set that needs no dead int')
+FILE = _m['FILE']
+SYMBOL = _m['SYMBOL']
+ADDRESS = _m['ADDRESS']
+P = _m['P']
+OLD_T = _m['OLD_T']
+NEW_T = _m['NEW_T']
+LERP = _m['LERP']
+LERP0 = '\t\t\tMatrix3D tm = Lerp(Unknown50, Unknown80, 1.0f - Unknown4C);\n'
+R = 'sphere.Radius'
+U = R + ' * 1.1'
+YXZ = '\t\t\tVector3 pos; pos.Y = %s; pos.X = %s; pos.Z = %s;\n' % (U, U, U)
+D1 = '\t\t\tpos -= sphere.Center; Distance = pos.Length();\n'
+D1N = '\t\t\tpos -= sphere.Center; float distance = pos.Length(); Distance = distance;\n'
+D2 = '\t\t\tDistance = (tm.Get_Translation() - sphere.Center).Length();\n'
+D2N = '\t\t\tfloat distance = (tm.Get_Translation() - sphere.Center).Length(); Distance = distance;\n'
+
+
+def sub(s, old, new):
+    assert s.count(old) == 1, old
+    return s.replace(old, new)
+
+
+def make(flags):
+    b, s = P(pos1=YXZ, time=NEW_T if 'S' in flags else OLD_T, lerp=LERP if 'T' in flags else LERP0,
+             d1=D1N if 'F' in flags else D1, d2=D2N if 'G' in flags else D2)[0]
+    if 'C' in flags:
+        s = sub(s, '\t\t\tend.Translate_Z(sphere.Radius - Unknown48);\n',
+                '\t\t\tfloat delta = sphere.Radius - Unknown48; end.Translate_Z(delta);\n')
+    if 'D' in flags:
+        s = sub(s, 'if (Proxy->Proxied != robj.Peek()) {\n', 'bool changed = Proxy->Proxied != robj.Peek(); if (changed) {\n')
+    if 'E' in flags:
+        if 'D' in flags:
+            s = sub(s, 'bool changed = Proxy->Proxied != robj.Peek(); if (changed) {\n',
+                    'RenderObjClass *model = robj.Peek(); bool changed = Proxy->Proxied != model; if (changed) {\n')
+        else:
+            s = sub(s, 'if (Proxy->Proxied != robj.Peek()) {\n',
+                    'RenderObjClass *model = robj.Peek(); if (Proxy->Proxied != model) {\n')
+        s = sub(s, 'Proxy->Unknown_47FF70(robj.Peek());', 'Proxy->Unknown_47FF70(model);')
+    return s
+
+
+_cur = '\n'.join(open(FILE, newline='').read().split('\n')[156:198]) + '\n'
+assert _cur.startswith('\tif (Proxy->Proxied != robj.Peek()) {') and _cur.endswith('\t\t}\n\t}\n')
+FORMS = {}
+for _n in range(0, 8):
+    for _c in _it.combinations('STCDEFG', _n):
+        _f = ''.join(_c)
+        if _f in ('', 'S', 'T', 'ST'):
+            continue    # batch 7
+        FORMS['n_' + _f] = [(_cur, make(_f))]
+
+===== pip_c9.py =====
+import runpy as _runpy
+_m = _runpy.run_path('C:/EnBDevelopment/EnB/.work/fb6/pip_c5.py')
+HYPOTHESIS = ('FB6 0x542250 batch 9: the member-store position is exact with seconds, t and three dead ints; the subset sweep '
+              'of live named locals found no set without them (5 codes). As px_collision 0x454730 (D272): dead copies of '
+              'the sphere\'s own members supply the definitions: a dead Vector3 copy of the centre (three definitions) or '
+              'dead floats of Radius / Center.X/Y/Z, in either branch, with and without seconds / t')
+FILE = _m['FILE']
+SYMBOL = _m['SYMBOL']
+ADDRESS = _m['ADDRESS']
+P = _m['P']
+OLD_T = _m['OLD_T']
+NEW_T = _m['NEW_T']
+LERP = _m['LERP']
+S1C = _m['S1C']
+S2M_NP = _m['S2M_NP']
+LERP0 = '\t\t\tMatrix3D tm = Lerp(Unknown50, Unknown80, 1.0f - Unknown4C);\n'
+R = 'sphere.Radius'
+U = R + ' * 1.1'
+YXZ = '\t\t\tVector3 pos; pos.Y = %s; pos.X = %s; pos.Z = %s;\n' % (U, U, U)
+V = 'Vector3 center = sphere.Center;'
+FR = 'float radius = sphere.Radius;'
+F3 = 'float x = sphere.Center.X; float y = sphere.Center.Y; float z = sphere.Center.Z;'
+F2 = 'float x = sphere.Center.X; float y = sphere.Center.Y;'
+F1 = 'float x = sphere.Center.X;'
+
+
+def mk(b1='', b2='', st='ST', pos1=YXZ, lerpdead=''):
+    s1 = S1C.rstrip('\n') + ((' ' + b1) if b1 else '') + '\n'
+    s2 = S2M_NP.rstrip('\n') + ((' ' + b2) if b2 else '') + '\n'
+    lerp = LERP if 'T' in st else LERP0
+    if lerpdead:
+        lerp = lerp.rstrip('\n') + ' ' + lerpdead + '\n'
+    return P(s1=s1, s2=s2, pos1=pos1, time=NEW_T if 'S' in st else OLD_T, lerp=lerp)
+
+
+FORMS = {
+    'v1_st': mk(b1=V),
+    'v2_st': mk(b2=V),
+    'v1_s': mk(b1=V, st='S'),
+    'v1_t': mk(b1=V, st='T'),
+    'v2_s': mk(b2=V, st='S'),
+    'v2_t': mk(b2=V, st='T'),
+    'v1_none': mk(b1=V, st=''),
+    'v2_none': mk(b2=V, st=''),
+    'v1_r1_none': mk(b1=V + ' ' + FR, st=''),
+    'v1_r1_r2_none': mk(b1=V + ' ' + FR, b2=FR, st=''),
+    'v2_r2_none': mk(b2=V + ' ' + FR, st=''),
+    'v2_r1_r2_none': mk(b1=FR, b2=V + ' ' + FR, st=''),
+    'v1_v2_none': mk(b1=V, b2=V, st=''),
+    'v1_v2_st': mk(b1=V, b2=V),
+    'v1_r1_st': mk(b1=V + ' ' + FR),
+    'v2_r2_st': mk(b2=V + ' ' + FR),
+    'f3_1_st': mk(b1=F3),
+    'f3_2_st': mk(b2=F3),
+    'f2_1_r1_st': mk(b1=F2 + ' ' + FR),
+    'f2_2_r2_st': mk(b2=F2 + ' ' + FR),
+    'r1_r2_f1_st': mk(b1=FR + ' ' + F1, b2=FR),
+    'r1_r2_st': mk(b1=FR, b2=FR),
+    'r1_st': mk(b1=FR),
+    'r2_st': mk(b2=FR),
+    'f3_1_r1_r2_none': mk(b1=F3 + ' ' + FR, b2=FR, st=''),
+    'at_st': mk(lerpdead='Vector3 at = tm.Get_Translation();'),
+    'at_none': mk(lerpdead='Vector3 at = tm.Get_Translation();', st=''),
+    'c_v2_st': mk(b2='Vector3 center = sphere.Center, at = center;'),
+}
+
+# the tree holds x_exact now: the hunks replace the working file's text of the same lines
+_cur = '\n'.join(open(FILE, newline='').read().split('\n')[156:198]) + '\n'
+assert _cur.startswith('\tif (Proxy->Proxied != robj.Peek()) {') and _cur.endswith('\t\t}\n\t}\n')
+FORMS = {k: [(_cur, v[0][1])] for k, v in FORMS.items()}
+
+===== pip_c10.py =====
+import runpy as _runpy
+_m = _runpy.run_path('C:/EnBDevelopment/EnB/.work/fb6/pip_c5.py')
+HYPOTHESIS = ('FB6 0x542250 batch 10: exact with one dead Vector3 copy of the sphere centre in either branch and no named '
+              'floats (v1_none / v2_none, raw 0). With that definition supplied, which devices can go and is there a live '
+              'form: a named centre the sphere is built from, the constructor position, the constructor sphere in branch '
+              '2, the direct Unknown80, the one-expression Distance')
+FILE = _m['FILE']
+SYMBOL = _m['SYMBOL']
+ADDRESS = _m['ADDRESS']
+P = _m['P']
+F = _m['F']
+OLD_T = _m['OLD_T']
+S1C = _m['S1C']
+S2M_NP = _m['S2M_NP']
+S2C_NP = _m['S2C_NP']
+LERP0 = '\t\t\tMatrix3D tm = Lerp(Unknown50, Unknown80, 1.0f - Unknown4C);\n'
+R = 'sphere.Radius'
+U = R + ' * 1.1'
+YXZ = '\t\t\tVector3 pos; pos.Y = %s; pos.X = %s; pos.Z = %s;\n' % (U, U, U)
+XYZ = '\t\t\tVector3 pos; pos.X = %s; pos.Y = %s; pos.Z = %s;\n' % (U, U, U)
+CTOR = '\t\t\tVector3 pos(%s, %s, %s);\n' % (U, U, U)
+SET = '\t\t\tVector3 pos; pos.Set(%s, %s, %s);\n' % (U, U, U)
+V = 'Vector3 center = sphere.Center;'
+D1_LEN = '\t\t\tDistance = (pos - sphere.Center).Length();\n'
+D1_DIST = '\t\t\tDistance = Vector3::Distance(pos, sphere.Center);\n'
+
+
+def mk(b1='', b2='', pos1=YXZ, s1=S1C, s2=S2M_NP, **kw):
+    s1 = s1.rstrip('\n') + ((' ' + b1) if b1 else '') + '\n'
+    s2 = s2.rstrip('\n') + ((' ' + b2) if b2 else '') + '\n'
+    return P(s1=s1, s2=s2, pos1=pos1, time=OLD_T, lerp=LERP0, **kw)
+
+
+S1LIVE = '\t\t\tVector3 center(0, 0, 0); SphereClass sphere(center, ' + F + ');\n'
+S2LIVE_M = '\t\tVector3 center(0, 0, 0); SphereClass sphere; sphere.Radius = ' + F + '; sphere.Center = center;\n'
+S2LIVE_C = '\t\tVector3 center(0, 0, 0); SphereClass sphere(center, ' + F + ');\n'
+FORMS = {
+    'v1': mk(b1=V),
+    'v2': mk(b2=V),
+    'live1': mk(s1=S1LIVE),
+    'live1_ctor': mk(s1=S1LIVE, pos1=CTOR),
+    'live2m': mk(s2=S2LIVE_M),
+    'live2c': mk(s2=S2LIVE_C),
+    'live1_live2c': mk(s1=S1LIVE, s2=S2LIVE_C),
+    'live1_live2m': mk(s1=S1LIVE, s2=S2LIVE_M),
+    'v1_ctor': mk(b1=V, pos1=CTOR),
+    'v2_ctor': mk(b2=V, pos1=CTOR),
+    'v1_set': mk(b1=V, pos1=SET),
+    'v1_xyz': mk(b1=V, pos1=XYZ),
+    'v1_c2': mk(b1=V, s2=S2C_NP),
+    'v2_c2': mk(b2=V, s2=S2C_NP),
+    'v1_direct': mk(b1=V, end='DIRECT'),
+    'v2_direct': mk(b2=V, end='DIRECT'),
+    'v1_d1len': mk(b1=V, d1=D1_LEN),
+    'v1_d1dist': mk(b1=V, d1=D1_DIST),
+    'dead_zero1': mk(b1='Vector3 center(0, 0, 0);'),
+    'dead_zero2': mk(b2='Vector3 center(0, 0, 0);'),
+    'dead_ref1': mk(b1='const Vector3 &center = sphere.Center;'),
+    'dead_cc1': mk(b1='Vector3 center(sphere.Center);'),
+    'dead_pos1': mk(b1='', pos1=YXZ.rstrip('\n') + ' Vector3 from = pos;\n'),
+    'dead_sphere1': mk(b1='SphereClass bounds = sphere;'),
+}
+
+# the tree holds x_exact now: the hunks replace the working file's text of the same lines
+_cur = '\n'.join(open(FILE, newline='').read().split('\n')[156:198]) + '\n'
+assert _cur.startswith('\tif (Proxy->Proxied != robj.Peek()) {') and _cur.endswith('\t\t}\n\t}\n')
+FORMS = {k: [(_cur, v[0][1])] for k, v in FORMS.items()}

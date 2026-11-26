@@ -122,7 +122,7 @@ void UnknownObjectInfluenceClass::Update_Sphere()
 }
 
 
-// NOT EXACT (0.99, attempts.py 0x7E87C0): scheduler: red/green/blue fild order across Get_Int push in sky_color (r61, 8 masked); 76/77 regions and 0x340 frame match (DataNode 0x7E9910 & SphereClass::Init kept out of line)
+// NOT EXACT (0.99, attempts.py 0x7E87C0): every slot matches (one i, one count, red / green / blue reused); left: the FogColorR pushes in sky_color (r61): VC6 schedules the last block in 80-instruction chunks and the client chunk starts 4 units earlier (4 unreferenced labels before sky_color make it exact: a diagnostic, not the source)
 NebulaClass::NebulaClass(ClientClass *client, unsigned id, RenderObjClass *model) :
 	UnknownObjectInfluenceClass(client, id),
 	CurrentRoom(NULL),
@@ -205,9 +205,9 @@ NebulaClass::NebulaClass(ClientClass *client, unsigned id, RenderObjClass *model
 		const char *htree_name = hlod->Get_HTree()->Get_Name();
 
 		sprintf(root_name, "%s.%s", htree_name, "NEBULA_ROOT");
-		for (int j = 0; j < count; j++) {
-			int bidx = hlod->Get_Lod_Model_Bone(0, j);
-			RenderObjClass *robj = hlod->Peek_Lod_Model(0, j)->Clone();
+		for (i = 0; i < count; i++) {
+			int bidx = hlod->Get_Lod_Model_Bone(0, i);
+			RenderObjClass *robj = hlod->Peek_Lod_Model(0, i)->Clone();
 			TempRoomPtrs[bidx]->Model->Add_Sub_Object(robj);
 
 			sprintf(bone_name, "%s.%s", htree_name, hlod->Get_Bone_Name(bidx));
@@ -223,10 +223,10 @@ NebulaClass::NebulaClass(ClientClass *client, unsigned id, RenderObjClass *model
 			}
 			robj->Release_Ref();
 		}
-		int extra = hlod->Get_Additional_Model_Count();
-		for (int k = 0; k < extra; k++) {
-			int bidx = hlod->Get_Additional_Model_Bone(k);
-			RenderObjClass *robj = hlod->Peek_Additional_Model(k)->Clone();
+		count = hlod->Get_Additional_Model_Count();
+		for (i = 0; i < count; i++) {
+			int bidx = hlod->Get_Additional_Model_Bone(i);
+			RenderObjClass *robj = hlod->Peek_Additional_Model(i)->Clone();
 			if (TempRoomPtrs[bidx]->Model->Class_ID() != RenderObjClass::CLASSID_HLOD) {
 				RenderObjClass *old = TempRoomPtrs[bidx]->Model;
 				TempRoomPtrs[bidx]->Model = new HLodClass(old->Get_Name(), &old, 1);
@@ -235,12 +235,12 @@ NebulaClass::NebulaClass(ClientClass *client, unsigned id, RenderObjClass *model
 			TempRoomPtrs[bidx]->Model->Add_Sub_Object(robj);
 			robj->Release_Ref();
 		}
-		for (int r = 0; r < RoomCount; r++) {
-			const Matrix3D &tm = hlod->Get_Bone_Transform(r);
-			TempRoomPtrs[r]->Model->Set_Transform(tm);
-			TempRoomPtrs[r]->BoundaryMesh->Set_Transform(tm);
-			TempRoomPtrs[r]->Set_Cull_Box(TempRoomPtrs[r]->BoundaryMesh->Get_Bounding_Box());
-			RoomTree.Add_Object(TempRoomPtrs[r]);
+		for (i = 0; i < RoomCount; i++) {
+			const Matrix3D &tm = hlod->Get_Bone_Transform(i);
+			TempRoomPtrs[i]->Model->Set_Transform(tm);
+			TempRoomPtrs[i]->BoundaryMesh->Set_Transform(tm);
+			TempRoomPtrs[i]->Set_Cull_Box(TempRoomPtrs[i]->BoundaryMesh->Get_Bounding_Box());
+			RoomTree.Add_Object(TempRoomPtrs[i]);
 		}
 		DefaultRoom = TempRoomPtrs[0];
 		DefaultRoom->Add_Ref();
@@ -290,10 +290,10 @@ NebulaClass::NebulaClass(ClientClass *client, unsigned id, RenderObjClass *model
 	RoomFogColor.X = red * (1.0f / 255.0f); RoomFogColor.Y = green * (1.0f / 255.0f); RoomFogColor.Z = blue * (1.0f / 255.0f);
 	RoomFogNear = ini.Get_Float("Room", "FogNearRange", 0.0f);
 	RoomFogFar = ini.Get_Float("Room", "FogFarRange", 1.0f);
-	int sky_r = ini.Get_Int("Between", "SkyBoxColorR", 0);
-	int sky_g = ini.Get_Int("Between", "SkyBoxColorG", 0);
-	int sky_b = ini.Get_Int("Between", "SkyBoxColorB", 0);
-	Vector3 sky_color(sky_r * (1.0f / 255.0f), sky_g * (1.0f / 255.0f), sky_b * (1.0f / 255.0f));
+	red = ini.Get_Int("Between", "SkyBoxColorR", 0);
+	green = ini.Get_Int("Between", "SkyBoxColorG", 0);
+	blue = ini.Get_Int("Between", "SkyBoxColorB", 0);
+	Vector3 sky_color(red * (1.0f / 255.0f), green * (1.0f / 255.0f), blue * (1.0f / 255.0f));
 	red = ini.Get_Int("Between", "FogColorR", 0);
 	green = ini.Get_Int("Between", "FogColorG", 0);
 	blue = ini.Get_Int("Between", "FogColorB", 0);

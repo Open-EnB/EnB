@@ -87,8 +87,7 @@ Vector3 SteeringClass::Evade(const SteeringVehicleStruct &vehicle, const Steerin
 	return Seek(vehicle, predicted);
 }
 
-
-// NOT EXACT: frame (explain.py): the client keeps the avoidance vector's X (0.0f) on the FPU and its frame is 4 bytes smaller; the inverse rotation's terms load in another order
+// NOT EXACT: order-only (explain.py: identical once stack slots are masked): Normalize's and the scale's four fmuls take their two stack operands in the other order (fld Y; fmul oolen / k in the client), every spelling compiles alike (forms in attempts.csv)
 // 0x446000
 Vector3 SteeringClass::Avoid_Obstacles(const SteeringVehicleStruct &vehicle, PxWrapper *proxim)
 {
@@ -99,8 +98,10 @@ Vector3 SteeringClass::Avoid_Obstacles(const SteeringVehicleStruct &vehicle, PxW
 	}
 	float lookahead = vehicle.Velocity.Length() * ObstacleTicks;
 	bool found = false;
-	Vector3 avoid(0.0f, 0.0f, 0.0f);
-	float nearest = lookahead + lookahead;
+	Vector3 avoid;
+	avoid.X = lookahead + lookahead;
+	avoid.Y = 0.0f;
+	avoid.Z = 0.0f;
 	for (int i = 0; i < count; i++) {
 		DynObj *obj = list[i];
 		if (obj->Unknown_Dyn54().Length2() <= 0.0001f) {
@@ -109,9 +110,10 @@ Vector3 SteeringClass::Avoid_Obstacles(const SteeringVehicleStruct &vehicle, PxW
 			if (local.X >= 0.0f && local.X <= lookahead) {
 				Vector2 lateral(local.Y, local.Z);
 				if (lateral.Length() <= (proxim->Owner->Unknown04 + obj->Unknown04) * ObstacleComfort) {
+					float radius = obj->Unknown04;
 					found = true;
-					if (local.X - obj->Unknown04 < nearest) {
-						nearest = local.X - obj->Unknown04;
+					if (local.X - radius < avoid.X) {
+						avoid.X = local.X - radius;
 						avoid.Y = local.Y;
 						avoid.Z = local.Z;
 					}
@@ -122,7 +124,9 @@ Vector3 SteeringClass::Avoid_Obstacles(const SteeringVehicleStruct &vehicle, PxW
 	if (!found) {
 		return Vector3(0.0f, 0.0f, 0.0f);
 	}
+	avoid.X = 0.0f;
 	if (avoid.Length2() < 0.0001f) {
+		avoid.X = 0.0f;
 		avoid.Y = 1.0f;
 		avoid.Z = 0.0f;
 	} else {
@@ -180,7 +184,6 @@ Vector3 SteeringClass::Avoid_Collisions(const SteeringVehicleStruct &vehicle, Px
 	}
 	return Flee(vehicle, nearest_point);
 }
-
 
 
 // 0x446810
@@ -385,9 +388,9 @@ SteeringTurnClass::SteeringTurnClass(float yaw, float pitch, float level) :
 {
 }
 
-// NOT EXACT: shape (explain.py): the client copies the cosine into the angle's slot before comparing it with the limit (an inline helper's parameter?); one round tried
+
 // 0x447E20
-Vector3 SteeringTurnClass::Turn(const Vector3 &desired, const SteeringVehicleStruct &vehicle)
+SteeringTurnOutputStruct SteeringTurnClass::Turn(const Vector3 &desired, const SteeringVehicleStruct &vehicle)
 {
 	Vector3 local;
 	Matrix3D::Inverse_Rotate_Vector(vehicle.Transform, vehicle.Velocity + desired, &local);
@@ -400,7 +403,8 @@ Vector3 SteeringTurnClass::Turn(const Vector3 &desired, const SteeringVehicleStr
 		if (yaw < CosYaw) {
 			yaw = MaxYaw;
 		} else {
-			yaw = WWMath::Acos(WWMath::Clamp(yaw, -1.0f, 1.0f));
+			yaw = WWMath::Clamp(yaw, -1.0f, 1.0f);
+			yaw = WWMath::Acos(yaw);
 		}
 		if (flat.Y < 0.0f) {
 			yaw = -yaw;
@@ -414,7 +418,8 @@ Vector3 SteeringTurnClass::Turn(const Vector3 &desired, const SteeringVehicleStr
 		if (pitch < CosPitch) {
 			pitch = MaxPitch;
 		} else {
-			pitch = WWMath::Acos(WWMath::Clamp(pitch, -1.0f, 1.0f));
+			pitch = WWMath::Clamp(pitch, -1.0f, 1.0f);
+			pitch = WWMath::Acos(pitch);
 		}
 		if (desired.Z > 0.0f) {
 			pitch = -pitch;
@@ -423,7 +428,11 @@ Vector3 SteeringTurnClass::Turn(const Vector3 &desired, const SteeringVehicleStr
 			pitch = 0.0f;
 		}
 	}
-	return Vector3(pitch, yaw, vehicle.Transform[0][0] * desired.X + vehicle.Transform[1][0] * desired.Y + vehicle.Transform[2][0] * desired.Z);
+	SteeringTurnOutputStruct result;
+	result.Pitch = pitch;
+	result.Yaw = yaw;
+	result.Forward = Vector3::Dot_Product(vehicle.Transform.Get_X_Vector(), desired);
+	return result;
 }
 
 // 0x448260

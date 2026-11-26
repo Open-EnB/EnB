@@ -151,8 +151,8 @@ static int Unknown_5746C0(int index, bool forward)
 }
 #pragma auto_inline(on)
 static inline CameraClass *Camera_Of(CharacterViewClass *v) { return v->Unknown068; }
-
-// NOT EXACT: register, 24 masked rows (HS): Slider / SliderValue stored after the EH state 3 (the client before), the dialog strings' inline _Eos adds _Ptr + n where the client adds n + _Ptr (4 sites); the 37 size reads spend the inline budget the client's source spent (D272: _Grow out of line, _Tidy / _Copy / _Eos inline); attempts.py show 0x574710
+inline void ClassSelectInterface::Unknown_Dialog(const char *name) { CharacterView->Unknown_67C920(name); }
+// NOT EXACT: register, 5 masked rows (FB7): the first dialog string's inline _Eos in the other register form (the client keeps n in eax and reloads this after the copy: _Ptr loaded before _Len is stored); sites 2-4 are the client's. The four dialog calls go through the inline Unknown_Dialog: that layer alone sends _Grow out of line (_Tidy / _Copy / _Eos inline), the 31 dead Descriptions.size() reads are gone; attempts.py show 0x574710
 // @0x574710
 ClassSelectInterface::ClassSelectInterface(UIViewClass *view, LayerClass *layer) :
 	InterfaceClass(view, (int)layer->Peek_Scene()),
@@ -164,15 +164,15 @@ ClassSelectInterface::ClassSelectInterface(UIViewClass *view, LayerClass *layer)
 	UnknownEC(0),
 	UnknownF0(0),
 	Slider(NULL),
-	SliderValue(0),
-	Unknown13C(false),
-	Unknown13D(false),
-	Unknown13E(false),
-	Unknown13F(false),
-	Unknown140(false),
-	Unknown141(false)
+	SliderValue(0)
+	// Flags (+0x13C): its own constructor (ui_class.h)
+
+
+
+
+
 {
-	InterfaceSortScopeClass sort(this); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size();
+	InterfaceSortScopeClass sort(this);
 	int i;
 	for (i = 0; i < 14; i++) {
 		Buttons[i] = NULL;
@@ -252,14 +252,14 @@ ClassSelectInterface::ClassSelectInterface(UIViewClass *view, LayerClass *layer)
 	CharacterView->Unknown_67C7B0();
 
 	if (!TutorialManagerClass::Instance->Is_Completed("ClassSelectionIntro")) {
-		CharacterView->Unknown_67C920("1492_00_328se.mp3");
+		Unknown_Dialog("1492_00_328se.mp3");
 		TutorialManagerClass::Instance->Set_Completed("ClassSelectionIntro");
 	}
 
 	bool back = LoginTask->Previous_Step == 4; if (!back && Unknown8C == 0) {
-		CharacterView->Unknown_67C920("1492_00_344se.mp3");
-		CharacterView->Unknown_67C920("1492_00_345se.mp3");
-		CharacterView->Unknown_67C920("1492_00_346se.mp3");
+		Unknown_Dialog("1492_00_344se.mp3");
+		Unknown_Dialog("1492_00_345se.mp3");
+		Unknown_Dialog("1492_00_346se.mp3");
 	}
 
 	void (ClassSelectInterface::*function)(FlashingGadgetEvent *, GadgetClass *) = &ClassSelectInterface::Unknown_577DA0;
@@ -303,7 +303,7 @@ void ClassSelectInterface::Unknown_60()
 // @0x575660
 bool ClassSelectInterface::Unknown_68(int key)
 {
-	if (Unknown13C || Unknown13D || Unknown13E || Unknown13F || Unknown140 || Unknown141) {
+	if (Flags.Unknown13C || Flags.Unknown13D || Flags.Unknown13E || Flags.Unknown13F || Flags.Unknown140 || Flags.Unknown141) {
 		return(false);
 	}
 	GadgetClass *skill = NULL;
@@ -349,7 +349,7 @@ bool ClassSelectInterface::Unknown_68(int key)
 		case 16:
 			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
 			CharacterView->Unknown_67B270();
-			Unknown13D = true;
+			Flags.Unknown13D = true;
 			CharacterView->Unknown_67C7B0();
 			return(true);
 		case 6:
@@ -471,16 +471,16 @@ bool ClassSelectInterface::Unknown_68(int key)
 void ClassSelectInterface::Unknown_575CD0()
 {
 	if (CharacterView->Unknown_67B2B0()) {
-		Unknown13D = false;
+		Flags.Unknown13D = false;
 	}
 	bool active = CharacterView->Unknown34->Active;
-	if (CharacterView->Unknown34->Active && !Unknown13D) {
-		Unknown13D = true;
+	if (CharacterView->Unknown34->Active && !Flags.Unknown13D) {
+		Flags.Unknown13D = true;
 		Unknown_5760C0(false);
 		return;
 	}
-	if (!CharacterView->Unknown34->Active && Unknown13D) {
-		Unknown13D = false;
+	if (!CharacterView->Unknown34->Active && Flags.Unknown13D) {
+		Flags.Unknown13D = false;
 		Unknown_5760C0(true);
 	}
 }
@@ -1114,18 +1114,21 @@ void ClassSelectInterface::Unknown_576A80()
 
 
 // Unknown_60, every frame: the planet turned toward UnknownE8, the class's dialog when it arrives, the moons
-// NOT EXACT: inline-budget (0.80: ours inlines all 18 dialog names' string assigns, the client calls the last one out of line; two dead size() reads at the top gave 0.84 and the client's 17, then the register order of the 0x67B390 call and the identity matrix stores were left)
+static inline RenderObjClass *Planet_Of(ClassSelectInterface *c) { return c->CharacterView->ViewRObjs[1]; }	// NAME 1: neutral (D10)
+static inline CharacterViewClass *View_Of(ClassSelectInterface *c) { return c->CharacterView; }	// NAME 1: neutral (D10)
 // @0x576AC0
 void ClassSelectInterface::Unknown_576AC0()
 {
-	float frame = (float)WW3D::Get_Frame_Time() * 0.001f;
+	Descriptions.size();
+	Descriptions.size();
+	float frame = (float)((float)WW3D::Get_Frame_Time() * 0.001f);
 	Matrix3D tm(true);
-	RefCountPtr<RenderObjClass> model = Unknown_497300(CharacterView->ViewRObjs[1]);
+	RefCountPtr<RenderObjClass> model = Unknown_497300(Planet_Of(this));
 	int bone = model->Get_Bone_Index("planet");
-	Unknown_5760C0(true);
+	Unknown_5760C0(true); float angle;
 	if (UnknownEC > 0.0f) {
 		Unknown_5760C0(false);
-		float angle;
+
 		UnknownEC -= frame;
 		if (UnknownEC < 0.0f) {
 			UnknownE4 = UnknownE8;
@@ -1135,8 +1138,8 @@ void ClassSelectInterface::Unknown_576AC0()
 			} else if (UnknownE4 < 0.0f) {
 				UnknownE4 += 360.0f;
 			}
-			angle = UnknownE4;
-			CharacterView->Unknown_67B390(Unknown_B7DB60[Unknown8C].Race, Unknown_B7DB60[Unknown8C].Profession);
+			int idx = Unknown8C; angle = UnknownE4;
+			View_Of(this)->Unknown_67B390(Unknown_B7DB60[idx].Race, Unknown_B7DB60[idx].Profession);
 			CharacterView->Unknown_67C7B0();
 			switch (Unknown8C) {
 				case 0:
@@ -1177,7 +1180,7 @@ void ClassSelectInterface::Unknown_576AC0()
 		angle /= 180.0f;
 		tm.Rotate_Z(angle * WWMATH_PI);
 	} else {
-		float angle = UnknownE4 / 180.0f;
+		angle = UnknownE4 / 180.0f;
 		tm.Rotate_Z(angle * WWMATH_PI);
 	}
 	model->Capture_Bone(bone);

@@ -1933,21 +1933,21 @@ void ClientObjectClass::Unknown_6FD7A0(RenderObjClass *robj)
 
 
 
+static inline DeltaTemplateClass<int> *Unknown_Find_Engine_Changed(ClientObjectClass *o, const char *f) { NameClass n(f); DeltaTemplateClass<int> *t = Unknown_Find_Field<DeltaTemplateClass<int> >((DeltaCompoundClass *)o->AuxData, n); if (t && t->Unknown70 > 1) return(t); return(NULL); }	// NAME 1: neutral (D10)
+static inline DeltaTemplateClass<int> *Unknown_Find_Engine_Changed_2L(ClientObjectClass *o, const char *f) { return(Unknown_Find_Engine_Changed(o, f)); }	// NAME 1: neutral (D10)
+static inline DeltaTemplateClass<int> *Unknown_Find_Engine_Valid(ClientObjectClass *o, const char *f) { NameClass n(f); DeltaTemplateClass<int> *t = Unknown_Find_Field<DeltaTemplateClass<int> >((DeltaCompoundClass *)o->AuxData, n); if (t && t->Unknown70) return(t); return(NULL); }	// NAME 1: neutral (D10)
 
 
-
-
-// NOT EXACT: shape after the two Unknown_Find_Aux asserts (ours tests t again where the client jumps / returns); the calls out of line now match the client's (0x7079B0, 0x531590; IB1)
 // 0x6FDBD0 (the engine sounds: the engine and thrust loops when EngineTrailType changed, then EngineThrustState)
 void ClientObjectClass::Unknown_6FDBD0()
 {
-	Unknown_6F5A40(); Unknown_Find_Field<DeltaTemplateClass<int> >(NULL, *(NameClass *)this); Unknown_Find_Field<DeltaTemplateClass<int> >(NULL, *(NameClass *)this); Unknown_Find_Field<DeltaTemplateClass<int> >(NULL, *(NameClass *)this); Unknown_Find_Field<DeltaTemplateClass<int> >(NULL, *(NameClass *)this);	// a dead type test and dead finds (root NULL: no code) spend the inline budget (P-IB1-1): rtti.h's cast then stays out of line for EngineTrailType only, as the client's
+	Unknown_Find_Field<DeltaTemplateClass<int> >(NULL, *(NameClass *)this);	// dead find (root NULL: no code, D272) spends the inline budget: IsOrganic's Find_Field<bool> 0x7079B0 and EngineTrailType's Cast<int> 0x531590 out of line, Find_Valid<bool> and EngineThrustState's Cast<int> inline
 	if (!Unknown_6F58B0()) {
 		return;
 	}
 	{
-		DeltaTemplateClass<int> *t = Unknown_Find_Aux((DeltaTemplateClass<int> *)NULL, this, "EngineTrailType");
-		if (t && t->Unknown70 > 1) {
+		DeltaTemplateClass<int> *t = Unknown_Find_Engine_Changed_2L(this, "EngineTrailType");
+		if (t) {
 			if (Type == 1 && ((SClient *)Client->As_Space_Client())->ViewMode == 1) {
 				Unknown_6FD7A0(RenderObject);
 			}
@@ -1992,8 +1992,8 @@ void ClientObjectClass::Unknown_6FDBD0()
 		}
 	}
 
-	DeltaTemplateClass<int> *t = Unknown_Find_Aux((DeltaTemplateClass<int> *)NULL, this, "EngineThrustState");
-	if (!t || !t->Unknown70) {
+	DeltaTemplateClass<int> *t = Unknown_Find_Engine_Valid(this, "EngineThrustState");
+	if (!t) {
 		return;
 	}
 	int state = t->Value;
@@ -2685,4 +2685,4 @@ template class UnknownRTTIClass<DeltaStatsClass>;	// the CurrentStats find's Cas
 */
 // VC6 symbol pad (not the client's code): the aux-data constructors (auxroots.py's region above) match only when the
 // count of the declarations this file sees falls in a window of a cycle of 64 (tools/re/auxroots.py SYMBOL_PAD)
-enum CoSymbolPadType { CO_PAD_00, CO_PAD_01, CO_PAD_02, CO_PAD_03, CO_PAD_04, CO_PAD_05, CO_PAD_06, CO_PAD_07, CO_PAD_08, CO_PAD_09, CO_PAD_10, CO_PAD_11, CO_PAD_12, CO_PAD_13, CO_PAD_14, CO_PAD_15, CO_PAD_16, CO_PAD_17, CO_PAD_18, CO_PAD_19, CO_PAD_20, CO_PAD_21, CO_PAD_22, CO_PAD_23, CO_PAD_24, CO_PAD_25, CO_PAD_26, CO_PAD_27, CO_PAD_28, CO_PAD_29, CO_PAD_30, CO_PAD_31, CO_PAD_32, CO_PAD_33, CO_PAD_34, CO_PAD_35, CO_PAD_36, CO_PAD_37 };	// NAME 1: a build aid (HX1)
+enum CoSymbolPadType { CO_PAD_00, CO_PAD_01, CO_PAD_02, CO_PAD_03, CO_PAD_04, CO_PAD_05, CO_PAD_06, CO_PAD_07, CO_PAD_08, CO_PAD_09, CO_PAD_10, CO_PAD_11, CO_PAD_12, CO_PAD_13, CO_PAD_14, CO_PAD_15, CO_PAD_16, CO_PAD_17, CO_PAD_18, CO_PAD_19, CO_PAD_20, CO_PAD_21, CO_PAD_22, CO_PAD_23, CO_PAD_24, CO_PAD_25, CO_PAD_26, CO_PAD_27, CO_PAD_28, CO_PAD_29, CO_PAD_30, CO_PAD_31, CO_PAD_32, CO_PAD_33, CO_PAD_34, CO_PAD_35, CO_PAD_36, CO_PAD_37, CO_PAD_38, CO_PAD_39, CO_PAD_40, CO_PAD_41, CO_PAD_42, CO_PAD_43, CO_PAD_44, CO_PAD_45, CO_PAD_46, CO_PAD_47, CO_PAD_48, CO_PAD_49, CO_PAD_50, CO_PAD_51, CO_PAD_52, CO_PAD_53, CO_PAD_54, CO_PAD_55, CO_PAD_56, CO_PAD_57, CO_PAD_58, CO_PAD_59 };	// NAME 1: a build aid (HX1)

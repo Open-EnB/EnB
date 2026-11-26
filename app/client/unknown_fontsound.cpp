@@ -7,13 +7,13 @@
 #include "..\..\wwaudio\AudibleSound.h"
 #include <string.h>
 
-// NOT EXACT: (D64) the client's has an EH frame with no state stores around the same seven stores
 Unknown_6BCFB0Class::Unknown_6BCFB0Class(void)
 {
+	Clear();	// inlined away on the empty vector; it leaves the client's EH frame without state stores (FuncInfo 0xB40210)
 }
 
-// NOT EXACT: (D64) Clear's loop as `while (--index >= 0)` (dec / js, 0.80); the client has no state -1 store
-// before the member's destructor
+// Clear's loop as `while (--index >= 0)` (the client's dec / js), then the member's destructor (0x6BD060)
+//
 Unknown_6BCFB0Class::~Unknown_6BCFB0Class(void)
 {
 	int index = Sounds.Count();

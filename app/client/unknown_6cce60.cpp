@@ -180,11 +180,11 @@ bool FontSys::Unknown_6CD6F0()
 
 // 0x6CD950: EffectTriggered[index] runs for time seconds (+0x2A4.., ms; the index clamped to 0..3 for the timer
 // only, as the client does) and the state its effect type keeps is reset.
-// NOT EXACT: registers (D64; attempts.csv): the cases in the client's body order, the clamp in its shape; VC6 gives
-// the clamped slot edi and index ebp, the client the reverse (0x6CD950)
+// NOT EXACT: registers (D64; attempts.csv): the cases in the client's body order, the clamp in its shape (the copy in
+// the else arm); VC6 gives the clamped slot edi and index ebp, the client the reverse (0x6CD950)
 void FontSys::Unknown_6CD950(int index, float time)
 {
-	int slot = index < 0 ? 0 : (index > 3 ? 3 : index);
+	int slot; if (index < 0) { slot = 0; } else { slot = index; if (index > 3) { slot = 3; } }
 	Unknown274[12 + slot] = (int)(time * 1000.0f);
 	FontEffectStruct *effect = Effects[5][index];
 	if (effect == NULL) {

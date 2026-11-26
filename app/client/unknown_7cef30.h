@@ -266,7 +266,7 @@ class SubsRequestClass  // NAME 1 [SubsRequestClass]: the 'subs-interface' repli
 public:
 	SubsRequestClass(const char *url, const char *page, const char *version, bool a = true, bool b = false);	// 0x7DBDA0  // NAME 1 [url, page, version, a, b]: 0x7CEF30's arguments
 	SubsRequestClass(const std::string &url, const std::string &page, const std::string &version, bool a = true, bool b = false);	// 0x7DC0B0 (inline: the request functions expand it)
-	virtual ~SubsRequestClass() {}	// 0x7D4D60
+	virtual ~SubsRequestClass() { Query.size(); }	// 0x7D4D60 (D272: the dead read raises its cost: out of line in the request functions as the client, with the constructor's two; B10)
 
 	void Add_Param(const char *name, const char *value);	// 0x7DC420 ('&' between, '=')  // NAME 1 [Add_Param, name, value]: what it does
 	void Add_Param(const char *name, int value);			// 0x7DC6D0 (itoa)

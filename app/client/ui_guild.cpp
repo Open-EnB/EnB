@@ -390,7 +390,7 @@ void UIGuildClass::Unknown_81AC90()
 	for (it = Unknown0CC.begin(); it != Unknown0CC.end(); it++) {
 		Unknown_Delete_Member(*it);
 	}
-	Unknown0CC.erase(Unknown0CC.begin(), Unknown0CC.end());
+	std::vector<UIGuildMemberClass *> &v = Unknown0CC; v.erase(v.begin(), v.end());
 }
 
 // 0x81AE10
@@ -403,7 +403,7 @@ void UIGuildClass::Unknown_81AE10()
 	Unknown0DC.clear();
 }
 
-// NOT EXACT: scheduling only (the client computes the vector's address for the inlined clean-up's erase before saving edi) (0x81AEB0)
+// NOT EXACT: register only, one row (the cleared selection name's terminator store, [ecx+eax] in the client, [eax+ecx] here) (0x81AEB0)
 // 0x81AEB0
 void UIGuildClass::Unknown_81AEB0()
 {

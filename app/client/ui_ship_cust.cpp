@@ -1166,7 +1166,7 @@ void StarbaseShipCustomizeInterface::Unknown_61BCE0(short group)
 	}
 }
 
-// NOT EXACT: inline budget (0.96, residue 49: case 0's second lookup inline in the client (ours calls operator[]), case 1's first pair constructor out of line there; register ties)
+// NOT EXACT: inline budget (0.97, residue 41: case 0's second lookup inline in the client (ours calls operator[]), case 1's first pair constructor out of line there; register ties)
 // @0x61BD80
 void StarbaseShipCustomizeInterface::Unknown_61BD80(int page)
 {
@@ -1264,7 +1264,7 @@ void StarbaseShipCustomizeInterface::Unknown_61BD80(int page)
 			Unknown_61ADA0(0x31, "TURN", NULL, 0, 0);
 			Unknown_61B760();
 			Unknown_58();
-			Unknown_61BAC0(4); Gadgets.size(); Gadgets.size();	// dead reads (D272): with the three at the end, the client's lookup mix
+			Unknown_61BAC0((Gadgets.size(), Gadgets.size(), 4));	// dead reads (D272), evaluated before the call (after it: 49): with the three at the end, the client's lookup mix
 			Unknown_61B580();
 			Unknown_61D260();
 			break;
@@ -1951,8 +1951,8 @@ void StarbaseShipCustomizeInterface::Unknown_61DBF0()
 
 
 
-// NOT EXACT: frame (masked residue 0: the metal read through 0x61D230 inlined, as ui_shipcust.cpp's 0x628420, and the dead read
-// at the end spend what the client spent (??_H copies, operator[] 0x61F760 last); left: frame 0x94 vs 0xA0, code 12 bytes longer)
+
+
 // @0x61DF80
 void StarbaseShipCustomizeInterface::Unknown_61DF80()
 {
@@ -1960,7 +1960,7 @@ void StarbaseShipCustomizeInterface::Unknown_61DF80()
 	float slow = time * 0.3f;
 	float fast = time * 2.0f;
 	if (Unknown2D4 != NULL) {
-		Vector3 pos; Unknown2D4->Get_Transform().Get_Translation(&pos);
+		Matrix3D tm = Unknown2D4->Get_Transform();
 		if (*Unknown_61D230() == METAL_CHROME) {
 			Unknown244[0].Rotate_Y(fast);
 		} else {
@@ -1970,7 +1970,7 @@ void StarbaseShipCustomizeInterface::Unknown_61DF80()
 		InterfaceMesh->Peek_Object()->Capture_Bone(bone);
 		InterfaceMesh->Peek_Object()->Control_Bone(bone, Unknown244[0]);
 		Matrix3D newtm(Unknown244[0]);
-		newtm.Set_Translation(Vector3(pos.X, pos.Y, pos.Z));
+		newtm.Set_Translation(tm.Get_Translation());
 		Unknown2D4->Set_Transform(newtm);
 		Gadgets[0x11].Gadget->Unknown_6608F0();
 	}
@@ -2001,9 +2001,9 @@ void StarbaseShipCustomizeInterface::Unknown_61DF80()
 		InterfaceMesh->Peek_Object()->Control_Bone(bone, Unknown244[2]);
 		Matrix3D newtm(Unknown244[2]);
 		newtm.Set_Translation(tm.Get_Translation());
-		Unknown2DC->Set_Transform(newtm); Unknown_61D230();	// a dead accessor read (D272): the last lookup Gadgets[0x13] then calls operator[] 0x61F760 as the client
+		Unknown2DC->Set_Transform(newtm);
 		Gadgets[0x13].Gadget->Unknown_6608F0();
-	} Gadgets.size();	// a dead read (D272): with the three inlined metal reads it spends what the client spent (1-4 the same)
+	}
 }
 
 

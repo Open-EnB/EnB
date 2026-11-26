@@ -47,7 +47,7 @@ public:
 	void Unknown_577E70(int count);					// 0x577E70 (Unknown_576360 inlines it: the skills' count)  // NAME 1 [count]: what 0x576360 passes
 	void Unknown_577EE0();							// 0x577EE0 (Unknown_60 inlines it)
 	void Unknown_577F20();							// 0x577F20 (Unknown_60 inlines it)
-
+	void Unknown_Dialog(const char *name);			// inline (ui_class.cpp): the layer the constructor's four dialog calls go through (0x574710: _Grow out of line with no dead read)  // NAME 1: neutral (no client name; provisional placement: an inline of CharacterViewClass would do the same); NAME 1 [name]: 0x67C920's
 	CharacterViewClass *CharacterView;				// +0x84
 	LoginTaskClass *LoginTask;						// +0x88
 	int Unknown8C;									// +0x8C
@@ -62,12 +62,15 @@ public:
 	std::vector<std::string> SkillDescriptions;		// +0x124
 	GadgetClass *Slider;							// +0x134
 	int SliderValue;								// +0x138
-	bool Unknown13C;								// +0x13C
-	bool Unknown13D;								// +0x13D
-	bool Unknown13E;								// +0x13E
-	bool Unknown13F;								// +0x13F
-	bool Unknown140;								// +0x140
-	bool Unknown141;								// +0x141
+	struct FlagsStruct {	// NAME 1: neutral (D10): +0x13C..+0x141 as one sub-object with its own constructor: the client stores Slider / SliderValue before the constructor's EH state 3 and these after it (B8)
+		FlagsStruct() : Unknown13C(false), Unknown13D(false), Unknown13E(false), Unknown13F(false), Unknown140(false), Unknown141(false) {}
+		bool Unknown13C;							// +0x13C
+		bool Unknown13D;							// +0x13D
+		bool Unknown13E;							// +0x13E
+		bool Unknown13F;							// +0x13F
+		bool Unknown140;							// +0x140
+		bool Unknown141;							// +0x141
+	} Flags;									// +0x13C  // NAME 1: neutral (D10)
 	INIClass INI;									// +0x144
 };
 

@@ -38,7 +38,8 @@ public:
 	bool Unknown_7E7A40();							// 0x7E7A40 (co.cpp's per-frame update tests it for the player's object)
 	bool Unknown_7E7A70();							// 0x7E7A70 (co.cpp's engine sounds 0x6FDBD0: true turns the thrust on)
 
-	std::deque<int> Queue;							// +0x08 (the emotes still to play)  // NAME 2: what it holds
+	enum EmoteType { EMOTE_NONE = 7 };				// NAME 3 [EmoteType]: assumed; the client's deque copies 0x7E6570, 0x7E7B10, 0x7E7CD0, 0x7E7D70 are this file's own, not deque<int>'s 0x756xxx
+	std::deque<EmoteType> Queue;					// +0x08 (the emotes still to play)  // NAME 2: what it holds
 	unsigned int StartTime;							// +0x38 (the client's time when the emote began)  // NAME 2: what it holds
 	int Emote;										// +0x3C (the playing emote, 7 none)  // NAME 2: what it holds
 	bool Unknown40;									// +0x40 (true from the constructor and 0x7E76E0, false from 0x7E7700)

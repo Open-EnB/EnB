@@ -83,7 +83,7 @@ void RadarSystemClass::Unknown_7BCA40(bool arg)
 	TargetPath->Clear();
 }
 
-// NOT EXACT: register (73 masked rows: ours keeps a zero register in ebx where the client keeps gutter, so loop 1's node / gutter take esi / edi where the client's take edi / ebx; loop 2's node is reloaded at the loop head where the client keeps it in edi on every back edge, so the continue and FAIL_IF(!rdata) advances merge into the loop end's; with 0x7BDD50's co local (the client's !co) the plain loop-end advance keeps the client's frame 0xe8, a next temporary there gives 0xe4 and 114 rows)
+// NOT EXACT: shape (27 masked rows: loop 2 as if (node) do { } while (node) with the invalid-position path sharing the loop-end advance gives the client's allocation (gutter in ebx and no zero register, the !rdata advance apart and joining at the store); the client has a third copy of the advance on the invalid-position path (0x7BCD22, 10 rows, node kept in edi), keeps node in edi from its definition where ours has esi and reloads at the loop head, and tests edi at the loop condition; with the third advance written out (node = node->Next_Valid(); continue;) the zero register comes back in ebx (68 rows as do-while, 73 as while))
 // @0x7BCA70
 void RadarSystemClass::Unknown_7BCA70(GutterRadarClass *gutter, StarmapPipClass *starmap, const RefCountPtr<RefCountClass> &scene)
 {
@@ -154,7 +154,7 @@ void RadarSystemClass::Unknown_7BCA70(GutterRadarClass *gutter, StarmapPipClass 
 		}
 		node = Client->ObjectList.First_Valid();
 	}
-	while (node) {
+	if (node) do {
 		ClientObjectClass *co = node->Get_Record();
 
 
@@ -170,18 +170,18 @@ void RadarSystemClass::Unknown_7BCA70(GutterRadarClass *gutter, StarmapPipClass 
 		FAIL_IF(!co) continue;
 		entry.Set_Object(co);
 		bool valid = entry.Get_Is_Targetable();
-		if (!co->Unknown_24().Is_Valid() || !valid) {
-			node = node->Next_Valid();
-			continue;
-		}
-		Unknown_7BDD50(entry, scene);
-		bool show_gutter = (gutter && Unknown_7BDBF0(entry));
-		GutterDataClass *gdata = entry.Get_Gutter_Data(show_gutter);
-		bool label = Unknown_7BDC70(entry);
-		bool show_starmap = (starmap && label);
-		StarmapDataClass *sdata = entry.Get_Starmap_Data(label);
-		if (show_gutter || show_starmap) {
-			RadarDataClass *rdata = entry.Get_Radar_Data(true);
+		if (co->Unknown_24().Is_Valid() && valid) {
+
+
+
+			Unknown_7BDD50(entry, scene);
+			bool show_gutter = (gutter && Unknown_7BDBF0(entry));
+			GutterDataClass *gdata = entry.Get_Gutter_Data(show_gutter);
+			bool label = Unknown_7BDC70(entry);
+			bool show_starmap = (starmap && label);
+			StarmapDataClass *sdata = entry.Get_Starmap_Data(label);
+			if (show_gutter || show_starmap) {
+				RadarDataClass *rdata = entry.Get_Radar_Data(true);
 
 
 
@@ -208,26 +208,26 @@ void RadarSystemClass::Unknown_7BCA70(GutterRadarClass *gutter, StarmapPipClass 
 
 
 
-			FAIL_IF(!rdata) {
-				node = node->Next_Valid();
-				continue;
+				FAIL_IF(!rdata) {
+					node = node->Next_Valid();
+					continue;
+				}
+				rdata->Unknown_7BB570();
 			}
-			rdata->Unknown_7BB570();
-		}
-		if (show_gutter) {
-			gutter->Update(&entry);
-			GutterCount++;
-		} else if (gdata) {
-			gdata->Remove_From_Scene();
-		}
-		if (show_starmap) {
-			starmap->Unknown_7C0620(&entry);
-		} else if (sdata) {
-			sdata->Remove_From_Scene();
+			if (show_gutter) {
+				gutter->Update(&entry);
+				GutterCount++;
+			} else if (gdata) {
+				gdata->Remove_From_Scene();
+			}
+			if (show_starmap) {
+				starmap->Unknown_7C0620(&entry);
+			} else if (sdata) {
+				sdata->Remove_From_Scene();
+			}
 		}
 		node = node->Next_Valid();
-	}
-
+	} while (node);
 
 
 	if (mouse_target.Get_Target() && (Client->Get_Avatar()->Get_Game_ID() == mouse_target.Get_Target()->Get_Game_ID())) {

@@ -674,7 +674,7 @@ int HtmlViewClass::Parse(HtmlLinkStruct *link, HtmlBlockClass *block, int offset
 					int inset = spacing / 2 + border;
 					block->Advance_Y(inset, true);
 					block->Advance_X(inset, true);
-					block->Set_Line_Start_X(block->Get_Line_Start_X() + spacing / 2 + border);
+					block->LineStartX += inset;
 					str = tableattrs.Get("Width");
 					if (str != NULL) {
 						sprintf(buffer, "%d", atol(str) - border * 2 - spacing / 2);
