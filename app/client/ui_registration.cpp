@@ -104,7 +104,7 @@ static const RegistrationPageStruct RegistrationPages[] = {  // NAME 1 [Registra
 	{ "RG_X2", "rg_X2.ini" },
 	{ "RG_X1", "rg_X1.ini" },
 	{ "RG_X3", "rg_X3.ini" },
-	{ "None", "None" },
+	{ 0, 0 },	// the client's 0xB85FC8 / 0xB85FCC: two null pointers (state 0x18 loads no page)
 };
 
 static const char *RegistrationMonths[] = { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec", 0 };  // NAME 1 [RegistrationMonths]: client .data 0xB85FD0 (combo box 0x14)
