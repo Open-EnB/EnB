@@ -728,7 +728,7 @@ extern unsigned int Unknown_BE5F34;						// gadget.cpp's: the key modifiers (0x5
 
 
 // 0x5946D0
-// NOT EXACT: (masked 10, attempts.py 0x5946D0): case 2 as if (!modifier) { .. } return(true) as case 3; case 11-15 index local k = key - 11 (add edi,-0xb); case 23-27 UIGroupMemberClass *m = Members[key - 23] in the test (keeps Members[k] before Client); case 29-33 sclient->Get_Avatar_ID() in packet ctor; two dead Peek()s in 0x593180 (D272); case 47's second test as else if, 0x5979A0/0x597A60 as ifs; left: 23-27 (2), 29-33 (2), 47 (3), 17-21 (2), end (1)
+// NOT EXACT: (masked 5, attempts.py 0x5946D0): case 2 as if (!modifier) { .. } return(true) as case 3; case 11-15 index local k = key - 11 (add edi,-0xb); case 23-27 UIGroupMemberClass *m = Members[key - 23]; case 29-33 and case 47 single-use ClientClass *c = (ClientClass *)Client for c->Get_Avatar_ID() (r13 18/18 and r89 7/7 exact); two dead Peek()s in 0x593180 (D272); case 47 else if, 0x5979A0/0x597A60 as ifs; left: r5 17-21 (2, reg edx vs eax), r6 23-27 (2, mov ecx,eax), r96 end pad (1)
 bool UIGroupClass::Unknown_68(int key)
 {
 	SClient *sclient = (SClient *)((ClientClass *)Client)->As_Space_Client();
@@ -804,7 +804,7 @@ bool UIGroupClass::Unknown_68(int key)
 			if (modifier) goto symbol;
 			if (Members[key - 29]) {
 
-				((ClientClass *)Client)->Send_Packet(&CTA_Request_PacketClass(sclient->Get_Avatar_ID(), Members[key - 29]->ID, 12));
+				ClientClass *c = (ClientClass *)Client; ((ClientClass *)Client)->Send_Packet(&CTA_Request_PacketClass(c->Get_Avatar_ID(), Members[key - 29]->ID, 12));
 			}
 			break;
 		case 35:
@@ -896,7 +896,7 @@ bool UIGroupClass::Unknown_68(int key)
 			if (!Unknown_597A60() && Unknown_5979A0()) {
 				Unknown_597E40(false);
 
-				((ClientClass *)Client)->Send_Packet(&CTA_Request_PacketClass(((ClientClass *)Client)->Get_Avatar_ID(), 0, 7));
+				ClientClass *c = (ClientClass *)Client; ((ClientClass *)Client)->Send_Packet(&CTA_Request_PacketClass(c->Get_Avatar_ID(), 0, 7));
 			} else if (Unknown_597A60()) {
 
 				Unknown_597E40(false);
