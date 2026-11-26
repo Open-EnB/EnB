@@ -1114,16 +1114,16 @@ void ClassSelectInterface::Unknown_576A80()
 
 
 // Unknown_60, every frame: the planet turned toward UnknownE8, the class's dialog when it arrives, the moons
+static inline RenderObjClass *Planet_Of(ClassSelectInterface *c) { return c->CharacterView->ViewRObjs[1]; }	// NAME 1: neutral (D10)
 static inline CharacterViewClass *View_Of(ClassSelectInterface *c) { return c->CharacterView; }	// NAME 1: neutral (D10)
-// NOT EXACT: register, 10 masked rows (B8): the client loads PreviousSyncTime into edx before the pushes (ours edi after), stores frame after Unknown_497300's pushes, eax / edx swapped for its arguments and Get_Bone_Index's vtable; two dead Descriptions.size() reads (D272) give the client's 17 inline dialog assigns (the 18th out of line); attempts.py show 0x576AC0
 // @0x576AC0
 void ClassSelectInterface::Unknown_576AC0()
 {
 	Descriptions.size();
 	Descriptions.size();
-	float frame = (float)WW3D::Get_Frame_Time() * 0.001f;
+	float frame = (float)((float)WW3D::Get_Frame_Time() * 0.001f);
 	Matrix3D tm(true);
-	RefCountPtr<RenderObjClass> model = Unknown_497300(CharacterView->ViewRObjs[1]);
+	RefCountPtr<RenderObjClass> model = Unknown_497300(Planet_Of(this));
 	int bone = model->Get_Bone_Index("planet");
 	Unknown_5760C0(true); float angle;
 	if (UnknownEC > 0.0f) {
