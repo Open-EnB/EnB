@@ -244,7 +244,7 @@ void CameraController02Class::Unknown_798570()
 	Unknown0C->Unknown_04();
 }
 
-// NOT EXACT: 0x7987F0 (the frame's size is the client's; the destination's position and the offset sit in other frame slots (the client: both at ebp-0xC), and the speed's square root keeps a slot of its own in the client)
+
 // 0x7987F0
 void CameraController02Class::Unknown_7987F0()
 {
@@ -266,14 +266,14 @@ void CameraController02Class::Unknown_7987F0()
 	float s = WWMath::Sin(angle);
 	float c = WWMath::Cos(angle);
 	Vector3 offset(speed * 1000.0f, c * range, s * range);
-	offset.Y *= 1.25f;
-	offset.Z *= 1.25f;
+	offset.Scale(Vector3(1.0f, 1.25f, 1.25f));
+
 	Matrix3D frame = Unknown_82ECB0(dir, tm.Get_Translation());
-	CameraModule79C8E0Class *module = (CameraModule79C8E0Class *)Unknown0C;
-	module->Position = frame * offset;
-	module->Unknown14 = true;
-	module->Unknown18 = Client->AvatarID;
-	module->Unknown_04();
+	((CameraModule79C8E0Class *)Unknown0C)->Position = frame * offset;
+	((CameraModule79C8E0Class *)Unknown0C)->Unknown14 = true;
+	((CameraModule79C8E0Class *)Unknown0C)->Unknown18 = Client->AvatarID;
+	Unknown0C->Unknown_04();
+
 }
 
 /*
@@ -282,6 +282,6 @@ void CameraController02Class::Unknown_7987F0()
 ** The object 0x7979A0-0x798ACF: after camctrl_tractor.cpp's (its <string> initialiser 0x797970), ending with its own at
 ** 0x798AB0. No __FILE__ or assert: the name is PROVISIONAL (D137). In the slot +0x08 0x797B50 phase 1 has its own copy
 ** of phase 3's body (the client keeps one copy, after phase 2's: its jump table sends 1 and 3 to 0x797BDC / 0x797BEB). The module's
-** placements 0x7981B0 / 0x7987F0 remain NOT EXACT; WWMath::Sin / Cos, matrix * vector and member reloads follow the client (P2).
-** 0x798570 exact: Vector3::Scale(Vector3(1,2,2)) preserves Y/Z product stores, angle/offset slots and the matrix load order.
+** placement 0x7981B0 remains NOT EXACT; WWMath::Sin / Cos, matrix * vector and member reloads follow the client (P2).
+** 0x798570 and 0x7987F0 exact: Vector3::Scale(Vector3(1,2,2)) / (1,1.25,1.25) gives the client's matrix product order.
 */
