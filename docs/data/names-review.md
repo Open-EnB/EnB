@@ -17052,7 +17052,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_5F00E0` | `app/client/ui_registration.cpp:2909` | untagged neutral name (D10) |
 | 1 | `Unknown_5F0100` | `app/client/ui_registration.cpp:2919` | untagged neutral name (D10) |
 | 1 | `Unknown_7D1AC0` | `app/client/ui_registration.cpp:2921` | untagged neutral name (D10) |
-| 1 | `Unknown_7D7480` | `app/client/ui_registration.cpp:3048` | untagged neutral name (D10) |
+| 1 | `Unknown_7D7480` | `app/client/ui_registration.cpp:3050` | untagged neutral name (D10) |
 | 1 | `Unknown_7D6FE0` | `app/client/ui_registration.cpp:3082` | untagged neutral name (D10) |
 | 1 | `Unknown_7D47F0` | `app/client/ui_registration.cpp:3126` | untagged neutral name (D10) |
 | 1 | `Unknown_7D7920` | `app/client/ui_registration.cpp:3202` | untagged neutral name (D10) |
@@ -17064,7 +17064,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `RegistrationGameId` | `app/client/ui_registration.cpp:3679` | client .data 0xB85EF0 (0x600000: 0x7D7E10's third argument, atoi'd against the game features' ids) |
 | 1 | `Unknown_5F00C0` | `app/client/ui_registration.cpp:3684` | untagged neutral name (D10) |
 | 1 | `Unknown_7D21C0` | `app/client/ui_registration.cpp:3740` | untagged neutral name (D10) |
-| 1 | `Unknown_7D7E10` | `app/client/ui_registration.cpp:3748` | untagged neutral name (D10) |
+| 1 | `Unknown_7D7E10` | `app/client/ui_registration.cpp:3745` | untagged neutral name (D10) |
 | 1 | `Unknown_7DA760` | `app/client/ui_registration.cpp:3769` | untagged neutral name (D10) |
 | 1 | `Unknown_7D28B0` | `app/client/ui_registration.cpp:3777` | untagged neutral name (D10) |
 | 1 | `Unknown568` | `app/client/ui_registration.cpp:3802` | untagged neutral name (D10) |

@@ -1263,7 +1263,7 @@ void RegistrationInterface::Unknown_5F3600()
 
 
 
-// @0x5F3770 NOT EXACT: inline-budget (attempts.csv; cases in jump table 0x5F7214's layout order; the client cuts more of its later inline accessors and 0x5F2F90's converting constructor 0x6092D0)
+// @0x5F3770 (cases in jump table 0x5F7214's layout order; case 0xC country block in client order, card-type loop exits on end(), D272 UnknownD8.begin() x4 before case 0xD tutorial + x4 post-return)
 void RegistrationInterface::Unknown_5F3770(int state)
 {
 	Unknown_5C();
@@ -1486,17 +1486,17 @@ void RegistrationInterface::Unknown_5F3770(int state)
 				Unknown_5F2D30(0x23,"ENTRY_CARDNUMBE","ENTRY_CARD_RG_D3",0x10,Unknown478.UnknownA8.c_str(),0,0, Unknown_BE5DD0,0);
 				Unknown_5F2F90(0x19, "COMBO_COUNTRY", 0x2C, 7);
 				Unknown_5F9700();
-				if (Unknown478.Unknown64.empty()) {
-					if (Unknown3C4.Unknown80.size() == 0) {
-						Unknown108[0x19].Combo->Select_Text(UnknownA4);
-					} else {
-						Unknown108[0x19].Combo->Select_Text(Unknown3C4.Unknown80.c_str());
-						Unknown108[0x19].Combo->Enable(0);
-					}
-				} else {
+				if (!Unknown478.Unknown64.empty()) {
 					Unknown108[0x19].Combo->Select_Text(Unknown478.Unknown64.c_str());
 					Unknown108[0x19].Combo->Enable(0);
+				} else if (Unknown3C4.Unknown80.size() != 0) {
+					Unknown108[0x19].Combo->Select_Text(Unknown3C4.Unknown80.c_str());
+					Unknown108[0x19].Combo->Enable(0);
+				} else {
+					Unknown108[0x19].Combo->Select_Text(UnknownA4);
 				}
+
+
 				Unknown_5F2F90(0x22, "COMBO_CARDTYPE", 0x13, 4);
 				Unknown_5F9A90();
 				Unknown108[0x22].Combo->Select(0);
@@ -1508,7 +1508,7 @@ void RegistrationInterface::Unknown_5F3770(int state)
 							break;
 						}
 					}
-					if (entry != last) {
+					if (entry != Unknown5A8.end()) {
 						Unknown108[0x22].Combo->Select(entry - Unknown5A8.begin());
 					}
 				}
@@ -1711,7 +1711,7 @@ void RegistrationInterface::Unknown_5F3770(int state)
 							break;
 						}
 					}
-					if (entry != last) {
+					if (entry != Unknown5A8.end()) {
 						Unknown108[0x22].Combo->Select(entry - Unknown5A8.begin());
 					}
 				}
@@ -1730,7 +1730,7 @@ void RegistrationInterface::Unknown_5F3770(int state)
 				Unknown_5F2B20(0x2d,"LEFT_BUTTON","LEFT_BUTTON_RG_D4",0,0,0);
 				Unknown_5F2B20(6,"RIGHT_BUTTON","RIGHT_BUTTON_RG_D4",0,0,0);
 				Unknown_5F2B20(7,"MIDDLE_BUTTON","MIDDLE_BUTTON_RG_D4",0,0,0);
-				Unknown_5F3510(7, Unknown1D0);
+				Unknown_5F3510(7, Unknown1D0); UnknownD8.begin(); UnknownD8.begin(); UnknownD8.begin(); UnknownD8.begin();  // D272: dead reads (4 here + 4 post-return: exact 0x6092D0 cuts and 0x5F6D01..0x5F6D41 out-of-line)
 				if (!Unknown1CD) {
 					if (!TutorialManagerClass::Get_Instance()->Is_Completed("REG13")) {
 						UnknownBC->Get_Unknown198()->Unknown_784C90("REG13", false);
@@ -1812,7 +1812,7 @@ void RegistrationInterface::Unknown_5F3770(int state)
 	}
 	InterfaceClass::Unknown_58();
 	Unknown_58();
-	TheDX8MeshRenderer.Invalidate();
+	TheDX8MeshRenderer.Invalidate(); return; UnknownD8.begin(); UnknownD8.begin(); UnknownD8.begin(); UnknownD8.begin();  // D272: dead reads (nested budget for case 0xC 0x6092D0 cuts)
 }
 
 
@@ -2120,7 +2120,7 @@ void RegistrationInterface::Unknown_5F98C0(int from, int to)
 // @0x5F9A90
 void RegistrationInterface::Unknown_5F9A90()
 {
-	Unknown5A8.size(); for (std::vector<RegistrationUnknown5A8Struct>::iterator it = Unknown5A8.begin(); it != Unknown5A8.end(); it++) {
+	for (std::vector<RegistrationUnknown5A8Struct>::iterator it = Unknown5A8.begin(); it != Unknown5A8.end(); it++) {
 		Unknown108[0x22].Combo->Add_Item((*it).Unknown04.c_str());
 	}
 }
