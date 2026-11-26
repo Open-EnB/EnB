@@ -143,7 +143,7 @@ void UIFriendsClass::Unknown_54()
 	}
 }
 
-// NOT EXACT: inline budget (the client calls the vector's erase 0x592640 out of line; ours expands it)
+// The vector's clear() (one layer over erase) with ten dead Unknown0B0.Peek() reads (D272; 8-12 exact, swept): the erase 0x592640 out of line as the client; 0x591350 inline (the packet destroyed before 0x591030)
 // 0x58FBA0
 void UIFriendsClass::Unknown_58()
 {
@@ -154,7 +154,7 @@ void UIFriendsClass::Unknown_58()
 		for (it = PlayersInfo.begin(); it != PlayersInfo.end(); it++) {
 			delete *it;
 		}
-		PlayersInfo.erase(PlayersInfo.begin(), PlayersInfo.end());
+		PlayersInfo.clear(); Unknown0B0.Peek(); Unknown0B0.Peek(); Unknown0B0.Peek(); Unknown0B0.Peek(); Unknown0B0.Peek(); Unknown0B0.Peek(); Unknown0B0.Peek(); Unknown0B0.Peek(); Unknown0B0.Peek(); Unknown0B0.Peek();
 		Unknown_590810();
 		Top = -1;
 		Unknown_590480(0);

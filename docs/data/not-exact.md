@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-483 entries in 226 files.
+482 entries in 226 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -265,7 +265,6 @@ edit the comments in the code, not this file.
 | `app/client/ui_dynamicwindow.cpp:352` | `UIDynamicWindowClass::Add_Text` | marker | NOT EXACT: 0x58AE90, inline-budget: the client calls std::string::_Eos out of line for the font name's string where this inlines it (docs/attempts/58AE90) |
 | `app/client/ui_faction.cpp:230` | `UIFactionClass::Unknown_58DC20` | marker | NOT EXACT: register (the client keeps the reputation in esi and its frame slot after the order's, +0x28; this keeps it in ebx, at +0x14; the rest is the client's, including the tail call made a jump) |
 | `app/client/ui_friends.cpp:3` | `UIFriendsPlayerInfoClass::UIFriendsPlayerInfoClass` | mention | NOT EXACT. |
-| `app/client/ui_friends.cpp:146` | `UIFriendsClass::Unknown_58` | marker | NOT EXACT: inline budget (the client calls the vector's erase 0x592640 out of line; ours expands it) 0x58FBA0 |
 | `app/client/ui_friends.cpp:358` | `UIFriendsClass::Unknown_5908B0` | marker | NOT EXACT: register allocation (the client keeps 0 in ebx and the insert position in a stack slot; ours holds the position in ebx; frame 0x18 vs 0x14) 0x5908B0 |
 | `app/client/ui_friends.cpp:604` | `UIFriendsClass::Unknown_5913E0` | marker | NOT EXACT: registers and scheduling (names' first / last, this and the location iterator in other registers) 0x5913E0 |
 | `app/client/ui_group.cpp:226` | `UIGroupUnknownE8Class::Unknown_592C50` | marker | NOT EXACT: register / frame (the client keeps one temporary's slot for all five Create_NEW results and compares with the zero in ebx; ours gives the loop's its own slot) |
