@@ -419,25 +419,30 @@ when a `mov ecx, imm32` holds an 0xE8 byte (seq.py's byte scan; `.work/im7/rkind
 retail's 940 are 577 guards, 119 PermStringInits, 2 ios, 242 others, permstr.cpp's own inlined one among the others),
 and an initialiser's owner at a run edge. Aligned per kind against our objects' `.CRT$XCU` entries in the all
 trial's object order (`.work/im7/objseq.py`, read from the `.obj` files: no link needed), the 7 were 5 PermStringInits
-(unknown_445740, loadingview, unknown_644e50, unknown_646170, ui_mfd_extended_context_strings), wnet's udp.obj's
+(fp_ita, loadingview, unknown_644e50, unknown_646170, ui_mfd_extended_context_strings), wnet's udp.obj's
 PermStringInit and 2 `<string>` guards (viewbttn, and main_client, whose code is WinMain's guest of the update: the 15
 guards from 0x517210 to 0x521B00 are the 15 objects' around it in our order, none is left for it), less message_server's guard 0x4BDFB0 (the D240 row).
 The other files named above hold their guard in retail, inside their own code: mv3dview 0x7F0F30 (given to ww3d2's
 collect.obj above), interface_scene 0x6DA900, mainview 0x514C40, ui_analyze 0x546860, loadingview 0x692740,
 starmap_data 0x7BF7D0; avatar_desc's object opens with its PermStringInit 0x4BE920 (through the thunk 0x40FF65).
 Cut, each by its object's table: loadingview.cpp without unknown_root.h (its clock Unknown_Get_Ticks declared
-locally), unknown_644e50 / unknown_646170 without the auxdata.h of ui_starbase.cpp's preamble, permstring.h
-(PermString's class without permstr.h's static) for kv_pair.h with permstr.h in the six kv objects that open with one
-(unknown_445740 builds KVPairTemplateClass<float> and opens with none), udp.cpp without permstr.h (0x8C0690 after its
-guard opens unknown_login_data's object). App initialisers 947 -> 942. Left: ui_mfd_extended_context_strings (its
+locally), unknown_644e50 / unknown_646170 without the auxdata.h of ui_starbase.cpp's preamble, fp_ita.cpp
+without permstr.h (the PermStringInit 0x448BE0 after unknown_445740's guard is unknown_445740's: the table's one
+entry out of code order, its run [0x448BE0, 0x448BB0] between two zero slots, and its static 0xBDC064 right before
+unknown_445740's FollowUsesPursue 0xBDC065; the code order alone, the run-edge rule, gave it to fp_ita), udp.cpp without permstr.h (0x8C0690 after its
+guard opens unknown_login_data's object). App-region initialisers 947 -> 942 (app 936, wlib / wnet 6). Left: ui_mfd_extended_context_strings (its
 base's header, ui_mfd_extended_context.h, the client's `__FILE__`, reads DeltaCompoundClass +0x70 inline, so delta.h
 and name.h's permstr.h; a static-free name.h costs 73 objects that open with one, a static-free kv_encoder.h costs
 avatar_desc's 0x4BE920 and 0x4BE950), viewbttn and main_client (every `<string>` path through pk.h, client.h, co.h,
 option.h, soundlib.h, hash_map.h and the rest: those headers without it leave 200 objects that hold the guard in retail
 with none, so the original's `<string>` includes sat in other files than ours: a census of who uses std::string's
 operators, not a split), message_server (`<string>` anywhere in its file, last line included, drops an EH state from
-the destructor 0x4BCB50: the CritSec member's unwind). The one client build (imagediff.py): 118,895 -> 119,202 of 8,642,625 bytes in place (1.38 %; 118,445 between the
-kv_pair.h and udp.cpp steps: the build has no incremental padding, so each cut initialiser shifts the code after it).
+the destructor 0x4BCB50: the CritSec member's unwind). imagediff.py, before -> after: the one client build 118,895 -> 118,418 of 8,642,625 bytes in place (1.37 %), §5.3's
+`all` trial 1,289,036 -> 1,286,618 (14.89 %; after the first three cuts alone 1,286,976). Fewer bytes in place for code
+that is the client's: each cut initialiser and its atexit stub take their slots out, and the code after them moves
+against runs that lined up only by our other displacements (`.text` is still larger than retail's), so neither
+figure measures these cuts; 0x448BE0 sits after unknown_445740's guard in the client, where no source order of ours
+puts a header static, so giving it back to its object costs its code position too.
 The objects' own runs (§5's first question) over the app objects with `linklayout.py --objects`: 513 of 514 named
 objects in one run; the one function outside, DeltaVisitorClass::Visit_Children 0x4B0860, is our placement in
 unknown_root.cpp (delta_visitor.cpp's notes give it that object), not a mark of the update.
