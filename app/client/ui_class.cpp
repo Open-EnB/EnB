@@ -1114,18 +1114,21 @@ void ClassSelectInterface::Unknown_576A80()
 
 
 // Unknown_60, every frame: the planet turned toward UnknownE8, the class's dialog when it arrives, the moons
-// NOT EXACT: inline-budget (0.80: ours inlines all 18 dialog names' string assigns, the client calls the last one out of line; two dead size() reads at the top gave 0.84 and the client's 17, then the register order of the 0x67B390 call and the identity matrix stores were left)
+static inline CharacterViewClass *View_Of(ClassSelectInterface *c) { return c->CharacterView; }	// NAME 1: neutral (D10)
+// NOT EXACT: register, 10 masked rows (B8): the client loads PreviousSyncTime into edx before the pushes (ours edi after), stores frame after Unknown_497300's pushes, eax / edx swapped for its arguments and Get_Bone_Index's vtable; two dead Descriptions.size() reads (D272) give the client's 17 inline dialog assigns (the 18th out of line); attempts.py show 0x576AC0
 // @0x576AC0
 void ClassSelectInterface::Unknown_576AC0()
 {
+	Descriptions.size();
+	Descriptions.size();
 	float frame = (float)WW3D::Get_Frame_Time() * 0.001f;
 	Matrix3D tm(true);
 	RefCountPtr<RenderObjClass> model = Unknown_497300(CharacterView->ViewRObjs[1]);
 	int bone = model->Get_Bone_Index("planet");
-	Unknown_5760C0(true);
+	Unknown_5760C0(true); float angle;
 	if (UnknownEC > 0.0f) {
 		Unknown_5760C0(false);
-		float angle;
+
 		UnknownEC -= frame;
 		if (UnknownEC < 0.0f) {
 			UnknownE4 = UnknownE8;
@@ -1135,8 +1138,8 @@ void ClassSelectInterface::Unknown_576AC0()
 			} else if (UnknownE4 < 0.0f) {
 				UnknownE4 += 360.0f;
 			}
-			angle = UnknownE4;
-			CharacterView->Unknown_67B390(Unknown_B7DB60[Unknown8C].Race, Unknown_B7DB60[Unknown8C].Profession);
+			int idx = Unknown8C; angle = UnknownE4;
+			View_Of(this)->Unknown_67B390(Unknown_B7DB60[idx].Race, Unknown_B7DB60[idx].Profession);
 			CharacterView->Unknown_67C7B0();
 			switch (Unknown8C) {
 				case 0:
@@ -1177,7 +1180,7 @@ void ClassSelectInterface::Unknown_576AC0()
 		angle /= 180.0f;
 		tm.Rotate_Z(angle * WWMATH_PI);
 	} else {
-		float angle = UnknownE4 / 180.0f;
+		angle = UnknownE4 / 180.0f;
 		tm.Rotate_Z(angle * WWMATH_PI);
 	}
 	model->Capture_Bone(bone);
