@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-482 entries in 226 files.
+481 entries in 226 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -266,7 +266,6 @@ edit the comments in the code, not this file.
 | `app/client/ui_faction.cpp:230` | `UIFactionClass::Unknown_58DC20` | marker | NOT EXACT: register (the client keeps the reputation in esi and its frame slot after the order's, +0x28; this keeps it in ebx, at +0x14; the rest is the client's, including the tail call made a jump) |
 | `app/client/ui_friends.cpp:3` | `UIFriendsPlayerInfoClass::UIFriendsPlayerInfoClass` | mention | NOT EXACT. |
 | `app/client/ui_friends.cpp:358` | `UIFriendsClass::Unknown_5908B0` | marker | NOT EXACT: register allocation (the client keeps 0 in ebx and the insert position in a stack slot; ours holds the position in ebx; frame 0x18 vs 0x14) 0x5908B0 |
-| `app/client/ui_friends.cpp:604` | `UIFriendsClass::Unknown_5913E0` | marker | NOT EXACT: registers and scheduling (names' first / last, this and the location iterator in other registers) 0x5913E0 |
 | `app/client/ui_group.cpp:226` | `UIGroupUnknownE8Class::Unknown_592C50` | marker | NOT EXACT: register / frame (the client keeps one temporary's slot for all five Create_NEW results and compares with the zero in ebx; ours gives the loop's its own slot) |
 | `app/client/ui_group.cpp:1256` | `UIGroupClass::Unknown_596770` | marker | NOT EXACT: inline budget, 69 masked rows (B10; 116 with the direct finds): the two-layer find sends both finds out of line as the client, two dead Members.size() after Add_Member spend what that frees (D272), the member loop's branch negated (the client lays Remove_Member first, it++ before the test); left: the Add_Member temporary's assign out of line (the client inlines it and calls _Grow / _Eos... |
 | `app/client/ui_groupopt.cpp:182` | `UIGroupOptClass::Unknown_60` | marker | NOT EXACT: inline budget (explain.py: relocation first, the draft's auxdata.h path, then 12 calls vs 13: the client calls rtti.h's cast 0x598D80 out of line in the GroupInfo find, as ui_group.cpp's 0x598370; attempts.py show 0x59B220) 0x59B220 |

@@ -601,15 +601,15 @@ void UIFriendsClass::Unknown_591350()
 
 
 
-// NOT EXACT: registers and scheduling (names' first / last, this and the location iterator in other registers)
+// Both iterators declared first and set in the for's init (the client's names iterator in edi, the location at a stacked offset); ++it in 0x590810 keeps its list ++ inline
 // 0x5913E0
 void UIFriendsClass::Unknown_5913E0(std::vector<std::string> names, std::vector<std::string> locations)
 {
 	int player_list_size = names.size();
 	int location_list_size = locations.size();
 	FAIL_IF(player_list_size != location_list_size) return;
-	Unknown_590810(); std::vector<std::string>::iterator loc = locations.begin();
-	for (std::vector<std::string>::iterator it = names.begin(); it != names.end(); ++it, ++loc) {
+	Unknown_590810(); std::vector<std::string>::iterator it, loc;
+	for (it = names.begin(), loc = locations.begin(); it != names.end(); ++it, ++loc) {
 		Unknown0C4.push_back(new UIFriendsPlayerInfoClass(*it, *loc));
 	}
 	Unknown_5908B0();
