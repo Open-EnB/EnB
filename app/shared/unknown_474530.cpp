@@ -67,7 +67,7 @@ void Unknown_477E20(std::vector<Vector3> verts);
 // corner a Vector3 copied into the list (the macro); the sea index count from Count() / 2 and the vertex buffer written
 // through its FVF offsets (0x252, the corner copied, the normal (0, 0, 1), the grid uv a Vector2 local scaled with *=
 // and the two detail scales by Vector2's operator *); both records passes read PatchRecords[i] at each use (the
-// client reloads +0x18C; with the dead reads below, LND 2026-11-20: 257 -> 223; YSpacing a local, its fstp st(0): 221). Left: the patch transform's load
+// client reloads +0x18C; with the dead reads below, LND 2026-11-20: 257 -> 223; YSpacing a local, its fstp st(0): 221; B10: the level loop a do-while, the client's mov / inc / cmp 4 / jne tail, with the patch site's corner in x / y / z locals and 7 reads: 139). Left: the patch transform's load
 // order (Field's scales before p's corner), register choices in the patch loop's Adds and the records passes (ebp = 3)
 void LandClass::Render(RenderInfoClass &rinfo)
 {
@@ -82,7 +82,7 @@ void LandClass::Render(RenderInfoClass &rinfo)
 	bool companion = Unknown_BDC0D8->Unknown11;
 	Unknown_BDC0D8->Unknown_466F60(rinfo);
 	int level, i;
-	for (level = 0; level < MAX_LEVELS; level++) {
+	level = 0; do {
 		LandPatchClass **patch = Patches;
 		for (i = PatchCount; i--; patch++) {
 			LandPatchClass *p = *patch;
@@ -101,10 +101,10 @@ void LandClass::Render(RenderInfoClass &rinfo)
 				}
 			}
 			if (HasSea) {
-				Add_Sea_Quad(sea_quads, p->X, p->Y, extent_x, extent_y, SeaLevel);
+				{ float x = p->X; float y = p->Y; float z = SeaLevel; Add_Sea_Quad(sea_quads, x, y, extent_x, extent_y, z); }
 			}
 		}
-	}
+	} while (level++ != MAX_LEVELS - 1);
 
 	if (HasSea) {
 		// ten rings of sea quads around the field, and the corners
@@ -180,8 +180,8 @@ void LandClass::Render(RenderInfoClass &rinfo)
 	}
 
 	// the patch records' extra buffers (+0x00 / +0x04 and +0x08 / +0x0C), up to level 2; the dead size() reads spend the
-	// inline budget (D272: the count swept, 6 and 7 equal): the first pass's Set_Shader / Set_Material called as the client's
-	Unknown1218.size(); Unknown1218.size(); Unknown1218.size(); Unknown1218.size(); Unknown1218.size(); Unknown1218.size(); if (Unknown192) {
+	// inline budget (D272: the count swept again with the do-while: 7): the first pass's Set_Shader / Set_Material called as the client's
+	Unknown1218.size(); Unknown1218.size(); Unknown1218.size(); Unknown1218.size(); Unknown1218.size(); Unknown1218.size(); Unknown1218.size(); if (Unknown192) {
 		if (Unknown190) {
 			DX8Wrapper::Set_Texture(0, Unknown178.Peek());
 			DX8Wrapper::Set_Texture(1, NULL);
