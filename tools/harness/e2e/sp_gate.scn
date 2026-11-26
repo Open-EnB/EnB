@@ -3,8 +3,8 @@
 # Memorium, Nav Group Shrine, Jove's Fury, the gate; net7 sector_objects 123, about 77k off), warps to it (Q: WARP,
 # WARP_INDEX about 24 s later) and clicks the gate's verb (the target panel's right verb, 1238,672: ACTION). Net-7's
 # SectorManager::Gate opens the gate (ACTIVATE_NEXT_RENDER_STATE, the gate sound), moves the ship toward it and
-# 5.8 s later sends CAMERA_CONTROL 4: the client's stargate camera (CameraController03Class, camctrl_stargate.cpp
-# 0x795C80) draws two or three frames, the client answers with its own ACTION about 0.3 s later and the server hands
+# 5.8 s later sends CAMERA_CONTROL 4 (request 6, state 3): the client's stargate camera (CameraController03Class,
+# camctrl_stargate.cpp 0x795C80) draws two or three frames, the client answers with its own ACTION about 0.3 s later and the server hands
 # off (SERVER_HANDOFF); the loading screen, then Saturn's START_ACK and its sector-entry camera (CAMERA_CONTROL,
 # CameraController04Class, camctrl_entersector.cpp 0x793740). The stargate camera's last pose stays on the screen
 # until the entry camera takes over (about 1 s after START_ACK): a held place to compare. Run with --camera-track

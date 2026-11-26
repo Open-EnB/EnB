@@ -1,10 +1,10 @@
 # Space and station (live server): test-plan SP-03, dock and undock with the camera's poses. Elanor (_login_space)
 # targets Jove's Fury (W, then the target panel's >> three times: Ngozi Maru Memorium, Nav Group Shrine, Jove's
 # Fury; net7 sector_objects 3894, about 58k off), warps to it (Q) and clicks its Dock verb (the target panel's
-# right verb, 1238,672: ACTION). Net-7's SectorManager::Dock sends CAMERA_CONTROL 5 at once: the client's landing
-# camera (state 5, CameraController05Class, camctrl_land.cpp 0x793CE0) holds a place by the station and turns
-# after the ship for about 5 s, then the client's ACTIONs and the hand-off into the station (room -1 -> 0, the
-# hangar). She walks from her pad to the ship (sb_rooms' steps: 60,3, 60,-1, 50,-5, facing -124), clicks it
+# right verb, 1238,672: ACTION). Net-7's SectorManager::Dock sends CAMERA_CONTROL 5 at once (cpacket.cpp 0x739FF0:
+# request 10; camera_manager.cpp: state 6): the docking camera (CameraController06Class, camctrl_dock.cpp
+# 0x792750) holds a place by the station (about a unit of shake) and turns after the ship for about 5 s, then the
+# client's ACTIONs and the hand-off into the station (room -1 -> 0, the hangar). She walks from her pad to the ship (sb_rooms' steps: 60,3, 60,-1, 50,-5, facing -124), clicks it
 # (room 0 -> -1, STARBASE_REQUEST, the hand-off to space) and the launch's sector entry (CAMERA_CONTROL after
 # START_ACK). The station's room camera is the hangar's; `pose` logs it.
 #   e2e.py --live [--retail] --db-snapshot 7 --camera-track --instance NAME run sp_dock

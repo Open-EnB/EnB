@@ -5,7 +5,7 @@ r"""The camera's path in e2e runs (`e2e.py --camera-track`'s camera-track.txt), 
                                      [--tol-pos U] [--tol-ang D] [--json FILE]
     python tools/harness/camtrack.py ship --retail DIR... --ours DIR... --shots NAME... --ref NAME
                                      the moving object's place in shots' draw logs (sp_land: the ship along its
-                                     landing spline, B-01, while the camera holds: land_1s land_2s5 --ref surface)
+                                     landing spline while the landing camera holds: land_1s land_2s5 --ref surface)
 
 DIR is a scenario's e2e output folder (camera-track.txt, events.log). Each line of camera-track.txt is
 `TICK T FRAME N` and N view matrices (16 floats, row vectors: D3D's view matrix), in the order the frame first set
@@ -60,10 +60,10 @@ REF_MARGIN = 0.5
 SCENARIOS = {
     # counted from the session's start (events.log holds the login too): CAMERA_CONTROL #1 is the login's sector entry
     'sp_gate': [
-        # the warp's end: the warp camera (CameraController02Class 0x797B50) cuts from the chase camera to its exit
-        # place 4.1-4.2 s before the server's WARP_INDEX (retail, four runs: the place within 85 units); the
-        # server's own warp timing moves by 0.3 s from run to run, so the anchor is its WARP_INDEX
-        ('warp_end', r"antprox:sent WARP_INDEX$#1@-6,-1"),
+        # (no anchor on the warp's end: the warp camera (CameraController02Class 0x797B50) cuts to its exit place
+        # either 4.1-4.2 s or 3.0-3.6 s before the server's WARP_INDEX, 1000-1400 units apart, on both clients (retail
+        # 5 / 3 of 8 runs, ours 3 / 6 of 9, 2026-11-26): compare a run with retail runs of its own kind; the
+        # anchors below follow it)
         # the gate's verb (ACTION) and the ship's move toward the opening gate (the chase camera)
         ('gate_verb', r"antprox:received ACTION$#1@-1,7"),
         # the server's CAMERA_CONTROL 4 (5.8 s after the verb): the stargate camera's two or three frames before the
@@ -78,21 +78,23 @@ SCENARIOS = {
         # each window ends before the scenario's next input (Q at about +4.5 s, W at about +6.5 s): the camera's
         # moves after it follow the harness's input timing, not the client
         ('endriago_entry', r"antprox:sent CAMERA_CONTROL$#2@-1,4.3"),
-        # the Land verb: the planet-landing camera's held place while the ship flies its spline (B-01)
+        # the Land verb (ui_verb.cpp: request 8, state 5, the landing camera camctrl_land.cpp 0x793CE0): its held place
+        # while the ship flies its spline
         ('land', r"antprox:received ACTION$#1@-1,6"),
         # from the CAMERA_CONTROL on: before it the surface's first view (a top-down one, turning with the server's
         # time since its start) is all there is
         ('surface_entry', r"antprox:sent CAMERA_CONTROL$#3@0,6"),
-        # the launchpad's CAMERA_CONTROL 4 on a planet: the take-off camera (B-02), placed at an offset from the
-        # ship (relative: the ship's own place at that moment follows the server's timing)
-        ('takeoff', r"antprox:sent CAMERA_CONTROL$#4@-1,2"),
-        ('takeoff_offset', r"antprox:sent CAMERA_CONTROL$#4@-0.3,1%rel"),
+        # the launchpad's CAMERA_CONTROL 4 on the surface (request 6, state 3: the stargate camera camctrl_stargate.cpp
+        # 0x795C80, as at a gate in space), placed at an offset from the ship (relative: the ship's own place at that
+        # moment follows the server's timing)
+        ('launchpad', r"antprox:sent CAMERA_CONTROL$#4@-1,2"),
+        ('launchpad_offset', r"antprox:sent CAMERA_CONTROL$#4@-0.3,1%rel"),
         ('space_entry', r"antprox:sent CAMERA_CONTROL$#5@0.15,8"),
     ],
     'sp_dock': [
-        ('warp_end', r"antprox:sent WARP_INDEX$#1@-6,-1"),
-        # the Dock verb's CAMERA_CONTROL 5: the station-landing camera, about 5 s (from the CAMERA_CONTROL on: the verb
-        # is clicked 0.2 s after the warp's end, which the server's timing places)
+        # the Dock verb's CAMERA_CONTROL 5 (cpacket.cpp 0x739FF0: request 10, state 6, the docking camera
+        # camctrl_dock.cpp 0x792750), about 5 s (from the CAMERA_CONTROL on: the verb is clicked 0.2 s after the warp's
+        # end, which the server's timing places)
         ('dock', r"antprox:sent CAMERA_CONTROL$#2@0.15,6"),
         ('launch_entry', r"antprox:sent CAMERA_CONTROL$#3@0.15,8"),
     ],
@@ -173,7 +175,7 @@ def parse_spec(spec):
 
 def relative_spec(spec):
     """A SPEC ending `%rel` compares places relative to the view's last place before the anchor: a camera that a
-    cut puts at an offset from the ship (the take-off and stargate cameras) is compared by that offset, since the
+    cut puts at an offset from the ship (the stargate camera) is compared by that offset, since the
     ship's own place at the server's CAMERA_CONTROL varies with the server's timing. The place tolerance grows by
     twice the largest reference uncertainty (make_relative: ours' and a retail run's reference each)."""
     return spec.endswith('%rel')

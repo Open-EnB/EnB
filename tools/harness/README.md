@@ -833,6 +833,38 @@ the last name. Live antprox logs opcode numbers; e2e appends the names (`... = s
   window follows and the chat panel's request flag stays set; Join -> Existing's box takes digits only (edit flags
   0xC4, stredit's 4: 'ab12' shows '12'), and its Confirm then prints 'Another request is pending' and sends nothing.
   Retail and ours alike (the scenario's header has the coordinates and the client's functions).
+- **Gate, landing, dock with the camera's path (`sp_gate`, `sp_land`, `sp_dock`; test-plan SP-01 to SP-03,
+  2026-11-26, CS5):** Elanor from her login place: `sp_gate` warps to the Sector Gate to Saturn (W, >> four times,
+  Q) and clicks its verb (1238,672): Net-7 opens the gate, sends CAMERA_CONTROL 4 5.8 s later, the client's
+  stargate camera draws two or three frames, the client's own ACTION about 0.3 s later, the hand-off to Saturn;
+  `sp_land` wormholes to Endriago (GM `/wormhole 2210`), warps to the planet (W, >> twice, Q) and clicks Land:
+  the client's Land verb (ui_verb.cpp: ACTION 0x1D, camera request 8) runs the landing camera (state 5,
+  camctrl_land.cpp 0x793CE0), which holds one place about 4 s while the ship flies its spline (shots `land_1s`,
+  `land_2s5` hold the ship's place in their draw logs), then the surface and its Launchpad (W, the verb):
+  CAMERA_CONTROL 4 there runs the stargate camera (state 3) as at a gate in space; `sp_dock` warps to Jove's Fury
+  (W, >> three times, Q) and docks: CAMERA_CONTROL 5 (request 10) runs the docking camera (state 6,
+  camctrl_dock.cpp 0x792750) about 5 s; then it walks to the hangar's ship as `sb_rooms` does and launches. Not
+  reachable on the local Net-7: the planet-landing camera (state 7, camctrl_pland.cpp 0x794A90; CAMERA_CONTROL 1,
+  which Net-7 never sends; GM `/ccamera 1` beside the planet changed nothing) and the take-off camera (state 9,
+  camctrl_takeoff.cpp; the cockpit's warp button in view mode 1, ui_cpit.cpp 0x583250: clicks at 640,922, 640,912
+  and 690,920 on Endriago's surface changed nothing, as R10 found on the replay). Run each with `--camera-track
+  --db-snapshot 7`; the store's runs come from `baseline.py capture sp_gate sp_land sp_dock --live --db-snapshot 7
+  --camera-track` (`--camera-track` stores camera-track.txt). **Restart Net-7 before every run of either client**
+  (baseline.py capture does for `sp_*`; for ours `ENB_NET7_RESTART=1 baseline.py inputs --apply-db` first): the
+  server's time since its start moves the planets (the space shots: Jupiter in front of the sun or beside it) and
+  turns a planet surface's first view (a top-down one); on a server up for half an hour ours' shots differed from
+  the store's by 55 cells where retail's own runs differ by 1-2. The gate warp's end has two kinds on both clients
+  even so: the warp camera (0x797B50) cuts to its exit place either 4.1-4.2 s or 3.0-3.6 s before the server's
+  WARP_INDEX, 1000-1400 units apart (retail 5 and 3 of 8 runs, ours 3 and 6 of 9; `sp_gate`'s later anchors follow
+  it), so a run is compared with retail runs of its own kind (the store's three are all the first kind). `camtrack.py compare --retail
+  DIR... --ours DIR... --scenario sp_land` compares each 3-D view of the track around the scenario's moments
+  (SCENARIOS): the held places to 0.1 unit, the path by place (time-free) and the angle at the same time from the
+  anchor give or take 0.1 s, the tolerance retail's own spread at that time plus each run's frame-to-frame shake;
+  `%rel` anchors compare a camera that a cut puts beside the ship by its offset (the ship's own place at the
+  server's CAMERA_CONTROL follows the server's timing). `camtrack.py ship ... --shots land_1s land_2s5 --ref
+  surface` compares the ship's place under the held landing camera. Windows end before the scenario's next input
+  (a camera move after it follows the harness's timing). Unit tests: `python -m unittest
+  tools/harness/test_camtrack.py`.
 - **Extended keys (2026-11-21):** the client's keyboard code (w32kbd.cpp) reads lParam's scan code and extended
   bit; an arrow key posted with lParam 1 is the numpad's and nothing happens. `clientrun.key_lparam` gives every
   posted key its scan code and, for the arrows, Insert / Delete / Home / End / PgUp / PgDn, the extended bit, as a
