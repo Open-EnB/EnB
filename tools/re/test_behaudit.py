@@ -127,6 +127,109 @@ class FpuControl(unittest.TestCase):
         self.assertEqual(got[0]['client_va'], '6d664d')
 
 
+def exact_func(dirname, objname, addr):
+    ctx = B.Context([os.path.join(FIX, dirname)], stale=False)
+    ctx.paths = [p for p in ctx.paths if p.endswith(objname)]
+    funcs, _ = B.pair_functions(ctx, {addr})
+    return ctx, funcs[0]
+
+
+def patched_image(ctx, edits):
+    """The client image with some bytes changed ({va: bytes}), for made controls."""
+    data = bytearray(ctx.img.data)
+    for va, b in edits.items():
+        o = ctx.img.offset(va)
+        data[o:o + len(b)] = b
+    ctx.img.data = bytes(data)
+
+
+@unittest.skipUnless(FIX and os.path.exists(os.path.join(FIX, 'lst', 'sclient.obj')), 'fixtures missing')
+class TablesControl(unittest.TestCase):
+    """tables (A7): an exact function's case values sent to another body. Made controls on the client's tables: the
+    exact SClient::Unknown_743290's jump table 0x7432F4 with its first two entries swapped (bodies that differ), and
+    the exact starmap_data Unknown_7BF4C0's byte index table (a two-level switch) with two indexes swapped."""
+
+    def test_clean(self):
+        ctx, f = exact_func('lst', 'sclient.obj', 0x743290)
+        self.assertTrue(f.exact)
+        self.assertEqual(B.tables_rows(ctx, f), [])
+
+    def test_swapped_jump_entries(self):
+        ctx, f = exact_func('lst', 'sclient.obj', 0x743290)
+        a, b = ctx.u32(0x7432F4), ctx.u32(0x7432F8)
+        patched_image(ctx, {0x7432F4: b.to_bytes(4, 'little'), 0x7432F8: a.to_bytes(4, 'little')})
+        got = B.tables_rows(ctx, f)
+        self.assertEqual(len(got), 1, got)
+        self.assertEqual(got[0]['kind'], 'body')
+        self.assertEqual(got[0]['ours_val'], 'cases 0,1')
+        self.assertEqual(got[0]['auto'], '')
+
+    def test_byte_index(self):
+        ctx, f = exact_func('lst', 'starmap_data.obj', 0x7BF4C0)
+        self.assertEqual(B.tables_rows(ctx, f), [])
+        sw = B.our_switches(f, B.self_relocs(f.o, f.sec, f.s, f.e))
+        t, idx, jt, bt = sw[0]
+        self.assertIsNotNone(bt)
+        # two values whose bodies differ: swap their indexes in the client's byte table
+        v, w = next((v, w) for v in range(len(bt)) for w in range(v + 1, len(bt)) if jt[bt[v]] != jt[bt[w]])
+        base = f.addr + idx
+        patched_image(ctx, {base + v: bytes([bt[w]]), base + w: bytes([bt[v]])})
+        got = B.tables_rows(ctx, f)
+        self.assertEqual(len(got), 1, got)
+        self.assertEqual(got[0]['kind'], 'body')
+        self.assertIn('byte index', got[0]['note'])
+
+    def test_same_offset_walk(self):
+        """Every case body compared with itself is the same code, fields at the same offset compared too."""
+        ctx, f = exact_func('lst', 'sclient.obj', 0x743290)
+        oc = B.OurCode(f)
+        keep = B.DEFER_SAME
+        B.DEFER_SAME = False
+        try:
+            for t, idx, jt, bt in B.our_switches(f, B.self_relocs(f.o, f.sec, f.s, f.e)):
+                for a in set(jt):
+                    self.assertNotEqual(B.same_body(ctx, oc, a, f.addr + a)[0], False, hex(a))
+        finally:
+            B.DEFER_SAME = keep
+
+
+@unittest.skipUnless(FIX and os.path.exists(os.path.join(FIX, 'tables', 'ui_analyze.obj')), 'fixtures missing')
+class TablesReordered(unittest.TestCase):
+    """B14's masked-exact form ch_d1 of UIAnalyzeClass::Unknown_545190 (trybatch v545190a, run 2026-11-26): 6 of its
+    12 jump-table entries reach other offsets than the client's, its message bodies laid out in another order with
+    their strings permuted to match, so each value still reaches the client's message: `copy`, codegen
+    (fixture tables/ui_analyze.obj, from .work/wt/B14/.work/trybatch/v545190a-081318/ch_d1)."""
+
+    def test_copy(self):
+        rows, _, _ = B.run(('tables',), [os.path.join(FIX, 'tables')], only={0x545190}, stale=False, quiet=True,
+                           known_path=None)
+        got = rows['tables']
+        self.assertEqual(len(got), 1, got)
+        self.assertEqual(got[0]['kind'], 'copy')
+        self.assertEqual(got[0]['auto'], 'codegen')
+        self.assertTrue(got[0]['note'].startswith('6 of 12 values reach another offset: 6 same code'), got[0])
+
+    def test_permuted_strings_matter(self):
+        """The same form with the client's table read as ours (each value at our offset): the bodies there push
+        other messages, so the walk must say they differ (the strings decide, not the masked bytes)."""
+        ctx, f = exact_func('tables', 'ui_analyze.obj', 0x545190)
+        sw = B.our_switches(f, B.self_relocs(f.o, f.sec, f.s, f.e))
+        t, idx, jt, bt = sw[0]
+        jc = [ctx.u32(f.addr + t + 4 * i) - f.addr for i in range(len(jt))]
+        oc = B.OurCode(f)
+        moved = [(a, b) for a, b in zip(jt, jc) if a != b]
+        self.assertEqual(len(moved), 6)
+        for a, b in moved:
+            self.assertIs(B.same_body(ctx, oc, a, f.addr + b)[0], True)
+            self.assertIs(B.same_body(ctx, oc, a, f.addr + a)[0], True)     # same offset: the rel check's
+        keep = B.DEFER_SAME
+        B.DEFER_SAME = False
+        try:
+            self.assertTrue(all(B.same_body(ctx, oc, a, f.addr + a)[0] is False for a, _ in moved))
+        finally:
+            B.DEFER_SAME = keep
+
+
 class Pieces(unittest.TestCase):
     def r(self, **k):
         base = dict.fromkeys(B.COLS, '')

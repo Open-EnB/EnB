@@ -29,6 +29,15 @@ CHECK (each writes OUT/<check>.tsv, every row; `all` runs them all and writes OU
          thunk is the same, two targets holding the same bytes are codegen)
   seeds  stashed forms the tree has not adopted (behaudit_seeds.py: D185 variant stashes scoring above the tree,
          seed-patch hunks never applied; SD's varcheck and R3's seedcheck2), not a behaviour check
+  tables every switch of every exact function (A7, run 2026-11-26): objmatch masks each jump-table entry (a DIR32 to
+         the function itself) and each case body's relocated fields, so an exact form can send a case value to
+         another body (B14's ch_d1 form of 0x545190: 6 of 12 entries). Each value's body through our byte index and
+         jump tables against the client's through its own (same offsets); a value reaching another offset is walked
+         ours-from-our-offset against the client's-from-its-offset (same_body: a bisimulation, relocated fields by
+         value: literal text, client address through thunks and identical-COMDAT folds, label offset): `copy` (the
+         same code laid out elsewhere: codegen, filtered), `body` (another body: open, a behaviour bug), `unknown`
+         (a field it cannot resolve). Functions symbols.json does not name yet are placed by the ledger's in_tree
+         addresses of their own object. Prints functions / tables / values counted
   all    every check above
 
 Pairing: by mangled name (symbols.json), by the tree's `// @0xADDR` markers, not-exact.md's rows naming an address
@@ -73,7 +82,7 @@ REPO = os.path.dirname(os.path.dirname(HERE))
 sys.path.insert(0, HERE)
 import capstone  # noqa: E402
 from clientimage import ClientImage  # noqa: E402
-from objmatch import CoffObject, RELOC_SIZE, demangle, thunks_of  # noqa: E402
+from objmatch import CoffObject, RELOC_SIZE, demangle, symbol_addresses, thunks_of  # noqa: E402
 import appfile  # noqa: E402
 import relocaudit as RA  # noqa: E402
 
@@ -81,7 +90,7 @@ DIR32, REL32 = 0x06, 0x14
 MD = capstone.Cs(capstone.CS_ARCH_X86, capstone.CS_MODE_32)
 MD.detail = True
 NUM = re.compile(r'-?\b(0x[0-9a-f]+|\d+)\b')
-CHECKS = ('lit', 'rel', 'imm', 'fpu', 'args', 'data', 'seeds')
+CHECKS = ('lit', 'rel', 'imm', 'fpu', 'args', 'data', 'seeds', 'tables')
 KNOWN_TSV = os.path.join(HERE, 'behaudit_known.tsv')
 COLS = ('check', 'kind', 'obj', 'addr', 'function', 'status', 'ratio', 'how', 'off', 'ours', 'client_va', 'client',
         'ours_val', 'client_val', 'expected', 'basis', 'note', 'auto', 'known')
@@ -990,6 +999,319 @@ def switch_rows(ctx, f, selfrel):
     return out
 
 
+# ---------------------------------------------------------------- tables: every exact function's switches (A7)
+TABLE_WALK = 600        # instruction pairs one body comparison may walk before it gives up (`unknown`)
+DEFER_SAME = True      # fields at our own offset left to the rel check (False: compared here too, for tests)
+UNCOND_END = ('ret', 'retn', 'int3', 'hlt', 'ud2')
+CONDJ = re.compile(r'^(j(?!mp)\w+|loop\w*|jecxz|jcxz)$')
+
+
+def our_switches(f, selfrel):
+    """[(jump table offset, byte table offset or None, jump entries, byte entries or None)] of our function,
+    offsets from its start. Every jump table (a self-relocated field that a self relocation targets: VC6's tables
+    after the last ret) is listed, read through its `jmp [reg*4 + T]` row when one reads it; a two-level switch's
+    byte index table is the `mov / movzx r8, [reg + B]` a few rows before that jmp."""
+    left = obj_rows(f.o, f.sec, f.s, f.e)
+    body = f.o.data[f.o.sections[f.sec]['raw'] + f.s:f.o.sections[f.sec]['raw'] + f.e]
+    starts = sorted({t - f.s for t in selfrel.values() if f.s < t < f.e and t in selfrel})
+    reads = {}      # table offset -> byte table offset (or None) read with it
+    bytes_at = set()
+    for k, L in enumerate(left):
+        if L['doff'] is None or f.s + L['off'] + L['doff'] not in selfrel:
+            continue
+        t = selfrel[f.s + L['off'] + L['doff']] - f.s
+        if BYTE_LOAD.match(L['text'].replace('REL', '0')):
+            bytes_at.add(t)
+        if not JUMP.match(L['text'].replace('REL', '0')):
+            continue
+        idx = None
+        for L2 in left[max(0, k - 6):k][::-1]:
+            if BYTE_LOAD.match(L2['text'].replace('REL', '0')) and L2['doff'] is not None \
+                    and f.s + L2['off'] + L2['doff'] in selfrel:
+                idx = selfrel[f.s + L2['off'] + L2['doff']] - f.s
+                break
+        reads[t] = idx
+    bounds = sorted(set(starts) | bytes_at | {f.e - f.s})
+    out = []
+    for t in starts:
+        n = 0
+        while f.s + t + 4 * n in selfrel and (n == 0 or t + 4 * n not in bounds):
+            n += 1
+        jt = [selfrel[f.s + t + 4 * i] - f.s for i in range(n)]
+        idx = reads.get(t)
+        bt = None
+        if idx is not None:
+            nxt = min(b for b in bounds if b > idx)
+            bt = bytearray(body[idx:nxt])
+            if nxt == f.e - f.s:
+                while bt and bt[-1] in (0xCC, 0x90):
+                    bt.pop()
+            bt = list(bt)
+        out.append((t, idx, jt, bt))
+    return out
+
+
+def client_ins(ctx, va):
+    o = ctx.img.offset(va)
+    return None if o is None else next(MD.disasm(ctx.img.data[o:o + 16], va), None)
+
+
+class OurCode:
+    """Our exact function's bytes and relocations for the tables walk (offsets from the function's start)."""
+
+    def __init__(self, f):
+        self.f = f
+        info = f.o.sections[f.sec]
+        self.body = f.o.data[info['raw'] + f.s:info['raw'] + f.e]
+        self.rel = {va - f.s: (idx, typ) for va, idx, typ in info['relocs'] if f.s <= va < f.e}
+        self.end = code_end(f.o, f.sec, f.s, f.e)
+
+    def ins(self, x):
+        return next(MD.disasm(self.body[x:x + 16], x), None) if 0 <= x < self.end else None
+
+
+def our_token(ctx, oc, x):
+    """What our relocated field at offset x reaches: ('L', offset) a label of the function itself, ('s', text) a
+    literal, ('a', {addresses}) a symbol symbols.json places, ('d', address) a data symbol the data map places,
+    None when it cannot be told."""
+    f = oc.f
+    idx, typ = oc.rel[x]
+    sym = f.o.symbol_at(idx)
+    if sym is None:
+        return None
+    add = struct.unpack_from('<i', oc.body, x)[0] if typ == DIR32 else 0
+    if sym['section'] == f.sec + 1 and typ == DIR32:
+        return ('L', sym['value'] + add - f.s)
+    lit = our_literal(f.o, sym)
+    if lit is not None:
+        return ('s', lit.rstrip(b'\0'))
+    nm = sym['name']
+    if nm in ctx.known:
+        return ('a', ({k + add for k in ctx.known[nm]}, nm))
+    named = symbol_addresses().get(nm)      # symbols.json's other proofs (a not-exact callee's marker, a slot)
+    if named:
+        return ('a', ({k + add for k in named}, nm))
+    if nm.startswith('__real@') and sym['section'] > 0:
+        n = 4 if nm.startswith('__real@4') else 8
+        ri = f.o.sections[sym['section'] - 1]['raw'] + sym['value'] + add
+        return ('b', f.o.data[ri:ri + n])
+    m = re.match(r'[_?]Unknown_([0-9A-F]{6})(?![0-9A-Za-z])', nm)     # its own name (not a local static's)
+    if m and not nm.startswith(('??_C@', '__real@')):      # an Unknown_XXXXXX function or datum: its address
+        a = int(m.group(1), 16) + add
+        return ('a', ({a}, nm)) if typ == REL32 or '@' in nm else ('d', a)
+    if typ == DIR32 and sym['class'] == 2:
+        dm = ctx.data()[0]
+        if nm in dm:
+            return ('d', dm[nm] + add)
+    return None
+
+
+def token_equal(ctx, f, tok, va, typ):
+    """Our token against the client's field at va (DIR32: its dword; REL32: the target): True, False or None."""
+    v = ctx.u32(va)
+    if v is None:
+        return False
+    if typ == REL32:
+        v = (va + 4 + v - (1 << 32) if v & 0x80000000 else va + 4 + v) & 0xffffffff
+    if tok is None:
+        return None
+    kind, x = tok
+    t = ctx.thunk.get(v, v)
+    if kind == 'L':
+        return v == f.addr + x
+    if kind == 's':
+        s = ctx.img.cstr(v, 4096) if DATA_RANGE[0] <= v < DATA_RANGE[1] else None
+        if s is None:
+            return x == b'' and ctx.u32(v) is not None and ctx.img.data[ctx.img.offset(v)] == 0
+        return s.encode('latin1') == x or norm_file(s.encode('latin1')) == norm_file(x)
+    if kind == 'a':     # a byte-identical copy (identical-COMDAT folding) is the same callee
+        return v in x[0] or t in x[0] or ctx.folded(x[1], v)
+    if kind == 'b':
+        o = ctx.img.offset(v)
+        return o is not None and ctx.img.data[o:o + len(x)] == x
+    return v == x
+
+
+def same_body(ctx, oc, a, b, limit=TABLE_WALK):
+    """(True | False | None, (ours offset, client address)): whether our code from offset a does what the client's
+    from address b does, walked in lockstep (a bisimulation): local jmps followed on either side, a conditional
+    jump's two successors walked, each instruction's bytes equal outside our relocated fields and local branch
+    displacements, each relocated field reaching the client's value (our_token / token_equal: a literal by its
+    text, a symbol by its client address, a label of the function by its offset). Meeting at the same offset is no
+    proof (the masked bytes there can still differ), so walks go on to a ret, an indirect jmp or a pair seen.
+    None: the budget ran out or a field could not be told, nothing differing."""
+    f = oc.f
+    lo, hi = f.addr, f.addr + (f.e - f.s)
+    work, seen, steps, untold = [(a, b)], set(), 0, None
+    while work:
+        x, y = work.pop()
+        while True:
+            for _ in range(16):     # local jmps (a tail cases share) on either side
+                io, ic = oc.ins(x), client_ins(ctx, y)
+                if io is None or ic is None:
+                    return False, (x, y)
+                jo = (io.mnemonic == 'jmp' and io.operands[0].type == capstone.x86.X86_OP_IMM
+                      and not any(x + k in oc.rel for k in range(io.size)))
+                jc = (ic.mnemonic == 'jmp' and ic.operands[0].type == capstone.x86.X86_OP_IMM
+                      and lo <= (ic.operands[0].imm & 0xffffffff) < hi)
+                if not (jo or jc):
+                    break
+                x = io.operands[0].imm if jo else x
+                y = (ic.operands[0].imm & 0xffffffff) if jc else y
+            if (x, y) in seen:
+                break
+            seen.add((x, y))
+            steps += 1
+            if steps > limit:
+                return None, (x, y)
+            if io.size != ic.size or io.mnemonic != ic.mnemonic:
+                return False, (x, y)
+            fields = [k for k in range(io.size) if x + k in oc.rel]
+            if CONDJ.match(io.mnemonic) or (io.mnemonic == 'call' and not fields
+                                             and io.operands[0].type == capstone.x86.X86_OP_IMM):
+                if CONDJ.match(io.mnemonic):
+                    work.append((io.operands[0].imm, ic.operands[0].imm & 0xffffffff))
+                else:       # a call to a local label (none in VC6's output, but told apart)
+                    if (ic.operands[0].imm & 0xffffffff) != f.addr + io.operands[0].imm:
+                        return False, (x, y)
+            else:
+                ob = bytearray(oc.body[x:x + io.size])
+                co = ctx.img.offset(y)
+                cb = bytearray(ctx.img.data[co:co + ic.size])
+                for k in fields:
+                    typ = oc.rel[x + k][1]
+                    n = RELOC_SIZE.get(typ, 4)
+                    # a field at our own offset is the rel check's (its fold / data / static rows): equal here
+                    eq = True if DEFER_SAME and y == f.addr + x else token_equal(ctx, f, our_token(ctx, oc, x + k), y + k, typ)
+                    if eq is False:
+                        return False, (x, y)
+                    if eq is None:
+                        untold = untold or (x, y)
+                    ob[k:k + n] = cb[k:k + n] = b'\0' * n
+                if ob != cb:
+                    return False, (x, y)
+            if io.mnemonic in UNCOND_END or io.mnemonic == 'jmp':     # ret, an indirect jmp, a tail call
+                break
+            x, y = x + io.size, y + ic.size
+    return (None, untold) if untold else (True, None)
+
+
+def ledger_switch_funcs(ctx, funcs):
+    """[Func]: our functions with a jump table that the pairing leaves out (symbols.json lags the ledger: no name
+    nor marker yet), placed at the one ledger address of their own object (imports' in_tree) where the masked
+    pattern fullmatches. Only for the tables check, which audits every exact switch."""
+    import importlib.util
+    spec = importlib.util.spec_from_file_location('ledger', os.path.join(REPO, 'tools', 'vc6', 'ledger.py'))
+    ledger = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(ledger)
+    try:
+        files = ledger.load(repo=ctx.tree).get('app', {}).get('files', {})
+    except (SystemExit, OSError, ValueError, KeyError) as ex:
+        ctx.log('tables: no ledger (%r)' % ex)
+        return []
+    have = {f.name for f in funcs} | {(f.path, f.name) for f in funcs}
+    taken = {f.addr for f in funcs}
+    out = []
+    for path in ctx.paths:
+        if path in ctx.stale:
+            continue
+        key = os.path.splitext(os.path.basename(path))[0].lower()
+        addrs = [int(a, 16) for a in files.get(key, {}).get('in_tree', ())]
+        if not addrs:
+            continue
+        o = ctx.obj(path)
+        try:
+            fl = o.functions()
+        except (ValueError, OSError, struct.error):
+            continue
+        for name, sec, st, en in fl:
+            if name.startswith(SKIP_PREFIX) or name in have:
+                continue
+            sr = self_relocs(o, sec, st, en)
+            if not any(st < t < en and t in sr for t in sr.values()):
+                continue
+            hit = [a for a in addrs if a not in taken and ctx.masked_exact(o, sec, st, en, a)]
+            if len(hit) == 1:
+                out.append(Func(path, o, name, sec, st, en, hit[0], True))
+                taken.add(hit[0])
+                have.add(name)
+            else:
+                ctx.log('tables: %s %s unplaced (%d ledger hits)' % (key, demangle(name) or name, len(hit)))
+    return out
+
+
+def tables_rows(ctx, f, stats=None):
+    """Every switch of an exact function, each case value compared by the body it reaches: ours through our byte
+    index and jump tables (an offset: the client's code at that offset is ours, the function being exact), the
+    client's through its own tables at the same offsets. A value reaching another offset than ours is `copy` when
+    the client's code from both offsets does the same (same_code: duplicated / tail-merged bodies, codegen) and
+    `body` otherwise (a case sent to another body: behaviour). Masking hides every jump-table entry (DIR32 to the
+    function itself), so this is what an exact credit cannot show. The bodies' own relocated fields are the rel
+    check's (same offsets on both sides)."""
+    if not f.exact:
+        return []
+    selfrel = self_relocs(f.o, f.sec, f.s, f.e)
+    oc = None
+    sw = our_switches(f, selfrel)
+    if stats is not None and sw:
+        stats['functions'] += 1
+        stats['tables'] += len(sw)
+    out = []
+    for t, idx, jt, bt in sw:
+        t_c = f.addr + t
+        jc = [(ctx.u32(t_c + 4 * i) or 0) - f.addr for i in range(len(jt))]
+        bc = None
+        if bt is not None:
+            o = ctx.img.offset(f.addr + idx)
+            bc = list(ctx.img.data[o:o + len(bt)])
+        values = range(len(bt)) if bt is not None else range(len(jt))
+        moved, copies, bad, unknown = [], [], [], []
+        where = None
+        cache = {}
+        for v in values:
+            if bt is None:
+                a, b = jt[v], jc[v]
+            else:
+                a = jt[bt[v]] if bt[v] < len(jt) else None
+                b = jc[bc[v]] if bc[v] < len(jc) else None
+            if stats is not None:
+                stats['values'] += 1
+            if a == b:
+                continue
+            moved.append(v)
+            if a is None or b is None:
+                bad.append(v)
+                continue
+            if (a, b) not in cache:
+                oc = oc or OurCode(f)
+                cache[(a, b)] = same_body(ctx, oc, a, f.addr + b)
+            ok, at = cache[(a, b)]
+            if ok:
+                copies.append(v)
+            elif ok is None:
+                unknown.append(v)
+            else:
+                bad.append(v)
+                where = where or (a, b, at)
+        if not moved:
+            continue
+        kind = 'body' if bad else 'unknown' if unknown else 'copy'
+        vals = bad or unknown or copies
+        note = '%d of %d values reach another offset: %d same code, %d differ, %d unknown%s' % (
+            len(moved), len(values), len(copies), len(bad), len(unknown), ', byte index' if bt is not None else '')
+        if where and where[2]:
+            note += '; first difference at +%x / %06x' % where[2]
+        r = row(f, 'tables', kind, None, None, '', 'cases ' + ','.join(map(str, vals[:20])),
+                'table 0x%06X' % t_c, note=note)
+        r['off'] = '+%x' % t
+        if kind == 'copy':
+            r['auto'] = 'codegen'
+        out.append(r)
+    if stats is not None:
+        stats['rows'] += len(out)
+    return out
+
+
 def multiset_rows(ctx, f, cvals):
     """Every relocation, aligned or not: our known targets / literals / constants the client's function never
     uses, and the client's literals ours never uses (not-exact functions only)."""
@@ -1339,6 +1661,15 @@ def run(checks, objdirs, tree=REPO, libroot=None, listings=None, only=None, out=
                 rows[r['check']].append(r)
     if 'args' in checks:
         rows['args'] = args_rows(ctx, funcs, listings, log)
+    tstats = collections.Counter()
+    if 'tables' in checks:
+        extra = [] if only else ledger_switch_funcs(ctx, funcs)
+        tstats['ledger'] = len(extra)
+        for f in keep_tied(funcs, lambda g: len(tables_rows(ctx, g)) if g.exact else 0) + extra:
+            try:
+                rows['tables'] += tables_rows(ctx, f, tstats)
+            except (ValueError, IndexError, KeyError, struct.error, TypeError) as ex:
+                log('tables %s 0x%06X: %r' % (f.dn, f.addr, ex))
     if 'seeds' in checks:
         import behaudit_seeds
         rows['seeds'] = behaudit_seeds.rows(tree)
@@ -1359,6 +1690,9 @@ def run(checks, objdirs, tree=REPO, libroot=None, listings=None, only=None, out=
         if not quiet:
             print('%-4s %5d rows in %4d functions: %s' % (c, len(rs), len({r['addr'] for r in rs}),
                                                           ', '.join('%s %d' % kv for kv in sorted(cnt.items()))))
+    if 'tables' in checks and not quiet:
+        print('tables: %d exact functions with %d jump tables (%d placed by the ledger alone), %d case values; '
+              '%d rows' % (tstats['functions'], tstats['tables'], tstats['ledger'], tstats['values'], tstats['rows']))
     if not quiet:
         print('functions: %d exact, %d not exact, %d stale objects; %.0f s%s' % (
             stats['exact'], stats['notexact'], len(ctx.stale), time.time() - t0,
