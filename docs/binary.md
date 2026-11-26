@@ -414,6 +414,34 @@ At wt/IM6A's head (22861ff89) the one client build has 119,292 of 8,642,625 byte
 `all` trial 1,270,813 (14.70 %; `.text` 0x6E85F1, +11,540 over retail's on this run head; `e_lfanew` 0x130 by the key's
 rule); at its second commit the two were 119,023 and 1,268,026.
 
+**The last seven, read again.** The run-edge attribution above misreads two things: a retail initialiser's kind
+when a `mov ecx, imm32` holds an 0xE8 byte (seq.py's byte scan; `.work/im7/rkinds.py` decodes with capstone:
+retail's 940 are 577 guards, 119 PermStringInits, 2 ios, 242 others, permstr.cpp's own inlined one among the others),
+and an initialiser's owner at a run edge. Aligned per kind against our objects' `.CRT$XCU` entries in the all
+trial's object order (`.work/im7/objseq.py`, read from the `.obj` files: no link needed), the 7 were 5 PermStringInits
+(unknown_445740, loadingview, unknown_644e50, unknown_646170, ui_mfd_extended_context_strings), wnet's udp.obj's
+PermStringInit and 2 `<string>` guards (viewbttn, and main_client, whose code is WinMain's guest of the update: the 15
+guards from 0x517210 to 0x521B00 are the 15 objects' around it in our order, none is left for it), less message_server's guard 0x4BDFB0 (the D240 row).
+The other files named above hold their guard in retail, inside their own code: mv3dview 0x7F0F30 (given to ww3d2's
+collect.obj above), interface_scene 0x6DA900, mainview 0x514C40, ui_analyze 0x546860, loadingview 0x692740,
+starmap_data 0x7BF7D0; avatar_desc's object opens with its PermStringInit 0x4BE920 (through the thunk 0x40FF65).
+Cut, each by its object's table: loadingview.cpp without unknown_root.h (its clock Unknown_Get_Ticks declared
+locally), unknown_644e50 / unknown_646170 without the auxdata.h of ui_starbase.cpp's preamble, permstring.h
+(PermString's class without permstr.h's static) for kv_pair.h with permstr.h in the six kv objects that open with one
+(unknown_445740 builds KVPairTemplateClass<float> and opens with none), udp.cpp without permstr.h (0x8C0690 after its
+guard opens unknown_login_data's object). App initialisers 947 -> 942. Left: ui_mfd_extended_context_strings (its
+base's header, ui_mfd_extended_context.h, the client's `__FILE__`, reads DeltaCompoundClass +0x70 inline, so delta.h
+and name.h's permstr.h; a static-free name.h costs 73 objects that open with one, a static-free kv_encoder.h costs
+avatar_desc's 0x4BE920 and 0x4BE950), viewbttn and main_client (every `<string>` path through pk.h, client.h, co.h,
+option.h, soundlib.h, hash_map.h and the rest: those headers without it leave 200 objects that hold the guard in retail
+with none, so the original's `<string>` includes sat in other files than ours: a census of who uses std::string's
+operators, not a split), message_server (`<string>` anywhere in its file, last line included, drops an EH state from
+the destructor 0x4BCB50: the CritSec member's unwind). The one client build (imagediff.py): 118,895 -> 119,202 of 8,642,625 bytes in place (1.38 %; 118,445 between the
+kv_pair.h and udp.cpp steps: the build has no incremental padding, so each cut initialiser shifts the code after it).
+The objects' own runs (§5's first question) over the app objects with `linklayout.py --objects`: 513 of 514 named
+objects in one run; the one function outside, DeltaVisitorClass::Visit_Children 0x4B0860, is our placement in
+unknown_root.cpp (delta_visitor.cpp's notes give it that object), not a mark of the update.
+
 **The 47 objects: data.** Retail's addresses of our globals come from the DIR32 relocations of every exact
 function (relaudit's reading; statics and literals keyed by object). Placed by our owning object and ordered by
 link index, the data sections follow our object order: `.rdata` 1,832 symbols of 587 objects, 1,809 on the
