@@ -800,9 +800,11 @@ the last name. Live antprox logs opcode numbers; e2e appends the names (`... = s
   server's answer; the number keys sent nothing: the recording's Rally and Repair Equipment, on the store's rows of
   2026-11-24 Biocessation and Enrage Group, which the server answers on the Progen mob with a PRIORITY_MESSAGE and no
   OBJECT_EFFECT: the scenario's wait for an effect failed on retail every time until 2026-11-25), F (ACTION) until POINT_EFFECT and the hulk's CREATE, N until the
-  hulk is the target (a one-verb VERB_UPDATE, its Loot: Next Target's list is by sphere distance, the hulk and our
-  ship tie at 0 and the object list's order, so the hulk's game id, picks the first; ITEM_BASE comes only for loot
-  bases the client has not seen), its loot button (LOOT_HULK_PERMISSION) and the loot window's first row until OPEN_INTERFACE (the hulk empty;
+  hulk is the target (a one-verb VERB_UPDATE, its Loot: Next Target's list is by sphere distance, our own ship
+  always at 0, the hulk at 0 only when the mob died within the two radii of us, about 218 between the centres, and
+  then first by the object list's order; farther out our ship comes first, a VERB_UPDATE without verbs: CS4, 37
+  runs, `sp_nexttarget` cuts sp_combat there and shoots the target window after each of two presses; ITEM_BASE
+  comes only for loot bases the client has not seen), its loot button (LOOT_HULK_PERMISSION) and the loot window's first row until OPEN_INTERFACE (the hulk empty;
   the loot is random, so the number of takes varies). Retail passes, 65 s (149 s with the restore). The recording
   dragged a skill from the PDA's list to the hotbar; a replayed drag found the list scrolled elsewhere (the list
   keeps no fixed start). **The effects (2026-11-25 evening, CS2):** the hotbar is not in the database: it is the
