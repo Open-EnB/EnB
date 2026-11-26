@@ -152,7 +152,7 @@ static int Unknown_5746C0(int index, bool forward)
 #pragma auto_inline(on)
 static inline CameraClass *Camera_Of(CharacterViewClass *v) { return v->Unknown068; }
 
-// NOT EXACT: register, 24 masked rows (HS): Slider / SliderValue stored after the EH state 3 (the client before), the dialog strings' inline _Eos adds _Ptr + n where the client adds n + _Ptr (4 sites); the 37 size reads spend the inline budget the client's source spent (D272: _Grow out of line, _Tidy / _Copy / _Eos inline); attempts.py show 0x574710
+// NOT EXACT: register, 15 masked rows (B8): three of the four dialog strings' inline _Eos in the other register form (site 1: the client keeps n in eax and reloads this after the copy; sites 3-4 the inverse); the 31 size reads spend the inline budget the client's source spent (D272: _Grow out of line, _Tidy / _Copy / _Eos inline; with Flags' constructor 31-33 give site 2 the client's form); attempts.py show 0x574710
 // @0x574710
 ClassSelectInterface::ClassSelectInterface(UIViewClass *view, LayerClass *layer) :
 	InterfaceClass(view, (int)layer->Peek_Scene()),
@@ -164,15 +164,15 @@ ClassSelectInterface::ClassSelectInterface(UIViewClass *view, LayerClass *layer)
 	UnknownEC(0),
 	UnknownF0(0),
 	Slider(NULL),
-	SliderValue(0),
-	Unknown13C(false),
-	Unknown13D(false),
-	Unknown13E(false),
-	Unknown13F(false),
-	Unknown140(false),
-	Unknown141(false)
+	SliderValue(0)
+	// Flags (+0x13C): its own constructor (ui_class.h)
+
+
+
+
+
 {
-	InterfaceSortScopeClass sort(this); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size();
+	InterfaceSortScopeClass sort(this); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size();
 	int i;
 	for (i = 0; i < 14; i++) {
 		Buttons[i] = NULL;
@@ -303,7 +303,7 @@ void ClassSelectInterface::Unknown_60()
 // @0x575660
 bool ClassSelectInterface::Unknown_68(int key)
 {
-	if (Unknown13C || Unknown13D || Unknown13E || Unknown13F || Unknown140 || Unknown141) {
+	if (Flags.Unknown13C || Flags.Unknown13D || Flags.Unknown13E || Flags.Unknown13F || Flags.Unknown140 || Flags.Unknown141) {
 		return(false);
 	}
 	GadgetClass *skill = NULL;
@@ -349,7 +349,7 @@ bool ClassSelectInterface::Unknown_68(int key)
 		case 16:
 			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
 			CharacterView->Unknown_67B270();
-			Unknown13D = true;
+			Flags.Unknown13D = true;
 			CharacterView->Unknown_67C7B0();
 			return(true);
 		case 6:
@@ -471,16 +471,16 @@ bool ClassSelectInterface::Unknown_68(int key)
 void ClassSelectInterface::Unknown_575CD0()
 {
 	if (CharacterView->Unknown_67B2B0()) {
-		Unknown13D = false;
+		Flags.Unknown13D = false;
 	}
 	bool active = CharacterView->Unknown34->Active;
-	if (CharacterView->Unknown34->Active && !Unknown13D) {
-		Unknown13D = true;
+	if (CharacterView->Unknown34->Active && !Flags.Unknown13D) {
+		Flags.Unknown13D = true;
 		Unknown_5760C0(false);
 		return;
 	}
-	if (!CharacterView->Unknown34->Active && Unknown13D) {
-		Unknown13D = false;
+	if (!CharacterView->Unknown34->Active && Flags.Unknown13D) {
+		Flags.Unknown13D = false;
 		Unknown_5760C0(true);
 	}
 }

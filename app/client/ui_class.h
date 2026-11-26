@@ -62,12 +62,15 @@ public:
 	std::vector<std::string> SkillDescriptions;		// +0x124
 	GadgetClass *Slider;							// +0x134
 	int SliderValue;								// +0x138
-	bool Unknown13C;								// +0x13C
-	bool Unknown13D;								// +0x13D
-	bool Unknown13E;								// +0x13E
-	bool Unknown13F;								// +0x13F
-	bool Unknown140;								// +0x140
-	bool Unknown141;								// +0x141
+	struct FlagsStruct {	// NAME 1: neutral (D10): +0x13C..+0x141 as one sub-object with its own constructor: the client stores Slider / SliderValue before the constructor's EH state 3 and these after it (B8)
+		FlagsStruct() : Unknown13C(false), Unknown13D(false), Unknown13E(false), Unknown13F(false), Unknown140(false), Unknown141(false) {}
+		bool Unknown13C;							// +0x13C
+		bool Unknown13D;							// +0x13D
+		bool Unknown13E;							// +0x13E
+		bool Unknown13F;							// +0x13F
+		bool Unknown140;							// +0x140
+		bool Unknown141;							// +0x141
+	} Flags;									// +0x13C  // NAME 1: neutral (D10)
 	INIClass INI;									// +0x144
 };
 
