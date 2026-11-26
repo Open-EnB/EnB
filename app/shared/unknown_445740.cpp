@@ -264,7 +264,6 @@ Vector3 SteeringClass::Alignment(const SteeringVehicleStruct &vehicle, PxWrapper
 }
 
 #pragma auto_inline(off)
-// NOT EXACT: shape (explain.py): the inlined Closing_Speed's Normalize multiplies in another FPU order
 // 0x446E60
 Vector3 SteeringClass::Predict(const SteeringVehicleStruct &vehicle, const SteeringTargetStruct &target)
 {
@@ -275,7 +274,8 @@ Vector3 SteeringClass::Predict(const SteeringVehicleStruct &vehicle, const Steer
 	if (speed < 0.0001f) {
 		return target.Position;
 	}
-	float time = (target.Position - vehicle.Position).Length() / speed;
+	float dist = (target.Position - vehicle.Position).Length();
+	float time = dist / speed;
 	Vector3 predicted = target.Position + target.Velocity * time;
 	return predicted;
 }
