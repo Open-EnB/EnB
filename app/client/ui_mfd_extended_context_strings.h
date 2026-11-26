@@ -5,7 +5,7 @@
 
 #include <string>
 #include <vector>
-#include "ui_mfd_extended_context.h"
+#include "ui_mfd_extended_context_base.h"	// not ui_mfd_extended_context.h: the client's object has no PermStringInit
 
 class FontSys;
 
