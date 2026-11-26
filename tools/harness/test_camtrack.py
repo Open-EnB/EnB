@@ -147,6 +147,29 @@ class CompareTest(unittest.TestCase):
         self.assertEqual(r['verdict'], 'NO RETAIL')
 
 
+class RelativeTest(unittest.TestCase):
+    def test_relative_places_and_uncertainty(self):
+        # the reference moves 10 units a second; the cut 0.05 s after its last frame
+        tr = track([(-0.2, 0, 0, 0, 0), (-0.1, 1, 0, 0, 0), (-0.05, 1.5, 0, 0, 0), (0.0, 50, 5, 0, 90)])
+        w = [(t, fr, p) for t, fr, p in camtrack.window(tr, 0.0, -1, 1, 0)]
+        rel, unc = camtrack.make_relative(w)
+        self.assertAlmostEqual(rel[-1][2][0][0], 48.5, places=3)
+        self.assertAlmostEqual(rel[-1][2][0][1], 5, places=3)
+        self.assertAlmostEqual(unc, 0.5, places=3)
+
+    def test_rel_spec(self):
+        self.assertTrue(camtrack.relative_spec('antprox:X$#2@-0.3,1%rel'))
+        self.assertEqual(camtrack.parse_spec('antprox:X$#2@-0.3,1%rel'), ('antprox', 'X$', 2, -0.3, 1.0))
+
+    def test_fast_turn_between_frames_counts(self):
+        # retail turns 90 degrees between two frames 0.06 s apart; ours shows the middle of the turn in between
+        r = track([(0.0, 0, 0, 0, 0), (0.06, 0, 0, 0, 90)])
+        w = camtrack.window(r, 0.0, -1, 1, 0)
+        ours = camtrack.parse_track_line(line(0.03, 1, ORTHO, view_at(0, 0, 0, 45)))[2][0]
+        g, q = camtrack.angle_gap(ours, w, 0.03)
+        self.assertLess(g, 1.0)
+
+
 class ShipTest(unittest.TestCase):
     def log(self, *places):
         w = lambda p: [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, p[0], p[1], p[2], 1]

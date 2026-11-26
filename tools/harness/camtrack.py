@@ -16,16 +16,20 @@ camera (a later one is stale, a second scene's); on a planet surface view 0 is a
 series compares with its own: a view that is missing or extra on ours is a difference too.
 
 An anchor is a moment in events.log: SPEC is SOURCE:REGEX[#K] (the K-th matching line of that source, 1 by default;
-SOURCE `any` for every source), with an optional window `@LO,HI` in seconds around it (default -1,8). Per anchor and
-view:
+SOURCE `any` for every source), with an optional window `@LO,HI` in seconds around it (default -1,8) and `%rel` to
+compare places relative to the view's last place before the anchor (a camera a cut puts at an offset from the ship).
+Per anchor and view:
   * plateaus: where the view held still (within 1 unit / 0.5 degree for at least 0.15 s) in the window, their
     places on each run; the camera controllers draw on one generator of a fixed seed (0xBDB1C0), so a held place is
     the same on every retail run to the tenth of a unit, and ours must be too;
   * path: every pose of ours in the window: its place against the retail runs' paths (the distance to the nearest
     point of each retail run's polyline), so a move sampled at other frames still compares, and its angle against
-    the retail runs' angle at the same time from the anchor (a camera that holds its place and turns after the
-    ship); the tolerance at a time T from the anchor is retail's own spread there (each retail pose within 0.25 s of
-    T against the other retail runs) plus --tol-pos / --tol-ang (0.1 unit, 0.1 degree): a held place stays strict
+    the retail runs' angle at the same time from the anchor, give or take TIME_SLACK (0.1 s: the anchor is a
+    packet's log time, a cut lands a little either side of it), for a camera that holds its place and turns after
+    the ship; the tolerance at a time T from the anchor is retail's own spread there (each retail pose within 0.25 s of
+    T against the other retail runs, and each retail frame's distance from the middle of its two neighbours: a held
+    camera that shakes, as the dock camera does by about a unit on every run) plus --tol-pos / --tol-ang (0.1 unit,
+    0.1 degree): a held place stays strict
     where the phase before it (a warp's arrival, a chase camera) varies between runs;
   * timing: the seconds from the anchor to the first plateau after it (the move's length), retail's range and ours.
 The verdict per anchor: SAME, or DIFF with the first differing frame (the view, its time from the anchor, the frame
@@ -44,6 +48,10 @@ import sys
 
 IDENT = (1, 0, 0, 0, 1, 0, 0, 0, 1)
 SPREAD_WINDOW = 0.25        # seconds: the retail poses that set the tolerance at a time from the anchor
+# seconds: an angle is compared with the other run's poses this far either side of the same time from the anchor (the
+# anchor is the proxy's log time of a packet, not the frame the client acted in: a cut lands up to about a tenth of
+# a second either side of it on two runs)
+TIME_SLACK = 0.1
 
 # the camera moments of the live space scenarios (test-plan SP-01 .. SP-03); each SPEC as --anchor's
 SCENARIOS = {
@@ -54,17 +62,21 @@ SCENARIOS = {
         # the server's CAMERA_CONTROL 4 (5.8 s after the verb): the stargate camera's two or three frames before the
         # loading screen
         ('stargate_camera', r"antprox:sent CAMERA_CONTROL$#2@-0.5,1"),
-        # Saturn: the stargate camera's last pose held after the load, then the sector-entry camera
-        ('saturn_entry', r"antprox:sent CAMERA_CONTROL$#3@-2,8"),
+        ('stargate_offset', r"antprox:sent CAMERA_CONTROL$#2@-0.3,1%rel"),
+        # Saturn's sector-entry camera (before it the stargate camera's last pose stays on the screen after the load:
+        # stargate_offset compares that one)
+        ('saturn_entry', r"antprox:sent CAMERA_CONTROL$#3@-0.2,8"),
     ],
     'sp_land': [
         ('endriago_entry', r"antprox:sent CAMERA_CONTROL$#2@-1,8"),
         # the Land verb: the planet-landing camera's held place while the ship flies its spline (B-01)
         ('land', r"antprox:received ACTION$#1@-1,6"),
         ('surface_entry', r"antprox:sent CAMERA_CONTROL$#3@-1,8"),
-        # the launchpad's CAMERA_CONTROL 4 on a planet: the take-off camera (B-02)
+        # the launchpad's CAMERA_CONTROL 4 on a planet: the take-off camera (B-02), placed at an offset from the
+        # ship (relative: the ship's own place at that moment follows the server's timing)
         ('takeoff', r"antprox:sent CAMERA_CONTROL$#4@-1,2"),
-        ('space_entry', r"antprox:sent CAMERA_CONTROL$#5@-2,8"),
+        ('takeoff_offset', r"antprox:sent CAMERA_CONTROL$#4@-0.3,1%rel"),
+        ('space_entry', r"antprox:sent CAMERA_CONTROL$#5@-0.2,8"),
     ],
     'sp_dock': [
         # the Dock verb's CAMERA_CONTROL 5: the station-landing camera, about 5 s
@@ -130,7 +142,8 @@ def load_events(d):
 
 
 def parse_spec(spec):
-    """SOURCE:REGEX[#K][@LO,HI] -> (source, regex, k, lo, hi)."""
+    """SOURCE:REGEX[#K][@LO,HI][%rel] -> (source, regex, k, lo, hi); see relative_spec for %rel."""
+    spec = spec[:-4] if spec.endswith('%rel') else spec
     lo, hi = -1.0, 8.0
     m = re.search(r'@(-?[\d.]+),(-?[\d.]+)$', spec)
     if m:
@@ -143,6 +156,33 @@ def parse_spec(spec):
         spec = spec[:m.start()]
     src, _, rx = spec.partition(':')
     return src, rx, k, lo, hi
+
+
+def relative_spec(spec):
+    """A SPEC ending `%rel` compares places relative to the view's last place before the anchor: a camera that a
+    cut puts at an offset from the ship (the take-off and stargate cameras) is compared by that offset, since the
+    ship's own place at the server's CAMERA_CONTROL varies with the server's timing. The place tolerance grows by
+    twice the largest reference uncertainty (make_relative: ours' and a retail run's reference each)."""
+    return spec.endswith('%rel')
+
+
+def make_relative(samples):
+    """(SAMPLES with each place less the last place before time 0, the reference's uncertainty in units): the
+    reference moves on until the cut, which falls somewhere between the last frame before time 0 and the first
+    after it, so the uncertainty is the reference's speed times that gap. Unchanged, 0.0 when there is no frame
+    before time 0."""
+    before = [(t, p) for t, fr, p in samples if t < 0]
+    if not before:
+        return samples, 0.0
+    t1, p1 = before[-1]
+    unc = 0.0
+    if len(before) >= 2:
+        t0, p0 = before[-2]
+        after = [t for t, fr, p in samples if t >= 0]
+        if after and t1 > t0:
+            unc = math.dist(p1[0], p0[0]) / (t1 - t0) * (after[0] - t1)
+    o = p1[0]
+    return [(t, fr, (tuple(p[0][i] - o[i] for i in range(3)), p[1], p[2])) for t, fr, p in samples], unc
 
 
 def find_anchor(events, spec):
@@ -215,10 +255,9 @@ def path_nearest(p, path):
     return best
 
 
-def first_field(p, q):
-    """The field that differs most (x / y / z / yaw / pitch) and the two values."""
-    rows = [('x', p[0][0], q[0][0]), ('y', p[0][1], q[0][1]), ('z', p[0][2], q[0][2]),
-            ('yaw', p[1], q[1]), ('pitch', p[2], q[2])]
+def first_field(p, q, place=True):
+    """The field that differs most (x / y / z when PLACE, else yaw / pitch) and the two values."""
+    rows = [('x', p[0][0], q[0][0]), ('y', p[0][1], q[0][1]), ('z', p[0][2], q[0][2])] if place else         [('yaw', p[1], q[1]), ('pitch', p[2], q[2])]
 
     def gap(r):
         g = abs(r[1] - r[2])
@@ -240,6 +279,32 @@ def at_time(samples, t, gap=0.2):
     return None
 
 
+def near_in_time(samples, t, slack=None, steps=8):
+    """The poses SAMPLES passes through within SLACK (TIME_SLACK) seconds of T: the frames there and STEPS points
+    along each step between two frames that touches the interval (a fast turn between two frames counts), not
+    across a gap of more than 0.2 s."""
+    slack = TIME_SLACK if slack is None else slack
+    out = []
+    for (t1, f1, p1), (t2, f2, p2) in zip(samples, samples[1:]):
+        if t2 < t - slack or t1 > t + slack or t2 - t1 > 0.2:
+            continue
+        dyaw = (p2[1] - p1[1] + 180) % 360 - 180
+        for k in range(steps + 1):
+            u = k / steps
+            tt = t1 + u * (t2 - t1)
+            if abs(tt - t) <= slack:
+                out.append((tuple(p1[0][i] + u * (p2[0][i] - p1[0][i]) for i in range(3)), p1[1] + u * dyaw,
+                            p1[2] + u * (p2[2] - p1[2])))
+    if not out:
+        out = [p for tt, fr, p in samples if abs(tt - t) <= slack]
+    return out
+
+
+def angle_gap(p, samples, t):
+    """(degrees, the pose) of the nearest angle among SAMPLES' poses near time T; (None, None) if none."""
+    return min(((dist(p, q)[1], q) for q in near_in_time(samples, t)), key=lambda x: x[0], default=(None, None))
+
+
 def compare_view(wins, retail, ours, tol_pos, tol_ang, view, res):
     """One view's series. The place: each pose of ours against the retail runs' paths (time-free: frames fall at
     other times on each run). The angle: against the retail runs' angle at the same time from the anchor (a camera
@@ -254,8 +319,18 @@ def compare_view(wins, retail, ours, tol_pos, tol_ang, view, res):
             if not others:
                 continue
             d = min(path_nearest(p, wins[b])[0] for b in others)
-            gs = [dist(p, q)[1] for q in (at_time(wins[b], t) for b in others) if q is not None]
+            gs = [g for g, q in (angle_gap(p, wins[b], t) for b in others) if g is not None]
             spread_pts.append((t, d, min(gs) if gs else 0.0))
+
+    # each retail run's own frame-to-frame noise: a frame's distance from the middle of its two neighbours (a held
+    # camera that shakes by a unit, the dock camera's, has it on every run; a smooth move has none; a cut, where the
+    # neighbours lie more than 5 units apart, is not noise)
+    for a in rw:
+        w = wins[a]
+        for (t0, f0, p0), (t1, f1, p1), (t2, f2, p2) in zip(w, w[1:], w[2:]):
+            if t2 - t0 <= 0.2 and math.dist(p0[0], p2[0]) <= 5.0:
+                mid = tuple((p0[0][i] + p2[0][i]) / 2 for i in range(3))
+                spread_pts.append((t1, math.dist(p1[0], mid), 0.0))
 
     def spread_at(t):
         near = [(d, g) for tt, d, g in spread_pts if abs(tt - t) <= SPREAD_WINDOW]
@@ -273,19 +348,22 @@ def compare_view(wins, retail, ours, tol_pos, tol_ang, view, res):
                 f = {'run': o, 'view': view, 'what': 'no frames of this view on ' + ('retail' if w else 'ours')}
                 first = first or f
             continue
-        worst, f1 = (0.0, 0.0), None
+        worst, f1, over = (0.0, 0.0), None, []
         for t, fr, p in w:
             d, _, q = min((path_nearest(p, wins[r]) for r in rw), key=lambda x: x[0])
-            qs = [q2 for q2 in (at_time(wins[r], t) for r in rw) if q2 is not None]
-            g, qa = min(((dist(p, q2)[1], q2) for q2 in qs), key=lambda x: x[0], default=(0.0, None))
+            g, qa = min(((g2, q2) for g2, q2 in (angle_gap(p, wins[r], t) for r in rw) if g2 is not None),
+                        key=lambda x: x[0], default=(0.0, None))
             worst = (max(worst[0], d), max(worst[1], g))
             sp = spread_at(t)
+            if d > sp[0] + tol_pos or g > sp[1] + tol_ang:
+                over.append((round(t, 3), round(d, 3), round(g, 3)))
             if f1 is None and (d > sp[0] + tol_pos or g > sp[1] + tol_ang):
-                fld, ov, rv = first_field(p, q if d > sp[0] + tol_pos else (q[0], qa[1], qa[2]))
+                fld, ov, rv = first_field(p, q, True) if d > sp[0] + tol_pos else first_field(p, qa, False)
                 f1 = {'run': o, 'view': view, 't': round(t, 3), 'frame': fr, 'field': fld, 'ours': round(ov, 3),
                       'retail': round(rv, 3), 'units': round(d, 3), 'degrees': round(g, 3),
                       'retail_spread_there': (round(sp[0], 3), round(sp[1], 3))}
         row['path_worst'] = (round(worst[0], 3), round(worst[1], 3))
+        row['over'] = over
         row['plateau_vs_retail'] = []
         for a0, b0, p in plateaus(w):
             near = min(((dist(p, q), r) for r in rw for _, _, q in rp[r]), key=lambda x: x[0],
@@ -319,13 +397,19 @@ def compare_anchor(runs, spec, tol_pos=0.1, tol_ang=0.1):
     tracks = {n: tr for n, r, tr, ev in runs}
     for v in range(nviews):
         wins = {n: window(tracks[n], anchors[n], lo, hi, v) for n in anchors if anchors[n] is not None}
+        unc = 0.0
+        if relative_spec(spec):
+            rel = {n: make_relative(w) for n, w in wins.items()}
+            wins = {n: w for n, (w, u) in rel.items()}
+            unc = 2 * max((u for w, u in rel.values()), default=0.0)
+            res.setdefault('reference_uncertainty', {})[v] = round(unc, 3)
         for n, w in wins.items():
             pl = plateaus(w)
             after = [a for a, b, p in pl if a > 0.05]
             res['runs'][n].setdefault('views', {})[v] = {
                 'samples': len(w), 'plateaus': [(round(a, 2), round(b, 2), fmt(p)) for a, b, p in pl],
                 'move_s': round(after[0], 2) if after else None}
-        f = compare_view(wins, retail, [o for o in ours if anchors[o] is not None], tol_pos, tol_ang, v, res)
+        f = compare_view(wins, retail, [o for o in ours if anchors[o] is not None], tol_pos + unc, tol_ang, v, res)
         res['first_difference'] = res['first_difference'] or f
     if ours:
         res['verdict'] = 'DIFF' if res['first_difference'] else 'SAME'
@@ -433,7 +517,8 @@ def cmd_compare(a):
             for v, vr in sorted(row.get('views', {}).items()):
                 line = f'    view {v}: {vr.get("samples", 0)} frames, move {vr.get("move_s")} s'
                 if 'path_worst' in vr:
-                    line += f'; path worst {vr["path_worst"][0]} u / {vr["path_worst"][1]} deg: {vr["verdict"]}'
+                    line += (f'; path worst {vr["path_worst"][0]} u / {vr["path_worst"][1]} deg, '
+                             f'{len(vr.get("over", []))} frames over: {vr["verdict"]}')
                 elif 'verdict' in vr:
                     line += f': {vr["verdict"]}'
                 print(line)
