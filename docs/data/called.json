@@ -666,6 +666,9 @@
 "?ConvertStringToBSTR@_com_util@@YGPAGPBD@Z": [
 "0xA408E6"
 ],
+"?Convert_Old@CameraClass@@SAXAAVVector3@@@Z": [
+"0x945C00"
+],
 "?Copy@HAnimComboDataClass@@QAEXPBV1@@Z": [
 "0x9313B0"
 ],
@@ -2892,6 +2895,9 @@
 "data:?RenderStates@DX8Wrapper@@1PAIA": [
 "0xBFF438"
 ],
+"data:?RotateZ90@Matrix3D@@2V1@B": [
+"0xBF92D0"
+],
 "data:?ScreenResolution@Render2DClass@@1VRectClass@@A": [
 "0xC07550"
 ],
@@ -3819,6 +3825,9 @@
 "data:__real@4@3ff48000000000000000": [
 "0xB024BC"
 ],
+"data:__real@4@3ff483126f0000000000": [
+"0xAF9F44"
+],
 "data:__real@4@3ff4ebedfa0000000000": [
 "0xAFC3F0"
 ],
@@ -4053,7 +4062,8 @@
 ],
 "data:__real@4@4000c000000000000000": [
 "0xAE7960",
-"0xAF7AE4"
+"0xAF7AE4",
+"0xB8CEC8"
 ],
 "data:__real@4@4000c1f07c0000000000": [
 "0xAFFE7C"
@@ -4103,6 +4113,9 @@
 ],
 "data:__real@4@4002c000000000000000": [
 "0xAFFE68"
+],
+"data:__real@4@4002f000000000000000": [
+"0xB8CEC4"
 ],
 "data:__real@4@40038000000000000000": [
 "0xB0473C"
@@ -4396,6 +4409,9 @@
 ],
 "data:__real@8@4006b400000000000000": [
 "0xAF3BF0"
+],
+"data:__real@8@40078000000000000000": [
+"0xAF3F20"
 ],
 "data:__real@8@4007b400000000000000": [
 "0xAF3610"

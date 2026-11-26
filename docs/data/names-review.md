@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1970 |
 | 2 | describes what the code does | 5014 |
-| 1 | neutral placeholder | 25196 |
+| 1 | neutral placeholder | 25202 |
 
 ## For review (score 3 and below)
 
@@ -4559,14 +4559,14 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown10BC` | `app/client/gd_buffgadg.cpp:171` | untagged neutral name (D10) |
 | 1 | `Unknown_666570` | `app/client/gd_buffgadg.cpp:172` | untagged neutral name (D10) |
 | 1 | `Set_Unknown14` | `app/client/gd_buffgadg.cpp:173` | untagged neutral name (D10) |
-| 1 | `Unknown_AC` | `app/client/gd_buffgadg.cpp:190` | untagged neutral name (D10) |
+| 1 | `Unknown_AC` | `app/client/gd_buffgadg.cpp:189` | untagged neutral name (D10) |
+| 1 | `Unknown_666470` | `app/client/gd_buffgadg.cpp:195` | untagged neutral name (D10) |
 | 1 | `Unknown_66C2A0` | `app/client/gd_buffgadg.cpp:203` | untagged neutral name (D10) |
 | 1 | `Unknown68` | `app/client/gd_buffgadg.cpp:221` | untagged neutral name (D10) |
 | 1 | `Unknown74` | `app/client/gd_buffgadg.cpp:221` | untagged neutral name (D10) |
 | 1 | `Unknown6C` | `app/client/gd_buffgadg.cpp:222` | untagged neutral name (D10) |
 | 1 | `Unknown_4A13A0` | `app/client/gd_buffgadg.cpp:223` | untagged neutral name (D10) |
 | 1 | `Unknown_666440` | `app/client/gd_buffgadg.cpp:262` | untagged neutral name (D10) |
-| 1 | `Unknown_666470` | `app/client/gd_buffgadg.cpp:269` | untagged neutral name (D10) |
 | 1 | `Unknown_6664E0` | `app/client/gd_buffgadg.cpp:281` | untagged neutral name (D10) |
 | 1 | `Unknown2C_06` | `app/client/gd_buffgadg.cpp:286` | untagged neutral name (D10) |
 | 1 | `BuffElementStruct` | `app/client/gd_buffgadg.h:31` | neutral (D10) |
@@ -5997,11 +5997,13 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_522860` | `app/client/item/client_item_property_builder.cpp:20` | untagged neutral name (D10) |
 | 1 | `Unknown_527F40` | `app/client/item/client_item_property_builder.cpp:21` | untagged neutral name (D10) |
 | 1 | `Unknown_5285A0` | `app/client/item/client_item_property_builder.cpp:22` | untagged neutral name (D10) |
+| 1 | `Unknown_Item_Unknown08, item` | `app/client/item/client_item_property_builder.cpp:25` | neutral (D10); inline accessor layer for 0x521C10 |
+| 1 | `Unknown_Item_Unknown08` | `app/client/item/client_item_property_builder.cpp:25` | untagged neutral name (D10) |
+| 1 | `Unknown08` | `app/client/item/client_item_property_builder.cpp:25` | untagged neutral name (D10) |
 | 1 | `maker, name, maker2, value, quality, level, structure, tooltip` | `app/client/item/client_item_property_builder.cpp:29` | neutral |
 | 1 | `Unknown_688830` | `app/client/item/client_item_property_builder.cpp:29` | untagged neutral name (D10) |
 | 1 | `Unknown34` | `app/client/item/client_item_property_builder.cpp:31` | untagged neutral name (D10) |
 | 1 | `ClientItemPropertyUnknown529810Class` | `app/client/item/client_item_property_builder.cpp:33` | untagged neutral name (D10) |
-| 1 | `Unknown08` | `app/client/item/client_item_property_builder.cpp:33` | untagged neutral name (D10) |
 | 1 | `Unknown831340Class` | `app/client/item/client_item_property_builder.cpp:34` | untagged neutral name (D10) |
 | 1 | `Unknown_831840` | `app/client/item/client_item_property_builder.cpp:34` | untagged neutral name (D10) |
 | 1 | `id, type` | `app/client/item/client_item_property_builder.cpp:37` | neutral; both branches start with the same loads, which VC6 hoists above the branch as the client has them |
@@ -14846,8 +14848,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_5C` | `app/client/ui_mount.cpp:75` | untagged neutral name (D10) |
 | 1 | `Unknown_50` | `app/client/ui_mount.cpp:200` | untagged neutral name (D10) |
 | 1 | `Unknown_Find_Set_Field` | `app/client/ui_mount.cpp:276` | untagged neutral name (D10) |
+| 1 | `button_size, min_v, max_v` | `app/client/ui_mount.cpp:322` | neutral |
 | 1 | `Unknown0C` | `app/client/ui_mount.cpp:422` | untagged neutral name (D10) |
 | 1 | `Unknown_843440` | `app/client/ui_mount.cpp:425` | untagged neutral name (D10) |
+| 1 | `pos` | `app/client/ui_mount.cpp:460` | neutral |
 | 1 | `Unknown_BC` | `app/client/ui_mount.cpp:473` | untagged neutral name (D10) |
 | 1 | `Unknown_AC` | `app/client/ui_mount.cpp:475` | untagged neutral name (D10) |
 | 1 | `UnknownB829E0Struct` | `app/client/ui_mount.cpp:516` | neutral (D10) |
@@ -24759,15 +24763,17 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Arrive` | `app/shared/unknown_445740.h:55` | as Arrive |
 | 1 | `Encode, encoder` | `app/shared/unknown_445740.h:57` | what it does |
 | 1 | `MaxSpeed` | `app/shared/unknown_445740.h:59` | what the behaviours do with it |
-| 1 | `SteeringTurnClass` | `app/shared/unknown_445740.h:64` | what it holds |
-| 1 | `yaw, pitch, level` | `app/shared/unknown_445740.h:67` | what 0x447E20 limits with them |
-| 1 | `Turn, desired` | `app/shared/unknown_445740.h:68` | what it does |
-| 1 | `MaxYaw` | `app/shared/unknown_445740.h:70` | as the constructor's |
-| 1 | `MaxPitch` | `app/shared/unknown_445740.h:71` | as above |
-| 1 | `MaxLevel` | `app/shared/unknown_445740.h:72` | as above |
-| 1 | `CosYaw` | `app/shared/unknown_445740.h:73` | as above |
-| 1 | `CosPitch` | `app/shared/unknown_445740.h:74` | as above |
-| 1 | `CosLevel` | `app/shared/unknown_445740.h:75` | as above |
+| 1 | `SteeringTurnOutputStruct, Pitch, Yaw, Forward` | `app/shared/unknown_445740.h:63` | what 0x447E20 writes into its three floats |
+| 1 | `pitch, yaw, forward` | `app/shared/unknown_445740.h:66` | as above |
+| 1 | `SteeringTurnClass` | `app/shared/unknown_445740.h:74` | what it holds |
+| 1 | `yaw, pitch, level` | `app/shared/unknown_445740.h:77` | what 0x447E20 limits with them |
+| 1 | `Turn, desired` | `app/shared/unknown_445740.h:78` | what it does |
+| 1 | `MaxYaw` | `app/shared/unknown_445740.h:80` | as the constructor's |
+| 1 | `MaxPitch` | `app/shared/unknown_445740.h:81` | as above |
+| 1 | `MaxLevel` | `app/shared/unknown_445740.h:82` | as above |
+| 1 | `CosYaw` | `app/shared/unknown_445740.h:83` | as above |
+| 1 | `CosPitch` | `app/shared/unknown_445740.h:84` | as above |
+| 1 | `CosLevel` | `app/shared/unknown_445740.h:85` | as above |
 | 1 | `Unknown458710Class` | `app/shared/unknown_458710.cpp:9` | untagged neutral name (D10) |
 | 1 | `Unknown45E850Class` | `app/shared/unknown_458710.cpp:9` | untagged neutral name (D10) |
 | 1 | `Unknown48` | `app/shared/unknown_458710.cpp:22` | untagged neutral name (D10) |
