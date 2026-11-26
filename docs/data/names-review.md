@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1971 |
 | 2 | describes what the code does | 5015 |
-| 1 | neutral placeholder | 25205 |
+| 1 | neutral placeholder | 25207 |
 
 ## For review (score 3 and below)
 
@@ -12034,6 +12034,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_B7DC98` | `app/client/ui_class.cpp:134` | untagged neutral name (D10) |
 | 1 | `Unknown_5746C0` | `app/client/ui_class.cpp:139` | untagged neutral name (D10) |
 | 1 | `Unknown068` | `app/client/ui_class.cpp:153` | untagged neutral name (D10) |
+| 1 | `Unknown_Dialog` | `app/client/ui_class.cpp:154` | untagged neutral name (D10) |
+| 1 | `Unknown_67C920` | `app/client/ui_class.cpp:154` | untagged neutral name (D10) |
 | 1 | `Unknown8C` | `app/client/ui_class.cpp:161` | untagged neutral name (D10) |
 | 1 | `UnknownE4` | `app/client/ui_class.cpp:162` | untagged neutral name (D10) |
 | 1 | `UnknownE8` | `app/client/ui_class.cpp:163` | untagged neutral name (D10) |
@@ -12062,7 +12064,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_576A80` | `app/client/ui_class.cpp:250` | untagged neutral name (D10) |
 | 1 | `Unknown3A4` | `app/client/ui_class.cpp:251` | untagged neutral name (D10) |
 | 1 | `Unknown_67C7B0` | `app/client/ui_class.cpp:252` | untagged neutral name (D10) |
-| 1 | `Unknown_67C920` | `app/client/ui_class.cpp:255` | untagged neutral name (D10) |
 | 1 | `Unknown_577DA0` | `app/client/ui_class.cpp:265` | untagged neutral name (D10) |
 | 1 | `Unknown30` | `app/client/ui_class.cpp:269` | untagged neutral name (D10) |
 | 1 | `Unknown0F` | `app/client/ui_class.cpp:269` | untagged neutral name (D10) |
@@ -12133,6 +12134,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_577E70` | `app/client/ui_class.h:47` | untagged neutral name (D10) |
 | 1 | `Unknown_577EE0` | `app/client/ui_class.h:48` | untagged neutral name (D10) |
 | 1 | `Unknown_577F20` | `app/client/ui_class.h:49` | untagged neutral name (D10) |
+| 1 | `Unknown_Dialog` | `app/client/ui_class.h:50` | neutral (no client name; provisional placement: an inline of CharacterViewClass would do the same); NAME 1 [name]: 0x67C920's |
 | 1 | `Unknown8C` | `app/client/ui_class.h:53` | untagged neutral name (D10) |
 | 1 | `UnknownE4` | `app/client/ui_class.h:56` | untagged neutral name (D10) |
 | 1 | `UnknownE8` | `app/client/ui_class.h:57` | untagged neutral name (D10) |
