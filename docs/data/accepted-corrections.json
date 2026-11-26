@@ -256,6 +256,38 @@
    "moved_to": null,
    "decision": "D240",
    "note": "The <string> guard initialiser credited to message_filter: in the client's CRT table this entry belongs to message_server's object, so message_filter takes std::string from <xstring> (run 2026-11-25, IM6A 22861ff89). The regain round (<string> in message_server.cpp) lost 0x4BCB50 and was reverted."
+  },
+  {
+   "address": "0x8C0660",
+   "lib": "wnet",
+   "file": "udp",
+   "moved_to": null,
+   "decision": "D240",
+   "note": "udp.cpp no longer includes permstr.h: in the client's CRT table (.CRT$XCU) the PermStringInit 0x8C0690 after udp's guard opens unknown_login_data's object, which holds it already, so udp.obj runs no PermStringInit of its own (run 2026-11-25-evening, IM7 7092c0c60; app CRT initialisers 943 -> 942, retail 940). A crediting loss: xcu_position credits an object's n initialisers only when its stretch holds n table entries (lead: a stretch that ends at a header static opening the next object)."
+  },
+  {
+   "address": "0x448BE0",
+   "lib": "app",
+   "file": "fp_ita",
+   "moved_to": null,
+   "decision": "D240",
+   "note": "fp_ita.cpp no longer includes permstr.h: 0x448BE0 is unknown_445740's initialiser in the client's CRT table (one zero-bounded run with 445740's guard, [0x448BE0, 0x448BB0], the only one of the 940 entries out of code order) and its static 0xBDC064 sits right before 445740's FollowUsesPursue 0xBDC065 in .bss (run 2026-11-25-evening, IM7 a539b4621). A crediting loss: no source order of ours puts 445740's static after its own guard; lead: credit an object's table run even when its code is out of order."
+  },
+  {
+   "address": "0x448C10",
+   "lib": "app",
+   "file": "fp_ita",
+   "moved_to": null,
+   "decision": "D240",
+   "note": "The companion of 0x448BE0 (the same initialiser's atexit), lost with it on the same CRT table and .bss evidence (run 2026-11-25-evening, IM7 a539b4621)."
+  },
+  {
+   "address": "0x705450",
+   "lib": "app",
+   "file": "co",
+   "moved_to": null,
+   "decision": "D240",
+   "note": "ClientObjectClass::Unknown_6FDBD0 0x6FDBD0 made exact (1223 / 1223 bytes) with three helpers after the aux roots and one dead find: the client inlines Unknown_Find_Valid<bool> there and calls 0x7079B0, so our out-of-line copy 0x705450 is no longer credited (run 2026-11-25-evening, GN11 c58d87d9f). The client's one caller of 0x705450 is 0x6FCB70 (0x6FCCDE): regain it on 0x6FCB70's round."
   }
  ]
 }
