@@ -481,3 +481,92 @@ LINK keeps an empty object and counts it in the rich header), or data read only 
 (those spans are listed above). They cost the image only the rich header's C++ count (and through the key,
 `e_lfanew`, Â§5.4); 47 empty C++ objects on the trial's link line would raise its count to retail's (not tried: the C and cvtomf
 counts differ too).
+
+### 5.6 The last initialisers: WinMain's object; the object order rule; the trials at the run's head
+
+Measured 2026-11-26 (image builder IM8, week plan 2026-11-24 §2 D) on run/2026-11-26 (wt/IM8, every library
+rebuilt there) with the scripts in `.work/im8/` (`objwin.py`, `ownrange.py`, `strcut.py`, `objalpha.py`,
+`objoracle.py`, `objlcs.py`, `secorder.py`, `zeros_walk.py`, `zseq.py`, `inplace.py`, `trial2.sh`,
+`trials_after.sh`, `trials_before.sh`).
+
+**The initialisers: 942 -> 940, retail's count.** Per object (§5.5's alignment, each initialiser's owner by the
+object's own ledger range, `ownrange.py`):
+
+| Object | Ours before | Retail | Cut |
+|---|---|---|---|
+| ui_mfd_extended_context_strings | PermStringInit + guard | guard only (run 0x5C1090-0x5C1F60; its neighbours ui_mfd_extended_context 0x5BF460, harvestable 0x5BF6E0 and ui_mfdm 0x5C1F90 open with one) | ours reached permstr.h only through ui_mfd_extended_context.h -> kv_encoder.h -> delta.h -> name.h, which that header needs for the Watch class's inline `Update_Context` (`Field->Unknown70`; its FAIL_IF l.65 / G_ASSERT l.119 carry the client's `__FILE__` 0xB82458). The base class `UIMFDExtendedContextClass` moves to `ui_mfd_extended_context_base.h` (interim, D137), which strings.h includes: no pair moved |
+| main_client, main | main_client's guard; main.obj's run 0x4441E0-0x445560 as one object | no main_client object (no run, no CRT entry: WinMain 0x526DE0 is the update's guest); the generators' four initialisers, a zero slot, then ios_base::Init 0x4442C0, _Winit 0x445260, the guard 0x445540, a zero slot | **WinMain is main.obj's**: that run holds 3,024 bytes of int3 at 0x444390, after ios_base::Init's atexit 0x444380, 16 bytes short of the 3,040-byte WinMain the update moved out (§5), and main_client.cpp (`__FILE__` `e:\build\beta\G\app\main\main_client.cpp`) calls main.cpp's hooks and reads its tick count. main.cpp now `#include`s main_client.cpp (after `<iostream>`, before the hooks; alone main_client.cpp compiles to nothing, `#ifdef MAIN_CPP` on a blank line). The zero slot after the generators ends an object (below): they are `unknown_4441e0.cpp`'s (name provisional, interim D137). Cost: five pairs lost outright, D240 (0x4442C0, 0x444380, 0x445260, 0x445300, 0x445540: byte-identical, objmatch's CRT table round no longer widens main.obj's range, which reaches 0x526DE0, down to them) |
+| viewbttn | PermStringInit + guard | PermStringInit 0x6B5650 only (its run ends 0x6B602D; unknown_6b6050 owns 0x6B6180) | not cut: 16 headers in its include closure include `<string>` (pk.h, client.h, co.h, option.h, soundlib.h, money.h, avatar_desc.h, hash_map.h, tsk_login.h, ...); without them 201 objects that hold the guard in ours and in retail lose it, and no header outside viewbttn's closure covers them (`strcut.py`: the greedy cover's first pick is stdio.h) |
+| message_server | none | guard 0x4BDFB0 | not added: `<string>` anywhere in it costs the destructor 0x4BCB50 an EH state (attempts.csv, 3 forms; D240 row) |
+
+So the app region has 940 initialisers as retail's, with two per-object differences left (viewbttn one more,
+message_server one fewer).
+
+**The CRT table's zero slots: the incremental link's padding, and object boundaries.** Our `all` trial's table,
+walked against the link order with each object's `.CRT$XCU` entry count (`zeros_walk.py`): its 169 zero slots in the
+app stretch all lie between two objects, none inside one, and every object of two or more entries is followed by
+zeros (1 entry: none, 448 of 448; 2-6 entries: one, 155 of 155; 7, 8 and 11: two; 18: four); retail's 155 app
+zeros lie between two objects 137 of the 138 times our ledger knows both sides, and the 138th lay inside our
+main.obj, between the generators' Random4 initialiser 0x444240 and ios_base::Init 0x4442C0. So retail's object there
+ends after the four generators: they move to their own object, `unknown_4441e0.cpp` (name provisional, interim
+D137; main.cpp keeps `<iostream>`, the include of main_client.cpp, the hooks and the guard: retail's next segment,
+IOS / WIOS / guard and a zero). Retail's table against ours predicted from the `.obj` files with that padding
+(`zseq.py`): 1,107 tokens (167 zeros) against 1,108 (168), 940 initialisers each; the differences left are message_server's and viewbttn's
+guards (above), and cordcon.obj's (two entries, the AutoPoolClass allocator's initialiser 0x84DF30 and the guard 0x856870, and no zero after them in retail: the one place retail has an object of two entries without one; not resolved). A third, event.obj's zero, is cut: retail lists event's ActiveIterators 0x4E8670, then 0x4E93B0, 0x4E93E0 and g_assert's map 0x4E9490 with one zero after 0x4E9490 only, so event's object has one entry and g_assert's three: the two 12-byte statics `{"", "", -1}` 0xBE5638 / 0xBE5628 (nothing refers to them; their `""` is 0xBDA908, the literal g_assert's reporters push) move to g_assert.cpp, before the reporters, and its map after them (the client's code order: 0x4E93B0, 0x4E93E0, the reporters 0x4E9410 / 0x4E9450, the map's 0x4E9490); the
+two initialisers' pairs move with them (no pair lost).
+
+**Question 2: the object order.** Retail's objects (§5.3's `all` order, each object by the median of its own
+retail addresses) follow the project's source folders, alphabetical inside each (`objalpha.py`): of 612 adjacent
+pairs of named objects of one source directory, 544 rise (88.9 %); the 68 falls are folder-group starts (`ui_*` ->
+`camctl`, `gd_uisld` -> `acticon`, `wnd_file` -> `bar2d`, `udpconn` -> `chartemplate`, ...) and 33 of them our
+`packets/pk*` file names, which are ours (the client names packets by class). So an `unknown_*` object's real name
+sorts between its named neighbours: 86 of the 108 are bounded on both sides, 17 on one (`.work/im8/objoracle.tsv`;
+unknown_5b7ab0 between ui_manu_util and ui_mesh, unknown_6af220 between tutorial_manager and user_click_indicator).
+The one client build's object order (app.lib members, as LINK resolves them) keeps 48 of 662 common objects in
+retail's order (7.3 %); the `objs` / `all` trials take retail's.
+
+**Question 2: the thunk table's order rule, closed on a whole link.** On the `all` trial (`linklayout.py
+--thunk-order --map`): 19,999 thunks, 18,712 targets (retail 19,983 / 18,691), and every one of the 19,999 named
+slots on LINK's hash order (maxp 8192, split pointer fitted at p = 6,769; §5.1's `objs` trial 5,839). Retail's
+fitted p is 6,856: LINK's table held about 87 x 3 = 260 more external symbols in retail's link (one bucket splits
+per three symbols at the 0x30 / 16 load) than in the `all` trial's. Every thunk's bucket depends on p, so the
+table is 0 bytes in place in the trial (imagediff's first range, 0x401006-0x4196A0, 99,994 bytes), and with it the
+81,747 rel32 operands that reach it (§5): retail's table needs retail's symbol count before its names.
+**The padding between functions** stays §5.1's measure (app functions in slots of up16(S + S/4), 16,610 of 16,610
+on the `objs` trial; library members packed); not re-measured here (linklayout.py's slot audit reads retail only).
+The data sections' padding is the CRT table's above.
+
+**Question 3: the missing pieces, as trial-link figures at this head** (each a trial without one piece, against the
+`all` trial with every piece):
+
+| Trial (`--tag`) | imagediff in place | Against `all` | What it shows |
+|---|---|---|---|
+| `all` (every piece: §5.3's object list, retail's library order, VC6 DDRAW.LIB, long-format mss32, `build/res/client.res`, `/pdb:` retail's path) | **1,287,968 (14.90 %)** | | `.text` 909,124 in place, size 0x6E7565 against 0x6E58DD (**+7,304 bytes**, from §5.5's +11,540); headers 3,709 of 4,096 (`e_lfanew` 0x130 by §5.4's key rule: the rich C++ count is 1,007 against 1,054); the file 8,650,817 bytes against 8,642,625 |
+| `nores`: without `client.res` | 1,300,735 (15.05 %) | +12,767 | `.rsrc` absent (its 906 bytes in place by chance go), but `.reloc` then starts at retail's RVA 0xC49000 (83,989 bytes in place against 71,387) and the file is 8,642,625 bytes, retail's length: every section after `.text` is 0x2000 bytes late in `all` (`.text` and `.data` larger), and `.rsrc`'s 0x2000 is what then lands `.reloc` beyond retail's; headers 3,874 (16 rich pairs without CVTRES's: the key gives 0x128). `.rsrc` itself is 8,144 of 8,156 bytes equal by section offset in `all`: the piece is right and costs only until `.text` is retail's size |
+| `nopdb`: without `/pdb:` and the E: subst | 1,287,922 (14.90 %) | -46 | the NB10 record after the last section: 14 of its 65 bytes equal (60 with retail's path) |
+| entry point | | | `AddressOfEntryPoint` 0x62D2E4 against 0x62B674 in every trial: `_WinMainCRTStartup` (LIBCMT's wincrt0, exact) sits 0x1C70 bytes late, `.text`'s surplus before the library region; in place once `.text` is retail's size, nothing to set |
+| DOS stub | | | LINK 6.00's 128 bytes in every trial: equal once `e_lfanew` is 0x128 (`nores`), the key rule's (§5.4) |
+
+The one client build has three sections (no `.idata`, `.rsrc` or `.reloc`): those pieces count only on a trial link.
+
+**Question 4: the library members** at this head (`members.py --map` on the `all` trial): of our 585 library
+members with code, 550 pair with retail's; the 35 without a pair (9,546 bytes) are §5.3's: LIBCMT 24 (short or
+duplicated functions, `wcscmp.obj`), LIBCIMT 6 (the old iostreams, no match data), LIBCPMT 2, binkmovie's
+subtitlemanager.obj (its names are not in symbols.json), mss32-long's import member and wwlib's **stimer.obj (ours
+only: 2 functions, 128 bytes, no retail address named; ddraw.cpp's EXTRA_FILES import)**. Retail's library region
+has 239 gaps (103,866 bytes) outside our members' runs, as in §5.3. Nothing changed since §5.3 but the
+exclusion-list drop (§5.4).
+
+**Figures before -> after (imagediff's summary line).** The one client build: run/2026-11-26's head (cacc2b687)
+118,649 of 8,642,625 bytes in place (1.37 %) -> wt/IM8 118,693 (1.37 %); the `all` trial 1,312,998 (15.19 %) -> 1,287,968 (14.90 %). Neither measures the cuts (§5.5:
+each cut initialiser takes its slot and stub out, and the code after it moves against runs that lined up only by our
+other displacements). The `all` trial's -25,030 is WinMain's: the trial reproduces the full link, which put WinMain
+in main.obj's slot at 0x444390, and retail is the update's image with WinMain at 0x526DE0, so our app code from
+0x444390 to 0x526DE0 now sits 3,808 bytes (its slot) later than retail's instead of in front of it.
+
+**What it implies (proposals for the user; nothing of the one client build's link changed).** §5.3's list stands, in
+the order of its bytes: every app object on the link line in retail's order (now known as the project's folder
+order, alphabetical inside), retail's library order and import libraries, the resources, the PDB path. Two findings
+for the code (the coordinator's call, D246): the zero slots of retail's CRT table are a per-object initialiser check
+that needs no attribution of code (`zseq.py`: three objects differ, viewbttn, message_server and cordcon); and the
+thunk table needs retail's external-symbol count (about 260 more than ours) before any name in it can land in place.
