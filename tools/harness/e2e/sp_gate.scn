@@ -1,0 +1,45 @@
+# Space (live server): test-plan SP-01, the stargate jump. Elanor (_login_space, Jupiter at Jupiter Path the First)
+# targets the Sector Gate to Saturn (W: the nearest nav point, then the target panel's >> four times: Ngozi Maru
+# Memorium, Nav Group Shrine, Jove's Fury, the gate; net7 sector_objects 123, about 77k off), warps to it (Q: WARP,
+# WARP_INDEX about 24 s later) and clicks the gate's verb (the target panel's right verb, 1238,672: ACTION). Net-7's
+# SectorManager::Gate opens the gate (ACTIVATE_NEXT_RENDER_STATE, the gate sound), moves the ship toward it and
+# 5.8 s later sends CAMERA_CONTROL 4: the client's stargate camera (CameraController03Class, camctrl_stargate.cpp
+# 0x795C80) draws two or three frames, the client answers with its own ACTION about 0.3 s later and the server hands
+# off (SERVER_HANDOFF); the loading screen, then Saturn's START_ACK and its sector-entry camera (CAMERA_CONTROL,
+# CameraController04Class, camctrl_entersector.cpp 0x793740). The stargate camera's last pose stays on the screen
+# until the entry camera takes over (about 1 s after START_ACK): a held place to compare. Run with --camera-track
+# (camtrack.py compare --scenario sp_gate) and --db-snapshot 7 (Elanor back in Jupiter afterwards):
+#   e2e.py --live [--retail] --db-snapshot 7 --camera-track --instance NAME run sp_gate
+name: space: fly to the Saturn gate and jump (SP-01)
+timeout: 420
+include _login_space
+key 0x57 until antprox 'sent SET_TARGET$' every 1.5 within 15
+wait-quiet proxy 0.5 within 10
+click 1248,987 until antprox 'sent SET_TARGET$' every 1.5 within 15
+wait-quiet proxy 0.5 within 10
+click 1248,987 until antprox 'sent SET_TARGET$' every 1.5 within 15
+wait-quiet proxy 0.5 within 10
+click 1248,987 until antprox 'sent SET_TARGET$' every 1.5 within 15
+wait-quiet proxy 0.5 within 10
+click 1248,987 until antprox 'sent SET_TARGET$' every 1.5 within 15
+wait-quiet proxy 0.5 within 10
+shot gate_target
+key 0x51
+expect-event antprox 'received WARP$' within 10
+wait-event antprox 'sent WARP_INDEX$' within 120
+wait-quiet proxy 1.0 within 20
+shot at_gate
+click 1238,672 until antprox 'received ACTION$' every 3 within 60
+expect-event antprox 'sent ACTIVATE_NEXT_RENDER_STATE$' within 10
+wait-since antprox 'sent ACTIVATE_NEXT_RENDER_STATE$' 3
+shot gate_open
+wait-event antprox 'sent CAMERA_CONTROL$' within 30
+wait-event antprox 'sent SERVER_HANDOFF' within 30
+move 1000,880
+wait-event antprox 'received START_ACK$' within 120
+wait-event antprox 'sent CAMERA_CONTROL$' within 30
+wait-since antprox 'sent CAMERA_CONTROL$' 1
+shot saturn_entry
+wait-since antprox 'sent CAMERA_CONTROL$' 6
+shot saturn
+expect-no CRASH

@@ -11,7 +11,8 @@ noise in the private repository Open-EnB/baselines, checked out at machine.py's 
     python tools/harness/baseline.py tools [--add EXE...] [--store DIR]
 
 Layout of the store:  runs/<client>/<env>/<scenario>/<YYYYMMDD-HHMMSS>/   one stored run (UTC start time):
-    manifest.json, e2e.log, events.log, antprox.out, d3d8shot.log, camera.txt, messages.log (if any; filtered
+    manifest.json, e2e.log, events.log, antprox.out, d3d8shot.log, camera.txt, camera-track.txt (capture
+    --camera-track), messages.log (if any; filtered
     above MESSAGES_RAW_MAX, the manifest's messages_log),
     result-<scenario>.json, shot_*.png, packets.json ({scenario: [packets the client sent]}, e2e.sent_packets)
 runs/<client>/<env>/<scenario>/noise.json: every stored run of the scenario against every other (raw shot_diff).
@@ -70,7 +71,7 @@ sys.path.insert(0, HERE)
 import machine                                  # noqa: E402
 
 SCHEMA = 1
-LOGS = ('e2e.log', 'events.log', 'antprox.out', 'd3d8shot.log', 'camera.txt', 'messages.log')
+LOGS = ('e2e.log', 'events.log', 'antprox.out', 'd3d8shot.log', 'camera.txt', 'camera-track.txt', 'messages.log')
 # messages.log (the client's -ENABLE_MESSAGES stream) is stored as it is only up to MESSAGES_RAW_MAX; a larger one (a
 # space session's: 49-58 MB, 99 % effect_description.cpp's three asserts a frame and frameint.cpp's frame-rate line)
 # is stored filtered (filter_messages: the frame-rate lines dropped, an assert repeated since the last other line
@@ -547,6 +548,8 @@ def capture(args):
                 cmd += ['--live', args.live]
             if not args.no_audio:
                 cmd += ['--audio']
+            if args.camera_track:
+                cmd += ['--camera-track']
             if args.db_snapshot is not None:
                 cmd += ['--db-snapshot', str(args.db_snapshot)]
             cmd += ['run'] + names
@@ -2397,6 +2400,8 @@ def main(argv=None):
                     help='capture --live: restart Net7.exe before each run (default: when a scenario is sp_*; '
                          '--no-restart: restore in place)')
     ap.add_argument('--no-audio', action='store_true', help='capture: without the audio log (e2e --audio is on)')
+    ap.add_argument('--camera-track', action='store_true',
+                    help="capture: e2e --camera-track (camera-track.txt, the camera's path; camtrack.py compares)")
     ap.add_argument('--no-db-restore', action='store_true',
                     help="capture --live: do not put the store's database state (inputs/db) back before each run")
     ap.add_argument('--write', action='store_true', help='inputs: rewrite inputs/manifest.json from the files')

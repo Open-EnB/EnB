@@ -1,0 +1,56 @@
+# Space and station (live server): test-plan SP-03, dock and undock with the camera's poses. Elanor (_login_space)
+# targets Jove's Fury (W, then the target panel's >> three times: Ngozi Maru Memorium, Nav Group Shrine, Jove's
+# Fury; net7 sector_objects 3894, about 58k off), warps to it (Q) and clicks its Dock verb (the target panel's
+# right verb, 1238,672: ACTION). Net-7's SectorManager::Dock sends CAMERA_CONTROL 5 at once: the client's landing
+# camera (state 5, CameraController05Class, camctrl_land.cpp 0x793CE0) holds a place by the station and turns
+# after the ship for about 5 s, then the client's ACTIONs and the hand-off into the station (room -1 -> 0, the
+# hangar). She walks from her pad to the ship (sb_rooms' steps: 60,3, 60,-1, 50,-5, facing -124), clicks it
+# (room 0 -> -1, STARBASE_REQUEST, the hand-off to space) and the launch's sector entry (CAMERA_CONTROL after
+# START_ACK). The station's room camera is the hangar's; `pose` logs it.
+#   e2e.py --live [--retail] --db-snapshot 7 --camera-track --instance NAME run sp_dock
+name: space: dock at Jove's Fury and launch again (SP-03)
+timeout: 480
+messages: on
+include _login_space
+key 0x57 until antprox 'sent SET_TARGET$' every 1.5 within 15
+wait-quiet proxy 0.5 within 10
+click 1248,987 until antprox 'sent SET_TARGET$' every 1.5 within 15
+wait-quiet proxy 0.5 within 10
+click 1248,987 until antprox 'sent SET_TARGET$' every 1.5 within 15
+wait-quiet proxy 0.5 within 10
+click 1248,987 until antprox 'sent SET_TARGET$' every 1.5 within 15
+wait-quiet proxy 0.5 within 10
+shot station_target
+key 0x51
+expect-event antprox 'received WARP$' within 10
+wait-event antprox 'sent WARP_INDEX$' within 120
+wait-quiet proxy 1.0 within 20
+shot at_station
+click 1238,672 until antprox 'received ACTION$' every 3 within 60
+expect-event antprox 'sent CAMERA_CONTROL$' within 10
+wait-since antprox 'sent CAMERA_CONTROL$' 2.5
+shot dock_2s5
+wait-event antprox 'sent SERVER_HANDOFF' within 30
+wait-event msg 'Changing room from -1 to 0' within 120
+wait-quiet proxy 2.0 within 30
+move 1000,880
+pose
+shot docked
+walk-to 60,3
+walk-to 60,-1
+walk-to 50,-5
+face -124 tol 5
+move 1000,880
+wait-quiet proxy 0.5 within 10
+pose
+click 770,284 until msg 'Changing room from 0 to -1' every 2 within 20
+wait-event antprox 'received STARBASE_REQUEST' within 30
+wait-event antprox 'sent SERVER_HANDOFF' within 60
+move 1000,880
+wait-event antprox 'received START_ACK' within 120
+wait-event antprox 'sent CAMERA_CONTROL$' within 30
+wait-since antprox 'sent CAMERA_CONTROL$' 1
+shot launched_1s
+wait-since antprox 'sent CAMERA_CONTROL$' 6
+shot launched
+expect-no CRASH
