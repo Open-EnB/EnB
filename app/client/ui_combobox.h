@@ -59,7 +59,7 @@ public:
 	virtual bool Unknown_68(int key);					// +0x68 0x57A060 (1 the arrow, 2 the slider, 3.. a row)  // NAME 1 [key]: InterfaceClass's
 	virtual void Unknown_7C(UIViewClass *view, bool arg);	// +0x7C 0x57A030 (the base's)  // NAME 1 [view, arg]: InterfaceClass's
 
-	void Init(InterfaceClass *owner);					// 0x5790C0 (the mesh, the animations, the rows, the arrow, the text field, the slider; owner NULL: the gadgets on Layer)  // NAME 2: describes what it does; NAME 1 [owner]: what the second constructor passes
+	void Init(SClient *client);							// 0x5790C0 (the mesh, the animations, the rows, the arrow, the text field, the slider; client NULL: the gadgets on Layer)  // NAME 2: describes what it does; NAME 1 [client]: what the second constructor passes (its client, 0x578C6A: [esp+0x28], not its owner)
 	void Unknown_57A310();								// 0x57A310 (empty, no caller)
 	void Update_Drop_Down();							// 0x57A330 (the drop-down's opening / closing per frame)  // NAME 2: describes what it does
 	void Update_Rows();									// 0x57AAB0 (the rows' text from the top item)  // NAME 2: describes what it does
