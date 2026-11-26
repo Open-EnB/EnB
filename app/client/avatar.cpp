@@ -2377,7 +2377,7 @@ void CharacterViewAvatarClass::Unknown_783620(float time)
 
 
 // 0x783B50
-// NOT EXACT: register-allocation / inline-budget (the client keeps accel in FPU ST(0) without spilling; also some NLP/blink/face callees not inlined)
+// NOT EXACT: register-allocation / inline-budget (the client spills accel to a frame slot at its definition, 0x783C36, where ours keeps it on the x87 stack to the speed paths; also some NLP/blink/face callees not inlined)
 void CharacterViewAvatarClass::Unknown_1C4()
 {
 	if (Unknown204 == 0) {
