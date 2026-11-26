@@ -218,6 +218,17 @@ class Store(unittest.TestCase):
         self.assertIn('scn: DIFF', out)
         self.assertIn('packets', out)
 
+    def test_verify_run_audio_only(self):
+        # AU-01: --audio-only prints the audio verdict alone; packets and shots that differ do not count
+        other = os.path.join(self.tmp.name, 'other')
+        diff = make_run(other, 'b', box=(0, 0, 64, 64), packets=('A 4',))
+        rc, out = self.verify('--run', diff, '--audio-only')
+        self.assertEqual(rc, 0, out)
+        self.assertIn('scn: AUDIO NONE no audio stored', out)
+        self.assertNotIn('packets', out)
+        self.assertIn('--audio-only: 0 SAME, 0 RETAIL-UNSTABLE, 0 DIFF, 1 NONE', out)
+        self.assertEqual(baseline.AUDIO_ONLY_WORD[baseline.RETAIL_UNSTABLE], 'RETAIL-UNSTABLE')
+
 
 IDENT = [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
 

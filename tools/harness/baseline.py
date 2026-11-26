@@ -565,7 +565,8 @@ def capture(args):
             if args.db_snapshot is not None:
                 snaps = sorted(d for d in os.listdir(staging) if d.endswith('-db-snapshot')
                                and os.path.getmtime(os.path.join(staging, d)) >= t0 - 1)
-                sql = os.path.join(staging, snaps[-1], f'avatar{args.db_snapshot}.sql') if snaps else None
+                import e2e
+                sql = os.path.join(staging, snaps[-1], e2e.db_snapshot_file(args.db_snapshot)) if snaps else None
                 db.update(avatar=args.db_snapshot,
                           sha256=sha256_file(sql) if sql and os.path.exists(sql) else None)
             if not os.path.exists(man_path):
@@ -1546,6 +1547,8 @@ def audio_noise(entries):
 
 
 RETAIL_UNSTABLE = 'RETAIL-UNSTABLE'
+# verify --run --audio-only's word for each audio_verdict
+AUDIO_ONLY_WORD = {True: 'SAME', False: 'DIFF', RETAIL_UNSTABLE: RETAIL_UNSTABLE, None: 'NONE'}
 
 
 def name_samples(summaries, data_dir=None):
@@ -2191,6 +2194,7 @@ def verify_run(args):
     holders = [(c, e, s, d, dir_scenarios(d)) for c, e, s, d in scenario_dirs(store)
                if (not client or c == client) and (not env or e == env)]
     bad, apart, used = 0, 0, set()
+    audio_tally = {}
     for name in names:
         # a set folder when --set names it; else a run of several scenarios prefers a set that ran this one, and a
         # run of one scenario the scenario's own folder
@@ -2282,6 +2286,12 @@ def verify_run(args):
         stored_audio = [read_json(en['audio']) for en in ents if en.get('audio')]
         named = name_samples([mine_audio[audio_cut_stored(stored_audio)].get(name)] + stored_audio)
         a_ok, a_text = audio_verdict(named[0], named[1:], nzs.get('audio'))
+        if getattr(args, 'audio_only', False):     # AU-01: the audio verdict alone, one line a scenario
+            k = AUDIO_ONLY_WORD[a_ok]
+            audio_tally[k] = audio_tally.get(k, 0) + 1
+            print(f'{name}: AUDIO {k} {a_text}' + (f' ({"; ".join(notes)})' if notes else '')
+                  + f'  [{c}/{e}/{s}, {len(ents)} runs]')
+            continue
         if a_ok is False:
             what.append(f'audio {a_text}')
         elif a_ok == RETAIL_UNSTABLE:
@@ -2311,6 +2321,11 @@ def verify_run(args):
         bad += bool(hard or what) and not apart_here
         apart += apart_here
         unstable += shaky_here
+    if getattr(args, 'audio_only', False):
+        print('baseline verify --run --audio-only: ' + ', '.join(f'{audio_tally.get(k, 0)} {k}' for k in
+                                                                 ('SAME', RETAIL_UNSTABLE, 'DIFF', 'NONE'))
+              + (f', {bad} without a baseline' if bad else ''))
+        return 1 if bad or audio_tally.get('DIFF') else 4 if audio_tally.get(RETAIL_UNSTABLE) else 0
     missed = skipped_scenarios(args, dirs, results, names, holders, used)
     print(f'baseline verify --run: {len(names) - bad - apart - unstable} of {len(names)} scenarios the same as the '
           'baseline'
@@ -2387,6 +2402,11 @@ def list_store(args):
     return 0
 
 
+def _db_snapshot_arg(text):
+    import e2e
+    return e2e.db_snapshot_arg(text)
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__.split('\n')[0])
     ap.add_argument('command', choices=['capture', 'verify', 'list', 'inputs', 'tools'])
@@ -2395,7 +2415,8 @@ def main(argv=None):
     ap.add_argument('--runs', type=int, default=3, help='capture: PASS runs to store per scenario (default 3)')
     ap.add_argument('--retries', type=int, default=1, help='capture: failed attempts allowed before giving up (1)')
     ap.add_argument('--live', nargs='?', const='localhost', metavar='SERVER', help='capture: e2e --live [SERVER]')
-    ap.add_argument('--db-snapshot', nargs='?', const=6, type=int, metavar='AVATAR', help='capture: e2e --db-snapshot')
+    ap.add_argument('--db-snapshot', nargs='?', const=6, type=_db_snapshot_arg, metavar='AVATAR',
+                    help="capture: e2e --db-snapshot (an avatar id, or 'schema': the whole net7_user schema)")
     ap.add_argument('--restart', action=argparse.BooleanOptionalAction, default=None,
                     help='capture --live: restart Net7.exe before each run (default: when a scenario is sp_*; '
                          '--no-restart: restore in place)')
@@ -2414,6 +2435,9 @@ def main(argv=None):
     ap.add_argument('--run', help='verify: an e2e run (folder, folders joined by ",", e2e manifest) or a stored manifest')
     ap.add_argument('--client', help='verify --run: the stored client (retail-XXXXXXXX)')
     ap.add_argument('--env', help='verify --run: the stored env (<label>-<W>x<H>)')
+    ap.add_argument('--audio-only', action='store_true',
+                    help='verify --run: the audio verdict alone (test-plan AU-01: streams and 3D sounds in order, '
+                         '2D sounds by count), one line a scenario; exit 1 on a DIFF, 4 RETAIL-UNSTABLE')
     ap.add_argument('--allow-stale', action='store_true',
                     help='verify --run: go on when our exe is older than the newest client-source commit')
     ap.add_argument('--set', help='capture: the scenarios as ONE e2e session a run, stored as this set (no names: '

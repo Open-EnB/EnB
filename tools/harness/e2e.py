@@ -28,6 +28,8 @@ instance is removed at the end (clientrun.py clean) unless --keep.
 
 The format (one step a line, '#' comments, shell-style quoting):
     name: TEXT / expected-fail: REASON / timeout: SECONDS     headers (before the steps)
+    tutorial: fresh               header: the instance's tutorial.dat removed before the client starts, so the
+                                  first-run tutorial voice lines play (character creation, UI-01)
     include NAME                  NAME.scn's steps here (its headers are not taken)
     wait-event SOURCE PATTERN [within S]   wait until a line of SOURCE matches the regex PATTERN (default 60 s)
     expect-event SOURCE PATTERN [within S] the same; reads as an assertion (default 15 s)
@@ -88,10 +90,15 @@ The format (one step a line, '#' comments, shell-style quoting):
                                   auto-level after the input does not hide it
     pose                          the avatar's place and heading, written to e2e.log (for writing walk-to steps)
     shot NAME                     the client's own back buffer at the next Present (d3d8shot's D3D8SHOT_TRIGGER)
+    db-avatars NAME               --live: the rows (every net7_user avatar table) of each character the test account
+                                  has now and did not have when the session started, written to db-NAME.sql in the
+                                  run folder (what the server stored from the client's creation request: the look,
+                                  the ship); fails when there is none
 SOURCE: antprox (antprox.out: antprox, the replay server and the client's stderr), stubs (stubs.log), msg
 (messages.log; needs --messages or a 'messages: on' header), proxy (d3d8shot.log without its tick column: the
 proxy's log of the client's file opens, CreateFileA, and of the input it passed on; `files` is the same source),
-any. wait-event / expect-event look at the lines since the last input step (or the start), so an event the step
+audio (audio.jsonl, needs --audio: each named sound's open / start / stop / end / close as 'start m28 FILE';
+Miles opens its streams itself, so the proxy's log has no line for them), any. wait-event / expect-event look at the lines since the last input step (or the start), so an event the step
 causes is not missed however fast it comes.
 
 The exe carries no test code. The d3d8shot proxy (tools/harness/d3d8shot.c, copied beside the instance's exe)
@@ -139,7 +146,7 @@ ORDER = ['world_entry', 'starmap', 'options', 'pda_pages', 'cargo', 'chat']
 # use it: it then costs no extra client start). None today.
 LAST = []
 STANDIN_HIT = 'stand-in hit:'
-SOURCES = ('antprox', 'stubs', 'msg', 'proxy', 'files', 'any')
+SOURCES = ('antprox', 'stubs', 'msg', 'proxy', 'files', 'audio', 'any')
 ACTIONS = ('click', 'rclick', 'move', 'down', 'up', 'key', 'keydown', 'keyup', 'text', 'stray')
 # the steps that give the client input (a stray one is dropped by the proxy): a result's tick_input is the first one's
 INPUT_OPS = tuple(op for op in ACTIONS if op != 'stray') + ('walk-to', 'face', 'hold', 'rdrag')
@@ -469,7 +476,8 @@ def parse(text, name='?', gadgets=None, loader=None, _depth=0):
     """A scenario's text -> {'name', 'expected_fail', 'timeout', 'messages', 'steps': [dict], 'own': index of the
     first own step (after the includes before it)}. loader(NAME) -> text, for include."""
     gadgets = gadgets if gadgets is not None else {}
-    sc = {'name': name, 'expected_fail': None, 'timeout': 300, 'messages': False, 'steps': [], 'own': 0}
+    sc = {'name': name, 'expected_fail': None, 'timeout': 300, 'messages': False, 'tutorial_fresh': False,
+          'steps': [], 'own': 0}
     seen_step = False
     for n, raw in enumerate(text.splitlines(), 1):
         where = f'{name}:{n}'
@@ -487,6 +495,10 @@ def parse(text, name='?', gadgets=None, loader=None, _depth=0):
                 sc['timeout'] = float(val)
             elif key == 'messages':
                 sc['messages'] = val.lower() in ('on', 'yes', '1')
+            elif key == 'tutorial':
+                if val.lower() != 'fresh':
+                    raise ScenarioError(f'{where}: tutorial: fresh (the only value)')
+                sc['tutorial_fresh'] = True
             else:
                 raise ScenarioError(f'{where}: unknown header {key!r}')
             continue
@@ -621,6 +633,10 @@ def parse(text, name='?', gadgets=None, loader=None, _depth=0):
             if len(args) != 1 or not re.fullmatch(r'[A-Za-z0-9_-]{1,40}', args[0]):
                 raise ScenarioError(f'{where}: shot NAME (letters, digits, - and _)')
             st['shot'] = args[0]
+        elif op == 'db-avatars':
+            if len(args) != 1 or not re.fullmatch(r'[A-Za-z0-9_-]{1,40}', args[0]):
+                raise ScenarioError(f'{where}: db-avatars NAME (letters, digits, - and _)')
+            st['dump'] = args[0]
         elif op == 'expect-ink':
             try:
                 if len(args) != 3 or not re.fullmatch(r'[A-Za-z0-9_-]{1,40}', args[0]):
@@ -733,8 +749,9 @@ def load(name, gadgets=None):
 
 def scenario_names(live=False):
     """The default set: under /REPLAY every scenario but the live ones; with --live the station ones (sb_*).
-    The space ones (sp_*: live, another character in space, avatar 7) run only when named."""
-    have = sorted(f[:-4] for f in os.listdir(SCN) if f.endswith('.scn') and not f.startswith(('_', 'sp_'))
+    The space ones (sp_*: live, another character in space, avatar 7) and the account screens' (ui_*: live, they
+    create and delete characters, --db-snapshot schema) run only when named."""
+    have = sorted(f[:-4] for f in os.listdir(SCN) if f.endswith('.scn') and not f.startswith(('_', 'sp_', 'ui_'))
                   and f.startswith('sb_') == bool(live))
     return ([n for n in ORDER if n in have] + [n for n in have if n not in ORDER and n not in LAST]
             + [n for n in LAST if n in have])
@@ -799,6 +816,23 @@ def name_live(line):
         return line
     op = int(m.group(2) or m.group(3), 16)
     return f'{line.rstrip()} = {"received" if m.group(2) else "sent"} {opcode_names().get(op, "OP_%04X" % op)}'
+
+
+AUDIO_EVENT_KINDS = ('open', 'start', 'stop', 'end', 'close')
+
+
+def audio_event_line(line):
+    """The 'audio' source (--audio): an audio.jsonl line as 'EVENT HANDLE SOUND' (start m28 1492_00_303se.mp3) for a
+    named sound's open / start / stop / end / close; None for the rest (per-frame volume and position events)."""
+    try:
+        e = json.loads(line)
+    except ValueError:
+        return None
+    ev = e.get('ev')
+    name = e.get('file') if ev == 'open' else e.get('snd')
+    if ev not in AUDIO_EVENT_KINDS or not name:
+        return None
+    return f'{ev} {e.get("h")} {name}'
 
 
 class Events:
@@ -894,6 +928,10 @@ class Events:
                                     continue
                             elif src == 'antprox':
                                 l = name_live(l)
+                            elif src == 'audio':
+                                l = audio_event_line(l)
+                                if l is None:
+                                    continue
                             self._emit(now, src, l)
                             kept = True
                         if kept:
@@ -1017,6 +1055,15 @@ class Session:
         self.retail = bool(getattr(args, 'retail', False))
         self.inst = clientrun.Inst(args.instance, None if self.retail else args.exe, self.retail)
         self.inst.prepare()
+        # 'tutorial: fresh': TutorialManagerClass::Read_Completed_File (0x6AD4B0) marks every character-creation
+        # tutorial step completed (ClassSelectionIntro ... ShipCreationGeometry ... ChooseShard) while tutorial.dat
+        # exists, so none of their voice lines play; without it the client runs as on a first start. Only the
+        # instance's copy is removed (prepare copies it back for the next run).
+        if any(sc.get('tutorial_fresh') for sc in scs):
+            tut = os.path.join(self.inst.dir, 'tutorial.dat')
+            if self.inst.name and os.path.exists(tut):
+                os.remove(tut)
+                self.note(f'tutorial: fresh: {tut} removed')
         env = dict(os.environ)
         # record: a person plays, so untagged input passes (the proxy logs it 'input: untagged ...')
         self.record = bool(getattr(args, 'record', False))
@@ -1037,6 +1084,8 @@ class Session:
                  'proxy': os.path.join(self.out, 'd3d8shot.log')}
         if self.messages:
             files['msg'] = os.path.join(self.out, 'messages.log')
+        if self.audio:                  # the 'audio' source: named sounds' open / start / stop / end / close
+            files['audio'] = os.path.join(self.out, 'audio.jsonl')
         self.note(f'session of {len(scs)}: {", ".join(sc["name"] for sc in scs)}; exe {self.inst.src_exe}, '
                   f'instance {self.inst.name}, out {self.out}')
         self.a, self.pid, _ = clientrun.start_antprox(self.inst, self.out, env,
@@ -1059,6 +1108,25 @@ class Session:
         self.gen_before = []        # the generated stand-ins hit before the first scenario's own steps
         self.marker = None          # does the exe export Stub_Log_Mark? (None: not asked yet)
         self.dead = None
+        # db-avatars: the test account's characters before the client could create one
+        self.db_start = None
+        if live_mode(args) and any(st['op'] == 'db-avatars' for sc in scs for st in sc['steps']):
+            self.db_start = set(db_account_avatars(DB_TEST_ACCOUNT))
+            self.note(f'db-avatars: account {DB_TEST_ACCOUNT} has avatars {sorted(self.db_start)}')
+
+    def _db_avatars(self, name, st):
+        """db-avatars: the new characters' rows to db-NAME.sql; the failure text, or None."""
+        if self.db_start is None:
+            return f'{name}:{st["line"]}: db-avatars needs --live'
+        new = sorted(set(db_account_avatars(DB_TEST_ACCOUNT)) - self.db_start)
+        if not new:
+            return f'{name}:{st["line"]}: db-avatars: account {DB_TEST_ACCOUNT} has no new character'
+        path = os.path.join(self.out, f'db-{st["dump"]}.sql')
+        with open(path, 'w', encoding='utf-8', newline='\n') as f:
+            for av in new:
+                f.write(f'-- avatar {av}\n' + _db_run(db_dump_cmd(av, DB_AVATAR_TABLES)))
+        self.note(f'  db-avatars: avatars {new} to {path}')
+        return None
 
     def note(self, s):
         self.elog.write(f'{time.strftime("%H:%M:%S")} {s}\n')
@@ -1386,6 +1454,10 @@ class Session:
                             note(f'  shot {st["shot"]} taken')
                         else:
                             note('  shot not taken in 5 s (a proxy without D3D8SHOT_TRIGGER? run_reference.py build)')
+                elif op == 'db-avatars':
+                    fail = tick()
+                    if not fail:
+                        fail = self._db_avatars(sc['name'], st)
                 elif op == 'expect-ink':
                     n, path = self._ink(st['shot'], st['box'])
                     note(f'  ink {st["shot"]} {",".join(map(str, st["box"]))}: {n} bright pixels (min {st["min"]})')
@@ -2108,6 +2180,7 @@ DB_TABLES = ('avatar_ammo', 'avatar_equipment', 'avatar_exploration', 'avatar_fa
 # inputs --save-db) that must also create the character on a stock database (01_import.sh's)
 DB_AVATAR_TABLES = DB_TABLES + ('avatar_data', 'avatar_gm_items', 'friends_lists', 'guild_members', 'ignore_lists',
                                 'warning_levels')
+DB_TEST_ACCOUNT = 1             # the test account (admin): baseline.py's DB_ACCOUNT
 NET7_READY_PORT = 3693          # the last sector port Net7.exe opens ("Port: 3693" in its log, UDP)
 NET7_CONTROL_PORT = 3810        # Net7.exe's loopback control port (Net7\Net7\ControlPort.cpp; control_port= in its cfg)
 
@@ -2145,11 +2218,47 @@ def _db_run(argv, stdin=None):
     return r.stdout
 
 
+DB_SNAPSHOT_SCHEMA = 'schema'
+
+
+def db_snapshot_arg(text):
+    """--db-snapshot's value: an avatar id, or 'schema' (the whole net7_user schema)."""
+    if text == DB_SNAPSHOT_SCHEMA:
+        return text
+    try:
+        return int(text)
+    except ValueError:
+        raise argparse.ArgumentTypeError(f"an avatar id or '{DB_SNAPSHOT_SCHEMA}', not {text!r}")
+
+
+def db_snapshot_file(what):
+    """The file name db_snapshot writes for WHAT (an avatar id or 'schema')."""
+    return f'{DB_SCHEMA}.sql' if what == DB_SNAPSHOT_SCHEMA else f'avatar{int(what)}.sql'
+
+
+def db_schema_snapshot(folder):
+    """Dumps the whole net7_user schema into FOLDER/net7_user.sql: every table dropped, created (with its
+    AUTO_INCREMENT) and filled again. For a scenario that adds or removes characters (UI-01's character creation
+    and deletion: a new avatar_id in every avatar table, faction_data's auto-increment moved on), which an
+    avatar's rows cannot put back. One consistent read (--single-transaction). Returns its path."""
+    os.makedirs(folder, exist_ok=True)
+    path = os.path.join(folder, db_snapshot_file(DB_SNAPSHOT_SCHEMA))
+    sql = _db_run(db_exec(f'mysqldump -uroot @PW --single-transaction --skip-comments --add-drop-table {DB_SCHEMA}'))
+    if 'CREATE TABLE `avatar_info`' not in sql:
+        raise RuntimeError(f'mysqldump {DB_SCHEMA}: no avatar_info table in the dump')
+    with open(path, 'w', encoding='utf-8', newline='\n') as f:
+        f.write('SET FOREIGN_KEY_CHECKS=0;\n' + sql.rstrip() + '\nSET FOREIGN_KEY_CHECKS=1;\n')
+    return path
+
+
 def db_snapshot(avatar, folder, tables=DB_TABLES):
     """Dumps AVATAR's rows of TABLES into FOLDER/avatar<N>.sql (the restore script, ready to run: it deletes the
-    avatar's rows of TABLES and inserts the dumped ones, so it also creates them where absent). Returns its path."""
+    avatar's rows of TABLES and inserts the dumped ones, so it also creates them where absent). Returns its path.
+    AVATAR 'schema': the whole schema instead (db_schema_snapshot)."""
+    if avatar == DB_SNAPSHOT_SCHEMA:
+        return db_schema_snapshot(folder)
     os.makedirs(folder, exist_ok=True)
-    path = os.path.join(folder, f'avatar{int(avatar)}.sql')
+    path = os.path.join(folder, db_snapshot_file(avatar))
     sql = db_restore_sql(avatar, _db_run(db_dump_cmd(avatar, tables)), tables)
     with open(path, 'w', encoding='utf-8', newline='\n') as f:
         f.write(sql)
@@ -2435,9 +2544,10 @@ def main(argv=None):
     ap.add_argument('--out', metavar='DIR', help='the session root in place of .work/e2e (env ENB_E2E_OUT)')
     ap.add_argument('--antprox-arg', action='append', metavar='ARG',
                     help='--live: one more antprox argument (repeatable; an ARG starting with - needs --antprox-arg=ARG)')
-    ap.add_argument('--db-snapshot', nargs='?', const=6, type=int, metavar='AVATAR',
+    ap.add_argument('--db-snapshot', nargs='?', const=6, type=db_snapshot_arg, metavar='AVATAR',
                     help="--live: dump the avatar's rows (default 6) before the run and put them back after it "
-                         '(Net7.exe stopped for the restore, then started again)')
+                         "(in place through the control port, else Net7.exe restarted); 'schema': the whole "
+                         'net7_user schema (a scenario that creates or deletes a character)')
     ap.add_argument('--manifest', metavar='FILE', help="run: write the run (each scenario's verdict and folder) to "
                                                       'FILE as JSON; compare and retail read it')
     ap.add_argument('--no-shots', action='store_true', help='compare / retail: packets and verdicts only')
@@ -2503,7 +2613,8 @@ def main(argv=None):
             print('e2e: --db-snapshot needs --live')
             return 2
         snap = db_snapshot(args.db_snapshot, os.path.join(OUT, time.strftime(STAMP) + '-db-snapshot'))
-        print(f'e2e: --db-snapshot: avatar {args.db_snapshot} saved to {snap}', flush=True)
+        print(f'e2e: --db-snapshot: ' + ('the schema' if args.db_snapshot == DB_SNAPSHOT_SCHEMA else
+                                          f'avatar {args.db_snapshot}') + f' saved to {snap}', flush=True)
     t0 = time.time()
     try:
         results = run_all(scs, args, lambda res: print(summary_line(res), flush=True))
