@@ -5,7 +5,7 @@
 #include "..\..\ww3d2\scene.h"
 #include "..\..\ww3d2\ww3d.h"
 #include "..\..\ww3d2\render2d.h"
-#include "..\shared\auxdata\unknown_root.h"
+unsigned int Unknown_Get_Ticks();	// 0x4A3B40, the aux-data clock (unknown_root.h's, not included: the client's object opens with no PermStringInit)
 #include "mss.h"
 #include <string.h>
 
