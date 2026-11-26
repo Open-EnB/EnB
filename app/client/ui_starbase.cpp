@@ -678,7 +678,7 @@ inline UIStarbaseUnknownCCClass::UIStarbaseUnknownCCClass() : Unknown00(0), Avat
 // NOT EXACT: 0x634140, functional from the pseudocode (D64; SU1): the window's set-up (slot +0x54): the full-screen
 // gadget, the +0x1F8 interface, the player's avatar entry with its name and guild texts, the 14 NPC slots, the four
 // terminals, the four doors with their signs, the ship on the hangar's extents, the bar and table models and the
-// '%s_%dmd' animated models (PT3: client bytes read as source, masked residue 1444 -> 20, frame and slots exact; the three NPC buttons' layer and the NPC avatars' map manager through the inlines Unknown_View_Layer / Unknown_Map_Manager and the ambient avatar stored through a slot local give the client's registers there; the dead Get_Info() reads (D272) send the first entry's string constructor out of line and keep the signs' _Eos out; left: register choices in the NPC loop, i in ebx and npc in edi in the client)
+// '%s_%dmd' animated models (PT3: client bytes read as source, masked residue 1444 -> 20, frame and slots exact; the three NPC buttons' layer and the NPC avatars' map manager through the inlines Unknown_View_Layer / Unknown_Map_Manager give the client's registers there; the ambient avatar is assigned as the client does it, Unknown13C[i] read again after Create_NEW (0x634634; masked residue 22, two rows more than through a slot local read before the call); the dead Get_Info() reads (D272) send the first entry's string constructor out of line and keep the signs' _Eos out; left: register choices in the NPC loop, i in ebx and npc in edi in the client)
 // 0x634140
 void UIStarbaseClass::Unknown_54()
 {
@@ -726,7 +726,7 @@ void UIStarbaseClass::Unknown_54()
 			StarbaseNPCClass *npc = RoomInfo->Find_NPC(i);
 			if (npc->Unknown1C) {
 				Unknown13C[i] = new UIStarbaseUnknownCCClass;
-				UIStarbaseUnknownCCClass *slot = Unknown13C[i]; slot->AmbientAvatar = Create_NEW(Unknown_642740(npc));
+				Unknown13C[i]->AmbientAvatar = Create_NEW(Unknown_642740(npc));
 				Unknown13C[i]->Unknown14 = new ButtonGadgetClass(Unknown13C[i]->AmbientAvatar->BodyObj.Peek(), Unknown_View_Layer(UnknownB0), 5, 0);
 				Unknown13C[i]->Unknown14->Unknown2C_0A = true;
 				Unknown13C[i]->Unknown14->Set_Last_Sort_Group(true);
