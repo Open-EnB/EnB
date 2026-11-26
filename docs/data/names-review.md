@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1970 |
 | 2 | describes what the code does | 5014 |
-| 1 | neutral placeholder | 25194 |
+| 1 | neutral placeholder | 25196 |
 
 ## For review (score 3 and below)
 
