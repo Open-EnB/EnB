@@ -1,0 +1,64 @@
+HYPOTHESIS = (
+    'Unknown68DC20Class::Unknown_28 0x68F510 FB4 batch 1 (outside the brief, claim free; the lever of 0x68CCC0 in the '
+    'same file). Residue 17 real rows: the client multiplies hours by -3600000 and adds where VC6 normalises every '
+    'spelling of ours to a multiply by 3600000 and a subtraction, and its last append calls max_size and _Eos where '
+    'ours inlines them (a tighter budget in the client). Both read as inline layers the source had: a by-value inline '
+    'formal is a temporary (in memory for an __int64, as for the float of 0x68CCC0), which keeps the product out of the '
+    'tree VC6 normalises, and each layer spends budget. Forms: the product through by-value inlines (hours * -3600000, '
+    'a * b, the negated hours), the range test through a by-value float inline, the remainder as an inline, combined.'
+)
+FILE = 'app/client/inv_render.cpp'
+SYMBOL = 'Unknown68DC20Class::Unknown_28'
+ADDRESS = 0x68F510
+
+SRC = open('C:/EnBDevelopment/EnB/.work/wt/FB4/app/client/inv_render.cpp', encoding='utf-8').read()
+A = SRC.index('const char *Unknown68DC20Class::Unknown_28(std::string *string)\n{')
+B = SRC.index('\treturn("WEAPON_ON");\n}\n', A) + len('\treturn("WEAPON_ON");\n}\n')
+FUNC = SRC[A:B]
+PRE_ANCHOR = '\n// NOT EXACT: 0x68F510,'
+assert SRC.count('\n' + PRE_ANCHOR) == 1
+
+L_REST = '\t\t__int64 rest = ms + hours * -3600000;\n'
+L_RANGE = '\tif (Unknown74 > 0.0f) {\n'
+L_MIN = '\t\t__int64 minutes = rest / 60000;\n'
+L_HOURS = '\t\t__int64 hours = ms / 3600000;\n'
+for piece in (L_REST, L_RANGE, L_MIN, L_HOURS):
+    assert FUNC.count(piece) == 1, piece
+
+
+def form(helper, *edits):
+    t = FUNC
+    for old, new in edits:
+        assert t.count(old) == 1, old
+        t = t.replace(old, new)
+    assert t.count('\n') == FUNC.count('\n')
+    out = [(FILE, FUNC, t)]
+    if helper:
+        out.insert(0, (FILE, '\n' + PRE_ANCHOR, '\n' + helper + PRE_ANCHOR))
+    return out
+
+
+H_NEG = 'static inline __int64 FB4_Hours(__int64 hours) { return(hours * -3600000); }'
+H_POS = 'static inline __int64 FB4_Hours(__int64 hours) { return(hours * 3600000); }'
+H_MUL = 'static inline __int64 FB4_Mul(__int64 a, __int64 b) { return(a * b); }'
+H_MULI = 'static inline __int64 FB4_Mul(__int64 a, int b) { return(a * b); }'
+H_REST = 'static inline __int64 FB4_Rest(__int64 ms, __int64 hours) { return(ms + hours * -3600000); }'
+H_POSF = 'static inline bool FB4_Positive(float value) { return(value > 0.0f); }'
+RANGE = (L_RANGE, '\tif (FB4_Positive(Unknown74)) {\n')
+
+FORMS = {
+    'neg_fn': form(H_NEG, (L_REST, '\t\t__int64 rest = ms + FB4_Hours(hours);\n')),
+    'pos_fn_sub': form(H_POS, (L_REST, '\t\t__int64 rest = ms - FB4_Hours(hours);\n')),
+    'pos_fn_neg': form(H_POS, (L_REST, '\t\t__int64 rest = ms + FB4_Hours(-hours);\n')),
+    'mul_neg': form(H_MUL, (L_REST, '\t\t__int64 rest = ms + FB4_Mul(hours, -3600000);\n')),
+    'mul_neg_i': form(H_MULI, (L_REST, '\t\t__int64 rest = ms + FB4_Mul(hours, -3600000);\n')),
+    'mul_neghours': form(H_MUL, (L_REST, '\t\t__int64 rest = ms + FB4_Mul(-hours, 3600000);\n')),
+    'rest_fn': form(H_REST, (L_REST, '\t\t__int64 rest = FB4_Rest(ms, hours);\n')),
+    'plain_neghours': form('', (L_REST, '\t\t__int64 rest = ms + -hours * 3600000;\n')),
+    'range_fn': form(H_POSF, RANGE),
+    'range_neg_fn': form(H_POSF + ' ' + H_NEG, RANGE, (L_REST, '\t\t__int64 rest = ms + FB4_Hours(hours);\n')),
+    'range_mul_neg': form(H_POSF + ' ' + H_MUL, RANGE, (L_REST, '\t\t__int64 rest = ms + FB4_Mul(hours, -3600000);\n')),
+    'range_rest_fn': form(H_POSF + ' ' + H_REST, RANGE, (L_REST, '\t\t__int64 rest = FB4_Rest(ms, hours);\n')),
+    'neg_named': form('', (L_REST, '\t\t__int64 back = hours * -3600000; __int64 rest = ms + back;\n')),
+    'neg_const': form('', (L_HOURS, '\t\t__int64 hours = ms / 3600000; const __int64 per = -3600000;\n'), (L_REST, '\t\t__int64 rest = ms + hours * per;\n')),
+}
