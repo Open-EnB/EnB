@@ -88,7 +88,7 @@ Vector3 SteeringClass::Evade(const SteeringVehicleStruct &vehicle, const Steerin
 }
 
 
-// NOT EXACT: frame (explain.py): the client keeps the avoidance vector's X (0.0f) on the FPU and its frame is 4 bytes smaller; the inverse rotation's terms load in another order
+// NOT EXACT: frame (explain.py; 14 rows): the client's frame is 4 bytes smaller; the rotations' terms and one fsub load in another order (forms in attempts.csv)
 // 0x446000
 Vector3 SteeringClass::Avoid_Obstacles(const SteeringVehicleStruct &vehicle, PxWrapper *proxim)
 {
@@ -99,7 +99,9 @@ Vector3 SteeringClass::Avoid_Obstacles(const SteeringVehicleStruct &vehicle, PxW
 	}
 	float lookahead = vehicle.Velocity.Length() * ObstacleTicks;
 	bool found = false;
-	Vector3 avoid(0.0f, 0.0f, 0.0f);
+	Vector3 avoid;
+	avoid.Y = 0.0f;
+	avoid.Z = 0.0f;
 	float nearest = lookahead + lookahead;
 	for (int i = 0; i < count; i++) {
 		DynObj *obj = list[i];
@@ -122,7 +124,9 @@ Vector3 SteeringClass::Avoid_Obstacles(const SteeringVehicleStruct &vehicle, PxW
 	if (!found) {
 		return Vector3(0.0f, 0.0f, 0.0f);
 	}
+	avoid.X = 0.0f;
 	if (avoid.Length2() < 0.0001f) {
+		avoid.X = 0.0f;
 		avoid.Y = 1.0f;
 		avoid.Z = 0.0f;
 	} else {
@@ -385,7 +389,7 @@ SteeringTurnClass::SteeringTurnClass(float yaw, float pitch, float level) :
 {
 }
 
-// NOT EXACT: shape (explain.py): the client copies the cosine into the angle's slot before comparing it with the limit (an inline helper's parameter?); one round tried
+// NOT EXACT: shape (explain.py; 16 rows): at the end the client stores the pitch into local.X before the dot product and copies all three members through memory (forms in attempts.csv)
 // 0x447E20
 Vector3 SteeringTurnClass::Turn(const Vector3 &desired, const SteeringVehicleStruct &vehicle)
 {
@@ -400,7 +404,8 @@ Vector3 SteeringTurnClass::Turn(const Vector3 &desired, const SteeringVehicleStr
 		if (yaw < CosYaw) {
 			yaw = MaxYaw;
 		} else {
-			yaw = WWMath::Acos(WWMath::Clamp(yaw, -1.0f, 1.0f));
+			yaw = WWMath::Clamp(yaw, -1.0f, 1.0f);
+			yaw = WWMath::Acos(yaw);
 		}
 		if (flat.Y < 0.0f) {
 			yaw = -yaw;
@@ -414,7 +419,8 @@ Vector3 SteeringTurnClass::Turn(const Vector3 &desired, const SteeringVehicleStr
 		if (pitch < CosPitch) {
 			pitch = MaxPitch;
 		} else {
-			pitch = WWMath::Acos(WWMath::Clamp(pitch, -1.0f, 1.0f));
+			pitch = WWMath::Clamp(pitch, -1.0f, 1.0f);
+			pitch = WWMath::Acos(pitch);
 		}
 		if (desired.Z > 0.0f) {
 			pitch = -pitch;
@@ -423,7 +429,10 @@ Vector3 SteeringTurnClass::Turn(const Vector3 &desired, const SteeringVehicleStr
 			pitch = 0.0f;
 		}
 	}
-	return Vector3(pitch, yaw, vehicle.Transform[0][0] * desired.X + vehicle.Transform[1][0] * desired.Y + vehicle.Transform[2][0] * desired.Z);
+	local.X = pitch;
+	local.Y = yaw;
+	local.Z = vehicle.Transform[0][0] * desired.X + vehicle.Transform[1][0] * desired.Y + vehicle.Transform[2][0] * desired.Z;
+	return local;
 }
 
 // 0x448260
