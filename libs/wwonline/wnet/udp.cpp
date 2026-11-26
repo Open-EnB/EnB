@@ -16,11 +16,11 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-// E&B: the object ends with <string>'s guarded std::ctype<unsigned short>::id (0x8C0660, guard 0xC416FC)
-//   and PermStringInit's constructor / destructor (0x8C0690 / 0x8C06C0, the object 0xBF52C8 after
-//   the accounting callback 0xBF52C4): E&B's udp.cpp included both; through which header is not known
+// E&B: the object ends with <string>'s guarded std::ctype<unsigned short>::id (0x8C0660, guard 0xC416FC);
+//   the PermStringInit after it (0x8C0690 / 0x8C06C0) opens unknown_login_data.cpp's object (see the EnB
+//   block): E&B's udp.cpp included <string>; through which header is not known
 #include <string>
-#include "..\..\..\app\shared\auxdata\permstr.h"
+
 #include "udp.h"
 #include "wlib/wdebug.h"
 
@@ -444,10 +444,11 @@ void UDP::Clear_Accounting_Callback(void)
 
 // Earth & Beyond client (reconstruction): changes to Zero Hour's udp.cpp (frozen 2026-11-07 from importer.py)
 // EnB: Line 19 at the freeze: udp.cpp's object ends with <string>'s guarded static (0x8C0660: `mov cl, [0xC416FC]`,
-//       atexit 0x42B320, the end of every <string> includer) and a PermStringInitClass static (0x8C0690: `mov ecx,
-//       0xBF52C8`, PermStringInitClass 0x4AE1E0, atexit 0x8C06C0 -> ~PermStringInitClass), its data right after the
-//       accounting callback 0xBF52C4, before unknown_login_data.cpp 0x8C06E0; permstr.h's `static PermStringInitClass
-//       PermStringInit` is the one such static
+//       atexit 0x42B320, the end of every <string> includer). The PermStringInitClass static after it (0x8C0690:
+//       `mov ecx, 0xBF52C8`, PermStringInitClass 0x4AE1E0, atexit 0x8C06C0) opens unknown_login_data.cpp's object
+//       (0x8C06E0; credited there): a header static is emitted where its header is included, at an object's
+//       start, and the guard closes one; so permstr.h is not included here (it was until 2026-11-25: one extra
+//       PermStringInit ran in ours).
 // EnB: Line 27 at the freeze: constructor 0x8BF990: the list, fd = 0, the second socket 0, myIP 0xDEADBEEF, myPort
 //       0xDEAD, WSAStartup(0x101, &wsadata) (0x190-byte local); destructor 0x8BFA10: Close inlined (closesocket if fd,
 //       fd = 0), WSACleanup, closesocket(+4) if set, then the list's destructor
