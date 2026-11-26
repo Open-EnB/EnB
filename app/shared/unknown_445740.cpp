@@ -87,8 +87,7 @@ Vector3 SteeringClass::Evade(const SteeringVehicleStruct &vehicle, const Steerin
 	return Seek(vehicle, predicted);
 }
 
-
-// NOT EXACT: frame (explain.py; 14 rows): the client's frame is 4 bytes smaller; the rotations' terms and one fsub load in another order (forms in attempts.csv)
+// NOT EXACT: order-only (explain.py: identical once stack slots are masked): Normalize's and the scale's four fmuls take their two stack operands in the other order (fld Y; fmul oolen / k in the client), every spelling compiles alike (forms in attempts.csv)
 // 0x446000
 Vector3 SteeringClass::Avoid_Obstacles(const SteeringVehicleStruct &vehicle, PxWrapper *proxim)
 {
@@ -100,9 +99,9 @@ Vector3 SteeringClass::Avoid_Obstacles(const SteeringVehicleStruct &vehicle, PxW
 	float lookahead = vehicle.Velocity.Length() * ObstacleTicks;
 	bool found = false;
 	Vector3 avoid;
+	avoid.X = lookahead + lookahead;
 	avoid.Y = 0.0f;
 	avoid.Z = 0.0f;
-	float nearest = lookahead + lookahead;
 	for (int i = 0; i < count; i++) {
 		DynObj *obj = list[i];
 		if (obj->Unknown_Dyn54().Length2() <= 0.0001f) {
@@ -111,9 +110,10 @@ Vector3 SteeringClass::Avoid_Obstacles(const SteeringVehicleStruct &vehicle, PxW
 			if (local.X >= 0.0f && local.X <= lookahead) {
 				Vector2 lateral(local.Y, local.Z);
 				if (lateral.Length() <= (proxim->Owner->Unknown04 + obj->Unknown04) * ObstacleComfort) {
+					float radius = obj->Unknown04;
 					found = true;
-					if (local.X - obj->Unknown04 < nearest) {
-						nearest = local.X - obj->Unknown04;
+					if (local.X - radius < avoid.X) {
+						avoid.X = local.X - radius;
 						avoid.Y = local.Y;
 						avoid.Z = local.Z;
 					}
@@ -184,7 +184,6 @@ Vector3 SteeringClass::Avoid_Collisions(const SteeringVehicleStruct &vehicle, Px
 	}
 	return Flee(vehicle, nearest_point);
 }
-
 
 
 // 0x446810
@@ -389,7 +388,7 @@ SteeringTurnClass::SteeringTurnClass(float yaw, float pitch, float level) :
 {
 }
 
-// NOT EXACT: shape (explain.py; 16 rows): at the end the client stores the pitch into local.X before the dot product and copies all three members through memory (forms in attempts.csv)
+// NOT EXACT: shape (explain.py; 12 rows): at the end the client stores the pitch into local.X before the dot product and copies all three members through memory; ours keeps the pitch on the FPU into the return (forms in attempts.csv)
 // 0x447E20
 Vector3 SteeringTurnClass::Turn(const Vector3 &desired, const SteeringVehicleStruct &vehicle)
 {
@@ -431,8 +430,9 @@ Vector3 SteeringTurnClass::Turn(const Vector3 &desired, const SteeringVehicleStr
 	}
 	local.X = pitch;
 	local.Y = yaw;
-	local.Z = vehicle.Transform[0][0] * desired.X + vehicle.Transform[1][0] * desired.Y + vehicle.Transform[2][0] * desired.Z;
-	return local;
+	local.Z = Vector3::Dot_Product(vehicle.Transform.Get_X_Vector(), desired);
+	Vector3 result(local);
+	return result;
 }
 
 // 0x448260
