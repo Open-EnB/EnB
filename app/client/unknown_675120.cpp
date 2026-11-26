@@ -1,6 +1,6 @@
 // Earth & Beyond client (reconstruction): unknown_675120.cpp (PROVISIONAL, D137). Notes at the end of the file.
 #include "unknown_675120.h"
-#include "sclient.h"
+#include "ui_mesh.h"
 #include "rendobj.h"
 
 Unknown_675120Class::Unknown_675120Class(UIMeshClass *mesh, const char *name, const LayerClass &layer, unsigned int mask) :

@@ -1,0 +1,571 @@
+# ==== v1_5c5db0.py ====
+HYPOTHESIS = (
+    'FB2 batch 1 on 0x5C5DB0 (6 rows: the client holds Reward in esi across the "Reward: " append, so its source has '
+    'a reward local as failure / summary; with one, ours swaps this / mission (ebx / ebp), 155). The swap is a '
+    'priority tie between this and mission (GN3); workflow 3.1.2: the count of definitions orders register roles. '
+    'On the reward-local form (rl): k dead-initialised scalars (diagnostic), mission with two definitions (NULL '
+    'first / assigned in the test), sclient / count / label with other definition counts, the three texts through '
+    'one variable with step.'
+)
+FILE = 'app/client/ui_missn.cpp'
+SYMBOL = 'UIMissnClass::Unknown_5C5DB0'
+ADDRESS = 0x5C5DB0
+
+REW = (
+    '\tif (mission->Reward.Get() && *mission->Reward.Get()) {\n'
+    '\t\ttext += "Reward: ";\n'
+    '\t\ttext += mission->Reward.Get();\n'
+)
+REW_L = (
+    '\tconst char *reward = mission->Reward.Get(); if (reward && *reward) {\n'
+    '\t\ttext += "Reward: ";\n'
+    '\t\ttext += reward;\n'
+)
+SC = '\tSClient *sclient = Get_Client()->As_Space_Client();\n'
+MI = '\tDeltaMissionClass *mission = CurrentMissions[CurrentMission];\n\tif (!mission) {\n'
+CNT = '\tint count = mission->StageCount.Value;\n\tfor (int i = 0; i < count; i++) {\n'
+LBL = '\tconst char *label = NULL;\n'
+TEXT = '\tstd::string text;\n'
+
+RL = [(REW, REW_L)]
+
+
+def ints(k):
+    return ' '.join('int d%d = 0;' % i for i in range(1, k + 1))
+
+
+FORMS = {'rl': RL}
+for k in range(1, 7):
+    FORMS['rl_k%d' % k] = RL + [(SC, SC[:-1] + ' ' + ints(k) + '\n')]
+FORMS['rl_mission_null_first'] = RL + [
+    (SC, SC[:-1] + ' DeltaMissionClass *mission = NULL;\n'),
+    (MI, '\tmission = CurrentMissions[CurrentMission];\n\tif (!mission) {\n'),
+]
+FORMS['rl_mission_in_test'] = RL + [
+    (SC, SC[:-1] + ' DeltaMissionClass *mission;\n'),
+    (MI, '\tif (!(mission = CurrentMissions[CurrentMission])) {\n\n'),
+]
+FORMS['rl_mission_ternary'] = RL + [
+    (MI, '\tDeltaMissionClass *mission = (CurrentMission != NO_CURRENT_MISSION) ? CurrentMissions[CurrentMission] : NULL;\n\tif (!mission) {\n'),
+]
+FORMS['rl_count_two_defs'] = RL + [(CNT, '\tint count = 0; count = mission->StageCount.Value;\n\tfor (int i = 0; i < count; i++) {\n')]
+FORMS['rl_i_top'] = RL + [(SC, SC[:-1] + ' int i = 0;\n'), (CNT, '\tint count = mission->StageCount.Value;\n\tfor (i = 0; i < count; i++) {\n')]
+FORMS['rl_label_no_init'] = RL + [(LBL, '\tconst char *label; label = NULL;\n')]
+FORMS['rl_reward_before_text'] = [(TEXT, '\tconst char *reward = mission->Reward.Get(); std::string text;\n'),
+                                  (REW, '\tif (reward && *reward) {\n\t\ttext += "Reward: ";\n\t\ttext += reward;\n')]
+FORMS['rl_sclient_two_defs'] = RL + [(SC, '\tSClient *sclient = NULL; sclient = Get_Client()->As_Space_Client();\n')]
+# the mission pointer through the parameter's own variable is not possible (types); a second mission variable
+FORMS['rl_mission_copy_after_text'] = RL + [(TEXT, '\tstd::string text; DeltaMissionClass *m = mission;\n'),
+                                            (REW_L, REW_L.replace('mission->Reward', 'm->Reward'))]
+
+# ==== v2_5c5db0.py ====
+HYPOTHESIS = (
+    'FB2 batch 2 on 0x5C5DB0 (diagnostic): in the reward-local form (rl) this becomes a whole-function register '
+    'variable (ebx, no entry spill) and the loop\'s step loses ebx; in the client this / mission / sclient all have '
+    'stack homes and step / _N / the texts hold the registers. Measure what tips it: rl with fewer uses of this '
+    '(drop UnknownC0 = false, the first block, the tail), with more uses of step or mission in the loop, with the '
+    'reward local taken through the step / label variable; base with one more use of this.'
+)
+FILE = 'app/client/ui_missn.cpp'
+SYMBOL = 'UIMissnClass::Unknown_5C5DB0'
+ADDRESS = 0x5C5DB0
+
+REW = (
+    '\tif (mission->Reward.Get() && *mission->Reward.Get()) {\n'
+    '\t\ttext += "Reward: ";\n'
+    '\t\ttext += mission->Reward.Get();\n'
+)
+REW_L = (
+    '\tconst char *reward = mission->Reward.Get(); if (reward && *reward) {\n'
+    '\t\ttext += "Reward: ";\n'
+    '\t\ttext += reward;\n'
+)
+RL = [(REW, REW_L)]
+C0 = '\tUnknownC0 = false;\n\tconst char *label = NULL;\n'
+FIRST = '\tif (UnknownC4 && UnknownC4->Active) {\n\t\tUnknownC4->Unknown_5C();\n\t}\n'
+STEP = '\t\tconst char *step = (i < 20) ? ((DeltaMissionStageClass *)mission->Stages.Children[i])->Text.Get() : "Error: Designer exceeded MAX_STAGES";\n'
+STEPUSE = '\t\ttext += step;\n\t\ttext += "\\n";\n'
+CNT = '\tint count = mission->StageCount.Value;\n\tfor (int i = 0; i < count; i++) {\n'
+LBL = '\tconst char *label = NULL;\n'
+SC = '\tSClient *sclient = Get_Client()->As_Space_Client();\n'
+FAIL = '\tconst char *failure = mission->FailureConsequence.Get();\n'
+SUMM = '\tconst char *summary = mission->Summary.Get();\n'
+
+FORMS = {
+    'rl_no_c0': RL + [(C0, '\n\tconst char *label = NULL;\n')],
+    'rl_no_first': RL + [(FIRST, '\n\n\n')],
+    'rl_step_twice': RL + [(STEPUSE, '\t\ttext += step; text += step;\n\t\ttext += "\\n";\n')],
+    'rl_count_inline': RL + [(CNT, '\n\tfor (int i = 0; i < mission->StageCount.Value; i++) {\n')],
+    'base_extra_this': [(C0, '\tUnknownC0 = false; CurrentMission = new_mission;\n\tconst char *label = NULL;\n')],
+    'base_no_c0': [(C0, '\n\tconst char *label = NULL;\n')],
+    # the reward through a variable that exists anyway
+    'rl_via_step_var': [
+        (SC, SC[:-1] + ' const char *step;\n'),
+        (REW, REW_L.replace('const char *reward = ', 'step = ').replace('reward', 'step')),
+        (STEP, STEP.replace('const char *step = ', 'step = ')),
+    ],
+    'rl_via_label_var': [
+        (SC, SC[:-1] + ' const char *label;\n'),
+        (REW, REW_L.replace('const char *reward = ', 'label = ').replace('reward', 'label')),
+        (LBL, '\tlabel = NULL;\n'),
+    ],
+    'all_via_step_var': [
+        (SC, SC[:-1] + ' const char *step;\n'),
+        (REW, REW_L.replace('const char *reward = ', 'step = ').replace('reward', 'step')),
+        (FAIL, '\tstep = mission->FailureConsequence.Get();\n'),
+        ('\tif (failure && *failure) {\n\t\ttext += "Failure: ";\n\t\ttext += failure;\n', '\tif (step && *step) {\n\t\ttext += "Failure: ";\n\t\ttext += step;\n'),
+        (SUMM, '\tstep = mission->Summary.Get();\n'),
+        ('\tif (summary && *summary) {\n\t\ttext += summary;\n', '\tif (step && *step) {\n\t\ttext += step;\n'),
+        (STEP, STEP.replace('const char *step = ', 'step = ')),
+    ],
+    'rl_step_outside_loop_decl': RL + [
+        (CNT, '\tint count = mission->StageCount.Value; const char *step;\n\tfor (int i = 0; i < count; i++) {\n'),
+        (STEP, STEP.replace('const char *step = ', 'step = ')),
+    ],
+    'rl_char_ptr': [(REW, REW_L.replace('const char *reward', 'char *reward').replace('mission->Reward.Get();', '(char *)mission->Reward.Get();'))],
+    'rl_reward_volatile_this': RL,
+}
+del FORMS['rl_reward_volatile_this']
+
+# ==== v3_5c5db0.py ====
+HYPOTHESIS = (
+    'FB2 batch 3 on 0x5C5DB0 (diagnostic, code changes allowed): how far is the reward-local form (rl) from the '
+    'client\'s roles (this ebp / mission ebx)? B4: a reward local with failure re-read is right, so one more use of '
+    'mission pays for the local. Add one mission use at the top level before the text / after the loop / in the '
+    'loop, or take one use of this away at several depths, and read the register rows.'
+)
+FILE = 'app/client/ui_missn.cpp'
+SYMBOL = 'UIMissnClass::Unknown_5C5DB0'
+ADDRESS = 0x5C5DB0
+
+REW = (
+    '\tif (mission->Reward.Get() && *mission->Reward.Get()) {\n'
+    '\t\ttext += "Reward: ";\n'
+    '\t\ttext += mission->Reward.Get();\n'
+)
+REW_L = (
+    '\tconst char *reward = mission->Reward.Get(); if (reward && *reward) {\n'
+    '\t\ttext += "Reward: ";\n'
+    '\t\ttext += reward;\n'
+)
+RL = [(REW, REW_L)]
+S8 = '\tsclient->Unknown_744560(8);\n'
+HID = '\tDescriptionPanel->Set_Hidden(false);\n\tUnknownD8[CurrentMission + 1]->Unknown_90(SelectedBttnTexture);\n'
+NAME = '\t\tgrp->Unknown_6D0A70("WRAP_Title_Detail_TSI22A", mission->Name.Get());\n'
+C0 = '\tUnknownC0 = false;\n\tconst char *label = NULL;\n'
+CHG = '\t\t\tfont->Change_Text(label, 0);\n'
+FAILB = '\t\ttext += "Failure: ";\n\t\ttext += failure;\n'
+SUMB = '\tif (summary && *summary) {\n\t\ttext += summary;\n'
+MSTEPS = '\ttext += "Mission Steps:\\n";\n'
+
+FORMS = {
+    'rl_m_use_before': RL + [(S8, '\tsclient->Unknown_744560(mission->StageCount.Value);\n')],
+    'rl_m_use_after_loop': RL + [(CHG, '\t\t\tfont->Change_Text(label, mission->StageCount.Value);\n')],
+    'rl_m_use_c0': RL + [(C0, '\tUnknownC0 = mission->IsComplete.Value;\n\tconst char *label = NULL;\n')],
+    'rl_m_use_steps': RL + [(MSTEPS, '\ttext += mission->Name.Get();\n')],
+    'rl_no_hidden': RL + [(HID, '\n\tUnknownD8[CurrentMission + 1]->Unknown_90(SelectedBttnTexture);\n')],
+    'rl_no_d8': RL + [(HID, '\tDescriptionPanel->Set_Hidden(false);\n\n')],
+    'rl_fail_reread': RL + [(FAILB, '\t\ttext += "Failure: ";\n\t\ttext += mission->FailureConsequence.Get();\n')],
+    'rl_sum_reread': RL + [(SUMB, '\tif (summary && *summary) {\n\t\ttext += mission->Summary.Get();\n')],
+    'rl_sum_reread2': RL + [(SUMB, '\tif (summary && *mission->Summary.Get()) {\n\t\ttext += summary;\n')],
+    'rl_fail_reread2': RL + [('\tif (failure && *failure) {\n', '\tif (failure && *mission->FailureConsequence.Get()) {\n')],
+}
+
+# ==== v4_5c5db0.py ====
+HYPOTHESIS = (
+    'FB2 batch 4 on 0x5C5DB0: batch 3 measured the gap: the reward-local form is the client\'s code with roles swapped, '
+    'and one use of this less (no Set_Hidden(false)) or one mission load more (failure re-read) gives the client\'s '
+    'roles. The client\'s code has neither, so its weights differ without code: does VC6 weigh a use by its if depth? '
+    '(diagnostic: the same use behind a test / a deep use removed), then the same statements at other depths: the '
+    'rest in an else after the early returns, the && tests nested, the inner tail tests joined.'
+)
+FILE = 'app/client/ui_missn.cpp'
+SYMBOL = 'UIMissnClass::Unknown_5C5DB0'
+ADDRESS = 0x5C5DB0
+
+REW = (
+    '\tif (mission->Reward.Get() && *mission->Reward.Get()) {\n'
+    '\t\ttext += "Reward: ";\n'
+    '\t\ttext += mission->Reward.Get();\n'
+)
+REW_L = (
+    '\tconst char *reward = mission->Reward.Get(); if (reward && *reward) {\n'
+    '\t\ttext += "Reward: ";\n'
+    '\t\ttext += reward;\n'
+)
+RL = [(REW, REW_L)]
+HID = '\tDescriptionPanel->Set_Hidden(false);\n\tUnknownD8[CurrentMission + 1]->Unknown_90(SelectedBttnTexture);\n'
+END = '\ttext.size();' + '\ttext.size();' * 15 + '\n}\n'
+NONE = '\t\tsclient->Unknown_744560(9);\n\t\treturn;\n\t}\n\tDeltaMissionClass *mission = CurrentMissions[CurrentMission];\n'
+NULLM = '\t\tUnknown_5C5DB0(NO_CURRENT_MISSION);\n\t\treturn;\n\t}\n'
+C4 = '\tif (UnknownC4 && UnknownC4->Active) {\n\t\tUnknownC4->Unknown_5C();\n\t}\n'
+F2 = '\t\t\t\tUnknownD8[4]->Unknown_40(true);\n'
+TAILIN = (
+    '\t\tif (!sclient->Unknown1298 || !sclient->Unknown1298->Active) {\n'
+    '\t\t\tif (UnknownD8[4]->Is_Enabled() != true) {\n'
+)
+CUR = '\tif (CurrentMission != NO_CURRENT_MISSION) {\n\t\tUnknownD8[CurrentMission + 1]->Unknown_90(StandardBttnTexture);\n\t}\n'
+HIDCHK = '\tif (!DescriptionPanel->Is_Hidden()) {\n\t\tsclient->Unknown_744560(9);\n\t}\n'
+
+FORMS = {
+    'rl_diag_depth1': RL + [(HID, '\tif (sclient) DescriptionPanel->Set_Hidden(false);\n\tUnknownD8[CurrentMission + 1]->Unknown_90(SelectedBttnTexture);\n')],
+    'rl_diag_no_deep_use': RL + [(F2, '\n')],
+    'rl_else_after_none': RL + [(NONE, NONE.replace('\t}\n\tDeltaMissionClass', '\t} else {\n\tDeltaMissionClass')), (END, END[:-2] + '}}\n')],
+    'rl_else_after_null': RL + [(NULLM, NULLM.replace('\t}\n', '\t} else {\n')), (END, END[:-2] + '}}\n')],
+    'rl_else_both': RL + [(NONE, NONE.replace('\t}\n\tDeltaMissionClass', '\t} else {\n\tDeltaMissionClass')),
+                          (NULLM, NULLM.replace('\t}\n', '\t} else {\n')), (END, END[:-2] + '}}}\n')],
+    'rl_c4_nested': RL + [(C4, '\tif (UnknownC4) { if (UnknownC4->Active) {\n\t\tUnknownC4->Unknown_5C();\n\t} }\n')],
+    'rl_tail_joined': RL + [(TAILIN, '\t\tif ((!sclient->Unknown1298 || !sclient->Unknown1298->Active) && UnknownD8[4]->Is_Enabled() != true) {\n\t\t\t{\n')],
+    'rl_cur_no_braces': RL + [(CUR, '\tif (CurrentMission != NO_CURRENT_MISSION)\n\t\tUnknownD8[CurrentMission + 1]->Unknown_90(StandardBttnTexture);\n\n')],
+    'rl_hidden_else': RL + [(HIDCHK, '\tif (DescriptionPanel->Is_Hidden()) {\n\t} else {\n\t\tsclient->Unknown_744560(9); }\n')],
+    'rl_text_block': RL + [('\tstd::string text;\n\tif (mission->Reward', '\tstd::string text; {\n\tif (mission->Reward'), ('\ttext += "Mission Steps:\\n";\n', '\t} text += "Mission Steps:\\n";\n')],
+}
+FORMS['rl_text_block'] = [('\tstd::string text;\n' + REW, '\tstd::string text; {\n' + REW_L), ('\ttext += "Mission Steps:\\n";\n', '\t} text += "Mission Steps:\\n";\n')]
+
+# ==== v5_5c5db0.py ====
+HYPOTHESIS = (
+    'FB2 batch 5 on 0x5C5DB0: batch 4: with the reward local this and mission tie (any lighter use of this, even '
+    'one moved behind a test or a deep one removed, gives the client\'s roles); nesting spelled otherwise changes '
+    'nothing (the weights follow the flow graph). A tie is settled by the candidates\' order, which other symbols '
+    'can move: single-use locals the client may have had (forward-substituted, no code): the button, the index, '
+    'the title, the description, the stage, the font manager, at several places; dead-initialised scalars after '
+    'mission / after text / in the loop / in the tail.'
+)
+FILE = 'app/client/ui_missn.cpp'
+SYMBOL = 'UIMissnClass::Unknown_5C5DB0'
+ADDRESS = 0x5C5DB0
+
+REW = (
+    '\tif (mission->Reward.Get() && *mission->Reward.Get()) {\n'
+    '\t\ttext += "Reward: ";\n'
+    '\t\ttext += mission->Reward.Get();\n'
+)
+REW_L = (
+    '\tconst char *reward = mission->Reward.Get(); if (reward && *reward) {\n'
+    '\t\ttext += "Reward: ";\n'
+    '\t\ttext += reward;\n'
+)
+RL = [(REW, REW_L)]
+SEL = '\tUnknownD8[CurrentMission + 1]->Unknown_90(SelectedBttnTexture);\n'
+STD = '\t\tUnknownD8[CurrentMission + 1]->Unknown_90(StandardBttnTexture);\n'
+NAME = '\t\tgrp->Unknown_6D0A70("WRAP_Title_Detail_TSI22A", mission->Name.Get());\n'
+DESC = '\t\tgrp->Unknown_6D0A70("WRAP_DESC_DETAIL_TSI22A", text.c_str());\n'
+STEP = '\t\tconst char *step = (i < 20) ? ((DeltaMissionStageClass *)mission->Stages.Children[i])->Text.Get() : "Error: Designer exceeded MAX_STAGES";\n'
+GRP = '\tManagedFontClass *grp = Unknown_BE67C4->Find(DescriptionPanel);\n'
+HID = '\tDescriptionPanel->Set_Hidden(false);\n'
+MISS = '\tDeltaMissionClass *mission = CurrentMissions[CurrentMission];\n'
+TEXT1 = '\tstd::string text;\n' + REW
+MSTEPS = '\ttext += "Mission Steps:\\n";\n'
+C0 = '\tUnknownC0 = false;\n'
+NUM = '\t\tchar num[8];\n'
+S8 = '\tsclient->Unknown_744560(8);\n'
+
+
+def ints(k):
+    return ' '.join('int d%d = 0;' % i for i in range(1, k + 1))
+
+
+FORMS = {
+    'rl_bttn_sel': RL + [(SEL, '\tUnknown5A4D70Class *bttn = UnknownD8[CurrentMission + 1]; bttn->Unknown_90(SelectedBttnTexture);\n')],
+    'rl_index_sel': RL + [(SEL, '\tint index = CurrentMission + 1; UnknownD8[index]->Unknown_90(SelectedBttnTexture);\n')],
+    'rl_index_std': RL + [(STD, '\t\tint index = CurrentMission + 1; UnknownD8[index]->Unknown_90(StandardBttnTexture);\n')],
+    'rl_title': RL + [(NAME, '\t\tconst char *title = mission->Name.Get(); grp->Unknown_6D0A70("WRAP_Title_Detail_TSI22A", title);\n')],
+    'rl_desc': RL + [(DESC, '\t\tconst char *desc = text.c_str(); grp->Unknown_6D0A70("WRAP_DESC_DETAIL_TSI22A", desc);\n')],
+    'rl_stage': RL + [(STEP, '\t\tconst char *step = "Error: Designer exceeded MAX_STAGES"; if (i < 20) { DeltaMissionStageClass *stage = (DeltaMissionStageClass *)mission->Stages.Children[i]; step = stage->Text.Get(); }\n')],
+    'rl_panel_find': RL + [(GRP, '\tUIPanelClass *panel = DescriptionPanel; ManagedFontClass *grp = Unknown_BE67C4->Find(panel);\n')],
+    'rl_panel_hid': RL + [(HID, '\tUIPanelClass *panel = DescriptionPanel; panel->Set_Hidden(false);\n')],
+    'rl_cur_local': RL + [(MISS, '\tint cur = CurrentMission; DeltaMissionClass *mission = CurrentMissions[cur];\n')],
+    'rl_tex_local': RL + [(SEL, '\tTextureClass *tex = SelectedBttnTexture; UnknownD8[CurrentMission + 1]->Unknown_90(tex);\n')],
+}
+for k in (1, 2, 3):
+    FORMS['rl_k%d_after_mission' % k] = RL + [(S8, S8[:-1] + ' ' + ints(k) + '\n')]
+    FORMS['rl_k%d_after_text' % k] = RL + [(MSTEPS, MSTEPS[:-1] + ' ' + ints(k) + '\n')]
+    FORMS['rl_k%d_in_loop' % k] = RL + [(NUM, NUM[:-1] + ' ' + ints(k) + '\n')]
+    FORMS['rl_k%d_tail' % k] = RL + [(C0, C0[:-1] + ' ' + ints(k) + '\n')]
+
+# ==== v6_5c5db0.py ====
+HYPOTHESIS = (
+    'FB2 batch 6 on 0x5C5DB0: batch 5: a second definition of step (default text, then the stage text under the '
+    'test) gives the client\'s roles outside the loop: the tie is between this and the loop\'s step (the mission '
+    'shares step\'s register). "Error: Designer exceeded MAX_STAGES" reads as an inline accessor of the mission with '
+    'two returns: its return temporary and step are two variables. Forms: the accessor as a file-static inline '
+    '(if / return, ternary, a result local), each with the dead size() reads retuned (the helper spends budget), and '
+    'if / else assignments of step without a helper. Read by roles (roles.py), not residue.'
+)
+FILE = 'app/client/ui_missn.cpp'
+SYMBOL = 'UIMissnClass::Unknown_5C5DB0'
+ADDRESS = 0x5C5DB0
+
+REW = (
+    '\tif (mission->Reward.Get() && *mission->Reward.Get()) {\n'
+    '\t\ttext += "Reward: ";\n'
+    '\t\ttext += mission->Reward.Get();\n'
+)
+REW_L = (
+    '\tconst char *reward = mission->Reward.Get(); if (reward && *reward) {\n'
+    '\t\ttext += "Reward: ";\n'
+    '\t\ttext += reward;\n'
+)
+RL = [(REW, REW_L)]
+BLANK_AT = '\n\n\n\n// 0x5C5DB0\n'
+STEP = '\t\tconst char *step = (i < 20) ? ((DeltaMissionStageClass *)mission->Stages.Children[i])->Text.Get() : "Error: Designer exceeded MAX_STAGES";\n'
+END = '\ttext.size();' + '\ttext.size();' * 15 + '\n}\n'
+EXPR = '((DeltaMissionStageClass *)m->Stages.Children[i])->Text.Get()'
+ERR = '"Error: Designer exceeded MAX_STAGES"'
+HELPERS = {
+    'hret': 'static inline const char *Unknown_Stage_Text(DeltaMissionClass *m, int i) { if (i < 20) { return(%s); } return(%s); } // NAME 1: neutral' % (EXPR, ERR),
+    'htern': 'static inline const char *Unknown_Stage_Text(DeltaMissionClass *m, int i) { return((i < 20) ? %s : %s); } // NAME 1: neutral' % (EXPR, ERR),
+    'hloc': 'static inline const char *Unknown_Stage_Text(DeltaMissionClass *m, int i) { const char *s; if (i < 20) { s = %s; } else { s = %s; } return(s); } // NAME 1: neutral' % (EXPR, ERR),
+}
+
+
+def reads(k):
+    return '\ttext.size();' * k + '\n}\n' if k else '\n}\n'
+
+
+FORMS = {
+    'rl_step_ifelse': RL + [(STEP, '\t\tconst char *step; if (i < 20) step = ((DeltaMissionStageClass *)mission->Stages.Children[i])->Text.Get(); else step = "Error: Designer exceeded MAX_STAGES";\n')],
+    'rl_step_ifelse_rev': RL + [(STEP, '\t\tconst char *step; if (i >= 20) step = "Error: Designer exceeded MAX_STAGES"; else step = ((DeltaMissionStageClass *)mission->Stages.Children[i])->Text.Get();\n')],
+}
+for h, text in HELPERS.items():
+    for k in (6, 8, 10, 12, 13, 14, 15, 16, 17):
+        FORMS['rl_%s_r%d' % (h, k)] = RL + [
+            (BLANK_AT, '\n' + text + '\n\n\n// 0x5C5DB0\n'),
+            (STEP, '\t\tconst char *step = Unknown_Stage_Text(mission, i);\n'),
+            (END, reads(k)),
+        ]
+
+# ==== v7_5c5db0.py ====
+HYPOTHESIS = (
+    'FB2 batch 7 on 0x5C5DB0: the client\'s code equals the reward-local form\'s, yet its weights give mission the tie: '
+    'a use that leaves no code. Dead expression statements do not count (RX), but a dead-initialised local does '
+    'reach the orderings (0x454730): an unused local initialised from the mission (a name, a count, a flag, a '
+    'copy, a stage in the loop) may carry a counted use of mission. Diagnostic twins: an unused copy of this / '
+    'sclient.'
+)
+FILE = 'app/client/ui_missn.cpp'
+SYMBOL = 'UIMissnClass::Unknown_5C5DB0'
+ADDRESS = 0x5C5DB0
+
+REW = (
+    '\tif (mission->Reward.Get() && *mission->Reward.Get()) {\n'
+    '\t\ttext += "Reward: ";\n'
+    '\t\ttext += mission->Reward.Get();\n'
+)
+REW_L = (
+    '\tconst char *reward = mission->Reward.Get(); if (reward && *reward) {\n'
+    '\t\ttext += "Reward: ";\n'
+    '\t\ttext += reward;\n'
+)
+RL = [(REW, REW_L)]
+S8 = '\tsclient->Unknown_744560(8);\n'
+SEL = '\tUnknownD8[CurrentMission + 1]->Unknown_90(SelectedBttnTexture);\n'
+MSTEPS = '\ttext += "Mission Steps:\\n";\n'
+NUM = '\t\tchar num[8];\n'
+C0 = '\tUnknownC0 = false;\n'
+GRP = '\tManagedFontClass *grp = Unknown_BE67C4->Find(DescriptionPanel);\n'
+
+
+def at(anchor, text, after=True):
+    return [(anchor, anchor[:-1] + ' ' + text + '\n')] if after else [(anchor, '\t' + text + ' ' + anchor.lstrip('\t'))]
+
+
+FORMS = {
+    'rl_u_name_early': RL + at(S8, 'const char *name = mission->Name.Get();'),
+    'rl_u_name_before_text': RL + at(SEL, 'const char *name = mission->Name.Get();'),
+    'rl_u_stages': RL + at(SEL, 'int stages = mission->StageCount.Value;'),
+    'rl_u_copy': RL + at(SEL, 'DeltaMissionClass *m = mission;'),
+    'rl_u_flag': RL + at(SEL, 'bool complete = mission->IsComplete.Value;'),
+    'rl_u_stmt': RL + at(SEL, 'mission->Name.Get();'),
+    'rl_u_two': RL + at(SEL, 'const char *name = mission->Name.Get(); int stages = mission->StageCount.Value;'),
+    'rl_u_self': RL + at(SEL, 'UIMissnClass *self = this;'),
+    'rl_u_sclient': RL + at(SEL, 'SClient *s2 = sclient;'),
+    'rl_u_stage_loop': RL + at(NUM, 'DeltaMissionStageClass *stage = (DeltaMissionStageClass *)mission->Stages.Children[i];'),
+    'rl_u_name_after_steps': RL + at(MSTEPS, 'const char *name = mission->Name.Get();'),
+    'rl_u_name_tail': RL + at(C0, 'const char *name = mission->Name.Get();'),
+    'rl_u_name_grp': RL + at(GRP, 'const char *name = mission->Name.Get();'),
+    'rl_u_reward2': RL + at(SEL, 'const char *summary2 = mission->Summary.Get();'),
+}
+
+# ==== v8_5c5db0.py ====
+HYPOTHESIS = (
+    'FB2 batch 8 on 0x5C5DB0 (the lead batch 7 left): the reward-local form needs one use of this lighter, and a '
+    'use behind a test is lighter (batch 4). VC6 merges equal tails of two branches late (the client\'s two toggles '
+    'at 0x5C63C5): statements the source repeats in both branches of a test weigh as two conditional uses and end '
+    'as one copy. Repeat the statements after the Is_Hidden test / after the grp block in both branches and read '
+    'code and roles.'
+)
+FILE = 'app/client/ui_missn.cpp'
+SYMBOL = 'UIMissnClass::Unknown_5C5DB0'
+ADDRESS = 0x5C5DB0
+
+REW = (
+    '\tif (mission->Reward.Get() && *mission->Reward.Get()) {\n'
+    '\t\ttext += "Reward: ";\n'
+    '\t\ttext += mission->Reward.Get();\n'
+)
+REW_L = (
+    '\tconst char *reward = mission->Reward.Get(); if (reward && *reward) {\n'
+    '\t\ttext += "Reward: ";\n'
+    '\t\ttext += reward;\n'
+)
+RL = [(REW, REW_L)]
+BLOCK = (
+    '\tif (!DescriptionPanel->Is_Hidden()) {\n'
+    '\t\tsclient->Unknown_744560(9);\n'
+    '\t}\n'
+    '\tsclient->Unknown_744560(8);\n'
+    '\tDescriptionPanel->Set_Hidden(false);\n'
+    '\tUnknownD8[CurrentMission + 1]->Unknown_90(SelectedBttnTexture);\n'
+)
+S8 = 'sclient->Unknown_744560(8);'
+HID = 'DescriptionPanel->Set_Hidden(false);'
+SEL = 'UnknownD8[CurrentMission + 1]->Unknown_90(SelectedBttnTexture);'
+GRPEND = '\t\tgrp->Unknown_6D0A70("WRAP_Title_Detail_TSI22A", mission->Name.Get());\n\t}\n\n\tUnknownC0 = false;\n'
+
+
+def dup(tail, rest, rev=False):
+    """the block with `tail` repeated in both branches (6 lines kept)."""
+    t = ' '.join(tail)
+    r = ''.join('\t%s\n' % x for x in rest)
+    pad = '\n' * (3 - len(rest))
+    if rev:
+        return '\tif (DescriptionPanel->Is_Hidden()) {\n\t\t%s\n\t} else { sclient->Unknown_744560(9); %s }\n%s%s' % (t, t, r, pad)
+    return '\tif (!DescriptionPanel->Is_Hidden()) {\n\t\tsclient->Unknown_744560(9); %s\n\t} else { %s }\n%s%s' % (t, t, r, pad)
+
+
+FORMS = {
+    'x_dup_8': RL + [(BLOCK, dup([S8], [HID, SEL]))],
+    'x_dup_8_hid': RL + [(BLOCK, dup([S8, HID], [SEL]))],
+    'x_dup_8_hid_sel': RL + [(BLOCK, dup([S8, HID, SEL], []))],
+    'x_rev_8': RL + [(BLOCK, dup([S8], [HID, SEL], True))],
+    'x_rev_8_hid': RL + [(BLOCK, dup([S8, HID], [SEL], True))],
+    'x_rev_8_hid_sel': RL + [(BLOCK, dup([S8, HID, SEL], [], True))],
+    'x_grp_c0': RL + [(GRPEND, '\t\tgrp->Unknown_6D0A70("WRAP_Title_Detail_TSI22A", mission->Name.Get());\n\t\tUnknownC0 = false;\n\t} else {\n\tUnknownC0 = false; }\n')],
+    # the same without the reward local: does the repetition alone keep base's code?
+    'b_dup_8_hid': [(BLOCK, dup([S8, HID], [SEL]))],
+    'b_grp_c0': [(GRPEND, '\t\tgrp->Unknown_6D0A70("WRAP_Title_Detail_TSI22A", mission->Name.Get());\n\t\tUnknownC0 = false;\n\t} else {\n\tUnknownC0 = false; }\n')],
+}
+
+# ==== v9_5c5db0.py ====
+HYPOTHESIS = (
+    'FB2 batch 9 on 0x5C5DB0: batch 8 cut 6 -> 2: with the reward local, sclient->Unknown_744560(8) written at the '
+    'end of both branches of the Is_Hidden test gives the client\'s roles (the merged tail is one copy); the 2 rows '
+    'are push edi, which the client has at the join before push 8, so its join is before that call: the repeat is '
+    'not there. The same lever where the join stays the client\'s: the mission load that follows a text block '
+    '(failure after the reward block, summary after the failure block, the count after the steps line) written at '
+    'the end of both branches.'
+)
+FILE = 'app/client/ui_missn.cpp'
+SYMBOL = 'UIMissnClass::Unknown_5C5DB0'
+ADDRESS = 0x5C5DB0
+
+REWB = (
+    '\tif (mission->Reward.Get() && *mission->Reward.Get()) {\n'
+    '\t\ttext += "Reward: ";\n'
+    '\t\ttext += mission->Reward.Get();\n'
+    '\t\ttext += "\\n\\n";\n'
+    '\t}\n'
+    '\n'
+    '\tconst char *failure = mission->FailureConsequence.Get();\n'
+    '\tif (failure && *failure) {\n'
+    '\t\ttext += "Failure: ";\n'
+    '\t\ttext += failure;\n'
+    '\t\ttext += "\\n\\n";\n'
+    '\t}\n'
+    '\tconst char *summary = mission->Summary.Get();\n'
+    '\tif (summary && *summary) {\n'
+    '\t\ttext += summary;\n'
+    '\t\ttext += "\\n\\n";\n'
+    '\t}\n'
+)
+R_OPEN = '\tconst char *reward = mission->Reward.Get(); if (reward && *reward) {\n\t\ttext += "Reward: ";\n\t\ttext += reward;\n'
+F_LOAD = 'failure = mission->FailureConsequence.Get();'
+S_LOAD = 'summary = mission->Summary.Get();'
+
+
+def build(dup_fail, dup_sum, decl_top=True):
+    out = ''
+    if dup_fail:
+        out += '\tconst char *failure; const char *reward = mission->Reward.Get(); if (reward && *reward) {\n\t\ttext += "Reward: ";\n\t\ttext += reward;\n'
+        out += '\t\ttext += "\\n\\n"; %s\n\t} else { %s }\n\n\n' % (F_LOAD, F_LOAD)
+    else:
+        out += R_OPEN + '\t\ttext += "\\n\\n";\n\t}\n\n\tconst char *failure = mission->FailureConsequence.Get();\n'
+    if dup_sum:
+        out += '\tconst char *summary; if (failure && *failure) {\n\t\ttext += "Failure: ";\n\t\ttext += failure;\n'
+        out += '\t\ttext += "\\n\\n"; %s\n\t} else { %s }\n\n' % (S_LOAD, S_LOAD)
+    else:
+        out += '\tif (failure && *failure) {\n\t\ttext += "Failure: ";\n\t\ttext += failure;\n\t\ttext += "\\n\\n";\n\t}\n\tconst char *summary = mission->Summary.Get();\n'
+    out += '\tif (summary && *summary) {\n\t\ttext += summary;\n\t\ttext += "\\n\\n";\n\t}\n'
+    return out
+
+
+CNT = '\ttext += "Mission Steps:\\n";\n\tint count = mission->StageCount.Value;\n'
+SUMB = '\tif (summary && *summary) {\n\t\ttext += summary;\n\t\ttext += "\\n\\n";\n\t}\n'
+
+FORMS = {
+    'y_dup_fail': [(REWB, build(True, False))],
+    'y_dup_sum': [(REWB, build(False, True))],
+    'y_dup_both': [(REWB, build(True, True))],
+}
+assert all(v[0][1].count('\n') == REWB.count('\n') for v in FORMS.values())
+
+# ==== roles.py ====
+"""Per form of a trybatch batch on 0x5C5DB0: the register this takes at entry, whether it is spilled at entry,
+the register the loop's step takes, the row count and the count of direct calls (the inlining state), next to
+trybatch's residue, so the register roles are read apart from the budget state.
+
+    python roles.py BATCHDIR
+"""
+import os
+import re
+import subprocess
+import sys
+
+ROOT = 'C:/EnBDevelopment/EnB/.work/wt/FB2'
+
+
+def rows(obj):
+    out = subprocess.run([sys.executable, ROOT + '/tools/re/objdiff.py', obj, 'UIMissnClass::Unknown_5C5DB0', '0x5C5DB0'],
+                         capture_output=True, text=True).stdout.splitlines()
+    res = []
+    diff = 0
+    for line in out[1:]:
+        if '|' not in line:
+            continue
+        left, right = line.split('|', 1)
+        l = left[1:].strip()
+        lt = l.split(' ', 1)[1].strip() if ' ' in l else ''
+        r = right.strip()
+        rt = r.split(' ', 1)[1].strip() if ' ' in r else ''
+        if left.startswith('*') and not ('REL' in rt and lt.split(' ')[0] == rt.split(' ')[0]):
+            diff += 1
+        if lt:
+            res.append(lt)
+    return res, diff
+
+
+def main():
+    batch = sys.argv[1]
+    seen = {}
+    for form in sorted(os.listdir(batch)):
+        obj = os.path.join(batch, form, 'obj', 'ui_missn.obj')
+        if not os.path.exists(obj):
+            continue
+        rs, diff = rows(obj)
+        this = next((t.split()[1].rstrip(',') for t in rs[:14] if re.match(r'mov e(bx|bp|si|di), ecx$', t)), '?')
+        spill = any(re.match(r'mov dword ptr \[esp \+ 0xc\], e(bx|bp)$', t) for t in rs[:16])
+        step = '?'
+        for i, t in enumerate(rs):
+            if t.startswith('cmp eax, 0x14'):
+                for u in rs[i:i + 8]:
+                    m = re.match(r'mov (e..), dword ptr \[e.. \+ 0x120\]', u)
+                    if m:
+                        step = m.group(1)
+                break
+        calls = sum(1 for t in rs if t == 'call REL')
+        key = (this, spill, step, len(rs), calls, diff)
+        print('%-28s this %s spill %-5s step %s rows %d calls %d real-diff %d' % ((form,) + key))
+
+
+main()

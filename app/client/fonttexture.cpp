@@ -1,5 +1,5 @@
 // Earth & Beyond client (reconstruction): app\client\fonttexture.cpp. Notes at the end of the file.
-#include "fontmanager.h"
+#include "fontsys.h"
 #include "font32bit.h"
 #include "..\shared\g_assert.h"
 #include "..\..\ww3d2\texture.h"

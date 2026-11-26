@@ -135,7 +135,7 @@ MusicManagerClass::~MusicManagerClass()
 
 
 // @0x43A1F0
-// NOT EXACT: register-only (explain.py: 720 rows vs 720, masked residue 6): this and the section name swap edi / ebp at the theme block's top (0x43A464). Budget devices (no bytes, D272; measured 2026-11-21): the two dead if (0) Is_Loaded calls before the push_back and the dead size() after it send push_back's _Ucopy / _Ufill / _Destroy (0x43BF20, 0x43BF60, 0x43BC60) and its last size() (0x43BC30) out of line as the client (residue 188 -> 6)
+// Budget devices (no bytes, D272; measured 2026-11-21): the two dead if (0) Is_Loaded calls before the push_back and the dead size() after it send push_back's _Ucopy / _Ufill / _Destroy (0x43BF20, 0x43BF60, 0x43BC60) and its last size() (0x43BC30) out of line as the client (residue 188 -> 6). The registers of this and the section name at the theme block's top (edi / ebp, 0x43A464) follow the spelling of Type_From_Name below, which is inlined here: its last test as an if with a default return (measured 2026-11-25: a conditional expression in that return exchanged the two, 6 rows)
 void MusicManagerClass::Load_INI(int race)
 {
 	G_ASSERT(MusicINI);
@@ -330,7 +330,7 @@ int MusicManagerClass::Type_From_Name(const char *name)
 	if (strcmp(name, "STARGATE") == 0) {
 		return(MUSIC_THEME_STARGATE);
 	}
-	return((strcmp(name, "STARBASE") == 0) ? MUSIC_THEME_STARBASE : MUSIC_THEME_WANDER);
+	if (strcmp(name, "STARBASE") == 0) { return(MUSIC_THEME_STARBASE); } return(MUSIC_THEME_WANDER);	// one line: the asserts below keep their lines. An if, not a conditional expression: Load_INI's inlined copy decides (0x43A1F0)
 }
 
 // @0x43B760

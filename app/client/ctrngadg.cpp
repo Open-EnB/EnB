@@ -129,7 +129,7 @@ bool CtrnGadgetClass::Unknown_2C(KernelEventClass *event, float x, float y, unsi
 	if (shift || ctrl) {
 		SClient *sclient = (SClient *)((ClientClass *)Client)->As_Space_Client();
 		sclient->Unknown12B0 = sclient->Unknown10BC;
-		sclient->Unknown12B4 = 0;
+
 	}
 	float speed = WW3D::Get_Frame_Time() * 0.1f;
 	if (((SClient *)Client)->CameraMode == 0) {

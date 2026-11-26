@@ -458,7 +458,7 @@ void FontSys::Update_Text(int unknown)
 		Transform[0][3] = at.X;
 		Transform[1][3] = at.Y;
 		Transform[2][3] = at.Z;
-		int line_height = (int)(Scale * 480.0f * Unknown2C8 / Height);
+		int line_height = (int)((Scale * 480.0f) * Unknown2C8 / Height);	// parenthesised: the client's (Scale * 480) * Unknown2C8 order (0x6D664D); unparenthesised VC6 reassociates it to (Unknown2C8 * Scale) * 480
 		if (LineNumber > 0 && (float)Unknown430[3] < at.Y) {
 			float limit = (float)(Unknown430[3] + line_height);
 			bool refresh = false;

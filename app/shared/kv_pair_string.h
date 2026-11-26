@@ -20,16 +20,7 @@
 
 #include "kv_pair.h"
 
-// The string accessor (vtable 0xAEB150: the destructor and three pure slots); DeltaStringClass's
-// is DeltaStringValueClass (delta_string.cpp).
-class StringValueClass  // NAME 2: describes what it does (D38)
-{
-public:
-	virtual ~StringValueClass() {}									// +0x00 0x4A7F00
-	virtual const char *Get() const = 0;							// +0x04  // NAME 2: describes what it does
-	virtual void Set(const char *value) = 0;						// +0x08  // NAME 2: describes what it does
-	virtual StringValueClass *Clone() const = 0;					// +0x0C  // NAME 2: describes what it does
-};
+#include "string_value.h"	// StringValueClass
 
 // vtable 0xAEB810, size 0x14
 class KVPairStringClass : public KVPairClass  // NAME 3: by convention (D24) from the client's file kv_pair_string.cpp

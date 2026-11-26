@@ -2805,6 +2805,9 @@
 "data:?LastTime@BandwidthAccountingClass@@2IA": [
 "0xBF4080"
 ],
+"data:?Legacy_Meshes_Fogged@MeshClass@@2_NA": [
+"0xBBB084"
+],
 "data:?Listeners@TCPConnection@@2V?$set@PAVTCPListenerClass@@U?$less@PAVTCPListenerClass@@@std@@V?$allocator@PAVTCPListenerClass@@@3@@std@@A": [
 "0xBE91A8"
 ],
@@ -3996,6 +3999,9 @@
 "data:__real@4@3ffed5551d0000000000": [
 "0xAEEC4C"
 ],
+"data:__real@4@3ffed9999a0000000000": [
+"0xAEEA98"
+],
 "data:__real@4@3ffee666660000000000": [
 "0xAEEDD4"
 ],
@@ -4108,7 +4114,8 @@
 "0xAF5C14"
 ],
 "data:__real@4@4004c800000000000000": [
-"0xAE783C"
+"0xAE783C",
+"0xAEEA40"
 ],
 "data:__real@4@4004ec00000000000000": [
 "0xB071C8"
@@ -4128,6 +4135,9 @@
 "data:__real@4@4006c800000000000000": [
 "0xAF580C"
 ],
+"data:__real@4@4006e400000000000000": [
+"0xB070A4"
+],
 "data:__real@4@4006f000000000000000": [
 "0xAEF774"
 ],
@@ -4145,6 +4155,9 @@
 ],
 "data:__real@4@40079600000000000000": [
 "0xAE7844"
+],
+"data:__real@4@40079a00000000000000": [
+"0xB070A8"
 ],
 "data:__real@4@4007a000000000000000": [
 "0xAEF77C"
@@ -4173,8 +4186,14 @@
 "data:__real@4@400ae100000000000000": [
 "0xAED07C"
 ],
+"data:__real@4@400bafc8000000000000": [
+"0xB053C8"
+],
 "data:__real@4@400bfa00000000000000": [
 "0xAED084"
+],
+"data:__real@4@400cea60000000000000": [
+"0xB053CC"
 ],
 "data:__real@4@400d9c40000000000000": [
 "0xB032F4"
@@ -4253,6 +4272,12 @@
 ],
 "data:__real@4@c002b000000000000000": [
 "0xB04748"
+],
+"data:__real@4@c006e400000000000000": [
+"0xB0709C"
+],
+"data:__real@4@c0079a00000000000000": [
+"0xB070A0"
 ],
 "data:__real@4@c007f000000000000000": [
 "0xAF8420"
@@ -4644,7 +4669,7 @@
 "??4Wtime@@QAEAAV0@ABV0@@Z": [
 "0x8BA160"
 ],
-"??GWtime@@QAE?AV0@AAV0@@Z": [
+"??GWtime@@QBE?AV0@ABV0@@Z": [
 "0x8BA060"
 ],
 "??YWtime@@QAEAAV0@ABV0@@Z": [

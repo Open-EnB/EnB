@@ -1,0 +1,144 @@
+HYPOTHESIS = (
+    'SClient::Unknown_749ED0 0x749ED0 GN4 batch 2: in batch 1, else { invalid: return(false); } fixed r44 (0 residue), '
+    'and putting check_chan inside /enf (13 branches jump to check_chan, /enf falls into it) puts invalid: DIRECTLY '
+    'after /rad body and DIRECTLY before send (char buffer[512]), with ZERO goto send / goto done so words-fail can '
+    'cross-jump into /rad ~channel (0x74A68C -> 0x74A5A4). Test this exact CFG + variations on /rad test, done label, '
+    'this-slot weight (dead-init locals / SClient *self / inline Unknown_74D990 wrapper).'
+)
+FILE = 'app/client/sclient.cpp'
+SYMBOL = 'SClient::Unknown_749ED0'
+ADDRESS = 0x749ED0
+
+SRC = open('C:/EnBDevelopment/EnB/.work/wt/GN4/app/client/sclient.cpp', encoding='utf-8').read()
+A = SRC.index('bool SClient::Unknown_749ED0(const char *text)')
+B = SRC.index('\n}\n', A) + 3
+FUNC = SRC[A:B]
+NLINES = FUNC.count('\n')
+
+CHANNELS = [
+    ('/gen', 'Channel_General', 'General'),
+    ('/ooc', 'Channel_OOC', 'OOC'),
+    ('/mkt', 'Channel_Market', 'Market'),
+    ('/new', 'Channel_Newbie', 'New Players'),
+    ('/jen', 'Channel_Jenquai', 'Jenquai'),
+    ('/ter', 'Channel_Terran', 'Terran'),
+    ('/pro', 'Channel_Progen', 'Progen'),
+    ('/exp', 'Channel_Explorers', 'Explorers'),
+    ('/tra', 'Channel_Traders', 'Tradesmen'),
+    ('/war', 'Channel_Warriors', 'Warriors'),
+    ('/sen', 'Channel_Sentinels', 'Sentinels'),
+    ('/def', 'Channel_Defenders', 'Defenders'),
+    ('/enf', 'Channel_Enforcers', 'Enforcers'),
+]
+
+SEND_PART = FUNC[FUNC.index('\tchar buffer[512];\n'):]
+
+def pad(body):
+    cur = body.count('\n')
+    assert cur <= NLINES, (cur, NLINES)
+    idx = body.rindex('}\n')
+    return [(FUNC, body[:idx] + '\n' * (NLINES - cur) + body[idx:])]
+
+def build_check_in_enf(rad_and=False, use_done=False, done_at_end=False, rad_pos4=False,
+                       words_done=False, msg_done=False, self_rad=False,
+                       channel_assign_op=False, diag_d=0, no_goto_check=False,
+                       rad_check_goto=False, invalid_in_else=True, send_goto=False):
+    lines = ['bool SClient::Unknown_749ED0(const char *text)', '{']
+    if diag_d > 0:
+        decls = ', '.join(f'_d{k}=0' for k in range(diag_d))
+        lines.append(f'\tint {decls};')
+    lines.append('\tOptionClass *options = OptionClass::Instance;')
+    lines.append('\tstd::string channel = "";')
+    rt = 'goto done;' if use_done else 'return(true);'
+    for i, (cmd, o, ch) in enumerate(CHANNELS):
+        kw = 'if' if i == 0 else '} else if'
+        lines.append(f'\t{kw} (strncmp(text, "{cmd}", 4) == 0) {{')
+        if i < len(CHANNELS) - 1:
+            if no_goto_check:
+                lines.append(f'\t\tif (text[4] != \'\\0\' && text[4] != \' \') goto invalid; if (options->Get_Bool("{o}")) channel.assign("{ch}");')
+            else:
+                lines.append(f'\t\tif (text[4] != \'\\0\' && text[4] != \' \') goto invalid; if (options->Get_Bool("{o}")) channel.assign("{ch}"); goto check_chan;')
+        else:
+            lines.append(f'\t\tif (text[4] != \'\\0\' && text[4] != \' \') goto invalid; if (options->Get_Bool("{o}")) channel.assign("{ch}");')
+            if not no_goto_check:
+                lines.append('check_chan:')
+                lines.append(f'\t\tif (channel.length() == 0) {{ Unknown_74D990(0x11, "Not monitoring that channel.", 0); {rt} }}')
+    if rad_and:
+        lines.append('\t} else if (strncmp(text, "/rad", 4) == 0 && (text[4] == \'\\0\' || text[4] == \' \')) {')
+    else:
+        lines.append('\t} else if (strncmp(text, "/rad", 4) == 0) {')
+        if not rad_pos4:
+            lines.append('\t\tif (text[4] != \'\\0\' && text[4] != \' \') goto invalid;')
+    if rad_pos4:
+        lines.append('\t\tif (text[4] == \'\\0\' || text[4] == \' \') {')
+    if channel_assign_op:
+        lines.append('\t\tchannel = ChatPanel->Unknown_5682C0();')
+    else:
+        lines.append('\t\tchannel.assign(ChatPanel->Unknown_5682C0());')
+    if self_rad:
+        lines.append(f'\t\tif (channel.length() == 0) {{ ((SClient *volatile)this)->Unknown_74D990(0x11, "Not monitoring a private channel.", 0); {rt} }}')
+    elif rad_check_goto:
+        lines.append(f'\t\tif (channel.length() != 0) goto send; Unknown_74D990(0x11, "Not monitoring a private channel.", 0); {rt}')
+    else:
+        lines.append(f'\t\tif (channel.length() == 0) {{ Unknown_74D990(0x11, "Not monitoring a private channel.", 0); {rt} }}')
+    if send_goto and not rad_check_goto:
+        lines.append('\t\tgoto send;')
+    if rad_pos4:
+        lines.append('\t\t} else goto invalid;')
+    if invalid_in_else:
+        lines.append('\t} else {')
+        lines.append('invalid:')
+        lines.append('\t\treturn(false);')
+        lines.append('\t}')
+    else:
+        lines.append('\t} else goto invalid;')
+    if use_done and not done_at_end:
+        lines.append('done: return(true);')
+    if send_goto or rad_check_goto:
+        lines.append('send:')
+    send = SEND_PART
+    if words_done:
+        send = send.replace('\t\tUnknown_74D990(0x11, "No message to send.", 0);\n\t\treturn(true);\n',
+                            '\t\tUnknown_74D990(0x11, "No message to send.", 0);\n\t\tgoto done;\n', 1)
+    if msg_done:
+        send = send.replace('\t\treturn(true);\n', '\t\tgoto done;\n')
+    if done_at_end:
+        send = send.replace('\treturn(true);\n}\n', 'done:\n\treturn(true);\n}\n')
+    if not invalid_in_else:
+        send = send.replace('}\n', 'invalid: return(false);\n}\n')
+    body = '\n'.join(lines) + '\n' + send
+    return pad(body)
+
+# Also test: base structure but with check_chan in /enf + done at end, and with words declared before buffer
+def build_words_order(words_first=False, msg_first=False, buf_top=False):
+    t = FUNC
+    if words_first:
+        t = t.replace(
+            '\tchar buffer[512];\n\tBounded_Strcpy(buffer, 512, text);\n\tstd::vector<std::string> words;\n',
+            '\tstd::vector<std::string> words;\n\tchar buffer[512];\n\tBounded_Strcpy(buffer, 512, text);\n'
+        )
+    if buf_top:
+        t = t.replace('\tOptionClass *options = OptionClass::Instance;\n', '\tOptionClass *options = OptionClass::Instance; char buffer[512];\n')
+        t = t.replace('\tchar buffer[512];\n', '\t\n')
+    assert t.count('\n') == NLINES
+    return [(FUNC, t)]
+
+FORMS = {
+    'enf_plain': build_check_in_enf(),
+    'enf_rad_and': build_check_in_enf(rad_and=True),
+    'enf_rad_pos4': build_check_in_enf(rad_pos4=True),
+    'enf_done_end': build_check_in_enf(use_done=True, done_at_end=True),
+    'enf_done_end_and': build_check_in_enf(rad_and=True, use_done=True, done_at_end=True),
+    'enf_done_end_w': build_check_in_enf(use_done=True, done_at_end=True, words_done=True),
+    'enf_done_end_all': build_check_in_enf(use_done=True, done_at_end=True, words_done=True, msg_done=True),
+    'enf_done_mid': build_check_in_enf(use_done=True, done_at_end=False, send_goto=True),
+    'enf_rad_chk_goto': build_check_in_enf(rad_check_goto=True),
+    'enf_rad_chk_done': build_check_in_enf(rad_check_goto=True, use_done=True, done_at_end=True),
+    'enf_self_rad': build_check_in_enf(self_rad=True),
+    'enf_self_rad_done': build_check_in_enf(self_rad=True, use_done=True, done_at_end=True),
+    'enf_assign_op': build_check_in_enf(channel_assign_op=True),
+    'enf_d2': build_check_in_enf(diag_d=2),
+    'enf_d4': build_check_in_enf(diag_d=4),
+    'base_words_first': build_words_order(words_first=True),
+    'base_buf_top': build_words_order(buf_top=True),
+}

@@ -1338,17 +1338,17 @@ bool SplinePacketClass::Process_Packet(void *instance)
 }
 
 
-// NOT EXACT: shape (the __int64 sums and differences in other registers and order; frame and size as the client's; attempts.py show 0x737960)
+// NOT EXACT: shape (residue 52 with the copies in the client's load order +0x10, +0x18, +0xC, +0x14; the __int64 sums and differences in other registers and order; frame and size as the client's; attempts.py show 0x737960)
 // 0x737960 (placed after SPLINE 0x737C10 so that no assert line moves)
 extern unsigned int Unknown_BE71D4;	// 0xBE71D4 (postate.cpp: the state blend time; CLIENT_SET_TIME 52 stores the round trip time in it)
 bool SetClientTimePacketClass::Process_Packet(void *instance)
 {
 	WWPROFILE("SetClientTimePacketClass::Process_Packet()");
 	SClient *sclient = (SClient *)instance;
-	__int64 client_sent = ClientSent;
 	__int64 server_received = ServerReceived;
-	__int64 server_sent = ServerSent;
 	__int64 client_received = ClientReceived;
+	__int64 client_sent = ClientSent;
+	__int64 server_sent = ServerSent;
 	__int64 client_total = client_received + client_sent; __int64 server_total = server_sent + server_received;
 	__int64 client_time = client_received - client_sent; __int64 server_time = server_sent - server_received; DurationClass rtt(client_time - server_time); __int64 correction = (server_total - client_total) / 2;
 	Unknown_BE71D4 = rtt.Get();

@@ -511,7 +511,7 @@ void OrbitalManager::Unknown_4F3EF0()
 }
 
 
-// NOT EXACT: all 21 regions res 0 / frame 0xc8; only point.Y add order (center.Y + s*d vs s*d + center.Y, raw 2) differs
+
 // @0x4F45A0
 void OrbitalManager::Update(CameraClass *camera, float time, bool planet)
 {
@@ -533,7 +533,7 @@ void OrbitalManager::Update(CameraClass *camera, float time, bool planet)
 		if (orb->EmitsLight) {
 			if (!planet || orb->Unknown68 >= 0.0f) {
 				SphereClass sphere = orb->Object->Get_Bounding_Sphere();
-				const Vector3 &center = sphere.Center;
+				Vector3 center = sphere.Center;
 				float radius = sphere.Radius * 0.6f;
 				int blocked = 0;
 				for (int i = 0; i < 16; i++) {

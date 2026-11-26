@@ -149,10 +149,10 @@ bool Unknown_70B3D0(ClientObjectClass *object)	// NAME 1 [Unknown_70B3D0]: false
 // NOT EXACT: inline budget (the client calls the name string's assign and the copies out of line; attempts.py show 0x70B450)
 bool Unknown_70B450(SClient *client, ClientObjectClass *object, GutterColorSetStruct &colors)	// NAME 1 [Unknown_70B450]: 'Neutral' unless the object's type is one of seven
 {
-	switch (object->Type) {
-		case 0: case 1: case 2: case 11: case 12: case 28: case 33:
-			return(false);
+	if (!Unknown_70B3D0(object)) {
+		return(false);
 	}
+
 	static GutterColorSetStruct neutral = Unknown_70ADF0(std::string("Neutral"));	// 0xBE6E30 (guard 0xBE7101)  // NAME 2: what it holds
 	colors = neutral;
 	return(true);

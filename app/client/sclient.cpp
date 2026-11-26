@@ -315,7 +315,7 @@ SClient::SClient(ClientTaskClass *task) :
 	Targeting(NULL),
 	CameraManager(NULL),
 	Unknown12B0(0),
-	Unknown12B4(0),
+
 	Unknown12B8(0),
 	Unknown12BC(0),
 	AuxData(0),
@@ -403,13 +403,13 @@ void SClient::Load_INIs()
 	INIUsers++;
 }
 
-// NOT EXACT: field offset (explain.py; 103 masked rows): the client keeps the options base (+0x1150) in a register from the Bridge_Mode branch and reads the camera mode through it, and its frame is 4 bytes larger; one form (attempts.py show 0x741180)
+static inline PxProcessClass *Unknown_Px_Process(SClient *client) { return(client->PxProcess); } static inline void Unknown_Set_FOV(CameraManagerClass *cm, float fov) { cm->FOV = fov; }	// SClient::Init 0x741180: PxProcess and CameraManager->FOV through inline accessors (the client's registers at Load_INIs / ChatPanel / FOV / Font)  // NAME 1 [Unknown_Px_Process, Unknown_Set_FOV, client, cm, fov]: neutral
 // 0x741180
 void SClient::Init()
 {
 	Unknown_BE67BC->Load(0);
 	VerbManager = new VerbManagerClass(this);
-	PxProcessClass::Push(PxProcess);
+	PxProcessClass::Push(Unknown_Px_Process(this));
 	MeshClass::Legacy_Meshes_Fogged = false;
 	Unknown_745350();
 	Unknown13CC.Unknown_765010();
@@ -446,12 +446,12 @@ void SClient::Init()
 	Unknown129C = Create_NEW(new UITalkTreeSpaceClass(this));
 	Unknown129C->Unknown_54();
 	Unknown129C->Unknown_7C(MainView, 0);
-	{
-		RefCountPtr<UITalkTreeClass> talk(Unknown129C);
-		if (talk.Peek() != Unknown1298.Peek()) {
-			Unknown1298 = talk;
-		}
-	}
+	Unknown_74C9D0(Unknown129C); Unknown129C.Peek(); Unknown129C.Peek(); Unknown129C.Peek(); Unknown129C.Peek(); Unknown129C.Peek(); Unknown129C.Peek(); Unknown129C.Peek(); Unknown129C.Peek(); Unknown129C.Peek();	// dead reads (D272): the site's nested budget, so the converting operator= 0x758970 stays out of line in 0x74C9D0's else branch as the client's call at 0x74165B
+
+
+
+
+
 
 	CameraClass *camera = new CameraClass;
 	camera->Set_Clip_Planes(6.0f, 600000.0f);
@@ -459,23 +459,23 @@ void SClient::Init()
 	camera->Release_Ref();
 
 	CameraManager = new CameraManagerClass(this);
-	int id = (int)CameraManager->Module;
-	SignalMap &notifier = CameraModuleClass::Get_Signal_Map();
-	notifier.connect((void *)id, new SClientCallbackClass(this, &SClient::Unknown_744E50));
+	CameraModuleClass::Get_Signal_Map().connect((CameraModuleClass *)CameraManager->Module, this, &SClient::Unknown_744E50);	// the typed connect: the client takes the sender (ebx) and the member pointer (edi:ebp) before calling Get_Signal_Map
+
+
 	if (OptionClass::Instance->Get_Bool("Bridge_Mode")) {
 		Set_Camera_Mode(0);
 	} else {
 		Unknown_75A5D0();
 	}
 	Unknown12B0 = Unknown10BC;
-	Unknown12B4 = 0;
-	CameraModeStruct &mode = CameraModes[CameraMode];
+
+	CameraModeStruct &mode = Current_Camera_Mode();
 	CameraManager->Set_Heading(mode.Heading);
 	CameraManager->Set_Distance(mode.Distance);
 	CameraManager->Set_Tilt(mode.Tilt);
 	CameraManager->Set_Elevation_Offset(mode.ElevationOffset);
 	CameraManager->Unknown_79B4B0(CameraMode == 0);
-	{ float fov = mode.FOV; CameraManager->FOV = fov; }	// fld / fstp in the client
+	Unknown_Set_FOV(CameraManager, mode.FOV);	// fld / fstp in the client (inline setter)
 	Unknown_744C10();
 
 	MusicManager = new MusicManagerClass;
@@ -727,10 +727,10 @@ unsigned SClient::Set_Avatar_ID(unsigned id)
 	return(ClientClass::Set_Avatar_ID(id));
 }
 #include "..\packets\pkclientchat.h"
-// 0x744D80 (out of line for 0x6B58A0, auto-inlined into 0x7436A0's camera keys; Init has the block written out). The 0 goes through a volatile store: the client keeps Unknown12B0's store before Unknown12B4's and both above the next load in every copy (here, 0x7436A0's four, ctrngadg's 0x50ABC0); a plain store sinks (4 order rows). Not the declaration: a volatile member moves the constructor 0x7405E0's EH-state store
+// 0x744D80 (out of line for 0x6B58A0, auto-inlined into 0x7436A0's camera keys; Init has the block written out). Unknown12B0 (one DurationClass) set through its Time: the conversion (the constructor and the template's user operator=) makes this too heavy to inline four times into 0x7436A0 as the client does; Init and ctrngadg assign through it (their high half from xor reg, reg, as the client's). The mode through SOptionsClass::Current_Camera_Mode(): 0x7436A0's case-3 copy reads it through this+0x1150
 void SClient::Unknown_744D80() {
-	Unknown12B0 = Unknown10BC; *(volatile int *)&Unknown12B4 = 0;
-	CameraModeStruct &mode = CameraModes[CameraMode];
+	Unknown12B0.Time = Unknown10BC;
+	CameraModeStruct &mode = Current_Camera_Mode();
 	CameraManager->Set_Heading(mode.Heading);
 	CameraManager->Set_Distance(mode.Distance);
 	CameraManager->Set_Tilt(mode.Tilt);
@@ -3332,72 +3332,75 @@ bool SClient::Unknown_749A70(const char *text)
 
 
 
-// NOT EXACT: shape (explain.py): 824 against 818 instructions: VC6 places the invalid return right after the /rad text test (the client after the /rad message; every source order of the test, body and labels gives the same layout), schedules the words-fail path's ~basic_string between the vector's stores so it cannot cross-jump into the /rad tail as the client's (0x74A68C), and keeps this in ebx for the /rad message
+// NOT EXACT: shape (explain.py): 822 against 818 instructions, one region: the words-fail return(true) keeps its own ~channel (4 rows) where the client jumps back into the /rad message's (0x74A68C jmp 0x74A5A4); with plain return(true) in both messages VC6 joins it but keeps the shared tail in the join message, not the /rad one (818 rows, order-only). valid / monitoring leave no code (VC6 threads constant flags): they stand for whatever control flow put the join check before the /rad test in the source (the client's literal order: 'Not monitoring that channel.' 0xB99E90 lies between 'Enforcers' 0xB99EB4 and '/rad' 0xB99E88) and the return(false) between the /rad message and the send part (0x74A5BF)
 // 0x749ED0 (0x74ABC0): the channel lines '/gen /ooc /mkt /new /jen /ter /pro /exp /tra /war /sen /def /enf <message>'
-// (each when its 'Channel_*' option is on) and '/rad' (the chat panel's private channel)
+// (each when its 'Channel_*' option is on) and '/rad' (the chat panel's private channel); the channel goes in the packet's +0x24 string (0x74A789)
 bool SClient::Unknown_749ED0(const char *text)
 {
 	OptionClass *options = OptionClass::Instance;
 	std::string channel = "";
+	bool valid = true;
+	bool monitoring = true;
 	if (strncmp(text, "/gen", 4) == 0) {
 		if (text[4] != '\0' && text[4] != ' ') goto invalid;
-		if (options->Get_Bool("Channel_General")) channel.assign("General");
+		if (options->Get_Bool("Channel_General")) channel = "General";
 	} else if (strncmp(text, "/ooc", 4) == 0) {
 		if (text[4] != '\0' && text[4] != ' ') goto invalid;
-		if (options->Get_Bool("Channel_OOC")) channel.assign("OOC");
+		if (options->Get_Bool("Channel_OOC")) channel = "OOC";
 	} else if (strncmp(text, "/mkt", 4) == 0) {
 		if (text[4] != '\0' && text[4] != ' ') goto invalid;
-		if (options->Get_Bool("Channel_Market")) channel.assign("Market");
+		if (options->Get_Bool("Channel_Market")) channel = "Market";
 	} else if (strncmp(text, "/new", 4) == 0) {
 		if (text[4] != '\0' && text[4] != ' ') goto invalid;
-		if (options->Get_Bool("Channel_Newbie")) channel.assign("New Players");
+		if (options->Get_Bool("Channel_Newbie")) channel = "New Players";
 	} else if (strncmp(text, "/jen", 4) == 0) {
 		if (text[4] != '\0' && text[4] != ' ') goto invalid;
-		if (options->Get_Bool("Channel_Jenquai")) channel.assign("Jenquai");
+		if (options->Get_Bool("Channel_Jenquai")) channel = "Jenquai";
 	} else if (strncmp(text, "/ter", 4) == 0) {
 		if (text[4] != '\0' && text[4] != ' ') goto invalid;
-		if (options->Get_Bool("Channel_Terran")) channel.assign("Terran");
+		if (options->Get_Bool("Channel_Terran")) channel = "Terran";
 	} else if (strncmp(text, "/pro", 4) == 0) {
 		if (text[4] != '\0' && text[4] != ' ') goto invalid;
-		if (options->Get_Bool("Channel_Progen")) channel.assign("Progen");
+		if (options->Get_Bool("Channel_Progen")) channel = "Progen";
 	} else if (strncmp(text, "/exp", 4) == 0) {
 		if (text[4] != '\0' && text[4] != ' ') goto invalid;
-		if (options->Get_Bool("Channel_Explorers")) channel.assign("Explorers");
+		if (options->Get_Bool("Channel_Explorers")) channel = "Explorers";
 	} else if (strncmp(text, "/tra", 4) == 0) {
 		if (text[4] != '\0' && text[4] != ' ') goto invalid;
-		if (options->Get_Bool("Channel_Traders")) channel.assign("Tradesmen");
+		if (options->Get_Bool("Channel_Traders")) channel = "Tradesmen";
 	} else if (strncmp(text, "/war", 4) == 0) {
 		if (text[4] != '\0' && text[4] != ' ') goto invalid;
-		if (options->Get_Bool("Channel_Warriors")) channel.assign("Warriors");
+		if (options->Get_Bool("Channel_Warriors")) channel = "Warriors";
 	} else if (strncmp(text, "/sen", 4) == 0) {
 		if (text[4] != '\0' && text[4] != ' ') goto invalid;
-		if (options->Get_Bool("Channel_Sentinels")) channel.assign("Sentinels");
+		if (options->Get_Bool("Channel_Sentinels")) channel = "Sentinels";
 	} else if (strncmp(text, "/def", 4) == 0) {
 		if (text[4] != '\0' && text[4] != ' ') goto invalid;
-		if (options->Get_Bool("Channel_Defenders")) channel.assign("Defenders");
+		if (options->Get_Bool("Channel_Defenders")) channel = "Defenders";
 	} else if (strncmp(text, "/enf", 4) == 0) {
 		if (text[4] != '\0' && text[4] != ' ') goto invalid;
-		if (options->Get_Bool("Channel_Enforcers")) channel.assign("Enforcers");
+		if (options->Get_Bool("Channel_Enforcers")) channel = "Enforcers";
 	} else {
-		if (strncmp(text, "/rad", 4) != 0) goto invalid;
-		if (text[4] != '\0' && text[4] != ' ') goto invalid;
-		channel.assign(ChatPanel->Unknown_5682C0());
+		valid = false;
+	}
+	if (valid) {
+		if (channel.length() == 0) {
+			Unknown_74D990(0x11, "Not monitoring that channel.", 0);
+			monitoring = false;
+		}
+	} else if (strncmp(text, "/rad", 4) == 0 && (text[4] == '\0' || text[4] == ' ')) {
+		channel = ChatPanel->Unknown_5682C0();
 		if (channel.length() == 0) {
 			Unknown_74D990(0x11, "Not monitoring a private channel.", 0);
-			goto done;
+			monitoring = false;
 		}
-		goto send;
+		valid = true;
 	}
-	if (channel.length() == 0) {
-		Unknown_74D990(0x11, "Not monitoring that channel.", 0);
-		goto done;
-	}
-	goto send;
+	if (!monitoring) return(true);
+	if (!valid) {
 invalid:
-	return(false);
-done:
-	return(true);
-send:
+		return(false);
+	}
 	char buffer[512];
 	Bounded_Strcpy(buffer, 512, text);
 	std::vector<std::string> words;
@@ -3412,14 +3415,11 @@ send:
 		return(true);
 	}
 	ClientChatRequestPacketClass packet(0, Get_Unknown1138());
-	packet.Unknown14 = channel;
+	packet.Unknown24 = channel;
 	packet.Unknown34 = message;
 	Send_Packet(&packet);
 	return(true);
 }
-
-
-
 
 
 

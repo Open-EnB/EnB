@@ -1,0 +1,103 @@
+# ===== v1_634140.py
+HYPOTHESIS = ('B3 b1 (0x634140, register residue 20: the client caches npc in edi after the second Find_NPC and i in '
+              'ebx, ours i in edi and npc in memory): npc made a longer web (the first Find_NPC result stored in npc, '
+              'then reassigned), the natural ambient assign (Unknown13C[i] re-read after the call, as the client '
+              'does through esi), npc declared before the test')
+FILE = 'app/client/ui_starbase.cpp'
+SYMBOL = 'UIStarbaseClass::Unknown_54'
+ADDRESS = 0x634140
+
+_SRC = open(FILE, encoding='utf-8', newline='').read()
+_LINES = _SRC.split('\n')
+_A, _B = 721, 730
+
+
+def _form(edits):
+    new = list(_LINES)
+    for n, t in edits.items():
+        new[n - 1] = t
+    return [('\n'.join(_LINES[_A - 1:_B]), '\n'.join(new[_A - 1:_B]))]
+
+
+def L(n):
+    return _LINES[n - 1]
+
+
+T3 = '\t\t\t'
+T4 = '\t\t\t\t'
+assert L(723).strip() == 'if (RoomInfo->Find_NPC(i) == NULL) {'
+assert L(726).strip() == 'StarbaseNPCClass *npc = RoomInfo->Find_NPC(i);'
+assert L(729).strip().startswith('UIStarbaseUnknownCCClass *slot = Unknown13C[i]; slot->AmbientAvatar = ')
+
+NAT = {729: T4 + 'Unknown13C[i]->AmbientAvatar = Create_NEW(Unknown_642740(npc));'}
+FIRST = {723: T3 + 'StarbaseNPCClass *npc = RoomInfo->Find_NPC(i); if (npc == NULL) {',
+         726: T3 + 'npc = RoomInfo->Find_NPC(i);'}
+FIRST2 = {723: T3 + 'StarbaseNPCClass *npc; if ((npc = RoomInfo->Find_NPC(i)) == NULL) {',
+          726: T3 + 'npc = RoomInfo->Find_NPC(i);'}
+DECL = {722: T3[:-1] + 'for (i = 0; i < 14; i++) { StarbaseNPCClass *npc;', 726: T3 + 'npc = RoomInfo->Find_NPC(i);'}
+assert L(722).strip() == 'for (i = 0; i < 14; i++) {'
+
+
+def _merge(*ds):
+    out = {}
+    for d in ds:
+        out.update(d)
+    return out
+
+
+FORMS = {
+    'nat': _form(NAT),
+    'first': _form(FIRST),
+    'first2': _form(FIRST2),
+    'decl': _form(DECL),
+    'first_nat': _form(_merge(FIRST, NAT)),
+    'decl_nat': _form(_merge(DECL, NAT)),
+}
+# ===== v2_634140.py
+HYPOTHESIS = ('B3 b2 (0x634140, register ties in the NPC loop): the definition-count lever (workflow 3.1.2, 2026-11-24: '
+              'VC6 orders by how many definitions a variable has; dead-initialised ints shift it): k = 1..8 dead-initialised '
+              'ints at the loop counter\'s declaration on the base and on the natural ambient assign (the client\'s '
+              're-read of Unknown13C[i] after the call), k = 1..4 at the function top')
+FILE = 'app/client/ui_starbase.cpp'
+SYMBOL = 'UIStarbaseClass::Unknown_54'
+ADDRESS = 0x634140
+
+_SRC = open(FILE, encoding='utf-8', newline='').read()
+_LINES = _SRC.split('\n')
+_A, _B = 685, 730
+
+
+def _form(edits):
+    new = list(_LINES)
+    for n, t in edits.items():
+        new[n - 1] = t
+    return [('\n'.join(_LINES[_A - 1:_B]), '\n'.join(new[_A - 1:_B]))]
+
+
+def L(n):
+    return _LINES[n - 1]
+
+
+assert L(721).strip().startswith('int i; Get_Info();')
+assert L(685).strip() == 'RefCountPtr<RenderObjClass> robj;'
+assert L(729).strip().startswith('UIStarbaseUnknownCCClass *slot = Unknown13C[i]; slot->AmbientAvatar = ')
+NAT = {729: '\t\t\t\tUnknown13C[i]->AmbientAvatar = Create_NEW(Unknown_642740(npc));'}
+
+
+def at_i(k, nat=False):
+    d = {721: L(721).replace('int i;', 'int i;' + ''.join(' int dead%d = 0;' % j for j in range(k)), 1)}
+    if nat:
+        d.update(NAT)
+    return _form(d)
+
+
+def at_top(k):
+    return _form({685: L(685) + ''.join(' int dead%d = 0;' % j for j in range(k))})
+
+
+FORMS = {}
+for k in range(1, 9):
+    FORMS['i%d' % k] = at_i(k)
+    FORMS['nat_i%d' % k] = at_i(k, True)
+for k in range(1, 5):
+    FORMS['top%d' % k] = at_top(k)

@@ -307,8 +307,8 @@ void BridgeInterface::Set_Scene(const RefCountPtr<RefCountClass> &scene)
 // One frame, while the bridge is in a scene. The camera goes onto the view's bone of the mesh (in the main view turned
 // by Yaw and Pitch, which decay unless the pointer set them this frame) and is moved by the last hit's offset; the
 // bridge model leans by the ship's turn rates, smoothed.
-// NOT EXACT: order (explain.py; the same length, 1866 bytes, 0.94): three operand-order pairs, the client loads the
-// other factor first in Pre_Rotate_Z's sine / cosine products and in the last Rotate_Z's
+// (exact; one Peek_Client() call before lean matches VC6's inline-symbol numbering for lean.Row[1][0]'s x87 products)
+//
 // 0x53BD40
 void BridgeInterface::Do_Frame(CameraClass *camera)
 {
@@ -350,7 +350,7 @@ void BridgeInterface::Do_Frame(CameraClass *camera)
 	camera->Set_Transform(view);
 
 	// the bridge leans with the ship's turn (not while the PDA is open)
-	Vector3 turn = pship->PositionalState->Unknown_14(Peek_Client()->Unknown10BC);
+	Vector3 turn = pship->PositionalState->Unknown_14(Client->Unknown10BC);
 	if (View == VIEW_MAIN) {
 		turn *= 50.0f;
 	} else {

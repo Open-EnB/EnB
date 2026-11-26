@@ -1,0 +1,245 @@
+# ===== v1_47A2F0.py
+HYPOTHESIS = ('B3 b1 (0x47A2F0, 5 x87 rows in the first / second inlined Rotate_Vector: the client multiplies w '
+              'kept on the FPU stack by -X in memory, fld st(1) / fmul mem; ours fld mem / fmul st(2)): the first call '
+              'in the value form (the others by pointer), the three calls as value forms with the shadow Set taking '
+              'them, xv / yv / zv declared before q, the X call through a copy of the column; slot map')
+FILE = 'app/shared/unknown_474530.cpp'
+SYMBOL = 'LandClass::Build_Decorations'
+ADDRESS = 0x47A2F0
+
+_SRC = open(FILE, encoding='latin-1', newline='').read()
+_LINES = _SRC.split('\n')
+_A, _B = 760, 790
+
+
+def _form(edits):
+    new = list(_LINES)
+    for n, t in edits.items():
+        new[n - 1] = t
+    return [('\n'.join(_LINES[_A - 1:_B]), '\n'.join(new[_A - 1:_B]))]
+
+
+def L(n):
+    return _LINES[n - 1]
+
+
+T6 = '\t\t\t\t\t\t'
+assert L(768).strip() == 'Quaternion q;'
+assert L(775).strip() == 'Vector3 xv;' and L(777).strip() == 'Vector3 zv;'
+assert L(778).strip() == 'q.Rotate_Vector(shadow.Get_X_Vector(), &xv);'
+assert L(780).strip() == 'q.Rotate_Vector(shadow.Get_Z_Vector(), &zv);'
+
+V1 = {778: T6 + 'xv = q.Rotate_Vector(shadow.Get_X_Vector());'}
+V12 = {778: T6 + 'xv = q.Rotate_Vector(shadow.Get_X_Vector());', 779: T6 + 'yv = q.Rotate_Vector(shadow.Get_Y_Vector());'}
+INIT1 = {775: T6 + 'Vector3 xv = q.Rotate_Vector(shadow.Get_X_Vector());', 778: ''}
+XYZ_BEFORE = {768: T6 + 'Vector3 xv; Vector3 yv; Vector3 zv; Quaternion q;', 775: '', 776: '', 777: ''}
+NOOP = {760: L(760) + ' // b3'}
+
+FORMS = {
+    'noop': _form(NOOP),
+    'v1': _form(V1),
+    'v12': _form(V12),
+    'init1': _form(INIT1),
+    'xyz_before': _form(XYZ_BEFORE),
+}
+# ===== v2_47A2F0.py
+HYPOTHESIS = ('B3 b2 (0x47A2F0): the 5 x87 rows are operand-order ties (ours always fld mem / fmul st(i); the client '
+              'fld st(i) / fmul mem for w*(-X) in call 1 and fxch / fmul mem consuming y in call 2), which FU4 saw move '
+              'with far-away counters: a tie broken by symbol / temp order. Sweep declaration order and named '
+              'temporaries that keep the code: half angle named, unused locals at four points, xv / yv / zv / q / '
+              'translation / normal / z / axis declaration order')
+FILE = 'app/shared/unknown_474530.cpp'
+SYMBOL = 'LandClass::Build_Decorations'
+ADDRESS = 0x47A2F0
+
+_SRC = open(FILE, encoding='latin-1', newline='').read()
+_LINES = _SRC.split('\n')
+_A, _B = 628, 790
+
+
+def _form(edits):
+    new = list(_LINES)
+    for n, t in edits.items():
+        new[n - 1] = t
+    return [('\n'.join(_LINES[_A - 1:_B]), '\n'.join(new[_A - 1:_B]))]
+
+
+def L(n):
+    return _LINES[n - 1]
+
+
+T5 = '\t\t\t\t\t'
+T6 = '\t\t\t\t\t\t'
+assert L(753).strip() == 'Matrix3D shadow;'
+assert L(759).strip() == 'Vector3 normal;'
+assert L(762).strip() == 'Vector3 z = shadow.Get_Z_Vector();'
+assert L(763).strip() == 'Vector3 axis;'
+assert L(767).strip() == 'float angle = (float)acos(cosine);'
+assert L(769).strip() == 'float s = WWMath::Sin(angle / 2);'
+assert L(770).strip() == 'float c = WWMath::Cos(angle / 2);'
+assert L(775).strip() == 'Vector3 xv;' and L(776).strip() == 'Vector3 yv;' and L(777).strip() == 'Vector3 zv;'
+assert L(781).strip() == 'Vector3 translation = shadow.Get_Translation();'
+assert L(645).strip() == 'int i;'
+
+FORMS = {
+    'half': _form({767: L(767) + ' float half = angle / 2;', 769: T6 + 'float s = WWMath::Sin(half);',
+                   770: T6 + 'float c = WWMath::Cos(half);'}),
+    'half2': _form({767: T6 + 'float angle = (float)acos(cosine) / 2;', 769: T6 + 'float s = WWMath::Sin(angle);',
+                    770: T6 + 'float c = WWMath::Cos(angle);'}),
+    'u_top': _form({645: '\tint i; int unused0;'}),
+    'u_top_f': _form({645: '\tint i; float unused0;'}),
+    'u_q': _form({768: T6 + 'int unused0; Quaternion q;'}),
+    'u_end': _form({781: L(781) + ' int unused0;'}),
+    'zyx': _form({775: T6 + 'Vector3 zv;', 777: T6 + 'Vector3 xv;'}),
+    'xyz_q': _form({768: T6 + 'Vector3 xv; Vector3 yv; Vector3 zv; Quaternion q;', 775: '', 776: '', 777: ''}),
+    'trans_first': _form({775: T6 + 'Vector3 translation = shadow.Get_Translation(); Vector3 xv;', 781: ''}),
+    'q_top': _form({753: L(753) + ' Quaternion q;', 768: ''}),
+    'axis_first': _form({759: T5 + 'Vector3 axis; Vector3 normal;', 763: ''}),
+    'xyz_top': _form({753: L(753) + ' Vector3 xv; Vector3 yv; Vector3 zv;', 775: '', 776: '', 777: ''}),
+}
+# ===== v3_47A2F0.py
+HYPOTHESIS = 'B3 b3 (0x47A2F0): slot map of the base (a no-op comment form) to locate -X / w / y slots against the client'
+FILE = 'app/shared/unknown_474530.cpp'
+SYMBOL = 'LandClass::Build_Decorations'
+ADDRESS = 0x47A2F0
+
+_SRC = open(FILE, encoding='latin-1', newline='').read()
+_LINES = _SRC.split('\n')
+assert _LINES[758].strip() == 'Vector3 normal;'
+FORMS = {
+    'noop': [(_LINES[758], _LINES[758] + ' // b3')],
+}
+# ===== v4_47A2F0.py
+HYPOTHESIS = ('B3 b4 (0x47A2F0): the slot packing is the first place ours differs (proto loop tree / shadow at '
+              '-0x10 / -0x14, client -0x14 / -0x10, both constructed tree first), and -X / gi follow it; if the fmul '
+              'operand order follows the packing, the client\'s tree / shadow order fixes both: one declaration, '
+              'initialised from NULL, mesh declared before its assignment, an inner block')
+FILE = 'app/shared/unknown_474530.cpp'
+SYMBOL = 'LandClass::Build_Decorations'
+ADDRESS = 0x47A2F0
+
+_SRC = open(FILE, encoding='latin-1', newline='').read()
+_LINES = _SRC.split('\n')
+_A, _B = 645, 664
+
+
+def _form(edits):
+    new = list(_LINES)
+    for n, t in edits.items():
+        new[n - 1] = t
+    return [('\n'.join(_LINES[_A - 1:_B]), '\n'.join(new[_A - 1:_B]))]
+
+
+def L(n):
+    return _LINES[n - 1]
+
+
+T2 = '\t\t'
+assert L(651).strip() == 'MeshClass *mesh = (MeshClass *)Land_Find_Decoration_Mesh(robj.Peek(), true);'
+assert L(652).strip() == 'RefCountPtr<MeshClass> tree;'
+assert L(653).strip() == 'RefCountPtr<MeshClass> shadow;'
+assert L(662).strip() == 'shadows.push_back(shadow);'
+
+FORMS = {
+    'one_decl': _form({652: T2 + 'RefCountPtr<MeshClass> tree, shadow;', 653: ''}),
+    'null_init': _form({652: T2 + 'RefCountPtr<MeshClass> tree = NULL;', 653: T2 + 'RefCountPtr<MeshClass> shadow = NULL;'}),
+    'mesh_decl': _form({651: T2 + 'MeshClass *mesh; mesh = (MeshClass *)Land_Find_Decoration_Mesh(robj.Peek(), true);'}),
+    'blk': _form({652: T2 + '{ RefCountPtr<MeshClass> tree;', 662: L(662) + ' }'}),
+    'blk2': _form({653: T2 + '{ RefCountPtr<MeshClass> shadow;', 662: L(662) + ' }'}),
+    'shadow_null': _form({653: T2 + 'RefCountPtr<MeshClass> shadow = NULL;'}),
+}
+# ===== v5_47A2F0.py
+HYPOTHESIS = ('B3 b5 (0x47A2F0, the definition-count lever of 2026-11-24, workflow 3.1.2: VC6 orders commutative x87 '
+              'operands by how many definitions a variable has in the whole function; 0x454730 exact with exactly four '
+              'dead-initialised ints): sweep k = 1..10 dead-initialised int locals at the function top, and k = 1..4 '
+              'at the shadow block, against the -X temp loaded first in our nine products')
+FILE = 'app/shared/unknown_474530.cpp'
+SYMBOL = 'LandClass::Build_Decorations'
+ADDRESS = 0x47A2F0
+
+_SRC = open(FILE, encoding='latin-1', newline='').read()
+_LINES = _SRC.split('\n')
+_A, _B = 645, 790
+
+
+def _form(edits):
+    new = list(_LINES)
+    for n, t in edits.items():
+        new[n - 1] = t
+    return [('\n'.join(_LINES[_A - 1:_B]), '\n'.join(new[_A - 1:_B]))]
+
+
+def L(n):
+    return _LINES[n - 1]
+
+
+assert L(645).strip() == 'int i;'
+assert L(768).strip() == 'Quaternion q;'
+
+
+def top(k):
+    return _form({645: '\tint i;' + ''.join(' int dead%d = 0;' % j for j in range(k))})
+
+
+def shadow(k):
+    return _form({768: '\t\t\t\t\t\t' + ''.join('int dead%d = 0; ' % j for j in range(k)) + 'Quaternion q;'})
+
+
+FORMS = {}
+for k in range(1, 11):
+    FORMS['top%d' % k] = top(k)
+for k in range(1, 5):
+    FORMS['sh%d' % k] = shadow(k)
+# ===== v6_47A2F0.py
+HYPOTHESIS = ('B3 b6 (0x47A2F0): workflow 3.1.2: "the x87 operand order of an inlined commutative product follows the '
+              'operand\'s symbol kind (a named local against a temporary)": the client never loads the -X temp first, ours '
+              'always does, as if the client\'s x / y / z / w were named locals of the function and ours inline-function '
+              'locals: the Rotate_Vector arithmetic written out at the call site (per-call blocks; v as a reference to '
+              'the column temporary or a copy; call 1 only; x / y / z / w shared by the three calls)')
+FILE = 'app/shared/unknown_474530.cpp'
+SYMBOL = 'LandClass::Build_Decorations'
+ADDRESS = 0x47A2F0
+
+_SRC = open(FILE, encoding='latin-1', newline='').read()
+_LINES = _SRC.split('\n')
+_A, _B = 768, 782
+
+
+def _form(edits):
+    new = list(_LINES)
+    for n, t in edits.items():
+        new[n - 1] = t
+    return [('\n'.join(_LINES[_A - 1:_B]), '\n'.join(new[_A - 1:_B]))]
+
+
+def L(n):
+    return _LINES[n - 1]
+
+
+T6 = '\t\t\t\t\t\t'
+assert L(778).strip() == 'q.Rotate_Vector(shadow.Get_X_Vector(), &xv);'
+assert L(779).strip() == 'q.Rotate_Vector(shadow.Get_Y_Vector(), &yv);'
+assert L(780).strip() == 'q.Rotate_Vector(shadow.Get_Z_Vector(), &zv);'
+assert L(777).strip() == 'Vector3 zv;'
+
+BODY = ('float x = q.W*v.X + (q.Y*v.Z - v.Y*q.Z); float y = q.W*v.Y - (q.X*v.Z - v.X*q.Z); '
+        'float z = q.W*v.Z + (q.X*v.Y - v.X*q.Y); float w = -(q.X*v.X + q.Y*v.Y + q.Z*v.Z); '
+        'R.X = w*(-q.X) + q.W*x + (y*(-q.Z) - (-q.Y)*z); R.Y = w*(-q.Y) + q.W*y - (x*(-q.Z) - (-q.X)*z); '
+        'R.Z = w*(-q.Z) + q.W*z + (x*(-q.Y) - (-q.X)*y);')
+BODY_SHARED = BODY.replace('float x = ', 'x = ').replace('float y = ', 'y = ').replace('float z = ', 'z = ').replace(
+    'float w = ', 'w = ')
+
+
+def call(col, res, ref=True, shared=False):
+    decl = ('const Vector3 &v = shadow.Get_%s_Vector(); ' if ref else 'Vector3 v = shadow.Get_%s_Vector(); ') % col
+    body = (BODY_SHARED if shared else BODY).replace('R.', res + '.')
+    return T6 + '{ ' + decl + body + ' }'
+
+
+FORMS = {
+    'm_ref': _form({778: call('X', 'xv'), 779: call('Y', 'yv'), 780: call('Z', 'zv')}),
+    'm_copy': _form({778: call('X', 'xv', False), 779: call('Y', 'yv', False), 780: call('Z', 'zv', False)}),
+    'm_ref1': _form({778: call('X', 'xv')}),
+    'm_shared': _form({777: L(777) + ' float x, y, z, w;', 778: call('X', 'xv', True, True),
+                       779: call('Y', 'yv', True, True), 780: call('Z', 'zv', True, True)}),
+}

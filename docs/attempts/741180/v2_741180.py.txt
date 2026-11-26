@@ -1,0 +1,108 @@
+HYPOTHESIS = (
+    'SClient::Init 0x741180 GN5 batch 2 (on top of set_fov_member which cut 19 -> 5, fixing r79/r88/r89/r90 all at once): '
+    'only r14 (0x74128E Load_INIs edx vs eax) and r21 (0x7412F4 ChatPanel Create_NEW lea/push) remain, the exact same '
+    'two symptoms that CameraManager::Set_FOV fixed for r79 and r88. Sweep live inline getters/setters/wrappers at '
+    'every statement from line 410 to line 427 (per-form helpers, verified types) to find what flips r14 and r21 to 0 rows.'
+)
+FILE = 'app/client/sclient.cpp'
+SYMBOL = 'SClient::Init'
+ADDRESS = 0x741180
+
+SRC = open('C:/EnBDevelopment/EnB/.work/wt/GN5/app/client/sclient.cpp', encoding='utf-8').read()
+A = SRC.index('void SClient::Init()\n{')
+B = SRC.index('\n}\n', A) + 3
+FUNC = SRC[A:B]
+
+CM_H = 'app/client/camera_manager.h'
+CM_SET_FOV = (
+    CM_H,
+    '\tfloat FOV;\t\t\t\t\t\t\t\t\t\t\t// +0x48  // NAME 2: sclient.cpp\'s\n',
+    '\tvoid Set_FOV(float fov) { FOV = fov; } float FOV;\t// +0x48  // NAME 2: sclient.cpp\'s\n',
+)
+
+FOV_OLD = '\t{ float fov = mode.FOV; CameraManager->FOV = fov; }\t// fld / fstp in the client'
+FOV_NEW = '\tCameraManager->Set_FOV(mode.FOV);'
+
+HELPER_ANCHOR = '// NOT EXACT: register (19 masked rows:'
+
+def form(helper, *edits):
+    t = FUNC.replace(FOV_OLD, FOV_NEW, 1)
+    for old, new in edits:
+        assert t.count(old) == 1, (old, t.count(old))
+        t = t.replace(old, new)
+    assert t.count('\n') == FUNC.count('\n'), (t.count('\n'), FUNC.count('\n'))
+    out = [(FILE, FUNC, t), CM_SET_FOV]
+    if helper:
+        out.insert(0, (FILE, HELPER_ANCHOR, helper + ' ' + HELPER_ANCHOR))
+    return out
+
+H_SELF = 'static inline SClient *H_Self(SClient *c) { return(c); }'
+
+FORMS = {
+    'base_fov': form(''),
+    'get_be67bc': form('static inline FontStringFilesClass *H_BE67BC() { return(Unknown_BE67BC); }',
+                       ('\tUnknown_BE67BC->Load(0);', '\tH_BE67BC()->Load(0);')),
+    'set_verb': form('static inline void H_Set_Verb(SClient *c, VerbManagerClass *v) { c->VerbManager = v; }',
+                     ('\tVerbManager = new VerbManagerClass(this);', '\tH_Set_Verb(this, new VerbManagerClass(this));')),
+    'get_px': form('static inline PxProcessClass *H_Px(SClient *c) { return(c->PxProcess); }',
+                   ('\tPxProcessClass::Push(PxProcess);', '\tPxProcessClass::Push(H_Px(this));')),
+    'set_fogged': form('static inline void H_Set_Fogged(bool v) { MeshClass::Legacy_Meshes_Fogged = v; }',
+                       ('\tMeshClass::Legacy_Meshes_Fogged = false;', '\tH_Set_Fogged(false);')),
+    'wrap_745350': form(H_SELF, ('\tUnknown_745350();', '\tH_Self(this)->Unknown_745350();')),
+    'get_13cc': form('static inline Unknown764FD0Class &H_13CC(SClient *c) { return(c->Unknown13CC); }',
+                     ('\tUnknown13CC.Unknown_765010();', '\tH_13CC(this).Unknown_765010();')),
+    'get_rsl': form('static inline RSLRegistryClass *H_RSL(SClient *c) { return(c->RSLRegistry); }',
+                    ('\tRSLRegistry->Unknown_763E70("rs.ini");', '\tH_RSL(this)->Unknown_763E70("rs.ini");')),
+    'get_1334': form('static inline SClientUnknown1334Class *H_1334(SClient *c) { return(c->Unknown1334); }',
+                     ('\tUnknown1334->Load(', '\tH_1334(this)->Load(')),
+    'get_proj': form('static inline ProjDecalManagerClass *H_Proj(SClient *c) { return(c->ProjDecalManager); }',
+                     ('\tProjDecalManager->Load("proj_dec.ini");', '\tH_Proj(this)->Load("proj_dec.ini");')),
+    'set_1270': form('static inline void H_Set_1270(SClient *c, LoginUnknown0CClass *p) { c->Unknown1270 = p; }',
+                     ('\tUnknown1270 = new LoginUnknown0CClass;', '\tH_Set_1270(this, new LoginUnknown0CClass);')),
+    'wrap_7451d0': form(H_SELF, ('\tUnknown_7451D0();', '\tH_Self(this)->Unknown_7451D0();')),
+    'call_7451d0': form('static inline void H_Call_7451D0(SClient *c) { c->Unknown_7451D0(); }',
+                        ('\tUnknown_7451D0();', '\tH_Call_7451D0(this);')),
+    'wrap_load_inis': form(H_SELF, ('\tLoad_INIs();', '\tH_Self(this)->Load_INIs();')),
+    'call_load_inis': form('static inline void H_Call_Load_INIs(SClient *c) { c->Load_INIs(); }',
+                           ('\tLoad_INIs();', '\tH_Call_Load_INIs(this);')),
+    'base_load_inis': form('', ('\tLoad_INIs();', '\t((ClientClass *)this)->Load_INIs();')),
+    'init_inis_pair': form('static inline void H_Init_INIs(SClient *c) { c->Unknown_7451D0(); c->Load_INIs(); }',
+                           ('\tUnknown_7451D0();\n\tLoad_INIs();', '\tH_Init_INIs(this);\n')),
+    'wrap_ckm': form(H_SELF, ('\tControlKeysManager::Create(this);', '\tControlKeysManager::Create(H_Self(this));')),
+    'set_mouse': form('static inline void H_Set_Mouse(SClient *c, LoginUnknown18Class *m) { c->Mouse = m; }',
+                      ('\tMouse = new LoginUnknown18Class((int)this);', '\tH_Set_Mouse(this, new LoginUnknown18Class((int)this));')),
+    'get_mouse': form('static inline LoginUnknown18Class *H_Mouse(SClient *c) { return(c->Mouse); }',
+                      ('\tMouse->Unknown_515120(2);', '\tH_Mouse(this)->Unknown_515120(2);')),
+    'chat_this': form(H_SELF, ('\tChatPanel = Create_NEW(new ChatPanelInterface(this));',
+                               '\tChatPanel = Create_NEW(new ChatPanelInterface(H_Self(this)));')),
+    'chat_ref': form('static inline RefCountPtr<ChatPanelInterface> &H_ChatRef(SClient *c) { return(c->ChatPanel); }',
+                     ('\tChatPanel = Create_NEW(new ChatPanelInterface(this));',
+                      '\tH_ChatRef(this) = Create_NEW(new ChatPanelInterface(this));')),
+    'chat_set': form('static inline void H_Set_Chat(SClient *c, const RefCountPtr<ChatPanelInterface> &p) { c->ChatPanel = p; }',
+                     ('\tChatPanel = Create_NEW(new ChatPanelInterface(this));',
+                      '\tH_Set_Chat(this, Create_NEW(new ChatPanelInterface(this)));')),
+    'chat_new': form('static inline ChatPanelInterface *H_New_Chat(SClient *c) { return(new ChatPanelInterface(c)); }',
+                     ('\tChatPanel = Create_NEW(new ChatPanelInterface(this));',
+                      '\tChatPanel = Create_NEW(H_New_Chat(this));')),
+    'load_and_chat_ref': form(
+        H_SELF + ' static inline RefCountPtr<ChatPanelInterface> &H_ChatRef(SClient *c) { return(c->ChatPanel); }',
+        ('\tLoad_INIs();', '\tH_Self(this)->Load_INIs();'),
+        ('\tChatPanel = Create_NEW(new ChatPanelInterface(this));',
+         '\tH_ChatRef(this) = Create_NEW(new ChatPanelInterface(this));'),
+    ),
+    'set_fogged_and_load': form(
+        'static inline void H_Set_Fogged(bool v) { MeshClass::Legacy_Meshes_Fogged = v; } ' + H_SELF,
+        ('\tMeshClass::Legacy_Meshes_Fogged = false;', '\tH_Set_Fogged(false);'),
+        ('\tLoad_INIs();', '\tH_Self(this)->Load_INIs();'),
+    ),
+    'rsl_and_load': form(
+        'static inline RSLRegistryClass *H_RSL(SClient *c) { return(c->RSLRegistry); } ' + H_SELF,
+        ('\tRSLRegistry->Unknown_763E70("rs.ini");', '\tH_RSL(this)->Unknown_763E70("rs.ini");'),
+        ('\tLoad_INIs();', '\tH_Self(this)->Load_INIs();'),
+    ),
+    'proj_and_load': form(
+        'static inline ProjDecalManagerClass *H_Proj(SClient *c) { return(c->ProjDecalManager); } ' + H_SELF,
+        ('\tProjDecalManager->Load("proj_dec.ini");', '\tH_Proj(this)->Load("proj_dec.ini");'),
+        ('\tLoad_INIs();', '\tH_Self(this)->Load_INIs();'),
+    ),
+}

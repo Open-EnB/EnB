@@ -3,7 +3,7 @@
 #ifndef UNKNOWN_7CEF30_H  // NAME 1 [unknown_7cef30.h]: PROVISIONAL (D137)
 #define UNKNOWN_7CEF30_H
 
-#include <string>
+// (no <string>: the client's unknown_7e1e40 object, an includer, has no <string> initialiser; std::string from <vector>)
 #include <vector>
 
 class SubsRequestClass;

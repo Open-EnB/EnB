@@ -215,10 +215,10 @@ void LandClass::Prepare_Lighting(void)
 	}
 }
 
-// NOT EXACT: register-only (the unlit loop loads Unknown120C before n, ecx / edx swapped; 4 rows masked; attempts.csv 0x46CAE0). The lit vertices: the sun's normal colour plus the sky's; the shadowed: the sky's; between the horizons a blend
+// 0x46CAE0 (one n for the three loop pairs: its definition count orders n * 4 before the lightmap pointer). The lit vertices: the sun's normal colour plus the sky's; the shadowed: the sky's; between the horizons a blend
 void LandClass::Compute_Lighting(void)
 {
-	unsigned char *color;
+	unsigned char *color; unsigned int n;
 	unsigned char *sky = (unsigned char *)&SkyColorDX8;
 	if (Lighting.Valid) {
 		float step = ShadowStep;
@@ -228,7 +228,7 @@ void LandClass::Compute_Lighting(void)
 		if (SunFromWest) {
 		for (unsigned int j = UpdateMin.J; j < (unsigned int)UpdateMax.J; j++) {
 			for (unsigned int i = UpdateMin.I; i < (unsigned int)UpdateMax.I; i++) {
-				unsigned int n = Field->Get_Size() * j + i;
+				n = Field->Get_Size() * j + i;
 				horizon = Unknown1E8[n];
 				if (low > horizon) {
 					Unknown120C[n] = NormalColors[Unknown1E4[n]];
@@ -273,7 +273,7 @@ void LandClass::Compute_Lighting(void)
 		} else {
 		for (unsigned int j = UpdateMin.J; j < (unsigned int)UpdateMax.J; j++) {
 			for (unsigned int i = UpdateMin.I; i < (unsigned int)UpdateMax.I; i++) {
-				unsigned int n = Field->Get_Size() * j + i;
+				n = Field->Get_Size() * j + i;
 				horizon = Unknown1EC[n];
 				if (low > horizon) {
 					Unknown120C[n] = NormalColors[Unknown1E4[n]];
@@ -319,7 +319,7 @@ void LandClass::Compute_Lighting(void)
 	} else {
 		for (unsigned int j = UpdateMin.J; j < (unsigned int)UpdateMax.J; j++) {
 			for (unsigned int i = UpdateMin.I; i < (unsigned int)UpdateMax.I; i++) {
-				unsigned int n = Field->Get_Size() * j + i;
+				n = Field->Get_Size() * j + i;
 				Unknown120C[n] = SkyColorDX8;
 				color = (unsigned char *)&Unknown120C[n];
 				int f1 = Unknown1F4[n];

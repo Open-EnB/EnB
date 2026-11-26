@@ -19,6 +19,7 @@
 #define __DELTA_STRING_H
 
 #include "delta.h"
+#include "..\kv_encoder.h"
 #include "..\kv_pair_string.h"
 
 // vtable 0xAEB0E4, size 0x88

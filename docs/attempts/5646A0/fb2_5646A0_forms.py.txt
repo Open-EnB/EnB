@@ -1,0 +1,483 @@
+# ==== v1_5646a0.py ====
+HYPOTHESIS = (
+    'FB2 batch 1 on 0x5646A0 (1 row: case 3 inlined _Eos [ecx+eax] vs client [eax+ecx]). Exact 0x64D400 has both '
+    'orders with the same registers: append(const string &) whose _N has two definitions gives n+ptr, append(const '
+    'char *) whose _N has one gives ptr+n: the order follows the definitions VC6 counts (workflow 3.1.2). Diagnostic: '
+    'k dead-initialised scalars at the top / in case 3 (0x454730 lever, untried here), a two-definition length local '
+    'feeding assign(s, n) in case 3 (read apart from the budget), a shared function-level length local.'
+)
+FILE = 'app/client/ui_chat_panel.cpp'
+SYMBOL = 'ChatPanelInterface::Unknown_5646A0'
+ADDRESS = 0x5646A0
+
+OLD_LINE = '\tint old = Unknown148;\n'
+DEAD = '\tUnknown148 = channel; Unknown238.size();\t// dead read: spends the inline budget the client spent (D272), so case 4\'s assign inlines _Eos and cases 3 / 5 keep their own Unknown_B4 calls\n'
+C3 = (
+    '\t\t\t\tUnknown238 = "Group";\n'
+    '\t\t\t\tChatInt->Unknown_B4(Unknown_B7C2B8[Unknown148]);\n'
+    '\t\t\t\tbreak;\n'
+    '\t\t\tcase 5: {\n'
+)
+C2 = '\t\t\t\tUnknown238 = "Guild";\n'
+C1 = '\t\t\t\tUnknown238 = "Local";\n'
+C0 = '\t\t\t\tUnknown238 = "Broadcast";\n'
+
+
+def ints(k, v='0'):
+    return ' '.join('int d%d = %s;' % (i, v) for i in range(1, k + 1))
+
+
+FORMS = {}
+for k in range(1, 9):
+    FORMS['top_k%d' % k] = [(OLD_LINE, '\tint old = Unknown148; %s\n' % ints(k))]
+for k in (1, 2, 3, 4):
+    FORMS['c3_k%d' % k] = [(C3, C3.replace('\t\t\t\tUnknown238 = "Group";\n', '\t\t\t\t{ %s } Unknown238 = "Group";\n' % ints(k)))]
+
+# a length local with one / two definitions feeding assign(s, n) in case 3
+FORMS['c3_n_local'] = [(C3, C3.replace('Unknown238 = "Group";', '{ size_t n = strlen("Group"); Unknown238.assign("Group", n); }'))]
+FORMS['c3_n_two_defs'] = [
+    (OLD_LINE, '\tint old = Unknown148; size_t n = 0;\n'),
+    (C3, C3.replace('Unknown238 = "Group";', 'n = strlen("Group"); Unknown238.assign("Group", n);')),
+]
+FORMS['c3_n_two_defs_nodead'] = FORMS['c3_n_two_defs'] + [(DEAD, '\tUnknown148 = channel;\n')]
+FORMS['c3_n_local_nodead'] = FORMS['c3_n_local'] + [(DEAD, '\tUnknown148 = channel;\n')]
+# every label case through one function-level length local (a second definition per case)
+FORMS['all_n_shared'] = [
+    (OLD_LINE, '\tint old = Unknown148; size_t n;\n'),
+    (C0, '\t\t\t\tn = strlen("Broadcast"); Unknown238.assign("Broadcast", n);\n'),
+    (C1, '\t\t\t\tn = strlen("Local"); Unknown238.assign("Local", n);\n'),
+    (C2, '\t\t\t\tn = strlen("Guild"); Unknown238.assign("Guild", n);\n'),
+    (C3, C3.replace('Unknown238 = "Group";', 'n = strlen("Group"); Unknown238.assign("Group", n);')),
+]
+FORMS['all_n_shared_nodead'] = FORMS['all_n_shared'] + [(DEAD, '\tUnknown148 = channel;\n')]
+# a label pointer with several definitions (a leaf), one assign per case kept
+FORMS['all_name_shared'] = [
+    (OLD_LINE, '\tint old = Unknown148; const char *name;\n'),
+    (C0, '\t\t\t\tname = "Broadcast"; Unknown238 = name;\n'),
+    (C1, '\t\t\t\tname = "Local"; Unknown238 = name;\n'),
+    (C2, '\t\t\t\tname = "Guild"; Unknown238 = name;\n'),
+    (C3, C3.replace('Unknown238 = "Group";', 'name = "Group"; Unknown238 = name;')),
+]
+
+# ==== v2_5646a0.py ====
+HYPOTHESIS = (
+    'FB2 batch 2 on 0x5646A0, diagnostics read at the inlined _Eos rows (sib.py), not by residue: exact 0x7F8260 gives '
+    'three orders for three identical string(const char *) expansions (the last one n+ptr as the client here), so the '
+    'order may follow which other expansions of assign / _Eos the function holds before and after the site (shared '
+    'inline temporaries: the count of definitions). Remove or add expansions around case 3 and read its SIB.'
+)
+FILE = 'app/client/ui_chat_panel.cpp'
+SYMBOL = 'ChatPanelInterface::Unknown_5646A0'
+ADDRESS = 0x5646A0
+
+DEAD = '\tUnknown148 = channel; Unknown238.size();\t// dead read: spends the inline budget the client spent (D272), so case 4\'s assign inlines _Eos and cases 3 / 5 keep their own Unknown_B4 calls\n'
+NODEAD = '\tUnknown148 = channel;\n'
+C3 = (
+    '\t\t\t\tUnknown238 = "Group";\n'
+    '\t\t\t\tChatInt->Unknown_B4(Unknown_B7C2B8[Unknown148]);\n'
+    '\t\t\t\tbreak;\n'
+    '\t\t\tcase 5: {\n'
+)
+C2 = '\t\t\t\tUnknown238 = "Guild";\n'
+C1 = '\t\t\t\tUnknown238 = "Local";\n'
+C0 = '\t\t\t\tUnknown238 = "Broadcast";\n'
+C5A = '\t\t\t\tUnknown238 = Unknown1F4;\n'
+C4A = '\t\t\t\tUnknown238 = Unknown214;\n'
+CH6A = '\t\tUnknown248 = Unknown_565BC0();\n'
+CH6B = '\t\tUnknown238 = Unknown_565BC0();\n'
+CH9A = '\t\tUnknown248 = Unknown1D8;\n'
+CH9B = '\t\tUnknown238 = Unknown1D8;\n'
+CM1 = '\t\t\t\tsclient->Unknown_74D990(17, "No valid default channel set.", 0);\n'
+END = '\tSoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);\n\treturn(true);\n}\n\n// 0x564F50\n'
+CASE3_WHOLE = (
+    '\t\t\tcase 3:\n'
+    '\t\t\t\tif (!sclient->Unknown_74D570()) {\n'
+    '\t\t\t\t\tsclient->Unknown_74D990(17, "Not in a group.", 0);\n'
+    '\t\t\t\t\tUnknown148 = old;\n'
+    '\t\t\t\t\treturn(false);\n'
+    '\t\t\t\t}\n'
+    '\t\t\t\tUnknown238 = "Group";\n'
+    '\t\t\t\tChatInt->Unknown_B4(Unknown_B7C2B8[Unknown148]);\n'
+    '\t\t\t\tbreak;\n'
+)
+C4_END = (
+    '\t\t\t\t_snprintf(buffer, sizeof(buffer), "Private %s:", Unknown214.c_str());\n'
+    '\t\t\t\tChatInt->Unknown_B4(buffer);\n'
+    '\t\t\t\tbreak;\n'
+    '\t\t\t}\n'
+)
+
+FORMS = {
+    'no_c5_assign': [(C5A, '\n')],
+    'no_c4_assign': [(C4A, '\n')],
+    'no_c45_assign': [(C5A, '\n'), (C4A, '\n')],
+    'no_ch6a': [(CH6A, '\n')],
+    'no_ch6b': [(CH6B, '\n')],
+    'no_ch6ab': [(CH6A, '\n'), (CH6B, '\n')],
+    'no_ch9ab': [(CH9A, '\n'), (CH9B, '\n')],
+    'no_c0': [(C0, '\n')],
+    'no_c2': [(C2, '\n')],
+    'no_c012': [(C0, '\n'), (C1, '\n'), (C2, '\n')],
+    'extra_in_c5': [(C3, C3 + '\t\t\t\tUnknown238 = "x";\n')],
+    'extra_in_cm1': [(CM1, '\t\t\t\tUnknown238 = "x";\n' + CM1)],
+    'c3_last': [(CASE3_WHOLE, ''), (C4_END, C4_END + CASE3_WHOLE)],
+    'dead_assign_after_return': [(END, END.replace('\treturn(true);\n', '\treturn(true); Unknown238 = "";\n'))],
+    'dead0': [(DEAD, NODEAD)],
+    'dead2': [(DEAD, '\tUnknown148 = channel; Unknown238.size(); Unknown238.size();\n')],
+    'dead3': [(DEAD, '\tUnknown148 = channel; Unknown238.size(); Unknown238.size(); Unknown238.size();\n')],
+    'no_c012_dead0': [(C0, '\n'), (C1, '\n'), (C2, '\n'), (DEAD, NODEAD)],
+    'no_ch6ab_dead0': [(CH6A, '\n'), (CH6B, '\n'), (DEAD, NODEAD)],
+    'no_c45_dead0': [(C5A, '\n'), (C4A, '\n'), (DEAD, NODEAD)],
+}
+
+# ==== v3_5646a0.py ====
+HYPOTHESIS = (
+    'FB2 batch 3 on 0x5646A0 (rule finding, read with sib.py on the test functions): which source property orders the '
+    'SIB of an inlined _Eos. Small free functions at the file end: literal source, parameter source, a two-definition '
+    'pointer, a switch of four literals, a two-definition length, assign(s, n) with n a parameter, the literal '
+    'assigned twice, a string constructed from a literal.'
+)
+FILE = 'app/client/ui_chat_panel.cpp'
+SYMBOL = 'ChatPanelInterface::Unknown_5646A0'
+ADDRESS = 0x5646A0
+
+TAIL = '\t*Unknown_BA8C50 = "Enforcers";  // NAME 1: neutral (D10)\n'
+TESTS = r'''
+void FB2_T1(std::string &s) { s = "Group"; }
+void FB2_T2(std::string &s, const char *p) { s = p; }
+void FB2_T3(std::string &s, int c) { const char *p; if (c) p = "Group"; else p = "Guild"; s = p; }
+void FB2_T4(std::string &s, int c) { switch (c) { case 0: s = "Broadcast"; break; case 1: s = "Local"; break; case 2: s = "Guild"; break; case 3: s = "Group"; break; } }
+void FB2_T5(std::string &s, const char *p, size_t n) { s.assign(p, n); }
+void FB2_T6(std::string &s) { size_t n = strlen("Group"); s.assign("Group", n); }
+void FB2_T7(std::string &s, std::string &t) { s = "Group"; t = "Group"; }
+void FB2_T8(std::string &s, const char *p) { s = p; s += p; }
+void FB2_T9(std::string &s, const char *p, const char *q) { s = p; s = q; }
+struct FB2_S { std::string A, B, C; FB2_S(const char *a, const char *b) : A(a), B(b), C(b) {} };
+void FB2_T10(const char *a, const char *b) { FB2_S s(a, b); FB2_T1(s.A); }
+struct FB2_L { std::string A, B, C; FB2_L() : A("Guild"), B("Group"), C("Group") {} };
+void FB2_T11() { FB2_L s; FB2_T1(s.A); }
+'''
+FORMS = {
+    'tests': [(TAIL, TAIL + TESTS)],
+}
+
+# ==== v4_5646a0.py ====
+HYPOTHESIS = (
+    'FB2 batch 4 on 0x5646A0 (rule finding 2, sib.py on test functions): batch 3 gave n+ptr for a single straight-line '
+    'expansion (literal or parameter source) and ptr+n whenever the function held a second expansion or a '
+    'two-definition source pointer. Separate control flow from sharing: one expansion behind a branch / in a switch, '
+    'two expansions of different layers (operator= against assign), other kinds of expansion before / after.'
+)
+FILE = 'app/client/ui_chat_panel.cpp'
+SYMBOL = 'ChatPanelInterface::Unknown_5646A0'
+ADDRESS = 0x5646A0
+
+TAIL = '\t*Unknown_BA8C50 = "Enforcers";  // NAME 1: neutral (D10)\n'
+TESTS = r'''
+extern int FB2_g; extern void FB2_f();
+void FB2_U1(std::string &s, std::string &t) { s = "Group"; t.assign("Group"); }
+void FB2_U2(std::string &s, std::string &t) { t.assign("Guild", 5); s = "Group"; }
+void FB2_U3(std::string &s, std::string &t) { FB2_g = t.size(); s = "Group"; }
+void FB2_U4(std::string &s, int c) { if (c) FB2_g = 1; s = "Group"; }
+void FB2_U5(std::string &s, int c) { const char *p = c ? "Group" : "Guild"; s = p; }
+void FB2_U6(std::string &s, int c) { if (c) return; s = "Group"; }
+void FB2_U7(std::string &s, int c) { if (c) s = "Group"; else s = "Guild"; }
+void FB2_U8(std::string &s, int c) { switch (c) { case 0: FB2_g = 4; break; case 1: FB2_f(); break; case 2: FB2_g = 7; break; case 3: s = "Group"; break; } }
+void FB2_U9(std::string &s, std::string &t, std::string &u) { s = "Aaaa"; t = "Bbbb"; u = "Cccc"; }
+void FB2_U10(std::string &s, std::string &t, const char *p) { s = "Group"; t = p; }
+void FB2_U11(std::string &s, std::string &t, std::string &u) { t = u; s = "Group"; }
+void FB2_U12(std::string &s, std::string &t, std::string &u) { s = "Group"; t = u; }
+void FB2_U13(std::string &s, std::string &t) { s = "Group"; t += "Guild"; }
+void FB2_U14(std::string &s, std::string &t) { t += "Guild"; s = "Group"; }
+void FB2_U15(std::string &s, std::string &t) { s = "Group"; FB2_f(); t.assign("Guild", 5); }
+void FB2_U16(std::string &s, int c) { if (c) { s = "Group"; FB2_f(); } else { FB2_f(); s.assign("Guild"); } }
+'''
+FORMS = {
+    'tests': [(TAIL, TAIL + TESTS)],
+}
+
+# ==== v5_5646a0.py ====
+HYPOTHESIS = (
+    'FB2 batch 5 on 0x5646A0 (rule finding 3, sib.py on test constructors shaped as exact StringOptionStruct 0x7F8260, '
+    'whose third identical string(const char *) expansion alone is n+ptr): is it the last expansion, the count of '
+    'expansions, or what follows the site? Vary the member count, add a statement after, use literal sources, and '
+    'follow the last site by a virtual call as case 3 here.'
+)
+FILE = 'app/client/ui_chat_panel.cpp'
+SYMBOL = 'ChatPanelInterface::Unknown_5646A0'
+ADDRESS = 0x5646A0
+
+TAIL = '\t*Unknown_BA8C50 = "Enforcers";  // NAME 1: neutral (D10)\n'
+TESTS = r'''
+extern int FB2_g; extern void FB2_f();
+struct FB2_V { virtual void F(const char *) = 0; };
+struct FB2_S2 { std::string A, B; FB2_S2(const char *a, const char *b); };
+FB2_S2::FB2_S2(const char *a, const char *b) : A(a), B(b) {}
+struct FB2_S3 { std::string A, B, C; FB2_S3(const char *a, const char *b); };
+FB2_S3::FB2_S3(const char *a, const char *b) : A(a), B(b), C(b) {}
+struct FB2_S4 { std::string A, B, C, D; FB2_S4(const char *a, const char *b); };
+FB2_S4::FB2_S4(const char *a, const char *b) : A(a), B(b), C(b), D(b) {}
+struct FB2_S3G { std::string A, B, C; FB2_S3G(const char *a, const char *b); };
+FB2_S3G::FB2_S3G(const char *a, const char *b) : A(a), B(b), C(b) { FB2_g = 1; }
+struct FB2_S3F { std::string A, B, C; FB2_S3F(const char *a, const char *b); };
+FB2_S3F::FB2_S3F(const char *a, const char *b) : A(a), B(b), C(b) { FB2_f(); }
+struct FB2_S3L { std::string A, B, C; FB2_S3L(); };
+FB2_S3L::FB2_S3L() : A("Guild"), B("Group"), C("Group") {}
+struct FB2_S3V { std::string A, B, C; FB2_S3V(const char *a, const char *b, FB2_V *v); };
+FB2_S3V::FB2_S3V(const char *a, const char *b, FB2_V *v) : A(a), B(b), C(b) { v->F(a); }
+struct FB2_S3A { std::string A, B, C; void Set(const char *a, const char *b); void SetL(FB2_V *v); void SetS(int c, FB2_V *v); };
+void FB2_S3A::Set(const char *a, const char *b) { A = a; B = b; C = b; }
+void FB2_S3A::SetL(FB2_V *v) { A = "Guild"; B = "Group"; C = "Group"; v->F("x"); }
+void FB2_S3A::SetS(int c, FB2_V *v) { switch (c) { case 0: A = "Broadcast"; v->F("x"); break; case 1: A = "Local"; v->F("x"); break; case 2: A = "Guild"; v->F("x"); break; case 3: A = "Group"; v->F("x"); break; case 4: B = C; v->F("y"); break; } FB2_f(); }
+'''
+FORMS = {
+    'tests': [(TAIL, TAIL + TESTS)],
+}
+
+# ==== v6_5646a0.py ====
+HYPOTHESIS = (
+    'FB2 batch 6 on 0x5646A0: batch 5 showed the order alternating with the count of earlier expansions (a two-member '
+    'constructor ends ptr+n, the three-member one n+ptr, identical instructions): VC6 hands the inline temporaries to '
+    'the next expansion in another order. So a dead inline expansion with the right parameter kinds before case 3 '
+    '(the budget spender the client really had, in place of size()) should flip case 3: dead compare / == "" / '
+    'const operator[] / char_traits::length / _cpp_min, alone and beside the size() read.'
+)
+FILE = 'app/client/ui_chat_panel.cpp'
+SYMBOL = 'ChatPanelInterface::Unknown_5646A0'
+ADDRESS = 0x5646A0
+
+DEAD = '\tUnknown148 = channel; Unknown238.size();\t// dead read: spends the inline budget the client spent (D272), so case 4\'s assign inlines _Eos and cases 3 / 5 keep their own Unknown_B4 calls\n'
+
+KINDS = {
+    'eqempty': 'Unknown238 == "";',
+    'neempty': 'Unknown238 != "";',
+    'compare': 'Unknown238.compare("");',
+    'cidx': '((const std::string &)Unknown238)[0];',
+    'trlen': 'std::char_traits<char>::length("");',
+    'cppmin': 'std::_cpp_min(old, channel);',
+    'eq1d8': 'Unknown238 == Unknown1D8;',
+    'cmp1d8': 'Unknown238.compare(Unknown1D8);',
+    'strcmp': 'strcmp(Unknown238.c_str(), "");',
+    'treq': 'std::char_traits<char>::eq(\'a\', \'b\');',
+}
+FORMS = {}
+for k, text in KINDS.items():
+    FORMS[k] = [(DEAD, '\tUnknown148 = channel; %s\n' % text)]
+    FORMS[k + '_size'] = [(DEAD, '\tUnknown148 = channel; %s Unknown238.size();\n' % text)]
+    FORMS['size_' + k] = [(DEAD, '\tUnknown148 = channel; Unknown238.size(); %s\n' % text)]
+
+# ==== v7_5646a0.py ====
+HYPOTHESIS = (
+    'FB2 batch 7 on 0x5646A0 (new evidence from 0x5C5DB0 today: statements repeated in branches are counted before '
+    'VC6 merges their equal tails, and the count moves register roles without code). Ours writes the label call '
+    'ChatInt->Unknown_B4(Unknown_B7C2B8[Unknown148]) in each of cases 0-3 and VC6 merges the four; the client\'s '
+    'single copy after case 3 may be one statement in its source. Forms with one copy (after the switch, cases 4 / '
+    '5 leaving on their own; a label in case 3 reached by goto), each with 0-4 dead reads because the budget moves; '
+    'read at the _Eos rows (sib.py) and by residue.'
+)
+FILE = 'app/client/ui_chat_panel.cpp'
+SYMBOL = 'ChatPanelInterface::Unknown_5646A0'
+ADDRESS = 0x5646A0
+
+DEAD = '\tUnknown148 = channel; Unknown238.size();\t// dead read: spends the inline budget the client spent (D272), so case 4\'s assign inlines _Eos and cases 3 / 5 keep their own Unknown_B4 calls\n'
+B4 = '\t\t\t\tChatInt->Unknown_B4(Unknown_B7C2B8[Unknown148]);\n'
+C0 = '\t\t\t\tUnknown238 = "Broadcast";\n' + B4 + '\t\t\t\tbreak;\n'
+C1 = '\t\t\t\tUnknown238 = "Local";\n' + B4 + '\t\t\t\tbreak;\n'
+C2 = '\t\t\t\tUnknown238 = "Guild";\n' + B4 + '\t\t\t\tbreak;\n'
+C3 = '\t\t\t\tUnknown238 = "Group";\n' + B4 + '\t\t\t\tbreak;\n'
+C5END = '\t\t\t\t_snprintf(buffer, sizeof(buffer), "%s:", Unknown1F4.c_str());\n\t\t\t\tChatInt->Unknown_B4(buffer);\n\t\t\t\tbreak;\n'
+C4END = '\t\t\t\t_snprintf(buffer, sizeof(buffer), "Private %s:", Unknown214.c_str());\n\t\t\t\tChatInt->Unknown_B4(buffer);\n\t\t\t\tbreak;\n\t\t\t}\n\t\t}\n\t}\n'
+PLAY = 'SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2); return(true);'
+
+
+def dead(k):
+    return (DEAD, '\tUnknown148 = channel;%s\n' % (' Unknown238.size();' * k))
+
+
+def after_switch(k):
+    return [dead(k),
+            (C0, C0.replace(B4, '')), (C1, C1.replace(B4, '')), (C2, C2.replace(B4, '')), (C3, C3.replace(B4, '')),
+            (C5END, C5END.replace('break;', PLAY)),
+            (C4END, C4END.replace('break;\n\t\t\t}\n\t\t}\n', PLAY + '\n\t\t\t}\n\t\t}\n' + B4[2:]))]
+
+
+def goto(k):
+    return [dead(k),
+            (C0, C0.replace(B4, '').replace('break;', 'goto show;')),
+            (C1, C1.replace(B4, '').replace('break;', 'goto show;')),
+            (C2, C2.replace(B4, '').replace('break;', 'goto show;')),
+            (C3, C3.replace(B4, 'show:\n' + B4))]
+
+
+def c23(k):
+    """only cases 2 and 3 share (the two with an availability test)"""
+    return [dead(k), (C2, C2.replace(B4, '').replace('break;', 'goto show;')), (C3, C3.replace(B4, 'show:\n' + B4))]
+
+
+FORMS = {}
+for k in range(0, 5):
+    FORMS['after_switch_d%d' % k] = after_switch(k)
+    FORMS['goto_d%d' % k] = goto(k)
+    FORMS['goto23_d%d' % k] = c23(k)
+
+# ==== v8_5646a0.py ====
+import subprocess
+
+HYPOTHESIS = (
+    'FB2 batch 8 on 0x5646A0: batch 7 made it exact with one label-call statement for cases 2 and 3 (goto) and 3-4 '
+    'dead reads: the count of copies before VC6\'s merge settles the _Eos row. A goto is not how the client would '
+    'spell it: the same state through an inline helper for the label call (in case 3, cases 2-3, cases 0-1, all '
+    'four), and other pairs sharing by goto (0-1), each over 0-6 dead reads.'
+)
+FILE = 'app/client/ui_chat_panel.cpp'
+SYMBOL = 'ChatPanelInterface::Unknown_5646A0'
+ADDRESS = 0x5646A0
+
+A, Z = '// @0x5646A0\n', '// 0x564F50\n'
+WORK = open(FILE, encoding='utf-8', newline='').read().replace('\r\n', '\n')
+HEAD = subprocess.run(['git', 'show', 'dfc8c61da:' + FILE], capture_output=True).stdout.decode('utf-8').replace('\r\n', '\n')
+WREG = WORK[WORK.index(A):WORK.index(Z)]
+HREG = HEAD[HEAD.index(A):HEAD.index(Z)]
+DEAD = '\tUnknown148 = channel; Unknown238.size();\t// dead read'
+assert DEAD in HREG
+DEADLINE = HREG[HREG.index(DEAD):HREG.index('\n', HREG.index(DEAD)) + 1]
+B4 = '\t\t\t\tChatInt->Unknown_B4(Unknown_B7C2B8[Unknown148]);\n'
+CALL = '\t\t\t\tUnknown_Call_B4(this);\n'
+FN = 'static inline void Unknown_Call_B4(ChatPanelInterface *self) { self->ChatInt->Unknown_B4(Unknown_B7C2B8[self->Unknown148]); } // NAME 1: neutral\n'
+LIT = ['"Broadcast"', '"Local"', '"Guild"', '"Group"']
+
+
+def dead(reg, k):
+    return reg.replace(DEADLINE, '\tUnknown148 = channel;%s\n' % (' Unknown238.size();' * k))
+
+
+def helper(cases, k):
+    reg = dead(HREG, k)
+    for c in cases:
+        old = '\t\t\t\tUnknown238 = %s;\n' % LIT[c] + B4
+        assert reg.count(old) == 1
+        reg = reg.replace(old, '\t\t\t\tUnknown238 = %s;\n' % LIT[c] + CALL)
+    return FN + reg
+
+
+def goto(src, dst, k):
+    reg = dead(HREG, k)
+    old = '\t\t\t\tUnknown238 = %s;\n' % LIT[src] + B4 + '\t\t\t\tbreak;\n'
+    assert reg.count(old) == 1
+    reg = reg.replace(old, '\t\t\t\tUnknown238 = %s;\n\t\t\t\tgoto show;\n' % LIT[src])
+    old = '\t\t\t\tUnknown238 = %s;\n' % LIT[dst] + B4
+    reg = reg.replace(old, '\t\t\t\tUnknown238 = %s;\nshow:\n' % LIT[dst] + B4)
+    return reg
+
+
+FORMS = {}
+for k in range(0, 7):
+    FORMS['h_all_d%d' % k] = [(WREG, helper([0, 1, 2, 3], k))]
+    FORMS['h_3_d%d' % k] = [(WREG, helper([3], k))]
+    FORMS['h_23_d%d' % k] = [(WREG, helper([2, 3], k))]
+    FORMS['h_01_d%d' % k] = [(WREG, helper([0, 1], k))]
+    FORMS['h_2_d%d' % k] = [(WREG, helper([2], k))]
+for k in range(0, 5):
+    FORMS['goto01_d%d' % k] = [(WREG, goto(0, 1, k))]
+    FORMS['goto13_d%d' % k] = [(WREG, goto(1, 3, k))]
+FORMS['head_d1'] = [(WREG, HREG)]
+
+# ==== v9_5646a0.py ====
+import subprocess
+
+HYPOTHESIS = (
+    'FB2 batch 9 on 0x5646A0: 0x43A1F0 went exact the same day by the spelling of a member it inlines (the last '
+    'test as an if with a default return against a conditional expression; the member\'s own code equal). 0x5646A0 '
+    'inlines Unknown_565BC0 four times in its channel >= 6 branch: if that accessor\'s spelling gives case 3 the '
+    'client\'s _Eos row on the plain source (a label call in each of cases 0-3), the goto device can go. Spellings: '
+    'conditional expression, if / else, a result local, nested ifs, the inverted test; 0-3 dead reads; --file-check.'
+)
+FILE = 'app/client/ui_chat_panel.cpp'
+SYMBOL = 'ChatPanelInterface::Unknown_5646A0'
+ADDRESS = 0x5646A0
+
+A, Z = '// @0x5646A0\n', '// 0x564F50\n'
+WORK = open(FILE, encoding='utf-8', newline='').read().replace('\r\n', '\n')
+HEAD = subprocess.run(['git', 'show', 'dfc8c61da:' + FILE], capture_output=True).stdout.decode('utf-8').replace('\r\n', '\n')
+WREG = WORK[WORK.index(A):WORK.index(Z)]
+HREG = HEAD[HEAD.index(A):HEAD.index(Z)]
+DEAD = '\tUnknown148 = channel; Unknown238.size();\t// dead read'
+DEADLINE = HREG[HREG.index(DEAD):HREG.index('\n', HREG.index(DEAD)) + 1]
+ACC = (
+    '\tif (Unknown148 >= 6 && Unknown148 < 10) return(Unknown158[Unknown148 - 6].c_str());\n'
+    '\treturn(NULL);\n'
+)
+assert WORK.count(ACC) == 1
+X = 'Unknown158[Unknown148 - 6].c_str()'
+SPELL = {
+    'cond': '\treturn((Unknown148 >= 6 && Unknown148 < 10) ? %s : NULL);\n\n' % X,
+    'ifelse': '\tif (Unknown148 >= 6 && Unknown148 < 10) { return(%s); } else { return(NULL); }\n\n' % X,
+    'local': '\tconst char *name = NULL; if (Unknown148 >= 6 && Unknown148 < 10) { name = %s; }\n\treturn(name);\n' % X,
+    'nested': '\tif (Unknown148 >= 6) { if (Unknown148 < 10) { return(%s); } }\n\treturn(NULL);\n' % X,
+    'inverted': '\tif (Unknown148 < 6 || Unknown148 >= 10) return(NULL);\n\treturn(%s);\n' % X,
+}
+
+
+def dead(k):
+    return HREG.replace(DEADLINE, '\tUnknown148 = channel;%s\n' % (' Unknown238.size();' * k))
+
+
+FORMS = {}
+for nm, text in SPELL.items():
+    for k in (0, 1, 2, 3):
+        FORMS['%s_d%d' % (nm, k)] = [(WREG, dead(k)), (ACC, text)]
+FORMS['plain_d1'] = [(WREG, dead(1))]
+
+# ==== sib.py (reads every inlined _Eos row of a batch's objects) ====
+"""Per form of a trybatch batch: every `mov byte ptr [reg + reg], 0` of our function with the two rows before it
+(the inlined _Eos sites), so a form is read apart from the budget / layout state.
+
+    python sib.py BATCHDIR OBJNAME SYMBOL ADDR [PATTERN]
+"""
+import os
+import re
+import subprocess
+import sys
+
+ROOT = 'C:/EnBDevelopment/EnB/.work/wt/FB2'
+PAT = re.compile(sys.argv[5] if len(sys.argv) > 5 else r'mov byte ptr \[e.. \+ e..\], 0')
+
+
+def rows(obj, symbol, addr):
+    out = subprocess.run([sys.executable, ROOT + '/tools/re/objdiff.py', obj, symbol, addr],
+                         capture_output=True, text=True).stdout.splitlines()
+    res = []
+    for line in out[1:]:
+        if '|' not in line:
+            continue
+        left = line.split('|', 1)[0]
+        l = left[1:].strip()
+        lt = l.split(' ', 1)[1].strip() if ' ' in l else ''
+        if lt:
+            res.append(lt)
+    return res
+
+
+def main():
+    batch, objname, symbol, addr = sys.argv[1:5]
+    seen = {}
+    for form in sorted(os.listdir(batch)):
+        obj = os.path.join(batch, form, 'obj', objname)
+        if not os.path.exists(obj):
+            continue
+        rs = rows(obj, symbol, addr)
+        hits = []
+        for i, t in enumerate(rs):
+            if PAT.search(t):
+                hits.append(' ; '.join(rs[max(0, i - 2):i + 2]))
+        key = '\n'.join(hits)
+        if key in seen:
+            print('%s: = %s' % (form, seen[key]))
+            continue
+        seen[key] = form
+        print('%s: %d rows' % (form, len(rs)))
+        for h in hits:
+            print('    ' + h)
+
+
+main()

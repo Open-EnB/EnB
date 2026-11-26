@@ -6,7 +6,7 @@
 #include "refcount.h"
 #include "ref_ptr.h"
 #include "..\shared\g_assert.h"
-#include "..\shared\auxdata\delta.h"
+#include "..\shared\kv_encoder.h"	// delta.h, and <string>: the client's object ends with <string>'s initialiser (0x5BF6B0); which header gave it is not known
 
 class UIMFDClass;
 class ClientObjectClass;

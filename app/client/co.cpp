@@ -2323,24 +2323,24 @@ void ClientObjectClass::Unknown_6FEF70(SubPartsPacket *packet)
 
 
 inline unsigned Unknown_Changed(DeltaClass *d) { return(d->Unknown70); }	// +0x70: 2 when the field changed since the last update, 1 when set, 0 when not  // NAME 1: neutral (D10)
-// 0x6FF4B0  // NOT EXACT: inline-budget (the client calls rtti.h's cast 0x5469C0 at all four lookups and the string assign's helpers; ours inlines them)
+// 0x6FF4B0  // NOT EXACT: inline-budget (the client calls rtti.h's cast 0x5469C0 at all four lookups, ours inlines them; its four NameClass slots are unshared, frame 0xD0: one full-expression of temporaries gives that frame but keeps the casts inline)
 void ClientObjectClass::Get_Name(std::string &name)
 {
 	DeltaStringClass *t;
-	if (Unknown_6F5A40()) {
-		NameClass owner("Owner");
-		t = Unknown_Find_Field<DeltaStringClass>((DeltaCompoundClass *)AuxData, owner);
-		if (!t || !t->Unknown70) {
-			NameClass field("Name");
-			t = Unknown_Find_Field<DeltaStringClass>((DeltaCompoundClass *)AuxData, field);
-		}
-	} else {
-		NameClass field("Name");
-		t = Unknown_Find_Field<DeltaStringClass>((DeltaCompoundClass *)AuxData, field);
-		if (!t || !t->Unknown70) {
-			NameClass owner("Owner");
-			t = Unknown_Find_Field<DeltaStringClass>((DeltaCompoundClass *)AuxData, owner);
-		}
+
+	switch (Type) {
+		case 1: {
+			NameClass owner("Owner"); t = Unknown_Find_Field<DeltaStringClass>((DeltaCompoundClass *)AuxData, owner);
+			if (!t || !t->Unknown70) {
+				NameClass field("Name"); t = Unknown_Find_Field<DeltaStringClass>((DeltaCompoundClass *)AuxData, field);
+			}
+		} break;
+		default: {
+			NameClass field("Name"); t = Unknown_Find_Field<DeltaStringClass>((DeltaCompoundClass *)AuxData, field);
+			if (!t || !t->Unknown70) {
+				NameClass owner("Owner"); t = Unknown_Find_Field<DeltaStringClass>((DeltaCompoundClass *)AuxData, owner);
+			}
+		} break;
 	}
 	name = (t && t->Unknown70) ? t->String : "Unknown";
 }
@@ -2685,4 +2685,4 @@ template class UnknownRTTIClass<DeltaStatsClass>;	// the CurrentStats find's Cas
 */
 // VC6 symbol pad (not the client's code): the aux-data constructors (auxroots.py's region above) match only when the
 // count of the declarations this file sees falls in a window of a cycle of 64 (tools/re/auxroots.py SYMBOL_PAD)
-enum CoSymbolPadType { CO_PAD_00, CO_PAD_01, CO_PAD_02, CO_PAD_03, CO_PAD_04, CO_PAD_05, CO_PAD_06, CO_PAD_07, CO_PAD_08, CO_PAD_09, CO_PAD_10, CO_PAD_11, CO_PAD_12, CO_PAD_13, CO_PAD_14, CO_PAD_15, CO_PAD_16, CO_PAD_17, CO_PAD_18, CO_PAD_19, CO_PAD_20, CO_PAD_21, CO_PAD_22, CO_PAD_23, CO_PAD_24, CO_PAD_25, CO_PAD_26, CO_PAD_27 };	// NAME 1: a build aid (HX1)
+enum CoSymbolPadType { CO_PAD_00, CO_PAD_01, CO_PAD_02, CO_PAD_03, CO_PAD_04, CO_PAD_05, CO_PAD_06, CO_PAD_07, CO_PAD_08, CO_PAD_09, CO_PAD_10, CO_PAD_11, CO_PAD_12, CO_PAD_13, CO_PAD_14, CO_PAD_15, CO_PAD_16, CO_PAD_17, CO_PAD_18, CO_PAD_19, CO_PAD_20, CO_PAD_21, CO_PAD_22, CO_PAD_23, CO_PAD_24, CO_PAD_25, CO_PAD_26, CO_PAD_27, CO_PAD_28, CO_PAD_29, CO_PAD_30, CO_PAD_31, CO_PAD_32, CO_PAD_33, CO_PAD_34, CO_PAD_35, CO_PAD_36, CO_PAD_37 };	// NAME 1: a build aid (HX1)

@@ -515,42 +515,42 @@ bool LandClass::Cast_OBBox(OBBoxCollisionTestClass &boxtest)
 	return Field->Cast_OBBox(boxtest);
 }
 
-// NOT EXACT: shape (199 masked rows: the client's frame is 0xC larger, it copies the camera position and keeps the spacing on the x87 stack past its use (fild qword PatchSize, fmul st(1), fstp st(0)); attempts.csv 0x46B3C0)
+// NOT EXACT: shape (141 masked rows with RT1's variant v0: the camera position copied, the patch floats in locals, level defaulting to 4; the client's frame is 0xC larger, it copies the camera position and keeps the spacing on the x87 stack past its use (fild qword PatchSize, fmul st(1), fstp st(0)); attempts.csv 0x46B3C0)
 void LandClass::Update_Patches(CameraClass &camera, int lod)
 {
-	Vector3 pos = camera.Get_Position();
-	float extent = (float)(unsigned int)PatchSize * Field->Get_Spacing();
+	Vector3 campos = camera.Get_Position(); Vector3 pos = campos;
+	float extent = Field->Get_Spacing() * (float)(unsigned int)PatchSize;
 	float half = extent * 0.5f;
 	float inv_extent = 1.0f / extent;
 	float inv_spacing = 1.0f / Field->Get_Spacing();
-	int cell_x = (int)(inv_extent * pos.X);
-	int cell_y = (int)(inv_extent * pos.Y);
-	int cell_z = (int)(inv_extent * pos.Z);
+	int cell_x = (int)(inv_extent * campos.X);
+	int cell_y = (int)(inv_extent * campos.Y);
+	int cell_z = (int)(inv_extent * campos.Z);
 	int i, j;
 	if ((Dirty == true) | (CameraCellX ^ cell_x) | (cell_z ^ CameraCellZ) | (cell_y ^ CameraCellY)) {
 		Dirty = false;
 		for (i = 0; i < GridWidth; i++) {
 			for (j = 0; j < GridWidth; j++) {
 				LandPatchClass *patch = Patches[j * GridWidth + i];
-				int x, y;
+				float px, py;
 				if (Field->Is_Wrapping()) {
-					x = ((i - cell_x) & GridMask) - HalfGridWidth + cell_x;
-					y = ((j - cell_y) & GridMask) - HalfGridWidth + cell_y;
+					px = (float)(((i - cell_x) & GridMask) - HalfGridWidth + cell_x) * extent;
+					py = (float)(((j - cell_y) & GridMask) - HalfGridWidth + cell_y) * extent;
 				} else {
-					x = i - HalfGridWidth;
-					y = j - HalfGridWidth;
+					px = (float)(i - HalfGridWidth) * extent;
+					py = (float)(j - HalfGridWidth) * extent;
 				}
-				patch->X = x * extent;
-				patch->Y = y * extent;
+				patch->X = px;
+				patch->Y = py;
 				patch->Z = 0.0f;
-				Vector3 center(patch->X + half, patch->Y + half, Field->Get_VScale() * patch->MidHeight);
-				float distance = (pos - center).Length();
+				Vector3 delta(pos.X - (px + half), pos.Y - (py + half), pos.Z - Field->Get_VScale() * patch->MidHeight);
+				float distance = delta.Length();
 				int cells = (int)(distance * inv_spacing);
 				int threshold = LandLodDistances[lod];
-				int level;
-				for (level = 0; level < 4; level++) {
+				int level = 4;
+				for (int l = 0; l < 4; l++) {
 					if (cells < threshold) {
-						break;
+						level = l; break;
 					}
 					threshold <<= 1;
 				}

@@ -1,0 +1,100 @@
+HYPOTHESIS = (
+    'UIStarbaseClass::Unknown_54 0x634140 GN5 batch 3 (final batch before D271 stop rule; res 20 base / 22 nat with '
+    'ebx/edi swapped across r36-r48): test GN4 named-local lever inside the NPC loop (amb = Unknown_642740(npc), '
+    'body = BodyObj.Peek(), btn = new ButtonGadgetClass, sc = As_Space_Client(), is_amb = npc->Unknown1C, '
+    'booth = npc->Booth, room = RoomInfo, mesh = InterfaceMesh->Peek_Object(), av = new CharacterViewAvatarClass), '
+    'nested Booth >= 2 / <= 9 (extra npc weight), and Unknown_View_Layer / Unknown_Map_Manager subsets on nat.'
+)
+FILE = 'app/client/ui_starbase.cpp'
+SYMBOL = 'UIStarbaseClass::Unknown_54'
+ADDRESS = 0x634140
+
+SRC = open('C:/EnBDevelopment/EnB/.work/wt/GN5/app/client/ui_starbase.cpp', encoding='utf-8').read()
+A = SRC.index('void UIStarbaseClass::Unknown_54()\n{')
+B = SRC.index('\n}\n', A) + 3
+FUNC = SRC[A:B]
+
+NAT_OLD = '\t\t\t\tUIStarbaseUnknownCCClass *slot = Unknown13C[i]; slot->AmbientAvatar = Create_NEW(Unknown_642740(npc));'
+NAT_NEW = '\t\t\t\tUnknown13C[i]->AmbientAvatar = Create_NEW(Unknown_642740(npc));'
+
+def form(*edits, nat=True):
+    t = FUNC.replace(NAT_OLD, NAT_NEW, 1) if nat else FUNC
+    for old, new in edits:
+        assert t.count(old) == 1, (old[:60], t.count(old))
+        t = t.replace(old, new)
+    assert t.count('\n') == FUNC.count('\n'), (t.count('\n'), FUNC.count('\n'))
+    return [(FILE, FUNC, t)]
+
+FORMS = {
+    # 1. GN4 named locals inside the ambient branch and NPC loop
+    'amb_local_nat': form((NAT_NEW, '\t\t\t\tUnknown78A910AvatarClass *amb = Unknown_642740(npc); Unknown13C[i]->AmbientAvatar = Create_NEW(amb);')),
+    'amb_local_base': form((NAT_OLD, '\t\t\t\tUIStarbaseUnknownCCClass *slot = Unknown13C[i]; Unknown78A910AvatarClass *amb = Unknown_642740(npc); slot->AmbientAvatar = Create_NEW(amb);'), nat=False),
+    'body_local_amb': form(
+        ('\t\t\t\tUnknown13C[i]->Unknown14 = new ButtonGadgetClass(Unknown13C[i]->AmbientAvatar->BodyObj.Peek(), Unknown_View_Layer(UnknownB0), 5, 0);',
+         '\t\t\t\tRenderObjClass *body = Unknown13C[i]->AmbientAvatar->BodyObj.Peek(); Unknown13C[i]->Unknown14 = new ButtonGadgetClass(body, Unknown_View_Layer(UnknownB0), 5, 0);'),
+    ),
+    'btn_local_amb': form(
+        ('\t\t\t\tUnknown13C[i]->Unknown14 = new ButtonGadgetClass(Unknown13C[i]->AmbientAvatar->BodyObj.Peek(), Unknown_View_Layer(UnknownB0), 5, 0);',
+         '\t\t\t\tButtonGadgetClass *btn = new ButtonGadgetClass(Unknown13C[i]->AmbientAvatar->BodyObj.Peek(), Unknown_View_Layer(UnknownB0), 5, 0); Unknown13C[i]->Unknown14 = btn;'),
+    ),
+    'btn_local_amb_use': form(
+        ('\t\t\t\tUnknown13C[i]->Unknown14 = new ButtonGadgetClass(Unknown13C[i]->AmbientAvatar->BodyObj.Peek(), Unknown_View_Layer(UnknownB0), 5, 0);\n'
+         '\t\t\t\tUnknown13C[i]->Unknown14->Unknown2C_0A = true;\n'
+         '\t\t\t\tUnknown13C[i]->Unknown14->Set_Last_Sort_Group(true);\n'
+         '\t\t\t\tUnknown64.Unknown_6870E0(Unknown13C[i]->Unknown14, i + 2, View, true, true);',
+         '\t\t\t\tButtonGadgetClass *btn = new ButtonGadgetClass(Unknown13C[i]->AmbientAvatar->BodyObj.Peek(), Unknown_View_Layer(UnknownB0), 5, 0); Unknown13C[i]->Unknown14 = btn;\n'
+         '\t\t\t\tbtn->Unknown2C_0A = true;\n'
+         '\t\t\t\tbtn->Set_Last_Sort_Group(true);\n'
+         '\t\t\t\tUnknown64.Unknown_6870E0(btn, i + 2, View, true, true);'),
+    ),
+    'slot_new_local': form(
+        ('\t\t\t\tUnknown13C[i] = new UIStarbaseUnknownCCClass;\n' + NAT_NEW,
+         '\t\t\t\tUIStarbaseUnknownCCClass *s = new UIStarbaseUnknownCCClass; Unknown13C[i] = s;\n' + NAT_NEW),
+    ),
+    'is_amb_local': form(('\t\t\tif (npc->Unknown1C) {', '\t\t\tint is_amb = npc->Unknown1C; if (is_amb) {')),
+    'booth_local': form(('\t\t\tif (npc->Booth == 9) {', '\t\t\tint booth = npc->Booth; if (booth == 9) {')),
+    'sc_local_750': form(
+        ('\t\t\t\tUnknown13C[i]->Avatar = Create_NEW(new CharacterViewAvatarClass(&desc, true, false, Unknown_Map_Manager(((LineDisplayClientClass *)Client)->As_Space_Client())));',
+         '\t\t\t\tSClient *sc = ((LineDisplayClientClass *)Client)->As_Space_Client(); Unknown13C[i]->Avatar = Create_NEW(new CharacterViewAvatarClass(&desc, true, false, Unknown_Map_Manager(sc)));'),
+    ),
+    'av_local_750': form(
+        ('\t\t\t\tUnknown13C[i]->Avatar = Create_NEW(new CharacterViewAvatarClass(&desc, true, false, Unknown_Map_Manager(((LineDisplayClientClass *)Client)->As_Space_Client())));',
+         '\t\t\t\tCharacterViewAvatarClass *av = new CharacterViewAvatarClass(&desc, true, false, Unknown_Map_Manager(((LineDisplayClientClass *)Client)->As_Space_Client())); Unknown13C[i]->Avatar = Create_NEW(av);'),
+    ),
+    'env_local_750': form(
+        ('\t\t\t\tUnknown13C[i]->Avatar = Create_NEW(new CharacterViewAvatarClass(&desc, true, false, Unknown_Map_Manager(((LineDisplayClientClass *)Client)->As_Space_Client())));',
+         '\t\t\t\tEnvironmentMapManagerClass *em = Unknown_Map_Manager(((LineDisplayClientClass *)Client)->As_Space_Client()); Unknown13C[i]->Avatar = Create_NEW(new CharacterViewAvatarClass(&desc, true, false, em));'),
+    ),
+    'room_local_loop': form(
+        ('\t\tfor (i = 0; i < 14; i++) {\n\t\t\tif (RoomInfo->Find_NPC(i) == NULL) {\n\t\t\t\tcontinue;\n\t\t\t}\n\t\t\tStarbaseNPCClass *npc = RoomInfo->Find_NPC(i);',
+         '\t\tfor (i = 0; i < 14; i++) {\n\t\t\tStarbaseRoomClass *rm = RoomInfo; if (rm->Find_NPC(i) == NULL) {\n\t\t\t\tcontinue;\n\t\t\t}\n\t\t\tStarbaseNPCClass *npc = rm->Find_NPC(i);'),
+    ),
+    'mesh_local_bone': form(
+        ('\t\t\tif (!InterfaceMesh->Peek_Object()->Get_Bone_Index(name)) {\n\t\t\t\tcontinue;',
+         '\t\t\tRenderObjClass *m = InterfaceMesh->Peek_Object(); if (!m->Get_Bone_Index(name)) {\n\t\t\t\tcontinue;'),
+    ),
+    # 2. Nested Booth check + npc local in normal branch
+    'nested_booth': form(
+        ('\t\t\t\t\tif (npc->Booth >= 2 && npc->Booth <= 9) {\n',
+         '\t\t\t\t\tif (npc->Booth >= 2) { if (npc->Booth <= 9) {\n'),
+        ('\t\t\t\t\t\tWW3D::Enable_Overbright_Modify_On_Load(true);\n\t\t\t\t\t}\n',
+         '\t\t\t\t\t\tWW3D::Enable_Overbright_Modify_On_Load(true);\n\t\t\t\t\t} }\n'),
+    ),
+    'npc_copy_amb': form((NAT_NEW, '\t\t\t\tStarbaseNPCClass *n2 = npc; Unknown13C[i]->AmbientAvatar = Create_NEW(Unknown_642740(n2));')),
+    # 3. Unknown_View_Layer / Unknown_Map_Manager combinations on nat
+    'nat_no_map_mgr': form(('Unknown_Map_Manager(((LineDisplayClientClass *)Client)->As_Space_Client())',
+                            '((LineDisplayClientClass *)Client)->As_Space_Client()->EnvironmentMapManager')),
+    'nat_no_layer_amb': form(('AmbientAvatar->BodyObj.Peek(), Unknown_View_Layer(UnknownB0)',
+                              'AmbientAvatar->BodyObj.Peek(), *UnknownB0->Unknown80')),
+    'nat_no_layer_b9': form(('robj.Peek(), Unknown_View_Layer(UnknownB0)',
+                             'robj.Peek(), *UnknownB0->Unknown80')),
+    'nat_no_layer_av': form(('->Avatar->BodyObj.Peek(), Unknown_View_Layer(UnknownB0)',
+                             '->Avatar->BodyObj.Peek(), *UnknownB0->Unknown80')),
+    # 4. Dead-initialized locals inside the NPC loop body (B3 only tried at `int i;` and function top!)
+    'di_inloop_1': form(('\t\t\tif (npc->Unknown1C) {', '\t\t\tint d0 = 0; if (npc->Unknown1C) {')),
+    'di_inloop_2': form(('\t\t\tif (npc->Unknown1C) {', '\t\t\tint d0 = 0, d1 = 0; if (npc->Unknown1C) {')),
+    'di_inloop_3': form(('\t\t\tif (npc->Unknown1C) {', '\t\t\tint d0 = 0, d1 = 0, d2 = 0; if (npc->Unknown1C) {')),
+    'di_inloop_4': form(('\t\t\tif (npc->Unknown1C) {', '\t\t\tint d0 = 0, d1 = 0, d2 = 0, d3 = 0; if (npc->Unknown1C) {')),
+    'di_amb_1': form((NAT_NEW, '\t\t\t\tint d0 = 0; ' + NAT_NEW.lstrip())),
+    'di_amb_2': form((NAT_NEW, '\t\t\t\tint d0 = 0, d1 = 0; ' + NAT_NEW.lstrip())),
+}

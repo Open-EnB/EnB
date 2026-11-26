@@ -97,8 +97,8 @@
     <circle cx="772.1" cy="83.7" r="3.2" class="l-written" fill="none" stroke-width="2"><title>2026-11-22: 99.96%</title></circle>
     <circle cx="794.7" cy="83.7" r="3.2" class="l-written" fill="none" stroke-width="2"><title>2026-11-23: 100.00%</title></circle>
     <circle cx="817.4" cy="83.7" r="3.2" class="l-written" fill="none" stroke-width="2"><title>2026-11-24: 99.98%</title></circle>
-    <circle cx="840.0" cy="83.8" r="3.2" class="l-written" fill="none" stroke-width="2"><title>2026-11-25: 99.93%</title></circle>
-    <polyline points="70.0,227.3 92.6,217.1 115.3,211.1 137.9,207.2 160.6,204.1 183.2,188.4 205.9,184.7 228.5,183.1 251.2,181.9 273.8,175.1 296.5,169.8 319.1,166.2 341.8,163.6 364.4,160.0 387.1,154.3 409.7,146.6 432.4,143.8 455.0,138.7 477.6,135.3 500.3,132.3 522.9,126.1 545.6,124.1 568.2,118.8 590.9,116.2 613.5,113.8 636.2,113.2 658.8,111.8 681.5,111.2 704.1,109.9 726.8,106.6 749.4,105.4 772.1,104.0 794.7,103.4 817.4,102.6 840.0,102.4" fill="none" class="l-exact" stroke-width="2.5" stroke-linejoin="round"/>
+    <circle cx="840.0" cy="83.8" r="3.2" class="l-written" fill="none" stroke-width="2"><title>2026-11-25: 99.92%</title></circle>
+    <polyline points="70.0,227.3 92.6,217.1 115.3,211.1 137.9,207.2 160.6,204.1 183.2,188.4 205.9,184.7 228.5,183.1 251.2,181.9 273.8,175.1 296.5,169.8 319.1,166.2 341.8,163.6 364.4,160.0 387.1,154.3 409.7,146.6 432.4,143.8 455.0,138.7 477.6,135.3 500.3,132.3 522.9,126.1 545.6,124.1 568.2,118.8 590.9,116.2 613.5,113.8 636.2,113.2 658.8,111.8 681.5,111.2 704.1,109.9 726.8,106.6 749.4,105.4 772.1,104.0 794.7,103.4 817.4,102.6 840.0,101.8" fill="none" class="l-exact" stroke-width="2.5" stroke-linejoin="round"/>
     <circle cx="70.0" cy="227.3" r="3.2" class="l-exact" fill="none" stroke-width="2"><title>2026-10-22: 9.30%</title></circle>
     <circle cx="92.6" cy="217.1" r="3.2" class="l-exact" fill="none" stroke-width="2"><title>2026-10-23: 15.74%</title></circle>
     <circle cx="115.3" cy="211.1" r="3.2" class="l-exact" fill="none" stroke-width="2"><title>2026-10-24: 19.50%</title></circle>
@@ -133,7 +133,7 @@
     <circle cx="772.1" cy="104.0" r="3.2" class="l-exact" fill="none" stroke-width="2"><title>2026-11-22: 87.17%</title></circle>
     <circle cx="794.7" cy="103.4" r="3.2" class="l-exact" fill="none" stroke-width="2"><title>2026-11-23: 87.54%</title></circle>
     <circle cx="817.4" cy="102.6" r="3.2" class="l-exact" fill="none" stroke-width="2"><title>2026-11-24: 88.04%</title></circle>
-    <circle cx="840.0" cy="102.4" r="3.2" class="l-exact" fill="none" stroke-width="2"><title>2026-11-25: 88.14%</title></circle>
+    <circle cx="840.0" cy="101.8" r="3.2" class="l-exact" fill="none" stroke-width="2"><title>2026-11-25: 88.57%</title></circle>
     <text x="28" y="286" class="muted" font-size="11">One point per day, from that day's last commit; the D80 rule change (2026-10-25) makes earlier days under-count; every day is measured under today's other rules.</text>
   </g>
 </svg>

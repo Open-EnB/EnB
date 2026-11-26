@@ -1,0 +1,125 @@
+# ===== v1_6D64C0.py
+HYPOTHESIS = ('B3 b1 (0x6D64C0, behaviour): line_height: the client evaluates (Scale * 480.0f) * Unknown2C8 / Height '
+              '(fld Scale / fmul 480 / fimul / fidiv), ours ((float)Unknown2C8 * Scale) * 480.0f / Height (fild first): '
+              'an association difference, which rounds differently under the single-precision FPU D3D sets; the forms '
+              'of the expression that give the client\'s order')
+FILE = 'app/client/fontsys.cpp'
+SYMBOL = 'FontSys::Update_Text'
+ADDRESS = 0x6D64C0
+
+_SRC = open(FILE, encoding='latin-1', newline='').read()
+OLD = '\t\tint line_height = (int)(Scale * 480.0f * Unknown2C8 / Height);'
+assert _SRC.count(OLD) == 1
+
+
+def f(expr):
+    return [(OLD, '\t\tint line_height = ' + expr + ';')]
+
+
+FORMS = {
+    'paren': f('(int)((Scale * 480.0f) * Unknown2C8 / Height)'),
+    'c_first': f('(int)(480.0f * Scale * Unknown2C8 / Height)'),
+    'cast_u': f('(int)(Scale * 480.0f * (float)Unknown2C8 / Height)'),
+    'c_u': f('(int)(Scale * (480.0f * Unknown2C8) / Height)'),
+    'u_first': f('(int)((float)Unknown2C8 * Scale * 480.0f / Height)'),
+    'local': [(OLD, '\t\tfloat scaled = Scale * 480.0f; int line_height = (int)(scaled * Unknown2C8 / Height);')],
+    'cast_h': f('(int)(Scale * 480.0f * Unknown2C8 / (float)Height)'),
+    'div_paren': f('(int)((Scale * 480.0f * Unknown2C8) / Height)'),
+    'u_scale': f('(int)(Unknown2C8 * Scale * 480.0f / Height)'),
+}
+# ===== v2_6D64C0.py
+HYPOTHESIS = ('B3 b2 (0x6D64C0, on the parenthesised line_height): the register contest for ebx (the client: the int '
+              'zero, the profile flag in memory; ours: the flag in bl, zero in esi) may follow the flag\'s use count '
+              '(one dtor copy per exit): the second early return as a block over the rest (equivalent), the profile '
+              'object in a scope of its own, pos_x / pos_y zero stores as ints with the second return a block')
+FILE = 'app/client/fontsys.cpp'
+SYMBOL = 'FontSys::Update_Text'
+ADDRESS = 0x6D64C0
+
+_SRC = open(FILE, encoding='latin-1', newline='').read()
+_LINES = _SRC.split('\n')
+_A, _B = 427, 707
+
+
+def _form(edits):
+    new = list(_LINES)
+    for n, t in edits.items():
+        new[n - 1] = t
+    return [('\n'.join(_LINES[_A - 1:_B]), '\n'.join(new[_A - 1:_B]))]
+
+
+def L(n):
+    return _LINES[n - 1]
+
+
+assert L(558).strip() == 'if (Unknown4C5 && Unknown4C8[0] == polys) {'
+assert L(559).strip() == 'return;'
+assert L(560).strip() == '}'
+assert L(706) == '\t}' and L(707) == '}'
+assert L(434).strip() == 'float pos_x = 0.0f;' and L(435).strip() == 'float pos_y = 0.0f;'
+
+R2 = {558: '\tif (!(Unknown4C5 && Unknown4C8[0] == polys)) {', 559: '', 560: '', 706: '\t} }'}
+R2B = {558: '\tif (Unknown4C5 && Unknown4C8[0] == polys) {', 559: '\t} else {', 560: '', 706: '\t} }'}
+INTZ = {434: '\tfloat pos_x; *(int *)&pos_x = 0;', 435: '\tfloat pos_y; *(int *)&pos_y = 0;'}
+
+
+def _merge(*ds):
+    out = {}
+    for d in ds:
+        out.update(d)
+    return out
+
+
+FORMS = {
+    'r2blk': _form(R2),
+    'r2else': _form(R2B),
+    'r2blk_intz': _form(_merge(R2, INTZ)),
+    'intz': _form(INTZ),
+}
+# ===== v3_6D64C0.py
+HYPOTHESIS = ('B3 b3 (0x6D64C0, on the parenthesised line_height): the ebx contest (client: the int zero; ours: the '
+              'profile flag in bl) and the x87 operand orders under the definition-count lever (workflow 3.1.2, '
+              '2026-11-24): k = 1..8 dead-initialised ints at the function top')
+FILE = 'app/client/fontsys.cpp'
+SYMBOL = 'FontSys::Update_Text'
+ADDRESS = 0x6D64C0
+
+_SRC = open(FILE, encoding='latin-1', newline='').read()
+_LINES = _SRC.split('\n')
+assert _LINES[435].strip() == 'int i;'
+OLD = _LINES[435]
+
+
+def top(k):
+    return [(_LINES[433] + '\n' + _LINES[434] + '\n' + OLD,
+             _LINES[433] + '\n' + _LINES[434] + '\n' + OLD + ''.join(' int dead%d = 0;' % j for j in range(k)))]
+
+
+FORMS = {}
+for k in range(1, 9):
+    FORMS['top%d' % k] = top(k)
+# ===== v4_6D64C0.py
+HYPOTHESIS = ('B3 b4 (0x6D64C0): the client\'s Get_Position branch adds a.X + 47C.X with the returned vector first '
+              '(fld [eax] / fadd [ebp+0x47C]) but Y / Z with the member first, ours member-first for all three; k = 3..7 '
+              'dead ints flip it (b3), so it follows the symbol table: natural forms for the returned vector (a named '
+              'copy, a reference, assignment then sums, compound adds)')
+FILE = 'app/client/fontsys.cpp'
+SYMBOL = 'FontSys::Update_Text'
+ADDRESS = 0x6D64C0
+
+_SRC = open(FILE, encoding='latin-1', newline='').read()
+OLD = '\t\t\tat = Get_Position() + Unknown47C + Unknown488;'
+assert _SRC.count(OLD) == 1
+
+
+def f(new):
+    return [(OLD, '\t\t\t' + new)]
+
+
+FORMS = {
+    'named': f('Vector3 pos = Get_Position(); at = pos + Unknown47C + Unknown488;'),
+    'ref': f('const Vector3 &pos = Get_Position(); at = pos + Unknown47C + Unknown488;'),
+    'assign_sum': f('at = Get_Position(); at = at + Unknown47C + Unknown488;'),
+    'compound': f('at = Get_Position(); at += Unknown47C; at += Unknown488;'),
+    'paren': f('at = (Get_Position() + Unknown47C) + Unknown488;'),
+}

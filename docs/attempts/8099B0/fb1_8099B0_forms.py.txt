@@ -1,0 +1,344 @@
+# ---- v1_8099B0.py ----
+HYPOTHESIS = (
+    'Unknown_8099B0 FB1 batch 1: the push_back change earlier rounds called shape / an Og cap is the /Ob2 inline '
+    'budget (the client calls vector::size out of line three times; a bigger body inlines the first), so forms '
+    'dismissed for it may have the right tab loop region. Measure the front region (0x809B00-0x809B7A) apart from '
+    'the budget state: statements between the loops that the front end may keep until after the threading '
+    '((void)0, a bare ;, (void)p, __assume, an empty inline call, if (0)), index and forever tab loops, a second '
+    'p = line; and the budget unit (dead ints, create folded into the if).'
+)
+FILE = 'app/client/scriptedmovie.cpp'
+SYMBOL = 'ScriptedMovieViewClass::Unknown_8099B0'
+ADDRESS = 0x8099B0
+
+OLD = "\t\tchar *p;\n\t\tfor (p = line; *p != 0; p++) if (*p == '\\t') *p = ' '; p = line;\n"
+SKIP = "\t\twhile (*p != 0 && *p <= ' ') p++;\n"
+Q = "\t\tchar *p = line;\n\t\tfor (char *q = line; *q != 0; q++) if (*q == '\\t') *q = ' ';"
+BLANK = "\n\n#include \"ffactory.h\"\n"
+HELPER = "\nstatic inline void Nothing() {}\n#include \"ffactory.h\"\n"
+TOP = "\tint count = 0;\n\tint total_count = 0;\n"
+CRE = "\t\tbool create = (strnicmp(p, \"CREATE\", 6) == 0);\n\t\tif (!create || frame != 0) {\n"
+CRE2 = "\t\t\n\t\tif (!(strnicmp(p, \"CREATE\", 6) == 0) || frame != 0) {\n"
+
+
+def ints(k):
+    return "\tint count = 0;" + ''.join(' int d%d = 0;' % i for i in range(k)) + "\n\tint total_count = 0;\n"
+
+
+FORMS = {
+    'a_void0': [(OLD, Q + " ((void)0);\n")],
+    'a_semi': [(OLD, Q + " ;\n")],
+    'a_voidp': [(OLD, Q + " (void)p;\n")],
+    'a_voidline': [(OLD, Q + " (void)line;\n")],
+    'a_assume': [(OLD, Q + " __assume(p != 0);\n")],
+    'a_pp': [(OLD, Q + " p = line;\n")],
+    'a_idx_line': [(OLD, "\t\tchar *p = line;\n\t\tfor (int i = 0; line[i] != 0; i++) if (line[i] == '\\t') line[i] = ' ';\n")],
+    'a_idx_p': [(OLD, "\t\tchar *p = line;\n\t\tfor (int i = 0; p[i] != 0; i++) if (p[i] == '\\t') p[i] = ' ';\n")],
+    'a_forever': [(OLD, "\t\tchar *p = line; char *q = line;\n\t\tfor (;;) { if (*q == 0) break; if (*q == '\\t') *q = ' '; q++; }\n")],
+    'a_empty_inl': [(BLANK, HELPER), (OLD, Q + " Nothing();\n")],
+    'a_if0': [(OLD, Q + " if (0) p = line;\n")],
+    'a_do0': [(OLD, "\t\tchar *p = line;\n\t\tdo { for (char *q = line; *q != 0; q++) if (*q == '\\t') *q = ' '; } while (0);\n")],
+    'a_skipc': [(OLD + SKIP, Q + "\n\t\t{ char c = *p; while (c != 0 && c <= ' ') c = *++p; }\n")],
+    'a_skipc_for': [(OLD + SKIP, Q + "\n\t\t{ for (char c = *p; c != 0 && c <= ' '; c = *++p); }\n")],
+    'a_skip_line0': [(OLD + SKIP, Q + "\n\t\tif (line[0] != 0) while (*p <= ' ') { p++; if (*p == 0) break; }\n")],
+    'b_create': [(CRE, CRE2)],
+    'b_int2': [(TOP, ints(2))],
+    'b_int3': [(TOP, ints(3))],
+    'b_int3_create': [(TOP, ints(3)), (CRE, CRE2)],
+    'b_int5_create': [(TOP, ints(5)), (CRE, CRE2)],
+    'b_q_int2': [(OLD, Q + "\n"), (TOP, ints(2))],
+    'b_q_int3': [(OLD, Q + "\n"), (TOP, ints(3))],
+}
+
+# ---- v2_8099B0.py ----
+HYPOTHESIS = (
+    'Unknown_8099B0 FB1 batch 2: (L) a statement between the loops that does not define p and folds late (count is '
+    'the constant 0 there): where if_count_pinc defined p and got mov al,cl before the je, a p-free one should give '
+    'the client front; (U) the tab loop on another IR type (unsigned char pointer, a cast test) so the skip '
+    "loop's entry test is not the same expression at threading time; (W) the skip loop's entry test on the tab "
+    'pointer reset to line; (C) BG9s count-index forms again, for their front region only.'
+)
+FILE = 'app/client/scriptedmovie.cpp'
+SYMBOL = 'ScriptedMovieViewClass::Unknown_8099B0'
+ADDRESS = 0x8099B0
+
+OLD = "\t\tchar *p;\n\t\tfor (p = line; *p != 0; p++) if (*p == '\\t') *p = ' '; p = line;\n"
+SKIP = "\t\twhile (*p != 0 && *p <= ' ') p++;\n"
+Q = "\t\tchar *p = line;\n\t\tfor (char *q = line; *q != 0; q++) if (*q == '\\t') *q = ' ';"
+CNT = "\t\ttotal_count += count + 1;\n\t\tcount = 0;\n"
+TAB_CNT = "\t\tfor (count = 0; line[count] != 0; count++) if (line[count] == '\\t') line[count] = ' ';\n"
+TAB_CNTP = "\t\tfor (count = 0; p[count] != 0; count++) if (p[count] == '\\t') p[count] = ' ';\n"
+
+FORMS = {
+    'l_if_count_zero': [(OLD, Q + " if (count) count = 0;\n")],
+    'l_if_count_total': [(OLD, Q + " if (count) total_count++;\n")],
+    'l_if_count_cont': [(OLD, Q + " if (count != 0) continue;\n")],
+    'l_count_twice': [(OLD, Q + " count = 0;\n")],
+    'l_count_moved': [(CNT + OLD, "\t\ttotal_count += count + 1;\n\n" + Q + " count = 0;\n")],
+    'l_total_moved': [(CNT + OLD, "\t\t\n\t\t\n" + Q + " total_count += count + 1; count = 0;\n")],
+    'l_if_count_q': [(OLD, "\t\tchar *p = line; char *q;\n\t\tfor (q = line; *q != 0; q++) if (*q == '\\t') *q = ' '; if (count) q++;\n")],
+    'u_uchar_q': [(OLD, "\t\tchar *p = line;\n\t\tfor (unsigned char *q = (unsigned char *)line; *q != 0; q++) if (*q == '\\t') *q = ' ';\n")],
+    'u_cast_test': [(OLD, "\t\tchar *p = line;\n\t\tfor (char *q = line; (unsigned char)*q != 0; q++) if (*q == '\\t') *q = ' ';\n")],
+    'u_skip_ucast': [(OLD + SKIP, Q + "\n\t\twhile (*(unsigned char *)p != 0 && *p <= ' ') p++;\n")],
+    'u_uchar_tree': [(OLD, "\t\tchar *p = line;\n\t\tfor (unsigned char *q = (unsigned char *)p; *q != 0; q++) if (*q == '\\t') *q = ' ';\n")],
+    'w_q_reset': [(OLD + SKIP, "\t\tchar *p = line; char *q;\n\t\tfor (q = line; *q != 0; q++) if (*q == '\\t') *q = ' '; q = line;\n\t\tif (*q != 0) while (*p <= ' ') { p++; if (*p == 0) break; }\n")],
+    'w_q_reset2': [(OLD + SKIP, "\t\tchar *p = line; char *q;\n\t\tfor (q = line; *q != 0; q++) if (*q == '\\t') *q = ' '; q = line;\n\t\tif (*q != 0) do { if (*p > ' ') break; p++; } while (*p != 0);\n")],
+    'w_line0': [(OLD + SKIP, Q + "\n\t\tif (line[0] != 0) do { if (*p > ' ') break; p++; } while (*p != 0);\n")],
+    'w_tree_line0': [(OLD + SKIP, "\t\tchar *p;\n\t\tfor (p = line; *p != 0; p++) if (*p == '\\t') *p = ' ';\n\t\tfor (p = line; *p != 0 && *p <= ' '; p++);\n")],
+    'c_cnt_line': [(CNT + OLD, "\t\ttotal_count += count + 1;\n\t\tchar *p = line;\n" + TAB_CNT + "\t\tcount = 0;\n")],
+    'c_cnt_p': [(CNT + OLD, "\t\ttotal_count += count + 1;\n\t\tchar *p = line;\n" + TAB_CNTP + "\t\tcount = 0;\n")],
+    'c_cnt_keep': [(OLD, "\t\tchar *p = line;\n\t\tfor (; line[count] != 0; count++) if (line[count] == '\\t') line[count] = ' '; count = 0;\n")],
+}
+
+# ---- v3_8099B0.py ----
+HYPOTHESIS = (
+    'Unknown_8099B0 FB1 batch 3: (V) a live char variable defined between the loops and used only by the skip '
+    "loop's zero test is free (it is the shared line[0] temporary cl) and blocks the threading, while the "
+    "loop's own *p <= ' ' keeps al with its copy in the preheader, after the je (the client); (N) the inline "
+    'budget follows the expression nodes of the body, so dropping != 0 / == 0 (same code) pays for a bigger '
+    'tab region: calibrated on tree + k dead ints.'
+)
+FILE = 'app/client/scriptedmovie.cpp'
+SYMBOL = 'ScriptedMovieViewClass::Unknown_8099B0'
+ADDRESS = 0x8099B0
+
+SRC = open('C:/EnBDevelopment/EnB/.work/wt/FB1/app/client/scriptedmovie.cpp', encoding='utf-8').read()
+A = SRC.index('void ScriptedMovieViewClass::Unknown_8099B0(const char *filename)')
+B = SRC.index('\n}\n', A) + 3
+FUNC = SRC[A:B]
+
+OLD = "\t\tchar *p;\n\t\tfor (p = line; *p != 0; p++) if (*p == '\\t') *p = ' '; p = line;\n"
+SKIP = "\t\twhile (*p != 0 && *p <= ' ') p++;\n"
+Q = "\t\tchar *p = line;\n\t\tfor (char *q = line; *q != 0; q++) if (*q == '\\t') *q = ' ';"
+TOP = "\tint count = 0;\n\tint total_count = 0;\n"
+
+
+def ints(k):
+    return "\tint count = 0;" + ''.join(' int d%d = 0;' % i for i in range(k)) + "\n\tint total_count = 0;\n"
+
+
+def sub(text, old, new, count=1):
+    assert text.count(old) == count, (old, text.count(old))
+    return text.replace(old, new)
+
+
+def n_all(text):
+    return text.replace(' != 0', '')
+
+
+def n_str(text):
+    out = text
+    for name, n in (('FRAME_PAD', 9), ('SOUNDTRACK', 10), ('CREATE_SFX', 10)):
+        out = sub(out, 'if (strnicmp(p, "%s", %d) == 0) {' % (name, n), 'if (!strnicmp(p, "%s", %d)) {' % (name, n))
+    return out
+
+
+def form(tab=None, skip=None, k=0, n=None):
+    text = FUNC
+    if tab is not None and skip is not None:
+        text = sub(text, OLD + SKIP, tab + skip)
+    elif tab is not None:
+        text = sub(text, OLD, tab)
+    if k:
+        text = sub(text, TOP, ints(k))
+    if n:
+        text = n(text)
+    assert text.count('\n') == FUNC.count('\n')
+    return [(FUNC, text)]
+
+
+V1 = "\t\t{ char c = *p; while (c != 0 && *p <= ' ') { p++; c = *p; } }\n"
+V2 = "\t\t{ for (char c = *p; c != 0 && *p <= ' '; c = *++p); }\n"
+V3 = "\t\t{ char c = *p; if (c != 0) while (*p <= ' ') { p++; if (*p == 0) break; } }\n"
+V4 = "\t\t{ char c = line[0]; while (c != 0 && *p <= ' ') { c = *++p; } }\n"
+V5 = "\t\t{ char c; while ((c = *p) != 0 && c <= ' ') p++; }\n"
+V6 = "\t\t{ char c = *p; while (c != 0 && c <= ' ') { p++; c = *p; } }\n"
+
+FORMS = {
+    'v1': form(Q + "\n", V1),
+    'v2': form(Q + "\n", V2),
+    'v3': form(Q + "\n", V3),
+    'v4': form(Q + "\n", V4),
+    'v5': form(Q + "\n", V5),
+    'v6': form(Q + "\n", V6),
+    'v1_n': form(Q + "\n", V1, n=n_all),
+    'v2_n': form(Q + "\n", V2, n=n_all),
+    'v4_n': form(Q + "\n", V4, n=n_all),
+    'v5_n': form(Q + "\n", V5, n=n_all),
+    'n_tree': form(n=n_all),
+    'n_tree3': form(k=3, n=n_all),
+    'n_tree5': form(k=5, n=n_all),
+    'n_tree8': form(k=8, n=n_all),
+    'n_tree12': form(k=12, n=n_all),
+    's_tree': form(n=n_str),
+    's_tree3': form(k=3, n=n_str),
+    's_tree4': form(k=4, n=n_str),
+    's_tree6': form(k=6, n=n_str),
+    'q1': form(Q + "\n", k=1),
+}
+
+# ---- v4_8099B0.py ----
+HYPOTHESIS = (
+    'Unknown_8099B0 FB1 batch 4: batch 3 showed the join block is threaded only when it is a pure test (v1: c used '
+    'by the test alone, threaded; v5 / v6: c live into the loop, not threaded, line[0] shared in cl but its copy to '
+    "al before the je). The client's copy sits in the preheader: so the live definition in the join block is not "
+    "the loop's char. Forms: the tab pointer q reset to line there and used by the skip loop's entry test or "
+    'carried through the loop (q = p), q carried as the rest of the body, combinations of declaration order.'
+)
+FILE = 'app/client/scriptedmovie.cpp'
+SYMBOL = 'ScriptedMovieViewClass::Unknown_8099B0'
+ADDRESS = 0x8099B0
+
+OLD = "\t\tchar *p;\n\t\tfor (p = line; *p != 0; p++) if (*p == '\\t') *p = ' '; p = line;\n"
+SKIP = "\t\twhile (*p != 0 && *p <= ' ') p++;\n"
+TABQ = "\t\tchar *p = line; char *q;\n\t\tfor (q = line; *q != 0; q++) if (*q == '\\t') *q = ' ';"
+TABQ2 = "\t\tchar *q; char *p = line;\n\t\tfor (q = line; *q != 0; q++) if (*q == '\\t') *q = ' ';"
+TABP = "\t\tchar *r = line; char *p;\n\t\tfor (p = line; *p != 0; p++) if (*p == '\\t') *p = ' ';"
+
+
+def f(tab, skip):
+    return [(OLD + SKIP, tab + "\n" + skip + "\n")]
+
+
+FORMS = {
+    's5a': f(TABQ + " q = line;", "\t\tif (*q != 0) while (*p != 0 && *p <= ' ') p++;"),
+    's5b': f(TABQ + " q = p;", "\t\tif (*q != 0) while (*p != 0 && *p <= ' ') p++;"),
+    's6': f(TABQ + " q = line;", "\t\twhile (*q != 0 && *p <= ' ') { p++; q = p; }"),
+    's6b': f(TABQ + " q = p;", "\t\twhile (*q != 0 && *p <= ' ') { p++; q = p; }"),
+    's6c': f(TABQ + " q = line;", "\t\twhile (*q != 0 && *p <= ' ') { q = ++p; }"),
+    's6d': f(TABQ + " q = line;", "\t\twhile (*q != 0 && *p <= ' ') { q++; p++; }"),
+    's6e': f(TABQ + " q = line;", "\t\twhile (*q != 0 && *q <= ' ') { q++; p++; }"),
+    's6f': f(TABQ + " q = line;", "\t\twhile (*q != 0 && *q <= ' ') { p++; q = p; }"),
+    's6g': f(TABQ + " q = line;", "\t\tfor (; *q != 0 && *p <= ' '; q = p) p++;"),
+    's7': f(TABQ + " q = line;", "\t\twhile (*q != 0 && *q <= ' ') q++; p = q;"),
+    's7b': f(TABQ, "\t\tfor (q = line; *q != 0 && *q <= ' '; q++) p++;"),
+    's7c': f(TABQ, "\t\tfor (q = line; *q != 0 && *q <= ' '; q++); p = q;"),
+    's7d': f(TABQ, "\t\tfor (q = line; *q != 0 && *q <= ' '; q++) p = q + 1;"),
+    's8': f(TABQ + " q = line;", "\t\twhile (*p != 0 && *q <= ' ') { p++; q = p; }"),
+    's8b': f(TABQ + " q = line;", "\t\twhile (*p != 0 && *q <= ' ') { p++; q++; }"),
+    's9': f(TABQ2 + " q = line;", "\t\twhile (*q != 0 && *p <= ' ') { p++; q = p; }"),
+    'x1': f(TABP + " p = line;", "\t\twhile (*p != 0 && *r <= ' ') { r++; p = r; } p = r;"),
+    'x2': f(TABP + " p = r;", "\t\twhile (*p != 0 && *p <= ' ') p++;"),
+    'x3': f(TABP + " p = line;", "\t\twhile (*p != 0 && *p <= ' ') { p++; r++; } p = r;"),
+    'x4': f(TABP + " p = line;", "\t\twhile (*p != 0 && *p <= ' ') { r++; p = r; }"),
+    'x5': f(TABP + " p = line;", "\t\twhile (*r != 0 && *r <= ' ') r++; p = r;"),
+}
+
+# ---- v5_8099B0.py ----
+HYPOTHESIS = (
+    'Unknown_8099B0 FB1 batch 5 (the tree now holds the exact s6c form): the same two-pointer skip in more '
+    'natural spellings, kept only if byte-identical: a for loop over q (for (q = line; *q && *p <= blank; q = ++p);), '
+    'no braces, q declared with its tab loop.'
+)
+FILE = 'app/client/scriptedmovie.cpp'
+SYMBOL = 'ScriptedMovieViewClass::Unknown_8099B0'
+ADDRESS = 0x8099B0
+
+OLD = ("\t\tchar *p = line; char *q;\n"
+       "\t\tfor (q = line; *q != 0; q++) if (*q == '\\t') *q = ' '; q = line;\n"
+       "\t\twhile (*q != 0 && *p <= ' ') { q = ++p; }\n")
+
+FORMS = {
+    't1_for': [(OLD, "\t\tchar *p = line; char *q;\n"
+                     "\t\tfor (q = line; *q != 0; q++) if (*q == '\\t') *q = ' ';\n"
+                     "\t\tfor (q = line; *q != 0 && *p <= ' '; q = ++p);\n")],
+    't2_nobrace': [(OLD, "\t\tchar *p = line; char *q;\n"
+                         "\t\tfor (q = line; *q != 0; q++) if (*q == '\\t') *q = ' '; q = line;\n"
+                         "\t\twhile (*q != 0 && *p <= ' ') q = ++p;\n")],
+    't3_for_block': [(OLD, "\t\tchar *p = line; char *q;\n"
+                           "\t\tfor (q = line; *q != 0; q++) if (*q == '\\t') *q = ' ';\n"
+                           "\t\tfor (q = line; *q != 0 && *p <= ' '; q = ++p) { }\n")],
+    't4_q_first': [(OLD, "\t\tchar *q; char *p = line;\n"
+                         "\t\tfor (q = line; *q != 0; q++) if (*q == '\\t') *q = ' ';\n"
+                         "\t\tfor (q = line; *q != 0 && *p <= ' '; q = ++p);\n")],
+    't5_for_pinc': [(OLD, "\t\tchar *p = line; char *q;\n"
+                          "\t\tfor (q = line; *q != 0; q++) if (*q == '\\t') *q = ' ';\n"
+                          "\t\tfor (q = line; *q != 0 && *p <= ' '; q = p) p++;\n")],
+}
+
+# ---- front.py ----
+"""Per form of a trybatch batch: the differing rows of one client address window, plus the count of
+differing rows outside it (a budget / shape flip shows there).
+
+    python front.py BATCHDIR OBJNAME SYMBOL ADDR LO HI [--full FORM]
+
+Rows whose only difference is a masked jump target or relocation (`REL` on the client side, a
+jump on both sides) are not counted.
+"""
+import os
+import re
+import subprocess
+import sys
+
+ROOT = 'C:/EnBDevelopment/EnB/.work/wt/FB1'
+JMP = re.compile(r'^(j[a-z]+|call|push|mov|or|cmp|lea|fld|fmul|fadd|fsub|fdiv|fcomp|fstp|fst|and|add|sub)\b')
+
+
+def rows(obj, symbol, addr):
+    out = subprocess.run([sys.executable, ROOT + '/tools/re/objdiff.py', obj, symbol, addr],
+                         capture_output=True, text=True).stdout.splitlines()
+    res = []
+    for line in out[1:]:
+        if '|' not in line:
+            continue
+        left, right = line.split('|', 1)
+        star = left.startswith('*')
+        l = left[1:].strip()
+        r = right.strip()
+        lt = l.split(' ', 1)[1] if ' ' in l else ''
+        ra, rt = (r.split(' ', 1) + [''])[:2] if r else ('', '')
+        res.append((star, lt.strip(), ra, rt.strip()))
+    return res
+
+
+def real(lt, rt):
+    if not lt or not rt:
+        return True
+    if 'REL' in rt or 'REL' in lt:
+        a = lt.split(' ')[0]
+        b = rt.split(' ')[0]
+        if a == b:
+            return False
+    return lt != rt
+
+
+def main():
+    batch, objname, symbol, addr, lo, hi = sys.argv[1:7]
+    lo = int(lo, 16)
+    hi = int(hi, 16)
+    full = sys.argv[8] if len(sys.argv) > 8 and sys.argv[7] == '--full' else None
+    seen = {}
+    for form in sorted(os.listdir(batch)):
+        obj = os.path.join(batch, form, 'obj', objname)
+        if not os.path.exists(obj):
+            continue
+        rs = rows(obj, symbol, addr)
+        inside = []
+        outside = 0
+        last = 0
+        for star, lt, ra, rt in rs:
+            if ra:
+                try:
+                    last = int(ra, 16)
+                except ValueError:
+                    pass
+            if not star or not real(lt, rt):
+                if full == form and lo <= last < hi:
+                    inside.append('    %-38s | %s %s' % (lt, ra, rt))
+                continue
+            if lo <= last < hi:
+                inside.append('  * %-38s | %s %s' % (lt, ra, rt))
+            else:
+                outside += 1
+        key = '\n'.join(inside) + '|%d' % outside
+        if key in seen and full != form:
+            print('%s: = %s' % (form, seen[key]))
+            continue
+        seen[key] = form
+        print('%s: outside %d, inside %d' % (form, outside, len([x for x in inside if x.startswith('  *')])))
+        for x in inside[:40]:
+            print(x)
+
+
+main()
+

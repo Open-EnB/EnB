@@ -89,20 +89,20 @@ std::string UniqueDesignIDLookupClass::Get_Identifier(int id)
 
 
 
-// NOT EXACT: inline budget, the client calls the pair constructor 0x5024A0 out of line in Map[identifier] (frame 0xC0, ours 0xBC)
+// NOT EXACT: inline budget (residue 42; the early return gives the client's frame 0xC0), the client calls the pair constructor 0x5024A0 out of line in Map[identifier]
 void UniqueDesignIDLookupClass::Add_Identifier(unsigned int id, const std::string &identifier)
 {
 	std::string key(identifier);
 	std::transform(key.begin(), key.end(), key.begin(), tolower);
 	std::stringstream stream;
 	stream << id;
-	std::hash_map<std::string, int>::iterator find_result = Map.find(key);
-	if (find_result != Map.end()) {
+	std::hash_map<std::string, int>::iterator find_result;
+	if ((find_result = Map.find(key)) != Map.end()) {
 		G_ASSERT(identifier == find_result->first);
-	} else {
-		INI.Put_String(Section.c_str(), stream.str().c_str(), key.c_str());
-		Map[identifier] = id;
+		return;
 	}
+	INI.Put_String(Section.c_str(), stream.str().c_str(), key.c_str());
+	Map[identifier] = id;
 }
 
 const int UniqueDesignIDLookupClass::INVALID_ID = 0;

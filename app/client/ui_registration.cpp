@@ -1384,9 +1384,9 @@ void RegistrationInterface::Unknown_5F3770(int state)
 			break;
 		case 10:
 			{
-				char buffer[6]; Unknown_5F2D30(0x13, "ENTRY_E-MAIL", "ENTRY_EMAILADDRESS_RG_C1", 0x28, Unknown3C4.Unknown5C.c_str(), 0, 0, Unknown_BE5DAC, Unknown_B85ED0);
+				Unknown_5F2D30(0x13, "ENTRY_E-MAIL", "ENTRY_EMAILADDRESS_RG_C1", 0x28, Unknown3C4.Unknown5C.c_str(), 0, 0, Unknown_BE5DAC, Unknown_B85ED0);
 				Unknown_5F2F90(0x16, "COMBO_YEAR", 5, 5); Unknown_5F98C0(1900, Unknown124.tm_year + 1900);
-				if (Unknown3C4.Unknown7E > 0) {
+				if (Unknown3C4.Unknown7E > 0) { char buffer[6];
 					_snprintf(buffer, 5, "%d", (int)Unknown3C4.Unknown7E); Unknown108[0x16].Combo->Select_Text(buffer);
 				} else {
 					Unknown108[0x16].Combo->Select(0);
@@ -1474,7 +1474,7 @@ void RegistrationInterface::Unknown_5F3770(int state)
 			break;
 		case 0xC:
 			{
-				char buffer[6];
+
 				Unknown_5F2D30(0x1a,"ENTRY_NAME","ENTRY_FIRSTNAME_RG_D3",0x32,Unknown478.Unknown04.c_str(),0x1b,0, Unknown_BE5DA8,0);
 				Unknown_5F2D30(0x1b,"ENTRY_LASTNAME","ENTRY_LASTNAME_RG_D3",0x32,Unknown478.Unknown14.c_str(),0x1c,0, Unknown_BE5DA8,0);
 				Unknown_5F2D30(0x1c,"ENTRY_ADDRESS1","ENTRY_ADDRESS1_RG_D3",0x32,Unknown478.Unknown24.c_str(),0x1d,0, Unknown_BE5DE4,Unknown_B85ED4);
@@ -1517,7 +1517,7 @@ void RegistrationInterface::Unknown_5F3770(int state)
 				if (Unknown478.UnknownE8 > 0) { Unknown108[0x14].Combo->Select(Unknown478.UnknownE8 - 1); } else { Unknown108[0x14].Combo->Select(0); }
 				Unknown_5F2F90(0x16, "COMBO_YEAR", 5, 5);
 				Unknown_5F98C0(Unknown124.tm_year + 1900, Unknown124.tm_year + 1910);
-				if (Unknown478.UnknownEC > 0) {
+				if (Unknown478.UnknownEC > 0) { char buffer[6];
 					_snprintf(buffer, 5, "%d", Unknown478.UnknownEC);
 					Unknown108[0x16].Combo->Select_Text(buffer);
 				} else {
@@ -1673,7 +1673,7 @@ void RegistrationInterface::Unknown_5F3770(int state)
 
 		case 0xD:
 			{
-				char buffer[6];
+
 				Unknown_5F2D30(0x1a,"ENTRY_NAME","ENTRY_FIRSTNAME_RG_D4",0x32,Unknown478.Unknown04.c_str(),0x1b,0, Unknown_BE5DA8,0);
 				Unknown_5F2D30(0x1b,"ENTRY_LASTNAME","ENTRY_LASTNAME_RG_D4",0x32,Unknown478.Unknown14.c_str(),0x1c,0, Unknown_BE5DA8,0);
 				Unknown_5F2D30(0x1c,"ENTRY_ADDRESS1","ENTRY_ADDRESS1_RG_D4",0x32,Unknown478.Unknown24.c_str(),0x1d,0, Unknown_BE5DE4,Unknown_B85ED4);
@@ -1720,7 +1720,7 @@ void RegistrationInterface::Unknown_5F3770(int state)
 				if (Unknown478.UnknownE8 > 0) { Unknown108[0x14].Combo->Select(Unknown478.UnknownE8 - 1); } else { Unknown108[0x14].Combo->Select(0); }
 				Unknown_5F2F90(0x16, "COMBO_YEAR", 5, 5);
 				Unknown_5F98C0(Unknown124.tm_year + 1900, Unknown124.tm_year + 1910);
-				if (Unknown478.UnknownEC > 0) {
+				if (Unknown478.UnknownEC > 0) { char buffer[6];
 					_snprintf(buffer, 5, "%d", Unknown478.UnknownEC);
 					Unknown108[0x16].Combo->Select_Text(buffer);
 				} else {

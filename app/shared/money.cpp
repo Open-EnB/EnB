@@ -1,7 +1,7 @@
 // Earth & Beyond client (reconstruction): app\shared\money.cpp (the client's __FILE__
 // 'e:\build\beta\G\app\shared\money.cpp', asserts from 0x4F0220).
 #include <limits.h>
-#include <iostream>
+// (no <iostream>: the client's money object has no ios_base::Init / _Winit initialisers, only <string>'s)
 #include <string>
 #include "g_assert.h"
 #define __MONEY_MEMBERS

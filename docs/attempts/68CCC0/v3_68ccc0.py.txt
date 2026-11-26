@@ -1,0 +1,88 @@
+HYPOTHESIS = (
+    'InvRenderClass::Unknown_28 0x68CCC0 GN5 batch 3 (building on batch 2 breakthrough: str_size_2/str_empty_2/ngt_end_s2 '
+    'triggered the client 3-form + [ebx+eax] at frame 0x44 without inlining Price, by cutting Avg. Cost out of line): '
+    'test (1) str_size_2..4 and ngt_end_s2 with Avg. Cost one layer shallower (string->append(buffer, strlen(buffer)) or '
+    'with named len local) so Avg. Cost re-inlines while keeping 3-form and frame 0x44, (2) strlen9 (all 9 sites) with '
+    'string->size()/empty() and post-return Get_Slot() reads to cut only Price out, (3) no_get_type and di_top_7 (both '
+    '3-form) with Price behind a file-static inline wrapper H_Add so Price goes out of line while keeping 3-form.'
+)
+FILE = 'app/client/inv_render.cpp'
+SYMBOL = 'InvRenderClass::Unknown_28'
+ADDRESS = 0x68CCC0
+
+SRC = open('C:/EnBDevelopment/EnB/.work/wt/GN5/app/client/inv_render.cpp', encoding='utf-8').read()
+A = SRC.index('const char *InvRenderClass::Unknown_28(std::string *string)\n{')
+B = SRC.index('\treturn("NORMAL_SLOT");\n}\n', A) + len('\treturn("NORMAL_SLOT");\n}\n')
+FUNC = SRC[A:B]
+
+HELPER_ANCHOR = '// NOT EXACT: 0x68CCC0,'
+H_ADD_PEQ = 'static inline void H_Add(std::string *s, const char *p) { *s += p; } '
+H_ADD_APP = 'static inline void H_Add(std::string *s, const char *p) { s->append(p); } '
+
+COST_OLD = '_snprintf(buffer, sizeof(buffer), "Avg. Cost %1.1f\\n", cost);\n\t\t\t\t*string += buffer;'
+COST_STRLEN = '_snprintf(buffer, sizeof(buffer), "Avg. Cost %1.1f\\n", cost);\n\t\t\t\tstring->append(buffer, strlen(buffer));'
+COST_LENLOC = '_snprintf(buffer, sizeof(buffer), "Avg. Cost %1.1f\\n", cost);\n\t\t\t\t{ size_t n = strlen(buffer); string->append(buffer, n); }'
+PRICE_OLD = '_snprintf(buffer, sizeof(buffer), "Price %s\\n", price.Amount_As_Text(true).c_str());\n\t\t\t*string += buffer;'
+PRICE_HADD = '_snprintf(buffer, sizeof(buffer), "Price %s\\n", price.Amount_As_Text(true).c_str());\n\t\t\tH_Add(string, buffer);'
+
+PRE_SW = '\t\tint type = data->Get_Mount_I00(slot);'
+END_RET = '\treturn("NORMAL_SLOT");\n}\n'
+NGT = ('if (item->Get_Type() == 13)', 'if (item->Unknown0C == 13)')
+DI7 = ('\tSlotDataRenderClass::Unknown_28(string);', '\t' + ' '.join('int d%d = 0;' % i for i in range(7)) + ' SlotDataRenderClass::Unknown_28(string);')
+
+LITS = ['"Unused Slot\\n"', '"Shields Slot\\n"', '"Engine Slot\\n"', '"Reactor Slot\\n"', '"Empty Slot\\n"', '"Weapon Slot\\n"', '"Device Slot\\n"']
+STRLEN9 = FUNC.replace(COST_OLD, COST_STRLEN, 1)
+for lit in LITS:
+    STRLEN9 = STRLEN9.replace('*string += %s;' % lit, 'string->append(%s, strlen(%s));' % (lit, lit))
+assert STRLEN9.count('\n') == FUNC.count('\n')
+
+def form(base_fn, *edits, helper=''):
+    t = base_fn
+    for old, new in edits:
+        assert t.count(old) == 1, (old[:60], t.count(old))
+        t = t.replace(old, new)
+    assert t.count('\n') == FUNC.count('\n'), (t.count('\n'), FUNC.count('\n'))
+    out = [(FILE, FUNC, t)]
+    if helper:
+        out.insert(0, (FILE, HELPER_ANCHOR, helper + HELPER_ANCHOR))
+    return out
+
+def rep(s, k):
+    return ' '.join([s] * k)
+
+FORMS = {
+    # 1. str_size_2..4 + Avg. Cost shallower (append(buffer, strlen(buffer)))
+    'ss2_cost_sl': form(FUNC, (COST_OLD, COST_STRLEN), (PRE_SW, '\t\t' + rep('string->size();', 2) + ' int type = data->Get_Mount_I00(slot);')),
+    'ss3_cost_sl': form(FUNC, (COST_OLD, COST_STRLEN), (PRE_SW, '\t\t' + rep('string->size();', 3) + ' int type = data->Get_Mount_I00(slot);')),
+    'ss4_cost_sl': form(FUNC, (COST_OLD, COST_STRLEN), (PRE_SW, '\t\t' + rep('string->size();', 4) + ' int type = data->Get_Mount_I00(slot);')),
+    'ss2_cost_sl_e1': form(FUNC, (COST_OLD, COST_STRLEN), (PRE_SW, '\t\t' + rep('string->size();', 2) + ' int type = data->Get_Mount_I00(slot);'), (END_RET, '\tGet_Slot(); return("NORMAL_SLOT");\n}\n')),
+    'ss2_cost_sl_e2': form(FUNC, (COST_OLD, COST_STRLEN), (PRE_SW, '\t\t' + rep('string->size();', 2) + ' int type = data->Get_Mount_I00(slot);'), (END_RET, '\tGet_Slot(); Get_Slot(); return("NORMAL_SLOT");\n}\n')),
+    'ss2_cost_sl_se1': form(FUNC, (COST_OLD, COST_STRLEN), (PRE_SW, '\t\t' + rep('string->size();', 2) + ' int type = data->Get_Mount_I00(slot);'), (END_RET, '\tstring->size(); return("NORMAL_SLOT");\n}\n')),
+    'ss2_cost_sl_se2': form(FUNC, (COST_OLD, COST_STRLEN), (PRE_SW, '\t\t' + rep('string->size();', 2) + ' int type = data->Get_Mount_I00(slot);'), (END_RET, '\tstring->size(); string->size(); return("NORMAL_SLOT");\n}\n')),
+    'ss2_cost_len': form(FUNC, (COST_OLD, COST_LENLOC), (PRE_SW, '\t\t' + rep('string->size();', 2) + ' int type = data->Get_Mount_I00(slot);')),
+    'ss1_cost_sl': form(FUNC, (COST_OLD, COST_STRLEN), (PRE_SW, '\t\tstring->size(); int type = data->Get_Mount_I00(slot);')),
+    'ngt_e2_cost_sl': form(FUNC, NGT, (COST_OLD, COST_STRLEN), (END_RET, '\tGet_Slot(); Get_Slot(); return("NORMAL_SLOT");\n}\n')),
+    'ngt_e3_cost_sl': form(FUNC, NGT, (COST_OLD, COST_STRLEN), (END_RET, '\tGet_Slot(); Get_Slot(); Get_Slot(); return("NORMAL_SLOT");\n}\n')),
+    'slot_s2_cost_sl': form(FUNC, ('\tint slot = Get_Slot();', '\tint slot = Unknown20;'), (COST_OLD, COST_STRLEN), (PRE_SW, '\t\tGet_Slot(); Get_Slot(); int type = data->Get_Mount_I00(slot);')),
+    # 2. strlen9 + string->size() / post-return Get_Slot()
+    'sl9_ss1': form(STRLEN9, (PRE_SW, '\t\t' + rep('string->size();', 1) + ' int type = data->Get_Mount_I00(slot);')),
+    'sl9_ss2': form(STRLEN9, (PRE_SW, '\t\t' + rep('string->size();', 2) + ' int type = data->Get_Mount_I00(slot);')),
+    'sl9_ss3': form(STRLEN9, (PRE_SW, '\t\t' + rep('string->size();', 3) + ' int type = data->Get_Mount_I00(slot);')),
+    'sl9_ss4': form(STRLEN9, (PRE_SW, '\t\t' + rep('string->size();', 4) + ' int type = data->Get_Mount_I00(slot);')),
+    'sl9_end_s1': form(STRLEN9, (END_RET, '\tGet_Slot(); return("NORMAL_SLOT");\n}\n')),
+    'sl9_end_s2': form(STRLEN9, (END_RET, '\tGet_Slot(); Get_Slot(); return("NORMAL_SLOT");\n}\n')),
+    'sl9_end_s3': form(STRLEN9, (END_RET, '\tGet_Slot(); Get_Slot(); Get_Slot(); return("NORMAL_SLOT");\n}\n')),
+    'sl9_end_ss2': form(STRLEN9, (END_RET, '\tstring->size(); string->size(); return("NORMAL_SLOT");\n}\n')),
+    'sl9_end_ss4': form(STRLEN9, (END_RET, '\t' + rep('string->size();', 4) + ' return("NORMAL_SLOT");\n}\n')),
+    # 3. no_get_type & di_top_7 (both 3-form) + Price behind file-static H_Add
+    'ngt_hadd_peq': form(FUNC, NGT, (PRICE_OLD, PRICE_HADD), helper=H_ADD_PEQ),
+    'ngt_hadd_app': form(FUNC, NGT, (PRICE_OLD, PRICE_HADD), helper=H_ADD_APP),
+    'ngt_hadd_peq_s1': form(FUNC, NGT, (PRICE_OLD, PRICE_HADD), (END_RET, '\tGet_Slot(); return("NORMAL_SLOT");\n}\n'), helper=H_ADD_PEQ),
+    'ngt_hadd_peq_ss1': form(FUNC, NGT, (PRICE_OLD, PRICE_HADD), (END_RET, '\tstring->size(); return("NORMAL_SLOT");\n}\n'), helper=H_ADD_PEQ),
+    'di7_hadd_peq': form(FUNC, DI7, (PRICE_OLD, PRICE_HADD), helper=H_ADD_PEQ),
+    'di7_hadd_app': form(FUNC, DI7, (PRICE_OLD, PRICE_HADD), helper=H_ADD_APP),
+    'di7_hadd_peq_s1': form(FUNC, DI7, (PRICE_OLD, PRICE_HADD), (END_RET, '\tGet_Slot(); return("NORMAL_SLOT");\n}\n'), helper=H_ADD_PEQ),
+    # 4. Pure str_size_2 at different positions (top / before Price / after return)
+    'ss2_top': form(FUNC, ('\tSlotDataRenderClass::Unknown_28(string);', '\tstring->size(); string->size(); SlotDataRenderClass::Unknown_28(string);')),
+    'ss2_end': form(FUNC, (END_RET, '\tstring->size(); string->size(); return("NORMAL_SLOT");\n}\n')),
+}

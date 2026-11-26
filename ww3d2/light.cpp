@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Renegade(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -54,8 +54,6 @@
  *   LightImpClass::LightImpClass -- constructor                                               *
  *   LightImpClass::Process_Push -- exposes the "push" process for an srLight                  *
  *   LightImpClass::Process_Pop -- exposes the "pop" process for an srLight                    *
- *   LightClass::Compute_Lighting -- Compute lighting for a vertex                             *
- *   LightClass::Is_Within_Attenuation_Radius -- is the point within the atten radius of this  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #include "light.h"
@@ -305,106 +303,6 @@ void LightClass::Get_Obj_Space_Bounding_Box(AABoxClass & box) const
 	float r = Get_Attenuation_Range();
 	box.Center.Set(0,0,0);
 	box.Extent.Set(r,r,r);
-}
-
-
-/***********************************************************************************************
- * LightClass::Is_Within_Attenuation_Radius -- is the point within the atten radius of this li *
- *                                                                                             *
- * INPUT:                                                                                      *
- *                                                                                             *
- * OUTPUT:                                                                                     *
- *                                                                                             *
- * WARNINGS:                                                                                   *
- *                                                                                             *
- * HISTORY:                                                                                    *
- *   2/13/2002  gth : Created.                                                                 *
- *=============================================================================================*/
-bool LightClass::Is_Within_Attenuation_Radius(const Vector3 & pos)
-{
-	if (Get_Flag(FAR_ATTENUATION) == false) {
-		return true;
-	
-	} else {
-
-		Vector3 dir = Get_Position() - pos;
-		float dist2 = dir.Length2();
-		return (dist2 < FarAttenEnd*FarAttenEnd);
-	}
-}
-
-/***********************************************************************************************
- * LightClass::Compute_Lighting -- Compute lighting for a vertex                               *
- *                                                                                             *
- * INPUT:                                                                                      *
- *                                                                                             *
- * OUTPUT:                                                                                     *
- *                                                                                             *
- * WARNINGS:                                                                                   *
- *                                                                                             *
- * HISTORY:                                                                                    *
- *   2/13/2002  gth : Created.                                                                 *
- *=============================================================================================*/
-void LightClass::Compute_Lighting(const Vector3 & pos,const Vector3 & norm, Vector3 * set_ambient, Vector3 * set_diffuse)
-{
-	Matrix3D tm = Get_Transform();
-
-	/*
-	** Compute direction vector and distance
-	*/
-	Vector3 dir = tm.Get_Translation() - pos;
-	float dist = dir.Length();
-	if (dist > 0.0f) {
-		dir /= dist;
-	}
-
-	/*
-	** Compute attenuation
-	*/
-	float atten = 1.0f;
-
-	if (Get_Flag(FAR_ATTENUATION)) {
-		atten = 1.0f - (dist - FarAttenStart) / (FarAttenEnd - FarAttenStart);
-		atten = WWMath::Clamp(atten,0.0f,1.0f);
-	}
-
-	if (Type == LightClass::SPOT) {
-		
-		Vector3 spot_dir = -tm.Get_Z_Vector();
-		float spot_atten = (Vector3::Dot_Product(spot_dir,dir) - SpotAngleCos) / (1.0f - SpotAngleCos);
-		atten *= spot_atten;
-		atten = WWMath::Clamp(atten,0.0f,1.0f);
-	}
-
-	/*
-	** Ambient:
-	*/
-	*set_ambient = atten * Ambient * Intensity;
-
-	/*
-	** Diffuse:
-	*/
-	switch (Type) 
-	{
-		case LightClass::POINT:
-		{
-			*set_diffuse = atten * Intensity * Diffuse * Vector3::Dot_Product(norm,dir);
-			break;
-		}
-
-		case LightClass::DIRECTIONAL:
-		case LightClass::SPOT:
-		{
-			Vector3 light_dir = -tm.Get_Z_Vector();
-			*set_diffuse = atten * Intensity * Diffuse * Vector3::Dot_Product(norm,light_dir);
-			
-			break;
-		}
-	}
-
-	set_diffuse->X = WWMath::Clamp(set_diffuse->X);
-	set_diffuse->Y = WWMath::Clamp(set_diffuse->Y);
-	set_diffuse->Z = WWMath::Clamp(set_diffuse->Z);
 }
 
 
@@ -679,3 +577,6 @@ bool LightClass::Load (ChunkLoadClass &cload)
 	return true;
 }
 
+
+// Earth & Beyond client (reconstruction): changes to Renegade's light.cpp
+// EnB: LightClass::Is_Within_Attenuation_Radius and Compute_Lighting (2/13/2002 gth) dropped: not in the client, whose Get_Obj_Space_Bounding_Box 0x953AC0 is followed directly by Load_W3D 0x953AE0 (no candidate anywhere: gaps-ww3d2 status none); nothing calls them; their declarations stay in light.h (removing a declaration from a widely included header moved bmp2d.cpp's registers: Bitmap2DObjClass's constructor 0x974420 lost its pair)

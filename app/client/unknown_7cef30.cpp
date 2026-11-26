@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-
+#include <string>
 std::string Unknown_BE8AC0;
 std::string Unknown_BE8AB0;
 std::string Unknown_BE8AA0;

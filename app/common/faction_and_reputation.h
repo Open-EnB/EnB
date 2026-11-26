@@ -18,9 +18,9 @@
 #ifndef FACTION_AND_REPUTATION_H  // NAME 3 [faction_and_reputation.h]: header name assumed from the client's faction_and_reputation.cpp (D57)
 #define FACTION_AND_REPUTATION_H
 
-// MobReactionType and its Value_To_String are declared in pk_player_object_relationship.h (interim: sclient.cpp
-// sees that header, and a declaration moved out of it moves sclient.cpp's symbol pad; workflow.md 3.4)
-#include "..\packets\pk_player_object_relationship.h"
+// MobReactionType and its Value_To_String: relationship.h (interim; pk_player_object_relationship.h includes it
+// where they stood, so sclient.cpp's symbol pad keeps; this object has no <string> initialiser in the client)
+#include "..\packets\relationship.h"
 
 // An NPC's reaction to the player (the FAIL_IF 'reaction >= NPC_REACTION_COUNT'; the names are the table's, 0xBA9624)
 enum NPCReactionType  // NAME 2: after the client's NPC_REACTION_COUNT, as MobReactionType

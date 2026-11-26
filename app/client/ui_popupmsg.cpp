@@ -8,7 +8,7 @@
 #include "refcount.h"
 #include "wwstring.h"
 #include "..\shared\g_assert.h"
-#include "..\shared\auxdata\permstr.h"
+// (no permstr.h: 0x5DBF70 follows this object's <string> initialiser 0x5DBF20, so it opens ui_power.cpp's)
 
 // gadget.cpp's gadget: gadget.h
 #include "gadget.h"

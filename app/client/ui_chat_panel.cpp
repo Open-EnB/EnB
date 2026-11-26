@@ -827,14 +827,14 @@ void ChatPanelInterface::Unknown_563760(int type, const std::string &text)
 	}
 }
 
-// NOT EXACT: register-only (1 row): case 3's inlined "Group" _Eos stores [ecx+eax] where the client has [eax+ecx]; attempts.py show 0x5646A0
+// A device without bytes, not known to be the client's text (measured 2026-11-25, attempts.py show 0x5646A0): cases 2 and 3 share one ChatInt->Unknown_B4(Unknown_B7C2B8[Unknown148]) statement (goto show); with a copy in each of cases 0-3, which VC6 merges into the same single call, case 3's inlined "Group" _Eos stored [ecx+eax] where the client has [eax+ecx] (VC6 counts the copies before it merges them)
 // @0x5646A0
 // 0x5646A0: talk on channel 'channel' (0..5 channels, 6..8 +0x158 names, 9 reply); false on chat if unavailable (Guild/Group keeps channel)
 bool ChatPanelInterface::Unknown_5646A0(int channel)
 {
 	SClient *sclient = Client->As_Space_Client();
 	int old = Unknown148;
-	Unknown148 = channel; Unknown238.size();	// dead read: spends the inline budget the client spent (D272), so case 4's assign inlines _Eos and cases 3 / 5 keep their own Unknown_B4 calls
+	Unknown148 = channel; Unknown238.size(); Unknown238.size(); Unknown238.size();	// dead reads: they spend the inline budget the client spent (D272), so case 3's and case 4's assigns inline _Eos and case 5 keeps its own Unknown_B4 call (3 or 4 with the shared label call; 1 without it)
 	if (!ChatInt) return(true);
 	if (channel == 9) {
 		Unknown248 = Unknown1D8;
@@ -876,8 +876,7 @@ bool ChatPanelInterface::Unknown_5646A0(int channel)
 					return(false);
 				}
 				Unknown238 = "Guild";
-				ChatInt->Unknown_B4(Unknown_B7C2B8[Unknown148]);
-				break;
+				goto show;	// one label call for cases 2 and 3: the device described above the function
 			case 3:
 				if (!sclient->Unknown_74D570()) {
 					sclient->Unknown_74D990(17, "Not in a group.", 0);
@@ -885,6 +884,7 @@ bool ChatPanelInterface::Unknown_5646A0(int channel)
 					return(false);
 				}
 				Unknown238 = "Group";
+show:
 				ChatInt->Unknown_B4(Unknown_B7C2B8[Unknown148]);
 				break;
 			case 5: {

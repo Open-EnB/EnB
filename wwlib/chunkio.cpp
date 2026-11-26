@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Renegade(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -46,7 +46,6 @@
  *   ChunkSaveClass::Cur_Chunk_Depth -- returns the current chunk recursion depth (debugging)  * 
  *   ChunkLoadClass::ChunkLoadClass -- Constructor                                             * 
  *   ChunkLoadClass::Open_Chunk -- Open a chunk in the file, reads in the chunk header         * 
- *   ChunkLoadClass::Peek_Next_Chunk -- sneak peek into the next chunk that will be opened     *
  *   ChunkLoadClass::Close_Chunk -- Close a chunk, seeks to the end if needed                  * 
  *   ChunkLoadClass::Cur_Chunk_ID -- Returns the ID of the current chunk                       * 
  *   ChunkLoadClass::Cur_Chunk_Length -- Returns the current length of the current chunk       * 
@@ -434,50 +433,6 @@ bool ChunkLoadClass::Open_Chunk()
 }
 
 
-/***********************************************************************************************
- * ChunkLoadClass::Peek_Next_Chunk -- sneak peek into the next chunk that will be opened       *
- *                                                                                             *
- * INPUT:                                                                                      *
- *                                                                                             *
- * OUTPUT:                                                                                     *
- *                                                                                             *
- * WARNINGS:                                                                                   *
- *                                                                                             *
- * HISTORY:                                                                                    *
- *   3/4/2002   gth : Created.                                                                 *
- *=============================================================================================*/
-bool ChunkLoadClass::Peek_Next_Chunk(uint32 * set_id,uint32 * set_size)
-{
-	// if user didn't close any micro chunks that he opened, bad things could happen
-	assert(InMicroChunk == false);							
-	
-	// check for stack overflow
-	assert(StackIndex < MAX_STACK_DEPTH-1);
-
-	// if the parent chunk has been completely eaten, return false
-	if ((StackIndex > 0) && (PositionStack[StackIndex-1] == HeaderStack[StackIndex-1].Get_Size())) {
-		return false;
-	}
-
-	// peek at the next chunk header, return false if the read fails
-	ChunkHeader temp_header;
-	if (File->Read(&temp_header,sizeof(ChunkHeader)) != sizeof(ChunkHeader)) {
-		return false;
-	}
-
-	int seek_offset = sizeof(ChunkHeader);
-	File->Seek(-seek_offset,SEEK_CUR);
-	
-	if (set_id != NULL) {
-		*set_id = temp_header.Get_Type();
-	}
-	if (set_size != NULL) {
-		*set_size = temp_header.Get_Size();
-	}
-
-	return true;
-}
-
 /*********************************************************************************************** 
  * ChunkLoadClass::Close_Chunk -- Close a chunk, seeks to the end if needed                    * 
  *                                                                                             * 
@@ -839,3 +794,6 @@ uint32 ChunkLoadClass::Read(IOQuaternionStruct * q)
 	return Read(q,sizeof(q));
 }
 
+
+// Earth & Beyond client (reconstruction): changes to Renegade's chunkio.cpp
+// EnB: ChunkLoadClass::Peek_Next_Chunk (3/4/2002 gth) dropped: not in the client, whose Open_Chunk 0x9D4310 is followed directly by Close_Chunk 0x9D4370 (gaps-wwlib status none); nothing calls it; its declaration stays in chunkio.h (see light.cpp's EnB block)

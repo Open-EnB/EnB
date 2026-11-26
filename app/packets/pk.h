@@ -24,14 +24,14 @@
 
 class ConnectionClass;
 
-// What the raw message's Add / Get of an object call (slot 0 writes, 4 reads, 8 sizes it): MoneyPacketDataClass
-class Unknown_PacketDataClass	// NAME 1: neutral placeholder (D10)
-{
-public:
-	virtual bool Write(LinearBufferClass *buffer) = 0;	// +0x00 NAME 2: what RawPacketClass::Add calls it for (the money wrapper's returns true)
-	virtual bool Read(LinearBufferClass *buffer) = 0;	// +0x04 NAME 2: what RawPacketClass::Get calls it for
-	virtual int Get_Size() = 0;							// +0x08 NAME 2: the bytes Write writes (the money wrapper's 0x873A90)
-};
+#include "packet_data.h"	// Unknown_PacketDataClass
+// (blank lines where the class stood: the asserts below keep their __LINE__)
+
+
+
+
+
+
 
 // A message's header on the wire: the size with these 4 bytes, the opcode (both 16-bit, little
 // endian). The asserts name it (`packet->Header.Size`, udpconn.cpp).

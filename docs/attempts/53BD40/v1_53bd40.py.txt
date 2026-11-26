@@ -1,0 +1,97 @@
+HYPOTHESIS = (
+    'Do_Frame 0x53BD40 GN4 batch 1: all 3 differing x87 product pairs (Pre_Rotate_Z col 0 s*Row[1][0] / c*Row[1][0], '
+    'Rotate_Z row 1 c*Row[1][0]) are commutative products of lean.Row[1][0] with inline locals c/s. Per workflow.md '
+    '3.1.2 (2026-11-25), VC6 orders commutative x87 products by symbol numbering / definition count. Test (1) real '
+    'inline-call / declaration differences in Do_Frame (Client-> vs Peek_Client()->, Matrix3D::Multiply direct arg, '
+    'turn.Set vs element stores, turn *= vs elements, local declaration positions) and (2) diagnostic dead-init '
+    'locals / empty inline calls before lean to see if symbol index shift flips all 3 pairs to raw=0.'
+)
+FILE = 'app/client/bridge_int.cpp'
+SYMBOL = 'BridgeInterface::Do_Frame'
+ADDRESS = 0x53BD40
+
+SRC = open('C:/EnBDevelopment/EnB/.work/wt/GN4/app/client/bridge_int.cpp', encoding='utf-8').read()
+A = SRC.index('void BridgeInterface::Do_Frame(CameraClass *camera)')
+B = SRC.index('\n}\n', A) + 3
+FUNC = SRC[A:B]
+
+def sub(text, old, new, count=1):
+    assert text.count(old) == count, (old, text.count(old))
+    return text.replace(old, new)
+
+def form(*edits, prefix=''):
+    t = FUNC
+    for old, new in edits:
+        t = sub(t, old, new)
+    assert t.count('\n') == FUNC.count('\n'), (t.count('\n'), FUNC.count('\n'))
+    return [(FUNC, prefix + t)]
+
+NOP = 'static inline int Bi_Nop(int a) { int b = a; return b; } '
+
+P1 = '\tClientObjectClass *pship = Peek_Client()->Get_Ship();\n'
+P2 = '\tVector3 turn = pship->PositionalState->Unknown_14(Peek_Client()->Unknown10BC);\n'
+TM_LINE = '\tMatrix3D tm = camera->Get_Transform();\n\tMatrix3D view;\n\tMatrix3D::Multiply(tm, CameraTransform, &view);\n'
+TURN_MUL = '\t\tturn *= 50.0f;\n'
+TURN_SET = '\t\tturn.Set(0.0f, 0.0f, 0.0f);\n'
+LEAN = '\tMatrix3D lean(true);\n'
+TOP = '\tFAIL_IF(!camera) return;\n'
+PRE_Z = '\tlean.Pre_Rotate_Z(smooth.Z);\n'
+
+FORMS = {
+    # Real inline-call / source differences
+    'client_both': form(
+        (P1, '\tClientObjectClass *pship = Client->Get_Ship();\n'),
+        (P2, '\tVector3 turn = pship->PositionalState->Unknown_14(Client->Unknown10BC);\n'),
+    ),
+    'client_p1': form(
+        (P1, '\tClientObjectClass *pship = Client->Get_Ship();\n'),
+    ),
+    'client_p2': form(
+        (P2, '\tVector3 turn = pship->PositionalState->Unknown_14(Client->Unknown10BC);\n'),
+    ),
+    'tm_ref': form(
+        (TM_LINE, '\tconst Matrix3D &tm = camera->Get_Transform();\n\tMatrix3D view;\n\tMatrix3D::Multiply(tm, CameraTransform, &view);\n'),
+    ),
+    'tm_inline': form(
+        (TM_LINE, '\t\n\tMatrix3D view;\n\tMatrix3D::Multiply(camera->Get_Transform(), CameraTransform, &view);\n'),
+    ),
+    'turn_zero_elem': form(
+        (TURN_SET, '\t\tturn.X = 0.0f; turn.Y = 0.0f; turn.Z = 0.0f;\n'),
+    ),
+    'turn_mul_elem': form(
+        (TURN_MUL, '\t\tturn.X *= 50.0f; turn.Y *= 50.0f; turn.Z *= 50.0f;\n'),
+    ),
+    'turn_both_elem': form(
+        (TURN_MUL, '\t\tturn.X *= 50.0f; turn.Y *= 50.0f; turn.Z *= 50.0f;\n'),
+        (TURN_SET, '\t\tturn.X = 0.0f; turn.Y = 0.0f; turn.Z = 0.0f;\n'),
+    ),
+    'lean_decl_top': form(
+        (TOP, '\tFAIL_IF(!camera) return; Matrix3D lean;\n'),
+        (LEAN, '\tlean.Make_Identity();\n'),
+    ),
+    'lean_make_id': form(
+        (LEAN, '\tMatrix3D lean; lean.Make_Identity();\n'),
+    ),
+    'lean_top_client': form(
+        (TOP, '\tFAIL_IF(!camera) return; Matrix3D lean;\n'),
+        (P1, '\tClientObjectClass *pship = Client->Get_Ship();\n'),
+        (P2, '\tVector3 turn = pship->PositionalState->Unknown_14(Client->Unknown10BC);\n'),
+        (LEAN, '\tlean.Make_Identity();\n'),
+    ),
+    'tm_inline_client': form(
+        (P1, '\tClientObjectClass *pship = Client->Get_Ship();\n'),
+        (TM_LINE, '\t\n\tMatrix3D view;\n\tMatrix3D::Multiply(camera->Get_Transform(), CameraTransform, &view);\n'),
+        (P2, '\tVector3 turn = pship->PositionalState->Unknown_14(Client->Unknown10BC);\n'),
+    ),
+    # Diagnostic symbol-index shifts before lean
+    'diag_d1': form((LEAN, '\tint _d0 = 0; Matrix3D lean(true);\n')),
+    'diag_d2': form((LEAN, '\tint _d0 = 0, _d1 = 0; Matrix3D lean(true);\n')),
+    'diag_d4': form((LEAN, '\tint _d0 = 0, _d1 = 0, _d2 = 0, _d3 = 0; Matrix3D lean(true);\n')),
+    'diag_d8': form((LEAN, '\tint _d0=0,_d1=0,_d2=0,_d3=0,_d4=0,_d5=0,_d6=0,_d7=0; Matrix3D lean(true);\n')),
+    'diag_nop1': form((LEAN, '\tBi_Nop(0); Matrix3D lean(true);\n'), prefix=NOP),
+    'diag_nop2': form((LEAN, '\tBi_Nop(0); Bi_Nop(0); Matrix3D lean(true);\n'), prefix=NOP),
+    'diag_nop4': form((LEAN, '\tBi_Nop(0); Bi_Nop(0); Bi_Nop(0); Bi_Nop(0); Matrix3D lean(true);\n'), prefix=NOP),
+    'diag_top_d4': form((TOP, '\tFAIL_IF(!camera) return; int _d0=0,_d1=0,_d2=0,_d3=0;\n')),
+    'diag_prez_d2': form((PRE_Z, '\tint _d0=0,_d1=0; lean.Pre_Rotate_Z(smooth.Z);\n')),
+    'diag_prez_nop2': form((PRE_Z, '\tBi_Nop(0); Bi_Nop(0); lean.Pre_Rotate_Z(smooth.Z);\n'), prefix=NOP),
+}

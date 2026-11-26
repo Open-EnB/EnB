@@ -1,0 +1,198 @@
+HYPOTHESIS = (
+    'Unknown_639630 0x639630 GN4 batch 2: batch 1 showed symbol-index shifts are identical to base (dead-init locals '
+    'and nop calls before the lit loop do not move 0x639D8B ebp vs ecx). Test (1) offset-0 derived-to-base casts '
+    '(RObjGadgetClass* / ButtonGadgetClass* / Unknown_66B770Class* on savatar->Unknown14 in else / all 3 arms / '
+    'sbaseview.h member retype), (2) control-flow forms around the lit loop (if (!savatar->Unknown14) continue;, '
+    'split && into two ifs with cross-jumped Unknown_40(false), early continue on !Unknown_Is_Shown, while loop, '
+    'savatar = it.Cur->Value reload), and (3) member inline accessor on UIStarbaseUnknownCCClass.'
+)
+FILE = 'app/client/ui_starbase.cpp'
+SYMBOL = 'UIStarbaseClass::Unknown_639630'
+ADDRESS = 0x639630
+
+SRC = open('C:/EnBDevelopment/EnB/.work/wt/GN4/app/client/ui_starbase.cpp', encoding='utf-8').read()
+A = SRC.index('void UIStarbaseClass::Unknown_639630()')
+B = SRC.index('\n}\n', A) + 3
+FUNC = SRC[A:B]
+
+LIT_BODY = FUNC[FUNC.index('\t\tif (savatar->Unknown14) {\n\t\t\tif (Unknown_Is_Shown'):]
+
+def sub(text, old, new, count=1):
+    assert text.count(old) == count, (old, text.count(old))
+    return text.replace(old, new)
+
+def form(*edits, extra=None):
+    t = FUNC
+    for old, new in edits:
+        t = sub(t, old, new)
+    assert t.count('\n') == FUNC.count('\n'), (t.count('\n'), FUNC.count('\n'))
+    out = [(FILE, FUNC, t)]
+    if extra:
+        out.extend(extra)
+    return out
+
+def lit_form(new_lit, extra=None):
+    cur = new_lit.count('\n')
+    want = LIT_BODY.count('\n')
+    assert cur <= want, (cur, want)
+    idx = new_lit.rindex('}\n')
+    new_lit = new_lit[:idx] + '\n' * (want - cur) + new_lit[idx:]
+    return form((LIT_BODY, new_lit), extra=extra)
+
+ELSE_CALL = '\t\t\t} else {\n\t\t\t\tsavatar->Unknown14->Unknown_40(false);\n\t\t\t}\n'
+
+FORMS = {
+    # 1. Offset-0 casts on savatar->Unknown14
+    'cast_robj_else': form((ELSE_CALL, '\t\t\t} else {\n\t\t\t\t((RObjGadgetClass *)savatar->Unknown14)->Unknown_40(false);\n\t\t\t}\n')),
+    'cast_btn_else': form((ELSE_CALL, '\t\t\t} else {\n\t\t\t\t((ButtonGadgetClass *)savatar->Unknown14)->Unknown_40(false);\n\t\t\t}\n')),
+    'cast_btn_3arms': lit_form(LIT_BODY
+        .replace('savatar->Unknown14->Unknown_40(', '((ButtonGadgetClass *)savatar->Unknown14)->Unknown_40(')),
+    'cast_btn_all_lit': lit_form(LIT_BODY
+        .replace('if (savatar->Unknown14)', 'if ((ButtonGadgetClass *)savatar->Unknown14)')
+        .replace('Unknown_Is_Shown(savatar->Unknown14)', 'Unknown_Is_Shown((ButtonGadgetClass *)savatar->Unknown14)')
+        .replace('savatar->Unknown14->Unknown_40(', '((ButtonGadgetClass *)savatar->Unknown14)->Unknown_40(')),
+    'cast_robj_local': lit_form(LIT_BODY
+        .replace('if (savatar->Unknown14) {', 'RObjGadgetClass *g = (RObjGadgetClass *)savatar->Unknown14; if (g) {')
+        .replace('Unknown_Is_Shown(savatar->Unknown14)', 'Unknown_Is_Shown(g)')
+        .replace('savatar->Unknown14->Unknown_40(false);\n\t\t\t}\n', 'g->Unknown_40(false);\n\t\t\t}\n')),
+    'cast_btn_local': lit_form(LIT_BODY
+        .replace('if (savatar->Unknown14) {', 'ButtonGadgetClass *g = (ButtonGadgetClass *)savatar->Unknown14; if (g) {')
+        .replace('Unknown_Is_Shown(savatar->Unknown14)', 'Unknown_Is_Shown(g)')
+        .replace('savatar->Unknown14->Unknown_40(false);\n\t\t\t}\n', 'g->Unknown_40(false);\n\t\t\t}\n')),
+    'sbaseview_u14_robj': form(extra=[(
+        'app/client/sbaseview.h',
+        '\tGadgetClass *Unknown14;\t\t\t// +0x14 (the destructor\'s GadgetClass::Destroy)\n',
+        '\tRObjGadgetClass *Unknown14;\t\t\t// +0x14\n',
+    )]),
+    # 2. Control-flow around the lit loop
+    'cont_null_u14': lit_form(
+        '\t\tif (!savatar->Unknown14) continue;\n'
+        '\t\tif (Unknown_Is_Shown(savatar->Unknown14) && Unknown_63BA70(UnknownC0.D->Avatar.Peek(), savatar->Avatar.Peek(), 6.0f)) {\n'
+        '\t\t\tif (!busy) {\n'
+        '\t\t\t\tsclient->Mouse->Unknown_515120(5);\n'
+        '\t\t\t}\n'
+        '\t\t\tif (!savatar->Unknown_633010() && !Unknown_63E8F0(savatar->Unknown00)) {\n'
+        '\t\t\t\tUnknownB0->Unknown_6A0E80("");\n'
+        '\t\t\t\tsavatar->Unknown14->Unknown_40(true);\n'
+        '\t\t\t} else {\n'
+        '\t\t\t\tUnknownB0->Unknown_6A0E80("Busy");\n'
+        '\t\t\t\tsavatar->Unknown14->Unknown_40(false);\n'
+        '\t\t\t}\n'
+        '\t\t} else {\n'
+        '\t\t\tsavatar->Unknown14->Unknown_40(false);\n'
+        '\t\t}\n'
+        '\n'
+        '\t}\n}\n'
+    ),
+    'split_and_crossjump': lit_form(
+        '\t\tif (savatar->Unknown14) {\n'
+        '\t\t\tif (Unknown_Is_Shown(savatar->Unknown14)) {\n'
+        '\t\t\t\tif (Unknown_63BA70(UnknownC0.D->Avatar.Peek(), savatar->Avatar.Peek(), 6.0f)) {\n'
+        '\t\t\t\t\tif (!busy) sclient->Mouse->Unknown_515120(5);\n'
+        '\t\t\t\t\tif (!savatar->Unknown_633010() && !Unknown_63E8F0(savatar->Unknown00)) {\n'
+        '\t\t\t\t\t\tUnknownB0->Unknown_6A0E80("");\n'
+        '\t\t\t\t\t\tsavatar->Unknown14->Unknown_40(true);\n'
+        '\t\t\t\t\t} else {\n'
+        '\t\t\t\t\t\tUnknownB0->Unknown_6A0E80("Busy");\n'
+        '\t\t\t\t\t\tsavatar->Unknown14->Unknown_40(false);\n'
+        '\t\t\t\t\t}\n'
+        '\t\t\t\t} else {\n'
+        '\t\t\t\t\tsavatar->Unknown14->Unknown_40(false);\n'
+        '\t\t\t\t}\n'
+        '\t\t\t} else { savatar->Unknown14->Unknown_40(false); }\n'
+        '\t\t}\n'
+        '\t}\n}\n'
+    ),
+    'early_not_shown': lit_form(
+        '\t\tif (savatar->Unknown14) {\n'
+        '\t\t\tif (!Unknown_Is_Shown(savatar->Unknown14)) { savatar->Unknown14->Unknown_40(false); continue; }\n'
+        '\t\t\tif (Unknown_63BA70(UnknownC0.D->Avatar.Peek(), savatar->Avatar.Peek(), 6.0f)) {\n'
+        '\t\t\t\tif (!busy) sclient->Mouse->Unknown_515120(5);\n'
+        '\t\t\t\tif (!savatar->Unknown_633010() && !Unknown_63E8F0(savatar->Unknown00)) {\n'
+        '\t\t\t\t\tUnknownB0->Unknown_6A0E80("");\n'
+        '\t\t\t\t\tsavatar->Unknown14->Unknown_40(true);\n'
+        '\t\t\t\t} else {\n'
+        '\t\t\t\t\tUnknownB0->Unknown_6A0E80("Busy");\n'
+        '\t\t\t\t\tsavatar->Unknown14->Unknown_40(false);\n'
+        '\t\t\t\t}\n'
+        '\t\t\t} else {\n'
+        '\t\t\t\tsavatar->Unknown14->Unknown_40(false);\n'
+        '\t\t\t}\n'
+        '\t\t}\n'
+        '\t}\n}\n'
+    ),
+    'early_not_near': lit_form(
+        '\t\tif (savatar->Unknown14) {\n'
+        '\t\t\tif (!Unknown_Is_Shown(savatar->Unknown14) || !Unknown_63BA70(UnknownC0.D->Avatar.Peek(), savatar->Avatar.Peek(), 6.0f)) {\n'
+        '\t\t\t\tsavatar->Unknown14->Unknown_40(false); continue;\n'
+        '\t\t\t}\n'
+        '\t\t\tif (!busy) {\n'
+        '\t\t\t\tsclient->Mouse->Unknown_515120(5);\n'
+        '\t\t\t}\n'
+        '\t\t\tif (!savatar->Unknown_633010() && !Unknown_63E8F0(savatar->Unknown00)) {\n'
+        '\t\t\t\tUnknownB0->Unknown_6A0E80("");\n'
+        '\t\t\t\tsavatar->Unknown14->Unknown_40(true);\n'
+        '\t\t\t} else {\n'
+        '\t\t\t\tUnknownB0->Unknown_6A0E80("Busy");\n'
+        '\t\t\t\tsavatar->Unknown14->Unknown_40(false);\n'
+        '\t\t\t}\n'
+        '\t\t}\n'
+        '\t}\n}\n'
+    ),
+    'goto_off': lit_form(
+        '\t\tif (savatar->Unknown14) {\n'
+        '\t\t\tif (!Unknown_Is_Shown(savatar->Unknown14)) goto lit_off;\n'
+        '\t\t\tif (!Unknown_63BA70(UnknownC0.D->Avatar.Peek(), savatar->Avatar.Peek(), 6.0f)) goto lit_off;\n'
+        '\t\t\tif (!busy) sclient->Mouse->Unknown_515120(5);\n'
+        '\t\t\tif (!savatar->Unknown_633010() && !Unknown_63E8F0(savatar->Unknown00)) {\n'
+        '\t\t\t\tUnknownB0->Unknown_6A0E80("");\n'
+        '\t\t\t\tsavatar->Unknown14->Unknown_40(true);\n'
+        '\t\t\t} else {\n'
+        '\t\t\t\tUnknownB0->Unknown_6A0E80("Busy");\n'
+        '\t\t\t\tsavatar->Unknown14->Unknown_40(false);\n'
+        '\t\t\t}\n'
+        '\t\t\tcontinue;\n'
+        '\t\t\tlit_off: savatar->Unknown14->Unknown_40(false);\n'
+        '\t\t}\n'
+        '\t}\n}\n'
+    ),
+    'busy_goto_off': lit_form(
+        '\t\tif (savatar->Unknown14) {\n'
+        '\t\t\tif (Unknown_Is_Shown(savatar->Unknown14) && Unknown_63BA70(UnknownC0.D->Avatar.Peek(), savatar->Avatar.Peek(), 6.0f)) {\n'
+        '\t\t\t\tif (!busy) {\n'
+        '\t\t\t\t\tsclient->Mouse->Unknown_515120(5);\n'
+        '\t\t\t\t}\n'
+        '\t\t\t\tif (!savatar->Unknown_633010() && !Unknown_63E8F0(savatar->Unknown00)) {\n'
+        '\t\t\t\t\tUnknownB0->Unknown_6A0E80("");\n'
+        '\t\t\t\t\tsavatar->Unknown14->Unknown_40(true); continue;\n'
+        '\t\t\t\t} else {\n'
+        '\t\t\t\t\tUnknownB0->Unknown_6A0E80("Busy");\n'
+        '\t\t\t\t\tsavatar->Unknown14->Unknown_40(false); continue;\n'
+        '\t\t\t\t}\n'
+        '\t\t\t}\n'
+        '\t\t\tsavatar->Unknown14->Unknown_40(false);\n'
+        '\t\t}\n'
+        '\t}\n}\n'
+    ),
+    # 3. Member inline accessor on UIStarbaseUnknownCCClass
+    'member_getter_else': form(
+        (ELSE_CALL, '\t\t\t} else {\n\t\t\t\tsavatar->Get_Unknown14()->Unknown_40(false);\n\t\t\t}\n'),
+        extra=[(
+            'app/client/sbaseview.h',
+            '\tGadgetClass *Unknown14;\t\t\t// +0x14 (the destructor\'s GadgetClass::Destroy)\n',
+            '\tGadgetClass *Unknown14; GadgetClass *Get_Unknown14() { return Unknown14; }\n',
+        )]
+    ),
+    'member_setter_else': form(
+        (ELSE_CALL, '\t\t\t} else {\n\t\t\t\tsavatar->Set_Lit(false);\n\t\t\t}\n'),
+        extra=[(
+            'app/client/sbaseview.h',
+            '\tGadgetClass *Unknown14;\t\t\t// +0x14 (the destructor\'s GadgetClass::Destroy)\n',
+            '\tGadgetClass *Unknown14; void Set_Lit(bool on) { Unknown14->Unknown_40(on); }\n',
+        )]
+    ),
+    # 4. Also test if (savatar->Unknown14) using an inline bool on UIStarbaseUnknownCCClass or reload
+    'u14_volatile_cast': form(
+        (ELSE_CALL, '\t\t\t} else {\n\t\t\t\t(*(GadgetClass *volatile *)&savatar->Unknown14)->Unknown_40(false);\n\t\t\t}\n'),
+    ),
+}

@@ -6,7 +6,7 @@
 #include "vector2.h"
 #include "vector3.h"
 #include "..\..\ww3d2\ww3d.h"
-#include "..\shared\auxdata\permstr.h"	// (its PermStringInitClass static: 0x669F60)
+// (no permstr.h: 0x669F60 follows this object's code and opens gd_inv_slider.cpp's object)
 
 void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);	// 0x496AE0 (ro_funcs.cpp; declared as avatar.cpp does)
 

@@ -1,12 +1,9 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "the object 0x4C56B0-0x4C592F between expr_lexer_impl.cpp and expr_lexer_match_list.cpp (no __FILE__, interim name and placement D137): the number, name and white-space matchers, all exact (EX3)",
  "expected": {},
  "in_tree": [
-  "0x42B320",
   "0x4C56B0",
   "0x4C56E0",
   "0x4C5710",
@@ -21,13 +18,11 @@
  "merged": [],
  "name": "shared/expr/expr_lexer_matchers.cpp",
  "shared": [
-  "0x42B320",
   "0x4C5710",
   "0x4C5730",
   "0x4C5830"
  ],
  "short_known": [
-  "0x42B320",
   "0x4C5710",
   "0x4C5830"
  ]

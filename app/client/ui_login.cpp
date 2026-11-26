@@ -14,7 +14,7 @@
 #include "refcount.h"
 #include "..\audio\soundlib.h"
 #include "..\shared\g_assert.h"
-#include "..\shared\auxdata\permstr.h"
+// (no permstr.h: 0x5AF980 follows this object's <string> initialiser 0x5AF900, so it opens ui_manu.cpp's)
 #include "tutorial_manager.h"
 
 // gadget.cpp's gadget: gadget.h
