@@ -781,7 +781,7 @@ class Audio(unittest.TestCase):
         s2 = self.seq(*music, ('start', 't', 'aa:10'), ('stop', 't', 'aa:10'))
         stored = [s1, s1, s2]
         stab = baseline.audio_stability(stored)
-        self.assertEqual(stab['streams'], {'m music.mp3': True, 't aa:10': False})
+        self.assertEqual(stab['shapes'], {'m music.mp3': True, 't door.wav': False})
         self.assertFalse(stab['order'])
         run = self.seq(*music, ('start', 't', 'aa:10'))                 # the door never ends: retail varies there
         ok, text = baseline.audio_verdict(run, stored, None)
@@ -796,6 +796,43 @@ class Audio(unittest.TestCase):
         self.assertIs(ok, False)
         self.assertIn('t bell.wav', text)
         self.assertIs(baseline.audio_verdict(run, [s1], None)[0], False)  # one stored run: nothing measured, DIFF
+
+    def test_random_variants_by_family(self):
+        # sp_combat 2026-11-25: the space music is a random variant (retail: TerranWander07-2 twice, 04-2 once; a
+        # fourth retail run and ours: 01-5): another variant where retail's own runs vary is RETAIL-UNSTABLE; where
+        # every stored run played the same variant, another one is DIFF; another shape (a stop) is DIFF either way
+        def music(track, end='stop'):
+            return self.seq(('open', 'm', track), ('start', 'm', track), (end, 'm', track))
+        stored = [music('Wander07-2.mp3'), music('Wander07-2.mp3'), music('Wander04-2.mp3')]
+        self.assertEqual(baseline.audio_family(stored[0], 'Wander07-2.mp3'), 'Wander#-#.mp3')
+        self.assertEqual(baseline.audio_family(stored[0], 'aa:10'), 'door.wav')
+        self.assertEqual(baseline.audio_family(stored[0], 'ee:3'), 'ee:3')            # no name: the sample itself
+        ok, text = baseline.audio_verdict(music('Wander01-5.mp3'), stored, None)
+        self.assertEqual(ok, baseline.RETAIL_UNSTABLE, text)
+        self.assertIn('m Wander#-#.mp3 (Wander01-5.mp3) differ, and so do the 3 stored runs', text)
+        ok, text = baseline.audio_verdict(music('Wander01-5.mp3'), stored[:2], None)
+        self.assertIs(ok, False)                                       # the stored runs always played 07-2
+        self.assertIn('stable in the 2 stored runs and different: m Wander#-#.mp3', text)
+        ok, text = baseline.audio_verdict(music('Wander01-5.mp3', 'end'), stored, None)
+        self.assertIs(ok, False)                                       # every stored run stops it, the run's ends
+
+    def test_samples_named_from_the_data(self):
+        import audiolog
+        d = tempfile.mkdtemp()
+        body = b'RIFF' + bytes(range(40))
+        with open(os.path.join(d, 'sfx_foot_glass_4.wav'), 'wb') as f:
+            f.write(body)
+        key = f'{audiolog.fnv64(body)}:{len(body)}'
+        old, audiolog.NAMES = audiolog.NAMES, os.path.join(d, 'names.json')
+        try:
+            a = self.seq(('start', 't', key), ('end', 't', key))
+            named = baseline.name_samples([a, None], d)
+        finally:
+            audiolog.NAMES = old
+        self.assertEqual(named[0]['names'][key], 'sfx_foot_glass_4.wav')
+        self.assertIsNone(named[1])
+        self.assertNotIn(key, a['names'])                               # a copy: the stored summary is untouched
+        self.assertEqual(baseline.audio_family(named[0], key), 'sfx_foot_glass_#.wav')
 
     def test_retail_unstable_order_only(self):
         a, b = ('start', 'm', 'music.mp3'), ('start', 't', 'aa:10')

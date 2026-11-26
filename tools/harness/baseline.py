@@ -1441,45 +1441,88 @@ def audio_noise(entries):
 RETAIL_UNSTABLE = 'RETAIL-UNSTABLE'
 
 
+def name_samples(summaries, data_dir=None):
+    """Names the samples the summaries' sequences give only as hash:size (a 3D sample has no load event naming it;
+    a set's later scenario lacks the load) from the client data's files and mixes (audiolog.namer and its cache;
+    DATA_DIR default machine.py client_data's Data): returns copies with those names added; the summaries as they
+    are when nothing can be named (no data, off Windows)."""
+    keys = {x[2] for a in summaries if a for x in a['sequence']
+            if x[2] and ':' in str(x[2]) and x[2] not in a.get('names', {})}
+    if not keys:
+        return summaries
+    try:
+        import audiolog
+        import machine
+        data = data_dir or os.path.join(machine.get('client_data'), 'Data')
+        found = audiolog.namer([{'ev': 'load', 'hash': k.split(':')[0], 'size': int(k.split(':')[1])} for k in keys],
+                               data)
+    except Exception:           # noqa: BLE001: naming is a reading aid; without it the hashes stay
+        return summaries
+    return [dict(a, names={**{k: v for k, v in found.items() if k in keys}, **a.get('names', {})}) if a else a
+            for a in summaries]
+
+
+def audio_family(a, snd):
+    """A sound's family: its file name (a stream's own, a sample's from the load events) with every digit run as
+    '#', so the client's random variants of one sound share it (TerranWander07-2.mp3 and TerranWander01-5.mp3:
+    TerranWander#-#.mp3); a sample of no known name stays its hash:size."""
+    name = a.get('names', {}).get(snd, snd)
+    if name == snd and ':' in str(snd):
+        return snd
+    stem, ext = os.path.splitext(str(name))
+    return re.sub(r'\d+', '#', stem) + ext
+
+
 def audio_streams(a):
-    """{'KIND SOUND': [(event, loop), ...]}: each stream's or 3D sample's own events of the strict sequence, in order."""
+    """{'KIND FAMILY': [(event, loop, sound), ...]}: each family's streams' or 3D samples' own events of the strict
+    sequence, in order (audio_family)."""
     out = {}
     for ev, kind, snd, loop in audio_strict(a):
-        out.setdefault(f'{kind} {snd}', []).append((ev, loop))
+        out.setdefault(f'{kind} {audio_family(a, snd)}', []).append((ev, loop, snd))
     return out
+
+
+def _shape(items):
+    return [(ev, loop) for ev, loop, _ in items]
+
+
+def _loo(vals):
+    """Leave one out: every value equals another one's."""
+    return all(any(vals[i] == vals[j] for j in range(len(vals)) if j != i) for i in range(len(vals)))
 
 
 def audio_stability(stored):
     """Retail against retail, leave one out (brief CS2, c2: the measurement behind RETAIL-UNSTABLE): 'order' whether
-    every stored run's whole strict sequence equals another stored run's, 'streams' {'KIND SOUND': whether every
-    stored run's own events of that sound equal another stored run's (a run without the sound: no events)}, 'runs'
-    the count. With fewer than two stored runs nothing is measured and everything reads stable (a mismatch stays DIFF)."""
+    every stored run's whole strict sequence equals another stored run's; per family ('KIND FAMILY', audio_streams)
+    'shapes' whether every stored run's events of it (event and loop, the variant left out; a run without it: none)
+    equal another stored run's, and 'variants' the same with the variants' names (which of the random variants
+    played); 'runs' the count. With fewer than two stored runs nothing is measured: everything reads stable (DIFF)."""
     seqs = [audio_strict(a) for a in stored]
     per = [audio_streams(a) for a in stored]
     keys = sorted(set().union(*per)) if per else []
     if len(stored) < 2:
-        return {'runs': len(stored), 'order': True, 'streams': {k: True for k in keys}}
+        return {'runs': len(stored), 'order': True, 'shapes': {k: True for k in keys},
+                'variants': {k: True for k in keys}}
+    return {'runs': len(stored), 'order': _loo(seqs),
+            'shapes': {k: _loo([_shape(p.get(k, [])) for p in per]) for k in keys},
+            'variants': {k: _loo([p.get(k, []) for p in per]) for k in keys}}
 
-    def loo(vals):
-        return all(any(vals[i] == vals[j] for j in range(len(vals)) if j != i) for i in range(len(vals)))
-    return {'runs': len(stored), 'order': loo(seqs),
-            'streams': {k: loo([p.get(k, []) for p in per]) for k in keys}}
 
-
-def _stream_name(key, *summaries):
-    kind, snd = key.split(' ', 1)
-    for a in summaries:
-        if snd in a.get('names', {}):
-            return f'{kind} {a["names"][snd]}'
-    return key
+def _stream_name(key, mine):
+    """'KIND FAMILY' and the run's own variants of it."""
+    own = sorted({_snd(mine, snd) for _, _, snd in audio_streams(mine).get(key, [])})
+    return key + (f' ({", ".join(own[:3])}{" ..." if len(own) > 3 else ""})' if own and own != [key.split(' ', 1)[1]]
+                  else '')
 
 
 def audio_verdict(mine, stored, nz):
     """(ok, text) for MINE (an audio_summary or None) against the stored runs' summaries: ok None when nothing is
-    stored ("no audio stored") or the run has none; RETAIL_UNSTABLE when the streams/3D sequence equals no stored
-    run's only in sounds (or, every sound's own events matching, only in the order) the stored runs themselves
-    disagree on, leave one out (audio_stability); a sound whose events the stored runs agree on and the run's do
-    not, or a 2D count out of the stored range, is DIFF (False)."""
+    stored ("no audio stored") or the run has none. When the streams/3D sequence equals no stored run's, each sound
+    family (audio_family) whose events in the run match no stored run's is weighed: its shape (events, loops) equal
+    to a stored run's, it differs in which variant played; RETAIL_UNSTABLE when the stored runs disagree on that
+    themselves, leave one out (audio_stability: the variants, or the shape when the run's shape is not stored),
+    else DIFF (False). Every family matching but the interleaving differing: RETAIL_UNSTABLE when the stored runs'
+    whole sequences fail leave one out too, else DIFF. A 2D count out of the stored range is DIFF."""
     if not stored:
         return None, 'no audio stored'
     if mine is None:
@@ -1491,19 +1534,24 @@ def audio_verdict(mine, stored, nz):
         stab = audio_stability(stored)
         own = audio_streams(mine)
         theirs = [audio_streams(a) for a in stored]
-        differ = [k for k in sorted(set(own) | set(stab['streams']))
-                  if all(own.get(k, []) != t.get(k, []) for t in theirs)]
-        firm = [k for k in differ if stab['streams'].get(k, True)]
-        loose = [k for k in differ if not stab['streams'].get(k, True)]
-        if firm or (not differ and stab['order']):
+        firm, loose = [], []
+        for k in sorted(set(own) | set(stab['shapes'])):
+            mk = own.get(k, [])
+            if any(mk == t.get(k, []) for t in theirs):
+                continue
+            if any(_shape(mk) == _shape(t.get(k, [])) for t in theirs):
+                (loose if not stab['variants'].get(k, True) else firm).append(k)    # another variant played
+            else:
+                (loose if not stab['shapes'].get(k, True) else firm).append(k)
+        if firm or (not loose and stab['order']):
             why.append(f'streams/3D {d[1]} (run first, stored second)'
                        + (f'; stable in the {stab["runs"]} stored runs and different: '
-                          + ', '.join(_stream_name(k, mine, *stored) for k in firm[:4])
+                          + ', '.join(_stream_name(k, mine) for k in firm[:4])
                           + (f' (+{len(firm) - 4})' if len(firm) > 4 else '') if firm else
                           f'; every sound\'s own events as stored, the order differs, the {stab["runs"]} stored runs '
                           'agree on it'))
         elif loose:
-            shaky.append(f'streams/3D: ' + ', '.join(_stream_name(k, mine, *stored) for k in loose[:4])
+            shaky.append(f'streams/3D: ' + ', '.join(_stream_name(k, mine) for k in loose[:4])
                          + (f' (+{len(loose) - 4})' if len(loose) > 4 else '')
                          + f' differ, and so do the {stab["runs"]} stored runs among themselves, leave one out '
                          f'({d[1]})')
@@ -2123,8 +2171,8 @@ def verify_run(args):
             else:
                 within += 1
         stored_audio = [read_json(en['audio']) for en in ents if en.get('audio')]
-        a_ok, a_text = audio_verdict(mine_audio[audio_cut_stored(stored_audio)].get(name), stored_audio,
-                                     nzs.get('audio'))
+        named = name_samples([mine_audio[audio_cut_stored(stored_audio)].get(name)] + stored_audio)
+        a_ok, a_text = audio_verdict(named[0], named[1:], nzs.get('audio'))
         if a_ok is False:
             what.append(f'audio {a_text}')
         elif a_ok == RETAIL_UNSTABLE:
