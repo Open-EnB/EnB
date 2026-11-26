@@ -175,7 +175,7 @@ void CameraController02Class::Unknown_0C()
 	}
 }
 
-// NOT EXACT: 0x7981B0 (every instruction is the client's once stack offsets are masked; rows 1 and 2 of both matrix products sum (M10X + M12Z) + M11Y where the client sums (M12Z + M11Y) + M10X, a last-bit difference; row 0 is the client's)
+// NOT EXACT: 0x7981B0 (every instruction is the client's once stack offsets are masked, and every row of both matrix products sums (M2Z + M1Y) + M0X as the client; row 2 of frame * one loads M22 / M21 before one.Z / one.Y where the client loads the vector first, a commutative operand order only)
 // 0x7981B0
 void CameraController02Class::Unknown_7981B0()
 {
@@ -193,10 +193,10 @@ void CameraController02Class::Unknown_7981B0()
 	float range = CameraManagerClass::Unknown_79B6B0();
 	float s = WWMath::Sin(angle);
 	float c = WWMath::Cos(angle);
-	Vector3 one; one.Y = c * range; one.Z = s * range;
+	Vector3 one(0.0f, c * range, s * range);
 	s = WWMath::Sin(back);
 	c = WWMath::Cos(back);
-	Vector3 two; two.Y = c * range; two.Z = s * range; one.X = two.X = range + range;
+	Vector3 two(0.0f, c * range, s * range); one.X = two.X = range + range;
 	one.Y *= 1.25f;
 	one.Z *= 1.25f;
 	two.Scale(Vector3(1.0f, 1.25f, 1.25f));
