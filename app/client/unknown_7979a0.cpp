@@ -175,7 +175,7 @@ void CameraController02Class::Unknown_0C()
 	}
 }
 
-// NOT EXACT: 0x7981B0 (the frame's size and the statements' order are the client's; the two offsets, the two results and the camera's copy sit in other frame slots, and the products' operand order follows the slots)
+// NOT EXACT: 0x7981B0 (every instruction is the client's once stack offsets are masked; rows 1 and 2 of both matrix products sum (M10X + M12Z) + M11Y where the client sums (M12Z + M11Y) + M10X, a last-bit difference; row 0 is the client's)
 // 0x7981B0
 void CameraController02Class::Unknown_7981B0()
 {
@@ -193,14 +193,14 @@ void CameraController02Class::Unknown_7981B0()
 	float range = CameraManagerClass::Unknown_79B6B0();
 	float s = WWMath::Sin(angle);
 	float c = WWMath::Cos(angle);
-	Vector3 one(range + range, c * range, s * range);
+	Vector3 one; one.Y = c * range; one.Z = s * range;
 	s = WWMath::Sin(back);
 	c = WWMath::Cos(back);
-	Vector3 two(range + range, c * range, s * range);
+	Vector3 two; two.Y = c * range; two.Z = s * range; one.X = two.X = range + range;
 	one.Y *= 1.25f;
 	one.Z *= 1.25f;
-	two.Y *= 1.25f;
-	two.Z *= 1.25f;
+	two.Scale(Vector3(1.0f, 1.25f, 1.25f));
+
 	Matrix3D frame = Unknown_82ECB0(dir, tm.Get_Translation());
 	Vector3 first = frame * one;
 	Vector3 second = frame * two;
