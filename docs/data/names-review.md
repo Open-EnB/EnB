@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1971 |
 | 2 | describes what the code does | 5015 |
-| 1 | neutral placeholder | 25207 |
+| 1 | neutral placeholder | 25211 |
 
 ## For review (score 3 and below)
 
@@ -14680,13 +14680,17 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_5BF4B0` | `app/client/ui_mfd_extended_context.cpp:11` | untagged neutral name (D10) |
 | 1 | `Unknown_5BF4D0` | `app/client/ui_mfd_extended_context.cpp:17` | untagged neutral name (D10) |
 | 1 | `Unknown_5BF790` | `app/client/ui_mfd_extended_context.cpp:28` | untagged neutral name (D10) |
-| 1 | `Unknown_08` | `app/client/ui_mfd_extended_context.h:21` | untagged neutral name (D10) |
-| 1 | `Unknown_0C` | `app/client/ui_mfd_extended_context.h:22` | untagged neutral name (D10) |
-| 1 | `Unknown_10` | `app/client/ui_mfd_extended_context.h:23` | untagged neutral name (D10) |
 | 1 | `Unknown_5BF790` | `app/client/ui_mfd_extended_context.h:30` | neutral (D10) |
 | 1 | `UIMFDExtendedContextWatchClass` | `app/client/ui_mfd_extended_context.h:34` | neutral (D10) |
+| 1 | `Unknown_08` | `app/client/ui_mfd_extended_context.h:51` | untagged neutral name (D10) |
+| 1 | `Unknown_0C` | `app/client/ui_mfd_extended_context.h:52` | untagged neutral name (D10) |
+| 1 | `Unknown_10` | `app/client/ui_mfd_extended_context.h:53` | untagged neutral name (D10) |
 | 1 | `Self` | `app/client/ui_mfd_extended_context.h:56` | neutral (D10) |
 | 1 | `Unknown70` | `app/client/ui_mfd_extended_context.h:109` | untagged neutral name (D10) |
+| 1 | `ui_mfd_extended_context_base.h` | `app/client/ui_mfd_extended_context_base.h:8` | neutral, what it declares (D10) |
+| 1 | `Unknown_08` | `app/client/ui_mfd_extended_context_base.h:24` | untagged neutral name (D10) |
+| 1 | `Unknown_0C` | `app/client/ui_mfd_extended_context_base.h:25` | untagged neutral name (D10) |
+| 1 | `Unknown_10` | `app/client/ui_mfd_extended_context_base.h:26` | untagged neutral name (D10) |
 | 1 | `Unknown_Find_Valid` | `app/client/ui_mfd_extended_context_harvestable.cpp:14` | neutral (D10) |
 | 1 | `Unknown_Find_Field` | `app/client/ui_mfd_extended_context_harvestable.cpp:14` | untagged neutral name (D10) |
 | 1 | `Unknown70` | `app/client/ui_mfd_extended_context_harvestable.cpp:14` | untagged neutral name (D10) |
@@ -14704,12 +14708,12 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_10` | `app/client/ui_mfd_extended_context_harvestable.cpp:127` | untagged neutral name (D10) |
 | 1 | `Unknown_Clear` | `app/client/ui_mfd_extended_context_harvestable.cpp:240` | neutral (D10): keeps std::copy out of line, as the client has it |
 | 1 | `ui_mfd_extended_context_harvestable.h` | `app/client/ui_mfd_extended_context_harvestable.h:3` | provisional header name |
-| 1 | `InvDataPeekItemStruct` | `app/client/ui_mfd_extended_context_harvestable.h:14` | neutral (D10) |
-| 1 | `Unknown00` | `app/client/ui_mfd_extended_context_harvestable.h:16` | untagged neutral name (D10) |
-| 1 | `Unknown_08` | `app/client/ui_mfd_extended_context_harvestable.h:26` | untagged neutral name (D10) |
-| 1 | `Unknown_0C` | `app/client/ui_mfd_extended_context_harvestable.h:27` | untagged neutral name (D10) |
-| 1 | `Unknown_10` | `app/client/ui_mfd_extended_context_harvestable.h:28` | untagged neutral name (D10) |
-| 1 | `UnknownB4` | `app/client/ui_mfd_extended_context_harvestable.h:37` | untagged neutral name (D10) |
+| 1 | `InvDataPeekItemStruct` | `app/client/ui_mfd_extended_context_harvestable.h:15` | neutral (D10) |
+| 1 | `Unknown00` | `app/client/ui_mfd_extended_context_harvestable.h:17` | untagged neutral name (D10) |
+| 1 | `Unknown_08` | `app/client/ui_mfd_extended_context_harvestable.h:27` | untagged neutral name (D10) |
+| 1 | `Unknown_0C` | `app/client/ui_mfd_extended_context_harvestable.h:28` | untagged neutral name (D10) |
+| 1 | `Unknown_10` | `app/client/ui_mfd_extended_context_harvestable.h:29` | untagged neutral name (D10) |
+| 1 | `UnknownB4` | `app/client/ui_mfd_extended_context_harvestable.h:38` | untagged neutral name (D10) |
 | 1 | `UnknownCount` | `app/client/ui_mfd_extended_context_strings.cpp:14` | untagged neutral name (D10) |
 | 1 | `Unknown_08` | `app/client/ui_mfd_extended_context_strings.cpp:96` | untagged neutral name (D10) |
 | 1 | `Unknown_0C` | `app/client/ui_mfd_extended_context_strings.cpp:121` | untagged neutral name (D10) |
@@ -27574,20 +27578,20 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Current` | `app/client/ui_mfd.h:119` | what it holds |
 | 2 | `Lines` | `app/client/ui_mfd.h:121` | 'MFD_INFO_VALUE_%02d' |
 | 2 | `Gadgets` | `app/client/ui_mfd.h:122` | what it holds |
-| 2 | `owner` | `app/client/ui_mfd_extended_context.h:19` | what it holds |
-| 2 | `Create` | `app/client/ui_mfd_extended_context.h:25` | what it does; NAME 1 [self]: neutral (D10) |
-| 2 | `Owner` | `app/client/ui_mfd_extended_context.h:27` | what it holds |
 | 2 | `field` | `app/client/ui_mfd_extended_context.h:49` | what it holds |
 | 2 | `Update_Context` | `app/client/ui_mfd_extended_context.h:54` | what it does |
 | 2 | `CO` | `app/client/ui_mfd_extended_context.h:57` | what it holds |
 | 2 | `Field` | `app/client/ui_mfd_extended_context.h:58` | what it holds |
 | 2 | `Shown` | `app/client/ui_mfd_extended_context.h:60` | what it holds |
+| 2 | `owner` | `app/client/ui_mfd_extended_context_base.h:22` | what it holds |
+| 2 | `Create` | `app/client/ui_mfd_extended_context_base.h:28` | what it does; NAME 1 [self]: neutral (D10) |
+| 2 | `Owner` | `app/client/ui_mfd_extended_context_base.h:30` | what it holds |
 | 2 | `HarvestableName` | `app/client/ui_mfd_extended_context_harvestable.cpp:17` | what it holds |
-| 2 | `std:` | `app/client/ui_mfd_extended_context_harvestable.h:17` | '%s (%d)' |
-| 2 | `Has_Contents` | `app/client/ui_mfd_extended_context_harvestable.h:33` | what it returns |
-| 2 | `Update_Index_Map` | `app/client/ui_mfd_extended_context_harvestable.h:34` | what it does |
-| 2 | `Peek` | `app/client/ui_mfd_extended_context_harvestable.h:36` | what it is |
-| 2 | `std:` | `app/client/ui_mfd_extended_context_harvestable.h:38` | what it holds |
+| 2 | `std:` | `app/client/ui_mfd_extended_context_harvestable.h:18` | '%s (%d)' |
+| 2 | `Has_Contents` | `app/client/ui_mfd_extended_context_harvestable.h:34` | what it returns |
+| 2 | `Update_Index_Map` | `app/client/ui_mfd_extended_context_harvestable.h:35` | what it does |
+| 2 | `Peek` | `app/client/ui_mfd_extended_context_harvestable.h:37` | what it is |
+| 2 | `std:` | `app/client/ui_mfd_extended_context_harvestable.h:39` | what it holds |
 | 2 | `co, owner` | `app/client/ui_mfd_extended_context_strings.h:16` | what its subclass passes |
 | 2 | `std:` | `app/client/ui_mfd_extended_context_strings.h:21` | what it returns |
 | 2 | `Line_Changed` | `app/client/ui_mfd_extended_context_strings.h:22` | what it returns; NAME 5 [line_index]: the client's assert |
@@ -31059,8 +31063,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `Set_Race` | `app/client/ui_mfd.h:109` | the client's label |
 | 3 | `Set_Vel` | `app/client/ui_mfd.h:110` | the client's label |
 | 3 | `Set_Rel_Vel` | `app/client/ui_mfd.h:111` | the client's label |
-| 3 | `UIMFDExtendedContextClass` | `app/client/ui_mfd_extended_context.h:16` | D24 class-from-file for ui_mfd_extended_context.h |
-| 3 | `UIMFDExtendedContextHarvestableClass` | `app/client/ui_mfd_extended_context_harvestable.h:21` | D24 class-from-file for ui_mfd_extended_context_harvestable.cpp |
+| 3 | `UIMFDExtendedContextClass` | `app/client/ui_mfd_extended_context_base.h:19` | D24 class-from-file for ui_mfd_extended_context.h |
+| 3 | `UIMFDExtendedContextHarvestableClass` | `app/client/ui_mfd_extended_context_harvestable.h:22` | D24 class-from-file for ui_mfd_extended_context_harvestable.cpp |
 | 3 | `UIMFDExtendedContextStringsClass` | `app/client/ui_mfd_extended_context_strings.h:13` | D24 class-from-file for ui_mfd_extended_context_strings.cpp |
 | 3 | `Pitch` | `app/client/ui_mfdm.h:102` | its label 'Pitch: %d' |
 | 3 | `Heading` | `app/client/ui_mfdm.h:103` | its label 'Heading: %d' |

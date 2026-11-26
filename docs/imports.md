@@ -1943,7 +1943,7 @@ Base copy: reconstructed. Headers: 691 from reconstructed.
 | shared/safe_ptr.cpp | reconstructed | 5 | 0 | - | - | - |  |
 | client/sbase_info.cpp | reconstructed | 65 | 0 | - | - | - |  |
 | client/sbaseview.cpp | reconstructed | 158 | 0 | - | - | - |  |
-| client/sclient.cpp | reconstructed | 605 | 0 | - | - | - |  |
+| client/sclient.cpp | reconstructed | 603 | 0 | - | - | - |  |
 | client/scriptedmovie.cpp | reconstructed | 160 | 0 | - | - | - |  |
 | client/scriptedmovieline.cpp | reconstructed | 5 | 0 | - | - | - |  |
 | common/sector_types.cpp | reconstructed | 7 | 0 | - | - | - |  |
@@ -2092,7 +2092,7 @@ Base copy: reconstructed. Headers: 691 from reconstructed.
 | client/ui_radio_list.cpp | reconstructed | 70 | 0 | - | - | - |  |
 | client/ui_radio_main.cpp | reconstructed | 54 | 0 | - | - | - |  |
 | client/ui_refinery.cpp | reconstructed | 96 | 0 | - | - | - |  |
-| client/ui_registration.cpp | reconstructed | 314 | 0 | - | - | - |  |
+| client/ui_registration.cpp | reconstructed | 315 | 0 | - | - | - |  |
 | client/ui_scan.cpp | reconstructed | 88 | 1 | - | - | - |  |
 | client/ui_scut.cpp | reconstructed | 87 | 0 | - | - | - |  |
 | client/ui_scut_gadgets.cpp | reconstructed | 49 | 0 | - | - | - |  |
