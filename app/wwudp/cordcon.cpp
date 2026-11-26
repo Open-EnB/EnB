@@ -69,11 +69,10 @@ CordChannelClass &CordChannelClass::operator=(const CordChannelClass &other)
 	return *this;
 }
 
-// 0x84E260, NOT EXACT (functional, 0.14: inline budget): member by member in the client's order
-// (the lists through wlib's operator=, the vectors emptied and refilled one record at a time). The
-// client inlines ArrayList::clear, CordListClass's clear and getPointer and calls get / add, the
-// vectors' erase / insert and the second size() out of line; ours inlines erase / insert and calls
-// clear, Clear and Get.
+// 0x84E260, NOT EXACT (functional, 0.88: inline budget): member by member in the client's order (the
+// arrays through wlib's operator=, Incoming through Clear / getPointer / Add, the vectors by clear /
+// push_back, their erase / insert out of line as the client); the client calls Sent's
+// size() out of line, ours inlines it.
 void CordChannelClass::Copy(const CordChannelClass &other)
 {
 	if (this == &other) {
@@ -92,15 +91,16 @@ void CordChannelClass::Copy(const CordChannelClass &other)
 	ToAck = from.ToAck;
 	Missing = from.Missing;
 	IsClosed = from.IsClosed;
-	Incoming = from.Incoming;
+	CordMessageClass *p; int j; Incoming.Clear();
+	for (j = 0; j < from.Incoming.Entries; j++) { from.Incoming.getPointer(&p, j); Incoming.Add_Tail(*p); }
 	unsigned int i;
-	Queue.erase(Queue.begin(), Queue.end());
+	Queue.clear();
 	for (i = 0; i < from.Queue.size(); i++) {
-		Queue.insert(Queue.end(), from.Queue[i]);
+		Queue.push_back(from.Queue[i]);
 	}
-	Sent.erase(Sent.begin(), Sent.end());
+	Sent.clear();
 	for (i = 0; i < from.Sent.size(); i++) {
-		Sent.insert(Sent.end(), from.Sent[i]);
+		Sent.push_back(from.Sent[i]);
 	}
 	Index = from.Index;
 }
