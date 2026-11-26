@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-523 entries in 233 files.
+522 entries in 233 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -156,7 +156,6 @@ edit the comments in the code, not this file.
 | `app/client/inv_data_peek.cpp:171` | `InvDataPeekClass::Get_Instance_Equip_Effect_Info` | marker | NOT EXACT: the failure path's inlined string constructor has mov byte ptr [ecx + ebx], 0 where the client has [ebx + ecx] (register-only, as skill_data_peek's 0x6A5730) 0x68A450 |
 | `app/client/inv_data_peek.cpp:261` | `InvDataPeekClass::Get_Builder_Name` | marker | NOT EXACT: the failure path's inlined string constructor has mov byte ptr [ecx + ebx], 0 where the client has [ebx + ecx] (register-only, as skill_data_peek's 0x6A5730) 0x68A8C0 |
 | `app/client/inv_render.cpp:178` | `InvRenderClass::Unknown_2C` | marker | NOT EXACT: 0x68C6B0, masked residue 8 (was 27): Get_Roman_Numeral and 0x68EAE0 out of line as the client's through the two layers and one dead read (D272); left: the client releases inv_data through lea ecx,[eax+0x18] and loads level after the release 0x68C6B0 |
-| `app/client/inv_render.cpp:258` | `InvRenderClass::Unknown_28` | marker | NOT EXACT: 0x68CCC0, register only (52 masked rows): the client computes _N + _Len (n copied into ebx, _Len through eax) and stores _Eos at [ebx+eax] in all nine inlined appends, ours the source order; the cases in the client's order (0, -1, 4, 0x40, 0x80: its tables 0x68D3B0 / 0x68D398) 0x68CCC0 |
 | `app/client/inv_render.cpp:631` | `Unknown68DC20Class::Unknown_2C` | marker | NOT EXACT: 0x68E360, masked residue 15 rows: register only: ours evaluates the two sound ternaries into eax for one merged call, the client pushes the literals in each branch 0x68E360 |
 | `app/client/inv_render.cpp:1014` | `Unknown68DC20Class::Unknown_28` | marker | NOT EXACT: 0x68F510, 22 rows: the client multiplies by -3600000 and adds; it calls max_size and _Eos in the last append 0x68F510 |
 | `app/client/inv_trade_render.cpp:64` | `InvTradeRenderClass::Unknown_2C` | marker | NOT EXACT: 0x68FE10, 26 rows: register and block order (the item's name arm sits after the function's last jump in the client) 0x68FE10 |
@@ -220,7 +219,7 @@ edit the comments in the code, not this file.
 | `app/client/scriptedmovie.cpp:1340` | `ScriptedMovieViewClass::Unknown_803310` | marker | NOT EXACT: inline budget (0.63): the client inlines Shake_Camera and both Toggle_Engine_Trails too; ours calls them (0x7FFD30 is scriptedmovieline.cpp's, out of line as in the client) 0x803310: one script line run: its command (the line's first field, any case) to the member that takes the rest |
 | `app/client/scriptedmovie.cpp:1819` | `ScriptedMovieViewClass::Add_Camera` | marker | NOT EXACT: frame 0x14, the client 0x18 (hfov in a local of its own; ours reuses the params slot), 2 masked rows 0x805420: a camera on a bone of the slot's model, last in CameraList (optionally its view plane, in degrees) |
 | `app/client/scriptedmovie.cpp:1918` | `ScriptedMovieViewClass::Attach_Light_To_Bone` | marker | NOT EXACT: after the loop the client knows parent is NULL (no second test before the G_ASSERT); forms: the slot and the mesh tested together, the mesh tested after the assignment (this one) |
-| `app/client/ship_equip_pip.cpp:153` | `ShipEquipPipClass::Unknown_542250` | marker | NOT EXACT: inline-budget (29 masked rows, from 185); second Unknown_543270 keeps ??_H and unit is not spilled to ebp-0x40 0x542250 |
+| `app/client/ship_equip_pip.cpp:153` | `ShipEquipPipClass::Unknown_542250` | marker | NOT EXACT: frame (3 masked rows, from 29, score 0.99): second ??_H removed; unit not spilled to ebp-0x40 (r3) and Pre_Rotate_Y st(0)/st(2) swap (r16) 0x542250 |
 | `app/client/ship_equip_pip.cpp:223` | `ShipEquipPipClass::Unknown_542A10` | marker | NOT EXACT: functional from the pseudocode (D64); the translations' products are summed in another order 0x542A10 |
 | `app/client/ship_pip.cpp:294` | `ShipPipClass::Unknown_7C` | marker | NOT EXACT: ShipPipClass, frame (sub esp 0xA0 against 0x74: the client keeps a Matrix3D temporary for +0x6C's Set(Vector3), the bone index in ebp) @0x80C640 |
 | `app/client/ship_pip.cpp:343` | `ShipPipClass::Unknown_84` | marker | NOT EXACT: ShipPipClass, frame (sub esp 0x48 against 0x44: the first clamp holds min on the FPU stack and spills max, ours the other way) @0x80CA30 |
@@ -512,7 +511,7 @@ edit the comments in the code, not this file.
 | `app/shared/unknown_445740.cpp:392` | `SteeringTurnClass::Turn` | marker | NOT EXACT: shape (explain.py; 16 rows): at the end the client stores the pitch into local.X before the dot product and copies all three members through memory (forms in attempts.csv) 0x447E20 |
 | `app/shared/unknown_46c730.cpp:164` | `LandClass::Upload_Lightmap` | marker | NOT EXACT: shape (0x46D6B0: 64 masked rows, 29 with registers masked; the frame is the client's 0x20 once the four channels are separate pointers, the client's pointer-difference induction variables; the setup's load order and which difference stays in a register are left; attempts.csv) |
 | `app/shared/unknown_46c730.cpp:617` | `LandClass::Unknown_46F120` | marker | NOT EXACT: frame (0x1D0 vs 0x19C), scheduling; above: all nine normals in one slot, X / Y copied before the zero test (attempts.csv 0x46F120) |
-| `app/shared/unknown_46c730.cpp:807` | `LandClass::Unknown_470F80` | marker | NOT EXACT: field-offset (293 masked rows: the corners' zero-offset byte sums load j2 j0 j3 j1, the client j1 j2 j0 j3; the inner rows run on the k1 set with k2 as partner (the client's registers in the row loops); attempts.csv 0x470F80) |
+| `app/shared/unknown_46c730.cpp:807` | `LandClass::Unknown_470F80` | marker | NOT EXACT: field-offset (289 masked rows, from 293: the corners' zero-offset byte sums load j2 j0 j3 j1, the client j1 j2 j0 j3; the inner rows run on the k1 set with k2 as partner (the client's registers in the row loops); attempts.csv 0x470F80) |
 | `app/shared/unknown_46c730.cpp:1072` | `LandClass::Compute_Horizons` | marker | NOT EXACT: literal (13 masked rows: the direction loop's x87 stack, the client copies nz and ny where ours copies w.Y and exchanges w.X; attempts.csv 0x472F80) |
 | `app/shared/unknown_46c730.cpp:1255` | `LandClass::Unknown_473780` | marker | NOT EXACT: shape (26 masked rows: the left / right updates' registers and scheduling (the client keeps left in the fild temporary's slot), as 0x473BC0; attempts.csv 0x473780) |
 | `app/shared/unknown_46c730.cpp:1308` | `LandClass::Unknown_473BC0` | marker | NOT EXACT: shape (24 masked rows: the left index's register and the loop end's scheduling; the client's frame since the Vector3 best / h / s; attempts.csv 0x473BC0) |
