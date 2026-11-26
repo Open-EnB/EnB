@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1971 |
 | 2 | describes what the code does | 5015 |
-| 1 | neutral placeholder | 25201 |
+| 1 | neutral placeholder | 25203 |
 
 ## For review (score 3 and below)
 
@@ -10172,9 +10172,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_69F440` | `app/client/ui_analyze.cpp:410` | untagged neutral name (D10) |
 | 1 | `Unknown_5458B0` | `app/client/ui_analyze.cpp:414` | untagged neutral name (D10) |
 | 1 | `Unknown_545D30` | `app/client/ui_analyze.cpp:418` | untagged neutral name (D10) |
+| 1 | `Unknown_Find_Set_Field` | `app/client/ui_analyze.cpp:493` | untagged neutral name (D10) |
 | 1 | `Unknown_74D990` | `app/client/ui_analyze.cpp:563` | untagged neutral name (D10) |
 | 1 | `Unknown_8C` | `app/client/ui_analyze.cpp:574` | untagged neutral name (D10) |
-| 1 | `Unknown_Find_Set_Field` | `app/client/ui_analyze.cpp:581` | untagged neutral name (D10) |
 | 1 | `UnknownB0122CEnum` | `app/client/ui_analyze.cpp:662` | untagged neutral name (D10) |
 | 1 | `Unknown_5461C0` | `app/client/ui_analyze.cpp:672` | untagged neutral name (D10) |
 | 1 | `Unknown2C_06` | `app/client/ui_analyze.cpp:738` | untagged neutral name (D10) |
@@ -12553,6 +12553,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown94` | `app/client/ui_dynamicwindow.cpp:309` | untagged neutral name (D10) |
 | 1 | `Unknown84_0C` | `app/client/ui_dynamicwindow.cpp:313` | untagged neutral name (D10) |
 | 1 | `Unknown84_10` | `app/client/ui_dynamicwindow.cpp:323` | untagged neutral name (D10) |
+| 1 | `text` | `app/client/ui_dynamicwindow.cpp:352` | neutral (D10); evaluated right after font_name's temporary to push only its _Eos out of line (0x58AE90) |
+| 1 | `Unknown_58AE90_Pass` | `app/client/ui_dynamicwindow.cpp:352` | untagged neutral name (D10) |
 | 1 | `ViewUnknown34Class` | `app/client/ui_dynamicwindow.cpp:390` | untagged neutral name (D10) |
 | 1 | `ui_dynamicwindow.h` | `app/client/ui_dynamicwindow.h:5` | provisional header name for ui_dynamicwindow.cpp |
 | 1 | `client, name` | `app/client/ui_dynamicwindow.h:27` | what it passes on; NAME 2 [level]: Set_Level's |

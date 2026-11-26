@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-478 entries in 226 files.
+476 entries in 225 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -226,7 +226,6 @@ edit the comments in the code, not this file.
 | `app/client/tasks/tsk_login.cpp:829` | `LoginTaskClass::Unknown_64` | marker | NOT EXACT: register-only (one 'return true' at the end shares the client's tails; left: the version's Major in edx (client eax) and the CANCEL box's ecx / edx; attempts.py show 0x7698E0) 0x7698E0 |
 | `app/client/tasks/tsk_login.cpp:1098` | `LoginTaskClass::Fetch_EA_Ticket` | marker | NOT EXACT: shape (the client merges the two message boxes' tails; attempts.py show 0x76A7B0) 0x76A7B0 |
 | `app/client/textgadg.cpp:389` | `TextGadgetClass::Unknown_6AAD10` | marker | NOT EXACT: registers and stack (0.58; 0x128 bytes of locals in the client, 0x12C here): the client keeps the text in ebx and &Text in ebp (recomputed after the width loop), here &Text in ebx and the text spilled |
-| `app/client/ui_analyze.cpp:488` | `UIAnalyzeClass::Unknown_544D80` | marker | NOT EXACT: inline budget (the client's finds: NegotiatedCost / CriticalSuccessProbability out of line under Unknown_Find_Valid's two layers, the SuccessProbability Cast out of line under one; two dead reads of 0x544C50's accessor (D272) send the first two copies' FAIL_IF releases out as the client; the client still inlines the third copy's) (0x544D80) @0x544D80 |
 | `app/client/ui_analyze.cpp:762` | `template DeltaTemplateClass<UnknownB013ECEnum> *Unknown_Find_Field<DeltaTemplateClass<UnknownB013ECEnum> >` | mention | NOT EXACT); the functions now in the client's order. The 'Validity' / 'Mode' fields are DeltaManufacturingLabClass's own types (aux_roots.h; per-class globals 0xC41640 / 0xC41634, VM1: ui_manu.cpp shares the Cast 0x5468D0). 0x545D30 repeats 0x546000's six hides (the client inlines them there but calls 0x546000 out of line from slot +0x5C; auto_inline(off) around 0x546000 gives both). UIAnalyzeClas... |
 | `app/client/ui_attrb.cpp:315` | `Unknown546A80Class::Unknown_547C20` | marker | NOT EXACT: layout (similarity 0.61: the client keeps the valid branch's null merge, xor eax / test eax, where ours threads it; the logic is the client's; attempts.csv) @0x547C20 |
 | `app/client/ui_attrb.cpp:395` | `Unknown546A80Class::Unknown_547FD0` | marker | NOT EXACT: inline budget (similarity 0.48: the client calls only the valid branch's cast out of line, and keeps its null merge unthreaded as 0x547C20; the logic is the client's; attempts.csv) @0x547FD0 |
@@ -259,7 +258,6 @@ edit the comments in the code, not this file.
 | `app/client/ui_class.cpp:155` | `ClassSelectInterface::ClassSelectInterface` | marker | NOT EXACT: register, 5 masked rows (FB7): the first dialog string's inline _Eos in the other register form (the client keeps n in eax and reloads this after the copy: _Ptr loaded before _Len is stored); sites 2-4 are the client's. The four dialog calls go through the inline Unknown_Dialog: that layer alone sends _Grow out of line (_Tidy / _Copy / _Eos inline), the 31 dead Descriptions.size() reads... |
 | `app/client/ui_combobox.cpp:72` | `UIComboBoxTextClass::Init` | marker | NOT EXACT: shape (3 rows: the client adds pos.Y onto the height left on the FPU stack, ours loads pos.Y and pops the height after) 0x578350 |
 | `app/client/ui_combobox.cpp:322` | `UIComboBoxClass::Unknown_68` | marker | NOT EXACT: inline-budget (the client calls Scroll_To_Selected 0x57B2F0 and the items' size(); ours expands them) 0x57A060 |
-| `app/client/ui_dynamicwindow.cpp:352` | `UIDynamicWindowClass::Add_Text` | marker | NOT EXACT: 0x58AE90, inline-budget: the client calls std::string::_Eos out of line for the font name's string where this inlines it (docs/attempts/58AE90) |
 | `app/client/ui_faction.cpp:230` | `UIFactionClass::Unknown_58DC20` | marker | NOT EXACT: register (the client keeps the reputation in esi and its frame slot after the order's, +0x28; this keeps it in ebx, at +0x14; the rest is the client's, including the tail call made a jump) |
 | `app/client/ui_friends.cpp:3` | `UIFriendsPlayerInfoClass::UIFriendsPlayerInfoClass` | mention | NOT EXACT. |
 | `app/client/ui_friends.cpp:358` | `UIFriendsClass::Unknown_5908B0` | marker | NOT EXACT: register allocation (the client keeps 0 in ebx and the insert position in a stack slot; ours holds the position in ebx; frame 0x18 vs 0x14) 0x5908B0 |
