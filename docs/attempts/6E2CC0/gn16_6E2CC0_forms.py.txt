@@ -1,0 +1,172 @@
+# ===== v6E2CC0_b1.py =====
+HYPOTHESIS = '0x6E2CC0 r26: client stores tm.Z last (after tm.Y) and keeps d.X alive on x87 (fxch st(2); fadd st(2)) while overwriting Xt; combine Adjust_Y before Set_Z with Set_X/Adjust_X, Vector3 pos, operand orders, and inline helper'
+FILE = 'app/client/cameraeffects.cpp'
+SYMBOL = 'CameraEffectsClass::Unknown_34'
+ADDRESS = 0x6E2CC0
+
+OLD = ('\t\t\tconst Matrix3D &cur = camera->Get_Transform();\n'
+       '\t\t\tfloat x = cur.Get_X_Translation();\n'
+       '\t\t\tfloat z = cur.Get_Z_Translation();\n'
+       '\t\t\tMatrix3D tm = cur; Vector3 d = Unknown18;\n'
+       '\t\t\ttm.Set_X_Translation(x); tm.Adjust_X_Translation(d.X);\n'
+       '\t\t\ttm.Set_Z_Translation(z);\n'
+       '\t\t\ttm.Adjust_Y_Translation(d.Y);\n')
+
+HELPER_ANCHOR = 'void Unknown_491550(float *x, float *y);'
+
+
+def F(*lines):
+    assert len(lines) == 7, len(lines)
+    return [(OLD, ''.join('\t\t\t' + l + '\n' for l in lines))]
+
+
+C = 'const Matrix3D &cur = camera->Get_Transform();'
+X = 'float x = cur.Get_X_Translation();'
+Z = 'float z = cur.Get_Z_Translation();'
+TD = 'Matrix3D tm = cur; Vector3 d = Unknown18;'
+DT = 'Vector3 d = Unknown18; Matrix3D tm = cur;'
+
+FORMS = {
+    'adj_x_y_z': F(C, X, Z, TD, 'tm.Set_X_Translation(x); tm.Adjust_X_Translation(d.X);', 'tm.Adjust_Y_Translation(d.Y);', 'tm.Set_Z_Translation(z);'),
+    'adj_dx_x_y_z': F(C, X, Z, TD, 'tm.Set_X_Translation(d.X); tm.Adjust_X_Translation(x);', 'tm.Adjust_Y_Translation(d.Y);', 'tm.Set_Z_Translation(z);'),
+    'add_x_dx_y_z': F(C, X, Z, TD, 'tm.Set_X_Translation(x + d.X);', 'tm.Adjust_Y_Translation(d.Y);', 'tm.Set_Z_Translation(z);'),
+    'add_dx_x_y_z': F(C, X, Z, TD, 'tm.Set_X_Translation(d.X + x);', 'tm.Adjust_Y_Translation(d.Y);', 'tm.Set_Z_Translation(z);'),
+    'dx_peq_x_y_z': F(C, X, Z, TD, 'd.X += x; tm.Set_X_Translation(d.X);', 'tm.Adjust_Y_Translation(d.Y);', 'tm.Set_Z_Translation(z);'),
+    'x_peq_dx_y_z': F(C, X, Z, TD, 'x += d.X; tm.Set_X_Translation(x);', 'tm.Adjust_Y_Translation(d.Y);', 'tm.Set_Z_Translation(z);'),
+    'set_trans_d': F(C, X, Z, TD, 'tm.Set_Translation(Vector3(x + d.X, tm.Get_Y_Translation() + d.Y, z));', '', ''),
+    'set_trans_dx': F(C, X, Z, TD, 'tm.Set_Translation(Vector3(d.X + x, tm.Get_Y_Translation() + d.Y, z));', '', ''),
+    'adj_x_sety_z': F(C, X, Z, TD, 'tm.Set_X_Translation(x); tm.Adjust_X_Translation(d.X);', 'tm.Set_Y_Translation(tm.Get_Y_Translation() + d.Y);', 'tm.Set_Z_Translation(z);'),
+    'pos_add_y_z': F(C, 'Vector3 pos = cur.Get_Translation();', '', TD, 'tm.Set_X_Translation(pos.X + d.X);', 'tm.Adjust_Y_Translation(d.Y);', 'tm.Set_Z_Translation(pos.Z);'),
+    'pos_adj_y_z': F(C, 'Vector3 pos = cur.Get_Translation();', '', TD, 'tm.Set_X_Translation(pos.X); tm.Adjust_X_Translation(d.X);', 'tm.Adjust_Y_Translation(d.Y);', 'tm.Set_Z_Translation(pos.Z);'),
+    'pos_peq_y_z': F(C, 'Vector3 pos = cur.Get_Translation();', '', TD, 'pos.X += d.X; tm.Set_X_Translation(pos.X);', 'tm.Adjust_Y_Translation(d.Y);', 'tm.Set_Z_Translation(pos.Z);'),
+    'pos_settrans': F(C, 'Vector3 pos = cur.Get_Translation();', '', TD, 'tm.Set_Translation(Vector3(pos.X + d.X, tm.Get_Y_Translation() + d.Y, pos.Z));', '', ''),
+    'pos_set_adj': F(C, 'Vector3 pos = cur.Get_Translation();', '', TD, 'tm.Set_Translation(pos); tm.Adjust_X_Translation(d.X);', 'tm.Adjust_Y_Translation(d.Y);', ''),
+    'x_temp_adj_yz': F(C, Z, '', TD, 'tm.Set_X_Translation(cur.Get_X_Translation()); tm.Adjust_X_Translation(d.X);', 'tm.Adjust_Y_Translation(d.Y);', 'tm.Set_Z_Translation(z);'),
+    'x_temp_add_yz': F(C, Z, '', TD, 'tm.Set_X_Translation(cur.Get_X_Translation() + d.X);', 'tm.Adjust_Y_Translation(d.Y);', 'tm.Set_Z_Translation(z);'),
+    'dt_adj_x_yz': F(C, X, Z, DT, 'tm.Set_X_Translation(x); tm.Adjust_X_Translation(d.X);', 'tm.Adjust_Y_Translation(d.Y);', 'tm.Set_Z_Translation(z);'),
+    'tm_cur_xz_yz': F(C, TD, X, Z, 'tm.Set_X_Translation(x); tm.Adjust_X_Translation(d.X);', 'tm.Adjust_Y_Translation(d.Y);', 'tm.Set_Z_Translation(z);'),
+    'tm_direct_yz': F('Matrix3D tm = camera->Get_Transform();', 'float x = tm.Get_X_Translation();', 'float z = tm.Get_Z_Translation();', 'Vector3 d = Unknown18;', 'tm.Set_X_Translation(x); tm.Adjust_X_Translation(d.X);', 'tm.Adjust_Y_Translation(d.Y);', 'tm.Set_Z_Translation(z);'),
+    'set_x_d_y_z': F(C, X, Z, TD, 'tm.Set_X_Translation(x);', 'tm.Adjust_X_Translation(d.X); tm.Adjust_Y_Translation(d.Y);', 'tm.Set_Z_Translation(z);'),
+    'inline_add_x': [(HELPER_ANCHOR, 'static inline float Unknown_Add(float a, float b) { return(a + b); } ' + HELPER_ANCHOR)] + F(C, X, Z, TD, 'tm.Set_X_Translation(Unknown_Add(x, d.X));', 'tm.Adjust_Y_Translation(d.Y);', 'tm.Set_Z_Translation(z);'),
+    'inline_add_dx': [(HELPER_ANCHOR, 'static inline float Unknown_Add(float a, float b) { return(a + b); } ' + HELPER_ANCHOR)] + F(C, X, Z, TD, 'tm.Set_X_Translation(Unknown_Add(d.X, x));', 'tm.Adjust_Y_Translation(d.Y);', 'tm.Set_Z_Translation(z);'),
+}
+
+# ===== v6E2CC0_b2.py =====
+HYPOTHESIS = '0x6E2CC0 r26: base (res 11) differs only in fxch st(2); fadd st(2) (keeping d.X live instead of Xt) and scheduling tm.Z store after tm.Y. Test dead-int k=1..12 (definition-count lever), swapped Set_X(d.X)/Adjust_X(x), z-before-x, d-before-tm, dx/unused named locals, and by-value float-test inlines'
+FILE = 'app/client/cameraeffects.cpp'
+SYMBOL = 'CameraEffectsClass::Unknown_34'
+ADDRESS = 0x6E2CC0
+
+OLD = ('\t\t\tconst Matrix3D &cur = camera->Get_Transform();\n'
+       '\t\t\tfloat x = cur.Get_X_Translation();\n'
+       '\t\t\tfloat z = cur.Get_Z_Translation();\n'
+       '\t\t\tMatrix3D tm = cur; Vector3 d = Unknown18;\n'
+       '\t\t\ttm.Set_X_Translation(x); tm.Adjust_X_Translation(d.X);\n'
+       '\t\t\ttm.Set_Z_Translation(z);\n'
+       '\t\t\ttm.Adjust_Y_Translation(d.Y);\n')
+
+FN_TOP = '\tif (Unknown14) {\n'
+HELPER_ANCHOR = 'void Unknown_491550(float *x, float *y);'
+
+
+def F(*lines):
+    assert len(lines) == 7, len(lines)
+    return [(OLD, ''.join('\t\t\t' + l + '\n' for l in lines))]
+
+
+C = 'const Matrix3D &cur = camera->Get_Transform();'
+X = 'float x = cur.Get_X_Translation();'
+Z = 'float z = cur.Get_Z_Translation();'
+TD = 'Matrix3D tm = cur; Vector3 d = Unknown18;'
+DT = 'Vector3 d = Unknown18; Matrix3D tm = cur;'
+
+FORMS = {
+    'adj_dx_x': F(C, X, Z, TD, 'tm.Set_X_Translation(d.X); tm.Adjust_X_Translation(x);', 'tm.Set_Z_Translation(z);', 'tm.Adjust_Y_Translation(d.Y);'),
+    'zx_adj_x': F(C, Z, X, TD, 'tm.Set_X_Translation(x); tm.Adjust_X_Translation(d.X);', 'tm.Set_Z_Translation(z);', 'tm.Adjust_Y_Translation(d.Y);'),
+    'zx_adj_dx': F(C, Z, X, TD, 'tm.Set_X_Translation(d.X); tm.Adjust_X_Translation(x);', 'tm.Set_Z_Translation(z);', 'tm.Adjust_Y_Translation(d.Y);'),
+    'dt_adj_dx': F(C, X, Z, DT, 'tm.Set_X_Translation(d.X); tm.Adjust_X_Translation(x);', 'tm.Set_Z_Translation(z);', 'tm.Adjust_Y_Translation(d.Y);'),
+    'dx_local': F(C, X, Z, TD + ' float dx = d.X;', 'tm.Set_X_Translation(x); tm.Adjust_X_Translation(dx);', 'tm.Set_Z_Translation(z);', 'tm.Adjust_Y_Translation(d.Y);'),
+    'dx_unused_y': F(C, X, Z, TD + ' float uy = cur.Get_Y_Translation();', 'tm.Set_X_Translation(x); tm.Adjust_X_Translation(d.X);', 'tm.Set_Z_Translation(z);', 'tm.Adjust_Y_Translation(d.Y);'),
+    'dx_unused_z': F(C, X, Z, TD + ' float dz = d.Z;', 'tm.Set_X_Translation(x); tm.Adjust_X_Translation(d.X);', 'tm.Set_Z_Translation(z);', 'tm.Adjust_Y_Translation(d.Y);'),
+    'inl_zgt': [(HELPER_ANCHOR, 'static inline bool Unknown_ZGT(float v) { return(v > 0.0001f); } ' + HELPER_ANCHOR),
+                ('\t\t\tif (z > 0.0001f) {\n', '\t\t\tif (Unknown_ZGT(z)) {\n')],
+    'inl_wrap': [(HELPER_ANCHOR, 'static inline bool Unknown_GT12(float v) { return(v > 12.0f); } static inline bool Unknown_LT12(float v) { return(v < -12.0f); } ' + HELPER_ANCHOR),
+                 ('\t\t\twhile (move[0] > 12.0f) move[0] -= 12.0f;\n', '\t\t\twhile (Unknown_GT12(move[0])) move[0] -= 12.0f;\n'),
+                 ('\t\t\twhile (move[0] < -12.0f) move[0] += 12.0f;\n', '\t\t\twhile (Unknown_LT12(move[0])) move[0] += 12.0f;\n')],
+    'inl_getx': [(HELPER_ANCHOR, 'static inline float Unknown_GetX(const Matrix3D &m) { return(m.Get_X_Translation()); } ' + HELPER_ANCHOR)] +
+                F(C, 'float x = Unknown_GetX(cur);', Z, TD, 'tm.Set_X_Translation(x); tm.Adjust_X_Translation(d.X);', 'tm.Set_Z_Translation(z);', 'tm.Adjust_Y_Translation(d.Y);'),
+}
+
+for k in range(1, 13):
+    deads = ''.join('int _d%d = 0; ' % j for j in range(k))
+    FORMS['dead_top_%d' % k] = [(FN_TOP, '\t' + deads + 'if (Unknown14) {\n')]
+
+for k in range(1, 5):
+    deads = ''.join('int _d%d = 0; ' % j for j in range(k))
+    FORMS['dead_blk_%d' % k] = F(deads + C, X, Z, TD, 'tm.Set_X_Translation(x); tm.Adjust_X_Translation(d.X);', 'tm.Set_Z_Translation(z);', 'tm.Adjust_Y_Translation(d.Y);')
+
+# ===== v6E2CC0_b3.py =====
+HYPOTHESIS = '0x6E2CC0 r26 (batch 3): test (1) by-value Vector3 d inline helper (d.X lifetime spans helper), (2) Matrix3D tm = camera->Get_Transform() directly with Vector3 d (no cur/x/z or tm.Get_*), (3) Set_Translation(Vector3(x+d.X, tm/cur.Y, z)) + Adjust_Y(d.Y) with Vector3 d, (4) operator[] indexing on tm, (5) Adjust_Translation(Vector3(d.X,d.Y,0))'
+FILE = 'app/client/cameraeffects.cpp'
+SYMBOL = 'CameraEffectsClass::Unknown_34'
+ADDRESS = 0x6E2CC0
+
+OLD = ('\t\t\tconst Matrix3D &cur = camera->Get_Transform();\n'
+       '\t\t\tfloat x = cur.Get_X_Translation();\n'
+       '\t\t\tfloat z = cur.Get_Z_Translation();\n'
+       '\t\t\tMatrix3D tm = cur; Vector3 d = Unknown18;\n'
+       '\t\t\ttm.Set_X_Translation(x); tm.Adjust_X_Translation(d.X);\n'
+       '\t\t\ttm.Set_Z_Translation(z);\n'
+       '\t\t\ttm.Adjust_Y_Translation(d.Y);\n')
+
+HELPER_ANCHOR = 'void Unknown_491550(float *x, float *y);'
+
+
+def F(*lines):
+    assert len(lines) == 7, len(lines)
+    return [(OLD, ''.join('\t\t\t' + l + '\n' for l in lines))]
+
+
+C = 'const Matrix3D &cur = camera->Get_Transform();'
+X = 'float x = cur.Get_X_Translation();'
+Z = 'float z = cur.Get_Z_Translation();'
+TD = 'Matrix3D tm = cur; Vector3 d = Unknown18;'
+
+FORMS = {
+    'byval_d_adj': [
+        (HELPER_ANCHOR, 'static inline void Unknown_Apply(Matrix3D &tm, float x, float z, Vector3 d) { tm.Set_X_Translation(x); tm.Adjust_X_Translation(d.X); tm.Set_Z_Translation(z); tm.Adjust_Y_Translation(d.Y); } ' + HELPER_ANCHOR),
+    ] + F(C, X, Z, 'Matrix3D tm = cur;', 'Unknown_Apply(tm, x, z, Unknown18);', '', ''),
+    'byval_d_add': [
+        (HELPER_ANCHOR, 'static inline void Unknown_Apply(Matrix3D &tm, float x, float z, Vector3 d) { tm.Set_X_Translation(x + d.X); tm.Set_Z_Translation(z); tm.Adjust_Y_Translation(d.Y); } ' + HELPER_ANCHOR),
+    ] + F(C, X, Z, 'Matrix3D tm = cur;', 'Unknown_Apply(tm, x, z, Unknown18);', '', ''),
+    'byval_d_yz': [
+        (HELPER_ANCHOR, 'static inline void Unknown_Apply(Matrix3D &tm, float x, float z, Vector3 d) { tm.Set_X_Translation(x); tm.Adjust_X_Translation(d.X); tm.Adjust_Y_Translation(d.Y); tm.Set_Z_Translation(z); } ' + HELPER_ANCHOR),
+    ] + F(C, X, Z, 'Matrix3D tm = cur;', 'Unknown_Apply(tm, x, z, Unknown18);', '', ''),
+    'byval_d_cur': [
+        (HELPER_ANCHOR, 'static inline void Unknown_Apply(Matrix3D &tm, const Matrix3D &cur, Vector3 d) { tm.Set_X_Translation(cur.Get_X_Translation() + d.X); tm.Set_Z_Translation(cur.Get_Z_Translation()); tm.Adjust_Y_Translation(d.Y); } ' + HELPER_ANCHOR),
+    ] + F(C, '', '', 'Matrix3D tm = cur;', 'Unknown_Apply(tm, cur, Unknown18);', '', ''),
+    'byval_d_only': [
+        (HELPER_ANCHOR, 'static inline void Unknown_Apply(Matrix3D &tm, Vector3 d) { tm.Adjust_X_Translation(d.X); tm.Adjust_Y_Translation(d.Y); } ' + HELPER_ANCHOR),
+    ] + F('Matrix3D tm = camera->Get_Transform();', '', '', '', 'Unknown_Apply(tm, Unknown18);', '', ''),
+    'byval_d_settr': [
+        (HELPER_ANCHOR, 'static inline void Unknown_Apply(Matrix3D &tm, const Matrix3D &cur, Vector3 d) { tm.Set_Translation(Vector3(cur.Get_X_Translation() + d.X, cur.Get_Y_Translation(), cur.Get_Z_Translation())); tm.Adjust_Y_Translation(d.Y); } ' + HELPER_ANCHOR),
+    ] + F(C, '', '', 'Matrix3D tm = cur;', 'Unknown_Apply(tm, cur, Unknown18);', '', ''),
+    'tm_d_adjxy': F('Matrix3D tm = camera->Get_Transform();', 'Vector3 d = Unknown18;', '', '', 'tm.Adjust_X_Translation(d.X);', 'tm.Adjust_Y_Translation(d.Y);', ''),
+    'tm_d_adjxyz': F('Matrix3D tm = camera->Get_Transform();', 'Vector3 d = Unknown18;', '', '', 'tm.Adjust_X_Translation(d.X);', 'tm.Set_Z_Translation(tm.Get_Z_Translation());', 'tm.Adjust_Y_Translation(d.Y);'),
+    'tm_d_xz_adj': F('Matrix3D tm = camera->Get_Transform();', 'float x = tm.Get_X_Translation();', 'float z = tm.Get_Z_Translation();', 'Vector3 d = Unknown18;', 'tm.Set_X_Translation(x); tm.Adjust_X_Translation(d.X);', 'tm.Set_Z_Translation(z);', 'tm.Adjust_Y_Translation(d.Y);'),
+    'd_settr_cury': F(C, X, Z, TD, 'tm.Set_Translation(Vector3(x + d.X, cur.Get_Y_Translation(), z));', 'tm.Adjust_Y_Translation(d.Y);', ''),
+    'd_settr_tmy': F(C, X, Z, TD, 'tm.Set_Translation(Vector3(x + d.X, tm.Get_Y_Translation(), z));', 'tm.Adjust_Y_Translation(d.Y);', ''),
+    'd_settr_cury_dx': F(C, X, Z, TD, 'tm.Set_Translation(Vector3(d.X + x, cur.Get_Y_Translation(), z));', 'tm.Adjust_Y_Translation(d.Y);', ''),
+    'd_settr_tmy_dx': F(C, X, Z, TD, 'tm.Set_Translation(Vector3(d.X + x, tm.Get_Y_Translation(), z));', 'tm.Adjust_Y_Translation(d.Y);', ''),
+    'd_settr_nocurloc': F(C, '', '', TD, 'tm.Set_Translation(Vector3(cur.Get_X_Translation() + d.X, cur.Get_Y_Translation(), cur.Get_Z_Translation()));', 'tm.Adjust_Y_Translation(d.Y);', ''),
+    'd_settr_tm_noc': F(C, '', '', TD, 'tm.Set_Translation(Vector3(cur.Get_X_Translation() + d.X, tm.Get_Y_Translation(), cur.Get_Z_Translation()));', 'tm.Adjust_Y_Translation(d.Y);', ''),
+    'd_brack_adj': F(C, X, Z, TD, 'tm[0][3] = x; tm[0][3] += d.X;', 'tm[2][3] = z;', 'tm[1][3] += d.Y;'),
+    'd_brack_add': F(C, X, Z, TD, 'tm[0][3] = x + d.X;', 'tm[2][3] = z;', 'tm[1][3] += d.Y;'),
+    'd_adjtrans0': F(C, '', '', 'Matrix3D tm = cur; Vector3 d(Unknown18.X, Unknown18.Y, 0.0f);', 'tm.Adjust_Translation(d);', '', ''),
+    'get_move_ret': [
+        (HELPER_ANCHOR, 'static inline Vector3 Unknown_GetMove(const Vector3 &v) { return(v); } ' + HELPER_ANCHOR),
+    ] + F(C, X, Z, 'Matrix3D tm = cur; Vector3 d = Unknown_GetMove(Unknown18);', 'tm.Set_X_Translation(x); tm.Adjust_X_Translation(d.X);', 'tm.Set_Z_Translation(z);', 'tm.Adjust_Y_Translation(d.Y);'),
+    'get_move_add': [
+        (HELPER_ANCHOR, 'static inline Vector3 Unknown_GetMove(const Vector3 &v) { return(v); } ' + HELPER_ANCHOR),
+    ] + F(C, X, Z, 'Matrix3D tm = cur; Vector3 d = Unknown_GetMove(Unknown18);', 'tm.Set_X_Translation(x + d.X);', 'tm.Set_Z_Translation(z);', 'tm.Adjust_Y_Translation(d.Y);'),
+}

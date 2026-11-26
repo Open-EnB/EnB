@@ -969,6 +969,9 @@
 "?Get_Shader@PointGroupClass@@QAE?AVShaderClass@@XZ": [
 "0x954890"
 ],
+"?Get_Single_Texture@MeshMatDescClass@@QBEPAVTextureClass@@HH@Z": [
+"0x9466A0"
+],
 "?Get_Specular@VertexMaterialClass@@QBEXPAVVector3@@@Z": [
 "0x92EEB0"
 ],

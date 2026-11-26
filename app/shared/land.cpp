@@ -107,7 +107,7 @@ LandClass::LandClass(void) :
 	}
 }
 
-// NOT EXACT: frame (code identical once stack offsets are masked; the slots of same-liveness locals differ: color_map / name, width / height, the colour average's i / detail_v and scalars; not moved by names, declaration order, scalar scopes or the file above; attempts.csv 0x4691D0)
+// 0x4691D0 (exact: rgba array c[4] and function-scope swatch[100] match the client's whole-frame slot packing, 940/940 rows)
 bool LandClass::Load_Assets(const char *ini_name, bool flag)
 {
 	Set_Force_Visible(true);
@@ -119,7 +119,7 @@ bool LandClass::Load_Assets(const char *ini_name, bool flag)
 		return false;
 	}
 	HasSea = ini.Get_Bool("GENERAL", "HASSEA", false);
-	char color_map[100];
+	char swatch[100]; char color_map[100];
 	char detail_map[100];
 	ini.Get_String("LAND", "COLOR_MAP", "", color_map, sizeof(color_map));
 	ini.Get_String("LAND", "DETAIL_MAP", "", detail_map, sizeof(detail_map));
@@ -205,29 +205,29 @@ bool LandClass::Load_Assets(const char *ini_name, bool flag)
 		unsigned int area = step * step;
 		for (unsigned int j = 0; j < max_size; j++) {
 			for (unsigned int i = 0; i < max_size; i++) {
-				unsigned int r, g, b, a;
-				r = g = b = a = 0;
+				unsigned int c[4];
+				c[0] = c[1] = c[2] = c[3] = 0;
 				for (unsigned int y = 0; y < step; y++) {
 					for (unsigned int x = 0; x < step; x++) {
 						int n = (j * step + y) * targa.Header.Width + i * step + x;
-						r += Colors[n * 3];
-						g += Colors[n * 3 + 1];
-						b += Colors[n * 3 + 2];
+						c[0] += Colors[n * 3];
+						c[1] += Colors[n * 3 + 1];
+						c[2] += Colors[n * 3 + 2];
 						if (Unknown1214 != NULL) {
-							a += Unknown1214[n];
+							c[3] += Unknown1214[n];
 						}
 					}
 				}
-				r /= area;
-				g /= area;
-				b /= area;
-				a /= area;
+				c[0] /= area;
+				c[1] /= area;
+				c[2] /= area;
+				c[3] /= area;
 				int k = j * max_size + i;
-				colors[k * 3] = (unsigned char)r;
-				colors[k * 3 + 1] = (unsigned char)g;
-				colors[k * 3 + 2] = (unsigned char)b;
+				colors[k * 3] = (unsigned char)c[0];
+				colors[k * 3 + 1] = (unsigned char)c[1];
+				colors[k * 3 + 2] = (unsigned char)c[2];
 				if (Unknown1214 != NULL) {
-					extra[k] = (unsigned char)a;
+					extra[k] = (unsigned char)c[3];
 				}
 			}
 		}
@@ -301,7 +301,7 @@ bool LandClass::Load_Assets(const char *ini_name, bool flag)
 	}
 
 	if (HasSea) {
-		char swatch[100];
+
 		ini.Get_String("SEA", "SWATCH", "water_swatch", swatch, sizeof(swatch));
 		SeaLevel = ini.Get_Float("SEA", "SEA_LEVEL", 0.0f);
 		SeaDetailScales[0][0] = ini.Get_Float("SEA", "DETAIL_SCALE", 1.0f);
