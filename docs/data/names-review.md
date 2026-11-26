@@ -6195,6 +6195,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Extent` | `app/client/linebox.h:56` | what it holds |
 | 1 | `Width` | `app/client/linebox.h:58` | what Render does with it |
 | 1 | `MinSize` | `app/client/linebox.h:59` | what Render does with it |
+| 1 | `Unknown_Get_Ticks` | `app/client/loadingview.cpp:8` | untagged neutral name (D10) |
 | 1 | `Unknown_BE67C4` | `app/client/loadingview.cpp:15` | neutral (D10) |
 | 1 | `Unknown65B810ViewClass` | `app/client/loadingview.cpp:46` | untagged neutral name (D10) |
 | 1 | `Unknown50` | `app/client/loadingview.cpp:47` | untagged neutral name (D10) |
@@ -6221,7 +6222,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_0C` | `app/client/loadingview.cpp:225` | untagged neutral name (D10) |
 | 1 | `last` | `app/client/loadingview.cpp:227` | what it holds |
 | 1 | `dots` | `app/client/loadingview.cpp:228` | what it holds |
-| 1 | `Unknown_Get_Ticks` | `app/client/loadingview.cpp:229` | untagged neutral name (D10) |
 | 1 | `Unknown_750B60` | `app/client/loadingview.cpp:246` | untagged neutral name (D10) |
 | 1 | `Unknown78` | `app/client/local_interface_sort.cpp:62` | untagged neutral name (D10) |
 | 1 | `Unknown_541800` | `app/client/local_interface_sort.cpp:64` | untagged neutral name (D10) |
