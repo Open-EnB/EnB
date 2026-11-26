@@ -1075,8 +1075,8 @@ void SClient::Unknown_743440() {
 
 #include "option.h"
 #include "..\packets\pkmove.h"
-static void Unknown_Register_Key(const std::string &module, const char *name, int id) { ControlKeysManager::Register_Key(module, name, id); }	// the key name built one inline layer down (0x7436A0 calls assign out of line for the first four)  // NAME 1: neutral (D10)
-// NOT EXACT: inline budget (masked residue 209, was 485): the first four key names go through the file-static Unknown_Register_Key layer (the client calls their assign out of line), Bridge_Mode through Set_Value; left: the module string inlines assign (the client calls it), the client keeps a zero register in ebx with four saved registers and one shared epilogue
+static std::string &Unknown_Module() { static std::string module("sclient"); return module; } static inline float Unknown_Get_FOV(CameraManagerClass *cm) { return cm->FOV; } static void Unknown_Register_Key(const std::string &module, const char *name, int id) { ControlKeysManager::Register_Key(module, name, id); }	// 0x7436A0's module static, FOV FPU read, and first-four-key layer  // NAME 1 [Unknown_Module, Unknown_Get_FOV, Unknown_Register_Key, cm, module, name, id]: neutral (D10)
+// 0x7436A0: exact via Unknown_Module, Unknown_Get_FOV, Get_Avatar_ID, Current_Camera_Mode, named m in case 3, wrapped if/else in case 5/6
 // 0x7436A0 (Do_Frame: an event no dispatcher took; the module 'sclient' keys, registered on the first call)
 bool SClient::Unknown_7436A0(KernelEventClass event)
 {
@@ -1085,7 +1085,7 @@ bool SClient::Unknown_7436A0(KernelEventClass event)
 			ChatPanel->Unknown_565F30(2);
 			return(true);
 		}
-		static std::string module("sclient");
+		std::string &module = Unknown_Module();
 		static bool first = true;
 		if (first) {
 			first = false;
@@ -1107,7 +1107,7 @@ bool SClient::Unknown_7436A0(KernelEventClass event)
 				Unknown_74D990(0x17, "*SNAP* Done!", 0);
 				return(true);
 			case 1:
-				Connection->Send_Packet(&MovePacketClass(AvatarID, 13));
+				Connection->Send_Packet(&MovePacketClass(Get_Avatar_ID(), 13));
 				return(true);
 			case 2:
 				Unknown_744D80();
@@ -1116,7 +1116,7 @@ bool SClient::Unknown_7436A0(KernelEventClass event)
 				if (!CurrentView || CurrentView != Unknown135C) {
 					BoolOptionStruct *option = OptionClass::Instance->Find_Bool("Bridge_Mode");
 					if (CameraMode == 0) {
-						Print(0x17, "Camera set to 3rd person mode %i,", Unknown_75A5D0());
+						unsigned m = Unknown_75A5D0(); Print(0x17, "Camera set to 3rd person mode %i,", m);
 						if (option) option->Set_Value(false);
 					} else {
 						Set_Camera_Mode(0);
@@ -1132,12 +1132,12 @@ bool SClient::Unknown_7436A0(KernelEventClass event)
 				} else if (CameraMode == 0) {
 					Unknown_74D990(0x17, "Cannot save camera in first person mode.", 0);
 				} else {
-					CameraModeStruct &mode = CameraModes[CameraMode];
+					CameraModeStruct &mode = Current_Camera_Mode();
 					mode.Tilt = CameraManager->Get_Tilt();
 					mode.Distance = CameraManager->Get_Distance();
 					mode.Heading = CameraManager->Get_Heading();
 					mode.ElevationOffset = CameraManager->Get_Elevation_Offset();
-					mode.FOV = CameraManager->FOV;
+					mode.FOV = Unknown_Get_FOV(CameraManager);
 					if (Unknown_745490()) {
 						Print(0x17, "Camera Slot %i Saved: H%.2f, T:%.2f, D:%.2f FOV:%.2f EO:%.2f", CameraMode, mode.Heading, mode.Tilt, mode.Distance, mode.FOV, mode.ElevationOffset);
 						return(true);
@@ -1148,30 +1148,30 @@ bool SClient::Unknown_7436A0(KernelEventClass event)
 				break;
 			case 5:
 			case 6:
-				if (CurrentView && CurrentView == Unknown135C) break;
-				if (CameraMode == 0) {
-					Unknown28 = !Unknown28;
-					Unknown_74D990(0x17, (CameraMode == 0 && Unknown28) ? "Camera set to 1st person mode with bridge." : "Camera set to 1st person mode without bridge.", 0);
-
-
-
-
-					Unknown_744D80();
-					return(true);
-				}
-				switch (key) {
-					case 5: Unknown_75A570(); break;
-					case 6: Unknown_75A5A0(); break;
-				}
-				Unknown_744D80();
-				Print(0x17, "Camera set to 3rd person mode %i", CameraMode);
-				return(true);
+				if (!CurrentView || CurrentView != Unknown135C) {
+					if (CameraMode == 0) {
+						Unknown28 = !Unknown28;
+						if (*(volatile unsigned *)&CameraMode == 0 && *(volatile bool *)&Unknown28) {
+							Unknown_74D990(0x17, "Camera set to 1st person mode with bridge.", 0);
+						} else {
+							Unknown_74D990(0x17, "Camera set to 1st person mode without bridge.", 0);
+						}
+						Unknown_744D80();
+					} else {
+						switch (key) {
+							case 5: Unknown_75A570(); break;
+							case 6: Unknown_75A5A0(); break;
+						}
+						Unknown_744D80();
+						Print(0x17, "Camera set to 3rd person mode %i", CameraMode);
+					} return(true); }
+				break;
 			default:
 				G_ASSERT(false);
 				break;
 		}
 	}
-	CameraManager->Get_Player_Chase_Camera_Module(); return(false);	// a dead read (budget device): Prev Camera calls _Eos out of line as the client
+	return(false);
 }
 
 
