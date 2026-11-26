@@ -151,7 +151,7 @@ UTF-8 docs, never waiting for a clean tree) are in CLAUDE.md and builders.md §2
   @...` or a path and silently matches nothing; `'/nologo ...'` and `/usage` become `C:/Program Files/Git/...`
   paths. Prefix the command with `MSYS_NO_PATHCONV=1` (then pass `C:/` script paths) or use PowerShell.
   Windows Python wants `C:/` paths, not `/c/...`; `bash` started from Python is WSL's (name Git's bash.exe);
-  Git Bash's `ps` / `pgrep` do not see Windows processes (use `tasklist`); `cat > /dev/null` waits on stdin.
+  Git Bash's `ps` / `pgrep` do not see Windows processes (use `tasklist`); `cat > /dev/null` waits on stdin. Git Bash also rewrites `tasklist /FI` (MSYS_NO_PATHCONV=1), and a foreground Bash call moves to the background after 180 s (2026-11-26).
 * **Line endings: LF everywhere** (D147, `.gitattributes`). Every checkout and worktree is LF; Git normalises
   what it stores, but until a CRLF working file is fixed, byte compares and edit anchors see the CRs. Python's
   text mode writes CRLF on Windows (`open(p, 'w')`, `Path.write_text`): write with `newline='\n'` (or bytes),
@@ -631,6 +631,10 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
 * **Two identical `+=` / appends inline differently:** the client's second one sits one layer shallower (0x61E8E0: the append on the cost line, with three dead `Gadgets.size()` reads).
 * **A deep dead read costs more budget than a shallow one** (ui_manu: five deep dead reads, within D272's six). Fewer rows than the client's means a missing statement, not budget.
 * **`Find_Field` plus a hand-written set test is not `Unknown_Find_Set_Field`** (chatgadg 0x65E840 / 0x65E5E0 matched through the helper and a `Vector3` translation form).
+* **A D272 dead read placed after a call can move into the call's argument as a comma expression (2026-11-26, ui_ship_cust 0x61BD80, 49 -> 41):** the position inside the statement is a budget step of its own: try it where a sweep of dead-read positions after the call leaves rows.
+* **A dead read's kind is a finer budget step than its count (2026-11-26, 0x600000 341 -> 302):** sweep the kind first (`begin()` on UnknownD8 against `size()`), then the count; dead reads on different vectors spend the same budget but map to different rows. `#pragma optimize("p")` (/Op) is ruled out for floats the client spills at assignment.
+* **A dead string read inside an inline ctor or dtor raises that callee's own cost (2026-11-26, 0x7D4E30 exact):** the dtor is the lever to send it out of line: the dead `Query.size()` reads went into `~SubsRequestClass`. A `~vector` sent out of line the same way removed a zero-register cascade at ui_buff 0x561030 (sending site 2's).
+* **The client's out-of-line `erase(begin, end)` / `insert(_Last, &x)` on a list member is `clear()` / `push_back()` inlined one level (2026-11-26, cordcon 0x84E260 270 -> 28):** a nested inline list `operator=` loses the Clear / getPointer: write the Incoming loop at the function's top level.
 
 **Register-only, order-only** (two attempts, then the stop rule)
 
@@ -750,12 +754,14 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
 * **A bare index lands in the zero register** (ui_manu 0x5B2480 / 0x5B2BD0).
 * **Compare a folded form against a kept one:** the client keeps a reference to the global where a plain read folds (Get_Font 0x76EB70: the length through a reference).
 * **`string::_Eos` base / index order (`[eax+ecx]` against `[ecx+eax]`) is not behaviour** (ui_starbase 0x634140). It follows the register of the sum (`_N = _M + _Len`) the store reads, so fix the sum's register, not the store.
-* **The count of definitions orders commutative x87 products:** VC6 orders the operands by how many definitions a variable has in the whole function, not by source text (0x454730 was exact with exactly four dead-initialised scalar locals; one to three and five to eight were not); unused uninitialised locals count nothing. Diagnostic: sweep k dead ints, then look for a form (D272) with the same effect. `float d2 = v.Length2();` after a call keeps the vector's components on the x87; a `const T &` bound to a call temporary packs like a named local. explain.py reports `fld st(0)` against `fld st(1)` as "literal": that is x87 operand order. The count is an index threshold over the inline-expansion symbols (the numbered symbols of inlined callees), not a plain tally of source definitions: a dummy-inline-symbols diagnostic reaches masked 0 but is no client helper (D272), so look for the form that moves the threshold. It also orders `pointer + index*scale` address adds (`[ptr+idx]` against `[idx+ptr]`: one function-level counter settled it), and a counter given a second `= 0` definition gives `[IV + ptr]`.
+* **The count of definitions orders commutative x87 products:** VC6 orders the operands by how many definitions a variable has in the whole function, not by source text (0x454730 was exact with exactly four dead-initialised scalar locals; one to three and five to eight were not); unused uninitialised locals count nothing. Diagnostic: sweep k dead ints, then look for a form (D272) with the same effect. `float d2 = v.Length2();` after a call keeps the vector's components on the x87; a `const T &` bound to a call temporary packs like a named local. explain.py reports `fld st(0)` against `fld st(1)` as "literal": that is x87 operand order. The count is an index threshold over the inline-expansion symbols (the numbered symbols of inlined callees), not a plain tally of source definitions: a dummy-inline-symbols diagnostic reaches masked 0 but is no client helper (D272), so look for the form that moves the threshold. It also orders `pointer + index*scale` address adds (`[ptr+idx]` against `[idx+ptr]`: one function-level counter settled it), and a counter given a second `= 0` definition gives `[IV + ptr]`. In inlined template bodies the operand order is function-wide state set by unrelated code: map it by sweeping the budget (2026-11-26, 0x634140). After gauging the count with dead ints, swap them for live named scalars (0x542A10: four).
 * **Blend terms and a cached factor:** in a blend that caches a factor in a static, assigning the inverse factor first stops VC6 caching alpha in a register. VC6 fixes the evaluation order of OR'd blend terms whatever the source order; a pixel cast such as `(unsigned short)c` in one term moves it first.
 * **An inlined same-file callee's spelling settles the caller's registers:** when only registers differ and the caller calls a same-file helper the client inlines, retry the helper's own spelling (`if` / `return` against a ternary or one `return`; a natural respelling of an inlined `Type_From_Name` made its caller exact) before any device in the caller. A helper layer can fix a cross-call cache and still move the inline budget.
 * **Hoisting has a function-wide store-count limit:** VC6 stops hoisting loads above the `[ebp+N]` stores once the function's stores pass a limit counted over the whole function, not the block (Change_Text 0x6CDBC0). A form that adds stores in one place loses hoists elsewhere: count the stores of the client's listing against ours before trying more spellings.
 * **A declaration removed from a shared header flips registers in other files:** removing a declaration changed another file's register assignment. After any header declaration removal verify every file that includes it, not the one you edited.
 * **The /Ob2 budget can jump to far regions of a function, and VC6 threads a join block only for a pure test:** a small change in one region can move inlining far from it (compare every inlined site, not the nearest); a join block holding more than a pure test is not threaded.
+* **Masked residue 0 can hide order (2026-11-26, 0x446000 masked 14 -> 0, 0x542A10):** swapped stack operands of a commutative `fmul`, slot-permuted stores and permuted sum terms all mask away. `explain.py` shows them; rank forms by the raw rows and read objdiff before calling a masked 0 done.
+* **The zero register is born from `mov [mem], 0` stores and competes for ebx (2026-11-26, 0x73B150):** sweep the placement of those stores with a state signature (which register holds the zero at each point), not by eye.
 
 **Shape: returns, tails, loops, switches**
 
@@ -886,6 +892,8 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
 * **An extra release in an inlined copy is a `RefCountPtr::operator=`** (the camctrl_land seeds).
 * **A call-count difference can be a merged call site, not a missing call** (camctrl_takeoff 0x796440: 16 against 17).
 * **A branch flag at residue 0 can be VC6 merging identical return blocks:** the client keeps two tails where ours has one (or the reverse); list the aligned jumps that differ before blaming the logic.
+* **`if (0) { case N: }` is a `goto` into case N (2026-11-26, 0x73B150):** a jump into a case from outside the switch; anchor trybatch variants on blank-line runs when moving it.
+* **A goto from a switch default into an if's else places the shared block after (2026-11-26, emote_data 0x7E6860 exact):** a constant that fails the test (the default case's `t = 2.0f`) lets VC6 jump to the shared stop block. VC6 also folds a nested test of the same expression in its own then-arm (0x542A10).
 
 **Frame and stack slots**
 
@@ -945,6 +953,7 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
 * **`NameClass` slot pairing across the arms of one function** (co 0x6FF7A0: about 98 forms, none moved it).
 * **An address-taken DWORD constant used twice** is one DWORD local (landdmap 0x466F60's spacing array).
 * **Block-scoped loop declarations** give separate frame slots per if-branch; declare the variable once at the top when the client shares one slot.
+* **A Vector3 member the client holds as an FPU constant: assign it late; `return local` when the client's return copy reads the input's slots (2026-11-26, B7).** `trybatch.py --slots` can list as 'separate' a local that is a struct's own member (0x449EA0 `Vector2::Rotate_Towards_Vector`: frame 0x94 and 785 rows were the client's); a float stored and never read beside a by-reference Vector3 is a member of that struct (0x542A10).
 
 **Constructors, destructors, vtables**
 
@@ -1010,6 +1019,7 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
 * **A value computed between a `new`'s allocation and its constructor** is the new-expression's argument. A helper whose inlined copy differs from its own standalone exact copy: write the loop in the caller, and check forms on the helper with `--file-check`. The lever can be the inlined callee's statement order: moving a read after a store in the callee fixed its inlined copy while the callee's own bytes stayed exact (px Tight_Exit -> Overlap 0x44E470).
 * **An inline constructor in a mem-initializer list is a scheduling barrier:** a later member's construction (its `this` and EH state store) is hoisted up to the last one, and an init-list load schedule can be off by one store per load. Build the members as a small struct with its own inline constructor (ui_avatr +0x1BC's pair 0x553AF0; 0x5EF0B0's seven bools as one Flags struct).
 
+* **An EH frame with no state stores in a constructor is a body call that inlines to nothing on the fresh object (2026-11-26, 0x6BCFB0 exact):** `Clear()` in the ctor, on FuncInfo 0xB40210's one state unwinding `~VectorClass`.
 
 **Field offset, layout**
 
@@ -1149,7 +1159,7 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
 * **`Vector3`'s member `v.Normalize()`** recomputes `Length2` after the zero test (the tree's form is right); a client site that pushes the stored len2 and writes to a new temporary is the free `Normalize(const Vector3 &)`.
 * **A float local with a dead initialiser declared ahead** is not kept in st0 after its real definition (fstp + reload instead of fst).
 
-* **`Translate(float, float, float)` and `Translate(const Vector3 &)` compile differently:** the float overload gave the client's frame (0xE4) at avatar_pip 0x7E3A20.
+* **`Translate(float, float, float)` and `Translate(const Vector3 &)` compile differently:** the float overload gave the client's frame (0xE4) at avatar_pip 0x7E3A20. They also evaluate the rows in different orders: at 0x542A10 the client sums (m0x + m2z) + m1y, ours had (m2z + m1y) + m0x (2026-11-26, a last-bit rounding: test-plan B-22).
 * **VC6 reassociates three-term x87 sums** (0x61E8E0). `m[2][3] += f() + c` compiles as (f + z) + c; `m.Adjust_Z_Translation(f() + c)` gives the client's z + (f + c). Comparing a float constant with a relative tolerance hides a 1-ulp error: compare the packed bytes.
 * **VC6 reassociates unparenthesised float chains that contain a literal:** the chain regroups around the literal; parenthesise the client's association (FontSys::Update_Text's line height is `(Scale * 480) * U / H`). It is behaviour under the single-precision FPU control word: with the other grouping a scaled font's line came out one pixel off. `tools/re/behaudit.py fpu` reports this kind of case (it reproduces this one).
 * **A float constant passed to or stored into a `bool` compiles silently** (no C4800 / C4305) as a garbage `imm8` that varies between builds and reads as true: write `false` / `true` for bool arguments.
@@ -1597,6 +1607,7 @@ are in 3.0.
   A tie rule that runs before D166 can take D166's credits (which widen ranges) (2026-11-16, CR4): new tie rules go
   after D166 or must count toward ranges. For non-short tied COMDATs, other objects' calls reach their own copies:
   only the object's own calls are evidence.
+* **A header static can sit after its object's guard (2026-11-26, IM7):** the object's `.CRT$XCU` run then starts later than its first static; five objects ran an extra PermStringInit nifty counter until a header was dropped (loadingview, 644e50 / 646170, udp, fp_ita). A stretch should end at the header static that opens the next object (`xcu_position`, progress.md §4).
 * **A crediting rule's call stream can reach a function an older rule's test expects to stay unresolved with that rule's switch off (2026-11-19):** add the new switch to that test's also-off list after checking it reaches the same address.
 * **A widened candidate pool moves credits:** a rule family that adds candidates for tied / short functions (caller-located: a located not-exact caller's rel32 calls, a string-located holder) can take another rule's credits; compare the credit list (`pairs_cmp.py` addresses) before and after, not the total. A widened search window (a CRT initialiser's window run to the next object's exact function, an initialiser placed before the range round) must be limited to the initialiser kind it was measured on (plain `<string>` guards: relocations only to the ctype guard byte, the static and atexit): unlimited, it reached the numbering initialisers of two other objects and lost their functions outright.
 * **Under /Gy every own function is its own section (2026-11-16, CR5):** order an object's functions with objmatch's
@@ -2042,6 +2053,7 @@ are in 3.0.
 * **trybatch traps:** a file's NOT EXACT markers go stale when a later edit fixes a function (half of one brief's list was already exact): `trybatch.py base` each marker before a round; form names that differ only by case share one overlay folder on Windows and mix their results (the tool now refuses such names); a variant that changes the line count shifts later `__LINE__` (put dead forms on existing lines; the tool flags the shift); a header hunk appended after a `//` comment is commented out; a draft header reached through another header needs a no-op hunk on every intermediate header (the symptom is C1083 or a compile that shows no change), and a draft-folder header copy does not shadow a quoted include from another header; hunk anchors must be unique in the whole file and stay unique after the earlier hunks (hunks that overlap fail); a hunk on aux_roots.h alone is ignored (add a no-op hunk on aux_roots_all.h); a variants file must be self-contained (no exec of another variants file; chain with `rsplit`); the masked `res` can rise as a form nears the client (read objdiff and compare region sums); two threads on one VM collide on sync.tar; `listing.asm` is written only with `--slots`; region diffs are kept only for the best form (`trybatch.py regions` on that form's object); a form that changes a function's mangled name makes trybatch fall back to another function's marker, so it measures a different function (use `trybatch.py regions OBJ MANGLED ADDR`); `identical` masks branch targets; a lever's cost to another instance in the file is invisible to its single-symbol measure (sweep the file with appfile); names from attempts.csv go stale (pass an empty `SYMBOL`); SYMBOL resolves on the base object and reuses its mangled name, so a form that changes a signature fails "no such symbol" (change the tree first, then empty SYMBOL), and a new function absent from the base object reports "not in the object" for every form (measure with `trybatch.py regions <form>/obj/X.obj MANGLED ADDR`); a header with relative includes fails to compile in the overlay (use a same-depth local copy in the .cpp); the whole-function `res` can jump while the per-region sum is small when a block moves (check the spans), and masked 0 can hide raw x87 rows (measure raw too on near-exact functions); wildcarded relocations make same-shape initialisers all match. Header forms for app / shared / auxdata headers fail on their sibling relative includes: edit the header in your own worktree with no other batch running, `trybatch base`, restore. A header member added to a widely included class can flip another file only under verify (`--file-check` cannot see it). A variants helper module named `grp` shadows the stdlib; two runs of one variants file started in the same second collide on the batch directory. A hunk's anchor is the tree's text: after a commit re-anchor it, and an anchor that repeats in the file fails (anchor on the whole function's text).
 * **trybatch.py compiles the tree of the path it is started by:** run from the main tree's path it compiles the main tree and ignores the worktree's header hunks, so run it from inside the worktree. Even there a header hunk can fail to take effect (an indirectly included header is ignored unless the including header is overlaid too): measure a header-dependent form in a worktree whose header edit is committed (`trybatch.py base` shows it).
 * **A trybatch row count can run past the function's end** (0x68F510: rows beyond the last instruction): check the rows ours / client before reading the count.
+* **trybatch / regions / seq details (2026-11-26):** trybatch's obj lives under `<worktree>/.work/trybatch`; `regions.py --show` takes the number without the `r`; a heredoc replace in a variant file mangles `\n` and `\t` (write the variant with a script), and an anchor matches deeper indents too (prefix it with `\n`; blank-line runs are stable anchors); `FILE -1` on a template copy is the file-end inline state; behaudit's rel flags pair 'inconsistent' rows wrongly in long NOT EXACT functions; `seq.py`'s byte scan reads 0xE8 inside `mov ecx, imm32` as a call (use capstone).
 * **tryv2 under a busy importer lock:** a run that times out while queued for the lock runs nothing, and tryv2 gives up behind a busy lock: use `appfile match` on mark.py drafts. A variant that adds lines shifts later `__LINE__`.
 * **appfile match on a library file** uses the app's /GX unless you pass the library's own `--flags` (ww3d2's); explain.py needs a virtual's UAE decoration to find it. Parallel appfile runs need distinct `ENB_AGENT`, and `$(... &)` drops it.
 * **budgetdev.py: a device that is free for the exact functions can hold a NOT EXACT function's cut** (an optdlg device was dropped by an apply that measured exact pairs only): measure every function's residue in the file.
@@ -2313,7 +2325,7 @@ Programs and tests (VIDTEST, kerneltest, drawcheck):
   `--db-snapshot`'s restore); the PDA's skill list does not open at a fixed scroll, so replayed drags from it miss;
   the number keys (Fire/Activate slot N) sent nothing on retail where a click on the slot works; E right after
   `/createmob`'s CREATE can come too early (`key 0x45 until ... REQUEST_TARGET`).
-* **The baseline tools (2026-11-25):** Net7.exe started as the harness's child dies with a stopped capture: `net7_start` starts it detached. `baseline.py capture NAMES --set SET`: names before the options, or argparse refuses them. A run stopped mid-way can leave the instance's d3d8.dll locked ("Access is denied" at the next run's cleanup). Memory pressure can stop a background shell while its e2e child keeps running: check `tasklist` before the next run. `build/d3d8shot/d3d8.dll` and the client exe in the main checkout can be days old: rebuild the proxy from the source you run, and read `verify --run`'s `STALE BUILD` line. In-place restore keeps the server's world state and guild roster: use `--restart` where the scenario depends on them. Station scenes' 3D audio (footsteps, greetings) is random in retail, so a strict compare fails for any client. Miles' own providers import from mss32.dll too: filter the audio log by caller. The Rust antprox 1.2 cannot `/REPLAY`: replay runs go through `antprox_replay` (C# 1.1.0).
+* **The baseline tools (2026-11-25):** Net7.exe started as the harness's child dies with a stopped capture: `net7_start` starts it detached. `baseline.py capture NAMES --set SET`: names before the options, or argparse refuses them. A run stopped mid-way can leave the instance's d3d8.dll locked ("Access is denied" at the next run's cleanup). Memory pressure can stop a background shell while its e2e child keeps running: check `tasklist` before the next run. `build/d3d8shot/d3d8.dll` and the client exe in the main checkout can be days old: rebuild the proxy from the source you run, and read `verify --run`'s `STALE BUILD` line. In-place restore keeps the server's world state and guild roster: use `--restart` where the scenario depends on them. Station scenes' 3D audio (footsteps, greetings) is random in retail, so a strict compare fails for any client. Miles' own providers import from mss32.dll too: filter the audio log by caller. The Rust antprox 1.2 cannot `/REPLAY`: replay runs go through `antprox_replay` (C# 1.1.0). (2026-11-26) A fresh tree needs build/mss32log/mss32.dll, the first launch after a build is cold, and `live.py` through `bash` gets WSL's (give Git's bash.exe). The hotbar is `Data\client\output\shortcut.ini`, not the DB; PDA abilities (Rally, Repair Equipment) are dragged, not clicked. Editing a stored scenario, comments included, splits it from its runs: recapture. Retail under /NOPATCHES crashes at 0x6C2134. `baseline.py` filters messages.log over 1 MB (48.8 MB -> 0.3 MB).
 * **Recorded-session shots compare only at the same playback phase:** a sector shot taken in flight is darker than one at rest (36-42 against 44-52 was this, not a fault). Take the camera from the view matrix and compare at equal phase (play1's phase-locked shot, the `wait-since` step). d3d8shot's view 0 in space is orthographic (the 2D pass): the 3D camera is a later view. A scenario run alone or in another order reports DIFF against the store, which holds the set's order (verify prints NOT COMPARABLE, exit 3); a different scenario order also changes the draw logs.
 * **Load events:** `Render: Frame Rate` is not a sector-loaded event (it fires while loading); the loading screen's second `fc_map_load00.ini` read is. On a starbase wait on `Changing room from -1`. `live.py --wait 40` can time out behind another run's hold.
 * **Keys and terminals:** the client reads Shift / Ctrl / Alt through GetKeyState (0x4307A0; no DirectInput). A posted key-down with lParam bit 30 set and bit 31 clear (a real keyboard's repeat) is dropped outside text entry, so e2e's `hold` (a fresh key-down per repeat) does not behave like a held key. A terminal answers only inside its reach (the refinery's edge is y -5.0): aim the walk-to point inside it with a tolerance that cannot end outside. `e2e.py --audio` in a fresh worktree needs `audiolog.py build` first.
@@ -2454,6 +2466,7 @@ are alphabetical; add a note under its file's heading (merge with what is there)
 
 #### avatar.cpp
 
+* 0x783B50: the client spills `accel` at 0x783C36 and rounds it to float on the store; ours keeps x87 precision (equal under D3D8's single-precision FPU). Parked after two rounds (2026-11-26).
 * 0x781410 keeps BodyObj a raw pointer (a RefCountPtr retype flips its post-loop operand order).
 
 #### button-name tables (ui_*.cpp)
@@ -2505,6 +2518,7 @@ are alphabetical; add a note under its file's heading (merge with what is there)
 
 #### co.cpp
 
+* 0x6FDBD0 is exact (2026-11-26): the client inlines `Find_Valid<bool>` at 0x6FDBD0, and 0x6FCB70 is the one client caller of the out-of-line copy 0x705450 (D240 entry; regain lead in progress.md §4).
 * **The aux constructors and the CREATE factory (0x6F6000-0x6FBEF0) sit in a generated region** between GENERATED marker lines near co.cpp's end: change auxroots.py, never the region. The enum `CoSymbolPadType` after it is the aux pad (3.4).
 
 * The inline budget cuts the bigger callee first and same-size callees in source order, so earlier finds go
@@ -2541,6 +2555,7 @@ are alphabetical; add a note under its file's heading (merge with what is there)
 
 #### cpacket.cpp
 
+* 0x73B150 stays at 218 after both Opus rounds, Neon and Fable (2026-11-26): the dead `size()` reads (D272) cut 272 -> 218; its case 4 writes `Unknown_74D990(3, buffer, 0)` in both branches (the lead).
 * Two exits testing the profile flag in bl are early returns; which Is_Valid_Float calls go out of line
   follows the inline budget (Orientation.W, Position.Z, Orientation.Z, ImpartedVelocity.Z in that order). A
   forward declaration on its own line shifted every later `__LINE__` (41 functions): use `class X *` inside
@@ -2571,6 +2586,10 @@ are alphabetical; add a note under its file's heading (merge with what is there)
 * cpacket.cpp's local `Unknown6EF4C0Class` stand-in: the real class loses 0x738970. 0x6EF4C0 is exact only with one D130 dead read in
   0x6EEEA0. Replacing a stand-in class in eff_o.cpp changes clienttest's trace stand-ins and expected.txt. `appfile.py match` outside
   app/client needs `-I auto -I app/client`. Curve members need the base-reference cast for virtual calls.
+
+#### emote_data.cpp
+
+* 0x7E6860 is exact (2026-11-26): the default case's `t = 2.0f` lets VC6 jump to the shared stop block; `deque<EmoteType>` is on the file's own COMDAT copies (0x7E6570, 0x7E7B10, 0x7E7CD0, 0x7E7D70, 0x7E7E00; NAME 3).
 
 #### extrap.cpp (motion code)
 
@@ -2605,6 +2624,10 @@ are alphabetical; add a note under its file's heading (merge with what is there)
 * The `__INTRFACE_MEMBERS` define goes on an existing header-comment line so no `__LINE__` moves.
 * InterfaceClass::Unknown_54 is emitted with every ctor of a class that doesn't declare its overrides (cost
   0x515690 in 11 files): declare the client's overrides (+0x54 0x5439F0, +0x60 0x5443F0).
+
+#### inv_render.cpp
+
+* 0x68CCC0 is exact only through a by-value file-static inline `Unknown_Has_Value` (NAME 1) used for both structure tests: a no-byte device, the only exact form of 270 tried (D272, 2026-11-26).
 
 #### land.cpp and the land family (landdmap, Apply_Colors, Get_Triangles)
 
@@ -2711,6 +2734,10 @@ are alphabetical; add a note under its file's heading (merge with what is there)
 * The client has both ui_ship_cust.cpp (0x6186A0-0x61E8xx, not in the tree) and ui_shipcust.cpp (from
   0x620E40): check the window with `appfile.py show` before placing anything in 0x618xxx-0x61Exxx.
 
+#### ship_equip_pip.cpp
+
+* 0x542250 is exact (2026-11-26): target and unit are one SphereClass from a named centre, by the client's dead radius store at 0x542292 and the slot adjacency. 0x542A10 is exact: the to_object rotation about the sphere centre (EA's W3DView GraphicView.cpp, reference only), four live named scalars; its six Translate rows sum as the client's (test-plan B-22).
+
 #### shiputils.cpp
 
 * `appfile.py match` refuses the file ("the object lacks void") unless `--allow-missing`: the parenthesised `static void (Unknown_80EAF0)(...)` definition.
@@ -2755,6 +2782,10 @@ are alphabetical; add a note under its file's heading (merge with what is there)
 
 * In the family a factory's RefCountPtr result passed on wants a named local (bullet in §3.3.2).
 
+#### ui_guild.cpp
+
+* 0x81AEB0 sorts guild members with `wcscoll` on narrow strings, two bytes at a time, and can read one past an odd-length name: not plain alphabetical. The client's behaviour, kept (2026-11-26; test-plan B-23).
+
 #### ui_hot_keys.cpp
 
 * Key-name lists passed to `Add_Keys` / `Remove_Keys` all as implicit `const char *` give the client's assign split.
@@ -2791,10 +2822,15 @@ are alphabetical; add a note under its file's heading (merge with what is there)
 
 #### ui_starbase.cpp
 
+* 0x63F490 / 0x640F50 / 0x63E930 were exact once the Matrix3D temporaries' order was fixed (2026-11-26): their literal-class rows were that order; run behaudit (lit 0 rows) before editing. 0x634140 assigns the ambient avatar after Create_NEW as the client reads it (0x634634).
 * Retyping UIStarbaseClass +0x190 breaks the destructor 0x633B50. Integer copies of a point go through a named
   TPoint3D (`Get_Point`); a vector member the client initialises as `Member(0)` is written that way.
 * The file is padded with blank lines so FAIL_IF `__LINE__` values match the client: copy a draft whole or keep line counts, and replace a removed NOT EXACT line with a plain comment instead of deleting it.
 * COLLISION_TYPE_0 is 2 and COLLISION_TYPE_1 is 4: check the client's push.
+
+#### unknown_7cef30.cpp (SubsRequestClass)
+
+* 0x7D4E30 `Add_Param` reads `*Query.rend()`, the VC6 string's refcount byte `_Ptr[-1]`: the client's own behaviour, kept (2026-11-26; test-plan B-23). It is exact with the dead `Query.size()` reads in `~SubsRequestClass`.
 
 #### vector<string>::erase (0x4FC7C0)
 
