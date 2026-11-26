@@ -2,9 +2,9 @@
 #include <string.h>
 #include <stdlib.h>
 #include <string>
+#include "auxdata\permstr.h"	// PermStringInit opens the client's object (0x4B7F70)
 #include "kv_pair_string.h"
 #include "g_assert.h"
-
 
 
 

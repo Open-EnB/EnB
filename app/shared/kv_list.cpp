@@ -1,9 +1,9 @@
 // Earth & Beyond client (reconstruction): app\shared\kv_list.cpp. Notes at the end of the file.
 #include <hash_set.h>
 #include "kv_list.h"
+#include "auxdata\permstr.h"	// PermStringInit opens the client's object (0x4B6260)
 #include "kv_pair.h"
 #include "g_assert.h"
-
 KVListClass::KVListClass()
 {
 }
