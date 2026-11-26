@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-525 entries in 234 files.
+523 entries in 233 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -52,7 +52,6 @@ edit the comments in the code, not this file.
 | `app/client/cammod_chase.cpp:145` | `ChaseCameraModuleClass::Unknown_79BFC0` | marker | NOT EXACT: 0.90, the inlining is the client's; left: the client negates dir.Y before it copies the translation, and its first inline Rotate_X adds row 0's products in the other order |
 | `app/client/cammod_chase.h:30` | `?` | mention | NOT EXACT) // NAME 2 [des_quat, des_pos, obj]: its FAIL_IFs |
 | `app/client/chat_window.cpp:299` | `ChatWindowClass::Unknown_67F7F0` | marker | NOT EXACT: registers only (max_lines, old_size and the old font rotate; the client divides by the stack copy) |
-| `app/client/chatgadg.cpp:306` | `ChatGadgetClass::Unknown_65CCD0` | marker | NOT EXACT: registers (masked 85, attempts.py show 0x65CCD0): client.h's inline Get_Unknown1138() / Get_Avatar_ID() at the request packets, the lookups, the emote packets and case 3 / 2's chat packets (the client loads AvatarID before the Unknown_7817E0 call and keeps chatpanel in [esp+0x18] only), the shared delete text after the store block (client 0x65DA81), dead ChatPanel.Peek() reads (D272) 3 ... |
 | `app/client/chatgadg.cpp:470` | `ChatGadgetClass::Unknown_65DE90` | marker | NOT EXACT: functional (D64) |
 | `app/client/chatgadg.cpp:610` | `ChatGadgetClass::Unknown_65E250` | marker | NOT EXACT: functional (D64) |
 | `app/client/client.cpp:19` | `ClientClass::ClientClass` | marker | NOT EXACT: inline budget (the client calls the 'Null Item' string's assign out of line, ours inlines all three strings and swaps two temporaries' slots; the member stores and the prologue scheduled differently; six forms; 'Null Item' passed as a plain literal brings out the client's three string COMDATs 0x729260..0x7292D0; attempts.py show 0x726100) 0x726100 |
@@ -118,7 +117,7 @@ edit the comments in the code, not this file.
 | `app/client/fontsys.cpp:426` | `FontSys::Update_Text` | marker | NOT EXACT: written from the client's code (0x6D64C0) for the POC; PT5 (2026-11-20) masked residue 1404 -> 881 (file-static inline layers Refresh_Line / Set_Pass_Color / Apply_Shader, Step_Colour, WWMath::Min); PT9 881 -> 413 (two dead reads after underline site 7: Vector2() out of line through ??_H at sites 5-7; the rows clamp as ?:, 1.0f < vt, the pass alpha's min as ?:): FC (2026-11-20) 413 -> 1... |
 | `app/client/fontsys.cpp:909` | `FontSys::Render` | marker | NOT EXACT: frame (attempts.csv): the client keeps y on the x87 stack (no home), its frame 0x84 against 0x88 |
 | `app/client/frameint.cpp:195` | `FrameInterfaceClass::Unknown_60` | marker | NOT EXACT: functional (D64), register-only and order-only (the three subtractions call their right operand first in the client) 0x53EB00 |
-| `app/client/gadget.cpp:438` | `GadgetClass::Process_Input` | marker | NOT EXACT: register / order (masked residue 22 rows, key 2 laid out after the buttons, the held flash pointer spill; written from the client's 0x65F780 for the proof-of-concept client: the input's next event to the manager's gadgets: the held gadget first, then every gadget under the pointer) |
+| `app/client/gadget.cpp:438` | `GadgetClass::Process_Input` | marker | NOT EXACT: shape / order (masked residue 13 rows, 0x101/0x102 inline instead of after 0x42EC60 and the client's second cmp ax,bp in both Up tests; written from the client's 0x65F780 for the proof-of-concept client: the input's next event to the manager's gadgets: the held gadget first, then every gadget under the pointer) |
 | `app/client/galaxy_map_client.cpp:176` | `GalaxyMapClientClass::Unknown_7A52F0` | mention | NOT EXACT: the client keeps 0 in ebp and loads buffer.Buffer after new (register / order; attempts.py show 0x7A52F0) |
 | `app/client/galaxy_map_pip.cpp:407` | `GalaxyMapPipClass::Unknown_5404E0` | marker | NOT EXACT: only UnknownRTTIClass::Cast: the client calls it out of line here, ours expands it, and one register follows (see notes) @0x5404E0 |
 | `app/client/galaxy_map_render.cpp:428` | `GalaxyMapRenderClass::Unknown_7A72C0` | marker | NOT EXACT: written from the client's code (see attempts.csv) |
@@ -408,7 +407,6 @@ edit the comments in the code, not this file.
 | `app/client/viewbttn.cpp:404` | `Unknown_6B5FD0` | marker | NOT EXACT: the client's EH frame around the new (attempts.csv); ours has none |
 | `app/common/dbgconn.cpp:154` | `RateConnectionClass::Send_Message` | marker | NOT EXACT: the client inlines ~ForwardingConnectionClass here (inline in its connect.h; ours is in connect.cpp, see the notes). |
 | `app/common/galaxy_map.cpp:609` | `GalaxyMapStarbaseIteratorClass::First` | mention | NOT EXACT (the client recomputes the value's address after the end test). |
-| `app/common/item_state.cpp:81` | `Item_State_Message` | marker | NOT EXACT: the client keeps result (0x11) in esi and [esp+0x10] where ours folds the constant (case 0 and the default's returns); the rest, the case order included, is the client's @0x842A60 |
 | `app/common/lego_identifier.cpp:83` | `LegoIdentifierClass::LegoIdentifierClass` | marker | NOT EXACT: 0x843970, the client inlines Set_Name here (inline-budget; attempts.py show 0x843970) |
 | `app/common/lego_identifier.cpp:228` | `LegoSplitStruct::Is_Invalid` | mention | NOT EXACT 0.79); its Is_Invalid 0x8451A0 (exact) is placed here provisionally (D137): the 20-byte function at this object's end, before manufacturing_defs.cpp. * Written by builder P4 (2026-10-26) for the object-to-object effects (pkpointeffect.cpp, opcodes 11-14), which send an identifier's name and set one from the received string. |
 | `app/common/stredit.cpp:22` | `StrEditClass::StrEditClass` | mention | NOT EXACT: the shared tail. <string>'s guarded initialiser at 0x84B330 ends the object (workflow.md 3.3): the client's next function, 0x84B360 ("Effect Radius : %d"), is another file's. |
