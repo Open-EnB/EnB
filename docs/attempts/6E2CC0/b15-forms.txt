@@ -1,0 +1,61 @@
+# B15 batch 1 for 0x6E2CC0 (Opus high). Base res 11, r26 only: the client adds Xt + d.X into Xt's x87 register and
+# keeps d.X (dead) on the stack until the block ends; ours adds into d.X's register and keeps Xt; Y likewise
+# (client Yt + d.Y, ours d.Y + Yt). The dead-int definition-count sweep (k1..k8) moved no residue.
+# Hypothesis: the live ranges decide it: d is longer-lived than x in the client (declared earlier at an outer
+# scope and assigned here), or x is no plain local (const, or read through the row's operator[]).
+FILE = 'app/client/cameraeffects.cpp'
+SYMBOL = 'CameraEffectsClass::Unknown_34'
+ADDRESS = 0x6E2CC0
+
+MOVE = '\t\tfloat *move = &Unknown18.X;\n'
+D = '\t\t\tMatrix3D tm = cur; Vector3 d = Unknown18;\n'
+X = '\t\t\tfloat x = cur.Get_X_Translation();\n'
+SETX = '\t\t\ttm.Set_X_Translation(x); tm.Adjust_X_Translation(d.X);\n'
+CAM = '\t\tCameraClass *camera = (CameraClass *)View->Unknown_54();\n'
+FORMS = {
+    'd_outer': [(MOVE, '\t\tfloat *move = &Unknown18.X; Vector3 d;\n'), (D, '\t\t\tMatrix3D tm = cur; d = Unknown18;\n')],
+    'd_cam': [(CAM, '\t\tCameraClass *camera = (CameraClass *)View->Unknown_54(); Vector3 d;\n'),
+              (D, '\t\t\tMatrix3D tm = cur; d = Unknown18;\n')],
+    'x_const': [(X, '\t\t\tconst float x = cur.Get_X_Translation();\n')],
+    'x_row': [(X, '\t\t\tfloat x = cur[0][3];\n')],
+    'dx_local': [(SETX, '\t\t\tfloat dx = d.X; tm.Set_X_Translation(x); tm.Adjust_X_Translation(dx);\n')],
+    'd_ref': [(D, '\t\t\tMatrix3D tm = cur; const Vector3 &d = Unknown18;\n')],
+    'd_outer_xrow': [(MOVE, '\t\tfloat *move = &Unknown18.X; Vector3 d;\n'), (D, '\t\t\tMatrix3D tm = cur; d = Unknown18;\n'),
+                     (X, '\t\t\tfloat x = cur[0][3];\n')],
+}
+# B15 batch 2 for 0x6E2CC0 (diagnostic sweep): the function-top dead-int sweep (k1..k8) changed code but not r26.
+# Hypothesis: the operand order of the two commutative adds (Xt + d.X, Yt + d.Y in the client) follows the index of
+# the inline-expansion symbols created after the camera move starts: dead ints placed right before the move (k1..k8).
+FILE = 'app/client/cameraeffects.cpp'
+SYMBOL = 'CameraEffectsClass::Unknown_34'
+ADDRESS = 0x6E2CC0
+
+A = '\t\t\tconst Matrix3D &cur = camera->Get_Transform();\n'
+FORMS = {}
+for k in range(1, 9):
+    FORMS['m%d' % k] = [(A, '\t\t\t' + ''.join('int b15_%d = 0; ' % i for i in range(k)) + A[3:])]
+# B15: dead-int sweep (workflow.md 3.1.2, "The count of definitions orders commutative x87 products", 0x454730):
+# k dead-initialised int locals at the function's top (on an existing line: no __LINE__ shift), k = 1..8, as a
+# diagnostic that gauges whether the residue's x87 operand order / FPU allocation follows the definition count.
+# Usage: set B15_FN to 79, 6E or 80 (env) before trybatch loads this file.
+import os
+
+FN = os.environ.get('B15_FN', '79')
+SPEC = {
+    '79': ('app/client/cammod_chase.cpp', 'ChaseCameraModuleClass::Unknown_79BFC0', 0x79BFC0,
+           '\tFAIL_IF(!des_quat) {return;}\n'),
+    '6E': ('app/client/cameraeffects.cpp', 'CameraEffectsClass::Unknown_34', 0x6E2CC0,
+           '\tif (Unknown14) {\n\t\tView->Unknown_40();\n'),
+    '80': ('app/client/ship_pip.cpp', 'ShipPipClass::Unknown_84', 0x80CA30,
+           '\tif (Unknown054) {\n\t\tFloatParent->Remove_Sub_Objects_From_Bone'),
+}
+FILE, SYMBOL, ADDRESS, ANCHOR = SPEC[FN]
+
+
+def dead(k):
+    return ''.join('int b15_%d = 0; ' % i for i in range(k))
+
+
+FORMS = {}
+for k in range(1, 9):
+    FORMS['k%d' % k] = [(ANCHOR, '\t' + dead(k) + ANCHOR[1:])]
