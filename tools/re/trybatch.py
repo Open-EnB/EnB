@@ -67,7 +67,10 @@ Measures, per form (explain.py's masks; ours vs the client from ADDRESS to the n
             another row (M), or the code lengths differ (A/B bytes): the target mask hid a logic difference (SR2)
     TABLES  a switch's jump / byte table differs (explain.py ends the code at the first table on both sides and
             compares the entries apart: jump entries by rank, which cases share a body; the best form's tables print
-            as `switch ... table` lines, equal or different, never as residue rows)
+            as `switch ... table` lines, equal or different, never as residue rows). On a masked-exact form the flag
+            ends with behaudit's tables check (tables_rows / same_body, A7): `= copy` (each value reaching another
+            offset finds the same code there: a reordered layout, codegen), `= BODY cases ...` (a value reaches
+            another body: a behaviour bug), `= unknown` (a field it cannot resolve), `= same bodies`
     ASSERT-TEXT  the form changes the text of a FAIL_IF / G_ASSERT / WWASSERT / ASSERT / assert condition (a renamed
             identifier inside one): the stringified text is the client's .rdata, which relocation masking hides
     FILE -L/+G  with --file-check: the form loses L / gains G exact functions of the whole object against the base's
@@ -634,6 +637,45 @@ def is_exact(obj_path, symbol, addr):
     return bool(re.fullmatch(pat, img.data[o:o + length], re.S))
 
 
+_TABLES_CTX = []
+_TABLES_LOCK = threading.Lock()
+
+
+def tables_verdict(obj_path, symbol, addr):
+    """behaudit's tables check on one masked-exact form: 'copy', 'BODY cases ...', 'unknown' or 'same bodies' (every
+    value reaches the client's offset), or 'error: ...'. One behaudit Context per run (the data map is lazy: built
+    only when a walked field is a data symbol), the other libraries' objects from the main tree's build."""
+    import behaudit as B
+    with _TABLES_LOCK:
+        if not _TABLES_CTX:
+            root = os.path.join(main_repo(), 'build')
+            _TABLES_CTX.append(B.Context([os.path.dirname(obj_path)], stale=False,
+                                         libroot=root if os.path.isdir(root) else None))
+        ctx = _TABLES_CTX[0]
+    try:
+        o = B.CoffObject(obj_path)
+        cands = X.pick(o.functions(), symbol)
+        if not cands:
+            return 'error: no symbol'
+        name, sec, s, e = cands[0]
+        rows = B.tables_rows(ctx, B.Func(obj_path, o, name, sec, s, e, addr, True))
+    except (ValueError, IndexError, KeyError, TypeError, OSError) as ex:
+        return f'error: {ex!r}'[:60]
+    return verdict_of(rows)
+
+
+def verdict_of(rows):
+    """The TABLES flag's ending from behaudit's tables rows (one per switch with a value reaching another offset)."""
+    if not rows:
+        return 'same bodies'
+    bad = [r for r in rows if r['kind'] == 'body']
+    if bad:
+        return 'BODY ' + '; '.join(r['ours_val'] for r in bad)[:50]
+    if any(r['kind'] == 'unknown' for r in rows):
+        return 'unknown'
+    return 'copy'
+
+
 def measure(obj_path, symbol, addr, known=None):
     """The numbers of one compiled form (dict), plus its rows for regions."""
     result, (L, R, SL, SR, sm, at) = X.explain(obj_path, symbol, f'0x{addr:X}')
@@ -647,6 +689,8 @@ def measure(obj_path, symbol, addr, known=None):
          'score': 1.0 if exact else score_of(result['residue'], len(L), len(R)),
          'tables': result.get('tables', []), 'branch': result.get('branch')}
     m['key'] = code_key(L) + tuple((t['kind'], t['ours'], t['diff']) for t in m['tables'])
+    if exact and any(t['diff'] for t in m['tables']):
+        m['tables_verdict'] = tables_verdict(obj_path, symbol, addr)
     m['regions'] = region_rows(L, R, eL, eR, known)
     m['_rows'] = (L, R, eL, eR)
     return m
@@ -860,6 +904,8 @@ def fmt_form(name, m, group=None):
     td = [t for t in m.get('tables', ()) if t['diff']]
     if td:
         dl += ' TABLES ' + ','.join(f'{t["kind"]} {t["diff"]}/{t["n"]}' for t in td)
+        if m.get('tables_verdict'):
+            dl += ' = ' + m['tables_verdict']
     return (f'{name[:22]:22s} res {m["res"]:4d} regs {m["regs"]:4d} raw {m["raw"]:4d} frame {m["frame"]}/{m["frame_client"]}'
             f' rows {m["ours"]}/{m["client"]} score {m["score"]:.2f} {m["class"]}{dl}{g}')
 

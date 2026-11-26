@@ -121,7 +121,7 @@ evidence, which attempts.py's D271 progress test prefers to the score. Everythin
 form's regions, the best form's region diffs) is in the batch's `trybatch.log`. `regions OBJ SYMBOL ADDR [--show K]`
 and `slots OBJ LISTING SYMBOL ADDR` run the two measures on an object you have. Tests: `test_trybatch.py` (no VM).
 TB2's fixes (run 2026-11-19): a switch's jump / byte tables end the code on both sides (explain.py) and print apart
-(`switch ... table`, equal or different; `TABLES` on a form whose tables differ), never as residue; `BRANCH` flags a
+(`switch ... table`, equal or different; `TABLES` on a form whose tables differ; on a masked-exact form ended by behaudit's tables check: `= copy` a reordered layout reaching the same code, codegen; `= BODY cases ...` a value reaching another body, a behaviour bug; `= unknown`), never as residue; `BRANCH` flags a
 form whose masked residue is 0 but whose jumps differ (short vs near, another target row, code length); `ASSERT-TEXT`
 a form that changes an assert / FAIL_IF condition's text; `--file-check` the form's exact functions of the whole
 object against the base's (`FILE -L/+G`); SYMBOL is resolved on the compiled base (arguments, template members,

@@ -244,6 +244,55 @@ class Prefixes(unittest.TestCase):
         self.assertEqual(dict(rows['_name$']), {-64: 2})
 
 
+FIX = os.environ.get('BEHAUDIT_FIXTURES') or next(
+    (p for p in (os.path.join(os.path.dirname(os.path.dirname(HERE)), '.work', 'behaudit', 'fixtures'),
+                 'C:/EnBDevelopment/EnB/.work/behaudit/fixtures') if os.path.isdir(p)), '')
+
+
+class TablesVerdict(unittest.TestCase):
+    """The TABLES flag on a masked-exact form, copy / body apart through behaudit's tables check (A7's proposal)."""
+
+    def test_verdict_of(self):
+        self.assertEqual(T.verdict_of([]), 'same bodies')
+        self.assertEqual(T.verdict_of([{'kind': 'copy', 'ours_val': 'cases 1'}]), 'copy')
+        self.assertEqual(T.verdict_of([{'kind': 'copy', 'ours_val': 'cases 1'},
+                                       {'kind': 'unknown', 'ours_val': 'cases 2'}]), 'unknown')
+        self.assertEqual(T.verdict_of([{'kind': 'unknown', 'ours_val': 'cases 2'},
+                                       {'kind': 'body', 'ours_val': 'cases 0,1'}]), 'BODY cases 0,1')
+
+    def test_flag_text(self):
+        m = {'res': 0, 'regs': 0, 'raw': 0, 'frame': 0, 'frame_client': 0, 'ours': 9, 'client': 9, 'score': 1.0,
+             'class': 'exact', 'tables': [{'kind': 'jump', 'diff': 6, 'n': 12}], 'tables_verdict': 'copy'}
+        self.assertTrue(T.fmt_form('f', m).endswith('TABLES jump 6/12 = copy'))
+        del m['tables_verdict']
+        self.assertTrue(T.fmt_form('f', m).endswith('TABLES jump 6/12'))
+
+    @unittest.skipUnless(FIX and os.path.exists(os.path.join(FIX, 'tables', 'ui_analyze.obj'))
+                         and os.path.exists(os.path.join(FIX, 'lst', 'sclient.obj')), 'fixtures missing')
+    def test_fixtures(self):
+        # B14's ch_d1 of 0x545190: 6 of 12 entries reordered, each reaching the same code: a copy
+        obj = os.path.join(FIX, 'tables', 'ui_analyze.obj')
+        m = T.measure(obj, 'Unknown_545190', 0x545190)
+        self.assertTrue(m['exact'])
+        self.assertEqual(m['tables_verdict'], 'copy')
+        self.assertIn('= copy', T.fmt_form('ch_d1', m))
+        # the exact SClient::Unknown_743290 with the client's first two jump entries swapped: another body
+        ctx = T._TABLES_CTX[0]
+        a, b = ctx.u32(0x7432F4), ctx.u32(0x7432F8)
+        keep = ctx.img.data
+        data = bytearray(keep)
+        o = ctx.img.offset(0x7432F4)
+        data[o:o + 8] = b.to_bytes(4, 'little') + a.to_bytes(4, 'little')
+        ctx.img.data = bytes(data)
+        try:
+            got = T.tables_verdict(os.path.join(FIX, 'lst', 'sclient.obj'), 'Unknown_743290', 0x743290)
+        finally:
+            ctx.img.data = keep
+        self.assertEqual(got, 'BODY cases 0,1')
+        self.assertEqual(T.tables_verdict(os.path.join(FIX, 'lst', 'sclient.obj'), 'Unknown_743290', 0x743290),
+                         'same bodies')
+
+
 def arow(date, score, evidence='', model='opus'):
     return {'date': date, 'address': '0x401000', 'status': 'partial', 'score': score, 'evidence': evidence,
             'model': model}
