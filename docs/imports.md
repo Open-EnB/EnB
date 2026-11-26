@@ -1537,7 +1537,7 @@ Base copy: reconstructed. Headers: 691 from reconstructed.
 | client/chat_window_history.cpp | reconstructed | 47 | 0 | - | - | - |  |
 | client/chatgadg.cpp | reconstructed | 48 | 0 | - | - | - |  |
 | common/circbuff.cpp | reconstructed | 12 | 0 | - | - | - |  |
-| client/client.cpp | reconstructed | 96 | 0 | - | - | - |  |
+| client/client.cpp | reconstructed | 97 | 0 | - | - | - |  |
 | client/item/client_item_property.cpp | reconstructed | 8 | 0 | - | - | - |  |
 | client/item/client_item_property_attribute.cpp | reconstructed | 18 | 0 | - | - | - |  |
 | client/item/client_item_property_attribute_distance.cpp | reconstructed | 14 | 0 | - | - | - |  |

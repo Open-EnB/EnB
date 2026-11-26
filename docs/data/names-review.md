@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1970 |
 | 2 | describes what the code does | 5014 |
-| 1 | neutral placeholder | 25188 |
+| 1 | neutral placeholder | 25193 |
 
 ## For review (score 3 and below)
 
@@ -12033,12 +12033,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `UnknownE8` | `app/client/ui_class.cpp:163` | untagged neutral name (D10) |
 | 1 | `UnknownEC` | `app/client/ui_class.cpp:164` | untagged neutral name (D10) |
 | 1 | `UnknownF0` | `app/client/ui_class.cpp:165` | untagged neutral name (D10) |
-| 1 | `Unknown13C` | `app/client/ui_class.cpp:168` | untagged neutral name (D10) |
-| 1 | `Unknown13D` | `app/client/ui_class.cpp:169` | untagged neutral name (D10) |
-| 1 | `Unknown13E` | `app/client/ui_class.cpp:170` | untagged neutral name (D10) |
-| 1 | `Unknown13F` | `app/client/ui_class.cpp:171` | untagged neutral name (D10) |
-| 1 | `Unknown140` | `app/client/ui_class.cpp:172` | untagged neutral name (D10) |
-| 1 | `Unknown141` | `app/client/ui_class.cpp:173` | untagged neutral name (D10) |
 | 1 | `Unknown_28` | `app/client/ui_class.cpp:186` | untagged neutral name (D10) |
 | 1 | `Unknown14` | `app/client/ui_class.cpp:187` | untagged neutral name (D10) |
 | 1 | `Unknown_08` | `app/client/ui_class.cpp:187` | untagged neutral name (D10) |
@@ -12076,6 +12070,12 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_577F20` | `app/client/ui_class.cpp:297` | untagged neutral name (D10) |
 | 1 | `Unknown_575CD0` | `app/client/ui_class.cpp:298` | untagged neutral name (D10) |
 | 1 | `Unknown_68` | `app/client/ui_class.cpp:304` | untagged neutral name (D10) |
+| 1 | `Unknown13C` | `app/client/ui_class.cpp:306` | untagged neutral name (D10) |
+| 1 | `Unknown13D` | `app/client/ui_class.cpp:306` | untagged neutral name (D10) |
+| 1 | `Unknown13E` | `app/client/ui_class.cpp:306` | untagged neutral name (D10) |
+| 1 | `Unknown13F` | `app/client/ui_class.cpp:306` | untagged neutral name (D10) |
+| 1 | `Unknown140` | `app/client/ui_class.cpp:306` | untagged neutral name (D10) |
+| 1 | `Unknown141` | `app/client/ui_class.cpp:306` | untagged neutral name (D10) |
 | 1 | `Unknown1CC` | `app/client/ui_class.cpp:313` | untagged neutral name (D10) |
 | 1 | `Unknown_575D50` | `app/client/ui_class.cpp:314` | untagged neutral name (D10) |
 | 1 | `Unknown_67B270` | `app/client/ui_class.cpp:351` | untagged neutral name (D10) |
@@ -12100,6 +12100,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_576A40` | `app/client/ui_class.cpp:1095` | untagged neutral name (D10) |
 | 1 | `Unknown_67B320` | `app/client/ui_class.cpp:1104` | untagged neutral name (D10) |
 | 1 | `Unknown_67B390` | `app/client/ui_class.cpp:1112` | untagged neutral name (D10) |
+| 1 | `View_Of` | `app/client/ui_class.cpp:1117` | neutral (D10) |
 | 1 | `ui_class.h` | `app/client/ui_class.h:3` | provisional header name for ui_class.cpp |
 | 1 | `view, layer` | `app/client/ui_class.h:27` | neutral |
 | 1 | `Unknown_60` | `app/client/ui_class.h:29` | untagged neutral name (D10) |
@@ -12130,13 +12131,15 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `UnknownE8` | `app/client/ui_class.h:57` | untagged neutral name (D10) |
 | 1 | `UnknownEC` | `app/client/ui_class.h:58` | untagged neutral name (D10) |
 | 1 | `UnknownF0` | `app/client/ui_class.h:59` | untagged neutral name (D10) |
-| 1 | `Unknown13C` | `app/client/ui_class.h:65` | untagged neutral name (D10) |
+| 1 | `FlagsStruct` | `app/client/ui_class.h:65` | neutral (D10): +0x13C..+0x141 as one sub-object with its own constructor: the client stores Slider / SliderValue before the constructor's EH state 3 and these after it (B8) |
+| 1 | `Unknown13C` | `app/client/ui_class.h:66` | untagged neutral name (D10) |
 | 1 | `Unknown13D` | `app/client/ui_class.h:66` | untagged neutral name (D10) |
-| 1 | `Unknown13E` | `app/client/ui_class.h:67` | untagged neutral name (D10) |
-| 1 | `Unknown13F` | `app/client/ui_class.h:68` | untagged neutral name (D10) |
-| 1 | `Unknown140` | `app/client/ui_class.h:69` | untagged neutral name (D10) |
-| 1 | `Unknown141` | `app/client/ui_class.h:70` | untagged neutral name (D10) |
-| 1 | `Unknown574710InterfaceClass` | `app/client/ui_class.h:74` | transition alias |
+| 1 | `Unknown13E` | `app/client/ui_class.h:66` | untagged neutral name (D10) |
+| 1 | `Unknown13F` | `app/client/ui_class.h:66` | untagged neutral name (D10) |
+| 1 | `Unknown140` | `app/client/ui_class.h:66` | untagged neutral name (D10) |
+| 1 | `Unknown141` | `app/client/ui_class.h:66` | untagged neutral name (D10) |
+| 1 | `Flags` | `app/client/ui_class.h:73` | neutral (D10) |
+| 1 | `Unknown574710InterfaceClass` | `app/client/ui_class.h:77` | transition alias |
 | 1 | `Unknown_Clamp` | `app/client/ui_combobox.cpp:23` | neutral (D10): WWMath::Clamp_Int's form, unsigned (0x57A330's top row) |
 | 1 | `robj` | `app/client/ui_combobox.cpp:24` | neutral |
 | 1 | `Unknown_497300` | `app/client/ui_combobox.cpp:24` | untagged neutral name (D10) |
@@ -12936,6 +12939,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_597BF0` | `app/client/ui_group.cpp:1170` | untagged neutral name (D10) |
 | 1 | `Unknown_597820` | `app/client/ui_group.cpp:1177` | untagged neutral name (D10) |
 | 1 | `Unknown_597D10` | `app/client/ui_group.cpp:1204` | untagged neutral name (D10) |
+| 1 | `Unknown_Find_Aux_Field` | `app/client/ui_group.cpp:1254` | neutral (D10): auxdata.h's find through two inline layers (ui_manu.cpp's form): out of line as the client in both branches |
+| 1 | `Unknown_Find_Aux` | `app/client/ui_group.cpp:1254` | untagged neutral name (D10) |
 | 1 | `Unknown_597B70` | `app/client/ui_group.cpp:1299` | untagged neutral name (D10) |
 | 1 | `Unknown_64B2F0` | `app/client/ui_group.cpp:1366` | untagged neutral name (D10) |
 | 1 | `Unknown_596E20` | `app/client/ui_group.cpp:1367` | untagged neutral name (D10) |
