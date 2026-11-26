@@ -185,14 +185,14 @@ BuffGadgetClass::~BuffGadgetClass()
 	}
 }
 
-// NOT EXACT: frame (the client keeps the time now on the stack, ours in registers; the body after it matches)
 // 0x665F20
 void BuffGadgetClass::Unknown_AC()
 {
-	float frame_time = WW3D::Get_Frame_Time() * 0.001f;
+	float frame_time = (float)WW3D::Get_Frame_Time();
+	frame_time *= 0.001f;
 	DurationClass now((unsigned int)Client->Unknown10BC);
 	DurationClass left(0);
-	if (Info.IsPermanent || (Info.BuffRemovalTime != 0 && now.Time <= Info.BuffRemovalTime.Time)) {
+	if (!Unknown_666470()) {
 		left = Info.BuffRemovalTime - now;
 	}
 	if (!Info.IsPermanent && Unknown_B8 > Unknown_BC) {

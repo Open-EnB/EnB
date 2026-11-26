@@ -59,13 +59,23 @@ public:
 	float MaxSpeed;			// +0x00 the desired velocity's length  // NAME 1: what the behaviours do with it
 };
 
+// The turn output: pitch, yaw and forward component (0x447E20 returns a plain 3-float struct by value, no copy ctor)
+struct SteeringTurnOutputStruct  // NAME 1 [SteeringTurnOutputStruct, Pitch, Yaw, Forward]: what 0x447E20 writes into its three floats
+{
+	SteeringTurnOutputStruct() {}
+	SteeringTurnOutputStruct(float pitch, float yaw, float forward) : Pitch(pitch), Yaw(yaw), Forward(forward) {}	// NAME 1 [pitch, yaw, forward]: as above
+	float Pitch;			// +0x00
+	float Yaw;				// +0x04
+	float Forward;			// +0x08
+};
+
 // The turn limits: three angles and their cosines (0x447DD0); 0x447E20 turns a desired velocity into the
 // yaw and pitch toward it, limited, and its forward component
 class SteeringTurnClass  // NAME 1: what it holds
 {
 public:
 	SteeringTurnClass(float yaw, float pitch, float level);							// 0x447DD0  // NAME 1 [yaw, pitch, level]: what 0x447E20 limits with them
-	Vector3 Turn(const Vector3 &desired, const SteeringVehicleStruct &vehicle);		// 0x447E20  // NAME 1 [Turn, desired]: what it does
+	SteeringTurnOutputStruct Turn(const Vector3 &desired, const SteeringVehicleStruct &vehicle);		// 0x447E20  // NAME 1 [Turn, desired]: what it does
 
 	float MaxYaw;			// +0x00  // NAME 1: as the constructor's
 	float MaxPitch;			// +0x04  // NAME 1: as above

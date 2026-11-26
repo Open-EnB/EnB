@@ -259,7 +259,7 @@ void UIMountClass::Toggle()
 
 
 
-// NOT EXACT (1.00, attempts.py 0x5C77A0): r53/r54 p.Y floor intermediate store (3 masked); 60/62 regions and 0x164 frame match
+
 // 0x5C77A0
 void UIMountClass::Build()
 {
@@ -279,8 +279,8 @@ void UIMountClass::Build()
 	DeltaArrayClass<InvSlotStruct> *mounts;
 	{ NameClass mounts_field("Inventory.Mounts"); mounts = Unknown_Find_Set_Field<DeltaArrayClass<InvSlotStruct> >(auxdata, mounts_field); }
 	if (!mounts) return;
-	NameClass bones_field("Inventory.MountBoneNames");
-	DeltaItemArrayClass<DeltaStringClass> *bone_names = Unknown_Find_Set_Field<DeltaItemArrayClass<DeltaStringClass> >(auxdata, bones_field);
+	DeltaItemArrayClass<DeltaStringClass> *bone_names;
+	{ NameClass bones_field("Inventory.MountBoneNames"); bone_names = Unknown_Find_Set_Field<DeltaItemArrayClass<DeltaStringClass> >(auxdata, bones_field); }
 	if (!bone_names) return;
 
 	Model = AssetManager->Create_Render_Obj(model_file);
@@ -319,15 +319,15 @@ void UIMountClass::Build()
 	}
 
 	int count = mounts->Children.size();
-	float button_w = -1.0f;
-	float button_h = -1.0f;
-	const ViewportClass &vp = Camera->Get_Viewport();
-	Vector2 vmin = vp.Min;
-	Vector2 vmax = vp.Max;
-	float min_x = 0.0f;
-	float min_y = 0.0f;
-	float max_x = 0.0f;
-	float max_y = 0.0f;
+	Vector2 button_size(-1.0f, -1.0f);	// NAME 1 [button_size, min_v, max_v]: neutral
+	float &button_w = button_size.X; float &button_h = button_size.Y;
+	ViewportClass vp = Camera->Get_Viewport();
+	Vector2 min_v(0.0f, 0.0f);
+	Vector2 max_v(0.0f, 0.0f);
+	Vector2 &vmin = vp.Min; Vector2 &vmax = vp.Max;
+	float &min_x = min_v.X; float &min_y = min_v.Y;
+	float &max_x = max_v.X; float &max_y = max_v.Y;
+	
 
 
 
@@ -427,8 +427,8 @@ void UIMountClass::Build()
 		if (button_w == -1.0f) {
 			AABoxClass box;
 			p.Button->Get_Obj_Space_Bounding_Box(box);
-			float w2 = box.Extent.X + box.Extent.X; float h2 = box.Extent.Y + box.Extent.Y;
-			button_w = w2 + 4.0; button_h = h2 + 4.0;
+			float w2 = box.Extent.X + box.Extent.X; button_h = box.Extent.Y + box.Extent.Y;
+			button_w = w2 + 4.0; button_h += 4.0;
 		}
 	}
 
@@ -457,13 +457,13 @@ void UIMountClass::Build()
 	for (j = 0; j < count; j++) {
 		UIMountPointStruct &p = Points[j];
 		if (p.Button) {
-			p.Y = (p.Y + 1.0f) * (vmax.Y - vmin.Y) * 0.5f + vmin.Y;
-			p.X = ((p.X + 1.0f) * (vmax.X - vmin.X) * 0.5f + vmin.X) * 640.0f - 320.0f;
-			p.X = (float)floor(p.X);
-			
-			p.Y = (float)floor(240.0f - p.Y * 480.0f);
-			p.Button->Set_Position(Vector3(p.X, p.Y, 0.0f));
-			p.Line = new Line2DClass(Vector4(1.0f, 0.0f, 0.0f, 0.5f), *(Vector2 *)&p.X, *(Vector2 *)&p.PointX, 1.0f);
+			Vector2 &pos = *(Vector2 *)&p.X; pos.Y = (pos.Y + 1.0f) * (vmax.Y - vmin.Y) * 0.5f + vmin.Y;	// NAME 1 [pos]: neutral
+			pos.X = ((pos.X + 1.0f) * (vmax.X - vmin.X) * 0.5f + vmin.X) * 640.0f - 320.0f;
+			pos.X = (float)floor(pos.X);
+			pos.Y = 240.0f - pos.Y * 480.0f;
+			pos.Y = (float)floor(pos.Y);
+			p.Button->Set_Position(Vector3(pos.X, pos.Y, 0.0f));
+			p.Line = new Line2DClass(Vector4(1.0f, 0.0f, 0.0f, 0.5f), pos, *(Vector2 *)&p.PointX, 1.0f);
 		}
 	}
 	Camera->Set_Transform(saved);

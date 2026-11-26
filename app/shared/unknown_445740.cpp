@@ -388,9 +388,9 @@ SteeringTurnClass::SteeringTurnClass(float yaw, float pitch, float level) :
 {
 }
 
-// NOT EXACT: shape (explain.py; 12 rows): at the end the client stores the pitch into local.X before the dot product and copies all three members through memory; ours keeps the pitch on the FPU into the return (forms in attempts.csv)
+
 // 0x447E20
-Vector3 SteeringTurnClass::Turn(const Vector3 &desired, const SteeringVehicleStruct &vehicle)
+SteeringTurnOutputStruct SteeringTurnClass::Turn(const Vector3 &desired, const SteeringVehicleStruct &vehicle)
 {
 	Vector3 local;
 	Matrix3D::Inverse_Rotate_Vector(vehicle.Transform, vehicle.Velocity + desired, &local);
@@ -428,10 +428,10 @@ Vector3 SteeringTurnClass::Turn(const Vector3 &desired, const SteeringVehicleStr
 			pitch = 0.0f;
 		}
 	}
-	local.X = pitch;
-	local.Y = yaw;
-	local.Z = Vector3::Dot_Product(vehicle.Transform.Get_X_Vector(), desired);
-	Vector3 result(local);
+	SteeringTurnOutputStruct result;
+	result.Pitch = pitch;
+	result.Yaw = yaw;
+	result.Forward = Vector3::Dot_Product(vehicle.Transform.Get_X_Vector(), desired);
 	return result;
 }
 

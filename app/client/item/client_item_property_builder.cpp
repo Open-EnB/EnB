@@ -22,15 +22,15 @@ void ClientItemPropertyBuilderClass::Build(UIItemExaminationPropertyRouterBaseCl
 	Unknown_5285A0(router);
 }
 
-
-// NOT EXACT: 0x521C10 (0.85, register allocation only: the Unknown529810 property's Create and its Route take edx / eax where ours take eax / edx; tried a local id, a named RefCountPtr, both worse)
+static inline int Unknown_Item_Unknown08(const Unknown688830Item *item) { return(item->Unknown08); }	// NAME 1 [Unknown_Item_Unknown08, item]: neutral (D10); inline accessor layer for 0x521C10
+// 0x521C10
 void ClientItemPropertyBuilderClass::Unknown_521C10(UIItemExaminationPropertyRouterBaseClass &router)
 {
 	std::string maker = Data->Unknown_688830()->Get_Builder_Name(Slot);	// NAME 1 [maker, name, maker2, value, quality, level, structure, tooltip]: neutral
 	std::string name = Item->Name;
 	std::string maker2 = Item->Unknown34;
 	router.Route(ClientItemPropertyNameClass::Create(name));
-	router.Route(ClientItemPropertyUnknown529810Class::Create(Item->Unknown08));
+	router.Route(ClientItemPropertyUnknown529810Class::Create(Unknown_Item_Unknown08(Item)));
 	router.Route(ClientItemPropertyIconClass::Create(Create_Get(((Unknown831340Class *)Item)->Unknown_831840())));
 	int value = 0; const RefCountPtr<ItemInfoClass> &template_info = Item->Get_Template_Info();
 	if (template_info->Get_Int(ITEM_INFO_TYPE, &value)) {
