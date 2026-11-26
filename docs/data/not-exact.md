@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-505 entries in 229 files.
+504 entries in 229 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -336,7 +336,6 @@ edit the comments in the code, not this file.
 | `app/client/ui_scan.cpp:305` | `ScannerInterface::Unknown_68` | marker | NOT EXACT: register (TL1; similarity 0.54, WE9's 0.51): the client keeps the key's slot for next and this in ecx, tests the key as -5 then dec, dec @0x60E300 |
 | `app/client/ui_scan.cpp:500` | `ScannerInterface::Unknown_88` | marker | NOT EXACT: order (WE9; similarity 0.85): the client builds the old target's Remove arguments before calling 0x4F7EF0, ours after @0x60E580 |
 | `app/client/ui_scan.cpp:555` | `ScannerInterface::Unknown_60E6A0` | marker | NOT EXACT: inline-budget (IB2; similarity 0.53): the finds out of line as the client (0x610290, 0x514BD0) through two inline layers, and with them the cleared name's assign(const char *, size_type) (0x42D050); the client also reads the time through 0x60ECD0 (the time field's Get_Value, declared in the class and defined inline after it in delta_template.h, D3 2026-11-22); registers differ @0x60E6A0 |
-| `app/client/ui_scan.cpp:746` | `ScannerInterface::Unknown_60F1A0` | marker | NOT EXACT: frame / order (IB2; similarity 0.66): the Reputation finds out of line as the client (0x610370) through two inline layers typed <DeltaCompoundClass>; the client tail-merges only cases 2 and 5 @0x60F1A0 |
 | `app/client/ui_scut.cpp:485` | `UIScutBarClass::Unknown_611300` | marker | NOT EXACT: register (the allocator byte through al, FirstId + lp in edi; the call structure is the client's) |
 | `app/client/ui_scut.cpp:500` | `UIScutBarClass::Unknown_611710` | marker | NOT EXACT: register / stack slots of the name temporaries (the call structure is the client's) |
 | `app/client/ui_scut.cpp:789` | `UIScutBarClass::Unknown_6120E0` | marker | NOT EXACT: register (the mask passed as the unsigned int it is: the client's dword read of +0x10; left: the client loads both floats before the mask) |
