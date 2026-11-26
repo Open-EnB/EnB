@@ -789,12 +789,17 @@ the last name. Live antprox logs opcode numbers; e2e appends the names (`... = s
   upgrade 6, every Enforcer skill at its cap; set in the DB by hand, `.work/elanor_max.sql`), who logs in in space in
   Jupiter more than 5,000 units from Jove's Fury, so `/createmob ID` (GM: `mob_base.mob_id`; the server uses the
   mob's own level and refuses within 5,000 of a station) works where she appears. `_login_space.scn` is
-  `_login_live_account.scn` (the account part of `_login_live`, split out) and `select.slot1`. The `sp_*` scenarios
+  `_login_live_account.scn` (the account part of `_login_live`, split out) and `select.slot1`, clicked until the
+  client takes it (its selection sound's mixfile_sound_01.mix), then Enter alone until LOGIN and Elanor's
+  `player117440576_options.ini` asserted (2026-11-25: `redo 1` re-clicked the slot while the screen still turned and
+  logged Zanor in docked). The `sp_*` scenarios
   are in neither default set: name them, and pass the avatar to the snapshot, `e2e.py --live --retail
   --db-snapshot 7 --instance space run sp_combat`. `sp_combat` (from `.work/e2e/223904-record`): `/createmob 1993`
   (Renegade Progen Tribuni, level 45), E ([Target Near Enemy]; repeated with `key VK until ...`, since right after the
-  CREATE the client may not know the mob yet), the hotbar's slots 4 (Rally) and 5 (Repair Equipment) clicked
-  (SKILL_ABILITY each; the number keys sent nothing), F (ACTION) until POINT_EFFECT and the hulk's CREATE, N until the
+  CREATE the client may not know the mob yet), the hotbar's slots 4 and 5 clicked (SKILL_ABILITY each, then the
+  server's answer; the number keys sent nothing: the recording's Rally and Repair Equipment, on the store's rows of
+  2026-11-24 Biocessation and Enrage Group, which the server answers on the Progen mob with a PRIORITY_MESSAGE and no
+  OBJECT_EFFECT: the scenario's wait for an effect failed on retail every time until 2026-11-25), F (ACTION) until POINT_EFFECT and the hulk's CREATE, N until the
   hulk is the target (a one-verb VERB_UPDATE, its Loot: Next Target's list is by sphere distance, the hulk and our
   ship tie at 0 and the object list's order, so the hulk's game id, picks the first; ITEM_BASE comes only for loot
   bases the client has not seen), its loot button (LOOT_HULK_PERMISSION) and the loot window's first row until OPEN_INTERFACE (the hulk empty;
