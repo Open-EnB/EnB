@@ -1,9 +1,9 @@
 # Space (live server): combat with a level 45 mob, from the user's recording of 2026-11-20 (.work/e2e/223904-record,
 # 78-147 s, the first fight). /createmob 1993 (GM: the server's Renegade Progen Tribuni, level 45, three skills of its
 # own) puts the mob 200 ahead and 300 to the side; E (control_keys.ini [Target Near Enemy]) targets it. The hotbar's
-# slots 4 and 5 (the recording's Rally and Repair Equipment; on the store's rows Biocessation and Enrage Group: below),
-# SKILL_ABILITY each (the recording dragged Hacking from the PDA's
-# skill list to slot 3; a replayed drag found the list scrolled elsewhere, so the scenario uses the hotbar as is). F (Fire all weapons: ACTION) fights until the mob
+# slots 4 and 5 as the client data's Data\client\output\shortcut.ini has them (not the database: Biocessation and
+# Enrage Group; the recording's were Rally and Repair Equipment), SKILL_ABILITY each; then Rally and Repair Equipment
+# dragged from the PDA's skill list onto them (below) and used. F (Fire all weapons: ACTION) fights until the mob
 # explodes (POINT_EFFECT) and its hulk appears (CREATE). N (Next Target, until its Loot verb) targets the hulk, the
 # target window's loot button asks for it (SKILL_STRING_RQ, LOOT_HULK_PERMISSION), and the loot window's first row is
 # taken until the hulk is empty (INVENTORY_MOVE each; OPEN_INTERFACE when the last item is gone). The loot is random:
@@ -26,9 +26,9 @@ shot mob_created
 key 0x45 until antprox 'received REQUEST_TARGET$' every 1.5 within 20
 wait-event antprox 'sent SET_TARGET$' within 10
 shot mob_targeted
-# the hotbar as the store's rows (inputs/db/avatar7.sql, 2026-11-24) have it, clicked as the recording clicked its
-# slot: 1-3 three weapons, slot 4 Biocessation (organic targets only), slot 5 Enrage Group, 6 another skill. The
-# recording's slot 4 Rally and slot 5 Repair Equipment (2026-11-20's rows) are no longer there: waiting for an
+# the hotbar as the client data's shortcut.ini (ClientPOC's, copied afresh into every instance) has it, clicked as the
+# recording clicked its slot: 1-3 three weapons, slot 4 Biocessation (organic targets only), slot 5 Enrage Group, 6
+# another skill. The recording's slot 4 Rally and slot 5 Repair Equipment are not there: waiting for an
 # OBJECT_EFFECT after slot 4 failed on retail every time (2026-11-25: the server answers the Progen target with a
 # PRIORITY_MESSAGE, the client's message line, and no effect; sp_warp's slot 5 is answered so too). Each click is
 # repeated until the client sends SKILL_ABILITY (store .staging run 005451: one click 0.2 s after SET_TARGET sent
