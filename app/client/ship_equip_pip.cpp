@@ -150,38 +150,38 @@ ShipEquipPipClass::~ShipEquipPipClass()
 
 
 
-// NOT EXACT: frame (3 masked rows, from 29, score 0.99): second ??_H removed; unit not spilled to ebp-0x40 (r3) and Pre_Rotate_Y st(0)/st(2) swap (r16)
+// (the target and the unit are one SphereClass built from a named centre: the client keeps the radius at [ebp-0x40] behind the centre and stores it in branch 1 without reading it; attempts.py show 0x542250)
 // 0x542250
 void ShipEquipPipClass::Unknown_542250(const RefCountPtr<RenderObjClass> &robj)
 {
-	float unit; Vector3 pos; Vector3 target; if (Proxy->Proxied != robj.Peek()) {
+	if (Proxy->Proxied != robj.Peek()) {
 		Proxy->Unknown_47FF70(robj.Peek());
 		Proxy->Set_Transform(Matrix3D::Identity);
 		if (robj) {
-			unit = CameraManagerClass::Unknown_79B6B0();
-			Unknown48 = unit;
-			target.Set(0, 0, 0);
-			pos.Set(unit * 1.1, unit * 1.1, unit * 1.1);
+			Vector3 center(0, 0, 0);
+			SphereClass sphere(center, CameraManagerClass::Unknown_79B6B0());
+			Unknown48 = sphere.Radius;
+			Vector3 pos; pos.Y = sphere.Radius * 1.1; pos.X = sphere.Radius * 1.1; pos.Z = sphere.Radius * 1.1;
 			Proxy->Set_Position(Vector3(0, 0, 0));
 			Matrix3D tm(true);
-			tm.Look_At(pos, target, 0);
+			tm.Look_At(pos, sphere.Center, 0);
 			Unknown_543270(tm);
-			pos -= target; Distance = pos.Length();
+			pos -= sphere.Center; Distance = pos.Length();
 		}
 	} else if (robj) {
-		unit = CameraManagerClass::Unknown_79B6B0();
-		target.Set(0, 0, 0);
-
-		if (unit != Unknown48) {
+		Vector3 center(0, 0, 0);
+		SphereClass sphere;
+		sphere.Radius = CameraManagerClass::Unknown_79B6B0(); sphere.Center = center;
+		if (sphere.Radius != Unknown48) {
 			CameraClass *camera = Camera.Peek();
 			FAIL_IF(!camera) return;
 			Unknown50 = camera->Get_Transform();
 			Matrix3D &end = Unknown80; end = Unknown50;
-			end.Translate_Z(unit - Unknown48);
-			pos.Set(end.Get_X_Translation(), end.Get_Y_Translation(), end.Get_Z_Translation());
-			end.Look_At(pos, target, 0);
+			end.Translate_Z(sphere.Radius - Unknown48);
+			Vector3 pos(end.Get_X_Translation(), end.Get_Y_Translation(), end.Get_Z_Translation());
+			end.Look_At(pos, sphere.Center, 0);
 			Unknown4C = 1.0f;
-			Unknown48 = unit;
+			Unknown48 = sphere.Radius;
 		}
 		if (Unknown4C > 0.0f) {
 			Unknown4C -= WW3D::Get_Frame_Time() * 0.001f;
@@ -189,7 +189,7 @@ void ShipEquipPipClass::Unknown_542250(const RefCountPtr<RenderObjClass> &robj)
 			Matrix3D tm = Lerp(Unknown50, Unknown80, 1.0f - Unknown4C);
 			Unknown_543270(tm);
 
-			Distance = (tm.Get_Translation() - target).Length();
+			Distance = (tm.Get_Translation() - sphere.Center).Length();
 
 			if (Unknown4C == 0.0f) {
 				Unknown_542EE0(0);
@@ -357,9 +357,9 @@ void ShipEquipPipClass::Unknown_543270(const Matrix3D &tm)
 **	Unknown_542EE0 is out of line in its three callers (0x542250 here, gd_ship_equip_pip.cpp's two): auto_inline(off)
 **	at its definition keeps 0x542250 from inlining it. Unknown_543270 has no callers: 0x542250 (twice), 0x542A10 and
 **	0x542EE0 inline it. Unknown_543200 takes the point by value (the client copies it onto the stack).
-**	Not exact (one round each, attempts.csv): 0x542250's locals sit in other frame slots (the client keeps the unit in
-**	the frame and orders the target, the proxy's position and the camera's position differently); 0x542A10 sums each
-**	translation's products in another order.
+**	0x542250 is exact (FB6, 2026-11-26): its target and unit are one SphereClass (the radius at [ebp-0x40] behind the
+**	centre, stored in branch 1 and never read: the store of an address-taken aggregate's member) built from a named
+**	centre, the first position stored Y, X, Z. Not exact: 0x542A10 sums each translation's products in another order.
 **	0x542EE0 is exact: an owned matrix accessed through a mutable reference restores the lighting operand
 **	order; a reference to Distance preserves the client's Camera load after the translation and distance store.
 */

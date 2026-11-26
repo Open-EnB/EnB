@@ -8732,7 +8732,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown80` | `app/client/ship_equip_pip.cpp:82` | untagged neutral name (D10) |
 | 1 | `Unknown_542250` | `app/client/ship_equip_pip.cpp:155` | untagged neutral name (D10) |
 | 1 | `Unknown_47FF70` | `app/client/ship_equip_pip.cpp:158` | untagged neutral name (D10) |
-| 1 | `Unknown_79B6B0` | `app/client/ship_equip_pip.cpp:161` | untagged neutral name (D10) |
+| 1 | `Unknown_79B6B0` | `app/client/ship_equip_pip.cpp:162` | untagged neutral name (D10) |
 | 1 | `Unknown_543270` | `app/client/ship_equip_pip.cpp:168` | untagged neutral name (D10) |
 | 1 | `Unknown_542EE0` | `app/client/ship_equip_pip.cpp:195` | untagged neutral name (D10) |
 | 1 | `Unknown_542A10` | `app/client/ship_equip_pip.cpp:225` | untagged neutral name (D10) |
