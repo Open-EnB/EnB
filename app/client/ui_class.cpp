@@ -151,8 +151,8 @@ static int Unknown_5746C0(int index, bool forward)
 }
 #pragma auto_inline(on)
 static inline CameraClass *Camera_Of(CharacterViewClass *v) { return v->Unknown068; }
-
-// NOT EXACT: register, 15 masked rows (B8): three of the four dialog strings' inline _Eos in the other register form (site 1: the client keeps n in eax and reloads this after the copy; sites 3-4 the inverse); the 31 size reads spend the inline budget the client's source spent (D272: _Grow out of line, _Tidy / _Copy / _Eos inline; with Flags' constructor 31-33 give site 2 the client's form); attempts.py show 0x574710
+inline void ClassSelectInterface::Unknown_Dialog(const char *name) { CharacterView->Unknown_67C920(name); }
+// NOT EXACT: register, 5 masked rows (FB7): the first dialog string's inline _Eos in the other register form (the client keeps n in eax and reloads this after the copy: _Ptr loaded before _Len is stored); sites 2-4 are the client's. The four dialog calls go through the inline Unknown_Dialog: that layer alone sends _Grow out of line (_Tidy / _Copy / _Eos inline), the 31 dead Descriptions.size() reads are gone; attempts.py show 0x574710
 // @0x574710
 ClassSelectInterface::ClassSelectInterface(UIViewClass *view, LayerClass *layer) :
 	InterfaceClass(view, (int)layer->Peek_Scene()),
@@ -172,7 +172,7 @@ ClassSelectInterface::ClassSelectInterface(UIViewClass *view, LayerClass *layer)
 
 
 {
-	InterfaceSortScopeClass sort(this); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size();
+	InterfaceSortScopeClass sort(this);
 	int i;
 	for (i = 0; i < 14; i++) {
 		Buttons[i] = NULL;
@@ -252,14 +252,14 @@ ClassSelectInterface::ClassSelectInterface(UIViewClass *view, LayerClass *layer)
 	CharacterView->Unknown_67C7B0();
 
 	if (!TutorialManagerClass::Instance->Is_Completed("ClassSelectionIntro")) {
-		CharacterView->Unknown_67C920("1492_00_328se.mp3");
+		Unknown_Dialog("1492_00_328se.mp3");
 		TutorialManagerClass::Instance->Set_Completed("ClassSelectionIntro");
 	}
 
 	bool back = LoginTask->Previous_Step == 4; if (!back && Unknown8C == 0) {
-		CharacterView->Unknown_67C920("1492_00_344se.mp3");
-		CharacterView->Unknown_67C920("1492_00_345se.mp3");
-		CharacterView->Unknown_67C920("1492_00_346se.mp3");
+		Unknown_Dialog("1492_00_344se.mp3");
+		Unknown_Dialog("1492_00_345se.mp3");
+		Unknown_Dialog("1492_00_346se.mp3");
 	}
 
 	void (ClassSelectInterface::*function)(FlashingGadgetEvent *, GadgetClass *) = &ClassSelectInterface::Unknown_577DA0;
