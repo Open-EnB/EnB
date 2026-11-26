@@ -2377,7 +2377,7 @@ void CharacterViewAvatarClass::Unknown_783620(float time)
 
 
 // 0x783B50
-// NOT EXACT: field-offset (residue 6, 603/603 rows, score 0.99: WWMath::Min/Max directly into Unknown308 + else if (Unknown308 < 0.0f) reproduce accel spill and forward FSTP+reload; left: swapped 0x33c/0x360 X-add order at 0x784065 & 0x784165 and BodyObj reload at 0x784453)
+// (the two RefCountPtr objects go through Message_Error's ellipsis as they are, so the client loads BodyObj again for its push; the flag tests read Unknown2F8, no local: the count of the function's local symbols orders the X add of the three inlined Adjust_Translation)
 void CharacterViewAvatarClass::Unknown_1C4()
 {
 	if (Unknown204 == 0) {
@@ -2388,7 +2388,7 @@ void CharacterViewAvatarClass::Unknown_1C4()
 	}
 	Unknown0E4 = WW3D::Get_Frame_Count();
 	if (BodyObj == NULL || HeadObj == NULL || PlayerNLP == NULL) {
-		Message_Error("Avatar Animation", "", __FILE__, __LINE__, "Invalid avatar objects (%x %x %x)", BodyObj.Peek(), HeadObj.Peek(), PlayerNLP);
+		Message_Error("Avatar Animation", "", __FILE__, __LINE__, "Invalid avatar objects (%x %x %x)", BodyObj, HeadObj, PlayerNLP);
 		return;
 	}
 	Unknown_788900();
@@ -2430,14 +2430,14 @@ void CharacterViewAvatarClass::Unknown_1C4()
 		if (clamped) {
 			pitch = 0.0f;
 		}
-		int flags = Unknown2F8;
-		if (flags & 0x10) {
+
+		if (Unknown2F8 & 0x10) {
 			pitch = Unknown30C - pitch;
 			if (pitch <= -0.8f) {
 				pitch = -0.8f;
 			}
 			Unknown30C = pitch;
-		} else if (flags & 0x20) {
+		} else if (Unknown2F8 & 0x20) {
 			pitch = pitch + Unknown30C;
 			if (pitch >= 0.4f) {
 				pitch = 0.4f;
@@ -2445,12 +2445,12 @@ void CharacterViewAvatarClass::Unknown_1C4()
 			Unknown30C = pitch;
 		}
 		float yaw = turn_rate * Unknown304 * time;
-		if (flags & 0x40) {
+		if (Unknown2F8 & 0x40) {
 			Unknown310 = Unknown310 - yaw;
-		} else if (flags & 0x80) {
+		} else if (Unknown2F8 & 0x80) {
 			Unknown310 = yaw + Unknown310;
 		}
-		if (flags & 1) {
+		if (Unknown2F8 & 1) {
 			if (Unknown20C == 2 && Unknown210 == 0) {
 				Unknown20C = 0;
 				Unknown214 = true;
@@ -2471,7 +2471,7 @@ void CharacterViewAvatarClass::Unknown_1C4()
 				Unknown360 = (Unknown330.Get_X_Vector() * Unknown308) * time;
 				Unknown330.Adjust_Translation(Unknown360);
 			}
-		} else if (flags & 2) {
+		} else if (Unknown2F8 & 2) {
 			if (Unknown20C == 2 && Unknown210 == 0) {
 				Unknown20C = 0;
 				Unknown214 = true;
