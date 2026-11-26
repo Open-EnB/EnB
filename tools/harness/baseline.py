@@ -1493,15 +1493,35 @@ def audio_cut_stored(stored):
     return 'input' if stored and all(a.get('cut') == 'input' for a in stored) else 'end'
 
 
+# Sounds the client picks at random from a fixed set by its own code (not by the run's events): every variant reads as
+# the set's name, so a run that drew another one of them is the same run. {name: (variants lower-case, evidence)}.
+AUDIO_RANDOM_SETS = {
+    '1492_00_32{3,4,5}Se.mp3': (('1492_00_323se.mp3', '1492_00_324se.mp3', '1492_00_325se.mp3'),
+                                "the login greeting: 0x5ADA50 plays tutorial step 'ReturningUser%d' with time(NULL) % 3; "
+                                "tutorialdef.ini's ReturningUser0 / 1 / 2 speak 323se / 325se / 324se"),
+}
+_AUDIO_RANDOM = {v: name for name, (vs, _) in AUDIO_RANDOM_SETS.items() for v in vs}
+
+
+def audio_random_set(a, snd):
+    """The AUDIO_RANDOM_SETS name SND (a stream's file, a sample's hash:size named in A) is a variant of, or None."""
+    return _AUDIO_RANDOM.get(str(a.get('names', {}).get(snd, snd)).lower())
+
+
+def _asound(a, snd):
+    return audio_random_set(a, snd) or snd
+
+
 def audio_strict(a):
-    return [tuple(x[:4]) for x in a['sequence'] if x[1] in AUDIO_STRICT]
+    """The streams' and 3D samples' items (event, kind, sound, loop) in order; a random set's variant as the set."""
+    return [(x[0], x[1], _asound(a, x[2]), x[3]) for x in a['sequence'] if x[1] in AUDIO_STRICT]
 
 
 def audio_loose(a):
     c = {}
     for x in a['sequence']:
         if x[1] not in AUDIO_STRICT:
-            k = f'{x[0]} {x[1]} {x[2]}'
+            k = f'{x[0]} {x[1]} {_asound(a, x[2])}'
             c[k] = c.get(k, 0) + 1
     return c
 
@@ -1580,7 +1600,11 @@ def name_samples(summaries, data_dir=None):
 def audio_family(a, snd):
     """A sound's family: its file name (a stream's own, a sample's from the load events) with every digit run as
     '#', so the client's random variants of one sound share it (TerranWander07-2.mp3 and TerranWander01-5.mp3:
-    TerranWander#-#.mp3); a sample of no known name stays its hash:size."""
+    TerranWander#-#.mp3); a sample of no known name stays its hash:size; a random set's variant (AUDIO_RANDOM_SETS)
+    or the set itself is the set, a family of its own."""
+    rs = snd if snd in AUDIO_RANDOM_SETS else audio_random_set(a, snd)
+    if rs:
+        return rs
     name = a.get('names', {}).get(snd, snd)
     if name == snd and ':' in str(snd):
         return snd

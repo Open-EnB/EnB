@@ -1072,8 +1072,10 @@ missing on either side stays DIFF. **`RETAIL-UNSTABLE`** (2026-11-25 evening, co
 folded into a pass, no tolerance widened): a scenario whose only differences are where the stored retail runs
 disagree among themselves, leave one out (as `.work/cs/loo.py` measured: station 3D audio identical in 0 of 9 retail
 runs). Audio (`audio_stability`): per sound family (`audio_family`: the file name with each digit run as `#`, so the
-client's random variants share one: the space music TerranWander07-2 / 01-5, the station radio 1492_00_323Se / 325Se,
-sfx_foot_glass_N; samples the log gives only as hash:size are named first from the client data's files and mixes,
+client's random variants share one: the space music TerranWander07-2 / 01-5, sfx_foot_glass_N; a set the client
+draws from by its own code is one sound whatever the variant (`AUDIO_RANDOM_SETS`, with its evidence: the login
+greeting 1492_00_323Se / 324Se / 325Se, 0x5ADA50's `ReturningUser%d` by `time(NULL) % 3`), so a run that drew
+another of them matches, in noise.json's strict sequence too; samples the log gives only as hash:size are named first from the client data's files and mixes,
 `name_samples`, audiolog's cache), the `m` / `t` events of its streams or 3D samples (`KIND FAMILY`): a family whose
 events in the run match no stored run's is weighed by its shape (events and loops): the same shape as a stored run,
 only another variant played, RETAIL-UNSTABLE when the stored runs' variants fail leave one out, else DIFF (retail

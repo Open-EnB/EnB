@@ -898,6 +898,39 @@ class Audio(unittest.TestCase):
         ok, text = baseline.audio_verdict(music('Wander01-5.mp3', 'end'), stored, None)
         self.assertIs(ok, False)                                       # every stored run stops it, the run's ends
 
+    def test_random_set_the_login_greeting(self):
+        # brief CS7 (c14): 0x5ADA50 speaks ReturningUser(time(NULL) % 3), 323Se / 325Se / 324Se: sp_combat's five
+        # retail runs drew 323 / 325 only (leave one out: stable) and ours 324, which read DIFF; any of the three is
+        # the same run, another shape of it is still DIFF, and the tutorial's other voice lines keep their own family
+        def login(line, end='close'):
+            return self.seq(('open', 'm', 'AvatarSelect1.mp3'), ('open', 'm', line), ('start', 'm', line),
+                            (end, 'm', line), ('open', 'm', '1492_90_001Se.mp3'))
+        stored = [login('1492_00_325Se.mp3'), login('1492_00_325Se.mp3'), login('1492_00_323Se.mp3'),
+                  login('1492_00_323Se.mp3'), login('1492_00_325Se.mp3')]
+        self.assertEqual(baseline.audio_random_set(stored[0], '1492_00_324se.mp3'), '1492_00_32{3,4,5}Se.mp3')
+        self.assertIsNone(baseline.audio_random_set(stored[0], '1492_00_326Se.mp3'))
+        self.assertEqual(baseline.audio_family(stored[0], '1492_00_324Se.mp3'), '1492_00_32{3,4,5}Se.mp3')
+        self.assertEqual(baseline.audio_family(stored[0], '1492_90_001Se.mp3'), '#_#_#Se.mp3')
+        self.assertEqual(sorted(baseline.audio_streams(stored[0])),
+                         ['m #_#_#Se.mp3', 'm 1492_00_32{3,4,5}Se.mp3', 'm AvatarSelect#.mp3'])
+        ok, text = baseline.audio_verdict(login('1492_00_324Se.mp3'), stored, None)
+        self.assertIs(ok, True, text)
+        ok, text = baseline.audio_verdict(login('1492_00_324Se.mp3', 'stop'), stored, None)
+        self.assertIs(ok, False)                                       # the greeting stopped, never closed
+        self.assertIn('m 1492_00_32{3,4,5}Se.mp3', text)
+        ok, text = baseline.audio_verdict(login('1492_00_326Se.mp3'), stored, None)
+        self.assertIs(ok, False, text)                                 # no variant of the set: another sound
+        named = self.seq(('start', 't', 'ff:9'))                       # a sample named by its load: the same set
+        named['names']['ff:9'] = '1492_00_323se.mp3'
+        self.assertEqual(baseline.audio_strict(named)[0][2], '1492_00_32{3,4,5}Se.mp3')
+        d = tempfile.mkdtemp()                                         # retail's noise: the variants are no noise
+        ents = []
+        for k, a in enumerate(stored):
+            path = os.path.join(d, f'a{k}.json')
+            baseline.write_json(path, a)
+            ents.append({'run': f'r{k}', 'audio': path})
+        self.assertTrue(baseline.audio_noise(ents)['strict_identical'])
+
     def test_samples_named_from_the_data(self):
         import audiolog
         d = tempfile.mkdtemp()
