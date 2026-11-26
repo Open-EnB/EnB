@@ -804,7 +804,7 @@ void LandClass::Get_Vertex_Color(unsigned int x, unsigned int y, Vector3 &color)
 	color.Set((float)rgb[2] * 0.0039215684f, (float)rgb[1] * 0.0039215684f, (float)rgb[0] * 0.0039215684f);	// the client's float 0xAE981C = 0x3B808080 (1/255 rounded down; 1.0f / 255.0f is 0x3B808081)
 }
 
-// NOT EXACT: field-offset (293 masked rows: the corners' zero-offset byte sums load j2 j0 j3 j1, the client j1 j2 j0 j3; the inner
+// NOT EXACT: field-offset (289 masked rows, from 293: the corners' zero-offset byte sums load j2 j0 j3 j1, the client j1 j2 j0 j3; the inner
 // rows run on the k1 set with k2 as partner (the client's registers in the row loops); attempts.csv 0x470F80)
 void LandClass::Unknown_470F80(unsigned char *a, unsigned char *b, unsigned char *c)
 {
@@ -813,10 +813,10 @@ void LandClass::Unknown_470F80(unsigned char *a, unsigned char *b, unsigned char
 	static const float HORIZON_SCALE_4 = 41720.875f;
 	static const float HORIZON_SCALE_2 = 41720.875f;
 	static const double HORIZON_SCALE_1 = 41720.875;
-	unsigned int size = Field->Get_Size();
 	unsigned int mask = Field->Get_Mask();
-	unsigned int last_row = mask & (size - 1);	// the last row (column), wrapped
+	unsigned int size = Field->Get_Size();
 	unsigned int wrap = mask & size;				// the row (column) after the last, wrapped: 0
+	unsigned int last_row = mask & (size - 1);	// the last row (column), wrapped
 	unsigned short *hz = (unsigned short *)c;	// per cell: the horizons towards -x and +x (log-coded tangents)
 	unsigned char h[8];
 	Vector3 color;
