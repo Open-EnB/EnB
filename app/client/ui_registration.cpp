@@ -1929,7 +1929,7 @@ void RegistrationInterface::Unknown_5F87D0()
 int RegistrationInterface::Unknown_5F89F0()
 {
 	int state = Unknown_5F8A90();
-	if (UnknownD8.size() != 0) {
+	if (UnknownD8.size()) {	// no != 0: the function costs the inliner two nodes less, and the client inlines it into 0x5F8560's copies where ours called it (0x5FBD30 cases 1 / 3, 0x600000 case 4)
 		UnknownD8.pop_back();
 	}
 	return(state);
@@ -2969,7 +2969,7 @@ void RegistrationInterface::Unknown_5F0100()
 
 // NOT EXACT: inline-budget (functional; group loops through 0x5F33E0, pushes through 0x5F87D0, back-outs through 0x5F8560, server boxes through 0x5FB890,
 // email checks through 0x5F8F60, case 6 switch(Unknown26C), cases 0x11 / 0x14 / 0x12 written out; combo boxes' Selected through UIComboBoxClass::Get_Selected
-// (0x5FFFE0, out of line at cases 0xB / 0xE; the three month reads go through it); four dead UnknownD8.begin() reads at case 0xC end; left: 10 nested map::insert cuts, cases 1 / 3 back-outs' 0x5F89F0; masked residue 235)
+// (0x5FFFE0, out of line at cases 0xB / 0xE; the three month reads go through it), the days / years through Selected_Year (the client's combo cuts in case 0xC); four dead UnknownD8.begin() reads at case 0xC end; left: five map::insert the client calls (case 4's 2nd text, case 10's country, case 0xC's texts 5-7); masked residue 72)
 // @0x5FBD30
 void RegistrationInterface::Unknown_5FBD30()
 {
@@ -3230,16 +3230,17 @@ void RegistrationInterface::Unknown_5FBD30()
 			Unknown1F8 = retype;
 			delete password;
 			delete retype;
-			if (Unknown1D8.size() > 3 && Unknown1E8.size() > 3) {
-				if (Unknown1E8 != Unknown1F8) {
-					Unknown_5FB7A0(this, "The Passwords you entered do not match.");
-					return;
-				}
-				Unknown1D1 = false;
-next_page:
-				Unknown_5F3770(10);
+			if (Unknown1D8.size() < 4 || Unknown1E8.size() < 4) {
+				goto bad_login;
+			}
+			if (Unknown1E8 != Unknown1F8) {
+				Unknown_5FB7A0(this, "The Passwords you entered do not match.");
 				return;
 			}
+			Unknown1D1 = false;
+next_page:
+			Unknown_5F3770(10);
+			return;
 bad_login:
 			Unknown_5FB7A0(this, "Please enter a valid Username and Password.\nUsernames must be at least %d characters long.\nPasswords must be at least %d characters long.", 4, 4);
 			break;
@@ -3251,7 +3252,6 @@ bad_login:
 				Unknown_5F3770(4);
 				return;
 			}
-
 
 
 
@@ -3301,10 +3301,10 @@ bad_login:
 		{
 			char *email = UnknownF8[0x13].Gadget->Get_Text();
 			int month = Unknown108[0x14].Combo->Get_Selected() + 1;
-			UIComboBoxClass *combo = Unknown108[0x15].Combo;
-			int day = (unsigned)combo->Selected < combo->Items.size() ? atoi(combo->Items[combo->Selected].c_str()) : 0;
-			combo = Unknown108[0x16].Combo;
-			int year = (unsigned)combo->Selected < combo->Items.size() ? atoi(combo->Items[combo->Selected].c_str()) : 0;
+			int day = Selected_Year(Unknown108[0x15].Combo);
+
+			int year = Selected_Year(Unknown108[0x16].Combo);
+
 			int selected = Unknown_5F33E0(1);
 
 
@@ -3399,8 +3399,8 @@ bad_login:
 			char *phone = UnknownF8[0x21].Gadget->Get_Text();
 			char *number = UnknownF8[0x23].Gadget->Get_Text();
 			int month = Unknown108[0x14].Combo->Get_Selected() + 1;
-			UIComboBoxClass *combo = Unknown108[0x16].Combo;
-			int year = (unsigned)combo->Selected < combo->Items.size() ? atoi(combo->Items[combo->Selected].c_str()) : 0;
+			int year = Selected_Year(Unknown108[0x16].Combo);
+
 			std::string country(Unknown108[0x19].Combo->Get_Selected_Text());
 			int type = Unknown5A8[Unknown108[0x22].Combo->Get_Selected()].Unknown00;
 			if (strlen(first_name) == 0) {
@@ -3464,7 +3464,7 @@ bad_login:
 			delete state;
 			delete zip;
 			delete phone;
-			delete number; UnknownD8.begin(); UnknownD8.begin(); UnknownD8.begin(); UnknownD8.begin();   // D272: dead reads (re-swept 0-12 with the months read through Get_Selected(): 4 begin() best)
+			delete number; UnknownD8.begin(); UnknownD8.begin(); UnknownD8.begin(); UnknownD8.begin();   // D272: dead reads (re-swept 0-14 with the months through Get_Selected(), the days / years through Selected_Year and 0x5F89F0's cost: 4 begin() best; size() kinds and end reads worse)
 			break;
 		}
 		case 0xD:
@@ -3488,8 +3488,8 @@ bad_login:
 				start_year = atoi(UnknownF8[0x26].Gadget->Get_Text());
 			}
 			int month = Unknown108[0x14].Combo->Get_Selected() + 1;
-			UIComboBoxClass *combo = Unknown108[0x16].Combo;
-			int year = (unsigned)combo->Selected < combo->Items.size() ? atoi(combo->Items[combo->Selected].c_str()) : 0;
+			int year = Selected_Year(Unknown108[0x16].Combo);
+
 			std::string country(Unknown108[0x19].Combo->Get_Selected_Text());
 			int type = Unknown5A8[Unknown108[0x22].Combo->Get_Selected()].Unknown00;
 			if (strlen(first_name) == 0) {
@@ -3679,12 +3679,12 @@ static const char *ProductBeta = "EB-BETA";  // NAME 1 [ProductBeta]: client .da
 static const char *RegistrationGameId = "2184";  // NAME 1 [RegistrationGameId]: client .data 0xB85EF0 (0x600000: 0x7D7E10's third argument, atoi'd against the game features' ids)
 // NOT EXACT: inline-budget (functional; the server boxes through 0x5FB890 and the back-outs through 0x5F8560 as the client inlines them, one per
 // branch; its cases in jump table 0x602AE4's layout order, case 3's !+0x1CE branch first, case 1's !Unknown11B and cases 8/9 !Unknown_7D9790 forms, the US picks through 0x603B20;
-// frame 0xB18, three dead reads in case 0x10, three at case 5's 5FA900 back-out; masked residue 289)
+// case 4's 7D8D60 request after the case's last return (goto); frame 0xB18, eight dead reads at the top, three in case 0x10: all 28 back-outs inline or call 0x5F89F0 / 0x5F86F0 as the client's; left: cross-jump choices among the copies; masked residue 167)
 // @0x600000
 void RegistrationInterface::Unknown_5F00C0()
 {
 
-	Unknown390 = Unknown1AC->Unknown_7D1AC0();
+	Unknown390 = Unknown1AC->Unknown_7D1AC0(); UnknownD8.begin(); UnknownD8.begin(); UnknownD8.begin(); UnknownD8.begin(); UnknownD8.begin(); UnknownD8.begin(); UnknownD8.begin(); UnknownD8.begin();   // D272: dead reads (swept 0-22 on the goto form: 8-10 give every back-out the client's inlined / called 0x5F89F0 and 0x5F86F0; 6 here with 1 in case 0x10: 196)
 	if (Unknown390.Unknown10 == 99) {
 		Unknown_5FB890();
 		Unknown_5F8560();
@@ -3809,15 +3809,7 @@ void RegistrationInterface::Unknown_5F00C0()
 						Unknown1CD = false;
 						if ((*info).EntitlementStatus == 1) {
 							if ((*info).EntitlementStatusReason == 0x14 || (*info).EntitlementStatusReason == 1) {
-								StatusIndex = 0xF;
-								Unknown11E = true;
-								Unknown_5FAE90(this, NULL);
-								if (Unknown1AC->Unknown_7D8D60(Unknown1D8.c_str(), Unknown1E8.c_str(), ProductEB, Unknown_BE8AD4)) {
-									return;
-								}
-								Unknown_5FB890();
-								Unknown_5F8560();
-								return;
+								goto request_7D8D60;   // the request is written after the loop (case 4's end): its back-out then sees the loops' inline mass and inlines 0x5F89F0 as the client's 0x6011C1 (in the loop it is the last back-out to inline it); VC6 lays the block out here either way
 							}
 							Unknown1CB = true;
 							break;
@@ -3856,6 +3848,14 @@ void RegistrationInterface::Unknown_5F00C0()
 			Unknown_5FB890();
 			Unknown_5F8560();
 			return;
+request_7D8D60:
+			StatusIndex = 0xF;
+			Unknown11E = true;
+			Unknown_5FAE90(this, NULL);
+			if (Unknown1AC->Unknown_7D8D60(Unknown1D8.c_str(), Unknown1E8.c_str(), ProductEB, Unknown_BE8AD4)) { return; }
+			Unknown_5FB890();
+			Unknown_5F8560();
+			return;
 		case 5:
 			if (Unknown390.Unknown10 == 0) {
 				Unknown_5FA0B0();
@@ -3883,7 +3883,7 @@ void RegistrationInterface::Unknown_5F00C0()
 					return;
 				}
 				Unknown_5FB890();
-				Unknown_5F8560(); UnknownD8.begin(); UnknownD8.begin(); UnknownD8.begin();   // the client calls 0x5F89F0 at this back-out (0x60158F); D272: dead reads (begin() / end() 3: 312 -> 302; 1-2 no change, 4-8 or size() worse)
+				Unknown_5F8560();   // the client calls 0x5F89F0 at this back-out (0x60158F); ours does too with the top reads (no reads here: 0-3 swept)
 				return;
 			}
 			UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "The code you entered was not valid.  Please try again.", 0x140, 0, 0);
