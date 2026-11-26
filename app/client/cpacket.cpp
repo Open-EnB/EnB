@@ -2485,7 +2485,7 @@ bool NoteListPacketClass::Process_Packet(void *instance)
 
 static inline void Group_Status(SClient *sclient, const char *first, const char *last, int index) { std::string name(first, last); if (sclient->MainView->Group) { sclient->MainView->Group->Unknown_597080(last + 1, name.c_str(), index); } }
 
-// NOT EXACT: inline-budget (masked residue 908 -> 272: the cases in the client's jump-table target order; the group status block in an inline helper (the client calls the range constructor 0x73F680 out of line at the top level: a missing source layer, workflow 3.1.1) and 16 dead Unknown54.size() reads after its call take its nested budget (D272; 15 nothing, 17+ worse), frame 0x558 as the client's; case 7 jumps into case 8's guild block as the client does (goto), d8 and friends read from the panel at their sites (interim: the client keeps them in stack slots; with the slots the goto form spends a frame slot more, 319 -> 272); left: assign in case 9's temporaries and _Tidy in case 22's copy called by the client, case 4's two snprintf, cases 21 / 22 / 27 merged into 1; attempts.py show 0x73B150)
+// NOT EXACT: inline-budget (masked residue 908 -> 218: the cases in the client's jump-table target order; the group status block in an inline helper (the client calls the range constructor 0x73F680 out of line at the top level: a missing source layer, workflow 3.1.1) and 16 dead Unknown54.size() reads after its call take its nested budget (D272; 15 nothing, 17+ worse), frame 0x558 as the client's; case 7 jumps into case 8's guild block as the client does (goto), d8 and friends read from the panel at their sites (interim: the client keeps them in stack slots; with the slots the goto form spends a frame slot more, 319 -> 272); 2 more dead reads after case 22's by-value call and 2 after case 9's (any split of 4 to 11 after the late sites or the final return compiles the same) send the copy's _Tidy in case 22 out of line as the client's and inline the destructor at case 28's return as the client's, but at case 27's too (the client calls it there), 272 -> 218; left: case 27's return, case 4 (the client writes Unknown_74D990(3, buffer, 0) in both branches: two snprintf with different registers joining at push 3, 0x73B78A; written so here one more push 0 brings a zero register into ebx in the prologue), d8 / dc in stack slots (frame 0x558) and with them the cases 19-22 / 27 tails merged into one; attempts.py show 0x73B150)
 // 0x73B150
 bool ClientChatEventPacketClass::Process_Packet(void *instance)
 {
@@ -2652,7 +2652,7 @@ bool ClientChatEventPacketClass::Process_Packet(void *instance)
 			return(true);
 		case 22:
 			if (panel->UnknownDC) {
-				panel->UnknownDC->Unknown_591880(Get_Unknown54());
+				panel->UnknownDC->Unknown_591880(Get_Unknown54()); Unknown54.size(); Unknown54.size();
 			}
 			_snprintf(buffer, sizeof(buffer), "%s is no longer friends with %s.", from, text);
 			sclient->Unknown_74D990(0, buffer, 0);
@@ -2715,7 +2715,7 @@ bool ClientChatEventPacketClass::Process_Packet(void *instance)
 			}
 			break;
 		case 9:
-			panel->Unknown_5679A0(9, std::string(chan), std::string(""), Unknown10 != 0);
+			panel->Unknown_5679A0(9, std::string(chan), std::string(""), Unknown10 != 0); Unknown54.size(); Unknown54.size();
 			_snprintf(buffer, sizeof(buffer), "[%s] New Channel Created.", chan);
 			if (sclient->LineDisplay) {
 				char line[128];
