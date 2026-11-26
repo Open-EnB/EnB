@@ -406,6 +406,9 @@ def store_run(store, client, label, name, session, result, start_utc, common, in
     for f in LOGS + tuple(f'result-{x}.json' for x in names):
         if f != 'messages.log' and os.path.exists(os.path.join(session, f)):
             shutil.copy2(os.path.join(session, f), os.path.join(dest, f))
+    for f in sorted(os.listdir(session)):   # e2e db-avatars dumps (UI-01: the created character as stored)
+        if re.fullmatch(r'db-[A-Za-z0-9_-]+\.sql', f):
+            shutil.copy2(os.path.join(session, f), os.path.join(dest, f))
     mlog = store_messages(session, dest)
     entries = []
     for x in names:

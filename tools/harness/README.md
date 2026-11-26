@@ -734,6 +734,32 @@ the last name. Live antprox logs opcode numbers; e2e appends the names (`... = s
   which queues hull, sector and ammo saves of its own (`PlayerManager::DropPlayerFromSector`). Nothing outside the
   avatar's rows is touched; to undo by hand, pipe the script into `docker exec -i net7-mysql sh -c 'mysql -uroot
   -p"$MYSQL_ROOT_PASSWORD" net7_user'` with the server stopped.
+- **The account screens (`ui_*`, test-plan UI-01 / UI-02, 2026-11-26, CS6):** `ui_charcreate` creates a character
+  (every class, every avatar tab, Random Appearance on the head and body tabs, the ship pages, the name, the server
+  list, Play Game) and deletes it from character select; `ui_account` walks the login screen's Account Management
+  menu (Edit Account's No, Register Account's notice and second page, Add Gametime Code's Back), every slot, every
+  Previous out of creation, a relogin, the world and Quit to Login. Named only, live only:
+  `e2e.py --live --retail --instance X --audio --db-snapshot schema --antprox-arg=/NOPATCHES run ui_charcreate`.
+  `--db-snapshot schema` dumps the whole `net7_user` schema (DROP / CREATE with each AUTO_INCREMENT, one consistent
+  read) and puts it back in place after the run (0.9 s): a created character takes a new avatar_id in every avatar
+  table and moves faction_data's auto-increment, which an avatar's rows cannot undo. `/NOPATCHES`: antprox-rs
+  patches the retail client for Net-7 (class names and flags, tattoo save) and never ours (an unknown build), and
+  the patched retail stores another character for the same clicks (prof 1 against 2): retail is captured unpatched,
+  as ours runs (`baseline.py capture --antprox-arg=/NOPATCHES`, recorded in the manifest's `server.antprox_args`).
+  The header `tutorial: fresh` removes the instance's tutorial.dat: while it exists
+  `TutorialManagerClass::Read_Completed_File` (0x6AD4B0) marks every creation step done and no creation voice line
+  plays; without it retail plays 1492_90_001Se at login, 328se on the class page, 347se on the avatar page and the
+  ship page's 300se..303se in a row (about 38 s; a ship-tab click before 303se starts clears the queue). The
+  `audio` source (`--audio`) gives each named sound's `open` / `start` / `stop` / `end` / `close` as
+  `start m28 FILE`, so a step can wait on a voice line. The step `db-avatars NAME` writes the rows of the characters
+  the account gained since the session started to `db-NAME.sql`: avatar_data (parts, colours, the blend pulls
+  height_weight_0..4), ship_data, faction_data, as the server stored the creation request. Random Appearance draws
+  from a generator that repeats run to run: the stored character is the same on every unpatched retail run and on
+  ours, column for column. The narrator's gesture on the login screen follows the returning-user line
+  (`ReturningUser%d`, `time(NULL) % 3`, 0x5ADA50): login-screen shots compare only between runs that played the
+  same 323Se / 324Se / 325Se. Character select's and the creation pages' buttons take a click only after their
+  turn-in (about 3 s after a page change) and the login screen's Account Management only after the pointer
+  rested on it.
 - **Restoring in place (control port, 2026-11-24):** Net7.exe has a loopback UDP control port (`Net7/Net7/ControlPort.cpp`):
   `e2e.net7_control_port` takes machine.py `net7_control_port` (`ENB_NET7_CONTROL_PORT`) when set, else the last
   `control_port=` line of `<net7_bin>\Net7Config.cfg` (the server reads it at start), else 3810; 0 is off. Commands:
@@ -975,7 +1001,7 @@ build-side roots: EA, SDK, references.)
 rule: observations and run inputs only, never the game's files):
 
 ```
-python tools/harness/baseline.py capture NAME... [--runs 3] [--live [SERVER]] [--restart | --no-restart] [--no-db-restore] [--no-audio] [--db-snapshot [AVATAR]] [--instance bl]
+python tools/harness/baseline.py capture NAME... [--runs 3] [--live [SERVER]] [--restart | --no-restart] [--no-db-restore] [--no-audio] [--db-snapshot [AVATAR|schema]] [--antprox-arg=ARG] [--instance bl]
 python tools/harness/baseline.py capture --set SET [NAME...] [--runs 3] [--live [SERVER]] [--restart | --no-restart]   # one session a run
 python tools/harness/baseline.py verify [NAME...]            # every stored file against its manifest's SHA-256
 python tools/harness/baseline.py verify --run RUN [--client C] [--env E]    # an e2e run against the baseline
@@ -1183,6 +1209,10 @@ just before), `volume`, `pan`, `rate`, `loop`, `loop_block`, `seek_ms`, `seek`, 
 `orientation` (fx..uz), `velocity`, `distances` (max, min), `effects`, `cone`. Events on a sound carry `snd`: the
 stream's file, or `hash:size`; `audiolog.py` names those from the data's mix files (MIX1 entries of the same
 size, hashed; cached in `.work/audio-names.json`).
+
+**AU-01's reading (2026-11-26):** `baseline.py verify --run RUN --audio-only [--set SET]` prints the audio verdict
+alone, one line a scenario (`AUDIO SAME | RETAIL-UNSTABLE | DIFF | NONE`: streams and 3D sounds in order, 2D sounds
+by count against the stored range), and a count line; packets, shots and draw logs are not read.
 
 **Reader:** `audiolog.py summary RUN`, `sequence RUN [--kinds mt]`, `diff A B [--kinds mt] [--counts]
 [--time-tol MS] [--all --float-tol X]` (module docstring). **Run-to-run noise (retail, replay, 2026-11-24):**
