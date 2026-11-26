@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-528 entries in 235 files.
+525 entries in 234 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -98,8 +98,7 @@ edit the comments in the code, not this file.
 | `app/client/extrap.cpp:1821` | `Unknown713D70Class::Unknown713D70Class` | marker | NOT EXACT: 0x713D70 scheduling: the epilogue's load of the saved EH link comes after `pop edi` in the client, before the last stores here |
 | `app/client/extrap.cpp:1859` | `Unknown713D70Class::Unknown_7140E0` | marker | NOT EXACT: 0x7140E0 order: the translation's stores, the roll's push and the state's vtable load are scheduled differently |
 | `app/client/extrap.cpp:1984` | `Unknown714340Class::Unknown_1C` | mention | NOT EXACT ones say why above them (docs/data/not-exact.md). Forms that mattered: WW's Equal_Within_Epsilon before Slerp, In_Place_Pre_Rotate_Z for the turn, `float turn = Unknown80; turn += Unknown50;`, WWMath::Min / Max for the speed, assignment (not initialisation) of returned Vector3s where the client copies them, end_time (the parameter) in 0x7119B0. |
-| `app/client/font32bit.cpp:104` | `Font32Class::Make_Proportional` | marker | NOT EXACT: (D64) register allocation and the tail: the client keeps x0 and this in memory and walks the tables through edi; its top == 0 path repeats the tail (0.31) |
-| `app/client/font32bit.cpp:506` | `Font32Class::Print` | marker | NOT EXACT: (D64) a prefix of the client's 81 bytes: the static's guard and atexit differ |
+| `app/client/font32bit.cpp:104` | `Font32Class::Make_Proportional` | marker | NOT EXACT: (D64) register allocation: the client keeps x0 and this in memory and y0 in ebx; ours this in ebx, y0 in memory (the fallback's arms with left = x0 in each, 84 -> 75 masked rows) |
 | `app/client/fontdatabase.cpp:508` | `FontDatabaseClass::Unknown_6C1500` | marker | NOT EXACT: frame: the inlined Add_String's key and iterator temporaries sit in other stack slots (0.76) |
 | `app/client/fontdatabase.cpp:687` | `FontDatabaseClass::Split_Four` | marker | NOT EXACT: register (2 rows: the inlined += stores through [esi + edx], ours [edx + esi]; Parse_Directions' form, exact there, cut 28 -> 2; the copy loop, the test's sense, ch's / the index's types, the loop's spelling changed nothing) |
 | `app/client/fontdatabase.cpp:751` | `FontDatabaseClass::Remove_String` | marker | NOT EXACT: inline-budget, one row: at the inlined erase's second _M_delete_node site the client calls the pair's ??_G(0) as at the first, ours inlines ~pair (push 1; call _Tidy); the deletion form is right (HT: dead reads after the erase collapse it) |
@@ -393,7 +392,7 @@ edit the comments in the code, not this file.
 | `app/client/unknown_62a7c0.cpp:43` | `Unknown62A7C0Class::Unknown_62AA20` | marker | NOT EXACT (0.59, attempts.py 0x62AA20): the client holds the folded -0.29f in one float temporary (fld / fst) for the three offsets, ours stores it as immediates |
 | `app/client/unknown_62a7c0.cpp:100` | `Unknown62A7C0Class::Unknown_62AFA0` | mention | NOT EXACT: 0x62AA20 (0x62ADE0 inlined with 0.0f; the client keeps the folded -0.29f in one float temporary, ours stores immediates; tried a local offset, a float-returning helper: both exact elsewhere, no change here). |
 | `app/client/unknown_6ca0c0.cpp:76` | `FontSys::Unknown_6CA0C0` | marker | NOT EXACT: worked toward the client's bytes (FX1 / FX, runs 2026-11-20 and -21; FS 2026-11-22): case order, branch senses, inline layers, budget, Append_Dots (RANDLETTER / STAY), STAY's buffer local (pushed to 0x6D8DC0 and String_Pixel_Width, 0x6CC3B8 / 0x6CC3D3) |
-| `app/client/unknown_6cce60.cpp:183` | `FontSys::Unknown_6CD950` | marker | NOT EXACT: registers (D64; attempts.csv): the cases in the client's body order, the clamp in its shape; VC6 gives the clamped slot edi and index ebp, the client the reverse (0x6CD950) |
+| `app/client/unknown_6cce60.cpp:183` | `FontSys::Unknown_6CD950` | marker | NOT EXACT: registers (D64; attempts.csv): the cases in the client's body order, the clamp in its shape (the copy in the else arm); VC6 gives the clamped slot edi and index ebp, the client the reverse (0x6CD950) |
 | `app/client/unknown_6cce60.cpp:276` | `FontSys::Change_Text` | marker | NOT EXACT: shape (D64; attempts.csv): the client calls Store_Length out of line in the first " " assignment and hoists three member loads above stores (27 masked rows) |
 | `app/client/unknown_75b7b0.cpp:29` | `Unknown_75B8F0` | marker | NOT EXACT: functional (D64), 0.83: the x87 order of the cross product's length and the dot product (WE5) @0x75B8F0 |
 | `app/client/unknown_75b7b0.cpp:57` | `Unknown_75BB50` | marker | NOT EXACT: functional (D64), 0.37: ours calls StringClass::operator= where the client inlines it, so the registers differ (WE5) @0x75BB50 |
@@ -403,8 +402,6 @@ edit the comments in the code, not this file.
 | `app/client/unknown_79c8e0.cpp:20` | `CameraModule79C8E0Class::Unknown_08` | marker | NOT EXACT: shape (18 masked rows, was 184: the first product after each Inv_Sqrt comes out fld st(0); fmul mem where the client has fld mem; fmul st(1), and two stores schedule apart; attempts.csv) |
 | `app/client/unknown_7cef30.cpp:382` | `RegistrationUnknown1ACClass::Unknown_7D4E30` | marker | NOT EXACT: inline budget (0.71: the client inlines Add_Param(int) for bdateyear too, ours calls it from there on; the rest is the client's) |
 | `app/client/unknown_7e1e40.cpp:24` | `Sub14CUnknown18Class::~Sub14CUnknown18Class` | marker | NOT EXACT: the client's has an EH frame (states 1, 0 around the _bstr_t members' destruction); /GX gives none here (/EHa gives it, and an EH frame in the constructor the client lacks) |
-| `app/client/unknown_fontsound.cpp:10` | `Unknown_6BCFB0Class::Unknown_6BCFB0Class` | marker | NOT EXACT: (D64) the client's has an EH frame with no state stores around the same seven stores |
-| `app/client/unknown_fontsound.cpp:15` | `Unknown_6BCFB0Class::~Unknown_6BCFB0Class` | marker | NOT EXACT: (D64) Clear's loop as `while (--index >= 0)` (dec / js, 0.80); the client has no state -1 store before the member's destructor |
 | `app/client/unknown_phoneme.cpp:201` | `Unknown_791310Class::Unknown_7917B0` | marker | NOT EXACT: functional for POC (D64), register (First and Count loaded into the other registers; 6 index forms tried) |
 | `app/client/unknown_phoneme.cpp:221` | `Unknown_791310Class::Unknown_791880` | marker | NOT EXACT: functional for POC (D64), shape (the client merges the 'g' case's tail with the second-letter vowel's; switch and if-chain forms tried) |
 | `app/client/viewbttn.cpp:18` | `ViewButtonClass::ViewButtonClass` | marker | NOT EXACT: the client keeps an EH state around the new UnknownAFE0B8Class (a byte state store before Get_Bool, attempts.csv); ours has none |
