@@ -34,9 +34,22 @@ import time
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from vc6config import CFG  # noqa: E402
 
+def _derive_repo():
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    parts = os.path.normpath(script_dir).split(os.sep)
+    if 'tools' in parts:
+        tools_idx = len(parts) - 1 - parts[::-1].index('tools')
+        return os.path.normpath(os.sep.join(parts[:tools_idx]))
+    cwd_parts = os.path.normpath(os.path.abspath(os.getcwd())).split(os.sep)
+    if 'tools' in cwd_parts:
+        tools_idx = len(cwd_parts) - 1 - cwd_parts[::-1].index('tools')
+        return os.path.normpath(os.sep.join(cwd_parts[:tools_idx]))
+    return os.path.dirname(os.path.dirname(script_dir))
+
+
+REPO = _derive_repo()
 USER = CFG['user']             # the VM account (vc6config.py)
-HOSTS_FILE = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))),
-                          '.work', 'vc6_hosts.json')
+HOSTS_FILE = os.path.join(REPO, '.work', 'vc6_hosts.json')
 _local = threading.local()
 LOCAL = os.environ.get('ENB_VC6_LOCAL') == '1'
 
@@ -117,16 +130,49 @@ def remote(path):
     return f"{current_host()}:{path.replace(BS, '/')}"
 
 
+def _temp_dir():
+    return os.environ.get('TEMP') or os.environ.get('TMPDIR') or ('/tmp' if sys.platform != 'win32' else '.')
+
+
 def under_root(path):
+    if isinstance(path, str) and (path.startswith('C:\\') or path.startswith('c:\\')):
+        norm = path.replace('/', BS)
+        root_prefix = ROOT + BS
+        if norm.lower().startswith(root_prefix.lower()):
+            rel = norm[len(root_prefix):]
+            return norm, rel
+        return path, path
     full = os.path.abspath(path)
-    rel = os.path.relpath(full, ROOT)
-    if rel.startswith('..'):
-        raise SystemExit(f'{path} is not under {ROOT}')
+    if sys.platform == 'win32' and os.path.normcase(full).startswith(os.path.normcase(ROOT)):
+        rel = os.path.relpath(full, ROOT)
+        if rel.startswith('..'):
+            raise SystemExit(f'{path} is not under {ROOT}')
+        return full, rel
+    rel_repo = os.path.relpath(full, REPO)
+    if rel_repo.startswith('..'):
+        parent = os.path.dirname(REPO)
+        rel_parent = os.path.relpath(full, parent)
+        if rel_parent.startswith('..'):
+            raise SystemExit(f'{path} is not under {REPO}')
+        rel = rel_parent
+    else:
+        rel = os.path.join(os.path.basename(REPO), rel_repo)
     return full, rel
 
 
+def vm_path(path_or_rel):
+    """Map a local path or relative path to its mirrored path inside the build VM."""
+    if isinstance(path_or_rel, tuple):
+        _, rel = path_or_rel
+    elif os.path.isabs(path_or_rel):
+        _, rel = under_root(path_or_rel)
+    else:
+        rel = path_or_rel
+    return ROOT + BS + rel.replace('/', BS)
+
+
 def sync_cache_path():
-    return os.path.join(os.environ.get('TEMP', '.'), 'enb_vc6_synccache_' + current_host().split('@')[-1] + '.json')
+    return os.path.join(_temp_dir(), 'enb_vc6_synccache_' + current_host().split('@')[-1] + '.json')
 
 
 def sync(dirs):
@@ -147,6 +193,8 @@ def sync(dirs):
     removed = []
     with tarfile.open(fileobj=buf, mode='w') as tar:
         for d in sorted(set(dirs)):
+            if not os.path.isdir(d):
+                continue
             full, rel = under_root(d)
             present = set()
             for f in os.listdir(full):
@@ -171,7 +219,7 @@ def sync(dirs):
                     del cache[key]
     ensure_work()
     if count:
-        local = os.path.join(os.environ.get('TEMP', '.'), f'enb_vc6_sync_{_tag()}.tar')
+        local = os.path.join(_temp_dir(), f'enb_vc6_sync_{_tag()}.tar')
         open(local, 'wb').write(buf.getvalue())
         scp(local, remote(WORK + r'\sync.tar'))
         ssh(f'cmd /c tar -xf "{WORK}\\sync.tar" -C "{ROOT}" && del "{WORK}\\sync.tar"')
@@ -196,7 +244,7 @@ def run_bat(lines):
     ensure_work()
     bat = '@echo off\r\ncall "' + VCVARS + '" >nul\r\n' + '\r\n'.join(lines) + '\r\n'
     name = f'run_{_tag()}.bat'
-    local = os.path.join(os.environ.get('TEMP', '.'), 'enb_vc6_' + name)
+    local = os.path.join(_temp_dir(), 'enb_vc6_' + name)
     open(local, 'w', newline='').write(bat)
     scp(local, remote(WORK + '\\' + name))
     return ssh(f'cmd /c "{WORK}\\{name}"', check=False)
@@ -216,15 +264,17 @@ def compile_sources(sources, includes=(), defines=None, flags=DEFAULT_FLAGS, out
     dirs = [os.path.dirname(f) for f, _ in srcs] + [f for f, _ in incs] + [under_root(d)[0] for d in extra_sync]
     sync(dirs)
     setup = []
+    vm_srcs = [(vm_path(rel), rel) for _, rel in srcs]
+    vm_incs = [(vm_path(rel), rel) for _, rel in incs]
     if source_alias:
-        setup, srcs = _alias_setup(srcs, *source_alias)
-    rc, text = _compile(srcs, incs, defines, flags, out, setup)
+        setup, vm_srcs = _alias_setup(vm_srcs, *source_alias)
+    rc, text = _compile(vm_srcs, vm_incs, defines, flags, out, setup)
     if 'C1083' in text and _missing_local_file(text):
         # A file the VM should have is missing (the VM's copy and the sync cache disagree):
         # forget the cache and send everything again, once.
         reset_sync_cache()
         sync(dirs)
-        rc, text = _compile(srcs, incs, defines, flags, out, setup)
+        rc, text = _compile(vm_srcs, vm_incs, defines, flags, out, setup)
     return rc, text
 
 
@@ -241,14 +291,23 @@ def _alias_setup(srcs, local_dir, alias):
     drive, rest = alias[:2], alias[2:].strip(BS)
     base = f'{WORK}\\alias_{drive[0].lower()}'
     link = base + BS + rest
-    setup = [f'if not exist "{os.path.dirname(link)}" mkdir "{os.path.dirname(link)}"',
+    vm_local_dir = vm_path(local_dir).rstrip('.\\/')
+    setup = [f'if not exist "{base}" mkdir "{base}"',
+             f'if not exist "{os.path.dirname(link)}" mkdir "{os.path.dirname(link)}"',
              f'if exist "{link}" rmdir "{link}"',   # a worktree's run leaves the junction pointing at it
-             f'mklink /J "{link}" "{local_dir}" >nul',
+             f'mklink /J "{link}" "{vm_local_dir}" >nul',
              f'if not exist {drive}\\{rest}\\ subst {drive.upper()} "{base}"']
     renamed = []
-    for full, rel in srcs:
-        r = os.path.relpath(full, local_dir)
-        renamed.append((alias + BS + r if not r.startswith('..') else full, rel))
+    rel_local = os.path.relpath(local_dir, REPO)
+    prefix_rel = os.path.basename(REPO) if rel_local == '.' else os.path.join(os.path.basename(REPO), rel_local)
+    prefix_rel = prefix_rel.replace('/', BS)
+    for vm_f, rel in srcs:
+        rel_norm = rel.replace('/', BS)
+        if rel_norm == prefix_rel or rel_norm.startswith(prefix_rel + BS):
+            r = rel_norm[len(prefix_rel):].strip(BS)
+            renamed.append((alias + (BS + r if r else ''), rel))
+        else:
+            renamed.append((vm_f, rel))
     return setup, renamed
 
 
@@ -260,11 +319,13 @@ def reset_sync_cache():
 
 
 def _missing_local_file(text):
-    """True if a C1083 error names a file that exists on this side under ROOT."""
+    """True if a C1083 error names a file that exists on this side under ROOT or REPO."""
     import re
     for m in re.finditer(r"Cannot open (?:include|source) file: '([^']+)'", text):
         name = m.group(1)
         if os.path.isabs(name) and os.path.exists(name):
+            return True
+        if os.path.exists(os.path.join(REPO, name)):
             return True
         if not os.path.isabs(name):
             return True   # relative names: can't tell cheaply, assume the VM is out of date
@@ -283,7 +344,7 @@ def _compile(srcs, incs, defines, flags, out, setup=()):
         # past cmd.exe's 8191-character line and CreateProcess's 32767 (app's 664 sources made 32786:
         # "The system cannot execute the specified program", no objects, 0 pairs): a response file
         rsp = f'cl_{stamp}.rsp'
-        local = os.path.join(os.environ.get('TEMP', '.'), 'enb_vc6_' + rsp)
+        local = os.path.join(_temp_dir(), 'enb_vc6_' + rsp)
         open(local, 'w', newline='').write('\r\n'.join(cmd) + '\r\n')
         ensure_work()
         scp(local, remote(WORK + '\\' + rsp))
@@ -337,8 +398,22 @@ def main():
 
 
 def vm_addresses():
-    """IPv4 addresses Hyper-V reports for the running VMs (the Key-Value Pair integration service).
-    The Default Switch takes a new subnet when the host restarts, so a fixed range goes stale."""
+    """IPv4 addresses reported for the running VMs (Hyper-V or Parallels Desktop)."""
+    if sys.platform != 'win32':
+        import re
+        try:
+            p = subprocess.run(['prlctl', 'list', '-i'], capture_output=True, text=True)
+            ips = []
+            for line in p.stdout.splitlines():
+                if 'IP Addresses:' in line:
+                    part = line.split('IP Addresses:')[1].strip()
+                    for addr in part.split(','):
+                        addr = addr.strip()
+                        if re.match(r'^[0-9.]+$', addr):
+                            ips.append(addr)
+            return ips
+        except Exception:
+            return []
     ps = ("Get-VM | Where-Object State -eq 'Running' | Get-VMNetworkAdapter | "
           "ForEach-Object { $_.IPAddresses } | Where-Object { $_ -match '^[0-9.]+$' }")
     p = subprocess.run(['powershell', '-NoProfile', '-NonInteractive', '-Command', ps],

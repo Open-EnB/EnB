@@ -18,13 +18,14 @@ variable overrides either:
 """
 import json
 import os
+import sys
 
 REPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 DEFAULTS = {
     'user': 'user',
     'key': '~/.ssh/enb_vc6',
-    'pool_dir': r'C:\EnBDevelopment\Tools\VMPool',
-    'template_vm': 'enb-vc6-template',
+    'pool_dir': os.path.expanduser('~/Parallels/VMPool') if sys.platform != 'win32' else r'C:\EnBDevelopment\Tools\VMPool',
+    'template_vm': 'Windows 11' if sys.platform != 'win32' else 'enb-vc6-template',
     'prefix': 'enb-vc6-',
     'max_vms': 7,
     'reserve_gb': 4,

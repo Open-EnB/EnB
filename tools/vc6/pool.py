@@ -79,7 +79,10 @@ KEEP = 2                        # free stopped VMs `--prune` keeps
 IDLE_MIN = 10                   # minutes a free running VM may idle before reclaim stops it
 
 
-# ---------------------------------------------------------------- PowerShell
+# ---------------------------------------------------------------- PowerShell / Hypervisor
+
+IS_WIN = sys.platform == 'win32'
+
 
 def ps(script, check=True):
     """Run a PowerShell script (Hyper-V cmdlets); returns stdout. Encoded, so no quoting issues."""
@@ -96,13 +99,57 @@ def ps_json(script):
     return json.loads(out) if out else None
 
 
+def prl_json(args):
+    """Run prlctl with args and parse JSON output."""
+    p = subprocess.run(['prlctl'] + args + ['--json'], capture_output=True, text=True)
+    return json.loads(p.stdout) if p.returncode == 0 and p.stdout.strip() else None
+
+
 def q(s):
     """A PowerShell single-quoted string."""
     return "'" + str(s).replace("'", "''") + "'"
 
 
+def _disk_size(path):
+    try:
+        if os.path.isfile(path):
+            return os.path.getsize(path)
+        if os.path.isdir(path):
+            total = 0
+            for root, _, files in os.walk(path):
+                for f in files:
+                    total += os.path.getsize(os.path.join(root, f))
+            return total
+    except OSError:
+        pass
+    return 0
+
+
 def pool_vms():
-    """Every Hyper-V VM whose name has the pool prefix, with disks and addresses."""
+    """Every pool VM whose name has the pool prefix, with disks and addresses."""
+    if not IS_WIN:
+        data = prl_json(['list', '-a', '-i']) or []
+        res = []
+        for vm in data:
+            name = vm.get('Name', '')
+            if name.startswith(PREFIX) and name != TEMPLATE_VM:
+                ips = []
+                for entry in vm.get('Network', {}).get('ipAddresses', []):
+                    if isinstance(entry, dict) and entry.get('type') == 'ipv4':
+                        ips.append(entry.get('ip'))
+                    elif isinstance(entry, str) and '.' in entry:
+                        ips.append(entry)
+                hdd = vm.get('Hardware', {}).get('hdd0', {})
+                img = hdd.get('image', '')
+                res.append({
+                    'Name': name,
+                    'State': 'Running' if vm.get('State') == 'running' else 'Off',
+                    'Uptime': int(vm.get('Uptime', 0)),
+                    'Disks': [{'Path': img, 'Type': 'Linked', 'Parent': vm.get('Parent VM', TEMPLATE_VM), 'Size': _disk_size(img)}],
+                    'Snapshots': 0,
+                    'IPs': ips,
+                })
+        return sorted(res, key=lambda v: v['Name'])
     vms = ps_json(r"""
 $r = @(Get-VM -Name '%s*' -ErrorAction SilentlyContinue | ForEach-Object {
   $vm = $_
@@ -133,6 +180,14 @@ def safety(vm):
     if len(vm['Disks']) != 1:
         return f'{len(vm["Disks"])} disks (expected 1)'
     d = vm['Disks'][0]
+    if not IS_WIN:
+        pool_dir = os.path.expanduser(POOL_DIR)
+        disk_path = os.path.expanduser(d['Path'])
+        if not (disk_path.startswith(pool_dir) or same(os.path.dirname(disk_path), pool_dir)):
+            return f'disk {d["Path"]} is outside {POOL_DIR}'
+        if d['Type'] != 'Linked' or d.get('Parent') != TEMPLATE_VM:
+            return f'VM is not a linked clone of {TEMPLATE_VM}'
+        return None
     if not same(os.path.dirname(d['Path']), POOL_DIR):
         return f'disk {d["Path"]} is outside {POOL_DIR}'
     if same(d['Path'], BASE):
@@ -201,7 +256,17 @@ def _pid_started(pid):
     if it can't be read."""
     if os.name != 'nt':
         st = _proc_stat(pid)
-        return int(st[19]) if st and len(st) > 19 else None
+        if st and len(st) > 19:
+            return int(st[19])
+        if sys.platform == 'darwin':
+            try:
+                out = subprocess.check_output(['ps', '-p', str(int(pid)), '-o', 'lstart='],
+                                              text=True, stderr=subprocess.DEVNULL).strip()
+                if out:
+                    return int(time.mktime(time.strptime(out)))
+            except Exception:
+                return None
+        return None
     k = ctypes.windll.kernel32
     h = k.OpenProcess(0x1000, False, int(pid))
     if not h:
@@ -387,7 +452,13 @@ def taken_names(state, vms):
 def plan_names(count, max_vms, state, vms):
     """The next free clone names for count new VMs, or None at the cap. Call with the lock held;
     the caller records them in the state (leased or mark_busy) before it saves and unlocks."""
-    if not os.path.isfile(BASE):
+    if os.path.isfile(BASE):
+        pass
+    elif not IS_WIN:
+        vms_all = prl_json(['list', '-a']) or []
+        if not any((v.get('Name') or v.get('name')) == TEMPLATE_VM for v in vms_all):
+            raise SystemExit(f'template VM {TEMPLATE_VM} missing')
+    else:
         raise SystemExit(f'base disk {BASE} missing')
     taken = taken_names(state, vms)
     if len(taken) + count > max_vms:
@@ -397,7 +468,8 @@ def plan_names(count, max_vms, state, vms):
         name = f'{PREFIX}{n:02d}'
         n += 1
         if name in taken or os.path.exists(os.path.join(POOL_DIR, name + '.vhdx')) \
-                or os.path.exists(os.path.join(POOL_DIR, name)):
+                or os.path.exists(os.path.join(POOL_DIR, name)) \
+                or os.path.exists(os.path.join(POOL_DIR, name + '.pvm')):
             continue
         names.append(name)
     return names
@@ -409,6 +481,16 @@ def cap_message(count, max_vms, state, vms):
 
 def make_clone(name):
     """Create the stopped clone `name` (planned by plan_names). Runs without the lock."""
+    if not IS_WIN:
+        pvm_dir = os.path.expanduser(POOL_DIR)
+        os.makedirs(pvm_dir, exist_ok=True)
+        cmd = ['prlctl', 'clone', TEMPLATE_VM, '--name', name, '--linked', '--dst', pvm_dir]
+        p = subprocess.run(cmd, capture_output=True, text=True)
+        if p.returncode != 0:
+            raise SystemExit(f'failed to clone {name}: {p.stderr.strip() or p.stdout.strip()}')
+        checked(get_vm(name))
+        print(f'created {name}', flush=True)
+        return
     disk = os.path.join(POOL_DIR, name + '.vhdx')
     ps(r"""
 $t = Get-VM -Name %(tpl)s
@@ -430,6 +512,20 @@ try {
 
 def free_gb():
     """The host's free physical memory, in GB."""
+    if not IS_WIN:
+        try:
+            import resource
+            pagesize = resource.getpagesize()
+            out = subprocess.check_output(['vm_stat'], text=True)
+            stats = {}
+            for line in out.splitlines():
+                if ':' in line:
+                    k, v = line.split(':', 1)
+                    stats[k.strip()] = int(v.strip().rstrip('.'))
+            free_pages = stats.get('Pages free', 0) + stats.get('Pages speculative', 0) + stats.get('Pages inactive', 0)
+            return round((free_pages * pagesize) / (1024 ** 3), 2)
+        except Exception:
+            return 8.0
     return float(ps('[math]::Round((Get-CimInstance Win32_OperatingSystem).FreePhysicalMemory / 1MB, 2)').strip())
 
 
@@ -440,14 +536,27 @@ def start_vm(name):
         if free < STARTUP_GB + RESERVE_GB:
             raise SystemExit(f'host memory: {free:.1f} GB free, a clone needs {STARTUP_GB} GB and '
                              f'{RESERVE_GB} GB must stay free (ENB_VC6_RESERVE_GB); not starting {name}')
-        ps(f'Start-VM -Name {q(name)}')
+        if not IS_WIN:
+            p = subprocess.run(['prlctl', 'start', name], capture_output=True, text=True)
+            if p.returncode != 0:
+                raise SystemExit(f'failed to start {name}: {p.stderr.strip() or p.stdout.strip()}')
+        else:
+            ps(f'Start-VM -Name {q(name)}')
 
 
 def stop_vm(name, hard=False):
     vm = checked(get_vm(name))
     if vm['State'] == 'Off':
         return
-    ps(f'Stop-VM -Name {q(name)} ' + ('-TurnOff -Force' if hard else '-Force'))
+    if not IS_WIN:
+        args = ['prlctl', 'stop', name]
+        if hard:
+            args.append('--kill')
+        p = subprocess.run(args, capture_output=True, text=True)
+        if p.returncode != 0:
+            raise SystemExit(f'failed to stop {name}: {p.stderr.strip() or p.stdout.strip()}')
+    else:
+        ps(f'Stop-VM -Name {q(name)} ' + ('-TurnOff -Force' if hard else '-Force'))
 
 
 def wait_ready(name, timeout=600):
@@ -495,6 +604,13 @@ def destroy_vm(v):
     it busy, and drops its state entry afterwards (unmark_busy(..., gone=))."""
     n = v['Name']
     checked(v)
+    if not IS_WIN:
+        stop_vm(n, hard=True)
+        p = subprocess.run(['prlctl', 'delete', n], capture_output=True, text=True)
+        if p.returncode != 0:
+            raise SystemExit(f'failed to delete {n}: {p.stderr.strip() or p.stdout.strip()}')
+        print(f'destroyed {n}')
+        return
     disk = v['Disks'][0]['Path']
     stop_vm(n, hard=True)
     ps(f'Remove-VM -Name {q(n)} -Force')
@@ -598,7 +714,7 @@ def cmd_list(a):
             lease += f" (holder pid {s['holder_pid']})" if s.get('holder_pid') else ' (no holder pid)'
         if busy_live(s):
             lease += f" [{s['busy']['what']} by pid {s['busy']['pid']}]"
-        size = sum(d['Size'] for d in v['Disks']) / 2**30
+        size = sum(d.get('Size', 0) for d in v['Disks']) / 2**30
         why = safety(v)
         print(f"{v['Name']}  {v['State']:<8} {ipv4(v) or '-':<16} {lease:<48} disk {size:5.2f} GB"
               + (f'  [NOT SAFE: {why}]' if why else ''))

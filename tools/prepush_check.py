@@ -128,6 +128,9 @@ def main():
     bl = blobs(history, exclude)
     if exclude:
         print(f'prepush_check: only what {" ".join(exclude)} does not have ({len(bl)} blobs); --full scans all history')
+    if not bl:
+        print('VERDICT: PASS')
+        return 0
     sizes = {}
     chk = git('cat-file', '--batch-check=%(objectname) %(objectsize)', inp='\n'.join(s for s, _ in bl).encode())
     for line in chk.splitlines():
