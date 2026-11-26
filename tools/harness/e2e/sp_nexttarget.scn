@@ -1,0 +1,127 @@
+# Space (live server): sp_combat cut after the kill, then two Next Target presses (brief CS4, 2026-11-26). The steps
+# up to the kill's shot are sp_combat's (keep them in step: the mob's death point, and so the first press's pick,
+# follows the fight). N (control_keys.ini [Next Target]) twice, each until the client asks (REQUEST_TARGET) and the
+# server answers with the target's verbs (VERB_UPDATE: 0x18 bytes with the hulk's Loot verb, 0x10 with none, our
+# own ship), a shot of the target window after each. Which object the first press picks is the client's sorted
+# list (target_find.cpp Build_List 0x7C4530: every targetable object by sphere distance 0x7E6130, the gap between
+# the two spheres, 0 when they touch; std::sort 0x7C4E30): our own ship is always at 0, the hulk at 0 only when its
+# centre lies within the two radii of ours, and then first by the object list's order (a new hash bucket's node goes
+# to the list's head, wwlib hashlist.h Add). So the first press picks the hulk when the mob died close to us and our
+# ship ('Admiral Elanor' in the target window) when it died farther out (CS4, 37 runs of sp_combat and this, 21
+# retail, 16 ours: the hulk first at a centre distance of 74-216, our ship first at 220-247, both clients alike;
+# mob_destroyed's draw log gives the distance: the new model position with the most vertices). No loot is taken: the
+# hulk is left to the server, whose state the next run's restart and --db-snapshot restore.
+# Run: e2e.py --live --retail --db-snapshot 7 --instance space run sp_nexttarget (it changes Elanor's hull).
+name: space combat cut after the kill: two Next Target presses, the first press's pick and the hulk's distance
+timeout: 360
+include _login_space
+# the GM command in the chat entry; the server answers 'Creating Renegade Progen Tribuni at level 45' and creates it
+key 0x0D
+wait-quiet proxy 0.5 within 10
+text '/createmob 1993'
+key 0x0D
+expect-event antprox 'received CLIENT_CHAT$' within 10
+wait-event antprox 'sent CREATE$' within 15
+wait-event antprox 'sent RELATIONSHIP$' within 15
+shot mob_created
+# E again until the client asks: right after the CREATE it may not yet know the mob (run 231808 sent nothing)
+key 0x45 until antprox 'received REQUEST_TARGET$' every 1.5 within 20
+wait-event antprox 'sent SET_TARGET$' within 10
+shot mob_targeted
+# the hotbar as the client data's shortcut.ini (ClientPOC's, copied afresh into every instance) has it, clicked as the
+# recording clicked its slot: 1-3 three weapons, slot 4 Biocessation (organic targets only), slot 5 Enrage Group, 6
+# another skill. The recording's slot 4 Rally and slot 5 Repair Equipment are not there: waiting for an
+# OBJECT_EFFECT after slot 4 failed on retail every time (2026-11-25: the server answers the Progen target with a
+# PRIORITY_MESSAGE, the client's message line, and no effect; sp_warp's slot 5 is answered so too). Each click is
+# repeated until the client sends SKILL_ABILITY (store .staging run 005451: one click 0.2 s after SET_TARGET sent
+# nothing), then the server's answer, an effect or the message, is waited for
+click 790,960 until antprox 'received SKILL_ABILITY$' every 2 within 12
+wait-event antprox 'sent (OBJECT_EFFECT|PRIORITY_MESSAGE)$' within 15
+# the shot 1 s after the answer (2026-11-25 CS: shot at once, ours drew the PRIORITY_MESSAGE's text a frame later)
+wait-since antprox 'sent (OBJECT_EFFECT|PRIORITY_MESSAGE)$' 1
+shot skill_slot4
+click 865,960 until antprox 'received SKILL_ABILITY$' every 2 within 12
+wait-event antprox 'sent (OBJECT_EFFECT|PRIORITY_MESSAGE)$' within 15
+wait-since antprox 'sent (OBJECT_EFFECT|PRIORITY_MESSAGE)$' 1
+shot skill_slot5
+# the effects (brief CS2, c4): Rally and Repair Equipment from the PDA, as the recording dragged Hacking. The PDA
+# (the second button at the lower left), its Skills page, the list's down arrow until its end (30 clicks; Elanor's
+# 19 skills end Reactor Tech, Repair Equipment, Shield Tech, Terran Culture), then its up arrow once: Rally on top
+# (its first ability, rank 1, at 50,632), Repair Equipment third (its first at 50,785) (CS2 probe 2026-11-25: the
+# list keeps no fixed start, but its end is fixed). A click on an ability there uses nothing (the probe: no
+# SKILL_ABILITY); a drag onto the hotbar's slots 4 and 5 puts them there (the instance's shortcut.ini, a fresh copy
+# each run). The server answers both with an OBJECT_EFFECT on our ship (Net-7 ARally: the buff's effect 333;
+# ARepairEquipment: 170, a mob target defaults to self)
+click 96,918
+wait-quiet proxy 1.0 within 20
+click 71,258
+wait-quiet proxy 0.5 within 20
+click 322,805
+click 322,805
+click 322,805
+click 322,805
+click 322,805
+click 322,805
+click 322,805
+click 322,805
+click 322,805
+click 322,805
+click 322,805
+click 322,805
+click 322,805
+click 322,805
+click 322,805
+click 322,805
+click 322,805
+click 322,805
+click 322,805
+click 322,805
+click 322,805
+click 322,805
+click 322,805
+click 322,805
+click 322,805
+click 322,805
+click 322,805
+click 322,805
+click 322,805
+click 322,805
+click 322,593
+wait-quiet proxy 1.0 within 20
+shot pda_skills
+down 50,632
+up 790,960
+wait-quiet proxy 0.5 within 10
+down 50,785
+up 865,960
+wait-quiet proxy 0.5 within 10
+shot pda_dragged
+click 322,258
+wait-quiet proxy 1.0 within 20
+click 790,960 until antprox 'received SKILL_ABILITY$' every 2 within 20
+wait-event antprox 'sent OBJECT_EFFECT$' within 15
+wait-since antprox 'sent OBJECT_EFFECT$' 1
+shot skill_rally
+click 865,960 until antprox 'received SKILL_ABILITY$' every 2 within 20
+wait-event antprox 'sent OBJECT_EFFECT$' within 15
+wait-since antprox 'sent OBJECT_EFFECT$' 1
+shot skill_repair
+key 0x46
+expect-event antprox 'received ACTION$' within 10
+wait-event antprox 'sent CLIENT_DAMAGE$' within 30
+shot fighting
+wait-event antprox 'sent POINT_EFFECT$' within 180
+wait-event antprox 'sent CREATE$' within 15
+wait-quiet proxy 1.0 within 30
+shot mob_destroyed
+# the first press: the client sends REQUEST_TARGET at once (sp_combat's runs: 0.04-0.07 s after the key); the
+# server's SET_TARGET and VERB_UPDATE follow; the shot 1 s after the verbs (the target window's name and range)
+key 0x4E until antprox 'received REQUEST_TARGET$' every 2 within 10
+wait-event antprox 'sent VERB_UPDATE$' within 10
+wait-since antprox 'sent VERB_UPDATE$' 1
+shot next_target_1
+key 0x4E until antprox 'received REQUEST_TARGET$' every 2 within 10
+wait-event antprox 'sent VERB_UPDATE$' within 10
+wait-since antprox 'sent VERB_UPDATE$' 1
+shot next_target_2
+expect-no CRASH
