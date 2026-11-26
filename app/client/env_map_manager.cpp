@@ -47,7 +47,7 @@ void EnvironmentMapManagerClass::Load(const char *env_map_ini_filename)
 		sprintf(section, "PROCTEX-%02d", index);
 	}
 }
-// NOT EXACT: register (masked residue 106, was 170): sprintf's 4th argument 0xFE and the Z / z cases are the client's (its push / add esp, 0x10 and switch tables); the pixel blocks are index loops (the client's dst row after the int guard), left: ours addresses src as dst + (src - dst) where the client steps both pointers, and the register webs around it (D64)
+// NOT EXACT: register (masked residue 75, was 170): sprintf's 4th argument 0xFE and the Z / z cases are the client's (its push / add esp, 0x10 and switch tables); every differing region is codegen only (A2 2026-11-25: same reads, stores, guards and bounds); left: ours addresses src as dst + (src - dst) where the client steps both pointers, and the register webs around it (D64)
 // 0x760770
 void EnvironmentMapManagerClass::Unknown_760770(int base_asset, bool a)
 {
@@ -214,6 +214,7 @@ void EnvironmentMapManagerClass::Unknown_760770(int base_asset, bool a)
 **	The asset manager through WW3DAssetManager::Get_Instance (the client reads 0xBFAEE0, the other app files'
 **	Unknown_BFAEE0, which nothing defines yet). Functional NOT EXACT (D64).
 **	Block 1's src row is carried around the y loop (set in the loop's step): set per row before the inner loop
-**	it moves the function's zero register off the client's ebp. Both blocks still address src as dst + (src - dst)
+**	it moves the function's zero register off the client's ebp (value-identical: src = reflection + y * half_pitch on
+**	every row, unused when the height is 0). Both blocks still address src as dst + (src - dst)
 **	([esi+ecx]) where the client steps both pointers (inc esi; inc ecx).
 */

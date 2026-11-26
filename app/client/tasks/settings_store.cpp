@@ -542,7 +542,7 @@ std::string Unknown_7CA2D0Class::Get_String(const char *key)
 **	Forms that mattered: Set_String's erase arm comes first in the source (`if (value == NULL || strlen(value) == 0)
 **	{ erase } else { insert }`: VC6 lays the else arm out first, and the inline budget follows the source); the check
 **	thread's read loop runs on a flag (unrotated); 0x7CC1B0 needs one dead read after its last return (D130).
-**	NOT EXACT (D64): 0x7CB8F0 (order-only: two instructions out of place).
+**	0x7CB8F0 exact: `read` declared and zeroed once before the loop (its store ahead of the loop head).
 **	Other files still reach 0x7CB2E0 / 0x7CB240 / 0x7CA570 / 0x7CAD00 through local stand-in classes (ui_login.cpp,
 **	ui_popupmsg.cpp, ui_popup_browser.cpp, ui_registration.cpp, unknown_msgbox.cpp).
 */
