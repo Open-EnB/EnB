@@ -311,7 +311,7 @@ void UIAnalyzeClass::Unknown_5C()
 
 
 
-// NOT EXACT: inline budget (the first 'Validity' find through Unknown_Find_Valid, out of line 0x5465C0 as the client; the second through Unknown_Find_Root_Field, its Cast 0x5468D0 out of line as the client; the client also calls the 'Mode' Cast 0x546920 out of line, and the blocks' registers differ; 0x544C50's index local and two dead reads at the end cut it 190 -> 57) (0x5443F0)
+// NOT EXACT: register (one row: the client passes the Send_Packet argument as lea [esp+S], ours the packet constructor's result; a named packet costs budget elsewhere, 11). The Unknown110 branch before the refresh and the cases 17..14 in the client's order (its blocks, its jump table); 'Validity' / 'Mode' through Unknown_Find_Root_Field with named NameClass locals (the Casts 0x5468D0 / 0x546920 out of line), the last find's name in its own block; one dead read of 0x544C50's accessor before the result texts, two at the end (D272) (0x5443F0)
 // @0x5443F0
 void UIAnalyzeClass::Unknown_60()
 {
@@ -335,17 +335,17 @@ void UIAnalyzeClass::Unknown_60()
 				((ClientClass *)Client)->Send_Packet(&ManufactureActionPacketClass(((SClient *)Client)->Unknown1138, 1));
 			}
 		}
-	} else if (!Unknown110) {
-		if (Unknown10C->Unknown70 > 1) {
-			Unknown_545610();
-		}
-	} else {
-		DeltaTemplateClass<UnknownB01394Enum> *validity = Unknown_Find_Root_Field<DeltaTemplateClass<UnknownB01394Enum> >(Unknown10C, NameClass("Validity"));
+	} else if (Unknown110) {
+
+
+
+
+		NameClass name("Validity"); DeltaTemplateClass<UnknownB01394Enum> *validity = Unknown_Find_Root_Field<DeltaTemplateClass<UnknownB01394Enum> >(Unknown10C, name);
 		if (validity && validity->Unknown70 && validity->Value != 13) {
 			Unknown110 = false;
 			Unknown114 = Unknown_AEF0EC;
 			Unknown_545610();
-			DeltaTemplateClass<UnknownB013ECEnum> *mode = Unknown_Find_Field<DeltaTemplateClass<UnknownB013ECEnum> >(Unknown10C, NameClass("Mode"));
+			NameClass mode_name("Mode"); DeltaTemplateClass<UnknownB013ECEnum> *mode = Unknown_Find_Root_Field<DeltaTemplateClass<UnknownB013ECEnum> >(Unknown10C, mode_name);
 			if (mode && mode->Unknown70) {
 				bool analyze = mode->Value == 2;
 				const char *result = NULL;
@@ -353,17 +353,11 @@ void UIAnalyzeClass::Unknown_60()
 				const char *sound;
 				bool success;
 				switch (validity->Value) {
-					case 14:
-						result = Unknown_B796A8[5];
-						text = "";
-						sound = "failure_1.wav";
-						success = false;
-						break;
-					case 15:
-						result = Unknown_B796A8[4];
-						text = "";
-						sound = "failure_1.wav";
-						success = false;
+					case 17:
+						result = Unknown_B796A8[2];
+						text = analyze ? Unknown_B796A8[6] : Unknown_B796A8[7];
+						sound = "success_1.wav";
+						success = true;
 						break;
 					case 16:
 						result = Unknown_B796A8[3];
@@ -371,17 +365,23 @@ void UIAnalyzeClass::Unknown_60()
 						sound = "success_1.wav";
 						success = true;
 						break;
-					case 17:
-						result = Unknown_B796A8[2];
-						text = analyze ? Unknown_B796A8[6] : Unknown_B796A8[7];
-						sound = "success_1.wav";
-						success = true;
+					case 15:
+						result = Unknown_B796A8[4];
+						text = "";
+						sound = "failure_1.wav";
+						success = false;
+						break;
+					case 14:
+						result = Unknown_B796A8[5];
+						text = "";
+						sound = "failure_1.wav";
+						success = false;
 						break;
 					default:
 						G_ASSERT(0);
 						break;
 				}
-				if (result) {
+				if (result) { InterfaceMesh->Peek_Mesh_Object();
 					Unknown_544C50(6, true, result);
 					Unknown_544C50(7, true, text);
 					if (analyze && success) {
@@ -391,12 +391,12 @@ void UIAnalyzeClass::Unknown_60()
 				}
 			}
 		}
-	}
-	DeltaTemplateClass<UnknownB01394Enum> *validity = Unknown_Find_Field<DeltaTemplateClass<UnknownB01394Enum> >(Unknown10C, NameClass("Validity"));
+	} else if (Unknown10C->Unknown70 > 1) { Unknown_545610(); }
+	{ NameClass name("Validity"); DeltaTemplateClass<UnknownB01394Enum> *validity = Unknown_Find_Field<DeltaTemplateClass<UnknownB01394Enum> >(Unknown10C, name);
 	if (validity && validity->Unknown70 > 1) {
 		Unknown_545610();
 		Unknown_546090();
-	}
+	} }
 	Unknown5BB320Class::Unknown_60(); InterfaceMesh->Peek_Mesh_Object(); InterfaceMesh->Peek_Mesh_Object();	// two dead reads of 0x544C50's accessor (D272): they take the inlined 0x544C50s' nested budget, so the FAIL_IF return paths join the out-of-line ~RefCountPtr 0x51C630 as the client's (1-8 swept: 2 best)
 }
 
