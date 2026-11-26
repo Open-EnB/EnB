@@ -101,7 +101,7 @@ void Font32Class::Minimize_Font_Image(SurfaceClass * surface)
 **	Brings each character's cell in to its pixels (font3d.cpp's Make_Proportional): U / width tables,
 **	CharWidthTable, then the common top and the height of all characters.
 */
-// NOT EXACT: (D64) register allocation and the tail: the client keeps x0 and this in memory and walks the tables through edi; its top == 0 path repeats the tail (0.31)
+// NOT EXACT: (D64) register allocation: the client keeps x0 and this in memory and y0 in ebx; ours this in ebx, y0 in memory (the fallback's arms with left = x0 in each, 84 -> 75 masked rows)
 void Font32Class::Make_Proportional(SurfaceClass * surface)
 {
 	SurfaceClass::SurfaceDescription sd;
@@ -128,14 +128,14 @@ void Font32Class::Make_Proportional(SurfaceClass * surface)
 			}
 		}
 		if (right <= left) {
-			left = x0;
-			if (fixed == 0) {
+			if (fixed != 0) {
+				left = x0; right = x0 + fixed;
+			} else {
+				left = x0;
 				right = x0 + 1;
 				if (MinSpacing < 0) {
 					right -= MinSpacing;
 				}
-			} else {
-				right = x0 + fixed;
 			}
 		}
 		if (minb.J - y0 < top) {
@@ -503,7 +503,7 @@ int Font32Class::Char_Pixel_Width(char c) const
 	return(CharWidthTable[(unsigned char)c] + XSpacing);
 }
 
-// NOT EXACT: (D64) a prefix of the client's 81 bytes: the static's guard and atexit differ
+// The static's guard and its atexit destructor (0x6BCCC0) as the client's
 Point2D Font32Class::Print(char const *, ::Surface &, Rect const &, Point2D const &, ConvertClass const &, unsigned char const *) const
 {
 	static Point2D _point;

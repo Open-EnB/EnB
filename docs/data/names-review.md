@@ -21257,7 +21257,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_78D8A0` | `app/client/unknown_creator.h:46` | untagged neutral name (D10) |
 | 1 | `Unknown_78DAF0` | `app/client/unknown_creator.h:47` | untagged neutral name (D10) |
 | 1 | `Unknown_78D450` | `app/client/unknown_creator.h:54` | neutral (D10) |
-| 1 | `Unknown_6BCFB0Class` | `app/client/unknown_fontsound.cpp:11` | untagged neutral name (D10) |
+| 1 | `Unknown_6BCFB0Class` | `app/client/unknown_fontsound.cpp:10` | untagged neutral name (D10) |
 | 1 | `entry` | `app/client/unknown_fontsound.cpp:36` | what it holds |
 | 1 | `Unknown_BE67B4` | `app/client/unknown_fontsound.cpp:103` | neutral (D10) |
 | 1 | `Unknown00` | `app/client/unknown_fontsound.h:17` | untagged neutral name (D10) |
