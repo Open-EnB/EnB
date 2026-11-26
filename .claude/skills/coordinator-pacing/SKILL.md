@@ -277,7 +277,13 @@ Landing and bring-over (the lander does the landing; these are what you see arou
 - **A finished subagent (lander, checker) can keep re-sending its report:** stop it; the landing is intact. But a lander
   you queued more branches on by SendMessage is still landing them: `TaskStop` kills its bring-over mid-verify (nothing
   lands, an `importer-<pid>` lease stays, a `batch-*.bo` worktree is left). Check `.work/log/land-*.log` for a running
-  verify before stopping one; give a new batch to a new lander instead of queuing it on a finished one.
+  verify before stopping one; give a new batch to a new lander instead of queuing it on a finished one. A lander that
+  hands back while its rebase still waits on the lock cannot report again (each later handback is refused, and a
+  SendMessage asking for one only loops): read the landing log's `landed:` line yourself and stop it then. Briefs say
+  "report once, when landed; wait without reporting".
+- **A builder that stops a verify still waiting for the lock leaves its `importer-<pid>` lease** recorded under the
+  coordinator's pid (its own release is refused unattended): check the pid is gone, release it from the coordinator.
+  Briefs say "never stop a verify that waits for the lock".
 - **One live server, several builders:** live e2e runs (`--live`) share one Net-7 server and one character, so they
   run one at a time under a host lock (`.work/coord/live.py ID --wait M -- CMD`). It has no queue: with six or more
   builders a waiter lost the lock for 10-20 minutes at a time, and a 45-minute wait gave up. Briefs say: batch the
