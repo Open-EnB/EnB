@@ -41,8 +41,8 @@ extern FontManagerClass *Unknown_BE67C4;	// NAME 1: neutral (D10)
 // the PDA's window calls: sclient.h's PDAInterfaceClass 0x695780 (open window 'index') / 0x695A00 (close it)
 // and SClient 0x744560 (slot +0x58 passes 0x19, slot +0x5C 0x1A)
 
-// The window's buttons (0xB79664: slot +0x54's ids 1..6; [1..3] the category columns, their icons '%sf')
-static const char *Unknown_B79664[] = { "exit", "item00", "cat00", "sub00", "go", "inv" };	// NAME 1: neutral (D10)
+// The window's buttons (0xB79660: [0] 'not used', slot +0x54's ids 1..6; [2..4] the category columns, their icons '%sf')
+static const char *Unknown_B79660[] = { "not used", "exit", "item00", "cat00", "sub00", "go", "inv" };	// NAME 1: neutral (D10)
 // The names of the window's texts (0xB7967C)
 static const char *Unknown_B7967C[] = { "Credits_tsm02a", "Go_tsm02a", "inv_tsm02a", "Cost_tsm02a", "Chance_tsm02a", "Critical_tsm02a", "Attempt_tsm02a", "Result_tsm02a", "Succ_tsm02a", "Crit_tsm02a", "" };	// NAME 1: neutral (D10)
 // The texts shown (0xB796A8)
@@ -123,12 +123,12 @@ UIAnalyzeClass::~UIAnalyzeClass()
 	Unknown_BE67BC->Unload("FA_TSM02A.INI");
 }
 
-// NOT EXACT: register (after the button loop the client keeps the zero in ebp and the space client in ebx, ours the other way round, and loads the name table's pointer before the gadget pointer; 0-based loop, named key event, the icon loop 1-based, the buffer at the top: no) (0x5439F0)
+// 0x5439F0: the 1-based button table 0xB79660 ([0] 'not used', matching client .data) gives Unknown_B79660[id] and the client's loop-init order
 // @0x5439F0
 void UIAnalyzeClass::Unknown_54()
 {
 	for (int id = 1; id < 7; id++) {
-		RefCountPtr<RenderObjClass> robj = Create_Get(InterfaceMesh->Peek_Object()->Get_Sub_Object_By_Name(Unknown_B79664[id - 1]));
+		RefCountPtr<RenderObjClass> robj = Create_Get(InterfaceMesh->Peek_Object()->Get_Sub_Object_By_Name(Unknown_B79660[id]));
 		Unknown_496AE0(robj.Peek(), 0);
 		Unknown0E0[id] = new ButtonGadgetClass(robj.Peek(), Unknown0AC, 0x55, 3);
 		Unknown64.Unknown_6870E0(Unknown0E0[id], id, View, 1, 0);
@@ -149,7 +149,7 @@ void UIAnalyzeClass::Unknown_54()
 	Unknown0DC->Unknown_7C(View, 0);
 	char name[64];
 	for (int i = 0; i < 3; i++) {
-		sprintf(name, "%sf", Unknown_B79664[i + 1]);
+		sprintf(name, "%sf", Unknown_B79660[i + 2]);
 		Unknown0FC[i] = Create_Get(InterfaceMesh->Peek_Object()->Get_Sub_Object_By_Name(name));
 		Unknown0FC[i]->Set_Hidden(true);
 	}
@@ -565,7 +565,7 @@ void UIAnalyzeClass::Unknown_545190()
 	} InterfaceMesh->Peek_Mesh_Object();
 }
 
-// NOT EXACT: inline budget (the client calls the 'Validity' and 'Mode' Casts out of line, 0x5468D0 / 0x546920; #pragma inline_depth(1) at the file's end does that but costs 0x5437C0, 0x5439F0 and 0x544C50) (0x545610)
+// 0x545610: Unknown_Find_Set_Field on both finds, early !validity return, hoisted go = NULL, bool analyze = (mode && mode->Value == 2), five dead reads of 0x544C50's accessor (D272) send both Casts (0x5468D0 / 0x546920) out of line
 // @0x545610
 void UIAnalyzeClass::Unknown_545610()
 {
@@ -578,39 +578,39 @@ void UIAnalyzeClass::Unknown_545610()
 	Unknown0FC[1]->Set_Hidden(true);
 	Unknown0FC[2]->Set_Hidden(true);
 	NameClass name("Validity");
-	DeltaTemplateClass<UnknownB01394Enum> *validity = Unknown_Find_Field<DeltaTemplateClass<UnknownB01394Enum> >(Unknown10C, name);
-	if (validity && validity->Unknown70) {
-		bool analyze;
-		NameClass mode_name("Mode");
-		DeltaTemplateClass<UnknownB013ECEnum> *mode = Unknown_Find_Field<DeltaTemplateClass<UnknownB013ECEnum> >(Unknown10C, mode_name);
-		if (mode && mode->Unknown70 && mode->Value == 2) {
-			analyze = true;
-			Unknown_544C50(8, true, Unknown_B796A8[11]);
-			Unknown_544C50(9, true, Unknown_B796A8[12]);
-		} else {
-			analyze = false;
-			Unknown_544C50(8, true, Unknown_B796A8[13]);
-			Unknown_544C50(9, true, Unknown_B796A8[14]);
-		}
-		bool on = false;
-		const char *go = NULL;
-		switch (validity->Value) {
-			case 13:
-				on = true;
-				go = analyze ? Unknown_B796A8[8] : Unknown_B796A8[9];
-				break;
-			case 15:
-				on = false;
-				go = Unknown_B796A8[10];
-				break;
-		}
-		Unknown_544C50(1, true, go);
-		Unknown0E0[5]->Unknown_40(on);
+	DeltaTemplateClass<UnknownB01394Enum> *validity = Unknown_Find_Set_Field<DeltaTemplateClass<UnknownB01394Enum> >(Unknown10C, name);
+	if (!validity) {
+		Unknown0E0[5]->Unknown_40(false);
+		Unknown_544C50(1, true, "");
 		return;
 	}
-	Unknown0E0[5]->Unknown_40(false);
-	Unknown_544C50(1, true, "");
+	const char *go = NULL;
+	NameClass mode_name("Mode");
+	DeltaTemplateClass<UnknownB013ECEnum> *mode = Unknown_Find_Set_Field<DeltaTemplateClass<UnknownB013ECEnum> >(Unknown10C, mode_name); InterfaceMesh->Peek_Mesh_Object(); InterfaceMesh->Peek_Mesh_Object(); InterfaceMesh->Peek_Mesh_Object(); InterfaceMesh->Peek_Mesh_Object(); InterfaceMesh->Peek_Mesh_Object();
+	bool analyze = (mode && mode->Value == 2);
+	if (analyze) {
+		Unknown_544C50(8, true, Unknown_B796A8[11]);
+		Unknown_544C50(9, true, Unknown_B796A8[12]);
+	} else {
+		Unknown_544C50(8, true, Unknown_B796A8[13]);
+		Unknown_544C50(9, true, Unknown_B796A8[14]);
+	}
+	bool on = false;
+	switch (validity->Value) {
+		case 13:
+			on = true;
+			go = analyze ? Unknown_B796A8[8] : Unknown_B796A8[9];
+			break;
+		case 15:
+			on = false;
+			go = Unknown_B796A8[10];
+			break;
+	}
+	Unknown_544C50(1, true, go);
+	Unknown0E0[5]->Unknown_40(on);
 }
+
+
 
 // 0x5458B0: the 'Mode' find out of line (0x546630) under Unknown_Find_Valid's two layers, as the client
 // @0x5458B0
