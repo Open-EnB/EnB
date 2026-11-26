@@ -3,9 +3,9 @@
 #include <winsock.h>
 #include <string.h>
 #include "..\g_assert.h"
-#include "..\auxdata\permstr.h"	// PermStringInit opens the client's object (0x8B2080)
 #include "..\kv_encoder_base.h"
 #include "..\..\..\wwdebug\wwprofile.h"
+
 
 
 

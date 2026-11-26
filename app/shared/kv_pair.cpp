@@ -1,7 +1,7 @@
 // Earth & Beyond client (reconstruction): app\shared\kv_pair.cpp. Notes at the end of the file.
-#include "auxdata\permstr.h"	// PermStringInit opens the client's object (0x4B7E60)
 #include "kv_pair.h"
 #include "g_assert.h"
+
 
 
 

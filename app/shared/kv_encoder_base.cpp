@@ -1,9 +1,9 @@
 // Earth & Beyond client (reconstruction): app\shared\kv_encoder_base.cpp. Notes at the end of the file.
-#include "auxdata\permstr.h"	// PermStringInit opens the client's object (0x4B3800)
 #include "kv_encoder_base.h"
 #include "kv_list.h"
 #include "kv_string_encoder.h"	// kv_acc_string.h and KVStringEncoderClass
 #include "g_assert.h"
+
 // the prefixes joined, each followed by a dot (0x4B43E0; Push_Prefix and Set_Prefix inline it)
 static void Unknown_Join(std::list<std::string> &list, std::string &out)
 {

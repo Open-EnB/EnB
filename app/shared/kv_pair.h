@@ -18,7 +18,7 @@
 #ifndef __KV_PAIR_H  // NAME 3 [kv_pair.h]: header name assumed from the client's kv_pair.cpp
 #define __KV_PAIR_H
 
-#include "auxdata\permstring.h"	// the class without permstr.h's static (permstring.h's notes)
+#include "auxdata\permstr.h"
 #include "strconv_lib.h"
 
 // vtable 0xAEB7EC (the destructor, then six pure slots), size 0x0C

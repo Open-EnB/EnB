@@ -1,7 +1,7 @@
 // Earth & Beyond client (reconstruction): notes at the end of the file
-#include "auxdata\permstr.h"	// PermStringInit opens the client's object (0x4B5EB0)
 #include "kv_encoder_base.h"
 #include "kv_acc_time.h"
+
 // The adds over them (cdecl, no caller in the client)
 // @0x4B5F00
 void Add_Nothing(KVEncoderBaseClass *encoder, int mask, const char *name)	// NAME 1: the prefix pushed and popped
