@@ -107,7 +107,7 @@ bool SlotDataInterface::Unknown_9C(int slot, bool arg)
 }
 
 // 0x62DE80
-// NOT EXACT: functional (D64), from the pseudocode
+
 SlotDataInterface::SlotDataInterface(SClient *client) :
 	InterfaceClass((LineDisplayClientClass *)client),
 	ShortcutUI(NULL),
@@ -119,12 +119,12 @@ SlotDataInterface::SlotDataInterface(SClient *client) :
 	UnknownA8(0),
 	VisibleButtons(0),
 	UnknownB0(-1),
-	UnknownB4(-1)
+	UnknownB4(-1),
+	UnknownB8_0(false),
+	UnknownB8_1(false),
+	UnknownB8_2(false),
+	UnknownB8_3(true)
 {
-	UnknownB8_0 = false;
-	UnknownB8_1 = false;
-	UnknownB8_2 = false;
-	UnknownB8_3 = true;
 }
 
 static inline int Unknown_Button_Count(SlotDataInterface *window) { return(window->Buttons.size()); }	// NAME 1: what it returns (the layer that leaves size() 0x62F7E0 out of line in 0x62E320)

@@ -1,0 +1,29 @@
+{
+  "base_sha256": "f068a90c5483d46320a6ad7a6fc443710f3c62b0ce12170ef12d99fa0fc5b1ce",
+  "tested": [
+    {
+      "name": "texture_late",
+      "sha256": "c30d80a54938f0203b4cf5d0a725d2295dceebbdd7db24054d1fde082de6559d",
+      "patch": "--- debrsint.cpp\n+++ debrsint.cpp\n@@ -17,7 +17,6 @@\n \tint index = 0;\n \tsprintf(section, \"Debris%02d\", index);\n \twhile (ini.Find_Section(section)) {\n-\t\tTextureClass *texture = NULL;\n \t\tfloat spacing = ini.Get_Float(section, \"Spacing\", 200.0f);\n \t\tfloat size = ini.Get_Float(section, \"Size\", 0.0001f);\n \t\tfloat min_dist = ini.Get_Float(section, \"MinDist\", 0.0f);\n@@ -56,7 +55,7 @@\n \t\tif (rows_columns_log2 > 4) {\n \t\t\trows_columns_log2 = 4;\n \t\t}\n-\t\tini.Get_String(section, \"Texture\", \"\", texture_name, 255);\n+\t\tTextureClass *texture = NULL; ini.Get_String(section, \"Texture\", \"\", texture_name, 255);\n \t\tif (texture_name[0] != '\\0') {\n \t\t\ttexture = WW3DAssetManager::Get_Instance()->Get_Texture(texture_name);\n \t\t}\n@@ -68,6 +67,7 @@\n \t\tsprintf(section, \"Debris%02d\", index);\n \t}\n }\n+\n \n // 0x53D840\n DebrisInterfaceClass::~DebrisInterfaceClass()\n"
+    },
+    {
+      "name": "asset_manager",
+      "sha256": "85acd2b11cb1ed11de2204ab051866138404716001308b0b1e0cd6d7acc95899",
+      "patch": "--- debrsint.cpp\n+++ debrsint.cpp\n@@ -3,7 +3,7 @@\n #include \"debrsint.h\"\n #include \"sclient.h\"\n #include \"ini.h\"\n-#include \"assetmgr.h\"\n+#include \"enbassetmgr.h\"\n #include \"texture.h\"\n #include \"..\\shared\\g_assert.h\"\n // NOT EXACT: functional (D64), register-only (ebx / edi / ebp swapped; two rounds: the fade clamps' temporaries)\n@@ -17,7 +17,6 @@\n \tint index = 0;\n \tsprintf(section, \"Debris%02d\", index);\n \twhile (ini.Find_Section(section)) {\n-\t\tTextureClass *texture = NULL;\n \t\tfloat spacing = ini.Get_Float(section, \"Spacing\", 200.0f);\n \t\tfloat size = ini.Get_Float(section, \"Size\", 0.0001f);\n \t\tfloat min_dist = ini.Get_Float(section, \"MinDist\", 0.0f);\n@@ -56,9 +55,9 @@\n \t\tif (rows_columns_log2 > 4) {\n \t\t\trows_columns_log2 = 4;\n \t\t}\n-\t\tini.Get_String(section, \"Texture\", \"\", texture_name, 255);\n+\t\tTextureClass *texture = NULL; ini.Get_String(section, \"Texture\", \"\", texture_name, 255);\n \t\tif (texture_name[0] != '\\0') {\n-\t\t\ttexture = WW3DAssetManager::Get_Instance()->Get_Texture(texture_name);\n+\t\t\ttexture = AssetManager->Get_Texture(texture_name);\n \t\t}\n \t\tfloat blur_time = ini.Get_Float(section, \"BlurTime\", 0.0f);\n \t\tDebrisFieldClass *field = new DebrisFieldClass(spacing, size, min_dist, max_dist, r, g, b, a, additive, texture, fade_in, fade_out, primitive, rows_columns_log2, blur_time);\n@@ -68,6 +67,7 @@\n \t\tsprintf(section, \"Debris%02d\", index);\n \t}\n }\n+\n \n // 0x53D840\n DebrisInterfaceClass::~DebrisInterfaceClass()\n"
+    },
+    {
+      "name": "final",
+      "sha256": "81520f5d83dfbf4755c1c5024bded76cbb6647133f81c94c443285a9931d8042",
+      "patch": "--- debrsint.cpp\n+++ debrsint.cpp\n@@ -3,10 +3,10 @@\n #include \"debrsint.h\"\n #include \"sclient.h\"\n #include \"ini.h\"\n-#include \"assetmgr.h\"\n+#include \"enbassetmgr.h\"\n #include \"texture.h\"\n #include \"..\\shared\\g_assert.h\"\n-// NOT EXACT: functional (D64), register-only (ebx / edi / ebp swapped; two rounds: the fade clamps' temporaries)\n+\n // 0x53D250\n DebrisInterfaceClass::DebrisInterfaceClass(UIViewClass *view, SimpleSceneClass *scene, INIClass &ini) :\n \tInterfaceClass(view, (int)scene),\n@@ -17,7 +17,6 @@\n \tint index = 0;\n \tsprintf(section, \"Debris%02d\", index);\n \twhile (ini.Find_Section(section)) {\n-\t\tTextureClass *texture = NULL;\n \t\tfloat spacing = ini.Get_Float(section, \"Spacing\", 200.0f);\n \t\tfloat size = ini.Get_Float(section, \"Size\", 0.0001f);\n \t\tfloat min_dist = ini.Get_Float(section, \"MinDist\", 0.0f);\n@@ -56,9 +55,10 @@\n \t\tif (rows_columns_log2 > 4) {\n \t\t\trows_columns_log2 = 4;\n \t\t}\n+\t\tTextureClass *texture = NULL;\n \t\tini.Get_String(section, \"Texture\", \"\", texture_name, 255);\n \t\tif (texture_name[0] != '\\0') {\n-\t\t\ttexture = WW3DAssetManager::Get_Instance()->Get_Texture(texture_name);\n+\t\t\ttexture = AssetManager->Get_Texture(texture_name);\n \t\t}\n \t\tfloat blur_time = ini.Get_Float(section, \"BlurTime\", 0.0f);\n \t\tDebrisFieldClass *field = new DebrisFieldClass(spacing, size, min_dist, max_dist, r, g, b, a, additive, texture, fade_in, fade_out, primitive, rows_columns_log2, blur_time);\n"
+    }
+  ],
+  "uncompiled": [
+    "index_for",
+    "index_preincrement",
+    "field_inline",
+    "fade_ternary",
+    "field_reference",
+    "texture_after_colors",
+    "index_unsigned"
+  ]
+}

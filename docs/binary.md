@@ -245,3 +245,206 @@ symbols.json follows the objects. 76 are name-only (access, const, pointer cv, p
 changes expected, so no crediting change; the 6 int ones need a compile (signedness can change code). The link: the
 one client build (non-incremental, from `app.lib`) does not order by name, so nothing moves; in an incremental link
 (the `objs` trial) each correction moves one thunk into retail's bucket.
+
+### 5.3 The missing pieces, and the library members
+
+Measured 2026-11-25 (image builder IM4, week plan 2026-11-24 §2 D questions 3 and 4) with trial links of
+run/2026-11-25's objects (the app.lib build of 05:13, master 9cd27adf5) and `tools/re/rsrc.py`, `rich.py`,
+`members.py`; the link wrapper is `.work/im4/pdblink.py` (build.py's link with extra batch lines: a `subst E:`
+for the PDB path, a second incremental link, the libraries' order, a replaced library). The one client build at the
+run's head: **118,494 of 8,642,625 bytes in place (1.37 %)**. Each trial adds to the row before it:
+
+| Trial (`--tag`) | Added | imagediff in place | What it shows |
+|---|---|---|---|
+| `objs` | IM2's object list (§5.1) on the current objects | 632,912 (7.32 %) | the baseline (IM2's 7.47 % was the objects of 2026-11-24 23:11) |
+| `res` | `build/res/client.res` (`rsrc.py extract`) on the object list | 637,349 (7.37 %) | `.rsrc` 8,156 of 8,156 bytes equal at retail's RVA, 8,132 by section offset (the 12 data entries' RVAs), 0 in place: it lands at 0xBD0000, inside retail's `.data`, whose zeros give the +4,437 by chance |
+| `pdb` | `/pdb:e:\build\beta\G\app\main\client_release\main.pdb` (E: a subst in the VM) | 637,395 | the NB10 record is 65 bytes as retail's, 60 equal (the signature, the age); the debug entry's SizeOfData |
+| `wl` | wlib's 8 pulled members, wnet's 4 and wwlib's rawfile.obj on the line (retail's order) | 664,637 (7.69 %) | +27,288 over `res` (`.text` +20,800, `.rdata` +6,149); runs 2,689 -> 2,434 |
+| `lo` | retail's library order (below) | 665,587 (7.70 %) | member order: longest common order 49.7 % -> 85.6 % of retail's 533 library members |
+| `lo2` | WINMM and OLE32 with the first import libraries, VC6's `DDRAW.LIB` for the DX8 SDK's, the Miles import library naming `mss32.dll` | 665,115 (7.70 %) | the 17 import descriptors in retail's order with retail's DLL names; the rich header's 17 (product, build) kinds are retail's |
+| `lo3` | the Miles import library in the long format (`lib /convert`) | 665,282 (7.70 %) | `e_lfanew` 0x128 as retail (headers 3,708 -> 3,875 of 4,096) |
+| `all` | **every app object** on the line, the 94 that the one client build does not pull among them (745 + wlib's 9 + wnet's 4 + rawfile.obj, each by the median of its own ledger addresses) | **1,269,778 (14.69 %)** | `.text` 902,268 in place (12.5 %), `.rdata` 217,355, `.data` 76,614, `.reloc` 67,716; `.text` 0x6E8DE1 against 0x6E58DD (+13,572 bytes); 19,996 thunks (retail 19,983, 7 of them the update's), first app slot 0x429690 (0x429630), the library region from 0x8C3868 (0x8C1B64) to 0xA4510E (0xA420AC); the import directory equal to retail's (17 DLLs, every count; `.idata` 0x38D9 as retail); `e_lfanew` 0x130 again; the best trial |
+| `upd3` | `lo` then an incremental link after two changed objects (COFF stamp and @comp.id changed) | | NB10 age 2, the debug entry's stamp and the NB10 signature kept, the rich header and `e_lfanew` rewritten: retail's marks (§5) |
+
+In place the trials up to `lo3` gain little past `wl`: every section after `.text`'s first bytes is displaced until
+the code sizes match (`lo3`'s `.text` 0x67E0CC against 0x6E58DD); `all` brings them within three pages. The pieces
+below are measured on their own terms.
+
+**Question 3: the pieces a VC6 link can reproduce.**
+
+| Piece | Retail | Reproduced by | Bytes |
+|---|---|---|---|
+| `.rsrc` | 0xC47000, 0x1FDC bytes: VERSIONINFO (product "main", `main.exe`, its comment the build's user and time: Tue Mar 16 2004 05:46:17 PM, 01:46:17 UTC, 23 s before the file header's stamp: the update rebuilt the resources), a TYPELIB (`MSFT`, 1,544 bytes), DIALOGs 104-112 (captions "Earth & Beyond", "Create Character", ...), one STRINGTABLE block (the build's time, date and user); CVTRES 5.00.1735 (rich pair 6/1735) | `rsrc.py extract` writes them as a .res in the order of their data; LINK's CVTRES (the VM's is 5.00.1735) gives the section byte for byte | 8,156, all once `.rsrc` starts at 0xC47000 (the sections before it end where retail's do) |
+| Entry point | 0xA2B674 = `_WinMainCRTStartup` (LIBCMT wincrt0.obj, exact) | LINK's default entry, nothing to set | 4; in place when the library region lines up to wincrt0 (`lo3`: 0x9C94AE) |
+| Debug directory | one CodeView entry, 28 bytes at `.rdata`'s start; NB10 record (65 bytes) after the last section | `/pdb:` with retail's path gives SizeOfData 65 and 60 of the record's 65 bytes; an incremental update after a changed object gives age 2 (`upd3`) | 28 + 65; left: three link-time stamps (file header 0x4057AE00, debug entry and NB10 signature 0x4021A831: 12 bytes) that LINK 6.00 takes from the clock (no option), and PointerToRawData (the file's layout) |
+| DOS header and stub | LINK 6.00's 0x80 bytes | every link: 128 of 128 equal once `e_lfanew` is 0x128 (`lo3`) | 128 |
+| Rich header | 0x80-0x120: 17 pairs, key 0xDF765B66 | `rich.py`: the key is 0x80 + the stub's bytes rotated + each pair rotated by its count; it recomputes on retail and every trial. With retail's pairs over `lo3`'s stub the key is retail's. `lo3` has retail's 17 kinds; its order differs in the first five (LINK lists a kind by first sight, newest first) | 160 bytes, equal only with retail's counts and order |
+| `e_lfanew` and the PE header after it | 0x128 | the rich block's end + 8 in `lo`, `lo3` and the one client build; 24 bytes after it in `objs`, `res`, `pdb`, 16 in `lo2` and `all` (the slack follows the inputs; its rule is not known) | +167 header bytes (`lo2` -> `lo3`) |
+
+The rich header's counts that still differ in `lo3` (`rich.py --diff`): C++ 12.00.8799 objects 1,054 against 914,
+C 12.00.8797 201 against 204, cvtomf/aliasobj 7291 11 against 10, Import0 312 against 299 (13 imported functions:
+retail imports GDI32 29 and USER32 60, ours 17 and 59). In `all` Import0 is retail's (the 94 objects import the 13)
+and the C++ objects are **1,007 against 1,054**: retail's link took 47 more translation units of E&B's and
+Westwood's code than ours (files merged in our tree, or sources not reconstructed; not resolved). The
+import-member pair 4/8447 is 96 as retail's once mss32.lib is long format (81 Miles imports + 9 Bink + 6
+descriptors), and 19/8034 is 21 with VC6's `DDRAW.LIB` (the DX8 SDK's ddraw.lib carries 37/8755, a kind retail
+does not have).
+
+**Question 4: the library members** (`members.py` on the `res` map; `.work/im4/members/`).
+
+| Finding | Evidence | In the trial |
+|---|---|---|
+| **94 of app.lib's 745 objects are retail's and the one client build does not pull them** (nothing else of ours references them; the trials before `all` pulled two, spline and unknown_px_callbacks, from app.lib among the libraries): bandwidthaccounting, the expression parser's 10 expr_*, attrib_dir and attrib_dir_collective, boolpars, htmlview, ini_manager, lookup_table, kv_acc_time, the 4 packet objects pkgeaset / pkunknown_85d7b0 / _861760 / _861b30, ...); retail linked its app objects from the command line (§5), where LINK keeps an object whether anything references it or not | every one of the 94 holds own (not shared) ledger addresses in retail's app region; 39 of them have functions named in symbols.json (exact). 78 of retail's 1,211 static initialisers lie in 60 of them and never run in the one client build: 55 a header static's guard and its atexit, 20 their own objects' globals (unused by the rest of ours), 3 Delta type numbers taken from DeltaUnknownCounter 0xBE3B44 (ui_hdamg 0x59C6C0, ui_mount 0x5C8820): the one build numbers those types in another order (ids compared inside the process only) | `all`: +604,496 bytes over `lo3` |
+| wlib (configfile, critsec, streamer, unknown_8b45b0, wdebug, wstring, wtime, xtime), wnet (tcpcon, tcpmgr, tcpqueue, udp) and wwlib's rawfile.obj are **app objects** in retail: thunked, in the app region | their 233 paired functions all lie in retail's app region (0x683BE0-0x8C0600), none in its library region | `wl`: +27,288 bytes |
+| Retail's library order: WS2_32, WINMM, ADVAPI32, KERNEL32, USER32, GDI32, OLE32, wwmath, d3dx8, ww3d2, wwlib, wwdebug, VFW32, wwaudio, mss32, wwsaveload, COMCTL32, SHELL32, authlogin, wwshade, WININET, binkmovie, LIBCPMT, LIBCMT, COMSUPP, OLEAUT32, URLMON, DDRAW, binkw32 | the member runs (wwmath 0x8C1F10, d3dx8 0x8E3B36, ww3d2 0x909540, wwlib 0x9C7850, wwdebug 0x9E9F70, wwaudio 0x9EE9B0, wwsaveload 0xA03C30, wwshade 0xA07CE0, binkmovie 0xA16250, LIBCPMT 0xA18314, LIBCMT 0xA25A2C); the import stubs between them (WS2_32's at 0x8C1B64 before wwmath, AVIFIL32's at 0x9EE980, mss32's 81 at 0xA03A10, COMCTL32 / SHELL32 / authlogin at 0xA07CB0, WININET at 0xA159A0, binkw32 at 0xA41C3A); the import descriptors' order | `lo2`: descriptors in retail's order; members in order 85.6 % (d3dx8, LIBCPMT, wwshade, binkmovie 100 %, LIBCMT 86 %, ww3d2 76 %, wwaudio 59 %: inside a library the members come in the order LINK resolves their symbols, not by the library's order) |
+| Retail's ddraw import library is VC6's `DDRAW.LIB` | rich 19/8034 21, no 37/8755 | `lo2` |
+| Retail's Miles import library: long format, LIB 6.00.8447, DLL name `mss32.dll` | rich 4/8447 96; the descriptor's name; ours (`mkmss32.py`) links its stub as `Mss32.dll` and LINK 6.00 writes short-format members | `lo2`, `lo3` |
+| ww3d2's **w3dexclusionlist.obj is ours only** (7 functions, 2,000 bytes) | pulled by hanimmgr.cpp's `Free_All_Anims_With_Exclusion_List` (and `Create_Asset_List` beside it): neither is in retail, whose `Free_All_Anims` 0x964BE0 is followed by `Add_Anim` 0x964C40; no name, RTTI or string of the class in retail; nothing calls the two | still linked |
+| wwlib's stimer.obj (2 functions, 128 bytes), imported for ddraw.cpp (EXTRA_FILES) | no retail address named | still linked |
+| The CRT, LIBCPMT, COMSUPP and d3dx8: no member difference shown | `.work/libs/m_*.json`: every member exact in retail but not in our map shares its addresses with a member ours pulls (identical code, `cprintf`/`output`, `wfopen`/`fopen`, d3dx8's inline vectors ...) or lies inside another function (`_wctype.obj`'s 17-byte `isw*` inside `isalpha`); our members without an exact retail address are the matcher's `short` (23 bytes or less) or `multiple` (memcpy and memmove, both in retail at 0xA25F50 and 0xA2C150); open: `wcscmp.obj` (53 bytes, `none`). LIBCIMT (the old iostreams, 6 members) has no match data | |
+| Retail's library region outside our members' runs: 239 gaps, 103,866 bytes | `held` 36 gaps, 30,023 bytes (every function an exact match: statics our map does not list); `part` 18, 10,901; `unnamed` 185, 62,942 bytes, 743 functions: in our libraries' blocks about 30 KB (ww3d2 13,600, wwlib 4,640, wwmath 4,336, ...: their unmatched functions; binkmovie's 0xA16C90 gap of 12 is subtitlemanager.obj's place, its names not in symbols.json), in the CRT's about 37 KB (LIBCMT 15,106; LIBCPMT 17,419, the app's `std::` COMDATs placed among its members; COMSUPP/LIBCMT 4,408) | |
+
+App objects: every one of the 745 holds retail addresses (the ledger's `in_tree`); §5's object runs are their
+placement measure. With every app object linked, our libraries' members not pulled are wwmath's colmathsphere,
+euler, obbox, ode, vehiclecurve, ww3d2's meshbuild, polyinfo, renderobjectrecycler, soundrobj, streak, streakrender,
+stripoptimizer, txt, txt2d, w3d_dep, wwaudio's listenerhandle and wwsaveload's parameter and wwsaveload.obj: none
+with more than one own function named in retail (`.work/im4/unpulled.py`).
+
+**What it implies (proposals for the user; nothing of the one client build changed).** In the order of their
+bytes: (1) every app object on the link line, wlib's, wnet's and rawfile.obj with them (the incremental `objs` link,
+with §5.1's thunk order; `all` is the measure); (2) retail's library order, VC6's DDRAW.LIB, a long-format `mss32.lib` naming `mss32.dll`
+(`mkmss32.py`: `/out:mss32.dll`, then `lib /convert`); (3) the resources from client.exe (`rsrc.py extract`, no outside
+data) on the link line; (4) `/pdb:` with retail's path (an E: subst in the VM); (5) the three stamps and the age
+only by an incremental update and the link times themselves, which LINK takes from the clock: left to imagediff's
+"set at the end" unless the user wants a post-link stamp. In the code (the coordinator's call, D246):
+hanimmgr.cpp's two exclusion-list functions and w3dexclusionlist.cpp are not retail's.
+
+### 5.4 The trial at the run's head, LINK's e_lfanew rule, the .text surplus and the 47 objects
+
+Measured 2026-11-25 (image builder IM5, week plan 2026-11-24 §2 D) on run/2026-11-25 with §5.1's thunk-order name
+corrections and hanimmgr.cpp's exclusion-list functions and w3dexclusionlist.cpp dropped (§5.3; wt/IM5A, every
+library rebuilt there), with `.work/im4/pdblink.py` and `objorder3.py` as in §5.3's `all`. The one client build of
+that tree: **117,726 of 8,642,625 bytes in place (1.36 %)**. The `all` trial: **1,274,523 (14.75 %)**, from §5.3's
+1,269,778: `.text` 907,247 in place, its size 0x6E8181 against retail's 0x6E58DD (**+10,404 bytes**, from +13,572);
+headers 3,901 of 4,096 (`e_lfanew` 0x128 as retail's, by the rule below); the rich header's C++ 12.00.8799 count
+1,006 against 1,054 (the exclusion list was one of ours only).
+
+**`e_lfanew` is a function of the rich key.** LINK.EXE 6.00 sizes the rich block at 0x43FDD0: it walks the modules,
+counts each @comp.id (newest first), computes the key (§5.3), and allocates 8 * (pairs + (key >> 5) % 3) + 0x20
+bytes; 0x445828 stores e_lfanew = 0x80 + that size (the stub's 0x80). So after 'Rich' and the key come 8, 16 or 24
+zero bytes as `(key >> 5) % 3` is 0, 1 or 2: no input of its own. Retail's key 0xDF765B66 gives 0 (0x128).
+`rich.py` prints the rule's e_lfanew beside the image's; it holds on retail, the one client build, `client-inc`,
+`objs`, `objsrev` (24 bytes after), clienttest (24), udpreplay, clientpoc and this `all` (8). An image gets retail's
+0x128 once its pairs (and so its key) are retail's; until then it is 8 bytes in three keys.
+
+**Where `.text` grows** (`tools/re/objsizes.py --map ... --ledger ...`, `growth.tsv`): the functions named once in
+both images (symbols.json, our map), kept where the two orders agree, are fixed points; the displacement change
+from each to the next, summed per object, telescopes to the region's growth.
+
+| Region | Growth | Where |
+|---|---|---|
+| app (0x429630-0x8C1B64) | +7,328 | up to 0x4E9CB0 about -1,300; 0x4E9CB0-0x5296D0 +5,700, of which WinMain's guest place (the update, §5: our WinMain in main_client.obj's run, retail's at 0x526DE0 in 0x522860's slot; -21,200 then +25,088 around it) +3,888; 0x5296D0-0x66B770 +3,000 (single functions in ui_attrb_skills, ui_avatr, ui_class, ui_manu, ui_mfd, ui_starbase ... larger or smaller, mostly cancelling); flat to the end |
+| library (0x8C1B64-0xA420AC) | +2,080 | ww3d2 +1,648 (light.obj +1,088, below), LIBCPMT +3,478 (xstrcoll: the app's `std::` COMDATs placed among its members), wwshade -1,968 and COMSUPP -1,446 (block edges); wwmath, d3dx8, wwaudio, wwsaveload exact (0); member-order swaps inside ww3d2 and wwaudio cancel (assetmgr -40,384 / line3d +37,408, render2dsentence / decalmsh 28,864, pot / colmathline 12,320, ...) |
+
+Functions of ours retail does not have, found by the growth inside one member's run (each `none` in the gaps
+reports, nothing calls them, Renegade's 2002 GTH additions as D9 excludes the Generals team's changes):
+`LightClass::Is_Within_Attenuation_Radius` and `Compute_Lighting` (2/13/2002 gth; retail's
+`Get_Obj_Space_Bounding_Box` 0x953AC0 is followed by `Load_W3D` 0x953AE0; 1,088 bytes) and
+`ChunkLoadClass::Peek_Next_Chunk` (3/4/2002 gth; `Open_Chunk` 0x9D4310 is followed by `Close_Chunk` 0x9D4370; 144
+bytes). Dropped on wt/IM5B (definitions only: blanking their declarations in light.h / chunkio.h moved
+bmp2d.cpp's registers and cost Bitmap2DObjClass's constructor 0x974420 its pair).
+
+**The CRT initialisers.** Retail's table has 1,211 entries, ours (the `all` trial) 1,251. Per library block they are
+equal (wwmath 38, d3dx8 2, ww3d2 127, wwlib 21, wwdebug 1, wwaudio 16, wwsaveload 7, wwshade 31-32, binkmovie /
+LIBCPMT / LIBCMT / COMSUPP 27-28); the app region holds **940 in retail, 980 in ours** (each .obj's `.CRT$XCU`
+relocations give ours exactly). 21 of the 40 are `std::ctype<unsigned short>::id`'s guarded initialiser (`mov cl,
+[guard]` ...: 575 in retail's app region, 596 in ours): objects of ours that instantiate the wide `ctype` facet
+where retail's do not (a header difference, 32 bytes of code and a 48-byte slot each). By retail's object runs, 39
+objects of ours carry one initialiser more than retail's run of the same object (two in money.obj and
+unknown_46c730.obj): unknown_445740, land, unknown_46c730, unknown_474530, unknown_root, encode, unknown_changes,
+lookup, policy, delta_visitor, kv_acc, kv_acc_string, kv_acc_time, expr_lexer_matchers, money, unknown_51c800,
+main_client, client_item_property_special_maker, ui_bio, ui_login, ui_mfd_extended_context_strings, ui_popupmsg,
+unknown_644e50, unknown_646170, gd_gauge, unknown_675120, drag_mouse, loadingview, viewbttn, unknown_6ca0c0,
+fonttexture, mousetbl, enbscene, nlp, unknown_7e1e40, faction_and_reputation, unknown_galaxy, pal_mgr, udp
+(`.work/im5/xcu.py`).
+
+**The 47 C++ objects** (rich 11/8799: 1,054 in retail, 1,006 in `all`; the kind is the build's own compiler, so
+only E&B's and Westwood's objects count: the MS libraries carry other builds). They hold no code of their own:
+retail's app region outside our objects' runs is 143 gaps of 87,520 bytes and 295 functions, every one between
+two of our objects and the largest WinMain's guest place (20,944 bytes, 2 functions) and unmatched functions at
+an object's edge (11,680 in unknown_6ca0c0's, 6,544 and 6,096 in unknown_46c730's); the library region's gaps in
+our libraries' blocks are under 1,700 bytes each (statics; the large ones are LIBCPMT's, LIBCMT's and d3dx8's);
+and of retail's 940 app initialisers one (0x46C710) lies outside our objects' runs. So the 47 are translation
+units with no function and no initialiser of their own: data-only files (tables, strings, constants) or files
+whose code is all COMDATs another object supplies first, whose data our tree defines in other objects. Their
+data placement in `.data` / `.rdata` (object order) is the next measure.
+
+What it implies (proposals, nothing of the one client build changed): (1) wt/IM5B's three functions out of
+ww3d2 / wwlib (1,232 bytes of `.text`); (2) the `ctype<unsigned short>` instantiations: find the header that makes
+21 objects instantiate the wide facet (their includes against a retail-like object's); (3) the 47 code-less
+objects from `.data` / `.rdata` (each data-only object of retail is a run of globals in object order).
+
+### 5.5 The extra initialisers' causes, and the 47 code-less objects in the data sections
+
+Measured 2026-11-25 (image builder IM6, week plan 2026-11-24 Â§2 D) on run/2026-11-25 (wt/IM6A, every library
+rebuilt there) with the scripts in `.work/im6/` (`seg.py`, `incall2.py` / `pp.py`, `datamap2.py`, `datalayout.py`,
+`dataspan.py`, `spanref.py`).
+
+**The initialisers (Â§5.4's 40).** Retail's table is read per object with two rules the code shows: an object's
+`.CRT$XCU` entries are contiguous, `<string>`'s guarded `ctype<unsigned short>::id` initialiser is its last
+(workflow 3.3), and an initialiser's code lies in its object's code, a header static's (permstr.h's
+PermStringInit) at the object's start, the ctype guard at its end; so a PermStringInit right after an object's
+guard or code opens the next object. Ours per object come from the `.obj` files: a walk of each file's includes that
+follows `#ifdef` / `#if defined` (`pp.py`) predicts all 745 objects' ctype, PermStringInit and ios initialisers
+exactly (595 + 150, 134 + 611, 2 + 743). The 40 extra are no single header: 31 objects reach `<string>` (a header
+that includes it for `std::string`, which `<vector>`'s `<stdexcept>` / `<xstring>` already declares; only
+`<string>` itself instantiates the facet), 17 reach permstr.h, money.cpp includes `<iostream>`. wt/IM6A cuts
+33 of them (980 -> 947 app initialisers) where the client's table says so, with no pair lost but two (the commits name each object's evidence; D240 rows: the font split costs FontDatabaseClass::Load_Init 0x6BF330 two instructions' order; message_filter's guard credit 0x4BDFB0, which the table gives to message_server's object, whose own `<string>` costs 0x4BCB50):
+land.h's `<string>` (4 objects), money.cpp's `<iostream>` (2), permstr.h in six .cpp files whose credited
+PermStringInit opens the next object (0x52CF40, 0x669F60, 0x7231C0, 0x560880, 0x5AF980, 0x5DBF70),
+KVEncoderClass out of delta.h into kv_encoder.h (6), header splits by class (expr_lexer_match.h,
+packets/relationship.h, kv_accessor.h, string_value.h, kv_string_encoder.h, fontsys.h, fontstring.h, smouse.h,
+packets/packet_data.h) each included where its declarations stood, and unknown_7cef30.h's `<string>` moved into its
+two .cpp files, unknown_675120.cpp takes UIMeshClass from ui_mesh.h, not sclient.h, and unknown_4be9d0.h std::string from <xstring>. Left (7 initialisers net; the objects named per retail run, some of them attribution noise at run edges): the objects that include a large part of the client
+(unknown_6af220's guard 0x6B2410 sits after ui_guild_list's misplaced run, a pair of run-edge noise; viewbttn, mainview, mv3dview, ui_analyze, loadingview, main_client, starmap_data:
+their .cpp's own include lists, not one header), interface_scene (hash_map.h's `<string>` for `hash<string>`: 11
+other objects reach `<string>` only through it and keep the guard in retail), message_server (the guard 0x4BDFB0 is its own; `<string>` in it moves 0x4BCB50), and the PermStringInits of objects that reach permstr.h through kv_pair.h /
+name.h (avatar_desc, unknown_445740, ui_mfd_extended_context_strings, unknown_644e50, unknown_646170, loadingview).
+At wt/IM6A's head (22861ff89) the one client build has 119,292 of 8,642,625 bytes in place (1.38 %) and §5.3's
+`all` trial 1,270,813 (14.70 %; `.text` 0x6E85F1, +11,540 over retail's on this run head; `e_lfanew` 0x130 by the key's
+rule); at its second commit the two were 119,023 and 1,268,026.
+
+**The 47 objects: data.** Retail's addresses of our globals come from the DIR32 relocations of every exact
+function (relaudit's reading; statics and literals keyed by object). Placed by our owning object and ordered by
+link index, the data sections follow our object order: `.rdata` 1,832 symbols of 587 objects, 1,809 on the
+longest rising chain; `.bss` 617 of 259, 609; `.data` 456 of 167, 402 (the 40 others are `.bss`'s first objects,
+past `.data`'s raw end). Literals and float constants are pooled (`""` at 0xB6E944 is read by 227 objects), so
+they are left out. Off the chain, with retail's neighbours:
+
+| Retail | Ours | Between (retail order) | Reading |
+|---|---|---|---|
+| 0xBA8C20-0xBA8C50, 13 `char *` (the chat channel names, "General" ... "Enforcers") | ui_chat_panel.cpp's `Unknown_BA8C20` ... | chartemplate.obj and color_common.obj (ours between: chat_defs, circbuff, item_template) | chat_defs.cpp's globals, not ui_chat_panel's |
+| 0xB90C60 `_Unknown_B90C60` (5) | ui_starbase.cpp | pdaint.obj and sbaseview.obj (ours between: two objects) | another object's static |
+| 0xB08C90-0xB08CC4, 13 `const int` | gadget.obj | recustomization_cost and bandwidthaccounting | per-object copies of a header's consts (relaudit's case): the majority copy, no placement |
+| 0xB0804C `const int` | gd_attrb_skills.obj | ship_pip and time_mgr | the same |
+| `___stl_prime_list` at 0xAE70AC, 0xAE7270, 0xAECC50, 0xAF8ED0, 0xAFF270 | 5 objects | each the first includer's | SGI's per-object static const |
+| 0xBDBE48, 0xBDC064 `_PermStringInit` | unknown_445740, fp_ita | main / unknown_445560 | the PermStringInit statics of the neighbour, as the CRT table says |
+| 0xC404F8-0xC41554 (5 symbols) | htmlview (4), mainview | after the last app object | past every app object's `.bss` |
+| 0xB10ED0 vtable `DynamicVectorClass<PlayingSoundStruct *>`, 0xB26858 `bad_cast`'s throw info | unknown_fontsound, money | after the app objects | COMDATs LINK placed with the libraries' |
+
+Spans (`dataspan.py`: retail's distance between two anchors against ours, our objects' plain sections and the
+pooled COMDATs each owns first): `.data` +148,064 bytes over 140 anchor objects, `.rdata` +41,068 over 58, `.bss`
++23,891 over 259. The large ones are tables and literal pools of objects of ours (guild_strings' GM texts
+0xBA9B00-0xBAE0B8, ui_registration's 0xB85EF8-0xB8892C, sclient's chat commands 0xB98088-0xB9B9D4,
+co's 0xB0069C-0xB01FE4 `.rdata`, ...): `spanref.py` finds every one read from the objects between its anchors and,
+for pooled literals and floats, from objects anywhere: none is data that no object of ours reads. Retail's
+`__FILE__` strings name 437 `.cpp` files: every one is a file of ours (wnet's tcpqueue.cpp in libs/), so no file
+with an assert was merged into another.
+
+**What the 47 are.** No code of their own (Â§5.4), no initialiser, no data run of their own that the relocations of
+our exact functions reach, and no assert: translation units whose release build compiles to nothing linkable
+(files under `#ifdef` of a debug or tool build, declaration-only files; E&B's objects are on the command line, so
+LINK keeps an empty object and counts it in the rich header), or data read only by functions not yet exact
+(those spans are listed above). They cost the image only the rich header's C++ count (and through the key,
+`e_lfanew`, Â§5.4); 47 empty C++ objects on the trial's link line would raise its count to retail's (not tried: the C and cvtomf
+counts differ too).

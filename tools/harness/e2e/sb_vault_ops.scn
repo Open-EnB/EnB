@@ -1,0 +1,84 @@
+# Station (live server): test-plan UI-04, the Vault's operations (ui_vault.cpp, UIVaultClass 0x656FF0-0x6580B0).
+# Shift+I opens it (control_keys.ini [Vault] PSW_1=$I, sb_vault's chord). Deposit: cargo column 1 row 1 (60,440)
+# dragged onto the vault's row 2 column 1 (441,437), INVENTORY_MOVE on the button-up; withdraw: the same item dragged
+# back to its cargo slot, so the cargo ends as it began. Sort: the Sort button (821,300) is two gadgets on one mesh,
+# 'BUTTON01' twice (0x657430: id 38 with button mask 5, id 39 with 0x50): a left click cycles the sort key (0x657DA0
+# false: Inv_Sort%d_*, 'Sorting Vault by NAME' in the chat), a right click turns the order round (0x657DA0 true:
+# 'Reverse Sorting ...'); each sends INVENTORY_SORT (inventory 3, the three keys, the reverse flag). Three left
+# clicks bring the key back to where it started and two right clicks the order, so the client's options end as they
+# began; the vault itself ends sorted by that key (in the server's memory: a database restore brings back the stored
+# order, which the next run's first shots show in the vault's first row). The exit box (866,331, id 37)
+# closes it. The local server answers a move with AUX_DATA (the two windows' contents); it sorts at most once in
+# 10 s (Net-7 Player::HandleInventorySort: m_LastSort + 10000 ms, else MESSAGE_STRING 'Cargo sort machine
+# resetting, please try in a few seconds.'), so each later sort waits `alive 10.5` first: the server's timer,
+# no event to wait on (an unchanged order sends nothing). The pointer is parked on the floor (1000,880) before
+# each shot: a slot's tooltip follows the hover time.
+name: starbase vault: deposit, withdraw and sort (UI-04)
+timeout: 300
+include _sb_home
+key shift+i
+expect-event proxy '^input: replayed key 0x49 \+shift'
+wait-quiet proxy 1.0 within 15
+move 1000,880
+wait-quiet proxy 0.5 within 10
+shot vault_open
+# the window's Filter / Sort headers (sb_vault's box): 436-444 bright pixels open
+expect-ink vault_open 405,288,475,26 300
+# deposit: cargo column 1 row 1 onto the vault's row 2 column 1
+down 60,440
+wait-quiet proxy 0.3 within 5
+up 441,437
+expect-event antprox 'received INVENTORY_MOVE' within 10
+wait-event antprox 'sent AUX_DATA' within 10
+wait-quiet proxy 1.0 within 20
+move 1000,880
+wait-quiet proxy 0.5 within 10
+shot vault_deposited
+# withdraw: back to cargo column 1 row 1
+down 441,437
+wait-quiet proxy 0.3 within 5
+up 60,440
+expect-event antprox 'received INVENTORY_MOVE' within 10
+wait-event antprox 'sent AUX_DATA' within 10
+wait-quiet proxy 1.0 within 20
+move 1000,880
+wait-quiet proxy 0.5 within 10
+shot vault_withdrawn
+# sort: the key cycled three times (back to the start), the order turned round and back
+click 821,300
+expect-event antprox 'received INVENTORY_SORT' within 10
+wait-quiet proxy 1.0 within 20
+move 1000,880
+wait-quiet proxy 0.5 within 10
+shot vault_sort1
+alive 10.5
+click 821,300
+expect-event antprox 'received INVENTORY_SORT' within 10
+wait-quiet proxy 1.0 within 20
+move 1000,880
+wait-quiet proxy 0.5 within 10
+shot vault_sort2
+alive 10.5
+rclick 821,300
+expect-event antprox 'received INVENTORY_SORT' within 10
+wait-quiet proxy 1.0 within 20
+move 1000,880
+wait-quiet proxy 0.5 within 10
+shot vault_reverse
+alive 10.5
+rclick 821,300
+expect-event antprox 'received INVENTORY_SORT' within 10
+wait-quiet proxy 1.0 within 20
+alive 10.5
+click 821,300
+expect-event antprox 'received INVENTORY_SORT' within 10
+wait-quiet proxy 1.0 within 20
+move 1000,880
+wait-quiet proxy 0.5 within 10
+shot vault_sort0
+# the exit box
+click 866,331
+wait-quiet proxy 1.0 within 15
+move 1000,880
+wait-quiet proxy 0.5 within 10
+shot vault_closed

@@ -1,0 +1,196 @@
+{
+  "description": "Line patches against tree3 baseline; each [start,end,replacement_lines] uses zero-based half-open indices. Apply in reverse order.",
+  "records": [
+    {
+      "name": "memory_line_helper",
+      "base_sha256": "f1017264c71f9eec83b4287e3486674ef7671eb6bd2fe2a16ac779baa2d4b727",
+      "source_sha256": "49079c210bb9ae93553ba7f32989437876beb093b9ef442ba3abc67a5c67aec0",
+      "line_patch": [
+        [
+          195,
+          196,
+          [
+            "static inline void Frame_Memory_Line(StringClass &text, int i, unsigned memory) { StringClass line; line.Format(\"%s : %2.2fMb\\n\", WWMemoryLogClass::Get_Category_Name(i), (float)memory / (1024.0f * 1024.0f)); text += line; }\n"
+          ]
+        ],
+        [
+          248,
+          251,
+          [
+            "\t\t\t\tFrame_Memory_Line(text, i, memory);\n",
+            "\n",
+            "\n"
+          ]
+        ]
+      ],
+      "compiled": true,
+      "body_bytes": 1456,
+      "body_sha256": "180427e606e328dfd30b3bac6d4b18c0a87845ad46144a83233d893b9b216673",
+      "target_exact": false,
+      "gained": [
+        [
+          "??YStringClass@@QAEABV0@ABV0@@Z",
+          "0x510BE0"
+        ]
+      ],
+      "lost": []
+    },
+    {
+      "name": "append_loop_ordered",
+      "base_sha256": "f1017264c71f9eec83b4287e3486674ef7671eb6bd2fe2a16ac779baa2d4b727",
+      "source_sha256": "719522fb468ca332d82ea122b4d957c260a82dcdce42e58554a77a2f7c2fe1ea",
+      "line_patch": [
+        [
+          195,
+          196,
+          [
+            "static inline void Frame_Append(StringClass &to, const StringClass &from) { to += from; }\n"
+          ]
+        ],
+        [
+          210,
+          211,
+          [
+            "\t\tint free_count, locked_count, locked_size; text.Format(\n"
+          ]
+        ],
+        [
+          234,
+          237,
+          [
+            "\t\t\t(free_count = WWMemoryLogClass::Get_Free_Count(), WWMemoryLogClass::Get_Allocate_Count() - free_count),\n",
+            "\t\t\t(locked_count = TextureClass::_Get_Total_Locked_Surface_Count(), TextureClass::_Get_Total_Texture_Count() - locked_count),\n",
+            "\t\t\t(float)((locked_size = TextureClass::_Get_Total_Locked_Surface_Size(), TextureClass::_Get_Total_Texture_Size() - locked_size)) / (1024.0f * 1024.0f),\n"
+          ]
+        ],
+        [
+          250,
+          251,
+          [
+            "\t\t\t\tFrame_Append(text, line);\n"
+          ]
+        ]
+      ],
+      "compiled": true,
+      "body_bytes": 1600,
+      "body_sha256": "5cdaffbf05105ecf834b37db6db526e925ae29533cbc9fd56392412a0a671660",
+      "target_exact": false,
+      "gained": [],
+      "lost": []
+    },
+    {
+      "name": "append_fps_ordered",
+      "base_sha256": "f1017264c71f9eec83b4287e3486674ef7671eb6bd2fe2a16ac779baa2d4b727",
+      "source_sha256": "72d232e11379d6127d0adda585ed672f0c2520166563bc54995cb9cf71b7b902",
+      "line_patch": [
+        [
+          195,
+          196,
+          [
+            "static inline void Frame_Append(StringClass &to, const StringClass &from) { to += from; }\n"
+          ]
+        ],
+        [
+          210,
+          211,
+          [
+            "\t\tint free_count, locked_count, locked_size; text.Format(\n"
+          ]
+        ],
+        [
+          234,
+          237,
+          [
+            "\t\t\t(free_count = WWMemoryLogClass::Get_Free_Count(), WWMemoryLogClass::Get_Allocate_Count() - free_count),\n",
+            "\t\t\t(locked_count = TextureClass::_Get_Total_Locked_Surface_Count(), TextureClass::_Get_Total_Texture_Count() - locked_count),\n",
+            "\t\t\t(float)((locked_size = TextureClass::_Get_Total_Locked_Surface_Size(), TextureClass::_Get_Total_Texture_Size() - locked_size)) / (1024.0f * 1024.0f),\n"
+          ]
+        ],
+        [
+          250,
+          251,
+          [
+            "\t\t\t\tFrame_Append(text, line);\n"
+          ]
+        ],
+        [
+          262,
+          263,
+          [
+            "\t\tFrame_Append(text, line);\n"
+          ]
+        ],
+        [
+          264,
+          265,
+          [
+            "\t\tFrame_Append(text, line);\n"
+          ]
+        ]
+      ],
+      "compiled": true,
+      "body_bytes": 1552,
+      "body_sha256": "a25e254e4b5721b8744902bdec70fe7fd9bec3c8fd3c5d4f4b1e49d607792f10",
+      "target_exact": false,
+      "gained": [],
+      "lost": []
+    },
+    {
+      "name": "append_all_ordered",
+      "base_sha256": "f1017264c71f9eec83b4287e3486674ef7671eb6bd2fe2a16ac779baa2d4b727",
+      "source_sha256": "72d232e11379d6127d0adda585ed672f0c2520166563bc54995cb9cf71b7b902",
+      "line_patch": [
+        [
+          195,
+          196,
+          [
+            "static inline void Frame_Append(StringClass &to, const StringClass &from) { to += from; }\n"
+          ]
+        ],
+        [
+          210,
+          211,
+          [
+            "\t\tint free_count, locked_count, locked_size; text.Format(\n"
+          ]
+        ],
+        [
+          234,
+          237,
+          [
+            "\t\t\t(free_count = WWMemoryLogClass::Get_Free_Count(), WWMemoryLogClass::Get_Allocate_Count() - free_count),\n",
+            "\t\t\t(locked_count = TextureClass::_Get_Total_Locked_Surface_Count(), TextureClass::_Get_Total_Texture_Count() - locked_count),\n",
+            "\t\t\t(float)((locked_size = TextureClass::_Get_Total_Locked_Surface_Size(), TextureClass::_Get_Total_Texture_Size() - locked_size)) / (1024.0f * 1024.0f),\n"
+          ]
+        ],
+        [
+          250,
+          251,
+          [
+            "\t\t\t\tFrame_Append(text, line);\n"
+          ]
+        ],
+        [
+          262,
+          263,
+          [
+            "\t\tFrame_Append(text, line);\n"
+          ]
+        ],
+        [
+          264,
+          265,
+          [
+            "\t\tFrame_Append(text, line);\n"
+          ]
+        ]
+      ],
+      "compiled": true,
+      "body_bytes": 1552,
+      "body_sha256": "a25e254e4b5721b8744902bdec70fe7fd9bec3c8fd3c5d4f4b1e49d607792f10",
+      "target_exact": false,
+      "gained": [],
+      "lost": []
+    }
+  ]
+}

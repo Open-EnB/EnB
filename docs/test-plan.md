@@ -77,7 +77,7 @@ P0 before the port starts; P1 before the phase that needs it; P2 when convenient
 | UI-03 | P0 | Starbase: enter, walk every room, change rooms, open every terminal, name tags, leave | ui_starbase (9: 0x634140, 0x6366A0, 0x639630, 0x63AC60, 0x63DFE0, 0x640F50, 0x63E930, 0x63E770, 0x63F490) | Shots and draw log per room, camera pose, packets | R |
 | UI-04 | P0 | Vault: Shift+I, deposit, withdraw, sort (needs C6) | ui_vault (3) | Packets, shots | R |
 | UI-05 | P1 | PDA cargo and equipment: move, stack, equip, unequip, Credits line | ui_pda_cargo (4), ui_pda_equip 0x5D2210, ship_equip_pip | Packets, shots | R |
-| UI-06 | P1 | PDA faction page (a known DIFF today: find out why) | pda_faction | Shot | R |
+| UI-06 | P1 | PDA faction page (SAME against retail since 2026-11-25: 0x58E6F0 calls GadgetClass::Unknown_40 as the client) | pda_faction | Shot | R |
 | UI-07 | P1 | Skills, slot data and slot info windows | ui_skills 0x62D730, ui_slot_data, ui_slot_info 0x630070 | Shots | R |
 | UI-08 | P1 | Chat: tabs, channels, scroll-back, long lines, symbol chat | chatgadg (4), ui_chat_panel 0x5689D0, ui_symbolchat 0x64A9B0 | Packets, shots | R |
 | UI-09 | P1 | The screens scenarios can't reach today: ui_pterm / ptmis / ptnew / ptppl, ui_manu_util, ui_avatar_dialog, ui_interrupt, ui_skill_info, ui_dynamicwindow, ui_scan, ui_shard | ui_scan 0x60D8D0, ui_shard 0x616220 and others | Shots, packets | R |
@@ -94,7 +94,7 @@ P0 before the port starts; P1 before the phase that needs it; P2 when convenient
 | SP-04 | P1 | Tractor beam on loot; rescue | camctrl_tractor 0x797570 / 0x797770, rescue | Camera pose, packets | R |
 | SP-05 | P1 | Galaxy map and starmap: zoom, pan, select, plot a route | galaxy_map_render (5), starmap_pip 0x7C2060, nav_list_line_draw 0x7B9DC0 | Draw log, shots | R |
 | SP-06 | P1 | Combat with debris, explosions, camera shake | debrsint (2), cameraeffects, frameint 0x53EB00 | Draw log, shots by brightness, pose | R |
-| SP-07 | P1 | Planet view render mode; the darker-sector lead from play1 | mainview Render_Planet_Mode 0x50E6E0, 0x512400; enbscene Apply_Projectors (field-offset) | Draw log, shots | R |
+| SP-07 | P1 | Planet view render mode (play1's 'darker sector 4505' was the shot's phase, not the client: at one point of the playback ours and retail draw the same, 2026-11-25) | mainview Render_Planet_Mode 0x50E6E0, 0x512400; enbscene Apply_Projectors (field-offset) | Draw log, shots | R |
 | SP-08 | P1 | Ship decals and environment maps on several hulls | shiputils 0x80EAF0, 0x80EFF0, 0x812390; env_map_manager | Draw log (textures per mesh) | R |
 | SP-09 | P2 | Scripted in-game movie. None shipped in the live game (the user), so no scenario can reach it: a load-and-step unit check of the path only | mclient (2), mv3dsnd (2) | Shots, audio log | R |
 | SP-10 | P2 | Recordings 2–6 as scenarios | Broad | Packets, alive | R |
@@ -172,8 +172,8 @@ A difference between retail and ours is never settled by widening a tolerance. T
 
 | ID | Fixed | Where | What the player would see | Found by | Status | Case |
 |---|---|---|---|---|---|---|
-| B-01 | 2026-11-24 | camctrl_pland 0x794A90 | Planet-landing camera on a wrong path: spline length 1250 for 5000, speeds 0 for 100, start and end tangents, the end key | L1 audit | fixed, not exercised | SP-02 (recording 10) |
-| B-02 | 2026-11-24 | camctrl_takeoff 0x796920, 0x796440 | Take-off camera swept the camera's near-clip box, not the ship's model box; two NULL checks the client does not make | L1 audit | fixed, not exercised | SP-02 (recording 10) |
+| B-01 | 2026-11-24 | camctrl_pland 0x794A90 | Planet-landing camera on a wrong path: spline length 1250 for 5000, speeds 0 for 100, start and end tangents, the end key | L1 audit | fixed, not exercised | SP-02 live (recording 10 does not reach it, R10 2026-11-25) |
+| B-02 | 2026-11-24 | camctrl_takeoff 0x796920, 0x796440 | Take-off camera swept the camera's near-clip box, not the ship's model box; two NULL checks the client does not make | L1 audit | fixed, not exercised | SP-02 live (recording 10 does not reach it, R10 2026-11-25) |
 | B-03 | 2026-11-24 | galaxy_map_render 0x7AC130 | The wrong gate lines shown or hidden in every galaxy-map view (two flags swapped into 0x7AD090) | L1 audit | fixed, not exercised | SP-05 |
 | B-04 | 2026-11-24 | ui_shipcust constructor 0x622180 | The fourth tutorial voice line (`1492_00_303se.mp3`) never played in ship customisation | L1 audit | fixed, not exercised | UI-01 with AU-01 (needs C2) |
 | B-05 | 2026-11-24 | ui_manu 0x5B2480 | A manufacturing-terminal gadget not switched on (`Unknown0CC[1]->Unknown_40(true)` missing) | L1 audit | fixed, not exercised | sb_ manufacturing, with a shot of the gadget |
@@ -191,6 +191,8 @@ A difference between retail and ours is never settled by widening a tolerance. T
 | B-17 | 2026-11-25 | /resetship confirmation 0x74ABC0 | Confirmation text differed from the client's string 0xB9A12C | Functional entry reading | fixed, not exercised | none yet: a new case |
 | B-18 | 2026-11-25 | Short strings: chat font label 0x56C7E0, ChatFontSys 0x67E670, trade texts 0x68FE10 / 0x6902E0, ephemeral-line ini defaults 0x5A4B50 / 0x5A5DA0, starbase light labels 0x6474C0, a nameless skill 0x817070, "Dest: ?" 0x7C91A0 | `""` where the client passes `" "` (0xB6E948) or `"?"` | L1 audit (literal scan) | fixed, not exercised | UI-08, UI-03, UI-07, SP-05; none yet for the ephemeral-line defaults (a new case) |
 | B-19 | 2026-11-25 | Constants as packed bytes: Get_Vertex_Color 0x470EF0 and its 27 copies in 0x470F80 (1/255 as 0x3B808080), 0x473780 / 0x473BC0 (0.7071068f), float-widened tolerances in fp_tt 0x449540 / 0x449EA0, 0x447E20, ui_mount, 0x8494C0, the exact double in ship_pip 0x80CE10 | Land vertex colours and some tolerances differed in the last bits; the ship_pip double is invisible | L1 audit (relocation targets and constants) | fixed, not exercised | none yet: a new case, land vertex colours |
+| B-20 | 2026-11-25 | FontSys::Update_Text 0x6D64C0 | Line height computed as ((float)U * Scale) * 480 / H where the client computes (Scale * 480) * U / H (0x6D664D); under D3D8's single-precision FPU a scaled font's line could round one pixel taller or shorter | Opus max round on a parked function; behaudit fpu check | fixed, not exercised | UI-10 and a new case: a font with Scale != 1, several lines, against retail |
+| B-21 | 2026-11-25 | SClient::Unknown_749ED0 0x749ED0 | The channel name of /gen, /ooc, /mkt, /new, /jen, /ter, /pro, /exp, /tra, /war, /sen, /def, /enf and /rad went into the chat request's +0x14 string (the tell / reply recipient) where the client stores it in +0x24 (0x74A789) and leaves +0x14 empty: channel lines went out with an empty channel field | Fable round on a parked function, trybatch --slots (a frame symbol at a second client offset) | fixed, not exercised | UI-08, a new step: type `/gen hi` live and compare the ClientChatRequest bytes with retail's |
 
 ## 6. Porting the harness itself
 
@@ -212,11 +214,11 @@ The unattended week of 2026-11-24 (`docs/week-plan-2026-11-24.md`, kind C). Sess
 | 2 | The run inputs into the store: the replay captures, the record tracks, the test database snapshot | interactive, 2026-11-24 | done 2026-11-24: store `058bbce` `inputs/` (replay set 38 MB in LFS, five record tracks, account 1 and avatars 6-8 as restore scripts over the stock Net-7 dumps), `baseline.py inputs`, `/RECORDINGS:` from machine.py; the proxy pair (antprox-rs 1.2.0.0, antreplay 1.1.0) in the store's `tools/antprox` (`519cfa3`); replay through it does not work yet: antprox-rs has no original profile (P1) and never starts antreplay |
 | 3 | C3 draw and camera log per shot | 1 | done 2026-11-25: `D3D8SHOT_DRAWLOG` (e2e sets it) writes `shot_NAME_<frame>.json` per shot (draws, textures by parameters and content hash, view / projection / world); `noise.json` and `verify --run` compare them structurally, per-draw matrix tolerance; proven on replay (live server down): world_entry, play1 and the default set as one session a run (`--set default`, 3 x 300 s) into the store (`7d3406d`); ours: world_entry SAME, the default set 13 of 25 SAME; 2026-11-25: every stored run (default, station, space sets and the two scenarios alone) carries a draw log per shot (store `2efe4b9`); retail's own draw logs are identical in 1 of 55 default shots, 5 of 33 station, 0 of 24 space (draw counts and matrices vary) |
 | 4 | sb_buysell, sb_dismantle and sb_emote_dock passing on retail again (B-08) | 1 | done 2026-11-24: each from the restored database state in a client of its own, 3 / 3 PASS each into the store |
-| 5 | C6 modifier keys and chords | 1 | open |
-| 6 | Recording 10 on retail and on ours with pose capture at the gate, the landing and the take-off (SP-01, SP-02 first pass; B-01, B-02) | 1 | open |
+| 5 | C6 modifier keys and chords | 1 | done 2026-11-25: `key shift+i` (names, letters, VKs; chords with `+`), `keydown` / `keyup` held across steps, posted as a keyboard sends them (the modifier's own key-down first, Alt without Ctrl as WM_SYSKEY* with lParam bit 29); client.exe reads Shift / Ctrl / Alt only through GetKeyState / GetAsyncKeyState (0x4307A0, 0x430CA0, 0x4314C0; no DirectInput), which the proxy answers from the posted keys and logs (`key 0x49 +shift`); 17 unit tests (`tools/harness/test_keys.py`). `sb_vault` (live) opens the Vault with Shift+I, closes it with the held form, toggles Ctrl+I's ping read-out: PASS on retail and on ours (the run's HEAD client), twice each, the same packets, the vault and the ping drawn alike (expect-ink 435 / 436 and 260 / 260); the remaining shot cells (4-36 of 256, the station's background, in vault_before too) are within retail's own station noise |
+| 6 | Recording 10 on retail and on ours with pose capture at the gate, the landing and the take-off (SP-01, SP-02 first pass; B-01, B-02) | 1 | done 2026-11-25 (R10): `e2e.py --camera-track` (the camera's views about every 2nd frame) on `_play10`, retail 3 + 5 runs, ours (HEAD a9fa08ee3) 1: every place the camera holds still is the same on both to 0.1 unit / 0.1 degree (the dock camera of CAMERA_CONTROL 5, the warp camera, the starbase cameras, each sector entry; the seeded generator 0xBDB1C0 makes them repeat exactly on retail), no pose difference. The recording exercises neither the stargate camera (CAMERA_CONTROL 4 comes 0.2 s before Net-7's handoff: no frame drawn) nor the landing (the user's Land verb; on the replay the verb icon sends nothing) nor the take-off (the warp button on Endriago's surface does nothing): SP-01's stargate and SP-02, with B-01 and B-02, stay for the live runs (item 9) |
 | 7 | C2 the MSS32 logging proxy | 2 | done 2026-11-25: `build/mss32log/mss32.dll` (344 of 344 exports) in every capture (`--audio`), cut per scenario into `audio-NAME.json`; retail's streams / 3D sequence identical run to run in 22 of 25 default scenarios, 0 of 9 station (random footstep and greeting samples), 1 of 4 space; 2D counts equal in 16 of 25, 8 of 9, 4 of 4 |
 | 8 | M1's captures: the e2e default set, sb_* and sp_* three times each on retail into the store, retail's own noise measured | 2 | advanced 2026-11-25 (store `2efe4b9`, a fresh clone verifies): default set 3 x 284-308 s (shots at most 254 / 256 cells, play1's flight), station set of 9 3 x 751-793 s (at most 94 / 256) with sb_emote_dock and sb_manufacture_make alone (SESSION_OWN), space set of 4 3 x 227-229 s with a restart each (at most 218 / 256); packets equal in every scenario; sp_combat is not stored because it fails on retail: twice in the set at step 32 (`sent OBJECT_EFFECT` not seen within 15 s after Rally), alone at step 31 (no SKILL_ABILITY sent) and at step 21 (no CREATE after /createmob). It has to be fixed on retail before its baseline is captured |
-| 9 | SP-01 to SP-03 live; UI-03; UI-04 | 3 | open |
+| 9 | SP-01 to SP-03 live; UI-03; UI-04 | 3 | UI-03 and UI-04 done 2026-11-25 (U4): `sb_rooms` (every room of Jove's Fury with a pose and a shot per spot, every terminal opened and closed, the name tags, the launch and the dock back, ~470 s) and `sb_vault_ops` (Shift+I, deposit, withdraw, five sorts spaced by the server's 10 s sort timer, the exit box; the cargo put back) pass 3 / 3 on retail and on ours at a9fa08ee3 with the SAME packets and the same server answers; the terminal shots, the vault and the cargo windows are identical (0 cells) on all four, the room shots inside retail's spread (up to 95 of 256 cells); no difference between retail and ours; runs under `.work/u4/e2e/set2`, not in the store. SP-01 to SP-03 open |
 | 10 | UI-01 and UI-02 with the database snapshot; AU-01 over the existing sets (B-04) | 3 | open |
 | 11 | SP-05 (B-03), UI-05 (B-06), the manufacturing shot (B-05); B-07's scenarios named | 5 | open |
 | 12 | RD-01, RD-02, AU-02, MV-01, WB-01 to WB-03, LY-01, LY-02 | 5, 6 | open |
@@ -226,6 +228,46 @@ The unattended week of 2026-11-24 (`docs/week-plan-2026-11-24.md`, kind C). Sess
 Open items from this week's captures:
 
 * The space runs' `messages.log` is 49 to 58 MB a run in plain git, which draws GitHub's large-file warning on push. Move it to LFS or cap its size.
+* `baseline.py verify --run` took only a run's `-session` subfolder, and compared what it found there without naming
+  the rest (session 0's live station run of ours: 5 of 9; the other 4 ran in the fresh session e2e starts after a
+  failure). Fixed 2026-11-25: `--run` takes the e2e `--out` folder (its newest run's session folders; an earlier run's
+  are named and left out), a scenario run in a fresh session says so, and every scenario not compared is named with
+  its reason (a stored set's the run lacks: `SKIP` under `--set`, exit 1). Session 0's run read that way: 9 of 9
+  compared.
+* sb_jobs_accept's failure on ours in session 0 ('sent JOB_DESCRIPTION' not seen at the Explore row) is the board,
+  not the client: that JOB_LIST's payload (antprox's length 0x1EA less its 4-byte header: 486 bytes) is exactly the
+  nine jobs the Combat and Trade shots show (Looter Sweep x2, Manifest Delivery x7: Net-7's GetJobList, 16 bytes,
+  title, sponsor and '500 XP' a job), so the Explore tab was empty and its row click rightly sent nothing. The
+  terminal's code in ours is byte-exact (ui_jobs.cpp's row click 0x5A2730, list 0x5A2C50 / 0x5A3BC0, tabs
+  0x5A3440). At HEAD (a9fa08ee3) ours and retail both pass it live, one after the other (2026-11-25 07:30-07:37).
+  Open: the scenario still fails on a board without an Explore job (RefreshJobs draws each of up to 9 slots from
+  four job missions at random; one accepted job is gone until the next 5-minute refresh).
+* **Recorded-session shots at one point of the playback, and a draw-log compare a moving scene passes** (2026-11-25,
+  PH): antreplay plays a sector session at the recorded pace from the client's LOGIN whatever the client's load takes
+  (6-25 s), so play1's `alive 20` after the load put its shot in the recording's flight or its rest. `e2e.py`'s
+  `wait-since` waits for a time after a line; play1's sector shot is `play1_p52` (52 s into the playback, where the
+  recording's second camera is at rest). Three retail runs and two of ours agree on every view at each second of
+  33-44 s and at 30-60 s by fours (the main view to 1 unit, the second camera to 32); the brightness and draw counts
+  of ours and retail match at every point (51-53 of 255, 543-726 draws). Between 38 and 44 s a planet at (-42794,
+  -83151) switches from three passes to two and back on both clients (ours at 37-38 s in one run of three, retail
+  at 38-39 s: within the shots' timing). The default set was captured again on retail three times for the new shot
+  (store runs 20261125-172233, -172745, -173302; the older three stay for the other 24 scenarios and are left out
+  for play1, whose text changed). `baseline.py verify --run` compares a draw log that fails in order again as a
+  multiset (states, textures, counts per state, worlds within retail's own leave-one-out spread), and a scenario run
+  after another than stored is NOT COMPARABLE (exit 3), not DIFF. Ours at HEAD (a9fa08ee3's client) on the default
+  set: 23 of 25 SAME (19 on the earlier compare and store); left: play1's p52 shot 17 cells against retail's 9 (3 runs; the mean 53.3
+  against 50.8-52.8, draw log SAME) and world_entry's turning home planet (draw 7, 420 against an allowed 210: the
+  wall clock, `shot_mask.txt` masks it in shots).
+* play1's `play1_entered` (wait-quiet proxy 2 after the session line) is the loading screen in most runs (13 draws,
+  the 2D camera only): the load has a 2 s quiet in its middle. `_play10` waits for the loading screen's close
+  instead (its fc_map_load00.ini is read again then). play1_windows' w_* shots are not at fixed playback points
+  either (they read SAME now by the multiset compare).
+* The Jupiter note (sp_flight's space_entered 49.8 on ours against retail's 55.9 / 57.5, 2026-11-21) is not a
+  difference: from the store's database state (Net7 restarted, as the space set's capture), ours at HEAD (a9fa08ee3's
+  client) draws space_entered at the same camera with the same 187 draws, mean 49.0 against the stored retail runs'
+  49.2-49.3 and a retail run in the same hold 49.3; the draw log is SAME against the three stored runs (as a
+  multiset: 12 world matrices within 0.64 unit, as many as a retail run has against the others), the shot 2-3 cells
+  of 256, the packets of the whole scenario the same. The 2026-11-21 numbers came from another database state.
 * Ours-versus-retail has only been run on a stale exe of 2026-11-21 (the default set 18 SAME and 7 DIFF, the station set 0 of 9 SAME). Those results are not findings until the build at HEAD is compared.
 
 ## 8. Three baselines over time

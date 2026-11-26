@@ -41,17 +41,33 @@ The format (one step a line, '#' comments, shell-style quoting):
     click gadget NAME | click X,Y   rclick ... | move ...    mouse at a gadget of e2e/gadgets.txt or client pixels
     down X,Y / up X,Y             the left button pressed at a point / moved there held and let go: a drag (the
                                   client's item windows move an item on the button-up, e.g. into a terminal's slot)
-    click X,Y until SOURCE PATTERN [redo K] [every S] [within T]   the click (or key VK) again every S seconds (default 0.5)
+    click X,Y until SOURCE PATTERN [redo K] [every S] [within T]   the click (or key KEYS) again every S seconds (default 0.5)
                                   until the line is seen (default T 60 s): for input the client ignores until it is
                                   ready. redo K: each repeat first posts the K input steps before this one again
                                   (select a slot, then Enter: both are ignored while the screen's opening plays)
-    key VK                        a key (decimal or 0x hex)     text STRING    characters
+    key KEYS                      a key: a VK (decimal or 0x hex), a name (enter, esc, tab, space, backspace, up,
+                                  f1..f24, num0..num9, ` and control_keys.ini's other punctuation) or a letter; or a
+                                  chord, KEY+KEY...: shift+i, ctrl+i, alt+f1 (each key down in order, up in reverse)
+    keydown KEYS / keyup KEYS     those keys only pressed / only let go: held across the steps between (keydown
+                                  shift, key i, keyup shift); a scenario lets go of every key it holds (checked
+                                  when it is parsed; one that fails between is let go at its end)
+                                  The modifiers go as a keyboard sends them (test-plan C6): Shift's, Ctrl's, Alt's
+                                  own key-down first, and Alt without Ctrl as WM_SYSKEYDOWN / WM_SYSKEYUP with
+                                  lParam's bit 29; the client reads them back through GetKeyState / GetAsyncKeyState
+                                  (0x4307A0, 0x430CA0, 0x4314C0), which the proxy answers from the keys it passed on;
+                                  d3d8shot.log: 'input: replayed key 0x49 +shift'. A lone Alt and Alt+Space are
+                                  refused (the window menu's keyboard mode, the system menu: D69)
+    text STRING                   characters
     stand-in PATTERN              the goal is not met while stubs.log shows PATTERN from here on (a stand-in's first
                                   call): checked at the end, so the other steps still run; with `expected-fail` the
                                   scenario is XFAIL, and XPASS once the stand-in is retired
-    stray click X,Y|gadget NAME / stray key VK   the same input UNtagged, as a person's would be (the tag's
+    stray click X,Y|gadget NAME / stray key KEYS the same input UNtagged, as a person's would be (the tag's
                                   self-test: the proxy must drop it and log 'NOT REPLAYED')
     alive S                       S seconds pass with the client running and no expect-no line matched
+    wait-since SOURCE PATTERN S   until S seconds after the newest SOURCE line matching PATTERN in this scenario (a
+                                  wait-event's match counts): a shot at a fixed point of a playback, which antreplay
+                                  plays at the recorded pace from the sector's LOGIN, whatever the client's load
+                                  took; fails when the step starts more than SINCE_LATE past that point
     walk-to X,Y [tol T] [within S]  a starbase: the avatar walks to X,Y (the room's floor plane, units of the
                                   client's camera) in a closed loop on the camera the proxy reports each frame
                                   (D3D8SHOT_CAMERA): turn towards the point (right button drag), hold the walk key,
@@ -59,9 +75,9 @@ The format (one step a line, '#' comments, shell-style quoting):
                                   move for 2 s (a wall: give a waypoint) or after S (default 30 s)
     face YAW [tol D] [within S]   turn until the camera looks along YAW degrees (default tolerance 2): what a
                                   click on something in the room needs before it (the click is a screen point)
-    hold VK until SOURCE PATTERN [within S]   the key held down until the line is seen (walk on through a door
+    hold KEY until SOURCE PATTERN [within S]  the key held down until the line is seen (walk on through a door
                                   until the room changes)
-    hold VK for S                 the key held down S seconds (flight: thrust, the arrow keys' turn and tilt)
+    hold KEY for S                the key held down S seconds (flight: thrust, the arrow keys' turn and tilt)
     rdrag X,Y for S               the right button pressed at the window's middle, the pointer held at X,Y for S
                                   seconds, let go back at the middle (flight: the ship's nose follows the pointer)
     pose-mark                     the pose now (camera at rest, at most 3 s) is what expect-pose measures from
@@ -124,7 +140,7 @@ ORDER = ['world_entry', 'starmap', 'options', 'pda_pages', 'cargo', 'chat']
 LAST = []
 STANDIN_HIT = 'stand-in hit:'
 SOURCES = ('antprox', 'stubs', 'msg', 'proxy', 'files', 'any')
-ACTIONS = ('click', 'rclick', 'move', 'down', 'up', 'key', 'text', 'stray')
+ACTIONS = ('click', 'rclick', 'move', 'down', 'up', 'key', 'keydown', 'keyup', 'text', 'stray')
 WALK_KEY = 0x41         # 'A': the starbase's walk key (the user's recording of 2026-11-15)
 
 
@@ -135,6 +151,47 @@ def _wrap(deg):
 def _key_lparam(vk, up=False):
     import clientrun
     return clientrun.key_lparam(vk, up)
+
+
+class CameraTrack:
+    """--camera-track: a thread that reads the proxy's camera file (D3D8SHOT_CAMERA, rewritten every 2nd Present)
+    every 20 ms and appends each new frame's view matrices (the file's first 4 distinct ones) to camera-track.txt
+    as 'TICK T FRAME N' and N times 16 floats (TICK the host's GetTickCount, the clock of d3d8shot.log's file
+    opens and audio.jsonl; T seconds since the session's events.log start): the camera's path through a whole
+    session, for comparing two clients' camera moves (a landing, a gate jump) where one shot per event only
+    samples them. In a starbase the first view is the room camera; in space the first is an orthographic one
+    (its projection is the draw log's first) and the second the ship camera. Frames between two reads are lost
+    (the file keeps only the newest), so the track is about every 2nd to 4th frame."""
+    EVERY = 0.02
+
+    def __init__(self, camera, path, t0):
+        import ctypes
+        import threading
+        self.tick = ctypes.windll.kernel32.GetTickCount
+        self.camera, self.t0, self.last = camera, t0, None
+        self.out = open(path, 'w', encoding='utf-8', newline='\n')
+        self.stop_ev = threading.Event()
+        self.thread = threading.Thread(target=self._run, daemon=True)
+        self.thread.start()
+
+    def _run(self):
+        while not self.stop_ev.wait(self.EVERY):
+            try:
+                with open(self.camera) as f:
+                    ms = [re.match(r'frame (\d+) view \d+ of \d+:(.*)', line) for line in f]
+            except OSError:
+                continue
+            ms = [m for m in ms if m and len(m.group(2).split()) == 16]
+            if not ms or ms[0].group(1) == self.last:
+                continue
+            self.last = ms[0].group(1)
+            self.out.write(f'{self.tick() & 0xFFFFFFFF} {time.time() - self.t0:.3f} {self.last} {len(ms)}'
+                           + ''.join(m.group(2) for m in ms) + '\n')
+
+    def stop(self):
+        self.stop_ev.set()
+        self.thread.join(2)
+        self.out.close()
 
 
 class Pilot:
@@ -152,10 +209,11 @@ class Pilot:
     CX, CY = 640, 512
     REPEAT = 0.05       # hold VK for S: a key-down every 50 ms
 
-    def __init__(self, hwnd, camera, tick, note):
+    def __init__(self, hwnd, camera, tick, note, held=None):
         import ctypes
         self.user32 = ctypes.windll.user32
         self.hwnd, self.camera, self.tick, self.note = hwnd, camera, tick, note
+        self.held = set() if held is None else held     # the session's keys held down (keydown steps)
 
     def _post(self, msg, w, l):
         self.user32.PostMessageW(self.hwnd, msg, w | (0x5043 << 16), l)
@@ -239,7 +297,11 @@ class Pilot:
             self._rup()
 
     def key(self, vk, down):
-        self._post(0x100 if down else 0x101, vk, _key_lparam(vk, up=not down))
+        """vk down (again: each a fresh down, no repeat bit; the client's 0x4307A0 drops a repeat outside text entry)
+        or up, with the modifiers the session holds (an Alt held makes it WM_SYSKEYDOWN, as a keyboard)."""
+        import clientrun
+        msg, lp = clientrun.key_message(vk, not down, self.held - {vk})
+        self._post(msg, vk, lp)
 
     def hold_for(self, vk, secs, sample):
         """The key held secs seconds: a down every REPEAT seconds, as the keyboard's auto-repeat, a fixed count of
@@ -455,6 +517,17 @@ def parse(text, name='?', gadgets=None, loader=None, _depth=0):
                 st.update(source=_source(args[0]), quiet=float(args[1]), within=within)
             except ValueError:
                 raise ScenarioError(f'{where}: wait-quiet SOURCE SECONDS [within S]')
+        elif op == 'wait-since':
+            try:
+                if len(args) != 3 or args[0] not in SOURCES:
+                    raise ValueError
+                secs = float(args[2])
+                if secs < 0:
+                    raise ValueError
+            except ValueError:
+                raise ScenarioError(f'{where}: wait-since SOURCE PATTERN SECONDS (until SECONDS after the newest '
+                                    f'line matching PATTERN in this scenario)')
+            st.update(source=_source(args[0]), pattern=_regex(args[1], where), seconds=secs)
         elif op == 'stand-in':
             if len(args) != 1:
                 raise ScenarioError(f'{where}: stand-in PATTERN (a stubs.log line, e.g. the first call of a stand-in)')
@@ -471,23 +544,23 @@ def parse(text, name='?', gadgets=None, loader=None, _depth=0):
             st.update(x=x, y=y, gadget=g, until=until)
         elif op == 'stray':
             if not args or args[0] not in ('click', 'key'):
-                raise ScenarioError(f'{where}: stray click X,Y|gadget NAME, or stray key VK')
+                raise ScenarioError(f'{where}: stray click X,Y|gadget NAME, or stray key KEYS')
             if args[0] == 'click':
                 x, y, g = _point(args[1:], gadgets, where)
                 st.update(x=x, y=y, gadget=g, what='click')
             else:
-                try:
-                    st.update(vk=int(args[1], 0), what='key')
-                except (IndexError, ValueError):
-                    raise ScenarioError(f'{where}: stray key VK')
+                if len(args) != 2:
+                    raise ScenarioError(f'{where}: stray key KEYS')
+                st.update(_keys(args[1], where), what='key')
         elif op == 'key':
             args, st['until'] = _until(op, args, where)
             if len(args) != 1:
-                raise ScenarioError(f'{where}: key VK [until SOURCE PATTERN ...]')
-            try:
-                st['vk'] = int(args[0], 0)
-            except ValueError:
-                raise ScenarioError(f'{where}: key VK (decimal or 0x hex)')
+                raise ScenarioError(f'{where}: key KEYS [until SOURCE PATTERN ...]')
+            st.update(_keys(args[0], where))
+        elif op in ('keydown', 'keyup'):
+            if len(args) != 1:
+                raise ScenarioError(f'{where}: {op} KEYS (e.g. {op} shift)')
+            st.update(_keys(args[0], where))
         elif op == 'text':
             if len(args) != 1:
                 raise ScenarioError(f'{where}: text STRING (quote it when it has spaces)')
@@ -511,14 +584,14 @@ def parse(text, name='?', gadgets=None, loader=None, _depth=0):
                 raise ScenarioError(f'{where}: walk-to X,Y [tol T] [within S] / face YAW [tol D] [within S]')
         elif op == 'hold' and len(args) == 3 and args[1] == 'for':
             try:
-                st['vk'], st['secs'] = int(args[0], 0), float(args[2])
+                st['vk'], st['secs'] = _one_key(args[0], where), float(args[2])
             except ValueError:
                 raise ScenarioError(f'{where}: hold VK for SECONDS')
         elif op == 'hold':
             args, st['within'] = _within(args, 30.0, where)
             if len(args) != 4 or args[1] != 'until':
                 raise ScenarioError(f'{where}: hold VK until SOURCE PATTERN [within S] / hold VK for SECONDS')
-            st['vk'] = int(args[0], 0)
+            st['vk'] = _one_key(args[0], where)
             st['source'], st['pattern'] = _source(args[2]), _regex(args[3], where)
         elif op == 'rdrag':
             if len(args) < 3 or args[-2] != 'for':
@@ -562,7 +635,65 @@ def parse(text, name='?', gadgets=None, loader=None, _depth=0):
         sc['steps'].append(st)
     if not sc['steps']:
         raise ScenarioError(f'{name}: no steps')
+    _check_held(sc['steps'], name)
     return sc
+
+
+def _keys(spec, where):
+    """A key step's KEYS (clientrun.parse_keys: enter, f1, a letter, a VK number, or a chord such as shift+i) ->
+    {'keys': [VK...], 'vk': the last one, 'spec': as written back}."""
+    import clientrun
+    try:
+        vks = clientrun.parse_keys(spec)
+    except ValueError as e:
+        raise ScenarioError(f'{where}: {e}')
+    return {'keys': vks, 'vk': vks[-1], 'spec': '+'.join(clientrun.key_name(v) for v in vks)}
+
+
+def _one_key(spec, where):
+    k = _keys(spec, where)['keys']
+    if len(k) != 1:
+        raise ScenarioError(f'{where}: one key here, not a chord')
+    return k[0]
+
+
+def _check_held(steps, name):
+    """Held keys (keydown / keyup) must pair up inside a scenario: a key let go that is not down, a key pressed
+    again while down (that is `hold`'s auto-repeat), or a key still down at the end are errors, so no scenario
+    leaves the next one of the session a stuck modifier. Alt pressed and let go with no other key between, or Alt
+    with Space, are refused: the window procedure turns a lone Alt into the window menu's keyboard mode and
+    Alt+Space opens the system menu, a modal menu loop (D69)."""
+    held, alt_alone = [], False
+    for st in steps:
+        op, keys, where = st['op'], st.get('keys'), st['line']
+        if op == 'stray' and st.get('what') == 'key':
+            op = 'key'
+        if op not in ('key', 'keydown', 'keyup', 'hold'):
+            continue
+        if op == 'hold':
+            keys = [st['vk']]
+        if (0x12 in held or 0x12 in keys) and 0x20 in keys:
+            raise ScenarioError(f'{where}: Alt+Space opens the system menu (a modal menu loop): not allowed')
+        if op == 'keyup':
+            for vk in keys:
+                if vk not in held:
+                    raise ScenarioError(f'{where}: keyup 0x{vk:02X}: that key is not down')
+                held.remove(vk)
+                if vk == 0x12 and alt_alone:
+                    raise ScenarioError(f'{where}: Alt pressed and let go alone (the window menu\'s keyboard mode)')
+            continue
+        for vk in keys:
+            if vk in held:
+                raise ScenarioError(f'{where}: 0x{vk:02X} is held down already (keyup it first)')
+        if op == 'key' and keys[-1] == 0x12:
+            raise ScenarioError(f'{where}: Alt pressed and let go with no key after it (the window menu\'s '
+                                f'keyboard mode): Alt goes first in a chord, alt+KEY')
+        if op == 'keydown':
+            held.extend(keys)
+        alt_alone = op == 'keydown' and keys[-1] == 0x12
+    if held:
+        raise ScenarioError(f'{name}: ' + ', '.join(f'0x{vk:02X}' for vk in held)
+                            + ' still held at the end (keyup before the scenario ends)')
 
 
 def _until(op, args, where):
@@ -815,6 +946,25 @@ class Events:
             self._log = None
 
 
+SINCE_LATE = 1.0        # wait-since: a step that starts more than this past its moment fails (the shot would be late)
+
+
+def since_time(ev, matched, source, pattern, start_line):
+    """wait-since's line: the time (Events seconds) of the newest line from `start_line` on matching source and
+    pattern, among Events' window and the lines this scenario's wait-event / expect-event steps matched (`matched`,
+    (t, source, text): a long load pushes a line out of the sliding window); None when there is none."""
+    ev.poll()
+    t = max((when for when, src, text in matched if (source == 'any' or src == source) and pattern.search(text)),
+            default=None)
+    rel = max(0, start_line - ev.base)
+    for i in range(len(ev.lines) - 1, rel - 1, -1):
+        when, src, text = ev.lines[i]
+        if (source == 'any' or src == source) and pattern.search(text):
+            t = when if t is None else max(t, when)
+            break
+    return t
+
+
 def find(lines, source, pattern, start=0):
     """Index of the first line at or after start whose source matches (any: every source) and whose text the
     regex pattern searches, or None."""
@@ -868,6 +1018,7 @@ class Session:
         env = dict(os.environ)
         # record: a person plays, so untagged input passes (the proxy logs it 'input: untagged ...')
         self.record = bool(getattr(args, 'record', False))
+        self.held = set()       # keys a keydown step holds down (clientrun.post_keys); let go at a scenario's end
         self.proxy = self.inst.use_proxy(env, self.out, input=True, tag=not self.record)
         # test-plan C2: the Miles calls to audio.jsonl (audiolog.py reads it); off unless --audio / ENB_E2E_AUDIO=1
         self.audio = bool(getattr(args, 'audio', False)) or os.environ.get('ENB_E2E_AUDIO') == '1'
@@ -890,6 +1041,8 @@ class Session:
                                                       ['-ENABLE_MESSAGES'] if self.messages else [],
                                                       mode=live_mode(args))
         self.ev = Events(files, log=os.path.join(self.out, 'events.log'))
+        self.track = (CameraTrack(self.camera, os.path.join(self.out, 'camera-track.txt'), self.ev.t0)
+                      if getattr(args, 'camera_track', False) else None)
         self.note(f'antprox pid {self.a.pid}, client pid {self.pid}' + (' (the retail client)' if self.retail else ''))
         if self.retail and self.pid:
             import threading
@@ -970,6 +1123,7 @@ class Session:
         posted = []                 # this scenario's input steps so far (click ... until ... redo K)
         reached_own = False
         start_line = ev.total
+        matched = []                # the lines this scenario's waits and expects matched, (t, source, text) (wait-since)
         own_from = 0
         seen = {'stubs': [], 'human': 0, 'marker': False}
 
@@ -1025,6 +1179,7 @@ class Session:
                             return f, False
                         if w.hit is not None:
                             note(f'  matched at {w.hit[0]:.1f} s: {w.hit[2][:200]}')
+                            matched.append(w.hit)
                             return None, True
                         if time.time() > end:
                             return what, False
@@ -1038,8 +1193,8 @@ class Session:
                 self.mark = ev.total
                 ev.mark_epoch()
                 self.mark_time = ev.now()
-                if op == 'key':
-                    cp.post_step(self.hwnd, 'key', str(st['vk']), tag=tag)
+                if op in ('key', 'keydown', 'keyup'):
+                    cp.post_step(self.hwnd, op, '+'.join(str(v) for v in st['keys']), tag=tag, held=self.held)
                 elif op == 'text':
                     cp.post_step(self.hwnd, 'text', st['text'], tag=tag)
                 else:
@@ -1114,7 +1269,7 @@ class Session:
                         fail = ('no tagged virtual input (d3d8shot.log has no "tagged input read" line): rebuild the '
                                 'proxy, python tools/harness/run_reference.py build')
                         break
-                    if op != 'stray' and not st.get('until'):
+                    if op not in ('stray', 'keydown', 'keyup') and not st.get('until'):     # redo K: not a held key
                         posted.append(st)
                     if op == 'stray':                         # a person's input, as the harness's self-test: untagged
                         post('key' if st['what'] == 'key' else 'click', st, tag=False)
@@ -1145,7 +1300,7 @@ class Session:
                     else:
                         post(op, st)
                 elif op in ('pose-mark', 'expect-pose'):
-                    pilot = Pilot(self.hwnd, self.camera, tick, note)
+                    pilot = Pilot(self.hwnd, self.camera, tick, note, self.held)
                     p = pilot.still(3.0)
                     if p is None:
                         fail = f'{st["line"]}: {op}: no camera file from the proxy (run_reference.py build)'
@@ -1165,7 +1320,7 @@ class Session:
                     ev.poll()
                     self.mark = ev.total
                     ev.mark_epoch()
-                    pilot = Pilot(self.hwnd, self.camera, tick, note)
+                    pilot = Pilot(self.hwnd, self.camera, tick, note, self.held)
                     samples = getattr(self, 'pose_samples', None)
                     sample = (lambda p: p is not None and samples is not None and samples.append(p))
                     if op not in ('hold', 'rdrag'):
@@ -1201,6 +1356,23 @@ class Session:
                     while time.time() < end and not fail:
                         fail = tick()
                         time.sleep(0.05)
+                elif op == 'wait-since':
+                    fail = tick()
+                    if not fail:
+                        t = since_time(ev, matched, st['source'], st['pattern'], start_line)
+                        if t is None:
+                            fail = (f'{st["line"]}: wait-since {st["source"]} {st["pattern"].pattern!r}: no such line '
+                                    f'in this scenario')
+                        else:
+                            late = ev.now() - (t + st['seconds'])
+                            if late > SINCE_LATE:
+                                fail = (f'{st["line"]}: wait-since {st["seconds"]:g} s: the moment passed {late:.1f} s '
+                                        f'ago (the line at {t:.1f} s; a slower step before it)')
+                            else:
+                                while ev.now() < t + st['seconds'] and not fail:
+                                    fail = tick()
+                                    time.sleep(0.005)
+                                note(f'  at {ev.now() - t:.2f} s after the line at {t:.1f} s')
                 elif op == 'shot':
                     fail = tick()
                     if not fail:
@@ -1247,6 +1419,9 @@ class Session:
                 json.dump(res, f, indent=1)
             return res
         finally:
+            if self.held and self.hwnd is not None:      # a scenario that failed between its keydown and keyup
+                note('  let go of ' + ', '.join(f'0x{vk:02X}' for vk in sorted(self.held)))
+                cp.post_keys(self.hwnd, [(vk, True) for vk in sorted(self.held)], self.held, tag=True)
             for s in standing:
                 ev.unwatch(s['watch'])
             for s in standins:
@@ -1255,6 +1430,8 @@ class Session:
             ev.flush_repeats()
 
     def close(self):
+        if self.track:
+            self.track.stop()
         if self.pid:
             subprocess.run(['taskkill', '/F', '/PID', str(self.pid)], capture_output=True)
         subprocess.run(['taskkill', '/F', '/T', '/PID', str(self.a.pid)], capture_output=True)
@@ -1432,6 +1609,8 @@ def _desc(st):
                 + (f' until {st["until"]["source"]} {st["until"]["pattern"].pattern!r}' if st.get('until') else ''))
     if st['op'] == 'wait-quiet':
         return f'{st["source"]} {st["quiet"]:g}'
+    if st['op'] == 'wait-since':
+        return f'{st["source"]} {st["pattern"].pattern!r} {st["seconds"]:g}'
     if st['op'] in ('walk-to', 'face'):
         return ','.join(f'{v:g}' for v in st['to']) + f' tol {st["tol"]:g}'
     if st['op'] == 'hold' and 'secs' in st:
@@ -1442,8 +1621,9 @@ def _desc(st):
         return f'{st["kind"]} {st["min"]:g}'
     if st['op'] == 'hold':
         return f'0x{st["vk"]:X} until {st["source"]} {st["pattern"].pattern!r}'
-    if st['op'] == 'key' and st.get('until'):
-        return f'0x{st["vk"]:X} until {st["until"]["source"]} {st["until"]["pattern"].pattern!r}'
+    if st['op'] in ('key', 'keydown', 'keyup') or (st['op'] == 'stray' and st.get('what') == 'key'):
+        return st['spec'] + (f' until {st["until"]["source"]} {st["until"]["pattern"].pattern!r}'
+                              if st.get('until') else '')
     return str(st.get('vk', st.get('text', st.get('seconds', st.get('shot', '')))))
 
 
@@ -2257,6 +2437,8 @@ def main(argv=None):
     ap.add_argument('--no-shots', action='store_true', help='compare / retail: packets and verdicts only')
     ap.add_argument('--detail', action='store_true', help='retail: the packet and shot details under each DIFF')
     ap.add_argument('--retail-run', metavar='MANIFEST', help='retail: reuse this retail run instead of a new one')
+    ap.add_argument('--camera-track', action='store_true',
+                    help="camera-track.txt: the camera's view matrix about every 2nd frame, the whole session")
     args = ap.parse_args(argv)
     args.record = args.command == 'record'
     global OUT

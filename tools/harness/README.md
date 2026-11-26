@@ -588,7 +588,12 @@ start in the same second: the second's folder is `YYYYMMDD-HHMMSS-NAME-2`.
 stand in for the old `alive N` waits: `wait-quiet proxy S` (the screen's loading is over when its file opens stop:
 the login screen, character select's avatars, the world, a window's model) and `click ... until EVENT` (the click
 is repeated until its effect shows: the movie's 3000 ms guard, character select's opening, during which the slot
-and Enter are ignored, hence `redo 1`). `alive S` remains as an assertion (the client runs, no `expect-no` line
+and Enter are ignored, hence `redo 1`). `wait-since SOURCE PATTERN S` (2026-11-25) waits until S seconds after the
+newest line matching PATTERN in the scenario (a wait-event's match counts, even after the line left the event
+window): antreplay plays a sector session at the recorded pace from the client's LOGIN however long the client takes
+to load (6-25 s after it on retail and ours), so a shot S seconds after the playback line is at one point of the
+recording, where `wait-quiet` plus `alive 20` landed in its flight or its rest by load time; the step fails when it
+starts more than 1 s past its point. `alive S` remains as an assertion (the client runs, no `expect-no` line
 appears), not as a wait. Gadget names come from `e2e/gadgets.txt` (NAME X Y at 1280x1024, each with the replay or
 the tooltip in a shot that found it): the client does not log gadgets' names or rectangles, so a name is a table
 entry, not a lookup in the running client.
@@ -600,6 +605,29 @@ logged (antreplay logs no START_ACK for a playback connection). Window behaviour
 fa_*.ini opens again when it closes; chat-panel drop-down items act on mouse-down; chat-panel requests queue while a
 window is open (an Esc during the options window opens the quit menu after it closes); the chat panel's browser items
 do nothing while the settings store's +0x34 is set.
+
+**Modifier keys, chords and held keys (test-plan C6, 2026-11-25):** `key KEYS` takes a VK as before (decimal or 0x
+hex), a key's name (`enter`, `esc`, `tab`, `space`, `backspace`, the arrows, `home` ... `pgdn`, `f1`-`f24`,
+`num0`-`num9`, control_keys.ini's punctuation) or a letter, and chords joined by `+`: `key shift+i`, `key ctrl+i`,
+`key alt+f1` (each key down in order, up in reverse). `keydown KEYS` / `keyup KEYS` press or let go only, so a key
+stays down across the steps between (`keydown shift`, `key i`, `keyup shift`); `hold KEY` takes the names too.
+`clientrun.py`'s `--input` files take the same (`T key shift+i`, `T keydown shift`). They are posted as a keyboard
+sends them (`clientrun.key_message`): the modifier's own key-down first, its scan code in lParam, Alt held without
+Ctrl as WM_SYSKEYDOWN / WM_SYSKEYUP with lParam's context bit 29 (Alt's own key-up with it clear), a key-down of a
+key already down as an auto-repeat (bit 30); a plain key's messages are exactly the old `key VK`'s. client.exe reads
+the modifiers only through user32, no DirectInput or GetKeyboardState: its key handler 0x4307A0 (w32kbd.cpp, for
+WM_KEYDOWN / WM_KEYUP / WM_SYSKEYDOWN / WM_SYSKEYUP) asks `GetKeyState(VK_SHIFT / VK_CONTROL / VK_MENU)` while
+it handles the key, the key test 0x430CA0 `GetAsyncKeyState`, the mouse's 0x4314C0 `GetKeyState`, and ToAscii
+(0x42EB80) gets a key state built from the event's flags. The proxy answers GetKeyState / GetAsyncKeyState from the
+key messages it passed on (`In_Keys`; the left / right Shift, Ctrl and Alt too) and logs the modifiers down at
+each key-down, `input: replayed key 0x49 +shift` (`+ctrl`, `+alt`, ` sys` for WM_SYSKEYDOWN, ` repeat`), and each
+key-up, `input: replayed key-up 0x49`; a plain key's line is unchanged. A scenario must let go of every key it
+holds (parse error otherwise; a failure between is let go at the scenario's end), and a lone Alt or Alt+Space is
+refused (the window menu's keyboard mode, the system menu's modal loop: D69). The client drops an auto-repeat
+key-down outside text entry (0x4307A0: lParam bit 30 without bit 31), so `hold`'s downs stay fresh downs without
+bit 30, as before (a keyboard's held key would reach the client once). `sb_vault` (live) opens the Vault with
+Shift+I (control_keys.ini `[Vault] PSW_1=$I`; plain I is `[Equipment]`) and closes it with the held form, then
+toggles Ctrl+I (`[Toggle Ping]`) on and off. Unit tests: `python -m unittest tools/harness/test_keys.py`.
 
 **The exe carries no test code (2026-11-14):** the stand-in build's input and multi-instance hooks are gone. The
 d3d8shot proxy, copied beside the instance's exe for every run, gives the client its virtual cursor and keyboard
@@ -664,7 +692,9 @@ without the export still runs (`no stand-in marker` in e2e.log; later scenarios 
 **Shots on events:** `shot NAME` writes the proxy's trigger file (`D3D8SHOT_TRIGGER`, d3d8shot.c: looked at every
 8th Present); the next frame is saved as `shot_NAME_NNNNN.png` from the client's own back buffer (D69). The proxy
 in `build/d3d8shot/` must be current: `python tools/harness/run_reference.py build` after any change to
-d3d8shot.c (a proxy of 2026-11-04 ignored the trigger, and every shot step waited out its 15 s).
+d3d8shot.c (a proxy of 2026-11-04 ignored the trigger, and every shot step waited out its 15 s). A trigger file
+the proxy cannot open yet, or reads empty, is read again at a later Present (2026-11-25: taken at once it was
+saved as `shot_shot_N`, the shot's name lost, while e2e still logged it taken).
 **Draw log per shot (test-plan C3):** e2e sets `D3D8SHOT_DRAWLOG=1` for every session, so each shot is taken one
 frame after the trigger was seen (the trigger file stays until then) and that frame's draw calls go to
 `shot_NAME_NNNNN.json` beside the image (written before it): every draw (call, primitive type and count, vertices,
@@ -731,6 +761,14 @@ the last name. Live antprox logs opcode numbers; e2e appends the names (`... = s
 - **Where the avatar is:** `D3D8SHOT_CAMERA=FILE` makes the proxy write the frame's first view matrices to FILE
   (every 2nd Present). The first is the room camera; the avatar is 6.4 units ahead of it. Each room has its own
   coordinates; the room changes show in messages.log (`Changing room from A to B`).
+- **The camera's whole path (`--camera-track`, 2026-11-25):** a thread reads that file every 20 ms and appends each
+  new frame's views to `camera-track.txt` (`TICK T FRAME N` and N times 16 floats; TICK is GetTickCount, the clock
+  of d3d8shot.log, T the events.log clock): about every 2nd to 4th frame of the session. In space the frame's
+  first view is an orthographic one (its projection is the draw log's first) and the second the ship camera; in a
+  starbase the first is the room camera. For camera moves a shot per event only samples (a landing, a gate jump:
+  `_play10`; test-plan SP-01 / SP-02). The camera controllers draw on one generator of a fixed seed (0xBDB1C0,
+  0x1105), so where a camera holds still (the dock, warp and room cameras) is the same place on every run, to the
+  tenth of a unit on retail: compare those plateaus, not single frames.
 - **Walking steps:** `walk-to X,Y [tol T] [within S]`, `face YAW [tol D] [within S]`, `hold VK until SOURCE
   PATTERN [within S]` (walk through a door until the room changes), `pose` (logs it). They are closed loops on
   the pose, not timed input, since the avatar starts on a random pad of the hangar. Measured on retail: 'A' and a
@@ -832,6 +870,30 @@ the last name. Live antprox logs opcode numbers; e2e appends the names (`... = s
   Jove's Fury and `_sb_home` fails at its first walk-to, pose ~116000,-224000): `e2e.py --live localhost
   --retail --instance NAME run _sb_dock` (named only) logs in, targets the station (641,1009, SET_TARGET) and
   docks (the target panel's right verb, 1238,672, until SERVER_HANDOFF); then run the `sb_*` set again.
+- **The Vault and the rooms (test-plan UI-04 and UI-03, 2026-11-25):** `sb_vault_ops` opens the Vault with
+  Shift+I, drags cargo column 1 row 1 onto the vault's row 2 column 1 and back (INVENTORY_MOVE each, the server's
+  AUX_DATA), then the Sort button (821,300) three times with the left button (the sort key, 0x657DA0 false) and
+  twice with the right (the reverse flag: 'BUTTON01' is two gadgets on one mesh, button masks 5 and 0x50), each an
+  INVENTORY_SORT, and its exit box (866,331). Net-7 sorts at most once in 10 s (`Player::HandleInventorySort`, else
+  'Cargo sort machine resetting'), so each later sort waits `alive 10.5`. The cargo ends as it began (the database's
+  slots too); the vault ends sorted by the client's starting key (the server keeps that order in memory: after
+  an `sb_*` run's database restore the first run shows the stored order again). `sb_rooms` walks
+  Jove's Fury's four rooms (0 hangar, 1 main deck, 2 bazaar, 3 lounge: net7 `starbase_rooms` 41-44), a `pose` and a
+  shot (with its draw log) per spot, opens and closes every terminal (`starbase_terminals`: room 1's analyze,
+  manufacturing and refining, room 3's jobs and Intergalactic Net, whose JWEB00 window loads a live page from the
+  internet; close box 1259,215), an `aim_` shot of each terminal's view before its click, the NPC name tags in the
+  room shots, and leaves: the hangar's ship clicked (770,284 at 50,-5 facing -124: room 0 -> -1, STARBASE_REQUEST,
+  the hand-off to space), docked again as `_sb_dock` and walked home (~470 s on retail). Two traps of the walk: a
+  turn in place drifts the avatar a few units, so each terminal is approached on a heading close to its `face`
+  (manufacturing from the dismantling spot: from -47,30 the turn left the terminal off its screen point); and a
+  terminal is lit (its tooltip, the click taken) only with the avatar in reach, the refinery's edge at camera y
+  about -5.0 (-4.8 refused on retail and ours alike), so its last leg aims past it (-5.5 tol 2.5) against the walk's
+  2.5-4.2 units of coast. Retail's own spread over three runs: the terminal shots identical (0 cells, the same draw
+  logs; the job board's rows are the server's random jobs), the vault and cargo windows identical, the room shots
+  up to 95 of 256 cells (ambient avatars, animated models, the arrival pose). Ours at a9fa08ee3 (2026-11-25): both
+  pass with the SAME packets and the same server answers (AUX_DATA lengths) to every move and sort, the vault and
+  cargo windows identical to retail's after every step, every terminal shot identical, the room shots inside
+  retail's spread. The live compare reads packet names only; the server's answers stand in for the payloads.
 
 **Smoke set (D237):** a landing that changes the client's behaviour runs `e2e.py run --exe <its worktree's
 build\programs\client\client.exe> --instance <name>` and lands only with every line as expected.
@@ -895,9 +957,11 @@ replay run; every kept file's SHA-256 and size), then rewrites the scenario's
 `noise.json` (every stored run against every other, raw `shot_diff`, no shot mask: differing cells and mean per
 pair, the max per shot; whether packets and verdicts were equal). A failed run is reported and stays in
 `.staging`. `verify` needs neither the game nor Windows; a file still a Git LFS pointer is reported as "run git
-lfs pull". `verify --run` (an e2e session folder, folders joined by `,`, an e2e `--manifest` file or a stored
-run): verdict equal, packets equal to at least one stored run's, each shot's differing cells against its
-best-matching stored run at most the noise max; one SAME / DIFF line per scenario. **Stale builds:** for a run of
+lfs pull". `verify --run` (an e2e session folder, the e2e `--out` folder: the session folders of its newest run, a
+fresh one after each failure; folders joined by `,`, an e2e `--manifest` file or a stored run): verdict equal,
+packets equal to at least one stored run's, each shot's differing cells against its best-matching stored run at most
+the noise max; one SAME / DIFF line per scenario, then every scenario not compared and why (left out by NAME
+arguments; a stored set's the run has no result for: `SKIP` under `--set`, exit 1). **Stale builds:** for a run of
 our build (e2e.log's session line names the exe; a retail run is exempt) it first prints the exe's link time (the PE
 header's TimeDateStamp, else the file's mtime) and SHA-256; when a commit touching the client's sources is newer
 (`CLIENT_SOURCES`: `app` and every other top-level folder the client links from: `binkmovie`, `libs`, `programs`,
@@ -919,7 +983,13 @@ logs, `packets.json` {scenario: packets}, and a manifest with `set`, `order` (th
 `order_equal`. A scenario captured alone keeps its own folder (the earlier runs stay valid). `verify --run` finds each
 scenario of the run inside the stored folders (`dir_scenarios`): a run of several scenarios prefers a set that ran
 it, a run of one its own folder, `--set SET` names one; it says when the scenario ran after a different one than in
-the stored run ("scenario order differs": state carried from the scenario before can explain a difference). A live
+the stored run ("scenario order differs": state carried from the scenario before can explain a difference; "a
+fresh session" when e2e restarted the client before it). **Such a scenario is `NOT COMPARABLE`, not DIFF, when only
+its packets, shots, draw logs or audio differ** (2026-11-25: the scenario before changes texture address modes, the
+draw order and matrices, retail against retail too: pda_faction alone against the default set read DIFF on retail
+itself); the line lists what differed and says to compare a run in the stored order. A verdict that differs or a shot
+missing on either side stays DIFF. Exit codes: 0 every scenario SAME, 1 any DIFF (or a `--set` scenario missing),
+2 a stale build, 3 no DIFF but some not comparable; the count line says how many were not comparable. A live
 set restores the database state once a run, before the session.
 
 **Draw logs** (test-plan C3; d3d8shot `D3D8SHOT_DRAWLOG`, above): a stored run keeps each shot's
@@ -931,8 +1001,24 @@ prims verts stride fvf`, `tex0.*` / `tex1.*` the texture's parameters and hash, 
 two logs' draws aligned on (call, prim, fvf, stride) with difflib so one draw more does not shift the rest, then
 field by field; matrices within `DRAW_MATRIX_SLACK` (1.5) times the stored spread plus `DRAW_MATRIX_FLOOR` (1e-4).
 `verify --run` per shot: SAME when equal to a stored run's log or different only in fields and draw counts the stored
-runs vary in themselves; else DIFF with the counts, the first differing draw and its fields, and the matrices out of
-tolerance. A run stored before the draw log (2026-11-24's) reads "no draw log stored", not a failure.
+runs vary in themselves; else the multiset compare below decides, and a DIFF gives the counts, the first differing
+draw and its fields (`N fields differ in M of P paired draws`), the matrices out of tolerance, then the multiset's
+reasons. A run stored before the draw log (2026-11-24's) reads "no draw log stored", not a failure.
+**The multiset compare** (2026-11-25, `multiset_verdict`): a moving scene (a playback's asteroids switching LOD,
+ships reordering the draws) reads as DIFF in order although every state, texture and object is there, so a shot the
+ordered compare fails is compared again as a multiset, against the stored logs themselves (not noise.json): each
+draw's state is every flat field but `prims` / `verts` (the LOD); a state of the run no stored run has passes when
+its nearest stored state (fewest fields apart; the same call, primitive, FVF and texture sizes first) differs only
+in fields that differ so between two stored runs (the same the other way for a stored state the run lacks); each
+state's draws are paired with the stored run's, the same LOD first, nearest by world translation, and a pair is out
+when its world differs by more than that stored draw's own spread over the other stored runs (x `DRAW_MATRIX_SLACK`,
+plus the floor); the draw counts per state (summed differences) and the set of textures may differ from the nearest
+stored run as much as two stored runs differ (the counts x the slack); the number of draws out of their spread, of
+those the draws still in every stored run, and the frame's views and projections may be as large as a stored run's
+own against the other stored runs (leave one out: a playback's objects and second camera move by the shot's timing,
+so retail has draws out of the spread two of its runs measure: 54-227 at play1's 50-55 s, against ours' 31-33); each
+measure against the stored run nearest in it. SAME that way reads `draw logs K of N the same (M as a multiset)`.
+With one stored run the multiset must be equal. Tests: `tools/test_baseline.py` DrawLogs.
 
 **Audio** (test-plan C2; `capture` runs e2e with `--audio` unless `--no-audio`): the session's `audio.jsonl` is cut
 per scenario by the results' `tick_start` / `tick_end` (e2e.py writes GetTickCount at a scenario's start and end; the

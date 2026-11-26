@@ -1,0 +1,30 @@
+# Station (live server): the vault by its key, control_keys.ini [Vault] PSW_1=$I (Shift+I; test-plan UI-04's
+# first step, C6's proof). Opened by the chord, closed by the held form (keydown shift, key i, keyup shift): the
+# client's key handler 0x4307A0 reads Shift through GetKeyState(VK_SHIFT) while it handles the I, which the
+# d3d8shot proxy answers from the Shift key-down posted before it. Plain I is [Equipment], so the shot tells the two
+# apart (expect-ink on its headers). Then Ctrl+I ([Toggle Ping] ^I) on and off again. Starts and ends at the home spot.
+name: starbase vault: Shift+I opens and closes it (modifier keys)
+timeout: 200
+include _sb_home
+shot vault_before
+key shift+i
+expect-event proxy '^input: replayed key 0x49 \+shift'
+wait-quiet proxy 1.0 within 15
+shot vault_open
+# the window's Filter / Sort headers: 436-444 bright pixels open, 123-157 with it closed (retail and ours, 2026-11-25)
+expect-ink vault_open 405,288,475,26 300
+keydown shift
+key i
+expect-event proxy '^input: replayed key 0x49 \+shift'
+keyup shift
+wait-quiet proxy 1.0 within 15
+shot vault_closed
+key ctrl+i
+expect-event proxy '^input: replayed key 0x49 \+ctrl'
+wait-quiet proxy 1.0 within 15
+shot ping_on
+# the ping read-out at the top left: 260 bright pixels on, at most 4 off (retail and ours, 2026-11-25)
+expect-ink ping_on 0,0,80,64 150
+key ctrl+i
+wait-quiet proxy 1.0 within 15
+shot ping_off

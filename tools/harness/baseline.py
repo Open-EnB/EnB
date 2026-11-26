@@ -23,10 +23,12 @@ set) run as one e2e session a run, stored as runs/<client>/<env>/<SET>/<run>/ wh
 (manifest: set, order, scenarios; noise.json keyed by scenario, then shot). Each shot's draw log
 (shot_NAME_<frame>.json, d3d8shot D3D8SHOT_DRAWLOG) is kept and compared structurally (the draw-log section). verify checks every stored file against its
 manifest's SHA-256 (a Git LFS pointer is reported as "run git lfs pull"); it needs neither the game nor Windows.
-verify --run compares an e2e run (a session folder, several joined by ',', an e2e --manifest file, or a stored
-run's manifest.json) with the stored runs of the same client and env: the verdict, the packets (equal to at least
-one stored run's) and each shot (its differing cells against the best-matching stored run at most noise.json's
-max for that shot). One line per scenario, SAME or DIFF; exit 1 on any DIFF or problem.
+verify --run compares an e2e run (a session folder, the e2e --out folder: its newest run's session folders, several
+joined by ',', an e2e --manifest file, or a stored run's manifest.json) with the stored runs of the same client and
+env: the verdict, the packets (equal to at least one stored run's) and each shot (its differing cells against the
+best-matching stored run at most noise.json's max for that shot). One line per scenario, SAME or DIFF; then every
+scenario not compared, and why: the run's left out by NAME arguments, a stored set's the run has no result for
+(SKIP under --set). Exit 1 on any DIFF or problem, or a SKIP.
 
 inputs/ holds what a second device needs to repeat a run: captures/ (the replay set antprox /REPLAY reads, machine.py
 `recordings`), records/<YYYYMMDD-HHMMSS>/ (e2e record's tracks), db/ (the test account's row and its avatars'
@@ -53,6 +55,11 @@ import struct
 import subprocess
 import sys
 import time
+
+try:
+    import numpy as _np                         # optional: the multiset compare's large groups
+except ImportError:
+    _np = None
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(os.path.dirname(HERE))
@@ -601,13 +608,14 @@ def compare_drawlogs(a, b, tol=None):
             unmatched += max(i2 - i1, j2 - j1)
             if first_unmatched is None:
                 first_unmatched = i1
-    fields, first, deltas, bad = {}, None, [], {}
+    fields, first, deltas, bad, field_draws = {}, None, [], {}, []
     mat = {k: 0.0 for k in DRAW_MATRICES}
     for i, j in pairs:
         fa, fb = a['draws'][i][0], b['draws'][j][0]
         diff = sorted(k for k in set(fa) | set(fb) if fa.get(k) != fb.get(k))
         for k in diff:
             fields.setdefault(k, i)
+            field_draws.append((i, k))
         if diff and first is None:
             first = [i, diff]
         dd = {}
@@ -627,7 +635,254 @@ def compare_drawlogs(a, b, tol=None):
     if mat['sets'] > tol(None, 'sets'):
         bad['sets'] = [1, 0, mat['sets']]
     return {'counts': [a['count'], b['count']], 'unmatched': unmatched, 'first_unmatched': first_unmatched,
-            'fields': fields, 'first': first, 'matrix': mat, 'deltas': deltas, 'bad': bad, 'sets': kinds_same}
+            'fields': fields, 'field_draws': field_draws, 'pairs': pairs, 'first': first, 'matrix': mat,
+            'deltas': deltas, 'bad': bad, 'sets': kinds_same}
+
+
+# The multiset compare (2026-11-25): a scene that moves (a playback's asteroids switching LOD, ships changing the draw
+# order) reads as DIFF in the ordered compare above although every state, texture and object is there. Here a frame
+# is a multiset of draw states (every flat field but the LOD's prims and verts). A state of the run that no stored
+# run has passes when its nearest stored state differs only in fields that differ so between the stored runs
+# themselves (the same rule the other way for a stored state the run lacks); each state's draws are paired with the
+# stored run's nearest first by world translation, and each pair's world matrices must be within that stored draw's
+# own spread over the other stored runs (times DRAW_MATRIX_SLACK, plus DRAW_MATRIX_FLOOR: a still draw stays still);
+# the draw counts per state, the textures as a set and the frame's views and projections within the stored runs'
+# largest difference among themselves (the counts and matrices times DRAW_MATRIX_SLACK). Each measure is taken
+# against the stored run the run is closest to in it.
+MULTISET_LOD = ('prims', 'verts')
+_STATE_HEAD = ('call', 'prim', 'fvf', 'stride', 'tex0.w', 'tex0.h', 'tex0.format', 'tex1.w', 'tex1.h', 'tex1.format')
+
+
+def _state(flat):
+    return tuple(sorted((k, v) for k, v in flat.items() if k not in MULTISET_LOD))
+
+
+def _texture(flat, s):
+    v = tuple(flat.get(f'tex{s}.{k}') for k in TEX_FIELDS)
+    return None if all(x is None for x in v) else v
+
+
+def _ms_prep(log):
+    """A loaded draw log -> {'groups': {state: [(draw index, world)]}, 'tex': set, 'cams': {kind: [matrix]}}."""
+    from collections import defaultdict
+    if '_ms' in log:
+        return log['_ms']
+    groups = defaultdict(list)
+    for i, (f, m) in enumerate(log['draws']):
+        groups[_state(f)].append((i, m['world'], (f.get('prims'), f.get('verts'))))
+    tex = {t for f, _ in log['draws'] for t in (_texture(f, 0), _texture(f, 1)) if t}
+    cams = {}
+    for kind in ('view', 'proj'):
+        xs = [m for k, m in log['sets'] if k == kind and m is not None]
+        cams[kind] = [(n, m, None) for n, m in enumerate(xs) if m not in xs[:n]]
+    log['_ms'] = {'groups': dict(groups), 'tex': tex, 'cams': cams}
+    return log['_ms']
+
+
+def _pair_nearest(xa, xb):
+    """Two lists of (key, matrix, lod) -> [(key a, key b, element difference)]: the draws of the same LOD (prims,
+    verts: the same mesh) paired nearest first by translation, then the rest nearest first (an object that switched
+    its LOD)."""
+    def tr(m):
+        return m[12:15] if m and len(m) >= 15 and None not in m[12:15] else (0.0, 0.0, 0.0)
+    if len(xa) * len(xb) > 400 and _np is not None:      # numpy's order: the same (lod, distance, i, j) keys
+        ta, tb = _np.array([tr(x[1]) for x in xa], float), _np.array([tr(x[1]) for x in xb], float)
+        dist = ((ta[:, None, :] - tb[None, :, :]) ** 2).sum(axis=2)
+        lod = _np.array([[x[2] != y[2] for y in xb] for x in xa])
+        ii, jj = _np.meshgrid(_np.arange(len(xa)), _np.arange(len(xb)), indexing='ij')
+        order = _np.lexsort((jj.ravel(), ii.ravel(), dist.ravel(), lod.ravel()))
+        cand = zip(ii.ravel()[order].tolist(), jj.ravel()[order].tolist())
+    else:
+        cand = ((i, j) for _, _, i, j in sorted(
+            (xa[i][2] != xb[j][2], sum((x - y) ** 2 for x, y in zip(tr(xa[i][1]), tr(xb[j][1]))), i, j)
+            for i in range(len(xa)) for j in range(len(xb))))
+    used_a, used_b, out = set(), set(), []
+    want = min(len(xa), len(xb))
+    for i, j in cand:
+        if i in used_a or j in used_b:
+            continue
+        used_a.add(i)
+        used_b.add(j)
+        out.append((xa[i][0], xb[j][0], _mdelta(xa[i][1], xb[j][1])))
+        if len(out) == want:
+            break
+    return out
+
+
+def _state_fields(a, b):
+    return [k for (k, x), (_, y) in zip(a, b) if x != y]
+
+
+def _nearest_fields(state, pool):
+    """The fields in which `state` differs from its nearest state of `pool` (same field names; the same draw call,
+    primitive, FVF and textures' sizes first), or None when pool has no state with the same fields."""
+    names = [k for k, _ in state]
+    head = {k: v for k, v in state if k in _STATE_HEAD}
+    best = None
+    for near in (True, False):
+        for s in pool:
+            if [k for k, _ in s] != names or (near and any(dict(s).get(k) != v for k, v in head.items())):
+                continue
+            d = _state_fields(state, s)
+            if best is None or len(d) < len(best):
+                best = d
+        if best is not None:
+            return best
+    return best
+
+
+def _pair_stats(px, py):
+    """What the multiset compare needs of two prepared logs, kept in px for py (a leave-one-out asks again):
+    'missing' {state of px not in py: _nearest_fields}, 'draws', 'textures', 'cams', 'pairs' [(draw of px, draw of py,
+    world difference)]."""
+    memo = px.setdefault('memo', {})
+    if id(py) not in memo:
+        gx, gy = px['groups'], py['groups']
+        back = py.get('memo', {}).get(id(px))
+        memo[id(py)] = {
+            'missing': {st: _nearest_fields(st, gy) for st in gx if st not in gy},
+            'draws': back['draws'] if back else _count_distance(px, py),
+            'textures': len(px['tex'] ^ py['tex']),
+            'cams': back['cams'] if back else _cams_distance(px, py),
+            'pairs': [(i, j, d) for j, i, d in back['pairs']] if back else
+            [(i, j, d) for st in set(gx) & set(gy) for i, j, d in _pair_nearest(gx[st], gy[st])]}
+    return memo[id(py)]
+
+
+def _odd_states(px, py, varying):
+    """States of px missing from py whose nearest py state differs in a field outside `varying` -> [(state, fields)]."""
+    return [(st, d) for st, d in _pair_stats(px, py)['missing'].items() if d is None or not set(d) <= varying]
+
+
+def multiset_noise(stored):
+    """Loaded stored logs -> what they differ by among themselves: 'varying' (fields in which a state of one differs
+    from the nearest state of another), 'draws' (the largest multiset distance of the draw states), 'textures' (the
+    largest number of textures in one and not the other), 'cams' (the largest view / projection difference), 'spread'
+    ([{draw index: the largest world difference to its partner in another run}] per log)."""
+    preps = [_ms_prep(lg) for lg in stored]
+    nz = {'varying': set(), 'draws': 0, 'textures': 0, 'cams': 0.0, 'spread': [{} for _ in stored]}
+    for x, y in itertools.permutations(range(len(stored)), 2):
+        ps = _pair_stats(preps[x], preps[y])
+        for d in ps['missing'].values():
+            nz['varying'] |= set(d or [])
+        if x > y:
+            continue
+        nz['draws'] = max(nz['draws'], ps['draws'])
+        nz['textures'] = max(nz['textures'], ps['textures'])
+        nz['cams'] = max(nz['cams'], ps['cams'])
+        for i, j, d in ps['pairs']:
+            nz['spread'][x][i] = max(nz['spread'][x].get(i, 0.0), d)
+            nz['spread'][y][j] = max(nz['spread'][y].get(j, 0.0), d)
+    return nz
+
+
+def _count_distance(pa, pb):
+    return sum(abs(len(pa['groups'].get(s, ())) - len(pb['groups'].get(s, ())))
+               for s in set(pa['groups']) | set(pb['groups']))
+
+
+def _cams_distance(pa, pb):
+    return max((d for kind in ('view', 'proj') for _, _, d in
+                _pair_nearest(pa['cams'][kind], pb['cams'][kind])), default=0.0)
+
+
+def _state_desc(state):
+    f = dict(state)
+    t = f"tex {f['tex0.w']}x{f['tex0.h']} fmt {f['tex0.format']}" if f.get('tex0.w') is not None else 'no texture'
+    fvf = f'{f["fvf"]:#x}' if isinstance(f.get('fvf'), int) else f.get('fvf')
+    return f"{f.get('call')} prim {f.get('prim')}, fvf {fvf}, {t}"
+
+
+def multiset_measures(mine, stored, nz):
+    """The run's loaded draw log against each loaded stored one -> one dict per stored log: 'extra' / 'missing'
+    (_odd_states both ways), 'draws', 'textures', 'cams', 'worlds' ([(draw of mine, draw of the stored log,
+    difference, allowed)] of the pairs over their allowance)."""
+    pm = _ms_prep(mine)
+    out = []
+    for k, lg in enumerate(stored):
+        pk = _ms_prep(lg)
+        ps = _pair_stats(pm, pk)
+        worlds = []
+        for i, j, d in ps['pairs']:
+            allowed = DRAW_MATRIX_SLACK * nz['spread'][k].get(j, 0.0) + DRAW_MATRIX_FLOOR
+            if d > allowed:
+                worlds.append((i, j, d, allowed))
+        out.append({'extra': _odd_states(pm, pk, nz['varying']), 'missing': _odd_states(pk, pm, nz['varying']),
+                    'draws': ps['draws'], 'textures': ps['textures'], 'cams': ps['cams'], 'worlds': sorted(worlds)})
+    return out
+
+
+def _ms_score(mine, stored):
+    """The run's log against the stored ones: each measure against the stored log nearest in it -> {'states': odd
+    states both ways, 'textures', 'draws', 'cams', 'worlds': draws out of their stored spread, 'detail': ...}."""
+    nz = multiset_noise(stored)
+    ms = multiset_measures(mine, stored, nz)
+    st = min(ms, key=lambda m: len(m['extra']) + len(m['missing']))
+    wo = min(ms, key=lambda m: len(m['worlds']))
+    return {'states': len(st['extra']) + len(st['missing']), 'textures': min(m['textures'] for m in ms),
+            'draws': min(m['draws'] for m in ms), 'cams': min(m['cams'] for m in ms), 'worlds': len(wo['worlds']),
+            'st': st, 'wo': wo}
+
+
+MULTISET_MEASURES = ('states', 'textures', 'draws', 'cams', 'worlds')
+
+
+def _ms_score(mine, stored):
+    """The run's log against the stored ones, each measure against the stored log nearest in it -> {'states': odd
+    states both ways, 'textures', 'draws', 'cams', 'worlds': draws out of their stored spread, 'still': those of
+    them whose stored draw never moved between the stored runs, 'nz': multiset_noise, 'st' / 'wo': the details}."""
+    nz = multiset_noise(stored)
+    ms = multiset_measures(mine, stored, nz)
+    st = min(ms, key=lambda m: len(m['extra']) + len(m['missing']))
+    wo = min(ms, key=lambda m: len(m['worlds']))
+    still = min(sum(1 for _, j, _, lim in m['worlds'] if lim <= DRAW_MATRIX_FLOOR) for m in ms)
+    return {'states': len(st['extra']) + len(st['missing']), 'textures': min(m['textures'] for m in ms),
+            'draws': min(m['draws'] for m in ms), 'cams': min(m['cams'] for m in ms), 'worlds': len(wo['worlds']),
+            'still': still, 'nz': nz, 'st': st, 'wo': wo}
+
+
+LEAVE_ONE_OUT = ('cams', 'worlds', 'still')
+
+
+def multiset_verdict(mine, stored):
+    """A run's loaded draw log against the loaded stored ones, as multisets -> (True | False, text). No draw state
+    may be odd (_odd_states); the textures and the draw counts per state may differ from the nearest stored run as
+    much as two stored runs differ (the counts times DRAW_MATRIX_SLACK); the views' difference and the number of
+    draws out of their stored spread (and of those, draws that never moved in the stored runs) may be as large as a
+    stored run's own against the other stored runs (leave one out: a playback's objects move by the shot's timing,
+    so retail has draws out of the spread two runs measure too); with one stored run all must be zero."""
+    score = _ms_score(mine, stored)
+    nz = score['nz']
+    allowed = {k: 0 for k in LEAVE_ONE_OUT}
+    if len(stored) > 1:
+        for k in range(len(stored)):
+            own = _ms_score(stored[k], stored[:k] + stored[k + 1:])
+            for m in LEAVE_ONE_OUT:
+                allowed[m] = max(allowed[m], own[m])
+    parts = []
+    if score['states']:
+        st = score['st']
+        s, d = (st['extra'] or st['missing'])[0]
+        parts.append(f'{len(st["extra"])} draw states not stored, {len(st["missing"])} stored ones missing (e.g. '
+                     f'{"extra" if st["extra"] else "missing"} {_state_desc(s)}: '
+                     f'{", ".join((d or ["no stored state with its fields"])[:4])})')
+    if score['textures'] > nz['textures']:
+        parts.append(f'{score["textures"]} textures differ (stored runs by up to {nz["textures"]})')
+    if score['draws'] > DRAW_MATRIX_SLACK * nz['draws']:
+        parts.append(f'draw counts per state {score["draws"]} apart (stored runs up to {nz["draws"]})')
+    if score['cams'] > allowed['cams'] + DRAW_MATRIX_FLOOR:
+        parts.append(f'views / projections up to {score["cams"]:.4g} apart (a stored run against the others: '
+                     f'{allowed["cams"]:.4g})')
+    if score['worlds'] > allowed['worlds'] or score['still'] > allowed['still']:
+        i, j, d, lim = max(score['wo']['worlds'], key=lambda w: w[2] - w[3])
+        parts.append(f'world matrices of {score["worlds"]} draws out of the stored spread, {score["still"]} of them '
+                     f'still in every stored run (a stored run against the others: {allowed["worlds"]}, '
+                     f'{allowed["still"]}; worst {_draw_desc(mine, i)} {d:.4g}, allowed {lim:.4g})')
+    if parts:
+        return False, 'as a multiset: ' + '; '.join(parts)
+    return True, (f'the same as a multiset (draw counts per state {score["draws"]} apart, stored runs up to '
+                  f'{nz["draws"]}; {score["worlds"]} draws out of the stored spread, a stored run against the others '
+                  f'{allowed["worlds"]})')
 
 
 def _canon(log):
@@ -696,7 +951,7 @@ def drawlog_verdict(mine_path, stored_paths, nzd):
     lo, hi = nzd.get('draws', [None, None])
     sets_spread = (nzd.get('matrix_spread') or {}).get('sets', 0.0)
     mine = load_drawlog(mine_path)
-    best = None
+    best, loaded = None, []
     for p in stored_paths:
         if is_lfs_pointer(p):
             return False, f'{os.path.basename(p)} is a Git LFS pointer: run git lfs pull'
@@ -706,7 +961,8 @@ def drawlog_verdict(mine_path, stored_paths, nzd):
         def tol(j, k, spread=spread):
             v = sets_spread if j is None else spread.get(str(j), {}).get(k, 0.0)
             return float('inf') if v is None else DRAW_MATRIX_SLACK * v + DRAW_MATRIX_FLOOR
-        c = compare_drawlogs(mine, load_drawlog(p), tol)
+        loaded.append(load_drawlog(p))
+        c = compare_drawlogs(mine, loaded[-1], tol)
         bad_fields = sorted((f for f in c['fields'] if f not in allowed), key=lambda f: (c['fields'][f], f))
         bad_count = c['unmatched'] > nzd.get('unmatched_max', 0) or (
             c['unmatched'] and lo is not None and not lo <= mine['count'] <= hi)
@@ -722,13 +978,17 @@ def drawlog_verdict(mine_path, stored_paths, nzd):
     if bad_fields:
         i = c['fields'][bad_fields[0]]
         here = [f for f in bad_fields if c['fields'][f] == i]
+        n_draws = len({i for i, f in c['field_draws'] if f in bad_fields})
         parts.append(f'first difference {_draw_desc(mine, i)}: {", ".join(here[:6])}'
                      + (f' (+{len(here) - 6})' if len(here) > 6 else '')
-                     + f'; {len(bad_fields)} fields differ in all')
+                     + f'; {len(bad_fields)} fields differ in {n_draws} of {len(c["pairs"])} paired draws')
     if c['bad']:
         parts.append('matrices ' + ', '.join(f'{k} in {n} draws from draw {f0} (up to {w:.4g})'
                                              for k, (n, f0, w) in sorted(c['bad'].items())))
-    return False, '; '.join(parts)
+    ok, text = multiset_verdict(mine, loaded)
+    if ok:          # the ordered compare's differences are a moving scene's: order, LOD, matrices within the spread
+        return True, f'{mine["count"]} draws, {text} (in order: {"; ".join(parts[1:])})'
+    return False, '; '.join(parts) + '; ' + text
 
 
 # ---------------------------------------------------------------- noise
@@ -737,7 +997,7 @@ def stored_runs(scen_dir):
     return sorted(d for d in os.listdir(scen_dir) if os.path.isfile(os.path.join(scen_dir, d, 'manifest.json')))
 
 
-def run_entries(scen_dir, name):
+def run_entries(scen_dir, name, superseded=None):
     """The stored runs of scenario name in scen_dir (a scenario's folder, or a set's that ran it):
     [{'run', 'dir', 'verdict', 'shots', 'drawlogs', 'packets', 'order'}]."""
     out = []
@@ -753,7 +1013,16 @@ def run_entries(scen_dir, name):
         out.append({'run': r, 'dir': d, 'verdict': e['verdict'], 'shots': e.get('shots', []),
                     'drawlogs': e.get('drawlogs', []), 'order': man.get('order', [man['scenario']]),
                     'audio': e.get('audio') and os.path.join(d, e['audio']),
-                    'packets': read_json(os.path.join(d, 'packets.json')).get(name, [])})
+                    'packets': read_json(os.path.join(d, 'packets.json')).get(name, []),
+                    'scn': (man.get('scenario_files') or {}).get(f'tools/harness/e2e/{name}.scn')})
+    # like with like (2026-11-25): runs of an older text of the scenario's own file (play1.scn's shot moved to a
+    # fixed playback time) are left out once a newer text has been captured
+    newest = out[-1]['scn'] if out else None
+    if newest is not None:
+        old = [x['run'] for x in out if x['scn'] not in (None, newest)]
+        out = [x for x in out if x['scn'] in (None, newest)]
+        if superseded is not None:
+            superseded.extend(old)
     return out
 
 
@@ -801,20 +1070,30 @@ def scenario_noise(entries):
             **({'audio': au} if au else {})}
 
 
-def _run_order(dirs, man):
-    """The scenarios of an e2e run in the order run: an e2e --manifest's list, else e2e.log's 'scenario NAME' lines."""
+def _session_orders(dirs, man):
+    """The scenarios of an e2e run in the order run, one list per client session: a stored manifest's order (one
+    session), else each folder's e2e.log 'scenario NAME' lines (a run continued in a fresh session after a failure
+    has a folder per session)."""
     if man is not None:
-        return list(man.get('order', [man.get('scenario')]))
-    order = []
+        return [list(man.get('order', [man.get('scenario')]))]
+    out, seen = [], set()
     for d in dirs:
         log = os.path.join(d, 'e2e.log')
         if os.path.exists(log):
+            order = []
             with open(log, encoding='utf-8', errors='replace') as f:
                 for line in f:
                     p = line.split()
-                    if len(p) >= 3 and p[1] == 'scenario' and p[2] not in order:
+                    if len(p) >= 3 and p[1] == 'scenario' and p[2] not in seen:
                         order.append(p[2])
-    return order
+                        seen.add(p[2])
+            out.append(order)
+    return out
+
+
+def _run_order(dirs, man):
+    """The scenarios of an e2e run in the order run (every session's, _session_orders, in turn)."""
+    return [n for o in _session_orders(dirs, man) for n in o]
 
 
 def compute_noise(scen_dir):
@@ -1382,13 +1661,56 @@ def verify_store(args):
     return 1 if bad else 0
 
 
+def _is_session(d):
+    """An e2e session folder: its own e2e.log or result-*.json."""
+    return os.path.isfile(os.path.join(d, 'e2e.log')) or any(
+        f.startswith('result-') and f.endswith('.json') for f in os.listdir(d))
+
+
+def out_sessions(top, out=print):
+    """An e2e --out folder -> its newest run's session folders, oldest first; a session folder (or anything not a
+    folder) -> [top]. The sessions are the subfolders <YYYYmmdd-HHMMSS>-<tag> with an e2e.log (e2e names them by
+    its STAMP, so their names sort by start). A run is one session, plus one for the rest after each failure
+    (e2e.run_all), so its sessions' scenarios do not repeat: walking from the newest, a session that holds a
+    scenario a newer one already holds belongs to an earlier run into the same --out; those are named and left out,
+    as are sessions without a result older than the run's first."""
+    if not os.path.isdir(top) or _is_session(top):
+        return [top]
+    import e2e
+    subs = sorted(os.path.join(top, f) for f in os.listdir(top)
+                  if os.path.isfile(os.path.join(top, f, 'e2e.log')))
+    if not subs:
+        return [top]
+    run, seen = [], set()
+    for k in range(len(subs) - 1, -1, -1):
+        names = set(e2e.run_results([subs[k]]))
+        if names & seen:
+            old = subs[:k + 1]
+            out(f'baseline: {top}: {len(old)} older session folder(s) of an earlier run left out '
+                f'({", ".join(os.path.basename(s) for s in old)}; repeat {", ".join(sorted(names & seen))}); '
+                'give one as --run to compare it')
+            break
+        seen |= names
+        run.insert(0, subs[k])
+    while len(run) > 1 and not e2e.run_results([run[0]]):
+        run.pop(0)
+    if len(run) > 1 or run[0] != top:
+        out(f'baseline: {top}: an e2e --out folder: {len(run)} session(s) '
+            + ', '.join(f'{os.path.basename(s)} ({len(e2e.run_results([s]))} results)' for s in run))
+    return run
+
+
 def _run_input(run):
-    """RUN -> (e2e run folders, a stored manifest or None)."""
+    """RUN -> (e2e run folders, a stored manifest or None). An e2e --out folder stands for its newest run's session
+    folders (out_sessions)."""
     import e2e
     if os.path.basename(run) == 'manifest.json' or os.path.isfile(os.path.join(run, 'manifest.json')):
         d = os.path.dirname(run) if run.endswith('manifest.json') else run
         return [d], read_json(os.path.join(d, 'manifest.json'))
-    return e2e.run_dirs(run), None
+    dirs = []
+    for d in e2e.run_dirs(run):
+        dirs += [s for s in out_sessions(d) if s not in dirs]
+    return dirs, None
 
 
 # The top-level folders the client build is linked from (build.py: app plus the EA-derived and E&B libraries,
@@ -1481,22 +1803,21 @@ def verify_run(args):
     if not names:
         print(f'baseline: no result-*.json in {args.run}')
         return 1
-    order = _run_order(dirs, man)
+    sessions = _session_orders(dirs, man)
+    order = [n for o in sessions for n in o]
     mine_audio = {}
     if man is not None:                 # a stored run: its audio-NAME.json files
         for en in (man.get('scenarios') or [dict(man, name=man.get('scenario'))]):
             if en.get('audio'):
                 mine_audio[en['name']] = read_json(os.path.join(dirs[0], en['audio']))
     else:
-        for d in dirs:
-            here = [(n, r) for n, r in results.items() if os.path.normcase(os.path.abspath(r.get('out') or ''))
-                    == os.path.normcase(os.path.abspath(d))] or ([(n, r) for n, r in results.items()]
-                                                                if len(dirs) == 1 else [])
+        for d in dirs:                  # the results read from this folder (its 'out' may name where it ran)
+            here = [(n, results[n]) for n in e2e.run_results([d]) if n in results]
             here.sort(key=lambda nr: order.index(nr[0]) if nr[0] in order else 1 << 20)
             mine_audio.update(session_audio(d, here)[0])
     holders = [(c, e, s, d, dir_scenarios(d)) for c, e, s, d in scenario_dirs(store)
                if (not client or c == client) and (not env or e == env)]
-    bad = 0
+    bad, apart, used = 0, 0, set()
     for name in names:
         # a set folder when --set names it; else a run of several scenarios prefers a set that ran this one, and a
         # run of one scenario the scenario's own folder
@@ -1511,25 +1832,35 @@ def verify_run(args):
             bad += 1
             continue
         c, e, s, d, held = cands[0]
-        ents = run_entries(d, name)
+        superseded = []
+        ents = run_entries(d, name, superseded)
         nz = read_json(os.path.join(d, 'noise.json'))
         nzs = nz['scenarios'].get(name, {}) if 'set' in nz else nz
-        what, notes = [], []
+        what, notes, hard = [], [], []     # hard: differences no scenario order explains (the verdict, a shot)
         v = e2e.verdict(results[name])
         stored_v = sorted({en['verdict'] for en in ents})
         if v not in stored_v:
-            what.append(f'verdict {v}, stored {"/".join(stored_v)}')
+            hard.append(f'verdict {v}, stored {"/".join(stored_v)}')
         mine = packets.get(name, [])
         theirs = [en['packets'] for en in ents]
         if mine not in theirs:
             what.append(f'packets {len(mine)}, stored {"/".join(str(len(t)) for t in theirs)} (equal to none)')
         stored_order = ents[-1]['order'] if ents else []
+        used.add((c, e, s))
         if len(held) > 1 or len(order) > 1:
-            before_mine = order[:order.index(name)] if name in order else None
+            mine_s = next((o for o in sessions if name in o), None)
+            before_mine = mine_s[:mine_s.index(name)] if mine_s else None
             before_theirs = stored_order[:stored_order.index(name)] if name in stored_order else None
-            if before_mine != before_theirs:
-                notes.append(f'run after {before_mine[-1] if before_mine else "the login"}, stored after '
-                             f'{before_theirs[-1] if before_theirs else "the login"} (scenario order differs)')
+            fresh = mine_s is not None and mine_s is not sessions[0]
+            prev_mine = before_mine[-1] if before_mine else None
+            prev_theirs = before_theirs[-1] if before_theirs else None
+            if prev_mine != prev_theirs:
+                notes.append(f'run after {prev_mine or "the login"}' + (' (a fresh session)' if fresh else '')
+                             + f', stored after {prev_theirs or "the login"} (scenario order differs)')
+            elif before_mine != before_theirs:
+                notes.append(f'run after {prev_mine} in a fresh session from {mine_s[0]}, stored after it in one '
+                             f'from {stored_order[0] if stored_order else "?"} (scenario order differs)' if fresh else
+                             f'run after {prev_mine} as stored, earlier scenarios differ (scenario order differs)')
         stored_shots, stored_logs = {}, {}
         for en in ents:
             for key, f in en['shots']:
@@ -1537,7 +1868,7 @@ def verify_run(args):
             for key, f in en['drawlogs']:
                 stored_logs.setdefault(key, []).append(os.path.join(en['dir'], f))
         mine_shots = dict(shot_keys(shots.get(name, [])))
-        logs_same, logs_none = 0, 0
+        logs_same, logs_none, logs_ms = 0, 0, 0
         for key in sorted(mine_shots):
             ok, text = drawlog_verdict(drawlog_path(mine_shots[key]), stored_logs.get(key, []),
                                        nzs.get('shots', {}).get(key, {}).get('drawlog'))
@@ -1545,12 +1876,13 @@ def verify_run(args):
                 logs_none += 1
             elif ok:
                 logs_same += 1
+                logs_ms += 'as a multiset' in text
             else:
                 what.append(f'draw log {key}: {text}')
         within = 0
         for key in sorted(set(stored_shots) | set(mine_shots)):
             if key not in mine_shots or key not in stored_shots:
-                what.append(f'shot {key} ' + ('not taken' if key not in mine_shots else 'not in the baseline'))
+                hard.append(f'shot {key} ' + ('not taken' if key not in mine_shots else 'not in the baseline'))
                 continue
             ptrs = [p for p in stored_shots[key] if is_lfs_pointer(p)]
             if ptrs:
@@ -1567,14 +1899,79 @@ def verify_run(args):
         if a_ok is False:
             what.append(f'audio {a_text}')
         line = f'{len(mine)} packets, shots {within} of {len(set(stored_shots) | set(mine_shots))} within noise'
-        line += (f', draw logs {logs_same} of {len(mine_shots)} the same' if logs_same or not logs_none else '') + \
+        line += (f', draw logs {logs_same} of {len(mine_shots)} the same' + (f' ({logs_ms} as a multiset)' if logs_ms
+                                                                            else '')
+                 if logs_same or not logs_none else '') + \
             (f', no draw log stored for {logs_none}' if logs_none else '')
         line += f', audio the same ({a_text})' if a_ok else f', {a_text}'
-        print(f'{name}: {"DIFF " + "; ".join(what) if what else "SAME " + line}'
-              + (f' ({"; ".join(notes)})' if notes else '') + f'  [{c}/{e}/{s}, {len(ents)} runs]')
-        bad += bool(what)
-    print(f'baseline verify --run: {len(names) - bad} of {len(names)} scenarios the same as the baseline')
-    return 1 if bad else 0
+        # packets, shots, draw logs and audio carry state from the scenario before (texture address modes, draw
+        # order, matrices: retail itself differs so): after another scenario than stored they are not comparable
+        apart_here = bool(what) and not hard and bool(notes)
+        if apart_here:
+            head = 'NOT COMPARABLE (scenario order differs: compare a run in the stored order) ' + '; '.join(what)
+        else:
+            head = 'DIFF ' + '; '.join(hard + what) if hard or what else 'SAME ' + line
+        print(f'{name}: {head}' + (f' ({"; ".join(notes)})' if notes else '') + f'  [{c}/{e}/{s}, {len(ents)} runs'
+              + (f'; {len(superseded)} of an older {name}.scn left out' if superseded else '') + ']')
+        bad += bool(hard or what) and not apart_here
+        apart += apart_here
+    missed = skipped_scenarios(args, dirs, results, names, holders, used)
+    print(f'baseline verify --run: {len(names) - bad - apart} of {len(names)} scenarios the same as the baseline'
+          + (f', {apart} not comparable (run after another scenario than stored)' if apart else '')
+          + (f'; {missed} stored scenario(s) of the set not in the run (named above)' if missed else ''))
+    return 1 if bad or (missed and args.set) else 3 if apart else 0
+
+
+_SESSION_HEAD = re.compile(r' session of \d+: (.+?); exe ')
+
+
+def e2e_results_in(dirs, base):
+    """{scenario: result} of the run folder among DIRS named BASE."""
+    import e2e
+    return e2e.run_results([d for d in dirs if os.path.basename(d) == base])
+
+
+def skipped_scenarios(args, dirs, results, names, holders, used, out=print):
+    """verify --run: names every scenario it did not compare, and why: the run's results left out by NAME arguments,
+    and each set's stored scenarios the run has no result for (a set the run was compared with, or --set's). A
+    scenario e2e listed in a session's head line but wrote no result for was not run (a stop after a repeated crash
+    or a failed login) or its session died; one never listed was not in the run's e2e command, or its session
+    folder was not given. Returns the count of the sets' scenarios the run lacks (verify fails on them under --set)."""
+    unnamed = [n for n in results if n not in names]
+    if unnamed:
+        out(f'not compared: {", ".join(unnamed)} (in the run, not named on the command line)')
+    listed = {}
+    for d in dirs:
+        log = os.path.join(d, 'e2e.log')
+        if os.path.isfile(log):
+            with open(log, encoding='utf-8', errors='replace') as f:
+                for line in itertools.islice(f, 5):
+                    m = _SESSION_HEAD.search(line)
+                    if m:
+                        for n in m.group(1).split(', '):
+                            listed.setdefault(n, os.path.basename(d))
+    sets = [h for h in holders if len(h[4]) > 1 and ((h[0], h[1], h[2]) in used or (args.set and h[2] == args.set))]
+    missed = 0
+    for c, e, s, d, held in sets:
+        miss = [n for n in held if n not in results and (not args.names or n in args.names)]
+        if not miss:
+            continue
+        missed += len(miss)
+        why = {}
+        for n in miss:
+            if n not in listed:
+                w = ("never listed in the run's sessions: not in its e2e command, or its session folder not given "
+                     '(give the e2e --out folder)')
+            else:
+                failed = [r for r, res in e2e_results_in(dirs, listed[n]).items() if not res.get('passed')]
+                w = (f'listed in session {listed[n]}, which ended after {failed[-1]} failed: e2e ran the rest in a '
+                     'fresh session folder (give the e2e --out folder)' if failed else
+                     f'listed in session {listed[n]}, no result: not run (e2e stopped the run) or its client died')
+            why.setdefault(w, []).append(n)
+        for w, ns in why.items():
+            out(f'{"SKIP" if args.set else "not compared"}: {", ".join(ns)} ({len(ns)} of the set\'s {len(held)}: '
+                f'{w})  [{c}/{e}/{s}]')
+    return missed
 
 
 def list_store(args):

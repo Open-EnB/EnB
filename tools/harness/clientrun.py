@@ -81,7 +81,10 @@ a line, '#' comments; T is milliseconds after the window first appears, X Y clie
     T rclick X Y        the same with the right button
     T down X Y          WM_MOUSEMOVE, WM_LBUTTONDOWN (a drag's start; 'move' steps, then 'up')
     T up X Y            WM_MOUSEMOVE (button held), WM_LBUTTONUP
-    T key VK            WM_KEYDOWN / WM_KEYUP (VK decimal or 0x hex, e.g. 0x0D Enter, 0x09 Tab)
+    T key VK            WM_KEYDOWN / WM_KEYUP (VK decimal or 0x hex, e.g. 0x0D Enter, 0x09 Tab), or a key's
+                        name (enter, f1, a letter: parse_keys), or a chord: shift+i, ctrl+alt+x (each key down in
+                        order, up in reverse; Alt without Ctrl as WM_SYSKEYDOWN / WM_SYSKEYUP, as a keyboard)
+    T keydown KEYS      T keyup KEYS   those keys only pressed / only let go (held across steps)
     T text STRING       WM_KEYDOWN / WM_KEYUP per character (VkKeyScan; Shift around capitals)
 Each step is logged to stdout with the time it was sent.
 
@@ -448,10 +451,111 @@ def key_lparam(vk, up=False):
     return lp | (3 << 30) if up else lp
 
 
+# Modifier keys and chords (test-plan C6, IN-01). client.exe reads the modifiers only through user32: its key
+# handler 0x4307A0 (w32kbd.cpp, registered for WM_KEYDOWN / WM_KEYUP / WM_SYSKEYDOWN / WM_SYSKEYUP) asks
+# GetKeyState(VK_SHIFT / VK_CONTROL / VK_MENU) while the key's message is dispatched, its key test 0x430CA0
+# GetAsyncKeyState, the mouse's 0x4314C0 GetKeyState; ToAscii (0x42EB80) gets a key state array built from the
+# event's flags; no DirectInput, no GetKeyboardState. The d3d8shot proxy answers both from the key messages it
+# passed on (In_Take), so a chord is the modifier's own key-down first, as a keyboard sends it.
+VK_SHIFT, VK_CONTROL, VK_MENU = 0x10, 0x11, 0x12
+MODIFIERS = {'shift': VK_SHIFT, 'ctrl': VK_CONTROL, 'control': VK_CONTROL, 'alt': VK_MENU}
+# names a scenario may give a key (case ignored); besides these a letter is its own key and a number is a VK
+# (decimal or 0x hex, as before: the digit keys are 0x30-0x39). The punctuation is control_keys.ini's list (its
+# header), on the US layout.
+KEY_NAMES = dict(MODIFIERS, backspace=0x08, tab=0x09, enter=0x0D, pause=0x13, caps=0x14, esc=0x1B,
+                 escape=0x1B, space=0x20, pgup=0x21, pgdn=0x22, end=0x23, home=0x24, left=0x25, up=0x26,
+                 right=0x27, down=0x28, ins=0x2D, insert=0x2D, delete=0x2E, numlock=0x90, scroll=0x91,
+                 **{'return': 0x0D, 'del': 0x2E, "'": 0xDE, '-': 0xBD, ',': 0xBC, '.': 0xBE, '/': 0xBF,
+                    '[': 0xDB, '\\': 0xDC, ']': 0xDD, '`': 0xC0, '=': 0xBB, ';': 0xBA},
+                 **{f'f{i}': 0x6F + i for i in range(1, 25)}, **{f'num{i}': 0x60 + i for i in range(10)})
+WM_SYSKEYDOWN, WM_SYSKEYUP = 0x104, 0x105
+
+
+def parse_keys(spec):
+    """'shift+i' -> [0x10, 0x49]: the keys of a chord in the order they go down. ValueError when a part is no key
+    or a key is named twice."""
+    vks = []
+    for part in spec.split('+'):
+        p = part.lower()
+        if p in KEY_NAMES:
+            vk = KEY_NAMES[p]
+        elif len(p) == 1 and 'a' <= p <= 'z':
+            vk = ord(p.upper())
+        else:
+            try:
+                vk = int(p, 0)
+            except ValueError:
+                raise ValueError(f'{part!r} is no key (a name, a letter, or a VK number)')
+            if not 0 < vk < 0xFF:
+                raise ValueError(f'{part!r}: a VK is 1 to 254')
+        if vk in vks:
+            raise ValueError(f'{spec!r} names 0x{vk:02X} twice')
+        vks.append(vk)
+    return vks
+
+
+def key_name(vk):
+    """A VK as a scenario would write it."""
+    for n, v in KEY_NAMES.items():
+        if v == vk and n not in ('control', 'escape', 'insert', 'del'):
+            return n
+    return chr(vk).lower() if 0x41 <= vk <= 0x5A else f'0x{vk:02X}'
+
+
+def key_message(vk, up, held):
+    """(message, lParam) of one key going down or up as a keyboard sends it. held: the keys down before this edge
+    (a key-down of a key already in it is an auto-repeat: lParam bit 30). Alt down (or Alt itself going down)
+    without Ctrl gives WM_SYSKEYDOWN / WM_SYSKEYUP, and lParam's context bit 29 is set while Alt is down (Alt's own
+    key-up: WM_SYSKEYUP with bit 29 clear); everything else WM_KEYDOWN / WM_KEYUP."""
+    lp = key_lparam(vk, up)
+    if not up and vk in held:
+        lp |= 1 << 30
+    others = set(held) - {vk}
+    if VK_MENU in others or (vk == VK_MENU and not up):
+        lp |= 1 << 29
+    ctrl = VK_CONTROL in others or (vk == VK_CONTROL and not up)
+    sys_ = (VK_MENU in others or vk == VK_MENU) and not ctrl
+    if up:
+        return (WM_SYSKEYUP if sys_ else WM['keyup']), lp
+    return (WM_SYSKEYDOWN if sys_ else WM['keydown']), lp
+
+
+def chord_edges(vks):
+    """A chord's edges [(vk, up)]: each key down in order, then up in the reverse order."""
+    return [(vk, False) for vk in vks] + [(vk, True) for vk in reversed(vks)]
+
+
+def key_messages(edges, held):
+    """[(message, vk, lParam)] for edges [(vk, up)], held (a set: the keys down before) updated as they go."""
+    out = []
+    for vk, up in edges:
+        msg, lp = key_message(vk, up, held)
+        out.append((msg, vk, lp))
+        if up:
+            held.discard(vk)
+        else:
+            held.add(vk)
+    return out
+
+
+HELD = set()            # the keys clientrun's own --input steps hold down (keydown / keyup)
+
+
+def post_keys(hwnd, edges, held, tag=False, gap=0.05):
+    """Posts a chord's or a held key's edges [(vk, up)], gap seconds apart, the way a keyboard sends them; held
+    (the caller's set of the keys down) is updated."""
+    user32 = ctypes.windll.user32
+    t = TAG if tag else 0
+    for k, (msg, vk, lp) in enumerate(key_messages(edges, held)):
+        if k:
+            time.sleep(gap)
+        user32.PostMessageW(hwnd, msg, vk | t, lp)
+
+
 TAG = 0x5043 << 16      # tools/harness/d3d8shot.c's IN_TAG: the high word of a replayed message's wParam
 
 
-def post_step(hwnd, op, rest, tag=False):
+def post_step(hwnd, op, rest, tag=False, held=None):
     """Posts one input step. tag: wParam's high word carries TAG (the d3d8shot proxy strips it and logs the message
     as 'replayed'; with D3D8SHOT_INPUT_TAG=1 it drops untagged input, a person's)."""
     user32 = ctypes.windll.user32
@@ -473,11 +577,12 @@ def post_step(hwnd, op, rest, tag=False):
         post(WM['move'], 0 if op == 'down' else 1, lp)
         time.sleep(0.05)
         post(WM['ldown'] if op == 'down' else WM['lup'], 1 if op == 'down' else 0, lp)
-    elif op == 'key':
-        vk = int(rest.split()[0], 0)
-        post(WM['keydown'], vk, key_lparam(vk))
-        time.sleep(0.05)
-        post(WM['keyup'], vk, key_lparam(vk, up=True))
+    elif op in ('key', 'keydown', 'keyup'):
+        # key SPEC: a key or a chord (shift+i), each key down in order, up in reverse; keydown / keyup SPEC: those
+        # keys only pressed / only let go, in the order written (held across steps in `held`)
+        vks = parse_keys(rest.split()[0])
+        edges = (chord_edges(vks) if op == 'key' else [(vk, op == 'keyup') for vk in vks])
+        post_keys(hwnd, edges, HELD if held is None else held, tag)
     elif op == 'text':
         for ch in rest:
             vs = user32.VkKeyScanW(ord(ch))

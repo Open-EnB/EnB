@@ -291,6 +291,47 @@ class DrawLogs(unittest.TestCase):
         self.assertIn('draw log one', out)
         self.assertIn('first difference draw 0', out)
         self.assertIn('rs.CULLMODE', out)
+        self.assertIn('1 fields differ in 4 of 4 paired draws', out)
+        self.assertIn('as a multiset: 1 draw states not stored, 1 stored ones missing', out)
+
+    def test_multiset_draw_order_and_lod(self):
+        def lod(log, i, prims):                         # draw i at another LOD (asteroids of a playback)
+            log['draws'][i]['prims'], log['draws'][i]['verts'] = prims, 3 * prims
+            return log
+
+        def tex(log, i):                                # draw i with a texture of its own (a separate object)
+            log['textures'].append(dict(log['textures'][0], id=1, hash=f'{i:016x}'))
+            log['draws'][i]['tex'] = [len(log['textures']) - 1, -1]
+            return log
+        base = lambda: tex(tex(tex(drawlog(), 1), 2), 3)        # noqa: E731
+        self.stored(base(), base(), base())
+        moved = base()
+        moved['draws'] = moved['draws'][::-1]           # the same draws in another order
+        rc, out = self.check(moved)
+        self.assertEqual(rc, 0, out)
+        self.assertIn('draw logs 1 of 1 the same (1 as a multiset)', out)
+        rc, out = self.check(lod(base(), 2, 99))
+        self.assertEqual(rc, 0, out)
+        self.assertIn('(1 as a multiset)', out)
+        ok, text = baseline.drawlog_verdict(baseline.drawlog_path(os.path.join(self.tmp.name, 'other', 'r1',
+                                                                               'shot_one_00010.png')),
+                                            [os.path.join(self.scen, r, 'shot_one_00010.json')
+                                             for r in baseline.stored_runs(self.scen)], None)
+        self.assertTrue(ok, text)
+        self.assertIn('in order: first difference draw 2', text)
+        self.assertIn('2 fields differ in 1 of 4 paired draws', text)
+
+    def test_multiset_counts_and_still_draws(self):
+        self.stored(drawlog(), drawlog())
+        rc, out = self.check(drawlog(n=6))               # two draws more of a state: no stored run varies so
+        self.assertEqual(rc, 1, out)
+        self.assertIn('draw counts per state 2 apart (stored runs up to 0)', out)
+        log = drawlog()
+        log['draws'] = log['draws'][::-1]
+        log['draws'][0]['world'] = IDENT[:12] + [5.0, 0, 0, 1]
+        rc, out = self.check(log)
+        self.assertEqual(rc, 1, out)
+        self.assertIn('world matrices of 1 draws out of the stored spread', out)
 
     def test_texture_identity(self):
         self.stored(drawlog(), drawlog())
@@ -427,12 +468,118 @@ class Sets(unittest.TestCase):
         self.assertEqual(rc, 0, out)
         self.assertIn('scenario order differs', out)
 
+    def test_order_differs_with_differences_is_not_comparable(self):
+        mine = make_set_run(os.path.join(self.tmp.name, 'mine'), 's3', order=('b', 'a'), stored=False,
+                            logs=drawlog(cull=3), packets={'a': ['A 4', 'X 1'], 'b': ['B 4']})
+        rc, out = self.run_verify(mine)
+        self.assertEqual(rc, 3, out)
+        self.assertIn('a: NOT COMPARABLE (scenario order differs', out)
+        self.assertIn('packets 2, stored 1/1/1', out)
+        self.assertIn('0 of 2 scenarios the same as the baseline, 2 not comparable', out)
+        with open(os.path.join(mine, 'result-a.json'), 'w') as fh:     # a verdict is not the order's
+            json.dump({'name': 'a', 'passed': False, 'expected_fail': None, 'failure': 'x'}, fh)
+        rc, out = self.run_verify(mine)
+        self.assertEqual(rc, 1, out)
+        self.assertIn('a: DIFF verdict FAIL', out)
+        same_order = make_set_run(os.path.join(self.tmp.name, 'mine'), 's4', stored=False, logs=drawlog(cull=3))
+        rc, out = self.run_verify(same_order)          # the stored order: a difference is a DIFF
+        self.assertEqual(rc, 1, out)
+        self.assertIn('a: DIFF draw log a1', out)
+
+    def test_runs_of_an_older_scenario_text_are_left_out(self):
+        for k, run in enumerate(sorted(os.listdir(self.sdir))):
+            mp = os.path.join(self.sdir, run, 'manifest.json')
+            if not os.path.isfile(mp):
+                continue
+            man = baseline.read_json(mp)
+            man['scenario_files'] = {'tools/harness/e2e/b.scn': 'old' if k < 2 else 'new',
+                                     'tools/harness/e2e/a.scn': 'same'}
+            baseline.write_json(mp, man)
+        self.assertEqual([e['run'] for e in baseline.run_entries(self.sdir, 'b')], ['20261125-000002'])
+        self.assertEqual(len(baseline.run_entries(self.sdir, 'a')), 3)
+        mine = make_set_run(os.path.join(self.tmp.name, 'mine'), 's5', stored=False, logs=drawlog())
+        rc, out = self.run_verify(mine)
+        self.assertIn('/default, 1 runs; 2 of an older b.scn left out]', out)
+        self.assertIn('/default, 3 runs]', out)
+
     def test_single_scenario_run_prefers_its_own_folder(self):
         mine = make_run(os.path.join(self.tmp.name, 'one'), 'r', scenario='a')
         rc, out = self.run_verify(mine)
         self.assertIn('box-64x64/a, 1 runs', out)
         rc, out = self.run_verify(mine, '--set', 'default')
         self.assertIn('box-64x64/default, 3 runs', out)
+
+
+def make_session(out, stamp, order, listed, failed=()):
+    """An e2e session folder <stamp>-session under an e2e --out folder: make_set_run's, with e2e's head line
+    ('session of N: ...; exe ...', the scenarios it was given) and FAILED's results failed."""
+    d = make_set_run(out, f'{stamp}-session', order=order, stored=False, logs=drawlog())
+    with open(os.path.join(d, 'e2e.log')) as fh:
+        body = fh.read()
+    with open(os.path.join(d, 'e2e.log'), 'w') as fh:
+        fh.write(f'00:00:00 session of {len(listed)}: {", ".join(listed)}; exe C:/x/client.exe, instance t, '
+                 f'out {d}\n' + body)
+    for n in failed:
+        with open(os.path.join(d, f'result-{n}.json'), 'w') as fh:
+            json.dump({'name': n, 'passed': False, 'expected_fail': None, 'failure': 'x'}, fh)
+    return d
+
+
+class OutFolders(unittest.TestCase):
+    """verify --run with e2e's --out folder (a run continued in a fresh session after a failure: a session folder
+    each) and the set's scenarios a run leaves out (2026-11-25: the station set, 5 of 9 compared, 4 unnamed)."""
+
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory()
+        self.store = self.tmp.name
+        self.sdir = os.path.join(self.store, 'runs', 'retail-00000000', 'box-64x64', 'default')
+        for k in range(3):
+            make_set_run(self.sdir, f'20261125-00000{k}', order=('a', 'b', 'c'), logs=drawlog())
+        baseline.write_noise(self.sdir)
+        self.out = os.path.join(self.tmp.name, 'out')
+        make_session(self.out, '20261125-010000', ('a', 'b'), ('a', 'b', 'c'), failed=('b',))
+        make_session(self.out, '20261125-010500', ('c',), ('c',))
+        os.makedirs(os.path.join(self.out, '20261125-010000-db-snapshot'))     # e2e --db-snapshot's: no e2e.log
+
+    def tearDown(self):
+        self.tmp.cleanup()
+
+    def run_verify(self, run, *extra):
+        out = io.StringIO()
+        with contextlib.redirect_stdout(out):
+            rc = baseline.main(['verify'] + list(extra) + ['--store', self.store, '--run', run, '--set', 'default',
+                                                           '--allow-stale'])
+        return rc, out.getvalue()
+
+    def test_out_folder_compares_every_session(self):
+        rc, out = self.run_verify(self.out)
+        self.assertIn('an e2e --out folder: 2 session(s)', out)
+        self.assertIn('a: SAME', out)
+        self.assertIn('b: DIFF verdict FAIL', out)
+        self.assertIn('c: SAME', out)
+        self.assertIn('run after the login (a fresh session), stored after b', out)
+        self.assertIn('2 of 3 scenarios the same', out)
+        self.assertNotIn('SKIP', out)
+
+    def test_an_earlier_run_in_the_same_out_folder_is_left_out(self):
+        make_session(self.out, '20261124-230000', ('a', 'b', 'c'), ('a', 'b', 'c'))
+        rc, out = self.run_verify(self.out)
+        self.assertIn('1 older session folder(s) of an earlier run left out (20261124-230000-session', out)
+        self.assertIn('2 of 3 scenarios the same', out)
+
+    def test_one_session_names_the_scenarios_it_lacks(self):
+        rc, out = self.run_verify(os.path.join(self.out, '20261125-010000-session'))
+        self.assertEqual(rc, 1)
+        self.assertIn('SKIP: c (1 of the set\'s 3: listed in session 20261125-010000-session, which ended after b '
+                      'failed', out)
+        self.assertIn('1 of 2 scenarios the same as the baseline; 1 stored scenario(s) of the set not in the run', out)
+
+    def test_never_listed_and_not_named(self):
+        rc, out = self.run_verify(os.path.join(self.out, '20261125-010500-session'))
+        self.assertIn("SKIP: a, b (2 of the set's 3: never listed in the run's sessions", out)
+        rc, out = self.run_verify(self.out, 'a')
+        self.assertIn('not compared: b, c (in the run, not named on the command line)', out)
+        self.assertEqual(rc, 0, out)
 
 
 def write(path, data=b'x'):

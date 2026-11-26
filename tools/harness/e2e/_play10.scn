@@ -8,6 +8,24 @@ name: a recorded session played to its end: /play 10 on the Broadcast channel (Z
 # on retail and on ours (E1, 2026-11-14: both PASS; the packets the same but for a VERB_REQUEST / MASTER_JOIN
 # order at two handoffs, as in play1_windows). Session 2's starbase needs Starbase_Avatar_ChangePacketClass's
 # sending constructor 0x8A3600 (play9's fault).
+# Camera poses (test-plan SP-01 / SP-02 first pass, 2026-11-25, R10): run with --camera-track (camera-track.txt).
+# The server's CAMERA_CONTROL 5 (dock at Jove's Fury, session 1) puts the dock camera (state 6) in one place for
+# about 0.7 s before the loading screen, the same place on every retail run; CAMERA_CONTROL 4 (the launchpad out of
+# planet Endriago, sector 2295, session 5) comes 0.2 s before Net-7's handoff and the stargate camera (state 3)
+# draws no frame; the warp camera of session 4 holds one place too. No event comes before either camera, and a
+# shot on the handoff line is the loading screen (tried: both clients), so the track is the pose capture. The
+# planet landing (session 4's end) was the recorded user's Land verb (ACTION 0x1D; that client ran no landing
+# camera: ACTION 8 in the same ms), and on the replay the target panel's Land icon sends nothing; the take-off
+# camera (state 9) is asked for by the warp button on a planet, which on Endriago's surface (CLIENT_TYPE 1, left by
+# the launchpad gate) does nothing (key Q and a click, retail). Neither the landing (state 5 / 7) nor the take-off
+# camera runs on this recording: they need a live run.
+# Each sector's shot (2026-11-25, PH): the loading screen's fc_map_load00.ini is read when it opens (0.3 s before the
+# session's LOGIN) and again when it closes (2.4-3.3 s after it; the first frame of the sector follows in the same
+# 0.05 s), then the sector's files load for 1.4-5.8 s more (a 1 s quiet on the proxy's log), and a starbase logs
+# 'Changing room from -1' about 5 s after the close (it logs no frame rate). The first 'Render: Frame Rate' after
+# the session line was too early or too late: s2 waited past the starbase (no frame rate there) into session 3's
+# space, s3 then matched at once, s4's first frame still had the camera of the sector before and s5's was black
+# (R10's runs A-1 to A-4). The shots now wait for the close, the starbase's room, then the quiet.
 timeout: 700
 messages: on
 include _login
@@ -20,27 +38,34 @@ expect-event antprox 'command "/play 10"' within 10
 wait-event antprox 'sent SERVER_HANDOFF' within 20
 wait-event antprox 'Sector connection #[0-9]+: playback of 10, sector session 1 of 6' within 60
 move 640,600
-wait-event msg 'Render: Frame Rate' within 90
+wait-event proxy 'ini.fc_map_load00[.]ini.*= ok' within 60
+wait-quiet proxy 1 within 30
 shot play10_s1
 wait-event antprox 'Sector connection #[0-9]+: playback of 10, sector session 2 of 6' within 120
 move 640,600
-wait-event msg 'Render: Frame Rate' within 90
+wait-event proxy 'ini.fc_map_load00[.]ini.*= ok' within 60
+wait-event msg 'Sbase: .*Changing room from -1' within 30
+wait-quiet proxy 1 within 30
 shot play10_s2
 wait-event antprox 'Sector connection #[0-9]+: playback of 10, sector session 3 of 6' within 120
 move 640,600
-wait-event msg 'Render: Frame Rate' within 90
+wait-event proxy 'ini.fc_map_load00[.]ini.*= ok' within 60
+wait-quiet proxy 1 within 30
 shot play10_s3
 wait-event antprox 'Sector connection #[0-9]+: playback of 10, sector session 4 of 6' within 200
 move 640,600
-wait-event msg 'Render: Frame Rate' within 90
+wait-event proxy 'ini.fc_map_load00[.]ini.*= ok' within 60
+wait-quiet proxy 1 within 30
 shot play10_s4
 wait-event antprox 'Sector connection #[0-9]+: playback of 10, sector session 5 of 6' within 200
 move 640,600
-wait-event msg 'Render: Frame Rate' within 90
+wait-event proxy 'ini.fc_map_load00[.]ini.*= ok' within 60
+wait-quiet proxy 1 within 30
 shot play10_s5
 wait-event antprox 'Sector connection #[0-9]+: playback of 10, sector session 6 of 6' within 200
 move 640,600
-wait-event msg 'Render: Frame Rate' within 90
+wait-event proxy 'ini.fc_map_load00[.]ini.*= ok' within 60
+wait-quiet proxy 1 within 30
 shot play10_s6
 wait-event antprox 'Playback of 10: end of the recording; back to' within 300
 wait-event antprox 'sent SERVER_HANDOFF.*back to' within 10

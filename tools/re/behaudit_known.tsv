@@ -1,0 +1,194 @@
+# check	address	kind	ours	client	result	reason
+# behaudit.py's classified rows (`*` matches anything, `x*` a prefix). result: codegen (no behaviour difference), real-open (a real difference left open: its reason says where it is decided), real-fixed.
+lit	0x89D760	literal	b'e:\\build\\beta\\G\\app\\packets\\pkmessageline.cpp'	b'..\\shared\\duration.h'	real-open	__FILE__ '..\shared\duration.h' (R3 known open, progress.md section 4)
+lit	0x783B50	constant	0.0	10.0	codegen	session 0 (R5): classed codegen / noise / names, or fixed elsewhere
+lit	0x65B930	constant	0.0020833334419876337	0.0015625000232830644	codegen	session 0 (R5): classed codegen / noise / names, or fixed elsewhere
+lit	0x65B930	constant	0.0015625000232830644	0.0020833334419876337	codegen	session 0 (R5): classed codegen / noise / names, or fixed elsewhere
+lit	0x53D9F0	constant	0.6666667	0.6666666666667	real-open	debrsint, vessellaj claim #293 (R6)
+lit	0x53D9F0	real-missing	0.6666667		real-open	debrsint, vessellaj claim #293 (R6)
+lit	0x53EB00	constant	0.10000000149011612	0.8999999761581421	codegen	session 0 (R5): classed codegen / noise / names, or fixed elsewhere
+lit	0x53EB00	constant	0.8999999761581421	0.10000000149011612	codegen	session 0 (R5): classed codegen / noise / names, or fixed elsewhere
+lit	0x545190	lit-missing	b'e:\\build\\beta\\G\\app\\client\\..\\shared\\auxdata\\auxdata.h'		codegen	session 0 (R6 mset): classed codegen / noise / names, or fixed elsewhere
+lit	0x545190	lit-missing	b't'		codegen	session 0 (R6 mset): classed codegen / noise / names, or fixed elsewhere
+lit	0x5458B0	lit-missing	b'e:\\build\\beta\\G\\app\\client\\..\\shared\\auxdata\\auxdata.h'		codegen	session 0 (R6 mset): classed codegen / noise / names, or fixed elsewhere
+lit	0x5458B0	lit-missing	b't'		codegen	session 0 (R6 mset): classed codegen / noise / names, or fixed elsewhere
+lit	0x596770	lit-missing	b'e:\\build\\beta\\G\\app\\client\\..\\shared\\auxdata\\auxdata.h'		codegen	session 0 (R6 mset): classed codegen / noise / names, or fixed elsewhere
+lit	0x596770	lit-missing	b't'		codegen	session 0 (R6 mset): classed codegen / noise / names, or fixed elsewhere
+lit	0x5A0740	lit-missing	b'slot == InvDataClass::NO_SLOT'		codegen	session 0 (R6 mset): classed codegen / noise / names, or fixed elsewhere
+rel	0x56E7F0	call	DynamicWindowClass::Add_Object	0x5175B0	codegen	session 0 (R6): classed codegen / noise / names, or fixed elsewhere
+rel	0x645510	call	DynamicWindowClass::Add_Object	0x5175B0	codegen	session 0 (R6): classed codegen / noise / names, or fixed elsewhere
+rel	0x6FCB70	call	Unknown_Find_Field	0x705450	codegen	session 0 (R6): classed codegen / noise / names, or fixed elsewhere
+rel	0x6FCB70	sym-missing	Unknown_Find_Field		codegen	session 0 (R6): classed codegen / noise / names, or fixed elsewhere
+rel	0x6FDBD0	call	Unknown_Find_Valid	0x7079B0	codegen	session 0 (R6): classed codegen / noise / names, or fixed elsewhere
+rel	0x6FDBD0	sym-missing	Unknown_Find_Valid		codegen	session 0 (R6): classed codegen / noise / names, or fixed elsewhere
+rel	0x53D250	data	WW3DAssetManager::TheInstance	0xBDADC0	real-open	debrsint, vessellaj claim #293 (R6)
+rel	0x53D250	data-missing	WW3DAssetManager::TheInstance		real-open	debrsint, vessellaj claim #293 (R6)
+rel	0x5404E0	data-missing	?UnknownGlobal@?$DeltaTemplateClass@H@@2HA		codegen	session 0 (R6 mset): classed codegen / noise / names, or fixed elsewhere
+rel	0x7AD090	data-missing	??1?$RefCountPtr@VFontSys@@@@QAE@XZ		codegen	session 0 (R6 mset): classed codegen / noise / names, or fixed elsewhere
+rel	0x671CB0	call	?_Ufill@?$vector@V?$RefCountPtr@VFontSys@@@@V?$allocator@V?$RefCountPtr@VFontSys@@@@@std@@@std@@IAEXPAV?$RefCountPtr@VFo	0x6739C0	codegen	session 0 (R6): classed codegen / noise / names, or fixed elsewhere
+rel	0x671CB0	sym-missing	?size@?$vector@V?$RefCountPtr@VFontSys@@@@V?$allocator@V?$RefCountPtr@VFontSys@@		codegen	session 0 (R6 mset): classed codegen / noise / names, or fixed elsewhere
+rel	0x671CB0	sym-missing	?_Ucopy@?$vector@V?$RefCountPtr@VFontSys@@@@V?$allocator@V?$RefCountPtr@VFontSys		codegen	session 0 (R6 mset): classed codegen / noise / names, or fixed elsewhere
+rel	0x671CB0	sym-missing	?_Ufill@?$vector@V?$RefCountPtr@VFontSys@@@@V?$allocator@V?$RefCountPtr@VFontSys		codegen	session 0 (R6): classed codegen / noise / names, or fixed elsewhere
+rel	0x671CB0	sym-missing	?_Destroy@?$vector@V?$RefCountPtr@VFontSys@@@@V?$allocator@V?$RefCountPtr@VFontS		codegen	session 0 (R6 mset): classed codegen / noise / names, or fixed elsewhere
+rel	0x671CB0	sym-missing	??3@YAXPAX@Z		codegen	session 0 (R6 mset): classed codegen / noise / names, or fixed elsewhere
+rel	0x4E9E00	sym-missing	??_7INIManagerClass@@6B@		codegen	session 0 (R6 mset): classed codegen / noise / names, or fixed elsewhere
+rel	0x4ACA90	call	?_Lbound@?$_Tree@PBDU?$pair@QBDPAVDeltaClass@@@std@@U_Kfn@?$map@PBDPAVDeltaClass@@U?$less@PBD@std@@V?$allocator@PAVDelta	0x4ACBD0	codegen	session 0 (R6): classed codegen / noise / names, or fixed elsewhere
+rel	0x4ACA90	sym-missing	?_Lbound@?$_Tree@PBDU?$pair@QBDPAVDeltaClass@@@std@@U_Kfn@?$map@PBDPAVDeltaClass		codegen	session 0 (R6): classed codegen / noise / names, or fixed elsewhere
+rel	0x4ACB20	call	?_Lbound@?$_Tree@PBDU?$pair@QBDPAVDeltaClass@@@std@@U_Kfn@?$map@PBDPAVDeltaClass@@U?$less@PBD@std@@V?$allocator@PAVDelta	0x4ACBD0	codegen	session 0 (R6): classed codegen / noise / names, or fixed elsewhere
+rel	0x4ACB20	sym-missing	?_Lbound@?$_Tree@PBDU?$pair@QBDPAVDeltaClass@@@std@@U_Kfn@?$map@PBDPAVDeltaClass		codegen	session 0 (R6): classed codegen / noise / names, or fixed elsewhere
+rel	0x74BFB0	data-missing	?UnknownGlobal@?$DeltaTemplateClass@H@@2HA		codegen	session 0 (R6 mset): classed codegen / noise / names, or fixed elsewhere
+rel	0x74CA90	call	?_Eos@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEXI@Z	0x42D050	codegen	session 0 (R6): classed codegen / noise / names, or fixed elsewhere
+rel	0x74CA90	call	?_Tidy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEX_N@Z	0x4E9D10	codegen	session 0 (R6): classed codegen / noise / names, or fixed elsewhere
+rel	0x74CA90	sym-missing	?_Tidy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEX_N@Z		codegen	session 0 (R6): classed codegen / noise / names, or fixed elsewhere
+rel	0x74CA90	sym-missing	?_Grow@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAE_NI_N@Z		codegen	session 0 (R6 mset): classed codegen / noise / names, or fixed elsewhere
+rel	0x74CA90	sym-missing	?_Eos@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEXI@Z		codegen	session 0 (R6): classed codegen / noise / names, or fixed elsewhere
+rel	0x744560	data-missing	?UnknownGlobal@?$DeltaTemplateClass@H@@2HA		codegen	session 0 (R6 mset): classed codegen / noise / names, or fixed elsewhere
+rel	0x488500	call	??2@YAPAXI@Z	0x48AAC0	codegen	session 0 (R6): classed codegen / noise / names, or fixed elsewhere
+rel	0x488500	sym-missing	??2@YAPAXI@Z		codegen	session 0 (R6): classed codegen / noise / names, or fixed elsewhere
+rel	0x7C2760	data-missing	DeltaCompoundClass::UnknownGlobal		codegen	session 0 (R6 mset): classed codegen / noise / names, or fixed elsewhere
+rel	0x4FEDB0	call	?_Grow@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAE_NI_N@Z	0x42CF30	codegen	session 0 (R6): classed codegen / noise / names, or fixed elsewhere
+rel	0x4FEDB0	sym-missing	?_Grow@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAE_NI_N@Z		codegen	session 0 (R6): classed codegen / noise / names, or fixed elsewhere
+rel	0x4FEDB0	data-missing	?_C@?1??_Nullstr@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@CA		codegen	session 0 (R6 mset): classed codegen / noise / names, or fixed elsewhere
+rel	0x4FEDB0	sym-missing	?_Eos@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEXI@Z		codegen	session 0 (R6 mset): classed codegen / noise / names, or fixed elsewhere
+rel	0x5443F0	data-content	Unknown_B796A8	0xB796A4	codegen	session 0 (R6): classed codegen / noise / names, or fixed elsewhere
+rel	0x5443F0	data-content	Unknown_B796A8	0xB796AC	codegen	session 0 (R6): classed codegen / noise / names, or fixed elsewhere
+rel	0x5443F0	data-missing	?UnknownGlobal@?$DeltaTemplateClass@W4UnknownB013ECEnum@@@@2HA		codegen	session 0 (R6 mset): classed codegen / noise / names, or fixed elsewhere
+rel	0x544D80	data-missing	?UnknownGlobal@?$DeltaTemplateClass@VMoneyClass@@@@2HA		codegen	session 0 (R6 mset): classed codegen / noise / names, or fixed elsewhere
+rel	0x544D80	data-missing	?UnknownGlobal@?$DeltaTemplateClass@M@@2HA		codegen	session 0 (R6 mset): classed codegen / noise / names, or fixed elsewhere
+rel	0x545190	call	DeltaCompoundClass::Get_Lookup	0x546710	codegen	session 0 (R6): classed codegen / noise / names, or fixed elsewhere
+rel	0x545190	call	?Cast@?$UnknownRTTIClass@V?$DeltaTemplateClass@M@@@@SAPAV?$DeltaTemplateClass@M@@PAVDeltaClass@@@Z	0x546710	codegen	session 0 (R6): classed codegen / noise / names, or fixed elsewhere
+rel	0x545190	sym-missing	DeltaCompoundClass::Get_Lookup		codegen	session 0 (R6): classed codegen / noise / names, or fixed elsewhere
+rel	0x545190	sym-missing	LookupClass::Find		codegen	session 0 (R6 mset): classed codegen / noise / names, or fixed elsewhere
+rel	0x545190	data-missing	?UnknownGlobal@?$DeltaTemplateClass@VMoneyClass@@@@2HA		codegen	session 0 (R6 mset): classed codegen / noise / names, or fixed elsewhere
+rel	0x545190	data-missing	?UnknownGlobal@?$DeltaTemplateClass@M@@2HA		codegen	session 0 (R6 mset): classed codegen / noise / names, or fixed elsewhere
+rel	0x545190	sym-missing	?Cast@?$UnknownRTTIClass@V?$DeltaTemplateClass@M@@@@SAPAV?$DeltaTemplateClass@M@		codegen	session 0 (R6): classed codegen / noise / names, or fixed elsewhere
+rel	0x545610	data-content	Unknown_B796A8	0xB796A0	codegen	session 0 (R6): classed codegen / noise / names, or fixed elsewhere
+rel	0x545610	data-missing	?UnknownGlobal@?$DeltaTemplateClass@W4UnknownB01394Enum@@@@2HA		codegen	session 0 (R6 mset): classed codegen / noise / names, or fixed elsewhere
+rel	0x545610	data-missing	?UnknownGlobal@?$DeltaTemplateClass@W4UnknownB013ECEnum@@@@2HA		codegen	session 0 (R6 mset): classed codegen / noise / names, or fixed elsewhere
+rel	0x5458B0	call	DeltaCompoundClass::Get_Lookup	0x546630	codegen	session 0 (R6): classed codegen / noise / names, or fixed elsewhere
+rel	0x5458B0	data-content	Unknown_B796A8	0xB796AC	codegen	session 0 (R6): classed codegen / noise / names, or fixed elsewhere
+rel	0x5458B0	sym-missing	DeltaCompoundClass::Get_Lookup		codegen	session 0 (R6): classed codegen / noise / names, or fixed elsewhere
+rel	0x5458B0	sym-missing	LookupClass::Find		codegen	session 0 (R6 mset): classed codegen / noise / names, or fixed elsewhere
+rel	0x5458B0	data-missing	?UnknownGlobal@?$DeltaTemplateClass@W4UnknownB013ECEnum@@@@2HA		codegen	session 0 (R6 mset): classed codegen / noise / names, or fixed elsewhere
+rel	0x565390	call	?_Eos@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEXI@Z	0x42D050	codegen	session 0 (R6): classed codegen / noise / names, or fixed elsewhere
+rel	0x565390	sym-missing	?_Eos@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEXI@Z		codegen	session 0 (R6): classed codegen / noise / names, or fixed elsewhere
+rel	0x596770	call	DeltaCompoundClass::Get_Lookup	0x4AD380	codegen	session 0 (R6): classed codegen / noise / names, or fixed elsewhere
+rel	0x596770	call	LookupClass::Find	0x5927E0	codegen	session 0 (R6): classed codegen / noise / names, or fixed elsewhere
+rel	0x596770	call	DeltaCompoundClass::Get_Lookup	0x5927E0	codegen	session 0 (R6): classed codegen / noise / names, or fixed elsewhere
+rel	0x596770	call	?assign@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAEAAV12@PBDI@Z	0x42A970	codegen	session 0 (R6): classed codegen / noise / names, or fixed elsewhere
+rel	0x596770	sym-missing	DeltaCompoundClass::Get_Lookup		codegen	session 0 (R6): classed codegen / noise / names, or fixed elsewhere
+rel	0x596770	sym-missing	LookupClass::Find		codegen	session 0 (R6): classed codegen / noise / names, or fixed elsewhere
+rel	0x596770	data-missing	DeltaCompoundClass::UnknownGlobal		codegen	session 0 (R6 mset): classed codegen / noise / names, or fixed elsewhere
+rel	0x596770	sym-missing	?assign@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAEAAV12@PB		codegen	session 0 (R6): classed codegen / noise / names, or fixed elsewhere
+rel	0x59B220	data-missing	DeltaCompoundClass::UnknownGlobal		codegen	session 0 (R6 mset): classed codegen / noise / names, or fixed elsewhere
+rel	0x59BC40	data-missing	DeltaCompoundClass::UnknownGlobal		codegen	session 0 (R6 mset): classed codegen / noise / names, or fixed elsewhere
+rel	0x5D6EE0	data-missing	DeltaStringClass::UnknownGlobal		codegen	session 0 (R6 mset): classed codegen / noise / names, or fixed elsewhere
+rel	0x5E5360	call	?erase@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAEAAV12@II@Z	0x42CAB0	codegen	session 0 (R6): classed codegen / noise / names, or fixed elsewhere
+rel	0x5E5360	sym-missing	?erase@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAEAAV12@II@		codegen	session 0 (R6): classed codegen / noise / names, or fixed elsewhere
+rel	0x5EB2F0	call	?assign@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAEAAV12@PBDI@Z	0x42A970	codegen	session 0 (R6): classed codegen / noise / names, or fixed elsewhere
+rel	0x5EB2F0	sym-missing	?assign@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAEAAV12@PB		codegen	session 0 (R6): classed codegen / noise / names, or fixed elsewhere
+rel	0x5FBD30	call	?_Grow@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAE_NI_N@Z	0x42D050	codegen	session 0 (R6): classed codegen / noise / names, or fixed elsewhere
+rel	0x5FBD30	sym-missing	?_Grow@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAE_NI_N@Z		codegen	session 0 (R6): classed codegen / noise / names, or fixed elsewhere
+rel	0x5FBD30	sym-missing	?_Eos@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEXI@Z		codegen	session 0 (R6 mset): classed codegen / noise / names, or fixed elsewhere
+rel	0x622180	call	ShipCustSettingsClass::operator=	0x619320	codegen	session 0 (R6): classed codegen / noise / names, or fixed elsewhere
+rel	0x622180	sym-missing	ShipCustSettingsClass::operator=		codegen	session 0 (R6): classed codegen / noise / names, or fixed elsewhere
+rel	0x64C8D0	call	??3@YAXPAX@Z	0x42A820	codegen	session 0 (R6): classed codegen / noise / names, or fixed elsewhere
+rel	0x64C8D0	sym-missing	??3@YAXPAX@Z		codegen	session 0 (R6): classed codegen / noise / names, or fixed elsewhere
+rel	0x64CC90	call	??3@YAXPAX@Z	0x42A820	codegen	session 0 (R6): classed codegen / noise / names, or fixed elsewhere
+rel	0x64CC90	sym-missing	?assign@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAEAAV12@PB		codegen	session 0 (R6 mset): classed codegen / noise / names, or fixed elsewhere
+rel	0x64CC90	sym-missing	??3@YAXPAX@Z		codegen	session 0 (R6): classed codegen / noise / names, or fixed elsewhere
+rel	0x75BB50	call	StringClass::Get_Length	0x9CF040	codegen	session 0 (R6): classed codegen / noise / names, or fixed elsewhere
+rel	0x75BB50	call	StringClass::Get_Length	0x9CF3D0	codegen	session 0 (R6): classed codegen / noise / names, or fixed elsewhere
+rel	0x75BB50	sym-missing	StringClass::Get_Length		codegen	session 0 (R6): classed codegen / noise / names, or fixed elsewhere
+rel	0x75BB50	sym-missing	StringClass::operator=		codegen	session 0 (R6 mset): classed codegen / noise / names, or fixed elsewhere
+rel	0x7436A0	inconsistent	?module	0x7441D0	codegen	session 0 (R6): classed codegen / noise / names, or fixed elsewhere
+rel	0x4FEDB0	inconsistent	std::_Xlen	0x4407B0	codegen	session 0 (R6): classed codegen / noise / names, or fixed elsewhere
+rel	0x547FD0	inconsistent	FontSys::Change_Text	0xA26513	codegen	session 0 (R6): classed codegen / noise / names, or fixed elsewhere
+rel	0x59BC40	inconsistent	FontSys::Change_Text	0x7E8030	codegen	session 0 (R6): classed codegen / noise / names, or fixed elsewhere
+rel	0x5FBD30	inconsistent	RegistrationInterface::Unknown_5F3770	0x5F86F0	codegen	session 0 (R6): classed codegen / noise / names, or fixed elsewhere
+rel	0x622180	inconsistent	Unknown620D20Class::Unknown_621390	0x621790	codegen	session 0 (R6): classed codegen / noise / names, or fixed elsewhere
+imm	0x4C34D0	immreg	0xffffffff	ecx	codegen	session 0 (R5): classed codegen / noise / names, or fixed elsewhere
+imm	0x65CCD0	immreg	0xffffffff	ebx	codegen	session 0 (R6): classed codegen / noise / names, or fixed elsewhere
+imm	0x65DE90	immreg	0x1	ebx	codegen	session 0 (R6): classed codegen / noise / names, or fixed elsewhere
+imm	0x65DE90	immreg	0x1	bl	codegen	session 0 (R6): classed codegen / noise / names, or fixed elsewhere
+imm	0x65DE90	imm	0x1e	0x1d	codegen	session 0 (R6): classed codegen / noise / names, or fixed elsewhere
+imm	0x6FD310	immreg	0x1	ebx	codegen	session 0 (R5): classed codegen / noise / names, or fixed elsewhere
+imm	0x851AE0	regimm	ecx	0x0	codegen	session 0 (R5): classed codegen / noise / names, or fixed elsewhere
+imm	0x853A30	imm	0x9	0xa	codegen	session 0 (R6): classed codegen / noise / names, or fixed elsewhere
+imm	0x713670	regimm	ecx	0x0	codegen	session 0 (R5): classed codegen / noise / names, or fixed elsewhere
+imm	0x660DD0	imm	0x41	0x1	codegen	session 0 (R5): classed codegen / noise / names, or fixed elsewhere
+imm	0x7AD850	immreg	0x3	ebx	codegen	session 0 (R6): classed codegen / noise / names, or fixed elsewhere
+imm	0x7436A0	immreg	0x1	ebx	codegen	session 0 (R5): classed codegen / noise / names, or fixed elsewhere
+imm	0x488500	immreg	0x0	ebp	codegen	session 0 (R6): classed codegen / noise / names, or fixed elsewhere
+imm	0x769500	immreg	0x1	bl	codegen	session 0 (R6): classed codegen / noise / names, or fixed elsewhere
+imm	0x769680	immreg	0x1	bl	codegen	session 0 (R6): classed codegen / noise / names, or fixed elsewhere
+imm	0x55D060	immreg	0xffffffff	esi	codegen	session 0 (R5): classed codegen / noise / names, or fixed elsewhere
+imm	0x5A0740	imm	0x23d	0x1	codegen	session 0 (R5): classed codegen / noise / names, or fixed elsewhere
+imm	0x5A0740	imm	0x23d	0x0	codegen	session 0 (R5): classed codegen / noise / names, or fixed elsewhere
+imm	0x5F3770	regimm	edi	0x0	codegen	session 0 (R6): classed codegen / noise / names, or fixed elsewhere
+imm	0x5FBD30	regimm	eax	0x4	codegen	session 0 (R6): classed codegen / noise / names, or fixed elsewhere
+imm	0x600000	regimm	eax	0xb88598	codegen	session 0 (R6): classed codegen / noise / names, or fixed elsewhere
+imm	0x622180	regimm	esi	0xffffffec	codegen	session 0 (R5): classed codegen / noise / names, or fixed elsewhere
+imm	0x622180	immreg	0xffffffec	edi	codegen	session 0 (R5): classed codegen / noise / names, or fixed elsewhere
+imm	0x42F3A0	regimm	bl	0x0	codegen	session 0 (R5): classed codegen / noise / names, or fixed elsewhere
+imm	0x62AA20	imm	0xbe947ae1	0x0	codegen	session 0 (R5): classed codegen / noise / names, or fixed elsewhere
+args	0x4A8E60	ecx	&[join+0x4]	&[join+0x10]	codegen	session 0 (PS): classed codegen / noise / names, or fixed elsewhere
+args	0x68F510	arg3	0x36ee80	0xffc91180	codegen	session 0 (PS): classed codegen / noise / names, or fixed elsewhere
+args	0x80C640	count	2	3	codegen	session 0 (PS): classed codegen / noise / names, or fixed elsewhere
+args	0x5CE830	arg3	[&frame:1+0x0]	dword[0xB835F0]	codegen	session 0 (PS): classed codegen / noise / names, or fixed elsewhere
+args	0x46F120	count	1	2	codegen	session 0 (PS): classed codegen / noise / names, or fixed elsewhere
+lit	0x6B6900	real-missing	1.5707963705062866		codegen	AU: Rotate_Z(WWMATH_PI / 2) inlined (fld (double)pi/2; fcos; fsin) where the client pushes 0x3FC90FDB and calls Matrix3D::Rotate_Z, and the client inlines the PI case instead: inline choice, the same angles
+lit	0x512400	literal	b'e:\\build\\beta\\G\\app\\client\\..\\shared\\auxdata\\auxdata.h'	b'TargetThreatLevel'	codegen	AU: auxdata.h's Unknown_Find_Field inlined five times where the client calls 0x514B60 / 0x514BD0 out of line (attempts MV2 / IB2: inline budget); the literal row is the inlined assert path misaligned; the same finds, names and strings
+lit	0x512400	lit-missing	b'e:\\build\\beta\\G\\app\\client\\..\\shared\\auxdata\\auxdata.h'		codegen	AU: auxdata.h's Unknown_Find_Field inlined five times where the client calls 0x514B60 / 0x514BD0 out of line (attempts MV2 / IB2: inline budget); the literal row is the inlined assert path misaligned; the same finds, names and strings
+lit	0x512400	lit-missing	b't'		codegen	AU: auxdata.h's Unknown_Find_Field inlined five times where the client calls 0x514B60 / 0x514BD0 out of line (attempts MV2 / IB2: inline budget); the literal row is the inlined assert path misaligned; the same finds, names and strings
+lit	0x717430	real-missing	-0.0010000000474974513		codegen	AU: -(a * b) * 0.001f folded to a * b * -0.001f where the client has fchs then fmul 0.001f: negation is exact, the same value
+lit	0x5BD540	lit-missing	b'ShieldPercent'		codegen	AU: case 10 inlines Set_SP_Percent (0x5BE330: the ShieldPercent find, * 100) where the client calls 0x5BDED0 (ui_mfd.cpp's NOT EXACT note: inline budget); the same find and scale
+lit	0x5BD540	real-missing	100.0		codegen	AU: case 10 inlines Set_SP_Percent (0x5BE330: the ShieldPercent find, * 100) where the client calls 0x5BDED0 (ui_mfd.cpp's NOT EXACT note: inline budget); the same find and scale
+rel	0x522860	sym-missing	?insert@?$vector@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@V		codegen	AU: the allocator byte copied before _Tidy (an empty std::allocator: no value), ebp = 0 held (cmp esi, ebp), and the client calls the same vector<string>::insert four times (0x5264BE..0x5266C8)
+rel	0x52F010	data-missing	?UnknownGlobal@?$DeltaItemArrayClass@VDeltaSkillClass@@@@2HA		codegen	AU: rtti.h's Cast inlined where the client calls it out of line (attempts: inline budget); the type global read is the inlined Cast
+rel	0x6FF4B0	data-missing	DeltaStringClass::UnknownGlobal		codegen	AU: rtti.h's Cast inlined at the four lookups where the client calls 0x5469C0 (attempts: inline budget); the type global and _Grow are the inlined bodies
+rel	0x6FF4B0	sym-missing	?_Grow@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAE_NI_N@Z		codegen	AU: rtti.h's Cast inlined at the four lookups where the client calls 0x5469C0 (attempts: inline budget); the type global and _Grow are the inlined bodies
+rel	0x70B450	call	?_Grow@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAE_NI_N@Z	0x42D050	codegen	AU: string assign inlined (_Grow / _Eos) where the client calls assign 0x42A970; the static `neutral`'s four GutterColorStruct copies at +0 / +0x18 / +0x30 / +0x48 as the client (rows misaligned by one)
+rel	0x70B450	call	?_Eos@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEXI@Z	0x70D150	codegen	AU: string assign inlined (_Grow / _Eos) where the client calls assign 0x42A970; the static `neutral`'s four GutterColorStruct copies at +0 / +0x18 / +0x30 / +0x48 as the client (rows misaligned by one)
+rel	0x70B450	sym-missing	?_Grow@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAE_NI_N@Z		codegen	AU: string assign inlined (_Grow / _Eos) where the client calls assign 0x42A970; the static `neutral`'s four GutterColorStruct copies at +0 / +0x18 / +0x30 / +0x48 as the client (rows misaligned by one)
+rel	0x70B450	sym-missing	?_Eos@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEXI@Z		codegen	AU: string assign inlined (_Grow / _Eos) where the client calls assign 0x42A970; the static `neutral`'s four GutterColorStruct copies at +0 / +0x18 / +0x30 / +0x48 as the client (rows misaligned by one)
+rel	0x84E260	call	CordMessageClass::operator=	0x84F220	codegen	AU: vector erase / insert inlined (operator=, _Destroy, insert(p, n, x)) where the client calls erase / insert out of line; the same ArrayList get / add and CordListClass Add calls (attempts: inline budget)
+rel	0x84E260	call	?_Destroy@?$vector@VCordMessageClass@@V?$allocator@VCordMessageClass@@@std@@@std@@IAEXPAVCordMessageClass@@0@Z	0x84EC30	codegen	AU: vector erase / insert inlined (operator=, _Destroy, insert(p, n, x)) where the client calls erase / insert out of line; the same ArrayList get / add and CordListClass Add calls (attempts: inline budget)
+rel	0x84E260	call	?insert@?$vector@VCordMessageClass@@V?$allocator@VCordMessageClass@@@std@@@std@@QAEXPAVCordMessageClass@@IABV3@@Z	0x84E9D0	codegen	AU: vector erase / insert inlined (operator=, _Destroy, insert(p, n, x)) where the client calls erase / insert out of line; the same ArrayList get / add and CordListClass Add calls (attempts: inline budget)
+rel	0x84E260	sym-missing	?clear@?$ArrayList@I@@QAEXXZ		codegen	AU: vector erase / insert inlined (operator=, _Destroy, insert(p, n, x)) where the client calls erase / insert out of line; the same ArrayList get / add and CordListClass Add calls (attempts: inline budget)
+rel	0x84E260	sym-missing	CordMessageClass::operator=		codegen	AU: vector erase / insert inlined (operator=, _Destroy, insert(p, n, x)) where the client calls erase / insert out of line; the same ArrayList get / add and CordListClass Add calls (attempts: inline budget)
+rel	0x84E260	sym-missing	?_Destroy@?$vector@VCordMessageClass@@V?$allocator@VCordMessageClass@@@std@@@std		codegen	AU: vector erase / insert inlined (operator=, _Destroy, insert(p, n, x)) where the client calls erase / insert out of line; the same ArrayList get / add and CordListClass Add calls (attempts: inline budget)
+rel	0x84E260	sym-missing	?insert@?$vector@VCordMessageClass@@V?$allocator@VCordMessageClass@@@std@@@std@@		codegen	AU: vector erase / insert inlined (operator=, _Destroy, insert(p, n, x)) where the client calls erase / insert out of line; the same ArrayList get / add and CordListClass Add calls (attempts: inline budget)
+rel	0x512400	call	DeltaCompoundClass::Get_Lookup	0x514B60	codegen	AU: auxdata.h's Unknown_Find_Field inlined five times where the client calls 0x514B60 / 0x514BD0 out of line (attempts MV2 / IB2: inline budget); the literal row is the inlined assert path misaligned; the same finds, names and strings
+rel	0x512400	call	DeltaCompoundClass::Get_Lookup	0x514BD0	codegen	AU: auxdata.h's Unknown_Find_Field inlined five times where the client calls 0x514B60 / 0x514BD0 out of line (attempts MV2 / IB2: inline budget); the literal row is the inlined assert path misaligned; the same finds, names and strings
+rel	0x512400	call	LookupClass::Find	0x4AD380	codegen	AU: auxdata.h's Unknown_Find_Field inlined five times where the client calls 0x514B60 / 0x514BD0 out of line (attempts MV2 / IB2: inline budget); the literal row is the inlined assert path misaligned; the same finds, names and strings
+rel	0x512400	sym-missing	DeltaCompoundClass::Get_Lookup		codegen	AU: auxdata.h's Unknown_Find_Field inlined five times where the client calls 0x514B60 / 0x514BD0 out of line (attempts MV2 / IB2: inline budget); the literal row is the inlined assert path misaligned; the same finds, names and strings
+rel	0x512400	sym-missing	LookupClass::Find		codegen	AU: auxdata.h's Unknown_Find_Field inlined five times where the client calls 0x514B60 / 0x514BD0 out of line (attempts MV2 / IB2: inline budget); the literal row is the inlined assert path misaligned; the same finds, names and strings
+rel	0x512400	data-missing	?UnknownGlobal@?$DeltaTemplateClass@H@@2HA		codegen	AU: auxdata.h's Unknown_Find_Field inlined five times where the client calls 0x514B60 / 0x514BD0 out of line (attempts MV2 / IB2: inline budget); the literal row is the inlined assert path misaligned; the same finds, names and strings
+rel	0x512400	data-missing	DeltaStringClass::UnknownGlobal		codegen	AU: auxdata.h's Unknown_Find_Field inlined five times where the client calls 0x514B60 / 0x514BD0 out of line (attempts MV2 / IB2: inline budget); the literal row is the inlined assert path misaligned; the same finds, names and strings
+rel	0x497300	sym-missing	Create_Peek		codegen	AU: ours calls Create_Peek where the client inlines its body (store, inc [ecx+4]): the same reference
+rel	0x4FD3B0	call	?erase@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAEAAV12@II@Z	0x4E2A00	codegen	AU: the client calls 0x4E2A00 (thunk 0x413AB6), a second copy of basic_string::erase(pos, n) with the same body as symbols.json's 0x4B5740: the same erase
+rel	0x4FD3B0	sym-missing	?erase@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAEAAV12@II@		codegen	AU: the client calls 0x4E2A00 (thunk 0x413AB6), a second copy of basic_string::erase(pos, n) with the same body as symbols.json's 0x4B5740: the same erase
+rel	0x5B3640	call	Unknown_Find_Field	0x5B7260	codegen	AU: rtti.h's Cast inlined where the client calls 0x5B7260 (attempts MU1 / U2: inline budget); its type global read is the inlined Cast
+rel	0x5B3640	sym-missing	Unknown_Find_Field		codegen	AU: rtti.h's Cast inlined where the client calls 0x5B7260 (attempts MU1 / U2: inline budget); its type global read is the inlined Cast
+rel	0x5B3640	data-missing	?UnknownGlobal@?$DeltaItemArrayClass@VDeltaKnownFormulaClass@@@@2HA		codegen	AU: rtti.h's Cast inlined where the client calls 0x5B7260 (attempts MU1 / U2: inline budget); its type global read is the inlined Cast
+rel	0x5BDED0	data-missing	?UnknownGlobal@?$DeltaTemplateClass@M@@2HA		codegen	AU: the float Cast inlined where the client calls it out of line (ui_mfd.cpp's NOT EXACT note)
+rel	0x70B450	inconsistent	?neutral	0xBE6E30	codegen	AU: string assign inlined (_Grow / _Eos) where the client calls assign 0x42A970; the static `neutral`'s four GutterColorStruct copies at +0 / +0x18 / +0x30 / +0x48 as the client (rows misaligned by one)
+rel	0x70B450	inconsistent	?neutral	0xBE6E48	codegen	AU: string assign inlined (_Grow / _Eos) where the client calls assign 0x42A970; the static `neutral`'s four GutterColorStruct copies at +0 / +0x18 / +0x30 / +0x48 as the client (rows misaligned by one)
+rel	0x857F20	inconsistent	ntohs	0x8C1B7C	codegen	AU: ours +0x39D is the session ntohs (mov edi, eax) paired with the client's ntohl of from.sin_addr in the next loop (0x858303: cmp [ebx], eax): alignment; the source has both
+rel	0x76D990	inconsistent	HtmlGifImageClass::Get_Next_Code	0x76E3D0	codegen	AU: the client calls 0x76E3D0 (Out_Line, 3 arguments) at the aligned row and Get_Next_Code 0x76DF60 at its four sites: alignment
+rel	0x5913E0	inconsistent	UIFriendsClass::Unknown_5908B0	0x433A10	codegen	AU: the client calls 0x5908B0 too (0x591594): the row pairs it with the string ??_G call (alignment)
+imm	0x522860	immreg	0x83	al	codegen	AU: the allocator byte copied before _Tidy (an empty std::allocator: no value), ebp = 0 held (cmp esi, ebp), and the client calls the same vector<string>::insert four times (0x5264BE..0x5266C8)
+imm	0x522860	regimm	ebp	0x0	codegen	AU: the allocator byte copied before _Tidy (an empty std::allocator: no value), ebp = 0 held (cmp esi, ebp), and the client calls the same vector<string>::insert four times (0x5264BE..0x5266C8)
+imm	0x7A8B70	immreg	0x0	ebp	codegen	AU: ours erases the systems map (+0x2C) where the aligned client row erases the gates map (+0x5C); the client erases both (0x7A8D10 systems, 0x7A8D9F gates): loop order / alignment
+imm	0x7A8B70	imm	0x2c	0x5c	codegen	AU: ours erases the systems map (+0x2C) where the aligned client row erases the gates map (+0x5C); the client erases both (0x7A8D10 systems, 0x7A8D9F gates): loop order / alignment
+imm	0x78F050	regimm	ebp	0x0	codegen	AU: push ebp where ebp == 0 on that path (test ebp, ebp; jne skips): the client pushes 0
+imm	0x46F120	regimm	eax	0x2	codegen	AU: add edi,eax / add edx,2 vs add edi,2 / add edx,eax: the two operands swapped between the rows (register choice); PS classed the function codegen (count)
+imm	0x46F120	immreg	0x2	eax	codegen	AU: add edi,eax / add edx,2 vs add edi,2 / add edx,eax: the two operands swapped between the rows (register choice); PS classed the function codegen (count)
+args	0x4DC720	count	3	0	codegen	AU: the client calls MemberStruct's constructor 0x4DD240 out of line (no pushes), ours inlines it (attempts H7: inline choice): the aligned call is another call
+args	0x7E87C0	count	2	3	codegen	AU: Get_Int('Between', 'FogColorR', 0): the client's third push is ebx = 0 held across the join (0x7E8E7C); the same three arguments
+args	0x50E6E0	arg1	0x0	dword[0xAECF40]	codegen	AU: the inlined helpers in another block layout: the client runs Unknown_50D1E0 (114 near / far 50 / 150, 0x50EB7F), Unknown_50CE00, then Unknown_50CF70 (clip 0 / 1, 0x50EC47) as the source; the rows pair the blocks crosswise
+args	0x50E6E0	arg2	0x3f800000	dword[0xAECF3C]	codegen	AU: the inlined helpers in another block layout: the client runs Unknown_50D1E0 (114 near / far 50 / 150, 0x50EB7F), Unknown_50CE00, then Unknown_50CF70 (clip 0 / 1, 0x50EC47) as the source; the rows pair the blocks crosswise
+args	0x50E6E0	arg1	&[join+0x16c]	[join+0x114]	codegen	AU: the inlined helpers in another block layout: the client runs Unknown_50D1E0 (114 near / far 50 / 150, 0x50EB7F), Unknown_50CE00, then Unknown_50CF70 (clip 0 / 1, 0x50EC47) as the source; the rows pair the blocks crosswise
+args	0x50E6E0	arg1	dword[Unknown114Near]	0x0	codegen	AU: the inlined helpers in another block layout: the client runs Unknown_50D1E0 (114 near / far 50 / 150, 0x50EB7F), Unknown_50CE00, then Unknown_50CF70 (clip 0 / 1, 0x50EC47) as the source; the rows pair the blocks crosswise
+args	0x50E6E0	arg2	dword[Unknown114Far]	0x3f800000	codegen	AU: the inlined helpers in another block layout: the client runs Unknown_50D1E0 (114 near / far 50 / 150, 0x50EB7F), Unknown_50CE00, then Unknown_50CF70 (clip 0 / 1, 0x50EC47) as the source; the rows pair the blocks crosswise

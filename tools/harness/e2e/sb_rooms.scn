@@ -1,0 +1,178 @@
+# Station (live server): test-plan UI-03, the starbase's rooms (ui_starbase.cpp, UIStarbaseClass), Jove's Fury
+# (net7 starbase 44: rooms 41-44 are the client's 0 hangar, 1 main deck, 2 bazaar, 3 lounge; door table 0xB8AAFC /
+# 0xB8AB3C). Every room walked with a pose and a shot (and the shot's draw log) on arrival and at a second spot,
+# every terminal opened and closed (starbase_terminals: room 1's refining 72, analyze 71 and manufacturing 70; room
+# 3's Intergalactic Net 64 and jobs 65; 0x63B630's case 0x11 turns the camera to cam_terminal%02d, 0x6390A0 opens
+# the view's interface by Unknown_B90C60), the NPCs' name tags (0x63AC60 / 0x63F490) in the room shots, and the
+# leave: the hangar's ship clicked (room 0 -> -1, STARBASE_REQUEST, the server's hand-off to space), then docked
+# again as _sb_dock does and walked home. Waypoints and screen points from the sb_* scenarios and the user's
+# recording of 2026-11-15 (.work/e2e/202650-record: room 3's web terminal at 230 s, the launch at 352-360 s).
+# The pointer is parked on the floor before each room shot (a hovered gadget's tooltip follows the hover time);
+# an aim_ shot shows each terminal's view just before its click.
+name: starbase rooms: every room, terminal and door, the launch and the dock (UI-03)
+timeout: 900
+include _sb_home
+# room 1, the main deck: the home spot
+move 1000,880
+pose
+shot room1_home
+# room 1's NPC (sb_talk's spot): Master Sevti's name tag
+walk-to -34,-13
+walk-to -44.9,-14.3
+face -179
+move 1000,880
+wait-quiet proxy 0.5 within 10
+pose
+shot room1_npc
+walk-to -34,-13
+walk-to -48,5
+# the analyze (dismantling) terminal (sb_dismantle's spot), from the home spot along sb_dismantle's path
+walk-to -50,25
+walk-to -52.9,34.4
+face 102
+wait-quiet proxy 1.0 within 20
+pose
+shot aim_analyze
+click 548,533 until antprox 'received MANUFACTURE_ITEM_CATAGORY' every 2 within 20
+wait-quiet proxy 1.0 within 20
+shot term_analyze
+click 866,277
+expect-event antprox 'received MANUFACTURE_ACTION' within 10
+wait-quiet proxy 1.0 within 20
+# the manufacturing terminal (sb_manufacture's spot), from the dismantling spot: the walk arrives heading about 20
+# degrees, so the turn to 8 is short (a turn drifts the avatar: arriving at 69 from -47,30 the turn left it at
+# -47.1,42.7 and the terminal off its screen point, retail 2026-11-25)
+walk-to -52.9,34.4
+walk-to -44,38
+face 8 tol 4
+wait-quiet proxy 1.0 within 20
+pose
+shot aim_manufacture
+click 617,525 until antprox 'received MANUFACTURE_ITEM_CATAGORY' every 2 within 20
+wait-quiet proxy 1.0 within 20
+shot term_manufacture
+click 858,221
+expect-event antprox 'received MANUFACTURE_ACTION' within 10
+wait-quiet proxy 1.0 within 20
+walk-to -47,30
+walk-to -48,5
+# the refining terminal (sb_refinery's spot): its gadget is lit (tooltip 'Refining', the click taken) only with the
+# avatar in reach, the camera at y -5.2 or further (-5.2 .. -6.3 took the click on both clients, -4.8 was refused on
+# both, 2026-11-25). The 17-unit last leg coasts 2.5-4.2 units after the walk key is let go: aimed at -5.5 with tol
+# 2.5 it stops between -5.5 and -7.2, inside the tolerance (aimed at -5 with tol 2 it once overshot, turned round and
+# the turn back left the avatar at -30.6,4.9)
+walk-to -38,25
+walk-to -31,12
+walk-to -29.7,-5.5 tol 2.5
+face -90
+pose
+shot aim_refinery
+click 667,608 until antprox 'received MANUFACTURE_ITEM_CATAGORY' every 2 within 20
+wait-quiet proxy 1.0 within 20
+shot term_refinery
+click 866,277
+expect-event antprox 'received MANUFACTURE_ACTION' within 10
+wait-quiet proxy 1.0 within 20
+walk-to -31,12
+walk-to -48,5
+# room 2, the bazaar (the right door, 'To Bazaar')
+walk-to -44,-38
+face -90 tol 5
+hold 0x41 until msg 'Changing room from 1 to 2' within 15
+wait-quiet proxy 1.0 within 20
+move 1000,880
+pose
+shot room2_door
+walk-to 2,52
+walk-to 23,27
+face -39
+move 1000,880
+wait-quiet proxy 0.5 within 10
+pose
+shot room2_vendors
+walk-to 2,52
+walk-to 0,62
+face 90 tol 5
+hold 0x41 until msg 'Changing room from 2 to 1' within 15
+walk-to -44,-38
+walk-to -48,5
+# room 3, the lounge (the left door, 'To Lounge')
+walk-to -47,40
+walk-to -44.5,62
+face 90 tol 5
+hold 0x41 until msg 'Changing room from 1 to 3' within 15
+wait-quiet proxy 1.0 within 20
+move 1000,880
+pose
+shot room3_door
+walk-to -0.8,-68
+walk-to -6.8,-52.7
+walk-to -33.4,-39.1
+walk-to -40.9,-6.5
+walk-to -43,28
+face 93
+shot aim_jobs
+click 638,654 until antprox 'sent JOB_LIST' every 2 within 20
+wait-quiet proxy 1.0 within 20
+shot term_jobs
+click 1253,340
+wait-quiet proxy 1.0 within 20
+# the web terminal (Intergalactic Net, facility type 4: the JWEB00 window, FA_JWEB00.INI, a live page from the
+# internet in the embedded browser; its close box at 1259,215)
+walk-to 19.3,36.6
+walk-to 33.9,38.9
+face 17
+move 1000,880
+wait-quiet proxy 0.5 within 10
+pose
+shot room3_web
+click 631,614 until proxy '(?i)fa_jweb00\.ini", R, disposition 3\) = ok' every 2 within 20
+wait-quiet proxy 2.0 within 30
+shot term_web
+click 1259,215
+wait-quiet proxy 1.0 within 20
+shot term_web_closed
+walk-to 28.3,-16
+walk-to 9.7,-53.4
+walk-to 0.5,-66
+face -90 tol 5
+hold 0x41 until msg 'Changing room from 3 to 1' within 15
+walk-to -44.5,62
+walk-to -47,40
+walk-to -48,5
+# room 0, the hangar (the back door, 'To Hangar'), and the leave
+walk-to -80,10
+face 180 tol 5
+hold 0x41 until msg 'Changing room from 1 to 0' within 15
+wait-quiet proxy 1.0 within 20
+move 1000,880
+pose
+shot room0_door
+walk-to 60,-1
+walk-to 50,-5
+face -124 tol 5
+move 1000,880
+wait-quiet proxy 0.5 within 10
+pose
+shot room0_ship
+click 770,284 until msg 'Changing room from 0 to -1' every 2 within 20
+wait-event antprox 'received STARBASE_REQUEST' within 30
+wait-event antprox 'sent SERVER_HANDOFF' within 60
+wait-event antprox 'received START_ACK' within 120
+wait-quiet proxy 1.5 within 60
+shot launched
+# docked again (_sb_dock's steps), then home from whichever pad
+click 641,1009 until antprox 'sent SET_TARGET' every 2 within 20
+wait-quiet proxy 1.0 within 20
+click 1238,672 until antprox 'sent SERVER_HANDOFF' every 5 within 180
+wait-event msg 'Changing room from -1 to 0' within 120
+wait-quiet proxy 2.0 within 30
+move 1000,880
+pose
+shot docked
+walk-to 60,3
+walk-to 84,0
+face 0 tol 5
+hold 0x41 until msg 'Changing room from 0 to 1' within 15
+walk-to -80,12
+walk-to -48,5

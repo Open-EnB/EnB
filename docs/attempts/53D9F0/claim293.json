@@ -1,0 +1,151 @@
+{
+  "base_sha256": "81520f5d83dfbf4755c1c5024bded76cbb6647133f81c94c443285a9931d8042",
+  "base": "tree2/app/client/debrsint.cpp",
+  "tested": [
+    {
+      "name": "order_rgb",
+      "sha256": "81520f5d83dfbf4755c1c5024bded76cbb6647133f81c94c443285a9931d8042",
+      "patch": "",
+      "run": "variants-z4vmakuv",
+      "target_exact_masked": false
+    },
+    {
+      "name": "order_rbg",
+      "sha256": "bfee3d6bffc3f4ba23ad760a6da4e94300b131cf5f7598d5a717c9a86acca77d",
+      "patch": "--- debrsint.cpp\n+++ debrsint.cpp\n@@ -209,8 +209,8 @@\n \t\t\t\tcase 1:\n \t\t\t\t{\n \t\t\t\t\tfloat r = field->Color.X * 1.2f;\n+\t\t\t\t\tfloat b = field->Color.Z * 1.2f;\n \t\t\t\t\tfloat g = field->Color.Y * 1.2f;\n-\t\t\t\t\tfloat b = field->Color.Z * 1.2f;\n \t\t\t\t\tfield->Set_Color((r > 1.0f) ? 1.0 : r, (g > 1.0f) ? 1.0 : g, (b > 1.0f) ? 1.0 : b);\n \t\t\t\t\treturn(true);\n \t\t\t\t}\n",
+      "run": "variants-z4vmakuv",
+      "target_exact_masked": false
+    },
+    {
+      "name": "order_grb",
+      "sha256": "d1153c4c1feea00c8dc41c662f5a5578009e3a5ef1433010c193d8cb27dcb279",
+      "patch": "--- debrsint.cpp\n+++ debrsint.cpp\n@@ -208,8 +208,8 @@\n \t\t\t\t\treturn(true);\n \t\t\t\tcase 1:\n \t\t\t\t{\n+\t\t\t\t\tfloat g = field->Color.Y * 1.2f;\n \t\t\t\t\tfloat r = field->Color.X * 1.2f;\n-\t\t\t\t\tfloat g = field->Color.Y * 1.2f;\n \t\t\t\t\tfloat b = field->Color.Z * 1.2f;\n \t\t\t\t\tfield->Set_Color((r > 1.0f) ? 1.0 : r, (g > 1.0f) ? 1.0 : g, (b > 1.0f) ? 1.0 : b);\n \t\t\t\t\treturn(true);\n",
+      "run": "variants-z4vmakuv",
+      "target_exact_masked": false
+    },
+    {
+      "name": "order_gbr",
+      "sha256": "027d83d89edae07aa2b6348aa50530d96ecf3c8a53b0010fb3c876cd71a5e1ef",
+      "patch": "--- debrsint.cpp\n+++ debrsint.cpp\n@@ -208,9 +208,9 @@\n \t\t\t\t\treturn(true);\n \t\t\t\tcase 1:\n \t\t\t\t{\n-\t\t\t\t\tfloat r = field->Color.X * 1.2f;\n \t\t\t\t\tfloat g = field->Color.Y * 1.2f;\n \t\t\t\t\tfloat b = field->Color.Z * 1.2f;\n+\t\t\t\t\tfloat r = field->Color.X * 1.2f;\n \t\t\t\t\tfield->Set_Color((r > 1.0f) ? 1.0 : r, (g > 1.0f) ? 1.0 : g, (b > 1.0f) ? 1.0 : b);\n \t\t\t\t\treturn(true);\n \t\t\t\t}\n",
+      "run": "variants-z4vmakuv",
+      "target_exact_masked": false
+    },
+    {
+      "name": "order_brg",
+      "sha256": "72a45fa2c8966b6e6570fb92660fe20898d6accab4dde5c7e6b099433369042a",
+      "patch": "--- debrsint.cpp\n+++ debrsint.cpp\n@@ -208,9 +208,9 @@\n \t\t\t\t\treturn(true);\n \t\t\t\tcase 1:\n \t\t\t\t{\n+\t\t\t\t\tfloat b = field->Color.Z * 1.2f;\n \t\t\t\t\tfloat r = field->Color.X * 1.2f;\n \t\t\t\t\tfloat g = field->Color.Y * 1.2f;\n-\t\t\t\t\tfloat b = field->Color.Z * 1.2f;\n \t\t\t\t\tfield->Set_Color((r > 1.0f) ? 1.0 : r, (g > 1.0f) ? 1.0 : g, (b > 1.0f) ? 1.0 : b);\n \t\t\t\t\treturn(true);\n \t\t\t\t}\n",
+      "run": "variants-z4vmakuv",
+      "target_exact_masked": false
+    },
+    {
+      "name": "order_bgr",
+      "sha256": "89af2052fe4b31f73ef464b43ff6c3026189cf951424c82ad27ecd2740a04277",
+      "patch": "--- debrsint.cpp\n+++ debrsint.cpp\n@@ -208,9 +208,9 @@\n \t\t\t\t\treturn(true);\n \t\t\t\tcase 1:\n \t\t\t\t{\n+\t\t\t\t\tfloat b = field->Color.Z * 1.2f;\n+\t\t\t\t\tfloat g = field->Color.Y * 1.2f;\n \t\t\t\t\tfloat r = field->Color.X * 1.2f;\n-\t\t\t\t\tfloat g = field->Color.Y * 1.2f;\n-\t\t\t\t\tfloat b = field->Color.Z * 1.2f;\n \t\t\t\t\tfield->Set_Color((r > 1.0f) ? 1.0 : r, (g > 1.0f) ? 1.0 : g, (b > 1.0f) ? 1.0 : b);\n \t\t\t\t\treturn(true);\n \t\t\t\t}\n",
+      "run": "variants-z4vmakuv",
+      "target_exact_masked": false
+    },
+    {
+      "name": "getters",
+      "sha256": "c086932a707a3e5c466d4f61bb16551cebabfd233bb56a2faf7ed6932a49df9a",
+      "patch": "--- debrsint.cpp\n+++ debrsint.cpp\n@@ -208,9 +208,9 @@\n \t\t\t\t\treturn(true);\n \t\t\t\tcase 1:\n \t\t\t\t{\n-\t\t\t\t\tfloat r = field->Color.X * 1.2f;\n-\t\t\t\t\tfloat g = field->Color.Y * 1.2f;\n-\t\t\t\t\tfloat b = field->Color.Z * 1.2f;\n+\t\t\t\t\tfloat r = field->Get_Color().X * 1.2f;\n+\t\t\t\t\tfloat g = field->Get_Color().Y * 1.2f;\n+\t\t\t\t\tfloat b = field->Get_Color().Z * 1.2f;\n \t\t\t\t\tfield->Set_Color((r > 1.0f) ? 1.0 : r, (g > 1.0f) ? 1.0 : g, (b > 1.0f) ? 1.0 : b);\n \t\t\t\t\treturn(true);\n \t\t\t\t}\n",
+      "run": "variants-z4vmakuv",
+      "target_exact_masked": false
+    },
+    {
+      "name": "reference",
+      "sha256": "edcbe202d8132e8cce796e0da1c7e362ae03d6eef279819b0131a14af321fe35",
+      "patch": "--- debrsint.cpp\n+++ debrsint.cpp\n@@ -208,9 +208,9 @@\n \t\t\t\t\treturn(true);\n \t\t\t\tcase 1:\n \t\t\t\t{\n-\t\t\t\t\tfloat r = field->Color.X * 1.2f;\n-\t\t\t\t\tfloat g = field->Color.Y * 1.2f;\n-\t\t\t\t\tfloat b = field->Color.Z * 1.2f;\n+\t\t\t\t\tconst Vector3 &color = field->Get_Color();\n+\t\t\t\t\tfloat r = color.X * 1.2f; float g = color.Y * 1.2f;\n+\t\t\t\t\tfloat b = color.Z * 1.2f;\n \t\t\t\t\tfield->Set_Color((r > 1.0f) ? 1.0 : r, (g > 1.0f) ? 1.0 : g, (b > 1.0f) ? 1.0 : b);\n \t\t\t\t\treturn(true);\n \t\t\t\t}\n",
+      "run": "variants-z4vmakuv",
+      "target_exact_masked": false
+    },
+    {
+      "name": "vector_copy",
+      "sha256": "5df7a5530da2783a97d3352f76ff1d7237b06320640a11a02d0f6cc877b1495d",
+      "patch": "--- debrsint.cpp\n+++ debrsint.cpp\n@@ -208,9 +208,9 @@\n \t\t\t\t\treturn(true);\n \t\t\t\tcase 1:\n \t\t\t\t{\n-\t\t\t\t\tfloat r = field->Color.X * 1.2f;\n-\t\t\t\t\tfloat g = field->Color.Y * 1.2f;\n-\t\t\t\t\tfloat b = field->Color.Z * 1.2f;\n+\t\t\t\t\tVector3 color = field->Get_Color();\n+\t\t\t\t\tfloat r = color.X * 1.2f; float g = color.Y * 1.2f;\n+\t\t\t\t\tfloat b = color.Z * 1.2f;\n \t\t\t\t\tfield->Set_Color((r > 1.0f) ? 1.0 : r, (g > 1.0f) ? 1.0 : g, (b > 1.0f) ? 1.0 : b);\n \t\t\t\t\treturn(true);\n \t\t\t\t}\n",
+      "run": "variants-z4vmakuv",
+      "target_exact_masked": false
+    },
+    {
+      "name": "vector_scaled",
+      "sha256": "258b05bdd6af738b56b18fc9c9ad835903699ba27e0495f1a5074fbc4fa34b63",
+      "patch": "--- debrsint.cpp\n+++ debrsint.cpp\n@@ -208,9 +208,9 @@\n \t\t\t\t\treturn(true);\n \t\t\t\tcase 1:\n \t\t\t\t{\n-\t\t\t\t\tfloat r = field->Color.X * 1.2f;\n-\t\t\t\t\tfloat g = field->Color.Y * 1.2f;\n-\t\t\t\t\tfloat b = field->Color.Z * 1.2f;\n+\t\t\t\t\tVector3 color = field->Get_Color();\n+\t\t\t\t\tcolor *= 1.2f;\n+\t\t\t\t\tfloat r = color.X; float g = color.Y; float b = color.Z;\n \t\t\t\t\tfield->Set_Color((r > 1.0f) ? 1.0 : r, (g > 1.0f) ? 1.0 : g, (b > 1.0f) ? 1.0 : b);\n \t\t\t\t\treturn(true);\n \t\t\t\t}\n",
+      "run": "variants-z4vmakuv",
+      "target_exact_masked": false
+    },
+    {
+      "name": "vector_ctor",
+      "sha256": "0875da154531a44f54cf841baedebdf72829482aab14a7c9b61dc2a72e778794",
+      "patch": "--- debrsint.cpp\n+++ debrsint.cpp\n@@ -208,10 +208,10 @@\n \t\t\t\t\treturn(true);\n \t\t\t\tcase 1:\n \t\t\t\t{\n-\t\t\t\t\tfloat r = field->Color.X * 1.2f;\n-\t\t\t\t\tfloat g = field->Color.Y * 1.2f;\n-\t\t\t\t\tfloat b = field->Color.Z * 1.2f;\n+\t\t\t\t\tVector3 color(field->Color.X * 1.2f, field->Color.Y * 1.2f, field->Color.Z * 1.2f);\n+\t\t\t\t\tfloat r = color.X; float g = color.Y; float b = color.Z;\n \t\t\t\t\tfield->Set_Color((r > 1.0f) ? 1.0 : r, (g > 1.0f) ? 1.0 : g, (b > 1.0f) ? 1.0 : b);\n+\t\t\t\t\t\n \t\t\t\t\treturn(true);\n \t\t\t\t}\n \n",
+      "run": "variants-z4vmakuv",
+      "target_exact_masked": false
+    },
+    {
+      "name": "separate_assign",
+      "sha256": "ad0422604750e84b91ca3ff91489aaab01cf8d97542b102d555bb7b6de9410dd",
+      "patch": "--- debrsint.cpp\n+++ debrsint.cpp\n@@ -208,9 +208,9 @@\n \t\t\t\t\treturn(true);\n \t\t\t\tcase 1:\n \t\t\t\t{\n-\t\t\t\t\tfloat r = field->Color.X * 1.2f;\n-\t\t\t\t\tfloat g = field->Color.Y * 1.2f;\n-\t\t\t\t\tfloat b = field->Color.Z * 1.2f;\n+\t\t\t\t\tfloat r, g, b;\n+\t\t\t\t\tr = field->Color.X * 1.2f; g = field->Color.Y * 1.2f;\n+\t\t\t\t\tb = field->Color.Z * 1.2f;\n \t\t\t\t\tfield->Set_Color((r > 1.0f) ? 1.0 : r, (g > 1.0f) ? 1.0 : g, (b > 1.0f) ? 1.0 : b);\n \t\t\t\t\treturn(true);\n \t\t\t\t}\n",
+      "run": "variants-z4vmakuv",
+      "target_exact_masked": false
+    },
+    {
+      "name": "red_inline",
+      "sha256": "027d83d89edae07aa2b6348aa50530d96ecf3c8a53b0010fb3c876cd71a5e1ef",
+      "patch": "--- debrsint.cpp\n+++ debrsint.cpp\n@@ -208,9 +208,9 @@\n \t\t\t\t\treturn(true);\n \t\t\t\tcase 1:\n \t\t\t\t{\n-\t\t\t\t\tfloat r = field->Color.X * 1.2f;\n \t\t\t\t\tfloat g = field->Color.Y * 1.2f;\n \t\t\t\t\tfloat b = field->Color.Z * 1.2f;\n+\t\t\t\t\tfloat r = field->Color.X * 1.2f;\n \t\t\t\t\tfield->Set_Color((r > 1.0f) ? 1.0 : r, (g > 1.0f) ? 1.0 : g, (b > 1.0f) ? 1.0 : b);\n \t\t\t\t\treturn(true);\n \t\t\t\t}\n",
+      "run": "variants-z4vmakuv",
+      "target_exact_masked": false
+    },
+    {
+      "name": "component_ternaries",
+      "sha256": "b6df374b2ba965872afbd50bfb0ce2629e7c1704cfd553afa20c5eac8a70a76c",
+      "patch": "--- debrsint.cpp\n+++ debrsint.cpp\n@@ -208,10 +208,10 @@\n \t\t\t\t\treturn(true);\n \t\t\t\tcase 1:\n \t\t\t\t{\n-\t\t\t\t\tfloat r = field->Color.X * 1.2f;\n-\t\t\t\t\tfloat g = field->Color.Y * 1.2f;\n-\t\t\t\t\tfloat b = field->Color.Z * 1.2f;\n-\t\t\t\t\tfield->Set_Color((r > 1.0f) ? 1.0 : r, (g > 1.0f) ? 1.0 : g, (b > 1.0f) ? 1.0 : b);\n+\t\t\t\t\tfloat r = field->Color.X * 1.2f; float g = field->Color.Y * 1.2f; float b = field->Color.Z * 1.2f;\n+\t\t\t\t\tfield->Color.X = (r > 1.0f) ? 1.0 : r;\n+\t\t\t\t\tfield->Color.Y = (g > 1.0f) ? 1.0 : g;\n+\t\t\t\t\tfield->Color.Z = (b > 1.0f) ? 1.0 : b;\n \t\t\t\t\treturn(true);\n \t\t\t\t}\n \n",
+      "run": "variants-z4vmakuv",
+      "target_exact_masked": false
+    },
+    {
+      "name": "min_macro",
+      "sha256": "ef06d79af8f8fe0c8a6beb04b83c035772029a259ad7a63822e7729ddb27d8cd",
+      "patch": "--- debrsint.cpp\n+++ debrsint.cpp\n@@ -208,10 +208,10 @@\n \t\t\t\t\treturn(true);\n \t\t\t\tcase 1:\n \t\t\t\t{\n-\t\t\t\t\tfloat r = field->Color.X * 1.2f;\n-\t\t\t\t\tfloat g = field->Color.Y * 1.2f;\n-\t\t\t\t\tfloat b = field->Color.Z * 1.2f;\n-\t\t\t\t\tfield->Set_Color((r > 1.0f) ? 1.0 : r, (g > 1.0f) ? 1.0 : g, (b > 1.0f) ? 1.0 : b);\n+\t\t\t\t\tfloat r = field->Color.X * 1.2f; float g = field->Color.Y * 1.2f; float b = field->Color.Z * 1.2f;\n+\t\t\t\t\tfield->Set_Color((1.0f < r) ? 1.0 : r, (1.0f < g) ? 1.0 : g, (1.0f < b) ? 1.0 : b);\n+\t\t\t\t\t\n+\t\t\t\t\t\n \t\t\t\t\treturn(true);\n \t\t\t\t}\n \n",
+      "run": "variants-z4vmakuv",
+      "target_exact_masked": false
+    },
+    {
+      "name": "clamp_rgb",
+      "sha256": "e1677f6a0f9769c5a28b8e975b56b560407c07a84cc1616ba408b44a2801e394",
+      "patch": "--- debrsint.cpp\n+++ debrsint.cpp\n@@ -208,10 +208,10 @@\n \t\t\t\t\treturn(true);\n \t\t\t\tcase 1:\n \t\t\t\t{\n-\t\t\t\t\tfloat r = field->Color.X * 1.2f;\n-\t\t\t\t\tfloat g = field->Color.Y * 1.2f;\n-\t\t\t\t\tfloat b = field->Color.Z * 1.2f;\n-\t\t\t\t\tfield->Set_Color((r > 1.0f) ? 1.0 : r, (g > 1.0f) ? 1.0 : g, (b > 1.0f) ? 1.0 : b);\n+\t\t\t\t\tfloat r = field->Color.X * 1.2f; float g = field->Color.Y * 1.2f; float b = field->Color.Z * 1.2f;\n+\t\t\t\t\tr = (r > 1.0f) ? 1.0 : r; g = (g > 1.0f) ? 1.0 : g; b = (b > 1.0f) ? 1.0 : b;\n+\t\t\t\t\tfield->Set_Color(r, g, b);\n+\t\t\t\t\t\n \t\t\t\t\treturn(true);\n \t\t\t\t}\n \n",
+      "run": "variants2-y98954fo",
+      "target_exact_masked": true
+    },
+    {
+      "name": "retail_factor",
+      "sha256": "136a13f45b0f1263529d1e19acef49f23083418853ec589fee49d31c7c7d7179",
+      "patch": "--- debrsint.cpp\n+++ debrsint.cpp\n@@ -170,19 +170,19 @@\n \t\t\tfield->Size *= 1.5;\n \t\t\tbreak;\n \t\tcase 4:\n-\t\t\tfield->Size *= 0.6666667;\n+\t\t\tfield->Size *= 0.6666666666667;\n \t\t\tbreak;\n \t\tcase 5:\n \t\t\tfield->MaxDist *= 1.5;\n \t\t\tbreak;\n \t\tcase 6:\n-\t\t\tfield->MaxDist *= 0.6666667;\n+\t\t\tfield->MaxDist *= 0.6666666666667;\n \t\t\tbreak;\n \t\tcase 7:\n \t\t\tfield->MinDist *= 1.5;\n \t\t\tbreak;\n \t\tcase 8:\n-\t\t\tfield->MinDist *= 0.6666667;\n+\t\t\tfield->MinDist *= 0.6666666666667;\n \t\t\tbreak;\n \t\tcase 9:\n \t\t\tswitch (field->Unknown_6BB440()) {\n@@ -208,10 +208,10 @@\n \t\t\t\t\treturn(true);\n \t\t\t\tcase 1:\n \t\t\t\t{\n-\t\t\t\t\tfloat r = field->Color.X * 1.2f;\n-\t\t\t\t\tfloat g = field->Color.Y * 1.2f;\n-\t\t\t\t\tfloat b = field->Color.Z * 1.2f;\n-\t\t\t\t\tfield->Set_Color((r > 1.0f) ? 1.0 : r, (g > 1.0f) ? 1.0 : g, (b > 1.0f) ? 1.0 : b);\n+\t\t\t\t\tfloat r = field->Color.X * 1.2f; float g = field->Color.Y * 1.2f; float b = field->Color.Z * 1.2f;\n+\t\t\t\t\tr = (r > 1.0f) ? 1.0 : r; g = (g > 1.0f) ? 1.0 : g; b = (b > 1.0f) ? 1.0 : b;\n+\t\t\t\t\tfield->Set_Color(r, g, b);\n+\t\t\t\t\t\n \t\t\t\t\treturn(true);\n \t\t\t\t}\n \n",
+      "run": "variants3-6bhp39og",
+      "target_exact_masked": true
+    },
+    {
+      "name": "final",
+      "sha256": "d47976f79fba72e68b2e690813b6dbe590d49d9a0d36b4366ba3d6dc3d64618d",
+      "patch": "--- debrsint.cpp\n+++ debrsint.cpp\n@@ -147,7 +147,7 @@\n \n \n \n-// NOT EXACT: functional (D64), order-only (key 10's colour: the red's spill after the blue's multiply)\n+\n // 0x53D9F0\n bool DebrisInterfaceClass::Unknown_68(int key)\n {\n@@ -170,19 +170,19 @@\n \t\t\tfield->Size *= 1.5;\n \t\t\tbreak;\n \t\tcase 4:\n-\t\t\tfield->Size *= 0.6666667;\n+\t\t\tfield->Size *= 0.6666666666667;\n \t\t\tbreak;\n \t\tcase 5:\n \t\t\tfield->MaxDist *= 1.5;\n \t\t\tbreak;\n \t\tcase 6:\n-\t\t\tfield->MaxDist *= 0.6666667;\n+\t\t\tfield->MaxDist *= 0.6666666666667;\n \t\t\tbreak;\n \t\tcase 7:\n \t\t\tfield->MinDist *= 1.5;\n \t\t\tbreak;\n \t\tcase 8:\n-\t\t\tfield->MinDist *= 0.6666667;\n+\t\t\tfield->MinDist *= 0.6666666666667;\n \t\t\tbreak;\n \t\tcase 9:\n \t\t\tswitch (field->Unknown_6BB440()) {\n@@ -211,12 +211,12 @@\n \t\t\t\t\tfloat r = field->Color.X * 1.2f;\n \t\t\t\t\tfloat g = field->Color.Y * 1.2f;\n \t\t\t\t\tfloat b = field->Color.Z * 1.2f;\n-\t\t\t\t\tfield->Set_Color((r > 1.0f) ? 1.0 : r, (g > 1.0f) ? 1.0 : g, (b > 1.0f) ? 1.0 : b);\n+\t\t\t\t\tr = (r > 1.0f) ? 1.0 : r;\n+\t\t\t\t\tg = (g > 1.0f) ? 1.0 : g;\n+\t\t\t\t\tb = (b > 1.0f) ? 1.0 : b;\n+\t\t\t\t\tfield->Set_Color(r, g, b);\n \t\t\t\t\treturn(true);\n \t\t\t\t}\n-\n-\n-\n \n \n \t\t\t\tdefault:\n",
+      "run": "final-kk4_gwx7",
+      "target_exact_masked": true
+    }
+  ],
+  "uncompiled_variants2": [
+    "clamp_rbg",
+    "clamp_grb",
+    "clamp_gbr",
+    "clamp_brg",
+    "clamp_bgr",
+    "constants_0",
+    "constants_1",
+    "constants_2",
+    "constants_3",
+    "constants_4",
+    "constants_5",
+    "constants_6",
+    "constants_7",
+    "multiply_assign"
+  ],
+  "roundtrip": "patch applied to base, byte-identical for each tested source",
+  "invalid": [],
+  "note": "clamp_rgb masked match failed literal relocation audit; retail_factor fixes three factors."
+}
