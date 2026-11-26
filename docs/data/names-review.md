@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1971 |
 | 2 | describes what the code does | 5015 |
-| 1 | neutral placeholder | 25211 |
+| 1 | neutral placeholder | 25196 |
 
 ## For review (score 3 and below)
 
@@ -1737,11 +1737,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown10CC` | `app/client/client.cpp:30` | untagged neutral name (D10) |
 | 1 | `Unknown10D0` | `app/client/client.cpp:31` | untagged neutral name (D10) |
 | 1 | `Unknown10D4` | `app/client/client.cpp:32` | untagged neutral name (D10) |
-| 1 | `Unknown10D8` | `app/client/client.cpp:33` | untagged neutral name (D10) |
 | 1 | `Unknown10DC` | `app/client/client.cpp:34` | untagged neutral name (D10) |
-| 1 | `Unknown10E0` | `app/client/client.cpp:35` | untagged neutral name (D10) |
 | 1 | `Unknown10E4` | `app/client/client.cpp:36` | untagged neutral name (D10) |
-| 1 | `Unknown10E8` | `app/client/client.cpp:37` | untagged neutral name (D10) |
 | 1 | `Unknown10EC` | `app/client/client.cpp:38` | untagged neutral name (D10) |
 | 1 | `Unknown10F0` | `app/client/client.cpp:39` | untagged neutral name (D10) |
 | 1 | `Unknown10F4` | `app/client/client.cpp:40` | untagged neutral name (D10) |
@@ -1754,7 +1751,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown1108` | `app/client/client.cpp:47` | untagged neutral name (D10) |
 | 1 | `Unknown110C` | `app/client/client.cpp:48` | untagged neutral name (D10) |
 | 1 | `Unknown1110` | `app/client/client.cpp:49` | untagged neutral name (D10) |
-| 1 | `Unknown1114` | `app/client/client.cpp:50` | untagged neutral name (D10) |
 | 1 | `Unknown1128` | `app/client/client.cpp:51` | untagged neutral name (D10) |
 | 1 | `Unknown1134` | `app/client/client.cpp:54` | untagged neutral name (D10) |
 | 1 | `Unknown1138` | `app/client/client.cpp:55` | untagged neutral name (D10) |
@@ -1837,11 +1833,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown10CC` | `app/client/client.h:202` | untagged neutral name (D10) |
 | 1 | `Unknown10D0` | `app/client/client.h:203` | untagged neutral name (D10) |
 | 1 | `Unknown10D4` | `app/client/client.h:204` | untagged neutral name (D10) |
-| 1 | `Unknown10D8` | `app/client/client.h:205` | untagged neutral name (D10) |
 | 1 | `Unknown10DC` | `app/client/client.h:206` | untagged neutral name (D10) |
-| 1 | `Unknown10E0` | `app/client/client.h:207` | untagged neutral name (D10) |
 | 1 | `Unknown10E4` | `app/client/client.h:208` | untagged neutral name (D10) |
-| 1 | `Unknown10E8` | `app/client/client.h:209` | untagged neutral name (D10) |
 | 1 | `Unknown10EC` | `app/client/client.h:210` | untagged neutral name (D10) |
 | 1 | `Unknown10F0` | `app/client/client.h:211` | untagged neutral name (D10) |
 | 1 | `Unknown10F4` | `app/client/client.h:212` | untagged neutral name (D10) |
@@ -1854,7 +1847,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown1108` | `app/client/client.h:219` | untagged neutral name (D10) |
 | 1 | `Unknown110C` | `app/client/client.h:220` | untagged neutral name (D10) |
 | 1 | `Unknown1110` | `app/client/client.h:221` | untagged neutral name (D10) |
-| 1 | `Unknown1114` | `app/client/client.h:222` | untagged neutral name (D10) |
 | 1 | `Unknown1118` | `app/client/client.h:223` | untagged neutral name (D10) |
 | 1 | `Unknown1128` | `app/client/client.h:225` | untagged neutral name (D10) |
 | 1 | `Unknown1134` | `app/client/client.h:228` | untagged neutral name (D10) |
@@ -1972,11 +1964,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown70` | `app/client/co.cpp:495` | untagged neutral name (D10) |
 | 1 | `Unknown_6FC970` | `app/client/co.cpp:497` | untagged neutral name (D10) |
 | 1 | `Unknown10D4` | `app/client/co.cpp:549` | untagged neutral name (D10) |
-| 1 | `Unknown10D8` | `app/client/co.cpp:549` | untagged neutral name (D10) |
 | 1 | `Unknown10DC` | `app/client/co.cpp:554` | untagged neutral name (D10) |
 | 1 | `Unknown10E4` | `app/client/co.cpp:554` | untagged neutral name (D10) |
-| 1 | `Unknown10E0` | `app/client/co.cpp:555` | untagged neutral name (D10) |
-| 1 | `Unknown10E8` | `app/client/co.cpp:555` | untagged neutral name (D10) |
 | 1 | `Unknown_6F5A10` | `app/client/co.cpp:567` | untagged neutral name (D10) |
 | 1 | `Unknown_6F5E40` | `app/client/co.cpp:570` | untagged neutral name (D10) |
 | 1 | `Unknown_24` | `app/client/co.cpp:739` | untagged neutral name (D10) |
@@ -2563,11 +2552,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6F5A40` | `app/client/cpacket.cpp:1252` | untagged neutral name (D10) |
 | 1 | `Unknown_74D950` | `app/client/cpacket.cpp:1253` | untagged neutral name (D10) |
 | 1 | `Unknown10D4` | `app/client/cpacket.cpp:1264` | untagged neutral name (D10) |
-| 1 | `Unknown10D8` | `app/client/cpacket.cpp:1265` | untagged neutral name (D10) |
 | 1 | `Unknown10DC` | `app/client/cpacket.cpp:1274` | untagged neutral name (D10) |
-| 1 | `Unknown10E0` | `app/client/cpacket.cpp:1275` | untagged neutral name (D10) |
 | 1 | `Unknown10E4` | `app/client/cpacket.cpp:1276` | untagged neutral name (D10) |
-| 1 | `Unknown10E8` | `app/client/cpacket.cpp:1277` | untagged neutral name (D10) |
 | 1 | `Unknown_460880` | `app/client/cpacket.cpp:1289` | untagged neutral name (D10) |
 | 1 | `Unknown_4604D0` | `app/client/cpacket.cpp:1301` | untagged neutral name (D10) |
 | 1 | `Unknown_460850` | `app/client/cpacket.cpp:1313` | untagged neutral name (D10) |
@@ -2593,7 +2579,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown1108` | `app/client/cpacket.cpp:1468` | untagged neutral name (D10) |
 | 1 | `Unknown110C` | `app/client/cpacket.cpp:1469` | untagged neutral name (D10) |
 | 1 | `Unknown1110` | `app/client/cpacket.cpp:1470` | untagged neutral name (D10) |
-| 1 | `Unknown1114` | `app/client/cpacket.cpp:1471` | untagged neutral name (D10) |
 | 1 | `Unknown_745000` | `app/client/cpacket.cpp:1472` | untagged neutral name (D10) |
 | 1 | `Unknown_513700` | `app/client/cpacket.cpp:1473` | untagged neutral name (D10) |
 | 1 | `Unknown_750A70` | `app/client/cpacket.cpp:1474` | untagged neutral name (D10) |
@@ -10137,6 +10122,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_Find_Valid_Field` | `app/client/ui_analyze.cpp:70` | neutral (D10)  // NAME 1 [root, name, n, r, t]: neutral |
 | 1 | `Unknown70` | `app/client/ui_analyze.cpp:70` | untagged neutral name (D10) |
 | 1 | `Unknown_Find_Valid` | `app/client/ui_analyze.cpp:71` | neutral (D10)  // NAME 1 [root, name]: neutral |
+| 1 | `Unknown_Find_Changed_Field` | `app/client/ui_analyze.cpp:74` | neutral (D10): Unknown_Find_Valid's two layers with the changed test (> 1): the client's out-of-line finds in 0x545190  // NAME 1 [root, name, n, r, t]: neutral |
+| 1 | `Unknown_Find_Changed` | `app/client/ui_analyze.cpp:74` | untagged neutral name (D10) |
 | 1 | `Unknown5BB320Class` | `app/client/ui_analyze.cpp:83` | untagged neutral name (D10) |
 | 1 | `Unknown0AC` | `app/client/ui_analyze.cpp:84` | untagged neutral name (D10) |
 | 1 | `Unknown0D0` | `app/client/ui_analyze.cpp:85` | untagged neutral name (D10) |
@@ -19705,7 +19692,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_5C` | `app/client/unknown_515640.cpp:30` | untagged neutral name (D10) |
 | 1 | `Unknown_60` | `app/client/unknown_515640.cpp:40` | untagged neutral name (D10) |
 | 1 | `Unknown10D4` | `app/client/unknown_515640.cpp:44` | untagged neutral name (D10) |
-| 1 | `Unknown10D8` | `app/client/unknown_515640.cpp:45` | untagged neutral name (D10) |
 | 1 | `Unknown_24` | `app/client/unknown_515640.cpp:46` | untagged neutral name (D10) |
 | 1 | `Unknown_6865E0` | `app/client/unknown_515640.cpp:47` | untagged neutral name (D10) |
 | 1 | `Unknown515640Class` | `app/client/unknown_515640.h:17` | neutral (D10) |
@@ -25095,7 +25081,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_728370` | `tests/clienttest/clienttest.cpp:701` | untagged neutral name (D10) |
 | 1 | `Unknown11` | `tests/clienttest/clienttest.cpp:761` | untagged neutral name (D10) |
 | 1 | `Unknown10D4` | `tests/clienttest/clienttest.cpp:851` | untagged neutral name (D10) |
-| 1 | `Unknown10D8` | `tests/clienttest/clienttest.cpp:851` | untagged neutral name (D10) |
 | 1 | `Unknown1138` | `tests/clienttest/clienttest.cpp:869` | untagged neutral name (D10) |
 | 1 | `Unknown10C0` | `tests/clienttest/clienttest.cpp:880` | untagged neutral name (D10) |
 | 1 | `Unknown10C8` | `tests/clienttest/clienttest.cpp:880` | untagged neutral name (D10) |
@@ -27368,7 +27353,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Width` | `app/client/ui_combobox.h:43` | what slot +0x30 compares x with |
 | 2 | `Bone` | `app/client/ui_combobox.h:44` | the bone index it holds |
 | 2 | `HoverOnly` | `app/client/ui_combobox.h:45` | what slot +0x30 does with it |
-| 2 | `Init` | `app/client/ui_combobox.h:62` | describes what it does; NAME 1 [owner]: what the second constructor passes |
+| 2 | `Init` | `app/client/ui_combobox.h:62` | describes what it does; NAME 1 [client]: what the second constructor passes (its client, 0x578C6A: [esp+0x28], not its owner) |
 | 2 | `Update_Drop_Down` | `app/client/ui_combobox.h:64` | describes what it does |
 | 2 | `Update_Rows` | `app/client/ui_combobox.h:65` | describes what it does |
 | 2 | `Select` | `app/client/ui_combobox.h:66` | describes what it does; NAME 1 [index]: neutral |
