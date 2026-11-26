@@ -131,7 +131,7 @@ class Side:
         offset taken back to the region start's depth."""
         rel = self.depth_rel(k)
         if self.listing is not None and k < len(self.listing) \
-                and self.listing[k].split()[0] == self.rows[k][0].mn:
+                and TB.same_mnemonic(self.listing[k], self.rows[k][0].mn):
             refs = LIST_REF.findall(self.listing[k])
             if refs:
                 name, reg, delta = refs[0]
@@ -600,7 +600,7 @@ def audit(obj_path, symbol, addr, listing_text):
                 shift = None
             PARAMS[0] = (params, shift); TABLE[0] = table
             # the listing ends with the unwind funclets (text$x): index-aligned when the first rows agree
-            bad = sum(1 for k in range(min(len(ins), len(L))) if ins[k].split()[0] != L[k][0].mn)
+            bad = sum(1 for k in range(min(len(ins), len(L))) if not TB.same_mnemonic(ins[k], L[k][0].mn))
             if len(ins) < len(L) or bad > len(L) // 50:
                 ins = None
             else:

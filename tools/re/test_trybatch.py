@@ -184,6 +184,66 @@ class Slots(unittest.TestCase):
         self.assertTrue([l for l in out if '_address$' in l][0].endswith('*'))
 
 
+REP_LISTING = '''_TEXT\tSEGMENT
+_name$ = -64
+?Copy@A@@QAEXPBD@Z PROC NEAR\t\t\t; A::Copy, COMDAT
+\tsub\tesp, 64\t\t\t\t\t; 00000040H
+\tor\tecx, -1
+\txor\teax, eax
+\trepne scasb
+\tnot\tecx
+\tlea\tedi, DWORD PTR _name$[esp+64]
+\trep movsd
+\tmov\tecx, eax
+\trep movsb
+\tlea\teax, DWORD PTR _name$[esp+64]
+\tret\t4
+?Copy@A@@QAEXPBD@Z ENDP
+'''
+
+
+class Prefixes(unittest.TestCase):
+    """A4: capstone names `repne scasb` one mnemonic, the listing's first token is `repne`: a prefixed row must still
+    align, else a function with inlined strlen / memcpy loses its listing (behaudit args) or its slot rows."""
+
+    CLIENT = ['sub esp, 0x40', 'or ecx, 0xffffffff', 'xor eax, eax', 'repne scasb al, byte ptr es:[edi]',
+              'not ecx', 'lea edi, [esp]', 'rep movsd dword ptr es:[edi], dword ptr [esi]', 'mov ecx, eax',
+              'rep movsb byte ptr es:[edi], byte ptr [esi]', 'lea eax, [esp]', 'ret 4']
+
+    def rows(self):
+        out = []
+        for text in self.CLIENT:
+            mn, _, op = text.partition(' ')
+            if mn in T.PREFIXES:
+                more, _, op = op.partition(' ')
+                mn = mn + ' ' + more
+            r = ins(mn, raw=text)
+            r.op = op
+            out.append((r, text))
+        return out
+
+    def test_keys(self):
+        self.assertEqual(T.mnemonic_key('repne scasb'), 'repne scasb')
+        self.assertEqual(T.mnemonic_key('rep movsd dword ptr es:[edi], dword ptr [esi]'), 'rep movsd')
+        self.assertEqual(T.mnemonic_key('mov\tecx, eax'), 'mov')
+        self.assertTrue(T.same_mnemonic('rep movsd', 'rep movsd'))
+        self.assertFalse(T.same_mnemonic('rep movsd', 'rep movsb'))
+        self.assertFalse(T.same_mnemonic('rep stosd', 'stosd'))
+        self.assertEqual(T.mnemonic_key(''), '')
+
+    def test_listing_aligns(self):
+        table, lines = T.listing_body(REP_LISTING, 'A::Copy')
+        L = self.rows()
+        self.assertEqual(len(lines), len(L))
+        # behaudit_args's 2 % limit: no prefixed row counts as misaligned
+        self.assertEqual(sum(1 for k in range(len(L)) if not T.same_mnemonic(lines[k], L[k][0].mn)), 0)
+        self.assertEqual(sum(1 for k in range(len(L)) if lines[k].split()[0] != L[k][0].mn), 3)   # the old test
+        n = len(L)
+        sm = difflib.SequenceMatcher(None, list(range(n)), list(range(n)))
+        rows = {name: c for _, name, c in T.slot_map(table, lines, L, L, sm)}
+        self.assertEqual(dict(rows['_name$']), {-64: 2})
+
+
 def arow(date, score, evidence='', model='opus'):
     return {'date': date, 'address': '0x401000', 'status': 'partial', 'score': score, 'evidence': evidence,
             'model': model}

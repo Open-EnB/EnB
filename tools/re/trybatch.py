@@ -658,6 +658,25 @@ LIST_REF = re.compile(r'([_$?][\w$@?]*)\$?\[(esp|ebp)([+-]\d+)?\]')
 CLIENT_REF = re.compile(r'\[(esp|ebp)(?: ([+-]) (0x[0-9a-f]+|\d+))?\]')
 
 
+PREFIXES = ('rep', 'repe', 'repne', 'repz', 'repnz', 'lock')
+
+
+def mnemonic_key(text):
+    """The mnemonic of a listing line or a capstone mnemonic, a string-instruction prefix kept with its instruction:
+    the /FAs listing writes `repne scasb` (first token `repne`), capstone names it `repne scasb` (one mnemonic)."""
+    tokens = text.split()
+    if not tokens:
+        return ''
+    if tokens[0] in PREFIXES and len(tokens) > 1:
+        return tokens[0] + ' ' + tokens[1]
+    return tokens[0]
+
+
+def same_mnemonic(line, mn):
+    """A listing line and a capstone mnemonic name the same instruction (prefixes handled on both sides, A4)."""
+    return mnemonic_key(line) == mnemonic_key(mn)
+
+
 def listing_body(text, symbol):
     """(frame symbol table {name: offset}, instruction lines) of SYMBOL's PROC in a VC6 /FAs listing."""
     procs = list(re.finditer(r'^(\S+)\s+PROC NEAR[^\n]*$', text, re.M))
@@ -694,7 +713,7 @@ def slot_map(table, ins, L, R, sm):
             continue
         for k in range(i2 - i1):
             i = i1 + k
-            if i >= len(ins) or ins[i].split()[0] != L[i][0].mn:
+            if i >= len(ins) or not same_mnemonic(ins[i], L[i][0].mn):
                 continue
             ours = LIST_REF.findall(ins[i])
             theirs = CLIENT_REF.findall(R[j1 + k][0].raw)
