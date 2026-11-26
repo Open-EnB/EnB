@@ -254,8 +254,8 @@ TextureClass *InvRenderClass::Unknown_34()
 
 
 
-
-// NOT EXACT: 0x68CCC0, register only (52 masked rows): the client computes _N + _Len (n copied into ebx, _Len through eax) and stores _Eos at [ebx+eax] in all nine inlined appends, ours the source order; the cases in the client's order (0, -1, 4, 0x40, 0x80: its tables 0x68D3B0 / 0x68D398)
+static inline bool Unknown_Has_Value(float value) { return(value != -1.0f); }	// 0x68CCC0's inline for its two structure tests (D272: no bytes of its own; with both tests through it VC6 computes _N + _Len and stores _Eos at [ebx+eax] in the nine inlined appends as the client, with one or none it keeps the source order)  // NAME 1: neutral (D10)
+// (0x68CCC0: exact with Unknown_Has_Value; the cases in the client's order 0, -1, 4, 0x40, 0x80: its tables 0x68D3B0 / 0x68D398; the Quality line tests structure as the client does)
 // 0x68CCC0
 const char *InvRenderClass::Unknown_28(std::string *string)
 {
@@ -269,12 +269,12 @@ const char *InvRenderClass::Unknown_28(std::string *string)
 		*string += "\n";
 		char buffer[32];	// NAME 1 [buffer, structure, quality, price, cost, type]: neutral
 		float structure = data->Get_Structure(slot);
-		if (structure != -1.0f) {
+		if (Unknown_Has_Value(structure)) {
 			sprintf(buffer, "Structure %0.0f%%\n", structure * 100.0f);
 			*string += buffer;
 		}
 		float quality = data->Get_Quality(slot);
-		if (structure != -1.0f) {
+		if (Unknown_Has_Value(structure)) {
 			sprintf(buffer, "Quality %0.0f%%\n", quality * 100.0f);
 			*string += buffer;
 		}

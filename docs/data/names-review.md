@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1970 |
 | 2 | describes what the code does | 5014 |
-| 1 | neutral placeholder | 25187 |
+| 1 | neutral placeholder | 25188 |
 
 ## For review (score 3 and below)
 
@@ -5787,6 +5787,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown20` | `app/client/inv_render.cpp:235` | untagged neutral name (D10) |
 | 1 | `Unknown831340Class` | `app/client/inv_render.cpp:240` | untagged neutral name (D10) |
 | 1 | `Unknown_831840` | `app/client/inv_render.cpp:240` | untagged neutral name (D10) |
+| 1 | `Unknown_Has_Value` | `app/client/inv_render.cpp:257` | neutral (D10) |
 | 1 | `Unknown_28` | `app/client/inv_render.cpp:260` | untagged neutral name (D10) |
 | 1 | `buffer, structure, quality, price, cost, type` | `app/client/inv_render.cpp:270` | neutral |
 | 1 | `Unknown_30` | `app/client/inv_render.cpp:356` | untagged neutral name (D10) |

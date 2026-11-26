@@ -1,0 +1,48 @@
+HYPOTHESIS = (
+    'InvRenderClass::Unknown_28 0x68CCC0 FB4 batch 8 (confirm). Batch 7: the structure test written through a '
+    'file-static inline taking the float by value, at both tests (the Structure and the Quality line), is exact '
+    '(residue 0, 592 / 592 rows): the one more inlined body with a test before the arms that the state map asked for. '
+    'Forms: the final spelling (Unknown_Has_Value on the blank line before the function), only the first test, only '
+    'the second, a const float & parameter, a non-static inline, with the whole file checked (--file-check).'
+)
+FILE = 'app/client/inv_render.cpp'
+SYMBOL = 'InvRenderClass::Unknown_28'
+ADDRESS = 0x68CCC0
+
+SRC = open('C:/EnBDevelopment/EnB/.work/wt/FB4/app/client/inv_render.cpp', encoding='utf-8').read()
+A = SRC.index('const char *InvRenderClass::Unknown_28(std::string *string)\n{')
+B = SRC.index('\treturn("NORMAL_SLOT");\n}\n', A) + len('\treturn("NORMAL_SLOT");\n}\n')
+FUNC = SRC[A:B]
+
+L_STRUCT_IF = '\t\tif (structure != -1.0f) {\n'
+NEW_IF = '\t\tif (Unknown_Has_Value(structure)) {\n'
+PRE_ANCHOR = '\n// NOT EXACT: 0x68CCC0,'
+assert FUNC.count(L_STRUCT_IF) == 2 and SRC.count('\n' + PRE_ANCHOR) == 1
+
+
+def helper(text):
+    return [(FILE, '\n' + PRE_ANCHOR, '\n' + text + PRE_ANCHOR)]
+
+
+def form(which, text):
+    t = FUNC
+    if which == 'both':
+        t = t.replace(L_STRUCT_IF, NEW_IF)
+    elif which == 'first':
+        t = t.replace(L_STRUCT_IF, NEW_IF, 1)
+    else:
+        i = t.rindex(L_STRUCT_IF)
+        t = t[:i] + NEW_IF + t[i + len(L_STRUCT_IF):]
+    assert t.count('\n') == FUNC.count('\n')
+    return helper(text) + [(FILE, FUNC, t)]
+
+
+H = 'static inline bool Unknown_Has_Value(float value) { return(value != -1.0f); }'
+FORMS = {
+    'both': form('both', H),
+    'first': form('first', H),
+    'second': form('second', H),
+    'both_ref': form('both', 'static inline bool Unknown_Has_Value(const float &value) { return(value != -1.0f); }'),
+    'both_nonstatic': form('both', 'inline bool Unknown_Has_Value(float value) { return(value != -1.0f); }'),
+    'both_static': form('both', 'static bool Unknown_Has_Value(float value) { return(value != -1.0f); }'),
+}

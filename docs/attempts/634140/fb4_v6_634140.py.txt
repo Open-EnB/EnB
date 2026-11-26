@@ -1,0 +1,58 @@
+HYPOTHESIS = (
+    'UIStarbaseClass::Unknown_54 0x634140 FB4 batch 5. Batch 4 (measures): npc gets no register in ours even when the '
+    'i cache is gone (edi free), and one more real use only swaps the i / npc frame slots: so the client edi value is '
+    'not the variable npc. It is born at the second Find_NPC (mov edi, eax), serves the Unknown1C test and the '
+    '0x642740 argument, and is restored from npc home after the CC string code clobbers edi: a register temporary equal '
+    'to npc, which is what the formal of an inlined function is. Hypothesis: the test and the ambient body are one '
+    'inline taking npc (and i); PT11 tried such helpers and stopped at the budget (the CC string constructor went out '
+    'of line) without re-sweeping the dead Get_Info() devices that tune this function. Forms: the helper with the test '
+    'inside (returns bool) and with the body only, each over 0-7 dead Get_Info() before the NPC loop and 0-3 after '
+    'the sign push_back.'
+)
+FILE = 'app/client/ui_starbase.cpp'
+SYMBOL = 'UIStarbaseClass::Unknown_54'
+ADDRESS = 0x634140
+
+_SRC = open('C:/EnBDevelopment/EnB/.work/wt/FB4/app/client/ui_starbase.cpp', encoding='utf-8', newline='').read()
+_LINES = _SRC.split('\n')
+
+
+def L(n):
+    return _LINES[n - 1]
+
+
+T2 = '\t\t'
+T3 = '\t\t\t'
+assert L(677).startswith('inline UIStarbaseUnknownCCClass::UIStarbaseUnknownCCClass()') and L(677).rstrip().endswith('}') and '//' not in L(677)
+assert L(721).strip() == 'int i; Get_Info(); Get_Info(); Get_Info(); Get_Info(); Get_Info();'
+assert L(727).strip() == 'if (npc->Unknown1C) {'
+assert L(729).strip() == 'Unknown13C[i]->AmbientAvatar = Create_NEW(Unknown_642740(npc));'
+assert L(734).strip() == 'continue;' and L(735).strip() == '}'
+assert L(835).strip() == 'Unknown194.push_back(robj); Get_Info(); Get_Info();'
+
+BODY = ('self->Unknown13C[i] = new UIStarbaseUnknownCCClass; '
+        'self->Unknown13C[i]->AmbientAvatar = Create_NEW(self->Unknown_642740(npc)); '
+        'self->Unknown13C[i]->Unknown14 = new ButtonGadgetClass(self->Unknown13C[i]->AmbientAvatar->BodyObj.Peek(), Unknown_View_Layer(self->UnknownB0), 5, 0); '
+        'self->Unknown13C[i]->Unknown14->Unknown2C_0A = true; '
+        'self->Unknown13C[i]->Unknown14->Set_Last_Sort_Group(true); '
+        'self->Unknown64.Unknown_6870E0(self->Unknown13C[i]->Unknown14, i + 2, self->View, true, true);')
+H_TEST = ' static inline bool FB4_Ambient(UIStarbaseClass *self, int i, StarbaseNPCClass *npc) { if (npc->Unknown1C) { ' + BODY + ' return(true); } return(false); }'
+H_BODY = ' static inline void FB4_Ambient(UIStarbaseClass *self, int i, StarbaseNPCClass *npc) { ' + BODY + ' }'
+
+
+def form(helper, call, a, b):
+    new = list(_LINES)
+    new[677 - 1] = L(677) + helper
+    new[721 - 1] = T2 + 'int i;' + ' Get_Info();' * a
+    new[727 - 1] = T3 + call
+    for n in range(728, 736):
+        new[n - 1] = ''
+    new[835 - 1] = L(835).split('Unknown194')[0] + 'Unknown194.push_back(robj);' + ' Get_Info();' * b
+    return [(FILE, '\n'.join(_LINES[676:835]), '\n'.join(new[676:835]))]
+
+
+FORMS = {}
+for a in range(0, 8):
+    for b in range(0, 4):
+        FORMS['t_a%d_b%d' % (a, b)] = form(H_TEST, 'if (FB4_Ambient(this, i, npc)) { continue; }', a, b)
+        FORMS['b_a%d_b%d' % (a, b)] = form(H_BODY, 'if (npc->Unknown1C) { FB4_Ambient(this, i, npc); continue; }', a, b)
