@@ -20,7 +20,7 @@ rows = list(csv.DictReader(open(sys.argv[1]), delimiter='\t'))
 keep = [r for r in rows if (r['tier'] == 't1c-suffix' and (cls(r['note'][5:]), cls(r['name'])) in conf)
         or r['tier'].startswith('t1c-suffix+') or r['tier'] in KINDS]
 with open(sys.argv[2], 'w', newline='') as f:
-    w = csv.DictWriter(f, ['slot', 'name', 'tier', 'note'], delimiter='\t')
+    w = csv.DictWriter(f, ['slot', 'name', 'tier', 'note'], delimiter='\t', lineterminator='\n')
     w.writeheader()
     w.writerows(keep)
 print(f'kept {len(keep)} of {len(rows)}')

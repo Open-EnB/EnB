@@ -52,7 +52,7 @@ def import_hits(steps, round1):
             seen.add(key)
             out.append(r)
     with open(paths.HITS, 'w', newline='') as f:
-        w = csv.DictWriter(f, COLS, delimiter='\t', extrasaction='ignore')
+        w = csv.DictWriter(f, COLS, delimiter='\t', lineterminator='\n', extrasaction='ignore')
         w.writeheader()
         w.writerows(out)
     print(f'{paths.HITS}: {len(out)} hits from {len(steps)} steps' + (' + round 1' if round1 else ''))
@@ -91,7 +91,7 @@ def class_renames(st):
         rows.append([a, b, p['slots'], p['anchors'], int(bool(p['dtor'])),
                      f'{best[(a, b)]:.2g}' if (a, b) in best else '', first.get((a, b), 'prop'), conf, int(split)])
     with open(paths.RENAMES, 'w', newline='') as f:
-        w = csv.writer(f, delimiter='\t')
+        w = csv.writer(f, delimiter='\t', lineterminator='\n')
         w.writerow(['ours', 'retail', 'slots', 'anchors', 'destructor_anchor', 'best_chance', 'first_step',
                     'confidence', 'split_suspect'])
         w.writerows(rows)

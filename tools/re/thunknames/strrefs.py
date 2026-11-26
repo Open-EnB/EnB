@@ -61,7 +61,7 @@ def main():
         sva = int(v[off])
         out.append((f, slot_of.get(f), sva, strings[sva]))
     with open(paths.work('strrefs.tsv'), 'w', newline='') as fo:
-        w = csv.writer(fo, delimiter='\t')
+        w = csv.writer(fo, delimiter='\t', lineterminator='\n')
         w.writerow(['target', 'slot', 'string_va', 'string'])
         for f, s, sva, st in sorted(set(out)):
             w.writerow([f'0x{f:X}', f'0x{s:X}' if s else '', f'0x{sva:X}', st.replace('\t', ' ').replace('\n', '\\n')

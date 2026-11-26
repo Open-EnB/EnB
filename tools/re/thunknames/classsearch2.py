@@ -271,7 +271,7 @@ def main():
                     guesses.append([f'0x{st.table[i][0]:X}', v, 'cs2-own', f'{c}->{best[2]} chance {ch:.2g}'])
     own_rows.sort(key=lambda r: float(r[5]))
     with open(os.path.join(a.out, 'own.tsv'), 'w', newline='') as f:
-        w = csv.writer(f, delimiter='\t')
+        w = csv.writer(f, delimiter='\t', lineterminator='\n')
         w.writerow(['ours', 'candidate', 'hits', 'slots', 'tried', 'chance', 'in_client'])
         w.writerows(own_rows)
     print(f'own variants: accepted {len(accepted)} classes, {len(guesses)} slots (chance < {a.own_chance:g})',
@@ -328,7 +328,7 @@ def main():
             rows.append([c, x, k, len(slots), f'{math.exp(lc):.2g}', int(x in client_ids())])
         rows.sort(key=lambda r: float(r[4]))
         with open(os.path.join(a.out, 'null.tsv' if a.null else 'dict.tsv'), 'w', newline='') as f:
-            w = csv.writer(f, delimiter='\t')
+            w = csv.writer(f, delimiter='\t', lineterminator='\n')
             w.writerow(['ours', 'candidate', 'hits', 'slots', 'chance', 'in_client'])
             w.writerows(rows)
         for t in (1e-4, 1e-6, 1e-7, 1e-8, 1e-10):
@@ -345,7 +345,7 @@ def main():
                                 break
     if not a.null:
         with open(os.path.join(a.out, 'guesses.tsv'), 'w', newline='') as f:
-            w = csv.writer(f, delimiter='\t')
+            w = csv.writer(f, delimiter='\t', lineterminator='\n')
             w.writerow(['slot', 'name', 'tier', 'note'])
             w.writerows(guesses)
         print(f'guesses {len(guesses)}')

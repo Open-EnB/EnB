@@ -75,7 +75,7 @@ def main():
         k = int(np.argmin(score))
         best.append((kind, tok, n, int(count[ok[k]]), math.exp(score[k]), hs.cand[ok[k]]))
     with open(a.out, 'w', newline='') as f:
-        w = csv.writer(f, delimiter='\t')
+        w = csv.writer(f, delimiter='\t', lineterminator='\n')
         w.writerow(['kind', 'ours', 'slots', 'hits', 'expected_by_chance', 'random_candidate'])
         for r in sorted(best, key=lambda r: r[4]):
             w.writerow([r[0], r[1], r[2], r[3], f'{r[4]:.2g}', r[5]])

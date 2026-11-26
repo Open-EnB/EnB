@@ -97,7 +97,7 @@ class State:
 
     def write(self, path):
         with open(path, 'w', newline='') as f:
-            w = csv.writer(f, delimiter='\t')
+            w = csv.writer(f, delimiter='\t', lineterminator='\n')
             w.writerow(['slot', 'target', 'name', 'original', 'bucket', 'on_order', 'how'])
             for i, (s, t) in enumerate(self.table):
                 if self.names[i] is None and not self.how[i]:
@@ -240,7 +240,7 @@ def main():
     hits = run(st, g, a.accept, a.max_chance)
     os.makedirs(a.out, exist_ok=True)
     with open(os.path.join(a.out, 'hits.tsv'), 'w', newline='') as f:
-        w = csv.DictWriter(f, HIT_COLS, delimiter='\t')
+        w = csv.DictWriter(f, HIT_COLS, delimiter='\t', lineterminator='\n')
         w.writeheader()
         w.writerows(hits)
     st.write(os.path.join(a.out, 'state.tsv'))

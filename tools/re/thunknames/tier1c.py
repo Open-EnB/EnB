@@ -143,7 +143,7 @@ def main():
             k, x = near[0]
             rows.append([f'0x{st.table[i][0]:X}', x, f't1c-{k}', f'ours {st.names[i]}'])
     with open(os.path.join(a.out, 'guesses.tsv'), 'w', newline='') as fo:
-        w = csv.writer(fo, delimiter='\t')
+        w = csv.writer(fo, delimiter='\t', lineterminator='\n')
         w.writerow(['slot', 'name', 'tier', 'note'])
         w.writerows(rows)
     exp = sum(nulls[k] for k in real)

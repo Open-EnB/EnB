@@ -75,7 +75,7 @@ def main():
     else:
         out = paths.work('propagate', 'guesses.tsv')
         with open(out, 'w', newline='') as f:
-            w = csv.writer(f, delimiter='\t')
+            w = csv.writer(f, delimiter='\t', lineterminator='\n')
             w.writerow(['slot', 'name', 'tier', 'note'])
             for i, nm, new in rows:
                 w.writerow([f'0x{st.table[i][0]:X}', new, 'prop', f'ours {nm}'])

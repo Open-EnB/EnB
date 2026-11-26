@@ -175,7 +175,7 @@ def main():
                     print(f'  method hit: {v}  (chance {ch:.2g}, class {"accepted" if c in accepted else "ours"})')
                     break
     with open(os.path.join(a.out, a.guesses), 'w', newline='') as f:
-        w = csv.writer(f, delimiter='\t')
+        w = csv.writer(f, delimiter='\t', lineterminator='\n')
         w.writerow(['slot', 'name', 'tier', 'note'])
         w.writerows(rows)
     print(f'accepted classes {len(accepted)}, their slots {sum(per_batch.values())} by batch {dict(per_batch)}; '

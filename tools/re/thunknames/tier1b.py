@@ -123,7 +123,7 @@ def main():
                                      f'{c}::{m}; ours {cur or "-"}'])
     rows = [list(r) for r in dict.fromkeys(tuple(r[:2]) + tuple(r[2:]) for r in rows)]
     with open(os.path.join(a.out, 'guesses.tsv'), 'w', newline='') as fo:
-        w = csv.writer(fo, delimiter='\t')
+        w = csv.writer(fo, delimiter='\t', lineterminator='\n')
         w.writerow(['slot', 'name', 'tier', 'note'])
         w.writerows(rows)
     by = collections.Counter(r[2] for r in rows)

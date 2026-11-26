@@ -35,7 +35,7 @@ def append_hits(hits_tsv, step):
     new = not os.path.exists(paths.HITS)
     cols = ['step'] + list(rows[0].keys())
     with open(paths.HITS, 'a', newline='') as f:
-        w = csv.DictWriter(f, cols, delimiter='\t', extrasaction='ignore')
+        w = csv.DictWriter(f, cols, delimiter='\t', lineterminator='\n', extrasaction='ignore')
         if new:
             w.writeheader()
         for r in rows:

@@ -141,7 +141,7 @@ def main():
                 rows.append([f'0x{f:X}', build(kind, meth, cls, acc, rest), 't1a-vt',
                              f'{vts[vb][1]}[{k}] from {src}'])
     with open(os.path.join(a.out, 'guesses.tsv'), 'w', newline='') as fo:
-        w = csv.writer(fo, delimiter='\t')
+        w = csv.writer(fo, delimiter='\t', lineterminator='\n')
         w.writerow(['slot', 'name', 'tier', 'note'])
         w.writerows(rows)
     print(f'known-class guesses {len(rows)} for {len(set(r[0] for r in rows))} slots', flush=True)
@@ -189,7 +189,7 @@ def main():
                         ks=' '.join(str(k) for k in hit_k)))
     res.sort(key=lambda r: r['chance'])
     with open(os.path.join(a.out, 'search.tsv'), 'w', newline='') as fo:
-        w = csv.DictWriter(fo, list(res[0].keys()) if res else ['vtable'], delimiter='\t')
+        w = csv.DictWriter(fo, list(res[0].keys()) if res else ['vtable'], delimiter='\t', lineterminator='\n')
         w.writeheader()
         for r in res:
             r = dict(r, chance=f'{r["chance"]:.2g}')
@@ -206,7 +206,7 @@ def main():
                 rows2.append([f'0x{f:X}', build(kind, meth, r['candidate'], acc, rest), 't1a-search',
                               f'{r["vtable"]}[{k}] X={r["candidate"]} chance {r["chance"]:.2g}'])
     with open(os.path.join(a.out, 'search_guesses.tsv'), 'w', newline='') as fo:
-        w = csv.writer(fo, delimiter='\t')
+        w = csv.writer(fo, delimiter='\t', lineterminator='\n')
         w.writerow(['slot', 'name', 'tier', 'note'])
         w.writerows(rows2)
     print(f'search guesses {len(rows2)}')

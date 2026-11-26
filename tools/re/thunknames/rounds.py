@@ -157,13 +157,13 @@ def main():
         print(f'round {rnd}: accepted tokens {sum(1 for t in accepted if t[0] == rnd)}, slots renamed '
               f'{len(changes)}, on {len(onset)}', flush=True)
         with open(paths.work('rounds', f'{rnd}.tsv'), 'w', newline='') as f:
-            w = csv.writer(f, delimiter='\t')
+            w = csv.writer(f, delimiter='\t', lineterminator='\n')
             w.writerow(['slot', 'target', 'name', 'original', 'bucket', 'on_order', 'how'])
             for i, r in enumerate(rows):
                 w.writerow([r['slot'], r['target'], names[i], r['name'] if names[i] != r['name'] else '', b[i],
                             'on' if i in onset else 'off', how[i]])
         with open(paths.work('rounds', 'accepted.tsv'), 'w', newline='') as f:
-            w = csv.writer(f, delimiter='\t')
+            w = csv.writer(f, delimiter='\t', lineterminator='\n')
             w.writerow(['round', 'kind', 'ours', 'candidate', 'slots', 'hits', 'expected_by_chance'])
             w.writerows(accepted)
         if not changes:

@@ -168,7 +168,7 @@ def main():
             pc = math.comb(len(slots), n) * (w / NB) ** n * len(cand)
             results.append((cls, len(slots), on_by_class[cls], x, n, f'{pc:.2g}', ' '.join(hits)))
     with open(a.out, 'w', newline='') as f:
-        w = csv.writer(f, delimiter='\t')
+        w = csv.writer(f, delimiter='\t', lineterminator='\n')
         w.writerow(['ours', 'off_slots', 'on_slots', 'candidate', 'hits', 'expected_by_chance', 'slots'])
         w.writerows(results)
     strong = [r for r in results if float(r[5]) < 0.01]
