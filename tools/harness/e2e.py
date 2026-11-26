@@ -141,6 +141,8 @@ LAST = []
 STANDIN_HIT = 'stand-in hit:'
 SOURCES = ('antprox', 'stubs', 'msg', 'proxy', 'files', 'any')
 ACTIONS = ('click', 'rclick', 'move', 'down', 'up', 'key', 'keydown', 'keyup', 'text', 'stray')
+# the steps that give the client input (a stray one is dropped by the proxy): a result's tick_input is the first one's
+INPUT_OPS = tuple(op for op in ACTIONS if op != 'stray') + ('walk-to', 'face', 'hold', 'rdrag')
 WALK_KEY = 0x41         # 'A': the starbase's walk key (the user's recording of 2026-11-15)
 
 
@@ -1145,6 +1147,7 @@ class Session:
             first = not self.logged_in
             t_start = ev.now()
             tick_start = gettickcount()
+            tick_input = None
             deadline = time.time() + sc['timeout']
             for src in ('stubs', 'proxy'):        # an older stand-in exe's handler; the d3d8shot proxy's (any exe)
                 standing.append({'source': src, 'pattern': re.compile('^CRASH:'), 'line': '(always)',
@@ -1229,6 +1232,8 @@ class Session:
                 if self.retail and st.get('source') == 'stubs' and op in ('wait-event', 'expect-event', 'expect-no', 'stand-in'):
                     note('  skipped: the retail client writes no stubs.log (a step of ours only)')
                     continue
+                if tick_input is None and op in INPUT_OPS:
+                    tick_input = gettickcount()
                 if op in ('wait-event', 'expect-event'):
                     fail, _ = wait_for(st['source'], st['pattern'], st['within'],
                                        f'{st["line"]}: {op} {st["source"]} {st["pattern"].pattern!r}: not seen within '
@@ -1408,7 +1413,7 @@ class Session:
             res = {'name': sc['name'], 'passed': fail is None, 'failure': fail, 'expected_fail': sc['expected_fail'],
                    'gen': gens, 'gen_own': own, 'hand_own': hand_own, 'human_dropped': seen['human'], 'crash': crash[:1],
                    'out': self.out, 'seconds': round(ev.now() - t_start, 1),
-                   'tick_start': tick_start, 'tick_end': gettickcount(),
+                   'tick_start': tick_start, 'tick_input': tick_input, 'tick_end': gettickcount(),
                    'login_failed': fail is not None and first and not reached_own}
             if crash and self.inst.map and os.path.exists(self.inst.map):
                 import symbolize
@@ -1554,7 +1559,8 @@ def crash_place(res):
 
 def gettickcount():
     """GetTickCount (ms; the clock of d3d8shot.log and of the audio log's "tick"), None off Windows. A result's
-    tick_start / tick_end bound its scenario in a session's logs (baseline.py: each scenario's audio)."""
+    tick_start / tick_end bound its scenario in a session's logs, tick_input is its first input step's (baseline.py:
+    each scenario's audio is cut at the next scenario's first input)."""
     try:
         import ctypes
         f = ctypes.windll.kernel32.GetTickCount

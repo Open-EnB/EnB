@@ -389,6 +389,113 @@ class DrawLogs(unittest.TestCase):
         self.assertEqual(rc, 1, out)
         self.assertIn('no draw log in the run', out)
 
+    def test_retail_unstable_when_retail_fails_its_own_leave_one_out_the_same_way(self):
+        # brief CS2 (c2): one stored run has two draws more of the one state; left out, it fails the others' draw
+        # counts. A run far out in the draw counts only is RETAIL-UNSTABLE (exit 4), never SAME, never DIFF
+        self.stored(drawlog(4), drawlog(4), drawlog(6))
+        loo = baseline.drawlog_stability([os.path.join(self.scen, r, 'shot_one_00010.json')
+                                          for r in sorted(os.listdir(self.scen)) if r.startswith('2026')])
+        self.assertEqual([(r, w) for r, _, w in loo], [('20261124-000003', {'draws'})])
+        rc, out = self.check(drawlog(12))
+        self.assertEqual(rc, 4, out)
+        self.assertIn('scn: RETAIL-UNSTABLE draw log one', out)
+        self.assertIn('leave one out, for draws: 20261124-000003', out)
+        self.assertIn('1 RETAIL-UNSTABLE', out)
+        rc, out = self.check(drawlog(6))                # within what two stored runs differ by: SAME
+        self.assertEqual(rc, 0, out)
+
+    def test_retail_stable_mismatch_stays_diff(self):
+        self.stored(drawlog(4), drawlog(4), drawlog(4))
+        self.assertEqual(baseline.drawlog_stability(
+            [os.path.join(self.scen, r, 'shot_one_00010.json') for r in sorted(os.listdir(self.scen))
+             if r.startswith('2026')]), [])
+        rc, out = self.check(drawlog(12))
+        self.assertEqual(rc, 1, out)
+        self.assertIn('scn: DIFF draw log one', out)
+        self.assertNotIn('RETAIL-UNSTABLE', out)
+
+    def test_unstable_elsewhere_does_not_cover_another_difference(self):
+        # retail's third run differs in FOGCOLOR (left out it fails), the run in CULLMODE, which retail agrees on
+        self.stored(drawlog(fog=0), drawlog(fog=0), drawlog(fog=7))
+        rc, out = self.check(drawlog(cull=3))
+        self.assertEqual(rc, 1, out)
+        self.assertIn('scn: DIFF draw log one', out)
+        self.assertIn('the stored runs, leave one out, differ only in draws, states:rs.FOGCOLOR)', out)
+        self.assertFalse(baseline.drawlog_unstable(set(), [('r', '', {'draws'})]))
+        self.assertTrue(baseline.drawlog_unstable({'draws'}, [('r', '', {'draws', 'cams'})]))
+        self.assertFalse(baseline.drawlog_unstable({'draws', 'textures'}, [('r', '', {'draws'})]))
+
+
+LOOT = ['SET_TARGET 12', 'LOOT_HULK_PERMISSION 8']
+
+
+def loot(takes, size=20):
+    return LOOT + [f'INVENTORY_MOVE {size}'] * takes + ['OPEN_INTERFACE 6']
+
+
+class Packets(unittest.TestCase):
+    """Brief CS3 (c9): a packet difference of the kind the stored retail runs differ in among themselves, leave one
+    out (sp_combat's random loot: the number of INVENTORY_MOVE takes), is RETAIL-UNSTABLE; any other is DIFF."""
+
+    def test_reasons(self):
+        self.assertEqual(baseline.packet_reasons(loot(3), loot(3)), set())
+        self.assertEqual(baseline.packet_reasons(loot(3), loot(5)), {'count:INVENTORY_MOVE'})
+        self.assertEqual(baseline.packet_reasons(loot(3), loot(3, 24)), {'size:INVENTORY_MOVE'})
+        swapped = [LOOT[1], LOOT[0]] + loot(3)[2:]
+        self.assertEqual(baseline.packet_reasons(swapped, loot(3)), {'order'})
+        # a count difference does not hide another packet's order
+        self.assertEqual(baseline.packet_reasons([LOOT[1], LOOT[0]] + loot(2)[2:], loot(3)),
+                         {'count:INVENTORY_MOVE', 'order'})
+        self.assertEqual(baseline.packet_reasons(loot(3), loot(3)[:-1]), {'count:OPEN_INTERFACE'})
+
+    def test_stability(self):
+        stored = [('r1', loot(3)), ('r2', loot(3)), ('r3', loot(5))]
+        self.assertEqual(baseline.packet_stability(stored), [('r3', {'count:INVENTORY_MOVE'}, 'r1')])
+        self.assertEqual(baseline.packet_stability([('r1', loot(3)), ('r2', loot(3))]), [])
+        self.assertEqual(baseline.packet_stability([('r1', loot(3))]), [])
+
+    def test_verdict(self):
+        stored = [('r1', loot(3)), ('r2', loot(4)), ('r3', loot(5))]
+        self.assertIs(baseline.packet_verdict(loot(4), stored)[0], True)
+        ok, text = baseline.packet_verdict(loot(7), stored)        # more takes: the kind retail varies in
+        self.assertEqual(ok, baseline.RETAIL_UNSTABLE, text)
+        self.assertIn('INVENTORY_MOVE x7 (x5)', text)
+        self.assertIn('3 of the 3 stored runs, leave one out', text)
+        ok, text = baseline.packet_verdict(loot(4, 24), stored)    # another size: retail agrees on it
+        self.assertIs(ok, False, text)
+        self.assertIn('INVENTORY_MOVE sizes 24 (20)', text)
+        self.assertIn('differ only in count:INVENTORY_MOVE', text)
+        ok, text = baseline.packet_verdict(loot(7) + ['CLIENT_CHAT 30'], stored)  # a packet retail never sends
+        self.assertIs(ok, False, text)
+        self.assertIn('CLIENT_CHAT x1 (x0)', text)
+        stable = [('r1', loot(3)), ('r2', loot(3)), ('r3', loot(3))]
+        ok, text = baseline.packet_verdict(loot(4), stable)         # retail always took three
+        self.assertIs(ok, False, text)
+        self.assertIn('the stored runs agree', text)
+        self.assertIs(baseline.packet_verdict(loot(4), [('r1', loot(3))])[0], False)
+
+    def test_verify_run(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            scen = os.path.join(tmp, 'runs', 'retail-00000000', 'box-64x64', 'scn')
+            for k, n in enumerate((3, 3, 5)):
+                make_run(scen, f'20261124-00000{k + 1}', packets=loot(n))
+            baseline.write_noise(scen)
+
+            def check(pk, name):
+                run = make_run(os.path.join(tmp, 'other'), name, packets=pk)
+                out = io.StringIO()
+                with contextlib.redirect_stdout(out):
+                    rc = baseline.main(['verify', '--store', tmp, '--run', run])
+                return rc, out.getvalue()
+            rc, out = check(loot(6), 'a')
+            self.assertEqual(rc, 4, out)
+            self.assertIn('scn: RETAIL-UNSTABLE packets 9, stored 6/6/8: against 20261124-000003 only in INVENTORY_MOVE x6 (x5)', out)
+            rc, out = check(loot(6) + ['CLIENT_CHAT 30'], 'b')
+            self.assertEqual(rc, 1, out)
+            self.assertIn('scn: DIFF packets 10', out)
+            rc, out = check(loot(5), 'c')
+            self.assertEqual(rc, 0, out)
+
 
 def make_set_run(sdir, run, order=('a', 'b'), box=None, packets=None, stored=True, logs=None):
     """A run of a set: one session folder holding every scenario's result, shots and draw logs; stored=True adds the
@@ -731,12 +838,183 @@ class Audio(unittest.TestCase):
         self.assertEqual(baseline.audio_verdict(r1, [], None), (None, 'no audio stored'))
         self.assertIsNone(baseline.audio_noise([{'run': 'r', 'audio': None}]))
 
+    @staticmethod
+    def seq(*items):
+        """An audio summary of strict items (event, kind, sound): a stream 'm' or a 3D sample 't'."""
+        return {'sequence': [[ev, k, snd, 0 if ev == 'start' else None, 1, 1] for ev, k, snd in items],
+                'names': {'aa:10': 'door.wav', 'cc:7': 'bell.wav'}, 'events': len(items)}
+
+    def test_retail_unstable_per_stream(self):
+        # brief CS2 (c2): the stored runs disagree on the 3D door (stopped in one, ended in the other two): a run that
+        # differs there only is RETAIL-UNSTABLE, named by its sound; one differing in the music retail agrees on: DIFF
+        music = [('open', 'm', 'music.mp3'), ('start', 'm', 'music.mp3')]
+        s1 = self.seq(*music, ('start', 't', 'aa:10'), ('end', 't', 'aa:10'))
+        s2 = self.seq(*music, ('start', 't', 'aa:10'), ('stop', 't', 'aa:10'))
+        stored = [s1, s1, s2]
+        stab = baseline.audio_stability(stored)
+        self.assertEqual(stab['shapes'], {'m music.mp3': True, 't door.wav': False})
+        self.assertFalse(stab['order'])
+        run = self.seq(*music, ('start', 't', 'aa:10'))                 # the door never ends: retail varies there
+        ok, text = baseline.audio_verdict(run, stored, None)
+        self.assertEqual(ok, baseline.RETAIL_UNSTABLE, text)
+        self.assertIn('t door.wav differ, and so do the 3 stored runs', text)
+        run = self.seq(('open', 'm', 'music.mp3'), ('start', 't', 'aa:10'), ('end', 't', 'aa:10'))
+        ok, text = baseline.audio_verdict(run, stored, None)            # the music never starts: retail agrees on it
+        self.assertIs(ok, False)
+        self.assertIn('stable in the 3 stored runs and different: m music.mp3', text)
+        new = self.seq(*music, ('start', 't', 'aa:10'), ('end', 't', 'aa:10'), ('start', 't', 'cc:7'))
+        ok, text = baseline.audio_verdict(new, stored, None)            # a sound no stored run has
+        self.assertIs(ok, False)
+        self.assertIn('t bell.wav', text)
+        self.assertIs(baseline.audio_verdict(run, [s1], None)[0], False)  # one stored run: nothing measured, DIFF
+
+    def test_random_variants_by_family(self):
+        # sp_combat 2026-11-25: the space music is a random variant (retail: TerranWander07-2 twice, 04-2 once; a
+        # fourth retail run and ours: 01-5): another variant where retail's own runs vary is RETAIL-UNSTABLE; where
+        # every stored run played the same variant, another one is DIFF; another shape (a stop) is DIFF either way
+        def music(track, end='stop'):
+            return self.seq(('open', 'm', track), ('start', 'm', track), (end, 'm', track))
+        stored = [music('Wander07-2.mp3'), music('Wander07-2.mp3'), music('Wander04-2.mp3')]
+        self.assertEqual(baseline.audio_family(stored[0], 'Wander07-2.mp3'), 'Wander#-#.mp3')
+        self.assertEqual(baseline.audio_family(stored[0], 'aa:10'), 'door.wav')
+        self.assertEqual(baseline.audio_family(stored[0], 'ee:3'), 'ee:3')            # no name: the sample itself
+        ok, text = baseline.audio_verdict(music('Wander01-5.mp3'), stored, None)
+        self.assertEqual(ok, baseline.RETAIL_UNSTABLE, text)
+        self.assertIn('m Wander#-#.mp3 (Wander01-5.mp3) differ, and so do the 3 stored runs', text)
+        ok, text = baseline.audio_verdict(music('Wander01-5.mp3'), stored[:2], None)
+        self.assertIs(ok, False)                                       # the stored runs always played 07-2
+        self.assertIn('stable in the 2 stored runs and different: m Wander#-#.mp3', text)
+        ok, text = baseline.audio_verdict(music('Wander01-5.mp3', 'end'), stored, None)
+        self.assertIs(ok, False)                                       # every stored run stops it, the run's ends
+
+    def test_samples_named_from_the_data(self):
+        import audiolog
+        d = tempfile.mkdtemp()
+        body = b'RIFF' + bytes(range(40))
+        with open(os.path.join(d, 'sfx_foot_glass_4.wav'), 'wb') as f:
+            f.write(body)
+        key = f'{audiolog.fnv64(body)}:{len(body)}'
+        old, audiolog.NAMES = audiolog.NAMES, os.path.join(d, 'names.json')
+        try:
+            a = self.seq(('start', 't', key), ('end', 't', key))
+            named = baseline.name_samples([a, None], d)
+        finally:
+            audiolog.NAMES = old
+        self.assertEqual(named[0]['names'][key], 'sfx_foot_glass_4.wav')
+        self.assertIsNone(named[1])
+        self.assertNotIn(key, a['names'])                               # a copy: the stored summary is untouched
+        self.assertEqual(baseline.audio_family(named[0], key), 'sfx_foot_glass_#.wav')
+
+    def test_retail_unstable_order_only(self):
+        a, b = ('start', 'm', 'music.mp3'), ('start', 't', 'aa:10')
+        ok, text = baseline.audio_verdict(self.seq(b, a), [self.seq(a, b), self.seq(a, b), self.seq(b, a, b)], None)
+        self.assertEqual(ok, baseline.RETAIL_UNSTABLE, text)           # the third stored run starts the door twice
+        ok, text = baseline.audio_verdict(self.seq(b, a), [self.seq(a, b), self.seq(a, b)], None)
+        self.assertIs(ok, False)                                       # order only, retail's order stable: DIFF
+        self.assertIn('the order differs, the 2 stored runs agree on it', text)
+        c = ('start', 't', 'cc:7')
+        stored = [self.seq(a, b, c), self.seq(a, b, c), self.seq(b, a, c), self.seq(a, c, b)]
+        self.assertFalse(baseline.audio_stability(stored)['order'])
+        ok, text = baseline.audio_verdict(self.seq(c, a, b), stored, None)
+        self.assertEqual(ok, baseline.RETAIL_UNSTABLE, text)
+        self.assertIn('the order differs, and so do the 4 stored runs', text)
+
+    def test_slices_cut_at_the_next_scenarios_first_input(self):
+        # brief CS2 (c3): what scenario a's last input started and the client played after a's end (sp_galaxymap's
+        # message_1.wav, 1 ms into sp_warp's slice) stays with a when b's first input came later
+        ev, res = _session()
+        ev.insert(-3, _ev(99, 1260, 'start', 't2', 'cc:7'))             # after a's end (1250), before b's input
+        res[1][1]['tick_input'] = 1280
+        self.assertEqual(baseline.audio_cut_of(res), 'input')
+        self.assertEqual(baseline.audio_cut_of([res[0], ('b', {'tick_end': 1450})]), 'end')
+        end = baseline.audio_slices(ev, res, 'end')
+        inp = baseline.audio_slices(ev, res, 'input')
+        self.assertNotIn(1260, [e['tick'] for e in end['a']])
+        self.assertIn(1260, [e['tick'] for e in end['b']])
+        self.assertIn(1260, [e['tick'] for e in inp['a']])
+        self.assertNotIn(1260, [e['tick'] for e in inp['b']])
+        self.assertEqual(len(inp['a']) + len(inp['b']), len(end['a']) + len(end['b']))
+        self.assertEqual(baseline.audio_cut_stored([{'cut': 'input'}, {'cut': 'input'}]), 'input')
+        self.assertEqual(baseline.audio_cut_stored([{'cut': 'input'}, {}]), 'end')     # older stored runs: 'end'
+
 
 class LiveSets(unittest.TestCase):
     def test_session_first_and_scripts_hash(self):
         self.assertIn('sb_emote_dock', baseline.SESSION_OWN)
         h = baseline.scripts_hash({'inputs/db/a.sql': '1', 'inputs/db/b.sql': '2'})
         self.assertNotEqual(h, baseline.scripts_hash({'inputs/db/b.sql': '2', 'inputs/db/a.sql': '1'}))
+
+    def test_names_after_the_set_option(self):
+        # brief CS3: 'capture --set space sp_flight ...' (the README's form) stopped at argparse's
+        # 'unrecognized arguments' before any client started; the names now parse after an option too
+        with tempfile.TemporaryDirectory() as tmp:
+            out = io.StringIO()
+            with contextlib.redirect_stdout(out):
+                rc = baseline.main(['capture', '--store', tmp, '--set', 'space', 'sp_flight', 'sp_warp'])
+            self.assertEqual(rc, 2)
+            self.assertIn('is not a checkout of the store', out.getvalue())
+
+
+class Messages(unittest.TestCase):
+    """messages.log stored filtered above MESSAGES_RAW_MAX (a space session's is 49-58 MB of asserts a frame)."""
+    LOG = ('00:00:01.000000 INFO  -: starting  main_client.cpp(596)\n'
+           '00:00:02.000000 STAT  Render: Frame Rate =  239  frameint.cpp(269) @0,0\n'
+           '00:00:02.001000 ERROR G_ASSERT: ASSERTION FAILED: a == b  effect_description.cpp(348)\n'
+           '00:00:02.001000 ERROR G_ASSERT: ASSERTION FAILED: c == d  effect_description.cpp(318)\n'
+           '00:00:02.005000 STAT  Render: Frame Rate =  241  frameint.cpp(269) @0,0\n'
+           '00:00:02.006000 ERROR G_ASSERT: ASSERTION FAILED: a == b  effect_description.cpp(348)\n'
+           '00:00:02.006000 ERROR G_ASSERT: ASSERTION FAILED: c == d  effect_description.cpp(318)\n'
+           '00:00:02.009000 ERROR G_ASSERT: ASSERTION FAILED: a == b  effect_description.cpp(348)\n'
+           '00:00:03.000000 INFO  input: ( 100, 45, 120001) => ( 45 0) : ------ w32kbd.cpp(270)\n'
+           '00:00:03.001000 ERROR G_ASSERT: ASSERTION FAILED: a == b  effect_description.cpp(348)\n')
+
+    def setUp(self):
+        self.d = tempfile.mkdtemp()
+        self.src = os.path.join(self.d, 'messages.log')
+        write(self.src, self.LOG.encode())
+
+    def test_filter_drops_frame_rate_and_folds_repeats(self):
+        dst = os.path.join(self.d, 'out.log')
+        info = baseline.filter_messages(self.src, dst)
+        lines = open(dst, encoding='utf-8').read().splitlines()
+        self.assertEqual(info['lines'], 10)
+        self.assertEqual(info['dropped'], 2)
+        self.assertEqual(info['folded'], 3)
+        self.assertFalse(info['cut'])
+        self.assertEqual(info['sha256'], baseline.sha256_file(self.src))   # the full log's hash, not the copy's
+        self.assertEqual(info['stored_bytes'], os.path.getsize(dst))
+        self.assertFalse(any('Frame Rate' in ln for ln in lines))
+        self.assertEqual(lines[3], '00:00:02.009000 [repeated 2 x] ERROR G_ASSERT: ASSERTION FAILED: a == b  '
+                                   'effect_description.cpp(348)')
+        self.assertEqual(lines[4], '00:00:02.006000 [repeated 1 x] ERROR G_ASSERT: ASSERTION FAILED: c == d  '
+                                   'effect_description.cpp(318)')
+        self.assertTrue(lines[5].endswith('w32kbd.cpp(270)'))
+        self.assertTrue(lines[6].startswith('00:00:03.001000 ERROR G_ASSERT'))   # after another line: kept again
+        self.assertEqual(len(lines), 7)
+
+    def test_cut_at_the_limit(self):
+        dst = os.path.join(self.d, 'out.log')
+        info = baseline.filter_messages(self.src, dst, limit=120)
+        text = open(dst, encoding='utf-8').read()
+        self.assertTrue(info['cut'])
+        self.assertTrue(text.splitlines()[-1].startswith('[cut: '))
+        self.assertEqual(len(text.splitlines()), 2)                      # the one line that fits, then the cut
+
+    def test_store_keeps_a_small_log_whole(self):
+        dest = os.path.join(self.d, 'dest')
+        os.makedirs(dest)
+        m = baseline.store_messages(self.d, dest)
+        self.assertEqual(m['kept'], 'full')
+        self.assertEqual(open(os.path.join(dest, 'messages.log'), 'rb').read(), self.LOG.encode())
+        old = baseline.MESSAGES_RAW_MAX
+        baseline.MESSAGES_RAW_MAX = 10
+        try:
+            m = baseline.store_messages(self.d, dest)
+        finally:
+            baseline.MESSAGES_RAW_MAX = old
+        self.assertEqual(m['kept'], 'filtered')
+        self.assertLess(m['stored_bytes'], m['bytes'])
+        self.assertIsNone(baseline.store_messages(dest + '-none', dest))
 
 
 def fake_pe(path, stamp):

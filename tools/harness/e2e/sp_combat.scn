@@ -1,15 +1,16 @@
 # Space (live server): combat with a level 45 mob, from the user's recording of 2026-11-20 (.work/e2e/223904-record,
 # 78-147 s, the first fight). /createmob 1993 (GM: the server's Renegade Progen Tribuni, level 45, three skills of its
-# own) puts the mob 200 ahead and 300 to the side; E (control_keys.ini [Target Near Enemy]) targets it. Rally
-# (hotbar slot 4) and Repair Equipment (slot 5), SKILL_ABILITY each (the recording dragged Hacking from the PDA's
-# skill list to slot 3; a replayed drag found the list scrolled elsewhere, so the scenario uses the hotbar as is). F (Fire all weapons: ACTION) fights until the mob
+# own) puts the mob 200 ahead and 300 to the side; E (control_keys.ini [Target Near Enemy]) targets it. The hotbar's
+# slots 4 and 5 as the client data's Data\client\output\shortcut.ini has them (not the database: Biocessation and
+# Enrage Group; the recording's were Rally and Repair Equipment), SKILL_ABILITY each; then Rally and Repair Equipment
+# dragged from the PDA's skill list onto them (below) and used. F (Fire all weapons: ACTION) fights until the mob
 # explodes (POINT_EFFECT) and its hulk appears (CREATE). N (Next Target, until its Loot verb) targets the hulk, the
 # target window's loot button asks for it (SKILL_STRING_RQ, LOOT_HULK_PERMISSION), and the loot window's first row is
 # taken until the hulk is empty (INVENTORY_MOVE each; OPEN_INTERFACE when the last item is gone). The loot is random:
 # how many items, and so how many takes, differs from run to run. Elanor's rows are
 # those --db-snapshot 7 saves and puts back.
 # Run: e2e.py --live --retail --db-snapshot 7 --instance space run sp_combat (it changes Elanor's cargo and hull).
-name: space combat: spawn a level 45 mob, two skills, fire all, loot the hulk
+name: space combat: spawn a level 45 mob, two hotbar skills, fire all, loot the hulk
 timeout: 420
 include _login_space
 # the GM command in the chat entry; the server answers 'Creating Renegade Progen Tribuni at level 45' and creates it
@@ -25,15 +26,83 @@ shot mob_created
 key 0x45 until antprox 'received REQUEST_TARGET$' every 1.5 within 20
 wait-event antprox 'sent SET_TARGET$' within 10
 shot mob_targeted
-# the hotbar as the rows have it: slot 4 Rally, slot 5 Repair Equipment (3 and 6 empty), clicked as the recording
-# clicked its slot (run 231532's key 6 hit the empty slot 6)
-click 790,960
-expect-event antprox 'received SKILL_ABILITY$' within 10
+# the hotbar as the client data's shortcut.ini (ClientPOC's, copied afresh into every instance) has it, clicked as the
+# recording clicked its slot: 1-3 three weapons, slot 4 Biocessation (organic targets only), slot 5 Enrage Group, 6
+# another skill. The recording's slot 4 Rally and slot 5 Repair Equipment are not there: waiting for an
+# OBJECT_EFFECT after slot 4 failed on retail every time (2026-11-25: the server answers the Progen target with a
+# PRIORITY_MESSAGE, the client's message line, and no effect; sp_warp's slot 5 is answered so too). Each click is
+# repeated until the client sends SKILL_ABILITY (store .staging run 005451: one click 0.2 s after SET_TARGET sent
+# nothing), then the server's answer, an effect or the message, is waited for
+click 790,960 until antprox 'received SKILL_ABILITY$' every 2 within 12
+wait-event antprox 'sent (OBJECT_EFFECT|PRIORITY_MESSAGE)$' within 15
+# the shot 1 s after the answer (2026-11-25 CS: shot at once, ours drew the PRIORITY_MESSAGE's text a frame later)
+wait-since antprox 'sent (OBJECT_EFFECT|PRIORITY_MESSAGE)$' 1
+shot skill_slot4
+click 865,960 until antprox 'received SKILL_ABILITY$' every 2 within 12
+wait-event antprox 'sent (OBJECT_EFFECT|PRIORITY_MESSAGE)$' within 15
+wait-since antprox 'sent (OBJECT_EFFECT|PRIORITY_MESSAGE)$' 1
+shot skill_slot5
+# the effects (brief CS2, c4): Rally and Repair Equipment from the PDA, as the recording dragged Hacking. The PDA
+# (the second button at the lower left), its Skills page, the list's down arrow until its end (30 clicks; Elanor's
+# 19 skills end Reactor Tech, Repair Equipment, Shield Tech, Terran Culture), then its up arrow once: Rally on top
+# (its first ability, rank 1, at 50,632), Repair Equipment third (its first at 50,785) (CS2 probe 2026-11-25: the
+# list keeps no fixed start, but its end is fixed). A click on an ability there uses nothing (the probe: no
+# SKILL_ABILITY); a drag onto the hotbar's slots 4 and 5 puts them there (the instance's shortcut.ini, a fresh copy
+# each run). The server answers both with an OBJECT_EFFECT on our ship (Net-7 ARally: the buff's effect 333;
+# ARepairEquipment: 170, a mob target defaults to self)
+click 96,918
+wait-quiet proxy 1.0 within 20
+click 71,258
+wait-quiet proxy 0.5 within 20
+click 322,805
+click 322,805
+click 322,805
+click 322,805
+click 322,805
+click 322,805
+click 322,805
+click 322,805
+click 322,805
+click 322,805
+click 322,805
+click 322,805
+click 322,805
+click 322,805
+click 322,805
+click 322,805
+click 322,805
+click 322,805
+click 322,805
+click 322,805
+click 322,805
+click 322,805
+click 322,805
+click 322,805
+click 322,805
+click 322,805
+click 322,805
+click 322,805
+click 322,805
+click 322,805
+click 322,593
+wait-quiet proxy 1.0 within 20
+shot pda_skills
+down 50,632
+up 790,960
+wait-quiet proxy 0.5 within 10
+down 50,785
+up 865,960
+wait-quiet proxy 0.5 within 10
+shot pda_dragged
+click 322,258
+wait-quiet proxy 1.0 within 20
+click 790,960 until antprox 'received SKILL_ABILITY$' every 2 within 20
 wait-event antprox 'sent OBJECT_EFFECT$' within 15
+wait-since antprox 'sent OBJECT_EFFECT$' 1
 shot skill_rally
-click 865,960
-expect-event antprox 'received SKILL_ABILITY$' within 10
+click 865,960 until antprox 'received SKILL_ABILITY$' every 2 within 20
 wait-event antprox 'sent OBJECT_EFFECT$' within 15
+wait-since antprox 'sent OBJECT_EFFECT$' 1
 shot skill_repair
 key 0x46
 expect-event antprox 'received ACTION$' within 10

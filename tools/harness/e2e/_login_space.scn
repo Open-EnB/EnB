@@ -3,9 +3,16 @@
 # she last logged off: in space in Jupiter (sector 1070, about 177000,-207000), over 5,000 units from Jove's Fury,
 # so /createmob works without flying anywhere. Run with --db-snapshot 7 so each run starts from the same rows.
 # Not run on its own.
+# The slot is clicked until the client takes it (its selection sound opens mixfile_sound_01.mix), then Enter alone is
+# repeated: with `redo 1` (before 2026-11-25) a slot click repeated while the screen still turned to the first
+# selection hit the slot 0 model passing under the pointer, and Zanor (avatar 6, docked at Jove's Fury) logged in
+# (store .staging run 20261125-005559: player100663360_options.ini read, the station's LOUNGE_NPC, sp_combat failing
+# at /createmob). Elanor's own options file (player117440576: game id 0x07000040) is read right after LOGIN.
 include _login_live_account
-click gadget select.slot1
-click gadget select.enter until antprox 'received LOGIN' redo 1 every 1 within 60
+click gadget select.slot1 until proxy 'mixfile_sound_01\.mix' every 3 within 30
+wait-quiet proxy 1.0 within 20
+click gadget select.enter until antprox 'received LOGIN' every 1.5 within 60
+expect-event proxy 'player117440576_options\.ini' within 20
 wait-event antprox 'received START_ACK' within 120
 # the sector's objects arrive (CREATE, AUX_DATA, SUBPARTS) and then the link goes quiet while nothing moves
 wait-quiet proxy 1.5 within 60
