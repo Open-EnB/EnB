@@ -213,7 +213,7 @@ static void Unknown_5615C0(BuffInfoStruct &info, DeltaBuffClass *buff)	// NAME 1
 
 // 0x561030: the ship's BuffArray to the slots (a new buff made, a changed one updated, an emptied one taken off), then
 // each gadget's state, and the mesh's 'frame' hidden without buffs (slot +0x60)
-// NOT EXACT: inline-budget (the client calls ~vector 0x561B80 out of line on the new-buff path; the find 0x561C40 matches)
+static inline const char *Type_Of(BuffDefStruct *d) { return d->Type; } static inline void Add_New_Buff(UIBuffClass *ui, DeltaBuffClass *buff, const char *type, int slot) { BuffInfoStruct info; Unknown_5615C0(info, buff); ui->Unknown_560D20(type, info, slot); }	// NAME 1: neutral (D10)
 void UIBuffClass::Unknown_561030()
 {
 	ClientObjectClass *avatar = ((ClientClass *)Client)->Get_Avatar();
@@ -232,15 +232,15 @@ void UIBuffClass::Unknown_561030()
 					const char *type = buff->BuffType.Get();
 					if (strcmp(type, "") == 0) {
 						Unknown_560FA0(slot);
-					} else if (BuffTable[slot] && BuffTable[slot]->BuffInfo && strcmp(BuffTable[slot]->BuffInfo->Type, type) == 0) {
+					} else if (BuffTable[slot] && BuffTable[slot]->BuffInfo && strcmp(Type_Of(BuffTable[slot]->BuffInfo), type) == 0) {
 						BuffInfoStruct info;
 						Unknown_5615C0(info, buff);
 						Unknown_560BC0(info, slot);
 					} else {
 						Unknown_560FA0(slot);
-						BuffInfoStruct info;
-						Unknown_5615C0(info, buff);
-						Unknown_560D20(type, info, slot);
+						Add_New_Buff(this, buff, type, slot);
+
+
 					}
 				}
 			}

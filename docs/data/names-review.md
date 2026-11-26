@@ -11353,6 +11353,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_Find_Aux` | `app/client/ui_buff.cpp:188` | untagged neutral name (D10) |
 | 1 | `Unknown_5615C0, info, buff` | `app/client/ui_buff.cpp:191` | neutral (D10) |
 | 1 | `Unknown_5615C0` | `app/client/ui_buff.cpp:191` | untagged neutral name (D10) |
+| 1 | `Type_Of` | `app/client/ui_buff.cpp:216` | neutral (D10) |
 | 1 | `Unknown_666470` | `app/client/ui_buff.cpp:250` | untagged neutral name (D10) |
 | 1 | `Unknown84` | `app/client/ui_buff.cpp:252` | untagged neutral name (D10) |
 | 1 | `Unknown30` | `app/client/ui_buff.cpp:253` | untagged neutral name (D10) |
@@ -12100,7 +12101,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_576A40` | `app/client/ui_class.cpp:1095` | untagged neutral name (D10) |
 | 1 | `Unknown_67B320` | `app/client/ui_class.cpp:1104` | untagged neutral name (D10) |
 | 1 | `Unknown_67B390` | `app/client/ui_class.cpp:1112` | untagged neutral name (D10) |
-| 1 | `View_Of` | `app/client/ui_class.cpp:1117` | neutral (D10) |
+| 1 | `Planet_Of` | `app/client/ui_class.cpp:1117` | neutral (D10) |
+| 1 | `View_Of` | `app/client/ui_class.cpp:1118` | neutral (D10) |
 | 1 | `ui_class.h` | `app/client/ui_class.h:3` | provisional header name for ui_class.cpp |
 | 1 | `view, layer` | `app/client/ui_class.h:27` | neutral |
 | 1 | `Unknown_60` | `app/client/ui_class.h:29` | untagged neutral name (D10) |
