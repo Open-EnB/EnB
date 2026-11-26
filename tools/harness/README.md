@@ -884,7 +884,10 @@ the last name. Live antprox logs opcode numbers; e2e appends the names (`... = s
   the store's by 55 cells where retail's own runs differ by 1-2. The gate warp's end has two kinds on both clients
   even so: the warp camera (0x797B50) cuts to its exit place either 4.1-4.2 s or 3.0-3.6 s before the server's
   WARP_INDEX, 1000-1400 units apart (retail 5 and 3 of 8 runs, ours 3 and 6 of 9; `sp_gate`'s later anchors follow
-  it), so a run is compared with retail runs of its own kind (the store's three are all the first kind). `camtrack.py compare --retail
+  it), so a run is compared with retail runs of its own kind: `camtrack.py`'s `warp_kind` (early / late by the cut's
+  time) and `ANCHOR_KINDS` (warp_end, gate_verb, gate_verb_offset, stargate_camera, stargate_offset compared per
+  kind; the output names each run's kind and cut; a kind of ours with no retail run: NO RETAIL OF ITS KIND); the
+  store holds both kinds since 2026-11-26 (CS7). `camtrack.py compare --retail
   DIR... --ours DIR... --scenario sp_land` compares each 3-D view of the track around the scenario's moments
   (SCENARIOS): the held places to 0.1 unit, the path by place (time-free) and the angle at the same time from the
   anchor give or take 0.1 s, the tolerance retail's own spread at that time plus each run's frame-to-frame shake;

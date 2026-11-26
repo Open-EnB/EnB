@@ -36,7 +36,10 @@ The verdict per anchor: SAME, or DIFF with the first differing frame (the view, 
 number, the field: x / y / z / yaw / pitch, ours and the nearest retail value). A tolerance is never widened to
 hide a difference: a DIFF is a reconstruction item (test-plan section 5).
 
---scenario takes the anchors of SCENARIOS below (the sp_* camera scenarios of test-plan SP-01 to SP-03).
+--scenario takes the anchors of SCENARIOS below (the sp_* camera scenarios of test-plan SP-01 to SP-03). An anchor
+named in ANCHOR_KINDS compares each run of ours only with the retail runs of its own kind (c9: sp_gate's warp_end, the
+kind of warp end a run classification): the output names each run's kind, a kind of ours that no retail run has is
+NO RETAIL OF ITS KIND.
 """
 import argparse
 import glob
@@ -60,12 +63,16 @@ REF_MARGIN = 0.5
 SCENARIOS = {
     # counted from the session's start (events.log holds the login too): CAMERA_CONTROL #1 is the login's sector entry
     'sp_gate': [
-        # (no anchor on the warp's end: the warp camera (CameraController02Class 0x797B50) cuts to its exit place
-        # either 4.1-4.2 s or 3.0-3.6 s before the server's WARP_INDEX, 1000-1400 units apart, on both clients (retail
-        # 5 / 3 of 8 runs, ours 3 / 6 of 9, 2026-11-26): compare a run with retail runs of its own kind; the
-        # anchors below follow it)
+        # the warp's end, per kind (ANCHOR_KINDS, warp_kind): the warp camera (CameraController02Class 0x797B50)
+        # cuts to its exit place either 4.1-4.2 s or 2.9-3.7 s before the server's WARP_INDEX, 1000-1400 units apart,
+        # on both clients (retail 5 / 3 of 8 runs, ours 3 / 6 of 9, 2026-11-26); the anchors below follow it
+        ('warp_end', r"antprox:sent WARP_INDEX$#1@-6,-1"),
         # the gate's verb (ACTION) and the ship's move toward the opening gate (the chase camera)
         ('gate_verb', r"antprox:received ACTION$#1@-1,7"),
+        # the same relative to the camera's last place before the verb: where the ship stopped after the warp varies
+        # on both clients (2026-11-26, the chase camera held before the verb: late kind retail x 106435-107079, ours
+        # 106531-106956), the chase camera's move from there is the client's
+        ('gate_verb_offset', r"antprox:received ACTION$#1@-1,7%rel"),
         # the server's CAMERA_CONTROL 4 (5.8 s after the verb): the stargate camera's two or three frames before the
         # loading screen
         ('stargate_camera', r"antprox:sent CAMERA_CONTROL$#2@-0.5,1"),
@@ -439,6 +446,84 @@ def compare_anchor(runs, spec, tol_pos=0.1, tol_ang=0.1):
     return res
 
 
+# sp_gate's warp end (c9): a run's kind is the time of the warp camera's cut to its exit place, the largest
+# frame-to-frame move of view 0 in the anchor's window (4.1-4.2 s or 2.9-3.7 s before the server's WARP_INDEX on
+# retail's and ours' runs of 2026-11-26)
+WARP_KINDS = (('early', -4.6, -3.85), ('late', -3.85, -2.5))
+WARP_END_SPEC = r"antprox:sent WARP_INDEX$#1@-6,-1"
+
+
+def warp_cut(track, events, spec=WARP_END_SPEC):
+    """(seconds from the anchor, units) of the largest frame-to-frame move of view 0 in SPEC's window; None
+    without the anchor or two frames."""
+    _, _, _, lo, hi = parse_spec(spec)
+    t0 = find_anchor(events, spec)
+    if t0 is None:
+        return None
+    w = window(track, t0, lo, hi, 0)
+    return max(((b[0], math.dist(a[2][0], b[2][0])) for a, b in zip(w, w[1:])), key=lambda x: x[1], default=None)
+
+
+def warp_kind(track, events, spec=None):
+    """(kind, warp_cut): 'early' / 'late' by WARP_KINDS, 'other' outside both, None without a cut. SPEC (the
+    compared anchor's) is not used: the kind is the warp end's whatever the anchor."""
+    c = warp_cut(track, events)
+    if c is None:
+        return None, None
+    return next((k for k, lo, hi in WARP_KINDS if lo <= c[0] < hi), 'other'), c
+
+
+# anchors compared per kind of run: {anchor name: kind function (track, events, spec) -> (kind, detail)}. The gate's
+# verb and the stargate camera follow where the ship stopped after the warp, which follows the kind (2026-11-26: the
+# chase camera held at x 107748-107831 after an early end, 106435-106672 after a late one, retail and ours)
+ANCHOR_KINDS = {'warp_end': warp_kind, 'gate_verb': warp_kind, 'gate_verb_offset': warp_kind,
+                'stargate_camera': warp_kind,
+                'stargate_offset': warp_kind}
+NO_RETAIL_KIND = 'NO RETAIL OF ITS KIND'
+
+
+def compare_by_kind(runs, spec, kind_of, tol_pos=0.1, tol_ang=0.1):
+    """compare_anchor within each kind (KIND_OF): ours of a kind against the retail runs of that kind only. The
+    verdict: DIFF when a kind's compare is DIFF or a run of ours has no kind, else NO RETAIL OF ITS KIND when a
+    kind of ours has no retail run, else SAME (RETAIL ONLY without ours); 'kinds' {kind: {runs, verdict}}."""
+    kinds, detail = {}, {}
+    for name, retail, track, events in runs:
+        k, detail[name] = kind_of(track, events, spec)
+        kinds.setdefault(k, []).append(name)
+    res = {'spec': spec, 'runs': {}, 'verdict': None, 'first_difference': None, 'kinds': {}, 'retail_spread': {}}
+    retail_names = {n for n, r, tr, ev in runs if r}
+    verdicts = []
+    for k, names in sorted(kinds.items(), key=lambda kv: str(kv[0])):
+        sub = [x for x in runs if x[0] in names]
+        ours = [n for n in names if n not in retail_names]
+        if k is None:
+            r = {'verdict': 'DIFF' if ours else 'RETAIL ONLY', 'runs': {n: {'anchor': None} for n in names},
+                 'first_difference': {'run': ours[0], 'what': 'no warp cut found'} if ours else None}
+        elif ours and not any(n in retail_names for n in names):
+            r = compare_anchor(sub, spec, tol_pos, tol_ang)
+            r['verdict'] = NO_RETAIL_KIND
+        else:
+            r = compare_anchor(sub, spec, tol_pos, tol_ang)
+        res['kinds'][str(k)] = {'runs': names, 'verdict': r['verdict'],
+                                'cuts': {n: detail.get(n) and [round(detail[n][0], 2), round(detail[n][1], 1)]
+                                         for n in names}}
+        res['runs'].update({n: dict(row, kind=k) for n, row in r['runs'].items()})
+        res['first_difference'] = res['first_difference'] or r.get('first_difference')
+        for v, s in r.get('retail_spread', {}).items():
+            old = res['retail_spread'].get(v)
+            res['retail_spread'][v] = s if old is None else tuple(max(a, b) for a, b in zip(old, s))
+        verdicts.append(r['verdict'])
+    if not any(n not in retail_names for n, r, tr, ev in runs):
+        res['verdict'] = 'RETAIL ONLY'
+    elif 'DIFF' in verdicts:
+        res['verdict'] = 'DIFF'
+    elif NO_RETAIL_KIND in verdicts:
+        res['verdict'] = NO_RETAIL_KIND
+    else:
+        res['verdict'] = 'SAME'
+    return res
+
+
 def fmt(p):
     if p is None:
         return '(no 3-D view)'
@@ -526,10 +611,15 @@ def cmd_compare(a):
     out = {}
     rc = 0
     for name, spec in anchors:
-        r = compare_anchor(runs, spec, a.tol_pos, a.tol_ang)
+        kind_of = ANCHOR_KINDS.get(name)
+        r = compare_by_kind(runs, spec, kind_of, a.tol_pos, a.tol_ang) if kind_of else \
+            compare_anchor(runs, spec, a.tol_pos, a.tol_ang)
         out[name] = r
         sp = '; '.join(f'view {v}: {s[0]} u / {s[1]} deg' for v, s in sorted(r.get('retail_spread', {}).items()))
         print(f'\n== {name} ({spec}): {r["verdict"]}' + (f'  (retail spread, its largest: {sp})' if sp else ''))
+        for k, kr in r.get('kinds', {}).items():
+            print(f'  kind {k}: {kr["verdict"]}: ' + ', '.join(
+                n + (f' {kr["cuts"][n][0]} s / {kr["cuts"][n][1]} u' if kr['cuts'].get(n) else '') for n in kr['runs']))
         for n, row in r['runs'].items():
             if row.get('anchor') is None:
                 print(f'  {n}: no anchor')

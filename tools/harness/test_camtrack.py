@@ -147,6 +147,44 @@ class CompareTest(unittest.TestCase):
         self.assertEqual(r['verdict'], 'NO RETAIL')
 
 
+class WarpKindTest(unittest.TestCase):
+    # brief CS7 (c9, c10 (b)): sp_gate's warp camera cuts to its exit place 4.1-4.2 s or 2.9-3.7 s before WARP_INDEX;
+    # a run of ours compares only with retail runs of its own kind
+    @staticmethod
+    def gate(cut, exit_x=0.0, exit_y=0.0, warp=60.0):
+        """A run: the warp camera at x 5000 until WARP_INDEX + CUT, then held at its exit place EXIT_X, EXIT_Y."""
+        pts = [(warp + dt, 5000.0 if dt < cut else exit_x, 0.0 if dt < cut else exit_y, 0.0, 0.0)
+               for dt in [round(-7 + i * 0.03, 2) for i in range(int(6.5 / 0.03))]]
+        return track(pts), [(warp, 'antprox', 'sent WARP_INDEX'), (warp + 1, 'antprox', 'sent CAMERA_CONTROL')]
+
+    def test_kinds(self):
+        tr, ev = self.gate(-4.12)
+        k, (t, d) = camtrack.warp_kind(tr, ev)
+        self.assertEqual(k, 'early')
+        self.assertAlmostEqual(t, -4.12, delta=0.031)
+        self.assertAlmostEqual(d, 5000.0, delta=0.1)
+        self.assertEqual(camtrack.warp_kind(*self.gate(-3.3))[0], 'late')
+        self.assertEqual(camtrack.warp_kind(*self.gate(-5.5))[0], 'other')
+        self.assertEqual(camtrack.warp_kind(tr, [])[0], None)              # no WARP_INDEX
+
+    def test_compare_within_the_kind(self):
+        r = [('R1', True) + self.gate(-4.12), ('R2', True) + self.gate(-4.15), ('R3', True) + self.gate(-3.4, 1300.0),
+             ('O1', False) + self.gate(-3.39, 1300.0)]
+        res = camtrack.compare_by_kind(r, camtrack.SCENARIOS['sp_gate'][0][1], camtrack.warp_kind)
+        self.assertEqual(res['verdict'], 'SAME', res['first_difference'])
+        self.assertEqual(res['kinds']['late']['runs'], ['R3', 'O1'])
+        self.assertEqual(res['kinds']['early']['verdict'], 'RETAIL ONLY')
+        res = camtrack.compare_by_kind(r[:2] + [r[3]], camtrack.SCENARIOS['sp_gate'][0][1], camtrack.warp_kind)
+        self.assertEqual(res['verdict'], camtrack.NO_RETAIL_KIND)       # the late kind of ours: no retail run of it
+        bad = ('O2', False) + self.gate(-3.39, 1300.0, 10.0)               # the exit place 10 units off
+        res = camtrack.compare_by_kind(r + [bad], camtrack.SCENARIOS['sp_gate'][0][1], camtrack.warp_kind)
+        self.assertEqual(res['verdict'], 'DIFF')
+        self.assertEqual(res['kinds']['late']['verdict'], 'DIFF')
+        self.assertEqual(camtrack.ANCHOR_KINDS['warp_end'], camtrack.warp_kind)
+        self.assertEqual(camtrack.warp_kind(r[0][2], r[0][3], 'antprox:received ACTION$#1@-1,7')[0], 'early')
+        self.assertEqual(camtrack.SCENARIOS['sp_gate'][0][0], 'warp_end')
+
+
 class RelativeTest(unittest.TestCase):
     def test_relative_places_and_uncertainty(self):
         # the reference moves 10 units a second; the cut 0.05 s after its last frame
