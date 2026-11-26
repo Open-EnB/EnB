@@ -3206,8 +3206,8 @@ void UIStarbaseClass::Unknown_6415B0()
 
 
 
-// NOT EXACT: 0x640F50, functional (the avatar dropped onto the room's model: a 0.5 box swept 50 down from its position at
-// its height; register: the hit's x87 schedule, 9 rows; SB 2026-11-24: every differing region codegen; B1)
+// 0x640F50 (the avatar dropped onto the room's model: a 0.5 box swept 50 down from its position at its height)
+// (move *= Fraction, then m.Set_Translation(tm.Get_Translation()) + m.Adjust_Translation(move))
 // 0x640F50
 void UIStarbaseClass::Unknown_640F50(CharacterViewAvatarClass *avatar)
 {
@@ -3227,8 +3227,8 @@ void UIStarbaseClass::Unknown_640F50(CharacterViewAvatarClass *avatar)
 	model_tm.Get_Orthogonal_Inverse(inv);
 	OBBoxCollisionTestClass local_test(test, inv);
 	if (Unknown_Model()->Cast_OBBox(local_test)) {
-		Matrix3D m = avatar->Unknown330;
-		Vector3 hit = move; hit *= result.Fraction; hit += tm.Get_Translation(); m.Set_Translation(hit);
+		move *= result.Fraction; Matrix3D m = avatar->Unknown330;
+		m.Set_Translation(tm.Get_Translation()); m.Adjust_Translation(move);
 		avatar->Unknown330 = m;
 	}
 	avatar->Unknown23C = result.SurfaceType;
@@ -3717,7 +3717,7 @@ Unknown78A910AvatarClass *UIStarbaseClass::Unknown_642740(StarbaseNPCClass *npc)
 
 
 
-// NOT EXACT: 0x63E930, functional (shape: the hit's Vector3 temporaries, 7 rows; Adjust_Z_Translation gives the client's z + (h + 1); O4)
+// (move *= Fraction, out.Set_Translation(start.Get_Translation()) + out.Adjust_Translation(move), then midpoint with +0x1BC)
 // 0x63E930 (0x63B310: the camera transform pulled in against the room's model: a 0.5 box swept from above the avatar's
 // head to the camera; on a hit the camera halfway between the hit and the last camera position +0x1BC, kept there)
 Matrix3D UIStarbaseClass::Unknown_63E930(const Matrix3D &tm)
@@ -3738,8 +3738,8 @@ Matrix3D UIStarbaseClass::Unknown_63E930(const Matrix3D &tm)
 	OBBoxCollisionTestClass local_test(test, inv);
 	Matrix3D out = tm;
 	if (Unknown_Model()->Cast_OBBox(local_test)) {
-		Vector3 hit = start.Get_Translation() + move * result.Fraction;
-		out.Set_Translation((hit + Unknown1BC.Get_Translation()) * 0.5f);
+		move *= result.Fraction; out.Set_Translation(start.Get_Translation()); out.Adjust_Translation(move);
+		out.Set_Translation((out.Get_Translation() + Unknown1BC.Get_Translation()) * 0.5f);
 	}
 	Unknown1BC = out;
 	return(out);
@@ -4036,9 +4036,9 @@ void UIStarbaseClass::Unknown_6425D0(const char *name, const Vector3 &color)
 
 
 
-
+static inline void Unknown_Set_2F4(FontSys *font, float value) { font->Unknown2F4[0] = value; font->Unknown4C5 = false; }	// (inline setter for FontSys::Unknown2F4[0] + Unknown4C5, as fontsys.h's Unknown_Set_2FC: keeps the FontSys * in eax across both stores in 0x63F490)  // NAME 1: neutral (D10)
 void Unknown_585FD0(CameraClass *camera, const Vector3 &point, Vector3 *screen);	// 0x585FD0 (cdecl: a point to the screen, z < 0 in front)  // NAME 1 [camera, point, screen]: neutral
-// NOT EXACT: 0x63F490, functional (literal: the client keeps 0.0 on the x87 stack from the screen z test for tm[2][3], 29 rows; O4)
+// (0.0f stored to [2][3] in both branches of screen.Z < 0.0f so VC6 keeps 0.0f on x87; WWMath::Min(2.0f, 25.0f/distance))
 // 0x63F490 (0x63AC60: an avatar's name tags put on the screen above its 'ROOTTRANSFORM' bone, sized by its distance from
 // the camera (25 / distance, at most 2), hidden when it is too far or the room's model is between them)
 void UIStarbaseClass::Unknown_63F490(UIStarbaseUnknownCCClass *savatar)
@@ -4067,11 +4067,12 @@ void UIStarbaseClass::Unknown_63F490(UIStarbaseUnknownCCClass *savatar)
 	if (screen.Z < 0.0f) {
 		tag_tm[0][3] = screen.X * 640.0f;
 		tag_tm[1][3] = screen.Y * -480.0f;
+		tag_tm[2][3] = 0.0f;
 	} else {
 		tag_tm[0][3] = 3000.0f;
 		tag_tm[1][3] = 3000.0f;
+		tag_tm[2][3] = 0.0f;
 	}
-	tag_tm[2][3] = 0.0f;
 	savatar->NameTag->Set_Transform(tag_tm);
 	if (savatar->Unknown10) {
 		Matrix3D guild(true);
@@ -4087,24 +4088,20 @@ void UIStarbaseClass::Unknown_63F490(UIStarbaseUnknownCCClass *savatar)
 		if (guild_screen.Z < 0.0f) {
 			guild_tm[0][3] = guild_screen.X * 640.0f;
 			guild_tm[1][3] = guild_screen.Y * -480.0f;
+			guild_tm[2][3] = 0.0f;
 		} else {
 			guild_tm[0][3] = 3000.0f;
 			guild_tm[1][3] = 3000.0f;
+			guild_tm[2][3] = 0.0f;
 		}
-		guild_tm[2][3] = 0.0f;
 		savatar->Unknown10->Set_Transform(guild_tm);
 	}
 	Matrix3D camera_tm = UnknownB0->Unknown6C->Get_Transform();
 	float distance = (tm.Get_Translation() - camera_tm.Get_Translation()).Length();
-	float scale = 25.0f / distance;
-	if (2.0f < scale) {
-		scale = 2.0f;
-	}
-	savatar->NameTag->Unknown2F4[0] = scale;
-	savatar->NameTag->Unknown4C5 = false;
+	float scale = WWMath::Min(2.0f, 25.0f / distance);
+	Unknown_Set_2F4(savatar->NameTag.Peek(), scale);
 	if (savatar->Unknown10) {
-		savatar->Unknown10->Unknown4C5 = false;
-		savatar->Unknown10->Unknown2F4[0] = scale;
+		Unknown_Set_2F4(savatar->Unknown10.Peek(), scale);
 	}
 	bool hidden = Unknown_63F0D0(camera_tm.Get_Translation(), tm.Get_Translation());
 	if (scale < 0.5f || hidden) {
@@ -4127,6 +4124,9 @@ void UIStarbaseClass::Unknown_63F490(UIStarbaseUnknownCCClass *savatar)
 		}
 	}
 }
+
+
+
 
 
 
