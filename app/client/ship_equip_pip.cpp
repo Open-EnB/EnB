@@ -150,36 +150,36 @@ ShipEquipPipClass::~ShipEquipPipClass()
 
 
 
-// NOT EXACT: inline-budget (29 masked rows, from 185); second Unknown_543270 keeps ??_H and unit is not spilled to ebp-0x40
+// NOT EXACT: frame (3 masked rows, from 29, score 0.99): second ??_H removed; unit not spilled to ebp-0x40 (r3) and Pre_Rotate_Y st(0)/st(2) swap (r16)
 // 0x542250
 void ShipEquipPipClass::Unknown_542250(const RefCountPtr<RenderObjClass> &robj)
 {
-	if (Proxy->Proxied != robj.Peek()) {
+	float unit; Vector3 pos; Vector3 target; if (Proxy->Proxied != robj.Peek()) {
 		Proxy->Unknown_47FF70(robj.Peek());
 		Proxy->Set_Transform(Matrix3D::Identity);
 		if (robj) {
-			float unit = CameraManagerClass::Unknown_79B6B0();
+			unit = CameraManagerClass::Unknown_79B6B0();
 			Unknown48 = unit;
-			Vector3 target(0, 0, 0);
-			Vector3 pos(unit * 1.1, unit * 1.1, unit * 1.1);
+			target.Set(0, 0, 0);
+			pos.Set(unit * 1.1, unit * 1.1, unit * 1.1);
 			Proxy->Set_Position(Vector3(0, 0, 0));
 			Matrix3D tm(true);
 			tm.Look_At(pos, target, 0);
 			Unknown_543270(tm);
-			Distance = Vector3::Distance(pos, target);
+			pos -= target; Distance = pos.Length();
 		}
 	} else if (robj) {
-		float unit = CameraManagerClass::Unknown_79B6B0();
-		Vector3 target(0, 0, 0);
-		Vector3 pos;
+		unit = CameraManagerClass::Unknown_79B6B0();
+		target.Set(0, 0, 0);
+
 		if (unit != Unknown48) {
 			CameraClass *camera = Camera.Peek();
 			FAIL_IF(!camera) return;
 			Unknown50 = camera->Get_Transform();
-			Unknown80 = Unknown50;
-			Unknown80.Translate_Z(unit - Unknown48);
-			pos.Set(Unknown80.Get_X_Translation(), Unknown80.Get_Y_Translation(), Unknown80.Get_Z_Translation());
-			Unknown80.Look_At(pos, target, 0);
+			Matrix3D &end = Unknown80; end = Unknown50;
+			end.Translate_Z(unit - Unknown48);
+			pos.Set(end.Get_X_Translation(), end.Get_Y_Translation(), end.Get_Z_Translation());
+			end.Look_At(pos, target, 0);
 			Unknown4C = 1.0f;
 			Unknown48 = unit;
 		}
@@ -188,8 +188,8 @@ void ShipEquipPipClass::Unknown_542250(const RefCountPtr<RenderObjClass> &robj)
 			Unknown4C = WWMath::Clamp(Unknown4C, 0.0f, 1.0f);
 			Matrix3D tm = Lerp(Unknown50, Unknown80, 1.0f - Unknown4C);
 			Unknown_543270(tm);
-			pos.Set(tm.Get_X_Translation(), tm.Get_Y_Translation(), tm.Get_Z_Translation());
-			Distance = Vector3::Distance(pos, target);
+
+			Distance = (tm.Get_Translation() - target).Length();
 
 			if (Unknown4C == 0.0f) {
 				Unknown_542EE0(0);
