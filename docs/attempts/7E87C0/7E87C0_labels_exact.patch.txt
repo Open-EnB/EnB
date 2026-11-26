@@ -1,0 +1,25 @@
+0x7E87C0 NebulaClass::NebulaClass: the byte-exact DIAGNOSTIC form (FB7, 2026-11-26; trybatch v7 lab4 and v13 lab4:
+res 0, raw 0, 592/592 rows, frame 0x340). Not the client's source: four unreferenced labels.
+
+On the committed form (one loop counter `i`, one `count`, red / green / blue reused for SkyBoxColor) change one line:
+
+-	ini.Load("nebula.ini");
++	ini.Load("nebula.ini"); Unknown_L0: ; Unknown_L1: ; Unknown_L2: ; Unknown_L3: ;
+
+Why it works (measured, .work/fb7/b4.log .. b13.log):
+  * VC6 schedules a block in chunks of 80 units counted from the block's label; nothing moves across a chunk boundary.
+    The last block of this constructor starts at the if / else join 0x7E8D1E; its instruction 81 is sky_color's
+    `fild blue` in ours, so the FogColorR pushes hoist only to there (fild b; push x3; lea; fmul; fstp Z).
+  * The client's boundary sits 4 units earlier (chunk 2 starts at `fstp sky_color.X`): its block held 4 more units
+    before sky_color.X than its final code shows.
+  * A unit is an instruction as it stands at scheduling time (one `mov [G], ebx` each: n = 1..6 moved the boundary one
+    instruction a step, n = 4 exact) or a user label (unreferenced or reached by a goto to the next statement; also one
+    per expansion inside an inline). A cdecl call is 5 (the `add esp` counts). A dead EH state store counts too
+    (a scope object with an empty inline destructor: 1 visible store + 1 hidden unit).
+  * No unit: dead reads, empty inline calls, folded if / switch / loops / ?:, break out of do / while / for, one-trip
+    loops, G_ASSERT(1), block scopes, unused or dead locals, expression temporaries with an empty destructor,
+    Set() / operator[] / helper forms of the stores (their code is identical).
+  * Position inside the block does not matter (before the hsv block, after ini.Load, after the Room stores: the same);
+    units in the else branch, the if block or at the function's top do not count (the join label restarts the count).
+Lead: whatever in E&B's source leaves 4 such units between the join and sky_color.X (3 Room conversions + the sky red
+one is the only count of 4 in the visible code; two destructor-bearing objects with dead state stores is the other).
