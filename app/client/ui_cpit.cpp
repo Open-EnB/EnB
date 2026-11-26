@@ -1275,7 +1275,7 @@ template<class C> inline C *Unknown_Find_Changed(DeltaCompoundClass *root, const
 }
 
 // 0x5821C0: the warp button's state from the avatar's aux data, the throttle lights and the speed display (slot +0x60)
-// NOT EXACT: 0 masked (961/961 rows), raw 4 (12 bytes): cases 3 / 1 put their NameClass in the shared -0x50 slot instead of the client's -0xB8 / -0x84; the dead Unknown16C.Peek() in Unknown_Cpit_Engine and dead Children.size() reads after case 0's WarpAvailable find and before case 1's time test keep 0x546710 and every Cast but the last two out of line as the client's (D272)
+// (cases 3 / 1 pass "WarpTriggerTime" implicitly to Unknown_Cpit_Find_Set_Field's const NameClass & so VC6 allocates temporary slots -0xB8 / -0x84 with lea ecx; the dead Unknown16C.Peek() in Unknown_Cpit_Engine and dead Children.size() reads keep 0x546710 and every Cast but the last two out of line: D272)
 void UICpitClass::Unknown_5821C0(ClientObjectClass *avatar)
 {
 	DeltaCompoundClass *aux = (DeltaCompoundClass *)avatar->AuxData;
@@ -1390,7 +1390,7 @@ void UICpitClass::Unknown_5821C0(ClientObjectClass *avatar)
 						Unknown0B4->Unknown_40(0);
 						Unknown_5845A0();
 						GadgetClass::Set_Tooltip(Unknown0B4, "UI_CPIT", "WARP_WAIT");
-						DeltaTemplateClass<DurationClass> *time = Unknown_Find_Valid<DeltaTemplateClass<DurationClass> >(aux, "WarpTriggerTime");
+						DeltaTemplateClass<DurationClass> *time = Unknown_Cpit_Find_Set_Field<DeltaTemplateClass<DurationClass> >(aux, "WarpTriggerTime");
 						if (time) Unknown0B4->Set_State(4, time->Value.Get());
 						Unknown0B4->Unknown_A4(0);
 						SClient *client = (SClient *)((ClientClass *)Client)->As_Space_Client();
@@ -1401,7 +1401,7 @@ void UICpitClass::Unknown_5821C0(ClientObjectClass *avatar)
 					case 1:
 					{
 						GadgetClass::Set_Tooltip(Unknown0B4, "UI_CPIT", "WARP_DONE");
-						DeltaTemplateClass<DurationClass> *time = Unknown_Find_Valid<DeltaTemplateClass<DurationClass> >(aux, "WarpTriggerTime");
+						DeltaTemplateClass<DurationClass> *time = Unknown_Cpit_Find_Set_Field<DeltaTemplateClass<DurationClass> >(aux, "WarpTriggerTime");
 						aux->Children.size(); aux->Children.size(); aux->Children.size(); if (time) Unknown0B4->Set_State(1, time->Value.Get());
 						Unknown0B4->Unknown_A4(0);
 						break;
