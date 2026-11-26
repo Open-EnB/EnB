@@ -311,7 +311,7 @@ void UIAnalyzeClass::Unknown_5C()
 
 
 
-// NOT EXACT: register (one row: the client passes the Send_Packet argument as lea [esp+S], ours the packet constructor's result; a named packet costs budget elsewhere, 11). The Unknown110 branch before the refresh and the cases 17..14 in the client's order (its blocks, its jump table); 'Validity' / 'Mode' through Unknown_Find_Root_Field with named NameClass locals (the Casts 0x5468D0 / 0x546920 out of line), the last find's name in its own block; one dead read of 0x544C50's accessor before the result texts, two at the end (D272) (0x5443F0)
+// 0x5443F0: a named packet with its id read first (the client's lea [esp+S] argument; 0x545D30's local). The Unknown110 branch before the refresh and the cases 17..14 in the client's order (its blocks, its jump table); 'Validity' / 'Mode' through Unknown_Find_Root_Field with named NameClass locals (the Casts 0x5468D0 / 0x546920 out of line), the last find's name in its own block; one dead read of 0x544C50's accessor before the result texts, two at the end (D272) (0x5443F0)
 // @0x5443F0
 void UIAnalyzeClass::Unknown_60()
 {
@@ -332,7 +332,7 @@ void UIAnalyzeClass::Unknown_60()
 			}
 			DeltaTemplateClass<UnknownB01394Enum> *validity = Unknown_Find_Valid<DeltaTemplateClass<UnknownB01394Enum> >(Unknown10C, "Validity");
 			if (validity && validity->Value == 15) {
-				((ClientClass *)Client)->Send_Packet(&ManufactureActionPacketClass(((SClient *)Client)->Unknown1138, 1));
+				int player = ((SClient *)Client)->Unknown1138; ManufactureActionPacketClass packet(player, 1); ((ClientClass *)Client)->Send_Packet(&packet);
 			}
 		}
 	} else if (Unknown110) {
