@@ -389,6 +389,42 @@ class DrawLogs(unittest.TestCase):
         self.assertEqual(rc, 1, out)
         self.assertIn('no draw log in the run', out)
 
+    def test_retail_unstable_when_retail_fails_its_own_leave_one_out_the_same_way(self):
+        # brief CS2 (c2): one stored run has two draws more of the one state; left out, it fails the others' draw
+        # counts. A run far out in the draw counts only is RETAIL-UNSTABLE (exit 4), never SAME, never DIFF
+        self.stored(drawlog(4), drawlog(4), drawlog(6))
+        loo = baseline.drawlog_stability([os.path.join(self.scen, r, 'shot_one_00010.json')
+                                          for r in sorted(os.listdir(self.scen)) if r.startswith('2026')])
+        self.assertEqual([(r, w) for r, _, w in loo], [('20261124-000003', {'draws'})])
+        rc, out = self.check(drawlog(12))
+        self.assertEqual(rc, 4, out)
+        self.assertIn('scn: RETAIL-UNSTABLE draw log one', out)
+        self.assertIn('leave one out, for draws: 20261124-000003', out)
+        self.assertIn('1 RETAIL-UNSTABLE', out)
+        rc, out = self.check(drawlog(6))                # within what two stored runs differ by: SAME
+        self.assertEqual(rc, 0, out)
+
+    def test_retail_stable_mismatch_stays_diff(self):
+        self.stored(drawlog(4), drawlog(4), drawlog(4))
+        self.assertEqual(baseline.drawlog_stability(
+            [os.path.join(self.scen, r, 'shot_one_00010.json') for r in sorted(os.listdir(self.scen))
+             if r.startswith('2026')]), [])
+        rc, out = self.check(drawlog(12))
+        self.assertEqual(rc, 1, out)
+        self.assertIn('scn: DIFF draw log one', out)
+        self.assertNotIn('RETAIL-UNSTABLE', out)
+
+    def test_unstable_elsewhere_does_not_cover_another_difference(self):
+        # retail's third run differs in FOGCOLOR (left out it fails), the run in CULLMODE, which retail agrees on
+        self.stored(drawlog(fog=0), drawlog(fog=0), drawlog(fog=7))
+        rc, out = self.check(drawlog(cull=3))
+        self.assertEqual(rc, 1, out)
+        self.assertIn('scn: DIFF draw log one', out)
+        self.assertIn('the stored runs, leave one out, differ only in draws, states:rs.FOGCOLOR)', out)
+        self.assertFalse(baseline.drawlog_unstable(set(), [('r', '', {'draws'})]))
+        self.assertTrue(baseline.drawlog_unstable({'draws'}, [('r', '', {'draws', 'cams'})]))
+        self.assertFalse(baseline.drawlog_unstable({'draws', 'textures'}, [('r', '', {'draws'})]))
+
 
 def make_set_run(sdir, run, order=('a', 'b'), box=None, packets=None, stored=True, logs=None):
     """A run of a set: one session folder holding every scenario's result, shots and draw logs; stored=True adds the
@@ -730,6 +766,68 @@ class Audio(unittest.TestCase):
         self.assertIn('streams/3D item', text)
         self.assertEqual(baseline.audio_verdict(r1, [], None), (None, 'no audio stored'))
         self.assertIsNone(baseline.audio_noise([{'run': 'r', 'audio': None}]))
+
+    @staticmethod
+    def seq(*items):
+        """An audio summary of strict items (event, kind, sound): a stream 'm' or a 3D sample 't'."""
+        return {'sequence': [[ev, k, snd, 0 if ev == 'start' else None, 1, 1] for ev, k, snd in items],
+                'names': {'aa:10': 'door.wav', 'cc:7': 'bell.wav'}, 'events': len(items)}
+
+    def test_retail_unstable_per_stream(self):
+        # brief CS2 (c2): the stored runs disagree on the 3D door (stopped in one, ended in the other two): a run that
+        # differs there only is RETAIL-UNSTABLE, named by its sound; one differing in the music retail agrees on: DIFF
+        music = [('open', 'm', 'music.mp3'), ('start', 'm', 'music.mp3')]
+        s1 = self.seq(*music, ('start', 't', 'aa:10'), ('end', 't', 'aa:10'))
+        s2 = self.seq(*music, ('start', 't', 'aa:10'), ('stop', 't', 'aa:10'))
+        stored = [s1, s1, s2]
+        stab = baseline.audio_stability(stored)
+        self.assertEqual(stab['streams'], {'m music.mp3': True, 't aa:10': False})
+        self.assertFalse(stab['order'])
+        run = self.seq(*music, ('start', 't', 'aa:10'))                 # the door never ends: retail varies there
+        ok, text = baseline.audio_verdict(run, stored, None)
+        self.assertEqual(ok, baseline.RETAIL_UNSTABLE, text)
+        self.assertIn('t door.wav differ, and so do the 3 stored runs', text)
+        run = self.seq(('open', 'm', 'music.mp3'), ('start', 't', 'aa:10'), ('end', 't', 'aa:10'))
+        ok, text = baseline.audio_verdict(run, stored, None)            # the music never starts: retail agrees on it
+        self.assertIs(ok, False)
+        self.assertIn('stable in the 3 stored runs and different: m music.mp3', text)
+        new = self.seq(*music, ('start', 't', 'aa:10'), ('end', 't', 'aa:10'), ('start', 't', 'cc:7'))
+        ok, text = baseline.audio_verdict(new, stored, None)            # a sound no stored run has
+        self.assertIs(ok, False)
+        self.assertIn('t bell.wav', text)
+        self.assertIs(baseline.audio_verdict(run, [s1], None)[0], False)  # one stored run: nothing measured, DIFF
+
+    def test_retail_unstable_order_only(self):
+        a, b = ('start', 'm', 'music.mp3'), ('start', 't', 'aa:10')
+        ok, text = baseline.audio_verdict(self.seq(b, a), [self.seq(a, b), self.seq(a, b), self.seq(b, a, b)], None)
+        self.assertEqual(ok, baseline.RETAIL_UNSTABLE, text)           # the third stored run starts the door twice
+        ok, text = baseline.audio_verdict(self.seq(b, a), [self.seq(a, b), self.seq(a, b)], None)
+        self.assertIs(ok, False)                                       # order only, retail's order stable: DIFF
+        self.assertIn('the order differs, the 2 stored runs agree on it', text)
+        c = ('start', 't', 'cc:7')
+        stored = [self.seq(a, b, c), self.seq(a, b, c), self.seq(b, a, c), self.seq(a, c, b)]
+        self.assertFalse(baseline.audio_stability(stored)['order'])
+        ok, text = baseline.audio_verdict(self.seq(c, a, b), stored, None)
+        self.assertEqual(ok, baseline.RETAIL_UNSTABLE, text)
+        self.assertIn('the order differs, and so do the 4 stored runs', text)
+
+    def test_slices_cut_at_the_next_scenarios_first_input(self):
+        # brief CS2 (c3): what scenario a's last input started and the client played after a's end (sp_galaxymap's
+        # message_1.wav, 1 ms into sp_warp's slice) stays with a when b's first input came later
+        ev, res = _session()
+        ev.insert(-3, _ev(99, 1260, 'start', 't2', 'cc:7'))             # after a's end (1250), before b's input
+        res[1][1]['tick_input'] = 1280
+        self.assertEqual(baseline.audio_cut_of(res), 'input')
+        self.assertEqual(baseline.audio_cut_of([res[0], ('b', {'tick_end': 1450})]), 'end')
+        end = baseline.audio_slices(ev, res, 'end')
+        inp = baseline.audio_slices(ev, res, 'input')
+        self.assertNotIn(1260, [e['tick'] for e in end['a']])
+        self.assertIn(1260, [e['tick'] for e in end['b']])
+        self.assertIn(1260, [e['tick'] for e in inp['a']])
+        self.assertNotIn(1260, [e['tick'] for e in inp['b']])
+        self.assertEqual(len(inp['a']) + len(inp['b']), len(end['a']) + len(end['b']))
+        self.assertEqual(baseline.audio_cut_stored([{'cut': 'input'}, {'cut': 'input'}]), 'input')
+        self.assertEqual(baseline.audio_cut_stored([{'cut': 'input'}, {}]), 'end')     # older stored runs: 'end'
 
 
 class LiveSets(unittest.TestCase):

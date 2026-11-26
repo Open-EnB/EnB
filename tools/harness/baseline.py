@@ -27,9 +27,11 @@ manifest's SHA-256 (a Git LFS pointer is reported as "run git lfs pull"); it nee
 verify --run compares an e2e run (a session folder, the e2e --out folder: its newest run's session folders, several
 joined by ',', an e2e --manifest file, or a stored run's manifest.json) with the stored runs of the same client and
 env: the verdict, the packets (equal to at least one stored run's) and each shot (its differing cells against the
-best-matching stored run at most noise.json's max for that shot). One line per scenario, SAME or DIFF; then every
-scenario not compared, and why: the run's left out by NAME arguments, a stored set's the run has no result for
-(SKIP under --set). Exit 1 on any DIFF or problem, or a SKIP.
+best-matching stored run at most noise.json's max for that shot). One line per scenario, SAME, DIFF, NOT COMPARABLE
+or RETAIL-UNSTABLE (the only differences are audio streams / 3D sounds or draw logs the stored retail runs disagree
+on among themselves, leave one out); then every scenario not compared, and why: the run's left out by NAME
+arguments, a stored set's the run has no result for (SKIP under --set). Exit 1 on any DIFF or problem, or a SKIP;
+2 a stale build; 4 RETAIL-UNSTABLE (no DIFF); 3 not comparable (neither); 0 all SAME.
 
 inputs/ holds what a second device needs to repeat a run: captures/ (the replay set antprox /REPLAY reads, machine.py
 `recordings`), records/<YYYYMMDD-HHMMSS>/ (e2e record's tracks), db/ (the test account's row and its avatars'
@@ -930,14 +932,17 @@ def _ms_score(mine, stored):
 LEAVE_ONE_OUT = ('cams', 'worlds', 'still')
 
 
-def multiset_verdict(mine, stored):
+def multiset_verdict(mine, stored, reasons=None):
     """A run's loaded draw log against the loaded stored ones, as multisets -> (True | False, text). No draw state
     may be odd (_odd_states); the textures and the draw counts per state may differ from the nearest stored run as
     much as two stored runs differ (the counts times DRAW_MATRIX_SLACK); the views' difference and the number of
     draws out of their stored spread (and of those, draws that never moved in the stored runs) may be as large as a
     stored run's own against the other stored runs (leave one out: a playback's objects move by the shot's timing,
-    so retail has draws out of the spread two runs measure too); with one stored run all must be zero."""
+    so retail has draws out of the spread two runs measure too); with one stored run all must be zero. REASONS (a
+    set) gets what failed: 'states:FIELD' for each field an odd state differs in from its nearest stored one
+    ('states:new STATE' when none has its fields), 'textures', 'draws', 'cams', 'worlds'."""
     score = _ms_score(mine, stored)
+    why = set()
     nz = score['nz']
     allowed = {k: 0 for k in LEAVE_ONE_OUT}
     if len(stored) > 1:
@@ -949,22 +954,30 @@ def multiset_verdict(mine, stored):
     if score['states']:
         st = score['st']
         s, d = (st['extra'] or st['missing'])[0]
+        for s1, d1 in st['extra'] + st['missing']:
+            why |= {f'states:{f}' for f in d1} if d1 else {f'states:new {_state_desc(s1)}'}
         parts.append(f'{len(st["extra"])} draw states not stored, {len(st["missing"])} stored ones missing (e.g. '
                      f'{"extra" if st["extra"] else "missing"} {_state_desc(s)}: '
                      f'{", ".join((d or ["no stored state with its fields"])[:4])})')
     if score['textures'] > nz['textures']:
+        why.add('textures')
         parts.append(f'{score["textures"]} textures differ (stored runs by up to {nz["textures"]})')
     if score['draws'] > DRAW_MATRIX_SLACK * nz['draws']:
+        why.add('draws')
         parts.append(f'draw counts per state {score["draws"]} apart (stored runs up to {nz["draws"]})')
     if score['cams'] > allowed['cams'] + DRAW_MATRIX_FLOOR:
+        why.add('cams')
         parts.append(f'views / projections up to {score["cams"]:.4g} apart (a stored run against the others: '
                      f'{allowed["cams"]:.4g})')
     if score['worlds'] > allowed['worlds'] or score['still'] > allowed['still']:
+        why.add('worlds')
         i, j, d, lim = max(score['wo']['worlds'], key=lambda w: w[2] - w[3])
         parts.append(f'world matrices of {score["worlds"]} draws out of the stored spread, {score["still"]} of them '
                      f'still in every stored run (a stored run against the others: {allowed["worlds"]}, '
                      f'{allowed["still"]}; worst {_draw_desc(mine, i)} {d:.4g}, allowed {lim:.4g})')
     if parts:
+        if reasons is not None:
+            reasons |= why
         return False, 'as a multiset: ' + '; '.join(parts)
     return True, (f'the same as a multiset (draw counts per state {score["draws"]} apart, stored runs up to '
                   f'{nz["draws"]}; {score["worlds"]} draws out of the stored spread, a stored run against the others '
@@ -1023,14 +1036,17 @@ def _draw_desc(log, i):
         f.get('fvf'), int) else f'draw {i}'
 
 
-def drawlog_verdict(mine_path, stored_paths, nzd):
+def drawlog_verdict(mine_path, stored_paths, nzd, reasons=None):
     """A run's draw log for one shot against the stored ones -> (True SAME | False DIFF | None nothing to compare,
     text). SAME: equal to one stored run's log, or different only in fields and draw counts the stored runs vary in
     themselves, with every matrix within that stored run's own spread for the draw it pairs with (noise.json
-    matrix_draws, times DRAW_MATRIX_SLACK, plus DRAW_MATRIX_FLOOR; a draw whose matrices never varied: the floor)."""
+    matrix_draws, times DRAW_MATRIX_SLACK, plus DRAW_MATRIX_FLOOR; a draw whose matrices never varied: the floor).
+    REASONS (a set): what made a DIFF (multiset_verdict's; 'no log' / 'lfs' when there was nothing to compare)."""
     if not stored_paths:
         return None, 'no draw log stored'
     if not mine_path:
+        if reasons is not None:
+            reasons.add('no log')
         return False, 'no draw log in the run'
     nzd = nzd or {}
     allowed = set(nzd.get('varying', []))
@@ -1040,6 +1056,8 @@ def drawlog_verdict(mine_path, stored_paths, nzd):
     best, loaded = None, []
     for p in stored_paths:
         if is_lfs_pointer(p):
+            if reasons is not None:
+                reasons.add('lfs')
             return False, f'{os.path.basename(p)} is a Git LFS pointer: run git lfs pull'
         run = os.path.basename(os.path.dirname(p))
         spread = (nzd.get('matrix_draws') or {}).get(run, {})
@@ -1071,10 +1089,36 @@ def drawlog_verdict(mine_path, stored_paths, nzd):
     if c['bad']:
         parts.append('matrices ' + ', '.join(f'{k} in {n} draws from draw {f0} (up to {w:.4g})'
                                              for k, (n, f0, w) in sorted(c['bad'].items())))
-    ok, text = multiset_verdict(mine, loaded)
+    ok, text = multiset_verdict(mine, loaded, reasons)
     if ok:          # the ordered compare's differences are a moving scene's: order, LOD, matrices within the spread
         return True, f'{mine["count"]} draws, {text} (in order: {"; ".join(parts[1:])})'
     return False, '; '.join(parts) + '; ' + text
+
+
+def drawlog_stability(stored_paths):
+    """Retail against retail, leave one out (brief CS2, c2; CS's loo.py): [(run, text, reasons)] of each stored run
+    whose draw log for one shot drawlog_verdict calls DIFF against the other stored runs' logs and their own noise
+    (drawlog_noise of the others); [] when every one passes or fewer than two are stored (nothing measured)."""
+    if len(stored_paths) < 2:
+        return []
+    run_of = lambda p: os.path.basename(os.path.dirname(p))     # noqa: E731
+    out = []
+    for i, p in enumerate(stored_paths):
+        others = stored_paths[:i] + stored_paths[i + 1:]
+        nzd = drawlog_noise({run_of(q): q for q in others}, [run_of(q) for q in others])
+        why = set()
+        ok, text = drawlog_verdict(p, others, nzd, why)
+        if ok is False:
+            out.append((run_of(p), text, why))
+    return out
+
+
+def drawlog_unstable(run_reasons, loo):
+    """A run's draw-log DIFF is RETAIL-UNSTABLE when every reason it failed for (drawlog_verdict's REASONS) is one
+    a stored run fails for against the others too (drawlog_stability's): retail's runs disagree there among
+    themselves. A reason no left-out stored run shows (a field, a measure retail agrees on) keeps it DIFF."""
+    shared = set().union(*(w for _, _, w in loo)) if loo else set()
+    return bool(run_reasons) and run_reasons <= shared
 
 
 # ---------------------------------------------------------------- noise
@@ -1258,17 +1302,34 @@ def _akind(h):
     return h[0] if isinstance(h, str) and h[:1].isalpha() else '?'
 
 
-def audio_slices(events, results):
+AUDIO_CUTS = ('end', 'input')
+
+
+def audio_cut_of(results):
+    """The cut a session's results allow: 'input' when every scenario after the first has a tick_input (e2e since
+    2026-11-25 evening), else 'end'."""
+    later = [res for _, res in results[1:]]
+    return 'input' if later and all(res.get('tick_input') is not None for res in later) else 'end'
+
+
+def audio_slices(events, results, cut='end'):
     """{scenario: its events} of one session's audio log; RESULTS [(name, result)] in the order run. A scenario
-    whose result has no tick_end (an older e2e) gets the whole log when it is the session's only one, else none."""
+    whose result has no tick_end (an older e2e) gets the whole log when it is the session's only one, else none.
+    CUT 'end': a scenario's slice ends at its own tick_end; 'input' (brief CS2, c3): at the next scenario's first
+    input (its tick_input), so what the scenario's last input started and the client plays only after the scenario's
+    end (sp_galaxymap's message_1.wav, 1 ms into sp_warp's slice) stays with it; the last scenario ends at its
+    tick_end, and a next scenario without a tick_input falls back to the 'end' boundary."""
     events = [e for e in events if e.get('ev') not in ('log', 'bad-line')]
     if len(results) == 1 and results[0][1].get('tick_end') is None:
         return {results[0][0]: events}
     out, lo = {}, None
-    for name, res in results:
+    for k, (name, res) in enumerate(results):
         hi = res.get('tick_end')
         if hi is None:
             continue
+        nxt = results[k + 1][1].get('tick_input') if cut == 'input' and k + 1 < len(results) else None
+        if nxt is not None and nxt > (lo if lo is not None else -1):
+            hi = nxt                # read before the input is posted: the client answers it at a later tick
         out[name] = [e for e in events if (lo is None or e.get('tick', 0) > lo) and e.get('tick', 0) <= hi]
         lo = hi
     return out
@@ -1300,17 +1361,23 @@ def audio_names(events):
             if e.get('ev') == 'load' and e.get('hash') and e.get('type')}
 
 
-def session_audio(session, results):
+def session_audio(session, results, cut=None):
     """{scenario: audio_summary} of SESSION's audio.jsonl, and the log's {bytes, sha256, events}; ({}, None)
-    without one."""
+    without one. CUT None: the finest the results allow (audio_cut_of); each summary records its 'cut'."""
     import audiolog
     path = os.path.join(session, audiolog.LOG_NAME)
     if not os.path.isfile(path):
         return {}, None
     events = audiolog.load(path)
     names = audio_names(events)
-    out = {n: audio_summary(ev, names) for n, ev in audio_slices(events, results).items()}
+    cut = cut or audio_cut_of(results)
+    out = {n: dict(audio_summary(ev, names), cut=cut) for n, ev in audio_slices(events, results, cut).items()}
     return out, {'bytes': os.path.getsize(path), 'sha256': sha256_file(path), 'events': len(events)}
+
+
+def audio_cut_stored(stored):
+    """The cut the stored summaries were made with: 'input' only when every one says so (older ones: 'end')."""
+    return 'input' if stored and all(a.get('cut') == 'input' for a in stored) else 'end'
 
 
 def audio_strict(a):
@@ -1371,18 +1438,78 @@ def audio_noise(entries):
             'frames': all(a.get('frames') for _, a in have)}
 
 
+RETAIL_UNSTABLE = 'RETAIL-UNSTABLE'
+
+
+def audio_streams(a):
+    """{'KIND SOUND': [(event, loop), ...]}: each stream's or 3D sample's own events of the strict sequence, in order."""
+    out = {}
+    for ev, kind, snd, loop in audio_strict(a):
+        out.setdefault(f'{kind} {snd}', []).append((ev, loop))
+    return out
+
+
+def audio_stability(stored):
+    """Retail against retail, leave one out (brief CS2, c2: the measurement behind RETAIL-UNSTABLE): 'order' whether
+    every stored run's whole strict sequence equals another stored run's, 'streams' {'KIND SOUND': whether every
+    stored run's own events of that sound equal another stored run's (a run without the sound: no events)}, 'runs'
+    the count. With fewer than two stored runs nothing is measured and everything reads stable (a mismatch stays DIFF)."""
+    seqs = [audio_strict(a) for a in stored]
+    per = [audio_streams(a) for a in stored]
+    keys = sorted(set().union(*per)) if per else []
+    if len(stored) < 2:
+        return {'runs': len(stored), 'order': True, 'streams': {k: True for k in keys}}
+
+    def loo(vals):
+        return all(any(vals[i] == vals[j] for j in range(len(vals)) if j != i) for i in range(len(vals)))
+    return {'runs': len(stored), 'order': loo(seqs),
+            'streams': {k: loo([p.get(k, []) for p in per]) for k in keys}}
+
+
+def _stream_name(key, *summaries):
+    kind, snd = key.split(' ', 1)
+    for a in summaries:
+        if snd in a.get('names', {}):
+            return f'{kind} {a["names"][snd]}'
+    return key
+
+
 def audio_verdict(mine, stored, nz):
     """(ok, text) for MINE (an audio_summary or None) against the stored runs' summaries: ok None when nothing is
-    stored ("no audio stored") or the run has none."""
+    stored ("no audio stored") or the run has none; RETAIL_UNSTABLE when the streams/3D sequence equals no stored
+    run's only in sounds (or, every sound's own events matching, only in the order) the stored runs themselves
+    disagree on, leave one out (audio_stability); a sound whose events the stored runs agree on and the run's do
+    not, or a 2D count out of the stored range, is DIFF (False)."""
     if not stored:
         return None, 'no audio stored'
     if mine is None:
         return None, 'no audio in the run'
     st = audio_strict(mine)
-    why = []
+    why, shaky = [], []
     if all(st != audio_strict(a) for a in stored):
         d = max((_audio_diff(mine, a) for a in stored), key=lambda kt: kt[0])     # the longest agreement
-        why.append(f'streams/3D {d[1]} (run first, stored second)')
+        stab = audio_stability(stored)
+        own = audio_streams(mine)
+        theirs = [audio_streams(a) for a in stored]
+        differ = [k for k in sorted(set(own) | set(stab['streams']))
+                  if all(own.get(k, []) != t.get(k, []) for t in theirs)]
+        firm = [k for k in differ if stab['streams'].get(k, True)]
+        loose = [k for k in differ if not stab['streams'].get(k, True)]
+        if firm or (not differ and stab['order']):
+            why.append(f'streams/3D {d[1]} (run first, stored second)'
+                       + (f'; stable in the {stab["runs"]} stored runs and different: '
+                          + ', '.join(_stream_name(k, mine, *stored) for k in firm[:4])
+                          + (f' (+{len(firm) - 4})' if len(firm) > 4 else '') if firm else
+                          f'; every sound\'s own events as stored, the order differs, the {stab["runs"]} stored runs '
+                          'agree on it'))
+        elif loose:
+            shaky.append(f'streams/3D: ' + ', '.join(_stream_name(k, mine, *stored) for k in loose[:4])
+                         + (f' (+{len(loose) - 4})' if len(loose) > 4 else '')
+                         + f' differ, and so do the {stab["runs"]} stored runs among themselves, leave one out '
+                         f'({d[1]})')
+        else:
+            shaky.append(f'streams/3D: every sound\'s own events as stored, the order differs, and so do the '
+                         f'{stab["runs"]} stored runs\' orders among themselves, leave one out ({d[1]})')
     rng = (nz or {}).get('loose')
     if rng is None:
         lo = [audio_loose(a) for a in stored]
@@ -1396,7 +1523,9 @@ def audio_verdict(mine, stored, nz):
                        f'x{mc.get(k, 0)}, stored {lo}' + (f'-{hi}' if hi != lo else ''))
             break
     if why:
-        return False, '; '.join(why)
+        return False, '; '.join(why + shaky)
+    if shaky:
+        return RETAIL_UNSTABLE, '; '.join(shaky)
     return True, f'{len(st)} stream/3D items, {sum(mc.values())} 2D'
 
 
@@ -1891,16 +2020,19 @@ def verify_run(args):
         return 1
     sessions = _session_orders(dirs, man)
     order = [n for o in sessions for n in o]
-    mine_audio = {}
-    if man is not None:                 # a stored run: its audio-NAME.json files
+    mine_audio = {cut: {} for cut in AUDIO_CUTS}      # the run's audio cut as the stored runs were cut
+    if man is not None:                 # a stored run: its audio-NAME.json files, as they were cut
         for en in (man.get('scenarios') or [dict(man, name=man.get('scenario'))]):
             if en.get('audio'):
-                mine_audio[en['name']] = read_json(os.path.join(dirs[0], en['audio']))
+                for cut in AUDIO_CUTS:
+                    mine_audio[cut][en['name']] = read_json(os.path.join(dirs[0], en['audio']))
     else:
         for d in dirs:                  # the results read from this folder (its 'out' may name where it ran)
             here = [(n, results[n]) for n in e2e.run_results([d]) if n in results]
             here.sort(key=lambda nr: order.index(nr[0]) if nr[0] in order else 1 << 20)
-            mine_audio.update(session_audio(d, here)[0])
+            for cut in AUDIO_CUTS:
+                mine_audio[cut].update(session_audio(d, here, cut)[0])
+    unstable = 0
     holders = [(c, e, s, d, dir_scenarios(d)) for c, e, s, d in scenario_dirs(store)
                if (not client or c == client) and (not env or e == env)]
     bad, apart, used = 0, 0, set()
@@ -1923,6 +2055,7 @@ def verify_run(args):
         nz = read_json(os.path.join(d, 'noise.json'))
         nzs = nz['scenarios'].get(name, {}) if 'set' in nz else nz
         what, notes, hard = [], [], []     # hard: differences no scenario order explains (the verdict, a shot)
+        shaky = []                          # differences the stored retail runs share among themselves
         v = e2e.verdict(results[name])
         stored_v = sorted({en['verdict'] for en in ents})
         if v not in stored_v:
@@ -1956,15 +2089,24 @@ def verify_run(args):
         mine_shots = dict(shot_keys(shots.get(name, [])))
         logs_same, logs_none, logs_ms = 0, 0, 0
         for key in sorted(mine_shots):
+            why = set()
             ok, text = drawlog_verdict(drawlog_path(mine_shots[key]), stored_logs.get(key, []),
-                                       nzs.get('shots', {}).get(key, {}).get('drawlog'))
+                                       nzs.get('shots', {}).get(key, {}).get('drawlog'), why)
             if ok is None:
                 logs_none += 1
             elif ok:
                 logs_same += 1
                 logs_ms += 'as a multiset' in text
             else:
-                what.append(f'draw log {key}: {text}')
+                loo = drawlog_stability(stored_logs.get(key, []))
+                if drawlog_unstable(why, loo):  # retail's own runs fail the same way, leave one out
+                    shaky.append(f'draw log {key}: {text} (and {len(loo)} of the {len(stored_logs[key])} stored runs '
+                                 f'against the others, leave one out, for {", ".join(sorted(why))}: {loo[0][0]}: '
+                                 f'{loo[0][1][:160]})')
+                else:
+                    what.append(f'draw log {key}: {text}' + (
+                        f' (the stored runs, leave one out, differ only in {", ".join(sorted(set().union(*(w for _, _, w in loo))))})'
+                        if loo else ''))
         within = 0
         for key in sorted(set(stored_shots) | set(mine_shots)):
             if key not in mine_shots or key not in stored_shots:
@@ -1980,32 +2122,46 @@ def verify_run(args):
                 what.append(f'shot {key} {best} cells (noise max {limit})')
             else:
                 within += 1
-        a_ok, a_text = audio_verdict(mine_audio.get(name), [read_json(en['audio']) for en in ents if en.get('audio')],
+        stored_audio = [read_json(en['audio']) for en in ents if en.get('audio')]
+        a_ok, a_text = audio_verdict(mine_audio[audio_cut_stored(stored_audio)].get(name), stored_audio,
                                      nzs.get('audio'))
         if a_ok is False:
             what.append(f'audio {a_text}')
+        elif a_ok == RETAIL_UNSTABLE:
+            shaky.append(f'audio {a_text}')
         line = f'{len(mine)} packets, shots {within} of {len(set(stored_shots) | set(mine_shots))} within noise'
         line += (f', draw logs {logs_same} of {len(mine_shots)} the same' + (f' ({logs_ms} as a multiset)' if logs_ms
                                                                             else '')
                  if logs_same or not logs_none else '') + \
             (f', no draw log stored for {logs_none}' if logs_none else '')
-        line += f', audio the same ({a_text})' if a_ok else f', {a_text}'
+        line += f', audio the same ({a_text})' if a_ok is True else f', {a_text}'
         # packets, shots, draw logs and audio carry state from the scenario before (texture address modes, draw
         # order, matrices: retail itself differs so): after another scenario than stored they are not comparable
-        apart_here = bool(what) and not hard and bool(notes)
+        apart_here = bool(what or shaky) and not hard and bool(notes)
+        # RETAIL-UNSTABLE (brief CS2, c2): the only differences are in audio streams / draw logs the stored retail
+        # runs disagree on among themselves (leave one out): neither SAME nor DIFF, never a pass
+        shaky_here = bool(shaky) and not (hard or what) and not apart_here
         if apart_here:
-            head = 'NOT COMPARABLE (scenario order differs: compare a run in the stored order) ' + '; '.join(what)
+            head = 'NOT COMPARABLE (scenario order differs: compare a run in the stored order) ' + '; '.join(
+                what + [f'{RETAIL_UNSTABLE}: {x}' for x in shaky])
+        elif shaky_here:
+            head = f'{RETAIL_UNSTABLE} ' + '; '.join(shaky)
         else:
-            head = 'DIFF ' + '; '.join(hard + what) if hard or what else 'SAME ' + line
+            head = ('DIFF ' + '; '.join(hard + what + [f'also {RETAIL_UNSTABLE}: {x}' for x in shaky])
+                    if hard or what else 'SAME ' + line)
         print(f'{name}: {head}' + (f' ({"; ".join(notes)})' if notes else '') + f'  [{c}/{e}/{s}, {len(ents)} runs'
               + (f'; {len(superseded)} of an older {name}.scn left out' if superseded else '') + ']')
         bad += bool(hard or what) and not apart_here
         apart += apart_here
+        unstable += shaky_here
     missed = skipped_scenarios(args, dirs, results, names, holders, used)
-    print(f'baseline verify --run: {len(names) - bad - apart} of {len(names)} scenarios the same as the baseline'
+    print(f'baseline verify --run: {len(names) - bad - apart - unstable} of {len(names)} scenarios the same as the '
+          'baseline'
+          + (f', {unstable} {RETAIL_UNSTABLE} (differ only where the stored retail runs differ among themselves)'
+             if unstable else '')
           + (f', {apart} not comparable (run after another scenario than stored)' if apart else '')
           + (f'; {missed} stored scenario(s) of the set not in the run (named above)' if missed else ''))
-    return 1 if bad or (missed and args.set) else 3 if apart else 0
+    return 1 if bad or (missed and args.set) else 4 if unstable else 3 if apart else 0
 
 
 _SESSION_HEAD = re.compile(r' session of \d+: (.+?); exe ')
