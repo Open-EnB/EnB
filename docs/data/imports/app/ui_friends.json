@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x444190"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "ui_friends.cpp (the client's __FILE__ 0xB7F3D0; client 0x58F090-0x5928AF by its asserts (lines 586-722) and its string order, after ui_faction_panel.cpp, before ui_group.cpp): the friends window, every function from 0x58F0F0: the players' list rebuilt and sorted, the rows lit, a row clicked, a symbol sent (FR1); the constructor, destructor, the set-up 0x58F6B0 ('tsi28a'), the key switch 0x590020, the group invite 0x591C30 (FR2)",
  "expected": {},

@@ -143,7 +143,7 @@ void UIFriendsClass::Unknown_54()
 	}
 }
 
-// NOT EXACT: inline budget (the client calls the vector's erase, the list's begin and erase out of line and expands the list's ??_G; ours the reverse)
+// NOT EXACT: inline budget (the client calls the vector's erase 0x592640 out of line; ours expands it)
 // 0x58FBA0
 void UIFriendsClass::Unknown_58()
 {
@@ -158,9 +158,9 @@ void UIFriendsClass::Unknown_58()
 		Unknown_590810();
 		Top = -1;
 		Unknown_590480(0);
-		int id = ((ClientClass *)Client)->Unknown1138;
-	ClientChatRequestPacketClass packet(0x18, id);
-		((ClientClass *)Client)->Send_Packet(&packet);
+		Unknown_591350();
+
+
 		Unknown_591030(true);
 		if (Unknown0D0[0]) {
 			((RObjGadgetClass *)Unknown0D0[0])->Unknown_66C360();
@@ -349,7 +349,7 @@ void UIFriendsClass::Unknown_5906C0()
 void UIFriendsClass::Unknown_590810()
 {
 	std::list<UIFriendsPlayerInfoClass *>::iterator it;
-	for (it = Unknown0C4.begin(); it != Unknown0C4.end(); it++) {
+	for (it = Unknown0C4.begin(); it != Unknown0C4.end(); ++it) {
 		Unknown_Delete_Player(*it);
 	}
 	Unknown0C4.clear();
@@ -601,16 +601,16 @@ void UIFriendsClass::Unknown_591350()
 
 
 
-// NOT EXACT: inline budget and registers (the client keeps the list iterator's ++ inline and calls the players' ??_G and list::clear out of line; names' first / last in edi / ebx)
+// NOT EXACT: registers and scheduling (names' first / last, this and the location iterator in other registers)
 // 0x5913E0
 void UIFriendsClass::Unknown_5913E0(std::vector<std::string> names, std::vector<std::string> locations)
 {
 	int player_list_size = names.size();
 	int location_list_size = locations.size();
 	FAIL_IF(player_list_size != location_list_size) return;
-	Unknown_590810();
-	for (int i = 0; i < player_list_size; i++) {
-		Unknown0C4.push_back(new UIFriendsPlayerInfoClass(names[i], locations[i]));
+	Unknown_590810(); std::vector<std::string>::iterator loc = locations.begin();
+	for (std::vector<std::string>::iterator it = names.begin(); it != names.end(); ++it, ++loc) {
+		Unknown0C4.push_back(new UIFriendsPlayerInfoClass(*it, *loc));
 	}
 	Unknown_5908B0();
 	Unknown_590550();

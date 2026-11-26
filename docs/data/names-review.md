@@ -12738,12 +12738,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_58` | `app/client/ui_friends.cpp:148` | untagged neutral name (D10) |
 | 1 | `Unknown_590810` | `app/client/ui_friends.cpp:158` | untagged neutral name (D10) |
 | 1 | `Unknown_590480` | `app/client/ui_friends.cpp:160` | untagged neutral name (D10) |
-| 1 | `Unknown1138` | `app/client/ui_friends.cpp:161` | untagged neutral name (D10) |
+| 1 | `Unknown_591350` | `app/client/ui_friends.cpp:161` | untagged neutral name (D10) |
 | 1 | `Unknown_591030` | `app/client/ui_friends.cpp:164` | untagged neutral name (D10) |
 | 1 | `Unknown_66C360` | `app/client/ui_friends.cpp:166` | untagged neutral name (D10) |
 | 1 | `Unknown_5906C0` | `app/client/ui_friends.cpp:176` | untagged neutral name (D10) |
 | 1 | `Unknown_60` | `app/client/ui_friends.cpp:183` | untagged neutral name (D10) |
-| 1 | `Unknown_591350` | `app/client/ui_friends.cpp:187` | untagged neutral name (D10) |
 | 1 | `Unknown_590500` | `app/client/ui_friends.cpp:189` | untagged neutral name (D10) |
 | 1 | `Unknown_590C70` | `app/client/ui_friends.cpp:190` | untagged neutral name (D10) |
 | 1 | `Unknown_590E50` | `app/client/ui_friends.cpp:191` | untagged neutral name (D10) |
@@ -12756,6 +12755,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_5910D0` | `app/client/ui_friends.cpp:223` | untagged neutral name (D10) |
 | 1 | `Unknown_591A30` | `app/client/ui_friends.cpp:227` | untagged neutral name (D10) |
 | 1 | `Unknown_591EE0` | `app/client/ui_friends.cpp:231` | untagged neutral name (D10) |
+| 1 | `Unknown1138` | `app/client/ui_friends.cpp:239` | untagged neutral name (D10) |
 | 1 | `Unknown_5908B0` | `app/client/ui_friends.cpp:254` | untagged neutral name (D10) |
 | 1 | `Unknown_590550` | `app/client/ui_friends.cpp:255` | untagged neutral name (D10) |
 | 1 | `Unknown_591C30` | `app/client/ui_friends.cpp:265` | untagged neutral name (D10) |
