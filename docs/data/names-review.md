@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1971 |
 | 2 | describes what the code does | 5015 |
-| 1 | neutral placeholder | 25196 |
+| 1 | neutral placeholder | 25197 |
 
 ## For review (score 3 and below)
 
@@ -8815,7 +8815,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_88` | `app/client/ship_pip.cpp:327` | untagged neutral name (D10) |
 | 1 | `Unknown_8C` | `app/client/ship_pip.cpp:328` | untagged neutral name (D10) |
 | 1 | `Unknown_90` | `app/client/ship_pip.cpp:329` | untagged neutral name (D10) |
-| 1 | `Unknown_Zoom, pip, distance` | `app/client/ship_pip.cpp:333` | neutral, PROVISIONAL (the form is the client's, the helper's name and signature a guess) |
+| 1 | `Unknown_Min, Unknown_Zoom, pip, distance` | `app/client/ship_pip.cpp:333` | neutral, PROVISIONAL (the form is the client's, the helpers' names and signatures a guess) |
+| 1 | `Unknown_Min` | `app/client/ship_pip.cpp:334` | untagged neutral name (D10) |
 | 1 | `Unknown_Zoom` | `app/client/ship_pip.cpp:334` | untagged neutral name (D10) |
 | 1 | `Unknown_84` | `app/client/ship_pip.cpp:345` | untagged neutral name (D10) |
 | 1 | `Unknown_78` | `app/client/ship_pip.cpp:378` | untagged neutral name (D10) |
