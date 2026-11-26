@@ -1251,9 +1251,9 @@ void UIGroupClass::Unknown_5966A0()
 
 
 
-template<class C> inline C *Unknown_Find_Aux_Field(DeltaCompoundClass *const &root, const char *name) { NameClass n(name); DeltaCompoundClass *r = root; return(Unknown_Find_Field<C>(r, n)); } template<class C> inline C *Unknown_Find_Aux(DeltaCompoundClass *const &root, const char *name) { return(Unknown_Find_Aux_Field<C>(root, name)); }	// NAME 1: neutral (D10): auxdata.h's find through two inline layers (ui_manu.cpp's form): out of line as the client in both branches
+template<class C> inline C *Unknown_Find_Aux_Field(DeltaCompoundClass *const &root, const char *name) { NameClass n(name); DeltaCompoundClass *r = root; return(Unknown_Find_Field<C>(r, n)); } template<class C> inline C *Unknown_Find_Aux(DeltaCompoundClass *const &root, const char *name) { return(Unknown_Find_Aux_Field<C>(root, name)); } static inline DeltaGroupMemberClass *Unknown_Group_Member(DeltaGroupInfoClass *g, int i) { return((DeltaGroupMemberClass *)g->Members.Children[i]); }	// NAME 1: neutral (D10): auxdata.h's find through two inline layers (ui_manu.cpp's form): out of line as the client in both branches; Unknown_Group_Member: the group's i-th member through one inline layer (0x596770's second loop: the client's inline cut, no dead read)
 // 0x596770
-// NOT EXACT: inline budget, 69 masked rows (B10; 116 with the direct finds): the two-layer find sends both finds out of line as the client, two dead Members.size() after Add_Member spend what that frees (D272), the member loop's branch negated (the client lays Remove_Member first, it++ before the test); left: the Add_Member temporary's assign out of line (the client inlines it and calls _Grow / _Eos: the two reads between Get_Member and the test instead give that, 76), the second loop's registers; attempts.py show 0x596770
+// NOT EXACT: register, 11 masked rows (FB8; 69 with two dead Members.size() after Add_Member, 116 with the direct finds): the two-layer find sends both finds out of line as the client; the second loop reads the group's i-th member through Unknown_Group_Member (one inline layer: the client's inline cut in both temporaries, 382 / 382 rows, no dead read); the member loop's branch negated (the client lays Remove_Member first, it++ before the test); left: the first loop's compare (the client loads the member name's _Len after pushing the length and pushes the strlen's eax for the 0; 9 rows) and one register pair at the second loop's head (2); attempts.py show 0x596770
 void UIGroupClass::Unknown_596770(bool arg)
 {
 	ClientClass *client = (ClientClass *)Client;
@@ -1290,17 +1290,17 @@ void UIGroupClass::Unknown_596770(bool arg)
 			}
 		}
 		for (int i = 0; i < 5; i++) {
-			int id = ((DeltaGroupMemberClass *)group->Members.Children[i])->GameID.Value;
-			const char *name = ((DeltaGroupMemberClass *)group->Members.Children[i])->Name.String;
-			int position = ((DeltaGroupMemberClass *)group->Members.Children[i])->Position.Value;
-			int formation = ((DeltaGroupMemberClass *)group->Members.Children[i])->Formation.Value;
+			int id = Unknown_Group_Member(group, i)->GameID.Value;
+			const char *name = Unknown_Group_Member(group, i)->Name.String;
+			int position = Unknown_Group_Member(group, i)->Position.Value;
+			int formation = Unknown_Group_Member(group, i)->Formation.Value;
 			if (!name || !*name) break;
 			if (!position && formation) {
 				Unknown_597B70(true);
 			}
 			it = Get_Member(name);
 			if (it == Members.end()) {
-				Add_Member(name, id, position); Members.size(); Members.size();
+				Add_Member(name, id, position);
 			} else {
 				(*it)->ID = id;
 			}

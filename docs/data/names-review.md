@@ -12945,8 +12945,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_597BF0` | `app/client/ui_group.cpp:1170` | untagged neutral name (D10) |
 | 1 | `Unknown_597820` | `app/client/ui_group.cpp:1177` | untagged neutral name (D10) |
 | 1 | `Unknown_597D10` | `app/client/ui_group.cpp:1204` | untagged neutral name (D10) |
-| 1 | `Unknown_Find_Aux_Field` | `app/client/ui_group.cpp:1254` | neutral (D10): auxdata.h's find through two inline layers (ui_manu.cpp's form): out of line as the client in both branches |
+| 1 | `Unknown_Find_Aux_Field` | `app/client/ui_group.cpp:1254` | neutral (D10): auxdata.h's find through two inline layers (ui_manu.cpp's form): out of line as the client in both branches; Unknown_Group_Member: the group's i-th member through one inline layer (0x596770's second loop: the client's inline cut, no dead read) |
 | 1 | `Unknown_Find_Aux` | `app/client/ui_group.cpp:1254` | untagged neutral name (D10) |
+| 1 | `Unknown_Group_Member` | `app/client/ui_group.cpp:1254` | untagged neutral name (D10) |
 | 1 | `Unknown_597B70` | `app/client/ui_group.cpp:1299` | untagged neutral name (D10) |
 | 1 | `Unknown_64B2F0` | `app/client/ui_group.cpp:1366` | untagged neutral name (D10) |
 | 1 | `Unknown_596E20` | `app/client/ui_group.cpp:1367` | untagged neutral name (D10) |
