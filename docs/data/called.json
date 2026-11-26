@@ -2742,6 +2742,9 @@
 "data:?ForgetOut@BandwidthAccountingClass@@2_NA": [
 "0xBB13E9"
 ],
+"data:?FrameCount@WW3D@@0HA": [
+"0xBFAE58"
+],
 "data:?FrameCounter@WWProfileManager@@0HA": [
 "0xC4048C"
 ],
@@ -4286,6 +4289,9 @@
 "data:__real@4@bffeb5c28f0000000000": [
 "0xAF7AE0"
 ],
+"data:__real@4@bffecccccd0000000000": [
+"0xB0472C"
+],
 "data:__real@4@bfff8000000000000000": [
 "0xAE784C",
 "0xAF2D14"
@@ -4358,6 +4364,9 @@
 ],
 "data:__real@8@3ffbccccccccccccd000": [
 "0xAF0638"
+],
+"data:__real@8@3ffd8000000000000000": [
+"0xB04730"
 ],
 "data:__real@8@3ffd860a920000000000": [
 "0xB05968"
