@@ -755,7 +755,9 @@ the last name. Live antprox logs opcode numbers; e2e appends the names (`... = s
   the account gained since the session started to `db-NAME.sql`: avatar_data (parts, colours, the blend pulls
   height_weight_0..4), ship_data, faction_data, as the server stored the creation request. Random Appearance draws
   from a generator that repeats run to run: the stored character is the same on every unpatched retail run and on
-  ours, column for column. The narrator's gesture on the login screen follows the returning-user line
+  ours, column for column; `baseline.py verify --run` compares each `db-NAME.sql` of the run with the stored runs'
+  (`db_dump_verdict`: the rows of every table equal to one stored run's, the server's wall-clock columns last_login /
+  last_logout / last_logout_t left out; a dump the stored runs have and the run lacks, or other rows: DIFF). The narrator's gesture on the login screen follows the returning-user line
   (`ReturningUser%d`, `time(NULL) % 3`, 0x5ADA50): login-screen shots compare only between runs that played the
   same 323Se / 324Se / 325Se. Character select's and the creation pages' buttons take a click only after their
   turn-in (about 3 s after a page change) and the login screen's Account Management only after the pointer

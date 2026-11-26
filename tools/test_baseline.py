@@ -982,6 +982,40 @@ class Audio(unittest.TestCase):
         self.assertEqual(baseline.audio_cut_stored([{'cut': 'input'}, {}]), 'end')     # older stored runs: 'end'
 
 
+class DbDumps(unittest.TestCase):
+    # brief CS7 item 2: ui_charcreate's stored runs carry db-created.sql (the character the server stored); a run's
+    # dump equal to a stored run's but for the login time is the same, any other column is a difference
+    DUMP = ("-- avatar 9\n"
+            "INSERT INTO `avatar_info` (`avatar_id`, `slot`, `engine_trail_type`, `last_login`) VALUES "
+            "(9,3,NULL,'{login}');\n"
+            "INSERT INTO `avatar_data` (`avatar_id`, `first_name`, `prof`) VALUES (9,'{name}',{prof});\n"
+            "INSERT INTO `faction_data` (`id`, `avatar_id`, `faction_value`) VALUES (52,9,0),(53,9,-2500);\n")
+
+    def dump(self, d, f='db-created.sql', login='2026-11-26 17:38:03', name="O\\'Neil, Jr", prof=2):
+        os.makedirs(d, exist_ok=True)
+        with open(os.path.join(d, f), 'w', encoding='utf-8') as fo:
+            fo.write(self.DUMP.format(login=login, name=name, prof=prof))
+        return d
+
+    def test_rows_and_verdict(self):
+        t = tempfile.mkdtemp()
+        stored = [baseline.db_dumps_in(self.dump(os.path.join(t, f's{k}'), login=f'2026-11-26 17:4{k}:00'))
+                  for k in range(3)]
+        rows = baseline.sql_dump_rows(stored[0]['db-created.sql'])
+        self.assertEqual(rows['avatar_data'], [(('avatar_id', '9'), ('first_name', "O'Neil, Jr"), ('prof', '2'))])
+        self.assertEqual(rows['avatar_info'], [(('avatar_id', '9'), ('slot', '3'), ('engine_trail_type', None))])
+        self.assertEqual(len(rows['faction_data']), 2)
+        ok, text = baseline.db_dump_verdict(baseline.db_dumps_in(self.dump(os.path.join(t, 'o1'))), stored)
+        self.assertIs(ok, True, text)
+        self.assertIn('db-created.sql the same (4 rows in 3 tables', text)
+        ok, text = baseline.db_dump_verdict(baseline.db_dumps_in(self.dump(os.path.join(t, 'o2'), prof=1)), stored)
+        self.assertIs(ok, False)
+        self.assertIn('avatar_data.prof 1, stored 2', text)
+        self.assertEqual(baseline.db_dump_verdict({}, stored)[0], False)                    # the run made none
+        self.assertEqual(baseline.db_dump_verdict({}, [{}, {}]), (None, 'no database dump stored'))
+        self.assertEqual(list(baseline.db_dumps_in(self.dump(os.path.join(t, 'o3'), f='db-x.sql'))), ['db-x.sql'])
+
+
 class LiveSets(unittest.TestCase):
     def test_session_first_and_scripts_hash(self):
         self.assertIn('sb_emote_dock', baseline.SESSION_OWN)

@@ -1716,6 +1716,104 @@ def audio_verdict(mine, stored, nz):
     return True, f'{len(st)} stream/3D items, {sum(mc.values())} 2D'
 
 
+# ---------------------------------------------------------------- the database rows a scenario left (db-avatars)
+
+# e2e's db-avatars dumps (db-NAME.sql: the rows of each character the client created, UI-01) compared row by row with
+# the stored runs' dumps of the same name; the server's wall-clock columns are left out (a run's login time, not the
+# client's: the three stored ui_charcreate runs differ only in last_login)
+DB_DUMP_RE = re.compile(r'db-[A-Za-z0-9_-]+\.sql')
+DB_WALL_CLOCK = ('last_login', 'last_logout', 'last_logout_t')
+
+
+def _sql_values(s, i):
+    """The tuples of one INSERT's VALUES from S[i:] (strings with backslash escapes, NULL as None): (rows, end)."""
+    rows, row, n = [], None, len(s)
+    while i < n:
+        ch = s[i]
+        if ch == '(':
+            row, i = [], i + 1
+            continue
+        if ch == ')':
+            rows.append(tuple(row))
+            row, i = None, i + 1
+            continue
+        if ch == ';' and row is None:
+            return rows, i + 1
+        if ch in ', \t\r\n':
+            i += 1
+            continue
+        if ch == "'":
+            j, buf = i + 1, []
+            while j < n and s[j] != "'":
+                if s[j] == '\\' and j + 1 < n:
+                    j += 1
+                buf.append(s[j])
+                j += 1
+            row.append(''.join(buf))
+            i = j + 1
+            continue
+        m = re.compile(r'[^,)\s]+').match(s, i)
+        tok = m.group(0)
+        row.append(None if tok.upper() == 'NULL' else tok)
+        i = m.end()
+    return rows, i
+
+
+def sql_dump_rows(path):
+    """{table: sorted [((column, value), ...)]} of a db-avatars dump's INSERTs, DB_WALL_CLOCK columns left out."""
+    s = open(path, encoding='utf-8', errors='replace').read()
+    out = {}
+    for m in re.finditer(r'INSERT INTO `([^`]+)` \(([^)]*)\) VALUES ', s):
+        cols = [c.strip(' `') for c in m.group(2).split(',')]
+        rows, _ = _sql_values(s, m.end())
+        out.setdefault(m.group(1), []).extend(
+            tuple((c, v) for c, v in zip(cols, r) if c not in DB_WALL_CLOCK) for r in rows)
+    return {t: sorted(rs, key=repr) for t, rs in out.items()}
+
+
+def _db_first_diff(a, b):
+    """The first difference of two sql_dump_rows readings, as text; None when equal."""
+    for t in sorted(set(a) | set(b)):
+        ra, rb = a.get(t, []), b.get(t, [])
+        if len(ra) != len(rb):
+            return f'{t}: {len(ra)} rows, stored {len(rb)}'
+        for x, y in zip(ra, rb):
+            if x != y:
+                dx, dy = dict(x), dict(y)
+                c = next(c for c in list(dx) + list(dy) if dx.get(c) != dy.get(c))
+                return f'{t}.{c} {dx.get(c)}, stored {dy.get(c)}'
+    return None
+
+
+def db_dump_verdict(mine, stored):
+    """(ok, text) for MINE {db-NAME.sql: path} against the stored runs' [{db-NAME.sql: path}]: ok None when no
+    stored run has a dump; False when the run lacks one the stored runs have or its rows equal no stored run's."""
+    names = sorted(set().union(*stored)) if stored else []
+    if not names:
+        return None, 'no database dump stored'
+    texts, bad = [], False
+    for f in names:
+        theirs = [sql_dump_rows(st[f]) for st in stored if f in st]
+        if f not in mine:
+            bad = True
+            texts.append(f'{f} not in the run ({len(theirs)} stored)')
+            continue
+        own = sql_dump_rows(mine[f])
+        if any(own == t for t in theirs):
+            texts.append(f'{f} the same ({sum(len(r) for r in own.values())} rows in {len(own)} tables, '
+                         f'{"/".join(DB_WALL_CLOCK)} left out)')
+        else:
+            bad = True
+            texts.append(f'{f} {_db_first_diff(own, theirs[0])} (equal to none of the {len(theirs)} stored)')
+    return not bad, '; '.join(texts)
+
+
+def db_dumps_in(d):
+    """{db-NAME.sql: path} of folder D."""
+    return {f: os.path.join(d, f) for f in sorted(os.listdir(d)) if DB_DUMP_RE.fullmatch(f)} if os.path.isdir(d) \
+        else {}
+
+
 # ---------------------------------------------------------------- inputs: what a second device needs to repeat a run
 
 INPUTS = 'inputs'
@@ -2325,12 +2423,18 @@ def verify_run(args):
             what.append(f'audio {a_text}')
         elif a_ok == RETAIL_UNSTABLE:
             shaky.append(f'audio {a_text}')
+        own_dir = next((x for x in dirs if os.path.isfile(os.path.join(x, f'result-{name}.json'))), None)
+        d_ok, d_text = db_dump_verdict(db_dumps_in(own_dir) if own_dir else {},
+                                       [db_dumps_in(en['dir']) for en in ents])
+        if d_ok is False:
+            hard.append(f'database {d_text}')
         line = f'{len(mine)} packets, shots {within} of {len(set(stored_shots) | set(mine_shots))} within noise'
         line += (f', draw logs {logs_same} of {len(mine_shots)} the same' + (f' ({logs_ms} as a multiset)' if logs_ms
                                                                             else '')
                  if logs_same or not logs_none else '') + \
             (f', no draw log stored for {logs_none}' if logs_none else '')
         line += f', audio the same ({a_text})' if a_ok is True else f', {a_text}'
+        line += f', database {d_text}' if d_ok else ''
         # packets, shots, draw logs and audio carry state from the scenario before (texture address modes, draw
         # order, matrices: retail itself differs so): after another scenario than stored they are not comparable
         apart_here = bool(what or shaky) and not hard and bool(notes)
