@@ -1,0 +1,151 @@
+name: UI-02 account screens (live): the login screen's Account Management menu and the registration pages it opens, each left by its own back-out; character select's slots; every Previous out of creation; the server list; Previous to the login screen; the world and Quit to Login
+# test-plan UI-02 (P0). Live only, named only (ui_*): e2e.py --live --audio --db-snapshot schema run ui_account.
+# Reaches ui_registration (RegistrationInterface: Register Account's notice and form pages, 0x5FA0B0 / 0x5FBD30,
+# the reply callback 0x5F00C0) and ui_login's account menu (0x5AD610's keys); Edit Account's YES_NO box would exit
+# the game for a web page: only its No is clicked. Nothing is created; Zanor (slot 0, docked) enters the world once
+# and leaves by the quit menu's Quit to Login, so the run still takes the schema snapshot.
+# Gadgets: gadgets.txt's acct.*, reg.*, select.*, create.*, name.*, quit.*, login.* (CS6's retail shots, 2026-11-26).
+timeout: 480
+messages: on
+wait-event msg 'Server initialized & ready to go' within 60
+click 640,512 until antprox 'Global connection #1' every 0.5 within 120
+wait-quiet proxy 0.5 within 20
+# the account menu: the button takes a click only after the pointer rested on it
+move gadget login.account
+alive 1
+click gadget login.account
+wait-quiet proxy 1.0 within 20
+shot acct_menu
+click gadget acct.edit
+wait-quiet proxy 1.0 within 20
+shot acct_edit_box
+click gadget acct.edit.no
+wait-quiet proxy 1.0 within 20
+shot acct_edit_no
+click gadget acct.cancel
+wait-quiet proxy 1.0 within 20
+shot acct_closed
+# Register Account: the notice, Continue to the next page, Cancel out of it
+move gadget login.account
+alive 1
+click gadget login.account
+wait-quiet proxy 1.0 within 20
+click gadget acct.register
+wait-quiet proxy 1.5 within 30
+shot reg_notice
+click gadget reg.continue
+wait-quiet proxy 1.5 within 30
+shot reg_page2
+click gadget reg.cancel
+wait-quiet proxy 1.5 within 30
+shot reg_cancelled
+# Add Gametime Code: its page, Back
+move gadget login.account
+alive 1
+click gadget login.account
+wait-quiet proxy 1.0 within 20
+click gadget acct.code
+wait-quiet proxy 1.5 within 30
+shot code_page
+click gadget reg.back
+wait-quiet proxy 1.5 within 30
+shot code_back
+click gadget acct.cancel
+wait-quiet proxy 1.0 within 20
+# the login, character select
+include _login_live_relogin
+# character select fades in after a relogin (retail run 3: its shot 1.0 s quiet after the list was mid-fade)
+alive 2
+shot account_select
+# every slot: a character's information box, an empty slot's
+click gadget select.slot0
+wait-quiet proxy 1.0 within 20
+shot slot0
+click gadget select.slot1
+wait-quiet proxy 1.0 within 20
+click gadget select.slot2
+wait-quiet proxy 1.0 within 20
+shot slot2
+click gadget select.slot3
+wait-quiet proxy 1.0 within 20
+shot slot3
+# creation entered and left page by page with Previous: class -> select; class -> avatar -> class; avatar -> ship
+# -> avatar; ship -> name (the server list) -> ship; then Previous back to character select. A page takes a click
+# only once its turn-in is over (about 2-3 s after its file opens end: a Previous 1.5 s quiet after the Next was
+# lost in retail run 1), hence 3 s after each page change
+click gadget select.enter
+wait-quiet proxy 1.5 within 40
+alive 3
+shot back_class
+click gadget create.previous
+wait-quiet proxy 1.5 within 40
+alive 3
+shot back_to_select
+click gadget select.slot3
+wait-quiet proxy 1.0 within 20
+click gadget select.enter
+wait-quiet proxy 1.5 within 40
+alive 3
+click gadget create.next
+wait-quiet proxy 1.5 within 40
+alive 3
+click gadget create.previous
+wait-quiet proxy 1.5 within 40
+alive 3
+shot back_avatar_to_class
+click gadget create.next
+wait-quiet proxy 1.5 within 40
+alive 3
+click gadget create.next
+wait-quiet proxy 1.5 within 40
+alive 3
+click gadget create.previous
+wait-quiet proxy 1.5 within 40
+alive 3
+shot back_ship_to_avatar
+click gadget create.next
+wait-quiet proxy 1.5 within 40
+alive 3
+click gadget create.next
+wait-quiet proxy 1.5 within 40
+alive 3
+click gadget name.server0
+wait-quiet proxy 1.0 within 20
+shot server_list
+click gadget create.previous
+wait-quiet proxy 1.5 within 40
+alive 3
+shot back_name_to_ship
+click gadget create.previous
+wait-quiet proxy 1.5 within 40
+alive 3
+click gadget create.previous
+wait-quiet proxy 1.5 within 40
+alive 3
+click gadget create.previous
+wait-quiet proxy 1.5 within 40
+alive 3
+shot back_all_to_select
+# character select's Previous: the login screen, and a second login
+move gadget select.previous
+alive 1
+click gadget select.previous
+wait-quiet proxy 1.5 within 40
+alive 3
+shot back_to_login
+include _login_live_relogin
+# character select fades in after a relogin (retail run 3: its shot 1.0 s quiet after the list was mid-fade)
+alive 2
+shot select_again
+# the world and the quit menu's Quit to Login
+click gadget select.slot0
+click gadget select.enter until antprox 'received LOGIN' redo 1 every 1 within 60
+wait-event antprox 'received START_ACK' within 120
+wait-quiet proxy 1.5 within 60
+key esc
+wait-quiet proxy 1.0 within 15
+shot quit_menu_docked
+click gadget quit.login
+wait-quiet proxy 2.0 within 60
+shot quit_to_login
+alive 2

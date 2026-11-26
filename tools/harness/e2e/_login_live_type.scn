@@ -1,0 +1,41 @@
+# The login screen's two fields filled in (account admin / admin): shared by _login_live_account (the first
+# login) and _login_live_relogin (back at the login screen from character select or the quit menu). The
+# screen swallows the first click on the name field, and the client remembers the last name: End and 14
+# Backspaces clear each field. Not run on its own.
+click gadget login.username
+wait-quiet proxy 0.5 within 20
+click gadget login.username
+wait-quiet proxy 0.5 within 20
+key 0x23
+key 0x08
+key 0x08
+key 0x08
+key 0x08
+key 0x08
+key 0x08
+key 0x08
+key 0x08
+key 0x08
+key 0x08
+key 0x08
+key 0x08
+key 0x08
+key 0x08
+text admin
+click gadget login.password
+key 0x23
+key 0x08
+key 0x08
+key 0x08
+key 0x08
+key 0x08
+key 0x08
+key 0x08
+key 0x08
+key 0x08
+key 0x08
+key 0x08
+key 0x08
+key 0x08
+key 0x08
+text admin

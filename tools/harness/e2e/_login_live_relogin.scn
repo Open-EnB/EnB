@@ -1,0 +1,7 @@
+# The login again from the login screen (UI-02: after character select's Previous or the quit menu's Quit to
+# Login): the fields (_login_live_type), the login button, character select's avatar list. Not run on its own.
+wait-quiet proxy 1.0 within 30
+include _login_live_type
+click gadget login.ok
+wait-event antprox 'GLOBAL_AVATAR_LIST' within 30
+wait-quiet proxy 1.0 within 40

@@ -145,3 +145,14 @@ name.tutorial      680 264   # 'Playing with Beginner Tutorial' (a toggle)
 name.server0       690 502   # the server list's first row ('LocalDev 0% full': ChooseShard, ui_shard)
 quit.charselect    640 366   # Quit Menu (opt02a): 'Quit to Character Selection'
 quit.login         640 402   # Quit Menu: 'Quit to Login'
+# The login screen's Account Management menu (FE13A; ui_login.cpp 0x5AD610's keys 1-5) and the pages it opens (CS6's
+# retail shots _cs6_x8 / _cs6_x9*, 2026-11-26): the menu opens on a click only after the pointer rested on the button
+acct.edit          656 506   # 'Edit Account': the YES_NO box 'This will exit Earth & Beyond and take you to the EA.COM Account Management Website' (Yes exits the game: never clicked)
+acct.edit.no       801 597   # that box's No
+acct.register      656 588   # 'Register Account': RegistrationInterface (ui_registration), the notice page first
+acct.code          656 670   # 'Add Gametime Code': the member name / password page
+acct.cancel        656 758   # 'Cancel': the menu closed
+reg.cancel         566 802   # the registration pages' bottom row: Cancel, Back, Next (the notice page: Cancel, Continue)
+reg.back           760 802
+reg.next           946 802
+reg.continue       942 802   # the notice page's 'Continue'

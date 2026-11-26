@@ -500,7 +500,9 @@ def capture(args):
         'antprox': antprox_used(bool(args.live)),
         'antreplay': antreplay_used(bool(args.live)),
         'enb': git_state(),
-        'server': {'mode': 'live', 'server': args.live} if args.live else {'mode': 'replay'},
+        'server': dict({'mode': 'live', 'server': args.live}, **({'antprox_args': args.antprox_arg}
+                                                                 if args.antprox_arg else {}))
+        if args.live else {'mode': 'replay'},
     }
     if not args.live:                   # the recordings antprox /REPLAY reads (clientrun.start_antprox)
         recs = clientrun.recordings_folder()
@@ -545,7 +547,7 @@ def capture(args):
             cmd = [sys.executable, os.path.join(HERE, 'e2e.py'), '--retail', '--instance', args.instance, '--keep',
                    '--out', staging, '--manifest', man_path]
             if args.live:
-                cmd += ['--live', args.live]
+                cmd += ['--live', args.live] + [f'--antprox-arg={a}' for a in args.antprox_arg or []]
             if not args.no_audio:
                 cmd += ['--audio']
             if args.camera_track:
@@ -2420,6 +2422,9 @@ def main(argv=None):
     ap.add_argument('--restart', action=argparse.BooleanOptionalAction, default=None,
                     help='capture --live: restart Net7.exe before each run (default: when a scenario is sp_*; '
                          '--no-restart: restore in place)')
+    ap.add_argument('--antprox-arg', action='append', metavar='ARG',
+                    help="capture --live: e2e --antprox-arg ARG (repeatable; /NOPATCHES: retail unpatched, as ours "
+                         "runs; UI-01's creation records differ by Net-7's class patches); the manifest's server records them")
     ap.add_argument('--no-audio', action='store_true', help='capture: without the audio log (e2e --audio is on)')
     ap.add_argument('--camera-track', action='store_true',
                     help="capture: e2e --camera-track (camera-track.txt, the camera's path; camtrack.py compares)")
