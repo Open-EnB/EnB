@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1971 |
 | 2 | describes what the code does | 5015 |
-| 1 | neutral placeholder | 25203 |
+| 1 | neutral placeholder | 25205 |
 
 ## For review (score 3 and below)
 
@@ -17727,7 +17727,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_AF77B8` | `app/client/ui_ship_cust.cpp:623` | neutral (D10) |
 | 1 | `Unknown_AF77BC` | `app/client/ui_ship_cust.cpp:624` | neutral (D10) |
 | 1 | `Set_Float` | `app/client/ui_ship_cust.cpp:625` | neutral (D10) |
-| 1 | `Is_Pressed` | `app/client/ui_ship_cust.cpp:626` | neutral (D10) |
+| 1 | `Is_Pressed, Is_Pressed_Id` | `app/client/ui_ship_cust.cpp:626` | neutral (D10) |
 | 1 | `Unknown_BE5F24` | `app/client/ui_ship_cust.cpp:626` | untagged neutral name (D10) |
 | 1 | `Unknown_BE5F28` | `app/client/ui_ship_cust.cpp:626` | untagged neutral name (D10) |
 | 1 | `Unknown0B8` | `app/client/ui_ship_cust.cpp:634` | untagged neutral name (D10) |
@@ -17735,10 +17735,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown0C0` | `app/client/ui_ship_cust.cpp:656` | untagged neutral name (D10) |
 | 1 | `Unknown0C4` | `app/client/ui_ship_cust.cpp:664` | untagged neutral name (D10) |
 | 1 | `Unknown0C8` | `app/client/ui_ship_cust.cpp:678` | untagged neutral name (D10) |
+| 1 | `Unknown_61BC50` | `app/client/ui_ship_cust.cpp:698` | untagged neutral name (D10) |
 | 1 | `Unknown_61F690` | `app/client/ui_ship_cust.cpp:725` | untagged neutral name (D10) |
 | 1 | `Unknown_69F440` | `app/client/ui_ship_cust.cpp:727` | untagged neutral name (D10) |
-| 1 | `Get_Unknown34` | `app/client/ui_ship_cust.cpp:729` | untagged neutral name (D10) |
-| 1 | `Unknown_61AC20` | `app/client/ui_ship_cust.cpp:732` | untagged neutral name (D10) |
+| 1 | `Unknown34` | `app/client/ui_ship_cust.cpp:729` | untagged neutral name (D10) |
+| 1 | `Unknown_61AC20` | `app/client/ui_ship_cust.cpp:731` | untagged neutral name (D10) |
 | 1 | `Unknown_40` | `app/client/ui_ship_cust.cpp:748` | untagged neutral name (D10) |
 | 1 | `Unknown_Set_2FC` | `app/client/ui_ship_cust.cpp:750` | untagged neutral name (D10) |
 | 1 | `Unknown_61AD30` | `app/client/ui_ship_cust.cpp:763` | untagged neutral name (D10) |
@@ -17760,7 +17761,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_61BCE0` | `app/client/ui_ship_cust.cpp:1130` | untagged neutral name (D10) |
 | 1 | `Unknown2C_0B` | `app/client/ui_ship_cust.cpp:1135` | untagged neutral name (D10) |
 | 1 | `Unknown_6603A0` | `app/client/ui_ship_cust.cpp:1136` | untagged neutral name (D10) |
-| 1 | `Unknown_61BC50` | `app/client/ui_ship_cust.cpp:1141` | untagged neutral name (D10) |
 | 1 | `Unknown_6607D0` | `app/client/ui_ship_cust.cpp:1161` | untagged neutral name (D10) |
 | 1 | `Unknown_5B8850` | `app/client/ui_ship_cust.cpp:1201` | untagged neutral name (D10) |
 | 1 | `Unknown_58` | `app/client/ui_ship_cust.cpp:1231` | untagged neutral name (D10) |
@@ -17779,6 +17779,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_61E8B0` | `app/client/ui_ship_cust.cpp:2035` | untagged neutral name (D10) |
 | 1 | `Unknown320` | `app/client/ui_ship_cust.cpp:2054` | untagged neutral name (D10) |
 | 1 | `Unknown328` | `app/client/ui_ship_cust.cpp:2077` | untagged neutral name (D10) |
+| 1 | `Get_Unknown34` | `app/client/ui_ship_cust.cpp:2096` | untagged neutral name (D10) |
 | 1 | `Unknown_588A70` | `app/client/ui_ship_cust.cpp:2096` | untagged neutral name (D10) |
 | 1 | `Unknown_5890B0` | `app/client/ui_ship_cust.cpp:2110` | untagged neutral name (D10) |
 | 1 | `Unknown338` | `app/client/ui_ship_cust.cpp:2131` | untagged neutral name (D10) |
@@ -21942,6 +21943,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_BF3F80` | `app/common/target_generator_summary.cpp:62` | untagged neutral name (D10) |
 | 1 | `TargetGeneratorFlagStruct` | `app/common/target_generator_summary.cpp:65` | neutral (D10) |
 | 1 | `Unknown_BF3F90` | `app/common/target_generator_summary.cpp:75` | neutral (D10) |
+| 1 | `Unknown_Pass` | `app/common/target_generator_summary.cpp:90` | neutral (D10): a pass-through on the split's one argument sends the temporary's _Eos out of line, as the client |
 | 1 | `Set_Blocking` | `app/common/tcpconn.cpp:19` | what it does (no caller) |
 | 1 | `TCPConnection::Set_Name_Unknown` | `app/common/tcpconn.cpp:577` | what it does |
 | 1 | `TCPConnection::Get_Manager` | `app/common/tcpconn.cpp:578` | what it returns |

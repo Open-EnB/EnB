@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-476 entries in 225 files.
+473 entries in 224 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -295,7 +295,6 @@ edit the comments in the code, not this file.
 | `app/client/ui_mfd.cpp:713` | `UIMFDClass::Set_SP_Cur` | marker | NOT EXACT: 0x5BDED0, inline budget: the ShieldPercent find out of line as the client (0x5BF2B0); the client also calls Set_SP_Max's float Cast out of line |
 | `app/client/ui_mfd.cpp:985` | `Unknown5BE980Class::Unknown_90` | marker | NOT EXACT: 0x5BECF0, the case block's first load of each line's Font comes before the 'lea' ([esi+0x128]) where the client loads it after the stores ([edi+0x40]); the duplicated default and the zero in ebx do match (attempts.csv) |
 | `app/client/ui_mfd_extended_context_harvestable.cpp:189` | `UIMFDExtendedContextHarvestableClass::Get_Line_Text` | marker | NOT EXACT: 0x5C0350: VC6 merges the five return("") tails; the client repeats each in place and keeps 0 in ebp 0x5C0350 |
-| `app/client/ui_mfdm.cpp:155` | `UIMFDPIPItemClass::Unknown_08` | marker | NOT EXACT: 0x5C25C0: one pop scheduled after a load (order) 0x5C25C0 |
 | `app/client/ui_missn.cpp:685` | `UIMissnClass::Unknown_5C66D0` | marker | NOT EXACT: register (the client reloads CurrentMissions[CurrentMission] for the packets' arguments, hoisted above the branch; this keeps the FAIL_IF's pointer) |
 | `app/client/ui_option_control_keys.cpp:185` | `UIOptionControlKeysClass::Unknown_68` | marker | NOT EXACT: register allocation (similarity 0.69): the client computes the row (key - 15 / key - 26) with lea into eax, this form adds into ebx; the rest aligns 0x5CA9F0 |
 | `app/client/ui_pda_cargo.cpp:112` | `UIPdaCargoClass::Unknown_54` | marker | NOT EXACT: functional from the pseudocode (D64) 0x5CFE40 |
@@ -317,7 +316,6 @@ edit the comments in the code, not this file.
 | `app/client/ui_scut.cpp:789` | `UIScutBarClass::Unknown_6120E0` | marker | NOT EXACT: register (the mask passed as the unsigned int it is: the client's dword read of +0x10; left: the client loads both floats before the mask) |
 | `app/client/ui_scut.cpp:1001` | `UIScutBankGadgetClass::Unknown_612820` | marker | NOT EXACT: the client pops sprintf's arguments before calling 0x65EFB0, ours merges the pops |
 | `app/client/ui_shard.cpp:167` | `Unknown615A50InterfaceClass::Unknown_60` | marker | NOT EXACT: functional (D64) @0x616220 |
-| `app/client/ui_ship_cust.cpp:627` | `StarbaseShipCustomizeInterface::Unknown_61A4D0` | marker | NOT EXACT: functional (D64) @0x61A4D0 |
 | `app/client/ui_ship_cust.cpp:832` | `StarbaseShipCustomizeInterface::Unknown_61B170` | marker | NOT EXACT: register (0.89: Page's test is scheduled into the u / v arithmetic, the client tests it after; Control_Bone's this loaded before the matrix store) @0x61B170 |
 | `app/client/ui_ship_cust.cpp:1169` | `StarbaseShipCustomizeInterface::Unknown_61BD80` | marker | NOT EXACT: inline budget (0.97, residue 41: case 0's second lookup inline in the client (ours calls operator[]), case 1's first pair constructor out of line there; register ties) @0x61BD80 |
 | `app/client/ui_ship_cust.cpp:1489` | `StarbaseShipCustomizeInterface::Unknown_61DBF0` | marker | NOT EXACT: register (0.62: the client loads the avatar id into eax, VC6 here into edx; the rest is the same) |
@@ -366,7 +364,7 @@ edit the comments in the code, not this file.
 | `app/common/lego_identifier.cpp:228` | `LegoSplitStruct::Is_Invalid` | mention | NOT EXACT 0.79); its Is_Invalid 0x8451A0 (exact) is placed here provisionally (D137): the 20-byte function at this object's end, before manufacturing_defs.cpp. * Written by builder P4 (2026-10-26) for the object-to-object effects (pkpointeffect.cpp, opcodes 11-14), which send an identifier's name and set one from the received string. |
 | `app/common/stredit.cpp:22` | `StrEditClass::StrEditClass` | mention | NOT EXACT: the shared tail. <string>'s guarded initialiser at 0x84B330 ends the object (workflow.md 3.3): the client's next function, 0x84B360 ("Effect Radius : %d"), is another file's. |
 | `app/common/stredit.cpp:191` | `StrEditClass::Process_Key` | marker | NOT EXACT: shape (0.78, 26 rows): the client keeps the delete / backspace shared tail (and ecx, 3; rep movsb; StrLen--; result) in the backspace block, ours in the delete block |
-| `app/common/target_generator_summary.cpp:92` | `String_To_Value` | marker | NOT EXACT: inline-budget (the temporary string's _Eos stays out of line in the client, and value lives in ebx) |
+| `app/common/target_generator_summary.cpp:92` | `String_To_Value` | marker | NOT EXACT: register (the client keeps value in ebx through the loop and ors it unfused; ours keeps the zero there) |
 | `app/common/udpconn.cpp:126` | `UDPConnection::UDPConnection` | marker | NOT EXACT: two register choices (con's Ip_ / Port_ reads, the openc tail); Encrypt stays unset |
 | `app/common/udpconn.cpp:816` | `Unknown_82E1D0` | mention | NOT EXACT: the constructor over a CordCon (registers). Send_Data is exact (UDP, 2026-11-02: its last lookup through the one-layer Find_Ptr; CordCon::write's argument order, see below). * Send_Data (NW1, 2026-11-01): one UDPChannelClass for the channel (getValue fills it, add copies it), `channel >= 0` tested first, key.Reliable read for the open mode (an if, not ?:) and the drop test, the two clos... |
 | `app/dbgmgr/dbgmgr.cpp:159` | `Unknown_Debug_End_Step` | marker | NOT EXACT: shape, 0.56 (explain.py): register allocation and a dead store of end()._Last (see attempts.csv) |
@@ -459,7 +457,6 @@ edit the comments in the code, not this file.
 | `app/shared/unique_design_id_lookup.cpp:123` | `UniqueDesignIDLookupClass::Add_Identifier` | mention | NOT EXACT: Add_Identifier 0x500760 (inline budget). |
 | `app/shared/unknown_445740.cpp:90` | `SteeringClass::Avoid_Obstacles` | marker | NOT EXACT: order-only (explain.py: identical once stack slots are masked): Normalize's and the scale's four fmuls take their two stack operands in the other order (fld Y; fmul oolen / k in the client), every spelling compiles alike (forms in attempts.csv) 0x446000 |
 | `app/shared/unknown_445740.cpp:240` | `SteeringClass::Alignment` | marker | NOT EXACT: order-only (explain.py): the same 127 instructions in another order (the offset's length sums) 0x446CB0 |
-| `app/shared/unknown_445740.cpp:267` | `SteeringClass::Predict` | marker | NOT EXACT: shape (explain.py): the inlined Closing_Speed's Normalize multiplies in another FPU order 0x446E60 |
 | `app/shared/unknown_445740.cpp:315` | `SteeringClass::Seek` | marker | NOT EXACT: register (explain.py; 13 rows): ours keeps result.Z in edx for the second return, so its two return blocks stay apart where the client reloads it and shares one (forms in attempts.csv) 0x447480 |
 | `app/shared/unknown_445740.cpp:348` | `SteeringClass::Pursue` | marker | NOT EXACT: shape (explain.py): the client copies the result twice (a second local) and orders the length sums otherwise 0x4479F0 |
 | `app/shared/unknown_445740.cpp:357` | `SteeringClass::Arrive` | marker | NOT EXACT: shape (explain.py): as 0x4479F0 0x447B30 |
