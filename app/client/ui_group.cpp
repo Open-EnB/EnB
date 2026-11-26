@@ -1251,9 +1251,9 @@ void UIGroupClass::Unknown_5966A0()
 
 
 
-
+template<class C> inline C *Unknown_Find_Aux_Field(DeltaCompoundClass *const &root, const char *name) { NameClass n(name); DeltaCompoundClass *r = root; return(Unknown_Find_Field<C>(r, n)); } template<class C> inline C *Unknown_Find_Aux(DeltaCompoundClass *const &root, const char *name) { return(Unknown_Find_Aux_Field<C>(root, name)); }	// NAME 1: neutral (D10): auxdata.h's find through two inline layers (ui_manu.cpp's form): out of line as the client in both branches
 // 0x596770
-// NOT EXACT: inline budget (the client calls auxdata.h's find 0x5927E0 out of line in both branches yet still calls vector::size 0x598920 and the temporary string's _Tidy out of line; a find wrapper sends the find out but frees the budget, 0.45-0.60)
+// NOT EXACT: inline budget, 75 masked rows (B8; 116 with the direct finds): the two-layer find sends both finds out of line as the client, two dead Members.size() after Add_Member spend what that frees (D272); left: the Add_Member temporary's assign out of line (the client inlines it and calls _Grow / _Eos), the member loop's register order; attempts.py show 0x596770
 void UIGroupClass::Unknown_596770(bool arg)
 {
 	ClientClass *client = (ClientClass *)Client;
@@ -1266,10 +1266,10 @@ void UIGroupClass::Unknown_596770(bool arg)
 	FAIL_IF(!aux) return;
 	DeltaGroupInfoClass *group;
 	if (arg) {
-		DeltaGroupInfoClass *t = Unknown_Find_Field<DeltaGroupInfoClass>(aux, "GroupInfo");
+		DeltaGroupInfoClass *t = Unknown_Find_Aux<DeltaGroupInfoClass>(aux, "GroupInfo");
 		group = (t && t->Unknown70) ? t : NULL;
 	} else {
-		DeltaGroupInfoClass *t = Unknown_Find_Field<DeltaGroupInfoClass>(aux, "GroupInfo");
+		DeltaGroupInfoClass *t = Unknown_Find_Aux<DeltaGroupInfoClass>(aux, "GroupInfo");
 		group = (t && t->Unknown70 > 1) ? t : NULL;
 	}
 	if (group) {
@@ -1300,7 +1300,7 @@ void UIGroupClass::Unknown_596770(bool arg)
 			}
 			it = Get_Member(name);
 			if (it == Members.end()) {
-				Add_Member(name, id, position);
+				Add_Member(name, id, position); Members.size(); Members.size();
 			} else {
 				(*it)->ID = id;
 			}
