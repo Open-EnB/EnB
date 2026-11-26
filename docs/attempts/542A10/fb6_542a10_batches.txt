@@ -1,0 +1,441 @@
+FB6 (Fable high, run 2026-11-25-evening): the batch scripts of 0x542A10 (a10_c8's s_RTDS is the tree's form; a10_c8 builds on a10_c6, a10_c4 on a10_c3).
+
+===== a10_c1.py =====
+HYPOTHESIS = ('FB6 0x542A10 batch 1: the client sums each Translate row (m0 x + m2 z) + m1 y and evaluates the second '
+              'call\'s negations X, Y, Z (ours Z, Y, X: the argument order of a three-float call). The unit call\'s result '
+              'is dropped as in 0x542250 before its sphere: the centre and the unit as one SphereClass (constructor, '
+              'Init, member stores) against the float pair, with both Translate overloads and the negated vector forms; '
+              'k dead ints as the definition-count diagnostic')
+FILE = 'app/client/ship_equip_pip.cpp'
+SYMBOL = 'ShipEquipPipClass::Unknown_542A10'
+ADDRESS = 0x542A10
+
+_lines = open(FILE, newline='').read().split('\n')
+BASE = '\n'.join(_lines[234:244]) + '\n'
+assert BASE.startswith('\t\t\tMatrix3D tm = camera->Get_Transform();\n'), BASE[:60]
+assert BASE.endswith('\t\t\tUnknown_543270(tm);\n'), BASE[-40:]
+F = 'CameraManagerClass::Unknown_79B6B0()'
+T = '\t\t\t'
+A = {
+    'flt': (T + F + ';\n' + T + 'Vector3 center = inv.Get_Translation();\n', 'center'),
+    'rad': (T + 'float radius = ' + F + ';\n' + T + 'Vector3 center = inv.Get_Translation();\n', 'center'),
+    'sctor': (T + 'SphereClass sphere(inv.Get_Translation(), ' + F + ');\n\n', 'sphere.Center'),
+    'sinit': (T + 'SphereClass sphere;\n' + T + 'sphere.Init(inv.Get_Translation(), ' + F + ');\n', 'sphere.Center'),
+    'smem': (T + 'SphereClass sphere; sphere.Radius = ' + F + ';\n' + T + 'sphere.Center = inv.Get_Translation();\n',
+             'sphere.Center'),
+    'smemp': (T + 'SphereClass sphere; sphere.Radius = ' + F + ';\n' + T + 'inv.Get_Translation(&sphere.Center);\n',
+              'sphere.Center'),
+    'sctr': (T + 'float radius = ' + F + '; Vector3 center = inv.Get_Translation();\n' + T
+             + 'SphereClass sphere(center, radius);\n', 'sphere.Center'),
+}
+B = {
+    'f3': 'tm.Translate(C.X, C.Y, C.Z);',
+    'vec': 'tm.Translate(C);',
+}
+N = {
+    'f3': 'tm.Translate(-C.X, -C.Y, -C.Z);',
+    'neg': 'tm.Translate(-C);',
+    'ctor': 'tm.Translate(Vector3(-C.X, -C.Y, -C.Z));',
+    'back': 'Vector3 back = -C; tm.Translate(back);',
+}
+
+
+def form(a, b, n, pre=''):
+    decl, c = A[a]
+    s = (
+        T + 'Matrix3D tm = camera->Get_Transform();' + (' ' + pre if pre else '') + '\n'
+        + T + 'Quaternion rot = Trackball(last.X, last.Y, mouse.X, mouse.Y, 0.8f);\n'
+        + T + 'Matrix3D inv;\n'
+        + T + 'tm.Get_Orthogonal_Inverse(inv);\n'
+        + decl
+        + T + B[b].replace('C', c) + '\n'
+        + T + 'Matrix3D::Multiply(tm, Build_Matrix3D(rot), &tm);\n'
+        + T + N[n].replace('C', c) + '\n'
+        + T + 'Unknown_543270(tm);\n'
+    )
+    assert s.count('\n') == BASE.count('\n'), (a, b, n)
+    return [(BASE, s)]
+
+
+def dead(k):
+    return ''.join('int d%d = 0; ' % i for i in range(k)).strip()
+
+
+FORMS = {}
+for _a in A:
+    for _b in B:
+        for _n in N:
+            if (_a, _b, _n) == ('flt', 'f3', 'f3'):
+                continue
+            FORMS['%s_%s_%s' % (_a, _b, _n)] = form(_a, _b, _n)
+for _k in (1, 2, 3, 4, 5, 6):
+    FORMS['flt_f3_f3_d%d' % _k] = form('flt', 'f3', 'f3', pre=dead(_k))
+    FORMS['flt_vec_neg_d%d' % _k] = form('flt', 'vec', 'neg', pre=dead(_k))
+
+===== a10_c2.py =====
+HYPOTHESIS = ('FB6 0x542A10 batch 2: Translate(-center) (operator-) evaluates the negations X, Y, Z as the client does '
+              '(batch 1: rad_f3_neg, raw 58 -> 38); what is left is the term order of the sums, (m0 x + m2 z) + m1 y in '
+              'the client, which follows the definitions (0x542250). Sweep: the unit dropped or named, the centre from '
+              'Get_Translation / the three accessors / the pointer overload, both first-Translate overloads, k dead ints '
+              '0-6; ranked by raw rows (the slot mask hides permuted terms)')
+FILE = 'app/client/ship_equip_pip.cpp'
+SYMBOL = 'ShipEquipPipClass::Unknown_542A10'
+ADDRESS = 0x542A10
+
+_lines = open(FILE, newline='').read().split('\n')
+BASE = '\n'.join(_lines[234:244]) + '\n'
+assert BASE.startswith('\t\t\tMatrix3D tm = camera->Get_Transform();\n'), BASE[:60]
+assert BASE.endswith('\t\t\tUnknown_543270(tm);\n'), BASE[-40:]
+F = 'CameraManagerClass::Unknown_79B6B0()'
+T = '\t\t\t'
+RAD = {'flt': F + ';', 'rad': 'float radius = ' + F + ';'}
+CEN = {
+    'gt': 'Vector3 center = inv.Get_Translation();',
+    'ctor': 'Vector3 center(inv.Get_X_Translation(), inv.Get_Y_Translation(), inv.Get_Z_Translation());',
+    'gtp': 'Vector3 center; inv.Get_Translation(&center);',
+}
+B = {'f3': 'tm.Translate(center.X, center.Y, center.Z);', 'vec': 'tm.Translate(center);'}
+N = {'neg': 'tm.Translate(-center);', 'back': 'Vector3 back = -center; tm.Translate(back);',
+     'f3': 'tm.Translate(-center.X, -center.Y, -center.Z);'}
+
+
+def dead(k):
+    return ''.join('int d%d = 0; ' % i for i in range(k)).strip()
+
+
+def form(r, c, b, n, k=0):
+    pre = dead(k)
+    s = (
+        T + 'Matrix3D tm = camera->Get_Transform();' + (' ' + pre if pre else '') + '\n'
+        + T + 'Quaternion rot = Trackball(last.X, last.Y, mouse.X, mouse.Y, 0.8f);\n'
+        + T + 'Matrix3D inv;\n'
+        + T + 'tm.Get_Orthogonal_Inverse(inv);\n'
+        + T + RAD[r] + '\n'
+        + T + CEN[c] + '\n'
+        + T + B[b] + '\n'
+        + T + 'Matrix3D::Multiply(tm, Build_Matrix3D(rot), &tm);\n'
+        + T + N[n] + '\n'
+        + T + 'Unknown_543270(tm);\n'
+    )
+    assert s.count('\n') == BASE.count('\n')
+    return [(BASE, s)]
+
+
+FORMS = {}
+for _r in RAD:
+    for _c in CEN:
+        for _b in B:
+            for _k in range(0, 7):
+                FORMS['%s_%s_%s_neg_d%d' % (_r, _c, _b, _k)] = form(_r, _c, _b, 'neg', _k)
+            FORMS['%s_%s_%s_back' % (_r, _c, _b)] = form(_r, _c, _b, 'back')
+
+===== a10_c3.py =====
+HYPOTHESIS = ('FB6 0x542A10 batch 3: this is W3DView\'s trackball rotation (GraphicView: to_object = inv_transform * '
+              'sphere.Center; transform.Translate(to_object); Multiply by the rotation; Translate(-to_object)). With the '
+              'sphere of 0x542250 (centre (0,0,0), radius the unit call, here never address-taken so its radius store '
+              'drops: call / fstp st(0)) inv * centre folds to the translation column the client copies. Forms: the '
+              'sphere by constructor / named centre / member stores, a bare centre, both Translate overloads, the '
+              'negated vector forms')
+FILE = 'app/client/ship_equip_pip.cpp'
+SYMBOL = 'ShipEquipPipClass::Unknown_542A10'
+ADDRESS = 0x542A10
+
+_lines = open(FILE, newline='').read().split('\n')
+BASE = '\n'.join(_lines[234:244]) + '\n'
+assert BASE.startswith('\t\t\tMatrix3D tm = camera->Get_Transform();\n'), BASE[:60]
+assert BASE.endswith('\t\t\tUnknown_543270(tm);\n'), BASE[-40:]
+F = 'CameraManagerClass::Unknown_79B6B0()'
+T = '\t\t\t'
+A = {
+    'sctor': ('SphereClass sphere(Vector3(0, 0, 0), ' + F + ');', 'inv * sphere.Center'),
+    'snamed': ('Vector3 center(0, 0, 0); SphereClass sphere(center, ' + F + ');', 'inv * sphere.Center'),
+    'smem': ('SphereClass sphere; sphere.Radius = ' + F + '; sphere.Center.Set(0, 0, 0);', 'inv * sphere.Center'),
+    'smemn': ('Vector3 center(0, 0, 0); SphereClass sphere; sphere.Radius = ' + F + '; sphere.Center = center;',
+              'inv * sphere.Center'),
+    'cen': ('float radius = ' + F + '; Vector3 center(0, 0, 0);', 'inv * center'),
+    'cenf': (F + '; Vector3 center(0, 0, 0);', 'inv * center'),
+    'tmp': (F + ';', 'inv * Vector3(0, 0, 0)'),
+}
+B = {'vec': 'tm.Translate(to_object);', 'f3': 'tm.Translate(to_object.X, to_object.Y, to_object.Z);'}
+N = {'neg': 'tm.Translate(-to_object);', 'f3': 'tm.Translate(-to_object.X, -to_object.Y, -to_object.Z);',
+     'back': 'Vector3 back = -to_object; tm.Translate(back);'}
+
+
+def form(a, b, n, how='mul'):
+    decl, expr = A[a]
+    if how == 'mul':
+        to = 'Vector3 to_object = ' + expr + ';'
+    else:
+        to = 'Vector3 to_object; Matrix3D::Transform_Vector(inv, ' + expr[len('inv * '):] + ', &to_object);'
+    s = (
+        T + 'Matrix3D tm = camera->Get_Transform();\n'
+        + T + 'Quaternion rot = Trackball(last.X, last.Y, mouse.X, mouse.Y, 0.8f);\n'
+        + T + 'Matrix3D inv;\n'
+        + T + 'tm.Get_Orthogonal_Inverse(inv);\n'
+        + T + decl + '\n'
+        + T + to + '\n'
+        + T + B[b] + '\n'
+        + T + 'Matrix3D::Multiply(tm, Build_Matrix3D(rot), &tm);\n'
+        + T + N[n] + '\n'
+        + T + 'Unknown_543270(tm);\n'
+    )
+    assert s.count('\n') == BASE.count('\n')
+    return [(BASE, s)]
+
+
+FORMS = {}
+for _a in A:
+    for _b in B:
+        for _n in N:
+            FORMS['%s_%s_%s' % (_a, _b, _n)] = form(_a, _b, _n)
+for _a in ('sctor', 'snamed', 'cen'):
+    FORMS['%s_tv_vec_neg' % _a] = form(_a, 'vec', 'neg', how='tv')
+
+===== a10_c4.py =====
+import runpy as _runpy
+_m = _runpy.run_path('C:/EnBDevelopment/EnB/.work/fb6/a10_c3.py')
+HYPOTHESIS = ('FB6 0x542A10 batch 4: with W3DView\'s form (to_object = inv * centre, Translate(to_object), '
+              'Translate(-to_object)) both translations are the client\'s (raw 58 -> 15); left, three commutative sums of '
+              'the inlined Pre_Rotate_Y (the definition-count family of 0x542250). Sweep k dead ints 0-6 over each way '
+              'of making the centre (sphere by constructor / named centre / member stores, bare centre, temporary)')
+FILE = _m['FILE']
+SYMBOL = _m['SYMBOL']
+ADDRESS = _m['ADDRESS']
+BASE = _m['BASE']
+form = _m['form']
+
+
+def dead(k):
+    return ''.join('int d%d = 0; ' % i for i in range(k)).strip()
+
+
+FORMS = {}
+for _a in ('cen', 'tmp', 'smem', 'smemn', 'sctor', 'snamed'):
+    for _k in range(0, 7):
+        if _k == 0 and _a != 'cen':
+            continue
+        b, s = form(_a, 'vec', 'neg')[0]
+        if _k:
+            old = '\t\t\tMatrix3D tm = camera->Get_Transform();\n'
+            assert s.count(old) == 1
+            s = s.replace(old, old.rstrip('\n') + ' ' + dead(_k) + '\n')
+        FORMS['%s_d%d' % (_a, _k)] = [(b, s)]
+
+===== a10_c5.py =====
+HYPOTHESIS = ('FB6 0x542A10 batch 5: smemn + four dead ints is exact (raw 0): the sphere of 0x542250\'s second branch '
+              '(named centre, Radius and Center stored), W3DView\'s to_object and both vector Translates. The four '
+              'definitions from code the function can carry: W3DView names the four mouse floats it passes to Trackball; '
+              'a named radius; a copy of the sphere centre (W3DView\'s sphereCenter), dead or the one inv multiplies; '
+              'k dead ints 0-2 on top as the gauge')
+FILE = 'app/client/ship_equip_pip.cpp'
+SYMBOL = 'ShipEquipPipClass::Unknown_542A10'
+ADDRESS = 0x542A10
+
+_lines = open(FILE, newline='').read().split('\n')
+BASE = '\n'.join(_lines[234:244]) + '\n'
+assert BASE.startswith('\t\t\tMatrix3D tm = camera->Get_Transform();\n'), BASE[:60]
+assert BASE.endswith('\t\t\tUnknown_543270(tm);\n'), BASE[-40:]
+F = 'CameraManagerClass::Unknown_79B6B0()'
+T = '\t\t\t'
+FL = ['float last_x = last.X;', 'float last_y = last.Y;', 'float x = mouse.X;', 'float y = mouse.Y;']
+ARG = [('last.X', 'last_x'), ('last.Y', 'last_y'), ('mouse.X', 'x'), ('mouse.Y', 'y')]
+
+
+def dead(k):
+    return ''.join('int d%d = 0; ' % i for i in range(k)).strip()
+
+
+def form(rad, nf, v, k):
+    args = [ARG[i][1] if i < nf else ARG[i][0] for i in range(4)]
+    track = ' '.join(FL[:nf]) + (' ' if nf else '') + 'Quaternion rot = Trackball(%s, %s, %s, %s, 0.8f);' % tuple(args)
+    if rad:
+        sph = ('float radius = ' + F + '; Vector3 center(0, 0, 0); SphereClass sphere; sphere.Radius = radius; '
+               'sphere.Center = center;')
+    else:
+        sph = 'Vector3 center(0, 0, 0); SphereClass sphere; sphere.Radius = ' + F + '; sphere.Center = center;'
+    to = {'none': 'Vector3 to_object = inv * sphere.Center;',
+          'dead': 'Vector3 sphere_center = sphere.Center; Vector3 to_object = inv * sphere.Center;',
+          'live': 'Vector3 sphere_center = sphere.Center; Vector3 to_object = inv * sphere_center;'}[v]
+    pre = dead(k)
+    s = (
+        T + 'Matrix3D tm = camera->Get_Transform();' + (' ' + pre if pre else '') + '\n'
+        + T + track + '\n'
+        + T + 'Matrix3D inv;\n'
+        + T + 'tm.Get_Orthogonal_Inverse(inv);\n'
+        + T + sph + '\n'
+        + T + to + '\n'
+        + T + 'tm.Translate(to_object);\n'
+        + T + 'Matrix3D::Multiply(tm, Build_Matrix3D(rot), &tm);\n'
+        + T + 'tm.Translate(-to_object);\n'
+        + T + 'Unknown_543270(tm);\n'
+    )
+    assert s.count('\n') == BASE.count('\n')
+    return [(BASE, s)]
+
+
+FORMS = {}
+for _r in (0, 1):
+    for _nf in range(0, 5):
+        for _v in ('none', 'dead', 'live'):
+            for _k in (0, 1, 2):
+                FORMS['r%d_f%d_%s_d%d' % (_r, _nf, _v, _k)] = form(_r, _nf, _v, _k)
+
+===== a10_c6.py =====
+import itertools as _it
+HYPOTHESIS = ('FB6 0x542A10 batch 6: smemn needs four definitions (d2 raw 10, d3 5, d4 0, d5 5); the mouse floats and a '
+              'Vector3 copy overshoot or break it (batch 5). Subsets of size 3-6 of: a named radius (R), the timer read '
+              'into a float (T), the flag into a bool (D), dead float copies of the sphere centre\'s X / Y / Z (the '
+              'px_collision 0x454730 precedent, D272)')
+FILE = 'app/client/ship_equip_pip.cpp'
+SYMBOL = 'ShipEquipPipClass::Unknown_542A10'
+ADDRESS = 0x542A10
+
+_lines = open(FILE, newline='').read().split('\n')
+BASE = '\n'.join(_lines[226:244]) + '\n'
+assert BASE.startswith('\tif (Unknown4C <= 0.0f) {\n'), BASE[:60]
+assert BASE.endswith('\t\t\tUnknown_543270(tm);\n'), BASE[-40:]
+F = 'CameraManagerClass::Unknown_79B6B0()'
+T = '\t\t\t'
+
+
+def form(flags):
+    if 'R' in flags:
+        sph = ('float radius = ' + F + '; Vector3 center(0, 0, 0); SphereClass sphere; sphere.Radius = radius; '
+               'sphere.Center = center;')
+    else:
+        sph = 'Vector3 center(0, 0, 0); SphereClass sphere; sphere.Radius = ' + F + '; sphere.Center = center;'
+    deadf = ''.join(' float c%s = sphere.Center.%s;' % (c.lower(), c) for c in 'XYZ' if c in flags)
+    top = '\tfloat time = Unknown4C; if (time <= 0.0f) {\n' if 'T' in flags else '\tif (Unknown4C <= 0.0f) {\n'
+    cond = '\t\tbool down = on; if (!down) {\n' if 'D' in flags else '\t\tif (!on) {\n'
+    s = (
+        top
+        + '\t\tVector2 mouse;\n'
+        '\t\tUnknown_543200(&mouse, point);\n'
+        '\t\tVector2 last = LastMouse;\n'
+        '\t\tLastMouse = mouse;\n'
+        + cond
+        + T + 'CameraClass *camera = Camera.Peek();\n'
+        + T + 'FAIL_IF(!camera) return;\n'
+        + T + 'Matrix3D tm = camera->Get_Transform();\n'
+        + T + 'Quaternion rot = Trackball(last.X, last.Y, mouse.X, mouse.Y, 0.8f);\n'
+        + T + 'Matrix3D inv;\n'
+        + T + 'tm.Get_Orthogonal_Inverse(inv);\n'
+        + T + sph + deadf + '\n'
+        + T + 'Vector3 to_object = inv * sphere.Center;\n'
+        + T + 'tm.Translate(to_object);\n'
+        + T + 'Matrix3D::Multiply(tm, Build_Matrix3D(rot), &tm);\n'
+        + T + 'tm.Translate(-to_object);\n'
+        + T + 'Unknown_543270(tm);\n'
+    )
+    assert s.count('\n') == BASE.count('\n'), (s.count('\n'), BASE.count('\n'))
+    assert s.split('\n')[7] == BASE.split('\n')[7] and 'FAIL_IF' in s.split('\n')[7]
+    return [(BASE, s)]
+
+
+FORMS = {}
+for _n in (1, 2, 3, 4, 5, 6):
+    for _c in _it.combinations('RTDXYZ', _n):
+        FORMS['s_' + ''.join(_c)] = form(''.join(_c))
+
+===== a10_c7.py =====
+HYPOTHESIS = ('FB6 0x542A10 batch 7: any four definitions make the W3DView form exact (batch 6: every 4-subset, raw 0). '
+              'The count is over inline-expansion symbols too (workflow 3.1.2): the sphere through one file inline '
+              '(centre (0,0,0), radius the unit call), the helper 0x542250\'s two branches would share, supplies symbols '
+              'without a dead definition. Helper forms (by reference, by pointer, returning the sphere, Init), k dead '
+              'ints 0-3 as the gauge, in 0x542A10 only (a_) and in all three sites (b_: --file-check says whether '
+              '0x542250 stays exact)')
+FILE = 'app/client/ship_equip_pip.cpp'
+SYMBOL = 'ShipEquipPipClass::Unknown_542A10'
+ADDRESS = 0x542A10
+
+_src = open(FILE, newline='').read()
+_lines = _src.split('\n')
+BASE = '\n'.join(_lines[234:244]) + '\n'
+assert BASE.startswith('\t\t\tMatrix3D tm = camera->Get_Transform();\n'), BASE[:60]
+assert BASE.endswith('\t\t\tUnknown_543270(tm);\n'), BASE[-40:]
+ANCHOR = '\n\n// (the target and the unit are one SphereClass built from a named centre'
+assert _src.count(ANCHOR) == 1
+F = 'CameraManagerClass::Unknown_79B6B0()'
+T = '\t\t\t'
+B1 = '\t\t\tVector3 center(0, 0, 0);\n\t\t\tSphereClass sphere(center, ' + F + ');\n'
+B2 = '\t\tVector3 center(0, 0, 0);\n\t\tSphereClass sphere;\n\t\tsphere.Radius = ' + F + '; sphere.Center = center;\n'
+assert _src.count(B1) == 1 and _src.count(B2) == 1
+H = {
+    'ref': ('static inline void Unknown_Sphere(SphereClass &sphere) { Vector3 center(0, 0, 0); sphere.Radius = ' + F
+            + '; sphere.Center = center; }', 'SphereClass sphere; Unknown_Sphere(sphere);'),
+    'ptr': ('static inline void Unknown_Sphere(SphereClass *sphere) { Vector3 center(0, 0, 0); sphere->Radius = ' + F
+            + '; sphere->Center = center; }', 'SphereClass sphere; Unknown_Sphere(&sphere);'),
+    'ret': ('static inline SphereClass Unknown_Sphere() { return(SphereClass(Vector3(0, 0, 0), ' + F + ')); }',
+            'SphereClass sphere = Unknown_Sphere();'),
+    'retn': ('static inline SphereClass Unknown_Sphere() { Vector3 center(0, 0, 0); return(SphereClass(center, ' + F
+             + ')); }', 'SphereClass sphere = Unknown_Sphere();'),
+    'init': ('static inline void Unknown_Sphere(SphereClass &sphere) { sphere.Init(Vector3(0, 0, 0), ' + F + '); }',
+             'SphereClass sphere; Unknown_Sphere(sphere);'),
+    'refset': ('static inline void Unknown_Sphere(SphereClass &sphere) { sphere.Radius = ' + F
+               + '; sphere.Center.Set(0, 0, 0); }', 'SphereClass sphere; Unknown_Sphere(sphere);'),
+}
+
+
+def dead(k):
+    return ''.join('int d%d = 0; ' % i for i in range(k)).strip()
+
+
+def form(h, k, everywhere):
+    helper, use = H[h]
+    pre = dead(k)
+    s = (
+        T + 'Matrix3D tm = camera->Get_Transform();' + (' ' + pre if pre else '') + '\n'
+        + T + 'Quaternion rot = Trackball(last.X, last.Y, mouse.X, mouse.Y, 0.8f);\n'
+        + T + 'Matrix3D inv;\n'
+        + T + 'tm.Get_Orthogonal_Inverse(inv);\n'
+        + T + use + '\n'
+        + T + 'Vector3 to_object = inv * sphere.Center;\n'
+        + T + 'tm.Translate(to_object);\n'
+        + T + 'Matrix3D::Multiply(tm, Build_Matrix3D(rot), &tm);\n'
+        + T + 'tm.Translate(-to_object);\n'
+        + T + 'Unknown_543270(tm);\n'
+    )
+    assert s.count('\n') == BASE.count('\n')
+    out = [(ANCHOR, ANCHOR.replace('\n\n//', '\n' + helper + '\n//', 1)), (BASE, s)]
+    if everywhere:
+        out.append((B1, '\t\t\t' + use + '\n\n'))
+        out.append((B2, '\t\t' + use + '\n\n\n'))
+    return out
+
+
+FORMS = {}
+for _h in H:
+    for _k in (0, 1, 2, 3):
+        FORMS['a_%s_d%d' % (_h, _k)] = form(_h, _k, False)
+    FORMS['b_%s_d0' % _h] = form(_h, 0, True)
+
+===== a10_c8.py =====
+import runpy as _runpy
+_m = _runpy.run_path('C:/EnBDevelopment/EnB/.work/fb6/a10_c6.py')
+HYPOTHESIS = ('FB6 0x542A10 batch 8: four live definitions for the W3DView form: the named radius, the timer float, the '
+              'flag bool and the trackball scale 0.8f named (S); with one dead float where a live one is missing')
+FILE = _m['FILE']
+SYMBOL = _m['SYMBOL']
+ADDRESS = _m['ADDRESS']
+form = _m['form']
+OLD = 'Quaternion rot = Trackball(last.X, last.Y, mouse.X, mouse.Y, 0.8f);'
+NEW = 'float scale = 0.8f; Quaternion rot = Trackball(last.X, last.Y, mouse.X, mouse.Y, scale);'
+
+
+def withs(flags):
+    b, s = form(flags)[0]
+    assert s.count(OLD) == 1
+    return [(b, s.replace(OLD, NEW))]
+
+
+FORMS = {
+    's_RTDS': withs('RTD'),
+    's_RTS': withs('RT'),
+    's_RDS': withs('RD'),
+    's_TDS': withs('TD'),
+    's_RTSX': withs('RTX'),
+    's_RDSX': withs('RDX'),
+    's_RSXY': withs('RXY'),
+    's_RS': withs('R'),
+    's_S': withs(''),
+}

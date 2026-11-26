@@ -218,38 +218,38 @@ void ShipEquipPipClass::Unknown_542250(const RefCountPtr<RenderObjClass> &robj)
 
 
 
-
-
-// NOT EXACT: functional from the pseudocode (D64); the translations' products are summed in another order
+// (W3DView's trackball rotation, GraphicView.cpp: to_object = inverse * sphere centre, Translate(to_object), the rotation, Translate(-to_object); any four named scalars order the lighting sums: attempts.py show 0x542A10)
 // 0x542A10
 void ShipEquipPipClass::Unknown_542A10(const Vector2 &point, bool on)
 {
-	if (Unknown4C <= 0.0f) {
+	float time = Unknown4C;
+	if (time <= 0.0f) {
 		Vector2 mouse;
 		Unknown_543200(&mouse, point);
 		Vector2 last = LastMouse;
 		LastMouse = mouse;
-		if (!on) {
+		bool down = on;
+		if (!down) {
 			CameraClass *camera = Camera.Peek();
 			FAIL_IF(!camera) return;
 			Matrix3D tm = camera->Get_Transform();
-			Quaternion rot = Trackball(last.X, last.Y, mouse.X, mouse.Y, 0.8f);
+			float scale = 0.8f;
+			Quaternion rot = Trackball(last.X, last.Y, mouse.X, mouse.Y, scale);
 			Matrix3D inv;
 			tm.Get_Orthogonal_Inverse(inv);
-			CameraManagerClass::Unknown_79B6B0();
-			Vector3 center = inv.Get_Translation();
-			tm.Translate(center.X, center.Y, center.Z);
+			float radius = CameraManagerClass::Unknown_79B6B0();
+			Vector3 center(0, 0, 0);
+			SphereClass sphere;
+			sphere.Radius = radius;
+			sphere.Center = center;
+			Vector3 to_object = inv * sphere.Center;
+			tm.Translate(to_object);
 			Matrix3D::Multiply(tm, Build_Matrix3D(rot), &tm);
-			tm.Translate(-center.X, -center.Y, -center.Z);
+			tm.Translate(-to_object);
 			Unknown_543270(tm);
 		}
 	}
 }
-
-
-
-
-
 
 
 
@@ -359,7 +359,7 @@ void ShipEquipPipClass::Unknown_543270(const Matrix3D &tm)
 **	0x542EE0 inline it. Unknown_543200 takes the point by value (the client copies it onto the stack).
 **	0x542250 is exact (FB6, 2026-11-26): its target and unit are one SphereClass (the radius at [ebp-0x40] behind the
 **	centre, stored in branch 1 and never read: the store of an address-taken aggregate's member) built from a named
-**	centre, the first position stored Y, X, Z. Not exact: 0x542A10 sums each translation's products in another order.
+**	centre, the first position stored Y, X, Z. 0x542A10 is exact (FB6): W3DView's to_object = inverse * centre.
 **	0x542EE0 is exact: an owned matrix accessed through a mutable reference restores the lighting operand
 **	order; a reference to Distance preserves the client's Camera load after the translation and distance store.
 */

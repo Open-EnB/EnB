@@ -8735,8 +8735,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_79B6B0` | `app/client/ship_equip_pip.cpp:162` | untagged neutral name (D10) |
 | 1 | `Unknown_543270` | `app/client/ship_equip_pip.cpp:168` | untagged neutral name (D10) |
 | 1 | `Unknown_542EE0` | `app/client/ship_equip_pip.cpp:195` | untagged neutral name (D10) |
-| 1 | `Unknown_542A10` | `app/client/ship_equip_pip.cpp:225` | untagged neutral name (D10) |
-| 1 | `Unknown_543200` | `app/client/ship_equip_pip.cpp:229` | untagged neutral name (D10) |
+| 1 | `Unknown_542A10` | `app/client/ship_equip_pip.cpp:223` | untagged neutral name (D10) |
+| 1 | `Unknown_543200` | `app/client/ship_equip_pip.cpp:228` | untagged neutral name (D10) |
 | 1 | `ship_equip_pip.h` | `app/client/ship_equip_pip.h:5` | provisional header name for ship_equip_pip.cpp |
 | 1 | `client` | `app/client/ship_equip_pip.h:20` | what the window passes |
 | 1 | `Unknown_542250, robj` | `app/client/ship_equip_pip.h:22` | neutral (D10) |
