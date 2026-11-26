@@ -63,7 +63,7 @@ public:
 	struct NodeType { T Node; NodeType *Next; NodeType *Prev; };
 	// wlib's order (the client's stores: Entries, Current, Tail, Head, then CurIndex; 0x84E170)
 	CordListClass() { Entries = 0; Head = Tail = Current = 0; CurIndex = -1; }
-	// wlib's operator=, through getPointer (0x84E260: the node's own address goes to add)
+	// wlib's operator= (no caller: Copy 0x84E260 writes the Clear / getPointer / Add loop itself)
 	CordListClass<T> &operator=(const CordListClass<T> &other)
 	{
 		CordListClass<T> &from = (CordListClass<T> &)other;
