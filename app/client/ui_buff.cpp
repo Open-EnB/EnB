@@ -220,10 +220,10 @@ void UIBuffClass::Unknown_561030()
 	if (avatar && avatar->AuxData) {
 		float x, y;
 		Unknown_42ECF0(&x, &y);
-		DeltaBuffsClass *buffs = Unknown_Find_Aux<DeltaBuffsClass>(avatar, "BuffArray");
-		if (!buffs || buffs->Unknown70 <= 1) {
-			buffs = NULL;
-		}
+		DeltaBuffsClass *field = Unknown_Find_Aux<DeltaBuffsClass>(avatar, "BuffArray");
+		DeltaBuffsClass *buffs = (field && field->Unknown70 > 1) ? field : NULL;
+
+
 		bool shown = false;
 		if (buffs) {
 			for (int slot = 0; slot < MAX_BUFFS; slot++) {
