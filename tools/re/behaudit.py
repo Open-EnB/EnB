@@ -48,6 +48,10 @@ String_To_Value overloads reading their own tables, are assigned one to one, the
 consistent with the untied functions first); otherwise the best-aligned candidate not taken by an exact match, one
 function per address (overloads of one name: the best aligned), none under MIN_RATIO. Skipped: deleting destructors
 (??_G / ??_E), stale objects (an object older than its source's last commit in --tree, unless --no-stale).
+Ledger fallback (A7's tables placement, shared with lit / rel / imm / fpu by AT1, run 2026-11-26; not with --only):
+an exact function the pairing leaves out (symbols.json lags the ledger: no name, no marker; $E initialisers per
+object) is placed at the one in_tree address of its own object where its masked pattern fullmatches; those whose
+name only one object defines also feed relocaudit's data map. Prints `ledger:` with each check's gain.
 
 Filters (the scripts' false positives, each row keeps its class in column `auto`): `noise` = a hit whose expected
 value occurs elsewhere in the client's function (`shifted`), fold and static rows, lit-extra, stl_prime_list / $E /
@@ -82,7 +86,7 @@ REPO = os.path.dirname(os.path.dirname(HERE))
 sys.path.insert(0, HERE)
 import capstone  # noqa: E402
 from clientimage import ClientImage  # noqa: E402
-from objmatch import CoffObject, RELOC_SIZE, demangle, symbol_addresses, thunks_of  # noqa: E402
+from objmatch import CoffObject, MIN_FIXED, RELOC_SIZE, demangle, symbol_addresses, thunks_of  # noqa: E402
 import appfile  # noqa: E402
 import relocaudit as RA  # noqa: E402
 
@@ -1196,20 +1200,30 @@ def same_body(ctx, oc, a, b, limit=TABLE_WALK):
     return (None, untold) if untold else (True, None)
 
 
-def ledger_switch_funcs(ctx, funcs):
-    """[Func]: our functions with a jump table that the pairing leaves out (symbols.json lags the ledger: no name
-    nor marker yet), placed at the one ledger address of their own object (imports' in_tree) where the masked
-    pattern fullmatches. Only for the tables check, which audits every exact switch."""
+def ledger_files(ctx):
+    """The app ledger's {file key: shard} (imports' in_tree addresses per file), {} without a ledger."""
     import importlib.util
     spec = importlib.util.spec_from_file_location('ledger', os.path.join(REPO, 'tools', 'vc6', 'ledger.py'))
     ledger = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(ledger)
     try:
-        files = ledger.load(repo=ctx.tree).get('app', {}).get('files', {})
+        return ledger.load(repo=ctx.tree).get('app', {}).get('files', {})
     except (SystemExit, OSError, ValueError, KeyError) as ex:
-        ctx.log('tables: no ledger (%r)' % ex)
-        return []
-    have = {f.name for f in funcs} | {(f.path, f.name) for f in funcs}
+        ctx.log('ledger: none (%r)' % ex)
+        return {}
+
+
+def ledger_funcs(ctx, funcs, files=None, switch_only=False):
+    """[Func]: our exact functions the pairing leaves out (symbols.json lags the ledger: no name nor marker yet),
+    each placed at the one ledger address of its own object (imports' in_tree) where its masked pattern fullmatches
+    (at least MIN_FIXED fixed bytes; two or more hits: unplaced). Shared by every per-function check (A7's tables
+    placement, run 2026-11-26; AT1 gave it to lit / rel / imm / fpu and relocaudit's data map); switch_only keeps
+    the functions with a jump table (f.switch). FILES: {file key: {'in_tree': [hex]}} (default: the ledger)."""
+    if files is None:
+        files = ledger_files(ctx)
+    def own(path, name):        # an initialiser's $E name is per object (D94(b)): one per object
+        return (path, name) if name.startswith(('$', '_$')) else name
+    have = {own(f.path, f.name) for f in funcs}
     taken = {f.addr for f in funcs}
     out = []
     for path in ctx.paths:
@@ -1217,27 +1231,74 @@ def ledger_switch_funcs(ctx, funcs):
             continue
         key = os.path.splitext(os.path.basename(path))[0].lower()
         addrs = [int(a, 16) for a in files.get(key, {}).get('in_tree', ())]
+        addrs = [a for a in addrs if ctx.img.offset(a) is not None]
         if not addrs:
             continue
-        o = ctx.obj(path)
         try:
+            o = ctx.obj(path)
             fl = o.functions()
         except (ValueError, OSError, struct.error):
             continue
         for name, sec, st, en in fl:
-            if name.startswith(SKIP_PREFIX) or name in have:
+            if name.startswith(SKIP_PREFIX) or own(path, name) in have:
                 continue
             sr = self_relocs(o, sec, st, en)
-            if not any(st < t < en and t in sr for t in sr.values()):
+            switch = any(st < t < en and t in sr for t in sr.values())
+            if switch_only and not switch:
                 continue
-            hit = [a for a in addrs if a not in taken and ctx.masked_exact(o, sec, st, en, a)]
+            pat, fixed, n = o.pattern(sec, st, en)
+            if fixed < MIN_FIXED:
+                continue
+            rx = re.compile(pat, re.S)
+            hit = []
+            for a in addrs:
+                if a in taken:
+                    continue
+                off = ctx.img.offset(a)
+                if rx.fullmatch(ctx.img.data[off:off + n]):
+                    hit.append(a)
             if len(hit) == 1:
-                out.append(Func(path, o, name, sec, st, en, hit[0], True))
+                f = Func(path, o, name, sec, st, en, hit[0], True)
+                f.ledger, f.switch = True, switch
+                out.append(f)
                 taken.add(hit[0])
-                have.add(name)
-            else:
-                ctx.log('tables: %s %s unplaced (%d ledger hits)' % (key, demangle(name) or name, len(hit)))
+                have.add(own(path, name))
+            elif hit or switch:
+                ctx.log('ledger: %s %s unplaced (%d ledger hits)' % (key, demangle(name) or name, len(hit)))
     return out
+
+
+def add_to_data_map(ctx, placed):
+    """Give relocaudit's data map (keyed by symbol name, every object) the placed functions whose name only one of
+    our objects defines: a per-object name ($E15, an initialiser; a file-static twin) would let another object's
+    function of that name fullmatch this address's masked code and observe its own data there (unknown_7cef30's
+    $E15 at another object's $E15, 0x83CF40). Returns how many it added."""
+    count = collections.Counter()
+    for p in ctx.paths:
+        if p in ctx.stale:
+            continue
+        try:
+            count.update({name for name, _, _, _ in ctx.obj(p).functions()})
+        except (ValueError, OSError, struct.error):
+            pass
+    n = 0
+    for f in placed:
+        if f.name.startswith(('$', '_$')) or count[f.name] != 1:
+            continue
+        ctx.exact_syms[f.name].add(f.addr)
+        n += 1
+    return n
+
+
+def ledger_line(placed, rows, data_map=None):
+    """The summary of what the ledger placement gains each check: functions audited, rows from them."""
+    at = {'0x%06X' % f.addr for f in placed}
+    per = {c: [r for r in rs if r['addr'] in at] for c, rs in rows.items()}
+    gains = {'lit': len(placed), 'rel': len(placed), 'imm': len(placed), 'fpu': len(placed),
+             'tables': sum(1 for f in placed if f.switch), 'args': 0}
+    return 'ledger: %d exact functions placed (symbols.json names none); gained per check: %s; data map +%d' % (
+        len(placed), ', '.join('%s %d functions %d rows' % (c, gains.get(c, 0), len(per[c]))
+                               for c in rows if c in gains), len(placed) if data_map is None else data_map)
 
 
 def tables_rows(ctx, f, stats=None):
@@ -1631,10 +1692,15 @@ def run(checks, objdirs, tree=REPO, libroot=None, listings=None, only=None, out=
     ctx = Context(objdirs, tree, libroot, stale, log)
     funcs, stats = pair_functions(ctx, only) if set(checks) - {'data', 'seeds'} else ([], collections.Counter())
     log('pairing: %s; stale objects: %s' % (dict(stats), sorted(os.path.basename(p) for p in ctx.stale)))
+    # exact functions symbols.json does not name yet, placed by the ledger (every per-function check, AT1)
+    placed = [] if only or not set(checks) & {'lit', 'rel', 'imm', 'fpu', 'tables'} else ledger_funcs(ctx, funcs)
+    stats['ledger'] = len(placed)
+    stats['ledger_data_map'] = add_to_data_map(ctx, placed)
+    log('ledger placed: %s' % ', '.join('%s 0x%06X' % (f.dn, f.addr) for f in placed))
     rows = {c: [] for c in checks}
     if set(checks) & {'lit', 'rel', 'imm', 'fpu'}:
         allr, uncheck, per = [], [], {}
-        for f in funcs:
+        for f in funcs + placed:
             unc = []
             try:
                 per[id(f)] = (function_rows(ctx, f, unc), unc)
@@ -1651,7 +1717,7 @@ def run(checks, objdirs, tree=REPO, libroot=None, listings=None, only=None, out=
         def cost(g):
             got = per.get(id(g), ([], []))
             return len(got[0]) + sum(1 for key, v, _ in got[1] if key in base and v not in base[key])
-        for f in keep_tied(funcs, cost):
+        for f in keep_tied(funcs, cost) + placed:
             got = per.get(id(f), ([], []))
             allr += got[0]
             uncheck += got[1]
@@ -1663,7 +1729,7 @@ def run(checks, objdirs, tree=REPO, libroot=None, listings=None, only=None, out=
         rows['args'] = args_rows(ctx, funcs, listings, log)
     tstats = collections.Counter()
     if 'tables' in checks:
-        extra = [] if only else ledger_switch_funcs(ctx, funcs)
+        extra = [f for f in placed if f.switch]
         tstats['ledger'] = len(extra)
         for f in keep_tied(funcs, lambda g: len(tables_rows(ctx, g)) if g.exact else 0) + extra:
             try:
@@ -1693,6 +1759,8 @@ def run(checks, objdirs, tree=REPO, libroot=None, listings=None, only=None, out=
     if 'tables' in checks and not quiet:
         print('tables: %d exact functions with %d jump tables (%d placed by the ledger alone), %d case values; '
               '%d rows' % (tstats['functions'], tstats['tables'], tstats['ledger'], tstats['values'], tstats['rows']))
+    if placed and not quiet:
+        print(ledger_line(placed, rows, stats['ledger_data_map']))
     if not quiet:
         print('functions: %d exact, %d not exact, %d stale objects; %.0f s%s' % (
             stats['exact'], stats['notexact'], len(ctx.stale), time.time() - t0,

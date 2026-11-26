@@ -230,6 +230,60 @@ class TablesReordered(unittest.TestCase):
             B.DEFER_SAME = keep
 
 
+@unittest.skipUnless(FIX and os.path.exists(os.path.join(FIX, 'lst', 'sclient.obj')), 'fixtures missing')
+class LedgerPlacement(unittest.TestCase):
+    """The ledger fallback every per-function check shares (A7's tables placement, AT1): exact functions the pairing
+    leaves out, as when symbols.json does not name them yet, placed at their own object's ledger addresses."""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.ctx = B.Context([os.path.join(FIX, 'lst')], stale=False)
+        cls.ctx.paths = [p for p in cls.ctx.paths if p.endswith('sclient.obj')]
+        cls.funcs, _ = B.pair_functions(cls.ctx)
+        cls.exact = [f for f in cls.funcs if f.exact and not getattr(f, 'tied', None)]
+
+    def test_places_left_out(self):
+        gone = {(f.name, f.addr) for f in self.exact}
+        rest = [f for f in self.funcs if (f.name, f.addr) not in gone]
+        files = {'sclient': {'in_tree': ['0x%06X' % a for _, a in gone] + ['0x401000']}}
+        placed = B.ledger_funcs(self.ctx, rest, files=files)
+        got = {(f.name, f.addr) for f in placed}
+        self.assertTrue(got <= gone, got - gone)
+        self.assertGreater(len(got), len(gone) // 3, (len(got), len(gone)))   # short or twin copies stay out
+        self.assertTrue(all(f.exact and f.ledger for f in placed))
+        f = next(f for f in placed if f.addr == 0x743290)
+        self.assertTrue(f.switch)
+        sw = B.ledger_funcs(self.ctx, rest, files=files, switch_only=True)
+        self.assertIn(0x743290, {g.addr for g in sw})
+        self.assertTrue(all(g.switch for g in sw))
+        self.assertLess(len(sw), len(placed))
+        # the summary line counts each check's gain
+        rows = {'lit': [{'addr': '0x743290'}, {'addr': '0x401000'}], 'tables': [], 'args': []}
+        line = B.ledger_line(placed, rows)
+        self.assertIn('lit %d functions 1 rows' % len(placed), line)
+        self.assertIn('tables %d functions 0 rows' % len(sw), line)
+        self.assertIn('args 0 functions', line)
+
+    def test_data_map_unique_names_only(self):
+        import collections
+        objs = {'a.obj': [('?f@@YAXXZ', 1, 0, 9), ('$E15', 1, 9, 20), ('?s@@YAXXZ', 1, 20, 30)],
+                'b.obj': [('$E15', 1, 0, 9), ('?s@@YAXXZ', 1, 9, 20)]}
+        ctx = types.SimpleNamespace(paths=list(objs), stale=set(), exact_syms=collections.defaultdict(set),
+                                    obj=lambda p: types.SimpleNamespace(functions=lambda: objs[p]))
+        placed = [types.SimpleNamespace(name=n, addr=a) for n, a in
+                  (('?f@@YAXXZ', 0x401000), ('$E15', 0x402000), ('?s@@YAXXZ', 0x403000))]
+        self.assertEqual(B.add_to_data_map(ctx, placed), 1)
+        self.assertEqual(dict(ctx.exact_syms), {'?f@@YAXXZ': {0x401000}})
+
+    def test_not_in_ledger(self):
+        rest = [f for f in self.funcs if f.addr != 0x743290]
+        self.assertEqual([], [f for f in B.ledger_funcs(self.ctx, rest, files={'sclient': {'in_tree': ['0x401000']}})
+                              if f.addr == 0x743290])
+        self.assertEqual(B.ledger_funcs(self.ctx, rest, files={}), [])
+        # already paired: the pairing's own functions are never placed again
+        self.assertEqual(B.ledger_funcs(self.ctx, self.funcs, files={'sclient': {'in_tree': ['0x743290']}}), [])
+
+
 class Pieces(unittest.TestCase):
     def r(self, **k):
         base = dict.fromkeys(B.COLS, '')
