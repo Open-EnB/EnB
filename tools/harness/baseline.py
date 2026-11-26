@@ -11,7 +11,8 @@ noise in the private repository Open-EnB/baselines, checked out at machine.py's 
     python tools/harness/baseline.py tools [--add EXE...] [--store DIR]
 
 Layout of the store:  runs/<client>/<env>/<scenario>/<YYYYMMDD-HHMMSS>/   one stored run (UTC start time):
-    manifest.json, e2e.log, events.log, antprox.out, d3d8shot.log, camera.txt, messages.log (if any),
+    manifest.json, e2e.log, events.log, antprox.out, d3d8shot.log, camera.txt, messages.log (if any; filtered
+    above MESSAGES_RAW_MAX, the manifest's messages_log),
     result-<scenario>.json, shot_*.png, packets.json ({scenario: [packets the client sent]}, e2e.sent_packets)
 runs/<client>/<env>/<scenario>/noise.json: every stored run of the scenario against every other (raw shot_diff).
 <client> is retail-<first 8 hex of the exe's SHA-256>; <env> is <machine label>-<W>x<H> (the shots' size).
@@ -68,6 +69,16 @@ import machine                                  # noqa: E402
 
 SCHEMA = 1
 LOGS = ('e2e.log', 'events.log', 'antprox.out', 'd3d8shot.log', 'camera.txt', 'messages.log')
+# messages.log (the client's -ENABLE_MESSAGES stream) is stored as it is only up to MESSAGES_RAW_MAX; a larger one (a
+# space session's: 49-58 MB, 99 % effect_description.cpp's three asserts a frame and frameint.cpp's frame-rate line)
+# is stored filtered (filter_messages: the frame-rate lines dropped, an assert repeated since the last other line
+# folded to one '[repeated N x]' line) and cut at MESSAGES_MAX; the full log stays in the e2e session folder
+# (.staging, git-ignored) and the manifest's messages_log gives its size, SHA-256 and what was done.
+MESSAGES_RAW_MAX = 1 << 20
+MESSAGES_MAX = 4 << 20
+MESSAGES_DROP = re.compile(r'^STAT\s+Render: Frame Rate =')
+MESSAGES_TS = re.compile(r'^(\d\d:\d\d:\d\d\.\d+)\s+')
+MESSAGES_ASSERT = re.compile(r'^ERROR\s+(?:G_ASSERT|FAIL_IF):\s')
 LFS_HEAD = b'version https://git-lfs.github.com/spec/v1'
 # The client's own settings: RegistryClass opens HKEY_LOCAL_MACHINE (the 32-bit view: WOW6432Node); a client run
 # without elevation reads and writes UAC's per-user copy, HKCU\Software\Classes\VirtualStore\MACHINE\SOFTWARE\...,
@@ -298,6 +309,78 @@ def exe_version(path):
         return None
 
 
+def filter_messages(src, dst, limit=MESSAGES_MAX):
+    """Writes DST, the stored copy of the messages.log SRC: every line but frameint.cpp's per-frame 'Render: Frame
+    Rate' (dropped, counted), and a G_ASSERT / FAIL_IF line whose text (after the timestamp) already came since the
+    last other kept line folded: at that next line (or the end) one '<last time> [repeated N x] <text>' line per
+    folded text, in the order first seen. Cut at LIMIT bytes on a line boundary with a '[cut: ...]' line. Returns
+    {'bytes', 'sha256', 'lines' of SRC, 'stored_bytes', 'dropped', 'folded', 'cut'}."""
+    h = hashlib.sha256()
+    info = {'bytes': 0, 'lines': 0, 'dropped': 0, 'folded': 0, 'cut': False}
+    pending = {}                    # assert text -> [repeats, last timestamp], since the last other line
+    out_bytes = [0]
+    cut_lines = [0]
+
+    def put(fo, s):
+        b = s.encode('utf-8', 'replace')
+        if info['cut'] or out_bytes[0] + len(b) > limit:
+            info['cut'] = True
+            cut_lines[0] += 1
+            return
+        fo.write(b)
+        out_bytes[0] += len(b)
+
+    def flush(fo):
+        for text, (n, ts) in pending.items():
+            if n:
+                put(fo, f'{ts} [repeated {n} x] {text}\n')
+        pending.clear()
+
+    with open(src, 'rb') as fi, open(dst, 'wb') as fo:
+        for raw in fi:
+            h.update(raw)
+            info['bytes'] += len(raw)
+            info['lines'] += 1
+            line = raw.decode('utf-8', 'replace').rstrip('\r\n')
+            m = MESSAGES_TS.match(line)
+            ts, body = (m.group(1), line[m.end():]) if m else ('', line)
+            if MESSAGES_DROP.match(body):
+                info['dropped'] += 1
+                continue
+            if MESSAGES_ASSERT.match(body):
+                if body in pending:
+                    pending[body][0] += 1
+                    pending[body][1] = ts
+                    info['folded'] += 1
+                    continue
+                pending[body] = [0, ts]
+            else:
+                flush(fo)
+            put(fo, line + '\n')
+        flush(fo)
+        if info['cut']:
+            tail = f'[cut: {cut_lines[0]} more lines past {limit} bytes; the full log is the e2e session\'s]\n'
+            fo.write(tail.encode('utf-8'))
+            out_bytes[0] += len(tail)
+    info['sha256'] = h.hexdigest()
+    info['stored_bytes'] = out_bytes[0]
+    return info
+
+
+def store_messages(session, dest):
+    """messages.log of SESSION into DEST: as it is up to MESSAGES_RAW_MAX, else filter_messages' copy. Returns the
+    manifest's messages_log ({'bytes', 'sha256', 'kept': 'full' | 'filtered', ...}) or None without a log."""
+    src = os.path.join(session, 'messages.log')
+    if not os.path.exists(src):
+        return None
+    if os.path.getsize(src) <= MESSAGES_RAW_MAX:
+        shutil.copy2(src, os.path.join(dest, 'messages.log'))
+        return {'bytes': os.path.getsize(src), 'sha256': sha256_file(src), 'kept': 'full'}
+    info = filter_messages(src, os.path.join(dest, 'messages.log'))
+    info['kept'] = 'filtered'
+    return info
+
+
 def store_run(store, client, label, name, session, result, start_utc, common, ini, db, log, set_scens=None,
               srv=None, secs=None):
     """Copies one PASS run from an e2e session folder into the store; returns the run folder. set_scens: a set's run
@@ -318,8 +401,9 @@ def store_run(store, client, label, name, session, result, start_utc, common, in
         dest = os.path.join(store, 'runs', client, env, name, f'{stamp}-{n}')
     os.makedirs(dest)
     for f in LOGS + tuple(f'result-{x}.json' for x in names):
-        if os.path.exists(os.path.join(session, f)):
+        if f != 'messages.log' and os.path.exists(os.path.join(session, f)):
             shutil.copy2(os.path.join(session, f), os.path.join(dest, f))
+    mlog = store_messages(session, dest)
     entries = []
     for x in names:
         shot_list, draw_list = [], []
@@ -358,6 +442,8 @@ def store_run(store, client, label, name, session, result, start_utc, common, in
            'enb': common['enb'], 'scenario_files': dict(sorted(sfiles.items())),
            'server': dict(common['server'], db=db, **(srv or {'restore': 'none'})),
            'e2e_session': os.path.basename(session), 'audio_log': alog}
+    if mlog:
+        man['messages_log'] = mlog
     if secs is not None:
         man['session_seconds'] = round(secs, 1)
     if set_scens:

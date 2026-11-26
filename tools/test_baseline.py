@@ -739,6 +739,68 @@ class LiveSets(unittest.TestCase):
         self.assertNotEqual(h, baseline.scripts_hash({'inputs/db/b.sql': '2', 'inputs/db/a.sql': '1'}))
 
 
+class Messages(unittest.TestCase):
+    """messages.log stored filtered above MESSAGES_RAW_MAX (a space session's is 49-58 MB of asserts a frame)."""
+    LOG = ('00:00:01.000000 INFO  -: starting  main_client.cpp(596)\n'
+           '00:00:02.000000 STAT  Render: Frame Rate =  239  frameint.cpp(269) @0,0\n'
+           '00:00:02.001000 ERROR G_ASSERT: ASSERTION FAILED: a == b  effect_description.cpp(348)\n'
+           '00:00:02.001000 ERROR G_ASSERT: ASSERTION FAILED: c == d  effect_description.cpp(318)\n'
+           '00:00:02.005000 STAT  Render: Frame Rate =  241  frameint.cpp(269) @0,0\n'
+           '00:00:02.006000 ERROR G_ASSERT: ASSERTION FAILED: a == b  effect_description.cpp(348)\n'
+           '00:00:02.006000 ERROR G_ASSERT: ASSERTION FAILED: c == d  effect_description.cpp(318)\n'
+           '00:00:02.009000 ERROR G_ASSERT: ASSERTION FAILED: a == b  effect_description.cpp(348)\n'
+           '00:00:03.000000 INFO  input: ( 100, 45, 120001) => ( 45 0) : ------ w32kbd.cpp(270)\n'
+           '00:00:03.001000 ERROR G_ASSERT: ASSERTION FAILED: a == b  effect_description.cpp(348)\n')
+
+    def setUp(self):
+        self.d = tempfile.mkdtemp()
+        self.src = os.path.join(self.d, 'messages.log')
+        write(self.src, self.LOG.encode())
+
+    def test_filter_drops_frame_rate_and_folds_repeats(self):
+        dst = os.path.join(self.d, 'out.log')
+        info = baseline.filter_messages(self.src, dst)
+        lines = open(dst, encoding='utf-8').read().splitlines()
+        self.assertEqual(info['lines'], 10)
+        self.assertEqual(info['dropped'], 2)
+        self.assertEqual(info['folded'], 3)
+        self.assertFalse(info['cut'])
+        self.assertEqual(info['sha256'], baseline.sha256_file(self.src))   # the full log's hash, not the copy's
+        self.assertEqual(info['stored_bytes'], os.path.getsize(dst))
+        self.assertFalse(any('Frame Rate' in ln for ln in lines))
+        self.assertEqual(lines[3], '00:00:02.009000 [repeated 2 x] ERROR G_ASSERT: ASSERTION FAILED: a == b  '
+                                   'effect_description.cpp(348)')
+        self.assertEqual(lines[4], '00:00:02.006000 [repeated 1 x] ERROR G_ASSERT: ASSERTION FAILED: c == d  '
+                                   'effect_description.cpp(318)')
+        self.assertTrue(lines[5].endswith('w32kbd.cpp(270)'))
+        self.assertTrue(lines[6].startswith('00:00:03.001000 ERROR G_ASSERT'))   # after another line: kept again
+        self.assertEqual(len(lines), 7)
+
+    def test_cut_at_the_limit(self):
+        dst = os.path.join(self.d, 'out.log')
+        info = baseline.filter_messages(self.src, dst, limit=120)
+        text = open(dst, encoding='utf-8').read()
+        self.assertTrue(info['cut'])
+        self.assertTrue(text.splitlines()[-1].startswith('[cut: '))
+        self.assertEqual(len(text.splitlines()), 2)                      # the one line that fits, then the cut
+
+    def test_store_keeps_a_small_log_whole(self):
+        dest = os.path.join(self.d, 'dest')
+        os.makedirs(dest)
+        m = baseline.store_messages(self.d, dest)
+        self.assertEqual(m['kept'], 'full')
+        self.assertEqual(open(os.path.join(dest, 'messages.log'), 'rb').read(), self.LOG.encode())
+        old = baseline.MESSAGES_RAW_MAX
+        baseline.MESSAGES_RAW_MAX = 10
+        try:
+            m = baseline.store_messages(self.d, dest)
+        finally:
+            baseline.MESSAGES_RAW_MAX = old
+        self.assertEqual(m['kept'], 'filtered')
+        self.assertLess(m['stored_bytes'], m['bytes'])
+        self.assertIsNone(baseline.store_messages(dest + '-none', dest))
+
+
 def fake_pe(path, stamp):
     """A file with an MZ header, e_lfanew 0x80 and a PE signature whose COFF TimeDateStamp is STAMP."""
     import struct

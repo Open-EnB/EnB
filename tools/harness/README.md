@@ -946,7 +946,12 @@ it), `control_port`, `failed` (a script that failed: the run then stops), with `
 set's manifest also has `session_seconds`. It stores each PASS as `runs/<client>/<env>/<scenario>/<UTC YYYYMMDD-HHMMSS>/`
 (`<client>` `retail-<8 hex of the exe's SHA-256>`, `<env>` `<label>-<W>x<H>` from the shots) with e2e.log,
 events.log, antprox.out, d3d8shot.log, camera.txt, messages.log, result-NAME.json, the scenario's shots, a
-`packets.json` (e2e.sent_packets) and `manifest.json` (client SHA-256, data id: a hash over (path, size) of the
+`packets.json` (messages.log as it is up to 1 MB, `MESSAGES_RAW_MAX`; a larger one, a space session's 49-58 MB of
+effect_description.cpp's three asserts a frame and frameint.cpp's frame-rate line, is stored filtered by
+`filter_messages`: the frame-rate lines dropped, an assert repeated since the last other line folded to one
+`[repeated N x]` line, cut at 4 MB, `MESSAGES_MAX`: 48.8 MB -> 0.3 MB; the full log stays in the e2e session folder in
+`.staging`, and the manifest's `messages_log` gives its size, SHA-256, lines and what was dropped, folded or cut;
+packets.json is e2e.sent_packets) and `manifest.json` (client SHA-256, data id: a hash over (path, size) of the
 data root plus the content of files up to 16 KB; the client's registry settings, read only: HKLM's 32-bit view
 and UAC's VirtualStore copy that a run reads; the instance's `Data\client\ini` hash; resolution, GPU, driver, OS;
 the d3d8 proxy's SHA-256; antprox's file name, `/DESCRIBE` version and SHA-256 and antreplay's name, version and
