@@ -1933,21 +1933,21 @@ void ClientObjectClass::Unknown_6FD7A0(RenderObjClass *robj)
 
 
 
+static inline DeltaTemplateClass<int> *Unknown_Find_Engine_Changed(ClientObjectClass *o, const char *f) { NameClass n(f); DeltaTemplateClass<int> *t = Unknown_Find_Field<DeltaTemplateClass<int> >((DeltaCompoundClass *)o->AuxData, n); if (t && t->Unknown70 > 1) return(t); return(NULL); }	// NAME 1: neutral (D10)
+static inline DeltaTemplateClass<int> *Unknown_Find_Engine_Changed_2L(ClientObjectClass *o, const char *f) { return(Unknown_Find_Engine_Changed(o, f)); }	// NAME 1: neutral (D10)
+static inline DeltaTemplateClass<int> *Unknown_Find_Engine_Valid(ClientObjectClass *o, const char *f) { NameClass n(f); DeltaTemplateClass<int> *t = Unknown_Find_Field<DeltaTemplateClass<int> >((DeltaCompoundClass *)o->AuxData, n); if (t && t->Unknown70) return(t); return(NULL); }	// NAME 1: neutral (D10)
 
 
-
-
-// NOT EXACT: shape after the two Unknown_Find_Aux asserts (ours tests t again where the client jumps / returns); the calls out of line now match the client's (0x7079B0, 0x531590; IB1)
 // 0x6FDBD0 (the engine sounds: the engine and thrust loops when EngineTrailType changed, then EngineThrustState)
 void ClientObjectClass::Unknown_6FDBD0()
 {
-	Unknown_6F5A40(); Unknown_Find_Field<DeltaTemplateClass<int> >(NULL, *(NameClass *)this); Unknown_Find_Field<DeltaTemplateClass<int> >(NULL, *(NameClass *)this); Unknown_Find_Field<DeltaTemplateClass<int> >(NULL, *(NameClass *)this); Unknown_Find_Field<DeltaTemplateClass<int> >(NULL, *(NameClass *)this);	// a dead type test and dead finds (root NULL: no code) spend the inline budget (P-IB1-1): rtti.h's cast then stays out of line for EngineTrailType only, as the client's
+	Unknown_Find_Field<DeltaTemplateClass<int> >(NULL, *(NameClass *)this);	// dead find (root NULL: no code, D272) spends the inline budget: IsOrganic's Find_Field<bool> 0x7079B0 and EngineTrailType's Cast<int> 0x531590 out of line, Find_Valid<bool> and EngineThrustState's Cast<int> inline
 	if (!Unknown_6F58B0()) {
 		return;
 	}
 	{
-		DeltaTemplateClass<int> *t = Unknown_Find_Aux((DeltaTemplateClass<int> *)NULL, this, "EngineTrailType");
-		if (t && t->Unknown70 > 1) {
+		DeltaTemplateClass<int> *t = Unknown_Find_Engine_Changed_2L(this, "EngineTrailType");
+		if (t) {
 			if (Type == 1 && ((SClient *)Client->As_Space_Client())->ViewMode == 1) {
 				Unknown_6FD7A0(RenderObject);
 			}
@@ -1992,8 +1992,8 @@ void ClientObjectClass::Unknown_6FDBD0()
 		}
 	}
 
-	DeltaTemplateClass<int> *t = Unknown_Find_Aux((DeltaTemplateClass<int> *)NULL, this, "EngineThrustState");
-	if (!t || !t->Unknown70) {
+	DeltaTemplateClass<int> *t = Unknown_Find_Engine_Valid(this, "EngineThrustState");
+	if (!t) {
 		return;
 	}
 	int state = t->Value;
