@@ -71,7 +71,7 @@ template<class C> inline C *Unknown_Find_Valid_Field(DeltaCompoundClass *const &
 template<class C> inline C *Unknown_Find_Valid(DeltaCompoundClass *const &root, const char *name) { return(Unknown_Find_Valid_Field<C>(root, name)); }	// NAME 1: neutral (D10)  // NAME 1 [root, name]: neutral
 
 // 'Mode': DeltaManufacturingLabClass's DeltaTemplateClass<UnknownB013ECEnum> (aux_roots.h; its per-class global 0xC41634)
-
+template<class C> inline C *Unknown_Find_Changed_Field(DeltaCompoundClass *const &root, const char *name) { NameClass n(name); DeltaCompoundClass *r = root; C *t = Unknown_Find_Field<C>(r, n); if (t && t->Unknown70 > 1) return(t); return(NULL); } template<class C> inline C *Unknown_Find_Changed(DeltaCompoundClass *const &root, const char *name) { return(Unknown_Find_Changed_Field<C>(root, name)); }	// NAME 1: neutral (D10): Unknown_Find_Valid's two layers with the changed test (> 1): the client's out-of-line finds in 0x545190  // NAME 1 [root, name, n, r, t]: neutral
 
 
 
@@ -485,84 +485,84 @@ void UIAnalyzeClass::Unknown_544C50(int index, bool show, const char *text)
 	font->Set_Hidden(!show);
 }
 
-// NOT EXACT: inline budget (the client calls the 'NegotiatedCost' and 'CriticalSuccessProbability' finds out of line, Unknown_Find_Field 0x417D82 / 0x4138E0 thunks, and the 'SuccessProbability' Cast; ours inlines them) (0x544D80)
+// NOT EXACT: inline budget (the client's finds: NegotiatedCost / CriticalSuccessProbability out of line under Unknown_Find_Valid's two layers, the SuccessProbability Cast out of line under one; two dead reads of 0x544C50's accessor (D272) send the first two copies' FAIL_IF releases out as the client; the client still inlines the third copy's) (0x544D80)
 // @0x544D80
 void UIAnalyzeClass::Unknown_544D80()
 {
 	MoneyClass cost;
-	DeltaTemplateClass<MoneyClass> *negotiated = Unknown_Find_Field<DeltaTemplateClass<MoneyClass> >(Unknown10C, NameClass("NegotiatedCost"));
-	if (negotiated && negotiated->Unknown70) {
+	DeltaTemplateClass<MoneyClass> *negotiated = Unknown_Find_Valid<DeltaTemplateClass<MoneyClass> >(Unknown10C, "NegotiatedCost");
+	if (negotiated) {
 		cost = negotiated->Value;
 	}
 	Unknown_544C50(3, true, cost.Amount_As_Text(false).c_str());
 	char text[32];
 	float success = 0;
-	DeltaTemplateClass<float> *success_probability = Unknown_Find_Field<DeltaTemplateClass<float> >(Unknown10C, NameClass("SuccessProbability"));
-	if (success_probability && success_probability->Unknown70) {
+	DeltaTemplateClass<float> *success_probability = Unknown_Find_Valid_Field<DeltaTemplateClass<float> >(Unknown10C, "SuccessProbability");
+	if (success_probability) {
 		success = success_probability->Value * 100.0f;
 	}
 	sprintf(text, "%1.0f%%", success);
 	Unknown_544C50(4, true, text);
 	float critical = 0;
-	DeltaTemplateClass<float> *critical_probability = Unknown_Find_Field<DeltaTemplateClass<float> >(Unknown10C, NameClass("CriticalSuccessProbability"));
-	if (critical_probability && critical_probability->Unknown70) {
+	DeltaTemplateClass<float> *critical_probability = Unknown_Find_Valid<DeltaTemplateClass<float> >(Unknown10C, "CriticalSuccessProbability");
+	if (critical_probability) {
 		critical = critical_probability->Value * 100.0f;
 	}
 	sprintf(text, "%1.0f%%", critical);
-	Unknown_544C50(5, true, text);
+	Unknown_544C50(5, true, text); InterfaceMesh->Peek_Mesh_Object(); InterfaceMesh->Peek_Mesh_Object();
 }
 
-// NOT EXACT: inline budget (the client calls all four finds out of line, the 0x417D82 / 0x4138E0 thunks and 0x5465C0, as ui_manu.cpp's 0x5B5320; ours inlines them) (0x545190)
+// 0x545190: the four finds out of line under Unknown_Find_Changed's two layers, one dead read (D272); the cases in the client's body order (its jump table)
 // @0x545190
 void UIAnalyzeClass::Unknown_545190()
 {
 	MoneyClass cost;
-	DeltaTemplateClass<MoneyClass> *negotiated = Unknown_Find_Field<DeltaTemplateClass<MoneyClass> >(Unknown10C, NameClass("NegotiatedCost"));
-	if (negotiated && negotiated->Unknown70 > 1) {
+	DeltaTemplateClass<MoneyClass> *negotiated = Unknown_Find_Changed<DeltaTemplateClass<MoneyClass> >(Unknown10C, "NegotiatedCost");
+	if (negotiated) {
 		cost = negotiated->Value;
 		Unknown_544C50(3, true, cost.Amount_As_Text(false).c_str());
 	}
 	char text[32];
-	DeltaTemplateClass<float> *success_probability = Unknown_Find_Field<DeltaTemplateClass<float> >(Unknown10C, NameClass("SuccessProbability"));
-	if (success_probability && success_probability->Unknown70 > 1) {
+	DeltaTemplateClass<float> *success_probability = Unknown_Find_Changed<DeltaTemplateClass<float> >(Unknown10C, "SuccessProbability");
+	if (success_probability) {
 		sprintf(text, "%1.0f%%", success_probability->Value * 100.0f);
 		Unknown_544C50(4, true, text);
 	}
-	DeltaTemplateClass<float> *critical_probability = Unknown_Find_Field<DeltaTemplateClass<float> >(Unknown10C, NameClass("CriticalSuccessProbability"));
-	if (critical_probability && critical_probability->Unknown70 > 1) {
+	DeltaTemplateClass<float> *critical_probability = Unknown_Find_Changed<DeltaTemplateClass<float> >(Unknown10C, "CriticalSuccessProbability");
+	if (critical_probability) {
 		sprintf(text, "%1.0f%%", critical_probability->Value * 100.0f);
 		Unknown_544C50(5, true, text);
 	}
-	DeltaTemplateClass<UnknownB01394Enum> *validity = Unknown_Find_Field<DeltaTemplateClass<UnknownB01394Enum> >(Unknown10C, NameClass("Validity"));
-	if (validity && validity->Unknown70 > 1) {
+	DeltaTemplateClass<UnknownB01394Enum> *validity = Unknown_Find_Changed<DeltaTemplateClass<UnknownB01394Enum> >(Unknown10C, "Validity");
+	if (validity) {
 		const char *message = NULL;
 		switch (validity->Value) {
-			case 1:
-				message = "Item may not be analyzed, dismantled or manufactured.";
-				break;
-			case 2:
-				message = "Item may not be dismantled.";
-				break;
 			case 4:
 				message = "Insufficient credits to analyze or dismantle item.";
 				break;
 			case 6:
 				message = "More empty cargo space required to dismantle item.";
 				break;
-			case 7:
-				message = "Not qualified to analyze or dismantle this item.";
+			case 12:
+				message = "Dismantling may result in a duplicate unique item.";
 				break;
 			case 8:
 				message = "Item too difficult to analyze or dismantle.";
 				break;
-			case 12:
-				message = "Dismantling may result in a duplicate unique item.";
+			case 7:
+				message = "Not qualified to analyze or dismantle this item.";
+				break;
+			case 1:
+				message = "Item may not be analyzed, dismantled or manufactured.";
+				break;
+			case 2:
+				message = "Item may not be dismantled.";
 				break;
 		}
 		if (message) {
 			Client->As_Space_Client()->Unknown_74D990(0x11, (char *)message, 0);
 		}
-	}
+	} InterfaceMesh->Peek_Mesh_Object();
 }
 
 // NOT EXACT: inline budget (the client calls the 'Validity' and 'Mode' Casts out of line, 0x5468D0 / 0x546920; #pragma inline_depth(1) at the file's end does that but costs 0x5437C0, 0x5439F0 and 0x544C50) (0x545610)
@@ -612,7 +612,7 @@ void UIAnalyzeClass::Unknown_545610()
 	Unknown_544C50(1, true, "");
 }
 
-// NOT EXACT: inline budget (the client calls the 'Mode' find out of line, 0x546630, and the last text of key 5's dismantle branch, 0x544C50) (0x5458B0)
+// 0x5458B0: the 'Mode' find out of line (0x546630) under Unknown_Find_Valid's two layers, as the client
 // @0x5458B0
 void UIAnalyzeClass::Unknown_5458B0()
 {
@@ -624,8 +624,8 @@ void UIAnalyzeClass::Unknown_5458B0()
 	if (Unknown0DC) {
 		Unknown0DC->Unknown_62F5B0(false);
 	}
-	DeltaTemplateClass<UnknownB013ECEnum> *mode = Unknown_Find_Field<DeltaTemplateClass<UnknownB013ECEnum> >(Unknown10C, NameClass("Mode"));
-	if (mode && mode->Unknown70) {
+	DeltaTemplateClass<UnknownB013ECEnum> *mode = Unknown_Find_Valid<DeltaTemplateClass<UnknownB013ECEnum> >(Unknown10C, "Mode");
+	if (mode) {
 		if (mode->Value == 2) {
 			Unknown_544C50(6, true, Unknown_B796A8[0]);
 			Unknown_544C50(8, true, Unknown_B796A8[11]);
