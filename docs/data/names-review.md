@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1970 |
 | 2 | describes what the code does | 5014 |
-| 1 | neutral placeholder | 25202 |
+| 1 | neutral placeholder | 25205 |
 
 ## For review (score 3 and below)
 
@@ -2055,6 +2055,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6FDBD0` | `app/client/co.cpp:1781` | untagged neutral name (D10) |
 | 1 | `Unknown_6FE1E0` | `app/client/co.cpp:1782` | untagged neutral name (D10) |
 | 1 | `Unknown_6FD7A0` | `app/client/co.cpp:1891` | untagged neutral name (D10) |
+| 1 | `Unknown_Find_Engine_Changed` | `app/client/co.cpp:1936` | neutral (D10) |
+| 1 | `Unknown_Find_Engine_Changed_2L` | `app/client/co.cpp:1937` | neutral (D10) |
+| 1 | `Unknown_Find_Engine_Valid` | `app/client/co.cpp:1938` | neutral (D10) |
 | 1 | `Unknown_7E7A70` | `app/client/co.cpp:2003` | untagged neutral name (D10) |
 | 1 | `Unknown_79B690` | `app/client/co.cpp:2005` | untagged neutral name (D10) |
 | 1 | `model, levels, hull_level, client, id, unknown` | `app/client/co.cpp:2111` | what 0x6FE1E0 passes |

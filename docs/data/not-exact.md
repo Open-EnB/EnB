@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-510 entries in 231 files.
+509 entries in 231 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -60,7 +60,6 @@ edit the comments in the code, not this file.
 | `app/client/co.cpp:1679` | `ClientObjectClass::Unknown_6FC9A0` | marker | NOT EXACT: shape (case 2's 'pop esi' scheduled between its two stores in ours, after them in the client; 3 forms) 0x6FC9A0 |
 | `app/client/co.cpp:1743` | `ClientObjectClass::Unknown_6FCB70` | marker | NOT EXACT: inline budget (the client calls the IsOrganic find 0x705450, the fourth 0x6F5140 and the RefCountPtr assignments 0x4153B6 out of line, ours inlines them; the client holds the 1 in edi; attempts.py show 0x6FCB70) 0x6FCB70 (Set_Model and SUBPARTS 0x6FEF70 call it last): the damage state reset, the sphere, the colorization, then for an organic type 0 or 1 that isn't IsOrganic the six bone ... |
 | `app/client/co.cpp:1784` | `ClientObjectClass::Unknown_6FD310` | marker | NOT EXACT: inline budget (the client calls the array Cast 0x709A40 out of line for DamageSpot and DamageLine and inlines it for DamageBlotch; ours inlines all three; 4 forms, attempts.py show 0x6FD310) 0x6FD310 (the damage decals: the DamageSpot / DamageLine / DamageBlotch items that changed, one decal pool each) |
-| `app/client/co.cpp:1940` | `ClientObjectClass::Unknown_6FDBD0` | marker | NOT EXACT: shape after the two Unknown_Find_Aux asserts (ours tests t again where the client jumps / returns); the calls out of line now match the client's (0x7079B0, 0x531590; IB1) 0x6FDBD0 (the engine sounds: the engine and thrust loops when EngineTrailType changed, then EngineThrustState) |
 | `app/client/co.cpp:2208` | `ClientObjectClass::Unknown_6FEAC0` | marker | NOT EXACT: register (the client holds the 1 in ebx: levels, hull level, +0x104 stores and the Type <= 1 compare; 10 register-masked rows; attempts.py show 0x6FEAC0) 0x6FEAC0 (unreferenced in the client) the damage state back to level 1: the model's levels and +0x104 |
 | `app/client/co.cpp:2326` | `ClientObjectClass::Get_Name` | marker | NOT EXACT: inline-budget (the client calls rtti.h's cast 0x5469C0 at all four lookups, ours inlines them; its four NameClass slots are unshared, frame 0xD0: one full-expression of temporaries gives that frame but keeps the casts inline) |
 | `app/client/co.cpp:2608` | `ClientObjectClass::Unknown_6FF7A0` | marker | NOT EXACT: frame slots (the client gives the four selection NameClasses four slots and Title / Rank share one; ours the reverse; code otherwise identical) |
