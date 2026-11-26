@@ -280,6 +280,14 @@
    "moved_to": null,
    "decision": "D240",
    "note": "The companion of 0x448BE0 (the same initialiser's atexit), lost with it on the same CRT table and .bss evidence (run 2026-11-25-evening, IM7 a539b4621)."
+  },
+  {
+   "address": "0x705450",
+   "lib": "app",
+   "file": "co",
+   "moved_to": null,
+   "decision": "D240",
+   "note": "ClientObjectClass::Unknown_6FDBD0 0x6FDBD0 made exact (1223 / 1223 bytes) with three helpers after the aux roots and one dead find: the client inlines Unknown_Find_Valid<bool> there and calls 0x7079B0, so our out-of-line copy 0x705450 is no longer credited (run 2026-11-25-evening, GN11 c58d87d9f). The client's one caller of 0x705450 is 0x6FCB70 (0x6FCCDE): regain it on 0x6FCB70's round."
   }
  ]
 }
