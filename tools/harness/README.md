@@ -1023,7 +1023,13 @@ stored runs' whole sequences fail leave one out too. The line names the scenario
 other stored runs' (their own noise); a run's DIFF is RETAIL-UNSTABLE only when every reason it failed for
 (`drawlog_verdict`'s REASONS: `states:FIELD`, `states:new STATE`, `textures`, `draws`, `cams`, `worlds`) is one a
 left-out stored run fails for too; a DIFF says which reasons retail's own runs show. With one stored run nothing is
-measured: DIFF. Shots, packets and 2D counts are not covered (DIFF as before). Exit codes: 0 every scenario SAME,
+measured: DIFF. Packets (`packet_verdict`, brief CS3, c9): a run's packets equal to no stored run's are weighed by
+the kinds of difference (`packet_reasons`: `count:NAME` sent another number of times, `size:NAME` in sizes the other
+lacks, `order` the rest the same in another order); RETAIL-UNSTABLE when against some stored run every kind is one a
+stored run shows against its nearest other stored run, leave one out (`packet_stability`: sp_combat's random loot,
+the number of INVENTORY_MOVE takes; the job board's list), else DIFF with the kinds against the nearest stored run
+and those retail's runs show. Shots and 2D counts are not covered: a shot keeps its stored noise max (DIFF as
+before). Exit codes: 0 every scenario SAME,
 1 any DIFF (or a `--set` scenario missing), 2 a stale build, 4 no DIFF but some RETAIL-UNSTABLE, 3 neither but some
 not comparable; the count line says how many of each. Tests: `test_baseline.py` Audio / DrawLogs `retail_unstable`. A live
 set restores the database state once a run, before the session.

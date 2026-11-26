@@ -1121,6 +1121,110 @@ def drawlog_unstable(run_reasons, loo):
     return bool(run_reasons) and run_reasons <= shared
 
 
+# ---------------------------------------------------------------- packets, leave one out (brief CS3, c9)
+
+def _packets_by_name(lst):
+    out = {}
+    for it in lst:
+        n, _, size = it.partition(' ')
+        out.setdefault(n, []).append(size)
+    return out
+
+
+def packet_reasons(a, b):
+    """The kinds of difference between two packet lists of one scenario (e2e.sent_packets: 'NAME BYTES' in order):
+    'count:NAME' NAME sent a different number of times (the random loot's INVENTORY_MOVE takes), 'size:NAME' sent
+    in sizes the other list lacks (or as often in another mix of sizes), 'order' every other packet the same but in
+    another order. set() when equal."""
+    if a == b:
+        return set()
+    pa, pb = _packets_by_name(a), _packets_by_name(b)
+    out = set()
+    for n in set(pa) | set(pb):
+        x, y = pa.get(n, []), pb.get(n, [])
+        if len(x) != len(y):
+            out.add('count:' + n)
+        if (x and y and set(x) != set(y)) or (len(x) == len(y) and sorted(x) != sorted(y)):
+            out.add('size:' + n)
+    named = {r.split(':', 1)[1] for r in out}
+    if [p for p in a if p.partition(' ')[0] not in named] != [p for p in b if p.partition(' ')[0] not in named]:
+        out.add('order')
+    return out
+
+
+def _packet_reason_text(reason, mine, theirs):
+    kind, _, n = reason.partition(':')
+    if kind == 'order':
+        return 'the order'
+    x, y = _packets_by_name(mine).get(n, []), _packets_by_name(theirs).get(n, [])
+    if kind == 'count':
+        return f'{n} x{len(x)} (x{len(y)})'
+    return f'{n} sizes {"/".join(sorted(set(x)))} ({"/".join(sorted(set(y)))})'
+
+
+def _nearest(mine, others):
+    """(index, reasons) of the packet list in others nearest mine: fewest kinds of difference, then fewest packets
+    apart (difflib)."""
+    import difflib
+    best = None
+    for i, t in enumerate(others):
+        r = packet_reasons(mine, t)
+        sm = difflib.SequenceMatcher(None, mine, t, autojunk=False)
+        apart = len(mine) + len(t) - 2 * sum(m.size for m in sm.get_matching_blocks())
+        key = (len(r), apart)
+        if best is None or key < best[0]:
+            best = (key, i, r)
+    return (best[1], best[2]) if best else (None, set())
+
+
+def packet_stability(stored):
+    """Retail against retail, leave one out: stored is [(run, packets)]; [(run, reasons, nearest run)] of each stored
+    run whose packets equal no other stored run's, with the kinds of difference against its nearest other run
+    (packet_reasons). [] when every one equals another or fewer than two are stored (nothing measured)."""
+    if len(stored) < 2:
+        return []
+    out = []
+    for i, (run, pk) in enumerate(stored):
+        others = stored[:i] + stored[i + 1:]
+        if any(pk == o for _, o in others):
+            continue
+        j, r = _nearest(pk, [o for _, o in others])
+        out.append((run, r, others[j][0]))
+    return out
+
+
+def packet_verdict(mine, stored):
+    """(ok, text) for the run's packets of one scenario against the stored runs' ([(run, packets)]): True when equal
+    to one; RETAIL_UNSTABLE when against some stored run every kind of difference (packet_reasons) is one a stored
+    run shows against its nearest other stored run too, leave one out (c7's rule: the same kind of difference retail
+    itself varies in: the random loot's takes, the job board's list); else False (DIFF), naming the kinds against
+    the nearest stored run and those retail's own runs show."""
+    theirs = [p for _, p in stored]
+    head = f'packets {len(mine)}, stored {"/".join(str(len(t)) for t in theirs)}'
+    if mine in theirs:
+        return True, head
+    if not stored:
+        return False, head + ' (no stored run)'
+    loo = packet_stability(stored)
+    shared = set().union(*(r for _, r, _ in loo)) if loo else set()
+    per = [packet_reasons(mine, t) for t in theirs]
+    ok_at = [i for i, r in enumerate(per) if r and r <= shared]
+    if ok_at:
+        j, _ = _nearest(mine, [theirs[k] for k in ok_at])
+        i = ok_at[j]
+        lr = next(x for x in loo if per[i] & x[1])
+        return RETAIL_UNSTABLE, (
+            f'{head}: against {stored[i][0]} only in '
+            + ', '.join(_packet_reason_text(r, mine, theirs[i]) for r in sorted(per[i]))
+            + f', and so do {len(loo)} of the {len(stored)} stored runs, leave one out ({lr[0]} against {lr[2]}: '
+            + ', '.join(_packet_reason_text(r, dict(stored)[lr[0]], dict(stored)[lr[2]]) for r in sorted(lr[1])) + ')')
+    i, r = _nearest(mine, theirs)
+    return False, (f'{head} (equal to none): against the nearest, {stored[i][0]}, '
+                   + ', '.join(_packet_reason_text(x, mine, theirs[i]) for x in sorted(r))
+                   + (f'; the stored runs, leave one out, differ only in {", ".join(sorted(shared))}' if shared else
+                      '; the stored runs agree' if len(stored) > 1 else '; one stored run: nothing measured'))
+
+
 # ---------------------------------------------------------------- noise
 
 def stored_runs(scen_dir):
@@ -2109,9 +2213,11 @@ def verify_run(args):
         if v not in stored_v:
             hard.append(f'verdict {v}, stored {"/".join(stored_v)}')
         mine = packets.get(name, [])
-        theirs = [en['packets'] for en in ents]
-        if mine not in theirs:
-            what.append(f'packets {len(mine)}, stored {"/".join(str(len(t)) for t in theirs)} (equal to none)')
+        p_ok, p_text = packet_verdict(mine, [(en['run'], en['packets']) for en in ents])
+        if p_ok is False:
+            what.append(p_text)
+        elif p_ok == RETAIL_UNSTABLE:
+            shaky.append(p_text)
         stored_order = ents[-1]['order'] if ents else []
         used.add((c, e, s))
         if len(held) > 1 or len(order) > 1:
@@ -2307,7 +2413,7 @@ def main(argv=None):
                     help='verify --run: go on when our exe is older than the newest client-source commit')
     ap.add_argument('--set', help='capture: the scenarios as ONE e2e session a run, stored as this set (no names: '
                                   "e2e's default set); verify --run: compare with this stored set")
-    args = ap.parse_args(argv)
+    args = ap.parse_intermixed_args(argv)   # names after an option too (capture --set SET NAME...)
     if args.command == 'capture':
         if not args.names and not args.set:
             ap.error('capture NAME... | capture --set SET [NAME...]')

@@ -426,6 +426,77 @@ class DrawLogs(unittest.TestCase):
         self.assertFalse(baseline.drawlog_unstable({'draws', 'textures'}, [('r', '', {'draws'})]))
 
 
+LOOT = ['SET_TARGET 12', 'LOOT_HULK_PERMISSION 8']
+
+
+def loot(takes, size=20):
+    return LOOT + [f'INVENTORY_MOVE {size}'] * takes + ['OPEN_INTERFACE 6']
+
+
+class Packets(unittest.TestCase):
+    """Brief CS3 (c9): a packet difference of the kind the stored retail runs differ in among themselves, leave one
+    out (sp_combat's random loot: the number of INVENTORY_MOVE takes), is RETAIL-UNSTABLE; any other is DIFF."""
+
+    def test_reasons(self):
+        self.assertEqual(baseline.packet_reasons(loot(3), loot(3)), set())
+        self.assertEqual(baseline.packet_reasons(loot(3), loot(5)), {'count:INVENTORY_MOVE'})
+        self.assertEqual(baseline.packet_reasons(loot(3), loot(3, 24)), {'size:INVENTORY_MOVE'})
+        swapped = [LOOT[1], LOOT[0]] + loot(3)[2:]
+        self.assertEqual(baseline.packet_reasons(swapped, loot(3)), {'order'})
+        # a count difference does not hide another packet's order
+        self.assertEqual(baseline.packet_reasons([LOOT[1], LOOT[0]] + loot(2)[2:], loot(3)),
+                         {'count:INVENTORY_MOVE', 'order'})
+        self.assertEqual(baseline.packet_reasons(loot(3), loot(3)[:-1]), {'count:OPEN_INTERFACE'})
+
+    def test_stability(self):
+        stored = [('r1', loot(3)), ('r2', loot(3)), ('r3', loot(5))]
+        self.assertEqual(baseline.packet_stability(stored), [('r3', {'count:INVENTORY_MOVE'}, 'r1')])
+        self.assertEqual(baseline.packet_stability([('r1', loot(3)), ('r2', loot(3))]), [])
+        self.assertEqual(baseline.packet_stability([('r1', loot(3))]), [])
+
+    def test_verdict(self):
+        stored = [('r1', loot(3)), ('r2', loot(4)), ('r3', loot(5))]
+        self.assertIs(baseline.packet_verdict(loot(4), stored)[0], True)
+        ok, text = baseline.packet_verdict(loot(7), stored)        # more takes: the kind retail varies in
+        self.assertEqual(ok, baseline.RETAIL_UNSTABLE, text)
+        self.assertIn('INVENTORY_MOVE x7 (x5)', text)
+        self.assertIn('3 of the 3 stored runs, leave one out', text)
+        ok, text = baseline.packet_verdict(loot(4, 24), stored)    # another size: retail agrees on it
+        self.assertIs(ok, False, text)
+        self.assertIn('INVENTORY_MOVE sizes 24 (20)', text)
+        self.assertIn('differ only in count:INVENTORY_MOVE', text)
+        ok, text = baseline.packet_verdict(loot(7) + ['CLIENT_CHAT 30'], stored)  # a packet retail never sends
+        self.assertIs(ok, False, text)
+        self.assertIn('CLIENT_CHAT x1 (x0)', text)
+        stable = [('r1', loot(3)), ('r2', loot(3)), ('r3', loot(3))]
+        ok, text = baseline.packet_verdict(loot(4), stable)         # retail always took three
+        self.assertIs(ok, False, text)
+        self.assertIn('the stored runs agree', text)
+        self.assertIs(baseline.packet_verdict(loot(4), [('r1', loot(3))])[0], False)
+
+    def test_verify_run(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            scen = os.path.join(tmp, 'runs', 'retail-00000000', 'box-64x64', 'scn')
+            for k, n in enumerate((3, 3, 5)):
+                make_run(scen, f'20261124-00000{k + 1}', packets=loot(n))
+            baseline.write_noise(scen)
+
+            def check(pk, name):
+                run = make_run(os.path.join(tmp, 'other'), name, packets=pk)
+                out = io.StringIO()
+                with contextlib.redirect_stdout(out):
+                    rc = baseline.main(['verify', '--store', tmp, '--run', run])
+                return rc, out.getvalue()
+            rc, out = check(loot(6), 'a')
+            self.assertEqual(rc, 4, out)
+            self.assertIn('scn: RETAIL-UNSTABLE packets 9, stored 6/6/8: against 20261124-000003 only in INVENTORY_MOVE x6 (x5)', out)
+            rc, out = check(loot(6) + ['CLIENT_CHAT 30'], 'b')
+            self.assertEqual(rc, 1, out)
+            self.assertIn('scn: DIFF packets 10', out)
+            rc, out = check(loot(5), 'c')
+            self.assertEqual(rc, 0, out)
+
+
 def make_set_run(sdir, run, order=('a', 'b'), box=None, packets=None, stored=True, logs=None):
     """A run of a set: one session folder holding every scenario's result, shots and draw logs; stored=True adds the
     store's manifest (set, order, scenarios) and packets.json."""
@@ -872,6 +943,16 @@ class LiveSets(unittest.TestCase):
         self.assertIn('sb_emote_dock', baseline.SESSION_OWN)
         h = baseline.scripts_hash({'inputs/db/a.sql': '1', 'inputs/db/b.sql': '2'})
         self.assertNotEqual(h, baseline.scripts_hash({'inputs/db/b.sql': '2', 'inputs/db/a.sql': '1'}))
+
+    def test_names_after_the_set_option(self):
+        # brief CS3: 'capture --set space sp_flight ...' (the README's form) stopped at argparse's
+        # 'unrecognized arguments' before any client started; the names now parse after an option too
+        with tempfile.TemporaryDirectory() as tmp:
+            out = io.StringIO()
+            with contextlib.redirect_stdout(out):
+                rc = baseline.main(['capture', '--store', tmp, '--set', 'space', 'sp_flight', 'sp_warp'])
+            self.assertEqual(rc, 2)
+            self.assertIn('is not a checkout of the store', out.getvalue())
 
 
 class Messages(unittest.TestCase):
