@@ -4370,7 +4370,7 @@ struct TestEffectStruct	// NAME 2: testeffects.ini's record
 // Unknown_BE7D80 (0xBE7D80) holds them: defined above with INIUsers, where the client's CRT table puts its initialiser
 #include "..\shared\unknown_4a1590.h"
 
-// NOT EXACT: inline budget (masked residue 321, was 379): hsv_shift as the client has it (a zero default local, two Get_Point calls under the ternary, a Vector3 temporary); left: the client's frame is 12 bytes larger, it calls size() and assign out of line and inlines _Tidy
+// NOT EXACT: inline budget (masked residue 85, was 321; 636/636 rows, frame 0x1d4/0x1d4 exact, score 0.87): all 10 INI lookups as two full Get_X calls + insert(end(), record) match every INI call and vector::insert (all 4 size() out of line); left: knob calls _Tidy and inlines assign(ptr, n)
 // 0x74CA90 (Load_INIs: testeffects.ini): one record per section but [Defaults], each entry from the section or [Defaults];
 // a zero duration is the distance over effect.ini's AmmoSpeed of its EFFECT-<descid>\Weapon Usage section
 void Unknown_74CA90(const char *filename)
@@ -4383,11 +4383,11 @@ void Unknown_74CA90(const char *filename)
 		if (strncmp(section->Section, "Defaults", 8) == 0) {
 			continue;
 		}
-		record.DescID = ini.Get_Int((ini.Is_Present(section->Section, "descid") ? section->Section : "Defaults"), "descid", 0);
+		record.DescID = ini.Is_Present(section->Section, "descid") ? ini.Get_Int(section->Section, "descid", 0) : ini.Get_Int("Defaults", "descid", 0);
 		char usage[256];
 		sprintf(usage, "EFFECT-%d\\Weapon Usage", record.DescID);
-		record.Distance = ini.Get_Float((ini.Is_Present(section->Section, "distance") ? section->Section : "Defaults"), "distance", 1000.0f);
-		float f_duration = ini.Get_Float((ini.Is_Present(section->Section, "duration") ? section->Section : "Defaults"), "duration", 0.0f);
+		record.Distance = ini.Is_Present(section->Section, "distance") ? ini.Get_Float(section->Section, "distance", 1000.0f) : ini.Get_Float("Defaults", "distance", 1000.0f);
+		float f_duration = ini.Is_Present(section->Section, "duration") ? ini.Get_Float(section->Section, "duration", 0.0f) : ini.Get_Float("Defaults", "duration", 0.0f);
 		FAIL_IF(f_duration < 0.0f) f_duration = 0.0f;
 		if (f_duration == 0.0f && effects->Is_Present(usage, "AmmoSpeed")) {
 			float speed = effects->Get_Float(usage, "AmmoSpeed", 1.0f);
@@ -4398,12 +4398,12 @@ void Unknown_74CA90(const char *filename)
 		}
 		record.Duration = (int)(f_duration * 1000.0f);
 		StringClass lego_name;
-		ini.Get_String(lego_name, (ini.Is_Present(section->Section, "knob") ? section->Section : "Defaults"), "knob", "");
+		if (ini.Is_Present(section->Section, "knob")) ini.Get_String(lego_name, section->Section, "knob", ""); else ini.Get_String(lego_name, "Defaults", "knob", "");
 		const char *lego = lego_name;
 		if (lego != NULL) {
-			record.Lego = std::string(lego);
+			record.Lego = std::string(lego, strlen(lego));
 		}
-		record.Count = ini.Get_Int((ini.Is_Present(section->Section, "volley") ? section->Section : "Defaults"), "volley", 1);
+		record.Count = ini.Is_Present(section->Section, "volley") ? ini.Get_Int(section->Section, "volley", 1) : ini.Get_Int("Defaults", "volley", 1);
 		float f_intra_volley_delay = effects->Get_Float(usage, "IntravolleyDelay", 0.0f);
 
 
@@ -4425,12 +4425,12 @@ void Unknown_74CA90(const char *filename)
 
 		FAIL_IF(f_intra_volley_delay < 0.0f) f_intra_volley_delay = 0.0f;
 		record.Interval = (int)(f_intra_volley_delay * 1000.0f);
-		record.Target = ini.Get_Bool((ini.Is_Present(section->Section, "playertarget") ? section->Section : "Defaults"), "playertarget", false);
-		record.Scale = ini.Get_Float((ini.Is_Present(section->Section, "scale") ? section->Section : "Defaults"), "scale", 1.0f);
-		TPoint3D<float> zero(0.0f, 0.0f, 0.0f); TPoint3D<float> hsv = ini.Is_Present(section->Section, "hsv_shift") ? ini.Get_Point(section->Section, "hsv_shift", zero) : ini.Get_Point("Defaults", "hsv_shift", zero);
+		record.Target = ini.Is_Present(section->Section, "playertarget") ? ini.Get_Bool(section->Section, "playertarget", false) : ini.Get_Bool("Defaults", "playertarget", false);
+		record.Scale = ini.Is_Present(section->Section, "scale") ? ini.Get_Float(section->Section, "scale", 1.0f) : ini.Get_Float("Defaults", "scale", 1.0f);
+		TPoint3D<float> zero(0.0f, 0.0f, 0.0f); TPoint3D<float> hsv; if (ini.Is_Present(section->Section, "hsv_shift")) hsv = ini.Get_Point(section->Section, "hsv_shift", zero); else hsv = ini.Get_Point("Defaults", "hsv_shift", zero);
 		record.HSVShift = Vector3(hsv.X, hsv.Y, hsv.Z);
-		record.Speedup = ini.Get_Float((ini.Is_Present(section->Section, "speedup") ? section->Section : "Defaults"), "speedup", 1.0f);
-		float f_advance = ini.Get_Float((ini.Is_Present(section->Section, "advance") ? section->Section : "Defaults"), "advance", 0.0f);
+		record.Speedup = ini.Is_Present(section->Section, "speedup") ? ini.Get_Float(section->Section, "speedup", 1.0f) : ini.Get_Float("Defaults", "speedup", 1.0f);
+		float f_advance = ini.Is_Present(section->Section, "advance") ? ini.Get_Float(section->Section, "advance", 0.0f) : ini.Get_Float("Defaults", "advance", 0.0f);
 
 
 
@@ -4469,7 +4469,7 @@ void Unknown_74CA90(const char *filename)
 		FAIL_IF(f_advance < 0.0f) f_advance = 0.0f;
 		record.Delay = (int)(f_advance * 1000.0f);
 		Bounded_Strcpy(record.Name, sizeof(record.Name), section->Section);
-		Unknown_BE7D80.insert(Unknown_BE7D80.end(), 1, record);
+		Unknown_BE7D80.insert(Unknown_BE7D80.end(), record);
 	}
 }
 

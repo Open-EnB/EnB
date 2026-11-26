@@ -2377,7 +2377,7 @@ void CharacterViewAvatarClass::Unknown_783620(float time)
 
 
 // 0x783B50
-// NOT EXACT: register-allocation / inline-budget (the client spills accel to a frame slot at its definition, 0x783C36, where ours keeps it on the x87 stack to the speed paths; also some NLP/blink/face callees not inlined)
+// NOT EXACT: field-offset (residue 6, 603/603 rows, score 0.99: WWMath::Min/Max directly into Unknown308 + else if (Unknown308 < 0.0f) reproduce accel spill and forward FSTP+reload; left: swapped 0x33c/0x360 X-add order at 0x784065 & 0x784165 and BodyObj reload at 0x784453)
 void CharacterViewAvatarClass::Unknown_1C4()
 {
 	if (Unknown204 == 0) {
@@ -2457,17 +2457,17 @@ void CharacterViewAvatarClass::Unknown_1C4()
 				Unknown208 = 2;
 			}
 			if (Unknown20C == 1) {
-				float speed = accel + Unknown308;
 				if (Unknown2F4) {
-					if (run_max < speed) {
-						speed = run_max;
-					}
+					Unknown308 = WWMath::Min(run_max, accel + Unknown308);
 				} else {
-					if (walk_max < speed) {
-						speed = walk_max;
-					}
+					Unknown308 = WWMath::Min(walk_max, accel + Unknown308);
 				}
-				Unknown308 = speed;
+
+
+
+
+
+
 				Unknown360 = (Unknown330.Get_X_Vector() * Unknown308) * time;
 				Unknown330.Adjust_Translation(Unknown360);
 			}
@@ -2478,28 +2478,28 @@ void CharacterViewAvatarClass::Unknown_1C4()
 				Unknown208 = 2;
 			}
 			if (Unknown20C == 1) {
-				float speed = Unknown308 - accel;
-				if (-walk_max > speed) {
-					speed = -walk_max;
-				}
-				Unknown308 = speed;
+				Unknown308 = WWMath::Max(-walk_max, Unknown308 - accel);
+
+
+
+
 				Unknown360 = (Unknown330.Get_X_Vector() * Unknown308) * time;
 				Unknown330.Adjust_Translation(Unknown360);
 			}
 		} else if (Unknown308 != 0.0f) {
 			if (Unknown308 > 0.0f) {
-				float speed = Unknown308 - accel;
-				if (0.0f > speed) {
-					speed = 0.0f;
-				}
-				Unknown308 = speed;
-			} else {
-				float speed = accel + Unknown308;
-				if (0.0f < speed) {
-					speed = 0.0f;
-				}
-				Unknown308 = speed;
+				Unknown308 = WWMath::Max(0.0f, Unknown308 - accel);
+			} else if (Unknown308 < 0.0f) {
+				Unknown308 = WWMath::Min(0.0f, accel + Unknown308);
 			}
+
+
+
+
+
+
+
+
 			Unknown360 = (Unknown330.Get_X_Vector() * Unknown308) * time;
 			Unknown330.Adjust_Translation(Unknown360);
 		}
