@@ -2969,7 +2969,7 @@ void RegistrationInterface::Unknown_5F0100()
 
 // NOT EXACT: inline-budget (functional; group loops through 0x5F33E0, pushes through 0x5F87D0, back-outs through 0x5F8560, server boxes through 0x5FB890,
 // email checks through 0x5F8F60, case 6 switch(Unknown26C), cases 0x11 / 0x14 / 0x12 written out; combo boxes' Selected through UIComboBoxClass::Get_Selected
-// (0x5FFFE0, out of line at cases 0xB / 0xE); six dead UnknownD8.begin() reads at case 0xC end; left: 10 nested map::insert cuts; masked residue 305)
+// (0x5FFFE0, out of line at cases 0xB / 0xE; the three month reads go through it); four dead UnknownD8.begin() reads at case 0xC end; left: 10 nested map::insert cuts, cases 1 / 3 back-outs' 0x5F89F0; masked residue 235)
 // @0x5FBD30
 void RegistrationInterface::Unknown_5FBD30()
 {
@@ -3300,7 +3300,7 @@ bad_login:
 		case 10:
 		{
 			char *email = UnknownF8[0x13].Gadget->Get_Text();
-			int month = Unknown108[0x14].Combo->Selected + 1;
+			int month = Unknown108[0x14].Combo->Get_Selected() + 1;
 			UIComboBoxClass *combo = Unknown108[0x15].Combo;
 			int day = (unsigned)combo->Selected < combo->Items.size() ? atoi(combo->Items[combo->Selected].c_str()) : 0;
 			combo = Unknown108[0x16].Combo;
@@ -3327,7 +3327,7 @@ bad_login:
 				Unknown3C4.Unknown7E = year;
 				Unknown3C4.Unknown80 = country.substr(0, 2);
 				Unknown3C4.Unknown5C = email;
-				Unknown3C4.Unknown58 = (flag != 0);
+				Unknown3C4.Unknown58 = flag;
 				Unknown_5F87D0();
 				if (!Unknown1D0) {
 					if (Unknown_603A60(month, day, year, 0x12)) {
@@ -3398,7 +3398,7 @@ bad_login:
 			char *zip = UnknownF8[0x20].Gadget->Get_Text();
 			char *phone = UnknownF8[0x21].Gadget->Get_Text();
 			char *number = UnknownF8[0x23].Gadget->Get_Text();
-			int month = Unknown108[0x14].Combo->Selected + 1;
+			int month = Unknown108[0x14].Combo->Get_Selected() + 1;
 			UIComboBoxClass *combo = Unknown108[0x16].Combo;
 			int year = (unsigned)combo->Selected < combo->Items.size() ? atoi(combo->Items[combo->Selected].c_str()) : 0;
 			std::string country(Unknown108[0x19].Combo->Get_Selected_Text());
@@ -3464,7 +3464,7 @@ bad_login:
 			delete state;
 			delete zip;
 			delete phone;
-			delete number; UnknownD8.begin(); UnknownD8.begin(); UnknownD8.begin(); UnknownD8.begin(); UnknownD8.begin(); UnknownD8.begin();   // D272: dead reads (swept 2-10; 6 begin(): 691 -> 305)
+			delete number; UnknownD8.begin(); UnknownD8.begin(); UnknownD8.begin(); UnknownD8.begin();   // D272: dead reads (re-swept 0-12 with the months read through Get_Selected(): 4 begin() best)
 			break;
 		}
 		case 0xD:
@@ -3487,7 +3487,7 @@ bad_login:
 			if (UnknownF8[0x26].Gadget->Get_Text() != "") {
 				start_year = atoi(UnknownF8[0x26].Gadget->Get_Text());
 			}
-			int month = Unknown108[0x14].Combo->Selected + 1;
+			int month = Unknown108[0x14].Combo->Get_Selected() + 1;
 			UIComboBoxClass *combo = Unknown108[0x16].Combo;
 			int year = (unsigned)combo->Selected < combo->Items.size() ? atoi(combo->Items[combo->Selected].c_str()) : 0;
 			std::string country(Unknown108[0x19].Combo->Get_Selected_Text());
@@ -3630,7 +3630,7 @@ bad_login:
 						UnknownBC->Get_Unknown198()->Unknown_784C90("REG19", false);
 						TutorialManagerClass::Get_Instance()->Set_Completed("REG19");
 					}
-					char message[1024]; _snprintf(message, 1024, "To use your checking account for\npayment please call %s\nand speak to a Customer Service Representative.", (const char *)UnknownA8);
+					char message[1024]; _snprintf(message, 1024, "To use your checking account for\npayment please call %s\nand speak to a Customer Service Representative.", UnknownA8);
 					UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, message, 0x140, 0, 0);
 					break;
 				default:
