@@ -17062,8 +17062,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown568` | `app/client/ui_registration.cpp:3802` | untagged neutral name (D10) |
 | 1 | `Unknown_7D3CC0` | `app/client/ui_registration.cpp:3802` | untagged neutral name (D10) |
 | 1 | `RegistrationUnknown568Struct` | `app/client/ui_registration.cpp:3803` | untagged neutral name (D10) |
-| 1 | `Unknown_7D8D60` | `app/client/ui_registration.cpp:3815` | untagged neutral name (D10) |
-| 1 | `Unknown_7D5CE0` | `app/client/ui_registration.cpp:3853` | untagged neutral name (D10) |
+| 1 | `Unknown_7D5CE0` | `app/client/ui_registration.cpp:3845` | untagged neutral name (D10) |
+| 1 | `Unknown_7D8D60` | `app/client/ui_registration.cpp:3855` | untagged neutral name (D10) |
 | 1 | `Unknown_7DB850` | `app/client/ui_registration.cpp:3871` | untagged neutral name (D10) |
 | 1 | `Unknown_7D4530` | `app/client/ui_registration.cpp:3894` | untagged neutral name (D10) |
 | 1 | `Unknown20` | `app/client/ui_registration.cpp:3910` | untagged neutral name (D10) |

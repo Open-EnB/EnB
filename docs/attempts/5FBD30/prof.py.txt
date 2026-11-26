@@ -1,0 +1,156 @@
+"""(FB10, run 2026-11-26; run from a worktree: python prof.py .work/trybatch/<batch> --fn 5FBD30,600000)
+prof.py BATCHDIR [--fn 5FBD30|600000|both] [FORM ...]: nested-inline profile per form of a trybatch batch.
+
+Two strings per function, ours against the client's:
+ * the back-out sites (each inlined 0x5F8560 copy, found by its `mov eax, [r + 0xD4]; cmp eax, 1`), in layout order, followed
+   through the cross-jumps: 9 = 0x5F89F0 inlined (its 0x5F8A90 call), 8 = 0x5F89F0 called; then, after '/', the 0x5F86F0 side
+   per site: 6 called, 2 inlined (its 0x5F2990 call). A cross-jumped copy still shows what it reaches.
+ * the map sites: T / t text map::insert called / inlined, C / c the combo map's; then the tail's depth-1 cuts: S string
+   op=(char*) called, g Get_Unknown34 called, G Get_Selected called, Y combo op[] called, B 5FB890 called, 5 5F8560 called.
+Each form: distance to the client's strings (site by site), residue, raw.
+"""
+import sys, os, difflib, re
+from concurrent.futures import ProcessPoolExecutor
+
+SYMS = {'5FBD30': ('RegistrationInterface::Unknown_5FBD30', 0x5FBD30), '600000': ('RegistrationInterface::Unknown_5F00C0', 0x600000)}
+LET = {0x6047D0: 'T', 0x606150: 't', 0x604BA0: 'C', 0x606980: 'c', 0x5F8560: '5',
+       0x5FB890: 'B', 0x5FFFE0: 'G', 0x603D70: 'S', 0x5FFFC0: 'g', 0x604A20: 'Y', 0x604A21: 'X'}
+NAMES = [('Unknown_5F3770@', 0x5F3770), ('??4?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAEAAV01@PBD', 0x603D70),
+         ('Get_Selected@UIComboBox', 0x5FFFE0), ('Unknown_5F8560@', 0x5F8560), ('??A?$map@HURegistrationCombo', 0x604A20),
+         ('??A?$map@HURegistrationText', 0x604A21), ('?size@?$vector@JV?$allocator@J@std@@@std@@QBEIXZ', 0x604251), ('Get_Unknown34@UIViewClass', 0x5FFFC0), ('Unknown_5FB890@', 0x5FB890)]
+D4 = re.compile(r'^mov eax, dword ptr \[e\w\w \+ (0xd4|0x50)\]$')
+B11 = re.compile(r'^mov [acd]l, byte ptr \[e\w\w \+ (0x11b|0x97)\]$')
+CMP1 = re.compile(r"^cmp (e[acd]x|e[sd]i|ebx), 1$")
+REG0 = re.compile(r'^cmp eax, e\w\w$')
+
+
+def work(job):
+    obj, fn = job
+    sys.path.insert(0, os.path.abspath('tools/re'))
+    import trybatch as TB
+    import explain as X
+    known = X.symbol_addresses()
+
+    def key(ins):
+        k = TB.call_key(ins, known)
+        if isinstance(k, str):
+            for pat, a in NAMES:
+                if pat in k:
+                    return a
+        return k
+
+    def maps(rows):
+        return ''.join(LET.get(key(ins), '') for ins, _ in rows if ins.mn == 'call')
+
+    def follow(rows, index, i, is17, R='eax'):
+        """From row i (the cmp eax, 1) walk the path of UnknownD4 == 0x17 (is17) or another value (not 0, 1) to the first call."""
+        steps = 0
+        last = None
+        while i < len(rows) and steps < 80:
+            ins = rows[i][0]
+            steps += 1
+            raw = ins.raw
+            if ins.mn == 'call':
+                return key(ins)
+            if raw == 'cmp %s, 1' % R:
+                last = 'ne'
+            elif raw == 'test %s, %s' % (R, R) or (raw.startswith('cmp %s, e' % R) and len(raw) == 12):
+                last = 'ne'
+            elif raw == 'cmp %s, 0x17' % R:
+                last = 'eq' if is17 else 'ne'
+            elif ins.mn in ('jne', 'je'):
+                if last is None:
+                    return 'j?'
+                taken = (ins.mn == 'jne') == (last == 'ne')
+                if taken:
+                    t = ins.target
+                    if not t or t[1] not in index:
+                        return 'jt?'
+                    i = index[t[1]]
+                    continue
+            elif ins.mn == 'jmp':
+                t = ins.target
+                if not t or t[1] not in index:
+                    return 'jm?'
+                i = index[t[1]]
+                continue
+            elif ins.mn.startswith('j'):
+                return 'jx?'
+            i += 1
+        return 'end?'
+
+    def sites(rows):
+        index = {ins.addr: n for n, (ins, _) in enumerate(rows)}
+        a, b = '', ''
+        dbg = []
+        dbs = []
+        for n, (ins, _) in enumerate(rows):
+            mm = CMP1.match(ins.raw)
+            if not mm or n < 2 or n + 2 >= len(rows) or rows[n + 1][0].mn != 'jne':
+                continue
+            R = mm.group(1)
+            if not (B11.match(rows[n + 2][0].raw) or (R == 'eax' and (D4.match(rows[n - 1][0].raw) or D4.match(rows[n - 2][0].raw)))):
+                continue
+            k = follow(rows, index, n, False, R)
+            a += {0x5F8A90: '9', 0x5F89F0: '8', 0x604250: 'A', 0x604251: 'A'}.get(k, '?')
+            if k not in (0x5F8A90, 0x5F89F0, 0x604250, 0x604251):
+                dbg.append('%x:A:%s' % (ins.addr, k if isinstance(k, str) else hex(k or 0)))
+            k = follow(rows, index, n, True, R)
+            b += {0x5F86F0: '6', 0x5F2990: '2'}.get(k, '?')
+            dbs.append('%x:%s%s' % (ins.addr, a[-1], b[-1]))
+            if k not in (0x5F86F0, 0x5F2990):
+                dbg.append('%x:B:%s' % (ins.addr, k if isinstance(k, str) else hex(k or 0)))
+        if os.environ.get('PROF_SITES'):
+            sys.stderr.write(' '.join(dbs) + chr(10))
+        if os.environ.get('PROF_DEBUG') and dbg:
+            sys.stderr.write(' '.join(dbg)[:600] + chr(10))
+        return a + '/' + b
+
+    out = {}
+    for f in fn:
+        sym, addr = SYMS[f]
+        try:
+            mangled, _ = TB.resolve_symbol(obj, sym, addr, ())
+            m = TB.measure(obj, mangled, addr, known)
+        except Exception as e:
+            out[f] = ('ERR ' + str(e)[:60], '', '', '', -1, -1)
+            continue
+        L, R, eL, eR = m['_rows']
+        out[f] = (sites(L), sites(R), maps(L), maps(R), m['res'], m['raw'])
+    return out
+
+
+def dist(s, client):
+    return sum(max(a2 - a1, b2 - b1) for t, a1, a2, b1, b2 in difflib.SequenceMatcher(None, s, client, autojunk=False).get_opcodes() if t != 'equal')
+
+
+def main():
+    args = sys.argv[1:]
+    fn = ['5FBD30']
+    if '--fn' in args:
+        i = args.index('--fn')
+        fn = args[i + 1].split(',')
+        del args[i:i + 2]
+    batch = args[0]
+    only = set(args[1:])
+    forms = [f for f in sorted(os.listdir(batch))
+             if os.path.exists(os.path.join(batch, f, 'obj', 'ui_registration.obj')) and (not only or f in only)]
+    jobs = [(os.path.join(batch, f, 'obj', 'ui_registration.obj'), fn) for f in forms]
+    with ProcessPoolExecutor(max_workers=6) as ex:
+        results = list(ex.map(work, jobs))
+    for f in fn:
+        cs = next((r[f][1] for r in results if r[f][1]), '')
+        cm = next((r[f][3] for r in results if r[f][3]), '')
+        print('== %s' % f)
+        print('%-16s %s  %s' % ('CLIENT', cs, cm))
+        rows = [(form, r[f][0], r[f][2], dist(r[f][0], cs), dist(r[f][2], cm), r[f][4], r[f][5]) for form, r in zip(forms, results)]
+        for form, s, mp, d1, d2, res, raw in sorted(rows, key=lambda o: (o[3] + o[4], o[5])):
+            print('%-16s %s  %s  d=%d+%d res=%d raw=%d' % (form, s, mp, d1, d2, res, raw))
+    if len(fn) > 1:
+        print('== sum of residues')
+        for form, r in sorted(zip(forms, results), key=lambda o: sum(o[1][f][4] for f in fn)):
+            print('%-16s %s = %d' % (form, ' + '.join(str(r[f][4]) for f in fn), sum(r[f][4] for f in fn)))
+
+
+if __name__ == '__main__':
+    main()
