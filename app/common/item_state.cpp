@@ -78,7 +78,7 @@ char *Value_To_String(char *buf, int size, ItemStateEnum value)
 
 
 
-// NOT EXACT: the client keeps result (0x11) in esi and [esp+0x10] where ours folds the constant (case 0 and the default's returns); the rest, the case order included, is the client's
+
 // @0x842A60
 int Item_State_Message(std::string &text, std::string &sound, const char *name, int state)	// NAME 2: what it does (no caller found in the client)
 {
@@ -88,7 +88,7 @@ int Item_State_Message(std::string &text, std::string &sound, const char *name, 
 	switch (state) {
 		case 0:
 			text.assign("No State");
-			return(result);
+			break;
 		case 1:
 			format = "%s is on.";
 			result = 0;
@@ -135,7 +135,7 @@ int Item_State_Message(std::string &text, std::string &sound, const char *name, 
 		default:
 			G_ASSERT(false);
 			text = "Unkown Item Failure";
-			return(result);
+			break;
 		case 0x2000:
 			format = "Autofire Enabled";
 			break;
@@ -161,5 +161,6 @@ int Item_State_Message(std::string &text, std::string &sound, const char *name, 
 **	KVPairTemplateClass<ItemStateEnum>::Set_Value_String 0x709770 calls it) and Value_To_String 0x842970 (FAIL_IF at
 **	line 57). Then 0x842A60 (QC, 2026-11-16), the item state's message text and sound and the chat type it returns
 **	(0x11, 0 for '%s is on.'; G_ASSERT(false) at line 136 for an unknown state); no caller found in the client. Its
-**	cases are in the client's code order (VC6 lays the case bodies out in source order).
+**	cases are in the client's code order (VC6 lays the case bodies out in source order); case 0 and the default break
+**	to the shared tail (format NULL), which keeps result (0x11) on the stack as the client does (run 2026-11-25-evening).
 */
