@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1971 |
 | 2 | describes what the code does | 5015 |
-| 1 | neutral placeholder | 25197 |
+| 1 | neutral placeholder | 25201 |
 
 ## For review (score 3 and below)
 
@@ -3697,12 +3697,12 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6BCFB0Class` | `app/client/fontsys.cpp:318` | untagged neutral name (D10) |
 | 1 | `Unknown_6D5F40` | `app/client/fontsys.cpp:321` | untagged neutral name (D10) |
 | 1 | `Unknown_6D60C0` | `app/client/fontsys.cpp:361` | untagged neutral name (D10) |
-| 1 | `Unknown464` | `app/client/fontsys.cpp:452` | untagged neutral name (D10) |
+| 1 | `Unknown_6D8650` | `app/client/fontsys.cpp:450` | untagged neutral name (D10) |
 | 1 | `Unknown_6CD180` | `app/client/fontsys.cpp:487` | untagged neutral name (D10) |
 | 1 | `Unknown_6CA0C0` | `app/client/fontsys.cpp:488` | untagged neutral name (D10) |
 | 1 | `Unknown_6CD6F0` | `app/client/fontsys.cpp:490` | untagged neutral name (D10) |
 | 1 | `Unknown_6CCE60` | `app/client/fontsys.cpp:526` | untagged neutral name (D10) |
-| 1 | `Unknown_6D8650` | `app/client/fontsys.cpp:948` | untagged neutral name (D10) |
+| 1 | `Unknown464` | `app/client/fontsys.cpp:952` | untagged neutral name (D10) |
 | 1 | `Unknown_6D8780` | `app/client/fontsys.cpp:959` | untagged neutral name (D10) |
 | 1 | `Unknown_6D87D0` | `app/client/fontsys.cpp:966` | untagged neutral name (D10) |
 | 1 | `Unknown_6D88F0` | `app/client/fontsys.cpp:991` | untagged neutral name (D10) |
@@ -7814,12 +7814,15 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_7456B0` | `app/client/sclient.cpp:1028` | untagged neutral name (D10) |
 | 1 | `Unknown86CRecordClass` | `app/client/sclient.cpp:1032` | untagged neutral name (D10) |
 | 1 | `Unknown_743440` | `app/client/sclient.cpp:1064` | untagged neutral name (D10) |
-| 1 | `Unknown_Register_Key` | `app/client/sclient.cpp:1078` | neutral (D10) |
+| 1 | `Unknown_Module, Unknown_Get_FOV, Unknown_Register_Key, cm, module, name, id` | `app/client/sclient.cpp:1078` | neutral (D10) |
+| 1 | `Unknown_Module` | `app/client/sclient.cpp:1078` | untagged neutral name (D10) |
+| 1 | `Unknown_Get_FOV` | `app/client/sclient.cpp:1078` | untagged neutral name (D10) |
+| 1 | `Unknown_Register_Key` | `app/client/sclient.cpp:1078` | untagged neutral name (D10) |
 | 1 | `Unknown_565F30` | `app/client/sclient.cpp:1085` | untagged neutral name (D10) |
 | 1 | `Unknown_745490` | `app/client/sclient.cpp:1141` | untagged neutral name (D10) |
 | 1 | `Unknown28` | `app/client/sclient.cpp:1153` | untagged neutral name (D10) |
-| 1 | `Unknown_75A570` | `app/client/sclient.cpp:1163` | untagged neutral name (D10) |
-| 1 | `Unknown_75A5A0` | `app/client/sclient.cpp:1164` | untagged neutral name (D10) |
+| 1 | `Unknown_75A570` | `app/client/sclient.cpp:1162` | untagged neutral name (D10) |
+| 1 | `Unknown_75A5A0` | `app/client/sclient.cpp:1163` | untagged neutral name (D10) |
 | 1 | `Unknown_Delete_Records` | `app/client/sclient.cpp:1298` | neutral (D10) |
 | 1 | `Unknown_745750` | `app/client/sclient.cpp:1309` | untagged neutral name (D10) |
 | 1 | `Unknown_79B2B0` | `app/client/sclient.cpp:1313` | untagged neutral name (D10) |
@@ -10112,7 +10115,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `robj, texture, unknown` | `app/client/ui_analyze.cpp:35` | as ui_manu.cpp's |
 | 1 | `Unknown_495FD0` | `app/client/ui_analyze.cpp:35` | untagged neutral name (D10) |
 | 1 | `Unknown_BE67C4` | `app/client/ui_analyze.cpp:39` | neutral (D10) |
-| 1 | `Unknown_B79664` | `app/client/ui_analyze.cpp:45` | neutral (D10) |
+| 1 | `Unknown_B79660` | `app/client/ui_analyze.cpp:45` | neutral (D10) |
 | 1 | `Unknown_B7967C` | `app/client/ui_analyze.cpp:47` | neutral (D10) |
 | 1 | `Unknown_B796A8` | `app/client/ui_analyze.cpp:49` | neutral (D10) |
 | 1 | `Unknown_AEF0EC` | `app/client/ui_analyze.cpp:50` | neutral (D10): what 0x546090 stores (read from .rdata) |
@@ -10171,6 +10174,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_545D30` | `app/client/ui_analyze.cpp:418` | untagged neutral name (D10) |
 | 1 | `Unknown_74D990` | `app/client/ui_analyze.cpp:563` | untagged neutral name (D10) |
 | 1 | `Unknown_8C` | `app/client/ui_analyze.cpp:574` | untagged neutral name (D10) |
+| 1 | `Unknown_Find_Set_Field` | `app/client/ui_analyze.cpp:581` | untagged neutral name (D10) |
 | 1 | `UnknownB0122CEnum` | `app/client/ui_analyze.cpp:662` | untagged neutral name (D10) |
 | 1 | `Unknown_5461C0` | `app/client/ui_analyze.cpp:672` | untagged neutral name (D10) |
 | 1 | `Unknown2C_06` | `app/client/ui_analyze.cpp:738` | untagged neutral name (D10) |
@@ -26075,7 +26079,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `MouseClick` | `app/client/fontstring.h:91` | the ini key |
 | 2 | `EffectTriggered` | `app/client/fontstring.h:92` | the ini key |
 | 2 | `Step_Colour` | `app/client/fontsys.cpp:404` | one colour channel a step of 1 toward the target; inline only (Update_Text 0x6D64C0's unrolled per-channel code) |
-| 2 | `Pass_Vertex_Color` | `app/client/fontsys.cpp:411` | inline only: Update_Text's pass colour, one Set_Vertex_Color per layer (the client inlines Switch_To_Multi_Vertex_Color at both sites 0x6D6D55 / 0x6D6E24 and calls Convert_Color_Clamp); the dead read is the layer's budget (D272) |
+| 2 | `Pass_Vertex_Color` | `app/client/fontsys.cpp:411` | inline only: Update_Text's pass colour, one Set_Vertex_Color per layer (the client inlines Switch_To_Multi_Vertex_Color at both sites 0x6D6D55 / 0x6D6E24 and calls Convert_Color_Clamp) |
 | 2 | `Apply_Shader` | `app/client/fontsys.cpp:413` | inline only (Update_Text) |
 | 2 | `Append_Dots` | `app/client/fontsys.cpp:415` | inline only: Update_Text's "..." (the client calls the += copy's Get_Length and Store_Length, 0x6D676E / 0x6D679B); the dead read is the layer's budget (D272) |
 | 2 | `Color` | `app/client/fontsys.h:27` | what 0x6D1010 stores |
