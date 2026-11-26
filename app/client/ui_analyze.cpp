@@ -485,31 +485,31 @@ void UIAnalyzeClass::Unknown_544C50(int index, bool show, const char *text)
 	font->Set_Hidden(!show);
 }
 
-// NOT EXACT: inline budget (the client's finds: NegotiatedCost / CriticalSuccessProbability out of line under Unknown_Find_Valid's two layers, the SuccessProbability Cast out of line under one; two dead reads of 0x544C50's accessor (D272) send the first two copies' FAIL_IF releases out as the client; the client still inlines the third copy's) (0x544D80)
+// 0x544D80: all three finds through auxdata.h's Unknown_Find_Set_Field with two dead reads of 0x544C50's accessor before copy 3 (D272): NegotiatedCost/Critical out of line, Success Cast out of line, copies 1-2 FAIL_IF releases out, copy 3's inline
 // @0x544D80
 void UIAnalyzeClass::Unknown_544D80()
 {
 	MoneyClass cost;
-	DeltaTemplateClass<MoneyClass> *negotiated = Unknown_Find_Valid<DeltaTemplateClass<MoneyClass> >(Unknown10C, "NegotiatedCost");
+	DeltaTemplateClass<MoneyClass> *negotiated = Unknown_Find_Set_Field<DeltaTemplateClass<MoneyClass> >(Unknown10C, "NegotiatedCost");
 	if (negotiated) {
 		cost = negotiated->Value;
 	}
 	Unknown_544C50(3, true, cost.Amount_As_Text(false).c_str());
 	char text[32];
 	float success = 0;
-	DeltaTemplateClass<float> *success_probability = Unknown_Find_Valid_Field<DeltaTemplateClass<float> >(Unknown10C, "SuccessProbability");
+	DeltaTemplateClass<float> *success_probability = Unknown_Find_Set_Field<DeltaTemplateClass<float> >(Unknown10C, "SuccessProbability");
 	if (success_probability) {
 		success = success_probability->Value * 100.0f;
 	}
 	sprintf(text, "%1.0f%%", success);
 	Unknown_544C50(4, true, text);
 	float critical = 0;
-	DeltaTemplateClass<float> *critical_probability = Unknown_Find_Valid<DeltaTemplateClass<float> >(Unknown10C, "CriticalSuccessProbability");
+	DeltaTemplateClass<float> *critical_probability = Unknown_Find_Set_Field<DeltaTemplateClass<float> >(Unknown10C, "CriticalSuccessProbability");
 	if (critical_probability) {
 		critical = critical_probability->Value * 100.0f;
-	}
+	} InterfaceMesh->Peek_Mesh_Object(); InterfaceMesh->Peek_Mesh_Object();
 	sprintf(text, "%1.0f%%", critical);
-	Unknown_544C50(5, true, text); InterfaceMesh->Peek_Mesh_Object(); InterfaceMesh->Peek_Mesh_Object();
+	Unknown_544C50(5, true, text);
 }
 
 // 0x545190: the four finds out of line under Unknown_Find_Changed's two layers, one dead read (D272); the cases in the client's body order (its jump table)
