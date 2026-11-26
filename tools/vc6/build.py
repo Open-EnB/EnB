@@ -150,7 +150,20 @@ def compile_lines(lib, paths):
     return dirs, setup, [([flags] + tail, group) for flags, group in by_flags.items()]
 
 
-def build_lib(lib, out):
+def listing_flags(work):
+    """cl options for a /FAs listing (assembly with source lines) of each source into WORK\\obj, next to its object:
+    /FA only adds a listing, the objects are byte-identical (A4, run 2026-11-26: behaudit's args check names frame
+    slots from them, `behaudit.py args --listings`)."""
+    return ['/FAs', f'/Fa"{work}\\obj\\\\"']
+
+
+def rsp_text_of(cmd, work, srcs, listings=False):
+    """One cl response file: the flags, the object folder (and the listing folder), the sources."""
+    return '\r\n'.join(cmd + (listing_flags(work) if listings else []) + [f'/Fo"{work}\\obj\\\\"']
+                        + [f'"{f}"' for f, _ in srcs]) + '\r\n'
+
+
+def build_lib(lib, out, listings=False):
     paths = sources(lib)
     dirs, setup, groups = compile_lines(lib, paths)
     vc6.sync(dirs)
@@ -160,7 +173,7 @@ def build_lib(lib, out):
     for n, (cmd, srcs) in enumerate(groups):
         rsp = f'{work}\\cl{n}.rsp'
         # the command line goes into a response file (ww3d2's is long); cl expands it as typed
-        rsp_text = '\r\n'.join(cmd + [f'/Fo"{work}\\obj\\\\"'] + [f'"{f}"' for f, _ in srcs]) + '\r\n'
+        rsp_text = rsp_text_of(cmd, work, srcs, listings)
         local_rsp = os.path.join(os.environ.get('TEMP', '.'), f'enb_build_{lib}_{n}_{vc6._tag()}.rsp')
         open(local_rsp, 'w', newline='').write(rsp_text)
         vc6.scp(local_rsp, vc6.remote(rsp))
@@ -267,7 +280,7 @@ def sys_symbols(out):
     vc6.ssh(f'cmd /c rmdir /s /q "{sdk}" & del "{vc6.WORK}\\build_sdk.tar"', check=False)
 
 
-def build(libs, out):
+def build(libs, out, listings=False):
     free = queue.Queue()
     for h in vc6.hosts():
         free.put(h)
@@ -276,7 +289,7 @@ def build(libs, out):
         host = free.get()
         try:
             vc6.use_host(host)
-            return build_lib(lib, out)
+            return build_lib(lib, out, listings)
         finally:
             free.put(host)
 
@@ -733,6 +746,9 @@ def main():
     ap.add_argument('--no-deploy', action='store_true', help='link: no effect (no program deploys); kept for old callers')
     ap.add_argument('--allow-dirty', action='store_true',
                     help='build even if a library has uncommitted changes')
+    ap.add_argument('--listings', action='store_true',
+                    help='build: also write a /FAs listing (.asm) next to each object (objects unchanged); '
+                         'behaudit.py args reads them')
     ap.add_argument('--root', help=rootguard.HELP)
     a = ap.parse_args()
     rootguard.check(__file__, a.root)   # D112(4): every command writes build/ or .work/
@@ -757,9 +773,9 @@ def main():
                          + '\n'.join(changed[:20]))
     if a.pool:
         with I.pool_lease(a.pool, a.holder_pid):
-            build(libs, a.out)
+            build(libs, a.out, a.listings)
     else:
-        build(libs, a.out)
+        build(libs, a.out, a.listings)
     unresolved(a.out, a.report)
 
 
