@@ -805,7 +805,17 @@ the last name. Live antprox logs opcode numbers; e2e appends the names (`... = s
   bases the client has not seen), its loot button (LOOT_HULK_PERMISSION) and the loot window's first row until OPEN_INTERFACE (the hulk empty;
   the loot is random, so the number of takes varies). Retail passes, 65 s (149 s with the restore). The recording
   dragged a skill from the PDA's list to the hotbar; a replayed drag found the list scrolled elsewhere (the list
-  keeps no fixed start), so the scenario uses the hotbar the rows have.
+  keeps no fixed start). **The effects (2026-11-25 evening, CS2):** the hotbar is not in the database: it is the
+  client data's `Data\client\output\shortcut.ini` (`[117440576_Skills]`: `<3/><Biorepression/><Biocessation/>`,
+  `<22/><Enrage/><Enrage Group/>`; ClientPOC's, 2026-11-21, which every instance copies afresh). Each skill answer
+  now gets 1 s (`wait-since`) before its shot. Then the PDA (96,918), its Skills page (71,258), the list's down arrow
+  (322,805) 30 times to its end (fixed: Elanor's 19 skills end Reactor Tech, Repair Equipment, Shield Tech, Terran
+  Culture; entries without abilities are half height) and its up arrow (322,593) once: Rally on top, its rank-1
+  ability at 50,632, Repair Equipment's at 50,785. A click there uses nothing (no SKILL_ABILITY); `down` / `up`
+  drags them onto slots 4 and 5 (the client loads skill_rally.dds), the PDA's X (322,258) closes it, and each slot
+  is clicked until SKILL_ABILITY and the server's OBJECT_EFFECT (Net-7 ARally: the buff's effect 333 on our ship;
+  ARepairEquipment: 170 on our ship, a mob target defaulting to self, then repair ticks): shots `pda_skills`,
+  `pda_dragged`, `skill_rally`, `skill_repair`. Retail passes, 93 s.
 - **Flight (`sp_flight`, 2026-11-21):** every flight input, each a `pose-mark`, the input, its packet (MOVE: thrust;
   TURN: yaw; TILT: pitch) and `expect-pose` on the camera: the thrust gadget's upper half (640,878: forward, again
   stops) and lower half (640,968: reverse, again stops), A and Z held (`hold VK for S`), the four arrow keys, the
@@ -998,8 +1008,24 @@ fresh session" when e2e restarted the client before it). **Such a scenario is `N
 its packets, shots, draw logs or audio differ** (2026-11-25: the scenario before changes texture address modes, the
 draw order and matrices, retail against retail too: pda_faction alone against the default set read DIFF on retail
 itself); the line lists what differed and says to compare a run in the stored order. A verdict that differs or a shot
-missing on either side stays DIFF. Exit codes: 0 every scenario SAME, 1 any DIFF (or a `--set` scenario missing),
-2 a stale build, 3 no DIFF but some not comparable; the count line says how many were not comparable. A live
+missing on either side stays DIFF. **`RETAIL-UNSTABLE`** (2026-11-25 evening, coordinator call c2; never SAME, never
+folded into a pass, no tolerance widened): a scenario whose only differences are where the stored retail runs
+disagree among themselves, leave one out (as `.work/cs/loo.py` measured: station 3D audio identical in 0 of 9 retail
+runs). Audio (`audio_stability`): per sound family (`audio_family`: the file name with each digit run as `#`, so the
+client's random variants share one: the space music TerranWander07-2 / 01-5, the station radio 1492_00_323Se / 325Se,
+sfx_foot_glass_N; samples the log gives only as hash:size are named first from the client data's files and mixes,
+`name_samples`, audiolog's cache), the `m` / `t` events of its streams or 3D samples (`KIND FAMILY`): a family whose
+events in the run match no stored run's is weighed by its shape (events and loops): the same shape as a stored run,
+only another variant played, RETAIL-UNSTABLE when the stored runs' variants fail leave one out, else DIFF (retail
+always played that one); another shape, RETAIL-UNSTABLE when the stored runs' shapes fail leave one out, else DIFF (a
+family no stored run has: DIFF); every family matching but the interleaving differing: RETAIL-UNSTABLE only when the
+stored runs' whole sequences fail leave one out too. The line names the scenario, the families and the run's variants. Draw logs (`drawlog_stability`, per shot): each stored run's log against the
+other stored runs' (their own noise); a run's DIFF is RETAIL-UNSTABLE only when every reason it failed for
+(`drawlog_verdict`'s REASONS: `states:FIELD`, `states:new STATE`, `textures`, `draws`, `cams`, `worlds`) is one a
+left-out stored run fails for too; a DIFF says which reasons retail's own runs show. With one stored run nothing is
+measured: DIFF. Shots, packets and 2D counts are not covered (DIFF as before). Exit codes: 0 every scenario SAME,
+1 any DIFF (or a `--set` scenario missing), 2 a stale build, 4 no DIFF but some RETAIL-UNSTABLE, 3 neither but some
+not comparable; the count line says how many of each. Tests: `test_baseline.py` Audio / DrawLogs `retail_unstable`. A live
 set restores the database state once a run, before the session.
 
 **Draw logs** (test-plan C3; d3d8shot `D3D8SHOT_DRAWLOG`, above): a stored run keeps each shot's
@@ -1033,7 +1059,13 @@ With one stored run the multiset must be equal. Tests: `tools/test_baseline.py` 
 **Audio** (test-plan C2; `capture` runs e2e with `--audio` unless `--no-audio`): the session's `audio.jsonl` is cut
 per scenario by the results' `tick_start` / `tick_end` (e2e.py writes GetTickCount at a scenario's start and end; the
 log's `tick` is the same clock): a scenario gets every event after the previous scenario's end up to its own (the first
-one the client's start and the login too; what follows the last end is left out). Each is stored as `audio-NAME.json`
+one the client's start and the login too; what follows the last end is left out). **The cut** (2026-11-25 evening,
+c3): e2e also writes `tick_input`, the tick of a scenario's first input step; with every later scenario's
+`tick_input` in the results (`audio_cut_of`: `input`), a scenario's slice ends at the next scenario's first input
+instead of its own end, so a sound its last input started that plays just after its end stays with it (sp_galaxymap's
+message_1.wav was in sp_warp's slice, 1 ms in); the last scenario ends at its end; older results cut at the end
+(`end`). Each summary records its `cut`, and `verify --run` cuts the run's log the way the stored runs were cut (all
+`input`, else `end`). Each is stored as `audio-NAME.json`
 (manifest `audio`): `sequence` (the open / start / stop / end / pause / resume / close events in order: event, handle
 kind `m` stream / `t` 3D / `s` 2D, sound (a stream's file or a sample's `hash:size`), the loop count at a start, the frame
 `f` and ms `t`), `names` (`hash:size` -> file, from the `load` events), `counts` (per sound, each event kind's count:

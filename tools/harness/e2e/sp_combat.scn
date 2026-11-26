@@ -35,10 +35,75 @@ shot mob_targeted
 # nothing), then the server's answer, an effect or the message, is waited for
 click 790,960 until antprox 'received SKILL_ABILITY$' every 2 within 12
 wait-event antprox 'sent (OBJECT_EFFECT|PRIORITY_MESSAGE)$' within 15
+# the shot 1 s after the answer (2026-11-25 CS: shot at once, ours drew the PRIORITY_MESSAGE's text a frame later)
+wait-since antprox 'sent (OBJECT_EFFECT|PRIORITY_MESSAGE)$' 1
 shot skill_slot4
 click 865,960 until antprox 'received SKILL_ABILITY$' every 2 within 12
 wait-event antprox 'sent (OBJECT_EFFECT|PRIORITY_MESSAGE)$' within 15
+wait-since antprox 'sent (OBJECT_EFFECT|PRIORITY_MESSAGE)$' 1
 shot skill_slot5
+# the effects (brief CS2, c4): Rally and Repair Equipment from the PDA, as the recording dragged Hacking. The PDA
+# (the second button at the lower left), its Skills page, the list's down arrow until its end (30 clicks; Elanor's
+# 19 skills end Reactor Tech, Repair Equipment, Shield Tech, Terran Culture), then its up arrow once: Rally on top
+# (its first ability, rank 1, at 50,632), Repair Equipment third (its first at 50,785) (CS2 probe 2026-11-25: the
+# list keeps no fixed start, but its end is fixed). A click on an ability there uses nothing (the probe: no
+# SKILL_ABILITY); a drag onto the hotbar's slots 4 and 5 puts them there (the instance's shortcut.ini, a fresh copy
+# each run). The server answers both with an OBJECT_EFFECT on our ship (Net-7 ARally: the buff's effect 333;
+# ARepairEquipment: 170, a mob target defaults to self)
+click 96,918
+wait-quiet proxy 1.0 within 20
+click 71,258
+wait-quiet proxy 0.5 within 20
+click 322,805
+click 322,805
+click 322,805
+click 322,805
+click 322,805
+click 322,805
+click 322,805
+click 322,805
+click 322,805
+click 322,805
+click 322,805
+click 322,805
+click 322,805
+click 322,805
+click 322,805
+click 322,805
+click 322,805
+click 322,805
+click 322,805
+click 322,805
+click 322,805
+click 322,805
+click 322,805
+click 322,805
+click 322,805
+click 322,805
+click 322,805
+click 322,805
+click 322,805
+click 322,805
+click 322,593
+wait-quiet proxy 1.0 within 20
+shot pda_skills
+down 50,632
+up 790,960
+wait-quiet proxy 0.5 within 10
+down 50,785
+up 865,960
+wait-quiet proxy 0.5 within 10
+shot pda_dragged
+click 322,258
+wait-quiet proxy 1.0 within 20
+click 790,960 until antprox 'received SKILL_ABILITY$' every 2 within 20
+wait-event antprox 'sent OBJECT_EFFECT$' within 15
+wait-since antprox 'sent OBJECT_EFFECT$' 1
+shot skill_rally
+click 865,960 until antprox 'received SKILL_ABILITY$' every 2 within 20
+wait-event antprox 'sent OBJECT_EFFECT$' within 15
+wait-since antprox 'sent OBJECT_EFFECT$' 1
+shot skill_repair
 key 0x46
 expect-event antprox 'received ACTION$' within 10
 wait-event antprox 'sent CLIENT_DAMAGE$' within 30
