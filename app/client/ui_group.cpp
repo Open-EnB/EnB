@@ -728,7 +728,7 @@ extern unsigned int Unknown_BE5F34;						// gadget.cpp's: the key modifiers (0x5
 
 
 // 0x5946D0
-// Exact (attempts.py 0x5946D0): case 11-15 ends with its own copy of the sound + symbol tail (its SymbolChatUI temporaries leave eax free for case 17-21; VC6 merges the copy into the end's) and both copies leave through case 47's last return(true) (label done: every return(true) jump reaches that one, 0x5950AE); case 23-27 plain (three Members[key - 23] reads); case 11-15 index local k (add edi,-0xb); case 29-33 and case 47 single-use ClientClass *c; two dead Peek()s in 0x593180 (D272); the labels and the copy are forms the bytes need, the source's own shape is not known
+// Exact (attempts.py 0x5946D0), no goto: each break case (11-15, 41-45, 29-33, 35-39) ends with its own sound + 'if (SymbolChatUI) ..' tail (VC6 merges the four into the one after 35-39, 0x594A72; 11-15's SymbolChatUI temporaries leave eax free for case 17-21), the modifier test wraps the body and the sound, case 47 breaks to the return(true) after the switch (0x5950AE, where every return(true) jump goes); case 23-27 plain (three Members[key - 23] reads); case 11-15 index local k (add edi,-0xb); case 47 single-use ClientClass *c; two dead Peek()s in 0x593180 (D272)
 bool UIGroupClass::Unknown_68(int key)
 {
 	SClient *sclient = (SClient *)((ClientClass *)Client)->As_Space_Client();
@@ -752,7 +752,7 @@ bool UIGroupClass::Unknown_68(int key)
 				targeting->Select_Group_Member(k);
 				Unknown0E8->Unknown_593180(Members[k]->Unknown18);
 			} }
-			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2); if (SymbolChatUI) { SymbolChatUI->Unknown_5C(); } goto done;
+			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2); if (SymbolChatUI) { SymbolChatUI->Unknown_5C(); } break;
 		default:
 			return(false);
 		case 17:
@@ -784,7 +784,7 @@ bool UIGroupClass::Unknown_68(int key)
 		case 43:
 		case 44:
 		case 45:
-			if (modifier) goto symbol;
+			if (!modifier) {
 			if (Members[key - 41]) {
 
 				((ClientClass *)Client)->Send_Packet(&RequestTargetsTargetPacketClass(((ClientClass *)Client)->Get_Avatar_ID(), Members[key - 41]->ID));
@@ -795,24 +795,24 @@ bool UIGroupClass::Unknown_68(int key)
 					Members[key - 41]->Unknown20 = 0;
 				}
 			}
-			break;
+			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2); } if (SymbolChatUI) { SymbolChatUI->Unknown_5C(); } break;
 		case 29:
 		case 30:
 		case 31:
 		case 32:
 		case 33:
-			if (modifier) goto symbol;
+			if (!modifier) {
 			if (Members[key - 29]) {
 
-				ClientClass *c = (ClientClass *)Client; ((ClientClass *)Client)->Send_Packet(&CTA_Request_PacketClass(c->Get_Avatar_ID(), Members[key - 29]->ID, 12));
+				((ClientClass *)Client)->Send_Packet(&CTA_Request_PacketClass(((ClientClass *)Client)->Get_Avatar_ID(), Members[key - 29]->ID, 12));
 			}
-			break;
+			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2); } if (SymbolChatUI) { SymbolChatUI->Unknown_5C(); } break;
 		case 35:
 		case 36:
 		case 37:
 		case 38:
 		case 39:
-			if (modifier) goto symbol;
+			if (!modifier) {
 
 			if (Members[key - 35]) {
 
@@ -822,7 +822,7 @@ bool UIGroupClass::Unknown_68(int key)
 					((ClientClass *)Client)->Send_Packet(&Action2PacketClass(((ClientClass *)Client)->Get_Avatar_ID(), 15, Members[key - 35]->Name.c_str(), 0));
 				}
 			}
-			break;
+			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2); } if (SymbolChatUI) { SymbolChatUI->Unknown_5C(); } break;
 		case 1:
 			if (modifier) return(true);
 			if (!Unknown0F1 && Unknown0C0[0]) {
@@ -904,15 +904,15 @@ bool UIGroupClass::Unknown_68(int key)
 				((ClientClass *)Client)->Send_Packet(&CTA_Request_PacketClass(((ClientClass *)Client)->Get_Avatar_ID(), 0, 8));
 			} else return(true);
 			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
-done:			return(true);
+			break;
 	}
-	SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
-symbol:
-	if (SymbolChatUI) {
-		SymbolChatUI->Unknown_5C();
-	}
-	goto done;
+	return(true);
 }
+
+
+
+
+
 
 
 
