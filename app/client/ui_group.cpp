@@ -1253,7 +1253,7 @@ void UIGroupClass::Unknown_5966A0()
 
 template<class C> inline C *Unknown_Find_Aux_Field(DeltaCompoundClass *const &root, const char *name) { NameClass n(name); DeltaCompoundClass *r = root; return(Unknown_Find_Field<C>(r, n)); } template<class C> inline C *Unknown_Find_Aux(DeltaCompoundClass *const &root, const char *name) { return(Unknown_Find_Aux_Field<C>(root, name)); }	// NAME 1: neutral (D10): auxdata.h's find through two inline layers (ui_manu.cpp's form): out of line as the client in both branches
 // 0x596770
-// NOT EXACT: inline budget, 75 masked rows (B8; 116 with the direct finds): the two-layer find sends both finds out of line as the client, two dead Members.size() after Add_Member spend what that frees (D272); left: the Add_Member temporary's assign out of line (the client inlines it and calls _Grow / _Eos), the member loop's register order; attempts.py show 0x596770
+// NOT EXACT: inline budget, 69 masked rows (B10; 116 with the direct finds): the two-layer find sends both finds out of line as the client, two dead Members.size() after Add_Member spend what that frees (D272), the member loop's branch negated (the client lays Remove_Member first, it++ before the test); left: the Add_Member temporary's assign out of line (the client inlines it and calls _Grow / _Eos: the two reads between Get_Member and the test instead give that, 76), the second loop's registers; attempts.py show 0x596770
 void UIGroupClass::Unknown_596770(bool arg)
 {
 	ClientClass *client = (ClientClass *)Client;
@@ -1283,10 +1283,10 @@ void UIGroupClass::Unknown_596770(bool arg)
 					break;
 				}
 			}
-			if (found) {
-				it++;
-			} else {
+			if (!found) {
 				it = Remove_Member(it);
+			} else {
+				it++;
 			}
 		}
 		for (int i = 0; i < 5; i++) {

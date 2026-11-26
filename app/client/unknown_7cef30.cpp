@@ -359,7 +359,7 @@ inline SubsRequestClass::SubsRequestClass(const std::string &url, const std::str
 	Url = url;
 	Url += "/";
 	Url += page;
-	Add_Param("version", version.c_str()); Query.size(); Query.size(); Query.size();	// D130: 3 dead reads, not the client's: they spend the inline budget that leaves the request's destructor 0x7D4D60 out of line in the functions with six or more parameters (0x7D6A60, 0x7D9790, 0x7DA760, 0x7DAD50, 0x7DB2D0)
+	Add_Param("version", version.c_str()); Query.size(); Query.size();	// D272: 2 dead reads (with the one in ~SubsRequestClass) spend the inline budget that leaves the request's destructor 0x7D4D60 out of line in the functions with six or more parameters (0x7D6A60, 0x7D9790, 0x7DA760, 0x7DAD50, 0x7DB2D0); a third here costs 0x7D4E30 its bdateyear Add_Param(int) inline (B10)
 }
 
 
@@ -379,7 +379,7 @@ bool RegistrationUnknown1ACClass::Unknown_7D47F0(const char *a, const char *b, c
 	return Unknown_BE8AD8->Slot13(&request, callback);
 }
 
-// NOT EXACT: inline budget (0.71: the client inlines Add_Param(int) for bdateyear too, ours calls it from there on; the rest is the client's)
+// 0x7D4E30
 bool RegistrationUnknown1ACClass::Unknown_7D4E30(const char *a, const char *b, RegistrationUnknown3C4Struct *info, const char *c, bool d, int e, int f)
 {
 	if (Unknown_BE8AD8 == NULL) {
