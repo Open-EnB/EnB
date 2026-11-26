@@ -412,7 +412,7 @@ void SBaseViewClass::Unknown_69CDE0()
 
 // 0x69D030: starbase interface index made (once, with 0x6A2120's name) and activated as Starbase, the listener
 // turned to the +0x6C camera; -1 (allowed without +0x1B4) leaves none. The cases in the client's order (3 before 2)
-// NOT EXACT: literal (explain.py; 0.87): Rotate_Z's first row multiplies c * x before s * y in the client
+// Rotate_Z's first row multiplies c * x before s * y, as the client's
 void SBaseViewClass::Unknown_69D030(int index)
 {
 	if (!Info && index != -1) return;
