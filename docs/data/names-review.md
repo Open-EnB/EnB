@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1971 |
 | 2 | describes what the code does | 5020 |
-| 1 | neutral placeholder | 25226 |
+| 1 | neutral placeholder | 25228 |
 
 ## For review (score 3 and below)
 
@@ -2082,6 +2082,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_700820` | `app/client/co.cpp:2571` | untagged neutral name (D10) |
 | 1 | `Unknown_700860` | `app/client/co.cpp:2587` | untagged neutral name (D10) |
 | 1 | `Unknown_7009A0` | `app/client/co.cpp:2595` | untagged neutral name (D10) |
+| 1 | `Unknown_Valid_F` | `app/client/co.cpp:2607` | neutral (D10) |
+| 1 | `Unknown_Name_Sel` | `app/client/co.cpp:2608` | neutral (D10) |
 | 1 | `UnknownRTTIClass` | `app/client/co.cpp:2648` | untagged neutral name (D10) |
 | 1 | `CoSymbolPadType` | `app/client/co.cpp:2688` | a build aid (HX1) |
 | 1 | `UnknownRootClass` | `app/client/co.h:48` | untagged neutral name (D10) |

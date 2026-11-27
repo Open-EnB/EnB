@@ -2604,46 +2604,46 @@ void ClientObjectClass::Unknown_7009A0(bool on, bool force)
 		Unknown184 = false;
 	}
 }
-
-// 0x6FF7A0 the name label: the object's name, behind its Title or Rank for a type other than 0; the lookups through Unknown_Find_Valid (the client calls 0x514BD0 below it at all six sites), the dead type test at the end spends the last Rank ~string's nested budget (its _Tidy called, as the client)  // NOT EXACT: frame slots (the client gives the four selection NameClasses four slots and Title / Rank share one; ours the reverse; code otherwise identical)
+static __forceinline DeltaStringClass *Unknown_Valid_F(DeltaCompoundClass *root, const NameClass &name) { DeltaStringClass *t = Unknown_Find_Field<DeltaStringClass>(root, name); if (t && t->Unknown70) return(t); return(NULL); }	// NAME 1: neutral (D10)
+static inline DeltaStringClass *Unknown_Name_Sel(ClientObjectClass *o) { DeltaStringClass *t; switch (o->Type) { default: { NameClass n1("Name"); t = Unknown_Valid_F((DeltaCompoundClass *)o->AuxData, n1); if (!t) { NameClass o1("Owner"); t = Unknown_Valid_F((DeltaCompoundClass *)o->AuxData, o1); } } break; case 1: { NameClass o2("Owner"); t = Unknown_Valid_F((DeltaCompoundClass *)o->AuxData, o2); if (!t) { NameClass n2("Name"); t = Unknown_Valid_F((DeltaCompoundClass *)o->AuxData, n2); } } break; } return(t); }	// NAME 1: neutral (D10)
+// 0x6FF7A0 the name label: the object's name, behind its Title or Rank for a type other than 0. The Name / Owner pick is an inline of its own (Unknown_Name_Sel: an inlined function's NameClass locals each keep a slot, as the client's four; inside the function the two arms share theirs), Title / Rank in closed scopes (they take the last slot, the client's esp+0x74); the valid-or-NULL lookup __forceinline inside the pick (a plain inline is called there)  // NOT EXACT: branch (two jump targets: the first lookup's valid exit of each arm passes the join's test eax where the client jumps past it, 0x6FF7FC / 0x6FF868; all else identical, the frame slots included)
 void ClientObjectClass::Unknown_6FF7A0(std::string &text)
 {
-	DeltaStringClass *t;
-	if (!Unknown_6F5A40()) {
-		NameClass name_field("Name");
-		t = Unknown_Find_Valid<DeltaStringClass>((DeltaCompoundClass *)AuxData, name_field);
-		if (!t) {
-			NameClass owner_field("Owner");
-			t = Unknown_Find_Valid<DeltaStringClass>((DeltaCompoundClass *)AuxData, owner_field);
-		}
-	} else {
-		NameClass owner_field("Owner");
-		t = Unknown_Find_Valid<DeltaStringClass>((DeltaCompoundClass *)AuxData, owner_field);
-		if (!t) {
-			NameClass name_field("Name");
-			t = Unknown_Find_Valid<DeltaStringClass>((DeltaCompoundClass *)AuxData, name_field);
-		}
-	}
+	DeltaStringClass *t = Unknown_Name_Sel(this);
 	const char *name = t ? t->String : "Unknown";
 	if (Type == 0) {
 		text = std::string(name);
 	} else {
-		NameClass title_field("Title");
-		t = Unknown_Find_Valid<DeltaStringClass>((DeltaCompoundClass *)AuxData, title_field);
-		const char *title = t ? t->String : "";
+		const char *title; { NameClass ti("Title"); t = Unknown_Find_Valid<DeltaStringClass>((DeltaCompoundClass *)AuxData, ti); title = t ? t->String : ""; }
 		if (*title) {
 			text = std::string(title) + " " + name;
 		} else {
-			NameClass rank_field("Rank");
-			t = Unknown_Find_Valid<DeltaStringClass>((DeltaCompoundClass *)AuxData, rank_field);
-			const char *rank = t ? t->String : "";
+			const char *rank; { NameClass ra("Rank"); t = Unknown_Find_Valid<DeltaStringClass>((DeltaCompoundClass *)AuxData, ra); rank = t ? t->String : ""; }
 			if (*rank) {
 				text = std::string(rank) + " " + name;
 			} else {
 				text = name;
 			}
 		}
-	} Unknown_6F5A40();
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
 template class UnknownRTTIClass<DeltaStatsClass>;	// the CurrentStats find's Cast 0x7099F0: the client calls it out of line (0x6FC0F3 in 0x6FBEF0, whose copy here inlines it: parked, inline budget)
 /*
