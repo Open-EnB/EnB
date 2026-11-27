@@ -1,0 +1,1221 @@
+{
+  "claim": 325,
+  "base_revision": "072754ebf125a77fd45f72dec41879e240c2334a",
+  "base_path": "app/wwudp/cordmgr.cpp",
+  "base_sha256": "4dd5c9d76bd97041d88ca2134d85cb72bb542baa32812c7b4f5291ea29b1a059",
+  "hypothesis": "Packet load/conversion splits including ignored conversion; real con pointer block ends after both list adds and before delete c, enabling observed temporary-slot reuse. No operations moved.",
+  "records": [
+    {
+      "name": "first_85ABB0_all",
+      "source_sha256": "90a19e6baa4e4b93b242386ce5318ead23480fe38b054a2f36e820fe9ed52acd",
+      "patch": "--- app/wwudp/cordmgr.cpp\n+++ app/wwudp/cordmgr.cpp\n@@ -1409,10 +1409,10 @@\n \t}\n \tunsigned char type = data[0];\n \tunsigned char protocol = data[1];\n-\tunsigned short session = ntohs(*(unsigned short *)(data + 2));\n+\tunsigned short session = *(unsigned short *)(data + 2); session = ntohs(session);\n \tntohs(*(unsigned short *)(data + 4));\n-\tunsigned short port = ntohs(*(unsigned short *)(data + 6));\n-\tunsigned long word = ntohl(*(unsigned long *)(data + 8));\n+\tunsigned short port = *(unsigned short *)(data + 6); port = ntohs(port);\n+\tunsigned long word = *(unsigned long *)(data + 8); word = ntohl(word);\n \tif (protocol != Protocol_ || type != 3) {\n \t\treturn false;\n \t}\n",
+      "object_sha256": "8fbe6e0283744271bcd91dce8258b589ef8212c630482855b65e9897e9e4612e",
+      "model": "gpt-6.1-terra high",
+      "classification": "changed_form",
+      "delta": {
+        "pairs": {
+          "gained": [],
+          "lost": []
+        },
+        "symbol_pairs": {
+          "gained": [],
+          "lost": []
+        }
+      },
+      "body": {
+        "raw_sha256": "e63b4bd49d37c0eec5f1c416667c08ba3305b42f0488d9399cad16c4fb72b495",
+        "masked_sha256": "e63b4bd49d37c0eec5f1c416667c08ba3305b42f0488d9399cad16c4fb72b495",
+        "length": 624
+      },
+      "diagnostic_residue": 32
+    },
+    {
+      "name": "first_85ABB0_before_c",
+      "source_sha256": "f6d57fa39f5da5ff9af93e74d811c5c2c2df9e4b7f3fbf0c3692ab7af05d32af",
+      "patch": "--- app/wwudp/cordmgr.cpp\n+++ app/wwudp/cordmgr.cpp\n@@ -1409,13 +1409,14 @@\n \t}\n \tunsigned char type = data[0];\n \tunsigned char protocol = data[1];\n-\tunsigned short session = ntohs(*(unsigned short *)(data + 2));\n-\tntohs(*(unsigned short *)(data + 4));\n-\tunsigned short port = ntohs(*(unsigned short *)(data + 6));\n-\tunsigned long word = ntohl(*(unsigned long *)(data + 8));\n+\tunsigned short session = *(unsigned short *)(data + 2); session = ntohs(session);\n+\tunsigned short ignored = *(unsigned short *)(data + 4); ignored = ntohs(ignored);\n+\tunsigned short port = *(unsigned short *)(data + 6); port = ntohs(port);\n+\tunsigned long word = *(unsigned long *)(data + 8); word = ntohl(word);\n \tif (protocol != Protocol_ || type != 3) {\n \t\treturn false;\n \t}\n+\tCordCon *con;\n \tCordConnectingClass *c = NULL;\n \tfor (int i = 0; i < Pending_.length(); i++) {\n \t\tPending_.get(c, i);\n@@ -1424,7 +1425,7 @@\n \t\t\tcontinue;\n \t\t}\n \t\tc->State = 5;\n-\t\tCordCon *con = new CordCon(c->Ip, port, session, 0, false, c->Socket, (int)word,\n+\t\tcon = new CordCon(c->Ip, port, session, 0, false, c->Socket, (int)word,\n \t\t\tc->Key);\n \t\tAllConnections_.addTail(con);\n \t\tConnections_.addTail(con);\n",
+      "object_sha256": "9007c2199fcc919edd6c4dd97a4460a098a68b0df033bf6b006e86bb5e798fde",
+      "model": "gpt-6.1-terra high",
+      "classification": "changed_form",
+      "delta": {
+        "pairs": {
+          "gained": [],
+          "lost": []
+        },
+        "symbol_pairs": {
+          "gained": [],
+          "lost": []
+        }
+      },
+      "body": {
+        "raw_sha256": "bf7ab48abfc60c5921226b439d4a8e01070e2ae07841f708ecefb50d2c0097d9",
+        "masked_sha256": "bf7ab48abfc60c5921226b439d4a8e01070e2ae07841f708ecefb50d2c0097d9",
+        "length": 623
+      },
+      "diagnostic_residue": 0
+    },
+    {
+      "name": "first_85ABB0_before_loop",
+      "source_sha256": "179a4571daa6e2d33d3de9be6714cb6bc529e05b2b67df31c1853ab1c3646ec7",
+      "patch": "--- app/wwudp/cordmgr.cpp\n+++ app/wwudp/cordmgr.cpp\n@@ -1409,14 +1409,15 @@\n \t}\n \tunsigned char type = data[0];\n \tunsigned char protocol = data[1];\n-\tunsigned short session = ntohs(*(unsigned short *)(data + 2));\n-\tntohs(*(unsigned short *)(data + 4));\n-\tunsigned short port = ntohs(*(unsigned short *)(data + 6));\n-\tunsigned long word = ntohl(*(unsigned long *)(data + 8));\n+\tunsigned short session = *(unsigned short *)(data + 2); session = ntohs(session);\n+\tunsigned short ignored = *(unsigned short *)(data + 4); ignored = ntohs(ignored);\n+\tunsigned short port = *(unsigned short *)(data + 6); port = ntohs(port);\n+\tunsigned long word = *(unsigned long *)(data + 8); word = ntohl(word);\n \tif (protocol != Protocol_ || type != 3) {\n \t\treturn false;\n \t}\n \tCordConnectingClass *c = NULL;\n+\tCordCon *con;\n \tfor (int i = 0; i < Pending_.length(); i++) {\n \t\tPending_.get(c, i);\n \t\tif (c->Ip != ntohl(from->sin_addr.s_addr) || c->Port != ntohs(from->sin_port)\n@@ -1424,7 +1425,7 @@\n \t\t\tcontinue;\n \t\t}\n \t\tc->State = 5;\n-\t\tCordCon *con = new CordCon(c->Ip, port, session, 0, false, c->Socket, (int)word,\n+\t\tcon = new CordCon(c->Ip, port, session, 0, false, c->Socket, (int)word,\n \t\t\tc->Key);\n \t\tAllConnections_.addTail(con);\n \t\tConnections_.addTail(con);\n",
+      "object_sha256": "1d97afbf6e85e31d967a5b4e9a2b43055b6b214d93fe2661590c874a8ea4a448",
+      "model": "gpt-6.1-terra high",
+      "classification": "changed_form",
+      "delta": {
+        "pairs": {
+          "gained": [],
+          "lost": []
+        },
+        "symbol_pairs": {
+          "gained": [],
+          "lost": []
+        }
+      },
+      "body": {
+        "raw_sha256": "bf7ab48abfc60c5921226b439d4a8e01070e2ae07841f708ecefb50d2c0097d9",
+        "masked_sha256": "bf7ab48abfc60c5921226b439d4a8e01070e2ae07841f708ecefb50d2c0097d9",
+        "length": 623
+      },
+      "diagnostic_residue": 0
+    },
+    {
+      "name": "first_85ABB0_block",
+      "source_sha256": "5a174bda6e96c3aafa2a9222a33e0222bc424dbe96fa6bb852d780ec1399c4ca",
+      "patch": "--- app/wwudp/cordmgr.cpp\n+++ app/wwudp/cordmgr.cpp\n@@ -1409,10 +1409,10 @@\n \t}\n \tunsigned char type = data[0];\n \tunsigned char protocol = data[1];\n-\tunsigned short session = ntohs(*(unsigned short *)(data + 2));\n-\tntohs(*(unsigned short *)(data + 4));\n-\tunsigned short port = ntohs(*(unsigned short *)(data + 6));\n-\tunsigned long word = ntohl(*(unsigned long *)(data + 8));\n+\tunsigned short session = *(unsigned short *)(data + 2); session = ntohs(session);\n+\tunsigned short ignored = *(unsigned short *)(data + 4); ignored = ntohs(ignored);\n+\tunsigned short port = *(unsigned short *)(data + 6); port = ntohs(port);\n+\tunsigned long word = *(unsigned long *)(data + 8); word = ntohl(word);\n \tif (protocol != Protocol_ || type != 3) {\n \t\treturn false;\n \t}\n@@ -1424,10 +1424,12 @@\n \t\t\tcontinue;\n \t\t}\n \t\tc->State = 5;\n+\t\t{\n \t\tCordCon *con = new CordCon(c->Ip, port, session, 0, false, c->Socket, (int)word,\n \t\t\tc->Key);\n \t\tAllConnections_.addTail(con);\n \t\tConnections_.addTail(con);\n+\t\t}\n \t\tdelete c;\n \t\tPending_.remove(i);\n \t\treturn true;\n",
+      "object_sha256": "a95a521318936472ae57218bd92f2eb6d36f470f3817edaa64c65c02af786899",
+      "model": "gpt-6.1-terra high",
+      "classification": "changed_form",
+      "delta": {
+        "pairs": {
+          "gained": [
+            [
+              "app/wwudp/cordmgr.cpp",
+              "0x85ABB0"
+            ]
+          ],
+          "lost": []
+        },
+        "symbol_pairs": {
+          "gained": [
+            [
+              "app/wwudp/cordmgr.cpp",
+              "?Process_ACK2_Packet@CordMgr@@QAE_NPAEHPAUsockaddr_in@@PAVUDP@@H@Z",
+              "0x85ABB0"
+            ]
+          ],
+          "lost": []
+        }
+      },
+      "body": {
+        "raw_sha256": "680dcc871cc42ab8fba8590236da6c6011d08c9049a64654639fac49c6b8e4de",
+        "masked_sha256": "680dcc871cc42ab8fba8590236da6c6011d08c9049a64654639fac49c6b8e4de",
+        "length": 623
+      },
+      "diagnostic_residue": 0
+    },
+    {
+      "name": "first_85ABB0_compare",
+      "source_sha256": "c4bb2caf302e2e3efa7181801cfaad0d9cd18940620612d3f8dc996095f3cde2",
+      "patch": "--- app/wwudp/cordmgr.cpp\n+++ app/wwudp/cordmgr.cpp\n@@ -1409,10 +1409,10 @@\n \t}\n \tunsigned char type = data[0];\n \tunsigned char protocol = data[1];\n-\tunsigned short session = ntohs(*(unsigned short *)(data + 2));\n+\tunsigned short session = *(unsigned short *)(data + 2); session = ntohs(session);\n \tntohs(*(unsigned short *)(data + 4));\n-\tunsigned short port = ntohs(*(unsigned short *)(data + 6));\n-\tunsigned long word = ntohl(*(unsigned long *)(data + 8));\n+\tunsigned short port = *(unsigned short *)(data + 6); port = ntohs(port);\n+\tunsigned long word = *(unsigned long *)(data + 8); word = ntohl(word);\n \tif (protocol != Protocol_ || type != 3) {\n \t\treturn false;\n \t}\n@@ -1420,7 +1420,7 @@\n \tfor (int i = 0; i < Pending_.length(); i++) {\n \t\tPending_.get(c, i);\n \t\tif (c->Ip != ntohl(from->sin_addr.s_addr) || c->Port != ntohs(from->sin_port)\n-\t\t\t|| c->Session != session) {\n+\t\t\t|| session != c->Session) {\n \t\t\tcontinue;\n \t\t}\n \t\tc->State = 5;\n",
+      "object_sha256": "aa605d5690e14fd4fd0d0370a95545f6c02e0e9937c53cc2b0b2dedd07bce64d",
+      "model": "gpt-6.1-terra high",
+      "classification": "changed_form",
+      "delta": {
+        "pairs": {
+          "gained": [],
+          "lost": []
+        },
+        "symbol_pairs": {
+          "gained": [],
+          "lost": []
+        }
+      },
+      "body": {
+        "raw_sha256": "ce0d34ae0bcac3c358ac23e4acf50dcb0dd8d4e43223d91e9158dcce9463d256",
+        "masked_sha256": "ce0d34ae0bcac3c358ac23e4acf50dcb0dd8d4e43223d91e9158dcce9463d256",
+        "length": 624
+      },
+      "diagnostic_residue": 31
+    },
+    {
+      "name": "first_85ABB0_ignored",
+      "source_sha256": "181a35290c95b7d21fe8ce2d28e40c950abe5e62e7025b78b49d98d99f450735",
+      "patch": "--- app/wwudp/cordmgr.cpp\n+++ app/wwudp/cordmgr.cpp\n@@ -1409,10 +1409,10 @@\n \t}\n \tunsigned char type = data[0];\n \tunsigned char protocol = data[1];\n-\tunsigned short session = ntohs(*(unsigned short *)(data + 2));\n-\tntohs(*(unsigned short *)(data + 4));\n-\tunsigned short port = ntohs(*(unsigned short *)(data + 6));\n-\tunsigned long word = ntohl(*(unsigned long *)(data + 8));\n+\tunsigned short session = *(unsigned short *)(data + 2); session = ntohs(session);\n+\tunsigned short ignored = *(unsigned short *)(data + 4); ignored = ntohs(ignored);\n+\tunsigned short port = *(unsigned short *)(data + 6); port = ntohs(port);\n+\tunsigned long word = *(unsigned long *)(data + 8); word = ntohl(word);\n \tif (protocol != Protocol_ || type != 3) {\n \t\treturn false;\n \t}\n",
+      "object_sha256": "2d75e0ab445021340ae13969b5e5cd37eb7b3d29d8c4314907dbee83461259d6",
+      "model": "gpt-6.1-terra high",
+      "classification": "changed_form",
+      "delta": {
+        "pairs": {
+          "gained": [],
+          "lost": []
+        },
+        "symbol_pairs": {
+          "gained": [],
+          "lost": []
+        }
+      },
+      "body": {
+        "raw_sha256": "667045ee14b5500395d7ff3b5de94c4383af67c5b3f730987ac43ea0293bf0c6",
+        "masked_sha256": "667045ee14b5500395d7ff3b5de94c4383af67c5b3f730987ac43ea0293bf0c6",
+        "length": 623
+      },
+      "diagnostic_residue": 0
+    },
+    {
+      "name": "first_85ABB0_ignored_compare",
+      "source_sha256": "69a2aade53fda1f519e0fb5d6658abb6c86d093b229e0f80e28f01bebef264e5",
+      "patch": "--- app/wwudp/cordmgr.cpp\n+++ app/wwudp/cordmgr.cpp\n@@ -1409,10 +1409,10 @@\n \t}\n \tunsigned char type = data[0];\n \tunsigned char protocol = data[1];\n-\tunsigned short session = ntohs(*(unsigned short *)(data + 2));\n-\tntohs(*(unsigned short *)(data + 4));\n-\tunsigned short port = ntohs(*(unsigned short *)(data + 6));\n-\tunsigned long word = ntohl(*(unsigned long *)(data + 8));\n+\tunsigned short session = *(unsigned short *)(data + 2); session = ntohs(session);\n+\tunsigned short ignored = *(unsigned short *)(data + 4); ignored = ntohs(ignored);\n+\tunsigned short port = *(unsigned short *)(data + 6); port = ntohs(port);\n+\tunsigned long word = *(unsigned long *)(data + 8); word = ntohl(word);\n \tif (protocol != Protocol_ || type != 3) {\n \t\treturn false;\n \t}\n@@ -1420,7 +1420,7 @@\n \tfor (int i = 0; i < Pending_.length(); i++) {\n \t\tPending_.get(c, i);\n \t\tif (c->Ip != ntohl(from->sin_addr.s_addr) || c->Port != ntohs(from->sin_port)\n-\t\t\t|| c->Session != session) {\n+\t\t\t|| session != c->Session) {\n \t\t\tcontinue;\n \t\t}\n \t\tc->State = 5;\n",
+      "object_sha256": "f3ad476f41006838784e27f6947c6f02e379ac92c15a4610e5d308e5374943cf",
+      "model": "gpt-6.1-terra high",
+      "classification": "changed_form",
+      "delta": {
+        "pairs": {
+          "gained": [],
+          "lost": []
+        },
+        "symbol_pairs": {
+          "gained": [],
+          "lost": []
+        }
+      },
+      "body": {
+        "raw_sha256": "e3d4d7b95e137d7a0208369af172a2d528e82f507cf55a2ed8476d95f78e0c05",
+        "masked_sha256": "e3d4d7b95e137d7a0208369af172a2d528e82f507cf55a2ed8476d95f78e0c05",
+        "length": 623
+      },
+      "diagnostic_residue": 1
+    },
+    {
+      "name": "first_85ABB0_port",
+      "source_sha256": "da2e6a06a2703293ba2844aa852949eb6e4db4f9603fe133d80e4922c5c96a4e",
+      "patch": "--- app/wwudp/cordmgr.cpp\n+++ app/wwudp/cordmgr.cpp\n@@ -1411,7 +1411,7 @@\n \tunsigned char protocol = data[1];\n \tunsigned short session = ntohs(*(unsigned short *)(data + 2));\n \tntohs(*(unsigned short *)(data + 4));\n-\tunsigned short port = ntohs(*(unsigned short *)(data + 6));\n+\tunsigned short port = *(unsigned short *)(data + 6); port = ntohs(port);\n \tunsigned long word = ntohl(*(unsigned long *)(data + 8));\n \tif (protocol != Protocol_ || type != 3) {\n \t\treturn false;\n",
+      "object_sha256": "f81fd177a58c3edd21cc213e977d4bac308852f22851b928936cd6fa5da42e0e",
+      "model": "gpt-6.1-terra high",
+      "classification": "changed_form",
+      "delta": {
+        "pairs": {
+          "gained": [],
+          "lost": []
+        },
+        "symbol_pairs": {
+          "gained": [],
+          "lost": []
+        }
+      },
+      "body": {
+        "raw_sha256": "6e5369968629c86cbe1029faf9effd7b49afa663c303b7aea6693bdb46469ff9",
+        "masked_sha256": "6e5369968629c86cbe1029faf9effd7b49afa663c303b7aea6693bdb46469ff9",
+        "length": 626
+      },
+      "diagnostic_residue": 39
+    },
+    {
+      "name": "first_85ABB0_session",
+      "source_sha256": "b90139535e62b7e3fd82a54c551c00cdae9fa1b36f8659358f48b48ea96f2a77",
+      "patch": "--- app/wwudp/cordmgr.cpp\n+++ app/wwudp/cordmgr.cpp\n@@ -1409,7 +1409,7 @@\n \t}\n \tunsigned char type = data[0];\n \tunsigned char protocol = data[1];\n-\tunsigned short session = ntohs(*(unsigned short *)(data + 2));\n+\tunsigned short session = *(unsigned short *)(data + 2); session = ntohs(session);\n \tntohs(*(unsigned short *)(data + 4));\n \tunsigned short port = ntohs(*(unsigned short *)(data + 6));\n \tunsigned long word = ntohl(*(unsigned long *)(data + 8));\n",
+      "object_sha256": "5c3d64aa3d4dda76681fbb9fb1bf7580d0c3350d5945fa5d45006a667f65890a",
+      "model": "gpt-6.1-terra high",
+      "classification": "changed_form",
+      "delta": {
+        "pairs": {
+          "gained": [],
+          "lost": []
+        },
+        "symbol_pairs": {
+          "gained": [],
+          "lost": []
+        }
+      },
+      "body": {
+        "raw_sha256": "b05444f5b963137e9c6f5ee5cf07240b33b0487fbc5a674a6cfa8c8db6ac6959",
+        "masked_sha256": "b05444f5b963137e9c6f5ee5cf07240b33b0487fbc5a674a6cfa8c8db6ac6959",
+        "length": 626
+      },
+      "diagnostic_residue": 38
+    },
+    {
+      "name": "first_85ABB0_word",
+      "source_sha256": "8f87f01af003e7ca8550be964ac42416ff7b614c8e7a17a57ba6074668a2313b",
+      "patch": "--- app/wwudp/cordmgr.cpp\n+++ app/wwudp/cordmgr.cpp\n@@ -1412,7 +1412,7 @@\n \tunsigned short session = ntohs(*(unsigned short *)(data + 2));\n \tntohs(*(unsigned short *)(data + 4));\n \tunsigned short port = ntohs(*(unsigned short *)(data + 6));\n-\tunsigned long word = ntohl(*(unsigned long *)(data + 8));\n+\tunsigned long word = *(unsigned long *)(data + 8); word = ntohl(word);\n \tif (protocol != Protocol_ || type != 3) {\n \t\treturn false;\n \t}\n",
+      "object_sha256": "a1d4e2e1ae0621abb938621da772c0e9c9e2a8cba0e9b13ec5d03fe2cf941674",
+      "model": "gpt-6.1-terra high",
+      "classification": "changed_form",
+      "delta": {
+        "pairs": {
+          "gained": [],
+          "lost": []
+        },
+        "symbol_pairs": {
+          "gained": [],
+          "lost": []
+        }
+      },
+      "body": {
+        "raw_sha256": "767586b13c29e9604c27fa80c8c577d5ea29216fc1871d94ce8748b68aaca6a3",
+        "masked_sha256": "767586b13c29e9604c27fa80c8c577d5ea29216fc1871d94ce8748b68aaca6a3",
+        "length": 626
+      },
+      "diagnostic_residue": 39
+    },
+    {
+      "name": "root_ack2_clean",
+      "source_sha256": "14ab66cc73e70d56aff32ff743c267352976b2681ef5613b4b8bd4d968d24832",
+      "patch": "--- app/wwudp/cordmgr.cpp\n+++ app/wwudp/cordmgr.cpp\n@@ -1398,7 +1398,7 @@\n \treturn false;\n }\n \n-// 0x85ABB0, functional: ACK2 (3, protocol, session, 2 bytes, the data port, a word) for a\n+// 0x85ABB0: ACK2 (3, protocol, session, 2 bytes, the data port, a word) for a\n // connection in the handshake: its CordCon (the word is the constructor's 7th argument), in\n // both connection lists; the handshake record goes.\n bool CordMgr::Process_ACK2_Packet(unsigned char *data, int len, sockaddr_in *from, UDP *socket, int unknown)\n@@ -1409,10 +1409,10 @@\n \t}\n \tunsigned char type = data[0];\n \tunsigned char protocol = data[1];\n-\tunsigned short session = ntohs(*(unsigned short *)(data + 2));\n-\tntohs(*(unsigned short *)(data + 4));\n-\tunsigned short port = ntohs(*(unsigned short *)(data + 6));\n-\tunsigned long word = ntohl(*(unsigned long *)(data + 8));\n+\tunsigned short session = *(unsigned short *)(data + 2); session = ntohs(session);\n+\tunsigned short ignored = *(unsigned short *)(data + 4); ignored = ntohs(ignored);\n+\tunsigned short port = *(unsigned short *)(data + 6); port = ntohs(port);\n+\tunsigned long word = *(unsigned long *)(data + 8); word = ntohl(word);\n \tif (protocol != Protocol_ || type != 3) {\n \t\treturn false;\n \t}\n@@ -1424,10 +1424,12 @@\n \t\t\tcontinue;\n \t\t}\n \t\tc->State = 5;\n-\t\tCordCon *con = new CordCon(c->Ip, port, session, 0, false, c->Socket, (int)word,\n-\t\t\tc->Key);\n-\t\tAllConnections_.addTail(con);\n-\t\tConnections_.addTail(con);\n+\t\t{\n+\t\t\tCordCon *con = new CordCon(c->Ip, port, session, 0, false, c->Socket, (int)word,\n+\t\t\t\tc->Key);\n+\t\t\tAllConnections_.addTail(con);\n+\t\t\tConnections_.addTail(con);\n+\t\t}\n \t\tdelete c;\n \t\tPending_.remove(i);\n \t\treturn true;\n",
+      "object_sha256": "b282075db1e55ed041be1c6fe48fe348dc17d58165ee54f338c717987d7e3acc",
+      "model": "Codex coordinator",
+      "classification": "coordinator_validation",
+      "delta": {
+        "pairs": {
+          "gained": [
+            [
+              "app/wwudp/cordmgr.cpp",
+              "0x85ABB0"
+            ]
+          ],
+          "lost": []
+        },
+        "symbol_pairs": {
+          "gained": [
+            [
+              "app/wwudp/cordmgr.cpp",
+              "?Process_ACK2_Packet@CordMgr@@QAE_NPAEHPAUsockaddr_in@@PAVUDP@@H@Z",
+              "0x85ABB0"
+            ]
+          ],
+          "lost": []
+        }
+      }
+    }
+  ],
+  "proof": {
+    "entire_resolved_body_equal": true,
+    "executable_bytes": 623,
+    "instruction_count": 200,
+    "branches": [
+      [
+        "0x33",
+        "0x42"
+      ],
+      [
+        "0x51",
+        "0x68"
+      ],
+      [
+        "0x5d",
+        "0x258"
+      ],
+      [
+        "0x63",
+        "0x253"
+      ],
+      [
+        "0xaa",
+        "0x243"
+      ],
+      [
+        "0xb5",
+        "0x243"
+      ],
+      [
+        "0xc7",
+        "0x111"
+      ],
+      [
+        "0xcb",
+        "0xd7"
+      ],
+      [
+        "0xcf",
+        "0xd7"
+      ],
+      [
+        "0xe6",
+        "0x10a"
+      ],
+      [
+        "0xfa",
+        "0x10a"
+      ],
+      [
+        "0x108",
+        "0x12a"
+      ],
+      [
+        "0x10f",
+        "0xc9"
+      ],
+      [
+        "0x11f",
+        "0x258"
+      ],
+      [
+        "0x125",
+        "0x253"
+      ],
+      [
+        "0x149",
+        "0x17e"
+      ],
+      [
+        "0x17c",
+        "0x180"
+      ],
+      [
+        "0x1b5",
+        "0x1da"
+      ],
+      [
+        "0x1e0",
+        "0x22a"
+      ],
+      [
+        "0x1e4",
+        "0x1e8"
+      ],
+      [
+        "0x1ea",
+        "0x1ef"
+      ],
+      [
+        "0x221",
+        "0x22a"
+      ],
+      [
+        "0x238",
+        "0x23f"
+      ],
+      [
+        "0x241",
+        "0x25a"
+      ],
+      [
+        "0x251",
+        "0x258"
+      ]
+    ],
+    "calls_and_receivers": [
+      {
+        "offset": "0x3a",
+        "instruction": "call 0x9ea930",
+        "preceding": [
+          "mov byte ptr [esp + 0x10], 0",
+          "mov byte ptr [esp + 0x11], bl",
+          "je 0x85abf2",
+          "push 0xbb1d90"
+        ]
+      },
+      {
+        "offset": "0x7a",
+        "instruction": "call 0x8c1ba0",
+        "preceding": [
+          "mov bl, byte ptr [esi + 1]",
+          "mov byte ptr [esp + 0x30], al",
+          "mov ax, word ptr [esi + 2]",
+          "push eax"
+        ]
+      },
+      {
+        "offset": "0x86",
+        "instruction": "call 0x8c1ba0",
+        "preceding": [
+          "call 0x8c1ba0",
+          "mov ebp, eax",
+          "mov ax, word ptr [esi + 4]",
+          "push eax"
+        ]
+      },
+      {
+        "offset": "0x90",
+        "instruction": "call 0x8c1ba0",
+        "preceding": [
+          "push eax",
+          "call 0x8c1ba0",
+          "mov ax, word ptr [esi + 6]",
+          "push eax"
+        ]
+      },
+      {
+        "offset": "0x9d",
+        "instruction": "call 0x8c1b7c",
+        "preceding": [
+          "call 0x8c1ba0",
+          "mov esi, dword ptr [esi + 8]",
+          "mov dword ptr [esp + 0x14], eax",
+          "push esi"
+        ]
+      },
+      {
+        "offset": "0xdf",
+        "instruction": "call 0x8c1b7c",
+        "preceding": [
+          "mov esi, dword ptr [ecx + ebx*4]",
+          "mov edx, dword ptr [esp + 0x34]",
+          "mov eax, dword ptr [edx + 4]",
+          "push eax"
+        ]
+      },
+      {
+        "offset": "0xf1",
+        "instruction": "call 0x8c1ba0",
+        "preceding": [
+          "jne 0x85acba",
+          "mov ecx, dword ptr [esp + 0x34]",
+          "mov dx, word ptr [ecx + 2]",
+          "push edx"
+        ]
+      },
+      {
+        "offset": "0x136",
+        "instruction": "call 0x41066d",
+        "preceding": [
+          "je 0x85ae08",
+          "jmp 0x85ae03",
+          "push 0xc0",
+          "mov dword ptr [esi + 0x30], 5"
+        ]
+      },
+      {
+        "offset": "0x177",
+        "instruction": "call 0x413908",
+        "preceding": [
+          "push ebp",
+          "push ecx",
+          "push edx",
+          "mov ecx, eax"
+        ]
+      },
+      {
+        "offset": "0x199",
+        "instruction": "call 0x41848f",
+        "preceding": [
+          "lea ecx, [ebp + 0x28]",
+          "push eax",
+          "lea eax, [esp + 0x38]",
+          "push eax"
+        ]
+      },
+      {
+        "offset": "0x1aa",
+        "instruction": "call 0x41848f",
+        "preceding": [
+          "lea ecx, [ebp + 0x34]",
+          "lea edx, [esp + 0x34]",
+          "push eax",
+          "push edx"
+        ]
+      },
+      {
+        "offset": "0x1bf",
+        "instruction": "call 0x4091d8",
+        "preceding": [
+          "mov dword ptr [esp + 0x30], esi",
+          "je 0x85ad8a",
+          "lea ecx, [esi + 0x1c]",
+          "mov byte ptr [esp + 0x24], 2"
+        ]
+      },
+      {
+        "offset": "0x1cc",
+        "instruction": "call 0x4091d8",
+        "preceding": [
+          "mov byte ptr [esp + 0x24], 2",
+          "call 0x4091d8",
+          "lea ecx, [esi + 0x14]",
+          "mov byte ptr [esp + 0x24], 0"
+        ]
+      },
+      {
+        "offset": "0x1d2",
+        "instruction": "call 0x412b7a",
+        "preceding": [
+          "lea ecx, [esi + 0x14]",
+          "mov byte ptr [esp + 0x24], 0",
+          "call 0x4091d8",
+          "push esi"
+        ]
+      },
+      {
+        "offset": "0x20a",
+        "instruction": "call 0xa25f50",
+        "preceding": [
+          "shl ebx, 2",
+          "push ebx",
+          "push eax",
+          "push ecx"
+        ]
+      },
+      {
+        "offset": "0x225",
+        "instruction": "call 0x40ff06",
+        "preceding": [
+          "mov eax, dword ptr [edi + 4]",
+          "cmp edx, eax",
+          "jg 0x85adda",
+          "mov ecx, edi"
+        ]
+      },
+      {
+        "offset": "0x23a",
+        "instruction": "call 0x9eaa50",
+        "preceding": [
+          "mov al, byte ptr [esp + 0x11]",
+          "mov dword ptr [esp + 0x24], 0xffffffff",
+          "test al, al",
+          "je 0x85adef"
+        ]
+      },
+      {
+        "offset": "0x253",
+        "instruction": "call 0x9eaa50",
+        "preceding": [
+          "mov al, byte ptr [esp + 0x11]",
+          "mov dword ptr [esp + 0x24], 0xffffffff",
+          "test al, al",
+          "je 0x85ae08"
+        ]
+      }
+    ],
+    "socket_imports": [
+      {
+        "iat": "0xc44374",
+        "ordinal": 15,
+        "dll": "WS2_32.dll"
+      },
+      {
+        "iat": "0xc44388",
+        "ordinal": 14,
+        "dll": "WS2_32.dll"
+      }
+    ],
+    "body_masked_equal": true,
+    "profile_string_equal": true,
+    "handler_frame_target": "0xa25ac4",
+    "called_confirmed": [
+      "??0CordCon@@QAE@IGHG_NPAVUDP@@H_J@Z",
+      "??1Xtime@@QAE@XZ",
+      "??2@YAPAXI@Z",
+      "??3@YAXPAX@Z",
+      "?IsProfileEnabled@WWProfileManager@@0_NA",
+      "?Start_Profile@WWProfileManager@@SAXPBD@Z",
+      "?Stop_Profile@WWProfileManager@@SAXXZ",
+      "?add@?$ArrayList@PAVCordCon@@@@QAEDABQAVCordCon@@J@Z",
+      "?shrinkVector@?$ArrayList@PAVCordConnectingClass@@@@AAEDXZ",
+      "__except_list",
+      "_memmove",
+      "_ntohl@4",
+      "_ntohs@4"
+    ],
+    "called_unresolved": [],
+    "source": "app/wwudp/cordmgr.cpp",
+    "source_sha256": "14ab66cc73e70d56aff32ff743c267352976b2681ef5613b4b8bd4d968d24832",
+    "object": ".work/claim-325/runs/root_ack2_clean/cordmgr.obj",
+    "object_sha256": "b282075db1e55ed041be1c6fe48fe348dc17d58165ee54f338c717987d7e3acc",
+    "baseline_relocation_sequence_equal": true,
+    "retail_relocations": [
+      {
+        "offset": 3,
+        "type": 6,
+        "symbol": "$L37961",
+        "addend": "00000000",
+        "retail_target": "0xad857e"
+      },
+      {
+        "offset": 9,
+        "type": 6,
+        "symbol": "__except_list",
+        "addend": "00000000",
+        "retail_target": "0x0"
+      },
+      {
+        "offset": 17,
+        "type": 6,
+        "symbol": "__except_list",
+        "addend": "00000000",
+        "retail_target": "0x0"
+      },
+      {
+        "offset": 27,
+        "type": 6,
+        "symbol": "?IsProfileEnabled@WWProfileManager@@0_NA",
+        "addend": "00000000",
+        "retail_target": "0xc40488"
+      },
+      {
+        "offset": 54,
+        "type": 6,
+        "symbol": "??_C@_0BN@KL@CordMgr?3?3Process_ACK2_Packet?$AA@",
+        "addend": "00000000",
+        "retail_target": "0xbb1d90"
+      },
+      {
+        "offset": 59,
+        "type": 20,
+        "symbol": "?Start_Profile@WWProfileManager@@SAXPBD@Z",
+        "addend": "00000000",
+        "retail_target": "0x9ea930"
+      },
+      {
+        "offset": 123,
+        "type": 20,
+        "symbol": "_ntohs@4",
+        "addend": "00000000",
+        "retail_target": "0x8c1ba0"
+      },
+      {
+        "offset": 135,
+        "type": 20,
+        "symbol": "_ntohs@4",
+        "addend": "00000000",
+        "retail_target": "0x8c1ba0"
+      },
+      {
+        "offset": 145,
+        "type": 20,
+        "symbol": "_ntohs@4",
+        "addend": "00000000",
+        "retail_target": "0x8c1ba0"
+      },
+      {
+        "offset": 158,
+        "type": 20,
+        "symbol": "_ntohl@4",
+        "addend": "00000000",
+        "retail_target": "0x8c1b7c"
+      },
+      {
+        "offset": 224,
+        "type": 20,
+        "symbol": "_ntohl@4",
+        "addend": "00000000",
+        "retail_target": "0x8c1b7c"
+      },
+      {
+        "offset": 242,
+        "type": 20,
+        "symbol": "_ntohs@4",
+        "addend": "00000000",
+        "retail_target": "0x8c1ba0"
+      },
+      {
+        "offset": 311,
+        "type": 20,
+        "symbol": "??2@YAPAXI@Z",
+        "addend": "00000000",
+        "retail_target": "0x41066d"
+      },
+      {
+        "offset": 376,
+        "type": 20,
+        "symbol": "??0CordCon@@QAE@IGHG_NPAVUDP@@H_J@Z",
+        "addend": "00000000",
+        "retail_target": "0x413908"
+      },
+      {
+        "offset": 410,
+        "type": 20,
+        "symbol": "?add@?$ArrayList@PAVCordCon@@@@QAEDABQAVCordCon@@J@Z",
+        "addend": "00000000",
+        "retail_target": "0x41848f"
+      },
+      {
+        "offset": 427,
+        "type": 20,
+        "symbol": "?add@?$ArrayList@PAVCordCon@@@@QAEDABQAVCordCon@@J@Z",
+        "addend": "00000000",
+        "retail_target": "0x41848f"
+      },
+      {
+        "offset": 448,
+        "type": 20,
+        "symbol": "??1Xtime@@QAE@XZ",
+        "addend": "00000000",
+        "retail_target": "0x4091d8"
+      },
+      {
+        "offset": 461,
+        "type": 20,
+        "symbol": "??1Xtime@@QAE@XZ",
+        "addend": "00000000",
+        "retail_target": "0x4091d8"
+      },
+      {
+        "offset": 467,
+        "type": 20,
+        "symbol": "??3@YAXPAX@Z",
+        "addend": "00000000",
+        "retail_target": "0x412b7a"
+      },
+      {
+        "offset": 523,
+        "type": 20,
+        "symbol": "_memmove",
+        "addend": "00000000",
+        "retail_target": "0xa25f50"
+      },
+      {
+        "offset": 550,
+        "type": 20,
+        "symbol": "?shrinkVector@?$ArrayList@PAVCordConnectingClass@@@@AAEDXZ",
+        "addend": "00000000",
+        "retail_target": "0x40ff06"
+      },
+      {
+        "offset": 571,
+        "type": 20,
+        "symbol": "?Stop_Profile@WWProfileManager@@SAXXZ",
+        "addend": "00000000",
+        "retail_target": "0x9eaa50"
+      },
+      {
+        "offset": 596,
+        "type": 20,
+        "symbol": "?Stop_Profile@WWProfileManager@@SAXXZ",
+        "addend": "00000000",
+        "retail_target": "0x9eaa50"
+      },
+      {
+        "offset": 613,
+        "type": 6,
+        "symbol": "__except_list",
+        "addend": "00000000",
+        "retail_target": "0x0"
+      }
+    ],
+    "handler": "0xad857e",
+    "funcinfo": "0xb56cb0",
+    "object_funcinfo": [
+      429065504,
+      3,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "retail_funcinfo": [
+      429065504,
+      3,
+      11889872,
+      0,
+      0,
+      0,
+      0
+    ],
+    "states": [
+      {
+        "state": 0,
+        "predecessor": "0xffffffff",
+        "retail_action": "0xad8560",
+        "object_length": 8,
+        "masked_equal": true,
+        "relocations": [
+          {
+            "offset": 4,
+            "symbol": "??1WWProfileSampleClass@@QAE@XZ",
+            "type": 20,
+            "addend": "00000000",
+            "retail_target": "0x40f8df"
+          }
+        ]
+      },
+      {
+        "state": 1,
+        "predecessor": "0x0",
+        "retail_action": "0xad8568",
+        "object_length": 11,
+        "masked_equal": true,
+        "relocations": [
+          {
+            "offset": 5,
+            "symbol": "??3@YAXPAX@Z",
+            "type": 20,
+            "addend": "00000000",
+            "retail_target": "0x412b7a"
+          }
+        ]
+      },
+      {
+        "state": 2,
+        "predecessor": "0x0",
+        "retail_action": "0xad8573",
+        "object_length": 11,
+        "masked_equal": true,
+        "relocations": [
+          {
+            "offset": 7,
+            "symbol": "??1Xtime@@QAE@XZ",
+            "type": 20,
+            "addend": "00000000",
+            "retail_target": "0x4091d8"
+          }
+        ]
+      }
+    ],
+    "prior_pair_checks": [
+      {
+        "symbol": "??0CordMgr@@QAE@IG@Z",
+        "address": "0x856D80",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "??0CordMgr@@QAE@XZ",
+        "address": "0x856970",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "??1?$ArrayList@PAVCordCon@@@@QAE@XZ",
+        "address": "0x85AF20",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "??1?$ArrayList@PAVCordConnectingClass@@@@QAE@XZ",
+        "address": "0x85AEC0",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "??1?$ArrayList@UCordDataSocketClass@@@@QAE@XZ",
+        "address": "0x85AF50",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "??1?$ArrayList@UCordListenSocketClass@@@@QAE@XZ",
+        "address": "0x85AF80",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "??1?$ArrayList@UCordReleaseClass@@@@QAE@XZ",
+        "address": "0x85AEF0",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "??1CordConnectingClass@@QAE@XZ",
+        "address": "0x857850",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "??1CordMgr@@QAE@XZ",
+        "address": "0x857590",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "??1RSAKeyClass@@QAE@XZ",
+        "address": "0x82B0C0",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "??1WWProfileSampleClass@@QAE@XZ",
+        "address": "0x444160",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "??6ostream@@QAEAAV0@P6AAAV0@AAV0@@Z@Z",
+        "address": "0x850820",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?Cancel_Connect@CordMgr@@QAE_NH@Z",
+        "address": "0x8595B0",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?Compute@RSAKeyClass@@QAEXXZ",
+        "address": "0x82C330",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?Compute_Ticks@CordMgr@@QAEIGIIGIG@Z",
+        "address": "0x85A220",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?Connect@CordMgr@@QAEHKG_N@Z",
+        "address": "0x858EC0",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?Find_Connection@CordMgr@@QAE_NPAPAVCordCon@@IH@Z",
+        "address": "0x859440",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?Find_Data_Socket@CordMgr@@QAEPAUCordDataSocketClass@@PAVUDP@@@Z",
+        "address": "0x859F80",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?Get_Data_Socket@CordMgr@@QAEPAUCordDataSocketClass@@H@Z",
+        "address": "0x859D50",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?Init@CordMgr@@QAEXXZ",
+        "address": "0x8570C0",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?Listen@CordMgr@@QAE_NIG@Z",
+        "address": "0x857940",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?Load@RSAKeyClass@@QAE_NPAVFileClass@@@Z",
+        "address": "0x85AFB0",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?Pending_Messages@CordMgr@@QAEHXZ",
+        "address": "0x8598F0",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?Process_SYN1_Packet@CordMgr@@QAE_NPAEHPAUsockaddr_in@@PAVUDP@@H@Z",
+        "address": "0x85A3B0",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?Process_SYN2_Packet@CordMgr@@QAE_NPAEHPAUsockaddr_in@@PAVUDP@@H@Z",
+        "address": "0x85AB30",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?Process_Zero_Read@CordMgr@@QAEXPAUsockaddr_in@@@Z",
+        "address": "0x858980",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?Pump_Releases@CordMgr@@QAE_NXZ",
+        "address": "0x859940",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?Read_Number@RSAKeyClass@@QAE_NPAVFileClass@@AAV?$Int@$0EA@@@@Z",
+        "address": "0x82C260",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?Release@CordMgr@@QAE_NPAVCordCon@@@Z",
+        "address": "0x8596F0",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?Send_Go_Away@CordMgr@@QAEXPAVUDP@@IGEG@Z",
+        "address": "0x858640",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?Set_Buffers@CordMgr@@QAEXPAVUDP@@@Z",
+        "address": "0x8578C0",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?Unlisten@CordMgr@@QAE_NIG@Z",
+        "address": "0x857C00",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?Unsigned_Divide@?$Int@$0EA@@@SAXAAV1@0ABV1@1@Z",
+        "address": "0x82C220",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?Wait@CordMgr@@QAEHHH@Z",
+        "address": "0x857DE0",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?add@?$ArrayList@PAVCordCon@@@@QAEDABQAVCordCon@@J@Z",
+        "address": "0x85B6F0",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?add@?$ArrayList@UCordDataSocketClass@@@@QAEDABUCordDataSocketClass@@J@Z",
+        "address": "0x85B990",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?clear@?$ArrayList@UCordDataSocketClass@@@@QAEXXZ",
+        "address": "0x85B970",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?clear@?$ArrayList@UCordListenSocketClass@@@@QAEXXZ",
+        "address": "0x85BC30",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?exp_b_mod_c@?$Int@$0EA@@@QBE?AV1@ABV1@0@Z",
+        "address": "0x82C1A0",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?flush@@YAAAVostream@@AAV1@@Z",
+        "address": "0x850850",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?growVector@?$ArrayList@UCordDataSocketClass@@@@AAEDJ@Z",
+        "address": "0x85BC80",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?growVector@?$ArrayList@UCordListenSocketClass@@@@AAEDJ@Z",
+        "address": "0x85BD40",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?id@?$ctype@G@std@@$E",
+        "address": "0x42B320",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?shrinkVector@?$ArrayList@PAVCordCon@@@@AAEDXZ",
+        "address": "0x85B8B0",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?shrinkVector@?$ArrayList@PAVCordConnectingClass@@@@AAEDXZ",
+        "address": "0x85B630",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?shrinkVector@?$ArrayList@UCordDataSocketClass@@@@AAEDXZ",
+        "address": "0x85BB70",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "_$E55",
+        "address": "0x85BC50",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      }
+    ],
+    "independent_name_evidence": {
+      "0x413908": "j_CordCon::CordCon -> exact0x84F640",
+      "0x41848F": "j_ArrayList<CordCon*>::add -> exact0x85B6F0"
+    }
+  },
+  "report": "# ACK2 first pass, 0x85ABB0\n\nCandidate gain, no pair losses: `first_85ABB0_block`, source\n`/home/dev/Projects/EnB/.work/claim-325/85ABB0/first/block/cordmgr.cpp`, SHA256\n`5a174bda6e96c3aafa2a9222a33e0222bc424dbe96fa6bb852d780ec1399c4ca`.\nObject `/home/dev/Projects/EnB/.work/claim-325/runs/first_85ABB0_block/cordmgr.obj`.\nRetained baseline 123 file and 123 symbol pairs became 124 each: gained\n`app/wwudp/cordmgr.cpp, 0x85ABB0`, and its Process_ACK2 symbol/address; no\nlosses. This also preserves all original 122 pairs plus ACK1 0x85A430.\n\nTen compiled inputs in three written hypothesis batches, no launch, guard,\ncompiler or semantic-invalid failures. Hypotheses, replay scripts and exact\nbase/input SHA256 and lossless edits: `85ABB0/first/hypotheses.md`,\n`proposals.json`, `proposals2.json`, `proposals3.json` in the same directory.\nAll inputs are based on retained source SHA256\n`4dd5c9d76bd97041d88ca2134d85cb72bb542baa32812c7b4f5291ea29b1a059`,\ndirectly or via the preceding recorded input; all replays verified. Every\ninput, object, flags, log, full before/after pair sets and analysis is under\n`/home/dev/Projects/EnB/.work/claim-325/runs/first_85ABB0_<name>/`.\nBaseline is `retained-baseline/result.json`; each analysis records both pair\nset deltas. Runner independently hash-checked unchanged cordcon context object.\n\n* Session, port, word splits individually: 38, 39, 39 masked rows versus\n  baseline 31 frame rows; all three together 32 register-only rows and the\n  retail 12-byte frame, from native 16 bytes. All were distinct raw/masked\n  groups; all preserved 123 pairs.\n* On the combined form, naming and splitting the ignored actual conversion\n  reached 0 masked rows, but swapped six actual stack displacements in the\n  new/delete region, so did not match. Reversing the session comparison\n  yielded 31 rows alone, 1 with ignored split. These were three distinct\n  groups, all preserved 123 pairs.\n* Declaring the real new-connection pointer before the handshake pointer or\n  before the loop emitted identical raw/masked bodies, frame 16 rather than\n  12; neither gained a pair. Scoping the pointer in a nested block ending\n  after both list insertions corrected stack slots and gained ACK2. It preserves\n  conversion calls, reads, constructor, list-add and deletion order; the\n  pointer's trivial lifetime ends earlier without a destructor.\n\nAudit `/home/dev/Projects/EnB/.work/claim-325/85ABB0/first/audit.py` with\narguments OBJECT SOURCE SOURCE_SHA256; recorded result `audit.json`. It checks\nall 623 body bytes after resolving 24 zero-addend relocations, branch targets,\ncall contexts, retail profiling text, reference addresses and jump thunks;\nthree EH predecessor states, cleanup bytes and references, handler/FuncInfo;\nand all 48 retained cordmgr pairs' body bytes, relocation signatures and EH\ngraphs, including ACK1. Unchanged cordcon object accounts for 75 pairs.\nFinal integration and a fresh source-bound independent audit remain with root.\n\nNo production, headers, tracked inventories, commits, game files or external\nservices were written. Compiler gate explicitly released to root; no jobs or\nVM leases remain. No uncompiled lead is required for this matched candidate.\n",
+  "hypotheses": "# Batch 1: split packet reads and byte-order conversions\n\nThe baseline objdiff shows native loads session before saving type, spills protocol\nand word, and uses a 16-byte local frame; retail saves type before the session\nload, holds protocol in BL, stores the converted word in the dead data argument\nslot and has a 12-byte frame.  The exact TCPConnection::Key_Exchange uses\nseparate load and conversion assignments; applying that pattern to all five\nfields solved ACK1.  Test ACK2's session, port, and word separately and all\nthree together.  Each change preserves the original field's read, conversion,\ntype, and sequence.  Keep the ignored conversion untouched: introducing a named\nvalue for it has historical coverage and would create a new local.\n\nEach input is to be generated from the coordinator's explicit fresh source,\nscoped to ACK2 only.  Verify the base hash, full replay, unchanged other bytes,\nand both pair sets against the original and ACK1 baseline.  Inspect actual\nobject differences and group equal outputs before deciding follow-up.  These\nare proposals only; no compilation before explicit exclusive gate.\n\n# Batch 2: remaining field load and session comparison\n\nAll three splits reduce the frame to the retail 12 bytes and match the entire\nread section except the ignored 16-bit field: ours loads it into CX before\nsaving the previous conversion result; retail saves the previous result and\nloads it into AX.  Represent that actual conversion with an assigned local,\nusing the same load/convert idiom, and independently reverse only the operands\nof `c->Session != session`.  The latter addresses the retail `mov ecx,[c+8];\nmov eax,ebp; ... cmp ecx,eax`, ours has these registers reversed; both operands\nare plain integer reads and have no side effects.  Test both individually and\ncombined on the all-split input, preserving read and call order.  An ignored\nconversion local was tried historically on a different unsplit source; this\ncombination is justified by the newly demonstrated frame and register change.\n\n# Batch 3: real connection pointer scope\n\nThe all-split plus ignored-local form matches masked instructions and byte\nlength, but the actual retail uses the old len argument slot for the temporary\nallocation and deleted handshake pointer and the old from slot for the new\nconnection; ours uses the opposite slots.  Test the real `con` pointer declared\nbefore the loop, before `c`, and in a nested block ending after both list adds.\nNo constructor, add, delete, read or failure path is moved; pointers have\ntrivial destruction.  The goal is to change allocation of the two real locals,\nnot create padding or dead state.\n",
+  "masked_output_groups": [
+    [
+      "first_85ABB0_all"
+    ],
+    [
+      "first_85ABB0_before_c",
+      "first_85ABB0_before_loop"
+    ],
+    [
+      "first_85ABB0_block"
+    ],
+    [
+      "first_85ABB0_compare"
+    ],
+    [
+      "first_85ABB0_ignored"
+    ],
+    [
+      "first_85ABB0_ignored_compare"
+    ],
+    [
+      "first_85ABB0_port"
+    ],
+    [
+      "first_85ABB0_session"
+    ],
+    [
+      "first_85ABB0_word"
+    ]
+  ]
+}
