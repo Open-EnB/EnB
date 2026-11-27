@@ -1040,14 +1040,14 @@ void StarbaseAvatarCreationInterface::Unknown_54F2B0()
 	}
 }
 
-// NOT EXACT: shape (one byte: when +0x64 is clear our first je skips straight to the +0x65 test, the client's re-tests
-// +0x64; == true, an inline grab helper and a named gadget local tried. tm[2][3] = 0, the edges declared up front and
-// the point stored through an inline setter (v computed first) made the rest the client's)
+// The first +0x64 test through an inline layer: the second plain read is then another expression and VC6 does not
+// thread the first je past the client's re-test of +0x64 (B24, run 2026-11-27)
+static inline bool Left_Held(Unknown_671300Class *gadget) { return gadget->Unknown64; }	// NAME 2: +0x64, the left button held
 // 0x54F390
 void StarbaseAvatarCreationInterface::Unknown_54F390(int arg)
 {
 	UIAvatrPullClass *pull = Unknown308;
-	if (((Unknown_671300Class *)pull->Unknown00)->Unknown64) {
+	if (Left_Held((Unknown_671300Class *)pull->Unknown00)) {
 		pull->Unknown08 = true;
 	}
 	if ((((Unknown_671300Class *)pull->Unknown00)->Unknown64 || ((Unknown_671300Class *)pull->Unknown00)->Unknown65) && pull->Unknown08) {
