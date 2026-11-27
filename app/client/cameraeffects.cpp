@@ -80,9 +80,9 @@ CameraEffectsClass::CameraEffectsClass(MainViewClass *view, SClient *client) :
 
 // a shake field of the ship's aux data (0x6E2CC0's four finds, one NameClass slot)
 static inline DeltaTemplateClass<float> *Unknown_Shake_Field(DeltaCompoundClass *aux, const char *field) { NameClass name(field); return(Unknown_Find_Field<DeltaTemplateClass<float> >(aux, name)); }	// NAME 1: neutral (D10)
-void Unknown_491550(float *x, float *y);	// 0x491550 (unknown_490900.cpp: the point snapped to whole device pixels)  // NAME 1: neutral (D10)
+static inline void Unknown_Wrap(float &v) { while (v > 12.0f) v -= 12.0f; while (v < -12.0f) v += 12.0f; } void Unknown_491550(float *x, float *y);	// 0x491550 (unknown_490900.cpp: the point snapped to whole device pixels)  // NAME 1: neutral (D10); Unknown_Wrap NAME 1 [v]: neutral (D10), 0x6E2CC0's two loops per axis (inline there)
 
-// NOT EXACT: shape, behaviour checked: codegen only (camera move r26, 11 rows: the client keeps d.X on the x87 past d.Y's copy, fxch st(2) / fadd st(2), and pops it after; d sits at force's slot, its Y at -84)
+// (0x6E2CC0's camera move: the transform copied, Adjust_Translation by +0x18 with its Z cleared: the client's x87 order, d.X kept past d.Y's copy and Zt stored last; the per-axis wrap is an inline layer, the budget that keeps the four finds out of line)
 // 0x6E2CC0: the ship's 'Shake.Force*' and 'Shake.Damage' fields start a shake and a jitter; every effect adds to
 // +0x18 (the finished ones deleted), the camera moved by it (each axis wrapped into +-12, X / Y snapped to pixels)
 // and the bridge told of the hit
@@ -133,20 +133,14 @@ void CameraEffectsClass::Unknown_34()
 		} while (node);
 		CameraClass *camera = (CameraClass *)View->Unknown_54();
 		if (Unknown24) {
-			while (move[0] > 12.0f) move[0] -= 12.0f;
-			while (move[0] < -12.0f) move[0] += 12.0f;
-			while (Unknown18.Y > 12.0f) Unknown18.Y -= 12.0f;
-			while (Unknown18.Y < -12.0f) Unknown18.Y += 12.0f;
-			while (Unknown18.Z > 12.0f) Unknown18.Z -= 12.0f;
-			while (Unknown18.Z < -12.0f) Unknown18.Z += 12.0f;
+			Unknown_Wrap(Unknown18.X);
+			Unknown_Wrap(Unknown18.Y);
+			Unknown_Wrap(Unknown18.Z);
 			Unknown_491550(move, move + 1);
-			const Matrix3D &cur = camera->Get_Transform();
-			float x = cur.Get_X_Translation();
-			float z = cur.Get_Z_Translation();
-			Matrix3D tm = cur; Vector3 d = Unknown18;
-			tm.Set_X_Translation(x); tm.Adjust_X_Translation(d.X);
-			tm.Set_Z_Translation(z);
-			tm.Adjust_Y_Translation(d.Y);
+			Matrix3D tm = camera->Get_Transform();
+			Vector3 d = Unknown18;
+			d.Z = 0.0f;
+			tm.Adjust_Translation(d);
 			camera->Set_Transform(tm);
 			Unknown14 = true;
 		}
@@ -162,6 +156,12 @@ void CameraEffectsClass::Unknown_34()
 	}
 	// (budget-device audit 2026-11-19: two dead finds here changed nothing, the residue the same without them)
 }
+
+
+
+
+
+
 
 
 

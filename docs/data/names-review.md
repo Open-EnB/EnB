@@ -1215,7 +1215,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown15` | `app/client/cameraeffects.cpp:76` | untagged neutral name (D10) |
 | 1 | `Unknown24` | `app/client/cameraeffects.cpp:77` | untagged neutral name (D10) |
 | 1 | `Unknown_Shake_Field` | `app/client/cameraeffects.cpp:82` | neutral (D10) |
-| 1 | `Unknown_491550` | `app/client/cameraeffects.cpp:83` | neutral (D10) |
+| 1 | `Unknown_Wrap` | `app/client/cameraeffects.cpp:83` | neutral (D10); Unknown_Wrap NAME 1 [v]: neutral (D10), 0x6E2CC0's two loops per axis (inline there) |
+| 1 | `Unknown_491550` | `app/client/cameraeffects.cpp:83` | untagged neutral name (D10) |
 | 1 | `Unknown_34` | `app/client/cameraeffects.cpp:89` | untagged neutral name (D10) |
 | 1 | `Unknown_40` | `app/client/cameraeffects.cpp:92` | untagged neutral name (D10) |
 | 1 | `Unknown18` | `app/client/cameraeffects.cpp:122` | untagged neutral name (D10) |
