@@ -567,12 +567,15 @@ EXACT_RES = os.path.join('res', 'client.res')         # under --out
 APP_REGION = (0x429630, 0x8C1B64)                      # retail's app slots (binary.md §5)
 
 
-EXACT_PICKS = (('app', None), ('wlib', None), ('wnet', None), ('wwlib', {'rawfile'}))
+# Only the app's objects: wlib, wnet and wwlib's rawfile.obj from their libraries (measured 2026-11-27 on trial
+# links of this program: app only 1,364,230 bytes in place and the file 8,642,625 bytes, retail's length; app +
+# rawfile 1,320,664; app + wlib + wnet + rawfile on the line, binary.md 5.3's `all` set, 1,296,406)
+EXACT_PICKS = (('app', None),)
 
 
 def exact_order():
     """client-exact's objects as [(library, stem)]: every object of app (all of app.lib's, not only those the one
-    client build pulls), wlib, wnet and wwlib's rawfile.obj, in retail's order: each keyed by the median of its own
+    client build pulls; EXACT_PICKS), in retail's order: each keyed by the median of its own
     (not shared) ledger addresses in retail's app region; those with no such address last. dsp.py's exact project
     lists its sources in this order (the IDE links a project's objects in its file order)."""
     import ledger
@@ -595,9 +598,16 @@ def exact_order():
 
 
 def exact_objects(out):
-    """exact_order's object files under out (an object the build did not make is left out)."""
+    """exact_order's object files under out. A missing object stops the link: left out, LINK would pull only the
+    library members something references and the image would silently lose the others (a worktree whose wlib /
+    wnet are the main tree's copied .lib files has no obj folder: build them there first)."""
     paths = [os.path.join(out, lib, 'obj', stem + '.obj') for lib, stem in exact_order()]
-    return [p for p in paths if os.path.exists(p)]
+    missing = [p for p in paths if not os.path.exists(p)]
+    if missing:
+        libs = sorted({os.path.basename(os.path.dirname(os.path.dirname(p))) for p in missing})
+        raise SystemExit(f'client-exact: {len(missing)} objects of its order not built ({", ".join(os.path.relpath(p, out) for p in missing[:5])}'
+                         f'{", ..." if len(missing) > 5 else ""}): build.py build --lib {" --lib ".join(libs)} first')
+    return paths
 
 
 def exact_inputs(out):
