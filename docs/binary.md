@@ -686,3 +686,89 @@ the one client build: the app objects on its link line in retail's order (or an 
 place as a non-incremental link, the full gain only with §5.3's incremental link. (2) None needs retail's symbol
 count: it lands by itself when the names and the missing unreferenced globals do. For the code (the coordinator's
 call, D246): the header that gives 222 objects their `"2184"` static.
+
+### 5.8 The `"2184"` static: the census, its header, its readers
+
+Measured 2026-11-27 (image builder IM10, week plan 2026-11-24 §2 D; no VM, no link) on tools/2026-11-26-night
+(ac0d4aacf) from client.exe, a ledger export of that tree, our built objects (`build/app/obj`) and retail's object
+order (§5.3's `all` list, `.work/im9/objs-all.txt`), with the scripts in `.work/im10/` (`census.py`, `around.py`,
+`gaps.py`, `closure.py`, `misses.py`, `chains.py`, `direct.py`, `cover.py`, `sim.py`, `thunkto.py`, `calls.py`).
+
+**The census.** `census.py`: the 222 data relocations to 0xB6FA8C; *anchors* are the `.data` addresses (initialised
+part only: `.bss` sorts by its own order) that the code of exactly one file reaches (ledger owners); a pointer's
+object is the file of the first anchor after it, kept when that file has no non-string anchor before the pointer
+and the anchor before the pointer is another file's (205 pointers); 10 more were checked by hand (`around.py`), and
+7 lie between two pointers with no anchor (objects whose `.data` is the pointer alone), placed by retail's object
+order (`gaps.py`). An object's data opens with its main `.data` section, then the literal COMDATs it is the first to
+define (our objects: `.data` section 3-4, `??_C@` COMDATs after), so the pointer is each object's first item.
+
+| | Pointers |
+|---|---|
+| open an object of ours | **219** (205 by the anchors, 7 by hand: client_item_property_special_race_requirement, ui_registration 0xB85EC8, inv_render, unknown_6b2460, eff_o, tsk_login, emote_data, scriptedmovie; 7 by the order: unknown_56e170 0xB7D6B8, slot_data 0xB9161C, unknown_794510 0xB9E3A8, unknown_7979a0 0xB9E53C, unknown_798ae0 0xB9E540, unknown_79c4a0 *or* unknown_79c8e0 0xB9E6A4 (one has no `.data`), targeting 0xB9F8B0) |
+| open an object we do not have | 2: 0xB810D8, between ui_log and ui_login (its code 0x5ACB80-0x5AD34F, between ui_log.cpp's last function 0x5ACB30 and ui_login.cpp's first 0x5AD350, no function of ours); 0xBB767C, the last app object, after unknown_login_data's literals and before wwmath's cullsys (its code is the last app slot 0x8C1B50, `mov al, 1; ret 0xC`, reached only by its thunk 0x40CF9A) |
+| inside an object | 1: 0xB85EF0, ui_registration's own `RegistrationGameId` (+0x28 in its data; ours has it) |
+
+So of retail's 760 app objects, **221 open their `.data` with the pointer**, 539 do not (every pointer is placed, so
+an object without one has none). By folder (our objects): client 192 of 401, packets 23 of 133, kernel 1 of 1
+(kernel.obj is the first in the link order: the literal 0xB6FA8C is its COMDAT, right after its pointer 0xB6FA88),
+main 1 of 4 (main.obj 0xB6FBBC), shared 1 of 134 (orbitalmanager), common 1 of 47 (game_action_validity), audio,
+input, wwudp, dbgmgr, display, wlib and wnet none. Ours have the pointer in tsk_login.obj (retail's copy there) and
+ui_registration.obj (the second one): **218 of our objects are 4 bytes short**, the two objects we lack the other 2.
+The `all` trial's model (`sim.py`: our objects' `.data` in retail's order with §5.7's S/5 padding) confirms the
+set: the steps between consecutive objects with the static equal retail's in 9 of 218 pairs, in 117 with the 4
+bytes added to the 218.
+
+**Which header.** Not one of ours exactly: no header's closure in our tree (IM6's `pp.py` walk) matches the set.
+Best single headers (hits of 219 / misses / extras among the 527 objects without it):
+
+| Header | Hits | Misses | Extras |
+|---|---|---|---|
+| unknown_login_data.h | 188 | 31 | 37 |
+| tsk_game.h | 181 | 38 | 35 |
+| sclient.h | 180 | 39 | 34 |
+| tsk_game.h + the five login packets' headers (pklogin, pkmasterjoin, pkserverhandoff, pkglobalticket, pkglobalavatarlist) | 188 | 31 | 35 |
+| kernel.h | 183 | 36 | 57 |
+| `<string>` | 219 | 0 | 353 |
+
+The objects reach unknown_login_data.h through sclient.h -> tsk_game.h (175 of 188; `chains.py`) and the login
+packets' headers. What the client's own evidence says of the header: (1) it is included before any data definition
+in each of the 221 objects; (2) **tsk_login.obj holds one pointer, the one its code reads**, so tsk_login includes
+it and its `AUTH_PRODUCT` *is* the header's static (a second definition would be a second pointer, as
+ui_registration's is); (3) **TicketClass's own object (unknown_login_data.cpp, code 0x8C0690-0x8C1B30) has none**,
+nor ui_login, view, verbmanager, ui_mesh (`misses.py`: the 37 extras), so the client's header is not
+unknown_login_data.h (a provisional file of ours, D90 9b) nor, given those, sclient.h's chain as ours has it; (4)
+kernel.cpp, game_action_validity.cpp and 16 packets (pkdirlock, pkglobalerror, the four pkgm*, pknotelist,
+pkfindplayerrequest, pkguildplayeronline, pkcreatecharacter, pkglobalcreatecharacter, five pkunknown_*) include it,
+which no header of ours explains (their closures share only `<string>`, `g_assert.h` and the packet base). Its
+name and file are not in the binary (no code, assert or `__FILE__` of it). Misses of the best set: client_lego_root
+co_data dynamic_window_background eff_line eff_o eff_seek game_action_validity inv_manu_render inv_trade_render
+kernel skillnam slot_data_render textgadg ui_ptnew unknown_725050 and the 16 packets; extras (with tsk_game.h +
+packets): client_item_property_builder extrap gd_attrb_skills gd_inv_slider gd_scut_proxy gd_selct intrlist
+local_interface_sort meshsnd mv3dsnd postate starmap_pip_support ui_chat_window_split ui_dynamicwindow
+ui_item_examination ui_login ui_manu_util ui_mesh ui_mfd_extended_context_strings ui_option_font ui_petition_stuck
+ui_skill_info ui_slot_scut ui_test unknown_514cc0 unknown_5bb250 unknown_686010 unknown_723210 unknown_764fd0
+unknown_79c8e0 unknown_7c96f0 unknown_msgbox user_click_indicator verbmanager view.
+
+**What `"2184"` is, its readers, its form.** The auth product id: the string 0xB6FA8C has 222 references, all from
+`.data`, none from code; code reads two of the 222 pointers: 0xB9B9CC (Fetch_EA_Ticket 0x76A7B0, `mov eax,
+[0xB9B9CC]` at 0x76A950, `iauth->Login(name, password, "2184", base, url, 5)`, kernel-map-step9.md) and 0xB85EF0
+(ui_registration 0x600000 at 0x6007CE and 0x601022: Unknown_7D7E10's third argument and `atoi` against the game
+features' ids). Not a version or build number. Ours read both with the same value, so the other 220 copies are
+data nobody reads (no behaviour). The form is a file-static non-const pointer in a header: VC6 emits one copy per
+including object, unreferenced, in `.data` (a `const` pointer would not be writable data), and `/GF` pools the
+literal into one COMDAT (kernel.obj's); `extern` would give one copy.
+
+**Proposal (the next session's edit, a VM verify; placement the coordinator's call, D137).** In every form
+tsk_login.cpp line 30 keeps only `static char *AUTH_INI = "auth.ini";` on its line (the header's `AUTH_PRODUCT`
+replaces its own; same bytes and reader) and ui_registration keeps `RegistrationGameId`. (A) Exact: a new interim
+header (e.g. `app/shared/auth_product.h`, `static char *AUTH_PRODUCT = "2184";`) included first by the 218 objects,
+each on an existing blank or comment line before its first data definition (line counts kept): 218 right, 0 wrong,
+the 2 objects we lack still missing. (B) Client-shaped, one chain: the same header included from tsk_game.h and the
+five login packets' headers: 188 right, 31 missing, 35 wrong (above). The census's one-object choice, unknown_79c4a0
+or unknown_79c8e0, stays open in both (A gives it to unknown_79c4a0, by the order its 0xB9E6A4 fits either).
+**Expected imagediff effect** (`sim.py`, no trial link): the one client build has `.data` at another RVA (0 of
+454,656 bytes in place), so ~0 there (the app's `.data` +872 bytes for A, +~900 for B, code operands already
+differ). On the `all` trial (retail's order and padding) the steps between consecutive objects with the static that
+equal retail's go 9 -> 117 of 218 (A) or 9 -> 83 (B), and the predicted app `.data` grows +900 / +940 bytes of the
+6,208 retail has more (§5.7: 888 of them are these statics); bytes in place grow only where the rest of the drift is
+nil (the commonest displacement covers 4 objects before, 9 after A, 8 after B), so a few hundred bytes at most.
