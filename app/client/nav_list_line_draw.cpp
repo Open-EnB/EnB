@@ -127,7 +127,7 @@ void NavListLineDrawClass::Unknown_7B99C0(ClientObjectClass *avatar, NavListBuil
 
 
 
-// NOT EXACT: written from the pseudocode (D64), functional (0.72, attempts.py 0x7B9DC0): the client lays the object_list assert block before the shared clear tail and stores lines_drawn later
+// NOT EXACT: written from the pseudocode (D64), functional (masked residue 19, attempts.py 0x7B9DC0): inline budget: the !data exit's inlined 0x7B9CD0 calls clear() where the client inlines it to erase(begin, end) and shares the !co exit's tail
 // @0x7B9DC0
 void NavListLineDrawClass::Unknown_7B9DC0(int index)
 {
@@ -214,8 +214,8 @@ void NavListLineDrawClass::Unknown_7B9DC0(int index)
 			if (!(*line)->Unknown_In_Scene()) {
 				(*line)->Add(Scene.Peek());
 			}
-			lines_drawn++;
 			start = end;
+			lines_drawn++;
 		} else if ((*line)->Unknown_In_Scene()) {
 			(*line)->Remove();
 		}
