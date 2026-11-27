@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-464 entries in 221 files.
+463 entries in 221 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -227,7 +227,6 @@ edit the comments in the code, not this file.
 | `app/client/ui_attrb_skills.cpp:420` | `UIAttrbSkillsClass::Unknown_58` | marker | NOT EXACT: register (similarity 0.71: the inlined 0x54B370 keeps the count in ecx and the gadget in edx, the client the reverse; 0x54B140 inlines it as the client does) |
 | `app/client/ui_avatar_cust.cpp:959` | `StarbaseAvatarCreationInterface::Unknown_54EC30` | marker | NOT EXACT: register (0.77, 273 bytes against 0x112: the client loads Client's AvatarID through eax / ecx where VC6 here takes edx, and the packet's look into esi; attempts.py show 0x54EC30) 0x54EC30 |
 | `app/client/ui_avatar_cust.cpp:1043` | `StarbaseAvatarCreationInterface::Unknown_54F390` | marker | NOT EXACT: shape (one byte: when +0x64 is clear our first je skips straight to the +0x65 test, the client's re-tests +0x64; == true, an inline grab helper and a named gadget local tried. tm[2][3] = 0, the edges declared up front and the point stored through an inline setter (v computed first) made the rest the client's) 0x54F390 |
-| `app/client/ui_avatar_cust.cpp:1409` | `StarbaseAvatarCreationInterface::Unknown_550A10` | marker | NOT EXACT: register (0.71, 1713 bytes against 0x6A8: the frame time's second global loads into ebp, pushed early, and the copies' registers rotate from there; attempts.py show 0x550A10) 0x550A10 |
 | `app/client/ui_avatar_cust.cpp:2345` | `StarbaseAvatarCreationInterface::Unknown_551C80` | mention | NOT EXACT; matrix3d.h's out-of-line Rotate_Y 0x551270 comes with it) (TG4, claim #63), and 0x5513E0-0x551C80 after the FAIL_IFs of 0x551320 (TK6, claim #87): the palette texture, the credits and cost texts, the confirmation box and its answers, the gadgets shown, the cost of the changes, the costs kept, the STARBASE_REQUEST. The file's evidence: they sit between ui_attrb_skills.cpp's last function... |
 | `app/client/ui_avatar_cust.cpp:2354` | `StarbaseAvatarCreationInterface::Unknown_551C80` | mention | NOT EXACT: the new look sent, RECUSTOMIZE_AVATAR_DONE; it brings SBaseViewClass's Get_Starbase 0x54EDA0 and the packet's implicit destructor 0x54EDD0 out of line), 0x54F2B0 (+0x368..+0x378 deleted), 0x550140 (the part buttons) and 0x550550 (the zoom); exact since (once register) 0x54E690 / 0x54E7F0 (the body and pants types), 0x54E950 (+0x368's value) and 0x54EAD0 (+0x36C's value); 0x54E3C0 (the m... |
 | `app/client/ui_avatar_cust.cpp:2372` | `StarbaseAvatarCreationInterface::Unknown_551C80` | mention | NOT EXACT: 0x54F390 (the head pull dragged: one byte, the client re-tests +0x64). Init 0x54BD30 (slot +0x54) exact (SA, 2026-11-20). The key handler 0x54CBC0 (slot +0x68) exact (once masked 31, SA 2026-11-20). +0xC0 is the old look (an AvatarDescClass, 0x10C bytes, up to the gadgets at +0x1CC), the avatar's +0xF8 the new one; the +0xB8 gadget is ship_pip.cpp's (ship_pip.h's ShipPipClass). |
