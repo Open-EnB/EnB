@@ -1816,7 +1816,7 @@ bool ScriptedMovieViewClass::Attach_Camera(ScriptedMovieLineClass *params)
 
 
 
-// NOT EXACT: frame 0x14, the client 0x18 (hfov in a local of its own; ours reuses the params slot), 2 masked rows
+
 // 0x805420: a camera on a bone of the slot's model, last in CameraList (optionally its view plane, in degrees)
 bool ScriptedMovieViewClass::Add_Camera(ScriptedMovieLineClass *params)
 {
@@ -1845,11 +1845,11 @@ bool ScriptedMovieViewClass::Add_Camera(ScriptedMovieLineClass *params)
 			camera.RenderObject = robj;
 			param = params->Unknown_7FFDC0();
 			if (param != NULL) {
-				float hfov = DEG_TO_RADF(atof(param));
+				Vector2 fov; fov.X = DEG_TO_RADF(atof(param));	// the client's frame: fov.X at +0 and fov.Y's never-written slot at +4 (fov.Y goes straight into VFov)
 				param = params->Unknown_7FFDC0();
 				FAIL_IF((param == NULL) && "User error: Add_Camera: Need Y view plane") {return(false);}
-				camera.VFov = DEG_TO_RADF(atof(param));
-				camera.HFov = hfov;
+				fov.Y = DEG_TO_RADF(atof(param));
+				camera.HFov = fov.X; camera.VFov = fov.Y;
 			}
 			CameraList.push_back(camera);
 			return(true);
