@@ -772,3 +772,109 @@ differ). On the `all` trial (retail's order and padding) the steps between conse
 equal retail's go 9 -> 117 of 218 (A) or 9 -> 83 (B), and the predicted app `.data` grows +900 / +940 bytes of the
 6,208 retail has more (§5.7: 888 of them are these statics); bytes in place grow only where the rest of the drift is
 nil (the commonest displacement covers 4 objects before, 9 after A, 8 after B), so a few hundred bytes at most.
+
+### 5.9 Retail's unreferenced data per object, and what it leaves of the ~200 externals
+
+Measured 2026-11-27 (builder IM11, no VM, no link) on retail against §5.7's `allA` trial (wt/IM9A's
+`client-allA`: exe, map and objects copied to `.work/im11/`), with the scripts in `.work/im11/`: `om.py`
+(objmatch on the app region over build/app/obj: 32,032 exact), `disp.py` (every exact function the trial's map
+names, 30,807 with the same relocation sites in both images: each site's target pair; then data-to-data pairs over
+equal stretches; the longest rising chain: **9,021 `.data` pairs**, 2,140 in `.rdata`), `ins.py` (each stretch of
+another length aligned byte for byte, a relocated dword one token: retail-only blocks and the retail relocation
+targets inside each), `oursown.py` (the trial's contributions per object, each section's base from a public the map
+lists), `dataruns.py` + `gaps2.py` (each object's sections placed in retail by its own symbols' votes; between two
+placed contributions the bytes beyond §5.7's pad rule S + S//5, less ours' unplaced sections between them in
+retail's order), `classify.py`, `perobj2.py`, `dprof.py`, `seqcount.py`, `strcount.py`, `orphans.py`,
+`patcount.py`, `rown.py`, `libblocks.py`, `bink.py`, `mapkinds2.py`, `symkinds.py`. The list of ranges:
+`.work/im11/unref-ranges.tsv` (362).
+
+**Sizes.** `.data` 0xD6F14 against `allA`'s 0xD56F4: +6,176; over the mapped span (retail 0xB6E5A0-0xC416F0)
++6,184, of it the initialised part +3,864 (retail's ends at 0xBDA908) and `.bss` +2,320. The displacement grows
+by steps of 4 through the `ui_*` run (the `"2184"` slot per object, `dprof.py`); the large stretches of either sign
+(dx8wrapper ±16,4xx, kernel +1,020 / unknown_4441e0 -1,010, sclient +556 / mousetbl -548, ...) are items placed in
+another object or order and cancel. `.rdata`'s app part: ours 1,920 bytes longer, retail-only blocks there are moves
+(SGI's prime list: 336 copies in retail, 346 in ours, `patcount.py`).
+
+**Question 1: retail's unreferenced data, by kind** (no retail relocation target inside a range; initialised
+`.data` from the byte alignment, `.bss` from the pad rule; `unref-ranges.tsv` has each range with its object):
+
+| Kind | Ranges | Bytes | What it is |
+|---|---|---|---|
+| `"2184"` pointers (§5.7) | 160 (222 copies in all; ours 2) | 674 (880 in all) | a header's file static, the first dword of each object's `.data` |
+| emote tables | 7 (9 copies in all; ours one each) | 450 (8 x 56 extra) | (a) below: file statics |
+| zero | 85 | 1,127 | pads and alignment (each object's S//5 pad and next alignment move with its size, and runs of zeros align either way), and 494 bytes in 30 blocks in ui_registration's run (zeros after its texts, e.g. 22 after "This registration is not intended for your age group." 0xB86720: the old texts' space, of §5's update or of the installed client's Net-7 edits) and 388 in 3 in settings_store's (the Net-7 URL edits, shorter texts over EA's): no variable claimed |
+| text | 68 | 466 | 6 whole literals, (b) below; the rest pieces of strings whose texts differ |
+| pointers, other | 33 | 249 | entries of tables that differ (ui_chat_panel 8 pointers, ui_attrb_skills, cpacket, ui_slot_scut) |
+| `.bss` gaps | 9 | 2,063 | (c) below |
+
+(a) **The emote tables.** Retail holds 9 copies of `EmoteNames[7]` ("Wave" ... "Spin Left") followed by
+`EmoteSounds[7]` ("wave.wav" ... "spin.wav"), 56 bytes each: 0xB93A94, 0xB952D0, 0xB9804C, 0xB9E548, 0xB9E6F0,
+0xBA13BC (its sounds referenced: emote_data's), 0xBB2DA0, 0xBB2E1C, 0xBB4450 (its names referenced:
+pktriggeremote's Print). Ours define each once (pktriggeremote.cpp, emote_data.cpp). By the trial's
+contributions and retail's order the copies open or sit in the runs of co, cpacket, sclient (0xB98048: `"2184"`,
+the two tables, an `int` 1, then sclient's chat commands 0xB98088), the camera object between camctrl_takeoff and
+camera_manager (0xB9E53C: three `"2184"`, then the tables), co_data or unknown_79d250, emote_data, clientstub, pk
+and pktriggeremote: one header defines both as statics, names first, and 9 translation units of the client and
+packets folders include it. Candidates: pktriggeremote.h (pk_classes.h, cpacket.cpp, sclient.cpp and
+pktriggeremote.cpp include it here, but tsk_login and tsk_game include pk_classes.h and hold no copy) or
+emote_data.h; the includers decide (a census like the `"2184"` one).
+
+(b) **Orphan literals** (`orphans.py`: NUL-preceded 4-aligned strings no relocation reaches; 1,116 in retail,
+1,118 in ours, the same but for these): retail only `e:\build\beta\G\app\Client\../packets/pk.h` 0xB79A08
+(ui_analyze's run), `..\packets/pk.h` 0xB7AA54 (ui_avatar_cust), `e:\build\beta\G\app\client\../packets/pk.h`
+0xB91D8C (viewbttn), `.\../packets/pk.h` 0xB9BC40 (tsk_login), `e:\build\beta\G\app\Packets\pk.h` 0xBB1DC8 (the
+first packets object after cordmgr), `e:\build\beta\G\app\Client\../shared/auxdata/rtti.h` 0xB9463C (between
+co_player_relationship and co_subtype_base); ours only `...\client\..\packets\pk.h`,
+`...\client\tasks\..\..\packets\pk.h`, `...\packets\gameedit\..\pk.h`. Each is the `__FILE__` of an asserting
+inline (pk.h's PacketClass defaults, lines 478-502) in an object whose copy of the function LINK dropped as a
+duplicate: the literal's name holds its spelling, so it stays, unreferenced. They give those objects' include
+spellings (data, not behaviour).
+
+(c) **Unreferenced `.bss`** (`gaps2.py`; S: the one contribution whose S + S//5, aligned, fills the gap):
+
+| Retail | After | Before (ours between) | Bytes | S |
+|---|---|---|---|---|
+| 0xBE4B64-0xBE4E94 | kv_pair.obj (1 byte, its PermStringInit) | kv_pair_string.obj | 816 | 678-680 |
+| 0xBE52A0-0xBE55D0 | kv_util.obj (516, `_KeyBuffer`) | avatar_desc.obj (message_record, message, message_server, message_filter) | 712 | about 593 (avatar_desc's base 0xBE55D0 is also message.obj's `_Unknown_BE55D0` by the votes: one is misplaced) |
+| 0xBF3DB8-0xBF3F48 | unknown_847d20.obj (4) | pal_mgr.obj | 400 | 333-334 |
+| 0xBE5C4C-0xBE5C8C | ui_manu_util.obj (1) | ui_mfd.obj (unknown_5b7ab0, ui_mesh, unknown_5bb250) | 64 | about 53 |
+| 0xBF40F4-0xBF411C | unknown_84df30.obj (21: the CordChannel pool and its guard) | unknown_85bf30.obj (cordcon, cordmgr, unknown_cordmsg) | 40 | 30-33 (IM9's lead) |
+| 0xBE5C90-0xBE5C9C | ui_mfd.obj (1) | ui_mfd_extended_context.obj | 12 | about 10 |
+| three of 4-8 | name.obj, g_assert.obj (inside), ui_popup_browser.obj (ui_popupmsg) | | 19 | |
+
+Each is a variable (or several) the source defines and nothing reads, which VC6 keeps: a file static or a global,
+the image cannot say; the gap's place says which file holds it (or which of §5.5's 47 code-less objects sits there).
+
+**Question 2: the table's count, sharpened.** LINK's split test `(count << 4) / size > 0x30` holds the table at
+count = 49/16 x size, so a symbol adds 16/49 bucket (279 -> +91, 558 -> +182; the trials gave +93 and +184), and
+the trial's map lists **45,809 publics** against 49/16 x (8,192 + 6,765) = **45,806**: the table holds the defined
+externals, every public of the image (import names and the `??_E` aliases included), and nothing else (our objects'
+14,768 static symbols would add a third; every thunk target is a public). Retail's p = 6,856 is 46,081-46,084:
+**about 274 more publics** in retail's full link than in `allA`. By kind (the trial's map against retail's image):
+
+| Kind | `allA` | Retail | Difference |
+|---|---|---|---|
+| app functions (one thunk each: 19,993 publics, 19,993 thunks) | 19,993 | 19,976 (the full link's) | -17 |
+| library functions (function starts, the same discovery in both, `libblocks.py`) | 7,961 | 8,031 | **+70**: binkmovie's run 84 against 53 (+31, 52 of retail's unnamed), the LIBCPMT / LIBCMT / COMSUPP tail about +39 (v3_rnd.obj sits after WININET in retail, last in ours); the ww libraries within ±3 each |
+| constants a relocation reaches (§5.7) | | | at most +72 (+38 literals reached from data, +34 `__real@`) |
+| other data a relocation reaches (§5.7) | | | about +16 (other +19 / +4, vtables -3, strings from code -4) |
+| unreferenced data (this section) | | | +3 literals (6 against 3); at most 9 `.bss` contributions and about 30 small `.data` items: **at most about 40** |
+
+Sum at most about 180 of the ~274: **about 95 left**, names with no bytes of their own in the final image. The
+likeliest holder (not measured): the table is the full link's (2004-02-05, whose bucket order the thunks keep, §5),
+so it holds the old versions of the objects the update recompiled (ui_registration, main, pkdirlock, the two packet
+constructors), and every data name (a literal, a constant) only an old version had is in the count and nowhere in
+the image (an old function name keeps its thunk, so the -17 counts those; ui_registration's `.data` zeros above may
+be its old literals' place). The old objects are gone, so the image cannot count them.
+
+**What it implies (proposals; data, not behaviour: an unused global or static changes no instruction).** In the
+code (the coordinator's call, D246), each with its evidence above: (1) the emote tables as file statics of one
+header that 9 translation units include, and emote_data.cpp / pktriggeremote.cpp without their own (+448 bytes of
+`.data` in place, no name); (2) the `"2184"` header (§5.7); (3) unused statics or globals of the sizes in (c), in
+kv_pair.cpp (678-680 bytes), one of the message files (about 593), unknown_847d20.cpp or pal_mgr.cpp (333-334),
+one of unknown_5b7ab0 / ui_mesh / unknown_5bb250 (about 53), cordcon.cpp / cordmgr.cpp / unknown_cordmsg.cpp (30-33),
+ui_mfd.cpp (about 10); (4) the include spellings of (b) in ui_analyze, ui_avatar_cust, viewbttn, tsk_login, the
+first packets object and co_subtype_base. For the libraries: binkmovie's 31 functions more in retail's run (code,
+possibly behaviour; the binkmovie item's) and the CRT tail's ~39. None of these moves the count far: the ~95 left
+(the update's old objects' names, if the reading above holds) stay out of reach, so the thunk order keeps waiting
+for the names (§5.2), not for the count.
