@@ -10,7 +10,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 231 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1971 |
-| 2 | describes what the code does | 5015 |
+| 2 | describes what the code does | 5016 |
 | 1 | neutral placeholder | 25208 |
 
 ## For review (score 3 and below)
@@ -27704,6 +27704,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `item_id` | `app/client/ui_refinery.h:42` | the packet's ItemID |
 | 2 | `Selected_Year` | `app/client/ui_registration.cpp:2080` | what it returns |
 | 2 | `UIScanButtonNames` | `app/client/ui_scan.cpp:34` | what it holds |
+| 2 | `entry_name` | `app/client/ui_scan.cpp:852` | the faction entry string used by the null check and comparison |
 | 2 | `owner` | `app/client/ui_scan.h:27` | what it holds |
 | 2 | `Owner` | `app/client/ui_scan.h:36` | what it holds |
 | 2 | `std:` | `app/client/ui_scan.h:37` | what it holds |
