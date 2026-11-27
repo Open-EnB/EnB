@@ -1,0 +1,567 @@
+{
+  "base_revision": "3a69e9d2056673c8431a90f47d7d973aeb6ddb4e",
+  "base_path": "app/client/html/image/gifload.cpp",
+  "base_sha256": "ad1c7431c7b7c6499e2ecba0aae1147af369f3af0eb4a5b1cb35a5141f17e7dd",
+  "forms": [
+    {
+      "name": "group_data_count_local_v2",
+      "source_sha256": "9b2d0c7fea5632c2659a79eca4cb3769d71fa5b16bf5d22cd29a9760cd819f4e",
+      "patch": "--- app/client/html/image/gifload.cpp\n+++ app/client/html/image/gifload.cpp\n@@ -28,7 +28,7 @@\n \t}\n \treturn(pixel);\n }\n-\n+static inline void Build_Colors(DSurface *surface, unsigned char *palette, int *colors) { for (int i = 0; i < 256; i++) colors[i] = Build_Pixel(surface, palette[i * 3], palette[i * 3 + 1], palette[i * 3 + 2]); }\n HtmlGifImageClass::HtmlGifImageClass(char *name, int bits) : HtmlImageClass(name, bits)\n {\n }\n@@ -65,14 +65,14 @@\n \t\t\tCreate_Surface(Width, Height);\n \t\t\tif (buffer[10] & 0x80) {\n \t\t\t\tColorCount = 1 << ((buffer[10] & 0x0F) + 1);\n-\t\t\t\tfor (i = 0; i < ColorCount * 3; i++) {\n+\t\t\t\tint palette_bytes = ColorCount * 3; for (i = 0; i < palette_bytes; i++) {\n \t\t\t\t\tc = Get_Byte();\n \t\t\t\t\tif (c < 0)\n \t\t\t\t\t\treturn(-1);\n \t\t\t\t\tPalette[i] = (unsigned char)c;\n \t\t\t\t}\n-\t\t\t\tfor (i = 0; i < 256; i++)\n-\t\t\t\t\tColors[i] = Build_Pixel(Surf, Palette[i * 3], Palette[i * 3 + 1], Palette[i * 3 + 2]);\n+\t\t\t\tBuild_Colors(Surf, Palette, Colors);\n+\n \n \t\t\t\tfor (;;) {\n \t\t\t\t\tc = Get_Byte();\n",
+      "changed": true,
+      "model": "gpt-6.1-terra high",
+      "classification": "cached_surface_diagnostic",
+      "output": {
+        "gained": [],
+        "lost": [],
+        "symbol_gained": [],
+        "symbol_lost": [],
+        "targets": {
+          "0x76D4A0": {
+            "symbol": "?Set_Data@HtmlGifImageClass@@UAEHPADH@Z",
+            "length": 1021,
+            "raw_sha256": "2d138f1486a4101df38529c1e556063b9c9d79ee37785fa1823c691bb06e0fe1",
+            "masked_sha256": "2d138f1486a4101df38529c1e556063b9c9d79ee37785fa1823c691bb06e0fe1",
+            "diagnostic_similarity": "similarity 0.44",
+            "exact": false
+          },
+          "0x76D990": {
+            "symbol": "?Decode@HtmlGifImageClass@@QAEFF@Z",
+            "length": 1145,
+            "raw_sha256": "180791f7c600a9359bfd2a5146b5aceda43e02e72c0c9daf7c0af8401526f124",
+            "masked_sha256": "180791f7c600a9359bfd2a5146b5aceda43e02e72c0c9daf7c0af8401526f124",
+            "diagnostic_similarity": "similarity 0.29",
+            "exact": false
+          },
+          "0x76DF60": {
+            "symbol": "?Get_Next_Code@HtmlGifImageClass@@QAEFXZ",
+            "length": 514,
+            "raw_sha256": "de48c4e2d48d2b98219ae55ab5d6c05c675042867750d51ffe332bd599758360",
+            "masked_sha256": "de48c4e2d48d2b98219ae55ab5d6c05c675042867750d51ffe332bd599758360",
+            "diagnostic_similarity": "similarity 0.82",
+            "exact": false
+          }
+        }
+      }
+    },
+    {
+      "name": "group_data_direct_failure_v2",
+      "source_sha256": "bfeb4ef97cb463e1a17bc5d5693cf30388562522eb2ce88bdf171886b814271d",
+      "patch": "--- app/client/html/image/gifload.cpp\n+++ app/client/html/image/gifload.cpp\n@@ -28,7 +28,7 @@\n \t}\n \treturn(pixel);\n }\n-\n+static inline void Build_Colors(HtmlGifImageClass *image) { for (int i = 0; i < 256; i++) image->Colors[i] = Build_Pixel(image->Surf, image->Palette[i * 3], image->Palette[i * 3 + 1], image->Palette[i * 3 + 2]); }\n HtmlGifImageClass::HtmlGifImageClass(char *name, int bits) : HtmlImageClass(name, bits)\n {\n }\n@@ -42,14 +42,14 @@\n int HtmlGifImageClass::Set_Data(char *data, int length)\n {\n \tunsigned char buffer[13];\n-\tint status = 0;\n+\n \tint i;\n \tint c;\n \n \tData = data;\n \tLength = length;\n \tPosition = 0;\n-\tmemset(Line, 0, sizeof(Line));\n+\tmemset(Line, 0, sizeof(Line)); int status = 0;\n \n \tfor (i = 0; i < 13; i++) {\n \t\tc = Get_Byte();\n@@ -65,14 +65,14 @@\n \t\t\tCreate_Surface(Width, Height);\n \t\t\tif (buffer[10] & 0x80) {\n \t\t\t\tColorCount = 1 << ((buffer[10] & 0x0F) + 1);\n-\t\t\t\tfor (i = 0; i < ColorCount * 3; i++) {\n+\t\t\t\tint palette_bytes = ColorCount * 3; for (i = 0; i < palette_bytes; i++) {\n \t\t\t\t\tc = Get_Byte();\n \t\t\t\t\tif (c < 0)\n \t\t\t\t\t\treturn(-1);\n \t\t\t\t\tPalette[i] = (unsigned char)c;\n \t\t\t\t}\n-\t\t\t\tfor (i = 0; i < 256; i++)\n-\t\t\t\t\tColors[i] = Build_Pixel(Surf, Palette[i * 3], Palette[i * 3 + 1], Palette[i * 3 + 2]);\n+\t\t\t\tBuild_Colors(this);\n+\n \n \t\t\t\tfor (;;) {\n \t\t\t\t\tc = Get_Byte();\n@@ -81,33 +81,17 @@\n \t\t\t\t\t\tbreak;\n \t\t\t\t\t}\n \n-\t\t\t\t\tif (c == '!') {\n-\t\t\t\t\t\tif (Get_Byte() == 0xF9) {\n-\t\t\t\t\t\t\tGet_Byte();\n-\t\t\t\t\t\t\tif (Get_Byte() & 1)\n-\t\t\t\t\t\t\t\tGet_Byte();\n-\t\t\t\t\t\t\tGet_Byte();\n-\t\t\t\t\t\t\tTransparent = Get_Byte();\n-\t\t\t\t\t\t\tGet_Byte();\n-\t\t\t\t\t\t} else {\n-\t\t\t\t\t\t\tint count;\n-\t\t\t\t\t\t\twhile ((count = Get_Byte()) > 0) {\n-\t\t\t\t\t\t\t\tdo {\n-\t\t\t\t\t\t\t\t\tGet_Byte();\n-\t\t\t\t\t\t\t\t} while (--count);\n-\t\t\t\t\t\t\t}\n-\t\t\t\t\t\t}\n-\t\t\t\t\t} else if (c == ',') {\n+\t\t\t\t\tif (c == ',') {\n \t\t\t\t\t\tfor (i = 0; i < 9; i++) {\n \t\t\t\t\t\t\tc = Get_Byte();\n \t\t\t\t\t\t\tbuffer[i] = (unsigned char)c;\n \t\t\t\t\t\t\tif (c < 0)\n-\t\t\t\t\t\t\t\tbreak;\n+\t\t\t\t\t\t\t\treturn(-1);\n \t\t\t\t\t\t}\n-\t\t\t\t\t\tif (c < 0) {\n-\t\t\t\t\t\t\tstatus = -1;\n-\t\t\t\t\t\t\tbreak;\n-\t\t\t\t\t\t}\n+\n+\n+\n+\n \t\t\t\t\t\tif (status < 0)\n \t\t\t\t\t\t\tbreak;\n \t\t\t\t\t\tif ((buffer[8] & 0x80) == 0x80) {\n@@ -124,6 +108,22 @@\n \t\t\t\t\t\tif (Get_Byte() != 0) {\n \t\t\t\t\t\t\tstatus = -1;\n \t\t\t\t\t\t\tbreak;\n+\t\t\t\t\t\t}\n+\t\t\t\t\t} else if (c == '!') {\n+\t\t\t\t\t\tif (Get_Byte() == 0xF9) {\n+\t\t\t\t\t\t\tGet_Byte();\n+\t\t\t\t\t\t\tif (Get_Byte() & 1)\n+\t\t\t\t\t\t\t\tGet_Byte();\n+\t\t\t\t\t\t\tGet_Byte();\n+\t\t\t\t\t\t\tTransparent = Get_Byte();\n+\t\t\t\t\t\t\tGet_Byte();\n+\t\t\t\t\t\t} else {\n+\t\t\t\t\t\t\tint count;\n+\t\t\t\t\t\t\twhile ((count = Get_Byte()) > 0) {\n+\t\t\t\t\t\t\t\tdo {\n+\t\t\t\t\t\t\t\t\tGet_Byte();\n+\t\t\t\t\t\t\t\t} while (--count);\n+\t\t\t\t\t\t\t}\n \t\t\t\t\t\t}\n \t\t\t\t\t} else {\n \t\t\t\t\t\tif (c == ';')\n",
+      "changed": true,
+      "model": "gpt-6.1-terra high",
+      "classification": "changed_form",
+      "output": {
+        "gained": [],
+        "lost": [],
+        "symbol_gained": [],
+        "symbol_lost": [],
+        "targets": {
+          "0x76D4A0": {
+            "symbol": "?Set_Data@HtmlGifImageClass@@UAEHPADH@Z",
+            "length": 1014,
+            "raw_sha256": "26d3c164f75f1286e2933ec0c30a9f86dd77916f02923c17976d8b8ba4ae0337",
+            "masked_sha256": "26d3c164f75f1286e2933ec0c30a9f86dd77916f02923c17976d8b8ba4ae0337",
+            "diagnostic_similarity": "similarity 0.69",
+            "exact": false
+          },
+          "0x76D990": {
+            "symbol": "?Decode@HtmlGifImageClass@@QAEFF@Z",
+            "length": 1145,
+            "raw_sha256": "180791f7c600a9359bfd2a5146b5aceda43e02e72c0c9daf7c0af8401526f124",
+            "masked_sha256": "180791f7c600a9359bfd2a5146b5aceda43e02e72c0c9daf7c0af8401526f124",
+            "diagnostic_similarity": "similarity 0.29",
+            "exact": false
+          },
+          "0x76DF60": {
+            "symbol": "?Get_Next_Code@HtmlGifImageClass@@QAEFXZ",
+            "length": 514,
+            "raw_sha256": "de48c4e2d48d2b98219ae55ab5d6c05c675042867750d51ffe332bd599758360",
+            "masked_sha256": "de48c4e2d48d2b98219ae55ab5d6c05c675042867750d51ffe332bd599758360",
+            "diagnostic_similarity": "similarity 0.82",
+            "exact": false
+          }
+        }
+      }
+    },
+    {
+      "name": "group_data_dispatch_nested",
+      "source_sha256": "9f647a7534ad498d750485a6d0392d0153db787319549cdf1b475666c16aa53b",
+      "patch": "--- app/client/html/image/gifload.cpp\n+++ app/client/html/image/gifload.cpp\n@@ -28,7 +28,7 @@\n \t}\n \treturn(pixel);\n }\n-\n+static inline void Build_Colors(HtmlGifImageClass *image) { for (int i = 0; i < 256; i++) image->Colors[i] = Build_Pixel(image->Surf, image->Palette[i * 3], image->Palette[i * 3 + 1], image->Palette[i * 3 + 2]); }\n HtmlGifImageClass::HtmlGifImageClass(char *name, int bits) : HtmlImageClass(name, bits)\n {\n }\n@@ -42,14 +42,14 @@\n int HtmlGifImageClass::Set_Data(char *data, int length)\n {\n \tunsigned char buffer[13];\n-\tint status = 0;\n+\n \tint i;\n \tint c;\n \n \tData = data;\n \tLength = length;\n \tPosition = 0;\n-\tmemset(Line, 0, sizeof(Line));\n+\tmemset(Line, 0, sizeof(Line)); int status = 0;\n \n \tfor (i = 0; i < 13; i++) {\n \t\tc = Get_Byte();\n@@ -65,14 +65,14 @@\n \t\t\tCreate_Surface(Width, Height);\n \t\t\tif (buffer[10] & 0x80) {\n \t\t\t\tColorCount = 1 << ((buffer[10] & 0x0F) + 1);\n-\t\t\t\tfor (i = 0; i < ColorCount * 3; i++) {\n+\t\t\t\tint palette_bytes = ColorCount * 3; for (i = 0; i < palette_bytes; i++) {\n \t\t\t\t\tc = Get_Byte();\n \t\t\t\t\tif (c < 0)\n \t\t\t\t\t\treturn(-1);\n \t\t\t\t\tPalette[i] = (unsigned char)c;\n \t\t\t\t}\n-\t\t\t\tfor (i = 0; i < 256; i++)\n-\t\t\t\t\tColors[i] = Build_Pixel(Surf, Palette[i * 3], Palette[i * 3 + 1], Palette[i * 3 + 2]);\n+\t\t\t\tBuild_Colors(this);\n+\n \n \t\t\t\tfor (;;) {\n \t\t\t\t\tc = Get_Byte();\n@@ -81,33 +81,17 @@\n \t\t\t\t\t\tbreak;\n \t\t\t\t\t}\n \n-\t\t\t\t\tif (c == '!') {\n-\t\t\t\t\t\tif (Get_Byte() == 0xF9) {\n-\t\t\t\t\t\t\tGet_Byte();\n-\t\t\t\t\t\t\tif (Get_Byte() & 1)\n-\t\t\t\t\t\t\t\tGet_Byte();\n-\t\t\t\t\t\t\tGet_Byte();\n-\t\t\t\t\t\t\tTransparent = Get_Byte();\n-\t\t\t\t\t\t\tGet_Byte();\n-\t\t\t\t\t\t} else {\n-\t\t\t\t\t\t\tint count;\n-\t\t\t\t\t\t\twhile ((count = Get_Byte()) > 0) {\n-\t\t\t\t\t\t\t\tdo {\n-\t\t\t\t\t\t\t\t\tGet_Byte();\n-\t\t\t\t\t\t\t\t} while (--count);\n-\t\t\t\t\t\t\t}\n-\t\t\t\t\t\t}\n-\t\t\t\t\t} else if (c == ',') {\n+\t\t\t\t\tif (c != '!') { if (c == ',') {\n \t\t\t\t\t\tfor (i = 0; i < 9; i++) {\n \t\t\t\t\t\t\tc = Get_Byte();\n \t\t\t\t\t\t\tbuffer[i] = (unsigned char)c;\n \t\t\t\t\t\t\tif (c < 0)\n-\t\t\t\t\t\t\t\tbreak;\n+\t\t\t\t\t\t\t\treturn(-1);\n \t\t\t\t\t\t}\n-\t\t\t\t\t\tif (c < 0) {\n-\t\t\t\t\t\t\tstatus = -1;\n-\t\t\t\t\t\t\tbreak;\n-\t\t\t\t\t\t}\n+\n+\n+\n+\n \t\t\t\t\t\tif (status < 0)\n \t\t\t\t\t\t\tbreak;\n \t\t\t\t\t\tif ((buffer[8] & 0x80) == 0x80) {\n@@ -131,6 +115,22 @@\n \t\t\t\t\t\telse\n \t\t\t\t\t\t\tstatus = -1;\n \t\t\t\t\t\tbreak;\n+\t\t\t\t\t} } else {\n+\t\t\t\t\t\tif (Get_Byte() == 0xF9) {\n+\t\t\t\t\t\t\tGet_Byte();\n+\t\t\t\t\t\t\tif (Get_Byte() & 1)\n+\t\t\t\t\t\t\t\tGet_Byte();\n+\t\t\t\t\t\t\tGet_Byte();\n+\t\t\t\t\t\t\tTransparent = Get_Byte();\n+\t\t\t\t\t\t\tGet_Byte();\n+\t\t\t\t\t\t} else {\n+\t\t\t\t\t\t\tint count;\n+\t\t\t\t\t\t\twhile ((count = Get_Byte()) > 0) {\n+\t\t\t\t\t\t\t\tdo {\n+\t\t\t\t\t\t\t\t\tGet_Byte();\n+\t\t\t\t\t\t\t\t} while (--count);\n+\t\t\t\t\t\t\t}\n+\t\t\t\t\t\t}\n \t\t\t\t\t}\n \t\t\t\t}\n \t\t\t\treturn(status);\n",
+      "changed": true,
+      "model": "gpt-6.1-terra high",
+      "classification": "changed_form",
+      "output": {
+        "gained": [],
+        "lost": [],
+        "symbol_gained": [],
+        "symbol_lost": [],
+        "targets": {
+          "0x76D4A0": {
+            "symbol": "?Set_Data@HtmlGifImageClass@@UAEHPADH@Z",
+            "length": 1014,
+            "raw_sha256": "3bd33ff43533cc05d2bb34aa9c371a8b32131b1a8d034f10db2a2e27a50ae90a",
+            "masked_sha256": "3bd33ff43533cc05d2bb34aa9c371a8b32131b1a8d034f10db2a2e27a50ae90a",
+            "diagnostic_similarity": "similarity 0.69",
+            "exact": false
+          },
+          "0x76D990": {
+            "symbol": "?Decode@HtmlGifImageClass@@QAEFF@Z",
+            "length": 1145,
+            "raw_sha256": "180791f7c600a9359bfd2a5146b5aceda43e02e72c0c9daf7c0af8401526f124",
+            "masked_sha256": "180791f7c600a9359bfd2a5146b5aceda43e02e72c0c9daf7c0af8401526f124",
+            "diagnostic_similarity": "similarity 0.29",
+            "exact": false
+          },
+          "0x76DF60": {
+            "symbol": "?Get_Next_Code@HtmlGifImageClass@@QAEFXZ",
+            "length": 514,
+            "raw_sha256": "de48c4e2d48d2b98219ae55ab5d6c05c675042867750d51ffe332bd599758360",
+            "masked_sha256": "de48c4e2d48d2b98219ae55ab5d6c05c675042867750d51ffe332bd599758360",
+            "diagnostic_similarity": "similarity 0.82",
+            "exact": false
+          }
+        }
+      }
+    },
+    {
+      "name": "group_data_eof_while",
+      "source_sha256": "4408ebb0d372e1c48bdf1292897e30d9fc616338c2845b9d0e23a05567edc61f",
+      "patch": "--- app/client/html/image/gifload.cpp\n+++ app/client/html/image/gifload.cpp\n@@ -28,7 +28,7 @@\n \t}\n \treturn(pixel);\n }\n-\n+static inline void Build_Colors(HtmlGifImageClass *image) { for (int i = 0; i < 256; i++) image->Colors[i] = Build_Pixel(image->Surf, image->Palette[i * 3], image->Palette[i * 3 + 1], image->Palette[i * 3 + 2]); }\n HtmlGifImageClass::HtmlGifImageClass(char *name, int bits) : HtmlImageClass(name, bits)\n {\n }\n@@ -42,14 +42,14 @@\n int HtmlGifImageClass::Set_Data(char *data, int length)\n {\n \tunsigned char buffer[13];\n-\tint status = 0;\n+\n \tint i;\n \tint c;\n \n \tData = data;\n \tLength = length;\n \tPosition = 0;\n-\tmemset(Line, 0, sizeof(Line));\n+\tmemset(Line, 0, sizeof(Line)); int status = 0;\n \n \tfor (i = 0; i < 13; i++) {\n \t\tc = Get_Byte();\n@@ -65,39 +65,23 @@\n \t\t\tCreate_Surface(Width, Height);\n \t\t\tif (buffer[10] & 0x80) {\n \t\t\t\tColorCount = 1 << ((buffer[10] & 0x0F) + 1);\n-\t\t\t\tfor (i = 0; i < ColorCount * 3; i++) {\n+\t\t\t\tint palette_bytes = ColorCount * 3; for (i = 0; i < palette_bytes; i++) {\n \t\t\t\t\tc = Get_Byte();\n \t\t\t\t\tif (c < 0)\n \t\t\t\t\t\treturn(-1);\n \t\t\t\t\tPalette[i] = (unsigned char)c;\n \t\t\t\t}\n-\t\t\t\tfor (i = 0; i < 256; i++)\n-\t\t\t\t\tColors[i] = Build_Pixel(Surf, Palette[i * 3], Palette[i * 3 + 1], Palette[i * 3 + 2]);\n-\n-\t\t\t\tfor (;;) {\n-\t\t\t\t\tc = Get_Byte();\n-\t\t\t\t\tif (c < 0) {\n-\t\t\t\t\t\tstatus = -1;\n-\t\t\t\t\t\tbreak;\n-\t\t\t\t\t}\n-\n-\t\t\t\t\tif (c == '!') {\n-\t\t\t\t\t\tif (Get_Byte() == 0xF9) {\n-\t\t\t\t\t\t\tGet_Byte();\n-\t\t\t\t\t\t\tif (Get_Byte() & 1)\n-\t\t\t\t\t\t\t\tGet_Byte();\n-\t\t\t\t\t\t\tGet_Byte();\n-\t\t\t\t\t\t\tTransparent = Get_Byte();\n-\t\t\t\t\t\t\tGet_Byte();\n-\t\t\t\t\t\t} else {\n-\t\t\t\t\t\t\tint count;\n-\t\t\t\t\t\t\twhile ((count = Get_Byte()) > 0) {\n-\t\t\t\t\t\t\t\tdo {\n-\t\t\t\t\t\t\t\t\tGet_Byte();\n-\t\t\t\t\t\t\t\t} while (--count);\n-\t\t\t\t\t\t\t}\n-\t\t\t\t\t\t}\n-\t\t\t\t\t} else if (c == ',') {\n+\t\t\t\tBuild_Colors(this);\n+\n+\n+\t\t\t\twhile ((c = Get_Byte()) >= 0) {\n+\n+\n+\n+\n+\n+\n+\t\t\t\t\tif (c == ',') {\n \t\t\t\t\t\tfor (i = 0; i < 9; i++) {\n \t\t\t\t\t\t\tc = Get_Byte();\n \t\t\t\t\t\t\tbuffer[i] = (unsigned char)c;\n@@ -125,6 +109,22 @@\n \t\t\t\t\t\t\tstatus = -1;\n \t\t\t\t\t\t\tbreak;\n \t\t\t\t\t\t}\n+\t\t\t\t\t} else if (c == '!') {\n+\t\t\t\t\t\tif (Get_Byte() == 0xF9) {\n+\t\t\t\t\t\t\tGet_Byte();\n+\t\t\t\t\t\t\tif (Get_Byte() & 1)\n+\t\t\t\t\t\t\t\tGet_Byte();\n+\t\t\t\t\t\t\tGet_Byte();\n+\t\t\t\t\t\t\tTransparent = Get_Byte();\n+\t\t\t\t\t\t\tGet_Byte();\n+\t\t\t\t\t\t} else {\n+\t\t\t\t\t\t\tint count;\n+\t\t\t\t\t\t\twhile ((count = Get_Byte()) > 0) {\n+\t\t\t\t\t\t\t\tdo {\n+\t\t\t\t\t\t\t\t\tGet_Byte();\n+\t\t\t\t\t\t\t\t} while (--count);\n+\t\t\t\t\t\t\t}\n+\t\t\t\t\t\t}\n \t\t\t\t\t} else {\n \t\t\t\t\t\tif (c == ';')\n \t\t\t\t\t\t\tstatus = 0;\n@@ -133,7 +133,7 @@\n \t\t\t\t\t\tbreak;\n \t\t\t\t\t}\n \t\t\t\t}\n-\t\t\t\treturn(status);\n+\t\t\t\tif (c < 0) status = -1; return(status);\n \t\t\t}\n \t\t}\n \t}\n",
+      "changed": true,
+      "model": "gpt-6.1-terra high",
+      "classification": "changed_form",
+      "output": {
+        "gained": [],
+        "lost": [],
+        "symbol_gained": [],
+        "symbol_lost": [],
+        "targets": {
+          "0x76D4A0": {
+            "symbol": "?Set_Data@HtmlGifImageClass@@UAEHPADH@Z",
+            "length": 1048,
+            "raw_sha256": "cd023075c186c473366874f9a0b80c9fc50019b28f3a17a9eebe6d24f42a3159",
+            "masked_sha256": "cd023075c186c473366874f9a0b80c9fc50019b28f3a17a9eebe6d24f42a3159",
+            "diagnostic_similarity": "similarity 0.52",
+            "exact": false
+          },
+          "0x76D990": {
+            "symbol": "?Decode@HtmlGifImageClass@@QAEFF@Z",
+            "length": 1145,
+            "raw_sha256": "180791f7c600a9359bfd2a5146b5aceda43e02e72c0c9daf7c0af8401526f124",
+            "masked_sha256": "180791f7c600a9359bfd2a5146b5aceda43e02e72c0c9daf7c0af8401526f124",
+            "diagnostic_similarity": "similarity 0.29",
+            "exact": false
+          },
+          "0x76DF60": {
+            "symbol": "?Get_Next_Code@HtmlGifImageClass@@QAEFXZ",
+            "length": 514,
+            "raw_sha256": "de48c4e2d48d2b98219ae55ab5d6c05c675042867750d51ffe332bd599758360",
+            "masked_sha256": "de48c4e2d48d2b98219ae55ab5d6c05c675042867750d51ffe332bd599758360",
+            "diagnostic_similarity": "similarity 0.82",
+            "exact": false
+          }
+        }
+      }
+    },
+    {
+      "name": "group_data_image_count",
+      "source_sha256": "b3911ba5510fce4e558779d8e309995edb0f10cfec20ae9a3a08555aae6d3126",
+      "patch": "--- app/client/html/image/gifload.cpp\n+++ app/client/html/image/gifload.cpp\n@@ -28,7 +28,7 @@\n \t}\n \treturn(pixel);\n }\n-\n+static inline void Build_Colors(HtmlGifImageClass *image) { for (int i = 0; i < 256; i++) image->Colors[i] = Build_Pixel(image->Surf, image->Palette[i * 3], image->Palette[i * 3 + 1], image->Palette[i * 3 + 2]); }\n HtmlGifImageClass::HtmlGifImageClass(char *name, int bits) : HtmlImageClass(name, bits)\n {\n }\n@@ -65,14 +65,14 @@\n \t\t\tCreate_Surface(Width, Height);\n \t\t\tif (buffer[10] & 0x80) {\n \t\t\t\tColorCount = 1 << ((buffer[10] & 0x0F) + 1);\n-\t\t\t\tfor (i = 0; i < ColorCount * 3; i++) {\n+\t\t\t\tint palette_bytes = ColorCount * 3; for (i = 0; i < palette_bytes; i++) {\n \t\t\t\t\tc = Get_Byte();\n \t\t\t\t\tif (c < 0)\n \t\t\t\t\t\treturn(-1);\n \t\t\t\t\tPalette[i] = (unsigned char)c;\n \t\t\t\t}\n-\t\t\t\tfor (i = 0; i < 256; i++)\n-\t\t\t\t\tColors[i] = Build_Pixel(Surf, Palette[i * 3], Palette[i * 3 + 1], Palette[i * 3 + 2]);\n+\t\t\t\tBuild_Colors(this);\n+\n \n \t\t\t\tfor (;;) {\n \t\t\t\t\tc = Get_Byte();\n",
+      "changed": true,
+      "model": "gpt-6.1-terra high",
+      "classification": "changed_form",
+      "output": {
+        "gained": [],
+        "lost": [],
+        "symbol_gained": [],
+        "symbol_lost": [],
+        "targets": {
+          "0x76D4A0": {
+            "symbol": "?Set_Data@HtmlGifImageClass@@UAEHPADH@Z",
+            "length": 1013,
+            "raw_sha256": "c652f6bf719807a9b6fb430fd28c24213a1e5413470654b795391344bba13a75",
+            "masked_sha256": "c652f6bf719807a9b6fb430fd28c24213a1e5413470654b795391344bba13a75",
+            "diagnostic_similarity": "similarity 0.49",
+            "exact": false
+          },
+          "0x76D990": {
+            "symbol": "?Decode@HtmlGifImageClass@@QAEFF@Z",
+            "length": 1145,
+            "raw_sha256": "180791f7c600a9359bfd2a5146b5aceda43e02e72c0c9daf7c0af8401526f124",
+            "masked_sha256": "180791f7c600a9359bfd2a5146b5aceda43e02e72c0c9daf7c0af8401526f124",
+            "diagnostic_similarity": "similarity 0.29",
+            "exact": false
+          },
+          "0x76DF60": {
+            "symbol": "?Get_Next_Code@HtmlGifImageClass@@QAEFXZ",
+            "length": 514,
+            "raw_sha256": "de48c4e2d48d2b98219ae55ab5d6c05c675042867750d51ffe332bd599758360",
+            "masked_sha256": "de48c4e2d48d2b98219ae55ab5d6c05c675042867750d51ffe332bd599758360",
+            "diagnostic_similarity": "similarity 0.82",
+            "exact": false
+          }
+        }
+      }
+    },
+    {
+      "name": "group_data_image_first",
+      "source_sha256": "d5ab2f28a4a3e46a391f522ebea3c56c1eaa8175b411211d5798ce7c9b3a270f",
+      "patch": "--- app/client/html/image/gifload.cpp\n+++ app/client/html/image/gifload.cpp\n@@ -28,7 +28,7 @@\n \t}\n \treturn(pixel);\n }\n-\n+static inline void Build_Colors(HtmlGifImageClass *image) { for (int i = 0; i < 256; i++) image->Colors[i] = Build_Pixel(image->Surf, image->Palette[i * 3], image->Palette[i * 3 + 1], image->Palette[i * 3 + 2]); }\n HtmlGifImageClass::HtmlGifImageClass(char *name, int bits) : HtmlImageClass(name, bits)\n {\n }\n@@ -42,12 +42,12 @@\n int HtmlGifImageClass::Set_Data(char *data, int length)\n {\n \tunsigned char buffer[13];\n-\tint status = 0;\n+\n \tint i;\n \tint c;\n \n \tData = data;\n-\tLength = length;\n+\tLength = length; length = 0;\n \tPosition = 0;\n \tmemset(Line, 0, sizeof(Line));\n \n@@ -65,23 +65,51 @@\n \t\t\tCreate_Surface(Width, Height);\n \t\t\tif (buffer[10] & 0x80) {\n \t\t\t\tColorCount = 1 << ((buffer[10] & 0x0F) + 1);\n-\t\t\t\tfor (i = 0; i < ColorCount * 3; i++) {\n+\t\t\t\tint palette_bytes = ColorCount * 3; for (i = 0; i < palette_bytes; i++) {\n \t\t\t\t\tc = Get_Byte();\n \t\t\t\t\tif (c < 0)\n \t\t\t\t\t\treturn(-1);\n \t\t\t\t\tPalette[i] = (unsigned char)c;\n \t\t\t\t}\n-\t\t\t\tfor (i = 0; i < 256; i++)\n-\t\t\t\t\tColors[i] = Build_Pixel(Surf, Palette[i * 3], Palette[i * 3 + 1], Palette[i * 3 + 2]);\n+\t\t\t\tBuild_Colors(this);\n+\n \n \t\t\t\tfor (;;) {\n \t\t\t\t\tc = Get_Byte();\n \t\t\t\t\tif (c < 0) {\n-\t\t\t\t\t\tstatus = -1;\n+\t\t\t\t\t\tlength = -1;\n \t\t\t\t\t\tbreak;\n \t\t\t\t\t}\n \n-\t\t\t\t\tif (c == '!') {\n+\t\t\t\t\tif (c == ',') {\n+\t\t\t\t\t\tfor (i = 0; i < 9; i++) {\n+\t\t\t\t\t\t\tc = Get_Byte();\n+\t\t\t\t\t\t\tbuffer[i] = (unsigned char)c;\n+\t\t\t\t\t\t\tif (c < 0)\n+\t\t\t\t\t\t\t\tbreak;\n+\t\t\t\t\t\t}\n+\t\t\t\t\t\tif (c < 0) {\n+\t\t\t\t\t\t\tlength = -1;\n+\t\t\t\t\t\t\tbreak;\n+\t\t\t\t\t\t}\n+\t\t\t\t\t\tif (length < 0)\n+\t\t\t\t\t\t\tbreak;\n+\t\t\t\t\t\tif ((buffer[8] & 0x80) == 0x80) {\n+\t\t\t\t\t\t\tint count = 1 << ((buffer[8] & 0x0F) + 1);\n+\t\t\t\t\t\t\tfor (i = 0; i < count; i++) {\n+\t\t\t\t\t\t\t\tfor (int j = 0; j < 3; j++) {\n+\t\t\t\t\t\t\t\t\tif (Get_Byte() < 0)\n+\t\t\t\t\t\t\t\t\t\treturn(-1);\n+\t\t\t\t\t\t\t\t}\n+\t\t\t\t\t\t\t}\n+\t\t\t\t\t\t}\n+\t\t\t\t\t\tmemset(Line, 0, sizeof(Line));\n+\t\t\t\t\t\tlength = Decode((short)Width);\n+\t\t\t\t\t\tif (Get_Byte() != 0) {\n+\t\t\t\t\t\t\tlength = -1;\n+\t\t\t\t\t\t\tbreak;\n+\t\t\t\t\t\t}\n+\t\t\t\t\t} else if (c == '!') {\n \t\t\t\t\t\tif (Get_Byte() == 0xF9) {\n \t\t\t\t\t\t\tGet_Byte();\n \t\t\t\t\t\t\tif (Get_Byte() & 1)\n@@ -97,43 +125,15 @@\n \t\t\t\t\t\t\t\t} while (--count);\n \t\t\t\t\t\t\t}\n \t\t\t\t\t\t}\n-\t\t\t\t\t} else if (c == ',') {\n-\t\t\t\t\t\tfor (i = 0; i < 9; i++) {\n-\t\t\t\t\t\t\tc = Get_Byte();\n-\t\t\t\t\t\t\tbuffer[i] = (unsigned char)c;\n-\t\t\t\t\t\t\tif (c < 0)\n-\t\t\t\t\t\t\t\tbreak;\n-\t\t\t\t\t\t}\n-\t\t\t\t\t\tif (c < 0) {\n-\t\t\t\t\t\t\tstatus = -1;\n-\t\t\t\t\t\t\tbreak;\n-\t\t\t\t\t\t}\n-\t\t\t\t\t\tif (status < 0)\n-\t\t\t\t\t\t\tbreak;\n-\t\t\t\t\t\tif ((buffer[8] & 0x80) == 0x80) {\n-\t\t\t\t\t\t\tint count = 1 << ((buffer[8] & 0x0F) + 1);\n-\t\t\t\t\t\t\tfor (i = 0; i < count; i++) {\n-\t\t\t\t\t\t\t\tfor (int j = 0; j < 3; j++) {\n-\t\t\t\t\t\t\t\t\tif (Get_Byte() < 0)\n-\t\t\t\t\t\t\t\t\t\treturn(-1);\n-\t\t\t\t\t\t\t\t}\n-\t\t\t\t\t\t\t}\n-\t\t\t\t\t\t}\n-\t\t\t\t\t\tmemset(Line, 0, sizeof(Line));\n-\t\t\t\t\t\tstatus = Decode((short)Width);\n-\t\t\t\t\t\tif (Get_Byte() != 0) {\n-\t\t\t\t\t\t\tstatus = -1;\n-\t\t\t\t\t\t\tbreak;\n-\t\t\t\t\t\t}\n \t\t\t\t\t} else {\n \t\t\t\t\t\tif (c == ';')\n-\t\t\t\t\t\t\tstatus = 0;\n+\t\t\t\t\t\t\tlength = 0;\n \t\t\t\t\t\telse\n-\t\t\t\t\t\t\tstatus = -1;\n+\t\t\t\t\t\t\tlength = -1;\n \t\t\t\t\t\tbreak;\n \t\t\t\t\t}\n \t\t\t\t}\n-\t\t\t\treturn(status);\n+\t\t\t\treturn(length);\n \t\t\t}\n \t\t}\n \t}\n",
+      "changed": true,
+      "model": "gpt-6.1-terra high",
+      "classification": "changed_form",
+      "output": {
+        "gained": [],
+        "lost": [],
+        "symbol_gained": [],
+        "symbol_lost": [],
+        "targets": {
+          "0x76D4A0": {
+            "symbol": "?Set_Data@HtmlGifImageClass@@UAEHPADH@Z",
+            "length": 1022,
+            "raw_sha256": "fa5811460fe47acde832519aa885ebb031404af9f8f5450d0bc8298138f6781f",
+            "masked_sha256": "fa5811460fe47acde832519aa885ebb031404af9f8f5450d0bc8298138f6781f",
+            "diagnostic_similarity": "similarity 0.66",
+            "exact": false
+          },
+          "0x76D990": {
+            "symbol": "?Decode@HtmlGifImageClass@@QAEFF@Z",
+            "length": 1145,
+            "raw_sha256": "180791f7c600a9359bfd2a5146b5aceda43e02e72c0c9daf7c0af8401526f124",
+            "masked_sha256": "180791f7c600a9359bfd2a5146b5aceda43e02e72c0c9daf7c0af8401526f124",
+            "diagnostic_similarity": "similarity 0.29",
+            "exact": false
+          },
+          "0x76DF60": {
+            "symbol": "?Get_Next_Code@HtmlGifImageClass@@QAEFXZ",
+            "length": 514,
+            "raw_sha256": "de48c4e2d48d2b98219ae55ab5d6c05c675042867750d51ffe332bd599758360",
+            "masked_sha256": "de48c4e2d48d2b98219ae55ab5d6c05c675042867750d51ffe332bd599758360",
+            "diagnostic_similarity": "similarity 0.82",
+            "exact": false
+          }
+        }
+      }
+    },
+    {
+      "name": "group_data_image_original",
+      "source_sha256": "1c8e585c0969e31d6804b2b5bdb65b3cb00972449f77fc5f1ea6e738797baa2c",
+      "patch": "--- app/client/html/image/gifload.cpp\n+++ app/client/html/image/gifload.cpp\n@@ -28,7 +28,7 @@\n \t}\n \treturn(pixel);\n }\n-\n+static inline void Build_Colors(HtmlGifImageClass *image) { for (int i = 0; i < 256; i++) image->Colors[i] = Build_Pixel(image->Surf, image->Palette[i * 3], image->Palette[i * 3 + 1], image->Palette[i * 3 + 2]); }\n HtmlGifImageClass::HtmlGifImageClass(char *name, int bits) : HtmlImageClass(name, bits)\n {\n }\n@@ -71,8 +71,8 @@\n \t\t\t\t\t\treturn(-1);\n \t\t\t\t\tPalette[i] = (unsigned char)c;\n \t\t\t\t}\n-\t\t\t\tfor (i = 0; i < 256; i++)\n-\t\t\t\t\tColors[i] = Build_Pixel(Surf, Palette[i * 3], Palette[i * 3 + 1], Palette[i * 3 + 2]);\n+\t\t\t\tBuild_Colors(this);\n+\n \n \t\t\t\tfor (;;) {\n \t\t\t\t\tc = Get_Byte();\n",
+      "changed": true,
+      "model": "gpt-6.1-terra high",
+      "classification": "changed_form",
+      "output": {
+        "gained": [],
+        "lost": [],
+        "symbol_gained": [],
+        "symbol_lost": [],
+        "targets": {
+          "0x76D4A0": {
+            "symbol": "?Set_Data@HtmlGifImageClass@@UAEHPADH@Z",
+            "length": 1022,
+            "raw_sha256": "180f844583beb09db058ccd69e3ca74acd34ee5b70718c222ee04f850d08f676",
+            "masked_sha256": "180f844583beb09db058ccd69e3ca74acd34ee5b70718c222ee04f850d08f676",
+            "diagnostic_similarity": "similarity 0.46",
+            "exact": false
+          },
+          "0x76D990": {
+            "symbol": "?Decode@HtmlGifImageClass@@QAEFF@Z",
+            "length": 1145,
+            "raw_sha256": "180791f7c600a9359bfd2a5146b5aceda43e02e72c0c9daf7c0af8401526f124",
+            "masked_sha256": "180791f7c600a9359bfd2a5146b5aceda43e02e72c0c9daf7c0af8401526f124",
+            "diagnostic_similarity": "similarity 0.29",
+            "exact": false
+          },
+          "0x76DF60": {
+            "symbol": "?Get_Next_Code@HtmlGifImageClass@@QAEFXZ",
+            "length": 514,
+            "raw_sha256": "de48c4e2d48d2b98219ae55ab5d6c05c675042867750d51ffe332bd599758360",
+            "masked_sha256": "de48c4e2d48d2b98219ae55ab5d6c05c675042867750d51ffe332bd599758360",
+            "diagnostic_similarity": "similarity 0.82",
+            "exact": false
+          }
+        }
+      }
+    },
+    {
+      "name": "group_data_original_v2",
+      "source_sha256": "d6ffd965b9658a084133b9ad557fb76203815d51886232d7449cd19fc8a77b2d",
+      "patch": "--- app/client/html/image/gifload.cpp\n+++ app/client/html/image/gifload.cpp\n@@ -28,7 +28,7 @@\n \t}\n \treturn(pixel);\n }\n-\n+static inline void Build_Colors(DSurface *surface, unsigned char *palette, int *colors) { for (int i = 0; i < 256; i++) colors[i] = Build_Pixel(surface, palette[i * 3], palette[i * 3 + 1], palette[i * 3 + 2]); }\n HtmlGifImageClass::HtmlGifImageClass(char *name, int bits) : HtmlImageClass(name, bits)\n {\n }\n@@ -71,8 +71,8 @@\n \t\t\t\t\t\treturn(-1);\n \t\t\t\t\tPalette[i] = (unsigned char)c;\n \t\t\t\t}\n-\t\t\t\tfor (i = 0; i < 256; i++)\n-\t\t\t\t\tColors[i] = Build_Pixel(Surf, Palette[i * 3], Palette[i * 3 + 1], Palette[i * 3 + 2]);\n+\t\t\t\tBuild_Colors(Surf, Palette, Colors);\n+\n \n \t\t\t\tfor (;;) {\n \t\t\t\t\tc = Get_Byte();\n",
+      "changed": true,
+      "model": "gpt-6.1-terra high",
+      "classification": "cached_surface_diagnostic",
+      "output": {
+        "gained": [],
+        "lost": [],
+        "symbol_gained": [],
+        "symbol_lost": [],
+        "targets": {
+          "0x76D4A0": {
+            "symbol": "?Set_Data@HtmlGifImageClass@@UAEHPADH@Z",
+            "length": 1030,
+            "raw_sha256": "f62f31e409b0f9f3320384861185f6211d879bfda2b3d53f88c586299cb11b3a",
+            "masked_sha256": "f62f31e409b0f9f3320384861185f6211d879bfda2b3d53f88c586299cb11b3a",
+            "diagnostic_similarity": "similarity 0.44",
+            "exact": false
+          },
+          "0x76D990": {
+            "symbol": "?Decode@HtmlGifImageClass@@QAEFF@Z",
+            "length": 1145,
+            "raw_sha256": "180791f7c600a9359bfd2a5146b5aceda43e02e72c0c9daf7c0af8401526f124",
+            "masked_sha256": "180791f7c600a9359bfd2a5146b5aceda43e02e72c0c9daf7c0af8401526f124",
+            "diagnostic_similarity": "similarity 0.29",
+            "exact": false
+          },
+          "0x76DF60": {
+            "symbol": "?Get_Next_Code@HtmlGifImageClass@@QAEFXZ",
+            "length": 514,
+            "raw_sha256": "de48c4e2d48d2b98219ae55ab5d6c05c675042867750d51ffe332bd599758360",
+            "masked_sha256": "de48c4e2d48d2b98219ae55ab5d6c05c675042867750d51ffe332bd599758360",
+            "diagnostic_similarity": "similarity 0.82",
+            "exact": false
+          }
+        }
+      }
+    },
+    {
+      "name": "group_data_palette_bits",
+      "source_sha256": "9864e9806b6ce6a805d45af95fae84b5c9dc4b9b11938b3f399870fbdc93b1dd",
+      "patch": "--- app/client/html/image/gifload.cpp\n+++ app/client/html/image/gifload.cpp\n@@ -28,7 +28,7 @@\n \t}\n \treturn(pixel);\n }\n-\n+static inline void Build_Colors(HtmlGifImageClass *image) { for (int i = 0; i < 256; i++) image->Colors[i] = Build_Pixel(image->Surf, image->Palette[i * 3], image->Palette[i * 3 + 1], image->Palette[i * 3 + 2]); }\n HtmlGifImageClass::HtmlGifImageClass(char *name, int bits) : HtmlImageClass(name, bits)\n {\n }\n@@ -42,14 +42,14 @@\n int HtmlGifImageClass::Set_Data(char *data, int length)\n {\n \tunsigned char buffer[13];\n-\tint status = 0;\n+\n \tint i;\n \tint c;\n \n \tData = data;\n \tLength = length;\n \tPosition = 0;\n-\tmemset(Line, 0, sizeof(Line));\n+\tmemset(Line, 0, sizeof(Line)); int status = 0;\n \n \tfor (i = 0; i < 13; i++) {\n \t\tc = Get_Byte();\n@@ -59,55 +59,39 @@\n \t}\n \n \tif (strncmp((char *)buffer, \"GIF87a\", 3) == 0 && buffer[3] >= '0' && buffer[3] <= '9' && buffer[4] >= '0' && buffer[4] <= '9' && buffer[5] >= 'A' && buffer[5] <= 'z') {\n-\t\tWidth = (buffer[7] << 8) | buffer[6];\n+\t\tint palette_bits = (buffer[10] & 0x0F) + 1; Width = (buffer[7] << 8) | buffer[6];\n \t\tHeight = (buffer[9] << 8) | buffer[8];\n \t\tif (Width <= 0x800 && Height <= 0x800) {\n \t\t\tCreate_Surface(Width, Height);\n \t\t\tif (buffer[10] & 0x80) {\n-\t\t\t\tColorCount = 1 << ((buffer[10] & 0x0F) + 1);\n-\t\t\t\tfor (i = 0; i < ColorCount * 3; i++) {\n+\t\t\t\tColorCount = 1 << palette_bits;\n+\t\t\t\tint palette_bytes = ColorCount * 3; for (i = 0; i < palette_bytes; i++) {\n \t\t\t\t\tc = Get_Byte();\n \t\t\t\t\tif (c < 0)\n \t\t\t\t\t\treturn(-1);\n \t\t\t\t\tPalette[i] = (unsigned char)c;\n \t\t\t\t}\n-\t\t\t\tfor (i = 0; i < 256; i++)\n-\t\t\t\t\tColors[i] = Build_Pixel(Surf, Palette[i * 3], Palette[i * 3 + 1], Palette[i * 3 + 2]);\n+\t\t\t\tBuild_Colors(this);\n+\n \n \t\t\t\tfor (;;) {\n \t\t\t\t\tc = Get_Byte();\n-\t\t\t\t\tif (c < 0) {\n-\t\t\t\t\t\tstatus = -1;\n-\t\t\t\t\t\tbreak;\n-\t\t\t\t\t}\n-\n-\t\t\t\t\tif (c == '!') {\n-\t\t\t\t\t\tif (Get_Byte() == 0xF9) {\n-\t\t\t\t\t\t\tGet_Byte();\n-\t\t\t\t\t\t\tif (Get_Byte() & 1)\n-\t\t\t\t\t\t\t\tGet_Byte();\n-\t\t\t\t\t\t\tGet_Byte();\n-\t\t\t\t\t\t\tTransparent = Get_Byte();\n-\t\t\t\t\t\t\tGet_Byte();\n-\t\t\t\t\t\t} else {\n-\t\t\t\t\t\t\tint count;\n-\t\t\t\t\t\t\twhile ((count = Get_Byte()) > 0) {\n-\t\t\t\t\t\t\t\tdo {\n-\t\t\t\t\t\t\t\t\tGet_Byte();\n-\t\t\t\t\t\t\t\t} while (--count);\n-\t\t\t\t\t\t\t}\n-\t\t\t\t\t\t}\n-\t\t\t\t\t} else if (c == ',') {\n+\t\t\t\t\tif (c < 0) return(-1);\n+\n+\n+\n+\n+\t\t\t\t\tif (c != '!') { if (c == ',') {\n \t\t\t\t\t\tfor (i = 0; i < 9; i++) {\n \t\t\t\t\t\t\tc = Get_Byte();\n \t\t\t\t\t\t\tbuffer[i] = (unsigned char)c;\n \t\t\t\t\t\t\tif (c < 0)\n-\t\t\t\t\t\t\t\tbreak;\n+\t\t\t\t\t\t\t\treturn(-1);\n \t\t\t\t\t\t}\n-\t\t\t\t\t\tif (c < 0) {\n-\t\t\t\t\t\t\tstatus = -1;\n-\t\t\t\t\t\t\tbreak;\n-\t\t\t\t\t\t}\n+\n+\n+\n+\n \t\t\t\t\t\tif (status < 0)\n \t\t\t\t\t\t\tbreak;\n \t\t\t\t\t\tif ((buffer[8] & 0x80) == 0x80) {\n@@ -126,11 +110,27 @@\n \t\t\t\t\t\t\tbreak;\n \t\t\t\t\t\t}\n \t\t\t\t\t} else {\n-\t\t\t\t\t\tif (c == ';')\n-\t\t\t\t\t\t\tstatus = 0;\n-\t\t\t\t\t\telse\n+\t\t\t\t\t\tstatus = 0;\n+\t\t\t\t\t\tif (c != ';')\n \t\t\t\t\t\t\tstatus = -1;\n+\n \t\t\t\t\t\tbreak;\n+\t\t\t\t\t} } else {\n+\t\t\t\t\t\tif (Get_Byte() == 0xF9) {\n+\t\t\t\t\t\t\tGet_Byte();\n+\t\t\t\t\t\t\tif (Get_Byte() & 1)\n+\t\t\t\t\t\t\t\tGet_Byte();\n+\t\t\t\t\t\t\tGet_Byte();\n+\t\t\t\t\t\t\tTransparent = Get_Byte();\n+\t\t\t\t\t\t\tGet_Byte();\n+\t\t\t\t\t\t} else {\n+\t\t\t\t\t\t\tint count;\n+\t\t\t\t\t\t\twhile ((count = Get_Byte()) > 0) {\n+\t\t\t\t\t\t\t\tdo {\n+\t\t\t\t\t\t\t\t\tGet_Byte();\n+\t\t\t\t\t\t\t\t} while (--count);\n+\t\t\t\t\t\t\t}\n+\t\t\t\t\t\t}\n \t\t\t\t\t}\n \t\t\t\t}\n \t\t\t\treturn(status);\n",
+      "changed": true,
+      "model": "gpt-6.1-terra high",
+      "classification": "changed_form",
+      "output": {
+        "gained": [],
+        "lost": [],
+        "symbol_gained": [],
+        "symbol_lost": [],
+        "targets": {
+          "0x76D4A0": {
+            "symbol": "?Set_Data@HtmlGifImageClass@@UAEHPADH@Z",
+            "length": 1004,
+            "raw_sha256": "bd823ee7bf8fb7fa6becc2ed8aea4220de8ec4c85a43758efa632892c73cea70",
+            "masked_sha256": "bd823ee7bf8fb7fa6becc2ed8aea4220de8ec4c85a43758efa632892c73cea70",
+            "diagnostic_similarity": "similarity 0.71",
+            "exact": false
+          },
+          "0x76D990": {
+            "symbol": "?Decode@HtmlGifImageClass@@QAEFF@Z",
+            "length": 1145,
+            "raw_sha256": "180791f7c600a9359bfd2a5146b5aceda43e02e72c0c9daf7c0af8401526f124",
+            "masked_sha256": "180791f7c600a9359bfd2a5146b5aceda43e02e72c0c9daf7c0af8401526f124",
+            "diagnostic_similarity": "similarity 0.29",
+            "exact": false
+          },
+          "0x76DF60": {
+            "symbol": "?Get_Next_Code@HtmlGifImageClass@@QAEFXZ",
+            "length": 514,
+            "raw_sha256": "de48c4e2d48d2b98219ae55ab5d6c05c675042867750d51ffe332bd599758360",
+            "masked_sha256": "de48c4e2d48d2b98219ae55ab5d6c05c675042867750d51ffe332bd599758360",
+            "diagnostic_similarity": "similarity 0.82",
+            "exact": false
+          }
+        }
+      }
+    },
+    {
+      "name": "group_data_precheck",
+      "source_sha256": "890d1a5a3d9e9110a804c9d43050c6ec28b7a3cb50c9bcbbbc6adec39a619f26",
+      "patch": "--- app/client/html/image/gifload.cpp\n+++ app/client/html/image/gifload.cpp\n@@ -28,7 +28,7 @@\n \t}\n \treturn(pixel);\n }\n-\n+static inline void Build_Colors(HtmlGifImageClass *image) { for (int i = 0; i < 256; i++) image->Colors[i] = Build_Pixel(image->Surf, image->Palette[i * 3], image->Palette[i * 3 + 1], image->Palette[i * 3 + 2]); }\n HtmlGifImageClass::HtmlGifImageClass(char *name, int bits) : HtmlImageClass(name, bits)\n {\n }\n@@ -42,14 +42,14 @@\n int HtmlGifImageClass::Set_Data(char *data, int length)\n {\n \tunsigned char buffer[13];\n-\tint status = 0;\n+\n \tint i;\n \tint c;\n \n \tData = data;\n \tLength = length;\n \tPosition = 0;\n-\tmemset(Line, 0, sizeof(Line));\n+\tmemset(Line, 0, sizeof(Line)); int status = 0;\n \n \tfor (i = 0; i < 13; i++) {\n \t\tc = Get_Byte();\n@@ -60,54 +60,38 @@\n \n \tif (strncmp((char *)buffer, \"GIF87a\", 3) == 0 && buffer[3] >= '0' && buffer[3] <= '9' && buffer[4] >= '0' && buffer[4] <= '9' && buffer[5] >= 'A' && buffer[5] <= 'z') {\n \t\tWidth = (buffer[7] << 8) | buffer[6];\n-\t\tHeight = (buffer[9] << 8) | buffer[8];\n+\t\tHeight = (buffer[9] << 8) | buffer[8]; int palette_bits = (buffer[10] & 0x0F) + 1;\n \t\tif (Width <= 0x800 && Height <= 0x800) {\n \t\t\tCreate_Surface(Width, Height);\n \t\t\tif (buffer[10] & 0x80) {\n-\t\t\t\tColorCount = 1 << ((buffer[10] & 0x0F) + 1);\n-\t\t\t\tfor (i = 0; i < ColorCount * 3; i++) {\n+\t\t\t\tColorCount = 1 << palette_bits;\n+\t\t\t\tint palette_bytes = ColorCount * 3; for (i = 0; i < palette_bytes; i++) {\n \t\t\t\t\tc = Get_Byte();\n \t\t\t\t\tif (c < 0)\n \t\t\t\t\t\treturn(-1);\n \t\t\t\t\tPalette[i] = (unsigned char)c;\n \t\t\t\t}\n-\t\t\t\tfor (i = 0; i < 256; i++)\n-\t\t\t\t\tColors[i] = Build_Pixel(Surf, Palette[i * 3], Palette[i * 3 + 1], Palette[i * 3 + 2]);\n+\t\t\t\tBuild_Colors(this);\n+\n \n \t\t\t\tfor (;;) {\n+\t\t\t\t\tif (Position >= Length) return(-1);\n \t\t\t\t\tc = Get_Byte();\n-\t\t\t\t\tif (c < 0) {\n-\t\t\t\t\t\tstatus = -1;\n-\t\t\t\t\t\tbreak;\n-\t\t\t\t\t}\n-\n-\t\t\t\t\tif (c == '!') {\n-\t\t\t\t\t\tif (Get_Byte() == 0xF9) {\n-\t\t\t\t\t\t\tGet_Byte();\n-\t\t\t\t\t\t\tif (Get_Byte() & 1)\n-\t\t\t\t\t\t\t\tGet_Byte();\n-\t\t\t\t\t\t\tGet_Byte();\n-\t\t\t\t\t\t\tTransparent = Get_Byte();\n-\t\t\t\t\t\t\tGet_Byte();\n-\t\t\t\t\t\t} else {\n-\t\t\t\t\t\t\tint count;\n-\t\t\t\t\t\t\twhile ((count = Get_Byte()) > 0) {\n-\t\t\t\t\t\t\t\tdo {\n-\t\t\t\t\t\t\t\t\tGet_Byte();\n-\t\t\t\t\t\t\t\t} while (--count);\n-\t\t\t\t\t\t\t}\n-\t\t\t\t\t\t}\n-\t\t\t\t\t} else if (c == ',') {\n+\n+\n+\n+\n+\t\t\t\t\tif (c != '!') { if (c == ',') {\n \t\t\t\t\t\tfor (i = 0; i < 9; i++) {\n \t\t\t\t\t\t\tc = Get_Byte();\n \t\t\t\t\t\t\tbuffer[i] = (unsigned char)c;\n \t\t\t\t\t\t\tif (c < 0)\n-\t\t\t\t\t\t\t\tbreak;\n+\t\t\t\t\t\t\t\treturn(-1);\n \t\t\t\t\t\t}\n-\t\t\t\t\t\tif (c < 0) {\n-\t\t\t\t\t\t\tstatus = -1;\n-\t\t\t\t\t\t\tbreak;\n-\t\t\t\t\t\t}\n+\n+\n+\n+\n \t\t\t\t\t\tif (status < 0)\n \t\t\t\t\t\t\tbreak;\n \t\t\t\t\t\tif ((buffer[8] & 0x80) == 0x80) {\n@@ -126,11 +110,27 @@\n \t\t\t\t\t\t\tbreak;\n \t\t\t\t\t\t}\n \t\t\t\t\t} else {\n-\t\t\t\t\t\tif (c == ';')\n-\t\t\t\t\t\t\tstatus = 0;\n-\t\t\t\t\t\telse\n+\t\t\t\t\t\tstatus = 0;\n+\t\t\t\t\t\tif (c != ';')\n \t\t\t\t\t\t\tstatus = -1;\n+\n \t\t\t\t\t\tbreak;\n+\t\t\t\t\t} } else {\n+\t\t\t\t\t\tif (Get_Byte() == 0xF9) {\n+\t\t\t\t\t\t\tGet_Byte();\n+\t\t\t\t\t\t\tif (Get_Byte() & 1)\n+\t\t\t\t\t\t\t\tGet_Byte();\n+\t\t\t\t\t\t\tGet_Byte();\n+\t\t\t\t\t\t\tTransparent = Get_Byte();\n+\t\t\t\t\t\t\tGet_Byte();\n+\t\t\t\t\t\t} else {\n+\t\t\t\t\t\t\tint count;\n+\t\t\t\t\t\t\twhile ((count = Get_Byte()) > 0) {\n+\t\t\t\t\t\t\t\tdo {\n+\t\t\t\t\t\t\t\t\tGet_Byte();\n+\t\t\t\t\t\t\t\t} while (--count);\n+\t\t\t\t\t\t\t}\n+\t\t\t\t\t\t}\n \t\t\t\t\t}\n \t\t\t\t}\n \t\t\t\treturn(status);\n",
+      "changed": true,
+      "model": "gpt-6.1-terra high",
+      "classification": "changed_form",
+      "output": {
+        "gained": [],
+        "lost": [],
+        "symbol_gained": [],
+        "symbol_lost": [],
+        "targets": {
+          "0x76D4A0": {
+            "symbol": "?Set_Data@HtmlGifImageClass@@UAEHPADH@Z",
+            "length": 1026,
+            "raw_sha256": "e50363d16d549a1ebd8727bd1b83741bba2527f822ded91f7e1e32c37f7cd971",
+            "masked_sha256": "e50363d16d549a1ebd8727bd1b83741bba2527f822ded91f7e1e32c37f7cd971",
+            "diagnostic_similarity": "similarity 0.75",
+            "exact": false
+          },
+          "0x76D990": {
+            "symbol": "?Decode@HtmlGifImageClass@@QAEFF@Z",
+            "length": 1145,
+            "raw_sha256": "180791f7c600a9359bfd2a5146b5aceda43e02e72c0c9daf7c0af8401526f124",
+            "masked_sha256": "180791f7c600a9359bfd2a5146b5aceda43e02e72c0c9daf7c0af8401526f124",
+            "diagnostic_similarity": "similarity 0.29",
+            "exact": false
+          },
+          "0x76DF60": {
+            "symbol": "?Get_Next_Code@HtmlGifImageClass@@QAEFXZ",
+            "length": 514,
+            "raw_sha256": "de48c4e2d48d2b98219ae55ab5d6c05c675042867750d51ffe332bd599758360",
+            "masked_sha256": "de48c4e2d48d2b98219ae55ab5d6c05c675042867750d51ffe332bd599758360",
+            "diagnostic_similarity": "similarity 0.82",
+            "exact": false
+          }
+        }
+      }
+    },
+    {
+      "name": "group_data_status_after_clear",
+      "source_sha256": "350bb1e7481121abfdad261984f08c0388312cf7fa510f8641777c70c443110c",
+      "patch": "--- app/client/html/image/gifload.cpp\n+++ app/client/html/image/gifload.cpp\n@@ -28,7 +28,7 @@\n \t}\n \treturn(pixel);\n }\n-\n+static inline void Build_Colors(HtmlGifImageClass *image) { for (int i = 0; i < 256; i++) image->Colors[i] = Build_Pixel(image->Surf, image->Palette[i * 3], image->Palette[i * 3 + 1], image->Palette[i * 3 + 2]); }\n HtmlGifImageClass::HtmlGifImageClass(char *name, int bits) : HtmlImageClass(name, bits)\n {\n }\n@@ -42,14 +42,14 @@\n int HtmlGifImageClass::Set_Data(char *data, int length)\n {\n \tunsigned char buffer[13];\n-\tint status = 0;\n+\n \tint i;\n \tint c;\n \n \tData = data;\n \tLength = length;\n \tPosition = 0;\n-\tmemset(Line, 0, sizeof(Line));\n+\tmemset(Line, 0, sizeof(Line)); int status = 0;\n \n \tfor (i = 0; i < 13; i++) {\n \t\tc = Get_Byte();\n@@ -65,14 +65,14 @@\n \t\t\tCreate_Surface(Width, Height);\n \t\t\tif (buffer[10] & 0x80) {\n \t\t\t\tColorCount = 1 << ((buffer[10] & 0x0F) + 1);\n-\t\t\t\tfor (i = 0; i < ColorCount * 3; i++) {\n+\t\t\t\tint palette_bytes = ColorCount * 3; for (i = 0; i < palette_bytes; i++) {\n \t\t\t\t\tc = Get_Byte();\n \t\t\t\t\tif (c < 0)\n \t\t\t\t\t\treturn(-1);\n \t\t\t\t\tPalette[i] = (unsigned char)c;\n \t\t\t\t}\n-\t\t\t\tfor (i = 0; i < 256; i++)\n-\t\t\t\t\tColors[i] = Build_Pixel(Surf, Palette[i * 3], Palette[i * 3 + 1], Palette[i * 3 + 2]);\n+\t\t\t\tBuild_Colors(this);\n+\n \n \t\t\t\tfor (;;) {\n \t\t\t\t\tc = Get_Byte();\n@@ -81,23 +81,7 @@\n \t\t\t\t\t\tbreak;\n \t\t\t\t\t}\n \n-\t\t\t\t\tif (c == '!') {\n-\t\t\t\t\t\tif (Get_Byte() == 0xF9) {\n-\t\t\t\t\t\t\tGet_Byte();\n-\t\t\t\t\t\t\tif (Get_Byte() & 1)\n-\t\t\t\t\t\t\t\tGet_Byte();\n-\t\t\t\t\t\t\tGet_Byte();\n-\t\t\t\t\t\t\tTransparent = Get_Byte();\n-\t\t\t\t\t\t\tGet_Byte();\n-\t\t\t\t\t\t} else {\n-\t\t\t\t\t\t\tint count;\n-\t\t\t\t\t\t\twhile ((count = Get_Byte()) > 0) {\n-\t\t\t\t\t\t\t\tdo {\n-\t\t\t\t\t\t\t\t\tGet_Byte();\n-\t\t\t\t\t\t\t\t} while (--count);\n-\t\t\t\t\t\t\t}\n-\t\t\t\t\t\t}\n-\t\t\t\t\t} else if (c == ',') {\n+\t\t\t\t\tif (c == ',') {\n \t\t\t\t\t\tfor (i = 0; i < 9; i++) {\n \t\t\t\t\t\t\tc = Get_Byte();\n \t\t\t\t\t\t\tbuffer[i] = (unsigned char)c;\n@@ -125,6 +109,22 @@\n \t\t\t\t\t\t\tstatus = -1;\n \t\t\t\t\t\t\tbreak;\n \t\t\t\t\t\t}\n+\t\t\t\t\t} else if (c == '!') {\n+\t\t\t\t\t\tif (Get_Byte() == 0xF9) {\n+\t\t\t\t\t\t\tGet_Byte();\n+\t\t\t\t\t\t\tif (Get_Byte() & 1)\n+\t\t\t\t\t\t\t\tGet_Byte();\n+\t\t\t\t\t\t\tGet_Byte();\n+\t\t\t\t\t\t\tTransparent = Get_Byte();\n+\t\t\t\t\t\t\tGet_Byte();\n+\t\t\t\t\t\t} else {\n+\t\t\t\t\t\t\tint count;\n+\t\t\t\t\t\t\twhile ((count = Get_Byte()) > 0) {\n+\t\t\t\t\t\t\t\tdo {\n+\t\t\t\t\t\t\t\t\tGet_Byte();\n+\t\t\t\t\t\t\t\t} while (--count);\n+\t\t\t\t\t\t\t}\n+\t\t\t\t\t\t}\n \t\t\t\t\t} else {\n \t\t\t\t\t\tif (c == ';')\n \t\t\t\t\t\t\tstatus = 0;\n",
+      "changed": true,
+      "model": "gpt-6.1-terra high",
+      "classification": "changed_form",
+      "output": {
+        "gained": [],
+        "lost": [],
+        "symbol_gained": [],
+        "symbol_lost": [],
+        "targets": {
+          "0x76D4A0": {
+            "symbol": "?Set_Data@HtmlGifImageClass@@UAEHPADH@Z",
+            "length": 1022,
+            "raw_sha256": "584c0a6920b4e85542bd80a2f215d737155cde64ab69649f4eefdc3a2464985f",
+            "masked_sha256": "584c0a6920b4e85542bd80a2f215d737155cde64ab69649f4eefdc3a2464985f",
+            "diagnostic_similarity": "similarity 0.67",
+            "exact": false
+          },
+          "0x76D990": {
+            "symbol": "?Decode@HtmlGifImageClass@@QAEFF@Z",
+            "length": 1145,
+            "raw_sha256": "180791f7c600a9359bfd2a5146b5aceda43e02e72c0c9daf7c0af8401526f124",
+            "masked_sha256": "180791f7c600a9359bfd2a5146b5aceda43e02e72c0c9daf7c0af8401526f124",
+            "diagnostic_similarity": "similarity 0.29",
+            "exact": false
+          },
+          "0x76DF60": {
+            "symbol": "?Get_Next_Code@HtmlGifImageClass@@QAEFXZ",
+            "length": 514,
+            "raw_sha256": "de48c4e2d48d2b98219ae55ab5d6c05c675042867750d51ffe332bd599758360",
+            "masked_sha256": "de48c4e2d48d2b98219ae55ab5d6c05c675042867750d51ffe332bd599758360",
+            "diagnostic_similarity": "similarity 0.82",
+            "exact": false
+          }
+        }
+      }
+    },
+    {
+      "name": "group_data_status_after_data",
+      "source_sha256": "1a44ba24e44e0761dc5180b5453c3da461d58e04eb3fba1d47a5b3a56aa6e5b6",
+      "patch": "--- app/client/html/image/gifload.cpp\n+++ app/client/html/image/gifload.cpp\n@@ -28,7 +28,7 @@\n \t}\n \treturn(pixel);\n }\n-\n+static inline void Build_Colors(HtmlGifImageClass *image) { for (int i = 0; i < 256; i++) image->Colors[i] = Build_Pixel(image->Surf, image->Palette[i * 3], image->Palette[i * 3 + 1], image->Palette[i * 3 + 2]); }\n HtmlGifImageClass::HtmlGifImageClass(char *name, int bits) : HtmlImageClass(name, bits)\n {\n }\n@@ -42,12 +42,12 @@\n int HtmlGifImageClass::Set_Data(char *data, int length)\n {\n \tunsigned char buffer[13];\n-\tint status = 0;\n+\n \tint i;\n \tint c;\n \n \tData = data;\n-\tLength = length;\n+\tLength = length; int status = 0;\n \tPosition = 0;\n \tmemset(Line, 0, sizeof(Line));\n \n@@ -65,14 +65,14 @@\n \t\t\tCreate_Surface(Width, Height);\n \t\t\tif (buffer[10] & 0x80) {\n \t\t\t\tColorCount = 1 << ((buffer[10] & 0x0F) + 1);\n-\t\t\t\tfor (i = 0; i < ColorCount * 3; i++) {\n+\t\t\t\tint palette_bytes = ColorCount * 3; for (i = 0; i < palette_bytes; i++) {\n \t\t\t\t\tc = Get_Byte();\n \t\t\t\t\tif (c < 0)\n \t\t\t\t\t\treturn(-1);\n \t\t\t\t\tPalette[i] = (unsigned char)c;\n \t\t\t\t}\n-\t\t\t\tfor (i = 0; i < 256; i++)\n-\t\t\t\t\tColors[i] = Build_Pixel(Surf, Palette[i * 3], Palette[i * 3 + 1], Palette[i * 3 + 2]);\n+\t\t\t\tBuild_Colors(this);\n+\n \n \t\t\t\tfor (;;) {\n \t\t\t\t\tc = Get_Byte();\n@@ -81,23 +81,7 @@\n \t\t\t\t\t\tbreak;\n \t\t\t\t\t}\n \n-\t\t\t\t\tif (c == '!') {\n-\t\t\t\t\t\tif (Get_Byte() == 0xF9) {\n-\t\t\t\t\t\t\tGet_Byte();\n-\t\t\t\t\t\t\tif (Get_Byte() & 1)\n-\t\t\t\t\t\t\t\tGet_Byte();\n-\t\t\t\t\t\t\tGet_Byte();\n-\t\t\t\t\t\t\tTransparent = Get_Byte();\n-\t\t\t\t\t\t\tGet_Byte();\n-\t\t\t\t\t\t} else {\n-\t\t\t\t\t\t\tint count;\n-\t\t\t\t\t\t\twhile ((count = Get_Byte()) > 0) {\n-\t\t\t\t\t\t\t\tdo {\n-\t\t\t\t\t\t\t\t\tGet_Byte();\n-\t\t\t\t\t\t\t\t} while (--count);\n-\t\t\t\t\t\t\t}\n-\t\t\t\t\t\t}\n-\t\t\t\t\t} else if (c == ',') {\n+\t\t\t\t\tif (c == ',') {\n \t\t\t\t\t\tfor (i = 0; i < 9; i++) {\n \t\t\t\t\t\t\tc = Get_Byte();\n \t\t\t\t\t\t\tbuffer[i] = (unsigned char)c;\n@@ -125,6 +109,22 @@\n \t\t\t\t\t\t\tstatus = -1;\n \t\t\t\t\t\t\tbreak;\n \t\t\t\t\t\t}\n+\t\t\t\t\t} else if (c == '!') {\n+\t\t\t\t\t\tif (Get_Byte() == 0xF9) {\n+\t\t\t\t\t\t\tGet_Byte();\n+\t\t\t\t\t\t\tif (Get_Byte() & 1)\n+\t\t\t\t\t\t\t\tGet_Byte();\n+\t\t\t\t\t\t\tGet_Byte();\n+\t\t\t\t\t\t\tTransparent = Get_Byte();\n+\t\t\t\t\t\t\tGet_Byte();\n+\t\t\t\t\t\t} else {\n+\t\t\t\t\t\t\tint count;\n+\t\t\t\t\t\t\twhile ((count = Get_Byte()) > 0) {\n+\t\t\t\t\t\t\t\tdo {\n+\t\t\t\t\t\t\t\t\tGet_Byte();\n+\t\t\t\t\t\t\t\t} while (--count);\n+\t\t\t\t\t\t\t}\n+\t\t\t\t\t\t}\n \t\t\t\t\t} else {\n \t\t\t\t\t\tif (c == ';')\n \t\t\t\t\t\t\tstatus = 0;\n",
+      "changed": true,
+      "model": "gpt-6.1-terra high",
+      "classification": "changed_form",
+      "output": {
+        "gained": [],
+        "lost": [],
+        "symbol_gained": [],
+        "symbol_lost": [],
+        "targets": {
+          "0x76D4A0": {
+            "symbol": "?Set_Data@HtmlGifImageClass@@UAEHPADH@Z",
+            "length": 1022,
+            "raw_sha256": "584c0a6920b4e85542bd80a2f215d737155cde64ab69649f4eefdc3a2464985f",
+            "masked_sha256": "584c0a6920b4e85542bd80a2f215d737155cde64ab69649f4eefdc3a2464985f",
+            "diagnostic_similarity": "similarity 0.67",
+            "exact": false
+          },
+          "0x76D990": {
+            "symbol": "?Decode@HtmlGifImageClass@@QAEFF@Z",
+            "length": 1145,
+            "raw_sha256": "180791f7c600a9359bfd2a5146b5aceda43e02e72c0c9daf7c0af8401526f124",
+            "masked_sha256": "180791f7c600a9359bfd2a5146b5aceda43e02e72c0c9daf7c0af8401526f124",
+            "diagnostic_similarity": "similarity 0.29",
+            "exact": false
+          },
+          "0x76DF60": {
+            "symbol": "?Get_Next_Code@HtmlGifImageClass@@QAEFXZ",
+            "length": 514,
+            "raw_sha256": "de48c4e2d48d2b98219ae55ab5d6c05c675042867750d51ffe332bd599758360",
+            "masked_sha256": "de48c4e2d48d2b98219ae55ab5d6c05c675042867750d51ffe332bd599758360",
+            "diagnostic_similarity": "similarity 0.82",
+            "exact": false
+          }
+        }
+      }
+    },
+    {
+      "name": "group_data_status_length",
+      "source_sha256": "c07a43197dea1c6b86248340dd43e397ec77d7688b5f1490fe5a7044c0b4e436",
+      "patch": "--- app/client/html/image/gifload.cpp\n+++ app/client/html/image/gifload.cpp\n@@ -28,7 +28,7 @@\n \t}\n \treturn(pixel);\n }\n-\n+static inline void Build_Colors(HtmlGifImageClass *image) { for (int i = 0; i < 256; i++) image->Colors[i] = Build_Pixel(image->Surf, image->Palette[i * 3], image->Palette[i * 3 + 1], image->Palette[i * 3 + 2]); }\n HtmlGifImageClass::HtmlGifImageClass(char *name, int bits) : HtmlImageClass(name, bits)\n {\n }\n@@ -42,12 +42,12 @@\n int HtmlGifImageClass::Set_Data(char *data, int length)\n {\n \tunsigned char buffer[13];\n-\tint status = 0;\n+\n \tint i;\n \tint c;\n \n \tData = data;\n-\tLength = length;\n+\tLength = length; length = 0;\n \tPosition = 0;\n \tmemset(Line, 0, sizeof(Line));\n \n@@ -65,19 +65,19 @@\n \t\t\tCreate_Surface(Width, Height);\n \t\t\tif (buffer[10] & 0x80) {\n \t\t\t\tColorCount = 1 << ((buffer[10] & 0x0F) + 1);\n-\t\t\t\tfor (i = 0; i < ColorCount * 3; i++) {\n+\t\t\t\tint palette_bytes = ColorCount * 3; for (i = 0; i < palette_bytes; i++) {\n \t\t\t\t\tc = Get_Byte();\n \t\t\t\t\tif (c < 0)\n \t\t\t\t\t\treturn(-1);\n \t\t\t\t\tPalette[i] = (unsigned char)c;\n \t\t\t\t}\n-\t\t\t\tfor (i = 0; i < 256; i++)\n-\t\t\t\t\tColors[i] = Build_Pixel(Surf, Palette[i * 3], Palette[i * 3 + 1], Palette[i * 3 + 2]);\n+\t\t\t\tBuild_Colors(this);\n+\n \n \t\t\t\tfor (;;) {\n \t\t\t\t\tc = Get_Byte();\n \t\t\t\t\tif (c < 0) {\n-\t\t\t\t\t\tstatus = -1;\n+\t\t\t\t\t\tlength = -1;\n \t\t\t\t\t\tbreak;\n \t\t\t\t\t}\n \n@@ -105,10 +105,10 @@\n \t\t\t\t\t\t\t\tbreak;\n \t\t\t\t\t\t}\n \t\t\t\t\t\tif (c < 0) {\n-\t\t\t\t\t\t\tstatus = -1;\n+\t\t\t\t\t\t\tlength = -1;\n \t\t\t\t\t\t\tbreak;\n \t\t\t\t\t\t}\n-\t\t\t\t\t\tif (status < 0)\n+\t\t\t\t\t\tif (length < 0)\n \t\t\t\t\t\t\tbreak;\n \t\t\t\t\t\tif ((buffer[8] & 0x80) == 0x80) {\n \t\t\t\t\t\t\tint count = 1 << ((buffer[8] & 0x0F) + 1);\n@@ -120,20 +120,20 @@\n \t\t\t\t\t\t\t}\n \t\t\t\t\t\t}\n \t\t\t\t\t\tmemset(Line, 0, sizeof(Line));\n-\t\t\t\t\t\tstatus = Decode((short)Width);\n+\t\t\t\t\t\tlength = Decode((short)Width);\n \t\t\t\t\t\tif (Get_Byte() != 0) {\n-\t\t\t\t\t\t\tstatus = -1;\n+\t\t\t\t\t\t\tlength = -1;\n \t\t\t\t\t\t\tbreak;\n \t\t\t\t\t\t}\n \t\t\t\t\t} else {\n \t\t\t\t\t\tif (c == ';')\n-\t\t\t\t\t\t\tstatus = 0;\n+\t\t\t\t\t\t\tlength = 0;\n \t\t\t\t\t\telse\n-\t\t\t\t\t\t\tstatus = -1;\n+\t\t\t\t\t\t\tlength = -1;\n \t\t\t\t\t\tbreak;\n \t\t\t\t\t}\n \t\t\t\t}\n-\t\t\t\treturn(status);\n+\t\t\t\treturn(length);\n \t\t\t}\n \t\t}\n \t}\n",
+      "changed": true,
+      "model": "gpt-6.1-terra high",
+      "classification": "changed_form",
+      "output": {
+        "gained": [],
+        "lost": [],
+        "symbol_gained": [],
+        "symbol_lost": [],
+        "targets": {
+          "0x76D4A0": {
+            "symbol": "?Set_Data@HtmlGifImageClass@@UAEHPADH@Z",
+            "length": 1013,
+            "raw_sha256": "e2013c843c170091c2ef4cc3bd015abfa56f1145a893c076e008374d468d1ef6",
+            "masked_sha256": "e2013c843c170091c2ef4cc3bd015abfa56f1145a893c076e008374d468d1ef6",
+            "diagnostic_similarity": "similarity 0.53",
+            "exact": false
+          },
+          "0x76D990": {
+            "symbol": "?Decode@HtmlGifImageClass@@QAEFF@Z",
+            "length": 1145,
+            "raw_sha256": "180791f7c600a9359bfd2a5146b5aceda43e02e72c0c9daf7c0af8401526f124",
+            "masked_sha256": "180791f7c600a9359bfd2a5146b5aceda43e02e72c0c9daf7c0af8401526f124",
+            "diagnostic_similarity": "similarity 0.29",
+            "exact": false
+          },
+          "0x76DF60": {
+            "symbol": "?Get_Next_Code@HtmlGifImageClass@@QAEFXZ",
+            "length": 514,
+            "raw_sha256": "de48c4e2d48d2b98219ae55ab5d6c05c675042867750d51ffe332bd599758360",
+            "masked_sha256": "de48c4e2d48d2b98219ae55ab5d6c05c675042867750d51ffe332bd599758360",
+            "diagnostic_similarity": "similarity 0.82",
+            "exact": false
+          }
+        }
+      }
+    },
+    {
+      "name": "group_data_top_eq_minus1",
+      "source_sha256": "f815bf52c5c819c509b75b269bcea841b365cb704766e7533af76e9e8901d382",
+      "patch": "--- app/client/html/image/gifload.cpp\n+++ app/client/html/image/gifload.cpp\n@@ -28,7 +28,7 @@\n \t}\n \treturn(pixel);\n }\n-\n+static inline void Build_Colors(HtmlGifImageClass *image) { for (int i = 0; i < 256; i++) image->Colors[i] = Build_Pixel(image->Surf, image->Palette[i * 3], image->Palette[i * 3 + 1], image->Palette[i * 3 + 2]); }\n HtmlGifImageClass::HtmlGifImageClass(char *name, int bits) : HtmlImageClass(name, bits)\n {\n }\n@@ -42,14 +42,14 @@\n int HtmlGifImageClass::Set_Data(char *data, int length)\n {\n \tunsigned char buffer[13];\n-\tint status = 0;\n+\n \tint i;\n \tint c;\n \n \tData = data;\n \tLength = length;\n \tPosition = 0;\n-\tmemset(Line, 0, sizeof(Line));\n+\tmemset(Line, 0, sizeof(Line)); int status = 0;\n \n \tfor (i = 0; i < 13; i++) {\n \t\tc = Get_Byte();\n@@ -60,54 +60,38 @@\n \n \tif (strncmp((char *)buffer, \"GIF87a\", 3) == 0 && buffer[3] >= '0' && buffer[3] <= '9' && buffer[4] >= '0' && buffer[4] <= '9' && buffer[5] >= 'A' && buffer[5] <= 'z') {\n \t\tWidth = (buffer[7] << 8) | buffer[6];\n-\t\tHeight = (buffer[9] << 8) | buffer[8];\n+\t\tHeight = (buffer[9] << 8) | buffer[8]; int palette_bits = (buffer[10] & 0x0F) + 1;\n \t\tif (Width <= 0x800 && Height <= 0x800) {\n \t\t\tCreate_Surface(Width, Height);\n \t\t\tif (buffer[10] & 0x80) {\n-\t\t\t\tColorCount = 1 << ((buffer[10] & 0x0F) + 1);\n-\t\t\t\tfor (i = 0; i < ColorCount * 3; i++) {\n+\t\t\t\tColorCount = 1 << palette_bits;\n+\t\t\t\tint palette_bytes = ColorCount * 3; for (i = 0; i < palette_bytes; i++) {\n \t\t\t\t\tc = Get_Byte();\n \t\t\t\t\tif (c < 0)\n \t\t\t\t\t\treturn(-1);\n \t\t\t\t\tPalette[i] = (unsigned char)c;\n \t\t\t\t}\n-\t\t\t\tfor (i = 0; i < 256; i++)\n-\t\t\t\t\tColors[i] = Build_Pixel(Surf, Palette[i * 3], Palette[i * 3 + 1], Palette[i * 3 + 2]);\n+\t\t\t\tBuild_Colors(this);\n+\n \n \t\t\t\tfor (;;) {\n-\t\t\t\t\tc = Get_Byte();\n-\t\t\t\t\tif (c < 0) {\n-\t\t\t\t\t\tstatus = -1;\n-\t\t\t\t\t\tbreak;\n-\t\t\t\t\t}\n-\n-\t\t\t\t\tif (c == '!') {\n-\t\t\t\t\t\tif (Get_Byte() == 0xF9) {\n-\t\t\t\t\t\t\tGet_Byte();\n-\t\t\t\t\t\t\tif (Get_Byte() & 1)\n-\t\t\t\t\t\t\t\tGet_Byte();\n-\t\t\t\t\t\t\tGet_Byte();\n-\t\t\t\t\t\t\tTransparent = Get_Byte();\n-\t\t\t\t\t\t\tGet_Byte();\n-\t\t\t\t\t\t} else {\n-\t\t\t\t\t\t\tint count;\n-\t\t\t\t\t\t\twhile ((count = Get_Byte()) > 0) {\n-\t\t\t\t\t\t\t\tdo {\n-\t\t\t\t\t\t\t\t\tGet_Byte();\n-\t\t\t\t\t\t\t\t} while (--count);\n-\t\t\t\t\t\t\t}\n-\t\t\t\t\t\t}\n-\t\t\t\t\t} else if (c == ',') {\n+\t\t\t\t\tif ((c = Get_Byte()) == -1) return(-1);\n+\n+\n+\n+\n+\n+\t\t\t\t\tif (c != '!') { if (c == ',') {\n \t\t\t\t\t\tfor (i = 0; i < 9; i++) {\n \t\t\t\t\t\t\tc = Get_Byte();\n \t\t\t\t\t\t\tbuffer[i] = (unsigned char)c;\n \t\t\t\t\t\t\tif (c < 0)\n-\t\t\t\t\t\t\t\tbreak;\n+\t\t\t\t\t\t\t\treturn(-1);\n \t\t\t\t\t\t}\n-\t\t\t\t\t\tif (c < 0) {\n-\t\t\t\t\t\t\tstatus = -1;\n-\t\t\t\t\t\t\tbreak;\n-\t\t\t\t\t\t}\n+\n+\n+\n+\n \t\t\t\t\t\tif (status < 0)\n \t\t\t\t\t\t\tbreak;\n \t\t\t\t\t\tif ((buffer[8] & 0x80) == 0x80) {\n@@ -126,11 +110,27 @@\n \t\t\t\t\t\t\tbreak;\n \t\t\t\t\t\t}\n \t\t\t\t\t} else {\n-\t\t\t\t\t\tif (c == ';')\n-\t\t\t\t\t\t\tstatus = 0;\n-\t\t\t\t\t\telse\n+\t\t\t\t\t\tstatus = 0;\n+\t\t\t\t\t\tif (c != ';')\n \t\t\t\t\t\t\tstatus = -1;\n+\n \t\t\t\t\t\tbreak;\n+\t\t\t\t\t} } else {\n+\t\t\t\t\t\tif (Get_Byte() == 0xF9) {\n+\t\t\t\t\t\t\tGet_Byte();\n+\t\t\t\t\t\t\tif (Get_Byte() & 1)\n+\t\t\t\t\t\t\t\tGet_Byte();\n+\t\t\t\t\t\t\tGet_Byte();\n+\t\t\t\t\t\t\tTransparent = Get_Byte();\n+\t\t\t\t\t\t\tGet_Byte();\n+\t\t\t\t\t\t} else {\n+\t\t\t\t\t\t\tint count;\n+\t\t\t\t\t\t\twhile ((count = Get_Byte()) > 0) {\n+\t\t\t\t\t\t\t\tdo {\n+\t\t\t\t\t\t\t\t\tGet_Byte();\n+\t\t\t\t\t\t\t\t} while (--count);\n+\t\t\t\t\t\t\t}\n+\t\t\t\t\t\t}\n \t\t\t\t\t}\n \t\t\t\t}\n \t\t\t\treturn(status);\n",
+      "changed": true,
+      "model": "gpt-6.1-terra high",
+      "classification": "changed_form",
+      "output": {
+        "gained": [],
+        "lost": [],
+        "symbol_gained": [],
+        "symbol_lost": [],
+        "targets": {
+          "0x76D4A0": {
+            "symbol": "?Set_Data@HtmlGifImageClass@@UAEHPADH@Z",
+            "length": 1007,
+            "raw_sha256": "9428809e26d8eba51f4fc48c27a023c0ce8353fedf455192dca1400cde7b3e0e",
+            "masked_sha256": "9428809e26d8eba51f4fc48c27a023c0ce8353fedf455192dca1400cde7b3e0e",
+            "diagnostic_similarity": "similarity 0.78",
+            "exact": false
+          },
+          "0x76D990": {
+            "symbol": "?Decode@HtmlGifImageClass@@QAEFF@Z",
+            "length": 1145,
+            "raw_sha256": "180791f7c600a9359bfd2a5146b5aceda43e02e72c0c9daf7c0af8401526f124",
+            "masked_sha256": "180791f7c600a9359bfd2a5146b5aceda43e02e72c0c9daf7c0af8401526f124",
+            "diagnostic_similarity": "similarity 0.29",
+            "exact": false
+          },
+          "0x76DF60": {
+            "symbol": "?Get_Next_Code@HtmlGifImageClass@@QAEFXZ",
+            "length": 514,
+            "raw_sha256": "de48c4e2d48d2b98219ae55ab5d6c05c675042867750d51ffe332bd599758360",
+            "masked_sha256": "de48c4e2d48d2b98219ae55ab5d6c05c675042867750d51ffe332bd599758360",
+            "diagnostic_similarity": "similarity 0.82",
+            "exact": false
+          }
+        }
+      }
+    }
+  ]
+}

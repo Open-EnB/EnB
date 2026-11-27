@@ -1,0 +1,113 @@
+# Decode 0x76D990: Astra follow-up
+
+No new match or production change. Two new Decode source hypotheses and one
+rebased prior-body control were compiled successfully with the canonical
+retained runner. All three preserve every one of the 13 retained file/address
+and 13 symbol/address pairs, including Set_Data and Get_Next_Code, with zero
+new gains or losses. Against the original claim baseline they preserve all11
+and carry the same two already-solved gains; those are not Astra gains.
+Compiler/staging gate explicitly released to root after the third job ended.
+No running jobs, VM leases, header edits, commits or external writes.
+
+Model: gpt-6-astra, high, explicitly authorized by the user after the completed
+normal cycle. This did not reset the attempt rules. Read the claim/user/Sol
+briefs, AGENTS and bounded startup guidance, all current target reports,
+complete histories, actual Decode source changes and relevant object diffs,
+and the two newly matched sibling forms. Four historical Decode forms still
+lack their actual patches and objects. Zero-form historical review is not a
+compilation. Terra's13 and Sol's12 fresh changed forms are prior work, not new
+Astra forms.
+
+The new retained base is commit5fff15ea8743e9071da04373233dbb7c889e17d1,
+source SHA256 1d840e07c61da0137ab8dfd1e56a3759e9cfd2b2ba2eef155d705dba2af67dd7,
+snapshot /home/dev/Projects/EnB/.work/claim-314/retained-5fff15ea8/tree,
+baseline /home/dev/Projects/EnB/.work/claim-314/runs/root_retained_baseline.
+Only the existing Decode body from sol_decode_counter_resets was transplanted
+onto this source; the complete old Sol file was never substituted. The new
+helper declarations use existing blank lines and leave all four physical
+assertions and exact condition text intact. No shared header changed.
+
+## Actual tests
+
+Every run has complete input.cpp/input.json, compiler response/log, object,
+matches/result and all three target instruction diffs under
+/home/dev/Projects/EnB/.work/claim-314/runs/astra_decode_NAME/.
+The corresponding /home/dev/Projects/EnB/.work/claim-314/76D990/astra/NAME/
+holds lossless base-hash-bound replay.json, record.json and explain.json.
+Each record is below64KB and includes both original/retained pair-set
+comparisons, all18 Decode relocations/addends, all10 call contexts, target
+raw/masked hashes, frame and absence of Decode EH symbols. prepare.py,
+analyze.py and package.py reproduce the source/analysis/roundtrip packaging.
+astra/forms.json records full input/body hashes and output groups.
+
+| NAME | Classification | Bytes/frame | Masked rows / register-masked rows | Raw/masked group prefix |
+|---|---|---|---|---|
+| read_size | New initial-size validation helper boundary |1159/0x40|33/29|5e07fa796525|
+| counter_parent | Prior Sol Decode body rebased; control |1169/0x40|21/10|744c451898bb|
+| remaining_boundary | New promoted-subtraction helper boundary |1169/0x40|21/10|744c451898bb|
+
+There are three actual full-TU inputs, but only two novel Decode source forms
+and two actual output groups. The subtraction helper and rebased control
+exactly duplicate prior sol_decode_counter_resets, counter_success_scope and
+counter_remaining. The validation helper group is new compared with every
+available earlier run object. Raw/masked groups coincide because relocation
+placeholders are zero; this alone proves neither relocation targets nor
+semantics. The row measures come from explain.py and are diagnostics, not
+byte counts or full-CFG proof. The unchanged best diagnostic body is1169 bytes
+versus retail1173; similarity remains.81, while the validation helper is.78.
+
+Batch1 tested a genuine source-local Read_Code_Size operation: Get_Byte once,
+short narrowing, negative propagation, then the existing2..9 validation.
+Root approved this narrow helper lead after rejection of a fabricated larger
+Init_Exp interface. The actual helper inlines but leaves EBX/EBP saves late,
+introduces another merged negative test, and moves BAD_CODE_SIZE's epilogue
+near entry. Its33 mismatched rows regress from21; no beneficial mechanism
+appeared. EOF still reads/increments nothing and returns-1; invalid bytes
+still increment Position once and return-20; valid bytes return unchanged.
+The exact Get_Byte definition is untouched.
+
+Batch2 targeted retail76DB9A-76DBA4's promoted bufcnt-len computation, where
+EAX/EDX differ. Sol's actual int remaining local was already a duplicate, so
+it was not retried. An int Remaining_Line_Space(short available,short length)
+operation tests an inline argument boundary with the exact same signed-int
+subtraction for every short input. No truncation, extra read, dummy state or
+side effect is introduced. VC6 emits exactly the prior body; this provides
+no new cut or lever. Both hypotheses were written before their compilations.
+
+The diagnostic parent still includes the earlier retail-supported independent
+oc=c/fc-byte assignment, which changes baseline behavior for accepted codes
+above255; no all-input equivalence or retention is claimed. Its short size
+intermediate and incremented len have the bounded-state reasoning in the
+Terra/Sol reports. Neither diagnostic parent nor helper is recommended for
+production without a complete new target gain.
+
+## Exhaustion and limits
+
+Two new hypothesis batches cut nothing. Read-only reassessment found no
+distinct supported next mechanism; a third arbitrary spelling batch is not
+required by the three-no-cut checkpoint. Existing early/common returns,
+scoped locals, cached-index spellings, counter lifetime and real arithmetic
+local have already been measured. The new helper boundaries add no lead.
+No unsupported broad Init_Exp extraction, aggregate/frame object, full-int
+oc/c, register hints, source padding, dead read, volatile, ASM, pragmas or
+flag changes were tested. Sibling discovery (rerun with the existing native
+retail install path after the Windows default failed) found only unrelated
+auxiliary codec Decode methods; their common-return suggestion is already
+covered and is not new same-author evidence.
+
+Reopen on actual source/control/lifetime evidence that explains simultaneous
+entry saves, cached initial-newcodes index and separate short error/success
+epilogues, or a demonstrated related compiler mechanism for those properties.
+This is bounded exhaustion of the evidenced directions, not proof that every
+equivalent C++ form was searched. The remaining standalone arithmetic register
+swap is not permission for another parameter-order/cast sweep.
+
+No compiler-invalid, semantic-invalid, launch-failed or runner-guard-failed
+input occurred. Initial draft generation detected one excess blank line before
+writing read_size or launching the runner; it was fixed before compilation.
+All three generated source drafts were compiled; no untested Astra proposal
+remains. The prior Sol report's two uncompiled siblings remain prior proposals.
+No Decode mask match arose, so no complete body/branch/relocation/constant/EH
+candidate audit is asserted. The preexisting assertion-path case difference
+remains unmodified. Root owns attempt retention and final repository checks;
+the compiler gate is released and production source remains at its two solves.
