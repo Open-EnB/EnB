@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x474080"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "ui_pda_cargo.cpp: the PDA's cargo window (UIPdaCargoClass), 0x5CF9B0-0x5D1040 by its __FILE__ asserts ('e:\\build\\beta\\G\\app\\Client\\ui_pda_cargo.cpp', 0xB839B4) and its table 0xAF4AD4; functional from the pseudocode (D64)",
  "expected": {},
@@ -48,6 +46,7 @@
   "0x5466A0",
   "0x5481C0",
   "0x549760",
+  "0x56CBE0",
   "0x56CC70",
   "0x585160",
   "0x585180",
@@ -58,6 +57,7 @@
   "0x5CF9B0",
   "0x5CFCB0",
   "0x5CFCE0",
+  "0x5CFE40",
   "0x5D03E0",
   "0x5D05E0",
   "0x5D0620",
@@ -116,6 +116,7 @@
   "0x5466A0",
   "0x5481C0",
   "0x549760",
+  "0x56CBE0",
   "0x56CC70",
   "0x585160",
   "0x585180",

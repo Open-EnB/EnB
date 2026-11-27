@@ -106,7 +106,7 @@ UIVaultClass::~UIVaultClass()
 
 
 
-// NOT EXACT: functional from the pseudocode (D64)
+// the button id written i + N at each use (no id local): the client's induction order (slot, name, id)
 // 0x657430
 void UIVaultClass::Unknown_54()
 {
@@ -129,12 +129,12 @@ void UIVaultClass::Unknown_54()
 	}
 	int first = ((GadgetClass *)first_bttn)->Unknown0C;
 	for (int i = 0; i < NUM_BUTTONS; i++) {
-		int id = i + 37;
+
 		RenderObjClass *robj = InterfaceMesh->Get_Sub_Object_By_Name(VaultButtonNames[i]);
 		Unknown_496AE0(robj, 0);
-		if (id == 38) {
+		if (i + 37 == 38) {
 			Buttons3[i] = new ButtonGadgetClass(robj, 5, 3);
-		} else if (id == 39) {
+		} else if (i + 37 == 39) {
 			Buttons3[i] = new ButtonGadgetClass(robj, 0x50, 3);
 		} else {
 			Buttons3[i] = new ButtonGadgetClass(robj, 0x55, 3);
@@ -142,7 +142,7 @@ void UIVaultClass::Unknown_54()
 		GadgetClass::Set_Tooltip(Buttons3[i], "UI_VAULT", VaultButtonNames[i]);
 		Buttons3[i]->Unknown_65FFA0(first);
 		robj->Release_Ref();
-		Unknown64.Unknown_6870E0(Buttons3[i], id, View, 1, 0);
+		Unknown64.Unknown_6870E0(Buttons3[i], i + 37, View, 1, 0);
 	}
 	Filter = Create_NEW(new UIComboBoxClass(this, Client->As_Space_Client(), InterfaceMesh.Peek(), "filter", 0x2B, 0x2A, 0x19, 0xC, "Combo01"));
 	Filter->Unknown_5417D0(this);

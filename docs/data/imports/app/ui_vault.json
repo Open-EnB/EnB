@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x474080"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "RECONSTRUCTED from client.exe 0x656FF0-0x6580B0: __FILE__ e:\\build\\beta\\G\\app\\Client\\ui_vault.cpp (asserts l.115, 126, 176); the PDA's vault window (tables 0xAF92F0 / 0xAF92E4 / 0xAF92D8)",
  "expected": {},
@@ -43,6 +41,7 @@
   "0x52B330",
   "0x52B350",
   "0x549760",
+  "0x56CBE0",
   "0x56CC70",
   "0x585160",
   "0x585180",
@@ -52,6 +51,7 @@
   "0x656FF0",
   "0x6572C0",
   "0x6572F0",
+  "0x657430",
   "0x657970",
   "0x6579F0",
   "0x657A30",
@@ -102,6 +102,7 @@
   "0x52B330",
   "0x52B350",
   "0x549760",
+  "0x56CBE0",
   "0x56CC70",
   "0x585160",
   "0x585180",
