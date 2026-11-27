@@ -1,0 +1,78 @@
+"""A13: ours vs the client's Font32Class::Make_Proportional (per-glyph widths from the surface's bounding boxes)."""
+import struct
+import sys
+sys.path.insert(0, 'C:/EnBDevelopment/EnB/.work/a13')
+import emu  # noqa: E402
+from harness import Harness, fhash  # noqa: E402
+
+OBJ = 'C:/EnBDevelopment/EnB/.work/a13/objs/font32bit.obj'
+SYM = '?Make_Proportional@Font32Class@@IAEXPAVSurfaceClass@@@Z'
+THIS, SURF = 0x30000000, 0x31000000
+GETDESC, FTOL, FINDBB = 0x94D720, 0xA264EC, 0x94DFC0
+CASES = [(size, spacing, bbm) for size in ((256, 256), (512, 256), (128, 512)) for spacing in (-2, 0, 3, -40)
+         for bbm in ('shrink', 'empty', 'full', 'mixed')]
+
+
+def setup(case):
+    size, spacing, bbm = case
+
+    def f(mem, cpu, seed):
+        for k in range(256):
+            mem.write(THIS + 0x10 + 4 * k, struct.pack('<f', (k % 16) / 16.0))
+            mem.write(THIS + 0x410 + 4 * k, struct.pack('<f', (k // 16) / 16.0))
+            mem.write(THIS + 0x810 + 4 * k, struct.pack('<f', 1 / 16.0))
+            mem.write(THIS + 0xC10 + 4 * k if False else THIS + 0x810 + 0x400 + 4 * k, struct.pack('<f', 1 / 16.0))
+        mem.wu(THIS + 0xD2C, 4, spacing & 0xFFFFFFFF)
+        cpu.r['ecx'] = THIS
+        return [SURF]
+    return f
+
+
+def stubs(case):
+    size, spacing, bbm = case
+
+    def f(cpu, key, words, idx, seed):
+        m = cpu.m
+        if key == ('direct', GETDESC):
+            m.write(words[0], struct.pack('<3I', 21, size[0], size[1]))
+            return 4, None
+        if key == ('direct', FTOL):
+            emu.ftol(cpu)
+            return 0, {'_cdecl': 1, 'v': cpu.r['eax']}, 0
+        if key == ('direct', FINDBB):
+            x0, y0 = struct.unpack('<2i', m.read(words[0], 8))
+            x1, y1 = struct.unpack('<2i', m.read(words[1], 8))
+            h = int((fhash(seed, x0, y0) + 4) * 1000)
+            mode = bbm if bbm != 'mixed' else ('shrink', 'empty', 'full')[h % 3]
+            if mode == 'shrink':
+                m.write(words[0], struct.pack('<2i', x0 + h % 3, y0 + h % 2))
+                m.write(words[1], struct.pack('<2i', x1 - h % 4, y1 - h % 5))
+            elif mode == 'empty':
+                m.write(words[0], struct.pack('<2i', x1, y1))
+                m.write(words[1], struct.pack('<2i', x0 - 1, y0 - 1))
+            return 8, {'in': (x0, y0, x1, y1)}
+        raise emu.Stop('callee %r' % (key,))
+    return f
+
+
+def main():
+    H = Harness(OBJ, SYM, 0x6BC120, 1, void=True, stk_any=True, ignore_st=True)
+    if len(sys.argv) > 1 and sys.argv[1] == 'ctl':
+        base = [((256, 256), 0, 'mixed'), ((512, 256), -2, 'shrink'), ((128, 512), 3, 'empty')]
+        H.run(base, setup, stubs, seeds=(1,), label='base')
+        off, ins = H.find(lambda i: i.mnemonic == 'cmp' and i.op_str.endswith(', 0x100'))
+        H.mutate('1 (+%#x %s %s: 256 glyphs -> 255)' % (off, ins.mnemonic, ins.op_str), off, ins.size - 4, 0xFF,
+                 base, setup, stubs, seeds=(1,))
+        off, ins = H.find(lambda i: 'byte ptr' in i.op_str and '0xd20]' in i.op_str)
+        H.mutate('2 (+%#x %s %s: height byte +0xd20 -> +0xd21)' % (off, ins.mnemonic, ins.op_str), off,
+                 ins.size - 4 if ins.op_str.endswith(']') else ins.size - 5, 0x21, base, setup, stubs, seeds=(1,))
+        off, ins = H.find(lambda i: i.mnemonic == 'mov' and i.op_str.endswith('+ 0xc1f], al'))
+        H.mutate('3 (+%#x %s %s: width byte +0xc1f -> +0xc1e)' % (off, ins.mnemonic, ins.op_str), off,
+                 ins.size - 4, 0x1E, base, setup, stubs, seeds=(1,))
+        return
+    H.run(CASES, setup, stubs, seeds=(1, 2), verbose=False)
+    H.coverage()
+
+
+if __name__ == '__main__':
+    main()

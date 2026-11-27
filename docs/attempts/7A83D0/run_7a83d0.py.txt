@@ -1,0 +1,91 @@
+"""A13: ours vs the client's GalaxyMapRenderClass::Unknown_7A83D0 (the bounding sphere of a galaxy-map item) in emu.py.
+The assert / fail reports are logged with their expression, file and line."""
+import struct
+import sys
+sys.path.insert(0, 'C:/EnBDevelopment/EnB/.work/a13')
+import emu  # noqa: E402
+from harness import Harness, fhash  # noqa: E402
+
+emu.STACK_FILL = struct.pack('<f', 3.0)  # the client reads uninitialized locals when robj A is missing
+OBJ = 'C:/EnBDevelopment/EnB/.work/a13/objs/galaxy_map_render.obj'
+SYM = '?Unknown_7A83D0@GalaxyMapRenderClass@@QAEXAAVSphereClass@@_N@Z'
+THIS, OUT, O90, LINK, LA, LB, RA, RB, R90, SPH = (0x30000000, 0x40000000, 0x31000000, 0x32000000, 0x33000000,
+                                                 0x34000000, 0x35000000, 0x36000000, 0x37000000, 0x38000000)
+FAIL, GASSERT, GETPOS = 0x4E9450, 0x4E9410, 0x941E60
+# (+0x90 object: none / no robj / robj; +0x98 link: none / present; link flag +0x19; robj A / B present; flag arg;
+#  min radius high)
+CASES = [(o90, link, lf, ra, rb, arg, hi) for o90 in (0, 1, 2) for link in (0, 1) for lf in (0, 1) for ra in (0, 1)
+         for rb in (0, 1) for arg in (0, 1) for hi in (0, 1)
+         if not (o90 and link and (lf or ra or rb))]
+
+
+def setup(case):
+    o90, link, lf, ra, rb, arg, hi = case
+
+    def f(mem, cpu, seed):
+        mem.wu(THIS + 0x90, 4, O90 if o90 else 0)
+        mem.wu(THIS + 0x98, 4, LINK if link else 0)
+        for off in (0x84, 0x88, 0x8C, 0xA8, 0xAC, 0xB0, 0xB4, 0xB8):
+            mem.write(THIS + off, struct.pack('<f', fhash(seed, off) * 5))
+        mem.write(THIS + 0xBC, struct.pack('<f', 50.0 if hi else 0.25))
+        mem.wu(O90, 4, 0x4A000000)
+        mem.wu(LINK + 0x10, 4, LA)
+        mem.wu(LINK + 0x14, 4, LB)
+        mem.wu(LINK + 0x19, 1, lf)
+        mem.wu(LA, 4, 0x4A000100)
+        mem.wu(LB, 4, 0x4A000200)
+        for r in (RA, RB, R90):
+            mem.wu(r, 4, 0x4B000000)
+        mem.write(SPH, struct.pack('<4f', fhash(seed, 1), fhash(seed, 2), fhash(seed, 3), abs(fhash(seed, 4))))
+        cpu.r['ecx'] = THIS
+        return [OUT, arg | 0x5500]
+    return f
+
+
+def stubs(case):
+    o90, link, lf, ra, rb, arg, hi = case
+
+    def f(cpu, key, words, idx, seed):
+        m = cpu.m
+        ecx = cpu.r['ecx']
+        if key[0] == 'indirect' and key[1] == 0xC:
+            cpu.r['eax'] = {O90: R90 if o90 == 2 else 0, LA: RA if ra else 0, LB: RB if rb else 0}.get(ecx, 0xBAD)
+            return 0, None
+        if key[0] == 'indirect' and key[1] == 0xF0:
+            cpu.r['eax'] = SPH
+            return 0, None
+        if key == ('direct', GETPOS):
+            k = 0 if ecx == RA else 1
+            m.write(words[0], struct.pack('<3f', fhash(seed, 10 + k) * 9, fhash(seed, 20 + k) * 9, fhash(seed, 30 + k)))
+            cpu.r['eax'] = words[0]
+            return 4, None
+        if key in (('direct', FAIL), ('direct', GASSERT)):
+            cs = lambda a: m.read(a, 80).split(bytes(1))[0].decode('latin1')  # noqa: E731
+            return 0, {'_cdecl': 1, 'expr': cs(words[0]), 'file': cs(words[1]).lower(), 'line': words[2]}, 0  # noqa: E501
+            # the file's case (app\Client vs ours app\client) is the known __FILE__ spelling item (progress.md)
+        raise emu.Stop('callee %r' % (key,))
+    return f
+
+
+def main():
+    H = Harness(OBJ, SYM, 0x7A83D0, 2, void=True, stk_any=True)
+    if len(sys.argv) > 1 and sys.argv[1] == 'ctl':
+        base = [(0, 1, 0, 1, 1, 1, 0), (2, 0, 0, 0, 0, 1, 0), (0, 0, 0, 0, 0, 0, 1), (0, 1, 1, 0, 1, 0, 0)]
+        H.run(base, setup, stubs, seeds=(1, 2), label='base')
+        off, ins = H.find(lambda i: i.mnemonic == 'push' and i.op_str == '0x493')
+        H.mutate('1 (+%#x push 0x493: the reported line -> 0x494)' % off, off, 1, 0x94, base + [(0, 1, 1, 0, 0, 1, 0)],
+                 setup, stubs, seeds=(1, 2))
+        off, ins = H.find(lambda i: i.mnemonic == 'fmul' and '0x21' in i.op_str)
+        H.mutate('2 (+%#x %s %s: 0.5 -> another constant)' % (off, ins.mnemonic, ins.op_str), off, ins.size - 4,
+                 (H.reader.code[off + ins.size - 4] + 0x10) & 0xFF, base, setup, stubs, seeds=(1, 2))
+        off, ins = H.find(lambda i: 'byte ptr' in i.op_str and '0x19]' in i.op_str)
+        H.mutate('3 (+%#x %s %s: link flag +0x19 -> +0x18)' % (off, ins.mnemonic, ins.op_str), off,
+                 ins.size - 1 if ins.mnemonic == 'mov' else ins.size - 2, 0x18, base + [(0, 1, 0, 1, 0, 0, 0)],
+                 setup, stubs, seeds=(1, 2))
+        return
+    H.run(CASES, setup, stubs, seeds=(1, 2), verbose=False)
+    H.coverage()
+
+
+if __name__ == '__main__':
+    main()

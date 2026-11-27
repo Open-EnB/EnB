@@ -1,0 +1,54 @@
+"""A13: ours vs the client's FontSys::Get_Obj_Space_Bounding_Box (the text box by alignment) in emu.py."""
+import struct
+import sys
+sys.path.insert(0, 'C:/EnBDevelopment/EnB/.work/a13')
+import emu  # noqa: E402
+from harness import Harness  # noqa: E402
+
+OBJ = 'C:/EnBDevelopment/EnB/.work/a13/objs/fontsys.obj'
+SYM = '?Get_Obj_Space_Bounding_Box@FontSys@@UBEXAAVAABoxClass@@@Z'
+THIS, BOX = 0x30000000, 0x40000000
+CASES = [(h, v, res, rect) for h in (0, 1, 2, 3, 4, 5) for v in (0, 1, 2, 3) for res in ((640, 480), (1024, 768), (0, 1))
+         for rect in ((0, 100, 0, 20), (50, 10, 30, 5), (7, 7, 9, 9))]
+
+
+def setup(case):
+    h, v, res, rect = case
+
+    def f(mem, cpu, seed):
+        mem.wu(THIS + 0x124, 4, h)
+        mem.wu(THIS + 0x120, 4, v)
+        mem.wu(THIS + 0x2B4, 4, res[0])
+        mem.wu(THIS + 0x2B8, 4, res[1])
+        mem.write(THIS + 0x420, struct.pack('<4i', *rect))
+        cpu.r['ecx'] = THIS
+        return [BOX]
+    return f
+
+
+def stubs(case):
+    def f(cpu, key, words, idx, seed):
+        raise emu.Stop('callee %r' % (key,))
+    return f
+
+
+def main():
+    H = Harness(OBJ, SYM, 0x6D5C10, 1, void=True)
+    if len(sys.argv) > 1 and sys.argv[1] == 'ctl':
+        base = [(3, 1, (640, 480), (0, 100, 0, 20)), (4, 2, (1024, 768), (50, 10, 30, 5))]
+        H.run(base, setup, stubs, seeds=(1,), label='base')
+        off, ins = H.find(lambda i: i.mnemonic == 'cmp' and i.op_str.endswith(', 3'))
+        H.mutate('1 (+%#x %s %s: alignment 3 -> 2)' % (off, ins.mnemonic, ins.op_str), off, ins.size - 1, 2,
+                 base, setup, stubs, seeds=(1,))
+        off, ins = H.find(lambda i: 'fild' in i.mnemonic and '0x2b8]' in i.op_str)
+        H.mutate('2 (+%#x %s %s: height -> width)' % (off, ins.mnemonic, ins.op_str), off, ins.size - 4, 0xB4,
+                 base, setup, stubs, seeds=(1,))
+        off, ins = H.find(lambda i: i.mnemonic == 'fchs')
+        H.mutate('3 (+%#x fchs dropped)' % off, off, 1, 0xD0, base, setup, stubs, seeds=(1,))
+        return
+    H.run(CASES, setup, stubs, seeds=(1,), verbose=False)
+    H.coverage()
+
+
+if __name__ == '__main__':
+    main()

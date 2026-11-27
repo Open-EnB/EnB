@@ -1,0 +1,89 @@
+"""A13: ours vs the client's Unknown_4991F0 (a segment against a plane / disc test) in emu.py. The
+IntersectionResultClass constructor and IntersectionClass::Set run as the client's own code on both sides."""
+import math
+import struct
+import sys
+sys.path.insert(0, 'C:/EnBDevelopment/EnB/.work/a13')
+import emu  # noqa: E402
+from harness import Harness, fhash, f32  # noqa: E402
+
+emu.ALIASES['??0IntersectionResultClass@@QAE@XZ'] = 0x4995A0
+emu.ALIASES['?Set@IntersectionClass@@QAEXPAVVector3@@00_NM1@Z'] = 0x499560
+OBJ = 'C:/EnBDevelopment/EnB/.work/a13/objs/unknown_499180.obj'
+SYM = '?Unknown_4991F0@@YA_NPAVVector3@@PBV1@PAMM000@Z'
+A, B, C, E, F, G = 0x40000000, 0x40000100, 0x40000200, 0x40000300, 0x40000400, 0x40000500
+INVSQRT, IRCTOR, ISET = 0x447C40, 0x4995A0, 0x499560
+MODES = ('rand', 'parallel', 'hit', 'behind', 'far', 'same', 'axis', 'center_a', 'center_e', 'both0', 'second_far')
+CASES = [(mode, r2, best) for mode in MODES for r2 in (0.01, 1.0, 25.0, 1e6) for best in (-5.0, 0.0, 0.5, 9.0)]
+
+
+def setup(case):
+    mode, r2, best = case
+
+    def f(mem, cpu, seed):
+        r = lambda k: fhash(seed, k)  # noqa: E731
+        a = (r(1), r(2), r(3))
+        b = (r(4) / 4, r(5) / 4, 1.0)
+        e = (r(6), r(7), r(8))
+        fp = (r(9) * 2, r(10) * 2, 5.0)
+        g = (r(11) * 2, r(12) * 2, -5.0)
+        if mode == 'parallel':
+            b = (0.0, 0.0, 1.0)
+            g = (fp[0] + 1, fp[1] - 1, fp[2])
+        elif mode == 'hit':
+            a, e = (0.0, 0.0, 0.0), (0.0, 0.0, 0.0)
+            fp, g = (0.1, 0.1, 3.0), (0.1, 0.1, -3.0)
+        elif mode == 'behind':
+            fp, g = (0.1, 0.1, -3.0), (0.1, 0.1, -6.0)
+        elif mode == 'far':
+            fp, g = (90.0, 1.0, 3.0), (90.0, 1.0, -3.0)
+        elif mode == 'same':
+            g = fp
+        elif mode in ('center_a', 'center_e', 'both0', 'second_far'):
+            fp, g = (0.0, 0.0, 3.0), (0.0, 0.0, -3.0)
+            e = (0.0, 0.0, 1.0)  # the plane's normal; a is its point and the first centre, b the second
+            a = (0.0, 0.0, 0.0) if mode not in ('center_e', 'second_far') else (0.5, 0.0, 0.0)
+            b = (0.0, 0.0, 0.0) if mode not in ('center_a', 'second_far') else (3.0, 2.0, 0.0)
+        elif mode == 'axis':
+            b = (1.0, 0.0, 0.0)
+        for p, v in ((A, a), (B, b), (E, e), (F, fp), (G, g)):
+            mem.write(p, struct.pack('<3f', *v))
+        mem.write(C, struct.pack('<f', best))
+        return [A, B, C, struct.unpack('<I', struct.pack('<f', r2))[0], E, F, G]
+    return f
+
+
+def stubs(case):
+    def f(cpu, key, words, idx, seed):
+        if key == ('direct', INVSQRT):
+            v = struct.unpack('<f', struct.pack('<I', words[0]))[0]
+            cpu.st.append(f32(1.0 / math.sqrt(v)) if v > 0 else math.inf)
+            return 4, {'_cdecl': 1}, 1
+        if key == ('direct', IRCTOR):
+            return 'PASS0'
+        if key == ('direct', ISET):
+            return 'PASS6'
+        raise emu.Stop('callee %r' % (key,))
+    return f
+
+
+def main():
+    H = Harness(OBJ, SYM, 0x4991F0, 7, void=False, retmask=0xFF, stk_any=True)
+    if len(sys.argv) > 1 and sys.argv[1] == 'ctl':
+        base = [('hit', 1.0, -5.0), ('rand', 25.0, 0.0), ('hit', 25.0, -5.0), ('rand', 1e6, -5.0)]
+        H.run(base, setup, stubs, seeds=(1, 2, 3), label='base')
+        off, ins = H.find(lambda i: i.mnemonic == 'push' and i.op_str == '0x7f7fffff')
+        H.mutate('1 (+%#x %s %s: max range -> 0x7f7fff00)' % (off, ins.mnemonic, ins.op_str), off, 1, 0x00,
+                 base, setup, stubs, seeds=(1, 2, 3))
+        off, ins = H.find(lambda i: i.mnemonic == 'fsub' and i.op_str.endswith('+ 4]'))
+        H.mutate('2 (+%#x %s %s: Y -> Z)' % (off, ins.mnemonic, ins.op_str), off, ins.size - 1, 8,
+                 base, setup, stubs, seeds=(1, 2, 3))
+        off, ins = H.find(lambda i: i.mnemonic == 'fsqrt')
+        H.mutate('3 (+%#x fsqrt -> fabs)' % off, off, 1, 0xE1, base, setup, stubs, seeds=(1, 2, 3))
+        return
+    H.run(CASES, setup, stubs, seeds=(1, 2, 3), verbose=False)
+    H.coverage()
+
+
+if __name__ == '__main__':
+    main()

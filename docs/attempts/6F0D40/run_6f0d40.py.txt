@@ -1,0 +1,81 @@
+"""A13: ours vs the client's SpiralSeekEffectClass::Unknown_1C (the spiral seek's transform at time t) in emu.py."""
+import struct
+import sys
+sys.path.insert(0, 'C:/EnBDevelopment/EnB/.work/a13')
+import emu  # noqa: E402
+from harness import Harness, fhash  # noqa: E402
+
+emu.ALIASES['?Unknown_82ECB0@@YA?AVMatrix3D@@ABVVector3@@0@Z'] = 0x82ECB0
+OBJ = 'C:/EnBDevelopment/EnB/.work/a13/objs/eff_seek.obj'
+SYM = '?Unknown_1C@SpiralSeekEffectClass@@UAEXXZ'
+THIS, CLI, ROBJ = 0x30000000, 0x31000000, 0x32000000
+BASE1C, LOOK = 0x6E8890, 0x82ECB0
+QUANT = '--quant' in sys.argv
+CASES = [(dt, turns, amp, geo) for dt in (0, 100, 500, 999, 1000, 1500, -20) for turns in (0, 1, 3)
+         for amp in (0.0, 0.5, 2.0) for geo in ('rand', 'same', 'axis')]
+
+
+def setup(case):
+    dt, turns, amp, geo = case
+
+    def f(mem, cpu, seed):
+        mem.wu(THIS + 0x20, 4, CLI)
+        mem.wu(CLI + 0x10BC, 4, (50000 + dt) & 0xFFFFFFFF)
+        mem.wu(THIS + 0x24, 4, 50000)
+        mem.wu(THIS + 0x28, 4, turns)
+        mem.write(THIS + 0xE4, struct.pack('<3f', 0.001, amp, 6.2831855))
+        p0 = (fhash(seed, 1) * 9, fhash(seed, 2) * 9, fhash(seed, 3) * 9)
+        p1 = {'rand': (fhash(seed, 4) * 9, fhash(seed, 5) * 9, fhash(seed, 6) * 9), 'same': p0,
+              'axis': (p0[0] + 7, p0[1], p0[2])}[geo]
+        mem.write(THIS + 0xA8, struct.pack('<6f', *(p0 + p1)))
+        mem.wu(THIS + 0xE0, 4, ROBJ)
+        mem.wu(ROBJ, 4, 0x49000000)
+        cpu.r['ecx'] = THIS
+        return []
+    return f
+
+
+def stubs(case):
+    def f(cpu, key, words, idx, seed):
+        m = cpu.m
+        if key == ('direct', BASE1C):
+            return 0, None
+        if key == ('direct', LOOK):
+            d = struct.unpack('<3f', m.read(words[1], 12))
+            p = struct.unpack('<3f', m.read(words[2], 12))
+            if QUANT:  # hide last-bit differences (FP add order) to see whether anything else differs
+                q = lambda v: struct.unpack('<f', struct.pack('<I', struct.unpack('<I', struct.pack('<f', v))[0] & 0xFFFFFF00))[0]  # noqa: E501,E731
+                d, p = tuple(q(v) for v in d), tuple(q(v) for v in p)
+            m.write(words[0], struct.pack('<12f', d[0], d[1], d[2], p[0], d[1], d[2], d[0], p[1], d[2], d[0], d[1],
+                                          p[2]))
+            cpu.r['eax'] = words[0]
+            return 0, {'_cdecl': 1, 'd': d, 'p': p}, 0
+        if key[0] == 'indirect' and key[1] == 0x50:
+            mm = m.read(words[0], 48)
+            if QUANT:
+                mm = bytes(b & (0x00 if k % 4 == 0 else 0xFF) for k, b in enumerate(mm))
+            return 4, {'m': mm.hex()}, 0
+        raise emu.Stop('callee %r' % (key,))
+    return f
+
+
+def main():
+    H = Harness(OBJ, SYM, 0x6F0D40, 0, void=True, stk_any=True)
+    if len(sys.argv) > 1 and sys.argv[1] == 'ctl':
+        base = [(500, 1, 0.5, 'rand'), (100, 3, 2.0, 'axis'), (999, 1, 0.5, 'rand')]
+        H.run(base, setup, stubs, seeds=(1, 2), label='base')
+        off, ins = H.find(lambda i: i.mnemonic == 'fmul' and i.op_str.endswith('+ 0xe8]'))
+        H.mutate('1 (+%#x %s %s: amplitude -> turn constant)' % (off, ins.mnemonic, ins.op_str), off,
+                 ins.size - 4, 0xEC, base, setup, stubs, seeds=(1, 2))
+        off, ins = H.find(lambda i: i.mnemonic == 'fsin')
+        H.mutate('2 (+%#x fsin -> fcos)' % off, off, 1, 0xFF, base, setup, stubs, seeds=(1, 2))
+        off, ins = H.find(lambda i: i.mnemonic == 'fsub' and i.op_str == 'dword ptr [eax + 4]')
+        H.mutate('3 (+%#x %s %s: start Y -> Z)' % (off, ins.mnemonic, ins.op_str), off, ins.size - 1, 8,
+                 base, setup, stubs, seeds=(1, 2))
+        return
+    H.run(CASES, setup, stubs, seeds=(1, 2), verbose=False)
+    H.coverage()
+
+
+if __name__ == '__main__':
+    main()

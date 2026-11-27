@@ -1,0 +1,75 @@
+"""A13: ours vs the client's Line2DClass::Set (a screen line from two points and a width) in emu.py."""
+import struct
+import sys
+sys.path.insert(0, 'C:/EnBDevelopment/EnB/.work/a13')
+import emu  # noqa: E402
+from harness import Harness, fhash  # noqa: E402
+
+OBJ = 'C:/EnBDevelopment/EnB/.work/a13/objs/line2d.obj'
+SYM = '?Set@Line2DClass@@QAEXABVVector2@@0M@Z'
+THIS, P0, P1, MODEL = 0x30000000, 0x40000000, 0x40000100, 0x31000000
+GETRES = 0x9178F0
+LINES = ('rand', 'horiz', 'vert', 'point', 'diag')
+CASES = [(line, width, res) for line in LINES for width in (0.0, 1.0, 3.5) for res in ((800, 600), (1024, 768))]
+
+
+def setup(case):
+    line, width, res = case
+
+    def f(mem, cpu, seed):
+        mem.wu(THIS, 4, 0x4C000000)
+        mem.wu(THIS + 0x8C, 4, MODEL)
+        mem.wu(MODEL + 0x18, 4, 0x100)
+        a = (abs(fhash(seed, 1)) / 4, abs(fhash(seed, 2)) / 4)
+        b = {'rand': (abs(fhash(seed, 3)) / 4, abs(fhash(seed, 4)) / 4), 'horiz': (a[0] + 0.3, a[1]),
+             'vert': (a[0], a[1] + 0.2), 'point': a, 'diag': (a[0] + 0.25, a[1] + 0.25)}[line]
+        mem.write(P0, struct.pack('<2f', *a))
+        mem.write(P1, struct.pack('<2f', *b))
+        cpu.r['ecx'] = THIS
+        return [P0, P1, struct.unpack('<I', struct.pack('<f', width))[0]]
+    return f
+
+
+def stubs(case):
+    line, width, res = case
+
+    def f(cpu, key, words, idx, seed):
+        m = cpu.m
+        if key == ('direct', GETRES):
+            m.wu(words[0], 4, res[0])
+            m.wu(words[1], 4, res[1])
+            m.wu(words[2], 4, 32)
+            m.wu(words[3], 1, 0)
+            return 0, {'_cdecl': 1}, 0
+        if key[0] == 'indirect' and key[1] == 0x1DC:
+            m.write(words[1], struct.pack('<f', 0.0125))
+            m.write(words[2], struct.pack('<f', 0.5))
+            m.write(words[3], struct.pack('<f', 0.25))
+            return 16, None, 1
+        if key[0] == 'indirect' and key[1] == 0x1D8:
+            return 16, None, 4
+        if key[0] == 'indirect' and key[1] == 0x50:
+            return 4, {'m': m.read(words[0], 48).hex()}, 0
+        raise emu.Stop('callee %r' % (key,))
+    return f
+
+
+def main():
+    H = Harness(OBJ, SYM, 0x6DFA50, 3, void=True, stk_any=True)
+    if len(sys.argv) > 1 and sys.argv[1] == 'ctl':
+        base = [('rand', 1.0, (800, 600)), ('diag', 3.5, (1024, 768)), ('rand', 0.0, (800, 600))]
+        H.run(base, setup, stubs, seeds=(1, 2), label='base')
+        off, ins = H.find(lambda i: i.mnemonic == 'or' and i.op_str.endswith(', 4'))
+        H.mutate('1 (+%#x %s %s: dirty bit 4 -> 8)' % (off, ins.mnemonic, ins.op_str), off, ins.size - 1, 8,
+                 base, setup, stubs, seeds=(1, 2))
+        off, ins = H.find(lambda i: i.mnemonic == 'push' and i.op_str == '3')
+        H.mutate('2 (+%#x push 3: vertex 3 -> 2)' % off, off, 1, 2, base, setup, stubs, seeds=(1, 2))
+        off, ins = H.find(lambda i: i.mnemonic == 'fchs')
+        H.mutate('3 (+%#x fchs dropped)' % off, off, 1, 0xD0, base, setup, stubs, seeds=(1, 2))
+        return
+    H.run(CASES, setup, stubs, seeds=(1, 2, 3), verbose=False)
+    H.coverage()
+
+
+if __name__ == '__main__':
+    main()
