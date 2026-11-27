@@ -102,9 +102,6 @@
 "??0INIClass@@QAE@XZ": [
 "0x9C7C60"
 ],
-"??0Init@ios_base@std@@QAE@XZ": [
-"0xA18314"
-],
 "??0LayerClass@@QAE@ABV0@@Z": [
 "0x967930"
 ],
@@ -294,9 +291,6 @@
 "??0_Lockit@std@@QAE@XZ": [
 "0xA19CDC"
 ],
-"??0_Winit@std@@QAE@XZ": [
-"0xA18FD6"
-],
 "??0exception@@QAE@ABQBD@Z": [
 "0xA28F2F"
 ],
@@ -359,9 +353,6 @@
 ],
 "??1INIClass@@UAE@XZ": [
 "0x9C7FC0"
-],
-"??1Init@ios_base@std@@QAE@XZ": [
-"0xA18493"
 ],
 "??1LayerClass@@UAE@XZ": [
 "0x967A50"
@@ -443,9 +434,6 @@
 ],
 "??1_Lockit@std@@QAE@XZ": [
 "0xA19D78"
-],
-"??1_Winit@std@@QAE@XZ": [
-"0xA19157"
 ],
 "??1exception@@UAE@XZ": [
 "0xA28FD5"
@@ -3019,18 +3007,15 @@
 "0xC415FC"
 ],
 "data:?UnknownGlobal@?$DeltaItemArrayClass@VDeltaMissionStageClass@@@@2HA": [
-"0xC415E8",
-"0xC41668"
+"0xC415E8"
 ],
 "data:?UnknownGlobal@?$DeltaItemArrayClass@VDeltaPrimaryCategoryClass@@@@2HA": [
 "0xC4162C"
 ],
 "data:?UnknownGlobal@?$DeltaItemArrayClass@VDeltaSkillAbilityClass@@@@2HA": [
-"0xC41658",
 "0xC41668"
 ],
 "data:?UnknownGlobal@?$DeltaItemArrayClass@VDeltaSkillClass@@@@2HA": [
-"0xC415E8",
 "0xC41658"
 ],
 "data:?UnknownGlobal@?$DeltaItemArrayClass@VDeltaStringClass@@@@2HA": [
@@ -3040,8 +3025,7 @@
 "0xC4160C"
 ],
 "data:?UnknownGlobal@?$DeltaTemplateClass@H@@2HA": [
-"0xC416A8",
-"0xC416AC"
+"0xC416A8"
 ],
 "data:?UnknownGlobal@?$DeltaTemplateClass@I@@2HA": [
 "0xC4163C"
@@ -3056,8 +3040,7 @@
 "0xC41588"
 ],
 "data:?UnknownGlobal@?$DeltaTemplateClass@USkillLevelAvailabilityStruct@@@@2HA": [
-"0xC4166C",
-"0xC416A8"
+"0xC4166C"
 ],
 "data:?UnknownGlobal@?$DeltaTemplateClass@VDurationClass@@@@2HA": [
 "0xBE3AA4"
@@ -3114,7 +3097,6 @@
 "0xC41564"
 ],
 "data:?UnknownGlobal@?$DeltaTemplateClass@_N@@2HA": [
-"0xC4166C",
 "0xC416AC"
 ],
 "data:?UnknownGlobal@DeltaCompoundClass@@2HA": [
