@@ -178,6 +178,29 @@ class Landing(unittest.TestCase):
         self.assertTrue(ok('app/client/co.cpp') and ok('docs/data/imports/app/headers/client/co.h.json') and ok('wwlib/vector.h'))
         self.assertFalse(ok('docs/workflow.md') or ok('tools/vc6/importer.py') or ok('.github/x.h'))
 
+    def test_a_landing_rebuilt_this_pass_is_kept(self):
+        # The pass started with landing #318 at its old head (parent: the old master); open_landing then
+        # rebuilt it on the new master and kept the PR. tend_landings must judge the PR as it is now.
+        landing = {'number': 318, 'user': {'login': 'me'}, 'head': {'ref': verify_watch.LANDING + '313', 'sha': 'new'}}
+        orig = {'number': 313, 'user': {'login': 'contributor'}, 'head': {'ref': 'claim-312', 'sha': 'h313'}}
+        parents = {'old^1': 'm_old', 'new^1': 'm_new'}
+        calls = []
+        saved = (verify_watch.gh_json, verify_watch.verify_pr.gh, verify_watch.wt.ok, verify_watch.wt.rev,
+                 verify_watch.record, verify_watch.hosted_checks, verify_watch.log)
+        try:
+            verify_watch.gh_json = lambda path: [orig, landing]
+            verify_watch.verify_pr.gh = lambda *a: calls.append(a) or 'me'
+            verify_watch.wt.ok = lambda *a: True
+            verify_watch.wt.rev = lambda x: parents[x]
+            verify_watch.record = lambda n: {'head': 'h313'}
+            verify_watch.hosted_checks = lambda r, sha: 'pending'
+            verify_watch.log = lambda msg: None
+            verify_watch.tend_landings('o/r', 'm_new')
+        finally:
+            (verify_watch.gh_json, verify_watch.verify_pr.gh, verify_watch.wt.ok, verify_watch.wt.rev,
+             verify_watch.record, verify_watch.hosted_checks, verify_watch.log) = saved
+        self.assertFalse([a for a in calls if a[:2] == ('pr', 'close')])
+
 
 if __name__ == '__main__':
     unittest.main()
