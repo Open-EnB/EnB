@@ -1,0 +1,97 @@
+"""A14: one attempts row per function checked by execution (verdicts from runs/*.{plain,outbuf}.log and VERDICT).
+
+    python rows.py            print the table
+    python rows.py --record   write the rows with attempts.py in the A14 worktree
+"""
+import csv
+import os
+import re
+import subprocess
+import sys
+
+D = 'C:/EnBDevelopment/EnB/.work/a14'
+WT = 'C:/EnBDevelopment/EnB/.work/wt/A14'
+STASH = 'docs/attempts/5B8EE0/'  # where the harness's source is stashed (the first row's directory)
+TOOLS = 'A14 (run 2026-11-26-night, Opus high, no VM): behaviour check by execution (A12\'s emu.py extended: ' \
+        'x87 compares, string ops, tail calls, jump tables, imports, our other code sections; auto.py: the ' \
+        'calling convention, aliases and statics placed at the client\'s addresses from the aligned listings, ' \
+        'callee stubs, run for real the callees only one side inlines; stash a14_*.py.txt)'
+
+
+def parse(path):
+    if not os.path.exists(path):
+        return None
+    t = open(path).read()
+    m = re.search(r'runs (\d+), differing (\d+), inconclusive (\d+).*client coverage (\d+)%', t)
+    if not m:
+        return None
+    ctl = re.findall(r'control \((.*?)\): (\d+) of (\d+) runs differ', t)
+    ex = re.search(r'run for real on both sides \(one side inlines them\): (.*)', t)
+    mr = re.search(r"client statuses \{[^}]*'ret': (\d+)", t)
+    return {'ret': int(mr.group(1)) if mr else 0, 'runs': int(m.group(1)), 'diff': int(m.group(2)), 'inc': int(m.group(3)), 'cov': int(m.group(4)),
+            'ctl': [(c[0], int(c[1]), int(c[2])) for c in ctl], 'exec': ex.group(1) if ex else ''}
+
+
+def latest():
+    rows = {}
+    for r in csv.DictReader(open(WT + '/docs/data/attempts.csv', encoding='utf-8')):
+        rows[r['address'].upper().replace('0X', '0x')] = r
+    return rows
+
+
+# addr -> (verdict line or None for the default, extra evidence)
+VERDICT = {}
+if os.path.exists(D + '/verdicts.py'):
+    exec(open(D + '/verdicts.py').read())
+
+
+def main():
+    rec = '--record' in sys.argv
+    lat = latest()
+    addrs = sorted({f.split('.')[0] for f in os.listdir(D + '/runs') if f.endswith(('.plain.log', '.outbuf.log'))})
+    for a in addrs:
+        modes = [(nm, parse(D + '/runs/%s.%s.log' % (a, m))) for nm, m in
+                 (('plain stubs', 'plain'), ('out-buffer stubs', 'outbuf'), ('globals filled', 'bss'), ('out-buffer and globals filled', 'mix'))]
+        modes = [(nm, x) for nm, x in modes if x]
+        v = VERDICT.get(a)
+        r = lat.get(a)
+        if r is None or v == 'skip' or not modes:
+            continue
+        parts = []
+        for nm, x in modes:
+            c = ', '.join('%s %d/%d' % (k, n, m) for k, n, m in x['ctl']) or 'none'
+            parts.append('%s: %d runs (%d return), %d differ, %d inconclusive (both loop), client coverage %d%%, '
+                         'controls caught in %s' % (nm, x['runs'], x['ret'], x['diff'], x['inc'], x['cov'], c))
+        exe = next((x['exec'] for nm, x in modes if x['exec']), '')
+        if exe:
+            parts.append('run for real on both sides (one side inlines them): ' + exe)
+        cov = max(x['cov'] for nm, x in modes)
+        caught = any(n > 0 for nm, x in modes for k, n, m in x['ctl'])
+        clean = [x for nm, x in modes if x['diff'] == 0]
+        cov = max([x['cov'] for x in clean if x['ret'] * 2 >= x['runs']] or [0]) if clean else cov
+        if v:
+            verdict, extra = v
+        elif clean and cov >= 90 and caught:
+            verdict, extra = 'codegen only (proved by execution)', ''
+        elif clean:
+            verdict, extra = ('no difference found, not proved (best client coverage %d%%%s)' % (
+                cov, '' if caught else ', no positive control caught')), ''
+        else:
+            verdict, extra = 'OPEN: differences not explained', ''
+        if len(clean) < len(modes) and not v:
+            verdict = 'REVIEW: ' + verdict
+        ev = '%s. %s. %ssemantics checked: %s' % (TOOLS, '; '.join(parts), (extra + '. ') if extra else '', verdict)
+        print(a, r['status'], verdict[:70], '|', '; '.join(parts)[:150])
+        if rec:
+            cmd = [sys.executable, 'tools/re/attempts.py', 'record', a, '--symbol', r['symbol'], '--file', r['file'],
+                   '--lib', r['library'], '--status', r['status'], '--forms', '0', '--blocker', r['blocker'],
+                   '--evidence', ev, '--stash', STASH + 'a14_auto.py.txt', '--model', 'claude-opus-5-5']
+            if r['score']:
+                cmd += ['--score', r['score']]
+            out = subprocess.run(cmd, cwd=WT, capture_output=True, text=True)
+            if out.returncode:
+                print('   FAILED', out.stderr.strip()[:300])
+
+
+if __name__ == '__main__':
+    main()

@@ -1,0 +1,72 @@
+"""A14: parked / partial app functions under 1,000 bytes, by distinct call targets (client's bytes)."""
+import bisect
+import csv
+import json
+import os
+import subprocess
+import sys
+
+sys.path.insert(0, 'C:/EnBDevelopment/EnB/tools/re')
+import capstone  # noqa: E402
+from capstone import x86  # noqa: E402
+from clientimage import ClientImage  # noqa: E402
+
+os.chdir('C:/EnBDevelopment/EnB')
+IMG = ClientImage()
+MD = capstone.Cs(capstone.CS_ARCH_X86, capstone.CS_MODE_32)
+MD.detail = True
+starts = {int(s['address'], 16) for s in json.load(open('docs/data/symbols.json'))}
+starts |= {int(f['address'], 16) for f in json.load(open('docs/data/app-functions.json'))['functions']}
+st = sorted(starts)
+THUNKS = IMG.incremental_thunks()
+
+
+def size(a):
+    i = bisect.bisect_right(st, a)
+    return st[i] - a if i < len(st) else -1
+
+
+latest = {}
+proved = set()
+for r in csv.DictReader(open('docs/data/attempts.csv', encoding='utf-8')):
+    a = int(r['address'], 16)
+    latest[a] = r  # file is in date order (appended)
+    if 'proved by execution' in r['evidence']:
+        proved.add(a)
+
+out = []
+for a, r in latest.items():
+    if r['status'] not in ('parked', 'partial') or r['library'] != 'app':
+        continue
+    n = size(a)
+    if not 0 < n < 1000:
+        continue
+    o = IMG.offset(a)
+    code = IMG.data[o:o + n]
+    direct, indirect = set(), 0
+    for ins in MD.disasm(code, a):
+        if ins.mnemonic == 'call':
+            op = ins.operands[0]
+            if op.type == x86.X86_OP_IMM:
+                t = op.imm
+                while t in THUNKS:
+                    t = THUNKS[t]
+                direct.add(t)
+            else:
+                indirect += 1
+    obj = None
+    f = r['file']
+    if f:
+        cand = 'build/app/obj/' + os.path.splitext(os.path.basename(f))[0] + '.obj'
+        if os.path.exists(cand):
+            src = f if os.path.exists(f) else None
+            ts_obj = os.path.getmtime(cand)
+            hs = subprocess.run(['git', 'log', '--format=%h %ct', '--', f], capture_output=True, text=True).stdout.split()
+            later = [hs[i] for i in range(0, len(hs), 2) if int(hs[i + 1]) > ts_obj]
+            stale = any(h != 'c651086a5' for h in later)
+            obj = cand + (' STALE' if stale else '')
+    out.append((len(direct) + indirect, len(direct), indirect, n, a, r['status'], r['symbol'], f, obj, a in proved))
+out.sort(key=lambda x: (x[0], x[3]))
+for x in out:
+    print('%2d d%-2d i%-2d %4d 0x%06X %-7s %-60s %s %s%s' % (x[0], x[1], x[2], x[3], x[4], x[5], x[6][:60], x[7], x[8],
+                                                       ' PROVED' if x[9] else ''))

@@ -1,0 +1,803 @@
+"""A12: run ours (an object's function, linked against client.exe's addresses) and the client's function
+in a small x86 / x87 interpreter on the same inputs, and compare what each does.
+
+Memory is sparse: a byte never written reads from client.exe's image when the address is inside it
+(.bss as zeros), from the object's own data for its local symbols (placed at synthetic addresses),
+else a value hashed from (seed, address): so random pointers lead to random but identical memory on
+both sides. Callees are stubs (each call logged with ecx, the stack words, the contents behind stack
+pointers); ftol is computed. Compared: the call log, every non-stack byte written (final value), eax
+and the stack depth at return. Stack writes are left out (the two frames lay out locals differently).
+
+    import emu; emu.run_pair(obj, symbol, client_addr, setup, stubs, seeds)
+"""
+import hashlib
+import json
+import math
+import struct
+import sys
+
+sys.path.insert(0, 'C:/EnBDevelopment/EnB/tools/re')
+import capstone  # noqa: E402
+from capstone import x86  # noqa: E402
+from clientimage import ClientImage  # noqa: E402
+from objmatch import CoffObject  # noqa: E402
+
+IMG = ClientImage()
+MD = capstone.Cs(capstone.CS_ARCH_X86, capstone.CS_MODE_32)
+MD.detail = True
+STACK_TOP = 0x0F000000
+STACK_LO = 0x0E000000
+RET_SENTINEL = 0xDEAD0000
+OURS_CODE = 0x20000000
+OURS_DATA = 0x21000000
+M32 = 0xFFFFFFFF
+
+_SYMS = None
+TAIL_STARTS = set()  # known function starts: a jmp there is a tail call
+FILLER = None
+FILLBSS = False  # (seed, addr) -> byte for memory never written, outside the image and the stack
+
+
+class FStack(list):
+    """x87 stack; reading below its bottom yields gen() values (a stubbed callee's float result)."""
+    def __init__(self, gen):
+        super().__init__()
+        self.gen = gen
+
+    def _need(self, n):
+        while len(self) < n:
+            self.insert(0, self.gen())
+
+    def __getitem__(self, i):
+        if isinstance(i, int) and i < 0:
+            self._need(-i)
+        return list.__getitem__(self, i)
+
+    def __setitem__(self, i, v):
+        if isinstance(i, int) and i < 0:
+            self._need(-i)
+        return list.__setitem__(self, i, v)
+
+    def pop(self, *a):
+        if not self:
+            self._need(1)
+        return list.pop(self, *a)
+ALIASES = {}  # mangled name -> client address, for callees symbols.json does not name
+
+
+def symbols():
+    global _SYMS
+    if _SYMS is None:
+        _SYMS = {}
+        for e in json.load(open('C:/EnBDevelopment/EnB/docs/data/symbols.json')):
+            if e.get('kind') == 'thunk':
+                continue
+            _SYMS.setdefault(e['symbol'], int(e['address'], 16))
+    return _SYMS
+
+
+THUNKS = IMG.incremental_thunks()
+
+
+def real_target(va):
+    while va in THUNKS:
+        va = THUNKS[va]
+    return va
+
+
+def hbyte(seed, addr):
+    h = hashlib.blake2b(struct.pack('<II', seed, addr >> 3), digest_size=8).digest()
+    return h[addr & 7]
+
+
+class Memory:
+    def __init__(self, seed, extra):
+        self.seed = seed
+        self.w = {}
+        self.extra = extra  # {addr: byte} synthetic data of ours
+        self.filler = FILLER
+
+    def rb(self, a):
+        a &= M32
+        v = self.w.get(a)
+        if v is not None:
+            return v
+        v = self.extra.get(a)
+        if v is not None:
+            return v
+        for start, vsize, raw, rsize in IMG.sections.values():
+            if start <= a < start + max(vsize, rsize):
+                if a < start + rsize:
+                    return IMG.data[raw + a - start]
+                if FILLBSS and self.filler:
+                    return self.filler(self.seed, a)
+                return 0
+        if STACK_LO <= a < STACK_TOP:
+            return 0  # unwritten stack (uninitialised locals, out-params callee stubs leave alone): 0 on both sides
+        if self.filler:
+            return self.filler(self.seed, a)
+        return hbyte(self.seed, a)
+
+    def read(self, a, n):
+        return bytes(self.rb(a + i) for i in range(n))
+
+    def write(self, a, data):
+        for i, b in enumerate(data):
+            self.w[(a + i) & M32] = b
+
+    def u(self, a, n):
+        return int.from_bytes(self.read(a, n), 'little')
+
+    def wu(self, a, n, v):
+        self.write(a, (v & ((1 << (8 * n)) - 1)).to_bytes(n, 'little'))
+
+
+REG32 = ['eax', 'ecx', 'edx', 'ebx', 'esp', 'ebp', 'esi', 'edi']
+
+
+class Stop(Exception):
+    pass
+
+
+class CPU:
+    def __init__(self, mem, code_reader, call_handler):
+        self.m = mem
+        self.r = {k: 0 for k in REG32}
+        self.st = []  # x87 stack, st0 = st[-1]
+        self.cf = self.zf = self.sf = self.of = self.pf = False
+        self.code = code_reader
+        self.call_handler = call_handler
+        self.steps = 0
+        self.fsw = 0
+        self.trace = None  # a set: every eip executed
+
+    # --- registers
+    def greg(self, name):
+        if name in self.r:
+            return self.r[name]
+        if name in ('ax', 'cx', 'dx', 'bx', 'sp', 'bp', 'si', 'di'):
+            return self.r['e' + name] & 0xFFFF
+        if name in ('al', 'cl', 'dl', 'bl'):
+            return self.r['e' + name[0] + 'x'] & 0xFF
+        if name in ('ah', 'ch', 'dh', 'bh'):
+            return (self.r['e' + name[0] + 'x'] >> 8) & 0xFF
+        raise Stop('reg ' + name)
+
+    def sreg(self, name, v):
+        if name in self.r:
+            self.r[name] = v & M32
+        elif name in ('ax', 'cx', 'dx', 'bx', 'sp', 'bp', 'si', 'di'):
+            k = 'e' + name
+            self.r[k] = (self.r[k] & 0xFFFF0000) | (v & 0xFFFF)
+        elif name in ('al', 'cl', 'dl', 'bl'):
+            k = 'e' + name[0] + 'x'
+            self.r[k] = (self.r[k] & 0xFFFFFF00) | (v & 0xFF)
+        elif name in ('ah', 'ch', 'dh', 'bh'):
+            k = 'e' + name[0] + 'x'
+            self.r[k] = (self.r[k] & 0xFFFF00FF) | ((v & 0xFF) << 8)
+        else:
+            raise Stop('reg ' + name)
+
+    def ea(self, ins, op):
+        mm = op.mem
+        a = mm.disp
+        if mm.segment and ins.reg_name(mm.segment) == 'fs':
+            a += 0x7FFD0000  # the TEB: fs:[0] (the EH chain) apart from address 0
+        if mm.base:
+            a += self.greg(ins.reg_name(mm.base))
+        if mm.index:
+            a += self.greg(ins.reg_name(mm.index)) * mm.scale
+        return a & M32
+
+    def get(self, ins, op):
+        if op.type == x86.X86_OP_REG:
+            return self.greg(ins.reg_name(op.reg))
+        if op.type == x86.X86_OP_IMM:
+            return op.imm & ((1 << (8 * op.size)) - 1) if op.size else op.imm & M32
+        return self.m.u(self.ea(ins, op), op.size)
+
+    def put(self, ins, op, v):
+        if op.type == x86.X86_OP_REG:
+            self.sreg(ins.reg_name(op.reg), v)
+        else:
+            self.m.wu(self.ea(ins, op), op.size, v)
+
+    def push(self, v):
+        self.r['esp'] = (self.r['esp'] - 4) & M32
+        self.m.wu(self.r['esp'], 4, v)
+
+    def pop(self):
+        v = self.m.u(self.r['esp'], 4)
+        self.r['esp'] = (self.r['esp'] + 4) & M32
+        return v
+
+    def flags_logic(self, res, bits):
+        mask = (1 << bits) - 1
+        res &= mask
+        self.cf = self.of = False
+        self.zf = res == 0
+        self.sf = bool(res >> (bits - 1))
+        self.pf = bin(res & 0xFF).count('1') % 2 == 0
+
+    def flags_add(self, a, b, res, bits):
+        mask = (1 << bits) - 1
+        self.cf = res > mask
+        r = res & mask
+        self.zf = r == 0
+        self.pf = bin(r & 0xFF).count('1') % 2 == 0
+        self.sf = bool(r >> (bits - 1))
+        sa, sb, sr = a >> (bits - 1), b >> (bits - 1), r >> (bits - 1)
+        self.of = sa == sb and sr != sa
+
+    def flags_sub(self, a, b, bits):
+        mask = (1 << bits) - 1
+        r = (a - b) & mask
+        self.cf = a < b
+        self.pf = bin(r & 0xFF).count('1') % 2 == 0
+        self.zf = r == 0
+        self.sf = bool(r >> (bits - 1))
+        sa, sb, sr = a >> (bits - 1), b >> (bits - 1), r >> (bits - 1)
+        self.of = sa != sb and sr != sa
+        return r
+
+    def cond(self, mn):
+        c = {
+            'je': self.zf, 'jne': not self.zf, 'jb': self.cf, 'jae': not self.cf,
+            'jbe': self.cf or self.zf, 'ja': not (self.cf or self.zf), 'js': self.sf, 'jns': not self.sf,
+            'jl': self.sf != self.of, 'jge': self.sf == self.of, 'jle': self.zf or self.sf != self.of,
+            'jg': not self.zf and self.sf == self.of, 'jo': self.of, 'jno': not self.of,
+            'jp': self.pf, 'jnp': not self.pf,
+        }
+        if mn not in c:
+            raise Stop('cond ' + mn)
+        return c[mn]
+
+    # --- x87
+    def fmem(self, ins, op):
+        a = self.ea(ins, op)
+        if op.size == 4:
+            return struct.unpack('<f', self.m.read(a, 4))[0]
+        if op.size == 8:
+            return struct.unpack('<d', self.m.read(a, 8))[0]
+        raise Stop('fmem size')
+
+    def imem(self, ins, op):
+        a = self.ea(ins, op)
+        v = self.m.u(a, op.size)
+        if v >> (8 * op.size - 1):
+            v -= 1 << (8 * op.size)
+        return float(v)
+
+    def fstore(self, ins, op, v):
+        a = self.ea(ins, op)
+        if op.size == 4:
+            try:
+                self.m.write(a, struct.pack('<f', v))
+            except OverflowError:
+                self.m.write(a, struct.pack('<f', math.copysign(math.inf, v)))
+        elif op.size == 8:
+            self.m.write(a, struct.pack('<d', v))
+        else:
+            raise Stop('fstore size')
+
+    def sti(self, i):
+        return self.st[-1 - i]
+
+    def set_sti(self, i, v):
+        self.st[-1 - i] = v
+
+    def x87(self, ins):
+        mn = ins.mnemonic
+        ops = ins.operands
+        b = ins.bytes
+        memop = [o for o in ops if o.type == x86.X86_OP_MEM]
+
+        def arith(x, y, kind):
+            if kind == 'add':
+                return x + y
+            if kind == 'mul':
+                return x * y
+            if kind == 'sub':
+                return x - y
+            if kind == 'subr':
+                return y - x
+            if kind == 'div':
+                return x / y if y else math.copysign(math.inf, x) if x else math.nan
+            if kind == 'divr':
+                return y / x if x else math.copysign(math.inf, y) if y else math.nan
+            raise Stop(kind)
+
+        if mn in ('fcom', 'fcomp', 'fcompp', 'fucom', 'fucomp', 'fucompp', 'ftst', 'ficom', 'ficomp'):
+            if mn == 'ftst':
+                y = 0.0
+            elif memop:
+                y = self.imem(ins, memop[0]) if mn.startswith('fi') else self.fmem(ins, memop[0])
+            elif mn.endswith('pp'):
+                y = self.sti(1)
+            else:
+                regs = [o for o in ops if o.type == x86.X86_OP_REG]
+                y = self.sti(int(ins.reg_name(regs[-1].reg)[3:-1]) if regs and
+                             ins.reg_name(regs[-1].reg).startswith('st(') else 1)
+            x = self.sti(0)
+            if math.isnan(x) or math.isnan(y):
+                c3, c2, c0 = 1, 1, 1
+            else:
+                c3, c2, c0 = int(x == y), 0, int(x < y)
+            self.fsw = (c3 << 14) | (c2 << 10) | (c0 << 8)
+            npop = 2 if mn.endswith('pp') else 1 if mn.endswith('p') else 0
+            for _ in range(npop):
+                self.st.pop()
+            return
+        if mn == 'fnstsw':
+            if memop:
+                self.m.wu(self.ea(ins, memop[0]), 2, self.fsw)
+            else:
+                self.r['eax'] = (self.r['eax'] & 0xFFFF0000) | self.fsw
+            return
+        if mn in ('fnstcw', 'fldcw', 'fnclex', 'fclex', 'fwait'):
+            if mn == 'fnstcw':
+                self.m.wu(self.ea(ins, memop[0]), 2, 0x027F)
+            return
+        if mn == 'fldpi':
+            self.st.append(math.pi)
+            return
+        if mn == 'frndint':
+            v = self.sti(0)
+            self.set_sti(0, float(round(v)) if math.isfinite(v) else v)
+            return
+        base = mn.rstrip('p') if mn not in ('fld1',) else mn
+        if mn in ('fld', 'fild') and memop:
+            self.st.append(self.fmem(ins, memop[0]) if mn == 'fld' else self.imem(ins, memop[0]))
+            return
+        if mn == 'fld':  # fld st(i)
+            self.st.append(self.sti(b[1] - 0xC0))
+            return
+        if mn == 'fld1':
+            self.st.append(1.0)
+            return
+        if mn == 'fldz':
+            self.st.append(0.0)
+            return
+        if mn in ('fst', 'fstp'):
+            if memop:
+                self.fstore(ins, memop[0], self.sti(0))
+            else:
+                self.set_sti(b[1] & 7, self.sti(0))
+            if mn == 'fstp':
+                self.st.pop()
+            return
+        if mn in ('fistp', 'fist'):
+            v = self.sti(0)
+            iv = int(round(v)) if not math.isnan(v) else -(1 << 63)
+            a = self.ea(ins, memop[0])
+            self.m.wu(a, memop[0].size, iv)
+            if mn == 'fistp':
+                self.st.pop()
+            return
+        if mn == 'fxch':
+            i = b[1] - 0xC8
+            self.st[-1], self.st[-1 - i] = self.st[-1 - i], self.st[-1]
+            return
+        if mn == 'fpatan':
+            x0 = self.st.pop()
+            self.set_sti(0, math.atan2(self.sti(0), x0))
+            return
+        if mn in ('fsin', 'fcos', 'fchs', 'fabs', 'fsqrt'):
+            f = {'fsin': math.sin, 'fcos': math.cos, 'fchs': lambda v: -v, 'fabs': abs, 'fsqrt': math.sqrt}[mn]
+            self.set_sti(0, f(self.sti(0)))
+            return
+        kinds = {'fadd': 'add', 'fmul': 'mul', 'fsub': 'sub', 'fsubr': 'subr', 'fdiv': 'div', 'fdivr': 'divr',
+                 'fiadd': 'add', 'fimul': 'mul', 'fisub': 'sub', 'fisubr': 'subr', 'fidiv': 'div', 'fidivr': 'divr'}
+        if base in kinds or mn in kinds:
+            kind = kinds.get(mn) or kinds[base]
+            if memop:
+                y = self.imem(ins, memop[0]) if mn.startswith('fi') else self.fmem(ins, memop[0])
+                self.set_sti(0, arith(self.sti(0), y, kind))
+                return
+            op0 = b[0]
+            i = b[1] & 7
+            grp = (b[1] >> 3) & 7  # 0 add 1 mul 4 sub 5 subr 6 div 7 divr (D8); DC/DE reversed sub/div
+            if op0 == 0xD8:
+                k = {0: 'add', 1: 'mul', 4: 'sub', 5: 'subr', 6: 'div', 7: 'divr'}[grp]
+                self.set_sti(0, arith(self.sti(0), self.sti(i), k))
+            elif op0 in (0xDC, 0xDE):
+                k = {0: 'add', 1: 'mul', 4: 'subr', 5: 'sub', 6: 'divr', 7: 'div'}[grp]
+                self.set_sti(i, arith(self.sti(i), self.sti(0), k))
+                if op0 == 0xDE:
+                    self.st.pop()
+            else:
+                raise Stop('x87 ' + mn + ' ' + ins.op_str)
+            return
+        raise Stop('x87 ' + mn + ' ' + ins.op_str)
+
+    # --- main loop
+    def run(self, eip, limit=300_000):
+        while True:
+            if eip == RET_SENTINEL:
+                return
+            self.steps += 1
+            if self.steps > limit:
+                raise Stop('step limit')
+            ins = self.code(eip)
+            self.cur = ins
+            if self.trace is not None:
+                self.trace.add(eip)
+            nxt = eip + ins.size
+            mn = ins.mnemonic
+            ops = ins.operands
+            if mn.startswith('f'):
+                self.x87(ins)
+            elif mn == 'mov':
+                self.put(ins, ops[0], self.get(ins, ops[1]))
+            elif mn in ('movzx', 'movsx'):
+                v = self.get(ins, ops[1])
+                if mn == 'movsx' and v >> (8 * ops[1].size - 1):
+                    v -= 1 << (8 * ops[1].size)
+                self.put(ins, ops[0], v)
+            elif mn == 'lea':
+                self.put(ins, ops[0], self.ea(ins, ops[1]))
+            elif mn in ('add', 'sub', 'cmp', 'and', 'or', 'xor', 'test', 'adc', 'sbb'):
+                bits = 8 * ops[0].size
+                a = self.get(ins, ops[0])
+                bv = self.get(ins, ops[1]) & ((1 << bits) - 1)
+                if mn == 'add':
+                    r = a + bv
+                    self.flags_add(a, bv, r, bits)
+                    self.put(ins, ops[0], r)
+                elif mn in ('sub', 'cmp'):
+                    r = self.flags_sub(a, bv, bits)
+                    if mn == 'sub':
+                        self.put(ins, ops[0], r)
+                elif mn == 'adc':
+                    r = a + bv + int(self.cf)
+                    self.flags_add(a, bv, r, bits)
+                    self.put(ins, ops[0], r)
+                elif mn == 'sbb':
+                    c = int(self.cf)
+                    r = (a - bv - c) & ((1 << bits) - 1)
+                    self.cf = a < bv + c
+                    self.zf = r == 0
+                    self.sf = bool(r >> (bits - 1))
+                    self.put(ins, ops[0], r)
+                else:
+                    r = {'and': a & bv, 'or': a | bv, 'xor': a ^ bv, 'test': a & bv}[mn]
+                    self.flags_logic(r, bits)
+                    if mn != 'test':
+                        self.put(ins, ops[0], r)
+            elif mn in ('inc', 'dec'):
+                bits = 8 * ops[0].size
+                a = self.get(ins, ops[0])
+                cf = self.cf
+                if mn == 'inc':
+                    r = a + 1
+                    self.flags_add(a, 1, r, bits)
+                else:
+                    r = self.flags_sub(a, 1, bits)
+                self.cf = cf
+                self.put(ins, ops[0], r)
+            elif mn == 'neg':
+                bits = 8 * ops[0].size
+                a = self.get(ins, ops[0])
+                r = self.flags_sub(0, a, bits)
+                self.put(ins, ops[0], r)
+            elif mn == 'not':
+                self.put(ins, ops[0], ~self.get(ins, ops[0]))
+            elif mn in ('shl', 'shr', 'sar'):
+                bits = 8 * ops[0].size
+                a = self.get(ins, ops[0])
+                n = (self.get(ins, ops[1]) if len(ops) > 1 else 1) & 31
+                if n:
+                    mask = (1 << bits) - 1
+                    if mn == 'shl':
+                        r = (a << n) & mask
+                        self.cf = bool((a >> (bits - n)) & 1)
+                    elif mn == 'shr':
+                        r = a >> n
+                        self.cf = bool((a >> (n - 1)) & 1)
+                    else:
+                        sa = a - (1 << bits) if a >> (bits - 1) else a
+                        r = (sa >> n) & mask
+                        self.cf = bool((sa >> (n - 1)) & 1)
+                    self.zf = r == 0
+                    self.sf = bool(r >> (bits - 1))
+                    self.put(ins, ops[0], r)
+            elif mn == 'imul':
+                if len(ops) == 3:
+                    a, bv = self.get(ins, ops[1]), self.get(ins, ops[2])
+                elif len(ops) == 2:
+                    a, bv = self.get(ins, ops[0]), self.get(ins, ops[1])
+                else:
+                    raise Stop('imul1')
+                sa = a - (1 << 32) if a >> 31 else a
+                sb = bv - (1 << 32) if bv >> 31 and ops[-1].size == 4 else bv
+                self.put(ins, ops[0], sa * sb)
+            elif mn.startswith('set'):
+                self.put(ins, ops[0], int(self.cond('j' + mn[3:])))
+            elif mn == 'xchg':
+                a, bv = self.get(ins, ops[0]), self.get(ins, ops[1])
+                self.put(ins, ops[0], bv)
+                self.put(ins, ops[1], a)
+            elif mn == 'sahf':
+                ah = (self.r['eax'] >> 8) & 0xFF
+                self.cf, self.zf, self.sf = bool(ah & 1), bool(ah & 0x40), bool(ah & 0x80)
+            elif mn in ('cwde',):
+                v = self.r['eax'] & 0xFFFF
+                self.r['eax'] = (v - 0x10000 if v & 0x8000 else v) & M32
+            elif mn in ('rol', 'ror'):
+                bits = 8 * ops[0].size
+                a = self.get(ins, ops[0])
+                n = (self.get(ins, ops[1]) if len(ops) > 1 else 1) % bits
+                mask = (1 << bits) - 1
+                r = ((a << n) | (a >> (bits - n))) & mask if mn == 'rol' else ((a >> n) | (a << (bits - n))) & mask
+                self.put(ins, ops[0], r)
+            elif mn in ('div', 'idiv', 'mul') or (mn == 'imul' and len(ops) == 1):
+                sz = ops[0].size
+                if sz != 4:
+                    raise Stop('div size')
+                d = self.get(ins, ops[0])
+                if mn in ('mul', 'imul'):
+                    a = self.r['eax']
+                    if mn == 'imul':
+                        a = a - (1 << 32) if a >> 31 else a
+                        d = d - (1 << 32) if d >> 31 else d
+                    p = (a * d) & ((1 << 64) - 1)
+                    self.r['eax'], self.r['edx'] = p & M32, p >> 32
+                else:
+                    n = (self.r['edx'] << 32) | self.r['eax']
+                    if d == 0:
+                        raise Stop('divide by zero at %x' % eip)
+                    if mn == 'idiv':
+                        n = n - (1 << 64) if n >> 63 else n
+                        d = d - (1 << 32) if d >> 31 else d
+                        q = abs(n) // abs(d) * (1 if (n < 0) == (d < 0) else -1)
+                        r_ = n - q * d
+                    else:
+                        q, r_ = divmod(n, d)
+                    self.r['eax'], self.r['edx'] = q & M32, r_ & M32
+            elif mn.split()[-1] in ('movsd', 'movsb', 'stosd', 'stosb', 'movsw', 'stosw'):
+                reps = mn.startswith('rep')
+                n = self.r['ecx'] if reps else 1
+                k = {'d': 4, 'b': 1, 'w': 2}[mn[-1]]
+                op = mn.split()[-1][:4]
+                for _ in range(n):
+                    if op == 'movs':
+                        self.m.write(self.r['edi'], self.m.read(self.r['esi'], k))
+                        self.r['esi'] = (self.r['esi'] + k) & M32
+                    else:
+                        self.m.wu(self.r['edi'], k, self.r['eax'])
+                    self.r['edi'] = (self.r['edi'] + k) & M32
+                if reps:
+                    self.r['ecx'] = 0
+            elif mn in ('repne scasb', 'repe cmpsb', 'repe cmpsd'):
+                k = 4 if mn.endswith('d') else 1
+                n = self.r['ecx']
+                while n:
+                    n -= 1
+                    if mn == 'repne scasb':
+                        a = self.r['eax'] & 0xFF
+                        b2 = self.m.u(self.r['edi'], 1)
+                        self.flags_sub(a, b2, 8)
+                        self.r['edi'] = (self.r['edi'] + 1) & M32
+                        if self.zf:
+                            break
+                    else:
+                        a = self.m.u(self.r['esi'], k)
+                        b2 = self.m.u(self.r['edi'], k)
+                        self.flags_sub(a, b2, 8 * k)
+                        self.r['esi'] = (self.r['esi'] + k) & M32
+                        self.r['edi'] = (self.r['edi'] + k) & M32
+                        if not self.zf:
+                            break
+                    if self.steps > 2_000_000:
+                        raise Stop('step limit')
+                    self.steps += 1
+                self.r['ecx'] = n
+            elif mn in ('cld', 'cdq') and mn == 'cld':
+                pass
+            elif mn == 'cdq':
+                self.r['edx'] = M32 if self.r['eax'] >> 31 else 0
+            elif mn == 'push':
+                self.push(self.get(ins, ops[0]))
+            elif mn == 'pop':
+                self.put(ins, ops[0], self.pop())
+            elif mn == 'leave':
+                self.r['esp'] = self.r['ebp']
+                self.r['ebp'] = self.pop()
+            elif mn == 'nop' or mn == 'wait':
+                pass
+            elif mn == 'jmp':
+                if ops[0].type == x86.X86_OP_IMM:
+                    nxt = ops[0].imm & M32
+                    tail = real_target(nxt) in TAIL_STARTS
+                    key = ('direct', nxt)
+                else:
+                    nxt = self.get(ins, ops[0])
+                    tail = ops[0].type == x86.X86_OP_MEM and not ops[0].mem.index or ops[0].type == x86.X86_OP_REG
+                    key = ('indirect', ops[0].mem.disp if ops[0].type == x86.X86_OP_MEM else 'reg', nxt)
+                if tail and not (OURS_CODE <= nxt < OURS_CODE + 0x1000000):
+                    # a tail call: the callee returns to our caller (handler pops that return address)
+                    nxt = self.call_handler(self, key, eip)
+            elif mn.startswith('j'):
+                if self.cond(mn):
+                    nxt = ops[0].imm & M32
+            elif mn == 'call':
+                if ops[0].type == x86.X86_OP_IMM:
+                    key = ('direct', ops[0].imm & M32)
+                else:
+                    key = ('indirect', ins.op_str_key if hasattr(ins, 'op_str_key') else
+                           (ops[0].mem.disp if ops[0].type == x86.X86_OP_MEM else 'reg'), self.get(ins, ops[0]))
+                self.push(nxt)
+                nxt = self.call_handler(self, key, eip)
+            elif mn == 'ret':
+                n = ops[0].imm if ops else 0
+                nxt = self.pop()
+                self.r['esp'] = (self.r['esp'] + n) & M32
+            elif mn == 'int3':
+                raise Stop('int3 at %x' % eip)
+            else:
+                raise Stop('insn %s %s at %x' % (mn, ins.op_str, eip))
+            eip = nxt
+
+
+def ftol(cpu):
+    v = cpu.st.pop()
+    iv = int(v) if math.isfinite(v) else -(1 << 63)
+    iv &= (1 << 64) - 1
+    cpu.r['eax'] = iv & M32
+    cpu.r['edx'] = iv >> 32
+
+
+# ---------------------------------------------------------------- linking ours
+def link_ours(obj_path, symbol):
+    obj = CoffObject(obj_path)
+    name, sec, s, e = [f for f in obj.functions() if f[0] == symbol][0]
+    info = obj.sections[sec]
+    code = bytearray(obj.data[info['raw']:info['raw'] + info['size']])
+    syms = {x['index']: x for x in obj.symbols}
+    extra = {}
+    placed = {}
+    call_names = {}
+    nxt = [OURS_DATA]
+
+    def place_section(secnum):
+        if secnum in placed:
+            return placed[secnum]
+        si = obj.sections[secnum - 1]
+        base = nxt[0]
+        nxt[0] += (si['size'] + 0x100) & ~0xF
+        raw = obj.data[si['raw']:si['raw'] + si['size']] if si['raw'] else bytes(si['size'])
+        for i, bt in enumerate(raw):
+            extra[base + i] = bt
+        placed[secnum] = base
+        return base
+
+    for va, si, typ in info['relocs']:
+        sym = syms[si]
+        add = struct.unpack_from('<i', code, va)[0]
+        if sym['name'] in ALIASES:
+            target = ALIASES[sym['name']]
+        elif sym['section'] > 0 and sym['section'] - 1 == sec:
+            target = OURS_CODE + sym['value']
+        elif sym['section'] > 0 and sym['name'] in symbols() and not sym['name'].startswith('__real@'):
+            target = symbols()[sym['name']]
+        elif sym['section'] > 0:
+            target = place_section(sym['section']) + sym['value']
+        elif sym['name'] in symbols():
+            target = symbols()[sym['name']]
+        elif sym['name'] in ('__ftol',):
+            target = 0xA264EC
+        else:
+            target = 0x7F000000 + (hash(sym['name']) & 0xFFFFF0)
+            call_names[target] = sym['name']
+        if typ == 0x06:
+            struct.pack_into('<I', code, va, (target + add) & M32)
+        elif typ == 0x14:
+            struct.pack_into('<I', code, va, (target + add - (OURS_CODE + va + 4)) & M32)
+        else:
+            raise SystemExit('reloc type %x' % typ)
+    cache = {}
+
+    def reader(eip):
+        ins = cache.get(eip)
+        if ins is None:
+            off = eip - OURS_CODE
+            ins = next(MD.disasm(bytes(code[off:off + 16]), eip))
+            cache[eip] = ins
+        return ins
+    reader.code = code
+    reader.cache = cache
+    reader.placed = placed
+    return OURS_CODE + s, reader, extra, call_names
+
+
+def client_reader():
+    cache = {}
+
+    def reader(eip):
+        ins = cache.get(eip)
+        if ins is None:
+            o = IMG.offset(eip)
+            if o is None:
+                raise Stop('eip %x outside the image' % eip)
+            ins = next(MD.disasm(IMG.data[o:o + 16], eip))
+            cache[eip] = ins
+        return ins
+    return reader
+
+
+# ---------------------------------------------------------------- running
+def run_one(entry, reader, extra, seed, setup, stubs, nargs):
+    mem = Memory(seed, extra)
+    log = []
+    cpu = None
+
+    def handler(c, key, eip):
+        ret = c.pop()
+        kind, tgt = key[0], key[1]
+        if kind == 'direct':
+            tgt = real_target(tgt)
+            key = ('direct', tgt)
+        esp = c.r['esp']
+        words = [c.m.u(esp + 4 * i, 4) for i in range(8)]
+        idx = len(log)
+        st_before = list(c.st)
+        res = stubs(c, key, words, idx, seed)
+        if not isinstance(res, tuple):
+            res = (res, None)
+        pop_n, out = res[0], res[1]
+        nshow = res[2] if len(res) > 2 else pop_n // 4
+        shown = []
+        for w in words[:nshow]:
+            if STACK_LO <= w < STACK_TOP:
+                shown.append(('stk', w - c.r['esp']))
+            else:
+                shown.append(w)
+        entry_ = {'key': key, 'ecx': c.r['ecx'] if not STACK_LO <= c.r['ecx'] < STACK_TOP else 'stk',
+                  'args': shown, 'st': st_before}
+        if out:
+            if out.pop('_cdecl', False):
+                entry_['ecx'] = None  # cdecl: ecx is not an argument
+            entry_.update(out)
+        log.append(entry_)
+        c.r['esp'] = (c.r['esp'] + pop_n) & M32
+        return ret
+
+    cpu = CPU(mem, reader, handler)
+    cpu.r['esp'] = STACK_TOP - 0x1000
+    args = setup(mem, cpu, seed)
+    for a in reversed(args):
+        cpu.push(a)
+    cpu.push(RET_SENTINEL)
+    esp0 = cpu.r['esp']
+    try:
+        cpu.run(entry)
+        status = 'ret'
+    except Stop as ex:
+        status = 'stop: %s' % ex
+    writes = {a: v for a, v in mem.w.items() if not STACK_LO <= a < STACK_TOP}
+    return {'status': status, 'calls': log, 'writes': writes, 'eax': cpu.r['eax'],
+            'esp': cpu.r['esp'] - esp0, 'st': len(cpu.st), 'steps': cpu.steps,
+            'regs': {k: cpu.r[k] for k in ('ebx', 'esi', 'edi', 'ebp')}}
+
+
+def compare(a, b):
+    diffs = []
+    for k in ('status', 'eax', 'esp', 'st', 'regs'):
+        if a[k] != b[k]:
+            diffs.append('%s: ours %r client %r' % (k, a[k], b[k]))
+    if len(a['calls']) != len(b['calls']):
+        diffs.append('calls: ours %d client %d' % (len(a['calls']), len(b['calls'])))
+    for i, (x, y) in enumerate(zip(a['calls'], b['calls'])):
+        if x != y:
+            diffs.append('call %d: ours %r\n          client %r' % (i, x, y))
+            break
+    ka, kb = set(a['writes']), set(b['writes'])
+    if ka != kb:
+        only_a = sorted(ka - kb)[:8]
+        only_b = sorted(kb - ka)[:8]
+        diffs.append('write sets: ours-only %d %s client-only %d %s' % (
+            len(ka - kb), [hex(x) for x in only_a], len(kb - ka), [hex(x) for x in only_b]))
+    bad = [x for x in ka & kb if a['writes'][x] != b['writes'][x]]
+    if bad:
+        diffs.append('write values differ at %d bytes, first %s' % (len(bad), [hex(x) for x in sorted(bad)[:8]]))
+    return diffs
