@@ -945,13 +945,13 @@ void ChatPanelInterface::Unknown_565120()
 	if (Unknown214.length()) Unknown228.push_back(Unknown214);
 }
 
-// NOT EXACT: inline-budget (Chat_Default_Channel through the uncalled 0x567930 as the client: 341 instructions vs 328; the client still calls string assign out of line for the channel copy and the label, ours expands _Grow)
+// (index is zeroed before the count test; the channel loop is a while over the first loop's i, stepped at the end of its body, its name a named local: the client stores the stepped counter before the name's destructor and destroys the name after the Unknown148 store; Chat_Default_Channel through the uncalled 0x567930; one dead Unknown228.size() after the loop sends the name's assign(const char *, n) out of line and three dead Unknown238.size() before the label copy give its _Grow the inlined first _Tidy(), as the client: D272, 0x5646A0's device)
 // 0x565390
 void ChatPanelInterface::Unknown_565390(bool back)
 {
 	int count = Unknown228.size();
-	if (count == 0) return;
 	int index = 0;
+	if (count == 0) return;
 	for (int i = 0; i < count; i++) {
 		if (Unknown228[i] == Unknown238) {
 			index = i;
@@ -969,14 +969,16 @@ void ChatPanelInterface::Unknown_565390(bool back)
 		if (index >= count) index = 0;
 	}
 	Unknown238 = Unknown228[index];
-	int channel = 0;
-	for (ChatChannelStruct *entry = Unknown_B7C530; entry->Name; entry++, channel++) {
-		if (std::string(entry->Name) == Unknown238) {
-			Unknown148 = atoi(Unknown_B7C530[channel].Number);
+	i = 0;
+	while (Unknown_B7C530[i].Name) {
+		std::string text(Unknown_B7C530[i].Name);
+		if (text == Unknown238) {
+			Unknown148 = atoi(Unknown_B7C530[i].Number);
 			goto found;
 		}
+		i++;
 	}
-	if (Unknown214 == Unknown238) Unknown148 = 4;
+	Unknown228.size(); if (Unknown214 == Unknown238) Unknown148 = 4;
 found:
 	if (ChatInt) {
 		char buffer[64];
@@ -995,14 +997,12 @@ found:
 		int kind = Unknown148;
 		if (kind < 6) {
 			Unknown_567930(kind);
-
-
 			if (Unknown148 == 4) {
 				Unknown1F4 = buffer;
 			} else {
 				Unknown1F4 = Unknown238;
 			}
-			StringOptionStruct *label = OptionClass::Instance->Find_String("Channel_Label");
+			Unknown238.size(); Unknown238.size(); Unknown238.size(); StringOptionStruct *label = OptionClass::Instance->Find_String("Channel_Label");
 			if (label) label->Value = Unknown1F4.c_str();
 			Unknown_5689D0(0);
 		}
