@@ -1851,18 +1851,18 @@ static inline float Unknown_Distance(const Vector2 &p, const Vector2 &a, const V
 	return(fabs(*side / len));
 }
 
-// NOT EXACT: inline-budget: the client calls to_name's ~RefCountPtr out of line (0x51C630, to_name kept in memory, its 0x7ADC47 release on the FAIL_IF path) and tests side twice (0x7ADBE1); every extra spend tried also sends the Set_Justifys out (attempts.csv)
+// NOT EXACT: shape (masked residue 10): the client re-reads Line for Hidden (0x7AD8FE) and tests side twice (0x7ADBE1, a dead fcomp); written so, VC6 inlines to_name's last ~RefCountPtr again (the client calls it, 0x7ADDF0): the unbraced FAIL_IFs and ifs hold that inline state (attempts.csv)
 void GalaxyMapRenderGateClass::Unknown_7AD850(const Vector3 &point)
 {
 
 
 	GalaxyMapLineRObjClass *line = (GalaxyMapLineRObjClass *)Line.Peek();
-	FAIL_IF(!line) { return; }
+	FAIL_IF(!line) return;
 	From->Unknown_7AC070(Flipped);
 	To->Unknown_7AC070(!Flipped);
 	line->Hidden = false;
 	const RefCountPtr<GalaxyMapRenderGateClass> &other = To->Unknown_7AC7B0(From);
-	if (other && other->Line) { ((GalaxyMapLineRObjClass *)other->Line.Peek())->Hidden = false; }
+	if (other) { GalaxyMapLineRObjClass *l = other->Line.Peek(); if (l) l->Hidden = false; }
 	Vector3 a;
 	Vector3 b;
 	From->Get_Position(a);
@@ -1906,10 +1906,10 @@ void GalaxyMapRenderGateClass::Unknown_7AD850(const Vector3 &point)
 
 
 	RefCountPtr<FontSys> to_name = To->Name;
-	FAIL_IF(!to_name) { return; }
+	FAIL_IF(!to_name) return;
 
 	RefCountPtr<FontSys> from_name = From->Name;
-	FAIL_IF(!from_name) { return; }
+	FAIL_IF(!from_name) return;
 	if (fabs(tm.Get_Z_Rotation()) > 1.5707964f) {
 		tm.Rotate_Z(WWMATH_PI);
 		to_name->Set_Justify(2, 4);
@@ -1920,10 +1920,10 @@ void GalaxyMapRenderGateClass::Unknown_7AD850(const Vector3 &point)
 	}
 	to_name->Unknown_6CE7D0(0);
 	to_name->Set_Transform(tm);
-	if (!to_name->Peek_Scene()) { to_name->Add(Line->Peek_Scene()); }
+	if (!to_name->Peek_Scene()) to_name->Add(Line->Peek_Scene());
 	from_name->Unknown_6CE7D0(0);
 	from_name->Set_Transform(tm);
-	if (!from_name->Peek_Scene()) { from_name->Add(Line->Peek_Scene()); }
+	if (!from_name->Peek_Scene()) from_name->Add(Line->Peek_Scene());
 }
 
 // 0x7ADF80: the 2D cross product of p - b and a - b (called, not inlined)
