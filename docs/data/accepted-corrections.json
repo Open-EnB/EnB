@@ -288,6 +288,46 @@
    "moved_to": null,
    "decision": "D240",
    "note": "ClientObjectClass::Unknown_6FDBD0 0x6FDBD0 made exact (1223 / 1223 bytes) with three helpers after the aux roots and one dead find: the client inlines Unknown_Find_Valid<bool> there and calls 0x7079B0, so our out-of-line copy 0x705450 is no longer credited (run 2026-11-25-evening, GN11 c58d87d9f). The client's one caller of 0x705450 is 0x6FCB70 (0x6FCCDE): regain it on 0x6FCB70's round."
+  },
+  {
+   "address": "0x4442C0",
+   "lib": "app",
+   "file": "main",
+   "moved_to": null,
+   "decision": "D240",
+   "note": "main.cpp includes main_client.cpp, so WinMain compiles inside main.cpp's object, and the four random generators get their own object (unknown_4441e0.cpp): the client's main.obj run holds WinMain's full-link slot (3,024 bytes of int3 at 0x444390) and its .CRT$XCU table pads with a zero slot after the generators (app CRT initialisers 941 -> 940 = retail's; run 2026-11-26, IM8 316190e83, binary.md section 5.6). The bytes are identical: a crediting loss, because objmatch's CRT-table round does not widen main.obj's range, which now reaches 0x526DE0 (lead: a matcher rule for update guests, progress.md section 4 Tools)."
+  },
+  {
+   "address": "0x444380",
+   "lib": "app",
+   "file": "main",
+   "moved_to": null,
+   "decision": "D240",
+   "note": "main.cpp includes main_client.cpp, so WinMain compiles inside main.cpp's object, and the four random generators get their own object (unknown_4441e0.cpp): the client's main.obj run holds WinMain's full-link slot (3,024 bytes of int3 at 0x444390) and its .CRT$XCU table pads with a zero slot after the generators (app CRT initialisers 941 -> 940 = retail's; run 2026-11-26, IM8 316190e83, binary.md section 5.6). The bytes are identical: a crediting loss, because objmatch's CRT-table round does not widen main.obj's range, which now reaches 0x526DE0 (lead: a matcher rule for update guests, progress.md section 4 Tools)."
+  },
+  {
+   "address": "0x445260",
+   "lib": "app",
+   "file": "main",
+   "moved_to": null,
+   "decision": "D240",
+   "note": "main.cpp includes main_client.cpp, so WinMain compiles inside main.cpp's object, and the four random generators get their own object (unknown_4441e0.cpp): the client's main.obj run holds WinMain's full-link slot (3,024 bytes of int3 at 0x444390) and its .CRT$XCU table pads with a zero slot after the generators (app CRT initialisers 941 -> 940 = retail's; run 2026-11-26, IM8 316190e83, binary.md section 5.6). The bytes are identical: a crediting loss, because objmatch's CRT-table round does not widen main.obj's range, which now reaches 0x526DE0 (lead: a matcher rule for update guests, progress.md section 4 Tools)."
+  },
+  {
+   "address": "0x445300",
+   "lib": "app",
+   "file": "main",
+   "moved_to": null,
+   "decision": "D240",
+   "note": "main.cpp includes main_client.cpp, so WinMain compiles inside main.cpp's object, and the four random generators get their own object (unknown_4441e0.cpp): the client's main.obj run holds WinMain's full-link slot (3,024 bytes of int3 at 0x444390) and its .CRT$XCU table pads with a zero slot after the generators (app CRT initialisers 941 -> 940 = retail's; run 2026-11-26, IM8 316190e83, binary.md section 5.6). The bytes are identical: a crediting loss, because objmatch's CRT-table round does not widen main.obj's range, which now reaches 0x526DE0 (lead: a matcher rule for update guests, progress.md section 4 Tools)."
+  },
+  {
+   "address": "0x445540",
+   "lib": "app",
+   "file": "main",
+   "moved_to": null,
+   "decision": "D240",
+   "note": "main.cpp includes main_client.cpp, so WinMain compiles inside main.cpp's object, and the four random generators get their own object (unknown_4441e0.cpp): the client's main.obj run holds WinMain's full-link slot (3,024 bytes of int3 at 0x444390) and its .CRT$XCU table pads with a zero slot after the generators (app CRT initialisers 941 -> 940 = retail's; run 2026-11-26, IM8 316190e83, binary.md section 5.6). The bytes are identical: a crediting loss, because objmatch's CRT-table round does not widen main.obj's range, which now reaches 0x526DE0 (lead: a matcher rule for update guests, progress.md section 4 Tools)."
   }
  ]
 }
