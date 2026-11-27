@@ -1,0 +1,47 @@
+Claim 312: ScannerInterface::Unknown_60F1A0, app/client/ui_scan.cpp, 0x60F1A0.
+Base 3a69e9d2056673c8431a90f47d7d973aeb6ddb4e. Models: gpt-6.1-terra high,
+gpt-6.1-terra xhigh group analysis, gpt-6.1-sol high. Accountable @vessellaj.
+
+The caller owns implicit NameClass temporaries through const-reference arguments.
+The inner reputation layer performs lookup; the outer layer rejects invalid/status
+results. Existing Get_Client() accessors at five time reads recover the switch and
+expiry instruction order. A real Name.Get() string local recovers the final register
+tie; the reaction separately indexes the faction entry, as retail does.
+
+43 changed source forms, one repeated frame control, two unchanged baseline controls,
+and one final metadata control: 47 successful compilations, 45 distinct source hashes,
+25 raw and 25 relocation-masked output groups. No compiler-invalid inputs or omitted
+assertions. Initial alias launch denial and nonexistent control input never compiled.
+Two generated first-pass proposals were untested and are excluded from these counts.
+The older three attempts rows describe ten additional historical forms; their full
+patches were unavailable and are not reconstructed here.
+
+Named duration/scalar locals and real string accessor substitutions often emitted
+duplicate code. Direct time stores split the wrong switch tails. Pointer locals and
+conditional-return wrappers produced distinct but incorrect joins. Full per-input
+hashes, compact lossless patches, raw/masked groups and pair results are in the
+claim312-forms-*.json records. Each patch replays against the stated base source.
+
+New exact target: 0x60F1A0 only. Native scoped pairs 88 -> 89, symbols 89 -> 90;
+zero original or intermediate gains lost. All 89 preexisting exact symbol bodies,
+relocation identities/addends, literals and EH graphs are unchanged.
+Full target code/switch data: 2044 bytes, 79 relocations and exact addends; actual
+call targets/receiver loads/vtable slots and nonfilename constants pass. FuncInfo
+has one unwind state, predecessor -1; handler 0xAB9B4B, cleanup 0xAB9B40 calls the
+string destructor 0x42A6C0. Preexisting lookup helpers 0x610300/0x610370 each remain
+80 bytes with six validated relocations; they are not new gains.
+
+Verification limits: canonical source __FILE__ uses app\client while retail uses
+app\Client; canonical auxdata.h __FILE__ is absolute while retail uses
+..\shared/auxdata/auxdata.h. All eight references to these two existing payload
+differences are enumerated in claim312-verification.json. Strict full literal
+parity fails; audit diagnostic mode permits only those explicit known pairs.
+No source/include/build workaround is adopted (D25/D283).
+The native single-TU baseline leaves recorded 0x5BBB00 ambiguous with identical
+0x658220 and credits preexisting 0x51C600 by a tie-break. Both wrapper bodies are
+fully unmasked byte-identical (21 bytes, no relocations); no helper gain is claimed.
+Hosted full-app verification and merge-context checks remain the maintainer's.
+
+Remaining NOT EXACT functions in this file are outside this single-function claim.
+No target exhaustion blocker remains: matching source was found and independently
+rebuilt. Full string-data parity waits for the project's D283 build-path work.
