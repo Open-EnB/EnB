@@ -1398,7 +1398,7 @@ bool CordMgr::Process_ACK1_Packet(unsigned char *data, int len, sockaddr_in *fro
 	return false;
 }
 
-// 0x85ABB0, functional: ACK2 (3, protocol, session, 2 bytes, the data port, a word) for a
+// 0x85ABB0: ACK2 (3, protocol, session, 2 bytes, the data port, a word) for a
 // connection in the handshake: its CordCon (the word is the constructor's 7th argument), in
 // both connection lists; the handshake record goes.
 bool CordMgr::Process_ACK2_Packet(unsigned char *data, int len, sockaddr_in *from, UDP *socket, int unknown)
@@ -1409,10 +1409,10 @@ bool CordMgr::Process_ACK2_Packet(unsigned char *data, int len, sockaddr_in *fro
 	}
 	unsigned char type = data[0];
 	unsigned char protocol = data[1];
-	unsigned short session = ntohs(*(unsigned short *)(data + 2));
-	ntohs(*(unsigned short *)(data + 4));
-	unsigned short port = ntohs(*(unsigned short *)(data + 6));
-	unsigned long word = ntohl(*(unsigned long *)(data + 8));
+	unsigned short session = *(unsigned short *)(data + 2); session = ntohs(session);
+	unsigned short ignored = *(unsigned short *)(data + 4); ignored = ntohs(ignored);
+	unsigned short port = *(unsigned short *)(data + 6); port = ntohs(port);
+	unsigned long word = *(unsigned long *)(data + 8); word = ntohl(word);
 	if (protocol != Protocol_ || type != 3) {
 		return false;
 	}
@@ -1424,10 +1424,12 @@ bool CordMgr::Process_ACK2_Packet(unsigned char *data, int len, sockaddr_in *fro
 			continue;
 		}
 		c->State = 5;
-		CordCon *con = new CordCon(c->Ip, port, session, 0, false, c->Socket, (int)word,
-			c->Key);
-		AllConnections_.addTail(con);
-		Connections_.addTail(con);
+		{
+			CordCon *con = new CordCon(c->Ip, port, session, 0, false, c->Socket, (int)word,
+				c->Key);
+			AllConnections_.addTail(con);
+			Connections_.addTail(con);
+		}
 		delete c;
 		Pending_.remove(i);
 		return true;
