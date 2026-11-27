@@ -10,7 +10,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 231 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1971 |
-| 2 | describes what the code does | 5020 |
+| 2 | describes what the code does | 5021 |
 | 1 | neutral placeholder | 25228 |
 
 ## For review (score 3 and below)
@@ -28801,10 +28801,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Get_Type` | `app/packets/pktask.h:204` | what it returns (the opcode Build sends), as MessageLinePacketClass's |
 | 2 | `TiltPacketClass` | `app/packets/pktilt.h:22` | Net-7's opcode name TILT (the Net-7 opcode table; no structure check) |
 | 2 | `TradePacketClass` | `app/packets/pktrade.h:25` | the stores (no caller left) |
-| 2 | `EmoteNames` | `app/packets/pktriggeremote.cpp:5` | what it holds |
-| 2 | `TriggerEmotePacketClass` | `app/packets/pktriggeremote.h:21` | Net-7's opcode name TRIGGER_EMOTE (the Net-7 opcode table; no structure check) |
-| 2 | `NotifyEmotePacketClass` | `app/packets/pktriggeremote.h:37` | Net-7's opcode name NOTIFY_EMOTE (the Net-7 opcode table; no structure check) |
-| 2 | `Channel` | `app/packets/pktriggeremote.h:50` | Get_Channel returns it |
+| 2 | `EmoteNames` | `app/packets/pktriggeremote.h:23` | what it holds (Print's Emote) |
+| 2 | `EmoteSounds` | `app/packets/pktriggeremote.h:33` | what it holds (EmoteDataClass plays them) |
+| 2 | `TriggerEmotePacketClass` | `app/packets/pktriggeremote.h:44` | Net-7's opcode name TRIGGER_EMOTE (the Net-7 opcode table; no structure check) |
+| 2 | `NotifyEmotePacketClass` | `app/packets/pktriggeremote.h:60` | Net-7's opcode name NOTIFY_EMOTE (the Net-7 opcode table; no structure check) |
+| 2 | `Channel` | `app/packets/pktriggeremote.h:73` | Get_Channel returns it |
 | 2 | `TurnPacketClass` | `app/packets/pkturn.h:22` | Net-7's opcode name TURN (the Net-7 opcode table; no structure check) |
 | 2 | `UiTriggerPacketClass` | `app/packets/pkuitrigger.h:22` | Net-7's opcode name UI_TRIGGER (the Net-7 opcode table; no structure check) |
 | 2 | `Transform` | `app/packets/pkunknown_861760.h:33` | what it holds |
@@ -31953,10 +31954,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `Intensity` | `app/packets/pktilt.h:34` | the client's Print text 'Intensity=' |
 | 3 | `PartnerID` | `app/packets/pktrade.h:34` | the client's Print text 'PartnerID=' |
 | 3 | `Type` | `app/packets/pktrade.h:35` | the client's Print text 'Type=' |
-| 3 | `GameID` | `app/packets/pktriggeremote.h:32` | the client's Print text 'GameID=' |
-| 3 | `Emote` | `app/packets/pktriggeremote.h:33` | the client's Print text 'Emote=' |
-| 3 | `GameID` | `app/packets/pktriggeremote.h:48` | the client's Print text 'GameID=' |
-| 3 | `Emote` | `app/packets/pktriggeremote.h:49` | the client's Print text 'Emote=' |
+| 3 | `GameID` | `app/packets/pktriggeremote.h:55` | the client's Print text 'GameID=' |
+| 3 | `Emote` | `app/packets/pktriggeremote.h:56` | the client's Print text 'Emote=' |
+| 3 | `GameID` | `app/packets/pktriggeremote.h:71` | the client's Print text 'GameID=' |
+| 3 | `Emote` | `app/packets/pktriggeremote.h:72` | the client's Print text 'Emote=' |
 | 3 | `GameID` | `app/packets/pkturn.h:33` | the client's Print text 'GameID=' |
 | 3 | `Intensity` | `app/packets/pkturn.h:34` | the client's Print text 'Intensity=' |
 | 3 | `ID` | `app/packets/pkuitrigger.h:32` | the client's Print text 'ID=' |
