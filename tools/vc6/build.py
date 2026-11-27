@@ -573,9 +573,14 @@ APP_REGION = (0x429630, 0x8C1B64)                      # retail's app slots (bin
 # .text keeps retail's order best (2,230 runs of one displacement, against 2,466 with app alone). Leaving them off
 # gave more bytes in place (1,364,230 against 1,296,406), but by coincidence: their padding cancelled our .text
 # surplus (the not-yet-exact functions), so every later section landed at retail's RVA; .text itself gained 4 KB.
-# Whole library objects also in retail's app region, not on the line yet: wwlib rawfile (26 / 26 functions),
-# ww3d2 w3d_dep (11 / 11) and txt (6 / 6), wwsaveload parameter (2 / 2): with them .text grew 48 KB (open).
-EXACT_PICKS = (('app', None), ('wlib', None), ('wnet', None))
+# wwlib's rawfile.obj too: RawFileClass's 26 functions sit as one block after deffont's object, before drag_mouse's
+# (0x683BE0-0x684DD0), thunked (binary.md 5.3). Left off, its 4.6 KB happens to cancel the .text surplus built up
+# before deffont (+4,576 bytes there, -64 after it), so the bytes-in-place figure rises (1,368,183 against
+# 1,296,406) by that coincidence only; the order is better with it (2,230 runs against 2,260). Do not take it off
+# for the figure: the surplus is the lever (progress.md 4). ww3d2's w3d_dep / txt and wwsaveload's parameter look
+# like app-region objects but are not retail's: every address the ledger credits them is a generic small body also
+# credited to app files, inside app objects' runs; on the line they only add their 41 KB.
+EXACT_PICKS = (('app', None), ('wlib', None), ('wnet', None), ('wwlib', {'rawfile'}))
 
 
 def exact_order():
