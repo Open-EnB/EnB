@@ -28685,7 +28685,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `MasterJoinPacketClass` | `app/packets/pkmasterjoin.h:22` | Net-7's opcode name MASTER_JOIN (the Net-7 opcode table), the client's Print text 'Master Join' |
 | 2 | `Ticket` | `app/packets/pkmasterjoin.h:34` | what it holds |
 | 2 | `Owned` | `app/packets/pkmessagechatstream.h:39` | what it means, as MessageStringPacketClass's |
-| 2 | `Clamp_Int` | `app/packets/pkmessageline.cpp:7` | describes what it does |
 | 2 | `Get_Type` | `app/packets/pkmessageline.h:35` | what the derived classes' return (their opcode) |
 | 2 | `Get_Name` | `app/packets/pkmessageline.h:36` | what the derived classes' return (a name) |
 | 2 | `Get_String` | `app/packets/pkmessageline.h:37` | what it returns |
@@ -29380,11 +29379,12 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Release` | `app/shared/definition_manager.h:143` | what it does |
 | 2 | `Free_Unused` | `app/shared/definition_manager.h:154` | what it does |
 | 2 | `Remove` | `app/shared/definition_manager.h:209` | what it does |
-| 2 | `MillisecondsClass` | `app/shared/duration.h:200` | the unit of DurationClass |
-| 2 | `SecondsClass` | `app/shared/duration.h:201` | the unit (time_string_format.cpp's " second") |
-| 2 | `MinutesClass` | `app/shared/duration.h:202` | the unit (" minute") |
-| 2 | `HoursClass` | `app/shared/duration.h:203` | the unit (" hour") |
-| 2 | `DaysClass` | `app/shared/duration.h:204` | the unit (" day") |
+| 2 | `Clamp_Int` | `app/shared/duration.h:203` | describes what it does |
+| 2 | `MillisecondsClass` | `app/shared/duration.h:212` | the unit of DurationClass |
+| 2 | `SecondsClass` | `app/shared/duration.h:213` | the unit (time_string_format.cpp's " second") |
+| 2 | `MinutesClass` | `app/shared/duration.h:214` | the unit (" minute") |
+| 2 | `HoursClass` | `app/shared/duration.h:215` | the unit (" hour") |
+| 2 | `DaysClass` | `app/shared/duration.h:216` | the unit (" day") |
 | 2 | `ListenerData` | `app/shared/event.cpp:7` | the heap block behind Listener::Data (assert "Data->Subjects.size() != 0") |
 | 2 | `SubjectData` | `app/shared/event.cpp:12` | the heap block behind Subject::Data (assert "find_result == Data->Listeners.end()") |
 | 2 | `Event` | `app/shared/event.h:12` | what Subject::Send_Event hands each Listener (never dereferenced in event.cpp) |
@@ -32051,7 +32051,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `DefinitionRefCount` | `app/shared/definition_manager.h:31` | from the client's 'drc->RefCount' |
 | 3 | `DefinitionManagerClass` | `app/shared/definition_manager.h:42` | by convention (D24) from the client's definition_manager.h |
 | 3 | `DurationTemplateClass` | `app/shared/duration.h:25` | by convention (D24) from the client's file duration.h (D37) |
-| 3 | `DurationClass` | `app/shared/duration.h:206` | by convention (D24) from the client's file duration.h (D37) |
+| 3 | `DurationClass` | `app/shared/duration.h:218` | by convention (D24) from the client's file duration.h (D37) |
 | 3 | `AABoxClass` | `app/shared/dynamic_obj.h:87` | 6 dwords returned by value; type a guess |
 | 3 | `Recolor_Sphere` | `app/shared/enbassetmgr.cpp:477` | EA hueshift style for CLASSID_SPHERE |
 | 3 | `Recolor_Ring` | `app/shared/enbassetmgr.cpp:505` | EA hueshift style for CLASSID_RING |
