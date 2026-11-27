@@ -432,7 +432,7 @@ void UIRefineryClass::Unknown_5ECE20()
 	}
 }
 
-// NOT EXACT: register (the 'AdditionalIterations' pointer kept in ecx and its local, the two flags' tests in another order; 0x5465C0 / 0x5B7130 out of line as the client) (0x5ECEF0)
+// 0x5ECEF0: exact with the flags as && expressions and the busy test clearing both (the client threads the busy path to the disabled go; 0x5465C0 / 0x5B7130 out of line as the client)
 void UIRefineryClass::Unknown_5ECEF0()
 {
 	RefCountPtr<FontSys> go;
@@ -444,17 +444,17 @@ void UIRefineryClass::Unknown_5ECEF0()
 	UIManuTechLevelFilterClass *iterations = (n && n->Unknown70) ? n : NULL;
 	bool can_go;
 	bool can_stack;
-	if (validity && validity->Value == 13) {
-		can_go = true;
-		can_stack = iterations && (unsigned int)iterations->Value > 0;
-	} else {
-		can_go = false;
-		can_stack = false;
-	}
+	can_go = validity && validity->Value == 13;
+	can_stack = can_go && iterations && (unsigned int)iterations->Value > 0;
+
+
+
+
+
 	if (Unknown0AF0 != 0) {
-		can_stack = false;
+		can_stack = false; can_go = false;
 	}
-	if (can_go && Unknown0AF0 == 0) {
+	if (can_go) {
 		Unknown0BC[2]->Unknown_40(true);
 		go->Unknown_Set_2FC(1.0f);
 	} else {
