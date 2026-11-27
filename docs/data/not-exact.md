@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-422 entries in 213 files.
+420 entries in 212 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -198,8 +198,7 @@ edit the comments in the code, not this file.
 | `app/client/starmap_data.cpp:231` | `StarmapDataClass::Create_Mesh` | marker | NOT EXACT: frame and registers (the client keeps 0 in ebx and is_ship on the stack, the old transform above the rotation) @0x7BEF50 |
 | `app/client/starmap_pip.cpp:278` | `StarmapPipClass::Unknown_7C0440` | marker | NOT EXACT: shape (0.80): the client loads the gadget's Position.X through its address (add eax, 0x38) and puts the Unknown60 = 0 block after the return; forms tried in attempts.csv @0x7C0440 |
 | `app/client/starmap_pip.cpp:1181` | `StarmapPipClass::Unknown_7C2060` | marker | NOT EXACT: written from the pseudocode (D64), functional @0x7C2060 |
-| `app/client/starmap_pip.cpp:1273` | `StarmapPipClass::Is_Grouped` | marker | NOT EXACT: inline budget (0.92, attempts.py 0x7C2760): the client calls UnknownRTTIClass<DeltaCompoundClass>::Cast out of line in Unknown_Find_Field; here it is inlined (Find_Valid helpers one, two and three layers deep give the same) @0x7C2760 |
-| `app/client/starmap_pip.cpp:1378` | `StarmapPipClass::Unknown_7C2D30` | mention | NOT EXACT (D64, functional; attempts.csv): 0x7C0260 (MapPipClass's slot +0x20 takes an int, the client tests a byte), 0x7C0440 (the gadget's Position.X load, the else block's place), 0x7C0C80 now exact (its max is a double compare, O5), 0x7C2060 (registers, order), 0x7C2760 (inline budget); 0x7C2850 exact (Find_Group, Is_Grouped's locals). 0x7C1770 exact with t.Y * diff.Y written diff.Y * t.Y (the... |
+| `app/client/starmap_pip.cpp:1378` | `StarmapPipClass::Unknown_7C2D30` | mention | NOT EXACT (D64, functional; attempts.csv): 0x7C0260 (MapPipClass's slot +0x20 takes an int, the client tests a byte), 0x7C0440 (the gadget's Position.X load, the else block's place), 0x7C0C80 now exact (its max is a double compare, O5), 0x7C2060 (registers, order); 0x7C2850 exact (Find_Group, Is_Grouped's locals); 0x7C2760 exact (Find_Set_Field's instance spelled out with four dead reads). 0x7C177... |
 | `app/client/tasks/tsk_login.cpp:271` | `LoginTaskClass::Run` | marker | NOT EXACT: register-only (the final Process_Packets call loads the vtable in edx, the client eax; attempts.py show 0x767F50) |
 | `app/client/tasks/tsk_login.cpp:644` | `LoginTaskClass::Go_Next_Step` | marker | NOT EXACT: register-only (the client keeps 1 in ebx from before the jump table for every flag store and step 1, as Go_Back_Step; step 1 stored before the flag and step 5 without the step check as in the client; attempts.py show 0x769500) 0x769500 |
 | `app/client/tasks/tsk_login.cpp:711` | `LoginTaskClass::Go_Back_Step` | marker | NOT EXACT: register-only (0.46; the client keeps 1 in ebx for the flag and step 1; the cases' order and step 1's stores are the client's block layout; attempts.py show 0x769680) |
@@ -337,7 +336,6 @@ edit the comments in the code, not this file.
 | `app/shared/accel.cpp:162` | `String_To_Value` | marker | NOT EXACT: the inlined Set keeps current and target on the FPU in the client (fld st(0), fst, fxch); see the notes |
 | `app/shared/attrib_dir.cpp:196` | `AttribDir::Attach_Mod` | marker | NOT EXACT: register-only (one fxch before the inlined Calculate's fadd); the info local makes the client's order (Get_Info before the mod's copy), AttributeInfo::Attach_Mod's dead read its insert call |
 | `app/shared/attrib_dir.cpp:690` | `AttributeInfo::Notify` | marker | NOT EXACT: order-only (explain.py): the same 205 instructions with the end iterator kept in a local (begin() inlined as the client's, frame 0x28); the client keeps value, the callback iterator's address and this in other stack slots and hoists two of Recalculate's stores |
-| `app/shared/attrib_dir_collective.cpp:295` | `AttribDirCollective::Add_Member` | marker | NOT EXACT: inline budget (explain.py: frame 0x34 vs 0x28), the client calls MemberStruct's constructor 0x4DD240 out of line; ours inlines it (defined here or in the class alike) |
 | `app/shared/auxdata/delta_time.cpp:94` | `DurationAccessorClass::Get` | marker | NOT EXACT: the zero time is a function-local static the client destroys at exit (atexit 0x4A8590: its DurationClass has a destructor ours lacks); the 64-bit arithmetic follows the client's order |
 | `app/shared/auxdata/encode.cpp:64` | `DeltaCollectorClass::Visit` | marker | NOT EXACT: frame, the client keeps the bool in the argument slot (frame 0xC, ours 0x10) |
 | `app/shared/auxdata/encode.cpp:128` | `DeltaCollectorClass::Visit` | marker | NOT EXACT: shape, the client places the sent test after the return (ours inline) |
