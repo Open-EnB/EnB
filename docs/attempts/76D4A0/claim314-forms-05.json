@@ -1,0 +1,247 @@
+{
+  "base_revision": "3a69e9d2056673c8431a90f47d7d973aeb6ddb4e",
+  "base_path": "app/client/html/image/gifload.cpp",
+  "base_sha256": "ad1c7431c7b7c6499e2ecba0aae1147af369f3af0eb4a5b1cb35a5141f17e7dd",
+  "forms": [
+    {
+      "name": "sol_decode_counter_result_errors",
+      "source_sha256": "8628a750ebb58967e1924a269e5dd67e96d4a9091aad4fe4b2482623965f0c65",
+      "patch": "--- app/client/html/image/gifload.cpp\n+++ app/client/html/image/gifload.cpp\n@@ -353,15 +353,15 @@\n \tshort direct;\n \tshort len;\n \tshort i;\n-\tint row = 0;\n+\tint row = 0; short result = 0;\n \n \tif ((size = Get_Byte()) < 0)\n-\t\treturn(size);\n-\tif (size < 2 || 9 < size)\n-\t\treturn(BAD_CODE_SIZE);\n-\n-\tCodeSize = size + 1;\n-\ttop_slot = 1 << CodeSize;\n+\t\tresult = size;\n+\telse if (size < 2 || 9 < size)\n+\t\tresult = BAD_CODE_SIZE;\n+\telse {\n+\tCodeSize = (short)(size + 1);\n+\toc = 0; ycount = 0; top_slot = 1 << CodeSize; xcount = 0; fc = 0;\n \tclear = 1 << size;\n \tending = clear + 1;\n \tslot = newcodes = ending + 1;\n@@ -370,8 +370,8 @@\n \tfor (i = 0; i < slot; i++)\n \t\tLengths[i] = 0;\n \n-\toc = fc = 0;\n-\txcount = ycount = 0;\n+\t\n+\t\n \tsp = Stack;\n \tbufptr = Line;\n \tbufcnt = linewidth;\n@@ -381,7 +381,7 @@\n \t\t\tbreak;\n \n \t\tif (c == clear) {\n-\t\t\tCodeSize = size + 1;\n+\t\t\tCodeSize = (short)(size + 1);\n \t\t\tLengths[newcodes] = 0;\n \t\t\ttop_slot = 1 << CodeSize;\n \t\t\tslot = newcodes;\n@@ -391,7 +391,7 @@\n \t\t\t\tbreak;\n \t\t\tif (c >= slot)\n \t\t\t\tc = 0;\n-\t\t\toc = fc = c;\n+\t\t\toc = c; fc = (unsigned char)c;\n \t\t\t*sp++ = fc;\n \t\t} else {\n \t\t\tcode = c;\n@@ -407,10 +407,10 @@\n \t\t\tdirect = 0;\n \t\t\twhile (code >= newcodes) {\n \t\t\t\tG_ASSERT(code < 4096);\n-\t\t\t\tlen = Lengths[code];\n+\t\t\t\ti = len = Lengths[code];\n \t\t\t\tif (len > 0 && bufcnt - len > 0) {\n \t\t\t\t\tdirect = -1;\n-\t\t\t\t\ti = len;\n+\t\t\t\t\t\n \t\t\t\t\tdo {\n \n \n@@ -419,8 +419,8 @@\n \t\t\t\t\t\tcode = Prefix[code];\n \t\t\t\t\t} while (i > 0);\n \t\t\t\t\t*bufptr = (unsigned char)code;\n-\t\t\t\t\tbufptr += len + 1;\n-\t\t\t\t\tbufcnt -= len + 1;\n+\t\t\t\t\t++len; bufptr += len;\n+\t\t\t\t\tbufcnt -= len;\n \t\t\t\t\tif (bufcnt == 0) {\n \t\t\t\t\t\tif (--ycount < 0) {\n \t\t\t\t\t\t\tOut_Line(Line, bufptr - Line, row);\n@@ -428,8 +428,8 @@\n \t\t\t\t\t\t\tycount = 0;\n \t\t\t\t\t\t}\n \t\t\t\t\t\tbufptr = Line;\n+\t\t\t\t\t\tbufcnt = linewidth;\n \t\t\t\t\t\txcount = 0;\n-\t\t\t\t\t\tbufcnt = linewidth;\n \t\t\t\t\t}\n \t\t\t\t} else {\n \n@@ -480,12 +480,12 @@\n \t\t\t\t\tycount = 0;\n \t\t\t\t}\n \t\t\t\tbufptr = Line;\n+\t\t\t\tbufcnt = linewidth;\n \t\t\t\txcount = 0;\n-\t\t\t\tbufcnt = linewidth;\n \t\t\t}\n \t\t}\n \t}\n-\treturn(0);\n+\t} if (result < 0) return(result); return(0);\n }\n \n // NOT EXACT: 0x76DF60, one instruction: the client reads ret for the final mask with a word load, ours a dword\n",
+      "changed": true,
+      "model": "gpt-6.1-sol high",
+      "classification": "changed_form",
+      "output": {
+        "gained": [],
+        "lost": [],
+        "symbol_gained": [],
+        "symbol_lost": [],
+        "targets": {
+          "0x76D4A0": {
+            "symbol": "?Set_Data@HtmlGifImageClass@@UAEHPADH@Z",
+            "length": 1171,
+            "raw_sha256": "affd05f9be5256ec8c97bbe6c0a281bfe1e50ec87a8b8a85311af7af083d5710",
+            "masked_sha256": "affd05f9be5256ec8c97bbe6c0a281bfe1e50ec87a8b8a85311af7af083d5710",
+            "diagnostic_similarity": "similarity 0.31",
+            "exact": false
+          },
+          "0x76D990": {
+            "symbol": "?Decode@HtmlGifImageClass@@QAEFF@Z",
+            "length": 1170,
+            "raw_sha256": "f392e5e2f603d7f7f38e0095e0daf8aedd68b210a023228b4cfc416dbb43df02",
+            "masked_sha256": "f392e5e2f603d7f7f38e0095e0daf8aedd68b210a023228b4cfc416dbb43df02",
+            "diagnostic_similarity": "similarity 0.81",
+            "exact": false
+          },
+          "0x76DF60": {
+            "symbol": "?Get_Next_Code@HtmlGifImageClass@@QAEFXZ",
+            "length": 514,
+            "raw_sha256": "de48c4e2d48d2b98219ae55ab5d6c05c675042867750d51ffe332bd599758360",
+            "masked_sha256": "de48c4e2d48d2b98219ae55ab5d6c05c675042867750d51ffe332bd599758360",
+            "diagnostic_similarity": "similarity 0.82",
+            "exact": false
+          }
+        }
+      }
+    },
+    {
+      "name": "sol_decode_counter_scope",
+      "source_sha256": "73619a8ae905153b0b1d6362bdf075ff69fc89eb61a61850afd5c1e504db1ba0",
+      "patch": "--- app/client/html/image/gifload.cpp\n+++ app/client/html/image/gifload.cpp\n@@ -337,7 +337,7 @@\n {\n \tunsigned char *sp;\n \tunsigned char *bufptr;\n-\tshort code;\n+\t\n \tshort oc;\n \tshort bufcnt;\n \tunsigned char fc;\n@@ -350,8 +350,8 @@\n \tshort slot;\n \tshort xcount;\n \tshort ycount;\n-\tshort direct;\n-\tshort len;\n+\t\n+\t\n \tshort i;\n \tint row = 0;\n \n@@ -360,8 +360,8 @@\n \tif (size < 2 || 9 < size)\n \t\treturn(BAD_CODE_SIZE);\n \n-\tCodeSize = size + 1;\n-\ttop_slot = 1 << CodeSize;\n+\tCodeSize = (short)(size + 1);\n+\toc = 0; ycount = 0; top_slot = 1 << CodeSize; xcount = 0; fc = 0;\n \tclear = 1 << size;\n \tending = clear + 1;\n \tslot = newcodes = ending + 1;\n@@ -370,8 +370,8 @@\n \tfor (i = 0; i < slot; i++)\n \t\tLengths[i] = 0;\n \n-\toc = fc = 0;\n-\txcount = ycount = 0;\n+\t\n+\t\n \tsp = Stack;\n \tbufptr = Line;\n \tbufcnt = linewidth;\n@@ -381,7 +381,7 @@\n \t\t\tbreak;\n \n \t\tif (c == clear) {\n-\t\t\tCodeSize = size + 1;\n+\t\t\tCodeSize = (short)(size + 1);\n \t\t\tLengths[newcodes] = 0;\n \t\t\ttop_slot = 1 << CodeSize;\n \t\t\tslot = newcodes;\n@@ -391,10 +391,10 @@\n \t\t\t\tbreak;\n \t\t\tif (c >= slot)\n \t\t\t\tc = 0;\n-\t\t\toc = fc = c;\n+\t\t\toc = c; fc = (unsigned char)c;\n \t\t\t*sp++ = fc;\n \t\t} else {\n-\t\t\tcode = c;\n+\t\t\tshort code = c;\n \t\t\tif (code >= slot) {\n \t\t\t\tif (code > slot) {\n \t\t\t\t\t++BadCodes;\n@@ -404,13 +404,13 @@\n \t\t\t\t*sp++ = fc;\n \t\t\t}\n \n-\t\t\tdirect = 0;\n+\t\t\tshort direct = 0;\n \t\t\twhile (code >= newcodes) {\n \t\t\t\tG_ASSERT(code < 4096);\n-\t\t\t\tlen = Lengths[code];\n+\t\t\t\tshort len; i = len = Lengths[code];\n \t\t\t\tif (len > 0 && bufcnt - len > 0) {\n \t\t\t\t\tdirect = -1;\n-\t\t\t\t\ti = len;\n+\t\t\t\t\t\n \t\t\t\t\tdo {\n \n \n@@ -419,8 +419,8 @@\n \t\t\t\t\t\tcode = Prefix[code];\n \t\t\t\t\t} while (i > 0);\n \t\t\t\t\t*bufptr = (unsigned char)code;\n-\t\t\t\t\tbufptr += len + 1;\n-\t\t\t\t\tbufcnt -= len + 1;\n+\t\t\t\t\t++len; bufptr += len;\n+\t\t\t\t\tbufcnt -= len;\n \t\t\t\t\tif (bufcnt == 0) {\n \t\t\t\t\t\tif (--ycount < 0) {\n \t\t\t\t\t\t\tOut_Line(Line, bufptr - Line, row);\n",
+      "changed": true,
+      "model": "gpt-6.1-sol high",
+      "classification": "changed_form",
+      "output": {
+        "gained": [],
+        "lost": [],
+        "symbol_gained": [],
+        "symbol_lost": [],
+        "targets": {
+          "0x76D4A0": {
+            "symbol": "?Set_Data@HtmlGifImageClass@@UAEHPADH@Z",
+            "length": 1171,
+            "raw_sha256": "affd05f9be5256ec8c97bbe6c0a281bfe1e50ec87a8b8a85311af7af083d5710",
+            "masked_sha256": "affd05f9be5256ec8c97bbe6c0a281bfe1e50ec87a8b8a85311af7af083d5710",
+            "diagnostic_similarity": "similarity 0.31",
+            "exact": false
+          },
+          "0x76D990": {
+            "symbol": "?Decode@HtmlGifImageClass@@QAEFF@Z",
+            "length": 1169,
+            "raw_sha256": "c7805ab32aa92bc40f75dc3de031ad537c35bd4d4e5d351950d85f169efe67f1",
+            "masked_sha256": "c7805ab32aa92bc40f75dc3de031ad537c35bd4d4e5d351950d85f169efe67f1",
+            "diagnostic_similarity": "similarity 0.81",
+            "exact": false
+          },
+          "0x76DF60": {
+            "symbol": "?Get_Next_Code@HtmlGifImageClass@@QAEFXZ",
+            "length": 514,
+            "raw_sha256": "de48c4e2d48d2b98219ae55ab5d6c05c675042867750d51ffe332bd599758360",
+            "masked_sha256": "de48c4e2d48d2b98219ae55ab5d6c05c675042867750d51ffe332bd599758360",
+            "diagnostic_similarity": "similarity 0.82",
+            "exact": false
+          }
+        }
+      }
+    },
+    {
+      "name": "sol_decode_counter_status_label",
+      "source_sha256": "a533eb866a6f1e8ced1338887f6a9baf40c0ed0912bdfba13fd7cc525ae7e843",
+      "patch": "--- app/client/html/image/gifload.cpp\n+++ app/client/html/image/gifload.cpp\n@@ -356,22 +356,22 @@\n \tint row = 0;\n \n \tif ((size = Get_Byte()) < 0)\n-\t\treturn(size);\n+\t\tgoto decode_done;\n \tif (size < 2 || 9 < size)\n-\t\treturn(BAD_CODE_SIZE);\n-\n-\tCodeSize = size + 1;\n+\t\t{ size = BAD_CODE_SIZE; goto decode_done; }\n+\n+\tCodeSize = (short)(size + 1);\n \ttop_slot = 1 << CodeSize;\n \tclear = 1 << size;\n \tending = clear + 1;\n \tslot = newcodes = ending + 1;\n \tLengths[slot] = 0;\n \tBytesLeft = BitsLeft = 0;\n-\tfor (i = 0; i < slot; i++)\n+\toc = fc = 0; xcount = ycount = 0; for (i = 0; i < slot; i++)\n \t\tLengths[i] = 0;\n \n-\toc = fc = 0;\n-\txcount = ycount = 0;\n+\t\n+\t\n \tsp = Stack;\n \tbufptr = Line;\n \tbufcnt = linewidth;\n@@ -381,7 +381,7 @@\n \t\t\tbreak;\n \n \t\tif (c == clear) {\n-\t\t\tCodeSize = size + 1;\n+\t\t\tCodeSize = (short)(size + 1);\n \t\t\tLengths[newcodes] = 0;\n \t\t\ttop_slot = 1 << CodeSize;\n \t\t\tslot = newcodes;\n@@ -391,7 +391,7 @@\n \t\t\t\tbreak;\n \t\t\tif (c >= slot)\n \t\t\t\tc = 0;\n-\t\t\toc = fc = c;\n+\t\t\toc = c; fc = (unsigned char)c;\n \t\t\t*sp++ = fc;\n \t\t} else {\n \t\t\tcode = c;\n@@ -407,10 +407,10 @@\n \t\t\tdirect = 0;\n \t\t\twhile (code >= newcodes) {\n \t\t\t\tG_ASSERT(code < 4096);\n-\t\t\t\tlen = Lengths[code];\n+\t\t\t\ti = len = Lengths[code];\n \t\t\t\tif (len > 0 && bufcnt - len > 0) {\n \t\t\t\t\tdirect = -1;\n-\t\t\t\t\ti = len;\n+\t\t\t\t\t\n \t\t\t\t\tdo {\n \n \n@@ -419,8 +419,8 @@\n \t\t\t\t\t\tcode = Prefix[code];\n \t\t\t\t\t} while (i > 0);\n \t\t\t\t\t*bufptr = (unsigned char)code;\n-\t\t\t\t\tbufptr += len + 1;\n-\t\t\t\t\tbufcnt -= len + 1;\n+\t\t\t\t\t++len; bufptr += len;\n+\t\t\t\t\tbufcnt -= len;\n \t\t\t\t\tif (bufcnt == 0) {\n \t\t\t\t\t\tif (--ycount < 0) {\n \t\t\t\t\t\t\tOut_Line(Line, bufptr - Line, row);\n@@ -485,7 +485,7 @@\n \t\t\t}\n \t\t}\n \t}\n-\treturn(0);\n+\tsize = 0; decode_done: return(size);\n }\n \n // NOT EXACT: 0x76DF60, one instruction: the client reads ret for the final mask with a word load, ours a dword\n",
+      "changed": true,
+      "model": "gpt-6.1-sol high",
+      "classification": "changed_form",
+      "output": {
+        "gained": [],
+        "lost": [],
+        "symbol_gained": [],
+        "symbol_lost": [],
+        "targets": {
+          "0x76D4A0": {
+            "symbol": "?Set_Data@HtmlGifImageClass@@UAEHPADH@Z",
+            "length": 1171,
+            "raw_sha256": "affd05f9be5256ec8c97bbe6c0a281bfe1e50ec87a8b8a85311af7af083d5710",
+            "masked_sha256": "affd05f9be5256ec8c97bbe6c0a281bfe1e50ec87a8b8a85311af7af083d5710",
+            "diagnostic_similarity": "similarity 0.31",
+            "exact": false
+          },
+          "0x76D990": {
+            "symbol": "?Decode@HtmlGifImageClass@@QAEFF@Z",
+            "length": 1159,
+            "raw_sha256": "66113c4d70b507dfab51803c60d8841967b538721889a47ebe140676582685ba",
+            "masked_sha256": "66113c4d70b507dfab51803c60d8841967b538721889a47ebe140676582685ba",
+            "diagnostic_similarity": "similarity 0.75",
+            "exact": false
+          },
+          "0x76DF60": {
+            "symbol": "?Get_Next_Code@HtmlGifImageClass@@QAEFXZ",
+            "length": 514,
+            "raw_sha256": "de48c4e2d48d2b98219ae55ab5d6c05c675042867750d51ffe332bd599758360",
+            "masked_sha256": "de48c4e2d48d2b98219ae55ab5d6c05c675042867750d51ffe332bd599758360",
+            "diagnostic_similarity": "similarity 0.82",
+            "exact": false
+          }
+        }
+      }
+    },
+    {
+      "name": "sol_decode_counter_success_scope",
+      "source_sha256": "52260e1481426ea59d1dae87b2a31e7eeebf33a0e5a3cf884894b6fa3ca03c29",
+      "patch": "--- app/client/html/image/gifload.cpp\n+++ app/client/html/image/gifload.cpp\n@@ -355,13 +355,13 @@\n \tshort i;\n \tint row = 0;\n \n-\tif ((size = Get_Byte()) < 0)\n-\t\treturn(size);\n+\tif ((size = Get_Byte()) >= 0) {\n+\t\t\n \tif (size < 2 || 9 < size)\n \t\treturn(BAD_CODE_SIZE);\n \n-\tCodeSize = size + 1;\n-\ttop_slot = 1 << CodeSize;\n+\tCodeSize = (short)(size + 1);\n+\toc = 0; ycount = 0; top_slot = 1 << CodeSize; xcount = 0; fc = 0;\n \tclear = 1 << size;\n \tending = clear + 1;\n \tslot = newcodes = ending + 1;\n@@ -370,8 +370,8 @@\n \tfor (i = 0; i < slot; i++)\n \t\tLengths[i] = 0;\n \n-\toc = fc = 0;\n-\txcount = ycount = 0;\n+\t\n+\t\n \tsp = Stack;\n \tbufptr = Line;\n \tbufcnt = linewidth;\n@@ -381,7 +381,7 @@\n \t\t\tbreak;\n \n \t\tif (c == clear) {\n-\t\t\tCodeSize = size + 1;\n+\t\t\tCodeSize = (short)(size + 1);\n \t\t\tLengths[newcodes] = 0;\n \t\t\ttop_slot = 1 << CodeSize;\n \t\t\tslot = newcodes;\n@@ -391,7 +391,7 @@\n \t\t\t\tbreak;\n \t\t\tif (c >= slot)\n \t\t\t\tc = 0;\n-\t\t\toc = fc = c;\n+\t\t\toc = c; fc = (unsigned char)c;\n \t\t\t*sp++ = fc;\n \t\t} else {\n \t\t\tcode = c;\n@@ -407,10 +407,10 @@\n \t\t\tdirect = 0;\n \t\t\twhile (code >= newcodes) {\n \t\t\t\tG_ASSERT(code < 4096);\n-\t\t\t\tlen = Lengths[code];\n+\t\t\t\ti = len = Lengths[code];\n \t\t\t\tif (len > 0 && bufcnt - len > 0) {\n \t\t\t\t\tdirect = -1;\n-\t\t\t\t\ti = len;\n+\t\t\t\t\t\n \t\t\t\t\tdo {\n \n \n@@ -419,8 +419,8 @@\n \t\t\t\t\t\tcode = Prefix[code];\n \t\t\t\t\t} while (i > 0);\n \t\t\t\t\t*bufptr = (unsigned char)code;\n-\t\t\t\t\tbufptr += len + 1;\n-\t\t\t\t\tbufcnt -= len + 1;\n+\t\t\t\t\t++len; bufptr += len;\n+\t\t\t\t\tbufcnt -= len;\n \t\t\t\t\tif (bufcnt == 0) {\n \t\t\t\t\t\tif (--ycount < 0) {\n \t\t\t\t\t\t\tOut_Line(Line, bufptr - Line, row);\n@@ -428,8 +428,8 @@\n \t\t\t\t\t\t\tycount = 0;\n \t\t\t\t\t\t}\n \t\t\t\t\t\tbufptr = Line;\n+\t\t\t\t\t\tbufcnt = linewidth;\n \t\t\t\t\t\txcount = 0;\n-\t\t\t\t\t\tbufcnt = linewidth;\n \t\t\t\t\t}\n \t\t\t\t} else {\n \n@@ -480,12 +480,12 @@\n \t\t\t\t\tycount = 0;\n \t\t\t\t}\n \t\t\t\tbufptr = Line;\n+\t\t\t\tbufcnt = linewidth;\n \t\t\t\txcount = 0;\n-\t\t\t\tbufcnt = linewidth;\n \t\t\t}\n \t\t}\n \t}\n-\treturn(0);\n+\treturn(0); } return(size);\n }\n \n // NOT EXACT: 0x76DF60, one instruction: the client reads ret for the final mask with a word load, ours a dword\n",
+      "changed": true,
+      "model": "gpt-6.1-sol high",
+      "classification": "changed_form",
+      "output": {
+        "gained": [],
+        "lost": [],
+        "symbol_gained": [],
+        "symbol_lost": [],
+        "targets": {
+          "0x76D4A0": {
+            "symbol": "?Set_Data@HtmlGifImageClass@@UAEHPADH@Z",
+            "length": 1171,
+            "raw_sha256": "affd05f9be5256ec8c97bbe6c0a281bfe1e50ec87a8b8a85311af7af083d5710",
+            "masked_sha256": "affd05f9be5256ec8c97bbe6c0a281bfe1e50ec87a8b8a85311af7af083d5710",
+            "diagnostic_similarity": "similarity 0.31",
+            "exact": false
+          },
+          "0x76D990": {
+            "symbol": "?Decode@HtmlGifImageClass@@QAEFF@Z",
+            "length": 1169,
+            "raw_sha256": "744c451898bbc92e94800031db907639347de562a60daf1b8dea67572bdac7e4",
+            "masked_sha256": "744c451898bbc92e94800031db907639347de562a60daf1b8dea67572bdac7e4",
+            "diagnostic_similarity": "similarity 0.81",
+            "exact": false
+          },
+          "0x76DF60": {
+            "symbol": "?Get_Next_Code@HtmlGifImageClass@@QAEFXZ",
+            "length": 514,
+            "raw_sha256": "de48c4e2d48d2b98219ae55ab5d6c05c675042867750d51ffe332bd599758360",
+            "masked_sha256": "de48c4e2d48d2b98219ae55ab5d6c05c675042867750d51ffe332bd599758360",
+            "diagnostic_similarity": "similarity 0.82",
+            "exact": false
+          }
+        }
+      }
+    },
+    {
+      "name": "sol_decode_counter_test_early",
+      "source_sha256": "ae8619697b74b26129deff87f786b31af44ff9e9f19cb0e85e57b280accab434",
+      "patch": "--- app/client/html/image/gifload.cpp\n+++ app/client/html/image/gifload.cpp\n@@ -360,18 +360,18 @@\n \tif (size < 2 || 9 < size)\n \t\treturn(BAD_CODE_SIZE);\n \n-\tCodeSize = size + 1;\n+\tCodeSize = (short)(size + 1);\n \ttop_slot = 1 << CodeSize;\n \tclear = 1 << size;\n \tending = clear + 1;\n \tslot = newcodes = ending + 1;\n \tLengths[slot] = 0;\n \tBytesLeft = BitsLeft = 0;\n-\tfor (i = 0; i < slot; i++)\n+\toc = fc = 0; xcount = ycount = 0; for (i = 0; i < slot; i++)\n \t\tLengths[i] = 0;\n \n-\toc = fc = 0;\n-\txcount = ycount = 0;\n+\t\n+\t\n \tsp = Stack;\n \tbufptr = Line;\n \tbufcnt = linewidth;\n@@ -381,7 +381,7 @@\n \t\t\tbreak;\n \n \t\tif (c == clear) {\n-\t\t\tCodeSize = size + 1;\n+\t\t\tCodeSize = (short)(size + 1);\n \t\t\tLengths[newcodes] = 0;\n \t\t\ttop_slot = 1 << CodeSize;\n \t\t\tslot = newcodes;\n@@ -391,7 +391,7 @@\n \t\t\t\tbreak;\n \t\t\tif (c >= slot)\n \t\t\t\tc = 0;\n-\t\t\toc = fc = c;\n+\t\t\toc = c; fc = (unsigned char)c;\n \t\t\t*sp++ = fc;\n \t\t} else {\n \t\t\tcode = c;\n@@ -407,10 +407,10 @@\n \t\t\tdirect = 0;\n \t\t\twhile (code >= newcodes) {\n \t\t\t\tG_ASSERT(code < 4096);\n-\t\t\t\tlen = Lengths[code];\n-\t\t\t\tif (len > 0 && bufcnt - len > 0) {\n+\t\t\t\ti = len = Lengths[code];\n+\t\t\t\tif (i > 0 && bufcnt - i > 0) {\n \t\t\t\t\tdirect = -1;\n-\t\t\t\t\ti = len;\n+\t\t\t\t\t\n \t\t\t\t\tdo {\n \n \n@@ -419,8 +419,8 @@\n \t\t\t\t\t\tcode = Prefix[code];\n \t\t\t\t\t} while (i > 0);\n \t\t\t\t\t*bufptr = (unsigned char)code;\n-\t\t\t\t\tbufptr += len + 1;\n-\t\t\t\t\tbufcnt -= len + 1;\n+\t\t\t\t\t++len; bufptr += len;\n+\t\t\t\t\tbufcnt -= len;\n \t\t\t\t\tif (bufcnt == 0) {\n \t\t\t\t\t\tif (--ycount < 0) {\n \t\t\t\t\t\t\tOut_Line(Line, bufptr - Line, row);\n",
+      "changed": true,
+      "model": "gpt-6.1-sol high",
+      "classification": "changed_form",
+      "output": {
+        "gained": [],
+        "lost": [],
+        "symbol_gained": [],
+        "symbol_lost": [],
+        "targets": {
+          "0x76D4A0": {
+            "symbol": "?Set_Data@HtmlGifImageClass@@UAEHPADH@Z",
+            "length": 1171,
+            "raw_sha256": "affd05f9be5256ec8c97bbe6c0a281bfe1e50ec87a8b8a85311af7af083d5710",
+            "masked_sha256": "affd05f9be5256ec8c97bbe6c0a281bfe1e50ec87a8b8a85311af7af083d5710",
+            "diagnostic_similarity": "similarity 0.31",
+            "exact": false
+          },
+          "0x76D990": {
+            "symbol": "?Decode@HtmlGifImageClass@@QAEFF@Z",
+            "length": 1169,
+            "raw_sha256": "0f754a31385903f8104685bdab7e43c1738625038d863b58391c73d0534f487f",
+            "masked_sha256": "0f754a31385903f8104685bdab7e43c1738625038d863b58391c73d0534f487f",
+            "diagnostic_similarity": "similarity 0.79",
+            "exact": false
+          },
+          "0x76DF60": {
+            "symbol": "?Get_Next_Code@HtmlGifImageClass@@QAEFXZ",
+            "length": 514,
+            "raw_sha256": "de48c4e2d48d2b98219ae55ab5d6c05c675042867750d51ffe332bd599758360",
+            "masked_sha256": "de48c4e2d48d2b98219ae55ab5d6c05c675042867750d51ffe332bd599758360",
+            "diagnostic_similarity": "similarity 0.82",
+            "exact": false
+          }
+        }
+      }
+    },
+    {
+      "name": "sol_decode_scope_early",
+      "source_sha256": "21edc697dcbb3cc9c4990f29b9b3bbaab44519ea9ff44b2b0e994d1ec4469aa0",
+      "patch": "--- app/client/html/image/gifload.cpp\n+++ app/client/html/image/gifload.cpp\n@@ -337,7 +337,7 @@\n {\n \tunsigned char *sp;\n \tunsigned char *bufptr;\n-\tshort code;\n+\t\n \tshort oc;\n \tshort bufcnt;\n \tunsigned char fc;\n@@ -350,8 +350,8 @@\n \tshort slot;\n \tshort xcount;\n \tshort ycount;\n-\tshort direct;\n-\tshort len;\n+\t\n+\t\n \tshort i;\n \tint row = 0;\n \n@@ -360,18 +360,18 @@\n \tif (size < 2 || 9 < size)\n \t\treturn(BAD_CODE_SIZE);\n \n-\tCodeSize = size + 1;\n+\tCodeSize = (short)(size + 1);\n \ttop_slot = 1 << CodeSize;\n \tclear = 1 << size;\n \tending = clear + 1;\n \tslot = newcodes = ending + 1;\n \tLengths[slot] = 0;\n \tBytesLeft = BitsLeft = 0;\n-\tfor (i = 0; i < slot; i++)\n+\toc = fc = 0; xcount = ycount = 0; for (i = 0; i < slot; i++)\n \t\tLengths[i] = 0;\n \n-\toc = fc = 0;\n-\txcount = ycount = 0;\n+\t\n+\t\n \tsp = Stack;\n \tbufptr = Line;\n \tbufcnt = linewidth;\n@@ -381,7 +381,7 @@\n \t\t\tbreak;\n \n \t\tif (c == clear) {\n-\t\t\tCodeSize = size + 1;\n+\t\t\tCodeSize = (short)(size + 1);\n \t\t\tLengths[newcodes] = 0;\n \t\t\ttop_slot = 1 << CodeSize;\n \t\t\tslot = newcodes;\n@@ -391,10 +391,10 @@\n \t\t\t\tbreak;\n \t\t\tif (c >= slot)\n \t\t\t\tc = 0;\n-\t\t\toc = fc = c;\n+\t\t\toc = c; fc = (unsigned char)c;\n \t\t\t*sp++ = fc;\n \t\t} else {\n-\t\t\tcode = c;\n+\t\t\tshort code = c;\n \t\t\tif (code >= slot) {\n \t\t\t\tif (code > slot) {\n \t\t\t\t\t++BadCodes;\n@@ -404,10 +404,10 @@\n \t\t\t\t*sp++ = fc;\n \t\t\t}\n \n-\t\t\tdirect = 0;\n+\t\t\tshort direct = 0;\n \t\t\twhile (code >= newcodes) {\n \t\t\t\tG_ASSERT(code < 4096);\n-\t\t\t\tlen = Lengths[code];\n+\t\t\t\tshort len = Lengths[code];\n \t\t\t\tif (len > 0 && bufcnt - len > 0) {\n \t\t\t\t\tdirect = -1;\n \t\t\t\t\ti = len;\n@@ -419,8 +419,8 @@\n \t\t\t\t\t\tcode = Prefix[code];\n \t\t\t\t\t} while (i > 0);\n \t\t\t\t\t*bufptr = (unsigned char)code;\n-\t\t\t\t\tbufptr += len + 1;\n-\t\t\t\t\tbufcnt -= len + 1;\n+\t\t\t\t\t++len; bufptr += len;\n+\t\t\t\t\tbufcnt -= len;\n \t\t\t\t\tif (bufcnt == 0) {\n \t\t\t\t\t\tif (--ycount < 0) {\n \t\t\t\t\t\t\tOut_Line(Line, bufptr - Line, row);\n",
+      "changed": true,
+      "model": "gpt-6.1-sol high",
+      "classification": "changed_form",
+      "output": {
+        "gained": [],
+        "lost": [],
+        "symbol_gained": [],
+        "symbol_lost": [],
+        "targets": {
+          "0x76D4A0": {
+            "symbol": "?Set_Data@HtmlGifImageClass@@UAEHPADH@Z",
+            "length": 1171,
+            "raw_sha256": "affd05f9be5256ec8c97bbe6c0a281bfe1e50ec87a8b8a85311af7af083d5710",
+            "masked_sha256": "affd05f9be5256ec8c97bbe6c0a281bfe1e50ec87a8b8a85311af7af083d5710",
+            "diagnostic_similarity": "similarity 0.31",
+            "exact": false
+          },
+          "0x76D990": {
+            "symbol": "?Decode@HtmlGifImageClass@@QAEFF@Z",
+            "length": 1140,
+            "raw_sha256": "89abda8b9f95c6687ba0f651cbfe0c13f45b7b245518305784b4ae9a84546e40",
+            "masked_sha256": "89abda8b9f95c6687ba0f651cbfe0c13f45b7b245518305784b4ae9a84546e40",
+            "diagnostic_similarity": "similarity 0.38",
+            "exact": false
+          },
+          "0x76DF60": {
+            "symbol": "?Get_Next_Code@HtmlGifImageClass@@QAEFXZ",
+            "length": 514,
+            "raw_sha256": "de48c4e2d48d2b98219ae55ab5d6c05c675042867750d51ffe332bd599758360",
+            "masked_sha256": "de48c4e2d48d2b98219ae55ab5d6c05c675042867750d51ffe332bd599758360",
+            "diagnostic_similarity": "similarity 0.82",
+            "exact": false
+          }
+        }
+      }
+    }
+  ]
+}

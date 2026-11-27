@@ -1,0 +1,112 @@
+{
+  "retained_revision": "5fff15ea8743e9071da04373233dbb7c889e17d1",
+  "compiled_inputs": 3,
+  "new_decode_forms": 2,
+  "rebased_prior_body_controls": 1,
+  "hypothesis_batches": 2,
+  "forms": [
+    {
+      "name": "read_size",
+      "input_sha256": "71435182e54461751ab39007349dcea7fab7526b8c913abedce07207a4285325",
+      "base_sha256": "1d840e07c61da0137ab8dfd1e56a3759e9cfd2b2ba2eef155d705dba2af67dd7",
+      "record": "/home/dev/Projects/EnB/.work/claim-314/76D990/astra/read_size/record.json",
+      "kind": "new Decode source form",
+      "length": 1159,
+      "frame": "0x40",
+      "raw_sha256": "5e07fa796525490062c854968879539a8f71fc37d7a5508f1b07ba908f644f8b",
+      "masked_sha256": "5e07fa796525490062c854968879539a8f71fc37d7a5508f1b07ba908f644f8b",
+      "residue": 33,
+      "residue_regs": 29,
+      "branch": {
+        "bytes": [
+          1159,
+          1173
+        ],
+        "size": 2,
+        "target": 3
+      },
+      "prior_raw_duplicates": []
+    },
+    {
+      "name": "counter_parent",
+      "input_sha256": "e8ffa0684ee42b1d1abe701a82f4c0e4bbd7c2201337158523e31a74b7e1492b",
+      "base_sha256": "1d840e07c61da0137ab8dfd1e56a3759e9cfd2b2ba2eef155d705dba2af67dd7",
+      "record": "/home/dev/Projects/EnB/.work/claim-314/76D990/astra/counter_parent/record.json",
+      "kind": "rebased prior Decode-body control",
+      "length": 1169,
+      "frame": "0x40",
+      "raw_sha256": "744c451898bbc92e94800031db907639347de562a60daf1b8dea67572bdac7e4",
+      "masked_sha256": "744c451898bbc92e94800031db907639347de562a60daf1b8dea67572bdac7e4",
+      "residue": 21,
+      "residue_regs": 10,
+      "branch": {
+        "bytes": [
+          1169,
+          1173
+        ],
+        "size": 0,
+        "target": 3
+      },
+      "prior_raw_duplicates": [
+        "sol_decode_counter_remaining",
+        "sol_decode_counter_resets",
+        "sol_decode_counter_success_scope"
+      ]
+    },
+    {
+      "name": "remaining_boundary",
+      "input_sha256": "0f918d5731a2aae5918582f806a5dc1a12f35e7f45fe0cda18d2349a6819c6e7",
+      "base_sha256": "1d840e07c61da0137ab8dfd1e56a3759e9cfd2b2ba2eef155d705dba2af67dd7",
+      "record": "/home/dev/Projects/EnB/.work/claim-314/76D990/astra/remaining_boundary/record.json",
+      "kind": "new Decode source form",
+      "length": 1169,
+      "frame": "0x40",
+      "raw_sha256": "744c451898bbc92e94800031db907639347de562a60daf1b8dea67572bdac7e4",
+      "masked_sha256": "744c451898bbc92e94800031db907639347de562a60daf1b8dea67572bdac7e4",
+      "residue": 21,
+      "residue_regs": 10,
+      "branch": {
+        "bytes": [
+          1169,
+          1173
+        ],
+        "size": 0,
+        "target": 3
+      },
+      "prior_raw_duplicates": [
+        "sol_decode_counter_remaining",
+        "sol_decode_counter_resets",
+        "sol_decode_counter_success_scope"
+      ]
+    }
+  ],
+  "raw_groups": {
+    "5e07fa796525490062c854968879539a8f71fc37d7a5508f1b07ba908f644f8b": [
+      "read_size"
+    ],
+    "744c451898bbc92e94800031db907639347de562a60daf1b8dea67572bdac7e4": [
+      "counter_parent",
+      "remaining_boundary"
+    ]
+  },
+  "masked_groups": {
+    "5e07fa796525490062c854968879539a8f71fc37d7a5508f1b07ba908f644f8b": [
+      "read_size"
+    ],
+    "744c451898bbc92e94800031db907639347de562a60daf1b8dea67572bdac7e4": [
+      "counter_parent",
+      "remaining_boundary"
+    ]
+  },
+  "compiler_invalid": [],
+  "semantic_invalid": [],
+  "launch_failures": [],
+  "runner_guard_failures": [],
+  "uncompiled_drafts": [],
+  "generator_failures": [
+    "Initial read_size generation had one excess blank line; local assertion failed before emitting that draft or launching runner. Corrected before the only read_size compilation."
+  ],
+  "gate": "released to root; no compiler jobs or leases",
+  "new_pair_gains": 0,
+  "retained_pairs_preserved": 13
+}

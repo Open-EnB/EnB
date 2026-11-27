@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-453 entries in 220 files.
+451 entries in 220 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -129,9 +129,7 @@ edit the comments in the code, not this file.
 | `app/client/html/htmlview.cpp:1486` | `HtmlViewClass::Hit_Test` | marker | NOT EXACT: 0x7772C0, the loop top reloads this before i (the client i first); Click's twin |
 | `app/client/html/htmlview.cpp:1838` | `Get_Value` | mention | NOT EXACT: Render (the parent bounds' stores), Hit_Test (its loop top), Add_Text (one frame slot more than the client's), Draw_Item (its Text loop setup; one exit gives the late pushes). |
 | `app/client/html/htmlview.cpp:1840` | `Get_Value` | mention | NOT EXACT (functional, D64, from the pseudocode): an if / else chain of tag names (p, font, br, a, title, i, b / strong, center, table, tr, td, h1-h4, /hN, body, hr, ul, li, img); <td> lays its cell out in a child block by recursing, and </td> returns the characters used. Its assert (body background with no link of that name) on line 926. Get_Value 0x7784D0 exact: defined after Draw_Line_24 under ... |
-| `app/client/html/image/gifload.cpp:40` | `HtmlGifImageClass::Set_Data` | marker | NOT EXACT: 0x76D4A0, functional (D64): the client keeps i / c / count in registers and the result in the dead data argument's slot (frame 0x10 vs 0x20, the header and descriptor share one 13-byte buffer) |
 | `app/client/html/image/gifload.cpp:334` | `HtmlGifImageClass::Decode` | marker | NOT EXACT: 0x76D990, functional (D64): Bennett's structure and the client's branch order, but the register allocation differs throughout (the client keeps 0 in edi and bufptr in edi later, frame 0x40 vs 0x3C) |
-| `app/client/html/image/gifload.cpp:491` | `HtmlGifImageClass::Get_Next_Code` | marker | NOT EXACT: 0x76DF60, one instruction: the client reads ret for the final mask with a word load, ours a dword |
 | `app/client/html/image/image.cpp:27` | `HtmlImageClass::Draw` | marker | NOT EXACT: 0x76E610, functional (D64): the client builds dest at x, y and subtracts the clip origin in place after the second Get_Width / Get_Height pair (frame order); no form tried matches (see attempts.csv) |
 | `app/client/influence.cpp:125` | `NebulaClass::NebulaClass` | marker | NOT EXACT (0.99, attempts.py 0x7E87C0): every slot matches (one i, one count, red / green / blue reused); left: the FogColorR pushes in sky_color (r61): VC6 schedules the last block in 80-instruction chunks and the client chunk starts 4 units earlier (4 unreferenced labels before sky_color make it exact: a diagnostic, not the source) |
 | `app/client/influence.cpp:335` | `NebulaClass::Unknown_08` | marker | NOT EXACT (0.86, attempts.py 0x7E9560): shape: the client saves ebx / ebp / esi after the Object == NULL return, ours saves ebp / esi at entry |

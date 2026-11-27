@@ -10,8 +10,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 231 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1971 |
-| 2 | describes what the code does | 5017 |
-| 1 | neutral placeholder | 25225 |
+| 2 | describes what the code does | 5020 |
+| 1 | neutral placeholder | 25226 |
 
 ## For review (score 3 and below)
 
@@ -5381,6 +5381,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Get_Unknown138` | `app/client/html/htmlview.h:43` | untagged neutral name (D10) |
 | 1 | `Unknown138` | `app/client/html/htmlview.h:61` | untagged neutral name (D10) |
 | 1 | `Unknown13C` | `app/client/html/htmlview.h:62` | untagged neutral name (D10) |
+| 1 | `ret` | `app/client/html/image/gifload.cpp:19` | reconstructed decoder word accumulator; zero initialization preserves retail BSS ordering |
 | 1 | `Unknown124` | `app/client/html/image/gifload.cpp:530` | untagged neutral name (D10) |
 | 1 | `Unknown128` | `app/client/html/image/gifload.cpp:531` | untagged neutral name (D10) |
 | 1 | `Build_Pixel` | `app/client/html/image/gifload.h:7` | a pixel of surface's format (Build_Hicolor_Pixel with the surface's own shifts for 2 bytes per pixel, 0x00RRGGBB for 3 / 4); Set_Data's palette |
@@ -26349,6 +26350,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Url` | `app/client/html/htmlview.h:58` | Open's strcpy; 259 bytes up to +0x130 |
 | 2 | `ScrollX` | `app/client/html/htmlview.h:59` | Render's first argument (also given to the first block's Set_X); zeroed by Clear |
 | 2 | `ScrollY` | `app/client/html/htmlview.h:60` | Render's second argument; zeroed by Clear |
+| 2 | `Build_Colors, image, i` | `app/client/html/image/gifload.cpp:31` | palette conversion loop; reload the current surface for each pixel |
+| 2 | `palette_bits` | `app/client/html/image/gifload.cpp:63` | global color-table size exponent from the GIF descriptor |
+| 2 | `block_error` | `app/client/html/image/gifload.cpp:108` | shared block-read and terminator failure path |
 | 2 | `HtmlGifImageClass` | `app/client/html/image/gifload.h:16` | the src and the surface's bits per pixel |
 | 2 | `Set_Data` | `app/client/html/image/gifload.h:19` | the header, the palette (Colors through 0x76D340), the extensions and each image's Decode |
 | 2 | `Decode` | `app/client/html/image/gifload.h:21` | Bennett's decoder(linewidth); 0, -1 at the end of the data, -20 for a bad code size |
