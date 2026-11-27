@@ -1,0 +1,2 @@
+0x578350 UIComboBoxTextClass::Init Terra phase, 14 compiled inputs.
+Terra first14 compiled inputs in3 no-cut batches, five actual raw/masked groups; ten baseline duplicates. Init254 vsretail250, residue 3 shape remains x87 height last-use. Sequenced/named bounds, precision/reference/box/extent/Y and real rectangle layer variants no gain. All isolated100/101 preserved. Group reviewed exact siblings and actual Vector3 return-buffer lifetime; no distinct supported further lead. Undefined unsequenced argument mutation rejected uncompiled, no production partial kept.
