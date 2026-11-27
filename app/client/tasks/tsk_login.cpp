@@ -821,7 +821,7 @@ void LoginTaskClass::Show_Message(const char *text, const char *button)
 	if (CharacterView) {
 		CharacterView->Unknown34->Unknown_5C();
 		if (text && strlen(text) > 0) {
-			CharacterView->Unknown34->Unknown_588A70(button, 0, text, 320, 0, 0);
+			CharacterView->Get_Unknown034()->Unknown_588A70(button, 0, text, 320, 0, 0);
 		}
 	}
 }
@@ -1095,7 +1095,7 @@ void LoginTaskClass::Unknown_76A370()
 
 
 
-// NOT EXACT: shape (the client merges the two message boxes' tails; attempts.py show 0x76A7B0)
+
 // 0x76A7B0
 bool LoginTaskClass::Fetch_EA_Ticket()
 {
