@@ -516,3 +516,17 @@ method names, 5,700 unnamed slots. Costs: the dictionary searches stay at chance
 What it does not settle: names of functions without a thunk slot, and the order inside a bucket
 (first sight, §5.1). The acceptance threshold (1e-4 against the cross-class null) was not reviewed when this was
 written: `tools/re/thunknames/HANDOFF.md` brief A.
+
+**The review (2026-11-26 evening) and the rules it left in the tools.**
+
+| Finding | Figure | Rule now |
+|---|---|---|
+| The buckets are not even: linear hashing leaves [6856, 8192) unsplit | 2.45 slots per bucket there, 1.20 below, 1.23 above; a random name lands in one of them with 2 / 16384, elsewhere 1 / 16384 | widths and interpolation on the mass axis (`gapguess.prob`, `near_part`): +/- 3 mass units, the old +/- 3 buckets where split, about 3 buckets where not; leave-one-out coverage 99.7 % / 98.8 % at the same chance |
+| Names became anchors by lying in their window | 2,791 base names, 479 propagated ones; 5 `Unknown` names on the run; 82 base anchors beyond 3 buckets of their interpolated place (7 of 1,450 tested hits); the 8 anchors lost during the session were all base names | `Unknown` names take no part in the run; an untested name outside its near part is probable |
+| The hits' `chance` is after selection | sum 0.6 over 1,450 hits; tier1c's single-slot kinds have nulls of 8-27 % of their hits (access 46 / 5.3, int 20 / 2.2, const 17 / 1.4, pointer cv 4 / 1.1) | a single-slot hit of those kinds is probable unless the same kind hit another slot of the class |
+| The cross-class null is a search | its hits are siblings' true names (StringValueClass / KVStringAccessorClass) | the salted null (`permnull.py`): each candidate + two salt characters, 1,000 salts; the modelled class chance is 0.06-0.21x the nominal rate (conservative: the forms factor), expected false classes per run 0.008 at 1e-4 |
+| Renames were judged once, with their siblings' anchors in place | re-scored with the class's own slots left out and the candidates tried counted (`rescore.py`) | 248 of 257 keep (expected false 6e-4), 9 weak (class-renames.tsv `verdict`) |
+
+Anchors after the review: 4,716 on the order, **4,519 confirmed** (they bound the windows) and 197 probable (102
+untested names outside their near part, 73 single-slot hits, 21 anchors of weak renames, 1 one-anchor rename).
+A probable name is still the best name its slot has; it is not evidence for a source rename by itself.

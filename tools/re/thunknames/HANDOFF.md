@@ -24,7 +24,35 @@ class candidates, about 2.3M Sonnet / Haiku tokens to produce; never regenerate 
 
 ---
 
-## A. Review brief (Opus, read-only; no edits to the state or docs/data)
+## A. Review: done 2026-11-26 evening (the brief below is kept for its questions)
+
+Outcome and figures: `docs/binary.md` §5.6 "The review", the progress.md entry of that evening. By question:
+1. **Chance model:** the multiplier lacked nothing for the model rounds (the salted null finds the class chance
+   conservative, 0.06-0.21x); it lacked the dictionary sizes for round 1 and classsearch2 (rescore.py counts them)
+   and the unsplit buckets' double weight (fixed: `gapguess.prob`). Slots of one class are independent enough: the
+   salted null keeps their correlation and stays under the model.
+2. **Nulls:** the cross-class null is a search (both its hits are probably true names); the salted null replaces
+   it; 1e-4 stands (0.008 expected false classes per run of 373).
+3. **Cascade / the 8 lost anchors:** all 8 were IM3 base names (no accepted hit is off in the final state): names
+   that were anchors only by lying in their window. rescore.py leaves each class's slots out: 35 anchors in 32
+   renames are not near without their siblings; only LoginGalaxyClass -> GalaxyInfoClass depends on them (1 of 4).
+4. **Weak acceptances:** 9 renames weak (class-renames.tsv `verdict`), 73 single-slot hits probable (the state's
+   `grade`). BuffDefStruct -> BuffInfoClass, TargetSummaryText -> TargetSummaryStrings and SubjectClass ->
+   ObserverSubjectClass keep.
+5-8. **Not settled by this review** (still open for B): the split classes beyond the 2 flagged, tier1c's
+   `name.replace(old + '@', new + '@')` over-match, NAME_START against template arguments, the kept kinds' nulls
+   at the name's tail. No name in the state spells an identifier twice (no missing back-reference).
+
+Angles not tried yet, in the review's order of expected value: (a) score a class on every slot that spells it,
+parameter types included (1,241 off slots name an unconfirmed class only as a parameter type; 31 such classes have
+at most 2 qualifier slots); (b) the cross-class pass as a search with its multiplier (12,546); (c) token edits of
+our name with retail's own vocabulary (223 of the 257 confirmed renames use only our tokens plus the 792 tokens of
+the anchors' identifiers; 158 need at most one new token), for the 249 unconfirmed classes with 3 or more special
+member slots; (d) one method name searched jointly over an override group (same vtable index and signature) or a
+Get_ / Set_ pair on one field; (e) a second incremental build of the client (a patch, a beta) as an independent
+table for the same names: an outside input, the user's call; (f) the order inside a bucket as a one-bit check.
+
+### The brief as given (Opus, read-only; no edits to the state or docs/data)
 
 **Goal:** an independent read of whether each acceptance rule is sound and whether false anchors could have
 entered and spread. Report findings ranked by how many anchors they put at risk, each with the exact slots /
@@ -93,46 +121,95 @@ coordinator / user, not into the data.
 
 ---
 
-## B. Continuation brief (after the review's findings are applied)
+## B. Continuation brief: a runbook (written for a smaller model or a fresh session; follow it in order)
 
-**Start:** `git switch names/2026-11-26` (or master once merged), then
-`python tools/re/thunknames/gapguess.py state` must print `on 4720` (or the post-review figure in the log entry) and
-`python tools/re/thunknames/mangle.py` its self-test. `.work/names/` is scratch: a fresh clone has none and needs none
-(run `strrefs.py` once before tier1b or the contexts).
-Setup: `ENB_CLIENT_EXE` = retail client.exe (SHA-256 249f8524...51c4; default: clientimage's install path),
-`ENB_EA` = the EA tree (default `C:\EnBDevelopment\EA`); Python 3 with numpy. `.work/pseudo/` only for
-`tier2_ctx*.py` (Ghidra output; `pseudocode.py` rebuilds it on Windows). Outputs go to `.work/names/`.
+**What you are doing.** Running the local-model rounds that find retail's class names (for the classes still
+unconfirmed) and method names (for the `Unknown_XX` methods of classes already confirmed). The local model
+(Qwen 27B on this Mac) proposes names; the hash test decides; **the coordinator is a script, `run_local.py`**.
+Your job is to start it, wait, read its report, and write the log entry. You do not judge names yourself.
 
-**The pipeline after any new confirmed name:** `python tools/re/thunknames/loop.py` (propagate -> tier1c variants ->
-gapguess, until a pass adds nothing), then `export.py` to refresh docs/data. Model proposals are scored with
-`tier2_eval.py --props <dir> --null-sample 300 --const`; accept at chance < 1e-4 (or the review's threshold).
+**Rules that are not yours to bend.**
+- Never hand-edit `docs/data/*` (the tools write them). Never push `master`; commit only when the user asks.
+- A name the tools did not accept is not a finding, however right it looks. Put such ideas under "Candidates to
+  look at" in your log entry.
+- Do not change a threshold, a stop rule or a tool to get more hits. If you think one is wrong, write why in the
+  log entry and tell the user.
+- No cloud model rounds (the user approves those per batch). Local compute is free.
+- Output discipline: the commands below log to files and print summaries. Do not `cat` logs; use `tail -20` or
+  `grep -c`.
 
-**Where things stand:** 1,074 class qualifiers: 623 confirmed, 451 not. Off named slots 9,554 (Unknown_XX methods
-3,514), unnamed slots 5,700. Yield so far: dictionary search at chance (dead end); Haiku ~0; Sonnet ~4.7-6.5k
-tokens per anchor; the two regex fixes gave more than all model rounds together (re-check tooling before buying
-more model calls).
+**Step 0: setup and checks.**
+```
+export ENB_CLIENT_EXE=$PWD/.work/client.exe        # Mac; on Windows the default install path is used
+git status --short | head                          # know what is uncommitted before you start
+python tools/re/thunknames/gapguess.py state       # expect the figures of "Where things stand" below
+curl -s -m 5 http://127.0.0.1:8080/v1/models | head -c 200      # the local server (model qwen3.8-27b)
+```
+If the server does not answer: it does not survive a reboot and another session set it up; tell the user and stop.
 
-**Next avenues, in expected value order:**
-1. **The review's fixes** (re-score, drop weak or split-propagated names, re-run the loop), then the pending
-   SlotDataShortcutGadget hit.
-2. **Unknown_XX methods of confirmed classes** (3,514 slots): class and signature are known from the code (vtable
-   index, byte-exact signature), only the method name is open. Sources: the same vtable index in a confirmed
-   relative (tier1a, now with far more anchors), `Class::Method` strings (tier1b), then a model asked for method
-   names with the class's confirmed methods as context. Test each name with access / const forms; per-slot chance
-   is ~0.1 % x forms, so require class consistency or a string.
-3. **The 451 unconfirmed classes:** 66 had two rounds without a hit; the rest have no destructor slot or few named
-   methods. Use what failed (the destructor test says the name is none of the candidates) and the confirmed
-   family style; consider Opus for the 66 only if the user approves.
-4. **Unnamed slots (5,700):** class, method and signature all open; find the class from the function's vtable or
-   its callers first, then they become item 2.
-5. **A tried-names ledger** (`.work/names/tried.tsv`: slot, name, window at the time) so later runs skip repeats.
+**Step 1: start the run** (in the background; it takes hours: a class round about 2 hours at 6 samples, a
+method round about 3 hours at 2 samples over 1,833 targets):
+```
+python tools/re/thunknames/run_local.py --prefix n2 > .work/log/run_n2.log 2>&1
+```
+What it does, by itself: checks; settles the state (`loop.py`); class rounds `n2c1`, `n2c2`, ... (propose ->
+score against the salted null -> apply the accepted classes) until two rounds in a row accept nothing or 6 rounds;
+then method rounds `n2m1`, ... until a round accepts no override group and fewer than 10 single hits, or 4 rounds.
+It can be re-run with the same prefix after a stop: finished rounds are skipped.
 
-**Builder side (Windows, separate items, see progress.md §4, the thunk-order names item):** the confirmed names reach the code as
-source renames (class renames, then per-slot signature corrections, like N1's 67), each verified name-only
-(`verify.py` / `pairs_cmp.py`: no pair should move except int-kind edits), then symbols.json regenerated and
-`gapguess.py state` re-run on it to confirm the anchors rise. Non-exact slots (named / vtable source, 42) go
-through `tools/re/symbols_named.json` with this evidence.
+**Step 2: read the report** when it ends: `.work/names/run/n2/report.md` (also the end of the log). Per round it
+has the accepted classes, the method lines (`override groups accepted`, `single-slot hits: N ... the salted null
+expects F false`), and the state line after each apply. A `FAILED` line names the step; its full output is in
+`.work/names/round/<tag>/` or `.work/names/methods/<tag>/`. Report failures; do not patch around them.
 
-**Rules that still apply:** names into symbols.json only through `tools/re/symbols.py`; generated files only by
-their tools; client wins over conventions.md (record each spelling case there: no `Class` suffix, `<X>Interface`,
-`PIP`, `GPS`); builders never push; nothing reaches master without the user.
+**Step 3: the weak renames.** `awk -F'\t' '$13=="weak"' docs/data/class-renames.tsv | cut -f1,2,4,10-13`: list
+them in the log entry (a rename that gained anchors may now read `keep`). Do not delete them.
+
+**Step 4: report.** Prepend a dated entry to `docs/progress.md` §1 (copy the shape of the 2026-11-26
+thunk-name entries): rounds run, classes accepted per round (the names), method names per round with the null's
+expected false count, anchors before / after (`on`, `confirmed`, `probable`), the weak renames, failures,
+candidates to look at. Update "Where things stand" below. Then tell the user and wait: the commit and the PR are
+the user's call.
+
+**What the names are worth (say this in the entry, do not round it up).**
+- A class rename accepted by `tier2_eval` (chance < 1e-4 against the salted null) and an override-group method
+  name (`t2-lvmethod`) are `confirmed`.
+- A single-slot method name (`t2-lmethod`) is `probable`: the trial below had 13 hits where the null expected
+  1.9 false (about 1 in 7 wrong). Probable names bound no window and are not evidence for a source rename by
+  themselves; builders use `confirmed` grades and class-renames.tsv's `keep` rows.
+
+**What this session measured (2026-11-26; the settings above come from it).**
+- Class pilot, 42 classes round 3 confirmed (a find = the retail name among the candidates): thinking off, 1
+  request per class: 13 in 82 s; thinking off, 6 requests at temperature 1.0: 23 in 423 s; thinking `low`, 1
+  request: 16 in 968 s. So thinking off, many samples. Repeat with `tier2_local.py --pilot` after a model change.
+- Class round `local1` (454 open classes, 3 samples, 23,453 candidates, 58 minutes): 10 classes accepted (8 new:
+  GuildPlayerOnlineSectorPacket, GlobalLockBasePacketClass, GameEditorKVModifyPacketClass, HTMLViewer,
+  ClosestValueLookupTable, ConnectionSourceClass, MenuViewClass, PacketStatsConnection; and the two pending ones,
+  SlotDataShortcutGadget, FontSysCursor), expected false 0.006; applied: +45 anchors.
+- Method pilot, 80 anchored methods with their names hidden, 2 requests each: 35 found, 21 of them among the
+  first 4 candidates (hence the single-slot rule's `--top 5`). Repeat with `tier2_methods.py pilot`.
+- Method trial `mpilot` (the first 240 targets, 2 samples, 25 minutes): 13 single-slot hits, null 1.9; no
+  override group. Scored, **not applied**: `run_local.py`'s first method round counts its candidates as tried
+  and applies what still hits.
+
+**Beyond this runbook (ask the user before starting; each needs new tool code or a judgment, so a stronger
+model):** the review's angles (a)-(f) in section A; `StringValueClass -> KVStringAccessorClass` and `DeltaClass ->
+DeltaItem` (cross hits: add them to a proposals file to have them scored); method names for the 1,630
+`Unknown_XX` methods in classes not yet confirmed; the 5,700 unnamed slots; brief A's open questions 5-8; a
+Q4 / Q6 quantization A/B of the local model (the server session's suggestion; the two pilots are the measure);
+single-slot method hits that change the access letter are the likelier false ones (not separated yet).
+
+**Where things stand (2026-11-26, 21:00):** on the order 4,764 (confirmed 4,569, probable 195). Off named slots
+9,510 (`Unknown_XX` methods 3,495; 1,833 of them in classes with a confirmed name), unnamed slots 5,700; about 444
+class qualifiers unconfirmed. Earlier yields: the dictionary search at chance; Haiku
+about 0; Sonnet about 4.7-6.5k tokens per anchor; the two regex fixes gave more than all model rounds together
+(re-check tooling before buying more model calls).
+
+**Builder side (Windows, separate items, see progress.md §4, the thunk-order names item):** the confirmed names
+reach the code as source renames (class renames from class-renames.tsv's `keep` rows, then per-slot signature
+corrections of `confirmed` grade, like N1's 67), each verified name-only (`verify.py` / `pairs_cmp.py`: no pair
+should move except int-kind edits), then symbols.json regenerated and `gapguess.py state` re-run on it to confirm
+the anchors rise. Non-exact slots (named / vtable source, 42) go through `tools/re/symbols_named.json` with this
+evidence. Names into symbols.json only through `tools/re/symbols.py`; client wins over conventions.md (record each
+spelling case there: no `Class` suffix, `<X>Interface`, `PIP`, `GPS`); builders never push; nothing reaches
+master without the user.

@@ -22,7 +22,7 @@ import numpy as np
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import paths  # noqa: E402  (also puts tools/re on sys.path)
-from gapguess import State, NB, DEFAULT_STATE, class_of, in_client  # noqa: E402
+from gapguess import State, prob, DEFAULT_STATE, class_of, in_client  # noqa: E402
 from vt import vtables  # noqa: E402
 
 PURE = 0x9CCD10
@@ -173,7 +173,7 @@ def main():
                 hitk |= (b >= nlo) & (b <= nhi)
             masks[k] = hitk
             count += hitk
-            logw += np.where(hitk, math.log(3 * (nhi - nlo + 1) / NB), 0.0)
+            logw += np.where(hitk, math.log(3 * prob(nlo, nhi)), 0.0)
         n = len(ks)
         ok = np.nonzero(count >= (2 if n >= 2 else 1))[0]
         if not len(ok):

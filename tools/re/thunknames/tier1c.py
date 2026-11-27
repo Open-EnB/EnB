@@ -23,7 +23,7 @@ import sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import paths  # noqa: E402  (also puts tools/re on sys.path)
 from mangle import rename, contains, class_of  # noqa: E402
-from gapguess import State, DEFAULT_STATE, bk  # noqa: E402
+from gapguess import State, DEFAULT_STATE, bk, prob  # noqa: E402
 import thunkname  # noqa: E402
 
 NBK = 15048
@@ -123,7 +123,11 @@ def main():
         for k, _ in near:
             hits[k] += 1
         for _ in range(a.null):
-            d = rnd.choice((-1, 1)) * rnd.randint(30, 300)
+            # the shifted near part must keep its chance (an unsplit bucket counts twice: gapguess.prob)
+            for _try in range(50):
+                d = rnd.choice((-1, 1)) * rnd.randint(30, 300)
+                if 0 <= nlo + d and nhi + d < 15048 and prob(nlo + d, nhi + d) == prob(nlo, nhi):
+                    break
             for k, x, b in bs:
                 if nlo + d <= b <= nhi + d:
                     nulls[k] += 1.0 / a.null

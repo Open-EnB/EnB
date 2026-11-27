@@ -31,7 +31,7 @@ import numpy as np
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import paths  # noqa: E402  (also puts tools/re on sys.path)
 from mangle import rename, spelling  # noqa: E402
-from gapguess import State, NB, bk, class_of, client_ids  # noqa: E402
+from gapguess import State, prob, bk, class_of, client_ids  # noqa: E402
 from linklayout import LHASH_PRIME  # noqa: E402
 import classsearch as cs  # noqa: E402
 
@@ -172,7 +172,7 @@ def search_chunk(job_ids):
                 b = final_bucket(raw_np(h, post))
                 m |= (b >= nlo) & (b <= nhi)
             count += m
-            logw += np.where(m, math.log(3 * w / NB), 0.0)
+            logw += np.where(m, math.log(3 * w), 0.0)
         n = len(slots)
         ok = np.nonzero(count >= 2)[0]
         best = []
@@ -254,7 +254,7 @@ def main():
                 for v in vs:
                     if nlo <= bk(v) <= nhi:
                         k += 1
-                        logw += math.log(len(vs) * (nhi - nlo + 1) / NB)
+                        logw += math.log(len(vs) * prob(nlo, nhi))
                         hits.append((i, v))
                         break
             if k >= 2:
@@ -290,7 +290,7 @@ def main():
                 pre, post = nm[:m.start()], nm[m.end() - 1:]
                 lo, hi, nlo, nhi = st.window(i)
                 slots.append((pre, [v[len(pre) + len(c):] for v in slot_variants(nm) if v.startswith(pre)], nlo,
-                              nhi, nhi - nlo + 1))
+                              nhi, prob(nlo, nhi)))
             if len(slots) >= 2:
                 jobs.append((c, slots))
         if a.null:

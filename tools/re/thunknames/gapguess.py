@@ -9,7 +9,9 @@ slots; every other slot's window = [bucket of the anchor before, bucket of the a
 A guess is (slot, name, tier, note). It hits when its bucket lies in the slot's window ('window') or near part
 ('near'). Accepted hits become names, the anchors are recomputed (each hit extends the run by one and narrows its
 neighbours' windows), and the remaining guesses are re-tested against the narrower windows, until nothing changes.
-Every hit records its evidence: the expected false hits for its slot (guesses tested there x width / buckets),
+Every hit records its evidence: the expected false hits for its slot (guesses tested there x the chance of its
+near part, prob(); only the guesses in the file count, so a tool that picked its guess among many variants must
+judge the kind by its own null: that is what the anchor grades are for),
 whether the name's identifiers occur in client.exe, and how many other slots of the same class qualifier hit in
 the same run (group).
 
@@ -31,6 +33,7 @@ import sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import paths  # noqa: E402  (also puts tools/re on sys.path)
 from linklayout import lhash, bucket, lnds_members, thunk_table, pe_text  # noqa: E402
+from mangle import class_of  # noqa: E402,F401  (re-exported: the other tools import it from here)
 
 MAXP, P = 8192, 6856
 NB = MAXP + P
@@ -40,13 +43,78 @@ CLIENT_EXE = paths.CLIENT_EXE
 DEFAULT_STATE = paths.STATE
 IDENT = re.compile(r'[A-Za-z_][A-Za-z0-9_]*')
 
+# The density model (review, 2026-11-26). Linear hashing leaves the buckets [P, MAXP) unsplit: each holds the
+# names of two split buckets (measured on the anchors: 2.45 slots per bucket there, 1.20 / 1.23 on either side).
+# A random name lands in a split bucket with 1 / 16384 and in an unsplit one with 2 / 16384, so widths are
+# counted in MASS units (1 per split bucket, 2 per unsplit one; 2 * MAXP in all), and slot positions are
+# interpolated over the mass, not over the bucket index.
+MASS = 2 * MAXP
+_CUM = [0] * (NB + 1)                 # _CUM[b]: the mass of the buckets below b
+for _b in range(NB):
+    _CUM[_b + 1] = _CUM[_b] + (2 if P <= _b < MAXP else 1)
+_MID = [(_CUM[_b] + _CUM[_b + 1]) / 2 for _b in range(NB)]   # each bucket's centre on the mass axis
+
+
+def mass(lo, hi):
+    """The mass of the buckets lo..hi (inclusive)."""
+    return _CUM[hi + 1] - _CUM[lo] if hi >= lo else 0
+
+
+def prob(lo, hi):
+    """The chance that a random name hashes into the buckets lo..hi."""
+    return mass(lo, hi) / MASS
+
+
+def near_part(i, i0, b0, i1, b1, r=R_NEAR):
+    """The buckets within r mass units of the position slot i interpolates between the anchors (i0, b0) and
+    (i1, b1), clipped to [b0, b1]: (near_lo, near_hi). In the split regions this is the old +/- r buckets."""
+    x = _MID[b0] + (i - i0) * (_MID[b1] - _MID[b0]) / (i1 - i0)
+    return max(b0, bisect.bisect_left(_MID, x - r)), min(b1, bisect.bisect_right(_MID, x + r) - 1)
+
+
+# Anchor grades (review, 2026-11-26). A slot on the longest run is an anchor; only CONFIRMED anchors bound the
+# other slots' windows. An anchor is PROBABLE (named, exported, but no bound) when its evidence is one slot wide:
+#   - a single-slot hit of a kind whose own null is 8-27 % of its hits (WEAK), unless the same kind hit another
+#     slot of the class;
+#   - a class rename (RENAME tiers) whose retail class has no other anchor;
+#   - a name never tested against a near part (IM3's base names, propagated names) that lies outside the near
+#     part its confirmed neighbours give it: such a name is on the run only by lying in its window.
+#   - a class rename that rescore.py judged weak (class-renames.tsv's verdict: the class's hits, tested without
+#     each other, do not reach the threshold once the candidates tried are counted).
+# Names with "Unknown" are ours by construction and never anchors (5 lay on the run by chance).
+WEAK = {'t1c-access', 't1c-const', 't1c-int', 't1c-ptrcv', 't1c-ptrref', 't1c-callconv', 't1c-underscore',
+        't1c-access+const',
+        't2-method', 't2-lmethod'}    # one slot's method name from a model's list (tier2_methods.py: 't2-lvmethod',
+                                      # one name on two or more slots of an override group, is not weak)
+RENAME = ('r1', 't1c-suffix', 't2-class', 'cs2-own', 'cs2-dict')
+_TIER = re.compile(r'^(r1|t1[abc]-[\w+]+|t2-\w+|cs2-\w+)\b')
+
+
+def tier_of(how):
+    """The tier of the last accepted hit recorded in a slot's `how` ('' for a base or propagated name)."""
+    t = ''
+    for seg in (how or '').split('; '):
+        m = _TIER.match(seg)
+        if m:
+            t = m.group(1)
+    return t
+
 
 def bk(name):
     return bucket(lhash(name), MAXP, P)
 
 
+def weak_renames(path=paths.RENAMES):
+    """{(ours, retail)} of class-renames.tsv's rows with verdict weak (none before rescore.py has run)."""
+    if not os.path.exists(path):
+        return set()
+    return {(r['ours'], r['retail']) for r in csv.DictReader(open(path), delimiter='\t')
+            if r.get('verdict') == 'weak'}
+
+
 class State:
-    def __init__(self, path=DEFAULT_STATE, revert_construct=True):
+    def __init__(self, path=DEFAULT_STATE, revert_construct=True, weak=None):
+        self.weak = weak_renames() if weak is None else set(weak)
         body, base = pe_text(CLIENT_EXE)
         self.table = thunk_table(body, base)
         self.n = len(self.table)
@@ -69,21 +137,53 @@ class State:
         lim = self.n - TAIL
         named = [(i, bk(self.names[i])) for i in range(lim) if self.names[i]]
         self.b = dict(named)
-        on = lnds_members([b for _, b in named])
-        self.anchors = [named[k] for k in on]
-        self.onset = {i for i, _ in self.anchors}
+        # names with "Unknown" are ours, never retail's: they take no part in the run
+        cand = [(i, b) for i, b in named if 'Unknown' not in self.names[i]]
+        on = lnds_members([b for _, b in cand])
+        run = [cand[k] for k in on]
+        self.onset = {i for i, _ in run}
+        self.grade_anchors(run)
+
+    def grade_anchors(self, run):
+        """Split the run into confirmed anchors (self.anchors, self.ai: they bound the windows) and probable
+        ones (self.probable: slot index -> why)."""
+        tier = {i: tier_of(self.how[i]) for i, _ in run}
+        cls_n = collections.Counter(class_of(self.names[i]) for i, _ in run)
+        kind_n = collections.Counter((tier[i], class_of(self.names[i])) for i, _ in run)
+        self.probable = {}
+        for i, _ in run:
+            t, c = tier[i], class_of(self.names[i])
+            if t in ('t2-method', 't2-lmethod'):
+                self.probable[i] = f'single-slot {t}'      # another method of the class says nothing about this one
+            elif t in WEAK and (not c or kind_n[(t, c)] < 2):
+                self.probable[i] = f'single-slot {t}'
+            elif t.startswith(RENAME) and c and cls_n[c] < 2:
+                self.probable[i] = f'{t}: the class has one anchor'
+            elif self.weak and self.orig[i] and (class_of(self.orig[i]), c) in self.weak:
+                self.probable[i] = 'weak class rename (rescore)'
+        # untested names (base, propagated): leave each out and look where its confirmed neighbours put it
+        keep = [(i, b) for i, b in run if i not in self.probable]
+        for k in range(1, len(keep) - 1):
+            i, b = keep[k]
+            if tier[i]:
+                continue
+            (i0, b0), (i1, b1) = keep[k - 1], keep[k + 1]
+            nlo, nhi = near_part(i, i0, b0, i1, b1)
+            if not nlo <= b <= nhi:
+                self.probable[i] = 'untested name outside its near part'
+        self.anchors = [(i, b) for i, b in run if i not in self.probable]
         self.ai = [i for i, _ in self.anchors]
 
     def window(self, i):
-        """(lo, hi, near_lo, near_hi) or None (an anchor, outside the anchors, or the appended tail)."""
+        """(lo, hi, near_lo, near_hi) or None (an anchor, outside the anchors, or the appended tail). The bounds
+        are the confirmed anchors around the slot."""
         if i >= self.n - TAIL or i in self.onset:
             return None
         j = bisect.bisect_left(self.ai, i)
         if j == 0 or j == len(self.ai):
             return None
         (i0, b0), (i1, b1) = self.anchors[j - 1], self.anchors[j]
-        x = b0 + (i - i0) * (b1 - b0) / (i1 - i0)
-        return b0, b1, max(b0, math.ceil(x - R_NEAR)), min(b1, math.floor(x + R_NEAR))
+        return (b0, b1) + near_part(i, i0, b0, i1, b1)
 
     def summary(self):
         lim = self.n - TAIL
@@ -92,21 +192,21 @@ class State:
         offn = sum(1 for i in range(lim) if self.names[i] and i not in self.onset and self.window(i))
         unn = sum(1 for i in range(lim) if not self.names[i] and self.window(i))
         ws = sorted(w[1] - w[0] + 1 for w in (self.window(i) for i in range(lim)) if w)
-        return (f'slots {self.n} (tail {TAIL}), named {named}, on {len(self.onset)}, off named with window {offn} '
+        return (f'slots {self.n} (tail {TAIL}), named {named}, on {len(self.onset)} (confirmed {len(self.ai)}, '
+                f'probable {len(self.probable)}), off named with window {offn} '
                 f'(Unknown {unk}), unnamed with window {unn}, window median {ws[len(ws) // 2] if ws else 0}')
 
     def write(self, path):
         with open(path, 'w', newline='') as f:
             w = csv.writer(f, delimiter='\t', lineterminator='\n')
-            w.writerow(['slot', 'target', 'name', 'original', 'bucket', 'on_order', 'how'])
+            w.writerow(['slot', 'target', 'name', 'original', 'bucket', 'on_order', 'how', 'grade'])
             for i, (s, t) in enumerate(self.table):
                 if self.names[i] is None and not self.how[i]:
                     continue
+                grade = '' if i not in self.onset else ('probable: ' + self.probable[i] if i in self.probable
+                                                        else 'confirmed')
                 w.writerow([f'0x{s:X}', f'0x{t:X}', self.names[i] or '', self.orig[i] or '',
-                            self.b.get(i, ''), 'on' if i in self.onset else 'off', self.how[i]])
-
-
-from mangle import class_of  # noqa: E402,F401  (re-exported: the other tools import it from here)
+                            self.b.get(i, ''), 'on' if i in self.onset else 'off', self.how[i], grade])
 
 
 def twins(name):
@@ -167,8 +267,7 @@ def run(st, guesses, accept='near', max_chance=1.0, log=print):
                 b = bk(nm)
                 where = 'near' if nlo <= b <= nhi else ('window' if lo <= b <= hi else None)
                 if where and (accept == 'window' or where == 'near'):
-                    width = (nhi - nlo + 1) if where == 'near' else (hi - lo + 1)
-                    chance = tested[i] * width / NB
+                    chance = tested[i] * (prob(nlo, nhi) if where == 'near' else prob(lo, hi))
                     if chance <= max_chance:
                         found[i] = (nm, tier, note, where, w, b, chance)
                     break

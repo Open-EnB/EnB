@@ -17,6 +17,10 @@ lowest per-slot chance among this pair's hits, gapguess's forms tested x width /
 which is in the step's log; empty for round 1 / propagation), first_step, confidence, split_suspect.
 confidence: A = a destructor anchor and >= 3 anchors, or >= 6 anchors; B = >= 3 anchors; C = the rest.
 split_suspect: our class also maps to another retail class, or an anchor still spells our class name.
+near_alone, tries, chance_alone, verdict: rescore.py's class score with the class's own slots left out (how many
+of them are still near, the candidates tried for the class, C(n, k) x prod x tries, keep / weak at 1e-4). A weak
+rename's anchors are graded probable by gapguess.State (they bound no window); builders take `keep` rows only.
+The state's `grade` column (confirmed / probable: why) is gapguess.State's, written on every export.
 """
 import argparse
 import collections
@@ -83,21 +87,25 @@ def class_renames(st):
     maps = collections.Counter(a for a, b in pairs if pairs[(a, b)]['anchors'])
     anchors = [st.names[i] for i in st.onset]
     rows = []
+    import rescore
+    live = [k for k, p in sorted(pairs.items()) if p['anchors']]
+    ver = rescore.verdicts(paths.STATE, live, {k: first.get(k, 'prop') for k in live})
     for (a, b), p in sorted(pairs.items()):
         if not p['anchors']:
             continue
         conf = 'A' if (p['dtor'] and p['anchors'] >= 3) or p['anchors'] >= 6 else ('B' if p['anchors'] >= 3 else 'C')
         split = maps[a] > 1 or any(contains(n, a) for n in anchors)
         rows.append([a, b, p['slots'], p['anchors'], int(bool(p['dtor'])),
-                     f'{best[(a, b)]:.2g}' if (a, b) in best else '', first.get((a, b), 'prop'), conf, int(split)])
+                     f'{best[(a, b)]:.2g}' if (a, b) in best else '', first.get((a, b), 'prop'), conf, int(split),
+                     *ver[(a, b)]])
     with open(paths.RENAMES, 'w', newline='') as f:
         w = csv.writer(f, delimiter='\t', lineterminator='\n')
         w.writerow(['ours', 'retail', 'slots', 'anchors', 'destructor_anchor', 'best_chance', 'first_step',
-                    'confidence', 'split_suspect'])
+                    'confidence', 'split_suspect', 'near_alone', 'tries', 'chance_alone', 'verdict'])
         w.writerows(rows)
     c = collections.Counter(r[7] for r in rows)
     print(f'{paths.RENAMES}: {len(rows)} class renames (A {c["A"]}, B {c["B"]}, C {c["C"]}; '
-          f'split suspects {sum(r[8] for r in rows)})')
+          f'split suspects {sum(r[8] for r in rows)}; weak {sum(r[12] == "weak" for r in rows)})')
 
 
 def main():
@@ -108,11 +116,13 @@ def main():
     a = ap.parse_args()
     if os.path.abspath(a.state) != os.path.abspath(paths.STATE):
         shutil.copyfile(a.state, paths.STATE)
-    st = State(paths.STATE)
-    print(f'{paths.STATE}: {st.summary()}')
+    st = State(paths.STATE, weak=())
     if a.steps is not None:
         import_hits(a.steps, a.round1)
-    class_renames(st)
+    class_renames(st)                      # writes the verdicts the grades read
+    st = State(paths.STATE)
+    st.write(paths.STATE)                  # on / off and the grade column as the current rules give them
+    print(f'{paths.STATE}: {st.summary()}')
 
 
 if __name__ == '__main__':
