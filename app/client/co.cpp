@@ -2320,29 +2320,29 @@ void ClientObjectClass::Unknown_6FEF70(SubPartsPacket *packet)
 
 
 
-
-
+static __forceinline DeltaStringClass *Unknown_Valid_F(DeltaCompoundClass *root, const NameClass &name) { DeltaStringClass *t = Unknown_Find_Field<DeltaStringClass>(root, name); if (t && t->Unknown70) return(t); return(NULL); }	// NAME 1: neutral (D10)
+static inline DeltaStringClass *Unknown_Name_Sel(ClientObjectClass *o) { DeltaStringClass *t; switch (o->Type) { default: { NameClass n1("Name"); t = Unknown_Valid_F((DeltaCompoundClass *)o->AuxData, n1); if (!t) { NameClass o1("Owner"); t = Unknown_Valid_F((DeltaCompoundClass *)o->AuxData, o1); } } break; case 1: { NameClass o2("Owner"); t = Unknown_Valid_F((DeltaCompoundClass *)o->AuxData, o2); if (!t) { NameClass n2("Name"); t = Unknown_Valid_F((DeltaCompoundClass *)o->AuxData, n2); } } break; } return(t); }	// NAME 1: neutral (D10)
 inline unsigned Unknown_Changed(DeltaClass *d) { return(d->Unknown70); }	// +0x70: 2 when the field changed since the last update, 1 when set, 0 when not  // NAME 1: neutral (D10)
-// 0x6FF4B0  // NOT EXACT: inline-budget (the client calls rtti.h's cast 0x5469C0 at all four lookups, ours inlines them; its four NameClass slots are unshared, frame 0xD0: one full-expression of temporaries gives that frame but keeps the casts inline)
+// 0x6FF4B0 the Name / Owner pick of 0x6FF7A0 (Unknown_Name_Sel: the client's four unshared NameClass slots, frame 0xD0, its Casts out of line in the default arm)  // NOT EXACT: inline-budget (the client also calls rtti.h's cast 0x5469C0 at the type-1 arm's two lookups and the assign's max_size / _Eos; ours inlines them; a dead read after the assign sends the assign's out but Name's whole Find_Field with them)
 void ClientObjectClass::Get_Name(std::string &name)
 {
-	DeltaStringClass *t;
+	DeltaStringClass *t = Unknown_Name_Sel(this);
+	name = t ? t->String : "Unknown";
 
-	switch (Type) {
-		case 1: {
-			NameClass owner("Owner"); t = Unknown_Find_Field<DeltaStringClass>((DeltaCompoundClass *)AuxData, owner);
-			if (!t || !t->Unknown70) {
-				NameClass field("Name"); t = Unknown_Find_Field<DeltaStringClass>((DeltaCompoundClass *)AuxData, field);
-			}
-		} break;
-		default: {
-			NameClass field("Name"); t = Unknown_Find_Field<DeltaStringClass>((DeltaCompoundClass *)AuxData, field);
-			if (!t || !t->Unknown70) {
-				NameClass owner("Owner"); t = Unknown_Find_Field<DeltaStringClass>((DeltaCompoundClass *)AuxData, owner);
-			}
-		} break;
-	}
-	name = (t && t->Unknown70) ? t->String : "Unknown";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
 
 // A field of the aux data changed since the last update (+0x70 above 1)
@@ -2604,8 +2604,8 @@ void ClientObjectClass::Unknown_7009A0(bool on, bool force)
 		Unknown184 = false;
 	}
 }
-static __forceinline DeltaStringClass *Unknown_Valid_F(DeltaCompoundClass *root, const NameClass &name) { DeltaStringClass *t = Unknown_Find_Field<DeltaStringClass>(root, name); if (t && t->Unknown70) return(t); return(NULL); }	// NAME 1: neutral (D10)
-static inline DeltaStringClass *Unknown_Name_Sel(ClientObjectClass *o) { DeltaStringClass *t; switch (o->Type) { default: { NameClass n1("Name"); t = Unknown_Valid_F((DeltaCompoundClass *)o->AuxData, n1); if (!t) { NameClass o1("Owner"); t = Unknown_Valid_F((DeltaCompoundClass *)o->AuxData, o1); } } break; case 1: { NameClass o2("Owner"); t = Unknown_Valid_F((DeltaCompoundClass *)o->AuxData, o2); if (!t) { NameClass n2("Name"); t = Unknown_Valid_F((DeltaCompoundClass *)o->AuxData, n2); } } break; } return(t); }	// NAME 1: neutral (D10)
+
+
 // 0x6FF7A0 the name label: the object's name, behind its Title or Rank for a type other than 0. The Name / Owner pick is an inline of its own (Unknown_Name_Sel: an inlined function's NameClass locals each keep a slot, as the client's four; inside the function the two arms share theirs), Title / Rank in closed scopes (they take the last slot, the client's esp+0x74); the valid-or-NULL lookup __forceinline inside the pick (a plain inline is called there)  // NOT EXACT: branch (two jump targets: the first lookup's valid exit of each arm passes the join's test eax where the client jumps past it, 0x6FF7FC / 0x6FF868; all else identical, the frame slots included)
 void ClientObjectClass::Unknown_6FF7A0(std::string &text)
 {
