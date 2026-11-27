@@ -1243,7 +1243,7 @@ void LandClass::Unknown_4733C0(int row, float ratio, unsigned short *out)
 		*out++ = Pack_Slope16(best);
 		best = 0.05f;
 		dist = 1.0f;
-		x = i + 1;
+		x = i + 1;	// the client's, unmasked (0x473594): at i = size - 1 rows size - 2 and size - 1 read heights[Count], the never-written tail of the PGM buffer (0x4638DC), B-30
 		for (k = 1; k < steps && dist * best < rise; k += 2) {
 			float slope = (((float)heights[x + row1] + heights[x + row0]) * 0.5f - center) * Reciprocals[k - 1] * scale;
 			if (slope > best) {
