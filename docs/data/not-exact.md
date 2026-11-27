@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-432 entries in 214 files.
+431 entries in 214 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -219,7 +219,6 @@ edit the comments in the code, not this file.
 | `app/client/ui_avatar_dialog.cpp:140` | `UIAvatarDialogClass::Unknown_58` | marker | NOT EXACT: register (the client keeps this in edi and the button pointer / the space client in esi, ours the other way round; tried: an early return, a 5-based loop, a button pointer, the space client declared first) 0x552980 |
 | `app/client/ui_avatr.cpp:1379` | `AvatarCreationInterface::Unknown_558D30` | mention | NOT EXACT) and the palette helper 0x55C350 it inlines (exact; defined at the end here for now, it belongs after the FAIL_IFs of line 2207). The gadgets at +0x98 follow UIAvatrParts (0xB7AF84, 50 entries: 16 shared, 19 for the head tab, 15 for the body tab). The rest of the file is not rebuilt; the class is declared only as far as these use it. TK14 (claim #118): 0x554D60 (the per-frame update: the... |
 | `app/client/ui_avatr.cpp:1401` | `AvatarCreationInterface::Unknown_558D30` | mention | NOT EXACT (the POC's last avatar-screen gens). |
-| `app/client/ui_avatr.cpp:1648` | `AvatarCreationInterface::Unknown_557290` | marker | NOT EXACT: functional (D64), from the client's 0x557290 (Random Appearance: the head and face on tabs 0 / 1, the body and clothes on tabs 0 / 2, each choice from 0 to its count; a female avatar has hair and no beard) 0x557290 |
 | `app/client/ui_avsel.cpp:721` | `AvatarSelectionInterface::Unknown_55E070` | marker | NOT EXACT: register (0.78; the else branch's vtable load in eax, the client's in edx) 0x55E070 |
 | `app/client/ui_avsel.cpp:1038` | `AvatarSelectionInterface::Unknown_55F140` | marker | NOT EXACT: register (0.78; the profession index: the client adds race * 2 to the profession, then race) 0x55F140 |
 | `app/client/ui_avsel.cpp:1295` | `AvatarSelectionInterface::Unknown_55FE50` | mention | NOT EXACT (register, 0.78). The class is declared in ui_avsel.h (a provisional name: with it in this file the functions before line 769 do not fit above it), the other types only as far as these functions use them; the character view, its avatars and the env maps are charview.h's, avatar.h's and env_map_manager.h's (S1, run 2026-11-14). |

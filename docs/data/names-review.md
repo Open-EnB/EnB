@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1971 |
 | 2 | describes what the code does | 5023 |
-| 1 | neutral placeholder | 25233 |
+| 1 | neutral placeholder | 25235 |
 
 ## For review (score 3 and below)
 
@@ -10984,6 +10984,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_585D10` | `app/client/ui_avatr.cpp:353` | untagged neutral name (D10) |
 | 1 | `Get_Unknown18` | `app/client/ui_avatr.cpp:355` | neutral (D10) |
 | 1 | `Unknown1C` | `app/client/ui_avatr.cpp:356` | untagged neutral name (D10) |
+| 1 | `Get_Unknown20` | `app/client/ui_avatr.cpp:357` | neutral (D10) |
 | 1 | `Unknown20` | `app/client/ui_avatr.cpp:357` | untagged neutral name (D10) |
 | 1 | `view, layer, keep` | `app/client/ui_avatr.cpp:364` | neutral |
 | 1 | `Unknown_60` | `app/client/ui_avatr.cpp:366` | untagged neutral name (D10) |
@@ -11111,6 +11112,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `UIAvatrRaces` | `app/client/ui_avatr.cpp:1160` | neutral (D10) |
 | 1 | `Unknown_55BAC0_Model` | `app/client/ui_avatr.cpp:1305` | neutral (D10). 0x55BAC0's inline layer over 0x497300; the two dead Num_Refs() reads are a budget device (D272, provisional: not known to be the client's): with them the third temporary's and the model's ~RefCountPtr stay out of line as the client's (0x40E2D2), with one or none the third temporary's is inline (attempts.py show 0x55BAC0) |
 | 1 | `Unknown_6608F0` | `app/client/ui_avatr.cpp:1324` | untagged neutral name (D10) |
+| 1 | `Unknown_Palette_Model` | `app/client/ui_avatr.cpp:1349` | neutral (D10). Set_Palette's inline layer over 0x497300, no dead reads: with it 0x557290's four inlined palettes call the palette's and the model's ~RefCountPtr 0x4740B0 out of line as the client (B36); likely a header inline over 0x497300 (0x55BAC0's layer above is the same with two budget reads, which the palette sites do not take) |
 | 1 | `Unknown_77E9D0` | `app/client/ui_avatr.cpp:1418` | untagged neutral name (D10) |
 | 1 | `Unknown_77FC20` | `app/client/ui_avatr.cpp:1456` | untagged neutral name (D10) |
 | 1 | `Unknown_77FD30` | `app/client/ui_avatr.cpp:1470` | untagged neutral name (D10) |
