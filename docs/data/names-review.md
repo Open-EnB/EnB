@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1971 |
 | 2 | describes what the code does | 5016 |
-| 1 | neutral placeholder | 25217 |
+| 1 | neutral placeholder | 25225 |
 
 ## For review (score 3 and below)
 
@@ -3646,56 +3646,64 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6D5D40` | `app/client/fontsys.cpp:35` | untagged neutral name (D10) |
 | 1 | `Unknown26C` | `app/client/fontsys.cpp:37` | untagged neutral name (D10) |
 | 1 | `Unknown_6D5140` | `app/client/fontsys.cpp:58` | untagged neutral name (D10) |
-| 1 | `Unknown4DC` | `app/client/fontsys.cpp:69` | untagged neutral name (D10) |
-| 1 | `Unknown4E0` | `app/client/fontsys.cpp:70` | untagged neutral name (D10) |
-| 1 | `Unknown300` | `app/client/fontsys.cpp:72` | untagged neutral name (D10) |
-| 1 | `Unknown301` | `app/client/fontsys.cpp:73` | untagged neutral name (D10) |
-| 1 | `Unknown402` | `app/client/fontsys.cpp:74` | untagged neutral name (D10) |
-| 1 | `Unknown302` | `app/client/fontsys.cpp:75` | untagged neutral name (D10) |
-| 1 | `Unknown404` | `app/client/fontsys.cpp:76` | untagged neutral name (D10) |
-| 1 | `Unknown405` | `app/client/fontsys.cpp:77` | untagged neutral name (D10) |
-| 1 | `Unknown406` | `app/client/fontsys.cpp:78` | untagged neutral name (D10) |
-| 1 | `Unknown408` | `app/client/fontsys.cpp:79` | untagged neutral name (D10) |
-| 1 | `Unknown4E5` | `app/client/fontsys.cpp:80` | untagged neutral name (D10) |
-| 1 | `Unknown440` | `app/client/fontsys.cpp:81` | untagged neutral name (D10) |
-| 1 | `Unknown450` | `app/client/fontsys.cpp:83` | untagged neutral name (D10) |
-| 1 | `Unknown250` | `app/client/fontsys.cpp:84` | untagged neutral name (D10) |
-| 1 | `Unknown410` | `app/client/fontsys.cpp:85` | untagged neutral name (D10) |
-| 1 | `Unknown444` | `app/client/fontsys.cpp:86` | untagged neutral name (D10) |
-| 1 | `Unknown2F4` | `app/client/fontsys.cpp:87` | untagged neutral name (D10) |
-| 1 | `Unknown448` | `app/client/fontsys.cpp:90` | untagged neutral name (D10) |
-| 1 | `Unknown454` | `app/client/fontsys.cpp:91` | untagged neutral name (D10) |
-| 1 | `Unknown458` | `app/client/fontsys.cpp:92` | untagged neutral name (D10) |
-| 1 | `Unknown418` | `app/client/fontsys.cpp:95` | untagged neutral name (D10) |
-| 1 | `Unknown41C` | `app/client/fontsys.cpp:96` | untagged neutral name (D10) |
-| 1 | `Unknown420` | `app/client/fontsys.cpp:97` | untagged neutral name (D10) |
-| 1 | `Unknown488` | `app/client/fontsys.cpp:101` | untagged neutral name (D10) |
-| 1 | `Unknown4C5` | `app/client/fontsys.cpp:104` | untagged neutral name (D10) |
-| 1 | `Unknown4C8` | `app/client/fontsys.cpp:105` | untagged neutral name (D10) |
-| 1 | `Unknown4D0` | `app/client/fontsys.cpp:107` | untagged neutral name (D10) |
-| 1 | `Unknown47C` | `app/client/fontsys.cpp:110` | untagged neutral name (D10) |
-| 1 | `Unknown470` | `app/client/fontsys.cpp:113` | untagged neutral name (D10) |
-| 1 | `Unknown430` | `app/client/fontsys.cpp:114` | untagged neutral name (D10) |
-| 1 | `Unknown2C4` | `app/client/fontsys.cpp:120` | untagged neutral name (D10) |
-| 1 | `Unknown2C8` | `app/client/fontsys.cpp:121` | untagged neutral name (D10) |
-| 1 | `Unknown270` | `app/client/fontsys.cpp:124` | untagged neutral name (D10) |
-| 1 | `Unknown274` | `app/client/fontsys.cpp:125` | untagged neutral name (D10) |
-| 1 | `Unknown254` | `app/client/fontsys.cpp:126` | untagged neutral name (D10) |
-| 1 | `Unknown44C` | `app/client/fontsys.cpp:138` | untagged neutral name (D10) |
-| 1 | `Unknown494` | `app/client/fontsys.cpp:144` | untagged neutral name (D10) |
-| 1 | `Unknown4B4` | `app/client/fontsys.cpp:145` | untagged neutral name (D10) |
-| 1 | `Unknown4A4` | `app/client/fontsys.cpp:152` | untagged neutral name (D10) |
-| 1 | `Unknown303` | `app/client/fontsys.cpp:169` | untagged neutral name (D10) |
-| 1 | `Unknown414` | `app/client/fontsys.cpp:170` | untagged neutral name (D10) |
-| 1 | `Unknown2E0` | `app/client/fontsys.cpp:175` | untagged neutral name (D10) |
-| 1 | `Unknown_6D8DC0` | `app/client/fontsys.cpp:175` | untagged neutral name (D10) |
-| 1 | `Unknown4E4` | `app/client/fontsys.cpp:178` | untagged neutral name (D10) |
-| 1 | `Unknown4E6` | `app/client/fontsys.cpp:179` | untagged neutral name (D10) |
+| 1 | `UnknownFontSys2B4Struct, Init, Unknown10, Unknown14` | `app/client/fontsys.cpp:64` | neutral (D10): FontSys +0x2B4..+0x2CC (Width..Scale) as the sub-object 0x6D5170 initialises through its own pointer (edi = this + 0x2B4: the resolution call's four arguments and the three stores after it); provisional view until fontsys.h holds it |
+| 1 | `UnknownFontSys2B4Struct` | `app/client/fontsys.cpp:64` | untagged neutral name (D10) |
+| 1 | `Unknown10` | `app/client/fontsys.cpp:64` | untagged neutral name (D10) |
+| 1 | `Unknown14` | `app/client/fontsys.cpp:64` | untagged neutral name (D10) |
+| 1 | `UnknownFontSys430Struct, Set, Unknown00, Unknown10, Unknown95` | `app/client/fontsys.cpp:65` | neutral (D10): FontSys +0x430 (the -320, 320, 240, -240 rect) and +0x4C5 (the flag setters clear) through one base, as 0x6D5170 stores them after the resolution call's pushes; provisional view (what object holds both is not known) |
+| 1 | `UnknownFontSys430Struct` | `app/client/fontsys.cpp:65` | untagged neutral name (D10) |
+| 1 | `Unknown00` | `app/client/fontsys.cpp:65` | untagged neutral name (D10) |
+| 1 | `Unknown95` | `app/client/fontsys.cpp:65` | untagged neutral name (D10) |
+| 1 | `Unknown4DC` | `app/client/fontsys.cpp:70` | untagged neutral name (D10) |
+| 1 | `Unknown4E0` | `app/client/fontsys.cpp:71` | untagged neutral name (D10) |
+| 1 | `Unknown300` | `app/client/fontsys.cpp:73` | untagged neutral name (D10) |
+| 1 | `Unknown301` | `app/client/fontsys.cpp:74` | untagged neutral name (D10) |
+| 1 | `Unknown402` | `app/client/fontsys.cpp:75` | untagged neutral name (D10) |
+| 1 | `Unknown302` | `app/client/fontsys.cpp:76` | untagged neutral name (D10) |
+| 1 | `Unknown404` | `app/client/fontsys.cpp:77` | untagged neutral name (D10) |
+| 1 | `Unknown405` | `app/client/fontsys.cpp:78` | untagged neutral name (D10) |
+| 1 | `Unknown406` | `app/client/fontsys.cpp:79` | untagged neutral name (D10) |
+| 1 | `Unknown408` | `app/client/fontsys.cpp:80` | untagged neutral name (D10) |
+| 1 | `Unknown4E5` | `app/client/fontsys.cpp:81` | untagged neutral name (D10) |
+| 1 | `Unknown440` | `app/client/fontsys.cpp:82` | untagged neutral name (D10) |
+| 1 | `Unknown450` | `app/client/fontsys.cpp:84` | untagged neutral name (D10) |
+| 1 | `Unknown250` | `app/client/fontsys.cpp:85` | untagged neutral name (D10) |
+| 1 | `Unknown410` | `app/client/fontsys.cpp:86` | untagged neutral name (D10) |
+| 1 | `Unknown444` | `app/client/fontsys.cpp:87` | untagged neutral name (D10) |
+| 1 | `Unknown2F4` | `app/client/fontsys.cpp:88` | untagged neutral name (D10) |
+| 1 | `Unknown448` | `app/client/fontsys.cpp:91` | untagged neutral name (D10) |
+| 1 | `Unknown454` | `app/client/fontsys.cpp:92` | untagged neutral name (D10) |
+| 1 | `Unknown458` | `app/client/fontsys.cpp:93` | untagged neutral name (D10) |
+| 1 | `Unknown418` | `app/client/fontsys.cpp:96` | untagged neutral name (D10) |
+| 1 | `Unknown41C` | `app/client/fontsys.cpp:97` | untagged neutral name (D10) |
+| 1 | `Unknown420` | `app/client/fontsys.cpp:98` | untagged neutral name (D10) |
+| 1 | `Unknown488` | `app/client/fontsys.cpp:102` | untagged neutral name (D10) |
+| 1 | `Unknown4C5` | `app/client/fontsys.cpp:105` | untagged neutral name (D10) |
+| 1 | `Unknown4C8` | `app/client/fontsys.cpp:106` | untagged neutral name (D10) |
+| 1 | `Unknown4D0` | `app/client/fontsys.cpp:108` | untagged neutral name (D10) |
+| 1 | `Unknown47C` | `app/client/fontsys.cpp:111` | untagged neutral name (D10) |
+| 1 | `Unknown470` | `app/client/fontsys.cpp:114` | untagged neutral name (D10) |
+| 1 | `Unknown430` | `app/client/fontsys.cpp:115` | untagged neutral name (D10) |
+| 1 | `Unknown270` | `app/client/fontsys.cpp:118` | untagged neutral name (D10) |
+| 1 | `Unknown274` | `app/client/fontsys.cpp:119` | untagged neutral name (D10) |
+| 1 | `Unknown254` | `app/client/fontsys.cpp:120` | untagged neutral name (D10) |
+| 1 | `Unknown44C` | `app/client/fontsys.cpp:132` | untagged neutral name (D10) |
+| 1 | `Unknown494` | `app/client/fontsys.cpp:138` | untagged neutral name (D10) |
+| 1 | `Unknown4B4` | `app/client/fontsys.cpp:139` | untagged neutral name (D10) |
+| 1 | `Unknown4A4` | `app/client/fontsys.cpp:146` | untagged neutral name (D10) |
+| 1 | `Unknown303` | `app/client/fontsys.cpp:163` | untagged neutral name (D10) |
+| 1 | `Unknown414` | `app/client/fontsys.cpp:164` | untagged neutral name (D10) |
+| 1 | `Unknown2E0` | `app/client/fontsys.cpp:169` | untagged neutral name (D10) |
+| 1 | `Unknown_6D8DC0` | `app/client/fontsys.cpp:169` | untagged neutral name (D10) |
+| 1 | `Unknown4E4` | `app/client/fontsys.cpp:172` | untagged neutral name (D10) |
+| 1 | `Unknown4E6` | `app/client/fontsys.cpp:173` | untagged neutral name (D10) |
 | 1 | `Unknown_6D5A80` | `app/client/fontsys.cpp:222` | untagged neutral name (D10) |
 | 1 | `Unknown_6D5B10` | `app/client/fontsys.cpp:231` | untagged neutral name (D10) |
 | 1 | `Unknown_6D5EF0` | `app/client/fontsys.cpp:295` | untagged neutral name (D10) |
 | 1 | `Unknown4C4` | `app/client/fontsys.cpp:307` | untagged neutral name (D10) |
 | 1 | `Unknown2D0` | `app/client/fontsys.cpp:307` | untagged neutral name (D10) |
+| 1 | `Unknown2C4` | `app/client/fontsys.cpp:308` | untagged neutral name (D10) |
+| 1 | `Unknown2C8` | `app/client/fontsys.cpp:309` | untagged neutral name (D10) |
 | 1 | `Unknown_BE67B4` | `app/client/fontsys.cpp:318` | neutral (D10): FontSys's sounds (main_client.cpp declares it so) |
 | 1 | `Unknown_6BCFB0Class` | `app/client/fontsys.cpp:318` | untagged neutral name (D10) |
 | 1 | `Unknown_6D5F40` | `app/client/fontsys.cpp:321` | untagged neutral name (D10) |
