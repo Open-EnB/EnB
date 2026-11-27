@@ -8943,7 +8943,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Fonts` | `app/client/ship_stats_display.h:29` | neutral (D10) |
 | 1 | `Unknown80` | `app/client/ship_stats_display.h:31` | neutral (D10) |
 | 1 | `UnknownC8` | `app/client/ship_stats_display.h:35` | neutral (D10) |
-| 1 | `Unknown_80FCE0` | `app/client/shiputils.cpp:25` | untagged neutral name (D10) |
 | 1 | `Unknown_80FD10` | `app/client/shiputils.cpp:27` | untagged neutral name (D10) |
 | 1 | `Unknown_812390` | `app/client/shiputils.cpp:28` | untagged neutral name (D10) |
 | 1 | `Unknown_Assign` | `app/client/shiputils.cpp:34` | neutral (D10) |
@@ -8963,6 +8962,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown10` | `app/client/shiputils.cpp:146` | untagged neutral name (D10) |
 | 1 | `Unknown_80F470` | `app/client/shiputils.cpp:155` | untagged neutral name (D10) |
 | 1 | `Unknown_80F250` | `app/client/shiputils.cpp:242` | neutral (D10); NAME 2 [weapon]: the '~weap' bones set it; A mesh under a '~weap' bone takes 0x80F470 with the region (a bone '~NN' above it sets it), anything else recurses over its bones' objects, or over its sub-objects (outside any '~weap') when it has no bones |
+| 1 | `Unknown_80FCE0` | `app/client/shiputils.cpp:336` | untagged neutral name (D10) |
 | 1 | `Unknown_Clamp01` | `app/client/shiputils.cpp:342` | neutral (D10): inline in 0x80E8C0 |
 | 1 | `Unknown_810130` | `app/client/shiputils.cpp:353` | neutral (D10); NAME 1 [robj, texture, color]: as 0x80FF20's |
 | 1 | `Unknown_80E8C0` | `app/client/shiputils.cpp:423` | untagged neutral name (D10) |
