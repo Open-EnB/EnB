@@ -10,8 +10,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 231 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1971 |
-| 2 | describes what the code does | 5021 |
-| 1 | neutral placeholder | 25228 |
+| 2 | describes what the code does | 5022 |
+| 1 | neutral placeholder | 25230 |
 
 ## For review (score 3 and below)
 
@@ -2441,6 +2441,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `std:` | `app/client/control_keys_manager.h:172` | neutral (D10) |
 | 1 | `std:` | `app/client/cpacket.cpp:73` | neutral (D10). rs_track.cpp's render object (Class_ID 0x10001): the render states the packets switch |
 | 1 | `Unknown_BE7D58` | `app/client/cpacket.cpp:73` | untagged neutral name (D10) |
+| 1 | `Unknown_B95308` | `app/client/cpacket.cpp:80` | neutral (D10)  // placement provisional (D137): a file static after the tables, no header of cpacket's alone |
+| 1 | `Unknown_B9530C` | `app/client/cpacket.cpp:81` | neutral (D10) |
 | 1 | `name, channel` | `app/client/cpacket.cpp:89` | the packet's fields |
 | 1 | `Unknown_75AE30` | `app/client/cpacket.cpp:89` | untagged neutral name (D10) |
 | 1 | `name, channel` | `app/client/cpacket.cpp:90` | the packet's fields |
@@ -24418,16 +24420,16 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_458540` | `app/shared/rs_list.cpp:276` | untagged neutral name (D10) |
 | 1 | `Unknown_45ACD0` | `app/shared/rs_list.cpp:285` | untagged neutral name (D10) |
 | 1 | `Unknown4596A0Class` | `app/shared/rs_list.cpp:287` | untagged neutral name (D10) |
-| 1 | `Unknown_45AD90` | `app/shared/rs_list.cpp:295` | untagged neutral name (D10) |
-| 1 | `Unknown_45B1E0` | `app/shared/rs_list.cpp:329` | untagged neutral name (D10) |
-| 1 | `Unknown45D840Class` | `app/shared/rs_list.cpp:331` | untagged neutral name (D10) |
-| 1 | `Unknown_45B280` | `app/shared/rs_list.cpp:337` | untagged neutral name (D10) |
-| 1 | `Unknown_45B300` | `app/shared/rs_list.cpp:346` | untagged neutral name (D10) |
-| 1 | `Unknown45A090Class` | `app/shared/rs_list.cpp:348` | untagged neutral name (D10) |
-| 1 | `Unknown_45B390` | `app/shared/rs_list.cpp:354` | untagged neutral name (D10) |
-| 1 | `Unknown_45B3E0` | `app/shared/rs_list.cpp:362` | untagged neutral name (D10) |
-| 1 | `Unknown45F390Class` | `app/shared/rs_list.cpp:364` | untagged neutral name (D10) |
-| 1 | `Unknown_45B480` | `app/shared/rs_list.cpp:370` | untagged neutral name (D10) |
+| 1 | `Unknown_45AD90` | `app/shared/rs_list.cpp:293` | untagged neutral name (D10) |
+| 1 | `Unknown_45B1E0` | `app/shared/rs_list.cpp:330` | untagged neutral name (D10) |
+| 1 | `Unknown45D840Class` | `app/shared/rs_list.cpp:332` | untagged neutral name (D10) |
+| 1 | `Unknown_45B280` | `app/shared/rs_list.cpp:338` | untagged neutral name (D10) |
+| 1 | `Unknown_45B300` | `app/shared/rs_list.cpp:347` | untagged neutral name (D10) |
+| 1 | `Unknown45A090Class` | `app/shared/rs_list.cpp:349` | untagged neutral name (D10) |
+| 1 | `Unknown_45B390` | `app/shared/rs_list.cpp:355` | untagged neutral name (D10) |
+| 1 | `Unknown_45B3E0` | `app/shared/rs_list.cpp:363` | untagged neutral name (D10) |
+| 1 | `Unknown45F390Class` | `app/shared/rs_list.cpp:365` | untagged neutral name (D10) |
+| 1 | `Unknown_45B480` | `app/shared/rs_list.cpp:371` | untagged neutral name (D10) |
 | 1 | `Unknown_45B550` | `app/shared/rs_list.cpp:556` | untagged neutral name (D10) |
 | 1 | `Unknown_B70E40` | `app/shared/rs_list.cpp:560` | untagged neutral name (D10) |
 | 1 | `Unknown458C10Class` | `app/shared/rs_list.cpp:598` | untagged neutral name (D10) |
@@ -27356,6 +27358,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Analyze_Player_Id` | `app/client/ui_analyze.cpp:163` | the player id read as an inline accessor (as ui_manu.cpp's Manu_Player_Id) |
 | 2 | `Get_Avatar` | `app/client/ui_attrb.cpp:98` | ClientClass's slot +0x28 |
 | 2 | `Layer` | `app/client/ui_attrb_skills.h:57` | what it is |
+| 2 | `Left_Held` | `app/client/ui_avatar_cust.cpp:1045` | +0x64, the left button held |
 | 2 | `event, gadget` | `app/client/ui_avatar_cust.h:38` | the FAIL_IFs' |
 | 2 | `Buttons` | `app/client/ui_avatar_dialog.h:50` | what they are |
 | 2 | `Pip` | `app/client/ui_avatar_dialog.h:51` | what it holds |
