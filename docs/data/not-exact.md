@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-461 entries in 221 files.
+460 entries in 221 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -319,7 +319,6 @@ edit the comments in the code, not this file.
 | `app/client/ui_starbase.cpp:678` | `UIStarbaseClass::Unknown_54` | marker | NOT EXACT: 0x634140, functional from the pseudocode (D64; SU1): the window's set-up (slot +0x54): the full-screen gadget, the +0x1F8 interface, the player's avatar entry with its name and guild texts, the 14 NPC slots, the four terminals, the four doors with their signs, the ship on the hangar's extents, the bar and table models and the '%s_%dmd' animated models (PT3: client bytes read as source, ... |
 | `app/client/ui_starbase.cpp:1619` | `UIStarbaseClass::Unknown_58` | marker | NOT EXACT: 0x6366A0, functional (order: the ship block through Unknown_Show_Ship gives the client's ??_H; the +0x138 store through a pointer local holds the UnknownB0 load after it, a room local gives the client's edi / edx; left: the room's load before the door's (the client's in the else); Get_Info() for the column, the map manager through a local, Unknown138 as one dword and the third-person te... |
 | `app/client/ui_starbase.cpp:1872` | `UIStarbaseClass::Unknown_639630` | marker | NOT EXACT: 0x639630, functional (register: the lit loop's last Unknown_40(false) through ebp where the client loads ecx; frame 0x28 as the client; O4, UB) 0x639630 (0x638390's frame: the doors', exit's, terminals', NPCs' and avatars' gadgets lit and their tooltips and cursors while the own avatar stands within reach of them; all unlit while it cannot act) |
-| `app/client/ui_starbase.cpp:2284` | `UIStarbaseClass::Unknown_63AC60` | marker | NOT EXACT: 0x63AC60, functional (register: the loop's inlined Unknown24 = "" stores _Eos through [eax + ecx], the client [ecx + eax]; FontSys::Set_Color per colour with four dead Peek() reads after it gives the client's stores through the tag; FontSys::Set_Color at the guild texts the client's zero register in the loop; ++it its frame 0x2C) 0x63AC60 (0x638390's frame: the name tags shown or hidden... |
 | `app/client/ui_starbase.cpp:2962` | `UIStarbaseClass::Unknown_63DFE0` | marker | NOT EXACT: 0x63DFE0, functional (frame: 0x50 against the client's 0x54, its three early-out blocks kept in place with their own epilogues where ours merges two at the end; O4; case 3 before case 4: the client's EH states number case 3's packet temporary 0; D4 2026-11-24: every differing region codegen) 0x63DFE0 (0x638390's frame: the symbol chat menu's chosen option for the avatar UnknownC0.C: 2 a... |
 | `app/client/ui_starbase.cpp:3862` | `UIStarbaseClass::Unknown_63E770` | marker | NOT EXACT: 0x63E770, functional (order: end() through the const_iterator conversion 0x6439B0 as the client's; order-only since end() builds through the iterator constructor (O7): the same 92 instructions in another order (the frame time's 64-bit stores); SB1, O4) 0x63E770 |
 | `app/client/ui_starbase.cpp:3967` | `UIStarbaseClass::Unknown_641FA0` | marker | NOT EXACT: 0x641FA0, register only (this in edi, the gadget in ebx: the client's are swapped; SB1) 0x641FA0 |
