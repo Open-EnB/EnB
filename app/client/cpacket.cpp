@@ -2842,7 +2842,7 @@ bool FindMemberPacketClass::Process_Packet(void *instance)
 
 
 
-// NOT EXACT: shape (the cases' early returns: the client jumps from each to the one exit, ours repeats the profile tail per case; the profile flag in al, sclient in ebx; attempts.py show 0x73CC90)
+// The cases and the default reach the one exit (0x73D01A) by goto, only the FAIL_IF and !panel returns are returns (their own tails as the client's); the 8 size() reads are dead: VC6's inline budget (the client calls _Ucopy out of line in each case's vector copy)
 // 0x73CC90
 bool ClientChatListPacketClass::Process_Packet(void *instance)
 {
@@ -2850,23 +2850,23 @@ bool ClientChatListPacketClass::Process_Packet(void *instance)
 	SClient *sclient = (SClient *)instance;
 	FAIL_IF(!sclient) return(true);
 	ChatPanelInterface *panel = sclient->ChatPanel.Peek();
-	if (!panel) return(true);
+	if (!panel) return(true); Unknown20.size(); Unknown20.size(); Unknown20.size(); Unknown20.size(); Unknown20.size(); Unknown20.size(); Unknown20.size(); Unknown20.size();
 	switch (Unknown0C) {
 		case 0: {
-			UIFriendsClass *friends = panel->UnknownDC; if (friends) { friends->Unknown_5913E0(Unknown20, Unknown30); return(true); } }
+			UIFriendsClass *friends = panel->UnknownDC; if (friends) { friends->Unknown_5913E0(Unknown20, Unknown30); goto done; } }
 			break;
 		case 1: {
-			UIPlayerOptClass *d8 = panel->UnknownD8; if (d8) { d8->Unknown_5DA600(Unknown20); return(true); } }
+			UIPlayerOptClass *d8 = panel->UnknownD8; if (d8) { d8->Unknown_5DA600(Unknown20); goto done; } }
 			break;
 		case 3: {
-			UIRadioListClass *e4 = panel->UnknownE4; if (e4 && e4->State == 0) { e4->Unknown_5E8E30(0, Unknown20); return(true); } }
+			UIRadioListClass *e4 = panel->UnknownE4; if (e4 && e4->State == 0) { e4->Unknown_5E8E30(0, Unknown20); goto done; } }
 			break;
 		case 2: {
-			UIRadioListClass *e4 = panel->UnknownE4; UIRadioAdminClass *e8 = panel->UnknownE8; if (e4 && e4->State == 1) { e4->Unknown_5E8E30(1, Unknown20); return(true); }
-			if (e8) { e8->Unknown_5E5D70(Unknown20); return(true); } }
+			UIRadioListClass *e4 = panel->UnknownE4; UIRadioAdminClass *e8 = panel->UnknownE8; if (e4 && e4->State == 1) { e4->Unknown_5E8E30(1, Unknown20); goto done; }
+			if (e8) { e8->Unknown_5E5D70(Unknown20); goto done; } }
 			break;
 		default:
-			return(true);
+			goto done;
 	}
 	switch (Unknown0C) {
 		case 0: sclient->Unknown_74D990(0x17, "Friends:", 0); break;
@@ -2875,14 +2875,14 @@ bool ClientChatListPacketClass::Process_Packet(void *instance)
 		case 3: sclient->Unknown_74D990(0x17, "Active channels:", 0); break;
 		case 4: sclient->Unknown_74D990(0x17, "Current channels:", 0); break;
 	}
-	if (Unknown20.size() == 0) {
-		sclient->Unknown_74D990(0x17, "<none>", 0);
-	} else {
-		for (std::vector<std::string>::iterator it = Unknown20.begin(); it != Unknown20.end(); it++) {
+	{ std::vector<std::string> &names = Unknown20; if (names.size() != 0) {
+		for (std::vector<std::string>::iterator it = names.begin(); it != names.end(); it++) {
 			sclient->Unknown_74D990(0x17, (char *)it->c_str(), 0);
 		}
-	}
-	return(true);
+	} else {
+		sclient->Unknown_74D990(0x17, "<none>", 0);
+	} }
+done:	return(true);
 }
 
 
