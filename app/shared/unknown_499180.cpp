@@ -16,30 +16,29 @@ bool Unknown_499180(Vector3 a, float slope, const Vector3 *b)	// NAME 1: neutral
 	return ((a.Z / dist) < slope);
 }
 
-// NOT EXACT: scheduling/FPU order (explain.py field-offset; 217 vs 219 insns, 17 rows differ, 694 vs 698 bytes, similarity 0.87) in inlined Normalize (fld st(0) vs fld [esp+8]/fstp st(0)) and Intersect_Plane_Quick (Y/Z term order); calls 0x4995A0 and 0x499560 out of line, exact frame 0x98
+// NOT EXACT: x87 operand order (masked residue 2, registers only: the divisor's first product loads (*RayDirection)[0] and multiplies by PlaneNormal[0] at 0x4992D3, the client the other way round; equal values); every sum's association and every other load is the client's; attempts.csv 0x4991F0
 // @0x4991F0
 bool Unknown_4991F0(Vector3 *a, const Vector3 *b, float *out_val, float dist_sq, Vector3 *normal, Vector3 *p1, Vector3 *p2)	// NAME 1: neutral (D10)
 {
 	Vector3 dir = *p2 - *p1;
 	float len_sq = dir.Length2();
 	dir.Normalize();
-
 	IntersectionClass intersection(p1, &dir, NULL);
-
-	if (!intersection.Intersect_Plane_Quick(&intersection.Result, *normal, *a)) {
+	IntersectionResultClass *result = &intersection.Result;
+	if (!intersection.Intersect_Plane_Quick(result, *normal, *a)) {
 		return true;
 	}
-	if (intersection.Result.Range < 0.0f) {
+	float range = result->Range;
+	if (range < 0.0f) {
 		return true;
 	}
-	if (intersection.Result.Range * intersection.Result.Range > len_sq) {
+	if (range * range > len_sq) {
 		return true;
 	}
-
-	intersection.Calculate_Intersection(&intersection.Result);
-
-	dir = intersection.Result.Intersection - *a;
-	float d1_xy_sq = dir.Y * dir.Y + dir.X * dir.X;
+	intersection.Calculate_Intersection(result);
+	Vector3 delta;
+	delta = result->Intersection - *a;
+	float d1_xy_sq = delta.Y * delta.Y + delta.X * delta.X;
 	if (d1_xy_sq == 0.0f) {
 		return true;
 	}
@@ -47,7 +46,7 @@ bool Unknown_4991F0(Vector3 *a, const Vector3 *b, float *out_val, float dist_sq,
 		return true;
 	}
 
-	float d2_xy_sq = Vector2(intersection.Result.Intersection.X - b->X, intersection.Result.Intersection.Y - b->Y).Length2();
+	float d2_xy_sq = Vector2(result->Intersection.X - b->X, result->Intersection.Y - b->Y).Length2();
 	if (d2_xy_sq == 0.0f) {
 		return true;
 	}
@@ -55,7 +54,8 @@ bool Unknown_4991F0(Vector3 *a, const Vector3 *b, float *out_val, float dist_sq,
 		return true;
 	}
 
-	float slope = dir.Z / sqrtf(d1_xy_sq);
+	float dist = sqrtf(d1_xy_sq);
+	float slope = delta.Z / dist;
 	if (slope < *out_val) {
 		return true;
 	}
@@ -94,6 +94,6 @@ bool Unknown_4995C0(Vector3 *a, const Vector3 *b, float *slope, float dist_sq, V
 **	Hence the interim file name (D137, PROVISIONAL) between accel and boolpars.
 **
 **	Unknown_4991F0 uses Vector2(...).Length2() to push IntersectionResultClass::IntersectionResultClass
-**	(0x4995A0) out of line while keeping the exact 0x98 frame; 0x499321..0x4994A9 matches byte for byte,
-**	with 4 bytes / 17 masked rows left in inlined Vector3::Normalize and IntersectionClass::Intersect_Plane_Quick.
+**	(0x4995A0) out of line while keeping the exact 0x98 frame; its locals (delta declared then assigned, range,
+**	result, dist) set VC6's x87 operand order: all but one commuted product (0x4992D3) is the client's.
 */
