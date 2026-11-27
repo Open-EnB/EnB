@@ -904,6 +904,23 @@ the last name. Live antprox logs opcode numbers; e2e appends the names (`... = s
   surface` compares the ship's place under the held landing camera. Windows end before the scenario's next input
   (a camera move after it follows the harness's timing). Unit tests: `python -m unittest
   tools/harness/test_camtrack.py`.
+- **The maps, the cargo and the manufacturing exit (test-plan SP-05, UI-05, item 11; 2026-11-26, CS8):**
+  `sp_starmap` (Elanor): the route to Nav Group Shrine (W, >> twice), the navigation map (its 'Dest:' line), '=' /
+  '-' held ([Zoom Map In] / [Zoom Map Out]), a left drag (pan), two close / open cycles, the galaxy map (the window's
+  SECTOR_BTTN 142,252; LABEL 172,252 is left alone: it cycles the label setting), two left clicks (the system, then
+  the sector under the pointer: its gate spokes labelled), two right clicks (out, full out), '=' held, back, then
+  `/wormhole 2210` and the map in Endriago: the draw logs' `texture_life` (above) shows the map pictures (B-12) made
+  at the first opening and the zoom and given back at the sector change. `ui_cargo_equip` (Elanor): O and I (the
+  cargo window and the equipment window beside it; I closes both), the cargo's shield dragged onto the Shields slot
+  and back (a swap each, INVENTORY_MOVE), `/resetship`'s YES_NO query (Yes 486,578, No 800,578) with the shield
+  dropped into space meanwhile (B-06: no dump query, nothing sent), No, the swap twice more (sent), the cargo one
+  column right (236,740; left 35,740), 600 of a 1200 stack into the empty slot and back: a stack of more than one
+  asks the number on gd_selct.cpp's quantity bar (placed at the pointer; digits typed then Enter, or a click on the
+  bar; until then every other transaction is refused). `_sb_manufacture_exit` (Zanor, named only so the station
+  set keeps its stored runs): sb_manufacture's walk to the Vesta 4P with the components in hold, the Manufacture
+  label lit by 0x5B2480 (`expect-ink`), the pointer on the exit gadget, its click. Each passes on retail first time;
+  run each in a client of its own after a Net-7 restart (`sp_starmap` leaves Elanor in Endriago until the
+  `--db-snapshot 7` restore).
 - **Extended keys (2026-11-21):** the client's keyboard code (w32kbd.cpp) reads lParam's scan code and extended
   bit; an arrow key posted with lParam 1 is the numpad's and nothing happens. `clientrun.key_lparam` gives every
   posted key its scan code and, for the arrows, Insert / Delete / Home / End / PgUp / PgDn, the extended bit, as a
