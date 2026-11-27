@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1971 |
 | 2 | describes what the code does | 5015 |
-| 1 | neutral placeholder | 25209 |
+| 1 | neutral placeholder | 25216 |
 
 ## For review (score 3 and below)
 
@@ -20613,18 +20613,25 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Print_Text` | `app/client/unknown_6cce60.cpp:265` | what it does |
 | 1 | `Unknown2F0` | `app/client/unknown_6cce60.cpp:268` | untagged neutral name (D10) |
 | 1 | `Unknown4C5` | `app/client/unknown_6cce60.cpp:269` | untagged neutral name (D10) |
-| 1 | `Unknown470` | `app/client/unknown_6cce60.cpp:296` | untagged neutral name (D10) |
-| 1 | `Unknown458` | `app/client/unknown_6cce60.cpp:297` | untagged neutral name (D10) |
-| 1 | `Unknown444` | `app/client/unknown_6cce60.cpp:311` | untagged neutral name (D10) |
-| 1 | `Unknown0C` | `app/client/unknown_6cce60.cpp:319` | untagged neutral name (D10) |
-| 1 | `Unknown4B4` | `app/client/unknown_6cce60.cpp:320` | untagged neutral name (D10) |
-| 1 | `Unknown26C` | `app/client/unknown_6cce60.cpp:327` | untagged neutral name (D10) |
-| 1 | `Unknown405` | `app/client/unknown_6cce60.cpp:360` | untagged neutral name (D10) |
-| 1 | `Unknown408` | `app/client/unknown_6cce60.cpp:369` | untagged neutral name (D10) |
+| 1 | `UnknownFontSys254Struct, Reset` | `app/client/unknown_6cce60.cpp:272` | neutral (D10): FontSys +0x254..+0x2B0 as the sub-object the client resets through its own pointer (the stores 0x6D5170 repeats in this order; as this-> members VC6 keeps Change_Text's seven loads / stores below the earlier member stores); provisional view until fontsys.h holds it |
+| 1 | `UnknownFontSys254Struct` | `app/client/unknown_6cce60.cpp:272` | untagged neutral name (D10) |
+| 1 | `Unknown00` | `app/client/unknown_6cce60.cpp:272` | untagged neutral name (D10) |
+| 1 | `Unknown18` | `app/client/unknown_6cce60.cpp:272` | untagged neutral name (D10) |
+| 1 | `Unknown1C` | `app/client/unknown_6cce60.cpp:272` | untagged neutral name (D10) |
+| 1 | `Unknown20` | `app/client/unknown_6cce60.cpp:272` | untagged neutral name (D10) |
+| 1 | `Set_Opaque_Color` | `app/client/unknown_6cce60.cpp:273` | what it does; the colour and its alpha through one pointer (the client schedules the alpha store above the three fstp: one base, no alias) |
+| 1 | `Unknown0C` | `app/client/unknown_6cce60.cpp:273` | untagged neutral name (D10) |
+| 1 | `Unknown470` | `app/client/unknown_6cce60.cpp:300` | untagged neutral name (D10) |
+| 1 | `Unknown458` | `app/client/unknown_6cce60.cpp:301` | untagged neutral name (D10) |
+| 1 | `Unknown444` | `app/client/unknown_6cce60.cpp:315` | untagged neutral name (D10) |
+| 1 | `Unknown4B4` | `app/client/unknown_6cce60.cpp:323` | untagged neutral name (D10) |
+| 1 | `Unknown405` | `app/client/unknown_6cce60.cpp:342` | untagged neutral name (D10) |
+| 1 | `Unknown408` | `app/client/unknown_6cce60.cpp:351` | untagged neutral name (D10) |
 | 1 | `Clip_Text` | `app/client/unknown_6cce60.cpp:379` | what it does |
 | 1 | `Unknown_6CE420` | `app/client/unknown_6cce60.cpp:389` | untagged neutral name (D10) |
 | 1 | `Unknown_6CE4E0` | `app/client/unknown_6cce60.cpp:404` | untagged neutral name (D10) |
 | 1 | `Unknown_6CE7D0` | `app/client/unknown_6cce60.cpp:427` | untagged neutral name (D10) |
+| 1 | `Unknown26C` | `app/client/unknown_6cce60.cpp:431` | untagged neutral name (D10) |
 | 1 | `Unknown_6D5D40` | `app/client/unknown_6cce60.cpp:446` | untagged neutral name (D10) |
 | 1 | `Unknown_6CE910` | `app/client/unknown_6cce60.cpp:463` | untagged neutral name (D10) |
 | 1 | `Unknown6E1AB0Class` | `app/client/unknown_6e1ab0.cpp:8` | untagged neutral name (D10) |

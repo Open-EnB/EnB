@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-469 entries in 222 files.
+468 entries in 222 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -343,7 +343,6 @@ edit the comments in the code, not this file.
 | `app/client/unknown_62a7c0.cpp:100` | `Unknown62A7C0Class::Unknown_62AFA0` | mention | NOT EXACT: 0x62AA20 (0x62ADE0 inlined with 0.0f; the client keeps the folded -0.29f in one float temporary, ours stores immediates; tried a local offset, a float-returning helper: both exact elsewhere, no change here). |
 | `app/client/unknown_6ca0c0.cpp:76` | `FontSys::Unknown_6CA0C0` | marker | NOT EXACT: worked toward the client's bytes (FX1 / FX, runs 2026-11-20 and -21; FS 2026-11-22): case order, branch senses, inline layers, budget, Append_Dots (RANDLETTER / STAY), STAY's buffer local (pushed to 0x6D8DC0 and String_Pixel_Width, 0x6CC3B8 / 0x6CC3D3) |
 | `app/client/unknown_6cce60.cpp:183` | `FontSys::Unknown_6CD950` | marker | NOT EXACT: registers (D64; attempts.csv): the cases in the client's body order, the clamp in its shape (the copy in the else arm); VC6 gives the clamped slot edi and index ebp, the client the reverse (0x6CD950) |
-| `app/client/unknown_6cce60.cpp:276` | `FontSys::Change_Text` | marker | NOT EXACT: shape (D64; attempts.csv): the client calls Store_Length out of line in the first " " assignment and hoists three member loads above stores (27 masked rows) |
 | `app/client/unknown_75b7b0.cpp:29` | `Unknown_75B8F0` | marker | NOT EXACT: functional (D64), 0.83: the x87 order of the cross product's length and the dot product (WE5) @0x75B8F0 |
 | `app/client/unknown_7979a0.cpp:178` | `CameraController02Class::Unknown_7981B0` | marker | NOT EXACT: 0x7981B0 (every instruction is the client's once stack offsets are masked, and every row of both matrix products sums (M2Z + M1Y) + M0X as the client; row 2 of frame * one loads M22 / M21 before one.Z / one.Y where the client loads the vector first, a commutative operand order only) 0x7981B0 |
 | `app/client/unknown_7979a0.cpp:285` | `CameraController02Class::Unknown_7987F0` | mention | NOT EXACT; WWMath::Sin / Cos, matrix * vector and member reloads follow the client (P2). 0x798570 and 0x7987F0 exact: Vector3::Scale(Vector3(1,2,2)) / (1,1.25,1.25) gives the client's matrix product order. |
