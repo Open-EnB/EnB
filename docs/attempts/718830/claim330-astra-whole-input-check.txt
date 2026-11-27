@@ -1,0 +1,3 @@
+.work/claim-330/astra/last_scale/postate.cpp: 0x713670 Unknown713520Class::Unknown_1C is parked since 2026-11-25 08:38: read `attempts.py show 0x713670`, then retry with --since or --ack
+.work/claim-330/astra/last_scale/postate.cpp: 0x796440 CameraController09Class::Unknown_08 is parked since 2026-11-27 02:14: read `attempts.py show 0x796440`, then retry with --since or --ack
+.work/claim-330/astra/last_scale/postate.cpp: 0x6F0D40 SpiralSeekEffectClass::Unknown_1C is parked since 2026-11-21 14:28: read `attempts.py show 0x6F0D40`, then retry with --since or --ack
