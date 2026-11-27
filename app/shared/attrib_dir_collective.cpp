@@ -245,20 +245,20 @@ AttribDirCollective::~AttribDirCollective()
 
 
 
-// NOT EXACT: shape (explain.py), the client keeps the member loop's iterator in memory and the member and its struct in edi / ebx (a member / info local pair grows our frame instead)
+
 void AttribDirCollective::Add_Destination(const std::string &source, const std::string &destination, const RefCountPtr<AttribValueFunctionClass> &function)
 {
-	DestinationMap::iterator find = DestinationAttributes.find(source);
-	FAIL_IF(find != DestinationAttributes.end()) return;
+	{ DestinationMap::iterator find = DestinationAttributes.find(source);
+	FAIL_IF(find != DestinationAttributes.end()) return; }
 	DestinationAttributes[source] = new DestinationStruct(destination, function);
 	Dir.Attach_Mod(destination.c_str(), new AttribFunctionModClass(function, 0, this));
-	MemberMap::iterator it;
-	for (it = Members.begin(); it != Members.end(); ++it) {
-		MemberStruct *member = (*it).second;
-		float value = ((AttribDir *)(*it).first)->Get_Value(source.c_str());
+	MemberMap::iterator it = Members.begin();
+	for (; it != Members.end(); ++it) {
+		AttribDir *dir = (AttribDir *)(*it).first; MemberStruct *member = (*it).second;
+		float value = dir->Get_Value(source.c_str());
 		function->Add(value);
 		member->Values[source] = value;
-		((AttribDir *)(*it).first)->Attach_Callback(source.c_str(), member->Callback);
+		dir->Attach_Callback(source.c_str(), member->Callback);
 	}
 	for (it = Members.begin(); it != Members.end(); ++it) {
 		Link((AttribDir *)(*it).first, destination);
