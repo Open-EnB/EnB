@@ -1302,8 +1302,8 @@ void AvatarCreationInterface::Unknown_55B540(int zoom)
 	Unknown_55A550(1, 0, 0, 0);
 }
 
-// NOT EXACT: inline-budget (as ui_avatar_cust.cpp's 0x550A10: the client calls the third temporary's ~RefCountPtr 0x4740B0 out of line and holds 0 in ebx)
-// 0x55BAC0
+static inline RefCountPtr<RenderObjClass> Unknown_55BAC0_Model(RenderObjClass *robj) { robj->Num_Refs(); robj->Num_Refs(); return(Unknown_497300(robj)); }	// NAME 1: neutral (D10). 0x55BAC0's inline layer over 0x497300; the two dead Num_Refs() reads are a budget device (D272, provisional: not known to be the client's): with them the third temporary's and the model's ~RefCountPtr stay out of line as the client's (0x40E2D2), with one or none the third temporary's is inline (attempts.py show 0x55BAC0)
+// 0x55BAC0 (each model through gd_robj.h's Peek_Render_Obj() and the layer above; every block the same if / else of two Rotate_Y calls, as ui_avatar_cust.cpp's 0x550A10)
 void AvatarCreationInterface::Unknown_55BAC0()
 {
 	if (Unknown088 != 2) {
@@ -1312,7 +1312,7 @@ void AvatarCreationInterface::Unknown_55BAC0()
 	float time = WW3D::Get_Frame_Time() * 0.001f;
 	float slow = time * 0.3f;
 	float fast = time + time;
-	RefCountPtr<RenderObjClass> model = Unknown_497300(Unknown124[12]->RObj);
+	RefCountPtr<RenderObjClass> model = Unknown_55BAC0_Model(Unknown124[12]->Peek_Render_Obj());
 	if (model) {
 		Matrix3D tm = model->Get_Transform();
 		if (Unknown1BC.Metal == 0) {
@@ -1323,25 +1323,25 @@ void AvatarCreationInterface::Unknown_55BAC0()
 		model->Set_Transform(tm);
 		Unknown124[12]->Unknown_6608F0();
 	}
-	model = Unknown_497300(Unknown124[13]->RObj);
+	model = Unknown_55BAC0_Model(Unknown124[13]->Peek_Render_Obj());
 	if (model) {
 		Matrix3D tm = model->Get_Transform();
-		float angle = slow;
 		if (Unknown1BC.Metal == 1) {
-			angle = fast;
+			tm.Rotate_Y(fast);
+		} else {
+			tm.Rotate_Y(slow);
 		}
-		tm.Rotate_Y(angle);
 		model->Set_Transform(tm);
 		Unknown124[13]->Unknown_6608F0();
 	}
-	model = Unknown_497300(Unknown124[14]->RObj);
+	model = Unknown_55BAC0_Model(Unknown124[14]->Peek_Render_Obj());
 	if (model) {
 		Matrix3D tm = model->Get_Transform();
-		float angle = slow;
 		if (Unknown1BC.Metal == 2) {
-			angle = fast;
+			tm.Rotate_Y(fast);
+		} else {
+			tm.Rotate_Y(slow);
 		}
-		tm.Rotate_Y(angle);
 		model->Set_Transform(tm);
 		Unknown124[14]->Unknown_6608F0();
 	}
