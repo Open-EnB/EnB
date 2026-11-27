@@ -120,7 +120,7 @@ def generate():
             n_off += 1
     lines += ['', f'int Packet_Layout_Checks() {{ return {n_size + n_off}; }}\t// {n_size} sizes, {n_off} offsets '
               f'({n_client} the client\'s by pkdecode, {n_off - n_client} the headers\')', '']
-    return '\r\n'.join(lines), n_size, n_off, n_client
+    return '\n'.join(lines), n_size, n_off, n_client
 
 
 MAIN = '''// Earth & Beyond client (reconstruction)
@@ -171,7 +171,7 @@ def main(argv=None):
     open(OUT, 'w', encoding='latin1', newline='').write(text)
     main_cpp = os.path.join(OUT_DIR, 'main.cpp')
     if not os.path.isfile(main_cpp):
-        open(main_cpp, 'w', encoding='latin1', newline='').write(MAIN.replace('\n', '\r\n'))
+        open(main_cpp, 'w', encoding='latin1', newline='').write(MAIN)
     print(f'pklayout: {OUT}: {ns} sizes, {no} offsets ({nc} the client\'s by pkdecode)')
     return 0
 
