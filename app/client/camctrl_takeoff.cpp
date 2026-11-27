@@ -116,7 +116,7 @@ void CameraController09Class::Unknown_04()
 }
 
 // @0x796440
-// NOT EXACT: field-offset (registers only): the prologue's push edi and a matrix copy's registers; 17 calls as the client; functional
+// (one *mode = 2 at the end: the client's three byte-identical tails are the compiler's copies of it; written out in each phase they took eax / ecx / edx and edi was pushed in the prologue. Each phase has its own tm, so the two Unknown_30 calls do not merge: 17 calls)
 void CameraController09Class::Unknown_08(Vector3 *pos, Quaternion *rot, int *mode, int *target)
 {
 	ClientObjectClass *ship = Client->Get_Avatar();
@@ -135,8 +135,8 @@ void CameraController09Class::Unknown_08(Vector3 *pos, Quaternion *rot, int *mod
 		tm.Set_Translation(p);
 		if (ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
 			((Unknown718D70Class *)ship->PositionalState)->Unknown_30(Client->Unknown10BC, tm);
-			*mode = 2;
-			return;
+
+
 		}
 	} else if (elapsed < 5000) { Matrix3D tm;
 		if (!Unknown5C) {
@@ -159,8 +159,8 @@ void CameraController09Class::Unknown_08(Vector3 *pos, Quaternion *rot, int *mod
 		tm.Set_Translation(p);
 		if (ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
 			((Unknown718D70Class *)ship->PositionalState)->Unknown_30(Client->Unknown10BC, tm);
-			*mode = 2;
-			return;
+
+
 		}
 	} else {
 		Client->CameraManager->Unknown_79B2B0(0x12);
