@@ -1,7 +1,7 @@
 {
  "ambiguous": [],
  "copy": "reconstructed",
- "description": "fontdatabase.cpp, client 0x6BDA40-0x6C9E30 with the tables' instances: the asserts on the client's lines 881-1308 (D25); NOT EXACT: 0x6C1500, Split_Four 0x6C2A10, Remove_String 0x6C3030, Set_Font 0x6C38F0",
+ "description": "fontdatabase.cpp, client 0x6BDA40-0x6C9E30 with the tables' instances: the asserts on the client's lines 881-1308 (D25); NOT EXACT: Split_Four 0x6C2A10, Remove_String 0x6C3030, Set_Font 0x6C38F0",
  "expected": {},
  "in_tree": [
   "0x42A6C0",
