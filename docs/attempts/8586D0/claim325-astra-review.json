@@ -1,0 +1,433 @@
+{
+  "claim": 325,
+  "address": "0x8586D0",
+  "model": "gpt-6-astra high",
+  "canonical_input_tuples": 2,
+  "report": "# Claim325 Astra high investigation\n\nModel: gpt-6-astra high, user-authorized after the complete normal cycle. Root\nowns integration, attempt rows, commits, production sources, snapshots and all\nexternal actions. All paths below are relative to /home/dev/Projects/EnB/.work/claim-325.\nCurrent source revision is 5733a1a523e69ba546dfc2f6b2ba79207f182292 (retained4),\n126 file/address and 126 symbol/address pairs, including the original 122.\n\nStatus: investigation complete after root's additional final-review lead was\ntested. Five canonical input tuples completed in five causal batches, six\nrunner launches including one configuration-diagnostic launch of the same\nheader tuple. Four source-local inputs duplicate prior best bodies;\nthe shared-header input is rejected with target regression and pair losses.\nNo claimed gain and no retained source/header change. Current production keeps\nall126 pairs and all four previous gains.\n\n## Evidence reviewed\n\nRead the current instructions, brief/normal-cycle/group/Sol reports, all four\nremaining targets' original complete text histories, current attempts.py show,\nand actual source/replay/object/diff evidence. Inspected the successful ACK1,\nACK2, PumpConnections and CORD mechanisms and exact neighboring helpers; they\nprovide specific source mechanisms, not blanket permission to repeat unrelated\nforms. Missing old exact sources remain unavailable. In particular bh_077's\ntwo dead Active_.size() calls are forbidden and were not reused. The fresh\nSol Ip/Port/Session getter input was compiled and duplicates the best GoAway\nbody; it was not merely rejected for missing older sources.\n\nNative extraction in astra/prior-object-inspection.json independently confirms\nthe actual prior best Header1187/frame350/18calls, GoAway536/frameC/14calls,\nPump combined-output trial1423/frame6E0/34calls and GetSeq68/2calls, with hashes,\nreferences and EH. Existing project binary evidence answered the questions;\nREA skill consulted, no new target/session, installation, runtime or captures.\n\n## 0x8551F0 buildHeader\n\nFirst Header batch: source-local Cord_Pop_Pending_Ack groups the existing\nremoveHead and successful AcksPending decrement. Exact CordCon::pump uses the\nsame coupled operation. This is meaningful bookkeeping, not a dead budget\nspender. It tests workflow3.1.2's nested depth mechanism on the existing\nSession-improved source without a header edit. All failure paths and actual\noperations remain, including the previous ignored/failing list result semantics.\n\nActual run runs/astra_8551F0_pop_ack completed. Source SHA256\n97b6fa1fe0720bce337014ac319ffda0aef8dfac78675382060daa94bced34aa.\nResult is an exact raw/pattern duplicate of the prior Session-best body:\n1187 bytes, frame0x350, 18 calls,49 diagnostic rows; raw SHA256\nf1277031e2e5024bff1e29f3037587c63d94178a574e6a548112cb312163d25c.\nThe required nested ToAck.get still inlines; Missing and first get unchanged.\nExact unsigned get remains the same34-byte body/references/EH. All126/current\nand original122 sets survive; all75 prior exact cordcon native bodies,\nnormalized references/local targets and native EH also match the control.\n\nSecond Header batch get_layer was root-approved with arraylist-header-plan.json.\nInstead of adding a layer above removeHead, it places the existing getPointer\nbounds/address query beneath get and then performs the same node assignment.\nThis differs from Sol's caller-level getPointer replacement. A generic header\nbody avoids explicit-specialization/ODR problems, but needs root's shared-header\nscope and all-consumer proof. The exact34-byte get is an immediate control.\nGeneric overloaded operator& semantics must be considered for actual T users;\nbounded scan of wwudp/wwonline/common found no such overload. No preservation\nor helpful output was claimed before a canonical run.\n\nThe first shared-header launch runs/astra_8551F0_get_layer rebuilt both primary\nTUs but imported libdefs from pristine while querying staging paths. Actual\ncompile.rsp consequently lacks /GX and uses pristine include roots; actual\ncompile.log reports C4530, missing unwind semantics. Root independently caught\nthe include-root issue while this already-started run finished. Astra caught\nthe missing /GX while inspecting its implausibly broad losses and absent EH.\nThe diagnostic output67 file/68 symbol pairs, Header1180/152rows/20calls and\nget37bytes is not canonical source-effect evidence. Source/header inputs were\nnot changed to accommodate it. configuration-* files preserve its complete\nobjects/run/deltas/diagnostics separately. It counts as a compiled configuration\ndiagnostic, not another hypothesis form or failed source round. Canonical\nsame-input retry used root's corrected runner and new exclusive grant. The\nrunner now imports staging libdefs and asserts its repository root and flags\nagainst the actual baseline response files before compilation.\n\nCanonical run runs/astra_8551F0_get_layer_canonical recompiled BOTH primary\nTUs with /GX and staging includes. Header source SHA256\nb00f90c9ea82e8168ed9030b8611c6008811633137a5d6d0528ec7d658ce67d7;\nC++ source SHA256 c0e44c5be77743188a73eccc135a0e70ad6dfe03e3543aba7d69089a98a8ff50.\nActual result: buildHeader1238bytes,133 diagnostic rows,20calls,frame0x350;\nraw SHA2562ae3d82182ec6e27c8e3aedd652cedc47b0b84433f6429125c0d4845dd07039d.\nThe native one-state EH/cleanup graph remains unchanged. It calls getPointer\ninside BOTH ToAck and Missing expansions rather than retail's selective get\ncall. This confirms changed nested expansion but does not supply the required\ncontext for another flag/type search. First indexed get stays expanded.\n\nThe exact unsigned get control FAILS: its37-byte body includes an extra LEA at\noffset0x12 after the actual scaled value load, where retail's34-byte get has\nnone. get-objdiff.txt shows that precise cause; source operations are legitimate,\nbut this compiler emits a useless address computation from the pointer layer.\nThis is not a keeper. No pointer/cast/template specialization sweep followed.\n\nBoth pair sets become113 from126:1 incidental unclaimed pair0x77B590 gained,\n14 lost (10original plus all4previous claim gains). Lost addresses are84F440,\n857590,857DE0,858980,858A60,859440,8595B0,8598F0,859940,85A000,85A430,85ABB0,\n85B970,85BC30. The incidental shrinkVector emission has no independent claim\nor full referent audit and is not credited. All complete sets/deltas and actual\nsource/header replays are preserved. Rejected before other-consumer checks;\nno claim of shared-header safety or full generic type proof.\n\nAfter both initial meaningful helper layers were tested, the outer\ncoupled-operation layer duplicates\nbest49; the inner actual copy-accessor layer creates the wrong call boundary,\nbreaks exact get and loses existing functions. More wrapper depths or scalar\nspellings would lack new evidence. The previously forbidden dead reads remain\nforbidden. Reopen on a real operation/helper/lifetime that explains the selective\nToAck.get call while preserving first/Missing get and exact out-of-line get,\nor recovered original source evidence. No automatic bool retry is justified.\n\nRoot's final review identified a distinct complete protocol operation:\nkind0 ACK-record serialization (kind byte, Cord_Put_Small channel, Cord_Put_Seq\nsequence). This is more substantial than the transparent dequeue/count layer\nand leaves get's implementation untouched. Actual retail8554AB\u201385551A and the\nthree source statements support grouping that complete encoding block. The\nshape repeats for kinds2/0/1; only kind0 changes in this proposal.\n8551F0/astra/append_ack_record/ is a hash-bound Session-best source-only draft,\nSHA2568caa41bf171bef7d119031a417c8bb4c244ed7b91ec379df658efaff8baf8091.\nIts helper takes Active_ and i by nonconst reference (same vector operator[]),\nseq by const reference, list and pos. It therefore keeps the kind store,\nchannel-field read/Put_Small and subsequent seq read/Put_Seq in the original\norder INSIDE the helper; no prematurely evaluated field arguments. The\ndequeue/count and acks/entries increments remain outside, Missing unchanged.\nNAME1 identifies the inferred semantic operation; all assertion/log guards\nand replay roundtrips pass. Root reviewed and approved exactly this one source\ntrial. Actual run runs/astra_8551F0_append_ack_record completed with the same\n1187bytes/frame0x350/18calls/49rows as Session-best, raw/pattern/reference-local-\ntarget/native-EH identical. Exact34-byte get and all75 prior exact cordcon\nbodies/references/native-EH survive, as do all126 and original122 pairs in both\nsets. The required selective ToAck.get call remains absent; Missing unchanged.\nThis is the third consecutive Header no-cut batch and ends this round. No\nparameter/depth/spelling variants followed. The semantic serializer was tested,\nnot merely rejected for lack of historic source spelling.\n\n## 0x8586D0 Process_Go_Away_Packet\n\nFirst GoAway batch: source-local Cord_Query_Local_Address forwards the actual\nconnection socket query once with the same output references and bit8 result.\nRetail loads the con socket receiver before argument pushes; native after.\nWorkflow3.1.2 file-static accessors/nested query evaluation motivate this\nspecific interface. It differs from the previous direct named receiver and\nIp/Port/Session field getters. The source starts from pending-case-scope23 and\npreserves physical/effective assertion/log lines and all four retained gains.\n\nActual run runs/astra_8586D0_local_address completed. Source SHA256\n6eaf47e87cebe75162359db1a252bf63207e9a0a7ec016ca9629cb418afa57a9.\nResult is an exact raw/pattern duplicate of pending-case-scope23:\n536 bytes, frame0xC,14 calls,23 diagnostic rows; raw SHA256\n5e910310f13368226deed5acd7dad04c370c24952ffba010feed3bf6af3aa821.\nThe old parse/connection receiver schedule remains. All126/current and\noriginal122 sets survive; all51 prior exact cordmgr native bodies,\nnormalized references/local targets and native EH also match the control.\n\nSecond batch initialized_query was root-approved and compiled. It moves the\nactual lip/lport zero initialization into the query,\nwith output locals declared uninitialized in the caller. The query guarantees\nboth outputs initialized before delegation, preserving zero/write order and\nthe sole socket call. This changes the actual operation boundary/dataflow,\nnot getter spelling or width. Source SHA256\na06603e07e792d7d1c451652ac2cb084f58332ad278408f88c75c81864ed52ee.\nActual run runs/astra_8586D0_initialized_query duplicates the complete23-row\nbody again, including all local table targets, references/addends and native\nEH. Frame/calls remain0xC/14. All126 and original122 pairs survive in both\nsets. The complete query operation and the delegation-only query therefore\nprovide no fresh code-generation context. No getter/type/const/spelling sweep\nis justified. No further supported GoAway lead identified after inspecting\nthe actual unchanged parse and receiver scheduling. Reopen on specific real\nallocation/helper evidence explaining those instructions or reliable recovered\nsource. This is bounded exhaustion of useful leads, not all possible C++.\n\n## 0x854C90 Cord_Get_Seq (parked, read-only)\n\nRead actual Terra/Sol inputs and full objdiff, source and original12-form\nhistory. All newly available split inputs duplicate the68-byte body with two\nconversion references; actual short-path difference is only output-pointer\nload versus EAX zero-extension order. Long path correctly retains the raw\noutput store, output reread, conversion and final masked store. Exact\nCord_Get_Small differs in width and encoding and cannot be substituted.\nNo new supported lever found. No generated form or compiler attempt. More\ncasts/masks/pointer spelling overlap the documented search; a new short-path\nraw store changes observed operations. Reopening requires a demonstrated\nreal scalar interface/lifetime mechanism or recovered reliable source,\nfollowed by root review and the required new-lever gate.\n\n## 0x857F20 CordMgr::Pump (parked, read-only)\n\nRead actual full native/retail diff, first-tier forms, Sol helper-output inputs,\nexact109-byte Send_Go_Away, exact Wait and actual copied-record layouts.\nThe frame shortfall accompanies function-wide this/profile/spill allocation;\nit does not independently prove two missing source objects. Full data/listen\ncopies already use mutually exclusive shared storage as retail does.\nSend_Go_Away already has its actual256-byte packet buffer. Extending both\nrecords contradicts overlap; moving Xtime changes its clock read. Further\nsynthetic storage or dead reads is invalid. The actual combined converted\noutput locals worsen frame to6E0 and add a sprintf call; isolated outputs\nand packet-session split duplicate baseline. No new supported lever found,\nno generated form/compile. Reopen on independently demonstrated real helper,\noperation or lifetime explaining the roles of the two dwords and preserved\ncallbacks/logging/clock behavior; model change is not a lever.\n\n## Reproducibility and current accounting\n\nastra/prepare.py and prepare_followups.py preserve source-bound lossless\nreplays and guards. Each target's astra/FORM directory contains source,\nproposal.json, source.diff, completed record.json/pairs.json/objdiff.txt/\nexplain.json when compiled. Full input/log/object/matches/result remain in\nruns/astra_ADDR_FORM. astra/analyze.py extracts actual native records with\ncomplete pair deltas. astra/duplicate-proof.json binds local table offsets\nand normalized EH labels for the two duplicates; local symbol renumbering\nalone is not mistaken for a referent difference. Native cleanup/FuncInfo and\npredecessors are identical; these are native diagnostic comparisons, not\nclaims of new retail target exactness. Every individual JSON is below64KB.\n\nFinal accounting:5 distinct canonical input tuples/5 causal batches (three Header,\ntwo GoAway),6 runner launches including the same header tuple's initial\nconfiguration-diagnostic launch. Eight TU compilations total:four source-local\nsingle-TU trials plus two TUs each in the configuration and canonical header\nlaunches. Zero compiler-invalid or semantic-invalid generated forms, guard or\ntool launch failures, zero unchanged control compilations, zero uncompiled\ngenerated proposals. Four canonical inputs duplicate their prior best complete\ntarget bodies; one emits a distinct rejected body. Neither parked target was\ncompiled or generated. This is bounded exhaustion after specific source-backed\ntests, not an arbitrary form quota or a claim of exhaustive C++ search.\n\nNo production/shared-source/header/snapshot/inventory/commit/GitHub mutation\noutside authorized scratch/staging. Root alone owns evidence integration and\nattempt rows. Compiler gate explicitly released after the completed canonical\nheader run and again after append_ack_record; every retained4 immutable/staging snapshot hash verified restored,\nincluding arraylist.h. No runner/analyzer/compiler job or VM lease remains.\nRemain available for root feedback. No further compilation planned.\n",
+  "group_summary": {
+    "model": "gpt-6-astra high",
+    "canonical_input_tuples": 5,
+    "hypothesis_batches": 5,
+    "runner_launches": 6,
+    "translation_unit_compilations": 8,
+    "configuration_diagnostic_launches": 1,
+    "compiler_invalid": 0,
+    "semantic_invalid": 0,
+    "launch_failures": 0,
+    "unchanged_controls": 0,
+    "uncompiled_proposals": [],
+    "claimed_gains": 0,
+    "retained_changes": 0,
+    "raw_groups": [
+      {
+        "address": "8551F0",
+        "raw_sha256": "2ae3d82182ec6e27c8e3aedd652cedc47b0b84433f6429125c0d4845dd07039d",
+        "forms": [
+          "get_layer"
+        ]
+      },
+      {
+        "address": "8551F0",
+        "raw_sha256": "f1277031e2e5024bff1e29f3037587c63d94178a574e6a548112cb312163d25c",
+        "forms": [
+          "pop_ack",
+          "append_ack_record"
+        ]
+      },
+      {
+        "address": "8586D0",
+        "raw_sha256": "5e910310f13368226deed5acd7dad04c370c24952ffba010feed3bf6af3aa821",
+        "forms": [
+          "local_address",
+          "initialized_query"
+        ]
+      }
+    ],
+    "inputs": [
+      {
+        "address": "8551F0",
+        "form": "pop_ack",
+        "source_sha256": "97b6fa1fe0720bce337014ac319ffda0aef8dfac78675382060daa94bced34aa",
+        "run": "/home/dev/Projects/EnB/.work/claim-325/runs/astra_8551F0_pop_ack",
+        "object_sha256": "77954c664f5a85ae468b610c90304a1fc7810d13d92614f016382690a7eac5dd",
+        "raw_sha256": "f1277031e2e5024bff1e29f3037587c63d94178a574e6a548112cb312163d25c",
+        "pattern_sha256": "d58a5ac99d6fc9935fc29f611c880594ce2a9ebabf089fe7f1dc0088a7eef964",
+        "length": 1187,
+        "residue": 49,
+        "calls": 18,
+        "deltas": {
+          "pairs": {
+            "gained": [],
+            "lost": [],
+            "original_lost": []
+          },
+          "symbol_pairs": {
+            "gained": [],
+            "lost": [],
+            "original_lost": []
+          }
+        },
+        "record": ".work/claim-325/8551F0/astra/pop_ack/record.json"
+      },
+      {
+        "address": "8551F0",
+        "form": "get_layer",
+        "source_sha256": "c0e44c5be77743188a73eccc135a0e70ad6dfe03e3543aba7d69089a98a8ff50",
+        "run": "/home/dev/Projects/EnB/.work/claim-325/runs/astra_8551F0_get_layer_canonical",
+        "object_sha256": "f51dfde4dd407e4845fcb64f9edec21e7f92e81b49168f8a2734b88aa9fadbc5",
+        "raw_sha256": "2ae3d82182ec6e27c8e3aedd652cedc47b0b84433f6429125c0d4845dd07039d",
+        "pattern_sha256": "990a69e5a609fb4f4cfeb148e0da69695fb4c65bd830adae488979d569031914",
+        "length": 1238,
+        "residue": 133,
+        "calls": 20,
+        "deltas": {
+          "pairs": {
+            "gained": [
+              [
+                "app/wwudp/cordmgr.cpp",
+                "0x77B590"
+              ]
+            ],
+            "lost": [
+              [
+                "app/wwudp/cordcon.cpp",
+                "0x84F440"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "0x857590"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "0x857DE0"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "0x858980"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "0x858A60"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "0x859440"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "0x8595B0"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "0x8598F0"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "0x859940"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "0x85A000"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "0x85A430"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "0x85ABB0"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "0x85B970"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "0x85BC30"
+              ]
+            ],
+            "original_lost": [
+              [
+                "app/wwudp/cordcon.cpp",
+                "0x84F440"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "0x857590"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "0x857DE0"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "0x858980"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "0x859440"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "0x8595B0"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "0x8598F0"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "0x859940"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "0x85B970"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "0x85BC30"
+              ]
+            ]
+          },
+          "symbol_pairs": {
+            "gained": [
+              [
+                "app/wwudp/cordmgr.cpp",
+                "?shrinkVector@?$ArrayList@UCordReleaseClass@@@@AAEDXZ",
+                "0x77B590"
+              ]
+            ],
+            "lost": [
+              [
+                "app/wwudp/cordcon.cpp",
+                "?get@?$ArrayList@I@@QBEDAAIJ@Z",
+                "0x84F440"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "??1CordMgr@@QAE@XZ",
+                "0x857590"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "?Cancel_Connect@CordMgr@@QAE_NH@Z",
+                "0x8595B0"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "?Find_Connection@CordMgr@@QAE_NPAPAVCordCon@@IH@Z",
+                "0x859440"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "?Pending_Messages@CordMgr@@QAEHXZ",
+                "0x8598F0"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "?Process_ACK1_Packet@CordMgr@@QAE_NPAEHPAUsockaddr_in@@PAVUDP@@H@Z",
+                "0x85A430"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "?Process_ACK2_Packet@CordMgr@@QAE_NPAEHPAUsockaddr_in@@PAVUDP@@H@Z",
+                "0x85ABB0"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "?Process_CORD_Packet@CordMgr@@QAE_NPAEHPAUsockaddr_in@@PAVUDP@@HD@Z",
+                "0x85A000"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "?Process_Zero_Read@CordMgr@@QAEXPAUsockaddr_in@@@Z",
+                "0x858980"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "?Pump_Connections@CordMgr@@QAE_NXZ",
+                "0x858A60"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "?Pump_Releases@CordMgr@@QAE_NXZ",
+                "0x859940"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "?Wait@CordMgr@@QAEHHH@Z",
+                "0x857DE0"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "?clear@?$ArrayList@UCordDataSocketClass@@@@QAEXXZ",
+                "0x85B970"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "?clear@?$ArrayList@UCordListenSocketClass@@@@QAEXXZ",
+                "0x85BC30"
+              ]
+            ],
+            "original_lost": [
+              [
+                "app/wwudp/cordcon.cpp",
+                "?get@?$ArrayList@I@@QBEDAAIJ@Z",
+                "0x84F440"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "??1CordMgr@@QAE@XZ",
+                "0x857590"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "?Cancel_Connect@CordMgr@@QAE_NH@Z",
+                "0x8595B0"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "?Find_Connection@CordMgr@@QAE_NPAPAVCordCon@@IH@Z",
+                "0x859440"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "?Pending_Messages@CordMgr@@QAEHXZ",
+                "0x8598F0"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "?Process_Zero_Read@CordMgr@@QAEXPAUsockaddr_in@@@Z",
+                "0x858980"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "?Pump_Releases@CordMgr@@QAE_NXZ",
+                "0x859940"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "?Wait@CordMgr@@QAEHHH@Z",
+                "0x857DE0"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "?clear@?$ArrayList@UCordDataSocketClass@@@@QAEXXZ",
+                "0x85B970"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "?clear@?$ArrayList@UCordListenSocketClass@@@@QAEXXZ",
+                "0x85BC30"
+              ]
+            ]
+          }
+        },
+        "record": ".work/claim-325/8551F0/astra/get_layer/record.json",
+        "header_sha256": "b00f90c9ea82e8168ed9030b8611c6008811633137a5d6d0528ec7d658ce67d7"
+      },
+      {
+        "address": "8551F0",
+        "form": "append_ack_record",
+        "source_sha256": "8caa41bf171bef7d119031a417c8bb4c244ed7b91ec379df658efaff8baf8091",
+        "run": "/home/dev/Projects/EnB/.work/claim-325/runs/astra_8551F0_append_ack_record",
+        "object_sha256": "15eb62b2e654ee84d735338e94123a5cda9a32a4b184ea4911986c0fa452da37",
+        "raw_sha256": "f1277031e2e5024bff1e29f3037587c63d94178a574e6a548112cb312163d25c",
+        "pattern_sha256": "d58a5ac99d6fc9935fc29f611c880594ce2a9ebabf089fe7f1dc0088a7eef964",
+        "length": 1187,
+        "residue": 49,
+        "calls": 18,
+        "deltas": {
+          "pairs": {
+            "gained": [],
+            "lost": [],
+            "original_lost": []
+          },
+          "symbol_pairs": {
+            "gained": [],
+            "lost": [],
+            "original_lost": []
+          }
+        },
+        "record": ".work/claim-325/8551F0/astra/append_ack_record/record.json"
+      },
+      {
+        "address": "8586D0",
+        "form": "local_address",
+        "source_sha256": "6eaf47e87cebe75162359db1a252bf63207e9a0a7ec016ca9629cb418afa57a9",
+        "run": "/home/dev/Projects/EnB/.work/claim-325/runs/astra_8586D0_local_address",
+        "object_sha256": "603577f986edb995e68a68975a25efa1fc169b9763dd0efab1206d8284335d47",
+        "raw_sha256": "5e910310f13368226deed5acd7dad04c370c24952ffba010feed3bf6af3aa821",
+        "pattern_sha256": "204cf4cac5cabf7396c530d3721cb5c0c9cc5f62fc70966d40ddde34e9cc0357",
+        "length": 536,
+        "residue": 23,
+        "calls": 14,
+        "deltas": {
+          "pairs": {
+            "gained": [],
+            "lost": [],
+            "original_lost": []
+          },
+          "symbol_pairs": {
+            "gained": [],
+            "lost": [],
+            "original_lost": []
+          }
+        },
+        "record": ".work/claim-325/8586D0/astra/local_address/record.json"
+      },
+      {
+        "address": "8586D0",
+        "form": "initialized_query",
+        "source_sha256": "a06603e07e792d7d1c451652ac2cb084f58332ad278408f88c75c81864ed52ee",
+        "run": "/home/dev/Projects/EnB/.work/claim-325/runs/astra_8586D0_initialized_query",
+        "object_sha256": "921036cb612921df07372e454e46d517aa4687933c415f6fd3db220929040e52",
+        "raw_sha256": "5e910310f13368226deed5acd7dad04c370c24952ffba010feed3bf6af3aa821",
+        "pattern_sha256": "204cf4cac5cabf7396c530d3721cb5c0c9cc5f62fc70966d40ddde34e9cc0357",
+        "length": 536,
+        "residue": 23,
+        "calls": 14,
+        "deltas": {
+          "pairs": {
+            "gained": [],
+            "lost": [],
+            "original_lost": []
+          },
+          "symbol_pairs": {
+            "gained": [],
+            "lost": [],
+            "original_lost": []
+          }
+        },
+        "record": ".work/claim-325/8586D0/astra/initialized_query/record.json"
+      }
+    ],
+    "configuration_diagnostic": "runs/astra_8551F0_get_layer",
+    "report": "astra/report.md"
+  },
+  "configuration_diagnostics": [
+    {
+      "run": "astra_8551F0_get_layer",
+      "classification": "configuration_diagnostic",
+      "eligible_for_retention": false,
+      "reason": "New runner imported build definitions from pristine root but flags_of received staging paths, falling back to default flags without required /GX; includes also pristine. C4530 detected. No source conclusion accepted.",
+      "same_input_canonical_retry": "astra_8551F0_get_layer_canonical",
+      "source_hypothesis_count": 1,
+      "root_correction": "Import build definitions from staging and assert both flag strings equal canonical retained4 baseline response files before any compile."
+    }
+  ],
+  "final_status": "parked",
+  "no_source_retained": true,
+  "read_only_parked_review": {
+    "Get_Seq": {
+      "address": "0x854C90",
+      "forms": 0,
+      "not_a_failed_compile_round": true
+    },
+    "Pump": {
+      "address": "0x857F20",
+      "forms": 0,
+      "not_a_failed_compile_round": true
+    }
+  }
+}

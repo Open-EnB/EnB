@@ -1,0 +1,78 @@
+{
+  "claim": 325,
+  "checked_code_revision": "bdefc60e236590ccb3ad66ca1cd02fa21d20f6e0",
+  "base_revision": "b0f0f58d369b09aa14939bf2baac3ef5685507e6",
+  "selected_units": 1035,
+  "support_units": 0,
+  "comparison": {
+    "gained": [
+      [
+        "app/wwudp/cordmgr.cpp",
+        "0x858A60"
+      ],
+      [
+        "app/wwudp/cordmgr.cpp",
+        "0x85A430"
+      ],
+      [
+        "app/wwudp/cordmgr.cpp",
+        "0x85ABB0"
+      ]
+    ],
+    "lost": [],
+    "symbol_gained": [
+      [
+        "app/wwudp/cordmgr.cpp",
+        "?Process_ACK1_Packet@CordMgr@@QAE_NPAEHPAUsockaddr_in@@PAVUDP@@H@Z",
+        "0x85A430"
+      ],
+      [
+        "app/wwudp/cordmgr.cpp",
+        "?Process_ACK2_Packet@CordMgr@@QAE_NPAEHPAUsockaddr_in@@PAVUDP@@H@Z",
+        "0x85ABB0"
+      ],
+      [
+        "app/wwudp/cordmgr.cpp",
+        "?Pump_Connections@CordMgr@@QAE_NXZ",
+        "0x858A60"
+      ]
+    ],
+    "symbol_lost": []
+  },
+  "before_file_pairs": 42944,
+  "after_file_pairs": 42947,
+  "before_symbol_pairs": 42953,
+  "after_symbol_pairs": 42956,
+  "baseline_coverage_complete": true,
+  "branch_coverage_complete": true,
+  "client_sha256": "249f852496f341c00361be95b66e7c0becc2c39e7cba026f9227e38b602651c4",
+  "fingerprint": "996085d7d2aa97103def275c18ce587b1897325a2bcdaa12d14880b42a151c36",
+  "unit_list_sha256": "83e7784f151da5ad5450be2eb0f2ab4086bb9de89a843a8769d4cdc7f5e597e1",
+  "pair_set_sha256": {
+    "before": {
+      "pairs": "ba49e6fea575d019407c0b7867a0db0e366761567f12c0dcc0e865b4a0b61057",
+      "symbol_pairs": "a1aa139fffd97a1a516ce08053d856e3fef27bd0925527dec9d26d57ad6567b1"
+    },
+    "after": {
+      "pairs": "f97f25cb7f450fd64bf1b01e895ec594d6e75e41ccf200a851012089d37acf5c",
+      "symbol_pairs": "ac937e9603ddf1151aa69ac11ee9bd88ebe43a942abeb0eee6943bb5836ee32e"
+    }
+  },
+  "local_gate_fix": {
+    "reason": "VC6 response-file standalone /D line fails D2004 for unmodified ww3d2 baseline; preserve full canonical flags as one response-file line like repository build.py.",
+    "before_sha256": "654c1d70b819aa4fbfa4732d8b8eb312e4fe19994905f564b53ee921026c3dc6",
+    "after_sha256": "c9148c33fca3a118519c959e35b322d84c2050b3cdcd2c3d14a7dd9c671f2af1",
+    "scope_unchanged": true,
+    "coverage_and_pair_loss_rules_unchanged": true,
+    "tracked_PR_tool_changes": false
+  },
+  "local_gate_patch": "--- .git/local-vc6-preflight/preflight.py\n+++ .git/local-vc6-preflight/preflight.py\n@@ -260,7 +260,7 @@\n         folder.mkdir()\n         app = libdefs.APP_LIBS.get(lib)\n         srcname = app['file_root'] + '\\\\' + rel.replace('/', '\\\\') if app else win(source)\n-        args = libdefs.flags_of(source).split()\n+        args = [libdefs.flags_of(source)]\n         args += ['/D'+d for d in (app['defines'] if app else vc6.DEFAULT_DEFINES)]\n         args += ['/I\"'+win(x)+'\"' for x in includes]\n         args += ['\"'+srcname+'\"']\n",
+  "local_flag_control": {
+    "unit": "ww3d2/aabtree.cpp",
+    "unchanged": true,
+    "file_pairs": 34,
+    "symbol_pairs": 34
+  },
+  "first_blocker": "Unchanged baseline unit764 failed D2004 due standalone /D response-file line. No claim source failure. Full rerun uses same canonical flags on one line, same1035scope/fullcoverage/loss checks. Hook path and checks remain installed; no tracked tool changes.",
+  "scope": "Global native matching on exact committed code revision. Separate root source/header-bound byte/reference/EH audits on the actual global object also passed; complete linked-client/runtime and hosted merge verification remain separate."
+}

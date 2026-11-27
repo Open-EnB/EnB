@@ -1,0 +1,1460 @@
+{
+  "claim": 325,
+  "base_revision": "b0f0f58d369b09aa14939bf2baac3ef5685507e6",
+  "base_path": "app/wwudp/cordmgr.cpp",
+  "base_sha256": "1f916c764ed451d221f9775fe47a7badd888929f694401ff9f76cfb119a51aa5",
+  "hypothesis": "Existing packet loads assigned before the same ntohs/ntohl call, following exact Key_Exchange; workflow section 3.1.2 converted-argument lever.",
+  "records": [
+    {
+      "name": "first_85A430_session",
+      "source_sha256": "8e6f96546d4e9febf7cf3dec58108964a841002b3ada2652062dc9259652d336",
+      "patch": "--- app/wwudp/cordmgr.cpp\n+++ app/wwudp/cordmgr.cpp\n@@ -1328,7 +1328,7 @@\n \t}\n \tunsigned char type = data[0];\n \tunsigned char protocol = data[1];\n-\tunsigned short session = ntohs(*(unsigned short *)(data + 2));\n+\tunsigned short session = *(unsigned short *)(data + 2); session = ntohs(session);\n \tunsigned long word1 = ntohl(*(unsigned long *)(data + 4));\n \tunsigned long word2 = ntohl(*(unsigned long *)(data + 8));\n \tBigInt n;\n",
+      "object_sha256": "5f9ded6e21de832dc20bb91ee33086a685e06cfb1eea14f946834bfead9da73f",
+      "model": "gpt-6.1-terra high",
+      "classification": "changed_form",
+      "delta": {
+        "pairs": {
+          "gained": [],
+          "lost": []
+        },
+        "symbol_pairs": {
+          "gained": [],
+          "lost": []
+        }
+      }
+    },
+    {
+      "name": "first_85A430_words",
+      "source_sha256": "e2e677893ad0002b6ae0daa4d7e5e07188373b208a54d29af10305dd200cdc70",
+      "patch": "--- app/wwudp/cordmgr.cpp\n+++ app/wwudp/cordmgr.cpp\n@@ -1329,8 +1329,8 @@\n \tunsigned char type = data[0];\n \tunsigned char protocol = data[1];\n \tunsigned short session = ntohs(*(unsigned short *)(data + 2));\n-\tunsigned long word1 = ntohl(*(unsigned long *)(data + 4));\n-\tunsigned long word2 = ntohl(*(unsigned long *)(data + 8));\n+\tunsigned long word1 = *(unsigned long *)(data + 4); word1 = ntohl(word1);\n+\tunsigned long word2 = *(unsigned long *)(data + 8); word2 = ntohl(word2);\n \tBigInt n;\n \tBigInt e;\n \tunsigned long mlen = ntohl(*(unsigned long *)(data + 12));\n",
+      "object_sha256": "47da40febadae7cb36cb6c5a2de3b0c03dd1b2d4411eda06557a4734830b6608",
+      "model": "gpt-6.1-terra high",
+      "classification": "changed_form",
+      "delta": {
+        "pairs": {
+          "gained": [],
+          "lost": []
+        },
+        "symbol_pairs": {
+          "gained": [],
+          "lost": []
+        }
+      }
+    },
+    {
+      "name": "first_85A430_lengths",
+      "source_sha256": "486510822717bbc6828de89e3e90f69140769ced623aa16edd9a12f55cbcb765",
+      "patch": "--- app/wwudp/cordmgr.cpp\n+++ app/wwudp/cordmgr.cpp\n@@ -1333,7 +1333,7 @@\n \tunsigned long word2 = ntohl(*(unsigned long *)(data + 8));\n \tBigInt n;\n \tBigInt e;\n-\tunsigned long mlen = ntohl(*(unsigned long *)(data + 12));\n+\tunsigned long mlen = *(unsigned long *)(data + 12); mlen = ntohl(mlen);\n \tunsigned long offset = mlen + 0x10;\n \tif (offset > (unsigned long)len) {\n \t\treturn false;\n@@ -1342,7 +1342,7 @@\n \t\treturn false;\n \t}\n \tn.Unsigned_Decode(data + 0x10, mlen);\n-\tunsigned long elen = ntohl(*(unsigned long *)(data + offset));\n+\tunsigned long elen = *(unsigned long *)(data + offset); elen = ntohl(elen);\n \toffset += 4;\n \tif (elen + offset > (unsigned long)len) {\n \t\treturn false;\n",
+      "object_sha256": "b73137cd200af8b584dd7ab9d2206665e5229002e6fd6d5417bf38e60424b053",
+      "model": "gpt-6.1-terra high",
+      "classification": "changed_form",
+      "delta": {
+        "pairs": {
+          "gained": [],
+          "lost": []
+        },
+        "symbol_pairs": {
+          "gained": [],
+          "lost": []
+        }
+      }
+    },
+    {
+      "name": "first_85A430_all",
+      "source_sha256": "657dcc979666ec7948bb9c26a238d7501f7f13227433e514d67581cf894d51ad",
+      "patch": "--- app/wwudp/cordmgr.cpp\n+++ app/wwudp/cordmgr.cpp\n@@ -1328,12 +1328,12 @@\n \t}\n \tunsigned char type = data[0];\n \tunsigned char protocol = data[1];\n-\tunsigned short session = ntohs(*(unsigned short *)(data + 2));\n-\tunsigned long word1 = ntohl(*(unsigned long *)(data + 4));\n-\tunsigned long word2 = ntohl(*(unsigned long *)(data + 8));\n+\tunsigned short session = *(unsigned short *)(data + 2); session = ntohs(session);\n+\tunsigned long word1 = *(unsigned long *)(data + 4); word1 = ntohl(word1);\n+\tunsigned long word2 = *(unsigned long *)(data + 8); word2 = ntohl(word2);\n \tBigInt n;\n \tBigInt e;\n-\tunsigned long mlen = ntohl(*(unsigned long *)(data + 12));\n+\tunsigned long mlen = *(unsigned long *)(data + 12); mlen = ntohl(mlen);\n \tunsigned long offset = mlen + 0x10;\n \tif (offset > (unsigned long)len) {\n \t\treturn false;\n@@ -1342,7 +1342,7 @@\n \t\treturn false;\n \t}\n \tn.Unsigned_Decode(data + 0x10, mlen);\n-\tunsigned long elen = ntohl(*(unsigned long *)(data + offset));\n+\tunsigned long elen = *(unsigned long *)(data + offset); elen = ntohl(elen);\n \toffset += 4;\n \tif (elen + offset > (unsigned long)len) {\n \t\treturn false;\n",
+      "object_sha256": "74a2dd52e777bcc82c2d8b057ba0aba646603f0147ac7bc703b7899893bcf8ec",
+      "model": "gpt-6.1-terra high",
+      "classification": "changed_form",
+      "delta": {
+        "pairs": {
+          "gained": [
+            [
+              "app/wwudp/cordmgr.cpp",
+              "0x85A430"
+            ]
+          ],
+          "lost": []
+        },
+        "symbol_pairs": {
+          "gained": [
+            [
+              "app/wwudp/cordmgr.cpp",
+              "?Process_ACK1_Packet@CordMgr@@QAE_NPAEHPAUsockaddr_in@@PAVUDP@@H@Z",
+              "0x85A430"
+            ]
+          ],
+          "lost": []
+        }
+      }
+    },
+    {
+      "name": "root_ack1_final",
+      "source_sha256": "e1cfe979f75f938ea00a2c664a28cd4058a0984fd65d854eb46370c91fa431fa",
+      "patch": "--- app/wwudp/cordmgr.cpp\n+++ app/wwudp/cordmgr.cpp\n@@ -1316,7 +1316,7 @@\n \treturn false;\n }\n \n-// NOT EXACT: 0x85A430 (0.75, registers: the client reuses eax where ours takes ecx / edx). ACK1 (1, protocol, session,\n+\n // two words, the server's modulus and exponent, each a 4-byte length then big-endian bytes; each check its own return)\n // for a connection in state 1: the session key in the low 64 bits of a random number below the modulus, encrypted with\n // an RSAKeyClass of the two (Key_Exchange 0x829180's form); a zero modulus or exponent: the key's low word. State 3.\n@@ -1328,12 +1328,12 @@\n \t}\n \tunsigned char type = data[0];\n \tunsigned char protocol = data[1];\n-\tunsigned short session = ntohs(*(unsigned short *)(data + 2));\n-\tunsigned long word1 = ntohl(*(unsigned long *)(data + 4));\n-\tunsigned long word2 = ntohl(*(unsigned long *)(data + 8));\n+\tunsigned short session = *(unsigned short *)(data + 2); session = ntohs(session);\n+\tunsigned long word1 = *(unsigned long *)(data + 4); word1 = ntohl(word1);\n+\tunsigned long word2 = *(unsigned long *)(data + 8); word2 = ntohl(word2);\n \tBigInt n;\n \tBigInt e;\n-\tunsigned long mlen = ntohl(*(unsigned long *)(data + 12));\n+\tunsigned long mlen = *(unsigned long *)(data + 12); mlen = ntohl(mlen);\n \tunsigned long offset = mlen + 0x10;\n \tif (offset > (unsigned long)len) {\n \t\treturn false;\n@@ -1342,7 +1342,7 @@\n \t\treturn false;\n \t}\n \tn.Unsigned_Decode(data + 0x10, mlen);\n-\tunsigned long elen = ntohl(*(unsigned long *)(data + offset));\n+\tunsigned long elen = *(unsigned long *)(data + offset); elen = ntohl(elen);\n \toffset += 4;\n \tif (elen + offset > (unsigned long)len) {\n \t\treturn false;\n",
+      "object_sha256": "16fbabd9b8371b6504afda1f9c2d961160362fddaaa377e125fae78da46f3f5e",
+      "model": "Codex coordinator",
+      "classification": "coordinator_validation",
+      "delta": {
+        "pairs": {
+          "gained": [
+            [
+              "app/wwudp/cordmgr.cpp",
+              "0x85A430"
+            ]
+          ],
+          "lost": []
+        },
+        "symbol_pairs": {
+          "gained": [
+            [
+              "app/wwudp/cordmgr.cpp",
+              "?Process_ACK1_Packet@CordMgr@@QAE_NPAEHPAUsockaddr_in@@PAVUDP@@H@Z",
+              "0x85A430"
+            ]
+          ],
+          "lost": []
+        }
+      }
+    },
+    {
+      "name": "root_ack1_clean",
+      "source_sha256": "4dd5c9d76bd97041d88ca2134d85cb72bb542baa32812c7b4f5291ea29b1a059",
+      "patch": "--- app/wwudp/cordmgr.cpp\n+++ app/wwudp/cordmgr.cpp\n@@ -1316,8 +1316,8 @@\n \treturn false;\n }\n \n-// NOT EXACT: 0x85A430 (0.75, registers: the client reuses eax where ours takes ecx / edx). ACK1 (1, protocol, session,\n-// two words, the server's modulus and exponent, each a 4-byte length then big-endian bytes; each check its own return)\n+\n+// 0x85A430: ACK1 (1, protocol, session, two words, modulus/exponent lengths and big-endian data; each check has its own return).\n // for a connection in state 1: the session key in the low 64 bits of a random number below the modulus, encrypted with\n // an RSAKeyClass of the two (Key_Exchange 0x829180's form); a zero modulus or exponent: the key's low word. State 3.\n bool CordMgr::Process_ACK1_Packet(unsigned char *data, int len, sockaddr_in *from, UDP *socket, int unknown)\n@@ -1328,12 +1328,12 @@\n \t}\n \tunsigned char type = data[0];\n \tunsigned char protocol = data[1];\n-\tunsigned short session = ntohs(*(unsigned short *)(data + 2));\n-\tunsigned long word1 = ntohl(*(unsigned long *)(data + 4));\n-\tunsigned long word2 = ntohl(*(unsigned long *)(data + 8));\n+\tunsigned short session = *(unsigned short *)(data + 2); session = ntohs(session);\n+\tunsigned long word1 = *(unsigned long *)(data + 4); word1 = ntohl(word1);\n+\tunsigned long word2 = *(unsigned long *)(data + 8); word2 = ntohl(word2);\n \tBigInt n;\n \tBigInt e;\n-\tunsigned long mlen = ntohl(*(unsigned long *)(data + 12));\n+\tunsigned long mlen = *(unsigned long *)(data + 12); mlen = ntohl(mlen);\n \tunsigned long offset = mlen + 0x10;\n \tif (offset > (unsigned long)len) {\n \t\treturn false;\n@@ -1342,7 +1342,7 @@\n \t\treturn false;\n \t}\n \tn.Unsigned_Decode(data + 0x10, mlen);\n-\tunsigned long elen = ntohl(*(unsigned long *)(data + offset));\n+\tunsigned long elen = *(unsigned long *)(data + offset); elen = ntohl(elen);\n \toffset += 4;\n \tif (elen + offset > (unsigned long)len) {\n \t\treturn false;\n",
+      "object_sha256": "46f7f6e7f448ae12ee929e229f45e6529ea78d4bfd7238411df794acbf8225a0",
+      "model": "Codex coordinator",
+      "classification": "coordinator_validation",
+      "delta": {
+        "pairs": {
+          "gained": [
+            [
+              "app/wwudp/cordmgr.cpp",
+              "0x85A430"
+            ]
+          ],
+          "lost": []
+        },
+        "symbol_pairs": {
+          "gained": [
+            [
+              "app/wwudp/cordmgr.cpp",
+              "?Process_ACK1_Packet@CordMgr@@QAE_NPAEHPAUsockaddr_in@@PAVUDP@@H@Z",
+              "0x85A430"
+            ]
+          ],
+          "lost": []
+        }
+      }
+    }
+  ],
+  "proof": {
+    "entire_resolved_body_equal": true,
+    "executable_bytes": 1414,
+    "instruction_count": 385,
+    "branches": [
+      [
+        "0x38",
+        "0x47"
+      ],
+      [
+        "0x5c",
+        "0x76"
+      ],
+      [
+        "0x6b",
+        "0x569"
+      ],
+      [
+        "0x71",
+        "0x564"
+      ],
+      [
+        "0xde",
+        "0xfc"
+      ],
+      [
+        "0xf1",
+        "0x569"
+      ],
+      [
+        "0xf7",
+        "0x564"
+      ],
+      [
+        "0xfe",
+        "0x11c"
+      ],
+      [
+        "0x111",
+        "0x569"
+      ],
+      [
+        "0x117",
+        "0x564"
+      ],
+      [
+        "0x141",
+        "0x15f"
+      ],
+      [
+        "0x154",
+        "0x569"
+      ],
+      [
+        "0x15a",
+        "0x564"
+      ],
+      [
+        "0x161",
+        "0x17f"
+      ],
+      [
+        "0x174",
+        "0x569"
+      ],
+      [
+        "0x17a",
+        "0x564"
+      ],
+      [
+        "0x19b",
+        "0x551"
+      ],
+      [
+        "0x1a6",
+        "0x551"
+      ],
+      [
+        "0x1b5",
+        "0x163"
+      ],
+      [
+        "0x1c0",
+        "0x1cd"
+      ],
+      [
+        "0x1c5",
+        "0x1cd"
+      ],
+      [
+        "0x1d9",
+        "0x202"
+      ],
+      [
+        "0x1e9",
+        "0x202"
+      ],
+      [
+        "0x1fa",
+        "0x202"
+      ],
+      [
+        "0x200",
+        "0x20f"
+      ],
+      [
+        "0x208",
+        "0x1be"
+      ],
+      [
+        "0x20a",
+        "0x163"
+      ],
+      [
+        "0x215",
+        "0x22b"
+      ],
+      [
+        "0x21d",
+        "0x22b"
+      ],
+      [
+        "0x226",
+        "0x163"
+      ],
+      [
+        "0x253",
+        "0x4bb"
+      ],
+      [
+        "0x270",
+        "0x4bb"
+      ],
+      [
+        "0x284",
+        "0x4bb"
+      ],
+      [
+        "0x383",
+        "0x39f"
+      ],
+      [
+        "0x3ad",
+        "0x371"
+      ],
+      [
+        "0x3d6",
+        "0x414"
+      ],
+      [
+        "0x3e3",
+        "0x3ff"
+      ],
+      [
+        "0x412",
+        "0x3d8"
+      ],
+      [
+        "0x4b9",
+        "0x514"
+      ],
+      [
+        "0x4cf",
+        "0x4ea"
+      ],
+      [
+        "0x4e8",
+        "0x514"
+      ],
+      [
+        "0x546",
+        "0x54d"
+      ],
+      [
+        "0x54f",
+        "0x56b"
+      ],
+      [
+        "0x562",
+        "0x569"
+      ]
+    ],
+    "calls_and_receivers": [
+      {
+        "offset": "0x1a",
+        "instruction": "call 0xa27c60",
+        "preceding": [
+          "push 0xad8521",
+          "push eax",
+          "mov eax, 0x1018",
+          "mov dword ptr fs:[0], esp"
+        ]
+      },
+      {
+        "offset": "0x3f",
+        "instruction": "call 0x9ea930",
+        "preceding": [
+          "mov byte ptr [esp + 0x10], 0",
+          "mov byte ptr [esp + 0x11], bl",
+          "je 0x85a477",
+          "push 0xbb1d48"
+        ]
+      },
+      {
+        "offset": "0x8b",
+        "instruction": "call 0x8c1ba0",
+        "preceding": [
+          "mov bl, byte ptr [esi + 1]",
+          "mov byte ptr [esp + 0x17], al",
+          "mov ax, word ptr [esi + 2]",
+          "push eax"
+        ]
+      },
+      {
+        "offset": "0x98",
+        "instruction": "call 0x8c1b7c",
+        "preceding": [
+          "call 0x8c1ba0",
+          "mov dword ptr [esp + 0x24], eax",
+          "mov eax, dword ptr [esi + 4]",
+          "push eax"
+        ]
+      },
+      {
+        "offset": "0xa5",
+        "instruction": "call 0x8c1b7c",
+        "preceding": [
+          "call 0x8c1b7c",
+          "mov dword ptr [esp + 0x20], eax",
+          "mov eax, dword ptr [esi + 8]",
+          "push eax"
+        ]
+      },
+      {
+        "offset": "0xb7",
+        "instruction": "call 0x9e0c40",
+        "preceding": [
+          "lea ecx, [esp + 0x2c]",
+          "push 0",
+          "push ecx",
+          "mov dword ptr [esp + 0x28], eax"
+        ]
+      },
+      {
+        "offset": "0xc8",
+        "instruction": "call 0x9e0c40",
+        "preceding": [
+          "push 0x40",
+          "lea edx, [esp + 0x238]",
+          "push 0",
+          "push edx"
+        ]
+      },
+      {
+        "offset": "0xd4",
+        "instruction": "call 0x8c1b7c",
+        "preceding": [
+          "call 0x9e0c40",
+          "mov eax, dword ptr [esi + 0xc]",
+          "add esp, 0x18",
+          "push eax"
+        ]
+      },
+      {
+        "offset": "0x128",
+        "instruction": "call 0x9e0830",
+        "preceding": [
+          "lea eax, [esi + 0x10]",
+          "lea ecx, [esp + 0x30]",
+          "push eax",
+          "push ecx"
+        ]
+      },
+      {
+        "offset": "0x134",
+        "instruction": "call 0x8c1b7c",
+        "preceding": [
+          "call 0x9e0830",
+          "mov eax, dword ptr [edi + esi]",
+          "add esp, 0x10",
+          "push eax"
+        ]
+      },
+      {
+        "offset": "0x18d",
+        "instruction": "call 0x9e0830",
+        "preceding": [
+          "add edi, esi",
+          "lea eax, [esp + 0x230]",
+          "push edi",
+          "push eax"
+        ]
+      },
+      {
+        "offset": "0x1d1",
+        "instruction": "call 0x8c1b7c",
+        "preceding": [
+          "mov ecx, dword ptr [edi + 0x18]",
+          "mov ebp, dword ptr [ecx + esi*4]",
+          "mov edx, dword ptr [ebx + 4]",
+          "push edx"
+        ]
+      },
+      {
+        "offset": "0x1e0",
+        "instruction": "call 0x8c1ba0",
+        "preceding": [
+          "cmp dword ptr [ebp], eax",
+          "jne 0x85a632",
+          "mov ax, word ptr [ebx + 2]",
+          "push eax"
+        ]
+      },
+      {
+        "offset": "0x237",
+        "instruction": "call 0x9e0c40",
+        "preceding": [
+          "push 0x40",
+          "lea edx, [esp + 0x12c]",
+          "push 0",
+          "push edx"
+        ]
+      },
+      {
+        "offset": "0x295",
+        "instruction": "call 0x9e0c40",
+        "preceding": [
+          "push 0x40",
+          "lea ecx, [esp + 0x72c]",
+          "push edx",
+          "push ecx"
+        ]
+      },
+      {
+        "offset": "0x2a6",
+        "instruction": "call 0x9e0c40",
+        "preceding": [
+          "push 0x40",
+          "lea edx, [esp + 0x838]",
+          "push 0",
+          "push edx"
+        ]
+      },
+      {
+        "offset": "0x2b7",
+        "instruction": "call 0x9e0c40",
+        "preceding": [
+          "push 0x40",
+          "lea eax, [esp + 0x944]",
+          "push 0",
+          "push eax"
+        ]
+      },
+      {
+        "offset": "0x2c8",
+        "instruction": "call 0x9e0c40",
+        "preceding": [
+          "push 0x40",
+          "lea ecx, [esp + 0xa50]",
+          "push 0",
+          "push ecx"
+        ]
+      },
+      {
+        "offset": "0x2d9",
+        "instruction": "call 0x9e0c40",
+        "preceding": [
+          "push 0x40",
+          "lea edx, [esp + 0xb5c]",
+          "push 0",
+          "push edx"
+        ]
+      },
+      {
+        "offset": "0x2ea",
+        "instruction": "call 0x9e0c40",
+        "preceding": [
+          "push 0x40",
+          "lea eax, [esp + 0xc68]",
+          "push 0",
+          "push eax"
+        ]
+      },
+      {
+        "offset": "0x2fe",
+        "instruction": "call 0x9e0c40",
+        "preceding": [
+          "lea ecx, [esp + 0xd28]",
+          "push 0x40",
+          "push 0",
+          "push ecx"
+        ]
+      },
+      {
+        "offset": "0x30f",
+        "instruction": "call 0x9e0c40",
+        "preceding": [
+          "push 0x40",
+          "lea edx, [esp + 0xe38]",
+          "push 0",
+          "push edx"
+        ]
+      },
+      {
+        "offset": "0x320",
+        "instruction": "call 0x9e0c40",
+        "preceding": [
+          "push 0x40",
+          "lea eax, [esp + 0xf44]",
+          "push 0",
+          "push eax"
+        ]
+      },
+      {
+        "offset": "0x360",
+        "instruction": "call 0x9e0c40",
+        "preceding": [
+          "rep movsd dword ptr es:[edi], dword ptr [esi]",
+          "lea ecx, [esp + 0x554]",
+          "mov byte ptr [esp + 0x105c], 1",
+          "push ecx"
+        ]
+      },
+      {
+        "offset": "0x3a4",
+        "instruction": "call 0xa2b370",
+        "preceding": [
+          "and ecx, 0x1f",
+          "shl ebx, cl",
+          "or dword ptr [esi], ebx",
+          "mov ecx, 1"
+        ]
+      },
+      {
+        "offset": "0x3b3",
+        "instruction": "call 0x9e3570",
+        "preceding": [
+          "inc edi",
+          "cmp edi, 0x40",
+          "jb 0x85a7a1",
+          "lea ecx, [esp + 0x18]"
+        ]
+      },
+      {
+        "offset": "0x3cb",
+        "instruction": "call 0x9e0c60",
+        "preceding": [
+          "lea edx, [esp + 0x28]",
+          "push esi",
+          "push edx",
+          "mov byte ptr [esp + 0x1038], 2"
+        ]
+      },
+      {
+        "offset": "0x3dc",
+        "instruction": "call 0x9e3610",
+        "preceding": [
+          "dec eax",
+          "cmp eax, esi",
+          "jbe 0x85a844",
+          "lea ecx, [esp + 0x18]"
+        ]
+      },
+      {
+        "offset": "0x407",
+        "instruction": "call 0x9e0c60",
+        "preceding": [
+          "lea eax, [esp + 0x28]",
+          "push 0x40",
+          "push eax",
+          "inc esi"
+        ]
+      },
+      {
+        "offset": "0x420",
+        "instruction": "call 0x9e0c40",
+        "preceding": [
+          "push 0x40",
+          "lea ecx, [esp + 0x42c]",
+          "push 0",
+          "push ecx"
+        ]
+      },
+      {
+        "offset": "0x446",
+        "instruction": "call 0x9e0c40",
+        "preceding": [
+          "lea edx, [esp + 0x338]",
+          "push 0",
+          "rep movsd dword ptr es:[edi], dword ptr [esi]",
+          "push edx"
+        ]
+      },
+      {
+        "offset": "0x46d",
+        "instruction": "call 0x9e2830",
+        "preceding": [
+          "push ecx",
+          "lea eax, [esp + 0x34c]",
+          "push edx",
+          "push eax"
+        ]
+      },
+      {
+        "offset": "0x4ac",
+        "instruction": "call 0x9e3590",
+        "preceding": [
+          "add esp, 0x2c",
+          "rep movsd dword ptr es:[edi], dword ptr [esi]",
+          "lea ecx, [esp + 0x18]",
+          "mov byte ptr [esp + 0x1030], 1"
+        ]
+      },
+      {
+        "offset": "0x4fb",
+        "instruction": "call 0x9e0c40",
+        "preceding": [
+          "push 0x40",
+          "lea ecx, [esp + 0x42c]",
+          "push eax",
+          "push ecx"
+        ]
+      },
+      {
+        "offset": "0x522",
+        "instruction": "call 0x40b753",
+        "preceding": [
+          "push 0",
+          "push 0",
+          "lea ecx, [ebp + 0x1c]",
+          "mov dword ptr [ebp + 0x30], 3"
+        ]
+      },
+      {
+        "offset": "0x548",
+        "instruction": "call 0x9eaa50",
+        "preceding": [
+          "test al, al",
+          "mov dword ptr [ebp + 0xc], edx",
+          "mov dword ptr [esp + 0x1030], 0xffffffff",
+          "je 0x85a97d"
+        ]
+      },
+      {
+        "offset": "0x564",
+        "instruction": "call 0x9eaa50",
+        "preceding": [
+          "mov al, byte ptr [esp + 0x11]",
+          "mov dword ptr [esp + 0x1030], 0xffffffff",
+          "test al, al",
+          "je 0x85a999"
+        ]
+      }
+    ],
+    "socket_imports": [
+      {
+        "iat": "0xc44374",
+        "ordinal": 15,
+        "dll": "WS2_32.dll"
+      },
+      {
+        "iat": "0xc44388",
+        "ordinal": 14,
+        "dll": "WS2_32.dll"
+      }
+    ],
+    "body_masked_equal": true,
+    "profile_string_equal": true,
+    "handler_frame_target": "0xa25ac4",
+    "called_confirmed": [
+      "??0SecureRandomClass@@QAE@XZ",
+      "??1SecureRandomClass@@QAE@XZ",
+      "?Error@?$Int@$0EA@@@2HA",
+      "?IsProfileEnabled@WWProfileManager@@0_NA",
+      "?Randval@SecureRandomClass@@QAEKXZ",
+      "?Start_Profile@WWProfileManager@@SAXPBD@Z",
+      "?Stop_Profile@WWProfileManager@@SAXXZ",
+      "_XMP_Count_Bits",
+      "_XMP_Exponent_Mod",
+      "_XMP_Init",
+      "_XMP_Unsigned_Decode",
+      "__allshl",
+      "__chkstk",
+      "__except_list",
+      "_ntohl@4",
+      "_ntohs@4"
+    ],
+    "called_unresolved": [
+      "?set@Xtime@@QAEXJJ@Z"
+    ],
+    "source": "/home/dev/Projects/EnB/app/wwudp/cordmgr.cpp",
+    "source_sha256": "4dd5c9d76bd97041d88ca2134d85cb72bb542baa32812c7b4f5291ea29b1a059",
+    "object": ".work/claim-325/runs/root_ack1_clean/cordmgr.obj",
+    "object_sha256": "46f7f6e7f448ae12ee929e229f45e6529ea78d4bfd7238411df794acbf8225a0",
+    "baseline_relocation_sequence_equal": true,
+    "retail_relocations": [
+      {
+        "offset": 4,
+        "type": 6,
+        "symbol": "__except_list",
+        "addend": "00000000",
+        "retail_target": "0x0"
+      },
+      {
+        "offset": 9,
+        "type": 6,
+        "symbol": "$L37848",
+        "addend": "00000000",
+        "retail_target": "0xad8521"
+      },
+      {
+        "offset": 22,
+        "type": 6,
+        "symbol": "__except_list",
+        "addend": "00000000",
+        "retail_target": "0x0"
+      },
+      {
+        "offset": 27,
+        "type": 20,
+        "symbol": "__chkstk",
+        "addend": "00000000",
+        "retail_target": "0xa27c60"
+      },
+      {
+        "offset": 34,
+        "type": 6,
+        "symbol": "?IsProfileEnabled@WWProfileManager@@0_NA",
+        "addend": "00000000",
+        "retail_target": "0xc40488"
+      },
+      {
+        "offset": 59,
+        "type": 6,
+        "symbol": "??_C@_0BN@NINI@CordMgr?3?3Process_ACK1_Packet?$AA@",
+        "addend": "00000000",
+        "retail_target": "0xbb1d48"
+      },
+      {
+        "offset": 64,
+        "type": 20,
+        "symbol": "?Start_Profile@WWProfileManager@@SAXPBD@Z",
+        "addend": "00000000",
+        "retail_target": "0x9ea930"
+      },
+      {
+        "offset": 140,
+        "type": 20,
+        "symbol": "_ntohs@4",
+        "addend": "00000000",
+        "retail_target": "0x8c1ba0"
+      },
+      {
+        "offset": 153,
+        "type": 20,
+        "symbol": "_ntohl@4",
+        "addend": "00000000",
+        "retail_target": "0x8c1b7c"
+      },
+      {
+        "offset": 166,
+        "type": 20,
+        "symbol": "_ntohl@4",
+        "addend": "00000000",
+        "retail_target": "0x8c1b7c"
+      },
+      {
+        "offset": 184,
+        "type": 20,
+        "symbol": "_XMP_Init",
+        "addend": "00000000",
+        "retail_target": "0x9e0c40"
+      },
+      {
+        "offset": 201,
+        "type": 20,
+        "symbol": "_XMP_Init",
+        "addend": "00000000",
+        "retail_target": "0x9e0c40"
+      },
+      {
+        "offset": 213,
+        "type": 20,
+        "symbol": "_ntohl@4",
+        "addend": "00000000",
+        "retail_target": "0x8c1b7c"
+      },
+      {
+        "offset": 297,
+        "type": 20,
+        "symbol": "_XMP_Unsigned_Decode",
+        "addend": "00000000",
+        "retail_target": "0x9e0830"
+      },
+      {
+        "offset": 309,
+        "type": 20,
+        "symbol": "_ntohl@4",
+        "addend": "00000000",
+        "retail_target": "0x8c1b7c"
+      },
+      {
+        "offset": 398,
+        "type": 20,
+        "symbol": "_XMP_Unsigned_Decode",
+        "addend": "00000000",
+        "retail_target": "0x9e0830"
+      },
+      {
+        "offset": 466,
+        "type": 20,
+        "symbol": "_ntohl@4",
+        "addend": "00000000",
+        "retail_target": "0x8c1b7c"
+      },
+      {
+        "offset": 481,
+        "type": 20,
+        "symbol": "_ntohs@4",
+        "addend": "00000000",
+        "retail_target": "0x8c1ba0"
+      },
+      {
+        "offset": 568,
+        "type": 20,
+        "symbol": "_XMP_Init",
+        "addend": "00000000",
+        "retail_target": "0x9e0c40"
+      },
+      {
+        "offset": 662,
+        "type": 20,
+        "symbol": "_XMP_Init",
+        "addend": "00000000",
+        "retail_target": "0x9e0c40"
+      },
+      {
+        "offset": 679,
+        "type": 20,
+        "symbol": "_XMP_Init",
+        "addend": "00000000",
+        "retail_target": "0x9e0c40"
+      },
+      {
+        "offset": 696,
+        "type": 20,
+        "symbol": "_XMP_Init",
+        "addend": "00000000",
+        "retail_target": "0x9e0c40"
+      },
+      {
+        "offset": 713,
+        "type": 20,
+        "symbol": "_XMP_Init",
+        "addend": "00000000",
+        "retail_target": "0x9e0c40"
+      },
+      {
+        "offset": 730,
+        "type": 20,
+        "symbol": "_XMP_Init",
+        "addend": "00000000",
+        "retail_target": "0x9e0c40"
+      },
+      {
+        "offset": 747,
+        "type": 20,
+        "symbol": "_XMP_Init",
+        "addend": "00000000",
+        "retail_target": "0x9e0c40"
+      },
+      {
+        "offset": 767,
+        "type": 20,
+        "symbol": "_XMP_Init",
+        "addend": "00000000",
+        "retail_target": "0x9e0c40"
+      },
+      {
+        "offset": 784,
+        "type": 20,
+        "symbol": "_XMP_Init",
+        "addend": "00000000",
+        "retail_target": "0x9e0c40"
+      },
+      {
+        "offset": 801,
+        "type": 20,
+        "symbol": "_XMP_Init",
+        "addend": "00000000",
+        "retail_target": "0x9e0c40"
+      },
+      {
+        "offset": 865,
+        "type": 20,
+        "symbol": "_XMP_Init",
+        "addend": "00000000",
+        "retail_target": "0x9e0c40"
+      },
+      {
+        "offset": 933,
+        "type": 20,
+        "symbol": "__allshl",
+        "addend": "00000000",
+        "retail_target": "0xa2b370"
+      },
+      {
+        "offset": 948,
+        "type": 20,
+        "symbol": "??0SecureRandomClass@@QAE@XZ",
+        "addend": "00000000",
+        "retail_target": "0x9e3570"
+      },
+      {
+        "offset": 972,
+        "type": 20,
+        "symbol": "_XMP_Count_Bits",
+        "addend": "00000000",
+        "retail_target": "0x9e0c60"
+      },
+      {
+        "offset": 989,
+        "type": 20,
+        "symbol": "?Randval@SecureRandomClass@@QAEKXZ",
+        "addend": "00000000",
+        "retail_target": "0x9e3610"
+      },
+      {
+        "offset": 1032,
+        "type": 20,
+        "symbol": "_XMP_Count_Bits",
+        "addend": "00000000",
+        "retail_target": "0x9e0c60"
+      },
+      {
+        "offset": 1057,
+        "type": 20,
+        "symbol": "_XMP_Init",
+        "addend": "00000000",
+        "retail_target": "0x9e0c40"
+      },
+      {
+        "offset": 1095,
+        "type": 20,
+        "symbol": "_XMP_Init",
+        "addend": "00000000",
+        "retail_target": "0x9e0c40"
+      },
+      {
+        "offset": 1134,
+        "type": 20,
+        "symbol": "_XMP_Exponent_Mod",
+        "addend": "00000000",
+        "retail_target": "0x9e2830"
+      },
+      {
+        "offset": 1158,
+        "type": 6,
+        "symbol": "?Error@?$Int@$0EA@@@2HA",
+        "addend": "00000000",
+        "retail_target": "0xc1f250"
+      },
+      {
+        "offset": 1197,
+        "type": 20,
+        "symbol": "??1SecureRandomClass@@QAE@XZ",
+        "addend": "00000000",
+        "retail_target": "0x9e3590"
+      },
+      {
+        "offset": 1276,
+        "type": 20,
+        "symbol": "_XMP_Init",
+        "addend": "00000000",
+        "retail_target": "0x9e0c40"
+      },
+      {
+        "offset": 1315,
+        "type": 20,
+        "symbol": "?set@Xtime@@QAEXJJ@Z",
+        "addend": "00000000",
+        "retail_target": "0x40b753"
+      },
+      {
+        "offset": 1353,
+        "type": 20,
+        "symbol": "?Stop_Profile@WWProfileManager@@SAXXZ",
+        "addend": "00000000",
+        "retail_target": "0x9eaa50"
+      },
+      {
+        "offset": 1381,
+        "type": 20,
+        "symbol": "?Stop_Profile@WWProfileManager@@SAXXZ",
+        "addend": "00000000",
+        "retail_target": "0x9eaa50"
+      },
+      {
+        "offset": 1401,
+        "type": 6,
+        "symbol": "__except_list",
+        "addend": "00000000",
+        "retail_target": "0x0"
+      }
+    ],
+    "handler": "0xad8521",
+    "funcinfo": "0xb56c38",
+    "object_funcinfo": [
+      429065504,
+      3,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "retail_funcinfo": [
+      429065504,
+      3,
+      11889752,
+      0,
+      0,
+      0,
+      0
+    ],
+    "states": [
+      {
+        "state": 0,
+        "predecessor": "0xffffffff",
+        "retail_action": "0xad8500",
+        "object_length": 11,
+        "masked_equal": true,
+        "relocations": [
+          {
+            "offset": 7,
+            "symbol": "??1WWProfileSampleClass@@QAE@XZ",
+            "type": 20,
+            "addend": "00000000",
+            "retail_target": "0x40f8df"
+          }
+        ]
+      },
+      {
+        "state": 1,
+        "predecessor": "0x0",
+        "retail_action": "0xad850b",
+        "object_length": 11,
+        "masked_equal": true,
+        "relocations": [
+          {
+            "offset": 7,
+            "symbol": "??1RSAKeyClass@@QAE@XZ",
+            "type": 20,
+            "addend": "00000000",
+            "retail_target": "0x40b93d"
+          }
+        ]
+      },
+      {
+        "state": 2,
+        "predecessor": "0x1",
+        "retail_action": "0xad8516",
+        "object_length": 11,
+        "masked_equal": true,
+        "relocations": [
+          {
+            "offset": 7,
+            "symbol": "??1SecureRandomClass@@QAE@XZ",
+            "type": 20,
+            "addend": "00000000",
+            "retail_target": "0x9e3590"
+          }
+        ]
+      }
+    ],
+    "prior_pair_checks": [
+      {
+        "symbol": "??0CordMgr@@QAE@IG@Z",
+        "address": "0x856D80",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "??0CordMgr@@QAE@XZ",
+        "address": "0x856970",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "??1?$ArrayList@PAVCordCon@@@@QAE@XZ",
+        "address": "0x85AF20",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "??1?$ArrayList@PAVCordConnectingClass@@@@QAE@XZ",
+        "address": "0x85AEC0",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "??1?$ArrayList@UCordDataSocketClass@@@@QAE@XZ",
+        "address": "0x85AF50",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "??1?$ArrayList@UCordListenSocketClass@@@@QAE@XZ",
+        "address": "0x85AF80",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "??1?$ArrayList@UCordReleaseClass@@@@QAE@XZ",
+        "address": "0x85AEF0",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "??1CordConnectingClass@@QAE@XZ",
+        "address": "0x857850",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "??1CordMgr@@QAE@XZ",
+        "address": "0x857590",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "??1RSAKeyClass@@QAE@XZ",
+        "address": "0x82B0C0",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "??1WWProfileSampleClass@@QAE@XZ",
+        "address": "0x444160",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "??6ostream@@QAEAAV0@P6AAAV0@AAV0@@Z@Z",
+        "address": "0x850820",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?Cancel_Connect@CordMgr@@QAE_NH@Z",
+        "address": "0x8595B0",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?Compute@RSAKeyClass@@QAEXXZ",
+        "address": "0x82C330",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?Compute_Ticks@CordMgr@@QAEIGIIGIG@Z",
+        "address": "0x85A220",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?Connect@CordMgr@@QAEHKG_N@Z",
+        "address": "0x858EC0",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?Find_Connection@CordMgr@@QAE_NPAPAVCordCon@@IH@Z",
+        "address": "0x859440",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?Find_Data_Socket@CordMgr@@QAEPAUCordDataSocketClass@@PAVUDP@@@Z",
+        "address": "0x859F80",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?Get_Data_Socket@CordMgr@@QAEPAUCordDataSocketClass@@H@Z",
+        "address": "0x859D50",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?Init@CordMgr@@QAEXXZ",
+        "address": "0x8570C0",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?Listen@CordMgr@@QAE_NIG@Z",
+        "address": "0x857940",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?Load@RSAKeyClass@@QAE_NPAVFileClass@@@Z",
+        "address": "0x85AFB0",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?Pending_Messages@CordMgr@@QAEHXZ",
+        "address": "0x8598F0",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?Process_SYN1_Packet@CordMgr@@QAE_NPAEHPAUsockaddr_in@@PAVUDP@@H@Z",
+        "address": "0x85A3B0",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?Process_SYN2_Packet@CordMgr@@QAE_NPAEHPAUsockaddr_in@@PAVUDP@@H@Z",
+        "address": "0x85AB30",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?Process_Zero_Read@CordMgr@@QAEXPAUsockaddr_in@@@Z",
+        "address": "0x858980",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?Pump_Releases@CordMgr@@QAE_NXZ",
+        "address": "0x859940",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?Read_Number@RSAKeyClass@@QAE_NPAVFileClass@@AAV?$Int@$0EA@@@@Z",
+        "address": "0x82C260",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?Release@CordMgr@@QAE_NPAVCordCon@@@Z",
+        "address": "0x8596F0",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?Send_Go_Away@CordMgr@@QAEXPAVUDP@@IGEG@Z",
+        "address": "0x858640",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?Set_Buffers@CordMgr@@QAEXPAVUDP@@@Z",
+        "address": "0x8578C0",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?Unlisten@CordMgr@@QAE_NIG@Z",
+        "address": "0x857C00",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?Unsigned_Divide@?$Int@$0EA@@@SAXAAV1@0ABV1@1@Z",
+        "address": "0x82C220",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?Wait@CordMgr@@QAEHHH@Z",
+        "address": "0x857DE0",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?add@?$ArrayList@PAVCordCon@@@@QAEDABQAVCordCon@@J@Z",
+        "address": "0x85B6F0",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?add@?$ArrayList@UCordDataSocketClass@@@@QAEDABUCordDataSocketClass@@J@Z",
+        "address": "0x85B990",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?clear@?$ArrayList@UCordDataSocketClass@@@@QAEXXZ",
+        "address": "0x85B970",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?clear@?$ArrayList@UCordListenSocketClass@@@@QAEXXZ",
+        "address": "0x85BC30",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?exp_b_mod_c@?$Int@$0EA@@@QBE?AV1@ABV1@0@Z",
+        "address": "0x82C1A0",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?flush@@YAAAVostream@@AAV1@@Z",
+        "address": "0x850850",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?growVector@?$ArrayList@UCordDataSocketClass@@@@AAEDJ@Z",
+        "address": "0x85BC80",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?growVector@?$ArrayList@UCordListenSocketClass@@@@AAEDJ@Z",
+        "address": "0x85BD40",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?id@?$ctype@G@std@@$E",
+        "address": "0x42B320",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?shrinkVector@?$ArrayList@PAVCordCon@@@@AAEDXZ",
+        "address": "0x85B8B0",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?shrinkVector@?$ArrayList@PAVCordConnectingClass@@@@AAEDXZ",
+        "address": "0x85B630",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?shrinkVector@?$ArrayList@UCordDataSocketClass@@@@AAEDXZ",
+        "address": "0x85BB70",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "_$E55",
+        "address": "0x85BC50",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      }
+    ],
+    "independent_name_evidence": {
+      "0x40B753": "client.py name: j_Xtime::set"
+    }
+  }
+}

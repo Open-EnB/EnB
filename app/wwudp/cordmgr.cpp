@@ -194,9 +194,9 @@ int CordMgr::Connect(unsigned long ip, unsigned short port, bool encrypt)
 
 
 
-// NOT EXACT: 0x858A60. SYN1 (0, protocol, session) while waiting for ACK1, SYN2 (2, protocol, session, ACK1's two
-// words, 0x4000, the key's length, the encrypted key) while waiting for ACK2, each again a second after the last; a
-// connection 60 s old becomes a CordCon without a socket (the caller finds it, closed) and leaves the list.
+
+// 0x858A60: resend handshake packets once per second; timeouts become closed connections.
+// The connection pointer ends its scope before removing the pending record.
 bool CordMgr::Pump_Connections()
 {
 	WWPROFILE("CordMgr::Pump_Connections");
@@ -213,8 +213,8 @@ bool CordMgr::Pump_Connections()
 	for (int k = 0; k < count; k++) {
 		Pending_.get(c, i);
 		if (c->Created < timeout) {
-			CordCon *con = new CordCon(c->Ip, c->Port, c->Session, 0, false, NULL, 0, c->Key);
-			Add_Connection(con, c, i);
+			Add_Connection(c, i);
+
 
 
 			i--;
@@ -223,18 +223,18 @@ bool CordMgr::Pump_Connections()
 			if (resend > c->LastSend) {
 				buf[0] = 0;
 				buf[1] = Protocol_;
-				*(unsigned short *)(buf + 2) = htons((unsigned short)c->Session);
-				c->Socket->Write(buf, 4, c->Ip, c->Port);
+				unsigned short session = (unsigned short)c->Session; session = htons(session); *(unsigned short *)(buf + 2) = session;
+				unsigned short port = c->Port; c->Socket->Write(buf, 4, c->Ip, port);
 				c->LastSend = now;
 			}
 		} else if (c->State == 3 && resend > c->LastSend) {
 			buf[0] = 2;
-			buf[1] = Protocol_;
-			*(unsigned short *)(buf + 2) = htons((unsigned short)c->Session);
-			*(unsigned long *)(buf + 4) = htonl(c->Ack1Word1);
-			*(unsigned long *)(buf + 8) = htonl(c->Ack1Word2);
+			unsigned char protocol = Protocol_; buf[1] = protocol;
+			unsigned short session = (unsigned short)c->Session; session = htons(session); *(unsigned short *)(buf + 2) = session;
+			unsigned long word = c->Ack1Word1; word = htonl(word); *(unsigned long *)(buf + 4) = word;
+			word = c->Ack1Word2; word = htonl(word); *(unsigned long *)(buf + 8) = word;
 			*(unsigned long *)(buf + 12) = htonl(0x4000);
-			unsigned int n = XMP_Encode(key, c->EncryptedKey, 0x40);
+			const digit *encrypted = c->EncryptedKey; unsigned int n = XMP_Encode(key, encrypted, 0x40);
 			*(unsigned long *)(buf + 16) = htonl(n);
 			memcpy(buf + 20, key, n);
 			c->Socket->Write(buf, n + 20, c->Ip, c->Port);
@@ -1124,7 +1124,7 @@ bool CordMgr::Pump_Releases()
 	}
 	return true;
 }
-// NOT EXACT: the client's side takes type 4 (from the server), the server's type 5; register-only (from vs session in ebp, sim 0.61)
+
 // @0x85A000
 bool CordMgr::Process_CORD_Packet(unsigned char *data, int len, sockaddr_in *from, UDP *socket, int unknown,
 	char type)
@@ -1141,7 +1141,7 @@ bool CordMgr::Process_CORD_Packet(unsigned char *data, int len, sockaddr_in *fro
 		unsigned long ip = con->Ip_;
 		int session = con->Session_;
 		id = ntohs(*(unsigned short *)(data + 1));
-		if (ip == ntohl(from->sin_addr.s_addr) && (unsigned short)session == id) {
+		unsigned long address = from->sin_addr.s_addr; address = ntohl(address); if (ip == address && (unsigned short)session == id) {
 			if ((type == 4 && con->IsServer_ == false) || (type == 5 && con->IsServer_ == true)) {
 				handled = true;
 				if (con->handlePacket(data, len)) {
@@ -1268,9 +1268,9 @@ bool CordMgr::Process_CORD_Packet(unsigned char *data, int len, sockaddr_in *fro
 
 
 
-
+				__int64 key = con->Key_;
 				Message_Warn("", "UDP", __FILE__, __LINE__, "Packet failed validation (%p : %d (key=%d))",
-					ntohl(from->sin_addr.s_addr), ntohs(from->sin_port), con->Key_);
+					ntohl(from->sin_addr.s_addr), ntohs(from->sin_port), key);
 			}
 		}
 	}
@@ -1316,8 +1316,8 @@ bool CordMgr::Process_SYN2_Packet(unsigned char *data, int len, sockaddr_in *fro
 	return false;
 }
 
-// NOT EXACT: 0x85A430 (0.75, registers: the client reuses eax where ours takes ecx / edx). ACK1 (1, protocol, session,
-// two words, the server's modulus and exponent, each a 4-byte length then big-endian bytes; each check its own return)
+
+// 0x85A430: ACK1 (1, protocol, session, two words, modulus/exponent lengths and big-endian data; each check has its own return).
 // for a connection in state 1: the session key in the low 64 bits of a random number below the modulus, encrypted with
 // an RSAKeyClass of the two (Key_Exchange 0x829180's form); a zero modulus or exponent: the key's low word. State 3.
 bool CordMgr::Process_ACK1_Packet(unsigned char *data, int len, sockaddr_in *from, UDP *socket, int unknown)
@@ -1328,12 +1328,12 @@ bool CordMgr::Process_ACK1_Packet(unsigned char *data, int len, sockaddr_in *fro
 	}
 	unsigned char type = data[0];
 	unsigned char protocol = data[1];
-	unsigned short session = ntohs(*(unsigned short *)(data + 2));
-	unsigned long word1 = ntohl(*(unsigned long *)(data + 4));
-	unsigned long word2 = ntohl(*(unsigned long *)(data + 8));
+	unsigned short session = *(unsigned short *)(data + 2); session = ntohs(session);
+	unsigned long word1 = *(unsigned long *)(data + 4); word1 = ntohl(word1);
+	unsigned long word2 = *(unsigned long *)(data + 8); word2 = ntohl(word2);
 	BigInt n;
 	BigInt e;
-	unsigned long mlen = ntohl(*(unsigned long *)(data + 12));
+	unsigned long mlen = *(unsigned long *)(data + 12); mlen = ntohl(mlen);
 	unsigned long offset = mlen + 0x10;
 	if (offset > (unsigned long)len) {
 		return false;
@@ -1342,7 +1342,7 @@ bool CordMgr::Process_ACK1_Packet(unsigned char *data, int len, sockaddr_in *fro
 		return false;
 	}
 	n.Unsigned_Decode(data + 0x10, mlen);
-	unsigned long elen = ntohl(*(unsigned long *)(data + offset));
+	unsigned long elen = *(unsigned long *)(data + offset); elen = ntohl(elen);
 	offset += 4;
 	if (elen + offset > (unsigned long)len) {
 		return false;
@@ -1398,7 +1398,7 @@ bool CordMgr::Process_ACK1_Packet(unsigned char *data, int len, sockaddr_in *fro
 	return false;
 }
 
-// 0x85ABB0, functional: ACK2 (3, protocol, session, 2 bytes, the data port, a word) for a
+// 0x85ABB0: ACK2 (3, protocol, session, 2 bytes, the data port, a word) for a
 // connection in the handshake: its CordCon (the word is the constructor's 7th argument), in
 // both connection lists; the handshake record goes.
 bool CordMgr::Process_ACK2_Packet(unsigned char *data, int len, sockaddr_in *from, UDP *socket, int unknown)
@@ -1409,10 +1409,10 @@ bool CordMgr::Process_ACK2_Packet(unsigned char *data, int len, sockaddr_in *fro
 	}
 	unsigned char type = data[0];
 	unsigned char protocol = data[1];
-	unsigned short session = ntohs(*(unsigned short *)(data + 2));
-	ntohs(*(unsigned short *)(data + 4));
-	unsigned short port = ntohs(*(unsigned short *)(data + 6));
-	unsigned long word = ntohl(*(unsigned long *)(data + 8));
+	unsigned short session = *(unsigned short *)(data + 2); session = ntohs(session);
+	unsigned short ignored = *(unsigned short *)(data + 4); ignored = ntohs(ignored);
+	unsigned short port = *(unsigned short *)(data + 6); port = ntohs(port);
+	unsigned long word = *(unsigned long *)(data + 8); word = ntohl(word);
 	if (protocol != Protocol_ || type != 3) {
 		return false;
 	}
@@ -1424,10 +1424,12 @@ bool CordMgr::Process_ACK2_Packet(unsigned char *data, int len, sockaddr_in *fro
 			continue;
 		}
 		c->State = 5;
-		CordCon *con = new CordCon(c->Ip, port, session, 0, false, c->Socket, (int)word,
-			c->Key);
-		AllConnections_.addTail(con);
-		Connections_.addTail(con);
+		{
+			CordCon *con = new CordCon(c->Ip, port, session, 0, false, c->Socket, (int)word,
+				c->Key);
+			AllConnections_.addTail(con);
+			Connections_.addTail(con);
+		}
 		delete c;
 		Pending_.remove(i);
 		return true;

@@ -1,0 +1,724 @@
+{
+  "claim": 325,
+  "checked_revision": "bdefc60e236590ccb3ad66ca1cd02fa21d20f6e0",
+  "audit": {
+    "entire_resolved_body_equal": true,
+    "executable_bytes": 623,
+    "instruction_count": 200,
+    "branches": [
+      [
+        "0x33",
+        "0x42"
+      ],
+      [
+        "0x51",
+        "0x68"
+      ],
+      [
+        "0x5d",
+        "0x258"
+      ],
+      [
+        "0x63",
+        "0x253"
+      ],
+      [
+        "0xaa",
+        "0x243"
+      ],
+      [
+        "0xb5",
+        "0x243"
+      ],
+      [
+        "0xc7",
+        "0x111"
+      ],
+      [
+        "0xcb",
+        "0xd7"
+      ],
+      [
+        "0xcf",
+        "0xd7"
+      ],
+      [
+        "0xe6",
+        "0x10a"
+      ],
+      [
+        "0xfa",
+        "0x10a"
+      ],
+      [
+        "0x108",
+        "0x12a"
+      ],
+      [
+        "0x10f",
+        "0xc9"
+      ],
+      [
+        "0x11f",
+        "0x258"
+      ],
+      [
+        "0x125",
+        "0x253"
+      ],
+      [
+        "0x149",
+        "0x17e"
+      ],
+      [
+        "0x17c",
+        "0x180"
+      ],
+      [
+        "0x1b5",
+        "0x1da"
+      ],
+      [
+        "0x1e0",
+        "0x22a"
+      ],
+      [
+        "0x1e4",
+        "0x1e8"
+      ],
+      [
+        "0x1ea",
+        "0x1ef"
+      ],
+      [
+        "0x221",
+        "0x22a"
+      ],
+      [
+        "0x238",
+        "0x23f"
+      ],
+      [
+        "0x241",
+        "0x25a"
+      ],
+      [
+        "0x251",
+        "0x258"
+      ]
+    ],
+    "calls_and_receivers": {
+      "count": 18,
+      "verified_against_complete_resolved_body": true,
+      "context_sha256": "1f6eb02e6b81b5d9ed708791084f2ce82401c5d6db4a15e6d91bcd4b801e7524",
+      "detail": "Detailed compiler-object disassembly stays in local scratch; exported proof contains identities, offsets and hashes."
+    },
+    "socket_imports": [
+      {
+        "iat": "0xc44374",
+        "ordinal": 15,
+        "dll": "WS2_32.dll"
+      },
+      {
+        "iat": "0xc44388",
+        "ordinal": 14,
+        "dll": "WS2_32.dll"
+      }
+    ],
+    "body_masked_equal": true,
+    "profile_string_equal": true,
+    "handler_frame_target": "0xa25ac4",
+    "called_confirmed": [
+      "??0CordCon@@QAE@IGHG_NPAVUDP@@H_J@Z",
+      "??1Xtime@@QAE@XZ",
+      "??2@YAPAXI@Z",
+      "??3@YAXPAX@Z",
+      "?IsProfileEnabled@WWProfileManager@@0_NA",
+      "?Start_Profile@WWProfileManager@@SAXPBD@Z",
+      "?Stop_Profile@WWProfileManager@@SAXXZ",
+      "?add@?$ArrayList@PAVCordCon@@@@QAEDABQAVCordCon@@J@Z",
+      "?shrinkVector@?$ArrayList@PAVCordConnectingClass@@@@AAEDXZ",
+      "__except_list",
+      "_memmove",
+      "_ntohl@4",
+      "_ntohs@4"
+    ],
+    "called_unresolved": [],
+    "source": "/home/dev/Projects/EnB/.git/local-vc6-preflight/cache/trees/bdefc60e236590ccb3ad66ca1cd02fa21d20f6e0/app/wwudp/cordmgr.cpp",
+    "source_sha256": "593979273563e91df9080f64c60bca1c048dd4be28b3a87d35141673d97dfe70",
+    "object": "/home/dev/Projects/EnB/.git/local-vc6-preflight/cache/builds/91a838116dfe5b001f3beac99b2a6dab8bee847014655969b784926cce536de6/744/cordmgr.obj",
+    "object_sha256": "f82107ba39cbfa08f41f0100c33561b7298fb79d07c41386f5537530a7aff297",
+    "baseline_relocation_sequence_equal": true,
+    "retail_relocations": [
+      {
+        "offset": 3,
+        "type": 6,
+        "symbol": "$L37970",
+        "addend": "00000000",
+        "retail_target": "0xad857e"
+      },
+      {
+        "offset": 9,
+        "type": 6,
+        "symbol": "__except_list",
+        "addend": "00000000",
+        "retail_target": "0x0"
+      },
+      {
+        "offset": 17,
+        "type": 6,
+        "symbol": "__except_list",
+        "addend": "00000000",
+        "retail_target": "0x0"
+      },
+      {
+        "offset": 27,
+        "type": 6,
+        "symbol": "?IsProfileEnabled@WWProfileManager@@0_NA",
+        "addend": "00000000",
+        "retail_target": "0xc40488"
+      },
+      {
+        "offset": 54,
+        "type": 6,
+        "symbol": "??_C@_0BN@KL@CordMgr?3?3Process_ACK2_Packet?$AA@",
+        "addend": "00000000",
+        "retail_target": "0xbb1d90"
+      },
+      {
+        "offset": 59,
+        "type": 20,
+        "symbol": "?Start_Profile@WWProfileManager@@SAXPBD@Z",
+        "addend": "00000000",
+        "retail_target": "0x9ea930"
+      },
+      {
+        "offset": 123,
+        "type": 20,
+        "symbol": "_ntohs@4",
+        "addend": "00000000",
+        "retail_target": "0x8c1ba0"
+      },
+      {
+        "offset": 135,
+        "type": 20,
+        "symbol": "_ntohs@4",
+        "addend": "00000000",
+        "retail_target": "0x8c1ba0"
+      },
+      {
+        "offset": 145,
+        "type": 20,
+        "symbol": "_ntohs@4",
+        "addend": "00000000",
+        "retail_target": "0x8c1ba0"
+      },
+      {
+        "offset": 158,
+        "type": 20,
+        "symbol": "_ntohl@4",
+        "addend": "00000000",
+        "retail_target": "0x8c1b7c"
+      },
+      {
+        "offset": 224,
+        "type": 20,
+        "symbol": "_ntohl@4",
+        "addend": "00000000",
+        "retail_target": "0x8c1b7c"
+      },
+      {
+        "offset": 242,
+        "type": 20,
+        "symbol": "_ntohs@4",
+        "addend": "00000000",
+        "retail_target": "0x8c1ba0"
+      },
+      {
+        "offset": 311,
+        "type": 20,
+        "symbol": "??2@YAPAXI@Z",
+        "addend": "00000000",
+        "retail_target": "0x41066d"
+      },
+      {
+        "offset": 376,
+        "type": 20,
+        "symbol": "??0CordCon@@QAE@IGHG_NPAVUDP@@H_J@Z",
+        "addend": "00000000",
+        "retail_target": "0x413908"
+      },
+      {
+        "offset": 410,
+        "type": 20,
+        "symbol": "?add@?$ArrayList@PAVCordCon@@@@QAEDABQAVCordCon@@J@Z",
+        "addend": "00000000",
+        "retail_target": "0x41848f"
+      },
+      {
+        "offset": 427,
+        "type": 20,
+        "symbol": "?add@?$ArrayList@PAVCordCon@@@@QAEDABQAVCordCon@@J@Z",
+        "addend": "00000000",
+        "retail_target": "0x41848f"
+      },
+      {
+        "offset": 448,
+        "type": 20,
+        "symbol": "??1Xtime@@QAE@XZ",
+        "addend": "00000000",
+        "retail_target": "0x4091d8"
+      },
+      {
+        "offset": 461,
+        "type": 20,
+        "symbol": "??1Xtime@@QAE@XZ",
+        "addend": "00000000",
+        "retail_target": "0x4091d8"
+      },
+      {
+        "offset": 467,
+        "type": 20,
+        "symbol": "??3@YAXPAX@Z",
+        "addend": "00000000",
+        "retail_target": "0x412b7a"
+      },
+      {
+        "offset": 523,
+        "type": 20,
+        "symbol": "_memmove",
+        "addend": "00000000",
+        "retail_target": "0xa25f50"
+      },
+      {
+        "offset": 550,
+        "type": 20,
+        "symbol": "?shrinkVector@?$ArrayList@PAVCordConnectingClass@@@@AAEDXZ",
+        "addend": "00000000",
+        "retail_target": "0x40ff06"
+      },
+      {
+        "offset": 571,
+        "type": 20,
+        "symbol": "?Stop_Profile@WWProfileManager@@SAXXZ",
+        "addend": "00000000",
+        "retail_target": "0x9eaa50"
+      },
+      {
+        "offset": 596,
+        "type": 20,
+        "symbol": "?Stop_Profile@WWProfileManager@@SAXXZ",
+        "addend": "00000000",
+        "retail_target": "0x9eaa50"
+      },
+      {
+        "offset": 613,
+        "type": 6,
+        "symbol": "__except_list",
+        "addend": "00000000",
+        "retail_target": "0x0"
+      }
+    ],
+    "handler": "0xad857e",
+    "funcinfo": "0xb56cb0",
+    "object_funcinfo": [
+      429065504,
+      3,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "retail_funcinfo": [
+      429065504,
+      3,
+      11889872,
+      0,
+      0,
+      0,
+      0
+    ],
+    "states": [
+      {
+        "state": 0,
+        "predecessor": "0xffffffff",
+        "retail_action": "0xad8560",
+        "object_length": 8,
+        "masked_equal": true,
+        "relocations": [
+          {
+            "offset": 4,
+            "symbol": "??1WWProfileSampleClass@@QAE@XZ",
+            "type": 20,
+            "addend": "00000000",
+            "retail_target": "0x40f8df"
+          }
+        ]
+      },
+      {
+        "state": 1,
+        "predecessor": "0x0",
+        "retail_action": "0xad8568",
+        "object_length": 11,
+        "masked_equal": true,
+        "relocations": [
+          {
+            "offset": 5,
+            "symbol": "??3@YAXPAX@Z",
+            "type": 20,
+            "addend": "00000000",
+            "retail_target": "0x412b7a"
+          }
+        ]
+      },
+      {
+        "state": 2,
+        "predecessor": "0x0",
+        "retail_action": "0xad8573",
+        "object_length": 11,
+        "masked_equal": true,
+        "relocations": [
+          {
+            "offset": 7,
+            "symbol": "??1Xtime@@QAE@XZ",
+            "type": 20,
+            "addend": "00000000",
+            "retail_target": "0x4091d8"
+          }
+        ]
+      }
+    ],
+    "prior_pair_checks": [
+      {
+        "symbol": "??0CordMgr@@QAE@IG@Z",
+        "address": "0x856D80",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "??0CordMgr@@QAE@XZ",
+        "address": "0x856970",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "??1?$ArrayList@PAVCordCon@@@@QAE@XZ",
+        "address": "0x85AF20",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "??1?$ArrayList@PAVCordConnectingClass@@@@QAE@XZ",
+        "address": "0x85AEC0",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "??1?$ArrayList@UCordDataSocketClass@@@@QAE@XZ",
+        "address": "0x85AF50",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "??1?$ArrayList@UCordListenSocketClass@@@@QAE@XZ",
+        "address": "0x85AF80",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "??1?$ArrayList@UCordReleaseClass@@@@QAE@XZ",
+        "address": "0x85AEF0",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "??1CordConnectingClass@@QAE@XZ",
+        "address": "0x857850",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "??1CordMgr@@QAE@XZ",
+        "address": "0x857590",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "??1RSAKeyClass@@QAE@XZ",
+        "address": "0x82B0C0",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "??1WWProfileSampleClass@@QAE@XZ",
+        "address": "0x444160",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "??6ostream@@QAEAAV0@P6AAAV0@AAV0@@Z@Z",
+        "address": "0x850820",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?Cancel_Connect@CordMgr@@QAE_NH@Z",
+        "address": "0x8595B0",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?Compute@RSAKeyClass@@QAEXXZ",
+        "address": "0x82C330",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?Compute_Ticks@CordMgr@@QAEIGIIGIG@Z",
+        "address": "0x85A220",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?Connect@CordMgr@@QAEHKG_N@Z",
+        "address": "0x858EC0",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?Find_Connection@CordMgr@@QAE_NPAPAVCordCon@@IH@Z",
+        "address": "0x859440",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?Find_Data_Socket@CordMgr@@QAEPAUCordDataSocketClass@@PAVUDP@@@Z",
+        "address": "0x859F80",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?Get_Data_Socket@CordMgr@@QAEPAUCordDataSocketClass@@H@Z",
+        "address": "0x859D50",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?Init@CordMgr@@QAEXXZ",
+        "address": "0x8570C0",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?Listen@CordMgr@@QAE_NIG@Z",
+        "address": "0x857940",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?Load@RSAKeyClass@@QAE_NPAVFileClass@@@Z",
+        "address": "0x85AFB0",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?Pending_Messages@CordMgr@@QAEHXZ",
+        "address": "0x8598F0",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?Process_SYN1_Packet@CordMgr@@QAE_NPAEHPAUsockaddr_in@@PAVUDP@@H@Z",
+        "address": "0x85A3B0",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?Process_SYN2_Packet@CordMgr@@QAE_NPAEHPAUsockaddr_in@@PAVUDP@@H@Z",
+        "address": "0x85AB30",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?Process_Zero_Read@CordMgr@@QAEXPAUsockaddr_in@@@Z",
+        "address": "0x858980",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?Pump_Releases@CordMgr@@QAE_NXZ",
+        "address": "0x859940",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?Read_Number@RSAKeyClass@@QAE_NPAVFileClass@@AAV?$Int@$0EA@@@@Z",
+        "address": "0x82C260",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?Release@CordMgr@@QAE_NPAVCordCon@@@Z",
+        "address": "0x8596F0",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?Send_Go_Away@CordMgr@@QAEXPAVUDP@@IGEG@Z",
+        "address": "0x858640",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?Set_Buffers@CordMgr@@QAEXPAVUDP@@@Z",
+        "address": "0x8578C0",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?Unlisten@CordMgr@@QAE_NIG@Z",
+        "address": "0x857C00",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?Unsigned_Divide@?$Int@$0EA@@@SAXAAV1@0ABV1@1@Z",
+        "address": "0x82C220",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?Wait@CordMgr@@QAEHHH@Z",
+        "address": "0x857DE0",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?add@?$ArrayList@PAVCordCon@@@@QAEDABQAVCordCon@@J@Z",
+        "address": "0x85B6F0",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?add@?$ArrayList@UCordDataSocketClass@@@@QAEDABUCordDataSocketClass@@J@Z",
+        "address": "0x85B990",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?clear@?$ArrayList@UCordDataSocketClass@@@@QAEXXZ",
+        "address": "0x85B970",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?clear@?$ArrayList@UCordListenSocketClass@@@@QAEXXZ",
+        "address": "0x85BC30",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?exp_b_mod_c@?$Int@$0EA@@@QBE?AV1@ABV1@0@Z",
+        "address": "0x82C1A0",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?flush@@YAAAVostream@@AAV1@@Z",
+        "address": "0x850850",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?growVector@?$ArrayList@UCordDataSocketClass@@@@AAEDJ@Z",
+        "address": "0x85BC80",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?growVector@?$ArrayList@UCordListenSocketClass@@@@AAEDJ@Z",
+        "address": "0x85BD40",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?id@?$ctype@G@std@@$E",
+        "address": "0x42B320",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?shrinkVector@?$ArrayList@PAVCordCon@@@@AAEDXZ",
+        "address": "0x85B8B0",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?shrinkVector@?$ArrayList@PAVCordConnectingClass@@@@AAEDXZ",
+        "address": "0x85B630",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?shrinkVector@?$ArrayList@UCordDataSocketClass@@@@AAEDXZ",
+        "address": "0x85BB70",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "_$E55",
+        "address": "0x85BC50",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      }
+    ]
+  }
+}
