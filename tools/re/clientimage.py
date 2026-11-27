@@ -2,6 +2,13 @@
 
 Addresses are virtual addresses (image base 0x400000). The image is checked against the SHA-256
 of the retail client so every address in the docs refers to the same bytes.
+
+"Retail" is either of two images (D287, the user 2026-11-27), RETAIL_SHA256 below: EA's shipped client.exe and
+the copy in the Net-7-era install. They are the same 8,642,625 bytes except RETAIL_DIFFERENCES, 11 ranges of
+.data (732 bytes, 720 of them different) where Net-7 replaced EA's URL and host strings with its own; code, headers, .rdata and .rsrc are
+identical, so every address, every byte match and every tool result is the same on both. Neither is "more
+retail": a tool accepts both, and the reconstruction's target is the code they share. Where a byte comparison
+reaches those 732 bytes (tools/re/imagediff.py), the bytes are masked so the result holds for either.
 """
 import collections
 import hashlib
@@ -10,7 +17,17 @@ import re
 import struct
 import sys
 
-CLIENT_SHA256 = '249f852496f341c00361be95b66e7c0becc2c39e7cba026f9227e38b602651c4'
+CLIENT_SHA256 = '249f852496f341c00361be95b66e7c0becc2c39e7cba026f9227e38b602651c4'   # the default copy (DEFAULT_CLIENT)
+EA_SHA256 = '82663b2f99f639f4e49d43083b0e2bc0d7ed8b76a95eeb22dd9cc9d6079f7562'
+RETAIL_SHA256 = {   # both are "retail" (D287)
+    CLIENT_SHA256: "the Net-7-era install's (C:\\Program Files (x86)\\EA GAMES\\Earth & Beyond\\release)",
+    EA_SHA256: "EA's shipped client (C:\\EnBDevelopment\\ClientPOC_EA\\release)",
+}
+# The only bytes in which the two differ: (VA, length), all in .data, compared byte for byte 2026-11-27. EA's text ->
+# Net-7's: earthandbeyond.com / earthandbeyond.ea.com web pages (manual, credits, privacy, bugs, the embedded browser
+# home), the EA store upgrade links, auth.east.ea.com -> play.net-7.org, and the rest to net-7.org / enb-emulator.com.
+RETAIL_DIFFERENCES = [(0xB84710, 17), (0xB84734, 60), (0xB8478C, 74), (0xB9C300, 15), (0xB9FE5B, 41), (0xB9FE9C, 47),
+                      (0xB9FEF0, 53), (0xB9FF3F, 40), (0xB9FF7F, 49), (0xB9FFC3, 116), (0xBA0063, 220)]
 DEFAULT_CLIENT = os.path.join(os.environ.get('ENB_RETAIL_INSTALL') or r'C:\Program Files (x86)\EA GAMES\Earth & Beyond',
                               'release', 'client.exe')
 
@@ -20,8 +37,8 @@ class ClientImage:
         self.data = open(path, 'rb').read()
         if check:
             sha = hashlib.sha256(self.data).hexdigest()
-            if sha != CLIENT_SHA256:
-                sys.exit(f'{path}: SHA-256 {sha} is not the retail client these tools are for')
+            if sha not in RETAIL_SHA256:
+                sys.exit(f'{path}: SHA-256 {sha} is neither retail client (EA\'s or the Net-7 install\'s, D287)')
         d = self.data
         pe = struct.unpack_from('<I', d, 0x3c)[0]
         count = struct.unpack_from('<H', d, pe + 6)[0]

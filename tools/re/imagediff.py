@@ -64,9 +64,8 @@ SET_AT_THE_END = {'TimeDateStamp', 'CheckSum'}
 # TimeDateStamp (the update, 2004-03-17), the CodeView debug entry's TimeDateStamp and the NB10 record's signature
 # (the full link, 2004-02-05). Not masked, as a build reproduces them: the CheckSum (0 in retail), .rsrc (retail's
 # resources give all 8,156 bytes at retail's RVA), the rich header, the PDB path, the NB10 age.
-NET7_EDITS = [(0xB84710, 17), (0xB84734, 60), (0xB8478C, 74), (0xB9C300, 15), (0xB9FE5B, 41), (0xB9FE9C, 47),
-              (0xB9FEF0, 53), (0xB9FF3F, 40), (0xB9FF7F, 49), (0xB9FFC3, 116), (0xBA0063, 220)]
-EA_SHA256 = '82663b2f99f639f4e49d43083b0e2bc0d7ed8b76a95eeb22dd9cc9d6079f7562'
+NET7_EDITS = clientimage.RETAIL_DIFFERENCES      # D287: the two retail images' only difference
+EA_SHA256 = clientimage.EA_SHA256
 EXACT = os.path.join(REPO, 'build', 'programs', 'client-exact', 'client-exact.exe')
 
 
@@ -331,8 +330,7 @@ def main():
             sys.exit(f'the link failed: {log}')
     if not os.path.exists(a.ours):
         sys.exit(f'{a.ours}: no linked client (run with --link, or tools/vc6/build.py link --program client)')
-    if hashlib.sha256(open(a.client, 'rb').read()).hexdigest() != EA_SHA256:
-        clientimage.ClientImage(a.client)              # the SHA-256 check (retail; EA's client is the other one allowed)
+    clientimage.ClientImage(a.client)                  # the SHA-256 check: either retail client (D287)
     client, ours = Image(a.client), Image(a.ours)
     os.makedirs(a.out, exist_ok=True)
 
@@ -369,7 +367,7 @@ def main():
             f.write(f'0x{va:X}\t0x{mine:X}\t{mine - va}\t{sec}\t{name}\n')
 
     summary = {
-        'client': {'path': a.client, 'size': total, 'sha256': clientimage.CLIENT_SHA256},
+        'client': {'path': a.client, 'size': total, 'sha256': hashlib.sha256(client.data).hexdigest()},
         'ours': {'path': os.path.relpath(a.ours, REPO), 'size': len(ours.data),
                  'sha256': hashlib.sha256(ours.data).hexdigest(), 'mtime': int(os.path.getmtime(a.ours))},
         'identical': client.data == ours.data,

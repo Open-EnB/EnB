@@ -1,7 +1,10 @@
 # Earth & Beyond client: C++ reconstruction
 
-Rebuild of Westwood's E&B `client.exe` (retail, SHA-256 `249f8524…51c4`, built with VC6 SP4)
-in its original C++. Import EA's published Westwood code where the client contains it;
+Rebuild of Westwood's E&B `client.exe` (built with VC6 SP4) in its original C++. "Retail" means
+either of two images, both accepted, never a question to ask (D287): the Net-7-era install's (SHA-256
+`249f8524…51c4`, the tools' default) and EA's shipped client (`82663b2f…7562`, `C:\EnBDevelopment\ClientPOC_EA`).
+They differ only in 11 URL / host strings of `.data` (720 bytes in 11 ranges of 732, `clientimage.RETAIL_DIFFERENCES`); every
+address and every code byte is the same in both. Import EA's published Westwood code where the client contains it;
 reverse engineer the rest. Windows; shell is Git Bash (`/c/...` paths) or PowerShell.
 
 ## Start here (do this, don't re-derive)

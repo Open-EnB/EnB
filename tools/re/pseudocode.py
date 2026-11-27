@@ -34,7 +34,7 @@ import subprocess
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from clientimage import CLIENT_SHA256, DEFAULT_CLIENT, ClientImage  # noqa: E402
+from clientimage import CLIENT_SHA256, DEFAULT_CLIENT, RETAIL_SHA256, ClientImage  # noqa: E402
 from client import DATA, Names  # noqa: E402
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -185,7 +185,7 @@ def main():
 
     # A copy under .work: the install path's '&' breaks analyzeHeadless.bat's argument passing.
     exe = os.path.join(WORK, PROGRAM)
-    if not os.path.exists(exe) or hashlib.sha256(open(exe, 'rb').read()).hexdigest() != CLIENT_SHA256:
+    if not os.path.exists(exe) or hashlib.sha256(open(exe, 'rb').read()).hexdigest() not in RETAIL_SHA256:
         shutil.copyfile(args.client, exe)
     cmd = [os.path.join(GHIDRA, 'support', 'analyzeHeadless.bat'), PROJECT_DIR, PROJECT]
     if os.path.exists(os.path.join(PROJECT_DIR, PROJECT + '.gpr')):
