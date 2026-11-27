@@ -1309,7 +1309,7 @@ void LandClass::Unknown_473780(int row, float ratio, unsigned char *out)
 	}
 }
 
-// NOT EXACT: shape (24 masked rows: the left index's register and the loop end's scheduling; the client's frame since the Vector3 best / h / s; attempts.csv 0x473BC0)
+// NOT EXACT: shape (15 masked rows: the left index's register (client: left loaded and and-ed with the mask register) and the Reciprocals load's scheduling; attempts.csv 0x473BC0)
 void LandClass::Unknown_473BC0(int row, float ratio, unsigned char *out)
 {
 	unsigned int row0 = (Field->Get_Mask() & row) << Field->Get_Log2();
@@ -1349,10 +1349,10 @@ void LandClass::Unknown_473BC0(int row, float ratio, unsigned char *out)
 				best.Z = s.Z;
 			}
 			y = (y - 1) & Field->Get_Mask();
-			recip += 2;
 			left--;
 			right++;
 			offset = (offset - Field->Get_Size()) & Field->Get_Count_Mask();
+			recip += 2;
 			dist += 2.0f;
 		}
 		out[0] = Pack_Slope8(best.X);
