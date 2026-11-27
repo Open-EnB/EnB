@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1971 |
 | 2 | describes what the code does | 5015 |
-| 1 | neutral placeholder | 25206 |
+| 1 | neutral placeholder | 25208 |
 
 ## For review (score 3 and below)
 
@@ -94,6 +94,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `aux_item.h` | `app/client/aux_item.h:9` | provisional file name (the client's headers are not named by any string) |
 | 1 | `aux_lego.h` | `app/client/aux_lego.h:9` | provisional file name (the client's headers are not named by any string) |
 | 1 | `aux_manu.h` | `app/client/aux_manu.h:9` | provisional file name (the client's headers are not named by any string) |
+| 1 | `aux_mission.h` | `app/client/aux_mission.h:11` | provisional file name (the client's headers are not named by any string) |
 | 1 | `aux_player.h` | `app/client/aux_player.h:9` | provisional file name (the client's headers are not named by any string) |
 | 1 | `aux_roots.h` | `app/client/aux_roots.h:8` | provisional file name (the client's code is in co.cpp and an unattributed object) |
 | 1 | `Unknown9C` | `app/client/aux_roots.h:178` | neutral (D10): a member, not a field of the tree |
@@ -124,6 +125,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `UnknownB013ECEnum` | `app/client/aux_roots_manu.h:98` | untagged neutral name (D10) |
 | 1 | `UnknownB01394Enum` | `app/client/aux_roots_manu.h:99` | untagged neutral name (D10) |
 | 1 | `UnknownB0133CEnum` | `app/client/aux_roots_manu.h:101` | untagged neutral name (D10) |
+| 1 | `aux_roots_mission.h` | `app/client/aux_roots_mission.h:6` | provisional file name (the client's headers are not named by any string) |
 | 1 | `aux_roots_player.h` | `app/client/aux_roots_player.h:6` | provisional file name (the client's headers are not named by any string) |
 | 1 | `UnknownSendRootClass` | `app/client/aux_roots_player.h:150` | untagged neutral name (D10) |
 | 1 | `aux_roots_send.h` | `app/client/aux_roots_send.h:5` | provisional file name (a build aid: kept out of aux_roots.cpp, workflow.md 3.3) |
@@ -22309,17 +22311,13 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Get_Kernel` | `app/kernel/kernel.h:78` | what it returns |
 | 1 | `Cycle_Focus` | `app/kernel/kernel.h:90` | what it does |
 | 1 | `Remove_Running` | `app/kernel/kernel.h:102` | what it does |
-| 1 | `Unknown_BDBB84` | `app/main/main.cpp:4` | neutral (D10) |
-| 1 | `Unknown_BDADC8` | `app/main/main.cpp:5` | neutral (D10) |
-| 1 | `Unknown_BDB1B8` | `app/main/main.cpp:6` | neutral (D10) |
-| 1 | `Unknown_BDB1C0` | `app/main/main.cpp:7` | neutral (D10) |
-| 1 | `Unknown_Debug_Print` | `app/main/main.cpp:17` | 0x509E30 (dbgmgr.cpp), the log line |
-| 1 | `Unknown_BDBE50` | `app/main/main.cpp:18` | neutral (D10) |
-| 1 | `Unknown_445330` | `app/main/main.cpp:21` | untagged neutral name (D10) |
-| 1 | `Unknown_445350` | `app/main/main.cpp:27` | untagged neutral name (D10) |
-| 1 | `Unknown_445420` | `app/main/main.cpp:35` | untagged neutral name (D10) |
-| 1 | `Unknown_4454A0` | `app/main/main.cpp:63` | untagged neutral name (D10) |
-| 1 | `Unknown_4454C0` | `app/main/main.cpp:74` | untagged neutral name (D10) |
+| 1 | `Unknown_Debug_Print` | `app/main/main.cpp:14` | 0x509E30 (dbgmgr.cpp), the log line |
+| 1 | `Unknown_BDBE50` | `app/main/main.cpp:15` | neutral (D10) |
+| 1 | `Unknown_445330` | `app/main/main.cpp:18` | untagged neutral name (D10) |
+| 1 | `Unknown_445350` | `app/main/main.cpp:24` | untagged neutral name (D10) |
+| 1 | `Unknown_445420` | `app/main/main.cpp:32` | untagged neutral name (D10) |
+| 1 | `Unknown_4454A0` | `app/main/main.cpp:60` | untagged neutral name (D10) |
+| 1 | `Unknown_4454C0` | `app/main/main.cpp:71` | untagged neutral name (D10) |
 | 1 | `Unknown_Debug_Printf` | `app/main/main_client.cpp:41` | untagged neutral name (D10) |
 | 1 | `Unknown_Debug_Begin_Step` | `app/main/main_client.cpp:42` | 0x509EF0 (dbgmgr.cpp), WinMain's step log |
 | 1 | `Unknown_Debug_End_Step` | `app/main/main_client.cpp:43` | 0x50A1E0 (dbgmgr.cpp) |
@@ -22383,6 +22381,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `login` | `app/main/main_client.cpp:590` | its class |
 | 1 | `Unknown_BE82D0` | `app/main/main_client.cpp:608` | untagged neutral name (D10) |
 | 1 | `Unknown_7CB3D0` | `app/main/main_client.cpp:652` | untagged neutral name (D10) |
+| 1 | `Unknown_BDBB84` | `app/main/unknown_4441e0.cpp:5` | neutral (D10) |
+| 1 | `Unknown_BDADC8` | `app/main/unknown_4441e0.cpp:6` | neutral (D10) |
+| 1 | `Unknown_BDB1B8` | `app/main/unknown_4441e0.cpp:7` | neutral (D10) |
+| 1 | `Unknown_BDB1C0` | `app/main/unknown_4441e0.cpp:8` | neutral (D10) |
 | 1 | `Unknown_Debug_Print` | `app/main/unknown_445560.cpp:22` | 0x509E30 (dbgmgr.cpp), the log line |
 | 1 | `Unknown_VersionStruct` | `app/main/unknown_445560.cpp:24` | two ints (tsk_login.cpp reads Major / Minor of 0x4456C0's) |
 | 1 | `major, minor` | `app/main/unknown_445560.cpp:26` | its members |
@@ -23609,12 +23611,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown4E8700Class` | `app/shared/event.cpp:87` | neutral (D10), static ActiveIterators wrapper (0x4E86C0/0x4E8700) |
 | 1 | `ActiveIterators` | `app/shared/event.cpp:90` | the iterators of the Send_Event calls in progress (0xBE5610), fixed up by Remove_Listener and ~Subject |
 | 1 | `Pop_Iterator` | `app/shared/event.cpp:196` | pops Send_Event's iterator; false once ~Subject cleared it (inlined into 0x4E8E40) |
-| 1 | `Unknown_BE5628Struct` | `app/shared/event.cpp:215` | neutral (D10); 12 bytes, nothing refers to its two statics |
-| 1 | `Unknown00` | `app/shared/event.cpp:217` | neutral (D10) |
-| 1 | `Unknown04` | `app/shared/event.cpp:218` | neutral (D10) |
-| 1 | `Unknown08` | `app/shared/event.cpp:219` | neutral (D10) |
-| 1 | `Unknown_BE5638` | `app/shared/event.cpp:221` | neutral (D10) |
-| 1 | `Unknown_BE5628` | `app/shared/event.cpp:222` | neutral (D10) |
 | 1 | `Unknown_BE350C` | `app/shared/fp_ita.cpp:7` | neutral (D10): SClient::Do_Frame's frame toggle (sclient.cpp) |
 | 1 | `Unknown_04` | `app/shared/fp_ita.cpp:119` | untagged neutral name (D10) |
 | 1 | `Unknown_0C` | `app/shared/fp_ita.cpp:167` | untagged neutral name (D10) |
@@ -23671,8 +23667,14 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_BE5648Struct` | `app/shared/g_assert.cpp:7` | neutral (D10); 8 bytes: the map's 0x1C-byte nodes, nothing else uses it |
 | 1 | `Unknown00` | `app/shared/g_assert.cpp:9` | neutral (D10) |
 | 1 | `Unknown04` | `app/shared/g_assert.cpp:10` | neutral (D10) |
-| 1 | `std:` | `app/shared/g_assert.cpp:13` | neutral (D10); the key type is unknown |
-| 1 | `Unknown_BE5648` | `app/shared/g_assert.cpp:13` | untagged neutral name (D10) |
+| 1 | `Unknown_BE5628Struct` | `app/shared/g_assert.cpp:13` | neutral (D10); 12 bytes, nothing refers to its two statics |
+| 1 | `Unknown00` | `app/shared/g_assert.cpp:15` | neutral (D10) |
+| 1 | `Unknown04` | `app/shared/g_assert.cpp:16` | neutral (D10) |
+| 1 | `Unknown08` | `app/shared/g_assert.cpp:17` | neutral (D10) |
+| 1 | `Unknown_BE5638` | `app/shared/g_assert.cpp:19` | neutral (D10) |
+| 1 | `Unknown_BE5628` | `app/shared/g_assert.cpp:20` | neutral (D10) |
+| 1 | `std:` | `app/shared/g_assert.cpp:32` | neutral (D10); the key type is unknown |
+| 1 | `Unknown_BE5648` | `app/shared/g_assert.cpp:32` | untagged neutral name (D10) |
 | 1 | `UnknownGadgetBase00Class` | `app/shared/gclass.cpp:9` | untagged neutral name (D10) |
 | 1 | `Unknown_4A17B0` | `app/shared/gclass.cpp:13` | untagged neutral name (D10) |
 | 1 | `Unknown_08` | `app/shared/gclass.cpp:20` | untagged neutral name (D10) |

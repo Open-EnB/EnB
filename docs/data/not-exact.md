@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-470 entries in 222 files.
+470 entries in 223 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -24,6 +24,7 @@ edit the comments in the code, not this file.
 | `app/client/aux_roots_item.h:5` | `?` | marker | NOT EXACT (D42) where aux_roots.h is. NAME 1 [aux_roots_item.h]: provisional file name (the client's headers are not named by any string) |
 | `app/client/aux_roots_lego.h:5` | `?` | marker | NOT EXACT (D42) where aux_roots.h is. NAME 1 [aux_roots_lego.h]: provisional file name (the client's headers are not named by any string) |
 | `app/client/aux_roots_manu.h:5` | `?` | marker | NOT EXACT (D42) where aux_roots.h is. NAME 1 [aux_roots_manu.h]: provisional file name (the client's headers are not named by any string) |
+| `app/client/aux_roots_mission.h:5` | `?` | marker | NOT EXACT (D42) where aux_roots.h is. NAME 1 [aux_roots_mission.h]: provisional file name (the client's headers are not named by any string) |
 | `app/client/aux_roots_player.h:5` | `?` | marker | NOT EXACT (D42) where aux_roots.h is. NAME 1 [aux_roots_player.h]: provisional file name (the client's headers are not named by any string) |
 | `app/client/aux_roots_send.h:4` | `DeltaRPGInfoClass::DeltaRPGInfoClass` | mention | NOT EXACT (D42) where aux_roots.h is. NAME 1 [aux_roots_send.h]: provisional file name (a build aid: kept out of aux_roots.cpp, workflow.md 3.3) |
 | `app/client/aux_roots_shipinv.h:5` | `?` | marker | NOT EXACT (D42) where aux_roots.h is. NAME 1 [aux_roots_shipinv.h]: provisional file name (the client's headers are not named by any string) |
@@ -346,7 +347,6 @@ edit the comments in the code, not this file.
 | `app/client/unknown_6cce60.cpp:183` | `FontSys::Unknown_6CD950` | marker | NOT EXACT: registers (D64; attempts.csv): the cases in the client's body order, the clamp in its shape (the copy in the else arm); VC6 gives the clamped slot edi and index ebp, the client the reverse (0x6CD950) |
 | `app/client/unknown_6cce60.cpp:276` | `FontSys::Change_Text` | marker | NOT EXACT: shape (D64; attempts.csv): the client calls Store_Length out of line in the first " " assignment and hoists three member loads above stores (27 masked rows) |
 | `app/client/unknown_75b7b0.cpp:29` | `Unknown_75B8F0` | marker | NOT EXACT: functional (D64), 0.83: the x87 order of the cross product's length and the dot product (WE5) @0x75B8F0 |
-| `app/client/unknown_75b7b0.cpp:57` | `Unknown_75BB50` | marker | NOT EXACT: functional (D64), 0.37: ours calls StringClass::operator= where the client inlines it, so the registers differ (WE5) @0x75BB50 |
 | `app/client/unknown_7979a0.cpp:178` | `CameraController02Class::Unknown_7981B0` | marker | NOT EXACT: 0x7981B0 (every instruction is the client's once stack offsets are masked, and every row of both matrix products sums (M2Z + M1Y) + M0X as the client; row 2 of frame * one loads M22 / M21 before one.Z / one.Y where the client loads the vector first, a commutative operand order only) 0x7981B0 |
 | `app/client/unknown_7979a0.cpp:285` | `CameraController02Class::Unknown_7987F0` | mention | NOT EXACT; WWMath::Sin / Cos, matrix * vector and member reloads follow the client (P2). 0x798570 and 0x7987F0 exact: Vector3::Scale(Vector3(1,2,2)) / (1,1.25,1.25) gives the client's matrix product order. |
 | `app/client/unknown_79c8e0.cpp:20` | `CameraModule79C8E0Class::Unknown_08` | marker | NOT EXACT: shape (18 masked rows, was 184: the first product after each Inv_Sqrt comes out fld st(0); fmul mem where the client has fld mem; fmul st(1), and two stores schedule apart; attempts.csv) |
