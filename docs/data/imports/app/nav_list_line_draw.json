@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x7AE610"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "RECONSTRUCTED from client.exe: __FILE__ 'e:\\build\\beta\\G\\app\\client\\nav_list_line_draw.cpp' (0xB9EF98, FAIL_IF '!Client' l.137 in 0x7B9DC0); the object starts at the constructor 0x7B97F0 after nav_list_builder.cpp's template instances",
  "expected": {},
@@ -94,6 +92,7 @@
   "0x7B9C80",
   "0x7B9CB0",
   "0x7B9CD0",
+  "0x7B9DC0",
   "0x7BA2C0",
   "0x7BA340",
   "0x7BA380",
