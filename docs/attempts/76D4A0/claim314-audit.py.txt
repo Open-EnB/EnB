@@ -1,0 +1,114 @@
+from pathlib import Path
+import argparse, hashlib, json, struct, sys
+import capstone
+
+ROOT=Path(__file__).resolve().parents[3]
+sys.path.insert(0,str(ROOT/'tools/re'))
+from objmatch import CoffObject, symbol_addresses, thunks_of
+from clientimage import ClientImage
+
+p=argparse.ArgumentParser()
+p.add_argument('--object',required=True)
+p.add_argument('--baseline',required=True)
+p.add_argument('--source',required=True)
+p.add_argument('--matches',required=True)
+p.add_argument('--baseline-matches',required=True)
+p.add_argument('--output',required=True)
+a=p.parse_args()
+sha=lambda b:hashlib.sha256(b).hexdigest()
+obj=CoffObject(a.object); base=CoffObject(a.baseline)
+img=ClientImage('/home/dev/Games/earth-and-beyond/prefix/drive_c/Program Files (x86)/EA GAMES/Earth & Beyond/release/client.exe')
+assert sha(img.data)=='249f852496f341c00361be95b66e7c0becc2c39e7cba026f9227e38b602651c4'
+symbol='?Set_Data@HtmlGifImageClass@@UAEHPADH@Z'; addr=0x76D4A0
+_,sec,start,end=next(f for f in obj.functions() if f[0]==symbol)
+_,_,length=obj.pattern(sec,start,end)
+assert length==998
+info=obj.sections[sec]
+raw=obj.data[info['raw']+start:info['raw']+start+length]
+retail=img.data[img.offset(addr):img.offset(addr)+length]
+mask=bytearray(b'\xff'*length)
+relocations=[]
+known=symbol_addresses(); thunks=thunks_of(img)
+expected={123:('??_C@_06NDEI@GIF87a?$AA@',6,0xB9C8D8),129:('_strncmp',20,None),439:('?Build_Pixel@@YAHPAVDSurface@@HHH@Z',20,0x76D340),669:('?Decode@HtmlGifImageClass@@QAEFF@Z',20,0x76D990)}
+for off,width,typ,sym,add in obj.reloc_targets(sec,start,length):
+ assert off in expected and width==4 and add==bytes(4)
+ name,expected_type,target=expected[off]
+ assert sym['name']==name and typ==expected_type
+ value=int.from_bytes(retail[off:off+4],'little')
+ if typ==20:
+  value=(addr+off+4+struct.unpack('<i',retail[off:off+4])[0])&0xffffffff
+  value=thunks.get(value,value)
+ if target is None:
+  assert value in known[name],(name,hex(value),known.get(name))
+ else:assert value==target,(name,hex(value),hex(target))
+ literal=obj.literal(sym)
+ if literal is not None:
+  assert literal==b'GIF87a\0'
+  assert img.data[img.offset(value):img.offset(value)+len(literal)]==literal
+ mask[off:off+width]=bytes(width)
+ relocations.append(dict(offset=off,width=width,type=typ,symbol=name,addend=add.hex(),retail_target=hex(value),literal=literal.hex() if literal is not None else None))
+assert len(relocations)==4
+assert all((x&z)==(y&z) for x,y,z in zip(raw,retail,mask))
+md=capstone.Cs(capstone.CS_ARCH_X86,capstone.CS_MODE_32);md.detail=True
+left=list(md.disasm(raw,0));right=list(md.disasm(retail,addr))
+assert len(left)==len(right)==298
+assert sum(i.size for i in left)==sum(i.size for i in right)==length
+edges=[];returns=[];indirect=[]
+for l,r in zip(left,right):
+ assert l.address==r.address-addr and l.size==r.size and l.mnemonic==r.mnemonic
+ if l.group(capstone.CS_GRP_JUMP):
+  assert l.operands[0].type==r.operands[0].type==capstone.x86.X86_OP_IMM
+  assert l.operands[0].imm==r.operands[0].imm-addr
+  assert l.operands[0].imm in {i.address for i in left}
+  edges.append([l.address,l.mnemonic,l.operands[0].imm])
+ if l.mnemonic.startswith('ret'):
+  assert l.bytes==r.bytes
+  returns.append([l.address,l.bytes.hex()])
+ if l.mnemonic=='call' and l.operands[0].type!=capstone.x86.X86_OP_IMM:
+  assert l.bytes==r.bytes
+  indirect.append([l.address,l.op_str])
+assert indirect==[[304,'dword ptr [edx + 0x14]']]
+assert len(returns)==2
+assert not any(op.mem.segment==capstone.x86.X86_REG_FS for i in left for op in i.operands if op.type==capstone.x86.X86_OP_MEM)
+# Exact byte identity outside relocation fields also fixes receiver setup,
+# stack cleanup, literal immediates, flags, and every vtable-slot instruction.
+# The only indirect call is Create_Surface: mov edx,[esi], push height,width,
+# mov ecx,esi, call [edx+0x14]. Build_Pixel receives per-entry [esi+4].
+assert raw[0x12a:0x133]==retail[0x12a:0x133]
+assert raw[0x1b0:0x1b6]==retail[0x1b0:0x1b6]
+
+def graph(o,s):
+ return [[off,n,t,sym['name'] if sym else None,sym['section'] if sym else None,sym['value'] if sym else None,add.hex()] for off,n,t,sym,add in o.reloc_targets(s,0,o.sections[s]['size'])]
+changes=[]
+assert len(obj.sections)==len(base.sections)
+for index,(s,b) in enumerate(zip(obj.sections,base.sections)):
+ raw_s=obj.data[s['raw']:s['raw']+s['size']] if s['raw'] else b''
+ raw_b=base.data[b['raw']:b['raw']+b['size']] if b['raw'] else b''
+ if raw_s!=raw_b or graph(obj,index)!=graph(base,index):
+  changes.append(dict(section=index,name=s['name'],before=b['size'],after=s['size'],raw_equal=raw_s==raw_b,relocations_equal=graph(obj,index)==graph(base,index)))
+ else:assert s['flags']==b['flags'] and s['size']==b['size']
+assert {c['section'] for c in changes if c['name'] != '.debug$F'} == {sec}, changes
+assert all(c['section'] == sec or c['name'] == '.debug$F' for c in changes), changes
+assert changes[1]['name']=='.debug$F' and changes[1]['relocations_equal']
+# All prior executable sections, their entire relocation graphs and supporting
+# data (vtable, constructors' EH support if any, asserts and code-mask) are
+# unchanged. No new function/helper out-of-line emission or EH section exists.
+assert {f[0] for f in obj.functions()}=={f[0] for f in base.functions()}
+helper=next(f for f in obj.functions() if f[0].startswith('?Build_Pixel'))
+_,hs,hstart,hend=helper
+hlen=obj.pattern(hs,hstart,hend)[2]
+assert hlen==123 and not obj.reloc_targets(hs,hstart,hlen)
+hraw=obj.data[obj.sections[hs]['raw']+hstart:obj.sections[hs]['raw']+hstart+hlen]
+assert hraw==img.data[img.offset(0x76D340):img.offset(0x76D340)+hlen]
+helper_calls=[[i.address,i.op_str] for i in md.disasm(hraw,0) if i.mnemonic=='call']
+assert helper_calls==[[12,'dword ptr [eax + 0x40]'],[24,'dword ptr [edx + 0x40]'],[36,'dword ptr [eax + 0x40]']],helper_calls
+def pairs(path):
+ rows=json.loads(Path(path).read_text())
+ return ({address for row in rows if row['status']=='exact' for address in row['addresses']}, {(row['symbol'],address) for row in rows if row['status']=='exact' for address in row['addresses']})
+now_p,now_s=pairs(a.matches);old_p,old_s=pairs(a.baseline_matches)
+assert len(old_p)==len(old_s) and len(old_p) >= 11
+assert now_p-old_p=={'0x76D4A0'} and not old_p-now_p
+assert now_s-old_s=={(symbol,'0x76D4A0')} and not old_s-now_s
+result=dict(object=str(Path(a.object).resolve()),object_sha256=sha(obj.data),baseline=str(Path(a.baseline).resolve()),baseline_sha256=sha(base.data),source=str(Path(a.source).resolve()),source_sha256=sha(Path(a.source).read_bytes()),matches=str(Path(a.matches).resolve()),retail_sha256=sha(img.data),length=length,instructions=len(left),fixed_bytes=length-16,relocations=relocations,branches=edges,returns=returns,indirect_calls=indirect,changed_sections=changes,build_pixel=dict(length=hlen,sha256=sha(hraw),raw_retail_equal=True,calls=helper_calls),file_address=dict(before=len(old_p),after=len(now_p),gained=['0x76D4A0'],lost=[]),symbol_address=dict(before=len(old_p),after=len(now_p),gained=[[symbol,'0x76D4A0']],lost=[]),eh='No SEH prologue, handler, FuncInfo, unwind states, cleanup funclets or switch tables in target; all other sections and relocation graphs unchanged except target debug record.',preservation='All other executable/data sections and relocation graphs byte identical to baseline; all original 11 pairs in both sets preserved.')
+Path(a.output).write_text(json.dumps(result,indent=2)+'\n')
+print(json.dumps({k:result[k] for k in ('source_sha256','length','instructions','fixed_bytes','changed_sections')}))

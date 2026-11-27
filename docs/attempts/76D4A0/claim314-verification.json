@@ -1,0 +1,731 @@
+{
+  "integrated_result": {
+    "source_sha256": "1d840e07c61da0137ab8dfd1e56a3759e9cfd2b2ba2eef155d705dba2af67dd7",
+    "object_sha256": "79afacfc6e8e6f3af6e2219b6307e427f2c0521a01b952195ebf61353d176742",
+    "final_run": "root_two_final",
+    "original_file_pairs": 11,
+    "final_file_pairs": 13,
+    "original_symbol_pairs": 11,
+    "final_symbol_pairs": 13,
+    "file_gains": [
+      "0x76D4A0",
+      "0x76DF60"
+    ],
+    "file_losses": [],
+    "symbol_gains": [
+      [
+        "?Get_Next_Code@HtmlGifImageClass@@QAEFXZ",
+        "0x76DF60"
+      ],
+      [
+        "?Set_Data@HtmlGifImageClass@@UAEHPADH@Z",
+        "0x76D4A0"
+      ]
+    ],
+    "symbol_losses": [],
+    "baseline_control_reproduced": true,
+    "preexisting_symbols_unchanged": 11,
+    "semantic_graph_audits": [
+      "final-data-audit.json",
+      "final-code-audit.json"
+    ],
+    "full_linked_image_parity": false,
+    "scope": "canonical native single-TU proof; all recorded baseline pairs reproduced"
+  },
+  "set_data": {
+    "object": "/home/dev/Projects/EnB/.work/claim-314/runs/root_two_final/gifload.obj",
+    "object_sha256": "79afacfc6e8e6f3af6e2219b6307e427f2c0521a01b952195ebf61353d176742",
+    "baseline": "/home/dev/Projects/EnB/.work/claim-314/runs/sol_code_ret_explicit_zero/gifload.obj",
+    "baseline_sha256": "508f5d700dcc103ae37fe3909aa5671ce0c99e117be2da19866d115e9c08e7f6",
+    "source": "/home/dev/Projects/EnB/app/client/html/image/gifload.cpp",
+    "source_sha256": "1d840e07c61da0137ab8dfd1e56a3759e9cfd2b2ba2eef155d705dba2af67dd7",
+    "matches": "/home/dev/Projects/EnB/.work/claim-314/runs/root_two_final/matches.json",
+    "retail_sha256": "249f852496f341c00361be95b66e7c0becc2c39e7cba026f9227e38b602651c4",
+    "length": 998,
+    "instructions": 298,
+    "fixed_bytes": 982,
+    "relocations": [
+      {
+        "offset": 123,
+        "width": 4,
+        "type": 6,
+        "symbol": "??_C@_06NDEI@GIF87a?$AA@",
+        "addend": "00000000",
+        "retail_target": "0xb9c8d8",
+        "literal": "47494638376100"
+      },
+      {
+        "offset": 129,
+        "width": 4,
+        "type": 20,
+        "symbol": "_strncmp",
+        "addend": "00000000",
+        "retail_target": "0xa26730",
+        "literal": null
+      },
+      {
+        "offset": 439,
+        "width": 4,
+        "type": 20,
+        "symbol": "?Build_Pixel@@YAHPAVDSurface@@HHH@Z",
+        "addend": "00000000",
+        "retail_target": "0x76d340",
+        "literal": null
+      },
+      {
+        "offset": 669,
+        "width": 4,
+        "type": 20,
+        "symbol": "?Decode@HtmlGifImageClass@@QAEFF@Z",
+        "addend": "00000000",
+        "retail_target": "0x76d990",
+        "literal": null
+      }
+    ],
+    "branches": [
+      [
+        73,
+        "jge",
+        95
+      ],
+      [
+        93,
+        "jmp",
+        98
+      ],
+      [
+        104,
+        "jl",
+        985
+      ],
+      [
+        114,
+        "jl",
+        65
+      ],
+      [
+        138,
+        "jne",
+        985
+      ],
+      [
+        150,
+        "jb",
+        985
+      ],
+      [
+        158,
+        "ja",
+        985
+      ],
+      [
+        170,
+        "jb",
+        985
+      ],
+      [
+        178,
+        "ja",
+        985
+      ],
+      [
+        190,
+        "jb",
+        985
+      ],
+      [
+        198,
+        "ja",
+        985
+      ],
+      [
+        280,
+        "jg",
+        985
+      ],
+      [
+        292,
+        "jg",
+        985
+      ],
+      [
+        312,
+        "je",
+        985
+      ],
+      [
+        340,
+        "jle",
+        400
+      ],
+      [
+        356,
+        "jge",
+        985
+      ],
+      [
+        382,
+        "jl",
+        985
+      ],
+      [
+        398,
+        "jl",
+        342
+      ],
+      [
+        455,
+        "jne",
+        417
+      ],
+      [
+        471,
+        "jge",
+        963
+      ],
+      [
+        498,
+        "je",
+        733
+      ],
+      [
+        507,
+        "jne",
+        950
+      ],
+      [
+        517,
+        "jge",
+        533
+      ],
+      [
+        531,
+        "jmp",
+        536
+      ],
+      [
+        542,
+        "jl",
+        963
+      ],
+      [
+        552,
+        "jl",
+        515
+      ],
+      [
+        560,
+        "jl",
+        971
+      ],
+      [
+        578,
+        "jne",
+        642
+      ],
+      [
+        595,
+        "jle",
+        642
+      ],
+      [
+        605,
+        "jge",
+        985
+      ],
+      [
+        625,
+        "jl",
+        985
+      ],
+      [
+        635,
+        "jl",
+        599
+      ],
+      [
+        640,
+        "jl",
+        597
+      ],
+      [
+        694,
+        "jge",
+        963
+      ],
+      [
+        722,
+        "jne",
+        963
+      ],
+      [
+        728,
+        "jmp",
+        457
+      ],
+      [
+        735,
+        "jge",
+        900
+      ],
+      [
+        759,
+        "jne",
+        900
+      ],
+      [
+        767,
+        "jge",
+        776
+      ],
+      [
+        784,
+        "jge",
+        800
+      ],
+      [
+        798,
+        "jmp",
+        803
+      ],
+      [
+        805,
+        "je",
+        824
+      ],
+      [
+        815,
+        "jge",
+        824
+      ],
+      [
+        832,
+        "jge",
+        841
+      ],
+      [
+        849,
+        "jge",
+        865
+      ],
+      [
+        863,
+        "jmp",
+        868
+      ],
+      [
+        882,
+        "jge",
+        457
+      ],
+      [
+        895,
+        "jmp",
+        457
+      ],
+      [
+        908,
+        "jge",
+        457
+      ],
+      [
+        928,
+        "jle",
+        457
+      ],
+      [
+        936,
+        "jge",
+        945
+      ],
+      [
+        946,
+        "jne",
+        934
+      ],
+      [
+        948,
+        "jmp",
+        900
+      ],
+      [
+        961,
+        "je",
+        971
+      ]
+    ],
+    "returns": [
+      [
+        982,
+        "c20800"
+      ],
+      [
+        995,
+        "c20800"
+      ]
+    ],
+    "indirect_calls": [
+      [
+        304,
+        "dword ptr [edx + 0x14]"
+      ]
+    ],
+    "changed_sections": [
+      {
+        "section": 18,
+        "name": ".text",
+        "before": 1184,
+        "after": 1008,
+        "raw_equal": false,
+        "relocations_equal": false
+      },
+      {
+        "section": 20,
+        "name": ".debug$F",
+        "before": 16,
+        "after": 16,
+        "raw_equal": false,
+        "relocations_equal": true
+      }
+    ],
+    "build_pixel": {
+      "length": 123,
+      "sha256": "57e525c32bf83c7a836b621c37f96ff9b3a6c8ee8d56ccd47de1bb70ecd0159d",
+      "raw_retail_equal": true,
+      "calls": [
+        [
+          12,
+          "dword ptr [eax + 0x40]"
+        ],
+        [
+          24,
+          "dword ptr [edx + 0x40]"
+        ],
+        [
+          36,
+          "dword ptr [eax + 0x40]"
+        ]
+      ]
+    },
+    "file_address": {
+      "before": 12,
+      "after": 13,
+      "gained": [
+        "0x76D4A0"
+      ],
+      "lost": []
+    },
+    "symbol_address": {
+      "before": 12,
+      "after": 13,
+      "gained": [
+        [
+          "?Set_Data@HtmlGifImageClass@@UAEHPADH@Z",
+          "0x76D4A0"
+        ]
+      ],
+      "lost": []
+    },
+    "eh": "No SEH prologue, handler, FuncInfo, unwind states, cleanup funclets or switch tables in target; all other sections and relocation graphs unchanged except target debug record.",
+    "preservation": "All other executable/data sections and relocation graphs byte identical to baseline; all original 11 pairs in both sets preserved."
+  },
+  "get_next_code": {
+    "object": "/home/dev/Projects/EnB/.work/claim-314/runs/root_two_final/gifload.obj",
+    "object_sha256": "79afacfc6e8e6f3af6e2219b6307e427f2c0521a01b952195ebf61353d176742",
+    "source": "/home/dev/Projects/EnB/app/client/html/image/gifload.cpp",
+    "source_sha256": "1d840e07c61da0137ab8dfd1e56a3759e9cfd2b2ba2eef155d705dba2af67dd7",
+    "target": "0x76df60",
+    "full_body_bytes": 515,
+    "instruction_count": 140,
+    "raw_body_sha256": "8d284fdee6c460d397b37029b824d031a2805636501a00847ff01052d074b5fa",
+    "resolved_body_sha256": "aed87ca1662ee550e117e3d100fa2f56315ddee667ff29f17b8e8670a28bf91c",
+    "full_resolved_body_equals_retail": true,
+    "actual_final_word_load": true,
+    "relocations": [
+      {
+        "offset": 164,
+        "symbol": "_b1",
+        "symbol_section": 2,
+        "symbol_value": 0,
+        "kind": 6,
+        "width": 4,
+        "addend": "00000000",
+        "retail_address": "0xbe82dc"
+      },
+      {
+        "offset": 216,
+        "symbol": "_b1",
+        "symbol_section": 2,
+        "symbol_value": 0,
+        "kind": 6,
+        "width": 4,
+        "addend": "00000000",
+        "retail_address": "0xbe82dc"
+      },
+      {
+        "offset": 230,
+        "symbol": "_ret",
+        "symbol_section": 2,
+        "symbol_value": 2,
+        "kind": 6,
+        "width": 4,
+        "addend": "00000000",
+        "retail_address": "0xbe82de"
+      },
+      {
+        "offset": 390,
+        "symbol": "_b1",
+        "symbol_section": 2,
+        "symbol_value": 0,
+        "kind": 6,
+        "width": 4,
+        "addend": "00000000",
+        "retail_address": "0xbe82dc"
+      },
+      {
+        "offset": 417,
+        "symbol": "_b1",
+        "symbol_section": 2,
+        "symbol_value": 0,
+        "kind": 6,
+        "width": 4,
+        "addend": "00000000",
+        "retail_address": "0xbe82dc"
+      },
+      {
+        "offset": 426,
+        "symbol": "_ret",
+        "symbol_section": 2,
+        "symbol_value": 2,
+        "kind": 6,
+        "width": 4,
+        "addend": "00000000",
+        "retail_address": "0xbe82de"
+      },
+      {
+        "offset": 499,
+        "symbol": "_code_mask",
+        "symbol_section": 3,
+        "symbol_value": 0,
+        "kind": 6,
+        "width": 4,
+        "addend": "00000000",
+        "retail_address": "0xb9c8b8"
+      },
+      {
+        "offset": 506,
+        "symbol": "_ret",
+        "symbol_section": 2,
+        "symbol_value": 2,
+        "kind": 6,
+        "width": 4,
+        "addend": "00000000",
+        "retail_address": "0xbe82de"
+      }
+    ],
+    "static_accesses": [
+      {
+        "address": "0x76e002",
+        "instruction": "mov byte ptr [0xbe82dc], dl",
+        "symbol": "_b1",
+        "width": 1
+      },
+      {
+        "address": "0x76e036",
+        "instruction": "mov dl, byte ptr [0xbe82dc]",
+        "symbol": "_b1",
+        "width": 1
+      },
+      {
+        "address": "0x76e043",
+        "instruction": "mov word ptr [0xbe82de], cx",
+        "symbol": "_ret",
+        "width": 2
+      },
+      {
+        "address": "0x76e0e4",
+        "instruction": "mov byte ptr [0xbe82dc], dl",
+        "symbol": "_b1",
+        "width": 1
+      },
+      {
+        "address": "0x76e0fd",
+        "instruction": "movzx dx, byte ptr [0xbe82dc]",
+        "symbol": "_b1",
+        "width": 1
+      },
+      {
+        "address": "0x76e107",
+        "instruction": "or word ptr [0xbe82de], dx",
+        "symbol": "_ret",
+        "width": 2
+      },
+      {
+        "address": "0x76e14f",
+        "instruction": "mov ax, word ptr [ecx*2 + 0xb9c8b8]",
+        "symbol": "_code_mask",
+        "width": 2
+      },
+      {
+        "address": "0x76e157",
+        "instruction": "mov cx, word ptr [0xbe82de]",
+        "symbol": "_ret",
+        "width": 2
+      }
+    ],
+    "branches": [
+      [
+        "0x76df6d",
+        "jne",
+        "0x76e02c"
+      ],
+      [
+        "0x76df7b",
+        "jg",
+        "0x76dffa"
+      ],
+      [
+        "0x76df97",
+        "jge",
+        "0x76dfad"
+      ],
+      [
+        "0x76dfab",
+        "jmp",
+        "0x76dfb0"
+      ],
+      [
+        "0x76dfbb",
+        "jge",
+        "0x76dfc8"
+      ],
+      [
+        "0x76dfc8",
+        "je",
+        "0x76dffa"
+      ],
+      [
+        "0x76dfd4",
+        "jle",
+        "0x76dffa"
+      ],
+      [
+        "0x76dfd8",
+        "jge",
+        "0x76dfdc"
+      ],
+      [
+        "0x76e056",
+        "jle",
+        "0x76e13a"
+      ],
+      [
+        "0x76e064",
+        "jg",
+        "0x76e0dc"
+      ],
+      [
+        "0x76e080",
+        "jge",
+        "0x76e096"
+      ],
+      [
+        "0x76e094",
+        "jmp",
+        "0x76e099"
+      ],
+      [
+        "0x76e0a4",
+        "jl",
+        "0x76dfbd"
+      ],
+      [
+        "0x76e0aa",
+        "je",
+        "0x76e0dc"
+      ],
+      [
+        "0x76e0b6",
+        "jle",
+        "0x76e0dc"
+      ],
+      [
+        "0x76e0ba",
+        "jge",
+        "0x76e0be"
+      ],
+      [
+        "0x76e134",
+        "jg",
+        "0x76e05c"
+      ]
+    ],
+    "returns": [
+      "0x76dfc7",
+      "0x76e162"
+    ],
+    "calls": [],
+    "eh": "no calls, no FS setup, no EH/FuncInfo/unwind relocations",
+    "bss": {
+      "b1_offset": 0,
+      "ret_offset": 2,
+      "size": 4,
+      "alignment": 4,
+      "raw": 0,
+      "flags": "0xc0300080",
+      "initial_values": "loader-zeroed uninitialized storage"
+    },
+    "retail_b1_ret_in_virtual_zero_tail": true,
+    "retail_data_virtual_zero_tail": [
+      "0xbdb000",
+      "0xc42f14"
+    ],
+    "code_mask_payload_equal": true,
+    "code_mask_payload_hex": "00000100030007000f001f003f007f00ff00ff01ff03ff07ff0f",
+    "changed_function_raw_bodies": [
+      "?Get_Next_Code@HtmlGifImageClass@@QAEFXZ",
+      "?Set_Data@HtmlGifImageClass@@UAEHPADH@Z"
+    ],
+    "new_function_symbols": [],
+    "allowed_changed_symbols": [
+      "?Set_Data@HtmlGifImageClass@@UAEHPADH@Z"
+    ],
+    "allowed_new_function_symbols": [],
+    "other_function_relocation_referents_and_addends_unchanged": true,
+    "crt_sections_unchanged": true,
+    "initialized_data_sections_unchanged": true,
+    "limit": "Relocation graph and relative BSS layout audited. This does not claim a full linked-image address/layout comparison."
+  },
+  "preservation": {
+    "before_object_sha256": "b151e6224d321d3f070e07c853114d6ded66a70f9a4a352fc8d85db64e78995b",
+    "after_object_sha256": "79afacfc6e8e6f3af6e2219b6307e427f2c0521a01b952195ebf61353d176742",
+    "checked_symbols": 11,
+    "body_or_relocation_changes": [],
+    "eh_funclet_changes": []
+  },
+  "compiled_inputs": {
+    "compilations": 69,
+    "changed_compilations": 67,
+    "source_hashes": 68,
+    "incomplete_inputs": [],
+    "model_compilations": {
+      "Codex coordinator": 4,
+      "gpt-6.1-terra high": 43,
+      "gpt-6.1-sol high": 22
+    },
+    "target_output_groups": {
+      "0x76D4A0": {
+        "raw": 26,
+        "masked": 26
+      },
+      "0x76D990": {
+        "raw": 21,
+        "masked": 21
+      },
+      "0x76DF60": {
+        "raw": 4,
+        "masked": 4
+      }
+    }
+  }
+}
