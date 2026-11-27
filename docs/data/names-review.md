@@ -4283,7 +4283,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_7AAED0` | `app/client/galaxy_map_render.cpp:563` | untagged neutral name (D10) |
 | 1 | `Unknown_7ADFC0` | `app/client/galaxy_map_render.cpp:566` | untagged neutral name (D10) |
 | 1 | `Unknown_7A83D0` | `app/client/galaxy_map_render.cpp:720` | untagged neutral name (D10) |
-| 1 | `Unknown_7AE220` | `app/client/galaxy_map_render.cpp:744` | untagged neutral name (D10) |
+| 1 | `Unknown_7AE220` | `app/client/galaxy_map_render.cpp:745` | untagged neutral name (D10) |
 | 1 | `Unknown_7ABA70` | `app/client/galaxy_map_render.cpp:802` | untagged neutral name (D10) |
 | 1 | `Unknown_7A89A0` | `app/client/galaxy_map_render.cpp:808` | untagged neutral name (D10) |
 | 1 | `Unknown_7AA8C0` | `app/client/galaxy_map_render.cpp:875` | untagged neutral name (D10) |
