@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1971 |
 | 2 | describes what the code does | 5016 |
-| 1 | neutral placeholder | 25224 |
+| 1 | neutral placeholder | 25225 |
 
 ## For review (score 3 and below)
 
@@ -11213,19 +11213,20 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_55F760` | `app/client/ui_avsel.cpp:448` | untagged neutral name (D10) |
 | 1 | `Unknown_784A50` | `app/client/ui_avsel.cpp:453` | untagged neutral name (D10) |
 | 1 | `Unknown_55E8E0` | `app/client/ui_avsel.cpp:458` | untagged neutral name (D10) |
-| 1 | `Unknown34` | `app/client/ui_avsel.cpp:472` | untagged neutral name (D10) |
+| 1 | `Get_Unknown034` | `app/client/ui_avsel.cpp:472` | untagged neutral name (D10) |
 | 1 | `Unknown_588A70` | `app/client/ui_avsel.cpp:472` | untagged neutral name (D10) |
-| 1 | `Unknown_5594B0` | `app/client/ui_avsel.cpp:490` | untagged neutral name (D10) |
-| 1 | `Set_Unknown244` | `app/client/ui_avsel.cpp:491` | untagged neutral name (D10) |
-| 1 | `Unknown088C` | `app/client/ui_avsel.cpp:491` | untagged neutral name (D10) |
-| 1 | `Get_Unknown1B0` | `app/client/ui_avsel.cpp:491` | untagged neutral name (D10) |
-| 1 | `Unknown1CC` | `app/client/ui_avsel.cpp:493` | untagged neutral name (D10) |
-| 1 | `Unknown_67AE60` | `app/client/ui_avsel.cpp:500` | untagged neutral name (D10) |
-| 1 | `Unknown_8C` | `app/client/ui_avsel.cpp:513` | untagged neutral name (D10) |
+| 1 | `Unknown_5594B0` | `app/client/ui_avsel.cpp:489` | untagged neutral name (D10) |
+| 1 | `Set_Unknown244` | `app/client/ui_avsel.cpp:490` | untagged neutral name (D10) |
+| 1 | `Unknown088C` | `app/client/ui_avsel.cpp:490` | untagged neutral name (D10) |
+| 1 | `Get_Unknown1B0` | `app/client/ui_avsel.cpp:490` | untagged neutral name (D10) |
+| 1 | `Unknown1CC` | `app/client/ui_avsel.cpp:492` | untagged neutral name (D10) |
+| 1 | `Unknown_67AE60` | `app/client/ui_avsel.cpp:498` | untagged neutral name (D10) |
+| 1 | `Unknown_8C` | `app/client/ui_avsel.cpp:512` | untagged neutral name (D10) |
 | 1 | `Unknown_67B270` | `app/client/ui_avsel.cpp:525` | untagged neutral name (D10) |
 | 1 | `Unknown11C` | `app/client/ui_avsel.cpp:539` | untagged neutral name (D10) |
 | 1 | `Unknown_55FBB0` | `app/client/ui_avsel.cpp:540` | untagged neutral name (D10) |
 | 1 | `Unknown_74` | `app/client/ui_avsel.cpp:544` | untagged neutral name (D10) |
+| 1 | `Unknown34` | `app/client/ui_avsel.cpp:576` | untagged neutral name (D10) |
 | 1 | `Unknown_1C4` | `app/client/ui_avsel.cpp:606` | untagged neutral name (D10) |
 | 1 | `Unknown_67AEA0` | `app/client/ui_avsel.cpp:609` | untagged neutral name (D10) |
 | 1 | `Unknown_67ADD0` | `app/client/ui_avsel.cpp:619` | untagged neutral name (D10) |

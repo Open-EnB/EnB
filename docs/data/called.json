@@ -1995,6 +1995,9 @@
 "?strtok_r@@YAPADPADPBDPAPAD@Z": [
 "0x9DEBF0"
 ],
+"?strtrim@@YAPADPAD@Z": [
+"0x9DB030"
+],
 "?truncate@Wstring@@QAEDK@Z": [
 "0x8B7AC0"
 ],
