@@ -68,6 +68,7 @@ public:
 // NAME 2: ours (VIDTEST's land, functional): the grid clamped at the edges, world coordinates
 	int						Get_Size(void) const					{ return Size; }
 	float						Get_Spacing(void) const				{ return XSpacing; }
+	const Vector3 &		Get_Scale(void) const				{ return *(const Vector3 *)&XSpacing; }	// NAME 2: XSpacing / YSpacing / VScale read as one Vector3 (LandClass 0x46F120 copies it by value: a 12-byte slot, X read)
 	float						Get_Extent(void) const				{ return XSpacing * Size; }
 	float						Get_Vertex_Height(int i, int j) const;
 	Vector3					Get_Vertex(int i, int j) const;
