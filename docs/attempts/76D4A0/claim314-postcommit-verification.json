@@ -1,0 +1,151 @@
+{
+  "retained_revision": "5fff15ea8743e9071da04373233dbb7c889e17d1",
+  "input": {
+    "source": "/home/dev/Projects/EnB/.work/claim-314/retained-5fff15ea8/tree/app/client/html/image/gifload.cpp",
+    "sha256": "1d840e07c61da0137ab8dfd1e56a3759e9cfd2b2ba2eef155d705dba2af67dd7",
+    "snapshot_revision": "5fff15ea8743e9071da04373233dbb7c889e17d1"
+  },
+  "object_sha256": "3163d50481343e297d1e007984271b4f52fa5636814f3123d0c5332191924524",
+  "fresh_result": {
+    "pairs": [
+      "0x42F250",
+      "0x76D340",
+      "0x76D3E0",
+      "0x76D410",
+      "0x76D430",
+      "0x76D450",
+      "0x76D480",
+      "0x76D4A0",
+      "0x76DF60",
+      "0x76E200",
+      "0x76E310",
+      "0x76E350",
+      "0x76E3D0"
+    ],
+    "symbol_pairs": [
+      [
+        "??0HtmlGifImageClass@@QAE@PADH@Z",
+        "0x76D3E0"
+      ],
+      [
+        "??1HtmlGifImageClass@@UAE@XZ",
+        "0x76D480"
+      ],
+      [
+        "??_GHtmlGifImageClass@@UAEPAXI@Z",
+        "0x76D450"
+      ],
+      [
+        "??_H@YGXPAXIHP6EX0@Z@Z",
+        "0x42F250"
+      ],
+      [
+        "?Build_Pixel@@YAHPAVDSurface@@HHH@Z",
+        "0x76D340"
+      ],
+      [
+        "?Get_Byte@HtmlGifImageClass@@QAEHXZ",
+        "0x76E310"
+      ],
+      [
+        "?Get_Bytes@HtmlGifImageClass@@QAEHPAEH@Z",
+        "0x76E350"
+      ],
+      [
+        "?Get_Name@HtmlImageClass@@UAEPADXZ",
+        "0x76D430"
+      ],
+      [
+        "?Get_Next_Code@HtmlGifImageClass@@QAEFXZ",
+        "0x76DF60"
+      ],
+      [
+        "?Get_Surface@HtmlImageClass@@UAEPAVSurface@@XZ",
+        "0x76D410"
+      ],
+      [
+        "?Init@HtmlGifImageClass@@QAEXXZ",
+        "0x76E200"
+      ],
+      [
+        "?Out_Line@HtmlGifImageClass@@QAEXPAEHH@Z",
+        "0x76E3D0"
+      ],
+      [
+        "?Set_Data@HtmlGifImageClass@@UAEHPADH@Z",
+        "0x76D4A0"
+      ]
+    ],
+    "target": [
+      {
+        "object": "gifload.obj",
+        "symbol": "?Set_Data@HtmlGifImageClass@@UAEHPADH@Z",
+        "name": "HtmlGifImageClass::Set_Data",
+        "length": 998,
+        "fixed": 982,
+        "addresses": [
+          "0x76D4A0"
+        ],
+        "status": "exact"
+      },
+      {
+        "object": "gifload.obj",
+        "symbol": "?Decode@HtmlGifImageClass@@QAEFF@Z",
+        "name": "HtmlGifImageClass::Decode",
+        "length": 1145,
+        "fixed": 1073,
+        "addresses": [],
+        "status": "none"
+      },
+      {
+        "object": "gifload.obj",
+        "symbol": "?Get_Next_Code@HtmlGifImageClass@@QAEFXZ",
+        "name": "HtmlGifImageClass::Get_Next_Code",
+        "length": 515,
+        "fixed": 483,
+        "addresses": [
+          "0x76DF60"
+        ],
+        "status": "exact"
+      }
+    ]
+  },
+  "committed_preflight": {
+    "base": "3a69e9d2056673c8431a90f47d7d973aeb6ddb4e",
+    "revision": "5fff15ea8743e9071da04373233dbb7c889e17d1",
+    "fingerprint": "2e758f053e55ba5ed0d74afb85ccb238a7bcf6404445829818e9369bee08035d",
+    "units": {
+      "app/client/html/image/gifload.cpp": "app"
+    },
+    "context_units": {},
+    "comparison": {
+      "gained": [
+        [
+          "app/client/html/image/gifload.cpp",
+          "0x76D4A0"
+        ],
+        [
+          "app/client/html/image/gifload.cpp",
+          "0x76DF60"
+        ]
+      ],
+      "lost": [],
+      "symbol_gained": [
+        [
+          "app/client/html/image/gifload.cpp",
+          "?Get_Next_Code@HtmlGifImageClass@@QAEFXZ",
+          "0x76DF60"
+        ],
+        [
+          "app/client/html/image/gifload.cpp",
+          "?Set_Data@HtmlGifImageClass@@UAEHPADH@Z",
+          "0x76D4A0"
+        ]
+      ],
+      "symbol_lost": []
+    },
+    "verified_at": 1795740777.8752604,
+    "before_result": "/home/dev/Projects/EnB/.git/local-vc6-preflight/cache/builds/74fa6aa747e84fb604bff68c488b59a4feb89cf9949b2c6da81b9aa426135bd4/result.json",
+    "after_result": "/home/dev/Projects/EnB/.git/local-vc6-preflight/cache/builds/423e0acb4999a6fd456f2c0ea94461871e44c8275a530cd4b8d8f8fb2a85b801/result.json"
+  }
+}

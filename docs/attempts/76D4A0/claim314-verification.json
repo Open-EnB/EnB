@@ -704,12 +704,13 @@
     "eh_funclet_changes": []
   },
   "compiled_inputs": {
-    "compilations": 69,
-    "changed_compilations": 67,
-    "source_hashes": 68,
+    "compilations": 73,
+    "changed_compilations": 71,
+    "source_hashes": 71,
     "incomplete_inputs": [],
     "model_compilations": {
-      "Codex coordinator": 4,
+      "gpt-6-astra high": 3,
+      "Codex coordinator": 5,
       "gpt-6.1-terra high": 43,
       "gpt-6.1-sol high": 22
     },
@@ -719,8 +720,8 @@
         "masked": 26
       },
       "0x76D990": {
-        "raw": 21,
-        "masked": 21
+        "raw": 22,
+        "masked": 22
       },
       "0x76DF60": {
         "raw": 4,
