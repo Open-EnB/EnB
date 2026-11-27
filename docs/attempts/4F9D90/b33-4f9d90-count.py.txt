@@ -1,0 +1,81 @@
+HYPOTHESIS = 'B33 c1 batch 3 (0x4F9D90): batch 2 count form (for pad = CursorLine - last) gives the client pad cut (_Tidy inline, assign(s, n) and insert(it, 1, x) called, dtor inline); the client loop re-reads CursorLine with last post-incremented: loop forms that keep both'
+FILE = 'app/shared/split_string.cpp'
+SYMBOL = 'SplitStringClass::Split'
+ADDRESS = 0x4F9D90
+
+OLD = """	int last = Lines.size() - 1;
+	if (last <= CursorLine) {
+		while (last++ < CursorLine) {
+			Lines.push_back(std::string(""));
+		}
+	} else {
+"""
+
+def f(new):
+    return [(OLD, new)]
+
+FORMS = {
+    'i_for': f("""	int last = Lines.size() - 1;
+	if (last <= CursorLine) {
+		for (int i = last; i < CursorLine; i++) {
+			Lines.push_back(std::string(""));
+		}
+	} else {
+"""),
+    'i_while': f("""	int last = Lines.size() - 1;
+	if (last <= CursorLine) {
+		int i = last;
+		while (i++ < CursorLine) {
+			Lines.push_back(std::string(""));
+		}
+	} else {
+"""),
+    'pad_while': f("""	int last = Lines.size() - 1;
+	if (last <= CursorLine) {
+		int pad = CursorLine - last;
+		while (pad--) {
+			Lines.push_back(std::string(""));
+		}
+	} else {
+"""),
+    'size_for': f("""	int last = Lines.size() - 1;
+	if (last <= CursorLine) {
+		for (int i = Lines.size(); i <= CursorLine; i++) {
+			Lines.push_back(std::string(""));
+		}
+	} else {
+"""),
+    'block': f("""	int last = Lines.size() - 1;
+	if (last <= CursorLine) {
+		{
+			while (last++ < CursorLine) {
+				Lines.push_back(std::string(""));
+			}
+		}
+	} else {
+"""),
+    'nolast_if': f("""	int last = Lines.size() - 1;
+	if (last > CursorLine) {
+		goto pop;
+	}
+	while (last++ < CursorLine) {
+		Lines.push_back(std::string(""));
+	}
+	if (0) {
+pop:
+"""),
+    'count_ge': f("""	int last = Lines.size() - 1;
+	if (last <= CursorLine) {
+		for (int pad = CursorLine - last; pad; pad--) {
+			Lines.push_back(std::string(""));
+		}
+	} else {
+"""),
+    'last_for': f("""	int last = Lines.size() - 1;
+	if (last <= CursorLine) {
+		for (last++; last <= CursorLine; last++) {
+			Lines.push_back(std::string(""));
+		}
+	} else {
+"""),
+}

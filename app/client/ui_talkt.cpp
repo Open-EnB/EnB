@@ -354,10 +354,10 @@ void UITalkTreeClass::Unknown_7C(UIViewClass *view, bool arg)
 	}
 }
 
-// NOT EXACT: 0x64CC90 (Unknown_90: the vector's _Destroy out of line in the client)
+static inline void Clear_Responses(std::vector<TalkTreeResponseStruct> &v) { v.erase(v.begin(), v.end()); }	// NAME 1: neutral (D10): the layer that gives 0x64CC90 the client's out-of-line operator= 0x64F0B0 and _Destroy 0x64F070
+// NOT EXACT: 0x64CC90 (Unknown_90: inline-budget: the client calls the SpeechFile erase's _Split and _Eos and inlines the assign's _Eos, ours the reverse; frame 8 vs the client's 4)
 void UITalkTreeClass::Unknown_90(TalkTreePacketClass *packet)
 {
-
 
 
 
@@ -396,7 +396,7 @@ void UITalkTreeClass::Unknown_90(TalkTreePacketClass *packet)
 	if (!Active && !ActiveUI) {
 		Unknown_58();
 	}
-	Responses.clear();
+	Clear_Responses(Responses);
 	packet->Swap_Responses(Responses);
 	NPCSplit->Split(packet->NPCSay.c_str(), (float)NPCLineWidth, 0);
 	if (NPCSpeechHandle) { NPCSpeechHandle->Stop(true); NPCSpeechHandle = NULL; } SpeechFile.erase();	// Unknown_64E640, written inline
