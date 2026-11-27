@@ -1,0 +1,119 @@
+# Space (live server): test-plan UI-05, the PDA's cargo and equipment windows (ui_pda_cargo.cpp, ui_pda_equip.cpp)
+# and their transactions (inv_transaction.cpp, InvTransactionClass), with bug B-06 and the /resetship query of B-17.
+# Elanor (_login_space) in Jupiter: O opens the cargo window (the Credits line, 6,032 in the store's rows), I the
+# equipment window beside it. Her cargo (avatar_inventory_items, column by column, four rows: x 60 / 136 / 212, y
+# 440 / 520 / 600 / 680): slot 4 Plasma Black Casters x1200 (6157), slot 5 the shield Gettysburg Beta (3743), slot 15
+# empty; equipped: the shield Invincible Bastion (3793). Every move is INVENTORY_MOVE on the button-up
+# (0x690D20), the server answering with the windows' contents.
+# - equip / unequip: the cargo's shield dragged onto the Shields slot (480,790) swaps the two shields ('Gettysburg
+#   Beta Installed'), the same drag again swaps them back.
+# - B-06 (0x690D20): with another query of the view's query window open (the YES_NO of /resetship, sclient.cpp's
+#   'This will reset all ship systems ...', B-17's string), the shield dropped into space (inventory 11: the dump)
+#   ends the transaction (State 0, 0x690EE7) and nothing is sent; after No (800,578) the next swap goes out. Ours
+#   before 2026-11-24 left State at 2, so that swap was refused (0x690AA0's busy test).
+# - stack: the cargo moved one column right (236,740: slot 15 at 212,680), 600 of the 1200 casters dragged into slot
+#   15 (a stack of more than one asks the number: the quantity bar of gd_selct.cpp, digits then Enter), then the 600
+#   dragged back onto the stack (600 again); the column back (35,740).
+#   e2e.py --live [--retail] --db-snapshot 7 --instance NAME run ui_cargo_equip
+name: the PDA's cargo and equipment: equip, unequip, a dump during another query, split and stack (UI-05)
+timeout: 400
+include _login_space
+key 0x4F
+expect-event proxy '^input: replayed key 0x4F'
+wait-quiet proxy 1.0 within 15
+key 0x49
+expect-event proxy '^input: replayed key 0x49'
+wait-quiet proxy 1.0 within 15
+move 1000,880
+wait-quiet proxy 0.5 within 10
+shot pda_open
+# the Credits line (492 ink pixels on retail)
+expect-ink pda_open 30,335,215,24 300
+# equip: the cargo's shield onto the Shields slot (a swap), then back
+down 136,520
+wait-quiet proxy 0.3 within 5
+up 480,790
+expect-event antprox 'received INVENTORY_MOVE' within 10
+wait-quiet proxy 1.5 within 20
+move 1000,880
+wait-quiet proxy 0.5 within 10
+shot equipped
+down 136,520
+wait-quiet proxy 0.3 within 5
+up 480,790
+expect-event antprox 'received INVENTORY_MOVE' within 10
+wait-quiet proxy 1.5 within 20
+move 1000,880
+wait-quiet proxy 0.5 within 10
+shot equipped_back
+# B-06: the dump while /resetship's query is open
+key 0x0D
+wait-quiet proxy 0.5 within 10
+text '/resetship'
+key 0x0D
+wait-quiet proxy 1.0 within 15
+shot resetship_query
+down 136,520
+wait-quiet proxy 0.3 within 5
+up 1100,300
+wait-quiet proxy 1.5 within 15
+move 1000,880
+wait-quiet proxy 0.5 within 10
+shot dump_in_query
+click 800,578
+wait-quiet proxy 1.5 within 15
+move 1000,880
+wait-quiet proxy 0.5 within 10
+shot query_no
+# the transaction after the query: the swap goes out
+down 136,520
+wait-quiet proxy 0.3 within 5
+up 480,790
+expect-event antprox 'received INVENTORY_MOVE' within 10
+wait-quiet proxy 1.5 within 20
+down 136,520
+wait-quiet proxy 0.3 within 5
+up 480,790
+expect-event antprox 'received INVENTORY_MOVE' within 10
+wait-quiet proxy 1.5 within 20
+move 1000,880
+wait-quiet proxy 0.5 within 10
+shot swapped_after_query
+# split and stack
+click 236,740
+wait-quiet proxy 1.0 within 15
+move 1000,880
+wait-quiet proxy 0.5 within 10
+shot cargo_right
+down 60,440
+wait-quiet proxy 0.3 within 5
+up 212,680
+wait-quiet proxy 1.0 within 10
+text '600'
+wait-quiet proxy 0.5 within 10
+shot split_number
+key 0x0D
+expect-event antprox 'received INVENTORY_MOVE' within 10
+wait-quiet proxy 1.5 within 20
+move 1000,880
+wait-quiet proxy 0.5 within 10
+shot split
+down 212,680
+wait-quiet proxy 0.3 within 5
+up 60,440
+wait-quiet proxy 1.0 within 10
+text '600'
+key 0x0D
+expect-event antprox 'received INVENTORY_MOVE' within 10
+wait-quiet proxy 1.5 within 20
+move 1000,880
+wait-quiet proxy 0.5 within 10
+shot stacked
+click 35,740
+wait-quiet proxy 1.0 within 15
+key 0x49
+wait-quiet proxy 1.0 within 15
+move 1000,880
+wait-quiet proxy 0.5 within 10
+shot pda_closed
+alive 1

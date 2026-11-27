@@ -702,6 +702,14 @@ stride, FVF, the textures of stages 0 and 1, the world matrix, 34 render states,
 1), the frame's distinct view and projection matrices with the order they were set in, and each texture drawn
 (creation parameters and an FNV-1a 64 hash of level 0's contents at that frame). The schema is above
 d3d8shot.c's `Log_Draw`. Without the variable nothing changes (the shot in the trigger's own frame, no JSON).
+**Textures created against released (2026-11-26, CS8; test-plan SP-05, B-12):** with the draw log the proxy also
+hooks IDirect3DDevice8::CreateTexture (slot 20) and the texture vtable's Release (patched once per vtable), and each
+draw log carries `texture_life`: every texture created since the device's creation and every one whose last Release
+returned 0, in total and per kind (size, levels, format, usage, pool), plus a `textures created N, released M, live
+L` line in d3d8shot.log. A leak is a kind whose created - released grows over cycles that should give it back.
+`python tools/harness/texlife.py DIR [--kind WxH[:FORMAT]] [--all]` prints, shot by shot in frame order, the totals
+and each kind whose counts moved since the shot before (unit tests: `tools/harness/test_texlife.py`). Draw logs from
+an older proxy have no counts ('no counts'); `baseline.py`'s draw-log compare does not read the key.
 `expect-ink SHOT X,Y,W,H MIN` (2026-11-21) asserts on that shot: at least MIN pixels in the box whose brightest
 channel reaches 200 (`INK_LEVEL`; the UI's text is near white on the dark blue panels), so a scenario checks that a list
 was filled, not only that its packets went (sb_refinery's ore rows, sb_manufacture's second category level).
