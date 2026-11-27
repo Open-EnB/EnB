@@ -10,7 +10,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 231 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1971 |
-| 2 | describes what the code does | 5022 |
+| 2 | describes what the code does | 5023 |
 | 1 | neutral placeholder | 25230 |
 
 ## For review (score 3 and below)
@@ -2678,8 +2678,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_4C48C0` | `app/client/cpacket.cpp:2803` | untagged neutral name (D10) |
 | 1 | `Get_UnknownF8` | `app/client/cpacket.cpp:2819` | untagged neutral name (D10) |
 | 1 | `Unknown_59A400` | `app/client/cpacket.cpp:2823` | untagged neutral name (D10) |
+| 1 | `Unknown20` | `app/client/cpacket.cpp:2853` | untagged neutral name (D10) |
 | 1 | `Unknown_5913E0` | `app/client/cpacket.cpp:2856` | untagged neutral name (D10) |
-| 1 | `Unknown20` | `app/client/cpacket.cpp:2856` | untagged neutral name (D10) |
 | 1 | `Unknown_5DA600` | `app/client/cpacket.cpp:2859` | untagged neutral name (D10) |
 | 1 | `Unknown_5E8E30` | `app/client/cpacket.cpp:2862` | untagged neutral name (D10) |
 | 1 | `Unknown_5E5D70` | `app/client/cpacket.cpp:2866` | untagged neutral name (D10) |
@@ -9558,8 +9558,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6CE420` | `app/client/starmap_pip.cpp:1167` | untagged neutral name (D10) |
 | 1 | `Unknown44` | `app/client/starmap_pip.cpp:1199` | untagged neutral name (D10) |
 | 1 | `Unknown_7C2340` | `app/client/starmap_pip.cpp:1246` | untagged neutral name (D10) |
-| 1 | `Unknown_6F5A40` | `app/client/starmap_pip.cpp:1276` | untagged neutral name (D10) |
-| 1 | `Unknown_Find_Set_Field` | `app/client/starmap_pip.cpp:1280` | untagged neutral name (D10) |
+| 1 | `Unknown_Find_Set_Field` | `app/client/starmap_pip.cpp:1272` | untagged neutral name (D10) |
+| 1 | `Unknown_6F5A40` | `app/client/starmap_pip.cpp:1277` | untagged neutral name (D10) |
 | 1 | `Unknown38` | `app/client/starmap_pip.cpp:1318` | untagged neutral name (D10) |
 | 1 | `Unknown_6FF7A0` | `app/client/starmap_pip.cpp:1326` | untagged neutral name (D10) |
 | 1 | `Unknown_700860` | `app/client/starmap_pip.cpp:1327` | untagged neutral name (D10) |
@@ -27228,6 +27228,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Radius` | `app/client/starmap_data.h:43` | the object's slot +0x30 |
 | 2 | `MeshSize` | `app/client/starmap_data.h:44` | what it holds |
 | 2 | `Create_Mesh` | `app/client/starmap_data.h:48` | what it does |
+| 2 | `Find_Group` | `app/client/starmap_pip.cpp:1272` | describes what it does |
 | 2 | `Set_Name` | `app/client/starmap_pip.h:55` | what it does |
 | 2 | `co` | `app/client/starmap_pip.h:56` | the client's usual name |
 | 2 | `ObjectID` | `app/client/starmap_pip.h:58` | what it holds |
