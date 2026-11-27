@@ -24,7 +24,7 @@
 #include "..\packets\pkincapacitancerequest.h"
 #include "..\packets\pkinitrenderstate.h"
 #include "..\packets\pkjoblist.h"
-#include "..\packets\pklogoff.h"
+#include "..\shared\auth_product.h"
 #include "..\packets\pk_classes.h"
 #include "..\packets\pkmessageline.h"
 #include "..\packets\pkloothulkpermission.h"
@@ -76,7 +76,7 @@ static std::string Unknown_BE7D58("critical_hit_1.wav");	// 0xBE7D58 (initialise
 #include "verbmanager.h"
 #include "ui_line_display.h"
 #include "avatar.h"
-#include "..\shared\auth_product.h"
+#include "..\packets\pklogoff.h"
 
 
 

@@ -3,7 +3,7 @@
 #include "sclient.h"
 #include "client.h"
 #include "co_data.h"
-#include "emote_data.h"
+#include "..\shared\auth_product.h"
 #include "option.h"
 #include "ww3d.h"
 #include "wwmath.h"
@@ -15,7 +15,7 @@
 #include "obbox.h"
 #include "castres.h"
 #include "scene.h"
-#include "..\shared\auth_product.h"
+#include "emote_data.h"
 // the main view's scene (mainview.cpp's 0x75ECF0, its +0x10C), as far as 0x7998B0 calls it
 class MainViewSceneClass : public SimpleSceneClass	// NAME 1: neutral (D10): mainview.cpp's
 {

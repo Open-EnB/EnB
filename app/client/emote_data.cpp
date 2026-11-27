@@ -17,15 +17,15 @@ static const float LoopTime = 3000.0f;
 static const float RollTime = 2000.0f;
 static const float SpinTime = 1000.0f;
 
-static const char *EmoteSounds[] = {
-	"wave.wav",
-	"loop.wav",
-	"loop.wav",
-	"roll.wav",
-	"roll.wav",
-	"spin.wav",
-	"spin.wav",
-};
+
+
+
+
+
+
+
+
+
 
 EmoteDataClass::EmoteDataClass(ClientObjectClass *co) :
 	ClientObjectDataClass(co),
@@ -323,9 +323,11 @@ bool EmoteDataClass::Unknown_7E7A70()
 **	and 136 (0x7E6860) and the G_ASSERT(0)s on lines 275 and 291 (0x7E7780). The constructor
 **	0x7E62F0 sets the vtable 0xB075CC, whose typeid name is co_data.cpp's '.PAVEmoteDataClass@@'.
 **
-**	The emote sounds 0xBA13D8 (wave, loop, roll, spin: two of each but the wave) and the four
-**	durations 0xB07598-0xB075A4 (2000, 3000, 2000, 1000 ms, each its own float: the client divides
-**	by them, fdiv, where a literal divisor compiles to a multiply) are this file's.
+**	The four durations 0xB07598-0xB075A4 (2000, 3000, 2000, 1000 ms, each its own float: the client
+**	divides by them, fdiv, where a literal divisor compiles to a multiply) are this file's. The emote
+**	sounds it reads, 0xBA13D8 (wave, loop, roll, spin: two of each but the wave), are this object's copy
+**	of pktriggeremote.h's static EmoteSounds, after its EmoteNames 0xBA13BC (emote_data.h includes it;
+**	retail's .data has the 9 copies of both, binary.md 5.10).
 **	The template instances after the file's functions: std::deque<EmoteType>'s destructor 0x7E6570,
 **	operator*(Matrix3D, Matrix3D) 0x7E6E40, Create_Get 0x7E7AA0 and ~RefCountPtr<Sound3DClass>
 **	0x7E7AD0, deque's _Buyback 0x7E7B10, _Freefront 0x7E7CD0, _Growmap 0x7E7D70 and its iterator's

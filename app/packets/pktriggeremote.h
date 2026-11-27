@@ -17,6 +17,29 @@
 
 #include "pk.h"
 
+// The emotes' names and sounds: file statics, so one copy in each object that includes this header (9 in retail:
+// co, cpacket, sclient, camera_manager, unknown_79d250, emote_data, clientstub, pk and pktriggeremote, binary.md
+// 5.10). Print reads its own object's names (0xBB4450), emote_data.cpp its own object's sounds (0xBA13D8).
+static char *EmoteNames[] = {	// NAME 2: what it holds (Print's Emote)
+	"Wave",
+	"Loop",
+	"Dive",
+	"Right Roll",
+	"Left Roll",
+	"Spin Right",
+	"Spin Left"
+};
+
+static char *EmoteSounds[] = {	// NAME 2: what it holds (EmoteDataClass plays them)
+	"wave.wav",
+	"loop.wav",
+	"loop.wav",
+	"roll.wav",
+	"roll.wav",
+	"spin.wav",
+	"spin.wav",
+};
+
 // opcode 161 (0x00A1, TRIGGER_EMOTE): vtable 0xB0A52C, constructor 0x8860A0, 0x14 bytes
 class TriggerEmotePacketClass : public PacketClass  // NAME 2: Net-7's opcode name TRIGGER_EMOTE (the Net-7 opcode table; no structure check)
 {

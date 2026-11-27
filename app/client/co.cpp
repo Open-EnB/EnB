@@ -17,7 +17,7 @@
 #include "..\shared\g_assert.h"
 #include "client_object_events.h"
 #include "..\shared\auth_product.h"
-
+#include "emote_data.h"
 
 
 
@@ -414,7 +414,7 @@ static inline bool Clamp_In_Place(float &value, float min, float max)
 #include "_mono.h"
 #include "ww3d.h"
 #include "sclient.h"
-#include "emote_data.h"
+
 
 #include "camera_manager.h"
 

@@ -17,7 +17,7 @@
 #include "co_data.h"
 #include <deque>
 #include "..\..\wwlib\ref_ptr.h"
-
+#include "..\packets\pktriggeremote.h"	// EmoteNames / EmoteSounds (binary.md 5.10)
 class Matrix3D;
 class Sound3DClass;
 

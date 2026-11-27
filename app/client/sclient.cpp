@@ -115,7 +115,7 @@ public:
 // (InterfaceClass, their base, is in intrface.h; pdaint.cpp's PDAInterfaceClass in sclient.h: the main view reads the PDA)
 
 #include "camera_manager.h"
-
+#include "..\packets\pktriggeremote.h"			// TriggerEmotePacketClass (TRIGGER_EMOTE 161): the emotes (0x747C70)
 
 
 
@@ -2837,7 +2837,7 @@ bool SClient::Unknown_747AF0(const std::string &reason, bool quit)
 
 
 
-#include "..\packets\pktriggeremote.h"			// TriggerEmotePacketClass (TRIGGER_EMOTE 161): the emotes (0x747C70)
+
 
 // 0x747C70 (0x74ABC0): the emote commands, one TRIGGER_EMOTE each
 bool SClient::Unknown_747C70(const char *text)
