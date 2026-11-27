@@ -1,0 +1,78 @@
+"""A13: ours vs the client's GutterRadarClass::Get_Icon_Scale (an icon's scale by distance, from three options)."""
+import struct
+import sys
+sys.path.insert(0, 'C:/EnBDevelopment/EnB/.work/a13')
+import emu  # noqa: E402
+from harness import Harness, fhash, f32  # noqa: E402
+
+emu.ALIASES['?Instance@OptionClass@@2PAV1@A'] = 0xBE8B38
+emu.ALIASES['_Unknown_831E90'] = 0x831E90
+OBJ = 'C:/EnBDevelopment/EnB/.work/a13/objs/gutter_radar.obj'
+SYM = '?Get_Icon_Scale@GutterRadarClass@@AAEMABVVector3@@M@Z'
+THIS, OWNER, O1354, CAMOBJ, OPT, POS = 0x30000000, 0x31000000, 0x32000000, 0x33000000, 0x34000000, 0x40000000
+GETF, DIST = 0x7F9670, 0x831E90
+OPTS = [(10.0, 100.0, 0.25), (0.0, 100.0, 0.25), (10.0, 0.0, 0.25), (100.0, 10.0, 0.25), (10.0, 100.0, -0.5),
+        (10.0, 100.0, 0.0), (10.0, 10.0, 0.5)]
+CASES = [(o, cam, d) for o in range(len(OPTS)) for cam in (0, 1) for d in (0.0, 5.0, 10.0, 55.0, 100.0, 400.0)]
+
+
+def setup(case):
+    o, cam, d = case
+
+    def f(mem, cpu, seed):
+        mem.wu(0xBE8B38, 4, OPT)
+        mem.wu(THIS, 4, OWNER)
+        mem.wu(OWNER + 0x1354, 4, O1354)
+        mem.wu(O1354, 4, 0x4F000000)
+        mem.wu(CAMOBJ, 4, 0x4F000100)
+        for k, v in ((10, 1.5), (14, -2.5), (18, 4.0)):
+            mem.write(CAMOBJ + 4 * k, struct.pack('<f', v))
+        mem.write(POS, struct.pack('<3f', fhash(seed, 1), fhash(seed, 2), fhash(seed, 3)))
+        cpu.r['ecx'] = THIS
+        return [POS, struct.unpack('<I', struct.pack('<f', 0.75))[0]]
+    return f
+
+
+def stubs(case):
+    o, cam, d = case
+
+    def f(cpu, key, words, idx, seed):
+        m = cpu.m
+        if key == ('direct', GETF):
+            name = m.read(words[0], 40).split(bytes(1))[0].decode()
+            v = OPTS[o][('Gutter_Icon_Min_Distance', 'Gutter_Icon_Max_Distance', 'Gutter_Icon_Min_Scale').index(name)]
+            cpu.st.append(f32(v))
+            return 4, {'name': name}, 0
+        if key[0] == 'indirect' and key[1] == 0x7C:
+            cpu.r['eax'] = CAMOBJ if cam else 0
+            return 0, None
+        if key[0] == 'indirect' and key[1] == 0x4C:
+            return 0, None
+        if key == ('direct', DIST):
+            p = m.read(words[0], 12)
+            cpu.st.append(f32(d))
+            return 0, {'_cdecl': 1, 'p': p.hex()}, 4
+        raise emu.Stop('callee %r' % (key,))
+    return f
+
+
+def main():
+    H = Harness(OBJ, SYM, 0x7B75E0, 2, void=True, stk_any=True, fret=True)
+    if len(sys.argv) > 1 and sys.argv[1] == 'ctl':
+        base = [(0, 1, 55.0), (0, 1, 5.0), (0, 1, 400.0), (4, 1, 55.0)]
+        H.run(base, setup, stubs, seeds=(1,), label='base')
+        off, ins = H.find(lambda i: i.mnemonic == 'call' and 'dword ptr [' in i.op_str and '0x7c]' in i.op_str)
+        H.mutate('1 (+%#x %s %s: vcall 0x7c -> 0x78)' % (off, ins.mnemonic, ins.op_str), off, ins.size - 1, 0x78,
+                 base, setup, stubs, seeds=(1,))
+        off, ins = H.find(lambda i: i.mnemonic == 'push' and i.op_str == '0x3f800000')
+        H.mutate('2 (+%#x push 1.0 -> 2.0)' % off, off, 4, 0x40, base, setup, stubs, seeds=(1,))
+        off, ins = H.find(lambda i: i.mnemonic in ('fsub', 'fsubr', 'fsubp', 'fsubrp'))
+        H.mutate('3 (+%#x %s %s: sub <-> subr)' % (off, ins.mnemonic, ins.op_str), off, 1,
+                 H.reader.code[off + 1] ^ 0x08, base, setup, stubs, seeds=(1,))
+        return
+    H.run(CASES, setup, stubs, seeds=(1,), verbose=False)
+    H.coverage()
+
+
+if __name__ == '__main__':
+    main()

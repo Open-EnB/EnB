@@ -1,0 +1,100 @@
+"""A13: ours vs the client's LineBoxClass::Render (a box of 12 Line3D edges around a target or itself) in emu.py.
+Matrix3D::Get_Inverse runs as the client's own code."""
+import math
+import struct
+import sys
+sys.path.insert(0, 'C:/EnBDevelopment/EnB/.work/a13')
+import emu  # noqa: E402
+from harness import Harness, fhash  # noqa: E402
+
+OBJ = 'C:/EnBDevelopment/EnB/.work/a13/objs/linebox.obj'
+SYM = '?Render@LineBoxClass@@UAEXAAVRenderInfoClass@@@Z'
+THIS, RINFO, CAM, TGT, LINES, SPH, CAMM = (0x30000000, 0x31000000, 0x32000000, 0x33000000, 0x34000000, 0x35000000,
+                                         0x36000000)
+GETPOS, INV, RESET = 0x941E60, 0x8C2BC0, 0x943990
+CASES = [(tgt, cid, width, dist, nl) for tgt in (0, 1) for cid in (5, 3) for width in (0.0, 0.02, 1.0)
+         for dist in (0.5, 10.0, 300.0) for nl in (0, 12)]
+
+
+def setup(case):
+    tgt, cid, width, dist, nl = case
+
+    def f(mem, cpu, seed):
+        mem.wu(THIS, 4, 0x5D000000)
+        mem.wu(THIS + 0x90, 4, TGT if tgt else 0)
+        mem.write(THIS + 0x94, struct.pack('<3f', 0.5, 1.5, 2.5))
+        mem.write(THIS + 0xA4, struct.pack('<f', 0.01))
+        mem.write(THIS + 0xA8, struct.pack('<f', width))
+        mem.wu(THIS + 0x8C, 4, LINES)
+        mem.wu(THIS + 0xA0, 4, nl)
+        for k in range(12):
+            mem.wu(LINES + 4 * k, 4, 0x37000000 + 0x100 * k)
+            mem.wu(0x37000000 + 0x100 * k, 4, 0x5E000000)
+        mem.wu(TGT, 4, 0x5F000000)
+        mem.write(SPH, struct.pack('<4f', fhash(seed, 1) * 9, fhash(seed, 2) * 9, fhash(seed, 3), 2.0 + abs(fhash(seed, 4))))
+        mem.wu(RINFO, 4, CAM)
+        mem.wu(CAM, 4, 0x5F000100)
+        a = fhash(seed, 5) * 0.5
+        ca, sa = math.cos(a), math.sin(a)
+        mem.write(CAM + 0x1C, struct.pack('<12f', ca, -sa, 0, fhash(seed, 6), sa, ca, 0, fhash(seed, 7), 0, 0, 1, -dist))
+        cpu.r['ecx'] = THIS
+        return [RINFO]
+    return f
+
+
+def stubs(case):
+    tgt, cid, width, dist, nl = case
+
+    def f(cpu, key, words, idx, seed):
+        m = cpu.m
+        if key == ('direct', GETPOS):
+            m.write(words[0], struct.pack('<3f', 1.0, 2.0, 3.0))
+            cpu.r['eax'] = words[0]
+            return 4, None
+        if key[0] == 'indirect' and key[1] == 0xF0:
+            cpu.r['eax'] = SPH
+            return 0, None
+        if key[0] == 'indirect' and key[1] == 0xC:
+            cpu.r['eax'] = cid
+            return 0, None
+        if key[0] == 'indirect' and key[1] == 0x54:
+            return 4, {'pos': m.read(words[0], 12).hex()}, 0
+        if key[0] == 'indirect' and key[1] == 0x4C:  # the camera's transform update (its matrix is at +0x1C)
+            return 0, None
+        if key == ('direct', INV):  # the rigid inverse, computed here (its callees chain on into Matrix3D)
+            a = struct.unpack('<12f', m.read(cpu.r['ecx'], 48))
+            r = [[a[4 * i + j] for j in range(3)] for i in range(3)]
+            t = [a[3], a[7], a[11]]
+            out = []
+            for i in range(3):
+                out += [r[0][i], r[1][i], r[2][i], -(r[0][i] * t[0] + r[1][i] * t[1] + r[2][i] * t[2])]
+            m.write(words[0], struct.pack('<12f', *out))
+            return 4, {'src': m.read(cpu.r['ecx'], 48).hex()}, 0
+        if key == ('direct', RESET):
+            return 12, {'a': m.read(words[0], 12).hex(), 'b': m.read(words[1], 12).hex()}, 3
+        if key[0] == 'indirect' and key[1] == 0x24:
+            return 4, None, 1
+        raise emu.Stop('callee %r' % (key,))
+    return f
+
+
+def main():
+    H = Harness(OBJ, SYM, 0x6E0350, 1, void=True, stk_any=True)
+    if len(sys.argv) > 1 and sys.argv[1] == 'ctl':
+        base = [(1, 5, 0.02, 10.0, 12), (0, 3, 1.0, 300.0, 12), (1, 3, 1.0, 0.5, 0)]
+        H.run(base, setup, stubs, seeds=(1, 2), label='base')
+        off, ins = H.find(lambda i: i.mnemonic == 'cmp' and i.op_str.endswith(', 5'))
+        H.mutate('1 (+%#x %s %s: class 5 -> 4)' % (off, ins.mnemonic, ins.op_str), off, ins.size - 1, 4,
+                 base, setup, stubs, seeds=(1, 2))
+        off, ins = H.find(lambda i: i.mnemonic == 'fmul' and i.op_str.endswith('+ 0xa4]'))
+        H.mutate('2 (+%#x %s %s: line width +0xa4 -> +0xa8)' % (off, ins.mnemonic, ins.op_str), off,
+                 ins.size - 4, 0xA8, base, setup, stubs, seeds=(1, 2))
+        off, ins = H.find(lambda i: i.mnemonic == 'fchs')
+        H.mutate('3 (+%#x fchs dropped)' % off, off, 1, 0xD0, base, setup, stubs, seeds=(1, 2))
+        return
+    H.run(CASES, setup, stubs, seeds=(1, 2), verbose=False)
+    H.coverage()
+
+
+if __name__ == '__main__':
+    main()

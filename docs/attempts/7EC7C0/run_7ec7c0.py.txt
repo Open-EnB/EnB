@@ -1,0 +1,87 @@
+"""A13: ours vs the client's MovieClientClass::Unknown_08 (update the movie's objects, retire dead effects: flags,
+the id map, unlink or delete) in emu.py. Linked lists built in memory; callees stubbed and logged."""
+import struct
+import sys
+sys.path.insert(0, 'C:/EnBDevelopment/EnB/.work/a13')
+import emu  # noqa: E402
+from harness import Harness, fhash  # noqa: E402
+
+emu.ALIASES['?Unknown_6E6AD0@EffectObjectClass@@QAE_NXZ'] = 0x6E6AD0
+emu.ALIASES['?Unknown_6E6A90@@YAXPAVEffectObjectClass@@@Z'] = 0x6E6A90
+OBJ = 'C:/EnBDevelopment/EnB/.work/a13/objs/mclient.obj'
+SYM = '?Unknown_08@MovieClientClass@@UAEXXZ'
+THIS, L1, L2, EFF = 0x30000000, 0x31000000, 0x32000000, 0x33000000
+ALIVE, KILL = 0x6E6AD0, 0x6E6A90
+# (objects in list 1, effects in list 2, per-node flag pattern, alive pattern)
+CASES = [(n1, n2, fp, ap) for n1 in (0, 3) for n2 in (0, 1, 2, 5) for fp in range(6) for ap in range(4)]
+
+
+def node(base, k):
+    return base + 0x100 * (k + 1)
+
+
+def setup(case):
+    n1, n2, fp, ap = case
+
+    def f(mem, cpu, seed):
+        for lst, n, off in ((L1, n1, 0x24), (L2, n2, 0x44C)):
+            head, tail = lst, lst + 0x80   # sentinels
+            nodes = [node(lst, k) for k in range(n)]
+            chain = [head] + nodes + [tail]
+            for i, p in enumerate(chain):
+                mem.wu(p, 4, 0x5A000000 + (0x100 if lst == L2 else 0))
+                mem.wu(p + 4, 4, chain[i + 1] if i + 1 < len(chain) else 0)
+                mem.wu(p + 8, 4, chain[i - 1] if i > 0 else 0)
+            for k, p in enumerate(nodes):
+                mem.wu(p + 0x10, 4, EFF + 0x40 * k if lst == L2 else 0x5B000000 + 0x40 * k)
+                mem.wu(p + 0x14, 4, int((fhash(seed, k, 9) + 4) * 1000))
+                flags = [(0, 1, 2, 3, 0x20, 0x21)[(fp + k) % 6], 0x18 | ((fp + k) & 3)][k % 2] if fp else 0
+                mem.wu(p + 0x18, 4, flags)
+            mem.wu(THIS + off, 4, nodes[0] if nodes else tail)
+        mem.wu(THIS + 0x864, 4, 10)
+        mem.wu(THIS + 0x868, 4, 20)
+        cpu.r['ecx'] = THIS
+        return []
+    return f
+
+
+def stubs(case):
+    n1, n2, fp, ap = case
+
+    def f(cpu, key, words, idx, seed):
+        if key[0] == 'indirect' and key[1] == 0x20:
+            return 0, None
+        if key == ('direct', ALIVE):
+            k = (cpu.r['ecx'] - EFF) // 0x40
+            alive = (ap >> (k % 2)) & 1 if ap < 3 else 0
+            cpu.r['eax'] = (cpu.r['eax'] & ~0xFF) | alive
+            return 0, None
+        if key == ('direct', KILL):
+            return 0, {'_cdecl': 1}, 1
+        if key[0] == 'indirect' and key[1] == 0:
+            return 4, None, 1   # the node's scalar deleting destructor (flag 1)
+        raise emu.Stop('callee %r' % (key,))
+    return f
+
+
+def main():
+    H = Harness(OBJ, SYM, 0x7EC7C0, 0, void=True)
+    if len(sys.argv) > 1 and sys.argv[1] == 'ctl':
+        base = [(3, 5, 1, 3), (0, 5, 2, 0), (3, 2, 4, 3), (0, 5, 5, 3)]
+        H.run(base, setup, stubs, seeds=(1,), label='base')
+        off, ins = H.find(lambda i: i.mnemonic == 'mov' and i.op_str.endswith(', 0x101'))
+        H.mutate('1 (+%#x %s %s: map size 257 -> 256)' % (off, ins.mnemonic, ins.op_str), off, ins.size - 4, 0x00,
+                 base, setup, stubs, seeds=(1,))
+        off, ins = H.find(lambda i: 'dword ptr' in i.op_str and '0x864]' in i.op_str)
+        H.mutate('2 (+%#x %s %s: count +0x864 -> +0x868)' % (off, ins.mnemonic, ins.op_str), off,
+                 ins.size - 4 if ins.op_str.endswith(']') else ins.size - 5, 0x68, base, setup, stubs, seeds=(1,))
+        off, ins = H.find(lambda i: i.mnemonic == 'and' and i.op_str == 'al, 0xe7')
+        H.mutate('3 (+%#x %s %s: mask ~0x18 -> ~0x08)' % (off, ins.mnemonic, ins.op_str), off, ins.size - 1, 0xF7,
+                 base, setup, stubs, seeds=(1,))
+        return
+    H.run(CASES, setup, stubs, seeds=(1, 2), verbose=False)
+    H.coverage()
+
+
+if __name__ == '__main__':
+    main()
