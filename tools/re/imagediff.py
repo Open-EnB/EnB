@@ -3,7 +3,8 @@
 The end goal's measure (2026-11-24): the bytes of the retail image that our linked image reproduces at the
 same place. A byte counts only when our image holds the same value at the same RVA (headers: the same file
 offset). Nothing is masked in the first figure: the link's time stamp and the checksum count as differences until they
-are set. The second, masked figure leaves out Net-7's URL edits and .rsrc (NET7_EDITS below), so it is the same
+are set. The second, masked figure leaves out what no build can give, Net-7's URL edits and the three link time stamps
+(NET7_EDITS below), so it is the same
 against retail (249f8524) and EA's client (--client ClientPOC_EA's).
 
     python tools/re/imagediff.py                    compare build/programs/client/client.exe (as it stands)
@@ -55,32 +56,64 @@ OPT = [('Magic', 'H'), ('MajorLinkerVersion', 'B'), ('MinorLinkerVersion', 'B'),
        ('NumberOfRvaAndSizes', 'I')]
 # What the final link must set by other means than code: counted as different all the same.
 SET_AT_THE_END = {'TimeDateStamp', 'CheckSum'}
-# The masked figure (the user, 2026-11-27), printed beside the plain one: bytes no source can decide.
+# The masked figure (the user, 2026-11-27), printed beside the plain one: only the bytes no build can ever give.
 # (1) Net-7's edits: the install's client.exe (249f8524, "retail") and EA's (ClientPOC_EA, 82663b2f) are the same
 # 8,642,625 bytes but for these 11 .data ranges (732 bytes, compared 2026-11-27): the auth host, the web and store
 # URLs (EA's earthandbeyond.ea.com / auth.east.ea.com against Net-7's net-7.org / enb-emulator.com). Masked, the
-# figure is the same against either client. (2) .rsrc: the resources, not code (rsrc.py links retail's own).
+# figure is the same against either client. (2) The three link time stamps (12 bytes): the file header's
+# TimeDateStamp (the update, 2004-03-17), the CodeView debug entry's TimeDateStamp and the NB10 record's signature
+# (the full link, 2004-02-05). Not masked, as a build reproduces them: the CheckSum (0 in retail), .rsrc (retail's
+# resources give all 8,156 bytes at retail's RVA), the rich header, the PDB path, the NB10 age.
 NET7_EDITS = [(0xB84710, 17), (0xB84734, 60), (0xB8478C, 74), (0xB9C300, 15), (0xB9FE5B, 41), (0xB9FE9C, 47),
               (0xB9FEF0, 53), (0xB9FF3F, 40), (0xB9FF7F, 49), (0xB9FFC3, 116), (0xBA0063, 220)]
-MASKED_SECTIONS = ('.rsrc',)
 EA_SHA256 = '82663b2f99f639f4e49d43083b0e2bc0d7ed8b76a95eeb22dd9cc9d6079f7562'
 EXACT = os.path.join(REPO, 'build', 'programs', 'client-exact', 'client-exact.exe')
 
 
-def masked(client, ours, secs):
-    """(masked client bytes, of them equal in ours at the same place): NET7_EDITS and MASKED_SECTIONS."""
-    n = eq = 0
-    for s, row in zip(client.sections, secs):
-        if s.name in MASKED_SECTIONS:
-            n += s.rsize
-            eq += row['equal']
-    for va, length in NET7_EDITS:
-        rva = va - client.base
-        a, _ = client.at_rva(rva, length)
-        b, have = ours.at_rva(rva, length)
-        n += length
-        eq += length - sum(e - st for st, e in diff_ranges(a, b, have))
-    return n, eq
+def stamp_ranges(client):
+    """The three link time stamps as client file ranges [(offset, length)]."""
+    pe = struct.unpack_from('<I', client.data, 0x3C)[0]
+    out = [(pe + 8, 4)]                                  # COFF TimeDateStamp
+    opt = pe + 24
+    rva, size = struct.unpack_from('<II', client.data, opt + 96 + 8 * 6)      # the debug directory
+    raw = client.at_rva(rva, size)[0]
+    for i in range(0, size, 28):
+        out.append((rva_to_file(client, rva + i + 4), 4))                     # the entry's TimeDateStamp
+        ptr = struct.unpack_from('<I', raw, i + 24)[0]                       # PointerToRawData
+        if client.data[ptr:ptr + 4] == b'NB10':
+            out.append((ptr + 8, 4))                                         # the NB10 signature
+    return out
+
+
+def rva_to_file(img, rva):
+    for s in img.sections:
+        if s.rva <= rva < s.rva + img.backed(s):
+            return s.raw + rva - s.rva
+    raise ValueError(hex(rva))
+
+
+def equal_at(client, ours, off, length):
+    """Bytes of client[off:off + length] that ours holds at the same place: the same file offset in the headers
+    and the overlay (by its offset from each overlay's start), the same RVA in a section."""
+    over = len(client.data) - len(client.overlay)
+    if off >= over:
+        o = off - over
+        return sum(1 for x, y in zip(client.overlay[o:o + length], ours.overlay[o:o + length]) if x == y)
+    for s in client.sections:
+        if s.raw <= off < s.raw + client.backed(s):
+            rva = s.rva + off - s.raw
+            a, _ = client.at_rva(rva, length)
+            b, have = ours.at_rva(rva, length)
+            return length - sum(e - st for st, e in diff_ranges(a, b, have))
+    return sum(1 for x, y in zip(client.data[off:off + length], ours.data[off:off + length]) if x == y)
+
+
+def masked(client, ours):
+    """(masked client bytes, of them equal in ours at the same place): NET7_EDITS and the link time stamps."""
+    ranges = [(rva_to_file(client, va - client.base), n) for va, n in NET7_EDITS] + stamp_ranges(client)
+    return sum(n for _, n in ranges), sum(equal_at(client, ours, o, n) for o, n in ranges)
+
+
 Section = collections.namedtuple('Section', 'name rva vsize raw rsize flags')
 
 
@@ -318,7 +351,7 @@ def main():
     total = len(client.data)
     counted = hn + sum(s['bytes'] for s in secs) + len(client.overlay)
     equal = head_equal + sum(s['equal'] for s in secs) + over_equal
-    mask_n, mask_eq = masked(client, ours, secs)
+    mask_n, mask_eq = masked(client, ours)
 
     our_map = read_map(a.map or os.path.splitext(a.ours)[0] + '.map')
     csyms = client_symbols()
@@ -344,7 +377,7 @@ def main():
         'percent': round(100.0 * equal / total, 4),
         'masked': {'bytes': mask_n, 'equal_in_mask': mask_eq, 'equal_bytes': equal - mask_eq,
                    'client_bytes': total - mask_n, 'percent': round(100.0 * (equal - mask_eq) / (total - mask_n), 4),
-                   'what': 'NET7_EDITS (11 .data ranges) and ' + ', '.join(MASKED_SECTIONS)},
+                   'what': 'NET7_EDITS (11 .data ranges) and the three link time stamps'},
         'headers': {'bytes': hn, 'equal': head_equal,
                     'different_fields': [k for k, _, _, same in rows if not same]},
         'overlay': {'client': len(client.overlay), 'ours': len(ours.overlay), 'equal': over_equal},
@@ -357,7 +390,7 @@ def main():
           f"at the same place ({summary['percent']:.2f} %); ours is {len(ours.data):,} bytes")
     m = summary['masked']
     print(f"masked   {m['equal_bytes']:,} of {m['client_bytes']:,} bytes equal ({m['percent']:.2f} %) without the "
-          f"{mask_n:,} bytes of Net-7's 11 URL edits and .rsrc (the same figure against EA's client)")
+          f"{mask_n:,} bytes of Net-7's 11 URL edits and the 3 link time stamps (the same figure against EA's client)")
     bad = [(k, x, y) for k, x, y, same in rows if not same]
     print(f'headers  {head_equal:,} of {hn:,} bytes equal; {len(bad)} of {len(rows)} fields differ'
           + (' (headers.tsv):' if bad else ''))

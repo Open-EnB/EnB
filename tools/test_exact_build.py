@@ -45,6 +45,12 @@ class Masked(unittest.TestCase):
         ends = sorted((va, va + n) for va, n in imagediff.NET7_EDITS)
         self.assertTrue(all(a[1] <= b[0] for a, b in zip(ends, ends[1:])))
 
+    @unittest.skipUnless(os.path.exists(imagediff.clientimage.DEFAULT_CLIENT), 'no retail client')
+    def test_stamps(self):
+        c = imagediff.Image(imagediff.clientimage.DEFAULT_CLIENT)
+        got = [c.data[o:o + n] for o, n in imagediff.stamp_ranges(c)]
+        self.assertEqual(got, [bytes.fromhex('00ae5740'), bytes.fromhex('31a82140'), bytes.fromhex('31a82140')])
+
 
 if __name__ == '__main__':
     unittest.main()
