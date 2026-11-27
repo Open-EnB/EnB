@@ -857,12 +857,20 @@ than `allA`**. By kind (the trial's map against retail's image):
 | Kind | `allA` | Retail | Difference |
 |---|---|---|---|
 | app functions (one thunk each: 19,993 publics, 19,993 thunks) | 19,993 | 19,976 (the full link's) | -17 |
-| library functions (function starts, the same discovery in both, `libblocks.py`) | 7,961 | 8,031 | **+70**: binkmovie's run 84 against 53 (+31, 52 of retail's unnamed), the LIBCPMT / LIBCMT / COMSUPP tail about +39 (v3_rnd.obj sits after WININET in retail, last in ours); the ww libraries within ±3 each |
+| library functions (function starts, the same discovery in both, `libblocks.py`, `bink.py`) | 7,961 | 8,031 | **+70 starts**, all in the CRT / STL tail: retail 0xA17E50-0xA420AC 997 (+ v3_rnd.obj's 33, which retail places after WININET and ours last) against 960; the ww libraries within ±3 each, binkmovie 51 against 53 (its run ends at 0xA17E50, where LIBCPMT's unpadded code starts, not 0xA18314). Of the tail's starts (`crtmove.py`) 534 carry names ours links there, 5 names ours has in the app region (`std::` COMDATs: ctype's dtor, three of basic_string's, istreambuf_iterator::equal), 77 statics, 371 no name: so not shown to be publics |
 | constants a relocation reaches (§5.7) | | | at most +72 (+38 literals reached from data, +34 `__real@`) |
 | other data a relocation reaches (§5.7) | | | about +16 (other +19 / +4, vtables -3, strings from code -4) |
 | unreferenced data (this section) | | | +3 literals (6 against 3); at most 9 `.bss` contributions and about 30 small `.data` items: **at most about 40** |
 
-Sum at most about 180 of the 273: **about 95 left**, names with no bytes of their own in the final image. The
+*A finding on the way* (names): 10 of symbols.json's CRT names in that tail are the wide twins of the narrow
+functions ours links, identical but for their relocations: 0xA26BEB `_wprintf` and 0xA284C7 `_fwprintf` call
+`_output` 0xA2EA38 (they are `_printf` and `_fprintf`), 0xA27AE1 `__wfsopen` calls `_openfile` (`__fsopen`),
+0xA27B12 `__wfopen` (`_fopen`); `__wctime` 0xA2A97C, `_vfwprintf` 0xA2ADBA, `__wmkdir` 0xA2B1D8, `__waccess`
+0xA2BA47, `__wgetcwd` 0xA3E54B and `__wremove` 0xA41DA4 likely the same (`libpub.py`: each a public of a LIBCMT
+member ours does not pull; symbols.json has no address for `_printf`, `_fopen` and the others).
+
+Sum at most about 180 of the 273 (the 70 library starts counted as publics): **about 95 left** at least, names with
+no bytes of their own in the final image. The
 likeliest holder (not measured): the table is the full link's (2004-02-05, whose bucket order the thunks keep, §5),
 so it holds the old versions of the objects the update recompiled (ui_registration, main, pkdirlock, the two packet
 constructors), and every data name (a literal, a constant) only an old version had is in the count and nowhere in
@@ -876,7 +884,8 @@ header that 9 translation units include, and emote_data.cpp / pktriggeremote.cpp
 kv_pair.cpp (678-680 bytes), one of the message files (about 593), unknown_847d20.cpp or pal_mgr.cpp (333-334),
 one of unknown_5b7ab0 / ui_mesh / unknown_5bb250 (about 53), cordcon.cpp / cordmgr.cpp / unknown_cordmsg.cpp (30-33),
 ui_mfd.cpp (about 10); (4) the include spellings of (b) in ui_analyze, ui_avatar_cust, viewbttn, tsk_login, the
-first packets object and co_subtype_base. For the libraries: binkmovie's 31 functions more in retail's run (code,
-possibly behaviour; the binkmovie item's) and the CRT tail's ~39. None of these moves the count far: the ~95 left
+first packets object and co_subtype_base. For the libraries: the CRT / STL tail's 70 unnamed starts more (which
+members, from `.work/libs/`'s objects: code, so possibly behaviour; a library-matching item's); symbols.json's 10
+wide-char names above (the names' check). None of these moves the count far: the ~95 left
 (the update's old objects' names, if the reading above holds) stay out of reach, so the thunk order keeps waiting
 for the names (§5.2), not for the count.
