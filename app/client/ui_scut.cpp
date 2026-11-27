@@ -289,10 +289,10 @@ struct ShortcutSlotCompareStruct	// NAME 1: neutral (D10)
 	{
 		G_ASSERT(a.Bar != b.Bar);
 		if (!a.Found && b.Found) return(false);
-		if (a.Found && !b.Found) return(true);
-		if (a.Group < b.Group) return(true);
-		if (a.Group > b.Group) return(false);
-		return(a.Bar < b.Bar);
+		else if (a.Found && !b.Found) return(true);
+		else if (a.Group < b.Group) return(true);
+		else if (a.Group > b.Group) return(false);
+		else return(a.Bar < b.Bar);
 	}
 };
 
@@ -1039,8 +1039,9 @@ void UIScutBankGadgetClass::Unknown_612820(int num)
 **	  a branch: the client's zero register), the bank's constructor, destructor, slot +0x40, and the
 **	  sort's comparison struct and instances 0x612940-0x6134F0, the bar's constructor 0x610F80 (the view through Get_View());
 **	  still differing (attempts.csv): the bar's control keys 0x611300 / 0x611710 and key
-**	  handler 0x6120E0 (registers), the bank's 0x612820 (stack pops) and
-**	  std::_Sort_0 0x6129C0 (the STL instance's inline budget).
+**	  handler 0x6120E0 (registers) and the bank's 0x612820 (stack pops). std::_Sort_0 0x6129C0 takes the client's
+**	  inline cut (the second _Insertion_sort with operator() out of line, _Unguarded_insert inlined) only with the
+**	  order's tests written as an else-if chain (the same code in operator() 0x613090, a smaller IL body).
 **	0x611B10 sits between #pragma auto_inline(off) / (on): the client calls it out of line from 0x610B00, 0x610C70 and
 **	0x611BD0. The bar's destructor removes it from the mesh's list through the base's inline slot +0x04 (0x53B310),
 **	which gives the client's schedule inside 0x610800. The sort's operator() returns int (mov eax, 1 in the client).
