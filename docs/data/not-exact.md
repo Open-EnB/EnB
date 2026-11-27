@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-465 entries in 221 files.
+464 entries in 221 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -183,7 +183,6 @@ edit the comments in the code, not this file.
 | `app/client/radar_data.cpp:88` | `RadarDataClass::Unknown_7BB570` | marker | NOT EXACT: block layout (case 1 owns a copy of the blink tail: generated between case 1 and case 0 it gives case 0's copies the client's registers and the client's layout, case 2, case 1, tail, case 0; the client has one tail, case 0's JumpStart cross-jumping into case 1's last store, where VC6 keeps our two copies apart) @0x7BB570 |
 | `app/client/radar_data.cpp:223` | `RadarDataClass::Unknown_7BBC00` | marker | NOT EXACT: inline budget (the client calls GutterColorStruct::operator= 0x70AC60 for the last of the four, ours inlines all four) @0x7BBC00 |
 | `app/client/radar_system.cpp:86` | `RadarSystemClass::Unknown_7BCA70` | marker | NOT EXACT: shape (27 masked rows: loop 2 as if (node) do { } while (node) with the invalid-position path sharing the loop-end advance gives the client's allocation (gutter in ebx and no zero register, the !rdata advance apart and joining at the store); the client has a third copy of the advance on the invalid-position path (0x7BCD22, 10 rows, node kept in edi), keeps node in edi from its definitio... |
-| `app/client/sbaseview.cpp:1242` | `SBaseViewClass::Unknown_6A0590` | marker | NOT EXACT: frame (0.72): the frame slots (the matrix rows, the cross products' temporaries) and the rotation's row order (the client computes Z, Y, X) |
 | `app/client/sbaseview.cpp:1387` | `SBaseViewClass::Unknown_6A1180` | marker | NOT EXACT: register-only (D89, explain.py): one sub's operands swapped since Starbase / +0x64 became RefCountPtr<Unknown5BB320Class> (D240 entry) 0x6A1180: the frame rate kept; the client's debug pages (Unknown14EC 4: memory, as frameint.cpp's; 1: the frame rate), its audio page, and its text rendered and reset (0x69C5E0 calls it before End_Render) |
 | `app/client/sclient.cpp:512` | `SClient::Shutdown` | marker | NOT EXACT: inline budget (similarity 0.73): +0x1334 / +0x1338 inlined as the client's (the decal views' real members), 0x7555B0 out of line; left: the client inlines the +0x133C asset's destructor in the vector loop where ours calls its scalar deleting destructor (budget: freed only by dropping two whole deletes), and register phase (eax / edx) in the view calls; 14 forms (attempts.py show 0x741BB... |
 | `app/client/sclient.cpp:741` | `SClient::Unknown_7429B0` | marker | NOT EXACT: register (explain.py register-only, 2 rows): the client loads the dialog's table into eax for the button > 1 call, ours into edx; the packet is a temporary (a named local cost 6 rows) 0x7429B0 (Do_Frame, after the lost-connection check: the reset-ship question; out of line as the client has it) |

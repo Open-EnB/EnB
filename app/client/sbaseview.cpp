@@ -1228,18 +1228,18 @@ void SBaseViewClass::Unknown_6A0540()
 
 
 
-// Matrix3D::Rotate_Vector without its alias test (0x6A1C90 reads +0x1D4 in place; the client sums rows 1 and 2
-// from the Z term down to the X term, row 0 from X); the lights loader 0x6A0590 uses it too
-static inline void Unknown_Rotate_Vector(const Matrix3D &A, const Vector3 &in, Vector3 *out)	// NAME 1: neutral (D10)
-{
-	out->X = (A[0][0] * in.X + A[0][1] * in.Y + A[0][2] * in.Z);
-	out->Y = (A[1][0] * in.X + (A[1][1] * in.Y + A[1][2] * in.Z));
-	out->Z = (A[2][0] * in.X + (A[2][1] * in.Y + A[2][2] * in.Z));
-}
+
+
+
+
+
+
+
+
 
 // 0x6A0590: the lights loader: +0x68's scene light and the two lights back into the +0x70 scene, the ambient light
 // and the RKEY / RCAMERA lights from the INI name ('LIGHTS'); RKey turned to the scene light's position plus its offset
-// NOT EXACT: frame (0.72): the frame slots (the matrix rows, the cross products' temporaries) and the rotation's row order (the client computes Z, Y, X)
+// (the offset through a Matrix3D of dir, right, up with a zero position, mainview.cpp 0x50F1B0's form: operator * computes Z, Y, X and VC6 folds the + 0)
 void SBaseViewClass::Unknown_6A0590(const char *name)
 {
 	if (Unknown68) {
@@ -1277,7 +1277,7 @@ void SBaseViewClass::Unknown_6A0590(const char *name)
 		if (RKey) {
 			RKey->Set_Diffuse(Vector3(color.X, color.Y, color.Z));
 			RKey->Set_Intensity(color.W);
-			Vector3 dir = Unknown68->Unknown00->Get_Position();
+			LightClass *light = Unknown68->Unknown00; Vector3 dir = light->Get_Position();
 			dir.Normalize();
 			dir = -dir;
 			Vector3 right;
@@ -1289,10 +1289,10 @@ void SBaseViewClass::Unknown_6A0590(const char *name)
 			Vector3 up;
 			Vector3::Cross_Product(dir, right, &up);
 			up.Normalize();
-			Matrix3D tm(dir, right, up, dir);
-			Vector3 light;
-			Unknown_Rotate_Vector(tm, offset, &light);
-			dir = light + dir;
+			Vector3 zero(0.0f, 0.0f, 0.0f);
+			Matrix3D tm(dir, right, up, zero);
+			dir = dir + tm * offset;
+
 			dir.Normalize();
 			RKey->Set_Spot_Direction(-dir);
 		}
@@ -1507,10 +1507,10 @@ void SBaseViewClass::Unknown_6A1C90()
 	Vector3 up;
 	Vector3::Cross_Product(dir, right, &up);
 	up.Normalize();
-	Matrix3D tm(dir, right, up, dir);
-	Vector3 light;
-	Unknown_Rotate_Vector(tm, Unknown1D4, &light);
-	dir = light + dir;
+	Vector3 zero(0.0f, 0.0f, 0.0f);
+	Matrix3D tm(dir, right, up, zero);
+	dir = dir + tm * Unknown1D4;
+
 	dir.Normalize();
 	RCamera->Set_Spot_Direction(-dir);
 }
