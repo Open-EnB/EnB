@@ -969,3 +969,51 @@ changes but for the displacement of `.data` operands; the two readers keep readi
 change). The one client build has `.data` at another RVA, so the imagediff figure moves ~0 there, as for §5.8.
 Aside: cpacket's two unreferenced 0.01f floats after the tables (0xB95308) are another file static of a header or
 of cpacket.cpp, not looked for.
+
+### 5.11 The four questions answered, and what the one client build would need
+
+Written 2026-11-27 (image builder IM14, week plan 2026-11-24 §2 D) from §5.1-§5.10 and the exact build (D286,
+`build.py link --program client-exact`). Figures: imagediff on wt/IM14 (run/2026-11-27 de6acd990 plus c18, the
+emote tables of §5.10: 9 copies with retail's neighbours in the exact build, `.work/im14/copies.py`).
+
+| Build | de6acd990 | + c18 (wt/IM14 2586e218c) |
+|---|---|---|
+| the one client build | 118,731 of 8,642,625 (1.37 %) | 118,764 (1.37 %) |
+| the exact build | 1,363,979 (15.78 %), masked 1,363,840 | 1,360,257 (15.74 %), masked 1,360,110 |
+
+c18 in the exact build: `.data` 512 bytes nearer retail's size (vsize 0xD59AC -> 0xD5BAC, retail 0xD6F14),
+89,167 -> 89,705 bytes equal by section offset, but 97,419 -> 93,553 at the same RVA: our `.data` starts 0x1000
+late (`.rdata` 0x668 bytes longer), so its in-place bytes are coincidences of the displacement; `.text` -44 (the
+`.data` operands). The 08:55 figure (1,296,330 at 6464ec6d2) rose with the run's code.
+
+1. **Full incremental link or update?** Both: a full incremental link (2004-02-05) updated once (2004-03-17; §5).
+   The exact build reproduces the full link (15.74 %). Open: the update's marks (48 slots, 22 guests, 7 thunks,
+   under 30 KB of `.text`); reproducing them needs stand-ins of the old objects at their old sizes and names
+   (the DirLock constructors' old signatures unknown): a documented residue unless the user wants it.
+2. **Object order, thunk order, padding?** Objects: the project's source folders, alphabetical inside (§5.6),
+   taken by the exact build; the one client build's order is LINK's breadth-first pull from `_WinMain@16`
+   (651 / 651, §5.7). Thunks: LINK's linear hash table (every slot of a whole trial on the order), retail's split
+   pointer p = 6,856 against ours ~6,765: about 273 more external symbols, so the table (99,994 bytes) and the
+   81,747 rel32 that reach it are 0 in place. Padding: up16(S + S/4) per app function (99.65 %), library members
+   packed, `.data` contributions S + S/5 (§5.7-§5.8). Open: ~95 externals (§5.9: the update's old names, out of
+   reach) and the names themselves (§5.2).
+3. **The missing pieces?** All reproducible but the three link stamps (12 bytes, masked): `.rsrc` 8,156 of 8,156
+   at retail's RVA, the debug record 60 of 65 with `/pdb:`, the DOS stub 128 once `e_lfanew` is 0x128, the entry
+   point with `.text`'s size. Open: `e_lfanew` 0x130 (the rich header's C++ count, §5.4's 47 code-less objects),
+   `.text` 0x558 longer, `.rdata` 0x668 longer, `.data` 0x1368 shorter than retail's.
+4. **The library members?** Retail links every app object (94 the one client build never pulls, with 78 static
+   initialisers that never run there) and wlib's, wnet's and rawfile.obj as app objects; library order, VC6
+   DDRAW.LIB and a long-format mss32.lib are retail's (all in the exact build); ours only: wwlib's stimer.obj;
+   35 of 585 library members unpaired (9,546 bytes), 239 gaps (103,866 bytes) in retail's library region. Open:
+   the CRT / STL tail's unnamed starts (§5.9).
+
+**Proposal for the user (the one client build's options; nothing changed).** The one client build comes close to
+retail's layout only as the exact build: (a) make `--program client` the exact build's recipe (every app object
+on the line in retail's order, `/debug /incremental:yes /fixed:no`, retail's library order and import libraries,
+`client.res`, the PDB path): 1.37 % -> 15.74 % now, rising with every exact function and name. Cost: the 94
+objects' code and their 78 initialisers then run in every client test, as in retail (a behaviour change of the
+test image: the e2e baselines and clienttest's expectations to re-take once), the E: subst and LIB /CONVERT step in
+each link VM (both already in `build.py`), a 8.6 MB image and an `.ilk`. (b) §5.7's order alone (`/include:` or
+the line order with `/incremental:no`): +1,133 bytes (~0.01 %), cheap but of little worth, since retail's layout
+is the incremental link's. (c) Keep both builds (D286 as now): the one client build for tests, the exact build for
+the figure. Recommended: (c) until the user takes the test image's behaviour change, then (a).
