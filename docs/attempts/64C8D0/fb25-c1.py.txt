@@ -1,0 +1,15 @@
+HYPOTHESIS = 'FB25 batch 1 (0x64C8D0): the client is starved from the first site (temp string _Tidy / _Eos called, 64E640 erase called): generic spenders at the function top (2-40, untested: earlier rounds spent 1-8 after the sites), the per-callee lever of 0x64D770 (dead max_size reads), 0x64E640 emptying through resize(0)'
+FILE = 'app/client/ui_talkt.cpp'
+SYMBOL = 'UITalkTreeClass::Unknown_5C'
+ADDRESS = 0x64C8D0
+
+TOP = "void UITalkTreeClass::Unknown_5C()\n{\n\tif (ActiveUI) {\n"
+E640 = "\t\tNPCSpeechHandle = NULL;\n\t}\n\tSpeechFile.erase();\n}\n\n// 0x64E7A0\n"
+def top(code):
+    return (TOP, "void UITalkTreeClass::Unknown_5C()\n{\n\t" + code + " if (ActiveUI) {\n")
+FORMS = {}
+for n in (2, 4, 6, 8, 10, 12, 14, 16, 20, 24, 28, 32, 40):
+    FORMS['ptop%d' % n] = [top("NPCSpeechHandle.Peek(); " * n)]
+for n in (1, 2, 3, 4, 6, 8):
+    FORMS['mstop%d' % n] = [top("SpeechFile.max_size(); " * n)]
+FORMS['e640_resize'] = [(E640, E640.replace("SpeechFile.erase();", "SpeechFile.resize(0);"))]

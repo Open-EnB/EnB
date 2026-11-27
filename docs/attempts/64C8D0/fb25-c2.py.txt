@@ -1,0 +1,26 @@
+HYPOTHESIS = 'FB25 batch 2 (0x64C8D0): six dead max_size reads at the top give the client temp string and the called SpeechFile erase (TGETR, 67 -> 34) but call PlayerText erase too: where the reads stand (top / else end / before 64E640 / between / after 64D100), their split, counts 5-7, and growth beside them'
+FILE = 'app/client/ui_talkt.cpp'
+SYMBOL = 'UITalkTreeClass::Unknown_5C'
+ADDRESS = 0x64C8D0
+
+TOP = "void UITalkTreeClass::Unknown_5C()\n{\n\tif (ActiveUI) {\n"
+SEND = "\t\tsclient->Send_Packet(&SelectTalkTreePacketClass(sclient->Unknown1138, TALK_TREE_QUIT));\n"
+TAIL = "\tUnknown_64E640();\n\tUnknown_64D100();\n\tif (Active) {\n\t\tUnknown5BB320Class::Unknown_5C();\n"
+MS = "SpeechFile.max_size(); "
+def top(code):
+    return (TOP, "void UITalkTreeClass::Unknown_5C()\n{\n\t" + code + " if (ActiveUI) {\n")
+def tail(b640="", mid="", aft=""):
+    return (TAIL, "\t" + b640 + "Unknown_64E640(); " + mid + "\n\tUnknown_64D100(); " + aft + "\n\tif (Active) {\n\t\tUnknown5BB320Class::Unknown_5C();\n")
+def send(code):
+    return (SEND, SEND[:-1] + " " + code + "\n")
+FORMS = {}
+for n in (5, 7, 10, 12, 16):
+    FORMS['top%d' % n] = [top(MS * n)]
+for a, b in ((5, 1), (4, 2), (3, 3), (2, 4), (0, 6), (6, 1), (6, 2), (6, 4)):
+    hs = [top(MS * a)] if a else []
+    FORMS['t%d_b%d' % (a, b)] = hs + [tail(b640=MS * b)]
+    FORMS['t%d_m%d' % (a, b)] = hs + [tail(mid=MS * b)]
+    FORMS['t%d_a%d' % (a, b)] = hs + [tail(aft=MS * b)]
+    FORMS['t%d_s%d' % (a, b)] = hs + [send(MS * b)]
+for n in (1, 2, 4, 8, 16):
+    FORMS['t6_sum%d' % n] = [top(MS * 6 + "".join("(void)(Unknown158 + %d); " % k for k in range(n)))]

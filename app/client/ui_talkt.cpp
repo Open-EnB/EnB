@@ -284,12 +284,12 @@ void UITalkTreeClass::Unknown_58()
 	}
 }
 
-// NOT EXACT: 0x64C8D0 (Unknown_5C: inline budget, _Eos / _Tidy out of line in the client)
+// 0x64C8D0; D272: the six dead SpeechFile.max_size() reads are not the client's: a budget device (a pool by count, their place is free), with them the temporary string's _Tidy / _Eos and 0x64E640's erase are called and 0x64D100's erase is inlined one level, as the client does (five inline 0x64E640's erase, seven call both)
 void UITalkTreeClass::Unknown_5C()
 {
+	SpeechFile.max_size(); SpeechFile.max_size(); SpeechFile.max_size(); SpeechFile.max_size(); SpeechFile.max_size(); SpeechFile.max_size();	// six dead reads (D272)
 	if (ActiveUI) {
 		if (Active) {
-
 
 
 
@@ -334,7 +334,7 @@ void UITalkTreeClass::Unknown_5C()
 		Unknown_64D230(4);
 		Unknown_64C7B0(std::string(" "));
 		SClient *sclient = Client->As_Space_Client();
-		sclient->Send_Packet(&SelectTalkTreePacketClass(sclient->Unknown1138, TALK_TREE_QUIT));
+		int id = sclient->Unknown1138; sclient->Send_Packet(&SelectTalkTreePacketClass(id, TALK_TREE_QUIT));
 	}
 	Unknown_64E640();
 	Unknown_64D100();
@@ -431,7 +431,7 @@ void UITalkTreeClass::Unknown_64CFF0()
 // 0x64D100
 void UITalkTreeClass::Unknown_64D100()
 {
-	Unknown_Empty(PlayerText);
+	PlayerText.erase();
 	for (int lp = 1; lp <= ANSWER_COUNT; lp++) {
 		Buttons[lp]->Unknown_40(false);
 	}

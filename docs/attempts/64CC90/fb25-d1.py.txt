@@ -1,0 +1,15 @@
+HYPOTHESIS = 'FB25 lead test (0x64CC90, B33 parked at 109): the dead max_size() read pool that made 0x64D770 (2) and 0x64C8D0 (6) exact, counts 1-12 at the top, with the speech stop written inline (as now) and as the Unknown_64E640() call'
+FILE = 'app/client/ui_talkt.cpp'
+SYMBOL = 'UITalkTreeClass::Unknown_90'
+ADDRESS = 0x64CC90
+
+TOP = "\tFAIL_IF(!packet) return;\n\tif (!Active && !ActiveUI) {\n"
+L = "\tif (NPCSpeechHandle) { NPCSpeechHandle->Stop(true); NPCSpeechHandle = NULL; } SpeechFile.erase();\t// Unknown_64E640, written inline\n"
+MS = "SpeechFile.max_size(); "
+def top(n):
+    return [(TOP, "\tFAIL_IF(!packet) return; " + MS * n + "\n\tif (!Active && !ActiveUI) {\n")] if n else []
+FORMS = {}
+for n in (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 14, 16):
+    FORMS['ms%d' % n] = top(n)
+    FORMS['call_ms%d' % n] = top(n) + [(L, "\tUnknown_64E640();\n")]
+FORMS['call_ms0'] = [(L, "\tUnknown_64E640();\n")]
