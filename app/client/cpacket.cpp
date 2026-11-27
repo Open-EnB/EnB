@@ -77,8 +77,8 @@ static std::string Unknown_BE7D58("critical_hit_1.wav");	// 0xBE7D58 (initialise
 #include "ui_line_display.h"
 #include "avatar.h"
 #include "..\packets\pklogoff.h"
-
-
+static float Unknown_B95308 = 0.01f;	// 0xB95308: no code reads it (.data after the emote tables, no other copy in the client)  // NAME 1: neutral (D10)  // placement provisional (D137): a file static after the tables, no header of cpacket's alone
+static float Unknown_B9530C = 0.01f;	// 0xB9530C: no code reads it  // NAME 1: neutral (D10)
 
 
 
