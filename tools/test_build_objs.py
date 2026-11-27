@@ -75,5 +75,29 @@ class Guard(unittest.TestCase):
             self.assertIsNone(lo.call_args.kwargs['trial'])
 
 
+class Listings(unittest.TestCase):
+    """build.py --listings: /FAs listings next to the objects (A4's build_listings.py as an option)."""
+    WORK = 'C:\\w\\build_app'
+    SRCS = [('E:\\a\\x.cpp', None), ('E:\\a\\y.cpp', None)]
+
+    def test_plain_unchanged(self):
+        text = build.rsp_text_of(['/nologo', '/O2'], self.WORK, self.SRCS)
+        self.assertEqual(text, '/nologo\r\n/O2\r\n/Fo"C:\\w\\build_app\\obj\\\\"\r\n"E:\\a\\x.cpp"\r\n"E:\\a\\y.cpp"\r\n')
+        self.assertNotIn('/FA', text)
+
+    def test_listing_flags(self):
+        text = build.rsp_text_of(['/nologo'], self.WORK, self.SRCS, listings=True)
+        lines = text.split('\r\n')
+        self.assertEqual(lines[1:3], ['/FAs', '/Fa"C:\\w\\build_app\\obj\\\\"'])
+        self.assertLess(lines.index('/FAs'), lines.index('"E:\\a\\x.cpp"'))   # options before the sources
+
+    def test_cli_passes_it(self):
+        with mock.patch.object(sys, 'argv', ['build.py', 'build', '--lib', 'app', '--listings', '--allow-dirty']), \
+                mock.patch.object(build.rootguard, 'check'), mock.patch.object(build, 'dirty', return_value=[]), \
+                mock.patch.object(build, 'build') as b, mock.patch.object(build, 'unresolved'):
+            build.main()
+        self.assertTrue(b.call_args.args[2])
+
+
 if __name__ == '__main__':
     unittest.main()

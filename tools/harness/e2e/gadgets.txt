@@ -85,3 +85,74 @@ talk.trade         505 838   # the talk window's Trade button, beside Done (a ve
 talk.close         1098 633  # the talk window's close box
 trade.close        1258 334  # the vendor list's close box (shot vendor_trade)
 trade.cargo_close  234 311   # the cargo window's close box beside it
+# Character select, creation and the server list (live, account admin; CS6's retail shots of 2026-11-26 under
+# .work/cs6/e2e, ui_charcreate / ui_account): slots are rows of the list at the top left, empty ones 'New Character'
+select.slot2       250 178   # character select's third row (Zinith)
+select.slot3       250 232   # the fourth row: 'New Character' (an empty slot: Enter opens character creation)
+select.previous    240 950   # 'Previous': back to the login screen
+select.delete      640 968   # 'Delete' under the models (greyed until a character row is picked)
+delete.yes         486 540   # 'Confirm deletion of the character?' Yes
+delete.no          810 540   # the same box's No
+login.account      656 952   # the login screen's 'Account Management'
+create.previous    240 950   # every creation page's 'Previous' (the profession page's goes back to character select)
+create.next        1060 950  # every creation page's 'Next'; the name page's 'Play Game' (greyed until a name is set)
+class.enforcer     494 70    # profession page: the nine class buttons, a race a row (Terran: Enforcer Tradesman
+class.tradesman    722 70    #   Scout; Progen: Warrior Privateer Sentinel; Jenquai: Defender Seeker Explorer; the
+class.scout        946 70    #   page's title names the pick, 'Privateer / Progen Tradesman')
+class.warrior      494 120
+class.privateer    722 120
+class.sentinel     946 120
+class.defender     494 172
+class.seeker       722 172
+class.explorer     946 172
+avatar.gender      530 136   # avatar page tab 0, 'Gender: Male' / 'Gender: Female': a click toggles the gender
+avatar.head        740 136   # tab 1 'Head and Face'
+avatar.body        960 136   # tab 2 'Body and Clothing'
+avatar.random      176 830   # 'Random Appearance' (0x557290: the tab's parts drawn at random)
+avatar.hair.next   288 256   # Head and Face: each row's right arrow (Style, Beard, Face Type, Head Type, Details,
+avatar.beard.next  288 326   #   Glasses, Ear Pieces) and the colour buttons beside the rows
+avatar.face.next   288 430
+avatar.headtype.next 288 496
+avatar.details.next 288 560
+avatar.glasses.next 288 664
+avatar.ears.next   288 730
+avatar.hair.color  392 256
+avatar.skin.color  392 430
+avatar.eye.color   392 496
+avatar.palette     1130 430  # the colour square at the right (a click picks the colour for the button pressed last)
+avatar.shirt.next  286 256   # Body and Clothing: Shirt Style and Pant Style right arrows, their colour buttons
+avatar.pant.next   286 376
+avatar.shirt.color1 376 256
+avatar.pant.color1 376 376
+avatar.metal2      1140 639  # 'Metals', the second swatch
+avatar.taller      278 536   # the Height / Weight pad: up, and right (heavier)
+avatar.heavier     340 600
+ship.hull          496 70    # ship page tabs: Hull, Paint Mode, Ship Name, Decals
+ship.paint         720 70
+ship.name          496 120
+ship.decals        720 120
+ship.hull.next     290 256   # Hull: 'Hull Style' and 'Wing Style' right arrows
+ship.wing.next     290 320
+ship.paint.primary 111 135   # Paint Mode: 'Primary' and 'Secondary', the colour square, 'Metals' second swatch
+ship.paint.secondary 255 135
+ship.paint.palette 140 480
+ship.paint.metal2  141 699
+ship.name.field    195 144   # Ship Name: 'Enter Name', and the colour square under it
+ship.name.palette  120 315
+ship.decal3        390 201   # Decals: the third decal of the row
+name.field         750 366   # the name page: 'Click to set Name'
+name.tutorial      680 264   # 'Playing with Beginner Tutorial' (a toggle)
+name.server0       690 502   # the server list's first row ('LocalDev 0% full': ChooseShard, ui_shard)
+quit.charselect    640 366   # Quit Menu (opt02a): 'Quit to Character Selection'
+quit.login         640 402   # Quit Menu: 'Quit to Login'
+# The login screen's Account Management menu (FE13A; ui_login.cpp 0x5AD610's keys 1-5) and the pages it opens (CS6's
+# retail shots _cs6_x8 / _cs6_x9*, 2026-11-26): the menu opens on a click only after the pointer rested on the button
+acct.edit          656 506   # 'Edit Account': the YES_NO box 'This will exit Earth & Beyond and take you to the EA.COM Account Management Website' (Yes exits the game: never clicked)
+acct.edit.no       801 597   # that box's No
+acct.register      656 588   # 'Register Account': RegistrationInterface (ui_registration), the notice page first
+acct.code          656 670   # 'Add Gametime Code': the member name / password page
+acct.cancel        656 758   # 'Cancel': the menu closed
+reg.cancel         566 802   # the registration pages' bottom row: Cancel, Back, Next (the notice page: Cancel, Continue)
+reg.back           760 802
+reg.next           946 802
+reg.continue       942 802   # the notice page's 'Continue'

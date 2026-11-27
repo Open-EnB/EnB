@@ -29,6 +29,15 @@ CHECK (each writes OUT/<check>.tsv, every row; `all` runs them all and writes OU
          thunk is the same, two targets holding the same bytes are codegen)
   seeds  stashed forms the tree has not adopted (behaudit_seeds.py: D185 variant stashes scoring above the tree,
          seed-patch hunks never applied; SD's varcheck and R3's seedcheck2), not a behaviour check
+  tables every switch of every exact function (A7, run 2026-11-26): objmatch masks each jump-table entry (a DIR32 to
+         the function itself) and each case body's relocated fields, so an exact form can send a case value to
+         another body (B14's ch_d1 form of 0x545190: 6 of 12 entries). Each value's body through our byte index and
+         jump tables against the client's through its own (same offsets); a value reaching another offset is walked
+         ours-from-our-offset against the client's-from-its-offset (same_body: a bisimulation, relocated fields by
+         value: literal text, client address through thunks and identical-COMDAT folds, label offset): `copy` (the
+         same code laid out elsewhere: codegen, filtered), `body` (another body: open, a behaviour bug), `unknown`
+         (a field it cannot resolve). Functions symbols.json does not name yet are placed by the ledger's in_tree
+         addresses of their own object. Prints functions / tables / values counted
   all    every check above
 
 Pairing: by mangled name (symbols.json), by the tree's `// @0xADDR` markers, not-exact.md's rows naming an address
@@ -39,6 +48,10 @@ String_To_Value overloads reading their own tables, are assigned one to one, the
 consistent with the untied functions first); otherwise the best-aligned candidate not taken by an exact match, one
 function per address (overloads of one name: the best aligned), none under MIN_RATIO. Skipped: deleting destructors
 (??_G / ??_E), stale objects (an object older than its source's last commit in --tree, unless --no-stale).
+Ledger fallback (A7's tables placement, shared with lit / rel / imm / fpu by AT1, run 2026-11-26; not with --only):
+an exact function the pairing leaves out (symbols.json lags the ledger: no name, no marker; $E initialisers per
+object) is placed at the one in_tree address of its own object where its masked pattern fullmatches; those whose
+name only one object defines also feed relocaudit's data map. Prints `ledger:` with each check's gain.
 
 Filters (the scripts' false positives, each row keeps its class in column `auto`): `noise` = a hit whose expected
 value occurs elsewhere in the client's function (`shifted`), fold and static rows, lit-extra, stl_prime_list / $E /
@@ -73,7 +86,7 @@ REPO = os.path.dirname(os.path.dirname(HERE))
 sys.path.insert(0, HERE)
 import capstone  # noqa: E402
 from clientimage import ClientImage  # noqa: E402
-from objmatch import CoffObject, RELOC_SIZE, demangle, thunks_of  # noqa: E402
+from objmatch import CoffObject, MIN_FIXED, RELOC_SIZE, demangle, symbol_addresses, thunks_of  # noqa: E402
 import appfile  # noqa: E402
 import relocaudit as RA  # noqa: E402
 
@@ -81,7 +94,7 @@ DIR32, REL32 = 0x06, 0x14
 MD = capstone.Cs(capstone.CS_ARCH_X86, capstone.CS_MODE_32)
 MD.detail = True
 NUM = re.compile(r'-?\b(0x[0-9a-f]+|\d+)\b')
-CHECKS = ('lit', 'rel', 'imm', 'fpu', 'args', 'data', 'seeds')
+CHECKS = ('lit', 'rel', 'imm', 'fpu', 'args', 'data', 'seeds', 'tables')
 KNOWN_TSV = os.path.join(HERE, 'behaudit_known.tsv')
 COLS = ('check', 'kind', 'obj', 'addr', 'function', 'status', 'ratio', 'how', 'off', 'ours', 'client_va', 'client',
         'ours_val', 'client_val', 'expected', 'basis', 'note', 'auto', 'known')
@@ -990,6 +1003,376 @@ def switch_rows(ctx, f, selfrel):
     return out
 
 
+# ---------------------------------------------------------------- tables: every exact function's switches (A7)
+TABLE_WALK = 600        # instruction pairs one body comparison may walk before it gives up (`unknown`)
+DEFER_SAME = True      # fields at our own offset left to the rel check (False: compared here too, for tests)
+UNCOND_END = ('ret', 'retn', 'int3', 'hlt', 'ud2')
+CONDJ = re.compile(r'^(j(?!mp)\w+|loop\w*|jecxz|jcxz)$')
+
+
+def our_switches(f, selfrel):
+    """[(jump table offset, byte table offset or None, jump entries, byte entries or None)] of our function,
+    offsets from its start. Every jump table (a self-relocated field that a self relocation targets: VC6's tables
+    after the last ret) is listed, read through its `jmp [reg*4 + T]` row when one reads it; a two-level switch's
+    byte index table is the `mov / movzx r8, [reg + B]` a few rows before that jmp."""
+    left = obj_rows(f.o, f.sec, f.s, f.e)
+    body = f.o.data[f.o.sections[f.sec]['raw'] + f.s:f.o.sections[f.sec]['raw'] + f.e]
+    starts = sorted({t - f.s for t in selfrel.values() if f.s < t < f.e and t in selfrel})
+    reads = {}      # table offset -> byte table offset (or None) read with it
+    bytes_at = set()
+    for k, L in enumerate(left):
+        if L['doff'] is None or f.s + L['off'] + L['doff'] not in selfrel:
+            continue
+        t = selfrel[f.s + L['off'] + L['doff']] - f.s
+        if BYTE_LOAD.match(L['text'].replace('REL', '0')):
+            bytes_at.add(t)
+        if not JUMP.match(L['text'].replace('REL', '0')):
+            continue
+        idx = None
+        for L2 in left[max(0, k - 6):k][::-1]:
+            if BYTE_LOAD.match(L2['text'].replace('REL', '0')) and L2['doff'] is not None \
+                    and f.s + L2['off'] + L2['doff'] in selfrel:
+                idx = selfrel[f.s + L2['off'] + L2['doff']] - f.s
+                break
+        reads[t] = idx
+    bounds = sorted(set(starts) | bytes_at | {f.e - f.s})
+    out = []
+    for t in starts:
+        n = 0
+        while f.s + t + 4 * n in selfrel and (n == 0 or t + 4 * n not in bounds):
+            n += 1
+        jt = [selfrel[f.s + t + 4 * i] - f.s for i in range(n)]
+        idx = reads.get(t)
+        bt = None
+        if idx is not None:
+            nxt = min(b for b in bounds if b > idx)
+            bt = bytearray(body[idx:nxt])
+            if nxt == f.e - f.s:
+                while bt and bt[-1] in (0xCC, 0x90):
+                    bt.pop()
+            bt = list(bt)
+        out.append((t, idx, jt, bt))
+    return out
+
+
+def client_ins(ctx, va):
+    o = ctx.img.offset(va)
+    return None if o is None else next(MD.disasm(ctx.img.data[o:o + 16], va), None)
+
+
+class OurCode:
+    """Our exact function's bytes and relocations for the tables walk (offsets from the function's start)."""
+
+    def __init__(self, f):
+        self.f = f
+        info = f.o.sections[f.sec]
+        self.body = f.o.data[info['raw'] + f.s:info['raw'] + f.e]
+        self.rel = {va - f.s: (idx, typ) for va, idx, typ in info['relocs'] if f.s <= va < f.e}
+        self.end = code_end(f.o, f.sec, f.s, f.e)
+
+    def ins(self, x):
+        return next(MD.disasm(self.body[x:x + 16], x), None) if 0 <= x < self.end else None
+
+
+def our_token(ctx, oc, x):
+    """What our relocated field at offset x reaches: ('L', offset) a label of the function itself, ('s', text) a
+    literal, ('a', {addresses}) a symbol symbols.json places, ('d', address) a data symbol the data map places,
+    None when it cannot be told."""
+    f = oc.f
+    idx, typ = oc.rel[x]
+    sym = f.o.symbol_at(idx)
+    if sym is None:
+        return None
+    add = struct.unpack_from('<i', oc.body, x)[0] if typ == DIR32 else 0
+    if sym['section'] == f.sec + 1 and typ == DIR32:
+        return ('L', sym['value'] + add - f.s)
+    lit = our_literal(f.o, sym)
+    if lit is not None:
+        return ('s', lit.rstrip(b'\0'))
+    nm = sym['name']
+    if nm in ctx.known:
+        return ('a', ({k + add for k in ctx.known[nm]}, nm))
+    named = symbol_addresses().get(nm)      # symbols.json's other proofs (a not-exact callee's marker, a slot)
+    if named:
+        return ('a', ({k + add for k in named}, nm))
+    if nm.startswith('__real@') and sym['section'] > 0:
+        n = 4 if nm.startswith('__real@4') else 8
+        ri = f.o.sections[sym['section'] - 1]['raw'] + sym['value'] + add
+        return ('b', f.o.data[ri:ri + n])
+    m = re.match(r'[_?]Unknown_([0-9A-F]{6})(?![0-9A-Za-z])', nm)     # its own name (not a local static's)
+    if m and not nm.startswith(('??_C@', '__real@')):      # an Unknown_XXXXXX function or datum: its address
+        a = int(m.group(1), 16) + add
+        return ('a', ({a}, nm)) if typ == REL32 or '@' in nm else ('d', a)
+    if typ == DIR32 and sym['class'] == 2:
+        dm = ctx.data()[0]
+        if nm in dm:
+            return ('d', dm[nm] + add)
+    return None
+
+
+def token_equal(ctx, f, tok, va, typ):
+    """Our token against the client's field at va (DIR32: its dword; REL32: the target): True, False or None."""
+    v = ctx.u32(va)
+    if v is None:
+        return False
+    if typ == REL32:
+        v = (va + 4 + v - (1 << 32) if v & 0x80000000 else va + 4 + v) & 0xffffffff
+    if tok is None:
+        return None
+    kind, x = tok
+    t = ctx.thunk.get(v, v)
+    if kind == 'L':
+        return v == f.addr + x
+    if kind == 's':
+        s = ctx.img.cstr(v, 4096) if DATA_RANGE[0] <= v < DATA_RANGE[1] else None
+        if s is None:
+            return x == b'' and ctx.u32(v) is not None and ctx.img.data[ctx.img.offset(v)] == 0
+        return s.encode('latin1') == x or norm_file(s.encode('latin1')) == norm_file(x)
+    if kind == 'a':     # a byte-identical copy (identical-COMDAT folding) is the same callee
+        return v in x[0] or t in x[0] or ctx.folded(x[1], v)
+    if kind == 'b':
+        o = ctx.img.offset(v)
+        return o is not None and ctx.img.data[o:o + len(x)] == x
+    return v == x
+
+
+def same_body(ctx, oc, a, b, limit=TABLE_WALK):
+    """(True | False | None, (ours offset, client address)): whether our code from offset a does what the client's
+    from address b does, walked in lockstep (a bisimulation): local jmps followed on either side, a conditional
+    jump's two successors walked, each instruction's bytes equal outside our relocated fields and local branch
+    displacements, each relocated field reaching the client's value (our_token / token_equal: a literal by its
+    text, a symbol by its client address, a label of the function by its offset). Meeting at the same offset is no
+    proof (the masked bytes there can still differ), so walks go on to a ret, an indirect jmp or a pair seen.
+    None: the budget ran out or a field could not be told, nothing differing."""
+    f = oc.f
+    lo, hi = f.addr, f.addr + (f.e - f.s)
+    work, seen, steps, untold = [(a, b)], set(), 0, None
+    while work:
+        x, y = work.pop()
+        while True:
+            for _ in range(16):     # local jmps (a tail cases share) on either side
+                io, ic = oc.ins(x), client_ins(ctx, y)
+                if io is None or ic is None:
+                    return False, (x, y)
+                jo = (io.mnemonic == 'jmp' and io.operands[0].type == capstone.x86.X86_OP_IMM
+                      and not any(x + k in oc.rel for k in range(io.size)))
+                jc = (ic.mnemonic == 'jmp' and ic.operands[0].type == capstone.x86.X86_OP_IMM
+                      and lo <= (ic.operands[0].imm & 0xffffffff) < hi)
+                if not (jo or jc):
+                    break
+                x = io.operands[0].imm if jo else x
+                y = (ic.operands[0].imm & 0xffffffff) if jc else y
+            if (x, y) in seen:
+                break
+            seen.add((x, y))
+            steps += 1
+            if steps > limit:
+                return None, (x, y)
+            if io.size != ic.size or io.mnemonic != ic.mnemonic:
+                return False, (x, y)
+            fields = [k for k in range(io.size) if x + k in oc.rel]
+            if CONDJ.match(io.mnemonic) or (io.mnemonic == 'call' and not fields
+                                             and io.operands[0].type == capstone.x86.X86_OP_IMM):
+                if CONDJ.match(io.mnemonic):
+                    work.append((io.operands[0].imm, ic.operands[0].imm & 0xffffffff))
+                else:       # a call to a local label (none in VC6's output, but told apart)
+                    if (ic.operands[0].imm & 0xffffffff) != f.addr + io.operands[0].imm:
+                        return False, (x, y)
+            else:
+                ob = bytearray(oc.body[x:x + io.size])
+                co = ctx.img.offset(y)
+                cb = bytearray(ctx.img.data[co:co + ic.size])
+                for k in fields:
+                    typ = oc.rel[x + k][1]
+                    n = RELOC_SIZE.get(typ, 4)
+                    # a field at our own offset is the rel check's (its fold / data / static rows): equal here
+                    eq = True if DEFER_SAME and y == f.addr + x else token_equal(ctx, f, our_token(ctx, oc, x + k), y + k, typ)
+                    if eq is False:
+                        return False, (x, y)
+                    if eq is None:
+                        untold = untold or (x, y)
+                    ob[k:k + n] = cb[k:k + n] = b'\0' * n
+                if ob != cb:
+                    return False, (x, y)
+            if io.mnemonic in UNCOND_END or io.mnemonic == 'jmp':     # ret, an indirect jmp, a tail call
+                break
+            x, y = x + io.size, y + ic.size
+    return (None, untold) if untold else (True, None)
+
+
+def ledger_files(ctx):
+    """The app ledger's {file key: shard} (imports' in_tree addresses per file), {} without a ledger."""
+    import importlib.util
+    spec = importlib.util.spec_from_file_location('ledger', os.path.join(REPO, 'tools', 'vc6', 'ledger.py'))
+    ledger = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(ledger)
+    try:
+        return ledger.load(repo=ctx.tree).get('app', {}).get('files', {})
+    except (SystemExit, OSError, ValueError, KeyError) as ex:
+        ctx.log('ledger: none (%r)' % ex)
+        return {}
+
+
+def ledger_funcs(ctx, funcs, files=None, switch_only=False):
+    """[Func]: our exact functions the pairing leaves out (symbols.json lags the ledger: no name nor marker yet),
+    each placed at the one ledger address of its own object (imports' in_tree) where its masked pattern fullmatches
+    (at least MIN_FIXED fixed bytes; two or more hits: unplaced). Shared by every per-function check (A7's tables
+    placement, run 2026-11-26; AT1 gave it to lit / rel / imm / fpu and relocaudit's data map); switch_only keeps
+    the functions with a jump table (f.switch). FILES: {file key: {'in_tree': [hex]}} (default: the ledger)."""
+    if files is None:
+        files = ledger_files(ctx)
+    def own(path, name):        # an initialiser's $E name is per object (D94(b)): one per object
+        return (path, name) if name.startswith(('$', '_$')) else name
+    have = {own(f.path, f.name) for f in funcs}
+    taken = {f.addr for f in funcs}
+    out = []
+    for path in ctx.paths:
+        if path in ctx.stale:
+            continue
+        key = os.path.splitext(os.path.basename(path))[0].lower()
+        addrs = [int(a, 16) for a in files.get(key, {}).get('in_tree', ())]
+        addrs = [a for a in addrs if ctx.img.offset(a) is not None]
+        if not addrs:
+            continue
+        try:
+            o = ctx.obj(path)
+            fl = o.functions()
+        except (ValueError, OSError, struct.error):
+            continue
+        for name, sec, st, en in fl:
+            if name.startswith(SKIP_PREFIX) or own(path, name) in have:
+                continue
+            sr = self_relocs(o, sec, st, en)
+            switch = any(st < t < en and t in sr for t in sr.values())
+            if switch_only and not switch:
+                continue
+            pat, fixed, n = o.pattern(sec, st, en)
+            if fixed < MIN_FIXED:
+                continue
+            rx = re.compile(pat, re.S)
+            hit = []
+            for a in addrs:
+                if a in taken:
+                    continue
+                off = ctx.img.offset(a)
+                if rx.fullmatch(ctx.img.data[off:off + n]):
+                    hit.append(a)
+            if len(hit) == 1:
+                f = Func(path, o, name, sec, st, en, hit[0], True)
+                f.ledger, f.switch = True, switch
+                out.append(f)
+                taken.add(hit[0])
+                have.add(own(path, name))
+            elif hit or switch:
+                ctx.log('ledger: %s %s unplaced (%d ledger hits)' % (key, demangle(name) or name, len(hit)))
+    return out
+
+
+def add_to_data_map(ctx, placed):
+    """Give relocaudit's data map (keyed by symbol name, every object) the placed functions whose name only one of
+    our objects defines: a per-object name ($E15, an initialiser; a file-static twin) would let another object's
+    function of that name fullmatch this address's masked code and observe its own data there (unknown_7cef30's
+    $E15 at another object's $E15, 0x83CF40). Returns how many it added."""
+    count = collections.Counter()
+    for p in ctx.paths:
+        if p in ctx.stale:
+            continue
+        try:
+            count.update({name for name, _, _, _ in ctx.obj(p).functions()})
+        except (ValueError, OSError, struct.error):
+            pass
+    n = 0
+    for f in placed:
+        if f.name.startswith(('$', '_$')) or count[f.name] != 1:
+            continue
+        ctx.exact_syms[f.name].add(f.addr)
+        n += 1
+    return n
+
+
+def ledger_line(placed, rows, data_map=None):
+    """The summary of what the ledger placement gains each check: functions audited, rows from them."""
+    at = {'0x%06X' % f.addr for f in placed}
+    per = {c: [r for r in rs if r['addr'] in at] for c, rs in rows.items()}
+    gains = {'lit': len(placed), 'rel': len(placed), 'imm': len(placed), 'fpu': len(placed),
+             'tables': sum(1 for f in placed if f.switch), 'args': 0}
+    return 'ledger: %d exact functions placed (symbols.json names none); gained per check: %s; data map +%d' % (
+        len(placed), ', '.join('%s %d functions %d rows' % (c, gains.get(c, 0), len(per[c]))
+                               for c in rows if c in gains), len(placed) if data_map is None else data_map)
+
+
+def tables_rows(ctx, f, stats=None):
+    """Every switch of an exact function, each case value compared by the body it reaches: ours through our byte
+    index and jump tables (an offset: the client's code at that offset is ours, the function being exact), the
+    client's through its own tables at the same offsets. A value reaching another offset than ours is `copy` when
+    the client's code from both offsets does the same (same_code: duplicated / tail-merged bodies, codegen) and
+    `body` otherwise (a case sent to another body: behaviour). Masking hides every jump-table entry (DIR32 to the
+    function itself), so this is what an exact credit cannot show. The bodies' own relocated fields are the rel
+    check's (same offsets on both sides)."""
+    if not f.exact:
+        return []
+    selfrel = self_relocs(f.o, f.sec, f.s, f.e)
+    oc = None
+    sw = our_switches(f, selfrel)
+    if stats is not None and sw:
+        stats['functions'] += 1
+        stats['tables'] += len(sw)
+    out = []
+    for t, idx, jt, bt in sw:
+        t_c = f.addr + t
+        jc = [(ctx.u32(t_c + 4 * i) or 0) - f.addr for i in range(len(jt))]
+        bc = None
+        if bt is not None:
+            o = ctx.img.offset(f.addr + idx)
+            bc = list(ctx.img.data[o:o + len(bt)])
+        values = range(len(bt)) if bt is not None else range(len(jt))
+        moved, copies, bad, unknown = [], [], [], []
+        where = None
+        cache = {}
+        for v in values:
+            if bt is None:
+                a, b = jt[v], jc[v]
+            else:
+                a = jt[bt[v]] if bt[v] < len(jt) else None
+                b = jc[bc[v]] if bc[v] < len(jc) else None
+            if stats is not None:
+                stats['values'] += 1
+            if a == b:
+                continue
+            moved.append(v)
+            if a is None or b is None:
+                bad.append(v)
+                continue
+            if (a, b) not in cache:
+                oc = oc or OurCode(f)
+                cache[(a, b)] = same_body(ctx, oc, a, f.addr + b)
+            ok, at = cache[(a, b)]
+            if ok:
+                copies.append(v)
+            elif ok is None:
+                unknown.append(v)
+            else:
+                bad.append(v)
+                where = where or (a, b, at)
+        if not moved:
+            continue
+        kind = 'body' if bad else 'unknown' if unknown else 'copy'
+        vals = bad or unknown or copies
+        note = '%d of %d values reach another offset: %d same code, %d differ, %d unknown%s' % (
+            len(moved), len(values), len(copies), len(bad), len(unknown), ', byte index' if bt is not None else '')
+        if where and where[2]:
+            note += '; first difference at +%x / %06x' % where[2]
+        r = row(f, 'tables', kind, None, None, '', 'cases ' + ','.join(map(str, vals[:20])),
+                'table 0x%06X' % t_c, note=note)
+        r['off'] = '+%x' % t
+        if kind == 'copy':
+            r['auto'] = 'codegen'
+        out.append(r)
+    if stats is not None:
+        stats['rows'] += len(out)
+    return out
+
+
 def multiset_rows(ctx, f, cvals):
     """Every relocation, aligned or not: our known targets / literals / constants the client's function never
     uses, and the client's literals ours never uses (not-exact functions only)."""
@@ -1309,10 +1692,15 @@ def run(checks, objdirs, tree=REPO, libroot=None, listings=None, only=None, out=
     ctx = Context(objdirs, tree, libroot, stale, log)
     funcs, stats = pair_functions(ctx, only) if set(checks) - {'data', 'seeds'} else ([], collections.Counter())
     log('pairing: %s; stale objects: %s' % (dict(stats), sorted(os.path.basename(p) for p in ctx.stale)))
+    # exact functions symbols.json does not name yet, placed by the ledger (every per-function check, AT1)
+    placed = [] if only or not set(checks) & {'lit', 'rel', 'imm', 'fpu', 'tables'} else ledger_funcs(ctx, funcs)
+    stats['ledger'] = len(placed)
+    stats['ledger_data_map'] = add_to_data_map(ctx, placed)
+    log('ledger placed: %s' % ', '.join('%s 0x%06X' % (f.dn, f.addr) for f in placed))
     rows = {c: [] for c in checks}
     if set(checks) & {'lit', 'rel', 'imm', 'fpu'}:
         allr, uncheck, per = [], [], {}
-        for f in funcs:
+        for f in funcs + placed:
             unc = []
             try:
                 per[id(f)] = (function_rows(ctx, f, unc), unc)
@@ -1329,7 +1717,7 @@ def run(checks, objdirs, tree=REPO, libroot=None, listings=None, only=None, out=
         def cost(g):
             got = per.get(id(g), ([], []))
             return len(got[0]) + sum(1 for key, v, _ in got[1] if key in base and v not in base[key])
-        for f in keep_tied(funcs, cost):
+        for f in keep_tied(funcs, cost) + placed:
             got = per.get(id(f), ([], []))
             allr += got[0]
             uncheck += got[1]
@@ -1339,6 +1727,15 @@ def run(checks, objdirs, tree=REPO, libroot=None, listings=None, only=None, out=
                 rows[r['check']].append(r)
     if 'args' in checks:
         rows['args'] = args_rows(ctx, funcs, listings, log)
+    tstats = collections.Counter()
+    if 'tables' in checks:
+        extra = [f for f in placed if f.switch]
+        tstats['ledger'] = len(extra)
+        for f in keep_tied(funcs, lambda g: len(tables_rows(ctx, g)) if g.exact else 0) + extra:
+            try:
+                rows['tables'] += tables_rows(ctx, f, tstats)
+            except (ValueError, IndexError, KeyError, struct.error, TypeError) as ex:
+                log('tables %s 0x%06X: %r' % (f.dn, f.addr, ex))
     if 'seeds' in checks:
         import behaudit_seeds
         rows['seeds'] = behaudit_seeds.rows(tree)
@@ -1359,6 +1756,11 @@ def run(checks, objdirs, tree=REPO, libroot=None, listings=None, only=None, out=
         if not quiet:
             print('%-4s %5d rows in %4d functions: %s' % (c, len(rs), len({r['addr'] for r in rs}),
                                                           ', '.join('%s %d' % kv for kv in sorted(cnt.items()))))
+    if 'tables' in checks and not quiet:
+        print('tables: %d exact functions with %d jump tables (%d placed by the ledger alone), %d case values; '
+              '%d rows' % (tstats['functions'], tstats['tables'], tstats['ledger'], tstats['values'], tstats['rows']))
+    if placed and not quiet:
+        print(ledger_line(placed, rows, stats['ledger_data_map']))
     if not quiet:
         print('functions: %d exact, %d not exact, %d stale objects; %.0f s%s' % (
             stats['exact'], stats['notexact'], len(ctx.stale), time.time() - t0,
