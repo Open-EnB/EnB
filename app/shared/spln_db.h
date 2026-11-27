@@ -179,7 +179,7 @@ protected:
 // NAME 2: the chunks after the file's opening (0x488500)
 	bool						Load_Chunks(ChunkLoadClass &cload);
 // NAME 2: chunk 0x800 into a static record (0x4887F0)
-	SplineFileHeaderStruct *	Load_Header(ChunkLoadClass &cload);
+	SplineFileHeaderStruct *	Load_Header(ChunkLoadClass &cload); bool Load_Key_Names(ChunkLoadClass &cload);	// (inline in Load_Chunks 0x488500, no client copy)  // NAME 1: neutral, what it reads
 // NAME 2: one chunk 0x810 / 0x811 (0x488870)
 	static SplineEntryClass *	Load_Entry(ChunkLoadClass &cload);
 // NAME 2: a Hermite curve's keys and tangents (0x488DC0)

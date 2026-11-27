@@ -1843,7 +1843,20 @@ bool SplineDatabaseClass::Save_Hermite(ChunkSaveClass &csave, SplineEntryClass *
 	return true;
 }
 
-// NOT EXACT: shape (the client repeats the epilogue for the header's two failures and keeps &KeyNames in edi)
+bool SplineDatabaseClass::Load_Key_Names(ChunkLoadClass &cload)	// the key names' chunk 0x808, inline in Load_Chunks (its only caller): the missing layer that sends Read_String and Add out of line
+{
+	DynamicVectorClass<char *> &names = KeyNames; unsigned int count;
+	if (!cload.Open_Chunk() || cload.Cur_Chunk_ID() != 0x808 || cload.Read(&count, 4) < 4) return false;
+	char *name = NULL;
+	names.Resize(count + 1);
+	for (unsigned int i = 0; i < count; i++) {
+		if (!Read_String(cload, &name)) return false;
+		names.Add(name);
+		name = NULL;
+	}
+	if (!cload.Close_Chunk()) return false;
+	return true;
+}
 bool SplineDatabaseClass::Load_Chunks(ChunkLoadClass &cload)
 {
 	SplineFileHeaderStruct *header = Load_Header(cload);
@@ -1853,20 +1866,7 @@ bool SplineDatabaseClass::Load_Chunks(ChunkLoadClass &cload)
 	if (header->Version != 0x100) {
 		return false;
 	}
-	unsigned int count;
-	if (!cload.Open_Chunk() || cload.Cur_Chunk_ID() != 0x808 || cload.Read(&count, 4) < 4) {
-		return false;
-	}
-	char *name = NULL;
-	KeyNames.Resize(count + 1);
-	for (unsigned int i = 0; i < count; i++) {
-		if (!Read_String(cload, &name)) {
-			return false;
-		}
-		KeyNames.Add(name);
-		name = NULL;
-	}
-	if (!cload.Close_Chunk()) {
+	if (!Load_Key_Names(cload)) {
 		return false;
 	}
 	for (unsigned int index = 0; index < header->Count; index++) {
@@ -3254,7 +3254,7 @@ inline GenericNode::GenericNode(void) : NextNode(0), PrevNode(0) {}
 **	  0x485380 Get_Curve (478)                 0x486CE0 Get_Curve, 0x486D30 Get_Keys, 0x486D80 Get_Entries
 **	  0x485440 Get_Color_Curves (NE)           0x487190 Free_Splines, 0x487360 Free_Key_Names
 **	  0x487660 Resolve (NE)                    0x4873E0 Get_Key, 0x487900 Reload (1662)
-**	  0x488500 Load_Chunks (NE)                0x4887F0 Load_Header, 0x488870 Load_Entry (NE)
+**	  0x488500 Load_Chunks                     0x4887F0 Load_Header, 0x488870 Load_Entry (NE)
 **	  0x488DC0 Load_Hermite                    0x488F20 Read_String
 **	  0x489050 SplineEntryClass (2795)         0x489590 ~SplineEntryClass
 **
