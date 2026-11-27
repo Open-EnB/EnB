@@ -243,7 +243,7 @@ void UIRadioAdminClass::Unknown_5E5290(int index)
 }
 
 // 0x5E5360
-// NOT EXACT: inline budget and stack slots (cases 5 and 6: the client destroys the channel's temporary inline and expands the selected name's assignment in case 6, its temporaries at other frame offsets)
+// case 6's dead size() read spends the inline budget as the client's does: its channel assign stays a call, the selected name's is expanded
 void UIRadioAdminClass::Unknown_5E5360(int key)
 {
 	if (Selection < 0 || Selection >= (int)Names.size()) {
@@ -292,7 +292,7 @@ void UIRadioAdminClass::Unknown_5E5360(int key)
 		{
 			int id = ((ClientClass *)Client)->Unknown1138;	// NAME 1: neutral (D10)
 			ClientChatRequestPacketClass packet(0x12, id);
-			{ std::string channel = chat->Unknown_5682C0(); packet.Unknown24 = channel; }
+			packet.Unknown24 = chat->Unknown_5682C0(); (void)Names.size();
 			packet.Unknown14 = Names[Selection];
 			((ClientClass *)Client)->Send_Packet(&packet);
 			break;
