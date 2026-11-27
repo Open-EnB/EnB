@@ -8995,8 +8995,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown04` | `app/client/shortcut_range_gauge.cpp:42` | untagged neutral name (D10) |
 | 1 | `Unknown4A13F0Class` | `app/client/shortcut_range_gauge.cpp:54` | untagged neutral name (D10) |
 | 1 | `Unknown_6A4020` | `app/client/shortcut_range_gauge.cpp:55` | untagged neutral name (D10) |
-| 1 | `Unknown_6A43D0` | `app/client/shortcut_range_gauge.cpp:91` | untagged neutral name (D10) |
-| 1 | `Unknown_4A1550` | `app/client/shortcut_range_gauge.cpp:104` | untagged neutral name (D10) |
+| 1 | `Unknown_6A43D0` | `app/client/shortcut_range_gauge.cpp:92` | untagged neutral name (D10) |
+| 1 | `Unknown_4A1550` | `app/client/shortcut_range_gauge.cpp:105` | untagged neutral name (D10) |
 | 1 | `shortcut_range_gauge.h` | `app/client/shortcut_range_gauge.h:5` | provisional header name for shortcut_range_gauge.cpp |
 | 1 | `Unknown4A13F0Class` | `app/client/shortcut_range_gauge.h:12` | untagged neutral name (D10) |
 | 1 | `robj` | `app/client/shortcut_range_gauge.h:20` | what the slots pass |
