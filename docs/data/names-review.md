@@ -2063,8 +2063,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `id, kind, value, client, scale` | `app/client/co.cpp:2273` | what 0x6FEF70 passes |
 | 1 | `Unknown_7294D0` | `app/client/co.cpp:2273` | untagged neutral name (D10) |
 | 1 | `Unknown_6FEF70` | `app/client/co.cpp:2274` | untagged neutral name (D10) |
+| 1 | `Unknown_Valid_F` | `app/client/co.cpp:2323` | neutral (D10) |
+| 1 | `Unknown_Name_Sel` | `app/client/co.cpp:2324` | neutral (D10) |
 | 1 | `Unknown_Changed` | `app/client/co.cpp:2325` | neutral (D10) |
-| 1 | `Unknown` | `app/client/co.cpp:2345` | untagged neutral name (D10) |
+| 1 | `Unknown` | `app/client/co.cpp:2330` | untagged neutral name (D10) |
 | 1 | `Unknown_Field_Changed` | `app/client/co.cpp:2349` | neutral (D10) |
 | 1 | `Unknown_6FFC80` | `app/client/co.cpp:2357` | untagged neutral name (D10) |
 | 1 | `Unknown_6FF7A0` | `app/client/co.cpp:2363` | untagged neutral name (D10) |
@@ -2082,8 +2084,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_700820` | `app/client/co.cpp:2571` | untagged neutral name (D10) |
 | 1 | `Unknown_700860` | `app/client/co.cpp:2587` | untagged neutral name (D10) |
 | 1 | `Unknown_7009A0` | `app/client/co.cpp:2595` | untagged neutral name (D10) |
-| 1 | `Unknown_Valid_F` | `app/client/co.cpp:2607` | neutral (D10) |
-| 1 | `Unknown_Name_Sel` | `app/client/co.cpp:2608` | neutral (D10) |
 | 1 | `UnknownRTTIClass` | `app/client/co.cpp:2648` | untagged neutral name (D10) |
 | 1 | `CoSymbolPadType` | `app/client/co.cpp:2688` | a build aid (HX1) |
 | 1 | `UnknownRootClass` | `app/client/co.h:48` | untagged neutral name (D10) |
