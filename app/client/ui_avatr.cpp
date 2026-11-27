@@ -354,7 +354,7 @@ public:
 	char Unknown00[0x18];								// +0x00
 	int Unknown18;	int Get_Unknown18() { return(Unknown18); }	// +0x18 (the choice; 0x559010 / 0x5591E0 read it through the inline getter)  // NAME 1 [Get_Unknown18]: neutral (D10)
 	char Unknown1C[0x20 - 0x1C];						// +0x1C
-	int Unknown20;										// +0x20 (how many head types 0x558170 picks from)
+	int Unknown20;	int Get_Unknown20() { return(Unknown20); }	// +0x20 (how many head types 0x558170 picks from; 0x557290 reads it through the inline getter)  // NAME 1 [Get_Unknown20]: neutral (D10)
 };
 
 // The avatar creation window (ui_avatr.cpp's __FILE__), as far as this file's functions so far use it
@@ -1346,11 +1346,11 @@ void AvatarCreationInterface::Unknown_55BAC0()
 		Unknown124[14]->Unknown_6608F0();
 	}
 }
-
+static inline RefCountPtr<RenderObjClass> Unknown_Palette_Model(RenderObjClass *robj) { return(Unknown_497300(robj)); }	// NAME 1: neutral (D10). Set_Palette's inline layer over 0x497300, no dead reads: with it 0x557290's four inlined palettes call the palette's and the model's ~RefCountPtr 0x4740B0 out of line as the client (B36); likely a header inline over 0x497300 (0x55BAC0's layer above is the same with two budget reads, which the palette sites do not take)
 // 0x55C350 (after the FAIL_IFs of 0x55C280, lines 2207 / 2211, in the client; no caller: 0x556B20 inlines it)
 void AvatarCreationInterface::Unknown_Set_Palette(const char *name)
 {
-	RefCountPtr<RenderObjClass> model = Unknown_497300(Unknown08C->Peek_Model());
+	RefCountPtr<RenderObjClass> model = Unknown_Palette_Model(Unknown08C->Peek_Model());
 	RefCountPtr<RenderObjClass> palette = Create_Get(model->Get_Sub_Object_By_Name("COLOR_PALETTE"));
 	TextureClass *texture = WW3DAssetManager::Get_Instance()->Get_Texture(name, MIP_LEVELS_ALL, WW3D_FORMAT_UNKNOWN, true);
 	if (texture) {
@@ -1645,30 +1645,30 @@ void AvatarCreationInterface::Unknown_557950(int which, bool keep, bool stored)
 	Unknown_55AE50(); }
 }
 
-// NOT EXACT: functional (D64), from the client's 0x557290 (Random Appearance: the head and face on tabs 0 / 1,
-// the body and clothes on tabs 0 / 2, each choice from 0 to its count; a female avatar has hair and no beard)
+// Random Appearance (exact, B36: each count through Get_Unknown20(), the palettes through Set_Palette's layer): the head
+// and face on tabs 0 / 1, the body and clothes on tabs 0 / 2, each choice from 0 to its count; a female avatar has hair and no beard
 // 0x557290
 void AvatarCreationInterface::Unknown_557290()
 {
 	RefCountPtr<CharacterViewAvatarClass> desc = Create_Peek(Unknown08C->Peek_Unknown194());
 	int gender = desc->Desc.Gender;
 	if (Unknown088 == 0 || Unknown088 == 1) {
-		desc->Unknown_77F000(Unknown_BDBB84(0, Unknown2DC->Unknown20));
+		desc->Unknown_77F000(Unknown_BDBB84(0, Unknown2DC->Get_Unknown20()));
 		if (gender == 1) {
-			desc->Unknown_77FC20(Unknown_BDBB84(1, Unknown2E0->Unknown20), true);
+			desc->Unknown_77FC20(Unknown_BDBB84(1, Unknown2E0->Get_Unknown20()), true);
 			desc->Unknown_77FD30(0, true);
 		} else {
-			desc->Unknown_77FC20(Unknown_BDBB84(0, Unknown2E0->Unknown20), true);
-			desc->Unknown_77FD30(Unknown_BDBB84(0, Unknown2E4->Unknown20), true);
+			desc->Unknown_77FC20(Unknown_BDBB84(0, Unknown2E0->Get_Unknown20()), true);
+			desc->Unknown_77FD30(Unknown_BDBB84(0, Unknown2E4->Get_Unknown20()), true);
 		}
-		desc->Unknown_77FCE0(Unknown_BDBB84(0, Unknown2F0->Unknown20), true);
-		desc->Unknown_77FC90(Unknown_BDBB84(0, Unknown2F4->Unknown20), true);
+		desc->Unknown_77FCE0(Unknown_BDBB84(0, Unknown2F0->Get_Unknown20()), true);
+		desc->Unknown_77FC90(Unknown_BDBB84(0, Unknown2F4->Get_Unknown20()), true);
 		Unknown_Set_Palette("fa_skin_color.tga");
 		Unknown_557950(2, 0, 0);
 		Unknown_Set_Palette("fa_avatar_color.tga");
 		Unknown_557950(0, 0, 0);
 		Unknown_557950(1, 0, 0);
-		desc->Unknown_7857D0(Unknown_BDBB84(0, Unknown2E8->Unknown20));
+		desc->Unknown_7857D0(Unknown_BDBB84(0, Unknown2E8->Get_Unknown20()));
 		Unknown_558170();
 		Unknown_55A550(1, false, 0.0f, 0.0f);
 	}
