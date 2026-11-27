@@ -1124,7 +1124,7 @@ bool CordMgr::Pump_Releases()
 	}
 	return true;
 }
-// NOT EXACT: the client's side takes type 4 (from the server), the server's type 5; register-only (from vs session in ebp, sim 0.61)
+
 // @0x85A000
 bool CordMgr::Process_CORD_Packet(unsigned char *data, int len, sockaddr_in *from, UDP *socket, int unknown,
 	char type)
@@ -1141,7 +1141,7 @@ bool CordMgr::Process_CORD_Packet(unsigned char *data, int len, sockaddr_in *fro
 		unsigned long ip = con->Ip_;
 		int session = con->Session_;
 		id = ntohs(*(unsigned short *)(data + 1));
-		if (ip == ntohl(from->sin_addr.s_addr) && (unsigned short)session == id) {
+		unsigned long address = from->sin_addr.s_addr; address = ntohl(address); if (ip == address && (unsigned short)session == id) {
 			if ((type == 4 && con->IsServer_ == false) || (type == 5 && con->IsServer_ == true)) {
 				handled = true;
 				if (con->handlePacket(data, len)) {
@@ -1268,9 +1268,9 @@ bool CordMgr::Process_CORD_Packet(unsigned char *data, int len, sockaddr_in *fro
 
 
 
-
+				__int64 key = con->Key_;
 				Message_Warn("", "UDP", __FILE__, __LINE__, "Packet failed validation (%p : %d (key=%d))",
-					ntohl(from->sin_addr.s_addr), ntohs(from->sin_port), con->Key_);
+					ntohl(from->sin_addr.s_addr), ntohs(from->sin_port), key);
 			}
 		}
 	}
