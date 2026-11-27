@@ -2,11 +2,14 @@
 
 The end goal's measure (2026-11-24): the bytes of the retail image that our linked image reproduces at the
 same place. A byte counts only when our image holds the same value at the same RVA (headers: the same file
-offset). Nothing is masked: the link's time stamp and the checksum count as differences until they are set.
+offset). Nothing is masked in the first figure: the link's time stamp and the checksum count as differences until they
+are set. The second, masked figure leaves out Net-7's URL edits and .rsrc (NET7_EDITS below), so it is the same
+against retail (249f8524) and EA's client (--client ClientPOC_EA's).
 
     python tools/re/imagediff.py                    compare build/programs/client/client.exe (as it stands)
     python tools/re/imagediff.py --link --pool 1    link the client first (build.py link --program client)
     python tools/re/imagediff.py --ours X.exe --map X.map
+    python tools/re/imagediff.py --exact [--link]    the exact build (build.py link --program client-exact)
 
 Prints the summary (the metric, the header differences, one line per section, the layout table, the first
 differing ranges) and writes everything to --out (default .work/imagediff/):
@@ -52,6 +55,32 @@ OPT = [('Magic', 'H'), ('MajorLinkerVersion', 'B'), ('MinorLinkerVersion', 'B'),
        ('NumberOfRvaAndSizes', 'I')]
 # What the final link must set by other means than code: counted as different all the same.
 SET_AT_THE_END = {'TimeDateStamp', 'CheckSum'}
+# The masked figure (the user, 2026-11-27), printed beside the plain one: bytes no source can decide.
+# (1) Net-7's edits: the install's client.exe (249f8524, "retail") and EA's (ClientPOC_EA, 82663b2f) are the same
+# 8,642,625 bytes but for these 11 .data ranges (732 bytes, compared 2026-11-27): the auth host, the web and store
+# URLs (EA's earthandbeyond.ea.com / auth.east.ea.com against Net-7's net-7.org / enb-emulator.com). Masked, the
+# figure is the same against either client. (2) .rsrc: the resources, not code (rsrc.py links retail's own).
+NET7_EDITS = [(0xB84710, 17), (0xB84734, 60), (0xB8478C, 74), (0xB9C300, 15), (0xB9FE5B, 41), (0xB9FE9C, 47),
+              (0xB9FEF0, 53), (0xB9FF3F, 40), (0xB9FF7F, 49), (0xB9FFC3, 116), (0xBA0063, 220)]
+MASKED_SECTIONS = ('.rsrc',)
+EA_SHA256 = '82663b2f99f639f4e49d43083b0e2bc0d7ed8b76a95eeb22dd9cc9d6079f7562'
+EXACT = os.path.join(REPO, 'build', 'programs', 'client-exact', 'client-exact.exe')
+
+
+def masked(client, ours, secs):
+    """(masked client bytes, of them equal in ours at the same place): NET7_EDITS and MASKED_SECTIONS."""
+    n = eq = 0
+    for s, row in zip(client.sections, secs):
+        if s.name in MASKED_SECTIONS:
+            n += s.rsize
+            eq += row['equal']
+    for va, length in NET7_EDITS:
+        rva = va - client.base
+        a, _ = client.at_rva(rva, length)
+        b, have = ours.at_rva(rva, length)
+        n += length
+        eq += length - sum(e - st for st, e in diff_ranges(a, b, have))
+    return n, eq
 Section = collections.namedtuple('Section', 'name rva vsize raw rsize flags')
 
 
@@ -247,6 +276,7 @@ def show(v):
 def main():
     ap = argparse.ArgumentParser(description=__doc__.split('\n')[0])
     ap.add_argument('--ours', default=OURS)
+    ap.add_argument('--exact', action='store_true', help='compare the exact build (build.py link --program client-exact)')
     ap.add_argument('--map', help="our link map (default: the exe's name with .map)")
     ap.add_argument('--client', default=clientimage.DEFAULT_CLIENT)
     ap.add_argument('--link', action='store_true', help='link the client first (build.py link --program client)')
@@ -255,17 +285,21 @@ def main():
     ap.add_argument('--gap', type=int, default=16, help='ranges closer than this many equal bytes are one (16)')
     ap.add_argument('--ranges', type=int, default=12, help='differing ranges printed (all go to ranges.tsv)')
     a = ap.parse_args()
+    program = 'client-exact' if a.exact else 'client'
+    if a.exact and a.ours == OURS:
+        a.ours = EXACT
 
     if a.link:
         log = os.path.join(REPO, '.work', 'log', 'imagediff-link.log')
         os.makedirs(os.path.dirname(log), exist_ok=True)
-        cmd = [sys.executable, os.path.join(REPO, 'tools', 'vc6', 'build.py'), 'link', '--program', 'client',
+        cmd = [sys.executable, os.path.join(REPO, 'tools', 'vc6', 'build.py'), 'link', '--program', program,
                '--pool', str(a.pool)]
         if subprocess.run(cmd, stdout=open(log, 'w'), stderr=subprocess.STDOUT).returncode:
             sys.exit(f'the link failed: {log}')
     if not os.path.exists(a.ours):
         sys.exit(f'{a.ours}: no linked client (run with --link, or tools/vc6/build.py link --program client)')
-    clientimage.ClientImage(a.client)                  # the SHA-256 check
+    if hashlib.sha256(open(a.client, 'rb').read()).hexdigest() != EA_SHA256:
+        clientimage.ClientImage(a.client)              # the SHA-256 check (retail; EA's client is the other one allowed)
     client, ours = Image(a.client), Image(a.ours)
     os.makedirs(a.out, exist_ok=True)
 
@@ -284,6 +318,7 @@ def main():
     total = len(client.data)
     counted = hn + sum(s['bytes'] for s in secs) + len(client.overlay)
     equal = head_equal + sum(s['equal'] for s in secs) + over_equal
+    mask_n, mask_eq = masked(client, ours, secs)
 
     our_map = read_map(a.map or os.path.splitext(a.ours)[0] + '.map')
     csyms = client_symbols()
@@ -307,6 +342,9 @@ def main():
         'identical': client.data == ours.data,
         'equal_bytes': equal, 'client_bytes': total, 'counted_bytes': counted,
         'percent': round(100.0 * equal / total, 4),
+        'masked': {'bytes': mask_n, 'equal_in_mask': mask_eq, 'equal_bytes': equal - mask_eq,
+                   'client_bytes': total - mask_n, 'percent': round(100.0 * (equal - mask_eq) / (total - mask_n), 4),
+                   'what': 'NET7_EDITS (11 .data ranges) and ' + ', '.join(MASKED_SECTIONS)},
         'headers': {'bytes': hn, 'equal': head_equal,
                     'different_fields': [k for k, _, _, same in rows if not same]},
         'overlay': {'client': len(client.overlay), 'ours': len(ours.overlay), 'equal': over_equal},
@@ -317,6 +355,9 @@ def main():
 
     print(f"image    {'IDENTICAL' if summary['identical'] else 'differs'}: {equal:,} of {total:,} client bytes equal "
           f"at the same place ({summary['percent']:.2f} %); ours is {len(ours.data):,} bytes")
+    m = summary['masked']
+    print(f"masked   {m['equal_bytes']:,} of {m['client_bytes']:,} bytes equal ({m['percent']:.2f} %) without the "
+          f"{mask_n:,} bytes of Net-7's 11 URL edits and .rsrc (the same figure against EA's client)")
     bad = [(k, x, y) for k, x, y, same in rows if not same]
     print(f'headers  {head_equal:,} of {hn:,} bytes equal; {len(bad)} of {len(rows)} fields differ'
           + (' (headers.tsv):' if bad else ''))
