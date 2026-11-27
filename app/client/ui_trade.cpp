@@ -17,7 +17,7 @@
 #include "..\shared\auxdata\lookup.h"
 #include "..\shared\auxdata\delta_money.h"
 #include "..\shared\g_assert.h"
-
+#include "..\shared\auth_product.h"
 extern FontManagerClass *Unknown_BE67C4;	// NAME 1: neutral (D10)
 #include "..\common\itemtype.h"	// Unknown_BAE854 (0xBAE854): the categories' names ('Devices', ...)
 bool operator!=(const MoneyClass &a, const MoneyClass &b);	// money.cpp's (out of line, ??9@YA_NABVMoneyClass@@0@Z)  // NAME 1 [a, b]: neutral

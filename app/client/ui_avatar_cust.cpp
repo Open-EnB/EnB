@@ -14,7 +14,7 @@
 #include "..\..\wwlib\ref_ptr.h"
 #include "..\shared\g_assert.h"
 #include "..\audio\soundlib.h"
-
+#include "..\shared\auth_product.h"
 #include "avatar.h"	// CharacterViewAvatarClass (the window's +0xBC)
 #include "aabox.h"
 #include "random.h"

@@ -16,7 +16,7 @@
 #include "option.h"
 #include "tasks\tsk_login.h"
 #include "..\shared\g_assert.h"
-
+#include "..\shared\auth_product.h"
 #include "..\common\distance_calc.h"	// Unknown_831E90 0x831E90: the distance between two spheres
 
 

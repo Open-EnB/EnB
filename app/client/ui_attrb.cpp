@@ -32,7 +32,7 @@ extern FontManagerClass *Unknown_BE67C4;			// NAME 1 [Unknown_BE67C4]: 0xBE67C4
 #include "ui_experience.h"	// UIExperienceClass (+0x8C)
 // (the skill panel's declarations left with it for ui_attrb_skill_panel.cpp; the blank lines below keep the asserts
 // on the client's lines 237 and 382)
-
+#include "..\shared\auth_product.h"
 
 
 

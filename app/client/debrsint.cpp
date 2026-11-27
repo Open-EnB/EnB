@@ -6,7 +6,7 @@
 #include "..\shared\enbassetmgr.h"
 #include "texture.h"
 #include "..\shared\g_assert.h"
-
+#include "..\shared\auth_product.h"
 // 0x53D250
 DebrisInterfaceClass::DebrisInterfaceClass(UIViewClass *view, SimpleSceneClass *scene, INIClass &ini) :
 	InterfaceClass(view, (int)scene),

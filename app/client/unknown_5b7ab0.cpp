@@ -5,7 +5,7 @@
 #include "unknown_675120.h"
 #include "local_interface_sort.h"
 #include "unknown_5b7ab0.h"
-
+#include "..\shared\auth_product.h"
 // 0x5B7AB0
 Unknown5B7AB0Class::Unknown5B7AB0Class(UIViewClass *view, const LayerClass &layer) :
 	Unknown5BB320Class(NULL, view, layer)

@@ -18,7 +18,7 @@
 #include "..\..\ww3d2\rendobj.h"
 #include "..\..\ww3d2\camera.h"
 #include "..\..\ww3d2\scene.h"
-
+#include "..\shared\auth_product.h"
 extern RandomClass Unknown_BDBB84;	// NAME 1 [Unknown_BDBB84]: neutral (D10), as avatar.cpp's
 
 // 0xB78CD4: the mesh's camera bone for each view (a fifth, empty entry follows the four)

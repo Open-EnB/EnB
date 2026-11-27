@@ -13,7 +13,7 @@
 #include "..\..\ww3d2\scene.h"
 #include "..\..\ww3d2\rendobj.h"
 #include "..\..\wwmath\wwmath.h"
-
+#include "..\shared\auth_product.h"
 static Vector3 *_Points = NULL;		// 0xBE82C0: 16 sample directions on the unit sphere  // NAME 1: neutral (D10)
 static int _Instances = 0;			// 0xBE82C4  // NAME 3: the FAIL_IF's
 

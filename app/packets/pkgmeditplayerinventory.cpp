@@ -1,7 +1,7 @@
 // Earth & Beyond client (reconstruction): app\packets\pkgmeditplayerinventory.cpp. Notes at the end of the file.
 #include "pkgmeditplayerinventory.h"
 #include <stdio.h>
-
+#include "..\shared\auth_product.h"
 GMEditPlayerInventoryPacketClass::GMEditPlayerInventoryPacketClass(RawPacketClass *raw) :
 	Unknown0C(0)
 {

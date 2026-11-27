@@ -1,4 +1,4 @@
-
+#include "..\shared\auth_product.h"
 // Earth & Beyond client (reconstruction): gd_pip_scene.cpp. Notes at the end of the file.
 #include "gd_pip_scene.h"
 #include "vector2.h"

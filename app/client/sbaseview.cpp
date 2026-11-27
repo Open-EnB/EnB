@@ -60,7 +60,7 @@ SBaseViewChannelStruct::SBaseViewChannelStruct() :
 	Backward(false)
 {
 }
-
+#include "..\shared\auth_product.h"
 // 0x69AC50
 SBaseViewChannelStruct::~SBaseViewChannelStruct()
 {

@@ -17,7 +17,7 @@
 #include "control_keys_manager.h"
 #include "unknown_signalbase.h"
 #include "..\shared\g_assert.h"
-
+#include "..\shared\auth_product.h"
 // chatgadg.cpp's text entry (0x80 bytes, constructor 0x65BFD0, table 0xAF99D8), as far as this file calls it
 class ChatGadgetClass : public TextBaseGadgetClass	// chatgadg.h
 {

@@ -17,7 +17,7 @@
 #include "..\shared\auxdata\delta_numbering.h"
 void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);	// 0x496AE0 (avatar.cpp's declaration)
 #include "..\common\itemtype.h"	// Unknown_843440 (0x843440): a mount's type as text
-
+#include "..\shared\auth_product.h"
 #include "line2d.h"	// Line2DClass (0x6DF890): the line from a button to its mount point
 
 

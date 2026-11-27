@@ -10,7 +10,7 @@
 #include "rendobj.h"
 #include "vector3.h"
 class ClientObjectClass;
-
+#include "..\shared\auth_product.h"
 #include "sclient.h"	// (0x744FE0 Get_Target, the slot +0x28 Get_Avatar, the client clock +0x10BC)
 
 // skill_data.cpp's list (gd_attrb_skills.cpp's SkillDataClass): its bases sit at +0x50 and +0xB0 (the `add ecx, 0x50` after the arguments)

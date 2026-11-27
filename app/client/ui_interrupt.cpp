@@ -11,7 +11,7 @@
 #include "co.h"
 #include "..\..\wwmath\wwmath.h"
 #include "..\shared\g_assert.h"
-
+#include "..\shared\auth_product.h"
 // (duration.h's, not rebuilt there yet: interim placement, D137)
 inline bool operator > (const DurationClass &a, const DurationClass &b) { return(a.Time > b.Time); }
 inline DurationClass Millisecond(int ms) { return(DurationClass((__int64)ms)); }	// NAME 3: the assert's

@@ -12,7 +12,7 @@
 #include "..\packets\pkequipuse.h"
 #include "..\audio\soundlib.h"
 #include "..\shared\g_assert.h"
-
+#include "..\shared\auth_product.h"
 // An item of the inventory as this file reads it (inv_data_peek.cpp's Get_Item)
 struct InvDataPeekItemStruct	// NAME 1: neutral (D10)
 {

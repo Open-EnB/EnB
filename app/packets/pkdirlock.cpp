@@ -2,7 +2,7 @@
 #include "pkdirlock.h"
 #include "..\..\wwlib\nstrdup.h"
 #include <stdio.h>
-
+#include "..\shared\auth_product.h"
 DirLockPacketClass::DirLockPacketClass(int a, const char *name, __int64 b, Unknown_DirLockStruct c, int d) : Unknown0C(a), Unknown10(0), Unknown18(b), Unknown20(c), Unknown28(d)
 {
 	if (name != 0) {

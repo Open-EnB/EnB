@@ -12,7 +12,7 @@
 #include "assetmgr.h"
 #include "texture.h"
 #include "textureloader.h"
-
+#include "..\shared\auth_product.h"
 #include "fontmanager.h"	// FontSys, FontManagerClass (0xBE67C4) and fontdatabase.h's FontStringFilesClass (0xBE67BC)
 
 

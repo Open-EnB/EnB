@@ -22,7 +22,7 @@
 #include "..\..\ww3d2\light.h"
 #include "..\..\ww3d2\ww3d.h"
 #include "interface_scene.h"
-
+#include "..\shared\auth_product.h"
 static const char *Delimiters = ", \t";					// 0xBA1D4C  // NAME 1: strtok's
 static char TestSection[256] = "LONDON";				// 0xBA1D50: movie3d.ini's [TEST] Section  // NAME 1: what it holds
 static Movie3DStruct Movies[14] = {						// 0xBA1E50 (0x70 bytes, six entries set)  // NAME 1: what it holds

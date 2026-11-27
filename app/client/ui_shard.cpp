@@ -28,7 +28,7 @@
 #include "fontdatabase.h"
 extern FontManagerClass *Unknown_BE67C4;
 extern const int Unknown_B08C9C;					// 0xB08C9C (8: or'ed with textgadg.h's Unknown_B08CAC for the name's gadget)  // NAME 1: neutral (D10)			// NAME 1 [Unknown_BE67C4]: 0xBE67C4
-
+#include "..\shared\auth_product.h"
 // The control keys event the constructor registers (0x10 bytes) and what InterfaceClass +0x4C is (as ui_class.cpp's)
 #include "control_key_list.h"	// ControlKeyListClass: InterfaceClass +0x4C (Add 0x721E60, Remove 0x721EF0), keyed by kernel.h's KernelEventClass
 

@@ -14,7 +14,7 @@
 #include "fastallocator.h"
 #include "..\shared\g_assert.h"
 #include "..\shared\message.h"
-
+#include "..\shared\auth_product.h"
 // 0x94B910 (the textures' 'Frame: %d') is texture.h's TextureBaseClass::Unknown_Get_Textures_Applied_Last_Frame
 
 // 0x53E970

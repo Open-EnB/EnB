@@ -15,7 +15,7 @@ void Unknown_70CD50(SClient *sclient, PlayerObjectIsAttackingUpdatePacket *packe
 void Unknown_70A7E0(const std::string &ini);	// NAME 1 [Unknown_70A7E0]: sclient.cpp's name ('gutter_color.ini')
 void Message_Error(const char *sender, const char *category, const char *file, int line, const char *format, ...);	// NAME 5 [Message_Error]: the client's WWPROFILE("Message_Error") label (D198)
 bool String_To_Value(const char *text, Vector3 *value);	// 0x4A3810 (strconv_lib.cpp, not in strconv_lib.h: sscanf "%f,%f,%f")  // NAME 2: as strconv_lib.h's pairs
-
+#include "..\shared\auth_product.h"
 // One gutter colour: the ini's <name>1 and <name>2 entries (0.66 grey when missing; 0x18 bytes)
 #include "co_player_relationship.h"
 

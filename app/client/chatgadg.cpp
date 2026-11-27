@@ -19,7 +19,7 @@
 #include "..\shared\auxdata\delta_string.h"
 #include "..\shared\g_assert.h"
 #include "ini.h"
-
+#include "..\shared\auth_product.h"
 #include "..\shared\unknown_8b4560.h"
 
 #define NUM_QUICK_MESSAGES 9	// the FAIL_IFs' constant (the keys 'Save / Send Quick Message 1..9')

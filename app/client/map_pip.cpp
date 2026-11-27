@@ -9,7 +9,7 @@
 #include "..\..\ww3d2\camera.h"
 #include "aux_group.h"	// the group constructors (0x6930C0 / 0x6930F0 number them)
 #include "starmap_pip_support.h"
-
+#include "..\shared\auth_product.h"
 
 
 

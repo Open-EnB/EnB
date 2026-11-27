@@ -16,7 +16,7 @@
 #include "..\shared\ro_proxy.h"
 #include "..\shared\auxdata\auxdata.h"
 #include "..\shared\auxdata\lookup.h"
-
+#include "..\shared\auth_product.h"
 bool Unknown_495FD0(RenderObjClass *robj, TextureClass *tex, int index);	// 0x495FD0 (ro_funcs.cpp): the texture onto the model  // NAME 1 [all]: as ui_shipcust.cpp's
 
 #include "..\shared\robj2texture.h"

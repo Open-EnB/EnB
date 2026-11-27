@@ -7,7 +7,7 @@
 #include "vector3.h"
 #include "..\audio\soundlib.h"
 #include "..\shared\g_assert.h"
-
+#include "..\shared\auth_product.h"
 
 
 

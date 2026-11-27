@@ -8,7 +8,7 @@
 #include "gadget.h"
 #include "local_interface_sort.h"
 #include "inv_transaction.h"
-
+#include "..\shared\auth_product.h"
 enum { INV_NONE = 0, MAX_ITEMS = -1, USER_SELECT_NO = 1 };	// NAME 3: the asserts'
 
 // The quantity gadget

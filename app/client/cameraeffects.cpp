@@ -11,7 +11,7 @@
 #include "..\shared\g_assert.h"
 #include "camera.h"
 #include "bridge_int.h"	// the bridge's Get_Hit (0x6E2CC0)
-
+#include "..\shared\auth_product.h"
 // The file's own generator (0x6E2BA0 constructs it at 0xBE67E8, seeded with rand(); only this file's effects call it)
 static Random2Class CameraEffectsRandom(rand());	// NAME 1: neutral (D10)
 #include "aux_shake.h"	// the shake's fields: T<float> numbered after CameraEffectsRandom (CRT entry 533)

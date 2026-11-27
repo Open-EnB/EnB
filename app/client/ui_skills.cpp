@@ -14,7 +14,7 @@
 #include "..\audio\soundlib.h"
 #include "..\kernel\kernel.h"
 #include "..\shared\g_assert.h"
-
+#include "..\shared\auth_product.h"
 // What InterfaceClass's +0x40 points to, as far as this file calls it (as ui_inv.cpp declares it)
 class LineDisplayClientClass  // NAME 1: neutral (D10)
 {

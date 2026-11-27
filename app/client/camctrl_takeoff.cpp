@@ -14,7 +14,7 @@
 #include "matrix3d.h"
 #include "wwmath.h"
 #include "..\shared\g_assert.h"
-
+#include "..\shared\auth_product.h"
 extern Random4Class Unknown_BDB1C0;				// NAME 1 [Unknown_BDB1C0]: 0xBDB1C0, the camera controllers' generator outside this file
 
 class MainViewSceneClass : public SimpleSceneClass

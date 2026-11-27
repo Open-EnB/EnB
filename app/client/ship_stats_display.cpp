@@ -17,7 +17,7 @@
 class TextureClass *Unknown_4960C0(RenderObjClass *robj, int arg);		// 0x4960C0 (ro_funcs.cpp)  // NAME 1 [robj, arg]: as gadget.cpp's
 bool Unknown_495FD0(RenderObjClass *robj, TextureClass *tex, int index);	// 0x495FD0 (ro_funcs.cpp): the texture onto the mesh's stage index  // NAME 1 [robj, tex, index]: as avatar.cpp's
 extern FontManagerClass *Unknown_BE67C4;	// NAME 1: neutral (D10)
-
+#include "..\shared\auth_product.h"
 // The field named string under root when it holds a value (its Unknown70 set), else NULL (the name a local of its own:
 // the two finds of each pair share the caller's two name slots)
 template<class C> inline C *Unknown_Find_Valid(DeltaCompoundClass *root, const char *string) { NameClass name(string); C *t = Unknown_Find_Field<C>(root, name); if (t && t->Unknown70) return(t); return(NULL); }	// NAME 1 [Unknown_Find_Valid, string]: neutral (D10), as co.cpp's

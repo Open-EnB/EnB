@@ -5,7 +5,7 @@
 #include "ui_mesh.h"
 #include "..\audio\soundlib.h"
 #include "unknown_5dd960.h"
-
+#include "..\shared\auth_product.h"
 // 0xB84B94 (the three buttons, ids 6 to 8)
 static const char *Unknown5DD960ButtonNames[] = {	// NAME 2: what it holds
 	"face_button", "target_button", "orient_button"

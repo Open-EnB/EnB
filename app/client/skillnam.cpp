@@ -14,7 +14,7 @@
 #include "wwstring.h"
 #include "nstrdup.h"
 #include "..\shared\g_assert.h"
-
+#include "..\shared\auth_product.h"
 const char *Unknown_82F3C0(int index);	// 0x82F3C0: a character template's name  // NAME 1: neutral (D10)
 // Not the client's source (its sgistl form is unknown: P-L21-1, attempts row 0x71DCE0): the hashtable constructor flat gives the client's out-of-line hash_map() 0x818710 (reserve's size() inlined: the B form)
 namespace std {

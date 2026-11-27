@@ -30,7 +30,7 @@ public:
 	virtual void Unknown_10(); virtual void Unknown_14();
 	virtual SClient *As_Space_Client();					// +0x18 (SClient's returns itself)  // NAME 3: ui_manu.cpp's FAIL_IF's
 };
-
+#include "..\shared\auth_product.h"
 // 0x58F0F0
 UIFriendsPlayerInfoClass::UIFriendsPlayerInfoClass(std::string name, std::string location)
 {

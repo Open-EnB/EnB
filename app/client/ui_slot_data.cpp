@@ -24,7 +24,7 @@ public:
 	virtual void Unknown_10(); virtual void Unknown_14();
 	virtual SClient *As_Space_Client();					// +0x18
 };
-
+#include "..\shared\auth_product.h"
 // drag_slot_data.cpp's drag of a slot (+0xA0), as this file calls it (as ui_inv.cpp declares it)
 class DragSlotDataClass	// NAME 3: class-from-file (D24) for drag_slot_data.cpp (0x6851B0, 0x685500, 0x685610)
 {

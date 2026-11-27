@@ -22,7 +22,7 @@
 #include "local_interface_sort.h"
 #include "tooltip.h"
 #include "unknown_signalbase.h"
-
+#include "..\shared\auth_product.h"
 #include "fontmanager.h"
 
 extern FontManagerClass *Unknown_BE67C4;			// NAME 1 [Unknown_BE67C4]: 0xBE67C4

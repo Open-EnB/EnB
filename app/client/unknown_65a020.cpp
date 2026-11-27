@@ -11,7 +11,7 @@
 #include "tasks\tsk_game.h"
 #include "..\audio\soundlib.h"
 #include "fontmanager.h"	// FontManagerClass (0xBE67C4) and fontdatabase.h's FontStringFilesClass (0xBE67BC)
-
+#include "..\shared\auth_product.h"
 extern FontManagerClass *Unknown_BE67C4;	// NAME 1: neutral (D10)
 
 // The client at InterfaceClass +0x40, as this file calls it (as ui_jobs.cpp declares it)

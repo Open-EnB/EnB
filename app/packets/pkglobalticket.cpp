@@ -1,7 +1,7 @@
 // Earth & Beyond client (reconstruction): app\packets\pkglobalticket.cpp. Notes at the end of the file.
 #include "pkglobalticket.h"
 #include <stdio.h>
-
+#include "..\shared\auth_product.h"
 GlobalTicketPacketClass::GlobalTicketPacketClass(int status, const TicketClass &ticket) :
 	Status(status),
 	Ticket(ticket)

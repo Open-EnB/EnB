@@ -11,7 +11,7 @@
 #include "rendobj.h"
 #include "texture.h"
 #include "vector3.h"
-
+#include "..\shared\auth_product.h"
 class SceneClass;
 
 // gd_slot_data.cpp's: its RefCountClass sits at +0x18 (the `inc [edi+0x1C]`, `lea ecx,[eax+0x18]`)

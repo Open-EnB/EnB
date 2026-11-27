@@ -4,7 +4,7 @@
 #include "client.h"
 #include "co.h"
 #include "..\packets\pkrequesttarget.h"
-
+#include "..\shared\auth_product.h"
 // @0x7C6120
 TargetingClass::TargetingClass(SClient *client) :
 	TargetFindClass(client),

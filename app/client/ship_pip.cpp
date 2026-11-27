@@ -40,7 +40,7 @@ static const float Unknown_B07DBC = 0.5f;								// the nearest distance in radi
 static const float Unknown_B07DC0 = 0.75f;
 static const float Unknown_B07DC4 = 60.0f;								// type 0: the pan / zoom speed (0x80E7A0)
 static const float Unknown_B07DC8 = 0.05f;								// type 0: the float parent's turn (radians per second)
-
+#include "..\shared\auth_product.h"
 
 
 

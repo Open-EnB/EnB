@@ -6,7 +6,7 @@
 #include "gadget.h"
 #include "ui_item_examination.h"
 #include "..\shared\g_assert.h"
-
+#include "..\shared\auth_product.h"
 void Unknown_42ECF0(float *x, float *y);				// 0x42ECF0 (input.h: the pointer's position, 0..1)  // NAME 1 [x, y]: as input.h's
 
 #include "ui_skill_info.h"	// ui_skill_info.cpp's window (0x630280 makes it)

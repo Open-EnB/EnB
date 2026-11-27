@@ -21,7 +21,7 @@
 #include "..\shared\enbassetmgr.h"
 #include "font32bit.h"
 #include "fontmanager.h"
-
+#include "..\shared\auth_product.h"
 // No prototype for 0x80FCE0 here (defined below before any use in this file). 0x812390 is a tie-break pair: the order of
 // its multi-material loop's two hoisted mapper loads (0x812F02 / 0x812F06) moves with the count of declarations above it
 void Unknown_80FD10(RenderObjClass *robj, std::vector<ColorizationRegionStruct> &regions, int axis, const Vector3 *skin);

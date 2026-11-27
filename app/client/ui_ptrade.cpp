@@ -22,7 +22,7 @@
 #include "..\audio\soundlib.h"
 #include "..\..\ww3d2\ww3d.h"	// WW3D::Get_Frame_Time (0xBFAE3C - 0xBFAE40, read inline)
 #include "gd_uiback.h"		// UIBackGadget (0x674260)
-
+#include "..\shared\auth_product.h"
 // The client at InterfaceClass +0x40, as ui_chat_panel.cpp declares it
 class LineDisplayClientClass  // NAME 1: neutral (D10)
 {

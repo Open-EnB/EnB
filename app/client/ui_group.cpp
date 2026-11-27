@@ -16,7 +16,7 @@
 #include "..\packets\pkrequesttarget.h"
 #include "fontmanager.h"	// FontSys, FontManagerClass (0xBE67C4) and fontdatabase.h's FontStringFilesClass (0xBE67BC)
 #include "ui_power.h"		// UIPowerClass (the members' +0x2C)
-
+#include "..\shared\auth_product.h"
 
 extern FontManagerClass *Unknown_BE67C4;	// NAME 1: neutral (D10)
 class UIGroupAvatarClass : public RefCountClass { public: char Unknown[0x1CC - sizeof(RefCountClass)]; char Name[1]; };	// NAME 1: neutral (D10): what SClient 0x74C7B0 returns, as far as 0x595530 reads it (the name at +0x1CC)

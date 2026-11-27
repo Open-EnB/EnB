@@ -20,7 +20,7 @@
 #include "..\..\ww3d2\vertmaterial.h"
 #include "..\..\ww3d2\ww3d.h"
 #include "wwmath.h"
-
+#include "..\shared\auth_product.h"
 void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);	// ro_funcs.cpp's (avatar.cpp declares it the same)
 
 // .data 0xB7923C / 0xB79240: the two angles 0x53FDA0 chooses between  // NAME 1: neutral (D10)

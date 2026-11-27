@@ -31,7 +31,7 @@ static inline int Get_Heading(const Matrix3D &m)	// NAME 2: what it does
 {
 	return((int)(atan2(m[0][0], m[1][0]) * MFD_RAD_TO_DEG + 360.0) % 360);
 }
-
+#include "..\shared\auth_product.h"
 // 0xB82040 (the text before a line's value, by its type)
 static const char *UIMFDLabels[] = {	// NAME 2: what it holds
 	" ", " ", "Turn To: ", "Dist: ", "ETA: ", "Dir: ", "Same Dir: ", "Lev: ", "Prof: ", "Race: ", "SP Cur: ", "SP Max: ",

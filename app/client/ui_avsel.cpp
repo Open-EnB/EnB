@@ -14,7 +14,7 @@
 #include "vector4.h"
 #include "tutorial_manager.h"
 #include "ui_avsel.h"
-
+#include "..\shared\auth_product.h"
 // gadget.cpp's gadget: gadget.h, and gd_robj.h's gadget its slot +0x08 answers with
 #include "gadget.h"
 #include "gd_robj.h"

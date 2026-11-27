@@ -26,7 +26,7 @@
 #include "..\..\ww3d2\ww3d.h"
 #include "galaxy_map_pip.h"
 #include "ui_starmap.h"
-
+#include "..\shared\auth_product.h"
 extern FontManagerClass *Unknown_BE67C4;	// NAME 1: neutral (D10)
 extern unsigned int Unknown_BE5F34;			// (gadget.cpp's: the event mask)
 extern KernelEventClass Unknown_BE5EB0;		// (gadget.cpp's: the last event)

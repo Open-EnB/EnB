@@ -8,7 +8,7 @@
 #include "random.h"
 #include "matrix3d.h"
 #include <math.h>
-
+#include "..\shared\auth_product.h"
 extern Random4Class Unknown_BDB1C0;	// NAME 1: neutral (D10): the client's 0xBDB1C0 (seed 0x1105, initialiser 0x444240; its home file is unknown)
 Matrix3D Unknown_82ECB0(const Vector3 &dir, const Vector3 &pos);	// 0x82ECB0 (a frame along dir at pos; its file is unknown)  // NAME 1 [dir, pos]: what the placements pass
 

@@ -1,7 +1,7 @@
 // Earth & Beyond client (reconstruction): app\packets\pkfindplayerrequest.cpp. Notes at the end of the file.
 #include "pkfindplayerrequest.h"
 #include <stdio.h>
-
+#include "..\shared\auth_product.h"
 FindPlayerRequestPacketClass::FindPlayerRequestPacketClass(int unknown0c, const char *name, bool unknown51) :
 	Unknown0C(unknown0c),
 	Unknown51(unknown51)

@@ -23,7 +23,7 @@
 #include "ui_power.h"		// UIPowerClass (+0xD0)
 #include "ui_cpit_inv.h"	// UICpitInvClass (+0xC8 / +0xCC)
 #include "..\shared\auxdata\delta_numbering.h"
-
+#include "..\shared\auth_product.h"
 
 
 

@@ -13,7 +13,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "..\shared\g_assert.h"
-
+#include "..\shared\auth_product.h"
 
 Unknown86CRecordClass::Unknown86CRecordClass(ClientClass *client, unsigned id) :
 	Client(client),

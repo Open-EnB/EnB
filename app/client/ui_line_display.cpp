@@ -7,7 +7,7 @@
 #include "..\..\wwlib\wwstring.h"
 #include "..\..\wwlib\random.h"
 #include "..\..\wwmath\vector3.h"
-
+#include "..\shared\auth_product.h"
 extern RandomClass Unknown_BDBB84;  // NAME 1 [Unknown_BDBB84]: neutral (D10): the random generator the fonts are picked with
 
 #include "fontdatabase.h"	// FontStringFilesClass at 0xBE67BC: the constructor / destructor load and unload fc_line_display.ini

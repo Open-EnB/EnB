@@ -14,7 +14,7 @@
 #include "..\shared\g_assert.h"
 #include "control_keys_manager.h"
 #include "fontmanager.h"	// FontSys, FontManagerClass (0xBE67C4) and fontdatabase.h's FontStringFilesClass (0xBE67BC)
-
+#include "..\shared\auth_product.h"
 
 
 

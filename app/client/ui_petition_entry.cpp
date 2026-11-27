@@ -12,7 +12,7 @@
 #include "textgadg.h"
 #include "..\audio\soundlib.h"
 #include "..\shared\g_assert.h"
-
+#include "..\shared\auth_product.h"
 // The dialog's answers (USER_SELECT_YES, USER_SELECT_NO): ui_petition_entry.h
 
 // The buttons Unknown_54 makes: their models' names and their font styles (0xB83EC8 / 0xB83EDC; the unreferenced

@@ -2,7 +2,7 @@
 #include "gd_slot_data.h"
 #include "ui_scut.h"
 #include "..\shared\g_assert.h"
-
+#include "..\shared\auth_product.h"
 extern GadgetClass *Unknown_BE5F24;										// gadget.cpp's held gadgets
 extern GadgetClass *Unknown_BE5F28;
 

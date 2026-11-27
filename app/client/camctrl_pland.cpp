@@ -15,7 +15,7 @@
 #include "..\shared\g_assert.h"
 #include "hermitespline.h"
 #include <stdio.h>
-
+#include "..\shared\auth_product.h"
 struct LandClassAccessor : public LandClass {
 	HeightFieldClass *Get_Field() const { return Field; }
 };

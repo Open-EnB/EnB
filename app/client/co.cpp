@@ -16,7 +16,7 @@
 #include "..\packets\pk_player_object_relationship.h"
 #include "..\shared\g_assert.h"
 #include "client_object_events.h"
-
+#include "..\shared\auth_product.h"
 
 
 

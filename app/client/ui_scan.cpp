@@ -26,7 +26,7 @@ public:
 	virtual void Unknown_10(); virtual void Unknown_14();
 	virtual SClient *As_Space_Client();					// +0x18 (ClientClass::As_Space_Client; SClient's returns itself)  // NAME 3: the FAIL_IF's
 };
-
+#include "..\shared\auth_product.h"
 extern unsigned int Unknown_BE5F34;		// (gadget.cpp's: the event mask)
 extern KernelEventClass Unknown_BE5EB0;	// (gadget.cpp's: the last event)
 static DurationClass UIScanInterruptDelay(2000);	// 0xBE5E10 (its initialiser 0x60D7D0): how long the threat's interrupt message stays  // NAME 1: neutral (D10)

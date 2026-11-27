@@ -11,7 +11,7 @@
 #include "control_keys_manager.h"
 #include "gd_scut_proxy.h"
 #include "matrix3d.h"
-
+#include "..\shared\auth_product.h"
 // fontdatabase.h's FontStringFilesClass at 0xBE67BC and fontmanager.h's FontManagerClass at 0xBE67C4, as far as this
 // file calls them (fontdatabase.h's 0xBE67B8 clashes with tsk_game.h's, so neither header can be included here)
 class FontStringFilesClass { public: void Load(const char *name); void Unload(const char *name); };	// NAME 2: fontdatabase.h's

@@ -1,7 +1,7 @@
 // Earth & Beyond client (reconstruction): app\packets\pkglobalerror.cpp. Notes at the end of the file.
 #include "pkglobalerror.h"
 #include <stdio.h>
-
+#include "..\shared\auth_product.h"
 // 0xBB25F0: the texts of the global server's errors, by Error  // NAME 1: what it holds
 char *GlobalErrorStrings[] = {
 	"Success",

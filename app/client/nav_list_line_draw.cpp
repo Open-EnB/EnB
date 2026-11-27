@@ -5,7 +5,7 @@
 #include "starmap_pip_support.h"
 #include "nav_list_builder.h"
 #include "..\..\ww3d2\scene.h"
-
+#include "..\shared\auth_product.h"
 // @0x7B97F0
 NavListLineDrawClass::NavListLineDrawClass(SClient *client, float width, int sort, const Vector3 &color, float opacity) :
 	Client(client),

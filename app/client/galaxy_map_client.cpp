@@ -37,7 +37,7 @@ void GalaxyMapClientClass::Load_Ini()
 	GalaxyShift.X = ini.Get_Float("GalaxyMap", "GalaxyShiftX", GalaxyShift.X);
 	GalaxyShift.Y = ini.Get_Float("GalaxyMap", "GalaxyShiftY", GalaxyShift.Y);
 }
-
+#include "..\shared\auth_product.h"
 
 
 

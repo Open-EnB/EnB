@@ -26,7 +26,7 @@
 #include "..\shared\auxdata\delta_template.h"
 #include "aux_group_ship.h"	// the group family first (0x7BDE30 / 0x7BDEA0 number its types first)
 // starmap_pip.cpp's window (what the PDA's 0x7C8DB0 returns): starmap_pip.h's StarmapPipClass
-
+#include "..\shared\auth_product.h"
 
 
 

@@ -41,7 +41,7 @@ void Unknown_70AD70();									// 0x70AD70
 #include "client_lego_impl.h"							// the bone maps of cbasset.ini: Init_Bone_Maps 0x729BF0, Shutdown_Bone_Maps 0x729D60
 #include "mv3dview.h"									// Movie3DViewClass: view mode 3
 extern HWND Unknown_BDAA7C;							// 0xBDAA7C (input.cpp's: the window Init was given): what Pump_Messages redraws
-
+#include "..\shared\auth_product.h"
 // The object at 0xC404D8 is WWAudioClass::_theInstance (WWAudioClass's ctor and dtor set it): the constructor
 // sets its +0x19A5, which queues sounds started during the load
 #include "WWAudio.h"

@@ -14,7 +14,7 @@
 #include "..\input\input.h"
 #include "..\packets\pkgmresetmission.h"
 #include "..\audio\soundlib.h"
-
+#include "..\shared\auth_product.h"
 extern FontManagerClass *Unknown_BE67C4;	// NAME 1: neutral (D10)
 
 // The buttons Unknown_54 makes: their models' names (0xB91C40)

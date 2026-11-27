@@ -11,7 +11,7 @@
 #include "..\audio\soundlib.h"
 #include "vector2.h"
 #include "sclient.h"
-
+#include "..\shared\auth_product.h"
 void Unknown_42ECF0(float *x, float *y);			// 0x42ECF0 (the pointer, 0..1)  // NAME 1 [x, y]: as ui_avatar_cust.cpp's
 
 // 0x56E170

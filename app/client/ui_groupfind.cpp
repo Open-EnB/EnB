@@ -20,7 +20,7 @@
 #include "..\audio\soundlib.h"
 #include "..\shared\g_assert.h"
 #include "..\..\wwlib\nstrdup.h"
-
+#include "..\shared\auth_product.h"
 // The client at InterfaceClass +0x40, as ui_chat_panel.cpp declares it
 class LineDisplayClientClass  // NAME 1: neutral (D10)
 {

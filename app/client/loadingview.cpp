@@ -8,7 +8,7 @@
 unsigned int Unknown_Get_Ticks();	// 0x4A3B40, the aux-data clock (unknown_root.h's, not included: the client's object opens with no PermStringInit)
 #include "mss.h"
 #include <string.h>
-
+#include "..\shared\auth_product.h"
 #include "fontmanager.h"	// FontSys, FontManagerClass (0xBE67C4) and fontdatabase.h's FontStringFilesClass (0xBE67BC)
 
 
