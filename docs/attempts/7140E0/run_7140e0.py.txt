@@ -1,0 +1,76 @@
+"""A13: ours vs the client's Unknown713D70Class::Unknown_7140E0 (an offset rotated toward a found object) in emu.py.
+Matrix3D::Look_At and Rotate_Vector run as the client's own code on both sides."""
+import struct
+import sys
+sys.path.insert(0, 'C:/EnBDevelopment/EnB/.work/a13')
+import emu  # noqa: E402
+from harness import Harness, fhash  # noqa: E402
+
+OBJ = 'C:/EnBDevelopment/EnB/.work/a13/objs/extrap.obj'
+SYM = '?Unknown_7140E0@Unknown713D70Class@@QAE_NPAVVector3@@@Z'
+THIS, CLI, OBJA, POSST, OUT = 0x30000000, 0x31000000, 0x32000000, 0x33000000, 0x40000000
+FIND, LOOK, ROTV = 0x727070, 0x8C2780, 0x8C26C0
+CASES = [(tid, found, ps, geo) for tid in (0, 5) for found in (0, 1) for ps in (0, 1) for geo in ('rand', 'same', 'up')]
+
+
+def setup(case):
+    tid, found, ps, geo = case
+
+    def f(mem, cpu, seed):
+        mem.wu(THIS + 4, 4, 4321)
+        mem.wu(THIS + 0x4C, 4, tid)
+        mem.write(THIS + 0x24, struct.pack('<f', 2.5 + fhash(seed, 1)))
+        mem.write(THIS + 0x34, struct.pack('<f', fhash(seed, 2)))
+        mem.wu(OBJA + 0x98, 4, POSST if ps else 0)
+        mem.wu(POSST, 4, 0x5A000000)
+        cpu.r['ecx'] = THIS
+        return [OUT]
+    return f
+
+
+def stubs(case):
+    tid, found, ps, geo = case
+
+    def f(cpu, key, words, idx, seed):
+        m = cpu.m
+        if key == ('direct', FIND):
+            cpu.r['eax'] = OBJA if found else 0
+            return 4, None
+        if key[0] == 'indirect' and key[1] == 0x1C:
+            v = {'rand': (fhash(seed, 3) * 9, fhash(seed, 4) * 9, fhash(seed, 5)), 'same': (0.0, 0.0, 0.0),
+                 'up': (0.0, 0.0, 7.0)}[geo]
+            m.write(words[0], struct.pack('<3f', *v))
+            cpu.r['eax'] = words[0]
+            return 8, None
+        if key == ('direct', 0x447C40):  # WWMath::Inv_Sqrt inside Look_At
+            v = struct.unpack('<f', struct.pack('<I', words[0]))[0]
+            cpu.st.append(struct.unpack('<f', struct.pack('<f', 1.0 / v ** 0.5))[0] if v > 0 else float('inf'))
+            return 4, {'_cdecl': 1}, 1
+        if key == ('direct', LOOK):
+            return 'PASS3'
+        if key == ('direct', ROTV):
+            return 'PASS2'
+        raise emu.Stop('callee %r' % (key,))
+    return f
+
+
+def main():
+    H = Harness(OBJ, SYM, 0x7140E0, 1, void=False, retmask=0xFF, stk_any=True)
+    if len(sys.argv) > 1 and sys.argv[1] == 'ctl':
+        base = [(5, 1, 1, 'rand'), (5, 1, 1, 'up')]
+        H.run(base, setup, stubs, seeds=(1, 2), label='base')
+        off, ins = H.find(lambda i: 'dword ptr' in i.op_str and i.op_str.endswith('+ 0x34]'))
+        H.mutate('1 (+%#x %s %s: +0x34 -> +0x38)' % (off, ins.mnemonic, ins.op_str), off, ins.size - 1, 0x38,
+                 base, setup, stubs, seeds=(1, 2))
+        off, ins = H.find(lambda i: 'dword ptr' in i.op_str and i.op_str.endswith('+ 0x98]'))
+        H.mutate('2 (+%#x %s %s: +0x98 -> +0x9c)' % (off, ins.mnemonic, ins.op_str), off, ins.size - 4, 0x9C,
+                 base, setup, stubs, seeds=(1, 2))
+        off, ins = H.find(lambda i: i.mnemonic == 'mov' and i.op_str == 'al, 1')
+        H.mutate('3 (+%#x mov al, 1 -> 2)' % off, off, 1, 2, base, setup, stubs, seeds=(1, 2))
+        return
+    H.run(CASES, setup, stubs, seeds=(1, 2, 3), verbose=False)
+    H.coverage()
+
+
+if __name__ == '__main__':
+    main()
