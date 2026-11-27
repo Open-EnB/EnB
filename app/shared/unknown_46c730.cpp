@@ -614,7 +614,7 @@ unsigned char LandClass::Nearest_Normal(const Vector3 &n)
 }
 
 static inline void Land_Normalize(Vector3 &v, const Vector3 &s) { v = s; float len2 = s.X * s.X + s.Y * s.Y + s.Z * s.Z; if (len2 != 0.0f) { float oolen = WWMath::Inv_Sqrt(len2); v.Set(s.X * oolen, s.Y * oolen, s.Z * oolen); } }
-// NOT EXACT: order (the frame is the client's 0x19C: heights and vectors at function scope, spacing the X of a by-value Vector3; left: y + 1 kept in a slot, operand order; attempts.csv 0x46F120)
+// NOT EXACT: shape (89 masked rows; the frame is the client's 0x19C: heights and vectors at function scope, spacing the X of a by-value Vector3, both neighbours named; left: operand order of products and sums, the place of integer stores; attempts.csv 0x46F120)
 void LandClass::Unknown_46F120(void)
 {
 	int i; Vector3 n;
@@ -635,25 +635,25 @@ void LandClass::Unknown_46F120(void)
 	// the four corners (x, y in { 0, Size }): written at (0, 0), (Size - 1, 0), (0, Size - 1), (Size - 1, Size - 1)
 	for (y = 0; y < size + 1; y += size) {
 		for (x = 0; x < size + 1; x += size) {
-			int xp = x + 1;
-			int yp = y + 1;
-			h00 = Field->Get_Height_2(xp - 2, y - 1);
-			h10 = Field->Get_Height_2(x, y - 1);
-			h20 = Field->Get_Height_2(xp, y - 1);
-			h01 = Field->Get_Height_2(xp - 2, y);
+			int xm = x - 1;
+			int xp = x + 1; int ym = y - 1; int yp = y + 1;
+			h00 = Field->Get_Height_2(xm, ym);
+			h10 = Field->Get_Height_2(x, ym);
+			h20 = Field->Get_Height_2(xp, ym);
+			h01 = Field->Get_Height_2(xm, y);
 			h = Field->Get_Height_2(x, y);
 			h21 = Field->Get_Height_2(xp, y);
-			h02 = Field->Get_Height_2(xp - 2, yp);
+			h02 = Field->Get_Height_2(xm, yp);
 			h12 = Field->Get_Height_2(x, yp);
 			h22 = Field->Get_Height_2(xp, yp);
-			v00.X = -spacing; v00.Y = -spacing; v00.Z = h00 - h;
-			v10.X = 0.0f; v10.Y = -spacing; v10.Z = h10 - h;
-			v20.X = spacing; v20.Y = -spacing; v20.Z = h20 - h;
-			v01.X = -spacing; v01.Y = 0.0f; v01.Z = h01 - h;
-			v21.X = spacing; v21.Y = 0.0f; v21.Z = h21 - h;
-			v02.X = -spacing; v02.Y = spacing; v02.Z = h02 - h;
-			v12.X = 0.0f; v12.Y = spacing; v12.Z = h12 - h;
-			v22.X = spacing; v22.Y = spacing; v22.Z = h22 - h;
+			v00.Set(-spacing, -spacing, h00 - h);
+			v10.Set(0.0f, -spacing, h10 - h);
+			v20.Set(spacing, -spacing, h20 - h);
+			v01.Set(-spacing, 0.0f, h01 - h);
+			v21.Set(spacing, 0.0f, h21 - h);
+			v02.Set(-spacing, spacing, h02 - h);
+			v12.Set(0.0f, spacing, h12 - h);
+			v22.Set(spacing, spacing, h22 - h);
 			Vector3 c1;
 			Vector3::Cross_Product(v00, v10, &c1);
 			Vector3 c0;
@@ -681,21 +681,21 @@ void LandClass::Unknown_46F120(void)
 	index = 1;
 	for (y = 0; y < size + 1; y += size) {
 		for (x = 2; x <= size - 2; x += 2) {
-			int xp = x + 1;
-			int yp = y + 1;
-			h00 = Field->Get_Height_2(xp - 2, y - 1);
-			h20 = Field->Get_Height_2(xp, y - 1);
-			h01 = Field->Get_Height_2(xp - 2, y);
+			int xm = x - 1;
+			int xp = x + 1; int ym = y - 1; int yp = y + 1;
+			h00 = Field->Get_Height_2(xm, ym);
+			h20 = Field->Get_Height_2(xp, ym);
+			h01 = Field->Get_Height_2(xm, y);
 			h = Field->Get_Height_2(x, y);
 			h21 = Field->Get_Height_2(xp, y);
-			h02 = Field->Get_Height_2(xp - 2, yp);
+			h02 = Field->Get_Height_2(xm, yp);
 			h22 = Field->Get_Height_2(xp, yp);
-			v00.X = -spacing; v00.Y = -spacing; v00.Z = h00 - h;
-			v20.X = spacing; v20.Y = -spacing; v20.Z = h20 - h;
-			v01.X = -spacing; v01.Y = 0.0f; v01.Z = h01 - h;
-			v21.X = spacing; v21.Y = 0.0f; v21.Z = h21 - h;
-			v02.X = -spacing; v02.Y = spacing; v02.Z = h02 - h;
-			v22.X = spacing; v22.Y = spacing; v22.Z = h22 - h;
+			v00.Set(-spacing, -spacing, h00 - h);
+			v20.Set(spacing, -spacing, h20 - h);
+			v01.Set(-spacing, 0.0f, h01 - h);
+			v21.Set(spacing, 0.0f, h21 - h);
+			v02.Set(-spacing, spacing, h02 - h);
+			v22.Set(spacing, spacing, h22 - h);
 			Vector3 c10;
 			Vector3::Cross_Product(v20, v21, &c10);
 			Vector3 c11;
@@ -717,21 +717,21 @@ void LandClass::Unknown_46F120(void)
 	for (y = 2; y <= size - 2; y += 2) {
 		// the left and right columns (x in { 0, Size }): the top half at row y - 1, the bottom half at row y
 		for (x = 0; x < size + 1; x += size) {
-			int xp = x + 1;
-			int yp = y + 1;
-			h00 = Field->Get_Height_2(xp - 2, yp - 2);
-			h10 = Field->Get_Height_2(x, yp - 2);
-			h20 = Field->Get_Height_2(xp, yp - 2);
+			int xm = x - 1;
+			int xp = x + 1; int ym = y - 1; int yp = y + 1;
+			h00 = Field->Get_Height_2(xm, ym);
+			h10 = Field->Get_Height_2(x, ym);
+			h20 = Field->Get_Height_2(xp, ym);
 			h = Field->Get_Height_2(x, y);
-			h02 = Field->Get_Height_2(xp - 2, yp);
+			h02 = Field->Get_Height_2(xm, yp);
 			h12 = Field->Get_Height_2(x, yp);
 			h22 = Field->Get_Height_2(xp, yp);
-			v00.X = -spacing; v00.Y = -spacing; v00.Z = h00 - h;
-			v10.X = 0.0f; v10.Y = -spacing; v10.Z = h10 - h;
-			v20.X = spacing; v20.Y = -spacing; v20.Z = h20 - h;
-			v02.X = -spacing; v02.Y = spacing; v02.Z = h02 - h;
-			v12.X = 0.0f; v12.Y = spacing; v12.Z = h12 - h;
-			v22.X = spacing; v22.Y = spacing; v22.Z = h22 - h;
+			v00.Set(-spacing, -spacing, h00 - h);
+			v10.Set(0.0f, -spacing, h10 - h);
+			v20.Set(spacing, -spacing, h20 - h);
+			v02.Set(-spacing, spacing, h02 - h);
+			v12.Set(0.0f, spacing, h12 - h);
+			v22.Set(spacing, spacing, h22 - h);
 			Vector3 c13;
 			Vector3::Cross_Product(v00, v10, &c13);
 			Vector3 c12;
@@ -747,27 +747,27 @@ void LandClass::Unknown_46F120(void)
 			index += size - 1;
 		}
 		index += 3 - size * 2;
-		// the interior even x in 2 .. Size - 2: one quadrant each at (x - 1, yp - 2), (x, yp - 2), (x - 1, y), (x, y)
+		// the interior even x in 2 .. Size - 2: one quadrant each at (x - 1, ym), (x, ym), (x - 1, y), (x, y)
 		for (x = 2; x <= size - 2; x += 2) {
-			int xp = x + 1;
-			int yp = y + 1;
-			h00 = Field->Get_Height_2(xp - 2, yp - 2);
-			h10 = Field->Get_Height_2(x, yp - 2);
-			h20 = Field->Get_Height_2(xp, yp - 2);
-			h01 = Field->Get_Height_2(xp - 2, y);
+			int xm = x - 1;
+			int xp = x + 1; int ym = y - 1; int yp = y + 1;
+			h00 = Field->Get_Height_2(xm, ym);
+			h10 = Field->Get_Height_2(x, ym);
+			h20 = Field->Get_Height_2(xp, ym);
+			h01 = Field->Get_Height_2(xm, y);
 			h = Field->Get_Height_2(x, y);
 			h21 = Field->Get_Height_2(xp, y);
-			h02 = Field->Get_Height_2(xp - 2, yp);
+			h02 = Field->Get_Height_2(xm, yp);
 			h12 = Field->Get_Height_2(x, yp);
 			h22 = Field->Get_Height_2(xp, yp);
-			v00.X = -spacing; v00.Y = -spacing; v00.Z = h00 - h;
-			v10.X = 0.0f; v10.Y = -spacing; v10.Z = h10 - h;
-			v20.X = spacing; v20.Y = -spacing; v20.Z = h20 - h;
-			v01.X = -spacing; v01.Y = 0.0f; v01.Z = h01 - h;
-			v21.X = spacing; v21.Y = 0.0f; v21.Z = h21 - h;
-			v02.X = -spacing; v02.Y = spacing; v02.Z = h02 - h;
-			v12.X = 0.0f; v12.Y = spacing; v12.Z = h12 - h;
-			v22.X = spacing; v22.Y = spacing; v22.Z = h22 - h;
+			v00.Set(-spacing, -spacing, h00 - h);
+			v10.Set(0.0f, -spacing, h10 - h);
+			v20.Set(spacing, -spacing, h20 - h);
+			v01.Set(-spacing, 0.0f, h01 - h);
+			v21.Set(spacing, 0.0f, h21 - h);
+			v02.Set(-spacing, spacing, h02 - h);
+			v12.Set(0.0f, spacing, h12 - h);
+			v22.Set(spacing, spacing, h22 - h);
 			Vector3 c17;
 			Vector3::Cross_Product(v00, v10, &c17);
 			Vector3 c19;
