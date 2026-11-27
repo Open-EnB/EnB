@@ -663,11 +663,17 @@
 "?Copy@SurfaceClass@@QAEXIIIIIIPBV1@@Z": [
 "0x94DD30"
 ],
+"?Copy@SurfaceClass@@QAEXPBE@Z": [
+"0x94D910"
+],
 "?Cord_SHA@@YA_NPBXHPAI@Z": [
 "0x8B4A90"
 ],
 "?CreateBrowser@DX8WebBrowser@@SAXPBD0HHHHHJPAUIDispatch@@0@Z": [
 "0x9205C0"
+],
+"?CreateCopy@SurfaceClass@@QAEPAEPAH00_N@Z": [
+"0x94DBB0"
 ],
 "?Create_3D_Sound@WWAudioClass@@QAEPAVSound3DClass@@PBDH@Z": [
 "0x9F0350"
@@ -1761,6 +1767,9 @@
 "?Stop_Root_Profile@WWProfileManager@@SAXXZ": [
 "0x9EAAD0"
 ],
+"?Stretch_Copy@SurfaceClass@@QAEXIIIIIIIIPBV1@@Z": [
+"0x94DEC0"
+],
 "?String@CRC@@SAKPBDK@Z": [
 "0x9D4840"
 ],
@@ -1832,6 +1841,9 @@
 ],
 "?YFlip@Targa@@QAEXXZ": [
 "0x9D33D0"
+],
+"?_Create_DX8_Texture@DX8Wrapper@@SAPAUIDirect3DTexture8@@PAUIDirect3DSurface8@@W4MipCountType@@@Z": [
+"0x925CC0"
 ],
 "?_Getfacet@locale@std@@QBEPBVfacet@12@I_N@Z": [
 "0xA1A3E3"
