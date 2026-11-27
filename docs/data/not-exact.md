@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-460 entries in 221 files.
+457 entries in 220 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -115,7 +115,6 @@ edit the comments in the code, not this file.
 | `app/client/galaxy_map_render.cpp:823` | `GalaxyMapRenderClass::Unknown_7A8B70` | marker | NOT EXACT: register / frame (masked residue 317 rows; the Updates push as insert at end, the client's out-of-line insert 0x7AF200): the calls and inlining are the client's (Create_Item and the 0x7AA8C0 / 0x7ABFE0 layers); the client keeps 0 in ebp and this in ebx, frame 0x60 against ours 0x64 (see attempts.csv) |
 | `app/client/galaxy_map_render.cpp:1370` | `GalaxyMapRenderSectorClass::Unknown_7AB6D0` | marker | NOT EXACT: order-only (the frame is the client's with the colour at function scope; the key's copy and the iterator sit in each other's slots) |
 | `app/client/galaxy_map_render.cpp:1699` | `GalaxyMapRenderGateClass::Unknown_7AD090` | marker | NOT EXACT: inline-budget (the client inlines name's ~RefCountPtr and so keeps the pointer in esi; ours calls it); the matrix (identity, Set_Translation, Rotate_Z(s, c)), the branch order and '!line' are the client's |
-| `app/client/galaxy_map_render.cpp:1854` | `GalaxyMapRenderGateClass::Unknown_7AD850` | marker | NOT EXACT: shape (masked residue 10): the client re-reads Line for Hidden (0x7AD8FE) and tests side twice (0x7ADBE1, a dead fcomp); written so, VC6 inlines to_name's last ~RefCountPtr again (the client calls it, 0x7ADDF0): the unbraced FAIL_IFs and ifs hold that inline state (attempts.csv) |
 | `app/client/galaxy_map_render.cpp:2019` | `GalaxyMapRenderGateClass::Unknown_7AE220` | mention | NOT EXACT is listed in docs/data/attempts.csv (inline budgets in the long members, 0x7A8B70 above all, and three order-only residues). GalaxyMapRenderGateClass's constructor 0x7AC870 sits under auto_inline(off): its one caller, Create_Item<GalaxyMapRenderGateClass> 0x7B0E10, calls it (`new T(data)`, non-null branch), where /Ob2 would inline it; Create_Item returns false after the creating branch (... |
 | `app/client/gauge3d.cpp:163` | `Gauge3DClass::Gauge3DClass` | marker | NOT EXACT: 0.83, order-only: the client pushes both of G_ASSERT's strings before storing Size.Y; ours stores between them |
 | `app/client/gd_robj.cpp:16` | `RObjGadgetClass::RObjGadgetClass` | marker | NOT EXACT: scheduling (similarity 0.93): the client stores the table after the flags byte; 0x66BEC0, the same source, is exact |
@@ -349,8 +348,6 @@ edit the comments in the code, not this file.
 | `app/common/galaxy_map.cpp:609` | `GalaxyMapStarbaseIteratorClass::First` | mention | NOT EXACT (the client recomputes the value's address after the end test). |
 | `app/common/lego_identifier.cpp:83` | `LegoIdentifierClass::LegoIdentifierClass` | marker | NOT EXACT: 0x843970, the client inlines Set_Name here (inline-budget; attempts.py show 0x843970) |
 | `app/common/lego_identifier.cpp:228` | `LegoSplitStruct::Is_Invalid` | mention | NOT EXACT 0.79); its Is_Invalid 0x8451A0 (exact) is placed here provisionally (D137): the 20-byte function at this object's end, before manufacturing_defs.cpp. * Written by builder P4 (2026-10-26) for the object-to-object effects (pkpointeffect.cpp, opcodes 11-14), which send an identifier's name and set one from the received string. |
-| `app/common/stredit.cpp:22` | `StrEditClass::StrEditClass` | mention | NOT EXACT: the shared tail. <string>'s guarded initialiser at 0x84B330 ends the object (workflow.md 3.3): the client's next function, 0x84B360 ("Effect Radius : %d"), is another file's. |
-| `app/common/stredit.cpp:191` | `StrEditClass::Process_Key` | marker | NOT EXACT: shape (0.78, 26 rows): the client keeps the delete / backspace shared tail (and ecx, 3; rep movsb; StrLen--; result) in the backspace block, ours in the delete block |
 | `app/common/target_generator_summary.cpp:92` | `String_To_Value` | marker | NOT EXACT: register (the client keeps value in ebx through the loop and ors it unfused; ours keeps the zero there) |
 | `app/common/udpconn.cpp:126` | `UDPConnection::UDPConnection` | marker | NOT EXACT: two register choices (con's Ip_ / Port_ reads, the openc tail); Encrypt stays unset |
 | `app/common/udpconn.cpp:816` | `Unknown_82E1D0` | mention | NOT EXACT: the constructor over a CordCon (registers). Send_Data is exact (UDP, 2026-11-02: its last lookup through the one-layer Find_Ptr; CordCon::write's argument order, see below). * Send_Data (NW1, 2026-11-01): one UDPChannelClass for the channel (getValue fills it, add copies it), `channel >= 0` tested first, key.Reliable read for the open mode (an if, not ?:) and the drop test, the two clos... |
