@@ -24883,12 +24883,12 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_46E120` | `app/shared/unknown_46c730.cpp:450` | untagged neutral name (D10) |
 | 1 | `LandNormalTable` | `app/shared/unknown_46c730.cpp:515` | unknown; the 256 unit normals Unknown_46F120 copies into Normals (0xAE8BBC .. 0xAE97BC, .rdata, 6-digit literals): |
 | 1 | `Unknown_46F120` | `app/shared/unknown_46c730.cpp:618` | untagged neutral name (D10) |
-| 1 | `Unknown_470F80` | `app/shared/unknown_46c730.cpp:809` | untagged neutral name (D10) |
-| 1 | `Unknown_472F80` | `app/shared/unknown_46c730.cpp:858` | untagged neutral name (D10) |
-| 1 | `Unknown_473290` | `app/shared/unknown_46c730.cpp:1176` | untagged neutral name (D10) |
-| 1 | `Unknown_4733C0` | `app/shared/unknown_46c730.cpp:1205` | untagged neutral name (D10) |
-| 1 | `Unknown_473780` | `app/shared/unknown_46c730.cpp:1207` | untagged neutral name (D10) |
-| 1 | `Unknown_473BC0` | `app/shared/unknown_46c730.cpp:1211` | untagged neutral name (D10) |
+| 1 | `Unknown_470F80` | `app/shared/unknown_46c730.cpp:813` | untagged neutral name (D10) |
+| 1 | `Unknown_472F80` | `app/shared/unknown_46c730.cpp:862` | untagged neutral name (D10) |
+| 1 | `Unknown_473290` | `app/shared/unknown_46c730.cpp:1180` | untagged neutral name (D10) |
+| 1 | `Unknown_4733C0` | `app/shared/unknown_46c730.cpp:1209` | untagged neutral name (D10) |
+| 1 | `Unknown_473780` | `app/shared/unknown_46c730.cpp:1211` | untagged neutral name (D10) |
+| 1 | `Unknown_473BC0` | `app/shared/unknown_46c730.cpp:1215` | untagged neutral name (D10) |
 | 1 | `Unknown_BDC0D8` | `app/shared/unknown_474530.cpp:45` | unknown |
 | 1 | `LandUnknown466BE0Class` | `app/shared/unknown_474530.cpp:45` | untagged neutral name (D10) |
 | 1 | `Unknown_477E20` | `app/shared/unknown_474530.cpp:46` | unknown; deletes a global object (0xBDC0D8) and clears it; called by the land's dtor only |
