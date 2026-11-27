@@ -1316,8 +1316,8 @@ bool CordMgr::Process_SYN2_Packet(unsigned char *data, int len, sockaddr_in *fro
 	return false;
 }
 
-// NOT EXACT: 0x85A430 (0.75, registers: the client reuses eax where ours takes ecx / edx). ACK1 (1, protocol, session,
-// two words, the server's modulus and exponent, each a 4-byte length then big-endian bytes; each check its own return)
+
+// 0x85A430: ACK1 (1, protocol, session, two words, modulus/exponent lengths and big-endian data; each check has its own return).
 // for a connection in state 1: the session key in the low 64 bits of a random number below the modulus, encrypted with
 // an RSAKeyClass of the two (Key_Exchange 0x829180's form); a zero modulus or exponent: the key's low word. State 3.
 bool CordMgr::Process_ACK1_Packet(unsigned char *data, int len, sockaddr_in *from, UDP *socket, int unknown)
@@ -1328,12 +1328,12 @@ bool CordMgr::Process_ACK1_Packet(unsigned char *data, int len, sockaddr_in *fro
 	}
 	unsigned char type = data[0];
 	unsigned char protocol = data[1];
-	unsigned short session = ntohs(*(unsigned short *)(data + 2));
-	unsigned long word1 = ntohl(*(unsigned long *)(data + 4));
-	unsigned long word2 = ntohl(*(unsigned long *)(data + 8));
+	unsigned short session = *(unsigned short *)(data + 2); session = ntohs(session);
+	unsigned long word1 = *(unsigned long *)(data + 4); word1 = ntohl(word1);
+	unsigned long word2 = *(unsigned long *)(data + 8); word2 = ntohl(word2);
 	BigInt n;
 	BigInt e;
-	unsigned long mlen = ntohl(*(unsigned long *)(data + 12));
+	unsigned long mlen = *(unsigned long *)(data + 12); mlen = ntohl(mlen);
 	unsigned long offset = mlen + 0x10;
 	if (offset > (unsigned long)len) {
 		return false;
@@ -1342,7 +1342,7 @@ bool CordMgr::Process_ACK1_Packet(unsigned char *data, int len, sockaddr_in *fro
 		return false;
 	}
 	n.Unsigned_Decode(data + 0x10, mlen);
-	unsigned long elen = ntohl(*(unsigned long *)(data + offset));
+	unsigned long elen = *(unsigned long *)(data + offset); elen = ntohl(elen);
 	offset += 4;
 	if (elen + offset > (unsigned long)len) {
 		return false;
