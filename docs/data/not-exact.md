@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-420 entries in 212 files.
+419 entries in 212 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -388,12 +388,11 @@ edit the comments in the code, not this file.
 | `app/shared/robj2texture.cpp:213` | `Create_Projector_Render_Target` | mention | NOT EXACT: order-only, its stack slots in another order (the frame size comes from the blocks around the back-buffer copy and the lock loop). |
 | `app/shared/rs_list.cpp:866` | `RenderStateListClass::Unknown_04` | mention | NOT EXACT (functional, D64): 0x45AB20 (the float DURATION's store is scheduled before the next push in the client), 0x45AD90 (register allocation: the client keeps 0 in ebp from the start, one more local), 0x45B550 (the SHADER switch: the client's jump table starts at 0 with case 0 on the default's code; ours subtracts 1). |
 | `app/shared/split_string.cpp:28` | `SplitStringClass::Split` | marker | NOT EXACT: inline-budget: the client calls the pad lines' std::string("") assign(const char *, n) out of line, ours inlines it; then stack slots (3 forms) |
-| `app/shared/spln_db.cpp:95` | `SplineDatabaseClass::Save` | marker | NOT EXACT: shape (the filename copy and the save chunks: the client inlines Save_Chunks with Write_String and Save_Entry out of line) @0x484D00 |
+| `app/shared/spln_db.cpp:95` | `SplineDatabaseClass::Save` | marker | NOT EXACT: inline-budget (Save_Chunks inlined as the client, but GenericList::First_Valid called out of line in its entries loop) @0x484D00 |
 | `app/shared/spln_db.cpp:487` | `SplineDatabaseClass::Get_Color_Curves` | marker | NOT EXACT: inline-budget (the client calls HashListClass::Find out of line for _G only) |
 | `app/shared/spln_db.cpp:893` | `SplineDatabaseClass::Create_Blend` | marker | NOT EXACT: inline-budget (the client calls HashListClass::Find and Add(node) out of line) |
 | `app/shared/spln_db.cpp:1539` | `SplineDatabaseClass::Resolve` | marker | NOT EXACT: inline-budget (HashListClass::Find out of line at some lookups) |
-| `app/shared/spln_db.cpp:1680` | `SplineDatabaseClass::Save_Chunks` | marker | NOT EXACT: shape / inline budget (the client inlines Save_Entry here and calls Save_Curve) @0x487B20 |
-| `app/shared/spln_db.cpp:1732` | `SplineDatabaseClass::Save_Entry` | marker | NOT EXACT: shape / inline budget (the client inlines Save_Curve's switch) |
+| `app/shared/spln_db.cpp:1732` | `SplineDatabaseClass::Save_Entry_Data` | marker | NOT EXACT: shape / inline budget (the client inlines Save_Curve's switch) |
 | `app/shared/spln_db.cpp:1916` | `SplineDatabaseClass::Load_Entry` | marker | NOT EXACT: shape (the switch's layout; the TYPE_BLEND strings) |
 | `app/shared/stars.cpp:288` | `StarFieldClass::Get_Cost` | mention | NOT EXACT: Load only (the other functions are exact). Load (0.70): the asserts on the client's lines, the frames store as one ternary and powf (r stored before pow) match; left: the Hemisphere branch loads z (sample[1]) last where the client loads it first, the fifth Create_NEW temporary zeroed after its release, frame 0x4C vs 0x50; parked (attempts.csv). Init is exact as bool-flag do / while loop... |
 | `app/shared/symbol_substitution.cpp:99` | `Substitute_Symbols` | marker | NOT EXACT: inline budget, the client calls string::erase(iterator) 0x4E2A00 out of line in the last loop |

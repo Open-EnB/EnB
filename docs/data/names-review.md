@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1971 |
 | 2 | describes what the code does | 5023 |
-| 1 | neutral placeholder | 25238 |
+| 1 | neutral placeholder | 25240 |
 
 ## For review (score 3 and below)
 
@@ -24747,6 +24747,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `unused` | `app/shared/spln_db.h:150` | ret 8 in the client (0x486C40), as the lookup by name |
 | 1 | `unused` | `app/shared/spln_db.h:151` | ret 8 in the client (0x486C90) |
 | 1 | `unused` | `app/shared/spln_db.h:163` | the client's copy takes a second argument (ret 8) it never reads |
+| 1 | `Save_Header` | `app/shared/spln_db.h:172` | neutral, what it writes (the key names' chunk 0x808; inline in Save_Chunks, no client copy) |
+| 1 | `Save_Entry` | `app/shared/spln_db.h:173` | neutral (an entry's header, name, description and curve inside chunk 0x811; inline in Save_Entry, no client copy) |
 | 1 | `Load_Header` | `app/shared/spln_db.h:182` | neutral, what it reads |
 | 1 | `Unknown_8B44E0` | `app/shared/strconv_lib.cpp:71` | untagged neutral name (D10) |
 | 1 | `Unknown_8B44C0` | `app/shared/strconv_lib.cpp:77` | untagged neutral name (D10) |
