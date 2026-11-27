@@ -570,3 +570,119 @@ order, alphabetical inside), retail's library order and import libraries, the re
 for the code (the coordinator's call, D246): the zero slots of retail's CRT table are a per-object initialiser check
 that needs no attribution of code (`zseq.py`: three objects differ, viewbttn, message_server and cordcon); and the
 thunk table needs retail's external-symbol count (about 260 more than ours) before any name in it can land in place.
+
+### 5.7 Retail's extra external symbols, cordcon's zero slot, and the one client build's object order
+
+Measured 2026-11-26 (image builder IM9, week plan 2026-11-24 §2 D) on tools/2026-11-26-night (c35ef215a, every
+library rebuilt in wt/IM9) with the scripts in `.work/im9/` (`mkpad.py`, `pscan.py`, `ptail.py`, `mapkinds.py`,
+`datakinds.py`, `relocsec.py`, `dataonly.py`, `strsets.py`, `ptrtables.py`, `slotcmp.py`, `pullsim.py`,
+`maporder.py`, `arorder.py`, `inclist.py`, `inclink.py`, `drectve.py`, `cal.sh`, `q3.sh`). The trials are §5.3's
+`all` (IM8's `trial2.sh` wrapper) and the one client build with one input changed (`--tag`; nothing of the one
+client build's options changed).
+
+| Trial (`--tag`) | Changed | imagediff in place | What it shows |
+|---|---|---|---|
+| the one client build | | **118,647 of 8,642,625 (1.37 %)** | the baseline at this head |
+| `all` | §5.3's every-piece trial | **1,294,263 (14.98 %)** | split pointer p = 6,765 (fitted, every one of 19,993 slots on the order) |
+| `pad` | `all` + one object of 279 unreferenced external `int`s in `.bss` (`mkpad.py`) | 1,294,421 | p = 6,858: +93 |
+| `pad558` | `all` + 558 of them | 1,289,490 | p = 6,949: +184 |
+| `pad273` | `all` + 273 of them | 1,294,435 | p = 6,856: retail's |
+| `emp47` | `all` + 47 empty C++ objects (copies of main_client.obj: a `.drectve` and `@comp.id` only) | 1,294,291 | p = 6,765: an object without externals adds none; the rich header's C++ count 1,054 = retail's (§5.5's reading of the 47 holds), `e_lfanew` still 0x130 (the C and cvtomf counts differ) |
+| `reord` | the one client build with app.lib's members in retail's order (`arorder.py`) | 118,647 | the exe byte-identical but for the 2 bytes of the stamp |
+| `inc` | the one client build + `/include:` of each pulled object's first own symbol, in retail's order | 117,813 | object order 651 of 652 in retail's; +53 KB (`/include` keeps COMDATs `/OPT:REF` drops; unknown_px_callbacks pulled) |
+| `inc2` | the same with symbols the one build's map keeps (645 objects; 6 have none of their own) | **119,780 (1.39 %)** | 645 of 651 in retail's order (99.1 %), the same 651 objects, +4,096 bytes of file |
+| `drec` | the 645 `-include:` as directives in main.obj's `.drectve` (no link option) | 118,631 | 644 of 651 (98.9 %): main.obj first, then retail's order |
+
+**Question 1: retail's extra external symbols.** *How many.* Retail's split pointer is pinned to **p = 6,856**
+by the names at the boundary, not only by §5.1's fit (whose score is flat: 2,795-2,811 on-order names over
+p = 6,700-6,975): `??1TradePacketClass@@UAE@XZ` (base bucket 6,856) and `?setBufferedWrites@TCPMgr@@QAEDPAVTCPCon@@D@Z`
+(6,858) sit at their base buckets between on-order neighbours (unsplit, p ≤ 6,856), `?Get_Data_Size@NoteListPacketClass@@UAEHXZ`
+(6,855) and `??0AuxDataPacketClass@@QAE@HPBXH@Z` (6,846) at their split buckets 15,047 and 15,038, the table's last
+(p > 6,855) (`ptail.py`). LINK.EXE's table (0x432320: the split test `(count << 4) / size > 0x30` runs on every
+lookup, before the insert) grows by one bucket per three symbols on the trials (279 -> +93, 558 -> +184), so
+retail's link held **273 ± 3 more external symbols** than the `all` trial (6,856 - 6,765 = 91 buckets). An object
+with no externals adds nothing (`emp47`: 47 objects, +0), so the 47 code-less C++ objects of §5.4 are not the
+cause unless they define externals.
+
+*What they are not* (retail against the `all` trial, each figure from both images the same way):
+
+| Kind | Retail | `all` | Difference |
+|---|---|---|---|
+| thunked app functions (the full link's table: 19,983 less the update's 7) | 19,976 | 19,993 | -17 |
+| imports (`__imp_`, their thunks, the descriptors) | 17 DLLs, 423 functions | the same | 0 |
+| RTTI type descriptor names (`.?A...@@`) | 87 | 87, the same names | 0 |
+| data targets of code relocations (`datakinds.py`): strings / vtables / FPU operands / other | 9,599 / 2,313 / 814 / 9,332 | 9,603 / 2,316 / 780 / 9,313 | -4 / -3 / +34 / +19 |
+| data reached only from data relocations (`dataonly.py`): strings / other | 2,199 / 4,759 | 2,161 / 4,755 | +38 / +4 |
+| library region (`.text` after the last thunk target to the reserve) | 1,574,216 bytes | 1,575,460 | -1,244 bytes |
+
+So at most about 70 of the 273 are pooled constants a relocation reaches (`??_C@` literals reached from string
+tables, +38; `__real@` constants, at most +34), and the functions and imports balance. The other ~200 are
+externals no relocation reaches: data nobody reads (a defined, unreferenced global, as the `pad` objects' are),
+or library-internal symbols. Retail's `.data` is 6,208 bytes larger in memory (0xD6F14 against 0xD56D4) and
+1-2 pages larger on disk; 888 of those bytes are below (the `"2184"` statics, file-static, so not in LINK's
+table); the rest, ~5.3 KB, is the size ~200 unreferenced globals of 4-40 bytes would take. Not resolved further:
+no relocation names them.
+
+*What retail's count buys.* `pad273` gives the thunk table retail's bucket function: it moves the names whose
+base bucket lies in [6,765, 6,856) (91 of 8,192 base buckets, about 1.1 % of the thunks) into retail's split
+bucket. §5.6's "every thunk's bucket depends on p" overstated it: the other 98.9 % of the buckets are the same
+for any p in that range, and the table's bytes in place follow the slot positions, which depend on every earlier
+thunk (names and count). Thunk range 0x401006-0x4196A0, bytes equal at the same address (`rangesum.py`): `all`
+41,608 of 99,994 (the `E9` bytes and equal high bytes of rel32), `pad` 41,693, `pad273` 41,682; slots naming
+retail's function at retail's address (`slotcmp.py`): `all` 27, `pad` 34, `pad273` 32. The table waits
+for the names (§5.2), not for the count.
+
+*A finding on the way* (data, not externals): **222 retail objects hold a file-static `char *` to `"2184"`**
+(0xB6FA8C, the auth product id: tsk_login.cpp's `AUTH_PRODUCT`, ui_registration.cpp's `RegistrationGameId`), the
+first 4 bytes of each object's `.data` (0xB6FA88, 0xB7965C, ...: 222 data relocations, none from code). Ours have
+it in those two files only, so 220 objects' `.data` is 4 bytes short; the button-name tables of the `ui_*` objects
+start right after it (`ptrtables.py`: retail's tables are ours plus that entry). A header of E&B's that 222 files
+include defines it (`static char *... = "2184";`); not found here which (the coordinator's call, D246: a census of
+the 222 objects against our include lists, as §5.5 did for `<string>`).
+
+**Question 2: cordcon.obj's zero slot.** *The padding rule.* The incremental link pads every data contribution by
+S / 5 bytes (integer), the next contribution then aligned: `.CRT$XCU` 4 bytes -> no zero, 8-24 -> one, 28-44 ->
+two, 72 -> four (§5.6's table); `.bss` bandwidthaccounting.obj 124 bytes in retail (0xBF4040-0xBF40BC, by its
+code's references) + 24 -> 0xBF40D4, aligned 8 -> 0xBF40D8, cordcon's pool (ours: 120 + 24 -> 0xBF5B78 the same
+way). So no zero after two initialisers means two contributions of 4 bytes. *Causes tested.* (a) The pool's
+initialiser in a COMDAT `.CRT$XCU` (a template-static form): ruled out, its code 0x84DF30 is the unguarded
+`xor eax, eax`, 5 stores, `atexit` of nav_list_builder's 0x7B7B60, whose object keeps its zero (0xB6CD10) with the
+same two entries; VC6 guards a template static's initialiser instead (the ctype guard's form). (b) The update
+(cordcon recompiled): no slot of cordcon's run is off the up16(S + S/4) rule, and a contribution cannot lose its
+pad in place. (c) **Two objects**: the client's run 0x84DF30-0x8568A0 holds the pool's initialiser and atexit stub,
+CordChannelClass's constructors, operator=, Copy, destructor and Reset (0x84DFC0-0x84E770), then **a block of
+template instantiations** (vector<CordMessageClass> 0x84E8A0-0x84EDB0, CordListClass's destructor 0x84EDF0,
+ArrayList<unsigned>, std::copy / fill / copy_backward, CordMessageClass's operator= 0x84F150, CordListClass::Add
+0x84F220, ArrayList::get / add) **before CordCon's constructor 0x84F640**; VC6 emits a translation unit's
+instantiations after its own functions (our one cordcon.obj puts the same block at 0x855D20, after CordCon's code).
+So the client's object ends at 0x84F640: the pool and CordChannelClass are a file of their own, sorting between
+bandwidthaccounting and cordcon, with one CRT entry (0x84DF30), and cordcon.obj has one (its `<string>` guard
+0x856870): no zero after either. wt/IM9A splits it so (`app/wwudp/unknown_84df30.cpp`, name provisional,
+interim D137; cordcon.cpp keeps its lines, the asserts on 521, 632, 977): no pair lost outright (pairs_cmp: CordChannelClass's pairs and the instantiations' move to the new file), and the CRT table predicted from the objects (IM8's `zseq.py`) is retail's at cordcon (1,107 tokens and 167 zeros each; the two differences left are message_server's guard 0x4BDFB0 and one guard more in local_interface_sort.obj).
+
+**Question 3: the one client build's object order.** LINK pulls app.lib's members **breadth-first by first
+reference**: one list of undefined symbols, from `_WinMain@16` (wincrt0's, pulled first for the entry point), each
+pulled member's undefined externals appended in its COFF symbol-table order, the list walked front to back; a
+symbol an unpulled member defines pulls that member. That model (`pullsim.py`, the objects' symbol tables only)
+gives the one client build's order exactly: 651 of 651 in order, 648 of 650 adjacent pairs (a depth-first walk:
+15.7 %). The librarian's member order plays no part (`reord`: the exe is byte-identical but the stamp; app.lib's
+members are in reverse `dir /b` order, LIB.EXE's), nor does the dictionary's. So retail's order (the folders'
+order, alphabetical inside, §5.6) cannot come from app.lib's build: it needs the objects named to LINK in that
+order, by the command line (§5.3's `objs` / `all`), by `/include:` (`inc2`: 99.1 %), or by `-include:` directives
+in main.obj (`drec`: 98.9 %, main.obj first; a `#pragma comment(linker, "/include:...")` list in main.cpp would
+do the same with no link option, at the cost of 645 lines of non-client source). In the non-incremental one
+client build the order is worth +1,133 bytes in place (`inc2`): retail's layout is the incremental link's, so
+order alone moves little.
+
+**Figures before -> after (imagediff's summary line).** The one client build: at tools/2026-11-26-night
+(c35ef215a, the trials above) 118,647 of 8,642,625 bytes in place (1.37 %); on run/2026-11-26-night (f6c75de35)
+118,455 (1.37 %) -> wt/IM9A (the cordcon split) 117,969 (1.36 %): the split moves CordChannelClass's code and
+instantiations in the non-incremental link's breadth-first order, a figure that does not measure a
+client-evidenced cut (§5.5). The `all` trial: 1,294,263 (14.98 %) at c35ef215a; 1,291,269 -> 1,291,293 (14.94 %)
+on run/2026-11-26-night with the split (unknown_84df30.obj before cordcon.obj on the line).
+
+**Proposals (the user's: the one client build's options; nothing changed).** (1) To take retail's object order in
+the one client build: the app objects on its link line in retail's order (or an `/include:` list), +1,133 bytes in
+place as a non-incremental link, the full gain only with §5.3's incremental link. (2) None needs retail's symbol
+count: it lands by itself when the names and the missing unreferenced globals do. For the code (the coordinator's
+call, D246): the header that gives 222 objects their `"2184"` static.
