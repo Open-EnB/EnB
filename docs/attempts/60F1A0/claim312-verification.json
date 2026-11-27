@@ -1,0 +1,919 @@
+{
+  "final": {
+    "source_sha256": "9248151af99bed9f1ad28d9af2bef4335deace0b5330dd68a7312f88ca38e308",
+    "object_sha256": "bba6c24221f5fb5dc126302d131c27766d1f76b4a98fba719250aedb91d07ca7",
+    "original_file_pairs": 88,
+    "final_file_pairs": 89,
+    "original_symbol_pairs": 89,
+    "final_symbol_pairs": 90,
+    "file_gains": [
+      "0x60F1A0"
+    ],
+    "file_losses": [],
+    "symbol_gains": [
+      [
+        "?Unknown_60F1A0@ScannerInterface@@QAEX_N@Z",
+        "0x60F1A0"
+      ]
+    ],
+    "symbol_losses": [],
+    "baseline_control_reproduced": true,
+    "preexisting_symbols_unchanged": 89,
+    "semantic_graph_pass": true,
+    "full_literal_payload_parity": false,
+    "scope": "single-TU canonical native comparison; see baseline-context.json for recorded short-function ambiguity"
+  },
+  "graph_audit": {
+    "object_sha256": "bba6c24221f5fb5dc126302d131c27766d1f76b4a98fba719250aedb91d07ca7",
+    "source_sha256": "9248151af99bed9f1ad28d9af2bef4335deace0b5330dd68a7312f88ca38e308",
+    "functions": [
+      {
+        "symbol": "?Unknown_60F1A0@ScannerInterface@@QAEX_N@Z",
+        "va": "0x60f1a0",
+        "length": 2044,
+        "relocations": [
+          {
+            "offset": "0x2",
+            "symbol": "__except_list",
+            "kind": 6,
+            "addend": "0x0",
+            "linked": "0x0",
+            "resolved": "0x0"
+          },
+          {
+            "offset": "0x9",
+            "symbol": "$L115457",
+            "kind": 6,
+            "addend": "0x0",
+            "linked": "0xab9b4b",
+            "resolved": "0xab9b4b"
+          },
+          {
+            "offset": "0x15",
+            "symbol": "__except_list",
+            "kind": 6,
+            "addend": "0x0",
+            "linked": "0x0",
+            "resolved": "0x0"
+          },
+          {
+            "offset": "0x5e",
+            "symbol": "??_C@_0P@HCNP@InterruptState?$AA@",
+            "kind": 6,
+            "addend": "0x0",
+            "linked": "0xb88b3c",
+            "resolved": "0xb88b3c"
+          },
+          {
+            "offset": "0x6c",
+            "symbol": "??0NameClass@@QAE@PBD@Z",
+            "kind": 20,
+            "addend": "0x0",
+            "linked": "0x417f80",
+            "resolved": "0x4ad380"
+          },
+          {
+            "offset": "0x7d",
+            "symbol": "?Unknown_Find_Field@@YAPAV?$DeltaTemplateClass@W4InterruptStateType@@@@PAVDeltaCompoundClass@@ABVNameClass@@@Z",
+            "kind": 20,
+            "addend": "0x0",
+            "linked": "0x417bf2",
+            "resolved": "0x610300"
+          },
+          {
+            "offset": "0xa9",
+            "symbol": "$L115463",
+            "kind": 6,
+            "addend": "0x0",
+            "linked": "0x60f984",
+            "resolved": "0x60f984"
+          },
+          {
+            "offset": "0xc3",
+            "symbol": "?Unknown_60E6A0@ScannerInterface@@QAEXPAVClientObjectClass@@@Z",
+            "kind": 20,
+            "addend": "0x0",
+            "linked": "0x4105c8",
+            "resolved": "0x60e6a0"
+          },
+          {
+            "offset": "0xeb",
+            "symbol": "??_C@_0N@NBIG@Interrupted?$CB?$AA@",
+            "kind": 6,
+            "addend": "0x0",
+            "linked": "0xb88b2c",
+            "resolved": "0xb88b2c"
+          },
+          {
+            "offset": "0x116",
+            "symbol": "??_C@_0BF@PBOD@Interruption?5Failed?$CB?$AA@",
+            "kind": 6,
+            "addend": "0x0",
+            "linked": "0xb88b10",
+            "resolved": "0xb88b10"
+          },
+          {
+            "offset": "0x11e",
+            "symbol": "?Change_Text@FontSys@@QAEXPBDH@Z",
+            "kind": 20,
+            "addend": "0x0",
+            "linked": "0x4139ad",
+            "resolved": "0x6cdbc0"
+          },
+          {
+            "offset": "0x169",
+            "symbol": "??_C@_0BB@OBJL@Skill?5Activated?$CB?$AA@",
+            "kind": 6,
+            "addend": "0x0",
+            "linked": "0xb88afc",
+            "resolved": "0xb88afc"
+          },
+          {
+            "offset": "0x171",
+            "symbol": "?Change_Text@FontSys@@QAEXPBDH@Z",
+            "kind": 20,
+            "addend": "0x0",
+            "linked": "0x4139ad",
+            "resolved": "0x6cdbc0"
+          },
+          {
+            "offset": "0x1b5",
+            "symbol": "??_C@_0BC@KLCO@Skill?5Deactivated?$AA@",
+            "kind": 6,
+            "addend": "0x0",
+            "linked": "0xb88ae4",
+            "resolved": "0xb88ae4"
+          },
+          {
+            "offset": "0x1bd",
+            "symbol": "?Change_Text@FontSys@@QAEXPBDH@Z",
+            "kind": 20,
+            "addend": "0x0",
+            "linked": "0x4139ad",
+            "resolved": "0x6cdbc0"
+          },
+          {
+            "offset": "0x1ec",
+            "symbol": "??_C@_0CH@OHMB@e?3?2build?2beta?2G?2app?2client?2ui_sc@",
+            "kind": 6,
+            "addend": "0x0",
+            "linked": "0xb8899c",
+            "resolved": "0xb8899c"
+          },
+          {
+            "offset": "0x1f1",
+            "symbol": "??_C@_05NAGO@false?$AA@",
+            "kind": 6,
+            "addend": "0x0",
+            "linked": "0xb6f5e0",
+            "resolved": "0xb6f5e0"
+          },
+          {
+            "offset": "0x1f6",
+            "symbol": "?G_Assert_Report@@YAXPBD0H@Z",
+            "kind": 20,
+            "addend": "0x0",
+            "linked": "0x40aa51",
+            "resolved": "0x4e9410"
+          },
+          {
+            "offset": "0x22a",
+            "symbol": "_UIScanInterruptDelay",
+            "kind": 6,
+            "addend": "0x4",
+            "linked": "0xbe5e14",
+            "resolved": "0xbe5e14"
+          },
+          {
+            "offset": "0x238",
+            "symbol": "_UIScanInterruptDelay",
+            "kind": 6,
+            "addend": "0x0",
+            "linked": "0xbe5e10",
+            "resolved": "0xbe5e10"
+          },
+          {
+            "offset": "0x259",
+            "symbol": "?Unknown_60FEE0@UIScanThreatClass@@QAEXXZ",
+            "kind": 20,
+            "addend": "0x0",
+            "linked": "0x40b8c5",
+            "resolved": "0x60fee0"
+          },
+          {
+            "offset": "0x27b",
+            "symbol": "??_C@_0BC@CJCL@InterruptProgress?$AA@",
+            "kind": 6,
+            "addend": "0x0",
+            "linked": "0xb88acc",
+            "resolved": "0xb88acc"
+          },
+          {
+            "offset": "0x284",
+            "symbol": "??0NameClass@@QAE@PBD@Z",
+            "kind": 20,
+            "addend": "0x0",
+            "linked": "0x417f80",
+            "resolved": "0x4ad380"
+          },
+          {
+            "offset": "0x295",
+            "symbol": "?Unknown_Find_Field@@YAPAV?$DeltaTemplateClass@M@@PAVDeltaCompoundClass@@ABVNameClass@@@Z",
+            "kind": 20,
+            "addend": "0x0",
+            "linked": "0x4138e0",
+            "resolved": "0x546710"
+          },
+          {
+            "offset": "0x2b1",
+            "symbol": "__real@4@00000000000000000000",
+            "kind": 6,
+            "addend": "0x0",
+            "linked": "0xae7244",
+            "resolved": "0xae7244"
+          },
+          {
+            "offset": "0x2e6",
+            "symbol": "??_C@_0BC@JFHC@FactionIdentifier?$AA@",
+            "kind": 6,
+            "addend": "0x0",
+            "linked": "0xb88ab4",
+            "resolved": "0xb88ab4"
+          },
+          {
+            "offset": "0x2ef",
+            "symbol": "??0NameClass@@QAE@PBD@Z",
+            "kind": 20,
+            "addend": "0x0",
+            "linked": "0x417f80",
+            "resolved": "0x4ad380"
+          },
+          {
+            "offset": "0x300",
+            "symbol": "?Unknown_Find_Field@@YAPAVDeltaStringClass@@PAVDeltaCompoundClass@@ABVNameClass@@@Z",
+            "kind": 20,
+            "addend": "0x0",
+            "linked": "0x401f69",
+            "resolved": "0x514bd0"
+          },
+          {
+            "offset": "0x32d",
+            "symbol": "??_C@_0CH@OHMB@e?3?2build?2beta?2G?2app?2client?2ui_sc@",
+            "kind": 6,
+            "addend": "0x0",
+            "linked": "0xb8899c",
+            "resolved": "0xb8899c"
+          },
+          {
+            "offset": "0x332",
+            "symbol": "??_C@_0O@FPLG@?$CBGet_Client?$CI?$CJ?$AA@",
+            "kind": 6,
+            "addend": "0x0",
+            "linked": "0xb7db1c",
+            "resolved": "0xb7db1c"
+          },
+          {
+            "offset": "0x337",
+            "symbol": "?Fail_If_Report@@YAXPBD0H@Z",
+            "kind": 20,
+            "addend": "0x0",
+            "linked": "0x402c3e",
+            "resolved": "0x4e9450"
+          },
+          {
+            "offset": "0x352",
+            "symbol": "??_C@_0CH@OHMB@e?3?2build?2beta?2G?2app?2client?2ui_sc@",
+            "kind": 6,
+            "addend": "0x0",
+            "linked": "0xb8899c",
+            "resolved": "0xb8899c"
+          },
+          {
+            "offset": "0x357",
+            "symbol": "??_C@_08CLAO@?$CBsclient?$AA@",
+            "kind": 6,
+            "addend": "0x0",
+            "linked": "0xb766b4",
+            "resolved": "0xb766b4"
+          },
+          {
+            "offset": "0x35c",
+            "symbol": "?Fail_If_Report@@YAXPBD0H@Z",
+            "kind": 20,
+            "addend": "0x0",
+            "linked": "0x402c3e",
+            "resolved": "0x4e9450"
+          },
+          {
+            "offset": "0x378",
+            "symbol": "??_C@_0CH@OHMB@e?3?2build?2beta?2G?2app?2client?2ui_sc@",
+            "kind": 6,
+            "addend": "0x0",
+            "linked": "0xb8899c",
+            "resolved": "0xb8899c"
+          },
+          {
+            "offset": "0x37d",
+            "symbol": "??_C@_09GKCL@?$CBaux_data?$AA@",
+            "kind": 6,
+            "addend": "0x0",
+            "linked": "0xb78154",
+            "resolved": "0xb78154"
+          },
+          {
+            "offset": "0x382",
+            "symbol": "?Fail_If_Report@@YAXPBD0H@Z",
+            "kind": 20,
+            "addend": "0x0",
+            "linked": "0x402c3e",
+            "resolved": "0x4e9450"
+          },
+          {
+            "offset": "0x3a2",
+            "symbol": "??_C@_0L@DELF@Reputation?$AA@",
+            "kind": 6,
+            "addend": "0x0",
+            "linked": "0xb7f178",
+            "resolved": "0xb7f178"
+          },
+          {
+            "offset": "0x3ae",
+            "symbol": "??0NameClass@@QAE@PBD@Z",
+            "kind": 20,
+            "addend": "0x0",
+            "linked": "0x417f80",
+            "resolved": "0x4ad380"
+          },
+          {
+            "offset": "0x3bc",
+            "symbol": "?Unknown_Find_Field@@YAPAVDeltaReputationClass@@PAVDeltaCompoundClass@@ABVNameClass@@@Z",
+            "kind": 20,
+            "addend": "0x0",
+            "linked": "0x4185c0",
+            "resolved": "0x610370"
+          },
+          {
+            "offset": "0x3d2",
+            "symbol": "??_C@_0L@DELF@Reputation?$AA@",
+            "kind": 6,
+            "addend": "0x0",
+            "linked": "0xb7f178",
+            "resolved": "0xb7f178"
+          },
+          {
+            "offset": "0x3db",
+            "symbol": "??0NameClass@@QAE@PBD@Z",
+            "kind": 20,
+            "addend": "0x0",
+            "linked": "0x417f80",
+            "resolved": "0x4ad380"
+          },
+          {
+            "offset": "0x3e6",
+            "symbol": "?Unknown_Find_Field@@YAPAVDeltaReputationClass@@PAVDeltaCompoundClass@@ABVNameClass@@@Z",
+            "kind": 20,
+            "addend": "0x0",
+            "linked": "0x4185c0",
+            "resolved": "0x610370"
+          },
+          {
+            "offset": "0x423",
+            "symbol": "??_C@_00A@?$AA@",
+            "kind": 6,
+            "addend": "0x0",
+            "linked": "0xbda908",
+            "resolved": "0xbda908"
+          },
+          {
+            "offset": "0x428",
+            "symbol": "?Change_Text@FontSys@@QAEXPBDH@Z",
+            "kind": 20,
+            "addend": "0x0",
+            "linked": "0x4139ad",
+            "resolved": "0x6cdbc0"
+          },
+          {
+            "offset": "0x462",
+            "symbol": "?_Tidy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEX_N@Z",
+            "kind": 20,
+            "addend": "0x0",
+            "linked": "0x402b76",
+            "resolved": "0x42a820"
+          },
+          {
+            "offset": "0x47a",
+            "symbol": "?_Grow@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAE_NI_N@Z",
+            "kind": 20,
+            "addend": "0x0",
+            "linked": "0x412215",
+            "resolved": "0x42a970"
+          },
+          {
+            "offset": "0x4a0",
+            "symbol": "?_Eos@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEXI@Z",
+            "kind": 20,
+            "addend": "0x0",
+            "linked": "0x41121b",
+            "resolved": "0x42a940"
+          },
+          {
+            "offset": "0x4b7",
+            "symbol": "?Get_Name@CFactionDatabaseClass@@SAABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@ABV23@@Z",
+            "kind": 20,
+            "addend": "0x0",
+            "linked": "0x40dd37",
+            "resolved": "0x7e5040"
+          },
+          {
+            "offset": "0x4d4",
+            "symbol": "?_Tidy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEX_N@Z",
+            "kind": 20,
+            "addend": "0x0",
+            "linked": "0x402b76",
+            "resolved": "0x42a820"
+          },
+          {
+            "offset": "0x597",
+            "symbol": "__ftol",
+            "kind": 20,
+            "addend": "0x0",
+            "linked": "0xa264ec",
+            "resolved": "0xa264ec"
+          },
+          {
+            "offset": "0x640",
+            "symbol": "?_C@?1??_Nullstr@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@CAPBDXZ@4DB",
+            "kind": 6,
+            "addend": "0x0",
+            "linked": "0xae70a4",
+            "resolved": "0xae70a4"
+          },
+          {
+            "offset": "0x64e",
+            "symbol": "?Change_Text@FontSys@@QAEXPBDH@Z",
+            "kind": 20,
+            "addend": "0x0",
+            "linked": "0x4139ad",
+            "resolved": "0x6cdbc0"
+          },
+          {
+            "offset": "0x66a",
+            "symbol": "??_C@_09FKED@TechLevel?$AA@",
+            "kind": 6,
+            "addend": "0x0",
+            "linked": "0xb75e28",
+            "resolved": "0xb75e28"
+          },
+          {
+            "offset": "0x673",
+            "symbol": "??0NameClass@@QAE@PBD@Z",
+            "kind": 20,
+            "addend": "0x0",
+            "linked": "0x417f80",
+            "resolved": "0x4ad380"
+          },
+          {
+            "offset": "0x686",
+            "symbol": "?Get_Lookup@DeltaCompoundClass@@QAEPAVLookupClass@@XZ",
+            "kind": 20,
+            "addend": "0x0",
+            "linked": "0x40eec1",
+            "resolved": "0x4a5510"
+          },
+          {
+            "offset": "0x692",
+            "symbol": "?Find@LookupClass@@QAEPAVDeltaClass@@ABVNameClass@@@Z",
+            "kind": 20,
+            "addend": "0x0",
+            "linked": "0x40c257",
+            "resolved": "0x4ac9f0"
+          },
+          {
+            "offset": "0x6a3",
+            "symbol": "?UnknownGlobal@?$DeltaTemplateClass@H@@2HA",
+            "kind": 6,
+            "addend": "0x0",
+            "linked": "0xc416a8",
+            "resolved": "0xc416a8"
+          },
+          {
+            "offset": "0x6b1",
+            "symbol": "??_C@_0DH@BNDJ@e?3?2build?2beta?2G?2app?2client?2?4?4?2sh@",
+            "kind": 6,
+            "addend": "0x0",
+            "linked": "0xb767dc",
+            "resolved": "0xb767dc"
+          },
+          {
+            "offset": "0x6b6",
+            "symbol": "??_C@_01PEAM@t?$AA@",
+            "kind": 6,
+            "addend": "0x0",
+            "linked": "0xb767d8",
+            "resolved": "0xb767d8"
+          },
+          {
+            "offset": "0x6bb",
+            "symbol": "?G_Assert_Report@@YAXPBD0H@Z",
+            "kind": 20,
+            "addend": "0x0",
+            "linked": "0x40aa51",
+            "resolved": "0x4e9410"
+          },
+          {
+            "offset": "0x6cd",
+            "symbol": "??_C@_09FKED@TechLevel?$AA@",
+            "kind": 6,
+            "addend": "0x0",
+            "linked": "0xb75e28",
+            "resolved": "0xb75e28"
+          },
+          {
+            "offset": "0x6d9",
+            "symbol": "??0NameClass@@QAE@PBD@Z",
+            "kind": 20,
+            "addend": "0x0",
+            "linked": "0x417f80",
+            "resolved": "0x4ad380"
+          },
+          {
+            "offset": "0x6e8",
+            "symbol": "?Get_Lookup@DeltaCompoundClass@@QAEPAVLookupClass@@XZ",
+            "kind": 20,
+            "addend": "0x0",
+            "linked": "0x40eec1",
+            "resolved": "0x4a5510"
+          },
+          {
+            "offset": "0x6f7",
+            "symbol": "?Find@LookupClass@@QAEPAVDeltaClass@@ABVNameClass@@@Z",
+            "kind": 20,
+            "addend": "0x0",
+            "linked": "0x40c257",
+            "resolved": "0x4ac9f0"
+          },
+          {
+            "offset": "0x704",
+            "symbol": "?UnknownGlobal@?$DeltaTemplateClass@H@@2HA",
+            "kind": 6,
+            "addend": "0x0",
+            "linked": "0xc416a8",
+            "resolved": "0xc416a8"
+          },
+          {
+            "offset": "0x712",
+            "symbol": "??_C@_0DH@BNDJ@e?3?2build?2beta?2G?2app?2client?2?4?4?2sh@",
+            "kind": 6,
+            "addend": "0x0",
+            "linked": "0xb767dc",
+            "resolved": "0xb767dc"
+          },
+          {
+            "offset": "0x717",
+            "symbol": "??_C@_01PEAM@t?$AA@",
+            "kind": 6,
+            "addend": "0x0",
+            "linked": "0xb767d8",
+            "resolved": "0xb767d8"
+          },
+          {
+            "offset": "0x71c",
+            "symbol": "?G_Assert_Report@@YAXPBD0H@Z",
+            "kind": 20,
+            "addend": "0x0",
+            "linked": "0x40aa51",
+            "resolved": "0x4e9410"
+          },
+          {
+            "offset": "0x74d",
+            "symbol": "??_C@_0P@MBFF@Tech?5Level?3?5?$CFd?$AA@",
+            "kind": 6,
+            "addend": "0x0",
+            "linked": "0xb88aa0",
+            "resolved": "0xb88aa0"
+          },
+          {
+            "offset": "0x753",
+            "symbol": "_sprintf",
+            "kind": 20,
+            "addend": "0x0",
+            "linked": "0xa266da",
+            "resolved": "0xa266da"
+          },
+          {
+            "offset": "0x76b",
+            "symbol": "?Change_Text@FontSys@@QAEXPBDH@Z",
+            "kind": 20,
+            "addend": "0x0",
+            "linked": "0x4139ad",
+            "resolved": "0x6cdbc0"
+          },
+          {
+            "offset": "0x7d6",
+            "symbol": "__except_list",
+            "kind": 6,
+            "addend": "0x0",
+            "linked": "0x0",
+            "resolved": "0x0"
+          },
+          {
+            "offset": "0x7e4",
+            "symbol": "$L114842",
+            "kind": 6,
+            "addend": "0x0",
+            "linked": "0x60f39d",
+            "resolved": "0x60f39d"
+          },
+          {
+            "offset": "0x7e8",
+            "symbol": "$L103330",
+            "kind": 6,
+            "addend": "0x0",
+            "linked": "0x60f24d",
+            "resolved": "0x60f24d"
+          },
+          {
+            "offset": "0x7ec",
+            "symbol": "$L103332",
+            "kind": 6,
+            "addend": "0x0",
+            "linked": "0x60f26c",
+            "resolved": "0x60f26c"
+          },
+          {
+            "offset": "0x7f0",
+            "symbol": "$L103338",
+            "kind": 6,
+            "addend": "0x0",
+            "linked": "0x60f297",
+            "resolved": "0x60f297"
+          },
+          {
+            "offset": "0x7f4",
+            "symbol": "$L103344",
+            "kind": 6,
+            "addend": "0x0",
+            "linked": "0x60f2ea",
+            "resolved": "0x60f2ea"
+          },
+          {
+            "offset": "0x7f8",
+            "symbol": "$L103350",
+            "kind": 6,
+            "addend": "0x0",
+            "linked": "0x60f33a",
+            "resolved": "0x60f33a"
+          }
+        ],
+        "handler": "0xab9b4b",
+        "states": [
+          {
+            "state": 0,
+            "va": "0xab9b40",
+            "relocations": [
+              {
+                "offset": "0x7",
+                "symbol": "??1?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAE@XZ",
+                "kind": 20,
+                "addend": "0x0",
+                "linked": "0x4134fd",
+                "resolved": "0x42a6c0"
+              }
+            ]
+          }
+        ],
+        "predecessors": [
+          -1
+        ],
+        "handler_relocations": [
+          {
+            "offset": "0x1",
+            "symbol": "$T115443",
+            "kind": 6,
+            "addend": "0x0",
+            "linked": "0xb37938",
+            "resolved": "0xb37938"
+          },
+          {
+            "offset": "0x6",
+            "symbol": "___CxxFrameHandler",
+            "kind": 20,
+            "addend": "0x0",
+            "linked": "0xa25ac4",
+            "resolved": "0xa25ac4"
+          }
+        ],
+        "funcinfo_values_compiled": [
+          429065504,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "funcinfo_values_retail": [
+          429065504,
+          1,
+          11762008,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "symbol": "?Unknown_Find_Field@@YAPAV?$DeltaTemplateClass@W4InterruptStateType@@@@PAVDeltaCompoundClass@@ABVNameClass@@@Z",
+        "va": "0x610300",
+        "length": 80,
+        "relocations": [
+          {
+            "offset": "0xc",
+            "symbol": "?Get_Lookup@DeltaCompoundClass@@QAEPAVLookupClass@@XZ",
+            "kind": 20,
+            "addend": "0x0",
+            "linked": "0x40eec1",
+            "resolved": "0x4a5510"
+          },
+          {
+            "offset": "0x18",
+            "symbol": "?Find@LookupClass@@QAEPAVDeltaClass@@ABVNameClass@@@Z",
+            "kind": 20,
+            "addend": "0x0",
+            "linked": "0x40c257",
+            "resolved": "0x4ac9f0"
+          },
+          {
+            "offset": "0x26",
+            "symbol": "?UnknownGlobal@?$DeltaTemplateClass@W4InterruptStateType@@@@2HA",
+            "kind": 6,
+            "addend": "0x0",
+            "linked": "0xc415a8",
+            "resolved": "0xc415a8"
+          },
+          {
+            "offset": "0x35",
+            "symbol": "??_C@_0DH@BNDJ@e?3?2build?2beta?2G?2app?2client?2?4?4?2sh@",
+            "kind": 6,
+            "addend": "0x0",
+            "linked": "0xb767dc",
+            "resolved": "0xb767dc"
+          },
+          {
+            "offset": "0x3a",
+            "symbol": "??_C@_01PEAM@t?$AA@",
+            "kind": 6,
+            "addend": "0x0",
+            "linked": "0xb767d8",
+            "resolved": "0xb767d8"
+          },
+          {
+            "offset": "0x41",
+            "symbol": "?G_Assert_Report@@YAXPBD0H@Z",
+            "kind": 20,
+            "addend": "0x0",
+            "linked": "0x40aa51",
+            "resolved": "0x4e9410"
+          }
+        ],
+        "handler": null,
+        "states": [],
+        "predecessors": []
+      },
+      {
+        "symbol": "?Unknown_Find_Field@@YAPAVDeltaReputationClass@@PAVDeltaCompoundClass@@ABVNameClass@@@Z",
+        "va": "0x610370",
+        "length": 80,
+        "relocations": [
+          {
+            "offset": "0xc",
+            "symbol": "?Get_Lookup@DeltaCompoundClass@@QAEPAVLookupClass@@XZ",
+            "kind": 20,
+            "addend": "0x0",
+            "linked": "0x40eec1",
+            "resolved": "0x4a5510"
+          },
+          {
+            "offset": "0x18",
+            "symbol": "?Find@LookupClass@@QAEPAVDeltaClass@@ABVNameClass@@@Z",
+            "kind": 20,
+            "addend": "0x0",
+            "linked": "0x40c257",
+            "resolved": "0x4ac9f0"
+          },
+          {
+            "offset": "0x26",
+            "symbol": "?UnknownGlobal@DeltaCompoundClass@@2HA",
+            "kind": 6,
+            "addend": "0x0",
+            "linked": "0xbe3a74",
+            "resolved": "0xbe3a74"
+          },
+          {
+            "offset": "0x35",
+            "symbol": "??_C@_0DH@BNDJ@e?3?2build?2beta?2G?2app?2client?2?4?4?2sh@",
+            "kind": 6,
+            "addend": "0x0",
+            "linked": "0xb767dc",
+            "resolved": "0xb767dc"
+          },
+          {
+            "offset": "0x3a",
+            "symbol": "??_C@_01PEAM@t?$AA@",
+            "kind": 6,
+            "addend": "0x0",
+            "linked": "0xb767d8",
+            "resolved": "0xb767d8"
+          },
+          {
+            "offset": "0x41",
+            "symbol": "?G_Assert_Report@@YAXPBD0H@Z",
+            "kind": 20,
+            "addend": "0x0",
+            "linked": "0x40aa51",
+            "resolved": "0x4e9410"
+          }
+        ],
+        "handler": null,
+        "states": [],
+        "predecessors": []
+      }
+    ],
+    "semantic_graph_pass": true,
+    "full_literal_payload_parity": false,
+    "exceptions": [
+      {
+        "symbol": "??_C@_0CH@OHMB@e?3?2build?2beta?2G?2app?2client?2ui_sc@",
+        "compiled": "e:\\build\\beta\\G\\app\\client\\ui_scan.cpp\u0000",
+        "retail": "e:\\build\\beta\\G\\app\\Client\\ui_scan.cpp\u0000"
+      },
+      {
+        "symbol": "??_C@_0CH@OHMB@e?3?2build?2beta?2G?2app?2client?2ui_sc@",
+        "compiled": "e:\\build\\beta\\G\\app\\client\\ui_scan.cpp\u0000",
+        "retail": "e:\\build\\beta\\G\\app\\Client\\ui_scan.cpp\u0000"
+      },
+      {
+        "symbol": "??_C@_0CH@OHMB@e?3?2build?2beta?2G?2app?2client?2ui_sc@",
+        "compiled": "e:\\build\\beta\\G\\app\\client\\ui_scan.cpp\u0000",
+        "retail": "e:\\build\\beta\\G\\app\\Client\\ui_scan.cpp\u0000"
+      },
+      {
+        "symbol": "??_C@_0CH@OHMB@e?3?2build?2beta?2G?2app?2client?2ui_sc@",
+        "compiled": "e:\\build\\beta\\G\\app\\client\\ui_scan.cpp\u0000",
+        "retail": "e:\\build\\beta\\G\\app\\Client\\ui_scan.cpp\u0000"
+      },
+      {
+        "symbol": "??_C@_0DH@BNDJ@e?3?2build?2beta?2G?2app?2client?2?4?4?2sh@",
+        "compiled": "e:\\build\\beta\\G\\app\\client\\..\\shared\\auxdata\\auxdata.h\u0000",
+        "retail": "..\\shared/auxdata/auxdata.h\u0000"
+      },
+      {
+        "symbol": "??_C@_0DH@BNDJ@e?3?2build?2beta?2G?2app?2client?2?4?4?2sh@",
+        "compiled": "e:\\build\\beta\\G\\app\\client\\..\\shared\\auxdata\\auxdata.h\u0000",
+        "retail": "..\\shared/auxdata/auxdata.h\u0000"
+      },
+      {
+        "symbol": "??_C@_0DH@BNDJ@e?3?2build?2beta?2G?2app?2client?2?4?4?2sh@",
+        "compiled": "e:\\build\\beta\\G\\app\\client\\..\\shared\\auxdata\\auxdata.h\u0000",
+        "retail": "..\\shared/auxdata/auxdata.h\u0000"
+      },
+      {
+        "symbol": "??_C@_0DH@BNDJ@e?3?2build?2beta?2G?2app?2client?2?4?4?2sh@",
+        "compiled": "e:\\build\\beta\\G\\app\\client\\..\\shared\\auxdata\\auxdata.h\u0000",
+        "retail": "..\\shared/auxdata/auxdata.h\u0000"
+      }
+    ]
+  },
+  "preservation": {
+    "before_object_sha256": "9fabc4e09e423ef913340edfafd0b93de2b021310ceb5fd2e8c98d1d57ddebd6",
+    "after_object_sha256": "bba6c24221f5fb5dc126302d131c27766d1f76b4a98fba719250aedb91d07ca7",
+    "checked_symbols": 89,
+    "body_or_relocation_changes": [],
+    "eh_funclet_changes": []
+  },
+  "baseline_context": {
+    "recorded_pairs": 88,
+    "scoped_native_pairs": 88,
+    "recorded_not_credited": [
+      "0x5BBB00"
+    ],
+    "scoped_extra": [
+      "0x51C600"
+    ],
+    "ambiguous_symbol": "?Unknown_Watch_0C@ScannerInterface@@UAEXXZ",
+    "ambiguous_addresses": [
+      "0x5BBB00",
+      "0x658220"
+    ],
+    "full_unmasked_body_equal_at_both": true,
+    "bytes": 21,
+    "limitation": "Raw identical body proves bytes, not which duplicate the whole-library matcher credits. No new pair is claimed."
+  },
+  "compiled_inputs": {
+    "compilations": 47,
+    "changed_compilations": 45,
+    "unique_source_hashes": 45,
+    "raw_groups": 25,
+    "masked_groups": 25
+  }
+}
