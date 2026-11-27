@@ -42,7 +42,7 @@ class Curve1DClass;
 class FileClass;
 class ChunkLoadClass;
 class ChunkSaveClass;
-struct SplineFileHeaderStruct;
+struct SplineFileHeaderStruct; struct SplineEntryHeaderStruct;
 class SplineFloatArrayClass;
 class SplineColorArrayClass;
 
@@ -169,8 +169,8 @@ protected:
 	void						Free_Key_Names(void);
 // NAME 2: the save side (0x487B20, 0x487E70, 0x487F00, 0x4881F0, 0x4883A0, 0x488FB0): chunk 0x800, 0x808, one 0x811 per entry
 	bool						Save_Chunks(ChunkSaveClass &csave);
-	bool						Save_Header(ChunkSaveClass &csave);
-	static bool				Save_Entry(ChunkSaveClass &csave, SplineEntryClass *entry);
+	bool						Save_Header(ChunkSaveClass &csave); bool Save_Key_Names(ChunkSaveClass &csave);	// NAME 1: neutral, what it writes (the key names' chunk 0x808; inline in Save_Chunks, no client copy)
+	static bool				Save_Entry(ChunkSaveClass &csave, SplineEntryClass *entry); static bool Save_Entry_Data(ChunkSaveClass &csave, SplineEntryClass *entry, SplineEntryHeaderStruct &header);	// NAME 1: neutral (an entry's header, name, description and curve inside chunk 0x811; inline in Save_Entry, no client copy)
 	static bool				Save_Curve(ChunkSaveClass &csave, SplineEntryClass *entry);
 	static bool				Save_Hermite(ChunkSaveClass &csave, SplineEntryClass *entry);
 	static bool				Write_String(ChunkSaveClass &csave, const char *string);
