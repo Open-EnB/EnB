@@ -505,7 +505,7 @@ void FontDatabaseClass::Load_String(INIClass &ini, char *section, FontStringStru
 }
 
 
-// NOT EXACT: frame: the inlined Add_String's key and iterator temporaries sit in other stack slots (0.76)
+
 void FontDatabaseClass::Unknown_6C1500(const char *file_name)
 {
 	INIClass ini;
@@ -743,7 +743,7 @@ FontEffectStruct *FontDatabaseClass::Find_Effect(const char *name)
 
 FontStringStruct *FontDatabaseClass::Find_String(const char *name)
 {
-	std::hash_map<std::string, FontStringStruct *>::const_iterator it = Strings.find(std::string(name));
+	std::hash_map<std::string, FontStringStruct *>::const_iterator it = Strings.find(name);
 	return it == Strings.end() ? NULL : (*it).second;
 }
 
@@ -1344,7 +1344,7 @@ FontStringFilesClass::~FontStringFilesClass()
 **	0x6BEB60, the destructor 0x6BEBF0, Load_Init 0x6BF330 (an INIT section, its Template%d sections first,
 **	recursively), 0x6BF910 (fontsys.ini: ALL_FONTS into AllFonts, the INIT-n sections into Infos, with
 **	FontInitStruct's inline constructor), Load_String 0x6C0430 (a string template, its Template%d templates first, the String%d lines joined),
-**	the string files' loader 0x6C1500 (NOT EXACT) and unloader 0x6C1AA0 (STR-n / WRAP-n sections), Remove_String
+**	the string files' loader 0x6C1500 and unloader 0x6C1AA0 (STR-n / WRAP-n sections), Remove_String
 **	0x6C3030 (NOT EXACT), Reload 0x6C1EC0 (the ini files again; the
 **	constructor's inline Load is the same plus 0x6C2080: written as one member the constructor inlines, it moved
 **	Load_Init's registers), 0x6C2080 (the eight fonts for the resolution: Font32Class through RefCountPtr's Create_NEW), Get_Blend_Type / Get_Direction / Get_Effect_Type 0x6C2340 / 0x6C2460 / 0x6C25A0 (the ini words to
@@ -1380,7 +1380,7 @@ FontStringFilesClass::~FontStringFilesClass()
 **	(the latter keeps it in another register); the table finds as `const_iterator it = Table.find(std::string(name));
 **	return it == Table.end() ? NULL : (*it).second;` (the conversion copies the node into a register before the key's
 **	destructor, and the client then calls find out of line and inlines the key: an iterator and two returns inline
-**	find instead); the Add functions call them plainly (no dead reads).
+**	find instead); the Add functions call them plainly (no dead reads). Find_String's key is the implicit conversion (`Strings.find(name)`): 0x6C1500's first inlined copy then takes the key's address again (lea) instead of pushing the constructor call's value.
 */
 
 // The font database and the string files in use WinMain makes (.bss 0xBE67B8 / 0xBE67BC, after unknown_fontsound.cpp's 0xBE67B4)
