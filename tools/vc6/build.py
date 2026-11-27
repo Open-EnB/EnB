@@ -546,6 +546,73 @@ PROGRAMS = {
                'sys': ['LIBCIMT.LIB', 'WININET.LIB', 'SHELL32.LIB', 'COMCTL32.LIB'],   # comctl32: InitCommonControls (0x847D20, 0x846C90);      # WinInet: settings_store.cpp's lkey thread; shell32: its ShellExecuteExA (0x7CB3D0); the old iostreams (ostream, streambuf) some app files use
                'stubs': False, 'strict': True},
 }
+# client-exact (the user, 2026-11-27: "a build that matches the original author's order and options as closely as
+# possible"; the one client build stays as it is for verify, the harness and e2e). The same libraries linked as
+# retail's link was (docs/binary.md §5, §5.3: the image builders' `all` trial, made a program): every app object on
+# the link line in retail's order (exact_objects), /debug /incremental:yes /fixed:no with retail's PDB path,
+# retail's library order, VC6's DDRAW.LIB, the Miles import library in the long format naming mss32.dll, and
+# retail's own resources (tools/re/rsrc.py extract). Writes programs/client-exact/client-exact.exe.
+PROGRAMS['client-exact'] = dict(PROGRAMS['client'], exact=True)
+EXACT_PDB = r'e:\build\beta\G\app\main\client_release\main.pdb'     # retail's NB10 record
+EXACT_FLAGS = ['/debug', '/incremental:yes', '/fixed:no', f'/pdb:{EXACT_PDB}']
+# retail's library order (binary.md §5.3 `lo`: member order 85.6 % of retail's; `lo2`: the import descriptors in
+# retail's order); app.lib first, a library not named keeps its place after the named ones
+EXACT_LIB_ORDER = ['ws2_32.lib', 'winmm.lib', 'advapi32.lib', 'kernel32.lib', 'user32.lib', 'gdi32.lib', 'ole32.lib',
+                   'wwmath.lib', 'd3dx8.lib', 'ww3d2.lib', 'd3d8.lib', 'dxguid.lib', 'wwlib.lib', 'wwdebug.lib',
+                   'vfw32.lib', 'wwaudio.lib', 'mss32.lib', 'wwsaveload.lib', 'comctl32.lib', 'shell32.lib',
+                   'authlogin.lib', 'wwshade.lib', 'wininet.lib', 'binkmovie.lib', 'libcpmt.lib', 'libcimt.lib',
+                   'libcmt.lib', 'comsupp.lib', 'oleaut32.lib', 'urlmon.lib', 'ddraw.lib', 'binkw32.lib']
+EXACT_SYS_REPLACE = {'sdk:ddraw.lib': 'DDRAW.LIB'}   # VC98's (on the VM's LIB path): retail's rich-header kinds (lo2)
+EXACT_RES = os.path.join('res', 'client.res')         # under --out
+APP_REGION = (0x429630, 0x8C1B64)                      # retail's app slots (binary.md §5)
+
+
+EXACT_PICKS = (('app', None), ('wlib', None), ('wnet', None), ('wwlib', {'rawfile'}))
+
+
+def exact_order():
+    """client-exact's objects as [(library, stem)]: every object of app (all of app.lib's, not only those the one
+    client build pulls), wlib, wnet and wwlib's rawfile.obj, in retail's order: each keyed by the median of its own
+    (not shared) ledger addresses in retail's app region; those with no such address last. dsp.py's exact project
+    lists its sources in this order (the IDE links a project's objects in its file order)."""
+    import ledger
+    import statistics
+    d = ledger.load()
+    keyed, rest, seen = [], [], set()
+    for lib, only in EXACT_PICKS:
+        for name, v in d[lib]['files'].items():
+            if only and name not in only:
+                continue
+            stem = os.path.splitext(os.path.basename(v.get('name', name)))[0]
+            if stem.lower() in seen:
+                continue
+            seen.add(stem.lower())
+            shared = set(v.get('shared', []))
+            vs = [int(a, 16) for a in v.get('in_tree', []) if a not in shared and APP_REGION[0] <= int(a, 16) < APP_REGION[1]]
+            (keyed if vs else rest).append((statistics.median(vs) if vs else 0, (lib, stem)))
+    keyed.sort()
+    return [k for _, k in keyed] + [k for _, k in rest]
+
+
+def exact_objects(out):
+    """exact_order's object files under out (an object the build did not make is left out)."""
+    paths = [os.path.join(out, lib, 'obj', stem + '.obj') for lib, stem in exact_order()]
+    return [p for p in paths if os.path.exists(p)]
+
+
+def exact_inputs(out):
+    """client-exact's prepared inputs under out: retail's resources (rsrc.py extract, once) and the Miles import
+    library naming mss32.dll (lower case, as retail's import descriptor; LIB /CONVERT runs in the VM)."""
+    res = os.path.join(out, EXACT_RES)
+    if not os.path.exists(res):
+        os.makedirs(os.path.dirname(res), exist_ok=True)
+        subprocess.run([sys.executable, os.path.join(REPO, 'tools', 're', 'rsrc.py'), 'extract', '-o', res], check=True)
+    lower = os.path.join(out, 'mss32', 'exact', 'mss32.lib')
+    os.makedirs(os.path.dirname(lower), exist_ok=True)
+    open(lower, 'wb').write(open(os.path.join(out, MSS32), 'rb').read().replace(b'Mss32', b'mss32'))
+    return res, lower
+
+
 STUBS_DIR = 'stubs'
 LINK_LIBS = ['app', 'wwshade', 'ww3d2', 'wwaudio', 'wwsaveload', 'wwmath', 'wwlib', 'wwdebug']
 LINK_SYS = ['LIBCMT.LIB', 'LIBCPMT.LIB', 'OLDNAMES.LIB', 'KERNEL32.LIB', 'USER32.LIB', 'GDI32.LIB',
@@ -604,6 +671,11 @@ def link_one(name, out, extra_srcs=(), force=False, extra_objs=(), extra_link=()
     options added after ours (a later /incremental or /opt wins); trial: write to out/programs/<name>-<trial>/
     instead, so a trial link (tools/re/imagediff.py) leaves the one client build alone."""
     prog = PROGRAMS[name]
+    exact = prog.get('exact')
+    link_sys = [EXACT_SYS_REPLACE.get(n, n) for n in LINK_SYS] if exact else LINK_SYS
+    if exact:
+        extra_objs = list(extra_objs) or exact_objects(out)
+        exact_res, exact_mss = exact_inputs(out)
     pdir = os.path.join(REPO, prog['dir']) if prog.get('dir') else None
     srcs = sorted(os.path.join(pdir, f) for f in os.listdir(pdir) if f.lower().endswith(('.cpp', '.c'))) if pdir else []
     srcs += list(extra_srcs)
@@ -611,7 +683,7 @@ def link_one(name, out, extra_srcs=(), force=False, extra_objs=(), extra_link=()
     stubs = sorted(os.path.join(sdir, f) for f in os.listdir(sdir) if f.lower().endswith(('.cpp', '.c'))) \
         if os.path.isdir(sdir) and prog.get('stubs', True) else []
     libs = [os.path.join(out, l, l + '.lib') for l in prog.get('libs', LINK_LIBS)]
-    libs.append(os.path.join(out, MSS32))
+    libs.append(exact_mss if exact else os.path.join(out, MSS32))
     libs += [os.path.join(out, l) for l in prog.get('need', [])] + list(prog.get('extra_libs', []))
     missing = [l for l in libs if not os.path.exists(l)]
     if os.path.exists(os.path.join(out, AUTHLOGIN)) and os.path.join(out, AUTHLOGIN) not in libs:
@@ -630,9 +702,9 @@ def link_one(name, out, extra_srcs=(), force=False, extra_objs=(), extra_link=()
     tag = vc6._tag()
     local_tar = os.path.join(os.environ.get('TEMP', '.'), f'enb_link_{name}_{tag}.tar')
     with tarfile.open(local_tar, 'w') as tar:
-        for l in list(libs) + list(extra_objs):
+        for l in list(libs) + list(extra_objs) + ([exact_res] if exact else []):
             tar.add(l, arcname=os.path.basename(l))
-        for n in LINK_SYS:
+        for n in link_sys:
             if n.startswith('sdk:'):
                 tar.add(os.path.join(SDK_LIB, n[4:]), arcname=n[4:])
     vc6.scp(local_tar, vc6.remote(f'{work}\\libs.tar'))
@@ -657,20 +729,38 @@ def link_one(name, out, extra_srcs=(), force=False, extra_objs=(), extra_link=()
         lines += ['dir /b stubobj\\*.obj > stubobjs.txt 2>nul',
                   'cd stubobj', 'lib /nologo /out:..\\libs\\stubs.lib *.obj > ..\\stubslib.log 2>&1', 'cd ..',
                   'dumpbin /nologo /symbols stubobj\\*.obj > stubsyms.txt 2>&1']
-    sys_names = [n.split(':')[-1] for n in LINK_SYS] + prog.get('sys', [])
-    link = ['/nologo', f'/subsystem:{prog["subsystem"]}', '/machine:ix86', '/incremental:no', '/nodefaultlib',
+    sys_names = [n.split(':')[-1] for n in link_sys] + prog.get('sys', [])
+    link = ['/nologo', f'/subsystem:{prog["subsystem"]}', '/machine:ix86',
+            '/incremental:yes' if exact else '/incremental:no', '/nodefaultlib',
             f'/out:{name}.exe', f'/map:{name}.map', f'/libpath:"{work}\\libs"'] + (['obj\\*.obj'] if srcs else [])
     if force:
         link.append('/force:unresolved')
     link += ['libs\\' + os.path.basename(o) for o in extra_objs]
-    link += [os.path.basename(l) for l in libs] + (['stubs.lib'] if stubs else []) + sys_names
+    lib_lines = [os.path.basename(l) for l in libs] + (['stubs.lib'] if stubs else []) + sys_names
+    if exact:
+        named = sorted((l for l in lib_lines if l.lower() in EXACT_LIB_ORDER), key=lambda l: EXACT_LIB_ORDER.index(l.lower()))
+        lib_lines = [l for l in lib_lines if l.lower() == 'app.lib'] + named + \
+            [l for l in lib_lines if l.lower() != 'app.lib' and l.lower() not in EXACT_LIB_ORDER]
+        link += ['libs\\' + os.path.basename(exact_res)]
+    link += lib_lines
+    if exact:
+        link += [f for f in EXACT_FLAGS if not f.startswith('/incremental')]
     link += list(extra_link)
     local = os.path.join(os.environ.get('TEMP', '.'), f'enb_link_{name}_link_{tag}.rsp')
     open(local, 'w', newline='').write('\r\n'.join(link) + '\r\n')
     vc6.scp(local, vc6.remote(f'{work}\\link.rsp'))
     os.remove(local)
-    lines += [f'link @link.rsp > link.log 2>&1',
-              f'tar -cf ..\\link_{name}.tar *.log *.map *.exe *.txt 2>nul']
+    if exact:
+        # the long import format (LIB /CONVERT: retail's e_lfanew, binary.md §5.3 lo3), and E: mapped to a folder of
+        # the work directory so /pdb: can write retail's path (the NB10 record holds it)
+        lines += [f'cd /d "{work}\\libs"', f'lib /nologo /convert {os.path.basename(exact_mss)} > ..\\convlib.log 2>&1',
+                  f'cd /d "{work}"', 'subst E: /d >nul 2>&1',
+                  'mkdir pdbroot\\' + os.path.dirname(EXACT_PDB)[3:], 'subst E: "%CD%\\pdbroot"']
+    lines += [f'link @link.rsp > link.log 2>&1']
+    if exact:
+        # the converted library comes back for dsp.py's exact project (out/mss32/exact/mss32.lib)
+        lines += ['subst E: /d >nul 2>&1', f'copy /y libs\\{os.path.basename(exact_mss)} mss32_long.lib >nul']
+    lines += [f'tar -cf ..\\link_{name}.tar *.log *.map *.exe *.txt' + (' mss32_long.lib' if exact else '') + ' 2>nul']
     vc6.run_bat(lines)
     dst = os.path.join(out, 'programs', name + ('-' + trial if trial else ''))
     os.makedirs(dst, exist_ok=True)
@@ -682,6 +772,8 @@ def link_one(name, out, extra_srcs=(), force=False, extra_objs=(), extra_link=()
     with tarfile.open(tar) as t:
         t.extractall(dst)
     os.remove(tar)
+    if exact and os.path.exists(os.path.join(dst, 'mss32_long.lib')):
+        os.replace(os.path.join(dst, 'mss32_long.lib'), exact_mss)
     vc6.ssh(f'cmd /c rmdir /s /q "{work}" & del "{vc6.WORK}\\link_{name}.tar"', check=False)
     if os.path.exists(os.path.join(dst, 'stubsyms.txt')):
         os.makedirs(os.path.join(out, 'stubs'), exist_ok=True)
@@ -756,7 +848,7 @@ def main():
         unresolved(a.out, a.report)
         return
     if a.command == 'link':
-        progs = a.program or list(PROGRAMS)
+        progs = a.program or [p for p in PROGRAMS if not PROGRAMS[p].get('exact')]   # client-exact only by name
         objs = read_objs(a.objs, a.out) if a.objs else []
         if a.pool:
             with I.pool_lease(a.pool, a.holder_pid):
