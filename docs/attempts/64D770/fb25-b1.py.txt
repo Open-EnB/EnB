@@ -1,0 +1,41 @@
+HYPOTHESIS = 'FB25 batch 1 (0x64D770): B31 pool lever: dead sums (grow) alone and combined with a dead inline read (spend), spenders before the erase (top), an empty inline spender, erase(0) / erase(0, npos) spellings: looking for the grain that sends only the nested max_size out'
+FILE = 'app/client/ui_talkt.cpp'
+SYMBOL = 'UITalkTreeClass::Unknown_60'
+ADDRESS = 0x64D770
+
+HEAD = "// NOT EXACT: 0x64D770 (Unknown_60, inline budget: SpeechFile.erase()'s nested _Grow calls max_size out of line in the client, inlined in ours)\n"
+TOP = "\tUnknown5BB320Class::Unknown_60();\n\tif (Unknown150) {\n"
+RESP = "\t\tint response = Unknown154;\n"
+ER = "\t\tif (!NPCSpeechHandle) {\n\t\t\tSpeechFile.erase();\n"
+END = "\t\t}\n\t}\n\tUnknown_64E7A0();\n}\n\n// 0x64DA40\n"
+NOP = "static inline void Nop_Spend() {} "
+
+def sums(n):
+    return "".join(" (void)(response + %d);" % k for k in range(n))
+def S(n):
+    return (RESP, RESP[:-1] + sums(n) + "\n")
+def after_er(code):
+    return (ER, ER[:-1] + " " + code + "\n")
+def top(code):
+    return (TOP, "\tUnknown5BB320Class::Unknown_60(); " + code + "\n\tif (Unknown150) {\n")
+def er(code):
+    return (ER, "\t\tif (!NPCSpeechHandle) {\n\t\t\t" + code + "\n")
+
+FORMS = {}
+for n in (1, 2, 4, 8, 16):
+    FORMS['s%d' % n] = [S(n)]
+for n in (1, 2, 4):
+    FORMS['nop%d' % n] = [(HEAD, NOP + HEAD), after_er("Nop_Spend(); " * n)]
+FORMS['nop1_top'] = [(HEAD, NOP + HEAD), top("Nop_Spend();")]
+FORMS['peek_top'] = [top("NPCSpeechHandle.Peek();")]
+FORMS['size_top'] = [top("SpeechFile.size();")]
+FORMS['rsize_top'] = [top("Responses.size();")]
+for n in (1, 2, 4, 8, 16, 32):
+    FORMS['peek_s%d' % n] = [S(n), after_er("NPCSpeechHandle.Peek();")]
+for n in (2, 8, 32):
+    FORMS['size_s%d' % n] = [S(n), after_er("SpeechFile.size();")]
+FORMS['erase0'] = [er("SpeechFile.erase(0);")]
+FORMS['erase0n'] = [er("SpeechFile.erase(0, std::string::npos);")]
+FORMS['empty_layer'] = [er("Unknown_Empty(SpeechFile);")]
+FORMS['peek_tests'] = [("\tif (!SpeechFile.empty() && !NPCSpeechHandle) {\n", "\tif (!SpeechFile.empty() && NPCSpeechHandle.Peek() == NULL) {\n"), (ER, "\t\tif (NPCSpeechHandle.Peek() == NULL) {\n\t\t\tSpeechFile.erase();\n")]
+FORMS['size_test'] = [("\tif (!SpeechFile.empty() && !NPCSpeechHandle) {\n", "\tif (SpeechFile.size() != 0 && !NPCSpeechHandle) {\n")]

@@ -615,7 +615,7 @@ bool UITalkTreeClass::Unknown_68(int event_id)
 	return(true);
 }
 
-// NOT EXACT: 0x64D770 (Unknown_60, inline budget: SpeechFile.erase()'s nested _Grow calls max_size out of line in the client, inlined in ours)
+// 0x64D770; D272: the two dead SpeechFile.max_size() reads before the erase are not the client's: a budget device, with them the erase's nested _Grow calls max_size out of line as the client does (one read changes nothing, four send more out)
 void UITalkTreeClass::Unknown_60()
 {
 	Unknown5BB320Class::Unknown_60();
@@ -631,7 +631,7 @@ void UITalkTreeClass::Unknown_60()
 	if (!SpeechFile.empty() && !NPCSpeechHandle) {
 		NPCSpeechHandle = Create_Get(SoundLibraryClass::Play_Dialog(SpeechFile.c_str(), 1));
 		if (!NPCSpeechHandle) {
-			SpeechFile.erase();
+			SpeechFile.max_size(); SpeechFile.max_size(); SpeechFile.erase();	// two dead reads (D272)
 		}
 	}
 	Unknown_64E7A0();

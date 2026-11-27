@@ -1,0 +1,27 @@
+HYPOTHESIS = 'FB25 batch 4 (0x64D770), a test not a form: H1 the nested max_size is out of line in the client because 0x64D770 holds the TU first inline expansion of string::_Grow (a template member not yet instantiated cannot inline); ours has an earlier function that expands it. Unknown_60 moved before each earlier function to find which one primes it'
+FILE = 'app/client/ui_talkt.cpp'
+SYMBOL = 'UITalkTreeClass::Unknown_60'
+ADDRESS = 0x64D770
+import io, os
+src = io.open(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'wt', 'FB25', 'app', 'client', 'ui_talkt.cpp'), encoding='latin-1', newline='').read()
+nl = '\r\n' if '\r\n' in src else '\n'
+a = src.index("// NOT EXACT: 0x64D770")
+b = src.index("// 0x64DA40")
+FUNC = src[a:b]
+ANCH = {
+    'first': "// NOT EXACT: 0x64B6E0",
+    'b54': "// 0x64BCA0",
+    'b7b0': "// 0x64C7B0",
+    'b5c': "// NOT EXACT: 0x64C8D0",
+    'b7c': "// 0x64CC40",
+    'b90': "static inline void Clear_Responses",
+    'bf90': "// 0x64CF90",
+    'bff0': "// 0x64CFF0",
+    'bd100': "// 0x64D100",
+    'bd230': "// 0x64D230",
+    'bd360': "// 0x64D360",
+    'b68': "// 0x64D400",
+}
+FORMS = {}
+for k, anc in ANCH.items():
+    FORMS[k] = [(FUNC, ""), (anc, FUNC + anc)]
