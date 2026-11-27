@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1971 |
 | 2 | describes what the code does | 5023 |
-| 1 | neutral placeholder | 25230 |
+| 1 | neutral placeholder | 25231 |
 
 ## For review (score 3 and below)
 
@@ -19232,7 +19232,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_64E640` | `app/client/ui_talkt.cpp:339` | untagged neutral name (D10) |
 | 1 | `Unknown_64D100` | `app/client/ui_talkt.cpp:340` | untagged neutral name (D10) |
 | 1 | `Unknown_7C` | `app/client/ui_talkt.cpp:347` | untagged neutral name (D10) |
-| 1 | `Unknown_90` | `app/client/ui_talkt.cpp:358` | untagged neutral name (D10) |
+| 1 | `Clear_Responses` | `app/client/ui_talkt.cpp:357` | neutral (D10): the layer that gives 0x64CC90 the client's out-of-line operator= 0x64F0B0 and _Destroy 0x64F070 |
+| 1 | `Unknown_90` | `app/client/ui_talkt.cpp:359` | untagged neutral name (D10) |
 | 1 | `Unknown_64DB20` | `app/client/ui_talkt.cpp:404` | untagged neutral name (D10) |
 | 1 | `Unknown_64CF90` | `app/client/ui_talkt.cpp:408` | untagged neutral name (D10) |
 | 1 | `Unknown_64CFC0` | `app/client/ui_talkt.cpp:417` | untagged neutral name (D10) |

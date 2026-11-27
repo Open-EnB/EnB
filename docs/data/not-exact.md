@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-441 entries in 218 files.
+436 entries in 216 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -162,8 +162,6 @@ edit the comments in the code, not this file.
 | `app/client/mv3dsnd.cpp:210` | `Movie3DSoundClass::~Movie3DSoundClass` | marker | NOT EXACT: functional (M1): exception states, the client's inlined ~HashListClass sets none for the list's two nodes (base and member forms of the hash list give the same; attempts.py show 0x7EE340) 0x7EE340 |
 | `app/client/nav_list_builder.cpp:157` | `NavListBuilderClass::Unknown_7B7EF0` | marker | NOT EXACT: order only (the loop's exit reloads co_from before to; ours to first) @0x7B7EF0 |
 | `app/client/nav_list_line_draw.cpp:61` | `NavListLineDrawClass::Unknown_7B99C0` | marker | NOT EXACT: (0.91, attempts.py 0x7B99C0): two dead Lines.end() after the inlined 0x7B9CD0 send Scene = NULL (0x7BA340) out of line as the client (D272); left: the client threads the size test's begin == 0 path to the exit @0x7B99C0 |
-| `app/client/nav_list_line_draw.cpp:130` | `NavListLineDrawClass::Unknown_7B9DC0` | marker | NOT EXACT: written from the pseudocode (D64), functional (masked residue 19, attempts.py 0x7B9DC0): inline budget: the !data exit's inlined 0x7B9CD0 calls clear() where the client inlines it to erase(begin, end) and shares the !co exit's tail @0x7B9DC0 |
-| `app/client/nav_list_line_draw.cpp:236` | `NavListLineDrawClass::Unknown_7B9DC0` | mention | NOT EXACT: 0x7B99C0 (it expands 0x7B9CD0, so that is defined first; the size test and the loop are separate statements: the client tests the count twice; its line's constructor takes the width, the colour, the opacity and the sort, the two points its own) and 0x7B9DC0 (it expands 0x7B9CD0 at each bail-out). Both read the line's height 0.05 from memory (0xB062E8: mov / fld, never an immediate), so ... |
 | `app/client/nlp.cpp:460` | `PlayerNLPClass::Unknown_78F050` | marker | NOT EXACT: functional for POC (D64), shape (a merged or split tail) |
 | `app/client/option.cpp:810` | `OptionClass::Get_String` | marker | NOT EXACT: shape, block order: this order gives the client's inlining (the "" path calls _Grow) but places the "" path first; the client places the copy first |
 | `app/client/option.cpp:856` | `OptionClass::Get_Default_String` | marker | NOT EXACT: shape, as Get_String |
@@ -277,7 +275,6 @@ edit the comments in the code, not this file.
 | `app/client/ui_option_control_keys.cpp:185` | `UIOptionControlKeysClass::Unknown_68` | marker | NOT EXACT: register allocation (similarity 0.69): the client computes the row (key - 15 / key - 26) with lea into eax, this form adds into ebx; the rest aligns 0x5CA9F0 |
 | `app/client/ui_petition_entry.cpp:44` | `UIPetitionEntryClass::Unknown_54` | marker | NOT EXACT: register (the two TextGadgetClass setters give the client's one load per call; left: the Entry_Field00 Create_Get's vtable / result registers, the TextGadgetClass constructor's flags / model registers, the first Unknown_6870E0's view in eax (client edx); GV3) 0x5D4890 |
 | `app/client/ui_petition_player_entry.cpp:303` | `UIPetitionPlayerNameClass::Unknown_68` | marker | NOT EXACT: inline-budget (the client calls rtti.h's DeltaStringClass cast 0x4099A8 out of line at both lookups, ours inlines it; as co.cpp's 0x6FF4B0) 0x5D6EE0 |
-| `app/client/ui_radio_admin.cpp:246` | `UIRadioAdminClass::Unknown_5E5360` | marker | NOT EXACT: inline budget and stack slots (cases 5 and 6: the client destroys the channel's temporary inline and expands the selected name's assignment in case 6, its temporaries at other frame offsets) |
 | `app/client/ui_radio_join.cpp:161` | `UIRadioJoinClass::Unknown_5EB2F0` | marker | NOT EXACT: the string temporaries' inline expansions and register choices differ (inline budget) |
 | `app/client/ui_refinery.cpp:435` | `UIRefineryClass::Unknown_5ECEF0` | marker | NOT EXACT: register (the 'AdditionalIterations' pointer kept in ecx and its local, the two flags' tests in another order; 0x5465C0 / 0x5B7130 out of line as the client) (0x5ECEF0) |
 | `app/client/ui_registration.cpp:2347` | `RegistrationInterface::Unknown_5FA0B0` | marker | NOT EXACT: register (340 instructions each, no layout difference: the inlined vector operator= calls x.size() before size() in the client; eax/ecx/edx in the +0x2CC copy and the 'EB' compare) @0x5FA0B0 |
@@ -289,7 +286,6 @@ edit the comments in the code, not this file.
 | `app/client/ui_scan.cpp:555` | `ScannerInterface::Unknown_60E6A0` | marker | NOT EXACT: inline-budget (IB2; similarity 0.53): the finds out of line as the client (0x610290, 0x514BD0) through two inline layers, and with them the cleared name's assign(const char *, size_type) (0x42D050); the client also reads the time through 0x60ECD0 (the time field's Get_Value, declared in the class and defined inline after it in delta_template.h, D3 2026-11-22); registers differ @0x60E6A0 |
 | `app/client/ui_scut.cpp:485` | `UIScutBarClass::Unknown_611300` | marker | NOT EXACT: register (the allocator byte through al, FirstId + lp in edi; the call structure is the client's) |
 | `app/client/ui_scut.cpp:500` | `UIScutBarClass::Unknown_611710` | marker | NOT EXACT: register / stack slots of the name temporaries (the call structure is the client's) |
-| `app/client/ui_scut.cpp:789` | `UIScutBarClass::Unknown_6120E0` | marker | NOT EXACT: register (the mask passed as the unsigned int it is: the client's dword read of +0x10; left: the client loads both floats before the mask) |
 | `app/client/ui_scut.cpp:1001` | `UIScutBankGadgetClass::Unknown_612820` | marker | NOT EXACT: the client pops sprintf's arguments before calling 0x65EFB0, ours merges the pops |
 | `app/client/ui_shard.cpp:167` | `Unknown615A50InterfaceClass::Unknown_60` | marker | NOT EXACT: functional (D64) @0x616220 |
 | `app/client/ui_ship_cust.cpp:832` | `StarbaseShipCustomizeInterface::Unknown_61B170` | marker | NOT EXACT: register (0.89: Page's test is scheduled into the u / v arithmetic, the client tests it after; Control_Bone's this loaded before the matrix store) @0x61B170 |
@@ -370,7 +366,6 @@ edit the comments in the code, not this file.
 | `app/shared/definition_manager.h:115` | `?` | marker | NOT EXACT: shape (explain.py), two registers swapped in the inlined hashtable destructor and one EH state store more in ours (0x4EAFB0) |
 | `app/shared/dynamic_obj.cpp:9` | `DynObj::DynObj` | marker | NOT EXACT: shape (the client duplicates the epilogue into the allocation-failed path; attempts.py show 0x44AC70) |
 | `app/shared/dynamic_obj.cpp:18` | `DynObj::DynObj` | marker | NOT EXACT: register (the source's PxWrapper in edi, ours in ecx; attempts.py show 0x44ADA0) |
-| `app/shared/enbassetmgr.cpp:334` | `ENBAssetManager::Recolor_Texture` | marker | NOT EXACT: register-only (explain.py: identical once registers are normalised; the client loads the mip count after pushing the format, ours before; 19 argument forms, attempts.py show 0x48CB40); the logic is the client's (D64) |
 | `app/shared/expr/expr_math_builder.h:71` | `?` | marker | NOT EXACT: 0x4CB260 (float), 0x4CFB00 (int): the client releases left on the first early return and leaves right to a shared exit; ours releases both in place |
 | `app/shared/expr/expr_math_parser_impl.cpp:33` | `ExprMathParserImplClass::Add_Similar` | marker | NOT EXACT: the loop latch reloads it / &it->Ops in the other order (2 instructions swapped, same length) |
 | `app/shared/expr/expr_math_parser_impl.cpp:81` | `ExprMathParserImplClass::Parse_Level` | marker | NOT EXACT: the level > size guard keeps its own return NULL, and the token's destructor is inline / called on the other two exits |
