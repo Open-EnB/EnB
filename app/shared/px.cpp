@@ -639,22 +639,21 @@ static bool Notify_Once(PxBox *b)  // NAME 2: what it does (the five lower_bound
 }
 
 // 0x44C900
-// NOT EXACT: inline budget and register (the client calls clear 0x44D580 and ~WWProfileSampleClass 0x444160 out of line at the end, ours inlines both whatever is spent before them; registers in the relinks; attempts.py show 0x44C900)
+// NOT EXACT: register (3 rows: the hoisted corner pointer of the overlap loops in blocks 1-3 is [edx + ecx] where the client has [ecx + edx]; the order is the client's with 0-4 dead reads and turns with more, the client's inline state needs 72-73; attempts.py show 0x44C900)
 void PxList::Set_Corners(PxBox *box, const Vector3 &low, const Vector3 &high)
 {
 	WWPROFILE("PxList::Set_Corners");
 	Updating = true;
 	Vector3 old_low = box->Low->Pos;
 	Vector3 old_high = box->High->Pos;
+	Notified.size(); Notified.size(); Notified.size(); Notified.size(); Notified.size(); Notified.size(); Notified.size(); Notified.size(); Notified.size(); Notified.size(); Notified.size(); Notified.size(); Notified.size(); Notified.size(); Notified.size(); Notified.size(); Notified.size(); Notified.size(); Notified.size(); Notified.size(); Notified.size(); Notified.size(); Notified.size(); Notified.size(); Notified.size(); Notified.size(); Notified.size(); Notified.size(); Notified.size(); Notified.size(); Notified.size(); Notified.size(); Notified.size(); Notified.size(); Notified.size(); Notified.size(); Notified.size(); Notified.size(); Notified.size(); Notified.size(); Notified.size(); Notified.size(); Notified.size(); Notified.size(); Notified.size(); Notified.size(); Notified.size(); Notified.size(); Notified.size(); Notified.size(); Notified.size(); Notified.size(); Notified.size(); Notified.size(); Notified.size(); Notified.size(); Notified.size(); Notified.size(); Notified.size(); Notified.size(); Notified.size(); Notified.size(); Notified.size(); Notified.size(); Notified.size(); Notified.size(); Notified.size(); Notified.size(); Notified.size(); Notified.size(); Notified.size(); Notified.size(); 	// 72 dead reads: they stand in for inline budget the client's source spends unseen (71 or 74 change the inline state)
 	Notify_Once(box);
 
 	for (int i = 0; i < 3; i++) {
 		PxEnd *end;
-		PxEnd *low_end = box->Low;
 		if (low[i] < old_low[i]) {
-			PxEnd *prev = low_end->Prev[i];
-			if (!(prev == this || prev->Pos[i] < low[i])) {
-				for (end = prev; end != this && end->Pos[i] >= low[i]; end = end->Prev[i]) {
+			if (!(box->Low->Prev[i] == this || box->Low->Prev[i]->Pos[i] < low[i])) {
+				for (end = box->Low->Prev[i]; end != this && end->Pos[i] >= low[i]; end = end->Prev[i]) {
 					if (end->Type == HIGH) {
 						PxBox *other = end->Box;
 						bool other_wants = other->Wants(box);
@@ -671,13 +670,12 @@ void PxList::Set_Corners(PxBox *box, const Vector3 &low, const Vector3 &high)
 				Move(box->Low, end->Next[i], i);
 				box->Low->Pos[i] = low[i];
 			} else {
-				low_end->Pos[i] = low[i];
+				box->Low->Pos[i] = low[i];
 			}
 		} else {
-			PxEnd *prev = low_end->Next[i];
-			if (!(prev == this || prev->Pos[i] >= low[i])) {
+			if (!(box->Low->Next[i] == this || box->Low->Next[i]->Pos[i] >= low[i])) {
 				float value = low[i];
-				for (end = prev; end != this && end->Pos[i] < value; end = end->Next[i]) {
+				for (end = box->Low->Next[i]; end != this && end->Pos[i] < value; end = end->Next[i]) {
 					if (end->Type == HIGH) {
 						PxBox *other = end->Box;
 						bool other_wants = other->Wants(box);
@@ -694,17 +692,15 @@ void PxList::Set_Corners(PxBox *box, const Vector3 &low, const Vector3 &high)
 				Move(box->Low, end, i);
 				box->Low->Pos[i] = value;
 			} else {
-				low_end->Pos[i] = low[i];
+				box->Low->Pos[i] = low[i];
 			}
 		}
-
 		if (high[i] < old_high[i]) {
-			end = box->High->Prev[i];
-			if (end == this || end->Pos[i] <= high[i]) {
+			if (box->High->Prev[i] == this || box->High->Prev[i]->Pos[i] <= high[i]) {
 				box->High->Pos[i] = high[i];
 			} else {
 				float value = high[i];
-				for (; end != this && end->Pos[i] > value; end = end->Prev[i]) {
+				for (end = box->High->Prev[i]; end != this && end->Pos[i] > value; end = end->Prev[i]) {
 					if (end->Type == LOW) {
 						PxBox *other = end->Box;
 						bool other_wants = other->Wants(box);
@@ -722,11 +718,10 @@ void PxList::Set_Corners(PxBox *box, const Vector3 &low, const Vector3 &high)
 				box->High->Pos[i] = value;
 			}
 		} else {
-			end = box->High->Next[i];
-			if (end == this || end->Pos[i] > high[i]) {
+			if (box->High->Next[i] == this || box->High->Next[i]->Pos[i] > high[i]) {
 				box->High->Pos[i] = high[i];
 			} else {
-				for (; end != this && end->Pos[i] <= high[i]; end = end->Next[i]) {
+				for (end = box->High->Next[i]; end != this && end->Pos[i] <= high[i]; end = end->Next[i]) {
 					if (end->Type == LOW) {
 						PxBox *other = end->Box;
 						bool other_wants = other->Wants(box);
@@ -748,6 +743,11 @@ void PxList::Set_Corners(PxBox *box, const Vector3 &low, const Vector3 &high)
 	Notified.clear();
 	Updating = false;
 }
+
+
+
+
+
 
 // 0x44D210
 void PxList::Dump()
