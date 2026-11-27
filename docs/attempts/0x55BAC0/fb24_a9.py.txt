@@ -1,0 +1,45 @@
+HYPOTHESIS = ('FB24 a9: a8 clone (an inline-candidate layer taking the gadget, left out of line) gives the client inline state with the wrong '
+              'argument: find what in it moves the cut: a layer over 0x497300 taking the model (inlined: the client call), the layer at '
+              'some sites only, forced inline, or plain mass (diagnostic: a block without its 6608F0 call)')
+FILE = 'app/client/ui_avatr.cpp'
+SYMBOL = 'Unknown_55BAC0'
+ADDRESS = 0x55BAC0
+SRC = open('app/client/ui_avatr.cpp', newline='').read()
+a = SRC.index('// NOT EXACT: inline-budget (as ui_avatar_cust.cpp')
+b = SRC.index('// 0x55C350', a)
+OLD = SRC[a:b]
+def old(n):
+    return ('\t\tfloat angle = slow;\n\t\tif (Unknown1BC.Metal == %d) {\n\t\t\tangle = fast;\n\t\t}\n\t\ttm.Rotate_Y(angle);\n' % n)
+def ifelse(n):
+    return ('\t\tif (Unknown1BC.Metal == %d) {\n\t\t\ttm.Rotate_Y(fast);\n\t\t} else {\n\t\t\ttm.Rotate_Y(slow);\n\t\t}\n' % n)
+R = OLD.replace(old(1), ifelse(1)).replace(old(2), ifelse(2))
+P = R.replace('->RObj)', '->Peek_Render_Obj())')
+W = 'static inline RefCountPtr<RenderObjClass> FB24_W(RenderObjClass *robj) { return(Unknown_497300(robj)); }\n'
+WF = W.replace('static inline', 'static __forceinline')
+C = 'static inline RefCountPtr<RenderObjClass> FB24_Clone(ButtonGadgetClass *gadget) { return(Unknown_497300(gadget->Peek_Render_Obj())); }\n'
+CF = C.replace('static inline', 'static __forceinline')
+def site(s, k, new):
+    o = 'Unknown_497300(Unknown124[%d]->Peek_Render_Obj())' % k
+    assert o in s
+    return s.replace(o, new % k)
+def sites(s, ks, new):
+    for k in ks:
+        s = site(s, k, new)
+    return s
+A = (12, 13, 14)
+FORMS = {
+    'w_all': W + sites(P, A, 'FB24_W(Unknown124[%d]->Peek_Render_Obj())'),
+    'w_all_robj': W + sites(P, A, 'FB24_W(Unknown124[%d]->RObj)'),
+    'wf_all': WF + sites(P, A, 'FB24_W(Unknown124[%d]->Peek_Render_Obj())'),
+    'cf_all': CF + sites(P, A, 'FB24_Clone(Unknown124[%d])'),
+    'c_1': C + sites(P, (12,), 'FB24_Clone(Unknown124[%d])'),
+    'c_2': C + sites(P, (13,), 'FB24_Clone(Unknown124[%d])'),
+    'c_3': C + sites(P, (14,), 'FB24_Clone(Unknown124[%d])'),
+    'c_23': C + sites(P, (13, 14), 'FB24_Clone(Unknown124[%d])'),
+    'w_1': W + sites(P, (12,), 'FB24_W(Unknown124[%d]->Peek_Render_Obj())'),
+    'w_3': W + sites(P, (14,), 'FB24_W(Unknown124[%d]->Peek_Render_Obj())'),
+    'w_23': W + sites(P, (13, 14), 'FB24_W(Unknown124[%d]->Peek_Render_Obj())'),
+    'no6608_3': P.replace('\t\tUnknown124[14]->Unknown_6608F0();\n', '\n'),
+    'no6608_all': P.replace('\t\tUnknown124[14]->Unknown_6608F0();\n', '\n').replace('\t\tUnknown124[13]->Unknown_6608F0();\n', '\n').replace('\t\tUnknown124[12]->Unknown_6608F0();\n', '\n'),
+}
+FORMS = dict((k, [(OLD, v)]) for k, v in FORMS.items())

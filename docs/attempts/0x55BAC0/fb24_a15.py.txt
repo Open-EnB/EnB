@@ -1,0 +1,33 @@
+HYPOTHESIS = ('FB24 a15: position model: a dead read or accessor +1, the layer over 0x497300 at three sites -4 (nested layers 0); the '
+              'gadget-taking layer is too big to inline and gives the client dtor state. Find a layer that inlines and sits lower: '
+              'the gadget-taking layer under a top sweep (does it inline higher up?), dead reads inside the layer')
+FILE = 'app/client/ui_avatr.cpp'
+SYMBOL = 'Unknown_55BAC0'
+ADDRESS = 0x55BAC0
+SRC = open('app/client/ui_avatr.cpp', newline='').read()
+a = SRC.index('// NOT EXACT: inline-budget (as ui_avatar_cust.cpp')
+b = SRC.index('// 0x55C350', a)
+OLD = SRC[a:b]
+def old(n):
+    return ('\t\tfloat angle = slow;\n\t\tif (Unknown1BC.Metal == %d) {\n\t\t\tangle = fast;\n\t\t}\n\t\ttm.Rotate_Y(angle);\n' % n)
+def ifelse(n):
+    return ('\t\tif (Unknown1BC.Metal == %d) {\n\t\t\ttm.Rotate_Y(fast);\n\t\t} else {\n\t\t\ttm.Rotate_Y(slow);\n\t\t}\n' % n)
+R = OLD.replace(old(1), ifelse(1)).replace(old(2), ifelse(2))
+P = R.replace('->RObj)', '->Peek_Render_Obj())')
+import re
+WG = 'static inline RefCountPtr<RenderObjClass> FB24_WG(ButtonGadgetClass *gadget) { return(Unknown_497300(gadget->Peek_Render_Obj())); }\n'
+PG = re.sub(r'Unknown_497300\(Unknown124\[(\d+)\]->Peek_Render_Obj\(\)\)', r'FB24_WG(Unknown124[\1])', P)
+def we(k):
+    return 'static inline RefCountPtr<RenderObjClass> FB24_W(RenderObjClass *robj) { %sreturn(Unknown_497300(robj)); }\n' % ('robj->Num_Refs(); ' * k)
+PW = P.replace('Unknown_497300(', 'FB24_W(')
+P194 = 'Unknown08C->Peek_Unknown194(); '
+H = 'void AvatarCreationInterface::Unknown_55BAC0()\n{'
+def top(s, n):
+    return s.replace(H, H + ' ' + P194 * n, 1) if n else s
+FORMS = {}
+for n in (1, 2, 3, 4, 5, 6, 8, 10):
+    FORMS['wg_top%d' % n] = WG + top(PG, n)
+for k in (1, 2):
+    for n in (0, 1, 2, 3):
+        FORMS['we%d_top%d' % (k, n)] = we(k) + top(PW, n)
+FORMS = dict((k, [(OLD, v)]) for k, v in FORMS.items())
