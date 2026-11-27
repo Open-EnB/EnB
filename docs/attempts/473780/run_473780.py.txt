@@ -1,0 +1,73 @@
+"""A13: ours vs the client's LandClass::Unknown_473780 and its twin Unknown_473BC0 (packed slope bytes) in emu.py.
+
+    python run_473780.py 473780|473BC0 [ctl]
+"""
+import struct
+import sys
+sys.path.insert(0, 'C:/EnBDevelopment/EnB/.work/a13')
+import emu  # noqa: E402
+from harness import Harness, fhash  # noqa: E402
+
+OBJ = 'C:/EnBDevelopment/EnB/.work/a13/objs/unknown_46c730.obj'
+SYMS = {'473780': '?Unknown_473780@LandClass@@IAEXHMPAE@Z', '473BC0': '?Unknown_473BC0@LandClass@@IAEXHMPAE@Z'}
+THIS, HF, HT, WT, OUT = 0x30000000, 0x31000000, 0x60000000, 0x61000000, 0x40000000
+
+# (log2 size, row, scale, heights, weights)
+CASES = [(lg, row, sc, hm, wm) for lg in (0, 2, 3) for row in (0, 1, 5, 7) for sc in (1e-7, 3e-4, 0.01, 2.0)
+         for hm in ('hash', 'flat', 'ramp') for wm in ('pos', 'mixed')]
+CASES += [(4, 9, 3e-4, 'hash', 'pos'), (4, 15, 0.01, 'ramp', 'mixed'), (3, 3, -0.01, 'hash', 'pos'),
+          (3, 2, 0.0, 'hash', 'pos')]
+
+
+def setup(case):
+    lg, row, sc, hm, wm = case
+    n = 1 << lg
+
+    def f(mem, cpu, seed):
+        mem.wu(THIS + 0x90, 4, HF)
+        mem.wu(THIS + 0xE4, 4, WT)
+        mem.wu(HF + 0, 4, HT)
+        mem.wu(HF + 7 * 4, 4, lg)
+        mem.wu(HF + 8 * 4, 4, n)
+        mem.wu(HF + 10 * 4, 4, n - 1)
+        mem.wu(HF + 11 * 4, 4, n * n - 1)
+        for k in range(n * n):
+            x, y = k % n, k // n
+            v = {'hash': int((fhash(seed, k) + 4) * 8000), 'flat': 1000, 'ramp': 300 * x + 700 * y}[hm]
+            mem.wu(HT + 2 * k, 2, v & 0xFFFF)
+        for k in range(32):
+            w = fhash(seed, k, 7)
+            mem.write(WT + 4 * k, struct.pack('<f', abs(w) if wm == 'pos' else w))
+        cpu.r['ecx'] = THIS
+        return [row, struct.unpack('<I', struct.pack('<f', sc))[0], OUT]
+    return f
+
+
+def stubs(case):
+    def f(cpu, key, words, idx, seed):
+        raise emu.Stop('callee %r' % (key,))
+    return f
+
+
+def main():
+    which = sys.argv[1]
+    H = Harness(OBJ, SYMS[which], int(which, 16), 3, void=True)
+    if len(sys.argv) > 2 and sys.argv[2] == 'ctl':
+        base = [(3, 1, 3e-4, 'hash', 'pos'), (2, 3, 0.01, 'ramp', 'mixed'), (3, 7, 1e-7, 'hash', 'mixed')]
+        H.run(base, setup, stubs, seeds=(1,), label='base')
+        off, ins = H.find(lambda i: i.mnemonic == 'mov' and i.op_str.endswith(', 0x3d4ccccd'))
+        H.mutate('1 (+%#x %s %s: floor 0.05 -> 0.2)' % (off, ins.mnemonic, ins.op_str), off, ins.size - 1, 0x3E,
+                 base, setup, stubs)
+        off, ins = H.find(lambda i: i.mnemonic == 'mov' and i.op_str == 'al, 0x7f')
+        H.mutate('2 (+%#x %s %s: clamp 0x7f -> 0x7e)' % (off, ins.mnemonic, ins.op_str), off, ins.size - 1, 0x7E,
+                 base + [(3, 1, 2.0, 'hash', 'pos')], setup, stubs)
+        off, ins = H.find(lambda i: i.mnemonic == 'mov' and i.op_str.endswith('[eax + 0x2c]'))
+        H.mutate('3 (+%#x %s %s: row step mask -> column mask)' % (off, ins.mnemonic, ins.op_str), off,
+                 ins.size - 1, 0x28, base, setup, stubs)
+        return
+    H.run(CASES, setup, stubs, seeds=(1, 2), verbose=False)
+    H.coverage()
+
+
+if __name__ == '__main__':
+    main()

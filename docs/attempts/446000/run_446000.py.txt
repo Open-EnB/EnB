@@ -1,0 +1,108 @@
+"""A13: ours vs the client's SteeringClass::Avoid_Obstacles (nearest obstacle ahead, lateral push) in emu.py."""
+import math
+import struct
+import sys
+sys.path.insert(0, 'C:/EnBDevelopment/EnB/.work/a13')
+import emu  # noqa: E402
+from harness import Harness, fhash, f32  # noqa: E402
+
+emu.ALIASES['_ObstacleTicks'] = 0xB704C0
+emu.ALIASES['_ObstacleComfort'] = 0xB704C4
+emu.ALIASES['?Unknown_4568E0@PxWrapper@@QAEAAV?$vector@PAVDynObj@@V?$allocator@PAVDynObj@@@std@@@std@@XZ'] = 0x4568E0
+OBJ = 'C:/EnBDevelopment/EnB/.work/a13/objs/unknown_445740.obj'
+SYM = '?Avoid_Obstacles@SteeringClass@@QAE?AVVector3@@ABUSteeringVehicleStruct@@PAVPxWrapper@@@Z'
+THIS, RET, VEH, PXW, SELF, VEC, OBJS = (0x30000000, 0x40000000, 0x41000000, 0x42000000, 0x43000000, 0x44000000,
+                                        0x45000000)
+LIST, INVSQRT = 0x4568E0, 0x447C40
+# (number of obstacles, the vector's begin pointer null, layout)
+LAYOUTS = ('rand', 'ahead', 'behind', 'moving', 'side', 'center', 'far')
+CASES = [(n, null, lay) for n in (0, 1, 2, 5) for null in (0, 1) for lay in LAYOUTS if not (null and n > 1)]
+
+
+def obst(seed, lay, k):
+    """(position relative to the vehicle in its frame (fwd, left, up), radius, moving)"""
+    r = lambda j: fhash(seed, k, j)  # noqa: E731
+    if lay == 'ahead':
+        return (abs(r(1)) * 4, r(2) / 3, r(3) / 4), 0.5 + abs(r(4)) / 4, False
+    if lay == 'behind':
+        return (-abs(r(1)) * 4 - 1, r(2), r(3)), 0.5, False
+    if lay == 'moving':
+        return (abs(r(1)) * 4, r(2) / 3, 0.0), 0.5, k % 2 == 0
+    if lay == 'side':
+        return (abs(r(1)) * 4, 3 + abs(r(2)), 0.0), 0.5, False
+    if lay == 'center':
+        return (2.0 + k, 0.0, 0.0), 0.5, False
+    if lay == 'far':
+        return (5000.0, 0.1, 0.0), 0.5, False
+    return (r(1) * 6, r(2) * 3, r(3) * 2), 0.3 + abs(r(4)) / 2, k % 3 == 2
+
+
+def setup(case):
+    n, null, lay = case
+
+    def f(mem, cpu, seed):
+        mem.write(THIS, struct.pack('<f', 2.0 + fhash(seed, 1)))
+        a = fhash(seed, 2) * 0.7
+        ca, sa = math.cos(a), math.sin(a)
+        rot = [ca, -sa, 0, 0, sa, ca, 0, 0, 0, 0, 1, 0]
+        pos = (fhash(seed, 3) * 10, fhash(seed, 4) * 10, fhash(seed, 5))
+        vel = (ca * 0.03, sa * 0.03, 0.0)
+        mem.write(VEH, struct.pack('<18f', *(rot + list(pos) + list(vel))))
+        mem.wu(PXW, 4, SELF)
+        mem.write(SELF + 4, struct.pack('<f', 0.75))
+        mem.wu(VEC + 4, 4, 0 if null else OBJS)
+        mem.wu(VEC + 8, 4, OBJS + 4 * n)
+        for k in range(n):
+            o = OBJS + 0x1000 + 0x100 * k
+            mem.wu(OBJS + 4 * k, 4, o)
+            mem.wu(o, 4, 0x46000000 + 0x100 * k)  # a vtable pointer: the calls are keyed by it
+            rel, rad, mov = obst(seed, lay, k)
+            mem.write(o + 4, struct.pack('<f', rad))
+            world = [pos[i] + rel[0] * rot[4 * i] + rel[1] * rot[4 * i + 1] + rel[2] * rot[4 * i + 2]
+                     for i in range(3)]
+            mem.write(o + 0x80, struct.pack('<3f', *world))
+            mem.write(o + 0x90, struct.pack('<3f', *((0.5, 0.0, 0.0) if mov else (0.001, 0.0, 0.0))))
+        cpu.r['ecx'] = THIS
+        return [RET, VEH, PXW]
+    return f
+
+
+def stubs(case):
+    def f(cpu, key, words, idx, seed):
+        m = cpu.m
+        if key == ('direct', LIST):
+            cpu.r['eax'] = VEC
+            return 0, None
+        if key[0] == 'indirect' and key[1] in (0x54, 0x48):
+            o = cpu.r['ecx']
+            m.write(words[0], m.read(o + (0x90 if key[1] == 0x54 else 0x80), 12))
+            cpu.r['eax'] = words[0]
+            return 4, None
+        if key == ('direct', INVSQRT):
+            v = struct.unpack('<f', struct.pack('<I', words[0]))[0]
+            cpu.st.append(f32(1.0 / math.sqrt(v)) if v > 0 else math.inf)
+            return 4, {'_cdecl': 1}, 1
+        raise emu.Stop('callee %r' % (key,))
+    return f
+
+
+def main():
+    H = Harness(OBJ, SYM, 0x446000, 3, void=False, stk_any=True)
+    if len(sys.argv) > 1 and sys.argv[1] == 'ctl':
+        base = [(5, 0, 'rand'), (2, 0, 'ahead'), (5, 0, 'moving')]
+        H.run(base, setup, stubs, seeds=(1, 2, 3), label='base')
+        off, ins = H.find(lambda i: i.mnemonic == 'fmul' and '0xb704c4' in i.op_str)
+        H.mutate('1 (+%#x %s %s: comfort -> ticks)' % (off, ins.mnemonic, ins.op_str), off, ins.size - 4, 0xC0,
+                 base, setup, stubs, seeds=(1, 2, 3))
+        off, ins = H.find(lambda i: i.mnemonic == 'fadd' and i.op_str == 'dword ptr [edi + 4]')
+        H.mutate('2 (+%#x %s %s: radius +4 -> +8)' % (off, ins.mnemonic, ins.op_str), off, ins.size - 1, 8,
+                 base, setup, stubs, seeds=(1, 2, 3))
+        off, ins = H.find(lambda i: i.mnemonic == 'fchs')
+        H.mutate('3 (+%#x fchs dropped)' % off, off, 1, 0xD0, base, setup, stubs, seeds=(1, 2, 3))
+        return
+    H.run(CASES, setup, stubs, seeds=tuple(range(1, 7)), verbose=False)
+    H.coverage()
+
+
+if __name__ == '__main__':
+    main()

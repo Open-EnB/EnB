@@ -1,0 +1,106 @@
+"""A13: ours vs the client's FpTTClass::Unknown_04 (steer and climb toward a target, new transform) in emu.py."""
+import math
+import struct
+import sys
+sys.path.insert(0, 'C:/EnBDevelopment/EnB/.work/a13')
+import emu  # noqa: E402
+from harness import Harness, fhash, f32  # noqa: E402
+
+emu.ALIASES['?Unknown_BE350C@@3HA'] = 0xBE350C
+OBJ = 'C:/EnBDevelopment/EnB/.work/a13/objs/fp_tt.obj'
+SYM = '?Unknown_04@FpTTClass@@UAEHABVVector3@@PAVMatrix3D@@MAAM2@Z'
+THIS, TGT, MATS, O5, O6 = 0x30000000, 0x40000000, 0x41000000, 0x42000000, 0x42000100
+INVSQRT = 0x447C40
+# (state at +0x28, the global's index, flag +0x38, geometry)
+GEOS = ('rand', 'near', 'flatz', 'behind', 'above', 'below', 'noclimb', 'aligned', 'alignl', 'alignr', 'ahead', 'flatlevel')
+CASES = [(st, g, fl, geo) for st in (0, 1, 2, 3) for g in (0, 1) for fl in (0, 1) for geo in GEOS]
+
+
+def setup(case):
+    st, g, fl, geo = case
+
+    def f(mem, cpu, seed):
+        r = lambda *k: fhash(seed, *k)  # noqa: E731
+        mem.wu(0xBE350C, 4, g)
+        # members: turn rate, cos / sin limits, climb rate, cos / sin climb limits, max climb slope, range cos
+        ang = 0.3 + abs(r(1)) / 20
+        vals = {0x4: 0.5 + abs(r(2)) / 8, 0x8: math.cos(ang), 0xC: math.sin(ang), 0x14: 0.25, 0x18: math.cos(0.2),
+                0x1C: math.sin(0.2), 0x20: 0.0 if geo == 'noclimb' else 0.6, 0x24: 0.9,
+                0x30: r(3) / 4, 0x34: r(4) / 4, 0x3C: r(5), 0x40: r(6), 0x44: r(7)}
+        for off, v in vals.items():
+            mem.write(THIS + off, struct.pack('<f', v))
+        mem.wu(THIS + 0x28, 4, st)
+        mem.wu(THIS + 0x2C, 4, 7)
+        mem.wu(THIS + 0x38, 1, fl)
+        mem.wu(THIS + 0x39, 1, 1)
+        # the current transform (the one at index g ^ 1): a yaw / pitch rotation and a position
+        yaw = r(8) * 0.8
+        pitch = 0.0 if geo in ('flatz', 'flatlevel') else r(9) / 10
+        cy, sy, cp, sp = math.cos(yaw), math.sin(yaw), math.cos(pitch), math.sin(pitch)
+        m = [cy * cp, -sy, -cy * sp, r(10) * 10,
+             sy * cp, cy, -sy * sp, r(11) * 10,
+             sp, 0.0, cp, r(12) * 10]
+        if geo in ('flatz', 'flatlevel'):
+            m[8] = 1e-7
+        cur = MATS + 0x30 * (g ^ 1)
+        mem.write(cur, struct.pack('<12f', *m))
+        mem.write(MATS + 0x30 * g, struct.pack('<12f', *([9.0] * 12)))
+        px, py, pz = m[3], m[7], m[11]
+        if geo.startswith('align'):
+            d = {'aligned': 0.0, 'alignl': 0.05, 'alignr': -0.05}[geo]
+            hx, hy = math.cos(yaw + d), math.sin(yaw + d)
+            mem.write(THIS + 0x30, struct.pack('<2f', hx, hy))
+        if geo == 'ahead':
+            t = (px + 30 * m[0], py + 30 * m[4], pz + r(14) / 4)
+            mem.write(TGT, struct.pack('<3f', *t))
+        if geo == 'near':
+            t = (px, py, pz + r(13))
+        elif geo == 'behind':
+            t = (px - 30 * m[0], py - 30 * m[4], pz + r(14))
+        elif geo == 'above':
+            t = (px + r(15) * 3, py + r(16) * 3, pz + 40)
+        elif geo == 'below':
+            t = (px + r(15) * 3, py + r(16) * 3, pz - 40)
+        elif geo != 'ahead':
+            t = (px + r(17) * 20, py + r(18) * 20, pz + r(19) * 5)
+        if geo == 'flatlevel':
+            t = (t[0], t[1], pz)
+        if geo != 'ahead':
+            mem.write(TGT, struct.pack('<3f', *t))
+        cpu.r['ecx'] = THIS
+        return [TGT, MATS, struct.unpack('<I', struct.pack('<f', 0.05 + abs(r(20)) / 10))[0], O5, O6]
+    return f
+
+
+def stubs(case):
+    def f(cpu, key, words, idx, seed):
+        if key == ('direct', INVSQRT):
+            v = struct.unpack('<f', struct.pack('<I', words[0]))[0]
+            cpu.st.append(f32(1.0 / math.sqrt(v)) if v > 0 else math.inf)
+            return 4, {'_cdecl': 1}, 1  # __fastcall with a float argument: ecx is not an argument
+        raise emu.Stop('callee %r' % (key,))
+    return f
+
+
+def main():
+    H = Harness(OBJ, SYM, 0x449540, 5, void=False)
+    if len(sys.argv) > 1 and sys.argv[1] == 'ctl':
+        base = [(0, 0, 1, 'rand'), (1, 1, 1, 'behind'), (2, 0, 0, 'above'), (0, 1, 1, 'below')]
+        H.run(base, setup, stubs, seeds=(1, 2), label='base')
+        off, ins = H.find(lambda i: i.mnemonic == 'mov' and i.op_str == 'eax, dword ptr [esi + 0x28]')
+        H.mutate('1 (+%#x %s %s: state +0x28 -> +0x2c)' % (off, ins.mnemonic, ins.op_str), off, ins.size - 1,
+                 0x2C, base, setup, stubs, seeds=(1, 2))
+        off, ins = H.find(lambda i: i.mnemonic == 'fstp' and i.op_str == 'dword ptr [eax + 0x20]')
+        H.mutate('2 (+%#x %s %s: matrix element 8 -> 9)' % (off, ins.mnemonic, ins.op_str), off, ins.size - 1,
+                 0x24, base, setup, stubs, seeds=(1, 2))
+        off, ins = H.find(lambda i: i.mnemonic == 'mov' and i.op_str == 'dword ptr [esi + 0x28], ebx')
+        H.mutate('3 (+%#x %s %s: state reset +0x28 -> +0x2c)' % (off, ins.mnemonic, ins.op_str), off,
+                 ins.size - 1, 0x2C, base + [(1, 0, 1, 'aligned'), (2, 1, 0, 'aligned')], setup, stubs,
+                 seeds=(1, 2))
+        return
+    H.run(CASES, setup, stubs, seeds=(1, 2, 3, 4, 5, 6), verbose=False)
+    H.coverage()
+
+
+if __name__ == '__main__':
+    main()

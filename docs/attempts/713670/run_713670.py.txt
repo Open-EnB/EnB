@@ -1,0 +1,79 @@
+"""A13: ours vs the client's Unknown713520Class::Unknown_1C (orbit extrapolation: position, rotation, velocity, ...)
+in emu.py. Matrix3D::Rotate_X / Rotate_Z and Build_Quaternion run as the client's own code on both sides."""
+import struct
+import sys
+sys.path.insert(0, 'C:/EnBDevelopment/EnB/.work/a13')
+import emu  # noqa: E402
+from harness import Harness, fhash  # noqa: E402
+
+emu.ALIASES['?Identity@Matrix3D@@2V1@B'] = 0xBF9330
+OBJ = 'C:/EnBDevelopment/EnB/.work/a13/objs/extrap.obj'
+SYM = '?Unknown_1C@Unknown713520Class@@UAEXHPAVVector3@@PAVQuaternion@@0PAM0_N@Z'
+THIS, CLIENT, OBJA, POSST = 0x30000000, 0x31000000, 0x32000000, 0x33000000
+OPOS, OROT, OVEL, OSPD, OZERO = 0x40000000, 0x40000100, 0x40000200, 0x40000300, 0x40000400
+FIND, ROTZ, ROTX, BUILDQ = 0x727070, 0x577940, 0x69F3B0, 0x8D2710
+# (output mask: pos, rot, vel, speed, zero; target id / found; keep flag; angular rate sign)
+CASES = [(om, tgt, keep, rs) for om in (0x1F, 0x01, 0x02, 0x04, 0x08, 0x10, 0x06, 0x00, 0x05)
+         for tgt in ('none', 'missing', 'found') for keep in (0, 1) for rs in (1.0, -1.0, 0.0)]
+
+
+def setup(case):
+    om, tgt, keep, rs = case
+
+    def f(mem, cpu, seed):
+        mem.write(0xBF9330, struct.pack('<12f', 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0))
+        mem.wu(THIS + 4, 4, 5000)
+        mem.wu(THIS + 8, 4, CLIENT)
+        mem.write(THIS + 0xC, struct.pack('<3f', fhash(seed, 1) * 9, fhash(seed, 2) * 9, fhash(seed, 3) * 9))
+        mem.wu(THIS + 0x18, 4, 0 if tgt == 'none' else 77)
+        mem.write(THIS + 0x1C, struct.pack('<5f', 3.0 + fhash(seed, 4), fhash(seed, 5), rs * 0.0015,
+                                           fhash(seed, 6), 0.0007 * (1 + fhash(seed, 7)) * (rs or 1)))
+        mem.write(THIS + 0x30, struct.pack('<f', fhash(seed, 8) / 4))
+        mem.wu(OBJA + 0x98, 4, POSST)
+        cpu.r['ecx'] = THIS
+        outs = [OPOS, OROT, OVEL, OSPD, OZERO]
+        a = [o if om >> i & 1 else 0 for i, o in enumerate(outs)]
+        return [5000 + int(abs(fhash(seed, 9)) * 3000), a[0], a[1], a[2], a[3], a[4], keep | 0xEE00]
+    return f
+
+
+def stubs(case):
+    om, tgt, keep, rs = case
+
+    def f(cpu, key, words, idx, seed):
+        if key == ('direct', FIND):
+            cpu.r['eax'] = OBJA if tgt == 'found' else 0
+            return 4, None
+        if key[0] == 'indirect' and key[1] == 0x1C:
+            cpu.m.write(words[0], struct.pack('<3f', fhash(seed, 30) * 20, fhash(seed, 31) * 20, fhash(seed, 32)))
+            cpu.r['eax'] = words[0]
+            return 8, None
+        if key in (('direct', ROTZ), ('direct', ROTX)):
+            return 'PASS1'
+        if key == ('direct', BUILDQ):
+            return 'PASS2'
+        raise emu.Stop('callee %r' % (key,))
+    return f
+
+
+def main():
+    H = Harness(OBJ, SYM, 0x713670, 7, void=True)
+    if len(sys.argv) > 1 and sys.argv[1] == 'ctl':
+        base = [(0x1F, 'found', 0, 1.0), (0x1F, 'missing', 1, -1.0), (0x06, 'found', 0, -1.0)]
+        H.run(base, setup, stubs, seeds=(1, 2), label='base')
+        off, ins = H.find(lambda i: i.mnemonic == 'fmul' and i.op_str.endswith('+ 0x24]'))
+        H.mutate('1 (+%#x %s %s: rate +0x24 -> +0x20)' % (off, ins.mnemonic, ins.op_str), off, ins.size - 1, 0x20,
+                 base, setup, stubs, seeds=(1, 2))
+        off, ins = H.find(lambda i: i.mnemonic == 'fld' and i.op_str.endswith('+ 0x30]'))
+        H.mutate('2 (+%#x %s %s: tilt +0x30 -> +0x2c)' % (off, ins.mnemonic, ins.op_str), off, ins.size - 1, 0x2C,
+                 base, setup, stubs, seeds=(1, 2))
+        off, ins = H.find(lambda i: i.mnemonic == 'test' and i.op_str == 'al, al')
+        H.mutate('3 (+%#x %s %s: keep flag compare inverted)' % (off, ins.mnemonic, ins.op_str), off + ins.size, 0,
+                 H.reader.code[off + ins.size] ^ 1, base, setup, stubs, seeds=(1, 2))
+        return
+    H.run(CASES, setup, stubs, seeds=(1, 2), verbose=False)
+    H.coverage()
+
+
+if __name__ == '__main__':
+    main()

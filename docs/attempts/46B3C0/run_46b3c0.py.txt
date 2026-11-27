@@ -1,0 +1,114 @@
+"""A13: ours vs the client's LandClass::Update_Patches (patch LOD levels, edge flags, culling) in emu.py."""
+import math
+import struct
+import sys
+sys.path.insert(0, 'C:/EnBDevelopment/EnB/.work/a13')
+import emu  # noqa: E402
+from harness import Harness, fhash  # noqa: E402
+
+emu.ALIASES['?LandLodDistances@@3PAHA'] = 0xB7188C
+emu.ALIASES['?Limit_Levels@LandClass@@IAEXHH@Z'] = 0x46AA40
+emu.ALIASES['?Unknown_BDC0D8@@3PAVLandUnknown466BE0Class@@A'] = 0xBDC0D8
+emu.ALIASES['?Unknown_466F40@LandUnknown466BE0Class@@QAEXAAVCameraClass@@HABVMatrix4@@@Z'] = 0x466F40
+OBJ = 'C:/EnBDevelopment/EnB/.work/a13/objs/land.obj'
+SYM = '?Update_Patches@LandClass@@QAEXAAVCameraClass@@H@Z'
+THIS, HF, CAM, PA, PS, REC, G = 0x30000000, 0x31000000, 0x32000000, 0x33000000, 0x34000000, 0x35000000, 0x36000000
+FTOL_FLOAT = '--float' in sys.argv
+GETPOS, CULL, FTOL, LIMIT, U466F40 = 0x941E60, 0x944E80, 0xA264EC, 0x46AA40, 0x466F40
+# (patches per side, dirty flag, cache hit, wrap flag, lod index, global flag)
+CASES = [(n, dirty, hit, wrap, lod, gf) for n in (1, 2, 4) for dirty in (0, 1) for hit in (0, 1) for wrap in (0, 1)
+         for lod in (0, 1, 3) for gf in (0, 1) if not (hit and dirty)]
+
+
+def base_setup(case, cache=None):
+    n, dirty, hit, wrap, lod, gf = case
+
+    def f(mem, cpu, seed):
+        mem.wu(THIS + 0x90, 4, HF)
+        mem.wu(HF + 8, 2, 40)
+        mem.write(HF + 0xC, struct.pack('<3f', 2.0, 2.0, 0.05))
+        mem.wu(HF + 0x18, 1, wrap)
+        mem.wu(THIS + 0xF0, 4, 16)
+        mem.wu(THIS + 0xFC, 4, n)
+        mem.wu(THIS + 0x100, 4, n // 2)
+        mem.wu(THIS + 0x108, 4, n - 1)
+        c = cache or (11, 22, 33)
+        mem.wu(THIS + 0x10C, 4, c[0])
+        mem.wu(THIS + 0x110, 4, c[1])
+        mem.wu(THIS + 0x114, 4, c[2])
+        mem.wu(THIS + 0x130, 4, PA)
+        mem.wu(THIS + 0x136, 1, dirty)
+        mem.wu(THIS + 0x18C, 4, REC)
+        for k in range(n * n):
+            p = PS + 0x40 * k
+            mem.wu(PA + 4 * k, 4, p)
+            mem.wu(p + 0x10, 4, int(abs(fhash(seed, k, 1)) * 2))
+            mem.wu(p + 0x14, 4, 0)
+            mem.write(p + 0x18, struct.pack('<3f', fhash(seed, k, 2) * 30, fhash(seed, k, 3) * 30, 0.0))
+            mem.write(p + 0x28, struct.pack('<f', abs(fhash(seed, k, 4)) * 400))
+        mem.wu(0xBDC0D8, 4, G)
+        mem.wu(G + 0x11, 1, gf)
+        mem.write(CAM + 0x1000, struct.pack('<3f', fhash(seed, 5) * 40, fhash(seed, 6) * 40, 5 + abs(fhash(seed, 7))))
+        cpu.r['ecx'] = THIS
+        return [CAM, lod]
+    return f
+
+
+def stubs(case):
+    def f(cpu, key, words, idx, seed):
+        m = cpu.m
+        if key == ('direct', GETPOS):
+            m.write(words[0], m.read(CAM + 0x1000, 12))
+            cpu.r['eax'] = words[0]
+            return 4, None
+        if key == ('direct', FTOL):
+            st = cpu.st[-1]
+            emu.ftol(cpu)
+            return 0, {'_cdecl': 1, 'v': st if FTOL_FLOAT else cpu.r['eax']}, 0
+        if key == ('direct', CULL):
+            box = m.read(words[0], 24)
+            cpu.r['eax'] = (cpu.r['eax'] & ~0xFF) | (sum(box) & 1)
+            return 4, {'box': box.hex()}
+        if key == ('direct', LIMIT):
+            return 8, None
+        if key == ('direct', U466F40):
+            return 12, {'m4': m.read(words[2], 64).hex()}
+        raise emu.Stop('callee %r' % (key,))
+    return f
+
+
+def setup(case):
+    if not case[2]:
+        return base_setup(case)
+
+    def f(mem, cpu, seed):
+        # the cache hit: the client's own +0x10C / +0x110 / +0x114 after a run from the same state
+        r = emu.run_one(0x46B3C0, emu.client_reader(), {}, seed, base_setup(case), stubs(case), 2)
+        cache = [int.from_bytes(bytes(r['writes'][THIS + o + k] for k in range(4)), 'little') for o in (0x10C, 0x110,
+                                                                                                         0x114)]
+        return base_setup(case, cache)(mem, cpu, seed)
+    return f
+
+
+def main():
+    H = Harness(OBJ, SYM, 0x46B3C0, 2, void=True, stk_any=True, ignore_st=True)
+    if len(sys.argv) > 1 and sys.argv[1] == 'ctl':
+        base = [(4, 1, 0, 0, 1, 1), (4, 0, 0, 1, 0, 0), (2, 0, 1, 0, 3, 1)]
+        H.run(base, setup, stubs, seeds=(1, 2), label='base')
+        off, ins = H.find(lambda i: i.mnemonic == 'cmp' and i.op_str.endswith(', 4'))
+        H.mutate('1 (+%#x %s %s: 4 LOD steps -> 3)' % (off, ins.mnemonic, ins.op_str), off, ins.size - 1, 3,
+                 base, setup, stubs, seeds=(1, 2))
+        off, ins = H.find(lambda i: i.mnemonic == 'or' and i.op_str.endswith(', 4'))
+        H.mutate('2 (+%#x %s %s: edge flag 4 -> 0x10)' % (off, ins.mnemonic, ins.op_str), off, ins.size - 1, 0x10,
+                 base, setup, stubs, seeds=(1, 2))
+        off, ins = H.find(lambda i: i.mnemonic == 'fmul' and '0x21' in i.op_str)
+        H.mutate('3 (+%#x %s %s: the 0.5 constant -> 1.0)' % (off, ins.mnemonic, ins.op_str), off, ins.size - 4,
+                 H.reader.code[off + ins.size - 4] + 0x100 - 0x100 if False else (H.reader.code[off + ins.size - 4] + 4)
+                 & 0xFF, base, setup, stubs, seeds=(1, 2))
+        return
+    H.run(CASES, setup, stubs, seeds=(1, 2), verbose=False)
+    H.coverage()
+
+
+if __name__ == '__main__':
+    main()

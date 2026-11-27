@@ -1,0 +1,86 @@
+"""A13: ours vs the client's CameraModule79C8E0Class::Unknown_08 (a look-at camera toward an object) in emu.py.
+Build_Quaternion runs as the client's own code on both sides."""
+import math
+import struct
+import sys
+sys.path.insert(0, 'C:/EnBDevelopment/EnB/.work/a13')
+import emu  # noqa: E402
+from harness import Harness, fhash, f32  # noqa: E402
+
+OBJ = 'C:/EnBDevelopment/EnB/.work/a13/objs/unknown_79c8e0.obj'
+SYM = '?Unknown_08@CameraModule79C8E0Class@@UAEXPAVVector3@@PAVQuaternion@@@Z'
+THIS, CLIENT, OBJA, OPOS, OROT = 0x30000000, 0x31000000, 0x32000000, 0x40000000, 0x40000100
+FIND, SPHERE, INVSQRT, BUILDQ = 0x727070, 0x6FEC40, 0x447C40, 0x8D2710
+GEOS = ('rand', 'above', 'below', 'same', 'xaxis', 'near')
+MATS = ('rand', 'ident', 'zup', 'flipped', 'zero')
+CASES = [(found, flag, geo, mat) for found in (1, 0) for flag in (0, 1) for geo in GEOS for mat in MATS]
+
+
+def setup(case):
+    found, flag, geo, mat = case
+
+    def f(mem, cpu, seed):
+        mem.wu(THIS + 4, 4, CLIENT)
+        cam = (fhash(seed, 1) * 9, fhash(seed, 2) * 9, fhash(seed, 3) * 9)
+        mem.write(THIS + 8, struct.pack('<3f', *cam))
+        mem.wu(THIS + 0x14, 1, flag)
+        mem.wu(THIS + 0x18, 4, 1234)
+        cpu.r['ecx'] = THIS
+        return [OPOS, OROT]
+    return f
+
+
+def stubs(case):
+    found, flag, geo, mat = case
+
+    def f(cpu, key, words, idx, seed):
+        m = cpu.m
+        if key == ('direct', FIND):
+            cpu.r['eax'] = OBJA if found else 0
+            return 4, None
+        if key == ('direct', SPHERE):
+            cam = struct.unpack('<3f', m.read(THIS + 8, 12))
+            d = {'rand': (fhash(seed, 4) * 20, fhash(seed, 5) * 20, fhash(seed, 6) * 20), 'above': (0, 0, 15.0),
+                 'below': (0, 0, -7.0), 'same': (0, 0, 0), 'xaxis': (12.0, 0, 0), 'near': (1e-3, 0, 2e-3)}[geo]
+            m.write(words[0], struct.pack('<4f', *(cam[i] + d[i] for i in range(3)), 2.5))
+            return 4, None
+        if key[0] == 'indirect' and key[1] == 0x28:
+            a, b = fhash(seed, 7), fhash(seed, 8) / 2
+            ca, sa, cb, sb = math.cos(a), math.sin(a), math.cos(b), math.sin(b)
+            r = {'rand': [ca * cb, -sa, ca * sb, sa * cb, ca, sa * sb, -sb, 0, cb], 'ident': [1, 0, 0, 0, 1, 0, 0, 0, 1],
+                 'zup': [0, 0, 1, 0, 1, 0, -1, 0, 0], 'flipped': [1, 0, 0, 0, -1, 0, 0, 0, -1],
+                 'zero': [0] * 9}[mat]
+            m.write(words[0], struct.pack('<12f', r[0], r[1], r[2], 5.0, r[3], r[4], r[5], 6.0, r[6], r[7], r[8],
+                                          7.0))
+            cpu.r['eax'] = words[0]
+            return 8, None
+        if key == ('direct', INVSQRT):
+            v = struct.unpack('<f', struct.pack('<I', words[0]))[0]
+            cpu.st.append(f32(1.0 / math.sqrt(v)) if v > 0 else math.inf)
+            return 4, {'_cdecl': 1}, 1
+        if key == ('direct', BUILDQ):
+            return 'PASS2'
+        raise emu.Stop('callee %r' % (key,))
+    return f
+
+
+def main():
+    H = Harness(OBJ, SYM, 0x79C970, 2, void=True)
+    if len(sys.argv) > 1 and sys.argv[1] == 'ctl':
+        base = [(1, 0, 'rand', 'rand'), (1, 1, 'rand', 'rand'), (1, 0, 'xaxis', 'ident')]
+        H.run(base, setup, stubs, seeds=(1, 2), label='base')
+        off, ins = H.find(lambda i: i.mnemonic == 'push' and i.op_str == '1')
+        H.mutate('1 (+%#x %s %s: Get_Transform flag 1 -> 0)' % (off, ins.mnemonic, ins.op_str), off, 1, 0,
+                 base, setup, stubs, seeds=(1, 2))
+        off, ins = H.find(lambda i: i.mnemonic == 'fld' and i.op_str.endswith('+ 0xc]') and 'esi' in i.op_str)
+        H.mutate('2 (+%#x %s %s: camera Y -> Z)' % (off, ins.mnemonic, ins.op_str), off, ins.size - 1, 0x10,
+                 base, setup, stubs, seeds=(1, 2))
+        off, ins = H.find(lambda i: i.mnemonic == 'fchs')
+        H.mutate('3 (+%#x fchs dropped)' % off, off, 1, 0xD0, base, setup, stubs, seeds=(1, 2))  # fchs -> fnop
+        return
+    H.run(CASES, setup, stubs, seeds=(1, 2, 3), verbose=False)
+    H.coverage()
+
+
+if __name__ == '__main__':
+    main()

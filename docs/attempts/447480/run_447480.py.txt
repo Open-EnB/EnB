@@ -1,0 +1,72 @@
+"""A13: ours vs the client's SteeringClass::Seek (vehicle, target, PxWrapper) in emu.py: avoidance first, else seek."""
+import math
+import struct
+import sys
+sys.path.insert(0, 'C:/EnBDevelopment/EnB/.work/a13')
+import emu  # noqa: E402
+from harness import Harness, fhash, f32  # noqa: E402
+
+emu.ALIASES['?Avoid_Obstacles@SteeringClass@@QAE?AVVector3@@ABUSteeringVehicleStruct@@PAVPxWrapper@@@Z'] = 0x446000
+emu.ALIASES['?Avoid_Collisions@SteeringClass@@QAE?AVVector3@@ABUSteeringVehicleStruct@@PAVPxWrapper@@@Z'] = 0x4463B0
+OBJ = 'C:/EnBDevelopment/EnB/.work/a13/objs/unknown_445740.obj'
+SYM = '?Seek@SteeringClass@@QAE?AVVector3@@ABUSteeringVehicleStruct@@ABV2@PAVPxWrapper@@@Z'
+THIS, RET, VEH, TGT, PXW = 0x30000000, 0x40000000, 0x41000000, 0x42000000, 0x43000000
+AVOBS, AVCOL, INVSQRT = 0x446000, 0x4463B0, 0x447C40
+VECS = {'zero': (0.0, 0.0, 0.0), 'tiny': (0.005, 0.005, 0.0), 'edge': (0.01, 0.0, 0.0), 'big': (0.3, -0.7, 0.1)}
+CASES = [(ob, co, tg) for ob in VECS for co in VECS for tg in ('rand', 'same', 'up')]
+
+
+def setup(case):
+    ob, co, tg = case
+
+    def f(mem, cpu, seed):
+        mem.write(THIS, struct.pack('<f', 1.5 + fhash(seed, 1) / 4))
+        pos = (fhash(seed, 2) * 10, fhash(seed, 3) * 10, fhash(seed, 4))
+        vel = (fhash(seed, 5) / 10, fhash(seed, 6) / 10, fhash(seed, 7) / 10)
+        mem.write(VEH + 0x30, struct.pack('<6f', *(pos + vel)))
+        t = {'rand': (fhash(seed, 8) * 10, fhash(seed, 9) * 10, fhash(seed, 10)), 'same': pos,
+             'up': (pos[0], pos[1], pos[2] + 5)}[tg]
+        mem.write(TGT, struct.pack('<3f', *t))
+        cpu.r['ecx'] = THIS
+        return [RET, VEH, TGT, PXW]
+    return f
+
+
+def stubs(case):
+    ob, co, tg = case
+
+    def f(cpu, key, words, idx, seed):
+        if key in (('direct', AVOBS), ('direct', AVCOL)):
+            cpu.m.write(words[0], struct.pack('<3f', *VECS[ob if key[1] == AVOBS else co]))
+            cpu.r['eax'] = words[0]
+            return 12, None
+        if key == ('direct', INVSQRT):
+            v = struct.unpack('<f', struct.pack('<I', words[0]))[0]
+            cpu.st.append(f32(1.0 / math.sqrt(v)) if v > 0 else math.inf)
+            return 4, {'_cdecl': 1}, 1
+        raise emu.Stop('callee %r' % (key,))
+    return f
+
+
+def main():
+    H = Harness(OBJ, SYM, 0x447480, 4, void=False, stk_any=True)
+    if len(sys.argv) > 1 and sys.argv[1] == 'ctl':
+        base = [('zero', 'zero', 'rand'), ('zero', 'big', 'rand'), ('big', 'zero', 'up')]
+        H.run(base, setup, stubs, seeds=(1, 2), label='base')
+        off, ins = H.find(lambda i: i.mnemonic == 'fsub' and i.op_str.endswith('+ 0x40]'))
+        H.mutate('1 (+%#x %s %s: velocity Y -> Z)' % (off, ins.mnemonic, ins.op_str), off, ins.size - 1, 0x44,
+                 base, setup, stubs, seeds=(1, 2))
+        off, ins = H.find(lambda i: i.mnemonic == 'fcomp' and '0x21' in i.op_str)
+        H.mutate('2 (+%#x %s %s: threshold 1e-4 -> 0.0)' % (off, ins.mnemonic, ins.op_str), off, ins.size - 4,
+                 (H.reader.code[off + ins.size - 4] + 0x10) & 0xFF, base + [('tiny', 'zero', 'rand')], setup, stubs,
+                 seeds=(1, 2))
+        off, ins = H.find(lambda i: i.mnemonic == 'fsub' and i.op_str.endswith('+ 0x30]'))
+        H.mutate('3 (+%#x %s %s: position X -> Y)' % (off, ins.mnemonic, ins.op_str), off, ins.size - 1, 0x34,
+                 base, setup, stubs, seeds=(1, 2))
+        return
+    H.run(CASES, setup, stubs, seeds=(1, 2, 3), verbose=False)
+    H.coverage()
+
+
+if __name__ == '__main__':
+    main()

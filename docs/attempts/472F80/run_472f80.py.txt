@@ -1,0 +1,68 @@
+"""A13: ours vs the client's LandClass::Unknown_472F80 (horizon bytes and the three lit channels) in emu.py."""
+import struct
+import sys
+sys.path.insert(0, 'C:/EnBDevelopment/EnB/.work/a13')
+import emu  # noqa: E402
+from harness import Harness, fhash  # noqa: E402
+
+emu.ALIASES['_LandNormalTable'] = 0xAE8BBC
+emu.ALIASES['_LandDirectionX'] = 0xAE97BC
+emu.ALIASES['_LandDirectionY'] = 0xAE97DC
+emu.ALIASES['?LandHorizonTable@@3PAY0BAA@VVector3@@A'] = 0xBDC0E8
+OBJ = 'C:/EnBDevelopment/EnB/.work/a13/objs/unknown_46c730.obj'
+SYM = '?Unknown_472F80@LandClass@@IAEXPAE000EABVVector3@@@Z'
+THIS, O0, O1, O2, P5, P7 = 0x30000000, 0x40000000, 0x40000100, 0x40000200, 0x41000000, 0x42000000
+
+NORMALS = {'up': (0.0, 0.0, 1.0), 'tilt': (0.3, -0.5, 0.81), 'tilt2': (-0.6, 0.2, 0.77), 'flat0': (0.7, 0.7, 0.0),
+           'neg': (0.1, 0.1, -0.99), 'steep': (0.95, 0.05, 0.3)}
+# (normal index byte, normal, horizon bytes mode, light vector)
+CASES = [(idx, nm, hb, lv) for idx in (0, 7, 255) for nm in NORMALS for hb in ('hash', 'zero', 'ff')
+         for lv in ((0.5, 0.25, 0.75), (1.0, 1.0, 1.0), (-3.0, 0.9, 0.0))]
+
+
+def setup(case):
+    idx, nm, hb, lv = case
+
+    def f(mem, cpu, seed):
+        mem.write(THIS + 0x1FC + idx * 12, struct.pack('<3f', *NORMALS[nm]))
+        if hb == 'hash':
+            mem.write(P5, bytes((int(fhash(seed, k) * 1000) & 0xFF) for k in range(8)))
+        else:
+            mem.write(P5, bytes([0 if hb == 'zero' else 0xFF] * 8))
+        mem.write(P7, struct.pack('<3f', *lv))
+        tab = b''.join(struct.pack('<3f', fhash(seed, k, 1) / 40, fhash(seed, k, 2) / 40, fhash(seed, k, 3) / 40)
+                       for k in range(2048))
+        mem.write(0xBDC0E8, tab)
+        cpu.r['ecx'] = THIS
+        return [O0, O1, O2, P5, idx | 0xABCD00, P7]  # the byte argument's upper bytes are garbage on purpose
+    return f
+
+
+def stubs(case):
+    def f(cpu, key, words, idx, seed):
+        raise emu.Stop('callee %r' % (key,))
+    return f
+
+
+def main():
+    H = Harness(OBJ, SYM, 0x472F80, 6, void=True)
+    if len(sys.argv) > 1 and sys.argv[1] == 'ctl':
+        base = [(7, 'tilt', 'hash', (0.5, 0.25, 0.75)), (0, 'steep', 'zero', (1.0, 1.0, 1.0)),
+                (255, 'tilt2', 'hash', (-3.0, 0.9, 0.0))]
+        H.run(base, setup, stubs, seeds=(1,), label='base')
+        off, ins = H.find(lambda i: i.mnemonic == 'fld' and i.op_str.endswith('+ 0x200]'))
+        H.mutate('1 (+%#x %s %s: normal Y -> Z)' % (off, ins.mnemonic, ins.op_str), off, ins.size - 4, 0x04,
+                 base, setup, stubs)
+        off, ins = H.find(lambda i: i.mnemonic == 'cmp' and i.op_str.endswith(', 0x800'))
+        H.mutate('2 (+%#x %s %s: 8 horizon rows -> 7)' % (off, ins.mnemonic, ins.op_str), off, ins.size - 3, 0x07,
+                 base, setup, stubs)
+        off, ins = H.find(lambda i: i.mnemonic == 'fmul' and i.op_str == 'dword ptr [eax + 4]')
+        H.mutate('3 (+%#x %s %s: light Y -> Z)' % (off, ins.mnemonic, ins.op_str), off, ins.size - 1, 8,
+                 base, setup, stubs)
+        return
+    H.run(CASES, setup, stubs, seeds=(1, 2), verbose=False)
+    H.coverage(784)
+
+
+if __name__ == '__main__':
+    main()

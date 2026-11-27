@@ -1,0 +1,103 @@
+"""A13: ours vs the client's HeightFieldClass::Cast_OBBox (swept box over the grid cells' triangles) in emu.py."""
+import math
+import struct
+import sys
+sys.path.insert(0, 'C:/EnBDevelopment/EnB/.work/a13')
+import emu  # noqa: E402
+from harness import Harness, fhash, f32  # noqa: E402
+
+OBJ = 'C:/EnBDevelopment/EnB/.work/a13/objs/heightfield.obj'
+SYM = '?Cast_OBBox@HeightFieldClass@@QAE_NAAVOBBoxCollisionTestClass@@@Z'
+THIS, HT, TEST, RES = 0x30000000, 0x60000000, 0x40000000, 0x41000000
+FTOL, INVSQRT, COLLIDE = 0xA264EC, 0x447C40, 0x8CCBE0
+BOXES = ('rand', 'axis', 'big', 'still', 'outside', 'neg')
+CASES = [(lg, sx, box, hitp) for lg in (3, 4) for sx in (1.0, 2.5) for box in BOXES for hitp in (0, 2, 5)]
+
+
+def setup(case):
+    lg, sx, box, hitp = case
+    n = 1 << lg
+
+    def f(mem, cpu, seed):
+        mem.wu(THIS + 0, 4, HT)
+        mem.write(THIS + 0xC, struct.pack('<3f', sx, sx * 0.8, 0.01))
+        mem.wu(THIS + 7 * 4, 4, lg)
+        mem.wu(THIS + 8 * 4, 4, n)
+        mem.wu(THIS + 10 * 4, 4, n - 1)
+        mem.wu(THIS + 12 * 4, 4, n // 2)
+        for k in range(n * n):
+            mem.wu(HT + 2 * k, 2, int((fhash(seed, k) + 4) * 300))
+        a = 0.0 if box == 'axis' else fhash(seed, 1) * 0.7
+        ca, sa = math.cos(a), math.sin(a)
+        basis = [ca, -sa, 0, sa, ca, 0, 0, 0, 1]
+        ext = n / 2 * sx
+        c = [fhash(seed, 2) / 5 * ext, fhash(seed, 3) / 5 * ext, 20.0 + fhash(seed, 4)]
+        e = [0.6 + abs(fhash(seed, 5)) / 3, 0.4 + abs(fhash(seed, 6)) / 3, 0.5]
+        mv = [fhash(seed, 7), fhash(seed, 8), -3.0]
+        if box == 'big':
+            e = [ext / 2, ext / 3, 1.0]
+        elif box == 'still':
+            mv = [0.0, 0.0, 0.0]
+        elif box == 'outside':
+            c[0] += 4 * ext
+        elif box == 'neg':
+            c[0], c[1] = -c[0] - ext / 2, -c[1] - ext / 2
+        mem.wu(TEST, 4, RES)
+        mem.write(TEST + 0xC, struct.pack('<18f', *(basis + c + e + mv)))
+        mem.write(RES, bytes(16))
+        mem.write(RES + 4, struct.pack('<f', 1.0))
+        cpu.r['ecx'] = THIS
+        return [TEST]
+    return f
+
+
+def stubs(case):
+    hitp = case[3]
+
+    def f(cpu, key, words, idx, seed):
+        m = cpu.m
+        if key == ('direct', FTOL):
+            emu.ftol(cpu)
+            return 0, {'_cdecl': 1, 'v': cpu.r['eax']}, 0
+        if key == ('direct', INVSQRT):
+            v = struct.unpack('<f', struct.pack('<I', words[0]))[0]
+            cpu.st.append(f32(1.0 / math.sqrt(v)) if v > 0 else math.inf)
+            return 4, {'_cdecl': 1}, 1
+        if key == ('direct', COLLIDE):
+            box = m.read(words[0], 60)
+            mv = m.read(words[1], 12)
+            ptrs = [m.u(words[2] + 4 * k, 4) for k in range(4)]
+            tri = b''.join(m.read(p, 12) for p in ptrs)
+            v4 = m.read(words[3], 12)
+            hit = hitp and (sum(tri) % hitp == 0)
+            if hit:
+                m.write(words[4] + 4, struct.pack('<f', 0.25))
+            cpu.r['eax'] = (cpu.r['eax'] & ~0xFF) | (1 if hit else 0)
+            return 0, {'_cdecl': 1, 'box': box.hex(), 'mv': mv.hex(), 'tri': tri.hex(), 'v4': v4.hex(),
+                       'res': words[4]}, 0
+        raise emu.Stop('callee %r' % (key,))
+    return f
+
+
+def main():
+    H = Harness(OBJ, SYM, 0x4654E0, 1, void=False, retmask=0xFF, stk_any=True, ignore_st=True)
+    if len(sys.argv) > 1 and sys.argv[1] == 'ctl':
+        base = [(3, 1.0, 'rand', 0), (4, 2.5, 'big', 5), (3, 1.0, 'neg', 2)]
+        H.run(base, setup, stubs, seeds=(1, 2), label='base')
+        off, ins = H.find(lambda i: i.mnemonic == 'fmul' and i.op_str.endswith('+ 0x14]'))
+        H.mutate('1 (+%#x %s %s: height scale -> y spacing)' % (off, ins.mnemonic, ins.op_str), off, ins.size - 1,
+                 0x10, base, setup, stubs, seeds=(1, 2))
+        off, ins = H.find(lambda i: i.mnemonic == 'cmp' and i.op_str.endswith(', 8') or
+                          (i.mnemonic == 'mov' and i.op_str.endswith(', 8')))
+        H.mutate('2 (+%#x %s %s: 8 corners -> 7)' % (off, ins.mnemonic, ins.op_str), off, ins.size - 1 if
+                 ins.mnemonic == 'cmp' else ins.size - 4, 7, base, setup, stubs, seeds=(1, 2))
+        off, ins = H.find(lambda i: i.mnemonic == 'fadd' and '0x48]' in i.op_str or '0x4c]' in i.op_str)
+        H.mutate('3 (+%#x %s %s: move component +4)' % (off, ins.mnemonic, ins.op_str), off, ins.size - 1,
+                 (ins.bytes[-1] + 4) & 0xFF, base, setup, stubs, seeds=(1, 2))
+        return
+    H.run(CASES, setup, stubs, seeds=(1, 2), verbose=False)
+    H.coverage()
+
+
+if __name__ == '__main__':
+    main()
