@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-431 entries in 214 files.
+430 entries in 214 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -139,8 +139,7 @@ edit the comments in the code, not this file.
 | `app/client/inv_render.cpp:631` | `Unknown68DC20Class::Unknown_2C` | marker | NOT EXACT: 0x68E360, masked residue 15 rows: register only: ours evaluates the two sound ternaries into eax for one merged call, the client pushes the literals in each branch 0x68E360 |
 | `app/client/inv_render.cpp:1014` | `Unknown68DC20Class::Unknown_28` | marker | NOT EXACT: 0x68F510, 22 rows: the client multiplies by -3600000 and adds; it calls max_size and _Eos in the last append 0x68F510 |
 | `app/client/inv_trade_render.cpp:64` | `InvTradeRenderClass::Unknown_2C` | marker | NOT EXACT: 0x68FE10, 26 rows: register and block order (the item's name arm sits after the function's last jump in the client) 0x68FE10 |
-| `app/client/item/client_item_property_builder.cpp:82` | `ClientItemPropertyBuilderClass::Unknown_522860` | marker | NOT EXACT: 0x522860 (functional, masked residue 56 rows, frame 0x66C as the client's: 25 dead Data.Peek() reads in the gap above FAIL_IF (D272) and a copy-initialised RefCountPtr<const ClientItemPropertyClass> local at the Mode Route (the client re-reads it from its slot) spend the inline budget, so the Modes Create's three string constructors and the separator's destructor go out of line and case... |
-| `app/client/item/client_item_property_builder.cpp:883` | `ClientItemPropertyBuilderClass::Unknown_5285A0` | mention | NOT EXACT. The callees in files the tree does not have yet are declared in client_item_property_builder.h (interim, D137). CIPB, run 2026-11-17b: 0x527F40 exact once 0x528460 takes the ItemEffectDescriptionClass (its vector at +0) and reads Get_Effects() in the loop: the extra inline accessor layer is the budget that sends both strings' _Tidy out of line and puts delta above delta2 in the frame. 0... |
+| `app/client/item/client_item_property_builder.cpp:883` | `ClientItemPropertyBuilderClass::Unknown_5285A0` | mention | NOT EXACT (0x522860 exact since B34, run 2026-11-27: see its comment). The callees in files the tree does not have yet are declared in client_item_property_builder.h (interim, D137). CIPB, run 2026-11-17b: 0x527F40 exact once 0x528460 takes the ItemEffectDescriptionClass (its vector at +0) and reads Get_Effects() in the loop: the extra inline accessor layer is the budget that sends both strings' _... |
 | `app/client/item/client_item_property_special_skill_requirement.cpp:88` | `ClientItemPropertySpecialSkillRequirementClass::Is_Usable` | marker | NOT EXACT: 0x52F010 (inline-budget: the client calls UnknownRTTIClass<DeltaItemArrayClass<DeltaSkillClass> >::Cast out of line, 0x52F990 (emitted in this object); ours inlines it; the rest, asserts and lines match) |
 | `app/client/item_timer_gauge.cpp:127` | `ItemTimerGaugeClass::Update` | mention | NOT EXACT: the client stores the three zeros as immediates and tests with test; ours keeps 0 in ebp (register class). - Update hides the model at 0, else turns the 'timer' bone by -2 pi * the time (minutes up to 60000 ms, hours above) through Control_Bone (an identity Matrix3D and Rotate_Z: the client's 'cos + 0', '0 - sin' terms) and colours TimerRObj through 0x496110 when the colour changes ((0,... |
 | `app/client/item_timer_gauge.cpp:132` | `ItemTimerGaugeClass::Update` | mention | NOT EXACT: the client stores the angle and reloads it before fcos, ours keeps it (fst). |
