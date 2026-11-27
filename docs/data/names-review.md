@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1971 |
 | 2 | describes what the code does | 5015 |
-| 1 | neutral placeholder | 25205 |
+| 1 | neutral placeholder | 25206 |
 
 ## For review (score 3 and below)
 
@@ -4156,10 +4156,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_B79240` | `app/client/galaxy_map_pip.cpp:28` | untagged neutral name (D10) |
 | 1 | `xAEEE48` | `app/client/galaxy_map_pip.cpp:30` | neutral (D10) |
 | 1 | `Unknown_AEEE48` | `app/client/galaxy_map_pip.cpp:31` | untagged neutral name (D10) |
-| 1 | `Unknown_Sector_Value` | `app/client/galaxy_map_pip.cpp:36` | neutral (D10) |
+| 1 | `Unknown_Find_Inner` | `app/client/galaxy_map_pip.cpp:36` | neutral (D10), as co.cpp's |
+| 1 | `Unknown_Find_Field` | `app/client/galaxy_map_pip.cpp:38` | untagged neutral name (D10) |
 | 1 | `Unknown_Map` | `app/client/galaxy_map_pip.cpp:42` | neutral (D10) |
 | 1 | `Unknown_Find_Valid` | `app/client/galaxy_map_pip.cpp:43` | neutral (D10): avatar_pip.cpp's |
-| 1 | `Unknown_Find_Field` | `app/client/galaxy_map_pip.cpp:43` | untagged neutral name (D10) |
 | 1 | `Unknown70` | `app/client/galaxy_map_pip.cpp:43` | untagged neutral name (D10) |
 | 1 | `Unknown_BE67BC` | `app/client/galaxy_map_pip.cpp:53` | untagged neutral name (D10) |
 | 1 | `Unknown_20` | `app/client/galaxy_map_pip.cpp:62` | untagged neutral name (D10) |
@@ -10269,6 +10269,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_68` | `app/client/ui_attrb.cpp:218` | untagged neutral name (D10) |
 | 1 | `Unknown_74C840` | `app/client/ui_attrb.cpp:227` | untagged neutral name (D10) |
 | 1 | `Unknown_547730` | `app/client/ui_attrb.cpp:256` | untagged neutral name (D10) |
+| 1 | `Unknown_Find_Valid_547FD0` | `app/client/ui_attrb.cpp:395` | neutral (D10): extra inline layer keeps 0x547FD0's valid null merge unthreaded |
 | 1 | `Unknown548D60Class` | `app/client/ui_attrb.cpp:435` | untagged neutral name (D10) |
 | 1 | `ui_attrb.h` | `app/client/ui_attrb.h:4` | provisional header name for ui_attrb.cpp |
 | 1 | `Unknown546A80Class` | `app/client/ui_attrb.h:19` | neutral (D10), as ui_attrb_skills.cpp's |
