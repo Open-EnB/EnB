@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1971 |
 | 2 | describes what the code does | 5023 |
-| 1 | neutral placeholder | 25235 |
+| 1 | neutral placeholder | 25236 |
 
 ## For review (score 3 and below)
 
@@ -9891,6 +9891,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_7693E0` | `app/client/tasks/tsk_login.cpp:608` | untagged neutral name (D10) |
 | 1 | `Unknown` | `app/client/tasks/tsk_login.cpp:704` | untagged neutral name (D10) |
 | 1 | `Unknown_588A70` | `app/client/tasks/tsk_login.cpp:813` | untagged neutral name (D10) |
+| 1 | `Get_Unknown034` | `app/client/tasks/tsk_login.cpp:824` | untagged neutral name (D10) |
 | 1 | `Unknown_18` | `app/client/tasks/tsk_login.cpp:935` | untagged neutral name (D10) |
 | 1 | `Unknown_10` | `app/client/tasks/tsk_login.cpp:936` | untagged neutral name (D10) |
 | 1 | `Unknown_4C1460` | `app/client/tasks/tsk_login.cpp:1039` | untagged neutral name (D10) |
@@ -11581,9 +11582,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_5417D0` | `app/client/ui_chat_panel.cpp:1441` | untagged neutral name (D10) |
 | 1 | `Unknown_79B600` | `app/client/ui_chat_panel.cpp:2162` | untagged neutral name (D10) |
 | 1 | `Unknown_34` | `app/client/ui_chat_panel.cpp:2165` | untagged neutral name (D10) |
-| 1 | `Unknown1138` | `app/client/ui_chat_panel.cpp:2261` | untagged neutral name (D10) |
-| 1 | `Unknown14` | `app/client/ui_chat_panel.cpp:2262` | untagged neutral name (D10) |
-| 1 | `Unknown24` | `app/client/ui_chat_panel.cpp:2263` | untagged neutral name (D10) |
+| 1 | `Get_Unknown1138` | `app/client/ui_chat_panel.cpp:2261` | untagged neutral name (D10) |
+| 1 | `Unknown24` | `app/client/ui_chat_panel.cpp:2262` | untagged neutral name (D10) |
+| 1 | `Unknown1138` | `app/client/ui_chat_panel.cpp:2268` | untagged neutral name (D10) |
 | 1 | `Unknown_56BA40` | `app/client/ui_chat_panel.cpp:2276` | untagged neutral name (D10) |
 | 1 | `Unknown_56BA80` | `app/client/ui_chat_panel.cpp:2284` | untagged neutral name (D10) |
 | 1 | `Unknown_70` | `app/client/ui_chat_panel.cpp:2306` | untagged neutral name (D10) |
@@ -15612,8 +15613,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_74` | `app/client/ui_petition_player_entry.cpp:310` | untagged neutral name (D10) |
 | 1 | `target` | `app/client/ui_petition_player_entry.cpp:317` | neutral (D10) |
 | 1 | `t` | `app/client/ui_petition_player_entry.cpp:321` | neutral (D10) |
-| 1 | `Unknown_Find_Field` | `app/client/ui_petition_player_entry.cpp:321` | untagged neutral name (D10) |
-| 1 | `Unknown70` | `app/client/ui_petition_player_entry.cpp:322` | untagged neutral name (D10) |
+| 1 | `Unknown_Find_Set_Field` | `app/client/ui_petition_player_entry.cpp:321` | untagged neutral name (D10) |
 | 1 | `name` | `app/client/ui_petition_player_entry.cpp:326` | neutral (D10) |
 | 1 | `Unknown` | `app/client/ui_petition_player_entry.cpp:326` | untagged neutral name (D10) |
 | 1 | `append` | `app/client/ui_petition_player_entry.cpp:327` | neutral (D10) |
@@ -24745,6 +24745,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `unused` | `app/shared/spln_db.h:150` | ret 8 in the client (0x486C40), as the lookup by name |
 | 1 | `unused` | `app/shared/spln_db.h:151` | ret 8 in the client (0x486C90) |
 | 1 | `unused` | `app/shared/spln_db.h:163` | the client's copy takes a second argument (ret 8) it never reads |
+| 1 | `Load_Header` | `app/shared/spln_db.h:182` | neutral, what it reads |
 | 1 | `Unknown_8B44E0` | `app/shared/strconv_lib.cpp:71` | untagged neutral name (D10) |
 | 1 | `Unknown_8B44C0` | `app/shared/strconv_lib.cpp:77` | untagged neutral name (D10) |
 | 1 | `string_value.h` | `app/shared/string_value.h:11` | neutral, what it declares (D10) |
