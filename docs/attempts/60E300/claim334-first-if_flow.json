@@ -1,0 +1,272 @@
+{
+  "run": "first_60E300_if_flow",
+  "base_sha256": "1cef4dfcbec1f039814906a12e804524a1d78ec4878fd79e2cedde32ce4170bc",
+  "source_sha256": "d79dee783e6a3d8f61915332760eeda398f1515e029d36ca046756f83e8738d2",
+  "edits": [
+    {
+      "start": 311,
+      "end": 318,
+      "before": [
+        "\tbool shifted;\n",
+        "\tswitch (key) {\n",
+        "\t\tcase 6: next = false; shifted = modifier; break;\n",
+        "\t\tcase 7: next = true; shifted = modifier; break;\n",
+        "\t\tdefault:\n",
+        "\t\t\tif (Unknown_BE5EB0.Key == 0x101) { next = true; shifted = control; }\n",
+        "\t\t\telse if (Unknown_BE5EB0.Key == 0x102) { next = false; shifted = control; }\n"
+      ],
+      "after": [
+        "\tbool plain;\n",
+        "\tif (key == 6) { next = false; plain = !modifier;\n",
+        "\t} else if (key == 7) { next = true; plain = !modifier;\n",
+        "\t} else {\n",
+        "\t\t\tif (Unknown_BE5EB0.Key == 0x101) { next = true; plain = !control; }\n",
+        "\t\t\telse if (Unknown_BE5EB0.Key == 0x102) { next = false; plain = !control; }\n"
+      ]
+    },
+    {
+      "start": 320,
+      "end": 321,
+      "before": [
+        "\tbool plain = !shifted;\n"
+      ],
+      "after": [
+        "\n",
+        "\t\n"
+      ]
+    },
+    {
+      "start": 326,
+      "end": 329,
+      "before": [
+        "\t\tif (!next) {\n",
+        "\t\t\tif (!plain) {\n",
+        "\t\t\t\tts->Select_Prev_Target();\n"
+      ],
+      "after": [
+        "\t\tif (next) {\n",
+        "\t\t\tif (plain) {\n",
+        "\t\t\t\tts->Select_Next_Target_Filtered();\n"
+      ]
+    },
+    {
+      "start": 330,
+      "end": 331,
+      "before": [
+        "\t\t\t\tts->Select_Prev_Target_Filtered();\n"
+      ],
+      "after": [
+        "\t\t\t\tts->Select_Next_Target();\n"
+      ]
+    },
+    {
+      "start": 333,
+      "end": 335,
+      "before": [
+        "\t\t\tif (!plain) {\n",
+        "\t\t\t\tts->Select_Next_Target();\n"
+      ],
+      "after": [
+        "\t\t\tif (plain) {\n",
+        "\t\t\t\tts->Select_Prev_Target_Filtered();\n"
+      ]
+    },
+    {
+      "start": 336,
+      "end": 337,
+      "before": [
+        "\t\t\t\tts->Select_Next_Target_Filtered();\n"
+      ],
+      "after": [
+        "\t\t\t\tts->Select_Prev_Target();\n"
+      ]
+    }
+  ],
+  "deltas": {
+    "pairs": {
+      "gained": [],
+      "lost": []
+    },
+    "symbol_pairs": {
+      "gained": [],
+      "lost": []
+    },
+    "all_pairs": {
+      "gained": [],
+      "lost": []
+    },
+    "all_symbol_pairs": {
+      "gained": [],
+      "lost": []
+    }
+  },
+  "target": {
+    "symbol": "?Unknown_68@ScannerInterface@@UAE_NH@Z",
+    "object": "/home/dev/Projects/EnB/.work/claim-334/runs/first_60E300_if_flow/ui_scan.obj",
+    "length": 298,
+    "raw_sha256": "921911774ce9430acf230d2c86a565359232599a35e9090231170cdd7b15ddd8",
+    "masked_sha256": "921911774ce9430acf230d2c86a565359232599a35e9090231170cdd7b15ddd8",
+    "relocations": [
+      {
+        "offset": 1,
+        "width": 4,
+        "type": 6,
+        "symbol": "?Unknown_BE5F34@@3IA",
+        "addend": "00000000"
+      },
+      {
+        "offset": 52,
+        "width": 4,
+        "type": 6,
+        "symbol": "?Unknown_BE5EB0@@3UKernelEventClass@@A",
+        "addend": "00000000"
+      },
+      {
+        "offset": 104,
+        "width": 4,
+        "type": 6,
+        "symbol": "??_C@_0CH@OHMB@e?3?2build?2beta?2G?2app?2client?2ui_sc@",
+        "addend": "00000000"
+      },
+      {
+        "offset": 109,
+        "width": 4,
+        "type": 6,
+        "symbol": "??_C@_07MDOP@?$CBClient?$AA@",
+        "addend": "00000000"
+      },
+      {
+        "offset": 114,
+        "width": 4,
+        "type": 20,
+        "symbol": "?Fail_If_Report@@YAXPBD0H@Z",
+        "addend": "00000000"
+      },
+      {
+        "offset": 127,
+        "width": 4,
+        "type": 6,
+        "symbol": "??_C@_0CH@OHMB@e?3?2build?2beta?2G?2app?2client?2ui_sc@",
+        "addend": "00000000"
+      },
+      {
+        "offset": 132,
+        "width": 4,
+        "type": 6,
+        "symbol": "??_C@_05NAGO@false?$AA@",
+        "addend": "00000000"
+      },
+      {
+        "offset": 137,
+        "width": 4,
+        "type": 20,
+        "symbol": "?G_Assert_Report@@YAXPBD0H@Z",
+        "addend": "00000000"
+      },
+      {
+        "offset": 166,
+        "width": 4,
+        "type": 6,
+        "symbol": "??_C@_0CH@OHMB@e?3?2build?2beta?2G?2app?2client?2ui_sc@",
+        "addend": "00000000"
+      },
+      {
+        "offset": 171,
+        "width": 4,
+        "type": 6,
+        "symbol": "??_C@_08CLAO@?$CBsclient?$AA@",
+        "addend": "00000000"
+      },
+      {
+        "offset": 193,
+        "width": 4,
+        "type": 6,
+        "symbol": "??_C@_0CH@OHMB@e?3?2build?2beta?2G?2app?2client?2ui_sc@",
+        "addend": "00000000"
+      },
+      {
+        "offset": 198,
+        "width": 4,
+        "type": 6,
+        "symbol": "??_C@_03PONO@?$CBts?$AA@",
+        "addend": "00000000"
+      },
+      {
+        "offset": 207,
+        "width": 4,
+        "type": 6,
+        "symbol": "??_C@_0BC@MEAI@ButtonClick02?4wav?$AA@",
+        "addend": "00000000"
+      },
+      {
+        "offset": 212,
+        "width": 4,
+        "type": 20,
+        "symbol": "?Play_2D_Sound@SoundLibraryClass@@SAPAVAudibleSoundClass@@PBDH@Z",
+        "addend": "00000000"
+      },
+      {
+        "offset": 234,
+        "width": 4,
+        "type": 20,
+        "symbol": "?Select_Next_Target_Filtered@TargetingClass@@QAEPAVClientObjectClass@@XZ",
+        "addend": "00000000"
+      },
+      {
+        "offset": 246,
+        "width": 4,
+        "type": 20,
+        "symbol": "?Select_Next_Target@TargetingClass@@QAEPAVClientObjectClass@@XZ",
+        "addend": "00000000"
+      },
+      {
+        "offset": 264,
+        "width": 4,
+        "type": 20,
+        "symbol": "?Select_Prev_Target_Filtered@TargetingClass@@QAEPAVClientObjectClass@@XZ",
+        "addend": "00000000"
+      },
+      {
+        "offset": 276,
+        "width": 4,
+        "type": 20,
+        "symbol": "?Select_Prev_Target@TargetingClass@@QAEPAVClientObjectClass@@XZ",
+        "addend": "00000000"
+      },
+      {
+        "offset": 289,
+        "width": 4,
+        "type": 20,
+        "symbol": "?Unknown_68@UIMFDClass@@UAE_NH@Z",
+        "addend": "00000000"
+      }
+    ],
+    "unwind": null,
+    "explain": {
+      "symbol": "ScannerInterface::Unknown_68",
+      "mangled": "?Unknown_68@ScannerInterface@@UAE_NH@Z",
+      "address": "0x60E300",
+      "ours": 98,
+      "client": 99,
+      "residue": 31,
+      "residue_regs": 31,
+      "tables": [],
+      "branch": {
+        "bytes": [
+          298,
+          293
+        ],
+        "size": 1,
+        "target": 1
+      },
+      "class": "shape",
+      "reason": "31 masked rows differ; no simpler class fits"
+    },
+    "diagnostic_similarity": "similarity 0.60",
+    "exact": false
+  },
+  "base_revision": "54282a8ae7b8da85142a15f03a81d194f2ef6904",
+  "unit": "app/client/ui_scan.cpp",
+  "replay_verified": true,
+  "edit_offsets": "zero-based line offsets; before/after retain line endings"
+}
