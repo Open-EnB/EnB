@@ -430,7 +430,7 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
 | An out-of-line 16-byte copy (`mov eax,ecx; ... ret 4`) | An inline user `operator=` the budget cut: declare one | 0x80B100 |
 | A derived destructor stores its base's vtable last and its members' EH states are shifted by 1; or the client's implicit destructor stores no own vtable | A base class with an empty inline virtual destructor adds that state and store (as does an empty user-declared one on the class itself): when the client shows neither, declare no destructor | SelectorClass; PassEffectClass |
 | **field offset** | | |
-| `[reg+N]` differs in otherwise equal code | The displacement can belong to another class: trace the register before patching; `tools/re/layoutdiff.py` tallies offsets per class | |
+| `[reg+N]` differs in otherwise equal code | The displacement can belong to another class: trace the register before patching; `tools/re/layoutdiff.py` tallies offsets per class. explain.py picks this class from its first-mismatch window, so a one-row misalignment reads as a `[reg+N]` difference: check objdiff's alignment and the register-masked memory-operand multiset first (equal multisets: codegen only) | 0x470F80, 0x796440 |
 | A `malloc`'d / `new` size larger than the class | Extra E&B members, or a stray `#pragma pack(4)` | `FastAllocatorGeneral` |
 | Several members reached through a pointer to a sub-block | Those members are a struct | pkunknown 0x888B60 |
 | **literal, floats** | | |
