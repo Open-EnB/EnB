@@ -181,7 +181,7 @@ void StarFieldClass::Free_Layers(void)
 	Layers.clear();
 }
 
-// NOT EXACT: register-only (cmp al,bl on Load's result), parked: attempts.csv 0x4829E0
+// NOT EXACT: register-only (the inlined push_back's end() / &layer order), parked: attempts.csv 0x4829E0
 void StarFieldClass::Init(int system)
 {
 	Free_Layers();
@@ -190,36 +190,36 @@ void StarFieldClass::Init(int system)
 	ini.Load("stars.ini");
 	if (ini.Is_Loaded()) {
 		char section[100];
-		StarLayerClass *layer;
+		bool loaded = false;
 		int count = 0;
 		for (;;) {
 			_snprintf(section, 100, "STAR%.4d\\%d", system, count);
-			layer = new StarLayerClass;
-			if (layer->Load(ini, section) == false) break;
+			StarLayerClass *layer = new StarLayerClass;
+			loaded = layer->Load(ini, section);
+			if (!loaded) { delete layer; break; }
 			Layers.push_back(layer);
 			count++;
 		}
-		delete layer;
 
 		if (count == 0) {
 			for (;;) {
 				_snprintf(section, 100, "STAR%.4d\\%d", (system / 100) * 100, count);
-				layer = new StarLayerClass;
-				if (layer->Load(ini, section) == false) break;
+				StarLayerClass *layer = new StarLayerClass;
+				loaded = layer->Load(ini, section);
+				if (!loaded) { delete layer; break; }
 				Layers.push_back(layer);
 				count++;
 			}
-			delete layer;
 
 			if (count == 0) {
 				for (;;) {
 					sprintf(section, "Default\\%d", count);
-					layer = new StarLayerClass;
-					if (layer->Load(ini, section) == false) break;
+					StarLayerClass *layer = new StarLayerClass;
+					loaded = layer->Load(ini, section);
+					if (!loaded) { delete layer; break; }
 					Layers.push_back(layer);
 					count++;
 				}
-				delete layer;
 			}
 		}
 
