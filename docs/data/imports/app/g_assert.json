@@ -4,6 +4,8 @@
  "description": "the assert reporters 0x4E9410 and 0x4E9450 (they call E&B's reporter 0x4BC260 with the pooled \"\" 0xBDA908; byte-exact, objmatch 'multiple': the two differ only in their strings)",
  "expected": {},
  "in_tree": [
+  "0x4E93B0",
+  "0x4E93E0",
   "0x4E9410",
   "0x4E9450",
   "0x4E9490",
@@ -16,8 +18,5 @@
   "0x4E9C40"
  ],
  "merged": [],
- "name": "shared/g_assert.cpp",
- "short_known": [
-  "0x4E94D0"
- ]
+ "name": "shared/g_assert.cpp"
 }

@@ -265,7 +265,7 @@ void UISpaceLightsClass::Unknown_586D90(int key)
 	}
 }
 
-// NOT EXACT: order (the address of Color[Current] after 1.0f - v in the client), D89; the pseudocode-faithful form
+
 // 0x586F60
 void UISpaceLightsClass::Unknown_586F60()
 {
@@ -291,9 +291,9 @@ void UISpaceLightsClass::Unknown_586F60()
 		tm.Set_Y_Translation(y - box.Center.Y);
 		tm[2][3] = 0.0f;
 		InterfaceMesh->Control_Bone(bone, tm, false);
-		Vector2 point;
-		point.X = (x - (box.Center.X - box.Extent.X)) / (box.Extent.X + box.Extent.X);
-		point.Y = (y - (box.Center.Y - box.Extent.Y)) / (box.Extent.Y + box.Extent.Y);
+		Vector2 point((x - (box.Center.X - box.Extent.X)) / (box.Extent.X + box.Extent.X),
+			(y - (box.Center.Y - box.Extent.Y)) / (box.Extent.Y + box.Extent.Y));
+
 		RObjGadgetClass *area = Pull->Gadget->As_RObjGadget();
 		Unknown_496C00(area->RObj, point.X, 1.0f - point.Y, &Color[Current]);
 		Position[Current].Set(point.X, point.Y, 0.0f);
@@ -349,6 +349,6 @@ void UISpaceLightsClass::Unknown_587310(Vector3 point)
 **	Forms that matter: 0x586940 copies the Vector4 into a local and assigns its members one by one; 0x586B90 holds
 **	the light's index in a local for both OrbitalManager calls, with named Vector4 / Vector3 locals (temporaries
 **	share one slot, the client's frame has both); 0x586D90's slider range is an if / else (a ternary makes a float
-**	temporary). 0x586F60 (NOT EXACT, an order-only residue: the address of Color[Current] is computed after
-**	1.0f - v in the client) clamps with WWMath::Min / Max, y declared before x.
+**	temporary). 0x586F60 clamps with WWMath::Min / Max, y declared before x, and builds its Vector2 with the
+**	(x, y) constructor (member stores schedule &Color[Current] before 1.0f - point.Y).
 */

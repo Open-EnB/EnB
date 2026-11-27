@@ -7,7 +7,7 @@
 **	The report 'Server initialized & ready to go' sits on the client's line 596 (D25). Notes before
 **	WinMain.
 */
-
+#ifdef MAIN_CPP	// main.cpp compiles this file inside its object (main.cpp's notes); alone it is empty
 
 
 #include <windows.h>
@@ -677,3 +677,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	CoUninitialize();
 	return 0;
 }
+#endif	// MAIN_CPP
+
+/*
+**	Compiled by main.cpp (#define MAIN_CPP, #include "main_client.cpp"): the client's main.obj holds WinMain's
+**	full-link slot (main.cpp's notes). Alone, this file compiles to an empty object.
+*/

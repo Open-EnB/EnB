@@ -546,13 +546,13 @@ done:
 	if (Unknown_6F5A40()) {
 		Vector3 pos = tm.Get_Translation();
 		if (PositionalState->Get_Type() != 12 && PositionalState->Get_Type() != 13 && PositionalState->Get_Type() != PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
-			if (Clamp_Changed(pos.Z, Client->Unknown10D4, Client->Unknown10D8)) {
+			if (Clamp_Changed(pos.Z, Client->Unknown10D4.X, Client->Unknown10D4.Y)) {
 				tm.Set_Translation(pos);
 			}
 		}
 		if (PositionalState->Get_Type() != 12 && PositionalState->Get_Type() != 13 && PositionalState->Get_Type() != PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
-			bool x = Clamp_Changed(pos.X, Client->Unknown10DC, Client->Unknown10E4);
-			bool y = Clamp_Changed(pos.Y, Client->Unknown10E0, Client->Unknown10E8);
+			bool x = Clamp_Changed(pos.X, Client->Unknown10DC.X, Client->Unknown10E4.X);
+			bool y = Clamp_Changed(pos.Y, Client->Unknown10DC.Y, Client->Unknown10E4.Y);
 			if (x || y) {
 				tm.Set_Translation(pos);
 			}
@@ -741,11 +741,11 @@ Vector3 ClientObjectClass::Unknown_24()
 	Vector3 pos = PositionalState->Unknown_0C(Client->Unknown10BC);
 	if (Type == 1) {
 		if (PositionalState->Get_Type() != 12 && PositionalState->Get_Type() != 13 && PositionalState->Get_Type() != PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
-			Clamp_In_Place(pos.Z, Client->Unknown10D4, Client->Unknown10D8);
+			Clamp_In_Place(pos.Z, Client->Unknown10D4.X, Client->Unknown10D4.Y);
 		}
 		if (PositionalState->Get_Type() != 12 && PositionalState->Get_Type() != 13 && PositionalState->Get_Type() != PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
-			Clamp_In_Place(pos.X, Client->Unknown10DC, Client->Unknown10E4);
-			Clamp_In_Place(pos.Y, Client->Unknown10E0, Client->Unknown10E8);
+			Clamp_In_Place(pos.X, Client->Unknown10DC.X, Client->Unknown10E4.X);
+			Clamp_In_Place(pos.Y, Client->Unknown10DC.Y, Client->Unknown10E4.Y);
 		}
 	}
 
@@ -767,7 +767,7 @@ Vector3 ClientObjectClass::Unknown_24()
 bool ClientObjectClass::Unknown_6F4E70(Vector3 &pos)
 {
 	if (PositionalState->Get_Type() != 12 && PositionalState->Get_Type() != 13 && PositionalState->Get_Type() != PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
-		return(Clamp_In_Place(pos.Z, Client->Unknown10D4, Client->Unknown10D8));
+		return(Clamp_In_Place(pos.Z, Client->Unknown10D4.X, Client->Unknown10D4.Y));
 	}
 	return(false);
 }
@@ -776,8 +776,8 @@ bool ClientObjectClass::Unknown_6F4E70(Vector3 &pos)
 bool ClientObjectClass::Unknown_6F4F30(Vector3 &pos)
 {
 	if (PositionalState->Get_Type() != 12 && PositionalState->Get_Type() != 13 && PositionalState->Get_Type() != PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
-		bool clamped = Clamp_In_Place(pos.X, Client->Unknown10DC, Client->Unknown10E4);
-		clamped |= Clamp_In_Place(pos.Y, Client->Unknown10E0, Client->Unknown10E8);
+		bool clamped = Clamp_In_Place(pos.X, Client->Unknown10DC.X, Client->Unknown10E4.X);
+		clamped |= Clamp_In_Place(pos.Y, Client->Unknown10DC.Y, Client->Unknown10E4.Y);
 		return(clamped);
 	}
 	return(false);
@@ -2685,4 +2685,4 @@ template class UnknownRTTIClass<DeltaStatsClass>;	// the CurrentStats find's Cas
 */
 // VC6 symbol pad (not the client's code): the aux-data constructors (auxroots.py's region above) match only when the
 // count of the declarations this file sees falls in a window of a cycle of 64 (tools/re/auxroots.py SYMBOL_PAD)
-enum CoSymbolPadType { CO_PAD_00, CO_PAD_01, CO_PAD_02, CO_PAD_03, CO_PAD_04, CO_PAD_05, CO_PAD_06, CO_PAD_07, CO_PAD_08, CO_PAD_09, CO_PAD_10, CO_PAD_11, CO_PAD_12, CO_PAD_13, CO_PAD_14, CO_PAD_15, CO_PAD_16, CO_PAD_17, CO_PAD_18, CO_PAD_19, CO_PAD_20, CO_PAD_21, CO_PAD_22, CO_PAD_23, CO_PAD_24, CO_PAD_25, CO_PAD_26, CO_PAD_27, CO_PAD_28, CO_PAD_29, CO_PAD_30, CO_PAD_31, CO_PAD_32, CO_PAD_33, CO_PAD_34, CO_PAD_35, CO_PAD_36, CO_PAD_37, CO_PAD_38, CO_PAD_39, CO_PAD_40, CO_PAD_41, CO_PAD_42, CO_PAD_43, CO_PAD_44, CO_PAD_45, CO_PAD_46, CO_PAD_47, CO_PAD_48, CO_PAD_49, CO_PAD_50, CO_PAD_51, CO_PAD_52, CO_PAD_53, CO_PAD_54, CO_PAD_55, CO_PAD_56, CO_PAD_57, CO_PAD_58, CO_PAD_59 };	// NAME 1: a build aid (HX1)
+enum CoSymbolPadType { CO_PAD_00, CO_PAD_01, CO_PAD_02, CO_PAD_03, CO_PAD_04, CO_PAD_05, CO_PAD_06, CO_PAD_07, CO_PAD_08, CO_PAD_09, CO_PAD_10, CO_PAD_11, CO_PAD_12, CO_PAD_13, CO_PAD_14, CO_PAD_15, CO_PAD_16, CO_PAD_17, CO_PAD_18, CO_PAD_19, CO_PAD_20, CO_PAD_21, CO_PAD_22, CO_PAD_23, CO_PAD_24, CO_PAD_25, CO_PAD_26, CO_PAD_27, CO_PAD_28, CO_PAD_29, CO_PAD_30, CO_PAD_31, CO_PAD_32, CO_PAD_33, CO_PAD_34, CO_PAD_35, CO_PAD_36, CO_PAD_37, CO_PAD_38, CO_PAD_39, CO_PAD_40, CO_PAD_41, CO_PAD_42, CO_PAD_43, CO_PAD_44, CO_PAD_45, CO_PAD_46, CO_PAD_47, CO_PAD_48, CO_PAD_49, CO_PAD_50, CO_PAD_51, CO_PAD_52, CO_PAD_53, CO_PAD_54, CO_PAD_55, CO_PAD_56, CO_PAD_57, CO_PAD_58, CO_PAD_59, CO_PAD_60, CO_PAD_61 };	// NAME 1: a build aid (HX1)

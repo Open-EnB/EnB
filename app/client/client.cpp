@@ -16,7 +16,7 @@
 #include "..\shared\px.h"
 void Unknown_Debug_Printf(const char *format, ...);	// 0x509DC0 (dbgmgr.cpp, D38)
 #include "..\packets\pkitemba.h"
-// NOT EXACT: inline budget (the client calls the 'Null Item' string's assign out of line, ours inlines all three strings and swaps two temporaries' slots; the member stores and the prologue scheduled differently; six forms; 'Null Item' passed as a plain literal brings out the client's three string COMDATs 0x729260..0x7292D0; attempts.py show 0x726100)
+// Exact with Vector2 members at +0x10D4 / +0x10DC / +0x10E4 / +0x1110 (the member stores' order) and eight dead reads at the 'Null Item' statement (D272: five inside the full expression, three after it; they give the client's inline state: the 'Null Item' string's assign and _Tidy and the node's constructor out of line, the two "" strings inline)
 // 0x726100
 ClientClass::ClientClass() :
 	Px(NULL),
@@ -29,12 +29,12 @@ ClientClass::ClientClass() :
 	Unknown10C8(0),
 	Unknown10CC(32),
 	Unknown10D0(0),
-	Unknown10D4(-2500.0f),
-	Unknown10D8(2500.0f),
-	Unknown10DC(-1000000.0f),
-	Unknown10E0(-1000000.0f),
-	Unknown10E4(1000000.0f),
-	Unknown10E8(1000000.0f),
+	Unknown10D4(-2500.0f, 2500.0f),
+
+	Unknown10DC(-1000000.0f, -1000000.0f),
+
+	Unknown10E4(1000000.0f, 1000000.0f),
+
 	Unknown10EC(0),
 	Unknown10F0(0),
 	Unknown10F4(0),
@@ -46,8 +46,8 @@ ClientClass::ClientClass() :
 	Unknown1104(1.2217305f),
 	Unknown1108(true),
 	Unknown110C(0),
-	Unknown1110(1.0f),
-	Unknown1114(1.0f),
+	Unknown1110(1.0f, 1.0f),
+
 	Unknown1128(0),
 	AvatarID(0),
 	ShipID(0),
@@ -66,7 +66,7 @@ ClientClass::ClientClass() :
 	PxProcess = new PxProcessClass;
 	Splines = new SplineDatabaseClass(NULL);
 	Splines->Load("splines.wsd");
-	Unknown831340List.Add(new Unknown831340Class(-1, -1, -1, RefCountPtr<ItemInfoClass>(), -1, -1, -1, 0, 0, 1, 0, 0, "Null Item", "", ""), -1); Unknown831340List.Num_Records(); Unknown831340List.Num_Records(); Unknown831340List.Num_Records(); Unknown831340List.Num_Records(); Unknown831340List.Num_Records(); Unknown831340List.Num_Records(); Unknown831340List.Num_Records(); Unknown831340List.Num_Records();
+	Unknown831340List.Add(new Unknown831340Class(-1, -1, -1, RefCountPtr<ItemInfoClass>(), -1, -1, -1, 0, 0, 1, 0, 0, "Null Item", "", ""), -1), Unknown831340List.Num_Records(), Unknown831340List.Num_Records(), Unknown831340List.Num_Records(), Unknown831340List.Num_Records(), Unknown831340List.Num_Records(); Unknown831340List.Num_Records(); Unknown831340List.Num_Records(); Unknown831340List.Num_Records();
 }
 
 // 0x726C60

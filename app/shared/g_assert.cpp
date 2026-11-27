@@ -10,7 +10,14 @@ struct Unknown_BE5648Struct	// NAME 1: neutral (D10); 8 bytes: the map's 0x1C-by
 	int Unknown04;	// NAME 1: neutral (D10)
 };
 
-static std::map<int, Unknown_BE5648Struct> Unknown_BE5648;	// 0xBE5648 (0x4E9490 constructs, 0x4E94D0 destroys)  // NAME 1: neutral (D10); the key type is unknown
+struct Unknown_BE5628Struct {	// NAME 1: neutral (D10); 12 bytes, nothing refers to its two statics
+	Unknown_BE5628Struct() : Unknown00(""), Unknown04(""), Unknown08(-1) {}
+	const char *Unknown00;	// NAME 1: neutral (D10)
+	const char *Unknown04;	// NAME 1: neutral (D10)
+	int Unknown08;			// NAME 1: neutral (D10)
+};
+static Unknown_BE5628Struct Unknown_BE5638;	// 0xBE5638 (0x4E93B0)  // NAME 1: neutral (D10)
+static Unknown_BE5628Struct Unknown_BE5628;	// 0xBE5628 (0x4E93E0)  // NAME 1: neutral (D10)
 
 void G_Assert_Report(const char *expr, const char *file, int line)
 {
@@ -21,6 +28,8 @@ void Fail_If_Report(const char *expr, const char *file, int line)
 {
 	Message_Error("", "FAIL_IF", file, line, "ERROR: %s", expr);
 }
+
+static std::map<int, Unknown_BE5648Struct> Unknown_BE5648;	// 0xBE5648 (0x4E9490 constructs, 0x4E94D0 destroys)  // NAME 1: neutral (D10); the key type is unknown
 
 
 /*
@@ -40,4 +49,10 @@ void Fail_If_Report(const char *expr, const char *file, int line)
 **	12-byte pair, trivially destroyed); the key and value types are placeholders. Then E&B's global operator new,
 **	new[] and delete (0x4E9CB0, 0x4E9CE0, 0x4E9D10): unknown_new.cpp, kept apart so that a program
 **	that defines its own assert reporters (tests/kerneltest, movietest) still links.
+**
+**	IM8 (run 2026-11-26): the two 12-byte statics 0xBE5638 / 0xBE5628 ({"", "", -1}, initialisers 0x4E93B0 /
+**	0x4E93E0, nothing refers to them) are this object's, out of event.cpp: the CRT table lists event's
+**	ActiveIterators 0x4E8670, then 0x4E93B0, 0x4E93E0 and the map 0x4E9490, with one zero slot after 0x4E9490
+**	only; an incremental link pads every object of two or more entries with a zero after it, so event's
+**	object has one entry and this one three. Their "" is 0xBDA908, the literal the reporters push.
 */

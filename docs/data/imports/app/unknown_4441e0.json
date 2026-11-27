@@ -1,0 +1,19 @@
+{
+ "ambiguous": [],
+ "copy": "reconstructed",
+ "description": "RECONSTRUCTED: client.exe 0x4441E0-0x444260, the four global random generators 0xBDBB84 / 0xBDADC8 / 0xBDB1B8 / 0xBDB1C0: CRT entries 17-20, then a zero slot (an incremental link pads each object's .CRT$XCU of two or more entries with zeros after it: our trial's 169 zeros all lie between objects), then main.cpp's ios_base::Init 0x4442C0. Out of main.cpp; name provisional, directory interim (D137).",
+ "expected": {},
+ "in_tree": [
+  "0x4441E0",
+  "0x444200",
+  "0x444220",
+  "0x444240"
+ ],
+ "merged": [],
+ "name": "main/unknown_4441e0.cpp",
+ "short_known": [
+  "0x4441E0",
+  "0x444200",
+  "0x444240"
+ ]
+}

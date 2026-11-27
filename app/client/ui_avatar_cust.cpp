@@ -2353,7 +2353,7 @@ void StarbaseAvatarCreationInterface::Unknown_551C80()
 **	Before 0x550670 (TK15, claims #119 / #120): 0x54E610 (the gadgets hidden while the view's +0x34 is
 **	active), 0x54EC30 (NOT EXACT: the new look sent, RECUSTOMIZE_AVATAR_DONE; it brings SBaseViewClass's
 **	Get_Starbase 0x54EDA0 and the packet's implicit destructor 0x54EDD0 out of line), 0x54F2B0 (+0x368..+0x378
-**	deleted), 0x550140 (the part buttons) and 0x550550 (the zoom); NOT EXACT (register) 0x54E690 / 0x54E7F0 (the
+**	deleted), 0x550140 (the part buttons) and 0x550550 (the zoom); exact since (once register) 0x54E690 / 0x54E7F0 (the
 **	body and pants types), 0x54E950 (+0x368's value) and 0x54EAD0 (+0x36C's value); 0x54E3C0 (the model's
 **	turn while a turn button is held: 0x54E610 calls it), 0x54EE40 / 0x54EE80 (reached only through a table)
 **	exact. +0xBC is a RefCountPtr (0x54E690 hands it to +0xB8's
@@ -2367,10 +2367,10 @@ void StarbaseAvatarCreationInterface::Unknown_551C80()
 **	head pulls made), 0x54DC20 (a mode's gadgets shown), 0x54EEC0 (the choosers made), 0x54FAA0 (the colour pull
 **	dragged), 0x551320 (the FlashingGadgetEvent handler) and the destructor 0x54BAB0 (the callback taken off
 **	through SignalMap::Remove, its base SignalBaseClass::EventCallbackClass<FlashingGadgetEvent>'s constructor
-**	0x551EE0 out of line as the client's; 0x551EE0-0x551F70 exact with it). NOT EXACT: 0x54DFE0 (the tab
-**	switch: inline budget, as ui_avatr.cpp's 0x556B20), 0x54F390 (the head pull dragged: one byte), 0x54F6F0 (the
-**	tattoo pull: order-only), 0x54FFC0 (order-only) and 0x5502F0 (two bools' stack slots). Init 0x54BD30
-**	(slot +0x54) exact (SA, 2026-11-20). The key handler 0x54CBC0 (slot +0x68) NOT EXACT (masked 31, SA 2026-11-20).
+**	0x551EE0 out of line as the client's; 0x551EE0-0x551F70 exact with it). Exact since: 0x54DFE0 (the tab
+**	switch, once inline budget as ui_avatr.cpp's 0x556B20), 0x54F6F0 (the tattoo pull), 0x54FFC0 and 0x5502F0.
+**	Still NOT EXACT: 0x54F390 (the head pull dragged: one byte, the client re-tests +0x64). Init 0x54BD30
+**	(slot +0x54) exact (SA, 2026-11-20). The key handler 0x54CBC0 (slot +0x68) exact (once masked 31, SA 2026-11-20).
 **	+0xC0 is the old look (an AvatarDescClass, 0x10C bytes, up to the gadgets at +0x1CC), the avatar's +0xF8
 **	the new one; the +0xB8 gadget is ship_pip.cpp's (ship_pip.h's ShipPipClass).
 */

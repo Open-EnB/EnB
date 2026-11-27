@@ -848,7 +848,7 @@ static void Test_Packets(SClient *client, const char *path)
 	}
 	Set_Stub_Focused(false);
 	unsigned ship = client->ShipID;
-	float zmin = client->Unknown10D4, zmax = client->Unknown10D8;
+	float zmin = client->Unknown10D4.X, zmax = client->Unknown10D4.Y;
 	int creates = 0, created = 0, removes = 0, removed = 0;
 	int starts = 0, started = 0, set_times = 0, set_timed = 0;
 	while (!Memory->Incoming.empty()) {
@@ -899,9 +899,9 @@ static void Test_Packets(SClient *client, const char *path)
 			ship = client->ShipID;
 			Trace("state ship id %u", ship);
 		}
-		if (client->Unknown10D4 != zmin || client->Unknown10D8 != zmax) {
-			zmin = client->Unknown10D4;
-			zmax = client->Unknown10D8;
+		if (client->Unknown10D4.X != zmin || client->Unknown10D4.Y != zmax) {
+			zmin = client->Unknown10D4.X;
+			zmax = client->Unknown10D4.Y;
 			Trace("state z band %g %g", zmin, zmax);
 		}
 	}

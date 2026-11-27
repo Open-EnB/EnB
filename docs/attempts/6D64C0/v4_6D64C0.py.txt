@@ -1,0 +1,74 @@
+HYPOTHESIS = ('GN18 b4 (0x6D64C0): fix the 1-step eax/ecx/edx scratch-register rotation in r52..r70 of '
+              'u6d_maxwh_pvc0_t0_s2 (regs 81->75, r4->0, r52 regs 12->0) via WWMath::Min(1.0f, vt), rows clamp '
+              'forms, swap orders, and base + WWMath::Max w/h with s0..s2')
+FILE = 'app/client/fontsys.cpp'
+SYMBOL = 'FontSys::Update_Text'
+ADDRESS = 0x6D64C0
+
+_SRC = open(FILE, encoding='latin-1', newline='').read()
+
+OLD_AT = '''\t\tVector3 at;
+\t\tif (Unknown302) {
+\t\t\tat = Unknown464 + Unknown47C + Unknown488;
+\t\t} else {
+\t\t\tat = Get_Position() + Unknown47C + Unknown488;
+\t\t}'''
+NEW_AT = '\t\tVector3 at = Unknown_6D8650();\n\n\n\n\n'
+
+OLD_PVC = 'static inline void Pass_Vertex_Color(FontSys *f, float r, float g, float b, float a) { f->Set_Vertex_Color(Vector4(r, g, b, a)); f->Peek_Model(); }'
+NEW_PVC0 = 'static inline void Pass_Vertex_Color(FontSys *f, float r, float g, float b, float a) { f->Set_Vertex_Color(Vector4(r, g, b, a)); }'
+
+OLD_TXT_DEAD = '\t\t\t\ttext.Peek_Buffer(); text.Peek_Buffer();'
+OLD_S7 = '\t\t\t\t\tEnd_Vertex(); Peek_Model(); Peek_Model(); Peek_Model();'
+
+OLD_WH = '''\t\t\t\tfloat w = xs * (float)qw;
+\t\t\t\tif (0.1f / Unknown4DC > w) w = 0.1f / Unknown4DC;
+\t\t\t\tfloat h = (float)rows * ys;
+\t\t\t\tif (0.1f / Unknown4E0 > h) h = 0.1f / Unknown4E0;'''
+NEW_WH = '''\t\t\t\tfloat w = WWMath::Max(0.1f / Unknown4DC, xs * qw);
+
+\t\t\t\tfloat h = WWMath::Max(0.1f / Unknown4E0, (float)rows * ys);
+'''
+
+OLD_VT = '''\t\t\t\tif (1.0f < vt) {\t\t// 1.0f loaded first (0x6D7208)
+\t\t\t\t\tvt = 1.0f;
+\t\t\t\t}'''
+NEW_VT = '\t\t\t\tvt = WWMath::Min(1.0f, vt);\n\n'
+
+OLD_ROWS = '''\t\t\t\tint rows = bottom_limit - top_limit;
+\t\t\t\trows = rows < 0 ? 0 : rows;\t\t// as ?: (the client's sets / dec / and at 0x6D71FE)'''
+NEW_ROWS_GT = '''\t\t\t\tint rows = bottom_limit > top_limit ? bottom_limit - top_limit : 0;
+'''
+NEW_ROWS_IF = '''\t\t\t\tint rows = bottom_limit - top_limit;
+\t\t\t\tif (rows < 0) rows = 0;'''
+
+OLD_SWAP = '''\t\t\t\t\tfloat t = y_high; y_high = y_low; y_low = t;
+\t\t\t\t\tt = v_high; v_high = v_low; v_low = t;'''
+NEW_SWAP_VL = '''\t\t\t\t\tfloat t = y_high; y_high = y_low; y_low = t;
+\t\t\t\t\tt = v_low; v_low = v_high; v_high = t;'''
+NEW_SWAP_YL = '''\t\t\t\t\tfloat t = y_low; y_low = y_high; y_high = t;
+\t\t\t\t\tt = v_high; v_high = v_low; v_low = t;'''
+
+for a in (OLD_AT, OLD_PVC, OLD_TXT_DEAD, OLD_S7, OLD_WH, OLD_VT, OLD_ROWS, OLD_SWAP):
+    assert _SRC.count(a) == 1, f'bad anchor: {a[:50]!r}'
+
+def s7(n):
+    return '\t\t\t\t\tEnd_Vertex();' + ' Peek_Model();' * n
+
+def txt(n):
+    return '\t\t\t\t' + ' '.join(['text.Peek_Buffer();'] * n)
+
+U = [(OLD_AT, NEW_AT), (OLD_WH, NEW_WH), (OLD_PVC, NEW_PVC0), (OLD_TXT_DEAD, txt(0))]
+
+FORMS = {
+    'u6d_maxwh_minvt_s2': U + [(OLD_VT, NEW_VT), (OLD_S7, s7(2))],
+    'u6d_maxwh_minvt_s1': U + [(OLD_VT, NEW_VT), (OLD_S7, s7(1))],
+    'u6d_maxwh_rows_gt': U + [(OLD_ROWS, NEW_ROWS_GT), (OLD_S7, s7(2))],
+    'u6d_maxwh_rows_if': U + [(OLD_ROWS, NEW_ROWS_IF), (OLD_S7, s7(2))],
+    'u6d_maxwh_swap_vl': U + [(OLD_SWAP, NEW_SWAP_VL), (OLD_S7, s7(2))],
+    'u6d_maxwh_swap_yl': U + [(OLD_SWAP, NEW_SWAP_YL), (OLD_S7, s7(2))],
+    'base_maxwh_s2': [(OLD_WH, NEW_WH), (OLD_S7, s7(2))],
+    'base_maxwh_s1': [(OLD_WH, NEW_WH), (OLD_S7, s7(1))],
+    'base_maxwh_s0': [(OLD_WH, NEW_WH), (OLD_S7, s7(0))],
+    'u6d_maxwh_pvc1_t0_s1': [(OLD_AT, NEW_AT), (OLD_WH, NEW_WH), (OLD_TXT_DEAD, txt(0)), (OLD_S7, s7(1))],
+}

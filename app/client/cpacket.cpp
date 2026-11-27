@@ -1261,8 +1261,8 @@ bool SetZBandPacketClass::Process_Packet(void *instance)
 {
 	WWPROFILE("SetZBandPacketClass::Process_Packet()");
 	SClient *sclient = (SClient *)instance;
-	sclient->Unknown10D4 = Min;
-	sclient->Unknown10D8 = Max;
+	sclient->Unknown10D4.X = Min;
+	sclient->Unknown10D4.Y = Max;
 	return(true);
 }
 
@@ -1271,10 +1271,10 @@ bool SetBBoxPacketClass::Process_Packet(void *instance)
 {
 	WWPROFILE("SetBBoxPacketClass::Process_Packet()");
 	SClient *sclient = (SClient *)instance;
-	sclient->Unknown10DC = XMin[0];
-	sclient->Unknown10E0 = XMin[1];
-	sclient->Unknown10E4 = XMax[0];
-	sclient->Unknown10E8 = XMax[1];
+	sclient->Unknown10DC.X = XMin[0];
+	sclient->Unknown10DC.Y = XMin[1];
+	sclient->Unknown10E4.X = XMax[0];
+	sclient->Unknown10E4.Y = XMax[1];
 	return(true);
 }
 
@@ -1450,12 +1450,12 @@ bool ServerParametersPacketClass::Process_Packet(void *instance)
 {
 	WWPROFILE("ServerParametersPacketClass::Process_Packet()");
 	SClient *sclient = (SClient *)instance;
-	sclient->Unknown10D4 = ZBandMin;
-	sclient->Unknown10D8 = ZBandMax;
-	sclient->Unknown10DC = Min.X;
-	sclient->Unknown10E0 = Min.Y;
-	sclient->Unknown10E4 = Max.X;
-	sclient->Unknown10E8 = Max.Y;
+	sclient->Unknown10D4.X = ZBandMin;
+	sclient->Unknown10D4.Y = ZBandMax;
+	sclient->Unknown10DC.X = Min.X;
+	sclient->Unknown10DC.Y = Min.Y;
+	sclient->Unknown10E4.X = Max.X;
+	sclient->Unknown10E4.Y = Max.Y;
 	sclient->Unknown10EC = FogNear;
 	sclient->Unknown10F0 = FogFar;
 	sclient->Unknown10F4 = DebrisMode;
@@ -1467,8 +1467,8 @@ bool ServerParametersPacketClass::Process_Packet(void *instance)
 	sclient->Unknown1104 = MaxTilt;
 	sclient->Unknown1108 = AutoLevel;
 	sclient->Unknown110C = ImpulseRate;
-	sclient->Unknown1110 = DecayVelocity;
-	sclient->Unknown1114 = DecaySpin;
+	sclient->Unknown1110.X = DecayVelocity;
+	sclient->Unknown1110.Y = DecaySpin;
 	sclient->Unknown_745000(BackdropBaseAsset);
 	sclient->MainView->Unknown_513700(SectorNum);
 	sclient->Unknown_750A70(SectorNum);

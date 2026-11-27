@@ -3,29 +3,29 @@
 #ifndef UI_MFD_EXTENDED_CONTEXT_H
 #define UI_MFD_EXTENDED_CONTEXT_H
 
-#include "refcount.h"
-#include "ref_ptr.h"
+#include "ui_mfd_extended_context_base.h"	// UIMFDExtendedContextClass (refcount.h, ref_ptr.h)
+
 #include "..\shared\g_assert.h"
 #include "..\shared\kv_encoder.h"	// delta.h, and <string>: the client's object ends with <string>'s initialiser (0x5BF6B0); which header gave it is not known
 
 class UIMFDClass;
 class ClientObjectClass;
 
-// The panel (vtable 0xAF3894, slots +0x08..+0x10 pure; constructor 0x5BF600, destructor 0x5BF660, deleting 0x5BF630, all in
-// the object before ui_mfd_extended_context_harvestable.cpp's)
-class UIMFDExtendedContextClass : public RefCountClass	// NAME 3: D24 class-from-file for ui_mfd_extended_context.h
-{
-public:
-	UIMFDExtendedContextClass(UIMFDClass *owner);		// 0x5BF600  // NAME 2 [owner]: what it holds
-	virtual ~UIMFDExtendedContextClass();				// 0x5BF660 (deleting 0x5BF630)
-	virtual void Unknown_08() = 0;						// +0x08 shown (0x5C38A0)
-	virtual void Unknown_0C() = 0;						// +0x0C hidden (0x5C38C0)
-	virtual void Unknown_10() = 0;						// +0x10 every frame (0x5C38E0)
+// UIMFDExtendedContextClass, the panel every extended context derives from, is in ui_mfd_extended_context_base.h:
+// ui_mfd_extended_context_strings.cpp derives from it without this header (its client object has no PermStringInit,
+// so it never saw kv_encoder.h's delta.h / name.h / permstr.h, which the Watch below needs for DeltaCompoundClass).
 
-	static RefCountPtr<UIMFDExtendedContextClass> Create(ClientObjectClass *self, ClientObjectClass *co, UIMFDClass *owner);	// 0x5BF4F0  // NAME 2: what it does; NAME 1 [self]: neutral (D10)
 
-	UIMFDClass *Owner;									// +0x08  // NAME 2: what it holds
-};
+
+
+
+
+
+
+
+
+
+
 
 RefCountPtr<UIMFDExtendedContextClass> Unknown_5BF790(ClientObjectClass *self, ClientObjectClass *co, UIMFDClass *owner);	// 0x5BF790 (ui_mfd_extended_context_harvestable.cpp's '0 == co', l.45)  // NAME 1: neutral (D10)
 

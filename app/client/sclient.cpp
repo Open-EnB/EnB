@@ -1075,8 +1075,8 @@ void SClient::Unknown_743440() {
 
 #include "option.h"
 #include "..\packets\pkmove.h"
-static void Unknown_Register_Key(const std::string &module, const char *name, int id) { ControlKeysManager::Register_Key(module, name, id); }	// the key name built one inline layer down (0x7436A0 calls assign out of line for the first four)  // NAME 1: neutral (D10)
-// NOT EXACT: inline budget (masked residue 209, was 485): the first four key names go through the file-static Unknown_Register_Key layer (the client calls their assign out of line), Bridge_Mode through Set_Value; left: the module string inlines assign (the client calls it), the client keeps a zero register in ebx with four saved registers and one shared epilogue
+static std::string &Unknown_Module() { static std::string module("sclient"); return module; } static inline float Unknown_Get_FOV(CameraManagerClass *cm) { return cm->FOV; } static void Unknown_Register_Key(const std::string &module, const char *name, int id) { ControlKeysManager::Register_Key(module, name, id); }	// 0x7436A0's module static, FOV FPU read, and first-four-key layer  // NAME 1 [Unknown_Module, Unknown_Get_FOV, Unknown_Register_Key, cm, module, name, id]: neutral (D10)
+// 0x7436A0: exact via Unknown_Module, Unknown_Get_FOV, Get_Avatar_ID, Current_Camera_Mode, named m in case 3, wrapped if/else in case 5/6
 // 0x7436A0 (Do_Frame: an event no dispatcher took; the module 'sclient' keys, registered on the first call)
 bool SClient::Unknown_7436A0(KernelEventClass event)
 {
@@ -1085,7 +1085,7 @@ bool SClient::Unknown_7436A0(KernelEventClass event)
 			ChatPanel->Unknown_565F30(2);
 			return(true);
 		}
-		static std::string module("sclient");
+		std::string &module = Unknown_Module();
 		static bool first = true;
 		if (first) {
 			first = false;
@@ -1107,7 +1107,7 @@ bool SClient::Unknown_7436A0(KernelEventClass event)
 				Unknown_74D990(0x17, "*SNAP* Done!", 0);
 				return(true);
 			case 1:
-				Connection->Send_Packet(&MovePacketClass(AvatarID, 13));
+				Connection->Send_Packet(&MovePacketClass(Get_Avatar_ID(), 13));
 				return(true);
 			case 2:
 				Unknown_744D80();
@@ -1116,7 +1116,7 @@ bool SClient::Unknown_7436A0(KernelEventClass event)
 				if (!CurrentView || CurrentView != Unknown135C) {
 					BoolOptionStruct *option = OptionClass::Instance->Find_Bool("Bridge_Mode");
 					if (CameraMode == 0) {
-						Print(0x17, "Camera set to 3rd person mode %i,", Unknown_75A5D0());
+						unsigned m = Unknown_75A5D0(); Print(0x17, "Camera set to 3rd person mode %i,", m);
 						if (option) option->Set_Value(false);
 					} else {
 						Set_Camera_Mode(0);
@@ -1132,12 +1132,12 @@ bool SClient::Unknown_7436A0(KernelEventClass event)
 				} else if (CameraMode == 0) {
 					Unknown_74D990(0x17, "Cannot save camera in first person mode.", 0);
 				} else {
-					CameraModeStruct &mode = CameraModes[CameraMode];
+					CameraModeStruct &mode = Current_Camera_Mode();
 					mode.Tilt = CameraManager->Get_Tilt();
 					mode.Distance = CameraManager->Get_Distance();
 					mode.Heading = CameraManager->Get_Heading();
 					mode.ElevationOffset = CameraManager->Get_Elevation_Offset();
-					mode.FOV = CameraManager->FOV;
+					mode.FOV = Unknown_Get_FOV(CameraManager);
 					if (Unknown_745490()) {
 						Print(0x17, "Camera Slot %i Saved: H%.2f, T:%.2f, D:%.2f FOV:%.2f EO:%.2f", CameraMode, mode.Heading, mode.Tilt, mode.Distance, mode.FOV, mode.ElevationOffset);
 						return(true);
@@ -1148,30 +1148,30 @@ bool SClient::Unknown_7436A0(KernelEventClass event)
 				break;
 			case 5:
 			case 6:
-				if (CurrentView && CurrentView == Unknown135C) break;
-				if (CameraMode == 0) {
-					Unknown28 = !Unknown28;
-					Unknown_74D990(0x17, (CameraMode == 0 && Unknown28) ? "Camera set to 1st person mode with bridge." : "Camera set to 1st person mode without bridge.", 0);
-
-
-
-
-					Unknown_744D80();
-					return(true);
-				}
-				switch (key) {
-					case 5: Unknown_75A570(); break;
-					case 6: Unknown_75A5A0(); break;
-				}
-				Unknown_744D80();
-				Print(0x17, "Camera set to 3rd person mode %i", CameraMode);
-				return(true);
+				if (!CurrentView || CurrentView != Unknown135C) {
+					if (CameraMode == 0) {
+						Unknown28 = !Unknown28;
+						if (*(volatile unsigned *)&CameraMode == 0 && *(volatile bool *)&Unknown28) {
+							Unknown_74D990(0x17, "Camera set to 1st person mode with bridge.", 0);
+						} else {
+							Unknown_74D990(0x17, "Camera set to 1st person mode without bridge.", 0);
+						}
+						Unknown_744D80();
+					} else {
+						switch (key) {
+							case 5: Unknown_75A570(); break;
+							case 6: Unknown_75A5A0(); break;
+						}
+						Unknown_744D80();
+						Print(0x17, "Camera set to 3rd person mode %i", CameraMode);
+					} return(true); }
+				break;
 			default:
 				G_ASSERT(false);
 				break;
 		}
 	}
-	CameraManager->Get_Player_Chase_Camera_Module(); return(false);	// a dead read (budget device): Prev Camera calls _Eos out of line as the client
+	return(false);
 }
 
 
@@ -4370,7 +4370,7 @@ struct TestEffectStruct	// NAME 2: testeffects.ini's record
 // Unknown_BE7D80 (0xBE7D80) holds them: defined above with INIUsers, where the client's CRT table puts its initialiser
 #include "..\shared\unknown_4a1590.h"
 
-// NOT EXACT: inline budget (masked residue 321, was 379): hsv_shift as the client has it (a zero default local, two Get_Point calls under the ternary, a Vector3 temporary); left: the client's frame is 12 bytes larger, it calls size() and assign out of line and inlines _Tidy
+// (each lookup is an if / else of two whole braced statements: the client's FAIL_IF lines 4391 / 4426 / 4469 leave about eight source lines a lookup, and VC6 weighs both statements before it merges their calls, which is the inline budget that takes push_back's insert in (its four size() called) and both _Tidy of the knob's string, assign(ptr, n) called; the knob reads lego_name's buffer twice, no local)
 // 0x74CA90 (Load_INIs: testeffects.ini): one record per section but [Defaults], each entry from the section or [Defaults];
 // a zero duration is the distance over effect.ini's AmmoSpeed of its EFFECT-<descid>\Weapon Usage section
 void Unknown_74CA90(const char *filename)
@@ -4383,11 +4383,11 @@ void Unknown_74CA90(const char *filename)
 		if (strncmp(section->Section, "Defaults", 8) == 0) {
 			continue;
 		}
-		record.DescID = ini.Get_Int((ini.Is_Present(section->Section, "descid") ? section->Section : "Defaults"), "descid", 0);
+		if (ini.Is_Present(section->Section, "descid")) { record.DescID = ini.Get_Int(section->Section, "descid", 0); } else { record.DescID = ini.Get_Int("Defaults", "descid", 0); }
 		char usage[256];
 		sprintf(usage, "EFFECT-%d\\Weapon Usage", record.DescID);
-		record.Distance = ini.Get_Float((ini.Is_Present(section->Section, "distance") ? section->Section : "Defaults"), "distance", 1000.0f);
-		float f_duration = ini.Get_Float((ini.Is_Present(section->Section, "duration") ? section->Section : "Defaults"), "duration", 0.0f);
+		if (ini.Is_Present(section->Section, "distance")) { record.Distance = ini.Get_Float(section->Section, "distance", 1000.0f); } else { record.Distance = ini.Get_Float("Defaults", "distance", 1000.0f); }
+		float f_duration; if (ini.Is_Present(section->Section, "duration")) { f_duration = ini.Get_Float(section->Section, "duration", 0.0f); } else { f_duration = ini.Get_Float("Defaults", "duration", 0.0f); }
 		FAIL_IF(f_duration < 0.0f) f_duration = 0.0f;
 		if (f_duration == 0.0f && effects->Is_Present(usage, "AmmoSpeed")) {
 			float speed = effects->Get_Float(usage, "AmmoSpeed", 1.0f);
@@ -4398,12 +4398,12 @@ void Unknown_74CA90(const char *filename)
 		}
 		record.Duration = (int)(f_duration * 1000.0f);
 		StringClass lego_name;
-		ini.Get_String(lego_name, (ini.Is_Present(section->Section, "knob") ? section->Section : "Defaults"), "knob", "");
-		const char *lego = lego_name;
-		if (lego != NULL) {
-			record.Lego = std::string(lego);
+		if (ini.Is_Present(section->Section, "knob")) ini.Get_String(lego_name, section->Section, "knob", ""); else ini.Get_String(lego_name, "Defaults", "knob", "");
+
+		if (lego_name) {
+			record.Lego = std::string(lego_name);
 		}
-		record.Count = ini.Get_Int((ini.Is_Present(section->Section, "volley") ? section->Section : "Defaults"), "volley", 1);
+		if (ini.Is_Present(section->Section, "volley")) { record.Count = ini.Get_Int(section->Section, "volley", 1); } else { record.Count = ini.Get_Int("Defaults", "volley", 1); }
 		float f_intra_volley_delay = effects->Get_Float(usage, "IntravolleyDelay", 0.0f);
 
 
@@ -4425,12 +4425,12 @@ void Unknown_74CA90(const char *filename)
 
 		FAIL_IF(f_intra_volley_delay < 0.0f) f_intra_volley_delay = 0.0f;
 		record.Interval = (int)(f_intra_volley_delay * 1000.0f);
-		record.Target = ini.Get_Bool((ini.Is_Present(section->Section, "playertarget") ? section->Section : "Defaults"), "playertarget", false);
-		record.Scale = ini.Get_Float((ini.Is_Present(section->Section, "scale") ? section->Section : "Defaults"), "scale", 1.0f);
-		TPoint3D<float> zero(0.0f, 0.0f, 0.0f); TPoint3D<float> hsv = ini.Is_Present(section->Section, "hsv_shift") ? ini.Get_Point(section->Section, "hsv_shift", zero) : ini.Get_Point("Defaults", "hsv_shift", zero);
+		if (ini.Is_Present(section->Section, "playertarget")) { record.Target = ini.Get_Bool(section->Section, "playertarget", false); } else { record.Target = ini.Get_Bool("Defaults", "playertarget", false); }
+		if (ini.Is_Present(section->Section, "scale")) { record.Scale = ini.Get_Float(section->Section, "scale", 1.0f); } else { record.Scale = ini.Get_Float("Defaults", "scale", 1.0f); }
+		TPoint3D<float> zero(0.0f, 0.0f, 0.0f); TPoint3D<float> hsv; if (ini.Is_Present(section->Section, "hsv_shift")) hsv = ini.Get_Point(section->Section, "hsv_shift", zero); else hsv = ini.Get_Point("Defaults", "hsv_shift", zero);
 		record.HSVShift = Vector3(hsv.X, hsv.Y, hsv.Z);
-		record.Speedup = ini.Get_Float((ini.Is_Present(section->Section, "speedup") ? section->Section : "Defaults"), "speedup", 1.0f);
-		float f_advance = ini.Get_Float((ini.Is_Present(section->Section, "advance") ? section->Section : "Defaults"), "advance", 0.0f);
+		if (ini.Is_Present(section->Section, "speedup")) { record.Speedup = ini.Get_Float(section->Section, "speedup", 1.0f); } else { record.Speedup = ini.Get_Float("Defaults", "speedup", 1.0f); }
+		float f_advance; if (ini.Is_Present(section->Section, "advance")) { f_advance = ini.Get_Float(section->Section, "advance", 0.0f); } else { f_advance = ini.Get_Float("Defaults", "advance", 0.0f); }
 
 
 
@@ -4469,7 +4469,7 @@ void Unknown_74CA90(const char *filename)
 		FAIL_IF(f_advance < 0.0f) f_advance = 0.0f;
 		record.Delay = (int)(f_advance * 1000.0f);
 		Bounded_Strcpy(record.Name, sizeof(record.Name), section->Section);
-		Unknown_BE7D80.insert(Unknown_BE7D80.end(), 1, record);
+		Unknown_BE7D80.push_back(record);
 	}
 }
 

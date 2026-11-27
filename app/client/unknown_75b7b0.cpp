@@ -54,40 +54,37 @@ void Unknown_75B8F0(RenderObjClass *obj, const Vector3 &sun, const Vector3 &came
 	}
 }
 
-// NOT EXACT: functional (D64), 0.37: ours calls StringClass::operator= where the client inlines it, so the registers differ (WE5)
 // @0x75BB50
 void Unknown_75BB50(RenderObjClass *obj, float phase)
 {
 	if (obj->Class_ID() == RenderObjClass::CLASSID_MESH) {
 		MeshModelClass *model = ((MeshClass *)obj)->Get_Model();
+		Vector2 zero(0.0f, 0.0f);
+		Vector2 cur(phase, 0.0f);
 		for (int pass = 0; pass < model->Get_Pass_Count(); pass++) {
 			for (int stage = 0; stage < MeshMatDescClass::MAX_TEX_STAGES; stage++) {
 				TextureClass *texture = model->Peek_Single_Texture(pass, stage);
 				if (texture) {
-					StringClass name(texture->Get_Texture_Name());
+					StringClass name((const char *)texture->Get_Texture_Name());
 					strlwr(name.Peek_Buffer());
 					if (strncmp(name, "plt_dn", 6) == 0) {
 						TextureMapperClass *mapper = model->Peek_Single_Material(pass)->Peek_Mapper(stage);
 						if (mapper && mapper->Mapper_ID() == TextureMapperClass::MAPPER_ID_LINEAR_OFFSET) {
 							LinearOffsetTextureMapperClass *offset = (LinearOffsetTextureMapperClass *)mapper;
-							offset->Set_UV_Offset_Delta(Vector2(0.0f, 0.0f));
-							offset->Set_Current_UV_Offset(Vector2(phase, 0.0f));
+							offset->Set_UV_Offset_Delta(zero);
+							offset->Set_Current_UV_Offset(cur);
 						}
 					}
 				}
 			}
 		}
-		if (model) {
-			model->Release_Ref();
-		}
+		REF_PTR_RELEASE(model);
 	} else {
 		int count = obj->Get_Num_Sub_Objects();
 		for (int i = 0; i < count; i++) {
 			RenderObjClass *sub = obj->Get_Sub_Object(i);
 			Unknown_75BB50(sub, phase);
-			if (sub) {
-				sub->Release_Ref();
-			}
+			REF_PTR_RELEASE(sub);
 		}
 	}
 }

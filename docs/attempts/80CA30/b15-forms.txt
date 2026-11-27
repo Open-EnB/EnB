@@ -1,0 +1,82 @@
+# B15 batch 1 for 0x80CA30 (Opus high, D271 round two). Base res 11, frame 0x44 vs 0x48, one region: the first
+# zoom's clamp. The client spills the FPU-held radius * F0 (max) into a new slot and loads min (nearest) onto the FPU,
+# as it does in the second zoom and in 0x80CE10's (min on the FPU, max a memory copy). Ours keeps max on the FPU.
+# Hypotheses: the first block's clamp operands are not the forwarded member values the way ours are: (a) the test and
+# the distance read nearest (the local) rather than the member; (b) the radius products read sphere.Radius;
+# (c) the helper takes min / max as its own locals or parameters (a memory home for max); (d) the sum's order.
+FILE = 'app/client/ship_pip.cpp'
+SYMBOL = 'ShipPipClass::Unknown_84'
+ADDRESS = 0x80CA30
+
+T1 = ('\tif (Unknown0B4 < Unknown0B0) {\n\t\tfloat distance = Unknown0B0 - Unknown0B4;\n',
+      '\tif (Unknown0B4 < nearest) {\n\t\tfloat distance = nearest - Unknown0B4;\n')
+T1b = ('\tif (Unknown0B4 < Unknown0B0) {\n', '\tif (Unknown0B4 < nearest) {\n')
+RAD = ('\tfloat radius = sphere.Radius;\n\tUnknown0AC = radius * Unknown0F0;\n\tfloat nearest = radius * Unknown0EC;\n',
+       '\n\tUnknown0AC = sphere.Radius * Unknown0F0;\n\tfloat nearest = sphere.Radius * Unknown0EC;\n')
+CL = '\t\tfloat clamped = WWMath::Clamp(distance + pip->Unknown0B4, pip->Unknown0B0, pip->Unknown0AC);\n'
+LOC = (CL, '\t\tfloat min = pip->Unknown0B0; float max = pip->Unknown0AC; float clamped = WWMath::Clamp(distance + pip->Unknown0B4, min, max);\n')
+LOC_MAXONLY = (CL, '\t\tfloat max = pip->Unknown0AC; float clamped = WWMath::Clamp(distance + pip->Unknown0B4, pip->Unknown0B0, max);\n')
+SUM = (CL, '\t\tfloat clamped = WWMath::Clamp(pip->Unknown0B4 + distance, pip->Unknown0B0, pip->Unknown0AC);\n')
+TGT = (CL, '\t\tfloat target = distance + pip->Unknown0B4; float clamped = WWMath::Clamp(target, pip->Unknown0B0, pip->Unknown0AC);\n')
+TYPE = ('\tif (Type == 0) {\n\t\tUnknown0B0 = nearest;\n\t} else {\n\t\tUnknown0B0 = nearest;\n\t}\n',
+        '\tif (Type == 0) {\n\t\tUnknown0B0 = radius * Unknown0EC;\n\t} else {\n\t\tUnknown0B0 = radius * Unknown0EC;\n\t}\n')
+
+FORMS = {
+    'test_nearest': [T1],
+    'test_nearest_only': [T1b],
+    'sphere_radius': [RAD],
+    'zoom_locals': [LOC],
+    'zoom_max_local': [LOC_MAXONLY],
+    'sum_order': [SUM],
+    'zoom_target': [TGT],
+    'type_products': [TYPE],
+}
+# B15 batch 2 for 0x80CA30. Batch 1: six operand / local forms identical to base (VC6 canonicalises them).
+# Hypothesis: the client's clamp takes its operands by reference (max needs a memory home, so the FPU-held
+# radius * F0 is spilled to a new slot: the client's extra frame slot [esp+4]; min is then read onto the FPU).
+FILE = 'app/client/ship_pip.cpp'
+SYMBOL = 'ShipPipClass::Unknown_84'
+ADDRESS = 0x80CA30
+
+HEAD = 'static inline void Unknown_Zoom(ShipPipClass *pip, float distance)\n'
+CL = '\t\tfloat clamped = WWMath::Clamp(distance + pip->Unknown0B4, pip->Unknown0B0, pip->Unknown0AC);\n'
+NEW_CL = '\t\tfloat clamped = Ref_Clamp(distance + pip->Unknown0B4, pip->Unknown0B0, pip->Unknown0AC);\n'
+
+
+def H(sig, ret='float'):
+    return (HEAD, 'static inline %s Ref_Clamp(%s) { if (val < min) return min; if (val > max) return max; return val; } ' % (ret, sig) + HEAD)
+
+
+FORMS = {
+    'ref_all': [H('const float &val, const float &min, const float &max'), (CL, NEW_CL)],
+    'ref_minmax': [H('float val, const float &min, const float &max'), (CL, NEW_CL)],
+    'ref_max': [H('float val, float min, const float &max'), (CL, NEW_CL)],
+    'ref_min': [H('float val, const float &min, float max'), (CL, NEW_CL)],
+    'ref_all_refret': [H('const float &val, const float &min, const float &max', 'const float &'), (CL, NEW_CL)],
+    'elseif': [(CL, '\t\tfloat clamped = distance + pip->Unknown0B4; if (clamped < pip->Unknown0B0) clamped = pip->Unknown0B0; else if (clamped > pip->Unknown0AC) clamped = pip->Unknown0AC;\n')],
+}
+# B15: dead-int sweep (workflow.md 3.1.2, "The count of definitions orders commutative x87 products", 0x454730):
+# k dead-initialised int locals at the function's top (on an existing line: no __LINE__ shift), k = 1..8, as a
+# diagnostic that gauges whether the residue's x87 operand order / FPU allocation follows the definition count.
+# Usage: set B15_FN to 79, 6E or 80 (env) before trybatch loads this file.
+import os
+
+FN = os.environ.get('B15_FN', '79')
+SPEC = {
+    '79': ('app/client/cammod_chase.cpp', 'ChaseCameraModuleClass::Unknown_79BFC0', 0x79BFC0,
+           '\tFAIL_IF(!des_quat) {return;}\n'),
+    '6E': ('app/client/cameraeffects.cpp', 'CameraEffectsClass::Unknown_34', 0x6E2CC0,
+           '\tif (Unknown14) {\n\t\tView->Unknown_40();\n'),
+    '80': ('app/client/ship_pip.cpp', 'ShipPipClass::Unknown_84', 0x80CA30,
+           '\tif (Unknown054) {\n\t\tFloatParent->Remove_Sub_Objects_From_Bone'),
+}
+FILE, SYMBOL, ADDRESS, ANCHOR = SPEC[FN]
+
+
+def dead(k):
+    return ''.join('int b15_%d = 0; ' % i for i in range(k))
+
+
+FORMS = {}
+for k in range(1, 9):
+    FORMS['k%d' % k] = [(ANCHOR, '\t' + dead(k) + ANCHOR[1:])]

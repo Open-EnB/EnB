@@ -330,17 +330,17 @@ void ShipPipClass::Unknown_7C(const RefCountPtr<RenderObjClass> &model)
 }
 
 // The zoom by distance within +0xB0..+0xAC as 0x80CA30 (twice) and 0x80CE10 inline it: a nested inline, which is why
-// their Matrix3D::Translate(0, 0, z) stays out of line (0x80CD90) where 0x80E190's Translate_Z does not  // NAME 1 [Unknown_Zoom, pip, distance]: neutral, PROVISIONAL (the form is the client's, the helper's name and signature a guess)
-static inline void Unknown_Zoom(ShipPipClass *pip, float distance)
+// their Matrix3D::Translate(0, 0, z) stays out of line (0x80CD90) where 0x80E190's Translate_Z does not  // NAME 1 [Unknown_Min, Unknown_Zoom, pip, distance]: neutral, PROVISIONAL (the form is the client's, the helpers' names and signatures a guess)
+static inline float Unknown_Min(ShipPipClass *pip) { return(pip->Unknown0B0); } static inline void Unknown_Zoom(ShipPipClass *pip, float distance)
 {
 	if (distance != 0.0f) {
-		float clamped = WWMath::Clamp(distance + pip->Unknown0B4, pip->Unknown0B0, pip->Unknown0AC);
+		float clamped = WWMath::Clamp(distance + pip->Unknown0B4, Unknown_Min(pip), pip->Unknown0AC);
 		pip->Unknown06C.Translate(0.0f, 0.0f, clamped - pip->Unknown0B4);
 		pip->Unknown0B4 = clamped;
 	}
 }
 
-// NOT EXACT: ShipPipClass, frame (sub esp 0x48 against 0x44: the first clamp holds min on the FPU stack and spills max, ours the other way)
+// 0x80CA30 (exact: reading +0xB0 through Unknown_Min keeps min on x87 and spills max to [esp+4], frame 0x48)
 // @0x80CA30
 void ShipPipClass::Unknown_84(const RefCountPtr<RenderObjClass> &model)
 {

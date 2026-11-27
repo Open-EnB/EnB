@@ -152,7 +152,7 @@ bool UIMFDPIPItemClass::Unknown_14()
 {
 	return(Get_RObj() != NULL);
 }
-// NOT EXACT: 0x5C25C0: one pop scheduled after a load (order)
+
 // 0x5C25C0
 void UIMFDPIPItemClass::Unknown_08()
 {
@@ -189,7 +189,7 @@ void UIMFDPIPItemClass::Unknown_08()
 	Camera->Set_Viewport(Vector2(p.X * (1.0f / 640.0f), p.Y * (1.0f / 480.0f)), Vector2((p.X + Size.X) * (1.0f / 640.0f), (p.Y + Size.Y) * (1.0f / 480.0f)));
 	float a = 0.5 / Size.Y * Size.X;
 	Camera->Set_View_Plane(Vector2(-a, -0.5f), Vector2(a, 0.5f));
-	MainViewClass *view = ((SClient *)((ClientClass *)Owner->Client)->As_Space_Client())->MainView;
+	MainViewClass *view = *(MainViewClass * volatile *)&((SClient *)((ClientClass *)Owner->Client)->As_Space_Client())->MainView;	// provisional (workflow.md 3.1.2): pins pop ebx after test ecx, ecx as the client's 0x5C27C8
 	OrbitalManager *orbitals = view->Orbitals;
 	if (orbitals != NULL) {
 		Vector4 color = orbitals->Unknown_4F50D0(0);

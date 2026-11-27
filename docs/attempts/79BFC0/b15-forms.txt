@@ -1,0 +1,175 @@
+# B15 batch 1 for 0x79BFC0 (Opus high, D271 round two). Base res 6: r7 (the first inline Rotate_X's row 0 sum
+# evaluated s*tmp2 first in the client), r8 (the client negates dir.Y before it copies the translation, and keeps the
+# whole translation copy in memory).
+# Hypotheses: (a) -dir.Y is a source expression before the translation copy (a local, or the copy assigned later);
+# (b) the steered angle is a named local before Rotate_X (changes the FPU stack depth at row 0).
+FILE = 'app/client/cammod_chase.cpp'
+SYMBOL = 'ChaseCameraModuleClass::Unknown_79BFC0'
+ADDRESS = 0x79BFC0
+
+OLD_SET = ('\t\tVector3 pos = tm.Get_Translation();\n'
+           '\t\ttm.Set(dir.X, -dir.Y, 0.0f, pos.X, dir.Y, dir.X, 0.0f, pos.Y, dir.Z, 0.0f, 1.0f, pos.Z);\n')
+OLD_ROT = '\ttm.Rotate_X(Unknown24.Get_Current());\n'
+
+
+def S(text):
+    return (OLD_SET, text)
+
+
+NY_BEFORE = S('\t\tfloat ny = -dir.Y; Vector3 pos = tm.Get_Translation();\n'
+              '\t\ttm.Set(dir.X, ny, 0.0f, pos.X, dir.Y, dir.X, 0.0f, pos.Y, dir.Z, 0.0f, 1.0f, pos.Z);\n')
+NY_AFTER = S('\t\tVector3 pos = tm.Get_Translation(); float ny = -dir.Y;\n'
+             '\t\ttm.Set(dir.X, ny, 0.0f, pos.X, dir.Y, dir.X, 0.0f, pos.Y, dir.Z, 0.0f, 1.0f, pos.Z);\n')
+POS_LATE = S('\t\tVector3 pos; float ny = -dir.Y; pos = tm.Get_Translation();\n'
+             '\t\ttm.Set(dir.X, ny, 0.0f, pos.X, dir.Y, dir.X, 0.0f, pos.Y, dir.Z, 0.0f, 1.0f, pos.Z);\n')
+DIR_NEG = S('\t\tVector3 pos = tm.Get_Translation();\n'
+            '\t\ttm.Set(dir.X, -(dir.Y), 0.0f, pos.X, dir.Y, dir.X, 0.0f, pos.Y, dir.Z, 0.0f, 1.0f, pos.Z);\n')
+VNEG = S('\t\tVector3 x_axis(dir.X, -dir.Y, 0.0f); Vector3 pos = tm.Get_Translation();\n'
+         '\t\ttm.Set(x_axis.X, x_axis.Y, x_axis.Z, pos.X, dir.Y, dir.X, 0.0f, pos.Y, dir.Z, 0.0f, 1.0f, pos.Z);\n')
+ANGLE = (OLD_ROT, '\tfloat angle = Unknown24.Get_Current(); tm.Rotate_X(angle);\n')
+
+FORMS = {
+    'ny_before': [NY_BEFORE],
+    'ny_after': [NY_AFTER],
+    'pos_late': [POS_LATE],
+    'dir_neg': [DIR_NEG],
+    'vneg': [VNEG],
+    'angle': [ANGLE],
+    'angle_ny_before': [ANGLE, NY_BEFORE],
+    'angle_pos_late': [ANGLE, POS_LATE],
+}
+# B15 batch 2 for 0x79BFC0. The dead-int sweep: exactly one extra dead int local (k1) cuts r7 (the first Rotate_X's
+# row 0 order; residue 6 -> 4), k2..k8 give the base's code (the definition-count threshold of workflow.md 3.1.2).
+# Hypothesis: the client's extra definition is a live named scalar, the frame time (camera_manager.cpp's
+# `float frame = (float)WW3D::Get_Frame_Time();`, frameint.cpp / scriptedmovie.cpp's unsigned frame_time), or the
+# accel's value.
+FILE = 'app/client/cammod_chase.cpp'
+SYMBOL = 'ChaseCameraModuleClass::Unknown_79BFC0'
+ADDRESS = 0x79BFC0
+
+OLD = '\tUnknown24.Get_Value((float)WW3D::Get_Frame_Time());\n'
+FORMS = {
+    'frame_float': [(OLD, '\tfloat frame = (float)WW3D::Get_Frame_Time(); Unknown24.Get_Value(frame);\n')],
+    'frame_uint': [(OLD, '\tunsigned int frame_time = WW3D::Get_Frame_Time(); Unknown24.Get_Value((float)frame_time);\n')],
+    'frame_unsigned': [(OLD, '\tunsigned frame_time = WW3D::Get_Frame_Time(); Unknown24.Get_Value((float)frame_time);\n')],
+    'frame_int': [(OLD, '\tint frame = WW3D::Get_Frame_Time(); Unknown24.Get_Value((float)frame);\n')],
+    'value': [(OLD, '\tfloat value = Unknown24.Get_Value((float)WW3D::Get_Frame_Time());\n')],
+    'frame_float_value': [(OLD, '\tfloat frame = (float)WW3D::Get_Frame_Time(); float value = Unknown24.Get_Value(frame);\n')],
+    'k1_ctrl': [(OLD, '\tint b15_0 = 0; ' + OLD[1:])],
+}
+# B15 batch 3 for 0x79BFC0 on the batch-2 form `value` (residue 4, r8 left: the client negates dir.Y before the
+# translation copy and keeps the copy's X in memory). Hypotheses: with the new definition count the local forms of
+# batch 1 act differently; the translation copy is made before the normalisation (VC6 sinks it past the call? no:
+# the copy is in the second region); a dead float definition count (as the dead ints for r7); dir built otherwise.
+FILE = 'app/client/cammod_chase.cpp'
+SYMBOL = 'ChaseCameraModuleClass::Unknown_79BFC0'
+ADDRESS = 0x79BFC0
+
+OLD = '\tUnknown24.Get_Value((float)WW3D::Get_Frame_Time());\n'
+VALUE = (OLD, '\tfloat value = Unknown24.Get_Value((float)WW3D::Get_Frame_Time());\n')
+OLD_SET = ('\t\tVector3 pos = tm.Get_Translation();\n'
+           '\t\ttm.Set(dir.X, -dir.Y, 0.0f, pos.X, dir.Y, dir.X, 0.0f, pos.Y, dir.Z, 0.0f, 1.0f, pos.Z);\n')
+
+
+def S(a, b):
+    return (OLD_SET, '\t\t' + a + '\n\t\t' + b + '\n')
+
+
+SET = 'tm.Set(dir.X, -dir.Y, 0.0f, pos.X, dir.Y, dir.X, 0.0f, pos.Y, dir.Z, 0.0f, 1.0f, pos.Z);'
+SETNY = 'tm.Set(dir.X, ny, 0.0f, pos.X, dir.Y, dir.X, 0.0f, pos.Y, dir.Z, 0.0f, 1.0f, pos.Z);'
+OLD_DIR = '\t\tVector3 dir(tm[0][0], tm[1][0], 0.0f);\n\t\tdir.Normalize();\n'
+FORMS = {
+    'v_ny': [VALUE, S('float ny = -dir.Y; Vector3 pos = tm.Get_Translation();', SETNY)],
+    'v_pos_ctor': [VALUE, S('Vector3 pos(tm.Get_Translation());', SET)],
+    'v_pos_first': [VALUE, (OLD_DIR, '\t\tVector3 pos = tm.Get_Translation(); Vector3 dir(tm[0][0], tm[1][0], 0.0f);\n\t\tdir.Normalize();\n'),
+                    S('', SET)],
+    'v_f1': [VALUE, S('float b15_f0 = 0.0f; Vector3 pos = tm.Get_Translation();', SET)],
+    'v_f2': [VALUE, S('float b15_f0 = 0.0f; float b15_f1 = 0.0f; Vector3 pos = tm.Get_Translation();', SET)],
+    'v_i1_inner': [VALUE, S('int b15_0 = 0; Vector3 pos = tm.Get_Translation();', SET)],
+    'v_dir_set': [VALUE, (OLD_DIR, '\t\tVector3 dir; dir.Set(tm[0][0], tm[1][0], 0.0f);\n\t\tdir.Normalize();\n')],
+    'v_dir_members': [VALUE, (OLD_DIR, '\t\tVector3 dir; dir.X = tm[0][0]; dir.Y = tm[1][0]; dir.Z = 0.0f;\n\t\tdir.Normalize();\n')],
+}
+# B15 batch 4 for 0x79BFC0 on `value` (residue 4, r8). The client keeps the whole translation copy in memory
+# ([esp+0x1c..0x24], X reloaded for m03) where ours keeps pos.X on the x87. Hypothesis: the copy is materialised
+# because pos is read through operator[] (a float & : address taken) or lives at function scope.
+FILE = 'app/client/cammod_chase.cpp'
+SYMBOL = 'ChaseCameraModuleClass::Unknown_79BFC0'
+ADDRESS = 0x79BFC0
+
+OLD = '\tUnknown24.Get_Value((float)WW3D::Get_Frame_Time());\n'
+VALUE = (OLD, '\tfloat value = Unknown24.Get_Value((float)WW3D::Get_Frame_Time());\n')
+OLD_SET = ('\t\tVector3 pos = tm.Get_Translation();\n'
+           '\t\ttm.Set(dir.X, -dir.Y, 0.0f, pos.X, dir.Y, dir.X, 0.0f, pos.Y, dir.Z, 0.0f, 1.0f, pos.Z);\n')
+TM = '\tMatrix3D tm = obj->Unknown_28(false);\n'
+END = '\t*des_pos = tm.Get_Translation();\n'
+
+
+def S(a, b):
+    return (OLD_SET, '\t\t' + a + '\n\t\t' + b + '\n')
+
+
+SET = 'tm.Set(dir.X, -dir.Y, 0.0f, pos.X, dir.Y, dir.X, 0.0f, pos.Y, dir.Z, 0.0f, 1.0f, pos.Z);'
+FORMS = {
+    'idx_pos': [VALUE, S('Vector3 pos = tm.Get_Translation();',
+                         'tm.Set(dir.X, -dir.Y, 0.0f, pos[0], dir.Y, dir.X, 0.0f, pos[1], dir.Z, 0.0f, 1.0f, pos[2]);')],
+    'idx_all': [VALUE, S('Vector3 pos = tm.Get_Translation();',
+                         'tm.Set(dir[0], -dir[1], 0.0f, pos[0], dir[1], dir[0], 0.0f, pos[1], dir[2], 0.0f, 1.0f, pos[2]);')],
+    'idx_dir': [VALUE, S('Vector3 pos = tm.Get_Translation();',
+                         'tm.Set(dir[0], -dir[1], 0.0f, pos.X, dir[1], dir[0], 0.0f, pos.Y, dir[2], 0.0f, 1.0f, pos.Z);')],
+    'top_pos': [VALUE, (TM, '\tMatrix3D tm = obj->Unknown_28(false); Vector3 pos;\n'), S('pos = tm.Get_Translation();', SET)],
+    'top_pos_end': [VALUE, (TM, '\tMatrix3D tm = obj->Unknown_28(false); Vector3 pos;\n'), S('pos = tm.Get_Translation();', SET),
+                    (END, '\tpos = tm.Get_Translation(); *des_pos = pos;\n')],
+    'ref_y': [VALUE, S('Vector3 pos = tm.Get_Translation(); const float &y = dir.Y;',
+                       'tm.Set(dir.X, -y, 0.0f, pos.X, y, dir.X, 0.0f, pos.Y, dir.Z, 0.0f, 1.0f, pos.Z);')],
+}
+# B15 batch 5 for 0x79BFC0 on the committed `value` form (residue 4, r8). Batches 3 and 4 cut nothing.
+# Hypothesis: how the translation copy is made decides whether its X stays on the x87 (ours) or goes to memory with
+# -dir.Y held instead (the client): built from the rows by the constructor, through the out-parameter overload, const,
+# or the Set without the translation followed by Set_Translation (all retried on the new definition count).
+FILE = 'app/client/cammod_chase.cpp'
+SYMBOL = 'ChaseCameraModuleClass::Unknown_79BFC0'
+ADDRESS = 0x79BFC0
+
+OLD_SET = ('\t\tVector3 pos = tm.Get_Translation();\n'
+           '\t\ttm.Set(dir.X, -dir.Y, 0.0f, pos.X, dir.Y, dir.X, 0.0f, pos.Y, dir.Z, 0.0f, 1.0f, pos.Z);\n')
+
+
+def S(a, b):
+    return [(OLD_SET, '\t\t' + a + '\n\t\t' + b + '\n')]
+
+
+SET = 'tm.Set(dir.X, -dir.Y, 0.0f, pos.X, dir.Y, dir.X, 0.0f, pos.Y, dir.Z, 0.0f, 1.0f, pos.Z);'
+FORMS = {
+    'pos_rows': S('Vector3 pos(tm[0][3], tm[1][3], tm[2][3]);', SET),
+    'pos_out': S('Vector3 pos; tm.Get_Translation(&pos);', SET),
+    'pos_const': S('const Vector3 pos = tm.Get_Translation();', SET),
+    'pos_xyz': S('Vector3 pos(tm.Get_X_Translation(), tm.Get_Y_Translation(), tm.Get_Z_Translation());', SET),
+    'pos_floats': S('float px = tm[0][3]; float py = tm[1][3]; float pz = tm[2][3];',
+                    'tm.Set(dir.X, -dir.Y, 0.0f, px, dir.Y, dir.X, 0.0f, py, dir.Z, 0.0f, 1.0f, pz);'),
+    'pos_copy_assign': S('Vector3 pos; pos = tm.Get_Translation();', SET),
+}
+# B15: dead-int sweep (workflow.md 3.1.2, "The count of definitions orders commutative x87 products", 0x454730):
+# k dead-initialised int locals at the function's top (on an existing line: no __LINE__ shift), k = 1..8, as a
+# diagnostic that gauges whether the residue's x87 operand order / FPU allocation follows the definition count.
+# Usage: set B15_FN to 79, 6E or 80 (env) before trybatch loads this file.
+import os
+
+FN = os.environ.get('B15_FN', '79')
+SPEC = {
+    '79': ('app/client/cammod_chase.cpp', 'ChaseCameraModuleClass::Unknown_79BFC0', 0x79BFC0,
+           '\tFAIL_IF(!des_quat) {return;}\n'),
+    '6E': ('app/client/cameraeffects.cpp', 'CameraEffectsClass::Unknown_34', 0x6E2CC0,
+           '\tif (Unknown14) {\n\t\tView->Unknown_40();\n'),
+    '80': ('app/client/ship_pip.cpp', 'ShipPipClass::Unknown_84', 0x80CA30,
+           '\tif (Unknown054) {\n\t\tFloatParent->Remove_Sub_Objects_From_Bone'),
+}
+FILE, SYMBOL, ADDRESS, ANCHOR = SPEC[FN]
+
+
+def dead(k):
+    return ''.join('int b15_%d = 0; ' % i for i in range(k))
+
+
+FORMS = {}
+for k in range(1, 9):
+    FORMS['k%d' % k] = [(ANCHOR, '\t' + dead(k) + ANCHOR[1:])]
