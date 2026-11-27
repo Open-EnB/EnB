@@ -1,0 +1,20 @@
+HYPOTHESIS = 'B40 batch m1 (0x437C30, FB25 lever): dead max_size() reads (a mid-size budget spender, the count a pool) on theme (vector) or Themes (deque) after Stop() (with or without the two if (0) size reads), after the stop branch pop_front or before its return 2, swept 1-12: wanted the stop branch return 2 ~vector _Destroy out of line and its return 3 shared'
+FILE = 'app/audio/musiclist.cpp'
+SYMBOL = 'MusicListClass::Update'
+ADDRESS = 0x437C30
+S0 = "\t\tStop(); if (0) { Themes.size(); } if (0) { Themes.size(); }\n"
+P0 = "\t\t\tThemes.pop_front();\n\t\t\tif (Themes.size() != 0) {\n\t\t\t\treturn 2;\n"
+def s(code, keep=True):
+    return (S0, "\t\tStop();" + (" if (0) { Themes.size(); } if (0) { Themes.size(); }" if keep else "") + " " + code + "\n")
+def p(code):
+    return (P0, "\t\t\tThemes.pop_front(); " + code + "\n\t\t\tif (Themes.size() != 0) {\n\t\t\t\treturn 2;\n")
+def r2(code):
+    return (P0, "\t\t\tThemes.pop_front();\n\t\t\tif (Themes.size() != 0) {\n\t\t\t\t" + code + " return 2;\n")
+FORMS = {}
+for n in range(1, 13):
+    FORMS['sv%d' % n] = [s("theme.max_size(); " * n)]
+    FORMS['sd%d' % n] = [s("Themes.max_size(); " * n)]
+for n in (1, 2, 3, 4, 6, 8):
+    FORMS['svx%d' % n] = [s("theme.max_size(); " * n, keep=False)]
+    FORMS['pv%d' % n] = [p("theme.max_size(); " * n)]
+    FORMS['rv%d' % n] = [r2("theme.max_size(); " * n)]

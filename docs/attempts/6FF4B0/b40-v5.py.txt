@@ -1,0 +1,32 @@
+HYPOTHESIS = 'B40 batch 5: batch 3 layers swept with 1-12 dead name.max_size() at the top of Get_Name; batch 3 was (0x6FF4B0): every spender (dead read after the assign, top, mid) cuts the default arm first lookup Find_Field whole before anything else; a codeless layer added or dropped at one lookup site (Get_Name own copy of the pick, Unknown_Name_Sel2) with 0-2 dead reads after the assign moves which site pays: wanted only the type-1 arm Casts and the assign max_size / _Eos out of line'
+FILE = 'app/client/co.cpp'
+SYMBOL = 'ClientObjectClass::Get_Name'
+ADDRESS = 0x6FF4B0
+SELLINE_END = "return(t); }\t// NAME 1: neutral (D10)\ninline unsigned Unknown_Changed"
+A = "\tDeltaStringClass *t = Unknown_Name_Sel(this);\n\tname = t ? t->String : \"Unknown\";\n"
+R = "(DeltaCompoundClass *)o->AuxData"
+ADD = "static __forceinline DeltaStringClass *Unknown_Valid_L(DeltaCompoundClass *root, const NameClass &name) { return(Unknown_Valid_F(root, name)); }"
+ADDI = "static inline DeltaStringClass *Unknown_Valid_I(DeltaCompoundClass *root, const NameClass &name) { return(Unknown_Valid_F(root, name)); }"
+def site(kind, nm):
+    if kind == 'F':
+        return "t = Unknown_Valid_F(%s, %s);" % (R, nm)
+    if kind == 'L':
+        return "t = Unknown_Valid_L(%s, %s);" % (R, nm)
+    if kind == 'I':
+        return "t = Unknown_Valid_I(%s, %s);" % (R, nm)
+    if kind == 'D':   # dropped layer: the valid test written out
+        return "t = Unknown_Find_Field<DeltaStringClass>(%s, %s); if (!(t && t->Unknown70)) t = NULL;" % (R, nm)
+def sel(k):
+    return ("static inline DeltaStringClass *Unknown_Name_Sel2(ClientObjectClass *o) { DeltaStringClass *t; switch (o->Type) { default: { NameClass n1(\"Name\"); "
+        + site(k[0], 'n1') + " if (!t) { NameClass o1(\"Owner\"); " + site(k[1], 'o1') + " } } break; case 1: { NameClass o2(\"Owner\"); "
+        + site(k[2], 'o2') + " if (!t) { NameClass n2(\"Name\"); " + site(k[3], 'n2') + " } } break; } return(t); }")
+def form(k, aft):
+    return [(SELLINE_END, "return(t); } " + ADD + " " + ADDI + " " + sel(k) + "\t// NAME 1: neutral (D10)\ninline unsigned Unknown_Changed"),
+            (A, "\tDeltaStringClass *t = Unknown_Name_Sel2(this);\n\tname = t ? t->String : \"Unknown\"; " + "name.max_size(); " * aft + "\n")]
+def formt(k, n):
+    return [(SELLINE_END, "return(t); } " + ADD + " " + ADDI + " " + sel(k) + "\t// NAME 1: neutral (D10)\ninline unsigned Unknown_Changed"),
+            (A, "\t" + "name.max_size(); " * n + "DeltaStringClass *t = Unknown_Name_Sel2(this);\n\tname = t ? t->String : \"Unknown\";\n")]
+FORMS = {}
+for k in ('LFFF', 'FFLF', 'FFLL', 'LLFF', 'LLLL'):
+    for n in range(1, 13):
+        FORMS['%s_t%d' % (k, n)] = formt(k, n)

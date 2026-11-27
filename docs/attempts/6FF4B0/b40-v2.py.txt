@@ -1,0 +1,18 @@
+HYPOTHESIS = 'B40 batch 2 (0x6FF4B0): aft1 (one dead name.max_size() after the assign) gives the client assign (max_size, _Eos out of line) but sends the first lookup Find_Field out; pairs: aft1 plus top / mid spenders of the other kinds, and other small dead reads after the assign (size, empty, c_str, length) to find a count that cuts only the assign and the type-1 Casts'
+FILE = 'app/client/co.cpp'
+SYMBOL = 'ClientObjectClass::Get_Name'
+ADDRESS = 0x6FF4B0
+A = "\tDeltaStringClass *t = Unknown_Name_Sel(this);\n\tname = t ? t->String : \"Unknown\";\n"
+def form(top='', mid='', aft=''):
+    return [(A, "\t" + top + "DeltaStringClass *t = Unknown_Name_Sel(this); " + mid + "\n\tname = t ? t->String : \"Unknown\"; " + aft + "\n")]
+FORMS = {}
+for k in ('size', 'empty', 'c_str', 'length'):
+    for n in (1, 2, 3, 4, 6, 8):
+        FORMS['aft_%s%d' % (k, n)] = form(aft=("name.%s(); " % k) * n)
+for m in (1, 2, 3, 4):
+    FORMS['aft1_topsz%d' % m] = form(top="name.size(); " * m, aft="name.max_size(); ")
+    FORMS['aft1_midsz%d' % m] = form(mid="name.size(); " * m, aft="name.max_size(); ")
+FORMS['aft1_top1'] = form(top="name.max_size(); ", aft="name.max_size(); ")
+FORMS['aft1_top2'] = form(top="name.max_size(); " * 2, aft="name.max_size(); ")
+FORMS['aft1_brace'] = form(aft="{ name.max_size(); }")
+FORMS['aft1_sz1'] = form(aft="name.max_size(); name.size(); ")

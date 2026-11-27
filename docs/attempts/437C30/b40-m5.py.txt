@@ -1,0 +1,19 @@
+HYPOTHESIS = 'B40 batch m5 (0x437C30): r5 (five dead theme.max_size() before the last return 0, masked 31 -> 15) leaves the out-of-line ~vector _Destroy on a stop branch return 3 copy instead of its return 2 (the client: one return 3 tail shared with the else branch, X at return 2); with r5: the stop branch tests in the else branch order (== 0 return 3, return 2), an else-return 3, reads after the stop branch return 2 (unreachable) or in the stop if before CurrentComponent = 0; file-check of r5'
+FILE = 'app/audio/musiclist.cpp'
+SYMBOL = 'MusicListClass::Update'
+ADDRESS = 0x437C30
+R0 = "\t\t\treturn 2;\n\t\t}\n\t}\n\treturn 0;\n}\n"
+P0 = "\t\t\tCurrentComponent = 0;\n\t\t\tThemes.pop_front();\n\t\t\tif (Themes.size() != 0) {\n\t\t\t\treturn 2;\n\t\t\t}\n\t\t\treturn 3;\n"
+def r(n):
+    return (R0, "\t\t\treturn 2;\n\t\t}\n\t}\n\t" + "theme.max_size(); " * n + "return 0;\n}\n")
+def rd(k):
+    return "theme.max_size(); " * k
+FORMS = {}
+for n in (4, 5, 6):
+    FORMS['r%d_ord' % n] = [r(n), (P0, "\t\t\tCurrentComponent = 0;\n\t\t\tThemes.pop_front();\n\t\t\tif (Themes.size() == 0) {\n\t\t\t\treturn 3;\n\t\t\t}\n\t\t\treturn 2;\n")]
+    FORMS['r%d_else' % n] = [r(n), (P0, "\t\t\tCurrentComponent = 0;\n\t\t\tThemes.pop_front();\n\t\t\tif (Themes.size() != 0) {\n\t\t\t\treturn 2;\n\t\t\t} else\n\t\t\treturn 3;\n")]
+    for k in (1, 2, 3):
+        FORMS['r%d_u2_%d' % (n, k)] = [r(n), (P0, "\t\t\tCurrentComponent = 0;\n\t\t\tThemes.pop_front();\n\t\t\tif (Themes.size() != 0) {\n\t\t\t\treturn 2; " + rd(k) + "\n\t\t\t}\n\t\t\treturn 3;\n")]
+        FORMS['r%d_u3_%d' % (n, k)] = [r(n), (P0, "\t\t\tCurrentComponent = 0;\n\t\t\tThemes.pop_front();\n\t\t\tif (Themes.size() != 0) {\n\t\t\t\treturn 2;\n\t\t\t}\n\t\t\treturn 3; " + rd(k) + "\n")]
+        FORMS['r%d_cc_%d' % (n, k)] = [r(n), (P0, "\t\t\t" + rd(k) + "CurrentComponent = 0;\n\t\t\tThemes.pop_front();\n\t\t\tif (Themes.size() != 0) {\n\t\t\t\treturn 2;\n\t\t\t}\n\t\t\treturn 3;\n")]
+FORMS['r5'] = [r(5)]

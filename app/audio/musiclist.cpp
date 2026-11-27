@@ -134,7 +134,7 @@ void MusicListClass::Add_Theme(MusicThemeClass *musictheme)
 
 
 // @0x437C30
-// NOT EXACT: inline budget (explain.py: masked residue 31, 287 rows vs 284): the client shares one `return 3` tail between the two pop_front exits, keeps the stop branch's --size in ecx / eax and calls the ~vector _Destroy 0x4117BB out of line only in the stop branch's return 2. The two dead Themes.size() after Stop() are budget devices (no bytes, D272): the return 0 ~vector inline as the client (residue 38 -> 31); a `?:` return in the stop branch gives 18 with setcc code the client does not have
+// D272: the two dead Themes.size() after Stop() and the five dead theme.max_size() before the last return 0 are budget devices (no bytes, not the client's source): with them and the stop branch's tests in the else branch's order (== 0 return 3, return 2) the stop branch's return 2 calls the ~vector _Destroy 0x438E00 out of line and its return 3 shares the else branch's tail, as the client (B40, FB25's max_size pool)
 int MusicListClass::Update(int fade_in)
 {
 	if (Music != NULL && Music->Is_Playing()) {
@@ -151,10 +151,10 @@ int MusicListClass::Update(int fade_in)
 		if (CurrentComponent >= (int)theme.size()) {
 			CurrentComponent = 0;
 			Themes.pop_front();
-			if (Themes.size() != 0) {
-				return 2;
+			if (Themes.size() == 0) {
+				return 3;
 			}
-			return 3;
+			return 2;
 		}
 	}
 	G_ASSERT(Music == NULL);
@@ -184,7 +184,7 @@ int MusicListClass::Update(int fade_in)
 			return 2;
 		}
 	}
-	return 0;
+	theme.max_size(); theme.max_size(); theme.max_size(); theme.max_size(); theme.max_size(); return 0;	// five dead reads (D272)
 }
 
 // @0x438070
@@ -378,6 +378,6 @@ matching. musiclist.cpp's literals lie before musicmanager.cpp's in .data (0xB6E
 0xB6F094), the link order. The missing guarded <string> initialiser (none between bridgesounds.cpp's 0x437090 and
 musicmanager.cpp's 0x43BFA0) is no evidence against it: the file includes no <string> (a standalone compile of this
 file emits none either). 0x43B190 has no assert of its own (it tail-calls 0x438800, whose lines 364 / 365 these are).
-NOT EXACT: Update 0x437C30 (residue 31, inline budget: the client shares the `return 3` tail of both pop_front
-branches and allocates the stop branch's registers another way; attempts.csv).
+Update 0x437C30 is exact with budget devices (D272, provisional: two dead Themes.size(), five dead theme.max_size();
+see its comment and attempts.csv).
 */
