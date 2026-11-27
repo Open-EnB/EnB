@@ -1840,7 +1840,7 @@ static float Unknown_7ADF80(const Vector2 &p, const Vector2 &a, const Vector2 &b
 // The distance of p from the line a-b (the 2D cross product's side in *side), or from a when a == b
 static inline float Unknown_Distance(const Vector2 &p, const Vector2 &a, const Vector2 &b, float *side)	// NAME 1: what it computes
 {
-	float dummy;
+	float dummy; p.X; p.X; p.X; p.X; p.X; p.X; p.X; p.X;	// dead reads: the helper's inline cost (5 to 12 of them give 0x7AD850 the client's inline state, to_name's last ~RefCountPtr alone out of line; the real body is not known)
 	if (side == NULL) { side = &dummy; }
 	float len = (a - b).Length();
 	if (len < 0.0001f) {
@@ -1851,12 +1851,12 @@ static inline float Unknown_Distance(const Vector2 &p, const Vector2 &a, const V
 	return(fabs(*side / len));
 }
 
-// NOT EXACT: shape (masked residue 10): the client re-reads Line for Hidden (0x7AD8FE) and tests side twice (0x7ADBE1, a dead fcomp); written so, VC6 inlines to_name's last ~RefCountPtr again (the client calls it, 0x7ADDF0): the unbraced FAIL_IFs and ifs hold that inline state (attempts.csv)
+// line is Get_Line()'s reference (0x7AD070, inlined here; the FAIL_IF's '!line'): the client reads [esi+8] again at each use (0x7AD8FE, 0x7ADD8E, 0x7ADDC1). The side test is side <= 0.0f first, its second compare dead (0x7ADBE1)
 void GalaxyMapRenderGateClass::Unknown_7AD850(const Vector3 &point)
 {
 
 
-	GalaxyMapLineRObjClass *line = (GalaxyMapLineRObjClass *)Line.Peek();
+	RefCountPtr<GalaxyMapLineRObjClass> &line = Get_Line();
 	FAIL_IF(!line) return;
 	From->Unknown_7AC070(Flipped);
 	To->Unknown_7AC070(!Flipped);
@@ -1876,7 +1876,7 @@ void GalaxyMapRenderGateClass::Unknown_7AD850(const Vector3 &point)
 
 	float side;
 	float dist = Unknown_Distance(Vector2(point.X, point.Y), Vector2(a.X, a.Y), Vector2(b.X, b.Y), &side);
-	tm.Translate_Y((side > 0.0f) ? -dist : dist);
+	tm.Translate_Y((side <= 0.0f) ? ((side < 0.0f) ? dist : dist) : -dist);
 
 
 
