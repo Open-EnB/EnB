@@ -429,7 +429,7 @@ void AvatarSelectionInterface::Unknown_60()
 	}
 }
 
-// NOT EXACT: register (0.93): the client holds -1 in esi from the entry test to case 8's store and the key in ebx, so keys 11-15 cross-jump into keys 1-5's tail; ours hoists true into ebx
+// (cases 7 and 8 are if / else arms under one return true each, with their own copy of the FE01C block, and the function ends in return false: VC6 then loads 1 per case, holds -1 in esi and the key in ebx, and cross-jumps the copies as the client)
 // 0x55D060
 bool AvatarSelectionInterface::Unknown_68(int key)
 {
@@ -469,7 +469,7 @@ bool AvatarSelectionInterface::Unknown_68(int key)
 				SoundLibraryClass::Play_2D_Sound("Avatar_Delete_Character", 2);
 				if (Unknown090 >= 0) {
 					Unknown0BC[Unknown090]->Unknown_784A50("/angry please no", 1, 0);
-					Unknown084->Unknown34->Unknown_588A70("YES_NO", 0, "Confirm deletion of the character?", 0x140, 0, 0);
+					Unknown084->Get_Unknown034()->Unknown_588A70("YES_NO", 0, "Confirm deletion of the character?", 0x140, 0, 0);
 					Unknown097 = true;
 					Unknown0F9 = true;
 					Unknown_55EF90();
@@ -481,26 +481,25 @@ bool AvatarSelectionInterface::Unknown_68(int key)
 					Unknown08C = 7;
 					Unknown088->Selected = Unknown090;
 					if (Unknown0E4[Unknown090]) {
-						LoginCharacterClass *character = &Unknown088->Characters[Unknown088->Selected];
-						if (character->ID != 0 && character->Galaxy_ID >= 0) {
+
+						if (Unknown088->Is_Registered_Character()) {
 							TutorialManagerClass::Instance->Write_Completed_File();
 							Unknown088->Unknown_5C();
-							return true;
+						} else {
+							Unknown084->Unknown_5594B0(Unknown088->Get_Avatar_Descs()[Unknown088->Get_Selected()]);
+							Unknown084->Set_Unknown244(Unknown088->Unknown088C[Unknown088->Selected]); Unknown084->Get_Unknown1B0(); Unknown084->Get_Unknown1B0(); Unknown084->Get_Unknown1B0();	// the copy's layer and dead reads: the budget then calls 0x55D8A0 as the client
+							Unknown084->Unknown_67ACE0(1);
+							Unknown084->Unknown1CC[1] = true;
+							Unknown084->Unknown1CC[2] = true;
+							Unknown088->Go_Next_Step();
 						}
-						Unknown084->Unknown_5594B0(Unknown088->Get_Avatar_Descs()[Unknown088->Get_Selected()]);
-						Unknown084->Set_Unknown244(Unknown088->Unknown088C[Unknown088->Selected]); Unknown084->Get_Unknown1B0(); Unknown084->Get_Unknown1B0(); Unknown084->Get_Unknown1B0(); Unknown084->Get_Unknown1B0(); Unknown084->Get_Unknown1B0();	// the copy's layer and five dead reads: the budget then calls 0x55D8A0 as the client
-						Unknown084->Unknown_67ACE0(1);
-						Unknown084->Unknown1CC[1] = true;
-						Unknown084->Unknown1CC[2] = true;
-						Unknown088->Go_Next_Step();
-						return true;
+					} else {
+						if (Unknown084->Unknown_67AD30(1, "FE01C.FE01C-1")) {
+							Unknown084->Unknown_67AE60(1);
+						}
+						Unknown0FD = true;
+						Unknown_55EF90();
 					}
-close_down:
-					if (Unknown084->Unknown_67AD30(1, "FE01C.FE01C-1")) {
-						Unknown084->Unknown_67AE60(1);
-					}
-					Unknown0FD = true;
-					Unknown_55EF90();
 				}
 				return true;
 			case 8:
@@ -511,14 +510,15 @@ close_down:
 					}
 					Unknown090 = -1;
 					Unknown_8C();
-					return true;
+				} else {
+					Unknown08C = 8;
+					if (Unknown084->Unknown_67AD30(1, "FE01C.FE01C-1")) {
+						Unknown084->Unknown_67AE60(1);
+					}
+					Unknown0FD = true;
+					Unknown_55EF90();
 				}
-				Unknown08C = 8;
-				goto close_down;
-
-
-
-
+				return true;
 
 			case 10:
 				SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
@@ -526,8 +526,8 @@ close_down:
 				Unknown0F9 = true;
 				Unknown_55EF90();
 				return true;
-			default:
-				return false;
+
+
 		}
 
 
@@ -551,11 +551,11 @@ close_down:
 					delete text;
 				}
 				if (strcmp(Unknown11C, "") == 0) {
-					Unknown084->Unknown34->Unknown_588A70("OK", 0, "Please enter a valid EA Member Name.", 0x140, 0, 0);
+					Unknown084->Get_Unknown034()->Unknown_588A70("OK", 0, "Please enter a valid EA Member Name.", 0x140, 0, 0);
 					return false;
 				}
 				if (stricmp(Unknown11C, Unknown088->Ticket_Info.EA_Customer.c_str()) == 0) {
-					Unknown084->Unknown34->Unknown_588A70("OK", 0, "Sorry, you cannot refer yourself.", 0x140, 0, 0);
+					Unknown084->Get_Unknown034()->Unknown_588A70("OK", 0, "Sorry, you cannot refer yourself.", 0x140, 0, 0);
 					return false;
 				}
 				Unknown_55FBB0();
@@ -563,8 +563,8 @@ close_down:
 				Unknown120 = true;
 				return false;
 		}
-		return false;
-	}
+
+	}	return false;
 }
 
 // 0x55D9C0
@@ -1288,9 +1288,9 @@ void AvatarSelectionInterface::Unknown_55FE50(bool on)
 **	slots' avatars made, G_ASSERT 'chars' line 782) exact through inline accessors (the view's +0x3A4 and
 **	+0x70, the avatar's +0x2BC): read directly, the arguments land in other registers. 0x55D9C0 (every frame: the referral's
 **	result boxes, the emotes, the delete question's answer) exact; slot +0x68 0x55D060 (the buttons
-**	1-17 and the referral dialog's) NOT EXACT (0.49): it assigns the selected character's ship
-**	descriptor, and the client calls ShipCustDescClass's implicit operator= out of line (0x55D8A0)
-**	where shipcust_desc.h's written-out one (P-P7-1) inlines; 0x55F140 (the selected character's
+**	1-17 and the referral dialog's) exact: it assigns the selected character's ship descriptor
+**	through charview.h's setter, so ShipCustDescClass's implicit operator= is called out of line
+**	(0x55D8A0) as the client does (three dead reads hold the budget); 0x55F140 (the selected character's
 **	texts: race, profession, level, location, galaxy; FAIL_IFs 1047 / 1053 / 1059 / 1088; the
 **	galaxies' list copied) NOT EXACT (register, 0.78). The class is declared in ui_avsel.h (a
 **	provisional name: with it in this file the functions before line 769 do not fit above it), the
