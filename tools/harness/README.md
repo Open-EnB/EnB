@@ -534,6 +534,7 @@ Each script has its usage in its docstring; `python tools/harness/X.py --help` w
 | `machine.py`, `machine.example.json` | the per-machine config: every path outside the tree (below, "Machine config and the baseline store") | nothing |
 | `baseline.py`, `tools/test_baseline.py` | the baseline store `Open-EnB/baselines`: capture retail runs with manifests and noise, verify them (no game needed), compare a run (below) | the store's checkout; capture: retail, the local Net-7 server |
 | `msglisten.py` | listens to a running client's debug-message server (the client's `-ENABLE_MESSAGES`: app/shared/message/msgserv.cpp's MsgServer on the first free TCP port of 9999-10009, bound to every interface by the client's own code, so run it on this host only). `msglisten.py [--pid PID | --port P] [--out FILE] [--seconds N] [--levels MASK] [--modules A,B] [--files F,G] [--prefix TEXT] [--raw]`: `--pid` finds that client's port with netstat (several clients each get their own) and waits for it; it sends one filter record (`S` name `` ` `` levels `` ` `` modules `` ` `` files `` ` `` prefix, `\0`-ended, empty fields as ' ') and prints each `M` record (level `` ` `` [sender,]category `` ` `` file `` ` `` line `` ` `` x `` ` `` y `` ` `` sec.usec `` ` `` text, `\0`-ended) as `HH:MM:SS.uuuuuu LEVEL category: text  file(line)`. The client drops messages while no listener is connected and accepts one at most once a second in the server's run (the kernel task, every 200 ms, and after each error report), so start-up asserts before WinMain's 'adding message server to kernel' never arrive. `clientrun.py run|replay --messages` starts the client with `-ENABLE_MESSAGES` (replay: antprox `/CLIENTOP:`) and msglisten beside it into `<shots dir>\messages.log` | a client started with `-ENABLE_MESSAGES` |
+| `pldcheck.py`, `test_pldcheck.py` | the land's horizon tables as the client writes them (.pld, Save_PLD 0x46ECF0; test-plan SP-12, B-29): `run` deletes an instance's .pld files and runs `sp_land_pld` / `sp_land_pld_all` live, `compare` retail run to run, then ours, table by table outside retail's spread (`--table normal_index_1E4`: B-29's verdict) (below, "The land's horizon tables") | the local Net-7 server, the live lock |
 | `artdir.py` | the art folder default of drawcheck, vidtest_sbs and run_vidtest (D120): `build/art` when it exists, else a warning | `build/art` (`cp -rp` of EBCONFIG) |
 | `vidtest_e2e.py` | starts vidtest as E&BConfig does (its command line, `CreateProcessA` with a relative name, E&BConfig's working directory = a copy of EBCONFIG at `build/programs/vidtest/e2e_ebconfig`, never the install) and reads `results.ini` as E&BConfig does; `--original` runs the retail VIDTEST (which has no `-nomsgbox`; ours gets it appended) | built vidtest, retail EBCONFIG folder to copy |
 | `vidtest_exitcodes.py` | the exit-code matrix (cases `finish close key mode res scenes`, `--case NAME`, repeatable) with `-nomsgbox` always; window and any stray message box are found by process id; results.ini compared with `--ref` | built vidtest |
@@ -921,6 +922,30 @@ the last name. Live antprox logs opcode numbers; e2e appends the names (`... = s
   label lit by 0x5B2480 (`expect-ink`), the pointer on the exit gadget, its click. Each passes on retail first time;
   run each in a client of its own after a Net-7 restart (`sp_starmap` leaves Elanor in Endriago until the
   `--db-snapshot 7` restore).
+- **The land's horizon tables (`sp_land_pld`, `sp_land_pld_all`, `pldcheck.py`; test-plan SP-12, bug B-29, 2026-11-26,
+  CS9):** a planet surface's LandClass::Load_Assets (0x4691D0) reads its horizon tables from the height map's .pld when
+  that is newer than the .pgm, the colour map and the ini, and otherwise computes them (Compute_Horizons 0x46E670; its
+  normal step 0x46F120 fills the normal-index table +0x1E4 through Nearest_Normal 0x46F0A0) and writes them through
+  the writing file factory into `Data\client\output` (Save_PLD 0x46ECF0: the count, +0x1E4, +0x1E8, +0x1EC, +0x1F0,
+  +0x1F4, +0x1F8, the 256 normals). CLIENT_DATA_ROOT's output folder holds a .pld for every planet (2022) and an
+  instance copies it, so on a plain run 0x46F120 never runs. `pldcheck.py run --instance NAME [--retail | --exe PATH]
+  --runs N --out DIR [--scenario S] [--admin-level 90]` deletes the .pld files of the instance's own folders
+  (release, Data\client, its output copy; never a junction) before each run, runs `e2e.py --live --db-snapshot 7
+  --keep ... run S` and copies each .pld the client wrote into DIR/run-K with run.json. `sp_land_pld` (the default) is
+  sp_land's flow to Endriago's surface (endriago_256, about 100 s); `sp_land_pld_all` wormholes from one surface
+  sector to the next through the eight LANDnnnn.ini maps the data has (2295 endriago, 1309 nostrandvor, 3595 primus,
+  3679 asheroth1930, 4195 swooping, 2409 river4 (512 x 512), 1493 zwiehander, 2290 RISCO; about 160 s): Net-7 refuses
+  /wormhole out of a sector that is not space unless the avatar's admin level is exactly 90 (PlayerConnection.cpp
+  Player::HandleWormholeRequest; avatar_info.admin, read at login; the store has 100), so run it with `--admin-level
+  90`, which sets Elanor's level before each run and puts the old one back after it. A surface's launchpad is no way
+  out after a wormhole (W targets a nav point, no gate verb). `pldcheck.py compare --retail DIR... --ours DIR...
+  [--table normal_index_1E4]` checks retail run to run first, then ours against retail's first, table by table, the
+  entries where retail's own runs differ left out (the retail spread) and the rest named with their grid x / y.
+  **Retail's own spread:** +0x1EC (all six) and +0x1F0 / +0x1F4 / +0x1F8 (some) at six edge cells, x 0 and 255 of
+  rows 0, 254 and 255, differ run to run on 6 of the 8 maps (primus and river4 stable), on retail and on ours alike;
+  +0x1E4 and +0x1E8 are equal run to run everywhere. The file is the client's own dump: nothing reads or writes the
+  process. No Net-7 restart is needed (the tables depend on the map and the ini only). Unit tests: `python -m
+  unittest tools/harness/test_pldcheck.py`.
 - **Extended keys (2026-11-21):** the client's keyboard code (w32kbd.cpp) reads lParam's scan code and extended
   bit; an arrow key posted with lParam 1 is the numpad's and nothing happens. `clientrun.key_lparam` gives every
   posted key its scan code and, for the arrows, Insert / Delete / Home / End / PgUp / PgDn, the extended bit, as a
