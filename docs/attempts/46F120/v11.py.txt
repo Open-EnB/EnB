@@ -1,0 +1,39 @@
+import re
+import sys
+sys.path.insert(0, r'C:\EnBDevelopment\EnB\.work\fb13')
+import gen
+
+HYPOTHESIS = ('FB13 b11: the client\'s (y + 1) - 2 and (x + 1) - 2 as VC6\'s rewriting of one induction family: the source '
+              'names both neighbours (xm = x - 1, xp = x + 1, ym = y - 1, yp = y + 1) and VC6 keeps the + 1 member: the '
+              'four as block locals or at function scope, each order of the two assignments, y only')
+FILE = gen.FILE
+SYMBOL = gen.SYMBOL
+ADDRESS = gen.ADDRESS
+D = gen.definition()
+assert 'Vector3 scale = Field->Get_Scale()' in D
+OLD = '\t\t\tint xp = x + 1;\n\t\t\tint yp = y + 1;\n'
+
+
+def named(d, lines, xs=True, ys=True, fs=None):
+    assert d.count(OLD) == 4
+    d = d.replace(OLD, lines)
+    if xs:
+        d = d.replace('(xp - 2,', '(xm,')
+    if ys:
+        d = d.replace(', y - 1)', ', ym)').replace(', yp - 2)', ', ym)')
+    if fs:
+        d = gen.edit(d, [('\tint index = 0; int x, y;\n', '\tint index = 0; int x, y, %s;\n' % fs)])
+    return d
+
+
+T = '\t\t\t'
+FORMS = {
+    'blk_xm_xp_ym_yp': [(D, named(D, T + 'int xm = x - 1;\n' + T + 'int xp = x + 1; int ym = y - 1; int yp = y + 1;\n'))],
+    'blk_xp_xm_yp_ym': [(D, named(D, T + 'int xp = x + 1;\n' + T + 'int xm = x - 1; int yp = y + 1; int ym = y - 1;\n'))],
+    'blk_y_only_ym_yp': [(D, named(D, T + 'int xp = x + 1;\n' + T + 'int ym = y - 1; int yp = y + 1;\n', xs=False))],
+    'blk_y_only_yp_ym': [(D, named(D, T + 'int xp = x + 1;\n' + T + 'int yp = y + 1; int ym = y - 1;\n', xs=False))],
+    'fs_xm_xp_ym_yp': [(D, named(D, T + 'xm = x - 1;\n' + T + 'xp = x + 1; ym = y - 1; yp = y + 1;\n', fs='xm, xp, ym, yp'))],
+    'fs_xp_xm_yp_ym': [(D, named(D, T + 'xp = x + 1;\n' + T + 'xm = x - 1; yp = y + 1; ym = y - 1;\n', fs='xm, xp, ym, yp'))],
+    'fs_y_only_yp_ym': [(D, named(D, T + 'int xp = x + 1;\n' + T + 'yp = y + 1; ym = y - 1;\n', xs=False, fs='ym, yp'))],
+    'blk_ym_from_yp': [(D, named(D, T + 'int xp = x + 1;\n' + T + 'int yp = y + 1; int ym = yp - 2;\n', xs=False))],
+}
