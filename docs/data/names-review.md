@@ -3871,7 +3871,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_BE5F34` | `app/client/gadget.cpp:23` | neutral (D10) |
 | 1 | `Unknown_BE5EC4` | `app/client/gadget.cpp:24` | neutral (D10) |
 | 1 | `Unknown_BE5F38` | `app/client/gadget.cpp:25` | neutral (D10) |
-| 1 | `Unknown_B8C9E0` | `app/client/gadget.cpp:26` | neutral (D10) |
+| 1 | `Unknown_B8C9E0` | `app/client/gadget.cpp:27` | neutral (D10) |
 | 1 | `Unknown_Debug_Print` | `app/client/gadget.cpp:28` | 0x509E30 (dbgmgr.cpp), the log line |
 | 1 | `event` | `app/client/gadget.cpp:43` | neutral |
 | 1 | `Unknown_42EA80` | `app/client/gadget.cpp:43` | untagged neutral name (D10) |
@@ -11545,7 +11545,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_565100` | `app/client/ui_chat_panel.cpp:926` | untagged neutral name (D10) |
 | 1 | `Unknown_565120` | `app/client/ui_chat_panel.cpp:932` | untagged neutral name (D10) |
 | 1 | `Unknown_565390` | `app/client/ui_chat_panel.cpp:950` | untagged neutral name (D10) |
-| 1 | `Unknown_567930` | `app/client/ui_chat_panel.cpp:997` | untagged neutral name (D10) |
+| 1 | `Unknown_567930` | `app/client/ui_chat_panel.cpp:999` | untagged neutral name (D10) |
 | 1 | `Unknown_5658B0` | `app/client/ui_chat_panel.cpp:1014` | untagged neutral name (D10) |
 | 1 | `Unknown_565BA0` | `app/client/ui_chat_panel.cpp:1032` | untagged neutral name (D10) |
 | 1 | `Unknown_565C00` | `app/client/ui_chat_panel.cpp:1045` | untagged neutral name (D10) |
