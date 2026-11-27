@@ -1461,14 +1461,15 @@
     "unchanged_support_units": 139
   },
   "compiled_inputs": {
-    "completed_target_TU_inputs": 64,
-    "source_hashes": 63,
-    "changed_inputs": 62,
+    "completed_target_TU_inputs": 66,
+    "source_hashes": 64,
+    "changed_inputs": 63,
     "incomplete_inputs": [],
     "empty_runner_directories": [],
     "unchanged_context_compilations": 146,
     "model_compilations": {
-      "Codex coordinator": 2,
+      "gpt-6-astra high": 1,
+      "Codex coordinator": 3,
       "gpt-6.1-terra high": 52,
       "gpt-6.1-sol high": 10
     },
@@ -1487,9 +1488,9 @@
   "integrated-result": {
     "base_revision": "b0f0f58d369b09aa14939bf2baac3ef5685507e6",
     "source_sha256": "369e5cf801184870da323dfbc16297f34da8b4bbaaab4e575241b7c50cf75e00",
-    "final_object_sha256": "bc03f6f528060129cb292d5f6108742df534351caa8636da5b6a3029d6950f3b",
+    "final_object_sha256": "8a0f542f832f06010023d6fbdc199a35e136c57c9e4d6df57370db6389b64009",
     "production_cpp_unchanged": true,
-    "final_run": "root_final_control",
+    "final_run": "root_nested_baseline",
     "isolated_before_file_pairs": 100,
     "isolated_after_file_pairs": 100,
     "isolated_before_symbol_pairs": 101,
@@ -1510,15 +1511,17 @@
     ],
     "attempt_limits": {
       "0x578350": "LIMIT REACHED (D89, D271): 2 rounds without progress (best score 0.88); no retry without a new section 3.1 lever cited with `attempts.py check --lever`",
-      "0x57A060": "LIMIT REACHED (D89, D271): 2 rounds without progress (best score 0.44); no retry without a new section 3.1 lever cited with `attempts.py check --lever`"
+      "0x57A060": "LIMIT REACHED (D89, D271): 3 rounds without progress (best score 0.44); no retry without a new section 3.1 lever cited with `attempts.py check --lever`"
     },
-    "astra_retry_started": false,
+    "astra_retry_started": true,
     "full_linked_image_parity": false,
-    "scope": "canonical native single-TU rebuild with unchanged139-object matching context; all recorded pairs reproduced"
+    "scope": "canonical native single-TU rebuild with unchanged139-object matching context; all recorded pairs reproduced",
+    "astra_source_inputs": 1,
+    "astra_test_outcome": "duplicate of default_accessor; no gain or loss"
   },
   "final-preservation": {
     "before_object_sha256": "1a29607bd5c7861844ee2b74886fc49670cb1b96caa9ba547311b2ff7ce78e5d",
-    "after_object_sha256": "bc03f6f528060129cb292d5f6108742df534351caa8636da5b6a3029d6950f3b",
+    "after_object_sha256": "8a0f542f832f06010023d6fbdc199a35e136c57c9e4d6df57370db6389b64009",
     "checked_symbols": 102,
     "body_or_relocation_changes": [],
     "eh_funclet_changes": []

@@ -1,0 +1,92 @@
+{
+  "classification": "valid_compiled_hypothesis_duplicate_output",
+  "hypothesis": {
+    "classification": "uncompiled_source_hypothesis",
+    "base_revision": "a27086a5b827f64dd20f6fb4476fa5eab5abd2f4",
+    "base_sha256": "369e5cf801184870da323dfbc16297f34da8b4bbaaab4e575241b7c50cf75e00",
+    "parent_run": "key_default_accessor",
+    "parent_sha256": "2cc6b7f7108b532340206806994f0558610886d7d31d393ded6ed204cc751332",
+    "input_sha256": "11f7e3bd1949f3da44ed7a1a42e24ed708477832200ac75540c5ab4a59ea3639",
+    "patch": "--- app/client/ui_combobox.cpp\n+++ app/client/ui_combobox.cpp\n@@ -25,7 +25,7 @@\n UIComboBoxClass *Unknown_BE5BC4;\t// NAME 1: neutral (D10): the open combo box (.bss 0xBE5BC4, before ui_cpit.cpp's 0xBE5BD0) (0x57A330 sets it while the list is down)\n \n // (the header's inline: the text field shows the selected item unless it shows a label)\n-inline void UIComboBoxClass::Show_Selected() { if (!Has_Label()) TextField->Set_Text(Get_Item_Text(Selected)); }\n+inline void UIComboBoxClass::Show_Selected() { if (!Has_Label()) TextField->Set_Text(Get_Selected_Text()); }\n \n void Unknown_497240(RenderObjClass *robj, bool on);\t// 0x497240 (ro_funcs.cpp, cdecl: no N-patches on the model's meshes)  // NAME 1 [robj, on]: neutral\n void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);\t// 0x496AE0 (ro_funcs.cpp, cdecl)  // NAME 1 [robj, make_geometry_unique]: what the helpers pass\n@@ -324,18 +324,18 @@\n bool UIComboBoxClass::Unknown_68(int key)\n {\n \tswitch (key) {\n-\t\tcase 1:\n-\t\t\tToggle_Drop_Down();\n+\t\tdefault:\n+\t\t\tif (key >= 3) {\n+\t\t\t\tSelect(TopItem + key - 3);\n+\t\t\t\tToggle_Drop_Down();\n+\t\t\t}\n \t\t\tbreak;\n \t\tcase 2:\n \t\t\tTopItem = (int)Slider->Get_Value();\n \t\t\tUpdate_Rows();\n \t\t\tbreak;\n-\t\tdefault:\n-\t\t\tif (key >= 3) {\n-\t\t\t\tSelect(TopItem + key - 3);\n-\t\t\t\tToggle_Drop_Down();\n-\t\t\t}\n+\t\tcase 1:\n+\t\t\tToggle_Drop_Down();\n \t\t\tbreak;\n \t}\n \treturn(false);\n@@ -542,10 +542,10 @@\n // 0x57B2F0\n void UIComboBoxClass::Scroll_To_Selected()\n {\n-\tif ((int)Items.size() > NumRows && Slider->Is_Enabled()) {\n+\tif ((int)Items.size() > NumRows) { if (Slider->Is_Enabled()) {\n \t\tTopItem = min((unsigned)Selected, Items.size() - NumRows);\n \t\tTopItem = Unknown_Clamp(TopItem, 0u, Items.size() - NumRows);\n-\t} else {\n+\t} else { TopItem = 0; } } else {\n \t\tTopItem = 0;\n \t}\n }\n",
+    "lever": "docs/workflow.md section3.1.2 line307: compound && versus nested ifs changes caller inlining while preserving helper bytes; exact precedent unknown_6af220.cpp 0x6B0940",
+    "hypothesis": "Change only Scroll eligibility source cost, retaining unchanged min/Clamp and two exclusive failure-zero arms; preserve standalone157-byte Scroll and all prior helpers while suppressing both nested Scroll expansions.",
+    "constraints": "One initial candidate; no source/staging/metadata edits outside canonical runner; stop on unchanged target or any helper loss; only causal positive evidence can justify a follow-up."
+  },
+  "compiled_by": "Codex coordinator; source hypothesis by GPT-6 Astra high",
+  "source_cpp_unchanged": true,
+  "compiled_candidate_run": "astra_nested_guard",
+  "fresh_control_run": "root_nested_baseline",
+  "comparisons": {
+    "key": {
+      "parent_length": 692,
+      "candidate_length": 692,
+      "parent_raw_sha256": "f44303579f6aa28fa7320475c09cd6ad3d7df8452b151166989a2a3701f06d54",
+      "candidate_raw_sha256": "f44303579f6aa28fa7320475c09cd6ad3d7df8452b151166989a2a3701f06d54",
+      "normalized_body_and_reference_identity_equal": true
+    },
+    "Scroll": {
+      "parent_length": 157,
+      "candidate_length": 157,
+      "parent_raw_sha256": "18be342d92c94d35e64f082fbd639363509011ecd2af305eeead7f0f7387a448",
+      "candidate_raw_sha256": "18be342d92c94d35e64f082fbd639363509011ecd2af305eeead7f0f7387a448",
+      "normalized_body_and_reference_identity_equal": true
+    },
+    "Toggle": {
+      "parent_length": 320,
+      "candidate_length": 320,
+      "parent_raw_sha256": "b8863de9b2e7398fc9082a0713165cfa6d40980b941f0ebf55ab833f9f77fdad",
+      "candidate_raw_sha256": "b8863de9b2e7398fc9082a0713165cfa6d40980b941f0ebf55ab833f9f77fdad",
+      "normalized_body_and_reference_identity_equal": true
+    },
+    "Unknown60": {
+      "parent_length": 496,
+      "candidate_length": 496,
+      "parent_raw_sha256": "2445321f4d7a64b50401f0cdaa9cb654f3d348a2a80a365ccd424d0f1dca0f6d",
+      "candidate_raw_sha256": "2445321f4d7a64b50401f0cdaa9cb654f3d348a2a80a365ccd424d0f1dca0f6d",
+      "normalized_body_and_reference_identity_equal": true
+    },
+    "Clamp": {
+      "parent_length": 23,
+      "candidate_length": 23,
+      "parent_raw_sha256": "74d7f01e36d2bea8025a3ae1ef8c0a0ccde9424d15a9b8c10e5121e23f2b0eb7",
+      "candidate_raw_sha256": "74d7f01e36d2bea8025a3ae1ef8c0a0ccde9424d15a9b8c10e5121e23f2b0eb7",
+      "normalized_body_and_reference_identity_equal": true
+    }
+  },
+  "isolated_before_file_pairs": 100,
+  "isolated_after_file_pairs": 100,
+  "isolated_before_symbol_pairs": 101,
+  "isolated_after_symbol_pairs": 101,
+  "context_before_file_pairs": 102,
+  "context_after_file_pairs": 102,
+  "context_before_symbol_pairs": 102,
+  "context_after_symbol_pairs": 102,
+  "file_gains": [],
+  "file_losses": [],
+  "symbol_gains": [],
+  "symbol_losses": [],
+  "target_matched": false,
+  "pattern_bytes": 692,
+  "executable_bytes": 660,
+  "masked_residue": 44,
+  "similarity": 0.43,
+  "new_target_raw_groups": 0,
+  "new_target_masked_groups": 0,
+  "stop_reason": "Exact duplicate of default_accessor, so the documented source-cost application did not change the required nested expansion; no spelling sweep or queued early-return variant.",
+  "baseline_reference": "docs/attempts/578350/claim322-verification.json",
+  "final_control_preservation": {
+    "before_object_sha256": "1a29607bd5c7861844ee2b74886fc49670cb1b96caa9ba547311b2ff7ce78e5d",
+    "after_object_sha256": "8a0f542f832f06010023d6fbdc199a35e136c57c9e4d6df57370db6389b64009",
+    "checked_symbols": 102,
+    "body_or_relocation_changes": [],
+    "eh_funclet_changes": []
+  },
+  "candidate_preservation": {
+    "before_object_sha256": "1a29607bd5c7861844ee2b74886fc49670cb1b96caa9ba547311b2ff7ce78e5d",
+    "after_object_sha256": "afe845c785112034feb2678f5f00238248e9cff0ed204c51b87439a55d81fdac",
+    "checked_symbols": 102,
+    "body_or_relocation_changes": [],
+    "eh_funclet_changes": []
+  },
+  "full_linked_image_parity": false
+}
