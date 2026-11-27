@@ -1,11 +1,15 @@
 # client.exe: facts about the binary
 
-The target is the retail client as installed (Net-7 era install):
+The target is the retail client. **"Retail" is either of two images (D287), and both are accepted**: the copy in
+the Net-7-era install (the tools' default) and EA's shipped client. Net-7 changed only 11 URL / host strings in
+`.data`; the code, headers, `.rdata` and `.rsrc` are the same bytes, so every address in these docs holds in both.
+A comparison that reaches those strings (imagediff) masks them, so its result is the same for either.
 
 | | |
 |---|---|
-| Path | `C:\Program Files (x86)\EA GAMES\Earth & Beyond\release\client.exe` |
-| SHA-256 | `249f852496f341c00361be95b66e7c0becc2c39e7cba026f9227e38b602651c4` (the same client the earlier protocol research used) |
+| Path | `C:\Program Files (x86)\EA GAMES\Earth & Beyond\release\client.exe` (Net-7-era install); `C:\EnBDevelopment\ClientPOC_EA\release\client.exe` (EA's) |
+| SHA-256 | `249f852496f341c00361be95b66e7c0becc2c39e7cba026f9227e38b602651c4` (Net-7-era install; the same client the earlier protocol research used); `82663b2f99f639f4e49d43083b0e2bc0d7ed8b76a95eeb22dd9cc9d6079f7562` (EA's) |
+| Their differences | 11 ranges, 732 bytes (720 of them differ), all `.data`: 0xB84710 +17, 0xB84734 +60, 0xB8478C +74 (EA's web and store links), 0xB9C300 +15 (`auth.east.ea.co` -> `play.net-7.org`), 0xB9FE5B +41, 0xB9FE9C +47, 0xB9FEF0 +53, 0xB9FF3F +40, 0xB9FF7F +49, 0xB9FFC3 +116, 0xBA0063 +220 (earthandbeyond.ea.com's embedded pages -> net-7.org / enb-emulator.com); `tools/re/clientimage.py` `RETAIL_DIFFERENCES`. Our source holds Net-7's strings |
 | Size | 8,642,625 bytes (the file date is the install's, not the build's) |
 | PE timestamp | 0x4057AE00 = **2004-03-17 01:46:40 UTC** (the file header; the debug directory and the PDB record carry 0x4021A831 = 2004-02-05 02:19:29 UTC, age 2: §5) |
 | PDB | `e:\build\beta\G\app\main\client_release\main.pdb` (not available) |
