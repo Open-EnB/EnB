@@ -1,0 +1,1004 @@
+{
+  "base_revision": "3a69e9d2056673c8431a90f47d7d973aeb6ddb4e",
+  "base_path": "app/client/html/image/gifload.cpp",
+  "base_sha256": "ad1c7431c7b7c6499e2ecba0aae1147af369f3af0eb4a5b1cb35a5141f17e7dd",
+  "forms": [
+    {
+      "name": "baseline",
+      "source_sha256": "ad1c7431c7b7c6499e2ecba0aae1147af369f3af0eb4a5b1cb35a5141f17e7dd",
+      "patch": "",
+      "changed": false,
+      "model": "Codex coordinator",
+      "classification": "unchanged_control",
+      "output": {
+        "gained": [],
+        "lost": [],
+        "symbol_gained": [],
+        "symbol_lost": [],
+        "targets": {
+          "0x76D4A0": {
+            "symbol": "?Set_Data@HtmlGifImageClass@@UAEHPADH@Z",
+            "length": 1171,
+            "raw_sha256": "affd05f9be5256ec8c97bbe6c0a281bfe1e50ec87a8b8a85311af7af083d5710",
+            "masked_sha256": "affd05f9be5256ec8c97bbe6c0a281bfe1e50ec87a8b8a85311af7af083d5710",
+            "diagnostic_similarity": "similarity 0.31",
+            "exact": false
+          },
+          "0x76D990": {
+            "symbol": "?Decode@HtmlGifImageClass@@QAEFF@Z",
+            "length": 1145,
+            "raw_sha256": "180791f7c600a9359bfd2a5146b5aceda43e02e72c0c9daf7c0af8401526f124",
+            "masked_sha256": "180791f7c600a9359bfd2a5146b5aceda43e02e72c0c9daf7c0af8401526f124",
+            "diagnostic_similarity": "similarity 0.29",
+            "exact": false
+          },
+          "0x76DF60": {
+            "symbol": "?Get_Next_Code@HtmlGifImageClass@@QAEFXZ",
+            "length": 514,
+            "raw_sha256": "de48c4e2d48d2b98219ae55ab5d6c05c675042867750d51ffe332bd599758360",
+            "masked_sha256": "de48c4e2d48d2b98219ae55ab5d6c05c675042867750d51ffe332bd599758360",
+            "diagnostic_similarity": "similarity 0.82",
+            "exact": false
+          }
+        }
+      }
+    },
+    {
+      "name": "code_both_signed",
+      "source_sha256": "76b15fc47a5e7c2ae0c866bcd180ea62347833a78f88b34292a5442d0e92af2e",
+      "patch": "--- app/client/html/image/gifload.cpp\n+++ app/client/html/image/gifload.cpp\n@@ -5,7 +5,7 @@\n \n #define BAD_CODE_SIZE\t-20\n \n-static unsigned short code_mask[13] = {\n+static short code_mask[13] = {\n \t0,\n \t0x0001, 0x0003,\n \t0x0007, 0x000F,\n@@ -16,7 +16,7 @@\n };\n \n static unsigned char b1;\n-static unsigned short ret;\n+static short ret;\n \n int Build_Pixel(DSurface *surface, int red, int green, int blue)\n {\n",
+      "changed": true,
+      "model": "gpt-6.1-terra high",
+      "classification": "changed_form",
+      "output": {
+        "gained": [],
+        "lost": [],
+        "symbol_gained": [],
+        "symbol_lost": [],
+        "targets": {
+          "0x76D4A0": {
+            "symbol": "?Set_Data@HtmlGifImageClass@@UAEHPADH@Z",
+            "length": 1171,
+            "raw_sha256": "affd05f9be5256ec8c97bbe6c0a281bfe1e50ec87a8b8a85311af7af083d5710",
+            "masked_sha256": "affd05f9be5256ec8c97bbe6c0a281bfe1e50ec87a8b8a85311af7af083d5710",
+            "diagnostic_similarity": "similarity 0.31",
+            "exact": false
+          },
+          "0x76D990": {
+            "symbol": "?Decode@HtmlGifImageClass@@QAEFF@Z",
+            "length": 1145,
+            "raw_sha256": "180791f7c600a9359bfd2a5146b5aceda43e02e72c0c9daf7c0af8401526f124",
+            "masked_sha256": "180791f7c600a9359bfd2a5146b5aceda43e02e72c0c9daf7c0af8401526f124",
+            "diagnostic_similarity": "similarity 0.29",
+            "exact": false
+          },
+          "0x76DF60": {
+            "symbol": "?Get_Next_Code@HtmlGifImageClass@@QAEFXZ",
+            "length": 514,
+            "raw_sha256": "de48c4e2d48d2b98219ae55ab5d6c05c675042867750d51ffe332bd599758360",
+            "masked_sha256": "de48c4e2d48d2b98219ae55ab5d6c05c675042867750d51ffe332bd599758360",
+            "diagnostic_similarity": "similarity 0.82",
+            "exact": false
+          }
+        }
+      }
+    },
+    {
+      "name": "code_signed_mask",
+      "source_sha256": "a47f10afa855262be68fe790b63b1a5737688e0aee407f017417cbee33a062dd",
+      "patch": "--- app/client/html/image/gifload.cpp\n+++ app/client/html/image/gifload.cpp\n@@ -5,7 +5,7 @@\n \n #define BAD_CODE_SIZE\t-20\n \n-static unsigned short code_mask[13] = {\n+static short code_mask[13] = {\n \t0,\n \t0x0001, 0x0003,\n \t0x0007, 0x000F,\n",
+      "changed": true,
+      "model": "gpt-6.1-terra high",
+      "classification": "changed_form",
+      "output": {
+        "gained": [],
+        "lost": [],
+        "symbol_gained": [],
+        "symbol_lost": [],
+        "targets": {
+          "0x76D4A0": {
+            "symbol": "?Set_Data@HtmlGifImageClass@@UAEHPADH@Z",
+            "length": 1171,
+            "raw_sha256": "affd05f9be5256ec8c97bbe6c0a281bfe1e50ec87a8b8a85311af7af083d5710",
+            "masked_sha256": "affd05f9be5256ec8c97bbe6c0a281bfe1e50ec87a8b8a85311af7af083d5710",
+            "diagnostic_similarity": "similarity 0.31",
+            "exact": false
+          },
+          "0x76D990": {
+            "symbol": "?Decode@HtmlGifImageClass@@QAEFF@Z",
+            "length": 1145,
+            "raw_sha256": "180791f7c600a9359bfd2a5146b5aceda43e02e72c0c9daf7c0af8401526f124",
+            "masked_sha256": "180791f7c600a9359bfd2a5146b5aceda43e02e72c0c9daf7c0af8401526f124",
+            "diagnostic_similarity": "similarity 0.29",
+            "exact": false
+          },
+          "0x76DF60": {
+            "symbol": "?Get_Next_Code@HtmlGifImageClass@@QAEFXZ",
+            "length": 514,
+            "raw_sha256": "de48c4e2d48d2b98219ae55ab5d6c05c675042867750d51ffe332bd599758360",
+            "masked_sha256": "de48c4e2d48d2b98219ae55ab5d6c05c675042867750d51ffe332bd599758360",
+            "diagnostic_similarity": "similarity 0.82",
+            "exact": false
+          }
+        }
+      }
+    },
+    {
+      "name": "code_signed_ret",
+      "source_sha256": "a6c8736c13ee6a5f8acf65658539e023a304d0f5e8036ea501344d0f910b8ffd",
+      "patch": "--- app/client/html/image/gifload.cpp\n+++ app/client/html/image/gifload.cpp\n@@ -16,7 +16,7 @@\n };\n \n static unsigned char b1;\n-static unsigned short ret;\n+static short ret;\n \n int Build_Pixel(DSurface *surface, int red, int green, int blue)\n {\n",
+      "changed": true,
+      "model": "gpt-6.1-terra high",
+      "classification": "changed_form",
+      "output": {
+        "gained": [],
+        "lost": [],
+        "symbol_gained": [],
+        "symbol_lost": [],
+        "targets": {
+          "0x76D4A0": {
+            "symbol": "?Set_Data@HtmlGifImageClass@@UAEHPADH@Z",
+            "length": 1171,
+            "raw_sha256": "affd05f9be5256ec8c97bbe6c0a281bfe1e50ec87a8b8a85311af7af083d5710",
+            "masked_sha256": "affd05f9be5256ec8c97bbe6c0a281bfe1e50ec87a8b8a85311af7af083d5710",
+            "diagnostic_similarity": "similarity 0.31",
+            "exact": false
+          },
+          "0x76D990": {
+            "symbol": "?Decode@HtmlGifImageClass@@QAEFF@Z",
+            "length": 1145,
+            "raw_sha256": "180791f7c600a9359bfd2a5146b5aceda43e02e72c0c9daf7c0af8401526f124",
+            "masked_sha256": "180791f7c600a9359bfd2a5146b5aceda43e02e72c0c9daf7c0af8401526f124",
+            "diagnostic_similarity": "similarity 0.29",
+            "exact": false
+          },
+          "0x76DF60": {
+            "symbol": "?Get_Next_Code@HtmlGifImageClass@@QAEFXZ",
+            "length": 514,
+            "raw_sha256": "de48c4e2d48d2b98219ae55ab5d6c05c675042867750d51ffe332bd599758360",
+            "masked_sha256": "de48c4e2d48d2b98219ae55ab5d6c05c675042867750d51ffe332bd599758360",
+            "diagnostic_similarity": "similarity 0.82",
+            "exact": false
+          }
+        }
+      }
+    },
+    {
+      "name": "data_count_arg",
+      "source_sha256": "9c5bc11ad7f9089ae707409aa18d8059cc4f715500afb75249fcea9a805d31b6",
+      "patch": "--- app/client/html/image/gifload.cpp\n+++ app/client/html/image/gifload.cpp\n@@ -65,7 +65,7 @@\n \t\t\tCreate_Surface(Width, Height);\n \t\t\tif (buffer[10] & 0x80) {\n \t\t\t\tColorCount = 1 << ((buffer[10] & 0x0F) + 1);\n-\t\t\t\tfor (i = 0; i < ColorCount * 3; i++) {\n+\t\t\t\tfor (i = 0, length = ColorCount * 3; i < length; i++) {\n \t\t\t\t\tc = Get_Byte();\n \t\t\t\t\tif (c < 0)\n \t\t\t\t\t\treturn(-1);\n",
+      "changed": true,
+      "model": "gpt-6.1-terra high",
+      "classification": "changed_form",
+      "output": {
+        "gained": [],
+        "lost": [],
+        "symbol_gained": [],
+        "symbol_lost": [],
+        "targets": {
+          "0x76D4A0": {
+            "symbol": "?Set_Data@HtmlGifImageClass@@UAEHPADH@Z",
+            "length": 1162,
+            "raw_sha256": "61dda6ea104e4af816f652939ab0f232b8325bde2512275fc7ad2ebe9dc7662b",
+            "masked_sha256": "61dda6ea104e4af816f652939ab0f232b8325bde2512275fc7ad2ebe9dc7662b",
+            "diagnostic_similarity": "similarity 0.32",
+            "exact": false
+          },
+          "0x76D990": {
+            "symbol": "?Decode@HtmlGifImageClass@@QAEFF@Z",
+            "length": 1145,
+            "raw_sha256": "180791f7c600a9359bfd2a5146b5aceda43e02e72c0c9daf7c0af8401526f124",
+            "masked_sha256": "180791f7c600a9359bfd2a5146b5aceda43e02e72c0c9daf7c0af8401526f124",
+            "diagnostic_similarity": "similarity 0.29",
+            "exact": false
+          },
+          "0x76DF60": {
+            "symbol": "?Get_Next_Code@HtmlGifImageClass@@QAEFXZ",
+            "length": 514,
+            "raw_sha256": "de48c4e2d48d2b98219ae55ab5d6c05c675042867750d51ffe332bd599758360",
+            "masked_sha256": "de48c4e2d48d2b98219ae55ab5d6c05c675042867750d51ffe332bd599758360",
+            "diagnostic_similarity": "similarity 0.82",
+            "exact": false
+          }
+        }
+      }
+    },
+    {
+      "name": "data_count_local",
+      "source_sha256": "0140b342d17d0ac86a0373644bbde7182e58973e07e520f1688b0e7160567ad4",
+      "patch": "--- app/client/html/image/gifload.cpp\n+++ app/client/html/image/gifload.cpp\n@@ -65,7 +65,7 @@\n \t\t\tCreate_Surface(Width, Height);\n \t\t\tif (buffer[10] & 0x80) {\n \t\t\t\tColorCount = 1 << ((buffer[10] & 0x0F) + 1);\n-\t\t\t\tfor (i = 0; i < ColorCount * 3; i++) {\n+\t\t\t\tint palette_bytes = ColorCount * 3; for (i = 0; i < palette_bytes; i++) {\n \t\t\t\t\tc = Get_Byte();\n \t\t\t\t\tif (c < 0)\n \t\t\t\t\t\treturn(-1);\n",
+      "changed": true,
+      "model": "gpt-6.1-terra high",
+      "classification": "changed_form",
+      "output": {
+        "gained": [],
+        "lost": [],
+        "symbol_gained": [],
+        "symbol_lost": [],
+        "targets": {
+          "0x76D4A0": {
+            "symbol": "?Set_Data@HtmlGifImageClass@@UAEHPADH@Z",
+            "length": 1162,
+            "raw_sha256": "61dda6ea104e4af816f652939ab0f232b8325bde2512275fc7ad2ebe9dc7662b",
+            "masked_sha256": "61dda6ea104e4af816f652939ab0f232b8325bde2512275fc7ad2ebe9dc7662b",
+            "diagnostic_similarity": "similarity 0.32",
+            "exact": false
+          },
+          "0x76D990": {
+            "symbol": "?Decode@HtmlGifImageClass@@QAEFF@Z",
+            "length": 1145,
+            "raw_sha256": "180791f7c600a9359bfd2a5146b5aceda43e02e72c0c9daf7c0af8401526f124",
+            "masked_sha256": "180791f7c600a9359bfd2a5146b5aceda43e02e72c0c9daf7c0af8401526f124",
+            "diagnostic_similarity": "similarity 0.29",
+            "exact": false
+          },
+          "0x76DF60": {
+            "symbol": "?Get_Next_Code@HtmlGifImageClass@@QAEFXZ",
+            "length": 514,
+            "raw_sha256": "de48c4e2d48d2b98219ae55ab5d6c05c675042867750d51ffe332bd599758360",
+            "masked_sha256": "de48c4e2d48d2b98219ae55ab5d6c05c675042867750d51ffe332bd599758360",
+            "diagnostic_similarity": "similarity 0.82",
+            "exact": false
+          }
+        }
+      }
+    },
+    {
+      "name": "data_helper_both",
+      "source_sha256": "0dbbcbb516f33ef4326cf5731137c6754f0d71f1c917ec1420c0a96671d01390",
+      "patch": "--- app/client/html/image/gifload.cpp\n+++ app/client/html/image/gifload.cpp\n@@ -22,9 +22,9 @@\n {\n \tint pixel = 0;\n \tif (surface->Bytes_Per_Pixel() == 4 || surface->Bytes_Per_Pixel() == 3) {\n-\t\tpixel = (((red << 8) | green) << 8) | blue;\n+\t\tint rg = (red << 8) | green; pixel = (rg << 8) | blue;\n \t} else if (surface->Bytes_Per_Pixel() == 2) {\n-\t\tpixel = ((green >> surface->ThisGreenLeft) << surface->ThisGreenRight) | ((blue >> surface->ThisBlueLeft) << surface->ThisBlueRight) | ((red >> surface->ThisRedLeft) << surface->ThisRedRight);\n+\t\tint g = (green >> surface->ThisGreenLeft) << surface->ThisGreenRight; int b = (blue >> surface->ThisBlueLeft) << surface->ThisBlueRight; int r = (red >> surface->ThisRedLeft) << surface->ThisRedRight; pixel = g | b | r;\n \t}\n \treturn(pixel);\n }\n@@ -65,7 +65,7 @@\n \t\t\tCreate_Surface(Width, Height);\n \t\t\tif (buffer[10] & 0x80) {\n \t\t\t\tColorCount = 1 << ((buffer[10] & 0x0F) + 1);\n-\t\t\t\tfor (i = 0; i < ColorCount * 3; i++) {\n+\t\t\t\tint palette_bytes = ColorCount * 3; for (i = 0; i < palette_bytes; i++) {\n \t\t\t\t\tc = Get_Byte();\n \t\t\t\t\tif (c < 0)\n \t\t\t\t\t\treturn(-1);\n",
+      "changed": true,
+      "model": "gpt-6.1-terra high",
+      "classification": "pair_loss_diagnostic",
+      "output": {
+        "gained": [
+          "0x76E910"
+        ],
+        "lost": [
+          "0x76D340",
+          "0x76D3E0",
+          "0x76D410",
+          "0x76D430",
+          "0x76D450",
+          "0x76D480"
+        ],
+        "symbol_gained": [
+          [
+            "??_GHtmlGifImageClass@@UAEPAXI@Z",
+            "0x76E910"
+          ]
+        ],
+        "symbol_lost": [
+          [
+            "??0HtmlGifImageClass@@QAE@PADH@Z",
+            "0x76D3E0"
+          ],
+          [
+            "??1HtmlGifImageClass@@UAE@XZ",
+            "0x76D480"
+          ],
+          [
+            "??_GHtmlGifImageClass@@UAEPAXI@Z",
+            "0x76D450"
+          ],
+          [
+            "?Build_Pixel@@YAHPAVDSurface@@HHH@Z",
+            "0x76D340"
+          ],
+          [
+            "?Get_Name@HtmlImageClass@@UAEPADXZ",
+            "0x76D430"
+          ],
+          [
+            "?Get_Surface@HtmlImageClass@@UAEPAVSurface@@XZ",
+            "0x76D410"
+          ]
+        ],
+        "targets": {
+          "0x76D4A0": {
+            "symbol": "?Set_Data@HtmlGifImageClass@@UAEHPADH@Z",
+            "length": 1162,
+            "raw_sha256": "0e4ffe05e3ed20a8087a24a1bc96f6660109a88113e155ea1fbebb8ed1f51e1c",
+            "masked_sha256": "0e4ffe05e3ed20a8087a24a1bc96f6660109a88113e155ea1fbebb8ed1f51e1c",
+            "diagnostic_similarity": "similarity 0.32",
+            "exact": false
+          },
+          "0x76D990": {
+            "symbol": "?Decode@HtmlGifImageClass@@QAEFF@Z",
+            "length": 1145,
+            "raw_sha256": "180791f7c600a9359bfd2a5146b5aceda43e02e72c0c9daf7c0af8401526f124",
+            "masked_sha256": "180791f7c600a9359bfd2a5146b5aceda43e02e72c0c9daf7c0af8401526f124",
+            "diagnostic_similarity": "similarity 0.29",
+            "exact": false
+          },
+          "0x76DF60": {
+            "symbol": "?Get_Next_Code@HtmlGifImageClass@@QAEFXZ",
+            "length": 514,
+            "raw_sha256": "de48c4e2d48d2b98219ae55ab5d6c05c675042867750d51ffe332bd599758360",
+            "masked_sha256": "de48c4e2d48d2b98219ae55ab5d6c05c675042867750d51ffe332bd599758360",
+            "diagnostic_similarity": "similarity 0.82",
+            "exact": false
+          }
+        }
+      }
+    },
+    {
+      "name": "data_helper_channels",
+      "source_sha256": "1b9418debc5fb8933f0aeb7c88cd7d9533c122995af71e17f88a86e062f70faf",
+      "patch": "--- app/client/html/image/gifload.cpp\n+++ app/client/html/image/gifload.cpp\n@@ -24,7 +24,7 @@\n \tif (surface->Bytes_Per_Pixel() == 4 || surface->Bytes_Per_Pixel() == 3) {\n \t\tpixel = (((red << 8) | green) << 8) | blue;\n \t} else if (surface->Bytes_Per_Pixel() == 2) {\n-\t\tpixel = ((green >> surface->ThisGreenLeft) << surface->ThisGreenRight) | ((blue >> surface->ThisBlueLeft) << surface->ThisBlueRight) | ((red >> surface->ThisRedLeft) << surface->ThisRedRight);\n+\t\tint g = (green >> surface->ThisGreenLeft) << surface->ThisGreenRight; int b = (blue >> surface->ThisBlueLeft) << surface->ThisBlueRight; int r = (red >> surface->ThisRedLeft) << surface->ThisRedRight; pixel = g | b | r;\n \t}\n \treturn(pixel);\n }\n@@ -65,7 +65,7 @@\n \t\t\tCreate_Surface(Width, Height);\n \t\t\tif (buffer[10] & 0x80) {\n \t\t\t\tColorCount = 1 << ((buffer[10] & 0x0F) + 1);\n-\t\t\t\tfor (i = 0; i < ColorCount * 3; i++) {\n+\t\t\t\tint palette_bytes = ColorCount * 3; for (i = 0; i < palette_bytes; i++) {\n \t\t\t\t\tc = Get_Byte();\n \t\t\t\t\tif (c < 0)\n \t\t\t\t\t\treturn(-1);\n",
+      "changed": true,
+      "model": "gpt-6.1-terra high",
+      "classification": "pair_loss_diagnostic",
+      "output": {
+        "gained": [
+          "0x76E910"
+        ],
+        "lost": [
+          "0x76D340",
+          "0x76D3E0",
+          "0x76D410",
+          "0x76D430",
+          "0x76D450",
+          "0x76D480"
+        ],
+        "symbol_gained": [
+          [
+            "??_GHtmlGifImageClass@@UAEPAXI@Z",
+            "0x76E910"
+          ]
+        ],
+        "symbol_lost": [
+          [
+            "??0HtmlGifImageClass@@QAE@PADH@Z",
+            "0x76D3E0"
+          ],
+          [
+            "??1HtmlGifImageClass@@UAE@XZ",
+            "0x76D480"
+          ],
+          [
+            "??_GHtmlGifImageClass@@UAEPAXI@Z",
+            "0x76D450"
+          ],
+          [
+            "?Build_Pixel@@YAHPAVDSurface@@HHH@Z",
+            "0x76D340"
+          ],
+          [
+            "?Get_Name@HtmlImageClass@@UAEPADXZ",
+            "0x76D430"
+          ],
+          [
+            "?Get_Surface@HtmlImageClass@@UAEPAVSurface@@XZ",
+            "0x76D410"
+          ]
+        ],
+        "targets": {
+          "0x76D4A0": {
+            "symbol": "?Set_Data@HtmlGifImageClass@@UAEHPADH@Z",
+            "length": 1162,
+            "raw_sha256": "0e4ffe05e3ed20a8087a24a1bc96f6660109a88113e155ea1fbebb8ed1f51e1c",
+            "masked_sha256": "0e4ffe05e3ed20a8087a24a1bc96f6660109a88113e155ea1fbebb8ed1f51e1c",
+            "diagnostic_similarity": "similarity 0.32",
+            "exact": false
+          },
+          "0x76D990": {
+            "symbol": "?Decode@HtmlGifImageClass@@QAEFF@Z",
+            "length": 1145,
+            "raw_sha256": "180791f7c600a9359bfd2a5146b5aceda43e02e72c0c9daf7c0af8401526f124",
+            "masked_sha256": "180791f7c600a9359bfd2a5146b5aceda43e02e72c0c9daf7c0af8401526f124",
+            "diagnostic_similarity": "similarity 0.29",
+            "exact": false
+          },
+          "0x76DF60": {
+            "symbol": "?Get_Next_Code@HtmlGifImageClass@@QAEFXZ",
+            "length": 514,
+            "raw_sha256": "de48c4e2d48d2b98219ae55ab5d6c05c675042867750d51ffe332bd599758360",
+            "masked_sha256": "de48c4e2d48d2b98219ae55ab5d6c05c675042867750d51ffe332bd599758360",
+            "diagnostic_similarity": "similarity 0.82",
+            "exact": false
+          }
+        }
+      }
+    },
+    {
+      "name": "data_helper_negate",
+      "source_sha256": "f3f493a0dc7e0311fc30fbb98f76c74e97180a229238a7694c2d0e6b3b467d7a",
+      "patch": "--- app/client/html/image/gifload.cpp\n+++ app/client/html/image/gifload.cpp\n@@ -21,10 +21,10 @@\n int Build_Pixel(DSurface *surface, int red, int green, int blue)\n {\n \tint pixel = 0;\n-\tif (surface->Bytes_Per_Pixel() == 4 || surface->Bytes_Per_Pixel() == 3) {\n+\tif (surface->Bytes_Per_Pixel() != 4 && surface->Bytes_Per_Pixel() != 3) {\n+\t\tif (surface->Bytes_Per_Pixel() == 2) pixel = ((green >> surface->ThisGreenLeft) << surface->ThisGreenRight) | ((blue >> surface->ThisBlueLeft) << surface->ThisBlueRight) | ((red >> surface->ThisRedLeft) << surface->ThisRedRight);\n+\t} else {\n \t\tpixel = (((red << 8) | green) << 8) | blue;\n-\t} else if (surface->Bytes_Per_Pixel() == 2) {\n-\t\tpixel = ((green >> surface->ThisGreenLeft) << surface->ThisGreenRight) | ((blue >> surface->ThisBlueLeft) << surface->ThisBlueRight) | ((red >> surface->ThisRedLeft) << surface->ThisRedRight);\n \t}\n \treturn(pixel);\n }\n@@ -65,7 +65,7 @@\n \t\t\tCreate_Surface(Width, Height);\n \t\t\tif (buffer[10] & 0x80) {\n \t\t\t\tColorCount = 1 << ((buffer[10] & 0x0F) + 1);\n-\t\t\t\tfor (i = 0; i < ColorCount * 3; i++) {\n+\t\t\t\tint palette_bytes = ColorCount * 3; for (i = 0; i < palette_bytes; i++) {\n \t\t\t\t\tc = Get_Byte();\n \t\t\t\t\tif (c < 0)\n \t\t\t\t\t\treturn(-1);\n",
+      "changed": true,
+      "model": "gpt-6.1-terra high",
+      "classification": "changed_form",
+      "output": {
+        "gained": [],
+        "lost": [],
+        "symbol_gained": [],
+        "symbol_lost": [],
+        "targets": {
+          "0x76D4A0": {
+            "symbol": "?Set_Data@HtmlGifImageClass@@UAEHPADH@Z",
+            "length": 1162,
+            "raw_sha256": "61dda6ea104e4af816f652939ab0f232b8325bde2512275fc7ad2ebe9dc7662b",
+            "masked_sha256": "61dda6ea104e4af816f652939ab0f232b8325bde2512275fc7ad2ebe9dc7662b",
+            "diagnostic_similarity": "similarity 0.32",
+            "exact": false
+          },
+          "0x76D990": {
+            "symbol": "?Decode@HtmlGifImageClass@@QAEFF@Z",
+            "length": 1145,
+            "raw_sha256": "180791f7c600a9359bfd2a5146b5aceda43e02e72c0c9daf7c0af8401526f124",
+            "masked_sha256": "180791f7c600a9359bfd2a5146b5aceda43e02e72c0c9daf7c0af8401526f124",
+            "diagnostic_similarity": "similarity 0.29",
+            "exact": false
+          },
+          "0x76DF60": {
+            "symbol": "?Get_Next_Code@HtmlGifImageClass@@QAEFXZ",
+            "length": 514,
+            "raw_sha256": "de48c4e2d48d2b98219ae55ab5d6c05c675042867750d51ffe332bd599758360",
+            "masked_sha256": "de48c4e2d48d2b98219ae55ab5d6c05c675042867750d51ffe332bd599758360",
+            "diagnostic_similarity": "similarity 0.82",
+            "exact": false
+          }
+        }
+      }
+    },
+    {
+      "name": "data_helper_return",
+      "source_sha256": "119369f0566c5d044d675f148fed853985a9425de0427318c69f996a2222cbc0",
+      "patch": "--- app/client/html/image/gifload.cpp\n+++ app/client/html/image/gifload.cpp\n@@ -20,13 +20,13 @@\n \n int Build_Pixel(DSurface *surface, int red, int green, int blue)\n {\n-\tint pixel = 0;\n \tif (surface->Bytes_Per_Pixel() == 4 || surface->Bytes_Per_Pixel() == 3) {\n-\t\tpixel = (((red << 8) | green) << 8) | blue;\n+\t\treturn (((red << 8) | green) << 8) | blue;\n \t} else if (surface->Bytes_Per_Pixel() == 2) {\n-\t\tpixel = ((green >> surface->ThisGreenLeft) << surface->ThisGreenRight) | ((blue >> surface->ThisBlueLeft) << surface->ThisBlueRight) | ((red >> surface->ThisRedLeft) << surface->ThisRedRight);\n+\t\treturn ((green >> surface->ThisGreenLeft) << surface->ThisGreenRight) | ((blue >> surface->ThisBlueLeft) << surface->ThisBlueRight) | ((red >> surface->ThisRedLeft) << surface->ThisRedRight);\n \t}\n-\treturn(pixel);\n+\treturn 0;\n+\n }\n \n HtmlGifImageClass::HtmlGifImageClass(char *name, int bits) : HtmlImageClass(name, bits)\n@@ -65,7 +65,7 @@\n \t\t\tCreate_Surface(Width, Height);\n \t\t\tif (buffer[10] & 0x80) {\n \t\t\t\tColorCount = 1 << ((buffer[10] & 0x0F) + 1);\n-\t\t\t\tfor (i = 0; i < ColorCount * 3; i++) {\n+\t\t\t\tint palette_bytes = ColorCount * 3; for (i = 0; i < palette_bytes; i++) {\n \t\t\t\t\tc = Get_Byte();\n \t\t\t\t\tif (c < 0)\n \t\t\t\t\t\treturn(-1);\n",
+      "changed": true,
+      "model": "gpt-6.1-terra high",
+      "classification": "pair_loss_diagnostic",
+      "output": {
+        "gained": [
+          "0x76E910"
+        ],
+        "lost": [
+          "0x76D340",
+          "0x76D3E0",
+          "0x76D410",
+          "0x76D430",
+          "0x76D450",
+          "0x76D480"
+        ],
+        "symbol_gained": [
+          [
+            "??_GHtmlGifImageClass@@UAEPAXI@Z",
+            "0x76E910"
+          ]
+        ],
+        "symbol_lost": [
+          [
+            "??0HtmlGifImageClass@@QAE@PADH@Z",
+            "0x76D3E0"
+          ],
+          [
+            "??1HtmlGifImageClass@@UAE@XZ",
+            "0x76D480"
+          ],
+          [
+            "??_GHtmlGifImageClass@@UAEPAXI@Z",
+            "0x76D450"
+          ],
+          [
+            "?Build_Pixel@@YAHPAVDSurface@@HHH@Z",
+            "0x76D340"
+          ],
+          [
+            "?Get_Name@HtmlImageClass@@UAEPADXZ",
+            "0x76D430"
+          ],
+          [
+            "?Get_Surface@HtmlImageClass@@UAEPAVSurface@@XZ",
+            "0x76D410"
+          ]
+        ],
+        "targets": {
+          "0x76D4A0": {
+            "symbol": "?Set_Data@HtmlGifImageClass@@UAEHPADH@Z",
+            "length": 1148,
+            "raw_sha256": "b3d63cf4b39e5a9fdafaba70fade67df8ea614ceaa313701abb785b83c6f4d44",
+            "masked_sha256": "b3d63cf4b39e5a9fdafaba70fade67df8ea614ceaa313701abb785b83c6f4d44",
+            "diagnostic_similarity": "similarity 0.33",
+            "exact": false
+          },
+          "0x76D990": {
+            "symbol": "?Decode@HtmlGifImageClass@@QAEFF@Z",
+            "length": 1145,
+            "raw_sha256": "180791f7c600a9359bfd2a5146b5aceda43e02e72c0c9daf7c0af8401526f124",
+            "masked_sha256": "180791f7c600a9359bfd2a5146b5aceda43e02e72c0c9daf7c0af8401526f124",
+            "diagnostic_similarity": "similarity 0.29",
+            "exact": false
+          },
+          "0x76DF60": {
+            "symbol": "?Get_Next_Code@HtmlGifImageClass@@QAEFXZ",
+            "length": 514,
+            "raw_sha256": "de48c4e2d48d2b98219ae55ab5d6c05c675042867750d51ffe332bd599758360",
+            "masked_sha256": "de48c4e2d48d2b98219ae55ab5d6c05c675042867750d51ffe332bd599758360",
+            "diagnostic_similarity": "similarity 0.82",
+            "exact": false
+          }
+        }
+      }
+    },
+    {
+      "name": "data_helper_rgb",
+      "source_sha256": "9a8fc950443aac61151d5aaccfbe8b5a74803d004e51fd4cd6539cbc8b53dee4",
+      "patch": "--- app/client/html/image/gifload.cpp\n+++ app/client/html/image/gifload.cpp\n@@ -22,7 +22,7 @@\n {\n \tint pixel = 0;\n \tif (surface->Bytes_Per_Pixel() == 4 || surface->Bytes_Per_Pixel() == 3) {\n-\t\tpixel = (((red << 8) | green) << 8) | blue;\n+\t\tint rg = (red << 8) | green; pixel = (rg << 8) | blue;\n \t} else if (surface->Bytes_Per_Pixel() == 2) {\n \t\tpixel = ((green >> surface->ThisGreenLeft) << surface->ThisGreenRight) | ((blue >> surface->ThisBlueLeft) << surface->ThisBlueRight) | ((red >> surface->ThisRedLeft) << surface->ThisRedRight);\n \t}\n@@ -65,7 +65,7 @@\n \t\t\tCreate_Surface(Width, Height);\n \t\t\tif (buffer[10] & 0x80) {\n \t\t\t\tColorCount = 1 << ((buffer[10] & 0x0F) + 1);\n-\t\t\t\tfor (i = 0; i < ColorCount * 3; i++) {\n+\t\t\t\tint palette_bytes = ColorCount * 3; for (i = 0; i < palette_bytes; i++) {\n \t\t\t\t\tc = Get_Byte();\n \t\t\t\t\tif (c < 0)\n \t\t\t\t\t\treturn(-1);\n",
+      "changed": true,
+      "model": "gpt-6.1-terra high",
+      "classification": "changed_form",
+      "output": {
+        "gained": [],
+        "lost": [],
+        "symbol_gained": [],
+        "symbol_lost": [],
+        "targets": {
+          "0x76D4A0": {
+            "symbol": "?Set_Data@HtmlGifImageClass@@UAEHPADH@Z",
+            "length": 1162,
+            "raw_sha256": "61dda6ea104e4af816f652939ab0f232b8325bde2512275fc7ad2ebe9dc7662b",
+            "masked_sha256": "61dda6ea104e4af816f652939ab0f232b8325bde2512275fc7ad2ebe9dc7662b",
+            "diagnostic_similarity": "similarity 0.32",
+            "exact": false
+          },
+          "0x76D990": {
+            "symbol": "?Decode@HtmlGifImageClass@@QAEFF@Z",
+            "length": 1145,
+            "raw_sha256": "180791f7c600a9359bfd2a5146b5aceda43e02e72c0c9daf7c0af8401526f124",
+            "masked_sha256": "180791f7c600a9359bfd2a5146b5aceda43e02e72c0c9daf7c0af8401526f124",
+            "diagnostic_similarity": "similarity 0.29",
+            "exact": false
+          },
+          "0x76DF60": {
+            "symbol": "?Get_Next_Code@HtmlGifImageClass@@QAEFXZ",
+            "length": 514,
+            "raw_sha256": "de48c4e2d48d2b98219ae55ab5d6c05c675042867750d51ffe332bd599758360",
+            "masked_sha256": "de48c4e2d48d2b98219ae55ab5d6c05c675042867750d51ffe332bd599758360",
+            "diagnostic_similarity": "similarity 0.82",
+            "exact": false
+          }
+        }
+      }
+    },
+    {
+      "name": "decode_code_size",
+      "source_sha256": "51ff55ffcaf08523f757f389bf90685a2132728b6a95737c6126b4ec53882621",
+      "patch": "--- app/client/html/image/gifload.cpp\n+++ app/client/html/image/gifload.cpp\n@@ -360,18 +360,18 @@\n \tif (size < 2 || 9 < size)\n \t\treturn(BAD_CODE_SIZE);\n \n-\tCodeSize = size + 1;\n+\tshort initial_code_size = size + 1; CodeSize = initial_code_size;\n \ttop_slot = 1 << CodeSize;\n \tclear = 1 << size;\n \tending = clear + 1;\n \tslot = newcodes = ending + 1;\n \tLengths[slot] = 0;\n \tBytesLeft = BitsLeft = 0;\n-\tfor (i = 0; i < slot; i++)\n+\toc = fc = 0; xcount = ycount = 0; for (i = 0; i < slot; i++)\n \t\tLengths[i] = 0;\n \n-\toc = fc = 0;\n-\txcount = ycount = 0;\n+\t\n+\t\n \tsp = Stack;\n \tbufptr = Line;\n \tbufcnt = linewidth;\n@@ -381,7 +381,7 @@\n \t\t\tbreak;\n \n \t\tif (c == clear) {\n-\t\t\tCodeSize = size + 1;\n+\t\t\tCodeSize = initial_code_size;\n \t\t\tLengths[newcodes] = 0;\n \t\t\ttop_slot = 1 << CodeSize;\n \t\t\tslot = newcodes;\n@@ -391,7 +391,7 @@\n \t\t\t\tbreak;\n \t\t\tif (c >= slot)\n \t\t\t\tc = 0;\n-\t\t\toc = fc = c;\n+\t\t\toc = c; fc = (unsigned char)c;\n \t\t\t*sp++ = fc;\n \t\t} else {\n \t\t\tcode = c;\n@@ -419,8 +419,8 @@\n \t\t\t\t\t\tcode = Prefix[code];\n \t\t\t\t\t} while (i > 0);\n \t\t\t\t\t*bufptr = (unsigned char)code;\n-\t\t\t\t\tbufptr += len + 1;\n-\t\t\t\t\tbufcnt -= len + 1;\n+\t\t\t\t\t++len; bufptr += len;\n+\t\t\t\t\tbufcnt -= len;\n \t\t\t\t\tif (bufcnt == 0) {\n \t\t\t\t\t\tif (--ycount < 0) {\n \t\t\t\t\t\t\tOut_Line(Line, bufptr - Line, row);\n",
+      "changed": true,
+      "model": "gpt-6.1-terra high",
+      "classification": "changed_form",
+      "output": {
+        "gained": [],
+        "lost": [],
+        "symbol_gained": [],
+        "symbol_lost": [],
+        "targets": {
+          "0x76D4A0": {
+            "symbol": "?Set_Data@HtmlGifImageClass@@UAEHPADH@Z",
+            "length": 1171,
+            "raw_sha256": "affd05f9be5256ec8c97bbe6c0a281bfe1e50ec87a8b8a85311af7af083d5710",
+            "masked_sha256": "affd05f9be5256ec8c97bbe6c0a281bfe1e50ec87a8b8a85311af7af083d5710",
+            "diagnostic_similarity": "similarity 0.31",
+            "exact": false
+          },
+          "0x76D990": {
+            "symbol": "?Decode@HtmlGifImageClass@@QAEFF@Z",
+            "length": 1140,
+            "raw_sha256": "207778cfba93776a901beb9a32e2c93d3d11f91d77f62a72b5321e021372a484",
+            "masked_sha256": "207778cfba93776a901beb9a32e2c93d3d11f91d77f62a72b5321e021372a484",
+            "diagnostic_similarity": "similarity 0.37",
+            "exact": false
+          },
+          "0x76DF60": {
+            "symbol": "?Get_Next_Code@HtmlGifImageClass@@QAEFXZ",
+            "length": 514,
+            "raw_sha256": "de48c4e2d48d2b98219ae55ab5d6c05c675042867750d51ffe332bd599758360",
+            "masked_sha256": "de48c4e2d48d2b98219ae55ab5d6c05c675042867750d51ffe332bd599758360",
+            "diagnostic_similarity": "similarity 0.82",
+            "exact": false
+          }
+        }
+      }
+    },
+    {
+      "name": "decode_declarations",
+      "source_sha256": "731cdf59a7e71313ce8c1e37f9e8db32e8b69d8404d11d5601c098f745b90da2",
+      "patch": "--- app/client/html/image/gifload.cpp\n+++ app/client/html/image/gifload.cpp\n@@ -338,9 +338,9 @@\n \tunsigned char *sp;\n \tunsigned char *bufptr;\n \tshort code;\n-\tshort oc;\n+\tshort oc = 0;\n \tshort bufcnt;\n-\tunsigned char fc;\n+\tunsigned char fc = 0;\n \tshort c;\n \tshort size;\n \tshort clear;\n@@ -348,8 +348,8 @@\n \tshort newcodes;\n \tshort top_slot;\n \tshort slot;\n-\tshort xcount;\n-\tshort ycount;\n+\tshort xcount = 0;\n+\tshort ycount = 0;\n \tshort direct;\n \tshort len;\n \tshort i;\n@@ -360,7 +360,7 @@\n \tif (size < 2 || 9 < size)\n \t\treturn(BAD_CODE_SIZE);\n \n-\tCodeSize = size + 1;\n+\tCodeSize = (short)(size + 1);\n \ttop_slot = 1 << CodeSize;\n \tclear = 1 << size;\n \tending = clear + 1;\n@@ -370,8 +370,8 @@\n \tfor (i = 0; i < slot; i++)\n \t\tLengths[i] = 0;\n \n-\toc = fc = 0;\n-\txcount = ycount = 0;\n+\t\n+\t\n \tsp = Stack;\n \tbufptr = Line;\n \tbufcnt = linewidth;\n@@ -381,7 +381,7 @@\n \t\t\tbreak;\n \n \t\tif (c == clear) {\n-\t\t\tCodeSize = size + 1;\n+\t\t\tCodeSize = (short)(size + 1);\n \t\t\tLengths[newcodes] = 0;\n \t\t\ttop_slot = 1 << CodeSize;\n \t\t\tslot = newcodes;\n@@ -391,7 +391,7 @@\n \t\t\t\tbreak;\n \t\t\tif (c >= slot)\n \t\t\t\tc = 0;\n-\t\t\toc = fc = c;\n+\t\t\toc = c; fc = (unsigned char)c;\n \t\t\t*sp++ = fc;\n \t\t} else {\n \t\t\tcode = c;\n@@ -419,8 +419,8 @@\n \t\t\t\t\t\tcode = Prefix[code];\n \t\t\t\t\t} while (i > 0);\n \t\t\t\t\t*bufptr = (unsigned char)code;\n-\t\t\t\t\tbufptr += len + 1;\n-\t\t\t\t\tbufcnt -= len + 1;\n+\t\t\t\t\t++len; bufptr += len;\n+\t\t\t\t\tbufcnt -= len;\n \t\t\t\t\tif (bufcnt == 0) {\n \t\t\t\t\t\tif (--ycount < 0) {\n \t\t\t\t\t\t\tOut_Line(Line, bufptr - Line, row);\n",
+      "changed": true,
+      "model": "gpt-6.1-terra high",
+      "classification": "changed_form",
+      "output": {
+        "gained": [],
+        "lost": [],
+        "symbol_gained": [],
+        "symbol_lost": [],
+        "targets": {
+          "0x76D4A0": {
+            "symbol": "?Set_Data@HtmlGifImageClass@@UAEHPADH@Z",
+            "length": 1171,
+            "raw_sha256": "affd05f9be5256ec8c97bbe6c0a281bfe1e50ec87a8b8a85311af7af083d5710",
+            "masked_sha256": "affd05f9be5256ec8c97bbe6c0a281bfe1e50ec87a8b8a85311af7af083d5710",
+            "diagnostic_similarity": "similarity 0.31",
+            "exact": false
+          },
+          "0x76D990": {
+            "symbol": "?Decode@HtmlGifImageClass@@QAEFF@Z",
+            "length": 1127,
+            "raw_sha256": "702079734f68b14cfb6eb6c1d45088cd7a624fb12ed856a403f78534bfab216e",
+            "masked_sha256": "702079734f68b14cfb6eb6c1d45088cd7a624fb12ed856a403f78534bfab216e",
+            "diagnostic_similarity": "similarity 0.33",
+            "exact": false
+          },
+          "0x76DF60": {
+            "symbol": "?Get_Next_Code@HtmlGifImageClass@@QAEFXZ",
+            "length": 514,
+            "raw_sha256": "de48c4e2d48d2b98219ae55ab5d6c05c675042867750d51ffe332bd599758360",
+            "masked_sha256": "de48c4e2d48d2b98219ae55ab5d6c05c675042867750d51ffe332bd599758360",
+            "diagnostic_similarity": "similarity 0.82",
+            "exact": false
+          }
+        }
+      }
+    },
+    {
+      "name": "decode_early_idx",
+      "source_sha256": "aa13f050bb14efcf67bfc00fd5033e4e1f0e4c42cef34c2af6f9b3deee4b02eb",
+      "patch": "--- app/client/html/image/gifload.cpp\n+++ app/client/html/image/gifload.cpp\n@@ -367,11 +367,11 @@\n \tslot = newcodes = ending + 1;\n \tLengths[slot] = 0;\n \tBytesLeft = BitsLeft = 0;\n-\tfor (i = 0; i < slot; i++)\n+\toc = fc = 0; xcount = ycount = 0; for (i = 0; i < slot; i++)\n \t\tLengths[i] = 0;\n \n-\toc = fc = 0;\n-\txcount = ycount = 0;\n+\t\n+\t\n \tsp = Stack;\n \tbufptr = Line;\n \tbufcnt = linewidth;\n@@ -391,7 +391,7 @@\n \t\t\t\tbreak;\n \t\t\tif (c >= slot)\n \t\t\t\tc = 0;\n-\t\t\toc = fc = c;\n+\t\t\toc = c; fc = (unsigned char)c;\n \t\t\t*sp++ = fc;\n \t\t} else {\n \t\t\tcode = c;\n@@ -407,7 +407,7 @@\n \t\t\tdirect = 0;\n \t\t\twhile (code >= newcodes) {\n \t\t\t\tG_ASSERT(code < 4096);\n-\t\t\t\tlen = Lengths[code];\n+\t\t\t\tint index = code; len = Lengths[index];\n \t\t\t\tif (len > 0 && bufcnt - len > 0) {\n \t\t\t\t\tdirect = -1;\n \t\t\t\t\ti = len;\n@@ -437,8 +437,8 @@\n \n \n \t\t\t\t\tG_ASSERT(code < 4096);\n-\t\t\t\t\t*sp++ = Suffix[code];\n-\t\t\t\t\tcode = Prefix[code];\n+\t\t\t\t\t*sp++ = Suffix[index];\n+\t\t\t\t\tcode = Prefix[index];\n \t\t\t\t}\n \t\t\t}\n \t\t\tif (direct == 0)\n",
+      "changed": true,
+      "model": "gpt-6.1-terra high",
+      "classification": "changed_form",
+      "output": {
+        "gained": [],
+        "lost": [],
+        "symbol_gained": [],
+        "symbol_lost": [],
+        "targets": {
+          "0x76D4A0": {
+            "symbol": "?Set_Data@HtmlGifImageClass@@UAEHPADH@Z",
+            "length": 1171,
+            "raw_sha256": "affd05f9be5256ec8c97bbe6c0a281bfe1e50ec87a8b8a85311af7af083d5710",
+            "masked_sha256": "affd05f9be5256ec8c97bbe6c0a281bfe1e50ec87a8b8a85311af7af083d5710",
+            "diagnostic_similarity": "similarity 0.31",
+            "exact": false
+          },
+          "0x76D990": {
+            "symbol": "?Decode@HtmlGifImageClass@@QAEFF@Z",
+            "length": 1147,
+            "raw_sha256": "46c1ae5fbb7319d4ffe04d805d4dc2e2a22b6028525fc743607875daaa64cef5",
+            "masked_sha256": "46c1ae5fbb7319d4ffe04d805d4dc2e2a22b6028525fc743607875daaa64cef5",
+            "diagnostic_similarity": "similarity 0.34",
+            "exact": false
+          },
+          "0x76DF60": {
+            "symbol": "?Get_Next_Code@HtmlGifImageClass@@QAEFXZ",
+            "length": 514,
+            "raw_sha256": "de48c4e2d48d2b98219ae55ab5d6c05c675042867750d51ffe332bd599758360",
+            "masked_sha256": "de48c4e2d48d2b98219ae55ab5d6c05c675042867750d51ffe332bd599758360",
+            "diagnostic_similarity": "similarity 0.82",
+            "exact": false
+          }
+        }
+      }
+    },
+    {
+      "name": "decode_early_len",
+      "source_sha256": "2210810e28dac2b33333d7d61559cfa6d4e3c86440ef2edc705a4c543f3f6824",
+      "patch": "--- app/client/html/image/gifload.cpp\n+++ app/client/html/image/gifload.cpp\n@@ -367,11 +367,11 @@\n \tslot = newcodes = ending + 1;\n \tLengths[slot] = 0;\n \tBytesLeft = BitsLeft = 0;\n-\tfor (i = 0; i < slot; i++)\n+\toc = fc = 0; xcount = ycount = 0; for (i = 0; i < slot; i++)\n \t\tLengths[i] = 0;\n \n-\toc = fc = 0;\n-\txcount = ycount = 0;\n+\t\n+\t\n \tsp = Stack;\n \tbufptr = Line;\n \tbufcnt = linewidth;\n@@ -391,7 +391,7 @@\n \t\t\t\tbreak;\n \t\t\tif (c >= slot)\n \t\t\t\tc = 0;\n-\t\t\toc = fc = c;\n+\t\t\toc = c; fc = (unsigned char)c;\n \t\t\t*sp++ = fc;\n \t\t} else {\n \t\t\tcode = c;\n@@ -419,8 +419,8 @@\n \t\t\t\t\t\tcode = Prefix[code];\n \t\t\t\t\t} while (i > 0);\n \t\t\t\t\t*bufptr = (unsigned char)code;\n-\t\t\t\t\tbufptr += len + 1;\n-\t\t\t\t\tbufcnt -= len + 1;\n+\t\t\t\t\t++len; bufptr += len;\n+\t\t\t\t\tbufcnt -= len;\n \t\t\t\t\tif (bufcnt == 0) {\n \t\t\t\t\t\tif (--ycount < 0) {\n \t\t\t\t\t\t\tOut_Line(Line, bufptr - Line, row);\n",
+      "changed": true,
+      "model": "gpt-6.1-terra high",
+      "classification": "changed_form",
+      "output": {
+        "gained": [],
+        "lost": [],
+        "symbol_gained": [],
+        "symbol_lost": [],
+        "targets": {
+          "0x76D4A0": {
+            "symbol": "?Set_Data@HtmlGifImageClass@@UAEHPADH@Z",
+            "length": 1171,
+            "raw_sha256": "affd05f9be5256ec8c97bbe6c0a281bfe1e50ec87a8b8a85311af7af083d5710",
+            "masked_sha256": "affd05f9be5256ec8c97bbe6c0a281bfe1e50ec87a8b8a85311af7af083d5710",
+            "diagnostic_similarity": "similarity 0.31",
+            "exact": false
+          },
+          "0x76D990": {
+            "symbol": "?Decode@HtmlGifImageClass@@QAEFF@Z",
+            "length": 1142,
+            "raw_sha256": "a953963a0883803f21697d6de137928220080e9accdd6050177f9925ceef2a18",
+            "masked_sha256": "a953963a0883803f21697d6de137928220080e9accdd6050177f9925ceef2a18",
+            "diagnostic_similarity": "similarity 0.35",
+            "exact": false
+          },
+          "0x76DF60": {
+            "symbol": "?Get_Next_Code@HtmlGifImageClass@@QAEFXZ",
+            "length": 514,
+            "raw_sha256": "de48c4e2d48d2b98219ae55ab5d6c05c675042867750d51ffe332bd599758360",
+            "masked_sha256": "de48c4e2d48d2b98219ae55ab5d6c05c675042867750d51ffe332bd599758360",
+            "diagnostic_similarity": "similarity 0.82",
+            "exact": false
+          }
+        }
+      }
+    },
+    {
+      "name": "decode_early_order",
+      "source_sha256": "3e0e8b4db9b8e78f60f1a6d371f566046d4de9c9b381a5060026360fa40b81bd",
+      "patch": "--- app/client/html/image/gifload.cpp\n+++ app/client/html/image/gifload.cpp\n@@ -360,8 +360,8 @@\n \tif (size < 2 || 9 < size)\n \t\treturn(BAD_CODE_SIZE);\n \n-\tCodeSize = size + 1;\n-\ttop_slot = 1 << CodeSize;\n+\tCodeSize = (short)(size + 1);\n+\toc = 0; ycount = 0; top_slot = 1 << CodeSize; xcount = 0; fc = 0;\n \tclear = 1 << size;\n \tending = clear + 1;\n \tslot = newcodes = ending + 1;\n@@ -370,8 +370,8 @@\n \tfor (i = 0; i < slot; i++)\n \t\tLengths[i] = 0;\n \n-\toc = fc = 0;\n-\txcount = ycount = 0;\n+\t\n+\t\n \tsp = Stack;\n \tbufptr = Line;\n \tbufcnt = linewidth;\n@@ -381,7 +381,7 @@\n \t\t\tbreak;\n \n \t\tif (c == clear) {\n-\t\t\tCodeSize = size + 1;\n+\t\t\tCodeSize = (short)(size + 1);\n \t\t\tLengths[newcodes] = 0;\n \t\t\ttop_slot = 1 << CodeSize;\n \t\t\tslot = newcodes;\n@@ -391,7 +391,7 @@\n \t\t\t\tbreak;\n \t\t\tif (c >= slot)\n \t\t\t\tc = 0;\n-\t\t\toc = fc = c;\n+\t\t\toc = c; fc = (unsigned char)c;\n \t\t\t*sp++ = fc;\n \t\t} else {\n \t\t\tcode = c;\n@@ -419,8 +419,8 @@\n \t\t\t\t\t\tcode = Prefix[code];\n \t\t\t\t\t} while (i > 0);\n \t\t\t\t\t*bufptr = (unsigned char)code;\n-\t\t\t\t\tbufptr += len + 1;\n-\t\t\t\t\tbufcnt -= len + 1;\n+\t\t\t\t\t++len; bufptr += len;\n+\t\t\t\t\tbufcnt -= len;\n \t\t\t\t\tif (bufcnt == 0) {\n \t\t\t\t\t\tif (--ycount < 0) {\n \t\t\t\t\t\t\tOut_Line(Line, bufptr - Line, row);\n",
+      "changed": true,
+      "model": "gpt-6.1-terra high",
+      "classification": "changed_form",
+      "output": {
+        "gained": [],
+        "lost": [],
+        "symbol_gained": [],
+        "symbol_lost": [],
+        "targets": {
+          "0x76D4A0": {
+            "symbol": "?Set_Data@HtmlGifImageClass@@UAEHPADH@Z",
+            "length": 1171,
+            "raw_sha256": "affd05f9be5256ec8c97bbe6c0a281bfe1e50ec87a8b8a85311af7af083d5710",
+            "masked_sha256": "affd05f9be5256ec8c97bbe6c0a281bfe1e50ec87a8b8a85311af7af083d5710",
+            "diagnostic_similarity": "similarity 0.31",
+            "exact": false
+          },
+          "0x76D990": {
+            "symbol": "?Decode@HtmlGifImageClass@@QAEFF@Z",
+            "length": 1140,
+            "raw_sha256": "8863ba111c5088346ba0d76c4be92c0aecf4d7a4e1ff385624c1bd612ab7c179",
+            "masked_sha256": "8863ba111c5088346ba0d76c4be92c0aecf4d7a4e1ff385624c1bd612ab7c179",
+            "diagnostic_similarity": "similarity 0.38",
+            "exact": false
+          },
+          "0x76DF60": {
+            "symbol": "?Get_Next_Code@HtmlGifImageClass@@QAEFXZ",
+            "length": 514,
+            "raw_sha256": "de48c4e2d48d2b98219ae55ab5d6c05c675042867750d51ffe332bd599758360",
+            "masked_sha256": "de48c4e2d48d2b98219ae55ab5d6c05c675042867750d51ffe332bd599758360",
+            "diagnostic_similarity": "similarity 0.82",
+            "exact": false
+          }
+        }
+      }
+    },
+    {
+      "name": "decode_early_size",
+      "source_sha256": "5286b933c77b033f2bc090f9d4ff87bf8ee5b8562c55c7b47b4ada0552ad80fd",
+      "patch": "--- app/client/html/image/gifload.cpp\n+++ app/client/html/image/gifload.cpp\n@@ -360,18 +360,18 @@\n \tif (size < 2 || 9 < size)\n \t\treturn(BAD_CODE_SIZE);\n \n-\tCodeSize = size + 1;\n+\tCodeSize = (short)(size + 1);\n \ttop_slot = 1 << CodeSize;\n \tclear = 1 << size;\n \tending = clear + 1;\n \tslot = newcodes = ending + 1;\n \tLengths[slot] = 0;\n \tBytesLeft = BitsLeft = 0;\n-\tfor (i = 0; i < slot; i++)\n+\toc = fc = 0; xcount = ycount = 0; for (i = 0; i < slot; i++)\n \t\tLengths[i] = 0;\n \n-\toc = fc = 0;\n-\txcount = ycount = 0;\n+\t\n+\t\n \tsp = Stack;\n \tbufptr = Line;\n \tbufcnt = linewidth;\n@@ -381,7 +381,7 @@\n \t\t\tbreak;\n \n \t\tif (c == clear) {\n-\t\t\tCodeSize = size + 1;\n+\t\t\tCodeSize = (short)(size + 1);\n \t\t\tLengths[newcodes] = 0;\n \t\t\ttop_slot = 1 << CodeSize;\n \t\t\tslot = newcodes;\n@@ -391,7 +391,7 @@\n \t\t\t\tbreak;\n \t\t\tif (c >= slot)\n \t\t\t\tc = 0;\n-\t\t\toc = fc = c;\n+\t\t\toc = c; fc = (unsigned char)c;\n \t\t\t*sp++ = fc;\n \t\t} else {\n \t\t\tcode = c;\n@@ -419,8 +419,8 @@\n \t\t\t\t\t\tcode = Prefix[code];\n \t\t\t\t\t} while (i > 0);\n \t\t\t\t\t*bufptr = (unsigned char)code;\n-\t\t\t\t\tbufptr += len + 1;\n-\t\t\t\t\tbufcnt -= len + 1;\n+\t\t\t\t\t++len; bufptr += len;\n+\t\t\t\t\tbufcnt -= len;\n \t\t\t\t\tif (bufcnt == 0) {\n \t\t\t\t\t\tif (--ycount < 0) {\n \t\t\t\t\t\t\tOut_Line(Line, bufptr - Line, row);\n",
+      "changed": true,
+      "model": "gpt-6.1-terra high",
+      "classification": "changed_form",
+      "output": {
+        "gained": [],
+        "lost": [],
+        "symbol_gained": [],
+        "symbol_lost": [],
+        "targets": {
+          "0x76D4A0": {
+            "symbol": "?Set_Data@HtmlGifImageClass@@UAEHPADH@Z",
+            "length": 1171,
+            "raw_sha256": "affd05f9be5256ec8c97bbe6c0a281bfe1e50ec87a8b8a85311af7af083d5710",
+            "masked_sha256": "affd05f9be5256ec8c97bbe6c0a281bfe1e50ec87a8b8a85311af7af083d5710",
+            "diagnostic_similarity": "similarity 0.31",
+            "exact": false
+          },
+          "0x76D990": {
+            "symbol": "?Decode@HtmlGifImageClass@@QAEFF@Z",
+            "length": 1140,
+            "raw_sha256": "89abda8b9f95c6687ba0f651cbfe0c13f45b7b245518305784b4ae9a84546e40",
+            "masked_sha256": "89abda8b9f95c6687ba0f651cbfe0c13f45b7b245518305784b4ae9a84546e40",
+            "diagnostic_similarity": "similarity 0.38",
+            "exact": false
+          },
+          "0x76DF60": {
+            "symbol": "?Get_Next_Code@HtmlGifImageClass@@QAEFXZ",
+            "length": 514,
+            "raw_sha256": "de48c4e2d48d2b98219ae55ab5d6c05c675042867750d51ffe332bd599758360",
+            "masked_sha256": "de48c4e2d48d2b98219ae55ab5d6c05c675042867750d51ffe332bd599758360",
+            "diagnostic_similarity": "similarity 0.82",
+            "exact": false
+          }
+        }
+      }
+    },
+    {
+      "name": "decode_oc",
+      "source_sha256": "c855ddfdee6006a1133e1cd4d514faa31dc47b7e93e687b8476998103306ceb8",
+      "patch": "--- app/client/html/image/gifload.cpp\n+++ app/client/html/image/gifload.cpp\n@@ -391,7 +391,7 @@\n \t\t\t\tbreak;\n \t\t\tif (c >= slot)\n \t\t\t\tc = 0;\n-\t\t\toc = fc = c;\n+\t\t\toc = c; fc = (unsigned char)c;\n \t\t\t*sp++ = fc;\n \t\t} else {\n \t\t\tcode = c;\n",
+      "changed": true,
+      "model": "gpt-6.1-terra high",
+      "classification": "changed_form",
+      "output": {
+        "gained": [],
+        "lost": [],
+        "symbol_gained": [],
+        "symbol_lost": [],
+        "targets": {
+          "0x76D4A0": {
+            "symbol": "?Set_Data@HtmlGifImageClass@@UAEHPADH@Z",
+            "length": 1171,
+            "raw_sha256": "affd05f9be5256ec8c97bbe6c0a281bfe1e50ec87a8b8a85311af7af083d5710",
+            "masked_sha256": "affd05f9be5256ec8c97bbe6c0a281bfe1e50ec87a8b8a85311af7af083d5710",
+            "diagnostic_similarity": "similarity 0.31",
+            "exact": false
+          },
+          "0x76D990": {
+            "symbol": "?Decode@HtmlGifImageClass@@QAEFF@Z",
+            "length": 1135,
+            "raw_sha256": "09b6316516eadabd8c7771f66193807a0c54294713ed4cf266712778e57bc8a8",
+            "masked_sha256": "09b6316516eadabd8c7771f66193807a0c54294713ed4cf266712778e57bc8a8",
+            "diagnostic_similarity": "similarity 0.29",
+            "exact": false
+          },
+          "0x76DF60": {
+            "symbol": "?Get_Next_Code@HtmlGifImageClass@@QAEFXZ",
+            "length": 514,
+            "raw_sha256": "de48c4e2d48d2b98219ae55ab5d6c05c675042867750d51ffe332bd599758360",
+            "masked_sha256": "de48c4e2d48d2b98219ae55ab5d6c05c675042867750d51ffe332bd599758360",
+            "diagnostic_similarity": "similarity 0.82",
+            "exact": false
+          }
+        }
+      }
+    },
+    {
+      "name": "decode_oc_early",
+      "source_sha256": "436ca52a15c47a9d344c64fc1c5a91b9456e948ccd245b3ad09a2db90f498c54",
+      "patch": "--- app/client/html/image/gifload.cpp\n+++ app/client/html/image/gifload.cpp\n@@ -367,11 +367,11 @@\n \tslot = newcodes = ending + 1;\n \tLengths[slot] = 0;\n \tBytesLeft = BitsLeft = 0;\n-\tfor (i = 0; i < slot; i++)\n+\toc = fc = 0; xcount = ycount = 0; for (i = 0; i < slot; i++)\n \t\tLengths[i] = 0;\n \n-\toc = fc = 0;\n-\txcount = ycount = 0;\n+\t\n+\t\n \tsp = Stack;\n \tbufptr = Line;\n \tbufcnt = linewidth;\n@@ -391,7 +391,7 @@\n \t\t\t\tbreak;\n \t\t\tif (c >= slot)\n \t\t\t\tc = 0;\n-\t\t\toc = fc = c;\n+\t\t\toc = c; fc = (unsigned char)c;\n \t\t\t*sp++ = fc;\n \t\t} else {\n \t\t\tcode = c;\n",
+      "changed": true,
+      "model": "gpt-6.1-terra high",
+      "classification": "changed_form",
+      "output": {
+        "gained": [],
+        "lost": [],
+        "symbol_gained": [],
+        "symbol_lost": [],
+        "targets": {
+          "0x76D4A0": {
+            "symbol": "?Set_Data@HtmlGifImageClass@@UAEHPADH@Z",
+            "length": 1171,
+            "raw_sha256": "affd05f9be5256ec8c97bbe6c0a281bfe1e50ec87a8b8a85311af7af083d5710",
+            "masked_sha256": "affd05f9be5256ec8c97bbe6c0a281bfe1e50ec87a8b8a85311af7af083d5710",
+            "diagnostic_similarity": "similarity 0.31",
+            "exact": false
+          },
+          "0x76D990": {
+            "symbol": "?Decode@HtmlGifImageClass@@QAEFF@Z",
+            "length": 1147,
+            "raw_sha256": "46c1ae5fbb7319d4ffe04d805d4dc2e2a22b6028525fc743607875daaa64cef5",
+            "masked_sha256": "46c1ae5fbb7319d4ffe04d805d4dc2e2a22b6028525fc743607875daaa64cef5",
+            "diagnostic_similarity": "similarity 0.34",
+            "exact": false
+          },
+          "0x76DF60": {
+            "symbol": "?Get_Next_Code@HtmlGifImageClass@@QAEFXZ",
+            "length": 514,
+            "raw_sha256": "de48c4e2d48d2b98219ae55ab5d6c05c675042867750d51ffe332bd599758360",
+            "masked_sha256": "de48c4e2d48d2b98219ae55ab5d6c05c675042867750d51ffe332bd599758360",
+            "diagnostic_similarity": "similarity 0.82",
+            "exact": false
+          }
+        }
+      }
+    },
+    {
+      "name": "decode_oc_len",
+      "source_sha256": "710b78e670c43d7ce82b3c3a6b2af9885c5af420f82a00a193bc1b1fd16fffe3",
+      "patch": "--- app/client/html/image/gifload.cpp\n+++ app/client/html/image/gifload.cpp\n@@ -391,7 +391,7 @@\n \t\t\t\tbreak;\n \t\t\tif (c >= slot)\n \t\t\t\tc = 0;\n-\t\t\toc = fc = c;\n+\t\t\toc = c; fc = (unsigned char)c;\n \t\t\t*sp++ = fc;\n \t\t} else {\n \t\t\tcode = c;\n@@ -419,8 +419,8 @@\n \t\t\t\t\t\tcode = Prefix[code];\n \t\t\t\t\t} while (i > 0);\n \t\t\t\t\t*bufptr = (unsigned char)code;\n-\t\t\t\t\tbufptr += len + 1;\n-\t\t\t\t\tbufcnt -= len + 1;\n+\t\t\t\t\t++len; bufptr += len;\n+\t\t\t\t\tbufcnt -= len;\n \t\t\t\t\tif (bufcnt == 0) {\n \t\t\t\t\t\tif (--ycount < 0) {\n \t\t\t\t\t\t\tOut_Line(Line, bufptr - Line, row);\n",
+      "changed": true,
+      "model": "gpt-6.1-terra high",
+      "classification": "changed_form",
+      "output": {
+        "gained": [],
+        "lost": [],
+        "symbol_gained": [],
+        "symbol_lost": [],
+        "targets": {
+          "0x76D4A0": {
+            "symbol": "?Set_Data@HtmlGifImageClass@@UAEHPADH@Z",
+            "length": 1171,
+            "raw_sha256": "affd05f9be5256ec8c97bbe6c0a281bfe1e50ec87a8b8a85311af7af083d5710",
+            "masked_sha256": "affd05f9be5256ec8c97bbe6c0a281bfe1e50ec87a8b8a85311af7af083d5710",
+            "diagnostic_similarity": "similarity 0.31",
+            "exact": false
+          },
+          "0x76D990": {
+            "symbol": "?Decode@HtmlGifImageClass@@QAEFF@Z",
+            "length": 1130,
+            "raw_sha256": "222d07a2cdd5c11d1290a5cb0272ee5a738ee384ac49a5b6b4a3d743883cfe94",
+            "masked_sha256": "222d07a2cdd5c11d1290a5cb0272ee5a738ee384ac49a5b6b4a3d743883cfe94",
+            "diagnostic_similarity": "similarity 0.30",
+            "exact": false
+          },
+          "0x76DF60": {
+            "symbol": "?Get_Next_Code@HtmlGifImageClass@@QAEFXZ",
+            "length": 514,
+            "raw_sha256": "de48c4e2d48d2b98219ae55ab5d6c05c675042867750d51ffe332bd599758360",
+            "masked_sha256": "de48c4e2d48d2b98219ae55ab5d6c05c675042867750d51ffe332bd599758360",
+            "diagnostic_similarity": "similarity 0.82",
+            "exact": false
+          }
+        }
+      }
+    },
+    {
+      "name": "group_code_mask_helper",
+      "source_sha256": "158e4cbad1bdf5634300ab2b80db9451a751e3435076bbe533af374bb0abbbbe",
+      "patch": "--- app/client/html/image/gifload.cpp\n+++ app/client/html/image/gifload.cpp\n@@ -16,7 +16,7 @@\n };\n \n static unsigned char b1;\n-static unsigned short ret;\n+static unsigned short ret; static inline short Mask_Code(unsigned short value, unsigned short mask) { return value & mask; }\n \n int Build_Pixel(DSurface *surface, int red, int green, int blue)\n {\n@@ -519,7 +519,7 @@\n \t\t--BytesLeft;\n \t}\n \tBitsLeft -= CodeSize;\n-\treturn(code_mask[CodeSize] & ret);\n+\treturn(Mask_Code(ret, code_mask[CodeSize]));\n }\n \n void HtmlGifImageClass::Init(void)\n",
+      "changed": true,
+      "model": "gpt-6.1-terra high",
+      "classification": "changed_form",
+      "output": {
+        "gained": [],
+        "lost": [],
+        "symbol_gained": [],
+        "symbol_lost": [],
+        "targets": {
+          "0x76D4A0": {
+            "symbol": "?Set_Data@HtmlGifImageClass@@UAEHPADH@Z",
+            "length": 1171,
+            "raw_sha256": "affd05f9be5256ec8c97bbe6c0a281bfe1e50ec87a8b8a85311af7af083d5710",
+            "masked_sha256": "affd05f9be5256ec8c97bbe6c0a281bfe1e50ec87a8b8a85311af7af083d5710",
+            "diagnostic_similarity": "similarity 0.31",
+            "exact": false
+          },
+          "0x76D990": {
+            "symbol": "?Decode@HtmlGifImageClass@@QAEFF@Z",
+            "length": 1145,
+            "raw_sha256": "180791f7c600a9359bfd2a5146b5aceda43e02e72c0c9daf7c0af8401526f124",
+            "masked_sha256": "180791f7c600a9359bfd2a5146b5aceda43e02e72c0c9daf7c0af8401526f124",
+            "diagnostic_similarity": "similarity 0.29",
+            "exact": false
+          },
+          "0x76DF60": {
+            "symbol": "?Get_Next_Code@HtmlGifImageClass@@QAEFXZ",
+            "length": 514,
+            "raw_sha256": "de48c4e2d48d2b98219ae55ab5d6c05c675042867750d51ffe332bd599758360",
+            "masked_sha256": "de48c4e2d48d2b98219ae55ab5d6c05c675042867750d51ffe332bd599758360",
+            "diagnostic_similarity": "similarity 0.82",
+            "exact": false
+          }
+        }
+      }
+    },
+    {
+      "name": "group_data_bits_after_height",
+      "source_sha256": "ecb47cdf5499a38c85c8a80db5c26f415b710767371d453a276e08225b41d1c1",
+      "patch": "--- app/client/html/image/gifload.cpp\n+++ app/client/html/image/gifload.cpp\n@@ -28,7 +28,7 @@\n \t}\n \treturn(pixel);\n }\n-\n+static inline void Build_Colors(HtmlGifImageClass *image) { for (int i = 0; i < 256; i++) image->Colors[i] = Build_Pixel(image->Surf, image->Palette[i * 3], image->Palette[i * 3 + 1], image->Palette[i * 3 + 2]); }\n HtmlGifImageClass::HtmlGifImageClass(char *name, int bits) : HtmlImageClass(name, bits)\n {\n }\n@@ -42,14 +42,14 @@\n int HtmlGifImageClass::Set_Data(char *data, int length)\n {\n \tunsigned char buffer[13];\n-\tint status = 0;\n+\n \tint i;\n \tint c;\n \n \tData = data;\n \tLength = length;\n \tPosition = 0;\n-\tmemset(Line, 0, sizeof(Line));\n+\tmemset(Line, 0, sizeof(Line)); int status = 0;\n \n \tfor (i = 0; i < 13; i++) {\n \t\tc = Get_Byte();\n@@ -60,54 +60,38 @@\n \n \tif (strncmp((char *)buffer, \"GIF87a\", 3) == 0 && buffer[3] >= '0' && buffer[3] <= '9' && buffer[4] >= '0' && buffer[4] <= '9' && buffer[5] >= 'A' && buffer[5] <= 'z') {\n \t\tWidth = (buffer[7] << 8) | buffer[6];\n-\t\tHeight = (buffer[9] << 8) | buffer[8];\n+\t\tHeight = (buffer[9] << 8) | buffer[8]; int palette_bits = (buffer[10] & 0x0F) + 1;\n \t\tif (Width <= 0x800 && Height <= 0x800) {\n \t\t\tCreate_Surface(Width, Height);\n \t\t\tif (buffer[10] & 0x80) {\n-\t\t\t\tColorCount = 1 << ((buffer[10] & 0x0F) + 1);\n-\t\t\t\tfor (i = 0; i < ColorCount * 3; i++) {\n+\t\t\t\tColorCount = 1 << palette_bits;\n+\t\t\t\tint palette_bytes = ColorCount * 3; for (i = 0; i < palette_bytes; i++) {\n \t\t\t\t\tc = Get_Byte();\n \t\t\t\t\tif (c < 0)\n \t\t\t\t\t\treturn(-1);\n \t\t\t\t\tPalette[i] = (unsigned char)c;\n \t\t\t\t}\n-\t\t\t\tfor (i = 0; i < 256; i++)\n-\t\t\t\t\tColors[i] = Build_Pixel(Surf, Palette[i * 3], Palette[i * 3 + 1], Palette[i * 3 + 2]);\n+\t\t\t\tBuild_Colors(this);\n+\n \n \t\t\t\tfor (;;) {\n \t\t\t\t\tc = Get_Byte();\n-\t\t\t\t\tif (c < 0) {\n-\t\t\t\t\t\tstatus = -1;\n-\t\t\t\t\t\tbreak;\n-\t\t\t\t\t}\n-\n-\t\t\t\t\tif (c == '!') {\n-\t\t\t\t\t\tif (Get_Byte() == 0xF9) {\n-\t\t\t\t\t\t\tGet_Byte();\n-\t\t\t\t\t\t\tif (Get_Byte() & 1)\n-\t\t\t\t\t\t\t\tGet_Byte();\n-\t\t\t\t\t\t\tGet_Byte();\n-\t\t\t\t\t\t\tTransparent = Get_Byte();\n-\t\t\t\t\t\t\tGet_Byte();\n-\t\t\t\t\t\t} else {\n-\t\t\t\t\t\t\tint count;\n-\t\t\t\t\t\t\twhile ((count = Get_Byte()) > 0) {\n-\t\t\t\t\t\t\t\tdo {\n-\t\t\t\t\t\t\t\t\tGet_Byte();\n-\t\t\t\t\t\t\t\t} while (--count);\n-\t\t\t\t\t\t\t}\n-\t\t\t\t\t\t}\n-\t\t\t\t\t} else if (c == ',') {\n+\t\t\t\t\tif (c < 0) return(-1);\n+\n+\n+\n+\n+\t\t\t\t\tif (c != '!') { if (c == ',') {\n \t\t\t\t\t\tfor (i = 0; i < 9; i++) {\n \t\t\t\t\t\t\tc = Get_Byte();\n \t\t\t\t\t\t\tbuffer[i] = (unsigned char)c;\n \t\t\t\t\t\t\tif (c < 0)\n-\t\t\t\t\t\t\t\tbreak;\n+\t\t\t\t\t\t\t\treturn(-1);\n \t\t\t\t\t\t}\n-\t\t\t\t\t\tif (c < 0) {\n-\t\t\t\t\t\t\tstatus = -1;\n-\t\t\t\t\t\t\tbreak;\n-\t\t\t\t\t\t}\n+\n+\n+\n+\n \t\t\t\t\t\tif (status < 0)\n \t\t\t\t\t\t\tbreak;\n \t\t\t\t\t\tif ((buffer[8] & 0x80) == 0x80) {\n@@ -126,11 +110,27 @@\n \t\t\t\t\t\t\tbreak;\n \t\t\t\t\t\t}\n \t\t\t\t\t} else {\n-\t\t\t\t\t\tif (c == ';')\n-\t\t\t\t\t\t\tstatus = 0;\n-\t\t\t\t\t\telse\n+\t\t\t\t\t\tstatus = 0;\n+\t\t\t\t\t\tif (c != ';')\n \t\t\t\t\t\t\tstatus = -1;\n+\n \t\t\t\t\t\tbreak;\n+\t\t\t\t\t} } else {\n+\t\t\t\t\t\tif (Get_Byte() == 0xF9) {\n+\t\t\t\t\t\t\tGet_Byte();\n+\t\t\t\t\t\t\tif (Get_Byte() & 1)\n+\t\t\t\t\t\t\t\tGet_Byte();\n+\t\t\t\t\t\t\tGet_Byte();\n+\t\t\t\t\t\t\tTransparent = Get_Byte();\n+\t\t\t\t\t\t\tGet_Byte();\n+\t\t\t\t\t\t} else {\n+\t\t\t\t\t\t\tint count;\n+\t\t\t\t\t\t\twhile ((count = Get_Byte()) > 0) {\n+\t\t\t\t\t\t\t\tdo {\n+\t\t\t\t\t\t\t\t\tGet_Byte();\n+\t\t\t\t\t\t\t\t} while (--count);\n+\t\t\t\t\t\t\t}\n+\t\t\t\t\t\t}\n \t\t\t\t\t}\n \t\t\t\t}\n \t\t\t\treturn(status);\n",
+      "changed": true,
+      "model": "gpt-6.1-terra high",
+      "classification": "changed_form",
+      "output": {
+        "gained": [],
+        "lost": [],
+        "symbol_gained": [],
+        "symbol_lost": [],
+        "targets": {
+          "0x76D4A0": {
+            "symbol": "?Set_Data@HtmlGifImageClass@@UAEHPADH@Z",
+            "length": 1006,
+            "raw_sha256": "d19b6582cd3c5e8537a55bef8a0e647439614f2b7dc61694b58a83f94cc2a937",
+            "masked_sha256": "d19b6582cd3c5e8537a55bef8a0e647439614f2b7dc61694b58a83f94cc2a937",
+            "diagnostic_similarity": "similarity 0.79",
+            "exact": false
+          },
+          "0x76D990": {
+            "symbol": "?Decode@HtmlGifImageClass@@QAEFF@Z",
+            "length": 1145,
+            "raw_sha256": "180791f7c600a9359bfd2a5146b5aceda43e02e72c0c9daf7c0af8401526f124",
+            "masked_sha256": "180791f7c600a9359bfd2a5146b5aceda43e02e72c0c9daf7c0af8401526f124",
+            "diagnostic_similarity": "similarity 0.29",
+            "exact": false
+          },
+          "0x76DF60": {
+            "symbol": "?Get_Next_Code@HtmlGifImageClass@@QAEFXZ",
+            "length": 514,
+            "raw_sha256": "de48c4e2d48d2b98219ae55ab5d6c05c675042867750d51ffe332bd599758360",
+            "masked_sha256": "de48c4e2d48d2b98219ae55ab5d6c05c675042867750d51ffe332bd599758360",
+            "diagnostic_similarity": "similarity 0.82",
+            "exact": false
+          }
+        }
+      }
+    }
+  ]
+}

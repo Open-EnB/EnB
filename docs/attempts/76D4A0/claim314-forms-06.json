@@ -1,0 +1,215 @@
+{
+  "base_revision": "3a69e9d2056673c8431a90f47d7d973aeb6ddb4e",
+  "base_path": "app/client/html/image/gifload.cpp",
+  "base_sha256": "ad1c7431c7b7c6499e2ecba0aae1147af369f3af0eb4a5b1cb35a5141f17e7dd",
+  "forms": [
+    {
+      "name": "astra_decode_counter_parent",
+      "source_sha256": "e8ffa0684ee42b1d1abe701a82f4c0e4bbd7c2201337158523e31a74b7e1492b",
+      "patch": "--- app/client/html/image/gifload.cpp\n+++ app/client/html/image/gifload.cpp\n@@ -16,7 +16,7 @@\n };\n \n static unsigned char b1;\n-static unsigned short ret;\n+static unsigned short ret = 0; // NAME 1: reconstructed decoder word accumulator; zero initialization preserves retail BSS ordering\n \n int Build_Pixel(DSurface *surface, int red, int green, int blue)\n {\n@@ -28,7 +28,7 @@\n \t}\n \treturn(pixel);\n }\n-\n+static inline void Build_Colors(HtmlGifImageClass *image) { for (int i = 0; i < 256; i++) image->Colors[i] = Build_Pixel(image->Surf, image->Palette[i * 3], image->Palette[i * 3 + 1], image->Palette[i * 3 + 2]); } // NAME 2 [Build_Colors, image, i]: palette conversion loop; reload the current surface for each pixel\n HtmlGifImageClass::HtmlGifImageClass(char *name, int bits) : HtmlImageClass(name, bits)\n {\n }\n@@ -37,19 +37,19 @@\n {\n }\n \n-// NOT EXACT: 0x76D4A0, functional (D64): the client keeps i / c / count in registers and the result in the dead\n-// data argument's slot (frame 0x10 vs 0x20, the header and descriptor share one 13-byte buffer)\n+\n+\n int HtmlGifImageClass::Set_Data(char *data, int length)\n {\n \tunsigned char buffer[13];\n-\tint status = 0;\n+\n \tint i;\n \tint c;\n \n \tData = data;\n \tLength = length;\n \tPosition = 0;\n-\tmemset(Line, 0, sizeof(Line));\n+\tmemset(Line, 0, sizeof(Line)); int status = 0;\n \n \tfor (i = 0; i < 13; i++) {\n \t\tc = Get_Byte();\n@@ -60,28 +60,62 @@\n \n \tif (strncmp((char *)buffer, \"GIF87a\", 3) == 0 && buffer[3] >= '0' && buffer[3] <= '9' && buffer[4] >= '0' && buffer[4] <= '9' && buffer[5] >= 'A' && buffer[5] <= 'z') {\n \t\tWidth = (buffer[7] << 8) | buffer[6];\n-\t\tHeight = (buffer[9] << 8) | buffer[8];\n+\t\tHeight = (buffer[9] << 8) | buffer[8]; int palette_bits = (buffer[10] & 0x0F) + 1; // NAME 2 [palette_bits]: global color-table size exponent from the GIF descriptor\n \t\tif (Width <= 0x800 && Height <= 0x800) {\n \t\t\tCreate_Surface(Width, Height);\n \t\t\tif (buffer[10] & 0x80) {\n-\t\t\t\tColorCount = 1 << ((buffer[10] & 0x0F) + 1);\n-\t\t\t\tfor (i = 0; i < ColorCount * 3; i++) {\n+\t\t\t\tColorCount = 1 << palette_bits;\n+\t\t\t\tint palette_bytes = ColorCount * 3; for (i = 0; i < palette_bytes; i++) {\n \t\t\t\t\tc = Get_Byte();\n \t\t\t\t\tif (c < 0)\n \t\t\t\t\t\treturn(-1);\n \t\t\t\t\tPalette[i] = (unsigned char)c;\n \t\t\t\t}\n-\t\t\t\tfor (i = 0; i < 256; i++)\n-\t\t\t\t\tColors[i] = Build_Pixel(Surf, Palette[i * 3], Palette[i * 3 + 1], Palette[i * 3 + 2]);\n-\n-\t\t\t\tfor (;;) {\n-\t\t\t\t\tc = Get_Byte();\n-\t\t\t\t\tif (c < 0) {\n-\t\t\t\t\t\tstatus = -1;\n+\t\t\t\tBuild_Colors(this);\n+\n+\n+\t\t\t\twhile (true) {\n+\t\t\t\t\tif (Position >= Length) goto block_error;\n+\t\t\t\t\tc = (unsigned char)Data[Position++];\n+\n+\n+\n+\n+\t\t\t\t\tif (c != '!') { if (c == ',') {\n+\t\t\t\t\t\tfor (i = 0; i < 9; i++) {\n+\t\t\t\t\t\t\tc = Get_Byte();\n+\t\t\t\t\t\t\tbuffer[i] = (unsigned char)c;\n+\t\t\t\t\t\t\tif (c < 0)\n+\t\t\t\t\t\t\t\tgoto block_error;\n+\t\t\t\t\t\t}\n+\n+\n+\n+\n+\t\t\t\t\t\tif (status < 0)\n+\t\t\t\t\t\t\tbreak;\n+\t\t\t\t\t\tif ((buffer[8] & 0x80) == 0x80) {\n+\t\t\t\t\t\t\tint count = 1 << ((buffer[8] & 0x0F) + 1);\n+\t\t\t\t\t\t\tfor (i = 0; i < count; i++) {\n+\t\t\t\t\t\t\t\tfor (int j = 0; j < 3; j++) {\n+\t\t\t\t\t\t\t\t\tif (Get_Byte() < 0)\n+\t\t\t\t\t\t\t\t\t\treturn(-1);\n+\t\t\t\t\t\t\t\t}\n+\t\t\t\t\t\t\t}\n+\t\t\t\t\t\t}\n+\t\t\t\t\t\tmemset(Line, 0, sizeof(Line));\n+\t\t\t\t\t\tstatus = Decode((short)Width);\n+\t\t\t\t\t\tif (Get_Byte() != 0) { block_error: // NAME 2 [block_error]: shared block-read and terminator failure path\n+\t\t\t\t\t\t\tstatus = -1;\n+\t\t\t\t\t\t\tbreak;\n+\t\t\t\t\t\t}\n+\t\t\t\t\t} else {\n+\t\t\t\t\t\tstatus = 0;\n+\t\t\t\t\t\tif (c != ';')\n+\t\t\t\t\t\t\tstatus = -1;\n+\n \t\t\t\t\t\tbreak;\n-\t\t\t\t\t}\n-\n-\t\t\t\t\tif (c == '!') {\n+\t\t\t\t\t} } else {\n \t\t\t\t\t\tif (Get_Byte() == 0xF9) {\n \t\t\t\t\t\t\tGet_Byte();\n \t\t\t\t\t\t\tif (Get_Byte() & 1)\n@@ -97,40 +131,6 @@\n \t\t\t\t\t\t\t\t} while (--count);\n \t\t\t\t\t\t\t}\n \t\t\t\t\t\t}\n-\t\t\t\t\t} else if (c == ',') {\n-\t\t\t\t\t\tfor (i = 0; i < 9; i++) {\n-\t\t\t\t\t\t\tc = Get_Byte();\n-\t\t\t\t\t\t\tbuffer[i] = (unsigned char)c;\n-\t\t\t\t\t\t\tif (c < 0)\n-\t\t\t\t\t\t\t\tbreak;\n-\t\t\t\t\t\t}\n-\t\t\t\t\t\tif (c < 0) {\n-\t\t\t\t\t\t\tstatus = -1;\n-\t\t\t\t\t\t\tbreak;\n-\t\t\t\t\t\t}\n-\t\t\t\t\t\tif (status < 0)\n-\t\t\t\t\t\t\tbreak;\n-\t\t\t\t\t\tif ((buffer[8] & 0x80) == 0x80) {\n-\t\t\t\t\t\t\tint count = 1 << ((buffer[8] & 0x0F) + 1);\n-\t\t\t\t\t\t\tfor (i = 0; i < count; i++) {\n-\t\t\t\t\t\t\t\tfor (int j = 0; j < 3; j++) {\n-\t\t\t\t\t\t\t\t\tif (Get_Byte() < 0)\n-\t\t\t\t\t\t\t\t\t\treturn(-1);\n-\t\t\t\t\t\t\t\t}\n-\t\t\t\t\t\t\t}\n-\t\t\t\t\t\t}\n-\t\t\t\t\t\tmemset(Line, 0, sizeof(Line));\n-\t\t\t\t\t\tstatus = Decode((short)Width);\n-\t\t\t\t\t\tif (Get_Byte() != 0) {\n-\t\t\t\t\t\t\tstatus = -1;\n-\t\t\t\t\t\t\tbreak;\n-\t\t\t\t\t\t}\n-\t\t\t\t\t} else {\n-\t\t\t\t\t\tif (c == ';')\n-\t\t\t\t\t\t\tstatus = 0;\n-\t\t\t\t\t\telse\n-\t\t\t\t\t\t\tstatus = -1;\n-\t\t\t\t\t\tbreak;\n \t\t\t\t\t}\n \t\t\t\t}\n \t\t\t\treturn(status);\n@@ -360,8 +360,8 @@\n \tif (size < 2 || 9 < size)\n \t\treturn(BAD_CODE_SIZE);\n \n-\tCodeSize = size + 1;\n-\ttop_slot = 1 << CodeSize;\n+\tCodeSize = (short)(size + 1);\n+\toc = 0; ycount = 0; top_slot = 1 << CodeSize; xcount = 0; fc = 0;\n \tclear = 1 << size;\n \tending = clear + 1;\n \tslot = newcodes = ending + 1;\n@@ -370,8 +370,8 @@\n \tfor (i = 0; i < slot; i++)\n \t\tLengths[i] = 0;\n \n-\toc = fc = 0;\n-\txcount = ycount = 0;\n+\t\n+\t\n \tsp = Stack;\n \tbufptr = Line;\n \tbufcnt = linewidth;\n@@ -381,7 +381,7 @@\n \t\t\tbreak;\n \n \t\tif (c == clear) {\n-\t\t\tCodeSize = size + 1;\n+\t\t\tCodeSize = (short)(size + 1);\n \t\t\tLengths[newcodes] = 0;\n \t\t\ttop_slot = 1 << CodeSize;\n \t\t\tslot = newcodes;\n@@ -391,7 +391,7 @@\n \t\t\t\tbreak;\n \t\t\tif (c >= slot)\n \t\t\t\tc = 0;\n-\t\t\toc = fc = c;\n+\t\t\toc = c; fc = (unsigned char)c;\n \t\t\t*sp++ = fc;\n \t\t} else {\n \t\t\tcode = c;\n@@ -407,10 +407,10 @@\n \t\t\tdirect = 0;\n \t\t\twhile (code >= newcodes) {\n \t\t\t\tG_ASSERT(code < 4096);\n-\t\t\t\tlen = Lengths[code];\n+\t\t\t\ti = len = Lengths[code];\n \t\t\t\tif (len > 0 && bufcnt - len > 0) {\n \t\t\t\t\tdirect = -1;\n-\t\t\t\t\ti = len;\n+\t\t\t\t\t\n \t\t\t\t\tdo {\n \n \n@@ -419,8 +419,8 @@\n \t\t\t\t\t\tcode = Prefix[code];\n \t\t\t\t\t} while (i > 0);\n \t\t\t\t\t*bufptr = (unsigned char)code;\n-\t\t\t\t\tbufptr += len + 1;\n-\t\t\t\t\tbufcnt -= len + 1;\n+\t\t\t\t\t++len; bufptr += len;\n+\t\t\t\t\tbufcnt -= len;\n \t\t\t\t\tif (bufcnt == 0) {\n \t\t\t\t\t\tif (--ycount < 0) {\n \t\t\t\t\t\t\tOut_Line(Line, bufptr - Line, row);\n@@ -428,8 +428,8 @@\n \t\t\t\t\t\t\tycount = 0;\n \t\t\t\t\t\t}\n \t\t\t\t\t\tbufptr = Line;\n+\t\t\t\t\t\tbufcnt = linewidth;\n \t\t\t\t\t\txcount = 0;\n-\t\t\t\t\t\tbufcnt = linewidth;\n \t\t\t\t\t}\n \t\t\t\t} else {\n \n@@ -480,15 +480,15 @@\n \t\t\t\t\tycount = 0;\n \t\t\t\t}\n \t\t\t\tbufptr = Line;\n+\t\t\t\tbufcnt = linewidth;\n \t\t\t\txcount = 0;\n-\t\t\t\tbufcnt = linewidth;\n \t\t\t}\n \t\t}\n \t}\n \treturn(0);\n }\n \n-// NOT EXACT: 0x76DF60, one instruction: the client reads ret for the final mask with a word load, ours a dword\n+\n short HtmlGifImageClass::Get_Next_Code(void)\n {\n \tif (BitsLeft == 0) {\n",
+      "changed": true,
+      "model": "gpt-6-astra high",
+      "classification": "rebased_prior_body_control",
+      "output": {
+        "gained": [
+          "0x76D4A0",
+          "0x76DF60"
+        ],
+        "lost": [],
+        "symbol_gained": [
+          [
+            "?Get_Next_Code@HtmlGifImageClass@@QAEFXZ",
+            "0x76DF60"
+          ],
+          [
+            "?Set_Data@HtmlGifImageClass@@UAEHPADH@Z",
+            "0x76D4A0"
+          ]
+        ],
+        "symbol_lost": [],
+        "targets": {
+          "0x76D4A0": {
+            "symbol": "?Set_Data@HtmlGifImageClass@@UAEHPADH@Z",
+            "length": 998,
+            "raw_sha256": "bc689d43f91e73ead26a099b6acc280c8f941fc13bc18e76c7861be468fc4061",
+            "masked_sha256": "bc689d43f91e73ead26a099b6acc280c8f941fc13bc18e76c7861be468fc4061",
+            "diagnostic_similarity": "similarity 0.81",
+            "exact": true
+          },
+          "0x76D990": {
+            "symbol": "?Decode@HtmlGifImageClass@@QAEFF@Z",
+            "length": 1169,
+            "raw_sha256": "744c451898bbc92e94800031db907639347de562a60daf1b8dea67572bdac7e4",
+            "masked_sha256": "744c451898bbc92e94800031db907639347de562a60daf1b8dea67572bdac7e4",
+            "diagnostic_similarity": "similarity 0.81",
+            "exact": false
+          },
+          "0x76DF60": {
+            "symbol": "?Get_Next_Code@HtmlGifImageClass@@QAEFXZ",
+            "length": 515,
+            "raw_sha256": "8d284fdee6c460d397b37029b824d031a2805636501a00847ff01052d074b5fa",
+            "masked_sha256": "8d284fdee6c460d397b37029b824d031a2805636501a00847ff01052d074b5fa",
+            "diagnostic_similarity": "similarity 0.82",
+            "exact": true
+          }
+        }
+      }
+    },
+    {
+      "name": "astra_decode_read_size",
+      "source_sha256": "71435182e54461751ab39007349dcea7fab7526b8c913abedce07207a4285325",
+      "patch": "--- app/client/html/image/gifload.cpp\n+++ app/client/html/image/gifload.cpp\n@@ -16,7 +16,7 @@\n };\n \n static unsigned char b1;\n-static unsigned short ret;\n+static unsigned short ret = 0; // NAME 1: reconstructed decoder word accumulator; zero initialization preserves retail BSS ordering\n \n int Build_Pixel(DSurface *surface, int red, int green, int blue)\n {\n@@ -28,7 +28,7 @@\n \t}\n \treturn(pixel);\n }\n-\n+static inline void Build_Colors(HtmlGifImageClass *image) { for (int i = 0; i < 256; i++) image->Colors[i] = Build_Pixel(image->Surf, image->Palette[i * 3], image->Palette[i * 3 + 1], image->Palette[i * 3 + 2]); } // NAME 2 [Build_Colors, image, i]: palette conversion loop; reload the current surface for each pixel\n HtmlGifImageClass::HtmlGifImageClass(char *name, int bits) : HtmlImageClass(name, bits)\n {\n }\n@@ -37,19 +37,19 @@\n {\n }\n \n-// NOT EXACT: 0x76D4A0, functional (D64): the client keeps i / c / count in registers and the result in the dead\n-// data argument's slot (frame 0x10 vs 0x20, the header and descriptor share one 13-byte buffer)\n+\n+\n int HtmlGifImageClass::Set_Data(char *data, int length)\n {\n \tunsigned char buffer[13];\n-\tint status = 0;\n+\n \tint i;\n \tint c;\n \n \tData = data;\n \tLength = length;\n \tPosition = 0;\n-\tmemset(Line, 0, sizeof(Line));\n+\tmemset(Line, 0, sizeof(Line)); int status = 0;\n \n \tfor (i = 0; i < 13; i++) {\n \t\tc = Get_Byte();\n@@ -60,28 +60,62 @@\n \n \tif (strncmp((char *)buffer, \"GIF87a\", 3) == 0 && buffer[3] >= '0' && buffer[3] <= '9' && buffer[4] >= '0' && buffer[4] <= '9' && buffer[5] >= 'A' && buffer[5] <= 'z') {\n \t\tWidth = (buffer[7] << 8) | buffer[6];\n-\t\tHeight = (buffer[9] << 8) | buffer[8];\n+\t\tHeight = (buffer[9] << 8) | buffer[8]; int palette_bits = (buffer[10] & 0x0F) + 1; // NAME 2 [palette_bits]: global color-table size exponent from the GIF descriptor\n \t\tif (Width <= 0x800 && Height <= 0x800) {\n \t\t\tCreate_Surface(Width, Height);\n \t\t\tif (buffer[10] & 0x80) {\n-\t\t\t\tColorCount = 1 << ((buffer[10] & 0x0F) + 1);\n-\t\t\t\tfor (i = 0; i < ColorCount * 3; i++) {\n+\t\t\t\tColorCount = 1 << palette_bits;\n+\t\t\t\tint palette_bytes = ColorCount * 3; for (i = 0; i < palette_bytes; i++) {\n \t\t\t\t\tc = Get_Byte();\n \t\t\t\t\tif (c < 0)\n \t\t\t\t\t\treturn(-1);\n \t\t\t\t\tPalette[i] = (unsigned char)c;\n \t\t\t\t}\n-\t\t\t\tfor (i = 0; i < 256; i++)\n-\t\t\t\t\tColors[i] = Build_Pixel(Surf, Palette[i * 3], Palette[i * 3 + 1], Palette[i * 3 + 2]);\n-\n-\t\t\t\tfor (;;) {\n-\t\t\t\t\tc = Get_Byte();\n-\t\t\t\t\tif (c < 0) {\n-\t\t\t\t\t\tstatus = -1;\n+\t\t\t\tBuild_Colors(this);\n+\n+\n+\t\t\t\twhile (true) {\n+\t\t\t\t\tif (Position >= Length) goto block_error;\n+\t\t\t\t\tc = (unsigned char)Data[Position++];\n+\n+\n+\n+\n+\t\t\t\t\tif (c != '!') { if (c == ',') {\n+\t\t\t\t\t\tfor (i = 0; i < 9; i++) {\n+\t\t\t\t\t\t\tc = Get_Byte();\n+\t\t\t\t\t\t\tbuffer[i] = (unsigned char)c;\n+\t\t\t\t\t\t\tif (c < 0)\n+\t\t\t\t\t\t\t\tgoto block_error;\n+\t\t\t\t\t\t}\n+\n+\n+\n+\n+\t\t\t\t\t\tif (status < 0)\n+\t\t\t\t\t\t\tbreak;\n+\t\t\t\t\t\tif ((buffer[8] & 0x80) == 0x80) {\n+\t\t\t\t\t\t\tint count = 1 << ((buffer[8] & 0x0F) + 1);\n+\t\t\t\t\t\t\tfor (i = 0; i < count; i++) {\n+\t\t\t\t\t\t\t\tfor (int j = 0; j < 3; j++) {\n+\t\t\t\t\t\t\t\t\tif (Get_Byte() < 0)\n+\t\t\t\t\t\t\t\t\t\treturn(-1);\n+\t\t\t\t\t\t\t\t}\n+\t\t\t\t\t\t\t}\n+\t\t\t\t\t\t}\n+\t\t\t\t\t\tmemset(Line, 0, sizeof(Line));\n+\t\t\t\t\t\tstatus = Decode((short)Width);\n+\t\t\t\t\t\tif (Get_Byte() != 0) { block_error: // NAME 2 [block_error]: shared block-read and terminator failure path\n+\t\t\t\t\t\t\tstatus = -1;\n+\t\t\t\t\t\t\tbreak;\n+\t\t\t\t\t\t}\n+\t\t\t\t\t} else {\n+\t\t\t\t\t\tstatus = 0;\n+\t\t\t\t\t\tif (c != ';')\n+\t\t\t\t\t\t\tstatus = -1;\n+\n \t\t\t\t\t\tbreak;\n-\t\t\t\t\t}\n-\n-\t\t\t\t\tif (c == '!') {\n+\t\t\t\t\t} } else {\n \t\t\t\t\t\tif (Get_Byte() == 0xF9) {\n \t\t\t\t\t\t\tGet_Byte();\n \t\t\t\t\t\t\tif (Get_Byte() & 1)\n@@ -97,40 +131,6 @@\n \t\t\t\t\t\t\t\t} while (--count);\n \t\t\t\t\t\t\t}\n \t\t\t\t\t\t}\n-\t\t\t\t\t} else if (c == ',') {\n-\t\t\t\t\t\tfor (i = 0; i < 9; i++) {\n-\t\t\t\t\t\t\tc = Get_Byte();\n-\t\t\t\t\t\t\tbuffer[i] = (unsigned char)c;\n-\t\t\t\t\t\t\tif (c < 0)\n-\t\t\t\t\t\t\t\tbreak;\n-\t\t\t\t\t\t}\n-\t\t\t\t\t\tif (c < 0) {\n-\t\t\t\t\t\t\tstatus = -1;\n-\t\t\t\t\t\t\tbreak;\n-\t\t\t\t\t\t}\n-\t\t\t\t\t\tif (status < 0)\n-\t\t\t\t\t\t\tbreak;\n-\t\t\t\t\t\tif ((buffer[8] & 0x80) == 0x80) {\n-\t\t\t\t\t\t\tint count = 1 << ((buffer[8] & 0x0F) + 1);\n-\t\t\t\t\t\t\tfor (i = 0; i < count; i++) {\n-\t\t\t\t\t\t\t\tfor (int j = 0; j < 3; j++) {\n-\t\t\t\t\t\t\t\t\tif (Get_Byte() < 0)\n-\t\t\t\t\t\t\t\t\t\treturn(-1);\n-\t\t\t\t\t\t\t\t}\n-\t\t\t\t\t\t\t}\n-\t\t\t\t\t\t}\n-\t\t\t\t\t\tmemset(Line, 0, sizeof(Line));\n-\t\t\t\t\t\tstatus = Decode((short)Width);\n-\t\t\t\t\t\tif (Get_Byte() != 0) {\n-\t\t\t\t\t\t\tstatus = -1;\n-\t\t\t\t\t\t\tbreak;\n-\t\t\t\t\t\t}\n-\t\t\t\t\t} else {\n-\t\t\t\t\t\tif (c == ';')\n-\t\t\t\t\t\t\tstatus = 0;\n-\t\t\t\t\t\telse\n-\t\t\t\t\t\t\tstatus = -1;\n-\t\t\t\t\t\tbreak;\n \t\t\t\t\t}\n \t\t\t\t}\n \t\t\t\treturn(status);\n@@ -328,7 +328,7 @@\n \n \n \n-\n+static inline short Read_Code_Size(HtmlGifImageClass *image) { short value = (short)image->Get_Byte(); if (value < 0) return value; if (value < 2 || 9 < value) return BAD_CODE_SIZE; return value; }\n \n \n // NOT EXACT: 0x76D990, functional (D64): Bennett's structure and the client's branch order, but the register\n@@ -355,13 +355,13 @@\n \tshort i;\n \tint row = 0;\n \n-\tif ((size = Get_Byte()) < 0)\n+\tif ((size = Read_Code_Size(this)) < 0)\n \t\treturn(size);\n-\tif (size < 2 || 9 < size)\n-\t\treturn(BAD_CODE_SIZE);\n-\n-\tCodeSize = size + 1;\n-\ttop_slot = 1 << CodeSize;\n+\n+\n+\n+\tCodeSize = (short)(size + 1);\n+\toc = 0; ycount = 0; top_slot = 1 << CodeSize; xcount = 0; fc = 0;\n \tclear = 1 << size;\n \tending = clear + 1;\n \tslot = newcodes = ending + 1;\n@@ -370,8 +370,8 @@\n \tfor (i = 0; i < slot; i++)\n \t\tLengths[i] = 0;\n \n-\toc = fc = 0;\n-\txcount = ycount = 0;\n+\t\n+\t\n \tsp = Stack;\n \tbufptr = Line;\n \tbufcnt = linewidth;\n@@ -381,7 +381,7 @@\n \t\t\tbreak;\n \n \t\tif (c == clear) {\n-\t\t\tCodeSize = size + 1;\n+\t\t\tCodeSize = (short)(size + 1);\n \t\t\tLengths[newcodes] = 0;\n \t\t\ttop_slot = 1 << CodeSize;\n \t\t\tslot = newcodes;\n@@ -391,7 +391,7 @@\n \t\t\t\tbreak;\n \t\t\tif (c >= slot)\n \t\t\t\tc = 0;\n-\t\t\toc = fc = c;\n+\t\t\toc = c; fc = (unsigned char)c;\n \t\t\t*sp++ = fc;\n \t\t} else {\n \t\t\tcode = c;\n@@ -407,10 +407,10 @@\n \t\t\tdirect = 0;\n \t\t\twhile (code >= newcodes) {\n \t\t\t\tG_ASSERT(code < 4096);\n-\t\t\t\tlen = Lengths[code];\n+\t\t\t\ti = len = Lengths[code];\n \t\t\t\tif (len > 0 && bufcnt - len > 0) {\n \t\t\t\t\tdirect = -1;\n-\t\t\t\t\ti = len;\n+\t\t\t\t\t\n \t\t\t\t\tdo {\n \n \n@@ -419,8 +419,8 @@\n \t\t\t\t\t\tcode = Prefix[code];\n \t\t\t\t\t} while (i > 0);\n \t\t\t\t\t*bufptr = (unsigned char)code;\n-\t\t\t\t\tbufptr += len + 1;\n-\t\t\t\t\tbufcnt -= len + 1;\n+\t\t\t\t\t++len; bufptr += len;\n+\t\t\t\t\tbufcnt -= len;\n \t\t\t\t\tif (bufcnt == 0) {\n \t\t\t\t\t\tif (--ycount < 0) {\n \t\t\t\t\t\t\tOut_Line(Line, bufptr - Line, row);\n@@ -428,8 +428,8 @@\n \t\t\t\t\t\t\tycount = 0;\n \t\t\t\t\t\t}\n \t\t\t\t\t\tbufptr = Line;\n+\t\t\t\t\t\tbufcnt = linewidth;\n \t\t\t\t\t\txcount = 0;\n-\t\t\t\t\t\tbufcnt = linewidth;\n \t\t\t\t\t}\n \t\t\t\t} else {\n \n@@ -480,15 +480,15 @@\n \t\t\t\t\tycount = 0;\n \t\t\t\t}\n \t\t\t\tbufptr = Line;\n+\t\t\t\tbufcnt = linewidth;\n \t\t\t\txcount = 0;\n-\t\t\t\tbufcnt = linewidth;\n \t\t\t}\n \t\t}\n \t}\n \treturn(0);\n }\n \n-// NOT EXACT: 0x76DF60, one instruction: the client reads ret for the final mask with a word load, ours a dword\n+\n short HtmlGifImageClass::Get_Next_Code(void)\n {\n \tif (BitsLeft == 0) {\n",
+      "changed": true,
+      "model": "gpt-6-astra high",
+      "classification": "changed_form",
+      "output": {
+        "gained": [
+          "0x76D4A0",
+          "0x76DF60"
+        ],
+        "lost": [],
+        "symbol_gained": [
+          [
+            "?Get_Next_Code@HtmlGifImageClass@@QAEFXZ",
+            "0x76DF60"
+          ],
+          [
+            "?Set_Data@HtmlGifImageClass@@UAEHPADH@Z",
+            "0x76D4A0"
+          ]
+        ],
+        "symbol_lost": [],
+        "targets": {
+          "0x76D4A0": {
+            "symbol": "?Set_Data@HtmlGifImageClass@@UAEHPADH@Z",
+            "length": 998,
+            "raw_sha256": "bc689d43f91e73ead26a099b6acc280c8f941fc13bc18e76c7861be468fc4061",
+            "masked_sha256": "bc689d43f91e73ead26a099b6acc280c8f941fc13bc18e76c7861be468fc4061",
+            "diagnostic_similarity": "similarity 0.81",
+            "exact": true
+          },
+          "0x76D990": {
+            "symbol": "?Decode@HtmlGifImageClass@@QAEFF@Z",
+            "length": 1159,
+            "raw_sha256": "5e07fa796525490062c854968879539a8f71fc37d7a5508f1b07ba908f644f8b",
+            "masked_sha256": "5e07fa796525490062c854968879539a8f71fc37d7a5508f1b07ba908f644f8b",
+            "diagnostic_similarity": "similarity 0.78",
+            "exact": false
+          },
+          "0x76DF60": {
+            "symbol": "?Get_Next_Code@HtmlGifImageClass@@QAEFXZ",
+            "length": 515,
+            "raw_sha256": "8d284fdee6c460d397b37029b824d031a2805636501a00847ff01052d074b5fa",
+            "masked_sha256": "8d284fdee6c460d397b37029b824d031a2805636501a00847ff01052d074b5fa",
+            "diagnostic_similarity": "similarity 0.82",
+            "exact": true
+          }
+        }
+      }
+    },
+    {
+      "name": "astra_decode_remaining_boundary",
+      "source_sha256": "0f918d5731a2aae5918582f806a5dc1a12f35e7f45fe0cda18d2349a6819c6e7",
+      "patch": "--- app/client/html/image/gifload.cpp\n+++ app/client/html/image/gifload.cpp\n@@ -16,7 +16,7 @@\n };\n \n static unsigned char b1;\n-static unsigned short ret;\n+static unsigned short ret = 0; // NAME 1: reconstructed decoder word accumulator; zero initialization preserves retail BSS ordering\n \n int Build_Pixel(DSurface *surface, int red, int green, int blue)\n {\n@@ -28,7 +28,7 @@\n \t}\n \treturn(pixel);\n }\n-\n+static inline void Build_Colors(HtmlGifImageClass *image) { for (int i = 0; i < 256; i++) image->Colors[i] = Build_Pixel(image->Surf, image->Palette[i * 3], image->Palette[i * 3 + 1], image->Palette[i * 3 + 2]); } // NAME 2 [Build_Colors, image, i]: palette conversion loop; reload the current surface for each pixel\n HtmlGifImageClass::HtmlGifImageClass(char *name, int bits) : HtmlImageClass(name, bits)\n {\n }\n@@ -37,19 +37,19 @@\n {\n }\n \n-// NOT EXACT: 0x76D4A0, functional (D64): the client keeps i / c / count in registers and the result in the dead\n-// data argument's slot (frame 0x10 vs 0x20, the header and descriptor share one 13-byte buffer)\n+\n+\n int HtmlGifImageClass::Set_Data(char *data, int length)\n {\n \tunsigned char buffer[13];\n-\tint status = 0;\n+\n \tint i;\n \tint c;\n \n \tData = data;\n \tLength = length;\n \tPosition = 0;\n-\tmemset(Line, 0, sizeof(Line));\n+\tmemset(Line, 0, sizeof(Line)); int status = 0;\n \n \tfor (i = 0; i < 13; i++) {\n \t\tc = Get_Byte();\n@@ -60,28 +60,62 @@\n \n \tif (strncmp((char *)buffer, \"GIF87a\", 3) == 0 && buffer[3] >= '0' && buffer[3] <= '9' && buffer[4] >= '0' && buffer[4] <= '9' && buffer[5] >= 'A' && buffer[5] <= 'z') {\n \t\tWidth = (buffer[7] << 8) | buffer[6];\n-\t\tHeight = (buffer[9] << 8) | buffer[8];\n+\t\tHeight = (buffer[9] << 8) | buffer[8]; int palette_bits = (buffer[10] & 0x0F) + 1; // NAME 2 [palette_bits]: global color-table size exponent from the GIF descriptor\n \t\tif (Width <= 0x800 && Height <= 0x800) {\n \t\t\tCreate_Surface(Width, Height);\n \t\t\tif (buffer[10] & 0x80) {\n-\t\t\t\tColorCount = 1 << ((buffer[10] & 0x0F) + 1);\n-\t\t\t\tfor (i = 0; i < ColorCount * 3; i++) {\n+\t\t\t\tColorCount = 1 << palette_bits;\n+\t\t\t\tint palette_bytes = ColorCount * 3; for (i = 0; i < palette_bytes; i++) {\n \t\t\t\t\tc = Get_Byte();\n \t\t\t\t\tif (c < 0)\n \t\t\t\t\t\treturn(-1);\n \t\t\t\t\tPalette[i] = (unsigned char)c;\n \t\t\t\t}\n-\t\t\t\tfor (i = 0; i < 256; i++)\n-\t\t\t\t\tColors[i] = Build_Pixel(Surf, Palette[i * 3], Palette[i * 3 + 1], Palette[i * 3 + 2]);\n-\n-\t\t\t\tfor (;;) {\n-\t\t\t\t\tc = Get_Byte();\n-\t\t\t\t\tif (c < 0) {\n-\t\t\t\t\t\tstatus = -1;\n+\t\t\t\tBuild_Colors(this);\n+\n+\n+\t\t\t\twhile (true) {\n+\t\t\t\t\tif (Position >= Length) goto block_error;\n+\t\t\t\t\tc = (unsigned char)Data[Position++];\n+\n+\n+\n+\n+\t\t\t\t\tif (c != '!') { if (c == ',') {\n+\t\t\t\t\t\tfor (i = 0; i < 9; i++) {\n+\t\t\t\t\t\t\tc = Get_Byte();\n+\t\t\t\t\t\t\tbuffer[i] = (unsigned char)c;\n+\t\t\t\t\t\t\tif (c < 0)\n+\t\t\t\t\t\t\t\tgoto block_error;\n+\t\t\t\t\t\t}\n+\n+\n+\n+\n+\t\t\t\t\t\tif (status < 0)\n+\t\t\t\t\t\t\tbreak;\n+\t\t\t\t\t\tif ((buffer[8] & 0x80) == 0x80) {\n+\t\t\t\t\t\t\tint count = 1 << ((buffer[8] & 0x0F) + 1);\n+\t\t\t\t\t\t\tfor (i = 0; i < count; i++) {\n+\t\t\t\t\t\t\t\tfor (int j = 0; j < 3; j++) {\n+\t\t\t\t\t\t\t\t\tif (Get_Byte() < 0)\n+\t\t\t\t\t\t\t\t\t\treturn(-1);\n+\t\t\t\t\t\t\t\t}\n+\t\t\t\t\t\t\t}\n+\t\t\t\t\t\t}\n+\t\t\t\t\t\tmemset(Line, 0, sizeof(Line));\n+\t\t\t\t\t\tstatus = Decode((short)Width);\n+\t\t\t\t\t\tif (Get_Byte() != 0) { block_error: // NAME 2 [block_error]: shared block-read and terminator failure path\n+\t\t\t\t\t\t\tstatus = -1;\n+\t\t\t\t\t\t\tbreak;\n+\t\t\t\t\t\t}\n+\t\t\t\t\t} else {\n+\t\t\t\t\t\tstatus = 0;\n+\t\t\t\t\t\tif (c != ';')\n+\t\t\t\t\t\t\tstatus = -1;\n+\n \t\t\t\t\t\tbreak;\n-\t\t\t\t\t}\n-\n-\t\t\t\t\tif (c == '!') {\n+\t\t\t\t\t} } else {\n \t\t\t\t\t\tif (Get_Byte() == 0xF9) {\n \t\t\t\t\t\t\tGet_Byte();\n \t\t\t\t\t\t\tif (Get_Byte() & 1)\n@@ -97,40 +131,6 @@\n \t\t\t\t\t\t\t\t} while (--count);\n \t\t\t\t\t\t\t}\n \t\t\t\t\t\t}\n-\t\t\t\t\t} else if (c == ',') {\n-\t\t\t\t\t\tfor (i = 0; i < 9; i++) {\n-\t\t\t\t\t\t\tc = Get_Byte();\n-\t\t\t\t\t\t\tbuffer[i] = (unsigned char)c;\n-\t\t\t\t\t\t\tif (c < 0)\n-\t\t\t\t\t\t\t\tbreak;\n-\t\t\t\t\t\t}\n-\t\t\t\t\t\tif (c < 0) {\n-\t\t\t\t\t\t\tstatus = -1;\n-\t\t\t\t\t\t\tbreak;\n-\t\t\t\t\t\t}\n-\t\t\t\t\t\tif (status < 0)\n-\t\t\t\t\t\t\tbreak;\n-\t\t\t\t\t\tif ((buffer[8] & 0x80) == 0x80) {\n-\t\t\t\t\t\t\tint count = 1 << ((buffer[8] & 0x0F) + 1);\n-\t\t\t\t\t\t\tfor (i = 0; i < count; i++) {\n-\t\t\t\t\t\t\t\tfor (int j = 0; j < 3; j++) {\n-\t\t\t\t\t\t\t\t\tif (Get_Byte() < 0)\n-\t\t\t\t\t\t\t\t\t\treturn(-1);\n-\t\t\t\t\t\t\t\t}\n-\t\t\t\t\t\t\t}\n-\t\t\t\t\t\t}\n-\t\t\t\t\t\tmemset(Line, 0, sizeof(Line));\n-\t\t\t\t\t\tstatus = Decode((short)Width);\n-\t\t\t\t\t\tif (Get_Byte() != 0) {\n-\t\t\t\t\t\t\tstatus = -1;\n-\t\t\t\t\t\t\tbreak;\n-\t\t\t\t\t\t}\n-\t\t\t\t\t} else {\n-\t\t\t\t\t\tif (c == ';')\n-\t\t\t\t\t\t\tstatus = 0;\n-\t\t\t\t\t\telse\n-\t\t\t\t\t\t\tstatus = -1;\n-\t\t\t\t\t\tbreak;\n \t\t\t\t\t}\n \t\t\t\t}\n \t\t\t\treturn(status);\n@@ -328,7 +328,7 @@\n \n \n \n-\n+static inline int Remaining_Line_Space(short available, short length) { return available - length; }\n \n \n // NOT EXACT: 0x76D990, functional (D64): Bennett's structure and the client's branch order, but the register\n@@ -360,8 +360,8 @@\n \tif (size < 2 || 9 < size)\n \t\treturn(BAD_CODE_SIZE);\n \n-\tCodeSize = size + 1;\n-\ttop_slot = 1 << CodeSize;\n+\tCodeSize = (short)(size + 1);\n+\toc = 0; ycount = 0; top_slot = 1 << CodeSize; xcount = 0; fc = 0;\n \tclear = 1 << size;\n \tending = clear + 1;\n \tslot = newcodes = ending + 1;\n@@ -370,8 +370,8 @@\n \tfor (i = 0; i < slot; i++)\n \t\tLengths[i] = 0;\n \n-\toc = fc = 0;\n-\txcount = ycount = 0;\n+\t\n+\t\n \tsp = Stack;\n \tbufptr = Line;\n \tbufcnt = linewidth;\n@@ -381,7 +381,7 @@\n \t\t\tbreak;\n \n \t\tif (c == clear) {\n-\t\t\tCodeSize = size + 1;\n+\t\t\tCodeSize = (short)(size + 1);\n \t\t\tLengths[newcodes] = 0;\n \t\t\ttop_slot = 1 << CodeSize;\n \t\t\tslot = newcodes;\n@@ -391,7 +391,7 @@\n \t\t\t\tbreak;\n \t\t\tif (c >= slot)\n \t\t\t\tc = 0;\n-\t\t\toc = fc = c;\n+\t\t\toc = c; fc = (unsigned char)c;\n \t\t\t*sp++ = fc;\n \t\t} else {\n \t\t\tcode = c;\n@@ -407,10 +407,10 @@\n \t\t\tdirect = 0;\n \t\t\twhile (code >= newcodes) {\n \t\t\t\tG_ASSERT(code < 4096);\n-\t\t\t\tlen = Lengths[code];\n-\t\t\t\tif (len > 0 && bufcnt - len > 0) {\n+\t\t\t\ti = len = Lengths[code];\n+\t\t\t\tif (len > 0 && Remaining_Line_Space(bufcnt, len) > 0) {\n \t\t\t\t\tdirect = -1;\n-\t\t\t\t\ti = len;\n+\t\t\t\t\t\n \t\t\t\t\tdo {\n \n \n@@ -419,8 +419,8 @@\n \t\t\t\t\t\tcode = Prefix[code];\n \t\t\t\t\t} while (i > 0);\n \t\t\t\t\t*bufptr = (unsigned char)code;\n-\t\t\t\t\tbufptr += len + 1;\n-\t\t\t\t\tbufcnt -= len + 1;\n+\t\t\t\t\t++len; bufptr += len;\n+\t\t\t\t\tbufcnt -= len;\n \t\t\t\t\tif (bufcnt == 0) {\n \t\t\t\t\t\tif (--ycount < 0) {\n \t\t\t\t\t\t\tOut_Line(Line, bufptr - Line, row);\n@@ -428,8 +428,8 @@\n \t\t\t\t\t\t\tycount = 0;\n \t\t\t\t\t\t}\n \t\t\t\t\t\tbufptr = Line;\n+\t\t\t\t\t\tbufcnt = linewidth;\n \t\t\t\t\t\txcount = 0;\n-\t\t\t\t\t\tbufcnt = linewidth;\n \t\t\t\t\t}\n \t\t\t\t} else {\n \n@@ -480,15 +480,15 @@\n \t\t\t\t\tycount = 0;\n \t\t\t\t}\n \t\t\t\tbufptr = Line;\n+\t\t\t\tbufcnt = linewidth;\n \t\t\t\txcount = 0;\n-\t\t\t\tbufcnt = linewidth;\n \t\t\t}\n \t\t}\n \t}\n \treturn(0);\n }\n \n-// NOT EXACT: 0x76DF60, one instruction: the client reads ret for the final mask with a word load, ours a dword\n+\n short HtmlGifImageClass::Get_Next_Code(void)\n {\n \tif (BitsLeft == 0) {\n",
+      "changed": true,
+      "model": "gpt-6-astra high",
+      "classification": "changed_form",
+      "output": {
+        "gained": [
+          "0x76D4A0",
+          "0x76DF60"
+        ],
+        "lost": [],
+        "symbol_gained": [
+          [
+            "?Get_Next_Code@HtmlGifImageClass@@QAEFXZ",
+            "0x76DF60"
+          ],
+          [
+            "?Set_Data@HtmlGifImageClass@@UAEHPADH@Z",
+            "0x76D4A0"
+          ]
+        ],
+        "symbol_lost": [],
+        "targets": {
+          "0x76D4A0": {
+            "symbol": "?Set_Data@HtmlGifImageClass@@UAEHPADH@Z",
+            "length": 998,
+            "raw_sha256": "bc689d43f91e73ead26a099b6acc280c8f941fc13bc18e76c7861be468fc4061",
+            "masked_sha256": "bc689d43f91e73ead26a099b6acc280c8f941fc13bc18e76c7861be468fc4061",
+            "diagnostic_similarity": "similarity 0.81",
+            "exact": true
+          },
+          "0x76D990": {
+            "symbol": "?Decode@HtmlGifImageClass@@QAEFF@Z",
+            "length": 1169,
+            "raw_sha256": "744c451898bbc92e94800031db907639347de562a60daf1b8dea67572bdac7e4",
+            "masked_sha256": "744c451898bbc92e94800031db907639347de562a60daf1b8dea67572bdac7e4",
+            "diagnostic_similarity": "similarity 0.81",
+            "exact": false
+          },
+          "0x76DF60": {
+            "symbol": "?Get_Next_Code@HtmlGifImageClass@@QAEFXZ",
+            "length": 515,
+            "raw_sha256": "8d284fdee6c460d397b37029b824d031a2805636501a00847ff01052d074b5fa",
+            "masked_sha256": "8d284fdee6c460d397b37029b824d031a2805636501a00847ff01052d074b5fa",
+            "diagnostic_similarity": "similarity 0.82",
+            "exact": true
+          }
+        }
+      }
+    },
+    {
+      "name": "root_retained_baseline",
+      "source_sha256": "1d840e07c61da0137ab8dfd1e56a3759e9cfd2b2ba2eef155d705dba2af67dd7",
+      "patch": "--- app/client/html/image/gifload.cpp\n+++ app/client/html/image/gifload.cpp\n@@ -16,7 +16,7 @@\n };\n \n static unsigned char b1;\n-static unsigned short ret;\n+static unsigned short ret = 0; // NAME 1: reconstructed decoder word accumulator; zero initialization preserves retail BSS ordering\n \n int Build_Pixel(DSurface *surface, int red, int green, int blue)\n {\n@@ -28,7 +28,7 @@\n \t}\n \treturn(pixel);\n }\n-\n+static inline void Build_Colors(HtmlGifImageClass *image) { for (int i = 0; i < 256; i++) image->Colors[i] = Build_Pixel(image->Surf, image->Palette[i * 3], image->Palette[i * 3 + 1], image->Palette[i * 3 + 2]); } // NAME 2 [Build_Colors, image, i]: palette conversion loop; reload the current surface for each pixel\n HtmlGifImageClass::HtmlGifImageClass(char *name, int bits) : HtmlImageClass(name, bits)\n {\n }\n@@ -37,19 +37,19 @@\n {\n }\n \n-// NOT EXACT: 0x76D4A0, functional (D64): the client keeps i / c / count in registers and the result in the dead\n-// data argument's slot (frame 0x10 vs 0x20, the header and descriptor share one 13-byte buffer)\n+\n+\n int HtmlGifImageClass::Set_Data(char *data, int length)\n {\n \tunsigned char buffer[13];\n-\tint status = 0;\n+\n \tint i;\n \tint c;\n \n \tData = data;\n \tLength = length;\n \tPosition = 0;\n-\tmemset(Line, 0, sizeof(Line));\n+\tmemset(Line, 0, sizeof(Line)); int status = 0;\n \n \tfor (i = 0; i < 13; i++) {\n \t\tc = Get_Byte();\n@@ -60,28 +60,62 @@\n \n \tif (strncmp((char *)buffer, \"GIF87a\", 3) == 0 && buffer[3] >= '0' && buffer[3] <= '9' && buffer[4] >= '0' && buffer[4] <= '9' && buffer[5] >= 'A' && buffer[5] <= 'z') {\n \t\tWidth = (buffer[7] << 8) | buffer[6];\n-\t\tHeight = (buffer[9] << 8) | buffer[8];\n+\t\tHeight = (buffer[9] << 8) | buffer[8]; int palette_bits = (buffer[10] & 0x0F) + 1; // NAME 2 [palette_bits]: global color-table size exponent from the GIF descriptor\n \t\tif (Width <= 0x800 && Height <= 0x800) {\n \t\t\tCreate_Surface(Width, Height);\n \t\t\tif (buffer[10] & 0x80) {\n-\t\t\t\tColorCount = 1 << ((buffer[10] & 0x0F) + 1);\n-\t\t\t\tfor (i = 0; i < ColorCount * 3; i++) {\n+\t\t\t\tColorCount = 1 << palette_bits;\n+\t\t\t\tint palette_bytes = ColorCount * 3; for (i = 0; i < palette_bytes; i++) {\n \t\t\t\t\tc = Get_Byte();\n \t\t\t\t\tif (c < 0)\n \t\t\t\t\t\treturn(-1);\n \t\t\t\t\tPalette[i] = (unsigned char)c;\n \t\t\t\t}\n-\t\t\t\tfor (i = 0; i < 256; i++)\n-\t\t\t\t\tColors[i] = Build_Pixel(Surf, Palette[i * 3], Palette[i * 3 + 1], Palette[i * 3 + 2]);\n-\n-\t\t\t\tfor (;;) {\n-\t\t\t\t\tc = Get_Byte();\n-\t\t\t\t\tif (c < 0) {\n-\t\t\t\t\t\tstatus = -1;\n+\t\t\t\tBuild_Colors(this);\n+\n+\n+\t\t\t\twhile (true) {\n+\t\t\t\t\tif (Position >= Length) goto block_error;\n+\t\t\t\t\tc = (unsigned char)Data[Position++];\n+\n+\n+\n+\n+\t\t\t\t\tif (c != '!') { if (c == ',') {\n+\t\t\t\t\t\tfor (i = 0; i < 9; i++) {\n+\t\t\t\t\t\t\tc = Get_Byte();\n+\t\t\t\t\t\t\tbuffer[i] = (unsigned char)c;\n+\t\t\t\t\t\t\tif (c < 0)\n+\t\t\t\t\t\t\t\tgoto block_error;\n+\t\t\t\t\t\t}\n+\n+\n+\n+\n+\t\t\t\t\t\tif (status < 0)\n+\t\t\t\t\t\t\tbreak;\n+\t\t\t\t\t\tif ((buffer[8] & 0x80) == 0x80) {\n+\t\t\t\t\t\t\tint count = 1 << ((buffer[8] & 0x0F) + 1);\n+\t\t\t\t\t\t\tfor (i = 0; i < count; i++) {\n+\t\t\t\t\t\t\t\tfor (int j = 0; j < 3; j++) {\n+\t\t\t\t\t\t\t\t\tif (Get_Byte() < 0)\n+\t\t\t\t\t\t\t\t\t\treturn(-1);\n+\t\t\t\t\t\t\t\t}\n+\t\t\t\t\t\t\t}\n+\t\t\t\t\t\t}\n+\t\t\t\t\t\tmemset(Line, 0, sizeof(Line));\n+\t\t\t\t\t\tstatus = Decode((short)Width);\n+\t\t\t\t\t\tif (Get_Byte() != 0) { block_error: // NAME 2 [block_error]: shared block-read and terminator failure path\n+\t\t\t\t\t\t\tstatus = -1;\n+\t\t\t\t\t\t\tbreak;\n+\t\t\t\t\t\t}\n+\t\t\t\t\t} else {\n+\t\t\t\t\t\tstatus = 0;\n+\t\t\t\t\t\tif (c != ';')\n+\t\t\t\t\t\t\tstatus = -1;\n+\n \t\t\t\t\t\tbreak;\n-\t\t\t\t\t}\n-\n-\t\t\t\t\tif (c == '!') {\n+\t\t\t\t\t} } else {\n \t\t\t\t\t\tif (Get_Byte() == 0xF9) {\n \t\t\t\t\t\t\tGet_Byte();\n \t\t\t\t\t\t\tif (Get_Byte() & 1)\n@@ -97,40 +131,6 @@\n \t\t\t\t\t\t\t\t} while (--count);\n \t\t\t\t\t\t\t}\n \t\t\t\t\t\t}\n-\t\t\t\t\t} else if (c == ',') {\n-\t\t\t\t\t\tfor (i = 0; i < 9; i++) {\n-\t\t\t\t\t\t\tc = Get_Byte();\n-\t\t\t\t\t\t\tbuffer[i] = (unsigned char)c;\n-\t\t\t\t\t\t\tif (c < 0)\n-\t\t\t\t\t\t\t\tbreak;\n-\t\t\t\t\t\t}\n-\t\t\t\t\t\tif (c < 0) {\n-\t\t\t\t\t\t\tstatus = -1;\n-\t\t\t\t\t\t\tbreak;\n-\t\t\t\t\t\t}\n-\t\t\t\t\t\tif (status < 0)\n-\t\t\t\t\t\t\tbreak;\n-\t\t\t\t\t\tif ((buffer[8] & 0x80) == 0x80) {\n-\t\t\t\t\t\t\tint count = 1 << ((buffer[8] & 0x0F) + 1);\n-\t\t\t\t\t\t\tfor (i = 0; i < count; i++) {\n-\t\t\t\t\t\t\t\tfor (int j = 0; j < 3; j++) {\n-\t\t\t\t\t\t\t\t\tif (Get_Byte() < 0)\n-\t\t\t\t\t\t\t\t\t\treturn(-1);\n-\t\t\t\t\t\t\t\t}\n-\t\t\t\t\t\t\t}\n-\t\t\t\t\t\t}\n-\t\t\t\t\t\tmemset(Line, 0, sizeof(Line));\n-\t\t\t\t\t\tstatus = Decode((short)Width);\n-\t\t\t\t\t\tif (Get_Byte() != 0) {\n-\t\t\t\t\t\t\tstatus = -1;\n-\t\t\t\t\t\t\tbreak;\n-\t\t\t\t\t\t}\n-\t\t\t\t\t} else {\n-\t\t\t\t\t\tif (c == ';')\n-\t\t\t\t\t\t\tstatus = 0;\n-\t\t\t\t\t\telse\n-\t\t\t\t\t\t\tstatus = -1;\n-\t\t\t\t\t\tbreak;\n \t\t\t\t\t}\n \t\t\t\t}\n \t\t\t\treturn(status);\n@@ -488,7 +488,7 @@\n \treturn(0);\n }\n \n-// NOT EXACT: 0x76DF60, one instruction: the client reads ret for the final mask with a word load, ours a dword\n+\n short HtmlGifImageClass::Get_Next_Code(void)\n {\n \tif (BitsLeft == 0) {\n",
+      "changed": true,
+      "model": "Codex coordinator",
+      "classification": "committed_source_control",
+      "output": {
+        "gained": [
+          "0x76D4A0",
+          "0x76DF60"
+        ],
+        "lost": [],
+        "symbol_gained": [
+          [
+            "?Get_Next_Code@HtmlGifImageClass@@QAEFXZ",
+            "0x76DF60"
+          ],
+          [
+            "?Set_Data@HtmlGifImageClass@@UAEHPADH@Z",
+            "0x76D4A0"
+          ]
+        ],
+        "symbol_lost": [],
+        "targets": {
+          "0x76D4A0": {
+            "symbol": "?Set_Data@HtmlGifImageClass@@UAEHPADH@Z",
+            "length": 998,
+            "raw_sha256": "bc689d43f91e73ead26a099b6acc280c8f941fc13bc18e76c7861be468fc4061",
+            "masked_sha256": "bc689d43f91e73ead26a099b6acc280c8f941fc13bc18e76c7861be468fc4061",
+            "diagnostic_similarity": "similarity 0.81",
+            "exact": true
+          },
+          "0x76D990": {
+            "symbol": "?Decode@HtmlGifImageClass@@QAEFF@Z",
+            "length": 1145,
+            "raw_sha256": "180791f7c600a9359bfd2a5146b5aceda43e02e72c0c9daf7c0af8401526f124",
+            "masked_sha256": "180791f7c600a9359bfd2a5146b5aceda43e02e72c0c9daf7c0af8401526f124",
+            "diagnostic_similarity": "similarity 0.29",
+            "exact": false
+          },
+          "0x76DF60": {
+            "symbol": "?Get_Next_Code@HtmlGifImageClass@@QAEFXZ",
+            "length": 515,
+            "raw_sha256": "8d284fdee6c460d397b37029b824d031a2805636501a00847ff01052d074b5fa",
+            "masked_sha256": "8d284fdee6c460d397b37029b824d031a2805636501a00847ff01052d074b5fa",
+            "diagnostic_similarity": "similarity 0.82",
+            "exact": true
+          }
+        }
+      }
+    }
+  ]
+}

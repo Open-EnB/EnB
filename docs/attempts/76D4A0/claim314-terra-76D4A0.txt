@@ -1,0 +1,3 @@
+0x76D4A0 HtmlGifImageClass::Set_Data: Terra phase, 26 compiled forms.
+Terra first/group/direct: actual palette conversion helper, delayed status lifetime, image-first dispatch and palette bits reach 1006 bytes/.79 vs baseline1171/.31; frame0x10 and header/palette sequence match. Direct guard/read and continue duplicate prior precheck1026/.75. Two cached-Surf helper forms semantic diagnostics only; six-pair-loss helper rewrites rejected. No claimed match; original11/11 preserved in all valid helper-loop forms.
+Full replayable inputs will be packaged as claim314-forms JSON; actual reports and objects remain under .work/claim-314.

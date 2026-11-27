@@ -1,0 +1,159 @@
+"""Explicit-object audit of Get_Next_Code's real static-initialization candidate."""
+from pathlib import Path
+import argparse
+import hashlib
+import json
+import struct
+import sys
+
+ROOT = Path(__file__).resolve().parents[3]
+sys.path.insert(0, str(ROOT / 'tools/re'))
+from objmatch import CoffObject
+from clientimage import ClientImage
+import capstone
+from capstone.x86 import X86_OP_MEM, X86_OP_IMM
+
+SYMBOL = '?Get_Next_Code@HtmlGifImageClass@@QAEFXZ'
+TARGET, LENGTH = 0x76DF60, 515
+DEFAULT_CLIENT = '/home/dev/Games/earth-and-beyond/prefix/drive_c/Program Files (x86)/EA GAMES/Earth & Beyond/release/client.exe'
+REFERENTS = {'_b1': 0xBE82DC, '_ret': 0xBE82DE, '_code_mask': 0xB9C8B8}
+EXPECTED = [(164, '_b1'), (216, '_b1'), (230, '_ret'), (390, '_b1'),
+            (417, '_b1'), (426, '_ret'), (499, '_code_mask'), (506, '_ret')]
+
+def sha(data):
+    return hashlib.sha256(data).hexdigest()
+
+def function(obj, name):
+    _, sec, start, end = next(f for f in obj.functions() if f[0] == name)
+    info = obj.sections[sec]
+    raw = bytearray(obj.data[info['raw'] + start:info['raw'] + end])
+    while raw and raw[-1] in (0x90, 0xCC):
+        raw.pop()
+    return sec, start, raw
+
+def selected_sections(obj, prefix):
+    return [(sec['name'], sec['flags'], sec['size'],
+             obj.data[sec['raw']:sec['raw'] + sec['size']].hex() if sec['raw'] else None)
+        for sec in obj.sections if sec['name'].startswith(prefix)]
+
+def function_relocations(obj, name):
+    sec, start, raw = function(obj, name)
+    return [(off, width, kind, sym['name'] if sym else None, addend.hex())
+        for off, width, kind, sym, addend in obj.reloc_targets(sec, start, len(raw))]
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--object', type=Path, required=True)
+    parser.add_argument('--baseline-object', type=Path, required=True)
+    parser.add_argument('--source', type=Path, required=True)
+    parser.add_argument('--allow-changed-symbol', action='append', default=[])
+    parser.add_argument('--allow-new-function-symbol', action='append', default=[])
+    parser.add_argument('--client', default=DEFAULT_CLIENT)
+    args = parser.parse_args()
+    obj, baseline = CoffObject(str(args.object)), CoffObject(str(args.baseline_object))
+    client = ClientImage(args.client)
+    sec, start, raw = function(obj, SYMBOL)
+    assert len(raw) == LENGTH
+    assert raw[0x1F7:0x1FE] == bytes.fromhex('668b0d00000000'), 'actual ret word opcode missing'
+    actual_relocations = obj.reloc_targets(sec, start, LENGTH)
+    resolved, audit_relocs = raw[:], []
+    assert [(off, sym['name']) for off, _, _, sym, _ in actual_relocations] == EXPECTED
+    for off, width, kind, sym, addend in actual_relocations:
+        assert width == 4 and kind == 6 and addend == bytes(4)
+        assert sym['class'] == 3 and sym['section'] > 0
+        address = REFERENTS[sym['name']]
+        resolved[off:off + width] = struct.pack('<I', address)
+        retail_value = client.u32(TARGET + off)
+        assert retail_value == address
+        audit_relocs.append({'offset': off, 'symbol': sym['name'], 'symbol_section': sym['section'],
+            'symbol_value': sym['value'], 'kind': kind, 'width': width, 'addend': addend.hex(),
+            'retail_address': hex(retail_value)})
+    retail = client.data[client.offset(TARGET):client.offset(TARGET) + LENGTH]
+    assert resolved == retail, 'resolved full executable body differs'
+    symbols = {s['name']: s for s in obj.symbols if s['name'] in REFERENTS}
+    b1, ret = symbols['_b1'], symbols['_ret']
+    assert b1['section'] == ret['section']
+    assert b1['value'] == 0 and ret['value'] == 2
+    bss = obj.sections[ret['section'] - 1]
+    assert bss['name'] == '.bss' and bss['raw'] == 0 and bss['size'] == 4
+    assert bss['flags'] & 0x80 and bss['flags'] & 0x80000000
+    assert ((bss['flags'] >> 20) & 15) == 3
+    data_va, virtual_size, file_offset, raw_size = client.sections['.data']
+    zero_tail = [data_va + raw_size, data_va + virtual_size]
+    for name, width in [('_b1', 1), ('_ret', 2)]:
+        address = REFERENTS[name]
+        assert zero_tail[0] <= address and address + width <= zero_tail[1]
+        assert client.offset(address) is None
+    mask = symbols['_code_mask']
+    mask_sec = obj.sections[mask['section'] - 1]
+    assert mask_sec['name'] == '.data'
+    payload = obj.data[mask_sec['raw'] + mask['value']:mask_sec['raw'] + mask['value'] + 26]
+    retail_payload = client.data[client.offset(REFERENTS['_code_mask']):client.offset(REFERENTS['_code_mask']) + 26]
+    assert payload == retail_payload
+    assert struct.unpack('<13H', payload) == tuple([0] + [(1 << i) - 1 for i in range(1, 13)])
+    before_names = {f[0] for f in baseline.functions()}
+    after_names = {f[0] for f in obj.functions()}
+    assert before_names <= after_names, 'a function or CRT initializer was removed'
+    new_functions = after_names - before_names
+    assert new_functions <= set(args.allow_new_function_symbol), 'unexpected added function/CRT initializer'
+    changed = []
+    for name in sorted(before_names):
+        if function(obj, name)[2] != function(baseline, name)[2]:
+            changed.append(name)
+    assert SYMBOL in changed
+    assert set(changed) - {SYMBOL} <= set(args.allow_changed_symbol), 'unexpected changed function'
+    for name in sorted(before_names - {SYMBOL} - set(args.allow_changed_symbol)):
+        assert function_relocations(obj, name) == function_relocations(baseline, name), 'other function referent/addend changed: ' + name
+    assert selected_sections(obj, '.CRT') == selected_sections(baseline, '.CRT')
+    assert selected_sections(obj, '.data') == selected_sections(baseline, '.data')
+    md = capstone.Cs(capstone.CS_ARCH_X86, capstone.CS_MODE_32)
+    md.detail = True
+    instructions = list(md.disasm(bytes(resolved), TARGET))
+    assert len(instructions) == 140
+    assert not any(i.mnemonic.startswith('call') for i in instructions)
+    assert not any('fs:' in i.op_str for i in instructions)
+    assert not any(sym and ('handler' in sym['name'].lower() or 'unwind' in sym['name'].lower()
+        or 'funcinfo' in sym['name'].lower()) for _, _, _, sym, _ in actual_relocations)
+    static_accesses, branches, returns = [], [], []
+    address_to_symbol = {v: k for k, v in REFERENTS.items()}
+    for insn in instructions:
+        for operand in insn.operands:
+            if operand.type == X86_OP_MEM and operand.mem.disp in address_to_symbol:
+                name = address_to_symbol[operand.mem.disp]
+                expected_width = 1 if name == '_b1' else 2
+                assert operand.size == expected_width
+                static_accesses.append({'address': hex(insn.address), 'instruction': insn.mnemonic + ' ' + insn.op_str,
+                    'symbol': name, 'width': operand.size})
+        if insn.mnemonic.startswith('j'):
+            assert len(insn.operands) == 1 and insn.operands[0].type == X86_OP_IMM
+            assert TARGET <= insn.operands[0].imm < TARGET + LENGTH
+            branches.append([hex(insn.address), insn.mnemonic, hex(insn.operands[0].imm)])
+        if insn.mnemonic.startswith('ret'):
+            returns.append(hex(insn.address))
+    assert len(static_accesses) == 8
+    assert returns == ['0x76dfc7', '0x76e162']
+    source = args.source.read_bytes()
+    assert b'static unsigned char b1;' in source
+    assert b'static unsigned short ret = 0;' in source
+    report = {'object': str(args.object.resolve()), 'object_sha256': sha(args.object.read_bytes()),
+        'source': str(args.source.resolve()), 'source_sha256': sha(source),
+        'target': hex(TARGET), 'full_body_bytes': LENGTH, 'instruction_count': len(instructions),
+        'raw_body_sha256': sha(raw), 'resolved_body_sha256': sha(resolved),
+        'full_resolved_body_equals_retail': True, 'actual_final_word_load': True,
+        'relocations': audit_relocs, 'static_accesses': static_accesses,
+        'branches': branches, 'returns': returns, 'calls': [], 'eh': 'no calls, no FS setup, no EH/FuncInfo/unwind relocations',
+        'bss': {'b1_offset': 0, 'ret_offset': 2, 'size': 4, 'alignment': 4, 'raw': 0,
+            'flags': hex(bss['flags']), 'initial_values': 'loader-zeroed uninitialized storage'},
+        'retail_b1_ret_in_virtual_zero_tail': True,
+        'retail_data_virtual_zero_tail': [hex(value) for value in zero_tail],
+        'code_mask_payload_equal': True, 'code_mask_payload_hex': payload.hex(),
+        'changed_function_raw_bodies': changed, 'new_function_symbols': sorted(new_functions),
+        'allowed_changed_symbols': args.allow_changed_symbol,
+        'allowed_new_function_symbols': args.allow_new_function_symbol,
+        'other_function_relocation_referents_and_addends_unchanged': True,
+        'crt_sections_unchanged': True, 'initialized_data_sections_unchanged': True,
+        'limit': 'Relocation graph and relative BSS layout audited. This does not claim a full linked-image address/layout comparison.'}
+    print(json.dumps(report, indent=2))
+
+if __name__ == '__main__':
+    main()

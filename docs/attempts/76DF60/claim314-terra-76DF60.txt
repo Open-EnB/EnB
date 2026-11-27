@@ -1,0 +1,3 @@
+0x76DF60 HtmlGifImageClass::Get_Next_Code: Terra phase, 4 compiled forms.
+Terra first/group: signed mask, signed ret, both, and real narrow-value Mask_Code helper all exactly duplicate original514-byte body, retail515. Full11/11 preserve. Actual explain.py masked residue1, final mov ecx,dword versus mov cx,word. No source progress; diagnostic similarity .82 versus old .81 is baseline/tool context, not a gained form. residue 1
+Full replayable inputs will be packaged as claim314-forms JSON; actual reports and objects remain under .work/claim-314.
