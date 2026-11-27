@@ -1291,8 +1291,8 @@ bool StarmapPipClass::Is_Grouped(ClientObjectClass *co)
 }
 
 // NOT EXACT: registers (0.94): Is_Grouped is expanded here (its NameClass and Find_Set_Field 0x7C30E0 out of line, the
-// bool in the dead force slot); left: the avatar compare's load order, the refresh loop's Find_Object push and the
-// ObjectList load (register choice only). attempts.csv
+// bool in the dead force slot); left: Is_Grouped's expanded loop holds the Children base in ecx (client edi, register
+// choice only). attempts.csv
 // @0x7C2850
 void StarmapPipClass::Unknown_7C2850(bool force)
 {
@@ -1302,7 +1302,7 @@ void StarmapPipClass::Unknown_7C2850(bool force)
 	}
 	if (!Client->Get_Objects_Changed() && Labels.size() && !force) {
 		for (std::vector<Unknown_7C3220Class *>::iterator it = Labels.begin(); it != Labels.end(); it++) {
-			Unknown_7C3220Class *label = *it; ClientObjectClass *co = ((SClient *)Client->As_Space_Client())->Find_Object(label->ObjectID);
+			Unknown_7C3220Class *label = *it; unsigned id = label->ObjectID; ClientObjectClass *co = ((SClient *)Client->As_Space_Client())->Find_Object(id);
 			if (co) {
 				label->Unknown_7C3830(co);
 			}
@@ -1321,7 +1321,7 @@ void StarmapPipClass::Unknown_7C2850(bool force)
 		bool flag = false;
 		bool grouped = Is_Grouped(co);
 		bool player = co->Unknown_6F5A40();
-		bool avatar = co->Get_Game_ID() == Client->AvatarID;
+		bool avatar = Client->Get_Avatar_ID() == co->Get_Game_ID();
 		std::string name("");
 		co->Unknown_6FF7A0(name);
 		if (player && co->Unknown_700860()) { flag = true; }
