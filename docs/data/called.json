@@ -1551,6 +1551,9 @@
 "?Set_HAnim@HAnimComboDataClass@@QAEXPAVHAnimClass@@@Z": [
 "0x931490"
 ],
+"?Set_HSV_Shift@TextureBaseClass@@QAEXABVVector3@@@Z": [
+"0x94C150"
+],
 "?Set_Index_Buffer@DX8Wrapper@@SAXABVDynamicIBAccessClass@@G@Z": [
 "0x924FF0"
 ],
