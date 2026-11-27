@@ -81,6 +81,12 @@
 "??0GridCullSystemClass@@QAE@XZ": [
 "0x8D6FA0"
 ],
+"??0GridWSClassicEnvironmentMapperClass@@QAE@MIIIW4AxisType@GridWSEnvMapperClass@@I@Z": [
+"0x939EE0"
+],
+"??0GridWSEnvironmentMapperClass@@QAE@MIIIW4AxisType@GridWSEnvMapperClass@@I@Z": [
+"0x93A890"
+],
 "??0HAnimComboClass@@QAE@H@Z": [
 "0x931660"
 ],
@@ -912,6 +918,9 @@
 "?Get_List_Index@INIClass@@QAEHPBD0HQAPAD@Z": [
 "0x9CB2E0"
 ],
+"?Get_Material@MeshMatDescClass@@QBEPAVVertexMaterialClass@@HH@Z": [
+"0x946F80"
+],
 "?Get_Model@MeshClass@@QAEPAVMeshModelClass@@XZ": [
 "0x93EDB0"
 ],
@@ -953,6 +962,9 @@
 ],
 "?Get_Shader@LineGroupClass@@QAE?AVShaderClass@@XZ": [
 "0x97BAC0"
+],
+"?Get_Shader@MeshMatDescClass@@QBE?AVShaderClass@@HH@Z": [
+"0x946FD0"
 ],
 "?Get_Shader@PointGroupClass@@QAE?AVShaderClass@@XZ": [
 "0x954890"

@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-470 entries in 223 files.
+469 entries in 222 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -210,7 +210,6 @@ edit the comments in the code, not this file.
 | `app/client/ship_pip.cpp:376` | `ShipPipClass::Unknown_78` | marker | NOT EXACT: ShipPipClass, frame (the trackball's Matrix3D inverse and Quaternion swap stack slots, 0x64 against 0x24) @0x80CE10 |
 | `app/client/ship_pip.cpp:457` | `ShipPipClass::Unknown_2C` | marker | NOT EXACT: r15/zoom matched (res 116->31, raw 147->41); remaining: r17/r19 Translate FPU order and eax vs ecx at 4 Unknown_80E7D0() sites @0x80D5E0 |
 | `app/client/ship_stats_display.cpp:149` | `ShipStatsDisplayClass::Unknown_6A34E0` | marker | NOT EXACT: functional from the pseudocode (D64); the arrow's texture pick takes eax / ecx the other way round 0x6A34E0 |
-| `app/client/shiputils.cpp:931` | `Unknown_812390` | marker | NOT EXACT: from the disassembly (D64), the client's own FAIL_IF / G_ASSERT lines; shape and frame residues (attempts.py show 0x812390) 0x812390: the region's two halves onto the mesh's '~S1' / '~S2' vertex materials (colour, stage 1 mapper, the shaders' post-detail colour function) and the skin colour onto '~SK' @0x812390 |
 | `app/client/shortcut_range_gauge.cpp:67` | `ShortcutRangeGaugeClass::Unknown_6A4020` | marker | NOT EXACT: functional from the pseudocode (D64); the hidden case and the turn's factors are laid out in another order 0x6A4020 |
 | `app/client/skill_data_peek.cpp:149` | `SkillDataPeekClass::Get_Affiliations` | marker | NOT EXACT: 0x6A57B5 has mov byte ptr [ebx + ecx], 0 where this has [ecx + ebx] (register-only, three forms of the return) 0x6A5730 |
 | `app/client/starmap_data.cpp:231` | `StarmapDataClass::Create_Mesh` | marker | NOT EXACT: frame and registers (the client keeps 0 in ebx and is_ship on the stack, the old transform above the rotation) @0x7BEF50 |
