@@ -10,8 +10,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 231 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1971 |
-| 2 | describes what the code does | 5015 |
-| 1 | neutral placeholder | 25216 |
+| 2 | describes what the code does | 5016 |
+| 1 | neutral placeholder | 25217 |
 
 ## For review (score 3 and below)
 
@@ -29419,12 +29419,13 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Get_Triangles` | `app/shared/heightfield.h:64` | the triangles (three corners each) of the cells under a box, for the land's render 0x474B30 (0x465D30) |
 | 2 | `Get_Height_Byte` | `app/shared/heightfield.h:66` | a height's low byte, the grid wrapped (0x466140; the displacement map's L8 texels, 0x4677B0) |
 | 2 | `Get_Size` | `app/shared/heightfield.h:68` | ours (VIDTEST's land, functional): the grid clamped at the edges, world coordinates |
-| 2 | `Get_Log2` | `app/shared/heightfield.h:78` | the land's Load_Assets reads them (0x4691D0) |
-| 2 | `Get_YSpacing` | `app/shared/heightfield.h:80` | the land's Update_Patches reads them (0x46B3C0) |
-| 2 | `Get_Mask` | `app/shared/heightfield.h:82` | the land's horizon scanners read them (0x4733C0-0x473BC0) |
-| 2 | `Get_Heights` | `app/shared/heightfield.h:85` | the land's Compute_Horizons saves and restores them (0x46E670) |
-| 2 | `Get_VScale` | `app/shared/heightfield.h:86` | the land's patches read it (0x474790) |
-| 2 | `Heights` | `app/shared/heightfield.h:89` | members after what Load and the PGM reader store |
+| 2 | `Get_Scale` | `app/shared/heightfield.h:71` | XSpacing / YSpacing / VScale read as one Vector3 (LandClass 0x46F120 copies it by value: a 12-byte slot, X read) |
+| 2 | `Get_Log2` | `app/shared/heightfield.h:79` | the land's Load_Assets reads them (0x4691D0) |
+| 2 | `Get_YSpacing` | `app/shared/heightfield.h:81` | the land's Update_Patches reads them (0x46B3C0) |
+| 2 | `Get_Mask` | `app/shared/heightfield.h:83` | the land's horizon scanners read them (0x4733C0-0x473BC0) |
+| 2 | `Get_Heights` | `app/shared/heightfield.h:86` | the land's Compute_Horizons saves and restores them (0x46E670) |
+| 2 | `Get_VScale` | `app/shared/heightfield.h:87` | the land's patches read it (0x474790) |
+| 2 | `Heights` | `app/shared/heightfield.h:90` | members after what Load and the PGM reader store |
 | 2 | `Get_INI` | `app/shared/ini_manager.h:38` | what it does |
 | 2 | `Split_Name` | `app/shared/ini_manager.h:39` | what it does |
 | 2 | `Array` | `app/shared/kv_acc_array.h:39` | what it holds |
@@ -30136,7 +30137,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `SortCountdown` | `app/wwudp/bandwidthaccounting.cpp:98` | 0xBB13EC |
 | 2 | `LastInIndex` | `app/wwudp/bandwidthaccounting.cpp:99` | 0xBB13F0 |
 | 2 | `LastOutIndex` | `app/wwudp/bandwidthaccounting.cpp:100` | 0xBB13F4 |
-| 2 | `Reset_Channel` | `app/wwudp/cordcon.cpp:34` | Reset's body |
 | 2 | `current` | `app/wwudp/cordcon.cpp:1435` | the copy of now the expiry loop compares |
 | 2 | `first` | `app/wwudp/cordcon.cpp:1854` | the share of first sends |
 | 2 | `Cord_Put_Small` | `app/wwudp/cordcon.cpp:1947` | what it does (the client has no name) |
@@ -30244,6 +30244,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `port3` | `app/wwudp/cordmgr.h:147` | the parameters (the name is the client's profile string) |
 | 2 | `Releases_` | `app/wwudp/cordmgr.h:154` | +0x1C connections to free (Release, Pump_Releases) |
 | 2 | `KeyPair` | `app/wwudp/cordmgr.h:161` | what it holds |
+| 2 | `Reset_Channel` | `app/wwudp/unknown_84df30.cpp:17` | Reset's body |
 | 2 | `AckRound` | `app/wwudp/unknown_85bf30.cpp:80` | 0xBB1DB4 |
 | 2 | `AckGrowth` | `app/wwudp/unknown_85bf30.cpp:81` | 0xBF411C the window growth this round, all connections |
 | 2 | `RoundTripRound` | `app/wwudp/unknown_85bf30.cpp:110` | 0xBB1DB8 |
