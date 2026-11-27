@@ -24,7 +24,8 @@ class ExactBuild(unittest.TestCase):
         self.assertGreater(len(order), 700)
         self.assertEqual(len({s.lower() for _, s in order}), len(order))
         self.assertEqual({l for l, _ in order} - {l for l, _ in B.EXACT_PICKS}, set())
-        self.assertEqual({l for l, _ in order}, {'app', 'wlib', 'wnet'})     # retail's app region (EXACT_PICKS)
+        self.assertEqual({l for l, _ in order}, {'app', 'wlib', 'wnet', 'wwlib'})     # retail's app region
+        self.assertEqual([s for l, s in order if l == 'wwlib'], ['rawfile'])
 
     def test_dsp_order(self):
         e = dsp.exact_project([])
