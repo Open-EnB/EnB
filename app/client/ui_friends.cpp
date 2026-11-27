@@ -355,7 +355,6 @@ void UIFriendsClass::Unknown_590810()
 	Unknown0C4.clear();
 }
 
-// NOT EXACT: register allocation (the client keeps 0 in ebx and the insert position in a stack slot; ours holds the position in ebx; frame 0x18 vs 0x14)
 // 0x5908B0
 void UIFriendsClass::Unknown_5908B0()
 {
@@ -366,19 +365,20 @@ void UIFriendsClass::Unknown_5908B0()
 		std::vector<UIFriendsPlayerInfoClass *>::iterator pos;
 		for (pos = PlayersInfo.begin(); pos != PlayersInfo.end(); pos++) {
 			UIFriendsPlayerInfoClass *other = *pos;
+			int result;
 			if (Unknown0AC) {
 				if (stricmp(info->Location.c_str(), "offline") == 0 && stricmp(other->Location.c_str(), "offline") != 0) {
 					continue;
 				}
-				int result = wcscoll((const wchar_t *)info->Location.c_str(), (const wchar_t *)other->Location.c_str());
+				result = wcscoll((const wchar_t *)info->Location.c_str(), (const wchar_t *)other->Location.c_str());
 				if (result < 0) {
 					break;
 				}
-				if (result == 0 && wcscoll((const wchar_t *)info->Name.c_str(), (const wchar_t *)other->Name.c_str()) < 0) {
+				if (result == 0 && (result = wcscoll((const wchar_t *)info->Name.c_str(), (const wchar_t *)other->Name.c_str())) < 0) {
 					break;
 				}
 			} else {
-				if (wcscoll((const wchar_t *)info->Name.c_str(), (const wchar_t *)other->Name.c_str()) < 0) {
+				if ((result = wcscoll((const wchar_t *)info->Name.c_str(), (const wchar_t *)other->Name.c_str())) < 0) {
 					break;
 				}
 			}

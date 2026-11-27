@@ -285,10 +285,10 @@ float StarFieldClass::Get_Cost(void) const
 **	the points transformed into camera space and drawn with an identity transform; the budget
 **	counts polygons (two per star in quad mode).
 **
-**	NOT EXACT: Load and Init only (the other functions are exact). Load (0.70): the asserts on the
+**	NOT EXACT: Load only (the other functions are exact). Load (0.70): the asserts on the
 **	client's lines, the frames store as one ternary and powf (r stored before pow) match; left: the
 **	Hemisphere branch loads z (sample[1]) last where the client loads it first, the fifth
-**	Create_NEW temporary zeroed after its release, frame 0x4C vs 0x50. Init (0.72): the client
-**	compares Load's result with cmp al,bl (ebx 0) and calls the vector's insert(it, x) 0x483020 out
-**	of line in the Default loop. Both parked (attempts.csv).
+**	Create_NEW temporary zeroed after its release, frame 0x4C vs 0x50; parked (attempts.csv). Init
+**	is exact as bool-flag do / while loops on Load's result (the flag gives the client's cmp al, bl,
+**	as TextureLoadTaskClass::Begin_Load; VC6 threads the flag branches).
 */

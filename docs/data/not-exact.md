@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-449 entries in 220 files.
+448 entries in 220 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -243,7 +243,6 @@ edit the comments in the code, not this file.
 | `app/client/ui_combobox.cpp:322` | `UIComboBoxClass::Unknown_68` | marker | NOT EXACT: inline-budget (the client calls Scroll_To_Selected 0x57B2F0 and the items' size(); ours expands them) 0x57A060 |
 | `app/client/ui_faction.cpp:230` | `UIFactionClass::Unknown_58DC20` | marker | NOT EXACT: register (the client keeps the reputation in esi and its frame slot after the order's, +0x28; this keeps it in ebx, at +0x14; the rest is the client's, including the tail call made a jump) |
 | `app/client/ui_friends.cpp:3` | `UIFriendsPlayerInfoClass::UIFriendsPlayerInfoClass` | mention | NOT EXACT. |
-| `app/client/ui_friends.cpp:358` | `UIFriendsClass::Unknown_5908B0` | marker | NOT EXACT: register allocation (the client keeps 0 in ebx and the insert position in a stack slot; ours holds the position in ebx; frame 0x18 vs 0x14) 0x5908B0 |
 | `app/client/ui_group.cpp:226` | `UIGroupUnknownE8Class::Unknown_592C50` | marker | NOT EXACT: register / frame (the client keeps one temporary's slot for all five Create_NEW results and compares with the zero in ebx; ours gives the loop's its own slot) |
 | `app/client/ui_group.cpp:1256` | `UIGroupClass::Unknown_596770` | marker | NOT EXACT: register, 11 masked rows (FB8; 69 with two dead Members.size() after Add_Member, 116 with the direct finds): the two-layer find sends both finds out of line as the client; the second loop reads the group's i-th member through Unknown_Group_Member (one inline layer: the client's inline cut in both temporaries, 382 / 382 rows, no dead read); the member loop's branch negated (the client la... |
 | `app/client/ui_groupopt.cpp:182` | `UIGroupOptClass::Unknown_60` | marker | NOT EXACT: inline budget (explain.py: relocation first, the draft's auxdata.h path, then 12 calls vs 13: the client calls rtti.h's cast 0x598D80 out of line in the GroupInfo find, as ui_group.cpp's 0x598370; attempts.py show 0x59B220) 0x59B220 |
@@ -423,7 +422,7 @@ edit the comments in the code, not this file.
 | `app/shared/spln_db.cpp:1732` | `SplineDatabaseClass::Save_Entry` | marker | NOT EXACT: shape / inline budget (the client inlines Save_Curve's switch) |
 | `app/shared/spln_db.cpp:1846` | `SplineDatabaseClass::Load_Chunks` | marker | NOT EXACT: shape (the client repeats the epilogue for the header's two failures and keeps &KeyNames in edi) |
 | `app/shared/spln_db.cpp:1916` | `SplineDatabaseClass::Load_Entry` | marker | NOT EXACT: shape (the switch's layout; the TYPE_BLEND strings) |
-| `app/shared/stars.cpp:288` | `StarFieldClass::Get_Cost` | mention | NOT EXACT: Load and Init only (the other functions are exact). Load (0.70): the asserts on the client's lines, the frames store as one ternary and powf (r stored before pow) match; left: the Hemisphere branch loads z (sample[1]) last where the client loads it first, the fifth Create_NEW temporary zeroed after its release, frame 0x4C vs 0x50. Init (0.72): the client compares Load's result with cmp ... |
+| `app/shared/stars.cpp:288` | `StarFieldClass::Get_Cost` | mention | NOT EXACT: Load only (the other functions are exact). Load (0.70): the asserts on the client's lines, the frames store as one ternary and powf (r stored before pow) match; left: the Hemisphere branch loads z (sample[1]) last where the client loads it first, the fifth Create_NEW temporary zeroed after its release, frame 0x4C vs 0x50; parked (attempts.csv). Init is exact as bool-flag do / while loop... |
 | `app/shared/symbol_substitution.cpp:99` | `Substitute_Symbols` | marker | NOT EXACT: inline budget, the client calls string::erase(iterator) 0x4E2A00 out of line in the last loop |
 | `app/shared/symbol_substitution.cpp:156` | `Escape_Symbols` | mention | NOT EXACT: Substitute_Symbols, the client calls string::erase(iterator) 0x4E2A00 out of line in the unescape loop (inline budget). |
 | `app/shared/time_string_format.cpp:18` | `TimeStringFormatClass::Format` | marker | NOT EXACT: order: the last Add_Unit's portion copy follows its inline Get here, the client stores the copy first and tests its registers @0x4FE890 |
