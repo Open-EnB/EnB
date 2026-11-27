@@ -190,7 +190,7 @@ A difference between retail and ours is never settled by widening a tolerance. T
 | B-12 | 2026-11-25 | StarmapDataClass::Create_Mesh 0x7BEF50 | One starmap texture leaked per mesh (Create_Peek where the client calls Create_Get 0x51A6F0) | Functional entry reading | fixed, exercised 2026-11-26 (CS8): `sp_starmap` with the draw logs' new `texture_life` (d3d8shot.c; `texlife.py`): the map pictures (a 256x256 R5G6B5 and an A8R8G8B8, 9 levels, at the first opening in Jupiter; a 128x128 pair at the zoom), none made or freed by two close / open cycles, and at /wormhole 2210 both R5G6B5 ones given back; the A8R8G8B8 pair stays: the same on retail's three stored runs, its trial and ours, every shot's totals equal (2024 created / 392 released at map_open ... 2546 / 676) | SP-05 (`sp_starmap`) |
 | B-13 | 2026-11-25 | Unknown_466920Class::Render 0x466B20 | The nav map's two scroll-extent lines drew under the UI with wrong blend, cull and z states (IsSortingEnabled tested where the client reads AreStaticSortListsEnabled 0xBFAE50) | Draw-log compare against retail | fixed, e2e starmap shows retail's 193 draws in retail's order | e2e `starmap` |
 | B-14 | 2026-11-25 | Random Appearance 0x557290 | The head and body blend pulls were randomised too, four extra RNG draws (`0.0f` passed as `bool random`; the client pushes 0) | L1 audit (parameter slots) | fixed, exercised 2026-11-26: after Random Appearance on the head tab and on the body tab the character the server stores (`db-avatars`: avatar_data's parts, colours and height_weight_0..4, ship_data; 316 columns) is retail's, column for column, in 2 of 2 runs of ours; unpatched retail repeats it in 4 of 5 runs (the fifth drew another body) | UI-01 (`ui_charcreate`) |
-| B-15 | 2026-11-25 | Talk tree 0x64BCA0 | frame01 freed early (Create_Get where the client's 0x404C8C is Create_Peek, which takes a reference) | Functional entry reading | fixed, not exercised | sb_ talk (as B-09) |
+| B-15 | 2026-11-25 | Talk tree 0x64BCA0 | frame01 freed early (Create_Get where the client's 0x404C8C is Create_Peek, which takes a reference) | Functional entry reading | fixed, exercised 2026-11-26 (CS3): the station set's `sb_talk` on ours at 84c6a89e8 against retail's five stored runs, every difference retail's noise or timing | sb_ talk (as B-09) |
 | B-16 | 2026-11-25 | ui_mount 0x5C77A0 | Two undefined externs are Matrix3D::Identity 0xBF9330 and RotateZ90 0xBF92D0 (the matrix initialisers' order) | Functional entry reading | fixed, not exercised | none yet: a new case, the mount window in each view |
 | B-17 | 2026-11-25 | /resetship confirmation 0x74ABC0 | Confirmation text differed from the client's string 0xB9A12C | Functional entry reading | fixed, exercised 2026-11-26 (CS8): `ui_cargo_equip`'s resetship_query shot (the YES_NO with the client's string) the same as retail's three stored runs | UI-05 (`ui_cargo_equip`) |
 | B-18 | 2026-11-25 | Short strings: chat font label 0x56C7E0, ChatFontSys 0x67E670, trade texts 0x68FE10 / 0x6902E0, ephemeral-line ini defaults 0x5A4B50 / 0x5A5DA0, starbase light labels 0x6474C0, a nameless skill 0x817070, "Dest: ?" 0x7C91A0 | `""` where the client passes `" "` (0xB6E948) or `"?"` | L1 audit (literal scan) | fixed, not exercised | UI-08, UI-03, UI-07, SP-05; none yet for the ephemeral-line defaults (a new case) |
@@ -236,7 +236,31 @@ The unattended week of 2026-11-24 (`docs/week-plan-2026-11-24.md`, kind C). Sess
 | 11 | SP-05 (B-03), UI-05 (B-06), the manufacturing shot (B-05); B-07's scenarios named | 5 | done 2026-11-26 (CS8): three live scenarios, retail 3 runs each in the store's working tree, uncommitted (`sp_starmap/20261127-034939, -035124, -035309`; `ui_cargo_equip/20261127-035643, -035811, -035941`; `_sb_manufacture_exit/20261127-040253, -040520, -040747`; 156 MB), ours (CSD at e435c5d74) once each, then sp_starmap twice more. **SP-05** `sp_starmap`: the route, zoom, pan, two close / open cycles, the galaxy map's views, /wormhole; ours PASS, every shot and draw log the same as retail's but space_entered, 1-2 cells at the hotbar's slot 6 (880-1040, 960-1024: a green glow's phase), which a retail run started the same way as ours (Net-7 restarted by `baseline.py inputs --apply-db`, then e2e) shows too (0 cells against ours, 2 against the captured runs): the run's start, not the client; galaxy_zoom_in RETAIL-UNSTABLE. B-12 by the draw logs' new texture_life: the same counts on both. **UI-05** `ui_cargo_equip`: SAME (6 packets, 14 of 14 shots and draw logs, audio). **B-05** `_sb_manufacture_exit` (named only: an sb_ name would join the station set): RETAIL-UNSTABLE in the hangar's random audio only, its shots identical. **B-07**: each gap's scenario named in its row. No difference between retail and ours |
 | 12 | RD-01, RD-02, AU-02, MV-01, WB-01 to WB-03, LY-01, LY-02 | 5, 6 | open |
 | 13 | **Supporting accounts** for the multi-client cases: extra accounts and characters generated from the canonical account scripts in the store (`inputs/db`), with an instance-to-account mapping in the harness | built when the first such case is written | open: needed only for player groups, in-space group formation flying and the proxy's authoritative-positioning test; the baseline is always captured from the admin account's client, and the supporting clients need no shots or draw logs; all accounts are restored once before the case starts, because an in-place restore logs every player out; only as many accounts as the case needs; baselines are not duplicated per account (the user, 2026-11-25) |
-| 14 | IMG-02 at every handoff; IMG-03's questions (the week plan's kind D) | every | 1.37 % (2026-11-26: 118,585 / 8,642,625 bytes at b2630a8bd; 1.38 % on 2026-11-24) |
+| 14 | IMG-02 at every handoff; IMG-03's questions (the week plan's kind D) | every | 1.37 % (2026-11-27: 118,372 / 8,642,625 bytes at 9acaf6e5d; 118,585 at b2630a8bd on 2026-11-26; 1.38 % on 2026-11-24) |
+
+P0 status at 2026-11-27 (sessions 0-4; store: `runs/retail-249f8524/geforce-rtx-3060-ti-1280x1024/`, working tree, uncommitted):
+
+| Case | Scenario | Retail runs in the store | Ours at | Verdict |
+|---|---|---|---|---|
+| UI-01 | `ui_charcreate` | 3 (20261126-173546, -173845, -174146) | cacc2b687 (2 runs) | SAME: PASS, packets and the stored character (`db-created.sql`, 48 rows) equal; RETAIL-UNSTABLE only in the station's footsteps (B-04, B-14) |
+| UI-02 | `ui_account` | 3 (20261126-174807, -175128, -175446) | cacc2b687 (2 runs) | DIFF, open: code_back's draw log (two 8-triangle parts at the narrator's head 0.17 / 0.25 off in rotation, retail's runs within 0.03); packets the same; the repair-bot loop's audio retail's own |
+| UI-03 | `sb_rooms` | 0 (3 runs under `.work/u4/e2e/set2`) | a9fa08ee3 | SAME |
+| UI-04 | `sb_vault_ops` | 0 (3 runs under `.work/u4/e2e/set2`) | a9fa08ee3 | SAME |
+| SP-01 | `sp_gate` | 6 (20261126-155655 ... -191115; 4 early, 2 late warp ends) | cacc2b687 (8 runs) | SAME against retail's runs of its kind (`camtrack.py`'s relative anchors); absolute places follow where the ship stops, on both |
+| SP-02 | `sp_land` | 3 (20261126-154931, -155145, -155356) | cacc2b687 (2 runs) | SAME for state 5; states 7 and 9 (B-01, B-02) not reachable on Net-7 |
+| SP-03 | `sp_dock` | 3 (20261126-160203, -160441, -160717) | cacc2b687 (2 runs) | SAME |
+| AU-01 | the stored sets, `--audio-only` | default 6, station 5, space 5, sp_combat 5, sb_emote_dock 3, sb_manufacture_make 3 | cacc2b687 | SAME or RETAIL-UNSTABLE but sb_manufacture_make: DIFF, open (sfx_amb_hangar_misc_#_r started 5 / 2 / 4 times on ours, 2 / 2 / 2 on retail) |
+| AU-02 | not written | | | |
+| MV-01 | not written | | | |
+| WB-01 to WB-03 | not written | | | |
+| RD-01 | the draw log (C3) in every stored run above, `verify --run` | as above | 9acaf6e5d (default set, hc19); 84c6a89e8 (station, space) | default 23 / 25 SAME (play1_p52: the playback race; world_entry: the wall clock); station and space: every DIFF retail noise or timing |
+| RD-02 | not written | | | |
+| IMG-01 | every landing's verify | | every landing | PASS: 0 lost outright beyond D66 / D240 / D246 entries |
+| IMG-02 | `imagediff.py` | | 9acaf6e5d | 1.37 % (row 14) |
+| LY-01, LY-02 | not written | | | |
+| SP-05 (P1) | `sp_starmap` | 3 (20261127-034939, -035124, -035309) | e435c5d74 (3 runs) | SAME (space_entered's hotbar glow: the run's start; galaxy_zoom_in RETAIL-UNSTABLE) |
+| UI-05 (P1) | `ui_cargo_equip` | 3 (20261127-035643, -035811, -035941) | e435c5d74 | SAME |
+| B-05 | `_sb_manufacture_exit` | 3 (20261127-040253, -040520, -040747) | e435c5d74 | SAME in shots, packets, draw logs; RETAIL-UNSTABLE in the hangar's random audio |
 
 Open items from this week's captures:
 
@@ -281,7 +305,7 @@ Open items from this week's captures:
   49.2-49.3 and a retail run in the same hold 49.3; the draw log is SAME against the three stored runs (as a
   multiset: 12 world matrices within 0.64 unit, as many as a retail run has against the others), the shot 2-3 cells
   of 256, the packets of the whole scenario the same. The 2026-11-21 numbers came from another database state.
-* Ours-versus-retail has only been run on a stale exe of 2026-11-21 (the default set 18 SAME and 7 DIFF, the station set 0 of 9 SAME). Those results are not findings until the build at HEAD is compared.
+* Ours-versus-retail on the stale exe of 2026-11-21 (the default set 18 SAME and 7 DIFF, the station set 0 of 9 SAME) is superseded by the P0 status table above (builds of 2026-11-25 to 2026-11-27).
 
 ## 8. Three baselines over time
 
