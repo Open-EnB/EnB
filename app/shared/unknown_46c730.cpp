@@ -1256,7 +1256,7 @@ void LandClass::Unknown_4733C0(int row, float ratio, unsigned short *out)
 	}
 }
 
-// NOT EXACT: shape (26 masked rows: the left / right updates' registers and scheduling (the client keeps left in the fild temporary's slot), as 0x473BC0; attempts.csv 0x473780)
+// NOT EXACT: shape (10 masked rows: the Reciprocals load scheduled before the y / offset copy, and the h.X / h.Z indices and the mask copy (client: left / right loaded and and-ed with the mask register); attempts.csv 0x473780)
 void LandClass::Unknown_473780(int row, float ratio, unsigned char *out)
 {
 	unsigned int row0 = (Field->Get_Mask() & row) << Field->Get_Log2();
@@ -1267,10 +1267,10 @@ void LandClass::Unknown_473780(int row, float ratio, unsigned char *out)
 	for (unsigned int i = 0; i < Field->Get_Size(); i++) {
 		unsigned int i1 = (i + 1) & Field->Get_Mask();
 		float center = ((float)heights[row1 + i1] + heights[row0 + i1] + heights[row1 + i] + heights[row0 + i]) * 0.25f;
+		Vector3 best(0.05f, 0.05f, 0.05f);
+		const float *recip = Reciprocals; unsigned int count_mask = Field->Get_Count_Mask();
 		unsigned int left = i;
 		unsigned int right = i1;
-		Vector3 best(0.05f, 0.05f, 0.05f);
-		const float *recip = Reciprocals;
 		float dist = 1.0f;
 		unsigned int y = row + 1;
 		unsigned int offset = row1;
@@ -1296,10 +1296,10 @@ void LandClass::Unknown_473780(int row, float ratio, unsigned char *out)
 				best.Z = s.Z;
 			}
 			y = (y + 1) & Field->Get_Mask();
-			recip += 2;
 			left--;
 			right++;
-			offset = (offset + Field->Get_Size()) & Field->Get_Count_Mask();
+			offset = (offset + Field->Get_Size()) & count_mask;
+			recip += 2;
 			dist += 2.0f;
 		}
 		out[0] = Pack_Slope8(best.X);
