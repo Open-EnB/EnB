@@ -85,20 +85,21 @@ class Audio3dTest(unittest.TestCase):
         self.assertEqual(rows[1][2], [4.0, 5.0, 6.0])     # placed after the start, in the same frame
         self.assertIsNone(rows[2][2])                       # placed only in a later frame: not the start's place
 
-    def test_compare_within_spread(self):
-        def row(p, v=28):
-            return ['a', 0, p, v, [500, 4000], [0, 0, 0], [0, 0, 1]]
-        stored = {'r1': audio3d.keyed([row([0, 0, 0])]), 'r2': audio3d.keyed([row([0, 0, 2])])}
-        same = audio3d.compare_rows(audio3d.keyed([row([0, 0, 1])]), stored)
-        self.assertEqual([r['verdict'] for r in same], ['SAME'])
-        far = audio3d.compare_rows(audio3d.keyed([row([0, 0, 9])]), stored)
-        self.assertEqual([r['verdict'] for r in far], ['DIFF'])
-        vol = audio3d.compare_rows(audio3d.keyed([row([0, 0, 1], v=30)]), stored)
-        self.assertEqual([r['verdict'] for r in vol], ['DIFF'])
-        few = audio3d.compare_rows(audio3d.keyed([row([0, 0, 0]), row([0, 0, 0])]),
-                                   {'r1': audio3d.keyed([row([0, 0, 0]), row([0, 0, 0])]),
-                                    'r2': audio3d.keyed([row([0, 0, 0])])})
-        self.assertEqual([r['verdict'] for r in few], ['SAME', 'FEW'])
+    def test_compare_by_sound(self):
+        def row(p, v=28, snd='a'):
+            return [snd, 0, p, v, [500, 4000], [0, 0, 0], [0, 0, 1]]
+        bs = audio3d.by_sound
+        stored = {'r1': bs([row([0, 0, 0], 20), row([5, 0, 0], 30)]), 'r2': bs([row([5, 0, 1], 25), row([0, 0, 2], 35)]),
+                  'r3': bs([row([0, 0, 1], 22), row([9, 9, 9], 28, 'b')])}
+        verdicts = lambda res: [(r['sound'], r['verdict']) for r in res]   # noqa: E731
+        same = audio3d.compare_sounds(bs([row([5, 0, 0.5], 30), row([0, 0, 1], 21)]), stored)
+        self.assertEqual(verdicts(same), [('a', 'SAME')])
+        far = audio3d.compare_sounds(bs([row([0, 0, 9])]), stored)
+        self.assertEqual(verdicts(far)[0], ('a', 'DIFF'))
+        vol = audio3d.compare_sounds(bs([row([0, 0, 1], v=40)]), stored)
+        self.assertEqual(verdicts(vol)[0], ('a', 'DIFF'))
+        self.assertEqual(verdicts(audio3d.compare_sounds(bs([row([0, 0, 0], snd='c')]), stored)),
+                         [('a', 'RETAIL-ONLY'), ('c', 'OURS-ONLY')])
 
 
 if __name__ == '__main__':

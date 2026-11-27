@@ -10,12 +10,15 @@ forward]. The position is the sample's last AIL_set_3D_position since its load, 
 the same frame when the client places it only after starting it (positions to 1/1000, the listener's to 1).
 
 compare: RUN (an e2e --out folder, a session folder or a stored run) against the store's runs of each scenario that
-carry `spatial` (older runs do not: run the capture again). The starts are matched by (sound, its k-th start in the
-scenario). Per matched start and per field (position, listener position, listener forward) the spread is the
-largest distance between two stored runs' values; RUN's value is SAME when its distance to the nearest stored value
-is within that spread (0.01 at least: the rounding); volume and distances SAME when equal to a stored run's. A start
-held by fewer than two stored runs is FEW (named, not compared); a start no stored run has is OURS-ONLY, one every
-stored run has and RUN lacks RETAIL-ONLY (the order and counts are AU-01's: baseline.py verify --audio-only).
+carry `spatial` (older runs do not: run the capture again). Per sound, its starts pooled (concurrent starts come in
+either order and the client draws each start's volume at random): per field (position, listener position, listener
+forward) the spread is, leave one out, the farthest any stored start is from its nearest start of the same sound in
+the other stored runs (0.01 at least: the rounding); each of RUN's starts is SAME when its nearest stored start is
+within that spread. The volume within the stored starts' range, the distances one of the stored values. A sound in
+fewer than two stored runs is FEW (named, not compared); one no stored run has is OURS-ONLY, one every stored run
+has and RUN lacks RETAIL-ONLY (the order and counts are AU-01's: baseline.py verify --audio-only). The scenario is
+SAME when no sound differs, or (3 stored runs or more) when RUN against any n - 1 stored runs differs in no more
+sounds than a stored run does against the others (leave one out: retail's own noise).
 Exit 0 when nothing differs.
 """
 import argparse
@@ -76,51 +79,88 @@ def _dist(a, b):
     return math.sqrt(sum((x - y) ** 2 for x, y in zip(a, b)))
 
 
-def keyed(rows, names=None):
-    """rows -> {(sound name, k): row}: the k-th start of each sound (k from 1)."""
-    seen, out = {}, {}
+def by_sound(rows, names=None):
+    """rows -> {sound name: [row]} in order."""
+    out = {}
     for row in rows:
-        snd = (names or {}).get(row[0], row[0])
-        seen[snd] = seen.get(snd, 0) + 1
-        out[(snd, seen[snd])] = row
+        out.setdefault((names or {}).get(row[0], row[0]), []).append(row)
     return out
 
 
 FIELDS = (('position', 2), ('listener', 5), ('forward', 6))
 
 
-def compare_rows(mine, stored):
-    """mine: {key: row}; stored: {run: {key: row}} -> [{'key', 'verdict', 'detail'}] (module doc)."""
+def _nearest(v, pool):
+    ds = [d for d in (_dist(v, p) for p in pool) if d is not None]
+    return min(ds) if ds else None
+
+
+def compare_sounds(mine, stored):
+    """mine: {sound: [row]}; stored: {run: {sound: [row]}} -> [{'sound', 'verdict', 'detail'}] (module doc)."""
     out = []
-    keys = sorted(set(mine) | {k for v in stored.values() for k in v}, key=lambda k: (k[0] or '', k[1]))
-    for key in keys:
-        have = {r: v[key] for r, v in stored.items() if key in v}
-        if key not in mine:
+    for snd in sorted(set(mine) | {s for v in stored.values() for s in v}, key=str):
+        have = {r: v[snd] for r, v in stored.items() if snd in v}
+        if snd not in mine:
             if len(have) == len(stored):
-                out.append({'key': key, 'verdict': 'RETAIL-ONLY', 'detail': f'in {len(have)} stored runs'})
+                out.append({'sound': snd, 'verdict': 'RETAIL-ONLY', 'detail': f'in {len(have)} stored runs'})
             continue
         if not have:
-            out.append({'key': key, 'verdict': 'OURS-ONLY', 'detail': ''})
+            out.append({'sound': snd, 'verdict': 'OURS-ONLY', 'detail': f'{len(mine[snd])} starts'})
             continue
         if len(have) < 2:
-            out.append({'key': key, 'verdict': 'FEW', 'detail': f'{len(have)} stored run'})
+            out.append({'sound': snd, 'verdict': 'FEW', 'detail': f'{len(have)} stored run'})
             continue
-        row, bad = mine[key], []
+        bad = []
         for fname, i in FIELDS:
-            vals = [x[i] for x in have.values()]
-            pairs = [_dist(a, b) for j, a in enumerate(vals) for b in vals[j + 1:]]
-            pairs = [p for p in pairs if p is not None]
-            spread = max([MIN_SPREAD] + pairs)
-            ds = [d for d in (_dist(row[i], v) for v in vals) if d is not None]
-            near = min(ds) if ds else None
-            if near is None or near > spread:
-                bad.append(f'{fname} {row[i]} {"" if near is None else f"{near:.3f} "}from the nearest stored '
-                           f'(spread {spread:.3f})')
-        for fname, i in (('volume', 3), ('distances', 4)):
-            if row[i] not in [x[i] for x in have.values()]:
-                bad.append(f'{fname} {row[i]} against {sorted({json.dumps(x[i]) for x in have.values()})}')
-        out.append({'key': key, 'verdict': 'DIFF' if bad else 'SAME', 'detail': '; '.join(bad)})
+            spread = MIN_SPREAD
+            for r, rows in have.items():         # leave one out: each stored start's nearest in the other runs
+                pool = [x[i] for o, rs in have.items() if o != r for x in rs]
+                for x in rows:
+                    d = _nearest(x[i], pool)
+                    if d is not None:
+                        spread = max(spread, d)
+            pool = [x[i] for rs in have.values() for x in rs]
+            far = [(d, x) for x in mine[snd] for d in [_nearest(x[i], pool)] if d is None or d > spread]
+            if far:
+                d, x = max(far, key=lambda t: -1 if t[0] is None else t[0])
+                bad.append(f'{fname}: {len(far)} of {len(mine[snd])} starts outside the stored spread {spread:.3f} '
+                           f'(e.g. {x[i]} at {x[1]} ms, {"-" if d is None else f"{d:.3f}"} from the nearest)')
+        vols = [x[3] for rs in have.values() for x in rs if x[3] is not None]
+        if vols:
+            lo, hi = min(vols), max(vols)
+            out_v = [x[3] for x in mine[snd] if x[3] is not None and not lo <= x[3] <= hi]
+            if out_v:
+                bad.append(f'volume: {len(out_v)} starts outside the stored {lo}..{hi} (e.g. {out_v[0]})')
+        dists = {json.dumps(x[4]) for rs in have.values() for x in rs}
+        odd = {json.dumps(x[4]) for x in mine[snd]} - dists
+        if odd:
+            bad.append(f'distances {sorted(odd)} against {sorted(dists)}')
+        counts = sorted(len(rs) for rs in have.values())
+        out.append({'sound': snd, 'verdict': 'DIFF' if bad else 'SAME',
+                    'detail': f'{len(mine[snd])} starts (stored {counts[0]}..{counts[-1]})'
+                    + ('; ' + '; '.join(bad) if bad else '')})
     return out
+
+
+BAD = ('DIFF', 'OURS-ONLY', 'RETAIL-ONLY')
+
+
+def _n_bad(mine, stored):
+    return sum(r['verdict'] in BAD for r in compare_sounds(mine, stored))
+
+
+def noise_counts(mine, stored):
+    """(retail's noise: the most sounds a stored run differs in against the other stored runs, RUN's fewest against
+    any n - 1 of them); (None, None) with fewer than 3 stored runs."""
+    if len(stored) < 3:
+        return None, None
+    noise = loo = None
+    for r in stored:
+        others = {o: v for o, v in stored.items() if o != r}
+        n, m = _n_bad(stored[r], others), _n_bad(mine, others)
+        noise = n if noise is None else max(noise, n)
+        loo = m if loo is None else min(loo, m)
+    return noise, loo
 
 
 def _mine(run):
@@ -165,23 +205,28 @@ def compare(run, store, names=None, want_set=None, out=print):
                 continue
             a = baseline.read_json(en['audio'])
             if 'spatial' in a:
-                stored[en['run']] = keyed(a['spatial'], a.get('names', {}))
+                stored[en['run']] = by_sound(a['spatial'], a.get('names', {}))
         if len(stored) < 2:
             out(f'{name}: {len(stored)} stored runs with spatial rows (2 needed: capture again)')
             bad += 1
             continue
-        res = compare_rows(keyed(sp, nm), stored)
+        mine_bs = by_sound(sp, nm)
+        res = compare_sounds(mine_bs, stored)
         tally = {}
         for r in res:
             tally[r['verdict']] = tally.get(r['verdict'], 0) + 1
-            if r['verdict'] in ('DIFF', 'OURS-ONLY', 'RETAIL-ONLY'):
-                out(f'{name} {r["key"][0]} #{r["key"][1]}: {r["verdict"]} {r["detail"]}')
-        n_bad = sum(tally.get(v, 0) for v in ('DIFF', 'OURS-ONLY', 'RETAIL-ONLY'))
-        bad += n_bad
-        out(f'{name}: {"SAME" if not n_bad else "DIFF"} over {len(stored)} stored runs: '
-            + ', '.join(f'{v} {c}' for v, c in sorted(tally.items())))
-        rows.append({'scenario': name, 'runs': sorted(stored), 'tally': tally,
-                     'items': [dict(r, key=list(r['key'])) for r in res]})
+            if r['verdict'] in BAD:
+                out(f'{name} {r["sound"]}: {r["verdict"]} {r["detail"]}')
+        n_bad = sum(tally.get(v, 0) for v in BAD)
+        noise, loo = noise_counts(mine_bs, stored)
+        same = n_bad == 0 or (noise is not None and loo <= noise)
+        bad += not same
+        out(f'{name}: {"SAME" if same else "DIFF"} over {len(stored)} stored runs: '
+            + ', '.join(f'{v} {c}' for v, c in sorted(tally.items()))
+            + ('' if noise is None else f'; leave one out: {loo} sounds differ against {len(stored) - 1} stored '
+               f'runs, a stored run against the others up to {noise}'))
+        rows.append({'scenario': name, 'runs': sorted(stored), 'tally': tally, 'verdict': 'SAME' if same else 'DIFF',
+                     'noise': noise, 'loo': loo, 'items': res})
     return rows, bad
 
 
