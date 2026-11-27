@@ -292,18 +292,18 @@ void AttribDirCollective::Add_Destination(const std::string &source, const std::
 
 
 
-// NOT EXACT: inline budget (explain.py: frame 0x34 vs 0x28), the client calls MemberStruct's constructor 0x4DD240 out of line; ours inlines it (defined here or in the class alike)
+
 void AttribDirCollective::Add_Member(AttribDir *member)
 {
-	MemberMap::iterator find = Members.find((unsigned int)member);
-	FAIL_IF(find != Members.end()) return;
+	{ MemberMap::iterator find = Members.find((unsigned int)member);
+	FAIL_IF(find != Members.end()) return; }
 	MemberCallbackClass *callback = new MemberCallbackClass(*this, member);
-	MemberStruct *info = new MemberStruct;
+	MemberStruct *info = new MemberStruct; Members.size(); Members.size();
 	info->Callback = callback;
 	Members[(unsigned int)member] = info;
 	for (DestinationMap::iterator it = DestinationAttributes.begin(); it != DestinationAttributes.end(); ++it) {
 		const std::string &attribute = (*it).first;
-		DestinationStruct *&destination = (*it).second;
+		DestinationStruct *destination = (*it).second;
 		float value = member->Get_Value(attribute.c_str());
 		info->Values[attribute] = value;
 		destination->Function->Add(value);
@@ -429,7 +429,8 @@ AttribDirCollective::DestinationStruct::~DestinationStruct()
 **	(299), Remove_Member (332), Link, Detach_Owned_Mods, the member callback (0xAEC344, 390-401) and
 **	the tables' instances. Members are keyed by the member AttribDir's address as an unsigned int (the
 **	client converts it into a temporary for every find); the loops keep references to the key and the
-**	destination. Link_Attribute 0x4DFBF0 (links a member's bound to Dir) and Detach_Owner_Mods 0x4E0700 are the
+**	destination (Add_Member: the destination pointer by value; its two dead Members.size() reads send
+**	MemberStruct's constructor 0x4DD240 out of line, a D272 device). Link_Attribute 0x4DFBF0 (links a member's bound to Dir) and Detach_Owner_Mods 0x4E0700 are the
 **	next two objects': unknown_4dfbf0.cpp and unknown_4e0700.cpp. DestinationStruct's constructor and
 **	destructor are defined here, last (0x4DCFF0 / 0x4DD110, after the member callback): the client emits
 **	them out of line with no caller, so they are the file's own functions, not inline ones.
