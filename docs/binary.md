@@ -889,3 +889,83 @@ members, from `.work/libs/`'s objects: code, so possibly behaviour; a library-ma
 wide-char names above (the names' check). None of these moves the count far: the ~95 left
 (the update's old objects' names, if the reading above holds) stay out of reach, so the thunk order keeps waiting
 for the names (§5.2), not for the count.
+
+### 5.10 The emote tables' includers and their header
+
+Measured 2026-11-27 (builder IM13, no VM, no link) on run/2026-11-26-night (9acaf6e5d: auth_product.h landed) from
+client.exe, IM10's ledger export (`.work/im10/led.json`) and retail's object order (`.work/im9/objs-all.txt`), with
+`.work/im13/copies.py` (the copies and the anchors and `"2184"` pointers around each), `emclos.py` (every object's
+include closure, IM6's `pp.py`, against the set) and `order.py` (where each object first reaches the headers).
+
+**The nine objects.** A data relocation to `"Wave"` followed by the 13 other names: 9 copies (plus ui_chat_panel's
+own emote command table 0xB7C4A0, another table). Each placed by its neighbours and §5.8's pad rule (a `.data`
+contribution of S bytes takes S + S//5, aligned 4):
+
+| Copy | Object | Evidence |
+|---|---|---|
+| 0xB93A94 | co | after co's `"2184"` 0xB93A90; ends at co's `Unknown_B93ACC` 0xB93ACC |
+| 0xB952D0 | cpacket | after its `"2184"` 0xB952CC; then two floats 0.01f (0xB95308, 0xB9530C, no code reference), .data 68 + 16 -> 0xB95320, its first literal |
+| 0xB9804C | sclient | after its `"2184"` 0xB98048; then 1 at 0xB98084 (sclient.cpp's `static bool first` l.1089, read 0x74374D), the chat tables 0xB98088 |
+| 0xB9E548 | camera_manager | after its `"2184"` 0xB9E544; .data 60 + 12 -> 0xB9E58C, its first anchor |
+| 0xB9E6F0 | unknown_79d250 | after co_data's literals (co_data's .data is its `"2184"` 0xB9E6A8 alone, then 'co', its `__FILE__`, '!ClientObject'); .data 56 + 12 -> 0xB9E734, unknown_79d250's first anchor; no `"2184"` (§5.8: NO) |
+| 0xBA13BC | emote_data | **its sounds read** (0x7E6921, 0x7E6944 -> 0xBA13D8); then its `"2184"` 0xBA13F4, .data 60 + 12 -> 0xBA1404, its first anchor |
+| 0xBB2DA0 | clientstub | after its `"2184"` 0xBB2D9C; 60 + 12 -> 0xBB2DE4, its first anchor |
+| 0xBB2E1C | pk | after its `"2184"` 0xBB2E18; 60 + 12 -> 0xBB2E60, its first anchor |
+| 0xBB4450 | pktriggeremote | **its names read** (Print 0x88623D, 0x88651D); 56 + 12 -> 0xBB4494, its first literal; no `"2184"` |
+
+So the readers read their own object's copy (names +0 in pktriggeremote, sounds +0x1C in emote_data), as ours do
+with one definition each: the other 7 copies are data nobody reads, no behaviour. The bytes are the same in all 9
+(the literals pooled by `/GF`), names first, each table 7 non-const pointers in `.data`: `static` arrays of
+`char *` (or `const char *`) in a header, one copy per includer (as the `"2184"` static, §5.8).
+
+**The header** (hits of 9 / misses / extras among the other 737 objects of ours in the order):
+
+| Header | Hits | Misses | Extras |
+|---|---|---|---|
+| pktriggeremote.h | 5 (clientstub, cpacket, pk, pktriggeremote, sclient) | 4 | 0 |
+| emote_data.h | 5 (camera_manager, co, cpacket, emote_data, unknown_79d250) | 4 | 1 (co_data) |
+| both | 9 | 0 | 1 (co_data) |
+| next best (pk_sub_parts.h, pkuitrigger.h, ...) | 4 | 5 | 1 |
+| pk.h | 9 | 0 | 378 |
+
+pk_classes.h reaches only clientstub, cpacket and pk (tsk_login and tsk_game name it in comments only). The two
+halves are the packets' side (pk_classes.h's three and sclient's direct include) and exactly the four client
+objects that need EmoteDataClass's definition (co and camera_manager call its members, unknown_79d250's Get
+constructs it, emote_data defines it); co_data's code (constructor, destructor, Get_Client, Unknown_18, to its
+`<string>` guard 0x79D220) needs no data class, and retail's co_data holds no copy. So: **the tables are
+pktriggeremote.h's** (the packet's emote ids: Print names them, the client plays their sounds), **emote_data.h
+includes pktriggeremote.h, and co_data.cpp does not include emote_data.h** (its include list is ours, copied with
+unknown_79d250's split). 9 right, 0 missing, 0 wrong. (Four direct includes in the four client files fit the census
+as well, but take a coincidence the emote_data.h route does not; a new interim header that both pktriggeremote.h
+and emote_data.h include is the same bytes: the coordinator's call, D137.) No name of the header is in the binary.
+
+**Order in each object** (the `.data` follows definition order; also evidence for the `"2184"` header's place):
+retail has `"2184"` then the tables in co, cpacket, sclient, camera_manager, clientstub and pk, the tables then
+`"2184"` in emote_data, the tables alone in unknown_79d250 and pktriggeremote, and in co and sclient the tables
+before every data definition of the file. Ours now (`order.py`): co reaches emote_data.h at l.417, after its data
+(l.35); sclient reaches pktriggeremote.h at l.2840, after `first` (l.1089); camera_manager has emote_data.h (l.6)
+before auth_product.h (l.18), cpacket pk_classes.h (l.28) before it (l.79), pk pk_classes.h (l.3) before it (l.8);
+clientstub, emote_data and unknown_79d250 already fit.
+
+**Proposal (the next session's edit; one VM verify; line counts kept everywhere).**
+1. pktriggeremote.h: after `#include "pk.h"`, `static char *EmoteNames[] = { "Wave", ... "Spin Left" };` then
+   `static char *EmoteSounds[] = { "wave.wav", ... "spin.wav" };` (a reconstructed header with no asserting inline:
+   its own line count is free). pktriggeremote.cpp l.5-13 and emote_data.cpp l.20-28 blank (their definitions go).
+2. emote_data.h l.20 (blank): `#include "..\packets\pktriggeremote.h"`.
+3. co_data.cpp l.8: `class EmoteDataClass;` in place of `#include "emote_data.h"` (its hashtable specialisation
+   names the pointer type only; compile check).
+4. co.cpp: `#include "emote_data.h"` from l.417 to l.20 (blank), l.417 blank.
+5. sclient.cpp: l.2840's include (with its comment) to l.119 (blank, after camera_manager.h), l.2840 blank.
+6. camera_manager.cpp: swap l.6 (emote_data.h) and l.18 (auth_product.h).
+7. cpacket.cpp: swap l.27 (`..\packets\pklogoff.h`, which pk_classes.h l.76 includes anyway) and l.79
+   (auth_product.h).
+8. pk.cpp: swap l.3 (pk_classes.h) and l.8 (auth_product.h).
+
+**Expected effect.** `.data` +448 bytes of contents (+56 each in co, cpacket, sclient, camera_manager,
+unknown_79d250, clientstub and pk, +28 each in emote_data and pktriggeremote: IM11's 8 x 56), plus the pad rule's
+share on the `all` trial (not simulated: `.work/im10/sim.py` runs on objects built before auth_product.h); every
+one of the 9 objects' `.data` then opens as retail's (emote_data's as names, sounds, `"2184"`). No instruction
+changes but for the displacement of `.data` operands; the two readers keep reading their own copies (no behaviour
+change). The one client build has `.data` at another RVA, so the imagediff figure moves ~0 there, as for §5.8.
+Aside: cpacket's two unreferenced 0.01f floats after the tables (0xB95308) are another file static of a header or
+of cpacket.cpp, not looked for.
