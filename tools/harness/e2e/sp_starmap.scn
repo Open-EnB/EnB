@@ -1,0 +1,122 @@
+# Space (live server): test-plan SP-05, the navigation map (ui_starmap.cpp, UIStarmapClass) and its galaxy map, with
+# bugs B-03 and B-12. Elanor (_login_space) targets Nav Group Shrine as sp_flight does (W, the target panel's >>
+# twice), so the map draws the route to the destination ('Dest:' and the target path, starmap_pip.cpp). The map's
+# controls (the window's how-to text, 0x7C7B40's keys): '=' / '-' ([Zoom Map In] / [Zoom Map Out], control_keys.ini)
+# zoom while held, a left drag pans; the window's buttons (tsi26a's sub-objects, 0xB9F8B8): ? 52,252, CENTER 82,252,
+# XYZ 112,252, SECTOR_BTTN 142,252 (the galaxy map and back: 0x7C8C20), LABEL 172,252 (not clicked: it cycles the
+# label setting), RESIZE 710,252, EXIT 742,252.
+# - B-12 (StarmapDataClass::Create_Mesh 0x7BEF50): each object the map draws large enough gets a picture, an
+#   RObj2Texture texture (256x256 R5G6B5 and A8R8G8B8, 9 levels, on retail at the map's first opening in Jupiter);
+#   the object's starmap data releases it when the object leaves (the sector change below). The draw logs'
+#   texture_life (d3d8shot.c; tools/harness/texlife.py) counts every texture created and released: the open / close
+#   cycles create no more, and after /wormhole 2210 (Endriago) the Jupiter pictures are released (retail: the R5G6B5
+#   one +1 released at map_endriago). Ours with Create_Peek kept a reference: never released.
+# - B-03 (GalaxyMapRenderSectorClass 0x7AC130 -> the gates' 0x7AD090): the gate lines of every galaxy-map view: the
+#   first view (no pick: 0x7A7D70's (true, true, false, false)), the first left click (a system), the second (the
+#   sector under the pointer, (true, true, true, true): its gate spokes labelled with the neighbours' names), a right
+#   click back out and one on empty space (full out).
+#   e2e.py --live [--retail] --db-snapshot 7 --instance NAME run sp_starmap (Net-7 restarted before each run: the
+#   server's time since its start moves the planets)
+name: space: the navigation map and the galaxy map: zoom, pan, pick, the route; open / close cycles and a sector change (SP-05)
+timeout: 600
+include _login_space
+key 0x57 until antprox 'sent SET_TARGET$' every 1.5 within 15
+wait-quiet proxy 0.5 within 10
+click 1248,987 until antprox 'sent SET_TARGET$' every 1.5 within 15
+wait-quiet proxy 0.5 within 10
+click 1248,987 until antprox 'sent SET_TARGET$' every 1.5 within 15
+wait-quiet proxy 0.5 within 10
+click gadget hud.navmap
+expect-event proxy '^input: replayed mouse 0x202 at 140, 946'
+wait-quiet proxy 1.0 within 15
+move 1000,880
+wait-quiet proxy 0.5 within 10
+shot map_open
+# 'Dest: Nav Group Shrine' under the map
+expect-ink map_open 260,808,250,24 300
+hold = for 1
+wait-quiet proxy 1.0 within 15
+shot map_zoom_in
+hold - for 1
+wait-quiet proxy 1.0 within 15
+shot map_zoom_out
+down 390,540
+wait-quiet proxy 0.3 within 5
+up 470,580
+wait-quiet proxy 1.0 within 15
+move 1000,880
+wait-quiet proxy 0.5 within 10
+shot map_pan
+# two close / open cycles: no texture created or released by them
+click gadget hud.navmap
+wait-quiet proxy 1.0 within 15
+move 1000,880
+wait-quiet proxy 0.5 within 10
+shot map_closed_1
+click gadget hud.navmap
+wait-quiet proxy 1.0 within 15
+move 1000,880
+wait-quiet proxy 0.5 within 10
+shot map_open_2
+click gadget hud.navmap
+wait-quiet proxy 1.0 within 15
+move 1000,880
+wait-quiet proxy 0.5 within 10
+shot map_closed_2
+click gadget hud.navmap
+wait-quiet proxy 1.0 within 15
+# the galaxy map
+click 142,252
+wait-quiet proxy 1.5 within 20
+move 1000,880
+wait-quiet proxy 0.5 within 10
+shot galaxy
+click 390,540
+wait-quiet proxy 1.5 within 15
+move 1000,880
+wait-quiet proxy 0.5 within 10
+shot galaxy_pick_1
+click 390,540
+wait-quiet proxy 1.5 within 15
+move 1000,880
+wait-quiet proxy 0.5 within 10
+shot galaxy_pick_sector
+rclick 600,700
+wait-quiet proxy 1.5 within 15
+move 1000,880
+wait-quiet proxy 0.5 within 10
+shot galaxy_out
+rclick 700,300
+wait-quiet proxy 1.5 within 15
+move 1000,880
+wait-quiet proxy 0.5 within 10
+shot galaxy_full_out
+hold = for 1
+wait-quiet proxy 1.0 within 15
+shot galaxy_zoom_in
+click 142,252
+wait-quiet proxy 1.5 within 20
+move 1000,880
+wait-quiet proxy 0.5 within 10
+shot map_back
+click gadget hud.navmap
+wait-quiet proxy 1.0 within 15
+# the sector change: every Jupiter object leaves, and with it its map picture
+key 0x0D
+wait-quiet proxy 0.5 within 10
+text '/wormhole 2210'
+key 0x0D
+wait-event antprox 'sent SERVER_HANDOFF' within 60
+wait-event antprox 'received START_ACK$' within 120
+wait-quiet proxy 1.5 within 60
+click gadget hud.navmap
+wait-quiet proxy 1.0 within 15
+move 1000,880
+wait-quiet proxy 0.5 within 10
+shot map_endriago
+click gadget hud.navmap
+wait-quiet proxy 1.0 within 15
+move 1000,880
+wait-quiet proxy 0.5 within 10
+shot map_closed_endriago
+alive 1
