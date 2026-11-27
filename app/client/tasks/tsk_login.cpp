@@ -22,12 +22,12 @@ unsigned int Unknown_Get_Ticks();	// 0x4A3B40 (delta_time.cpp; unknown_root.h's,
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
-
+#include "..\..\shared\auth_product.h"
 void Unknown_Debug_Print(const char *text);			// NAME 1 [Unknown_Debug_Print]: 0x509E30 (dbgmgr.cpp), the log line
 class GlobalCreateCharacterPacketClass : public PacketClass { public: GlobalCreateCharacterPacketClass(int galaxy, int slot, const char *name, const AvatarDescClass *desc, const ShipCustDescClass *ship, unsigned char unknown); virtual ~GlobalCreateCharacterPacketClass(); char Unknown0C[0x2BC]; };	// opcode 114: a view of pkglobalcreatecharacter.h's class (including that header moves 0x76B520's scheduling: order-only)
 class GlobalConnectPacketClass : public PacketClass { public: GlobalConnectPacketClass(const char *ticket, const char *password); ~GlobalConnectPacketClass(); char Unknown0C[0x08]; };	// opcode 109: 0x863400, 0x863570  // NAME 1 [password]: '123456'
 void Message_Info(const char *sender, const char *category, const char *file, int line, const char *format, ...);	// NAME 5 [Message_Info]: the client's WWPROFILE("Message_Info") label (D198)
-static char *AUTH_PRODUCT = "2184"; static char *AUTH_INI = "auth.ini";				// 0xB9B9CC, 0xB9B9D0  // NAME 1 [AUTH_PRODUCT, AUTH_INI]: their texts
+static char *AUTH_INI = "auth.ini";				// 0xB9B9D0 (0xB9B9CC before it: auth_product.h's AUTH_PRODUCT)  // NAME 1 [AUTH_PRODUCT, AUTH_INI]: their texts
 static char *LOGIN_INI = "login.ini";				// 0xB9B9D4  // NAME 1: its text
 static char *LOGIN_DATA = "LOGIN_DATA";			// 0xB9B9D8  // NAME 1: its text
 static char *LOGIN_NAME = "Name";					// 0xB9B9DC  // NAME 1: its text

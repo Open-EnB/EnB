@@ -8,7 +8,7 @@
 #include "..\shared\g_assert.h"
 #include <math.h>
 void Unknown_42ECF0(float *x, float *y);	// 0x42ECF0 (input.cpp): the pointer's position, 0..1  // NAME 1 [x, y]: as scriptedmovie.cpp's
-
+#include "..\shared\auth_product.h"
 // mousetbl.cpp's table (0xBE7C70, filled by 0x7228C0: 'arrow_blank.tga', 'arrow.tga', 'cursor_w.tga' ...)
 #include "mousetbl.h"
 // (blank lines: the FAIL_IFs keep the client's lines 267, 269, 278)

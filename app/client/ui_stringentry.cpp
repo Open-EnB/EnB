@@ -13,7 +13,7 @@
 #include "gd_uiback.h"		// MovableUIBackGadget (0x674310)
 #include "..\audio\soundlib.h"
 #include "..\shared\unknown_4be9d0.h"	// 0x4BE9D0: a name turned into another
-
+#include "..\shared\auth_product.h"
 extern FontManagerClass *Unknown_BE67C4;			// NAME 1 [Unknown_BE67C4]: 0xBE67C4
 extern const int Unknown_B08C98;			// 0xB08C98 (4)  // NAME 1: neutral (D10)
 extern const int Unknown_B08C9C;			// 0xB08C9C (8)  // NAME 1: neutral (D10)

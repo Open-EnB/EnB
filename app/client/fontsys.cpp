@@ -61,8 +61,9 @@ void FontSys::Unknown_6D5140()
 	Release_Ref();
 }
 
-// NOT EXACT: shape (attempts.csv): the client reaches Width..Scale (+0x2B4..+0x2CC) through one pointer, as a sub-object's
-// inline would, and stores +0x430 / +0x4C5 after the resolution call's arguments; the colours from TXT1
+struct UnknownFontSys2B4Struct { int Width; int Height; int Bits; bool Windowed; int Unknown10; int Unknown14; float Scale; void Init() { WW3D::Get_Device_Resolution(Width, Height, Bits, Windowed); Unknown10 = 0; Unknown14 = 0; Scale = 1.0f; } };	// NAME 1 [UnknownFontSys2B4Struct, Init, Unknown10, Unknown14]: neutral (D10): FontSys +0x2B4..+0x2CC (Width..Scale) as the sub-object 0x6D5170 initialises through its own pointer (edi = this + 0x2B4: the resolution call's four arguments and the three stores after it); provisional view until fontsys.h holds it
+struct UnknownFontSys430Struct { int Unknown00[4]; char Unknown10[0x85]; bool Unknown95; void Set() { Unknown00[0] = -320; Unknown00[2] = 240; Unknown00[1] = 320; Unknown00[3] = -240; Unknown95 = false; } };	// NAME 1 [UnknownFontSys430Struct, Set, Unknown00, Unknown10, Unknown95]: neutral (D10): FontSys +0x430 (the -320, 320, 240, -240 rect) and +0x4C5 (the flag setters clear) through one base, as 0x6D5170 stores them after the resolution call's pushes; provisional view (what object holds both is not known)
+// NOT EXACT: order (attempts.csv): the timer 4-loop's separate zero register (xor ecx) lands one store later than the client's (2 rows)
 void FontSys::Unknown_6D5170(RenderObjClass *object)
 {
 	int i;
@@ -111,15 +112,8 @@ void FontSys::Unknown_6D5170(RenderObjClass *object)
 	Unknown47C.X = Info.Offset.X * 640.0f;
 	Unknown47C.Y = Info.Offset.Y * 480.0f;
 	Unknown470 = Unknown47C;
-	Unknown430[0] = -320;
-	Unknown430[2] = 240;
-	Unknown430[1] = 320;
-	Unknown430[3] = -240;
-	Unknown4C5 = false;
-	WW3D::Get_Device_Resolution(Width, Height, Bits, Windowed);
-	Unknown2C4 = 0;
-	Unknown2C8 = 0;
-	Scale = 1.0f;
+	((UnknownFontSys430Struct *)Unknown430)->Set();
+	((UnknownFontSys2B4Struct *)&Width)->Init();
 	Unknown26C = 0;
 	Unknown270 = 0;
 	Unknown274[0] = 0; Unknown274[1] = 0; Unknown274[2] = 0; Unknown274[3] = 0; Unknown274[4] = 0; Unknown274[5] = 0; Unknown274[6] = 0; Unknown274[7] = 0; Unknown274[8] = 0; Unknown274[9] = 0; Unknown274[10] = 0; Unknown274[11] = 0;
@@ -166,7 +160,7 @@ void FontSys::Unknown_6D5170(RenderObjClass *object)
 		second[2] = 0.0f;
 		second[3] = 1.0f;
 	}
-	memset(Unknown303, 0, sizeof(Unknown303));
+	for (i = 0; i < 0xFF; i++) Unknown303[i] = 0;
 	Unknown414 = 0;
 	FontStruct *font = fontDatabase->Find_Font(Info.FontType[FontIndex], Scale);
 	Font = font->font32Ptr;
@@ -178,6 +172,12 @@ void FontSys::Unknown_6D5170(RenderObjClass *object)
 	Unknown4E4 = true;
 	Unknown4E6 = false;
 }
+
+
+
+
+
+
 
 // NOT EXACT: register (attempts.csv): the client keeps i in ebp and spills this across the loop (14 rows)
 void FontSys::Set_Container(RenderObjClass *con)

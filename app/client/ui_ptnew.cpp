@@ -1,6 +1,6 @@
 // Earth & Beyond client (reconstruction): app\Client\ui_ptnew.cpp. Notes at the end of the file.
 #include <stdio.h>
-
+#include "..\shared\auth_product.h"
 #include "rendobj.h"
 #include "layer.h"
 #include "refcount.h"

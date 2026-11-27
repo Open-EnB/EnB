@@ -19,7 +19,7 @@
 // E&B's asset manager at 0xBDADC0 (ENBAssetManager): the asserts name it AssetManager
 #include "..\shared\enbassetmgr.h"
 #include "mv3dview.h"	// MeshSoundClass (meshsnd.cpp): the sounds on +0xF0
-
+#include "..\shared\auth_product.h"
 
 // (enbassetmgr.h declares the global as the asserts name it: AssetManager, 0x802D30)
 

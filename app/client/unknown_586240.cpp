@@ -17,7 +17,7 @@
 #include "matrix3d.h"
 #include "vector4.h"
 #include "wwmath.h"
-
+#include "..\shared\auth_product.h"
 void Unknown_496C00(RenderObjClass *robj, float u, float v, Vector3 *color);	// 0x496C00 (ro_funcs.cpp, cdecl): the model's texture colour at (u, v)  // NAME 1 [all]: as ui_shipcust.cpp's
 void Unknown_42ECF0(float *x, float *y);			// 0x42ECF0 (the pointer, 0..1)  // NAME 1 [x, y]: as ui_avatar_cust.cpp's
 void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);	// 0x496AE0 (ro_funcs.cpp, cdecl)  // NAME 1 [robj, make_geometry_unique]: as ui_avatar_cust.cpp's

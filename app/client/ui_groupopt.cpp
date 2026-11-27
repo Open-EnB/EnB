@@ -16,7 +16,7 @@
 #include "..\shared\auxdata\auxdata.h"
 #include "aux_group.h"				// (after auxdata.h: its Type_Name(int *) for kv_pair.h, C2665 without)
 #include "..\shared\g_assert.h"
-
+#include "..\shared\auth_product.h"
 
 // The client at InterfaceClass +0x40, as ui_chat_panel.cpp declares it
 class LineDisplayClientClass  // NAME 1: neutral (D10)

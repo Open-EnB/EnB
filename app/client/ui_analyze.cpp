@@ -20,7 +20,7 @@
 #include "..\audio\soundlib.h"
 #include "ui_analyze.h"
 #include "..\..\ww3d2\ww3d.h"	// WW3D::Get_Frame_Time (read inline, as ui_manu.cpp's)
-
+#include "..\shared\auth_product.h"
 class SBaseViewClass;
 
 // The client at InterfaceClass +0x40, as this file calls it (as ui_manu.cpp declares it)

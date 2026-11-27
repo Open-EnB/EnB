@@ -9,7 +9,7 @@
 #include "local_interface_sort.h"
 #include "..\shared\avatar_desc.h"
 #include "..\shared\g_assert.h"
-
+#include "..\shared\auth_product.h"
 // 0x5D4150
 UIPetitionAvatarPipClass::UIPetitionAvatarPipClass(SClient *client) :
 	ChatPanelUIBase(client),

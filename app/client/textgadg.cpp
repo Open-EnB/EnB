@@ -15,7 +15,7 @@
 #include "scene.h"
 #include "ww3d.h"
 #include "..\shared\g_assert.h"
-
+#include "..\shared\auth_product.h"
 
 
 

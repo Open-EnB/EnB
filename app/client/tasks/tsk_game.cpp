@@ -30,7 +30,7 @@ ClientTaskClass::ClientTaskClass(const std::string &username, const std::string 
 	Timeout(0)
 {
 }
-
+#include "..\..\shared\auth_product.h"
 // 0x7661C0
 ClientTaskClass::~ClientTaskClass()
 {

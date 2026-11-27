@@ -1,6 +1,6 @@
 // Earth & Beyond client (reconstruction): app\main\main.cpp. Notes at the end of the file.
 // The four global random generators (0x4441E0-0x444240) are unknown_4441e0.cpp's (notes).
-
+#include "..\shared\auth_product.h"
 #include <iostream>
 #include <windows.h>
 #include "..\..\wwlib\Except.h"

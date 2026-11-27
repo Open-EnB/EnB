@@ -19,7 +19,7 @@
 **	Enter as a newline with flag 0x40, and the event's character (input.cpp's 0x42EB80) through the flags and Chars.
 **	The event's modifier bits are read as bit-fields in the client (shr / test 1: key up bit 12, shift 8, ctrl 9,
 **	alt 10: kernel.h's KernelEventClass bit-fields). Process_Key's key is an int local read before the up test, the
-**	result an int (the strchr test's 'allowed' shares it), the character an int; still NOT EXACT: the shared tail.
+**	result an int (the strchr test's 'allowed' shares it), the character an int; c == 0 and !isprint(c) an if each, == MaxLen its own arm.
 **	<string>'s guarded initialiser at 0x84B330 ends the object (workflow.md 3.3): the client's next function, 0x84B360
 **	("Effect Radius : %d"), is another file's.
 */
@@ -188,7 +188,7 @@ StrEditClass::~StrEditClass()
 
 
 
-// NOT EXACT: shape (0.78, 26 rows): the client keeps the delete / backspace shared tail (and ecx, 3; rep movsb; StrLen--; result) in the backspace block, ours in the delete block
+// The character's two rejections are an if each and a full buffer has its own result = true: see the notes above
 bool StrEditClass::Process_Key(KernelEventClass *event)
 {
 	int key = event->Key;
@@ -276,9 +276,9 @@ bool StrEditClass::Process_Key(KernelEventClass *event)
 				c = '\n';
 			} else {
 				c = (unsigned char)Unknown_42EB80(event);
-				if (c == 0 || !isprint(c)) {
-					break;
-				}
+				if (c == 0) { break; }
+				if (!isprint(c)) { break; }
+
 				if (Chars != NULL) {
 					if (!(Flags & 0x1C)) {
 						if (Flags & 0x20) {
@@ -321,7 +321,7 @@ bool StrEditClass::Process_Key(KernelEventClass *event)
 					}
 				}
 				*Cursor++ = c;
-			} else if (StrLen != MaxLen) {
+			} else if (StrLen == MaxLen) { result = true; } else {
 				if (!InsertMode && Cursor != String + StrLen) {
 					*Cursor++ = c;
 				} else {

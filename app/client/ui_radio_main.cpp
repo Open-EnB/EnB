@@ -11,7 +11,7 @@
 #include "local_interface_sort.h"
 #include "..\packets\pkclientchat.h"
 #include "..\audio\soundlib.h"
-
+#include "..\shared\auth_product.h"
 extern FontManagerClass *Unknown_BE67C4;	// NAME 1: neutral (D10)
 
 // The chat panel's request flag (+0x225), read through an inline as the client does (al loaded, then tested)

@@ -15,7 +15,7 @@
 #include "obbox.h"
 #include "castres.h"
 #include "scene.h"
-
+#include "..\shared\auth_product.h"
 // the main view's scene (mainview.cpp's 0x75ECF0, its +0x10C), as far as 0x7998B0 calls it
 class MainViewSceneClass : public SimpleSceneClass	// NAME 1: neutral (D10): mainview.cpp's
 {

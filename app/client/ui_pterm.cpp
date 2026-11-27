@@ -15,7 +15,7 @@
 #include "ui_ptppl.h"
 #include "unknown_5de6e0.h"
 #include "ui_pterm.h"
-
+#include "..\shared\auth_product.h"
 extern FontManagerClass *Unknown_BE67C4;			// NAME 1 [Unknown_BE67C4]: 0xBE67C4
 
 static const char *Unknown_B84C30[UIPTermClass::MAX_BUTTONS] = { "not used", "TLI10A.BUTTON00", "TLI10A.BUTTON01", "TLI10A.BUTTON02", "TLI10A.EXIT" };	// NAME 1: neutral (D10)

@@ -16,7 +16,7 @@ class SlotDataClass { public: virtual void Unknown_00(); virtual void Unknown_04
 // ro_funcs.cpp's
 void Unknown_496730(RenderObjClass *robj, int a, bool b);	void Unknown_496AE0(RenderObjClass *robj, bool a);	bool Unknown_496110(RenderObjClass *robj, float a, float b, float c);	// NAME 1: neutral (D10); NAME 1 [robj, a, b, c]: neutral
 const char *Get_Roman_Numeral(int value);	// inv_render.cpp's
-
+#include "..\shared\auth_product.h"
 // 0x68B370
 InvManuRenderClass::InvManuRenderClass() :
 	LevelText(0)

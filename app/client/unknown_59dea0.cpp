@@ -8,7 +8,7 @@
 #include "rendobj.h"
 #include "..\audio\soundlib.h"
 #include "..\packets\pkclientchat.h"
-
+#include "..\shared\auth_product.h"
 void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);	// 0x496AE0 (ro_funcs.cpp, cdecl: effect.ini's ResetMappers)  // NAME 1 [robj, make_geometry_unique]: what the helpers pass
 
 // The buttons' models (0xB802A0)

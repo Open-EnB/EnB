@@ -11,7 +11,7 @@
 #include "cfaction_database.h"
 #include "ui_faction_panel.h"
 #include "..\shared\g_assert.h"
-
+#include "..\shared\auth_product.h"
 extern FontManagerClass *Unknown_BE67C4;			// NAME 1 [Unknown_BE67C4]: 0xBE67C4
 
 

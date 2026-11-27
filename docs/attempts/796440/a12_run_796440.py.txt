@@ -1,0 +1,112 @@
+"""A12: ours vs the client's CameraController09Class::Unknown_08 (0x796440) in emu.py, every phase."""
+import struct
+import sys
+sys.path.insert(0, 'C:/EnBDevelopment/EnB/.work/a12')
+import emu  # noqa: E402
+emu.ALIASES['?Unknown_BDB1C0@@3VRandom4Class@@A'] = 0xBDB1C0
+
+OBJ = 'C:/EnBDevelopment/EnB/.work/a12/camctrl_takeoff.obj'
+SYM = '?Unknown_08@CameraController09Class@@UAEXPAVVector3@@PAVQuaternion@@PAH2@Z'
+THIS, CLIENT, SHIP = 0x30000000, 0x31000000, 0x32000000
+POS, ROT, MODE, TARGET = 0x40000000, 0x41000000, 0x42000000, 0x43000000
+SLERP, BUILD, LOOKAT, GETF, RND, DIST, FAIL, CM2 = (0x8D23C0, 0x8D2C10, 0x8C29B0, 0x9D0580, 0x9D0510,
+                                                     None, None, None)
+# (elapsed, Unknown5C, ship present, Get_Type is 0xE, Random4(0,1) result)
+CASES = [(e, u5c, ship, proc, rnd) for e in (0, 500, 1999, 2000, 3000, 4999, 5000, 9000)
+         for u5c in (0, 1) for ship in (1, 0) for proc in (1, 0) for rnd in (1, 0)
+         if not (ship == 0 and (u5c or proc or rnd))]
+
+
+def real(name):
+    return emu.real_target(emu.symbols()[name])
+
+
+def make_setup(elapsed, u5c, ship, proc, rnd):
+    def setup(mem, cpu, seed):
+        mem.wu(THIS + 4, 4, CLIENT)
+        mem.wu(CLIENT + 0x10BC, 4, 0x10000 + elapsed)
+        mem.wu(THIS + 0x10, 4, 0x10000)
+        mem.wu(THIS + 0x5C, 1, u5c)
+        # floats the code reads: sane values instead of random bit patterns
+        for off in range(0x18, 0x5C, 4):
+            mem.write(THIS + off, struct.pack('<f', ((seed * 7 + off) % 23) * 0.37 - 3.0))
+        cpu.r['ecx'] = THIS
+        return [POS, ROT, MODE, TARGET]
+    return setup
+
+
+def fbytes(seed, idx, n):
+    return b''.join(struct.pack('<f', ((seed * 31 + idx * 13 + k * 5) % 41) * 0.11 - 2.0) for k in range(n))
+
+
+def make_stubs(ship, proc, rnd):
+    def stubs(cpu, key, words, idx, seed):
+        m = cpu.m
+        if key[0] == 'indirect':
+            disp = key[1]
+            if disp == 0x28:       # Client->Get_Avatar()
+                cpu.r['eax'] = SHIP if ship else 0
+                return 0, None, 0
+            if disp == 8:          # Unknown0C->Unknown_08(pos, rot, ...)
+                return 12, None
+            if disp == 4:          # PositionalState->Get_Type() / Unknown0C->Unknown_04()
+                cpu.r['eax'] = 0xE if proc else 3
+                return 0, None, 0
+            if disp == 0x30:       # PositionalState->Unknown_30(time, tm)
+                return 8, {'tm': m.read(words[1], 48).hex()}
+            raise emu.Stop('vcall %r' % (key,))
+        t = key[1]
+        if t == SLERP:
+            m.write(words[0], fbytes(seed, idx, 4))
+            return 0, {'_cdecl': 1, 'a': m.read(words[1], 16).hex(), 'b': m.read(words[2], 16).hex()}, 4
+        if t == BUILD:
+            m.write(words[0], fbytes(seed, idx, 12))
+            cpu.r['eax'] = words[0]
+            return 0, {'_cdecl': 1, 'q': m.read(words[1], 16).hex()}, 2
+        if t == LOOKAT:
+            m.write(cpu.r['ecx'], fbytes(seed, idx, 12))
+            return 12, {'p': m.read(words[0], 12).hex(), 't': m.read(words[1], 12).hex()}
+        if t == GETF:
+            cpu.st.append(((seed * 3 + idx) % 10) / 10.0)
+            return 0, None, 0
+        if t == RND:
+            cpu.r['eax'] = rnd
+            return 8, None
+        if t == DIST:
+            cpu.st.append(12.5 + seed)
+            return 0, None, 0
+        if t == FAIL:
+            cpu.r['eax'] = 0
+            cs = lambda a: m.read(a, 64).split(bytes(1))[0].decode('latin1')
+            return 0, {'_cdecl': 1, 'expr': cs(words[0]), 'file': cs(words[1]).lower(), 'file_raw_differs_in_case_only': None, 'line': words[2]}, 0
+        if t == CM2:
+            return 4, None
+        raise emu.Stop('callee %#x' % t)
+    return stubs
+
+
+def main():
+    global DIST, FAIL, CM2
+    DIST = real('?Unknown_79B6B0@CameraManagerClass@@SAMXZ')
+    FAIL = real('?Fail_If_Report@@YAXPBD0H@Z')
+    CM2 = real('?Unknown_79B2B0@CameraManagerClass@@QAEXH@Z')
+    entry, reader, extra, names = emu.link_ours(OBJ, SYM)
+    creader = emu.client_reader()
+    bad = 0
+    for case in CASES:
+        for seed in (1, 2):
+            setup = make_setup(*case)
+            stubs = make_stubs(*case[2:])
+            a = emu.run_one(entry, reader, extra, seed, setup, stubs, 4)
+            b = emu.run_one(0x796440, creader, {}, seed, setup, stubs, 4)
+            d = [x for x in emu.compare(a, b) if not x.startswith('eax:')]  # void: eax is dead
+            print('elapsed %4d 5C %d ship %d proc %d rnd %d seed %d: %s, %d calls, %d bytes written: %s' % (
+                case + (seed, b['status'], len(b['calls']), len(b['writes']), 'SAME' if not d else 'DIFF')))
+            for x in d[:4]:
+                print('    ' + x[:400])
+            bad += bool(d)
+    print('differing runs:', bad, 'of', 2 * len(CASES))
+
+
+if __name__ == '__main__':
+    main()

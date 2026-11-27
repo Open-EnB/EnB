@@ -9,7 +9,7 @@
 #include "fontmanager.h"
 #include "ui_bio.h"
 // (no permstr.h: 0x560880 follows this object's <string> initialiser 0x560830, so it opens ui_buff.cpp's)
-
+#include "..\shared\auth_product.h"
 extern FontManagerClass *Unknown_BE67C4;			// NAME 1 [Unknown_BE67C4]: 0xBE67C4
 
 #include "gd_uiback.h"		// UIBackGadget (0x674260)

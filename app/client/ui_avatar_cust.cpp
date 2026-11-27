@@ -14,7 +14,7 @@
 #include "..\..\wwlib\ref_ptr.h"
 #include "..\shared\g_assert.h"
 #include "..\audio\soundlib.h"
-
+#include "..\shared\auth_product.h"
 #include "avatar.h"	// CharacterViewAvatarClass (the window's +0xBC)
 #include "aabox.h"
 #include "random.h"
@@ -1406,18 +1406,18 @@ void StarbaseAvatarCreationInterface::Unknown_550970(int value)
 	Unknown_551BF0();
 }
 
-// NOT EXACT: register (0.71, 1713 bytes against 0x6A8: the frame time's second global loads into ebp, pushed early, and the copies' registers rotate from there; attempts.py show 0x550A10)
+// (each model through Peek_Render_Obj(): the argument gets its own register and the frame time's second global stays out of ebp; block 3 is the same if / else as blocks 1 and 2)
 // 0x550A10
 void StarbaseAvatarCreationInterface::Unknown_550A10()
 {
-	Unknown_Find_Field<DeltaTemplateClass<float> >(NULL, *(NameClass *)this); Unknown_Find_Field<DeltaTemplateClass<float> >(NULL, *(NameClass *)this); Unknown_Find_Field<DeltaTemplateClass<float> >(NULL, *(NameClass *)this); Unknown_Find_Field<DeltaTemplateClass<float> >(NULL, *(NameClass *)this); Unknown_Find_Field<DeltaTemplateClass<float> >(NULL, *(NameClass *)this); Unknown_Find_Field<DeltaTemplateClass<float> >(NULL, *(NameClass *)this);	// dead finds (D130; not the client's): they spend VC6's inline budget, so the third Rotate_Y stays out of line as the client's (matrix3d.h's copy 0x551270; four were enough before 0x5513E0-0x551C80 joined the file, five before gadget.h's, gd_robj.h's and unknown_671300.h's inline slots did; with five now it is inlined)
+	Unknown_Find_Field<DeltaTemplateClass<float> >(NULL, *(NameClass *)this); Unknown_Find_Field<DeltaTemplateClass<float> >(NULL, *(NameClass *)this);	// dead finds (not the client's): they spend VC6's inline budget, so block 3's two Rotate_Y sites stay out of line as the client's (matrix3d.h's copy 0x551270). Exact with 1, 2 or 3 of them; six were needed while the models came as Unknown240[k]->RObj and the translation went through three operator [] stores (attempts.py show 0x550A10)
 	if (Unknown0B0 != 2) {
 		return;
 	}
 	float time = WW3D::Get_Frame_Time() * 0.001f;
 	float slow = time * 0.3f;
 	float fast = time + time;
-	RefCountPtr<RenderObjClass> model = Unknown_497300(Unknown240[8]->RObj);
+	RefCountPtr<RenderObjClass> model = Unknown_497300(Unknown240[8]->Peek_Render_Obj());
 	if (model) {
 		Matrix3D tm = model->Get_Transform();
 		if (Unknown35C == 0) {
@@ -1429,13 +1429,13 @@ void StarbaseAvatarCreationInterface::Unknown_550A10()
 		InterfaceMesh->Peek_Object()->Capture_Bone(bone);
 		InterfaceMesh->Peek_Object()->Control_Bone(bone, Unknown26C[0]);
 		Matrix3D newtm(Unknown26C[0]);
-		newtm[0][3] = tm[0][3];
-		newtm[1][3] = tm[1][3];
-		newtm[2][3] = tm[2][3];
+		Vector3 pos;
+		tm.Get_Translation(&pos);
+		newtm.Set_Translation(pos);
 		model->Set_Transform(newtm);
 		Unknown240[8]->Unknown_6608F0();
 	}
-	model = Unknown_497300(Unknown240[9]->RObj);
+	model = Unknown_497300(Unknown240[9]->Peek_Render_Obj());
 	if (model) {
 		Matrix3D tm = model->Get_Transform();
 		if (Unknown35C == 1) {
@@ -1447,27 +1447,27 @@ void StarbaseAvatarCreationInterface::Unknown_550A10()
 		InterfaceMesh->Peek_Object()->Capture_Bone(bone);
 		InterfaceMesh->Peek_Object()->Control_Bone(bone, Unknown26C[1]);
 		Matrix3D newtm(Unknown26C[1]);
-		newtm[0][3] = tm[0][3];
-		newtm[1][3] = tm[1][3];
-		newtm[2][3] = tm[2][3];
+		Vector3 pos;
+		tm.Get_Translation(&pos);
+		newtm.Set_Translation(pos);
 		model->Set_Transform(newtm);
 		Unknown240[9]->Unknown_6608F0();
 	}
-	model = Unknown_497300(Unknown240[10]->RObj);
+	model = Unknown_497300(Unknown240[10]->Peek_Render_Obj());
 	if (model) {
 		Matrix3D tm = model->Get_Transform();
-		float angle = slow;
 		if (Unknown35C == 2) {
-			angle = fast;
+			Unknown26C[2].Rotate_Y(fast);
+		} else {
+			Unknown26C[2].Rotate_Y(slow);
 		}
-		Unknown26C[2].Rotate_Y(angle);
 		int bone = InterfaceMesh->Peek_Object()->Get_Bone_Index(UIAvatarCustParts[39].Button);
 		InterfaceMesh->Peek_Object()->Capture_Bone(bone);
 		InterfaceMesh->Peek_Object()->Control_Bone(bone, Unknown26C[2]);
 		Matrix3D newtm(Unknown26C[2]);
-		newtm[0][3] = tm[0][3];
-		newtm[1][3] = tm[1][3];
-		newtm[2][3] = tm[2][3];
+		Vector3 pos;
+		tm.Get_Translation(&pos);
+		newtm.Set_Translation(pos);
 		model->Set_Transform(newtm);
 		Unknown240[10]->Unknown_6608F0();
 	}

@@ -12,7 +12,7 @@
 #include "gd_robj.h"
 #include "rendobj.h"
 #include "..\audio\soundlib.h"
-
+#include "..\shared\auth_product.h"
 extern FontManagerClass *Unknown_BE67C4;				// NAME 1 [Unknown_BE67C4]: 0xBE67C4
 
 // The buttons' models (0xBA8204)

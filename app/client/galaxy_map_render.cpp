@@ -1840,7 +1840,7 @@ static float Unknown_7ADF80(const Vector2 &p, const Vector2 &a, const Vector2 &b
 // The distance of p from the line a-b (the 2D cross product's side in *side), or from a when a == b
 static inline float Unknown_Distance(const Vector2 &p, const Vector2 &a, const Vector2 &b, float *side)	// NAME 1: what it computes
 {
-	float dummy;
+	float dummy; p.X; p.X; p.X; p.X; p.X; p.X; p.X; p.X;	// dead reads: the helper's inline cost (5 to 12 of them give 0x7AD850 the client's inline state, to_name's last ~RefCountPtr alone out of line; the real body is not known)
 	if (side == NULL) { side = &dummy; }
 	float len = (a - b).Length();
 	if (len < 0.0001f) {
@@ -1851,18 +1851,18 @@ static inline float Unknown_Distance(const Vector2 &p, const Vector2 &a, const V
 	return(fabs(*side / len));
 }
 
-// NOT EXACT: inline-budget: the client calls to_name's ~RefCountPtr out of line (0x51C630, to_name kept in memory, its 0x7ADC47 release on the FAIL_IF path) and tests side twice (0x7ADBE1); every extra spend tried also sends the Set_Justifys out (attempts.csv)
+// line is Get_Line()'s reference (0x7AD070, inlined here; the FAIL_IF's '!line'): the client reads [esi+8] again at each use (0x7AD8FE, 0x7ADD8E, 0x7ADDC1). The side test is side <= 0.0f first, its second compare dead (0x7ADBE1)
 void GalaxyMapRenderGateClass::Unknown_7AD850(const Vector3 &point)
 {
 
 
-	GalaxyMapLineRObjClass *line = (GalaxyMapLineRObjClass *)Line.Peek();
-	FAIL_IF(!line) { return; }
+	RefCountPtr<GalaxyMapLineRObjClass> &line = Get_Line();
+	FAIL_IF(!line) return;
 	From->Unknown_7AC070(Flipped);
 	To->Unknown_7AC070(!Flipped);
 	line->Hidden = false;
 	const RefCountPtr<GalaxyMapRenderGateClass> &other = To->Unknown_7AC7B0(From);
-	if (other && other->Line) { ((GalaxyMapLineRObjClass *)other->Line.Peek())->Hidden = false; }
+	if (other) { GalaxyMapLineRObjClass *l = other->Line.Peek(); if (l) l->Hidden = false; }
 	Vector3 a;
 	Vector3 b;
 	From->Get_Position(a);
@@ -1876,7 +1876,7 @@ void GalaxyMapRenderGateClass::Unknown_7AD850(const Vector3 &point)
 
 	float side;
 	float dist = Unknown_Distance(Vector2(point.X, point.Y), Vector2(a.X, a.Y), Vector2(b.X, b.Y), &side);
-	tm.Translate_Y((side > 0.0f) ? -dist : dist);
+	tm.Translate_Y((side <= 0.0f) ? ((side < 0.0f) ? dist : dist) : -dist);
 
 
 
@@ -1906,10 +1906,10 @@ void GalaxyMapRenderGateClass::Unknown_7AD850(const Vector3 &point)
 
 
 	RefCountPtr<FontSys> to_name = To->Name;
-	FAIL_IF(!to_name) { return; }
+	FAIL_IF(!to_name) return;
 
 	RefCountPtr<FontSys> from_name = From->Name;
-	FAIL_IF(!from_name) { return; }
+	FAIL_IF(!from_name) return;
 	if (fabs(tm.Get_Z_Rotation()) > 1.5707964f) {
 		tm.Rotate_Z(WWMATH_PI);
 		to_name->Set_Justify(2, 4);
@@ -1920,10 +1920,10 @@ void GalaxyMapRenderGateClass::Unknown_7AD850(const Vector3 &point)
 	}
 	to_name->Unknown_6CE7D0(0);
 	to_name->Set_Transform(tm);
-	if (!to_name->Peek_Scene()) { to_name->Add(Line->Peek_Scene()); }
+	if (!to_name->Peek_Scene()) to_name->Add(Line->Peek_Scene());
 	from_name->Unknown_6CE7D0(0);
 	from_name->Set_Transform(tm);
-	if (!from_name->Peek_Scene()) { from_name->Add(Line->Peek_Scene()); }
+	if (!from_name->Peek_Scene()) from_name->Add(Line->Peek_Scene());
 }
 
 // 0x7ADF80: the 2D cross product of p - b and a - b (called, not inlined)

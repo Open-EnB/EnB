@@ -1,7 +1,7 @@
 // Earth & Beyond client (reconstruction): app\packets\pkgmresetmission.cpp. Notes at the end of the file.
 #include "pkgmresetmission.h"
 #include <stdio.h>
-
+#include "..\shared\auth_product.h"
 GMResetMissionPacketClass::GMResetMissionPacketClass(RawPacketClass *raw) :
 	Unknown0C(0),
 	Unknown20(false)

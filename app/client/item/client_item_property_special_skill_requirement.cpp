@@ -5,7 +5,7 @@
 #include "..\skillnam.h"
 #include "..\..\shared\auxdata\auxdata.h"
 #include "..\..\shared\auxdata\delta_item_array.h"
-
+#include "..\..\shared\auth_product.h"
 template<class C> inline C *Unknown_Find_Valid(DeltaCompoundClass *root, const NameClass &name) { C *t = Unknown_Find_Field<C>(root, name); if (t && t->Unknown70) return(t); return(NULL); }	// NAME 1: neutral (D10): as co.cpp's
 
 

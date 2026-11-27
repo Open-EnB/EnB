@@ -9,7 +9,7 @@
 #include "wwmath.h"
 #include <math.h>
 #include "..\shared\g_assert.h"
-
+#include "..\shared\auth_product.h"
 
 
 

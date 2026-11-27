@@ -76,7 +76,7 @@ static std::string Unknown_BE7D58("critical_hit_1.wav");	// 0xBE7D58 (initialise
 #include "verbmanager.h"
 #include "ui_line_display.h"
 #include "avatar.h"
-
+#include "..\shared\auth_product.h"
 
 
 

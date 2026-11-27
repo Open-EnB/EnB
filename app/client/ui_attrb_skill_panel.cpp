@@ -56,7 +56,7 @@ struct SkillLevelAvailabilityStruct  // NAME 1: neutral (D10)
 	int Unknown08;										// +0x08: the level the bits ask for
 	int Unknown0C;										// +0x0C: the upgrade's cost in skill points
 };
-
+#include "..\shared\auth_product.h"
 // The skill base's +0x50 (ui_attrb_skills.cpp's name), as far as this file calls it
 class SkillDataPeekClass  // NAME 1: neutral (D10)
 {

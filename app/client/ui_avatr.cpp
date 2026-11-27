@@ -24,7 +24,7 @@ class AABoxClass;
 #include "gd_robj.h"
 #include "unknown_675120.h"
 #include "unknown_671300.h"
-
+#include "..\shared\auth_product.h"
 
 
 

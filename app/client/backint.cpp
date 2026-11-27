@@ -6,7 +6,7 @@
 #include "..\..\ww3d2\nullrobj.h"
 #include "..\..\ww3d2\camera.h"
 #include "..\..\ww3d2\scene.h"
-
+#include "..\shared\auth_product.h"
 // 0x53AA30
 BackInterfaceClass::BackInterfaceClass(UIViewClass *view, SimpleSceneClass *scene) :
 	InterfaceClass(view, (int)scene),

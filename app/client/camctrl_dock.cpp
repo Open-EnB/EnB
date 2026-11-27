@@ -13,7 +13,7 @@
 #include "..\shared\g_assert.h"
 #include <string.h>
 #include <ctype.h>
-
+#include "..\shared\auth_product.h"
 #include "..\shared\unknown_4a1590.h"
 extern Random4Class Unknown_BDB1C0;				// NAME 1 [Unknown_BDB1C0]: 0xBDB1C0, the camera controllers' generator outside this file
 

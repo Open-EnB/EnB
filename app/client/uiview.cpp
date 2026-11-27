@@ -6,7 +6,7 @@
 #include "..\..\ww3d2\layer.h"
 #include "..\..\ww3d2\ww3d.h"
 #include "..\..\wwdebug\wwprofile.h"
-
+#include "..\shared\auth_product.h"
 // 0x65A6C0 (the destructor 0x65A760, deleting 0x65A730)
 UIViewClass::UIViewClass(ClientTaskClass *task, int arg) :
 	Unknown14(task),

@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x474080"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "EnvironmentMapManagerClass (NAME 3 by convention from env_map_manager.cpp; 0x24 bytes: the BaseGridTextures vector, an axis, envmaps.ini's INIClass), client 0x7602C0-0x7617C0 (__FILE__ 0xB9B1D4, asserts on lines 9, 42, 56-137): Load 0x760360 byte-exact; 0x760770 (the BACK-%i reflection blended into each base grid texture) functional NOT EXACT (D64) (STB)",
  "expected": {},
@@ -19,12 +17,14 @@
   "0x42E170",
   "0x42F250",
   "0x46BE90",
+  "0x47D010",
   "0x4B5740",
   "0x51A6F0",
   "0x67D360",
   "0x6BCF40",
   "0x6BCF70",
   "0x760360",
+  "0x760770",
   "0x761510",
   "0x761540",
   "0x7617A0",
@@ -52,6 +52,7 @@
   "0x42E170",
   "0x42F250",
   "0x46BE90",
+  "0x47D010",
   "0x4B5740",
   "0x67D360",
   "0x6BCF40",

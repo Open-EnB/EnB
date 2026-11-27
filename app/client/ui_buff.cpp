@@ -18,7 +18,7 @@
 #include "..\shared\auxdata\permstr.h"	// (its PermStringInitClass static: 0xBE5B64, initialised by 0x561D80)
 void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);	// 0x496AE0 (ro_funcs.cpp; as avatar.cpp declares it)
 #include "gd_buffgadg.h"		// (gd_buffgadg.cpp's gadget and buff values)
-
+#include "..\shared\auth_product.h"
 
 
 

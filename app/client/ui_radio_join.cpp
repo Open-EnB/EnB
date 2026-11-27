@@ -12,7 +12,7 @@
 #include "local_interface_sort.h"
 #include "..\packets\pkclientchat.h"
 #include "..\audio\soundlib.h"
-
+#include "..\shared\auth_product.h"
 extern FontManagerClass *Unknown_BE67C4;	// NAME 1: neutral (D10)
 extern const int Unknown_B08C98;			// 0xB08C98 (4)  // NAME 1: neutral (D10)
 extern const int Unknown_B08CA8;			// 0xB08CA8 (0x40)  // NAME 1: neutral (D10)

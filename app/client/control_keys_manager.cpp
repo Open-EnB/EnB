@@ -6,7 +6,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
+#include "..\shared\auth_product.h"
 #include "..\shared\unknown_8b4560.h"	// 0x8B44E0: _i64toa(value, buffer, 10)
 #include "..\input\inpdsp.h"	// 0x42A1A0 / 0x42A410: a key event read from and written to an ini entry
 

@@ -9,7 +9,7 @@
 #include "rendobj.h"
 #include "hanim.h"
 #include "..\..\wwlib\ref_ptr.h"
-
+#include "..\shared\auth_product.h"
 #include "fontmanager.h"	// FontSys, FontManagerClass (0xBE67C4) and fontdatabase.h's FontStringFilesClass (0xBE67BC)
 #include "unknown_675120.h"	// the gadgets (before ui_combobox.h: its text gadget is declared only with them)
 #include "gd_slider.h"

@@ -2,7 +2,7 @@
 #include "pkcreatecharacter.h"
 #include <stdio.h>
 #include <string.h>
-
+#include "..\shared\auth_product.h"
 CreateCharacterPacketClass::CreateCharacterPacketClass(RawPacketClass *raw) :
 	Unknown2D4(0),
 	Unknown2D8(0),

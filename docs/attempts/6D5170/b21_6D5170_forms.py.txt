@@ -1,0 +1,402 @@
+# ===== v_b1.py =====
+HYPOTHESIS = ('0x6D5170 b1: the +0x2B4 Width..Scale block as a sub-object view (edi = this + 0x2B4), the +0x430 / +0x4C5 '
+              'stores outside or inside its inline, with and without FB12\'s +0x254 Reset view (separate zero register)')
+FILE = 'app/client/fontsys.cpp'
+SYMBOL = 'FontSys::Unknown_6D5170'
+ADDRESS = 0x6D5170
+
+RES0 = ('\tUnknown430[0] = -320;\n'
+        '\tUnknown430[2] = 240;\n'
+        '\tUnknown430[1] = 320;\n'
+        '\tUnknown430[3] = -240;\n'
+        '\tUnknown4C5 = false;\n'
+        '\tWW3D::Get_Device_Resolution(Width, Height, Bits, Windowed);\n'
+        '\tUnknown2C4 = 0;\n'
+        '\tUnknown2C8 = 0;\n'
+        '\tScale = 1.0f;\n')
+assert RES0.count('\n') == 9
+
+# R: the +0x2B4 view
+R_OUT = ('struct R { int W, H, B; bool Win; int a, b; float s; void Init() { WW3D::Get_Device_Resolution(W, H, B, Win); a = 0; b = 0; s = 1.0f; } };')
+R_IN = ('struct R { int W, H, B; bool Win; int a, b; float s; void Init(int *u, bool *c) { u[0] = -320; u[2] = 240; u[1] = 320; u[3] = -240; *c = false; WW3D::Get_Device_Resolution(W, H, B, Win); a = 0; b = 0; s = 1.0f; } };')
+R_INR = ('struct R { int W, H, B; bool Win; int a, b; float s; void Init(int *u) { u[0] = -320; u[2] = 240; u[1] = 320; u[3] = -240; WW3D::Get_Device_Resolution(W, H, B, Win); a = 0; b = 0; s = 1.0f; } };')
+R_CALLSET = ('struct R { int W, H, B; bool Win; int a, b; float s; void Init() { WW3D::Get_Device_Resolution(W, H, B, Win); Set(); } void Set() { a = 0; b = 0; s = 1.0f; } };')
+
+OUT = ('\tUnknown430[0] = -320;\n'
+       '\tUnknown430[2] = 240;\n'
+       '\tUnknown430[1] = 320;\n'
+       '\tUnknown430[3] = -240;\n'
+       '\tUnknown4C5 = false;\n'
+       '\t' + R_OUT + '\n'
+       '\t((R *)&Width)->Init();\n'
+       '\n'
+       '\n')
+IN = ('\t' + R_IN + '\n'
+      '\t((R *)&Width)->Init(Unknown430, &Unknown4C5);\n' + '\n' * 7)
+INR = ('\t' + R_INR + '\n'
+       '\t((R *)&Width)->Init(Unknown430);\n'
+       '\tUnknown4C5 = false;\n' + '\n' * 6)
+INR2 = ('\tUnknown4C5 = false;\n'
+        '\t' + R_INR + '\n'
+        '\t((R *)&Width)->Init(Unknown430);\n' + '\n' * 6)
+CALLSET = ('\tUnknown430[0] = -320;\n'
+           '\tUnknown430[2] = 240;\n'
+           '\tUnknown430[1] = 320;\n'
+           '\tUnknown430[3] = -240;\n'
+           '\tUnknown4C5 = false;\n'
+           '\t' + R_CALLSET + '\n'
+           '\t((R *)&Width)->Init();\n'
+           '\n'
+           '\n')
+for x in (OUT, IN, INR, INR2, CALLSET):
+    assert x.count('\n') == 9, x
+
+T0 = ('\tUnknown26C = 0;\n'
+      '\tUnknown270 = 0;\n'
+      '\tUnknown274[0] = 0; Unknown274[1] = 0; Unknown274[2] = 0; Unknown274[3] = 0; Unknown274[4] = 0; Unknown274[5] = 0; Unknown274[6] = 0; Unknown274[7] = 0; Unknown274[8] = 0; Unknown274[9] = 0; Unknown274[10] = 0; Unknown274[11] = 0;\n'
+      '\tfor (i = 0; i < 4; i++) Unknown274[12 + i] = 0; Unknown254[0] = 0; Unknown254[1] = 0; Unknown254[2] = 0; Unknown254[3] = 0; Unknown254[4] = 0; Unknown254[5] = 0;\n')
+RESET = ('void Reset() { Unknown18 = 0; Unknown1C = 0; ' + ' '.join('Unknown20[%d] = 0;' % i for i in range(12)) +
+         ' for (int k = 0; k < 4; k++) Unknown20[12 + k] = 0; ' + ' '.join('Unknown00[%d] = 0;' % i for i in range(6)) + ' }')
+S254 = 'struct UnknownFontSys254Struct { int Unknown00[6]; int Unknown18; int Unknown1C; int Unknown20[16]; ' + RESET + ' };'
+T1 = ('\t' + S254 + '\n'
+      '\t((UnknownFontSys254Struct *)Unknown254)->Reset();\n'
+      '\n'
+      '\n')
+
+FORMS = {
+    'out': [(RES0, OUT)],
+    'in': [(RES0, IN)],
+    'inr': [(RES0, INR)],
+    'inr2': [(RES0, INR2)],
+    'callset': [(RES0, CALLSET)],
+    't': [(T0, T1)],
+    'out_t': [(RES0, OUT), (T0, T1)],
+    'in_t': [(RES0, IN), (T0, T1)],
+    'inr_t': [(RES0, INR), (T0, T1)],
+    'inr2_t': [(RES0, INR2), (T0, T1)],
+}
+
+# ===== v_b2.py =====
+HYPOTHESIS = ('0x6D5170 b2, on b1\'s inr (the +0x2B4 view Init(int *rect), 5 rows): where +0x4C5\'s clear goes (inside the '
+              'inline by reference / owner pointer / a FontSys setter) and the 0xFF-byte memset at +0x303 as a sub-object '
+              'view\'s Clear (edi = its this first)')
+FILE = 'app/client/fontsys.cpp'
+SYMBOL = 'FontSys::Unknown_6D5170'
+ADDRESS = 0x6D5170
+
+RES0 = ('\tUnknown430[0] = -320;\n'
+        '\tUnknown430[2] = 240;\n'
+        '\tUnknown430[1] = 320;\n'
+        '\tUnknown430[3] = -240;\n'
+        '\tUnknown4C5 = false;\n'
+        '\tWW3D::Get_Device_Resolution(Width, Height, Bits, Windowed);\n'
+        '\tUnknown2C4 = 0;\n'
+        '\tUnknown2C8 = 0;\n'
+        '\tScale = 1.0f;\n')
+
+TAIL = ' WW3D::Get_Device_Resolution(W, H, B, Win); a = 0; b = 0; s = 1.0f; } };'
+U = 'u[0] = -320; u[2] = 240; u[1] = 320; u[3] = -240;'
+
+
+def pad(*lines):
+    s = ''.join('\t' + l + '\n' for l in lines)
+    return s + '\n' * (9 - s.count('\n'))
+
+
+INR = pad('struct R { int W, H, B; bool Win; int a, b; float s; void Init(int *u) { ' + U + TAIL,
+          '((R *)&Width)->Init(Unknown430);',
+          'Unknown4C5 = false;')
+REF = pad('struct R { int W, H, B; bool Win; int a, b; float s; void Init(int *u, bool &c) { ' + U + ' c = false;' + TAIL,
+          '((R *)&Width)->Init(Unknown430, Unknown4C5);')
+OWN = pad('struct R { int W, H, B; bool Win; int a, b; float s; void Init(FontSys *f) { f->Unknown430[0] = -320; f->Unknown430[2] = 240; f->Unknown430[1] = 320; f->Unknown430[3] = -240; f->Unknown4C5 = false;' + TAIL,
+          '((R *)&Width)->Init(this);')
+OWNU = pad('struct R { int W, H, B; bool Win; int a, b; float s; void Init(FontSys *f, int *u) { ' + U + ' f->Unknown4C5 = false;' + TAIL,
+           '((R *)&Width)->Init(this, Unknown430);')
+# the rect through its own view (a setter that clears 4C5 as Unknown_Set_2FC does)
+RECT = pad('struct Q { int v[4]; void Set(bool &c) { v[0] = -320; v[2] = 240; v[1] = 320; v[3] = -240; c = false; } };',
+           'struct R { int W, H, B; bool Win; int a, b; float s; void Init(Q *q, bool &c) { q->Set(c);' + TAIL,
+           '((R *)&Width)->Init((Q *)Unknown430, Unknown4C5);')
+INR_V = pad('struct R { int W, H, B; bool Win; int a, b; float s; void Init(int *u, bool *c) { ' + U + ' *(volatile bool *)c = false;' + TAIL,
+            '((R *)&Width)->Init(Unknown430, &Unknown4C5);')
+for x in (INR, REF, OWN, OWNU, RECT, INR_V):
+    assert x.count('\n') == 9, x
+
+M0 = '\tmemset(Unknown303, 0, sizeof(Unknown303));\n'
+M_VIEW = '\tstruct C { char c[0xFF]; void Clear() { memset(c, 0, sizeof(c)); } }; ((C *)Unknown303)->Clear();\n'
+M_VIEW2 = '\tstruct C { char c[0xFF]; void Clear() { memset(this, 0, sizeof(*this)); } }; ((C *)Unknown303)->Clear();\n'
+M_PTR = '\t{ char *p = Unknown303; memset(p, 0, 0xFF); }\n'
+M_LOOP = '\tfor (i = 0; i < 0xFF; i++) Unknown303[i] = 0;\n'
+
+FORMS = {
+    'inr_mview': [(RES0, INR), (M0, M_VIEW)],
+    'inr_mview2': [(RES0, INR), (M0, M_VIEW2)],
+    'inr_mptr': [(RES0, INR), (M0, M_PTR)],
+    'inr_mloop': [(RES0, INR), (M0, M_LOOP)],
+    'ref': [(RES0, REF)],
+    'own': [(RES0, OWN)],
+    'ownu': [(RES0, OWNU)],
+    'rect': [(RES0, RECT)],
+    'inr_v': [(RES0, INR_V)],
+    'own_mview': [(RES0, OWN), (M0, M_VIEW)],
+}
+
+# ===== v_b3.py =====
+HYPOTHESIS = ('0x6D5170 b3, on b2\'s inr_mloop (3 rows: only +0x4C5\'s clear lands after the resolution call): the clear\'s '
+              'place and path inside the +0x2B4 view\'s inline (first / parameter order / rect in the caller), or the view as a '
+              'local pointer instead of an inline')
+FILE = 'app/client/fontsys.cpp'
+SYMBOL = 'FontSys::Unknown_6D5170'
+ADDRESS = 0x6D5170
+
+RES0 = ('\tUnknown430[0] = -320;\n'
+        '\tUnknown430[2] = 240;\n'
+        '\tUnknown430[1] = 320;\n'
+        '\tUnknown430[3] = -240;\n'
+        '\tUnknown4C5 = false;\n'
+        '\tWW3D::Get_Device_Resolution(Width, Height, Bits, Windowed);\n'
+        '\tUnknown2C4 = 0;\n'
+        '\tUnknown2C8 = 0;\n'
+        '\tScale = 1.0f;\n')
+M0 = '\tmemset(Unknown303, 0, sizeof(Unknown303));\n'
+M_LOOP = '\tfor (i = 0; i < 0xFF; i++) Unknown303[i] = 0;\n'
+
+TAIL = ' WW3D::Get_Device_Resolution(W, H, B, Win); a = 0; b = 0; s = 1.0f; } };'
+U = 'u[0] = -320; u[2] = 240; u[1] = 320; u[3] = -240;'
+S = 'struct R { int W, H, B; bool Win; int a, b; float s; '
+CALLER_U = ['Unknown430[0] = -320;', 'Unknown430[2] = 240;', 'Unknown430[1] = 320;', 'Unknown430[3] = -240;']
+
+
+def pad(*lines):
+    s = ''.join('\t' + l + '\n' for l in lines)
+    assert s.count('\n') <= 9, s
+    return s + '\n' * (9 - s.count('\n'))
+
+
+V = {
+    'cfirst': pad(S + 'void Init(int *u, bool &c) { c = false; ' + U + TAIL, '((R *)&Width)->Init(Unknown430, Unknown4C5);'),
+    'swap': pad(S + 'void Init(bool &c, int *u) { ' + U + ' c = false;' + TAIL, '((R *)&Width)->Init(Unknown4C5, Unknown430);'),
+    'rect_out_c': pad(*(CALLER_U + [S + 'void Init(bool &c) { c = false;' + TAIL, '((R *)&Width)->Init(Unknown4C5);'])),
+    'local': pad(*(CALLER_U + ['Unknown4C5 = false;', '{ struct R { int W, H, B; bool Win; int a, b; float s; }; R *r = (R *)&Width;',
+                               'WW3D::Get_Device_Resolution(r->W, r->H, r->B, r->Win); r->a = 0; r->b = 0; r->s = 1.0f; }'])),
+    'local_ref': pad(*(CALLER_U + ['Unknown4C5 = false;', '{ struct R { int W, H, B; bool Win; int a, b; float s; }; R &r = *(R *)&Width;',
+                                   'WW3D::Get_Device_Resolution(r.W, r.H, r.B, r.Win); r.a = 0; r.b = 0; r.s = 1.0f; }'])),
+    'inr_cptr2': pad(S + 'void Init(int *u, bool *c) { ' + U + ' c[0] = false;' + TAIL, '((R *)&Width)->Init(Unknown430, &Unknown4C5);'),
+    'inr_cin_u': pad(S + 'void Init(int *u) { ' + U + ' ((bool *)u)[0x95] = false;' + TAIL, '((R *)&Width)->Init(Unknown430);'),
+}
+
+FORMS = {k: [(RES0, v), (M0, M_LOOP)] for k, v in V.items()}
+
+# ===== v_b4.py =====
+HYPOTHESIS = ('0x6D5170 b4, on b3\'s inr_cin_u (2 rows: only the loop\'s separate zero register, xor ecx, lands one store '
+              'late): the +0x254 block as FB12\'s Reset view, its loop counter / block scope, and the +0x430 / +0x4C5 pair '
+              'through one sub-object base (a view at +0x430 holding both)')
+FILE = 'app/client/fontsys.cpp'
+SYMBOL = 'FontSys::Unknown_6D5170'
+ADDRESS = 0x6D5170
+
+RES0 = ('\tUnknown430[0] = -320;\n'
+        '\tUnknown430[2] = 240;\n'
+        '\tUnknown430[1] = 320;\n'
+        '\tUnknown430[3] = -240;\n'
+        '\tUnknown4C5 = false;\n'
+        '\tWW3D::Get_Device_Resolution(Width, Height, Bits, Windowed);\n'
+        '\tUnknown2C4 = 0;\n'
+        '\tUnknown2C8 = 0;\n'
+        '\tScale = 1.0f;\n')
+M0 = '\tmemset(Unknown303, 0, sizeof(Unknown303));\n'
+M_LOOP = '\tfor (i = 0; i < 0xFF; i++) Unknown303[i] = 0;\n'
+
+TAIL = ' WW3D::Get_Device_Resolution(W, H, B, Win); a = 0; b = 0; s = 1.0f; } };'
+U = 'u[0] = -320; u[2] = 240; u[1] = 320; u[3] = -240;'
+S = 'struct R { int W, H, B; bool Win; int a, b; float s; '
+
+
+def pad(*lines):
+    s = ''.join('\t' + l + '\n' for l in lines)
+    assert s.count('\n') <= 9, s
+    return s + '\n' * (9 - s.count('\n'))
+
+
+CINU = pad(S + 'void Init(int *u) { ' + U + ' ((bool *)u)[0x95] = false;' + TAIL, '((R *)&Width)->Init(Unknown430);')
+# the +0x430 sub-object (rect + flag at +0x95) as its own struct, R's inline taking it
+QS = 'struct Q { int v[4]; char pad[0x85]; bool flag; void Set() { v[0] = -320; v[2] = 240; v[1] = 320; v[3] = -240; flag = false; } };'
+Q_IN = pad(QS, S + 'void Init(Q *q) { q->Set();' + TAIL, '((R *)&Width)->Init((Q *)Unknown430);')
+Q_IN2 = pad('struct Q { int v[4]; char pad[0x85]; bool flag; };',
+            S + 'void Init(Q *q) { q->v[0] = -320; q->v[2] = 240; q->v[1] = 320; q->v[3] = -240; q->flag = false;' + TAIL,
+            '((R *)&Width)->Init((Q *)Unknown430);')
+Q_OUT = pad(QS, '((Q *)Unknown430)->Set();', S + 'void Init() {' + TAIL, '((R *)&Width)->Init();')
+BASE = [(RES0, CINU), (M0, M_LOOP)]
+
+T0 = ('\tUnknown26C = 0;\n'
+      '\tUnknown270 = 0;\n'
+      '\tUnknown274[0] = 0; Unknown274[1] = 0; Unknown274[2] = 0; Unknown274[3] = 0; Unknown274[4] = 0; Unknown274[5] = 0; Unknown274[6] = 0; Unknown274[7] = 0; Unknown274[8] = 0; Unknown274[9] = 0; Unknown274[10] = 0; Unknown274[11] = 0;\n'
+      '\tfor (i = 0; i < 4; i++) Unknown274[12 + i] = 0; Unknown254[0] = 0; Unknown254[1] = 0; Unknown254[2] = 0; Unknown254[3] = 0; Unknown254[4] = 0; Unknown254[5] = 0;\n')
+RESET = ('void Reset() { Unknown18 = 0; Unknown1C = 0; ' + ' '.join('Unknown20[%d] = 0;' % i for i in range(12)) +
+         ' for (int k = 0; k < 4; k++) Unknown20[12 + k] = 0; ' + ' '.join('Unknown00[%d] = 0;' % i for i in range(6)) + ' }')
+S254 = 'struct UnknownFontSys254Struct { int Unknown00[6]; int Unknown18; int Unknown1C; int Unknown20[16]; ' + RESET + ' };'
+T_FB12 = '\t' + S254 + '\n\t((UnknownFontSys254Struct *)Unknown254)->Reset();\n\n\n'
+T_K = T0.replace('for (i = 0; i < 4; i++) Unknown274[12 + i]', 'for (int k = 0; k < 4; k++) Unknown274[12 + k]')
+T_BLK = '\t{\n' + T0.replace('\tUnknown26C = 0;\n\tUnknown270 = 0;\n', '\tUnknown26C = 0; Unknown270 = 0;\n').replace(
+    'for (i = 0; i < 4; i++) Unknown274[12 + i]', 'for (int k = 0; k < 4; k++) Unknown274[12 + k]').rstrip('\n') + ' }\n'
+assert T_BLK.count('\n') == 4, T_BLK
+T_P = ('\t{ int *p = Unknown254; p[6] = 0; p[7] = 0; ' + ' '.join('p[%d] = 0;' % (8 + i) for i in range(12)) +
+       ' for (int k = 0; k < 4; k++) p[20 + k] = 0; ' + ' '.join('p[%d] = 0;' % i for i in range(6)) + ' }\n\n\n\n')
+T_I0 = T0.replace('for (i = 0; i < 4; i++) Unknown274[12 + i] = 0;', 'Unknown274[12] = 0; Unknown274[13] = 0; Unknown274[14] = 0; Unknown274[15] = 0;')
+
+FORMS = {
+    'q_in': [(RES0, Q_IN), (M0, M_LOOP)],
+    'q_in2': [(RES0, Q_IN2), (M0, M_LOOP)],
+    'q_out': [(RES0, Q_OUT), (M0, M_LOOP)],
+    't_fb12': BASE + [(T0, T_FB12)],
+    't_k': BASE + [(T0, T_K)],
+    't_blk': BASE + [(T0, T_BLK)],
+    't_p': BASE + [(T0, T_P)],
+    't_i0': BASE + [(T0, T_I0)],
+}
+
+# ===== v_b5.py =====
+HYPOTHESIS = ('0x6D5170 b5, on b4\'s q_out (2 rows: the timer loop\'s xor ecx one store late): FB12\'s +0x254 Reset view at '
+              'file scope (b4\'s local copy stayed a call: a local class\'s member with a loop is not inlined), and the '
+              '+0x2B4 / +0x430 views at file scope')
+FILE = 'app/client/fontsys.cpp'
+SYMBOL = 'FontSys::Unknown_6D5170'
+ADDRESS = 0x6D5170
+
+RES0 = ('\tUnknown430[0] = -320;\n'
+        '\tUnknown430[2] = 240;\n'
+        '\tUnknown430[1] = 320;\n'
+        '\tUnknown430[3] = -240;\n'
+        '\tUnknown4C5 = false;\n'
+        '\tWW3D::Get_Device_Resolution(Width, Height, Bits, Windowed);\n'
+        '\tUnknown2C4 = 0;\n'
+        '\tUnknown2C8 = 0;\n'
+        '\tScale = 1.0f;\n')
+M0 = '\tmemset(Unknown303, 0, sizeof(Unknown303));\n'
+M_LOOP = '\tfor (i = 0; i < 0xFF; i++) Unknown303[i] = 0;\n'
+NE = ('// NOT EXACT: shape (attempts.csv): the client reaches Width..Scale (+0x2B4..+0x2CC) through one pointer, as a sub-object\'s\n'
+      '// inline would, and stores +0x430 / +0x4C5 after the resolution call\'s arguments; the colours from TXT1\n')
+
+TAIL = ' WW3D::Get_Device_Resolution(W, H, B, Win); a = 0; b = 0; s = 1.0f; }'
+RS = 'struct R { int W, H, B; bool Win; int a, b; float s; void Init() {' + TAIL + ' };'
+QS = 'struct Q { int v[4]; char pad[0x85]; bool flag; void Set() { v[0] = -320; v[2] = 240; v[1] = 320; v[3] = -240; flag = false; } };'
+
+
+def pad(*lines):
+    s = ''.join('\t' + l + '\n' for l in lines)
+    assert s.count('\n') <= 9, s
+    return s + '\n' * (9 - s.count('\n'))
+
+
+Q_OUT = pad(QS, '((Q *)Unknown430)->Set();', RS, '((R *)&Width)->Init();')
+Q_OUT_G = pad('((Q *)Unknown430)->Set();', '((R *)&Width)->Init();')
+
+T0 = ('\tUnknown26C = 0;\n'
+      '\tUnknown270 = 0;\n'
+      '\tUnknown274[0] = 0; Unknown274[1] = 0; Unknown274[2] = 0; Unknown274[3] = 0; Unknown274[4] = 0; Unknown274[5] = 0; Unknown274[6] = 0; Unknown274[7] = 0; Unknown274[8] = 0; Unknown274[9] = 0; Unknown274[10] = 0; Unknown274[11] = 0;\n'
+      '\tfor (i = 0; i < 4; i++) Unknown274[12 + i] = 0; Unknown254[0] = 0; Unknown254[1] = 0; Unknown254[2] = 0; Unknown254[3] = 0; Unknown254[4] = 0; Unknown254[5] = 0;\n')
+RESET = ('void Reset() { Unknown18 = 0; Unknown1C = 0; ' + ' '.join('Unknown20[%d] = 0;' % i for i in range(12)) +
+         ' for (int k = 0; k < 4; k++) Unknown20[12 + k] = 0; ' + ' '.join('Unknown00[%d] = 0;' % i for i in range(6)) + ' }')
+S254 = 'struct UnknownFontSys254Struct { int Unknown00[6]; int Unknown18; int Unknown1C; int Unknown20[16]; ' + RESET + ' };'
+T_FB12 = '\t((UnknownFontSys254Struct *)Unknown254)->Reset();\n\n\n\n'
+
+FORMS = {
+    'g254': [(NE, S254 + '\n\n'), (RES0, Q_OUT), (M0, M_LOOP), (T0, T_FB12)],
+    'g254_rq': [(NE, S254 + '\n' + RS + ' ' + QS + '\n'), (RES0, Q_OUT_G), (M0, M_LOOP), (T0, T_FB12)],
+    'grq': [(NE, RS + ' ' + QS + '\n\n'), (RES0, Q_OUT_G), (M0, M_LOOP)],
+}
+
+# ===== v_b6.py =====
+HYPOTHESIS = ('0x6D5170 b6, on b5\'s grq (file-scope +0x2B4 / +0x430 views, 2 rows: the timer loop\'s xor ecx one store late; '
+              'the +0x254 view through a pointer hoists the Offset loads, so the block stays direct stores): the 4-loop\'s '
+              'counter, index and base, the block as a file-static helper over the FontSys pointer')
+FILE = 'app/client/fontsys.cpp'
+SYMBOL = 'FontSys::Unknown_6D5170'
+ADDRESS = 0x6D5170
+
+RES0 = ('\tUnknown430[0] = -320;\n'
+        '\tUnknown430[2] = 240;\n'
+        '\tUnknown430[1] = 320;\n'
+        '\tUnknown430[3] = -240;\n'
+        '\tUnknown4C5 = false;\n'
+        '\tWW3D::Get_Device_Resolution(Width, Height, Bits, Windowed);\n'
+        '\tUnknown2C4 = 0;\n'
+        '\tUnknown2C8 = 0;\n'
+        '\tScale = 1.0f;\n')
+M0 = '\tmemset(Unknown303, 0, sizeof(Unknown303));\n'
+M_LOOP = '\tfor (i = 0; i < 0xFF; i++) Unknown303[i] = 0;\n'
+NE = ('// NOT EXACT: shape (attempts.csv): the client reaches Width..Scale (+0x2B4..+0x2CC) through one pointer, as a sub-object\'s\n'
+      '// inline would, and stores +0x430 / +0x4C5 after the resolution call\'s arguments; the colours from TXT1\n')
+TAIL = ' WW3D::Get_Device_Resolution(W, H, B, Win); a = 0; b = 0; s = 1.0f; }'
+RS = 'struct R { int W, H, B; bool Win; int a, b; float s; void Init() {' + TAIL + ' };'
+QS = 'struct Q { int v[4]; char pad[0x85]; bool flag; void Set() { v[0] = -320; v[2] = 240; v[1] = 320; v[3] = -240; flag = false; } };'
+Q_OUT_G = '\t((Q *)Unknown430)->Set();\n\t((R *)&Width)->Init();\n' + '\n' * 7
+BASE = [(NE, RS + ' ' + QS + '\n\n'), (RES0, Q_OUT_G), (M0, M_LOOP)]
+BASE_NE1 = [(RES0, Q_OUT_G), (M0, M_LOOP)]
+
+LOOP0 = 'for (i = 0; i < 4; i++) Unknown274[12 + i] = 0;'
+T0 = ('\tUnknown26C = 0;\n'
+      '\tUnknown270 = 0;\n'
+      '\tUnknown274[0] = 0; Unknown274[1] = 0; Unknown274[2] = 0; Unknown274[3] = 0; Unknown274[4] = 0; Unknown274[5] = 0; Unknown274[6] = 0; Unknown274[7] = 0; Unknown274[8] = 0; Unknown274[9] = 0; Unknown274[10] = 0; Unknown274[11] = 0;\n'
+      '\t' + LOOP0 + ' Unknown254[0] = 0; Unknown254[1] = 0; Unknown254[2] = 0; Unknown254[3] = 0; Unknown254[4] = 0; Unknown254[5] = 0;\n')
+BODY = ('f->Unknown26C = 0; f->Unknown270 = 0; ' + ' '.join('f->Unknown274[%d] = 0;' % i for i in range(12)) +
+        ' for (int k = 0; k < 4; k++) f->Unknown274[12 + k] = 0; ' + ' '.join('f->Unknown254[%d] = 0;' % i for i in range(6)))
+HELP = 'static inline void Reset_254(FontSys *f) { ' + BODY + ' }'
+T_HELP = '\tReset_254(this);\n\n\n\n'
+
+
+def loop(new):
+    return BASE + [(LOOP0, new)]
+
+
+FORMS = {
+    'j': loop('for (int j = 0; j < 4; j++) Unknown274[12 + j] = 0;'),
+    'idx': loop('for (i = 0; i < 4; i++) Unknown274[i + 12] = 0;'),
+    'ptr': loop('{ int *t = &Unknown274[12]; for (i = 0; i < 4; i++) t[i] = 0; }'),
+    'ptr2': loop('for (i = 0; i < 4; i++) (&Unknown274[12])[i] = 0;'),
+    'down': loop('for (i = 12; i < 16; i++) Unknown274[i] = 0;'),
+    'help': [(NE, RS + ' ' + QS + '\n' + HELP + '\n'), (RES0, Q_OUT_G), (M0, M_LOOP), (T0, T_HELP)],
+    'while': loop('i = 0; do { Unknown274[12 + i] = 0; } while (++i < 4);'),
+}
+
+# ===== v_b7.py =====
+HYPOTHESIS = ('0x6D5170 b7, on b5\'s grq (2 rows: the separate zero register xor ecx one store late): the +0x2A4..+0x2B0 '
+              'four are floats stored 0.0f (VC6 keeps an int 0 register and a float 0 apart), explicit or in the loop; '
+              'also the other zeroed words as floats')
+FILE = 'app/client/fontsys.cpp'
+SYMBOL = 'FontSys::Unknown_6D5170'
+ADDRESS = 0x6D5170
+
+RES0 = ('\tUnknown430[0] = -320;\n'
+        '\tUnknown430[2] = 240;\n'
+        '\tUnknown430[1] = 320;\n'
+        '\tUnknown430[3] = -240;\n'
+        '\tUnknown4C5 = false;\n'
+        '\tWW3D::Get_Device_Resolution(Width, Height, Bits, Windowed);\n'
+        '\tUnknown2C4 = 0;\n'
+        '\tUnknown2C8 = 0;\n'
+        '\tScale = 1.0f;\n')
+M0 = '\tmemset(Unknown303, 0, sizeof(Unknown303));\n'
+M_LOOP = '\tfor (i = 0; i < 0xFF; i++) Unknown303[i] = 0;\n'
+NE = ('// NOT EXACT: shape (attempts.csv): the client reaches Width..Scale (+0x2B4..+0x2CC) through one pointer, as a sub-object\'s\n'
+      '// inline would, and stores +0x430 / +0x4C5 after the resolution call\'s arguments; the colours from TXT1\n')
+TAIL = ' WW3D::Get_Device_Resolution(W, H, B, Win); a = 0; b = 0; s = 1.0f; }'
+RS = 'struct R { int W, H, B; bool Win; int a, b; float s; void Init() {' + TAIL + ' };'
+QS = 'struct Q { int v[4]; char pad[0x85]; bool flag; void Set() { v[0] = -320; v[2] = 240; v[1] = 320; v[3] = -240; flag = false; } };'
+Q_OUT_G = '\t((Q *)Unknown430)->Set();\n\t((R *)&Width)->Init();\n' + '\n' * 7
+BASE = [(NE, RS + ' ' + QS + '\n\n'), (RES0, Q_OUT_G), (M0, M_LOOP)]
+
+LOOP0 = 'for (i = 0; i < 4; i++) Unknown274[12 + i] = 0;'
+F = '((float *)Unknown274)'
+
+
+def loop(new):
+    return BASE + [(LOOP0, new)]
+
+
+FORMS = {
+    'floop': loop('for (i = 0; i < 4; i++) %s[12 + i] = 0.0f;' % F),
+    'fexpl': loop(' '.join('%s[%d] = 0.0f;' % (F, 12 + i) for i in range(4))),
+    'fexpl_int0': loop(' '.join('%s[%d] = 0;' % (F, 12 + i) for i in range(4))),
+    'dloop': loop('for (i = 0; i < 4; i++) %s[12 + i] = 0.0;' % F),
+}
+

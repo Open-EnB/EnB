@@ -4,7 +4,7 @@
 #include "client.h"
 #include "co.h"
 #include "..\shared\g_assert.h"
-
+#include "..\shared\auth_product.h"
 // 0x79BB80
 ChaseCameraModuleClass::ChaseCameraModuleClass(SClient *client) :
 	CameraModuleClass(client),

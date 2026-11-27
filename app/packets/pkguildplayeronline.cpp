@@ -1,7 +1,7 @@
 // Earth & Beyond client (reconstruction): app\packets\pkguildplayeronline.cpp. Notes at the end of the file.
 #include "pkguildplayeronline.h"
 #include <stdio.h>
-
+#include "..\shared\auth_product.h"
 GuildPlayerOnlinePacketClass::GuildPlayerOnlinePacketClass(__int64 player_id, const char *player_name, __int64 account_id) :
 	PlayerID(player_id),
 	PlayerName(player_name),

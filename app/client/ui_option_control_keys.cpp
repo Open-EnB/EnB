@@ -14,7 +14,7 @@
 #include "..\input\inpkeys.h"
 #include "..\audio\soundlib.h"
 #include "..\shared\g_assert.h"
-
+#include "..\shared\auth_product.h"
 extern FontManagerClass *Unknown_BE67C4;	// NAME 1: neutral (D10)
 
 #include "gd_key_press.h"

@@ -19,7 +19,7 @@
 #include "..\shared\auxdata\auxdata.h"
 #include "ui_mfd.h"
 #include "ui_mfd_extended_context.h"
-
+#include "..\shared\auth_product.h"
 int Unknown_496E90(SphereClass *sphere, RenderObjClass *robj);	// 0x496E90 (ro_funcs.cpp: the bounding sphere grown by each particle emitter's)  // NAME 1: neutral (D10)
 
 #include "..\shared\robj2texture.h"

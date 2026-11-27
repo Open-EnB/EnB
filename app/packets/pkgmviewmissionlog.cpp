@@ -1,7 +1,7 @@
 // Earth & Beyond client (reconstruction): app\packets\pkgmviewmissionlog.cpp. Notes at the end of the file.
 #include "pkgmviewmissionlog.h"
 #include <stdio.h>
-
+#include "..\shared\auth_product.h"
 GMViewMissionLogPacketClass::GMViewMissionLogPacketClass(RawPacketClass *raw) :
 	Unknown0C(0)
 {

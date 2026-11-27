@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x436420"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "px.cpp, client 0x44B760-0x44D740 (its __FILE__; FAIL_IFs lines 180-564): PxEnd, PxBox (vtable 0xAE7A3C) and PxList: Insert 0x44BFC0, Remove 0x44C2E0, Set_Corners 0x44C900 (NOT EXACT), the filter setters, Dump 0x44D210",
  "expected": {},
@@ -37,6 +35,7 @@
   "0x44D210",
   "0x44D320",
   "0x44D370",
+  "0x44D580",
   "0x44D5D0",
   "0x44D5F0",
   "0x44D620",

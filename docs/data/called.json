@@ -81,6 +81,12 @@
 "??0GridCullSystemClass@@QAE@XZ": [
 "0x8D6FA0"
 ],
+"??0GridWSClassicEnvironmentMapperClass@@QAE@MIIIW4AxisType@GridWSEnvMapperClass@@I@Z": [
+"0x939EE0"
+],
+"??0GridWSEnvironmentMapperClass@@QAE@MIIIW4AxisType@GridWSEnvMapperClass@@I@Z": [
+"0x93A890"
+],
 "??0HAnimComboClass@@QAE@H@Z": [
 "0x931660"
 ],
@@ -663,11 +669,17 @@
 "?Copy@SurfaceClass@@QAEXIIIIIIPBV1@@Z": [
 "0x94DD30"
 ],
+"?Copy@SurfaceClass@@QAEXPBE@Z": [
+"0x94D910"
+],
 "?Cord_SHA@@YA_NPBXHPAI@Z": [
 "0x8B4A90"
 ],
 "?CreateBrowser@DX8WebBrowser@@SAXPBD0HHHHHJPAUIDispatch@@0@Z": [
 "0x9205C0"
+],
+"?CreateCopy@SurfaceClass@@QAEPAEPAH00_N@Z": [
+"0x94DBB0"
 ],
 "?Create_3D_Sound@WWAudioClass@@QAEPAVSound3DClass@@PBDH@Z": [
 "0x9F0350"
@@ -912,6 +924,9 @@
 "?Get_List_Index@INIClass@@QAEHPBD0HQAPAD@Z": [
 "0x9CB2E0"
 ],
+"?Get_Material@MeshMatDescClass@@QBEPAVVertexMaterialClass@@HH@Z": [
+"0x946F80"
+],
 "?Get_Model@MeshClass@@QAEPAVMeshModelClass@@XZ": [
 "0x93EDB0"
 ],
@@ -953,6 +968,9 @@
 ],
 "?Get_Shader@LineGroupClass@@QAE?AVShaderClass@@XZ": [
 "0x97BAC0"
+],
+"?Get_Shader@MeshMatDescClass@@QBE?AVShaderClass@@HH@Z": [
+"0x946FD0"
 ],
 "?Get_Shader@PointGroupClass@@QAE?AVShaderClass@@XZ": [
 "0x954890"
@@ -1761,6 +1779,9 @@
 "?Stop_Root_Profile@WWProfileManager@@SAXXZ": [
 "0x9EAAD0"
 ],
+"?Stretch_Copy@SurfaceClass@@QAEXIIIIIIIIPBV1@@Z": [
+"0x94DEC0"
+],
 "?String@CRC@@SAKPBDK@Z": [
 "0x9D4840"
 ],
@@ -1832,6 +1853,9 @@
 ],
 "?YFlip@Targa@@QAEXXZ": [
 "0x9D33D0"
+],
+"?_Create_DX8_Texture@DX8Wrapper@@SAPAUIDirect3DTexture8@@PAUIDirect3DSurface8@@W4MipCountType@@@Z": [
+"0x925CC0"
 ],
 "?_Getfacet@locale@std@@QBEPBVfacet@12@I_N@Z": [
 "0xA1A3E3"
@@ -1970,6 +1994,9 @@
 ],
 "?strtok_r@@YAPADPADPBDPAPAD@Z": [
 "0x9DEBF0"
+],
+"?strtrim@@YAPADPAD@Z": [
+"0x9DB030"
 ],
 "?truncate@Wstring@@QAEDK@Z": [
 "0x8B7AC0"
@@ -2270,6 +2297,9 @@
 ],
 "_isgraph": [
 "0xA26404"
+],
+"_isprint": [
+"0xA263D6"
 ],
 "_ispunct": [
 "0xA26380"
@@ -4284,6 +4314,9 @@
 ],
 "data:__real@4@c002b000000000000000": [
 "0xB04748"
+],
+"data:__real@4@c002c000000000000000": [
+"0xAFFE60"
 ],
 "data:__real@4@c006e400000000000000": [
 "0xB0709C"

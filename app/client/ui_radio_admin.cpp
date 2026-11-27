@@ -15,7 +15,7 @@
 #include "local_interface_sort.h"
 #include "..\packets\pkclientchat.h"
 #include "..\audio\soundlib.h"
-
+#include "..\shared\auth_product.h"
 extern FontManagerClass *Unknown_BE67C4;	// NAME 1: neutral (D10)
 void Unknown_42ECF0(float *x, float *y);	// 0x42ECF0 (the pointer's position)  // NAME 1 [x, y]: neutral
 

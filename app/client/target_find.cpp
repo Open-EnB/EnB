@@ -9,7 +9,7 @@
 #include "..\shared\auxdata\auxdata.h"
 #include "aux_group.h"
 #include <algorithm>
-
+#include "..\shared\auth_product.h"
 #include "distance_calc_client.h"	// 0x7E6060 / 0x7E6130
 bool Unknown_70B3D0(ClientObjectClass *object);								// 0x70B3D0 (co_player_relationship.cpp)
 

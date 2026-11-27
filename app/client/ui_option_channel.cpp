@@ -13,7 +13,7 @@
 #include "local_interface_sort.h"
 #include "..\packets\pkclientchat.h"
 #include "..\audio\soundlib.h"
-
+#include "..\shared\auth_product.h"
 // The chat channels' names (.data 0xBA8C20-0xBA8C50, also read by ui_chat_panel.cpp's initialiser 0x568700)
 extern char *Unknown_BA8C20;	// NAME 1: neutral (D10): 'General'
 extern char *Unknown_BA8C24;	// NAME 1: neutral (D10): 'Out of Context'

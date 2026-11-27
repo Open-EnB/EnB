@@ -19,7 +19,7 @@
 #include "..\..\ww3d2\ww3d.h"
 #include "..\shared\g_assert.h"
 #include "..\shared\message.h"
-
+#include "..\shared\auth_product.h"
 void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);	// 0x496AE0 (ro_funcs.cpp, cdecl)  // NAME 1 [robj, make_geometry_unique]: as eff_o.cpp's
 bool Unknown_496110(RenderObjClass *robj, float a, float b, float c);	// 0x496110 (ro_funcs.cpp, cdecl): a model's highlight  // NAME 1 [robj, a, b, c]: neutral
 RefCountPtr<FontSys> Unknown_589CA0(const RefCountPtr<RenderObjClass> &robj);	// 0x589CA0 (unknown_msgbox.cpp: the text of an element)

@@ -2,7 +2,7 @@
 #include "pkunknown_85d1a0.h"
 #include <stdio.h>
 #include <string.h>
-
+#include "..\shared\auth_product.h"
 Packet_0049Class::Packet_0049Class(__int64 unknown10, int unknown18, const char *unknown1c, __int64 unknown60) :
 	Unknown10(unknown10),
 	Unknown18(unknown18),

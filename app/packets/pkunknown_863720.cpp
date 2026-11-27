@@ -3,7 +3,7 @@
 #include "nstrdup.h"
 #include <stdio.h>
 #include <string.h>
-
+#include "..\shared\auth_product.h"
 Packet_00E6Class::Packet_00E6Class(__int64 unknown18, const char *string, __int64 unknown28, int unknown30, PacketClass *packet) :
 	Data(NULL),
 	DataSize(0),

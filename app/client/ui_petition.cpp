@@ -8,7 +8,7 @@
 #include "client.h"
 #include "unknown_66b770.h"
 #include "..\audio\soundlib.h"
-
+#include "..\shared\auth_product.h"
 bool Unknown_496110(RenderObjClass *robj, float a, float b, float c);	// 0x496110 (ro_funcs.cpp): a model's highlight  // NAME 1 [robj, a, b, c]: as ui_group.h's
 
 // The buttons' colours (initialisers 0x5D3320 / 0x5D3350 / 0x5D3380)

@@ -7,7 +7,7 @@
 #include "navigation_data.h"
 #include "mempool.h"
 #include "..\shared\g_assert.h"
-
+#include "..\shared\auth_product.h"
 #include "..\common\distance_calc.h"	// Unknown_832010 0x832010: bit 0 within radius1, bit 1 within radius2
 
 // One link of a node of the search

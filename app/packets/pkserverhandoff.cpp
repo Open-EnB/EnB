@@ -1,7 +1,7 @@
 // Earth & Beyond client (reconstruction): app\packets\pkserverhandoff.cpp. Notes at the end of the file.
 #include "pkserverhandoff.h"
 #include <stdio.h>
-
+#include "..\shared\auth_product.h"
 ServerHandoffPacketClass::ServerHandoffPacketClass(const TicketClass &ticket, const std::string &source_sector,
 	const std::string &source_system, const std::string &name, const std::string &system) :
 	Ticket(ticket),

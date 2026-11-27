@@ -13,7 +13,7 @@
 #include "ui_faction.h"
 #include "ui_missn.h"
 #include "ui_cinfo.h"
-
+#include "..\shared\auth_product.h"
 extern FontManagerClass *Unknown_BE67C4;			// NAME 1 [Unknown_BE67C4]: 0xBE67C4
 
 // What InterfaceClass's +0x40 points to, as far as this file calls it (as ui_avatar_cust.cpp declares it)

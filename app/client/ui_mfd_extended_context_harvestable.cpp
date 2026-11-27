@@ -10,7 +10,7 @@
 #include "..\shared\auxdata\auxdata.h"
 #include "..\shared\auxdata\delta_item_array.h"
 #include "ui_mfd_extended_context_harvestable.h"
-
+#include "..\shared\auth_product.h"
 template<class C> inline C *Unknown_Find_Valid(DeltaCompoundClass *root, const NameClass &name) { C *t = Unknown_Find_Field<C>(root, name); if (t == NULL || t->Unknown70 == 0) return(NULL); return(t); }	// (cameraeffects.cpp's)  // NAME 1: neutral (D10)
 class SkillNamesDatabase { public: static int Unknown_818520(const char *name); };	// 0x818520 (skillnam.cpp's: a skill's index by its name)  // NAME 1: neutral (D10)
 

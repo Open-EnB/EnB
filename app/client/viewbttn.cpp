@@ -37,7 +37,7 @@ ViewButtonClass::~ViewButtonClass()
 	OptionClass::Instance->Save();
 	delete Unknown4C;
 }
-
+#include "..\shared\auth_product.h"
 
 
 

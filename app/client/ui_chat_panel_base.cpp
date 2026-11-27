@@ -14,7 +14,7 @@
 #include "unknown_675120.h"
 #include "unknown_signalbase.h"
 #include "..\shared\g_assert.h"
-
+#include "..\shared\auth_product.h"
 void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);	// 0x496AE0 (ro_funcs.cpp, cdecl: effect.ini's ResetMappers)  // NAME 1 [robj, make_geometry_unique]: as dynamic_window_background.cpp
 extern FontManagerClass *Unknown_BE67C4;	// NAME 1: neutral (D10)
 extern FontStringFilesClass *Unknown_BE67BC;	// NAME 1: neutral (D10)

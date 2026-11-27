@@ -17,7 +17,7 @@ struct Unknown729990Struct					// NAME 1: neutral (D10)
 };
 Unknown729990Struct Unknown_729770(ClientClass *client, int base_asset, float scale);	// 0x729770  // NAME 1 [client, base_asset, scale]: what 0x7294D0 passes
 RefCountPtr<LegoClass> Unknown_7294D0(const LegoIdentifierClass &id, int kind, int value, ClientClass *client, float scale);	// 0x7294D0  // NAME 1 [id, kind, value, client, scale]: what 0x6FEF70 passes
-
+#include "..\shared\auth_product.h"
 // 0x731FA0 (cdecl, co.cpp's constructor): the object's lego root
 RefCountPtr<ClientLegoRootClass> Unknown_731FA0(ClientObjectClass *object)
 {

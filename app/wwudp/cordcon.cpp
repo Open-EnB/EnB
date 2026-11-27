@@ -1,7 +1,7 @@
 // Earth & Beyond client (reconstruction)
 /*
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
-**	Original location: e:\build\beta\G\app\wwudp\cordcon.cpp (client 0x84DFC0-0x8557D0)
+**	Original location: e:\build\beta\G\app\wwudp\cordcon.cpp (client 0x84F640-0x8568A0)
 **
 **	Functional (NOT EXACT, D42): the receive path (handlePacket, examinePacket, read) follows the
 **	client's code statement by statement; the send path (write, openc, buildHeader,
@@ -23,119 +23,119 @@
 #include <string.h>
 #include <time.h>
 #include <windows.h>
-// ------------------------------------------------------------------------ CordChannelClass
 #include <string>	// the client object ends with <string>'s guard 0x856870 (CRT entry 791)
-// The channels come from a pool of 1024 (0xBF40D8; ObjectPoolClass::Allocate_Object_Memory 0x8563E0
-// with blocks of 4 + 1024 x 0x78 bytes).
-DEFINE_AUTO_POOL(CordChannelClass, 1024)
+// CordChannelClass and its pool (0x84DF30-0x84F640) are the client's object before this one:
+// unknown_84df30.cpp (its notes give the evidence).
 
-// Reset's body, inlined into the constructor and the destructor as the client does (Reset itself is kept
-// out of line below, where the CordCon constructor and openc call it).
-static inline void Reset_Channel(CordChannelClass *c)	// NAME 2: Reset's body
-{
-	c->Mode = 0;
-	c->IsClosed = true;
-	c->LastWrite = (unsigned int)time(0);
-	c->Priority = 0;
-	c->Written = 0;
-	c->Delivered = 0;
-	c->Expected = 0;
-	c->NextSequenced = 0;
-	c->LastSeq = 0;
-	c->Queue.clear();
-	c->Incoming.Clear();
-	c->Sent.clear();
-	c->ToAck.clear();
-	c->Missing.clear();
-}
 
-CordChannelClass::CordChannelClass()	// 0x84DFC0
-{
-	NextSeq = 0;
-	Index = -1;
-	Reset_Channel(this);
-}
 
-// 0x84E170: the members' constructors, then the copy.
-CordChannelClass::CordChannelClass(const CordChannelClass &other)
-{
-	Copy(other);
-}
 
-// 0x84E230
-CordChannelClass &CordChannelClass::operator=(const CordChannelClass &other)
-{
-	Copy(other);
-	return *this;
-}
 
-// 0x84E260, NOT EXACT (functional, 0.88: inline budget): member by member in the client's order (the
-// arrays through wlib's operator=, Incoming through Clear / getPointer / Add, the vectors by clear /
-// push_back, their erase / insert out of line as the client); the client calls Sent's
-// size() out of line, ours inlines it.
-void CordChannelClass::Copy(const CordChannelClass &other)
-{
-	if (this == &other) {
-		return;
-	}
-	CordChannelClass &from = (CordChannelClass &)other;
-	Mode = from.Mode;
-	LastWrite = from.LastWrite;
-	NextSeq = from.NextSeq;
-	Priority = from.Priority;
-	Written = from.Written;
-	Delivered = from.Delivered;
-	Expected = from.Expected;
-	NextSequenced = from.NextSequenced;
-	LastSeq = from.LastSeq;
-	ToAck = from.ToAck;
-	Missing = from.Missing;
-	IsClosed = from.IsClosed;
-	CordMessageClass *p; int j; Incoming.Clear();
-	for (j = 0; j < from.Incoming.Entries; j++) { from.Incoming.getPointer(&p, j); Incoming.Add_Tail(*p); }
-	unsigned int i;
-	Queue.clear();
-	for (i = 0; i < from.Queue.size(); i++) {
-		Queue.push_back(from.Queue[i]);
-	}
-	Sent.clear();
-	for (i = 0; i < from.Sent.size(); i++) {
-		Sent.push_back(from.Sent[i]);
-	}
-	Index = from.Index;
-}
 
-// 0x84E570: Reset only, as the client (the records' buffers are not freed: CordMessageClass's
-// destructor leaves them; Free 0x85BEC0 is called where a record is dropped). Out of line, as
-// ~CordCon 0x84F8C0 calls it.
-#pragma auto_inline(off)
-CordChannelClass::~CordChannelClass()
-{
-	Reset_Channel(this);
-}
-#pragma auto_inline(on)
 
-// 0x84E770: out of line in CordCon's constructor and openc, as the client calls it (CordChannelClass's
-// constructor and destructor inline Reset_Channel).
-#pragma auto_inline(off)
-void CordChannelClass::Reset()
-{
-	Mode = 0;
-	IsClosed = true;
-	LastWrite = (unsigned int)time(0);
-	Priority = 0;
-	Written = 0;
-	Delivered = 0;
-	Expected = 0;
-	NextSequenced = 0;
-	LastSeq = 0;
-	Queue.clear();
-	Incoming.Clear();
-	Sent.clear();
-	ToAck.clear();
-	Missing.clear();
-}
-#pragma auto_inline(on)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // ------------------------------------------------------------------------ CordCon
 

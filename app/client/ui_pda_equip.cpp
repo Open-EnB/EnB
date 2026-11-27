@@ -49,7 +49,7 @@ UIPdaEquipClass::UIPdaEquipClass(SClient *client) :
 	memset(Frames, 0, sizeof(Frames));
 	Unknown_BE67BC->Load("fa_tsi07a.ini");
 }
-
+#include "..\shared\auth_product.h"
 
 
 

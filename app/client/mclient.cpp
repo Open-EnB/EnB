@@ -17,7 +17,7 @@
 #include "sound_manager.h"
 #include "..\audio\soundlib.h"
 #include "..\shared\g_assert.h"
-
+#include "..\shared\auth_product.h"
 extern HWND Unknown_BDAA7C;							// 0xBDAA7C (input.cpp's: the window Init was given): what Unknown_10 redraws
 extern SoundManagerClass *SoundManager;					// 0xBE82A4  // NAME 2: what it holds
 unsigned int Unknown_Get_Ticks();						// 0x4A3B40, the aux-data clock (unknown_root.h)

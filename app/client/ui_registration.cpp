@@ -17,7 +17,7 @@
 #include <stdio.h>
 #include <stdarg.h>
 #include <string>
-
+#include "..\shared\auth_product.h"
 #include <time.h>
 #include <string.h>
 #include "..\..\wwlib\ref_ptr.h"

@@ -17,7 +17,7 @@
 #include "wwstring.h"
 #include "nstrdup.h"
 #include "..\shared\message.h"
-
+#include "..\shared\auth_product.h"
 void Unknown_42ECF0(float *x, float *y);			// 0x42ECF0 (the pointer, 0..1)  // NAME 1 [x, y]: as ui_avatar_cust.cpp's
 bool Unknown_42EC60(int a, int b);					// 0x42EC60 (cdecl): *0xBDAA70's slot +0x0C  // NAME 1 [a, b]: as ui_chat_panel.cpp's
 

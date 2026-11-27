@@ -15,7 +15,7 @@
 #include "ini.h"
 #include "co.h"
 #include "ui_scut_gadgets.h"
-
+#include "..\shared\auth_product.h"
 #include "..\shared\unknown_8b4560.h"
 
 static const char *ShortcutIni = "shortcut.ini";	// 0xB88EA0  // NAME 2: what it holds

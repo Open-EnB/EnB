@@ -7,7 +7,7 @@
 **
 **	MenuTask (tsk_menu.h). Notes at the end.
 */
-
+#include "..\..\shared\auth_product.h"
 
 
 #include "tsk_menu.h"
