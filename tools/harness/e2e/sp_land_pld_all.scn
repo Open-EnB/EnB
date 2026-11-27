@@ -1,0 +1,112 @@
+# Space (live server): test-plan SP-12, bug B-29, the planet surfaces: GM `/wormhole SECTOR` from one surface sector
+# to the next, each a sector whose Data\common\LANDnnnn.ini names a height map the data has (LAND2014's
+# menorb2_256.pgm is missing; LAND3596 shares primus_256 with 3595 and land1930 asheroth1930_256 with 3679: one of
+# each). Net-7 refuses /wormhole out of a sector that is not space unless the avatar's admin level is exactly 90
+# (PlayerConnection.cpp Player::HandleWormholeRequest: "Invalid or Illegal Sector ID"; the store's avatar rows have 100),
+# so run it with pldcheck.py's --admin-level 90 (set before the run, put back after it). A surface's launchpad is
+# no way out after a wormhole: W targets a nav point beside the ship and no gate verb shows (CS9, 2026-11-26).
+# Every surface's LandClass::Load_Assets (0x4691D0) computes its horizon tables (0x46E670, the normal step 0x46F120
+# through Nearest_Normal 0x46F0A0) and writes them (Save_PLD 0x46ECF0) when pldcheck.py has deleted the instance's
+# .pld files first (sp_land_pld.scn has the detail); a hop that fails stops the run with the earlier surfaces'
+# files written. The surfaces in order:
+#   2295 endriago_256 (Porvenir Mons Area)
+#   1309 nostrandvor_256 (Nostrand Vor Planet)
+#   3595 primus_256 (Praetorium Mons Area)
+#   3679 asheroth1930_256 (Canopus II Planet)
+#   4195 swooping_256 (Yasuragi Area)
+#   2409 river4 (Gamma Sulani Planet)
+#   1493 zwiehander_256 (Jagerstadt)
+#   2290 RISCO_256 (GETCo Ruins)
+#   pldcheck.py run --scenario sp_land_pld_all --admin-level 90 --instance NAME [--retail | --exe PATH] --runs N --out DIR
+name: space: the planet surfaces by wormhole, the horizon tables written (SP-12, B-29)
+timeout: 900
+include _login_space
+# endriago_256 (Porvenir Mons Area)
+key 0x0D
+wait-quiet proxy 0.5 within 10
+text '/wormhole 2295'
+key 0x0D
+wait-event antprox 'sent SERVER_HANDOFF' within 60
+move 1000,880
+wait-event antprox 'received START_ACK$' within 180
+wait-quiet proxy 1.5 within 60
+alive 3
+shot surface_2295
+# nostrandvor_256 (Nostrand Vor Planet)
+key 0x0D
+wait-quiet proxy 0.5 within 10
+text '/wormhole 1309'
+key 0x0D
+wait-event antprox 'sent SERVER_HANDOFF' within 60
+move 1000,880
+wait-event antprox 'received START_ACK$' within 180
+wait-quiet proxy 1.5 within 60
+alive 3
+shot surface_1309
+# primus_256 (Praetorium Mons Area)
+key 0x0D
+wait-quiet proxy 0.5 within 10
+text '/wormhole 3595'
+key 0x0D
+wait-event antprox 'sent SERVER_HANDOFF' within 60
+move 1000,880
+wait-event antprox 'received START_ACK$' within 180
+wait-quiet proxy 1.5 within 60
+alive 3
+shot surface_3595
+# asheroth1930_256 (Canopus II Planet)
+key 0x0D
+wait-quiet proxy 0.5 within 10
+text '/wormhole 3679'
+key 0x0D
+wait-event antprox 'sent SERVER_HANDOFF' within 60
+move 1000,880
+wait-event antprox 'received START_ACK$' within 180
+wait-quiet proxy 1.5 within 60
+alive 3
+shot surface_3679
+# swooping_256 (Yasuragi Area)
+key 0x0D
+wait-quiet proxy 0.5 within 10
+text '/wormhole 4195'
+key 0x0D
+wait-event antprox 'sent SERVER_HANDOFF' within 60
+move 1000,880
+wait-event antprox 'received START_ACK$' within 180
+wait-quiet proxy 1.5 within 60
+alive 3
+shot surface_4195
+# river4 (Gamma Sulani Planet)
+key 0x0D
+wait-quiet proxy 0.5 within 10
+text '/wormhole 2409'
+key 0x0D
+wait-event antprox 'sent SERVER_HANDOFF' within 60
+move 1000,880
+wait-event antprox 'received START_ACK$' within 180
+wait-quiet proxy 1.5 within 60
+alive 3
+shot surface_2409
+# zwiehander_256 (Jagerstadt)
+key 0x0D
+wait-quiet proxy 0.5 within 10
+text '/wormhole 1493'
+key 0x0D
+wait-event antprox 'sent SERVER_HANDOFF' within 60
+move 1000,880
+wait-event antprox 'received START_ACK$' within 180
+wait-quiet proxy 1.5 within 60
+alive 3
+shot surface_1493
+# RISCO_256 (GETCo Ruins)
+key 0x0D
+wait-quiet proxy 0.5 within 10
+text '/wormhole 2290'
+key 0x0D
+wait-event antprox 'sent SERVER_HANDOFF' within 60
+move 1000,880
+wait-event antprox 'received START_ACK$' within 180
+wait-quiet proxy 1.5 within 60
+alive 3
+shot surface_2290
+expect-no CRASH

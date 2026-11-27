@@ -570,3 +570,402 @@ order, alphabetical inside), retail's library order and import libraries, the re
 for the code (the coordinator's call, D246): the zero slots of retail's CRT table are a per-object initialiser check
 that needs no attribution of code (`zseq.py`: three objects differ, viewbttn, message_server and cordcon); and the
 thunk table needs retail's external-symbol count (about 260 more than ours) before any name in it can land in place.
+
+### 5.7 Retail's extra external symbols, cordcon's zero slot, and the one client build's object order
+
+Measured 2026-11-26 (image builder IM9, week plan 2026-11-24 §2 D) on tools/2026-11-26-night (c35ef215a, every
+library rebuilt in wt/IM9) with the scripts in `.work/im9/` (`mkpad.py`, `pscan.py`, `ptail.py`, `mapkinds.py`,
+`datakinds.py`, `relocsec.py`, `dataonly.py`, `strsets.py`, `ptrtables.py`, `slotcmp.py`, `pullsim.py`,
+`maporder.py`, `arorder.py`, `inclist.py`, `inclink.py`, `drectve.py`, `cal.sh`, `q3.sh`). The trials are §5.3's
+`all` (IM8's `trial2.sh` wrapper) and the one client build with one input changed (`--tag`; nothing of the one
+client build's options changed).
+
+| Trial (`--tag`) | Changed | imagediff in place | What it shows |
+|---|---|---|---|
+| the one client build | | **118,647 of 8,642,625 (1.37 %)** | the baseline at this head |
+| `all` | §5.3's every-piece trial | **1,294,263 (14.98 %)** | split pointer p = 6,765 (fitted, every one of 19,993 slots on the order) |
+| `pad` | `all` + one object of 279 unreferenced external `int`s in `.bss` (`mkpad.py`) | 1,294,421 | p = 6,858: +93 |
+| `pad558` | `all` + 558 of them | 1,289,490 | p = 6,949: +184 |
+| `pad273` | `all` + 273 of them | 1,294,435 | p = 6,856: retail's |
+| `emp47` | `all` + 47 empty C++ objects (copies of main_client.obj: a `.drectve` and `@comp.id` only) | 1,294,291 | p = 6,765: an object without externals adds none; the rich header's C++ count 1,054 = retail's (§5.5's reading of the 47 holds), `e_lfanew` still 0x130 (the C and cvtomf counts differ) |
+| `reord` | the one client build with app.lib's members in retail's order (`arorder.py`) | 118,647 | the exe byte-identical but for the 2 bytes of the stamp |
+| `inc` | the one client build + `/include:` of each pulled object's first own symbol, in retail's order | 117,813 | object order 651 of 652 in retail's; +53 KB (`/include` keeps COMDATs `/OPT:REF` drops; unknown_px_callbacks pulled) |
+| `inc2` | the same with symbols the one build's map keeps (645 objects; 6 have none of their own) | **119,780 (1.39 %)** | 645 of 651 in retail's order (99.1 %), the same 651 objects, +4,096 bytes of file |
+| `drec` | the 645 `-include:` as directives in main.obj's `.drectve` (no link option) | 118,631 | 644 of 651 (98.9 %): main.obj first, then retail's order |
+
+**Question 1: retail's extra external symbols.** *How many.* Retail's split pointer is pinned to **p = 6,856**
+by the names at the boundary, not only by §5.1's fit (whose score is flat: 2,795-2,811 on-order names over
+p = 6,700-6,975): `??1TradePacketClass@@UAE@XZ` (base bucket 6,856) and `?setBufferedWrites@TCPMgr@@QAEDPAVTCPCon@@D@Z`
+(6,858) sit at their base buckets between on-order neighbours (unsplit, p ≤ 6,856), `?Get_Data_Size@NoteListPacketClass@@UAEHXZ`
+(6,855) and `??0AuxDataPacketClass@@QAE@HPBXH@Z` (6,846) at their split buckets 15,047 and 15,038, the table's last
+(p > 6,855) (`ptail.py`). LINK.EXE's table (0x432320: the split test `(count << 4) / size > 0x30` runs on every
+lookup, before the insert) grows by one bucket per three symbols on the trials (279 -> +93, 558 -> +184), so
+retail's link held **273 ± 3 more external symbols** than the `all` trial (6,856 - 6,765 = 91 buckets). An object
+with no externals adds nothing (`emp47`: 47 objects, +0), so the 47 code-less C++ objects of §5.4 are not the
+cause unless they define externals.
+
+*What they are not* (retail against the `all` trial, each figure from both images the same way):
+
+| Kind | Retail | `all` | Difference |
+|---|---|---|---|
+| thunked app functions (the full link's table: 19,983 less the update's 7) | 19,976 | 19,993 | -17 |
+| imports (`__imp_`, their thunks, the descriptors) | 17 DLLs, 423 functions | the same | 0 |
+| RTTI type descriptor names (`.?A...@@`) | 87 | 87, the same names | 0 |
+| data targets of code relocations (`datakinds.py`): strings / vtables / FPU operands / other | 9,599 / 2,313 / 814 / 9,332 | 9,603 / 2,316 / 780 / 9,313 | -4 / -3 / +34 / +19 |
+| data reached only from data relocations (`dataonly.py`): strings / other | 2,199 / 4,759 | 2,161 / 4,755 | +38 / +4 |
+| library region (`.text` after the last thunk target to the reserve) | 1,574,216 bytes | 1,575,460 | -1,244 bytes |
+
+So at most about 70 of the 273 are pooled constants a relocation reaches (`??_C@` literals reached from string
+tables, +38; `__real@` constants, at most +34), and the functions and imports balance. The other ~200 are
+externals no relocation reaches: data nobody reads (a defined, unreferenced global, as the `pad` objects' are),
+or library-internal symbols. Retail's `.data` is 6,208 bytes larger in memory (0xD6F14 against 0xD56D4) and
+1-2 pages larger on disk; 888 of those bytes are below (the `"2184"` statics, file-static, so not in LINK's
+table); the rest, ~5.3 KB, is the size ~200 unreferenced globals of 4-40 bytes would take. Not resolved further:
+no relocation names them.
+
+*What retail's count buys.* `pad273` gives the thunk table retail's bucket function: it moves the names whose
+base bucket lies in [6,765, 6,856) (91 of 8,192 base buckets, about 1.1 % of the thunks) into retail's split
+bucket. §5.6's "every thunk's bucket depends on p" overstated it: the other 98.9 % of the buckets are the same
+for any p in that range, and the table's bytes in place follow the slot positions, which depend on every earlier
+thunk (names and count). Thunk range 0x401006-0x4196A0, bytes equal at the same address (`rangesum.py`): `all`
+41,608 of 99,994 (the `E9` bytes and equal high bytes of rel32), `pad` 41,693, `pad273` 41,682; slots naming
+retail's function at retail's address (`slotcmp.py`): `all` 27, `pad` 34, `pad273` 32. The table waits
+for the names (§5.2), not for the count.
+
+*A finding on the way* (data, not externals): **222 retail objects hold a file-static `char *` to `"2184"`**
+(0xB6FA8C, the auth product id: tsk_login.cpp's `AUTH_PRODUCT`, ui_registration.cpp's `RegistrationGameId`), the
+first 4 bytes of each object's `.data` (0xB6FA88, 0xB7965C, ...: 222 data relocations, none from code). Ours have
+it in those two files only, so 220 objects' `.data` is 4 bytes short; the button-name tables of the `ui_*` objects
+start right after it (`ptrtables.py`: retail's tables are ours plus that entry). A header of E&B's that 222 files
+include defines it (`static char *... = "2184";`); not found here which (the coordinator's call, D246: a census of
+the 222 objects against our include lists, as §5.5 did for `<string>`).
+
+**Question 2: cordcon.obj's zero slot.** *The padding rule.* The incremental link pads every data contribution by
+S / 5 bytes (integer), the next contribution then aligned: `.CRT$XCU` 4 bytes -> no zero, 8-24 -> one, 28-44 ->
+two, 72 -> four (§5.6's table); `.bss` bandwidthaccounting.obj 124 bytes in retail (0xBF4040-0xBF40BC, by its
+code's references) + 24 -> 0xBF40D4, aligned 8 -> 0xBF40D8, cordcon's pool (ours: 120 + 24 -> 0xBF5B78 the same
+way). So no zero after two initialisers means two contributions of 4 bytes. *Causes tested.* (a) The pool's
+initialiser in a COMDAT `.CRT$XCU` (a template-static form): ruled out, its code 0x84DF30 is the unguarded
+`xor eax, eax`, 5 stores, `atexit` of nav_list_builder's 0x7B7B60, whose object keeps its zero (0xB6CD10) with the
+same two entries; VC6 guards a template static's initialiser instead (the ctype guard's form). (b) The update
+(cordcon recompiled): no slot of cordcon's run is off the up16(S + S/4) rule, and a contribution cannot lose its
+pad in place. (c) **Two objects**: the client's run 0x84DF30-0x8568A0 holds the pool's initialiser and atexit stub,
+CordChannelClass's constructors, operator=, Copy, destructor and Reset (0x84DFC0-0x84E770), then **a block of
+template instantiations** (vector<CordMessageClass> 0x84E8A0-0x84EDB0, CordListClass's destructor 0x84EDF0,
+ArrayList<unsigned>, std::copy / fill / copy_backward, CordMessageClass's operator= 0x84F150, CordListClass::Add
+0x84F220, ArrayList::get / add) **before CordCon's constructor 0x84F640**; VC6 emits a translation unit's
+instantiations after its own functions (our one cordcon.obj puts the same block at 0x855D20, after CordCon's code).
+So the client's object ends at 0x84F640: the pool and CordChannelClass are a file of their own, sorting between
+bandwidthaccounting and cordcon, with one CRT entry (0x84DF30), and cordcon.obj has one (its `<string>` guard
+0x856870): no zero after either. wt/IM9A splits it so (`app/wwudp/unknown_84df30.cpp`, name provisional,
+interim D137; cordcon.cpp keeps its lines, the asserts on 521, 632, 977): no pair lost outright (pairs_cmp: CordChannelClass's pairs and the instantiations' move to the new file), and the CRT table predicted from the objects (IM8's `zseq.py`) is retail's at cordcon (1,107 tokens and 167 zeros each; the two differences left are message_server's guard 0x4BDFB0 and one guard more in local_interface_sort.obj).
+
+**Question 3: the one client build's object order.** LINK pulls app.lib's members **breadth-first by first
+reference**: one list of undefined symbols, from `_WinMain@16` (wincrt0's, pulled first for the entry point), each
+pulled member's undefined externals appended in its COFF symbol-table order, the list walked front to back; a
+symbol an unpulled member defines pulls that member. That model (`pullsim.py`, the objects' symbol tables only)
+gives the one client build's order exactly: 651 of 651 in order, 648 of 650 adjacent pairs (a depth-first walk:
+15.7 %). The librarian's member order plays no part (`reord`: the exe is byte-identical but the stamp; app.lib's
+members are in reverse `dir /b` order, LIB.EXE's), nor does the dictionary's. So retail's order (the folders'
+order, alphabetical inside, §5.6) cannot come from app.lib's build: it needs the objects named to LINK in that
+order, by the command line (§5.3's `objs` / `all`), by `/include:` (`inc2`: 99.1 %), or by `-include:` directives
+in main.obj (`drec`: 98.9 %, main.obj first; a `#pragma comment(linker, "/include:...")` list in main.cpp would
+do the same with no link option, at the cost of 645 lines of non-client source). In the non-incremental one
+client build the order is worth +1,133 bytes in place (`inc2`): retail's layout is the incremental link's, so
+order alone moves little.
+
+**Figures before -> after (imagediff's summary line).** The one client build: at tools/2026-11-26-night
+(c35ef215a, the trials above) 118,647 of 8,642,625 bytes in place (1.37 %); on run/2026-11-26-night (f6c75de35)
+118,455 (1.37 %) -> wt/IM9A (the cordcon split) 117,969 (1.36 %): the split moves CordChannelClass's code and
+instantiations in the non-incremental link's breadth-first order, a figure that does not measure a
+client-evidenced cut (§5.5). The `all` trial: 1,294,263 (14.98 %) at c35ef215a; 1,291,269 -> 1,291,293 (14.94 %)
+on run/2026-11-26-night with the split (unknown_84df30.obj before cordcon.obj on the line).
+
+**Proposals (the user's: the one client build's options; nothing changed).** (1) To take retail's object order in
+the one client build: the app objects on its link line in retail's order (or an `/include:` list), +1,133 bytes in
+place as a non-incremental link, the full gain only with §5.3's incremental link. (2) None needs retail's symbol
+count: it lands by itself when the names and the missing unreferenced globals do. For the code (the coordinator's
+call, D246): the header that gives 222 objects their `"2184"` static.
+
+### 5.8 The `"2184"` static: the census, its header, its readers
+
+Measured 2026-11-27 (image builder IM10, week plan 2026-11-24 §2 D; no VM, no link) on tools/2026-11-26-night
+(ac0d4aacf) from client.exe, a ledger export of that tree, our built objects (`build/app/obj`) and retail's object
+order (§5.3's `all` list, `.work/im9/objs-all.txt`), with the scripts in `.work/im10/` (`census.py`, `around.py`,
+`gaps.py`, `closure.py`, `misses.py`, `chains.py`, `direct.py`, `cover.py`, `sim.py`, `thunkto.py`, `calls.py`).
+
+**The census.** `census.py`: the 222 data relocations to 0xB6FA8C; *anchors* are the `.data` addresses (initialised
+part only: `.bss` sorts by its own order) that the code of exactly one file reaches (ledger owners); a pointer's
+object is the file of the first anchor after it, kept when that file has no non-string anchor before the pointer
+and the anchor before the pointer is another file's (205 pointers); 10 more were checked by hand (`around.py`), and
+7 lie between two pointers with no anchor (objects whose `.data` is the pointer alone), placed by retail's object
+order (`gaps.py`). An object's data opens with its main `.data` section, then the literal COMDATs it is the first to
+define (our objects: `.data` section 3-4, `??_C@` COMDATs after), so the pointer is each object's first item.
+
+| | Pointers |
+|---|---|
+| open an object of ours | **219** (205 by the anchors, 7 by hand: client_item_property_special_race_requirement, ui_registration 0xB85EC8, inv_render, unknown_6b2460, eff_o, tsk_login, emote_data, scriptedmovie; 7 by the order: unknown_56e170 0xB7D6B8, slot_data 0xB9161C, unknown_794510 0xB9E3A8, unknown_7979a0 0xB9E53C, unknown_798ae0 0xB9E540, unknown_79c4a0 *or* unknown_79c8e0 0xB9E6A4 (one has no `.data`), targeting 0xB9F8B0) |
+| open an object we do not have | 2: 0xB810D8, between ui_log and ui_login (its code 0x5ACB80-0x5AD34F, between ui_log.cpp's last function 0x5ACB30 and ui_login.cpp's first 0x5AD350, no function of ours); 0xBB767C, the last app object, after unknown_login_data's literals and before wwmath's cullsys (its code is the last app slot 0x8C1B50, `mov al, 1; ret 0xC`, reached only by its thunk 0x40CF9A) |
+| inside an object | 1: 0xB85EF0, ui_registration's own `RegistrationGameId` (+0x28 in its data; ours has it) |
+
+So of retail's 760 app objects, **221 open their `.data` with the pointer**, 539 do not (every pointer is placed, so
+an object without one has none). By folder (our objects): client 192 of 401, packets 23 of 133, kernel 1 of 1
+(kernel.obj is the first in the link order: the literal 0xB6FA8C is its COMDAT, right after its pointer 0xB6FA88),
+main 1 of 4 (main.obj 0xB6FBBC), shared 1 of 134 (orbitalmanager), common 1 of 47 (game_action_validity), audio,
+input, wwudp, dbgmgr, display, wlib and wnet none. Ours have the pointer in tsk_login.obj (retail's copy there) and
+ui_registration.obj (the second one): **218 of our objects are 4 bytes short**, the two objects we lack the other 2.
+The `all` trial's model (`sim.py`: our objects' `.data` in retail's order with §5.7's S/5 padding) confirms the
+set: the steps between consecutive objects with the static equal retail's in 9 of 218 pairs, in 117 with the 4
+bytes added to the 218.
+
+**Which header.** Not one of ours exactly: no header's closure in our tree (IM6's `pp.py` walk) matches the set.
+Best single headers (hits of 219 / misses / extras among the 527 objects without it):
+
+| Header | Hits | Misses | Extras |
+|---|---|---|---|
+| unknown_login_data.h | 188 | 31 | 37 |
+| tsk_game.h | 181 | 38 | 35 |
+| sclient.h | 180 | 39 | 34 |
+| tsk_game.h + the five login packets' headers (pklogin, pkmasterjoin, pkserverhandoff, pkglobalticket, pkglobalavatarlist) | 188 | 31 | 35 |
+| kernel.h | 183 | 36 | 57 |
+| `<string>` | 219 | 0 | 353 |
+
+The objects reach unknown_login_data.h through sclient.h -> tsk_game.h (175 of 188; `chains.py`) and the login
+packets' headers. What the client's own evidence says of the header: (1) it is included before any data definition
+in each of the 221 objects; (2) **tsk_login.obj holds one pointer, the one its code reads**, so tsk_login includes
+it and its `AUTH_PRODUCT` *is* the header's static (a second definition would be a second pointer, as
+ui_registration's is); (3) **TicketClass's own object (unknown_login_data.cpp, code 0x8C0690-0x8C1B30) has none**,
+nor ui_login, view, verbmanager, ui_mesh (`misses.py`: the 37 extras), so the client's header is not
+unknown_login_data.h (a provisional file of ours, D90 9b) nor, given those, sclient.h's chain as ours has it; (4)
+kernel.cpp, game_action_validity.cpp and 16 packets (pkdirlock, pkglobalerror, the four pkgm*, pknotelist,
+pkfindplayerrequest, pkguildplayeronline, pkcreatecharacter, pkglobalcreatecharacter, five pkunknown_*) include it,
+which no header of ours explains (their closures share only `<string>`, `g_assert.h` and the packet base). Its
+name and file are not in the binary (no code, assert or `__FILE__` of it). Misses of the best set: client_lego_root
+co_data dynamic_window_background eff_line eff_o eff_seek game_action_validity inv_manu_render inv_trade_render
+kernel skillnam slot_data_render textgadg ui_ptnew unknown_725050 and the 16 packets; extras (with tsk_game.h +
+packets): client_item_property_builder extrap gd_attrb_skills gd_inv_slider gd_scut_proxy gd_selct intrlist
+local_interface_sort meshsnd mv3dsnd postate starmap_pip_support ui_chat_window_split ui_dynamicwindow
+ui_item_examination ui_login ui_manu_util ui_mesh ui_mfd_extended_context_strings ui_option_font ui_petition_stuck
+ui_skill_info ui_slot_scut ui_test unknown_514cc0 unknown_5bb250 unknown_686010 unknown_723210 unknown_764fd0
+unknown_79c8e0 unknown_7c96f0 unknown_msgbox user_click_indicator verbmanager view.
+
+**What `"2184"` is, its readers, its form.** The auth product id: the string 0xB6FA8C has 222 references, all from
+`.data`, none from code; code reads two of the 222 pointers: 0xB9B9CC (Fetch_EA_Ticket 0x76A7B0, `mov eax,
+[0xB9B9CC]` at 0x76A950, `iauth->Login(name, password, "2184", base, url, 5)`, kernel-map-step9.md) and 0xB85EF0
+(ui_registration 0x600000 at 0x6007CE and 0x601022: Unknown_7D7E10's third argument and `atoi` against the game
+features' ids). Not a version or build number. Ours read both with the same value, so the other 220 copies are
+data nobody reads (no behaviour). The form is a file-static non-const pointer in a header: VC6 emits one copy per
+including object, unreferenced, in `.data` (a `const` pointer would not be writable data), and `/GF` pools the
+literal into one COMDAT (kernel.obj's); `extern` would give one copy.
+
+**Proposal (the next session's edit, a VM verify; placement the coordinator's call, D137).** In every form
+tsk_login.cpp line 30 keeps only `static char *AUTH_INI = "auth.ini";` on its line (the header's `AUTH_PRODUCT`
+replaces its own; same bytes and reader) and ui_registration keeps `RegistrationGameId`. (A) Exact: a new interim
+header (e.g. `app/shared/auth_product.h`, `static char *AUTH_PRODUCT = "2184";`) included first by the 218 objects,
+each on an existing blank or comment line before its first data definition (line counts kept): 218 right, 0 wrong,
+the 2 objects we lack still missing. (B) Client-shaped, one chain: the same header included from tsk_game.h and the
+five login packets' headers: 188 right, 31 missing, 35 wrong (above). The census's one-object choice, unknown_79c4a0
+or unknown_79c8e0, stays open in both (A gives it to unknown_79c4a0, by the order its 0xB9E6A4 fits either).
+**Expected imagediff effect** (`sim.py`, no trial link): the one client build has `.data` at another RVA (0 of
+454,656 bytes in place), so ~0 there (the app's `.data` +872 bytes for A, +~900 for B, code operands already
+differ). On the `all` trial (retail's order and padding) the steps between consecutive objects with the static that
+equal retail's go 9 -> 117 of 218 (A) or 9 -> 83 (B), and the predicted app `.data` grows +900 / +940 bytes of the
+6,208 retail has more (§5.7: 888 of them are these statics); bytes in place grow only where the rest of the drift is
+nil (the commonest displacement covers 4 objects before, 9 after A, 8 after B), so a few hundred bytes at most.
+
+### 5.9 Retail's unreferenced data per object, and what it leaves of the ~200 externals
+
+Measured 2026-11-27 (builder IM11, no VM, no link) on retail against §5.7's `allA` trial (wt/IM9A's
+`client-allA`: exe, map and objects copied to `.work/im11/`), with the scripts in `.work/im11/`: `om.py`
+(objmatch on the app region over build/app/obj: 32,032 exact), `disp.py` (every exact function the trial's map
+names, 30,807 with the same relocation sites in both images: each site's target pair; then data-to-data pairs over
+equal stretches; the longest rising chain: **9,021 `.data` pairs**, 2,140 in `.rdata`), `ins.py` (each stretch of
+another length aligned byte for byte, a relocated dword one token: retail-only blocks and the retail relocation
+targets inside each), `oursown.py` (the trial's contributions per object, each section's base from a public the map
+lists), `dataruns.py` + `gaps2.py` (each object's sections placed in retail by its own symbols' votes; between two
+placed contributions the bytes beyond §5.7's pad rule S + S//5, less ours' unplaced sections between them in
+retail's order), `classify.py`, `perobj2.py`, `dprof.py`, `seqcount.py`, `strcount.py`, `orphans.py`,
+`patcount.py`, `rown.py`, `libblocks.py`, `bink.py`, `mapkinds2.py`, `symkinds.py`. The list of ranges:
+`.work/im11/unref-ranges.tsv` (362).
+
+**Sizes.** `.data` 0xD6F14 against `allA`'s 0xD56F4: +6,176; over the mapped span (retail 0xB6E5A0-0xC416F0)
++6,184, of it the initialised part +3,864 (retail's ends at 0xBDA908) and `.bss` +2,320. The displacement grows
+by steps of 4 through the `ui_*` run (the `"2184"` slot per object, `dprof.py`); the large stretches of either sign
+(dx8wrapper ±16,4xx, kernel +1,020 / unknown_4441e0 -1,010, sclient +556 / mousetbl -548, ...) are items placed in
+another object or order and cancel. `.rdata`'s app part: ours 1,920 bytes longer, retail-only blocks there are moves
+(SGI's prime list: 336 copies in retail, 346 in ours, `patcount.py`).
+
+**Question 1: retail's unreferenced data, by kind** (no retail relocation target inside a range; initialised
+`.data` from the byte alignment, `.bss` from the pad rule; `unref-ranges.tsv` has each range with its object):
+
+| Kind | Ranges | Bytes | What it is |
+|---|---|---|---|
+| `"2184"` pointers (§5.7) | 160 (222 copies in all; ours 2) | 674 (880 in all) | a header's file static, the first dword of each object's `.data` |
+| emote tables | 7 (9 copies in all; ours one each) | 450 (8 x 56 extra) | (a) below: file statics |
+| zero | 85 | 1,127 | pads and alignment (each object's S//5 pad and next alignment move with its size, and runs of zeros align either way), and 494 bytes in 30 blocks in ui_registration's run (zeros after its texts, e.g. 22 after "This registration is not intended for your age group." 0xB86720: the old texts' space, of §5's update or of the installed client's Net-7 edits) and 388 in 3 in settings_store's (the Net-7 URL edits, shorter texts over EA's): no variable claimed |
+| text | 68 | 466 | 6 whole literals, (b) below; the rest pieces of strings whose texts differ |
+| pointers, other | 33 | 249 | entries of tables that differ (ui_chat_panel 8 pointers, ui_attrb_skills, cpacket, ui_slot_scut) |
+| `.bss` gaps | 9 | 2,063 | (c) below |
+
+(a) **The emote tables.** Retail holds 9 copies of `EmoteNames[7]` ("Wave" ... "Spin Left") followed by
+`EmoteSounds[7]` ("wave.wav" ... "spin.wav"), 56 bytes each: 0xB93A94, 0xB952D0, 0xB9804C, 0xB9E548, 0xB9E6F0,
+0xBA13BC (its sounds referenced: emote_data's), 0xBB2DA0, 0xBB2E1C, 0xBB4450 (its names referenced:
+pktriggeremote's Print). Ours define each once (pktriggeremote.cpp, emote_data.cpp). By the trial's
+contributions and retail's order the copies open or sit in the runs of co, cpacket, sclient (0xB98048: `"2184"`,
+the two tables, an `int` 1, then sclient's chat commands 0xB98088), the camera object between camctrl_takeoff and
+camera_manager (0xB9E53C: three `"2184"`, then the tables), co_data or unknown_79d250, emote_data, clientstub, pk
+and pktriggeremote: one header defines both as statics, names first, and 9 translation units of the client and
+packets folders include it. Candidates: pktriggeremote.h (pk_classes.h, cpacket.cpp, sclient.cpp and
+pktriggeremote.cpp include it here, but tsk_login and tsk_game include pk_classes.h and hold no copy) or
+emote_data.h; the includers decide (a census like the `"2184"` one).
+
+(b) **Orphan literals** (`orphans.py`: NUL-preceded 4-aligned strings no relocation reaches; 1,116 in retail,
+1,118 in ours, the same but for these): retail only `e:\build\beta\G\app\Client\../packets/pk.h` 0xB79A08
+(ui_analyze's run), `..\packets/pk.h` 0xB7AA54 (ui_avatar_cust), `e:\build\beta\G\app\client\../packets/pk.h`
+0xB91D8C (viewbttn), `.\../packets/pk.h` 0xB9BC40 (tsk_login), `e:\build\beta\G\app\Packets\pk.h` 0xBB1DC8 (the
+first packets object after cordmgr), `e:\build\beta\G\app\Client\../shared/auxdata/rtti.h` 0xB9463C (between
+co_player_relationship and co_subtype_base); ours only `...\client\..\packets\pk.h`,
+`...\client\tasks\..\..\packets\pk.h`, `...\packets\gameedit\..\pk.h`. Each is the `__FILE__` of an asserting
+inline (pk.h's PacketClass defaults, lines 478-502) in an object whose copy of the function LINK dropped as a
+duplicate: the literal's name holds its spelling, so it stays, unreferenced. They give those objects' include
+spellings (data, not behaviour).
+
+(c) **Unreferenced `.bss`** (`gaps2.py`; S: the one contribution whose S + S//5, aligned, fills the gap):
+
+| Retail | After | Before (ours between) | Bytes | S |
+|---|---|---|---|---|
+| 0xBE4B64-0xBE4E94 | kv_pair.obj (1 byte, its PermStringInit) | kv_pair_string.obj | 816 | 678-680 |
+| 0xBE5308-0xBE55D0 | kv_util.obj (516: `KeyBuffer[0x200]` and its PermStringInit) | message.obj's `Unknown_BE55D0` 0xBE55D0 (message_record between; avatar_desc's votes put its base there too, one of the two is misplaced) | 712 | about 593 |
+| 0xBF3DB8-0xBF3F48 | unknown_847d20.obj (4) | pal_mgr.obj | 400 | 333-334 |
+| 0xBE5C4C-0xBE5C8C | ui_manu_util.obj (1) | ui_mfd.obj (unknown_5b7ab0, ui_mesh, unknown_5bb250) | 64 | about 53 |
+| 0xBF40F4-0xBF411C | unknown_84df30.obj (21: the CordChannel pool and its guard) | unknown_85bf30.obj (cordcon, cordmgr, unknown_cordmsg) | 40 | 30-33 (IM9's lead) |
+| 0xBE5C90-0xBE5C9C | ui_mfd.obj (1) | ui_mfd_extended_context.obj | 12 | about 10 |
+| three of 4-8 | name.obj, g_assert.obj (inside), ui_popup_browser.obj (ui_popupmsg) | | 19 | |
+
+Each is a variable (or several) the source defines and nothing reads, which VC6 keeps: a file static or a global,
+the image cannot say; the gap's place says which file holds it (or which of §5.5's 47 code-less objects sits there).
+
+**Question 2: the table's count, sharpened.** LINK's split test `(count << 4) / size > 0x30` holds the table at
+count = 49/16 x size, so a symbol adds 16/49 bucket (279 -> +91, 558 -> +182; the trials gave +93 and +184), and
+the trial's map lists **45,809 publics** against 49/16 x (8,192 + 6,765) = **45,806**: the table holds the defined
+externals, every public of the image (import names and the `??_E` aliases included), and nothing else (our objects'
+14,768 static symbols would add a third; every thunk target is a public). §5.7's trials agree within 3 each
+(`pubcount.py` on wt/IM9's maps: `all` 45,809 at p 6,765, `pad` 46,088 at 6,858, `pad558` 46,367 at 6,949,
+`pad273` 46,082 at 6,856, `emp47` 45,809 at 6,765). So retail's full link had **46,082 ± 3 publics, 273 ± 3 more
+than `allA`**. By kind (the trial's map against retail's image):
+
+| Kind | `allA` | Retail | Difference |
+|---|---|---|---|
+| app functions (one thunk each: 19,993 publics, 19,993 thunks) | 19,993 | 19,976 (the full link's) | -17 |
+| library functions (function starts, the same discovery in both, `libblocks.py`, `bink.py`) | 7,961 | 8,031 | **+70 starts**, all in the CRT / STL tail: retail 0xA17E50-0xA420AC 997 (+ v3_rnd.obj's 33, which retail places after WININET and ours last) against 960; the ww libraries within ±3 each, binkmovie 51 against 53 (its run ends at 0xA17E50, where LIBCPMT's unpadded code starts, not 0xA18314). Of the tail's starts (`crtmove.py`) 534 carry names ours links there, 5 names ours has in the app region (`std::` COMDATs: ctype's dtor, three of basic_string's, istreambuf_iterator::equal), 77 statics, 371 no name; 626 are exact matches of CRT members (`tailcover.py`: every member with one is in our map, but for §5.3's identical-code twins), 1 an app object's (`bad_cast`'s ctor), 370 (39,878 bytes) neither, §5.3's unnamed CRT gaps: so not shown to be publics |
+| constants a relocation reaches (§5.7) | | | at most +72 (+38 literals reached from data, +34 `__real@`) |
+| other data a relocation reaches (§5.7) | | | about +16 (other +19 / +4, vtables -3, strings from code -4) |
+| unreferenced data (this section) | | | +3 literals (6 against 3); at most 9 `.bss` contributions and about 30 small `.data` items: **at most about 40** |
+
+*A finding on the way* (names): 10 of symbols.json's CRT names in that tail are the wide twins of the narrow
+functions ours links, identical but for their relocations: 0xA26BEB `_wprintf` and 0xA284C7 `_fwprintf` call
+`_output` 0xA2EA38 (they are `_printf` and `_fprintf`), 0xA27AE1 `__wfsopen` calls `_openfile` (`__fsopen`),
+0xA27B12 `__wfopen` (`_fopen`); `__wctime` 0xA2A97C, `_vfwprintf` 0xA2ADBA, `__wmkdir` 0xA2B1D8, `__waccess`
+0xA2BA47, `__wgetcwd` 0xA3E54B and `__wremove` 0xA41DA4 likely the same (`libpub.py`: each a public of a LIBCMT
+member ours does not pull; symbols.json has no address for `_printf`, `_fopen` and the others).
+
+Sum at most about 180 of the 273 (the 70 library starts counted as publics): **about 95 left** at least, names with
+no bytes of their own in the final image. The
+likeliest holder (not measured): the table is the full link's (2004-02-05, whose bucket order the thunks keep, §5),
+so it holds the old versions of the objects the update recompiled (ui_registration, main, pkdirlock, the two packet
+constructors), and every data name (a literal, a constant) only an old version had is in the count and nowhere in
+the image (an old function name keeps its thunk, so the -17 counts those; ui_registration's `.data` zeros above may
+be its old literals' place). The old objects are gone, so the image cannot count them.
+
+**What it implies (proposals; data, not behaviour: an unused global or static changes no instruction).** In the
+code (the coordinator's call, D246), each with its evidence above: (1) the emote tables as file statics of one
+header that 9 translation units include, and emote_data.cpp / pktriggeremote.cpp without their own (+448 bytes of
+`.data` in place, no name); (2) the `"2184"` header (§5.7); (3) unused statics or globals of the sizes in (c), in
+kv_pair.cpp (678-680 bytes), kv_util.cpp or message_record.cpp (about 593), unknown_847d20.cpp or pal_mgr.cpp (333-334),
+one of unknown_5b7ab0 / ui_mesh / unknown_5bb250 (about 53), cordcon.cpp / cordmgr.cpp / unknown_cordmsg.cpp (30-33),
+ui_mfd.cpp (about 10); (4) the include spellings of (b) in ui_analyze, ui_avatar_cust, viewbttn, tsk_login, the
+first packets object and co_subtype_base. For the libraries: the CRT / STL tail's 70 unnamed starts more (which
+members, from `.work/libs/`'s objects: code, so possibly behaviour; a library-matching item's); symbols.json's 10
+wide-char names above (the names' check). None of these moves the count far: the ~95 left
+(the update's old objects' names, if the reading above holds) stay out of reach, so the thunk order keeps waiting
+for the names (§5.2), not for the count.
+
+### 5.10 The emote tables' includers and their header
+
+Measured 2026-11-27 (builder IM13, no VM, no link) on run/2026-11-26-night (9acaf6e5d: auth_product.h landed) from
+client.exe, IM10's ledger export (`.work/im10/led.json`) and retail's object order (`.work/im9/objs-all.txt`), with
+`.work/im13/copies.py` (the copies and the anchors and `"2184"` pointers around each), `emclos.py` (every object's
+include closure, IM6's `pp.py`, against the set) and `order.py` (where each object first reaches the headers).
+
+**The nine objects.** A data relocation to `"Wave"` followed by the 13 other names: 9 copies (plus ui_chat_panel's
+own emote command table 0xB7C4A0, another table). Each placed by its neighbours and §5.8's pad rule (a `.data`
+contribution of S bytes takes S + S//5, aligned 4):
+
+| Copy | Object | Evidence |
+|---|---|---|
+| 0xB93A94 | co | after co's `"2184"` 0xB93A90; ends at co's `Unknown_B93ACC` 0xB93ACC |
+| 0xB952D0 | cpacket | after its `"2184"` 0xB952CC; then two floats 0.01f (0xB95308, 0xB9530C, no code reference), .data 68 + 16 -> 0xB95320, its first literal |
+| 0xB9804C | sclient | after its `"2184"` 0xB98048; then 1 at 0xB98084 (sclient.cpp's `static bool first` l.1089, read 0x74374D), the chat tables 0xB98088 |
+| 0xB9E548 | camera_manager | after its `"2184"` 0xB9E544; .data 60 + 12 -> 0xB9E58C, its first anchor |
+| 0xB9E6F0 | unknown_79d250 | after co_data's literals (co_data's .data is its `"2184"` 0xB9E6A8 alone, then 'co', its `__FILE__`, '!ClientObject'); .data 56 + 12 -> 0xB9E734, unknown_79d250's first anchor; no `"2184"` (§5.8: NO) |
+| 0xBA13BC | emote_data | **its sounds read** (0x7E6921, 0x7E6944 -> 0xBA13D8); then its `"2184"` 0xBA13F4, .data 60 + 12 -> 0xBA1404, its first anchor |
+| 0xBB2DA0 | clientstub | after its `"2184"` 0xBB2D9C; 60 + 12 -> 0xBB2DE4, its first anchor |
+| 0xBB2E1C | pk | after its `"2184"` 0xBB2E18; 60 + 12 -> 0xBB2E60, its first anchor |
+| 0xBB4450 | pktriggeremote | **its names read** (Print 0x88623D, 0x88651D); 56 + 12 -> 0xBB4494, its first literal; no `"2184"` |
+
+So the readers read their own object's copy (names +0 in pktriggeremote, sounds +0x1C in emote_data), as ours do
+with one definition each: the other 7 copies are data nobody reads, no behaviour. The bytes are the same in all 9
+(the literals pooled by `/GF`), names first, each table 7 non-const pointers in `.data`: `static` arrays of
+`char *` (or `const char *`) in a header, one copy per includer (as the `"2184"` static, §5.8).
+
+**The header** (hits of 9 / misses / extras among the other 737 objects of ours in the order):
+
+| Header | Hits | Misses | Extras |
+|---|---|---|---|
+| pktriggeremote.h | 5 (clientstub, cpacket, pk, pktriggeremote, sclient) | 4 | 0 |
+| emote_data.h | 5 (camera_manager, co, cpacket, emote_data, unknown_79d250) | 4 | 1 (co_data) |
+| both | 9 | 0 | 1 (co_data) |
+| next best (pk_sub_parts.h, pkuitrigger.h, ...) | 4 | 5 | 1 |
+| pk.h | 9 | 0 | 378 |
+
+pk_classes.h reaches only clientstub, cpacket and pk (tsk_login and tsk_game name it in comments only). The two
+halves are the packets' side (pk_classes.h's three and sclient's direct include) and exactly the four client
+objects that need EmoteDataClass's definition (co and camera_manager call its members, unknown_79d250's Get
+constructs it, emote_data defines it); co_data's code (constructor, destructor, Get_Client, Unknown_18, to its
+`<string>` guard 0x79D220) needs no data class, and retail's co_data holds no copy. So: **the tables are
+pktriggeremote.h's** (the packet's emote ids: Print names them, the client plays their sounds), **emote_data.h
+includes pktriggeremote.h, and co_data.cpp does not include emote_data.h** (its include list is ours, copied with
+unknown_79d250's split). 9 right, 0 missing, 0 wrong. (Four direct includes in the four client files fit the census
+as well, but take a coincidence the emote_data.h route does not; a new interim header that both pktriggeremote.h
+and emote_data.h include is the same bytes: the coordinator's call, D137.) No name of the header is in the binary.
+
+**Order in each object** (the `.data` follows definition order; also evidence for the `"2184"` header's place):
+retail has `"2184"` then the tables in co, cpacket, sclient, camera_manager, clientstub and pk, the tables then
+`"2184"` in emote_data, the tables alone in unknown_79d250 and pktriggeremote, and in co and sclient the tables
+before every data definition of the file. Ours now (`order.py`): co reaches emote_data.h at l.417, after its data
+(l.35); sclient reaches pktriggeremote.h at l.2840, after `first` (l.1089); camera_manager has emote_data.h (l.6)
+before auth_product.h (l.18), cpacket pk_classes.h (l.28) before it (l.79), pk pk_classes.h (l.3) before it (l.8);
+clientstub, emote_data and unknown_79d250 already fit.
+
+**Proposal (the next session's edit; one VM verify; line counts kept everywhere).**
+1. pktriggeremote.h: after `#include "pk.h"`, `static char *EmoteNames[] = { "Wave", ... "Spin Left" };` then
+   `static char *EmoteSounds[] = { "wave.wav", ... "spin.wav" };` (a reconstructed header with no asserting inline:
+   its own line count is free). pktriggeremote.cpp l.5-13 and emote_data.cpp l.20-28 blank (their definitions go).
+2. emote_data.h l.20 (blank): `#include "..\packets\pktriggeremote.h"`.
+3. co_data.cpp l.8: `class EmoteDataClass;` in place of `#include "emote_data.h"` (its hashtable specialisation
+   names the pointer type only; compile check).
+4. co.cpp: `#include "emote_data.h"` from l.417 to l.20 (blank), l.417 blank.
+5. sclient.cpp: l.2840's include (with its comment) to l.119 (blank, after camera_manager.h), l.2840 blank.
+6. camera_manager.cpp: swap l.6 (emote_data.h) and l.18 (auth_product.h).
+7. cpacket.cpp: swap l.27 (`..\packets\pklogoff.h`, which pk_classes.h l.76 includes anyway) and l.79
+   (auth_product.h).
+8. pk.cpp: swap l.3 (pk_classes.h) and l.8 (auth_product.h).
+
+**Expected effect.** `.data` +448 bytes of contents (+56 each in co, cpacket, sclient, camera_manager,
+unknown_79d250, clientstub and pk, +28 each in emote_data and pktriggeremote: IM11's 8 x 56), plus the pad rule's
+share on the `all` trial (not simulated: `.work/im10/sim.py` runs on objects built before auth_product.h); every
+one of the 9 objects' `.data` then opens as retail's (emote_data's as names, sounds, `"2184"`). No instruction
+changes but for the displacement of `.data` operands; the two readers keep reading their own copies (no behaviour
+change). The one client build has `.data` at another RVA, so the imagediff figure moves ~0 there, as for §5.8.
+Aside: cpacket's two unreferenced 0.01f floats after the tables (0xB95308) are another file static of a header or
+of cpacket.cpp, not looked for.
