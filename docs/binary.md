@@ -849,8 +849,10 @@ the image cannot say; the gap's place says which file holds it (or which of §5.
 count = 49/16 x size, so a symbol adds 16/49 bucket (279 -> +91, 558 -> +182; the trials gave +93 and +184), and
 the trial's map lists **45,809 publics** against 49/16 x (8,192 + 6,765) = **45,806**: the table holds the defined
 externals, every public of the image (import names and the `??_E` aliases included), and nothing else (our objects'
-14,768 static symbols would add a third; every thunk target is a public). Retail's p = 6,856 is 46,081-46,084:
-**about 274 more publics** in retail's full link than in `allA`. By kind (the trial's map against retail's image):
+14,768 static symbols would add a third; every thunk target is a public). §5.7's trials agree within 3 each
+(`pubcount.py` on wt/IM9's maps: `all` 45,809 at p 6,765, `pad` 46,088 at 6,858, `pad558` 46,367 at 6,949,
+`pad273` 46,082 at 6,856, `emp47` 45,809 at 6,765). So retail's full link had **46,082 ± 3 publics, 273 ± 3 more
+than `allA`**. By kind (the trial's map against retail's image):
 
 | Kind | `allA` | Retail | Difference |
 |---|---|---|---|
@@ -860,7 +862,7 @@ externals, every public of the image (import names and the `??_E` aliases includ
 | other data a relocation reaches (§5.7) | | | about +16 (other +19 / +4, vtables -3, strings from code -4) |
 | unreferenced data (this section) | | | +3 literals (6 against 3); at most 9 `.bss` contributions and about 30 small `.data` items: **at most about 40** |
 
-Sum at most about 180 of the ~274: **about 95 left**, names with no bytes of their own in the final image. The
+Sum at most about 180 of the 273: **about 95 left**, names with no bytes of their own in the final image. The
 likeliest holder (not measured): the table is the full link's (2004-02-05, whose bucket order the thunks keep, §5),
 so it holds the old versions of the objects the update recompiled (ui_registration, main, pkdirlock, the two packet
 constructors), and every data name (a literal, a constant) only an old version had is in the count and nowhere in
