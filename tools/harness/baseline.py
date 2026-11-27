@@ -1401,7 +1401,8 @@ def noise_summary(nz):
 # client's start and the login too; what follows the last end, the client's stop, is left out). Each is stored as
 # audio-NAME.json, compact and deterministic: the ordered open / start / stop / end / pause / resume / close events
 # ([event, handle kind, sound, loop count at a start, frame, ms]), the sounds' names (a memory sample's `load` names
-# its file) and per sound the count of every event kind; never the per-frame volume / position stream itself. The raw
+# its file) and per sound the count of every event kind; never the per-frame volume / position stream itself, only
+# each 3D start's place, volume and listener (`spatial`, AU-02: audio3d.py, since 2026-11-27). The raw
 # log is kept beside it only when under AUDIO_RAW_MAX. Compared: the streams' and 3D samples' sequence (kinds m, t)
 # strictly, equal to one stored run's; the 2D samples (s: the UI sounds that follow the cursor's hovers) by count of
 # each (event, sound) within the stored runs' range.
@@ -1449,6 +1450,7 @@ def audio_slices(events, results, cut='end'):
 
 
 def audio_summary(events, names):
+    import audio3d
     """The stored form of one scenario's audio events (audio-NAME.json)."""
     loop, seq, counts, used = {}, [], {}, set()
     for e in events:
@@ -1465,7 +1467,8 @@ def audio_summary(events, names):
     return {'schema': 1, 'events': len(events), 'frames': any('f' in e for e in events),
             'ticks': [events[0].get('tick'), events[-1].get('tick')] if events else None,
             'sequence': seq, 'names': {k: names[k] for k in sorted(used) if k in names},
-            'counts': {k: dict(sorted(v.items())) for k, v in sorted(counts.items())}}
+            'counts': {k: dict(sorted(v.items())) for k, v in sorted(counts.items())},
+            'spatial': audio3d.spatial(events)}
 
 
 def audio_names(events):
