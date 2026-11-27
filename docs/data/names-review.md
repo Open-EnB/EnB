@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1971 |
 | 2 | describes what the code does | 5016 |
-| 1 | neutral placeholder | 25225 |
+| 1 | neutral placeholder | 25224 |
 
 ## For review (score 3 and below)
 
@@ -7298,7 +7298,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_568690` | `app/client/sbaseview.cpp:1106` | untagged neutral name (D10) |
 | 1 | `Unknown65A020Class` | `app/client/sbaseview.cpp:1109` | untagged neutral name (D10) |
 | 1 | `Unknown_88` | `app/client/sbaseview.cpp:1165` | untagged neutral name (D10) |
-| 1 | `Unknown_Rotate_Vector` | `app/client/sbaseview.cpp:1233` | neutral (D10) |
 | 1 | `Unknown_6A0590` | `app/client/sbaseview.cpp:1243` | untagged neutral name (D10) |
 | 1 | `Unknown_4909D0` | `app/client/sbaseview.cpp:1255` | untagged neutral name (D10) |
 | 1 | `Unknown10` | `app/client/sbaseview.cpp:1256` | untagged neutral name (D10) |
