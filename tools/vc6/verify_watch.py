@@ -251,8 +251,17 @@ def open_landing(r, p, rec, master, dry=False):
     return sha
 
 
-def tend_landings(r, prs, master):
-    """Merge landings whose checks passed; close those that went stale or lost their original."""
+def open_prs(r):
+    return gh_json(f'repos/{r}/pulls?state=open&base=master&per_page=100') or []
+
+
+def tend_landings(r, master):
+    """Merge landings whose checks passed; close those that went stale or lost their original.
+
+    Reads the open pull requests itself, after the pass's verifies and landings: a landing rebuilt in this
+    pass (open_landing force-pushes its branch and keeps the open PR) shows its new head, not the one the
+    pass started with, so it is not closed as stale the moment it is rebuilt."""
+    prs = open_prs(r)
     by_number = {p['number']: p for p in prs}
     me = None
     for lp in prs:
@@ -324,7 +333,7 @@ def once(dry=False):
         r = verify_pr.repo()
         master = gh_json(f'repos/{r}/branches/master')['commit']['sha']
         wt.git('fetch', '-q', 'origin', '+refs/heads/master:refs/remotes/origin/master')
-        prs = gh_json(f'repos/{r}/pulls?state=open&base=master&per_page=100') or []
+        prs = open_prs(r)
         todo = 0
         for p in sorted(prs, key=lambda p: p['number']):
             n, head = p['number'], p['head']['sha']
@@ -397,7 +406,7 @@ def once(dry=False):
                 except RuntimeError as e:
                     log(f'#{n}: landing failed: {e}')
         if not dry:
-            tend_landings(r, prs, master)
+            tend_landings(r, master)
         if not todo:
             print(f'nothing to verify ({len(prs)} open PRs)')
     finally:
