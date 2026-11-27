@@ -567,10 +567,15 @@ EXACT_RES = os.path.join('res', 'client.res')         # under --out
 APP_REGION = (0x429630, 0x8C1B64)                      # retail's app slots (binary.md §5)
 
 
-# Only the app's objects: wlib, wnet and wwlib's rawfile.obj from their libraries (measured 2026-11-27 on trial
-# links of this program: app only 1,364,230 bytes in place and the file 8,642,625 bytes, retail's length; app +
-# rawfile 1,320,664; app + wlib + wnet + rawfile on the line, binary.md 5.3's `all` set, 1,296,406)
-EXACT_PICKS = (('app', None),)
+# The app's objects, wlib's and wnet's: retail's layout puts every one of wlib's 199 and wnet's 74 exact functions
+# in the padded, thunked app region (command-line objects), while the other Westwood libraries sit packed in the
+# library region (a few inline / template functions excepted). Measured 2026-11-27: with wlib / wnet on the line
+# .text keeps retail's order best (2,230 runs of one displacement, against 2,466 with app alone). Leaving them off
+# gave more bytes in place (1,364,230 against 1,296,406), but by coincidence: their padding cancelled our .text
+# surplus (the not-yet-exact functions), so every later section landed at retail's RVA; .text itself gained 4 KB.
+# Whole library objects also in retail's app region, not on the line yet: wwlib rawfile (26 / 26 functions),
+# ww3d2 w3d_dep (11 / 11) and txt (6 / 6), wwsaveload parameter (2 / 2): with them .text grew 48 KB (open).
+EXACT_PICKS = (('app', None), ('wlib', None), ('wnet', None))
 
 
 def exact_order():
