@@ -1,0 +1,55 @@
+{
+  "base": "/home/dev/Projects/EnB/.work/claim-302/tree/app/client/mainview.cpp",
+  "base_sha256": "502d811c3e4388c6de67d6bbbfc7cfd1893a5a5b07ceba1b8fa905975945c427",
+  "forms": [
+    {
+      "name": "inverted",
+      "sha256": "27f9a9c9a9a1c292b3e4aed7e8e555436af26c8e3e055b033d8afb8ba729f5bf",
+      "patch": "--- mainview.cpp\n+++ mainview.cpp\n@@ -668,14 +668,14 @@\n \tfloat budget = (float)PolyBudget - cost;\n \tif (budget <= 0.0f) budget = 0.0f;\n \tPredictiveLODOptimizerClass::Optimize_LODs(budget);\n-\tif (!Client->Unknown10FA) {\n+\tif (Client->Unknown10FA) {\n+\t\tUnknown_50D1E0();\n+\t\tUnknown_50CE00(near2, far2);\n+\t\tUnknown_50D060();\n+\t} else {\n \t\tUnknown_50D060();\n \t\tUnknown_50D1E0();\n \t\tUnknown_50CE00(near2, far2);\n-\t} else {\n-\t\tUnknown_50D1E0();\n-\t\tUnknown_50CE00(near2, far2);\n-\t\tUnknown_50D060();\n \t}\n \tUnknown_50D310(znear, zfar);\n \tUnknown_50D430(near2, far2);\n",
+      "raw_code_sha256": "c1fdc021bf2b3e8dc63283145bf620f472b64134bca4183965b11c86049d24f2",
+      "run": "inverted-san6813w"
+    },
+    {
+      "name": "reverse_near",
+      "sha256": "94d403fe8702ef7d01281482394ef9b699a4b0bc1ae20d2733e18c47435842c1",
+      "patch": "--- mainview.cpp\n+++ mainview.cpp\n@@ -658,7 +658,7 @@\n \tPredictiveLODOptimizerClass::Clear();\n \tfloat old_near, old_far;\n \tCamera->Get_Clip_Planes(old_near, old_far);\n-\tfloat near2, far2;\n+\tfloat far2, near2;\n \tUnknown_50CCF0(&near2, &far2);\n \tCamera->Set_Clip_Planes(near2, far2);\n \tUnknown11C->Visibility_Check(Camera);\n@@ -668,14 +668,14 @@\n \tfloat budget = (float)PolyBudget - cost;\n \tif (budget <= 0.0f) budget = 0.0f;\n \tPredictiveLODOptimizerClass::Optimize_LODs(budget);\n-\tif (!Client->Unknown10FA) {\n+\tif (Client->Unknown10FA) {\n+\t\tUnknown_50D1E0();\n+\t\tUnknown_50CE00(near2, far2);\n+\t\tUnknown_50D060();\n+\t} else {\n \t\tUnknown_50D060();\n \t\tUnknown_50D1E0();\n \t\tUnknown_50CE00(near2, far2);\n-\t} else {\n-\t\tUnknown_50D1E0();\n-\t\tUnknown_50CE00(near2, far2);\n-\t\tUnknown_50D060();\n \t}\n \tUnknown_50D310(znear, zfar);\n \tUnknown_50D430(near2, far2);\n",
+      "raw_code_sha256": "c1fdc021bf2b3e8dc63283145bf620f472b64134bca4183965b11c86049d24f2",
+      "run": "more-41frcnop"
+    },
+    {
+      "name": "reverse_old",
+      "sha256": "b5f3dd34106078de988736b90d8aa4ab088382ecaab64029e9d5189ef69dad51",
+      "patch": "--- mainview.cpp\n+++ mainview.cpp\n@@ -656,7 +656,7 @@\n \tDazzleRenderObjClass::Set_Current_Dazzle_Layer(DazzleLayer);\n \tUnknown_50CC10(); float cost = PredictiveLODOptimizerClass::Get_Total_Cost();\n \tPredictiveLODOptimizerClass::Clear();\n-\tfloat old_near, old_far;\n+\tfloat old_far, old_near;\n \tCamera->Get_Clip_Planes(old_near, old_far);\n \tfloat near2, far2;\n \tUnknown_50CCF0(&near2, &far2);\n@@ -668,14 +668,14 @@\n \tfloat budget = (float)PolyBudget - cost;\n \tif (budget <= 0.0f) budget = 0.0f;\n \tPredictiveLODOptimizerClass::Optimize_LODs(budget);\n-\tif (!Client->Unknown10FA) {\n+\tif (Client->Unknown10FA) {\n+\t\tUnknown_50D1E0();\n+\t\tUnknown_50CE00(near2, far2);\n+\t\tUnknown_50D060();\n+\t} else {\n \t\tUnknown_50D060();\n \t\tUnknown_50D1E0();\n \t\tUnknown_50CE00(near2, far2);\n-\t} else {\n-\t\tUnknown_50D1E0();\n-\t\tUnknown_50CE00(near2, far2);\n-\t\tUnknown_50D060();\n \t}\n \tUnknown_50D310(znear, zfar);\n \tUnknown_50D430(near2, far2);\n",
+      "raw_code_sha256": "c1fdc021bf2b3e8dc63283145bf620f472b64134bca4183965b11c86049d24f2",
+      "run": "more-41frcnop"
+    },
+    {
+      "name": "cost_direct",
+      "sha256": "8dcd276a1c58b5e3a67bfc9bba64790b2bb89dd953d30e8fe75ac2c3a130fe2f",
+      "patch": "--- mainview.cpp\n+++ mainview.cpp\n@@ -654,7 +654,7 @@\n \t\treturn(error);\n \t}\n \tDazzleRenderObjClass::Set_Current_Dazzle_Layer(DazzleLayer);\n-\tUnknown_50CC10(); float cost = PredictiveLODOptimizerClass::Get_Total_Cost();\n+\tfloat cost = Unknown_50CC10();\n \tPredictiveLODOptimizerClass::Clear();\n \tfloat old_near, old_far;\n \tCamera->Get_Clip_Planes(old_near, old_far);\n@@ -668,14 +668,14 @@\n \tfloat budget = (float)PolyBudget - cost;\n \tif (budget <= 0.0f) budget = 0.0f;\n \tPredictiveLODOptimizerClass::Optimize_LODs(budget);\n-\tif (!Client->Unknown10FA) {\n+\tif (Client->Unknown10FA) {\n+\t\tUnknown_50D1E0();\n+\t\tUnknown_50CE00(near2, far2);\n+\t\tUnknown_50D060();\n+\t} else {\n \t\tUnknown_50D060();\n \t\tUnknown_50D1E0();\n \t\tUnknown_50CE00(near2, far2);\n-\t} else {\n-\t\tUnknown_50D1E0();\n-\t\tUnknown_50CE00(near2, far2);\n-\t\tUnknown_50D060();\n \t}\n \tUnknown_50D310(znear, zfar);\n \tUnknown_50D430(near2, far2);\n",
+      "raw_code_sha256": "a1c5bd00c94b14aa05d156416ccc43ebe13b90ac8de02f1b800c86ca01c665ea",
+      "run": "more-41frcnop"
+    },
+    {
+      "name": "cost_const",
+      "sha256": "3ed4bd722a2326116583e55d69c8e600414fa40755656aeccaebd91012ed550d",
+      "patch": "--- mainview.cpp\n+++ mainview.cpp\n@@ -654,7 +654,7 @@\n \t\treturn(error);\n \t}\n \tDazzleRenderObjClass::Set_Current_Dazzle_Layer(DazzleLayer);\n-\tUnknown_50CC10(); float cost = PredictiveLODOptimizerClass::Get_Total_Cost();\n+\tUnknown_50CC10(); const float cost = PredictiveLODOptimizerClass::Get_Total_Cost();\n \tPredictiveLODOptimizerClass::Clear();\n \tfloat old_near, old_far;\n \tCamera->Get_Clip_Planes(old_near, old_far);\n@@ -668,14 +668,14 @@\n \tfloat budget = (float)PolyBudget - cost;\n \tif (budget <= 0.0f) budget = 0.0f;\n \tPredictiveLODOptimizerClass::Optimize_LODs(budget);\n-\tif (!Client->Unknown10FA) {\n+\tif (Client->Unknown10FA) {\n+\t\tUnknown_50D1E0();\n+\t\tUnknown_50CE00(near2, far2);\n+\t\tUnknown_50D060();\n+\t} else {\n \t\tUnknown_50D060();\n \t\tUnknown_50D1E0();\n \t\tUnknown_50CE00(near2, far2);\n-\t} else {\n-\t\tUnknown_50D1E0();\n-\t\tUnknown_50CE00(near2, far2);\n-\t\tUnknown_50D060();\n \t}\n \tUnknown_50D310(znear, zfar);\n \tUnknown_50D430(near2, far2);\n",
+      "raw_code_sha256": "c1fdc021bf2b3e8dc63283145bf620f472b64134bca4183965b11c86049d24f2",
+      "run": "more-41frcnop"
+    },
+    {
+      "name": "budget_convert",
+      "sha256": "ffdafea0bb4bdc5eadd24cd58b54e0d59d970bdbc1c5d2a518f8c8dcf01feb58",
+      "patch": "--- mainview.cpp\n+++ mainview.cpp\n@@ -665,17 +665,17 @@\n \tCamera->Set_Clip_Planes(znear, zfar);\n \tScene->Visibility_Check(Camera);\n \tCamera->Set_Clip_Planes(old_near, old_far);\n-\tfloat budget = (float)PolyBudget - cost;\n+\tfloat budget = PolyBudget; budget -= cost;\n \tif (budget <= 0.0f) budget = 0.0f;\n \tPredictiveLODOptimizerClass::Optimize_LODs(budget);\n-\tif (!Client->Unknown10FA) {\n+\tif (Client->Unknown10FA) {\n+\t\tUnknown_50D1E0();\n+\t\tUnknown_50CE00(near2, far2);\n+\t\tUnknown_50D060();\n+\t} else {\n \t\tUnknown_50D060();\n \t\tUnknown_50D1E0();\n \t\tUnknown_50CE00(near2, far2);\n-\t} else {\n-\t\tUnknown_50D1E0();\n-\t\tUnknown_50CE00(near2, far2);\n-\t\tUnknown_50D060();\n \t}\n \tUnknown_50D310(znear, zfar);\n \tUnknown_50D430(near2, far2);\n",
+      "raw_code_sha256": "c1fdc021bf2b3e8dc63283145bf620f472b64134bca4183965b11c86049d24f2",
+      "run": "more-41frcnop"
+    },
+    {
+      "name": "result_const",
+      "sha256": "be3de9adba1f9ae6d5de72cc1b445997cf40e50983f0e3d5514109556a511539",
+      "patch": "--- mainview.cpp\n+++ mainview.cpp\n@@ -649,7 +649,7 @@\n {\n \tWWPROFILE(\"MainView::Render_Space_Mode\");\n \tUpdate(Camera, false);\n-\tWW3DErrorType error = WW3D::Begin_Render(Client->Unknown10FA, true);\n+\tconst WW3DErrorType error = WW3D::Begin_Render(Client->Unknown10FA, true);\n \tif (error != WW3D_ERROR_OK) {\n \t\treturn(error);\n \t}\n@@ -668,14 +668,14 @@\n \tfloat budget = (float)PolyBudget - cost;\n \tif (budget <= 0.0f) budget = 0.0f;\n \tPredictiveLODOptimizerClass::Optimize_LODs(budget);\n-\tif (!Client->Unknown10FA) {\n+\tif (Client->Unknown10FA) {\n+\t\tUnknown_50D1E0();\n+\t\tUnknown_50CE00(near2, far2);\n+\t\tUnknown_50D060();\n+\t} else {\n \t\tUnknown_50D060();\n \t\tUnknown_50D1E0();\n \t\tUnknown_50CE00(near2, far2);\n-\t} else {\n-\t\tUnknown_50D1E0();\n-\t\tUnknown_50CE00(near2, far2);\n-\t\tUnknown_50D060();\n \t}\n \tUnknown_50D310(znear, zfar);\n \tUnknown_50D430(near2, far2);\n",
+      "raw_code_sha256": "c1fdc021bf2b3e8dc63283145bf620f472b64134bca4183965b11c86049d24f2",
+      "run": "more-41frcnop"
+    }
+  ]
+}

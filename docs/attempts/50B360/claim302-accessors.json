@@ -1,0 +1,31 @@
+{
+  "base": "/home/dev/Projects/EnB/.work/claim-302/tree/app/client/mainview.cpp",
+  "base_sha256": "502d811c3e4388c6de67d6bbbfc7cfd1893a5a5b07ceba1b8fa905975945c427",
+  "forms": [
+    {
+      "name": "task_ptr",
+      "patch": "--- mainview.cpp\n+++ mainview.cpp\n@@ -153,7 +153,7 @@\n \n \n \n-\n+static inline SClient *Task_Client(ClientTaskClass *task) { return task->Client; }\n // NOT EXACT: scheduling only (the array-ctor pushes, the 0.5 / 1.0 constants, one register); attempts.csv 0x50B360\n MainViewClass::MainViewClass(ClientTaskClass *ctask) :\n \tUnknown65B810ViewClass(ctask, 0),\n@@ -174,7 +174,7 @@\n \t// (0x50B360 sets the table after the members)\n \t// (line 176 next)\n \tG_ASSERT(ctask);\n-\tCameraEffects = new CameraEffectsClass(this, ctask->Client);\n+\tCameraEffects = new CameraEffectsClass(this, Task_Client(ctask));\n }\n \n MainViewClass::~MainViewClass()\n",
+      "sha256": "0ea31245db0248ff46dfafaf5316b46fa671545e6ec0407e310eac5cbc0de685"
+    },
+    {
+      "name": "task_ref",
+      "patch": "--- mainview.cpp\n+++ mainview.cpp\n@@ -153,7 +153,7 @@\n \n \n \n-\n+static inline SClient *Task_Client(ClientTaskClass &task) { return task.Client; }\n // NOT EXACT: scheduling only (the array-ctor pushes, the 0.5 / 1.0 constants, one register); attempts.csv 0x50B360\n MainViewClass::MainViewClass(ClientTaskClass *ctask) :\n \tUnknown65B810ViewClass(ctask, 0),\n@@ -174,7 +174,7 @@\n \t// (0x50B360 sets the table after the members)\n \t// (line 176 next)\n \tG_ASSERT(ctask);\n-\tCameraEffects = new CameraEffectsClass(this, ctask->Client);\n+\tCameraEffects = new CameraEffectsClass(this, Task_Client(*ctask));\n }\n \n MainViewClass::~MainViewClass()\n",
+      "sha256": "13f2b18773aa1c4fe9a65cc5df8f8e64817a347844d626fdc7ea068fe3d700b6"
+    },
+    {
+      "name": "task_const_ptr",
+      "patch": "--- mainview.cpp\n+++ mainview.cpp\n@@ -153,7 +153,7 @@\n \n \n \n-\n+static inline SClient *Task_Client(const ClientTaskClass *task) { return task->Client; }\n // NOT EXACT: scheduling only (the array-ctor pushes, the 0.5 / 1.0 constants, one register); attempts.csv 0x50B360\n MainViewClass::MainViewClass(ClientTaskClass *ctask) :\n \tUnknown65B810ViewClass(ctask, 0),\n@@ -174,7 +174,7 @@\n \t// (0x50B360 sets the table after the members)\n \t// (line 176 next)\n \tG_ASSERT(ctask);\n-\tCameraEffects = new CameraEffectsClass(this, ctask->Client);\n+\tCameraEffects = new CameraEffectsClass(this, Task_Client(ctask));\n }\n \n MainViewClass::~MainViewClass()\n",
+      "sha256": "bf8ed2a11f906c66d9b9dd793ab5aa2013dbf866a2ba96b58bc722d0c63d4696"
+    },
+    {
+      "name": "effects_factory",
+      "patch": "--- mainview.cpp\n+++ mainview.cpp\n@@ -153,7 +153,7 @@\n \n \n \n-\n+static inline CameraEffectsClass *Make_Camera_Effects(MainViewClass *view, ClientTaskClass *task) { return new CameraEffectsClass(view, task->Client); }\n // NOT EXACT: scheduling only (the array-ctor pushes, the 0.5 / 1.0 constants, one register); attempts.csv 0x50B360\n MainViewClass::MainViewClass(ClientTaskClass *ctask) :\n \tUnknown65B810ViewClass(ctask, 0),\n@@ -174,7 +174,7 @@\n \t// (0x50B360 sets the table after the members)\n \t// (line 176 next)\n \tG_ASSERT(ctask);\n-\tCameraEffects = new CameraEffectsClass(this, ctask->Client);\n+\tCameraEffects = Make_Camera_Effects(this, ctask);\n }\n \n MainViewClass::~MainViewClass()\n",
+      "sha256": "6a74f78282937c2536876afa638bcccffb4730709f4471d3845524c3490a4277"
+    },
+    {
+      "name": "effects_factory_ref",
+      "patch": "--- mainview.cpp\n+++ mainview.cpp\n@@ -153,7 +153,7 @@\n \n \n \n-\n+static inline CameraEffectsClass *Make_Camera_Effects(MainViewClass *view, ClientTaskClass &task) { return new CameraEffectsClass(view, task.Client); }\n // NOT EXACT: scheduling only (the array-ctor pushes, the 0.5 / 1.0 constants, one register); attempts.csv 0x50B360\n MainViewClass::MainViewClass(ClientTaskClass *ctask) :\n \tUnknown65B810ViewClass(ctask, 0),\n@@ -174,7 +174,7 @@\n \t// (0x50B360 sets the table after the members)\n \t// (line 176 next)\n \tG_ASSERT(ctask);\n-\tCameraEffects = new CameraEffectsClass(this, ctask->Client);\n+\tCameraEffects = Make_Camera_Effects(this, *ctask);\n }\n \n MainViewClass::~MainViewClass()\n",
+      "sha256": "75059b64d54ed9038905b54e20fc08be4d0d4538c7ff3963ce6fc5980c8b2e4d"
+    }
+  ]
+}
