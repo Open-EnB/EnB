@@ -835,7 +835,7 @@ spellings (data, not behaviour).
 | Retail | After | Before (ours between) | Bytes | S |
 |---|---|---|---|---|
 | 0xBE4B64-0xBE4E94 | kv_pair.obj (1 byte, its PermStringInit) | kv_pair_string.obj | 816 | 678-680 |
-| 0xBE52A0-0xBE55D0 | kv_util.obj (516, `_KeyBuffer`) | avatar_desc.obj (message_record, message, message_server, message_filter) | 712 | about 593 (avatar_desc's base 0xBE55D0 is also message.obj's `_Unknown_BE55D0` by the votes: one is misplaced) |
+| 0xBE5308-0xBE55D0 | kv_util.obj (516: `KeyBuffer[0x200]` and its PermStringInit) | message.obj's `Unknown_BE55D0` 0xBE55D0 (message_record between; avatar_desc's votes put its base there too, one of the two is misplaced) | 712 | about 593 |
 | 0xBF3DB8-0xBF3F48 | unknown_847d20.obj (4) | pal_mgr.obj | 400 | 333-334 |
 | 0xBE5C4C-0xBE5C8C | ui_manu_util.obj (1) | ui_mfd.obj (unknown_5b7ab0, ui_mesh, unknown_5bb250) | 64 | about 53 |
 | 0xBF40F4-0xBF411C | unknown_84df30.obj (21: the CordChannel pool and its guard) | unknown_85bf30.obj (cordcon, cordmgr, unknown_cordmsg) | 40 | 30-33 (IM9's lead) |
@@ -881,7 +881,7 @@ be its old literals' place). The old objects are gone, so the image cannot count
 code (the coordinator's call, D246), each with its evidence above: (1) the emote tables as file statics of one
 header that 9 translation units include, and emote_data.cpp / pktriggeremote.cpp without their own (+448 bytes of
 `.data` in place, no name); (2) the `"2184"` header (§5.7); (3) unused statics or globals of the sizes in (c), in
-kv_pair.cpp (678-680 bytes), one of the message files (about 593), unknown_847d20.cpp or pal_mgr.cpp (333-334),
+kv_pair.cpp (678-680 bytes), kv_util.cpp or message_record.cpp (about 593), unknown_847d20.cpp or pal_mgr.cpp (333-334),
 one of unknown_5b7ab0 / ui_mesh / unknown_5bb250 (about 53), cordcon.cpp / cordmgr.cpp / unknown_cordmsg.cpp (30-33),
 ui_mfd.cpp (about 10); (4) the include spellings of (b) in ui_analyze, ui_avatar_cust, viewbttn, tsk_login, the
 first packets object and co_subtype_base. For the libraries: the CRT / STL tail's 70 unnamed starts more (which
