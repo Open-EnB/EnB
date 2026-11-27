@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1971 |
 | 2 | describes what the code does | 5023 |
-| 1 | neutral placeholder | 25231 |
+| 1 | neutral placeholder | 25233 |
 
 ## For review (score 3 and below)
 
@@ -11109,6 +11109,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_77E830` | `app/client/ui_avatr.cpp:1070` | untagged neutral name (D10) |
 | 1 | `UIAvatrGenders` | `app/client/ui_avatr.cpp:1159` | neutral (D10) |
 | 1 | `UIAvatrRaces` | `app/client/ui_avatr.cpp:1160` | neutral (D10) |
+| 1 | `Unknown_55BAC0_Model` | `app/client/ui_avatr.cpp:1305` | neutral (D10). 0x55BAC0's inline layer over 0x497300; the two dead Num_Refs() reads are a budget device (D272, provisional: not known to be the client's): with them the third temporary's and the model's ~RefCountPtr stay out of line as the client's (0x40E2D2), with one or none the third temporary's is inline (attempts.py show 0x55BAC0) |
 | 1 | `Unknown_6608F0` | `app/client/ui_avatr.cpp:1324` | untagged neutral name (D10) |
 | 1 | `Unknown_77E9D0` | `app/client/ui_avatr.cpp:1418` | untagged neutral name (D10) |
 | 1 | `Unknown_77FC20` | `app/client/ui_avatr.cpp:1456` | untagged neutral name (D10) |
@@ -15044,6 +15045,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `bttn` | `app/client/ui_option_control_keys.cpp:261` | neutral (D10) |
 | 1 | `lp` | `app/client/ui_option_control_keys.cpp:262` | neutral (D10) |
 | 1 | `count` | `app/client/ui_option_control_keys.cpp:291` | neutral (D10) |
+| 1 | `font` | `app/client/ui_option_control_keys.cpp:300` | what it holds |
 | 1 | `Unknown34` | `app/client/ui_option_control_keys.cpp:300` | untagged neutral name (D10) |
 | 1 | `Unknown_60` | `app/client/ui_option_control_keys.cpp:320` | untagged neutral name (D10) |
 | 1 | `event` | `app/client/ui_option_control_keys.cpp:325` | neutral (D10) |
