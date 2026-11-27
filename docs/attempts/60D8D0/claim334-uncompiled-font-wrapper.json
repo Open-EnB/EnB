@@ -1,0 +1,14 @@
+{
+  "hypothesis": "Use the documented Create_NEW ownership wrapper for the two new FontSys objects. Its inline call boundary can affect the surviving EH-state/register allocation; both wrappers take identical GET ownership.",
+  "base_sha256": "0a7c082ab52215f12baf4a8d3141f1630e27823f160ba780d5c7cffb897fa1f0",
+  "source_sha256": "a687e97aa207082756e09e3f507b3ad4557f108b0dcc7888b02bfefdafd0bfd6",
+  "edits": [
+    {
+      "old": "ConFont = Create_Get(new FontSys(\"MFD_CON\", robj, NULL));\n\tFactionFont = Create_Get(new FontSys(\"MFD_FACTION\", robj, NULL));",
+      "new": "ConFont = Create_NEW(new FontSys(\"MFD_CON\", robj, NULL));\n\tFactionFont = Create_NEW(new FontSys(\"MFD_FACTION\", robj, NULL));"
+    }
+  ],
+  "base_revision": "8045b1b026a984c2970d8bddd5d05980f1c9ba5b",
+  "classification": "prepared_uncompiled",
+  "replay_verified": true
+}
