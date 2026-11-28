@@ -474,9 +474,9 @@ void FontSys::Unknown_6CA0C0(FontEffectStruct *effect)
 		style->Unknown4C5 = false;
 
 
-		style->Unknown4A4.Color.X = (float)(style->Colors[style->Unknown44C]->RGB.X < style->Colors[1]->RGB.X ? style->Colors[1]->RGB.X : style->Colors[style->Unknown44C]->RGB.X) * 0.00392156f;
-		style->Unknown4A4.Color.Y = (float)(style->Colors[style->Unknown44C]->RGB.Y < style->Colors[1]->RGB.Y ? style->Colors[1]->RGB.Y : style->Colors[style->Unknown44C]->RGB.Y) * 0.00392156f;
-		style->Unknown4A4.Color.Z = (float)(style->Colors[style->Unknown44C]->RGB.Z < style->Colors[1]->RGB.Z ? style->Colors[1]->RGB.Z : style->Colors[style->Unknown44C]->RGB.Z) * 0.00392156f;
+		style->Unknown4A4.Color.X = (float)(max(style->Colors[1]->RGB.X, style->Colors[style->Unknown44C]->RGB.X)) * 0.00392156f;
+		style->Unknown4A4.Color.Y = (float)(max(style->Colors[1]->RGB.Y, style->Colors[style->Unknown44C]->RGB.Y)) * 0.00392156f;
+		style->Unknown4A4.Color.Z = (float)(max(style->Colors[1]->RGB.Z, style->Colors[style->Unknown44C]->RGB.Z)) * 0.00392156f;
 		style->Unknown254[1] = 2;
 		break;
 	}
@@ -619,7 +619,7 @@ void FontSys::Unknown_6CA0C0(FontEffectStruct *effect)
 		style->Font->Set_XSpacing(style->Unknown448);
 		StringClass text(style->Info.Text);
 		if (style->Unknown406) {
-			text += "..."; text.Peek_Buffer(); text.Peek_Buffer(); text.Peek_Buffer(); text.Peek_Buffer(); text.Peek_Buffer(); text.Peek_Buffer(); text.Peek_Buffer(); text.Peek_Buffer(); text.Peek_Buffer(); text.Peek_Buffer(); text.Peek_Buffer();
+			text += "..."; text.Peek_Buffer(); text.Peek_Buffer(); text.Peek_Buffer(); text.Peek_Buffer(); text.Peek_Buffer(); text.Peek_Buffer(); text.Peek_Buffer(); text.Peek_Buffer();
 		}
 		char *buffer = text.Get_Buffer(text.Get_Length()); Rebuild_Texture(style, buffer, false);
 		rect[1] = style->Unknown2C4 = style->Font->String_Pixel_Width(buffer);
@@ -733,12 +733,12 @@ void FontSys::Unknown_6CA0C0(FontEffectStruct *effect)
 **
 **	Inline budget (FX, run 2026-11-21): Set_Complete is a file-local layer over the +0x404 stores; with it the client's
 **	out-of-line Store_Length in LETTER (0x6CB343, 0x6CB425) follows. The Peek_Buffer reads after STRETCH's "..." and
-**	STAY's copy are dead budget reads (D272); their counts are swept (11 / 2 give the client's zero register in edi).
+**	STAY's copy are dead budget reads (D272); their counts are swept (8 / 2 since GLOW's max, B1h: 7-8 equal, 5-6 / 9-10 worse).
 **
 **	Read from the client's compares (B1, run 2026-11-27-night; residue 134 -> 69): RANDLETTER's and LETTER's shown clamp is
 **	an if / else with length first (edi = length, cmp length, target / jl, 0x6CA3DE, 0x6CB2D8; it also sends STRETCH's copy
 **	operator= out of line as the client, 0x6CBF44); FADE's and STRETCH's elapsed-time product is written in each branch
 **	(fimul after the Initial / Intensity compare, 0x6CA313, 0x6CBE75), STRETCH over a rate local; wipe-out UP keeps its
 **	clamp in a local (cmp ecx, eax after the +0x404 store, 0x6CB6A0); STRETCH stores rect[3] through style (fild
-**	Unknown448 hoisted above the +0x42C store, 0x6CC05E).
+**	Unknown448 hoisted above the +0x42C store, 0x6CC05E). GLOW is always.h's max(C1, Ck) (B1h: its arguments loaded right to left, Ck first, &Colors[k] kept in eax, 0x6CB6FB-0x6CB715; 69 -> 57).
 */
