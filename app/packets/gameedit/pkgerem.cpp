@@ -11,7 +11,7 @@ GameEditorRemovePacketClass::GameEditorRemovePacketClass(PacketClass *raw)
 	raw->Get(&GameID, sizeof(GameID));
 }
 
-PacketClass *GameEditorRemovePacketClass::Build()
+PacketClass *GameEditorRemovePacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(30004, Get_Data_Size());
 	raw->Add(&GameID, sizeof(GameID));

@@ -61,7 +61,7 @@ ClientChatPacketClass::~ClientChatPacketClass()
 	}
 }
 
-PacketClass *ClientChatPacketClass::Build()
+PacketClass *ClientChatPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(51, Get_Data_Size());
 	raw->Add(&GameID, sizeof(GameID));
@@ -135,7 +135,7 @@ void ClientChatRequestPacketClass::Unknown_878D90(Unknown_ChatStreamClass *strea
 	Unknown44 = (char *)stream->Unknown04;
 }
 
-PacketClass *ClientChatRequestPacketClass::Build()
+PacketClass *ClientChatRequestPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(163, Get_Data_Size());
 	raw->Add(&Unknown0C, sizeof(Unknown0C));
@@ -205,7 +205,7 @@ ClientChatEventPacketClass::~ClientChatEventPacketClass()
 	}
 }
 
-PacketClass *ClientChatEventPacketClass::Build()
+PacketClass *ClientChatEventPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(165, Get_Data_Size());
 	raw->Add(&Unknown0C, sizeof(Unknown0C));
@@ -270,7 +270,7 @@ ClientChatListPacketClass::ClientChatListPacketClass(PacketClass *raw) :
 	}
 }
 
-PacketClass *ClientChatListPacketClass::Build()
+PacketClass *ClientChatListPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(164, Get_Data_Size());
 	raw->Add(&Unknown0C, sizeof(Unknown0C));
@@ -341,7 +341,7 @@ ClientChatErrorPacketClass::ClientChatErrorPacketClass(PacketClass *raw) :
 	raw->Get(&Unknown34);
 }
 
-PacketClass *ClientChatErrorPacketClass::Build()
+PacketClass *ClientChatErrorPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(166, Get_Data_Size());
 	raw->Add(&Unknown0C, sizeof(Unknown0C));

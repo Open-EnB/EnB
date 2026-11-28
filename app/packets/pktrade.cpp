@@ -13,7 +13,7 @@ TradePacketClass::TradePacketClass(PacketClass *raw)
 	raw->Get(&Type, sizeof(Type));
 }
 
-PacketClass *TradePacketClass::Build()
+PacketClass *TradePacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(31, Get_Data_Size());
 	raw->Add(&PartnerID, sizeof(PartnerID));

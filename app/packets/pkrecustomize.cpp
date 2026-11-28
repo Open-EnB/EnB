@@ -26,7 +26,7 @@ RecustomizeShipStartPacketClass::RecustomizeShipStartPacketClass(int unknown1A0,
 	Cost = cost;
 }
 
-PacketClass *RecustomizeShipStartPacketClass::Build()
+PacketClass *RecustomizeShipStartPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(129, Get_Data_Size());
 	raw->Add((Unknown_PacketDataClass &)Desc);
@@ -67,7 +67,7 @@ RecustomizeShipDonePacketClass::RecustomizeShipDonePacketClass(int unknown16C, c
 	Desc = desc;
 }
 
-PacketClass *RecustomizeShipDonePacketClass::Build()
+PacketClass *RecustomizeShipDonePacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(130, Get_Data_Size());
 	raw->Add((Unknown_PacketDataClass &)Desc);
@@ -102,7 +102,7 @@ RecustomizeAvatarStartPacketClass::RecustomizeAvatarStartPacketClass(int unknown
 	Cost = cost;
 }
 
-PacketClass *RecustomizeAvatarStartPacketClass::Build()
+PacketClass *RecustomizeAvatarStartPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(131, Get_Data_Size());
 	raw->Add(Cost);
@@ -133,7 +133,7 @@ RecustomizeAvatarDonePacketClass::RecustomizeAvatarDonePacketClass(int unknown11
 	Desc = desc;
 }
 
-PacketClass *RecustomizeAvatarDonePacketClass::Build()
+PacketClass *RecustomizeAvatarDonePacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(132, Get_Data_Size());
 	raw->Add((Unknown_PacketDataClass &)Desc);
@@ -164,7 +164,7 @@ RecustomizeAvatarUpdatePacketClass::RecustomizeAvatarUpdatePacketClass(int unkno
 	Desc = desc;
 }
 
-PacketClass *RecustomizeAvatarUpdatePacketClass::Build()
+PacketClass *RecustomizeAvatarUpdatePacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(133, Get_Data_Size());
 	raw->Add((Unknown_PacketDataClass &)Desc);

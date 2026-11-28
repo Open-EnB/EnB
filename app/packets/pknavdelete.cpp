@@ -29,7 +29,7 @@ NavigationPacketClass::NavigationPacketClass(PacketClass *raw) :
 	raw->Get(&IsHuge, sizeof(IsHuge));
 }
 
-PacketClass *NavigationPacketClass::Build()
+PacketClass *NavigationPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(153, Get_Data_Size());
 	raw->Add(&GameID, sizeof(GameID));
@@ -60,7 +60,7 @@ NavDeletePacketClass::NavDeletePacketClass(PacketClass *raw) : GameID(0), Unknow
 	raw->Get(&GameID, sizeof(GameID));
 }
 
-PacketClass *NavDeletePacketClass::Build()
+PacketClass *NavDeletePacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(154, Get_Data_Size());
 	raw->Add(&GameID, sizeof(GameID));

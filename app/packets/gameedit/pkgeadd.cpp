@@ -16,7 +16,7 @@ GameEditorAddPacketClass::GameEditorAddPacketClass(PacketClass *raw)
 	raw->Get(&Radius, sizeof(Radius));
 }
 
-PacketClass *GameEditorAddPacketClass::Build()
+PacketClass *GameEditorAddPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(30003, Get_Data_Size());
 	raw->Add(&GameID, sizeof(GameID));

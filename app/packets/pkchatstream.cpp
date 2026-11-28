@@ -50,7 +50,7 @@ ChatstreamPacketClass::~ChatstreamPacketClass()
 	}
 }
 
-PacketClass *ChatstreamPacketClass::Build()
+PacketClass *ChatstreamPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(94, Get_Data_Size());
 	raw->Add(&GameID, sizeof(GameID));

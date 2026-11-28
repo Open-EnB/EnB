@@ -13,7 +13,7 @@ GlobalTicketRequestPacketClass::GlobalTicketRequestPacketClass(PacketClass *raw)
 	raw->Get(Unknown0C);
 }
 
-PacketClass *GlobalTicketRequestPacketClass::Build()
+PacketClass *GlobalTicketRequestPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(110, Get_Data_Size());
 	raw->Add(Unknown0C);

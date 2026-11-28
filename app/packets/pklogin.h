@@ -25,7 +25,7 @@ public:
 	LoginPacketClass(const TicketClass &ticket, const char *name, int unknown);	// 0x89A740  // NAME 1 [name, unknown]: neutral (D10)
 	LoginPacketClass(PacketClass *raw);	// 0x89A850
 	virtual ~LoginPacketClass();	// +0x00 0x89A940 / 0x89A820
-	virtual PacketClass *Build();	// +0x04 0x89A9B0
+	virtual PacketClass *Encode();	// +0x04 0x89A9B0  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x867AA0 (clientstub.cpp l.14)
 	virtual int Get_Data_Size();	// +0x0C 0x89AAA0
 	virtual int Print(char *buffer, int len);	// +0x10 0x89AAC0

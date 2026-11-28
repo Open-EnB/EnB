@@ -25,7 +25,7 @@ class ChangeBaseAssetPacketClass : public UnknownPacketBaseClass
 public:
 	ChangeBaseAssetPacketClass(int game_id, int base_asset, float scale, const Vector3 &hsv_shift);	// 0x87E420  // NAME 2: the stores (no caller left)
 	ChangeBaseAssetPacketClass(PacketClass *raw);	// 0x87E560
-	virtual PacketClass *Build();	// +0x04 0x87E620
+	virtual PacketClass *Encode();	// +0x04 0x87E620  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x737400 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x87E710
 	virtual int Print(char *buffer, int len);	// +0x10 0x87E730

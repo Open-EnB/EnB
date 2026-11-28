@@ -27,7 +27,7 @@ class VerbRequestPacketClass : public UnknownPacketBaseClass  // NAME 2: Net-7's
 public:
 	VerbRequestPacketClass(int subject_id, int object_id, int action);	// 0x8AEAE0
 	VerbRequestPacketClass(PacketClass *raw);	// 0x8AEB60
-	virtual PacketClass *Build();	// +0x04 0x8AEC00
+	virtual PacketClass *Encode();	// +0x04 0x8AEC00  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x868010 (clientstub.cpp l.101)
 	virtual int Get_Data_Size();	// +0x0C 0x8AED00
 	virtual int Print(char *buffer, int len);	// +0x10 0x8AED20
@@ -45,7 +45,7 @@ class VerbListPacketClass : public UnknownPacketBaseClass  // NAME 3: the client
 public:
 	VerbListPacketClass(int game_id, const std::set<VerbEnum> &verbs);	// 0x8AED60
 	VerbListPacketClass(PacketClass *raw);	// 0x8AF150
-	virtual PacketClass *Build();	// +0x04 0x8AF550
+	virtual PacketClass *Encode();	// +0x04 0x8AF550  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x7387F0 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x8AF6B0
 	virtual int Print(char *buffer, int len);	// +0x10 0x8AF6D0
@@ -61,7 +61,7 @@ class VerbUpdatePacketClass : public UnknownPacketBaseClass
 public:
 	VerbUpdatePacketClass(int game_id, const std::set<VerbEnum> &drops, const std::set<VerbEnum> &adds);	// 0x8AF8D0  // NAME 1 [game_id, drops, adds]: the members'
 	VerbUpdatePacketClass(PacketClass *raw);	// 0x8AFD10
-	virtual PacketClass *Build();	// +0x04 0x8AFF40
+	virtual PacketClass *Encode();	// +0x04 0x8AFF40  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x7388B0 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x8B0130
 	virtual int Print(char *buffer, int len);	// +0x10 0x8B0150

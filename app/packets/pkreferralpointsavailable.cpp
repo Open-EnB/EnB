@@ -9,7 +9,7 @@ ReferralPointsAvailablePacketClass::ReferralPointsAvailablePacketClass(PacketCla
 	raw->Get(PointsSpent);
 }
 
-PacketClass *ReferralPointsAvailablePacketClass::Build()
+PacketClass *ReferralPointsAvailablePacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(233, Get_Data_Size());
 	raw->Add(PointsTotal);

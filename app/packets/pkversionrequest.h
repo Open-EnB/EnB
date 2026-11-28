@@ -24,7 +24,7 @@ class VersionRequestPacketClass : public UnknownPacketBaseClass  // NAME 3: the 
 public:
 	VersionRequestPacketClass(int major, int minor);	// 0x8B15F0
 	VersionRequestPacketClass(PacketClass *raw);	// 0x8B1670
-	virtual PacketClass *Build();	// +0x04 0x8B1710
+	virtual PacketClass *Encode();	// +0x04 0x8B1710  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x868AF0 (clientstub.cpp l.275)
 	virtual int Get_Data_Size();	// +0x0C 0x8B17E0
 	virtual int Print(char *buffer, int len);	// +0x10 0x8B1800
@@ -39,7 +39,7 @@ class VersionResponsePacketClass : public UnknownPacketBaseClass  // NAME 3: the
 public:
 	VersionResponsePacketClass(int status);	// 0x8B1840
 	VersionResponsePacketClass(PacketClass *raw);	// 0x8B18D0
-	virtual PacketClass *Build();	// +0x04 0x8B1960
+	virtual PacketClass *Encode();	// +0x04 0x8B1960  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x76B8A0 (tsk_login.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x8B1A20
 	virtual int Print(char *buffer, int len);	// +0x10 0x8B1A40

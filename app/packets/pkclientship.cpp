@@ -12,7 +12,7 @@ ClientShipPacketClass::ClientShipPacketClass(PacketClass *raw)
 	raw->Get(&ShipID, sizeof(ShipID));
 }
 
-PacketClass *ClientShipPacketClass::Build()
+PacketClass *ClientShipPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(71, Get_Data_Size());
 	raw->Add(&ShipID, sizeof(ShipID));

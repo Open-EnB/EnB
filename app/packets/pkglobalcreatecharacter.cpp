@@ -39,7 +39,7 @@ GlobalCreateCharacterPacketClass::~GlobalCreateCharacterPacketClass()
 {
 }
 
-PacketClass *GlobalCreateCharacterPacketClass::Build()
+PacketClass *GlobalCreateCharacterPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(114, Get_Data_Size());
 	raw->Add(Galaxy);

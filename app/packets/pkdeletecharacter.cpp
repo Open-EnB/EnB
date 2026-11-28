@@ -19,7 +19,7 @@ DeleteCharacterPacketClass::DeleteCharacterPacketClass(PacketClass *raw)
 	raw->Get(Unknown60);
 }
 
-PacketClass *DeleteCharacterPacketClass::Build()
+PacketClass *DeleteCharacterPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(73, Get_Data_Size());
 	raw->Add(Unknown10);

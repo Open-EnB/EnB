@@ -19,7 +19,7 @@ FindPlayerRequestPacketClass::FindPlayerRequestPacketClass(PacketClass *raw)
 	Unknown51 = unknown51 != 0;
 }
 
-PacketClass *FindPlayerRequestPacketClass::Build()
+PacketClass *FindPlayerRequestPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(181, Get_Data_Size());
 	raw->Add(Unknown0C);
@@ -58,7 +58,7 @@ FindPlayerResponsePacketClass::FindPlayerResponsePacketClass(PacketClass *raw)
 	raw->Get(Unknown54);
 }
 
-PacketClass *FindPlayerResponsePacketClass::Build()
+PacketClass *FindPlayerResponsePacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(182, Get_Data_Size());
 	raw->Add(Unknown0C);

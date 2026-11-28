@@ -13,7 +13,7 @@ VerbRequestPacketClass::VerbRequestPacketClass(PacketClass *raw)
 	raw->Get(&Action, sizeof(Action));
 }
 
-PacketClass *VerbRequestPacketClass::Build()
+PacketClass *VerbRequestPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(Get_Type(), Get_Data_Size());
 	raw->Add(SubjectID);
@@ -90,7 +90,7 @@ VerbListPacketClass::VerbListPacketClass(PacketClass *raw) :
 	Read_Verbs(raw, Verbs);
 }
 
-PacketClass *VerbListPacketClass::Build()
+PacketClass *VerbListPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(Get_Type(), Get_Data_Size());
 	raw->Add(GameID);
@@ -125,7 +125,7 @@ VerbUpdatePacketClass::VerbUpdatePacketClass(PacketClass *raw) :
 	Read_Verbs(raw, Adds);
 }
 
-PacketClass *VerbUpdatePacketClass::Build()
+PacketClass *VerbUpdatePacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(Get_Type(), Get_Data_Size());
 	raw->Add(GameID);

@@ -40,7 +40,7 @@ GlobalAvatarListPacketClass::~GlobalAvatarListPacketClass()
 	delete [] Avatars;
 }
 
-PacketClass *GlobalAvatarListPacketClass::Build()
+PacketClass *GlobalAvatarListPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(112, Get_Data_Size());
 	for (int i = 0; i < 5; i++) {

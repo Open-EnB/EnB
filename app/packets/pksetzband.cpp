@@ -13,7 +13,7 @@ SetZBandPacketClass::SetZBandPacketClass(PacketClass *raw)
 	raw->Get(&Max, sizeof(Max));
 }
 
-PacketClass *SetZBandPacketClass::Build()
+PacketClass *SetZBandPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(42, Get_Data_Size());
 	raw->Add(&Min, sizeof(Min));
@@ -41,7 +41,7 @@ SetBBoxPacketClass::SetBBoxPacketClass(PacketClass *raw)
 	raw->Get(&XMax, sizeof(XMax));
 }
 
-PacketClass *SetBBoxPacketClass::Build()
+PacketClass *SetBBoxPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(43, Get_Data_Size());
 	raw->Add(&XMin, sizeof(XMin));

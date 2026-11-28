@@ -14,7 +14,7 @@ FirePacketClass::FirePacketClass(PacketClass *raw)
 	raw->Get(&Slot, sizeof(Slot));
 }
 
-PacketClass *FirePacketClass::Build()
+PacketClass *FirePacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(Get_Type(), Get_Data_Size());
 	raw->Add(&GameID, sizeof(GameID));

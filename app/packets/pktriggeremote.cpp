@@ -24,7 +24,7 @@ TriggerEmotePacketClass::TriggerEmotePacketClass(PacketClass *raw)
 	raw->Get(&Emote, sizeof(Emote));
 }
 
-PacketClass *TriggerEmotePacketClass::Build()
+PacketClass *TriggerEmotePacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(161, Get_Data_Size());
 	raw->Add(GameID);
@@ -58,7 +58,7 @@ NotifyEmotePacketClass::NotifyEmotePacketClass(PacketClass *raw) :
 	raw->Get(&Emote, sizeof(Emote));
 }
 
-PacketClass *NotifyEmotePacketClass::Build()
+PacketClass *NotifyEmotePacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(162, Get_Data_Size());
 	raw->Add(GameID);

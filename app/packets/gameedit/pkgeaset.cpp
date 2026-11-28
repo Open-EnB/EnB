@@ -33,7 +33,7 @@ GameEditorAssetMappingPacketClass::~GameEditorAssetMappingPacketClass()
 	}
 }
 
-PacketClass *GameEditorAssetMappingPacketClass::Build()
+PacketClass *GameEditorAssetMappingPacketClass::Encode()
 {
 	PacketClass *packet = new PacketClass(30020, Get_Data_Size());
 

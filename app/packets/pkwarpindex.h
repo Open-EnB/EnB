@@ -26,7 +26,7 @@ public:
 	WarpPacketClass(int player_id, const NavigationListClass &list);	// 0x8B1AA0
 	WarpPacketClass(PacketClass *raw);	// 0x8B1BA0
 	virtual ~WarpPacketClass();	// +0x00 0x8B1B70 (0x8B1C70)
-	virtual PacketClass *Build();	// +0x04 0x8B1CF0
+	virtual PacketClass *Encode();	// +0x04 0x8B1CF0  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x868B20 (clientstub.cpp l.278)
 	virtual int Get_Data_Size();	// +0x0C 0x8B1DC0
 	virtual int Print(char *buffer, int len);	// +0x10 0x8B1DE0
@@ -41,7 +41,7 @@ class WarpIndexPacketClass : public UnknownPacketBaseClass
 public:
 	WarpIndexPacketClass(int index);	// 0x8B1E20
 	WarpIndexPacketClass(PacketClass *raw);	// 0x8B1EB0
-	virtual PacketClass *Build();	// +0x04 0x8B1F40
+	virtual PacketClass *Encode();	// +0x04 0x8B1F40  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x73A7F0 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x8B2000
 	virtual int Print(char *buffer, int len);	// +0x10 0x8B2020

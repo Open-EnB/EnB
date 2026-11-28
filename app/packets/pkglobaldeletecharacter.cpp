@@ -14,7 +14,7 @@ GlobalDeleteCharacterPacketClass::GlobalDeleteCharacterPacketClass(PacketClass *
 	raw->Get(Unknown0C);
 }
 
-PacketClass *GlobalDeleteCharacterPacketClass::Build()
+PacketClass *GlobalDeleteCharacterPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(113, Get_Data_Size());
 	raw->Add(Unknown0C);

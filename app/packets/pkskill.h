@@ -24,7 +24,7 @@ class SkillPacketClass : public UnknownPacketBaseClass  // NAME 3: the client's 
 public:
 	SkillPacketClass(int game_id, int action, int skill_index);	// 0x8A49F0
 	SkillPacketClass(PacketClass *raw);	// 0x8A4A70
-	virtual PacketClass *Build();	// +0x04 0x8A4B30
+	virtual PacketClass *Encode();	// +0x04 0x8A4B30  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x867E30 (clientstub.cpp l.71)
 	virtual int Get_Data_Size();	// +0x0C 0x8A4C10
 	virtual int Print(char *buffer, int len);	// +0x10 0x8A4C30
@@ -40,7 +40,7 @@ class SkillAbilityPacketClass : public UnknownPacketBaseClass  // NAME 5: thunk 
 public:
 	SkillAbilityPacketClass(int game_id, int action, int ability_index);	// 0x8A4C70
 	SkillAbilityPacketClass(PacketClass *raw);	// 0x8A4CF0
-	virtual PacketClass *Build();	// +0x04 0x8A4DB0
+	virtual PacketClass *Encode();	// +0x04 0x8A4DB0  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x867E60 (clientstub.cpp l.74)
 	virtual int Get_Data_Size();	// +0x0C 0x8A4E90
 	virtual int Print(char *buffer, int len);	// +0x10 0x8A4EB0

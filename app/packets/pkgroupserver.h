@@ -55,7 +55,7 @@ class Packet_00ADClass : public Unknown_B0A794PacketClass  // NAME 1: neutral (D
 public:
 	Packet_00ADClass(int unknown0c, const std::string &unknown10, __int64 unknown20, __int64 unknown28);	// 0x889280
 	Packet_00ADClass(PacketClass *raw);	// 0x8895E0
-	virtual PacketClass *Build();	// +0x04 0x889740
+	virtual PacketClass *Encode();	// +0x04 0x889740  // NAME 3: override of the NAME 5 virtual Encode
 	virtual bool Process_Packet(void *client);	// +0x08 0x868E50 (clientstub.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x889820
 	virtual int Print(char *buffer, int len);	// +0x10 0x889840
@@ -70,7 +70,7 @@ class GroupServerRequestPacketClass : public UnknownPacketBaseClass  // NAME 5: 
 public:
 	GroupServerRequestPacketClass(int unknown0c, int unknown10, __int64 unknown18, __int64 unknown20);	// 0x889870
 	GroupServerRequestPacketClass(PacketClass *raw);	// 0x889940
-	virtual PacketClass *Build();	// +0x04 0x889A10
+	virtual PacketClass *Encode();	// +0x04 0x889A10  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x868E80 (clientstub.cpp l.332)
 	virtual int Get_Data_Size();	// +0x0C 0x889AF0
 	virtual int Print(char *buffer, int len);	// +0x10 0x889B10
@@ -87,7 +87,7 @@ class GroupServerResponsePacketClass : public UnknownPacketBaseClass  // NAME 5:
 public:
 	GroupServerResponsePacketClass(int unknown0_c, int unknown10);	// 0x889B40
 	GroupServerResponsePacketClass(PacketClass *raw);	// 0x889BE0
-	virtual PacketClass *Build();	// +0x04 0x889C80
+	virtual PacketClass *Encode();	// +0x04 0x889C80  // NAME 5: thunk order probable, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x868EB0 (clientstub.cpp l.335)
 	virtual int Get_Data_Size();	// +0x0C 0x889D50
 	virtual int Print(char *buffer, int len);	// +0x10 0x889D70
@@ -102,7 +102,7 @@ class GroupServerCreatePacketClass : public Unknown_B0A794PacketClass  // NAME 5
 public:
 	GroupServerCreatePacketClass(__int64 unknown10);	// 0x889DA0
 	GroupServerCreatePacketClass(PacketClass *raw);	// 0x889F30
-	virtual PacketClass *Build();	// +0x04 0x88A2F0
+	virtual PacketClass *Encode();	// +0x04 0x88A2F0  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x868EE0 (clientstub.cpp l.338)
 	virtual int Get_Data_Size();	// +0x0C 0x88A4B0
 	virtual int Print(char *buffer, int len);	// +0x10 0x88A530
@@ -123,7 +123,7 @@ class GroupServerUpdatePacketClass : public Unknown_B0A794PacketClass  // NAME 5
 public:
 	GroupServerUpdatePacketClass(__int64 unknown10, int unknown38);	// 0x88A9A0
 	GroupServerUpdatePacketClass(PacketClass *raw);	// 0x88ABC0
-	virtual PacketClass *Build();	// +0x04 0x88AD40
+	virtual PacketClass *Encode();	// +0x04 0x88AD40  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x868F10 (clientstub.cpp l.341)
 	virtual int Get_Data_Size();	// +0x0C 0x88AE50
 	virtual int Print(char *buffer, int len);	// +0x10 0x88AE70

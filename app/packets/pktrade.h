@@ -24,7 +24,7 @@ class TradePacketClass : public UnknownPacketBaseClass
 public:
 	TradePacketClass(bool type, int partner_id);	// 0x8AB290  // NAME 2: the stores (no caller left)
 	TradePacketClass(PacketClass *raw);	// 0x8AB370
-	virtual PacketClass *Build();	// +0x04 0x8AB410
+	virtual PacketClass *Encode();	// +0x04 0x8AB410  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x739DE0 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x8AB4E0
 	virtual int Print(char *buffer, int len);	// +0x10 0x8AB500

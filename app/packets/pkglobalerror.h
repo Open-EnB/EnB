@@ -25,7 +25,7 @@ public:
 	GlobalErrorPacketClass(int unknown0c, int error, const char *message);	// 0x864A10 (no message: the error's text, GlobalErrorStrings)
 	GlobalErrorPacketClass(PacketClass *raw);	// 0x864C90
 	virtual ~GlobalErrorPacketClass();	// +0x00 0x864C60 / 0x864E40
-	virtual PacketClass *Build();	// +0x04 0x864EB0
+	virtual PacketClass *Encode();	// +0x04 0x864EB0  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x76B4A0 (tsk_login.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x864FA0
 	virtual int Print(char *buffer, int len);	// +0x10 0x864FC0

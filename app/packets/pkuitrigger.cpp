@@ -13,7 +13,7 @@ UITriggerPacketClass::UITriggerPacketClass(PacketClass *raw)
 	raw->Get(&Action, sizeof(Action));
 }
 
-PacketClass *UITriggerPacketClass::Build()
+PacketClass *UITriggerPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(101, Get_Data_Size());
 	raw->Add(&ID, sizeof(ID));

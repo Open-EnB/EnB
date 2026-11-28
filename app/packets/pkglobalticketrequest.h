@@ -24,7 +24,7 @@ class GlobalTicketRequestPacketClass : public UnknownPacketBaseClass  // NAME 2:
 public:
 	GlobalTicketRequestPacketClass(int unknown0_c);	// 0x867860
 	GlobalTicketRequestPacketClass(PacketClass *raw);	// 0x8678D0
-	virtual PacketClass *Build();	// +0x04 0x867960
+	virtual PacketClass *Encode();	// +0x04 0x867960  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x868940 (clientstub.cpp l.248)
 	virtual int Get_Data_Size();	// +0x0C 0x867A20
 	virtual int Print(char *buffer, int len);	// +0x10 0x867A40

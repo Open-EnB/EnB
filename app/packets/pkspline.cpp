@@ -22,7 +22,7 @@ SplinePacketClass::~SplinePacketClass()
 	delete [] Block;
 }
 
-PacketClass *SplinePacketClass::Build()
+PacketClass *SplinePacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(56, Get_Data_Size());
 	raw->Add(&Blocksize, sizeof(Blocksize));

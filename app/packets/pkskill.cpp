@@ -14,7 +14,7 @@ SkillPacketClass::SkillPacketClass(PacketClass *raw)
 	raw->Get(&SkillIndex, sizeof(SkillIndex));
 }
 
-PacketClass *SkillPacketClass::Build()
+PacketClass *SkillPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(87, Get_Data_Size());
 	raw->Add(&GameID, sizeof(GameID));
@@ -44,7 +44,7 @@ SkillAbilityPacketClass::SkillAbilityPacketClass(PacketClass *raw)
 	raw->Get(&AbilityIndex, sizeof(AbilityIndex));
 }
 
-PacketClass *SkillAbilityPacketClass::Build()
+PacketClass *SkillAbilityPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(88, Get_Data_Size());
 	raw->Add(&GameID, sizeof(GameID));

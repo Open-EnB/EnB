@@ -17,7 +17,7 @@ DamagePacketClass::DamagePacketClass(PacketClass *raw)
 	raw->Get(&Victim, sizeof(Victim));
 }
 
-PacketClass *DamagePacketClass::Build()
+PacketClass *DamagePacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(100, Get_Data_Size());
 	raw->Add(&Damage, sizeof(Damage));

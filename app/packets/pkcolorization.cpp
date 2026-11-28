@@ -25,7 +25,7 @@ ColorizationPacketClass::ColorizationPacketClass(PacketClass *raw)
 	}
 }
 
-PacketClass *ColorizationPacketClass::Build()
+PacketClass *ColorizationPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(17, Get_Data_Size());
 	raw->Add(&GameID, sizeof(GameID));

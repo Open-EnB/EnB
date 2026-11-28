@@ -21,7 +21,7 @@ CreatePacketClass::CreatePacketClass(PacketClass *raw)
 	raw->Get(&HSV, sizeof(HSV));
 }
 
-PacketClass *CreatePacketClass::Build()
+PacketClass *CreatePacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(4, Get_Data_Size());
 	raw->Add(&GameID, sizeof(GameID));

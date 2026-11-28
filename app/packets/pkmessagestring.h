@@ -25,7 +25,7 @@ public:
 	MessageStringPacketClass(unsigned char color, const std::string &text);	// 0x89E200 (String a copy)
 	MessageStringPacketClass(PacketClass *raw);	// 0x89E310
 	virtual ~MessageStringPacketClass();	// +0x00 0x89E1D0 / 0x89E3E0
-	virtual PacketClass *Build();	// +0x04 0x89E420
+	virtual PacketClass *Encode();	// +0x04 0x89E420  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x736760 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x89E500
 	virtual int Print(char *buffer, int len);	// +0x10 0x89E520

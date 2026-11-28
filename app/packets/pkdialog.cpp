@@ -25,7 +25,7 @@ DialogPacketClass::~DialogPacketClass()
 	String = 0;
 }
 
-PacketClass *DialogPacketClass::Build()
+PacketClass *DialogPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(98, Get_Data_Size());
 	raw->Add(&Size, sizeof(Size));

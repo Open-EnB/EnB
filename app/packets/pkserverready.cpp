@@ -16,7 +16,7 @@ ServerReadyPacketClass::ServerReadyPacketClass(PacketClass *raw)
 	raw->Get(&Port, sizeof(Port));
 }
 
-PacketClass *ServerReadyPacketClass::Build()
+PacketClass *ServerReadyPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(Get_Type(), Get_Data_Size());
 	raw->Add(&Sector, sizeof(Sector));

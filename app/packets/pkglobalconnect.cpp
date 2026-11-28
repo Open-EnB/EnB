@@ -22,7 +22,7 @@ GlobalConnectPacketClass::~GlobalConnectPacketClass()
 	delete [] Password;
 }
 
-PacketClass *GlobalConnectPacketClass::Build()
+PacketClass *GlobalConnectPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(109, Get_Data_Size());
 	raw->Add(Ticket);

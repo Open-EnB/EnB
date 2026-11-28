@@ -46,7 +46,7 @@ class TriggerEmotePacketClass : public UnknownPacketBaseClass  // NAME 2: Net-7'
 public:
 	TriggerEmotePacketClass(int game_id, int emote);	// 0x886000
 	TriggerEmotePacketClass(PacketClass *raw);	// 0x8860A0
-	virtual PacketClass *Build();	// +0x04 0x886140
+	virtual PacketClass *Encode();	// +0x04 0x886140  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x868C40 (clientstub.cpp l.296)
 	virtual int Get_Data_Size();	// +0x0C 0x886210
 	virtual int Print(char *buffer, int len);	// +0x10 0x886230
@@ -62,7 +62,7 @@ class NotifyEmotePacketClass : public UnknownPacketBaseClass  // NAME 2: Net-7's
 public:
 	NotifyEmotePacketClass(int game_id, int emote);	// 0x886270
 	NotifyEmotePacketClass(PacketClass *raw);	// 0x886380
-	virtual PacketClass *Build();	// +0x04 0x886420
+	virtual PacketClass *Encode();	// +0x04 0x886420  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x73A8E0 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x8864F0
 	virtual int Print(char *buffer, int len);	// +0x10 0x886510

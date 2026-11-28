@@ -14,7 +14,7 @@ MessageTimePacketClass::MessageTimePacketClass(PacketClass *raw)
 	raw->Get(&Time, sizeof(Time));
 }
 
-PacketClass *MessageTimePacketClass::Build()
+PacketClass *MessageTimePacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(96, Get_Data_Size());
 	raw->Add(&Color, sizeof(Color));

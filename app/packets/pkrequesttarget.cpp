@@ -13,7 +13,7 @@ RequestTargetPacketClass::RequestTargetPacketClass(PacketClass *raw)
 	raw->Get(&TargetID, sizeof(TargetID));
 }
 
-PacketClass *RequestTargetPacketClass::Build()
+PacketClass *RequestTargetPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(23, Get_Data_Size());
 	raw->Add(&GameID, sizeof(GameID));
@@ -41,7 +41,7 @@ RequestTargetTargetPacketClass::RequestTargetTargetPacketClass(PacketClass *raw)
 	raw->Get(&TargetID, sizeof(TargetID));
 }
 
-PacketClass *RequestTargetTargetPacketClass::Build()
+PacketClass *RequestTargetTargetPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(24, Get_Data_Size());
 	raw->Add(&GameID, sizeof(GameID));
@@ -69,7 +69,7 @@ SetTargetPacketClass::SetTargetPacketClass(PacketClass *raw)
 	raw->Get(&Unknown10, sizeof(Unknown10));
 }
 
-PacketClass *SetTargetPacketClass::Build()
+PacketClass *SetTargetPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(25, Get_Data_Size());
 	raw->Add(&TargetID, sizeof(TargetID));

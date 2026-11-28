@@ -89,7 +89,7 @@ TaskHelloPacketClass::TaskHelloPacketClass(PacketClass *raw)
 	raw->Get(&Data, sizeof(Data));
 }
 
-PacketClass *TaskHelloPacketClass::Build()
+PacketClass *TaskHelloPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(Get_Type(), Get_Data_Size());
 	raw->Add(&Data, sizeof(Data));
@@ -121,7 +121,7 @@ SectorHelloPacketClass::SectorHelloPacketClass(PacketClass *raw)
 	raw->Get(&Data, sizeof(Data));
 }
 
-PacketClass *SectorHelloPacketClass::Build()
+PacketClass *SectorHelloPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(Get_Type(), Get_Data_Size());
 	raw->Add(&Data, sizeof(Data));
@@ -153,7 +153,7 @@ TaskStartPacketClass::TaskStartPacketClass(PacketClass *raw)
 	raw->Get(&Num, sizeof(Num));
 }
 
-PacketClass *TaskStartPacketClass::Build()
+PacketClass *TaskStartPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(Get_Type(), Get_Data_Size());
 	raw->Add(&Type, sizeof(Type));
@@ -186,7 +186,7 @@ TaskStopPacketClass::TaskStopPacketClass(PacketClass *raw)
 	raw->Get(&Num, sizeof(Num));
 }
 
-PacketClass *TaskStopPacketClass::Build()
+PacketClass *TaskStopPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(Get_Type(), Get_Data_Size());
 	raw->Add(&Type, sizeof(Type));
@@ -254,7 +254,7 @@ TaskPingPacketClass::~TaskPingPacketClass()
 	String = NULL;
 }
 
-PacketClass *TaskPingPacketClass::Build()
+PacketClass *TaskPingPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(Get_Type(), Get_Data_Size());
 	raw->Add(&Ip, sizeof(Ip));
@@ -448,7 +448,7 @@ PlayerStatusPacketClass::~PlayerStatusPacketClass()
 	Name = NULL;
 }
 
-PacketClass *PlayerStatusPacketClass::Build()
+PacketClass *PlayerStatusPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(Get_Type(), Get_Data_Size());
 	raw->Add(Name);
@@ -499,7 +499,7 @@ SectorListPacketClass::SectorListPacketClass(PacketClass *raw)
 	}
 }
 
-PacketClass *SectorListPacketClass::Build()
+PacketClass *SectorListPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(Get_Type(), Get_Data_Size());
 	int count = List.size();
@@ -533,7 +533,7 @@ RequestSectorListPacket::RequestSectorListPacket(PacketClass *)
 {
 }
 
-PacketClass *RequestSectorListPacket::Build()
+PacketClass *RequestSectorListPacket::Encode()
 {
 	PacketClass *raw = new PacketClass(Get_Type(), Get_Data_Size());
 	return(raw);

@@ -26,7 +26,7 @@ public:
 	CreateCharacterPacketClass(PacketClass *raw);	// 0x85C5F0
 	virtual ~CreateCharacterPacketClass();	// +0x00 0x85C7D0 / 0x85CF80
 	CreateCharacterPacketClass(int unknown0C, int unknown10, const char *name, __int64 unknown60, const AvatarDescriptionClass *desc, const ShipCustDescClass &ship, bool unknown14);	// 0x85C800
-	virtual PacketClass *Build();	// +0x04 0x85D000
+	virtual PacketClass *Encode();	// +0x04 0x85D000  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x868040 (clientstub.cpp l.104)
 	virtual int Get_Data_Size();	// +0x0C 0x85D110
 	virtual int Print(char *buffer, int len);	// +0x10 0x85D140

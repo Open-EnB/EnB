@@ -25,7 +25,7 @@ class GlobalLockBasePacketClass : public UnknownPacketBaseClass  // NAME 5: thun
 public:
 	GlobalLockBasePacketClass(__int64 a, int b);	// 0x8653F0
 	GlobalLockBasePacketClass(PacketClass *raw);	// 0x865470
-	virtual PacketClass *Build() = 0;	// +0x04 _purecall
+	virtual PacketClass *Encode() = 0;	// +0x04 _purecall  // NAME 3: override of the NAME 5 virtual Encode
 	virtual bool Process_Packet(void *client) = 0;	// +0x08 _purecall
 	virtual int Get_Data_Size();	// +0x0C 0x865570
 	virtual int Print(char *buffer, int len) = 0;	// +0x10 _purecall
@@ -41,7 +41,7 @@ class GlobalLockRequestPacketClass : public GlobalLockBasePacketClass  // NAME 3
 public:
 	GlobalLockRequestPacketClass(__int64 a, int b, int x);	// 0x865590
 	GlobalLockRequestPacketClass(PacketClass *raw);	// 0x865630
-	virtual PacketClass *Build();	// +0x04 0x865710
+	virtual PacketClass *Encode();	// +0x04 0x865710  // NAME 5: thunk order probable, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x8694E0 (clientstub.cpp l.434)
 	virtual int Get_Data_Size();	// +0x0C 0x8657E0
 	virtual int Print(char *buffer, int len);	// +0x10 0x865800
@@ -55,7 +55,7 @@ class GlobalLockResponsePacketClass : public GlobalLockBasePacketClass  // NAME 
 public:
 	GlobalLockResponsePacketClass(int x, __int64 a, int b);	// 0x865830
 	GlobalLockResponsePacketClass(PacketClass *raw);	// 0x8658D0
-	virtual PacketClass *Build();	// +0x04 0x8659B0
+	virtual PacketClass *Encode();	// +0x04 0x8659B0  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x869510 (clientstub.cpp l.437)
 	virtual int Get_Data_Size();	// +0x0C 0x865A80
 	virtual int Print(char *buffer, int len);	// +0x10 0x865AA0
@@ -69,7 +69,7 @@ class GlobalLockReleasePacketClass : public GlobalLockBasePacketClass  // NAME 3
 public:
 	GlobalLockReleasePacketClass(__int64 a);	// 0x865AD0
 	GlobalLockReleasePacketClass(PacketClass *raw);	// 0x865B50
-	virtual PacketClass *Build();	// +0x04 0x865C10
+	virtual PacketClass *Encode();	// +0x04 0x865C10  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x869540 (clientstub.cpp l.440)
 	virtual int Get_Data_Size();	// +0x0C 0x865CE0
 	virtual int Print(char *buffer, int len);	// +0x10 0x865D00

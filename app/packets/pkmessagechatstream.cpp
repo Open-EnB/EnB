@@ -28,7 +28,7 @@ MessageChatstreamPacketClass::~MessageChatstreamPacketClass()
 	}
 }
 
-PacketClass *MessageChatstreamPacketClass::Build()
+PacketClass *MessageChatstreamPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(95, Get_Data_Size());
 	raw->Add(&Chatsize, sizeof(Chatsize));

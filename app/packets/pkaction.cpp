@@ -18,7 +18,7 @@ ActionPacketClass::ActionPacketClass(PacketClass *raw)
 	raw->Get(&Unknown18, sizeof(Unknown18));
 }
 
-PacketClass *ActionPacketClass::Build()
+PacketClass *ActionPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(44, Get_Data_Size());
 	raw->Add(&GameID, sizeof(GameID));
@@ -54,7 +54,7 @@ Action2PacketClass::Action2PacketClass(PacketClass *raw)
 	raw->Get(OptionalVar);
 }
 
-PacketClass *Action2PacketClass::Build()
+PacketClass *Action2PacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(45, Get_Data_Size());
 	raw->Add(GameID);

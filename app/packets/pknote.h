@@ -23,7 +23,7 @@ class Packet_006CClass : public UnknownPacketBaseClass  // NAME 1: neutral (D10)
 public:
 	Packet_006CClass(__int64 unknown10, __int64 unknown18);	// 0x89EF20
 	Packet_006CClass(PacketClass *raw);	// 0x89EFC0
-	virtual PacketClass *Build();	// +0x04 0x89F0A0
+	virtual PacketClass *Encode();	// +0x04 0x89F0A0  // NAME 3: override of the NAME 5 virtual Encode
 	virtual bool Process_Packet(void *client);	// +0x08 0x868970 (clientstub.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x89F170
 	virtual int Print(char *buffer, int len);	// +0x10 0x89F190

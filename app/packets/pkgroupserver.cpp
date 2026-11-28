@@ -88,7 +88,7 @@ Packet_00ADClass::Packet_00ADClass(PacketClass *raw) :
 	Read(Unknown10, raw);
 }
 
-PacketClass *Packet_00ADClass::Build()
+PacketClass *Packet_00ADClass::Encode()
 {
 	PacketClass *raw = new PacketClass(173, Get_Data_Size());
 	raw->Add(Unknown0C);
@@ -126,7 +126,7 @@ GroupServerRequestPacketClass::GroupServerRequestPacketClass(PacketClass *raw) :
 	raw->Get(Unknown20);
 }
 
-PacketClass *GroupServerRequestPacketClass::Build()
+PacketClass *GroupServerRequestPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(174, Get_Data_Size());
 	raw->Add(Unknown0C);
@@ -156,7 +156,7 @@ GroupServerResponsePacketClass::GroupServerResponsePacketClass(PacketClass *raw)
 	raw->Get(&Unknown10, sizeof(Unknown10));
 }
 
-PacketClass *GroupServerResponsePacketClass::Build()
+PacketClass *GroupServerResponsePacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(175, Get_Data_Size());
 	raw->Add(Unknown0C);
@@ -193,7 +193,7 @@ GroupServerCreatePacketClass::GroupServerCreatePacketClass(PacketClass *raw) :
 	raw->Get(Unknown3C);
 }
 
-PacketClass *GroupServerCreatePacketClass::Build()
+PacketClass *GroupServerCreatePacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(176, Get_Data_Size());
 	raw->Add(Unknown10);
@@ -242,7 +242,7 @@ GroupServerUpdatePacketClass::GroupServerUpdatePacketClass(PacketClass *raw) :
 	raw->Get(Unknown3C);
 }
 
-PacketClass *GroupServerUpdatePacketClass::Build()
+PacketClass *GroupServerUpdatePacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(177, Get_Data_Size());
 	raw->Add(Unknown10);

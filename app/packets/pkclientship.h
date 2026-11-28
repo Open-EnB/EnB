@@ -24,7 +24,7 @@ class ClientShipPacketClass : public UnknownPacketBaseClass
 public:
 	ClientShipPacketClass(int ship_id);	// 0x8A4790
 	ClientShipPacketClass(PacketClass *raw);	// 0x8A4820
-	virtual PacketClass *Build();	// +0x04 0x8A48B0
+	virtual PacketClass *Encode();	// +0x04 0x8A48B0  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x733660 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x8A4970
 	virtual int Print(char *buffer, int len);	// +0x10 0x8A4990

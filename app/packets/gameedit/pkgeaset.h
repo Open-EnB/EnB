@@ -24,7 +24,7 @@ public:
 	GameEditorAssetMappingPacketClass(const char *mappings);	// 0x85DAA0 (Data nstrdup'd)
 	GameEditorAssetMappingPacketClass(PacketClass *raw);	// 0x85DB90
 	virtual ~GameEditorAssetMappingPacketClass();	// +0x00 0x85DC70 / 0x85DB60
-	virtual PacketClass *Build();	// +0x04 0x85DCB0
+	virtual PacketClass *Encode();	// +0x04 0x85DCB0  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x85DDE0
 	virtual int Get_Data_Size();	// +0x0C 0x85DD90
 	virtual int Print(char *buffer, int len);	// +0x10 0x85DDB0

@@ -24,7 +24,7 @@ class InitRenderStatePacketClass : public UnknownPacketBaseClass
 public:
 	InitRenderStatePacketClass(int game_id, int render_state_id, int link_id);	// 0x8A1950  // NAME 1 [game_id, render_state_id, link_id]: its fields
 	InitRenderStatePacketClass(PacketClass *raw);	// 0x8A1A60
-	virtual PacketClass *Build();	// +0x04 0x8A1B20
+	virtual PacketClass *Encode();	// +0x04 0x8A1B20  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x737610 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x8A1C00
 	virtual int Print(char *buffer, int len);	// +0x10 0x8A1C20
@@ -42,7 +42,7 @@ class ActivateRenderStatePacketClass : public UnknownPacketBaseClass
 public:
 	ActivateRenderStatePacketClass(int game_id, int render_state_id);	// 0x8A1C60  // NAME 1 [game_id, render_state_id]: its fields
 	ActivateRenderStatePacketClass(PacketClass *raw);	// 0x8A1D70
-	virtual PacketClass *Build();	// +0x04 0x8A1E10
+	virtual PacketClass *Encode();	// +0x04 0x8A1E10  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x7376F0 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x8A1EE0
 	virtual int Print(char *buffer, int len);	// +0x10 0x8A1F00
@@ -59,7 +59,7 @@ class ActivateNextRenderStateOncePacketClass : public UnknownPacketBaseClass
 public:
 	ActivateNextRenderStateOncePacketClass(int game_id, int render_state_id);	// 0x8A1F40  // NAME 1 [game_id, render_state_id]: its fields
 	ActivateNextRenderStateOncePacketClass(PacketClass *raw);	// 0x8A2050
-	virtual PacketClass *Build();	// +0x04 0x8A20F0
+	virtual PacketClass *Encode();	// +0x04 0x8A20F0  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x7377C0 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x8A21C0
 	virtual int Print(char *buffer, int len);	// +0x10 0x8A21E0
@@ -76,7 +76,7 @@ class DeactivateRenderStatePacketClass : public UnknownPacketBaseClass
 public:
 	DeactivateRenderStatePacketClass(int game_id, int render_state_id);	// 0x8A2220  // NAME 1 [game_id, render_state_id]: its fields
 	DeactivateRenderStatePacketClass(PacketClass *raw);	// 0x8A2330
-	virtual PacketClass *Build();	// +0x04 0x8A23D0
+	virtual PacketClass *Encode();	// +0x04 0x8A23D0  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x737890 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x8A24A0
 	virtual int Print(char *buffer, int len);	// +0x10 0x8A24C0

@@ -26,7 +26,7 @@ public:
 	GlobalCreateCharacterPacketClass(int galaxy, int slot, const char *name, const AvatarDescriptionClass *desc, const ShipCustDescClass *ship, unsigned char unknown);	// 0x864090 (LoginTaskClass::Unknown_48)  // NAME 1 [galaxy, slot, unknown]: what the login task passes
 	GlobalCreateCharacterPacketClass(PacketClass *raw);	// 0x864380
 	virtual ~GlobalCreateCharacterPacketClass();	// +0x00 0x864590 / 0x864350
-	virtual PacketClass *Build();	// +0x04 0x864610
+	virtual PacketClass *Encode();	// +0x04 0x864610  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x868880 (clientstub.cpp l.236)
 	virtual int Get_Data_Size();	// +0x0C 0x864720
 	virtual int Print(char *buffer, int len);	// +0x10 0x864750

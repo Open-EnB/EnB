@@ -24,7 +24,7 @@ class Packet_7532Class : public UnknownPacketBaseClass  // NAME 1: neutral (D10)
 public:
 	Packet_7532Class(int game_id, const Matrix3D &transform);	// 0x861760
 	Packet_7532Class(PacketClass *raw);	// 0x861830 (a rotation quaternion and a position in the message)
-	virtual PacketClass *Build();	// +0x04 0x861980
+	virtual PacketClass *Encode();	// +0x04 0x861980  // NAME 3: override of the NAME 5 virtual Encode
 	virtual bool Process_Packet(void *client);	// +0x08 0x861AE0
 	virtual int Get_Data_Size();	// +0x0C 0x861A90
 	virtual int Print(char *buffer, int len);	// +0x10 0x861AB0

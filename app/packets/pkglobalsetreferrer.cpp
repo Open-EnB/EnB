@@ -14,7 +14,7 @@ GlobalSetReferrerPacketClass::GlobalSetReferrerPacketClass(PacketClass *raw) :
 	raw->Get(&Name);
 }
 
-PacketClass *GlobalSetReferrerPacketClass::Build()
+PacketClass *GlobalSetReferrerPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(119, Get_Data_Size());
 	raw->Add(Name);
@@ -38,7 +38,7 @@ GlobalSetReferrerResponsePacketClass::GlobalSetReferrerResponsePacketClass(Packe
 	raw->Get(Result);
 }
 
-PacketClass *GlobalSetReferrerResponsePacketClass::Build()
+PacketClass *GlobalSetReferrerResponsePacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(120, Get_Data_Size());
 	raw->Add(Result);

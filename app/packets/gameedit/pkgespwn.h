@@ -24,7 +24,7 @@ public:
 	GameEditorRequestSpawnDefaultsPacketClass(char *s);	// 0x862350 (Data is the caller's text, not copied)
 	GameEditorRequestSpawnDefaultsPacketClass(PacketClass *raw);	// 0x862440
 	virtual ~GameEditorRequestSpawnDefaultsPacketClass();	// +0x00 0x862520 / 0x862410
-	virtual PacketClass *Build();	// +0x04 0x862560
+	virtual PacketClass *Encode();	// +0x04 0x862560  // NAME 3: override of the NAME 5 virtual Encode
 	virtual bool Process_Packet(void *client);	// +0x08 0x868370 (clientstub.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x862630
 	virtual int Print(char *buffer, int len);	// +0x10 0x862650
@@ -41,7 +41,7 @@ public:
 	GameEditorSpawnDefaultsPacketClass(char *data, int size);	// 0x862680 (Data is the caller's, not copied)
 	GameEditorSpawnDefaultsPacketClass(PacketClass *raw);	// 0x862700
 	virtual ~GameEditorSpawnDefaultsPacketClass();	// +0x00 0x8627E0 / 0x8626D0
-	virtual PacketClass *Build();	// +0x04 0x862820
+	virtual PacketClass *Encode();	// +0x04 0x862820  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x862950
 	virtual int Get_Data_Size();	// +0x0C 0x862900
 	virtual int Print(char *buffer, int len);	// +0x10 0x862920

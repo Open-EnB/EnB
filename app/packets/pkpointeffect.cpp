@@ -45,7 +45,7 @@ ObjectEffectPacketClass::ObjectEffectPacketClass(PacketClass *raw) :
 	Get_Flagged(raw, flags, 6, &HSVShift.Z, sizeof(HSVShift.Z));
 }
 
-PacketClass *ObjectEffectPacketClass::Build()
+PacketClass *ObjectEffectPacketClass::Encode()
 {
 	unsigned int flags = Get_Flags();
 	int size = Get_Size(flags);
@@ -130,7 +130,7 @@ PointEffectPacketClass::PointEffectPacketClass(PacketClass *raw)
 	raw->Get(&HSVShift, sizeof(HSVShift));
 }
 
-PacketClass *PointEffectPacketClass::Build()
+PacketClass *PointEffectPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(10, Get_Data_Size());
 	raw->Add(&EffectID, sizeof(EffectID));
@@ -214,7 +214,7 @@ ObjectToObjectEffectPacketClass::ObjectToObjectEffectPacketClass(PacketClass *ra
 	}
 }
 
-PacketClass *ObjectToObjectEffectPacketClass::Build()
+PacketClass *ObjectToObjectEffectPacketClass::Encode()
 {
 	unsigned int flags = Get_Flags();
 	int size = Get_Size(flags);
@@ -330,7 +330,7 @@ ObjectToEffectEffectPacketClass::ObjectToEffectEffectPacketClass(PacketClass *ra
 	raw->Get(&Speedup, sizeof(Speedup));
 }
 
-PacketClass *ObjectToEffectEffectPacketClass::Build()
+PacketClass *ObjectToEffectEffectPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(12, Get_Data_Size());
 	raw->Add(&EffectID, sizeof(EffectID));
@@ -395,7 +395,7 @@ ObjectToPointEffectPacketClass::ObjectToPointEffectPacketClass(PacketClass *raw)
 	raw->Get(&Speedup, sizeof(Speedup));
 }
 
-PacketClass *ObjectToPointEffectPacketClass::Build()
+PacketClass *ObjectToPointEffectPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(13, Get_Data_Size());
 	raw->Add(&EffectID, sizeof(EffectID));
@@ -465,7 +465,7 @@ ObjectToObjectDurationLinkedEffectPacketClass::ObjectToObjectDurationLinkedEffec
 	raw->Get(&Speedup, sizeof(Speedup));
 }
 
-PacketClass *ObjectToObjectDurationLinkedEffectPacketClass::Build()
+PacketClass *ObjectToObjectDurationLinkedEffectPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(14, Get_Data_Size());
 	raw->Add(&EffectID, sizeof(EffectID));
@@ -507,7 +507,7 @@ RemoveEffectPacketClass::RemoveEffectPacketClass(PacketClass *raw)
 	raw->Get(&EffectID, sizeof(EffectID));
 }
 
-PacketClass *RemoveEffectPacketClass::Build()
+PacketClass *RemoveEffectPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(15, Get_Data_Size());
 	raw->Add(&EffectID, sizeof(EffectID));

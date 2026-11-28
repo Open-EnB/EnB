@@ -14,7 +14,7 @@ IncapacitanceDetailsRequestPacket::IncapacitanceDetailsRequestPacket(PacketClass
 	raw->Get(GameID);
 }
 
-PacketClass *IncapacitanceDetailsRequestPacket::Build()
+PacketClass *IncapacitanceDetailsRequestPacket::Encode()
 {
 	PacketClass *raw = new PacketClass(141, Get_Data_Size());
 	raw->Add(GameID);
@@ -41,7 +41,7 @@ IncapacitanceDistressBeaconPacket::IncapacitanceDistressBeaconPacket(PacketClass
 	raw->Get(&On, sizeof(On));
 }
 
-PacketClass *IncapacitanceDistressBeaconPacket::Build()
+PacketClass *IncapacitanceDistressBeaconPacket::Encode()
 {
 	PacketClass *raw = new PacketClass(142, Get_Data_Size());
 	raw->Add(GameID);
@@ -71,7 +71,7 @@ Packet_008FClass::Packet_008FClass(PacketClass *raw)
 	raw->Get(GameID);
 }
 
-PacketClass *Packet_008FClass::Build()
+PacketClass *Packet_008FClass::Encode()
 {
 	PacketClass *raw = new PacketClass(143, Get_Data_Size());
 	raw->Add(GameID);
@@ -125,7 +125,7 @@ static std::string Get_String(PacketClass *raw)
 	return(str);
 }
 
-PacketClass *IncapacitanceDetailsPacket::Build()
+PacketClass *IncapacitanceDetailsPacket::Encode()
 {
 	PacketClass *raw = new PacketClass(144, Get_Data_Size());
 	raw->Add_String(Unknown0C.c_str());
@@ -162,7 +162,7 @@ IncapacitanceRescueConfirmationPacket::IncapacitanceRescueConfirmationPacket(Pac
 	delete [] string;
 }
 
-PacketClass *IncapacitanceRescueConfirmationPacket::Build()
+PacketClass *IncapacitanceRescueConfirmationPacket::Encode()
 {
 	PacketClass *raw = new PacketClass(145, Get_Data_Size());
 	raw->Add_String(Unknown0C.c_str());

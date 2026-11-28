@@ -23,7 +23,7 @@ PlayerObjectRelationshipPacket::PlayerObjectRelationshipPacket(PacketClass *raw)
 	raw->Get(&Relationship.IsAttacking, sizeof(Relationship.IsAttacking));
 }
 
-PacketClass *PlayerObjectRelationshipPacket::Build()
+PacketClass *PlayerObjectRelationshipPacket::Encode()
 {
 	PacketClass *raw = new PacketClass(137, Get_Data_Size());
 	raw->Add(ObjectID);
@@ -64,7 +64,7 @@ PlayerObjectReactionUpdatePacket::PlayerObjectReactionUpdatePacket(PacketClass *
 	}
 }
 
-PacketClass *PlayerObjectReactionUpdatePacket::Build()
+PacketClass *PlayerObjectReactionUpdatePacket::Encode()
 {
 	PacketClass *raw = new PacketClass(138, Get_Data_Size());
 	int count = Reactions.size();
@@ -191,7 +191,7 @@ PlayerObjectIsAttackingUpdatePacket::PlayerObjectIsAttackingUpdatePacket(PacketC
 	}
 }
 
-PacketClass *PlayerObjectIsAttackingUpdatePacket::Build()
+PacketClass *PlayerObjectIsAttackingUpdatePacket::Encode()
 {
 	PacketClass *raw = new PacketClass(139, Get_Data_Size());
 	raw->Add(&Attacking, sizeof(Attacking));

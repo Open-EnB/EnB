@@ -68,7 +68,7 @@ const SubPartStruct &SubPartsPacket::Get(unsigned int index)
 	return(SubParts[index]);
 }
 
-PacketClass *SubPartsPacket::Build()
+PacketClass *SubPartsPacket::Encode()
 {
 	PacketClass *raw = new PacketClass(180, Get_Data_Size());
 	raw->Add(GameID);

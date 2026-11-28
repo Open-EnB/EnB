@@ -17,7 +17,7 @@ AvatarDescPacketClass::AvatarDescPacketClass(PacketClass *raw)
 	raw->Get((Unknown_PacketDataClass *)&Desc);
 }
 
-PacketClass *AvatarDescPacketClass::Build()
+PacketClass *AvatarDescPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(97, Get_Data_Size());
 	raw->Add(&GameID, sizeof(GameID));

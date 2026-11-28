@@ -13,7 +13,7 @@ VersionRequestPacketClass::VersionRequestPacketClass(PacketClass *raw)
 	raw->Get(Minor);
 }
 
-PacketClass *VersionRequestPacketClass::Build()
+PacketClass *VersionRequestPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(0, Get_Data_Size());
 	raw->Add(Major);
@@ -40,7 +40,7 @@ VersionResponsePacketClass::VersionResponsePacketClass(PacketClass *raw)
 	raw->Get(&Status, sizeof(Status));
 }
 
-PacketClass *VersionResponsePacketClass::Build()
+PacketClass *VersionResponsePacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(1, Get_Data_Size());
 	raw->Add(&Status, sizeof(Status));

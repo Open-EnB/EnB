@@ -23,7 +23,7 @@ class GlobalDeleteCharacterPacketClass : public UnknownPacketBaseClass  // NAME 
 public:
 	GlobalDeleteCharacterPacketClass(int slot);	// 0x8647B0 (LoginTaskClass's delete step)  // NAME 1 [slot]: the login task's selected slot
 	GlobalDeleteCharacterPacketClass(PacketClass *raw);	// 0x864820
-	virtual PacketClass *Build();	// +0x04 0x8648D0
+	virtual PacketClass *Encode();	// +0x04 0x8648D0  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x8688B0 (clientstub.cpp l.239)
 	virtual int Get_Data_Size();	// +0x0C 0x864990
 	virtual int Print(char *buffer, int len);	// +0x10 0x8649B0

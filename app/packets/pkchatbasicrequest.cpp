@@ -18,7 +18,7 @@ ChatBasicRequestPacketClass::~ChatBasicRequestPacketClass()
 {
 }
 
-PacketClass *ChatBasicRequestPacketClass::Build()
+PacketClass *ChatBasicRequestPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(167, Get_Data_Size());
 	raw->Add(&Unknown0C, sizeof(Unknown0C));

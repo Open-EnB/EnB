@@ -24,7 +24,7 @@ public:
 	GMDestroyItemRequestPacketClass(unsigned long unknown0c, const char *item_name, bool unknown20);	// 0x8716D0  // NAME 5: thunk order probable, binary.md 5.11
 	GMDestroyItemRequestPacketClass(PacketClass *raw);	// 0x8714F0
 	virtual ~GMDestroyItemRequestPacketClass();	// +0x00 0x8716A0 / 0x871840
-	virtual PacketClass *Build();	// +0x04 0x8718B0
+	virtual PacketClass *Encode();	// +0x04 0x8718B0  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x869570 (clientstub.cpp l.443)
 	virtual int Get_Data_Size();	// +0x0C 0x8719A0
 	virtual int Print(char *buffer, int len);	// +0x10 0x8719C0

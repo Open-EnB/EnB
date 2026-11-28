@@ -36,7 +36,7 @@ MessageStringPacketClass::~MessageStringPacketClass()
 	}
 }
 
-PacketClass *MessageStringPacketClass::Build()
+PacketClass *MessageStringPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(29, Get_Data_Size());
 	raw->Add(&Size, sizeof(Size));

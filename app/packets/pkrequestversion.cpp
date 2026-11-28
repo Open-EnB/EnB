@@ -11,7 +11,7 @@ RequestVersionPacketClass::RequestVersionPacketClass(PacketClass *)
 {
 }
 
-PacketClass *RequestVersionPacketClass::Build()
+PacketClass *RequestVersionPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(69, Get_Data_Size());
 	return(raw);

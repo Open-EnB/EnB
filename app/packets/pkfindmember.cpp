@@ -43,7 +43,7 @@ FindMemberPacketClass::~FindMemberPacketClass()
 	PlayerList.erase(PlayerList.begin(), PlayerList.end()); PlayerList.size();	// the dead size() keeps erase's inner it++ out of line, as the client (workflow.md 3.1, 6bd0611)
 }
 
-PacketClass *FindMemberPacketClass::Build()
+PacketClass *FindMemberPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(83, Get_Data_Size());
 	raw->Add(&NumPlayers, sizeof(NumPlayers));

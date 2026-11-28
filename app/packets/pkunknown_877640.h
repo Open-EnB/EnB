@@ -24,7 +24,7 @@ class AvatarDescPacketClass : public UnknownPacketBaseClass
 public:
 	AvatarDescPacketClass(int game_id, const AvatarDescriptionClass *desc);	// 0x877640 (Desc a copy, when given)
 	AvatarDescPacketClass(PacketClass *raw);	// 0x877A60
-	virtual PacketClass *Build();	// +0x04 0x877B20
+	virtual PacketClass *Encode();	// +0x04 0x877B20  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x733B10 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x877BF0
 	virtual int Print(char *buffer, int len);	// +0x10 0x877C10

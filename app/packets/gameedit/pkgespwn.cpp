@@ -43,7 +43,7 @@ GameEditorRequestSpawnDefaultsPacketClass::~GameEditorRequestSpawnDefaultsPacket
 	}
 }
 
-PacketClass *GameEditorRequestSpawnDefaultsPacketClass::Build()
+PacketClass *GameEditorRequestSpawnDefaultsPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(30017, Get_Data_Size());
 	raw->Add(&Size, sizeof(Size));
@@ -103,7 +103,7 @@ GameEditorSpawnDefaultsPacketClass::~GameEditorSpawnDefaultsPacketClass()
 	}
 }
 
-PacketClass *GameEditorSpawnDefaultsPacketClass::Build()
+PacketClass *GameEditorSpawnDefaultsPacketClass::Encode()
 {
 	PacketClass *packet = new PacketClass(30018, Get_Data_Size());
 	G_ASSERT(packet);

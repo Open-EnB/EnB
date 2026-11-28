@@ -39,7 +39,7 @@ CreateCharacterPacketClass::~CreateCharacterPacketClass()
 {
 }
 
-PacketClass *CreateCharacterPacketClass::Build()
+PacketClass *CreateCharacterPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(72, Get_Data_Size());
 	raw->Add(Unknown0C);

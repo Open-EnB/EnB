@@ -24,7 +24,7 @@ public:
 	CTARequestPacketClass(int avatar_id, int target_id, int request_type);	// 0x86F070
 	CTARequestPacketClass(PacketClass *raw);	// 0x86F0F0
 	virtual ~CTARequestPacketClass();	// +0x00 0x86F1C0 / 0x86F0C0
-	virtual PacketClass *Build();	// +0x04 0x86F1E0
+	virtual PacketClass *Encode();	// +0x04 0x86F1E0  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x868DF0 (clientstub.cpp l.323)
 	virtual int Get_Data_Size();	// +0x0C 0x86F2C0
 	virtual int Print(char *buffer, int len);	// +0x10 0x86F2E0
@@ -40,7 +40,7 @@ class CTAResponsePacketClass : public UnknownPacketBaseClass
 public:
 	CTAResponsePacketClass(int avatar_id, int request_type, bool success);	// 0x86F320
 	CTAResponsePacketClass(PacketClass *raw);	// 0x86F3C0
-	virtual PacketClass *Build();	// +0x04 0x86F4B0
+	virtual PacketClass *Encode();	// +0x04 0x86F4B0  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x73DAA0 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x86F590
 	virtual int Print(char *buffer, int len);	// +0x10 0x86F5B0

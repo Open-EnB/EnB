@@ -25,7 +25,7 @@ public:
 	Packet_00B3Class(const char *name);	// 0x867010  // NAME 2: the stores (no caller left)
 	Packet_00B3Class(PacketClass *raw);	// 0x867250
 	virtual ~Packet_00B3Class();	// +0x00 0x8671B0 / 0x8671E0
-	virtual PacketClass *Build();	// +0x04 0x8673C0
+	virtual PacketClass *Encode();	// +0x04 0x8673C0  // NAME 3: override of the NAME 5 virtual Encode
 	virtual bool Process_Packet(void *client);	// +0x08 0x868BB0 (clientstub.cpp l.287)
 	virtual int Get_Data_Size();	// +0x0C 0x867490
 	virtual int Print(char *buffer, int len);	// +0x10 0x8674B0

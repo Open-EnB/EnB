@@ -13,7 +13,7 @@ RemovePacketClass::RemovePacketClass(PacketClass *raw)
 	raw->Get(&GameID, sizeof(GameID));
 }
 
-PacketClass *RemovePacketClass::Build()
+PacketClass *RemovePacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(7, Get_Data_Size());
 	raw->Add(&GameID, sizeof(GameID));

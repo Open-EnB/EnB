@@ -24,7 +24,7 @@ class GameEditorClonePacketClass : public UnknownPacketBaseClass  // NAME 5: thu
 public:
 	GameEditorClonePacketClass(int game_id, const char *new_name, const Matrix3D &transform);	// 0x85DE30
 	GameEditorClonePacketClass(PacketClass *raw);	// 0x85DFB0
-	virtual PacketClass *Build();	// +0x04 0x85E080
+	virtual PacketClass *Encode();	// +0x04 0x85E080  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x8680D0 (clientstub.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x85E170
 	virtual int Print(char *buffer, int len);	// +0x10 0x85E190
@@ -42,7 +42,7 @@ public:
 	GameEditorCloneResponsePacketClass(int original_game_id, int clone_game_id, const char *error_msg);	// 0x85E1D0
 	GameEditorCloneResponsePacketClass(PacketClass *raw);	// 0x85E2D0
 	virtual ~GameEditorCloneResponsePacketClass();	// +0x00 0x85E400 / 0x85E2A0
-	virtual PacketClass *Build();	// +0x04 0x85E440
+	virtual PacketClass *Encode();	// +0x04 0x85E440  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x85E5F0
 	virtual int Get_Data_Size();	// +0x0C 0x85E560
 	virtual int Print(char *buffer, int len);	// +0x10 0x85E580

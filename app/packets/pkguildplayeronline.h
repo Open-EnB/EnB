@@ -39,7 +39,7 @@ public:
 	GuildPlayerOnlineSectorPacket(__int64 player_id, const char *player_name, __int64 account_id);	// 0x88EC70
 	GuildPlayerOnlineSectorPacket(PacketClass *raw);	// 0x88EE20
 	virtual ~GuildPlayerOnlineSectorPacket();	// +0x00 0x88EDF0 / 0x88EEF0
-	virtual PacketClass *Build();	// +0x04 0x88EF60
+	virtual PacketClass *Encode();	// +0x04 0x88EF60  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x8692A0 (clientstub.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x88F030
 	virtual int Print(char *buffer, int len);	// +0x10 0x88F050 (its AccountID= shows PlayerID, as the client's)
@@ -56,7 +56,7 @@ public:
 	GuildStatusUpdatePacket(__int64 player_id, int unknown18, const char *rank_name, Vector3 same_guild_tag_color, Vector3 other_guild_tag_color, const char *new_guild_name);	// 0x8917D0
 	GuildStatusUpdatePacket(PacketClass *raw);	// 0x891A20
 	virtual ~GuildStatusUpdatePacket();	// +0x00 0x8919F0 / 0x891B30
-	virtual PacketClass *Build();	// +0x04 0x891BD0
+	virtual PacketClass *Encode();	// +0x04 0x891BD0  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x869150 (clientstub.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x891CE0
 	virtual int Print(char *buffer, int len);	// +0x10 0x891D20
@@ -76,7 +76,7 @@ public:
 	GuildSimpleGuildSectorPacket(int type, __int64 player_id, const char *optional_param);	// 0x88F0E0
 	GuildSimpleGuildSectorPacket(PacketClass *raw);	// 0x88F280
 	virtual ~GuildSimpleGuildSectorPacket();	// +0x00 0x88F250 / 0x88F350
-	virtual PacketClass *Build();	// +0x04 0x88F3C0
+	virtual PacketClass *Encode();	// +0x04 0x88F3C0  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x868F40 (clientstub.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x88F490
 	virtual int Print(char *buffer, int len);	// +0x10 0x88F4B0
@@ -93,7 +93,7 @@ public:
 	GuildSimpleSectorGuildPacket(int type, __int64 player_id, const char *optional_param);	// 0x88F520
 	GuildSimpleSectorGuildPacket(PacketClass *raw);	// 0x88F6C0
 	virtual ~GuildSimpleSectorGuildPacket();	// +0x00 0x88F690 / 0x88F790
-	virtual PacketClass *Build();	// +0x04 0x88F800
+	virtual PacketClass *Encode();	// +0x04 0x88F800  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x868FA0 (clientstub.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x88F8D0
 	virtual int Print(char *buffer, int len);	// +0x10 0x88F8F0
@@ -109,7 +109,7 @@ class GuildAdjustContribPacket : public UnknownPacketBaseClass  // NAME 5: thunk
 public:
 	GuildAdjustContribPacket(__int64 player_id, int contrib, float amount);	// 0x88F960
 	GuildAdjustContribPacket(PacketClass *raw);	// 0x88FA00
-	virtual PacketClass *Build();	// +0x04 0x88FAE0
+	virtual PacketClass *Encode();	// +0x04 0x88FAE0  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x868FD0 (clientstub.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x88FBC0
 	virtual int Print(char *buffer, int len);	// +0x10 0x88FBE0
@@ -126,7 +126,7 @@ public:
 	GuildBeginCreationPacket(__int64 leader, const std::vector<__int64> &founders, const char *guild_name);	// 0x88FC30
 	GuildBeginCreationPacket(PacketClass *raw);	// 0x88FE40
 	virtual ~GuildBeginCreationPacket();	// +0x00 0x88FE10 / 0x890130
-	virtual PacketClass *Build();	// +0x04 0x8901B0
+	virtual PacketClass *Encode();	// +0x04 0x8901B0  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x869000 (clientstub.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x8902D0
 	virtual int Print(char *buffer, int len);	// +0x10 0x890320
@@ -143,7 +143,7 @@ public:
 	GuildLeaderAcceptSectorPacket(__int64 player_id, const char *guild_name, bool accept);	// 0x8903A0
 	GuildLeaderAcceptSectorPacket(PacketClass *raw);	// 0x890540
 	virtual ~GuildLeaderAcceptSectorPacket();	// +0x00 0x890510 / 0x890610
-	virtual PacketClass *Build();	// +0x04 0x890680
+	virtual PacketClass *Encode();	// +0x04 0x890680  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x869060 (clientstub.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x890750
 	virtual int Print(char *buffer, int len);	// +0x10 0x890770
@@ -160,7 +160,7 @@ public:
 	GuildRecruitConfirmGuildPacket(__int64 player_id, const char *inviter_name, const char *guild_name);	// 0x8907F0
 	GuildRecruitConfirmGuildPacket(PacketClass *raw);	// 0x890A00
 	virtual ~GuildRecruitConfirmGuildPacket();	// +0x00 0x8909D0 / 0x890AE0
-	virtual PacketClass *Build();	// +0x04 0x890B80
+	virtual PacketClass *Encode();	// +0x04 0x890B80  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x869090 (clientstub.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x890C50
 	virtual int Print(char *buffer, int len);	// +0x10 0x890C90
@@ -177,7 +177,7 @@ public:
 	GuildRecruitAcceptSectorPacket(__int64 player_id, const char *inviter_name, const char *guild_name, bool accept);	// 0x890D00
 	GuildRecruitAcceptSectorPacket(PacketClass *raw);	// 0x890F30
 	virtual ~GuildRecruitAcceptSectorPacket();	// +0x00 0x890F00 / 0x891020
-	virtual PacketClass *Build();	// +0x04 0x8910C0
+	virtual PacketClass *Encode();	// +0x04 0x8910C0  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x8690F0 (clientstub.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x8911A0
 	virtual int Print(char *buffer, int len);	// +0x10 0x8911E0
@@ -195,7 +195,7 @@ public:
 	GuildMessageGuildPacket(__int64 player_id, int message_type, const char *other_name, const char *guild_name);	// 0x891270
 	GuildMessageGuildPacket(PacketClass *raw);	// 0x8914A0
 	virtual ~GuildMessageGuildPacket();	// +0x00 0x891470 / 0x891590
-	virtual PacketClass *Build();	// +0x04 0x891630
+	virtual PacketClass *Encode();	// +0x04 0x891630  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x869120 (clientstub.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x891710
 	virtual int Print(char *buffer, int len);	// +0x10 0x891750
@@ -212,7 +212,7 @@ class GuildPermissionsPacket : public UnknownPacketBaseClass  // NAME 5: thunk o
 public:
 	GuildPermissionsPacket(__int64 player_id, Unknown_GuildPermissionsEnum unknown18, int unknown1c, int unknown20, int unknown24);	// 0x891DE0
 	GuildPermissionsPacket(PacketClass *raw);	// 0x891E90
-	virtual PacketClass *Build();	// +0x04 0x891F80
+	virtual PacketClass *Encode();	// +0x04 0x891F80  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x869180 (clientstub.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x892070
 	virtual int Print(char *buffer, int len);	// +0x10 0x892090
@@ -230,7 +230,7 @@ class GuildRankNamesGuildPacket : public UnknownPacketBaseClass  // NAME 5: thun
 public:
 	GuildRankNamesGuildPacket(__int64 player_id, const std::vector<GuildRankNameStruct> &ranks);	// 0x892340  // NAME 1 [player_id, ranks]: the members'
 	GuildRankNamesGuildPacket(PacketClass *raw);	// 0x892670
-	virtual PacketClass *Build();	// +0x04 0x8928E0
+	virtual PacketClass *Encode();	// +0x04 0x8928E0  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x869210 (clientstub.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x892A20
 	virtual int Print(char *buffer, int len);	// +0x10 0x892A90
@@ -247,7 +247,7 @@ class GuildRankNamesRequestSectorPacket : public UnknownPacketBaseClass  // NAME
 public:
 	GuildRankNamesRequestSectorPacket(__int64 player_id);	// 0x8920E0
 	GuildRankNamesRequestSectorPacket(PacketClass *raw);	// 0x892180
-	virtual PacketClass *Build();	// +0x04 0x892210
+	virtual PacketClass *Encode();	// +0x04 0x892210  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x8691E0 (clientstub.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x8922D0
 	virtual int Print(char *buffer, int len);	// +0x10 0x8922F0
@@ -262,7 +262,7 @@ public:
 	GuildGMRenameConfirmGuildPacket(__int64 player_id, const char *old_guild_name, const char *new_guild_name);	// 0x892C00
 	GuildGMRenameConfirmGuildPacket(PacketClass *raw);	// 0x892E10
 	virtual ~GuildGMRenameConfirmGuildPacket();	// +0x00 0x892DE0 / 0x892EF0
-	virtual PacketClass *Build();	// +0x04 0x892F90
+	virtual PacketClass *Encode();	// +0x04 0x892F90  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x869240 (clientstub.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x893060
 	virtual int Print(char *buffer, int len);	// +0x10 0x8930A0
@@ -279,7 +279,7 @@ public:
 	GuildGMRenameAcceptSectorPacket(__int64 player_id, const char *old_guild_name, const char *new_guild_name);	// 0x893110
 	GuildGMRenameAcceptSectorPacket(PacketClass *raw);	// 0x893320
 	virtual ~GuildGMRenameAcceptSectorPacket();	// +0x00 0x8932F0 / 0x893400
-	virtual PacketClass *Build();	// +0x04 0x8934A0
+	virtual PacketClass *Encode();	// +0x04 0x8934A0  // NAME 3: override of the NAME 5 virtual Encode
 	virtual bool Process_Packet(void *client);	// +0x08 0x869270 (clientstub.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x893570
 	virtual int Print(char *buffer, int len);	// +0x10 0x8935B0
@@ -295,7 +295,7 @@ class GuildDeletePlayerPacket : public UnknownPacketBaseClass  // NAME 5: thunk 
 public:
 	GuildDeletePlayerPacket(__int64 player_id, int slot, const char *account_name, __int64 account_id);	// 0x893620
 	GuildDeletePlayerPacket(PacketClass *raw);	// 0x893710
-	virtual PacketClass *Build();	// +0x04 0x8937F0
+	virtual PacketClass *Encode();	// +0x04 0x8937F0  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x8692D0 (clientstub.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x8938D0
 	virtual int Print(char *buffer, int len);	// +0x10 0x8938F0
@@ -312,7 +312,7 @@ class GuildPlayerInfoDeletedPacket : public UnknownPacketBaseClass  // NAME 5: t
 public:
 	GuildPlayerInfoDeletedPacket(__int64 player_id, int slot, const char *account_name, __int64 account_id);	// 0x893970
 	GuildPlayerInfoDeletedPacket(PacketClass *raw);	// 0x893A70
-	virtual PacketClass *Build();	// +0x04 0x893B50
+	virtual PacketClass *Encode();	// +0x04 0x893B50  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x869300 (clientstub.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x893C30
 	virtual int Print(char *buffer, int len);	// +0x10 0x893C50
@@ -332,7 +332,7 @@ public:
 	GuildDeductFeePacket(__int64 player_id, const MoneyClass &num_credits, const char *description);	// 0x893CD0
 	GuildDeductFeePacket(PacketClass *raw);	// 0x893E80
 	virtual ~GuildDeductFeePacket();	// +0x00 0x893FE0 / 0x893E50
-	virtual PacketClass *Build();	// +0x04 0x894050
+	virtual PacketClass *Encode();	// +0x04 0x894050  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x869330 (clientstub.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x894130
 	virtual int Print(char *buffer, int len);	// +0x10 0x894180

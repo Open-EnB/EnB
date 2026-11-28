@@ -26,7 +26,7 @@ class StarbaseReqPacketClass : public UnknownPacketBaseClass  // NAME 5: thunk o
 public:
 	StarbaseReqPacketClass(int player_id, unsigned char action, int starbase_id);	// 0x8A2D70 (ui_avatar_cust.cpp's 0x551C80: the client's Unknown1138, 10, 0)  // NAME 1 [player_id, action, starbase_id]: after the members they set
 	StarbaseReqPacketClass(PacketClass *raw);	// 0x8A2DF0
-	virtual PacketClass *Build();	// +0x04 0x8A2EB0
+	virtual PacketClass *Encode();	// +0x04 0x8A2EB0  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x867F80 (clientstub.cpp l.92)
 	virtual int Get_Data_Size();	// +0x0C 0x8A2F90
 	virtual int Print(char *buffer, int len);	// +0x10 0x8A2FB0
@@ -43,7 +43,7 @@ class StarbaseSetPacketClass : public UnknownPacketBaseClass
 public:
 	StarbaseSetPacketClass(unsigned char action, unsigned char exit_mode, int starbase_id);	// 0x8A2FF0
 	StarbaseSetPacketClass(PacketClass *raw);	// 0x8A3090
-	virtual PacketClass *Build();	// +0x04 0x8A3150
+	virtual PacketClass *Encode();	// +0x04 0x8A3150  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x7381C0 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x8A3230
 	virtual int Print(char *buffer, int len);	// +0x10 0x8A3250
@@ -59,7 +59,7 @@ class StarbaseTowPacketClass : public UnknownPacketBaseClass
 public:
 	StarbaseTowPacketClass(int starbase_id1, int tow_cost1, int starbase_id2, int tow_cost2, int starbase_id3, int tow_cost3);	// 0x8A32A0
 	StarbaseTowPacketClass(PacketClass *raw);	// 0x8A3370
-	virtual PacketClass *Build();	// +0x04 0x8A3450
+	virtual PacketClass *Encode();	// +0x04 0x8A3450  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x738330 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x8A3560
 	virtual int Print(char *buffer, int len);	// +0x10 0x8A3580

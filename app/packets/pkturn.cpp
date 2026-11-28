@@ -13,7 +13,7 @@ TurnPacketClass::TurnPacketClass(PacketClass *raw)
 	raw->Get(&Intensity, sizeof(Intensity));
 }
 
-PacketClass *TurnPacketClass::Build()
+PacketClass *TurnPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(18, Get_Data_Size());
 	raw->Add(&GameID, sizeof(GameID));

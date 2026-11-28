@@ -7,10 +7,10 @@ are listed here until better evidence raises their tag. Regenerate with
 
 | Score | Meaning | Names |
 |---|---|---|
-| 5 | the client names it | 574 |
+| 5 | the client names it | 824 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
-| 3 | by convention from a client-named file or sibling | 1876 |
-| 2 | describes what the code does | 4966 |
+| 3 | by convention from a client-named file or sibling | 1898 |
+| 2 | describes what the code does | 4965 |
 | 1 | neutral placeholder | 25272 |
 
 ## For review (score 3 and below)
@@ -28580,7 +28580,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Get` | `app/packets/pk.h:83` | what it does (and the overloads below) |
 | 2 | `Get_Size` | `app/packets/pk.h:84` | what it returns |
 | 2 | `Get_String` | `app/packets/pk.h:93` | what it does |
-| 2 | `Build` | `app/packets/pk.h:110` | what it does |
 | 2 | `Get_Data_Size` | `app/packets/pk.h:112` | what it returns |
 | 2 | `Print` | `app/packets/pk.h:113` | what it does |
 | 2 | `Get_Channel` | `app/packets/pk.h:115` | Send_Packet's use (udpconn.cpp) |
@@ -31347,9 +31346,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `Size` | `app/packets/gameedit/pkgeclon.h:53` | the client's Print text 'Size=' |
 | 3 | `ErrorMsg` | `app/packets/gameedit/pkgeclon.h:54` | the client's assert 'ErrorMsg' and Print text 'ErrorMsg=' |
 | 3 | `pkgekv.h` | `app/packets/gameedit/pkgekv.h:16` | the header of the client's gameedit\pkgekv.cpp |
+| 3 | `Encode` | `app/packets/gameedit/pkgekv.h:28` | override of the NAME 5 virtual Encode |
 | 3 | `GameID` | `app/packets/gameedit/pkgekv.h:33` | the client's Print text 'GameID=' |
 | 3 | `Subscribe` | `app/packets/gameedit/pkgekv.h:34` | the client's Print text 'Subscribe=' |
 | 3 | `Data` | `app/packets/gameedit/pkgekv.h:36` | the client's assert 'Data' and Print text 'Keys=' |
+| 3 | `Encode` | `app/packets/gameedit/pkgekv.h:46` | override of the NAME 5 virtual Encode |
 | 3 | `GameID` | `app/packets/gameedit/pkgekv.h:51` | the client's Print text 'GameID=' |
 | 3 | `GameID` | `app/packets/gameedit/pkgekv.h:66` | the client's Print text 'GameID=' |
 | 3 | `Data` | `app/packets/gameedit/pkgekv.h:67` | the client's assert 'Data' |
@@ -31378,6 +31379,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `GameEditorSectorSavedPacketClass` | `app/packets/gameedit/pkgesave.h:34` | the client's Print text 'GameEditorSectorSaved' and the UnknownPacketBaseClass convention |
 | 3 | `Success` | `app/packets/gameedit/pkgesave.h:45` | the client's Print text 'Success=' |
 | 3 | `pkgespwn.h` | `app/packets/gameedit/pkgespwn.h:15` | the header of the client's gameedit\pkgespwn.cpp |
+| 3 | `Encode` | `app/packets/gameedit/pkgespwn.h:27` | override of the NAME 5 virtual Encode |
 | 3 | `Data` | `app/packets/gameedit/pkgespwn.h:33` | the client's assert 'Data' and Print text 'SpawnLocationTemplateName=' |
 | 3 | `Data` | `app/packets/gameedit/pkgespwn.h:49` | the client's assert 'Data' and Print text 'DefaultValues=' |
 | 3 | `pk_player_object_relationship.h` | `app/packets/pk_player_object_relationship.h:17` | after the client's .cpp (D57) |
@@ -31389,6 +31391,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `GameID` | `app/packets/pk_sub_parts.h:48` | the client's Print text 'GameID=' |
 | 3 | `GameID` | `app/packets/pkaction.h:33` | the client's Print text 'GameID=' |
 | 3 | `Action` | `app/packets/pkaction.h:34` | the client's Print text 'Action=' |
+| 3 | `Encode` | `app/packets/pkaction.h:45` | override of the NAME 5 virtual Encode |
 | 3 | `GameID` | `app/packets/pkaction.h:50` | the client's Print text 'GameID=' |
 | 3 | `Action` | `app/packets/pkaction.h:51` | the client's Print text 'Action=' |
 | 3 | `std:` | `app/packets/pkaction.h:52` | the client's Print text 'Target' |
@@ -31459,6 +31462,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `Type` | `app/packets/pkdialog.h:35` | the client's Print text 'Type=' |
 | 3 | `Size` | `app/packets/pkdialog.h:36` | the client's Print text 'Size=' |
 | 3 | `DirLockPacketClass` | `app/packets/pkdirlock.h:30` | by convention from its derived classes' Print texts 'DirLock...' |
+| 3 | `Encode` | `app/packets/pkdirlock.h:36` | override of the NAME 5 virtual Encode |
 | 3 | `DirLockRequestPacketClass` | `app/packets/pkdirlock.h:50` | the client's Print text 'DirLockRequest' |
 | 3 | `DirLockResponseSectorPacketClass` | `app/packets/pkdirlock.h:62` | the client's Print text 'DirLockResponseSector' |
 | 3 | `DirLockResponseGlobalPacketClass` | `app/packets/pkdirlock.h:76` | the client's Print text 'DirLockResponseGlobal' |
@@ -31481,13 +31485,16 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `are` | `app/packets/pkgadget.h:36` | the client's Print text 'Function=' |
 | 3 | `Name` | `app/packets/pkgadget.h:37` | the client's Print text 'Name=' |
 | 3 | `Size` | `app/packets/pkgadget.h:38` | the client's Print text 'Size=' |
+| 3 | `Encode` | `app/packets/pkgadget.h:48` | override of the NAME 5 virtual Encode |
 | 3 | `Type` | `app/packets/pkgalaxymap.h:35` | the client's Print text 'Type=' |
 | 3 | `Data` | `app/packets/pkgalaxymap.h:36` | the client's Print text 'Data=' |
 | 3 | `Size` | `app/packets/pkgalaxymap.h:37` | the client's Print text 'Size=' |
 | 3 | `Channel` | `app/packets/pkgalaxymap.h:38` | the client's Print text 'Channel(PlayerID)=' |
+| 3 | `Encode` | `app/packets/pkgalaxymap.h:47` | override of the NAME 5 virtual Encode |
 | 3 | `pkglobalcontainer.h` | `app/packets/pkglobalcontainer.h:15` | by convention from its class GlobalContainerRequest / Response (thunk order) and its place in retail's object order (between pkglobalconnect and pkglobalcreatecharacter) |
 | 3 | `GlobalErrorPacketClass` | `app/packets/pkglobalerror.h:22` | the client's log 'GlobalErrorPacketClass recv: %d : %d : %s' (tsk_login.cpp) |
 | 3 | `pkglobalhello.h` | `app/packets/pkglobalhello.h:16` | by convention from its class GlobalHelloPacketClass (thunk order) and its place in retail's object order (between pkglobalerror and pkgloballock) |
+| 3 | `Encode` | `app/packets/pkgloballock.h:28` | override of the NAME 5 virtual Encode |
 | 3 | `GlobalLockRequestPacketClass` | `app/packets/pkgloballock.h:39` | the client's Print text 'GlobalLockRequest' |
 | 3 | `GlobalLockResponsePacketClass` | `app/packets/pkgloballock.h:53` | the client's Print text 'GlobalLockResponse' |
 | 3 | `GlobalLockReleasePacketClass` | `app/packets/pkgloballock.h:67` | the client's Print text 'GlobalLockRelease' |
@@ -31500,12 +31507,15 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `Result` | `app/packets/pkglobalsetreferrer.h:47` | the client's Print text 'Result=' |
 | 3 | `std:` | `app/packets/pkgmdestroyitem.h:33` | the client's Print text 'Item Name =' |
 | 3 | `GMEditPlayerInventoryPacketClass` | `app/packets/pkgmeditplayerinventory.h:22` | the client's Print text 'GM Edit Player Inventory' |
+| 3 | `Encode` | `app/packets/pkgmeditplayerinventory.h:28` | override of the NAME 5 virtual Encode |
 | 3 | `std:` | `app/packets/pkgmresetmission.h:33` | the client's Print text 'Mission Name =' |
 | 3 | `GMViewMissionLogPacketClass` | `app/packets/pkgmviewmissionlog.h:22` | the client's Print text 'GM View Mission Log' |
+| 3 | `Encode` | `app/packets/pkgmviewmissionlog.h:28` | override of the NAME 5 virtual Encode |
 | 3 | `String` | `app/packets/pkgroup.h:35` | the client's Print text 'String=' |
 | 3 | `Size` | `app/packets/pkgroup.h:36` | the client's Print text 'Size=' |
 | 3 | `Type` | `app/packets/pkgroup.h:37` | the client's Print text 'Type=' |
 | 3 | `pkgroupserver.h` | `app/packets/pkgroupserver.h:16` | by convention from its class GroupServer... (4) (thunk order) and its place in retail's object order (between pkgroup and the guild packets) |
+| 3 | `Encode` | `app/packets/pkgroupserver.h:58` | override of the NAME 5 virtual Encode |
 | 3 | `PlayerID` | `app/packets/pkguildplayeronline.h:47` | the client's Print text 'PlayerID=' |
 | 3 | `std:` | `app/packets/pkguildplayeronline.h:48` | the client's Print text 'PlayerName=' |
 | 3 | `AccountID` | `app/packets/pkguildplayeronline.h:49` | the client's Print text 'AccountID=' |
@@ -31546,6 +31556,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `PlayerID` | `app/packets/pkguildplayeronline.h:270` | the client's Print text 'PlayerID=' |
 | 3 | `std:` | `app/packets/pkguildplayeronline.h:271` | the client's Print text 'OldGuildName=' |
 | 3 | `std:` | `app/packets/pkguildplayeronline.h:272` | the client's Print text 'NewGuildName=' |
+| 3 | `Encode` | `app/packets/pkguildplayeronline.h:282` | override of the NAME 5 virtual Encode |
 | 3 | `PlayerID` | `app/packets/pkguildplayeronline.h:287` | the client's Print text 'PlayerID=' |
 | 3 | `std:` | `app/packets/pkguildplayeronline.h:288` | the client's Print text 'OldGuildName=' |
 | 3 | `std:` | `app/packets/pkguildplayeronline.h:289` | the client's Print text 'NewGuildName=' |
@@ -31584,6 +31595,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `GameID` | `app/packets/pkincapacitancerequest.h:33` | the client's Print text 'GameID=' |
 | 3 | `GameID` | `app/packets/pkincapacitancerequest.h:47` | the client's Print text 'GameID=' |
 | 3 | `On` | `app/packets/pkincapacitancerequest.h:48` | the client's Print text 'On=' |
+| 3 | `Encode` | `app/packets/pkincapacitancerequest.h:57` | override of the NAME 5 virtual Encode |
 | 3 | `GameID` | `app/packets/pkincapacitancerequest.h:62` | the client's Print text 'GameID=' |
 | 3 | `IncapacitanceDetailsPacket` | `app/packets/pkincapacitancerequest.h:66` | the client's Print text 'Incapacitance Details' (kept from pk_classes.h) |
 | 3 | `GameID` | `app/packets/pkinitrenderstate.h:33` | the client's Print text 'GameID=' |
@@ -31642,7 +31654,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `PlayerID` | `app/packets/pklogoff.h:33` | the client's Print text 'PlayerID=%d' |
 | 3 | `LogoffRequestPacketClass` | `app/packets/pklogoff.h:37` | the client's Print text 'Logoff Request {' and the UnknownPacketBaseClass convention |
 | 3 | `PlayerID` | `app/packets/pklogoff.h:47` | the client's Print text 'PlayerID=%d' |
+| 3 | `Encode` | `app/packets/pklogoff.h:70` | override of the NAME 5 virtual Encode |
 | 3 | `HulkGameID` | `app/packets/pkloothulkpermission.h:32` | the client's Print text 'HulkGameID=' |
+| 3 | `Encode` | `app/packets/pkmanufactureitemcatagorypacket.h:29` | override of the NAME 5 virtual Encode |
 | 3 | `player` | `app/packets/pkmanufactureitemcatagorypacket.h:34` | the client's Print text 'player=' |
 | 3 | `Mode` | `app/packets/pkmanufactureitemcatagorypacket.h:35` | the client's Print text 'Mode = ' |
 | 3 | `player` | `app/packets/pkmanufactureitemcatagorypacket.h:49` | the client's Print text 'player=' |
@@ -31651,6 +31665,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `ItemID` | `app/packets/pkmanufactureitemcatagorypacket.h:65` | the client's Print text 'ItemID=' |
 | 3 | `player` | `app/packets/pkmanufactureitemcatagorypacket.h:79` | the client's Print text 'player=' |
 | 3 | `ItemID` | `app/packets/pkmanufactureitemcatagorypacket.h:80` | the client's Print text 'ItemID=' |
+| 3 | `Encode` | `app/packets/pkmanufactureitemcatagorypacket.h:89` | override of the NAME 5 virtual Encode |
 | 3 | `player` | `app/packets/pkmanufactureitemcatagorypacket.h:94` | the client's Print text 'player=' |
 | 3 | `CargoSlotID` | `app/packets/pkmanufactureitemcatagorypacket.h:95` | the client's Print text 'CargoSlotID=' |
 | 3 | `VaultSlotID` | `app/packets/pkmanufactureitemcatagorypacket.h:96` | the client's Print text 'VaultSlotID=' |
@@ -31693,6 +31708,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `NavType` | `app/packets/pknavdelete.h:36` | the client's Print text 'NavType=' |
 | 3 | `IsHuge` | `app/packets/pknavdelete.h:37` | the client's Print text 'IsHuge=' |
 | 3 | `GameID` | `app/packets/pknavdelete.h:53` | the client's Print text 'GameID=' |
+| 3 | `Encode` | `app/packets/pknote.h:26` | override of the NAME 5 virtual Encode |
 | 3 | `UIChange` | `app/packets/pkopeninterface.h:32` | the client's Print text 'UIChange=' |
 | 3 | `UIType` | `app/packets/pkopeninterface.h:33` | the client's Print text 'UIType=' |
 | 3 | `game_id, option_type, option_var` | `app/packets/pkoption.h:25` | the Print text's members |
@@ -31820,6 +31836,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `GameID` | `app/packets/pkskill.h:48` | the client's Print text 'GameID=' |
 | 3 | `Action` | `app/packets/pkskill.h:49` | the client's Print text 'Action=' |
 | 3 | `AbilityIndex` | `app/packets/pkskill.h:50` | the client's Print text 'AbilityIndex=' |
+| 3 | `Encode` | `app/packets/pkskillstringrq.h:27` | override of the NAME 5 virtual Encode |
 | 3 | `PlayerID` | `app/packets/pkskillstringrq.h:32` | the client's Print text 'PlayerID=' |
 | 3 | `Request` | `app/packets/pkskillstringrq.h:33` | the client's Print text 'Request=' |
 | 3 | `SoundName` | `app/packets/pksoundcommand.h:33` | the client's Print text 'SoundName=' |
@@ -31829,8 +31846,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `Channel` | `app/packets/pksoundcommand.h:51` | the client's Print text 'Channel=' |
 | 3 | `pkspendreferralpoint.h` | `app/packets/pkspendreferralpoint.h:16` | by convention from its class SpendReferralPointPacketClass (thunk order) and its place in retail's object order (between pksoundcommand and pkspline) |
 | 3 | `SplinePacketClass` | `app/packets/pkspline.h:23` | the client's Print text 'Spline {' |
+| 3 | `Encode` | `app/packets/pkspline.h:29` | override of the NAME 5 virtual Encode |
 | 3 | `Blocksize` | `app/packets/pkspline.h:34` | the client's Print text 'Blocksize=' |
 | 3 | `Starbase_Avatar_ChangePacketClass` | `app/packets/pkstarbase_avatar_change.h:23` | the client's Print text 'Starbase_Avatar_Change {' and the UnknownPacketBaseClass convention |
+| 3 | `Encode` | `app/packets/pkstarbase_avatar_change.h:28` | override of the NAME 5 virtual Encode |
 | 3 | `AvatarID` | `app/packets/pkstarbase_avatar_change.h:33` | the client's Print text 'AvatarID=' |
 | 3 | `RoomType` | `app/packets/pkstarbase_avatar_change.h:34` | the client's Print text 'RoomType=' |
 | 3 | `Orient` | `app/packets/pkstarbase_avatar_change.h:35` | the client's Print text 'Orient=' |
@@ -31892,7 +31911,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `Intensity` | `app/packets/pkturn.h:34` | the client's Print text 'Intensity=' |
 | 3 | `ID` | `app/packets/pkuitrigger.h:32` | the client's Print text 'ID=' |
 | 3 | `Action` | `app/packets/pkuitrigger.h:33` | the client's Print text 'Action=' |
+| 3 | `Encode` | `app/packets/pkunknown_861760.h:27` | override of the NAME 5 virtual Encode |
 | 3 | `GameID` | `app/packets/pkunknown_861760.h:32` | the client's Print text 'GameID=' |
+| 3 | `Encode` | `app/packets/pkunknown_867010.h:28` | override of the NAME 5 virtual Encode |
 | 3 | `std:` | `app/packets/pkunknown_867010.h:35` | the client's Print text 'Name=' |
 | 3 | `GameID` | `app/packets/pkunknown_877640.h:33` | the client's Print text 'GameID=' |
 | 3 | `GameID` | `app/packets/pkupdate.h:36` | the client's Print text 'GameID=' |

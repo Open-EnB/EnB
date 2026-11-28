@@ -20,7 +20,7 @@ Packet_006CClass::Packet_006CClass(PacketClass *raw) :
 	raw->Get(Unknown18);
 }
 
-PacketClass *Packet_006CClass::Build()
+PacketClass *Packet_006CClass::Encode()
 {
 	PacketClass *raw = new PacketClass(108, Get_Data_Size());
 	raw->Add(Unknown10);

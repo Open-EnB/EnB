@@ -41,7 +41,7 @@ class ColorizationPacketClass : public UnknownPacketBaseClass
 public:
 	ColorizationPacketClass(int game_id, const std::vector<ColorizationRegionStruct> &regions);	// 0x87F320
 	ColorizationPacketClass(PacketClass *raw);	// 0x87F510
-	virtual PacketClass *Build();	// +0x04 0x87F730
+	virtual PacketClass *Encode();	// +0x04 0x87F730  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x735ED0 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x87F870
 	virtual int Print(char *buffer, int len);	// +0x10 0x87F8A0

@@ -24,7 +24,7 @@ class FirePacketClass : public UnknownPacketBaseClass  // NAME 3: the client's G
 public:
 	FirePacketClass(int game_id, char slot);	// 0x887290
 	FirePacketClass(PacketClass *raw);	// 0x887370
-	virtual PacketClass *Build();	// +0x04 0x887410
+	virtual PacketClass *Encode();	// +0x04 0x887410  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x867C50 (clientstub.cpp l.41)
 	virtual int Get_Data_Size();	// +0x0C 0x8874E0
 	virtual int Print(char *buffer, int len);	// +0x10 0x887500

@@ -26,7 +26,7 @@ class ManufactureItemCatagoryPacketClass : public UnknownPacketBaseClass  // NAM
 public:
 	ManufactureItemCatagoryPacketClass(int player, int mode);	// 0x89B340
 	ManufactureItemCatagoryPacketClass(PacketClass *raw);	// 0x89B3C0
-	virtual PacketClass *Build();	// +0x04 0x89B460
+	virtual PacketClass *Encode();	// +0x04 0x89B460  // NAME 3: override of the NAME 5 virtual Encode
 	virtual bool Process_Packet(void *client);	// +0x08 0x868670 (clientstub.cpp l.203)
 	virtual int Get_Data_Size();	// +0x0C 0x89B530
 	virtual int Print(char *buffer, int len);	// +0x10 0x89B550
@@ -41,7 +41,7 @@ class ManufactureSetItemCategoryPacketClass : public UnknownPacketBaseClass  // 
 public:
 	ManufactureSetItemCategoryPacketClass(int player, int category);	// 0x89B5A0
 	ManufactureSetItemCategoryPacketClass(PacketClass *raw);	// 0x89B620
-	virtual PacketClass *Build();	// +0x04 0x89B6C0
+	virtual PacketClass *Encode();	// +0x04 0x89B6C0  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x8686A0 (clientstub.cpp l.206)
 	virtual int Get_Data_Size();	// +0x0C 0x89B790
 	virtual int Print(char *buffer, int len);	// +0x10 0x89B7B0
@@ -56,7 +56,7 @@ class ManufactureSetItemIDPacketClass : public UnknownPacketBaseClass  // NAME 5
 public:
 	ManufactureSetItemIDPacketClass(int player, int item_id);	// 0x89B7E0
 	ManufactureSetItemIDPacketClass(PacketClass *raw);	// 0x89B860
-	virtual PacketClass *Build();	// +0x04 0x89B900
+	virtual PacketClass *Encode();	// +0x04 0x89B900  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x8686D0 (clientstub.cpp l.209)
 	virtual int Get_Data_Size();	// +0x0C 0x89B9D0
 	virtual int Print(char *buffer, int len);	// +0x10 0x89B9F0
@@ -71,7 +71,7 @@ class RefinerySetItemIDPacketClass : public UnknownPacketBaseClass  // NAME 5: t
 public:
 	RefinerySetItemIDPacketClass(int player, int item_id);	// 0x89BA20
 	RefinerySetItemIDPacketClass(PacketClass *raw);	// 0x89BAA0
-	virtual PacketClass *Build();	// +0x04 0x89BB40
+	virtual PacketClass *Encode();	// +0x04 0x89BB40  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x868700 (clientstub.cpp l.212)
 	virtual int Get_Data_Size();	// +0x0C 0x89BC10
 	virtual int Print(char *buffer, int len);	// +0x10 0x89BC30
@@ -86,7 +86,7 @@ class Packet_007DClass : public UnknownPacketBaseClass  // NAME 1: neutral (D10)
 public:
 	Packet_007DClass(int player, int cargo_slot_id, int vault_slot_id);	// 0x89BC60
 	Packet_007DClass(PacketClass *raw);	// 0x89BD00
-	virtual PacketClass *Build();	// +0x04 0x89BDC0
+	virtual PacketClass *Encode();	// +0x04 0x89BDC0  // NAME 3: override of the NAME 5 virtual Encode
 	virtual bool Process_Packet(void *client);	// +0x08 0x868730 (clientstub.cpp l.215)
 	virtual int Get_Data_Size();	// +0x0C 0x89BE90
 	virtual int Print(char *buffer, int len);	// +0x10 0x89BEB0
@@ -102,7 +102,7 @@ class ManufactureActionPacketClass : public UnknownPacketBaseClass  // NAME 2: N
 public:
 	ManufactureActionPacketClass(int player, int action_id);	// 0x89BEF0
 	ManufactureActionPacketClass(PacketClass *raw);	// 0x89BF70
-	virtual PacketClass *Build();	// +0x04 0x89C010
+	virtual PacketClass *Encode();	// +0x04 0x89C010  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x868760 (clientstub.cpp l.218)
 	virtual int Get_Data_Size();	// +0x0C 0x89C0E0
 	virtual int Print(char *buffer, int len);	// +0x10 0x89C100
@@ -117,7 +117,7 @@ class ManufactureSetPacketClass : public UnknownPacketBaseClass
 public:
 	ManufactureSetPacketClass(int manufacture_id);	// 0x89C130
 	ManufactureSetPacketClass(PacketClass *raw);	// 0x89C1C0
-	virtual PacketClass *Build();	// +0x04 0x89C250
+	virtual PacketClass *Encode();	// +0x04 0x89C250  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x739330 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x89C310
 	virtual int Print(char *buffer, int len);	// +0x10 0x89C330
@@ -131,7 +131,7 @@ class ManufactureSetTechLevelFilterPacketClass : public UnknownPacketBaseClass  
 public:
 	ManufactureSetTechLevelFilterPacketClass(int player, bool mode, unsigned int bit_field);	// 0x89C360
 	ManufactureSetTechLevelFilterPacketClass(PacketClass *raw);	// 0x89C3E0
-	virtual PacketClass *Build();	// +0x04 0x89C4A0
+	virtual PacketClass *Encode();	// +0x04 0x89C4A0  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x868790 (clientstub.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x89C580
 	virtual int Print(char *buffer, int len);	// +0x10 0x89C5A0 (its format has three conversions for two values, as the client's)

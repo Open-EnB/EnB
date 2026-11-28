@@ -24,7 +24,7 @@ class ServerStopPacketClass : public UnknownPacketBaseClass  // NAME 5: thunk or
 public:
 	ServerStopPacketClass();	// 0x8A6430
 	ServerStopPacketClass(PacketClass *raw);	// 0x8A64C0
-	virtual PacketClass *Build();	// +0x04 0x8A6500
+	virtual PacketClass *Encode();	// +0x04 0x8A6500  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x867E90 (clientstub.cpp l.77)
 	virtual int Get_Data_Size();	// +0x0C 0x8A6590
 	virtual int Print(char *buffer, int len);	// +0x10 0x8A65B0

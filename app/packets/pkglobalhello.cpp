@@ -24,7 +24,7 @@ GlobalHelloPacketClass::GlobalHelloPacketClass(PacketClass *raw)
 	raw->Get(Unknown64);
 }
 
-PacketClass *GlobalHelloPacketClass::Build()
+PacketClass *GlobalHelloPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(Get_Type(), Get_Data_Size());
 	raw->Add(Unknown0C);

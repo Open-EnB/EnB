@@ -24,7 +24,7 @@ class GlobalTicketPacketClass : public UnknownPacketBaseClass  // NAME 2: Net-7'
 public:
 	GlobalTicketPacketClass(int status, const TicketClass &ticket);	// 0x867520
 	GlobalTicketPacketClass(PacketClass *raw);	// 0x867650
-	virtual PacketClass *Build();	// +0x04 0x867710
+	virtual PacketClass *Encode();	// +0x04 0x867710  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x76B730 (tsk_login.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x8677E0
 	virtual int Print(char *buffer, int len);	// +0x10 0x867800

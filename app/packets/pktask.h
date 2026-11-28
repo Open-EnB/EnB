@@ -53,7 +53,7 @@ class TaskHelloPacketClass : public UnknownPacketBaseClass  // NAME 5: thunk ord
 public:
 	TaskHelloPacketClass(const Unknown1388Struct &data);	// 0x8A8A10
 	TaskHelloPacketClass(PacketClass *raw);	// 0x8A8B20
-	virtual PacketClass *Build();	// +0x04 0x8A8BC0
+	virtual PacketClass *Encode();	// +0x04 0x8A8BC0  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x868400 (clientstub.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x8A8CB0
 	virtual int Print(char *buffer, int len);	// +0x10 0x8A8CD0
@@ -68,7 +68,7 @@ class SectorHelloPacketClass : public UnknownPacketBaseClass  // NAME 5: thunk o
 public:
 	SectorHelloPacketClass(const Unknown1389Struct &data);	// 0x8A8D00
 	SectorHelloPacketClass(PacketClass *raw);	// 0x8A8E30
-	virtual PacketClass *Build();	// +0x04 0x8A8EF0
+	virtual PacketClass *Encode();	// +0x04 0x8A8EF0  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x868430 (clientstub.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x8A8FE0
 	virtual int Print(char *buffer, int len);	// +0x10 0x8A9000
@@ -83,7 +83,7 @@ class TaskStartPacketClass : public UnknownPacketBaseClass  // NAME 5: thunk ord
 public:
 	TaskStartPacketClass(int type, int num);	// 0x8A9030
 	TaskStartPacketClass(PacketClass *raw);	// 0x8A90D0
-	virtual PacketClass *Build();	// +0x04 0x8A9170
+	virtual PacketClass *Encode();	// +0x04 0x8A9170  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x868460 (clientstub.cpp l.170)
 	virtual int Get_Data_Size();	// +0x0C 0x8A9260
 	virtual int Print(char *buffer, int len);	// +0x10 0x8A9280
@@ -99,7 +99,7 @@ class TaskStopPacketClass : public UnknownPacketBaseClass  // NAME 5: thunk orde
 public:
 	TaskStopPacketClass(int type, int num);	// 0x8A92C0
 	TaskStopPacketClass(PacketClass *raw);	// 0x8A9360
-	virtual PacketClass *Build();	// +0x04 0x8A9400
+	virtual PacketClass *Encode();	// +0x04 0x8A9400  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x868490 (clientstub.cpp l.173)
 	virtual int Get_Data_Size();	// +0x0C 0x8A94F0
 	virtual int Print(char *buffer, int len);	// +0x10 0x8A9510
@@ -129,7 +129,7 @@ public:
 	TaskPingPacketClass(unsigned long ip, unsigned short port, char *string);	// 0x8A9710  // NAME 5: thunk order confirmed, binary.md 5.11
 	TaskPingPacketClass(PacketClass *raw);	// 0x8A9800
 	virtual ~TaskPingPacketClass();	// +0x00 0x8A97D0 / 0x8A98D0
-	virtual PacketClass *Build();	// +0x04 0x8A9910
+	virtual PacketClass *Encode();	// +0x04 0x8A9910  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x8684F0 (clientstub.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x8A9A20
 	virtual int Print(char *buffer, int len);	// +0x10 0x8A9A40
@@ -159,7 +159,7 @@ public:
 	PlayerStatusPacketClass(char *name, __int64 character_object_id, char *account, __int64 account_id, int ip, unsigned short port, int sector, int status, __int64 unknown38);	// 0x8A9CF0
 	PlayerStatusPacketClass(PacketClass *raw);	// 0x8A9E80
 	virtual ~PlayerStatusPacketClass();	// +0x00 0x8A9E50 / 0x8A9F90
-	virtual PacketClass *Build();	// +0x04 0x8AA050
+	virtual PacketClass *Encode();	// +0x04 0x8AA050  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x868550 (clientstub.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x8AA1B0
 	virtual int Print(char *buffer, int len);	// +0x10 0x8AA1F0
@@ -182,7 +182,7 @@ class SectorListPacketClass : public UnknownPacketBaseClass  // NAME 5: thunk or
 public:
 	SectorListPacketClass(const std::list<Unknown1389Struct> &list);	// 0x8AA280
 	SectorListPacketClass(PacketClass *raw);	// 0x8AA490
-	virtual PacketClass *Build();	// +0x04 0x8AA670
+	virtual PacketClass *Encode();	// +0x04 0x8AA670  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x868580 (clientstub.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x8AA780
 	virtual int Print(char *buffer, int len);	// +0x10 0x8AA7B0
@@ -197,7 +197,7 @@ class RequestSectorListPacket : public UnknownPacketBaseClass  // NAME 5: thunk 
 public:
 	RequestSectorListPacket();	// 0x8AA7E0
 	RequestSectorListPacket(PacketClass *raw);	// 0x8AA870
-	virtual PacketClass *Build();	// +0x04 0x8AA8B0
+	virtual PacketClass *Encode();	// +0x04 0x8AA8B0  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x8685B0 (clientstub.cpp l.191)
 	virtual int Get_Data_Size();	// +0x0C 0x8AA970
 	virtual int Print(char *buffer, int len);	// +0x10 0x8AA990

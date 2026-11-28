@@ -13,7 +13,7 @@ GameEditorRequestPlanetUnitTypesPacketClass::GameEditorRequestPlanetUnitTypesPac
 {
 }
 
-PacketClass *GameEditorRequestPlanetUnitTypesPacketClass::Build()
+PacketClass *GameEditorRequestPlanetUnitTypesPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(30023, Get_Data_Size());
 	return(raw);
@@ -79,7 +79,7 @@ GameEditorPlanetUnitTypesPacketClass::~GameEditorPlanetUnitTypesPacketClass()
 	}
 }
 
-PacketClass *GameEditorPlanetUnitTypesPacketClass::Build()
+PacketClass *GameEditorPlanetUnitTypesPacketClass::Encode()
 {
 	PacketClass *packet = new PacketClass(30024, Get_Data_Size());
 	G_ASSERT(packet);
@@ -113,7 +113,7 @@ GameEditorRequestPlanetUnitDetailsPacketClass::GameEditorRequestPlanetUnitDetail
 	raw->Get(&UnitType, sizeof(UnitType));
 }
 
-PacketClass *GameEditorRequestPlanetUnitDetailsPacketClass::Build()
+PacketClass *GameEditorRequestPlanetUnitDetailsPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(30025, Get_Data_Size());
 	raw->Add(&UnitType, sizeof(UnitType));
@@ -192,7 +192,7 @@ GameEditorPlanetUnitDetailsPacketClass::~GameEditorPlanetUnitDetailsPacketClass(
 	}
 }
 
-PacketClass *GameEditorPlanetUnitDetailsPacketClass::Build()
+PacketClass *GameEditorPlanetUnitDetailsPacketClass::Encode()
 {
 	PacketClass *packet = new PacketClass(30026, Get_Data_Size());
 	G_ASSERT(packet);

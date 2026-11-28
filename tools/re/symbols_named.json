@@ -5812,5 +5812,3785 @@
   "kind": "thunk",
   "replaces": "j_??_E?$ExprMathEvalLessEqualClass@H@@UAEPAXI@Z",
   "evidence": "thunk order (binary.md 5.11): this slot hashes into its window as the scalar ??_G, not the vtable-style ??_E the rule names it (tn2_dtor.tsv, grade confirmed)"
+ },
+ {
+  "address": "0x4011F9",
+  "symbol": "j_?Encode@GMResetMissionRequestPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@GMResetMissionRequestPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x4012A3",
+  "symbol": "j_?Encode@ManufactureItemCatagoryPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@ManufactureItemCatagoryPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x40138E",
+  "symbol": "j_?Encode@VerbUpdatePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@VerbUpdatePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x4016D1",
+  "symbol": "j_?Encode@ChatstreamPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@ChatstreamPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x4017D0",
+  "symbol": "j_?Encode@ObjectEffectPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@ObjectEffectPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x4019A6",
+  "symbol": "j_?Encode@RequestTargetPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@RequestTargetPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x401A69",
+  "symbol": "j_?Encode@GlobalLockReleasePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@GlobalLockReleasePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x401BC2",
+  "symbol": "j_?Encode@ConfirmedActionOfferPacket@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@ConfirmedActionOfferPacket@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x4022E8",
+  "symbol": "j_?Encode@GuildStatusUpdatePacket@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@GuildStatusUpdatePacket@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x402473",
+  "symbol": "j_?Encode@InvPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@InvPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x4024E6",
+  "symbol": "j_?Encode@GuildLeaderAcceptClientPacket@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@GuildLeaderAcceptClientPacket@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x4027D4",
+  "symbol": "j_?Encode@GameEditorRequestPlanetUnitDetailsPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@GameEditorRequestPlanetUnitDetailsPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x4027F2",
+  "symbol": "j_?Encode@ClientChatEventPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@ClientChatEventPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x402824",
+  "symbol": "j_?Encode@GuildRankNamesSectorPacket@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@GuildRankNamesSectorPacket@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x4028F1",
+  "symbol": "j_?Encode@RecustomizeAvatarUpdatePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@RecustomizeAvatarUpdatePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x40295F",
+  "symbol": "j_?Encode@GameEditorAddPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@GameEditorAddPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x4029DC",
+  "symbol": "j_?Encode@ReferralPointsAvailablePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@ReferralPointsAvailablePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x402ABD",
+  "symbol": "j_?Encode@ConfirmedActionResponsePacket@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@ConfirmedActionResponsePacket@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x402AEA",
+  "symbol": "j_?Encode@ManufactureSetPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@ManufactureSetPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x402BCB",
+  "symbol": "j_?Encode@StarbaseReqPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@StarbaseReqPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x402E8C",
+  "symbol": "j_?Encode@RecustomizeAvatarDonePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@RecustomizeAvatarDonePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x4030A3",
+  "symbol": "j_?Encode@LogoffPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@LogoffPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x403305",
+  "symbol": "j_?Encode@GuildRankNamesGuildPacket@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@GuildRankNamesGuildPacket@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x4034E0",
+  "symbol": "j_?Encode@ActionPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@ActionPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x4038C8",
+  "symbol": "j_?Encode@AuxDataPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@AuxDataPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x40393B",
+  "symbol": "j_?Encode@SoundCommandPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@SoundCommandPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x403B9D",
+  "symbol": "j_?Encode@TaskStartPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@TaskStartPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x403EBD",
+  "symbol": "j_?Encode@SetTargetPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@SetTargetPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x404007",
+  "symbol": "j_?Encode@Packet_7536Class@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@Packet_7536Class@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x4041F1",
+  "symbol": "j_?Encode@UseInventoryPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@UseInventoryPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x4042AA",
+  "symbol": "j_?Encode@StarbaseAvatarRoomUpdatePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@StarbaseAvatarRoomUpdatePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x40432C",
+  "symbol": "j_?Encode@JobAcceptReplyPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@JobAcceptReplyPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x4044FD",
+  "symbol": "j_?Encode@GameEditorRequestTemplateListPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@GameEditorRequestTemplateListPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x4046D8",
+  "symbol": "j_?Encode@GameEditorDeletePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@GameEditorDeletePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x4047B9",
+  "symbol": "j_?Encode@GameEditorLoginPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@GameEditorLoginPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x40481D",
+  "symbol": "j_?Encode@GameEditorRemovePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@GameEditorRemovePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x404B9C",
+  "symbol": "j_?Encode@StartAckPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@StartAckPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x404CA0",
+  "symbol": "j_?Encode@TalkTreePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@TalkTreePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x404D36",
+  "symbol": "j_?Encode@Packet_00B3Class@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@Packet_00B3Class@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x404D4A",
+  "symbol": "j_?Encode@GuildPermissionsPacket@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@GuildPermissionsPacket@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x405006",
+  "symbol": "j_?Encode@BroadcastPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@BroadcastPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x405411",
+  "symbol": "j_?Encode@ActivateRenderStatePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@ActivateRenderStatePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x40547F",
+  "symbol": "j_?Encode@StarbaseSetPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@StarbaseSetPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x405646",
+  "symbol": "j_?Encode@ObjectToObjectEffectPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@ObjectToObjectEffectPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x4058A8",
+  "symbol": "j_?Encode@StartPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@StartPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x4059C0",
+  "symbol": "j_?Encode@GMDestroyItemRequestPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@GMDestroyItemRequestPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x405B9B",
+  "symbol": "j_?Encode@ComponentPositionalUpdatePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@ComponentPositionalUpdatePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x405D9E",
+  "symbol": "j_?Encode@GuildRecruitAcceptClientPacket@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@GuildRecruitAcceptClientPacket@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x405DFD",
+  "symbol": "j_?Encode@FirePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@FirePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x405EA2",
+  "symbol": "j_?Encode@GameEditorLogoutPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@GameEditorLogoutPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x405EDE",
+  "symbol": "j_?Encode@DebugPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@DebugPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x40612C",
+  "symbol": "j_?Encode@GuildRankNamesRequestSectorPacket@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@GuildRankNamesRequestSectorPacket@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x406668",
+  "symbol": "j_?Encode@GameEditorMovePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@GameEditorMovePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x4068FC",
+  "symbol": "j_?Encode@IncapacitanceDetailsRequestPacket@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@IncapacitanceDetailsRequestPacket@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x406910",
+  "symbol": "j_?Encode@SetBBoxPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@SetBBoxPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x406A55",
+  "symbol": "j_?Encode@Packet_7535Class@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@Packet_7535Class@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x406AD7",
+  "symbol": "j_?Encode@DirLockResponseGlobalPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@DirLockResponseGlobalPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x406B13",
+  "symbol": "j_?Encode@TriggerEmotePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@TriggerEmotePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x406B68",
+  "symbol": "j_?Encode@DecalPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@DecalPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x406C35",
+  "symbol": "j_?Encode@GadgetPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@GadgetPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x406EA6",
+  "symbol": "j_?Encode@TurnPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@TurnPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x40700E",
+  "symbol": "j_?Encode@GameEditorTemplateCategoriesPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@GameEditorTemplateCategoriesPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x40715D",
+  "symbol": "j_?Encode@PlayerObjectIsAttackingUpdatePacket@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@PlayerObjectIsAttackingUpdatePacket@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x4073D3",
+  "symbol": "j_?Encode@SetClientTimePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@SetClientTimePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x4073D8",
+  "symbol": "j_?Encode@GameEditorSpawnDefaultsPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@GameEditorSpawnDefaultsPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x4074B4",
+  "symbol": "j_?Encode@ChatBasicRequestPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@ChatBasicRequestPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x4074C8",
+  "symbol": "j_?Encode@GlobalHelloPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@GlobalHelloPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x4078A1",
+  "symbol": "j_?Encode@GuildPlayerOnlineSectorPacket@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@GuildPlayerOnlineSectorPacket@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x4078EC",
+  "symbol": "j_?Encode@ClientChatPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@ClientChatPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x40790F",
+  "symbol": "j_?Encode@DamagePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@DamagePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x407A68",
+  "symbol": "j_?Encode@GalaxyMapPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@GalaxyMapPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x407AD1",
+  "symbol": "j_?Encode@SubPartsPacket@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@SubPartsPacket@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x407C75",
+  "symbol": "j_?Encode@GameEditorSaveSectorPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@GameEditorSaveSectorPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x4081A2",
+  "symbol": "j_?Encode@GlobalLockRequestPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@GlobalLockRequestPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x408233",
+  "symbol": "j_?Encode@ConstantPositionalUpdatePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@ConstantPositionalUpdatePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x408292",
+  "symbol": "j_?Encode@Packet_00BBClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@Packet_00BBClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x4082B0",
+  "symbol": "j_?Encode@MissionDismissPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@MissionDismissPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x4082B5",
+  "symbol": "j_?Encode@DirLockReleasePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@DirLockReleasePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x4082C4",
+  "symbol": "j_?Encode@RemovePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@RemovePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x4087EC",
+  "symbol": "j_?Encode@VersionRequestPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@VersionRequestPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x4088FF",
+  "symbol": "j_?Encode@SpendReferralPointPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@SpendReferralPointPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x40899F",
+  "symbol": "j_?Encode@MessageLinePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@MessageLinePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x408A4E",
+  "symbol": "j_?Encode@MessageChatstreamPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@MessageChatstreamPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x408A5D",
+  "symbol": "j_?Encode@ActivateNextRenderStateOncePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@ActivateNextRenderStateOncePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x408B8E",
+  "symbol": "j_?Encode@GalaxyMapRequestPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@GalaxyMapRequestPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x408D46",
+  "symbol": "j_?Encode@CreateAttachmentPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@CreateAttachmentPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x408DC8",
+  "symbol": "j_?Encode@ChatProxyLoginPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@ChatProxyLoginPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x4093D1",
+  "symbol": "j_?Encode@SkillPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@SkillPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x409552",
+  "symbol": "j_?Encode@GroupPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@GroupPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x4095ED",
+  "symbol": "j_?Encode@GroupServerResponsePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@GroupServerResponsePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x409737",
+  "symbol": "j_?Encode@FindPlayerResponsePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@FindPlayerResponsePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x409A2F",
+  "symbol": "j_?Encode@Packet_7532Class@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@Packet_7532Class@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x409B0B",
+  "symbol": "j_?Encode@VerbListPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@VerbListPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x409BB0",
+  "symbol": "j_?Encode@SelectTalkTreePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@SelectTalkTreePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x409C14",
+  "symbol": "j_?Encode@ModeRequestPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@ModeRequestPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x409EC6",
+  "symbol": "j_?Encode@GameEditorProtocolVersionPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@GameEditorProtocolVersionPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x409F16",
+  "symbol": "j_?Encode@GlobalDeleteCharacterPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@GlobalDeleteCharacterPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x40A272",
+  "symbol": "j_?Encode@SplinePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@SplinePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x40A290",
+  "symbol": "j_?Encode@GlobalConnectPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@GlobalConnectPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x40A461",
+  "symbol": "j_?Encode@GuildAdjustContribPacket@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@GuildAdjustContribPacket@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x40AAB0",
+  "symbol": "j_?Encode@ChatProxyEventPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@ChatProxyEventPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x40AAC4",
+  "symbol": "j_?Encode@LoungeNPCPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@LoungeNPCPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x40AB1E",
+  "symbol": "j_?Encode@GuildDeletePlayerPacket@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@GuildDeletePlayerPacket@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x40ABF5",
+  "symbol": "j_?Encode@GuildSimpleSectorGuildPacket@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@GuildSimpleSectorGuildPacket@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x40ACF9",
+  "symbol": "j_?Encode@GuildMessageGuildPacket@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@GuildMessageGuildPacket@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x40AD80",
+  "symbol": "j_?Encode@ModeChangePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@ModeChangePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x40B2EE",
+  "symbol": "j_?Encode@GameEditorAssetMappingPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@GameEditorAssetMappingPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x40B4E2",
+  "symbol": "j_?Encode@ClientChatRequestPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@ClientChatRequestPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x40B6AE",
+  "symbol": "j_?Encode@RegistrationResultPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@RegistrationResultPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x40B6BD",
+  "symbol": "j_?Encode@SetClientTypePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@SetClientTypePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x40BA14",
+  "symbol": "j_?Encode@MasterJoinPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@MasterJoinPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x40BB4A",
+  "symbol": "j_?Encode@IncapacitanceDetailsPacket@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@IncapacitanceDetailsPacket@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x40BBD6",
+  "symbol": "j_?Encode@GPSResponsePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@GPSResponsePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x40BCE4",
+  "symbol": "j_?Encode@OpenInterfacePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@OpenInterfacePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x40BE29",
+  "symbol": "j_?Encode@Packet_008FClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@Packet_008FClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x40BF9B",
+  "symbol": "j_?Encode@GMEditPlayerInventoryPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@GMEditPlayerInventoryPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x40BFFA",
+  "symbol": "j_?Encode@NoteContentPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@NoteContentPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x40C478",
+  "symbol": "j_?Encode@UnknownPacketBaseClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@UnknownPacketBaseClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x40C4BE",
+  "symbol": "j_?Encode@ItemBasePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@ItemBasePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x40C5DB",
+  "symbol": "j_?Encode@RecustomizeAvatarStartPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@RecustomizeAvatarStartPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x40C7ED",
+  "symbol": "j_?Encode@ChatProxyRequestPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@ChatProxyRequestPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x40C85B",
+  "symbol": "j_?Encode@GuildMessageSectorPacket@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@GuildMessageSectorPacket@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x40C9C8",
+  "symbol": "j_?Encode@ClientShipPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@ClientShipPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x40CC7F",
+  "symbol": "j_?Encode@SoundPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@SoundPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x40CCDE",
+  "symbol": "j_?Encode@FindMemberPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@FindMemberPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x40CD97",
+  "symbol": "j_?Encode@FindPlayerRequestPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@FindPlayerRequestPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x40CF45",
+  "symbol": "j_?Encode@Packet_006CClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@Packet_006CClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x40D29C",
+  "symbol": "j_?Encode@MessageTimePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@MessageTimePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x40D2BA",
+  "symbol": "j_?Encode@RequestSectorListPacket@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@RequestSectorListPacket@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x40D31E",
+  "symbol": "j_?Encode@CTAResponsePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@CTAResponsePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x40D33C",
+  "symbol": "j_?Encode@GlobalPlayerStatusPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@GlobalPlayerStatusPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x40D35A",
+  "symbol": "j_?Encode@GlobalTicketPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@GlobalTicketPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x40D4F4",
+  "symbol": "j_?Encode@GlobalContainerResponsePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@GlobalContainerResponsePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x40D602",
+  "symbol": "j_?Encode@ObjectToPointEffectPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@ObjectToPointEffectPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x40D7A6",
+  "symbol": "j_?Encode@GuildGMRenameConfirmSectorPacket@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@GuildGMRenameConfirmSectorPacket@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x40D9BD",
+  "symbol": "j_?Encode@RequestTransformChangePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@RequestTransformChangePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x40DC9C",
+  "symbol": "j_?Encode@GameEditorClonePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@GameEditorClonePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x40E03E",
+  "symbol": "j_?Encode@RequestTimePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@RequestTimePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x40E05C",
+  "symbol": "j_?Encode@ChatProxyResponsePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@ChatProxyResponsePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x40E174",
+  "symbol": "j_?Encode@ChatProxyResponseListPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@ChatProxyResponseListPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x40E1EC",
+  "symbol": "j_?Encode@RequestVersionPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@RequestVersionPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x40E5B1",
+  "symbol": "j_?Encode@GuildRecruitAcceptSectorPacket@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@GuildRecruitAcceptSectorPacket@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x40E6AB",
+  "symbol": "j_?Encode@RequestTargetTargetPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@RequestTargetTargetPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x40E7A5",
+  "symbol": "j_?Encode@ManufactureSetTechLevelFilterPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@ManufactureSetTechLevelFilterPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x40E854",
+  "symbol": "j_?Encode@GroupServerRequestPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@GroupServerRequestPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x40E859",
+  "symbol": "j_?Encode@IncapacitanceRescueConfirmationPacket@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@IncapacitanceRescueConfirmationPacket@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x40E86D",
+  "symbol": "j_?Encode@ServerParametersPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@ServerParametersPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x40E881",
+  "symbol": "j_?Encode@SectorListPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@SectorListPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x40E944",
+  "symbol": "j_?Encode@GlobalSetReferrerPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@GlobalSetReferrerPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x40EC46",
+  "symbol": "j_?Encode@OptionPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@OptionPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x40EE7B",
+  "symbol": "j_?Encode@GlobalContainerRequestPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@GlobalContainerRequestPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x40F02E",
+  "symbol": "j_?Encode@CreatePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@CreatePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x40F150",
+  "symbol": "j_?Encode@TaskHelloPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@TaskHelloPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x40F2EF",
+  "symbol": "j_?Encode@GuildRankNamesRequestClientPacket@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@GuildRankNamesRequestClientPacket@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x40F326",
+  "symbol": "j_?Encode@DirLockResponseSectorPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@DirLockResponseSectorPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x40F466",
+  "symbol": "j_?Encode@LogoffConfirmationPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@LogoffConfirmationPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x40F6A0",
+  "symbol": "j_?Encode@InitRenderStatePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@InitRenderStatePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x40FA79",
+  "symbol": "j_?Encode@GameEditorKVUpdatePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@GameEditorKVUpdatePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x40FA92",
+  "symbol": "j_?Encode@GameEditorPlanetUnitDetailsPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@GameEditorPlanetUnitDetailsPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x410091",
+  "symbol": "j_?Encode@PetitionPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@PetitionPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x41019A",
+  "symbol": "j_?Encode@ChangeBaseAssetPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@ChangeBaseAssetPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x41032A",
+  "symbol": "j_?Encode@NotifyEmotePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@NotifyEmotePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x410424",
+  "symbol": "j_?Encode@GuildRecruitConfirmSectorPacket@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@GuildRecruitConfirmSectorPacket@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x4107BC",
+  "symbol": "j_?Encode@RefinerySetItemIDPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@RefinerySetItemIDPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x410870",
+  "symbol": "j_?Encode@GameEditorCreateFinalPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@GameEditorCreateFinalPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x410AC8",
+  "symbol": "j_?Encode@Packet_007DClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@Packet_007DClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x410C2B",
+  "symbol": "j_?Encode@SuperLinePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@SuperLinePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x410DC5",
+  "symbol": "j_?Encode@ClickIndicatorPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@ClickIndicatorPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x410DD4",
+  "symbol": "j_?Encode@GroupServerUpdatePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@GroupServerUpdatePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x410E01",
+  "symbol": "j_?Encode@GuildLeaderAcceptSectorPacket@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@GuildLeaderAcceptSectorPacket@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x4110CC",
+  "symbol": "j_?Encode@RemoveEffectPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@RemoveEffectPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x411482",
+  "symbol": "j_?Encode@DirLockRequestPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@DirLockRequestPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x41161C",
+  "symbol": "j_?Encode@StarbaseAvatarRoomChangePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@StarbaseAvatarRoomChangePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x4117A7",
+  "symbol": "j_?Encode@Starbase_Avatar_ChangePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@Starbase_Avatar_ChangePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x4117B6",
+  "symbol": "j_?Encode@GuildSimpleClientSectorPacket@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@GuildSimpleClientSectorPacket@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x4119C3",
+  "symbol": "j_?Encode@GlobalLoginPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@GlobalLoginPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x411F77",
+  "symbol": "j_?Encode@PointEffectPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@PointEffectPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x411FEA",
+  "symbol": "j_?Encode@InvSortPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@InvSortPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x4120F3",
+  "symbol": "j_?Encode@GameEditorRequestSpawnDefaultsPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@GameEditorRequestSpawnDefaultsPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x4122AB",
+  "symbol": "j_?Encode@StarbaseTowPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@StarbaseTowPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x4122DD",
+  "symbol": "j_?Encode@ObjectToObjectDurationLinkedEffectPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@ObjectToObjectDurationLinkedEffectPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x41235A",
+  "symbol": "j_?Encode@GlobalTicketRequestPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@GlobalTicketRequestPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x4123FA",
+  "symbol": "j_?Encode@FormationPositionalUpdatePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@FormationPositionalUpdatePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x412558",
+  "symbol": "j_?Encode@GroupServerCreatePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@GroupServerCreatePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x41260C",
+  "symbol": "j_?Encode@TalkTreeActionPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@TalkTreeActionPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x41273D",
+  "symbol": "j_?Encode@PlanetPositionalUpdatePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@PlanetPositionalUpdatePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x4128EB",
+  "symbol": "j_?Encode@GameEditorCreateCancelPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@GameEditorCreateCancelPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x4129CC",
+  "symbol": "j_?Encode@MessageStringPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@MessageStringPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x412AD5",
+  "symbol": "j_?Encode@TiltPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@TiltPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x412AF3",
+  "symbol": "j_?Encode@HullUpgradePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@HullUpgradePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x412D5A",
+  "symbol": "j_?Encode@MovementPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@MovementPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x412F03",
+  "symbol": "j_?Encode@LootHulkPermissionPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@LootHulkPermissionPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x412F30",
+  "symbol": "j_?Encode@WarpPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@WarpPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x412F49",
+  "symbol": "j_?Encode@ConfirmedActionTimeoutPacket@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@ConfirmedActionTimeoutPacket@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x412FC1",
+  "symbol": "j_?Encode@MissionForfeitPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@MissionForfeitPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x413570",
+  "symbol": "j_?Encode@TradePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@TradePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x4135D9",
+  "symbol": "j_?Encode@JobListPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@JobListPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x4136C9",
+  "symbol": "j_?Encode@Packet_0068Class@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@Packet_0068Class@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x413890",
+  "symbol": "j_?Encode@RecustomizeShipStartPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@RecustomizeShipStartPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x413A75",
+  "symbol": "j_?Encode@GameEditorCreateEmptyPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@GameEditorCreateEmptyPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x413BF1",
+  "symbol": "j_?Encode@SkillAbilityPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@SkillAbilityPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x413DA4",
+  "symbol": "j_?Encode@ServerStopPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@ServerStopPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x413FCA",
+  "symbol": "j_?Encode@NoteListPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@NoteListPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x4141EB",
+  "symbol": "j_?Encode@TaskStopPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@TaskStopPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x4142F4",
+  "symbol": "j_?Encode@WarpIndexPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@WarpIndexPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x4144D9",
+  "symbol": "j_?Encode@SkillStringRqPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@SkillStringRqPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x414574",
+  "symbol": "j_?Encode@RecustomizeShipDonePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@RecustomizeShipDonePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x4146B4",
+  "symbol": "j_?Encode@JobDeletePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@JobDeletePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x41483A",
+  "symbol": "j_?Encode@UITriggerPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@UITriggerPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x4149FC",
+  "symbol": "j_?Encode@GuildGMRenameConfirmGuildPacket@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@GuildGMRenameConfirmGuildPacket@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x414A3D",
+  "symbol": "j_?Encode@DialogPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@DialogPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x414BE1",
+  "symbol": "j_?Encode@CTARequestPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@CTARequestPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x414D94",
+  "symbol": "j_?Encode@CreateCharacterPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@CreateCharacterPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x414F6F",
+  "symbol": "j_?Encode@ManufactureSetItemIDPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@ManufactureSetItemIDPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x414F74",
+  "symbol": "j_?Encode@ClientChatListPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@ClientChatListPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x414F97",
+  "symbol": "j_?Encode@GameEditorSectorSavedPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@GameEditorSectorSavedPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x415280",
+  "symbol": "j_?Encode@GlobalAvatarListPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@GlobalAvatarListPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x41565E",
+  "symbol": "j_?Encode@NameDecalPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@NameDecalPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x41570D",
+  "symbol": "j_?Encode@GuildSimpleGuildSectorPacket@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@GuildSimpleGuildSectorPacket@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x415780",
+  "symbol": "j_?Encode@NavDeletePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@NavDeletePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x4157C6",
+  "symbol": "j_?Encode@ServerHandoffPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@ServerHandoffPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x4158AC",
+  "symbol": "j_?Encode@GuildGMRenameAcceptSectorPacket@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@GuildGMRenameAcceptSectorPacket@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x415947",
+  "symbol": "j_?Encode@GuildPlayerInfoDeletedPacket@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@GuildPlayerInfoDeletedPacket@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x415BEF",
+  "symbol": "j_?Encode@SimplePositionalUpdatePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@SimplePositionalUpdatePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x415C3A",
+  "symbol": "j_?Encode@GameEditorPlanetUnitTypesPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@GameEditorPlanetUnitTypesPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x415D4D",
+  "symbol": "j_?Encode@IncapacitanceDistressBeaconPacket@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@IncapacitanceDistressBeaconPacket@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x415EE2",
+  "symbol": "j_?Encode@GuildBeginCreationPacket@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@GuildBeginCreationPacket@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x416031",
+  "symbol": "j_?Encode@TaskPingPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@TaskPingPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x41613A",
+  "symbol": "j_?Encode@SetZBandPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@SetZBandPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x41622A",
+  "symbol": "j_?Encode@GlobalSetReferrerResponsePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@GlobalSetReferrerResponsePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x41645F",
+  "symbol": "j_?Encode@GameEditorKVModifyPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@GameEditorKVModifyPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x4166FD",
+  "symbol": "j_?Encode@PlayerObjectReactionUpdatePacket@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@PlayerObjectReactionUpdatePacket@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x416798",
+  "symbol": "j_?Encode@LoginPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@LoginPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x4167F7",
+  "symbol": "j_?Encode@VerbRequestPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@VerbRequestPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x41686F",
+  "symbol": "j_?Encode@GuildDeductFeePacket@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@GuildDeductFeePacket@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x416888",
+  "symbol": "j_?Encode@DeactivateRenderStatePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@DeactivateRenderStatePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x416B99",
+  "symbol": "j_?Encode@ClientChatErrorPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@ClientChatErrorPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x416CCA",
+  "symbol": "j_?Encode@GameEditorRequestPlanetUnitTypesPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@GameEditorRequestPlanetUnitTypesPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x416EE6",
+  "symbol": "j_?Encode@NavigationPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@NavigationPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x416F81",
+  "symbol": "j_?Encode@ClearMessageLinePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@ClearMessageLinePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x416FDB",
+  "symbol": "j_?Encode@GuildRecruitConfirmGuildPacket@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@GuildRecruitConfirmGuildPacket@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x416FF4",
+  "symbol": "j_?Encode@GMViewMissionLogPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@GMViewMissionLogPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x4172F6",
+  "symbol": "j_?Encode@PlayerObjectRelationshipPacket@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@PlayerObjectRelationshipPacket@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x417355",
+  "symbol": "j_?Encode@ClientAvatarPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@ClientAvatarPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x417477",
+  "symbol": "j_?Encode@LogoffRequestPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@LogoffRequestPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x4174FE",
+  "symbol": "j_?Encode@ColorizationPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@ColorizationPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x41772E",
+  "symbol": "j_?Encode@AdvancedPositionalUpdatePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@AdvancedPositionalUpdatePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x4178F5",
+  "symbol": "j_?Encode@StarbaseAvatarUpdatePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@StarbaseAvatarUpdatePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x417922",
+  "symbol": "j_?Encode@AvatarDescPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@AvatarDescPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x4179F4",
+  "symbol": "j_?Encode@Packet_00ADClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@Packet_00ADClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x417DB4",
+  "symbol": "j_?Encode@GlobalCreateCharacterPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@GlobalCreateCharacterPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x417EF4",
+  "symbol": "j_?Encode@GuildSimpleSectorClientPacket@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@GuildSimpleSectorClientPacket@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x418101",
+  "symbol": "j_?Encode@ManufactureActionPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@ManufactureActionPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x418124",
+  "symbol": "j_?Encode@GameEditorCloneResponsePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@GameEditorCloneResponsePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x41838B",
+  "symbol": "j_?Encode@CameraControlPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@CameraControlPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x4183AE",
+  "symbol": "j_?Encode@DeleteCharacterPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@DeleteCharacterPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x4183E5",
+  "symbol": "j_?Encode@ManufactureSetItemCategoryPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@ManufactureSetItemCategoryPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x4185FC",
+  "symbol": "j_?Encode@ItemStatePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@ItemStatePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x418773",
+  "symbol": "j_?Encode@GlobalLockResponsePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@GlobalLockResponsePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x4187BE",
+  "symbol": "j_?Encode@SectorHelloPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@SectorHelloPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x418A2A",
+  "symbol": "j_?Encode@GuildPlayerPermissionsPacket@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@GuildPlayerPermissionsPacket@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x418A5C",
+  "symbol": "j_?Encode@VersionResponsePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@VersionResponsePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x418CCD",
+  "symbol": "j_?Encode@ServerReadyPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@ServerReadyPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x418F66",
+  "symbol": "j_?Encode@Action2PacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@Action2PacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x41902E",
+  "symbol": "j_?Encode@JobDescriptionPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@JobDescriptionPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x41918C",
+  "symbol": "j_?Encode@PlayerStatusPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@PlayerStatusPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x41919B",
+  "symbol": "j_?Encode@GPSRequestPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@GPSRequestPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x419371",
+  "symbol": "j_?Encode@GlobalErrorPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@GlobalErrorPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x419420",
+  "symbol": "j_?Encode@GameEditorTemplateListPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@GameEditorTemplateListPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x41952E",
+  "symbol": "j_?Encode@ObjectToEffectEffectPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "j_?Build@ObjectToEffectEffectPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x52B210",
+  "symbol": "?Encode@UnknownPacketBaseClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@UnknownPacketBaseClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x85D000",
+  "symbol": "?Encode@CreateCharacterPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@CreateCharacterPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x85D350",
+  "symbol": "?Encode@DeleteCharacterPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@DeleteCharacterPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x85D650",
+  "symbol": "?Encode@RegistrationResultPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@RegistrationResultPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x85D910",
+  "symbol": "?Encode@GameEditorAddPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@GameEditorAddPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x85DCB0",
+  "symbol": "?Encode@GameEditorAssetMappingPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@GameEditorAssetMappingPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x85E080",
+  "symbol": "?Encode@GameEditorClonePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@GameEditorClonePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x85E440",
+  "symbol": "?Encode@GameEditorCloneResponsePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@GameEditorCloneResponsePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x85E8A0",
+  "symbol": "?Encode@Packet_7535Class@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@Packet_7535Class@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x85EB20",
+  "symbol": "?Encode@Packet_7536Class@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@Packet_7536Class@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x85EDE0",
+  "symbol": "?Encode@GameEditorKVUpdatePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@GameEditorKVUpdatePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x85F0F0",
+  "symbol": "?Encode@GameEditorKVModifyPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@GameEditorKVModifyPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x85F370",
+  "symbol": "?Encode@GameEditorLoginPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@GameEditorLoginPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x85F510",
+  "symbol": "?Encode@GameEditorLogoutPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@GameEditorLogoutPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x85F710",
+  "symbol": "?Encode@GameEditorProtocolVersionPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@GameEditorProtocolVersionPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x85FA10",
+  "symbol": "?Encode@GameEditorCreateFinalPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@GameEditorCreateFinalPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x85FCD0",
+  "symbol": "?Encode@GameEditorCreateEmptyPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@GameEditorCreateEmptyPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x85FEC0",
+  "symbol": "?Encode@GameEditorCreateCancelPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@GameEditorCreateCancelPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x8600C0",
+  "symbol": "?Encode@GameEditorDeletePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@GameEditorDeletePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x860360",
+  "symbol": "?Encode@GameEditorMovePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@GameEditorMovePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x860620",
+  "symbol": "?Encode@GameEditorTemplateCategoriesPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@GameEditorTemplateCategoriesPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x860900",
+  "symbol": "?Encode@GameEditorRequestTemplateListPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@GameEditorRequestTemplateListPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x860BC0",
+  "symbol": "?Encode@GameEditorTemplateListPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@GameEditorTemplateListPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x860E00",
+  "symbol": "?Encode@GameEditorRequestPlanetUnitTypesPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@GameEditorRequestPlanetUnitTypesPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x8610A0",
+  "symbol": "?Encode@GameEditorPlanetUnitTypesPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@GameEditorPlanetUnitTypesPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x861310",
+  "symbol": "?Encode@GameEditorRequestPlanetUnitDetailsPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@GameEditorRequestPlanetUnitDetailsPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x8615D0",
+  "symbol": "?Encode@GameEditorPlanetUnitDetailsPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@GameEditorPlanetUnitDetailsPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x861980",
+  "symbol": "?Encode@Packet_7532Class@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@Packet_7532Class@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x861C50",
+  "symbol": "?Encode@GameEditorRemovePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@GameEditorRemovePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x861E80",
+  "symbol": "?Encode@GameEditorSaveSectorPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@GameEditorSaveSectorPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x8621B0",
+  "symbol": "?Encode@GameEditorSectorSavedPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@GameEditorSectorSavedPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x862560",
+  "symbol": "?Encode@GameEditorRequestSpawnDefaultsPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@GameEditorRequestSpawnDefaultsPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x862820",
+  "symbol": "?Encode@GameEditorSpawnDefaultsPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@GameEditorSpawnDefaultsPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x863170",
+  "symbol": "?Encode@GlobalAvatarListPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@GlobalAvatarListPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x8635B0",
+  "symbol": "?Encode@GlobalConnectPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@GlobalConnectPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x863A50",
+  "symbol": "?Encode@GlobalContainerRequestPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@GlobalContainerRequestPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x863ED0",
+  "symbol": "?Encode@GlobalContainerResponsePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@GlobalContainerResponsePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x864610",
+  "symbol": "?Encode@GlobalCreateCharacterPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@GlobalCreateCharacterPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x8648D0",
+  "symbol": "?Encode@GlobalDeleteCharacterPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@GlobalDeleteCharacterPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x864EB0",
+  "symbol": "?Encode@GlobalErrorPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@GlobalErrorPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x865230",
+  "symbol": "?Encode@GlobalHelloPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@GlobalHelloPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x865710",
+  "symbol": "?Encode@GlobalLockRequestPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@GlobalLockRequestPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x8659B0",
+  "symbol": "?Encode@GlobalLockResponsePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@GlobalLockResponsePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x865C10",
+  "symbol": "?Encode@GlobalLockReleasePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@GlobalLockReleasePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x866420",
+  "symbol": "?Encode@GlobalLoginPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@GlobalLoginPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x866930",
+  "symbol": "?Encode@GlobalPlayerStatusPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@GlobalPlayerStatusPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x866CC0",
+  "symbol": "?Encode@GlobalSetReferrerPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@GlobalSetReferrerPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x866ED0",
+  "symbol": "?Encode@GlobalSetReferrerResponsePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@GlobalSetReferrerResponsePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x8673C0",
+  "symbol": "?Encode@Packet_00B3Class@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@Packet_00B3Class@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x867710",
+  "symbol": "?Encode@GlobalTicketPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@GlobalTicketPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x867960",
+  "symbol": "?Encode@GlobalTicketRequestPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@GlobalTicketRequestPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x86F1E0",
+  "symbol": "?Encode@CTARequestPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@CTARequestPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x86F4B0",
+  "symbol": "?Encode@CTAResponsePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@CTAResponsePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x86FB30",
+  "symbol": "?Encode@GMEditPlayerInventoryPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@GMEditPlayerInventoryPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x870200",
+  "symbol": "?Encode@GMViewMissionLogPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@GMViewMissionLogPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x870800",
+  "symbol": "?Encode@ConfirmedActionOfferPacket@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@ConfirmedActionOfferPacket@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x870AA0",
+  "symbol": "?Encode@ConfirmedActionTimeoutPacket@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@ConfirmedActionTimeoutPacket@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x870D20",
+  "symbol": "?Encode@ConfirmedActionResponsePacket@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@ConfirmedActionResponsePacket@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x8710A0",
+  "symbol": "?Encode@GalaxyMapPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@GalaxyMapPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x871460",
+  "symbol": "?Encode@GalaxyMapRequestPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@GalaxyMapRequestPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x8718B0",
+  "symbol": "?Encode@GMDestroyItemRequestPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@GMDestroyItemRequestPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x871DF0",
+  "symbol": "?Encode@GMResetMissionRequestPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@GMResetMissionRequestPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x872070",
+  "symbol": "?Encode@IncapacitanceDetailsRequestPacket@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@IncapacitanceDetailsRequestPacket@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x8722A0",
+  "symbol": "?Encode@IncapacitanceDistressBeaconPacket@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@IncapacitanceDistressBeaconPacket@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x8724E0",
+  "symbol": "?Encode@Packet_008FClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@Packet_008FClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x872F70",
+  "symbol": "?Encode@IncapacitanceDetailsPacket@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@IncapacitanceDetailsPacket@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x873650",
+  "symbol": "?Encode@IncapacitanceRescueConfirmationPacket@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@IncapacitanceRescueConfirmationPacket@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x8738C0",
+  "symbol": "?Encode@LootHulkPermissionPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@LootHulkPermissionPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x873D10",
+  "symbol": "?Encode@PlayerObjectRelationshipPacket@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@PlayerObjectRelationshipPacket@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x874270",
+  "symbol": "?Encode@PlayerObjectReactionUpdatePacket@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@PlayerObjectReactionUpdatePacket@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x874ED0",
+  "symbol": "?Encode@PlayerObjectIsAttackingUpdatePacket@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@PlayerObjectIsAttackingUpdatePacket@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x875B70",
+  "symbol": "?Encode@SubPartsPacket@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@SubPartsPacket@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x8764C0",
+  "symbol": "?Encode@ActionPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@ActionPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x876880",
+  "symbol": "?Encode@Action2PacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@Action2PacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x876BD0",
+  "symbol": "?Encode@CreateAttachmentPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@CreateAttachmentPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x876FA0",
+  "symbol": "?Encode@AuxDataPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@AuxDataPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x877500",
+  "symbol": "?Encode@ClientAvatarPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@ClientAvatarPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x877B20",
+  "symbol": "?Encode@AvatarDescPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@AvatarDescPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x877E80",
+  "symbol": "?Encode@BroadcastPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@BroadcastPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x878120",
+  "symbol": "?Encode@ReferralPointsAvailablePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@ReferralPointsAvailablePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x878450",
+  "symbol": "?Encode@CameraControlPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@CameraControlPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x878870",
+  "symbol": "?Encode@ClientChatPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@ClientChatPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x878DC0",
+  "symbol": "?Encode@ClientChatRequestPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@ClientChatRequestPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x879430",
+  "symbol": "?Encode@ClientChatEventPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@ClientChatEventPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x879BF0",
+  "symbol": "?Encode@ClientChatListPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@ClientChatListPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x87A7B0",
+  "symbol": "?Encode@ClientChatErrorPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@ClientChatErrorPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x87AB60",
+  "symbol": "?Encode@ChatBasicRequestPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@ChatBasicRequestPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x87B3E0",
+  "symbol": "?Encode@ChatProxyLoginPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@ChatProxyLoginPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x87BD20",
+  "symbol": "?Encode@ChatProxyRequestPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@ChatProxyRequestPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x87C2D0",
+  "symbol": "?Encode@ChatProxyResponsePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@ChatProxyResponsePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x87CB00",
+  "symbol": "?Encode@ChatProxyResponseListPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@ChatProxyResponseListPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x87D860",
+  "symbol": "?Encode@ChatProxyEventPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@ChatProxyEventPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x87E1A0",
+  "symbol": "?Encode@ChatstreamPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@ChatstreamPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x87E620",
+  "symbol": "?Encode@ChangeBaseAssetPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@ChangeBaseAssetPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x87E910",
+  "symbol": "?Encode@ClickIndicatorPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@ClickIndicatorPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x87ED50",
+  "symbol": "?Encode@NoteListPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@NoteListPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x87F110",
+  "symbol": "?Encode@NoteContentPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@NoteContentPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x87F730",
+  "symbol": "?Encode@ColorizationPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@ColorizationPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x87FB40",
+  "symbol": "?Encode@CreatePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@CreatePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x87FE10",
+  "symbol": "?Encode@SetClientTypePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@SetClientTypePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x880110",
+  "symbol": "?Encode@DamagePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@DamagePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x880400",
+  "symbol": "?Encode@DebugPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@DebugPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x880BC0",
+  "symbol": "?Encode@DecalPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@DecalPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x880FA0",
+  "symbol": "?Encode@NameDecalPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@NameDecalPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x881520",
+  "symbol": "?Encode@DialogPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@DialogPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x881B30",
+  "symbol": "?Encode@DirLockRequestPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@DirLockRequestPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x881E80",
+  "symbol": "?Encode@DirLockResponseSectorPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@DirLockResponseSectorPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x8821F0",
+  "symbol": "?Encode@DirLockResponseGlobalPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@DirLockResponseGlobalPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x882550",
+  "symbol": "?Encode@DirLockReleasePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@DirLockReleasePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x882B40",
+  "symbol": "?Encode@ObjectEffectPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@ObjectEffectPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x8835C0",
+  "symbol": "?Encode@PointEffectPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@PointEffectPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x883DD0",
+  "symbol": "?Encode@ObjectToObjectEffectPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@ObjectToObjectEffectPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x8849E0",
+  "symbol": "?Encode@ObjectToEffectEffectPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@ObjectToEffectEffectPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x8851E0",
+  "symbol": "?Encode@ObjectToPointEffectPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@ObjectToPointEffectPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x8859B0",
+  "symbol": "?Encode@ObjectToObjectDurationLinkedEffectPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@ObjectToObjectDurationLinkedEffectPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x885EC0",
+  "symbol": "?Encode@RemoveEffectPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@RemoveEffectPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x886140",
+  "symbol": "?Encode@TriggerEmotePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@TriggerEmotePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x886420",
+  "symbol": "?Encode@NotifyEmotePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@NotifyEmotePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x8869F0",
+  "symbol": "?Encode@FindMemberPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@FindMemberPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x886E30",
+  "symbol": "?Encode@FindPlayerRequestPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@FindPlayerRequestPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x887120",
+  "symbol": "?Encode@FindPlayerResponsePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@FindPlayerResponsePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x887410",
+  "symbol": "?Encode@FirePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@FirePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x887B30",
+  "symbol": "?Encode@GadgetPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@GadgetPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x887EC0",
+  "symbol": "?Encode@Packet_0068Class@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@Packet_0068Class@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x888150",
+  "symbol": "?Encode@GPSRequestPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@GPSRequestPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x888500",
+  "symbol": "?Encode@GPSResponsePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@GPSResponsePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x8889A0",
+  "symbol": "?Encode@GroupPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@GroupPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x889740",
+  "symbol": "?Encode@Packet_00ADClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@Packet_00ADClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x889A10",
+  "symbol": "?Encode@GroupServerRequestPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@GroupServerRequestPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x889C80",
+  "symbol": "?Encode@GroupServerResponsePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@GroupServerResponsePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x88A2F0",
+  "symbol": "?Encode@GroupServerCreatePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@GroupServerCreatePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x88AD40",
+  "symbol": "?Encode@GroupServerUpdatePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@GroupServerUpdatePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x88C000",
+  "symbol": "?Encode@GuildSimpleSectorClientPacket@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@GuildSimpleSectorClientPacket@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x88C410",
+  "symbol": "?Encode@GuildSimpleClientSectorPacket@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@GuildSimpleClientSectorPacket@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x88C820",
+  "symbol": "?Encode@GuildLeaderAcceptClientPacket@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@GuildLeaderAcceptClientPacket@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x88CCE0",
+  "symbol": "?Encode@GuildRecruitConfirmSectorPacket@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@GuildRecruitConfirmSectorPacket@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x88CF70",
+  "symbol": "?Encode@GuildRecruitAcceptClientPacket@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@GuildRecruitAcceptClientPacket@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x88D430",
+  "symbol": "?Encode@GuildMessageSectorPacket@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@GuildMessageSectorPacket@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x88D710",
+  "symbol": "?Encode@GuildPlayerPermissionsPacket@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@GuildPlayerPermissionsPacket@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x88D950",
+  "symbol": "?Encode@GuildRankNamesRequestClientPacket@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@GuildRankNamesRequestClientPacket@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x88E080",
+  "symbol": "?Encode@GuildRankNamesSectorPacket@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@GuildRankNamesSectorPacket@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x88E6F0",
+  "symbol": "?Encode@GuildGMRenameConfirmSectorPacket@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@GuildGMRenameConfirmSectorPacket@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x88EF60",
+  "symbol": "?Encode@GuildPlayerOnlineSectorPacket@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@GuildPlayerOnlineSectorPacket@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x88F3C0",
+  "symbol": "?Encode@GuildSimpleGuildSectorPacket@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@GuildSimpleGuildSectorPacket@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x88F800",
+  "symbol": "?Encode@GuildSimpleSectorGuildPacket@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@GuildSimpleSectorGuildPacket@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x88FAE0",
+  "symbol": "?Encode@GuildAdjustContribPacket@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@GuildAdjustContribPacket@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x8901B0",
+  "symbol": "?Encode@GuildBeginCreationPacket@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@GuildBeginCreationPacket@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x890680",
+  "symbol": "?Encode@GuildLeaderAcceptSectorPacket@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@GuildLeaderAcceptSectorPacket@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x890B80",
+  "symbol": "?Encode@GuildRecruitConfirmGuildPacket@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@GuildRecruitConfirmGuildPacket@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x8910C0",
+  "symbol": "?Encode@GuildRecruitAcceptSectorPacket@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@GuildRecruitAcceptSectorPacket@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x891630",
+  "symbol": "?Encode@GuildMessageGuildPacket@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@GuildMessageGuildPacket@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x891BD0",
+  "symbol": "?Encode@GuildStatusUpdatePacket@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@GuildStatusUpdatePacket@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x891F80",
+  "symbol": "?Encode@GuildPermissionsPacket@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@GuildPermissionsPacket@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x892210",
+  "symbol": "?Encode@GuildRankNamesRequestSectorPacket@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@GuildRankNamesRequestSectorPacket@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x8928E0",
+  "symbol": "?Encode@GuildRankNamesGuildPacket@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@GuildRankNamesGuildPacket@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x892F90",
+  "symbol": "?Encode@GuildGMRenameConfirmGuildPacket@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@GuildGMRenameConfirmGuildPacket@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x8934A0",
+  "symbol": "?Encode@GuildGMRenameAcceptSectorPacket@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@GuildGMRenameAcceptSectorPacket@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x8937F0",
+  "symbol": "?Encode@GuildDeletePlayerPacket@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@GuildDeletePlayerPacket@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x893B50",
+  "symbol": "?Encode@GuildPlayerInfoDeletedPacket@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@GuildPlayerInfoDeletedPacket@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x894050",
+  "symbol": "?Encode@GuildDeductFeePacket@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@GuildDeductFeePacket@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x8947F0",
+  "symbol": "?Encode@ServerHandoffPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@ServerHandoffPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x894B40",
+  "symbol": "?Encode@HullUpgradePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@HullUpgradePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x894E30",
+  "symbol": "?Encode@InvPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@InvPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x895150",
+  "symbol": "?Encode@InvSortPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@InvSortPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x895960",
+  "symbol": "?Encode@ItemBasePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@ItemBasePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x895D70",
+  "symbol": "?Encode@ItemStatePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@ItemStatePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x896430",
+  "symbol": "?Encode@JobListPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@JobListPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x896AE0",
+  "symbol": "?Encode@JobDescriptionPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@JobDescriptionPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x896DA0",
+  "symbol": "?Encode@JobDeletePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@JobDeletePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x897020",
+  "symbol": "?Encode@JobAcceptReplyPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@JobAcceptReplyPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x8976C0",
+  "symbol": "?Encode@MasterJoinPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@MasterJoinPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x898080",
+  "symbol": "?Encode@LoungeNPCPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@LoungeNPCPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x89A9B0",
+  "symbol": "?Encode@LoginPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@LoginPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x89AC70",
+  "symbol": "?Encode@LogoffPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@LogoffPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x89AE80",
+  "symbol": "?Encode@LogoffRequestPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@LogoffRequestPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x89B060",
+  "symbol": "?Encode@LogoffConfirmationPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@LogoffConfirmationPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x89B210",
+  "symbol": "?Encode@Packet_00BBClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@Packet_00BBClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x89B460",
+  "symbol": "?Encode@ManufactureItemCatagoryPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@ManufactureItemCatagoryPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x89B6C0",
+  "symbol": "?Encode@ManufactureSetItemCategoryPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@ManufactureSetItemCategoryPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x89B900",
+  "symbol": "?Encode@ManufactureSetItemIDPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@ManufactureSetItemIDPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x89BB40",
+  "symbol": "?Encode@RefinerySetItemIDPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@RefinerySetItemIDPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x89BDC0",
+  "symbol": "?Encode@Packet_007DClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@Packet_007DClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x89C010",
+  "symbol": "?Encode@ManufactureActionPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@ManufactureActionPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x89C250",
+  "symbol": "?Encode@ManufactureSetPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@ManufactureSetPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x89C4A0",
+  "symbol": "?Encode@ManufactureSetTechLevelFilterPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@ManufactureSetTechLevelFilterPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x89C760",
+  "symbol": "?Encode@MissionForfeitPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@MissionForfeitPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x89C9A0",
+  "symbol": "?Encode@MissionDismissPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@MissionDismissPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x89CC50",
+  "symbol": "?Encode@ModeChangePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@ModeChangePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x89CF10",
+  "symbol": "?Encode@ModeRequestPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@ModeRequestPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x89D1B0",
+  "symbol": "?Encode@MovementPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@MovementPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x89D510",
+  "symbol": "?Encode@MessageChatstreamPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@MessageChatstreamPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x89D9C0",
+  "symbol": "?Encode@MessageLinePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@MessageLinePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x89DCC0",
+  "symbol": "?Encode@ClearMessageLinePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@ClearMessageLinePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x89DF80",
+  "symbol": "?Encode@SuperLinePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@SuperLinePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x89E420",
+  "symbol": "?Encode@MessageStringPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@MessageStringPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x89E760",
+  "symbol": "?Encode@MessageTimePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@MessageTimePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x89EAE0",
+  "symbol": "?Encode@NavigationPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@NavigationPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x89EDE0",
+  "symbol": "?Encode@NavDeletePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@NavDeletePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x89F0A0",
+  "symbol": "?Encode@Packet_006CClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@Packet_006CClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x89F330",
+  "symbol": "?Encode@OpenInterfacePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@OpenInterfacePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x89F5D0",
+  "symbol": "?Encode@OptionPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@OptionPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x89F9A0",
+  "symbol": "?Encode@PetitionPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@PetitionPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x8A0040",
+  "symbol": "?Encode@RecustomizeShipStartPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@RecustomizeShipStartPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x8A05F0",
+  "symbol": "?Encode@RecustomizeShipDonePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@RecustomizeShipDonePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x8A08C0",
+  "symbol": "?Encode@RecustomizeAvatarStartPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@RecustomizeAvatarStartPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x8A0E00",
+  "symbol": "?Encode@RecustomizeAvatarDonePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@RecustomizeAvatarDonePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x8A13B0",
+  "symbol": "?Encode@RecustomizeAvatarUpdatePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@RecustomizeAvatarUpdatePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x8A1810",
+  "symbol": "?Encode@RemovePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@RemovePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x8A1B20",
+  "symbol": "?Encode@InitRenderStatePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@InitRenderStatePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x8A1E10",
+  "symbol": "?Encode@ActivateRenderStatePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@ActivateRenderStatePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x8A20F0",
+  "symbol": "?Encode@ActivateNextRenderStateOncePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@ActivateNextRenderStateOncePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x8A23D0",
+  "symbol": "?Encode@DeactivateRenderStatePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@DeactivateRenderStatePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x8A2650",
+  "symbol": "?Encode@SkillStringRqPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@SkillStringRqPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x8A2990",
+  "symbol": "?Encode@RequestTransformChangePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@RequestTransformChangePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x8A2C60",
+  "symbol": "?Encode@RequestVersionPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@RequestVersionPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x8A2EB0",
+  "symbol": "?Encode@StarbaseReqPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@StarbaseReqPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x8A3150",
+  "symbol": "?Encode@StarbaseSetPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@StarbaseSetPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x8A3450",
+  "symbol": "?Encode@StarbaseTowPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@StarbaseTowPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x8A37A0",
+  "symbol": "?Encode@Starbase_Avatar_ChangePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@Starbase_Avatar_ChangePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x8A3B30",
+  "symbol": "?Encode@StarbaseAvatarUpdatePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@StarbaseAvatarUpdatePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x8A3E20",
+  "symbol": "?Encode@StarbaseAvatarRoomChangePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@StarbaseAvatarRoomChangePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x8A40E0",
+  "symbol": "?Encode@StarbaseAvatarRoomUpdatePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@StarbaseAvatarRoomUpdatePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x8A4390",
+  "symbol": "?Encode@SetZBandPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@SetZBandPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x8A4620",
+  "symbol": "?Encode@SetBBoxPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@SetBBoxPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x8A48B0",
+  "symbol": "?Encode@ClientShipPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@ClientShipPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x8A4B30",
+  "symbol": "?Encode@SkillPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@SkillPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x8A4DB0",
+  "symbol": "?Encode@SkillAbilityPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@SkillAbilityPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x8A5130",
+  "symbol": "?Encode@SoundPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@SoundPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x8A53C0",
+  "symbol": "?Encode@SoundCommandPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@SoundCommandPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x8A5630",
+  "symbol": "?Encode@SpendReferralPointPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@SpendReferralPointPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x8A5960",
+  "symbol": "?Encode@SplinePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@SplinePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x8A5DD0",
+  "symbol": "?Encode@ServerParametersPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@ServerParametersPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x8A62A0",
+  "symbol": "?Encode@ServerReadyPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@ServerReadyPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x8A6500",
+  "symbol": "?Encode@ServerStopPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@ServerStopPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x8A6730",
+  "symbol": "?Encode@StartPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@StartPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x8A6940",
+  "symbol": "?Encode@StartAckPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@StartAckPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x8A7180",
+  "symbol": "?Encode@TalkTreePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@TalkTreePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x8A74E0",
+  "symbol": "?Encode@TalkTreeActionPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@TalkTreeActionPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x8A7710",
+  "symbol": "?Encode@SelectTalkTreePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@SelectTalkTreePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x8A7FE0",
+  "symbol": "?Encode@RequestTargetPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@RequestTargetPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x8A8250",
+  "symbol": "?Encode@RequestTargetTargetPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@RequestTargetTargetPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x8A84C0",
+  "symbol": "?Encode@SetTargetPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@SetTargetPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x8A8BC0",
+  "symbol": "?Encode@TaskHelloPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@TaskHelloPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x8A8EF0",
+  "symbol": "?Encode@SectorHelloPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@SectorHelloPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x8A9170",
+  "symbol": "?Encode@TaskStartPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@TaskStartPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x8A9400",
+  "symbol": "?Encode@TaskStopPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@TaskStopPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x8A9910",
+  "symbol": "?Encode@TaskPingPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@TaskPingPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x8AA050",
+  "symbol": "?Encode@PlayerStatusPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@PlayerStatusPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x8AA670",
+  "symbol": "?Encode@SectorListPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@SectorListPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x8AA8B0",
+  "symbol": "?Encode@RequestSectorListPacket@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@RequestSectorListPacket@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x8AABF0",
+  "symbol": "?Encode@TiltPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@TiltPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x8AAE70",
+  "symbol": "?Encode@RequestTimePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@RequestTimePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x8AB120",
+  "symbol": "?Encode@SetClientTimePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@SetClientTimePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x8AB410",
+  "symbol": "?Encode@TradePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@TradePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x8AB6A0",
+  "symbol": "?Encode@TurnPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@TurnPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x8AB920",
+  "symbol": "?Encode@UITriggerPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@UITriggerPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x8ABCB0",
+  "symbol": "?Encode@ConstantPositionalUpdatePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@ConstantPositionalUpdatePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x8AC3E0",
+  "symbol": "?Encode@SimplePositionalUpdatePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@SimplePositionalUpdatePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x8AD000",
+  "symbol": "?Encode@AdvancedPositionalUpdatePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@AdvancedPositionalUpdatePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x8ADF10",
+  "symbol": "?Encode@PlanetPositionalUpdatePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@PlanetPositionalUpdatePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x8AE2E0",
+  "symbol": "?Encode@ComponentPositionalUpdatePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@ComponentPositionalUpdatePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x8AE690",
+  "symbol": "?Encode@FormationPositionalUpdatePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@FormationPositionalUpdatePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x8AE970",
+  "symbol": "?Encode@UseInventoryPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@UseInventoryPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x8AEC00",
+  "symbol": "?Encode@VerbRequestPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@VerbRequestPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x8AF550",
+  "symbol": "?Encode@VerbListPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@VerbListPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x8AFF40",
+  "symbol": "?Encode@VerbUpdatePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@VerbUpdatePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x8B1710",
+  "symbol": "?Encode@VersionRequestPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@VersionRequestPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x8B1960",
+  "symbol": "?Encode@VersionResponsePacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@VersionResponsePacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x8B1CF0",
+  "symbol": "?Encode@WarpPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@WarpPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x8B1F40",
+  "symbol": "?Encode@WarpIndexPacketClass@@UAEPAVPacketClass@@XZ",
+  "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
+  "replaces": "?Build@WarpIndexPacketClass@@UAEPAVPacketClass@@XZ",
+  "kind": "function"
  }
 ]

@@ -18,7 +18,7 @@ CTARequestPacketClass::~CTARequestPacketClass()
 {
 }
 
-PacketClass *CTARequestPacketClass::Build()
+PacketClass *CTARequestPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(188, Get_Data_Size());
 	raw->Add(&AvatarID, sizeof(AvatarID));
@@ -49,7 +49,7 @@ CTAResponsePacketClass::CTAResponsePacketClass(PacketClass *raw) : AvatarID(-1),
 	raw->Get(&Success, sizeof(Success));
 }
 
-PacketClass *CTAResponsePacketClass::Build()
+PacketClass *CTAResponsePacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(189, Get_Data_Size());
 	raw->Add(&AvatarID, sizeof(AvatarID));

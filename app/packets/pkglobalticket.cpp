@@ -15,7 +15,7 @@ GlobalTicketPacketClass::GlobalTicketPacketClass(PacketClass *raw) :
 	raw->Get(&Ticket);
 }
 
-PacketClass *GlobalTicketPacketClass::Build()
+PacketClass *GlobalTicketPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(111, Get_Data_Size());
 	raw->Add(Status);

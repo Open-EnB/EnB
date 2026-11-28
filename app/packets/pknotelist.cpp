@@ -22,7 +22,7 @@ NoteListPacketClass::~NoteListPacketClass()
 {
 }
 
-PacketClass *NoteListPacketClass::Build()
+PacketClass *NoteListPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(183, Get_Data_Size());
 	for (std::list<NoteListEntryStruct>::iterator it = Notes.begin(); it != Notes.end(); it++) {
@@ -78,7 +78,7 @@ NoteContentPacketClass::~NoteContentPacketClass()
 	delete [] Unknown54;
 }
 
-PacketClass *NoteContentPacketClass::Build()
+PacketClass *NoteContentPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(184, Get_Data_Size());
 	raw->Add(Unknown0C);

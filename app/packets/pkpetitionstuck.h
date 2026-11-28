@@ -24,7 +24,7 @@ public:
 	PetitionPacketClass(int game_id, int game_id2, const char *subject, const char *complaint, const char *player_list);	// 0x89F740
 	PetitionPacketClass(PacketClass *raw);	// 0x89F860
 	virtual ~PetitionPacketClass();	// +0x00 0x89F830 / 0x89F930
-	virtual PacketClass *Build();	// +0x04 0x89F9A0
+	virtual PacketClass *Encode();	// +0x04 0x89F9A0  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x868A00 (clientstub.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x89FA90
 	virtual int Print(char *buffer, int len);	// +0x10 0x89FAE0

@@ -20,7 +20,7 @@ GlobalPlayerStatusPacketClass::GlobalPlayerStatusPacketClass(PacketClass *raw)
 	raw->Get(Unknown64);
 }
 
-PacketClass *GlobalPlayerStatusPacketClass::Build()
+PacketClass *GlobalPlayerStatusPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(Get_Type(), Get_Data_Size());
 	raw->Add(Unknown0C);

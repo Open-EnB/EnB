@@ -42,7 +42,7 @@ JobListPacketClass::~JobListPacketClass()
 	JobList.clear();
 }
 
-PacketClass *JobListPacketClass::Build()
+PacketClass *JobListPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(147, Get_Data_Size());
 	raw->Add(&Count, sizeof(Count));
@@ -144,7 +144,7 @@ JobDescriptionPacketClass::~JobDescriptionPacketClass()
 	Description = NULL;
 }
 
-PacketClass *JobDescriptionPacketClass::Build()
+PacketClass *JobDescriptionPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(148, Get_Data_Size());
 	raw->Add(&JobID, sizeof(JobID));
@@ -194,7 +194,7 @@ JobDeletePacketClass::JobDeletePacketClass(PacketClass *raw) : JobID(0)
 	raw->Get(&JobID, sizeof(JobID));
 }
 
-PacketClass *JobDeletePacketClass::Build()
+PacketClass *JobDeletePacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(149, Get_Data_Size());
 	raw->Add(&JobID, sizeof(JobID));
@@ -222,7 +222,7 @@ JobAcceptReplyPacketClass::JobAcceptReplyPacketClass(PacketClass *raw)
 	raw->Get(&SecondsRemaining, sizeof(SecondsRemaining));
 }
 
-PacketClass *JobAcceptReplyPacketClass::Build()
+PacketClass *JobAcceptReplyPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(150, Get_Data_Size());
 	raw->Add(&JobID, sizeof(JobID));

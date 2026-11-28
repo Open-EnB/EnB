@@ -19,7 +19,7 @@ CreateAttachmentPacketClass::CreateAttachmentPacketClass(PacketClass *raw)
 	raw->Get(Unknown18);
 }
 
-PacketClass *CreateAttachmentPacketClass::Build()
+PacketClass *CreateAttachmentPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(74, Get_Data_Size());
 	raw->Add(Parent_ID);

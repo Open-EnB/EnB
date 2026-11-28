@@ -14,7 +14,7 @@ CameraControlPacketClass::CameraControlPacketClass(PacketClass *raw) : Message(-
 	raw->Get(GameID);
 }
 
-PacketClass *CameraControlPacketClass::Build()
+PacketClass *CameraControlPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(Get_Type(), Get_Data_Size());
 	raw->Add(Message);

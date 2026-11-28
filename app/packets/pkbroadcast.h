@@ -24,7 +24,7 @@ public:
 	BroadcastPacketClass(char *text, int unknown14);	// 0x877C80
 	BroadcastPacketClass(PacketClass *raw);	// 0x877D70
 	virtual ~BroadcastPacketClass();	// +0x00 0x877D40 / 0x877E40
-	virtual PacketClass *Build();	// +0x04 0x877E80
+	virtual PacketClass *Encode();	// +0x04 0x877E80  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x868610 (clientstub.cpp l.197)
 	virtual int Get_Data_Size();	// +0x0C 0x877F60
 	virtual int Print(char *buffer, int len);	// +0x10 0x877F80

@@ -16,7 +16,7 @@ ItemStatePacketClass::ItemStatePacketClass(PacketClass *raw)
 	raw->Get(&Slot, sizeof(Slot));
 }
 
-PacketClass *ItemStatePacketClass::Build()
+PacketClass *ItemStatePacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(41, Get_Data_Size());
 	raw->Add(&ID, sizeof(ID));

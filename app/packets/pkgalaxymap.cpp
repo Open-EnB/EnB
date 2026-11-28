@@ -17,7 +17,7 @@ GalaxyMapPacketClass::GalaxyMapPacketClass(PacketClass *raw) : Type(-1), Data(0)
 	raw->Get(Data, Size);
 }
 
-PacketClass *GalaxyMapPacketClass::Build()
+PacketClass *GalaxyMapPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(Get_Type(), Get_Data_Size());
 	raw->Add(&Type, sizeof(Type));
@@ -52,9 +52,9 @@ GalaxyMapRequestPacketClass::GalaxyMapRequestPacketClass(PacketClass *raw) : Gal
 	raw->Get(&Unknown1C, sizeof(Unknown1C));
 }
 
-PacketClass *GalaxyMapRequestPacketClass::Build()
+PacketClass *GalaxyMapRequestPacketClass::Encode()
 {
-	PacketClass *raw = GalaxyMapPacketClass::Build();
+	PacketClass *raw = GalaxyMapPacketClass::Encode();
 	raw->Add(&Channel, sizeof(Channel));
 	raw->Add(&Unknown1C, sizeof(Unknown1C));
 	return(raw);

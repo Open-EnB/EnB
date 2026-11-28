@@ -14,7 +14,7 @@ GlobalContainerRequestPacketClass::GlobalContainerRequestPacketClass(__int64 unk
 	Unknown34(NULL)
 {
 	String = nstrdup(string);
-	PacketClass *raw = packet->Build();
+	PacketClass *raw = packet->Encode();
 	DataSize = raw->Data.Get_Size() + sizeof(PacketHeaderClass);
 	if (DataSize != 0) {
 		Data = new char[DataSize];
@@ -55,7 +55,7 @@ GlobalContainerRequestPacketClass::~GlobalContainerRequestPacketClass()
 	Unknown34 = NULL;
 }
 
-PacketClass *GlobalContainerRequestPacketClass::Build()
+PacketClass *GlobalContainerRequestPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(Get_Type(), Get_Data_Size());
 	raw->Add(Unknown18);
@@ -92,7 +92,7 @@ GlobalContainerResponsePacketClass::GlobalContainerResponsePacketClass(__int64 u
 	Unknown30(unknown30)
 {
 	String = nstrdup(string);
-	PacketClass *raw = packet->Build();
+	PacketClass *raw = packet->Encode();
 	DataSize = raw->Data.Get_Size() + sizeof(PacketHeaderClass);
 	if (DataSize != 0) {
 		Data = new char[DataSize];
@@ -128,7 +128,7 @@ GlobalContainerResponsePacketClass::~GlobalContainerResponsePacketClass()
 	Data = NULL;
 }
 
-PacketClass *GlobalContainerResponsePacketClass::Build()
+PacketClass *GlobalContainerResponsePacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(Get_Type(), Get_Data_Size());
 	raw->Add(Unknown18);

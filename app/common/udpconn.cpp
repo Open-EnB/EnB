@@ -510,7 +510,7 @@ bool UDPConnectionClass::Send_Message(PacketClass *packet)
 
 bool UDPConnectionClass::Send_Packet(UnknownPacketBaseClass *source)
 {
-	PacketClass *packet = source->Build();
+	PacketClass *packet = source->Encode();
 	FAIL_IF(packet->Header.Size > UDP_DATABUFFER_SIZE) {
 		delete packet;
 		return(false);

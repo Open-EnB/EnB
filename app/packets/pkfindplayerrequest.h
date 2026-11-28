@@ -25,7 +25,7 @@ class FindPlayerRequestPacketClass : public UnknownPacketBaseClass  // NAME 3: t
 public:
 	FindPlayerRequestPacketClass(int unknown0c, const char *name, bool unknown51);	// 0x886C70
 	FindPlayerRequestPacketClass(PacketClass *raw);	// 0x886D40
-	virtual PacketClass *Build();	// +0x04 0x886E30
+	virtual PacketClass *Encode();	// +0x04 0x886E30  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x868BE0 (clientstub.cpp l.290)
 	virtual int Get_Data_Size();	// +0x0C 0x886F10
 	virtual int Print(char *buffer, int len);	// +0x10 0x886F30
@@ -41,7 +41,7 @@ class FindPlayerResponsePacketClass : public UnknownPacketBaseClass  // NAME 3: 
 public:
 	FindPlayerResponsePacketClass(int unknown0c, const char *name, bool unknown51, int unknown54);	// 0x886F60
 	FindPlayerResponsePacketClass(PacketClass *raw);	// 0x887030
-	virtual PacketClass *Build();	// +0x04 0x887120
+	virtual PacketClass *Encode();	// +0x04 0x887120  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x868C10 (clientstub.cpp l.293)
 	virtual int Get_Data_Size();	// +0x0C 0x887210
 	virtual int Print(char *buffer, int len);	// +0x10 0x887230

@@ -32,7 +32,7 @@ GlobalLockRequestPacketClass::GlobalLockRequestPacketClass(PacketClass *raw) : G
 	raw->Get(Unknown20);
 }
 
-PacketClass *GlobalLockRequestPacketClass::Build()
+PacketClass *GlobalLockRequestPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(227, Get_Data_Size());
 	GlobalLockBasePacketClass::Unknown_28(raw);
@@ -59,7 +59,7 @@ GlobalLockResponsePacketClass::GlobalLockResponsePacketClass(PacketClass *raw) :
 	raw->Get(Unknown20);
 }
 
-PacketClass *GlobalLockResponsePacketClass::Build()
+PacketClass *GlobalLockResponsePacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(228, Get_Data_Size());
 	GlobalLockBasePacketClass::Unknown_28(raw);
@@ -85,7 +85,7 @@ GlobalLockReleasePacketClass::GlobalLockReleasePacketClass(PacketClass *raw) : G
 {
 }
 
-PacketClass *GlobalLockReleasePacketClass::Build()
+PacketClass *GlobalLockReleasePacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(229, Get_Data_Size());
 	GlobalLockBasePacketClass::Unknown_28(raw);

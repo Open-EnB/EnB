@@ -16,7 +16,7 @@ SpendReferralPointPacketClass::SpendReferralPointPacketClass(PacketClass *raw) :
 	raw->Get(Unknown0C);
 }
 
-PacketClass *SpendReferralPointPacketClass::Build()
+PacketClass *SpendReferralPointPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(Get_Type(), Get_Data_Size());
 	raw->Add(Unknown0C);

@@ -13,7 +13,7 @@ ClickIndicatorPacketClass::ClickIndicatorPacketClass(PacketClass *raw)
 	raw->Get(&ObjID, sizeof(ObjID));
 }
 
-PacketClass *ClickIndicatorPacketClass::Build()
+PacketClass *ClickIndicatorPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(105, Get_Data_Size());
 	raw->Add(&TurnOn, sizeof(TurnOn));

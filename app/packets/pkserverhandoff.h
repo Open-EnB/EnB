@@ -26,7 +26,7 @@ public:
 	ServerHandoffPacketClass(const TicketClass &ticket, const std::string &source_sector, const std::string &source_system,
 		const std::string &name, const std::string &system);	// 0x8943C0
 	ServerHandoffPacketClass(PacketClass *raw);	// 0x8946B0
-	virtual PacketClass *Build();	// +0x04 0x8947F0
+	virtual PacketClass *Encode();	// +0x04 0x8947F0  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x737CB0 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x8948E0
 	virtual int Print(char *buffer, int len);	// +0x10 0x894950

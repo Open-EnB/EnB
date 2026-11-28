@@ -17,7 +17,7 @@ ChangeBaseAssetPacketClass::ChangeBaseAssetPacketClass(PacketClass *raw)
 	raw->Get(&HSVShift, sizeof(HSVShift));
 }
 
-PacketClass *ChangeBaseAssetPacketClass::Build()
+PacketClass *ChangeBaseAssetPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(38, Get_Data_Size());
 	raw->Add(&GameID, sizeof(GameID));

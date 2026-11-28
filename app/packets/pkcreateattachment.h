@@ -24,7 +24,7 @@ class CreateAttachmentPacketClass : public UnknownPacketBaseClass
 public:
 	CreateAttachmentPacketClass(int unknown0c, int parent_id, int child_id, int unknown18);	// 0x876A20  // NAME 2: the stores (no caller left)
 	CreateAttachmentPacketClass(PacketClass *raw);	// 0x876B30
-	virtual PacketClass *Build();	// +0x04 0x876BD0
+	virtual PacketClass *Encode();	// +0x04 0x876BD0  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x733BB0 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x876CA0
 	virtual int Print(char *buffer, int len);	// +0x10 0x876CC0

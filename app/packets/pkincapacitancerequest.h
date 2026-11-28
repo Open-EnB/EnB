@@ -25,7 +25,7 @@ class IncapacitanceDetailsRequestPacket : public UnknownPacketBaseClass  // NAME
 public:
 	IncapacitanceDetailsRequestPacket(int game_id);	// 0x871F70
 	IncapacitanceDetailsRequestPacket(PacketClass *raw);	// 0x871FE0
-	virtual PacketClass *Build();	// +0x04 0x872070
+	virtual PacketClass *Encode();	// +0x04 0x872070  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x868A30 (clientstub.cpp l.263)
 	virtual int Get_Data_Size();	// +0x0C 0x872130
 	virtual int Print(char *buffer, int len);	// +0x10 0x872150
@@ -39,7 +39,7 @@ class IncapacitanceDistressBeaconPacket : public UnknownPacketBaseClass  // NAME
 public:
 	IncapacitanceDistressBeaconPacket(int game_id, bool on);	// 0x872180
 	IncapacitanceDistressBeaconPacket(PacketClass *raw);	// 0x872200
-	virtual PacketClass *Build();	// +0x04 0x8722A0
+	virtual PacketClass *Encode();	// +0x04 0x8722A0  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x868A60 (clientstub.cpp l.266)
 	virtual int Get_Data_Size();	// +0x0C 0x872370
 	virtual int Print(char *buffer, int len);	// +0x10 0x872390
@@ -54,7 +54,7 @@ class Packet_008FClass : public UnknownPacketBaseClass  // NAME 1: neutral (D10)
 public:
 	Packet_008FClass(int game_id);	// 0x8723E0
 	Packet_008FClass(PacketClass *raw);	// 0x872450
-	virtual PacketClass *Build();	// +0x04 0x8724E0
+	virtual PacketClass *Encode();	// +0x04 0x8724E0  // NAME 3: override of the NAME 5 virtual Encode
 	virtual bool Process_Packet(void *client);	// +0x08 0x868A90 (clientstub.cpp l.269)
 	virtual int Get_Data_Size();	// +0x0C 0x8725A0
 	virtual int Print(char *buffer, int len);	// +0x10 0x8725C0
@@ -69,7 +69,7 @@ public:
 	IncapacitanceDetailsPacket(const std::string &unknown0C, const AvatarDescriptionClass &desc, const std::string &unknown128, const std::string &unknown138, const std::string &unknown148, const std::string &unknown158, const std::string &unknown168, const std::string &unknown178, const std::string &unknown188);	// 0x8725F0
 	// the destructor is the implicit one: +0x00 0x872840 / 0x872870
 	IncapacitanceDetailsPacket(PacketClass *raw);	// 0x872A80
-	virtual PacketClass *Build();	// +0x04 0x872F70
+	virtual PacketClass *Encode();	// +0x04 0x872F70  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x739BB0 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x873100
 	virtual int Print(char *buffer, int len);	// +0x10 0x873230
@@ -91,7 +91,7 @@ class IncapacitanceRescueConfirmationPacket : public UnknownPacketBaseClass
 public:
 	IncapacitanceRescueConfirmationPacket(const std::string &unknown);	// 0x873260  // NAME 1 [unknown]: neutral (D10)
 	IncapacitanceRescueConfirmationPacket(PacketClass *raw);	// 0x8734E0
-	virtual PacketClass *Build();	// +0x04 0x873650
+	virtual PacketClass *Encode();	// +0x04 0x873650  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x739CD0 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x873720
 	virtual int Print(char *buffer, int len);	// +0x10 0x873740

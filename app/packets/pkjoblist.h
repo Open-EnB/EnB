@@ -38,7 +38,7 @@ public:
 	JobListPacketClass();	// 0x895F00
 	JobListPacketClass(PacketClass *raw);	// 0x895F80
 	virtual ~JobListPacketClass();	// +0x00 0x8962F0 / 0x895F50
-	virtual PacketClass *Build();	// +0x04 0x896430
+	virtual PacketClass *Encode();	// +0x04 0x896430  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x73A210 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x896600
 	virtual int Print(char *buffer, int len);	// +0x10 0x896680
@@ -56,7 +56,7 @@ public:
 	JobDescriptionPacketClass(unsigned int job_id, bool still_avail, const char *title, const char *description);	// 0x8968D0
 	JobDescriptionPacketClass(PacketClass *raw);	// 0x8969C0
 	virtual ~JobDescriptionPacketClass();	// +0x00 0x896990 / 0x896A90
-	virtual PacketClass *Build();	// +0x04 0x896AE0
+	virtual PacketClass *Encode();	// +0x04 0x896AE0  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x73A330 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x896BC0
 	virtual int Print(char *buffer, int len);	// +0x10 0x896C30
@@ -73,7 +73,7 @@ class JobDeletePacketClass : public UnknownPacketBaseClass
 public:
 	JobDeletePacketClass(int job_id);	// 0x896C80
 	JobDeletePacketClass(PacketClass *raw);	// 0x896D10
-	virtual PacketClass *Build();	// +0x04 0x896DA0
+	virtual PacketClass *Encode();	// +0x04 0x896DA0  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x73A420 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x896E60
 	virtual int Print(char *buffer, int len);	// +0x10 0x896E80
@@ -87,7 +87,7 @@ class JobAcceptReplyPacketClass : public UnknownPacketBaseClass
 public:
 	JobAcceptReplyPacketClass(int job_id, int accept_status, int seconds_remaining);	// 0x896EC0
 	JobAcceptReplyPacketClass(PacketClass *raw);	// 0x896F60
-	virtual PacketClass *Build();	// +0x04 0x897020
+	virtual PacketClass *Encode();	// +0x04 0x897020  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x73A510 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x897100
 	virtual int Print(char *buffer, int len);	// +0x10 0x897120

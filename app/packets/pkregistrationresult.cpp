@@ -19,7 +19,7 @@ RegistrationResultPacketClass::RegistrationResultPacketClass(PacketClass *raw)
 	Unknown0C = value;
 }
 
-PacketClass *RegistrationResultPacketClass::Build()
+PacketClass *RegistrationResultPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(77, Get_Data_Size());
 	int value = Unknown0C;

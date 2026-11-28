@@ -24,7 +24,7 @@ class CameraControlPacketClass : public UnknownPacketBaseClass
 public:
 	CameraControlPacketClass(int message, int game_id);	// 0x878280  // NAME 2: the stores (no caller left)
 	CameraControlPacketClass(PacketClass *raw);	// 0x878390
-	virtual PacketClass *Build();	// +0x04 0x878450
+	virtual PacketClass *Encode();	// +0x04 0x878450  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x739FF0 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x878540
 	virtual int Print(char *buffer, int len);	// +0x10 0x878560

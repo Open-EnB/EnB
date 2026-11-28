@@ -13,7 +13,7 @@ GameEditorSaveSectorPacketClass::GameEditorSaveSectorPacketClass(PacketClass *)
 {
 }
 
-PacketClass *GameEditorSaveSectorPacketClass::Build()
+PacketClass *GameEditorSaveSectorPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(30027, Get_Data_Size());
 	return(raw);
@@ -83,7 +83,7 @@ GameEditorSectorSavedPacketClass::~GameEditorSectorSavedPacketClass()
 	delete [] Message;
 }
 
-PacketClass *GameEditorSectorSavedPacketClass::Build()
+PacketClass *GameEditorSectorSavedPacketClass::Encode()
 {
 	PacketClass *packet = new PacketClass(30028, Get_Data_Size());
 

@@ -14,7 +14,7 @@ ConstantPositionalUpdatePacketClass::ConstantPositionalUpdatePacketClass(PacketC
 	raw->Get(Unknown1C, sizeof(Unknown1C));
 }
 
-PacketClass *ConstantPositionalUpdatePacketClass::Build()
+PacketClass *ConstantPositionalUpdatePacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(Get_Type(), Get_Data_Size());
 	raw->Add(&GameID, sizeof(GameID));
@@ -97,7 +97,7 @@ SimplePositionalUpdatePacketClass::SimplePositionalUpdatePacketClass(PacketClass
 	G_ASSERT(Velocity.Is_Valid());
 }
 
-PacketClass *SimplePositionalUpdatePacketClass::Build()
+PacketClass *SimplePositionalUpdatePacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(Get_Type(), Get_Data_Size());
 	raw->Add(&GameID, sizeof(GameID));
@@ -285,7 +285,7 @@ AdvancedPositionalUpdatePacketClass::AdvancedPositionalUpdatePacketClass(PacketC
 	G_ASSERT(WWMath::Is_Valid_Float(SetSpeed));
 }
 
-PacketClass *AdvancedPositionalUpdatePacketClass::Build()
+PacketClass *AdvancedPositionalUpdatePacketClass::Encode()
 {
 	unsigned int flags = Get_Flags();
 	int size = Get_Size(flags);
@@ -469,7 +469,7 @@ PlanetPositionalUpdatePacketClass::PlanetPositionalUpdatePacketClass(PacketClass
 	raw->Get(&TiltAngle, sizeof(TiltAngle));
 }
 
-PacketClass *PlanetPositionalUpdatePacketClass::Build()
+PacketClass *PlanetPositionalUpdatePacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(Get_Type(), Get_Data_Size());
 	raw->Add(&GameID, sizeof(GameID));
@@ -521,9 +521,9 @@ ComponentPositionalUpdatePacketClass::ComponentPositionalUpdatePacketClass(Packe
 	raw->Get(&TractorEffectID, sizeof(TractorEffectID));
 }
 
-PacketClass *ComponentPositionalUpdatePacketClass::Build()
+PacketClass *ComponentPositionalUpdatePacketClass::Encode()
 {
-	PacketClass *raw = SimplePositionalUpdatePacketClass::Build();
+	PacketClass *raw = SimplePositionalUpdatePacketClass::Encode();
 	raw->Add(&ImpartedDecay, sizeof(ImpartedDecay));
 	raw->Add(&TractorSpeed, sizeof(TractorSpeed));
 	raw->Add(&TractorID, sizeof(TractorID));
@@ -572,7 +572,7 @@ FormationPositionalUpdatePacketClass::FormationPositionalUpdatePacketClass(Packe
 	raw->Get(&Offset, sizeof(Offset));
 }
 
-PacketClass *FormationPositionalUpdatePacketClass::Build()
+PacketClass *FormationPositionalUpdatePacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(65, Get_Data_Size());
 	raw->Add(&GameID, sizeof(GameID));

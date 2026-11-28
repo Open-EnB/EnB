@@ -24,7 +24,7 @@ public:
 	GPSRequestPacketClass(char *unknown0c, char *unknown10, char *unknown14, char *unknown18, int unknown1c);	// 0x887F20
 	GPSRequestPacketClass(PacketClass *raw);	// 0x888020
 	virtual ~GPSRequestPacketClass();	// +0x00 (its scalar deleting destructor first)
-	virtual PacketClass *Build();	// +0x04 0x888150
+	virtual PacketClass *Encode();	// +0x04 0x888150  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x869480 (clientstub.cpp l.428)
 	virtual int Get_Data_Size();	// +0x0C 0x888240
 	virtual int Print(char *buffer, int len);	// +0x10 0x888290
@@ -43,7 +43,7 @@ public:
 	GPSResponsePacketClass(char *unknown0c, char *unknown10, char *unknown14, char *unknown18, int unknown1c, int unknown20);	// 0x8882C0
 	GPSResponsePacketClass(PacketClass *raw);	// 0x8883C0
 	virtual ~GPSResponsePacketClass();	// +0x00 (its scalar deleting destructor first)
-	virtual PacketClass *Build();	// +0x04 0x888500
+	virtual PacketClass *Encode();	// +0x04 0x888500  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x8694B0 (clientstub.cpp l.431)
 	virtual int Get_Data_Size();	// +0x0C 0x8885F0
 	virtual int Print(char *buffer, int len);	// +0x10 0x888640

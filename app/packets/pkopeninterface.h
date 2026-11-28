@@ -24,7 +24,7 @@ class OpenInterfacePacketClass : public UnknownPacketBaseClass
 public:
 	OpenInterfacePacketClass(int ui_change, int ui_type);	// 0x89F1F0
 	OpenInterfacePacketClass(PacketClass *raw);	// 0x89F290
-	virtual PacketClass *Build();	// +0x04 0x89F330
+	virtual PacketClass *Encode();	// +0x04 0x89F330  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x7397D0 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x89F400
 	virtual int Print(char *buffer, int len);	// +0x10 0x89F420

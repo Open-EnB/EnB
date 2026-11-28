@@ -24,7 +24,7 @@ class DebugPacketClass : public UnknownPacketBaseClass  // NAME 2: Net-7's opcod
 public:
 	DebugPacketClass(int game_id, int debug_idx, int user_data);	// 0x8802C0
 	DebugPacketClass(PacketClass *raw);	// 0x880340
-	virtual PacketClass *Build();	// +0x04 0x880400
+	virtual PacketClass *Encode();	// +0x04 0x880400  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x867CB0 (clientstub.cpp l.47)
 	virtual int Get_Data_Size();	// +0x0C 0x8804E0
 	virtual int Print(char *buffer, int len);	// +0x10 0x880500

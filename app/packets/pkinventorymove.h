@@ -29,7 +29,7 @@ class InvPacketClass : public UnknownPacketBaseClass  // NAME 5: thunk order A, 
 public:
 	InvPacketClass(int id, InventoryEnum from_inv, int from_slot, InventoryEnum to_inv, int to_slot, int num);	// 0x894CA0
 	InvPacketClass(PacketClass *raw);	// 0x894D50
-	virtual PacketClass *Build();	// +0x04 0x894E30
+	virtual PacketClass *Encode();	// +0x04 0x894E30  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x867D10 (clientstub.cpp l.53)
 	virtual int Get_Data_Size();	// +0x0C 0x894F50
 	virtual int Print(char *buffer, int len);	// +0x10 0x894F70
@@ -48,7 +48,7 @@ class InvSortPacketClass : public UnknownPacketBaseClass  // NAME 5: thunk order
 public:
 	InvSortPacketClass(int id, InventoryEnum target_inv, int sort1, int sort2, int sort3, bool reverse);	// 0x894FC0
 	InvSortPacketClass(PacketClass *raw);	// 0x895070
-	virtual PacketClass *Build();	// +0x04 0x895150
+	virtual PacketClass *Encode();	// +0x04 0x895150  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x867D40 (clientstub.cpp l.56)
 	virtual int Get_Data_Size();	// +0x0C 0x895260
 	virtual int Print(char *buffer, int len);	// +0x10 0x895280

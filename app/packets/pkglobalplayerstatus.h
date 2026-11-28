@@ -24,7 +24,7 @@ class GlobalPlayerStatusPacketClass : public UnknownPacketBaseClass  // NAME 5: 
 public:
 	GlobalPlayerStatusPacketClass(int unknown0c, const char *unknown10, __int64 unknown58, int unknown60, int unknown64);	// 0x8667A0  // NAME 2: the stores (no caller left)
 	GlobalPlayerStatusPacketClass(PacketClass *raw);	// 0x866870
-	virtual PacketClass *Build();	// +0x04 0x866930
+	virtual PacketClass *Encode();	// +0x04 0x866930  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x868910 (clientstub.cpp l.245)
 	virtual int Get_Data_Size();	// +0x0C 0x866A40
 	virtual int Print(char *buffer, int len);	// +0x10 0x866A60

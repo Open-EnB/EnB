@@ -13,7 +13,7 @@ OpenInterfacePacketClass::OpenInterfacePacketClass(PacketClass *raw)
 	raw->Get(&UIType, sizeof(UIType));
 }
 
-PacketClass *OpenInterfacePacketClass::Build()
+PacketClass *OpenInterfacePacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(102, Get_Data_Size());
 	raw->Add(&UIChange, sizeof(UIChange));

@@ -13,7 +13,7 @@ LootHulkPermissionPacketClass::LootHulkPermissionPacketClass(PacketClass *raw)
 	raw->Get(HulkGameID);
 }
 
-PacketClass *LootHulkPermissionPacketClass::Build()
+PacketClass *LootHulkPermissionPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(140, Get_Data_Size());
 	raw->Add(HulkGameID);

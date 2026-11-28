@@ -37,7 +37,7 @@ LoginPacketClass::~LoginPacketClass()
 {
 }
 
-PacketClass *LoginPacketClass::Build()
+PacketClass *LoginPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(2, Get_Data_Size());
 	raw->Add(Ticket);

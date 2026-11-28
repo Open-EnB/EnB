@@ -48,7 +48,7 @@ ServerParametersPacketClass::ServerParametersPacketClass(PacketClass *raw)
 	raw->Get(&SectorNum, sizeof(SectorNum));
 }
 
-PacketClass *ServerParametersPacketClass::Build()
+PacketClass *ServerParametersPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(66, Get_Data_Size());
 	raw->Add(&ZBandMin, sizeof(ZBandMin));

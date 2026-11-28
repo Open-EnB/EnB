@@ -26,7 +26,7 @@ public:
 	SplinePacketClass(int count, SplineEntryClass **entries);	// 0x8A57A0
 	SplinePacketClass(PacketClass *raw);	// 0x8A5870
 	virtual ~SplinePacketClass();	// +0x00 0x8A5840 / 0x8A5930
-	virtual PacketClass *Build();	// +0x04 0x8A5960
+	virtual PacketClass *Encode();	// +0x04 0x8A5960  // NAME 3: override of the NAME 5 virtual Encode
 	virtual bool Process_Packet(void *client);	// +0x08 0x737C10 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x8A5A30
 	virtual int Print(char *buffer, int len);	// +0x10 0x8A5A50

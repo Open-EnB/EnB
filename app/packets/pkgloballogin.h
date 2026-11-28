@@ -44,7 +44,7 @@ public:
 	GlobalLoginPacketClass(const LoginTicketInfoClass &info, bool referral_available, int total_referral_points, int spent_referral_points);	// 0x865D60
 	GlobalLoginPacketClass(PacketClass *raw);	// 0x866050
 	virtual ~GlobalLoginPacketClass();	// +0x00 0x8662B0 / 0x866020
-	virtual PacketClass *Build();	// +0x04 0x866420
+	virtual PacketClass *Encode();	// +0x04 0x866420  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x76B9C0 (tsk_login.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x8665A0
 	virtual int Print(char *buffer, int len);	// +0x10 0x866640

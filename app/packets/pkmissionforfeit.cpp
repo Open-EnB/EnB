@@ -13,7 +13,7 @@ MissionForfeitPacketClass::MissionForfeitPacketClass(PacketClass *raw) : playeri
 	raw->Get(ID);
 }
 
-PacketClass *MissionForfeitPacketClass::Build()
+PacketClass *MissionForfeitPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(134, Get_Data_Size());
 	raw->Add(playerid);
@@ -41,7 +41,7 @@ MissionDismissPacketClass::MissionDismissPacketClass(PacketClass *raw) : playeri
 	raw->Get(ID);
 }
 
-PacketClass *MissionDismissPacketClass::Build()
+PacketClass *MissionDismissPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(135, Get_Data_Size());
 	raw->Add(playerid);

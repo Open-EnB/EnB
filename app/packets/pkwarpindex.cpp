@@ -24,7 +24,7 @@ WarpPacketClass::~WarpPacketClass()
 	List = 0;
 }
 
-PacketClass *WarpPacketClass::Build()
+PacketClass *WarpPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(155, Get_Data_Size());
 	raw->Add(&PlayerID, sizeof(PlayerID));
@@ -53,7 +53,7 @@ WarpIndexPacketClass::WarpIndexPacketClass(PacketClass *raw)
 	raw->Get(&Index, sizeof(Index));
 }
 
-PacketClass *WarpIndexPacketClass::Build()
+PacketClass *WarpIndexPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(156, Get_Data_Size());
 	raw->Add(&Index, sizeof(Index));

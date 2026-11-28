@@ -25,7 +25,7 @@ InvPacketClass::InvPacketClass(PacketClass *raw)
 	raw->Get(Num);
 }
 
-PacketClass *InvPacketClass::Build()
+PacketClass *InvPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(39, Get_Data_Size());
 	raw->Add(ID);
@@ -72,7 +72,7 @@ InvSortPacketClass::InvSortPacketClass(PacketClass *raw)
 	raw->Get(Reverse);
 }
 
-PacketClass *InvSortPacketClass::Build()
+PacketClass *InvSortPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(40, Get_Data_Size());
 	raw->Add(ID);

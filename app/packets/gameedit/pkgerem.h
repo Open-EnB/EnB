@@ -23,7 +23,7 @@ class GameEditorRemovePacketClass : public UnknownPacketBaseClass  // NAME 5: th
 public:
 	GameEditorRemovePacketClass(int game_id);	// 0x861B30
 	GameEditorRemovePacketClass(PacketClass *raw);	// 0x861BC0
-	virtual PacketClass *Build();	// +0x04 0x861C50
+	virtual PacketClass *Encode();	// +0x04 0x861C50  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x861D60
 	virtual int Get_Data_Size();	// +0x0C 0x861D10
 	virtual int Print(char *buffer, int len);	// +0x10 0x861D30

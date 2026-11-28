@@ -13,7 +13,7 @@ TiltPacketClass::TiltPacketClass(PacketClass *raw)
 	raw->Get(&Intensity, sizeof(Intensity));
 }
 
-PacketClass *TiltPacketClass::Build()
+PacketClass *TiltPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(19, Get_Data_Size());
 	raw->Add(&GameID, sizeof(GameID));

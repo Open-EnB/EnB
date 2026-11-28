@@ -28,7 +28,7 @@ GMResetMissionRequestPacketClass::~GMResetMissionRequestPacketClass()
 {
 }
 
-PacketClass *GMResetMissionRequestPacketClass::Build()
+PacketClass *GMResetMissionRequestPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(237, Get_Data_Size());
 	raw->Add(Unknown0C);

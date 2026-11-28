@@ -38,7 +38,7 @@ bool MemoryConnectionClass::Send_Packet(UnknownPacketBaseClass *vp)
 	if (!Is_Connected()) {
 		return(false);
 	}
-	MemoryMessageClass message; message.Packet = vp->Build(); message.Time = Unknown_Get_Ticks() + SendPipe->Delay;
+	MemoryMessageClass message; message.Packet = vp->Encode(); message.Time = Unknown_Get_Ticks() + SendPipe->Delay;
 	SendPipe->Messages.push_back(message);
 	return(true);
 }

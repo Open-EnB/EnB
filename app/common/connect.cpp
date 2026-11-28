@@ -1043,7 +1043,7 @@ bool StreamConnectionClass::Write_Message(PacketClass *packet)
 
 bool StreamConnectionClass::Send_Packet(UnknownPacketBaseClass *packet)
 {
-	PacketClass *raw = packet->Build();
+	PacketClass *raw = packet->Encode();
 	bool ok = Write_Message(raw);
 	delete raw;
 	return(ok);

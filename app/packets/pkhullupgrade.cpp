@@ -13,7 +13,7 @@ HullUpgradePacketClass::HullUpgradePacketClass(PacketClass *raw)
 	raw->Get(&HullUpgradeLevel, sizeof(HullUpgradeLevel));
 }
 
-PacketClass *HullUpgradePacketClass::Build()
+PacketClass *HullUpgradePacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(89, Get_Data_Size());
 	raw->Add(&ShipID, sizeof(ShipID));

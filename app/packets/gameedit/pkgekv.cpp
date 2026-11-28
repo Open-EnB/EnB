@@ -38,7 +38,7 @@ Packet_7535Class::~Packet_7535Class()
 	}
 }
 
-PacketClass *Packet_7535Class::Build()
+PacketClass *Packet_7535Class::Encode()
 {
 	PacketClass *raw = new PacketClass(30005, Get_Data_Size());
 	raw->Add(&GameID, sizeof(GameID));
@@ -70,7 +70,7 @@ Packet_7536Class::Packet_7536Class(PacketClass *raw)
 	raw->Get(&GameID, sizeof(GameID));
 }
 
-PacketClass *Packet_7536Class::Build()
+PacketClass *Packet_7536Class::Encode()
 {
 	PacketClass *raw = new PacketClass(30006, Get_Data_Size());
 	raw->Add(&GameID, sizeof(GameID));
@@ -129,7 +129,7 @@ GameEditorKVUpdatePacketClass::~GameEditorKVUpdatePacketClass()
 	}
 }
 
-PacketClass *GameEditorKVUpdatePacketClass::Build()
+PacketClass *GameEditorKVUpdatePacketClass::Encode()
 {
 	PacketClass *packet = new PacketClass(30007, Get_Data_Size());
 
@@ -190,7 +190,7 @@ GameEditorKVModifyPacketClass::~GameEditorKVModifyPacketClass()
 	}
 }
 
-PacketClass *GameEditorKVModifyPacketClass::Build()
+PacketClass *GameEditorKVModifyPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(30008, Get_Data_Size());
 	raw->Add(&GameID, sizeof(GameID));

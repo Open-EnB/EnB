@@ -37,7 +37,7 @@ class DecalPacketClass : public UnknownPacketBaseClass
 public:
 	DecalPacketClass(int game_id, const std::vector<DecalStruct> &decals);	// 0x8805C0
 	DecalPacketClass(PacketClass *raw);	// 0x8807B0
-	virtual PacketClass *Build();	// +0x04 0x880BC0
+	virtual PacketClass *Encode();	// +0x04 0x880BC0  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x735DF0 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x880D00
 	virtual int Print(char *buffer, int len);	// +0x10 0x880D50
@@ -54,7 +54,7 @@ class NameDecalPacketClass : public UnknownPacketBaseClass
 public:
 	NameDecalPacketClass(int game_id, const char *name, const Vector3 &rgb);	// 0x880DA0  // NAME 2: the stores (no caller left)
 	NameDecalPacketClass(PacketClass *raw);	// 0x880EE0
-	virtual PacketClass *Build();	// +0x04 0x880FA0
+	virtual PacketClass *Encode();	// +0x04 0x880FA0  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x735FC0 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x881080
 	virtual int Print(char *buffer, int len);	// +0x10 0x8810A0

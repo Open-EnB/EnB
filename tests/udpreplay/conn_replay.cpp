@@ -133,7 +133,7 @@ static bool Packet_Bytes(UnknownPacketBaseClass *p, std::vector<unsigned char> &
 		bytes = it->second;
 		return true;
 	}
-	PacketClass *raw = p->Build();
+	PacketClass *raw = p->Encode();
 	if (raw == 0) {
 		return false;
 	}

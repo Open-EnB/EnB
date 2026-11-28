@@ -12,7 +12,7 @@ ManufactureItemCatagoryPacketClass::ManufactureItemCatagoryPacketClass(PacketCla
 	raw->Get(Mode);
 }
 
-PacketClass *ManufactureItemCatagoryPacketClass::Build()
+PacketClass *ManufactureItemCatagoryPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(121, Get_Data_Size());
 	raw->Add(player);
@@ -42,7 +42,7 @@ ManufactureSetItemCategoryPacketClass::ManufactureSetItemCategoryPacketClass(Pac
 	raw->Get(Category);
 }
 
-PacketClass *ManufactureSetItemCategoryPacketClass::Build()
+PacketClass *ManufactureSetItemCategoryPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(122, Get_Data_Size());
 	raw->Add(player);
@@ -70,7 +70,7 @@ ManufactureSetItemIDPacketClass::ManufactureSetItemIDPacketClass(PacketClass *ra
 	raw->Get(ItemID);
 }
 
-PacketClass *ManufactureSetItemIDPacketClass::Build()
+PacketClass *ManufactureSetItemIDPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(123, Get_Data_Size());
 	raw->Add(player);
@@ -98,7 +98,7 @@ RefinerySetItemIDPacketClass::RefinerySetItemIDPacketClass(PacketClass *raw) : p
 	raw->Get(&ItemID, sizeof(ItemID));
 }
 
-PacketClass *RefinerySetItemIDPacketClass::Build()
+PacketClass *RefinerySetItemIDPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(124, Get_Data_Size());
 	raw->Add(&player, sizeof(player));
@@ -127,7 +127,7 @@ Packet_007DClass::Packet_007DClass(PacketClass *raw) : player(0), CargoSlotID(-1
 	raw->Get(VaultSlotID);
 }
 
-PacketClass *Packet_007DClass::Build()
+PacketClass *Packet_007DClass::Encode()
 {
 	PacketClass *raw = new PacketClass(125, Get_Data_Size());
 	raw->Add(player);
@@ -156,7 +156,7 @@ ManufactureActionPacketClass::ManufactureActionPacketClass(PacketClass *raw) : p
 	raw->Get(ActionID);
 }
 
-PacketClass *ManufactureActionPacketClass::Build()
+PacketClass *ManufactureActionPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(126, Get_Data_Size());
 	raw->Add(player);
@@ -184,7 +184,7 @@ ManufactureSetPacketClass::ManufactureSetPacketClass(PacketClass *raw)
 	raw->Get(ManufactureID);
 }
 
-PacketClass *ManufactureSetPacketClass::Build()
+PacketClass *ManufactureSetPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(127, Get_Data_Size());
 	raw->Add(ManufactureID);
@@ -218,7 +218,7 @@ ManufactureSetTechLevelFilterPacketClass::ManufactureSetTechLevelFilterPacketCla
 	raw->Get((int &)BitField);
 }
 
-PacketClass *ManufactureSetTechLevelFilterPacketClass::Build()
+PacketClass *ManufactureSetTechLevelFilterPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(128, Get_Data_Size());
 	raw->Add(Player);

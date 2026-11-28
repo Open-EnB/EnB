@@ -28,7 +28,7 @@ GMDestroyItemRequestPacketClass::~GMDestroyItemRequestPacketClass()
 {
 }
 
-PacketClass *GMDestroyItemRequestPacketClass::Build()
+PacketClass *GMDestroyItemRequestPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(236, Get_Data_Size());
 	raw->Add(Unknown0C);

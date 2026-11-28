@@ -14,7 +14,7 @@ UseInventoryPacketClass::UseInventoryPacketClass(PacketClass *raw)
 	raw->Get(&Slot, sizeof(Slot));
 }
 
-PacketClass *UseInventoryPacketClass::Build()
+PacketClass *UseInventoryPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(93, Get_Data_Size());
 	raw->Add(&GameID, sizeof(GameID));

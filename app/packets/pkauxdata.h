@@ -25,7 +25,7 @@ public:
 	AuxDataPacketClass(int game_id, const void *data, int size);	// 0x876D30
 	AuxDataPacketClass(PacketClass *raw);	// 0x876E90
 	virtual ~AuxDataPacketClass();	// +0x00 0x876F60 / 0x876E60
-	virtual PacketClass *Build();	// +0x04 0x876FA0
+	virtual PacketClass *Encode();	// +0x04 0x876FA0  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x7364C0 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x877080
 	virtual int Print(char *buffer, int len);	// +0x10 0x8770A0

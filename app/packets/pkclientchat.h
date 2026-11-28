@@ -26,7 +26,7 @@ public:
 	ClientChatPacketClass(int game_id, char *string, char type, char *target);	// 0x8785D0 (the strings not copied)
 	ClientChatPacketClass(PacketClass *raw);	// 0x8786E0
 	virtual ~ClientChatPacketClass();	// +0x00 0x8786B0 / 0x878800
-	virtual PacketClass *Build();	// +0x04 0x878870
+	virtual PacketClass *Encode();	// +0x04 0x878870  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x867DA0 (clientstub.cpp l.62)
 	virtual int Get_Data_Size();	// +0x0C 0x878990
 	virtual int Print(char *buffer, int len);	// +0x10 0x8789B0
@@ -49,7 +49,7 @@ public:
 	ClientChatRequestPacketClass(int unknown10, int unknown0c);	// 0x878A50
 	ClientChatRequestPacketClass(PacketClass *raw);	// 0x878B10
 	virtual ~ClientChatRequestPacketClass();	// +0x00 0x878AE0 / 0x878C80
-	virtual PacketClass *Build();	// +0x04 0x878DC0
+	virtual PacketClass *Encode();	// +0x04 0x878DC0  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x868CA0 (clientstub.cpp l.302)
 	virtual int Get_Data_Size();	// +0x0C 0x878EE0
 	virtual int Print(char *buffer, int len);	// +0x10 0x878F30 (the class name: 'ClientChatRequestPacketClass')
@@ -74,7 +74,7 @@ public:
 	ClientChatEventPacketClass(int unknown0c);	// 0x878F60
 	ClientChatEventPacketClass(PacketClass *raw);	// 0x8790B0
 	virtual ~ClientChatEventPacketClass();	// +0x00 0x879080 / 0x879280
-	virtual PacketClass *Build();	// +0x04 0x879430
+	virtual PacketClass *Encode();	// +0x04 0x879430  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x73B150 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x879570
 	virtual int Print(char *buffer, int len);	// +0x10 0x8795F0 (the class name: 'ClientChatEventPacketClass')
@@ -102,7 +102,7 @@ class ClientChatListPacketClass : public UnknownPacketBaseClass
 public:
 	ClientChatListPacketClass(int unknown0c, const std::string &unknown10);	// 0x879620
 	ClientChatListPacketClass(PacketClass *raw);	// 0x879850
-	virtual PacketClass *Build();	// +0x04 0x879BF0
+	virtual PacketClass *Encode();	// +0x04 0x879BF0  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x73CC90 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x879D60
 	virtual int Print(char *buffer, int len);	// +0x10 0x87A220 (the class name: 'ClientChatListPacketClass')
@@ -122,7 +122,7 @@ class ClientChatErrorPacketClass : public UnknownPacketBaseClass
 public:
 	ClientChatErrorPacketClass(int unknown0c);	// 0x87A250
 	ClientChatErrorPacketClass(PacketClass *raw);	// 0x87A560
-	virtual PacketClass *Build();	// +0x04 0x87A7B0
+	virtual PacketClass *Encode();	// +0x04 0x87A7B0  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x73D170 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x87A8A0
 	virtual int Print(char *buffer, int len);	// +0x10 0x87A8E0 (the class name: 'ClientChatErrorPacketClass')

@@ -24,7 +24,7 @@ class GameEditorLoginPacketClass : public UnknownPacketBaseClass  // NAME 5: thu
 public:
 	GameEditorLoginPacketClass(int editor_protocol_version);	// 0x85F250
 	GameEditorLoginPacketClass(PacketClass *raw);	// 0x85F2C0
-	virtual PacketClass *Build();	// +0x04 0x85F370
+	virtual PacketClass *Encode();	// +0x04 0x85F370  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x867F20 (clientstub.cpp l.86)
 	virtual int Get_Data_Size();	// +0x0C 0x85F430
 	virtual int Print(char *buffer, int len);	// +0x10 0x85F450
@@ -37,7 +37,7 @@ class GameEditorLogoutPacketClass : public UnknownPacketBaseClass  // NAME 5: th
 {
 public:
 	GameEditorLogoutPacketClass(PacketClass *raw);	// 0x85F480
-	virtual PacketClass *Build();	// +0x04 0x85F510
+	virtual PacketClass *Encode();	// +0x04 0x85F510  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x868190 (clientstub.cpp l.125)
 	virtual int Get_Data_Size();	// +0x0C 0x85F5A0
 	virtual int Print(char *buffer, int len);	// +0x10 0x85F5C0
@@ -49,7 +49,7 @@ class GameEditorProtocolVersionPacketClass : public UnknownPacketBaseClass  // N
 public:
 	GameEditorProtocolVersionPacketClass(unsigned int server_protocol_version);	// 0x85F5F0
 	GameEditorProtocolVersionPacketClass(PacketClass *raw);	// 0x85F660
-	virtual PacketClass *Build();	// +0x04 0x85F710
+	virtual PacketClass *Encode();	// +0x04 0x85F710  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x85F820
 	virtual int Get_Data_Size();	// +0x0C 0x85F7D0
 	virtual int Print(char *buffer, int len);	// +0x10 0x85F7F0

@@ -23,7 +23,7 @@ class ModeRequestPacketClass : public UnknownPacketBaseClass  // NAME 5: thunk o
 public:
 	ModeRequestPacketClass(int unknown0c, int mode);	// 0x89CDB0
 	ModeRequestPacketClass(PacketClass *raw);	// 0x89CE70
-	virtual PacketClass *Build();	// +0x04 0x89CF10
+	virtual PacketClass *Encode();	// +0x04 0x89CF10  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x738100 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C PKMODEREQUEST_HDS
 	virtual int Print(char *buffer, int len);	// +0x10 0x89D000

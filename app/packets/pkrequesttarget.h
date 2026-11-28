@@ -24,7 +24,7 @@ class RequestTargetPacketClass : public UnknownPacketBaseClass  // NAME 2: Net-7
 public:
 	RequestTargetPacketClass(int game_id, int target_id);	// 0x8A7EA0
 	RequestTargetPacketClass(PacketClass *raw);	// 0x8A7F40
-	virtual PacketClass *Build();	// +0x04 0x8A7FE0
+	virtual PacketClass *Encode();	// +0x04 0x8A7FE0  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x867CE0 (clientstub.cpp l.50)
 	virtual int Get_Data_Size();	// +0x0C 0x8A80B0
 	virtual int Print(char *buffer, int len);	// +0x10 0x8A80D0
@@ -40,7 +40,7 @@ class RequestTargetTargetPacketClass : public UnknownPacketBaseClass  // NAME 5:
 public:
 	RequestTargetTargetPacketClass(int game_id, int target_id);	// 0x8A8110
 	RequestTargetTargetPacketClass(PacketClass *raw);	// 0x8A81B0
-	virtual PacketClass *Build();	// +0x04 0x8A8250
+	virtual PacketClass *Encode();	// +0x04 0x8A8250  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x8689D0 (clientstub.cpp l.257)
 	virtual int Get_Data_Size();	// +0x0C 0x8A8320
 	virtual int Print(char *buffer, int len);	// +0x10 0x8A8340
@@ -56,7 +56,7 @@ class SetTargetPacketClass : public UnknownPacketBaseClass
 public:
 	SetTargetPacketClass(int target_id, int unknown10);	// 0x8A8380
 	SetTargetPacketClass(PacketClass *raw);	// 0x8A8420
-	virtual PacketClass *Build();	// +0x04 0x8A84C0
+	virtual PacketClass *Encode();	// +0x04 0x8A84C0  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x7363E0 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x8A8590
 	virtual int Print(char *buffer, int len);	// +0x10 0x8A85B0

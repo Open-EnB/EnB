@@ -13,7 +13,7 @@ SkillStringRqPacketClass::SkillStringRqPacketClass(PacketClass *raw)
 	raw->Get(&Request, sizeof(Request));
 }
 
-PacketClass *SkillStringRqPacketClass::Build()
+PacketClass *SkillStringRqPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(81, Get_Data_Size());
 	raw->Add(&PlayerID, sizeof(PlayerID));

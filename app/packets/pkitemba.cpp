@@ -71,7 +71,7 @@ ItemBasePacketClass::~ItemBasePacketClass()
 	Info = 0;
 }
 
-PacketClass *ItemBasePacketClass::Build()
+PacketClass *ItemBasePacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(37, Get_Data_Size());
 	raw->Add(ItemTemplateID);

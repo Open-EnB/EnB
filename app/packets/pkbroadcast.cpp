@@ -25,7 +25,7 @@ BroadcastPacketClass::~BroadcastPacketClass()
 	String = 0;
 }
 
-PacketClass *BroadcastPacketClass::Build()
+PacketClass *BroadcastPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(99, Get_Data_Size());
 	raw->Add(&Size, sizeof(Size));

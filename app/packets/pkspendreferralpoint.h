@@ -25,7 +25,7 @@ public:
 	SpendReferralPointPacketClass(int unknown0_c);	// 0x8A5510
 	SpendReferralPointPacketClass(PacketClass *raw);	// 0x8A55A0
 	virtual ~SpendReferralPointPacketClass();	// +0x00 0x8A5580 / 0x8A5550 (out of line: SpaceClientClass 0x751660 calls it after Send_Packet)
-	virtual PacketClass *Build();	// +0x04 0x8A5630
+	virtual PacketClass *Encode();	// +0x04 0x8A5630  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x869600 (clientstub.cpp l.452)
 	virtual int Get_Data_Size();	// +0x0C 0x8A5720
 	virtual int Print(char *buffer, int len);	// +0x10 0x8A5740

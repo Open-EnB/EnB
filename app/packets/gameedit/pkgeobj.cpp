@@ -31,7 +31,7 @@ GameEditorCreateFinalPacketClass::~GameEditorCreateFinalPacketClass()
 	}
 }
 
-PacketClass *GameEditorCreateFinalPacketClass::Build()
+PacketClass *GameEditorCreateFinalPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(30016, Get_Data_Size());
 	raw->Add(&Size, sizeof(Size));
@@ -86,7 +86,7 @@ GameEditorCreateEmptyPacketClass::~GameEditorCreateEmptyPacketClass()
 	}
 }
 
-PacketClass *GameEditorCreateEmptyPacketClass::Build()
+PacketClass *GameEditorCreateEmptyPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(30014, Get_Data_Size());
 	raw->Add(&Size, sizeof(Size));
@@ -112,7 +112,7 @@ GameEditorCreateCancelPacketClass::GameEditorCreateCancelPacketClass(PacketClass
 {
 }
 
-PacketClass *GameEditorCreateCancelPacketClass::Build()
+PacketClass *GameEditorCreateCancelPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(30015, Get_Data_Size());
 	return(raw);
@@ -137,7 +137,7 @@ GameEditorDeletePacketClass::GameEditorDeletePacketClass(PacketClass *raw)
 	raw->Get(&GameID, sizeof(GameID));
 }
 
-PacketClass *GameEditorDeletePacketClass::Build()
+PacketClass *GameEditorDeletePacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(30009, Get_Data_Size());
 	raw->Add(&GameID, sizeof(GameID));
@@ -162,7 +162,7 @@ GameEditorMovePacketClass::GameEditorMovePacketClass(PacketClass *raw)
 	raw->Get(&Transform, sizeof(Transform));
 }
 
-PacketClass *GameEditorMovePacketClass::Build()
+PacketClass *GameEditorMovePacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(30010, Get_Data_Size());
 	raw->Add(&GameID, sizeof(GameID));
@@ -257,7 +257,7 @@ GameEditorTemplateCategoriesPacketClass::~GameEditorTemplateCategoriesPacketClas
 	}
 }
 
-PacketClass *GameEditorTemplateCategoriesPacketClass::Build()
+PacketClass *GameEditorTemplateCategoriesPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(30011, Get_Data_Size());
 	raw->Add(&Size, sizeof(Size));
@@ -320,7 +320,7 @@ GameEditorRequestTemplateListPacketClass::~GameEditorRequestTemplateListPacketCl
 	}
 }
 
-PacketClass *GameEditorRequestTemplateListPacketClass::Build()
+PacketClass *GameEditorRequestTemplateListPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(30012, Get_Data_Size());
 	raw->Add(&Size, sizeof(Size));
@@ -375,7 +375,7 @@ GameEditorTemplateListPacketClass::~GameEditorTemplateListPacketClass()
 	}
 }
 
-PacketClass *GameEditorTemplateListPacketClass::Build()
+PacketClass *GameEditorTemplateListPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(30013, Get_Data_Size());
 	raw->Add(&Size, sizeof(Size));

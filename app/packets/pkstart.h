@@ -24,7 +24,7 @@ class StartPacketClass : public UnknownPacketBaseClass
 public:
 	StartPacketClass(int unknown, int player_id);	// 0x8A6610  // NAME 2: the stores (no caller left)
 	StartPacketClass(PacketClass *raw);	// 0x8A66A0
-	virtual PacketClass *Build();	// +0x04 0x8A6730
+	virtual PacketClass *Encode();	// +0x04 0x8A6730  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x733440 (cpacket.cpp, register-only residue)
 	virtual int Get_Data_Size();	// +0x0C 0x8A67F0
 	virtual int Print(char *buffer, int len);	// +0x10 0x8A6810
@@ -38,7 +38,7 @@ class StartAckPacketClass : public UnknownPacketBaseClass  // NAME 2: Net-7's op
 public:
 	StartAckPacketClass(int player_id);	// 0x8A6840
 	StartAckPacketClass(PacketClass *raw);	// 0x8A68B0
-	virtual PacketClass *Build();	// +0x04 0x8A6940
+	virtual PacketClass *Encode();	// +0x04 0x8A6940  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x867B90 (clientstub.cpp l.29)
 	virtual int Get_Data_Size();	// +0x0C 0x8A6A00
 	virtual int Print(char *buffer, int len);	// +0x10 0x8A6A20

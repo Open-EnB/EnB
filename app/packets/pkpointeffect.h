@@ -26,7 +26,7 @@ class ObjectEffectPacketClass : public FlagPacketClass
 public:
 	ObjectEffectPacketClass(int effect_id, const DurationClass &time_stamp, int game_id, const DurationClass &duration, short effect_desc_id, float scale, const Vector3 &hsv_shift);	// 0x882710
 	ObjectEffectPacketClass(PacketClass *raw);	// 0x882980
-	virtual PacketClass *Build();	// +0x04 0x882B40
+	virtual PacketClass *Encode();	// +0x04 0x882B40  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x734DF0 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x883060
 	virtual int Print(char *buffer, int len);	// +0x10 0x883250
@@ -52,7 +52,7 @@ class PointEffectPacketClass : public UnknownPacketBaseClass
 public:
 	PointEffectPacketClass(int effect_id, const DurationClass &time_stamp, const Vector3 &location, const DurationClass &duration, short effect_desc_id, float scale, const Vector3 &hsv_shift);	// 0x8832D0
 	PointEffectPacketClass(PacketClass *raw);	// 0x8834D0
-	virtual PacketClass *Build();	// +0x04 0x8835C0
+	virtual PacketClass *Encode();	// +0x04 0x8835C0  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x735000 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x8836E0
 	virtual int Print(char *buffer, int len);	// +0x10 0x883700
@@ -72,7 +72,7 @@ class ObjectToObjectEffectPacketClass : public FlagPacketClass
 public:
 	ObjectToObjectEffectPacketClass(int effect_id, const DurationClass &time_stamp, int source_game_id, const LegoIdentifierClass &source_lego, int target_game_id, const DurationClass &duration, short effect_desc_id, const Vector3 &target_offset, short unknown34, short unknown36, bool outside_target_radius, float scale, const Vector3 &hsv_shift, float speedup);	// 0x883790
 	ObjectToObjectEffectPacketClass(PacketClass *raw);	// 0x883A60
-	virtual PacketClass *Build();	// +0x04 0x883DD0
+	virtual PacketClass *Encode();	// +0x04 0x883DD0  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x735280 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x884020
 	virtual int Print(char *buffer, int len);	// +0x10 0x884410
@@ -105,7 +105,7 @@ class ObjectToEffectEffectPacketClass : public UnknownPacketBaseClass
 public:
 	ObjectToEffectEffectPacketClass(int effect_id, const DurationClass &time_stamp, int source_game_id, const LegoIdentifierClass &source_lego, int target_game_id, const DurationClass &duration, short effect_desc_id, const Vector3 &target_offset, short unknown34, short unknown36, float scale, const Vector3 &hsv_shift, float speedup);	// 0x8844D0
 	ObjectToEffectEffectPacketClass(PacketClass *raw);	// 0x884790
-	virtual PacketClass *Build();	// +0x04 0x8849E0
+	virtual PacketClass *Encode();	// +0x04 0x8849E0  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x735520 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x884BC0
 	virtual int Print(char *buffer, int len);	// +0x10 0x884C80
@@ -133,7 +133,7 @@ class ObjectToPointEffectPacketClass : public UnknownPacketBaseClass
 public:
 	ObjectToPointEffectPacketClass(int effect_id, const DurationClass &time_stamp, int source_game_id, const LegoIdentifierClass &source_lego, const Vector3 &target_point, const DurationClass &duration, short effect_desc_id, float scale, const Vector3 &hsv_shift, float speedup);	// 0x884D20
 	ObjectToPointEffectPacketClass(PacketClass *raw);	// 0x884FC0
-	virtual PacketClass *Build();	// +0x04 0x8851E0
+	virtual PacketClass *Encode();	// +0x04 0x8851E0  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x735B00 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x8853A0
 	virtual int Print(char *buffer, int len);	// +0x10 0x885460
@@ -158,7 +158,7 @@ class ObjectToObjectDurationLinkedEffectPacketClass : public UnknownPacketBaseCl
 public:
 	ObjectToObjectDurationLinkedEffectPacketClass(int effect_id, const DurationClass &time_stamp, int source_game_id, const LegoIdentifierClass &source_lego, int target_game_id, short duration_linked_effect_desc_id, short effect_desc_id, const Vector3 &target_offset, short unknown34, short unknown36, bool outside_target_radius, float scale, const Vector3 &hsv_shift, float speedup);	// 0x8854E0
 	ObjectToObjectDurationLinkedEffectPacketClass(PacketClass *raw);	// 0x885750
-	virtual PacketClass *Build();	// +0x04 0x8859B0
+	virtual PacketClass *Encode();	// +0x04 0x8859B0  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x735880 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x885BB0
 	virtual int Print(char *buffer, int len);	// +0x10 0x885C70
@@ -187,7 +187,7 @@ class RemoveEffectPacketClass : public UnknownPacketBaseClass
 public:
 	RemoveEffectPacketClass(int effect_id, int game_id);	// 0x885D30  // NAME 2: the stores (no caller left)
 	RemoveEffectPacketClass(PacketClass *raw);	// 0x885E30
-	virtual PacketClass *Build();	// +0x04 0x885EC0
+	virtual PacketClass *Encode();	// +0x04 0x885EC0  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x735D50 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x885F80
 	virtual int Print(char *buffer, int len);	// +0x10 0x885FA0

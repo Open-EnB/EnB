@@ -25,7 +25,7 @@ class SetZBandPacketClass : public UnknownPacketBaseClass
 public:
 	SetZBandPacketClass(float min, float max);	// 0x8A4250
 	SetZBandPacketClass(PacketClass *raw);	// 0x8A42F0
-	virtual PacketClass *Build();	// +0x04 0x8A4390
+	virtual PacketClass *Encode();	// +0x04 0x8A4390  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x737520 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x8A4460
 	virtual int Print(char *buffer, int len);	// +0x10 0x8A4480
@@ -40,7 +40,7 @@ class SetBBoxPacketClass : public UnknownPacketBaseClass
 public:
 	SetBBoxPacketClass(const Vector2 &min, const Vector2 &max);	// 0x8A44C0  // NAME 2: the stores (no caller left)
 	SetBBoxPacketClass(PacketClass *raw);	// 0x8A4580
-	virtual PacketClass *Build();	// +0x04 0x8A4620
+	virtual PacketClass *Encode();	// +0x04 0x8A4620  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x737590 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x8A46F0
 	virtual int Print(char *buffer, int len);	// +0x10 0x8A4710

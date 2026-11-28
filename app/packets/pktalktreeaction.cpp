@@ -42,7 +42,7 @@ void TalkTreePacketClass::Swap_Responses(std::vector<TalkTreeResponseStruct> &re
 	responses.swap(Responses);
 }
 
-PacketClass *TalkTreePacketClass::Build()
+PacketClass *TalkTreePacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(84, Get_Data_Size());
 	raw->Add_String(NPCSay.c_str());
@@ -80,7 +80,7 @@ TalkTreeActionPacketClass::TalkTreeActionPacketClass(PacketClass *raw)
 	raw->Get(&Action, sizeof(Action));
 }
 
-PacketClass *TalkTreeActionPacketClass::Build()
+PacketClass *TalkTreeActionPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(86, Get_Data_Size());
 	raw->Add(&Action, sizeof(Action));
@@ -108,7 +108,7 @@ SelectTalkTreePacketClass::SelectTalkTreePacketClass(PacketClass *raw)
 	raw->Get(&Selection, sizeof(Selection));
 }
 
-PacketClass *SelectTalkTreePacketClass::Build()
+PacketClass *SelectTalkTreePacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(85, Get_Data_Size());
 	raw->Add(&PlayerID, sizeof(PlayerID));

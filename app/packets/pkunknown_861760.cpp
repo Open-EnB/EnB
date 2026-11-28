@@ -19,7 +19,7 @@ Packet_7532Class::Packet_7532Class(PacketClass *raw)
 	Transform = Matrix3D(rotation, position);
 }
 
-PacketClass *Packet_7532Class::Build()
+PacketClass *Packet_7532Class::Encode()
 {
 	PacketClass *raw = new PacketClass(30002, Get_Data_Size());
 	Quaternion rotation = Build_Quaternion(Transform);

@@ -31,7 +31,7 @@ MovementPacketClass::MovementPacketClass(PacketClass *raw)
 	raw->Get(&MoveType, sizeof(MoveType));
 }
 
-PacketClass *MovementPacketClass::Build()
+PacketClass *MovementPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(20, Get_Data_Size());
 	raw->Add(&GameID, sizeof(GameID));

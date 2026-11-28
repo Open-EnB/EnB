@@ -18,7 +18,7 @@ Packet_00B3Class::Packet_00B3Class(PacketClass *raw) : Unknown1C(0)
 	delete [] string;
 }
 
-PacketClass *Packet_00B3Class::Build()
+PacketClass *Packet_00B3Class::Encode()
 {
 	PacketClass *raw = new PacketClass(179, Get_Data_Size());
 	raw->Add_String(Name.c_str());

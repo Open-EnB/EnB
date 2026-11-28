@@ -12,7 +12,7 @@ StartPacketClass::StartPacketClass(PacketClass *raw)
 	raw->Get(&PlayerID, sizeof(PlayerID));
 }
 
-PacketClass *StartPacketClass::Build()
+PacketClass *StartPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(5, Get_Data_Size());
 	raw->Add(&PlayerID, sizeof(PlayerID));
@@ -38,7 +38,7 @@ StartAckPacketClass::StartAckPacketClass(PacketClass *raw)
 	raw->Get(&PlayerID, sizeof(PlayerID));
 }
 
-PacketClass *StartAckPacketClass::Build()
+PacketClass *StartAckPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(6, Get_Data_Size());
 	raw->Add(&PlayerID, sizeof(PlayerID));

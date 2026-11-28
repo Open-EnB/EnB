@@ -33,7 +33,7 @@ GPSRequestPacketClass::~GPSRequestPacketClass()
 	Unknown18 = 0;
 }
 
-PacketClass *GPSRequestPacketClass::Build()
+PacketClass *GPSRequestPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(221, Get_Data_Size());
 	raw->Add_String(Unknown0C);
@@ -89,7 +89,7 @@ GPSResponsePacketClass::~GPSResponsePacketClass()
 	Unknown18 = 0;
 }
 
-PacketClass *GPSResponsePacketClass::Build()
+PacketClass *GPSResponsePacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(222, Get_Data_Size());
 	raw->Add_String(Unknown0C);

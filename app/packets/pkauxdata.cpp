@@ -26,7 +26,7 @@ AuxDataPacketClass::~AuxDataPacketClass()
 	}
 }
 
-PacketClass *AuxDataPacketClass::Build()
+PacketClass *AuxDataPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(Get_Type(), Get_Data_Size());
 	raw->Add(&GameID, sizeof(GameID));

@@ -11,7 +11,7 @@ ServerStopPacketClass::ServerStopPacketClass(PacketClass *)
 {
 }
 
-PacketClass *ServerStopPacketClass::Build()
+PacketClass *ServerStopPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(61, Get_Data_Size());
 	return(raw);

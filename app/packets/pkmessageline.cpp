@@ -38,7 +38,7 @@ MessageLinePacketClass::~MessageLinePacketClass()
 	}
 }
 
-PacketClass *MessageLinePacketClass::Build()
+PacketClass *MessageLinePacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(Get_Type(), Get_Data_Size());
 	raw->Add_String(String);
@@ -72,7 +72,7 @@ ClearMessageLinePacketClass::ClearMessageLinePacketClass(PacketClass *)
 {
 }
 
-PacketClass *ClearMessageLinePacketClass::Build()
+PacketClass *ClearMessageLinePacketClass::Encode()
 {
 	return(new PacketClass(36, 0));
 }
@@ -104,7 +104,7 @@ SuperLinePacketClass::~SuperLinePacketClass()
 	}
 }
 
-PacketClass *SuperLinePacketClass::Build()
+PacketClass *SuperLinePacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(Get_Type(), Get_Data_Size());
 	raw->Add_String(String);

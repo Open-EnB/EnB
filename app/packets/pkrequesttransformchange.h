@@ -26,7 +26,7 @@ class RequestTransformChangePacketClass : public UnknownPacketBaseClass  // NAME
 public:
 	RequestTransformChangePacketClass(int player_id, int game_id, const Vector3 &position, const Quaternion &orientation, const Vector3 &velocity);	// 0x8A27B0  // NAME 2: the stores (no caller left)
 	RequestTransformChangePacketClass(PacketClass *raw);	// 0x8A28C0
-	virtual PacketClass *Build();	// +0x04 0x8A2990
+	virtual PacketClass *Encode();	// +0x04 0x8A2990  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x867EC0 (clientstub.cpp l.80)
 	virtual int Get_Data_Size();	// +0x0C 0x8A2A80
 	virtual int Print(char *buffer, int len);	// +0x10 0x8A2AA0

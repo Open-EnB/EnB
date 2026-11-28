@@ -22,7 +22,7 @@ ServerHandoffPacketClass::ServerHandoffPacketClass(PacketClass *raw) :
 	raw->Get(&System);
 }
 
-PacketClass *ServerHandoffPacketClass::Build()
+PacketClass *ServerHandoffPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(58, Get_Data_Size());
 	raw->Add((Unknown_PacketDataClass &)Ticket);

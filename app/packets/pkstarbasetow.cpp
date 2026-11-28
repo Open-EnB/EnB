@@ -16,7 +16,7 @@ StarbaseReqPacketClass::StarbaseReqPacketClass(PacketClass *raw)
 	raw->Get(&Action, sizeof(Action));
 }
 
-PacketClass *StarbaseReqPacketClass::Build()
+PacketClass *StarbaseReqPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(78, Get_Data_Size());
 	raw->Add(&PlayerID, sizeof(PlayerID));
@@ -49,7 +49,7 @@ StarbaseSetPacketClass::StarbaseSetPacketClass(PacketClass *raw)
 	raw->Get(&ExitMode, sizeof(ExitMode));
 }
 
-PacketClass *StarbaseSetPacketClass::Build()
+PacketClass *StarbaseSetPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(79, Get_Data_Size());
 	raw->Add(&StarbaseID, sizeof(StarbaseID));
@@ -82,7 +82,7 @@ StarbaseTowPacketClass::StarbaseTowPacketClass(PacketClass *raw)
 	raw->Get(&TowCost3, sizeof(TowCost3));
 }
 
-PacketClass *StarbaseTowPacketClass::Build()
+PacketClass *StarbaseTowPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(80, Get_Data_Size());
 	raw->Add(&StarbaseID1, sizeof(StarbaseID1));

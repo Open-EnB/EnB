@@ -28,7 +28,7 @@ class PlayerObjectRelationshipPacket : public UnknownPacketBaseClass
 public:
 	PlayerObjectRelationshipPacket(int object_id, int channel, const RelationshipClass &relationship, int priority);	// 0x873AE0
 	PlayerObjectRelationshipPacket(PacketClass *raw);	// 0x873C30
-	virtual PacketClass *Build();	// +0x04 0x873D10
+	virtual PacketClass *Encode();	// +0x04 0x873D10  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x7398E0 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x873DF0
 	virtual int Print(char *buffer, int len);	// +0x10 0x873E10
@@ -74,7 +74,7 @@ class PlayerObjectReactionUpdatePacket : public UnknownPacketBaseClass
 public:
 	PlayerObjectReactionUpdatePacket(int priority);	// 0x873E90
 	PlayerObjectReactionUpdatePacket(PacketClass *raw);	// 0x873F70
-	virtual PacketClass *Build();	// +0x04 0x874270
+	virtual PacketClass *Encode();	// +0x04 0x874270  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x7399D0 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x874380
 	virtual int Print(char *buffer, int len);	// +0x10 0x874530
@@ -93,7 +93,7 @@ class PlayerObjectIsAttackingUpdatePacket : public UnknownPacketBaseClass
 public:
 	PlayerObjectIsAttackingUpdatePacket(bool attacking, int priority);	// 0x874AE0
 	PlayerObjectIsAttackingUpdatePacket(PacketClass *raw);	// 0x874BE0
-	virtual PacketClass *Build();	// +0x04 0x874ED0
+	virtual PacketClass *Encode();	// +0x04 0x874ED0  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x739AC0 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x874FE0
 	virtual int Print(char *buffer, int len);	// +0x10 0x875020

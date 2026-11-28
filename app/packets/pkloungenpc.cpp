@@ -54,7 +54,7 @@ LoungeNPCPacketClass::~LoungeNPCPacketClass()
 {
 }
 
-PacketClass *LoungeNPCPacketClass::Build()
+PacketClass *LoungeNPCPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(82, Get_Data_Size());
 	int count = 0;

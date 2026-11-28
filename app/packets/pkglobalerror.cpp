@@ -59,7 +59,7 @@ GlobalErrorPacketClass::~GlobalErrorPacketClass()
 {
 }
 
-PacketClass *GlobalErrorPacketClass::Build()
+PacketClass *GlobalErrorPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(117, Get_Data_Size());
 	int value = Unknown0C;

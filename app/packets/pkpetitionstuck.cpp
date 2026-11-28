@@ -35,7 +35,7 @@ PetitionPacketClass::~PetitionPacketClass()
 	PlayerList = NULL;
 }
 
-PacketClass *PetitionPacketClass::Build()
+PacketClass *PetitionPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(136, Get_Data_Size());
 	raw->Add(&GameID, sizeof(GameID));

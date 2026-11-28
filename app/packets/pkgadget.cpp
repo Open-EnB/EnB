@@ -27,7 +27,7 @@ GadgetPacketClass::~GadgetPacketClass()
 	}
 }
 
-PacketClass *GadgetPacketClass::Build()
+PacketClass *GadgetPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(Get_Type(), Get_Data_Size());
 	raw->Add(&Size, sizeof(Size));
@@ -70,9 +70,9 @@ int Packet_0068Class::Get_Data_Size()
 	return(GadgetPacketClass::Get_Data_Size() + sizeof(Unknown18));
 }
 
-PacketClass *Packet_0068Class::Build()
+PacketClass *Packet_0068Class::Encode()
 {
-	PacketClass *raw = GadgetPacketClass::Build();
+	PacketClass *raw = GadgetPacketClass::Encode();
 	raw->Add(&Unknown18, sizeof(Unknown18));
 	return(raw);
 }

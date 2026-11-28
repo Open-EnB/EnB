@@ -33,7 +33,7 @@ public:
 	DirLockPacketClass(int a, const char *name, __int64 b, Unknown_DirLockStruct c, int d);	// 0x8816D0
 	DirLockPacketClass(PacketClass *raw);	// 0x8817C0
 	virtual ~DirLockPacketClass();	// +0x00 0x881880 / 0x881790
-	virtual PacketClass *Build() = 0;	// +0x04 _purecall
+	virtual PacketClass *Encode() = 0;	// +0x04 _purecall  // NAME 3: override of the NAME 5 virtual Encode
 	virtual bool Process_Packet(void *client) = 0;	// +0x08 _purecall
 	virtual int Get_Data_Size();	// +0x0C 0x881910
 	virtual int Print(char *buffer, int len) = 0;	// +0x10 _purecall
@@ -52,7 +52,7 @@ class DirLockRequestPacketClass : public DirLockPacketClass  // NAME 3: the clie
 public:
 	DirLockRequestPacketClass(int a, const char *name, __int64 b, Unknown_DirLockStruct c, int d);	// 0x881930
 	DirLockRequestPacketClass(PacketClass *raw);	// 0x881A30
-	virtual PacketClass *Build();	// +0x04 0x881B30
+	virtual PacketClass *Encode();	// +0x04 0x881B30  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x8693C0 (clientstub.cpp l.416)
 	virtual int Get_Data_Size();	// +0x0C 0x881C10
 	virtual int Print(char *buffer, int len);	// +0x10 0x881C30
@@ -64,7 +64,7 @@ class DirLockResponseSectorPacketClass : public DirLockPacketClass  // NAME 3: t
 public:
 	DirLockResponseSectorPacketClass(int x, int a, const char *name, __int64 b, Unknown_DirLockStruct c, int d);	// 0x881C60
 	DirLockResponseSectorPacketClass(PacketClass *raw);	// 0x881D60
-	virtual PacketClass *Build();	// +0x04 0x881E80
+	virtual PacketClass *Encode();	// +0x04 0x881E80  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x869420 (clientstub.cpp l.422)
 	virtual int Get_Data_Size();	// +0x0C 0x881F70
 	virtual int Print(char *buffer, int len);	// +0x10 0x881F90
@@ -78,7 +78,7 @@ class DirLockResponseGlobalPacketClass : public DirLockPacketClass  // NAME 3: t
 public:
 	DirLockResponseGlobalPacketClass(int x, int a, const char *name, __int64 b, Unknown_DirLockStruct c, int y, int d);	// 0x881FC0
 	DirLockResponseGlobalPacketClass(PacketClass *raw);	// 0x8820D0
-	virtual PacketClass *Build();	// +0x04 0x8821F0
+	virtual PacketClass *Encode();	// +0x04 0x8821F0  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x8693F0 (clientstub.cpp l.419)
 	virtual int Get_Data_Size();	// +0x0C 0x882300
 	virtual int Print(char *buffer, int len);	// +0x10 0x882320
@@ -93,7 +93,7 @@ class DirLockReleasePacketClass : public DirLockPacketClass  // NAME 3: the clie
 public:
 	DirLockReleasePacketClass(int a, const char *name, __int64 b, Unknown_DirLockStruct c, int d);	// 0x882350
 	DirLockReleasePacketClass(PacketClass *raw);	// 0x882450
-	virtual PacketClass *Build();	// +0x04 0x882550
+	virtual PacketClass *Encode();	// +0x04 0x882550  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x869450 (clientstub.cpp l.425)
 	virtual int Get_Data_Size();	// +0x0C 0x882630
 	virtual int Print(char *buffer, int len);	// +0x10 0x882650

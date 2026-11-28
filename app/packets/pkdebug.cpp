@@ -60,7 +60,7 @@ DebugPacketClass::DebugPacketClass(PacketClass *raw)
 	raw->Get(&UserData, sizeof(UserData));
 }
 
-PacketClass *DebugPacketClass::Build()
+PacketClass *DebugPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(26, Get_Data_Size());
 	raw->Add(&GameID, sizeof(GameID));

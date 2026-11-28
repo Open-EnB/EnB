@@ -36,7 +36,7 @@ GroupPacketClass::~GroupPacketClass()
 	}
 }
 
-PacketClass *GroupPacketClass::Build()
+PacketClass *GroupPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(30, Get_Data_Size());
 	raw->Add(&Size, sizeof(Size));

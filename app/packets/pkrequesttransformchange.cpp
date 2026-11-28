@@ -17,7 +17,7 @@ RequestTransformChangePacketClass::RequestTransformChangePacketClass(PacketClass
 	raw->Get(&Velocity, sizeof(Velocity));
 }
 
-PacketClass *RequestTransformChangePacketClass::Build()
+PacketClass *RequestTransformChangePacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(67, Get_Data_Size());
 	raw->Add(&PlayerID, sizeof(PlayerID));

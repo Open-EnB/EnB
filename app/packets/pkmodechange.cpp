@@ -16,7 +16,7 @@ ModeChangePacketClass::ModeChangePacketClass(PacketClass *raw)
 	raw->Get(&Mode, sizeof(Mode));
 }
 
-PacketClass *ModeChangePacketClass::Build()
+PacketClass *ModeChangePacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(76, Get_Data_Size());
 	raw->Add(&Unknown0C, sizeof(Unknown0C));

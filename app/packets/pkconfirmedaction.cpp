@@ -21,7 +21,7 @@ ConfirmedActionOfferPacket::ConfirmedActionOfferPacket(PacketClass *raw) :
 	raw->Get(&Message);
 }
 
-PacketClass *ConfirmedActionOfferPacket::Build()
+PacketClass *ConfirmedActionOfferPacket::Encode()
 {
 	PacketClass *raw = new PacketClass(190, Get_Data_Size());
 	raw->Add((int)Type);
@@ -56,7 +56,7 @@ ConfirmedActionTimeoutPacket::ConfirmedActionTimeoutPacket(PacketClass *raw) :
 	raw->Get(ID);
 }
 
-PacketClass *ConfirmedActionTimeoutPacket::Build()
+PacketClass *ConfirmedActionTimeoutPacket::Encode()
 {
 	PacketClass *raw = new PacketClass(191, Get_Data_Size());
 	raw->Add((int)Type);
@@ -93,7 +93,7 @@ ConfirmedActionResponsePacket::ConfirmedActionResponsePacket(PacketClass *raw) :
 	Response = value > 0;
 }
 
-PacketClass *ConfirmedActionResponsePacket::Build()
+PacketClass *ConfirmedActionResponsePacket::Encode()
 {
 	PacketClass *raw = new PacketClass(192, Get_Data_Size());
 	raw->Add(AvatarID);

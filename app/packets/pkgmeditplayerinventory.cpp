@@ -25,7 +25,7 @@ GMEditPlayerInventoryPacketClass::~GMEditPlayerInventoryPacketClass()
 {
 }
 
-PacketClass *GMEditPlayerInventoryPacketClass::Build()
+PacketClass *GMEditPlayerInventoryPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(234, Get_Data_Size());
 	raw->Add(Unknown0C);

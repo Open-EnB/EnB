@@ -36,7 +36,7 @@ public:
 	TalkTreePacketClass(const std::string &npc_say, const std::string &npc_sound_file_name);	// 0x8A6A80
 	TalkTreePacketClass(PacketClass *raw);	// 0x8A6CA0
 	virtual ~TalkTreePacketClass();	// +0x00 0x8A6B90 / 0x8A7040
-	virtual PacketClass *Build();	// +0x04 0x8A7180
+	virtual PacketClass *Encode();	// +0x04 0x8A7180  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x738670 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x8A7300
 	virtual int Print(char *buffer, int len);	// +0x10 0x8A7340
@@ -56,7 +56,7 @@ class TalkTreeActionPacketClass : public UnknownPacketBaseClass
 public:
 	TalkTreeActionPacketClass(int action);	// 0x8A73C0
 	TalkTreeActionPacketClass(PacketClass *raw);	// 0x8A7430
-	virtual PacketClass *Build();	// +0x04 0x8A74E0
+	virtual PacketClass *Encode();	// +0x04 0x8A74E0  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x738730 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x8A75A0
 	virtual int Print(char *buffer, int len);	// +0x10 0x8A75C0
@@ -70,7 +70,7 @@ class SelectTalkTreePacketClass : public UnknownPacketBaseClass  // NAME 2: Net-
 public:
 	SelectTalkTreePacketClass(int player_id, int selection);	// 0x8A75F0 (the UI's 0x64C8D0, 0x64D770)  // NAME 2 [player_id, selection]: the members
 	SelectTalkTreePacketClass(PacketClass *raw);	// 0x8A7670
-	virtual PacketClass *Build();	// +0x04 0x8A7710
+	virtual PacketClass *Encode();	// +0x04 0x8A7710  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x867FB0 (clientstub.cpp l.95)
 	virtual int Get_Data_Size();	// +0x0C 0x8A77E0
 	virtual int Print(char *buffer, int len);	// +0x10 0x8A7800

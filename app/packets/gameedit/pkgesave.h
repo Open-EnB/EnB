@@ -23,7 +23,7 @@ class GameEditorSaveSectorPacketClass : public UnknownPacketBaseClass  // NAME 3
 public:
 	GameEditorSaveSectorPacketClass();	// 0x861DB0
 	GameEditorSaveSectorPacketClass(PacketClass *raw);	// 0x861E20
-	virtual PacketClass *Build();	// +0x04 0x861E80
+	virtual PacketClass *Encode();	// +0x04 0x861E80  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x868340 (clientstub.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x861F10
 	virtual int Print(char *buffer, int len);	// +0x10 0x861F30
@@ -37,7 +37,7 @@ public:
 	GameEditorSectorSavedPacketClass(bool success, const char *message);	// 0x861F80
 	GameEditorSectorSavedPacketClass(PacketClass *raw);	// 0x862070
 	virtual ~GameEditorSectorSavedPacketClass();	// +0x00 0x862180 / 0x862040
-	virtual PacketClass *Build();	// +0x04 0x8621B0
+	virtual PacketClass *Encode();	// +0x04 0x8621B0  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x862300
 	virtual int Get_Data_Size();	// +0x0C 0x8622A0
 	virtual int Print(char *buffer, int len);	// +0x10 0x8622C0

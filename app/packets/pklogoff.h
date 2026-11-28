@@ -24,7 +24,7 @@ public:
 	LogoffPacketClass(int player_id);					// 0x89AB30
 	LogoffPacketClass(PacketClass *raw);				// 0x89ABE0
 	virtual ~LogoffPacketClass() {}						// +0x00 0x89AB90 (0x89ABC0)
-	virtual PacketClass *Build();					// +0x04 0x89AC70
+	virtual PacketClass *Encode();					// +0x04 0x89AC70  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);			// +0x08 0x867B00 (clientstub.cpp l.20)
 	virtual int Get_Data_Size();						// +0x0C 0x89AD30
 	virtual int Print(char *buffer, int len);			// +0x10 0x89AD50
@@ -39,7 +39,7 @@ class LogoffRequestPacketClass : public UnknownPacketBaseClass  // NAME 3: the c
 public:
 	LogoffRequestPacketClass(int player_id);			// 0x89AD80
 	LogoffRequestPacketClass(PacketClass *raw);		// 0x89ADF0
-	virtual PacketClass *Build();					// +0x04 0x89AE80
+	virtual PacketClass *Encode();					// +0x04 0x89AE80  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);			// +0x08 0x867B30 (clientstub.cpp l.23)
 	virtual int Get_Data_Size();						// +0x0C 0x89AF40
 	virtual int Print(char *buffer, int len);			// +0x10 0x89AF60
@@ -54,7 +54,7 @@ public:
 	LogoffConfirmationPacketClass();					// 0x89AF90
 	LogoffConfirmationPacketClass(PacketClass *raw);	// 0x89B020
 	virtual ~LogoffConfirmationPacketClass() {}			// +0x00 0x89AFD0 (0x89B000)
-	virtual PacketClass *Build();					// +0x04 0x89B060
+	virtual PacketClass *Encode();					// +0x04 0x89B060  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);			// +0x08 0x7333B0 (cpacket.cpp)
 	virtual int Get_Data_Size();						// +0x0C 0x89B0F0
 	virtual int Print(char *buffer, int len);			// +0x10 0x89B110
@@ -67,7 +67,7 @@ public:
 	Packet_00BBClass();									// 0x89B140
 	Packet_00BBClass(PacketClass *raw);				// 0x89B1D0
 	virtual ~Packet_00BBClass() {}						// +0x00 0x89B180 (0x89B1B0)
-	virtual PacketClass *Build();					// +0x04 0x89B210
+	virtual PacketClass *Encode();					// +0x04 0x89B210  // NAME 3: override of the NAME 5 virtual Encode
 	virtual bool Process_Packet(void *client);			// +0x08 0x867B60 (clientstub.cpp l.26)
 	virtual int Get_Data_Size();						// +0x0C 0x89B2A0
 	virtual int Print(char *buffer, int len);			// +0x10 0x89B2C0

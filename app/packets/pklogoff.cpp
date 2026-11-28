@@ -15,7 +15,7 @@ LogoffPacketClass::LogoffPacketClass(PacketClass *raw)
 	raw->Get(&PlayerID, sizeof(PlayerID));
 }
 
-PacketClass *LogoffPacketClass::Build()
+PacketClass *LogoffPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(3, Get_Data_Size());
 	raw->Add(&PlayerID, sizeof(PlayerID));
@@ -45,7 +45,7 @@ LogoffRequestPacketClass::LogoffRequestPacketClass(PacketClass *raw)
 	raw->Get(&PlayerID, sizeof(PlayerID));
 }
 
-PacketClass *LogoffRequestPacketClass::Build()
+PacketClass *LogoffRequestPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(185, Get_Data_Size());
 	raw->Add(&PlayerID, sizeof(PlayerID));
@@ -74,7 +74,7 @@ LogoffConfirmationPacketClass::LogoffConfirmationPacketClass(PacketClass *)
 {
 }
 
-PacketClass *LogoffConfirmationPacketClass::Build()
+PacketClass *LogoffConfirmationPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(186, Get_Data_Size());
 	return(raw);
@@ -102,7 +102,7 @@ Packet_00BBClass::Packet_00BBClass(PacketClass *)
 {
 }
 
-PacketClass *Packet_00BBClass::Build()
+PacketClass *Packet_00BBClass::Encode()
 {
 	PacketClass *raw = new PacketClass(187, Get_Data_Size());
 	return(raw);

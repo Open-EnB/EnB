@@ -599,7 +599,7 @@ public:
 	}
 	virtual bool Send_Packet(UnknownPacketBaseClass *packet)
 	{
-		PacketClass *raw = packet->Build();
+		PacketClass *raw = packet->Encode();
 		if (raw == 0) {
 			Trace("sent: Build gave nothing");
 			return(false);
@@ -927,7 +927,7 @@ static void Test_Packets(SpaceClientClass *client, const char *path)
 // The message a packet's Build gives (what the server would send)
 static std::vector<unsigned char> Built_Message(UnknownPacketBaseClass *packet)
 {
-	PacketClass *raw = packet->Build();
+	PacketClass *raw = packet->Encode();
 	std::vector<unsigned char> m;
 	if (raw == 0) {
 		return m;

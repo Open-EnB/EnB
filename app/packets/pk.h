@@ -41,7 +41,7 @@ struct PacketHeaderClass	// NAME 1: describes what it is
 	short Opcode;			// NAME 4: Net-7's (the Net-7 opcode table)
 };
 
-// A message built from a packet (UnknownPacketBaseClass::Build) or handed to the factory: 0x22C bytes (the
+// A message built from a packet (UnknownPacketBaseClass::Encode) or handed to the factory: 0x22C bytes (the
 // factory 0x8696C0 makes one on its stack). The payload is a LinearBuffer over the bytes after
 // the header; +0x20..+0x29 are the UDP connection's send parameters (Send_Message 0x82D980).
 class PacketClass  // NAME 5: thunk order A, binary.md 5.11
@@ -107,7 +107,7 @@ public:
 
 	}
 	virtual ~UnknownPacketBaseClass() {}							// +0x00 0x52B350
-	virtual PacketClass *Build();					// +0x04 0x52B210: the message to send  // NAME 2: what it does
+	virtual PacketClass *Encode();					// +0x04 0x52B210: the message to send  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);			// +0x08 0x52B240 (SpaceClientClass *)
 	virtual int Get_Data_Size();						// +0x0C 0x52B270  // NAME 2: what it returns
 	virtual int Print(char *buffer, int len);			// +0x10 0x52B2A0: the packet as text (snprintf)  // NAME 2: what it does
@@ -478,7 +478,7 @@ UnknownPacketBaseClass *Unknown_869790(PacketClass *raw);	// NAME 1 [Unknown_869
 
 
 
-inline PacketClass *UnknownPacketBaseClass::Build()
+inline PacketClass *UnknownPacketBaseClass::Encode()
 {
 	G_ASSERT(0);
 	return(0);

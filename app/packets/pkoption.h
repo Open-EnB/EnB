@@ -24,7 +24,7 @@ class OptionPacketClass : public UnknownPacketBaseClass  // NAME 2: Net-7's opco
 public:
 	OptionPacketClass(int game_id, int option_type, bool option_var);	// 0x89F490 (ui_groupopt.cpp: the avatar's id, the option, its value)  // NAME 3 [game_id, option_type, option_var]: the Print text's members
 	OptionPacketClass(PacketClass *raw);	// 0x89F510
-	virtual PacketClass *Build();	// +0x04 0x89F5D0
+	virtual PacketClass *Encode();	// +0x04 0x89F5D0  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x868AC0 (clientstub.cpp l.272)
 	virtual int Get_Data_Size();	// +0x0C 0x89F6B0
 	virtual int Print(char *buffer, int len);	// +0x10 0x89F6D0

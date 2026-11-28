@@ -25,7 +25,7 @@ public:
 	SoundPacketClass(const char *sound_name, int channel, bool queue);	// 0x8A4F20
 	SoundPacketClass(PacketClass *raw);	// 0x8A5050
 	virtual ~SoundPacketClass();	// +0x00 0x8A5010 / 0x8A4FE0
-	virtual PacketClass *Build();	// +0x04 0x8A5130
+	virtual PacketClass *Encode();	// +0x04 0x8A5130  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x7383D0 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x8A5220
 	virtual int Print(char *buffer, int len);	// +0x10 0x8A5240
@@ -42,7 +42,7 @@ class SoundCommandPacketClass : public UnknownPacketBaseClass
 public:
 	SoundCommandPacketClass(int command, int channel);	// 0x8A5280
 	SoundCommandPacketClass(PacketClass *raw);	// 0x8A5320
-	virtual PacketClass *Build();	// +0x04 0x8A53C0
+	virtual PacketClass *Encode();	// +0x04 0x8A53C0  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x7384A0 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x8A5490
 	virtual int Print(char *buffer, int len);	// +0x10 0x8A54B0

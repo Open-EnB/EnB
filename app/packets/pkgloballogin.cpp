@@ -32,7 +32,7 @@ GlobalLoginPacketClass::~GlobalLoginPacketClass()
 {
 }
 
-PacketClass *GlobalLoginPacketClass::Build()
+PacketClass *GlobalLoginPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(118, Get_Data_Size());
 	raw->Add(Ticket_Info.EA_Customer);

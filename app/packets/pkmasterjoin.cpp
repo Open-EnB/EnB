@@ -19,7 +19,7 @@ MasterJoinPacketClass::~MasterJoinPacketClass()
 {
 }
 
-PacketClass *MasterJoinPacketClass::Build()
+PacketClass *MasterJoinPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(53, Get_Data_Size());
 	raw->Add((Unknown_PacketDataClass &)Ticket);

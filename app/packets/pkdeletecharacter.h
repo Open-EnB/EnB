@@ -24,7 +24,7 @@ class DeleteCharacterPacketClass : public UnknownPacketBaseClass  // NAME 5: thu
 public:
 	DeleteCharacterPacketClass(__int64 unknown10, int unknown18, const char *unknown1c, __int64 unknown60);	// 0x85D1A0 (Unknown1C strcpy'd)
 	DeleteCharacterPacketClass(PacketClass *raw);	// 0x85D270
-	virtual PacketClass *Build();	// +0x04 0x85D350
+	virtual PacketClass *Encode();	// +0x04 0x85D350  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x8680A0 (clientstub.cpp l.110)
 	virtual int Get_Data_Size();	// +0x0C 0x85D430
 	virtual int Print(char *buffer, int len);	// +0x10 0x85D450

@@ -27,7 +27,7 @@ public:
 	ChatProxyLoginPacketClass();	// 0x87ACD0
 	ChatProxyLoginPacketClass(PacketClass *raw);	// 0x87AE80
 	virtual ~ChatProxyLoginPacketClass();	// +0x00 0x87AE50 / 0x87B280
-	virtual PacketClass *Build();	// +0x04 0x87B3E0
+	virtual PacketClass *Encode();	// +0x04 0x87B3E0  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x868DC0 (clientstub.cpp l.320)
 	virtual int Get_Data_Size();	// +0x0C 0x87B5A0
 	virtual int Print(char *buffer, int len);	// +0x10 0x87B640
@@ -50,7 +50,7 @@ public:
 	ChatProxyRequestPacketClass();	// 0x87B670
 	ChatProxyRequestPacketClass(PacketClass *raw);	// 0x87B7C0
 	virtual ~ChatProxyRequestPacketClass();	// +0x00 0x87B790 / 0x87BB60
-	virtual PacketClass *Build();	// +0x04 0x87BD20
+	virtual PacketClass *Encode();	// +0x04 0x87BD20  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x868D00 (clientstub.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x87BEB0
 	virtual int Print(char *buffer, int len);	// +0x10 0x87C160
@@ -76,7 +76,7 @@ class ChatProxyResponsePacketClass : public UnknownPacketBaseClass  // NAME 5: t
 public:
 	ChatProxyResponsePacketClass(int unknown0_c, int unknown10);	// 0x87C190
 	ChatProxyResponsePacketClass(PacketClass *raw);	// 0x87C230
-	virtual PacketClass *Build();	// +0x04 0x87C2D0
+	virtual PacketClass *Encode();	// +0x04 0x87C2D0  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x868D30 (clientstub.cpp l.311)
 	virtual int Get_Data_Size();	// +0x0C 0x87C3A0
 	virtual int Print(char *buffer, int len);	// +0x10 0x87C3C0
@@ -91,7 +91,7 @@ class ChatProxyResponseListPacketClass : public UnknownPacketBaseClass  // NAME 
 public:
 	ChatProxyResponseListPacketClass(const std::string &unknown0c);	// 0x87C3F0
 	ChatProxyResponseListPacketClass(PacketClass *raw);	// 0x87C6C0
-	virtual PacketClass *Build();	// +0x04 0x87CB00
+	virtual PacketClass *Encode();	// +0x04 0x87CB00  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x868D60 (clientstub.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x87CC80
 	virtual int Print(char *buffer, int len);	// +0x10 0x87D150
@@ -113,7 +113,7 @@ public:
 	ChatProxyEventPacketClass();	// 0x87D180
 	ChatProxyEventPacketClass(PacketClass *raw);	// 0x87D2E0
 	virtual ~ChatProxyEventPacketClass();	// +0x00 0x87D2B0 / 0x87D690
-	virtual PacketClass *Build();	// +0x04 0x87D860
+	virtual PacketClass *Encode();	// +0x04 0x87D860  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x868D90 (clientstub.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x87D9F0
 	virtual int Print(char *buffer, int len);	// +0x10 0x87DA90

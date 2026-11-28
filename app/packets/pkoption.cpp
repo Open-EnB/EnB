@@ -16,7 +16,7 @@ OptionPacketClass::OptionPacketClass(PacketClass *raw)
 	raw->Get(&OptionVar, sizeof(OptionVar));
 }
 
-PacketClass *OptionPacketClass::Build()
+PacketClass *OptionPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(46, Get_Data_Size());
 	raw->Add(&GameID, sizeof(GameID));

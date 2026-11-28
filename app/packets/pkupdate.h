@@ -25,7 +25,7 @@ class ConstantPositionalUpdatePacketClass : public UnknownPacketBaseClass
 {
 public:
 	ConstantPositionalUpdatePacketClass(PacketClass *raw);	// 0x8ABBF0
-	virtual PacketClass *Build();	// +0x04 0x8ABCB0
+	virtual PacketClass *Encode();	// +0x04 0x8ABCB0  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x733C80 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x8ABDB0
 	virtual int Print(char *buffer, int len);	// +0x10 0x8ABDD0
@@ -47,7 +47,7 @@ public:
 	protected: SimplePositionalUpdatePacketClass(); public:	// 0x8ABE20
 	SimplePositionalUpdatePacketClass(int priority, int game_id, unsigned int time_stamp, const Vector3 &pos, const Quaternion &orient, const Vector3 &vel);	// 0x8ABF40 (its asserts' names)
 	SimplePositionalUpdatePacketClass(PacketClass *raw);	// 0x8AC1B0
-	virtual PacketClass *Build();	// +0x04 0x8AC3E0
+	virtual PacketClass *Encode();	// +0x04 0x8AC3E0  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x733DC0 (cpacket.cpp, NOT EXACT)
 	virtual int Get_Data_Size();	// +0x0C 0x8AC510
 	virtual int Print(char *buffer, int len);	// +0x10 0x8AC530
@@ -71,7 +71,7 @@ class ComponentPositionalUpdatePacketClass : public SimplePositionalUpdatePacket
 public:
 	ComponentPositionalUpdatePacketClass(int priority, int game_id, unsigned int time_stamp, const Vector3 &pos, const Quaternion &orient, const Vector3 &vel, float imparted_decay, float tractor_speed, int tractor_id, int tractor_effect_id);	// 0x8AE130
 	ComponentPositionalUpdatePacketClass(PacketClass *raw);	// 0x8AE240
-	virtual PacketClass *Build();	// +0x04 0x8AE2E0
+	virtual PacketClass *Encode();	// +0x04 0x8AE2E0  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x734BF0 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x8AE370
 	virtual int Print(char *buffer, int len);	// +0x10 0x8AE3D0
@@ -91,7 +91,7 @@ class FormationPositionalUpdatePacketClass : public UnknownPacketBaseClass  // N
 public:
 	FormationPositionalUpdatePacketClass(int game_id, int leader_id, const Vector3 &offset);	// 0x8AE4B0
 	FormationPositionalUpdatePacketClass(PacketClass *raw);	// 0x8AE5C0
-	virtual PacketClass *Build();	// +0x04 0x8AE690
+	virtual PacketClass *Encode();	// +0x04 0x8AE690  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x734740 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x8AE770
 	virtual int Print(char *buffer, int len);	// +0x10 0x8AE790
@@ -109,7 +109,7 @@ public:
 	AdvancedPositionalUpdatePacketClass(int priority, int game_id, unsigned int time_stamp, const Vector3 &position, const Quaternion &orientation, float current_speed, float set_speed, float acceleration, float roty, float desiredy, float rotz, float desiredz, const Vector3 &imparted_velocity, float imparted_spin, float imparted_roll, float imparted_pitch, unsigned int movement_id, unsigned int update_period);	// 0x8AC5B0 (the parameter names from its asserts)
 	AdvancedPositionalUpdatePacketClass();	// 0x8ACA10
 	AdvancedPositionalUpdatePacketClass(PacketClass *raw);	// 0x8ACAB0
-	virtual PacketClass *Build();	// +0x04 0x8AD000
+	virtual PacketClass *Encode();	// +0x04 0x8AD000  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x734130 (cpacket.cpp, NOT EXACT)
 	virtual int Get_Data_Size();	// +0x0C 0x8AD9A0
 	virtual int Print(char *buffer, int len);	// +0x10 0x8AD9F0
@@ -160,7 +160,7 @@ class PlanetPositionalUpdatePacketClass : public UnknownPacketBaseClass
 public:
 	PlanetPositionalUpdatePacketClass(int game_id, unsigned int time_stamp, const Vector3 &position, int orbit_id, float orbit_dist, float orbit_angle, float orbit_rate, float rotate_angle, float rotate_rate, float tilt_angle);	// 0x8ADCC0 (never called)  // NAME 2 [game_id, time_stamp, position, orbit_id, orbit_dist, orbit_angle, orbit_rate, rotate_angle, rotate_rate, tilt_angle]: the members they set
 	PlanetPositionalUpdatePacketClass(PacketClass *raw);	// 0x8ADDF0
-	virtual PacketClass *Build();	// +0x04 0x8ADF10
+	virtual PacketClass *Encode();	// +0x04 0x8ADF10  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x734A40 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x8AE090
 	virtual int Print(char *buffer, int len);	// +0x10 0x8AE0B0

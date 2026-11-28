@@ -34,7 +34,7 @@ public:
 	FindMemberPacketClass();	// 0x886580
 	FindMemberPacketClass(PacketClass *raw);	// 0x886710
 	virtual ~FindMemberPacketClass();	// +0x00 0x886890 / 0x886640
-	virtual PacketClass *Build();	// +0x04 0x8869F0
+	virtual PacketClass *Encode();	// +0x04 0x8869F0  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x739500 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x886B00
 	virtual int Print(char *buffer, int len);	// +0x10 0x886B30 ('%s {NumPlayers=%d}', the name not passed)

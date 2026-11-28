@@ -12,7 +12,7 @@ GameEditorLoginPacketClass::GameEditorLoginPacketClass(PacketClass *raw)
 	raw->Get(&EditorProtocolVersion, sizeof(EditorProtocolVersion));
 }
 
-PacketClass *GameEditorLoginPacketClass::Build()
+PacketClass *GameEditorLoginPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(30000, Get_Data_Size());
 	raw->Add(&EditorProtocolVersion, sizeof(EditorProtocolVersion));
@@ -33,7 +33,7 @@ GameEditorLogoutPacketClass::GameEditorLogoutPacketClass(PacketClass *)
 {
 }
 
-PacketClass *GameEditorLogoutPacketClass::Build()
+PacketClass *GameEditorLogoutPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(30001, Get_Data_Size());
 	return(raw);
@@ -58,7 +58,7 @@ GameEditorProtocolVersionPacketClass::GameEditorProtocolVersionPacketClass(Packe
 	raw->Get(&ServerProtocolVersion, sizeof(ServerProtocolVersion));
 }
 
-PacketClass *GameEditorProtocolVersionPacketClass::Build()
+PacketClass *GameEditorProtocolVersionPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(30019, Get_Data_Size());
 	raw->Add(&ServerProtocolVersion, sizeof(ServerProtocolVersion));

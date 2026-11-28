@@ -47,7 +47,7 @@ DirLockRequestPacketClass::DirLockRequestPacketClass(PacketClass *raw) : DirLock
 {
 }
 
-PacketClass *DirLockRequestPacketClass::Build()
+PacketClass *DirLockRequestPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(223, Get_Data_Size());
 	DirLockPacketClass::Unknown_28(raw);
@@ -74,7 +74,7 @@ DirLockResponseSectorPacketClass::DirLockResponseSectorPacketClass(PacketClass *
 	raw->Get(Unknown30);
 }
 
-PacketClass *DirLockResponseSectorPacketClass::Build()
+PacketClass *DirLockResponseSectorPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(225, Get_Data_Size());
 	DirLockPacketClass::Unknown_28(raw);
@@ -102,7 +102,7 @@ DirLockResponseGlobalPacketClass::DirLockResponseGlobalPacketClass(PacketClass *
 	raw->Get(Unknown34);
 }
 
-PacketClass *DirLockResponseGlobalPacketClass::Build()
+PacketClass *DirLockResponseGlobalPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(224, Get_Data_Size());
 	DirLockPacketClass::Unknown_28(raw);
@@ -129,7 +129,7 @@ DirLockReleasePacketClass::DirLockReleasePacketClass(PacketClass *raw) : DirLock
 {
 }
 
-PacketClass *DirLockReleasePacketClass::Build()
+PacketClass *DirLockReleasePacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(226, Get_Data_Size());
 	DirLockPacketClass::Unknown_28(raw);

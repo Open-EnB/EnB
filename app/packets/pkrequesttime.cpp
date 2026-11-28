@@ -15,7 +15,7 @@ RequestTimePacketClass::RequestTimePacketClass(PacketClass *raw)
 	TimeReceived = Unknown_Get_Ticks();
 }
 
-PacketClass *RequestTimePacketClass::Build()
+PacketClass *RequestTimePacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(68, Get_Data_Size());
 	TimeSent = Unknown_Get_Ticks();
@@ -49,7 +49,7 @@ SetClientTimePacketClass::SetClientTimePacketClass(PacketClass *raw)
 	ClientReceived = Unknown_Get_Ticks();
 }
 
-PacketClass *SetClientTimePacketClass::Build()
+PacketClass *SetClientTimePacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(52, Get_Data_Size());
 	raw->Add(&ClientSent, sizeof(ClientSent));

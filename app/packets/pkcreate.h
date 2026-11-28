@@ -25,7 +25,7 @@ class CreatePacketClass : public UnknownPacketBaseClass
 public:
 	CreatePacketClass(int game_id, short base_asset, char type, float scale, int unknown, const Vector3 &hsv, int channel);	// 0x87F920  // NAME 2: the stores (no caller left)
 	CreatePacketClass(PacketClass *raw);	// 0x87FA70
-	virtual PacketClass *Build();	// +0x04 0x87FB40
+	virtual PacketClass *Encode();	// +0x04 0x87FB40  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x733700 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x87FC30
 	virtual int Print(char *buffer, int len);	// +0x10 0x87FC50

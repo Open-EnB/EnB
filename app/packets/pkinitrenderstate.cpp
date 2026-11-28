@@ -14,7 +14,7 @@ InitRenderStatePacketClass::InitRenderStatePacketClass(PacketClass *raw)
 	raw->Get(&LinkID, sizeof(LinkID));
 }
 
-PacketClass *InitRenderStatePacketClass::Build()
+PacketClass *InitRenderStatePacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(47, Get_Data_Size());
 	raw->Add(&GameID, sizeof(GameID));
@@ -44,7 +44,7 @@ ActivateRenderStatePacketClass::ActivateRenderStatePacketClass(PacketClass *raw)
 	raw->Get(&RenderStateID, sizeof(RenderStateID));
 }
 
-PacketClass *ActivateRenderStatePacketClass::Build()
+PacketClass *ActivateRenderStatePacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(48, Get_Data_Size());
 	raw->Add(&GameID, sizeof(GameID));
@@ -73,7 +73,7 @@ ActivateNextRenderStateOncePacketClass::ActivateNextRenderStateOncePacketClass(P
 	raw->Get(&RenderStateID, sizeof(RenderStateID));
 }
 
-PacketClass *ActivateNextRenderStateOncePacketClass::Build()
+PacketClass *ActivateNextRenderStateOncePacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(49, Get_Data_Size());
 	raw->Add(&GameID, sizeof(GameID));
@@ -102,7 +102,7 @@ DeactivateRenderStatePacketClass::DeactivateRenderStatePacketClass(PacketClass *
 	raw->Get(&RenderStateID, sizeof(RenderStateID));
 }
 
-PacketClass *DeactivateRenderStatePacketClass::Build()
+PacketClass *DeactivateRenderStatePacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(50, Get_Data_Size());
 	raw->Add(&GameID, sizeof(GameID));

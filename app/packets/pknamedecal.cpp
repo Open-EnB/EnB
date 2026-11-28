@@ -25,7 +25,7 @@ DecalPacketClass::DecalPacketClass(PacketClass *raw)
 	}
 }
 
-PacketClass *DecalPacketClass::Build()
+PacketClass *DecalPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(16, Get_Data_Size());
 	raw->Add(&GameID, sizeof(GameID));
@@ -63,7 +63,7 @@ NameDecalPacketClass::NameDecalPacketClass(PacketClass *raw)
 	raw->Get(&ColorRGB, sizeof(ColorRGB));
 }
 
-PacketClass *NameDecalPacketClass::Build()
+PacketClass *NameDecalPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(178, Get_Data_Size());
 	raw->Add(&GameID, sizeof(GameID));

@@ -20,7 +20,7 @@ GuildPlayerOnlineSectorPacket::~GuildPlayerOnlineSectorPacket()
 {
 }
 
-PacketClass *GuildPlayerOnlineSectorPacket::Build()
+PacketClass *GuildPlayerOnlineSectorPacket::Encode()
 {
 	PacketClass *raw = new PacketClass(193, Get_Data_Size());
 	raw->Add(PlayerID);
@@ -65,7 +65,7 @@ GuildStatusUpdatePacket::~GuildStatusUpdatePacket()
 {
 }
 
-PacketClass *GuildStatusUpdatePacket::Build()
+PacketClass *GuildStatusUpdatePacket::Encode()
 {
 	PacketClass *raw = new PacketClass(195, Get_Data_Size());
 	raw->Add(PlayerID);
@@ -109,7 +109,7 @@ GuildSimpleGuildSectorPacket::~GuildSimpleGuildSectorPacket()
 {
 }
 
-PacketClass *GuildSimpleGuildSectorPacket::Build()
+PacketClass *GuildSimpleGuildSectorPacket::Encode()
 {
 	PacketClass *raw = new PacketClass(203, Get_Data_Size());
 	raw->Add(&Type, sizeof(Type));
@@ -147,7 +147,7 @@ GuildSimpleSectorGuildPacket::~GuildSimpleSectorGuildPacket()
 {
 }
 
-PacketClass *GuildSimpleSectorGuildPacket::Build()
+PacketClass *GuildSimpleSectorGuildPacket::Encode()
 {
 	PacketClass *raw = new PacketClass(206, Get_Data_Size());
 	raw->Add(&Type, sizeof(Type));
@@ -181,7 +181,7 @@ GuildAdjustContribPacket::GuildAdjustContribPacket(PacketClass *raw)
 	raw->Get(&Amount, sizeof(Amount));
 }
 
-PacketClass *GuildAdjustContribPacket::Build()
+PacketClass *GuildAdjustContribPacket::Encode()
 {
 	PacketClass *raw = new PacketClass(194, Get_Data_Size());
 	raw->Add(PlayerID);
@@ -225,7 +225,7 @@ GuildBeginCreationPacket::~GuildBeginCreationPacket()
 {
 }
 
-PacketClass *GuildBeginCreationPacket::Build()
+PacketClass *GuildBeginCreationPacket::Encode()
 {
 	PacketClass *raw = new PacketClass(196, Get_Data_Size());
 	raw->Add(Leader);
@@ -267,7 +267,7 @@ GuildLeaderAcceptSectorPacket::~GuildLeaderAcceptSectorPacket()
 {
 }
 
-PacketClass *GuildLeaderAcceptSectorPacket::Build()
+PacketClass *GuildLeaderAcceptSectorPacket::Encode()
 {
 	PacketClass *raw = new PacketClass(198, Get_Data_Size());
 	raw->Add(PlayerID);
@@ -305,7 +305,7 @@ GuildRecruitConfirmGuildPacket::~GuildRecruitConfirmGuildPacket()
 {
 }
 
-PacketClass *GuildRecruitConfirmGuildPacket::Build()
+PacketClass *GuildRecruitConfirmGuildPacket::Encode()
 {
 	PacketClass *raw = new PacketClass(199, Get_Data_Size());
 	raw->Add(PlayerID);
@@ -345,7 +345,7 @@ GuildRecruitAcceptSectorPacket::~GuildRecruitAcceptSectorPacket()
 {
 }
 
-PacketClass *GuildRecruitAcceptSectorPacket::Build()
+PacketClass *GuildRecruitAcceptSectorPacket::Encode()
 {
 	PacketClass *raw = new PacketClass(202, Get_Data_Size());
 	raw->Add(PlayerID);
@@ -386,7 +386,7 @@ GuildMessageGuildPacket::~GuildMessageGuildPacket()
 {
 }
 
-PacketClass *GuildMessageGuildPacket::Build()
+PacketClass *GuildMessageGuildPacket::Encode()
 {
 	PacketClass *raw = new PacketClass(207, Get_Data_Size());
 	raw->Add(PlayerID);
@@ -427,7 +427,7 @@ GuildPermissionsPacket::GuildPermissionsPacket(PacketClass *raw)
 	raw->Get(Unknown24);
 }
 
-PacketClass *GuildPermissionsPacket::Build()
+PacketClass *GuildPermissionsPacket::Encode()
 {
 	PacketClass *raw = new PacketClass(209, Get_Data_Size());
 	raw->Add(PlayerID);
@@ -470,7 +470,7 @@ GuildRankNamesGuildPacket::GuildRankNamesGuildPacket(PacketClass *raw)
 	}
 }
 
-PacketClass *GuildRankNamesGuildPacket::Build()
+PacketClass *GuildRankNamesGuildPacket::Encode()
 {
 	PacketClass *raw = new PacketClass(213, Get_Data_Size());
 	raw->Add(PlayerID);
@@ -516,7 +516,7 @@ GuildRankNamesRequestSectorPacket::GuildRankNamesRequestSectorPacket(PacketClass
 	raw->Get(PlayerID);
 }
 
-PacketClass *GuildRankNamesRequestSectorPacket::Build()
+PacketClass *GuildRankNamesRequestSectorPacket::Encode()
 {
 	PacketClass *raw = new PacketClass(214, Get_Data_Size());
 	raw->Add(PlayerID);
@@ -552,7 +552,7 @@ GuildGMRenameConfirmGuildPacket::~GuildGMRenameConfirmGuildPacket()
 {
 }
 
-PacketClass *GuildGMRenameConfirmGuildPacket::Build()
+PacketClass *GuildGMRenameConfirmGuildPacket::Encode()
 {
 	PacketClass *raw = new PacketClass(215, Get_Data_Size());
 	raw->Add(PlayerID);
@@ -590,7 +590,7 @@ GuildGMRenameAcceptSectorPacket::~GuildGMRenameAcceptSectorPacket()
 {
 }
 
-PacketClass *GuildGMRenameAcceptSectorPacket::Build()
+PacketClass *GuildGMRenameAcceptSectorPacket::Encode()
 {
 	PacketClass *raw = new PacketClass(217, Get_Data_Size());
 	raw->Add(PlayerID);
@@ -626,7 +626,7 @@ GuildDeletePlayerPacket::GuildDeletePlayerPacket(PacketClass *raw)
 	raw->Get(AccountID);
 }
 
-PacketClass *GuildDeletePlayerPacket::Build()
+PacketClass *GuildDeletePlayerPacket::Encode()
 {
 	PacketClass *raw = new PacketClass(218, Get_Data_Size());
 	raw->Add(PlayerID);
@@ -668,7 +668,7 @@ GuildPlayerInfoDeletedPacket::GuildPlayerInfoDeletedPacket(PacketClass *raw) :
 	raw->Get(AccountID);
 }
 
-PacketClass *GuildPlayerInfoDeletedPacket::Build()
+PacketClass *GuildPlayerInfoDeletedPacket::Encode()
 {
 	PacketClass *raw = new PacketClass(219, Get_Data_Size());
 	raw->Add(PlayerID);
@@ -712,7 +712,7 @@ GuildDeductFeePacket::~GuildDeductFeePacket()
 {
 }
 
-PacketClass *GuildDeductFeePacket::Build()
+PacketClass *GuildDeductFeePacket::Encode()
 {
 	PacketClass *raw = new PacketClass(220, Get_Data_Size());
 	raw->Add(PlayerID);

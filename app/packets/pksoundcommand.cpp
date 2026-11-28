@@ -31,7 +31,7 @@ SoundPacketClass::SoundPacketClass(PacketClass *raw)
 	raw->Get(&Queue, sizeof(Queue));
 }
 
-PacketClass *SoundPacketClass::Build()
+PacketClass *SoundPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(106, Get_Data_Size());
 	raw->Add(&Length, sizeof(Length));
@@ -63,7 +63,7 @@ SoundCommandPacketClass::SoundCommandPacketClass(PacketClass *raw)
 	raw->Get(&Channel, sizeof(Channel));
 }
 
-PacketClass *SoundCommandPacketClass::Build()
+PacketClass *SoundCommandPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(107, Get_Data_Size());
 	raw->Add(&Command, sizeof(Command));

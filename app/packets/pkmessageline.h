@@ -27,7 +27,7 @@ public:
 	MessageLinePacketClass(char *string, char *ephemeral_type, __int64 time_ms, int display_priority);	// 0x89D760
 	MessageLinePacketClass(PacketClass *raw);	// 0x89D8A0
 	virtual ~MessageLinePacketClass();	// +0x00 0x89D870 / 0x89D970
-	virtual PacketClass *Build();	// +0x04 0x89D9C0
+	virtual PacketClass *Encode();	// +0x04 0x89D9C0  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual int Get_Data_Size();	// +0x0C 0x89DAB0
 	protected: virtual int Print(char *buffer, int len); public:	// +0x10 0x89DAF0
 	virtual int Get_Channel() { return(-2); }	// +0x18 0x86E6A0
@@ -84,7 +84,7 @@ class ClearMessageLinePacketClass : public UnknownPacketBaseClass
 public:
 	ClearMessageLinePacketClass();	// 0x89DBB0
 	ClearMessageLinePacketClass(PacketClass *raw);	// 0x89DC60
-	virtual PacketClass *Build();	// +0x04 0x89DCC0
+	virtual PacketClass *Encode();	// +0x04 0x89DCC0  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x736D00 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x89DD40
 	virtual int Print(char *buffer, int len);	// +0x10 0x89DD60
@@ -99,7 +99,7 @@ public:
 	SuperLinePacketClass(char *string);	// 0x89DD90 (a copy: nstrdup)
 	SuperLinePacketClass(PacketClass *raw);	// 0x89DEB0
 	virtual ~SuperLinePacketClass();	// +0x00 0x89DE80 / 0x89DF40
-	virtual PacketClass *Build();	// +0x04 0x89DF80
+	virtual PacketClass *Encode();	// +0x04 0x89DF80  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x736C60 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x89E050
 	virtual int Print(char *buffer, int len);	// +0x10 0x89E080

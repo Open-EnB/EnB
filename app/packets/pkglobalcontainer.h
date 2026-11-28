@@ -24,7 +24,7 @@ public:
 	GlobalContainerRequestPacketClass(__int64 unknown18, const char *string, __int64 unknown28, int unknown30, UnknownPacketBaseClass *packet);	// 0x863720 (Data: the packet's Build, header and payload)
 	GlobalContainerRequestPacketClass(PacketClass *raw);	// 0x863940
 	virtual ~GlobalContainerRequestPacketClass();	// +0x00 0x8638B0 / 0x863880
-	virtual PacketClass *Build();	// +0x04 0x863A50
+	virtual PacketClass *Encode();	// +0x04 0x863A50  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x869360 (clientstub.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x863B80
 	virtual int Print(char *buffer, int len);	// +0x10 0x863BB0
@@ -46,7 +46,7 @@ public:
 	GlobalContainerResponsePacketClass(__int64 unknown18, const char *string, __int64 unknown28, int unknown30, UnknownPacketBaseClass *packet);	// 0x863BE0 (Data: the packet's Build, header and payload)
 	GlobalContainerResponsePacketClass(PacketClass *raw);	// 0x863DC0
 	virtual ~GlobalContainerResponsePacketClass();	// +0x00 0x863D70 / 0x863D40
-	virtual PacketClass *Build();	// +0x04 0x863ED0
+	virtual PacketClass *Encode();	// +0x04 0x863ED0  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x869390 (clientstub.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x864000
 	virtual int Print(char *buffer, int len);	// +0x10 0x864030

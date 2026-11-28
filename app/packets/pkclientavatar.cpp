@@ -13,7 +13,7 @@ ClientAvatarPacketClass::ClientAvatarPacketClass(PacketClass *raw)
 	raw->Get(&AvatarID, sizeof(AvatarID));
 }
 
-PacketClass *ClientAvatarPacketClass::Build()
+PacketClass *ClientAvatarPacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(55, Get_Data_Size());
 	raw->Add(&AvatarID, sizeof(AvatarID));

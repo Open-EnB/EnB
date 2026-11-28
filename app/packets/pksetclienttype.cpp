@@ -12,7 +12,7 @@ SetClientTypePacketClass::SetClientTypePacketClass(PacketClass *raw)
 	raw->Get(&Type, sizeof(Type));
 }
 
-PacketClass *SetClientTypePacketClass::Build()
+PacketClass *SetClientTypePacketClass::Encode()
 {
 	PacketClass *raw = new PacketClass(60, Get_Data_Size());
 	raw->Add(&Type, sizeof(Type));

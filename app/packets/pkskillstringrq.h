@@ -24,7 +24,7 @@ class SkillStringRqPacketClass : public UnknownPacketBaseClass  // NAME 2: Net-7
 public:
 	SkillStringRqPacketClass(int player_id, int request);	// 0x8A2530
 	SkillStringRqPacketClass(PacketClass *raw);	// 0x8A25B0
-	virtual PacketClass *Build();	// +0x04 0x8A2650
+	virtual PacketClass *Encode();	// +0x04 0x8A2650  // NAME 3: override of the NAME 5 virtual Encode
 	virtual bool Process_Packet(void *client);	// +0x08 0x867FE0 (clientstub.cpp l.98)
 	virtual int Get_Data_Size();	// +0x0C 0x8A2720
 	virtual int Print(char *buffer, int len);	// +0x10 0x8A2740
