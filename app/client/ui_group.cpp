@@ -20,9 +20,9 @@
 
 extern FontManagerClass *Unknown_BE67C4;	// NAME 1: neutral (D10)
 class UIGroupAvatarClass : public RefCountClass { public: char Unknown[0x1CC - sizeof(RefCountClass)]; char Name[1]; };	// NAME 1: neutral (D10): what SpaceClientClass 0x74C7B0 returns, as far as 0x595530 reads it (the name at +0x1CC)
-// gadget.cpp's gadget and the buttons (unknown_675120.h's ButtonGadgetClass: 0x675240 / 0x675310)
+// gadget.cpp's gadget and the buttons (gd_uimesh.h's ButtonGadgetClass: 0x675240 / 0x675310)
 #include "gadget.h"
-#include "unknown_675120.h"
+#include "gd_uimesh.h"
 
 
 
@@ -53,7 +53,7 @@ class UIGroupAvatarClass : public RefCountClass { public: char Unknown[0x1CC - s
 
 #include "..\..\ww3d2\ww3d.h"	// WW3D::Get_Frame_Time / Get_Sync_Time (0xBFAE3C / 0xBFAE40: WW3D::SyncTime / PreviousSyncTime, written by WW3D::Sync 0x918200, read inline)
 
-// (the icon gadget, 0x675310 over a render object: unknown_675120.h's ButtonGadgetClass)
+// (the icon gadget, 0x675310 over a render object: gd_uimesh.h's ButtonGadgetClass)
 
 
 
@@ -75,7 +75,7 @@ void Message_Error(const char *sender, const char *category, const char *file, i
 static const char *Unknown_B7F4B8[] = { "hull_bar0", "shield_bar0", NULL };	// NAME 1: neutral (D10)
 static const char *Unknown_B7F4C4[] = { "hull_bar1", "shield_bar1", NULL };	// NAME 1: neutral (D10)
 
-// (the button gadget, 0x675240 over a render object and a layer: unknown_675120.h's ButtonGadgetClass)
+// (the button gadget, 0x675240 over a render object and a layer: gd_uimesh.h's ButtonGadgetClass)
 
 
 

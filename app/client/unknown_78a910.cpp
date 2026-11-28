@@ -1,5 +1,5 @@
 // Earth & Beyond client (reconstruction): the starbase avatar, 0x78A910-0x78BEA0 (PROVISIONAL file, D137: no
-// __FILE__; after avatar.cpp's object, before unknown_creator's): the constructor 0x78A910 (over avatar.cpp's
+// __FILE__; after avatar.cpp's object, before avatar_file's): the constructor 0x78A910 (over avatar.cpp's
 // 0x77B870; tables 0xB04808 / 0xB047F0 / 0xB047EC), the destructor, the idle animations and walk points
 // (0x78ACE0-0x78BB60; TG3, OD1). Notes at the end.
 #include <stdio.h>

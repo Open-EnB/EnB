@@ -1,7 +1,7 @@
 // Earth & Beyond client (reconstruction)
 // PROVISIONAL file name (D10): the personality manager (0xBE856C), client 0x790560-0x7912E0 with its
-// std::vector instances (unknown_personality.h). The phoneme converter from 0x791310 is another file's.
-#include "unknown_personality.h"
+// std::vector instances (personality.h). The phoneme converter from 0x791310 is another file's.
+#include "personality.h"
 #include "ini.h"
 #include "nstrdup.h"
 #include <stdio.h>

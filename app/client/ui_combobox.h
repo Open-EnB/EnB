@@ -10,7 +10,7 @@
 #include "sclient.h"
 #include "..\..\wwlib\ref_ptr.h"
 
-class ButtonGadgetClass;		// unknown_675120.h's button
+class ButtonGadgetClass;		// gd_uimesh.h's button
 class FontSys;					// fontmanager.h
 class GadgetSlider;				// gd_slider.h's slider
 class HAnimClass;				// hanim.h
@@ -20,9 +20,9 @@ class UIComboBoxClass;
 class UIComboBoxTextClass;
 
 // The text gadget (0x7C bytes, table 0xAF097C): a line of text on a bone of the box's mesh. The box's text field
-// and each row of its list. Declared where the includer has the gadgets (unknown_675120.h before this header:
+// and each row of its list. Declared where the includer has the gadgets (gd_uimesh.h before this header:
 // ui_chat_panel.cpp and cpacket.cpp still have their own views of GadgetClass, so this header cannot include it).
-#ifdef UNKNOWN_675120_H
+#ifdef GD_UIMESH_H
 class UIComboBoxTextClass : public UIMeshGadgetClass	// NAME 1: neutral (D10): what the box makes of it
 {
 public:

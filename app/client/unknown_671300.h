@@ -13,7 +13,7 @@
 #ifndef UNKNOWN_671300_H  // NAME 1 [unknown_671300.h]: neutral (D137)
 #define UNKNOWN_671300_H
 
-#include "unknown_675120.h"
+#include "gd_uimesh.h"
 #include "..\shared\uvcontrl.h"
 
 // The gadget of constructor 0x671300 (0x80 bytes, table 0xAFB278): a button gadget that notes the buttons pressed on it and

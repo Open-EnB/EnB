@@ -120,5 +120,5 @@ void ResizeGadget::Unknown_66BDA0()
 **	The drag (0x66BB10): the pointer to 640 x 480 coordinates around the centre; a press takes the model's offset
 **	from it and holds the gadget (slot +0x68), a release lets go (+0x6C); every accepted event clamps the pointer's
 **	offset from the origin +0x60 to the corners +0x70 / +0x78 into +0x68 (WWMath::Clamp inlined). Its caller is
-**	0x5723B0. UIMeshGadgetClass: unknown_675120.cpp (interim, D137).
+**	0x5723B0. UIMeshGadgetClass: gd_uimesh.cpp (interim, D137).
 */

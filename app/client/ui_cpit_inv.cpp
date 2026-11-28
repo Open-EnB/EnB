@@ -6,7 +6,7 @@
 #include "ui_mesh.h"
 #include "gadget.h"
 #include "gadget_list_manager.h"
-#include "unknown_675120.h"
+#include "gd_uimesh.h"
 #include "gd_inv_slider.h"
 #include "local_interface_sort.h"
 #include "..\shared\g_assert.h"

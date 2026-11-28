@@ -234,7 +234,7 @@ bool BoundedUIBackGadget::Unknown_30(float x, float y)
 **	none between. Its first function is the thrust button 0x673EE0, which has no string or assert of its own: it is here
 **	because of those bounds, and because .rdata agrees: every gadget object's .rdata runs [first table][the 0xAC-byte block of primes]
 **	[its other tables], and here that is 0xAFB498 (the button), the block 0xAFB548, then 0xAFB5F4, 0xAFB6B8, 0xAFB77C, 0xAFB794,
-**	0xAFB7AC with no second block. The next block belongs to unknown_675120.cpp's table 0xAFB870.
+**	0xAFB7AC with no second block. The next block belongs to gd_uimesh.cpp's table 0xAFB870.
 **
 **	The client's 0x6744E0 has line 65, before everything else with a line, and sits behind its only caller 0x674310: a static's
 **	place in .text says nothing of its place in the source.

@@ -10,7 +10,7 @@
 
 class SpaceClientClass;
 class RenderObjClass;
-class ButtonGadgetClass;		// unknown_675120.h's buttons
+class ButtonGadgetClass;		// gd_uimesh.h's buttons
 class UIComboBoxClass;			// ui_combobox.h's combo box (the filter)
 
 // The vault window (0xFC bytes, tables 0xAF92F0 (53 slots) / 0xAF92E4 / 0xAF92D8; pdaint.cpp's set-up 0x693230 makes it:

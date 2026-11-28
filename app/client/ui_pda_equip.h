@@ -15,7 +15,7 @@
 
 class SpaceClientClass;
 class RenderObjClass;
-class ButtonGadgetClass;		// unknown_675120.h's buttons
+class ButtonGadgetClass;		// gd_uimesh.h's buttons
 
 // The ship's PIP on the window: ship_equip_pip.h's (the PIP's gadget is gd_ship_equip_pip.h's)
 class ShipEquipPipClass;

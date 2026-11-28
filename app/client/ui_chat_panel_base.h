@@ -6,7 +6,7 @@
 
 #include <string>
 #include "sclient.h"
-#include "unknown_675120.h"	// ButtonGadgetClass (Add_Button news one at 0x56D510)
+#include "gd_uimesh.h"	// ButtonGadgetClass (Add_Button news one at 0x56D510)
 
 class RenderObjClass;
 class GadgetClass;			// gadget.cpp's

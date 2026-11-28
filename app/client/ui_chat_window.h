@@ -10,7 +10,7 @@
 
 class FontSys;					// fontmanager.h's (not included here: ui_chat_panel.cpp declares its own)
 class FontSysCursor;			// fontsys_cursor.h's
-class ButtonGadgetClass;		// unknown_675120.h's
+class ButtonGadgetClass;		// gd_uimesh.h's
 class ChatWindowClass;			// chat_window.h's
 class Unknown67D430Class;		// unknown_67d430.h's: the chat panel's ring of chat lines (+0x13C)
 class ChatGadgetClass;		// chatgadg.cpp's text entry (0x80 bytes, constructor 0x65BFD0): the chat panel's +0x140

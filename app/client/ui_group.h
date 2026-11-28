@@ -8,7 +8,7 @@
 #include "sclient.h"
 
 class GadgetClass;			// gadget.cpp's
-class ButtonGadgetClass;	// unknown_675120.h's (the formation buttons at +0xC0, the members' buttons; deleted through gadget.h's 0x65EED0)
+class ButtonGadgetClass;	// gd_uimesh.h's (the formation buttons at +0xC0, the members' buttons; deleted through gadget.h's 0x65EED0)
 class GroupInterface;
 
 // (The interface base, Unknown5BB320Class, is in unknown_5bb250.h, which sclient.h includes: D137)

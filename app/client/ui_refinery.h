@@ -9,7 +9,7 @@
 #include "..\..\wwlib\ref_ptr.h"
 
 class GadgetSlider;				// gd_slider.h's slider (+0xB0)
-class ButtonGadgetClass;		// unknown_675120.h's buttons (+0xBC, +0xCC)
+class ButtonGadgetClass;		// gd_uimesh.h's buttons (+0xBC, +0xCC)
 class FontSys;					// fontmanager.h's text objects (+0xF4)
 class StarbaseViewClass;			// sbaseview.cpp's starbase view (+0xAC)
 class DeltaContainer;

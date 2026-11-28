@@ -20,7 +20,7 @@
 #include "random.h"
 extern RandomClass Unknown_BDBB84;					// NAME 1 [Unknown_BDBB84]: neutral (D10), as eff_o.cpp's
 #include "local_interface_sort.h"	// InterfaceSortScopeClass (0x54BD30)
-#include "unknown_675120.h"	// ButtonGadgetClass (0x54BD30's buttons)
+#include "gd_uimesh.h"	// ButtonGadgetClass (0x54BD30's buttons)
 #include "control_key_list.h"	// ControlKeyListClass (0x54BD30: Escape)
 
 

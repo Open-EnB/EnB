@@ -6,7 +6,7 @@
 
 #include "sclient.h"
 
-class ButtonGadgetClass;		// unknown_675120.h's buttons (+0xAC)
+class ButtonGadgetClass;		// gd_uimesh.h's buttons (+0xAC)
 
 // The web window (0xB8 bytes, tables 0xAF96B0 / 0xAF96A4 / 0xAF9698; made by 0x69F8F0, sbaseview.cpp, case 9: the
 // starbase view's +0x198). It opens the settings store's browser 3 (BROWSER_PIT) over its mesh's 'BROWSER' box 20

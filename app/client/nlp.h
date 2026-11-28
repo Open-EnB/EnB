@@ -14,7 +14,7 @@
 #define NLP_H
 
 #include <string.h>
-#include "unknown_personality.h"
+#include "personality.h"
 
 class Unknown_ChatStreamClass;
 

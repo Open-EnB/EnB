@@ -724,6 +724,6 @@ void PlayerNLPClass::Unknown_78F690(const char *text, int len, int *mood, Unknow
 **
 **	The client's nlp.cpp: 0x78E190 to 0x78F690 (the asserts on lines 413, 454 and 708), its data
 **	0xB9D668 and strings 0xB9D670-0xB9D9C0. The personality code from 0x78F700 is another file's
-**	(unknown_personality.cpp): 0x78EC00 calls 0x790D40 (20 instructions) where the same compiler
+**	(personality.cpp): 0x78EC00 calls 0x790D40 (20 instructions) where the same compiler
 **	inlines it when both share a file.
 */

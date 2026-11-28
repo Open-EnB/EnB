@@ -19,7 +19,7 @@
 #include <vector>
 #include "always.h"
 #include "..\..\wwlib\ref_ptr.h"
-#include "unknown_675120.h"
+#include "gd_uimesh.h"
 
 class RenderObjClass;
 class FontSys;

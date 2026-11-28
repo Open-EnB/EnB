@@ -31,7 +31,7 @@
 #include "..\..\ww3d2\ww3d.h"
 #include "..\shared\message.h"
 #include "local_interface_sort.h"
-#include "unknown_675120.h"	// ButtonGadgetClass
+#include "gd_uimesh.h"	// ButtonGadgetClass
 #include "hanim.h"
 #include "ui_cinfo.h"
 #include "ui_attrb_skills.h"
@@ -349,7 +349,7 @@ int UIStarbaseUnknown1F8Class::Unknown_645DC0()
 **	UIStarbaseUnknown1F8Class 0x644F80-0x645DC0, their vector instances 0x645DF0-0x645E80), then <string>'s guarded
 **	initialiser 0x646120 (entry 418, the object's only one) and the class's vector deleting destructors 0x646150 /
 **	0x646160. ui_starbase.cpp's object ends with its own guard 0x644DE0 (entry 417); the lights panel
-**	(unknown_646170.cpp) follows with 0x648380 (entry 419). The preamble is ui_starbase.cpp's (its includes and
+**	(ui_starbase_light.cpp) follows with 0x648380 (entry 419). The preamble is ui_starbase.cpp's (its includes and
 **	declarations, no definitions) without aux_group.h, which would define and number the Delta globals the client's
 **	object does not. No assert or string names the file: PROVISIONAL (D137); the client links objects in name order,
 **	so its name sorts after ui_starbase.cpp.

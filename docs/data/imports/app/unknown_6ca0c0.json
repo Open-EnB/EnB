@@ -1,7 +1,7 @@
 {
  "ambiguous": [],
  "copy": "reconstructed",
- "description": "FontSys's per-effect step 0x6CA0C0 (11,680 bytes, the EffectType switch PULSE ... STRETCH; only caller FontSys::Update_Text 0x6D64C0) and the text rectangle in screen units 0x6D5B10: free functions until fontmanager.h declares them; NOT EXACT (D64, functional for the POC); interim file (D137), between fontdatabase.cpp and unknown_creator's code (PROVISIONAL name, TXT2)",
+ "description": "FontSys's per-effect step 0x6CA0C0 (11,680 bytes, the EffectType switch PULSE ... STRETCH; only caller FontSys::Update_Text 0x6D64C0) and the text rectangle in screen units 0x6D5B10: free functions until fontmanager.h declares them; NOT EXACT (D64, functional for the POC); interim file (D137), between fontdatabase.cpp and avatar_file's code (PROVISIONAL name, TXT2)",
  "expected": {},
  "in_tree": [
   "0x42F250",

@@ -10,7 +10,7 @@
 
 class SpaceClientClass;
 class RenderObjClass;
-class ButtonGadgetClass;		// unknown_675120.h's buttons
+class ButtonGadgetClass;		// gd_uimesh.h's buttons
 class UIComboBoxClass;			// ui_combobox.h's combo box (the filter)
 class GadgetInvSlider;		// gd_inv_slider.h's inventory slider
 class PDAInterface;		// pdaint.h's PDA

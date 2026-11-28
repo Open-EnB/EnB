@@ -34,7 +34,7 @@
 extern FontManagerClass *Unknown_BE67C4;	// NAME 1: neutral (D10)
 #include "..\..\ww3d2\ww3d.h"	// WW3D::Get_Frame_Time / Get_Sync_Time (0xBFAE3C / 0xBFAE40: WW3D::SyncTime / PreviousSyncTime, written by WW3D::Sync 0x918200, read inline)
 
-// gadget.cpp's gadget, gd_slider.cpp's slider, the buttons (unknown_675120.h's ButtonGadgetClass) and the
+// gadget.cpp's gadget, gd_slider.cpp's slider, the buttons (gd_uimesh.h's ButtonGadgetClass) and the
 // check buttons (unknown_7e7e00.h's CheckBoxGadgetClass)
 #include "gadget.h"
 #include "gd_slider.h"
@@ -162,7 +162,7 @@ UIManuClass::~UIManuClass()
 
 
 
-// (the button gadgets slot +0x54 makes, 0x675240 / 0x675170: unknown_675120.h's ButtonGadgetClass)
+// (the button gadgets slot +0x54 makes, 0x675240 / 0x675170: gd_uimesh.h's ButtonGadgetClass)
 
 
 

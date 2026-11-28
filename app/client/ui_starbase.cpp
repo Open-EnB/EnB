@@ -1,6 +1,6 @@
 #include "..\shared\auxdata\permstr.h"	// Earth & Beyond client (reconstruction): app\client\ui_starbase.cpp (the client's __FILE__ 'e:\build\beta\G\app\Client\ui_starbase.cpp', 0x632E50-0x648340 by its asserts, its string order and ui_slot_scut.cpp's end).
 #define __INTRFACE_MEMBERS	// intrface.h's members (the constructor 0x540D30 with the client: the symbol chat menu's)
-// The starbase interface (constructor 0x6333E0, SB1), its helpers 0x638FF0-0x6437A0 as far as rebuilt (SB1, run 2026-11-09b), its lights helpers 0x640CC0-0x640F30 (the symbol chat menu and the lights panel are objects of their own by the CRT table: unknown_644e50.cpp / unknown_646170.cpp, S2); the set-up 0x634140 (SU1) and the functions with asserts sit on the client's lines (862, 2004-4180).
+// The starbase interface (constructor 0x6333E0, SB1), its helpers 0x638FF0-0x6437A0 as far as rebuilt (SB1, run 2026-11-09b), its lights helpers 0x640CC0-0x640F30 (the symbol chat menu and the lights panel are objects of their own by the CRT table: unknown_644e50.cpp / ui_starbase_light.cpp, S2); the set-up 0x634140 (SU1) and the functions with asserts sit on the client's lines (862, 2004-4180).
 #include "eff_o.h"	// first: client.h then skips its partial EffectObjectClass
 #include "pdaint.h"	// first, before sclient.h: the PDA's character window (0x638390)
 #include <stdio.h>
@@ -31,7 +31,7 @@
 #include "..\..\ww3d2\ww3d.h"
 #include "..\shared\message.h"
 #include "local_interface_sort.h"
-#include "unknown_675120.h"	// ButtonGadgetClass
+#include "gd_uimesh.h"	// ButtonGadgetClass
 #include "hanim.h"
 #include "ui_cinfo.h"
 #include "ui_attrb_skills.h"

@@ -4,7 +4,7 @@
 **	Original location: unknown (PROVISIONAL, D137: a neutral name; the object 0x7E7E70-0x7E81AF has no assert, its
 **	strings are 'if_check_on.tga' / 'if_check_off.tga')
 **
-**	The check box: a button gadget (unknown_675120.h's ButtonGadgetClass, mask 0x11) that shows one of two textures.
+**	The check box: a button gadget (gd_uimesh.h's ButtonGadgetClass, mask 0x11) that shows one of two textures.
 **	Table 0xB075E4 (41 slots: RenderObjGadgetClass's, +0x2C its own), constructors 0x7E7E70 (with a layer) / 0x7E7F20,
 **	destructor 0x7E7FA0, 0x68 bytes; code in unknown_7e7e00.cpp. The windows that tick boxes (ui_friends.cpp,
 **	ui_option_channel.cpp, ui_option_check.cpp) and ui_manu.cpp's tech level filters (since run 2026-11-14, S1)
@@ -18,7 +18,7 @@
 #ifndef UNKNOWN_7E7E00_H  // NAME 1 [unknown_7e7e00.h]: neutral (D137)
 #define UNKNOWN_7E7E00_H
 
-#include "unknown_675120.h"
+#include "gd_uimesh.h"
 
 class CheckBoxGadgetClass : public ButtonGadgetClass  // NAME 2: what it is, a check box ('if_check_on.tga' / 'if_check_off.tga'; D239 renamed it from UIManuCheckButtonClass)
 {

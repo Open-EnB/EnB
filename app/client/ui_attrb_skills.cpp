@@ -106,7 +106,7 @@ int Unknown_82F350(int race, int prof);				// chartemplate.cpp's 0x82F350 (race 
 
 #include "assetmgr.h"
 #include "gd_robj.h"
-#include "unknown_675120.h"
+#include "gd_uimesh.h"
 
 
 

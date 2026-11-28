@@ -10,7 +10,7 @@
 #include "fontsys_cursor.h"
 #include "textgadg.h"
 #include "gd_slider.h"
-#include "unknown_675120.h"
+#include "gd_uimesh.h"
 #include "chat_window.h"
 #include "unknown_67d430.h"
 #include "local_interface_sort.h"

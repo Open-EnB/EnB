@@ -18,11 +18,11 @@
 #include "avatar.h"
 class SignalMap;
 class AABoxClass;
-// gadget.cpp's gadget, gd_robj.h's model gadget (slot +0x08's answer), the buttons (unknown_675120.h's
+// gadget.cpp's gadget, gd_robj.h's model gadget (slot +0x08's answer), the buttons (gd_uimesh.h's
 // ButtonGadgetClass) and the pulls' gadget (unknown_671300.h's Unknown_671300Class)
 #include "gadget.h"
 #include "gd_robj.h"
-#include "unknown_675120.h"
+#include "gd_uimesh.h"
 #include "unknown_671300.h"
 #include "..\shared\auth_product.h"
 
@@ -461,7 +461,7 @@ class EnvironmentMapManagerClass { public: void Unknown_760770(int base_asset, b
 
 
 
-// (the parts' buttons, 0x675240: unknown_675120.h's ButtonGadgetClass)
+// (the parts' buttons, 0x675240: gd_uimesh.h's ButtonGadgetClass)
 
 
 

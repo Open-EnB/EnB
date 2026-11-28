@@ -378,11 +378,11 @@ void UISliderGadget::Unknown_675F00(Vector2 point)
 **	Reconstruction notes (gd_uisld.cpp, client 0x675370-0x675FEF; __FILE__ 0xB8D78C, FAIL_IF '!retval' on the client's line 293,
 **	D25: the blank lines between the definitions above it keep it there).
 **
-**	The object: from the scroll bar's first constructor 0x675370 (right after unknown_675120.cpp's last function 0x675350) to
+**	The object: from the scroll bar's first constructor 0x675370 (right after gd_uimesh.cpp's last function 0x675350) to
 **	<string>'s guarded ctype initialiser 0x675FD0, which ends it (workflow.md 3.3). Its 16 functions: the two constructors,
 **	the table's three inline getters 0x675460 / 0x675480 / 0x6754A0 and the deleting destructor 0x6754C0, the constructors'
 **	helper 0x6755E0, the destructor, the slots +0x40 / +0x30 / +0x2C / +0x24 / +0x8C / +0xA4 and the two members 0x675CF0 /
-**	0x675F00. Table 0xAFBA80 over unknown_675120.h's 0xAFB870, with four new slots +0xA4..+0xB0.
+**	0x675F00. Table 0xAFBA80 over gd_uimesh.h's 0xAFB870, with four new slots +0xA4..+0xB0.
 **
 **	The class name: none in the client (no RTTI, no string); D24's class-from-file for gd_uisld.cpp, spelled as the sibling
 **	gd_uiback.cpp's UIBackGadget (RTTI .?AVMovableUIBackGadget@@'s base). 'uisld' read as 'UI slider' (gd_slider.cpp holds

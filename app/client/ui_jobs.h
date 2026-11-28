@@ -12,7 +12,7 @@
 #include <list>
 
 class GadgetSlider;				// gd_slider.h's slider (+0xAC)
-class ButtonGadgetClass;		// unknown_675120.h's buttons (+0xF8, +0x124)
+class ButtonGadgetClass;		// gd_uimesh.h's buttons (+0xF8, +0x124)
 class FontSys;					// fontmanager.h's text objects (+0x14C)
 class JobListPacketClass;		// pkjoblist.h's packets
 class JobDescriptionPacketClass;

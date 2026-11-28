@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include "ui_ping.h"
 #include "gadget.h"
-#include "unknown_675120.h"
+#include "gd_uimesh.h"
 #include "gd_uiback.h"		// UIBackGadget (0x674260)
 #include "unknown_51c800.h"
 #include "dynamic_window_class.h"

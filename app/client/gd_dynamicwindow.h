@@ -16,7 +16,7 @@
 #ifndef GD_DYNAMICWINDOW_H  // NAME 3 [gd_dynamicwindow.h]: header name assumed from the client's gd_dynamicwindow.cpp
 #define GD_DYNAMICWINDOW_H
 
-#include "unknown_675120.h"
+#include "gd_uimesh.h"
 #include "..\..\wwlib\ref_ptr.h"
 
 class DynamicWindowRenderObjectClass;

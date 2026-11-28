@@ -6,7 +6,7 @@
 **
 **	gd_resize.cpp's drag handle: a model gadget that follows the pointer between two corners (table 0xAFA954,
 **	0x8C bytes; constructor 0x66BA50, destructor 0x66BAF0). Its base is the model gadget that stays out of the
-**	scene (constructor 0x675120, table 0xAFB870: unknown_675120.h).
+**	scene (constructor 0x675120, table 0xAFB870: gd_uimesh.h).
 */
 
 #if defined(_MSC_VER)
@@ -20,7 +20,7 @@
 #include "vector2.h"
 #include "..\..\wwlib\ref_ptr.h"
 
-#include "unknown_675120.h"
+#include "gd_uimesh.h"
 
 class ResizeGadget : public UIMeshGadgetClass  // NAME 5: thunk order A, binary.md 5.11; NAME 3 [ResizeGadget]: class-from-file (D24) for app\Client\gd_resize.cpp
 {

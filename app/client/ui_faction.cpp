@@ -8,7 +8,7 @@
 #include "..\..\wwlib\ref_ptr.h"
 #include "gadget.h"
 #include "gd_robj.h"
-#include "unknown_675120.h"
+#include "gd_uimesh.h"
 #include <stdio.h>
 #include "gd_uiback.h"		// UIBackGadget (0x674260)
 #include "assetmgr.h"

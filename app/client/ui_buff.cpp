@@ -8,7 +8,7 @@
 #include "rendobj.h"
 #include "assetmgr.h"
 #include "gadget.h"
-#include "unknown_675120.h"
+#include "gd_uimesh.h"
 #include "..\shared\g_assert.h"
 #include "..\shared\duration.h"
 #include "..\audio\soundlib.h"

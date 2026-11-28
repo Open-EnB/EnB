@@ -11,7 +11,7 @@
 #include "..\..\wwlib\ref_ptr.h"
 #include "..\shared\auth_product.h"
 #include "fontmanager.h"	// FontSys, FontManagerClass (0xBE67C4) and fontdatabase.h's FontStringFilesClass (0xBE67BC)
-#include "unknown_675120.h"	// the gadgets (before ui_combobox.h: its text gadget is declared only with them)
+#include "gd_uimesh.h"	// the gadgets (before ui_combobox.h: its text gadget is declared only with them)
 #include "gd_slider.h"
 #include "assetmgr.h"
 #include "matrix3d.h"

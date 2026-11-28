@@ -12,7 +12,7 @@
 #ifndef GD_UISLD_H  // NAME 3 [GD_UISLD_H]: header name from gd_uisld.cpp's __FILE__ (D24)
 #define GD_UISLD_H
 
-#include "unknown_675120.h"
+#include "gd_uimesh.h"
 #include "vector2.h"
 #include "vector3.h"
 #include "matrix3d.h"

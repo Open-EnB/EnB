@@ -13,7 +13,7 @@
 #define GD_UIBACK_H
 
 #include "unknown_671300.h"
-#include "unknown_675120.h"
+#include "gd_uimesh.h"
 #include "..\..\wwlib\ref_ptr.h"
 #include "vector2.h"
 #include "vector3.h"

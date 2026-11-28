@@ -112,7 +112,7 @@ public:
 	std::vector<std::string> Unknown20;	// +0x20 (a 4-byte count, then the strings)
 	std::vector<std::string> Unknown30;	// +0x30 (a 4-byte count, then the strings)
 
-	void Add_Unknown20(const std::string &name);	// 0x879DE0 (push_back; no caller left in the client)  // NAME 1 [Add_Unknown20, name]: neutral (D10), as pkunknown_888b60's Add_Unknown18
+	void Add_Unknown20(const std::string &name);	// 0x879DE0 (push_back; no caller left in the client)  // NAME 1 [Add_Unknown20, name]: neutral (D10), as pkgroupserver's Add_Unknown18
 	void Add_Unknown30(const std::string &name);	// 0x87A000 (push_back; no caller left in the client)  // NAME 1 [Add_Unknown30, name]: neutral (D10)
 };
 

@@ -5396,7 +5396,7 @@ void SpaceClientClass::Unknown_751460(int points_total, int points_spent)
 
 
 
-#include "..\packets\pkunknown_8a5510.h"
+#include "..\packets\pkspendreferralpoint.h"
 
 // 0x751660 (Do_Frame, every frame: the SPEND_BUDDY_POINTS question; yes sends opcode 0xE8 with +0x14F4)
 void SpaceClientClass::Unknown_751660()

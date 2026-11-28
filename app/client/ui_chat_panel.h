@@ -10,7 +10,7 @@
 
 class RenderObjClass;
 class GadgetClass;			// gadget.cpp's
-class ButtonGadgetClass;	// unknown_675120.h's (the panel's buttons, +0xA4: Add_Button's)
+class ButtonGadgetClass;	// gd_uimesh.h's (the panel's buttons, +0xA4: Add_Button's)
 class GadgetSlider;			// gd_slider.h's
 
 class AvatarPipClass;		// avatar_pip.h's (the panel's +0x110)

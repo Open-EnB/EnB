@@ -1,0 +1,52 @@
+{
+ "ambiguous": [],
+ "copy": "reconstructed",
+ "description": "packet classes (opcode 73) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name by convention from its class and its place in the object order (NAME 3, 2026-11-27)",
+ "expected": {},
+ "in_tree": [
+  "0x42B320",
+  "0x52B210",
+  "0x52B240",
+  "0x52B270",
+  "0x52B2A0",
+  "0x52B2D0",
+  "0x52B2F0",
+  "0x52B310",
+  "0x52B330",
+  "0x52B350",
+  "0x5953D0",
+  "0x85D1A0",
+  "0x85D240",
+  "0x85D270",
+  "0x85D330",
+  "0x85D350",
+  "0x85D430",
+  "0x85D450",
+  "0x85D480"
+ ],
+ "merged": [],
+ "name": "packets/pkdeletecharacter.cpp",
+ "shared": [
+  "0x42B320",
+  "0x52B210",
+  "0x52B240",
+  "0x52B270",
+  "0x52B2A0",
+  "0x52B2D0",
+  "0x52B2F0",
+  "0x52B310",
+  "0x52B330",
+  "0x52B350",
+  "0x5953D0",
+  "0x85D330"
+ ],
+ "short_known": [
+  "0x42B320",
+  "0x52B2D0",
+  "0x52B2F0",
+  "0x52B310",
+  "0x52B330",
+  "0x5953D0",
+  "0x85D330"
+ ]
+}

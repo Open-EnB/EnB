@@ -9,7 +9,7 @@
 #include "rendobj.h"
 #include "..\..\wwlib\ref_ptr.h"
 #include "gadget.h"
-#include "unknown_675120.h"
+#include "gd_uimesh.h"
 #include "..\shared\uvcontrl.h"
 #include "..\shared\auxdata\permstr.h"	// (its PermStringInitClass static: 0x58BF90)
 #include "..\shared\auxdata\auxdata.h"

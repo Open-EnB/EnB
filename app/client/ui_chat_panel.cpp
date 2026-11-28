@@ -155,10 +155,10 @@ extern unsigned int Unknown_BE5F34;						// gadget.cpp's: the key modifiers (0x7
 // pdaint.cpp's PDA (SpaceClientClass +0x1284), as far as 0x565F80 calls it
 
 
-// gadget.cpp's gadget and the panel's buttons (ChatPanelUIBase::Add_Button's, 0x56D510: unknown_675120.h's
+// gadget.cpp's gadget and the panel's buttons (ChatPanelUIBase::Add_Button's, 0x56D510: gd_uimesh.h's
 // ButtonGadgetClass; the model at +0x30 is gd_robj.h's RObj)
 #include "gadget.h"
-#include "unknown_675120.h"
+#include "gd_uimesh.h"
 
 
 
@@ -255,7 +255,7 @@ ChatPanelInterface::ChatPanelInterface(SpaceClientClass *client) :
 #include "ui_commands.h"	// UICommandsClass (0x57BAD0, 0xFC bytes: 'Commands')
 #include "ui_petition.h"	// UIPetitionClass (0x5D33B0, 0xCC bytes: 'Get Help')
 class UILogClass : public ChatPanelUIBase { public: UILogClass(SpaceClientClass *client); char Unknown0A0[0xCC - 0xA0]; };	// ui_log.cpp's log book (0x5AAE40, 0xCC bytes: 'Captain's Log'; declared in ui_log.cpp, no header)
-#include "..\packets\pkunknown_87dec0.h"	// AvatarEmotePacketClass (0x87DEC0: the avatar's emotes)
+#include "..\packets\pkchatstream.h"	// AvatarEmotePacketClass (0x87DEC0: the avatar's emotes)
 #include "camera_manager.h"	// CameraManagerClass (SClient +0x12A8; 0x79B600 before the ship's emotes)
 // (4 dead size() reads send _Eos out of line; the combo through 0x568910 and the chat window through 0x56C6A0 inlined give 0x56CC30, Remove 0x56CE40 and ChatInt=NULL 0x56CD50 out of line; the deletes' own null tests)
 // @0x562440

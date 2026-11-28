@@ -268,6 +268,6 @@ void UIPTMisClass::Unknown_5DF410()
 **	'<= -1'; the count clamp reads Count() twice.
 **
 **	pt_data.cpp's missions list (0x696320) comes from pt_data.h (included where its local declaration stood,
-**	so no assert moves); the scroll bar 0x675370 is gd_uisld.h's UISliderGadget (included where unknown_675120.h
+**	so no assert moves); the scroll bar 0x675370 is gd_uisld.h's UISliderGadget (included where gd_uimesh.h
 **	stood, its local declaration's lines left blank). The class is declared in ui_ptmis.h (PROVISIONAL name, D137).
 */

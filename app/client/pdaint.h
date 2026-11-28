@@ -16,7 +16,7 @@
 
 class SpaceClientClass;
 class RenderObjClass;		// ww3d2's
-class ButtonGadgetClass;	// unknown_675120.h's
+class ButtonGadgetClass;	// gd_uimesh.h's
 class ControlKeysManager;	// control_keys_manager.h's
 class CharacterInfoInterface;			// ui_cinfo.h's character window (0x5734D0)
 class StarmapInterface;		// ui_starmap.h's star map window (0x7C63D0)

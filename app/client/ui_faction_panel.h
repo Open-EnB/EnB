@@ -20,7 +20,7 @@
 #include "sclient.h"
 #include <string>
 
-class ButtonGadgetClass;	// unknown_675120.h's (+0xC0)
+class ButtonGadgetClass;	// gd_uimesh.h's (+0xC0)
 class ManagedFontClass;		// fontmanager.h's (+0xC4)
 
 class UIFactionPanelClass : public Unknown5BB320Class	// NAME 2 [UIFactionPanelClass]: class from file (D24), ui_faction_panel.cpp

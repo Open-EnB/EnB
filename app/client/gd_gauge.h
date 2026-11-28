@@ -6,7 +6,7 @@
 **
 **	The gauge gadgets: a bar of a screen's model whose texture is scrolled to a value of 0..1.
 **	GaugeGadgetClass (table 0xAFA1AC, 43 slots, 0x6C bytes, constructor 0x669570): the model gadget without a scene
-**	(unknown_675120.h) over the mesh's sub-object named by sprintf(format, 0), with slots +0xA4 / +0xA8 that set the
+**	(gd_uimesh.h) over the mesh's sub-object named by sprintf(format, 0), with slots +0xA4 / +0xA8 that set the
 **	value. TrailGaugeGadgetClass (table 0xAFA280, 0x88 bytes, constructor 0x669A30) adds the sub-object
 **	sprintf(format, 1): a second bar that runs after the first one's value (an AccelClass).
 */
@@ -18,7 +18,7 @@
 #ifndef GD_GAUGE_H
 #define GD_GAUGE_H
 
-#include "unknown_675120.h"
+#include "gd_uimesh.h"
 #include "..\shared\accel.h"
 #include "..\shared\uvcontrl.h"
 #include "..\shared\g_assert.h"

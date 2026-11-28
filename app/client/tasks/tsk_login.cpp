@@ -10,7 +10,7 @@
 #include "..\..\packets\pk.h"
 #include "..\..\packets\pkglobalticketrequest.h"
 #include "..\..\packets\pkversionrequest.h"
-#include "..\..\packets\pkunknown_866ac0.h"
+#include "..\..\packets\pkglobalsetreferrer.h"
 #include "..\..\shared\g_assert.h"
 unsigned int Unknown_Get_Ticks();	// 0x4A3B40 (delta_time.cpp; unknown_root.h's, not included: the client object has no permstr.h static)
 #include "ww3d.h"
@@ -43,7 +43,7 @@ Unknown_VersionStruct *Unknown_4456C0();				// NAME 1 [Unknown_4456C0]: neutral 
 #include "..\..\packets\pkglobalerror.h"	// opcode 117 (GlobalErrorPacketClass, rebuilt there; this file's view before)
 #include "..\..\packets\pkglobalticket.h"	// opcode 111 (GLOBAL_TICKET)
 // opcode 118 (GlobalLoginPacketClass): pkgloballogin.h, included by tsk_login.h
-// opcode 119 (GlobalSetReferrerPacketClass): pkunknown_866ac0.h, included above
+// opcode 119 (GlobalSetReferrerPacketClass): pkglobalsetreferrer.h, included above
 class GlobalAvatarListPacketClass : public UnknownPacketBaseClass { public: GlobalAvatarListPacketClass(PacketClass *raw); virtual ~GlobalAvatarListPacketClass(); virtual bool Process_Packet(void *client); LoginCharacterClass *Characters; AvatarDescriptionClass *Avatars; std::list<LoginGalaxyClass> Galaxies; };	// opcode 112: 0x862D90, 0x20 bytes  // NAME 1 [Galaxies]: copied to the task's
 void Unknown_7E5F70();								// NAME 1 [Unknown_7E5F70]: neutral (D10); once, by the first LoginTaskClass(mode)
 // Unknown_7228C0: mousetbl.h, included above

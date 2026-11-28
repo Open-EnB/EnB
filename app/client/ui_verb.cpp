@@ -9,7 +9,7 @@
 #include "rendobj.h"
 #include "gadget.h"
 #include "assetmgr.h"
-#include "unknown_675120.h"
+#include "gd_uimesh.h"
 #include "..\common\unknown_verb.h"
 #include "..\packets\pkaction.h"
 #include "..\packets\pkmove.h"

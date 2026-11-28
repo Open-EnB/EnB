@@ -48,7 +48,7 @@ public:
 	bool UnknownAC;										// +0xAC (true from Unknown_58 until Unknown_60 sets the picture up)
 };
 
-class ButtonGadgetClass;	// unknown_675120.h's (+0xB4, +0xB8)
+class ButtonGadgetClass;	// gd_uimesh.h's (+0xB4, +0xB8)
 class ManagedFontClass;		// fontmanager.h's (+0xBC)
 class FontSys;				// fontmanager.h's (+0xC0..+0xD8)
 

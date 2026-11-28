@@ -1,7 +1,7 @@
 // Earth & Beyond client (reconstruction): app\Client\ui_manu_util.cpp. Notes at the end of the file.
 #include <stdio.h>
 #include "ui_manu.h"
-#include "unknown_675120.h"	// ButtonGadgetClass (over gd_robj.h's RObjGadgetClass: the model at +0x30, slot +0x8C)
+#include "gd_uimesh.h"	// ButtonGadgetClass (over gd_robj.h's RObjGadgetClass: the model at +0x30, slot +0x8C)
 #include "rendobj.h"
 #include "assetmgr.h"
 #include "texture.h"

@@ -6,7 +6,7 @@
 #include <string>
 #include "sclient.h"
 #include "gadget.h"
-#include "unknown_675120.h"
+#include "gd_uimesh.h"
 #include "gd_uiback.h"		// UIBackGadget (0x674260)
 #include "rendobj.h"
 #include "assetmgr.h"

@@ -20,8 +20,8 @@
 
 extern FontManagerClass *Unknown_BE67C4;			// NAME 1 [Unknown_BE67C4]: 0xBE67C4
 
-// unknown_675120.cpp's button gadget (the screen's seven buttons)
-#include "unknown_675120.h"
+// gd_uimesh.cpp's button gadget (the screen's seven buttons)
+#include "gd_uimesh.h"
 
 // intrface.cpp's scope object (constructor 0x541980 over an interface, destructor 0x6E18B0)
 #include "local_interface_sort.h"

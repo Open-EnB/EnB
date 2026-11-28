@@ -23,7 +23,7 @@
 #include "..\..\common\unknown_galaxy.h"			// LoginGalaxyClass
 #include "..\..\shared\avatar_desc.h"				// AvatarDescClass
 #include "..\..\shared\shipcust_desc.h"				// ShipCustDescClass
-#include "..\unknown_creator.h"						// CharacterCreatorClass, LoginNameDataClass
+#include "..\avatar_file.h"						// CharacterCreatorClass, LoginNameDataClass
 #include "..\..\packets\pkgloballogin.h"			// GlobalLoginPacketClass, LoginTicketInfoClass
 #include <string>
 #include <list>

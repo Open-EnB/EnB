@@ -10,7 +10,7 @@
 #include "..\..\wwaudio\AudibleSound.h"
 #include "client.h"
 #include "gadget.h"
-#include "unknown_675120.h"
+#include "gd_uimesh.h"
 #include "gd_uiback.h"		// UIBackGadget (0x674260)
 #include "fontmanager.h"
 #include "fontdatabase.h"

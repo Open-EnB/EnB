@@ -4,7 +4,7 @@
 #include "unknown_59dea0.h"
 #include "client.h"
 #include "gadget.h"
-#include "unknown_675120.h"
+#include "gd_uimesh.h"
 #include "rendobj.h"
 #include "..\audio\soundlib.h"
 #include "..\packets\pkclientchat.h"

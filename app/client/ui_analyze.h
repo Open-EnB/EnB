@@ -9,7 +9,7 @@
 #include "..\..\wwlib\ref_ptr.h"
 
 class StarbaseViewClass;		// sbaseview.cpp's starbase view (+0xD0)
-class ButtonGadgetClass;	// unknown_675120.h's (+0xE0)
+class ButtonGadgetClass;	// gd_uimesh.h's (+0xE0)
 class DeltaContainer;	// the item's aux data (+0x10C)
 
 #ifndef ENB_UI_STATE_ENUM	// UI_CLOSED / UI_OPEN: also ui_manu.h / ui_analyze.h (sbaseview.cpp includes both)

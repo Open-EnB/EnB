@@ -14,7 +14,7 @@
 #include "..\kernel\kernel.h"
 #include "..\audio\soundlib.h"
 #include "..\packets\pkclientchat.h"
-#include "..\packets\pkunknown_87dec0.h"
+#include "..\packets\pkchatstream.h"
 #include "..\shared\auxdata\auxdata.h"
 #include "..\shared\auxdata\delta_string.h"
 #include "..\shared\g_assert.h"

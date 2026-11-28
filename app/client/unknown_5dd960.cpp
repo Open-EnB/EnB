@@ -1,7 +1,7 @@
 // Earth & Beyond client (reconstruction): the face / target / orient buttons' display (PROVISIONAL name, D137)
 #include <string>
 #include "sclient.h"
-#include "unknown_675120.h"
+#include "gd_uimesh.h"
 #include "ui_mesh.h"
 #include "..\audio\soundlib.h"
 #include "unknown_5dd960.h"

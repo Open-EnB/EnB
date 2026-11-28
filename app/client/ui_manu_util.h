@@ -3,7 +3,7 @@
 #ifndef UI_MANU_UTIL_H  // NAME 1 [ui_manu_util.h]: provisional header name for ui_manu_util.cpp (D137)
 #define UI_MANU_UTIL_H
 
-class ButtonGadgetClass;	// unknown_675120.h's (ui_manu.cpp makes them)
+class ButtonGadgetClass;	// gd_uimesh.h's (ui_manu.cpp makes them)
 class RenderObjClass;
 
 // One column of the manufacturing window's category icons (0x4C bytes; ui_manu.cpp keeps three at +0xC0..+0xC8): five

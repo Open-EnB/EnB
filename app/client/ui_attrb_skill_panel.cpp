@@ -10,7 +10,7 @@
 #include "rendobj.h"
 #include "..\..\wwlib\ref_ptr.h"
 #include "gadget.h"
-#include "unknown_675120.h"
+#include "gd_uimesh.h"
 #include "fontmanager.h"
 #include "..\packets\pkskill.h"
 #include "..\audio\soundlib.h"

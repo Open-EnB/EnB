@@ -4,7 +4,7 @@
 **	Original location: e:\build\beta\G\app\Client\gd_proxy.h (name assumed from gd_proxy.cpp, whose
 **	__FILE__ is 'e:\build\beta\G\app\Client\gd_proxy.cpp'; the client holds no string of this header)
 **
-**	The proxy buttons: a button gadget (unknown_675120.h's ButtonGadgetClass) that stands for another model gadget,
+**	The proxy buttons: a button gadget (gd_uimesh.h's ButtonGadgetClass) that stands for another model gadget,
 **	its target: the pointer over it marks the target, its events go to the target. Two classes in gd_proxy.cpp
 **	(0x66B240-0x66B770), both with 44 slots (RenderObjGadgetClass's 41 and three of their own):
 **	  ProxyGadgetClass      table 0xAFA6E8, constructor 0x66B240, 0x74 bytes (ui_cpit.cpp's 0x650A40 makes one)
@@ -20,7 +20,7 @@
 #ifndef GD_PROXY_H  // NAME 3 [gd_proxy.h]: header name assumed from the client's gd_proxy.cpp
 #define GD_PROXY_H
 
-#include "unknown_675120.h"
+#include "gd_uimesh.h"
 
 class ProxyGadgetClass : public ButtonGadgetClass  // NAME 3: class-from-file (D24) for app\Client\gd_proxy.cpp
 {

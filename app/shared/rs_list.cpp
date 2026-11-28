@@ -13,7 +13,7 @@
 #include "mapper.h"
 #include "..\shared\g_assert.h"
 #include "unknown_45a090.h"
-#include "unknown_45f390.h"
+#include "rs_sound.h"
 void Unknown_Debug_Print(const char *text);			// 0x509E30 (dbgmgr.cpp, D38)
 
 Unknown45C430Class Unknown_BDC0A0;
