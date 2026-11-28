@@ -997,7 +997,7 @@ bool CordCon::handlePacket(unsigned char *data, int datalen)
 		acks = data[10];
 		pos = 11;
 	}
-	HeaderIn_ = data[pos++];
+	unsigned char resends = data[pos++]; HeaderIn_ = resends;
 
 	// The ack list: 0 acks one message, 2 every message up to seq, 1 asks for a resend.
 	for (int a = 0; a < acks; a++) {
@@ -1165,11 +1165,11 @@ bool CordCon::handlePacket(unsigned char *data, int datalen)
 		if (pos > datalen) {
 			return false;
 		}
-		unsigned short size, channel;
+		unsigned short len, channel;
 		unsigned int seq;
-		pos += Cord_Get_Small(data + pos, &size);
+		pos += Cord_Get_Small(data + pos, &len); int size = len;
 		pos += Cord_Get_Small(data + pos, &channel);
-		pos += Cord_Get_Seq(data + pos, &seq);
+		pos += Cord_Get_Seq(data + pos, &seq); unsigned int first = seq;
 		unsigned char type = data[pos];
 		pos++;
 		if (channel >= Channels_.size()) {
@@ -1180,15 +1180,15 @@ bool CordCon::handlePacket(unsigned char *data, int datalen)
 		int mode = type & 0x0F;
 		int bflags = type >> 4;
 		bool isfrag = (bflags & 1) != 0;
-		unsigned short len;
 		unsigned char frag = 0;
-		unsigned int first = seq;
 		if (isfrag) {
 			frag = data[pos++];
 			first = seq - frag;
 			if (size > (frag + 1) * CORD_FRAGMENT_SIZE) len = CORD_FRAGMENT_SIZE; else len = size - frag * CORD_FRAGMENT_SIZE;
-		} else {
-			len = size; }
+		}
+
+
+
 		if (mode != c->Mode && c->Mode != 0 && mode == 3) {
 			if ((bflags & 2) == 0) {
 				pos += len;
@@ -1245,38 +1245,84 @@ bool CordCon::handlePacket(unsigned char *data, int datalen)
 			}
 			c->Expected++;
 		}
-		if (!isfrag) {
-			if (found) {
-				pos += len;
-				continue;
-			}
-		} else if (found) {
-			if (first == seq) {
-				for (i = 0; i < c->Incoming.Entries; i++) {
-					c->Incoming.getPointer(&msg, i); if (msg->Seq == first) {
-						msg->Fragments[frag] = 1;
-						memcpy(msg->Data + frag * CORD_FRAGMENT_SIZE, data + pos, len);
-					}
+		if (isfrag && found && first == seq) {
+			for (i = 0; i < c->Incoming.Entries; i++) {
+				c->Incoming.getPointer(&msg, i); if (msg->Seq == first) {
+					msg->Fragments[frag] = 1;
+					memcpy(msg->Data + frag * CORD_FRAGMENT_SIZE, data + pos, len);
 				}
 			}
+		}
+		if (found) {
 			pos += len;
 			continue;
 		}
-		if ((unsigned short)channel == 0) {
+		if (channel < 1) {
 			pos += len;		// channel 0 carries no messages
 			continue;
 		}
-		if (c->Mode == 4) {
-			if (seq < c->NextSequenced) {
-				pos += len;
-				continue;
-			}
+		if (c->Mode == 4 && seq < c->NextSequenced) {
+			pos += len;
+			continue;
+		}
+		if (c->Mode == 4 && seq >= c->NextSequenced) {
 			c->NextSequenced = seq + 1;
 		}
 		if ((unsigned short)len == 0) {
 			continue;
 		}
-		if (!isfrag) {
+		if (isfrag) {
+			int target = -1;
+			for (i = 0; i < c->Incoming.Entries; i++) {
+				c->Incoming.getPointer(&msg, i); if (msg->Seq == first) {
+					target = (int)i;
+					break;
+				}
+			}
+			if (target < 0) {
+				if (first < c->Delivered) {
+					pos += len;
+					continue;
+				}
+				m.Data = new unsigned char[size];
+				int n = ((int)size + CORD_FRAGMENT_SIZE - 1) / CORD_FRAGMENT_SIZE;
+				m.Fragments = new unsigned char[n];
+				memset(m.Fragments, 0, n);
+				m.Length = size;
+				m.TotalLength = size;
+				m.Seq = first;
+				m.Priority = 0;
+				m.Time = 0;
+				m.Flags = 1;
+				c->Incoming.Add_Tail(m);
+				if (c->Incoming.Length() == 1) {
+					Ready_.push_back(c);
+				}
+				target = (int)c->Incoming.Length() - 1;
+			}
+			c->Incoming.getPointer(&msg, target); CordMessage &t = *msg;
+			t.Fragments[frag] = 1;
+			memcpy(t.Data + frag * CORD_FRAGMENT_SIZE, data + pos, len);
+			if (seq == first) {
+				if (t.Time == 0) {
+					t.Time = current.getTime_t();
+				}
+			} else {
+				// a place holder for the fragment's own sequence number (read() skips it)
+				m.Data = NULL;
+				m.Length = 0;
+				m.TotalLength = 0;
+				m.Fragments = NULL;
+				m.Seq = seq;
+				m.Time = current.getTime_t();
+				m.Priority = 0;
+				m.Flags = 0;
+				c->Incoming.Add_Tail(m);
+				if (c->Incoming.Length() == 1) {
+					Ready_.push_back(c);
+				}
+			}
+		} else {
 			m.Data = new unsigned char[len];
 			m.Fragments = NULL;
 			m.Seq = seq;
@@ -1290,61 +1336,15 @@ bool CordCon::handlePacket(unsigned char *data, int datalen)
 			if (c->Incoming.Length() == 1) {
 				Ready_.push_back(c);
 			}
-			pos += len;
-			continue;
-		}
-		int target = -1;
-		for (i = 0; i < c->Incoming.Entries; i++) {
-			c->Incoming.getPointer(&msg, i); if (msg->Seq == first) {
-				target = (int)i;
-				break;
-			}
-		}
-		if (target < 0) {
-			if (first < c->Delivered) {
-				pos += len;
-				continue;
-			}
-			m.Data = new unsigned char[size];
-			int n = ((int)size + CORD_FRAGMENT_SIZE - 1) / CORD_FRAGMENT_SIZE;
-			m.Fragments = new unsigned char[n];
-			memset(m.Fragments, 0, n);
-			m.Length = size;
-			m.TotalLength = size;
-			m.Seq = first;
-			m.Priority = 0;
-			m.Time = 0;
-			m.Flags = 1;
-			c->Incoming.Add_Tail(m);
-			if (c->Incoming.Length() == 1) {
-				Ready_.push_back(c);
-			}
-			target = (int)c->Incoming.Length() - 1;
-		}
-		c->Incoming.getPointer(&msg, target); CordMessage &t = *msg;
-		t.Fragments[frag] = 1;
-		memcpy(t.Data + frag * CORD_FRAGMENT_SIZE, data + pos, len);
-		if (seq == first) {
-			if (t.Time == 0) {
-				t.Time = current.getTime_t();
-			}
-		} else {
-			// a place holder for the fragment's own sequence number (read() skips it)
-			m.Data = NULL;
-			m.Length = 0;
-			m.TotalLength = 0;
-			m.Fragments = NULL;
-			m.Seq = seq;
-			m.Time = current.getTime_t();
-			m.Priority = 0;
-			m.Flags = 0;
-			c->Incoming.Add_Tail(m);
-			if (c->Incoming.Length() == 1) {
-				Ready_.push_back(c);
-			}
 		}
 		pos += len;
 	}
+
+
+
+
+
+
 }
 
 // 0x853560: pumpInternal,
