@@ -383,7 +383,7 @@ bool HeightMapClass::Cast_AABox(AABoxCollisionTestClass &boxtest)
 	return hit;
 }
 
-// NOT EXACT: frame (0xAC, the client 0xB0: it keeps tmax and the second slab's values on the FPU and swaps through a register; 90 masked rows; attempts.csv 0x4647C0)
+// NOT EXACT: frame (0xAC, the client 0xB0: it keeps tmax_y and the Min on the x87 (ours in memory); 73 masked rows; attempts.csv 0x4647C0)
 bool HeightMapClass::Cast_Ray(RayCollisionTestClass &raytest)
 {
 	bool hit = false;
@@ -391,145 +391,145 @@ bool HeightMapClass::Cast_Ray(RayCollisionTestClass &raytest)
 	Vector3 end = raytest.Ray.Get_P1();
 	if (start.Z < Get_Height(start)) {
 		raytest.Result->StartBad = true;
-		return hit;
-	}
-	float half = (float)HalfSize;
-	float x0 = start.X / XSpacing + half;
-	float y0 = start.Y / YSpacing + half;
-	float x1 = end.X / XSpacing + half;
-	float y1 = end.Y / YSpacing + half;
-	if (!Wrapping) {
-		float tmin_x = 0.0f;
-		float tmax_x = 1.0f;
-		float tmin_y = 0.0f;
-		float tmax_y = 1.0f;
-		float limit = (float)(Size - 1);
-		float dx = x1 - x0;
-		float dy = y1 - y0;
-		if (dx == 0.0f) {
-			if (x0 < 0.0f || x0 > limit) {
+	} else {
+
+		float half = (float)HalfSize;
+		float x0 = start.X / XSpacing + half;
+		float y0 = start.Y / YSpacing + half;
+		float x1 = end.X / XSpacing + half;
+		float y1 = end.Y / YSpacing + half;
+		if (!Wrapping) {
+			float limit = (float)(Size - 1);
+			float dx = x1 - x0;
+			float tmin_x = 0.0f;
+			float tmax_x = 1.0f;
+			float tmin_y = 0.0f;
+			float tmax_y = 1.0f;
+			float dy = y1 - y0;
+			if (dx == 0.0f) {
+				if (x0 < 0.0f || x0 > limit) {
+					return false;
+				}
+			} else {
+				tmin_x = -x0 / dx;
+				tmax_x = (limit - x0) / dx;
+				if (tmin_x > tmax_x) {
+					float swap = tmin_x;
+					tmin_x = tmax_x;
+					tmax_x = swap;
+				}
+			}
+			if (dy == 0.0f) {
+				if (y0 < 0.0f || y0 > limit) {
+					return false;
+				}
+			} else {
+				tmin_y = -y0 / dy;
+				tmax_y = (limit - y0) / dy;
+				if (tmin_y > tmax_y) {
+					float swap = tmin_y;
+					tmin_y = tmax_y;
+					tmax_y = swap;
+				}
+			}
+			float tmin = WWMath::Max(tmin_x, tmin_y);
+			float tmax = WWMath::Min(tmax_x, tmax_y);
+			if (tmin > 1.0f) {
 				return false;
 			}
-		} else {
-			tmin_x = -x0 / dx;
-			tmax_x = (limit - x0) / dx;
-			if (tmin_x > tmax_x) {
-				float swap = tmin_x;
-				tmin_x = tmax_x;
-				tmax_x = swap;
-			}
-		}
-		if (dy == 0.0f) {
-			if (y0 < 0.0f || y0 > limit) {
+			if (tmax < 0.0f) {
 				return false;
 			}
-		} else {
-			tmin_y = -y0 / dy;
-			tmax_y = (limit - y0) / dy;
-			if (tmin_y > tmax_y) {
-				float swap = tmin_y;
-				tmin_y = tmax_y;
-				tmax_y = swap;
+			if (tmin < 0.0f) {
+				tmin = 0.0f;
 			}
+			if (tmax > 1.0f) {
+				tmax = 1.0f;
+			}
+			x1 = tmax * dx + x0;
+			y1 = tmax * dy + y0;
+			x0 = tmin * dx + x0;
+			y0 = tmin * dy + y0;
 		}
-		float tmin = WWMath::Max(tmin_x, tmin_y);
-		float tmax = WWMath::Min(tmax_x, tmax_y);
-		if (tmin > 1.0f) {
-			return false;
-		}
-		if (tmax < 0.0f) {
-			return false;
-		}
-		if (tmin < 0.0f) {
-			tmin = 0.0f;
-		}
-		if (tmax > 1.0f) {
-			tmax = 1.0f;
-		}
-		x1 = tmax * dx + x0;
-		y1 = tmax * dy + y0;
-		x0 = tmin * dx + x0;
-		y0 = tmin * dy + y0;
-	}
-	float dist_x;
-	float dist_y;
-	int step_x;
-	int step_y;
-	if (x0 < x1) {
-		dist_x = x1 - x0;
-		step_x = 1;
-	} else {
-		dist_x = x0 - x1;
-		step_x = -1;
-	}
-	if (y0 < y1) {
-		dist_y = y1 - y0;
-		step_y = 1;
-	} else {
-		dist_y = y0 - y1;
-		step_y = -1;
-	}
-	float err_x;
-	if (x0 < x1) {
-		err_x = (float)(ceil(x0) - x0);
-	} else {
-		err_x = (float)(x0 - floor(x0));
-	}
-	err_x *= dist_y;
-	float err_y;
-	if (y0 < y1) {
-		err_y = (float)(ceil(y0) - y0);
-	} else {
-		err_y = (float)(y0 - floor(y0));
-	}
-	err_y *= dist_x;
-	int i = WWMath::Float_To_Long(floor(x0));
-	int j = WWMath::Float_To_Long(floor(y0));
-	int count = WWMath::Float_To_Long(ceil(dist_y) + ceil(dist_x));
-	if (count == 0) {
-		count = 1;
-	}
-	for (; count > 0; count--) {
-		Vector3 verts[4];
-		Vector3 normal;
-		TriClass tri;
-		tri.N = &normal;
-		verts[0].X = (float)(int)(i - HalfSize) * XSpacing;
-		verts[0].Y = (float)(int)(j - HalfSize) * YSpacing;
-		verts[0].Z = Get_Height(i, j);
-		verts[1].X = verts[0].X + XSpacing;
-		verts[1].Y = verts[0].Y;
-		verts[1].Z = Get_Height(i + 1, j);
-		verts[2].X = verts[0].X + XSpacing;
-		verts[2].Y = verts[0].Y + YSpacing;
-		verts[2].Z = Get_Height(i + 1, j + 1);
-		verts[3].X = verts[0].X;
-		verts[3].Y = verts[0].Y + YSpacing;
-		verts[3].Z = Get_Height(i, j + 1);
-		tri.V[0] = &verts[0];
-		tri.V[1] = &verts[2];
-		tri.V[2] = &verts[3];
-		tri.Compute_Normal();
-		hit |= CollisionMath::Collide(raytest.Ray, tri, raytest.Result);
-		tri.V[0] = &verts[0];
-		tri.V[1] = &verts[1];
-		tri.V[2] = &verts[2];
-		tri.Compute_Normal();
-		hit |= CollisionMath::Collide(raytest.Ray, tri, raytest.Result);
-		if (hit) {
-			break;
-		}
-		if (err_x < err_y) {
-			err_x += dist_y;
-			i += step_x;
+		float dist_x;
+		float dist_y;
+		int step_x;
+		int step_y;
+		if (x0 < x1) {
+			dist_x = x1 - x0;
+			step_x = 1;
 		} else {
-			err_y += dist_x;
-			j += step_y;
+			dist_x = x0 - x1;
+			step_x = -1;
+		}
+		if (y0 < y1) {
+			dist_y = y1 - y0;
+			step_y = 1;
+		} else {
+			dist_y = y0 - y1;
+			step_y = -1;
+		}
+		float err_x;
+		if (x0 < x1) {
+			err_x = (float)(ceil(x0) - x0);
+		} else {
+			err_x = (float)(x0 - floor(x0));
+		}
+		err_x *= dist_y;
+		float err_y;
+		if (y0 < y1) {
+			err_y = (float)(ceil(y0) - y0);
+		} else {
+			err_y = (float)(y0 - floor(y0));
+		}
+		err_y *= dist_x;
+		int i = WWMath::Float_To_Long(floor(x0));
+		int j = WWMath::Float_To_Long(floor(y0));
+		int count = WWMath::Float_To_Long(ceil(dist_y) + ceil(dist_x));
+		if (count == 0) {
+			count = 1;
+		}
+		for (; count > 0; count--) {
+			Vector3 verts[4];
+			Vector3 normal;
+			TriClass tri;
+			tri.N = &normal;
+			verts[0].X = (float)(int)(i - HalfSize) * XSpacing;
+			verts[0].Y = (float)(int)(j - HalfSize) * YSpacing;
+			verts[0].Z = Get_Height(i, j);
+			verts[1].X = verts[0].X + XSpacing;
+			verts[1].Y = verts[0].Y;
+			verts[1].Z = Get_Height(i + 1, j);
+			verts[2].X = verts[0].X + XSpacing;
+			verts[2].Y = verts[0].Y + YSpacing;
+			verts[2].Z = Get_Height(i + 1, j + 1);
+			verts[3].X = verts[0].X;
+			verts[3].Y = verts[0].Y + YSpacing;
+			verts[3].Z = Get_Height(i, j + 1);
+			tri.V[0] = &verts[0];
+			tri.V[1] = &verts[2];
+			tri.V[2] = &verts[3];
+			tri.Compute_Normal();
+			hit |= CollisionMath::Collide(raytest.Ray, tri, raytest.Result);
+			tri.V[0] = &verts[0];
+			tri.V[1] = &verts[1];
+			tri.V[2] = &verts[2];
+			tri.Compute_Normal();
+			hit |= CollisionMath::Collide(raytest.Ray, tri, raytest.Result);
+			if (hit) {
+				break;
+			}
+			if (err_x < err_y) {
+				err_x += dist_y;
+				i += step_x;
+			} else {
+				err_y += dist_x;
+				j += step_y;
+			}
 		}
 	}
 	return hit;
 }
-
 // NOT EXACT: frame (0x168, the client 0x164: a 4-byte local too many; 12 masked rows; attempts.csv 0x4654E0)
 bool HeightMapClass::Cast_OBBox(OBBoxCollisionTestClass &boxtest)
 {
