@@ -19,12 +19,12 @@
 #include "pk.h"
 
 // opcode 55 (0x0037, CLIENT_AVATAR): vtable 0xB09D1C, constructor 0x877470, 0x14 bytes
-class ClientAvatarPacketClass : public PacketClass
+class ClientAvatarPacketClass : public UnknownPacketBaseClass
 {
 public:
 	ClientAvatarPacketClass(int avatar_id);	// 0x877370  // NAME 2: the stores (no caller left)
-	ClientAvatarPacketClass(RawPacketClass *raw);	// 0x877470
-	virtual RawPacketClass *Build();	// +0x04 0x877500
+	ClientAvatarPacketClass(PacketClass *raw);	// 0x877470
+	virtual PacketClass *Build();	// +0x04 0x877500
 	virtual bool Process_Packet(void *client);	// +0x08 0x733590 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x8775C0
 	virtual int Print(char *buffer, int len);	// +0x10 0x8775E0

@@ -7,16 +7,16 @@ SkillPacketClass::SkillPacketClass(int game_id, int action, int skill_index) : G
 {
 }
 
-SkillPacketClass::SkillPacketClass(RawPacketClass *raw)
+SkillPacketClass::SkillPacketClass(PacketClass *raw)
 {
 	raw->Get(&GameID, sizeof(GameID));
 	raw->Get(&Action, sizeof(Action));
 	raw->Get(&SkillIndex, sizeof(SkillIndex));
 }
 
-RawPacketClass *SkillPacketClass::Build()
+PacketClass *SkillPacketClass::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(87, Get_Data_Size());
+	PacketClass *raw = new PacketClass(87, Get_Data_Size());
 	raw->Add(&GameID, sizeof(GameID));
 	raw->Add(&Action, sizeof(Action));
 	raw->Add(&SkillIndex, sizeof(SkillIndex));
@@ -37,16 +37,16 @@ SkillAbilityPacketClass::SkillAbilityPacketClass(int game_id, int action, int ab
 {
 }
 
-SkillAbilityPacketClass::SkillAbilityPacketClass(RawPacketClass *raw)
+SkillAbilityPacketClass::SkillAbilityPacketClass(PacketClass *raw)
 {
 	raw->Get(&GameID, sizeof(GameID));
 	raw->Get(&Action, sizeof(Action));
 	raw->Get(&AbilityIndex, sizeof(AbilityIndex));
 }
 
-RawPacketClass *SkillAbilityPacketClass::Build()
+PacketClass *SkillAbilityPacketClass::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(88, Get_Data_Size());
+	PacketClass *raw = new PacketClass(88, Get_Data_Size());
 	raw->Add(&GameID, sizeof(GameID));
 	raw->Add(&Action, sizeof(Action));
 	raw->Add(&AbilityIndex, sizeof(AbilityIndex));

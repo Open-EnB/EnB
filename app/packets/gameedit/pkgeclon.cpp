@@ -16,7 +16,7 @@ GameEditorClonePacketClass::GameEditorClonePacketClass(int game_id, const char *
 	NewName = nstrdup(new_name);
 }
 
-GameEditorClonePacketClass::GameEditorClonePacketClass(RawPacketClass *raw)
+GameEditorClonePacketClass::GameEditorClonePacketClass(PacketClass *raw)
 {
 	raw->Get(&GameID, sizeof(GameID));
 	raw->Get(&Transform, sizeof(Transform));
@@ -25,9 +25,9 @@ GameEditorClonePacketClass::GameEditorClonePacketClass(RawPacketClass *raw)
 	raw->Get(NewName, NewNameSize);
 }
 
-RawPacketClass *GameEditorClonePacketClass::Build()
+PacketClass *GameEditorClonePacketClass::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(30021, Get_Data_Size());
+	PacketClass *raw = new PacketClass(30021, Get_Data_Size());
 	raw->Add(&GameID, sizeof(GameID));
 	raw->Add(&Transform, sizeof(Transform));
 	raw->Add(&NewNameSize, sizeof(NewNameSize));
@@ -59,7 +59,7 @@ GameEditorCloneResponsePacketClass::GameEditorCloneResponsePacketClass(int origi
 	}
 }
 
-GameEditorCloneResponsePacketClass::GameEditorCloneResponsePacketClass(RawPacketClass *raw) :
+GameEditorCloneResponsePacketClass::GameEditorCloneResponsePacketClass(PacketClass *raw) :
 	CloneSuccess(true),
 	OriginalGameID(-1),
 	CloneGameID(-1),
@@ -99,9 +99,9 @@ GameEditorCloneResponsePacketClass::~GameEditorCloneResponsePacketClass()
 	}
 }
 
-RawPacketClass *GameEditorCloneResponsePacketClass::Build()
+PacketClass *GameEditorCloneResponsePacketClass::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(30022, Get_Data_Size());
+	PacketClass *raw = new PacketClass(30022, Get_Data_Size());
 	raw->Add(&CloneSuccess, sizeof(CloneSuccess));
 	raw->Add(&OriginalGameID, sizeof(OriginalGameID));
 	raw->Add(&CloneGameID, sizeof(CloneGameID));

@@ -302,7 +302,7 @@ bool UISkillsClass::Unknown_9C(int slot, bool arg)
 
 /*
 **	Notes (SK1, 2026-11-09).
-**	The object runs from before 0x62D1F0 (its PermStringInitClass static, 0xBE5E50) to the adjustor thunks 0x62DCB0 /
+**	The object runs from before 0x62D1F0 (its PermStringInit static, 0xBE5E50) to the adjustor thunks 0x62DCB0 /
 **	0x62DCC0. UISkillsClass is the class-from-file name (D24) of the window ui_attrb_skills.h's attributes tab is over
 **	(it was flattened there as Unknown62D1F0Class). Written from the pseudocode, the asserts on the client's lines;
 **	the functions so marked (D64) are functional only. 0x62D360 inlines 0x62D960 (its FAIL_IFs l.224 / 227).

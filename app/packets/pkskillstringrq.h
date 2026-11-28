@@ -19,12 +19,12 @@
 #include "pk.h"
 
 // opcode 81 (0x0051, SKILL_STRING_RQ): vtable 0xB0B7D8, constructor 0x8A25B0, 0x14 bytes
-class SkillStringRqPacketClass : public PacketClass  // NAME 2: Net-7's opcode name SKILL_STRING_RQ (the Net-7 opcode table; no structure check)
+class SkillStringRqPacketClass : public UnknownPacketBaseClass  // NAME 2: Net-7's opcode name SKILL_STRING_RQ (the Net-7 opcode table; no structure check)
 {
 public:
 	SkillStringRqPacketClass(int player_id, int request);	// 0x8A2530
-	SkillStringRqPacketClass(RawPacketClass *raw);	// 0x8A25B0
-	virtual RawPacketClass *Build();	// +0x04 0x8A2650
+	SkillStringRqPacketClass(PacketClass *raw);	// 0x8A25B0
+	virtual PacketClass *Build();	// +0x04 0x8A2650
 	virtual bool Process_Packet(void *client);	// +0x08 0x867FE0 (clientstub.cpp l.98)
 	virtual int Get_Data_Size();	// +0x0C 0x8A2720
 	virtual int Print(char *buffer, int len);	// +0x10 0x8A2740

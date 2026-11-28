@@ -12,8 +12,8 @@
 // inv_data.cpp's, as far as this file calls it (its list: inv_data_peek.h's class, declared here as far as used: the header's statics would change this file's initialiser 0x690850)
 class Unknown688830Item { public: char Unknown00[0x14]; std::string Unknown14; };	// NAME 1: neutral (D10)
 struct InvDataPeekItemStruct; class InvDataPeekClass { public: InvDataPeekItemStruct *Get_Item(int slot, bool flag); int Get_Item_Template_ID(int slot); bool Slot_Changed(int slot); MoneyClass Get_Price(int slot); }; typedef InvDataPeekClass Unknown688830Class;	// inv_data_peek.h's, as this file calls it  // NAME 1: neutral (D10)
-class PDAInterfaceClass { public: void Unknown_695E10(int type, int *num_items, int *num_slots); };	// pdaint.h's, as far as this file calls it
-class SpaceClientClass { public: char Unknown00[0x1284]; PDAInterfaceClass *Unknown1284; };  // NAME 5: thunk order A, binary.md 5.11; sclient.cpp's, as far as this file reads it
+class PDAInterface { public: void Unknown_695E10(int type, int *num_items, int *num_slots); };  // NAME 5: thunk order A, binary.md 5.11; pdaint.h's, as far as this file calls it
+class SpaceClientClass { public: char Unknown00[0x1284]; PDAInterface *Unknown1284; };  // NAME 5: thunk order A, binary.md 5.11; sclient.cpp's, as far as this file reads it
 class InvDataClass { public: Unknown688830Class *Unknown_688830(); char Unknown00[0x20]; SpaceClientClass *Client; };	// NAME 3: Peek_Inv_Data, inv_data's __FILE__ 0xB90004
 extern FontStringFilesClass *Unknown_BE67BC;	// NAME 1: neutral (D10)
 extern FontManagerClass *Unknown_BE67C4;	// NAME 1: neutral (D10)
@@ -89,7 +89,7 @@ void InvTradeRenderClass::Unknown_2C(bool force)
 		if (OwnedTextValue) {
 			int slots = 0;
 			int owned = 0;
-			PDAInterfaceClass *counter = Peek_Inv_Data()->Client->Unknown1284;	// NAME 1 [counter]: neutral
+			PDAInterface *counter = Peek_Inv_Data()->Client->Unknown1284;	// NAME 1 [counter]: neutral
 			counter->Unknown_695E10(data->Get_Item_Template_ID(slot), &owned, &slots);
 			if (slots > 1) {
 				OwnedTextValue->Unknown_6CE420(0, "Owned: %d in %d slots", owned, slots);

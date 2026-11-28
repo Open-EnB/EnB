@@ -9,16 +9,16 @@ GameEditorAddPacketClass::GameEditorAddPacketClass(int game_id, int type, float 
 {
 }
 
-GameEditorAddPacketClass::GameEditorAddPacketClass(RawPacketClass *raw)
+GameEditorAddPacketClass::GameEditorAddPacketClass(PacketClass *raw)
 {
 	raw->Get(&GameID, sizeof(GameID));
 	raw->Get(&Type, sizeof(Type));
 	raw->Get(&Radius, sizeof(Radius));
 }
 
-RawPacketClass *GameEditorAddPacketClass::Build()
+PacketClass *GameEditorAddPacketClass::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(30003, Get_Data_Size());
+	PacketClass *raw = new PacketClass(30003, Get_Data_Size());
 	raw->Add(&GameID, sizeof(GameID));
 	raw->Add(&Type, sizeof(Type));
 	raw->Add(&Radius, sizeof(Radius));

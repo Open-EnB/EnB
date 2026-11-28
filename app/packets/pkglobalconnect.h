@@ -18,13 +18,13 @@
 #include "pk.h"
 
 // opcode 109 (0x006D, GLOBAL_CONNECT): vtable 0xB09398, constructor 0x8634D0, 0x14 bytes
-class GlobalConnectPacketClass : public PacketClass  // NAME 2: Net-7's opcode name GLOBAL_CONNECT (the Net-7 opcode table; no structure check)
+class GlobalConnectPacketClass : public UnknownPacketBaseClass  // NAME 2: Net-7's opcode name GLOBAL_CONNECT (the Net-7 opcode table; no structure check)
 {
 public:
 	GlobalConnectPacketClass(const char *ticket, const char *password);	// 0x863400
-	GlobalConnectPacketClass(RawPacketClass *raw);	// 0x8634D0
+	GlobalConnectPacketClass(PacketClass *raw);	// 0x8634D0
 	virtual ~GlobalConnectPacketClass();	// +0x00 0x8634A0 / 0x863570
-	virtual RawPacketClass *Build();	// +0x04 0x8635B0
+	virtual PacketClass *Build();	// +0x04 0x8635B0
 	virtual bool Process_Packet(void *client);	// +0x08 0x868850 (clientstub.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x863680
 	virtual int Print(char *buffer, int len);	// +0x10 0x8636C0

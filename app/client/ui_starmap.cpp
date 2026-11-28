@@ -362,7 +362,7 @@ bool StarmapInterface::Unknown_68(int key)
 		SoundLibrary::Play_2D_Sound("TextClick03.wav", 2);
 		{
 			SpaceClientClass *sclient = (SpaceClientClass *)((ClientClass *)Client)->As_Space_Client();
-			sclient->PDAInterface->Unknown_695A00(4, 1);
+			sclient->PDAWindow->Unknown_695A00(4, 1);
 		}
 		return(true);
 	case 3:
@@ -789,7 +789,7 @@ void StarmapInterface::Unknown_7C94C0(bool on)
 **	Placement: the FAIL_IFs at lines 211-239, 301, 311, 581 and 694-703 name the file; 0x7C91A0 and 0x7C94C0 have no
 **	assert but 0x7C8980 and 0x7C8C20 call them (the only callers), and their data are this window's (+0xAC, +0xCC, +0xA8).
 **	The object runs 0x7C63D0-0x7C96E0: after the two come the COMDATs Create_Get 0x7C9590, Clear 0x7C95C0,
-**	operator-> 0x7C9600, Create_Peek 0x7C9620 and the vtable's this-adjusters 0x7C96D0 / 0x7C96E0. The PermStringInitClass
+**	operator-> 0x7C9600, Create_Peek 0x7C9620 and the vtable's this-adjusters 0x7C96D0 / 0x7C96E0. The PermStringInit
 **	at 0xBE87E4 (0x7C6380, atexit 0x7C63B0) comes first in it, after targeting.cpp's <string> initialiser 0x7C6350.
 **
 **	Forms worth keeping: VC6 hoists the common `fld Frame` and the pushed float out of the if / else arms in 0x7C8980;

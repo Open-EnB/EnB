@@ -152,5 +152,5 @@ bool BitSet::Is_None_Set() const
 **	values (8, 19, 28, 29, 36, 92, 100, 113); the blank lines and comments between functions are
 **	placed to keep them there. Class and member names: bitset.h.
 **	2026-11-17 (U1): 0x4A4C60, Is_Any_Set's inverse (no caller), the object's last function: delta.cpp's
-**	PermStringInitClass static 0x4A4C90 opens the next object.
+**	PermStringInit static 0x4A4C90 opens the next object.
 */

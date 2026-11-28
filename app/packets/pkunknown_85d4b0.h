@@ -18,12 +18,12 @@
 #include "pk.h"
 
 // opcode 77 (0x004D, ?): vtable 0xB08DC8, constructor 0x85D570, 0x60 bytes
-class RegistrationResultPacketClass : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
+class RegistrationResultPacketClass : public UnknownPacketBaseClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	RegistrationResultPacketClass(int unknown0c, const char *unknown10, __int64 unknown58);	// 0x85D4B0
-	RegistrationResultPacketClass(RawPacketClass *raw);	// 0x85D570
-	virtual RawPacketClass *Build();	// +0x04 0x85D650
+	RegistrationResultPacketClass(PacketClass *raw);	// 0x85D570
+	virtual PacketClass *Build();	// +0x04 0x85D650
 	virtual bool Process_Packet(void *client);	// +0x08 0x8689A0 (clientstub.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x85D730
 	virtual int Print(char *buffer, int len);	// +0x10 0x85D750

@@ -7,14 +7,14 @@ ClientShipPacketClass::ClientShipPacketClass(int ship_id) : ShipID(ship_id)
 {
 }
 
-ClientShipPacketClass::ClientShipPacketClass(RawPacketClass *raw)
+ClientShipPacketClass::ClientShipPacketClass(PacketClass *raw)
 {
 	raw->Get(&ShipID, sizeof(ShipID));
 }
 
-RawPacketClass *ClientShipPacketClass::Build()
+PacketClass *ClientShipPacketClass::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(71, Get_Data_Size());
+	PacketClass *raw = new PacketClass(71, Get_Data_Size());
 	raw->Add(&ShipID, sizeof(ShipID));
 	return(raw);
 }

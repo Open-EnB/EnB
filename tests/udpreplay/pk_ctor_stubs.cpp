@@ -3,7 +3,7 @@
 // (udpreplay --conn): each hands its raw message to Conn_Record (conn_replay.cpp).
 #include "..\..\..\app\packets\pk_classes.h"
 
-void Conn_Record(PacketClass *packet, RawPacketClass *raw);
+void Conn_Record(UnknownPacketBaseClass *packet, PacketClass *raw);
 
 
 // The rebuilt classes' Process_Packet defined in a file not rebuilt (cpacket.cpp, ...)

@@ -13,7 +13,7 @@ void TalkTreePacketClass::Add_Response(int unknown00, const std::string &text)
 	Responses.push_back(TalkTreeResponseStruct(unknown00, text));
 }
 
-TalkTreePacketClass::TalkTreePacketClass(RawPacketClass *raw)
+TalkTreePacketClass::TalkTreePacketClass(PacketClass *raw)
 {
 	char *string = raw->Get_String();
 	NPCSay = string;
@@ -42,9 +42,9 @@ void TalkTreePacketClass::Swap_Responses(std::vector<TalkTreeResponseStruct> &re
 	responses.swap(Responses);
 }
 
-RawPacketClass *TalkTreePacketClass::Build()
+PacketClass *TalkTreePacketClass::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(84, Get_Data_Size());
+	PacketClass *raw = new PacketClass(84, Get_Data_Size());
 	raw->Add_String(NPCSay.c_str());
 	raw->Add_String(NPCSoundFileName.c_str());
 	char count = Responses.size();
@@ -75,14 +75,14 @@ TalkTreeActionPacketClass::TalkTreeActionPacketClass(int action) : Action(action
 {
 }
 
-TalkTreeActionPacketClass::TalkTreeActionPacketClass(RawPacketClass *raw)
+TalkTreeActionPacketClass::TalkTreeActionPacketClass(PacketClass *raw)
 {
 	raw->Get(&Action, sizeof(Action));
 }
 
-RawPacketClass *TalkTreeActionPacketClass::Build()
+PacketClass *TalkTreeActionPacketClass::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(86, Get_Data_Size());
+	PacketClass *raw = new PacketClass(86, Get_Data_Size());
 	raw->Add(&Action, sizeof(Action));
 	return(raw);
 }
@@ -102,15 +102,15 @@ SelectTalkTreePacketClass::SelectTalkTreePacketClass(int player_id, int selectio
 {
 }
 
-SelectTalkTreePacketClass::SelectTalkTreePacketClass(RawPacketClass *raw)
+SelectTalkTreePacketClass::SelectTalkTreePacketClass(PacketClass *raw)
 {
 	raw->Get(&PlayerID, sizeof(PlayerID));
 	raw->Get(&Selection, sizeof(Selection));
 }
 
-RawPacketClass *SelectTalkTreePacketClass::Build()
+PacketClass *SelectTalkTreePacketClass::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(85, Get_Data_Size());
+	PacketClass *raw = new PacketClass(85, Get_Data_Size());
 	raw->Add(&PlayerID, sizeof(PlayerID));
 	raw->Add(&Selection, sizeof(Selection));
 	return(raw);

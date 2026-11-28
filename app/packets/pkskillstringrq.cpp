@@ -7,15 +7,15 @@ SkillStringRqPacketClass::SkillStringRqPacketClass(int player_id, int request) :
 {
 }
 
-SkillStringRqPacketClass::SkillStringRqPacketClass(RawPacketClass *raw)
+SkillStringRqPacketClass::SkillStringRqPacketClass(PacketClass *raw)
 {
 	raw->Get(&PlayerID, sizeof(PlayerID));
 	raw->Get(&Request, sizeof(Request));
 }
 
-RawPacketClass *SkillStringRqPacketClass::Build()
+PacketClass *SkillStringRqPacketClass::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(81, Get_Data_Size());
+	PacketClass *raw = new PacketClass(81, Get_Data_Size());
 	raw->Add(&PlayerID, sizeof(PlayerID));
 	raw->Add(&Request, sizeof(Request));
 	return(raw);

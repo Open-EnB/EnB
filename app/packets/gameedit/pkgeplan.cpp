@@ -9,13 +9,13 @@ GameEditorRequestPlanetUnitTypesPacketClass::GameEditorRequestPlanetUnitTypesPac
 {
 }
 
-GameEditorRequestPlanetUnitTypesPacketClass::GameEditorRequestPlanetUnitTypesPacketClass(RawPacketClass *)
+GameEditorRequestPlanetUnitTypesPacketClass::GameEditorRequestPlanetUnitTypesPacketClass(PacketClass *)
 {
 }
 
-RawPacketClass *GameEditorRequestPlanetUnitTypesPacketClass::Build()
+PacketClass *GameEditorRequestPlanetUnitTypesPacketClass::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(30023, Get_Data_Size());
+	PacketClass *raw = new PacketClass(30023, Get_Data_Size());
 	return(raw);
 }
 
@@ -37,7 +37,7 @@ GameEditorPlanetUnitTypesPacketClass::GameEditorPlanetUnitTypesPacketClass(char 
 {
 }
 
-GameEditorPlanetUnitTypesPacketClass::GameEditorPlanetUnitTypesPacketClass(RawPacketClass *raw) :
+GameEditorPlanetUnitTypesPacketClass::GameEditorPlanetUnitTypesPacketClass(PacketClass *raw) :
 	Data(NULL),
 	Size(0),
 	Owned(false)
@@ -79,9 +79,9 @@ GameEditorPlanetUnitTypesPacketClass::~GameEditorPlanetUnitTypesPacketClass()
 	}
 }
 
-RawPacketClass *GameEditorPlanetUnitTypesPacketClass::Build()
+PacketClass *GameEditorPlanetUnitTypesPacketClass::Build()
 {
-	RawPacketClass *packet = new RawPacketClass(30024, Get_Data_Size());
+	PacketClass *packet = new PacketClass(30024, Get_Data_Size());
 	G_ASSERT(packet);
 	packet->Add(&Size, sizeof(Size));
 	packet->Add(Data, Size);
@@ -108,14 +108,14 @@ GameEditorRequestPlanetUnitDetailsPacketClass::GameEditorRequestPlanetUnitDetail
 {
 }
 
-GameEditorRequestPlanetUnitDetailsPacketClass::GameEditorRequestPlanetUnitDetailsPacketClass(RawPacketClass *raw)
+GameEditorRequestPlanetUnitDetailsPacketClass::GameEditorRequestPlanetUnitDetailsPacketClass(PacketClass *raw)
 {
 	raw->Get(&UnitType, sizeof(UnitType));
 }
 
-RawPacketClass *GameEditorRequestPlanetUnitDetailsPacketClass::Build()
+PacketClass *GameEditorRequestPlanetUnitDetailsPacketClass::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(30025, Get_Data_Size());
+	PacketClass *raw = new PacketClass(30025, Get_Data_Size());
 	raw->Add(&UnitType, sizeof(UnitType));
 	return(raw);
 }
@@ -137,7 +137,7 @@ GameEditorPlanetUnitDetailsPacketClass::GameEditorPlanetUnitDetailsPacketClass(c
 {
 }
 
-GameEditorPlanetUnitDetailsPacketClass::GameEditorPlanetUnitDetailsPacketClass(RawPacketClass *raw) :
+GameEditorPlanetUnitDetailsPacketClass::GameEditorPlanetUnitDetailsPacketClass(PacketClass *raw) :
 	Data(NULL),
 	Size(0),
 	Owned(false)
@@ -192,9 +192,9 @@ GameEditorPlanetUnitDetailsPacketClass::~GameEditorPlanetUnitDetailsPacketClass(
 	}
 }
 
-RawPacketClass *GameEditorPlanetUnitDetailsPacketClass::Build()
+PacketClass *GameEditorPlanetUnitDetailsPacketClass::Build()
 {
-	RawPacketClass *packet = new RawPacketClass(30026, Get_Data_Size());
+	PacketClass *packet = new PacketClass(30026, Get_Data_Size());
 	G_ASSERT(packet);
 	packet->Add(&Size, sizeof(Size));
 	packet->Add(Data, Size);

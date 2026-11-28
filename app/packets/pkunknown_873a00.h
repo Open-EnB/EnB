@@ -18,7 +18,7 @@
 #include "pk.h"
 #include "..\shared\money.h"
 
-// A MoneyClass sent as its 8 bytes through RawPacketClass::Add / Get (vtable 0xB0ADC4; made on the
+// A MoneyClass sent as its 8 bytes through PacketClass::Add / Get (vtable 0xB0ADC4; made on the
 // stack around the call: GUILD_DEDUCT_FEE 220's raw constructor, Build and Get_Data_Size)
 class MoneyPacketDataClass : public Unknown_PacketDataClass  // NAME 2: what it wraps
 {

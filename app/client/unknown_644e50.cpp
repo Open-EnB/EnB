@@ -91,7 +91,7 @@ public:
 #include "postate.h"
 #include "coltest.h"
 #include "random.h"
-// (ui_starbase.cpp's auxdata.h left out: the client's object opens with no PermStringInit)
+// (ui_starbase.cpp's auxdata.h left out: the client's object opens with no _PermStringInit)
 extern RandomClass Unknown_BDBB84; extern Random4Class Unknown_BDB1C0;	// NAME 1 [Unknown_BDB1C0]: 0xBDB1C0, as camctrl_dock.cpp's
 // The docking sounds by the starbase's column +0x18 (0xB8A8B0: 0x6415B0)
 // What 0x634140 news for the starbase interface's +0xB8: UIStarbaseGadget6B6050Class (0x44 bytes, constructor 0x6B6050,

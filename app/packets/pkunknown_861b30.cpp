@@ -6,14 +6,14 @@ GameEditorRemovePacketClass::GameEditorRemovePacketClass(int game_id) : GameID(g
 {
 }
 
-GameEditorRemovePacketClass::GameEditorRemovePacketClass(RawPacketClass *raw)
+GameEditorRemovePacketClass::GameEditorRemovePacketClass(PacketClass *raw)
 {
 	raw->Get(&GameID, sizeof(GameID));
 }
 
-RawPacketClass *GameEditorRemovePacketClass::Build()
+PacketClass *GameEditorRemovePacketClass::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(30004, Get_Data_Size());
+	PacketClass *raw = new PacketClass(30004, Get_Data_Size());
 	raw->Add(&GameID, sizeof(GameID));
 	return(raw);
 }

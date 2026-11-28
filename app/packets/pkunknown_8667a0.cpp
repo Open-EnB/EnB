@@ -11,7 +11,7 @@ GlobalPlayerStatusPacketClass::GlobalPlayerStatusPacketClass(int unknown0c, cons
 	Unknown10[sizeof(Unknown10) - 1] = 0;
 }
 
-GlobalPlayerStatusPacketClass::GlobalPlayerStatusPacketClass(RawPacketClass *raw)
+GlobalPlayerStatusPacketClass::GlobalPlayerStatusPacketClass(PacketClass *raw)
 {
 	raw->Get(Unknown0C);
 	raw->Get(Unknown10, sizeof(Unknown10));
@@ -20,9 +20,9 @@ GlobalPlayerStatusPacketClass::GlobalPlayerStatusPacketClass(RawPacketClass *raw
 	raw->Get(Unknown64);
 }
 
-RawPacketClass *GlobalPlayerStatusPacketClass::Build()
+PacketClass *GlobalPlayerStatusPacketClass::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(Get_Type(), Get_Data_Size());
+	PacketClass *raw = new PacketClass(Get_Type(), Get_Data_Size());
 	raw->Add(Unknown0C);
 	raw->Add(Unknown10, sizeof(Unknown10));
 	raw->Add(Unknown58);

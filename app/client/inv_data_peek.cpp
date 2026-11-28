@@ -421,7 +421,7 @@ void InvDataPeekClass::Update_Fields()
 
 /*
 **	Notes.
-**	Object 0x689A20-0x68B35F: opened by permstr.h's PermStringInit (0x689A20), closed by <string>'s initialiser after
+**	Object 0x689A20-0x68B35F: opened by permstr.h's _PermStringInit (0x689A20), closed by <string>'s initialiser after
 **	Update_Fields. The fourteen field getters read the slot's DeltaItemClass / DeltaEquipItemClass (aux_roots.h) by
 **	the field's position, found once per Attach by name (Update_Fields); the four string getters are one pattern written
 **	four times (their FAIL_IF texts differ: Get_Builder_Name repeats Get_Instance_Info's), not a template.

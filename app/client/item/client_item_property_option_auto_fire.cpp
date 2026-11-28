@@ -37,6 +37,6 @@ void ClientItemPropertyOptionAutoFireClass::Unknown_18(bool value)
 /*
 **	Reconstruction notes (RECONSTRUCTED): the client's 0x52AD00-0x52B38F (Create 0x52AD00, the constructor
 **	0x52AF10, the destructors 0x52B100 / 0x52B0D0, the table 0xAEDE64's slots 0x52B120 / 0x52B160, pk.h's
-**	PacketClass inlines 0x52B210-0x52B350 that ItemStatePacketClass's temporary needs, and
+**	UnknownPacketBaseClass inlines 0x52B210-0x52B350 that ItemStatePacketClass's temporary needs, and
 **	Create_NEW<ClientItemPropertyOptionAutoFireClass> 0x52B380). No assert: the file's name is provisional (D137).
 */

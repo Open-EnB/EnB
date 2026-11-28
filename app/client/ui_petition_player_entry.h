@@ -20,7 +20,7 @@ public:
 
 	bool Get_Names(std::string &names);					// 0x5D7150 (the names typed, when more than 2 printable characters; inlined at 0x5D6550 / 0x5D6890)  // NAME 1 [Get_Names, names]: what it does
 
-	TextGadgetClass *NameEditor;						// +0xA0 'Entry_Field01' (id 8, 'PLAYER_NAME_hsi03a')  // NAME 3: the FAIL_IF '!NameEditor'
+	UnknownTextGadgetClass *NameEditor;						// +0xA0 'Entry_Field01' (id 8, 'PLAYER_NAME_hsi03a')  // NAME 3: the FAIL_IF '!NameEditor'
 };
 
 // The players page (0xBC bytes, tables 0xAF53A8 / 0xAF539C / 0xAF5390): the entry window with the name box; its submit

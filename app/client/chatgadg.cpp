@@ -29,7 +29,7 @@ static std::string ModuleName("chatgadg");	// 0xBE5E78  // NAME 1: neutral (D10)
 
 // 0x65BFD0
 ChatGadgetClass::ChatGadgetClass(LineDisplayClientClass *client) :
-	TextBaseGadgetClass(0xFF, Unknown_B08CA8, NULL),
+	TextGadgetClass(0xFF, Unknown_B08CA8, NULL),
 	Client((ClientClass *)client),
 	HistoryNext(0),
 	HistoryIndex(0),

@@ -24,12 +24,12 @@ enum ConfirmedActionEnum  // NAME 1: neutral placeholder (D10)
 };
 
 // opcode 190 (0x00BE, CONFIRMED_ACTION_OFFER): vtable 0xB0989C, constructor 0x870650, 0x24 bytes
-class ConfirmedActionOfferPacket : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
+class ConfirmedActionOfferPacket : public UnknownPacketBaseClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	ConfirmedActionOfferPacket(int id, const std::string &message, ConfirmedActionEnum type);	// 0x8703D0
-	ConfirmedActionOfferPacket(RawPacketClass *raw);	// 0x870650
-	virtual RawPacketClass *Build();	// +0x04 0x870800
+	ConfirmedActionOfferPacket(PacketClass *raw);	// 0x870650
+	virtual PacketClass *Build();	// +0x04 0x870800
 	virtual bool Process_Packet(void *client);	// +0x08 0x8692A0 (clientstub.cpp l.398)
 	virtual int Get_Data_Size();	// +0x0C 0x8708E0
 	virtual int Print(char *buffer, int len);	// +0x10 0x870900
@@ -40,12 +40,12 @@ public:
 };
 
 // opcode 191 (0x00BF, ?): vtable 0xB098CC, constructor 0x8709E0, 0x14 bytes
-class ConfirmedActionTimeoutPacket : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
+class ConfirmedActionTimeoutPacket : public UnknownPacketBaseClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	ConfirmedActionTimeoutPacket(ConfirmedActionEnum type, int id);	// 0x870940
-	ConfirmedActionTimeoutPacket(RawPacketClass *raw);	// 0x8709E0
-	virtual RawPacketClass *Build();	// +0x04 0x870AA0
+	ConfirmedActionTimeoutPacket(PacketClass *raw);	// 0x8709E0
+	virtual PacketClass *Build();	// +0x04 0x870AA0
 	virtual bool Process_Packet(void *client);	// +0x08 0x73DCB0 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x870B70
 	virtual int Print(char *buffer, int len);	// +0x10 0x870B90
@@ -55,12 +55,12 @@ public:
 };
 
 // opcode 192 (0x00C0, CONFIRMED_ACTION_RESPONSE): vtable 0xB098FC, constructor 0x870C50, 0x18 bytes
-class ConfirmedActionResponsePacket : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
+class ConfirmedActionResponsePacket : public UnknownPacketBaseClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	ConfirmedActionResponsePacket(int avatar_id, int id, bool response);	// 0x870BD0
-	ConfirmedActionResponsePacket(RawPacketClass *raw);	// 0x870C50
-	virtual RawPacketClass *Build();	// +0x04 0x870D20
+	ConfirmedActionResponsePacket(PacketClass *raw);	// 0x870C50
+	virtual PacketClass *Build();	// +0x04 0x870D20
 	virtual bool Process_Packet(void *client);	// +0x08 0x868E20 (clientstub.cpp l.326)
 	virtual int Get_Data_Size();	// +0x0C 0x870E00
 	virtual int Print(char *buffer, int len);	// +0x10 0x870E20

@@ -11,7 +11,7 @@ DeleteCharacterPacketClass::DeleteCharacterPacketClass(__int64 unknown10, int un
 	strcpy(Unknown1C, unknown1c);
 }
 
-DeleteCharacterPacketClass::DeleteCharacterPacketClass(RawPacketClass *raw)
+DeleteCharacterPacketClass::DeleteCharacterPacketClass(PacketClass *raw)
 {
 	raw->Get(Unknown10);
 	raw->Get(Unknown18);
@@ -19,9 +19,9 @@ DeleteCharacterPacketClass::DeleteCharacterPacketClass(RawPacketClass *raw)
 	raw->Get(Unknown60);
 }
 
-RawPacketClass *DeleteCharacterPacketClass::Build()
+PacketClass *DeleteCharacterPacketClass::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(73, Get_Data_Size());
+	PacketClass *raw = new PacketClass(73, Get_Data_Size());
 	raw->Add(Unknown10);
 	raw->Add(Unknown18);
 	raw->Add(Unknown1C, sizeof(Unknown1C));

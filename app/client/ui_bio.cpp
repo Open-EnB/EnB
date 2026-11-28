@@ -89,5 +89,5 @@ bool BioInterface::Unknown_68(int key)
 **	The client's object 0x5603E0-0x5608BF: linked between ui_avsel.obj and ui_buff.obj (0x5608D0 loads 'fc_buff.ini'),
 **	no __FILE__ string, no asserts. Its only caller, 0x5738B0, builds the character info window's four tabs (0x549640,
 **	0x5C4170, 0x58D080 and this one). After the slots: the adjustor thunks 0x560860 (-4) / 0x560870 (-0x38) of the
-**	deleting destructor 0x560630, and the PermStringInitClass static's initialiser 0x560880 / atexit 0x5608B0 (0xBE5B38).
+**	deleting destructor 0x560630, and the PermStringInit static's initialiser 0x560880 / atexit 0x5608B0 (0xBE5B38).
 */

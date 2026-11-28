@@ -39,7 +39,7 @@ void KVFilterEncoderClass::Clear_Excludes()
 **
 **	Client 0x4B5A80-0x4B5E9F, an object of its own by the CRT initialiser table (PS, run 2026-11-18): entries 83-84
 **	(permstr.h's static 0x4B3800, <string>'s initialiser 0x4B5A50) are kv_encoder_base.cpp's; entries 85-86 open and
-**	close this one: permstr.h's PermStringInitClass static 0x4B5A80 (atexit 0x4B5AB0, the static 0xBE3B54) and
+**	close this one: permstr.h's PermStringInit static 0x4B5A80 (atexit 0x4B5AB0, the static 0xBE3B54) and
 **	<string>'s guarded initialiser 0x4B5E80. Between them KVFilterEncoderClass's constructor 0x4B5AD0, its deleting
 **	destructor 0x4B5B20 and destructor 0x4B5B50 (compiler-generated, vtable 0xAEB6B8), Add_Child 0x4B5BE0, Add_Exclude
 **	0x4B5C60 and Clear_Excludes 0x4B5D70, then the string helpers this object calls out of line (_Refcnt 0x4B5E40,

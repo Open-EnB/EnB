@@ -17,7 +17,7 @@ class UIViewClass;
 class ShipPIPClass;
 class LayerClass;
 class UIAvatrPullClass;
-class TextGadgetClass;
+class UnknownTextGadgetClass;
 class TextureClass;
 class GadgetClass;
 class FlashingGadgetEvent;
@@ -107,7 +107,7 @@ public:
 	bool Unknown2FC;									// +0x2FC (the page's fonts loaded, as ui_shipcust.cpp's +0x248)
 	UIAvatrPullClass *Unknown300;						// +0x300 the colour palette and its pull (as ui_shipcust.cpp's +0x24C)
 	RefCountPtr<TextureClass> ColorSliderTexture;		// +0x304  // NAME 3: 0x61B760's G_ASSERT (l.1108)
-	TextGadgetClass *NameGadget;						// +0x308 (the ship's name: 'NAME_buy_ship04')  // NAME 1: as ui_shipcust.h's
+	UnknownTextGadgetClass *NameGadget;						// +0x308 (the ship's name: 'NAME_buy_ship04')  // NAME 1: as ui_shipcust.h's
 	int Unknown30C;										// +0x30C the part
 	int Unknown310;										// +0x310 the part's setting
 	int Unknown314;										// +0x314 the insignia list's first

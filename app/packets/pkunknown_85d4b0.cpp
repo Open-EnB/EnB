@@ -10,7 +10,7 @@ RegistrationResultPacketClass::RegistrationResultPacketClass(int unknown0c, cons
 	strcpy(Unknown10, unknown10);
 }
 
-RegistrationResultPacketClass::RegistrationResultPacketClass(RawPacketClass *raw)
+RegistrationResultPacketClass::RegistrationResultPacketClass(PacketClass *raw)
 {
 	int value;
 	raw->Get(value);
@@ -19,9 +19,9 @@ RegistrationResultPacketClass::RegistrationResultPacketClass(RawPacketClass *raw
 	Unknown0C = value;
 }
 
-RawPacketClass *RegistrationResultPacketClass::Build()
+PacketClass *RegistrationResultPacketClass::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(77, Get_Data_Size());
+	PacketClass *raw = new PacketClass(77, Get_Data_Size());
 	int value = Unknown0C;
 	raw->Add(value);
 	raw->Add(Unknown10, sizeof(Unknown10));

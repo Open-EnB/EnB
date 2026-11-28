@@ -8,7 +8,7 @@
 #include "ui_chat_panel_base.h"
 #include "fontmanager.h"
 
-class TextGadgetClass;
+class UnknownTextGadgetClass;
 
 // The private channel's join window (0xBC bytes, tables 0xAF6C5C / 0xAF6C50 / 0xAF6C44)
 class UIRadioJoinClass : public ChatPanelUIBase	// NAME 1: neutral, after its title 'Join Private Channel'
@@ -26,7 +26,7 @@ public:
 	void Unknown_5EB2F0();								// 0x5EB2F0 (chat request 7 for the channel left, 6 for the one typed)
 
 	int State;											// +0xA0 (0 join, 1 no such channel)  // NAME 1: neutral (D10)
-	TextGadgetClass *Entry;								// +0xA4 'TEXTFIELD_Cht03' (id 6)  // NAME 1: neutral (D10)
+	UnknownTextGadgetClass *Entry;								// +0xA4 'TEXTFIELD_Cht03' (id 6)  // NAME 1: neutral (D10)
 	bool UnknownA8;										// +0xA8 (set with the text box's focus)
 	GadgetClass *Buttons[4];							// +0xAC 'EXIT', 'TEXT_FIELD', 'BUTTON01', 'BUTTON03'  // NAME 2: what they are
 };

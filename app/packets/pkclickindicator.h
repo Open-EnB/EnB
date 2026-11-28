@@ -19,12 +19,12 @@
 #include "pk.h"
 
 // opcode 105 (0x0069, ?): vtable 0xB0A080, constructor 0x87E870, 0x14 bytes
-class ClickIndicatorPacketClass : public PacketClass
+class ClickIndicatorPacketClass : public UnknownPacketBaseClass
 {
 public:
 	ClickIndicatorPacketClass(bool turn_on, int obj_id);	// 0x87E7D0  // NAME 2: the stores (no caller left)
-	ClickIndicatorPacketClass(RawPacketClass *raw);	// 0x87E870
-	virtual RawPacketClass *Build();	// +0x04 0x87E910
+	ClickIndicatorPacketClass(PacketClass *raw);	// 0x87E870
+	virtual PacketClass *Build();	// +0x04 0x87E910
 	virtual bool Process_Packet(void *client);	// +0x08 0x7393D0 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x87E9E0
 	virtual int Print(char *buffer, int len);	// +0x10 0x87EA00

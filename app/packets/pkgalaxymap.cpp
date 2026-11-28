@@ -9,7 +9,7 @@ GalaxyMapPacketClass::GalaxyMapPacketClass(int type, LinearBuffer &buffer, int c
 	memcpy(Data, buffer.Buffer, Size);
 }
 
-GalaxyMapPacketClass::GalaxyMapPacketClass(RawPacketClass *raw) : Type(-1), Data(0), Size(0), Channel(0)
+GalaxyMapPacketClass::GalaxyMapPacketClass(PacketClass *raw) : Type(-1), Data(0), Size(0), Channel(0)
 {
 	raw->Get(&Type, sizeof(Type));
 	raw->Get(&Size, sizeof(Size));
@@ -17,9 +17,9 @@ GalaxyMapPacketClass::GalaxyMapPacketClass(RawPacketClass *raw) : Type(-1), Data
 	raw->Get(Data, Size);
 }
 
-RawPacketClass *GalaxyMapPacketClass::Build()
+PacketClass *GalaxyMapPacketClass::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(Get_Type(), Get_Data_Size());
+	PacketClass *raw = new PacketClass(Get_Type(), Get_Data_Size());
 	raw->Add(&Type, sizeof(Type));
 	raw->Add(&Size, sizeof(Size));
 	raw->Add(Data, Size);
@@ -46,15 +46,15 @@ GalaxyMapRequestPacketClass::GalaxyMapRequestPacketClass(int type, LinearBuffer 
 {
 }
 
-GalaxyMapRequestPacketClass::GalaxyMapRequestPacketClass(RawPacketClass *raw) : GalaxyMapPacketClass(raw), Unknown1C(false)
+GalaxyMapRequestPacketClass::GalaxyMapRequestPacketClass(PacketClass *raw) : GalaxyMapPacketClass(raw), Unknown1C(false)
 {
 	raw->Get(&Channel, sizeof(Channel));
 	raw->Get(&Unknown1C, sizeof(Unknown1C));
 }
 
-RawPacketClass *GalaxyMapRequestPacketClass::Build()
+PacketClass *GalaxyMapRequestPacketClass::Build()
 {
-	RawPacketClass *raw = GalaxyMapPacketClass::Build();
+	PacketClass *raw = GalaxyMapPacketClass::Build();
 	raw->Add(&Channel, sizeof(Channel));
 	raw->Add(&Unknown1C, sizeof(Unknown1C));
 	return(raw);

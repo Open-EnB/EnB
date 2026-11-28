@@ -2,7 +2,7 @@
 #include "pkflag.h"
 
 
-void Add_Flagged(RawPacketClass *raw, unsigned int flags, int flag, const void *data, int len)
+void Add_Flagged(PacketClass *raw, unsigned int flags, int flag, const void *data, int len)
 {
 	if (flags & (1 << flag)) {
 		raw->Add(data, len);
@@ -10,7 +10,7 @@ void Add_Flagged(RawPacketClass *raw, unsigned int flags, int flag, const void *
 }
 
 
-void Get_Flagged(RawPacketClass *raw, unsigned int flags, int flag, void *data, int len)
+void Get_Flagged(PacketClass *raw, unsigned int flags, int flag, void *data, int len)
 {
 	if (flags & (1 << flag)) {
 		raw->Get(data, len);
@@ -45,7 +45,7 @@ bool Is_Flag_Set(unsigned int flags, int flag)
 
 
 
-void FlagPacketClass::Write_Flags(RawPacketClass *raw, unsigned int flags)
+void FlagPacketClass::Write_Flags(PacketClass *raw, unsigned int flags)
 {
 	unsigned int flag_max = Get_Flag_Count();
 	G_ASSERT(flag_max <= 32);
@@ -64,7 +64,7 @@ void FlagPacketClass::Write_Flags(RawPacketClass *raw, unsigned int flags)
 	}
 }
 
-void FlagPacketClass::Read_Flags(RawPacketClass *raw, unsigned int *flags)
+void FlagPacketClass::Read_Flags(PacketClass *raw, unsigned int *flags)
 {
 	unsigned int flag_max = Get_Flag_Count();
 

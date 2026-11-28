@@ -2023,7 +2023,7 @@ def cr2_xcu_known(img, results, claimed, text, base, known, thunk):
                     continue
                 sv, cf = break_tie(obj, sec, s, length, text, base, [t], img, known)
                 surv += sv
-                # the proof is a global it writes at its known address: a call (PermStringInitClass's, ios_base::
+                # the proof is a global it writes at its known address: a call (PermStringInit's, ios_base::
                 # Init's) is the same in every object's copy (money.obj's $E17 took cameraeffects' 0x4442C0)
                 imp = _data_implied(obj, sec, s, length, text, base, t) if cf else None
                 if imp and any(isinstance(key, str) and v in known.get(key, ()) for key, v in imp.items()):

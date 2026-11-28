@@ -318,7 +318,7 @@ bool UnknownB02C68Class::Execute(SpaceClientClass *client)
 }
 
 // Reconstruction notes (O22, run 2026-11-13b).
-// The object is 0x7231C0-0x725050: the PermStringInit initialisers 0x7231C0 / 0x7231F0 that open it (a header's),
+// The object is 0x7231C0-0x725050: the _PermStringInit initialisers 0x7231C0 / 0x7231F0 that open it (a header's),
 // 0x723210-0x7245C0 above in this order, the inline packet destructors 0x7232B0 / 0x7242C0 (out of line for the
 // unwind), the std::list / std::vector / heap instances 0x7246D0-0x724E70, the <string> ctype guard 0x724EE0 and the
 // two heap instances the compiler emits after it (_Push_heap 0x724F10, _Adjust_heap 0x724F90); client.cpp's

@@ -84,7 +84,7 @@ bool CamCtlGadgetClass::Unknown_34(KernelEventClass *event, float x, float y, un
 ** Reconstruction notes
 ** - The object: 0x65B930-0x65BDD4 (__FILE__ 'e:\build\beta\G\app\Client\camctl.cpp', the constructor's four
 **   asserts on lines 30-33), after uiview.cpp's (to 0x65B920) and before chatgadg.cpp's, which opens with its
-**   PermStringInitClass initialiser 0x65BE50. Its table 0xAF98C4 overrides RectangleGadgetClass's slots +0x00, +0x34
+**   PermStringInit initialiser 0x65BE50. Its table 0xAF98C4 overrides RectangleGadgetClass's slots +0x00, +0x34
 **   and +0x50; the rest are GadgetClass's and RectangleGadgetClass's. 0x65BBC0 (RectangleGadgetClass's implicit
 **   destructor, the constructor's unwind) and 0x65BBE0 (this class's) are each a jmp to ~GadgetClass: the class
 **   declares no destructor (a declared empty one stores the table first: 11 bytes).

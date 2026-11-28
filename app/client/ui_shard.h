@@ -11,7 +11,7 @@
 class GadgetClass;
 class LayerClass;
 class LoginTaskClass;
-class TextGadgetClass;
+class UnknownTextGadgetClass;
 class CharacterViewClass;
 
 // The galaxy select window (ui_shard.cpp's __FILE__ 0xB89390, the FAIL_IF 'ShardSelection < 0 || ShardSelection >=
@@ -44,7 +44,7 @@ public:
 	int Unknown8C;									// +0x8C (the first row shown)
 	int ShardSelection;								// +0x90 (-1: none)  // NAME 3: the FAIL_IF's
 	int Unknown94;									// +0x94 (how it leaves: 9 next, 10 back)
-	TextGadgetClass *NameGadget;					// +0x98 ('Name_fe02a')  // NAME 1: as ui_login.cpp's
+	UnknownTextGadgetClass *NameGadget;					// +0x98 ('Name_fe02a')  // NAME 1: as ui_login.cpp's
 	bool Unknown9C;									// +0x9C (a name is set)
 	bool Unknown9D;									// +0x9D (skip the beginner tutorial: the creation's last argument)
 	bool Unknown9E;									// +0x9E (tutorial.dat read)

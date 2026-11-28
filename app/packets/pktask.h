@@ -48,12 +48,12 @@ struct Unknown1389Struct : public Unknown1388Struct  // NAME 1: neutral (D10): o
 };
 
 // opcode 5000 (0x1388, ?): vtable 0xB0BD80, constructor 0x8A8B20, 0x21C bytes
-class TaskHelloPacketClass : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
+class TaskHelloPacketClass : public UnknownPacketBaseClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	TaskHelloPacketClass(const Unknown1388Struct &data);	// 0x8A8A10
-	TaskHelloPacketClass(RawPacketClass *raw);	// 0x8A8B20
-	virtual RawPacketClass *Build();	// +0x04 0x8A8BC0
+	TaskHelloPacketClass(PacketClass *raw);	// 0x8A8B20
+	virtual PacketClass *Build();	// +0x04 0x8A8BC0
 	virtual bool Process_Packet(void *client);	// +0x08 0x868400 (clientstub.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x8A8CB0
 	virtual int Print(char *buffer, int len);	// +0x10 0x8A8CD0
@@ -63,12 +63,12 @@ public:
 };
 
 // opcode 5001 (0x1389, ?): vtable 0xB0BDB4, constructor 0x8A8E30, 0x224 bytes
-class SectorHelloPacketClass : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
+class SectorHelloPacketClass : public UnknownPacketBaseClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	SectorHelloPacketClass(const Unknown1389Struct &data);	// 0x8A8D00
-	SectorHelloPacketClass(RawPacketClass *raw);	// 0x8A8E30
-	virtual RawPacketClass *Build();	// +0x04 0x8A8EF0
+	SectorHelloPacketClass(PacketClass *raw);	// 0x8A8E30
+	virtual PacketClass *Build();	// +0x04 0x8A8EF0
 	virtual bool Process_Packet(void *client);	// +0x08 0x868430 (clientstub.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x8A8FE0
 	virtual int Print(char *buffer, int len);	// +0x10 0x8A9000
@@ -78,12 +78,12 @@ public:
 };
 
 // opcode 5002 (0x138A, ?): vtable 0xB0BDE8, constructor 0x8A90D0, 0x14 bytes
-class TaskStartPacketClass : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
+class TaskStartPacketClass : public UnknownPacketBaseClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	TaskStartPacketClass(int type, int num);	// 0x8A9030
-	TaskStartPacketClass(RawPacketClass *raw);	// 0x8A90D0
-	virtual RawPacketClass *Build();	// +0x04 0x8A9170
+	TaskStartPacketClass(PacketClass *raw);	// 0x8A90D0
+	virtual PacketClass *Build();	// +0x04 0x8A9170
 	virtual bool Process_Packet(void *client);	// +0x08 0x868460 (clientstub.cpp l.170)
 	virtual int Get_Data_Size();	// +0x0C 0x8A9260
 	virtual int Print(char *buffer, int len);	// +0x10 0x8A9280
@@ -94,12 +94,12 @@ public:
 };
 
 // opcode 5003 (0x138B, ?): vtable 0xB0BE1C, constructor 0x8A9360, 0x14 bytes
-class TaskStopPacketClass : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
+class TaskStopPacketClass : public UnknownPacketBaseClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	TaskStopPacketClass(int type, int num);	// 0x8A92C0
-	TaskStopPacketClass(RawPacketClass *raw);	// 0x8A9360
-	virtual RawPacketClass *Build();	// +0x04 0x8A9400
+	TaskStopPacketClass(PacketClass *raw);	// 0x8A9360
+	virtual PacketClass *Build();	// +0x04 0x8A9400
 	virtual bool Process_Packet(void *client);	// +0x08 0x868490 (clientstub.cpp l.173)
 	virtual int Get_Data_Size();	// +0x0C 0x8A94F0
 	virtual int Print(char *buffer, int len);	// +0x10 0x8A9510
@@ -114,7 +114,7 @@ class TaskRequestPacketClass : public TaskStartPacketClass  // NAME 5: thunk ord
 {
 public:
 	TaskRequestPacketClass(int type, int num);	// 0x8A9550 (TaskStartPacketClass's inlined)
-	TaskRequestPacketClass(RawPacketClass *raw);	// 0x8A95F0 (TaskStartPacketClass's inlined)
+	TaskRequestPacketClass(PacketClass *raw);	// 0x8A95F0 (TaskStartPacketClass's inlined)
 	virtual bool Process_Packet(void *client);	// +0x08 0x8684C0 (clientstub.cpp)
 	virtual int Print(char *buffer, int len);	// +0x10 0x8A96D0
 	virtual int Get_Type();	// +0x28 0x8A96B0  // NAME 2: as TaskStartPacketClass's
@@ -123,13 +123,13 @@ public:
 };
 
 // opcode 5005 (0x138D, ?): vtable 0xB0BE84, constructor 0x8A9800, 0x1C bytes
-class TaskPingPacketClass : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
+class TaskPingPacketClass : public UnknownPacketBaseClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	TaskPingPacketClass(int ip, unsigned short port, char *string);	// 0x8A9710
-	TaskPingPacketClass(RawPacketClass *raw);	// 0x8A9800
+	TaskPingPacketClass(PacketClass *raw);	// 0x8A9800
 	virtual ~TaskPingPacketClass();	// +0x00 0x8A97D0 / 0x8A98D0
-	virtual RawPacketClass *Build();	// +0x04 0x8A9910
+	virtual PacketClass *Build();	// +0x04 0x8A9910
 	virtual bool Process_Packet(void *client);	// +0x08 0x8684F0 (clientstub.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x8A9A20
 	virtual int Print(char *buffer, int len);	// +0x10 0x8A9A40
@@ -146,20 +146,20 @@ class TaskPongPacketClass : public TaskPingPacketClass  // NAME 5: thunk order A
 {
 public:
 	TaskPongPacketClass(int ip, unsigned short port);	// 0x8A9A80 (TaskPingPacketClass's with "" inlined)
-	TaskPongPacketClass(RawPacketClass *raw);	// 0x8A9BB0 (TaskPingPacketClass's inlined)
+	TaskPongPacketClass(PacketClass *raw);	// 0x8A9BB0 (TaskPingPacketClass's inlined)
 	virtual bool Process_Packet(void *client);	// +0x08 0x868520 (clientstub.cpp)
 	virtual int Print(char *buffer, int len);	// +0x10 0x8A9CB0
 	virtual int Get_Type();	// +0x28 0x8A9C90  // NAME 2: as TaskStartPacketClass's
 };
 
 // opcode 5009 (0x1391, ?): vtable 0xB0BEEC, constructor 0x8A9E80, 0x40 bytes
-class PlayerStatusPacketClass : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
+class PlayerStatusPacketClass : public UnknownPacketBaseClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	PlayerStatusPacketClass(char *name, __int64 character_object_id, char *account, __int64 account_id, int ip, unsigned short port, int sector, int status, __int64 unknown38);	// 0x8A9CF0
-	PlayerStatusPacketClass(RawPacketClass *raw);	// 0x8A9E80
+	PlayerStatusPacketClass(PacketClass *raw);	// 0x8A9E80
 	virtual ~PlayerStatusPacketClass();	// +0x00 0x8A9E50 / 0x8A9F90
-	virtual RawPacketClass *Build();	// +0x04 0x8AA050
+	virtual PacketClass *Build();	// +0x04 0x8AA050
 	virtual bool Process_Packet(void *client);	// +0x08 0x868550 (clientstub.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x8AA1B0
 	virtual int Print(char *buffer, int len);	// +0x10 0x8AA1F0
@@ -177,12 +177,12 @@ public:
 };
 
 // opcode 5010 (0x1392, ?): vtable 0xB0BF20, constructor 0x8AA490, 0x18 bytes
-class SectorListPacketClass : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
+class SectorListPacketClass : public UnknownPacketBaseClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	SectorListPacketClass(const std::list<Unknown1389Struct> &list);	// 0x8AA280
-	SectorListPacketClass(RawPacketClass *raw);	// 0x8AA490
-	virtual RawPacketClass *Build();	// +0x04 0x8AA670
+	SectorListPacketClass(PacketClass *raw);	// 0x8AA490
+	virtual PacketClass *Build();	// +0x04 0x8AA670
 	virtual bool Process_Packet(void *client);	// +0x08 0x868580 (clientstub.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x8AA780
 	virtual int Print(char *buffer, int len);	// +0x10 0x8AA7B0
@@ -192,12 +192,12 @@ public:
 };
 
 // opcode 5011 (0x1393, ?): vtable 0xB0BF54, constructor 0x8AA870, 0xC bytes
-class RequestSectorListPacket : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
+class RequestSectorListPacket : public UnknownPacketBaseClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	RequestSectorListPacket();	// 0x8AA7E0
-	RequestSectorListPacket(RawPacketClass *raw);	// 0x8AA870
-	virtual RawPacketClass *Build();	// +0x04 0x8AA8B0
+	RequestSectorListPacket(PacketClass *raw);	// 0x8AA870
+	virtual PacketClass *Build();	// +0x04 0x8AA8B0
 	virtual bool Process_Packet(void *client);	// +0x08 0x8685B0 (clientstub.cpp l.191)
 	virtual int Get_Data_Size();	// +0x0C 0x8AA970
 	virtual int Print(char *buffer, int len);	// +0x10 0x8AA990

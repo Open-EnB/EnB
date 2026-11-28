@@ -10,7 +10,7 @@ ActionPacketClass::ActionPacketClass(int game_id, char action, int unknown14, in
 {
 }
 
-ActionPacketClass::ActionPacketClass(RawPacketClass *raw)
+ActionPacketClass::ActionPacketClass(PacketClass *raw)
 {
 	raw->Get(&GameID, sizeof(GameID));
 	raw->Get(&Action, sizeof(Action));
@@ -18,9 +18,9 @@ ActionPacketClass::ActionPacketClass(RawPacketClass *raw)
 	raw->Get(&Unknown18, sizeof(Unknown18));
 }
 
-RawPacketClass *ActionPacketClass::Build()
+PacketClass *ActionPacketClass::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(44, Get_Data_Size());
+	PacketClass *raw = new PacketClass(44, Get_Data_Size());
 	raw->Add(&GameID, sizeof(GameID));
 	raw->Add(&Action, sizeof(Action));
 	raw->Add(&Unknown14, sizeof(Unknown14));
@@ -46,7 +46,7 @@ Action2PacketClass::Action2PacketClass(int game_id, char action, const char *tar
 {
 }
 
-Action2PacketClass::Action2PacketClass(RawPacketClass *raw)
+Action2PacketClass::Action2PacketClass(PacketClass *raw)
 {
 	raw->Get(GameID);
 	raw->Get(Action);
@@ -54,9 +54,9 @@ Action2PacketClass::Action2PacketClass(RawPacketClass *raw)
 	raw->Get(OptionalVar);
 }
 
-RawPacketClass *Action2PacketClass::Build()
+PacketClass *Action2PacketClass::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(45, Get_Data_Size());
+	PacketClass *raw = new PacketClass(45, Get_Data_Size());
 	raw->Add(GameID);
 	raw->Add(Action);
 	raw->Add(Target);
@@ -66,7 +66,7 @@ RawPacketClass *Action2PacketClass::Build()
 
 int Action2PacketClass::Get_Data_Size()
 {
-	return(RawPacketClass::Get_Size(Target) + sizeof(GameID) + sizeof(Action) + sizeof(OptionalVar));
+	return(PacketClass::Get_Size(Target) + sizeof(GameID) + sizeof(Action) + sizeof(OptionalVar));
 }
 
 int Action2PacketClass::Print(char *buffer, int)

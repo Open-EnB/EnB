@@ -853,7 +853,7 @@ void SlotDataInterface::Unknown_62F620(const char *name)
 
 /*
 **	Notes (SK1, 2026-11-09).
-**	The object runs from its PermStringInitClass static (0x62DCD0, 0xBE5E54) to the adjustor thunks 0x62FD80 / 0x62FD90;
+**	The object runs from its PermStringInit static (0x62DCD0, 0xBE5E54) to the adjustor thunks 0x62FD80 / 0x62FD90;
 **	the vector helpers 0x62F7A0-0x62FB00 and the callback's members 0x62FB40-0x62FD60 come with it. The class name is
 **	the client's RTTI (MemberCallback<SlotDataClass, SlotDataInterface, ...>), as ui_slot_scut.h's declaration has it.
 **	Written from the pseudocode, the asserts on the client's lines; the functions so marked (D64) are

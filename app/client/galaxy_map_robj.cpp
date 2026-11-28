@@ -431,7 +431,7 @@ void GalaxyMapLineRObj::Render(RenderInfoClass &rinfo)
 **
 **	The client's __FILE__ 0xB9EB80 (e:\build\beta\G\app\Client\galaxy_map_robj.cpp), FAIL_IFs at lines
 **	65, 256, 369, 370 and 377; client 0x7B2B30-0x7B46EA, the object's <string> initialiser at
-**	0x7B4640 followed by the tables' adjustor thunks 0x7B4670-0x7B46A0 and PermStringInit's
+**	0x7B4640 followed by the tables' adjustor thunks 0x7B4670-0x7B46A0 and _PermStringInit's
 **	initialiser 0x7B46B0. Out-of-line templates here: Create_Peek 0x7B45A0, DynamicVectorClass<
 **	VertexMaterialClass *>::Add 0x7B45D0; the classes' inline Class_ID 0x7B30B0 (DynamicMeshClass's)
 **	and 0x7B3E80 (SegmentedLineClass's).

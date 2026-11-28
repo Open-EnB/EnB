@@ -135,7 +135,7 @@ void Unknown_723150()
 
 /*
 **	Reconstruction notes (2026-11-02, builder KRN): every function above is byte-exact with appfile.py match
-**	(0x722770, 0x7227F0, 0x722890, 0x7228C0, 0x723150), the header's PermStringInit initialiser and its
+**	(0x722770, 0x7227F0, 0x722890, 0x7228C0, 0x723150), the header's _PermStringInit initialiser and its
 **	atexit destructor (0x7231C0, 0x7231F0, the static at 0xBE7CEC) with them.
 **
 **	* The asserts ('idx < MCURSOR_MAX', the client's lines 33 and 72) name the index and the bound; the rest

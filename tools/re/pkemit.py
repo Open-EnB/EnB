@@ -58,12 +58,12 @@ def decl(cls, ctors):
     m = cls['members']
     out = ['// opcode %d (0x%04X, %s): vtable 0x%X, constructor 0x%X, 0x%X bytes' % (
         cls['op'], cls['op'], cls['opname'], cls['vt'], cls['ctor'], cls['size'])]
-    out.append('class %s : public PacketClass%s' % (cls['name'], class_name_tag(cls)))
+    out.append('class %s : public UnknownPacketBaseClass%s' % (cls['name'], class_name_tag(cls)))
     out += ['{', 'public:']
     for f, sig, _ in ctors:
         out.append('\t%s(%s);\t// 0x%X' % (cls['name'], sig, f))
-    out.append('\t%s(RawPacketClass *raw);\t// 0x%X' % (cls['name'], cls['ctor']))
-    out.append('\tvirtual RawPacketClass *Build();\t// +0x04 0x%X' % cls['build'])
+    out.append('\t%s(PacketClass *raw);\t// 0x%X' % (cls['name'], cls['ctor']))
+    out.append('\tvirtual PacketClass *Build();\t// +0x04 0x%X' % cls['build'])
     if cls['pp'] != 0x52B240:
         if gen.CLIENTSTUB[0] <= cls['pp'] < gen.CLIENTSTUB[1]:
             out.append('\tvirtual bool Process_Packet(void *client);\t// +0x08 0x%X (clientstub.cpp l.%d)' % (
@@ -184,10 +184,10 @@ def defs(cls):
         else:
             get.append('\traw->Get(%s);' % mv['cname'])
     uses = any('raw->' in g for g in get)
-    out.append((cls['ctor'], ['%s::%s(RawPacketClass *%s)%s' % (cls['name'], cls['name'], 'raw' if uses else '', il),
+    out.append((cls['ctor'], ['%s::%s(PacketClass *%s)%s' % (cls['name'], cls['name'], 'raw' if uses else '', il),
                               '{'] + get + ['}']))
-    b = ['RawPacketClass *%s::Build()' % cls['name'], '{',
-         '\tRawPacketClass *raw = new RawPacketClass(%s, Get_Data_Size());' % (
+    b = ['PacketClass *%s::Build()' % cls['name'], '{',
+         '\tRawPacketClass *raw = new PacketClass(%s, Get_Data_Size());' % (
              'Get_Type()' if cls.get('gettype') else cls['op'])]
     for off, kind, n in cls['adds']:
         mv = byoff[off]
@@ -204,7 +204,7 @@ def defs(cls):
     terms = []
     for off, kind, n in cls['adds']:
         nm = byoff[off]['cname']
-        terms.append('RawPacketClass::Get_Size(%s)' % nm if kind == 'string' else
+        terms.append('PacketClass::Get_Size(%s)' % nm if kind == 'string' else
                      '%s.length() + 1' % nm if kind == 'cstr' else 'sizeof(%s)' % nm)
     expr = ' + '.join(terms) if terms else '0'
     out.append((cls['sizef'], ['int %s::Get_Data_Size()' % cls['name'], '{', '\treturn(%s);' % expr, '}']))

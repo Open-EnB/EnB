@@ -4,7 +4,7 @@
 **	PROVISIONAL file name: the packet classes are declared in many client headers (app\packets
 **	pk*.h, gameedit\pkge*.h); here only what the factory 0x869790 needs: each class's size (the
 **	case's new) and its constructor from the raw message (not rebuilt yet: declared). Members
-**	are a filler to the client's size; the virtuals are PacketClass's until the classes are
+**	are a filler to the client's size; the virtuals are UnknownPacketBaseClass's until the classes are
 **	rebuilt.
 */
 

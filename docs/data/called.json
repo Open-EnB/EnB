@@ -2930,7 +2930,7 @@
 "data:?Network_INI@NetworkINIClass@@2VINIClass@@A": [
 "0xBE8EA8"
 ],
-"data:?Next_Serial@PacketClass@@2HA": [
+"data:?Next_Serial@UnknownPacketBaseClass@@2HA": [
 "0xBF4128"
 ],
 "data:?OverbrightModifyOnLoad@WW3D@@0_NA": [
@@ -3500,7 +3500,7 @@
 "data:?_ActiveInterface@UISlotInfoClass@@2PAV1@A": [
 "0xBE5E5C"
 ],
-"data:?_ActiveUI@TextBaseGadgetClass@@2PAV1@A": [
+"data:?_ActiveUI@TextGadgetClass@@2PAV1@A": [
 "0xBE66C0"
 ],
 "data:?_AllAbilities@SkillAbilityNamesDatabase@@0V?$vector@PAUUnknown815320Struct@@V?$allocator@PAUUnknown815320Struct@@@std@@@std@@A": [

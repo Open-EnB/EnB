@@ -272,7 +272,7 @@ void UIPdaEquipClass::Unknown_60()
 
 
 // @0x5D2180
-template <class T> static inline void Close_PDA_Of(T *space) { space->PDAInterface->Unknown_695A00(1, true); } bool UIPdaEquipClass::Unknown_68(int key)
+template <class T> static inline void Close_PDA_Of(T *space) { space->PDAWindow->Unknown_695A00(1, true); } bool UIPdaEquipClass::Unknown_68(int key)
 {
 	FAIL_IF(!InterfaceMesh) return(false);
 	switch (key) {

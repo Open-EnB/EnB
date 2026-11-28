@@ -7,7 +7,7 @@ ChatBasicRequestPacketClass::ChatBasicRequestPacketClass() : Unknown0C(0)
 {
 }
 
-ChatBasicRequestPacketClass::ChatBasicRequestPacketClass(RawPacketClass *raw) : Unknown0C(0)
+ChatBasicRequestPacketClass::ChatBasicRequestPacketClass(PacketClass *raw) : Unknown0C(0)
 {
 	raw->Get(&Unknown0C, sizeof(Unknown0C));
 	raw->Get(&Unknown10);
@@ -18,9 +18,9 @@ ChatBasicRequestPacketClass::~ChatBasicRequestPacketClass()
 {
 }
 
-RawPacketClass *ChatBasicRequestPacketClass::Build()
+PacketClass *ChatBasicRequestPacketClass::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(167, Get_Data_Size());
+	PacketClass *raw = new PacketClass(167, Get_Data_Size());
 	raw->Add(&Unknown0C, sizeof(Unknown0C));
 	raw->Add(Unknown10);
 	raw->Add(Unknown20);
@@ -30,8 +30,8 @@ RawPacketClass *ChatBasicRequestPacketClass::Build()
 int ChatBasicRequestPacketClass::Get_Data_Size()
 {
 	int size = sizeof(Unknown0C);
-	size += RawPacketClass::Get_Size(Unknown10);
-	size += RawPacketClass::Get_Size(Unknown20);
+	size += PacketClass::Get_Size(Unknown10);
+	size += PacketClass::Get_Size(Unknown20);
 	return(size);
 }
 

@@ -260,7 +260,7 @@ void SkillDataPeekClass::Update_Fields()
 
 /*
 **	Notes.
-**	Object 0x6A52E0-0x6A5E9F: opened by permstr.h's PermStringInit (0x6A52E0, the instance 0xBE6658, its atexit 0x6A5310),
+**	Object 0x6A52E0-0x6A5E9F: opened by permstr.h's _PermStringInit (0x6A52E0, the instance 0xBE6658, its atexit 0x6A5310),
 **	closed by <string>'s initialiser 0x6A5E00. The thunk 0x6A52D0 before it is skill_data.cpp's.
 */
 

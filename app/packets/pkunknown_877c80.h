@@ -18,13 +18,13 @@
 #include "pk.h"
 
 // opcode 99 (0x0063, ?): vtable 0xB09D7C, constructor 0x877D70, 0x18 bytes
-class BroadcastPacketClass : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
+class BroadcastPacketClass : public UnknownPacketBaseClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	BroadcastPacketClass(char *text, int unknown14);	// 0x877C80
-	BroadcastPacketClass(RawPacketClass *raw);	// 0x877D70
+	BroadcastPacketClass(PacketClass *raw);	// 0x877D70
 	virtual ~BroadcastPacketClass();	// +0x00 0x877D40 / 0x877E40
-	virtual RawPacketClass *Build();	// +0x04 0x877E80
+	virtual PacketClass *Build();	// +0x04 0x877E80
 	virtual bool Process_Packet(void *client);	// +0x08 0x868610 (clientstub.cpp l.197)
 	virtual int Get_Data_Size();	// +0x0C 0x877F60
 	virtual int Print(char *buffer, int len);	// +0x10 0x877F80

@@ -484,7 +484,7 @@ bool UDPConnectionClass::Is_Fixed_Channel(unsigned int channel)
 
 
 
-bool UDPConnectionClass::Send_Message(RawPacketClass *packet)
+bool UDPConnectionClass::Send_Message(PacketClass *packet)
 {
 	FAIL_IF(packet->Header.Size > UDP_DATABUFFER_SIZE) return(false);
 	*(PacketHeaderClass *)Buffer = packet->Header;
@@ -508,9 +508,9 @@ bool UDPConnectionClass::Send_Message(RawPacketClass *packet)
 
 
 
-bool UDPConnectionClass::Send_Packet(PacketClass *source)
+bool UDPConnectionClass::Send_Packet(UnknownPacketBaseClass *source)
 {
-	RawPacketClass *packet = source->Build();
+	PacketClass *packet = source->Build();
 	FAIL_IF(packet->Header.Size > UDP_DATABUFFER_SIZE) {
 		delete packet;
 		return(false);
@@ -524,7 +524,7 @@ bool UDPConnectionClass::Send_Packet(PacketClass *source)
 }
 
 
-PacketClass *UDPConnectionClass::Receive()
+UnknownPacketBaseClass *UDPConnectionClass::Receive()
 {
 	if (Con == 0) {
 		return(0);
@@ -553,7 +553,7 @@ PacketClass *UDPConnectionClass::Receive()
 	if (!got) {
 		return(0);
 	}
-	PacketClass *packet = Unknown_Create_Packet(Buffer);
+	UnknownPacketBaseClass *packet = Unknown_Create_Packet(Buffer);
 	if (packet == 0) {
 		return(0);
 	}

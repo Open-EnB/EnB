@@ -548,6 +548,6 @@ void PolicyStateClass::Add(const RefCountPtr<PolicyConditionClass> &condition)
 **	Get_Action gives the first enabled rule's action and value (EXCLUDE when none).
 **
 **	DeltaUnknownCounter (0xBE3B44, delta.h), the counter the Delta classes' per-class globals are numbered from:
-**	placed here by .bss order (PROVISIONAL, D137): after this object's PermStringInit 0xBE3B40, before
+**	placed here by .bss order (PROVISIONAL, D137): after this object's _PermStringInit 0xBE3B40, before
 **	delta_visitor.cpp's 0xBE3B48; no string names it.
 */

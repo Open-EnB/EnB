@@ -8,14 +8,14 @@ GlobalTicketRequestPacketClass::GlobalTicketRequestPacketClass(int unknown0_c)
 	Unknown0C = unknown0_c;
 }
 
-GlobalTicketRequestPacketClass::GlobalTicketRequestPacketClass(RawPacketClass *raw)
+GlobalTicketRequestPacketClass::GlobalTicketRequestPacketClass(PacketClass *raw)
 {
 	raw->Get(Unknown0C);
 }
 
-RawPacketClass *GlobalTicketRequestPacketClass::Build()
+PacketClass *GlobalTicketRequestPacketClass::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(110, Get_Data_Size());
+	PacketClass *raw = new PacketClass(110, Get_Data_Size());
 	raw->Add(Unknown0C);
 	return(raw);
 }

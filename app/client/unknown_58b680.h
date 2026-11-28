@@ -1,8 +1,8 @@
 // Earth & Beyond client (reconstruction): app\client\unknown_58b680.h, the hull mount points window: ui_mount.cpp's
 // window over a model of its own, the player's ship rendered into its 'ship' part. No string names the file:
-// unknown_58b680.cpp and this header are interim names (D137), the object 0x58B630-0x58BF8F (its PermStringInitClass
+// unknown_58b680.cpp and this header are interim names (D137), the object 0x58B630-0x58BF8F (its PermStringInit
 // static 0x58B630 opens it after ui_dynamicwindow.cpp's thunks; its guarded <string> id 0x58BF40 and the two
-// deleting-destructor thunks 0x58BF70 / 0x58BF80 close it, before the next object's PermStringInitClass static).
+// deleting-destructor thunks 0x58BF70 / 0x58BF80 close it, before the next object's PermStringInit static).
 #ifndef UNKNOWN_58B680_H  // NAME 1 [unknown_58b680.h]: interim header name (D137)
 #define UNKNOWN_58B680_H
 

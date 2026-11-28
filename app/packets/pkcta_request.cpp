@@ -7,7 +7,7 @@ CTARequestPacketClass::CTARequestPacketClass(int avatar_id, int target_id, int r
 {
 }
 
-CTARequestPacketClass::CTARequestPacketClass(RawPacketClass *raw) : AvatarID(-1), TargetID(-1), RequestType(-1)
+CTARequestPacketClass::CTARequestPacketClass(PacketClass *raw) : AvatarID(-1), TargetID(-1), RequestType(-1)
 {
 	raw->Get(&AvatarID, sizeof(AvatarID));
 	raw->Get(&TargetID, sizeof(TargetID));
@@ -18,9 +18,9 @@ CTARequestPacketClass::~CTARequestPacketClass()
 {
 }
 
-RawPacketClass *CTARequestPacketClass::Build()
+PacketClass *CTARequestPacketClass::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(188, Get_Data_Size());
+	PacketClass *raw = new PacketClass(188, Get_Data_Size());
 	raw->Add(&AvatarID, sizeof(AvatarID));
 	raw->Add(&TargetID, sizeof(TargetID));
 	raw->Add(&RequestType, sizeof(RequestType));
@@ -42,16 +42,16 @@ CTAResponsePacketClass::CTAResponsePacketClass(int avatar_id, int request_type, 
 {
 }
 
-CTAResponsePacketClass::CTAResponsePacketClass(RawPacketClass *raw) : AvatarID(-1), RequestType(-1), Success(false)
+CTAResponsePacketClass::CTAResponsePacketClass(PacketClass *raw) : AvatarID(-1), RequestType(-1), Success(false)
 {
 	raw->Get(&AvatarID, sizeof(AvatarID));
 	raw->Get(&RequestType, sizeof(RequestType));
 	raw->Get(&Success, sizeof(Success));
 }
 
-RawPacketClass *CTAResponsePacketClass::Build()
+PacketClass *CTAResponsePacketClass::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(189, Get_Data_Size());
+	PacketClass *raw = new PacketClass(189, Get_Data_Size());
 	raw->Add(&AvatarID, sizeof(AvatarID));
 	raw->Add(&RequestType, sizeof(RequestType));
 	raw->Add(&Success, sizeof(Success));

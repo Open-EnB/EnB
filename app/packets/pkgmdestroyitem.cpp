@@ -2,7 +2,7 @@
 #include "pkgmdestroyitem.h"
 #include <stdio.h>
 #include "..\shared\auth_product.h"
-GMDestroyItemRequestPacketClass::GMDestroyItemRequestPacketClass(RawPacketClass *raw) :
+GMDestroyItemRequestPacketClass::GMDestroyItemRequestPacketClass(PacketClass *raw) :
 	Unknown0C(0),
 	Unknown20(false)
 {
@@ -28,9 +28,9 @@ GMDestroyItemRequestPacketClass::~GMDestroyItemRequestPacketClass()
 {
 }
 
-RawPacketClass *GMDestroyItemRequestPacketClass::Build()
+PacketClass *GMDestroyItemRequestPacketClass::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(236, Get_Data_Size());
+	PacketClass *raw = new PacketClass(236, Get_Data_Size());
 	raw->Add(Unknown0C);
 	int value = Unknown20;
 	raw->Add(value);

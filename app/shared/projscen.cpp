@@ -144,7 +144,7 @@ void ProjectionSceneClass::Create_Projector_Manager(void)
 	if (ProjectorManager == NULL) {
 		ArgvClass args(false, true);
 		if (args.Find("-NOPROJECTORS") == NULL) {
-			ProjectorManager = new ProjectorManagerClass;
+			ProjectorManager = new ProjectionManagerClass;
 			ProjectionDef = new ProjectionDefClass;
 
 			RefRenderObjListIterator it(&RenderList);

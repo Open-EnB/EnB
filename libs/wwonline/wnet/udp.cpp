@@ -17,7 +17,7 @@
 */
 
 // E&B: the object ends with <string>'s guarded std::ctype<unsigned short>::id (0x8C0660, guard 0xC416FC);
-//   the PermStringInit after it (0x8C0690 / 0x8C06C0) opens unknown_login_data.cpp's object (see the EnB
+//   the _PermStringInit after it (0x8C0690 / 0x8C06C0) opens unknown_login_data.cpp's object (see the EnB
 //   block): E&B's udp.cpp included <string>; through which header is not known
 #include <string>
 
@@ -444,11 +444,11 @@ void UDP::Clear_Accounting_Callback(void)
 
 // Earth & Beyond client (reconstruction): changes to Zero Hour's udp.cpp (frozen 2026-11-07 from importer.py)
 // EnB: Line 19 at the freeze: udp.cpp's object ends with <string>'s guarded static (0x8C0660: `mov cl, [0xC416FC]`,
-//       atexit 0x42B320, the end of every <string> includer). The PermStringInitClass static after it (0x8C0690:
-//       `mov ecx, 0xBF52C8`, PermStringInitClass 0x4AE1E0, atexit 0x8C06C0) opens unknown_login_data.cpp's object
+//       atexit 0x42B320, the end of every <string> includer). The PermStringInit static after it (0x8C0690:
+//       `mov ecx, 0xBF52C8`, PermStringInit 0x4AE1E0, atexit 0x8C06C0) opens unknown_login_data.cpp's object
 //       (0x8C06E0; credited there): a header static is emitted where its header is included, at an object's
 //       start, and the guard closes one; so permstr.h is not included here (it was until 2026-11-25: one extra
-//       PermStringInit ran in ours).
+//       _PermStringInit ran in ours).
 // EnB: Line 27 at the freeze: constructor 0x8BF990: the list, fd = 0, the second socket 0, myIP 0xDEADBEEF, myPort
 //       0xDEAD, WSAStartup(0x101, &wsadata) (0x190-byte local); destructor 0x8BFA10: Close inlined (closesocket if fd,
 //       fd = 0), WSACleanup, closesocket(+4) if set, then the list's destructor

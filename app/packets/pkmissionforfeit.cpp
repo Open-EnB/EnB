@@ -7,15 +7,15 @@ MissionForfeitPacketClass::MissionForfeitPacketClass(int playerid, int id) : pla
 {
 }
 
-MissionForfeitPacketClass::MissionForfeitPacketClass(RawPacketClass *raw) : playerid(0), ID(-1)
+MissionForfeitPacketClass::MissionForfeitPacketClass(PacketClass *raw) : playerid(0), ID(-1)
 {
 	raw->Get(playerid);
 	raw->Get(ID);
 }
 
-RawPacketClass *MissionForfeitPacketClass::Build()
+PacketClass *MissionForfeitPacketClass::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(134, Get_Data_Size());
+	PacketClass *raw = new PacketClass(134, Get_Data_Size());
 	raw->Add(playerid);
 	raw->Add(ID);
 	return(raw);
@@ -35,15 +35,15 @@ MissionDismissPacketClass::MissionDismissPacketClass(int playerid, int id) : pla
 {
 }
 
-MissionDismissPacketClass::MissionDismissPacketClass(RawPacketClass *raw) : playerid(0), ID(-1)
+MissionDismissPacketClass::MissionDismissPacketClass(PacketClass *raw) : playerid(0), ID(-1)
 {
 	raw->Get(playerid);
 	raw->Get(ID);
 }
 
-RawPacketClass *MissionDismissPacketClass::Build()
+PacketClass *MissionDismissPacketClass::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(135, Get_Data_Size());
+	PacketClass *raw = new PacketClass(135, Get_Data_Size());
 	raw->Add(playerid);
 	raw->Add(ID);
 	return(raw);

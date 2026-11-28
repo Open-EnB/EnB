@@ -232,6 +232,6 @@ void RadarDataClass::Unknown_7BBC00(ClientGroupEvent *event, ClientObjectClass *
 /*
 **	Notes
 **
-**	The client's __FILE__ 0xB9F070. The object runs from 0x7BB1D0 (a PermStringInitClass static's initialiser at
+**	The client's __FILE__ 0xB9F070. The object runs from 0x7BB1D0 (a PermStringInit static's initialiser at
 **	0x7BB180 precedes it) to the callbacks' template members, 0x7BC02B.
 */

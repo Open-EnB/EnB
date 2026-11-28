@@ -42,7 +42,7 @@ GlobalErrorPacketClass::GlobalErrorPacketClass(int unknown0c, int error, const c
 	}
 }
 
-GlobalErrorPacketClass::GlobalErrorPacketClass(RawPacketClass *raw)
+GlobalErrorPacketClass::GlobalErrorPacketClass(PacketClass *raw)
 {
 	int value;
 	raw->Get(value);
@@ -59,9 +59,9 @@ GlobalErrorPacketClass::~GlobalErrorPacketClass()
 {
 }
 
-RawPacketClass *GlobalErrorPacketClass::Build()
+PacketClass *GlobalErrorPacketClass::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(117, Get_Data_Size());
+	PacketClass *raw = new PacketClass(117, Get_Data_Size());
 	int value = Unknown0C;
 	raw->Add(value);
 	int error = Error;

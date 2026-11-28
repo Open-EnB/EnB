@@ -262,6 +262,6 @@ void ChangeTableClass::Include(ChangeEntryClass *entry)
 **	(DeltaClass::Unknown_34 counts it up on every change; a compound's moves with any field below,
 **	so Scan skips a compound whose Stamp is current), and sums Changed, First and Last up the
 **	compounds marked Dirty. Not rebuilt: 0x4AB580 (returns +0x0C less +0x08 of its object; no
-**	caller found) and the file's PermStringInitClass static 0x4AB5A0 (permstr.h's, compiled with
+**	caller found) and the file's PermStringInit static 0x4AB5A0 (permstr.h's, compiled with
 **	the include).
 */

@@ -57,9 +57,9 @@ public:
 	static CritSec Lock;	// 0xBE96A0 (atexit 0x82C630, guarded: a static member)  // NAME 2: what it guards
 	UDPConnectionClass(CordCon *con, CordMgr *mgr);							// 0x82CBF0
 	virtual ~UDPConnectionClass();											// +0x00 0x82C950 / 0x82CDC0
-	virtual bool Send_Message(RawPacketClass *packet);					// +0x04 0x82D980
-	virtual bool Send_Packet(PacketClass *packet);						// +0x08 0x82DA20
-	virtual PacketClass *Receive();										// +0x0C 0x82DB30
+	virtual bool Send_Message(PacketClass *packet);					// +0x04 0x82D980
+	virtual bool Send_Packet(UnknownPacketBaseClass *packet);						// +0x08 0x82DA20
+	virtual UnknownPacketBaseClass *Receive();										// +0x0C 0x82DB30
 	virtual unsigned int Get_Address();									// +0x10 0x82D190: the CordCon's address
 	virtual bool Connect(bool wait);									// +0x14 0x82D1B0
 	virtual bool Is_Connected();										// +0x18 0x82D320

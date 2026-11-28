@@ -9,15 +9,15 @@ RequestTimePacketClass::RequestTimePacketClass()
 	TimeSent = 0;
 }
 
-RequestTimePacketClass::RequestTimePacketClass(RawPacketClass *raw)
+RequestTimePacketClass::RequestTimePacketClass(PacketClass *raw)
 {
 	raw->Get(&TimeSent, sizeof(TimeSent));
 	TimeReceived = Unknown_Get_Ticks();
 }
 
-RawPacketClass *RequestTimePacketClass::Build()
+PacketClass *RequestTimePacketClass::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(68, Get_Data_Size());
+	PacketClass *raw = new PacketClass(68, Get_Data_Size());
 	TimeSent = Unknown_Get_Ticks();
 	raw->Add(&TimeSent, sizeof(TimeSent));
 	return(raw);
@@ -41,7 +41,7 @@ SetClientTimePacketClass::SetClientTimePacketClass(unsigned int client_sent, uns
 {
 }
 
-SetClientTimePacketClass::SetClientTimePacketClass(RawPacketClass *raw)
+SetClientTimePacketClass::SetClientTimePacketClass(PacketClass *raw)
 {
 	raw->Get(&ClientSent, sizeof(ClientSent));
 	raw->Get(&ServerReceived, sizeof(ServerReceived));
@@ -49,9 +49,9 @@ SetClientTimePacketClass::SetClientTimePacketClass(RawPacketClass *raw)
 	ClientReceived = Unknown_Get_Ticks();
 }
 
-RawPacketClass *SetClientTimePacketClass::Build()
+PacketClass *SetClientTimePacketClass::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(52, Get_Data_Size());
+	PacketClass *raw = new PacketClass(52, Get_Data_Size());
 	raw->Add(&ClientSent, sizeof(ClientSent));
 	raw->Add(&ServerReceived, sizeof(ServerReceived));
 	ServerSent = Unknown_Get_Ticks();

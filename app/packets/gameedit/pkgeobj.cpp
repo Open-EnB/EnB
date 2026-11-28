@@ -11,7 +11,7 @@ GameEditorCreateFinalPacketClass::GameEditorCreateFinalPacketClass(char *data, i
 {
 }
 
-GameEditorCreateFinalPacketClass::GameEditorCreateFinalPacketClass(RawPacketClass *raw)
+GameEditorCreateFinalPacketClass::GameEditorCreateFinalPacketClass(PacketClass *raw)
 {
 	raw->Get(&Size, sizeof(Size));
 	Data = new char[Size];
@@ -31,9 +31,9 @@ GameEditorCreateFinalPacketClass::~GameEditorCreateFinalPacketClass()
 	}
 }
 
-RawPacketClass *GameEditorCreateFinalPacketClass::Build()
+PacketClass *GameEditorCreateFinalPacketClass::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(30016, Get_Data_Size());
+	PacketClass *raw = new PacketClass(30016, Get_Data_Size());
 	raw->Add(&Size, sizeof(Size));
 	raw->Add(Data, Size);
 	return(raw);
@@ -56,7 +56,7 @@ GameEditorCreateEmptyPacketClass::GameEditorCreateEmptyPacketClass(char *data, i
 {
 }
 
-GameEditorCreateEmptyPacketClass::GameEditorCreateEmptyPacketClass(RawPacketClass *raw)
+GameEditorCreateEmptyPacketClass::GameEditorCreateEmptyPacketClass(PacketClass *raw)
 {
 	raw->Get(&Size, sizeof(Size));
 	Data = new char[Size];
@@ -86,9 +86,9 @@ GameEditorCreateEmptyPacketClass::~GameEditorCreateEmptyPacketClass()
 	}
 }
 
-RawPacketClass *GameEditorCreateEmptyPacketClass::Build()
+PacketClass *GameEditorCreateEmptyPacketClass::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(30014, Get_Data_Size());
+	PacketClass *raw = new PacketClass(30014, Get_Data_Size());
 	raw->Add(&Size, sizeof(Size));
 	raw->Add(Data, Size);
 	return(raw);
@@ -108,13 +108,13 @@ GameEditorCreateCancelPacketClass::GameEditorCreateCancelPacketClass()
 {
 }
 
-GameEditorCreateCancelPacketClass::GameEditorCreateCancelPacketClass(RawPacketClass *)
+GameEditorCreateCancelPacketClass::GameEditorCreateCancelPacketClass(PacketClass *)
 {
 }
 
-RawPacketClass *GameEditorCreateCancelPacketClass::Build()
+PacketClass *GameEditorCreateCancelPacketClass::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(30015, Get_Data_Size());
+	PacketClass *raw = new PacketClass(30015, Get_Data_Size());
 	return(raw);
 }
 
@@ -132,14 +132,14 @@ GameEditorDeletePacketClass::GameEditorDeletePacketClass(int game_id) : GameID(g
 {
 }
 
-GameEditorDeletePacketClass::GameEditorDeletePacketClass(RawPacketClass *raw)
+GameEditorDeletePacketClass::GameEditorDeletePacketClass(PacketClass *raw)
 {
 	raw->Get(&GameID, sizeof(GameID));
 }
 
-RawPacketClass *GameEditorDeletePacketClass::Build()
+PacketClass *GameEditorDeletePacketClass::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(30009, Get_Data_Size());
+	PacketClass *raw = new PacketClass(30009, Get_Data_Size());
 	raw->Add(&GameID, sizeof(GameID));
 	return(raw);
 }
@@ -156,15 +156,15 @@ int GameEditorDeletePacketClass::Print(char *buffer, int)
 
 GameEditorMovePacketClass::GameEditorMovePacketClass(int game_id, const Matrix3D &transform) : GameID(game_id), Transform(transform) {}
 
-GameEditorMovePacketClass::GameEditorMovePacketClass(RawPacketClass *raw)
+GameEditorMovePacketClass::GameEditorMovePacketClass(PacketClass *raw)
 {
 	raw->Get(&GameID, sizeof(GameID));
 	raw->Get(&Transform, sizeof(Transform));
 }
 
-RawPacketClass *GameEditorMovePacketClass::Build()
+PacketClass *GameEditorMovePacketClass::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(30010, Get_Data_Size());
+	PacketClass *raw = new PacketClass(30010, Get_Data_Size());
 	raw->Add(&GameID, sizeof(GameID));
 	raw->Add(&Transform, sizeof(Transform));
 	return(raw);
@@ -187,7 +187,7 @@ GameEditorTemplateCategoriesPacketClass::GameEditorTemplateCategoriesPacketClass
 {
 }
 
-GameEditorTemplateCategoriesPacketClass::GameEditorTemplateCategoriesPacketClass(RawPacketClass *raw)
+GameEditorTemplateCategoriesPacketClass::GameEditorTemplateCategoriesPacketClass(PacketClass *raw)
 {
 	raw->Get(&Size, sizeof(Size));
 	Data = new char[Size];
@@ -257,9 +257,9 @@ GameEditorTemplateCategoriesPacketClass::~GameEditorTemplateCategoriesPacketClas
 	}
 }
 
-RawPacketClass *GameEditorTemplateCategoriesPacketClass::Build()
+PacketClass *GameEditorTemplateCategoriesPacketClass::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(30011, Get_Data_Size());
+	PacketClass *raw = new PacketClass(30011, Get_Data_Size());
 	raw->Add(&Size, sizeof(Size));
 	raw->Add(Data, Size);
 	return(raw);
@@ -287,7 +287,7 @@ GameEditorRequestTemplateListPacketClass::GameEditorRequestTemplateListPacketCla
 {
 }
 
-GameEditorRequestTemplateListPacketClass::GameEditorRequestTemplateListPacketClass(RawPacketClass *raw)
+GameEditorRequestTemplateListPacketClass::GameEditorRequestTemplateListPacketClass(PacketClass *raw)
 {
 	raw->Get(&Size, sizeof(Size));
 	Data = new char[Size];
@@ -320,9 +320,9 @@ GameEditorRequestTemplateListPacketClass::~GameEditorRequestTemplateListPacketCl
 	}
 }
 
-RawPacketClass *GameEditorRequestTemplateListPacketClass::Build()
+PacketClass *GameEditorRequestTemplateListPacketClass::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(30012, Get_Data_Size());
+	PacketClass *raw = new PacketClass(30012, Get_Data_Size());
 	raw->Add(&Size, sizeof(Size));
 	raw->Add(Data, Size);
 	return(raw);
@@ -345,7 +345,7 @@ GameEditorTemplateListPacketClass::GameEditorTemplateListPacketClass(char *data,
 {
 }
 
-GameEditorTemplateListPacketClass::GameEditorTemplateListPacketClass(RawPacketClass *raw)
+GameEditorTemplateListPacketClass::GameEditorTemplateListPacketClass(PacketClass *raw)
 {
 	raw->Get(&Size, sizeof(Size));
 	Data = new char[Size];
@@ -375,9 +375,9 @@ GameEditorTemplateListPacketClass::~GameEditorTemplateListPacketClass()
 	}
 }
 
-RawPacketClass *GameEditorTemplateListPacketClass::Build()
+PacketClass *GameEditorTemplateListPacketClass::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(30013, Get_Data_Size());
+	PacketClass *raw = new PacketClass(30013, Get_Data_Size());
 	raw->Add(&Size, sizeof(Size));
 	raw->Add(Data, Size);
 	return(raw);

@@ -19,7 +19,7 @@
 #include "..\shared\g_assert.h"
 #include "..\shared\auth_product.h"
 // chatgadg.cpp's text entry (0x80 bytes, constructor 0x65BFD0, table 0xAF99D8), as far as this file calls it
-class ChatGadgetClass : public TextBaseGadgetClass	// chatgadg.h
+class ChatGadgetClass : public TextGadgetClass	// chatgadg.h
 {
 public:
 	void Unknown_65E7C0(bool reply);					// 0x65E7C0 (slot +0xAC's)  // NAME 1 [reply]: as chatgadg.h
@@ -496,7 +496,7 @@ void ChatWindowInterface::Unknown_571470(bool force)
 			bool insert; FontSys *line = UnknownB8.Peek();
 			edit->Unknown_65EBF0(buffer, sizeof(buffer), cursorpos, insert);
 			int width = (int)(Viewport.Rect.Right - Viewport.Rect.Left);
-			char *text = TextGadgetClass::Unknown_6AB190(buffer, (float)width, line->Font, cursorpos); UnknownB8->Change_Text(text, 0);
+			char *text = UnknownTextGadgetClass::Unknown_6AB190(buffer, (float)width, line->Font, cursorpos); UnknownB8->Change_Text(text, 0);
 			Vector3 position(Viewport.Rect.Left, (Viewport.Rect.Top - Viewport.Rect.Bottom) * 0.5f + Viewport.Rect.Bottom, 0.0f);
 			UnknownB8->Set_Position(position);
 			UnknownD8->Unknown_685AB0(UnknownB8, cursorpos, insert, false);

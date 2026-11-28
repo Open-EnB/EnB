@@ -20,7 +20,7 @@ SoundPacketClass::~SoundPacketClass()
 	}
 }
 
-SoundPacketClass::SoundPacketClass(RawPacketClass *raw)
+SoundPacketClass::SoundPacketClass(PacketClass *raw)
 {
 	raw->Get(&Length, sizeof(Length));
 	if (Length != 0) {
@@ -31,9 +31,9 @@ SoundPacketClass::SoundPacketClass(RawPacketClass *raw)
 	raw->Get(&Queue, sizeof(Queue));
 }
 
-RawPacketClass *SoundPacketClass::Build()
+PacketClass *SoundPacketClass::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(106, Get_Data_Size());
+	PacketClass *raw = new PacketClass(106, Get_Data_Size());
 	raw->Add(&Length, sizeof(Length));
 	if (Length != 0) {
 		raw->Add(SoundName, Length);
@@ -57,15 +57,15 @@ SoundCommandPacketClass::SoundCommandPacketClass(int command, int channel) : Com
 {
 }
 
-SoundCommandPacketClass::SoundCommandPacketClass(RawPacketClass *raw)
+SoundCommandPacketClass::SoundCommandPacketClass(PacketClass *raw)
 {
 	raw->Get(&Command, sizeof(Command));
 	raw->Get(&Channel, sizeof(Channel));
 }
 
-RawPacketClass *SoundCommandPacketClass::Build()
+PacketClass *SoundCommandPacketClass::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(107, Get_Data_Size());
+	PacketClass *raw = new PacketClass(107, Get_Data_Size());
 	raw->Add(&Command, sizeof(Command));
 	raw->Add(&Channel, sizeof(Channel));
 	return(raw);

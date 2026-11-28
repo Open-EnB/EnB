@@ -101,7 +101,7 @@ UITradeClass::UITradeClass(SpaceClientClass *client) : UIInvClass(client, 7), Un
 	memset(Unknown108, 0, sizeof(Unknown108));
 	memset(Unknown120, 0, sizeof(Unknown120));
 	Unknown_BE67BC->Load("fa_ce02a.ini");
-	PDAInterfaceClass *pda = client->PDAInterface;
+	PDAInterface *pda = client->PDAWindow;
 	PDA = Create_Peek(pda);
 	G_ASSERT(PDA);
 }

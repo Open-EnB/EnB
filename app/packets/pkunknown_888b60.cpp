@@ -18,10 +18,10 @@ GroupServerEntryStruct::GroupServerEntryStruct(const std::string &unknown00, __i
 
 int Unknown_B0A794PacketClass::Get_Size(const GroupServerEntryStruct &entry)
 {
-	return(RawPacketClass::Get_Size(entry.Unknown00) + sizeof(entry.Unknown10) + sizeof(entry.Unknown18));
+	return(PacketClass::Get_Size(entry.Unknown00) + sizeof(entry.Unknown10) + sizeof(entry.Unknown18));
 }
 
-bool Unknown_B0A794PacketClass::Write(const GroupServerEntryStruct &entry, RawPacketClass *raw)
+bool Unknown_B0A794PacketClass::Write(const GroupServerEntryStruct &entry, PacketClass *raw)
 {
 	raw->Add(entry.Unknown00);
 	raw->Add(entry.Unknown10);
@@ -29,7 +29,7 @@ bool Unknown_B0A794PacketClass::Write(const GroupServerEntryStruct &entry, RawPa
 	return(true);
 }
 
-bool Unknown_B0A794PacketClass::Read(GroupServerEntryStruct &entry, RawPacketClass *raw)
+bool Unknown_B0A794PacketClass::Read(GroupServerEntryStruct &entry, PacketClass *raw)
 {
 	raw->Get(&entry.Unknown00);
 	raw->Get(entry.Unknown10);
@@ -46,7 +46,7 @@ int Unknown_B0A794PacketClass::Get_Size(const std::vector<GroupServerEntryStruct
 	return(size);
 }
 
-bool Unknown_B0A794PacketClass::Write(const std::vector<GroupServerEntryStruct> &list, RawPacketClass *raw)
+bool Unknown_B0A794PacketClass::Write(const std::vector<GroupServerEntryStruct> &list, PacketClass *raw)
 {
 	unsigned char count = list.size();
 	raw->Add(&count, sizeof(count));
@@ -56,7 +56,7 @@ bool Unknown_B0A794PacketClass::Write(const std::vector<GroupServerEntryStruct> 
 	return(true);
 }
 
-bool Unknown_B0A794PacketClass::Read(std::vector<GroupServerEntryStruct> &list, RawPacketClass *raw)
+bool Unknown_B0A794PacketClass::Read(std::vector<GroupServerEntryStruct> &list, PacketClass *raw)
 {
 	unsigned char count = 0;
 	raw->Get(&count, sizeof(count));
@@ -81,16 +81,16 @@ Packet_00ADClass::Packet_00ADClass(int unknown0c, const std::string &unknown10, 
 	Unknown10.Unknown18 = unknown28;
 }
 
-Packet_00ADClass::Packet_00ADClass(RawPacketClass *raw) :
+Packet_00ADClass::Packet_00ADClass(PacketClass *raw) :
 	Unknown0C(0)
 {
 	raw->Get(Unknown0C);
 	Read(Unknown10, raw);
 }
 
-RawPacketClass *Packet_00ADClass::Build()
+PacketClass *Packet_00ADClass::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(173, Get_Data_Size());
+	PacketClass *raw = new PacketClass(173, Get_Data_Size());
 	raw->Add(Unknown0C);
 	Write(Unknown10, raw);
 	return(raw);
@@ -114,7 +114,7 @@ GroupServerRequestPacketClass::GroupServerRequestPacketClass(int unknown0c, int 
 {
 }
 
-GroupServerRequestPacketClass::GroupServerRequestPacketClass(RawPacketClass *raw) :
+GroupServerRequestPacketClass::GroupServerRequestPacketClass(PacketClass *raw) :
 	Unknown0C(0),
 	Unknown10(0),
 	Unknown18(0),
@@ -126,9 +126,9 @@ GroupServerRequestPacketClass::GroupServerRequestPacketClass(RawPacketClass *raw
 	raw->Get(Unknown20);
 }
 
-RawPacketClass *GroupServerRequestPacketClass::Build()
+PacketClass *GroupServerRequestPacketClass::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(174, Get_Data_Size());
+	PacketClass *raw = new PacketClass(174, Get_Data_Size());
 	raw->Add(Unknown0C);
 	raw->Add(&Unknown10, sizeof(Unknown10));
 	raw->Add(Unknown18);
@@ -150,15 +150,15 @@ GroupServerResponsePacketClass::GroupServerResponsePacketClass(int unknown0_c, i
 {
 }
 
-GroupServerResponsePacketClass::GroupServerResponsePacketClass(RawPacketClass *raw) : Unknown0C(0), Unknown10(0)
+GroupServerResponsePacketClass::GroupServerResponsePacketClass(PacketClass *raw) : Unknown0C(0), Unknown10(0)
 {
 	raw->Get(Unknown0C);
 	raw->Get(&Unknown10, sizeof(Unknown10));
 }
 
-RawPacketClass *GroupServerResponsePacketClass::Build()
+PacketClass *GroupServerResponsePacketClass::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(175, Get_Data_Size());
+	PacketClass *raw = new PacketClass(175, Get_Data_Size());
 	raw->Add(Unknown0C);
 	raw->Add(&Unknown10, sizeof(Unknown10));
 	return(raw);
@@ -181,7 +181,7 @@ GroupServerCreatePacketClass::GroupServerCreatePacketClass(__int64 unknown10) :
 {
 }
 
-GroupServerCreatePacketClass::GroupServerCreatePacketClass(RawPacketClass *raw) :
+GroupServerCreatePacketClass::GroupServerCreatePacketClass(PacketClass *raw) :
 	Unknown10(0),
 	Unknown38(true),
 	Unknown3C(0)
@@ -193,9 +193,9 @@ GroupServerCreatePacketClass::GroupServerCreatePacketClass(RawPacketClass *raw) 
 	raw->Get(Unknown3C);
 }
 
-RawPacketClass *GroupServerCreatePacketClass::Build()
+PacketClass *GroupServerCreatePacketClass::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(176, Get_Data_Size());
+	PacketClass *raw = new PacketClass(176, Get_Data_Size());
 	raw->Add(Unknown10);
 	Write(Unknown18, raw);
 	Write(Unknown28, raw);
@@ -231,7 +231,7 @@ GroupServerUpdatePacketClass::GroupServerUpdatePacketClass(__int64 unknown10, in
 {
 }
 
-GroupServerUpdatePacketClass::GroupServerUpdatePacketClass(RawPacketClass *raw) :
+GroupServerUpdatePacketClass::GroupServerUpdatePacketClass(PacketClass *raw) :
 	Unknown10(0),
 	Unknown38(0),
 	Unknown3C(0)
@@ -242,9 +242,9 @@ GroupServerUpdatePacketClass::GroupServerUpdatePacketClass(RawPacketClass *raw) 
 	raw->Get(Unknown3C);
 }
 
-RawPacketClass *GroupServerUpdatePacketClass::Build()
+PacketClass *GroupServerUpdatePacketClass::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(177, Get_Data_Size());
+	PacketClass *raw = new PacketClass(177, Get_Data_Size());
 	raw->Add(Unknown10);
 	raw->Add(&Unknown38, sizeof(Unknown38));
 	Write(Unknown18, raw);

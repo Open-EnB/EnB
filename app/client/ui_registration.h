@@ -46,7 +46,7 @@ struct RegistrationComboStruct  // NAME 1 [RegistrationComboStruct]: neutral (D1
 // The text fields' map value (0x14 bytes: operator[] copies five dwords; the first is the field, 0x5FB0C0)
 struct RegistrationTextStruct  // NAME 1 [RegistrationTextStruct]: neutral (D10)
 {
-	TextGadgetClass *Gadget;	// +0x00  // NAME 1 [Gadget]: what 0x5FB0C0 calls Get_Text / Set_Text on
+	UnknownTextGadgetClass *Gadget;	// +0x00  // NAME 1 [Gadget]: what 0x5FB0C0 calls Get_Text / Set_Text on
 	int Unknown04;
 	int Unknown08;
 	int Unknown0C;

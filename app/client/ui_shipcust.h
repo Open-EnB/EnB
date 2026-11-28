@@ -12,7 +12,7 @@
 class GadgetClass;
 class LayerClass;
 class LoginTaskClass;
-class TextGadgetClass;
+class UnknownTextGadgetClass;
 class TextureClass;
 class RenderObjClass;
 class CharacterViewClass;
@@ -125,7 +125,7 @@ public:
 	bool Unknown248;								// +0x248 (the page's fonts loaded)
 	UIAvatrPullClass *Unknown24C;					// +0x24C the colour palette and its pull (pages 1 and 3)
 	RefCountPtr<TextureClass> ColorSliderTexture;	// +0x250  // NAME 3: the G_ASSERT's
-	TextGadgetClass *NameGadget;					// +0x254 ('NAME_fa_ship04', id 0x36)  // NAME 1: as ui_login.cpp's
+	UnknownTextGadgetClass *NameGadget;					// +0x254 ('NAME_fa_ship04', id 0x36)  // NAME 1: as ui_login.cpp's
 	int Unknown258;									// +0x258 the part (0 hull .. 3 engine)
 	int Unknown25C;									// +0x25C the part's setting (primary, secondary)
 	int Unknown260;									// +0x260 the insignia list's first

@@ -2,7 +2,7 @@
 #include "pkrecustomize.h"
 #include <stdio.h>
 
-RecustomizeShipStartPacketClass::RecustomizeShipStartPacketClass(RawPacketClass *raw) :
+RecustomizeShipStartPacketClass::RecustomizeShipStartPacketClass(PacketClass *raw) :
 	Unknown1A0(0)
 {
 	raw->Get((Unknown_PacketDataClass *)&Desc);
@@ -26,9 +26,9 @@ RecustomizeShipStartPacketClass::RecustomizeShipStartPacketClass(int unknown1A0,
 	Cost = cost;
 }
 
-RawPacketClass *RecustomizeShipStartPacketClass::Build()
+PacketClass *RecustomizeShipStartPacketClass::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(129, Get_Data_Size());
+	PacketClass *raw = new PacketClass(129, Get_Data_Size());
 	raw->Add((Unknown_PacketDataClass &)Desc);
 	raw->Add(Cost);
 	raw->Add(Unknown1A0);
@@ -52,7 +52,7 @@ int RecustomizeShipStartPacketClass::Print(char *buffer, int)
 	return(sprintf(buffer, "%s", "Recustomize Ship Start"));
 }
 
-RecustomizeShipDonePacketClass::RecustomizeShipDonePacketClass(RawPacketClass *raw) :
+RecustomizeShipDonePacketClass::RecustomizeShipDonePacketClass(PacketClass *raw) :
 	Unknown16C(0)
 {
 	raw->Get((Unknown_PacketDataClass *)&Desc);
@@ -67,9 +67,9 @@ RecustomizeShipDonePacketClass::RecustomizeShipDonePacketClass(int unknown16C, c
 	Desc = desc;
 }
 
-RawPacketClass *RecustomizeShipDonePacketClass::Build()
+PacketClass *RecustomizeShipDonePacketClass::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(130, Get_Data_Size());
+	PacketClass *raw = new PacketClass(130, Get_Data_Size());
 	raw->Add((Unknown_PacketDataClass &)Desc);
 	raw->Add(Unknown16C);
 	return(raw);
@@ -85,7 +85,7 @@ int RecustomizeShipDonePacketClass::Print(char *buffer, int)
 	return(sprintf(buffer, "%s", "Recustomize Ship Done"));
 }
 
-RecustomizeAvatarStartPacketClass::RecustomizeAvatarStartPacketClass(RawPacketClass *raw) :
+RecustomizeAvatarStartPacketClass::RecustomizeAvatarStartPacketClass(PacketClass *raw) :
 	Unknown48(0)
 {
 	raw->Get(&Cost);
@@ -102,9 +102,9 @@ RecustomizeAvatarStartPacketClass::RecustomizeAvatarStartPacketClass(int unknown
 	Cost = cost;
 }
 
-RawPacketClass *RecustomizeAvatarStartPacketClass::Build()
+PacketClass *RecustomizeAvatarStartPacketClass::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(131, Get_Data_Size());
+	PacketClass *raw = new PacketClass(131, Get_Data_Size());
 	raw->Add(Cost);
 	raw->Add(Unknown48);
 	return(raw);
@@ -120,7 +120,7 @@ int RecustomizeAvatarStartPacketClass::Print(char *buffer, int)
 	return(sprintf(buffer, "%s", "Recustomize Avatar Start"));
 }
 
-RecustomizeAvatarDonePacketClass::RecustomizeAvatarDonePacketClass(RawPacketClass *raw) :
+RecustomizeAvatarDonePacketClass::RecustomizeAvatarDonePacketClass(PacketClass *raw) :
 	Unknown118(0)
 {
 	raw->Get((Unknown_PacketDataClass *)&Desc);
@@ -133,9 +133,9 @@ RecustomizeAvatarDonePacketClass::RecustomizeAvatarDonePacketClass(int unknown11
 	Desc = desc;
 }
 
-RawPacketClass *RecustomizeAvatarDonePacketClass::Build()
+PacketClass *RecustomizeAvatarDonePacketClass::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(132, Get_Data_Size());
+	PacketClass *raw = new PacketClass(132, Get_Data_Size());
 	raw->Add((Unknown_PacketDataClass &)Desc);
 	raw->Add(Unknown118);
 	return(raw);
@@ -151,7 +151,7 @@ int RecustomizeAvatarDonePacketClass::Print(char *buffer, int)
 	return(sprintf(buffer, "%s", "Recustomize Avatar Done"));
 }
 
-RecustomizeAvatarUpdatePacketClass::RecustomizeAvatarUpdatePacketClass(RawPacketClass *raw) :
+RecustomizeAvatarUpdatePacketClass::RecustomizeAvatarUpdatePacketClass(PacketClass *raw) :
 	Unknown118(0)
 {
 	raw->Get((Unknown_PacketDataClass *)&Desc);
@@ -164,9 +164,9 @@ RecustomizeAvatarUpdatePacketClass::RecustomizeAvatarUpdatePacketClass(int unkno
 	Desc = desc;
 }
 
-RawPacketClass *RecustomizeAvatarUpdatePacketClass::Build()
+PacketClass *RecustomizeAvatarUpdatePacketClass::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(133, Get_Data_Size());
+	PacketClass *raw = new PacketClass(133, Get_Data_Size());
 	raw->Add((Unknown_PacketDataClass &)Desc);
 	raw->Add(Unknown118);
 	return(raw);

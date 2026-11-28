@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "..\shared\auth_product.h"
-CreateCharacterPacketClass::CreateCharacterPacketClass(RawPacketClass *raw) :
+CreateCharacterPacketClass::CreateCharacterPacketClass(PacketClass *raw) :
 	Unknown2D4(0),
 	Unknown2D8(0),
 	Unknown2DC(0)
@@ -39,9 +39,9 @@ CreateCharacterPacketClass::~CreateCharacterPacketClass()
 {
 }
 
-RawPacketClass *CreateCharacterPacketClass::Build()
+PacketClass *CreateCharacterPacketClass::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(72, Get_Data_Size());
+	PacketClass *raw = new PacketClass(72, Get_Data_Size());
 	raw->Add(Unknown0C);
 	raw->Add(Unknown10);
 	raw->Add(Unknown14);

@@ -2130,6 +2130,6 @@ void UICpitHarvestWatchClass::Unknown_Watch_0C()
 **	  (the inline budget unless noted): the warp state 0x5821C0, the throttle buttons 0x583790, the damage texts 0x583DC0,
 **	  0x584000 (order) and the incapacitance details 0x584690.
 **	The packets' player ids go through two inline accessors (Unknown_Avatar_ID / Unknown_Player_ID): the client
-**	reads them before the constructors' other arguments, which a member read does not reproduce. The PacketClass
+**	reads them before the constructors' other arguments, which a member read does not reproduce. The UnknownPacketBaseClass
 **	destructor copies 0x581610-0x581CC0, 0x581F70 and 0x5834F0 are too short to count.
 */

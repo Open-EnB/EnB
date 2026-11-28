@@ -8,22 +8,22 @@ GlobalSetReferrerPacketClass::GlobalSetReferrerPacketClass(const char *name) :
 {
 }
 
-GlobalSetReferrerPacketClass::GlobalSetReferrerPacketClass(RawPacketClass *raw) :
+GlobalSetReferrerPacketClass::GlobalSetReferrerPacketClass(PacketClass *raw) :
 	Unknown1C(0)
 {
 	raw->Get(&Name);
 }
 
-RawPacketClass *GlobalSetReferrerPacketClass::Build()
+PacketClass *GlobalSetReferrerPacketClass::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(119, Get_Data_Size());
+	PacketClass *raw = new PacketClass(119, Get_Data_Size());
 	raw->Add(Name);
 	return(raw);
 }
 
 int GlobalSetReferrerPacketClass::Get_Data_Size()
 {
-	return(RawPacketClass::Get_Size(Name));
+	return(PacketClass::Get_Size(Name));
 }
 
 // The client hands sprintf the string object itself (its four words), not its text
@@ -33,14 +33,14 @@ int GlobalSetReferrerPacketClass::Print(char *buffer, int)
 }
 
 
-GlobalSetReferrerResponsePacketClass::GlobalSetReferrerResponsePacketClass(RawPacketClass *raw)
+GlobalSetReferrerResponsePacketClass::GlobalSetReferrerResponsePacketClass(PacketClass *raw)
 {
 	raw->Get(Result);
 }
 
-RawPacketClass *GlobalSetReferrerResponsePacketClass::Build()
+PacketClass *GlobalSetReferrerResponsePacketClass::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(120, Get_Data_Size());
+	PacketClass *raw = new PacketClass(120, Get_Data_Size());
 	raw->Add(Result);
 	return(raw);
 }

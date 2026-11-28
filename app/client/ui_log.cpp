@@ -63,7 +63,7 @@ public:
 	GadgetClass *Buttons[6];							// +0xA0 by id ('exit2', 'previous', 'next', 'date_stamp', 'Entry_Field00', ids 1-5; [0] unused)  // NAME 1: neutral
 	GadgetSlider *Slider;								// +0xB8 (id 9)  // NAME 1: neutral
 	TextEditorGadget *Editor;						// +0xBC ('message', id 7)  // NAME 1: neutral
-	TextGadgetClass *PageEntry;							// +0xC0 ('PAGE_EDIT_log00a' on 'Entry_Field00', id 8)  // NAME 1: neutral
+	UnknownTextGadgetClass *PageEntry;							// +0xC0 ('PAGE_EDIT_log00a' on 'Entry_Field00', id 8)  // NAME 1: neutral
 	int Page;											// +0xC4 (1-999; the option 'Current_Log_Page')  // NAME 2: what it holds
 	bool Unknown0C8;									// +0xC8 (a date inserted: the editor redrawn next frame)
 	bool Unknown0C9;									// +0xC9 (the page entry open)
@@ -120,7 +120,7 @@ void UILogClass::Unknown_54()
 		GadgetClass::Set_Tooltip(Editor, "UI_LOG", "DETAILS");
 		Editor->Client = Client->As_Space_Client();
 		RefCountPtr<RenderObjClass> entry = Create_Get(InterfaceMesh->Get_Sub_Object_By_Name("Entry_Field00"));
-		PageEntry = new TextGadgetClass(this, 3, "PAGE_EDIT_log00a", entry.Peek(), Unknown_B08CA8 | Unknown_B08C98, 0);
+		PageEntry = new UnknownTextGadgetClass(this, 3, "PAGE_EDIT_log00a", entry.Peek(), Unknown_B08CA8 | Unknown_B08C98, 0);
 		PageEntry->Set_Text("", 0);
 		PageEntry->Set_Unknown58(0.95f);
 

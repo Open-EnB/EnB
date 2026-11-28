@@ -44,13 +44,13 @@ void UIRadioEntryClass::Unknown_54()
 		for (int i = 0; i < 5; i++) {
 			Buttons[i] = Add_Button(i + 1, Unknown_B853D0[i], NULL);
 		}
-		PasswordGadget = new TextGadgetClass(this, 8, "TEXTFIELD00_Cht04", Interface_Mesh(), Unknown_B08CC4, 0);
+		PasswordGadget = new UnknownTextGadgetClass(this, 8, "TEXTFIELD00_Cht04", Interface_Mesh(), Unknown_B08CC4, 0);
 		PasswordGadget->Set_Text("", 0);
-		TextGadgetClass *gadget = PasswordGadget;	// NAME 1: neutral (D10); a local as the client's registers (0x5E63C0 exact)
+		UnknownTextGadgetClass *gadget = PasswordGadget;	// NAME 1: neutral (D10); a local as the client's registers (0x5E63C0 exact)
 		gadget->Unknown5C = true;
 		Unknown64.Unknown_6870E0(PasswordGadget, 7, View, 1, 0);
 		if (State == 2) {
-			ConfirmGadget = new TextGadgetClass(this, 8, "TEXTFIELD01_Cht04", Interface_Mesh(), Unknown_B08CC4, 0);
+			ConfirmGadget = new UnknownTextGadgetClass(this, 8, "TEXTFIELD01_Cht04", Interface_Mesh(), Unknown_B08CC4, 0);
 			ConfirmGadget->Set_Text("", 0);
 			ConfirmGadget->Unknown5C = true;
 			Unknown64.Unknown_6870E0(ConfirmGadget, 8, View, 1, 0);

@@ -12,7 +12,7 @@ InvPacketClass::InvPacketClass(int id, InventoryEnum from_inv, int from_slot, In
 {
 }
 
-InvPacketClass::InvPacketClass(RawPacketClass *raw)
+InvPacketClass::InvPacketClass(PacketClass *raw)
 {
 	raw->Get(ID);
 	int value;
@@ -25,9 +25,9 @@ InvPacketClass::InvPacketClass(RawPacketClass *raw)
 	raw->Get(Num);
 }
 
-RawPacketClass *InvPacketClass::Build()
+PacketClass *InvPacketClass::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(39, Get_Data_Size());
+	PacketClass *raw = new PacketClass(39, Get_Data_Size());
 	raw->Add(ID);
 	int value = FromInv;
 	raw->Add(value);
@@ -60,7 +60,7 @@ InvSortPacketClass::InvSortPacketClass(int id, InventoryEnum target_inv, int sor
 {
 }
 
-InvSortPacketClass::InvSortPacketClass(RawPacketClass *raw)
+InvSortPacketClass::InvSortPacketClass(PacketClass *raw)
 {
 	raw->Get(ID);
 	int value;
@@ -72,9 +72,9 @@ InvSortPacketClass::InvSortPacketClass(RawPacketClass *raw)
 	raw->Get(Reverse);
 }
 
-RawPacketClass *InvSortPacketClass::Build()
+PacketClass *InvSortPacketClass::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(40, Get_Data_Size());
+	PacketClass *raw = new PacketClass(40, Get_Data_Size());
 	raw->Add(ID);
 	int value = TargetInv;
 	raw->Add(value);
@@ -101,7 +101,7 @@ int InvSortPacketClass::Print(char *buffer, int)
 **
 **	* Client 0x894CA0-0x8952D0 (0x894C70 is the previous object's guarded static, 0xC416FC; this one's
 **	  is 0x8952D0). INVENTORY_MOVE 39 written by hand (builder P4, 2026-10-26); every field is a
-**	  network-order int (RawPacketClass::Get(int &) / Add(const int &)); the two inventories are read
+**	  network-order int (PacketClass::Get(int &) / Add(const int &)); the two inventories are read
 **	  into an int and stored (an enum). The destructor the scalar deleting one calls (0x690F80) is a
 **	  copy from an earlier object (COMDAT).
 **	* INVENTORY_SORT 40 likewise (its Reverse a bool: Get(bool &) / Add(const bool &)).

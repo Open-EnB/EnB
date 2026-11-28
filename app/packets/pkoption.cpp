@@ -9,16 +9,16 @@ OptionPacketClass::OptionPacketClass(int game_id, int option_type, bool option_v
 {
 }
 
-OptionPacketClass::OptionPacketClass(RawPacketClass *raw)
+OptionPacketClass::OptionPacketClass(PacketClass *raw)
 {
 	raw->Get(&GameID, sizeof(GameID));
 	raw->Get(&OptionType, sizeof(OptionType));
 	raw->Get(&OptionVar, sizeof(OptionVar));
 }
 
-RawPacketClass *OptionPacketClass::Build()
+PacketClass *OptionPacketClass::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(46, Get_Data_Size());
+	PacketClass *raw = new PacketClass(46, Get_Data_Size());
 	raw->Add(&GameID, sizeof(GameID));
 	raw->Add(&OptionType, sizeof(OptionType));
 	raw->Add(&OptionVar, sizeof(OptionVar));

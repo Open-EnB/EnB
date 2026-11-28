@@ -18,8 +18,8 @@ class LinearBuffer;
 class Unknown_PacketDataClass	// NAME 1: neutral placeholder (D10)
 {
 public:
-	virtual bool Write(LinearBuffer *buffer) = 0;	// +0x00 NAME 2: what RawPacketClass::Add calls it for (the money wrapper's returns true)
-	virtual bool Read(LinearBuffer *buffer) = 0;	// +0x04 NAME 2: what RawPacketClass::Get calls it for
+	virtual bool Write(LinearBuffer *buffer) = 0;	// +0x00 NAME 2: what PacketClass::Add calls it for (the money wrapper's returns true)
+	virtual bool Read(LinearBuffer *buffer) = 0;	// +0x04 NAME 2: what PacketClass::Get calls it for
 	virtual int Get_Size() = 0;							// +0x08 NAME 2: the bytes Write writes (the money wrapper's 0x873A90)
 };
 

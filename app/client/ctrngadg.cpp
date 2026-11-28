@@ -231,7 +231,7 @@ release:
 **	0xBE5F34 set to 1 and restored (a scoped value holder: the EH states 0-3).
 **	After it come the holder's destructor 0x50B2C0 (out of line for the EH unwind handlers 0xAAA8A0...) and
 **	the object's static initialisers: 0x50B2E0 (the STL's ctype<unsigned short>::id guard, as 0x42B2F0) and
-**	permstr.h's PermStringInit 0x50B310 / its atexit destructor 0x50B340; mainview.obj starts at 0x50B360.
+**	permstr.h's _PermStringInit 0x50B310 / its atexit destructor 0x50B340; mainview.obj starts at 0x50B360.
 **	Forms of 0x50ABC0 tried (attempts.csv): the key flags as alt / !alt && Shift / !alt && Ctrl (the client's
 **	shared byte), a success flag (true or false first: Shift's and Ctrl's camera stores merge), goto release
 **	(kept: the Ctrl block falls into the tail as the client's, but the release block moves up), else-goto (the

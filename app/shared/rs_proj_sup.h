@@ -25,7 +25,7 @@ class CullableClass;
 class Unknown45D9E0Class : public ProjectionSourceClass	// NAME 1: neutral (D10)
 {
 public:
-	Unknown45D9E0Class(RsTrackClass *owner, ProjectionDefClass *def, ProjectorManagerClass *manager);	// 0x45D9E0 (0x24 bytes)  // NAME 1 [owner]: neutral; NAME 2 [def, manager]: the base's
+	Unknown45D9E0Class(RsTrackClass *owner, ProjectionDefClass *def, ProjectionManagerClass *manager);	// 0x45D9E0 (0x24 bytes)  // NAME 1 [owner]: neutral; NAME 2 [def, manager]: the base's
 
 	virtual RenderObjClass *Peek_Render_Obj(void);					// 0x45DBB0
 	virtual Matrix3D Get_Transform(void);							// 0x45DBE0

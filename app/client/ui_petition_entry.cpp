@@ -41,7 +41,7 @@ UIPetitionEntryClass::~UIPetitionEntryClass()
 	Slider = NULL;
 }
 
-// NOT EXACT: register (the two TextGadgetClass setters give the client's one load per call; left: the Entry_Field00 Create_Get's vtable / result registers, the TextGadgetClass constructor's flags / model registers, the first Unknown_6870E0's view in eax (client edx); GV3)
+// NOT EXACT: register (the two UnknownTextGadgetClass setters give the client's one load per call; left: the Entry_Field00 Create_Get's vtable / result registers, the UnknownTextGadgetClass constructor's flags / model registers, the first Unknown_6870E0's view in eax (client edx); GV3)
 // 0x5D4890
 void UIPetitionEntryClass::Unknown_54()
 {
@@ -59,7 +59,7 @@ void UIPetitionEntryClass::Unknown_54()
 		GadgetClass::Set_Tooltip(DetailsEditor, "UI_PETITION_ENTRY", "DETAILS");
 		DetailsEditor->Client = (SpaceClientClass *)((ClientClass *)Client)->As_Space_Client();
 		RefCountPtr<RenderObjClass> entry = Create_Get(InterfaceMesh->Get_Sub_Object_By_Name("Entry_Field00"));
-		SubjectEditor = new TextGadgetClass(this, 0xFA, "SUBJECT_EDIT_hsi02a", entry.Peek(), Unknown_B08CB0, 0);
+		SubjectEditor = new UnknownTextGadgetClass(this, 0xFA, "SUBJECT_EDIT_hsi02a", entry.Peek(), Unknown_B08CB0, 0);
 		SubjectEditor->Set_Text("Enter Subject Here", 0);
 		SubjectEditor->Set_Unknown3B(false);
 		SubjectEditor->Set_Unknown58(0.95f);

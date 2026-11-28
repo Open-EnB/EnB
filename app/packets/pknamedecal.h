@@ -32,12 +32,12 @@ struct DecalStruct  // NAME 1: neutral (D10), the packet's 'NumDecals'
 };
 
 // opcode 16 (0x0010, DECAL): vtable 0xB0A200, constructor 0x8807B0, 0x24 bytes
-class DecalPacketClass : public PacketClass
+class DecalPacketClass : public UnknownPacketBaseClass
 {
 public:
 	DecalPacketClass(int game_id, const std::vector<DecalStruct> &decals);	// 0x8805C0
-	DecalPacketClass(RawPacketClass *raw);	// 0x8807B0
-	virtual RawPacketClass *Build();	// +0x04 0x880BC0
+	DecalPacketClass(PacketClass *raw);	// 0x8807B0
+	virtual PacketClass *Build();	// +0x04 0x880BC0
 	virtual bool Process_Packet(void *client);	// +0x08 0x735DF0 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x880D00
 	virtual int Print(char *buffer, int len);	// +0x10 0x880D50
@@ -45,16 +45,16 @@ public:
 
 	int GameID;	// +0x0C  // NAME 3: the client's Print text 'GameID='
 	std::vector<DecalStruct> Decals;	// +0x10 (a short count, then the decals)  // NAME 3: the client's Print text 'NumDecals='
-	int Channel;	// +0x20 (PacketClass::Unknown_14 of GameID; not read from the message)  // NAME 2: Get_Channel returns it
+	int Channel;	// +0x20 (UnknownPacketBaseClass::Unknown_14 of GameID; not read from the message)  // NAME 2: Get_Channel returns it
 };
 
 // opcode 178 (0x00B2, NAME_DECAL): vtable 0xB0A230, constructor 0x880EE0, 0x40 bytes
-class NameDecalPacketClass : public PacketClass
+class NameDecalPacketClass : public UnknownPacketBaseClass
 {
 public:
 	NameDecalPacketClass(int game_id, const char *name, const Vector3 &rgb);	// 0x880DA0  // NAME 2: the stores (no caller left)
-	NameDecalPacketClass(RawPacketClass *raw);	// 0x880EE0
-	virtual RawPacketClass *Build();	// +0x04 0x880FA0
+	NameDecalPacketClass(PacketClass *raw);	// 0x880EE0
+	virtual PacketClass *Build();	// +0x04 0x880FA0
 	virtual bool Process_Packet(void *client);	// +0x08 0x735FC0 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x881080
 	virtual int Print(char *buffer, int len);	// +0x10 0x8810A0

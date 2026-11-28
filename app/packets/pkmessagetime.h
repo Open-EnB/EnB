@@ -19,12 +19,12 @@
 #include <time.h>
 
 // opcode 96 (0x0060, ?): vtable 0xB0B474, constructor 0x89E6A0, 0x14 bytes
-class MessageTimePacketClass : public PacketClass
+class MessageTimePacketClass : public UnknownPacketBaseClass
 {
 public:
 	MessageTimePacketClass(unsigned char color, time_t time);	// 0x89E5E0
-	MessageTimePacketClass(RawPacketClass *raw);	// 0x89E6A0
-	virtual RawPacketClass *Build();	// +0x04 0x89E760
+	MessageTimePacketClass(PacketClass *raw);	// 0x89E6A0
+	virtual PacketClass *Build();	// +0x04 0x89E760
 	virtual bool Process_Packet(void *client);	// +0x08 0x736800 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x89E830
 	virtual int Print(char *buffer, int len);	// +0x10 0x89E850

@@ -345,7 +345,7 @@ void Unknown_70CD50(SpaceClientClass *sclient, PlayerObjectIsAttackingUpdatePack
 **	Reconstruction notes
 **
 **	The object 0x709EA0-0x70DC00 (asserts' __FILE__ 'e:\build\beta\G\app\Client\co_player_relationship.cpp'):
-**	the static initialisers 0x709EA0 (permstr.h's PermStringInitClass at 0xBE7078, through auxdata.h's name.h)
+**	the static initialisers 0x709EA0 (permstr.h's PermStringInit at 0xBE7078, through auxdata.h's name.h)
 **	and 0x709EF0 (GutterColors, constructor 0x70CE50, destructor 0x709F40); gutter_color.ini's colour sets
 **	(0x70A010 / 0x70A2E0, the loader 0x70A7E0 sclient.cpp calls, the lookup 0x70ADF0); the dispatcher 0x70B0A0
 **	(radar_data.cpp's callers) over the checks Neutral 0x70B450 (NOT EXACT), Attacking 0x70B790, Group 0x70BC30

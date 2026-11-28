@@ -444,7 +444,7 @@ void ShortcutGadgetsInterface::Init_Name(ClientClass *client)
 
 /*
 **	Reconstruction notes. The client's __FILE__ 0xB88EBC names the file; the asserts' lines (65, 135, 160, 166, 187, 235, 238, 304,
-**	334, 338, 342, 408, 411, 434) and the object's edges place it: it opens with the PermStringInitClass static's initialiser 0x613680
+**	334, 338, 342, 408, 411, 434) and the object's edges place it: it opens with the PermStringInit static's initialiser 0x613680
 **	(after ui_scut.cpp's adjustor thunks 0x613660 / 0x613670) and its .data with the 'shortcut.ini' pointer 0xB88EA0; its template
 **	instances run to 0x6159F0, called only from here (0x614040, 0x614360, 0x613A20, 0x614980, 0x614FB0), ui_shard.cpp following.
 **	Client 0x6136D0-0x6153B0, plus the instances: RefCountPtr's destructor 0x6154F0, the vector's 0x615530 / size 0x615570 / _Destroy

@@ -8,15 +8,15 @@ MessageTimePacketClass::MessageTimePacketClass(unsigned char color, time_t time)
 {
 }
 
-MessageTimePacketClass::MessageTimePacketClass(RawPacketClass *raw)
+MessageTimePacketClass::MessageTimePacketClass(PacketClass *raw)
 {
 	raw->Get(&Color, sizeof(Color));
 	raw->Get(&Time, sizeof(Time));
 }
 
-RawPacketClass *MessageTimePacketClass::Build()
+PacketClass *MessageTimePacketClass::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(96, Get_Data_Size());
+	PacketClass *raw = new PacketClass(96, Get_Data_Size());
 	raw->Add(&Color, sizeof(Color));
 	raw->Add(&Time, sizeof(Time));
 	return(raw);

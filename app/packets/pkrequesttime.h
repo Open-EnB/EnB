@@ -18,12 +18,12 @@
 #include "pk.h"
 
 // opcode 68 (0x0044, REQUEST_TIME): vtable 0xB0BFB8, constructor 0x8AADE0, 0x14 bytes
-class RequestTimePacketClass : public PacketClass  // NAME 2: Net-7's opcode name REQUEST_TIME (the Net-7 opcode table; no structure check)
+class RequestTimePacketClass : public UnknownPacketBaseClass  // NAME 2: Net-7's opcode name REQUEST_TIME (the Net-7 opcode table; no structure check)
 {
 public:
 	RequestTimePacketClass();	// 0x8AAD50
-	RequestTimePacketClass(RawPacketClass *raw);	// 0x8AADE0
-	virtual RawPacketClass *Build();	// +0x04 0x8AAE70
+	RequestTimePacketClass(PacketClass *raw);	// 0x8AADE0
+	virtual PacketClass *Build();	// +0x04 0x8AAE70
 	virtual bool Process_Packet(void *client);	// +0x08 0x867AD0 (clientstub.cpp l.17)
 	virtual int Get_Data_Size();	// +0x0C 0x8AAF40
 	virtual int Print(char *buffer, int len);	// +0x10 0x8AAF60
@@ -34,12 +34,12 @@ public:
 };
 
 // opcode 52 (0x0034, CLIENT_SET_TIME): vtable 0xB0BFE8, constructor 0x8AB060, 0x1C bytes
-class SetClientTimePacketClass : public PacketClass
+class SetClientTimePacketClass : public UnknownPacketBaseClass
 {
 public:
 	SetClientTimePacketClass(unsigned int client_sent, unsigned int server_received);	// 0x8AAFA0
-	SetClientTimePacketClass(RawPacketClass *raw);	// 0x8AB060
-	virtual RawPacketClass *Build();	// +0x04 0x8AB120
+	SetClientTimePacketClass(PacketClass *raw);	// 0x8AB060
+	virtual PacketClass *Build();	// +0x04 0x8AB120
 	virtual bool Process_Packet(void *client);	// +0x08 0x737960 (cpacket.cpp, shape residue)
 	virtual int Get_Data_Size();	// +0x0C 0x8AB200
 	virtual int Print(char *buffer, int len);	// +0x10 0x8AB220

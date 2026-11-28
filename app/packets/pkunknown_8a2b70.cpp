@@ -7,13 +7,13 @@ RequestVersionPacketClass::RequestVersionPacketClass()
 {
 }
 
-RequestVersionPacketClass::RequestVersionPacketClass(RawPacketClass *)
+RequestVersionPacketClass::RequestVersionPacketClass(PacketClass *)
 {
 }
 
-RawPacketClass *RequestVersionPacketClass::Build()
+PacketClass *RequestVersionPacketClass::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(69, Get_Data_Size());
+	PacketClass *raw = new PacketClass(69, Get_Data_Size());
 	return(raw);
 }
 

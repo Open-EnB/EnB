@@ -18,12 +18,12 @@
 #include "..\pk.h"
 
 // opcode 30027 (0x754B, ?): vtable 0xB092A8, constructor 0x861E20, 0xC bytes
-class GameEditorSaveSectorPacketClass : public PacketClass  // NAME 3: the client's Print text 'GameEditorSaveSector {' and the PacketClass convention
+class GameEditorSaveSectorPacketClass : public UnknownPacketBaseClass  // NAME 3: the client's Print text 'GameEditorSaveSector {' and the UnknownPacketBaseClass convention
 {
 public:
 	GameEditorSaveSectorPacketClass();	// 0x861DB0
-	GameEditorSaveSectorPacketClass(RawPacketClass *raw);	// 0x861E20
-	virtual RawPacketClass *Build();	// +0x04 0x861E80
+	GameEditorSaveSectorPacketClass(PacketClass *raw);	// 0x861E20
+	virtual PacketClass *Build();	// +0x04 0x861E80
 	virtual bool Process_Packet(void *client);	// +0x08 0x868340 (clientstub.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x861F10
 	virtual int Print(char *buffer, int len);	// +0x10 0x861F30
@@ -31,13 +31,13 @@ public:
 
 // opcode 30028 (0x754C, ?), sent by the server only (not in the packet switch: Process_Packet returns
 // true here): vtable 0xB092D8, 0x18 bytes
-class GameEditorSectorSavedPacketClass : public PacketClass  // NAME 3: the client's Print text 'GameEditorSectorSaved' and the PacketClass convention
+class GameEditorSectorSavedPacketClass : public UnknownPacketBaseClass  // NAME 3: the client's Print text 'GameEditorSectorSaved' and the UnknownPacketBaseClass convention
 {
 public:
 	GameEditorSectorSavedPacketClass(bool success, const char *message);	// 0x861F80
-	GameEditorSectorSavedPacketClass(RawPacketClass *raw);	// 0x862070
+	GameEditorSectorSavedPacketClass(PacketClass *raw);	// 0x862070
 	virtual ~GameEditorSectorSavedPacketClass();	// +0x00 0x862180 / 0x862040
-	virtual RawPacketClass *Build();	// +0x04 0x8621B0
+	virtual PacketClass *Build();	// +0x04 0x8621B0
 	virtual bool Process_Packet(void *client);	// +0x08 0x862300
 	virtual int Get_Data_Size();	// +0x0C 0x8622A0
 	virtual int Print(char *buffer, int len);	// +0x10 0x8622C0

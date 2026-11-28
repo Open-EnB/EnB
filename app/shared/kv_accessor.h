@@ -2,7 +2,7 @@
 /*
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	Interim placement (D137): a typed value reached through a key/value pair, out of kv_pair.h:
-**	the client's kv_acc, kv_acc_string and kv_acc_time objects have no PermStringInit, so they never
+**	the client's kv_acc, kv_acc_string and kv_acc_time objects have no _PermStringInit, so they never
 **	see kv_pair.h (its PermString Key brings permstr.h's static).
 */
 #if defined(_MSC_VER)

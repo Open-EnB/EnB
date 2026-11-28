@@ -13,7 +13,7 @@ GlobalHelloPacketClass::GlobalHelloPacketClass(int unknown0c, int unknown10, int
 	}
 }
 
-GlobalHelloPacketClass::GlobalHelloPacketClass(RawPacketClass *raw)
+GlobalHelloPacketClass::GlobalHelloPacketClass(PacketClass *raw)
 {
 	raw->Get(Unknown0C);
 	raw->Get(Unknown10);
@@ -24,9 +24,9 @@ GlobalHelloPacketClass::GlobalHelloPacketClass(RawPacketClass *raw)
 	raw->Get(Unknown64);
 }
 
-RawPacketClass *GlobalHelloPacketClass::Build()
+PacketClass *GlobalHelloPacketClass::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(Get_Type(), Get_Data_Size());
+	PacketClass *raw = new PacketClass(Get_Type(), Get_Data_Size());
 	raw->Add(Unknown0C);
 	raw->Add(Unknown10);
 	raw->Add(Unknown14);

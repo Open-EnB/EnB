@@ -19,12 +19,12 @@
 #include "pk.h"
 
 // opcode 146 (0x0092, CAMERA_CONTROL): vtable 0xB09DDC, constructor 0x878390, 0x18 bytes
-class CameraControlPacketClass : public PacketClass
+class CameraControlPacketClass : public UnknownPacketBaseClass
 {
 public:
 	CameraControlPacketClass(int message, int game_id);	// 0x878280  // NAME 2: the stores (no caller left)
-	CameraControlPacketClass(RawPacketClass *raw);	// 0x878390
-	virtual RawPacketClass *Build();	// +0x04 0x878450
+	CameraControlPacketClass(PacketClass *raw);	// 0x878390
+	virtual PacketClass *Build();	// +0x04 0x878450
 	virtual bool Process_Packet(void *client);	// +0x08 0x739FF0 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x878540
 	virtual int Print(char *buffer, int len);	// +0x10 0x878560

@@ -347,7 +347,7 @@ void TargetReticleClass::Set_Client_Object(ClientObjectClass *co)
 **	Original location: e:\build\beta\G\app\client\target_reticle.cpp (the __FILE__ 0xB9F85C, FAIL_IFs at lines 82, 137, 139,
 **	265 and 281).
 **
-**	The object: it starts at permstr.h's PermStringInitClass static (0xBE87E0: initialiser 0x7C50B0, atexit 0x7C50E0, right
+**	The object: it starts at permstr.h's PermStringInit static (0xBE87E0: initialiser 0x7C50B0, atexit 0x7C50E0, right
 **	after target_find.cpp's last COMDAT 0x7C5040) and ends with <string>'s guarded initialiser 0x7C60F0, which precedes
 **	targeting.cpp's 0x7C6120. Corners' implicit constructor and destructor are 0x7C54E0 / 0x7C5500 (the vector helpers'
 **	arguments). The one known user is gutter_radar.cpp's 0x7B6BD0 (two of them, 0x44 bytes each).

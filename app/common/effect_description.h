@@ -19,7 +19,7 @@
 #include <string>
 #include <vector>
 
-class RawPacketClass;
+class PacketClass;
 
 // An effect's usage (ItemEffectClass::Usage) is an EffectGeneratorUsageBF (aux_roots.h; the client's
 // Value_To_String 0x835590 names its values from item_effect.cpp's table: 0 'none', 1 'activated', 2 'permanent',
@@ -37,8 +37,8 @@ public:
 	void Get_Name_Values(std::vector<float> &values) const;												// 0x832750  // NAME 2: what it does
 	void Get_Description_Values(std::vector<float> &values) const;										// 0x832930  // NAME 2: what it does
 	int Get_Size();																						// 0x832B10 (its bytes in a message)  // NAME 2: as the packets'
-	void Write(RawPacketClass *raw);																	// 0x832B90  // NAME 2: as the packets'
-	void Read(RawPacketClass *raw);																		// 0x832CA0  // NAME 2: as the packets'
+	void Write(PacketClass *raw);																	// 0x832B90  // NAME 2: as the packets'
+	void Read(PacketClass *raw);																		// 0x832CA0  // NAME 2: as the packets'
 	void Set_Name(const std::string &name);																// 0x832F20  // NAME 2: what it does
 	std::string Get_Name_Text() const;																	// 0x833D00 (the name with its values filled in)  // NAME 2: what it returns
 	std::string Get_Description_Text() const;															// 0x833D40 (the description with its values filled in)  // NAME 2: what it returns
@@ -69,8 +69,8 @@ public:
 	ItemEffectClass();																					// 0x834D30
 	ItemEffectClass(const EffectDescriptionClass &description, int usage, ItemEffectFlagsStruct flags);	// 0x834D60 (no caller in the client)
 	int Get_Size();																						// 0x834F20 (its bytes in a message)  // NAME 2: as the packets'
-	void Write(RawPacketClass *raw);																	// 0x834F40  // NAME 2: as the packets'
-	void Read(RawPacketClass *raw);																		// 0x834F80  // NAME 2: as the packets'
+	void Write(PacketClass *raw);																	// 0x834F40  // NAME 2: as the packets'
+	void Read(PacketClass *raw);																		// 0x834F80  // NAME 2: as the packets'
 	std::string Get_Summary() const;																	// 0x834FC0 (one of the '#'-joined summary_strings)  // NAME 2: the client's 'summary_strings'
 	void Set_Summary(const std::string &summary);														// 0x834FF0  // NAME 2: the client's 'summary_strings'
 	bool Is_Unknown1() const { return(Flags.Unknown1); }			// NAME 1: neutral; an inline layer the client spends budget on (0x83DB40)

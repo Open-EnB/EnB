@@ -7,15 +7,15 @@ LootHulkPermissionPacketClass::LootHulkPermissionPacketClass(int hulk_game_id) :
 {
 }
 
-LootHulkPermissionPacketClass::LootHulkPermissionPacketClass(RawPacketClass *raw)
+LootHulkPermissionPacketClass::LootHulkPermissionPacketClass(PacketClass *raw)
 {
 	HulkGameID = -1;
 	raw->Get(HulkGameID);
 }
 
-RawPacketClass *LootHulkPermissionPacketClass::Build()
+PacketClass *LootHulkPermissionPacketClass::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(140, Get_Data_Size());
+	PacketClass *raw = new PacketClass(140, Get_Data_Size());
 	raw->Add(HulkGameID);
 	return(raw);
 }

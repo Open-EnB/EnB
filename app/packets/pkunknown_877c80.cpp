@@ -11,7 +11,7 @@ BroadcastPacketClass::BroadcastPacketClass(char *text, int unknown14) :
 	String = nstrdup(text);
 }
 
-BroadcastPacketClass::BroadcastPacketClass(RawPacketClass *raw)
+BroadcastPacketClass::BroadcastPacketClass(PacketClass *raw)
 {
 	raw->Get(&Size, sizeof(Size));
 	String = new char[Size];
@@ -25,9 +25,9 @@ BroadcastPacketClass::~BroadcastPacketClass()
 	String = 0;
 }
 
-RawPacketClass *BroadcastPacketClass::Build()
+PacketClass *BroadcastPacketClass::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(99, Get_Data_Size());
+	PacketClass *raw = new PacketClass(99, Get_Data_Size());
 	raw->Add(&Size, sizeof(Size));
 	raw->Add(String, Size);
 	raw->Add(Unknown14);

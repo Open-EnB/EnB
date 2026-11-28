@@ -174,7 +174,7 @@ void PlayerTradeInterface::Unknown_58()
 		InterfaceSortScopeClass sort(this);
 		State = UI_OPEN;
 		SpaceClientClass *sclient = Client->As_Space_Client();
-		Unknown0DC = sclient->PDAInterface->Unknown_695780(false);
+		Unknown0DC = sclient->PDAWindow->Unknown_695780(false);
 		PlayerPIP->Unknown_7E36B0(sclient, Create_NEW(InterfaceMesh->Get_Sub_Object_By_Name("AVATAR_YOU")), 0);
 		OtherPIP->Unknown_7E36B0(sclient, Create_NEW(InterfaceMesh->Get_Sub_Object_By_Name("AVATAR_THEM")), 0);
 		Unknown5BB320Class::Unknown_58();
@@ -207,7 +207,7 @@ void PlayerTradeInterface::Unknown_5C()
 		Unknown0B4->Unknown_5C();
 		SpaceClientClass *sclient = Client->As_Space_Client();
 		if (Unknown0DC) {
-			sclient->PDAInterface->Unknown_695A00(0, 1);
+			sclient->PDAWindow->Unknown_695A00(0, 1);
 		}
 		Unknown_5E2F70(false);
 		Unknown_5E3050(false);

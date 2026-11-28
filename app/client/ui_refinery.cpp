@@ -158,7 +158,7 @@ void UIRefineryClass::Unknown_58()
 	if (State == UI_CLOSED) {
 		InterfaceSortScopeClass scope(this);
 		State = UI_OPEN;
-		Unknown0AFC = sclient->PDAInterface->Unknown_695780(false);
+		Unknown0AFC = sclient->PDAWindow->Unknown_695780(false);
 		Unknown_5ED230();
 		Unknown_BE67C4->Add(InterfaceMesh->Peek_Mesh_Object());
 		char buffer[256];
@@ -195,7 +195,7 @@ void UIRefineryClass::Unknown_5C()
 	Unknown0B4->Unknown_5C();
 	Unknown0B8->Unknown_5C();
 	if (Unknown0AFC) {
-		sclient->PDAInterface->Unknown_695A00(0, 1);
+		sclient->PDAWindow->Unknown_695A00(0, 1);
 	}
 	Unknown0AEC = 0;
 	Unknown_BE67C4->Remove(InterfaceMesh->Peek_Mesh_Object());
@@ -740,7 +740,7 @@ static std::string Unknown_5EE7F0(int validity)	// NAME 1: neutral (D10)  // NAM
 ** known formulas of the target item's aux data), the go and stack buttons and two ui_inv.cpp sub-windows. Function order
 ** follows the client's: the constructor 0x5EB810, deleting destructor 0x5EBA20, destructor 0x5EBA50, slots +0x54
 ** 0x5EBC30, +0x7C 0x5EC220, +0x58 0x5EC270, +0x5C 0x5EC570, +0x60 0x5EC6D0, +0x68 0x5EC990, then the helpers to 0x5EDFD0,
-** its static helpers 0x5EE460 / 0x5EE7F0 and the find 0x5EEBA0. The PermStringInitClass static 0x5EB7C0 (its atexit
+** its static helpers 0x5EE460 / 0x5EE7F0 and the find 0x5EEBA0. The PermStringInit static 0x5EB7C0 (its atexit
 ** 0x5EB7F0) comes from permstr.h. 0x5EB7B0 (a this-adjusting thunk to 0x5EAB90) belongs to the file before.
 ** 0x5EDFD0 is exact: existing changed-field lookups preserve the >1 tests and caller name storage;
 ** a Money root local and assignment of the value/client locals at their argument sites recover retail

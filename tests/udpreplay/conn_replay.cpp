@@ -93,9 +93,9 @@ UnknownBFAEE0Class *Unknown_BFAEE0 = &BFAEE0;
 // The packets the client's factory made (pk.cpp: Unknown_Create_Packet, the generated switch, a
 // class of pk_classes.h): their constructors aren't rebuilt, so pk_ctor_stubs.cpp's hand each raw
 // message here; the harness keeps the bytes per packet and builds a raw message back from them.
-static std::map<PacketClass *, std::vector<unsigned char> > Packets;
+static std::map<UnknownPacketBaseClass *, std::vector<unsigned char> > Packets;
 
-void Conn_Record(PacketClass *packet, RawPacketClass *raw)
+void Conn_Record(UnknownPacketBaseClass *packet, PacketClass *raw)
 {
 	packet->Connection = 0;
 	packet->Serial = 0;
@@ -108,10 +108,10 @@ void Conn_Record(PacketClass *packet, RawPacketClass *raw)
 	}
 }
 
-static RawPacketClass *Build_Raw(const std::vector<unsigned char> &bytes)
+static PacketClass *Build_Raw(const std::vector<unsigned char> &bytes)
 {
-	RawPacketClass *raw = (RawPacketClass *)new char[sizeof(RawPacketClass)];
-	memset(raw, 0, sizeof(RawPacketClass));
+	PacketClass *raw = (PacketClass *)new char[sizeof(PacketClass)];
+	memset(raw, 0, sizeof(PacketClass));
 	memcpy(&raw->Header, &bytes[0], sizeof(PacketHeaderClass));
 	if (bytes.size() > 4) {
 		new (&raw->Data) LinearBuffer(&bytes[4], (int)bytes.size() - 4, 0x400, true);
@@ -126,14 +126,14 @@ static RawPacketClass *Build_Raw(const std::vector<unsigned char> &bytes)
 // A packet's message: the bytes Conn_Record kept (a class not rebuilt), else what the packet's own
 // Build makes (a rebuilt class: its constructor parsed the message, Build writes it back).
 int Conn_Built = 0;
-static bool Packet_Bytes(PacketClass *p, std::vector<unsigned char> &bytes)
+static bool Packet_Bytes(UnknownPacketBaseClass *p, std::vector<unsigned char> &bytes)
 {
-	std::map<PacketClass *, std::vector<unsigned char> >::iterator it = Packets.find(p);
+	std::map<UnknownPacketBaseClass *, std::vector<unsigned char> >::iterator it = Packets.find(p);
 	if (it != Packets.end()) {
 		bytes = it->second;
 		return true;
 	}
-	RawPacketClass *raw = p->Build();
+	PacketClass *raw = p->Build();
 	if (raw == 0) {
 		return false;
 	}
@@ -170,7 +170,7 @@ static bool Is_Recorded(const unsigned char *message)
 
 // A rebuilt packet of a Recorded_Opcodes class keeps the message it was made from (a class not rebuilt
 // already has it through Conn_Record).
-static bool Keep_Received(PacketClass *p, const unsigned char *message, int length)
+static bool Keep_Received(UnknownPacketBaseClass *p, const unsigned char *message, int length)
 {
 	if (p == 0 || length < 4 || !Is_Recorded(message) || Packets.find(p) != Packets.end()) {
 		return false;
@@ -184,7 +184,7 @@ static bool Keep_Received(PacketClass *p, const unsigned char *message, int leng
 	return true;
 }
 
-static void Delete_Packet(PacketClass *p)
+static void Delete_Packet(UnknownPacketBaseClass *p)
 {
 	Packets.erase(p);
 	delete p;
@@ -265,7 +265,7 @@ int Conn_Deliver(FILE *out, int n, const char *dir, const char *name, CordCon *c
 	int delivered = 0;
 	for (;;) {
 		int read_before = con->BytesRead_;
-		PacketClass *p = udp->Receive();
+		UnknownPacketBaseClass *p = udp->Receive();
 		if (con->BytesRead_ != read_before && con->BytesRead_ - read_before < 4) {
 			Conn_Short++;
 			if (p) {
@@ -288,7 +288,7 @@ int Conn_Deliver(FILE *out, int n, const char *dir, const char *name, CordCon *c
 			delete p;
 			continue;
 		}
-		RawPacketClass *raw = Build_Raw(sent);
+		PacketClass *raw = Build_Raw(sent);
 		Stream.Taken.clear();
 		if (!Stream.Send_Message(raw)) {
 			Conn_Errors++;
@@ -296,7 +296,7 @@ int Conn_Deliver(FILE *out, int n, const char *dir, const char *name, CordCon *c
 		delete raw;
 		Delete_Packet(p);
 		for (int guard = 0; guard < 100000; guard++) {
-			PacketClass *q = Stream.Receive();
+			UnknownPacketBaseClass *q = Stream.Receive();
 			if (q == 0) {
 				if (Stream.Pipe.empty() && Stream.Ring.Get_Used() == 0) {
 					break;

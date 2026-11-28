@@ -231,9 +231,9 @@ void UIExperienceClass::Unknown_58CF60()
 /*
 **	Notes (O4, 2026-11-10)
 **
-**	The client's object 0x58BF90-0x58D010: permstr.h's PermStringInitClass static 0x58BF90 (its destructor 0x58BFC0) opens
+**	The client's object 0x58BF90-0x58D010: permstr.h's PermStringInit static 0x58BF90 (its destructor 0x58BFC0) opens
 **	it, after the adjustor thunks 0x58BF70 (-4) / 0x58BF80 (-0x38) of the previous object's deleting destructor 0x58B7F0;
-**	<string>'s guarded statics 0x58CFD0 / 0x58D000 end it, before ui_faction.cpp's PermStringInitClass static 0x58D030.
+**	<string>'s guarded statics 0x58CFD0 / 0x58D000 end it, before ui_faction.cpp's PermStringInit static 0x58D030.
 **	Every __FILE__ in 0x58BFE0-0x58CF60 is 'e:\build\beta\G\app\Client\ui_experience.cpp' (0xB7EFBC). The asserts:
 **	'!Gauge' l.47, '!name' l.79, '!robj' l.85, '!Exists' l.106 / l.118, '!client' l.195, '!sclient' l.197.
 */

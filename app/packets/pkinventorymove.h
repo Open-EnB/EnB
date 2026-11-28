@@ -24,12 +24,12 @@ enum InventoryEnum  // NAME 1: neutral placeholder (D10)
 };
 
 // opcode 39 (0x0027, INVENTORY_MOVE): vtable 0xB0AE34, constructor 0x894D50, 0x24 bytes
-class InvPacketClass : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
+class InvPacketClass : public UnknownPacketBaseClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	InvPacketClass(int id, InventoryEnum from_inv, int from_slot, InventoryEnum to_inv, int to_slot, int num);	// 0x894CA0
-	InvPacketClass(RawPacketClass *raw);	// 0x894D50
-	virtual RawPacketClass *Build();	// +0x04 0x894E30
+	InvPacketClass(PacketClass *raw);	// 0x894D50
+	virtual PacketClass *Build();	// +0x04 0x894E30
 	virtual bool Process_Packet(void *client);	// +0x08 0x867D10 (clientstub.cpp l.53)
 	virtual int Get_Data_Size();	// +0x0C 0x894F50
 	virtual int Print(char *buffer, int len);	// +0x10 0x894F70
@@ -43,12 +43,12 @@ public:
 };
 
 // opcode 40 (0x0028, INVENTORY_SORT): vtable 0xB0AE64, constructor 0x895070, 0x24 bytes
-class InvSortPacketClass : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
+class InvSortPacketClass : public UnknownPacketBaseClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	InvSortPacketClass(int id, InventoryEnum target_inv, int sort1, int sort2, int sort3, bool reverse);	// 0x894FC0
-	InvSortPacketClass(RawPacketClass *raw);	// 0x895070
-	virtual RawPacketClass *Build();	// +0x04 0x895150
+	InvSortPacketClass(PacketClass *raw);	// 0x895070
+	virtual PacketClass *Build();	// +0x04 0x895150
 	virtual bool Process_Packet(void *client);	// +0x08 0x867D40 (clientstub.cpp l.56)
 	virtual int Get_Data_Size();	// +0x0C 0x895260
 	virtual int Print(char *buffer, int len);	// +0x10 0x895280

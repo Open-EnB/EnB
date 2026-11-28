@@ -35,7 +35,7 @@ class SpecialRenderInfoClass;
 class ShaderClass;
 class RenderObjClass;
 class Matrix3D;
-class ProjectorManagerClass;
+class ProjectionManagerClass;
 class StaticShadowTexMgrClass;
 
 // The shadow render target maker the manager calls (0x498120, another file: DX8Wrapper::Create_Render_Target
@@ -73,7 +73,7 @@ class ProjectionSourceClass : public RefCountClass, public MultiListObjectClass 
 {
 public:
 	// rs_proj_sup.cpp's casters make these (inline; the destructor's out-of-line copy 0x45E200)
-	ProjectionSourceClass(bool use_blob,ProjectionDefClass * def,ProjectorManagerClass * manager);	// inline, below  // NAME 2 [use_blob, def, manager]: the members they set
+	ProjectionSourceClass(bool use_blob,ProjectionDefClass * def,ProjectionManagerClass * manager);	// inline, below  // NAME 2 [use_blob, def, manager]: the members they set
 	virtual ~ProjectionSourceClass(void)							{ if (Projection != NULL) Projection->Release_Ref(); if (ProjectionDef != NULL) ProjectionDef->Release_Ref(); }
 
 	virtual RenderObjClass *	Peek_Render_Obj(void) = 0;		// slot 2: the model projected / rendered  // NAME 2: its use
@@ -88,7 +88,7 @@ public:
 	bool							UseBlob;						// +0x11 the blob texture instead of a rendered shadow  // NAME 2: its use
 	TexProjectClass *			Projection;					// +0x14
 	ProjectionDefClass *		ProjectionDef;				// +0x18
-	ProjectorManagerClass *	Manager;						// +0x1C  // NAME 2: what it points at
+	ProjectionManagerClass *	Manager;						// +0x1C  // NAME 2: what it points at
 };
 
 /*
@@ -122,13 +122,13 @@ typedef TypedAABTreeCullSystemClass<ProjectorReceiverCullClass>	ReceiverAABTreeC
 typedef TypedGridCullSystemClass<ProjectorReceiverCullClass>		ReceiverGridCullSystemClass;		// NAME 2: interim, the dynamic objects' system
 
 /*
-** ProjectorManagerClass
+** ProjectionManagerClass
 */
-class ProjectorManagerClass	// NAME 3: class-from-file (D24) for app\shared\proj_man.cpp
+class ProjectionManagerClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
-	ProjectorManagerClass(void);
-	virtual ~ProjectorManagerClass(void);
+	ProjectionManagerClass(void);
+	virtual ~ProjectionManagerClass(void);
 
 	void							Release_Projector_Resources(void);				// 0x492200  // NAME 2: Renegade's PhysicsSceneClass method
 	CameraClass *				Get_Shadow_Camera(void);							// 0x492290  // NAME 2: Renegade's (shadow_cam)
@@ -193,7 +193,7 @@ public:
 **
 **
 */
-inline ProjectionSourceClass::ProjectionSourceClass(bool use_blob,ProjectionDefClass * def,ProjectorManagerClass * manager) :
+inline ProjectionSourceClass::ProjectionSourceClass(bool use_blob,ProjectionDefClass * def,ProjectionManagerClass * manager) :
 	UseBlob(use_blob), Projection(NULL), ProjectionDef(NULL), Manager(manager)
 {
 	if (ProjectionDef != NULL) ProjectionDef->Release_Ref();

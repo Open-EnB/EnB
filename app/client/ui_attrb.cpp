@@ -438,6 +438,6 @@ void Unknown546A80Class::Unknown_547FD0(bool all)
 **	assignment, Set, a FontSys pointer helper, a reference to +0x494, a local pointer, memcpy, a chained Set returning the
 **	struct; attempts.csv). Its flags are bit fields read through bool accessors (the client's word load, shr, test 1;
 **	plain shifts or bare bit fields give a byte test), the last call's argument an if / else of two calls. pkskill.h's inline ~SkillPacketClass 0x548D40 is emitted here between them. After the slots: the adjustor
-**	thunks 0x5495D0 (-4) / 0x5495E0 (-0x38) of the deleting destructor and permstr.h's PermStringInitClass static
+**	thunks 0x5495D0 (-4) / 0x5495E0 (-0x38) of the deleting destructor and permstr.h's PermStringInit static
 **	(0x5495A0 here; ui_attrb_skills.cpp's notes name 0x5495F0 / 0x549620).
 */

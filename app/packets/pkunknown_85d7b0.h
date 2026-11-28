@@ -18,12 +18,12 @@
 #include "pk.h"
 
 // 0x7533 (30003, not in the packet switch: sent only): vtable 0xB08DF8, constructor 0x85D850, 0x18 bytes
-class GameEditorAddPacketClass : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
+class GameEditorAddPacketClass : public UnknownPacketBaseClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	GameEditorAddPacketClass(int game_id, int type, float radius);	// 0x85D7B0
-	GameEditorAddPacketClass(RawPacketClass *raw);	// 0x85D850
-	virtual RawPacketClass *Build();	// +0x04 0x85D910
+	GameEditorAddPacketClass(PacketClass *raw);	// 0x85D850
+	virtual PacketClass *Build();	// +0x04 0x85D910
 	virtual bool Process_Packet(void *client);	// +0x08 0x85DA50
 	virtual int Get_Data_Size();	// +0x0C 0x85D9F0
 	virtual int Print(char *buffer, int len);	// +0x10 0x85DA10

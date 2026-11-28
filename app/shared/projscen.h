@@ -4,7 +4,7 @@
 **	Original location: e:\build\beta\G\app\shared\projscen.h (name assumed from projscen.cpp's __FILE__)
 **
 **	A SimpleSceneClass that gives its render-state tracks (RsTrackClass, Class_ID 0x10001) projectors:
-**	a ProjectorManagerClass and the static and dynamic culling systems of the projector receivers.
+**	a ProjectionManagerClass and the static and dynamic culling systems of the projector receivers.
 **	The main view's scene derives from it (0x75ECF0 calls the constructor and the three Create_ methods).
 **
 **	THE CLIENT'S LAYOUT (0xA8 bytes), from the constructor 0x494EE0 and the destructor 0x494F50; vtable 0xAEA790.
@@ -41,7 +41,7 @@ public:
 	void				Delete_Static_Culling_System(void);						// 0x495930 (no caller)  // NAME 2: what it does
 	void				Delete_Dynamic_Culling_System(void);					// 0x495960 (no caller)  // NAME 2: what it does
 
-	ProjectorManagerClass *				ProjectorManager;					// +0x98  // NAME 2: what it holds
+	ProjectionManagerClass *				ProjectorManager;					// +0x98  // NAME 2: what it holds
 	ProjectionDefClass *					ProjectionDef;						// +0x9C  // NAME 2: as ProjectionSourceClass's
 	ReceiverAABTreeCullSystemClass *	StaticCullingSystem;				// +0xA0 (the assert's)
 	ReceiverGridCullSystemClass *		DynamicCullingSystem;			// +0xA4 (the assert's)

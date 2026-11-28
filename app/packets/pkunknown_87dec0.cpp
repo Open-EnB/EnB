@@ -20,7 +20,7 @@ ChatstreamPacketClass::ChatstreamPacketClass(int game_id, Unknown_ChatStreamClas
 	}
 }
 
-ChatstreamPacketClass::ChatstreamPacketClass(RawPacketClass *raw) :
+ChatstreamPacketClass::ChatstreamPacketClass(PacketClass *raw) :
 	TargetName(NULL),
 	Owned(true)
 {
@@ -50,9 +50,9 @@ ChatstreamPacketClass::~ChatstreamPacketClass()
 	}
 }
 
-RawPacketClass *ChatstreamPacketClass::Build()
+PacketClass *ChatstreamPacketClass::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(94, Get_Data_Size());
+	PacketClass *raw = new PacketClass(94, Get_Data_Size());
 	raw->Add(&GameID, sizeof(GameID));
 	raw->Add(&Type, sizeof(Type));
 	raw->Add(&ChatSize, sizeof(ChatSize));

@@ -137,6 +137,6 @@ void MovieTaskClass::Handle_Input(KernelEventClass *event)
 **	the end passes too). Both strings Play gets are the same movie's c_str(). Pre_Run's input loop
 **	inlines Handle_Input (0x76C5A0, which has no caller of its own). The two static initialisers
 **	after Handle_Input (0x76C5F0: a guarded static with atexit 0x42B320, which every tasks object
-**	has; 0x76C620: a permstr.h PermStringInitClass at 0xBE82D8) come from headers the client's file
+**	has; 0x76C620: a permstr.h PermStringInit at 0xBE82D8) come from headers the client's file
 **	includes and aren't rebuilt.
 */

@@ -2357,7 +2357,7 @@ void StarbaseAvatarCreationInterface::Unknown_551C80()
 **	body and pants types), 0x54E950 (+0x368's value) and 0x54EAD0 (+0x36C's value); 0x54E3C0 (the model's
 **	turn while a turn button is held: 0x54E610 calls it), 0x54EE40 / 0x54EE80 (reached only through a table)
 **	exact. +0xBC is a RefCountPtr (0x54E690 hands it to +0xB8's
-**	slot +0x84 through a converted temporary). The file starts at 0x54B760, its PermStringInitClass static (0xBE5B34,
+**	slot +0x84 through a converted temporary). The file starts at 0x54B760, its PermStringInit static (0xBE5B34,
 **	atexit 0x54B790): 0x54B370 is ui_attrb_skills.cpp's (its FAIL_IF, line 577), and 0x54B740 / 0x54B750 are
 **	adjustor thunks to 0x549800 (ui_attrb_skills.cpp's class); the constructor 0x54B7B0 ('buy_avatar00') and
 **	the destructor 0x54BAB0 follow.

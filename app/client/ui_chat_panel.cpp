@@ -1155,7 +1155,7 @@ void ChatPanelInterface::Unknown_565F80()
 		Unknown104->Unknown_54();
 		Unknown104->Unknown_7C(View, 1);
 		SpaceClientClass *sclient = Client->As_Space_Client();
-		if (sclient->PDAInterface) sclient->PDAInterface->Unknown_695F40();
+		if (sclient->PDAWindow) sclient->PDAWindow->Unknown_695F40();
 	}
 	Unknown108 = 0;
 }

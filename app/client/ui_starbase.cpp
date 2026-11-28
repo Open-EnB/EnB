@@ -1432,7 +1432,7 @@ void StarbaseInterface::Unknown_5C()
 
 
 
-inline RefCountPtr<CharacterInfoInterface> PDAInterfaceClass::Get_Character() { return(Character); }	// 0x6384D0 (out of line after 0x638390)
+inline RefCountPtr<CharacterInfoInterface> PDAInterface::Get_Character() { return(Character); }	// 0x6384D0 (out of line after 0x638390)
 
 
 
@@ -1460,8 +1460,8 @@ void StarbaseInterface::Unknown_60()
 	Unknown_6390A0();
 	Unknown_63FCB0();
 	SpaceClientClass *sclient = ((LineDisplayClientClass *)Client)->As_Space_Client();
-	if (sclient && sclient->PDAInterface) {
-		CharacterInfoInterface *cinfo = sclient->PDAInterface->Get_Character().Peek();
+	if (sclient && sclient->PDAWindow) {
+		CharacterInfoInterface *cinfo = sclient->PDAWindow->Get_Character().Peek();
 		if (cinfo && cinfo->UnknownB4 && cinfo->UnknownB4->UnknownC0 && cinfo->UnknownB4->UnknownC0->Active) {
 			cinfo->UnknownB4->UnknownC0->Unknown_5473B0();
 		}

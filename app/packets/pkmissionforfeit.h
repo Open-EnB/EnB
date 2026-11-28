@@ -19,12 +19,12 @@
 #include "pk.h"
 
 // opcode 134 (0x0086, MISSION_FORFEIT): vtable 0xB0B284, constructor 0x89C6C0, 0x14 bytes
-class MissionForfeitPacketClass : public PacketClass  // NAME 2: Net-7's opcode name MISSION_FORFEIT (the Net-7 opcode table; no structure check)
+class MissionForfeitPacketClass : public UnknownPacketBaseClass  // NAME 2: Net-7's opcode name MISSION_FORFEIT (the Net-7 opcode table; no structure check)
 {
 public:
 	MissionForfeitPacketClass(int playerid, int id);	// 0x89C640
-	MissionForfeitPacketClass(RawPacketClass *raw);	// 0x89C6C0
-	virtual RawPacketClass *Build();	// +0x04 0x89C760
+	MissionForfeitPacketClass(PacketClass *raw);	// 0x89C6C0
+	virtual PacketClass *Build();	// +0x04 0x89C760
 	virtual bool Process_Packet(void *client);	// +0x08 0x8687C0 (clientstub.cpp l.224)
 	virtual int Get_Data_Size();	// +0x0C 0x89C830
 	virtual int Print(char *buffer, int len);	// +0x10 0x89C850
@@ -34,12 +34,12 @@ public:
 };
 
 // opcode 135 (0x0087, MISSION_DISMISSAL): vtable 0xB0B2B4, constructor 0x89C900, 0x14 bytes
-class MissionDismissPacketClass : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
+class MissionDismissPacketClass : public UnknownPacketBaseClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	MissionDismissPacketClass(int playerid, int id);	// 0x89C880
-	MissionDismissPacketClass(RawPacketClass *raw);	// 0x89C900
-	virtual RawPacketClass *Build();	// +0x04 0x89C9A0
+	MissionDismissPacketClass(PacketClass *raw);	// 0x89C900
+	virtual PacketClass *Build();	// +0x04 0x89C9A0
 	virtual bool Process_Packet(void *client);	// +0x08 0x8687F0 (clientstub.cpp l.227)
 	virtual int Get_Data_Size();	// +0x0C 0x89CA70
 	virtual int Print(char *buffer, int len);	// +0x10 0x89CA90

@@ -16,7 +16,7 @@ GameEditorAssetMappingPacketClass::GameEditorAssetMappingPacketClass(const char 
 	Size = strlen(Data) + 1;
 }
 
-GameEditorAssetMappingPacketClass::GameEditorAssetMappingPacketClass(RawPacketClass *raw)
+GameEditorAssetMappingPacketClass::GameEditorAssetMappingPacketClass(PacketClass *raw)
 {
 	raw->Get(&Size, sizeof(Size));
 	Data = new char[Size];
@@ -33,9 +33,9 @@ GameEditorAssetMappingPacketClass::~GameEditorAssetMappingPacketClass()
 	}
 }
 
-RawPacketClass *GameEditorAssetMappingPacketClass::Build()
+PacketClass *GameEditorAssetMappingPacketClass::Build()
 {
-	RawPacketClass *packet = new RawPacketClass(30020, Get_Data_Size());
+	PacketClass *packet = new PacketClass(30020, Get_Data_Size());
 
 
 

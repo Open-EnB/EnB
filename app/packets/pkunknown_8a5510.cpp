@@ -11,14 +11,14 @@ SpendReferralPointPacketClass::~SpendReferralPointPacketClass()
 {
 }
 
-SpendReferralPointPacketClass::SpendReferralPointPacketClass(RawPacketClass *raw) : Unknown0C(0), Unknown10(0)
+SpendReferralPointPacketClass::SpendReferralPointPacketClass(PacketClass *raw) : Unknown0C(0), Unknown10(0)
 {
 	raw->Get(Unknown0C);
 }
 
-RawPacketClass *SpendReferralPointPacketClass::Build()
+PacketClass *SpendReferralPointPacketClass::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(Get_Type(), Get_Data_Size());
+	PacketClass *raw = new PacketClass(Get_Type(), Get_Data_Size());
 	raw->Add(Unknown0C);
 	return(raw);
 }

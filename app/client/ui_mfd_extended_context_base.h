@@ -2,7 +2,7 @@
 // extended context panel's base class.
 // Interim placement (D137): out of ui_mfd_extended_context.h (the client's __FILE__ 0xB82458, the Watch's FAIL_IF),
 // which needs DeltaContainer (kv_encoder.h, delta.h, name.h, permstr.h): the client's
-// ui_mfd_extended_context_strings.obj has no PermStringInit (CRT table: its run 0x5C1090-0x5C1F60 closes with
+// ui_mfd_extended_context_strings.obj has no _PermStringInit (CRT table: its run 0x5C1090-0x5C1F60 closes with
 // <string>'s guard 0x5C1F60 and opens with none; harvestable's 0x5BF6E0 and ui_mfdm's 0x5C1F90 open theirs), so
 // the class it derives from came from a header without the Watch.
 #ifndef UI_MFD_EXTENDED_CONTEXT_BASE_H  // NAME 1 [ui_mfd_extended_context_base.h]: neutral, what it declares (D10)

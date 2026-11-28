@@ -6,15 +6,15 @@ ManufactureItemCatagoryPacketClass::ManufactureItemCatagoryPacketClass(int playe
 {
 }
 
-ManufactureItemCatagoryPacketClass::ManufactureItemCatagoryPacketClass(RawPacketClass *raw) : player(0), Mode(0)
+ManufactureItemCatagoryPacketClass::ManufactureItemCatagoryPacketClass(PacketClass *raw) : player(0), Mode(0)
 {
 	raw->Get(player);
 	raw->Get(Mode);
 }
 
-RawPacketClass *ManufactureItemCatagoryPacketClass::Build()
+PacketClass *ManufactureItemCatagoryPacketClass::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(121, Get_Data_Size());
+	PacketClass *raw = new PacketClass(121, Get_Data_Size());
 	raw->Add(player);
 	raw->Add(Mode);
 	return(raw);
@@ -36,15 +36,15 @@ ManufactureSetItemCategoryPacketClass::ManufactureSetItemCategoryPacketClass(int
 {
 }
 
-ManufactureSetItemCategoryPacketClass::ManufactureSetItemCategoryPacketClass(RawPacketClass *raw) : player(0), Category(-1)
+ManufactureSetItemCategoryPacketClass::ManufactureSetItemCategoryPacketClass(PacketClass *raw) : player(0), Category(-1)
 {
 	raw->Get(player);
 	raw->Get(Category);
 }
 
-RawPacketClass *ManufactureSetItemCategoryPacketClass::Build()
+PacketClass *ManufactureSetItemCategoryPacketClass::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(122, Get_Data_Size());
+	PacketClass *raw = new PacketClass(122, Get_Data_Size());
 	raw->Add(player);
 	raw->Add(Category);
 	return(raw);
@@ -64,15 +64,15 @@ ManufactureSetItemIDPacketClass::ManufactureSetItemIDPacketClass(int player, int
 {
 }
 
-ManufactureSetItemIDPacketClass::ManufactureSetItemIDPacketClass(RawPacketClass *raw) : player(0), ItemID(-1)
+ManufactureSetItemIDPacketClass::ManufactureSetItemIDPacketClass(PacketClass *raw) : player(0), ItemID(-1)
 {
 	raw->Get(player);
 	raw->Get(ItemID);
 }
 
-RawPacketClass *ManufactureSetItemIDPacketClass::Build()
+PacketClass *ManufactureSetItemIDPacketClass::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(123, Get_Data_Size());
+	PacketClass *raw = new PacketClass(123, Get_Data_Size());
 	raw->Add(player);
 	raw->Add(ItemID);
 	return(raw);
@@ -92,15 +92,15 @@ RefinerySetItemIDPacketClass::RefinerySetItemIDPacketClass(int player, int item_
 {
 }
 
-RefinerySetItemIDPacketClass::RefinerySetItemIDPacketClass(RawPacketClass *raw) : player(0), ItemID(-1)
+RefinerySetItemIDPacketClass::RefinerySetItemIDPacketClass(PacketClass *raw) : player(0), ItemID(-1)
 {
 	raw->Get(&player, sizeof(player));
 	raw->Get(&ItemID, sizeof(ItemID));
 }
 
-RawPacketClass *RefinerySetItemIDPacketClass::Build()
+PacketClass *RefinerySetItemIDPacketClass::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(124, Get_Data_Size());
+	PacketClass *raw = new PacketClass(124, Get_Data_Size());
 	raw->Add(&player, sizeof(player));
 	raw->Add(&ItemID, sizeof(ItemID));
 	return(raw);
@@ -120,16 +120,16 @@ Packet_007DClass::Packet_007DClass(int player, int cargo_slot_id, int vault_slot
 {
 }
 
-Packet_007DClass::Packet_007DClass(RawPacketClass *raw) : player(0), CargoSlotID(-1), VaultSlotID(-1)
+Packet_007DClass::Packet_007DClass(PacketClass *raw) : player(0), CargoSlotID(-1), VaultSlotID(-1)
 {
 	raw->Get(player);
 	raw->Get(CargoSlotID);
 	raw->Get(VaultSlotID);
 }
 
-RawPacketClass *Packet_007DClass::Build()
+PacketClass *Packet_007DClass::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(125, Get_Data_Size());
+	PacketClass *raw = new PacketClass(125, Get_Data_Size());
 	raw->Add(player);
 	raw->Add(CargoSlotID);
 	raw->Add(VaultSlotID);
@@ -150,15 +150,15 @@ ManufactureActionPacketClass::ManufactureActionPacketClass(int player, int actio
 {
 }
 
-ManufactureActionPacketClass::ManufactureActionPacketClass(RawPacketClass *raw) : player(0), ActionID(0)
+ManufactureActionPacketClass::ManufactureActionPacketClass(PacketClass *raw) : player(0), ActionID(0)
 {
 	raw->Get(player);
 	raw->Get(ActionID);
 }
 
-RawPacketClass *ManufactureActionPacketClass::Build()
+PacketClass *ManufactureActionPacketClass::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(126, Get_Data_Size());
+	PacketClass *raw = new PacketClass(126, Get_Data_Size());
 	raw->Add(player);
 	raw->Add(ActionID);
 	return(raw);
@@ -178,15 +178,15 @@ ManufactureSetPacketClass::ManufactureSetPacketClass(int manufacture_id) : Manuf
 {
 }
 
-ManufactureSetPacketClass::ManufactureSetPacketClass(RawPacketClass *raw)
+ManufactureSetPacketClass::ManufactureSetPacketClass(PacketClass *raw)
 {
 	ManufactureID = 0;
 	raw->Get(ManufactureID);
 }
 
-RawPacketClass *ManufactureSetPacketClass::Build()
+PacketClass *ManufactureSetPacketClass::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(127, Get_Data_Size());
+	PacketClass *raw = new PacketClass(127, Get_Data_Size());
 	raw->Add(ManufactureID);
 	return(raw);
 }
@@ -208,7 +208,7 @@ ManufactureSetTechLevelFilterPacketClass::ManufactureSetTechLevelFilterPacketCla
 {
 }
 
-ManufactureSetTechLevelFilterPacketClass::ManufactureSetTechLevelFilterPacketClass(RawPacketClass *raw) :
+ManufactureSetTechLevelFilterPacketClass::ManufactureSetTechLevelFilterPacketClass(PacketClass *raw) :
 	Player(0),
 	Mode(true),
 	BitField(0)
@@ -218,9 +218,9 @@ ManufactureSetTechLevelFilterPacketClass::ManufactureSetTechLevelFilterPacketCla
 	raw->Get((int &)BitField);
 }
 
-RawPacketClass *ManufactureSetTechLevelFilterPacketClass::Build()
+PacketClass *ManufactureSetTechLevelFilterPacketClass::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(128, Get_Data_Size());
+	PacketClass *raw = new PacketClass(128, Get_Data_Size());
 	raw->Add(Player);
 	raw->Add(Mode);
 	raw->Add((int)BitField);

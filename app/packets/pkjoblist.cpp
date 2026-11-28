@@ -11,7 +11,7 @@ JobListPacketClass::JobListPacketClass() :
 {
 }
 
-JobListPacketClass::JobListPacketClass(RawPacketClass *raw)
+JobListPacketClass::JobListPacketClass(PacketClass *raw)
 {
 	raw->Get(&Count, sizeof(Count));
 	JobList.resize(Count);
@@ -42,9 +42,9 @@ JobListPacketClass::~JobListPacketClass()
 	JobList.clear();
 }
 
-RawPacketClass *JobListPacketClass::Build()
+PacketClass *JobListPacketClass::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(147, Get_Data_Size());
+	PacketClass *raw = new PacketClass(147, Get_Data_Size());
 	raw->Add(&Count, sizeof(Count));
 	for (int i = 0; i < Count; i++) {
 		JobStruct *job = JobList[i];
@@ -124,7 +124,7 @@ JobDescriptionPacketClass::JobDescriptionPacketClass(unsigned int job_id, bool s
 	Description = nstrdup(description);
 }
 
-JobDescriptionPacketClass::JobDescriptionPacketClass(RawPacketClass *raw) :
+JobDescriptionPacketClass::JobDescriptionPacketClass(PacketClass *raw) :
 	JobID(0),
 	StillAvail(false),
 	Title(NULL),
@@ -144,9 +144,9 @@ JobDescriptionPacketClass::~JobDescriptionPacketClass()
 	Description = NULL;
 }
 
-RawPacketClass *JobDescriptionPacketClass::Build()
+PacketClass *JobDescriptionPacketClass::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(148, Get_Data_Size());
+	PacketClass *raw = new PacketClass(148, Get_Data_Size());
 	raw->Add(&JobID, sizeof(JobID));
 	raw->Add(&StillAvail, sizeof(StillAvail));
 	raw->Add_String(Title);
@@ -189,14 +189,14 @@ JobDeletePacketClass::JobDeletePacketClass(int job_id) : JobID(job_id)
 {
 }
 
-JobDeletePacketClass::JobDeletePacketClass(RawPacketClass *raw) : JobID(0)
+JobDeletePacketClass::JobDeletePacketClass(PacketClass *raw) : JobID(0)
 {
 	raw->Get(&JobID, sizeof(JobID));
 }
 
-RawPacketClass *JobDeletePacketClass::Build()
+PacketClass *JobDeletePacketClass::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(149, Get_Data_Size());
+	PacketClass *raw = new PacketClass(149, Get_Data_Size());
 	raw->Add(&JobID, sizeof(JobID));
 	return(raw);
 }
@@ -215,16 +215,16 @@ JobAcceptReplyPacketClass::JobAcceptReplyPacketClass(int job_id, int accept_stat
 {
 }
 
-JobAcceptReplyPacketClass::JobAcceptReplyPacketClass(RawPacketClass *raw)
+JobAcceptReplyPacketClass::JobAcceptReplyPacketClass(PacketClass *raw)
 {
 	raw->Get(&JobID, sizeof(JobID));
 	raw->Get(&AcceptStatus, sizeof(AcceptStatus));
 	raw->Get(&SecondsRemaining, sizeof(SecondsRemaining));
 }
 
-RawPacketClass *JobAcceptReplyPacketClass::Build()
+PacketClass *JobAcceptReplyPacketClass::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(150, Get_Data_Size());
+	PacketClass *raw = new PacketClass(150, Get_Data_Size());
 	raw->Add(&JobID, sizeof(JobID));
 	raw->Add(&AcceptStatus, sizeof(AcceptStatus));
 	raw->Add(&SecondsRemaining, sizeof(SecondsRemaining));

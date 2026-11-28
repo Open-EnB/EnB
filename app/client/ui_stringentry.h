@@ -5,7 +5,7 @@
 #ifndef UI_STRINGENTRY_H
 #define UI_STRINGENTRY_H
 
-class TextGadgetClass;
+class UnknownTextGadgetClass;
 class GadgetClass;
 class UIPTradeCreditsClass : public Unknown5BB320Class	// NAME 1: neutral (D10): what ui_ptrade.cpp asks it for (the tooltips' section is 'UI_STRINGENTRY')
 {
@@ -22,7 +22,7 @@ public:
 	void Unknown_64A270(const char *text);				// 0x64A270 (the set-up: 'Enter Amount of Credits': the 'TITLE01' style's text)  // NAME 1 [text]: neutral
 	void Unknown_64A2B0(const char *text);				// 0x64A2B0 (slot +0x68, key 4: the amount offered so far, or "")  // NAME 1 [text]: neutral
 
-	TextGadgetClass *Unknown0AC;						// +0xAC the entry ('VALUE_BUTTON01' on the 'TEXT_BOX' model)
+	UnknownTextGadgetClass *Unknown0AC;						// +0xAC the entry ('VALUE_BUTTON01' on the 'TEXT_BOX' model)
 	GadgetClass *Unknown0B0[4];							// +0xB0 the buttons ('CANCEL', 'EXIT', 'CONFIRM', 'VALUE_BUTTON')
 	int Unknown0C0;										// +0xC0 (0 open, 1 cancelled, 2 accepted)
 	int Unknown0C4;										// +0xC4 (the constructor's a: the entry's flags, 0, 1 or else)

@@ -1090,7 +1090,7 @@ void MainViewClass::Update(CameraClass *camera, bool under)
 	}
 	if (Orbitals->Unknown4C) {
 		Scene->Add_Render_Object(Unknown144[0].Peek());
-		Vector3 shadow_dir = -Orbitals->Unknown20;	ProjectorManagerClass *projectors = ((ENBSceneClass *)Scene)->ProjectorManager;	projectors->Set_Shadow_Light_Direction(shadow_dir);
+		Vector3 shadow_dir = -Orbitals->Unknown20;	ProjectionManagerClass *projectors = ((ENBSceneClass *)Scene)->ProjectorManager;	projectors->Set_Shadow_Light_Direction(shadow_dir);
 		((ENBSceneClass *)Scene)->Apply_Projectors(Camera);
 		if (Get_Client()->Unknown10F8) {
 			Vector3 dir;		// one vector for both (the client: one slot, its X kept in st(0) across Get_Diffuse's null test)
@@ -1609,7 +1609,7 @@ void MainViewClass::Unknown_14()
 void MainViewClass::Unknown_512A00()
 {
 	SpaceClientClass *sclient = (SpaceClientClass *)Client->As_Space_Client();
-	PDAInterfaceClass *pda = sclient->PDAInterface;
+	PDAInterface *pda = sclient->PDAWindow;
 	LocalInterfaceSort sort(this, 0);
 	Radar->Unknown_7BCA70(Unknown84, ((StarmapInterface *)pda->UnknownA8)->Unknown_7C8DB0(true), Create_Peek((SceneClass *)Unknown_64()));
 }

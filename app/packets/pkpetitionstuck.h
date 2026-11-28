@@ -18,13 +18,13 @@
 #include "pk.h"
 
 // opcode 136 (0x0088, ?): vtable 0xB0B594, constructor 0x89F860, 0x20 bytes
-class PetitionPacketClass : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
+class PetitionPacketClass : public UnknownPacketBaseClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	PetitionPacketClass(int game_id, int game_id2, const char *subject, const char *complaint, const char *player_list);	// 0x89F740
-	PetitionPacketClass(RawPacketClass *raw);	// 0x89F860
+	PetitionPacketClass(PacketClass *raw);	// 0x89F860
 	virtual ~PetitionPacketClass();	// +0x00 0x89F830 / 0x89F930
-	virtual RawPacketClass *Build();	// +0x04 0x89F9A0
+	virtual PacketClass *Build();	// +0x04 0x89F9A0
 	virtual bool Process_Packet(void *client);	// +0x08 0x868A00 (clientstub.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x89FA90
 	virtual int Print(char *buffer, int len);	// +0x10 0x89FAE0

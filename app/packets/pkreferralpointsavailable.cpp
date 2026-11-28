@@ -3,15 +3,15 @@
 #include <stdio.h>
 
 
-ReferralPointsAvailablePacketClass::ReferralPointsAvailablePacketClass(RawPacketClass *raw) : PointsTotal(0), PointsSpent(0)
+ReferralPointsAvailablePacketClass::ReferralPointsAvailablePacketClass(PacketClass *raw) : PointsTotal(0), PointsSpent(0)
 {
 	raw->Get(PointsTotal);
 	raw->Get(PointsSpent);
 }
 
-RawPacketClass *ReferralPointsAvailablePacketClass::Build()
+PacketClass *ReferralPointsAvailablePacketClass::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(233, Get_Data_Size());
+	PacketClass *raw = new PacketClass(233, Get_Data_Size());
 	raw->Add(PointsTotal);
 	raw->Add(PointsSpent);
 	return(raw);

@@ -4,10 +4,10 @@
 **	Original location: e:\build\beta\G\app\Client\textgadg.h (name assumed from textgadg.cpp, whose
 **	__FILE__ is 'e:\build\beta\G\app\Client\textgadg.cpp'; the client holds no string of this header)
 **
-**	The UI kit's text gadgets (the edit boxes): TextBaseGadgetClass (table 0xAFD980, constructor 0x6AA000,
-**	0x44 bytes: the text in a StringEditClass, the active box '_ActiveUI' 0xBE66C0) and TextGadgetClass over
+**	The UI kit's text gadgets (the edit boxes): TextGadgetClass (table 0xAFD980, constructor 0x6AA000,
+**	0x44 bytes: the text in a StringEditClass, the active box '_ActiveUI' 0xBE66C0) and UnknownTextGadgetClass over
 **	it (table 0xAFDA10, constructor 0x6AA810, 0x80 bytes: the text drawn by a FontSys on a model,
-**	with a cursor). The login screen's name and password boxes are TextGadgetClass. Declared as far as
+**	with a cursor). The login screen's name and password boxes are UnknownTextGadgetClass. Declared as far as
 **	textgadg.cpp and its callers use them (D10).
 */
 
@@ -29,7 +29,7 @@ class FontSys;
 class FontSysCursor;
 class Font32Bit;
 
-// The text gadgets' flags (the constructors' flags argument, TextGadgetClass +0x7C): constants in .rdata
+// The text gadgets' flags (the constructors' flags argument, UnknownTextGadgetClass +0x7C): constants in .rdata
 // 0xB08C90-0xB08CC4 (1, 2, 4 ... 0x1000, then 0x2C0), defined in a file not rebuilt yet (textgadg.cpp loads them)
 extern const int Unknown_B08CAC;			// 0xB08CAC (0x80: the cursor's last argument)  // NAME 1: neutral (D10)
 extern const int Unknown_B08CB0;			// 0xB08CB0 (0x100: the text's x offset from the box)  // NAME 1: neutral (D10)
@@ -38,11 +38,11 @@ extern const int Unknown_B08CBC;			// 0xB08CBC (0x800: the model as given, not i
 extern const int Unknown_B08CC0;			// 0xB08CC0 (0x1000: the cursor blinks)  // NAME 1: neutral (D10)
 extern const int Unknown_B08CC4;			// 0xB08CC4 (0x2C0: the login boxes' flags)  // NAME 1: neutral (D10)
 
-class TextBaseGadgetClass : public GadgetClass  // NAME 2: the text gadgets' base (no RTTI; the asserts are textgadg.cpp's)
+class TextGadgetClass : public GadgetClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
-	TextBaseGadgetClass(int length, unsigned int flags, const char *chars);	// 0x6AA000 (two StringEditClass of the length)  // NAME 1 [length, flags, chars]: what TextGadgetClass passes (StringEditClass's)
-	virtual ~TextBaseGadgetClass();										// +0x00 0x6AA140 (deleting 0x6AA110)
+	TextGadgetClass(int length, unsigned int flags, const char *chars);	// 0x6AA000 (two StringEditClass of the length)  // NAME 1 [length, flags, chars]: what UnknownTextGadgetClass passes (StringEditClass's)
+	virtual ~TextGadgetClass();										// +0x00 0x6AA140 (deleting 0x6AA110)
 	virtual bool Unknown_2C(KernelEventClass *event, float x, float y, unsigned int mask);	// +0x2C 0x6AA200 (the keys: tab, enter, escape, the rest to the edit buffer)
 	virtual bool Unknown_30(float x, float y) { return(false); }		// +0x30 0x65C920 (folded)
 	virtual void Unknown_74(bool on);									// +0x74 0x6AA720 (G_ASSERT '_ActiveUI == this': the input focus)  // NAME 1 [on]: neutral
@@ -62,16 +62,16 @@ public:
 	bool Unknown3A;														// +0x3A (escape)
 	bool Unknown3B;														// +0x3B (a key changed the text: the focus keeps it)
 	bool Active;														// +0x3C (slot +0x74's)  // NAME 2: what slot +0x74 sets
-	TextBaseGadgetClass *Next;											// +0x40 (tab moves the focus to it)  // NAME 2: what slot +0x2C does with it
+	TextGadgetClass *Next;											// +0x40 (tab moves the focus to it)  // NAME 2: what slot +0x2C does with it
 
-	static TextBaseGadgetClass *_ActiveUI;								// 0xBE66C0  // NAME 5: the assert's
+	static TextGadgetClass *_ActiveUI;								// 0xBE66C0  // NAME 5: the assert's
 };
 
-class TextGadgetClass : public TextBaseGadgetClass  // NAME 3: class-from-file (D24) for app\client\textgadg.cpp
+class UnknownTextGadgetClass : public TextGadgetClass  // NAME 1: neutral (D10): retail's TextGadgetClass is the base above (thunk order); this class's retail name is not known (its slots are off the order)
 {
 public:
-	TextGadgetClass(InterfaceClass *iface, int length, const char *string_name, RenderObjClass *model, unsigned int flags, const char *chars);	// 0x6AA810  // NAME 5 [string_name]: the assert's; NAME 1 [iface, length, model, flags, chars]: what ui_login.cpp passes (chars: StringEditClass's)
-	virtual ~TextGadgetClass();											// +0x00 0x6AAB60 (deleting 0x6AAB30)
+	UnknownTextGadgetClass(InterfaceClass *iface, int length, const char *string_name, RenderObjClass *model, unsigned int flags, const char *chars);	// 0x6AA810  // NAME 5 [string_name]: the assert's; NAME 1 [iface, length, model, flags, chars]: what ui_login.cpp passes (chars: StringEditClass's)
+	virtual ~UnknownTextGadgetClass();											// +0x00 0x6AAB60 (deleting 0x6AAB30)
 	virtual void Unknown_28(LayerClass *layer);							// +0x28 0x6AB0F0 (the cursor into the layer's scene)  // NAME 1 [layer]: what the windows pass
 	virtual void Unknown_64(AABoxClass &box);							// +0x64 0x6AB080 (the text's bounding box)
 	virtual void Unknown_74(bool on);									// +0x74 0x6AACD0 (off: the cursor hidden)  // NAME 1 [on]: neutral

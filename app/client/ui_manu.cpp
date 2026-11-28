@@ -226,7 +226,7 @@ void UIManuClass::Unknown_58()
 	if (State == UI_CLOSED) {
 		InterfaceSortScopeClass scope(this);
 		State = UI_OPEN;
-		Unknown0BAC = sclient->PDAInterface->Unknown_695780(false);
+		Unknown0BAC = sclient->PDAWindow->Unknown_695780(false);
 		Unknown_5B2820();
 
 
@@ -279,7 +279,7 @@ void UIManuClass::Unknown_5C()
 	Unknown0B8->Unknown_5C();
 	Unknown0BC->Unknown_5C();
 	if (Unknown0BAC) {
-		sclient->PDAInterface->Unknown_695A00(0, 1);
+		sclient->PDAWindow->Unknown_695A00(0, 1);
 	}
 	Unknown0BA0 = 0;
 	Unknown_BE67C4->Remove(InterfaceMesh->Peek_Mesh_Object());

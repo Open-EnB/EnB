@@ -19,12 +19,12 @@
 #include "pk.h"
 
 // opcode 30000 (0x7530, ?): vtable 0xB08F78, constructor 0x85F2C0, 0x10 bytes
-class GameEditorLoginPacketClass : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
+class GameEditorLoginPacketClass : public UnknownPacketBaseClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	GameEditorLoginPacketClass(int editor_protocol_version);	// 0x85F250
-	GameEditorLoginPacketClass(RawPacketClass *raw);	// 0x85F2C0
-	virtual RawPacketClass *Build();	// +0x04 0x85F370
+	GameEditorLoginPacketClass(PacketClass *raw);	// 0x85F2C0
+	virtual PacketClass *Build();	// +0x04 0x85F370
 	virtual bool Process_Packet(void *client);	// +0x08 0x867F20 (clientstub.cpp l.86)
 	virtual int Get_Data_Size();	// +0x0C 0x85F430
 	virtual int Print(char *buffer, int len);	// +0x10 0x85F450
@@ -33,23 +33,23 @@ public:
 };
 
 // opcode 30001 (0x7531, ?): vtable 0xB08FA8, constructor 0x85F480, 0xC bytes
-class GameEditorLogoutPacketClass : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
+class GameEditorLogoutPacketClass : public UnknownPacketBaseClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
-	GameEditorLogoutPacketClass(RawPacketClass *raw);	// 0x85F480
-	virtual RawPacketClass *Build();	// +0x04 0x85F510
+	GameEditorLogoutPacketClass(PacketClass *raw);	// 0x85F480
+	virtual PacketClass *Build();	// +0x04 0x85F510
 	virtual bool Process_Packet(void *client);	// +0x08 0x868190 (clientstub.cpp l.125)
 	virtual int Get_Data_Size();	// +0x0C 0x85F5A0
 	virtual int Print(char *buffer, int len);	// +0x10 0x85F5C0
 
 };
 // 0x7543 (30019, not in the packet switch: sent only): vtable 0xB08FD8, constructor 0x85F660, 0x10 bytes
-class GameEditorProtocolVersionPacketClass : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
+class GameEditorProtocolVersionPacketClass : public UnknownPacketBaseClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	GameEditorProtocolVersionPacketClass(unsigned int server_protocol_version);	// 0x85F5F0
-	GameEditorProtocolVersionPacketClass(RawPacketClass *raw);	// 0x85F660
-	virtual RawPacketClass *Build();	// +0x04 0x85F710
+	GameEditorProtocolVersionPacketClass(PacketClass *raw);	// 0x85F660
+	virtual PacketClass *Build();	// +0x04 0x85F710
 	virtual bool Process_Packet(void *client);	// +0x08 0x85F820
 	virtual int Get_Data_Size();	// +0x0C 0x85F7D0
 	virtual int Print(char *buffer, int len);	// +0x10 0x85F7F0

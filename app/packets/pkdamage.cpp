@@ -7,7 +7,7 @@ DamagePacketClass::DamagePacketClass(float damage, float modifer, int type, int 
 {
 }
 
-DamagePacketClass::DamagePacketClass(RawPacketClass *raw)
+DamagePacketClass::DamagePacketClass(PacketClass *raw)
 {
 	raw->Get(&Damage, sizeof(Damage));
 	raw->Get(&Modifer, sizeof(Modifer));
@@ -17,9 +17,9 @@ DamagePacketClass::DamagePacketClass(RawPacketClass *raw)
 	raw->Get(&Victim, sizeof(Victim));
 }
 
-RawPacketClass *DamagePacketClass::Build()
+PacketClass *DamagePacketClass::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(100, Get_Data_Size());
+	PacketClass *raw = new PacketClass(100, Get_Data_Size());
 	raw->Add(&Damage, sizeof(Damage));
 	raw->Add(&Modifer, sizeof(Modifer));
 	raw->Add(&Type, sizeof(Type));

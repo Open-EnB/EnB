@@ -170,6 +170,6 @@ bool SkillDataClass::Unknown_20()
 
 /*
 **	Notes.
-**	Object 0x6A4580-0x6A52D8: permstr.h's PermStringInit (0x6A4580, the instance 0xBE663C, its atexit 0x6A45B0) opens it; the
+**	Object 0x6A4580-0x6A52D8: permstr.h's _PermStringInit (0x6A4580, the instance 0xBE663C, its atexit 0x6A45B0) opens it; the
 **	adjustor thunk 0x6A52D0 (RefCountClass's slot +0x04, table 0xAFD518) closes it. 0x6A46A0 is SlotDataClass's Unknown_10.
 */

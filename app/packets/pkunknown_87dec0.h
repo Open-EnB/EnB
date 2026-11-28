@@ -19,13 +19,13 @@
 #include "pkmessagechatstream.h"
 
 // opcode 94 (0x005E, AVATAR_EMOTE): vtable 0xB0A020, constructor 0x87E010, 0x24 bytes
-class ChatstreamPacketClass : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
+class ChatstreamPacketClass : public UnknownPacketBaseClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	ChatstreamPacketClass(int game_id, Unknown_ChatStreamClass *stream, char type, char *target_name);	// 0x87DEC0 (the stream's bytes and the name are the caller's, not copied)
-	ChatstreamPacketClass(RawPacketClass *raw);	// 0x87E010
+	ChatstreamPacketClass(PacketClass *raw);	// 0x87E010
 	virtual ~ChatstreamPacketClass();	// +0x00 0x87E130 / 0x87DFE0
-	virtual RawPacketClass *Build();	// +0x04 0x87E1A0
+	virtual PacketClass *Build();	// +0x04 0x87E1A0
 	virtual bool Process_Packet(void *client);	// +0x08 0x8685E0 (clientstub.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x87E2C0
 	virtual int Print(char *buffer, int len);	// +0x10 0x87E2E0

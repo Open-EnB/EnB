@@ -182,7 +182,7 @@ void DeltaVisitorClass::Visit_Children(DeltaContainer *delta)
 **	  its Unknown_48 0x4A40B0 (makes the collector +0xA0, a policy object +0xA4 and the change
 **	  table +0xA8, 0x4AB910), destructor 0x4A4590, 0x4A4660 (the encode driver), and the ref-counted
 **	  helpers 0x4A42D0-0x4A4780 (vtables 0xAEAC9C-0xAEACD4).
-**	* The clock is defined before the includes (PS, run 2026-11-18): permstr.h's PermStringInitClass static (0x4A3B80,
+**	* The clock is defined before the includes (PS, run 2026-11-18): permstr.h's PermStringInit static (0x4A3B80,
 **	  atexit 0x4A3BB0; CRT entry 49, the object's only one) follows the clock 0x4A3B40 in the client, so the header
 **	  that brings it (unknown_root.h through delta.h and name.h) comes after it.
 */

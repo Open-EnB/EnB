@@ -7,7 +7,7 @@ LoungeNPCPacketClass::LoungeNPCPacketClass(int style) :
 {
 }
 
-LoungeNPCPacketClass::LoungeNPCPacketClass(RawPacketClass *raw)
+LoungeNPCPacketClass::LoungeNPCPacketClass(PacketClass *raw)
 {
 	int count = 0;
 	raw->Get(&Style, sizeof(Style));
@@ -54,9 +54,9 @@ LoungeNPCPacketClass::~LoungeNPCPacketClass()
 {
 }
 
-RawPacketClass *LoungeNPCPacketClass::Build()
+PacketClass *LoungeNPCPacketClass::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(82, Get_Data_Size());
+	PacketClass *raw = new PacketClass(82, Get_Data_Size());
 	int count = 0;
 	raw->Add(&Style, sizeof(Style));
 	count = Rooms.size();
@@ -149,7 +149,7 @@ void LoungeNPCPacketClass::Add_NPC(const LoungeNPCNPCStruct &entry)
 **	* Client 0x897800-0x89A710 (0x8977D0 is the previous object's guarded static, 0xC416FC; this one's is
 **	  0x89A710): LOUNGE_NPC 82, written by hand (builder P6, 2026-10-27): three std::vectors behind 4-byte
 **	  counts, resized to the count and filled by index; the third's entries carry a text with its length
-**	  and an AvatarDescriptionClass through RawPacketClass's Get / Add of its wire interface.
+**	  and an AvatarDescriptionClass through PacketClass's Get / Add of its wire interface.
 **	* The raw constructor and Build are exact (builder PK1, 2026-10-28): every list's entries through a
 **	  reference, and the constructor tests the text buffer before the assignment (P6's two near misses).
 **	* The file name is provisional (no assert names it).

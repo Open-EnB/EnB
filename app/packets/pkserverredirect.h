@@ -23,7 +23,7 @@ class ClientRedirectPacketClass : public ServerReadyPacketClass  // NAME 5: thun
 {
 public:
 	ClientRedirectPacketClass(int sector, int ip, unsigned short port);	// 0x8A1500
-	ClientRedirectPacketClass(RawPacketClass *raw);	// 0x8A1590
+	ClientRedirectPacketClass(PacketClass *raw);	// 0x8A1590
 	virtual bool Process_Packet(void *client);	// +0x08 0x766FC0 (tsk_game.cpp)
 	virtual int Print(char *buffer, int len);	// +0x10 0x8A15E0
 	virtual int Get_Type();	// +0x28 0x8A15C0

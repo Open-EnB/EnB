@@ -287,7 +287,7 @@ void UIPTPplClass::Unknown_5E15F0()
 **	The client's __FILE__ (0xB84F3C) and the constructor's G_ASSERTs on lines 75 / 76 ('ListScreen' 'TLI08A',
 **	'DescScreen' 'TLI09A') name the file and the two screens; the class name is class-from-file (D24). The object
 **	runs from the constructor 0x5E09D0 through the adjustor thunks 0x5E1B70 / 0x5E1B80; ui_ptrade.cpp's object
-**	opens with its PermStringInitClass static at 0x5E1B90. The page is ui_ptmis.cpp's pattern (tables 0xAF6388 /
+**	opens with its PermStringInit static at 0x5E1B90. The page is ui_ptmis.cpp's pattern (tables 0xAF6388 /
 **	0xAF637C / 0xAF6370; template copies 0x5E1860 ~vector, 0x5E18A0 insert) with four styles a row, the two
 **	textures 'IF_TERR.TGA' / 'IF_CIR20.TGA' (REF_PTR_RELEASE in the destructor), +0xC8 released on close
 **	(nothing in the file sets it) and a profile ('Combat: %d', 'Trade: %d', 'Explore: %d') under the list.

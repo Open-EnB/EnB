@@ -288,7 +288,7 @@ void BuffInterface::Unknown_561B40(bool good)
 **	after 0x561030 the BuffDataClass destructor 0x561A60 does not match). The COMDATs they bring: the destructors
 **	0x561A60 / 0x5619D0 and the vector's _Destroy 0x561BD0 match; auxdata.h's find 0x561C40 and ~vector 0x561B80 are
 **	inlined in ours. After the slots: the adjustor thunks 0x561D60 (-4) / 0x561D70 (-0x38) of the deleting
-**	destructor 0x5609E0, the STL locale ids 0x561CB0 / 0x561D00 and the PermStringInitClass static's initialiser
+**	destructor 0x5609E0, the STL locale ids 0x561CB0 / 0x561D00 and the PermStringInit static's initialiser
 **	0x561D80 / atexit 0x561DB0 (0xBE5B64).
 **
 **	Forms the client needs: 0x560BC0 passes IsGoodBuff through a local (the client stores it and reloads it as the

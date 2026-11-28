@@ -11,7 +11,7 @@ AuxDataPacketClass::AuxDataPacketClass(int game_id, const void *data, int size) 
 	Channel = Unknown_14(GameID, -1);
 }
 
-AuxDataPacketClass::AuxDataPacketClass(RawPacketClass *raw)
+AuxDataPacketClass::AuxDataPacketClass(PacketClass *raw)
 {
 	raw->Get(&GameID, sizeof(GameID));
 	raw->Get(&Size, sizeof(Size));
@@ -26,9 +26,9 @@ AuxDataPacketClass::~AuxDataPacketClass()
 	}
 }
 
-RawPacketClass *AuxDataPacketClass::Build()
+PacketClass *AuxDataPacketClass::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(Get_Type(), Get_Data_Size());
+	PacketClass *raw = new PacketClass(Get_Type(), Get_Data_Size());
 	raw->Add(&GameID, sizeof(GameID));
 	raw->Add(&Size, sizeof(Size));
 	raw->Add(Data, Size);
@@ -51,7 +51,7 @@ AuxDataPlayerVarPacketClass::AuxDataPlayerVarPacketClass(int game_id, const void
 {
 }
 
-AuxDataPlayerVarPacketClass::AuxDataPlayerVarPacketClass(RawPacketClass *raw) : AuxDataPacketClass(raw)
+AuxDataPlayerVarPacketClass::AuxDataPlayerVarPacketClass(PacketClass *raw) : AuxDataPacketClass(raw)
 {
 }
 
@@ -65,7 +65,7 @@ AuxDataPlayerVarPacketClass::AuxDataPlayerVarPacketClass(RawPacketClass *raw) : 
 **	  and Process_Packet, cpacket.cpp's). Get_Channel, Get_Type and Get_Name are inline (emitted
 **	  before each class's scalar deleting destructor, where the vtable is first used).
 **	* Build takes its opcode from Get_Type. The constructor from fields sets Channel through
-**	  PacketClass::Unknown_14(GameID, -1); the one from the message leaves it unset.
+**	  UnknownPacketBaseClass::Unknown_14(GameID, -1); the one from the message leaves it unset.
 **	* Print is not byte-exact: the client loads Size before the first dword of Data; Get_Name in a local
 **	  puts its call first as the client's (attempts.py show 0x8770A0).
 */

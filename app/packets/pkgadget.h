@@ -18,13 +18,13 @@
 #include "pk.h"
 
 // opcode 103 (0x0067, ?): vtable 0xB0A65C, constructor 0x887A20, 0x18 bytes
-class GadgetPacketClass : public PacketClass  // NAME 3: the client's Print text 'Gadget Control'
+class GadgetPacketClass : public UnknownPacketBaseClass  // NAME 3: the client's Print text 'Gadget Control'
 {
 public:
 	GadgetPacketClass(int function, char *name);	// 0x887900 (Name not copied, not owned)
-	GadgetPacketClass(RawPacketClass *raw);	// 0x887A20
+	GadgetPacketClass(PacketClass *raw);	// 0x887A20
 	virtual ~GadgetPacketClass();	// +0x00 0x8879F0 / 0x887AF0
-	virtual RawPacketClass *Build();	// +0x04 0x887B30
+	virtual PacketClass *Build();	// +0x04 0x887B30
 	virtual bool Process_Packet(void *client);	// +0x08 0x739180 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x887C10
 	virtual int Print(char *buffer, int len);	// +0x10 0x887C30
@@ -44,8 +44,8 @@ class Packet_0068Class : public GadgetPacketClass  // NAME 1: neutral (D10): opc
 {
 public:
 	Packet_0068Class(int unknown18, int function, char *name);	// 0x887CC0
-	Packet_0068Class(RawPacketClass *raw);	// 0x887DB0
-	virtual RawPacketClass *Build();	// +0x04 0x887EC0
+	Packet_0068Class(PacketClass *raw);	// 0x887DB0
+	virtual PacketClass *Build();	// +0x04 0x887EC0
 	virtual bool Process_Packet(void *client);	// +0x08 0x868640 (clientstub.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x887EA0
 	virtual int Get_Type() { return(104); }	// +0x28 0x887D40  // NAME 2: as GadgetPacketClass's

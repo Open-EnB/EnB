@@ -8,7 +8,7 @@
 #include "ui_chat_panel_base.h"
 
 class GadgetSlider;
-class TextGadgetClass;
+class UnknownTextGadgetClass;
 class TextEditorGadget;
 class ViewUnknown34Class;
 
@@ -42,7 +42,7 @@ public:
 	LineDisplayClientClass *Get_Client() { return(Client); }	// (inline: the pages' FAIL_IFs '!Get_Client()', 0x5D6550 / 0x5D7420, as CharacterInfoInterface's)  // NAME 3: the FAIL_IFs'
 
 	GadgetSlider *Slider;								// +0xA0 (the details' slider, id 7)  // NAME 2: what it is
-	TextGadgetClass *SubjectEditor;						// +0xA4 'Entry_Field00' (id 8, 'SUBJECT_EDIT_hsi02a')  // NAME 3: the FAIL_IF '!SubjectEditor'
+	UnknownTextGadgetClass *SubjectEditor;						// +0xA4 'Entry_Field00' (id 8, 'SUBJECT_EDIT_hsi02a')  // NAME 3: the FAIL_IF '!SubjectEditor'
 	TextEditorGadget *DetailsEditor;				// +0xA8 'message' (id 6, the tooltip 'DETAILS')  // NAME 2: its tooltip
 	RefCountPtr<ViewUnknown34Class> Confirm;			// +0xAC (the dialog Show_Dialog opens)  // NAME 3: the FAIL_IF '!Confirm'
 	int Pending;										// +0xB0 (what Closed becomes when the cancel dialog says yes)  // NAME 2: what it holds

@@ -1368,7 +1368,7 @@ void StarmapPIPClass::Unknown_7C2D30()
 **	that 0x7C0AF0 and the destructor expand; 0x7C0D70 has the loop written out (that form is the exact one there).
 **	+0x84 is a Vector2: as two ints the constructor's 'or ecx,-1' moved one store earlier.
 **
-**	The object starts at 0x7BF820: permstr.h's PermStringInitClass static (0xBE87BC), then the four colours of
+**	The object starts at 0x7BF820: permstr.h's PermStringInit static (0xBE87BC), then the four colours of
 **	0x7C1C50's coordinates (0x7BF870-0x7BF900, in their definition order). 0x7C1C50 calls 0x7C1200 inline and keeps
 **	the tail after the fallback only in the if (show) {} else {} form.
 **

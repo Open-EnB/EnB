@@ -7,13 +7,13 @@ ServerStopPacketClass::ServerStopPacketClass()
 {
 }
 
-ServerStopPacketClass::ServerStopPacketClass(RawPacketClass *)
+ServerStopPacketClass::ServerStopPacketClass(PacketClass *)
 {
 }
 
-RawPacketClass *ServerStopPacketClass::Build()
+PacketClass *ServerStopPacketClass::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(61, Get_Data_Size());
+	PacketClass *raw = new PacketClass(61, Get_Data_Size());
 	return(raw);
 }
 

@@ -21,7 +21,7 @@ public:
 
 static PermStringEntryClass **s_Table;		// 0xBE3B30 (the asserts' name)
 static int s_Size;							// 0xBE3B34 the first prime from 1500 (1511)  // NAME 2: after the asserts' s_Table
-static int s_Count;							// 0xBE3B38 the PermStringInitClass objects alive  // NAME 2: after the asserts' s_Table
+static int s_Count;							// 0xBE3B38 the PermStringInit objects alive  // NAME 2: after the asserts' s_Table
 
 static bool Is_Prime(int number)  // NAME 2: describes what it does
 {
@@ -57,7 +57,7 @@ static bool Is_Prime(int number)  // NAME 2: describes what it does
 
 
 
-PermStringInitClass::PermStringInitClass()
+PermStringInit::PermStringInit()
 {
 	if (s_Count++ == 0) {
 		G_ASSERT(s_Table == 0);
@@ -79,7 +79,7 @@ PermStringInitClass::PermStringInitClass()
 	}
 }
 
-PermStringInitClass::~PermStringInitClass()
+PermStringInit::~PermStringInit()
 {
 	if (--s_Count == 0) {
 		G_ASSERT(s_Table != 0);
@@ -219,19 +219,19 @@ PermStringEntryClass::~PermStringEntryClass()
 	String = 0;
 }
 
-// no file-scope PermStringInitClass of its own: the client's object has one CRT entry (0x4ADC50,
+// no file-scope PermStringInit of its own: the client's object has one CRT entry (0x4ADC50,
 // the header's); 0x4AE3B0 (0xBE3B40) is policy.obj's header initialiser, past the int3 padding
 
 /*
 **	Reconstruction notes
 **
 **	client.exe 0x4ADC50-0x4AE371: PermString's table (Jenkins' one-at-a-time hash without the
-**	final mix, chained slots). Rebuilt: PermStringInitClass's constructor 0x4AE1E0 (asserts on the
+**	final mix, chained slots). Rebuilt: PermStringInit's constructor 0x4AE1E0 (asserts on the
 **	client's lines 63 and 76; the prime search is an inlined helper, Is_Prime here) and destructor
 **	0x4AE2D0 (line 85), Find 0x4ADE20 (line 128; the entry's constructor, line 213, inlined),
 **	Print_Statistics 0x4ADFF0, operator+= 0x4AE070, PermStringEntryClass's constructor 0x4AE140 and
 **	destructor 0x4AE1B0. The header's initialiser is this object's first (0x4ADC50, with both
-**	PermStringInitClass functions inlined, and its atexit 0x4ADD40).
+**	PermStringInit functions inlined, and its atexit 0x4ADD40).
 **	0x4ADBB0 (the part of a name after its first dot, as a PermString) lies between name.cpp's last
 **	function and 0x4ADC50: probably name.cpp's, not rebuilt yet.
 */

@@ -8,7 +8,7 @@
 **	the client's options SpaceClientOptionsClass (soptions.h, vtable 0xB0323C) at +0x1150. The layout is the
 **	constructor's, the destructor's and Init's (docs/kernel-map-step9.md 2.2, D90 9d); the members'
 **	classes are named after the file of their constructor where it is known (D24), declared as far as
-**	sclient.cpp uses them. cpacket.cpp's handlers are the packets' Process_Packet(SpaceClientClass *) (PacketClass
+**	sclient.cpp uses them. cpacket.cpp's handlers are the packets' Process_Packet(SpaceClientClass *) (UnknownPacketBaseClass
 **	slot +0x08), called by Process_Packets.
 */
 
@@ -89,7 +89,7 @@ class CameraManagerClass;		// NAME 3: class-from-file (D24) for camera_manager.c
 class ChatPanelInterface;			// NAME 5: the client's RTTI (the receiver in MemberCallback<OptionFontInterface, ChatPanelInterface, ...> 0xB7D308 and MemberCallback<ChatWindowInterface, ChatPanelInterface, ...> 0xB7D408); ui_chat_panel.cpp's (constructor 0x561DD0, 0x268 bytes)
 class GroupInterface;			// NAME 3: class-from-file (D24) for ui_group.cpp (the main view's +0x1D8; cpacket.cpp: CLIENT_CHAT_EVENT 165)
 class LineDisplayInterface;		// NAME 3: class-from-file (D24) for ui_line_display.cpp (constructor 0x5A5410, 0x100 bytes)
-class PDAInterfaceClass;		// NAME 3: class-from-file (D24) for pdaint.cpp (constructor 0x693140, 0xC0 bytes)
+class PDAInterface;		// NAME 3: class-from-file (D24) for pdaint.cpp (constructor 0x693140, 0xC0 bytes)
 class BridgeInterface;			// NAME 5: the client's RTTI (bridge_int.h; constructor 0x53B040, 0xC4 bytes)
 class UIHotKeysClass;			// NAME 3: class-from-file (D24) for ui_hot_keys.cpp (constructor 0x59C6F0, 0x84 bytes)
 class SpaceTalkTreeInterface;		// NAME 3: class-from-file (D24) for ui_talkt_space.cpp (constructor 0x64F310, 0x184 bytes)
@@ -353,10 +353,10 @@ public:
 };
 
 #ifndef PDAINT_H	// pdaint.cpp's PDA (SpaceClientClass +0x1284; Init news it, 0xC0 bytes), as far as SpaceClientClass and the main view's 0x512A00 use it (pdaint.h's class where it comes first)
-class PDAInterfaceClass : public InterfaceClass
+class PDAInterface : public InterfaceClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
-	PDAInterfaceClass(SpaceClientClass *client);					// 0x693140
+	PDAInterface(SpaceClientClass *client);					// 0x693140
 	void Unknown_695F40();								// 0x695F40 (SpaceClientClass 0x742530, ui_chat_panel.cpp, on every change of view)
 	void Unknown_695FE0(bool on);						// 0x695FE0 (the starbase view's 0x69CDE0 passes true)  // NAME 1 [on]: neutral
 	bool Unknown_695780(int index);						// 0x695780 (ui_ptrade.cpp's slot +0x58 passes false: the trade window's +0xDC)  // NAME 1 [index]: neutral (pdaint.h)
@@ -1019,7 +1019,7 @@ public:
 	int Unknown1278;									// +0x1278
 	RefCountPtr<ChatPanelInterface> ChatPanel;			// +0x127C Init (the reference count at +0x3C)  // NAME 3: its file's
 	LineDisplayInterface *LineDisplay;					// +0x1280 Init  // NAME 3: its file's
-	PDAInterfaceClass *PDAInterface;					// +0x1284 Init  // NAME 3: its file's
+	PDAInterface *PDAWindow;					// +0x1284 Init  // NAME 2: what it is (the class took the name PDAInterface: thunk order)
 	int Unknown1288;									// +0x1288
 	BridgeInterface *Bridge;							// +0x128C Init  // NAME 1: what it is
 	UIHotKeysClass *HotKeys;							// +0x1290 Init  // NAME 3: its file's

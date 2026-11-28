@@ -17,7 +17,7 @@ GlobalAvatarListPacketClass::GlobalAvatarListPacketClass(LoginCharacterClass *ch
 	}
 }
 
-GlobalAvatarListPacketClass::GlobalAvatarListPacketClass(RawPacketClass *raw)
+GlobalAvatarListPacketClass::GlobalAvatarListPacketClass(PacketClass *raw)
 {
 	Characters = new LoginCharacterClass[5];
 	Avatars = new AvatarDescriptionClass[5];
@@ -40,9 +40,9 @@ GlobalAvatarListPacketClass::~GlobalAvatarListPacketClass()
 	delete [] Avatars;
 }
 
-RawPacketClass *GlobalAvatarListPacketClass::Build()
+PacketClass *GlobalAvatarListPacketClass::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(112, Get_Data_Size());
+	PacketClass *raw = new PacketClass(112, Get_Data_Size());
 	for (int i = 0; i < 5; i++) {
 		raw->Add(Characters[i]);
 		raw->Add(Avatars[i]);

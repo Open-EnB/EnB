@@ -117,7 +117,7 @@ ShardInterface::ShardInterface(UIViewClass *view, LayerClass *layer) :
 		Unknown64.Unknown_6870E0(Arrows[i], i + 13, View, 1, 1);
 		sub->Release_Ref();
 	}
-	NameGadget = new TextGadgetClass(this, 0x14, "Name_fe02a", model, Unknown_B08C9C | Unknown_B08CAC, 0);
+	NameGadget = new UnknownTextGadgetClass(this, 0x14, "Name_fe02a", model, Unknown_B08C9C | Unknown_B08CAC, 0);
 	NameGadget->Set_Text(Unknown_B8909C, 0);
 	NameGadget->Unknown_28(layer);
 	Unknown64.Unknown_6870E0(NameGadget, 15, View, 1, 1);

@@ -2601,7 +2601,7 @@
  },
  {
   "address": "0x5953D0",
-  "symbol": "??1PacketClass@@UAE@XZ",
+  "symbol": "??1UnknownPacketBaseClass@@UAE@XZ",
   "evidence": "PlayerObjectRelationshipPacket::PlayerObjectRelationshipPacket 0x873AE0 (also 0x873C30, 0x873F70, 0x874BE0, 0x8754D0, 0x8755C0, 0x8756B0, 0x876400, 0x876610, 0x8767B0, 0x876D30, 0x876E90, 0x8770E0, 0x877230, 0x878390, 0x87E560, 0x87E870, 0x877470, 0x8786E0, 0x878B10, 0x878F60, 0x8790B0, 0x879280, 0x879620, 0x879730, 0x879850, 0x87A250, 0x87A560, 0x8A4820, 0x87F320, 0x87F510, 0x8703D0, 0x870650, 0x8709E0, 0x870C50, 0x87FA70, 0x876B30, 0x85C5F0, 0x85C800, 0x86F0F0, 0x86F3C0, 0x880030, 0x880340, 0x881300, 0x881410, 0x8816D0, 0x8817C0, 0x881930, 0x881A30, 0x881C60, 0x881D60, 0x881FC0, 0x8820D0, 0x882350, 0x882450, 0x8AE8B0, 0x886580, 0x886710, 0x886890, 0x886C70, 0x886D40, 0x886F60, 0x887030, 0x887370, 0x887A20, 0x887DB0, 0x870E90, 0x870FD0, 0x871220, 0x871350, 0x85DAA0, 0x85DB90, 0x85DE30, 0x85DFB0, 0x85E1D0, 0x85E2D0, 0x85E640, 0x85E750, 0x85EA90, 0x85ECB0, 0x85EFC0, 0x85F8F0, 0x85FBB0, 0x860030, 0x8602C0, 0x860500, 0x8607E0, 0x860AA0, 0x860F80, 0x861260, 0x8614A0, 0x861F80, 0x862070, 0x862350, 0x862440, 0x862700, 0x8629A0, 0x862D90, 0x863050, 0x863400, 0x8634D0, 0x864090, 0x864380, 0x864820, 0x864A10, 0x864C90, 0x865470, 0x865630, 0x8658D0, 0x865B50, 0x865D60, 0x866050, 0x8662B0, 0x867520, 0x8675E0, 0x867650, 0x8678D0, 0x8714F0, 0x8716D0, 0x86F630, 0x86F870, 0x871A30, 0x871C10, 0x86FD00, 0x86FF40, 0x887F20, 0x888020, 0x8882C0, 0x8883C0, 0x888780, 0x888890, 0x88EC70, 0x88EE20, 0x8917D0, 0x891A20, 0x88F0E0, 0x88F280, 0x88F520, 0x88F6C0, 0x88FA00, 0x88FC30, 0x88FE40, 0x8903A0, 0x890540, 0x8907F0, 0x890A00, 0x890D00, 0x890F30, 0x891270, 0x8914A0, 0x891E90, 0x892670, 0x892180, 0x892C00, 0x892E10, 0x893110, 0x893320, 0x893620, 0x893710, 0x893970, 0x893A70, 0x893CD0, 0x893E80, 0x88BED0, 0x88C130, 0x88C2D0, 0x88C540, 0x88C6E0, 0x88CB70, 0x88CEB0, 0x88D2B0, 0x88D630, 0x88D8C0, 0x88DE10, 0x88DD00, 0x88E580, 0x894AA0, 0x871FE0, 0x872200, 0x872450, 0x8725F0, 0x872870, 0x872A80, 0x873260, 0x8734E0, 0x8A1A60, 0x8A1D70, 0x8A2050, 0x8A2330, 0x894D50, 0x895070, 0x8955C0, 0x895820, 0x895CA0, 0x895F80, 0x8962F0, 0x8968D0, 0x8969C0, 0x896D10, 0x896F60, 0x89A740, 0x89A850, 0x89A940, 0x89ABE0, 0x89ADF0, 0x873830, 0x8978D0, 0x89B3C0, 0x89B620, 0x89B860, 0x89BAA0, 0x89BD00, 0x89BF70, 0x89C1C0, 0x89C3E0, 0x8974C0, 0x897590, 0x897650, 0x89D3F0, 0x89D760, 0x89D8A0, 0x89DD90, 0x89DEB0, 0x89E200, 0x89E310, 0x89E6A0, 0x89C6C0, 0x89C900, 0x89CBB0, 0x89CE70, 0x89D110, 0x8805C0, 0x8807B0, 0x880EE0, 0x89E8C0, 0x89E9F0, 0x89EC40, 0x89ED50, 0x89EFC0, 0x87EA60, 0x87EB30, 0x87ECB0, 0x87EF50, 0x87F020, 0x89F290, 0x89F510, 0x89F740, 0x89F860, 0x8832D0, 0x8834D0, 0x8844D0, 0x884720, 0x884790, 0x884D20, 0x884F50, 0x884FC0, 0x8854E0, 0x8856E0, 0x885750, 0x885E30, 0x89FB50, 0x89FD80, 0x8A01D0, 0x8A0380, 0x8A0710, 0x8A0820, 0x8A09E0, 0x8A0AE0, 0x8A0F20, 0x8A1090, 0x878030, 0x8A1780, 0x8A7F40, 0x8A81B0, 0x8A8420, 0x8AADE0, 0x8AB060, 0x8A28C0, 0x8943C0, 0x894550, 0x8946B0, 0x8A5C10, 0x8A61E0, 0x87FD80, 0x8A42F0, 0x8A4580, 0x8A4A70, 0x8A4CF0, 0x8A25B0, 0x8A4F20, 0x8A5050, 0x8A5320, 0x8A57A0, 0x8A5870, 0x8A36B0, 0x8A3A40, 0x8A3D60, 0x8A4020, 0x8A2DF0, 0x8A3090, 0x8A3370, 0x8A66A0, 0x8A68B0, 0x8A6A80, 0x8A6CA0, 0x8A7040, 0x8A7430, 0x8A7670, 0x8A8B20, 0x8A8E30, 0x8A90D0, 0x8A9360, 0x8A95F0, 0x8A9710, 0x8A9800, 0x8A9A80, 0x8A9BB0, 0x8A9CF0, 0x8A9E80, 0x8A9F90, 0x8AA280, 0x8AA3F0, 0x8AA490, 0x8AAB50, 0x8AB370, 0x8860A0, 0x886270, 0x886380, 0x8AB600, 0x8AB880, 0x85D270, 0x85D570, 0x85D850, 0x85F2C0, 0x85F660, 0x861830, 0x861BC0, 0x863720, 0x863940, 0x8638B0, 0x863BE0, 0x863DC0, 0x865150, 0x866870, 0x866AC0, 0x866C20, 0x866DF0, 0x877640, 0x877A60, 0x877C80, 0x877D70, 0x87A9E0, 0x87ACD0, 0x87AE80, 0x87B280, 0x87B670, 0x87B7C0, 0x87BB60, 0x87C230, 0x87C3F0, 0x87C580, 0x87C6C0, 0x87D180, 0x87D2E0, 0x87D690, 0x87DEC0, 0x87E010, 0x889940, 0x889BE0, 0x8A55A0, 0x8ABBF0, 0x8ABF40, 0x8AC1B0, 0x8ADDF0, 0x8AE4B0, 0x8AE5C0, 0x8AEB60, 0x8AED60, 0x8AEFE0, 0x8AF150, 0x8AFD10, 0x8AFBB0, 0x8B1670, 0x8B18D0, 0x8B1AA0, 0x8B1BA0, 0x8B1C70, 0x8B1EB0) (pk_player_object_relationship.cpp): unwind funclet 0xADADE0 'mov ecx, dword ptr [ebp - 0x10]; jmp' reaches it, the same state's funclet in the object jumps to this symbol, and its body matches at 0x5953D0 (funclet-only callers, objmatch's tie-break never proposes it; short: no pair until D188 takes funclet evidence); FD 2026-11-15"
  },
  {
@@ -2758,7 +2758,7 @@
  },
  {
   "address": "0x653BC0",
-  "symbol": "??1?$RefCountPtr@VPDAInterfaceClass@@@@QAE@XZ",
+  "symbol": "??1?$RefCountPtr@VPDAInterface@@@@QAE@XZ",
   "evidence": "UITradeClass::UITradeClass 0x650560 (also 0x650560, 0x6507C0) (ui_trade.cpp; not exact: paired by its whole unwind map, 9 states, found at no other client function): unwind funclet 0xABC492 'mov ecx, dword ptr [ebp - 0x10]; add ecx, 0x164; jmp' reaches it, the same state's funclet in the object jumps to this symbol, and its body matches at 0x653BC0; FD2 2026-11-15 (C37)"
  },
  {
@@ -3075,13 +3075,13 @@
   "address": "0x89CB40",
   "symbol": "?Get_Priority@ModeChangePacketClass@@UAEHXZ",
   "evidence": "ModeChangePacketClass's vtable 0xB0B2E4 slot +0x1C is the thunk 0x401AEB to it (returns 0x7F; pkmodechange.h's override, QD); PacketClass::Get_Priority is 0x52B2F0 (returns 0) (QE, 2026-11-16)",
-  "replaces": "?Get_Priority@PacketClass@@UAEHXZ"
+  "replaces": "?Get_Priority@UnknownPacketBaseClass@@UAEHXZ"
  },
  {
   "address": "0x89CE00",
   "symbol": "?Get_Priority@ModeRequestPacketClass@@UAEHXZ",
   "evidence": "Packet_004BClass's vtable 0xB0B314 slot +0x1C is the thunk 0x40B988 to it (returns 0x7F; pkmoderequest.h's override); PacketClass::Get_Priority is 0x52B2F0 (returns 0) (QE, 2026-11-16)",
-  "replaces": "?Get_Priority@PacketClass@@UAEHXZ"
+  "replaces": "?Get_Priority@UnknownPacketBaseClass@@UAEHXZ"
  },
  {
   "address": "0x5989A0",
@@ -3594,13 +3594,13 @@
  },
  {
   "address": "0x45D9E0",
-  "symbol": "??0Unknown45D9E0Class@@QAE@PAVRsTrackClass@@PAVProjectionDefClass@@PAVProjectorManagerClass@@@Z",
+  "symbol": "??0Unknown45D9E0Class@@QAE@PAVRsTrackClass@@PAVProjectionDefClass@@PAVProjectionManagerClass@@@Z",
   "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's retype (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
   "replaces": "??0Unknown45D9E0Class@@QAE@PAVRsTrackClass@@HH@Z"
  },
  {
   "address": "0x462470",
-  "symbol": "?Unknown_462470@RsTrackClass@@QAEXPAVProjectionDefClass@@PAVProjectorManagerClass@@@Z",
+  "symbol": "?Unknown_462470@RsTrackClass@@QAEXPAVProjectionDefClass@@PAVProjectionManagerClass@@@Z",
   "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's retype (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
   "replaces": "?Unknown_462470@RsTrackClass@@QAEXHH@Z"
  },
@@ -3786,15 +3786,15 @@
  },
  {
   "address": "0x695630",
-  "symbol": "?Unknown_695630@PDAInterfaceClass@@QAE?AV?$RefCountPtr@VUIInvClass@@@@XZ",
+  "symbol": "?Unknown_695630@PDAInterface@@QAE?AV?$RefCountPtr@VUIInvClass@@@@XZ",
   "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's retype (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
-  "replaces": "?Unknown_695630@PDAInterfaceClass@@QAE?AV?$RefCountPtr@VUnknown5CF9B0Class@@@@XZ"
+  "replaces": "?Unknown_695630@PDAInterface@@QAE?AV?$RefCountPtr@VUnknown5CF9B0Class@@@@XZ"
  },
  {
   "address": "0x695680",
-  "symbol": "?Unknown_695680@PDAInterfaceClass@@QAE?AV?$RefCountPtr@VUIInvClass@@@@XZ",
+  "symbol": "?Unknown_695680@PDAInterface@@QAE?AV?$RefCountPtr@VUIInvClass@@@@XZ",
   "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's retype (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
-  "replaces": "?Unknown_695680@PDAInterfaceClass@@QAE?AV?$RefCountPtr@VUnknown5CF9B0Class@@@@XZ"
+  "replaces": "?Unknown_695680@PDAInterface@@QAE?AV?$RefCountPtr@VUnknown5CF9B0Class@@@@XZ"
  },
  {
   "address": "0x696030",
@@ -3816,9 +3816,9 @@
  },
  {
   "address": "0x6AB190",
-  "symbol": "?Unknown_6AB190@TextGadgetClass@@SAPADPADMAAV?$RefCountPtr@VFont32Bit@@@@AAH@Z",
+  "symbol": "?Unknown_6AB190@UnknownTextGadgetClass@@SAPADPADMAAV?$RefCountPtr@VFont32Bit@@@@AAH@Z",
   "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's retype (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
-  "replaces": "?Unknown_6AB190@TextGadgetClass@@SAPADPADMAAPAVFont32Bit@@AAH@Z"
+  "replaces": "?Unknown_6AB190@UnknownTextGadgetClass@@SAPADPADMAAPAVFont32Bit@@AAH@Z"
  },
  {
   "address": "0x6CF520",

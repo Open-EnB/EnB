@@ -9,16 +9,16 @@ ServerReadyPacketClass::ServerReadyPacketClass(int sector, int ip, unsigned shor
 {
 }
 
-ServerReadyPacketClass::ServerReadyPacketClass(RawPacketClass *raw)
+ServerReadyPacketClass::ServerReadyPacketClass(PacketClass *raw)
 {
 	raw->Get(&Sector, sizeof(Sector));
 	raw->Get(&IP, sizeof(IP));
 	raw->Get(&Port, sizeof(Port));
 }
 
-RawPacketClass *ServerReadyPacketClass::Build()
+PacketClass *ServerReadyPacketClass::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(Get_Type(), Get_Data_Size());
+	PacketClass *raw = new PacketClass(Get_Type(), Get_Data_Size());
 	raw->Add(&Sector, sizeof(Sector));
 	raw->Add(&IP, sizeof(IP));
 	raw->Add(&Port, sizeof(Port));

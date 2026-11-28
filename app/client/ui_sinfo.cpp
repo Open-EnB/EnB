@@ -112,7 +112,7 @@ UISInfoCornerClass::~UISInfoCornerClass()
 /*
 ** Reconstruction notes (E&B, D23): the object 0x62B020-0x62B8CF, by its boundaries: the guarded atexit initialiser
 ** 0x62AFA0 ends the object before it; the guarded std::ctype<unsigned short>::id initialiser 0x62B8B0 (from <string>,
-** through fontmanager.h) ends this one; ui_skill_info.cpp's object opens with its PermStringInitClass static 0x62B8D0.
+** through fontmanager.h) ends this one; ui_skill_info.cpp's object opens with its PermStringInit static 0x62B8D0.
 ** In address order: UISInfoClass's constructor 0x62B020, destructor 0x62B0B0, Add_Corner 0x62B200, the corner's
 ** constructor 0x62B2E0 (its default case asserts 'false' on line 92 and falls into 'tl') and destructor 0x62B450,
 ** then the instances of DynamicVectorClass<UISInfoCornerClass *> and VectorClass<UISInfoCornerClass *> (tables

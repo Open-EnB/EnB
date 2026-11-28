@@ -12,7 +12,7 @@ CreatePacketClass::CreatePacketClass(int game_id, short base_asset, char type, f
 	}
 }
 
-CreatePacketClass::CreatePacketClass(RawPacketClass *raw)
+CreatePacketClass::CreatePacketClass(PacketClass *raw)
 {
 	raw->Get(&GameID, sizeof(GameID));
 	raw->Get(&Scale, sizeof(Scale));
@@ -21,9 +21,9 @@ CreatePacketClass::CreatePacketClass(RawPacketClass *raw)
 	raw->Get(&HSV, sizeof(HSV));
 }
 
-RawPacketClass *CreatePacketClass::Build()
+PacketClass *CreatePacketClass::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(4, Get_Data_Size());
+	PacketClass *raw = new PacketClass(4, Get_Data_Size());
 	raw->Add(&GameID, sizeof(GameID));
 	raw->Add(&Scale, sizeof(Scale));
 	raw->Add(&BaseAsset, sizeof(BaseAsset));

@@ -533,7 +533,7 @@ const char *Unknown_5C8710(int bits) {
 
 /*
 **	Notes.
-**	Object 0x5C7360-0x5C885F: opened by permstr.h's PermStringInit (0x5C7360, its atexit 0x5C7390), closed by the
+**	Object 0x5C7360-0x5C885F: opened by permstr.h's _PermStringInit (0x5C7360, its atexit 0x5C7390), closed by the
 **	adjustor thunks 0x5C8850 / 0x5C8860 of the second and third tables. 0x5C8780 and 0x5C87D0 are rtti.h's Cast for
 **	the Mounts and MountBoneNames arrays, out of line. 0x5C8710 has no caller (the table 0xB829E0, "00",
 **	"02" 0x20809, ...). The inline Is_Shown / Show / Hide are emitted with 0x58B680's file.

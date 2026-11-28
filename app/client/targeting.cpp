@@ -72,6 +72,6 @@ ClientObjectClass *TargetSelectClass::Select(ClientObjectClass *co)
 **	PLACEMENT: provisional (D137): revisit if the client's name turns up.
 **
 **	The object: it starts after target_reticle.cpp's <string> initialiser 0x7C60F0 (guard 0xC416FC) and ends with its own,
-**	0x7C6350. 0x7C6380 / 0x7C63B0 (the PermStringInitClass at 0xBE87E4 and its atexit) open the next object, ui_starmap.cpp:
+**	0x7C6350. 0x7C6380 / 0x7C63B0 (the PermStringInit at 0xBE87E4 and its atexit) open the next object, ui_starmap.cpp:
 **	an object's header statics come first, as in target_find.cpp (0x7C3EC0) and target_reticle.cpp (0x7C50B0).
 */

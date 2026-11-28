@@ -22,7 +22,7 @@
 #include <string>
 #include <vector>
 
-class RawPacketClass;
+class PacketClass;
 
 class ItemEffectParameterClass;
 
@@ -36,14 +36,14 @@ public:
 	void Clear_Effects();																				// 0x83DD40 (erases Effects)  // NAME 2: what it does
 	bool Has_Effects() const;																			// 0x83DE30 (no caller in the client)  // NAME 2: what it returns
 	int Get_Size();																						// 0x83DE70 (its bytes in a message)  // NAME 2: what it returns
-	void Write(RawPacketClass *raw);																	// 0x83DF10  // NAME 2: what it does
-	void Read(RawPacketClass *raw);																		// 0x83E040  // NAME 2: what it does
+	void Write(PacketClass *raw);																	// 0x83DF10  // NAME 2: what it does
+	void Read(PacketClass *raw);																		// 0x83E040  // NAME 2: what it does
 	std::string Get_Summary() const;																	// 0x83E3A0 (no caller in the client: each effect's summary and '#')  // NAME 2: the client's 'summary_strings'
 	void Set_Summary(const std::string &summary);														// 0x83E5F0 (an instance's Get_Instance_..._Effect_Info)  // NAME 2: the client's 'summary_strings'
 
 	std::vector<ItemEffectClass> Effects;																// +0x00  // NAME 2: the client's 'Effects.size()'
 	DurationClass Duration;																				// +0x10 (written as an int, 'Time > INT_MAX')  // NAME 2: its type
-	float Unknown18;																					// +0x18 (Write 0x83DF10 sends it with RawPacketClass::Add(const float &))  // NAME 1: neutral
+	float Unknown18;																					// +0x18 (Write 0x83DF10 sends it with PacketClass::Add(const float &))  // NAME 1: neutral
 	int Range;																							// +0x1C (0x83DB40: the parameters' "Range", rounded)  // NAME 2: the client's string
 	int Radius;																							// +0x20 (0x83DB40: the parameters' "Radius", rounded)  // NAME 2: the client's string
 };

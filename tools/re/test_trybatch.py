@@ -414,7 +414,7 @@ SRC_MARKED = ('// NOT EXACT: order-only (the shadowed vertex; attempts.csv 0x46C
               'void LandClass::Compute_Lighting(int a)\n{\n}\n'
               '// 0x570CD0  // NOT EXACT: the inlined 0x571A70\'s stores\n'
               'void ChatWindowInterface::Unknown_A4(void)\n{\n}\n'
-              '\tPacket_00B3Class(RawPacketClass *raw);\t// 0x867250\n')
+              '\tPacket_00B3Class(PacketClass *raw);\t// 0x867250\n')
 
 
 class Resolve(unittest.TestCase):

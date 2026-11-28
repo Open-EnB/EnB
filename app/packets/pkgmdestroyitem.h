@@ -18,13 +18,13 @@
 #include "pk.h"
 
 // opcode 236 (0x00EC, ?): vtable 0xB09994, constructor 0x8714F0, 0x24 bytes
-class GMDestroyItemRequestPacketClass : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
+class GMDestroyItemRequestPacketClass : public UnknownPacketBaseClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	GMDestroyItemRequestPacketClass(int unknown0c, const char *item_name, bool unknown20);	// 0x8716D0
-	GMDestroyItemRequestPacketClass(RawPacketClass *raw);	// 0x8714F0
+	GMDestroyItemRequestPacketClass(PacketClass *raw);	// 0x8714F0
 	virtual ~GMDestroyItemRequestPacketClass();	// +0x00 0x8716A0 / 0x871840
-	virtual RawPacketClass *Build();	// +0x04 0x8718B0
+	virtual PacketClass *Build();	// +0x04 0x8718B0
 	virtual bool Process_Packet(void *client);	// +0x08 0x869570 (clientstub.cpp l.443)
 	virtual int Get_Data_Size();	// +0x0C 0x8719A0
 	virtual int Print(char *buffer, int len);	// +0x10 0x8719C0

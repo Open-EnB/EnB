@@ -19,12 +19,12 @@
 #include "pk.h"
 
 // opcode 61 (0x003D, ?): vtable 0xB0BBD0, constructor 0x8A64C0, 0xC bytes
-class ServerStopPacketClass : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
+class ServerStopPacketClass : public UnknownPacketBaseClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	ServerStopPacketClass();	// 0x8A6430
-	ServerStopPacketClass(RawPacketClass *raw);	// 0x8A64C0
-	virtual RawPacketClass *Build();	// +0x04 0x8A6500
+	ServerStopPacketClass(PacketClass *raw);	// 0x8A64C0
+	virtual PacketClass *Build();	// +0x04 0x8A6500
 	virtual bool Process_Packet(void *client);	// +0x08 0x867E90 (clientstub.cpp l.77)
 	virtual int Get_Data_Size();	// +0x0C 0x8A6590
 	virtual int Print(char *buffer, int len);	// +0x10 0x8A65B0

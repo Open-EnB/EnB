@@ -18,12 +18,12 @@
 #include "pk.h"
 
 // opcode 20 (0x0014, MOVE): vtable 0xB0B344, constructor 0x89D110, 0x14 bytes
-class MovementPacketClass : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
+class MovementPacketClass : public UnknownPacketBaseClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	MovementPacketClass(int game_id, char move_type);	// 0x89D070
-	MovementPacketClass(RawPacketClass *raw);	// 0x89D110
-	virtual RawPacketClass *Build();	// +0x04 0x89D1B0
+	MovementPacketClass(PacketClass *raw);	// 0x89D110
+	virtual PacketClass *Build();	// +0x04 0x89D1B0
 	virtual bool Process_Packet(void *client);	// +0x08 0x867C20 (clientstub.cpp l.38)
 	virtual int Get_Data_Size();	// +0x0C 0x89D280
 	virtual int Print(char *buffer, int len);	// +0x10 0x89D2A0

@@ -13,7 +13,7 @@ class RenderObjClass;
 class ButtonGadgetClass;		// unknown_675120.h's buttons
 class UIComboBoxClass;			// ui_combobox.h's combo box (the filter)
 class GadgetInvSlider;		// gd_inv_slider.h's inventory slider
-class PDAInterfaceClass;		// pdaint.h's PDA
+class PDAInterface;		// pdaint.h's PDA
 
 // The cargo window (0x10C bytes, tables 0xAF4AD4 / 0xAF4AC8 / 0xAF4ABC; pdaint.cpp's set-up 0x693230 makes it: the key
 // 'Cargo', the PDA's window 0): the 'TSI04A' mesh, twelve slots 'TSI04A.C%02d', five buttons, the filter combo box and
@@ -22,7 +22,7 @@ class UIPdaCargoClass : public UIInvClass	// NAME 3: class-from-file (D24) for a
 {
 public:
 	enum { NUM_BUTTONS = 5 };							// NAME 1: the set-up's loop over 0xB83820 (gadgets 13..17)
-	UIPdaCargoClass(SpaceClientClass *client, PDAInterfaceClass *pda);	// 0x5CF9B0 (the kind 10; deleting 0x5CFCB0)  // NAME 1 [client, pda]: what the PDA passes
+	UIPdaCargoClass(SpaceClientClass *client, PDAInterface *pda);	// 0x5CF9B0 (the kind 10; deleting 0x5CFCB0)  // NAME 1 [client, pda]: what the PDA passes
 	virtual ~UIPdaCargoClass();							// 0x5CFCE0
 	virtual void Unknown_54();							// +0x54 0x5CFE40 (FAIL_IFs '!InterfaceMesh' l.118, '!first_bttn' l.129; G_ASSERT 'font' l.167)
 	virtual void Unknown_58();							// +0x58 0x5D03E0 (FAIL_IFs '!InterfaceMesh' l.184, '!Get_Client()' l.185, '!sc' l.187)
@@ -35,7 +35,7 @@ public:
 	LineDisplayClientClass *Get_Client() { return(Client); }	// (inline: the FAIL_IF '!Get_Client()')  // NAME 3: the FAIL_IF's
 	void Unknown_5D0D20(bool reverse);					// 0x5D0D20 (the next sort, or the order reversed: 'Inv_Sort%d_Name', the INVENTORY_SORT packet)  // NAME 2 [reverse]: what it toggles
 
-	PDAInterfaceClass *PDA;								// +0xD0 (the constructor's)  // NAME 2: what it is
+	PDAInterface *PDA;								// +0xD0 (the constructor's)  // NAME 2: what it is
 	RefCountPtr<RenderObjClass> InterfaceMesh;			// +0xD4 ('TSI04A'; FAIL_IF '!InterfaceMesh')  // NAME 3: the FAIL_IF's
 	ButtonGadgetClass *Buttons5[NUM_BUTTONS];			// +0xD8 ('BUTTON01' vault, 'BUTTON02' equipment, 'BUTTON03' sort / reverse, 'EXIT')  // NAME 1: neutral (the base has Buttons)
 	RefCountPtr<UIComboBoxClass> Filter;				// +0xEC ('filter', 'Combo01'; the items 0xB83834)  // NAME 2: its sub-object's name

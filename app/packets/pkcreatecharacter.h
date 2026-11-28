@@ -20,13 +20,13 @@
 #include "..\shared\shipcust_desc.h"
 
 // opcode 72 (0x0048, ?): vtable 0xB08D64, constructor 0x85C5F0, 0x2E0 bytes
-class CreateCharacterPacketClass : public PacketClass  // NAME 3: the client's Print text 'Create Character' (opcode 0x0048)
+class CreateCharacterPacketClass : public UnknownPacketBaseClass  // NAME 3: the client's Print text 'Create Character' (opcode 0x0048)
 {
 public:
-	CreateCharacterPacketClass(RawPacketClass *raw);	// 0x85C5F0
+	CreateCharacterPacketClass(PacketClass *raw);	// 0x85C5F0
 	virtual ~CreateCharacterPacketClass();	// +0x00 0x85C7D0 / 0x85CF80
 	CreateCharacterPacketClass(int unknown0C, int unknown10, const char *name, __int64 unknown60, const AvatarDescriptionClass *desc, const ShipCustDescClass &ship, bool unknown14);	// 0x85C800
-	virtual RawPacketClass *Build();	// +0x04 0x85D000
+	virtual PacketClass *Build();	// +0x04 0x85D000
 	virtual bool Process_Packet(void *client);	// +0x08 0x868040 (clientstub.cpp l.104)
 	virtual int Get_Data_Size();	// +0x0C 0x85D110
 	virtual int Print(char *buffer, int len);	// +0x10 0x85D140

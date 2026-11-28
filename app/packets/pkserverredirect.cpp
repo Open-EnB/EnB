@@ -8,7 +8,7 @@ ClientRedirectPacketClass::ClientRedirectPacketClass(int sector, int ip, unsigne
 {
 }
 
-ClientRedirectPacketClass::ClientRedirectPacketClass(RawPacketClass *raw) :
+ClientRedirectPacketClass::ClientRedirectPacketClass(PacketClass *raw) :
 	ServerReadyPacketClass(raw)
 {
 }

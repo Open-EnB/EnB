@@ -10,17 +10,17 @@ unsigned __int64 Unknown_8B4510(unsigned __int64 value);	// NAME 1 [Unknown_8B45
 unsigned __int64 Unknown_8B4560(unsigned __int64 value);	// NAME 1 [Unknown_8B4560]: wwonline's 64-bit ntohl
 
 
-PacketClass *Unknown_Create_Packet(void *buffer)
+UnknownPacketBaseClass *Unknown_Create_Packet(void *buffer)
 {
-	RawPacketClass raw(buffer);
+	PacketClass raw(buffer);
 	return(Unknown_869790(&raw));
 }
 
 // BEGIN pkclasses.py (generated: the switch 0x869790; do not edit by hand)
 
-PacketClass *Unknown_869790(RawPacketClass *raw)
+UnknownPacketBaseClass *Unknown_869790(PacketClass *raw)
 {
-	PacketClass *packet;
+	UnknownPacketBaseClass *packet;
 	switch (raw->Header.Opcode) {
 		case 0:
 			packet = new VersionRequestPacketClass(raw);
@@ -1083,54 +1083,54 @@ PacketClass *Unknown_869790(RawPacketClass *raw)
 // END pkclasses.py
 
 
-int RawPacketClass::Add(const void *data, int len)
+int PacketClass::Add(const void *data, int len)
 {
 	return(Data.Write(data, len));
 }
 
-void RawPacketClass::Add(Unknown_PacketDataClass &object)
+void PacketClass::Add(Unknown_PacketDataClass &object)
 {
 	object.Write(&Data);
 }
 
-void RawPacketClass::Add(const __int64 &value)
+void PacketClass::Add(const __int64 &value)
 {
 	__int64 net = Unknown_8B4510(value);
 	Data.Write(&net, 8);
 }
 
-void RawPacketClass::Add(const int &value)
+void PacketClass::Add(const int &value)
 {
 	int net = htonl(value);
 	Data.Write(&net, 4);
 }
 
-void RawPacketClass::Add(const short &value)
+void PacketClass::Add(const short &value)
 {
 	short net = htons(value);
 	Data.Write(&net, 2);
 }
 
-void RawPacketClass::Add(const bool &value)
+void PacketClass::Add(const bool &value)
 {
 	bool net = htonl(value) != 0;
 	Data.Write(&net, 1);
 }
 
-void RawPacketClass::Add(const float &value)
+void PacketClass::Add(const float &value)
 {
 	unsigned long net = htonl(*(const unsigned long *)&value);
 	Data.Write(&net, 4);
 }
 
-void RawPacketClass::Add_String(const char *string)
+void PacketClass::Add_String(const char *string)
 {
 	Data.Write_String(string);
 }
 
 
 
-void RawPacketClass::Add(const char *str)
+void PacketClass::Add(const char *str)
 {
 	G_ASSERT(str);
 	int len = strlen(str) + 1;
@@ -1139,7 +1139,7 @@ void RawPacketClass::Add(const char *str)
 }
 
 
-void RawPacketClass::Add(const std::string &s)
+void PacketClass::Add(const std::string &s)
 {
 	unsigned int slen = s.length();
 	FAIL_IF(slen > 0xFFFF) slen = 0xFFFF;
@@ -1150,7 +1150,7 @@ void RawPacketClass::Add(const std::string &s)
 
 
 
-void RawPacketClass::Get(std::string *s)
+void PacketClass::Get(std::string *s)
 {
 	FAIL_IF(!s) return;
 	unsigned int len = 0;
@@ -1162,55 +1162,55 @@ void RawPacketClass::Get(std::string *s)
 	delete buffer;
 }
 
-int RawPacketClass::Get_Size(const std::string &s)
+int PacketClass::Get_Size(const std::string &s)
 {
 	unsigned int length = s.length();
 	FAIL_IF(length > 0xFFFF) length = 0xFFFF;
 	return(length + 2);
 }
 
-int RawPacketClass::Get(void *buffer, int len)
+int PacketClass::Get(void *buffer, int len)
 {
 	return(Data.Read(buffer, len));
 }
 
-void RawPacketClass::Get(Unknown_PacketDataClass *object)
+void PacketClass::Get(Unknown_PacketDataClass *object)
 {
 	if (object) {
 		object->Read(&Data);
 	}
 }
 
-void RawPacketClass::Get(Unknown_PacketDataClass &object)
+void PacketClass::Get(Unknown_PacketDataClass &object)
 {
 	object.Read(&Data);
 }
 
-void RawPacketClass::Get(__int64 &value)
+void PacketClass::Get(__int64 &value)
 {
 	Data.Read(&value, 8);
 	value = Unknown_8B4560(value);
 }
 
-void RawPacketClass::Get(int &value)
+void PacketClass::Get(int &value)
 {
 	Data.Read(&value, 4);
 	value = ntohl(value);
 }
 
-void RawPacketClass::Get(short &value)
+void PacketClass::Get(short &value)
 {
 	Data.Read(&value, 2);
 	value = ntohs(value);
 }
 
-void RawPacketClass::Get(bool &value)
+void PacketClass::Get(bool &value)
 {
 	Data.Read(&value, 1);
 	value = ntohl(value) != 0;
 }
 
-void RawPacketClass::Get(float &value)
+void PacketClass::Get(float &value)
 {
 	unsigned long net;
 	Data.Read(&net, 4);
@@ -1218,7 +1218,7 @@ void RawPacketClass::Get(float &value)
 	value = *(float *)&net;
 }
 
-char *RawPacketClass::Get_String()
+char *PacketClass::Get_String()
 {
 	return(Data.Read_String());
 }
@@ -1228,7 +1228,7 @@ char *RawPacketClass::Get_String()
 
 
 
-void RawPacketClass::Get(char **str)
+void PacketClass::Get(char **str)
 {
 	FAIL_IF(!str) return;
 	*str = 0;
@@ -1255,7 +1255,7 @@ void RawPacketClass::Get(char **str)
 }
 
 
-int RawPacketClass::Get_Size(const char *str)
+int PacketClass::Get_Size(const char *str)
 {
 	return(strlen(str) + 1);
 }
@@ -1339,7 +1339,7 @@ int RawPacketClass::Get_Size(const char *str)
 
 
 
-int PacketClass::Unknown_14(int a, int b)
+int UnknownPacketBaseClass::Unknown_14(int a, int b)
 {
 	G_ASSERT(0);
 	return(0);
@@ -1349,7 +1349,7 @@ int PacketClass::Unknown_14(int a, int b)
 /*
 **	Reconstruction notes (pk.cpp, PARTIAL)
 **
-**	* Rebuilt: the factory 0x8696C0 (the message wrapped in a RawPacketClass on its stack, the
+**	* Rebuilt: the factory 0x8696C0 (the message wrapped in a PacketClass on its stack, the
 **	  switch called), the raw message's field helpers 0x86E870-0x86EFE0 (all exact) and the base's slot
 **	  +0x14 default 0x86F010 (assert line 1344). The numbers go in network byte order (htonl / htons,
 **	  wwonline's 64-bit pair 0x8B4510 / 0x8B4560); a bool through htonl and back (`!= 0`), a float
@@ -1361,6 +1361,6 @@ int PacketClass::Unknown_14(int a, int b)
 **	  'PriorityMessage', 'QueueMessage', 'PushMessage'), and the static after 0x86F010.
 */
 
-// The packets' serial numbers (PacketClass's constructor, inline in every packet's): 0xBF4128,
+// The packets' serial numbers (UnknownPacketBaseClass's constructor, inline in every packet's): 0xBF4128,
 // here after the notes so no assert moves (D25).
-int PacketClass::Next_Serial;
+int UnknownPacketBaseClass::Next_Serial;

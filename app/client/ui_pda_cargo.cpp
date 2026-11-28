@@ -65,7 +65,7 @@ static const char *CargoFilterNames[] = {	// NAME 1: neutral (D10)
 
 // the dead FilterName.size() (D272, no bytes) sends FilterName("")'s _Eos out of line and inlines the Get_String assignment's, as the client (the vault's 0x656FF0)
 // 0x5CF9B0
-UIPdaCargoClass::UIPdaCargoClass(SpaceClientClass *client, PDAInterfaceClass *pda) :
+UIPdaCargoClass::UIPdaCargoClass(SpaceClientClass *client, PDAInterface *pda) :
 	UIInvClass(client, 10),
 	PDA(pda),
 	Slider(NULL),

@@ -28,13 +28,13 @@ struct FindMemberStruct  // NAME 1: neutral (D10): what it holds
 };
 
 // opcode 83 (0x0053, FIND_MEMBER): vtable 0xB0A58C, constructor 0x886710, 0x1C bytes
-class FindMemberPacketClass : public PacketClass  // NAME 3: the client's file pkfindmember.cpp and Net-7's opcode name FIND_MEMBER
+class FindMemberPacketClass : public UnknownPacketBaseClass  // NAME 3: the client's file pkfindmember.cpp and Net-7's opcode name FIND_MEMBER
 {
 public:
 	FindMemberPacketClass();	// 0x886580
-	FindMemberPacketClass(RawPacketClass *raw);	// 0x886710
+	FindMemberPacketClass(PacketClass *raw);	// 0x886710
 	virtual ~FindMemberPacketClass();	// +0x00 0x886890 / 0x886640
-	virtual RawPacketClass *Build();	// +0x04 0x8869F0
+	virtual PacketClass *Build();	// +0x04 0x8869F0
 	virtual bool Process_Packet(void *client);	// +0x08 0x739500 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x886B00
 	virtual int Print(char *buffer, int len);	// +0x10 0x886B30 ('%s {NumPlayers=%d}', the name not passed)

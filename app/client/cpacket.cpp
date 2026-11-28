@@ -1,7 +1,7 @@
 // Earth & Beyond client (reconstruction)
 /*
 **	Original location: e:\build\beta\G\app\client\cpacket.cpp (its asserts' __FILE__; client 0x7333B0-0x73F680)
-**	The packets' handlers on the client side: PacketClass slot +0x08, Process_Packet(SpaceClientClass *). Notes at the end.
+**	The packets' handlers on the client side: UnknownPacketBaseClass slot +0x08, Process_Packet(SpaceClientClass *). Notes at the end.
 */
 #include <windows.h>
 #include "eff_o.h"
@@ -3453,7 +3453,7 @@ bool RecustomizeAvatarUpdatePacketClass::Process_Packet(void *instance)
 /*
 **	Reconstruction notes
 **
-**	cpacket.cpp holds the client side of the packets: each class's PacketClass slot +0x08 override,
+**	cpacket.cpp holds the client side of the packets: each class's UnknownPacketBaseClass slot +0x08 override,
 **	Process_Packet(void *), which SpaceClientClass::Process_Packets 0x7427C0 calls with the SpaceClientClass (a true
 **	return deletes the packet). The client's handlers are 0x7333B0-0x73F680 (99 classes, 109
 **	functions with the helpers); the classes are declared in app\packets (their own headers or

@@ -31,7 +31,7 @@ class KernelClass;
 class HeightMapClass;
 class RenderObjClass;
 class SubPartsPacket;
-class PacketClass;
+class UnknownPacketBaseClass;
 class ConnectionClass;
 class SplineDatabaseClass;
 class ClientClass;
@@ -175,7 +175,7 @@ public:
 	void Open_Connection();								// 0x727E10: network.ini's SectorServer (no caller in the client)  // NAME 2: what it does
 	void Open_Connection(unsigned long ip, unsigned short port);	// 0x727F00: ClientTaskClass's redirect  // NAME 2: what it does
 	bool Get_Stats(float *a, float *b, float *c, float *d, float *e, float *f, int *g);	// 0x728100: the connection's  // NAME 2: what it does
-	bool Send_Packet(PacketClass *packet);				// 0x728150  // NAME 2: what it does
+	bool Send_Packet(UnknownPacketBaseClass *packet);				// 0x728150  // NAME 2: what it does
 	void Unknown_728180();								// 0x728180
 	void Debug_Dump_Texture_Data();						// 0x7281D0 (S: 'Debug_Dump_Texture_Data - not yet implemented')
 	bool Unknown_728300();								// 0x728300: Get_Ship()'s 0x6FFE90

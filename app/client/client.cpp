@@ -339,7 +339,7 @@ bool ClientClass::Get_Stats(float *a, float *b, float *c, float *d, float *e, fl
 }
 
 // 0x728150
-bool ClientClass::Send_Packet(PacketClass *packet)
+bool ClientClass::Send_Packet(UnknownPacketBaseClass *packet)
 {
 	return(Connection->Send_Packet(packet));
 }

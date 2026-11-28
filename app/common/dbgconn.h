@@ -47,11 +47,11 @@ class LogConnectionClass : public ForwardingConnectionClass	// NAME 2: what it d
 public:
 	LogConnectionClass(ConnectionClass *connection, const char *name);	// 0x823F70
 	virtual ~LogConnectionClass();									// +0x00 0x824180 / 0x8241B0
-	virtual bool Send_Message(RawPacketClass *packet);				// +0x04 0x824270
-	virtual bool Send_Packet(PacketClass *packet);					// +0x08 0x8242E0
-	virtual PacketClass *Receive();									// +0x0C 0x824350
-	virtual int Describe(PacketClass *packet, const char *label);	// +0x38 0x8243C0: the line into Buffer (overloads: slots in reverse order)  // NAME 2: what it does
-	virtual int Describe(RawPacketClass *packet, const char *label);	// +0x34 0x824410  // NAME 2: what it does
+	virtual bool Send_Message(PacketClass *packet);				// +0x04 0x824270
+	virtual bool Send_Packet(UnknownPacketBaseClass *packet);					// +0x08 0x8242E0
+	virtual UnknownPacketBaseClass *Receive();									// +0x0C 0x824350
+	virtual int Describe(UnknownPacketBaseClass *packet, const char *label);	// +0x38 0x8243C0: the line into Buffer (overloads: slots in reverse order)  // NAME 2: what it does
+	virtual int Describe(PacketClass *packet, const char *label);	// +0x34 0x824410  // NAME 2: what it does
 
 	FILE *File;		// +0x0C  // NAME 2: what it holds
 	char *Buffer;	// +0x10 0x800 bytes: the line  // NAME 2: what it holds
@@ -63,8 +63,8 @@ class TimedLogConnectionClass : public LogConnectionClass	// NAME 2: what it doe
 {
 public:
 	TimedLogConnectionClass(ConnectionClass *connection, const char *name);	// 0x824540
-	virtual int Describe(PacketClass *packet, const char *label);	// +0x38 0x824860
-	virtual int Describe(RawPacketClass *packet, const char *label);	// +0x34 0x824950
+	virtual int Describe(UnknownPacketBaseClass *packet, const char *label);	// +0x38 0x824860
+	virtual int Describe(PacketClass *packet, const char *label);	// +0x34 0x824950
 
 	int Format_Time(char *buffer, unsigned int ms);				// 0x824A20: mm:ss.mmm  // NAME 2: what it does
 
@@ -87,9 +87,9 @@ class RateConnectionClass : public ForwardingConnectionClass	// NAME 2: what it 
 public:
 	RateConnectionClass(ConnectionClass *connection);					// 0x824A90
 	// +0x00 0x824C00 / 0x824C50: the implicit destructor (no vtable store of its own)
-	virtual bool Send_Message(RawPacketClass *packet);					// +0x04 0x824CF0
-	virtual bool Send_Packet(PacketClass *packet);						// +0x08 0x824D90
-	virtual PacketClass *Receive();										// +0x0C 0x824E20
+	virtual bool Send_Message(PacketClass *packet);					// +0x04 0x824CF0
+	virtual bool Send_Packet(UnknownPacketBaseClass *packet);						// +0x08 0x824D90
+	virtual UnknownPacketBaseClass *Receive();										// +0x0C 0x824E20
 	virtual bool Get_Stats(float *out_rate, float *in_rate, float *c, float *d, float *e, float *f, int *g);	// +0x2C 0x824F50: the averages when the connection has none
 
 	void Count(int bytes, RateCounterStruct &counter);					// 0x824EC0 (inlined in the slots)  // NAME 2: what it does
@@ -104,9 +104,9 @@ class PacketStatsConnection : public ForwardingConnectionClass  // NAME 5: thunk
 public:
 	PacketStatsConnection(ConnectionClass *connection);					// 0x8250B0
 	virtual ~PacketStatsConnection();									// +0x00 0x825170 / 0x8251A0
-	virtual bool Send_Message(RawPacketClass *packet);					// +0x04 0x825220 (asserts: not counted)
-	virtual bool Send_Packet(PacketClass *packet);						// +0x08 0x825260
-	virtual PacketClass *Receive();										// +0x0C 0x825300
+	virtual bool Send_Message(PacketClass *packet);					// +0x04 0x825220 (asserts: not counted)
+	virtual bool Send_Packet(UnknownPacketBaseClass *packet);						// +0x08 0x825260
+	virtual UnknownPacketBaseClass *Receive();										// +0x0C 0x825300
 };
 
 #endif

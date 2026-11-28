@@ -19,20 +19,20 @@
 
 #include "pk.h"
 
-// the base of the flagged packets: vtable 0xB0A3D4 (PacketClass's slots, +0x28 pure; its scalar
+// the base of the flagged packets: vtable 0xB0A3D4 (UnknownPacketBaseClass's slots, +0x28 pure; its scalar
 // deleting destructor 0x882950 and destructor 0x882910 are emitted in the effects' object)
-class FlagPacketClass : public PacketClass  // NAME 3: after the client's file pkflag.cpp (D24)
+class FlagPacketClass : public UnknownPacketBaseClass  // NAME 3: after the client's file pkflag.cpp (D24)
 {
 public:
 	virtual int Get_Flag_Count() = 0;	// +0x28 (the number of flag bits)  // NAME 2: what pkflag.cpp's asserts call it (flag_max)
 
-	void Write_Flags(RawPacketClass *raw, unsigned int flags);	// 0x887680 (1, 2 or 4 bytes)  // NAME 2: what it does
-	void Read_Flags(RawPacketClass *raw, unsigned int *flags);	// 0x8877B0  // NAME 2: what it does
+	void Write_Flags(PacketClass *raw, unsigned int flags);	// 0x887680 (1, 2 or 4 bytes)  // NAME 2: what it does
+	void Read_Flags(PacketClass *raw, unsigned int *flags);	// 0x8877B0  // NAME 2: what it does
 	protected: int Get_Flag_Size();	// 0x887880 (the bytes Write_Flags writes)  // NAME 2: what it returns
 };
 
-void Add_Flagged(RawPacketClass *raw, unsigned int flags, int flag, const void *data, int len);	// 0x887570  // NAME 2: what it does
-void Get_Flagged(RawPacketClass *raw, unsigned int flags, int flag, void *data, int len);	// 0x8875B0  // NAME 2: what it does
+void Add_Flagged(PacketClass *raw, unsigned int flags, int flag, const void *data, int len);	// 0x887570  // NAME 2: what it does
+void Get_Flagged(PacketClass *raw, unsigned int flags, int flag, void *data, int len);	// 0x8875B0  // NAME 2: what it does
 int Flagged_Size(unsigned int flags, int flag, int len);	// 0x8875F0 (len when the bit is set, else 0)  // NAME 2: what it returns
 void Set_Flag(unsigned int *flags, int flag, bool set);	// 0x887620  // NAME 2: what it does
 bool Is_Flag_Set(unsigned int flags, int flag);	// 0x887650  // NAME 2: what it returns

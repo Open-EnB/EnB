@@ -4,6 +4,11 @@
     python tools/re/thunknames/classrename.py --write              ... and write it
     python tools/re/thunknames/classrename.py --only A,B --write   only these classes (our names)
     python tools/re/thunknames/classrename.py --collisions         also rows whose retail name is already an identifier
+    python tools/re/thunknames/classrename.py --only A --also-class X=UnknownXClass --also-ident m=n --write
+                                                                   A takes the name X: our class X moves to a
+                                                                   placeholder in the same pass (everywhere, the
+                                                                   symbol files too), a member or object named
+                                                                   like the retail class moves in the source only
     python tools/re/thunknames/classrename.py --selftest
 
 What it renames, as whole identifiers only:
@@ -273,6 +278,8 @@ def main():
     ap.add_argument('--write', action='store_true')
     ap.add_argument('--only', help='comma-separated class names (ours)')
     ap.add_argument('--collisions', action='store_true')
+    ap.add_argument('--also-class', default='', help='OLD=NEW[,OLD=NEW]: classes moved out of the way, everywhere')
+    ap.add_argument('--also-ident', default='', help='OLD=NEW[,OLD=NEW]: members / objects moved, source only')
     ap.add_argument('--selftest', action='store_true')
     a = ap.parse_args()
     if a.selftest:
@@ -320,6 +327,11 @@ def main():
         else:
             chosen.append(r)
     mapping = {r['ours']: r['retail'] for r in chosen}
+    also_class = dict(x.split('=') for x in a.also_class.split(',') if x)
+    also_ident = dict(x.split('=') for x in a.also_ident.split(',') if x)
+    clash = (set(also_class) | set(also_ident)) & set(mapping)
+    if clash:
+        sys.exit('--also names that are rows of their own: ' + ', '.join(sorted(clash)))
     if not mapping:
         sys.exit('nothing to rename (%d rows left out; see --only, --collisions)' % len(left))
     new_count = collections.Counter(mapping.values())
@@ -328,6 +340,8 @@ def main():
         sys.exit('chain or merge, rename these by hand: ' + ', '.join(sorted(set(bad))))
 
     macros = stringizing_macros()
+    sym_mapping = dict(mapping, **also_class)           # the symbol and tool files: classes only
+    src_mapping = dict(sym_mapping, **also_ident)       # one pass over the source: a swap is safe
     counts, tagged = collections.Counter(), collections.Counter()
     per_files = collections.defaultdict(set)
     macro_hits = collections.defaultdict(set)
@@ -336,7 +350,7 @@ def main():
     for p in files:
         t = texts[p]
         c = collections.Counter()
-        out = rename_text(t, mapping, c)
+        out = rename_text(t, src_mapping, c)
         if not c:
             continue
         rel = os.path.relpath(p, ROOT).replace('\\', '/')
@@ -352,12 +366,12 @@ def main():
             with io.open(p, 'w', encoding='latin-1', newline='') as f:
                 f.write(out)
 
-    sym = {s: rename_symbols(os.path.join(ROOT, s), mapping, a.write) for s in SYMBOL_FILES}
+    sym = {s: rename_symbols(os.path.join(ROOT, s), sym_mapping, a.write) for s in SYMBOL_FILES}
     tool = {}
     for s in TOOL_FILES:
         p = os.path.join(ROOT, s)
         if os.path.exists(p):
-            k = rename_tool_file(p, mapping, a.write)
+            k = rename_tool_file(p, sym_mapping, a.write)
             if k:
                 tool[s] = k
 
@@ -378,6 +392,8 @@ def main():
                         sum(tagged.values()), len(untagged), len(multi)))
     print('symbol files: ' + ', '.join('%s %d' % kv for kv in sym.items()))
     print('tool files: ' + (', '.join('%s %d' % kv for kv in sorted(tool.items())) or 'none'))
+    for o, n in sorted(dict(also_class, **also_ident).items()):
+        print('also: %s -> %s, %d occurrences in %d files (tag its declaration by hand)' % (o, n, counts[o], len(per_files[o])))
     print('left out: %d (%s)' % (len(left), dict(collections.Counter(w.split(' (')[0] for _, _, w in left))))
     print('classes used in a stringizing / pasting macro: %d' % sum(1 for v in macro_hits.values() if v))
     print('report: ' + os.path.relpath(rep, ROOT))

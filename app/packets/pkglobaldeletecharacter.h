@@ -18,12 +18,12 @@
 #include "pk.h"
 
 // opcode 113 (0x0071, GLOBAL_DELETE_CHARACTER): vtable 0xB09460, constructor 0x864820, 0x14 bytes
-class GlobalDeleteCharacterPacketClass : public PacketClass  // NAME 2: Net-7's opcode name GLOBAL_DELETE_CHARACTER (the Net-7 opcode table; no structure check)
+class GlobalDeleteCharacterPacketClass : public UnknownPacketBaseClass  // NAME 2: Net-7's opcode name GLOBAL_DELETE_CHARACTER (the Net-7 opcode table; no structure check)
 {
 public:
 	GlobalDeleteCharacterPacketClass(int slot);	// 0x8647B0 (LoginTaskClass's delete step)  // NAME 1 [slot]: the login task's selected slot
-	GlobalDeleteCharacterPacketClass(RawPacketClass *raw);	// 0x864820
-	virtual RawPacketClass *Build();	// +0x04 0x8648D0
+	GlobalDeleteCharacterPacketClass(PacketClass *raw);	// 0x864820
+	virtual PacketClass *Build();	// +0x04 0x8648D0
 	virtual bool Process_Packet(void *client);	// +0x08 0x8688B0 (clientstub.cpp l.239)
 	virtual int Get_Data_Size();	// +0x0C 0x864990
 	virtual int Print(char *buffer, int len);	// +0x10 0x8649B0

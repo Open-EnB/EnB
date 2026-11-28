@@ -44,7 +44,7 @@ ItemBasePacketClass::ItemBasePacketClass(int item_template_id, int category, int
 	}
 }
 
-ItemBasePacketClass::ItemBasePacketClass(RawPacketClass *raw)
+ItemBasePacketClass::ItemBasePacketClass(PacketClass *raw)
 {
 	Info = Create_NEW(new ItemInfoClass);
 	raw->Get(ItemTemplateID);
@@ -71,9 +71,9 @@ ItemBasePacketClass::~ItemBasePacketClass()
 	Info = 0;
 }
 
-RawPacketClass *ItemBasePacketClass::Build()
+PacketClass *ItemBasePacketClass::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(37, Get_Data_Size());
+	PacketClass *raw = new PacketClass(37, Get_Data_Size());
 	raw->Add(ItemTemplateID);
 	raw->Add(&Category, sizeof(Category));
 	raw->Add(&Subcategory, sizeof(Subcategory));
@@ -95,7 +95,7 @@ RawPacketClass *ItemBasePacketClass::Build()
 
 int ItemBasePacketClass::Get_Data_Size()
 {
-	return(RawPacketClass::Get_Size(Unknown40) + RawPacketClass::Get_Size(Unknown30) + RawPacketClass::Get_Size(Name)
+	return(PacketClass::Get_Size(Unknown40) + PacketClass::Get_Size(Unknown30) + PacketClass::Get_Size(Name)
 		+ sizeof(ItemTemplateID) + sizeof(Category) + sizeof(Subcategory) + sizeof(ItemType) + sizeof(GameBasset) + sizeof(IconBaseAsset)
 		+ sizeof(TechLevel) + sizeof(Cost) + sizeof(MaxStack) + sizeof(EffectUsage) + sizeof(Flags) + Info->Get_Size());
 }

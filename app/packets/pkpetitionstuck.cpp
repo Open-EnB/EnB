@@ -16,7 +16,7 @@ PetitionPacketClass::PetitionPacketClass(int game_id, int game_id2, const char *
 	PlayerList = nstrdup(player_list != NULL ? player_list : "");
 }
 
-PetitionPacketClass::PetitionPacketClass(RawPacketClass *raw)
+PetitionPacketClass::PetitionPacketClass(PacketClass *raw)
 {
 	raw->Get(&GameID, sizeof(GameID));
 	raw->Get(&GameID2, sizeof(GameID2));
@@ -35,9 +35,9 @@ PetitionPacketClass::~PetitionPacketClass()
 	PlayerList = NULL;
 }
 
-RawPacketClass *PetitionPacketClass::Build()
+PacketClass *PetitionPacketClass::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(136, Get_Data_Size());
+	PacketClass *raw = new PacketClass(136, Get_Data_Size());
 	raw->Add(&GameID, sizeof(GameID));
 	raw->Add(&GameID2, sizeof(GameID2));
 	raw->Add_String(Subject);

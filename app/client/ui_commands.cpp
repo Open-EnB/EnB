@@ -228,7 +228,7 @@ void UICommandsClass::Unknown_57CB60(int row)
 ** Notes.
 **	The object 0x57BAD0-0x57D540: the constructor first, the guarded <string> initialiser 0x57D4F0 and the adjustor
 **	thunks 0x57D520 / 0x57D530 (the second and third tables' deleting destructor) last; ui_combobox.cpp's thunks
-**	0x57BAB0 / 0x57BAC0 before it, the next object's PermStringInitClass initialiser 0x57D540 after (the function
+**	0x57BAB0 / 0x57BAC0 before it, the next object's PermStringInit initialiser 0x57D540 after (the function
 **	records start it at 0x57D530, size 0x165: the thunk and the initialiser as one). 0x57CC00 (the vector's destructor, the
 **	constructor's unwind), 0x57CC50, 0x57CC90, 0x57D070, 0x57D340 are the std::vector<SlashCommandStruct> instances
 **	its code makes; 0x57C820 SlashCommandStruct's destructor.

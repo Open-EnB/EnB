@@ -69,7 +69,7 @@ public:
 	MoneyClass Money;									// +0x148 (the credits shown; 0xFFFFFFFF without the field)  // NAME 2: what it holds
 	std::vector<RefCountPtr<InvDataClass> > Unknown150;	// +0x150 (0x652670's three inventories)  // NAME 1: neutral (D10)
 	GadgetInvSlider *Slider;								// +0x160 (destroyed by the destructor)  // NAME 2: as the other windows'
-	RefCountPtr<PDAInterfaceClass> PDA;					// +0x164 (0x653B90's, the client's +0x1284; G_ASSERT 'PDA' l.106)  // NAME 3: the assert's
+	RefCountPtr<PDAInterface> PDA;					// +0x164 (0x653B90's, the client's +0x1284; G_ASSERT 'PDA' l.106)  // NAME 3: the assert's
 	RefCountPtr<TextureClass> StandardBttnTexture;		// +0x168 (G_ASSERT 'StandardBttnTexture' l.190)  // NAME 3: the assert's
 	RefCountPtr<TextureClass> SelectedBttnTexture;		// +0x16C ('I_blank_SEL.tga'; G_ASSERT 'SelectedBttnTexture' l.194)  // NAME 3: the assert's
 	int Unknown170;										// +0x170 (the highlighted proxy, -1)  // NAME 1: neutral (D10)

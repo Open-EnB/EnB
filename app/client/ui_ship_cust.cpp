@@ -1320,7 +1320,7 @@ void StarbaseShipCustomizeInterface::Unknown_61BD80(int page)
 			Unknown_61ADA0(0x30, "PAN", NULL, 0, 0);
 			Unknown_61ADA0(0x31, "TURN", NULL, 0, 0);
 			Unknown_61B760();
-			NameGadget = new TextGadgetClass(this, 0x19, "NAME_buy_ship04", InterfaceMesh->Peek_Object(), Unknown_B08CC4 | Unknown_B08CB8, 0);
+			NameGadget = new UnknownTextGadgetClass(this, 0x19, "NAME_buy_ship04", InterfaceMesh->Peek_Object(), Unknown_B08CC4 | Unknown_B08CB8, 0);
 			NameGadget->Unknown78 = 10.0f;
 			NameGadget->Unknown_28(Layer);
 			Unknown64.Unknown_6870E0(NameGadget, 0x35, Get_View(), 1, 0);

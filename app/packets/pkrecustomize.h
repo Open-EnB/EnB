@@ -21,13 +21,13 @@
 #include "..\common\recustomization_cost.h"	// the costs RECUSTOMIZE_AVATAR_START / _SHIP_START carry
 
 // opcode 129 (0x0081, RECUSTOMIZE_SHIP_START): vtable 0xB0B5C4, constructor 0x89FB50, 0x1B4 bytes
-class RecustomizeShipStartPacketClass : public PacketClass  // NAME 2: Net-7's opcode name RECUSTOMIZE_SHIP_START (the Net-7 opcode table), the client's Print text 'Recustomize Ship Start'
+class RecustomizeShipStartPacketClass : public UnknownPacketBaseClass  // NAME 2: Net-7's opcode name RECUSTOMIZE_SHIP_START (the Net-7 opcode table), the client's Print text 'Recustomize Ship Start'
 {
 public:
-	RecustomizeShipStartPacketClass(RawPacketClass *raw);	// 0x89FB50
+	RecustomizeShipStartPacketClass(PacketClass *raw);	// 0x89FB50
 	RecustomizeShipStartPacketClass(int unknown1A0, const ShipCustDescClass &desc, const ShipRecustomizationCostClass &cost, int unknown1A4, int unknown1A8, int unknown1AC, int unknown1B0);	// 0x89FD80
 	// the destructor is the implicit one: +0x00 0x89FD30 / 0x89FD60
-	virtual RawPacketClass *Build();	// +0x04 0x8A0040
+	virtual PacketClass *Build();	// +0x04 0x8A0040
 	virtual bool Process_Packet(void *client);	// +0x08 0x73F4B0 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x8A0160
 	virtual int Print(char *buffer, int len);	// +0x10 0x8A01A0
@@ -42,13 +42,13 @@ public:
 };
 
 // opcode 130 (0x0082, RECUSTOMIZE_SHIP_DONE): vtable 0xB0B5F4, constructor 0x8A01D0, 0x170 bytes
-class RecustomizeShipDonePacketClass : public PacketClass  // NAME 2: Net-7's opcode name RECUSTOMIZE_SHIP_DONE (the Net-7 opcode table), the client's Print text 'Recustomize Ship Done'
+class RecustomizeShipDonePacketClass : public UnknownPacketBaseClass  // NAME 2: Net-7's opcode name RECUSTOMIZE_SHIP_DONE (the Net-7 opcode table), the client's Print text 'Recustomize Ship Done'
 {
 public:
-	RecustomizeShipDonePacketClass(RawPacketClass *raw);	// 0x8A01D0
+	RecustomizeShipDonePacketClass(PacketClass *raw);	// 0x8A01D0
 	RecustomizeShipDonePacketClass(int unknown16C, const ShipCustDescClass &desc);	// 0x8A0380
 	// the destructor is the implicit one: +0x00 0x8A0350 / 0x61F720 (the linker folded its body with another; a declared one stores the class's own vtable first, the client's doesn't)
-	virtual RawPacketClass *Build();	// +0x04 0x8A05F0
+	virtual PacketClass *Build();	// +0x04 0x8A05F0
 	virtual bool Process_Packet(void *client);	// +0x08 0x869630 (clientstub.cpp l.455)
 	virtual int Get_Data_Size();	// +0x0C 0x8A06C0
 	virtual int Print(char *buffer, int len);	// +0x10 0x8A06E0
@@ -58,13 +58,13 @@ public:
 };
 
 // opcode 131 (0x0083, RECUSTOMIZE_AVATAR_START): vtable 0xB0B624, constructor 0x8A0710, 0x4C bytes
-class RecustomizeAvatarStartPacketClass : public PacketClass  // NAME 2: Net-7's opcode name RECUSTOMIZE_AVATAR_START (the Net-7 opcode table), the client's Print text 'Recustomize Avatar Start'
+class RecustomizeAvatarStartPacketClass : public UnknownPacketBaseClass  // NAME 2: Net-7's opcode name RECUSTOMIZE_AVATAR_START (the Net-7 opcode table), the client's Print text 'Recustomize Avatar Start'
 {
 public:
-	RecustomizeAvatarStartPacketClass(RawPacketClass *raw);	// 0x8A0710
+	RecustomizeAvatarStartPacketClass(PacketClass *raw);	// 0x8A0710
 	RecustomizeAvatarStartPacketClass(int unknown48, const RecustomizationCostClass &cost);	// 0x8A0820
 	virtual ~RecustomizeAvatarStartPacketClass();	// +0x00 0x8A07D0 / 0x8A0800
-	virtual RawPacketClass *Build();	// +0x04 0x8A08C0
+	virtual PacketClass *Build();	// +0x04 0x8A08C0
 	virtual bool Process_Packet(void *client);	// +0x08 0x73F570 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x8A0990
 	virtual int Print(char *buffer, int len);	// +0x10 0x8A09B0
@@ -74,13 +74,13 @@ public:
 };
 
 // opcode 132 (0x0084, RECUSTOMIZE_AVATAR_DONE): vtable 0xB0B654, constructor 0x8A09E0, 0x11C bytes
-class RecustomizeAvatarDonePacketClass : public PacketClass  // NAME 2: Net-7's opcode name RECUSTOMIZE_AVATAR_DONE (the Net-7 opcode table), the client's Print text 'Recustomize Avatar Done'
+class RecustomizeAvatarDonePacketClass : public UnknownPacketBaseClass  // NAME 2: Net-7's opcode name RECUSTOMIZE_AVATAR_DONE (the Net-7 opcode table), the client's Print text 'Recustomize Avatar Done'
 {
 public:
-	RecustomizeAvatarDonePacketClass(RawPacketClass *raw);	// 0x8A09E0
+	RecustomizeAvatarDonePacketClass(PacketClass *raw);	// 0x8A09E0
 	RecustomizeAvatarDonePacketClass(int unknown118, const AvatarDescriptionClass &desc);	// 0x8A0AE0
 	// the destructor is the implicit one: +0x00 0x8A0AB0 / 0x54EDD0 (the linker folded its body with another) (a declared one stores the class's own vtable first; the client's doesn't)
-	virtual RawPacketClass *Build();	// +0x04 0x8A0E00
+	virtual PacketClass *Build();	// +0x04 0x8A0E00
 	virtual bool Process_Packet(void *client);	// +0x08 0x869660 (clientstub.cpp l.458)
 	virtual int Get_Data_Size();	// +0x0C 0x8A0ED0
 	virtual int Print(char *buffer, int len);	// +0x10 0x8A0EF0
@@ -90,13 +90,13 @@ public:
 };
 
 // opcode 133 (0x0085, RECUSTOMIZE_AVATAR_UPDATE): vtable 0xB0B684, constructor 0x8A0F20, 0x11C bytes
-class RecustomizeAvatarUpdatePacketClass : public PacketClass  // NAME 2: Net-7's opcode name RECUSTOMIZE_AVATAR_UPDATE (the Net-7 opcode table), the client's Print text 'Recustomize Avatar Update'
+class RecustomizeAvatarUpdatePacketClass : public UnknownPacketBaseClass  // NAME 2: Net-7's opcode name RECUSTOMIZE_AVATAR_UPDATE (the Net-7 opcode table), the client's Print text 'Recustomize Avatar Update'
 {
 public:
-	RecustomizeAvatarUpdatePacketClass(RawPacketClass *raw);	// 0x8A0F20
+	RecustomizeAvatarUpdatePacketClass(PacketClass *raw);	// 0x8A0F20
 	RecustomizeAvatarUpdatePacketClass(int unknown118, const AvatarDescriptionClass &desc);	// 0x8A1090
 	// the destructor is the implicit one: +0x00 0x8A0FF0 / 0x8A1020 (a declared one stores the class's own vtable first; the client's doesn't)
-	virtual RawPacketClass *Build();	// +0x04 0x8A13B0
+	virtual PacketClass *Build();	// +0x04 0x8A13B0
 	virtual bool Process_Packet(void *client);	// +0x08 0x73F5F0 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x8A1480
 	virtual int Print(char *buffer, int len);	// +0x10 0x8A14A0

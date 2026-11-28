@@ -8,7 +8,7 @@ RequestTransformChangePacketClass::RequestTransformChangePacketClass(int player_
 {
 }
 
-RequestTransformChangePacketClass::RequestTransformChangePacketClass(RawPacketClass *raw)
+RequestTransformChangePacketClass::RequestTransformChangePacketClass(PacketClass *raw)
 {
 	raw->Get(&PlayerID, sizeof(PlayerID));
 	raw->Get(&GameID, sizeof(GameID));
@@ -17,9 +17,9 @@ RequestTransformChangePacketClass::RequestTransformChangePacketClass(RawPacketCl
 	raw->Get(&Velocity, sizeof(Velocity));
 }
 
-RawPacketClass *RequestTransformChangePacketClass::Build()
+PacketClass *RequestTransformChangePacketClass::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(67, Get_Data_Size());
+	PacketClass *raw = new PacketClass(67, Get_Data_Size());
 	raw->Add(&PlayerID, sizeof(PlayerID));
 	raw->Add(&GameID, sizeof(GameID));
 	raw->Add(&Position, sizeof(Position));

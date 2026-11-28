@@ -259,7 +259,7 @@ void Unknown548D60Class::Unknown_5494E0(bool on)
 **
 **	Client 0x548260-0x5495EF, an object of its own by the CRT initialiser table (PS, run 2026-11-18): ui_attrb.cpp's entries
 **	are 223-225 (permstr.h's static 0x546A30, <string>'s initialiser 0x548190, the Delta numbering 0x548210); entries
-**	226-227 open and close this one: permstr.h's PermStringInitClass static 0x548260 (atexit 0x548290, the static
+**	226-227 open and close this one: permstr.h's PermStringInit static 0x548260 (atexit 0x548290, the static
 **	0xBE5B2C) and <string>'s guarded initialiser 0x5495A0; ui_attrb_skills.cpp's static 0x5495F0 follows. The panel
 **	(Unknown548D60Class, AT2's notes in ui_attrb.cpp): the constructor 0x5482B0, the deleting destructor 0x548410, the
 **	destructor 0x548440, slots +0x54 0x548610 and +0x68 0x548C50, pkskill.h's inline ~SkillPacketClass 0x548D40, 0x548D60,

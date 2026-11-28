@@ -9,7 +9,7 @@ ConfirmedActionOfferPacket::ConfirmedActionOfferPacket(int id, const std::string
 {
 }
 
-ConfirmedActionOfferPacket::ConfirmedActionOfferPacket(RawPacketClass *raw) :
+ConfirmedActionOfferPacket::ConfirmedActionOfferPacket(PacketClass *raw) :
 	ID(0),
 	Message(""),
 	Type(CONFIRMED_ACTION_NONE)
@@ -21,9 +21,9 @@ ConfirmedActionOfferPacket::ConfirmedActionOfferPacket(RawPacketClass *raw) :
 	raw->Get(&Message);
 }
 
-RawPacketClass *ConfirmedActionOfferPacket::Build()
+PacketClass *ConfirmedActionOfferPacket::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(190, Get_Data_Size());
+	PacketClass *raw = new PacketClass(190, Get_Data_Size());
 	raw->Add((int)Type);
 	raw->Add(ID);
 	raw->Add(Message);
@@ -32,7 +32,7 @@ RawPacketClass *ConfirmedActionOfferPacket::Build()
 
 int ConfirmedActionOfferPacket::Get_Data_Size()
 {
-	return(RawPacketClass::Get_Size(Message) + sizeof(int) + sizeof(ID));
+	return(PacketClass::Get_Size(Message) + sizeof(int) + sizeof(ID));
 }
 
 int ConfirmedActionOfferPacket::Print(char *buffer, int len)
@@ -46,7 +46,7 @@ ConfirmedActionTimeoutPacket::ConfirmedActionTimeoutPacket(ConfirmedActionEnum t
 {
 }
 
-ConfirmedActionTimeoutPacket::ConfirmedActionTimeoutPacket(RawPacketClass *raw) :
+ConfirmedActionTimeoutPacket::ConfirmedActionTimeoutPacket(PacketClass *raw) :
 	ID(0),
 	Type(CONFIRMED_ACTION_NONE)
 {
@@ -56,9 +56,9 @@ ConfirmedActionTimeoutPacket::ConfirmedActionTimeoutPacket(RawPacketClass *raw) 
 	raw->Get(ID);
 }
 
-RawPacketClass *ConfirmedActionTimeoutPacket::Build()
+PacketClass *ConfirmedActionTimeoutPacket::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(191, Get_Data_Size());
+	PacketClass *raw = new PacketClass(191, Get_Data_Size());
 	raw->Add((int)Type);
 	raw->Add(ID);
 	return(raw);
@@ -81,7 +81,7 @@ ConfirmedActionResponsePacket::ConfirmedActionResponsePacket(int avatar_id, int 
 {
 }
 
-ConfirmedActionResponsePacket::ConfirmedActionResponsePacket(RawPacketClass *raw) :
+ConfirmedActionResponsePacket::ConfirmedActionResponsePacket(PacketClass *raw) :
 	AvatarID(0),
 	ID(0),
 	Response(false)
@@ -93,9 +93,9 @@ ConfirmedActionResponsePacket::ConfirmedActionResponsePacket(RawPacketClass *raw
 	Response = value > 0;
 }
 
-RawPacketClass *ConfirmedActionResponsePacket::Build()
+PacketClass *ConfirmedActionResponsePacket::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(192, Get_Data_Size());
+	PacketClass *raw = new PacketClass(192, Get_Data_Size());
 	raw->Add(AvatarID);
 	raw->Add(ID);
 	int value = Response;

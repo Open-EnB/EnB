@@ -27,7 +27,7 @@ struct MemoryMessageClass	// NAME 1: describes what it is
 {
 
 
-	RawPacketClass *Packet;	// +0x00  // NAME 2: what it holds
+	PacketClass *Packet;	// +0x00  // NAME 2: what it holds
 	unsigned int Time;		// +0x04 (Unknown_Get_Ticks')  // NAME 2: what it holds
 };
 
@@ -48,9 +48,9 @@ class MemoryConnectionClass : public ConnectionClass	// NAME 1: after the file m
 public:
 	private: MemoryConnectionClass(); public:										// 0x826480
 	virtual ~MemoryConnectionClass();								// +0x00 0x8264B0 / 0x8264E0
-	virtual bool Send_Message(RawPacketClass *packet);				// +0x04 0x826550 (asserts: not supported)
-	virtual bool Send_Packet(PacketClass *vp);						// +0x08 0x826580
-	virtual PacketClass *Receive();									// +0x0C 0x8266A0
+	virtual bool Send_Message(PacketClass *packet);				// +0x04 0x826550 (asserts: not supported)
+	virtual bool Send_Packet(UnknownPacketBaseClass *vp);						// +0x08 0x826580
+	virtual UnknownPacketBaseClass *Receive();									// +0x0C 0x8266A0
 	virtual bool Is_Connected();									// +0x18 0x826760: the other end still open
 	virtual bool Disconnect();										// +0x1C 0x8267C0
 	virtual bool Is_Dead();											// +0x20 0x826790

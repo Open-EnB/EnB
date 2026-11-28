@@ -7,15 +7,15 @@ VersionRequestPacketClass::VersionRequestPacketClass(int major, int minor) : Maj
 {
 }
 
-VersionRequestPacketClass::VersionRequestPacketClass(RawPacketClass *raw)
+VersionRequestPacketClass::VersionRequestPacketClass(PacketClass *raw)
 {
 	raw->Get(Major);
 	raw->Get(Minor);
 }
 
-RawPacketClass *VersionRequestPacketClass::Build()
+PacketClass *VersionRequestPacketClass::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(0, Get_Data_Size());
+	PacketClass *raw = new PacketClass(0, Get_Data_Size());
 	raw->Add(Major);
 	raw->Add(Minor);
 	return(raw);
@@ -35,14 +35,14 @@ VersionResponsePacketClass::VersionResponsePacketClass(int status) : Status(stat
 {
 }
 
-VersionResponsePacketClass::VersionResponsePacketClass(RawPacketClass *raw)
+VersionResponsePacketClass::VersionResponsePacketClass(PacketClass *raw)
 {
 	raw->Get(&Status, sizeof(Status));
 }
 
-RawPacketClass *VersionResponsePacketClass::Build()
+PacketClass *VersionResponsePacketClass::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(1, Get_Data_Size());
+	PacketClass *raw = new PacketClass(1, Get_Data_Size());
 	raw->Add(&Status, sizeof(Status));
 	return(raw);
 }

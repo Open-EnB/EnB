@@ -19,12 +19,12 @@
 #include "pk.h"
 
 // opcode 93 (0x005D, EQUIP_USE): vtable 0xB0C204, constructor 0x8AE8B0, 0x14 bytes
-class UseInventoryPacketClass : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
+class UseInventoryPacketClass : public UnknownPacketBaseClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
-	UseInventoryPacketClass(RawPacketClass *raw);	// 0x8AE8B0
+	UseInventoryPacketClass(PacketClass *raw);	// 0x8AE8B0
 	UseInventoryPacketClass(int game_id, int inventory, int slot);	// 0x8AE810 (ui_inv.cpp's 0x59FE30 / 0x5A0740: the client's ShipID, the window's InvType and the slot)  // NAME 3 [game_id, inventory, slot]: the Print text's fields
-	virtual RawPacketClass *Build();	// +0x04 0x8AE970
+	virtual PacketClass *Build();	// +0x04 0x8AE970
 	virtual bool Process_Packet(void *client);	// +0x08 0x867C80 (clientstub.cpp l.44)
 	virtual int Get_Data_Size();	// +0x0C 0x8AEA50
 	virtual int Print(char *buffer, int len);	// +0x10 0x8AEA70

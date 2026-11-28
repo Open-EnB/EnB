@@ -26,7 +26,7 @@ class LineDisplayClientClass;
 class ClientClass;
 class INIClass;
 
-class ChatGadgetClass : public TextBaseGadgetClass  // NAME 3: class-from-file (D24) for app\Client\ChatGadg.cpp
+class ChatGadgetClass : public TextGadgetClass  // NAME 3: class-from-file (D24) for app\Client\ChatGadg.cpp
 {
 public:
 	ChatGadgetClass(LineDisplayClientClass *client);					// 0x65BFD0 (the 'chatgadg' keys registered on the first one; chat.ini loaded)  // NAME 1 [client]: what ui_chat_panel.cpp passes

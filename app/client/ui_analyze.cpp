@@ -38,7 +38,7 @@ bool Unknown_495FD0(RenderObjClass *robj, TextureClass *texture, int unknown);	/
 
 extern FontManagerClass *Unknown_BE67C4;	// NAME 1: neutral (D10)
 
-// the PDA's window calls: sclient.h's PDAInterfaceClass 0x695780 (open window 'index') / 0x695A00 (close it)
+// the PDA's window calls: sclient.h's PDAInterface 0x695780 (open window 'index') / 0x695A00 (close it)
 // and SpaceClientClass 0x744560 (slot +0x58 passes 0x19, slot +0x5C 0x1A)
 
 // The window's buttons (0xB79660: [0] 'not used', slot +0x54's ids 1..6; [2..4] the category columns, their icons '%sf')
@@ -185,7 +185,7 @@ void UIAnalyzeClass::Unknown_58()
 	((ClientClass *)Client)->Send_Packet(&ManufactureItemCatagoryPacketClass(Analyze_Player_Id(sclient), 2));
 	if (State == UI_CLOSED) {
 		State = UI_OPEN;
-		Unknown118 = sclient->PDAInterface->Unknown_695780(false);
+		Unknown118 = sclient->PDAWindow->Unknown_695780(false);
 		Unknown_BE67C4->Add(InterfaceMesh->Peek_Mesh_Object());
 		Unknown_545610();
 		Unknown0D0->Unknown_69DC40();
@@ -219,7 +219,7 @@ void UIAnalyzeClass::Unknown_5C()
 		Unknown0D8->Unknown_5C();
 		Unknown0DC->Unknown_5C();
 		if (Unknown118) {
-			sclient->PDAInterface->Unknown_695A00(0, 1);
+			sclient->PDAWindow->Unknown_695A00(0, 1);
 		}
 		Unknown_BE67C4->Remove(InterfaceMesh->Peek_Mesh_Object());
 		Unknown5BB320Class::Unknown_5C();

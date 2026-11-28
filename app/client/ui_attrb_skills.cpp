@@ -668,7 +668,7 @@ void AttributeSkillsInterface::Unknown_D0()
 /*
 **	Notes (TB1, 2026-11-05)
 **
-**	The client's object 0x549640-~0x54B75F: the constructor 0x549640 first, right after ui_attrb.cpp's PermStringInitClass
+**	The client's object 0x549640-~0x54B75F: the constructor 0x549640 first, right after ui_attrb.cpp's PermStringInit
 **	static (0x5495F0 / atexit 0x549620, the end of ui_attrb.obj); its destructor 0x549830 (deleting 0x549800) and the
 **	slots 0x549AA0.. carry ui_attrb_skills.cpp's asserts; the adjustor thunks 0x54B740 (-4) / 0x54B750 (-0x38) of the
 **	deleting destructor close it. 0x5738B0 (ui_cinfo.cpp) makes it, the character info window's first tab. The

@@ -11,7 +11,7 @@ DialogPacketClass::DialogPacketClass(int type, char *text) :
 	String = nstrdup(text);
 }
 
-DialogPacketClass::DialogPacketClass(RawPacketClass *raw)
+DialogPacketClass::DialogPacketClass(PacketClass *raw)
 {
 	raw->Get(&Size, sizeof(Size));
 	raw->Get(&Type, sizeof(Type));
@@ -25,9 +25,9 @@ DialogPacketClass::~DialogPacketClass()
 	String = 0;
 }
 
-RawPacketClass *DialogPacketClass::Build()
+PacketClass *DialogPacketClass::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(98, Get_Data_Size());
+	PacketClass *raw = new PacketClass(98, Get_Data_Size());
 	raw->Add(&Size, sizeof(Size));
 	raw->Add(&Type, sizeof(Type));
 	raw->Add(String, Size);

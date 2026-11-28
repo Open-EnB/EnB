@@ -19,7 +19,7 @@ GameEditorRequestSpawnDefaultsPacketClass::GameEditorRequestSpawnDefaultsPacketC
 	Size = strlen(s) + 1;
 }
 
-GameEditorRequestSpawnDefaultsPacketClass::GameEditorRequestSpawnDefaultsPacketClass(RawPacketClass *raw) :
+GameEditorRequestSpawnDefaultsPacketClass::GameEditorRequestSpawnDefaultsPacketClass(PacketClass *raw) :
 	Size(0),
 	Data(NULL),
 	Owned(false)
@@ -43,9 +43,9 @@ GameEditorRequestSpawnDefaultsPacketClass::~GameEditorRequestSpawnDefaultsPacket
 	}
 }
 
-RawPacketClass *GameEditorRequestSpawnDefaultsPacketClass::Build()
+PacketClass *GameEditorRequestSpawnDefaultsPacketClass::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(30017, Get_Data_Size());
+	PacketClass *raw = new PacketClass(30017, Get_Data_Size());
 	raw->Add(&Size, sizeof(Size));
 	if (Size > 0) {
 		raw->Add(Data, Size);
@@ -70,7 +70,7 @@ GameEditorSpawnDefaultsPacketClass::GameEditorSpawnDefaultsPacketClass(char *dat
 {
 }
 
-GameEditorSpawnDefaultsPacketClass::GameEditorSpawnDefaultsPacketClass(RawPacketClass *raw) :
+GameEditorSpawnDefaultsPacketClass::GameEditorSpawnDefaultsPacketClass(PacketClass *raw) :
 	Data(NULL),
 	Size(0),
 	Owned(false)
@@ -103,9 +103,9 @@ GameEditorSpawnDefaultsPacketClass::~GameEditorSpawnDefaultsPacketClass()
 	}
 }
 
-RawPacketClass *GameEditorSpawnDefaultsPacketClass::Build()
+PacketClass *GameEditorSpawnDefaultsPacketClass::Build()
 {
-	RawPacketClass *packet = new RawPacketClass(30018, Get_Data_Size());
+	PacketClass *packet = new PacketClass(30018, Get_Data_Size());
 	G_ASSERT(packet);
 	packet->Add(&Size, sizeof(Size));
 	packet->Add(Data, Size);

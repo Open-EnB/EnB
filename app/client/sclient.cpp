@@ -112,7 +112,7 @@ public:
 // The interface objects Init creates (each file's constructor before its first assert; kernel-map-step9.md
 // 9f's interface base not rebuilt). The reference-counted ones keep their count in a second base at +0x38
 // (RefCountPtr's release reads +0x3C and calls +0x38's slot 0; Shutdown releases the raw pointers so)
-// (InterfaceClass, their base, is in intrface.h; pdaint.cpp's PDAInterfaceClass in sclient.h: the main view reads the PDA)
+// (InterfaceClass, their base, is in intrface.h; pdaint.cpp's PDAInterface in sclient.h: the main view reads the PDA)
 
 #include "camera_manager.h"
 #include "..\packets\pktriggeremote.h"			// TriggerEmotePacketClass (TRIGGER_EMOTE 161): the emotes (0x747C70)
@@ -306,7 +306,7 @@ SpaceClientClass::SpaceClientClass(ClientTaskClass *task) :
 	Mouse(NULL),
 	Unknown1278(0),
 	LineDisplay(NULL),
-	PDAInterface(NULL),
+	PDAWindow(NULL),
 	Unknown1288(0),
 	Bridge(NULL),
 	HotKeys(NULL),
@@ -430,8 +430,8 @@ void SpaceClientClass::Init()
 	LineDisplay->Unknown_54();
 	GalaxyMap = new GalaxyMapClient;
 	Targeting = new TargetSelectClass(this);
-	PDAInterface = new PDAInterfaceClass(this);
-	PDAInterface->Unknown_54();
+	PDAWindow = new PDAInterface(this);
+	PDAWindow->Unknown_54();
 	Bridge = new BridgeInterface(this);
 	HotKeys = new UIHotKeysClass(this);
 	MainView = new MainViewClass(Task);
@@ -564,7 +564,7 @@ void SpaceClientClass::Shutdown()
 		LoadingView->Unknown_10();
 	}
 	REF_PTR_RELEASE(LineDisplay);
-	REF_PTR_RELEASE(PDAInterface);
+	REF_PTR_RELEASE(PDAWindow);
 	delete GalaxyMap;
 	GalaxyMap = NULL;
 	delete Targeting;
@@ -630,7 +630,7 @@ UIViewClass *SpaceClientClass::Unknown_742530(UIViewClass *view)
 	UIViewClass *old = CurrentView;
 	if (old) old->Unknown_18(false);
 	CurrentView = view;
-	PDAInterface->Unknown_695F40();
+	PDAWindow->Unknown_695F40();
 	ChatPanel->Unknown_5685C0();
 	UIViewClass *inner = NULL;
 	if (view) {
@@ -639,7 +639,7 @@ UIViewClass *SpaceClientClass::Unknown_742530(UIViewClass *view)
 		Mouse->Unknown_515340((void *)view->Unknown_3C());
 		CurrentView->Unknown_18(true);
 		if (CurrentView == MainView || CurrentView == Unknown135C) {
-			PDAInterface->Unknown_7C(inner, 1);
+			PDAWindow->Unknown_7C(inner, 1);
 			ChatPanel->Unknown_7C(inner, 1);
 			if (MainView) MainView->Unknown34->Unknown_5C();
 			if (Unknown135C) Unknown135C->Unknown34->Unknown_5C();
@@ -648,12 +648,12 @@ UIViewClass *SpaceClientClass::Unknown_742530(UIViewClass *view)
 			if (Unknown135C && ((SClientUnknown135CViewClass *)Unknown135C)->Unknown1A4 && ((SClientUnknown135CViewClass *)Unknown135C)->Unknown1A4->Active) ((SClientUnknown135CViewClass *)Unknown135C)->Unknown1A4->Unknown_5C();
 			if (MainView && MainView->Cpit) MainView->Cpit->Unknown_584A20();
 		} else {
-			PDAInterface->Unknown_7C(NULL, 0); ChatPanel->Unknown_7C(NULL, 0);
+			PDAWindow->Unknown_7C(NULL, 0); ChatPanel->Unknown_7C(NULL, 0);
 		}
 		HotKeys->Unknown_7C(CurrentView->Unknown_1C(), 1);
 	} else {
 		Mouse->Unknown_515340(NULL);
-		PDAInterface->Unknown_7C(NULL, 0); ChatPanel->Unknown_7C(NULL, 0); HotKeys->Unknown_7C(NULL, 0);
+		PDAWindow->Unknown_7C(NULL, 0); ChatPanel->Unknown_7C(NULL, 0); HotKeys->Unknown_7C(NULL, 0);
 	}
 	LineDisplay->Unknown_7C(inner, 1);
 	Unknown14F0 = true;
@@ -670,7 +670,7 @@ void SpaceClientClass::Process_Packets()
 {
 	WWPROFILE("SClient::Process_Packets");
 
-	PacketClass *packet;
+	UnknownPacketBaseClass *packet;
 	while ((packet = ((BufferedConnectionClass *)Connection)->Peek()) != NULL) {
 		if (Task->Is_Focused() && LoadingView->Unknown68) {
 			LoadingView->Unknown_0C(true);
@@ -5882,7 +5882,7 @@ void SpaceClientClass::Unknown_74BA30(bool request, int starbase_id, int mode)
 **	setter out of line from the movie views (0x74BC20-0x74BF00), as the client does (workflow.md 3.1: the
 **	budget counts loops in an inlined callee). The movie callback stores its vtable before Client: a body
 **	assignment, not an initialiser.
-**	cpacket.cpp's handlers are PacketClass's slot +0x08 (Process_Packet(SpaceClientClass *)): Process_Packets
+**	cpacket.cpp's handlers are UnknownPacketBaseClass's slot +0x08 (Process_Packet(SpaceClientClass *)): Process_Packets
 **	peeks the connection (BufferedConnectionClass +0x34), hands the packet to its handler and, when that
 **	returns true, takes it off the connection (+0x0C) and deletes it; false leaves it for the next frame.
 **	0x750260 under D165's FAIL_IF (the && form, cheaper for the inline budget): a dead

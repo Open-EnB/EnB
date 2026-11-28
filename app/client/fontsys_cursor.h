@@ -6,7 +6,7 @@
 **
 **	fontsys_cursor.cpp's FontSysCursor: the edit boxes' text cursor, a Rectangle3DClass (0xFC bytes, vtable
 **	0xAFC53C) drawn into a scene at a FontSys line's cursor position: an underline when inserting,
-**	else a bar the line's height. textgadg.cpp's TextGadgetClass holds one (0x685680 makes it).
+**	else a bar the line's height. textgadg.cpp's UnknownTextGadgetClass holds one (0x685680 makes it).
 */
 
 

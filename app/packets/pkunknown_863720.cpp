@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "..\shared\auth_product.h"
-GlobalContainerRequestPacketClass::GlobalContainerRequestPacketClass(__int64 unknown18, const char *string, __int64 unknown28, int unknown30, PacketClass *packet) :
+GlobalContainerRequestPacketClass::GlobalContainerRequestPacketClass(__int64 unknown18, const char *string, __int64 unknown28, int unknown30, UnknownPacketBaseClass *packet) :
 	Data(NULL),
 	DataSize(0),
 	Unknown18(unknown18),
@@ -14,7 +14,7 @@ GlobalContainerRequestPacketClass::GlobalContainerRequestPacketClass(__int64 unk
 	Unknown34(NULL)
 {
 	String = nstrdup(string);
-	RawPacketClass *raw = packet->Build();
+	PacketClass *raw = packet->Build();
 	DataSize = raw->Data.Get_Size() + sizeof(PacketHeaderClass);
 	if (DataSize != 0) {
 		Data = new char[DataSize];
@@ -25,7 +25,7 @@ GlobalContainerRequestPacketClass::GlobalContainerRequestPacketClass(__int64 unk
 	delete raw;
 }
 
-GlobalContainerRequestPacketClass::GlobalContainerRequestPacketClass(RawPacketClass *raw) :
+GlobalContainerRequestPacketClass::GlobalContainerRequestPacketClass(PacketClass *raw) :
 	Data(NULL),
 	DataSize(0),
 	Unknown18(0),
@@ -55,9 +55,9 @@ GlobalContainerRequestPacketClass::~GlobalContainerRequestPacketClass()
 	Unknown34 = NULL;
 }
 
-RawPacketClass *GlobalContainerRequestPacketClass::Build()
+PacketClass *GlobalContainerRequestPacketClass::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(Get_Type(), Get_Data_Size());
+	PacketClass *raw = new PacketClass(Get_Type(), Get_Data_Size());
 	raw->Add(Unknown18);
 	raw->Add_String(String);
 	raw->Add(Unknown28);
@@ -74,7 +74,7 @@ int GlobalContainerRequestPacketClass::Get_Type()
 
 int GlobalContainerRequestPacketClass::Get_Data_Size()
 {
-	unsigned int size = RawPacketClass::Get_Size(String) + sizeof(Unknown18) + sizeof(Unknown28) + sizeof(Unknown30) + sizeof(DataSize);
+	unsigned int size = PacketClass::Get_Size(String) + sizeof(Unknown18) + sizeof(Unknown28) + sizeof(Unknown30) + sizeof(DataSize);
 	return(size + DataSize);
 }
 
@@ -83,7 +83,7 @@ int GlobalContainerRequestPacketClass::Print(char *buffer, int)
 	return(sprintf(buffer, "%s", "GlobalContainerRequest"));
 }
 
-GlobalContainerResponsePacketClass::GlobalContainerResponsePacketClass(__int64 unknown18, const char *string, __int64 unknown28, int unknown30, PacketClass *packet) :
+GlobalContainerResponsePacketClass::GlobalContainerResponsePacketClass(__int64 unknown18, const char *string, __int64 unknown28, int unknown30, UnknownPacketBaseClass *packet) :
 	Data(NULL),
 	DataSize(0),
 	Unknown18(unknown18),
@@ -92,7 +92,7 @@ GlobalContainerResponsePacketClass::GlobalContainerResponsePacketClass(__int64 u
 	Unknown30(unknown30)
 {
 	String = nstrdup(string);
-	RawPacketClass *raw = packet->Build();
+	PacketClass *raw = packet->Build();
 	DataSize = raw->Data.Get_Size() + sizeof(PacketHeaderClass);
 	if (DataSize != 0) {
 		Data = new char[DataSize];
@@ -103,7 +103,7 @@ GlobalContainerResponsePacketClass::GlobalContainerResponsePacketClass(__int64 u
 	delete raw;
 }
 
-GlobalContainerResponsePacketClass::GlobalContainerResponsePacketClass(RawPacketClass *raw) :
+GlobalContainerResponsePacketClass::GlobalContainerResponsePacketClass(PacketClass *raw) :
 	Data(NULL),
 	DataSize(0),
 	Unknown18(0),
@@ -128,9 +128,9 @@ GlobalContainerResponsePacketClass::~GlobalContainerResponsePacketClass()
 	Data = NULL;
 }
 
-RawPacketClass *GlobalContainerResponsePacketClass::Build()
+PacketClass *GlobalContainerResponsePacketClass::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(Get_Type(), Get_Data_Size());
+	PacketClass *raw = new PacketClass(Get_Type(), Get_Data_Size());
 	raw->Add(Unknown18);
 	raw->Add_String(String);
 	raw->Add(Unknown28);
@@ -147,7 +147,7 @@ int GlobalContainerResponsePacketClass::Get_Type()
 
 int GlobalContainerResponsePacketClass::Get_Data_Size()
 {
-	unsigned int size = RawPacketClass::Get_Size(String) + sizeof(Unknown18) + sizeof(Unknown28) + sizeof(Unknown30) + sizeof(DataSize);
+	unsigned int size = PacketClass::Get_Size(String) + sizeof(Unknown18) + sizeof(Unknown28) + sizeof(Unknown30) + sizeof(DataSize);
 	return(size + DataSize);
 }
 

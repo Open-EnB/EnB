@@ -9,7 +9,7 @@ GuildSimpleSectorClientPacket::GuildSimpleSectorClientPacket(int type, const cha
 {
 }
 
-GuildSimpleSectorClientPacket::GuildSimpleSectorClientPacket(RawPacketClass *raw)
+GuildSimpleSectorClientPacket::GuildSimpleSectorClientPacket(PacketClass *raw)
 {
 	raw->Get(&Type, sizeof(Type));
 	raw->Get(&OptionalParam);
@@ -19,9 +19,9 @@ GuildSimpleSectorClientPacket::~GuildSimpleSectorClientPacket()
 {
 }
 
-RawPacketClass *GuildSimpleSectorClientPacket::Build()
+PacketClass *GuildSimpleSectorClientPacket::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(204, Get_Data_Size());
+	PacketClass *raw = new PacketClass(204, Get_Data_Size());
 	raw->Add(&Type, sizeof(Type));
 	raw->Add(OptionalParam);
 	return(raw);
@@ -29,7 +29,7 @@ RawPacketClass *GuildSimpleSectorClientPacket::Build()
 
 int GuildSimpleSectorClientPacket::Get_Data_Size()
 {
-	return(sizeof(Type) + RawPacketClass::Get_Size(OptionalParam));
+	return(sizeof(Type) + PacketClass::Get_Size(OptionalParam));
 }
 
 int GuildSimpleSectorClientPacket::Print(char *buffer, int len)
@@ -41,7 +41,7 @@ GuildSimpleClientSectorPacket::GuildSimpleClientSectorPacket(int type, int playe
 {
 }
 
-GuildSimpleClientSectorPacket::GuildSimpleClientSectorPacket(RawPacketClass *raw)
+GuildSimpleClientSectorPacket::GuildSimpleClientSectorPacket(PacketClass *raw)
 {
 	raw->Get(&Type, sizeof(Type));
 	raw->Get(PlayerID);
@@ -52,9 +52,9 @@ GuildSimpleClientSectorPacket::~GuildSimpleClientSectorPacket()
 {
 }
 
-RawPacketClass *GuildSimpleClientSectorPacket::Build()
+PacketClass *GuildSimpleClientSectorPacket::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(205, Get_Data_Size());
+	PacketClass *raw = new PacketClass(205, Get_Data_Size());
 	raw->Add(&Type, sizeof(Type));
 	raw->Add(PlayerID);
 	raw->Add(OptionalParam);
@@ -63,7 +63,7 @@ RawPacketClass *GuildSimpleClientSectorPacket::Build()
 
 int GuildSimpleClientSectorPacket::Get_Data_Size()
 {
-	return(sizeof(Type) + sizeof(PlayerID) + RawPacketClass::Get_Size(OptionalParam));
+	return(sizeof(Type) + sizeof(PlayerID) + PacketClass::Get_Size(OptionalParam));
 }
 
 int GuildSimpleClientSectorPacket::Print(char *buffer, int len)
@@ -76,7 +76,7 @@ GuildLeaderAcceptClientPacket::GuildLeaderAcceptClientPacket(int player_id, cons
 	Accept = accept;
 }
 
-GuildLeaderAcceptClientPacket::GuildLeaderAcceptClientPacket(RawPacketClass *raw)
+GuildLeaderAcceptClientPacket::GuildLeaderAcceptClientPacket(PacketClass *raw)
 {
 	raw->Get(PlayerID);
 	raw->Get(&GuildName);
@@ -87,9 +87,9 @@ GuildLeaderAcceptClientPacket::~GuildLeaderAcceptClientPacket()
 {
 }
 
-RawPacketClass *GuildLeaderAcceptClientPacket::Build()
+PacketClass *GuildLeaderAcceptClientPacket::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(197, Get_Data_Size());
+	PacketClass *raw = new PacketClass(197, Get_Data_Size());
 	raw->Add(PlayerID);
 	raw->Add(GuildName);
 	raw->Add(&Accept, sizeof(Accept));
@@ -98,7 +98,7 @@ RawPacketClass *GuildLeaderAcceptClientPacket::Build()
 
 int GuildLeaderAcceptClientPacket::Get_Data_Size()
 {
-	return(RawPacketClass::Get_Size(GuildName) + sizeof(PlayerID) + sizeof(Accept));
+	return(PacketClass::Get_Size(GuildName) + sizeof(PlayerID) + sizeof(Accept));
 }
 
 int GuildLeaderAcceptClientPacket::Print(char *buffer, int len)
@@ -110,7 +110,7 @@ GuildRecruitConfirmSectorPacket::GuildRecruitConfirmSectorPacket(const char *inv
 {
 }
 
-GuildRecruitConfirmSectorPacket::GuildRecruitConfirmSectorPacket(RawPacketClass *raw)
+GuildRecruitConfirmSectorPacket::GuildRecruitConfirmSectorPacket(PacketClass *raw)
 {
 	raw->Get(&InviterName);
 	raw->Get(&GuildName);
@@ -120,9 +120,9 @@ GuildRecruitConfirmSectorPacket::~GuildRecruitConfirmSectorPacket()
 {
 }
 
-RawPacketClass *GuildRecruitConfirmSectorPacket::Build()
+PacketClass *GuildRecruitConfirmSectorPacket::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(200, Get_Data_Size());
+	PacketClass *raw = new PacketClass(200, Get_Data_Size());
 	raw->Add(InviterName);
 	raw->Add(GuildName);
 	return(raw);
@@ -130,7 +130,7 @@ RawPacketClass *GuildRecruitConfirmSectorPacket::Build()
 
 int GuildRecruitConfirmSectorPacket::Get_Data_Size()
 {
-	return(RawPacketClass::Get_Size(InviterName) + RawPacketClass::Get_Size(GuildName));
+	return(PacketClass::Get_Size(InviterName) + PacketClass::Get_Size(GuildName));
 }
 
 int GuildRecruitConfirmSectorPacket::Print(char *buffer, int len)
@@ -142,7 +142,7 @@ GuildRecruitAcceptClientPacket::GuildRecruitAcceptClientPacket(int player_id, bo
 {
 }
 
-GuildRecruitAcceptClientPacket::GuildRecruitAcceptClientPacket(RawPacketClass *raw)
+GuildRecruitAcceptClientPacket::GuildRecruitAcceptClientPacket(PacketClass *raw)
 {
 	raw->Get(PlayerID);
 	raw->Get(&Accept, sizeof(Accept));
@@ -152,9 +152,9 @@ GuildRecruitAcceptClientPacket::~GuildRecruitAcceptClientPacket()
 {
 }
 
-RawPacketClass *GuildRecruitAcceptClientPacket::Build()
+PacketClass *GuildRecruitAcceptClientPacket::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(201, Get_Data_Size());
+	PacketClass *raw = new PacketClass(201, Get_Data_Size());
 	raw->Add(PlayerID);
 	raw->Add(&Accept, sizeof(Accept));
 	return(raw);
@@ -174,7 +174,7 @@ GuildMessageSectorPacket::GuildMessageSectorPacket(int message_type, const char 
 {
 }
 
-GuildMessageSectorPacket::GuildMessageSectorPacket(RawPacketClass *raw)
+GuildMessageSectorPacket::GuildMessageSectorPacket(PacketClass *raw)
 {
 	raw->Get(&MessageType, sizeof(MessageType));
 	raw->Get(&OtherName);
@@ -185,9 +185,9 @@ GuildMessageSectorPacket::~GuildMessageSectorPacket()
 {
 }
 
-RawPacketClass *GuildMessageSectorPacket::Build()
+PacketClass *GuildMessageSectorPacket::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(208, Get_Data_Size());
+	PacketClass *raw = new PacketClass(208, Get_Data_Size());
 	raw->Add(&MessageType, sizeof(MessageType));
 	raw->Add(OtherName);
 	raw->Add(GuildName);
@@ -196,7 +196,7 @@ RawPacketClass *GuildMessageSectorPacket::Build()
 
 int GuildMessageSectorPacket::Get_Data_Size()
 {
-	return(sizeof(MessageType) + RawPacketClass::Get_Size(OtherName) + RawPacketClass::Get_Size(GuildName));
+	return(sizeof(MessageType) + PacketClass::Get_Size(OtherName) + PacketClass::Get_Size(GuildName));
 }
 
 int GuildMessageSectorPacket::Print(char *buffer, int len)
@@ -208,7 +208,7 @@ GuildPlayerPermissionsPacket::GuildPlayerPermissionsPacket(GuildPermissionEnum u
 {
 }
 
-GuildPlayerPermissionsPacket::GuildPlayerPermissionsPacket(RawPacketClass *raw)
+GuildPlayerPermissionsPacket::GuildPlayerPermissionsPacket(PacketClass *raw)
 {
 	int value;
 	raw->Get(value);
@@ -218,9 +218,9 @@ GuildPlayerPermissionsPacket::GuildPlayerPermissionsPacket(RawPacketClass *raw)
 	raw->Get(Unknown18);
 }
 
-RawPacketClass *GuildPlayerPermissionsPacket::Build()
+PacketClass *GuildPlayerPermissionsPacket::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(210, Get_Data_Size());
+	PacketClass *raw = new PacketClass(210, Get_Data_Size());
 	int value = Unknown0C;
 	raw->Add(value);
 	raw->Add(Unknown10);
@@ -243,14 +243,14 @@ GuildRankNamesRequestClientPacket::GuildRankNamesRequestClientPacket(int player_
 {
 }
 
-GuildRankNamesRequestClientPacket::GuildRankNamesRequestClientPacket(RawPacketClass *raw)
+GuildRankNamesRequestClientPacket::GuildRankNamesRequestClientPacket(PacketClass *raw)
 {
 	raw->Get(PlayerID);
 }
 
-RawPacketClass *GuildRankNamesRequestClientPacket::Build()
+PacketClass *GuildRankNamesRequestClientPacket::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(212, Get_Data_Size());
+	PacketClass *raw = new PacketClass(212, Get_Data_Size());
 	raw->Add(PlayerID);
 	return(raw);
 }
@@ -269,7 +269,7 @@ GuildRankNamesSectorPacket::GuildRankNamesSectorPacket(const std::vector<GuildRa
 {
 }
 
-GuildRankNamesSectorPacket::GuildRankNamesSectorPacket(RawPacketClass *raw)
+GuildRankNamesSectorPacket::GuildRankNamesSectorPacket(PacketClass *raw)
 {
 	int count = 0;
 	raw->Get(count);
@@ -282,9 +282,9 @@ GuildRankNamesSectorPacket::GuildRankNamesSectorPacket(RawPacketClass *raw)
 	}
 }
 
-RawPacketClass *GuildRankNamesSectorPacket::Build()
+PacketClass *GuildRankNamesSectorPacket::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(211, Get_Data_Size());
+	PacketClass *raw = new PacketClass(211, Get_Data_Size());
 	int count = Ranks.size();
 	raw->Add(count);
 	for (std::vector<GuildRankNameStruct>::iterator it = Ranks.begin(); it != Ranks.end(); ++it) {
@@ -298,7 +298,7 @@ int GuildRankNamesSectorPacket::Get_Data_Size()
 {
 	int size = sizeof(int);
 	for (std::vector<GuildRankNameStruct>::iterator it = Ranks.begin(); it != Ranks.end(); ++it) {
-		size += sizeof(it->Rank) + RawPacketClass::Get_Size(it->Name.c_str());
+		size += sizeof(it->Rank) + PacketClass::Get_Size(it->Name.c_str());
 	}
 	return(size);
 }
@@ -320,7 +320,7 @@ GuildGMRenameConfirmSectorPacket::GuildGMRenameConfirmSectorPacket(const char *o
 {
 }
 
-GuildGMRenameConfirmSectorPacket::GuildGMRenameConfirmSectorPacket(RawPacketClass *raw)
+GuildGMRenameConfirmSectorPacket::GuildGMRenameConfirmSectorPacket(PacketClass *raw)
 {
 	raw->Get(&OldGuildName);
 	raw->Get(&NewGuildName);
@@ -330,9 +330,9 @@ GuildGMRenameConfirmSectorPacket::~GuildGMRenameConfirmSectorPacket()
 {
 }
 
-RawPacketClass *GuildGMRenameConfirmSectorPacket::Build()
+PacketClass *GuildGMRenameConfirmSectorPacket::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(216, Get_Data_Size());
+	PacketClass *raw = new PacketClass(216, Get_Data_Size());
 	raw->Add(OldGuildName);
 	raw->Add(NewGuildName);
 	return(raw);
@@ -340,7 +340,7 @@ RawPacketClass *GuildGMRenameConfirmSectorPacket::Build()
 
 int GuildGMRenameConfirmSectorPacket::Get_Data_Size()
 {
-	return(RawPacketClass::Get_Size(OldGuildName) + RawPacketClass::Get_Size(NewGuildName));
+	return(PacketClass::Get_Size(OldGuildName) + PacketClass::Get_Size(NewGuildName));
 }
 
 int GuildGMRenameConfirmSectorPacket::Print(char *buffer, int len)

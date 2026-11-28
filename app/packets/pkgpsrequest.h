@@ -18,13 +18,13 @@
 #include "pk.h"
 
 // opcode 221 (0x00DD, GPS_REQUEST): vtable 0xB0A6D4, constructor 0x888020, 0x20 bytes
-class GPSRequestPacketClass : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
+class GPSRequestPacketClass : public UnknownPacketBaseClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	GPSRequestPacketClass(char *unknown0c, char *unknown10, char *unknown14, char *unknown18, int unknown1c);	// 0x887F20
-	GPSRequestPacketClass(RawPacketClass *raw);	// 0x888020
+	GPSRequestPacketClass(PacketClass *raw);	// 0x888020
 	virtual ~GPSRequestPacketClass();	// +0x00 (its scalar deleting destructor first)
-	virtual RawPacketClass *Build();	// +0x04 0x888150
+	virtual PacketClass *Build();	// +0x04 0x888150
 	virtual bool Process_Packet(void *client);	// +0x08 0x869480 (clientstub.cpp l.428)
 	virtual int Get_Data_Size();	// +0x0C 0x888240
 	virtual int Print(char *buffer, int len);	// +0x10 0x888290
@@ -37,13 +37,13 @@ public:
 };
 
 // opcode 222 (0x00DE, ?): vtable 0xB0A704, constructor 0x8883C0, 0x24 bytes
-class GPSResponsePacketClass : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
+class GPSResponsePacketClass : public UnknownPacketBaseClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	GPSResponsePacketClass(char *unknown0c, char *unknown10, char *unknown14, char *unknown18, int unknown1c, int unknown20);	// 0x8882C0
-	GPSResponsePacketClass(RawPacketClass *raw);	// 0x8883C0
+	GPSResponsePacketClass(PacketClass *raw);	// 0x8883C0
 	virtual ~GPSResponsePacketClass();	// +0x00 (its scalar deleting destructor first)
-	virtual RawPacketClass *Build();	// +0x04 0x888500
+	virtual PacketClass *Build();	// +0x04 0x888500
 	virtual bool Process_Packet(void *client);	// +0x08 0x8694B0 (clientstub.cpp l.431)
 	virtual int Get_Data_Size();	// +0x0C 0x8885F0
 	virtual int Print(char *buffer, int len);	// +0x10 0x888640

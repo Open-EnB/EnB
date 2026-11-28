@@ -7,15 +7,15 @@ UITriggerPacketClass::UITriggerPacketClass(int id, int action) : ID(id), Action(
 {
 }
 
-UITriggerPacketClass::UITriggerPacketClass(RawPacketClass *raw)
+UITriggerPacketClass::UITriggerPacketClass(PacketClass *raw)
 {
 	raw->Get(&ID, sizeof(ID));
 	raw->Get(&Action, sizeof(Action));
 }
 
-RawPacketClass *UITriggerPacketClass::Build()
+PacketClass *UITriggerPacketClass::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(101, Get_Data_Size());
+	PacketClass *raw = new PacketClass(101, Get_Data_Size());
 	raw->Add(&ID, sizeof(ID));
 	raw->Add(&Action, sizeof(Action));
 	return(raw);

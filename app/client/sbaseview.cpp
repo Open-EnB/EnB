@@ -405,7 +405,7 @@ void StarbaseViewClass::Unknown_69CDE0()
 		if (Starbase) {
 			Starbase->Unknown_8C();
 			SpaceClientClass *client = (SpaceClientClass *)((ClientClass *)Client)->As_Space_Client();
-			client->PDAInterface->Unknown_695FE0(true);
+			client->PDAWindow->Unknown_695FE0(true);
 		}
 	}
 }
@@ -1134,7 +1134,7 @@ void StarbaseViewClass::Unknown_69F8F0(int type, int arg)
 			Unknown5C = type;
 			{
 				SpaceClientClass *client = (SpaceClientClass *)((ClientClass *)Client)->As_Space_Client();
-				client->PDAInterface->Unknown_695FE0(false);
+				client->PDAWindow->Unknown_695FE0(false);
 			}
 			break;
 		case 13:
@@ -1157,7 +1157,7 @@ void StarbaseViewClass::Unknown_69F8F0(int type, int arg)
 			Unknown5C = type;
 			{
 				SpaceClientClass *client = (SpaceClientClass *)((ClientClass *)Client)->As_Space_Client();
-				client->PDAInterface->Unknown_695FE0(false);
+				client->PDAWindow->Unknown_695FE0(false);
 			}
 			break;
 	}

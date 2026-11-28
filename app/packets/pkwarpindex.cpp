@@ -10,7 +10,7 @@ WarpPacketClass::WarpPacketClass(int player_id, const NavigationListClass &list)
 	List = new NavigationListClass(list);
 }
 
-WarpPacketClass::WarpPacketClass(RawPacketClass *raw) :
+WarpPacketClass::WarpPacketClass(PacketClass *raw) :
 	PlayerID(0),
 	List(0)
 {
@@ -24,9 +24,9 @@ WarpPacketClass::~WarpPacketClass()
 	List = 0;
 }
 
-RawPacketClass *WarpPacketClass::Build()
+PacketClass *WarpPacketClass::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(155, Get_Data_Size());
+	PacketClass *raw = new PacketClass(155, Get_Data_Size());
 	raw->Add(&PlayerID, sizeof(PlayerID));
 	List->Add(raw);
 	return(raw);
@@ -47,15 +47,15 @@ WarpIndexPacketClass::WarpIndexPacketClass(int index) : Index(index)
 {
 }
 
-WarpIndexPacketClass::WarpIndexPacketClass(RawPacketClass *raw)
+WarpIndexPacketClass::WarpIndexPacketClass(PacketClass *raw)
 {
 	Index = -1;
 	raw->Get(&Index, sizeof(Index));
 }
 
-RawPacketClass *WarpIndexPacketClass::Build()
+PacketClass *WarpIndexPacketClass::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(156, Get_Data_Size());
+	PacketClass *raw = new PacketClass(156, Get_Data_Size());
 	raw->Add(&Index, sizeof(Index));
 	return(raw);
 }

@@ -10,7 +10,7 @@ DecalPacketClass::DecalPacketClass(int game_id, const std::vector<DecalStruct> &
 	Channel = Unknown_14(GameID, -1);
 }
 
-DecalPacketClass::DecalPacketClass(RawPacketClass *raw)
+DecalPacketClass::DecalPacketClass(PacketClass *raw)
 {
 	raw->Get(&GameID, sizeof(GameID));
 	short count = 0;
@@ -25,9 +25,9 @@ DecalPacketClass::DecalPacketClass(RawPacketClass *raw)
 	}
 }
 
-RawPacketClass *DecalPacketClass::Build()
+PacketClass *DecalPacketClass::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(16, Get_Data_Size());
+	PacketClass *raw = new PacketClass(16, Get_Data_Size());
 	raw->Add(&GameID, sizeof(GameID));
 	int count = Decals.size();
 	raw->Add(&count, sizeof(short));
@@ -56,16 +56,16 @@ NameDecalPacketClass::NameDecalPacketClass(int game_id, const char *name, const 
 	Unknown3C = Unknown_14(GameID, -1);
 }
 
-NameDecalPacketClass::NameDecalPacketClass(RawPacketClass *raw)
+NameDecalPacketClass::NameDecalPacketClass(PacketClass *raw)
 {
 	raw->Get(&GameID, sizeof(GameID));
 	raw->Get(Name, sizeof(Name));
 	raw->Get(&ColorRGB, sizeof(ColorRGB));
 }
 
-RawPacketClass *NameDecalPacketClass::Build()
+PacketClass *NameDecalPacketClass::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(178, Get_Data_Size());
+	PacketClass *raw = new PacketClass(178, Get_Data_Size());
 	raw->Add(&GameID, sizeof(GameID));
 	raw->Add(Name, sizeof(Name));
 	raw->Add(&ColorRGB, sizeof(ColorRGB));

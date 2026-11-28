@@ -9,13 +9,13 @@ GameEditorSaveSectorPacketClass::GameEditorSaveSectorPacketClass()
 {
 }
 
-GameEditorSaveSectorPacketClass::GameEditorSaveSectorPacketClass(RawPacketClass *)
+GameEditorSaveSectorPacketClass::GameEditorSaveSectorPacketClass(PacketClass *)
 {
 }
 
-RawPacketClass *GameEditorSaveSectorPacketClass::Build()
+PacketClass *GameEditorSaveSectorPacketClass::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(30027, Get_Data_Size());
+	PacketClass *raw = new PacketClass(30027, Get_Data_Size());
 	return(raw);
 }
 
@@ -41,7 +41,7 @@ GameEditorSectorSavedPacketClass::GameEditorSectorSavedPacketClass(bool success,
 	}
 }
 
-GameEditorSectorSavedPacketClass::GameEditorSectorSavedPacketClass(RawPacketClass *raw) :
+GameEditorSectorSavedPacketClass::GameEditorSectorSavedPacketClass(PacketClass *raw) :
 	Success(false),
 	Length(0),
 	Message(NULL)
@@ -83,9 +83,9 @@ GameEditorSectorSavedPacketClass::~GameEditorSectorSavedPacketClass()
 	delete [] Message;
 }
 
-RawPacketClass *GameEditorSectorSavedPacketClass::Build()
+PacketClass *GameEditorSectorSavedPacketClass::Build()
 {
-	RawPacketClass *packet = new RawPacketClass(30028, Get_Data_Size());
+	PacketClass *packet = new PacketClass(30028, Get_Data_Size());
 
 	G_ASSERT(packet);
 	packet->Add(&Success, sizeof(Success));

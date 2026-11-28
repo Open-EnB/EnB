@@ -19,12 +19,12 @@
 #include "pk.h"
 
 // opcode 23 (0x0017, REQUEST_TARGET): vtable 0xB0BCF0, constructor 0x8A7F40, 0x14 bytes
-class RequestTargetPacketClass : public PacketClass  // NAME 2: Net-7's opcode name REQUEST_TARGET (the Net-7 opcode table; no structure check)
+class RequestTargetPacketClass : public UnknownPacketBaseClass  // NAME 2: Net-7's opcode name REQUEST_TARGET (the Net-7 opcode table; no structure check)
 {
 public:
 	RequestTargetPacketClass(int game_id, int target_id);	// 0x8A7EA0
-	RequestTargetPacketClass(RawPacketClass *raw);	// 0x8A7F40
-	virtual RawPacketClass *Build();	// +0x04 0x8A7FE0
+	RequestTargetPacketClass(PacketClass *raw);	// 0x8A7F40
+	virtual PacketClass *Build();	// +0x04 0x8A7FE0
 	virtual bool Process_Packet(void *client);	// +0x08 0x867CE0 (clientstub.cpp l.50)
 	virtual int Get_Data_Size();	// +0x0C 0x8A80B0
 	virtual int Print(char *buffer, int len);	// +0x10 0x8A80D0
@@ -35,12 +35,12 @@ public:
 };
 
 // opcode 24 (0x0018, REQUEST_TARGETS_TARGET): vtable 0xB0BD20, constructor 0x8A81B0, 0x14 bytes
-class RequestTargetTargetPacketClass : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
+class RequestTargetTargetPacketClass : public UnknownPacketBaseClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	RequestTargetTargetPacketClass(int game_id, int target_id);	// 0x8A8110
-	RequestTargetTargetPacketClass(RawPacketClass *raw);	// 0x8A81B0
-	virtual RawPacketClass *Build();	// +0x04 0x8A8250
+	RequestTargetTargetPacketClass(PacketClass *raw);	// 0x8A81B0
+	virtual PacketClass *Build();	// +0x04 0x8A8250
 	virtual bool Process_Packet(void *client);	// +0x08 0x8689D0 (clientstub.cpp l.257)
 	virtual int Get_Data_Size();	// +0x0C 0x8A8320
 	virtual int Print(char *buffer, int len);	// +0x10 0x8A8340
@@ -51,12 +51,12 @@ public:
 };
 
 // opcode 25 (0x0019, SET_TARGET): vtable 0xB0BD50, constructor 0x8A8420, 0x14 bytes
-class SetTargetPacketClass : public PacketClass
+class SetTargetPacketClass : public UnknownPacketBaseClass
 {
 public:
 	SetTargetPacketClass(int target_id, int unknown10);	// 0x8A8380
-	SetTargetPacketClass(RawPacketClass *raw);	// 0x8A8420
-	virtual RawPacketClass *Build();	// +0x04 0x8A84C0
+	SetTargetPacketClass(PacketClass *raw);	// 0x8A8420
+	virtual PacketClass *Build();	// +0x04 0x8A84C0
 	virtual bool Process_Packet(void *client);	// +0x08 0x7363E0 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x8A8590
 	virtual int Print(char *buffer, int len);	// +0x10 0x8A85B0

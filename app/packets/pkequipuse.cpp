@@ -7,16 +7,16 @@ UseInventoryPacketClass::UseInventoryPacketClass(int game_id, int inventory, int
 {
 }
 
-UseInventoryPacketClass::UseInventoryPacketClass(RawPacketClass *raw)
+UseInventoryPacketClass::UseInventoryPacketClass(PacketClass *raw)
 {
 	raw->Get(&GameID, sizeof(GameID));
 	raw->Get(&Inventory, sizeof(Inventory));
 	raw->Get(&Slot, sizeof(Slot));
 }
 
-RawPacketClass *UseInventoryPacketClass::Build()
+PacketClass *UseInventoryPacketClass::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(93, Get_Data_Size());
+	PacketClass *raw = new PacketClass(93, Get_Data_Size());
 	raw->Add(&GameID, sizeof(GameID));
 	raw->Add(&Inventory, sizeof(Inventory));
 	raw->Add(&Slot, sizeof(Slot));

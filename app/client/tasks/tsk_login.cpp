@@ -24,8 +24,8 @@ unsigned int Unknown_Get_Ticks();	// 0x4A3B40 (delta_time.cpp; unknown_root.h's,
 #include <ctype.h>
 #include "..\..\shared\auth_product.h"
 void Unknown_Debug_Print(const char *text);			// NAME 1 [Unknown_Debug_Print]: 0x509E30 (dbgmgr.cpp), the log line
-class GlobalCreateCharacterPacketClass : public PacketClass { public: GlobalCreateCharacterPacketClass(int galaxy, int slot, const char *name, const AvatarDescriptionClass *desc, const ShipCustDescClass *ship, unsigned char unknown); virtual ~GlobalCreateCharacterPacketClass(); char Unknown0C[0x2BC]; };	// opcode 114: a view of pkglobalcreatecharacter.h's class (including that header moves 0x76B520's scheduling: order-only)
-class GlobalConnectPacketClass : public PacketClass { public: GlobalConnectPacketClass(const char *ticket, const char *password); ~GlobalConnectPacketClass(); char Unknown0C[0x08]; };	// opcode 109: 0x863400, 0x863570  // NAME 1 [password]: '123456'
+class GlobalCreateCharacterPacketClass : public UnknownPacketBaseClass { public: GlobalCreateCharacterPacketClass(int galaxy, int slot, const char *name, const AvatarDescriptionClass *desc, const ShipCustDescClass *ship, unsigned char unknown); virtual ~GlobalCreateCharacterPacketClass(); char Unknown0C[0x2BC]; };	// opcode 114: a view of pkglobalcreatecharacter.h's class (including that header moves 0x76B520's scheduling: order-only)
+class GlobalConnectPacketClass : public UnknownPacketBaseClass { public: GlobalConnectPacketClass(const char *ticket, const char *password); ~GlobalConnectPacketClass(); char Unknown0C[0x08]; };	// opcode 109: 0x863400, 0x863570  // NAME 1 [password]: '123456'
 void Message_Info(const char *sender, const char *category, const char *file, int line, const char *format, ...);	// NAME 5 [Message_Info]: the client's WWPROFILE("Message_Info") label (D198)
 static char *AUTH_INI = "auth.ini";				// 0xB9B9D0 (0xB9B9CC before it: auth_product.h's AUTH_PRODUCT)  // NAME 1 [AUTH_PRODUCT, AUTH_INI]: their texts
 static char *LOGIN_INI = "login.ini";				// 0xB9B9D4  // NAME 1: its text
@@ -44,7 +44,7 @@ Unknown_VersionStruct *Unknown_4456C0();				// NAME 1 [Unknown_4456C0]: neutral 
 #include "..\..\packets\pkglobalticket.h"	// opcode 111 (GLOBAL_TICKET)
 // opcode 118 (GlobalLoginPacketClass): pkgloballogin.h, included by tsk_login.h
 // opcode 119 (GlobalSetReferrerPacketClass): pkunknown_866ac0.h, included above
-class GlobalAvatarListPacketClass : public PacketClass { public: GlobalAvatarListPacketClass(RawPacketClass *raw); virtual ~GlobalAvatarListPacketClass(); virtual bool Process_Packet(void *client); LoginCharacterClass *Characters; AvatarDescriptionClass *Avatars; std::list<LoginGalaxyClass> Galaxies; };	// opcode 112: 0x862D90, 0x20 bytes  // NAME 1 [Galaxies]: copied to the task's
+class GlobalAvatarListPacketClass : public UnknownPacketBaseClass { public: GlobalAvatarListPacketClass(PacketClass *raw); virtual ~GlobalAvatarListPacketClass(); virtual bool Process_Packet(void *client); LoginCharacterClass *Characters; AvatarDescriptionClass *Avatars; std::list<LoginGalaxyClass> Galaxies; };	// opcode 112: 0x862D90, 0x20 bytes  // NAME 1 [Galaxies]: copied to the task's
 void Unknown_7E5F70();								// NAME 1 [Unknown_7E5F70]: neutral (D10); once, by the first LoginTaskClass(mode)
 // Unknown_7228C0: mousetbl.h, included above
 #include "..\..\audio\soundlib.h"
@@ -85,7 +85,7 @@ void Unknown_42EDB0();								// NAME 1 [Unknown_42EDB0]: neutral (D10) (input.c
 bool Unknown_42EA80(KernelEventClass *event);		// NAME 1 [Unknown_42EA80]: the input queue's next event (input.cpp)
 void Unknown_42E8A0(KernelEventClass *event);		// NAME 1 [Unknown_42E8A0]: hands the event on (input.cpp)
 #include "..\gadget.h"	// 0x65F780: GadgetClass::Process_Input over the view's gadgets
-class GlobalDeleteCharacterPacketClass : public PacketClass { public: GlobalDeleteCharacterPacketClass(int slot); ~GlobalDeleteCharacterPacketClass(); int Unknown0C; char Unknown10[4]; };	// opcode 113: 0x8647B0, 0x8648B0 (pkglobaldeletecharacter.h: the receiving side only)
+class GlobalDeleteCharacterPacketClass : public UnknownPacketBaseClass { public: GlobalDeleteCharacterPacketClass(int slot); ~GlobalDeleteCharacterPacketClass(); int Unknown0C; char Unknown10[4]; };	// opcode 113: 0x8647B0, 0x8648B0 (pkglobaldeletecharacter.h: the receiving side only)
 void Message_Warn(const char *sender, const char *category, const char *file, int line, const char *format, ...);	// NAME 5 [Message_Warn]: the client's WWPROFILE("Message_Warn") label (D198)
 #include "..\..\shared\unknown_4a1590.h"
 
@@ -445,7 +445,7 @@ void LoginTaskClass::Run()
 void LoginTaskClass::Process_Packets()
 {
 	if (GlobalConnection) {
-		PacketClass *packet;
+		UnknownPacketBaseClass *packet;
 		while ((packet = GlobalConnection->Receive()) != NULL) {
 			packet->Process_Packet(this);
 			delete packet;

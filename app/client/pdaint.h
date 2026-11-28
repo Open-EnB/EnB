@@ -43,12 +43,12 @@ class UIExperienceClass;	// ui_experience.h's experience bars (0x58C450)
 // pdaint.cpp's PDA (SpaceClientClass +0x1284; Init news it, 0xC0 bytes; tables 0xAFD148 / 0xAFD13C / 0xAFD130): the 'TSI14A'
 // mesh with four buttons, and its windows 0 cargo, 1 equipment, 2 character, 3 vault, 4 star map (0x6956C0), the ping
 // window and the experience display
-class PDAInterfaceClass : public InterfaceClass	// NAME 3: class-from-file (D24) for app\Client\pdaint.cpp
+class PDAInterface : public InterfaceClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	enum { NUM_BUTTONS = 4 };							// NAME 1: the set-up's loop over 0xB90A38
-	PDAInterfaceClass(SpaceClientClass *client);					// 0x693140  // NAME 1 [client]: neutral
-	virtual ~PDAInterfaceClass();						// 0x693950 (deleting 0x693200)
+	PDAInterface(SpaceClientClass *client);					// 0x693140  // NAME 1 [client]: neutral
+	virtual ~PDAInterface();						// 0x693950 (deleting 0x693200)
 	virtual void Unknown_54();							// +0x54 0x693230 (the mesh, the windows, the buttons)
 	virtual void Unknown_58();							// +0x58 0x694AD0 (the base's)
 	virtual void Unknown_5C();							// +0x5C 0x694AF0 (the base's when Active)

@@ -266,7 +266,7 @@ int ItemInfoClass::Get_Size()
 }
 
 // 0x83FEF0
-void ItemInfoClass::Write(RawPacketClass *raw)
+void ItemInfoClass::Write(PacketClass *raw)
 {
 	unsigned char count = Fields.size();
 	raw->Add(&count, sizeof(count));
@@ -296,7 +296,7 @@ void ItemInfoClass::Write(RawPacketClass *raw)
 }
 
 // 0x840030
-void ItemInfoClass::Read(RawPacketClass *raw)
+void ItemInfoClass::Read(PacketClass *raw)
 {
 	unsigned char count = 0;
 	raw->Get(&count, sizeof(count));

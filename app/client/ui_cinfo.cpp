@@ -150,7 +150,7 @@ bool CharacterInfoInterface::Unknown_68(int key)
 		SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 		{
 			SpaceClientClass *client = Client->As_Space_Client();
-			client->PDAInterface->Unknown_695A00(2, 1);
+			client->PDAWindow->Unknown_695A00(2, 1);
 		}
 		return(true);
 	case 6:

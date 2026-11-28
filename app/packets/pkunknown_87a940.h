@@ -19,13 +19,13 @@
 #include "pk.h"
 
 // opcode 167 (0x00A7, ?): vtable 0xB09F00, constructor 0x87A9E0, 0x30 bytes
-class ChatBasicRequestPacketClass : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
+class ChatBasicRequestPacketClass : public UnknownPacketBaseClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	ChatBasicRequestPacketClass();	// 0x87A940
-	ChatBasicRequestPacketClass(RawPacketClass *raw);	// 0x87A9E0
+	ChatBasicRequestPacketClass(PacketClass *raw);	// 0x87A9E0
 	virtual ~ChatBasicRequestPacketClass();	// +0x00 0x87AAC0
-	virtual RawPacketClass *Build();	// +0x04 0x87AB60
+	virtual PacketClass *Build();	// +0x04 0x87AB60
 	virtual bool Process_Packet(void *client);	// +0x08 0x868CD0 (clientstub.cpp l.305)
 	virtual int Get_Data_Size();	// +0x0C 0x87AC30
 	virtual int Print(char *buffer, int len);	// +0x10 0x87AC70

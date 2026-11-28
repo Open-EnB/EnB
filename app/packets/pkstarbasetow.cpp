@@ -9,16 +9,16 @@ StarbaseReqPacketClass::StarbaseReqPacketClass(int player_id, unsigned char acti
 {
 }
 
-StarbaseReqPacketClass::StarbaseReqPacketClass(RawPacketClass *raw)
+StarbaseReqPacketClass::StarbaseReqPacketClass(PacketClass *raw)
 {
 	raw->Get(&PlayerID, sizeof(PlayerID));
 	raw->Get(&StarbaseID, sizeof(StarbaseID));
 	raw->Get(&Action, sizeof(Action));
 }
 
-RawPacketClass *StarbaseReqPacketClass::Build()
+PacketClass *StarbaseReqPacketClass::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(78, Get_Data_Size());
+	PacketClass *raw = new PacketClass(78, Get_Data_Size());
 	raw->Add(&PlayerID, sizeof(PlayerID));
 	raw->Add(&StarbaseID, sizeof(StarbaseID));
 	raw->Add(&Action, sizeof(Action));
@@ -42,16 +42,16 @@ StarbaseSetPacketClass::StarbaseSetPacketClass(unsigned char action, unsigned ch
 {
 }
 
-StarbaseSetPacketClass::StarbaseSetPacketClass(RawPacketClass *raw)
+StarbaseSetPacketClass::StarbaseSetPacketClass(PacketClass *raw)
 {
 	raw->Get(&StarbaseID, sizeof(StarbaseID));
 	raw->Get(&Action, sizeof(Action));
 	raw->Get(&ExitMode, sizeof(ExitMode));
 }
 
-RawPacketClass *StarbaseSetPacketClass::Build()
+PacketClass *StarbaseSetPacketClass::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(79, Get_Data_Size());
+	PacketClass *raw = new PacketClass(79, Get_Data_Size());
 	raw->Add(&StarbaseID, sizeof(StarbaseID));
 	raw->Add(&Action, sizeof(Action));
 	raw->Add(&ExitMode, sizeof(ExitMode));
@@ -72,7 +72,7 @@ StarbaseTowPacketClass::StarbaseTowPacketClass(int starbase_id1, int tow_cost1, 
 {
 }
 
-StarbaseTowPacketClass::StarbaseTowPacketClass(RawPacketClass *raw)
+StarbaseTowPacketClass::StarbaseTowPacketClass(PacketClass *raw)
 {
 	raw->Get(&StarbaseID1, sizeof(StarbaseID1));
 	raw->Get(&StarbaseID2, sizeof(StarbaseID2));
@@ -82,9 +82,9 @@ StarbaseTowPacketClass::StarbaseTowPacketClass(RawPacketClass *raw)
 	raw->Get(&TowCost3, sizeof(TowCost3));
 }
 
-RawPacketClass *StarbaseTowPacketClass::Build()
+PacketClass *StarbaseTowPacketClass::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(80, Get_Data_Size());
+	PacketClass *raw = new PacketClass(80, Get_Data_Size());
 	raw->Add(&StarbaseID1, sizeof(StarbaseID1));
 	raw->Add(&StarbaseID2, sizeof(StarbaseID2));
 	raw->Add(&StarbaseID3, sizeof(StarbaseID3));

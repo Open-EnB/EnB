@@ -292,7 +292,7 @@ public:
 	void Unknown_460BC0();											// 0x460BC0  // NAME 1: neutral (D10)
 	int Unknown_461D60(RenderObjClass *robj, const char *bone_path);	// 0x461D60 (removes robj from a bone path)  // NAME 1 [robj, bone_path]: neutral
 	void Unknown_462180(HAnimComboDataClass *data);					// 0x462180  // NAME 1 [data]: neutral
-	void Unknown_462470(ProjectionDefClass *def, ProjectorManagerClass *manager);	// 0x462470: the projector caster  // NAME 2 [def, manager]: the caster's
+	void Unknown_462470(ProjectionDefClass *def, ProjectionManagerClass *manager);	// 0x462470: the projector caster  // NAME 2 [def, manager]: the caster's
 	void Unknown_462530(int a);										// 0x462530  // NAME 1 [a]: neutral
 	void Unknown_462610();											// 0x462610  // NAME 1: neutral (D10)
 	void Unknown_462650();											// 0x462650  // NAME 1: neutral (D10)

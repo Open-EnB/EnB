@@ -391,7 +391,7 @@ void UIDynamicWindowClass::Add_Text(const char *font_name, int row_index, unsign
 **	message box's object before it); GadgetCollectionInterface's inline destructor 0x58A030 / 0x58A050, the destructor
 **	0x58A080 / 0x58A0B0, the members in source order, the template instances 0x58B420-0x58B5A0 (the two Create_Peek,
 **	vector<GadgetClass *>'s destructor and helpers, std::copy, _Construct), the guarded <string> initialiser 0x58B5D0
-**	and the adjustor thunks 0x58B600 / 0x58B610 / 0x58B620 (+0x04, +0x38, +0x84) close it; 0x58B630's PermStringInitClass
+**	and the adjustor thunks 0x58B600 / 0x58B610 / 0x58B620 (+0x04, +0x38, +0x84) close it; 0x58B630's PermStringInit
 **	static opens the next object. The asserts sit on the client's lines 252-373 (blank lines above 0x58A670 keep them).
 **	Unknown_68 emits a GadgetEvent with the gadget id on Unknown_4F7EF0's map, GadgetCollectionInterface as sender
 **	(dynamic_window_toggle.cpp's ToggleButtonDynamicWindow listens). 0x58B160 is a variadic member (cdecl, this first):

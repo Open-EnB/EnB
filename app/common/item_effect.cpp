@@ -29,7 +29,7 @@ int ItemEffectClass::Get_Size()
 }
 
 // 0x834F40
-void ItemEffectClass::Write(RawPacketClass *raw)
+void ItemEffectClass::Write(PacketClass *raw)
 {
 	EffectDescriptionClass::Write(raw);
 	raw->Add(&Usage, sizeof(Usage));
@@ -37,7 +37,7 @@ void ItemEffectClass::Write(RawPacketClass *raw)
 }
 
 // 0x834F80
-void ItemEffectClass::Read(RawPacketClass *raw)
+void ItemEffectClass::Read(PacketClass *raw)
 {
 	EffectDescriptionClass::Read(raw);
 	raw->Get(&Usage, sizeof(Usage));

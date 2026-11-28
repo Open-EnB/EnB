@@ -19,7 +19,7 @@ GlobalCreateCharacterPacketClass::GlobalCreateCharacterPacketClass(int galaxy, i
 	Ship = *ship;
 }
 
-GlobalCreateCharacterPacketClass::GlobalCreateCharacterPacketClass(RawPacketClass *raw) :
+GlobalCreateCharacterPacketClass::GlobalCreateCharacterPacketClass(PacketClass *raw) :
 	Galaxy(0),
 	Slot(0),
 	Unknown14(0)
@@ -39,9 +39,9 @@ GlobalCreateCharacterPacketClass::~GlobalCreateCharacterPacketClass()
 {
 }
 
-RawPacketClass *GlobalCreateCharacterPacketClass::Build()
+PacketClass *GlobalCreateCharacterPacketClass::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(114, Get_Data_Size());
+	PacketClass *raw = new PacketClass(114, Get_Data_Size());
 	raw->Add(Galaxy);
 	raw->Add(Slot);
 	raw->Add(Unknown14);

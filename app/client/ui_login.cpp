@@ -249,8 +249,8 @@ public:
 	LoginTaskClass *Get_Task() { return(Task); }		// NAME 1: neutral (D10)
 	LoginTaskClass *Task;								// +0x9C (the character view's +0x14's slot +0x08)  // NAME 1: neutral (D10)
 	int Unknown0A0;										// +0x0A0 (the account menu's step: 11, 12)
-	TextGadgetClass *NameGadget;						// +0xA4 ('Name_fe01a')  // NAME 1: its model's name
-	TextGadgetClass *PasswordGadget;					// +0xA8 ('Password_fe01a')  // NAME 1: its model's name
+	UnknownTextGadgetClass *NameGadget;						// +0xA4 ('Name_fe01a')  // NAME 1: its model's name
+	UnknownTextGadgetClass *PasswordGadget;					// +0xA8 ('Password_fe01a')  // NAME 1: its model's name
 	bool Unknown0AC;									// +0xAC
 	int Unknown0B0;										// +0xB0 (the rejections: 'RejectedOnce', 'RejectedTwice')
 	GadgetClass *Buttons[5];							// +0xB4 ('BUTTON_NAME' ..)  // NAME 1: neutral (D10)
@@ -338,11 +338,11 @@ LoginInterface::LoginInterface(UIViewClass *view, LayerClass *layer) :
 		Buttons[n] = new ButtonGadgetClass(robj.Peek(), *layer, 0x55, 3);
 		Unknown64.Unknown_6870E0(Buttons[n], n + 1, View, 1, 1);
 	}
-	NameGadget = new TextGadgetClass(this, 0x14, "Name_fe01a", model.Peek(), Unknown_B08CC4, 0);
+	NameGadget = new UnknownTextGadgetClass(this, 0x14, "Name_fe01a", model.Peek(), Unknown_B08CC4, 0);
 	NameGadget->Set_Text(Get_Task()->Username, 0);
 	NameGadget->Unknown_28(Layer);
 	Unknown64.Unknown_6870E0(NameGadget, 7, View, 1, 1);
-	PasswordGadget = new TextGadgetClass(this, 0x14, "Password_fe01a", model.Peek(), Unknown_B08CC4, 0);
+	PasswordGadget = new UnknownTextGadgetClass(this, 0x14, "Password_fe01a", model.Peek(), Unknown_B08CC4, 0);
 	PasswordGadget->Unknown5C = true;
 	PasswordGadget->Set_Text("", 0);
 	PasswordGadget->Unknown_28(Layer);
@@ -922,7 +922,7 @@ void LoginInterface::Unknown_5AEA60()
 **	SignalBaseClass::MemberCallback<GadgetClass,LoginInterface,...>), 0xDC bytes over intrface.cpp's InterfaceClass
 **	(the constructor calls 0x540A90 directly), tables 0xAF2BF0 / 0xAF2BE4 / 0xAF2BD8; its own slots are the
 **	destructor, +0x60 (0x5AD540, every frame) and +0x68 (0x5AD610, the buttons). The object runs from the constructor
-**	0x5ACB80 (after the adjustor thunks 0x5ACB60 / 0x5ACB70 of the file before) to the PermStringInitClass static at
+**	0x5ACB80 (after the adjustor thunks 0x5ACB60 / 0x5ACB70 of the file before) to the PermStringInit static at
 **	0x5AF980 (permstr.h's); 0x5AF130-0x5AF970 are the settings map's template members, the callback's virtuals and
 **	the adjustor thunks this file emits. Its asserts sit on the client's lines 713 ('!textptr', 0x5AE320, which
 **	0x5AD610 and 0x5ADA50 inline), 787 / 826 ('AccountMenu') and 862 / 866 ('!event', '!gadget') (D25).

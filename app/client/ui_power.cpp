@@ -201,7 +201,7 @@ bool UIPowerGaugeClass::Set_Value(float value)
 /*
 **	Notes (O4, 2026-11-11)
 **
-**	The client's object 0x5DBF70-0x5DCCDF: permstr.h's PermStringInitClass static 0x5DBF70 (destructor 0x5DBFA0) opens it,
+**	The client's object 0x5DBF70-0x5DCCDF: permstr.h's PermStringInit static 0x5DBF70 (destructor 0x5DBFA0) opens it,
 **	after the adjustor thunks 0x5DBF50 (-4) / 0x5DBF60 (-0x38) of Unknown5DB670InterfaceClass's deleting destructor;
 **	UIProcessClass's 0x5DCCE0 follows. No __FILE__ of its own (only the headers' asserts: delta_interpolator.h l.54,
 **	auxdata.h l.155): the file name is NAME 1, from the tooltips' section UI_POWER and the link order. Its twin is

@@ -236,7 +236,7 @@ void SkillAbilityDataPeekClass::Update_Fields()
 
 /*
 **	Notes.
-**	skill_data_peek.cpp's twin. Object from 0x8139A0: permstr.h's PermStringInit (the instance 0xBE8D58, its atexit 0x8139D0)
+**	skill_data_peek.cpp's twin. Object from 0x8139A0: permstr.h's _PermStringInit (the instance 0xBE8D58, its atexit 0x8139D0)
 **	opens it. Its end: see importer.py's RECONSTRUCTED entry.
 */
 

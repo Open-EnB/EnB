@@ -1,7 +1,7 @@
 // Earth & Beyond client (reconstruction): app\client\ui_dynamicwindow.h, the screen that shows a dynamic window (the
 // client's ui_dynamicwindow.cpp, 'e:\build\beta\G\app\Client\ui_dynamicwindow.cpp' at 0xB7EF24; this header's name is
 // provisional, NAME 1). The object is 0x589D30-0x58B62F (the constructor first; the adjustor thunks 0x58B600 / 0x58B610 /
-// 0x58B620 last; the next object opens with a PermStringInitClass static at 0x58B630).
+// 0x58B620 last; the next object opens with a PermStringInit static at 0x58B630).
 #ifndef UI_DYNAMICWINDOW_H  // NAME 1 [ui_dynamicwindow.h]: provisional header name for ui_dynamicwindow.cpp
 #define UI_DYNAMICWINDOW_H
 

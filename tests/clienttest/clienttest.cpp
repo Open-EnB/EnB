@@ -199,7 +199,7 @@ static void Hook_Get_Ticks()
 
 // The packets whose raw constructor isn't rebuilt (pk_stubs.cpp, generated): the factory still makes
 // them; the harness never hands one to a handler (Opcode_Table's Handler 0 / 2 go to the recording packet)
-void Conn_Record(PacketClass *packet, RawPacketClass *)
+void Conn_Record(UnknownPacketBaseClass *packet, PacketClass *)
 {
 	packet->Connection = 0;
 	packet->Serial = 0;
@@ -537,7 +537,7 @@ static const char *Opcode_Name(int opcode, int *handler)
 
 // What the harness hands Process_Packets for an opcode it doesn't drive: counts and accepts it
 static std::map<int, int> Recorded;
-class RecordingPacketClass : public PacketClass
+class RecordingPacketClass : public UnknownPacketBaseClass
 {
 public:
 	RecordingPacketClass(int opcode, int size) : Opcode(opcode), Size(size), Refuse(opcode == REFUSE_OPCODE ? 2 : 0) { Serial = 0; }
@@ -580,7 +580,7 @@ class MemoryConnectionClass : public ConnectionClass
 public:
 	MemoryConnectionClass() : Received(0) {}
 	virtual ~MemoryConnectionClass() { Trace("memory connection deleted"); }
-	virtual bool Send_Message(RawPacketClass *raw)
+	virtual bool Send_Message(PacketClass *raw)
 	{
 		std::vector<unsigned char> m(raw->Header.Size < 4 ? 4 : raw->Header.Size);
 		memcpy(&m[0], &raw->Header, 4);
@@ -597,9 +597,9 @@ public:
 		Sent.push_back(m);
 		return(true);
 	}
-	virtual bool Send_Packet(PacketClass *packet)
+	virtual bool Send_Packet(UnknownPacketBaseClass *packet)
 	{
-		RawPacketClass *raw = packet->Build();
+		PacketClass *raw = packet->Build();
 		if (raw == 0) {
 			Trace("sent: Build gave nothing");
 			return(false);
@@ -608,7 +608,7 @@ public:
 		delete raw;
 		return(ok);
 	}
-	virtual PacketClass *Receive()
+	virtual UnknownPacketBaseClass *Receive()
 	{
 		if (Incoming.empty()) {
 			return(0);
@@ -619,7 +619,7 @@ public:
 		int opcode = *(unsigned short *)&m[2];
 		int handler;
 		const char *name = Opcode_Name(opcode, &handler);
-		PacketClass *packet;
+		UnknownPacketBaseClass *packet;
 		if (handler == 1) {
 			Trace("msg %d %s (%d) size %d: cpacket.cpp's handler", Received, name, opcode, (int)m.size());
 			packet = Unknown_Create_Packet(&m[0]);
@@ -925,9 +925,9 @@ static void Test_Packets(SpaceClientClass *client, const char *path)
 // ------------------------------------------------------------------------- (4) a positional packet to the model
 
 // The message a packet's Build gives (what the server would send)
-static std::vector<unsigned char> Built_Message(PacketClass *packet)
+static std::vector<unsigned char> Built_Message(UnknownPacketBaseClass *packet)
 {
-	RawPacketClass *raw = packet->Build();
+	PacketClass *raw = packet->Build();
 	std::vector<unsigned char> m;
 	if (raw == 0) {
 		return m;
@@ -1860,7 +1860,7 @@ static void Test_Chat(SpaceClientClass *client)
 const char *Unknown_83D900(int message_type) { return(message_type == 3 ? "$OtherName$ has joined $GuildName$." : "$OtherName$ left\n$GuildName$"); }
 static int Guild_Sound_Calls = 0;
 const char *Unknown_83D970(int message_type) { Guild_Sound_Calls++; return(message_type == 3 ? "guild_join" : 0); }
-static std::vector<unsigned char> Raw_Bytes(RawPacketClass *raw)
+static std::vector<unsigned char> Raw_Bytes(PacketClass *raw)
 {
 	std::vector<unsigned char> m(raw->Header.Size);
 	memcpy(&m[0], &raw->Header, 4);
@@ -1873,7 +1873,7 @@ static std::vector<unsigned char> Raw_Bytes(RawPacketClass *raw)
 static std::vector<unsigned char> Two_Strings(int opcode, const char *a, const char *b)
 {
 	std::string sa(a), sb(b);
-	RawPacketClass *raw = new RawPacketClass(opcode, 4 + sa.size() + sb.size());
+	PacketClass *raw = new PacketClass(opcode, 4 + sa.size() + sb.size());
 	raw->Add(sa);
 	raw->Add(sb);
 	return(Raw_Bytes(raw));
@@ -1904,7 +1904,7 @@ static void Test_Guild(SpaceClientClass *client, FakeMainViewClass *main_view)
 	int types[2] = { 3, 4 };
 	int traced[2];
 	for (int t = 0; t < 2; t++) {
-		RawPacketClass *raw = new RawPacketClass(208, 4 + 4 + other.size() + guild.size());
+		PacketClass *raw = new PacketClass(208, 4 + 4 + other.size() + guild.size());
 		raw->Add(&types[t], 4);
 		raw->Add(other);
 		raw->Add(guild);
@@ -2012,7 +2012,7 @@ static void Test_Chat_Lists(SpaceClientClass *client)
 	int asked = 0;
 	for (int t = 0; t < (int)(sizeof(types) / sizeof(types[0])); t++) {
 		std::string name("Alex");
-		RawPacketClass *raw = new RawPacketClass(204, 4 + 2 + name.size());
+		PacketClass *raw = new PacketClass(204, 4 + 2 + name.size());
 		raw->Add(&types[t], 4);
 		raw->Add(name);
 		client->Unknown119C = "";
@@ -2160,7 +2160,7 @@ int main(int argc, char **argv)
 		Dialog_Table[d] = (void *)Zero_Slot;
 	}
 	Fake_Dialog_Storage[0] = (int)Dialog_Table;
-	client->PDAInterface = (PDAInterfaceClass *)Switch_Pda;
+	client->PDAWindow = (PDAInterface *)Switch_Pda;
 	client->HotKeys = (UIHotKeysClass *)Switch_Hot_Keys;
 	// Unknown_742530 calls the real smouse.cpp 0x515340 on the software mouse (+0x1274): a zeroed one (no cursor model, no drag)
 	static char fake_mouse[0x40];

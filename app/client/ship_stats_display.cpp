@@ -254,7 +254,7 @@ void ShipStatsDisplayClass::Unknown_6A3C10()
 **
 **	The object: the previous object ends with its <string> / <locale> statics 0x6A2C30, 0x6A2CB0 (the guarded
 **	ctype id) and 0x6A2D20 (its RefCountPtr Clear copy 0x6A2BF0 sits before them); this one opens with permstr.h's
-**	PermStringInitClass static 0x6A2D50 (atexit 0x6A2D80), then SSDC's table 0x6A2DA0, the class's four functions
+**	PermStringInit static 0x6A2D50 (atexit 0x6A2D80), then SSDC's table 0x6A2DA0, the class's four functions
 **	0x6A2ED0-0x6A3C10, and ends with its own <string> statics 0x6A3C30, 0x6A3CA0 (guard) and 0x6A3D30.
 **	SSDC's bools are a memset(true) and one false: the client stores them as 0x01010101 dwords, a word and a byte.
 **	Not exact (one round): Unknown_6A34E0 picks each arrow's texture into ecx with the arrow in eax, ours the other way

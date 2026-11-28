@@ -2,7 +2,7 @@
 #include "pkgmresetmission.h"
 #include <stdio.h>
 #include "..\shared\auth_product.h"
-GMResetMissionRequestPacketClass::GMResetMissionRequestPacketClass(RawPacketClass *raw) :
+GMResetMissionRequestPacketClass::GMResetMissionRequestPacketClass(PacketClass *raw) :
 	Unknown0C(0),
 	Unknown20(false)
 {
@@ -28,9 +28,9 @@ GMResetMissionRequestPacketClass::~GMResetMissionRequestPacketClass()
 {
 }
 
-RawPacketClass *GMResetMissionRequestPacketClass::Build()
+PacketClass *GMResetMissionRequestPacketClass::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(237, Get_Data_Size());
+	PacketClass *raw = new PacketClass(237, Get_Data_Size());
 	raw->Add(Unknown0C);
 	int value = Unknown20;
 	raw->Add(value);

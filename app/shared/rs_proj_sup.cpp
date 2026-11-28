@@ -15,7 +15,7 @@
 #include "..\shared\g_assert.h"
 
 // @0x45D9E0
-Unknown45D9E0Class::Unknown45D9E0Class(RsTrackClass *owner, ProjectionDefClass *def, ProjectorManagerClass *manager) :
+Unknown45D9E0Class::Unknown45D9E0Class(RsTrackClass *owner, ProjectionDefClass *def, ProjectionManagerClass *manager) :
 	ProjectionSourceClass((owner->Unknown8C & 0x80) != 0, def, manager),
 	Owner(owner)
 {

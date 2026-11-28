@@ -927,5 +927,5 @@ int UIJobsClass::Unknown_5A45A0(int category)
 /*
 ** Reconstruction notes (JB1, 2026-11-09)
 ** The window's functions 0x5A1170-0x5A45A0 in the client's order, then the STL instances 0x5A45F0-0x5A4A50, the
-** thunks 0x5A4AE0 / 0x5A4AF0 and the PermStringInitClass static 0x5A4B00.
+** thunks 0x5A4AE0 / 0x5A4AF0 and the PermStringInit static 0x5A4B00.
 */

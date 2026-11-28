@@ -21,12 +21,12 @@
 char *Sector_Type_Name(int sector_type);	// 0x84A3B0 (app/common/sector_types.h; declared here too: pk_classes.h is pad-sensitive)  // NAME 2: what it returns
 
 // opcode 78 (0x004E, STARBASE_REQUEST): vtable 0xB0B868, constructor 0x8A2DF0, 0x18 bytes
-class StarbaseReqPacketClass : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
+class StarbaseReqPacketClass : public UnknownPacketBaseClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	StarbaseReqPacketClass(int player_id, unsigned char action, int starbase_id);	// 0x8A2D70 (ui_avatar_cust.cpp's 0x551C80: the client's Unknown1138, 10, 0)  // NAME 1 [player_id, action, starbase_id]: after the members they set
-	StarbaseReqPacketClass(RawPacketClass *raw);	// 0x8A2DF0
-	virtual RawPacketClass *Build();	// +0x04 0x8A2EB0
+	StarbaseReqPacketClass(PacketClass *raw);	// 0x8A2DF0
+	virtual PacketClass *Build();	// +0x04 0x8A2EB0
 	virtual bool Process_Packet(void *client);	// +0x08 0x867F80 (clientstub.cpp l.92)
 	virtual int Get_Data_Size();	// +0x0C 0x8A2F90
 	virtual int Print(char *buffer, int len);	// +0x10 0x8A2FB0
@@ -38,12 +38,12 @@ public:
 };
 
 // opcode 79 (0x004F, STARBASE_SET): vtable 0xB0B898, constructor 0x8A3090, 0x14 bytes
-class StarbaseSetPacketClass : public PacketClass
+class StarbaseSetPacketClass : public UnknownPacketBaseClass
 {
 public:
 	StarbaseSetPacketClass(unsigned char action, unsigned char exit_mode, int starbase_id);	// 0x8A2FF0
-	StarbaseSetPacketClass(RawPacketClass *raw);	// 0x8A3090
-	virtual RawPacketClass *Build();	// +0x04 0x8A3150
+	StarbaseSetPacketClass(PacketClass *raw);	// 0x8A3090
+	virtual PacketClass *Build();	// +0x04 0x8A3150
 	virtual bool Process_Packet(void *client);	// +0x08 0x7381C0 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x8A3230
 	virtual int Print(char *buffer, int len);	// +0x10 0x8A3250
@@ -54,12 +54,12 @@ public:
 };
 
 // opcode 80 (0x0050, ?): vtable 0xB0B8C8, constructor 0x8A3370, 0x24 bytes
-class StarbaseTowPacketClass : public PacketClass
+class StarbaseTowPacketClass : public UnknownPacketBaseClass
 {
 public:
 	StarbaseTowPacketClass(int starbase_id1, int tow_cost1, int starbase_id2, int tow_cost2, int starbase_id3, int tow_cost3);	// 0x8A32A0
-	StarbaseTowPacketClass(RawPacketClass *raw);	// 0x8A3370
-	virtual RawPacketClass *Build();	// +0x04 0x8A3450
+	StarbaseTowPacketClass(PacketClass *raw);	// 0x8A3370
+	virtual PacketClass *Build();	// +0x04 0x8A3450
 	virtual bool Process_Packet(void *client);	// +0x08 0x738330 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x8A3560
 	virtual int Print(char *buffer, int len);	// +0x10 0x8A3580

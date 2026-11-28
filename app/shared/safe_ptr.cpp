@@ -54,7 +54,7 @@ void SafePtrBaseClass::Set(SafePtrTargetClass *target)
 **	Reconstruction notes
 **
 **	Client 0x4F5E10-0x4F5F3C: the object opens after the previous one's guarded <string> initialiser
-**	(0x4F5DE0) and ends before shipcust_desc.cpp's PermStringInitClass static (0x4F5F60), which opens
+**	(0x4F5DE0) and ends before shipcust_desc.cpp's PermStringInit static (0x4F5F60), which opens
 **	the next object. 0x4F5E10 the target's destructor, 0x4F5E40 its scalar deleting destructor,
 **	0x4F5E90 / 0x4F5EB0 the pointer's constructor and destructor, 0x4F5ED0 Set (assert 'm_prev',
 **	line 31). The Vector3 / Vector2 constructors 0x4F6160 / 0x4F6190 after it are shipcust_desc.cpp's

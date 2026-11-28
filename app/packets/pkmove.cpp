@@ -25,15 +25,15 @@ MovementPacketClass::MovementPacketClass(int game_id, char move_type) :
 {
 }
 
-MovementPacketClass::MovementPacketClass(RawPacketClass *raw)
+MovementPacketClass::MovementPacketClass(PacketClass *raw)
 {
 	raw->Get(&GameID, sizeof(GameID));
 	raw->Get(&MoveType, sizeof(MoveType));
 }
 
-RawPacketClass *MovementPacketClass::Build()
+PacketClass *MovementPacketClass::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(20, Get_Data_Size());
+	PacketClass *raw = new PacketClass(20, Get_Data_Size());
 	raw->Add(&GameID, sizeof(GameID));
 	raw->Add(&MoveType, sizeof(MoveType));
 	return(raw);

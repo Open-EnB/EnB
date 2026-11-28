@@ -12,7 +12,7 @@ class MFDInterface;
 class ClientObjectClass;
 
 // UIMFDExtendedContextClass, the panel every extended context derives from, is in ui_mfd_extended_context_base.h:
-// ui_mfd_extended_context_strings.cpp derives from it without this header (its client object has no PermStringInit,
+// ui_mfd_extended_context_strings.cpp derives from it without this header (its client object has no _PermStringInit,
 // so it never saw kv_encoder.h's delta.h / name.h / permstr.h, which the Watch below needs for DeltaContainer).
 
 

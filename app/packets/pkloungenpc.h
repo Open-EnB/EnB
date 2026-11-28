@@ -50,17 +50,17 @@ struct LoungeNPCNPCStruct  // NAME 2: what 0x6987A0 (sbase_info.cpp) makes of an
 	int Unknown10;	// +0x10  // NAME 1: neutral (D10)
 	std::string Text;	// +0x14 (Length bytes in the message, no terminator)  // NAME 2: what it holds
 	int Length;	// +0x24  // NAME 2: what it holds
-	AvatarDescriptionClass Desc;	// +0x28 (through RawPacketClass's Add / Get of its wire interface)  // NAME 2: what it holds
+	AvatarDescriptionClass Desc;	// +0x28 (through PacketClass's Add / Get of its wire interface)  // NAME 2: what it holds
 };
 
 // opcode 82 (0x0052, LOUNGE_NPC): vtable 0xB0AFE4, constructor 0x8978D0, 0x40 bytes
-class LoungeNPCPacketClass : public PacketClass  // NAME 2: Net-7's opcode name LOUNGE_NPC (the Net-7 opcode table), the client's Print text 'LoungeNPC'
+class LoungeNPCPacketClass : public UnknownPacketBaseClass  // NAME 2: Net-7's opcode name LOUNGE_NPC (the Net-7 opcode table), the client's Print text 'LoungeNPC'
 {
 public:
 	LoungeNPCPacketClass(int style);	// 0x897800
-	LoungeNPCPacketClass(RawPacketClass *raw);	// 0x8978D0
+	LoungeNPCPacketClass(PacketClass *raw);	// 0x8978D0
 	virtual ~LoungeNPCPacketClass();	// +0x00 0x8978A0 / 0x897FE0
-	virtual RawPacketClass *Build();	// +0x04 0x898080
+	virtual PacketClass *Build();	// +0x04 0x898080
 	virtual bool Process_Packet(void *client);	// +0x08 0x7385B0 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x8983D0
 	virtual int Print(char *buffer, int len);	// +0x10 0x8984C0

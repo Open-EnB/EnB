@@ -2,7 +2,7 @@
 #include "pkgmeditplayerinventory.h"
 #include <stdio.h>
 #include "..\shared\auth_product.h"
-GMEditPlayerInventoryPacketClass::GMEditPlayerInventoryPacketClass(RawPacketClass *raw) :
+GMEditPlayerInventoryPacketClass::GMEditPlayerInventoryPacketClass(PacketClass *raw) :
 	Unknown0C(0)
 {
 	raw->Get(Unknown0C);
@@ -25,9 +25,9 @@ GMEditPlayerInventoryPacketClass::~GMEditPlayerInventoryPacketClass()
 {
 }
 
-RawPacketClass *GMEditPlayerInventoryPacketClass::Build()
+PacketClass *GMEditPlayerInventoryPacketClass::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(234, Get_Data_Size());
+	PacketClass *raw = new PacketClass(234, Get_Data_Size());
 	raw->Add(Unknown0C);
 	int count = Strings.size();
 	raw->Add(count);

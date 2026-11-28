@@ -7,15 +7,15 @@ TradePacketClass::TradePacketClass(bool type, int partner_id) : PartnerID(partne
 {
 }
 
-TradePacketClass::TradePacketClass(RawPacketClass *raw)
+TradePacketClass::TradePacketClass(PacketClass *raw)
 {
 	raw->Get(&PartnerID, sizeof(PartnerID));
 	raw->Get(&Type, sizeof(Type));
 }
 
-RawPacketClass *TradePacketClass::Build()
+PacketClass *TradePacketClass::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(31, Get_Data_Size());
+	PacketClass *raw = new PacketClass(31, Get_Data_Size());
 	raw->Add(&PartnerID, sizeof(PartnerID));
 	raw->Add(&Type, sizeof(Type));
 	return(raw);

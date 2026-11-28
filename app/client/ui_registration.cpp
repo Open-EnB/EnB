@@ -517,7 +517,7 @@ bool RegistrationInterface::Unknown_68(int key)
 			return false;
 		case 0x2F:
 			if (!UnknownF8[Unknown148].Gadget->Active) {
-				TextBaseGadgetClass *gadget = UnknownF8[Unknown148].Gadget;
+				TextGadgetClass *gadget = UnknownF8[Unknown148].Gadget;
 				if (gadget->Unknown39) {
 					gadget->Unknown39 = false;
 					Unknown_5F8AD0();
@@ -632,7 +632,7 @@ void RegistrationInterface::Unknown_5F2280()
 {
 	Unknown_5FB0C0();
 	if (UnknownD4 == 0xC || UnknownD4 == 0xD) {
-		TextBaseGadgetClass *gadget = UnknownF8[0x23].Gadget;
+		TextGadgetClass *gadget = UnknownF8[0x23].Gadget;
 		bool changed = gadget->Changed;
 		gadget->Changed = false;
 		if (changed) {
@@ -920,7 +920,7 @@ void RegistrationInterface::Unknown_5F2D30(int id, const char *name, const char 
 	value.Unknown08 = (int)style;
 	value.Unknown0C = (int)name;
 	value.Unknown10 = next;
-	TextGadgetClass *gadget = new TextGadgetClass(this, length, style, DialogRenderObj.Peek(), flags | Unknown_B08CBC | Unknown_B08CC0, chars);
+	UnknownTextGadgetClass *gadget = new UnknownTextGadgetClass(this, length, style, DialogRenderObj.Peek(), flags | Unknown_B08CBC | Unknown_B08CC0, chars);
 	value.Gadget = gadget;
 	gadget->Cursor->Set_Color(Vector4(1.0f, 1.0f, 1.0f, 1.0f));
 	gadget->Unknown_28(Layer);
@@ -2533,7 +2533,7 @@ void RegistrationInterface::Unknown_5FB0C0()
 	if (UnknownD4 != 0x11 && UnknownD4 != 0x14) {
 		return;
 	}
-	TextBaseGadgetClass *gadget = UnknownF8[0x2B].Gadget;
+	TextGadgetClass *gadget = UnknownF8[0x2B].Gadget;
 	bool changed = gadget->Changed;
 	gadget->Changed = false;
 	if (!changed) {

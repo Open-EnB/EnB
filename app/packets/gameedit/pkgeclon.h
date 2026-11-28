@@ -19,12 +19,12 @@
 #include "matrix3d.h"
 
 // opcode 30021 (0x7545, ?): vtable 0xB08E58, constructor 0x85DFB0, 0x48 bytes
-class GameEditorClonePacketClass : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
+class GameEditorClonePacketClass : public UnknownPacketBaseClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	GameEditorClonePacketClass(int game_id, const char *new_name, const Matrix3D &transform);	// 0x85DE30
-	GameEditorClonePacketClass(RawPacketClass *raw);	// 0x85DFB0
-	virtual RawPacketClass *Build();	// +0x04 0x85E080
+	GameEditorClonePacketClass(PacketClass *raw);	// 0x85DFB0
+	virtual PacketClass *Build();	// +0x04 0x85E080
 	virtual bool Process_Packet(void *client);	// +0x08 0x8680D0 (clientstub.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x85E170
 	virtual int Print(char *buffer, int len);	// +0x10 0x85E190
@@ -36,13 +36,13 @@ public:
 };
 
 // 0x7546 (30022, not in the packet switch: sent only): vtable 0xB08E88, constructor 0x85E2D0, 0x20 bytes
-class GameEditorCloneResponsePacketClass : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
+class GameEditorCloneResponsePacketClass : public UnknownPacketBaseClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	GameEditorCloneResponsePacketClass(int original_game_id, int clone_game_id, const char *error_msg);	// 0x85E1D0
-	GameEditorCloneResponsePacketClass(RawPacketClass *raw);	// 0x85E2D0
+	GameEditorCloneResponsePacketClass(PacketClass *raw);	// 0x85E2D0
 	virtual ~GameEditorCloneResponsePacketClass();	// +0x00 0x85E400 / 0x85E2A0
-	virtual RawPacketClass *Build();	// +0x04 0x85E440
+	virtual PacketClass *Build();	// +0x04 0x85E440
 	virtual bool Process_Packet(void *client);	// +0x08 0x85E5F0
 	virtual int Get_Data_Size();	// +0x0C 0x85E560
 	virtual int Print(char *buffer, int len);	// +0x10 0x85E580

@@ -7,14 +7,14 @@ StartPacketClass::StartPacketClass(int, int player_id) : PlayerID(player_id)
 {
 }
 
-StartPacketClass::StartPacketClass(RawPacketClass *raw)
+StartPacketClass::StartPacketClass(PacketClass *raw)
 {
 	raw->Get(&PlayerID, sizeof(PlayerID));
 }
 
-RawPacketClass *StartPacketClass::Build()
+PacketClass *StartPacketClass::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(5, Get_Data_Size());
+	PacketClass *raw = new PacketClass(5, Get_Data_Size());
 	raw->Add(&PlayerID, sizeof(PlayerID));
 	return(raw);
 }
@@ -33,14 +33,14 @@ StartAckPacketClass::StartAckPacketClass(int player_id) : PlayerID(player_id)
 {
 }
 
-StartAckPacketClass::StartAckPacketClass(RawPacketClass *raw)
+StartAckPacketClass::StartAckPacketClass(PacketClass *raw)
 {
 	raw->Get(&PlayerID, sizeof(PlayerID));
 }
 
-RawPacketClass *StartAckPacketClass::Build()
+PacketClass *StartAckPacketClass::Build()
 {
-	RawPacketClass *raw = new RawPacketClass(6, Get_Data_Size());
+	PacketClass *raw = new PacketClass(6, Get_Data_Size());
 	raw->Add(&PlayerID, sizeof(PlayerID));
 	return(raw);
 }
