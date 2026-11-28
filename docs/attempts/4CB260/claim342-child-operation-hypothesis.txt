@@ -1,3 +1,9 @@
+Validation update: the first caller-return comparison has now been run.
+The void diagnostic collapses cleanup at the end, reaching the prewritten
+falsifier. The second stage and parked-target retry were not run. See
+docs/attempts/4CB260/claim342-pop-void-report.txt. The original research plan
+below is preserved as the pre-experiment record.
+
 # Unproven operation-helper lead and pre-retry validation
 
 Status: research hypothesis, zero forms generated/compiled, not permission to

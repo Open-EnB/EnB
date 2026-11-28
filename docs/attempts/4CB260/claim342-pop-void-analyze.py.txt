@@ -1,0 +1,57 @@
+from pathlib import Path
+import hashlib,json,sys
+R=Path('/home/dev/Projects/EnB');W=R/'.work/claim-342';D=W/'pop-experiment'
+sys.dont_write_bytecode=True;sys.path[:0]=[str(R/'tools/re'),str(W)]
+from objmatch import CoffObject,object_unwind
+from preservation import graph
+import capstone
+def main():
+ name=sys.argv[1];out=D/'runs'/name;obj=CoffObject(str(out/'unknown_htmlattrib.obj'));f=next(x for x in obj.functions() if x[0].startswith('?Pop@HtmlAttributeStackClass@@'));sym,sec,start,end=f;_,_,n=obj.pattern(sec,start,end)
+ raw=obj.data[obj.sections[sec]['raw']+start:obj.sections[sec]['raw']+start+n];masked=bytearray(raw);rels=[]
+ for off,width,kind,target,addend in obj.reloc_targets(sec,start,n):
+  masked[off:off+width]=bytes(width);rels.append(dict(offset=off,width=width,kind=kind,symbol=target['name'],addend=addend.hex()))
+ md=capstone.Cs(capstone.CS_ARCH_X86,capstone.CS_MODE_32);ins=list(md.disasm(raw,0));by={x.address:i for i,x in enumerate(ins)}
+ calls=[];branches=[];dtor_offsets=[]
+ for i in ins:
+  rr=[r['symbol'] for r in rels if i.address<=r['offset']<i.address+i.size]
+  if i.mnemonic in ['call','jmp'] and rr:
+   calls.append(dict(offset=i.address,instruction=i.mnemonic,symbols=rr))
+   if any(x.startswith('??1Wstring@@') for x in rr):dtor_offsets.append(i.address)
+  if i.mnemonic.startswith('j'):
+   try:target=int(i.op_str,16)
+   except ValueError:continue
+   if target not in by:continue
+   branches.append(dict(offset=i.address,target=target,conditional=i.mnemonic!='jmp',backward=target<i.address))
+ def successors(k):
+  i=ins[k]
+  if i.mnemonic.startswith('ret'):return []
+  result=[]
+  if i.mnemonic.startswith('j'):
+   try:t=int(i.op_str,16)
+   except ValueError:t=-1
+   if t in by:result.append(by[t])
+   if i.mnemonic=='jmp':return result
+  if k+1<len(ins):result.append(k+1)
+  return result
+ # A backward edge is a non-loop exit if its target cannot reach the edge again.
+ for edge in branches:
+  if not edge['backward']:continue
+  todo=[by[edge['target']]];seen=set()
+  while todo:
+   k=todo.pop()
+   if k in seen:continue
+   seen.add(k);todo.extend(successors(k))
+  edge['non_loop']=by[edge['offset']] not in seen
+  edge['reachable_wstring_destructors']=sorted(ins[k].address for k in seen if ins[k].address in dtor_offsets)
+  edge['reachable_returns']=sorted(ins[k].address for k in seen if ins[k].mnemonic.startswith('ret'))
+ g=graph(obj,f,n);un=object_unwind(obj,sec,start,n)
+ actions=[]
+ for state in g['eh']['states'] if g['eh'] else []:
+  if state is None:actions.append(None);continue
+  code=bytes.fromhex(state[0]);ss=list(md.disasm(code,0));actions.append(dict(fixed_bytes_sha256=hashlib.sha256(code).hexdigest(),address_loads=[i.op_str for i in ss if i.mnemonic=='lea'],relocations=state[1]))
+ data=dict(run=name,symbol=sym,length=n,raw_sha256=hashlib.sha256(raw).hexdigest(),masked_sha256=hashlib.sha256(masked).hexdigest(),call_instructions=sum(i.mnemonic=='call' for i in ins),wstring_destructor_calls=dtor_offsets,calls=calls,branches=branches,eh_predecessors=g['eh']['predecessors'] if g['eh'] else [],eh_actions=actions,relocations=rels,dictionary_lookup_inlined=not any('getPointer@?$Dictionary' in x for c in calls for x in c['symbols']))
+ (out/'analysis.json').write_text(json.dumps(data,indent=2)+'\n')
+ # Local debugging listing stays untracked; never publish a retail/compiled listing.
+ (out/'listing.txt').write_text('\n'.join(f'{i.address:04x} {i.mnemonic} {i.op_str}' for i in ins)+'\n')
+ print(json.dumps({k:data[k] for k in ['run','symbol','length','wstring_destructor_calls','eh_predecessors']}|dict(backward_nonloop_edges=[{k:e[k] for k in ['offset','target','reachable_wstring_destructors']} for e in branches if e.get('non_loop')])))
+if __name__=='__main__':main()

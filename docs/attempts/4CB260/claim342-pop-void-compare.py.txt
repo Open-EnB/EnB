@@ -1,0 +1,19 @@
+from pathlib import Path
+import collections,hashlib,json,re,subprocess
+R=Path('/home/dev/Projects/EnB');D=R/'.work/claim-342/pop-experiment';a=json.loads((D/'runs/control/analysis.json').read_text());b=json.loads((D/'runs/void/analysis.json').read_text())
+assert a['length']==703 and a['eh_predecessors']==b['eh_predecessors']==[-1,0,1,1]
+assert a['dictionary_lookup_inlined'] and b['dictionary_lookup_inlined']
+assert len(a['eh_actions'])==len(b['eh_actions'])==4
+for x,y in zip(a['eh_actions'],b['eh_actions']):assert x['relocations']==y['relocations']
+early=[e for e in a['branches'] if e.get('non_loop') and len(e['reachable_wstring_destructors'])==2];assert len(early)==3 and all(e['target']==182 for e in early)
+assert not any(e.get('non_loop') for e in b['branches'])
+assert b['wstring_destructor_calls'][-2:]==[600,617]
+def calls(x):return collections.Counter(n for c in x['calls'] for n in c['symbols'])
+ca,cb=calls(a),calls(b);removed=list((ca-cb).elements());added=list((cb-ca).elements());assert not added and removed==['??1Wstring@@QAE@XZ']*2
+audit=json.loads((D/'runs/control/retail-audit.json').read_text());assert audit['semantic_graph_pass'] and audit['full_literal_payload_parity'] and not audit['exceptions']
+for unit in ['app/client/html/unknown_htmlattrib.cpp','app/client/html/unknown_htmlattrib.h','libs/wwonline/wlib/dictionary.h']:
+ original=(D/'tree'/unit).read_bytes();assert (D/'build-tree'/unit).read_bytes()==original and (R/unit).read_bytes()==original
+assert not subprocess.check_output(['git','status','--porcelain'],cwd=R,text=True).strip()
+meta=[json.loads((D/'runs'/n/'compiled.json').read_text()) for n in ['control','void']];assert meta[0]['dictionary_sha256']==meta[1]['dictionary_sha256']
+summary=dict(experiment='Exact Pop caller-return test before any parked-target retry',source_revision=(D/'revision.txt').read_text().strip(),compiled_inputs=2,controls=1,diagnostic_void_operations=1,invalid_inputs=0,parked_target_compilations=0,production_changes=0,dictionary_unchanged=True,lookup_remains_inlined_both_cases=True,control=dict(bytes=a['length'],symbol=a['symbol'],full_retail_audit_pass=True,early_cleanup_offset=182,backward_edges_into_initial_owner_cleanup=3),void=dict(bytes=b['length'],symbol=b['symbol'],backward_nonloop_cleanup_edges=0,final_owner_destructor_calls=[600,617]),eh_predecessors=a['eh_predecessors'],cleanup_action_relocations_identical=True,cleanup_slot_address_loads={n:[x['address_loads'] for x in data['eh_actions']] for n,data in [('control',a),('void',b)]},named_calls_removed=removed,named_calls_added=added,call_instructions={n:data['call_instructions'] for n,data in [('control',a),('void',b)]},result='Falsifier reached: void caller collapses all exits into final cleanup despite unchanged inlined helper. This Pop comparator does not demonstrate the needed visitor mechanism. Stop before helper rewrite/2x2 or any parked-target retry.',reopening_lever_established=False,second_stage_compiled=False)
+(D/'comparison.json').write_text(json.dumps(summary,indent=2)+'\n');print(json.dumps(summary))

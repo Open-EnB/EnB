@@ -1,0 +1,683 @@
+{
+  "run": "void",
+  "base_revision": "f465503a973178295656ddf2d023fc68acc1e1d5",
+  "classification": "diagnostic_changed",
+  "inputs": [
+    {
+      "unit": "app/client/html/unknown_htmlattrib.cpp",
+      "base_sha256": "204e93ab142c452d4c4b6a2d7eab14cf6e994ffc8d1145f3b9d7b359f0284db6",
+      "input_sha256": "45fcebe718acb7d687306da65a40558496af891af3cf5e5084fb226fc0ea53ae",
+      "edits": [
+        {
+          "start": 1648,
+          "end": 1649,
+          "text": "vo"
+        },
+        {
+          "start": 1650,
+          "end": 1652,
+          "text": "d"
+        },
+        {
+          "start": 1923,
+          "end": 1930,
+          "text": ""
+        },
+        {
+          "start": 1957,
+          "end": 1971,
+          "text": ""
+        },
+        {
+          "start": 2061,
+          "end": 2069,
+          "text": ""
+        },
+        {
+          "start": 2185,
+          "end": 2199,
+          "text": ""
+        },
+        {
+          "start": 2275,
+          "end": 2283,
+          "text": ""
+        },
+        {
+          "start": 2299,
+          "end": 2306,
+          "text": ""
+        }
+      ]
+    },
+    {
+      "unit": "app/client/html/unknown_htmlattrib.h",
+      "base_sha256": "4f219d05c76c04d29f064d4d261e23d3c83cc4af6eccf47cf783548c4f194627",
+      "input_sha256": "9ba17ac7cd22e469eaab3aea37519d1284f2f6975c764d59fb972e599e56d3fe",
+      "edits": [
+        {
+          "start": 1241,
+          "end": 1242,
+          "text": "vo"
+        },
+        {
+          "start": 1243,
+          "end": 1245,
+          "text": "d"
+        }
+      ]
+    },
+    {
+      "unit": "libs/wwonline/wlib/dictionary.h",
+      "base_sha256": "5535d8b60ba64b01e5a794e54cb95e1e181407db1f7ccb1813321e78f670d17b",
+      "input_sha256": "5535d8b60ba64b01e5a794e54cb95e1e181407db1f7ccb1813321e78f670d17b",
+      "edits": []
+    }
+  ],
+  "replay_verified": true,
+  "edit_offsets": "Python character offsets; apply descending",
+  "compiler_response": "/nologo /c /MT /W3 /O2 /Ob2 /GX\n/DWIN32\n/D_WINDOWS\n/DWIN32_LEAN_AND_MEAN\n/DWINVER=0x400\n/DNDEBUG\n/DENABLE_WWPROFILE\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-342\\pop-experiment\\build-tree\\wwdebug\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-342\\pop-experiment\\build-tree\\wwlib\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-342\\pop-experiment\\build-tree\\wwmath\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-342\\pop-experiment\\build-tree\\wwsaveload\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-342\\pop-experiment\\build-tree\\wwaudio\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-342\\pop-experiment\\build-tree\\ww3d2\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-342\\pop-experiment\\build-tree\\wwshade\"\n/I\"Z:C:\\EnBDevelopment\\SDK\\directx8\\include\"\n/I\"Z:C:\\EnBDevelopment\\SDK\\radtools\\include_enb\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-342\\pop-experiment\\build-tree\\libs\\wwonline\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-342\\pop-experiment\\build-tree\\libs\\sgistl\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-342\\pop-experiment\\build-tree\"\n\"e:\\build\\beta\\G\\app\\client\\html\\unknown_htmlattrib.cpp\"",
+  "compiled": {
+    "object_sha256": "a8082e2e6e267f8800d678d5015e5162646b9102ad0bbc2af9e3b60675a6daa9",
+    "compiler_returncode": 0,
+    "source_sha256": "45fcebe718acb7d687306da65a40558496af891af3cf5e5084fb226fc0ea53ae",
+    "header_sha256": "9ba17ac7cd22e469eaab3aea37519d1284f2f6975c764d59fb972e599e56d3fe",
+    "dictionary_sha256": "5535d8b60ba64b01e5a794e54cb95e1e181407db1f7ccb1813321e78f670d17b"
+  },
+  "analysis": {
+    "run": "void",
+    "symbol": "?Pop@HtmlAttributeStackClass@@QAEXPAD0H@Z",
+    "length": 643,
+    "raw_sha256": "2226b101acc8b16b840879dd26957bd2031c264ca43693f3acbc7dd9dcf50289",
+    "masked_sha256": "2226b101acc8b16b840879dd26957bd2031c264ca43693f3acbc7dd9dcf50289",
+    "call_instructions": 21,
+    "wstring_destructor_calls": [
+      245,
+      458,
+      600,
+      617
+    ],
+    "calls": [
+      {
+        "offset": 38,
+        "instruction": "call",
+        "symbols": [
+          "??0Wstring@@QAE@XZ"
+        ]
+      },
+      {
+        "offset": 53,
+        "instruction": "call",
+        "symbols": [
+          "??0Wstring@@QAE@XZ"
+        ]
+      },
+      {
+        "offset": 72,
+        "instruction": "call",
+        "symbols": [
+          "?set@Wstring@@QAEDPBD@Z"
+        ]
+      },
+      {
+        "offset": 99,
+        "instruction": "call",
+        "symbols": [
+          "?set@Wstring@@QAEDPBD@Z"
+        ]
+      },
+      {
+        "offset": 111,
+        "instruction": "call",
+        "symbols": [
+          "?set@Wstring@@QAEDKPBD@Z"
+        ]
+      },
+      {
+        "offset": 170,
+        "instruction": "call",
+        "symbols": [
+          "??8Wstring@@QBEDABV0@@Z"
+        ]
+      },
+      {
+        "offset": 245,
+        "instruction": "call",
+        "symbols": [
+          "??1Wstring@@QAE@XZ"
+        ]
+      },
+      {
+        "offset": 278,
+        "instruction": "call",
+        "symbols": [
+          "_memmove"
+        ]
+      },
+      {
+        "offset": 305,
+        "instruction": "call",
+        "symbols": [
+          "?shrinkVector@?$ArrayList@VWstring@@@@AAEDXZ"
+        ]
+      },
+      {
+        "offset": 351,
+        "instruction": "call",
+        "symbols": [
+          "?remove@?$Dictionary@VWstring@@V?$ArrayList@VWstring@@@@@@QAEDABVWstring@@AAV?$ArrayList@VWstring@@@@@Z"
+        ]
+      },
+      {
+        "offset": 365,
+        "instruction": "call",
+        "symbols": [
+          "?clear@?$ArrayList@VWstring@@@@QAEXXZ"
+        ]
+      },
+      {
+        "offset": 410,
+        "instruction": "call",
+        "symbols": [
+          "??8Wstring@@QBEDABV0@@Z"
+        ]
+      },
+      {
+        "offset": 458,
+        "instruction": "call",
+        "symbols": [
+          "??1Wstring@@QAE@XZ"
+        ]
+      },
+      {
+        "offset": 491,
+        "instruction": "call",
+        "symbols": [
+          "_memmove"
+        ]
+      },
+      {
+        "offset": 518,
+        "instruction": "call",
+        "symbols": [
+          "?shrinkVector@?$ArrayList@VWstring@@@@AAEDXZ"
+        ]
+      },
+      {
+        "offset": 560,
+        "instruction": "call",
+        "symbols": [
+          "?remove@?$Dictionary@VWstring@@V?$ArrayList@VWstring@@@@@@QAEDABVWstring@@AAV?$ArrayList@VWstring@@@@@Z"
+        ]
+      },
+      {
+        "offset": 574,
+        "instruction": "call",
+        "symbols": [
+          "?clear@?$ArrayList@VWstring@@@@QAEXXZ"
+        ]
+      },
+      {
+        "offset": 584,
+        "instruction": "call",
+        "symbols": [
+          "??3@YAXPAX@Z"
+        ]
+      },
+      {
+        "offset": 600,
+        "instruction": "call",
+        "symbols": [
+          "??1Wstring@@QAE@XZ"
+        ]
+      },
+      {
+        "offset": 617,
+        "instruction": "call",
+        "symbols": [
+          "??1Wstring@@QAE@XZ"
+        ]
+      }
+    ],
+    "branches": [
+      {
+        "offset": 83,
+        "target": 116,
+        "conditional": true,
+        "backward": false
+      },
+      {
+        "offset": 93,
+        "target": 106,
+        "conditional": true,
+        "backward": false
+      },
+      {
+        "offset": 104,
+        "target": 116,
+        "conditional": false,
+        "backward": false
+      },
+      {
+        "offset": 119,
+        "target": 592,
+        "conditional": true,
+        "backward": false
+      },
+      {
+        "offset": 157,
+        "target": 592,
+        "conditional": true,
+        "backward": false
+      },
+      {
+        "offset": 177,
+        "target": 191,
+        "conditional": true,
+        "backward": false
+      },
+      {
+        "offset": 184,
+        "target": 163,
+        "conditional": true,
+        "backward": true,
+        "non_loop": false,
+        "reachable_wstring_destructors": [
+          245,
+          458,
+          600,
+          617
+        ],
+        "reachable_returns": [
+          640
+        ]
+      },
+      {
+        "offset": 186,
+        "target": 592,
+        "conditional": false,
+        "backward": false
+      },
+      {
+        "offset": 193,
+        "target": 592,
+        "conditional": true,
+        "backward": false
+      },
+      {
+        "offset": 210,
+        "target": 379,
+        "conditional": true,
+        "backward": false
+      },
+      {
+        "offset": 218,
+        "target": 314,
+        "conditional": true,
+        "backward": false
+      },
+      {
+        "offset": 222,
+        "target": 226,
+        "conditional": true,
+        "backward": false
+      },
+      {
+        "offset": 228,
+        "target": 233,
+        "conditional": true,
+        "backward": false
+      },
+      {
+        "offset": 301,
+        "target": 310,
+        "conditional": true,
+        "backward": false
+      },
+      {
+        "offset": 316,
+        "target": 592,
+        "conditional": true,
+        "backward": false
+      },
+      {
+        "offset": 374,
+        "target": 583,
+        "conditional": false,
+        "backward": false
+      },
+      {
+        "offset": 381,
+        "target": 592,
+        "conditional": true,
+        "backward": false
+      },
+      {
+        "offset": 389,
+        "target": 403,
+        "conditional": true,
+        "backward": false
+      },
+      {
+        "offset": 393,
+        "target": 403,
+        "conditional": true,
+        "backward": false
+      },
+      {
+        "offset": 401,
+        "target": 405,
+        "conditional": false,
+        "backward": false
+      },
+      {
+        "offset": 417,
+        "target": 427,
+        "conditional": true,
+        "backward": false
+      },
+      {
+        "offset": 420,
+        "target": 387,
+        "conditional": true,
+        "backward": true,
+        "non_loop": false,
+        "reachable_wstring_destructors": [
+          458,
+          600,
+          617
+        ],
+        "reachable_returns": [
+          640
+        ]
+      },
+      {
+        "offset": 422,
+        "target": 592,
+        "conditional": false,
+        "backward": false
+      },
+      {
+        "offset": 431,
+        "target": 527,
+        "conditional": true,
+        "backward": false
+      },
+      {
+        "offset": 435,
+        "target": 439,
+        "conditional": true,
+        "backward": false
+      },
+      {
+        "offset": 441,
+        "target": 446,
+        "conditional": true,
+        "backward": false
+      },
+      {
+        "offset": 514,
+        "target": 523,
+        "conditional": true,
+        "backward": false
+      },
+      {
+        "offset": 529,
+        "target": 592,
+        "conditional": true,
+        "backward": false
+      }
+    ],
+    "eh_predecessors": [
+      -1,
+      0,
+      1,
+      1
+    ],
+    "eh_actions": [
+      {
+        "fixed_bytes_sha256": "bdb765338625fcbf01b1e0430262befd306a1e615d5dfc59956fe085072948b2",
+        "address_loads": [
+          "ecx, [ebp - 0x28]"
+        ],
+        "relocations": [
+          [
+            4,
+            4,
+            20,
+            [
+              "symbol",
+              "??1Wstring@@QAE@XZ"
+            ],
+            "00000000"
+          ]
+        ]
+      },
+      {
+        "fixed_bytes_sha256": "752b277c96b0b3dd551d50f8e155f7b17a896d9dbbd9c7b25d72b705e9110fb7",
+        "address_loads": [
+          "ecx, [ebp - 0x20]"
+        ],
+        "relocations": [
+          [
+            4,
+            4,
+            20,
+            [
+              "symbol",
+              "??1Wstring@@QAE@XZ"
+            ],
+            "00000000"
+          ]
+        ]
+      },
+      {
+        "fixed_bytes_sha256": "4da0de702744841cba6544f1145ba9c78504e094600a3c4d108bcd270f401066",
+        "address_loads": [
+          "ecx, [ebp - 0x18]"
+        ],
+        "relocations": [
+          [
+            4,
+            4,
+            20,
+            [
+              "symbol",
+              "??1?$ArrayList@VWstring@@@@QAE@XZ"
+            ],
+            "00000000"
+          ]
+        ]
+      },
+      {
+        "fixed_bytes_sha256": "4da0de702744841cba6544f1145ba9c78504e094600a3c4d108bcd270f401066",
+        "address_loads": [
+          "ecx, [ebp - 0x18]"
+        ],
+        "relocations": [
+          [
+            4,
+            4,
+            20,
+            [
+              "symbol",
+              "??1?$ArrayList@VWstring@@@@QAE@XZ"
+            ],
+            "00000000"
+          ]
+        ]
+      }
+    ],
+    "relocations": [
+      {
+        "offset": 3,
+        "width": 4,
+        "kind": 6,
+        "symbol": "$L3504",
+        "addend": "00000000"
+      },
+      {
+        "offset": 9,
+        "width": 4,
+        "kind": 6,
+        "symbol": "__except_list",
+        "addend": "00000000"
+      },
+      {
+        "offset": 17,
+        "width": 4,
+        "kind": 6,
+        "symbol": "__except_list",
+        "addend": "00000000"
+      },
+      {
+        "offset": 39,
+        "width": 4,
+        "kind": 20,
+        "symbol": "??0Wstring@@QAE@XZ",
+        "addend": "00000000"
+      },
+      {
+        "offset": 54,
+        "width": 4,
+        "kind": 20,
+        "symbol": "??0Wstring@@QAE@XZ",
+        "addend": "00000000"
+      },
+      {
+        "offset": 73,
+        "width": 4,
+        "kind": 20,
+        "symbol": "?set@Wstring@@QAEDPBD@Z",
+        "addend": "00000000"
+      },
+      {
+        "offset": 100,
+        "width": 4,
+        "kind": 20,
+        "symbol": "?set@Wstring@@QAEDPBD@Z",
+        "addend": "00000000"
+      },
+      {
+        "offset": 112,
+        "width": 4,
+        "kind": 20,
+        "symbol": "?set@Wstring@@QAEDKPBD@Z",
+        "addend": "00000000"
+      },
+      {
+        "offset": 171,
+        "width": 4,
+        "kind": 20,
+        "symbol": "??8Wstring@@QBEDABV0@@Z",
+        "addend": "00000000"
+      },
+      {
+        "offset": 246,
+        "width": 4,
+        "kind": 20,
+        "symbol": "??1Wstring@@QAE@XZ",
+        "addend": "00000000"
+      },
+      {
+        "offset": 279,
+        "width": 4,
+        "kind": 20,
+        "symbol": "_memmove",
+        "addend": "00000000"
+      },
+      {
+        "offset": 306,
+        "width": 4,
+        "kind": 20,
+        "symbol": "?shrinkVector@?$ArrayList@VWstring@@@@AAEDXZ",
+        "addend": "00000000"
+      },
+      {
+        "offset": 352,
+        "width": 4,
+        "kind": 20,
+        "symbol": "?remove@?$Dictionary@VWstring@@V?$ArrayList@VWstring@@@@@@QAEDABVWstring@@AAV?$ArrayList@VWstring@@@@@Z",
+        "addend": "00000000"
+      },
+      {
+        "offset": 366,
+        "width": 4,
+        "kind": 20,
+        "symbol": "?clear@?$ArrayList@VWstring@@@@QAEXXZ",
+        "addend": "00000000"
+      },
+      {
+        "offset": 411,
+        "width": 4,
+        "kind": 20,
+        "symbol": "??8Wstring@@QBEDABV0@@Z",
+        "addend": "00000000"
+      },
+      {
+        "offset": 459,
+        "width": 4,
+        "kind": 20,
+        "symbol": "??1Wstring@@QAE@XZ",
+        "addend": "00000000"
+      },
+      {
+        "offset": 492,
+        "width": 4,
+        "kind": 20,
+        "symbol": "_memmove",
+        "addend": "00000000"
+      },
+      {
+        "offset": 519,
+        "width": 4,
+        "kind": 20,
+        "symbol": "?shrinkVector@?$ArrayList@VWstring@@@@AAEDXZ",
+        "addend": "00000000"
+      },
+      {
+        "offset": 561,
+        "width": 4,
+        "kind": 20,
+        "symbol": "?remove@?$Dictionary@VWstring@@V?$ArrayList@VWstring@@@@@@QAEDABVWstring@@AAV?$ArrayList@VWstring@@@@@Z",
+        "addend": "00000000"
+      },
+      {
+        "offset": 575,
+        "width": 4,
+        "kind": 20,
+        "symbol": "?clear@?$ArrayList@VWstring@@@@QAEXXZ",
+        "addend": "00000000"
+      },
+      {
+        "offset": 585,
+        "width": 4,
+        "kind": 20,
+        "symbol": "??3@YAXPAX@Z",
+        "addend": "00000000"
+      },
+      {
+        "offset": 601,
+        "width": 4,
+        "kind": 20,
+        "symbol": "??1Wstring@@QAE@XZ",
+        "addend": "00000000"
+      },
+      {
+        "offset": 618,
+        "width": 4,
+        "kind": 20,
+        "symbol": "??1Wstring@@QAE@XZ",
+        "addend": "00000000"
+      },
+      {
+        "offset": 633,
+        "width": 4,
+        "kind": 6,
+        "symbol": "__except_list",
+        "addend": "00000000"
+      }
+    ],
+    "dictionary_lookup_inlined": true
+  }
+}

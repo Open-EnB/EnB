@@ -1,0 +1,77 @@
+{
+  "experiment": "Exact Pop caller-return test before any parked-target retry",
+  "source_revision": "f465503a973178295656ddf2d023fc68acc1e1d5",
+  "compiled_inputs": 2,
+  "controls": 1,
+  "diagnostic_void_operations": 1,
+  "invalid_inputs": 0,
+  "parked_target_compilations": 0,
+  "production_changes": 0,
+  "dictionary_unchanged": true,
+  "lookup_remains_inlined_both_cases": true,
+  "control": {
+    "bytes": 703,
+    "symbol": "?Pop@HtmlAttributeStackClass@@QAEDPAD0H@Z",
+    "full_retail_audit_pass": true,
+    "early_cleanup_offset": 182,
+    "backward_edges_into_initial_owner_cleanup": 3
+  },
+  "void": {
+    "bytes": 643,
+    "symbol": "?Pop@HtmlAttributeStackClass@@QAEXPAD0H@Z",
+    "backward_nonloop_cleanup_edges": 0,
+    "final_owner_destructor_calls": [
+      600,
+      617
+    ]
+  },
+  "eh_predecessors": [
+    -1,
+    0,
+    1,
+    1
+  ],
+  "cleanup_action_relocations_identical": true,
+  "cleanup_slot_address_loads": {
+    "control": [
+      [
+        "ecx, [ebp - 0x28]"
+      ],
+      [
+        "ecx, [ebp - 0x20]"
+      ],
+      [
+        "ecx, [ebp - 0x18]"
+      ],
+      [
+        "ecx, [ebp - 0x18]"
+      ]
+    ],
+    "void": [
+      [
+        "ecx, [ebp - 0x28]"
+      ],
+      [
+        "ecx, [ebp - 0x20]"
+      ],
+      [
+        "ecx, [ebp - 0x18]"
+      ],
+      [
+        "ecx, [ebp - 0x18]"
+      ]
+    ]
+  },
+  "named_calls_removed": [
+    "??1Wstring@@QAE@XZ",
+    "??1Wstring@@QAE@XZ"
+  ],
+  "named_calls_added": [],
+  "call_instructions": {
+    "control": 23,
+    "void": 21
+  },
+  "result": "Falsifier reached: void caller collapses all exits into final cleanup despite unchanged inlined helper. This Pop comparator does not demonstrate the needed visitor mechanism. Stop before helper rewrite/2x2 or any parked-target retry.",
+  "reopening_lever_established": false,
+  "second_stage_compiled": false
+}

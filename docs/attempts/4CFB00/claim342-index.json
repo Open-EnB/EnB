@@ -96,5 +96,17 @@
     "target_eh_scope": "Six predecessor/action maps and cleanup funclets only, not complete handler/FuncInfo or unmatched main-body exactness",
     "attempt_rows_added": 0,
     "targets_still_parked": true
+  },
+  "child_operation_validation": {
+    "experiment": "Void caller test of the exact Pop comparator",
+    "report": "docs/attempts/4CB260/claim342-pop-void-report.txt",
+    "comparison": "docs/attempts/4CB260/claim342-pop-void-comparison.json",
+    "compiler_inputs": 2,
+    "parked_target_compilations": 0,
+    "result": "Falsifier reached: void caller uses final cleanup; unchanged real helper stays inlined. No reopening lever established.",
+    "conditional_second_stage_run": false,
+    "targets_still_parked": true,
+    "prior_target_trial_inputs_unchanged": 40,
+    "attempt_rows_added": 0
   }
 }
