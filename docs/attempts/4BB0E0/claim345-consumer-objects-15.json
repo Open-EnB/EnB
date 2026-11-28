@@ -1,0 +1,402 @@
+[
+  {
+    "unit": "app/shared/referral.cpp",
+    "old_object_sha256": "fa63cefdc8f310e9dca6b275d8a11cea5191c87dda796973d5e2470e8309c3f8",
+    "new_object_sha256": "e56cfa517daeb673e42e70702924523f3e22f5526bb69d4e8fed426e16752e2b",
+    "checked": 13,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/shared/ro_funcs.cpp",
+    "old_object_sha256": "2f2d8396c6b7866082bacb661b0d2d9be20314d7e25e23d48594b3ead3d445a5",
+    "new_object_sha256": "2b130c8c0e1dc270ec01be77de6251f495e6eb624f7e18f119e9e205e54240af",
+    "checked": 23,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/shared/ro_offset.cpp",
+    "old_object_sha256": "c32a2d0f5fea4aae971f56e414ee03b8bbacc8ffb18512f8358f571741e92b9d",
+    "new_object_sha256": "2b89fee52e423b7141579296606ea19307eb71345757e7295e0af265ed7c8abd",
+    "checked": 68,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/shared/ro_proxy.cpp",
+    "old_object_sha256": "7acc1280b509c49cd36c09094a0f1945a245ad8a876dbd7130c5ae02958f8315",
+    "new_object_sha256": "34f5b093a592af3d2daef0ca7b364de9065d3e85664864dbb49607de57b3724f",
+    "checked": 144,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/shared/robj2texture.cpp",
+    "old_object_sha256": "d6ee7b08e47d1abf8daaa5f701ad4683e831f7c9de3be112dc188cc81bb5e1bb",
+    "new_object_sha256": "bdd3af7891f3212f8d1fbd33740663ed38f751895c0fff34f975dccb388d32dc",
+    "checked": 6,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/shared/rs.cpp",
+    "old_object_sha256": "42b7190717a484db5087e39899f06e384d87e99fdb3f41d611fcebf824d11b77",
+    "new_object_sha256": "55bab3c16923a51e08b6a140b1595c80b0adddeb4ba8162e09998e01ee8c9e9d",
+    "checked": 42,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/shared/rs_eff_p.cpp",
+    "old_object_sha256": "40c2b655196268fade2ddd4c8cd149e65e3b089180e68406b54bc0bb039572fd",
+    "new_object_sha256": "f4338edf75ad7587ec6a1fef3cc21ee4bbcd03f6743166253c3d973d4769dc08",
+    "checked": 33,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/shared/rs_hanim.cpp",
+    "old_object_sha256": "3b0cd6c3920da44615217a2afd821e8addf40f2c4d46fa0c5654720352588e91",
+    "new_object_sha256": "521ee2651f17c2333af4a966198b3f1121698143f530d7de066dea0bf4e5839e",
+    "checked": 26,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/shared/rs_list.cpp",
+    "old_object_sha256": "6821169ab9900cc7ff262239bab862a2ab0d483670adbef621f10b8df34a97cd",
+    "new_object_sha256": "c65a2565a092400cf7de8bbec160a3b8834b062910fa260ea101f58c7dc3fdbe",
+    "checked": 101,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/shared/rs_proj_sup.cpp",
+    "old_object_sha256": "0972ee2f260f5564aa0bf6530079d32576a85dd460c4e4eedd524724caf56de9",
+    "new_object_sha256": "ae52a16b71c97b04f6cb173690d3ce97d5104621cc07aac6ade62f841cdca290",
+    "checked": 31,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/shared/rs_robj.cpp",
+    "old_object_sha256": "76743fa2cffe0c624bd53da558c590db69992c7737558b4b55a73b37b95e888b",
+    "new_object_sha256": "493a70fa5b6e744da654d814a5513bf3da7720462864a306c6d1683c0a44dd94",
+    "checked": 27,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/shared/rs_track.cpp",
+    "old_object_sha256": "581ca593df1ad3bba7bcbd440cddfbb3a819a7a49b2fc7a85394313cd1af40ed",
+    "new_object_sha256": "0a3fa44ea0eb8e7f98fdfc95cd2425823c3e7ac92e684312e1b4f3a29686bd15",
+    "checked": 191,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/shared/safe_ptr.cpp",
+    "old_object_sha256": "7773618bba15098ad76a085a7d6446ef8765338eb4467947f51197b47a01314c",
+    "new_object_sha256": "ff91efb1ae901dbb46fa14ed25dfec3030f1ce1438cdc7b86b38fa1e479c7b1a",
+    "checked": 5,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/shared/segline_create.cpp",
+    "old_object_sha256": "4e95582db4712681a0ecc39fcb8ae538c8ebf08dba936035293fc583ec0e1f19",
+    "new_object_sha256": "9a5338d69e37c2d279c73efad28682d73453b456dfb901e6b01667ca3bd88031",
+    "checked": 15,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/shared/selector.cpp",
+    "old_object_sha256": "04ce905ef33963888889ba904e2f290efc7372de51d22704fb3b3a12440271a5",
+    "new_object_sha256": "d4b7dc3a79900e864142472f448820b1c38997029e4bcbb43f46dc6e693f8c9f",
+    "checked": 26,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/shared/shipcust_desc.cpp",
+    "old_object_sha256": "5386cd8c1bd469bad35a04ec59ede8f839ae9714b9c2492cec009148607c6ffd",
+    "new_object_sha256": "30975133e2edffe8fed203fbff32a163998cb6a4729abeac1534a590fd602f2e",
+    "checked": 68,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/shared/spline.cpp",
+    "old_object_sha256": "540d56376926fdabb12ef33d71760e4d43dd879dd9c4c7a504a07195a119b1ed",
+    "new_object_sha256": "aa5913d29b5833c482658622560ab2b0fd82430ee703385bfbd513399b22684d",
+    "checked": 14,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/shared/split_string.cpp",
+    "old_object_sha256": "ff4d1b3c478700d1339d3c3379ca1c6dabd6a6eed9fa65ee6a40010ad7891e6b",
+    "new_object_sha256": "2afa803326e9d6fa70d55638bee2b070d9892179896134c5f278bb73f81eac9e",
+    "checked": 27,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/shared/spln_db.cpp",
+    "old_object_sha256": "a56b6bbe1d36125a1e6793bcfe4184c61b16472c95f25de60851d6f32a9dcfad",
+    "new_object_sha256": "e1173255d660b80264d68956e680cd3dadf7941209465ea03cb52cfb4ef1068f",
+    "checked": 100,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/shared/stars.cpp",
+    "old_object_sha256": "6b6d7dffc4e741f5f39daa8632047b035aa2e37a8e297ee79b1f24ff7d7645ef",
+    "new_object_sha256": "3f88f81e6e689dc61a4878e206bdf4e431dfb3bd7e9c8165baf68bf67230a7bf",
+    "checked": 133,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/shared/strconv_lib.cpp",
+    "old_object_sha256": "f6fc3bcb60548ec040516b3f8c0c0147bc13f9b8ed1c3c13e82a17409aa9c2ae",
+    "new_object_sha256": "739d1f821d490fb0a6733f277854be126e58452d2b766867be47349c418a4378",
+    "checked": 9,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/shared/string_value.cpp",
+    "old_object_sha256": "2e87f6df6c385ee38f805f1d1687ef590c6a6b8a7fe96e56994ed5b06c7f7d84",
+    "new_object_sha256": "824ce629322d2f0c90630a96c11b53d260be681d3cf33a03d58ca06f1f7ea655",
+    "checked": 0,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/shared/symbol_substitution.cpp",
+    "old_object_sha256": "26b3f0899a597d48df4eb7963376a47f824d315db573d14710bd50b8af6bde32",
+    "new_object_sha256": "a43ba181dcd5749b01bdf4d6723ef657f8de4e3a005de13c7f07d76bb851fdfb",
+    "checked": 44,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/shared/time_string_format.cpp",
+    "old_object_sha256": "21c4c4c8e632e1ae111df53c5ff040e7c72d1640e78e0e8a50c73c0327be6c5f",
+    "new_object_sha256": "2217eb803a791cec7cd4206d6feb804e6544cb181ddf264b40523c8252e22fa1",
+    "checked": 28,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/shared/timer_manager.cpp",
+    "old_object_sha256": "a7f0f68e7c6e4c815cd0c37c7dc66fd33cb788eaad7eb34d35194b485a2ee011",
+    "new_object_sha256": "6b6834222cc3586449afa0d6fb7c9c43ef2dd9ae2f0ed8f9e99c371fc4ad1b83",
+    "checked": 13,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/shared/unique_design_id_lookup.cpp",
+    "old_object_sha256": "6b28cc474b2766be62fb5cb3917c17c3c5faeaf956cf044061a2c1f9244bbd74",
+    "new_object_sha256": "277550519e9fa6fbff29e7f1348bc0beb39409c70765210dfeb03de40a3003be",
+    "checked": 166,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/shared/unknown_445740.cpp",
+    "old_object_sha256": "025689a2901c1afd24ed378cbab2c11ce24d8ca57a446c355db431c60eb492f2",
+    "new_object_sha256": "66e6480a2866eae21769f659f89bf26119d1d1a71e6e4eceef828a260ad70941",
+    "checked": 52,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/shared/unknown_458710.cpp",
+    "old_object_sha256": "d4b2631c70d2ca3b48ee8586ba65bc595e6b8afbb7ebae916647900b2f2081cc",
+    "new_object_sha256": "53d3e3d21065ebefc6b1b929034454a4579ec2d5c7dafd8bdaf8befc0ea7c0de",
+    "checked": 21,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/shared/unknown_45a090.cpp",
+    "old_object_sha256": "5f01336679bb625f8bd3cfab760d66324a96c5727ffcea04b2a4818cee1b9619",
+    "new_object_sha256": "0ea9796426974e0c639b040c1ab91f4089afdbd2489b3fb50d201cb2f1cfd515",
+    "checked": 21,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/shared/unknown_45d840.cpp",
+    "old_object_sha256": "1bc3634b5894ad1a135f81057eae538e8c687e5dd458a7ca0c73d81be405c918",
+    "new_object_sha256": "858e8b479f0c50a578f98f5d3250aed4b5a1c889b3c0693ce9fbbafe905c0e6f",
+    "checked": 21,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/shared/unknown_45e3f0.cpp",
+    "old_object_sha256": "ccd8d3676760f0529882e77e83e44b8b925922e0a6d4bdd58e4963ed9f1413c4",
+    "new_object_sha256": "27d780b91a7407dd92e65c828573f037c11bc7ea06b57294066a6a2aedec2706",
+    "checked": 4,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/shared/unknown_45f390.cpp",
+    "old_object_sha256": "11840b8c4ed8b49703a85586b4116edc24041bf3c4386cf45cedf795ff9aca7a",
+    "new_object_sha256": "040b3a7ff4ff9660471fa6e2ca8a88301b0565091a6272fa1c270948cc2399db",
+    "checked": 33,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/shared/unknown_466920.cpp",
+    "old_object_sha256": "c4647a830bf1561f965ebf93788cfe3b906de88491b24aa7c863ea2b5a7413e1",
+    "new_object_sha256": "963a4c2da0d140f180cac6f0547375ecfdd66517124951a8ef3064c05eba84da",
+    "checked": 89,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/shared/unknown_46c730.cpp",
+    "old_object_sha256": "ddb0904c942296c011b28e22c3fffa04da23b92f44b325715a0e54fe2afe9d62",
+    "new_object_sha256": "8336e8a5a23303672ecfbff96907365f2f1ac4cc9550e489beabbb37a6ef7ea8",
+    "checked": 33,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/shared/unknown_474530.cpp",
+    "old_object_sha256": "bcd6cd582fc15038cee58e353b42c9d29148f64f2b4244326c233d22c9172d7f",
+    "new_object_sha256": "d6869105223bca21d20456fc0f376e1123e2debbff8aec0a47dde40415bd605a",
+    "checked": 110,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/shared/unknown_480b10.cpp",
+    "old_object_sha256": "e13aac5f050d7a83308ebc84f8d34fba31e8d7a514e5e8fbac8a3e3512cbb653",
+    "new_object_sha256": "1eaaf23e2844c7496d9e50ad61564e65ea0a3a6d8afa1873866662b29d9e4c00",
+    "checked": 99,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/shared/unknown_490900.cpp",
+    "old_object_sha256": "127a46b175eec90cc4e9d102f4c01940686f56a4aed214b51fcf79ffcf942239",
+    "new_object_sha256": "3c3e49bdc52e4b704ac1c7cce884e5d47858ac30a2e7988d7c1774e4e1a45fb7",
+    "checked": 7,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/shared/unknown_499180.cpp",
+    "old_object_sha256": "516682d8d036c9e471e88f19ac00145aec2ac39f82cb6d900f372fa98778af76",
+    "new_object_sha256": "786e396493000fee996969773c4de012964c8301e34f81118eac70780547a833",
+    "checked": 8,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/shared/unknown_4a2690.cpp",
+    "old_object_sha256": "86b3aa52ab723071835ecba456bdd9f8ee76c0dbad353ee379c54b89dafd2d7a",
+    "new_object_sha256": "935eaa6401072e8402ddeefc2d0389eaae390904570ffdcfdf9a344626250aad",
+    "checked": 22,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/shared/unknown_4dfbf0.cpp",
+    "old_object_sha256": "165f1d921304b7dfe61ef6d29efbb298ec21605209efc7a308ef5bb05030bce1",
+    "new_object_sha256": "2a0106e15f3e2ecbb477255702067f1031ac7b7489e6d3b2015b98e6d555ca1f",
+    "checked": 32,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/shared/unknown_4e0700.cpp",
+    "old_object_sha256": "0916911a5a21ac5659142bc2fc7bff4de788eceb15b94bf1c566665d4d3b1f22",
+    "new_object_sha256": "370574d9e8f06c6539c578fb8de0a880df4b95fbaa292968567d75a5ff97a3d3",
+    "checked": 3,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/shared/unknown_4e4b00.cpp",
+    "old_object_sha256": "0ab6d46c851c53c79c8fe4ac28485c397043965ad01a9427640975975da67ac3",
+    "new_object_sha256": "e786a5e4938bde3a1bda13718f6eba9653a93abbd459e9191561287aa27d6a1d",
+    "checked": 7,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/shared/unknown_4f1e20.cpp",
+    "old_object_sha256": "727960557564ab1834c611714c750c61c15d0a4e548213e0dffb93de60627fab",
+    "new_object_sha256": "4de788a2a675d58b564565beb00ad052ae9de554c9f0f17c3c07537fe2cf04f2",
+    "checked": 16,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/shared/unknown_4f5570.cpp",
+    "old_object_sha256": "e9875068f5b3d36d0f47178eb32ddcc3df12c2f2af662a9527f9f4432e05019c",
+    "new_object_sha256": "ab78cc631522540b460417307cb3463c1530d59c60ea88be9324b61dd00bde4f",
+    "checked": 22,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/shared/unknown_4fac20.cpp",
+    "old_object_sha256": "3bdef9667e6017f29553ffb66b705002107fc09ab87fdfbb936e47704e850486",
+    "new_object_sha256": "13697d36b29ae7e76ec4d9251e973afeae28a7953a5ea03d2a190a0da88ccd70",
+    "checked": 20,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/shared/unknown_4fb810.cpp",
+    "old_object_sha256": "57c801a59e2006b0a9d14b24951a644a68a9c725a4fe9c15203e3faabfc1b55e",
+    "new_object_sha256": "8d357c463996f95f996ca78681a0b372df26dc4a6f12c96374720faade44622e",
+    "checked": 29,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/shared/unknown_8b4560.cpp",
+    "old_object_sha256": "a05032d62a3466f4b9f58e5ef46fa2a36b86b347f559f85c37f8ef838c3b96c8",
+    "new_object_sha256": "8469ff05d7fdc171e97f7dc49e9a5bee574f63eee4dba203260686bc535c3bdf",
+    "checked": 4,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/shared/unknown_font_split_string.cpp",
+    "old_object_sha256": "2cc15bb054de787b2c5ffcd6f230fabf2f5a5ac82162e9e8c5c55dc23ba7a9c6",
+    "new_object_sha256": "3c08b9498dd7cbd0bf2a2db2d0a04b663dda14bac138f762cb3de52c978bdee7",
+    "checked": 10,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/shared/unknown_login_data.cpp",
+    "old_object_sha256": "798a8b3eb87638f50ceba1cbea3a03cc345e783151fb4e2ba0b4cc2bbd8c665d",
+    "new_object_sha256": "756ab41be45944b5e0cf0906b9d01635ec18bb9e8fe0f714e78d4505093547b5",
+    "checked": 47,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/shared/unknown_new.cpp",
+    "old_object_sha256": "159b23cfe26401f272d109e40083346352d098e7235b501e232da74671031ea5",
+    "new_object_sha256": "87ae289257a3cfee026d6169930a08f8a34c8949dc3ea75a80f1c067798dc9d9",
+    "checked": 3,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  }
+]

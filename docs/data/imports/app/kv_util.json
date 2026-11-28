@@ -1,12 +1,13 @@
 {
  "ambiguous": [],
  "copy": "reconstructed",
- "description": "RECONSTRUCTED from client.exe: __FILE__ 'e:\\build\\beta\\G\\app\\shared\\kv_util.cpp' (0xB73A9C), asserts at lines 21, 83-85, 96-98, 111, 206; the KV-triple reader 0x4BB3F0 and its section helper 0x4BB4C0 (byte-exact by appfile.py match); the writer 0x4BB0E0 not rebuilt yet",
+ "description": "RECONSTRUCTED from client.exe: __FILE__ 'e:\\build\\beta\\G\\app\\shared\\kv_util.cpp' (0xB73A9C), asserts at lines21,45-47,83-85,96-98,111,188,206; KV-triple reader0x4BB3F0 and section helper0x4BB4C0; KV-list writer0x4BB0E0 (610bytes), checked list accessor and shared pair value buffer. Native VC6 SP4 complete caller/reference audit and1049-unit zero-loss proof in docs/attempts/4BB0E0/claim345-proof.json; helper names/linkage inferred, no full rebuilt-image placement claim.",
  "expected": {},
  "in_tree": [
   "0x42B320",
   "0x4BB090",
   "0x4BB0C0",
+  "0x4BB0E0",
   "0x4BB3F0",
   "0x4BB4C0",
   "0x4BB870"

@@ -1,0 +1,11 @@
+{
+  "before_sha256": "f89bd47cb2bf93c70d52e979542d432b071aabea54fce94d7122884d6bbe36dc",
+  "after_sha256": "e94ac963c84426e49158d7860819f911144fe249c33e4fe7ac6cf9edd2f1aa8d",
+  "checked": 6,
+  "changes": [],
+  "proven_data_aliases": {
+    "_?buf@?1??Get_Value_String@KVListClass@@QAEPBDPBD@Z@4PADA": "0xBE3B60",
+    "?buf@?1??Get_Value_String@KVPairClass@@QBEPADXZ@4PADA": "0xBE3B60"
+  },
+  "normalization": "Followed EH handler/table placement and explicitly audited shared-buffer symbol aliases; body fixed bytes, all other relocations/addends/literal payloads, handler, FuncInfo fixed fields, predecessor states and cleanup graphs compared"
+}

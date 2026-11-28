@@ -1,0 +1,48 @@
+{
+  "run": "root_final",
+  "object_sha256": {
+    "kv_util": "e94ac963c84426e49158d7860819f911144fe249c33e4fe7ac6cf9edd2f1aa8d",
+    "kv_list": "e1b2e85e9a63af8d810b341228824e929dce41b93d591866fc03c074e79ec67b",
+    "kv_pair": "5789dad4289ce0439228f00fff64f942777b973cbe686e4d8e13a372b06e29fb"
+  },
+  "section_buffer": {
+    "symbol": "?SectionBuffer@?1??Make_Section@@YAPBDPBD0PAD@Z@4PADA",
+    "coff_storage": "external common,section0,value512",
+    "bytes": 512,
+    "expected_address": "0xBE4E98",
+    "evidence": "Retail writer key-copy/dot replacement/suffix references;512-byte span before independently anchored kv_util Init; separate from reader KeyBuffer."
+  },
+  "value_buffer": {
+    "symbol": "?buf@?1??Get_Value_String@KVPairClass@@QBEPADXZ@4PADA",
+    "coff_storage": "same external common symbol in both kv_list and kv_util",
+    "bytes": 4096,
+    "expected_address": "0xBE3B60",
+    "evidence": "Independent retail existing list getter and writer both pass this address and size0x1000 to virtual slot0x0C; shared mutable lifetime represented by the inline pair wrapper."
+  },
+  "kv_util_bss": {
+    "section": 5,
+    "size": 516,
+    "init_symbol": "_PermStringInit",
+    "init_offset": 0,
+    "init_address": "0xBE5098",
+    "key_symbol": "_KeyBuffer",
+    "key_offset": 4,
+    "key_address": "0xBE509C"
+  },
+  "constraints_consistent": true,
+  "limitations": "Validates role/size/linkage and consistent relocation-to-retail data mapping, including within-section offsets. Does not claim absolute placement in a fully linked rebuilt client image. Earlier coupled512-byte BSS buffer variants fail this constraint and are rejected.",
+  "known_map": {
+    "?SectionBuffer@?1??Make_Section@@YAPBDPBD0PAD@Z@4PADA": [
+      "0xBE4E98"
+    ],
+    "?buf@?1??Get_Value_String@KVPairClass@@QBEPADXZ@4PADA": [
+      "0xBE3B60"
+    ],
+    "_KeyBuffer": [
+      "0xBE509C"
+    ],
+    "_PermStringInit": [
+      "0xBE5098"
+    ]
+  }
+}

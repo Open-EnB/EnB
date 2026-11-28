@@ -1,0 +1,402 @@
+[
+  {
+    "unit": "app/client/ui_cpit.cpp",
+    "old_object_sha256": "974b2ccdf9409f06f2e62ddb6570c4d2c0c2d31c806019e4c6fa95ef13ed052e",
+    "new_object_sha256": "e24eb8e4b9841562faf13b4abbeee82a54f6d414f81cea10cfbaf674e35f98dc",
+    "checked": 136,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/ui_cpit_inv.cpp",
+    "old_object_sha256": "ecef1679314c8a50b24988b41105bf9c939b81fb0dabfe0c2e2a80197c047953",
+    "new_object_sha256": "bd36117cc2f370b21c136b8235afffb2b123067095668bb505e8238c0b121dcd",
+    "checked": 38,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/ui_dynamicwindow.cpp",
+    "old_object_sha256": "3b6bc3db0199c9c6b2d996a7a08b8497a4fd6b0c8654d15607af3774c657a203",
+    "new_object_sha256": "0965b1d0e239504f43c301010bbef37fee56ac9b89a920233d9151154ff06c6b",
+    "checked": 70,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/ui_experience.cpp",
+    "old_object_sha256": "06f0231caae19c9888800509e0b979ab8823d40f6420a20091aa27917a611e74",
+    "new_object_sha256": "a1594648919dd1710f8d793577a4516677af443782dfbb97e8b076311fe2c2d5",
+    "checked": 54,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/ui_faction.cpp",
+    "old_object_sha256": "fbdb155c119caafcc701a89ec5f5fdca2359651e294607f6219a96bd2a951cd1",
+    "new_object_sha256": "ded0504b6fad0d5874ea2d80a16beabfdf51db2b0bf7f6d29ebf4249061de41e",
+    "checked": 83,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/ui_faction_panel.cpp",
+    "old_object_sha256": "06b593090c650df5b24b467c5181c52f5214cdc4aeb481964a81bdf4ebe729ed",
+    "new_object_sha256": "4f177815c9c7fd88239d8418ea85b4cacaa85a6b052db59aa704f8adb08bbad4",
+    "checked": 33,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/ui_friends.cpp",
+    "old_object_sha256": "bc985f5347e107ccb615b01580a7ff62f4942fba963de35063fb3b0f95876593",
+    "new_object_sha256": "eef7ffa7b3f7c743b134dedfd5ed488216d5d0aab876c956f4c7f83a118145e9",
+    "checked": 90,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/ui_group.cpp",
+    "old_object_sha256": "edd9b3613f22df069a3ea950e7d3d8692264baf25f6df252997465150e68ce1d",
+    "new_object_sha256": "bc387607f1763d99570f4884171c656985bc8278a2aef39960e117d770ff4f80",
+    "checked": 118,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/ui_groupfind.cpp",
+    "old_object_sha256": "46f8581c6779c8d1a8a0dc9eb991491b91380b5d0b36c838461748146bb69293",
+    "new_object_sha256": "f2a982ce7fa245a7da43250d8814a48a9bd39d320a4ac7a132ac52d2750ae84f",
+    "checked": 65,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/ui_groupopt.cpp",
+    "old_object_sha256": "1db28e744c6a999db5ab055e1893f9657a97bd04758ac7c34003bbe4d7b4c18e",
+    "new_object_sha256": "97dc995cef17e572c4d87e4cb9a582bf837c5c5983f649fdd5fd2b81f07458ad",
+    "checked": 54,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/ui_guild.cpp",
+    "old_object_sha256": "9402a3d2d4bd564faf1e2aeab0b7fc3e4c525621fcbf722a71401fed1c82b590",
+    "new_object_sha256": "83d7af22dd0a74f0131638f582995ad0a964a090a90486476aa908ab742aa5a5",
+    "checked": 108,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/ui_guild_list.cpp",
+    "old_object_sha256": "633865e6d26ee720f34f8035f3460c7a46a631581cc16f629982cca6c0cc20ba",
+    "new_object_sha256": "4c15ba0abb3bb1f993f6266c83bf98699ece1ba4aa2c9ced86f693f72cecbe02",
+    "checked": 58,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/ui_hdamg.cpp",
+    "old_object_sha256": "ea1f639ab8b922211bd08b1967476f32cdec26372af3f6508cec2f612b7c319c",
+    "new_object_sha256": "2f8e34d79d9fa7598811f76b969e9e13e8ec24cf1a74b1e2663ae780ab05b5fe",
+    "checked": 16,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/ui_hot_keys.cpp",
+    "old_object_sha256": "7659010d834ca62de7166eecd10e25dbea2a048af423adb01862f1cb5a245bdb",
+    "new_object_sha256": "03f6f94c2a2b31dc3740ebfdda9841361224d2b1d78ddb2eb9bbd1f9135d0b04",
+    "checked": 44,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/ui_interrupt.cpp",
+    "old_object_sha256": "260a2bf56f2dd91c919334abcae4d0dbce0a65cbb31be78690e435d965916672",
+    "new_object_sha256": "8171fb530fdc5ff0ed1207d8b72003b77f5f5eb2121c4681eecdc73246bbb920",
+    "checked": 19,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/ui_inv.cpp",
+    "old_object_sha256": "f9fbff376a76c8423fe152399eae59a53676ce496426b98a2fb8e3193fa265c5",
+    "new_object_sha256": "368b6919b2209ca93b054616aa2f8ea0e1330edf4ef0e34575d6f676735b1698",
+    "checked": 79,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/ui_item_examination.cpp",
+    "old_object_sha256": "48014c7dddbacaba8b3925ed2e4023c4109759ad55de7cdcd921964695dc6fcb",
+    "new_object_sha256": "6f6b765a14425cdea67daef36851d43efa589e2f86b2f55a50d58b94f158f941",
+    "checked": 59,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/ui_item_examination_attributes.cpp",
+    "old_object_sha256": "25321fe5a61a4cde29240ac7f207620cc59d99c690d0db02531d29a40ccf38fa",
+    "new_object_sha256": "8ed57f1641ac3ca57dc1a0edc7cccf0a57afb0206cc68ae2b14b2382b5c312f9",
+    "checked": 45,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/ui_item_examination_description.cpp",
+    "old_object_sha256": "a2a801131d90d5bf0ece19171a91600356e18becc0d7f1bde11588270f406c39",
+    "new_object_sha256": "1479b9b4aacd4ee9b987a50763ee6e8aea17bb3963e634a8fc7b70d3b7b15f0b",
+    "checked": 19,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/ui_item_examination_options.cpp",
+    "old_object_sha256": "bd591c27d08ef05a15aac9f9efd46193172beda804043f87ce01672cff445f8a",
+    "new_object_sha256": "b953ceeb009866985cd4ce65ae226c597d3aa5e26a7dea26191e6061efb39a97",
+    "checked": 64,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/ui_item_examination_property_router.cpp",
+    "old_object_sha256": "df1ed919a8122192a38ce19a9e647b852363d178d766910f786d7852758b8ff8",
+    "new_object_sha256": "64bd24b79b2fba6f7d20dc0f5f53ba9b23662375a684231dd2b6fd43428950c4",
+    "checked": 17,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/ui_item_examination_specials.cpp",
+    "old_object_sha256": "f3144516457bbf74ee36e42945852e14de84df93d7b234264c7dccb441f824fb",
+    "new_object_sha256": "db8f1a92bef4c83d60b4b4dccc5a10eaa53b39d9ce3792eaf0ce10eef6954be1",
+    "checked": 42,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/ui_item_examination_title.cpp",
+    "old_object_sha256": "2517a101e492a6a7167b86c2b0ebbfe7e2464196a806b205c8da091def03b13e",
+    "new_object_sha256": "e7b5d086aa3241a43ff358b2a8cfa8d68e56312b0ce477f40604378df7463e62",
+    "checked": 28,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/ui_jobs.cpp",
+    "old_object_sha256": "4ec47e171d9e1d3a62e336b0797e4f8d8de9bd5057cf139683eec993300ec3e8",
+    "new_object_sha256": "6dcb091a206670ffb60c2992cbe053ecc59fbc33dc3ea9fc83da5bc51f6934b5",
+    "checked": 94,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/ui_line_display.cpp",
+    "old_object_sha256": "a4c420476b2b30fc70094f3c504b47e72ef09cf4286018168903c921d140d820",
+    "new_object_sha256": "a4b889de8ea91f471de6b024c08aa42fdb8a3d40ad424a2d5797ccbbeb5b5063",
+    "checked": 115,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/ui_log.cpp",
+    "old_object_sha256": "a2d59613551fcd4509fcf315b7df9d088c21c123d923f57b785be051bfb85d39",
+    "new_object_sha256": "12f28b4f618733bf2a985bbcc70ed27d9c2e1bd58625b4667170049f0548486a",
+    "checked": 62,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/ui_login.cpp",
+    "old_object_sha256": "a639718aa20f25f717ea1b7e23be7664be1dbac22a0c490012f7dee581c706a4",
+    "new_object_sha256": "39d4e0b3bf8dffd7bb4c50a01a5614e3830f64a089b019e275cd7f308cd480d9",
+    "checked": 68,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/ui_manu.cpp",
+    "old_object_sha256": "90428062e045a3706f46bc7d096b6f75152e2ff300d8cc6022c552f01549e37e",
+    "new_object_sha256": "9fceb4d032a94b95ead87f338e38ae6dbbf32c0da69f02c859f2a88065f5c56d",
+    "checked": 150,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/ui_manu_util.cpp",
+    "old_object_sha256": "d3bcc3194dd2a55415cd57421426352c030f0ad9a7751eaf5040758779f7f4c8",
+    "new_object_sha256": "6baed54d016c72991b477bc64349c0337e3fae9d7629039e903a264c2c0f240a",
+    "checked": 12,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/ui_mesh.cpp",
+    "old_object_sha256": "4f1840959c203c2bc6608f85dd08365e8bcc5af6a6952b7e093d469d0dc16d52",
+    "new_object_sha256": "b62cd4ebf9ac7e64a332938e57410bd3bd7b7dab201f8326b47523edab4c8a4f",
+    "checked": 106,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/ui_mfd.cpp",
+    "old_object_sha256": "c3941bc674ea46710748856ddd700d953f7d6dcb2ed866ffcd41d64bbe78f7ba",
+    "new_object_sha256": "52663df3df21c84b9e17e157f8f7e5fc17e478c2bcb31764df8cc0c2813ac1be",
+    "checked": 109,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/ui_mfd_extended_context.cpp",
+    "old_object_sha256": "b2d34212f889e5f0999545f63ade055310da5474125595968f674ec2e6115b0a",
+    "new_object_sha256": "b0fe3d0ad63b046b71b20dfab45720b7b2681a15bfe4ef6185fd7bf98d9e563b",
+    "checked": 13,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/ui_mfd_extended_context_base.cpp",
+    "old_object_sha256": "ce2c9e4f9176796bbce1bda111d02e710f626f40a7994fea0048f083e8f196c5",
+    "new_object_sha256": "7856459a79b613925c73e68055163a5ef0f9d80ac6aa12c7c515796ba8ece8fa",
+    "checked": 0,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/ui_mfd_extended_context_harvestable.cpp",
+    "old_object_sha256": "fcab47d14e006f7dd1d1359d86a9c6d269802982d8688fe46700c676436ce0ff",
+    "new_object_sha256": "d2ec2122db84ce27345d4186613118434bd11766a31e6348704c010f5faec470",
+    "checked": 46,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/ui_mfd_extended_context_strings.cpp",
+    "old_object_sha256": "c6ff7527f7df0a710afbb7e3e6badf701ec9bb156232e5a69d8717803fda7613",
+    "new_object_sha256": "a814e38195e2d2b40d6d1ce4b90c6f0069b35d1712bef2ad05f01c965a035622",
+    "checked": 22,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/ui_mfdm.cpp",
+    "old_object_sha256": "350ea0863145585d59f71484483b146bbed256defd0d2035bb67c667e5e48f0f",
+    "new_object_sha256": "5f3c0d5b2f2517d06bc1c74ad411cd53932f6324043cede9f9bb20cf6d2e9ff7",
+    "checked": 63,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/ui_missn.cpp",
+    "old_object_sha256": "f98b24508cc5afb714e0e479b8273a19b1569d03ba6b920f353e3bae953998ab",
+    "new_object_sha256": "c221bb0fe244b171c4d45a2117911fcd61b0f14eac99a99a98566503b6cd1f2b",
+    "checked": 75,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/ui_mount.cpp",
+    "old_object_sha256": "bce266c55e59b01f099ebdb7a4e9d4e0d74793f2c523be7d6af7962851f64eb2",
+    "new_object_sha256": "d1e7d36b23323a73f7876239135433b400eec34f155ac9ad0d7b2766712ccc2e",
+    "checked": 46,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/ui_option_account.cpp",
+    "old_object_sha256": "31f24c8547d39aa07b726ffe7c63ecfb94128d83ec01b9ddf8e89a02faebbc96",
+    "new_object_sha256": "d2d6c2d255191d3037b00a4cffa1856e4421b93a5d1b3a5b9306b6fa38bf826d",
+    "checked": 34,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/ui_option_channel.cpp",
+    "old_object_sha256": "bc1243efc7987b14ed21aa479b956527ebd39695aed9ef9727bbe97d6bb4022d",
+    "new_object_sha256": "ae66c282946931ac00691cca9ee9d0a6c810bd72b009e2cbb88754c9e112b978",
+    "checked": 47,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/ui_option_check.cpp",
+    "old_object_sha256": "cc9345e0db8863fc36ca0a230a5ca61c29158508dbe79ba764f834850ce5577c",
+    "new_object_sha256": "8725f4e1d877e5b4e16cdaf05db6e40d71c9cb81fa41bae88464ee3583728532",
+    "checked": 36,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/ui_option_control_keys.cpp",
+    "old_object_sha256": "18972d575cc8074042e9ec42ffda9eb30d516a5d6c233befee0cda83b9ce4525",
+    "new_object_sha256": "51794bea7d449036bdde8035a8a85eb7f1e5ac8230f3ab2ddd2da86fe3a5086c",
+    "checked": 56,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/ui_option_font.cpp",
+    "old_object_sha256": "221491656d67fc57c58440b77c10440cbb0816cda344186a80c3668a272fc462",
+    "new_object_sha256": "57ceed6c092ad39442c88815ac947923dd1eef92e75c8b8394538667af334046",
+    "checked": 53,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/ui_option_main.cpp",
+    "old_object_sha256": "1e48a2aefe2413eb5be0c419436cc7a7086bdea21be6f5a269c60bf787796381",
+    "new_object_sha256": "04e78e4f3ffd0338fba45e30f668709909ca8f186de4dbee755d0a8963a09da5",
+    "checked": 33,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/ui_option_quit.cpp",
+    "old_object_sha256": "f52974788e79e9e31bbcfee73b8641b4b63161e6be01ce0cdb8e15ca0b9dc4ba",
+    "new_object_sha256": "e33d9f13c75915ac4ca103b21457e97d850af044cd2da08b8ebb28fee2d77c5e",
+    "checked": 37,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/ui_option_slider.cpp",
+    "old_object_sha256": "a0c9d6018ba332c5c897b4fc3bc03cb278d528b861ecb01c8d8ce691965b3bb3",
+    "new_object_sha256": "e7d588d2ae2d7942da4614db3375386c8504ada774e863d85728c492c26e46c3",
+    "checked": 41,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/ui_pda_cargo.cpp",
+    "old_object_sha256": "b3690b0bd45bd0acc3b6bfd94284fd7de2140cc4ab709dedd661b0ea954f0530",
+    "new_object_sha256": "5665a58f4d29c90853e3ad1c4aa6f80f838e0cefe7ccd245706ee6227f497651",
+    "checked": 66,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/ui_pda_equip.cpp",
+    "old_object_sha256": "f4c2d8849f8757d37e7a6c927f0c554366fa2ea9c1e4668b2fa485f5a1ddebf2",
+    "new_object_sha256": "f397a2387a723d26ffed6ab147f8029b208476459ca6564471d392fbffde9c17",
+    "checked": 65,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/ui_petition.cpp",
+    "old_object_sha256": "3809cda3fb48129414440287790bda3780f8f52dbe518f9d4ba8525b60a9e16f",
+    "new_object_sha256": "920c3d193ad3af98d032e9e852d9a304ab48f93f8e2e1dc74c5e2b93fdea3f9e",
+    "checked": 42,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/ui_petition_avatar_pip.cpp",
+    "old_object_sha256": "e98e128805741f94467f46ea8af6f3d844135031b8c8e0afefcd7064386012bd",
+    "new_object_sha256": "82e6fd5181b41b6de233a52a12d7e58757c7a12dcdc5039f1d300323aa5c3edb",
+    "checked": 39,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  }
+]

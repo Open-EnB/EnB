@@ -1,0 +1,13 @@
+{
+  "revision": "64e8e4f55296d83901759bb53b0d0d8a641f7352",
+  "units": 1049,
+  "pairs": 43016,
+  "symbol_pairs": 43025,
+  "compile_errors": 0,
+  "recorded_coverage_missing": [],
+  "pair_set_sha256": "fdf472c43c17a56befcdc53eb69a126649d9dc0a00826ea3c34af853844d393b",
+  "symbol_pair_set_sha256": "8577d4245df0cd5d93e01c1e8341c4f945b0199191dab48082aa54d4ae5285e0",
+  "compiler": "/home/dev/Toolchains/enb-vc6-sp4/bin/vc6-cl",
+  "client_sha256": "249f852496f341c00361be95b66e7c0becc2c39e7cba026f9227e38b602651c4",
+  "configuration": "Unmodified installed preflight worker; canonical libdefs flags/defines/include order and app alias; all1049 registered units."
+}

@@ -1,0 +1,402 @@
+[
+  {
+    "unit": "ww3d2/dx8polygonrenderer.cpp",
+    "old_object_sha256": "56b53d832a618495cb06a74dba8cf225ed96fb07d5c71afa4c102b19951acdce",
+    "new_object_sha256": "3726d793fed58a2dff1a42d2613b2a685e278ec2001bae6aca80e501985efc7b",
+    "checked": 7,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "ww3d2/dx8renderer.cpp",
+    "old_object_sha256": "4e7eb31a578a23c491eedc69659f9553ad19a15ff41dcee44d33e33c0399b950",
+    "new_object_sha256": "6553f75e8e6edc775f8e46a7430a7f71470971ea920a2170debae4ca0eea3cdf",
+    "checked": 110,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "ww3d2/dx8rendererdebugger.cpp",
+    "old_object_sha256": "438028732f4eb6e2aea89b97787b2c8bbd6debecf2278ea2f7a40ce384e5791e",
+    "new_object_sha256": "f1190b190f44768b3dd30696d656f5431d106dd57ad69497c9c5d334c556995f",
+    "checked": 13,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "ww3d2/dx8texman.cpp",
+    "old_object_sha256": "30cf455cee10f9cdf2ee8551a75f36126a1c5b4fafbf0c3fcf5f3312ed906532",
+    "new_object_sha256": "94f85291e6396ff0bddfec1af882ec31ee537e5814634510559ff6da2290e627",
+    "checked": 9,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "ww3d2/dx8vertexbuffer.cpp",
+    "old_object_sha256": "0332fdd13fe8bc80ee0b64ce25719750da85be4389994d77c64f5e9c7bc1eae7",
+    "new_object_sha256": "743c78274ddf1a302cf24a77ea7513d228c581e216805421180a5a0b139a1754",
+    "checked": 41,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "ww3d2/dx8webbrowser.cpp",
+    "old_object_sha256": "8f85ef1a16fdcedf235b022d4c75c2f795b8f6a244ec7eadc35ee26a226ee743",
+    "new_object_sha256": "a80c1e91c839a3e4c0ca7ba4cfdf194db2a3eb8e0f3b4ce2086a003b159f70e3",
+    "checked": 24,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "ww3d2/dx8wrapper.cpp",
+    "old_object_sha256": "92f24ee9ef5e295aff1066ed7201f35d5da1f330bcda9de7141d506b44bc7bc9",
+    "new_object_sha256": "26509322797857d3ec4217d84d80a5a433f5a770bf8a4ed732ae210ec99f91da",
+    "checked": 172,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "ww3d2/dynamesh.cpp",
+    "old_object_sha256": "c0ca4868f5dc2d8e79dd44cd61f6c7cb13005b15e9bd5e59064efbf931d8a808",
+    "new_object_sha256": "47b3bc500b98a5c8fc46b600f14bde4890900cddda609344f79c7d559a73f8ca",
+    "checked": 139,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "ww3d2/font3d.cpp",
+    "old_object_sha256": "bb7dc1b78594c83424052ffd1a5334c4a71edbbb8cd672c6ca72ab3ad99af32f",
+    "new_object_sha256": "559616a28ec862f1a35c7b98ef3cdded4a9e5f2c31ded83fe4cd96bd909ab565",
+    "checked": 15,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "ww3d2/formconv.cpp",
+    "old_object_sha256": "3df5b38020bced5401ffb12e9347a41cf12fe7d53c670739084d2fab5bcdbec2",
+    "new_object_sha256": "a070b6f2b18d2ea1c14f330d2457a3b34a24beded9b5b554a07c666b9554c904",
+    "checked": 5,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "ww3d2/framgrab.cpp",
+    "old_object_sha256": "e5579636ef8706cc45265daf78b94daee5f1f7c48a83fccf27404a477ae6d5ae",
+    "new_object_sha256": "717b102f4925375680ccaf08d4312200e17e2f2d710e4100130d291b1c018887",
+    "checked": 9,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "ww3d2/hanim.cpp",
+    "old_object_sha256": "9e7e70fbff20e4406c8791871cf89cafce3a5052fcbdeead0de3cef86e89b161",
+    "new_object_sha256": "59d683c25c1d2a102d6eb1ee6c7446870941f1aba58ab90c4391f305f1228d50",
+    "checked": 68,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "ww3d2/hanimmgr.cpp",
+    "old_object_sha256": "22f023b28ee5ab8cb7aeef552879e773851d8a561b15f7457632d4db3ff8c0a5",
+    "new_object_sha256": "07900837a8c554b23327688103d26df7420992d947f11db4098113ce695446e0",
+    "checked": 21,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "ww3d2/hcanim.cpp",
+    "old_object_sha256": "4da189e3ce125af77e0701aa6a295fd6c27e2869f2aa42e4efdf27b9870a9052",
+    "new_object_sha256": "3139554ac247e187a62ff03d4fc6e494f572256de6845ed369269ec682b7c57d",
+    "checked": 49,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "ww3d2/hlod.cpp",
+    "old_object_sha256": "fed9f9ec15b1250f15c0bc668926803e67648299b7ca8ae47879c8f1da10eabc",
+    "new_object_sha256": "e491b0d44afb03cb30ba9f69cdb70fc90aee2715e15a092db4e0a838a74b5d0d",
+    "checked": 159,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "ww3d2/hmdldef.cpp",
+    "old_object_sha256": "2b02a50b0c53eaf080e7c13213414f12e2dfb18f0ee876255e62ebd958ed6110",
+    "new_object_sha256": "3d6afbe161456248614a70d53b5d3fd6a39080e4dfb8242303a3b6587c960ab7",
+    "checked": 18,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "ww3d2/hmorphanim.cpp",
+    "old_object_sha256": "50c825bc511d4b1e9ee994bf5a26205af8e568360af778a20601973df85326c9",
+    "new_object_sha256": "ddee7bfe192e68fb7e6a511fb006ae31f85831c537dcca4f538b460964493dd2",
+    "checked": 66,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "ww3d2/hrawanim.cpp",
+    "old_object_sha256": "d96defbf64285ad047594bf99ed7de8f7f1a0e1d5f90969ae5eb61f745ebb73b",
+    "new_object_sha256": "f796274cef539888edd67f47f79d1f2c3825b7cb8813aae8ed748c5db797d85f",
+    "checked": 47,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "ww3d2/htree.cpp",
+    "old_object_sha256": "f7f6092594e98d39d891b05a1166228f56e8b49b7310c174bea38b70ed419b41",
+    "new_object_sha256": "3c57772caad2280787008feb1738db1e44f356f5aff5489c0c2686f370cc051d",
+    "checked": 31,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "ww3d2/htreemgr.cpp",
+    "old_object_sha256": "360e385a82fde0c5c5fec3f4c6c4411dc1fe98b027a7cde2ffd76411bf8b4ac1",
+    "new_object_sha256": "352d23781ef48430da285f66593a3861f2974cab21468f7331fcbf21c7808ac6",
+    "checked": 16,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "ww3d2/intersec.cpp",
+    "old_object_sha256": "7e0338f5ab875048431a5b9c685740a70442ab5e4e4570c89a866288124c64b9",
+    "new_object_sha256": "2c4afc9dd46b195484acab86b1f36520aed1a524ab5325e67bc2ae5b8f2fe3b5",
+    "checked": 23,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "ww3d2/layer.cpp",
+    "old_object_sha256": "25c741c72630519a614c6ec1cc3f99fca3359c095a3aef3d7f6b4aa272924fb2",
+    "new_object_sha256": "40276d73c78fc38f111891be8940bbd12011414ad6f67ea578e8eaaf1504c275",
+    "checked": 15,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "ww3d2/light.cpp",
+    "old_object_sha256": "603003c3e0e3d5e07ad0ba1dac6cd08c119fbcc130091fc7c6220b6cd99f01fd",
+    "new_object_sha256": "0e27d39607f4576b91bf136e345a14a5c16a024f370067bd9c04062d9819e552",
+    "checked": 113,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "ww3d2/lightenvironment.cpp",
+    "old_object_sha256": "2390542a388014a782c036aab698cd46786eef06ac04d7c57aa552a89c10526c",
+    "new_object_sha256": "389b5ebb69ed92579ed750cf11014876cf10b1e521ff2149c0f97326bba5f5ce",
+    "checked": 16,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "ww3d2/line3d.cpp",
+    "old_object_sha256": "7186bf00f4e714291ebbaa74cd34b63bf3d819e6ae7599c44be2b8e026bb2034",
+    "new_object_sha256": "9d936c78d4752f001f9f1705b79c12636fb49cdd70a3bc4745168c806086b71b",
+    "checked": 108,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "ww3d2/linegrp.cpp",
+    "old_object_sha256": "0fd3494e8d6de5a1142acc7da29131b3ca8ef832cb3f2c06bea3b8ee93fa2351",
+    "new_object_sha256": "a903b1b11b0b82db81cc8f484df52dd45a76f9bd5d064975453f348aa0aeb518",
+    "checked": 34,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "ww3d2/mapper.cpp",
+    "old_object_sha256": "43c9bcc0106f1f6d465b091656b098def3769c530a334a3b0e603c38af7634ca",
+    "new_object_sha256": "66963273f0fac0a3643b728623f4ade0f9eb944e4564c7c91df0af6f34c88696",
+    "checked": 146,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "ww3d2/matinfo.cpp",
+    "old_object_sha256": "95087b8a3924ef4e92ef45f26d2b65124cd3e1464354fc6f23a236093c8b5384",
+    "new_object_sha256": "c065523f03a632c417b2a69714b359f3cef4486e27244d001309ac65a947724d",
+    "checked": 73,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "ww3d2/matpass.cpp",
+    "old_object_sha256": "da8a3be93945aaae423566fdd4e52a3fedd711f8a50defc1ec1150c1c495b711",
+    "new_object_sha256": "d98d19af7c0ed05ed660f24c91265e31d35ac9556226991e33d46e12a8690d83",
+    "checked": 12,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "ww3d2/matrixmapper.cpp",
+    "old_object_sha256": "93f8bfc3ceffb59a7c3a5af22303f34630a317ff0d05c343136529c7b2cefeac",
+    "new_object_sha256": "8df2f3f016eb0fe9292925d51a1b76009e655fd70005c0ba5ac82dde03d4aabd",
+    "checked": 29,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "ww3d2/mesh.cpp",
+    "old_object_sha256": "b33f6be273d59614a83a702a51485a56c74b7d7279f1c4e7a10ff7735203327d",
+    "new_object_sha256": "8062c60fa69c79a08c05940c316d53bd15673e0d6bc83d09202d1cb2d14e1122",
+    "checked": 154,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "ww3d2/meshbuild.cpp",
+    "old_object_sha256": "da36e13d4279230706c1a49faecc2dcd4997ce4450cb71f0c7b3528d1febf43c",
+    "new_object_sha256": "7e8353af80791a44f0f32b67b6ebdd89fee0ba4f598d9eccf106f62b9658edb6",
+    "checked": 3,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "ww3d2/meshgeometry.cpp",
+    "old_object_sha256": "8d6af8ef8e2f69e53c0c1ece69c30f05ba28ffc2af47c9e09ab5067d18eb1da8",
+    "new_object_sha256": "5af92f472feea42d812bbd096a4b2bdbff69ea8225fc9eaaefcb95c182b62f16",
+    "checked": 72,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "ww3d2/meshmatdesc.cpp",
+    "old_object_sha256": "b78f70af74d04f3d11b06900466f9f0c983d44db612683aac99fc4726dbd6a73",
+    "new_object_sha256": "5e506b1db8c54d6e0ef019a8db7d0cac6e9f416b527037cf96a3b96b09d000d0",
+    "checked": 50,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "ww3d2/meshmdl.cpp",
+    "old_object_sha256": "c5823baf6e6641c452b01c8a9cb8cac7b84bfea89ced925f9d1906a3331856f0",
+    "new_object_sha256": "cc1ece2c9589a6f102f8e7b97c6a49d4605df366bb6c46e1362ffabf85971861",
+    "checked": 86,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "ww3d2/meshmdlio.cpp",
+    "old_object_sha256": "81834a378a44f17498b085bf6ee740f5b2dbaf443e785e79a948c69ee3efe6e5",
+    "new_object_sha256": "caa569a56d39a973c022f1729ce77a515224c496270f420d1a5c4f5d6f71e5d0",
+    "checked": 119,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "ww3d2/metalmap.cpp",
+    "old_object_sha256": "e3d70b558ee29ffc22063b39262a0fbb9045540bb857b28e1791875ce2835ea1",
+    "new_object_sha256": "a0dff00b07c54b232f484431577d98ed66332b537099e142e9ef830112de6bb0",
+    "checked": 11,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "ww3d2/missingtexture.cpp",
+    "old_object_sha256": "a6f7ebcf3d402b845ab03fc9ac8a18132398a483f7c4700c108b8247379c6bf2",
+    "new_object_sha256": "b25ad1bf504d2aceac6c9c596aeb282439c5b339ab9a78504ae3d48301d76f7e",
+    "checked": 5,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "ww3d2/motchan.cpp",
+    "old_object_sha256": "e42a29b412a4f46d5d2ed0fa90e5f20151a018c52793c4e61437fc38c8212728",
+    "new_object_sha256": "5bcbb9188ce2297f32fbed60c6ce362134c707b25fefd954e1b7091b646ac563",
+    "checked": 34,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "ww3d2/nullrobj.cpp",
+    "old_object_sha256": "bd70ca82150d6e80f6005e88e629b3e104318de2488ded1babdad1e744a1fccf",
+    "new_object_sha256": "4cc6875601283e812a06212edcc8819bd498b458d02fa2d216b6c73b7ece6380",
+    "checked": 109,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "ww3d2/part_buf.cpp",
+    "old_object_sha256": "d70c7fdc638bc2f69ef210f2a342ca4fcbbc0a36d756bd4c93bf508c8a86c452",
+    "new_object_sha256": "d66d2f5e1887a56f5c965e0180407d7811ed4a5eac1eaefbf1673d88e92c2e58",
+    "checked": 186,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "ww3d2/part_emt.cpp",
+    "old_object_sha256": "7663cd76f12f58895277f58e42b1433c7c538f4d7ba2553e802370dc542434c9",
+    "new_object_sha256": "958b67b3394f73ad7bbd3fd835ee9295ad010fc08f183c90d71de10579a1728a",
+    "checked": 155,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "ww3d2/part_ldr.cpp",
+    "old_object_sha256": "4b147dc5347767bf7440fb410fb6b868edecbed613a1362f8baccbd5d9fbf892",
+    "new_object_sha256": "2714147c343abdf54ed9b4fd852806f26d74f50f59f5ac973bf3ab2567a6a59b",
+    "checked": 96,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "ww3d2/pivot.cpp",
+    "old_object_sha256": "b6695a1b6323b52c97722c582b573d7ff1df2350c1c31c363c167b4ef38ee9b9",
+    "new_object_sha256": "b546f47dd18941b83d7ce7aebb2211964dbc864fbc556437ea3c5d88118f8368",
+    "checked": 3,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "ww3d2/pointgr.cpp",
+    "old_object_sha256": "0854118185596462ea0e3933240ff13486de6592ce8773778db63ef39415e6e4",
+    "new_object_sha256": "a9ac31a5b463853237d481b0f6daaa67ad91ffcd8a5c2dcef0fa0e77b7940d84",
+    "checked": 85,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "ww3d2/polyinfo.cpp",
+    "old_object_sha256": "c124fa4482362d3e0453bdc18ee01481b71ddcb3fbf7bd663977ea7633edb06f",
+    "new_object_sha256": "eb3fdb632eaf94d9a3d168a411abc63baa7dc975aedfed816ff424c37d6fb97f",
+    "checked": 2,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "ww3d2/predlod.cpp",
+    "old_object_sha256": "5112916e50753a22c762c068bc087b43ee816b093eeca0b9444d7c24b938b5ef",
+    "new_object_sha256": "f48ef3c15eb32196caa72287d358d1f466a1b1d882b1609b91cd297203709013",
+    "checked": 11,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "ww3d2/projector.cpp",
+    "old_object_sha256": "c3681c38bcf49d3d1b96d6a395861c267f0ee433f7aebc1c800ce0dffdf99b85",
+    "new_object_sha256": "5decf774beb64cfa4e47ddecaa33aebf064df2c0fd09f633e4a0a94b44517b42",
+    "checked": 10,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "ww3d2/proto.cpp",
+    "old_object_sha256": "d810b8de63589bee3b360400cceee06d7ecc64453d6775fdd57b8c734fe5548d",
+    "new_object_sha256": "5074900e7739697f37bac81bd70dcdd0e13ccb7ed9302a4abb02c83464d078c6",
+    "checked": 20,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "ww3d2/render2d.cpp",
+    "old_object_sha256": "96bff8465b74ca4df7d6ca14386e1b5c4168e5afd694bdfad2e16049c05fc397",
+    "new_object_sha256": "18d071c518d83b3c6472828084f9c4a041ccbef1f31ac5daa4405254decea3ac",
+    "checked": 93,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  }
+]

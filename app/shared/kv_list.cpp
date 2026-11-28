@@ -3,7 +3,7 @@
 #include "kv_list.h"
 #include "kv_pair.h"
 #include "g_assert.h"
-
+#include "kv_pair_value.h"
 KVListClass::KVListClass()
 {
 }
@@ -77,13 +77,13 @@ const char *KVListClass::Get_Type_Name(const char *key)
 // 0x4B6B60: the dead Pairs.size() after Find takes its nested budget: the hashtable's find 0x4B7030 out of line (D272)
 const char *KVListClass::Get_Value_String(const char *key)
 {
-	static char buf[0x1000];
+
 	if (key == 0) {
 		G_ASSERT(key);
 		return 0;
 	}
 	KVPairClass *pair = Find(key); Pairs.size();
-	return pair != 0 ? pair->Get_Value_String(buf, sizeof(buf)) : 0;
+	return pair != 0 ? Pair_Value_String(pair) : 0;
 }
 
 
@@ -143,7 +143,7 @@ void KVListClass::Keep_Only(std::hash_set<std::string> &keys)
 **	0x4B6760 replaces a pair with the same key in place and deletes the old one, otherwise appends
 **	(the vector insert 0x4B7130); the index is SGI STL's hash_map (libs/sgistl, D87): find_or_insert
 **	0x4B7870, resize 0x4B7B80, find 0x4B7030, __stl_hash_string 0x4B6970; the one-argument
-**	Get_Value_String writes into a static 0x1000-byte buffer (0xBE3B60). Forms: the lookups return
+**	Get_Value_String uses the private helper's shared static 0x1000-byte buffer (0xBE3B60). Forms: the lookups return
 **	through `if (pair != 0) return ...; return 0;` (one shared failure tail, no shrink-wrapped prologue).
 **	Keep_Only 0x4B6DC0 (no caller in the client) takes a hash_set<std::string> of keys (or a
 **	hash_map<std::string, ...>: the client only looks keys up in it) and erases the others (the

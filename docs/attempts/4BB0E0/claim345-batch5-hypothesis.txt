@@ -1,0 +1,10 @@
+# Batch 5 hypothesis, before compilation
+
+First05 physically moved the buffer before the permstr include yet its COFF
+BSS order stayed PermStringInit, KeyBuffer, SectionBuffer; moving declarations
+is not sufficient and changing include order lost two initialiser symbol pairs.
+The buffer is only used by the section builder, so a function-local static is
+a natural ownership hypothesis. Test a static declared inside that inline
+helper, preserving include order and original line positions. Inspect COFF
+storage class/offset and both old pair sets and executable match. This is not
+proof of its eventual retail address, which requires linked placement audit.

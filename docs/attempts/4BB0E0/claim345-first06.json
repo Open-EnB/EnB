@@ -1,0 +1,659 @@
+{
+  "run": "first06",
+  "base_revision": "64e8e4f55296d83901759bb53b0d0d8a641f7352",
+  "inputs": [
+    {
+      "unit": "app/shared/kv_util.cpp",
+      "base_sha256": "95315110685026f5c2699920bc492ab2f3b9dde35b4eaa84f1be079d2e3302dc",
+      "input_sha256": "ab14cbef5511107bb78efd08a695cdf08f7966d5646d1cd2db279c0aa7e7e6b9",
+      "edits": [
+        {
+          "start": 388,
+          "end": 388,
+          "text": "#include \"kv_list.h\""
+        },
+        {
+          "start": 389,
+          "end": 389,
+          "text": "#include \"kv_pair.h\""
+        },
+        {
+          "start": 390,
+          "end": 390,
+          "text": "#include <stdio.h>"
+        },
+        {
+          "start": 681,
+          "end": 681,
+          "text": "inline static const char *Make_Section(const char *base, const char *append, char *section)  // NAME 2: describes what it does"
+        },
+        {
+          "start": 682,
+          "end": 682,
+          "text": "{"
+        },
+        {
+          "start": 683,
+          "end": 683,
+          "text": "\tstatic char SectionBuffer[0x200];  // NAME 2: holds the converted section"
+        },
+        {
+          "start": 684,
+          "end": 684,
+          "text": "\tG_ASSERT(base);"
+        },
+        {
+          "start": 685,
+          "end": 685,
+          "text": "\tG_ASSERT(append);"
+        },
+        {
+          "start": 686,
+          "end": 686,
+          "text": "\tG_ASSERT(section);"
+        },
+        {
+          "start": 687,
+          "end": 687,
+          "text": "\tstrcpy(section, base);"
+        },
+        {
+          "start": 688,
+          "end": 688,
+          "text": "\tstrcpy(SectionBuffer, append);"
+        },
+        {
+          "start": 689,
+          "end": 689,
+          "text": "\tReplace_Char(SectionBuffer, '.', '\\\\');"
+        },
+        {
+          "start": 690,
+          "end": 690,
+          "text": "\tchar *split = strrchr(SectionBuffer, '\\\\'); const char *entry;"
+        },
+        {
+          "start": 691,
+          "end": 691,
+          "text": "\tif (split != NULL) {"
+        },
+        {
+          "start": 692,
+          "end": 692,
+          "text": "\t\t*split = '\\0'; entry = split + 1;"
+        },
+        {
+          "start": 693,
+          "end": 693,
+          "text": "\t\tstrcat(section, \"\\\\\");"
+        },
+        {
+          "start": 694,
+          "end": 694,
+          "text": "\t\tstrcat(section, SectionBuffer);"
+        },
+        {
+          "start": 695,
+          "end": 695,
+          "text": "\t} else {"
+        },
+        {
+          "start": 696,
+          "end": 696,
+          "text": "\t\tentry = SectionBuffer;"
+        },
+        {
+          "start": 697,
+          "end": 697,
+          "text": "\t}"
+        },
+        {
+          "start": 698,
+          "end": 698,
+          "text": "\treturn entry;"
+        },
+        {
+          "start": 699,
+          "end": 699,
+          "text": "}"
+        },
+        {
+          "start": 2174,
+          "end": 2174,
+          "text": "// NOT EXACT: candidate reconstructed from retail instructions\nbool Unknown_4BB0E0(KVListClass &list, INIClass &ini, const char *base)  // NAME 1: neutral address\n{\n\tunsigned int count = list.Get_Count();\n\tfor (unsigned int i = 0; i < count; i++) {\n\t\tKVPairClass *pair = list.Get(i);"
+        },
+        {
+          "start": 2178,
+          "end": 2178,
+          "text": "\t\tG_ASSERT(pair);"
+        },
+        {
+          "start": 2179,
+          "end": 2179,
+          "text": "\t\tchar section[0x200];"
+        },
+        {
+          "start": 2180,
+          "end": 2180,
+          "text": "\t\tconst char *entry = Make_Section(base, pair->Key.Get_String(), section);"
+        },
+        {
+          "start": 2181,
+          "end": 2181,
+          "text": "\t\tchar value[0x300];"
+        },
+        {
+          "start": 2182,
+          "end": 2182,
+          "text": "\t\tsprintf(value, \"{%s}:{%s}\", pair->Get_Type_Name(), pair->Get_Value_String());"
+        },
+        {
+          "start": 2183,
+          "end": 2183,
+          "text": "\t\tif (!ini.Put_String(section, entry, value)) return false;"
+        },
+        {
+          "start": 2184,
+          "end": 2184,
+          "text": "\t}"
+        },
+        {
+          "start": 2185,
+          "end": 2185,
+          "text": "\treturn true;"
+        },
+        {
+          "start": 2186,
+          "end": 2191,
+          "text": "}"
+        }
+      ]
+    },
+    {
+      "unit": "app/shared/kv_list.cpp",
+      "base_sha256": "5ea34be2a154e5c76e0898472ce7260055f875ff43a30612c5bf5bf4b0d3371a",
+      "input_sha256": "efaab89966b96b27e6633303000294c482c377ba8dc5eb262a52021c3677a1e7",
+      "edits": [
+        {
+          "start": 390,
+          "end": 395,
+          "text": "V"
+        },
+        {
+          "start": 420,
+          "end": 425,
+          "text": "V"
+        },
+        {
+          "start": 434,
+          "end": 439,
+          "text": "V"
+        },
+        {
+          "start": 661,
+          "end": 666,
+          "text": "V"
+        },
+        {
+          "start": 689,
+          "end": 694,
+          "text": "V"
+        },
+        {
+          "start": 712,
+          "end": 717,
+          "text": "V"
+        },
+        {
+          "start": 857,
+          "end": 862,
+          "text": "V"
+        },
+        {
+          "start": 1396,
+          "end": 1401,
+          "text": "V"
+        },
+        {
+          "start": 1555,
+          "end": 1580,
+          "text": ""
+        },
+        {
+          "start": 1662,
+          "end": 1667,
+          "text": "V"
+        },
+        {
+          "start": 1719,
+          "end": 1735,
+          "text": ""
+        },
+        {
+          "start": 2361,
+          "end": 2366,
+          "text": "V"
+        },
+        {
+          "start": 2389,
+          "end": 2394,
+          "text": "V"
+        },
+        {
+          "start": 2536,
+          "end": 2541,
+          "text": "V"
+        }
+      ]
+    },
+    {
+      "unit": "app/shared/kv_list.h",
+      "base_sha256": "b14c69b8571c54533940483611a00a49a894a098d2121d413fd89d735bc38fe6",
+      "input_sha256": "54cc4cb84a2687be7dcb0d5d8b6e8762a66cdf1d31e3f3e005c8adec40fca55a",
+      "edits": [
+        {
+          "start": 974,
+          "end": 974,
+          "text": "#include \"g_assert.h\""
+        },
+        {
+          "start": 2414,
+          "end": 2419,
+          "text": "V"
+        },
+        {
+          "start": 2499,
+          "end": 2521,
+          "text": ""
+        },
+        {
+          "start": 2522,
+          "end": 2524,
+          "text": ""
+        },
+        {
+          "start": 2765,
+          "end": 2770,
+          "text": "V"
+        },
+        {
+          "start": 2771,
+          "end": 2782,
+          "text": "  "
+        },
+        {
+          "start": 2790,
+          "end": 2790,
+          "text": ","
+        },
+        {
+          "start": 2791,
+          "end": 2794,
+          "text": "nam"
+        },
+        {
+          "start": 2795,
+          "end": 2795,
+          "text": " from"
+        },
+        {
+          "start": 2802,
+          "end": 2803,
+          "text": " a"
+        },
+        {
+          "start": 2804,
+          "end": 2805,
+          "text": "ser"
+        },
+        {
+          "start": 2806,
+          "end": 2806,
+          "text": "i"
+        },
+        {
+          "start": 2807,
+          "end": 2852,
+          "text": "n"
+        },
+        {
+          "start": 2995,
+          "end": 2995,
+          "text": "\n\n\n\n\n\n\n\n\n\ninline KVPairClass *KVListClass::Get(int index) const\n{\n\tG_ASSERT(index < V.size());\n\treturn V[index];\n}\n\n"
+        }
+      ]
+    },
+    {
+      "unit": "app/shared/kv_pair.h",
+      "base_sha256": "d0def0240e503524ceb9a4c85ecb2c4bf90531f938f04d32c0ae5068a95103f2",
+      "input_sha256": "65f28413fac360e5094ac3ba05551585a2a27ca8990fca5a507791d73ca43c32",
+      "edits": [
+        {
+          "start": 1649,
+          "end": 1649,
+          "text": "char *Get_Value_String() const { static char buf[0x1000]; return Get_Value_String(buf, sizeof(buf)); }  // NAME 2: describes what it does\n\t"
+        },
+        {
+          "start": 2073,
+          "end": 2074,
+          "text": ""
+        }
+      ]
+    }
+  ],
+  "replay_verified": true,
+  "classification": "changed_compiled_rejected_data_layout",
+  "compiler_inputs": [
+    {
+      "unit": "app/shared/kv_util.cpp",
+      "response": "/nologo /c /MT /W3 /O2 /Ob2 /GX\n/DWIN32\n/D_WINDOWS\n/DWIN32_LEAN_AND_MEAN\n/DWINVER=0x400\n/DNDEBUG\n/DENABLE_WWPROFILE\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\build-tree\\wwdebug\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\build-tree\\wwlib\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\build-tree\\wwmath\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\build-tree\\wwsaveload\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\build-tree\\wwaudio\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\build-tree\\ww3d2\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\build-tree\\wwshade\"\n/I\"Z:C:\\EnBDevelopment\\SDK\\directx8\\include\"\n/I\"Z:C:\\EnBDevelopment\\SDK\\radtools\\include_enb\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\build-tree\\libs\\wwonline\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\build-tree\\libs\\sgistl\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\build-tree\"\n\"e:\\build\\beta\\G\\app\\shared\\kv_util.cpp\"",
+      "object_sha256": "94d167e49135edc774e6e193a16df279bf1f8a69c5216f2bf9a85b08869d148a"
+    },
+    {
+      "unit": "app/shared/kv_list.cpp",
+      "response": "/nologo /c /MT /W3 /O2 /Ob2 /GX\n/DWIN32\n/D_WINDOWS\n/DWIN32_LEAN_AND_MEAN\n/DWINVER=0x400\n/DNDEBUG\n/DENABLE_WWPROFILE\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\build-tree\\wwdebug\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\build-tree\\wwlib\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\build-tree\\wwmath\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\build-tree\\wwsaveload\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\build-tree\\wwaudio\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\build-tree\\ww3d2\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\build-tree\\wwshade\"\n/I\"Z:C:\\EnBDevelopment\\SDK\\directx8\\include\"\n/I\"Z:C:\\EnBDevelopment\\SDK\\radtools\\include_enb\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\build-tree\\libs\\wwonline\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\build-tree\\libs\\sgistl\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\build-tree\"\n\"e:\\build\\beta\\G\\app\\shared\\kv_list.cpp\"",
+      "object_sha256": "8119fb6efa8829551ef70aed9597c65947d5b7fa8044909e57e51fb7d9c83d18"
+    },
+    {
+      "unit": "app/shared/kv_pair.cpp",
+      "response": "/nologo /c /MT /W3 /O2 /Ob2 /GX\n/DWIN32\n/D_WINDOWS\n/DWIN32_LEAN_AND_MEAN\n/DWINVER=0x400\n/DNDEBUG\n/DENABLE_WWPROFILE\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\build-tree\\wwdebug\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\build-tree\\wwlib\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\build-tree\\wwmath\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\build-tree\\wwsaveload\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\build-tree\\wwaudio\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\build-tree\\ww3d2\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\build-tree\\wwshade\"\n/I\"Z:C:\\EnBDevelopment\\SDK\\directx8\\include\"\n/I\"Z:C:\\EnBDevelopment\\SDK\\radtools\\include_enb\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\build-tree\\libs\\wwonline\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\build-tree\\libs\\sgistl\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\build-tree\"\n\"e:\\build\\beta\\G\\app\\shared\\kv_pair.cpp\"",
+      "object_sha256": "8b07fdefaccf40f81adae1382d903fa43ee5c5c8e22816d9c983e7ddc7da71cd"
+    }
+  ],
+  "source_replay_verified": true,
+  "deltas": {
+    "pairs": {
+      "gained": [
+        [
+          "app/shared/kv_util.cpp",
+          "0x4BB0E0"
+        ]
+      ],
+      "lost": []
+    },
+    "symbol_pairs": {
+      "gained": [
+        [
+          "app/shared/kv_util.cpp",
+          "?Unknown_4BB0E0@@YA_NAAVKVListClass@@AAVINIClass@@PBD@Z",
+          "0x4BB0E0"
+        ]
+      ],
+      "lost": []
+    },
+    "all_pairs": {
+      "gained": [
+        [
+          "app/shared/kv_util.cpp",
+          "0x4BB0E0"
+        ]
+      ],
+      "lost": []
+    },
+    "all_symbol_pairs": {
+      "gained": [
+        [
+          "app/shared/kv_util.cpp",
+          "?Unknown_4BB0E0@@YA_NAAVKVListClass@@AAVINIClass@@PBD@Z",
+          "0x4BB0E0"
+        ]
+      ],
+      "lost": []
+    }
+  },
+  "analysis": {
+    "symbol": "?Unknown_4BB0E0@@YA_NAAVKVListClass@@AAVINIClass@@PBD@Z",
+    "length": 610,
+    "raw_sha256": "52fc7ccf6947aaa827399d4e8855698adfac66be4569b4185a00af742e17e102",
+    "masked_sha256": "52fc7ccf6947aaa827399d4e8855698adfac66be4569b4185a00af742e17e102",
+    "relocations": [
+      {
+        "offset": 95,
+        "width": 4,
+        "kind": 6,
+        "symbol": "??_C@_0CF@LKAP@e?3?2build?2beta?2G?2app?2shared?2kv_li@",
+        "addend": "00000000"
+      },
+      {
+        "offset": 100,
+        "width": 4,
+        "kind": 6,
+        "symbol": "??_C@_0BB@OBKE@index?5?$DM?5V?4size?$CI?$CJ?$AA@",
+        "addend": "00000000"
+      },
+      {
+        "offset": 105,
+        "width": 4,
+        "kind": 20,
+        "symbol": "?G_Assert_Report@@YAXPBD0H@Z",
+        "addend": "00000000"
+      },
+      {
+        "offset": 128,
+        "width": 4,
+        "kind": 6,
+        "symbol": "??_C@_0CH@CGBG@e?3?2build?2beta?2G?2app?2shared?2kv_ut@",
+        "addend": "00000000"
+      },
+      {
+        "offset": 133,
+        "width": 4,
+        "kind": 6,
+        "symbol": "??_C@_04OJPI@pair?$AA@",
+        "addend": "00000000"
+      },
+      {
+        "offset": 138,
+        "width": 4,
+        "kind": 20,
+        "symbol": "?G_Assert_Report@@YAXPBD0H@Z",
+        "addend": "00000000"
+      },
+      {
+        "offset": 162,
+        "width": 4,
+        "kind": 6,
+        "symbol": "??_C@_0CH@CGBG@e?3?2build?2beta?2G?2app?2shared?2kv_ut@",
+        "addend": "00000000"
+      },
+      {
+        "offset": 167,
+        "width": 4,
+        "kind": 6,
+        "symbol": "??_C@_04PIEA@base?$AA@",
+        "addend": "00000000"
+      },
+      {
+        "offset": 172,
+        "width": 4,
+        "kind": 20,
+        "symbol": "?G_Assert_Report@@YAXPBD0H@Z",
+        "addend": "00000000"
+      },
+      {
+        "offset": 186,
+        "width": 4,
+        "kind": 6,
+        "symbol": "??_C@_0CH@CGBG@e?3?2build?2beta?2G?2app?2shared?2kv_ut@",
+        "addend": "00000000"
+      },
+      {
+        "offset": 191,
+        "width": 4,
+        "kind": 6,
+        "symbol": "??_C@_06NAPD@append?$AA@",
+        "addend": "00000000"
+      },
+      {
+        "offset": 196,
+        "width": 4,
+        "kind": 20,
+        "symbol": "?G_Assert_Report@@YAXPBD0H@Z",
+        "addend": "00000000"
+      },
+      {
+        "offset": 214,
+        "width": 4,
+        "kind": 6,
+        "symbol": "??_C@_0CH@CGBG@e?3?2build?2beta?2G?2app?2shared?2kv_ut@",
+        "addend": "00000000"
+      },
+      {
+        "offset": 219,
+        "width": 4,
+        "kind": 6,
+        "symbol": "??_C@_07NDOK@section?$AA@",
+        "addend": "00000000"
+      },
+      {
+        "offset": 224,
+        "width": 4,
+        "kind": 20,
+        "symbol": "?G_Assert_Report@@YAXPBD0H@Z",
+        "addend": "00000000"
+      },
+      {
+        "offset": 278,
+        "width": 4,
+        "kind": 6,
+        "symbol": "_?SectionBuffer@?1??Make_Section@@YAPBDPBD0PAD@Z@4PADA",
+        "addend": "00000000"
+      },
+      {
+        "offset": 287,
+        "width": 4,
+        "kind": 6,
+        "symbol": "_?SectionBuffer@?1??Make_Section@@YAPBDPBD0PAD@Z@4PADA",
+        "addend": "00000000"
+      },
+      {
+        "offset": 310,
+        "width": 4,
+        "kind": 6,
+        "symbol": "??_C@_0CH@CGBG@e?3?2build?2beta?2G?2app?2shared?2kv_ut@",
+        "addend": "00000000"
+      },
+      {
+        "offset": 315,
+        "width": 4,
+        "kind": 6,
+        "symbol": "??_C@_06EMNG@string?$AA@",
+        "addend": "00000000"
+      },
+      {
+        "offset": 320,
+        "width": 4,
+        "kind": 20,
+        "symbol": "?G_Assert_Report@@YAXPBD0H@Z",
+        "addend": "00000000"
+      },
+      {
+        "offset": 330,
+        "width": 4,
+        "kind": 6,
+        "symbol": "_?SectionBuffer@?1??Make_Section@@YAPBDPBD0PAD@Z@4PADA",
+        "addend": "00000000"
+      },
+      {
+        "offset": 335,
+        "width": 4,
+        "kind": 20,
+        "symbol": "_strchr",
+        "addend": "00000000"
+      },
+      {
+        "offset": 353,
+        "width": 4,
+        "kind": 20,
+        "symbol": "_strchr",
+        "addend": "00000000"
+      },
+      {
+        "offset": 367,
+        "width": 4,
+        "kind": 6,
+        "symbol": "_?SectionBuffer@?1??Make_Section@@YAPBDPBD0PAD@Z@4PADA",
+        "addend": "00000000"
+      },
+      {
+        "offset": 372,
+        "width": 4,
+        "kind": 20,
+        "symbol": "_strrchr",
+        "addend": "00000000"
+      },
+      {
+        "offset": 390,
+        "width": 4,
+        "kind": 6,
+        "symbol": "??_C@_01PCFE@?2?$AA@",
+        "addend": "00000000"
+      },
+      {
+        "offset": 440,
+        "width": 4,
+        "kind": 6,
+        "symbol": "_?SectionBuffer@?1??Make_Section@@YAPBDPBD0PAD@Z@4PADA",
+        "addend": "00000000"
+      },
+      {
+        "offset": 482,
+        "width": 4,
+        "kind": 6,
+        "symbol": "_?SectionBuffer@?1??Make_Section@@YAPBDPBD0PAD@Z@4PADA",
+        "addend": "00000000"
+      },
+      {
+        "offset": 494,
+        "width": 4,
+        "kind": 6,
+        "symbol": "?buf@?1??Get_Value_String@KVPairClass@@QBEPADXZ@4PADA",
+        "addend": "00000000"
+      },
+      {
+        "offset": 520,
+        "width": 4,
+        "kind": 6,
+        "symbol": "??_C@_09BGEB@?$HL?$CFs?$HN?3?$HL?$CFs?$HN?$AA@",
+        "addend": "00000000"
+      },
+      {
+        "offset": 526,
+        "width": 4,
+        "kind": 20,
+        "symbol": "_sprintf",
+        "addend": "00000000"
+      },
+      {
+        "offset": 555,
+        "width": 4,
+        "kind": 20,
+        "symbol": "?Put_String@INIClass@@QAE_NPBD00@Z",
+        "addend": "00000000"
+      }
+    ],
+    "unwind": null,
+    "explain": {
+      "symbol": "Unknown_4BB0E0",
+      "mangled": "?Unknown_4BB0E0@@YA_NAAVKVListClass@@AAVINIClass@@PBD@Z",
+      "address": "0x4BB0E0",
+      "ours": 209,
+      "client": 209,
+      "residue": 0,
+      "residue_regs": 0,
+      "tables": [],
+      "branch": {
+        "bytes": [
+          610,
+          610
+        ],
+        "size": 0,
+        "target": 0
+      },
+      "class": "identical",
+      "reason": "nothing differs once stack offsets are masked"
+    },
+    "exact": true,
+    "diagnostic_similarity": "similarity 0.80"
+  }
+}

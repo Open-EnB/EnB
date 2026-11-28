@@ -1,0 +1,13 @@
+from pathlib import Path
+import json,subprocess,sys
+R=Path('/home/dev/Projects/EnB');W=R/'.work/claim-345';sys.path.insert(0,str(R/'tools/re'));from objmatch import CoffObject
+run=sys.argv[1] if len(sys.argv)>1 else 'first07';out=W/'runs'/run;old=json.loads((W/'primary-baseline/objects.json').read_text());before=CoffObject(old['app/shared/kv_list.cpp']['path'])
+rows=json.loads((W/'primary-baseline/app-matches.json').read_text());row=next(r for r in rows if r['object']=='kv_list.obj' and '0x4B6B60' in r.get('addresses',[]) and r['status']=='exact');fun=next(f for f in before.functions() if f[0]==row['symbol']);_,sc,s,e=fun
+buffers=[sym for off,width,kind,sym,add in before.reloc_targets(sc,s,row['length']) if width==4 and kind==6 and sym['class']==3 and 'buf' in sym['name'].lower()];assert len(buffers)==1,buffers
+buf=buffers[0];newmap=json.loads((out/'known-map.json').read_text());newbuf=next(n for n,v in newmap.items() if v==['0xBE3B60']);alias={buf['name']:'0xBE3B60',newbuf:'0xBE3B60'};(out/'proven-data-aliases.json').write_text(json.dumps(alias,indent=2)+'\n')
+known=dict(newmap);known[buf['name']]=['0xBE3B60'];(out/'getter-known-map.json').write_text(json.dumps(known,indent=2)+'\n')
+for label,obj,source in [('before',old['app/shared/kv_list.cpp']['path'],W/'tree/app/shared/kv_list.cpp'),('after',out/'kv_list/kv_list.obj',out/'inputs/app/shared/kv_list.cpp')]:
+ subprocess.run([sys.executable,str(W/'audit.py'),str(obj),'--source',str(source),'--matches',str(W/'primary-baseline/app-matches.json' if label=='before' else out/'app-matches.json'),'--prefix',row['symbol'],'--address','0x4B6B60','--known-map',str(out/'getter-known-map.json'),'--out',str(out/('getter-'+label+'-audit.json'))],cwd=R,check=True)
+for unit in ['app/shared/kv_util.cpp','app/shared/kv_list.cpp','app/shared/kv_pair.cpp']:
+ stem=Path(unit).stem;subprocess.run([sys.executable,str(W/'preservation.py'),old[unit]['path'],str(out/stem/(stem+'.obj')),str(W/'primary-baseline/app-matches.json'),'--object-name',stem+'.obj','--aliases',str(out/'proven-data-aliases.json'),'--out',str(out/(stem+'-preservation.json'))],cwd=R,check=True)
+print('Primary graphs checked with the buffer identity justified by complete before/after getter audits.')

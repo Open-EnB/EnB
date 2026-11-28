@@ -1,0 +1,36 @@
+{
+  "unit": "app/shared/kv_pair.cpp",
+  "base_revision": "64e8e4f55296d83901759bb53b0d0d8a641f7352",
+  "source_sha256": "62bf752269b98dc5f6e806ede1180fb42fece37e5d15bee33c039e1290c43d0a",
+  "object_sha256": "9bd9bbb0dbbfd8e2f0d451e645a1fe64eea8884a471e7d3e0c3c59190736507e",
+  "response": "/nologo /c /MT /W3 /O2 /Ob2 /GX\n/DWIN32\n/D_WINDOWS\n/DWIN32_LEAN_AND_MEAN\n/DWINVER=0x400\n/DNDEBUG\n/DENABLE_WWPROFILE\n/I\"Z:\\home\\dev\\Projects\\EnB\\.git\\local-vc6-preflight\\cache\\trees\\64e8e4f55296d83901759bb53b0d0d8a641f7352\\wwdebug\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.git\\local-vc6-preflight\\cache\\trees\\64e8e4f55296d83901759bb53b0d0d8a641f7352\\wwlib\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.git\\local-vc6-preflight\\cache\\trees\\64e8e4f55296d83901759bb53b0d0d8a641f7352\\wwmath\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.git\\local-vc6-preflight\\cache\\trees\\64e8e4f55296d83901759bb53b0d0d8a641f7352\\wwsaveload\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.git\\local-vc6-preflight\\cache\\trees\\64e8e4f55296d83901759bb53b0d0d8a641f7352\\wwaudio\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.git\\local-vc6-preflight\\cache\\trees\\64e8e4f55296d83901759bb53b0d0d8a641f7352\\ww3d2\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.git\\local-vc6-preflight\\cache\\trees\\64e8e4f55296d83901759bb53b0d0d8a641f7352\\wwshade\"\n/I\"C:\\EnBDevelopment\\SDK\\directx8\\include\"\n/I\"C:\\EnBDevelopment\\SDK\\radtools\\include_enb\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.git\\local-vc6-preflight\\cache\\trees\\64e8e4f55296d83901759bb53b0d0d8a641f7352\\libs\\wwonline\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.git\\local-vc6-preflight\\cache\\trees\\64e8e4f55296d83901759bb53b0d0d8a641f7352\\libs\\sgistl\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.git\\local-vc6-preflight\\cache\\trees\\64e8e4f55296d83901759bb53b0d0d8a641f7352\"\n\"e:\\build\\beta\\G\\app\\shared\\kv_pair.cpp\"",
+  "pairs": [
+    "0x4B7E60",
+    "0x4B7E90",
+    "0x4B7EB0",
+    "0x4B7F20",
+    "0x4B7F50"
+  ],
+  "symbol_pairs": [
+    [
+      "??0KVPairClass@@QAE@PBD_N1@Z",
+      "0x4B7EB0"
+    ],
+    [
+      "??1KVPairClass@@UAE@XZ",
+      "0x4B7F50"
+    ],
+    [
+      "??_GKVPairClass@@UAEPAXI@Z",
+      "0x4B7F20"
+    ],
+    [
+      "_$E2",
+      "0x4B7E90"
+    ],
+    [
+      "_$E4",
+      "0x4B7E60"
+    ]
+  ]
+}

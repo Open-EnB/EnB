@@ -1,0 +1,402 @@
+[
+  {
+    "unit": "app/client/gd_dynamicwindow.cpp",
+    "old_object_sha256": "10fbdc3ede7dc21073fa012242bdc333d7d2dbea0eb3f92a44cb13403fac376a",
+    "new_object_sha256": "083069ddb0e1133db1807feb41069cd8d14899ceb95cf08e3213bc8601bc5caa",
+    "checked": 33,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/gd_galaxy_map.cpp",
+    "old_object_sha256": "a28550530ab11a174832557437d4bab8249cbca2d2b528143f5b319009b2a525",
+    "new_object_sha256": "cc47d4b1bcede079c57e866b446e2f2364045ab666134c376378e887b8aabdbc",
+    "checked": 28,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/gd_gauge.cpp",
+    "old_object_sha256": "4ac4f7540b505fe12e15981204b888a1a23b5ea48a69334a8100b6c4a8eb97af",
+    "new_object_sha256": "0e7d3f19794655f4c8c4551c28395a5522ba753d7b043baf1d4ed70a05a12bb5",
+    "checked": 35,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/gd_inv_slider.cpp",
+    "old_object_sha256": "b0ae1cddda7b254386bf9328832d0f8a294ecccb1d8e073ed7f7c001786e1ee6",
+    "new_object_sha256": "2bd1c2e78108efcb8db5d8d1d30b6520ae4f34b793cbf0cadd4d6a110f5643f6",
+    "checked": 41,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/gd_key_press.cpp",
+    "old_object_sha256": "fc7703b5649f1a3d5db296e358c427b68d63cb5844d0ac260cfe226fc087c6b8",
+    "new_object_sha256": "38ec04ea8fb5e96e7b0617f7319e0f58cf64a902da97627147344cd799b9b1f0",
+    "checked": 30,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/gd_pip_scene.cpp",
+    "old_object_sha256": "0d00c016522e62aa31f3b25dfd9e273bb7b9de28a8ac8206291e667b02c28b22",
+    "new_object_sha256": "ec5515cba5a08cba5ef9d3870efc4ce7748f888126546f20855cfb6144637e87",
+    "checked": 27,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/gd_proxy.cpp",
+    "old_object_sha256": "29581822ca9724b0c4649a0fabb289c438f91c84d85f569763cd6bf637a888f0",
+    "new_object_sha256": "a5787ef65a7ea7f453b1498badc054467f04dc656f6db72392a5b8b702c12ff1",
+    "checked": 38,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/gd_resize.cpp",
+    "old_object_sha256": "a6a2924a6684369c5d3fe5cb2668b1e32670de64b11922b5c588b9a36a8623e7",
+    "new_object_sha256": "20ce3fe0e33361bea68c809bfd1ee3858db5b884a24e2430ee87d766b2f37585",
+    "checked": 28,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/gd_robj.cpp",
+    "old_object_sha256": "cbe476a1cc2e37ff86062cbb29a13b6572ab09868c0e387f784afd161ec643da",
+    "new_object_sha256": "f3440028bae69834eaa594b170bfd2224d60b13a7b910c8eaedd12a8736ba847",
+    "checked": 46,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/gd_scut_proxy.cpp",
+    "old_object_sha256": "1ccb311b7986baa5a2d8fe1b31eca853effcf0848332c27fc6cc8bf22769ea1f",
+    "new_object_sha256": "51027aab9e1627619f456d62e5174c40971b5f91847db3d367f9fe98397eabad",
+    "checked": 41,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/gd_selct.cpp",
+    "old_object_sha256": "7c91020ee0a136e4efd2e0798fa55e5be400a8fe09c660521565de9b12443d37",
+    "new_object_sha256": "d2a3e30a38bb57bff48faf9ca98b3a21aed10484cc59e17dd45e4a3ca0cdc2da",
+    "checked": 27,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/gd_ship_equip_pip.cpp",
+    "old_object_sha256": "f6848a49f07cb833d13e925a14743a80d49daa98abbe90461e7565a9c19d11cd",
+    "new_object_sha256": "4b0bcc6c6431500b426c271f73f8708cb3a4d807e30374551249e9b20e0b0318",
+    "checked": 25,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/gd_slider.cpp",
+    "old_object_sha256": "b4f91e869f8fc74c277a348eef2baa625dd919c3b6d6baacc062e0c8f5a4d7b3",
+    "new_object_sha256": "20976904b22396ea1ae1d37d907a9f6c1c3b5f9d0b98158c6e9bbfdb72bfda2e",
+    "checked": 50,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/gd_slot_data.cpp",
+    "old_object_sha256": "4b8fb5a85ae97f2f9546b323b67047c5529c02309ba9a2a996c9341d993916b5",
+    "new_object_sha256": "28aaf6221b67bdf64f50cdba47ce71bcfa26b3574ab430c61dc9175e8d629860",
+    "checked": 50,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/gd_starmap.cpp",
+    "old_object_sha256": "869841a6e067744099d6f8d48025adb615996f76be56b8a3778a8bc025d6f20e",
+    "new_object_sha256": "eccbbb7c8c360a80aa7a264f5e3d58c4d47133128e8dfca3b2d36a353eeba0c5",
+    "checked": 29,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/gd_text_editor.cpp",
+    "old_object_sha256": "dc9da727ac1d87e21716d61ff55b430d2175f5ac04152f7c189e8c3cd5dd7599",
+    "new_object_sha256": "8ebf428d88230fc3e7a7a903e9f015ddf5b51c166fb1d201638e5028e64fbfa0",
+    "checked": 84,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/gd_uiback.cpp",
+    "old_object_sha256": "20eea54bb4a7f1493838830f582ef10bea46ea5c24b6ded6e749dc80b76dc561",
+    "new_object_sha256": "adaa91e6914f678c35456808fe808173b6a3547ce24d500873a3c2bfeda0015c",
+    "checked": 60,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/gd_uisld.cpp",
+    "old_object_sha256": "831bf7840873ed2a1ca5d2e2a24f31dbd18bbdbcb37e6db9503fe4e03dc04fbb",
+    "new_object_sha256": "f118d1ec77a2bab13464d4efb1ff9a5ee8a00d3e908caf6c4fb04b908de72059",
+    "checked": 41,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/gutter_data.cpp",
+    "old_object_sha256": "8bfa68af8ad6af5029ba0cca8f4819b96bc467c55f5495f670d8d226403e2f8d",
+    "new_object_sha256": "6fe1858ea3444604a5b154be60fdae1dfacbd4ff6792b573c457e2bcddd0aa1d",
+    "checked": 33,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/gutter_radar.cpp",
+    "old_object_sha256": "ab5979e218f922cb053f565efc48d116cb8f3056aca27bcf780e967fbc3cd671",
+    "new_object_sha256": "a6995f0b19e780e38fa1c4e805d7a78436d727c06eecf17aafbcb20ea3e72901",
+    "checked": 11,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/html/htmlview.cpp",
+    "old_object_sha256": "91e42673c513229eb41eebd4dcdc4e717ba20b862ec91d0235718094a1671b7f",
+    "new_object_sha256": "7c018bb063c9a854d242b8ad526f696c02bf15515f61a1a82be6ee128eba520e",
+    "checked": 44,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/html/image/gifload.cpp",
+    "old_object_sha256": "b597a7f0aad4e9193e198fc25914373472f1bf9ef92bed258b9899eb494ceed7",
+    "new_object_sha256": "7f38a7f3b03931a5ed1d41817ba995593910ba68b12328402e4b3909b7c5c295",
+    "checked": 13,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/html/image/image.cpp",
+    "old_object_sha256": "34553ceb2eb4130b622958841c2f39b571fa8078cefffc649482fecfd073c938",
+    "new_object_sha256": "209bd77cbde862bc290365fae88020164087a9763bf6c5ebad66806278d4deab",
+    "checked": 17,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/html/unknown_htmlattrib.cpp",
+    "old_object_sha256": "80da472ab673c643152ba51ba4c78c7e759fdc29a9ae07d8d0107309c3a2c648",
+    "new_object_sha256": "3f83648eef705f06e9fb856b89fbb196aa231866a3dd11a46e85e9ef13528658",
+    "checked": 28,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/html/unknown_htmlblock.cpp",
+    "old_object_sha256": "c5f20c51c62e657452ffcb36d51da0d42d95c7c66598b90463ce5ca561de8545",
+    "new_object_sha256": "3d7fecf16f2becaa578f111b0ac21c0d6a2e1076603bc9e12ed72aa313dc51e4",
+    "checked": 25,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/influence.cpp",
+    "old_object_sha256": "66211a6948b76e8133e5599d516b00705e175e113bb4dcbc761bf5107b935662",
+    "new_object_sha256": "25431189737d25000ee1abb92e6c2b3c009b950cefe1b9988d15941f1a37d53c",
+    "checked": 43,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/interface_scene.cpp",
+    "old_object_sha256": "c23b5161241ca6c6701a34c3e2b23463f71bf657c3cca50c4bff4c43aa447f43",
+    "new_object_sha256": "09ca2594ea2674a5b460755317951897a10799799eadc7225f9b086641bec232",
+    "checked": 68,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/interface_static_sort_list.cpp",
+    "old_object_sha256": "224c61056d96af0f94a2be713da23381168a597769449ace098661e947d8902c",
+    "new_object_sha256": "718c456b7718ff65fcc4548bf0e6e0443f3e8fcf1bb48ce1626eed6a6b53d941",
+    "checked": 80,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/intrface.cpp",
+    "old_object_sha256": "90140fdfe0517c1c0c3248460b9a279346e387715c4b71a17d4c898cbee5e620",
+    "new_object_sha256": "75f5dc53e46fd8fedbf14adc1ed56308620c9580e507466740502bcaab0e0ddc",
+    "checked": 67,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/intrlist.cpp",
+    "old_object_sha256": "48de67df87e9463dab84cfdaaa3f129d58959df6d2e6e86d65c1550f23f30762",
+    "new_object_sha256": "5b528a526a9d6b5440b0a73b7346d6ec6a1ac4cf8e51c10dba36f20f91df83c4",
+    "checked": 59,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/inv_data.cpp",
+    "old_object_sha256": "43b4b1866ea448eac1d8b5e5f1673503f42764426e8a3c34d53a16a6859f91af",
+    "new_object_sha256": "3c9080178831b131577472d3642e785dc1eeaf38743ab2f73a017b428349910a",
+    "checked": 44,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/inv_data_peek.cpp",
+    "old_object_sha256": "719b455c433f6c7cea6cdeaf8875d11f59883c374764bbbd79247f684dd5501d",
+    "new_object_sha256": "7a960c4bcd0471e459f41224ec8ff289916555e4fc4a418e7f73225d62ff06d3",
+    "checked": 39,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/inv_manu_render.cpp",
+    "old_object_sha256": "80aa4162c14c2cd153ff8ecc5705a1107a3f62468edfa6c257aa8f73373cfd65",
+    "new_object_sha256": "4d76991d35b991d1c703095020bd7b427076838f14b4adf5aa7f77ca7294600a",
+    "checked": 26,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/inv_render.cpp",
+    "old_object_sha256": "2fcad9d4e6f67411da3221ea31a9c867906932faa4813a7fe1cf377007f6a3c2",
+    "new_object_sha256": "6f152c2de23647bc0230faf1654aed83665bc4e7e2fbc8292d3445c0236c8a9a",
+    "checked": 76,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/inv_trade_render.cpp",
+    "old_object_sha256": "98748c4dbdb2f881dac630c3beb71b836ae3fc476fb164eb6072a9fb70384fcf",
+    "new_object_sha256": "e8bac9f9e3675cdf996f881687eb7446549d8120d358c70363b6738db9d42d82",
+    "checked": 29,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/inv_transaction.cpp",
+    "old_object_sha256": "b13a2c56d9bbbd7c179bfe3e0e79b46d5b5cc38553bd2516d2c7e46fa8bf1621",
+    "new_object_sha256": "da8c6cef5544fd0e428f246dab500c36e3eea275fd02ec1b935b30cd4b6c16bc",
+    "checked": 20,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/item/client_item_property.cpp",
+    "old_object_sha256": "ffa73053e32ea03afe2d8ebd276ca79dddc63494b76bc6413fb5c2acdc265264",
+    "new_object_sha256": "9e2bce6ec15c41ab863287d74319126b9029463315d5c1708719eea452c67b81",
+    "checked": 8,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/item/client_item_property_attribute.cpp",
+    "old_object_sha256": "79ec4c58231db5c2e3a1abd1aa8801bd9c5359ea94c58b62b659218729246214",
+    "new_object_sha256": "8cf721b9a9f3aaebbe24f5429efc00c1191d3129e56d8987dcdb499d6105475a",
+    "checked": 18,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/item/client_item_property_attribute_distance.cpp",
+    "old_object_sha256": "73e655dd01d956c6d4d604df86de57619b7b4a4783610e283339c8f0acaa0621",
+    "new_object_sha256": "f28ae8358eed18cb2cd707f876e6cd4a761311492375c5ae67d2acd135e5dfa3",
+    "checked": 14,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/item/client_item_property_attribute_float.cpp",
+    "old_object_sha256": "1dd10b950fa98b1b5f8dc9be73523e07b77fd09013ffb462f36342fddf9e8fa3",
+    "new_object_sha256": "2cb6eacf6477410266f7b6b34c43852f0b227ec242315d309df398366c4cd60f",
+    "checked": 11,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/item/client_item_property_attribute_integer.cpp",
+    "old_object_sha256": "affa2b8df855b876206b6b3d91bf535ebd96cd4d50ace6177d119cb1d015da31",
+    "new_object_sha256": "0bc9723368ed42ac54d42be010eb0424d63d86c2439b794a54d420e307fd33fa",
+    "checked": 11,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/item/client_item_property_attribute_percent.cpp",
+    "old_object_sha256": "0bad0cba63f3fdc75a3cb524ba8fe8f0a140e40c97416dc2252a263bc6c07cfc",
+    "new_object_sha256": "c88c067526e7fee5d401ba56b2c36aa8707dd6e3eab3ed847c4b404383140fd9",
+    "checked": 14,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/item/client_item_property_attribute_seconds.cpp",
+    "old_object_sha256": "316c705661da87048dbd4209ac66273472195bf3565f8fe1d5b0e5b7b12ced61",
+    "new_object_sha256": "ebcee923992143456bafa95d66b3a0c77b1c973b5671b03cf4fdd0ca08b96e7d",
+    "checked": 14,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/item/client_item_property_attribute_string.cpp",
+    "old_object_sha256": "1e48fd35339ccf23acb46fedb3dc899e9a3cc45e47897023f60c8d0f65645571",
+    "new_object_sha256": "e8f802ea2a13dd4ad838eeb45fab92a3d15013c9d94e78624ed8782cdc538653",
+    "checked": 16,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/item/client_item_property_builder.cpp",
+    "old_object_sha256": "97f37fcb9e81853b9baf7e3d4913b2e117067711b22b5d8ad90d718612efb62d",
+    "new_object_sha256": "990810d5f04be82be876cd8586a84924ea73452fb8f34c0dc312d9d6dc4b4fc9",
+    "checked": 61,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/item/client_item_property_description.cpp",
+    "old_object_sha256": "5d212ce14e8ccf21eda629b4a5f71b5243c57d0313321c4f3dad58a421cfcf29",
+    "new_object_sha256": "284915118566d99da8aefb484dbaedb719389b4a77c71276b1f4bd62de7c8ace",
+    "checked": 18,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/item/client_item_property_icon.cpp",
+    "old_object_sha256": "16f4ca625a4801065620950fd8f4a73b5c189fef42500f26d216d3f2dfd1c4b0",
+    "new_object_sha256": "76009ffb3458b8196fe3c8d2c1620781a99c3c4bdb7dda4b55e6b5326c46d632",
+    "checked": 13,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/item/client_item_property_name.cpp",
+    "old_object_sha256": "fb0ed394f29b0ed00022423bf4130d6422cb8d7e380b9d98f350d12005894c99",
+    "new_object_sha256": "bfb2f9d7faa6e282f5decfe71e525a15806ebac92175a22deae3ddfa12414d80",
+    "checked": 18,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/item/client_item_property_option.cpp",
+    "old_object_sha256": "da17e0988675cdeed5be409d483dff9e5622421912a155038576370c5f0a3aaa",
+    "new_object_sha256": "ed832c0e0a9826547c079e2e0376433895fc7b2ed7edd4f029a86e649f850833",
+    "checked": 18,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/item/client_item_property_option_auto_fire.cpp",
+    "old_object_sha256": "ec1db089fdfd0f5a098d9be52f71655268ef5b47719999d2f17f3c34d736f71a",
+    "new_object_sha256": "a30e31274533ff2f3e25ad5f08d76060c8828407b95155a73e371c65e78cd7af",
+    "checked": 29,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  }
+]

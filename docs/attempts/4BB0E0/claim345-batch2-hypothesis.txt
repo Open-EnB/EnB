@@ -1,0 +1,10 @@
+# Batch 2 hypothesis, before compilation
+
+First01 matches through the strrchr call, after which the client immediately
+terminates the prefix and keeps the suffix in EBP across both strcat calls.
+Our early returns let the compiler defer suffix computation and use ESI after
+the copies, changing those register lifetimes and the subsequent sprintf/INI
+call setup. Test the same semantics with one shared return after assigning
+the entry pointer on both paths. An explicit prefix/suffix split and a shared
+return is a plausible helper structure, not a synthetic operation. Inspect
+actual code rather than assuming the pointer register changes as desired.

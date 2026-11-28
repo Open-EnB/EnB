@@ -1,0 +1,26 @@
+from pathlib import Path
+import importlib.util,json
+W=Path(__file__).resolve().parent
+spec=importlib.util.spec_from_file_location('p',W/'preservation.py');m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m);m.ALIASES=json.loads((W/'runs/root_final/proven-data-aliases.json').read_text())
+bp=json.loads(Path(json.loads((W/'global-baseline/canonical-location.json').read_text())['plan']).read_text());ap=json.loads((W/'all-consumer-after/plan.json').read_text());summary=json.loads((W/'all-consumer-graphs/summary.json').read_text())
+def diff(x,y,path=''):
+ if type(x)!=type(y):print(path,repr(x),repr(y));return
+ if isinstance(x,dict):
+  for k in x:diff(x[k],y[k],path+'/'+k)
+ elif isinstance(x,list):
+  if len(x)!=len(y):print(path,'lengths',len(x),len(y));return
+  for i,(xx,yy) in enumerate(zip(x,y)):diff(xx,yy,path+'/'+str(i))
+ elif x!=y:
+  def show(v):
+   if isinstance(v,str):
+    try:
+     b=bytes.fromhex(v)
+     if b.endswith(bytes(1)) and b[:-1].isascii():return repr(b)
+    except ValueError:pass
+   return repr(v)
+  print(path,show(x),show(y))
+for change in summary['changes']:
+ unit=change['unit'];i=list(bp['units']).index(unit)+1;old=m.CoffObject(str(Path(bp['output'])/str(i)/(Path(unit).stem+'.obj')));new=m.CoffObject(str(Path(ap['output'])/str(i)/(Path(unit).stem+'.obj')))
+ rows=json.loads((Path(bp['output'])/(bp['units'][unit]+'-matches.json')).read_text())
+ for c in change['changes']:
+  name=c['symbol'];r=next(r for r in rows if r['symbol']==name and r['object']==Path(unit).stem+'.obj');fa=next(f for f in old.functions() if f[0]==name);fb=next(f for f in new.functions() if f[0]==name);print(unit,name);diff(m.graph(old,fa,r['length']),m.graph(new,fb,r['length']))

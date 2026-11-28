@@ -1,0 +1,402 @@
+[
+  {
+    "unit": "app/client/unknown_creator.cpp",
+    "old_object_sha256": "898ce9eec70f61ca6f04c67fde066bb9c84e254fc91b725dba278694a1ff291a",
+    "new_object_sha256": "c6f4f79eec11231ca818d7273a5ab2f408f10bbf6961827275a14644bdc123ad",
+    "checked": 24,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/unknown_fontsound.cpp",
+    "old_object_sha256": "7be727eaaf9e57d3913785dcfc20d8f8766113d4dde9b04ec79be01766b67e4a",
+    "new_object_sha256": "49e1c326399d31e4e7ba4efe183575ca0419edb8b9a5ea9d7206ad8ea826694e",
+    "checked": 26,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/unknown_log.cpp",
+    "old_object_sha256": "980bcb8103b379c0baf6b92ceea53cd09d73ec0a79552a2c5866edf371ef07ca",
+    "new_object_sha256": "7595f1e4c9a7153f03e40ab5f54b0a60c9242999a445c97ef60e7c04d48a2676",
+    "checked": 2,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/unknown_msgbox.cpp",
+    "old_object_sha256": "1b87acdfc881ee04d77acdf4a98b6cda13a25d50e7f83b25efb6d6004a0f390f",
+    "new_object_sha256": "28992896a41bb1fc4cd4fb41cf42546a87e665acb05174c5677c04de98cf27dd",
+    "checked": 55,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/unknown_personality.cpp",
+    "old_object_sha256": "50a9f6e4ce60e52b19317ba7f56ffdeeaa3aa832bd2a7ca02452600a7edb2256",
+    "new_object_sha256": "8f974ddc51b19fd98cc2d4dd49c78b863137b6279d27ff8c0cb9db53faa26db8",
+    "checked": 25,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/unknown_personality_manager.cpp",
+    "old_object_sha256": "d1478f987751e97afaaccb2849ee1c70ba6ba9dee3fa56cd1e87bae0fc7cfc01",
+    "new_object_sha256": "63c40a49f41a4f5c81dbc753c64173e65a4cead3887bb676f0291a42bc8e10a4",
+    "checked": 18,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/unknown_phoneme.cpp",
+    "old_object_sha256": "2048a8e33ccfd93ac8bcbce404dc0dff88f671dc4894bb5a5843b4d8fe07438b",
+    "new_object_sha256": "5b7ff41e04c68edbd677839525fc75f84623fbc3983a5ab66b8b0725fe80813b",
+    "checked": 9,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/unknown_screenfade.cpp",
+    "old_object_sha256": "84a9cef42bd0dab9bb46d45bc3b45c01c55bf281c7a3239b2e4ee7f63a63c390",
+    "new_object_sha256": "fbf634da549186b379d487179ea142c48954eb056d06d401c46323dc670e0320",
+    "checked": 18,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/unknown_signalbase.cpp",
+    "old_object_sha256": "93a6e19817c3dbc1274550a5f7fc5b880d2f1681e3b59877349779b388dccb11",
+    "new_object_sha256": "315a9eac1213de339ba72a5d801371a74880e3c28442c41fe73eda441f5d3841",
+    "checked": 12,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/user_click_indicator.cpp",
+    "old_object_sha256": "e190622b5076f47bc938ccd09341856b67f3672d562fb6658bd2f0885815621e",
+    "new_object_sha256": "f8f0f88f13665253b267fad3d135722084eae5e13a638982d3b6bc15412a60b5",
+    "checked": 11,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/verbmanager.cpp",
+    "old_object_sha256": "e0fefd6b8326af862d4d19d05e22946a5f2cdfe4ba1432816d2b52629a851bc0",
+    "new_object_sha256": "09c493812985edeca8a1b16776f11bc2ce1c1e779ad8c27e7d0d3758c4283406",
+    "checked": 37,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/view.cpp",
+    "old_object_sha256": "783dd7e7a7ba3071548c4581ea1ec292f4cc1e798d12fbb7dad4520b0e8a03f2",
+    "new_object_sha256": "89481e5d1316a59e65cbf6b884825425167e017ecf25d03cdcf44f812f174f2b",
+    "checked": 45,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/viewbttn.cpp",
+    "old_object_sha256": "7ebc296a5c4cfa27c37a837de4a20edf14cee40a859650b1d21acc5e9b7a4d3d",
+    "new_object_sha256": "a63befb514f5e0c21d4db26ddceaa23568bc2159a3eed5786f122dc863c01c35",
+    "checked": 41,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/wnd_file.cpp",
+    "old_object_sha256": "e6b79d725b534b6a8c824092483be7ee2d674f858f497239d106088647ba5a32",
+    "new_object_sha256": "ea2d4bd09d92dbc285e43b88990b3ed5dcac9e877f8384de8f364778f2bc4905",
+    "checked": 11,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/common/average.cpp",
+    "old_object_sha256": "6be8cc8f8aed117f4c46587a8d8f31aa35854233906bc7c3b04f90ed5357f738",
+    "new_object_sha256": "f038e8161ef887577ca9675c46c18547923cd6855a18dc5b9650b6adb21bf50b",
+    "checked": 0,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/common/chartemplate.cpp",
+    "old_object_sha256": "2c0ce268ea0728f02940da114bc0a01ee4f85ffc6a4b829621380b5a7ca22f63",
+    "new_object_sha256": "35bb50d704dd1ee87426bf0df8f48eb2f25ed2bdc109bc7c4524167d30186a66",
+    "checked": 52,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/common/chat_defs.cpp",
+    "old_object_sha256": "a117b7365db0f69b40cf6d2db509f8eb0ea0a26db8845361989e5c501bacbc49",
+    "new_object_sha256": "850a5bb4eebe551de867a3c59204f3a69846ba03ad2f075b4d9cfdbb1e332176",
+    "checked": 6,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/common/circbuff.cpp",
+    "old_object_sha256": "ae93b16b81c1edcd2171d645aec8832fa6142b45734a56aff5eebbfc406a8894",
+    "new_object_sha256": "22de5aa1264808d8f94e8b4fca2d8772a2b1f60409f95eed5143618b833273ee",
+    "checked": 12,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/common/color_common.cpp",
+    "old_object_sha256": "c59fd0acf14c7a30275d93e294ba3738f5c6f9973dcdfbcf3b15926d7e712a58",
+    "new_object_sha256": "3080b68f5fb21eedc03b7cc05e0b84193ca42de01df07cf7ba7fb7394b3790f6",
+    "checked": 5,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/common/connect.cpp",
+    "old_object_sha256": "a8615f76a786f95a5c9158420dae75e9ca7d215100b6397e3ac2d27e12af54a3",
+    "new_object_sha256": "ca31ea333af0fcb578454d6b5de66b023b0a6067830fe4c76b657c957874c91c",
+    "checked": 88,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/common/dbgconn.cpp",
+    "old_object_sha256": "70b9d3f431cf1006111a169c38f68078861a16ed300aedc04d561d6dc83255e7",
+    "new_object_sha256": "acd80f3003f2de561c79e81881d576ad2549f19e0ad4d0e4f6c571cb8a98bdaf",
+    "checked": 59,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/common/distance_calc.cpp",
+    "old_object_sha256": "fee20e9c5175b9444ea42474a11b18dad6235230b76036d294476184df4862e6",
+    "new_object_sha256": "8ca82b4b03dfcb5b9349974aca5c0c01a27dae45e45e75a9b17d089c4c24cbf6",
+    "checked": 4,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/common/effect_description.cpp",
+    "old_object_sha256": "4604c6d0da3f665f1327019eda26c13c28b57493a39a7a04280f7d4bf40fda8f",
+    "new_object_sha256": "a2fa91650ce80b805ae06a8c95fe48152666d5d955ae739452fa02b075a5feab",
+    "checked": 137,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/common/faction_and_reputation.cpp",
+    "old_object_sha256": "5dc38f4f9bc7c5c9113dbcb6ee1527482fa1307e3ee2de7c9879f4540bb4d038",
+    "new_object_sha256": "e5210329ea052bb21b1e4937b469f490ddb119e7bbac38c9467a98f50396029c",
+    "checked": 20,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/common/galaxy_map.cpp",
+    "old_object_sha256": "5613ba916d07671103c722fe91714c0e521461e940ede09c384097f1587cec98",
+    "new_object_sha256": "adbba008f2b77c22fea31ce3775303d962348fb9d0a3a6060a0a586c7223b8c6",
+    "checked": 177,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/common/game_action_validity.cpp",
+    "old_object_sha256": "8020f6e3d8237849cdd6a3788515838b0490b669ea22edaf62b0b3ce6d0ef2c8",
+    "new_object_sha256": "800fada9692f6680a77e2516b96348a49dac03ccc62de87376a852528b71f86e",
+    "checked": 28,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/common/group_common.cpp",
+    "old_object_sha256": "3dc43580b7ef30a5292d8b216879210a47c4c45c66e697eb855cd96629c834f6",
+    "new_object_sha256": "9bc50e240057f594c3121abbcbd09761b93d9cedb9bd5f6bda32d678bd2082e9",
+    "checked": 2,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/common/guild_defs.cpp",
+    "old_object_sha256": "40d5af083cc27fa3d8764ac50957c5071279974a555ba1ec92295ca669040e9b",
+    "new_object_sha256": "905c1e3a573e6b712eea82912f42a701a0907ae95ddd31317da03c505f951c89",
+    "checked": 5,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/common/guild_strings.cpp",
+    "old_object_sha256": "0726d544de0c527b9207a24be5c41fcb33dc58fa45de929467bf8dc9f6314f04",
+    "new_object_sha256": "c8f9a0849b71cb0fc170fab4123b83415ae8ab1b03697794b0992352be833999",
+    "checked": 2,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/common/interrupt_defs.cpp",
+    "old_object_sha256": "cbca6038a14be8dc30400ac9094be07bb62e0c19c0891beb39de510bb7c5e488",
+    "new_object_sha256": "259693a3853ef3114b9ce073fd85037b93ef7bef475262d4fb037d2557f6192d",
+    "checked": 2,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/common/item_effect.cpp",
+    "old_object_sha256": "01d628f38da6bb465c5132f7485f6c36dacdb2c602a0c5346f21694faf0b95fe",
+    "new_object_sha256": "735afa68b33300af0e02c0b69ceb6751706ac07f929dbd503f8ecc6a13d9161a",
+    "checked": 21,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/common/item_effect_description.cpp",
+    "old_object_sha256": "38cbcb253e032135512bb9adc1e589c9d274217298a6c4d16db73dde2ca342f9",
+    "new_object_sha256": "97271bc1a151d74cb4ffa0f38b8b261c5be274dd60f991962ec18ecf9c86c7bd",
+    "checked": 41,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/common/item_info.cpp",
+    "old_object_sha256": "e851213aa4ec2220b548d657429047ce6078eb292d749e2e843117bb6f40f747",
+    "new_object_sha256": "6b0fed3185b96ea23c345c7d7be0f3eb95b232638c40f8c1910f761a23f8cd40",
+    "checked": 82,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/common/item_state.cpp",
+    "old_object_sha256": "b3b977535dc076cb7474ae9629f63e742eab9330d661a7a329f211383464aaf3",
+    "new_object_sha256": "df5432e662edef1ebddb34de208fda425dbdebb4e63097f692fc5ead72681207",
+    "checked": 10,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/common/item_template.cpp",
+    "old_object_sha256": "ff5f6a28b0d93cc4a1d7096cecf7ade6134ef36bed6529343eba1235346036cc",
+    "new_object_sha256": "c6ab49ae79744d00d74b45e4421fbcbe3a6647dd0ea52609408ed344be2aaa94",
+    "checked": 21,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/common/itemtype.cpp",
+    "old_object_sha256": "81831c3eb7ac5444e0ded34a3eb1b64299c968a4fdac6a15d140b0410b49288d",
+    "new_object_sha256": "98acd860ea4f97b08371de52336ec2b188b556743dcbced6082104fe51348270",
+    "checked": 13,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/common/lego_identifier.cpp",
+    "old_object_sha256": "5b63eef1a87c9edaef19ba655b14440bb558aa6685444e484e5d71b416387060",
+    "new_object_sha256": "81ef9505fac5e448b726b80f97c656f7e4ad3adfa2d570e3de2c76324f60f6ff",
+    "checked": 49,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/common/manufacturing_defs.cpp",
+    "old_object_sha256": "7704eadfbb4ff5b74b4b7e36c49b3e691c7833fee2d0b133a753a0c5d137d84a",
+    "new_object_sha256": "1962152737028a27048fb5be7bc69e0d291da019d0dda890a9f90052bdaf47b7",
+    "checked": 32,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/common/memconn.cpp",
+    "old_object_sha256": "8cd635fc6ef830112ee3cff803c6937347d07d4fae313d8a10b3cc4cec78b6b3",
+    "new_object_sha256": "0b0fecdea3db64b3f79ffc3a3929fbd51bda80f9e97c08712360a1d538f727e5",
+    "checked": 41,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/common/nav_type_enum.cpp",
+    "old_object_sha256": "f4c31e8a49b0f75c7dfcb1bb58a406bc49bd61c83eb53911512910de4123ed3f",
+    "new_object_sha256": "cca400366517186e0cd55d8f39dcf31b6cb198544f3d584a4cd5b4f4cdaa07d0",
+    "checked": 3,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/common/network_ini.cpp",
+    "old_object_sha256": "333efb746a2c1f13dee5c84e72faf60e7e2351b4e401b8c71687b50851babca2",
+    "new_object_sha256": "61560075328338ed5564db3885142cbaeb54abd280a4962f1e329d8e404e6c4d",
+    "checked": 0,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/common/optdlg.cpp",
+    "old_object_sha256": "8bd0da88bc175f91fcfa361f307d87c3f59bff05f8a219d11229b184f99630da",
+    "new_object_sha256": "93ec2cb66e3691e93089cf1bdeaf90bde53ba65ba40b4006b024db2b3d7dffaf",
+    "checked": 12,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/common/pal_mgr.cpp",
+    "old_object_sha256": "d83dfa84c838205c5f8689a5ea8dc79be61abeca98519b2b83435b9e81225f9c",
+    "new_object_sha256": "66530dfbfec4063a91dc1534134eac54eb151eb39fabe44db44be7f48275ab49",
+    "checked": 13,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/common/prof.cpp",
+    "old_object_sha256": "de1ab027d07d2ef65fd56a97b70d0f0baedcdf6cc64137ee4bf2030885fffe11",
+    "new_object_sha256": "cee05e8e2a9079cd45dc9af768688a1eaa3dd6549b83d42fa2e4fde989bbf5e8",
+    "checked": 6,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/common/race.cpp",
+    "old_object_sha256": "035b8a5fc8908418c260e2df84eabe6b9ce40234297502c240861e72d28d194d",
+    "new_object_sha256": "01f271e992d95d90343ea71b65e4080324b0fd42c369a3682f263a23ce9da32e",
+    "checked": 6,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/common/recustomization_cost.cpp",
+    "old_object_sha256": "507e685f4d41142adaf92ff92d4cef1feb30d629a03b521e6f6dd38871890221",
+    "new_object_sha256": "7078f8388f382f0a087aabbf10a275b301beedeeb8143ced30ba97fe982eb062",
+    "checked": 21,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/common/sector_types.cpp",
+    "old_object_sha256": "b9832833ef3ceb316fb7361a17634d8a77870d90bc4ab1e158b8e219036cb222",
+    "new_object_sha256": "dafeda3a9353852c5773a80f5f4a987056b8bd686b396067c6f91dd13402f737",
+    "checked": 7,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/common/skill_level_availability.cpp",
+    "old_object_sha256": "f4f4a3d3cfa839120a02f53c56b72926ea0028108c0f05bca49b0fcd22c9ffa9",
+    "new_object_sha256": "658c1325677f43e9c096e0421f510c89df4ff0a33217891c9ea56c4510372363",
+    "checked": 4,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/common/starbase_defs.cpp",
+    "old_object_sha256": "127f59b9a6f52ee93386f38bb61d3c0c26470a8009ee720df0d5c510f89e5088",
+    "new_object_sha256": "615ffe55b66f553bbe0728aa0f3c5252c2bc8f8af4093f2a9028ded585b549d2",
+    "checked": 12,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/common/stredit.cpp",
+    "old_object_sha256": "37a57eb5b933760d67b9c9e0c70e712d69f438856c51529f349a25b43662ab8b",
+    "new_object_sha256": "e7a31daa7fe5397f0f7cbac3af8e1f4436ff0923d00e5b70c288ef504c35272e",
+    "checked": 12,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  }
+]

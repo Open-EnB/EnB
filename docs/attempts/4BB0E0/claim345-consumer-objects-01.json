@@ -1,0 +1,402 @@
+[
+  {
+    "unit": "app/audio/ambientsoundmanager.cpp",
+    "old_object_sha256": "fb32b78dfbdbe831e003cb74246d9cdfb036f129b20b9f89ec6d9917e8bda777",
+    "new_object_sha256": "d8367d322f9f9e178cbc983cc93472b234808d6e59904dd264d9d2a68239268a",
+    "checked": 70,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/audio/bridgesounds.cpp",
+    "old_object_sha256": "d40a6cf84c14d3c4ed6fb765b96bcf776f75767f1ef3fc6073c8bcc42cc98209",
+    "new_object_sha256": "fdd05db2c3e996c73be9e278c8321dd9ae64d6361a4bf71b37666893c66cc8e3",
+    "checked": 9,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/audio/musiccomponent.cpp",
+    "old_object_sha256": "4f0dfea1951ada79ea2bf3d52621f2c29377572b13903bd57e386ec9df241f44",
+    "new_object_sha256": "6255740bcb4af630cadc5566c8ac1c974c4f0e3c7d11eca5b1179403f5b97717",
+    "checked": 2,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/audio/musiclist.cpp",
+    "old_object_sha256": "fa11d53a08648605623cb3d0d608e62c335f4162dd5c6eacd7233b5ae4774193",
+    "new_object_sha256": "2039443ebbf2a4fd5fa4c4cc620df6542239da628cf0f7a1861c2853a53fc511",
+    "checked": 40,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/audio/musicmanager.cpp",
+    "old_object_sha256": "11ee9dc507f26ddc47f904e9383e9897632ac6a28c2d03e2eafced802ff6ea7e",
+    "new_object_sha256": "8daa8f2114e9e897d7fcb243cc95c45f0bc682766332e98d302a2edb907c4691",
+    "checked": 31,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/audio/musictheme.cpp",
+    "old_object_sha256": "bb069b88602835dde2ce519934cb1e168ef3ac27fbcc806308d6db3848d02843",
+    "new_object_sha256": "9779e8e4758697d7a98ce5b0a2dc87d2da4c2de0fdc4a28649f19fa4c3a2f64e",
+    "checked": 10,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/audio/sectorsound.cpp",
+    "old_object_sha256": "8d1f2c85a32da0e98338c05c5638cb73baae76ccc3b2a97e97c5b6cb4f9d70c0",
+    "new_object_sha256": "efa0ebeea3996d06e3d6fabb3525e167e5a58d48b7c33a9bfa8fc8aa3216df22",
+    "checked": 11,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/audio/soundlib.cpp",
+    "old_object_sha256": "99bd40ab9a2238f830d668dc50b6df8b599556febf0205343526d1ca57bf0a2d",
+    "new_object_sha256": "75dee89c81cce9a323fb1744fd8c3e0f50a59e0264de70634fbf5264064fc276",
+    "checked": 85,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/audio/starbasesound.cpp",
+    "old_object_sha256": "087570aefb2bb7a712f6dcaaeafb546e753f6fddb33b48c831ba41dfebeea4cd",
+    "new_object_sha256": "6f5728a3eb8cc64f411819d83076263de55e1cda22cbc9364ec29196a74a54b6",
+    "checked": 11,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/audio/surfacetypes.cpp",
+    "old_object_sha256": "51a5140e7b2599fe69c1c09ac199752230973bac1852e12b7e48321ca8ecc387",
+    "new_object_sha256": "a23d8213c06772e40817089ac431127e721dd629a126261b5adb835fedd120fe",
+    "checked": 10,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/audio/unknown_431e30.cpp",
+    "old_object_sha256": "df212b425487fcc6d53848fe917f8d6deb0f72be4921fe66aaa1b6878f27dc03",
+    "new_object_sha256": "b314a41fcba3aa361f00a820c36fa321b93949a8da2e71e08057ce025d3c1188",
+    "checked": 48,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/acticon.cpp",
+    "old_object_sha256": "6f45007048920b19bd6897d38b51fc2b9b7bb38d92e6a37b6706386d9e713a68",
+    "new_object_sha256": "2cf44f632ef0bfc5acabb957521d4e5196291c2727fbd768fe1ebb686a90daed",
+    "checked": 40,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/avatar.cpp",
+    "old_object_sha256": "5ebdbdfebf78ac862bee72b359b862c1fe1c127844f8b3e3496f519e1d0507e1",
+    "new_object_sha256": "86b6467a8ee7603238c17d6930fb8dd4f61c363560ceadf72b739e8cbd3d1999",
+    "checked": 264,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/avatar_pip.cpp",
+    "old_object_sha256": "ba7ddb8efed37b924b4e61c9387b568b045f58ee556785c4ce4cb7d13c27007f",
+    "new_object_sha256": "3904baf3df86598affa60f796e68e983ddc545ed44b1601c986b7839e2c24637",
+    "checked": 32,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/backint.cpp",
+    "old_object_sha256": "5ec79dc4857122e0ded611afc4229c43b62b0ce1a9f0c620e180dc9c24e18bf4",
+    "new_object_sha256": "56e1ad1fbffc9ca677c1cbdad63306f5bb8e8fbcf7af6a37a9fcacc923bee17b",
+    "checked": 32,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/bar2d.cpp",
+    "old_object_sha256": "d361e72c7de3eb30c16b130d34df004eea452482fda59c757765a972a19ab64f",
+    "new_object_sha256": "b833763ed9b3cc944e7914a7f5687691e4e0496179d71d704cf61cefd06224c0",
+    "checked": 115,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/bar3d.cpp",
+    "old_object_sha256": "40e879288993277991bc4b6cb6a916fa08bb932bb1e9639b0d9390d009721c5c",
+    "new_object_sha256": "20235d423d4fb16647f9352cb5b18e518eb9785a5b29606ca75ab4f6910a5477",
+    "checked": 113,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/bridge_int.cpp",
+    "old_object_sha256": "ee46db24e2408e598ea4816623603f9c28b610034c90d7d35a888a249905fbe7",
+    "new_object_sha256": "2e754eabc94f79988b700f79541d5d757b4fe59d5402ff133863726b4de0c779",
+    "checked": 48,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/buff_database.cpp",
+    "old_object_sha256": "fbab54018272709842a698c4005375e598d8e5e729e359925ababe2614fc3699",
+    "new_object_sha256": "fd9d0e6a71b1ab48ce9b6127cb29473905ca54f0298720c04ef0cee221e88d70",
+    "checked": 34,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/camctl.cpp",
+    "old_object_sha256": "a03674cb4885139eaa87848c0ca3398426858c59de2fdeab1f5c4402949250d0",
+    "new_object_sha256": "75574f0d099f1284a17eec1dac349d9706e7a3d6668ea414672618b169768598",
+    "checked": 21,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/camctrl_dock.cpp",
+    "old_object_sha256": "bfca172ab505ce9370d3a8ea3d641e047929fd1b74114ea63977fc1af554c3a9",
+    "new_object_sha256": "cd179407ddf7d00bf6ba4a7c8511e4382c6c1411f758922eafec6b7966e4fbbd",
+    "checked": 17,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/camctrl_emote.cpp",
+    "old_object_sha256": "0e0b14e69ca79e11833f5b3326cacd9d4f1fe2acd820b89678dec45b19da8396",
+    "new_object_sha256": "ed468e04ec1f33e3c6913a783dc8615af23f585cd4fca0abea263c92117bd7df",
+    "checked": 16,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/camctrl_entersector.cpp",
+    "old_object_sha256": "5d9697323fd298652a206f95b9d95140212dc4a9b0d1b09be856c929309143a5",
+    "new_object_sha256": "7f4dd631586e36c5b319c4a1f970ab2a54a8c54a4e1a35ae39cfcbad2f37f9fc",
+    "checked": 15,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/camctrl_land.cpp",
+    "old_object_sha256": "56f1b7d31fc0d14045e83fb10508fd204d7602cca9b8919e3ae0d0a770766e73",
+    "new_object_sha256": "22d9fd2b05985f4f18af0023b2c282cbbfd6db032a0cb4db2565cbe1688381b8",
+    "checked": 19,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/camctrl_pland.cpp",
+    "old_object_sha256": "d75edc65864d762e9656a80b46cc8d498523c3ceb3813918585c7599b76f92d4",
+    "new_object_sha256": "91954aaf90a7608a1e309543735aae7ca43e877d9b63516c68e4f32d44a563f2",
+    "checked": 17,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/camctrl_rescue.cpp",
+    "old_object_sha256": "fdbf989855a4cde9d61158cbdae9e4b647ca5e31e1d0157f2fc73d97100d7d66",
+    "new_object_sha256": "e6c77579b88249689d0804c42cb0fb5b86c77b007c0945047c8b2d999737eece",
+    "checked": 15,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/camctrl_stargate.cpp",
+    "old_object_sha256": "db0bec66af5f3aef31b06d4de618f7bdcbc62f6527851065d09bde6d28b29c48",
+    "new_object_sha256": "f44fa270dbcf27c3e4f70313140bde50075bef8fb4d4069dc8ce4d649a5a8fa7",
+    "checked": 15,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/camctrl_takeoff.cpp",
+    "old_object_sha256": "8b349994bff158dad8ba5f4aac6d43b423085893a3573c0a31fea9228bfe3a69",
+    "new_object_sha256": "90247c91843eda5496c0929c474cca7017b00e7a3f522cd147a12fb21c33178e",
+    "checked": 16,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/camctrl_tractor.cpp",
+    "old_object_sha256": "57e9a67a2ffd58ba66ba3b3953f3d874e05ca3d8343aceab3224ce343c887835",
+    "new_object_sha256": "cae52b33b83e922ec16f7b45bb520ebbe045ea03a5971254330951acf2408595",
+    "checked": 15,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/camera_manager.cpp",
+    "old_object_sha256": "aa2da0a1333228e90dd797314bed356a4448996001b2a600b62b2d93b3196254",
+    "new_object_sha256": "7a6d8c440d5faf2c25af54f9c3fa9e8fdc426e331fed7b06a8b44116291553c7",
+    "checked": 48,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/cameraeffects.cpp",
+    "old_object_sha256": "fbc1a633a072fd11f11673c2a2a296549fa2bc3cdbca0bab5d21c65c52fc67b7",
+    "new_object_sha256": "e05cc4f031e0495ae783789e6e14e0bc272c47b7bc58797785f875ba51070977",
+    "checked": 44,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/cammod.cpp",
+    "old_object_sha256": "120c1b7cc71e90947e95c449ff67cb9cb690f73149f48b7847c5952d3b678be9",
+    "new_object_sha256": "205b395e08561bbe3b76f9ad62a036fd991bfeadea7fa093e1d6bd700ca83260",
+    "checked": 6,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/cammod_chase.cpp",
+    "old_object_sha256": "1127ff4ec4cc294c9a0f82050bd5ce437ebe01ad3643aafb5fdc0458dbf882f0",
+    "new_object_sha256": "30d925f624f718da9babf0a47130ae48bccf7e59e834211c2a510888832efdad",
+    "checked": 22,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/cfaction_database.cpp",
+    "old_object_sha256": "d5729fc187e5ce88784a4ae0ff354d0f9e028e67ab10fb4d1da528a70b7e0d8f",
+    "new_object_sha256": "6af8d891d44f15947d3a50ec10c3f19e432ebc4de88a3f6f271abea33123a5d5",
+    "checked": 40,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/charview.cpp",
+    "old_object_sha256": "cc9b1c2fe7ab47ff4f6988ebe1c5a81766755dd98059a79c492be875171c141f",
+    "new_object_sha256": "f0d23dccf182cc0a063ffccc116071e9ada0df2c11c220c77891759e09ee2db1",
+    "checked": 116,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/chat_window.cpp",
+    "old_object_sha256": "9598de612d4d3570598bde452783f3848c13f02bd22862f8be6e9d61c8fb0fe1",
+    "new_object_sha256": "d385db8edb446cb4d12ce664ae24d4ddf26cf7d75c2319068e1014af10110527",
+    "checked": 145,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/chat_window_history.cpp",
+    "old_object_sha256": "cbbab2e0323a943b4669adaa187e4d6228e29570a2f0c366eaf7493c44bb36e0",
+    "new_object_sha256": "92474bedd329bc59e43235c018bfe230792e2d1149765ed28088f39d0e241119",
+    "checked": 47,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/chatgadg.cpp",
+    "old_object_sha256": "dd6611c982c1b23c2be272a01ba9fff7a6f4369774f776a6ff6619f9d20d3f40",
+    "new_object_sha256": "d93451409019bf3bc2fd92fd8b8251542fde1dc0e3e312723148887f72bad624",
+    "checked": 48,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/client.cpp",
+    "old_object_sha256": "bdd1ce5cf8dd2e49962794b5dad82d64556039d1993cd908e7137eb0fac60d71",
+    "new_object_sha256": "953dc7418b1ca9eb822e8853aeb510b66e52436f78d7afaca32dd3c33def6720",
+    "checked": 98,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/client_lego_impl.cpp",
+    "old_object_sha256": "d2d8d9c8f451890f0811ac8baea36ab62dfa51fd1890152e2923625be5068ab0",
+    "new_object_sha256": "73850b869bd0264dce498422a7d0129944f358ef9838f6e20525b834bcf0182d",
+    "checked": 162,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/client_lego_root.cpp",
+    "old_object_sha256": "f097748f0939b693e00be18d6c54d08fe931b2903f684bcce2ac9df72789668c",
+    "new_object_sha256": "46ed685015df25f52daae2d394f144e3702967b34eb956b9a4055aac2d11cf10",
+    "checked": 35,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/co.cpp",
+    "old_object_sha256": "8dc444ef8c34f5b834b938bbc7f0309b2852044f750b47c3e624e822224616a3",
+    "new_object_sha256": "fc13b0df87715541b22c5226c69573565509d2e15dae6b02c5c418251dbecd79",
+    "checked": 632,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/co_data.cpp",
+    "old_object_sha256": "39a257e130ae5a6b796d667ed6b7b2bb1a22c5660ca5e0238c097751cda496f6",
+    "new_object_sha256": "c9ffe495ae5b848f9a7afb16f3cdd101eafce7795dd0719366be44dc76b1eb49",
+    "checked": 9,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/co_player_relationship.cpp",
+    "old_object_sha256": "de9cc61d668f046716a1b087464d2bb35bed639037c8bd2457d6bcdfd63d17d3",
+    "new_object_sha256": "f99063386f2882979a627552fd70b1c4efb1e4ed97a6af9208f60f168f802f40",
+    "checked": 69,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/co_subtype_base.cpp",
+    "old_object_sha256": "feee1b79aed7189776b0c1f15dd5c64c81208ac04c4d3d24eb90275ed99e93f8",
+    "new_object_sha256": "d546d242e1ac3bb0d413f793fbf82b4b6bf0cee8f4f39133b4bc0941ac556d79",
+    "checked": 61,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/co_subtypes.cpp",
+    "old_object_sha256": "6cb954f08d7a912289bdb6d039945b2b3abaedd6b4f2e7021a41a553a90e21d6",
+    "new_object_sha256": "89ceb20cab21118c4d74ad8ed899e07e7023124120158e58b343d7e668c127f6",
+    "checked": 16,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/control_key_list.cpp",
+    "old_object_sha256": "b57e8ae23997c867244baa8ff859bc8899f445b7e5ac800215f014885558515e",
+    "new_object_sha256": "c8374e55cc93f937fe97d0fbc6d7c6cce5e408dd8651b588d5c463c0b4fcb5c4",
+    "checked": 28,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/control_keys_manager.cpp",
+    "old_object_sha256": "5b4e11039bd86d61e8e35fddeab916345bc0cdeef555ccb42ce6492c9de423c6",
+    "new_object_sha256": "cec788a4ed2be80980b4124f1b10e0f30ad15ccb861bcefceb058f647b819181",
+    "checked": 162,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/cpacket.cpp",
+    "old_object_sha256": "ea719250f4cfa05af32ee6a8c888d227a7d1f6e8ed12bdb20d773ee61e7c3be8",
+    "new_object_sha256": "b948c8aee875284b1eaf5e2949ccc33568afc786dbfc3d7d57f498d542dd02f8",
+    "checked": 161,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/ctrngadg.cpp",
+    "old_object_sha256": "fd0f1f90772c5904ee727f6c3a77d3cde778191214c7dbad12a481197467e9d6",
+    "new_object_sha256": "19ebc2b6f61d67a0b5f4d1ed0501bc925f0c3087ec6996d157cd06bbb5252170",
+    "checked": 25,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  }
+]

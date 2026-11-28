@@ -1,0 +1,173 @@
+{
+  "primary_replays": [
+    {
+      "run": "first01",
+      "inputs": 4,
+      "replay": true
+    },
+    {
+      "run": "first02",
+      "inputs": 4,
+      "replay": true
+    },
+    {
+      "run": "first03",
+      "inputs": 4,
+      "replay": true
+    },
+    {
+      "run": "first04",
+      "inputs": 4,
+      "replay": true
+    },
+    {
+      "run": "first05",
+      "inputs": 4,
+      "replay": true
+    },
+    {
+      "run": "first06",
+      "inputs": 4,
+      "replay": true
+    },
+    {
+      "run": "first07",
+      "inputs": 4,
+      "replay": true
+    },
+    {
+      "run": "regain_comma",
+      "inputs": 5,
+      "replay": true
+    },
+    {
+      "run": "regain_inclass",
+      "inputs": 5,
+      "replay": true
+    },
+    {
+      "run": "regain_lateinclude",
+      "inputs": 5,
+      "replay": true
+    },
+    {
+      "run": "regain_private",
+      "inputs": 5,
+      "replay": true
+    },
+    {
+      "run": "root_final",
+      "inputs": 4,
+      "replay": true
+    },
+    {
+      "run": "sol_free",
+      "inputs": 7,
+      "replay": true
+    }
+  ],
+  "controls": [
+    {
+      "name": "sol_split",
+      "old_graphs": 1399,
+      "changes": [
+        [
+          "app/client/co.cpp",
+          "??0DeltaPrimaryCategoryClass@@QAE@PBD@Z"
+        ],
+        [
+          "app/client/co.cpp",
+          "??0?$DeltaItemArrayClass@VDeltaItemClass@@@@QAE@PBDI@Z"
+        ],
+        [
+          "app/client/co.cpp",
+          "??0?$DeltaItemArrayClass@VDeltaEquipItemClass@@@@QAE@PBDI@Z"
+        ],
+        [
+          "app/client/co.cpp",
+          "??0?$DeltaItemArrayClass@VDeltaSubCategoryClass@@@@QAE@PBDI@Z"
+        ],
+        [
+          "app/client/sbaseview.cpp",
+          "?Unknown_6A1180@SBaseViewClass@@QAEXXZ"
+        ],
+        [
+          "app/client/sclient.cpp",
+          "??0?$DeltaItemArrayClass@VDeltaEquipItemClass@@@@QAE@PBDI@Z"
+        ],
+        [
+          "app/client/sclient.cpp",
+          "??0?$DeltaItemArrayClass@VDeltaFactionClass@@@@QAE@PBDI@Z"
+        ]
+      ],
+      "replay": true
+    },
+    {
+      "name": "sol_unsigned",
+      "old_graphs": 1399,
+      "changes": [
+        [
+          "app/client/co.cpp",
+          "??0?$DeltaItemArrayClass@VDeltaItemClass@@@@QAE@PBDI@Z"
+        ],
+        [
+          "app/client/co.cpp",
+          "??0?$DeltaItemArrayClass@VDeltaEquipItemClass@@@@QAE@PBDI@Z"
+        ],
+        [
+          "app/client/co.cpp",
+          "??0?$DeltaItemArrayClass@VDeltaSubCategoryClass@@@@QAE@PBDI@Z"
+        ],
+        [
+          "app/client/sbaseview.cpp",
+          "?Unknown_6A1180@SBaseViewClass@@QAEXXZ"
+        ]
+      ],
+      "replay": true
+    },
+    {
+      "name": "sol_iterator",
+      "old_graphs": 1399,
+      "changes": [
+        [
+          "app/client/co.cpp",
+          "??0?$DeltaItemArrayClass@VDeltaItemClass@@@@QAE@PBDI@Z"
+        ],
+        [
+          "app/client/co.cpp",
+          "??0?$DeltaItemArrayClass@VDeltaEquipItemClass@@@@QAE@PBDI@Z"
+        ],
+        [
+          "app/client/co.cpp",
+          "??0?$DeltaItemArrayClass@VDeltaSubCategoryClass@@@@QAE@PBDI@Z"
+        ],
+        [
+          "app/client/sbaseview.cpp",
+          "?Unknown_6A1180@SBaseViewClass@@QAEXXZ"
+        ]
+      ],
+      "replay": true
+    },
+    {
+      "name": "sol_free",
+      "old_graphs": 1399,
+      "changes": [],
+      "replay": true
+    }
+  ],
+  "compiled_changed_source_forms": 4,
+  "consumer_only_forms": 3,
+  "primary_target_forms": 1,
+  "translation_unit_compiles": 15,
+  "primary_target_raw_groups": [
+    "52fc7ccf6947aaa827399d4e8855698adfac66be4569b4185a00af742e17e102"
+  ],
+  "primary_target_masked_groups": [
+    "52fc7ccf6947aaa827399d4e8855698adfac66be4569b4185a00af742e17e102"
+  ],
+  "never_compiled_primary": [
+    "sol_split",
+    "sol_unsigned",
+    "sol_iterator"
+  ]
+}

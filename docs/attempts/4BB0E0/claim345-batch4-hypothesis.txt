@@ -1,0 +1,11 @@
+# Batch 4 hypothesis, before compilation
+
+First04 matches executable instructions but BSS object symbols show the
+wrong buffer order: PermStringInit +0, KeyBuffer +4, SectionBuffer +0x204.
+Retail section buffer is 0xBE4E98 and reader buffer 0xBE509C, a +0x204
+offset. The real PermStringInit occupies four bytes in this object's BSS;
+placing the section declaration before the permstr header should allocate
+section, then that existing static, then the reader buffer. This changes no
+semantics or asserted line and introduces no synthetic storage. Verify the
+actual COFF symbols, writer body and preservation; the declaration's size
+and this layout remain inferences until the final linked graph is audited.

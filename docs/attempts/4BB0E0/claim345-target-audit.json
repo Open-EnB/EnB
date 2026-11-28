@@ -1,0 +1,275 @@
+{
+  "object_sha256": "e94ac963c84426e49158d7860819f911144fe249c33e4fe7ac6cf9edd2f1aa8d",
+  "source_sha256": "e8505bbf0b44040a8b49ddc335c6da97c869e40c75be92add9891065b9ff7206",
+  "functions": [
+    {
+      "symbol": "?Unknown_4BB0E0@@YA_NAAVKVListClass@@AAVINIClass@@PBD@Z",
+      "va": "0x4bb0e0",
+      "length": 610,
+      "relocations": [
+        {
+          "offset": "0x5f",
+          "symbol": "??_C@_0CF@LKAP@e?3?2build?2beta?2G?2app?2shared?2kv_li@",
+          "kind": 6,
+          "addend": "0x0",
+          "linked": "0xb73acc",
+          "resolved": "0xb73acc"
+        },
+        {
+          "offset": "0x64",
+          "symbol": "??_C@_0BB@OBKE@index?5?$DM?5V?4size?$CI?$CJ?$AA@",
+          "kind": 6,
+          "addend": "0x0",
+          "linked": "0xb73a18",
+          "resolved": "0xb73a18"
+        },
+        {
+          "offset": "0x69",
+          "symbol": "?G_Assert_Report@@YAXPBD0H@Z",
+          "kind": 20,
+          "addend": "0x0",
+          "linked": "0x40aa51",
+          "resolved": "0x4e9410"
+        },
+        {
+          "offset": "0x80",
+          "symbol": "??_C@_0CH@CGBG@e?3?2build?2beta?2G?2app?2shared?2kv_ut@",
+          "kind": 6,
+          "addend": "0x0",
+          "linked": "0xb73a9c",
+          "resolved": "0xb73a9c"
+        },
+        {
+          "offset": "0x85",
+          "symbol": "??_C@_04OJPI@pair?$AA@",
+          "kind": 6,
+          "addend": "0x0",
+          "linked": "0xb73a94",
+          "resolved": "0xb73a94"
+        },
+        {
+          "offset": "0x8a",
+          "symbol": "?G_Assert_Report@@YAXPBD0H@Z",
+          "kind": 20,
+          "addend": "0x0",
+          "linked": "0x40aa51",
+          "resolved": "0x4e9410"
+        },
+        {
+          "offset": "0xa2",
+          "symbol": "??_C@_0CH@CGBG@e?3?2build?2beta?2G?2app?2shared?2kv_ut@",
+          "kind": 6,
+          "addend": "0x0",
+          "linked": "0xb73a9c",
+          "resolved": "0xb73a9c"
+        },
+        {
+          "offset": "0xa7",
+          "symbol": "??_C@_04PIEA@base?$AA@",
+          "kind": 6,
+          "addend": "0x0",
+          "linked": "0xb73a8c",
+          "resolved": "0xb73a8c"
+        },
+        {
+          "offset": "0xac",
+          "symbol": "?G_Assert_Report@@YAXPBD0H@Z",
+          "kind": 20,
+          "addend": "0x0",
+          "linked": "0x40aa51",
+          "resolved": "0x4e9410"
+        },
+        {
+          "offset": "0xba",
+          "symbol": "??_C@_0CH@CGBG@e?3?2build?2beta?2G?2app?2shared?2kv_ut@",
+          "kind": 6,
+          "addend": "0x0",
+          "linked": "0xb73a9c",
+          "resolved": "0xb73a9c"
+        },
+        {
+          "offset": "0xbf",
+          "symbol": "??_C@_06NAPD@append?$AA@",
+          "kind": 6,
+          "addend": "0x0",
+          "linked": "0xb73a84",
+          "resolved": "0xb73a84"
+        },
+        {
+          "offset": "0xc4",
+          "symbol": "?G_Assert_Report@@YAXPBD0H@Z",
+          "kind": 20,
+          "addend": "0x0",
+          "linked": "0x40aa51",
+          "resolved": "0x4e9410"
+        },
+        {
+          "offset": "0xd6",
+          "symbol": "??_C@_0CH@CGBG@e?3?2build?2beta?2G?2app?2shared?2kv_ut@",
+          "kind": 6,
+          "addend": "0x0",
+          "linked": "0xb73a9c",
+          "resolved": "0xb73a9c"
+        },
+        {
+          "offset": "0xdb",
+          "symbol": "??_C@_07NDOK@section?$AA@",
+          "kind": 6,
+          "addend": "0x0",
+          "linked": "0xb73a78",
+          "resolved": "0xb73a78"
+        },
+        {
+          "offset": "0xe0",
+          "symbol": "?G_Assert_Report@@YAXPBD0H@Z",
+          "kind": 20,
+          "addend": "0x0",
+          "linked": "0x40aa51",
+          "resolved": "0x4e9410"
+        },
+        {
+          "offset": "0x116",
+          "symbol": "?SectionBuffer@?1??Make_Section@@YAPBDPBD0PAD@Z@4PADA",
+          "kind": 6,
+          "addend": "0x0",
+          "linked": "0xbe4e98",
+          "resolved": "0xbe4e98"
+        },
+        {
+          "offset": "0x11f",
+          "symbol": "?SectionBuffer@?1??Make_Section@@YAPBDPBD0PAD@Z@4PADA",
+          "kind": 6,
+          "addend": "0x0",
+          "linked": "0xbe4e98",
+          "resolved": "0xbe4e98"
+        },
+        {
+          "offset": "0x136",
+          "symbol": "??_C@_0CH@CGBG@e?3?2build?2beta?2G?2app?2shared?2kv_ut@",
+          "kind": 6,
+          "addend": "0x0",
+          "linked": "0xb73a9c",
+          "resolved": "0xb73a9c"
+        },
+        {
+          "offset": "0x13b",
+          "symbol": "??_C@_06EMNG@string?$AA@",
+          "kind": 6,
+          "addend": "0x0",
+          "linked": "0xb73a70",
+          "resolved": "0xb73a70"
+        },
+        {
+          "offset": "0x140",
+          "symbol": "?G_Assert_Report@@YAXPBD0H@Z",
+          "kind": 20,
+          "addend": "0x0",
+          "linked": "0x40aa51",
+          "resolved": "0x4e9410"
+        },
+        {
+          "offset": "0x14a",
+          "symbol": "?SectionBuffer@?1??Make_Section@@YAPBDPBD0PAD@Z@4PADA",
+          "kind": 6,
+          "addend": "0x0",
+          "linked": "0xbe4e98",
+          "resolved": "0xbe4e98"
+        },
+        {
+          "offset": "0x14f",
+          "symbol": "_strchr",
+          "kind": 20,
+          "addend": "0x0",
+          "linked": "0xa26ea0",
+          "resolved": "0xa26ea0"
+        },
+        {
+          "offset": "0x161",
+          "symbol": "_strchr",
+          "kind": 20,
+          "addend": "0x0",
+          "linked": "0xa26ea0",
+          "resolved": "0xa26ea0"
+        },
+        {
+          "offset": "0x16f",
+          "symbol": "?SectionBuffer@?1??Make_Section@@YAPBDPBD0PAD@Z@4PADA",
+          "kind": 6,
+          "addend": "0x0",
+          "linked": "0xbe4e98",
+          "resolved": "0xbe4e98"
+        },
+        {
+          "offset": "0x174",
+          "symbol": "_strrchr",
+          "kind": 20,
+          "addend": "0x0",
+          "linked": "0xa28450",
+          "resolved": "0xa28450"
+        },
+        {
+          "offset": "0x186",
+          "symbol": "??_C@_01PCFE@?2?$AA@",
+          "kind": 6,
+          "addend": "0x0",
+          "linked": "0xb6e914",
+          "resolved": "0xb6e914"
+        },
+        {
+          "offset": "0x1b8",
+          "symbol": "?SectionBuffer@?1??Make_Section@@YAPBDPBD0PAD@Z@4PADA",
+          "kind": 6,
+          "addend": "0x0",
+          "linked": "0xbe4e98",
+          "resolved": "0xbe4e98"
+        },
+        {
+          "offset": "0x1e2",
+          "symbol": "?SectionBuffer@?1??Make_Section@@YAPBDPBD0PAD@Z@4PADA",
+          "kind": 6,
+          "addend": "0x0",
+          "linked": "0xbe4e98",
+          "resolved": "0xbe4e98"
+        },
+        {
+          "offset": "0x1ee",
+          "symbol": "?buf@?1??Get_Value_String@KVPairClass@@QBEPADXZ@4PADA",
+          "kind": 6,
+          "addend": "0x0",
+          "linked": "0xbe3b60",
+          "resolved": "0xbe3b60"
+        },
+        {
+          "offset": "0x208",
+          "symbol": "??_C@_09BGEB@?$HL?$CFs?$HN?3?$HL?$CFs?$HN?$AA@",
+          "kind": 6,
+          "addend": "0x0",
+          "linked": "0xb73a64",
+          "resolved": "0xb73a64"
+        },
+        {
+          "offset": "0x20e",
+          "symbol": "_sprintf",
+          "kind": 20,
+          "addend": "0x0",
+          "linked": "0xa266da",
+          "resolved": "0xa266da"
+        },
+        {
+          "offset": "0x22b",
+          "symbol": "?Put_String@INIClass@@QAE_NPBD00@Z",
+          "kind": 20,
+          "addend": "0x0",
+          "linked": "0x9caaf0",
+          "resolved": "0x9caaf0"
+        }
+      ],
+      "handler": null,
+      "states": [],
+      "predecessors": []
+    }
+  ],
+  "semantic_graph_pass": true,
+  "full_literal_payload_parity": true,
+  "exceptions": []
+}

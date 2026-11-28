@@ -1,0 +1,27 @@
+"""Freeze each snapshot, compile through exactly the broad candidate's source path."""
+from pathlib import Path
+import difflib,hashlib,importlib.util,json,shutil,subprocess,sys
+W=Path(__file__).resolve().parent;R=W.parent.parent;name,mode=sys.argv[1:3];assert mode in ['original','pair-only','list-only','final','folder']
+out=W/'consumer-controls'/name;out.mkdir(parents=True,exist_ok=False);tree=W/'all-consumer-tree';frozen=W/'all-consumer-tree-frozen';staging=W/'consumer-control-trees'/name;staging.parent.mkdir(exist_ok=True);assert not frozen.exists();shutil.copytree(W/'tree',staging)
+source=Path(sys.argv[3]).resolve() if mode=='folder' else W/'final-inputs'
+selected=[str(p.relative_to(source)) for p in source.rglob('*') if p.is_file()] if mode=='folder' else {'original':[],'pair-only':['app/shared/kv_pair.h'],'list-only':['app/shared/kv_list.h'],'final':json.loads((W/'integrated-paths.json').read_text())}[mode]
+for rel in selected:shutil.copyfile(source/rel,staging/rel)
+meta=dict(name=name,classification='unchanged_consumer_control' if mode=='original' else 'header_component_isolation_diagnostic',mode=mode,source_path=str(tree),archived_snapshot=str(staging),inputs=[],compiler_inputs=[],changed_prior_graphs=[])
+for rel in sorted(set(json.loads((W/'integrated-paths.json').read_text()))|set(selected)):
+ old=(W/'tree'/rel).read_text() if (W/'tree'/rel).exists() else '';new=(staging/rel).read_text();edits=[dict(start=i,end=j,text=new[k:l]) for tag,i,j,k,l in difflib.SequenceMatcher(None,old,new,autojunk=False).get_opcodes() if tag!='equal'];meta['inputs'].append(dict(unit=rel,base_sha256=hashlib.sha256(old.encode()).hexdigest(),input_sha256=hashlib.sha256(new.encode()).hexdigest(),edits=edits))
+bp=json.loads(Path(json.loads((W/'global-baseline/canonical-location.json').read_text())['plan']).read_text());ap=json.loads((W/'all-consumer-after/plan.json').read_text());units=['app/client/co.cpp','app/client/sbaseview.cpp','app/client/sclient.cpp']
+spec=importlib.util.spec_from_file_location('p',W/'preservation.py');m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m)
+tree.rename(frozen);staging.rename(tree)
+try:
+ alias=Path(ap['alias']);assert alias.is_symlink();alias.unlink();alias.symlink_to(tree,target_is_directory=True)
+ for unit in units:
+  i=list(bp['units']).index(unit)+1;folder=out/Path(unit).stem;folder.mkdir();rsp=(Path(ap['output'])/str(i)/'compile.rsp').read_text();(folder/'compile.rsp').write_text(rsp)
+  with (folder/'compile.log').open('w') as log:r=subprocess.run([ap['compiler'],'@Z:'+str(folder/'compile.rsp').replace('/',chr(92))],cwd=folder,stdout=log,stderr=subprocess.STDOUT,timeout=300)
+  assert r.returncode==0,(unit,r.returncode);obj=folder/(Path(unit).stem+'.obj');old=m.CoffObject(str(Path(bp['output'])/str(i)/obj.name));new=m.CoffObject(str(obj));fa={f[0]:f for f in old.functions()};fb={f[0]:f for f in new.functions()};rows=[r for r in json.loads((Path(bp['output'])/'app-matches.json').read_text()) if r['object']==obj.name and r['status']=='exact'];changes=[]
+  for row in rows:
+   symbol=row['symbol']
+   if symbol not in fb or m.graph(old,fa[symbol],row['length'])!=m.graph(new,fb[symbol],row['length']):changes.append(symbol)
+  meta['compiler_inputs'].append(dict(unit=unit,source_sha256=hashlib.sha256((tree/unit).read_bytes()).hexdigest(),response=rsp,object_sha256=hashlib.sha256(obj.read_bytes()).hexdigest(),old_exact_graphs=len(rows),changed_graphs=changes));meta['changed_prior_graphs']+= [[unit,s] for s in changes]
+finally:
+ tree.rename(staging);frozen.rename(tree);(out/'record.json').write_text(json.dumps(meta,indent=2)+'\n')
+print(json.dumps(dict(name=name,mode=mode,changes=meta['changed_prior_graphs'])))

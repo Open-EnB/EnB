@@ -20,7 +20,7 @@
 
 #include <list>
 #include <string>
-#include "kv_list.h"
+#include "kv_list_core.h"
 #include "kv_pair.h"
 
 class StringValueClass;

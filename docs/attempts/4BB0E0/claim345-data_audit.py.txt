@@ -1,0 +1,15 @@
+from pathlib import Path
+import hashlib,json,sys
+R=Path('/home/dev/Projects/EnB');W=R/'.work/claim-345';sys.path.insert(0,str(R/'tools/re'))
+from objmatch import CoffObject
+run=sys.argv[1] if len(sys.argv)>1 else 'first07';folder=W/'runs'/run
+maps={};objects={n:CoffObject(str(folder/n/(n+'.obj'))) for n in ['kv_util','kv_list','kv_pair']}
+section=[s for s in objects['kv_util'].symbols if s['section']==0 and s['class']==2 and s['value']==0x200];assert len(section)==1,section
+value={n:[s for s in o.symbols if s['section']==0 and s['class']==2 and s['value']==0x1000] for n,o in objects.items() if n in ['kv_util','kv_list']};assert all(len(x)==1 for x in value.values());assert value['kv_util'][0]['name']==value['kv_list'][0]['name']
+maps[section[0]['name']]=['0xBE4E98'];maps[value['kv_util'][0]['name']]=['0xBE3B60']
+o=objects['kv_util'];key=next(s for s in o.symbols if s['class']==3 and s['name']=='_KeyBuffer');assert key['value']==4
+init=next(s for s in o.symbols if s['section']==key['section'] and s['value']==0 and 'PermStringInit' in s['name'])
+maps[key['name']]=['0xBE509C'];maps[init['name']]=['0xBE5098']
+assert maps[section[0]['name']]!=maps[key['name']]
+proof=dict(run=run,object_sha256={n:hashlib.sha256(Path(o.path).read_bytes()).hexdigest() for n,o in objects.items()},section_buffer=dict(symbol=section[0]['name'],coff_storage='external common,section0,value512',bytes=512,expected_address='0xBE4E98',evidence='Retail writer key-copy/dot replacement/suffix references;512-byte span before independently anchored kv_util Init; separate from reader KeyBuffer.'),value_buffer=dict(symbol=value['kv_util'][0]['name'],coff_storage='same external common symbol in both kv_list and kv_util',bytes=4096,expected_address='0xBE3B60',evidence='Independent retail existing list getter and writer both pass this address and size0x1000 to virtual slot0x0C; shared mutable lifetime represented by the inline pair wrapper.'),kv_util_bss=dict(section=key['section'],size=o.sections[key['section']-1]['size'],init_symbol=init['name'],init_offset=0,init_address='0xBE5098',key_symbol=key['name'],key_offset=4,key_address='0xBE509C'),constraints_consistent=True,limitations='Validates role/size/linkage and consistent relocation-to-retail data mapping, including within-section offsets. Does not claim absolute placement in a fully linked rebuilt client image. Earlier coupled512-byte BSS buffer variants fail this constraint and are rejected.',known_map=maps)
+(folder/'known-map.json').write_text(json.dumps(maps,indent=2)+'\n');(folder/'data-audit.json').write_text(json.dumps(proof,indent=2)+'\n');print(json.dumps(dict(run=run,section_common=section[0]['name'],shared_value_common=value['kv_util'][0]['name'],bss_key_offset=key['value'],consistent=True)))
