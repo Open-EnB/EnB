@@ -1,0 +1,88 @@
+{
+  "base_revision": "54282a8ae7b8da85142a15f03a81d194f2ef6904",
+  "source_sha256": "0a7c082ab52215f12baf4a8d3141f1630e27823f160ba780d5c7cffb897fa1f0",
+  "object_sha256": "ac62a95eb38667ddae2e084b9d3f99ad8220dda366c2b573f6310a889fb16c14",
+  "function": "0x60E300",
+  "deltas": {
+    "pairs": {
+      "before": 90,
+      "after": 91,
+      "gained": [
+        [
+          "app/client/ui_scan.cpp",
+          "0x60E300"
+        ]
+      ],
+      "lost": []
+    },
+    "symbol_pairs": {
+      "before": 91,
+      "after": 92,
+      "gained": [
+        [
+          "app/client/ui_scan.cpp",
+          "?Unknown_68@ScannerInterface@@UAE_NH@Z",
+          "0x60E300"
+        ]
+      ],
+      "lost": []
+    },
+    "all_pairs": {
+      "before": 231,
+      "after": 232,
+      "gained": [
+        [
+          "app/client/ui_scan.cpp",
+          "0x60E300"
+        ]
+      ],
+      "lost": []
+    },
+    "all_symbol_pairs": {
+      "before": 232,
+      "after": 233,
+      "gained": [
+        [
+          "app/client/ui_scan.cpp",
+          "?Unknown_68@ScannerInterface@@UAE_NH@Z",
+          "0x60E300"
+        ]
+      ],
+      "lost": []
+    }
+  },
+  "complete_body_bytes": 293,
+  "relocations_checked": 19,
+  "preexisting_exact_symbols_preserved": 91,
+  "eh_funclet_changes": [],
+  "all_direct_call_identities_corroborated": true,
+  "literal_payload_parity": false,
+  "literal_exceptions": [
+    {
+      "offset": "0x6e",
+      "object": "e:\\build\\beta\\G\\app\\client\\ui_scan.cpp",
+      "retail": "e:\\build\\beta\\G\\app\\Client\\ui_scan.cpp",
+      "reason": "source path case; D283"
+    },
+    {
+      "offset": "0x85",
+      "object": "e:\\build\\beta\\G\\app\\client\\ui_scan.cpp",
+      "retail": "e:\\build\\beta\\G\\app\\Client\\ui_scan.cpp",
+      "reason": "source path case; D283"
+    },
+    {
+      "offset": "0xac",
+      "object": "e:\\build\\beta\\G\\app\\client\\ui_scan.cpp",
+      "retail": "e:\\build\\beta\\G\\app\\Client\\ui_scan.cpp",
+      "reason": "source path case; D283"
+    },
+    {
+      "offset": "0xc7",
+      "object": "e:\\build\\beta\\G\\app\\client\\ui_scan.cpp",
+      "retail": "e:\\build\\beta\\G\\app\\Client\\ui_scan.cpp",
+      "reason": "source path case; D283"
+    }
+  ],
+  "policy": "Claimed-address attempts check passes. Full tracked-source checker emits unrelated bare-method Unknown_68/Unknown_5C false positives; diagnostics saved, no unclaimed function retried or acknowledged.",
+  "context": "Unchanged ui_mfd.cpp and unknown_5dd960.cpp are normal matching context. All89 recorded scanner pairs reproduce; preexisting51C600 is not a new gain."
+}

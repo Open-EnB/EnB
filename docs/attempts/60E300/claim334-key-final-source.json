@@ -1,0 +1,161 @@
+{
+  "base_revision": "54282a8ae7b8da85142a15f03a81d194f2ef6904",
+  "unit": "app/client/ui_scan.cpp",
+  "base_sha256": "1cef4dfcbec1f039814906a12e804524a1d78ec4878fd79e2cedde32ce4170bc",
+  "source_sha256": "0a7c082ab52215f12baf4a8d3141f1630e27823f160ba780d5c7cffb897fa1f0",
+  "edits": [
+    {
+      "start": 4751,
+      "end": 4901,
+      "text": ""
+    },
+    {
+      "start": 5072,
+      "end": 5074,
+      "text": "pla"
+    },
+    {
+      "start": 5075,
+      "end": 5079,
+      "text": "n"
+    },
+    {
+      "start": 5090,
+      "end": 5090,
+      "text": "(unsigned)"
+    },
+    {
+      "start": 5093,
+      "end": 5093,
+      "text": " - 5u"
+    },
+    {
+      "start": 5104,
+      "end": 5105,
+      "text": "1"
+    },
+    {
+      "start": 5121,
+      "end": 5123,
+      "text": "pla"
+    },
+    {
+      "start": 5124,
+      "end": 5128,
+      "text": "n"
+    },
+    {
+      "start": 5131,
+      "end": 5131,
+      "text": "!"
+    },
+    {
+      "start": 5155,
+      "end": 5156,
+      "text": "2"
+    },
+    {
+      "start": 5171,
+      "end": 5173,
+      "text": "pla"
+    },
+    {
+      "start": 5174,
+      "end": 5178,
+      "text": "n"
+    },
+    {
+      "start": 5181,
+      "end": 5181,
+      "text": "!"
+    },
+    {
+      "start": 5260,
+      "end": 5262,
+      "text": "pla"
+    },
+    {
+      "start": 5263,
+      "end": 5267,
+      "text": "n"
+    },
+    {
+      "start": 5270,
+      "end": 5270,
+      "text": "!"
+    },
+    {
+      "start": 5338,
+      "end": 5340,
+      "text": "pla"
+    },
+    {
+      "start": 5341,
+      "end": 5345,
+      "text": "n"
+    },
+    {
+      "start": 5348,
+      "end": 5348,
+      "text": "!"
+    },
+    {
+      "start": 5407,
+      "end": 5430,
+      "text": ""
+    },
+    {
+      "start": 5557,
+      "end": 5558,
+      "text": ""
+    },
+    {
+      "start": 5573,
+      "end": 5574,
+      "text": ""
+    },
+    {
+      "start": 5598,
+      "end": 5599,
+      "text": "Next_Target_Filte"
+    },
+    {
+      "start": 5601,
+      "end": 5602,
+      "text": "d();\n\t\t\t} else {\n\t\t\t\tts->Select_Next"
+    },
+    {
+      "start": 5617,
+      "end": 5617,
+      "text": "\n\t\t}"
+    },
+    {
+      "start": 5622,
+      "end": 5622,
+      "text": " {\n\t\t\tif (plain)"
+    },
+    {
+      "start": 5668,
+      "end": 5731,
+      "text": ""
+    },
+    {
+      "start": 5754,
+      "end": 5755,
+      "text": "Pr"
+    },
+    {
+      "start": 5756,
+      "end": 5758,
+      "text": "v"
+    },
+    {
+      "start": 5765,
+      "end": 5774,
+      "text": ""
+    }
+  ],
+  "edit_offsets": "zero-based Python string offsets",
+  "replay_verified": true,
+  "classification": "independent formatting/marker control on successful hypothesis; not another hypothesis form"
+}

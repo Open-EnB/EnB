@@ -1,0 +1,497 @@
+{
+  "run": "first_60E6A0_key",
+  "unit": "app/client/ui_scan.cpp",
+  "base_revision": "54282a8ae7b8da85142a15f03a81d194f2ef6904",
+  "phase": "original",
+  "base_sha256": "1cef4dfcbec1f039814906a12e804524a1d78ec4878fd79e2cedde32ce4170bc",
+  "input_sha256": "409a393e1cd4f76506caa944aa63916c84ba74ee08926386654cc3896dced2fa",
+  "edits": [
+    {
+      "start": 8258,
+      "end": 8272,
+      "text": ""
+    },
+    {
+      "start": 8282,
+      "end": 8282,
+      "text": "&"
+    },
+    {
+      "start": 8283,
+      "end": 8288,
+      "text": ""
+    },
+    {
+      "start": 8289,
+      "end": 8290,
+      "text": " {"
+    },
+    {
+      "start": 8379,
+      "end": 8402,
+      "text": ""
+    },
+    {
+      "start": 8410,
+      "end": 8424,
+      "text": ""
+    },
+    {
+      "start": 8500,
+      "end": 8502,
+      "text": "N"
+    },
+    {
+      "start": 8503,
+      "end": 8504,
+      "text": "meClass"
+    },
+    {
+      "start": 8505,
+      "end": 8506,
+      "text": "&"
+    },
+    {
+      "start": 8514,
+      "end": 8516,
+      "text": "C *"
+    },
+    {
+      "start": 8517,
+      "end": 8521,
+      "text": " = "
+    },
+    {
+      "start": 8559,
+      "end": 8559,
+      "text": "; if (!t || !t->Unknown70) return(NULL); return(t"
+    }
+  ],
+  "edit_offsets": "zero-based Python character offsets; apply in descending order",
+  "replay_verified": true,
+  "classification": "changed_compiled",
+  "pair_deltas": {
+    "pairs": {
+      "before": 90,
+      "after": 91,
+      "gained": [
+        [
+          "app/client/ui_scan.cpp",
+          "0x5469C0"
+        ]
+      ],
+      "lost": [],
+      "before_set_sha256": "778c7d6da4be7f85a66ccd453e9fc3e461a15b15e6ba23e7886b9930a3430df8",
+      "after_set_sha256": "55464479df95ed33046b621a6d6ae255fdbc89b754f7539d0235f83359b173f0"
+    },
+    "symbol_pairs": {
+      "before": 91,
+      "after": 92,
+      "gained": [
+        [
+          "app/client/ui_scan.cpp",
+          "?Cast@?$UnknownRTTIClass@VDeltaStringClass@@@@SAPAVDeltaStringClass@@PAVDeltaClass@@@Z",
+          "0x5469C0"
+        ]
+      ],
+      "lost": [],
+      "before_set_sha256": "2bf50622994d193fc7115b107f71fa3a8e75611c0d819a820ab0062ab3bd5021",
+      "after_set_sha256": "a15bf490fed05c259250c99615dc88de1ac4275fb31dd9679981a1e710f0e869"
+    },
+    "all_pairs": {
+      "before": 231,
+      "after": 232,
+      "gained": [
+        [
+          "app/client/ui_scan.cpp",
+          "0x5469C0"
+        ]
+      ],
+      "lost": [],
+      "before_set_sha256": "c0c7ab1a1185ea96072ef7280877dcfda9dae5846eed784147d4df613b3b6f1e",
+      "after_set_sha256": "df8478051820966972f77035250dab9172a83e4e61f1f3e243f42d6486ecbf62"
+    },
+    "all_symbol_pairs": {
+      "before": 232,
+      "after": 233,
+      "gained": [
+        [
+          "app/client/ui_scan.cpp",
+          "?Cast@?$UnknownRTTIClass@VDeltaStringClass@@@@SAPAVDeltaStringClass@@PAVDeltaClass@@@Z",
+          "0x5469C0"
+        ]
+      ],
+      "lost": [],
+      "before_set_sha256": "abfed96a8a3322b55f7aa51b3b09b2d7138b6e2d96269b957a511e9a4706dbf0",
+      "after_set_sha256": "5f4bd9db61a46ea53350d3632fede9e0edc50c93ad597c519da0be8df82e0ad9"
+    }
+  },
+  "targets": {
+    "60E6A0": {
+      "symbol": "?Unknown_60E6A0@ScannerInterface@@QAEXPAVClientObjectClass@@@Z",
+      "length": 1212,
+      "raw_sha256": "090ea3e6c20482ea186f63ff0b271217bb8c6304692e1e02b1592c321ebe6f6b",
+      "masked_sha256": "090ea3e6c20482ea186f63ff0b271217bb8c6304692e1e02b1592c321ebe6f6b",
+      "relocations": [
+        [
+          2,
+          4,
+          6,
+          "__except_list",
+          "00000000"
+        ],
+        [
+          9,
+          4,
+          6,
+          "$L114588",
+          "00000000"
+        ],
+        [
+          17,
+          4,
+          6,
+          "__except_list",
+          "00000000"
+        ],
+        [
+          46,
+          4,
+          6,
+          "??_C@_0CH@OHMB@e?3?2build?2beta?2G?2app?2client?2ui_sc@",
+          "00000000"
+        ],
+        [
+          51,
+          4,
+          6,
+          "??_C@_0O@HHFO@InterruptInfo?$AA@",
+          "00000000"
+        ],
+        [
+          56,
+          4,
+          20,
+          "?G_Assert_Report@@YAXPBD0H@Z",
+          "00000000"
+        ],
+        [
+          103,
+          4,
+          6,
+          "?TheInstance@WW3DAssetManager@@1PAV1@A",
+          "00000000"
+        ],
+        [
+          108,
+          4,
+          6,
+          "??_C@_06KPMH@tsi08c?$AA@",
+          "00000000"
+        ],
+        [
+          124,
+          4,
+          20,
+          "?Create_Get@@YA?AV?$RefCountPtr@VRenderObjClass@@@@PAVRenderObjClass@@@Z",
+          "00000000"
+        ],
+        [
+          240,
+          4,
+          20,
+          "?Unknown_496AE0@@YAXPAVRenderObjClass@@_N@Z",
+          "00000000"
+        ],
+        [
+          266,
+          4,
+          6,
+          "??_C@_0L@MGFA@BONE_INTER?$AA@",
+          "00000000"
+        ],
+        [
+          293,
+          4,
+          20,
+          "?Unknown_59E970@Unknown59E2C0Class@@QAEXXZ",
+          "00000000"
+        ],
+        [
+          317,
+          4,
+          6,
+          "??_C@_00A@?$AA@",
+          "00000000"
+        ],
+        [
+          332,
+          4,
+          6,
+          "??_C@_00A@?$AA@",
+          "00000000"
+        ],
+        [
+          340,
+          4,
+          20,
+          "?assign@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAEAAV12@PBDI@Z",
+          "00000000"
+        ],
+        [
+          351,
+          4,
+          20,
+          "??2@YAPAXI@Z",
+          "00000000"
+        ],
+        [
+          401,
+          4,
+          20,
+          "??0Unknown59E2C0Class@@QAE@PAVRenderObjClass@@PAVLayerClass@@PAVScannerInterface@@PAVClientObjectClass@@H@Z",
+          "00000000"
+        ],
+        [
+          437,
+          4,
+          20,
+          "?Unknown_496730@@YAXPAVRenderObjClass@@H_N@Z",
+          "00000000"
+        ],
+        [
+          493,
+          4,
+          20,
+          "?Unknown_59E600@Unknown59E2C0Class@@QAEXXZ",
+          "00000000"
+        ],
+        [
+          532,
+          4,
+          20,
+          "?Unknown_60EC70@Unknown59E2C0Class@@QAEXVDurationClass@@@Z",
+          "00000000"
+        ],
+        [
+          537,
+          4,
+          6,
+          "??_C@_0BM@IKPK@InterruptibleActivationTime?$AA@",
+          "00000000"
+        ],
+        [
+          546,
+          4,
+          20,
+          "??0NameClass@@QAE@PBD@Z",
+          "00000000"
+        ],
+        [
+          563,
+          4,
+          20,
+          "?Unknown_Find_Field@@YAPAV?$DeltaTemplateClass@VDurationClass@@@@PAVDeltaCompoundClass@@ABVNameClass@@@Z",
+          "00000000"
+        ],
+        [
+          584,
+          4,
+          20,
+          "?Get_Value@?$DeltaTemplateClass@VDurationClass@@@@QBEABVDurationClass@@XZ",
+          "00000000"
+        ],
+        [
+          617,
+          4,
+          20,
+          "?Unknown_60ECA0@Unknown59E2C0Class@@QAEXVDurationClass@@@Z",
+          "00000000"
+        ],
+        [
+          641,
+          4,
+          6,
+          "??_C@_0CH@OHMB@e?3?2build?2beta?2G?2app?2client?2ui_sc@",
+          "00000000"
+        ],
+        [
+          646,
+          4,
+          6,
+          "??_C@_04KMPN@robj?$AA@",
+          "00000000"
+        ],
+        [
+          651,
+          4,
+          20,
+          "?G_Assert_Report@@YAXPBD0H@Z",
+          "00000000"
+        ],
+        [
+          659,
+          4,
+          6,
+          "??_C@_0BJ@MHKE@InterruptibleAbilityName?$AA@",
+          "00000000"
+        ],
+        [
+          668,
+          4,
+          20,
+          "??0NameClass@@QAE@PBD@Z",
+          "00000000"
+        ],
+        [
+          691,
+          4,
+          20,
+          "?Get_Lookup@DeltaCompoundClass@@QAEPAVLookupClass@@XZ",
+          "00000000"
+        ],
+        [
+          703,
+          4,
+          20,
+          "?Find@LookupClass@@QAEPAVDeltaClass@@ABVNameClass@@@Z",
+          "00000000"
+        ],
+        [
+          713,
+          4,
+          20,
+          "?Cast@?$UnknownRTTIClass@VDeltaStringClass@@@@SAPAVDeltaStringClass@@PAVDeltaClass@@@Z",
+          "00000000"
+        ],
+        [
+          732,
+          4,
+          6,
+          "??_C@_0DH@BNDJ@e?3?2build?2beta?2G?2app?2client?2?4?4?2sh@",
+          "00000000"
+        ],
+        [
+          737,
+          4,
+          6,
+          "??_C@_01PEAM@t?$AA@",
+          "00000000"
+        ],
+        [
+          742,
+          4,
+          20,
+          "?G_Assert_Report@@YAXPBD0H@Z",
+          "00000000"
+        ],
+        [
+          799,
+          4,
+          20,
+          "?_Grow@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAE_NI_N@Z",
+          "00000000"
+        ],
+        [
+          839,
+          4,
+          6,
+          "??_C@_0O@DMDD@Unknown?5Skill?$AA@",
+          "00000000"
+        ],
+        [
+          868,
+          4,
+          20,
+          "?_Grow@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAE_NI_N@Z",
+          "00000000"
+        ],
+        [
+          884,
+          4,
+          6,
+          "??_C@_0O@DMDD@Unknown?5Skill?$AA@",
+          "00000000"
+        ],
+        [
+          906,
+          4,
+          20,
+          "?_Eos@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEXI@Z",
+          "00000000"
+        ],
+        [
+          933,
+          4,
+          20,
+          "??2@YAPAXI@Z",
+          "00000000"
+        ],
+        [
+          964,
+          4,
+          6,
+          "??_C@_0O@DLGJ@MFD_INTERRUPT?$AA@",
+          "00000000"
+        ],
+        [
+          971,
+          4,
+          20,
+          "??0FontSys@@QAE@PBDPAVRenderObjClass@@0@Z",
+          "00000000"
+        ],
+        [
+          994,
+          4,
+          20,
+          "?Create_Get@@YA?AV?$RefCountPtr@VFontSys@@@@PAVFontSys@@@Z",
+          "00000000"
+        ],
+        [
+          1130,
+          4,
+          6,
+          "?_C@?1??_Nullstr@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@CAPBDXZ@4DB",
+          "00000000"
+        ],
+        [
+          1141,
+          4,
+          20,
+          "?Change_Text@FontSys@@QAEXPBDH@Z",
+          "00000000"
+        ],
+        [
+          1201,
+          4,
+          6,
+          "__except_list",
+          "00000000"
+        ]
+      ],
+      "unwind": [
+        9,
+        120,
+        [
+          [
+            0,
+            8
+          ],
+          [
+            8,
+            19
+          ],
+          [
+            19,
+            30
+          ],
+          [
+            30,
+            38
+          ]
+        ]
+      ]
+    }
+  }
+}

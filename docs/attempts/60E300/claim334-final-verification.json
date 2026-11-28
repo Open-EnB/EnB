@@ -1,0 +1,256 @@
+{
+  "base_revision": "54282a8ae7b8da85142a15f03a81d194f2ef6904",
+  "key_commit": "8045b1b026a984c2970d8bddd5d05980f1c9ba5b",
+  "final_source_sha256": "0a7c082ab52215f12baf4a8d3141f1630e27823f160ba780d5c7cffb897fa1f0",
+  "final_cpp_unchanged_after_key_commit": true,
+  "new_exact": [
+    "0x60E300"
+  ],
+  "remaining_claimed_not_exact": [
+    "0x60D8D0",
+    "0x60E6A0"
+  ],
+  "file_pairs_before": 90,
+  "file_pairs_after": 91,
+  "symbol_pairs_before": 91,
+  "symbol_pairs_after": 92,
+  "claim_delta": {
+    "gained": [
+      "0x60E300"
+    ],
+    "lost": []
+  },
+  "preexisting_exact_symbol_graphs_preserved": 91,
+  "key_body_bytes": 293,
+  "key_relocations_checked": 19,
+  "key_literal_payload_parity": false,
+  "key_literal_exceptions": [
+    {
+      "offset": "0x6e",
+      "object": "e:\\build\\beta\\G\\app\\client\\ui_scan.cpp",
+      "retail": "e:\\build\\beta\\G\\app\\Client\\ui_scan.cpp",
+      "reason": "source path case; D283"
+    },
+    {
+      "offset": "0x85",
+      "object": "e:\\build\\beta\\G\\app\\client\\ui_scan.cpp",
+      "retail": "e:\\build\\beta\\G\\app\\Client\\ui_scan.cpp",
+      "reason": "source path case; D283"
+    },
+    {
+      "offset": "0xac",
+      "object": "e:\\build\\beta\\G\\app\\client\\ui_scan.cpp",
+      "retail": "e:\\build\\beta\\G\\app\\Client\\ui_scan.cpp",
+      "reason": "source path case; D283"
+    },
+    {
+      "offset": "0xc7",
+      "object": "e:\\build\\beta\\G\\app\\client\\ui_scan.cpp",
+      "retail": "e:\\build\\beta\\G\\app\\Client\\ui_scan.cpp",
+      "reason": "source path case; D283"
+    }
+  ],
+  "trial_counts": {
+    "classifications": {
+      "changed_compiled": 47,
+      "compiler_invalid": 1,
+      "coordinator_control": 2
+    },
+    "forms": {
+      "60D8D0": 9,
+      "60E300": 10,
+      "60E6A0": 28
+    }
+  },
+  "recorded_initial_compiler_invalid_inputs": 1,
+  "astra_compiled_inputs": 0,
+  "uncompiled_prepared_proposals": 1,
+  "retained_snapshot_input_hashes_checked": 5947,
+  "source_patch_replays_verified": 50,
+  "rejected_diagnostic_deltas": [
+    {
+      "run": "first_60D8D0_construction_font_new",
+      "pair_deltas": {
+        "pairs": {
+          "before": 91,
+          "after": 92,
+          "gained": [
+            [
+              "app/client/ui_scan.cpp",
+              "0x47D2E0"
+            ]
+          ],
+          "lost": [],
+          "before_set_sha256": "499c2dfba98c4d03af276c610c471ffcca713340212bb126beac84430b8dbeaf",
+          "after_set_sha256": "4bb3f2093a4c5f924eb0bed283d4dbc8cd1fe56967badd7ce112109d8382026a"
+        },
+        "symbol_pairs": {
+          "before": 92,
+          "after": 93,
+          "gained": [
+            [
+              "app/client/ui_scan.cpp",
+              "?Create_Get@@YA?AV?$RefCountPtr@VFontSys@@@@PAVFontSys@@@Z",
+              "0x47D2E0"
+            ],
+            [
+              "app/client/ui_scan.cpp",
+              "?Create_NEW@@YA?AV?$RefCountPtr@VFontSys@@@@PAVFontSys@@@Z",
+              "0x51C600"
+            ]
+          ],
+          "lost": [
+            [
+              "app/client/ui_scan.cpp",
+              "?Create_Get@@YA?AV?$RefCountPtr@VFontSys@@@@PAVFontSys@@@Z",
+              "0x51C600"
+            ]
+          ],
+          "before_set_sha256": "e1484f9edee9079094b5be157855b91a1f9b8fafe6a4fcd0ba16c1627ff20414",
+          "after_set_sha256": "703abfa650f0dae68f87d15f9709198b0619e1fcd312680b29cf9baec9425f06"
+        },
+        "all_pairs": {
+          "before": 232,
+          "after": 233,
+          "gained": [
+            [
+              "app/client/ui_scan.cpp",
+              "0x47D2E0"
+            ]
+          ],
+          "lost": [],
+          "before_set_sha256": "4053247b903dc21e8684e95ec24486c81b61649e1a9fa299c63927c14967748e",
+          "after_set_sha256": "7a679e62f92aced6be0f27a0d089d0eba9fd46486750858570e16d5a83e89c9d"
+        },
+        "all_symbol_pairs": {
+          "before": 233,
+          "after": 234,
+          "gained": [
+            [
+              "app/client/ui_scan.cpp",
+              "?Create_Get@@YA?AV?$RefCountPtr@VFontSys@@@@PAVFontSys@@@Z",
+              "0x47D2E0"
+            ],
+            [
+              "app/client/ui_scan.cpp",
+              "?Create_NEW@@YA?AV?$RefCountPtr@VFontSys@@@@PAVFontSys@@@Z",
+              "0x51C600"
+            ]
+          ],
+          "lost": [
+            [
+              "app/client/ui_scan.cpp",
+              "?Create_Get@@YA?AV?$RefCountPtr@VFontSys@@@@PAVFontSys@@@Z",
+              "0x51C600"
+            ]
+          ],
+          "before_set_sha256": "f11458f94988748072e79488e651a7bd2afd988f4d313d90d16cb3b997d4795d",
+          "after_set_sha256": "dab438e58f2577acda24176a982046da73096c5aa99c21aa43df391670b6dd04"
+        }
+      }
+    },
+    {
+      "run": "sol_60D8D0_frame_reference",
+      "pair_deltas": {
+        "pairs": {
+          "before": 91,
+          "after": 91,
+          "gained": [],
+          "lost": [],
+          "before_set_sha256": "499c2dfba98c4d03af276c610c471ffcca713340212bb126beac84430b8dbeaf",
+          "after_set_sha256": "499c2dfba98c4d03af276c610c471ffcca713340212bb126beac84430b8dbeaf"
+        },
+        "symbol_pairs": {
+          "before": 92,
+          "after": 92,
+          "gained": [
+            [
+              "app/client/ui_scan.cpp",
+              "_$E324",
+              "0x610130"
+            ],
+            [
+              "app/client/ui_scan.cpp",
+              "_$E330",
+              "0x6103E0"
+            ],
+            [
+              "app/client/ui_scan.cpp",
+              "_$E333",
+              "0x610510"
+            ]
+          ],
+          "lost": [
+            [
+              "app/client/ui_scan.cpp",
+              "_$E323",
+              "0x610130"
+            ],
+            [
+              "app/client/ui_scan.cpp",
+              "_$E329",
+              "0x6103E0"
+            ],
+            [
+              "app/client/ui_scan.cpp",
+              "_$E332",
+              "0x610510"
+            ]
+          ],
+          "before_set_sha256": "e1484f9edee9079094b5be157855b91a1f9b8fafe6a4fcd0ba16c1627ff20414",
+          "after_set_sha256": "daef4f91045da6795caa8397597557b89d57d0dc37c083f22ed44575c17acf77"
+        },
+        "all_pairs": {
+          "before": 232,
+          "after": 232,
+          "gained": [],
+          "lost": [],
+          "before_set_sha256": "4053247b903dc21e8684e95ec24486c81b61649e1a9fa299c63927c14967748e",
+          "after_set_sha256": "4053247b903dc21e8684e95ec24486c81b61649e1a9fa299c63927c14967748e"
+        },
+        "all_symbol_pairs": {
+          "before": 233,
+          "after": 233,
+          "gained": [
+            [
+              "app/client/ui_scan.cpp",
+              "_$E324",
+              "0x610130"
+            ],
+            [
+              "app/client/ui_scan.cpp",
+              "_$E330",
+              "0x6103E0"
+            ],
+            [
+              "app/client/ui_scan.cpp",
+              "_$E333",
+              "0x610510"
+            ]
+          ],
+          "lost": [
+            [
+              "app/client/ui_scan.cpp",
+              "_$E323",
+              "0x610130"
+            ],
+            [
+              "app/client/ui_scan.cpp",
+              "_$E329",
+              "0x6103E0"
+            ],
+            [
+              "app/client/ui_scan.cpp",
+              "_$E332",
+              "0x610510"
+            ]
+          ],
+          "before_set_sha256": "f11458f94988748072e79488e651a7bd2afd988f4d313d90d16cb3b997d4795d",
+          "after_set_sha256": "e7739bff8054ff8bbfe2554aff66220a2dc219fc7502c1cd91908feab66096bd"
+        }
+      }
+    }
+  ],
+  "scope": "Canonical scanner primary plus unchanged ui_mfd/unknown_5dd960 matching context. All89 recorded primary pairs reproduce; preexisting51C600 is not a new gain. Separate whole-repository rebuild not needed: no header/build changes.",
+  "limitations": "Partial D8/E6 bodies are not exact and not retained. Four preexisting case-only source __FILE__ payload exceptions explicitly remain under D283. Final committed preflight and final cached-object audit are recorded in the local handoff after commit."
+}

@@ -1,0 +1,425 @@
+{
+  "run": "sol_60E6A0_field_time",
+  "unit": "app/client/ui_scan.cpp",
+  "base_revision": "8045b1b026a984c2970d8bddd5d05980f1c9ba5b",
+  "phase": "retained1",
+  "base_sha256": "0a7c082ab52215f12baf4a8d3141f1630e27823f160ba780d5c7cffb897fa1f0",
+  "input_sha256": "d8fa45b42385c5541b209e6047f124cf5e2d7d2ba80f5fef3e4d99e870299d5e",
+  "edits": [
+    {
+      "start": 11894,
+      "end": 11894,
+      "text": "{ ClientClass *client = (ClientClass *)Get_Client(); DurationClass now; now.Time = client->Unknown10BC; "
+    },
+    {
+      "start": 11935,
+      "end": 11991,
+      "text": ""
+    },
+    {
+      "start": 11994,
+      "end": 12000,
+      "text": ""
+    },
+    {
+      "start": 12002,
+      "end": 12002,
+      "text": " }"
+    },
+    {
+      "start": 12482,
+      "end": 12482,
+      "text": "{ std::string &text = "
+    },
+    {
+      "start": 12508,
+      "end": 12508,
+      "text": ";"
+    },
+    {
+      "start": 12509,
+      "end": 12511,
+      "text": "text.assign("
+    },
+    {
+      "start": 12526,
+      "end": 12526,
+      "text": ", strlen(\"Unknown Skill\"))"
+    },
+    {
+      "start": 12527,
+      "end": 12527,
+      "text": " }"
+    }
+  ],
+  "edit_offsets": "zero-based Python character offsets; apply in descending order",
+  "replay_verified": true,
+  "classification": "changed_compiled",
+  "pair_deltas": {
+    "pairs": {
+      "before": 91,
+      "after": 91,
+      "gained": [],
+      "lost": [],
+      "before_set_sha256": "499c2dfba98c4d03af276c610c471ffcca713340212bb126beac84430b8dbeaf",
+      "after_set_sha256": "499c2dfba98c4d03af276c610c471ffcca713340212bb126beac84430b8dbeaf"
+    },
+    "symbol_pairs": {
+      "before": 92,
+      "after": 92,
+      "gained": [],
+      "lost": [],
+      "before_set_sha256": "e1484f9edee9079094b5be157855b91a1f9b8fafe6a4fcd0ba16c1627ff20414",
+      "after_set_sha256": "e1484f9edee9079094b5be157855b91a1f9b8fafe6a4fcd0ba16c1627ff20414"
+    },
+    "all_pairs": {
+      "before": 232,
+      "after": 232,
+      "gained": [],
+      "lost": [],
+      "before_set_sha256": "4053247b903dc21e8684e95ec24486c81b61649e1a9fa299c63927c14967748e",
+      "after_set_sha256": "4053247b903dc21e8684e95ec24486c81b61649e1a9fa299c63927c14967748e"
+    },
+    "all_symbol_pairs": {
+      "before": 233,
+      "after": 233,
+      "gained": [],
+      "lost": [],
+      "before_set_sha256": "f11458f94988748072e79488e651a7bd2afd988f4d313d90d16cb3b997d4795d",
+      "after_set_sha256": "f11458f94988748072e79488e651a7bd2afd988f4d313d90d16cb3b997d4795d"
+    }
+  },
+  "targets": {
+    "60E6A0": {
+      "symbol": "?Unknown_60E6A0@ScannerInterface@@QAEXPAVClientObjectClass@@@Z",
+      "length": 1176,
+      "raw_sha256": "4030b98772b5055f6b40450600d64f30788812b32fb085dc0735b08909c635e9",
+      "masked_sha256": "4030b98772b5055f6b40450600d64f30788812b32fb085dc0735b08909c635e9",
+      "relocations": [
+        [
+          2,
+          4,
+          6,
+          "__except_list",
+          "00000000"
+        ],
+        [
+          9,
+          4,
+          6,
+          "$L114559",
+          "00000000"
+        ],
+        [
+          17,
+          4,
+          6,
+          "__except_list",
+          "00000000"
+        ],
+        [
+          46,
+          4,
+          6,
+          "??_C@_0CH@OHMB@e?3?2build?2beta?2G?2app?2client?2ui_sc@",
+          "00000000"
+        ],
+        [
+          51,
+          4,
+          6,
+          "??_C@_0O@HHFO@InterruptInfo?$AA@",
+          "00000000"
+        ],
+        [
+          56,
+          4,
+          20,
+          "?G_Assert_Report@@YAXPBD0H@Z",
+          "00000000"
+        ],
+        [
+          107,
+          4,
+          6,
+          "?TheInstance@WW3DAssetManager@@1PAV1@A",
+          "00000000"
+        ],
+        [
+          112,
+          4,
+          6,
+          "??_C@_06KPMH@tsi08c?$AA@",
+          "00000000"
+        ],
+        [
+          128,
+          4,
+          20,
+          "?Create_Get@@YA?AV?$RefCountPtr@VRenderObjClass@@@@PAVRenderObjClass@@@Z",
+          "00000000"
+        ],
+        [
+          244,
+          4,
+          20,
+          "?Unknown_496AE0@@YAXPAVRenderObjClass@@_N@Z",
+          "00000000"
+        ],
+        [
+          270,
+          4,
+          6,
+          "??_C@_0L@MGFA@BONE_INTER?$AA@",
+          "00000000"
+        ],
+        [
+          299,
+          4,
+          20,
+          "?Unknown_59E970@Unknown59E2C0Class@@QAEXXZ",
+          "00000000"
+        ],
+        [
+          323,
+          4,
+          6,
+          "??_C@_00A@?$AA@",
+          "00000000"
+        ],
+        [
+          339,
+          4,
+          6,
+          "??_C@_00A@?$AA@",
+          "00000000"
+        ],
+        [
+          347,
+          4,
+          20,
+          "?assign@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAEAAV12@PBDI@Z",
+          "00000000"
+        ],
+        [
+          358,
+          4,
+          20,
+          "??2@YAPAXI@Z",
+          "00000000"
+        ],
+        [
+          405,
+          4,
+          20,
+          "??0Unknown59E2C0Class@@QAE@PAVRenderObjClass@@PAVLayerClass@@PAVScannerInterface@@PAVClientObjectClass@@H@Z",
+          "00000000"
+        ],
+        [
+          445,
+          4,
+          20,
+          "?Unknown_496730@@YAXPAVRenderObjClass@@H_N@Z",
+          "00000000"
+        ],
+        [
+          501,
+          4,
+          20,
+          "?Unknown_59E600@Unknown59E2C0Class@@QAEXXZ",
+          "00000000"
+        ],
+        [
+          540,
+          4,
+          20,
+          "?Unknown_60EC70@Unknown59E2C0Class@@QAEXVDurationClass@@@Z",
+          "00000000"
+        ],
+        [
+          545,
+          4,
+          6,
+          "??_C@_0BM@IKPK@InterruptibleActivationTime?$AA@",
+          "00000000"
+        ],
+        [
+          554,
+          4,
+          20,
+          "??0NameClass@@QAE@PBD@Z",
+          "00000000"
+        ],
+        [
+          571,
+          4,
+          20,
+          "?Unknown_Find_Field@@YAPAV?$DeltaTemplateClass@VDurationClass@@@@PAVDeltaCompoundClass@@ABVNameClass@@@Z",
+          "00000000"
+        ],
+        [
+          592,
+          4,
+          20,
+          "?Get_Value@?$DeltaTemplateClass@VDurationClass@@@@QBEABVDurationClass@@XZ",
+          "00000000"
+        ],
+        [
+          625,
+          4,
+          20,
+          "?Unknown_60ECA0@Unknown59E2C0Class@@QAEXVDurationClass@@@Z",
+          "00000000"
+        ],
+        [
+          649,
+          4,
+          6,
+          "??_C@_0CH@OHMB@e?3?2build?2beta?2G?2app?2client?2ui_sc@",
+          "00000000"
+        ],
+        [
+          654,
+          4,
+          6,
+          "??_C@_04KMPN@robj?$AA@",
+          "00000000"
+        ],
+        [
+          659,
+          4,
+          20,
+          "?G_Assert_Report@@YAXPBD0H@Z",
+          "00000000"
+        ],
+        [
+          667,
+          4,
+          6,
+          "??_C@_0BJ@MHKE@InterruptibleAbilityName?$AA@",
+          "00000000"
+        ],
+        [
+          676,
+          4,
+          20,
+          "??0NameClass@@QAE@PBD@Z",
+          "00000000"
+        ],
+        [
+          693,
+          4,
+          20,
+          "?Unknown_Find_Field@@YAPAVDeltaStringClass@@PAVDeltaCompoundClass@@ABVNameClass@@@Z",
+          "00000000"
+        ],
+        [
+          750,
+          4,
+          20,
+          "?_Grow@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAE_NI_N@Z",
+          "00000000"
+        ],
+        [
+          785,
+          4,
+          20,
+          "?_Eos@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEXI@Z",
+          "00000000"
+        ],
+        [
+          798,
+          4,
+          6,
+          "??_C@_0O@DMDD@Unknown?5Skill?$AA@",
+          "00000000"
+        ],
+        [
+          827,
+          4,
+          20,
+          "?_Grow@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAE_NI_N@Z",
+          "00000000"
+        ],
+        [
+          843,
+          4,
+          6,
+          "??_C@_0O@DMDD@Unknown?5Skill?$AA@",
+          "00000000"
+        ],
+        [
+          897,
+          4,
+          20,
+          "??2@YAPAXI@Z",
+          "00000000"
+        ],
+        [
+          928,
+          4,
+          6,
+          "??_C@_0O@DLGJ@MFD_INTERRUPT?$AA@",
+          "00000000"
+        ],
+        [
+          935,
+          4,
+          20,
+          "??0FontSys@@QAE@PBDPAVRenderObjClass@@0@Z",
+          "00000000"
+        ],
+        [
+          958,
+          4,
+          20,
+          "?Create_Get@@YA?AV?$RefCountPtr@VFontSys@@@@PAVFontSys@@@Z",
+          "00000000"
+        ],
+        [
+          1094,
+          4,
+          6,
+          "?_C@?1??_Nullstr@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@CAPBDXZ@4DB",
+          "00000000"
+        ],
+        [
+          1105,
+          4,
+          20,
+          "?Change_Text@FontSys@@QAEXPBDH@Z",
+          "00000000"
+        ],
+        [
+          1165,
+          4,
+          6,
+          "__except_list",
+          "00000000"
+        ]
+      ],
+      "unwind": [
+        9,
+        120,
+        [
+          [
+            0,
+            8
+          ],
+          [
+            8,
+            19
+          ],
+          [
+            19,
+            30
+          ],
+          [
+            30,
+            38
+          ]
+        ]
+      ]
+    }
+  }
+}

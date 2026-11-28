@@ -1,0 +1,146 @@
+# Claim 334 final Astra review
+
+Read-only review by gpt-6-astra high. No compilation, source/header edits,
+snapshot/alias/analysis.json changes, commits, GitHub writes, or delegation.
+No compiler gate requested or held. This review contributes zero compiled
+forms and must not be counted as another stalled compilation round.
+
+## 0x60E6A0
+
+Reviewed the entire current brief, retained1 phase boundary, all three original
+histories, complete group/focused reports, all 21 first-pass and six Sol actual
+patches and source inputs, their output records/groups and actual object
+comparisons, and the one focused accessor-local test. Historical November input
+patches are absent; their ten forms are known from history, not reconstructed.
+Read current DurationClass/base constructors, copy/assignment and Time member,
+ScannerInterface::Get_Client, ClientClass clock type, the actual E6 function,
+the solved key source/proofs, and claim312 successful source/reports/proofs.
+
+Independently replayed all 28 available inputs from the correct original or
+retained1 snapshot and verified source equality with the actual runner input
+and its SHA256. Parsed all 28 actual COFF objects, checked target body length
+and raw SHA256 against the evidence, independently reconstructed every body
+from its recorded raw-baseline byte edits, and recomputed every primary and
+context file/address and symbol/address delta against the appropriate phase.
+All checks passed. These were read-only checks; no records were regenerated.
+
+The first-pass progression is real: 86 groups to 13 via the fallback string
+assign/strlen, seven via its actual destination string reference, and five via
+the actual ClientClass pointer local. The best body is 1176 bytes / 368 rows,
+raw SHA256 4030b98772b5055f6b40450600d64f30788812b32fb085dc0735b08909c635e9.
+The relevant seven-group body already initializes EAX from ESP early, but
+holds Client in EDX and clears EDX later. The five-group body uses EAX for
+Client, clears EDX at the retail point, and then initializes EAX from ESP
+after the clock load. Retail uses ECX for Client and reserves EAX for the
+outgoing object before loading the clock. Thus the residue is a real local
+allocation/scheduling difference, not a missing clock conversion operation.
+
+The current real Duration conversion, named construction, explicit unsigned64
+cast, clock reference, default construction plus assignment, implicit by-value
+conversion and direct initialization of the actual Time member have already
+been exercised. Existing Get_Client at the genuine pointer local duplicates
+the best. Sol's direct accessor conversion introduces an unwanted accessor
+call; its bounded member follow-up returns to the known seven-group body.
+The old shared-header copy/accessor losses do not establish a new safe lever;
+current Get_Value is already declared in-class and defined inline afterwards.
+No additional existing clock API or distinct supported lifetime/control-flow
+structure emerged. Another const/pointer/reference spelling would be an
+allocation sweep without new evidence, so no Astra E6 test is proposed.
+
+The exact 0x60F1A0 sibling proves that its existing accessor and caller-owned
+names/outer filters work in that function. They are not unexplored E6 leads:
+E6's corresponding name/filter test regresses to 115 groups and its accessor
+tests are already covered. The key's unsigned biased selector is supported
+by its own retail LEA/DEC/DEC sequence, not a transferable clock operation.
+Root's actual key proof binds 293 bytes, 19 references and no EH/table to
+source 0a7c082ab52215f12baf4a8d3141f1630e27823f160ba780d5c7cffb897fa1f0;
+the 91 original exact symbol bodies/relocations/EH remain unchanged. The
+retained1 91/92 primary and 232/233 context sets remain the preservation base.
+
+No E6 candidate exists. The Create_Get 0x474080 versus 0x47D2E0 label is not
+the causal clock blocker: root proved those 21-byte bodies raw-identical,
+without branches, calls, globals or relocations. Any eventual masked candidate
+still needs the full target, addend, receiver, literal and EH audit. Matching
+unwind summaries alone prove no complete EH graph; D283 source/header filename
+payload exceptions must remain explicit, and full string parity is not claimed.
+
+Recommendation: stop the present E6 investigation with the best diagnostic
+preserved for replay, rather than adopt it without an exact gain. Reopen on
+new evidence of a real clock helper, a retail-supported lifetime/control-flow
+structure, or a demonstrated applicable compiler lever. This is bounded
+exhaustion, not a proof that all source forms are exhausted and not an extra
+compiled round merely because the reviewing model changed.
+
+## 0x60D8D0
+
+Reviewed only after the separate Sol normal cycle finished and root released
+that review boundary. Read the first/group/Sol reports, every actual replay
+and input, actual final-region comparisons, real RefCountPtr constructors,
+conversion/comparison/Peek/destruction bodies, and Sol's EH records. Original
+history has three compiled forms plus a separate zero-form semantic review.
+The present normal cycle has nine successful inputs: four first-pass, one
+valid group test and four Sol forms. The first group input is compiler-invalid
+(FAIL_IF unavailable); it is a distinct invalid input, not successful output.
+
+Independently verified all nine successful source replays, actual runner source
+equality/SHA256, parsed COFF target raw hashes/lengths and all four pair-set
+deltas. Also replayed and checked the invalid group source. The extra standalone
+first/font_new proposal exists but was never compiled; its replay is valid
+against retained1 source 0a7c082ab52215f12baf4a8d3141f1630e27823f160ba780d5c7cffb897fa1f0,
+and produces a687e97aa207082756e09e3f507b3ad4557f108b0dcc7888b02bfefdafd0bfd6.
+It is not a missing successful run or grounds to add a compile for accounting.
+
+Best construction_local is 1177 executable bytes, 369 rows, ten register-only
+alignment groups, raw SHA256
+7d6493b910320cbe4c46db51fc1e86d8cc2a80b404536b34af629506d3b0379b,
+masked SHA256
+285dbc5fc96605651ae302e8305170689ec1d43e064059c8680bb815f8268324.
+Its real construction result local permits the RObj read before publishing
+InterruptInfo, matching retail. The remaining region reverses EBP/EDI:
+retail assigns Get_Sort_Level's result to EBP, fallback 8 to EDI, then reuses
+EDI for EH state8 and the eventual level-minus-one result. The candidate uses
+EDI for level and EBP for fallback throughout. The rest of the visible body
+already agrees in instruction shape; no missing operation emerges here.
+
+The real Peek local, font construction-result locals and existing temporary
+bound by const reference duplicate that body. Moving fallback initialization
+earlier gives 11 groups with the wrong order relative to the virtual call.
+Both Sol success/fallback joins give 11 groups and 370 rows: fallback 8 moves
+after cleanup, EH8 becomes immediate, and dec/jmp replaces retail's lea into
+the separate sort register. The null-left helper adds setne/test and gives
+12 groups; its exact success in client_lego_impl does not establish a further
+helper spelling here. None cuts a region or reveals a new causal lead.
+
+The Create_NEW combined form has +1/-0 file/address but +2/-1 symbol/address
+deltas in both primary/context comparisons; the const-reference frame form
+has unchanged file sets but +3/-3 symbol triples (generated initializer names
+at 0x610130, 0x6103E0 and 0x610510). Counts alone hide these changes. Both are
+rejected diagnostics. All other successful forms preserve the full retained1
+sets. The solved key and old exact sibling remain present in every run.
+
+Independently re-extracted all four Sol objects' handler, FuncInfo, predecessor
+and cleanup bytes/relocations/addends and verified them against the actual EH
+records. All have nine predecessor -1 entries and cleanup lengths
+11/11/11/11/11/8/11/8/8: six allocation deletes, two Font ownership cleanups,
+one Render ownership cleanup. This validates the reported object records;
+Sol supplied the retail comparison. It is not a new full target/receiver/
+literal audit, and neither an unchanged summary nor the EH graph establishes
+the unmatched body as a candidate. D283 payload exceptions remain explicit.
+
+No new supported existing helper, ownership lifetime, or control-flow source
+distinction emerged after the observed duplicate and worse forms. An alternate
+null-test spelling or scalar declaration shuffle would not supply a causal
+lever beyond those results. Recommend stopping D8 with the best diagnostic
+preserved, reopening only on new retail/source evidence or a demonstrated
+applicable real helper/lifetime/compiler effect. No Astra D8 compile proposed.
+
+## Final disposition
+
+Both remaining functions stay unmatched; this final review adds zero forms
+and does not manufacture a second stalled compilation round. Keep the one
+proven key gain in commit 8045b1b026a984c2970d8bddd5d05980f1c9ba5b,
+whose actual-commit native preflight passed +1/-0 with the normal unchanged
+context objects. Do not retain an unmatched best diagnostic as a claimed gain.
+No gate, compiler jobs, leases or shared mutations were created by this worker;
+only this scratch report was written. Model gpt-6-astra high; token usage is
+not available from the harness.

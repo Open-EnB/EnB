@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-448 entries in 220 files.
+447 entries in 220 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -291,7 +291,6 @@ edit the comments in the code, not this file.
 | `app/client/ui_registration.cpp:2970` | `RegistrationInterface::Unknown_5FBD30` | marker | NOT EXACT: inline-budget (functional; group loops through 0x5F33E0, pushes through 0x5F87D0, back-outs through 0x5F8560, server boxes through 0x5FB890, email checks through 0x5F8F60, case 6 switch(Unknown26C), cases 0x11 / 0x14 / 0x12 written out; combo boxes' Selected through UIComboBoxClass::Get_Selected (0x5FFFE0, out of line at cases 0xB / 0xE; the three month reads go through it), the days / ... |
 | `app/client/ui_registration.cpp:3680` | `RegistrationInterface::Unknown_5F00C0` | marker | NOT EXACT: inline-budget (functional; the server boxes through 0x5FB890 and the back-outs through 0x5F8560 as the client inlines them, one per branch; its cases in jump table 0x602AE4's layout order, case 3's !+0x1CE branch first, case 1's !Unknown11B and cases 8/9 !Unknown_7D9790 forms, the US picks through 0x603B20; case 4's 7D8D60 request after the case's last return (goto); frame 0xB18, eight ... |
 | `app/client/ui_scan.cpp:68` | `ScannerInterface::Unknown_54` | marker | NOT EXACT: registers (K2: 36 masked rows, was 37; rows 368/369): the client's redundant level != 0 test before level > 1 kept (0x60DD25); left: register choices (ebp/edi/ebx) and the EH state -1 from ebx (the client or ebp, -1) @0x60D8D0 |
-| `app/client/ui_scan.cpp:305` | `ScannerInterface::Unknown_68` | marker | NOT EXACT: register (TL1; similarity 0.54, WE9's 0.51): the client keeps the key's slot for next and this in ecx, tests the key as -5 then dec, dec @0x60E300 |
 | `app/client/ui_scan.cpp:500` | `ScannerInterface::Unknown_88` | marker | NOT EXACT: order (WE9; similarity 0.85): the client builds the old target's Remove arguments before calling 0x4F7EF0, ours after @0x60E580 |
 | `app/client/ui_scan.cpp:555` | `ScannerInterface::Unknown_60E6A0` | marker | NOT EXACT: inline-budget (IB2; similarity 0.53): the finds out of line as the client (0x610290, 0x514BD0) through two inline layers, and with them the cleared name's assign(const char *, size_type) (0x42D050); the client also reads the time through 0x60ECD0 (the time field's Get_Value, declared in the class and defined inline after it in delta_template.h, D3 2026-11-22); registers differ @0x60E6A0 |
 | `app/client/ui_scut.cpp:485` | `UIScutBarClass::Unknown_611300` | marker | NOT EXACT: register (the allocator byte through al, FirstId + lp in edi; the call structure is the client's) |
