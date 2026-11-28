@@ -927,6 +927,9 @@
 "?Get_Free_Count@WWMemoryLogClass@@SAHXZ": [
 "0x9EDF10"
 ],
+"?Get_Free_Texture_RAM@DX8Wrapper@@SAIXZ": [
+"0x926E60"
+],
 "?Get_Horizontal_FOV@CameraClass@@QBEMXZ": [
 "0x945990"
 ],
