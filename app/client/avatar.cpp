@@ -3650,53 +3650,53 @@ void AvatarClass::Unknown_788EF0()
 // 0x788F90
 // the teleport effect 'av_tele0N' and its animation into +0x370 / +0x374, put in the body's scene on the avatar,
 // hidden until 0x7896B0 plays it; +0x37C the time it runs, +0x378 the time left at which 0x7897D0 shows / hides the body
-// NOT EXACT: inline-budget + Matrix3D copy scheduling (0x788FF3 / 0x789009 operator=(NULL) and case 4 RefCountPtr calls inlined here, out of line in client; [esi+0x338] vs [esi+0x330])
+// the reset is 0x788EF0 called (its operator=(NULL) pair out of line), case 2's hide is 0x786370(true), the render objects Create_NEW (the client calls 0x47D2E0, 0x77DA20's Create_NEW) and the matrix copy-constructed (terra50 v41, B12)
 void AvatarClass::Unknown_788F90(int mode)
 {
 	if (BodyObj == NULL || Unknown380 == mode) {
 		return;
 	}
-	if (Unknown370) {
-		Unknown370->Set_Animation();
-		Unknown370->Remove();
-		Unknown370 = NULL;
-	}
-	if (Unknown374) {
-		Unknown374 = NULL;
-	}
-	Unknown378 = -100.0f;
-	Unknown37C = 0.0f;
+	Unknown_788EF0();
+
+
+
+
+
+
+
+
+
 	Unknown380 = mode;
 	if (mode == 0) {
 		return;
 	}
 	switch (mode) {
 		case 1:
-			Unknown370 = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele01"));
+			Unknown370 = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele01"));
 			Unknown374 = Create_Get(WW3DAssetManager::Get_Instance()->Get_HAnim("av_tele01a.Av_tele01a-1"));
 			Unknown378 = 0.7f;
 			Unknown37C = 3.2f;
 			break;
 		case 2:
-			Unknown370 = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele03"));
+			Unknown370 = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele03"));
 			Unknown374 = Create_Get(WW3DAssetManager::Get_Instance()->Get_HAnim("av_tele03a.Av_tele03a-1"));
-			if (BodyObj) {
-				BodyObj->Set_Hidden(1);
-			}
-			if (HeadObj) {
-				HeadObj->Set_Hidden(1);
-			}
+			Unknown_786370(true);
+
+
+
+
+
 			Unknown378 = 0.5f;
 			Unknown37C = 1.0f;
 			break;
 		case 3:
-			Unknown370 = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele02"));
+			Unknown370 = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele02"));
 			Unknown374 = Create_Get(WW3DAssetManager::Get_Instance()->Get_HAnim("av_tele02a.Av_tele02a-1"));
 			Unknown378 = 0.5f;
 			Unknown37C = 1.0f;
 			break;
 		case 4:
-			Unknown370 = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele04"));
+			Unknown370 = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele04"));
 			Unknown374 = Create_Get(WW3DAssetManager::Get_Instance()->Get_HAnim("av_tele04a.Av_tele04a-1"));
 			Unknown_786370(true);
 			Unknown378 = 0.0f;
@@ -3708,8 +3708,8 @@ void AvatarClass::Unknown_788F90(int mode)
 	if (!Unknown36C) {
 		Unknown370->Set_Transform(Get_Transform());
 	} else {
-		Matrix3D m;
-		m = Unknown330;
+		Matrix3D m(Unknown330);
+
 		Unknown370->Set_Transform(m);
 	}
 	Unknown370->Set_Hidden(1);
