@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
 | 3 | by convention from a client-named file or sibling | 1898 |
 | 2 | describes what the code does | 4965 |
-| 1 | neutral placeholder | 25250 |
+| 1 | neutral placeholder | 25254 |
 
 ## For review (score 3 and below)
 
@@ -17939,6 +17939,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown214` | `app/client/ui_shipcust.cpp:541` | untagged neutral name (D10) |
 | 1 | `Unknown215` | `app/client/ui_shipcust.cpp:542` | untagged neutral name (D10) |
 | 1 | `Unknown218` | `app/client/ui_shipcust.cpp:543` | untagged neutral name (D10) |
+| 1 | `Unknown220` | `app/client/ui_shipcust.cpp:544` | untagged neutral name (D10) |
+| 1 | `Unknown224` | `app/client/ui_shipcust.cpp:544` | untagged neutral name (D10) |
+| 1 | `Unknown228` | `app/client/ui_shipcust.cpp:544` | untagged neutral name (D10) |
 | 1 | `Unknown22C` | `app/client/ui_shipcust.cpp:544` | untagged neutral name (D10) |
 | 1 | `Unknown248` | `app/client/ui_shipcust.cpp:547` | untagged neutral name (D10) |
 | 1 | `Unknown24C` | `app/client/ui_shipcust.cpp:548` | untagged neutral name (D10) |
@@ -17947,7 +17950,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown260` | `app/client/ui_shipcust.cpp:552` | untagged neutral name (D10) |
 | 1 | `Unknown264` | `app/client/ui_shipcust.cpp:553` | untagged neutral name (D10) |
 | 1 | `Unknown268` | `app/client/ui_shipcust.cpp:554` | untagged neutral name (D10) |
-| 1 | `Unknown220` | `app/client/ui_shipcust.cpp:557` | untagged neutral name (D10) |
 | 1 | `Unknown_28` | `app/client/ui_shipcust.cpp:559` | untagged neutral name (D10) |
 | 1 | `Unknown14` | `app/client/ui_shipcust.cpp:560` | untagged neutral name (D10) |
 | 1 | `Unknown_08` | `app/client/ui_shipcust.cpp:560` | untagged neutral name (D10) |
@@ -18134,6 +18136,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown218` | `app/client/ui_shipcust.h:118` | untagged neutral name (D10) |
 | 1 | `Unknown21C` | `app/client/ui_shipcust.h:119` | untagged neutral name (D10) |
 | 1 | `Unknown220` | `app/client/ui_shipcust.h:120` | untagged neutral name (D10) |
+| 1 | `Unknown224` | `app/client/ui_shipcust.h:120` | untagged neutral name (D10) |
+| 1 | `Unknown228` | `app/client/ui_shipcust.h:120` | untagged neutral name (D10) |
 | 1 | `Unknown22C` | `app/client/ui_shipcust.h:121` | untagged neutral name (D10) |
 | 1 | `Layer` | `app/client/ui_shipcust.h:122` | as ui_login.cpp's |
 | 1 | `Page` | `app/client/ui_shipcust.h:123` | what it holds |

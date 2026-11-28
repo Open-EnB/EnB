@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-403 entries in 208 files.
+402 entries in 208 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -273,7 +273,6 @@ edit the comments in the code, not this file.
 | `app/client/ui_ship_cust.cpp:1489` | `StarbaseShipCustomizeInterface::Unknown_61DBF0` | marker | NOT EXACT: register (0.62: the client loads the avatar id into eax, VC6 here into edx; the rest is the same) |
 | `app/client/ui_ship_cust.cpp:2143` | `StarbaseShipCustomizeInterface::Unknown_61F250` | marker | NOT EXACT: functional (D64) @0x61F250 |
 | `app/client/ui_shipcust.cpp:232` | `Unknown620D20Class::Unknown_621390` | marker | NOT EXACT: functional (D64) @0x621390 |
-| `app/client/ui_shipcust.cpp:531` | `ShipCustomizeInterface::ShipCustomizeInterface` | marker | NOT EXACT: functional (D64) @0x622180 |
 | `app/client/ui_shipcust.cpp:1349` | `ShipCustomizeInterface::Unknown_624E50` | marker | NOT EXACT: functional (D64) @0x624E50 |
 | `app/client/ui_shipcust.cpp:1908` | `ShipCustomizeInterface::Unknown_627200` | marker | NOT EXACT: functional (D64) @0x627200 |
 | `app/client/ui_skills.cpp:187` | `UISkillsClass::Unknown_62D730` | marker | NOT EXACT: functional (D64), from the pseudocode |
