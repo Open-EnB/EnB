@@ -178,7 +178,7 @@ void UIRadioJoinClass::Unknown_5EB2F0()
 	packet.Unknown24 = std::string(Entry->Get_Text());
 	packet.Unknown34 = std::string("");
 	((ClientClass *)Client)->Send_Packet(&packet);
-	chat->Unknown_5680B0(std::string(Entry->Get_Text()));
+	const char *name = Entry->Get_Text(); chat->Unknown_5680B0(std::string(name, std::char_traits<char>::length(name)));
 	chat->Unknown225 = true;
 }
 

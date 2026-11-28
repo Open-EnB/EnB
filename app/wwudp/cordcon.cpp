@@ -2099,7 +2099,7 @@ bool CordCon::buildHeader(unsigned char *out, int *len, unsigned short *counter)
 	int entries = 0;
 	int last = 0;
 	unsigned int seq = 0;
-	*(unsigned short *)(out + 1) = htons((unsigned short)Session_);
+	unsigned short session = (unsigned short)Session_; session = htons(session); *(unsigned short *)(out + 1) = session;
 	*counter = (unsigned short)PacketsOut_;
 	*(unsigned short *)(out + 3) = htons(*counter);
 	*(unsigned long *)(out + 5) = htonl(0);

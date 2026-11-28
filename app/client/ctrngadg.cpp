@@ -184,7 +184,7 @@ bool CtrnGadgetClass::Unknown_2C(KernelEventClass *event, float x, float y, unsi
 			((SpaceClientClass *)Client)->CameraManager->Set_Distance(zoom);
 			((SpaceClientClass *)Client)->CameraManager->Unknown28 = true;
 		} else {
-			if (!ctrl) goto release;
+			if (ctrl) {
 			if (Unknown44) {
 				x = ((SpaceClientClass *)Client)->CameraManager->Get_Heading();
 				y = ((SpaceClientClass *)Client)->CameraManager->Get_Tilt();
@@ -199,7 +199,7 @@ bool CtrnGadgetClass::Unknown_2C(KernelEventClass *event, float x, float y, unsi
 			}
 			((SpaceClientClass *)Client)->CameraManager->Set_Heading(x);
 			((SpaceClientClass *)Client)->CameraManager->Set_Tilt(y);
-			((SpaceClientClass *)Client)->CameraManager->Unknown28 = true;
+			((SpaceClientClass *)Client)->CameraManager->Unknown28 = true; } else goto release;
 		}
 	}
 	Unknown_42ED20(0.5f, 0.5f);

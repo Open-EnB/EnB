@@ -663,11 +663,11 @@ bool CordMgr::Process_Go_Away_Packet(unsigned char *data, int len, sockaddr_in *
 		return false;
 	}
 	unsigned int ip = ntohl(*(unsigned int *)(data + 1));
-	unsigned short port = ntohs(*(unsigned short *)(data + 5));
+	unsigned short port = *(unsigned short *)(data + 5); port = ntohs(port);
 	unsigned char type = data[7];
-	unsigned short session = ntohs(*(unsigned short *)(data + 8));
+	unsigned short session = *(unsigned short *)(data + 8); session = ntohs(session);
 	CordCon *con = NULL;
-	CordConnectingClass *c = NULL;
+
 	switch (type) {
 		case 4:
 		case 5:
@@ -681,7 +681,7 @@ bool CordMgr::Process_Go_Away_Packet(unsigned char *data, int len, sockaddr_in *
 					unsigned int cip = con->Ip_;
 					if (ntohl(from->sin_addr.s_addr) == cip) {
 						unsigned short cport = con->Port_;
-						if (ntohs(from->sin_port) == cport && session == con->Session_) {
+						if (ntohs(from->sin_port) == cport && con->Session_ == session) {
 							con->Go_Away();
 							return true;
 						}
@@ -693,7 +693,7 @@ bool CordMgr::Process_Go_Away_Packet(unsigned char *data, int len, sockaddr_in *
 		case 0:
 		case 2:
 		{
-			for (int p = 0; p < Pending_.length(); p++) {
+			CordConnectingClass *c = NULL; for (int p = 0; p < Pending_.length(); p++) {
 				Pending_.get(c, p);
 				uint32 lip = 0;
 				unsigned short lport = 0;
