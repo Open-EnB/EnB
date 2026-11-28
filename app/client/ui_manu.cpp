@@ -1501,13 +1501,13 @@ void UIManuClass::Unknown_5B4B10()
 	Unknown_5B1AF0(3, true, text);
 
 	UIManuTechLevelFilterClass *filter = Unknown_Find_Valid<UIManuTechLevelFilterClass>((DeltaContainer *)Unknown0BA0, AuxDataName("TechLevelFilterBitfield"));
-	if (filter) {
+	if (filter) { unsigned int bits = filter->Value;
 		for (int i = 1; i < 10; i++) {
-			Unknown_5B67C0(i, (filter->Value & (1 << (i - 1))) != 0, 1);
+			Unknown_5B67C0(i, (bits & (1 << (i - 1))) != 0, 1);
 		}
 	}
+	(void)(Unknown0BA0 + 1);	// a dead member sum (D272): grows the inline budget at the end (trybatch res 65 -> 38 with the bits hoisted)
 }
-
 
 Unknown831340Class *Unknown_8318B0(int item_template_id, ClientClass *client);	// item_template.cpp's (client.h's item template)  // NAME 1: neutral (D10)  // NAME 3 [item_template_id]: the FAIL_IF's
 // 0x5B5CD0
