@@ -146,7 +146,7 @@ void DisplacementMapLandClass::Read_Registry(void)
 }
 
 
-// 0x466F60: the scale factors are by-value Vector3 copies of the field's spacing (the client's integer-move temporaries, frame
+// 0x466F60: the scale factors are by-value Vector3 copies of the field's spacing (Get_Scale() returns by value: the client's integer-move temporaries, frame
 // 0x220); the DWORD one read as constant 4's float bits gives the client's second store of 1 (+0x4C)
 
 void DisplacementMapLandClass::Unknown_466F60(RenderInfoClass &rinfo)
@@ -154,10 +154,10 @@ void DisplacementMapLandClass::Unknown_466F60(RenderInfoClass &rinfo)
 	if (!Unknown11) {
 		return;
 	}
-	const Vector3 &sc = Field->Get_Scale();
+
 	float size = (float)(unsigned int)Field->Get_Size();
 	D3DXMATRIX scale;
-	D3DXMatrixScaling(&scale, Vector3(sc).X * size, Vector3(sc).Y * size, Vector3(sc).Z * size);
+	D3DXMatrixScaling(&scale, Field->Get_Scale().X * size, Field->Get_Scale().Y * size, Field->Get_Scale().Z * size);
 
 
 
