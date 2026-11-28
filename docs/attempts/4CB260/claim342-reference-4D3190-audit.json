@@ -1,0 +1,51 @@
+{
+  "object_sha256": "54e75b922b8c5496d98e91da97ce37b03d71ffc4647180e46630ab4407627a27",
+  "source_sha256": "70eb648b5fbfa70f0855c52228e0dd08289c738444fb2ff88dd57a0ed63dc2ba",
+  "functions": [
+    {
+      "symbol": "?Visit_Leaf@ExprMathInfixPrinterClass@@UAEXPAVExprMathTreeClass@@@Z",
+      "va": "0x4d3190",
+      "length": 41,
+      "relocations": [
+        {
+          "offset": "0x5",
+          "symbol": "?Get_Token@ExprMathTreeClass@@QBEABVExprMathTokenClass@@XZ",
+          "kind": 20,
+          "addend": "0x0",
+          "linked": "0x4165b3",
+          "resolved": "0x4d27d0"
+        },
+        {
+          "offset": "0x14",
+          "symbol": "?_C@?1??_Nullstr@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@CAPBDXZ@4DB",
+          "kind": 6,
+          "addend": "0x0",
+          "linked": "0xae70a4",
+          "resolved": "0xae70a4"
+        },
+        {
+          "offset": "0x1a",
+          "symbol": "??_C@_02DILL@?$CFs?$AA@",
+          "kind": 6,
+          "addend": "0x0",
+          "linked": "0xb73c28",
+          "resolved": "0xb73c28"
+        },
+        {
+          "offset": "0x1f",
+          "symbol": "_printf",
+          "kind": 20,
+          "addend": "0x0",
+          "linked": "0xa26beb",
+          "resolved": "0xa26beb"
+        }
+      ],
+      "handler": null,
+      "states": [],
+      "predecessors": []
+    }
+  ],
+  "semantic_graph_pass": true,
+  "full_literal_payload_parity": true,
+  "exceptions": []
+}

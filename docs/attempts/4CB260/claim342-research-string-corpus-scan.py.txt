@@ -1,0 +1,32 @@
+import json,sys
+from pathlib import Path
+sys.dont_write_bytecode=True
+R=Path('/home/dev/Projects/EnB');W=R/'.work/claim-342';O=W/'astra-research'
+sys.path.insert(0,str(R/'tools/re'))
+from objmatch import CoffObject
+import capstone
+md=capstone.Cs(capstone.CS_ARCH_X86,capstone.CS_MODE_32)
+plan=json.loads((W/'global-baseline/plan.json').read_text());matches={}
+for p in (W/'global-baseline').glob('*-matches.json'):
+ for m in json.loads(p.read_text()):
+  if m['status']=='exact':matches[(p.stem[:-8],m['object'],m['symbol'])]=m
+out=[]
+for n,(src,lib) in enumerate(plan['units'].items(),1):
+ path=W/'global-baseline'/str(n)/(Path(src).stem+'.obj');obj=CoffObject(str(path))
+ for sym,sec,s,e in obj.functions():
+  m=matches.get((lib,path.name,sym))
+  if not m:continue
+  rels=obj.reloc_targets(sec,s,m['length'])
+  refs=[a for a,b,c,x,d in rels if x and x['name'].startswith('?_C@?1??_Nullstr@')]
+  if not refs:continue
+  info=obj.sections[sec];ins=list(md.disasm(obj.data[info['raw']+s:info['raw']+s+m['length']],0));examples=[]
+  for a in refs:
+   j=next((k for k,i in enumerate(ins) if i.address<=a<i.address+i.size),None)
+   if j is None or j<2:continue
+   i=ins[j];prev=ins[j-1]
+   if i.mnemonic=='mov' and prev.mnemonic=='jne' and prev.op_str==hex(i.address+i.size):
+    examples.append([[z.address,z.mnemonic,z.op_str] for z in ins[max(0,j-4):j+5]])
+  if examples:out.append(dict(source=src,object=str(path),symbol=sym,name=m['name'],addresses=m['addresses'],length=m['length'],examples=examples))
+(O/'buffer-first.json').write_text(json.dumps(out,indent=2))
+print('exact buffer-first functions',len(out))
+for x in sorted(out,key=lambda x:x['length'])[:50]:print(x['addresses'],x['name'],x['source'],x['length'])

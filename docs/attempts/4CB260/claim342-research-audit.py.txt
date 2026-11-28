@@ -1,0 +1,80 @@
+"""Explicit-object proof; audit output is separate from executable/retail data."""
+from pathlib import Path
+import argparse,hashlib,json,os,re,struct,sys
+ROOT=Path('/home/dev/Projects/EnB'); W=ROOT/'.work/claim-342'
+sys.path.insert(0,str(ROOT/'tools/re'))
+os.environ['ENB_RETAIL_INSTALL']='/home/dev/Games/earth-and-beyond/prefix/drive_c/Program Files (x86)/EA GAMES/Earth & Beyond'
+from objmatch import CoffObject,symbol_addresses,object_unwind,client_funcinfos,_state_pattern,_state_match,_whole_text
+from clientimage import ClientImage
+P=argparse.ArgumentParser();P.add_argument('object');P.add_argument('--source',required=True);P.add_argument('--matches',required=True);P.add_argument('--out',required=True);P.add_argument('--prefix',required=True);P.add_argument('--address',type=lambda s:int(s,0),required=True);args=P.parse_args()
+exceptions=[]
+obj=CoffObject(args.object);img=ClientImage();thunks=img.incremental_thunks();known=symbol_addresses()
+for values in json.loads((ROOT/'docs/data/called.json').read_text()).values():
+    for n,addresses in values.items():known.setdefault(n,set()).update(int(a,16) for a in addresses)
+# Resolve named incremental-link stubs using their actual jump targets.
+for n,addresses in list(known.items()):
+    if n.startswith('j_'):
+        for address in addresses:
+            if address in thunks:known.setdefault(n[2:],set()).add(thunks[address])
+for r in json.loads(Path(args.matches).read_text()):
+    if r['status']=='exact':known.setdefault(r['symbol'],set()).update(int(x,16) for x in r['addresses'])
+def bytes_at(sec,off,length):
+    info=obj.sections[sec];return obj.data[info['raw']+off:info['raw']+off+length]
+def retail(va,length):return img.data[img.offset(va):img.offset(va)+length]
+def u32(data):return struct.unpack('<I',data)[0]
+def relocations(sec,start,length,va,extra=None):
+    extra=extra or {};out=[];raw=bytearray(bytes_at(sec,start,length));client=retail(va,length)
+    for off,width,kind,sym,add in obj.reloc_targets(sec,start,length):
+        assert width==4 and kind in (6,20),(off,width,kind)
+        n=sym['name'];value=u32(client[off:off+4]);a=u32(add)
+        linked=(va+off+4+struct.unpack('<i',client[off:off+4])[0])&0xffffffff if kind==20 else value
+        target=thunks.get(linked,linked)
+        if n in extra: assert value==extra[n]+a,(n,hex(value),a,extra[n])
+        elif sym['section']-1==sec:
+            assert kind==6 and value==va+sym['value']-start+a,(n,hex(value),sym,a)
+        elif n.startswith('??_C@'):
+            assert kind==6 and a==0
+            literal=obj.literal(sym)
+            if literal is None and n=='??_C@_00A@?$AA@':literal=b'\0'
+            assert literal is not None,(n,hex(value))
+            other=retail(value,len(literal))
+            assert literal==other,(n,hex(value),literal,other)
+        elif n.startswith('__real@'):
+            size=int(n.split('@')[1]);assert kind==6 and a==0
+            assert bytes_at(sym['section']-1,sym['value'],size)==retail(value,size),(n,hex(value))
+        elif n=='__except_list':assert kind==6 and value==a==0
+        elif n.startswith('?_C@?1??_Nullstr@'):
+            assert kind==6 and a==0 and bytes_at(sym['section']-1,sym['value'],1)==retail(value,1)==b'\0'
+        else:
+            assert target-a in known.get(n,set()),('UNRESOLVED',n,hex(target),a,known.get(n))
+        raw[off:off+4]=client[off:off+4]
+        out.append(dict(offset=hex(off),symbol=n,kind=kind,addend=hex(a),linked=hex(linked),resolved=hex(target)))
+    assert raw==client,('UNMASKED',hex(va),length)
+    return out
+def audit(prefix,va):
+    name,sec,start,end=next(x for x in obj.functions() if x[0].startswith(prefix))
+    _,_,length=obj.pattern(sec,start,end);un=object_unwind(obj,sec,start,length);extra={};states=[];op=[];handler=None
+    if un:
+        handler=img.u32(va+un[0]);hsym=next(r[3] for r in obj.reloc_targets(sec,start,length) if r[0]==un[0]);extra[hsym['name']]=handler
+        hsec=hsym['section']-1;hoff=hsym['value'];hr=obj.reloc_targets(hsec,hoff,10)
+        fi=next(r for r in hr if r[0]==1);fs=fi[3];fo=fs['value']+u32(fi[4]);fsec=fs['section']-1
+        fva=img.u32(handler+1);hrels=relocations(hsec,hoff,10,handler,{fs['name']:fva-u32(fi[4])})
+        ov=struct.unpack('<7I',bytes_at(fsec,fo,28));cv=struct.unpack('<7I',retail(fva,28))
+        assert (ov[0],ov[1],ov[3:])==(cv[0],cv[1],cv[3:]) and ov[3:]==(0,0,0,0),(ov,cv)
+        maps,_=client_funcinfos(img);cm=maps[handler];assert len(cm)==len(un[2]);text,base=_whole_text(img)
+        mr=next(r for r in obj.reloc_targets(fsec,fo,28) if r[0]==8);ms=mr[3];msec=ms['section']-1;mo=ms['value']+u32(mr[4])
+        op=[struct.unpack('<i',bytes_at(msec,mo+8*i,4))[0] for i in range(len(cm))]
+        cp=[struct.unpack('<i',retail(cv[2]+8*i,4))[0] for i in range(len(cm))];assert op==cp
+        for i,(state,cf) in enumerate(zip(un[2],cm)):
+            if state is None:assert cf==0;states.append(None);continue
+            assert _state_match(_state_pattern(obj,un[1],state),cf,text,base)
+            states.append(dict(state=i,va=hex(cf),relocations=relocations(un[1],state[0],state[1]-state[0],cf)))
+    out=dict(symbol=name,va=hex(va),length=length,relocations=relocations(sec,start,length,va,extra),handler=hex(handler) if handler else None,states=states,predecessors=op)
+    if un:out.update(handler_relocations=hrels,funcinfo_values_compiled=ov,funcinfo_values_retail=cv)
+    return out
+out=dict(object_sha256=hashlib.sha256(Path(args.object).read_bytes()).hexdigest(),source_sha256=hashlib.sha256(Path(args.source).read_bytes()).hexdigest(),functions=[])
+for prefix,va in [(args.prefix,args.address)]:
+    out['functions'].append(audit(prefix,va))
+out.update(semantic_graph_pass=True,full_literal_payload_parity=not exceptions,exceptions=exceptions)
+Path(args.out).write_text(json.dumps(out,indent=2)+'\n')
+print('PASS' if not exceptions else 'SEMANTIC GRAPH PASS; EXISTING FILEPATH PAYLOAD DIFFERENCES',[(x['va'],x['length'],len(x['relocations']),len(x['states'])) for x in out['functions']])

@@ -1,0 +1,31 @@
+import sys,json,struct
+from pathlib import Path
+sys.dont_write_bytecode=True
+R=Path('/home/dev/Projects/EnB');W=R/'.work/claim-342';O=W/'research-review'
+sys.path.insert(0,str(R/'tools/re'));sys.path.insert(0,str(W))
+from objmatch import CoffObject,object_unwind,client_funcinfos,_state_pattern,_state_match,_whole_text,symbol_addresses,eh_stubs
+from preservation import graph
+from clientimage import ClientImage
+img=ClientImage('/home/dev/Games/earth-and-beyond/prefix/drive_c/Program Files (x86)/EA GAMES/Earth & Beyond/release/client.exe');thunks=img.incremental_thunks();known=symbol_addresses()
+for p in (W/'global-baseline').glob('*-matches.json'):
+ for m in json.loads(p.read_text()):
+  if m['status']=='exact':known.setdefault(m['symbol'],set()).update(int(a,16) for a in m['addresses'])
+for n,vals in list(known.items()):
+ if n.startswith('j_'):known.setdefault(n[2:],set()).update(thunks.get(a,a) for a in vals)
+text,base=_whole_text(img);maps,_=client_funcinfos(img);out=[]
+for addr,stem,letter,length in [(0x4cfb00,'expr_math_int','H',799),(0x4cb260,'expr_math_float','M',805)]:
+ p=W/'runs/sol_int_subscript_dereference'/(stem+'.obj');obj=CoffObject(str(p));f=next(x for x in obj.functions() if x[0].startswith('?Visit_Binary@?$ExprMathBuildVisitorClass@'+letter));_,sec,s,e=f
+ un=object_unwind(obj,sec,s,length);g=graph(obj,f,length);handler=img.u32(addr+un[0]);fi=eh_stubs(img)[handler];_,ns,mp=struct.unpack_from('<III',img.data,fi)
+ pred=[struct.unpack_from('<i',img.data,img.offset(mp)+8*k)[0] for k in range(ns)];states=[]
+ for k,(bounds,va) in enumerate(zip(un[2],maps[handler])):
+  assert _state_match(_state_pattern(obj,un[1],bounds),va,text,base)
+  rel=[]
+  for off,width,typ,sym,add in obj.reloc_targets(un[1],bounds[0],bounds[1]-bounds[0]):
+   assert width==4 and typ==20
+   dest=(va+off+4+struct.unpack_from('<i',img.data,img.offset(va+off))[0])&0xffffffff;dest=thunks.get(dest,dest)
+   addend=struct.unpack('<I',add)[0];expected=known.get(sym['name'],set());ok=dest-addend in expected
+   rel.append(dict(offset=off,symbol=sym['name'],destination=hex(dest),expected=[hex(x) for x in sorted(expected)],match=ok));assert ok,rel[-1]
+  states.append(dict(state=k,predecessor=pred[k],retail_action=hex(va),fixed_bytes_match=True,relocations=rel))
+ assert pred==g['eh']['predecessors']
+ out.append(dict(address=hex(addr),object=str(p),predecessors=pred,states=states))
+(O/'target-eh-check.json').write_text(json.dumps(out,indent=2)+'\n');print('PASS six predecessor/action maps, both targets; main bodies remain unmatched')
