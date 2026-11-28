@@ -1,0 +1,4 @@
+{
+ "description": "Skeleton translation unit (D286): gadget_collection_interface.h alone, as Westwood kept beside a header-only class; compiles to an empty object (no section but its directives), one of the rich header's 47 code-less C++ objects; name PROVISIONAL (D137)",
+ "name": "client/gadget_collection_interface.cpp"
+}

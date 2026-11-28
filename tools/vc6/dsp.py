@@ -23,6 +23,14 @@ out"), from the client's evidence and Renegade's commando.dsw:
 Projects: the EA libraries (LIBS), the app folders' libraries and `main`, the exe: the IDE's build of the one
 client build (build.py's `link --program client`: the original sources and every library, no stand-in, no
 /force:unresolved; its libraries in PROGRAMS['client']'s link order). CLIENT_PROJECT names it for callers.
+
+The exact workspace app\\main\\exact\\main.dsw (the user, 2026-11-27): the IDE's build of build.py's `client-exact`.
+Its `main` lists every object's source itself, in retail's object order (build.exact_order: the IDE links a
+project's objects in its file order, a library's members only by LINK's walk), with the EA libraries as
+dependencies, retail's library order, /debug /incremental:yes /fixed:no, retail's PDB path (through the alias
+E:\\build\\beta\\G, the repository: the PDB lands in app\\main\\client_release, the project's output folder) and
+retail's resources. Its inputs come from build.py: build\\res\\client.res and build\\mss32\\exact\\mss32.lib (the long
+import format once a `build.py link --program client-exact` has run).
 """
 import argparse
 import os
@@ -43,6 +51,8 @@ SDK_LIB = B.SDK_LIB
 MAIN_DIR = os.path.join('app', 'main')
 CLIENT_PROJECT = 'main'      # the exe project: the client (app\main\client_release\client.exe, client.map)
 CLIENT_PROGRAM = 'client'    # build.py's PROGRAMS entry whose libraries and system libraries the exe links
+EXACT_DIR = os.path.join('app', 'main', 'exact')
+EXACT_WORKSPACE = os.path.join(EXACT_DIR, 'main.dsw')
 
 
 def rel(path, start):
@@ -71,7 +81,7 @@ def repo_rel(path):
 
 class Project:
     def __init__(self, name, directory, kind, sources, flags, defines, includes, file_flags=None,
-                 file_defines=None, deps=(), link=None, headers=()):
+                 file_defines=None, deps=(), link=None, headers=(), ordered=False, out_dir=None):
         self.name = name
         self.dir = directory              # repository-relative directory holding the .dsp
         self.kind = kind                  # 'lib' or 'exe'
@@ -83,6 +93,8 @@ class Project:
         self.deps = list(deps)
         self.link = link or []            # exe: LINK32 inputs and options
         self.headers = list(headers)
+        self.ordered = ordered            # sources in their given order, one group (the exact project's link order)
+        self.out_dir = out_dir or CONFIG
 
     @property
     def dsp(self):
@@ -153,7 +165,7 @@ class Project:
              'RSC=rc.exe', '',
              '# PROP Use_MFC 0',
              '# PROP Use_Debug_Libraries 0',
-             f'# PROP Output_Dir "{CONFIG}"',
+             f'# PROP Output_Dir "{self.out_dir}"',
              f'# PROP Intermediate_Dir "{CONFIG}"',
              '# PROP Target_Dir ""',
              f'# ADD CPP {self.cpp_line(self.flags, self.defines)}',
@@ -167,12 +179,12 @@ class Project:
         o += ['', '# Begin Target', '', f'# Name "{cfg}"']
         groups = {}
         for s in self.sources:
-            d = os.path.dirname(s)
+            d = '' if self.ordered else os.path.dirname(s)
             groups.setdefault(d, []).append(s)
         for d in sorted(groups, key=lambda x: (x != self.dir.replace(BS, '/'), x.lower())):
-            name = 'Source' if d == self.dir.replace(BS, '/') else d
+            name = 'Source' if d in ('', self.dir.replace(BS, '/')) else d
             o += [f'# Begin Group "{name}"', '', '# PROP Default_Filter "cpp;c"']
-            for s in sorted(groups[d], key=str.lower):
+            for s in (groups[d] if self.ordered else sorted(groups[d], key=str.lower)):
                 o += ['# Begin Source File', '', f'SOURCE={rel(s, self.dir)}']
                 if s in self.file_flags:
                     o += self.file_lines(*self.file_flags[s])
@@ -244,12 +256,48 @@ def projects():
     return out
 
 
-def dsw_text(projs):
+def exact_project(incs):
+    """The exact workspace's exe (build.py's client-exact): every object's source in retail's order."""
+    app = L.APP_LIBS['app']
+    by_stem = {}
+    for lib, _ in B.EXACT_PICKS:
+        for p in B.sources(lib):
+            by_stem.setdefault((lib, os.path.splitext(os.path.basename(p))[0].lower()), repo_rel(p))
+    srcs, ff = [], {}
+    for lib, stem in B.exact_order():
+        s = by_stem.get((lib, stem.lower()))
+        if not s:
+            continue
+        srcs.append(s)
+        if lib != 'app':
+            ff[s] = (L.flags_of(os.path.join(REPO, s)), vc6.DEFAULT_DEFINES)
+    prog = B.PROGRAMS['client-exact']
+    ea = [l for l in L.LIBS if B.sources(l)]
+    libs = [rel(os.path.join(REPO, L.LIB_TREE.get(l, l), CONFIG, l + '.lib'), EXACT_DIR)
+            for l in prog.get('libs', B.LINK_LIBS) if l in ea]
+    libs += [rel(os.path.join(REPO, 'build', 'mss32', 'exact', 'mss32.lib'), EXACT_DIR),
+             rel(os.path.join(REPO, 'build', B.AUTHLOGIN), EXACT_DIR), B.BINKW32_LIB]
+    libs += [B.EXACT_SYS_REPLACE.get(n, n).split(':')[-1] for n in B.LINK_SYS] + prog.get('sys', [])
+
+    def key(t):
+        n = os.path.basename(t.strip('"').replace(BS, '/')).lower()
+        return B.EXACT_LIB_ORDER.index(n) if n in B.EXACT_LIB_ORDER else len(B.EXACT_LIB_ORDER)
+    libs = sorted((f'"{l}"' if (BS in l or '/' in l) else l for l in libs), key=key)
+    res = rel(os.path.join(REPO, 'build', B.EXACT_RES), EXACT_DIR)
+    link = [f'"{res}"'] + libs + \
+        ['/nologo', '/subsystem:windows', '/machine:I386', '/nodefaultlib', f'/libpath:"{SDK_LIB}"'] + \
+        [f'/pdb:"{B.EXACT_PDB}"' if f.startswith('/pdb:') else f for f in B.EXACT_FLAGS] + \
+        [f'/map:"..{BS}{CONFIG}{BS}client-exact.map"', f'/out:"..{BS}{CONFIG}{BS}client-exact.exe"']
+    return Project(CLIENT_PROJECT, EXACT_DIR, 'exe', srcs, L.LIB_FLAGS['app'], app['defines'], incs, ff,
+                   deps=ea, link=link, ordered=True, out_dir='..' + BS + CONFIG)
+
+
+def dsw_text(projs, where=MAIN_DIR):
     o = ['Microsoft Developer Studio Workspace File, Format Version 6.00',
          '# WARNING: DO NOT EDIT OR DELETE THIS WORKSPACE FILE!', '',
          f'# {GENERATED_BANNER}', '']
     for p in projs:
-        o += ['#' * 79, '', f'Project: "{p.name}"={rel(p.dsp, MAIN_DIR)} - Package Owner=<4>', '',
+        o += ['#' * 79, '', f'Project: "{p.name}"={rel(p.dsp, where)} - Package Owner=<4>', '',
               'Package=<5>', '{{{', '}}}', '', 'Package=<4>', '{{{']
         for d in p.deps:
             o += ['    Begin Project Dependency', f'    Project_Dep_Name {d}', '    End Project Dependency']
@@ -259,18 +307,25 @@ def dsw_text(projs):
     return '\r\n'.join(o)
 
 
-def generated_files(projs):
-    return [p.dsp for p in projs] + [WORKSPACE]
+def generated_files(projs, exact=None):
+    return [p.dsp for p in projs] + [WORKSPACE] + ([exact.dsp, EXACT_WORKSPACE] if exact else [])
 
 
-def write(projs):
+def write(projs, exact=None):
     written = []
-    for p in projs:
+    for p in projs + ([exact] if exact else []):
         path = os.path.join(REPO, p.dsp)
+        os.makedirs(os.path.dirname(path), exist_ok=True)
         open(path, 'w', newline='', encoding='latin1').write(p.text())
         written.append(p.dsp)
     open(os.path.join(REPO, WORKSPACE), 'w', newline='', encoding='latin1').write(dsw_text(projs))
     written.append(WORKSPACE)
+    if exact:
+        # the exact workspace: the EA libraries' projects (the same .dsp files) and its own main
+        ea = [p for p in projs if p.name in exact.deps]
+        open(os.path.join(REPO, EXACT_WORKSPACE), 'w', newline='', encoding='latin1').write(
+            dsw_text(ea + [exact], EXACT_DIR))
+        written.append(EXACT_WORKSPACE)
     for f in prune(written):
         print('deleted stale', f)
     return written
@@ -333,12 +388,15 @@ def main():
             print('deleted', f)
         return
     projs = projects()
+    exact = exact_project(L.tree_includes())
     if a.command == 'list':
-        for p in projs:
+        for p in projs + [exact]:
             print(f'{p.name:12} {p.kind} {len(p.sources):4} files  {p.dsp}  deps: {len(p.deps)}')
         return
-    write(projs)
-    print(f'wrote {WORKSPACE} and {len(projs)} projects ({sum(len(p.sources) for p in projs)} source files)')
+    write(projs, exact)
+    print(f'wrote {WORKSPACE} and {len(projs)} projects ({sum(len(p.sources) for p in projs)} source files); '
+          f'{EXACT_WORKSPACE} with {len(exact.deps)} library projects and its main ({len(exact.sources)} sources in '
+          "retail's object order)")
 
 
 if __name__ == '__main__':

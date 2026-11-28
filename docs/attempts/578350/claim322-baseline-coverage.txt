@@ -1,0 +1,37 @@
+# Canonical baseline coverage
+
+Base b0f0f58d369b09aa14939bf2baac3ef5685507e6; branch claim-322-combobox.
+The untouched canonical isolated ui_combobox.cpp build has100 file/address
+pairs and101 symbol/address pairs. Its102-pair recorded ledger is a subset
+except RefCountPtr<RenderObjClass> destructor0x4740B0 and
+GadgetClass::Is_Enabled0x50AAC0. This is attribution context, not a source loss.
+
+The installed preflight's normal matching_context selection identifies139
+unchanged app holder units. Canonical worker plan/context and per-unit flags,
+logs, object paths and input hashes are in context-all-holders/. The combined
+baseline exactly reproduces all102 recorded pairs and102 symbol pairs.
+context-all-holders/app-matches.json includes all objects: filter
+object == ui_combobox.obj for primary evidence. Both missing helpers are shared;
+the destructor selects4740B0 instead of isolated57B6E0. The file/address set
+remains a superset of isolated baseline; symbol attribution differs.
+
+Small context diagnostics did not suffice: gd_slider alone, then gd_slider+
+unknown_675120+ro_funcs still missed both. Post-success pure-matcher reductions
+(no new compilations) with ctrngadg+unknown_46c730, then those plus
+unknown_474530+dynamic_window_toggle resolve Is_Enabled only. No ambiguity is
+waived or matcher altered. Full139 context is the authoritative baseline.
+
+Exploratory runner stays single-TU for fast per-form diagnostics, preserves all
+100/101 original isolated pairs, and records every input. A candidate requires
+root's full contextual102/102 comparison before retention, plus complete byte/
+branch/relocation/addend/literal/receiver/EH audits and prior body preservation.
+No context/template attribution change alone is claimed as a source gain.
+match_context.py accepts explicit candidate object/output paths, matching the
+unchanged support objects. Actual committed-revision preflight remains required.
+
+Context compilation controls are distinct from source-form attempts:1 initial
+isolated build,2 first context units,4 second context units,140 full-context
+units. All147 were successful compiles, with two failed coverage checks after
+successful compiles. The baseline source files are replayable as empty patches
+against the immutable tracked base and are recorded by source hash and compile
+response/log/object paths. No raw artifacts are to be committed.
