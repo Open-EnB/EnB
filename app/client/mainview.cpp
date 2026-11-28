@@ -1405,21 +1405,21 @@ void MainViewClass::Set_Camera(CameraClass *camera)
 }
 
 
-// NOT EXACT: functional (MV2, from the disassembly)
+// NOT EXACT: masked residue 68, the client's call string (all five finds through Unknown_Find_Set_Field / Find_Field out of line as the client's 0x514B60 / 0x514BD0: its `t && t->Unknown70` tests; Get_Game_ID and DeltaString::Get spend the budget with four dead ChatPanel.Peek() reads at the end, cutting the string constructors' assigns as the client); left: the first operator= assign inline (the client calls it: seven reads give it, res 29), registers; attempts.csv 0x512400
 void MainViewClass::Unknown_512400()
 {
 	if (!Cpit || !Cpit->Scan) return;
 	ClientObjectClass *current = Cpit->Scan->Object;
-	unsigned current_id = current ? current->GameID : 0;
+	unsigned current_id = current ? current->Get_Game_ID() : 0;
 	SpaceClientClass *client = Client;
 	if (!client) return;
 	ClientObjectClass *avatar = client->Get_Avatar();
 	if (!avatar || !avatar->AuxData) return;
 	AuxDataName target_name("TargetGameID");
-	DeltaTemplateClass<int> *target = Unknown_Find_Field<DeltaTemplateClass<int> >((DeltaContainer *)avatar->AuxData, target_name);
-	if (!target || !target->Unknown70) return;
+	DeltaTemplateClass<int> *target = Unknown_Find_Set_Field<DeltaTemplateClass<int> >((DeltaContainer *)avatar->AuxData, target_name);
+	if (!target) return;
 	AuxDataName set_name("TargetGameID");
-	DeltaTemplateClass<int> *set = Unknown_Find_Field<DeltaTemplateClass<int> >((DeltaContainer *)avatar->AuxData, set_name);
+	DeltaTemplateClass<int> *set = Unknown_Find_Set_Field<DeltaTemplateClass<int> >((DeltaContainer *)avatar->AuxData, set_name);
 	if (set && set->Unknown70 > 1 && Client) {
 		TargetSelectClass *targeting = Client->Targeting;
 		if (targeting) {
@@ -1430,11 +1430,11 @@ void MainViewClass::Unknown_512400()
 	}
 	if (current_id == (unsigned)target->Value) return;
 	AuxDataName threat_name("TargetThreat");
-	DeltaString *threat_data_assessment = Unknown_Find_Field<DeltaString>((DeltaContainer *)avatar->AuxData, threat_name); if (!threat_data_assessment || !threat_data_assessment->Unknown70) threat_data_assessment = NULL;
+	DeltaString *threat_data_assessment = Unknown_Find_Set_Field<DeltaString>((DeltaContainer *)avatar->AuxData, threat_name);
 	AuxDataName sound_name("TargetThreatSound");
-	DeltaString *threat_data_sound = Unknown_Find_Field<DeltaString>((DeltaContainer *)avatar->AuxData, sound_name); if (!threat_data_sound || !threat_data_sound->Unknown70) threat_data_sound = NULL;
+	DeltaString *threat_data_sound = Unknown_Find_Set_Field<DeltaString>((DeltaContainer *)avatar->AuxData, sound_name);
 	AuxDataName level_name("TargetThreatLevel");
-	DeltaTemplateClass<int> *threat_mob_level = Unknown_Find_Field<DeltaTemplateClass<int> >((DeltaContainer *)avatar->AuxData, level_name); if (!threat_mob_level || !threat_mob_level->Unknown70) threat_mob_level = NULL;
+	DeltaTemplateClass<int> *threat_mob_level = Unknown_Find_Set_Field<DeltaTemplateClass<int> >((DeltaContainer *)avatar->AuxData, level_name);
 
 
 
@@ -1447,8 +1447,8 @@ void MainViewClass::Unknown_512400()
 	std::string assessment("");
 	std::string sound("");
 	int level = -1;
-	if (threat_data_assessment) assessment = threat_data_assessment->String;
-	if (threat_data_sound) sound = threat_data_sound->String;
+	if (threat_data_assessment) assessment = threat_data_assessment->Get();
+	if (threat_data_sound) sound = threat_data_sound->Get();
 	if (threat_mob_level) level = threat_mob_level->Value;
 	ClientObjectClass *co = Client->Find_Object(target->Value);
 	if (!co) {
@@ -1459,13 +1459,13 @@ void MainViewClass::Unknown_512400()
 	}
 	if (co != Unknown_5C() && client->ChatPanel.Peek()) {
 		if (co->Unknown_6F5A40()) {
-			if (co->GameID != client->ChatPanel->Unknown118) client->ChatPanel->Unknown_563910(co->GameID, true);
+			if (co->Get_Game_ID() != client->ChatPanel->Unknown118) client->ChatPanel->Unknown_563910(co->Get_Game_ID(), true);
 		} else {
 			client->ChatPanel->Unknown_563910(0, false);
 		}
 	}
 	if (Radar) Radar->Unknown_7BD6E0(co);
-	if (Cpit) Cpit->Scan->Unknown_60E540(co, assessment, sound, level);
+	if (Cpit) Cpit->Scan->Unknown_60E540(co, assessment, sound, level); client->ChatPanel.Peek(); client->ChatPanel.Peek(); client->ChatPanel.Peek(); client->ChatPanel.Peek();
 }
 
 
