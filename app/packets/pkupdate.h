@@ -125,7 +125,7 @@ public:
 	bool Has_Set_Speed();	// 0x8AD6C0 (flag 1)  // NAME 2: what it tests
 	bool Has_Acceleration() const;	// 0x8AD6F0 (flag 2)  // NAME 2: what it tests
 	bool Has_RotY();	// 0x8AD730 (flag 3)  // NAME 2: what it tests
-	bool Has_DesiredY();	// 0x8AD760 (flag 4: not the default, +-pi by RotY's sign)  // NAME 2: what it tests
+	bool Has_Desired_Y();	// 0x8AD760 (flag 4: not the default, +-pi by RotY's sign)  // NAME 5: thunk order probable, binary.md 5.11
 	bool Has_RotZ();	// 0x8AD7E0 (flag 5)  // NAME 2: what it tests
 	bool Has_DesiredZ();	// 0x8AD810 (flag 6: not the default, +-1000 by RotZ's sign)  // NAME 2: what it tests
 	bool Has_Imparted();	// 0x8AD890 (flag 7: ImpartedVelocity, -Spin, -Roll, -Pitch)  // NAME 2: what it tests

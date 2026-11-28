@@ -26,8 +26,8 @@ struct LandUnknown466BE0CellStruct
 class DisplacementMapLandClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
-	DisplacementMapLandClass(HeightMapClass *field, float detail_u, float detail_v);
-	virtual ~DisplacementMapLandClass(void);
+	protected: friend void Unknown_466E70(HeightMapClass *field, float detail_u, float detail_v); friend void Unknown_466F10(void); DisplacementMapLandClass(HeightMapClass *field, float detail_u, float detail_v);  // NAME 5: thunk order confirmed, binary.md 5.11
+	virtual ~DisplacementMapLandClass(void); public:  // NAME 5: thunk order confirmed, binary.md 5.11
 	void							Unknown_466F40(CameraClass &camera, int lod, const Matrix4 &scale);	// NAME 1: unknown; empty
 	void							Unknown_466F60(RenderInfoClass &rinfo);	// NAME 1: unknown; called first by Render 0x474B30
 	void							Create_Displacement_Map(void);	// NAME 2: CreateTexture into +0x30 (0x4676D0; inlined in the ctor)

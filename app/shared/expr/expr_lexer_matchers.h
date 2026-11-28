@@ -20,7 +20,7 @@ class ExprLexerMatchNumber : public ExprLexerMatch  // NAME 5: thunk order A, bi
 {
 public:
 	ExprLexerMatchNumber(int flags);						// 0x4C56B0: 0 counts as 1
-	virtual int Match(const char *text);						// 0x4C5760
+	virtual int Match(const char *text) const;						// 0x4C5760  // NAME 5: thunk order confirmed, binary.md 5.11
 
 protected:
 	int m_flags;												// +4  // NAME 3 [m_flags]
@@ -32,7 +32,7 @@ class ExprLexerMatchName : public ExprLexerMatch  // NAME 5: thunk order A, bina
 {
 public:
 	ExprLexerMatchName(int flags);						// 0x4C57D0
-	virtual int Match(const char *text);						// 0x4C5850
+	virtual int Match(const char *text) const;						// 0x4C5850  // NAME 5: thunk order confirmed, binary.md 5.11
 
 protected:
 	int m_flags;												// +4  // NAME 3 [m_flags]
@@ -43,7 +43,7 @@ class ExprLexerMatchSpace : public ExprLexerMatch  // NAME 5: thunk order A, bin
 {
 public:
 	ExprLexerMatchSpace() {}
-	virtual int Match(const char *text);						// 0x4C58F0
+	virtual int Match(const char *text) const;						// 0x4C58F0  // NAME 5: thunk order confirmed, binary.md 5.11
 };
 
 #endif

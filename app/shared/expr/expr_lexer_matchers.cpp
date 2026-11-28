@@ -14,7 +14,7 @@ ExprLexerMatchNumber::ExprLexerMatchNumber(int flags) :
 
 
 // @0x4C5760
-int ExprLexerMatchNumber::Match(const char *text)
+int ExprLexerMatchNumber::Match(const char *text) const
 {
 	bool dot = (m_flags & 2) != 0;
 	int len = 0;
@@ -40,7 +40,7 @@ ExprLexerMatchName::ExprLexerMatchName(int flags) :
 
 
 // @0x4C5850
-int ExprLexerMatchName::Match(const char *text)
+int ExprLexerMatchName::Match(const char *text) const
 {
 	int len = 0;
 	bool dots = !(m_flags & 1);
@@ -61,7 +61,7 @@ int ExprLexerMatchName::Match(const char *text)
 
 
 // @0x4C58F0
-int ExprLexerMatchSpace::Match(const char *text)
+int ExprLexerMatchSpace::Match(const char *text) const
 {
 	int len = 0;
 	while (*text != '\0' && isspace(*text)) {

@@ -148,7 +148,7 @@ int CircularBufferClass::Read(void *buffer, int len)
 
 
 
-int CircularBufferClass::Write(const void *buffer, int len)
+int CircularBufferClass::Write(void *buffer, int len)
 {
 	int space = BufferSize - BytesUsed;
 	if (len > space) {

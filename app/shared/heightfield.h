@@ -41,7 +41,7 @@ class OBBoxClass;
 class HeightMapClass
 {
 public:
-	HeightMapClass(void);
+	private: HeightMapClass(void); public:  // NAME 5: thunk order confirmed, binary.md 5.11
 	~HeightMapClass(void);
 
 // NAME 2: methods after what they do (the client's 0x4634F0, 0x4637C0, 0x463BF0, 0x463C80-0x463E70, 0x464600)

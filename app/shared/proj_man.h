@@ -218,7 +218,7 @@ class ShadowTexProjectClass : public TexProjectClass  // NAME 5: thunk order A, 
 public:
 	ShadowTexProjectClass(ProjectionSourceClass * owner);	// 0x494100
 	// the destructor (0x494180, a jump to TexProjectClass's) is the compiler's
-	virtual void			Pre_Render_Update(const Matrix3D & camera);	// 0x4941A0
+	private: virtual void			Pre_Render_Update(const Matrix3D & camera); public:	// 0x4941A0  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual void *			Get_Projection_Object_ID(void) const;			// 0x494410
 
 	ProjectionSourceClass *	Owner;							// +0x13C  // NAME 2: what it points at

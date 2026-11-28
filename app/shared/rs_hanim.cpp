@@ -31,7 +31,7 @@
 
 
 
-RenderStateHAnimClass::RenderStateHAnimClass(RenderStateListClass *list, int id, int link_id, unsigned int flags, const char *hAnimName, const char *suffix, int next_id, HAnimComboDataClass *combo) :
+RenderStateHAnimClass::RenderStateHAnimClass(const RenderStateListClass *list, int id, int link_id, unsigned int flags, const char *hAnimName, const char *suffix, int next_id, HAnimComboDataClass *combo) :
 	RenderStateClass(list, id, link_id, flags),
 	Combo(true),
 	NextID(next_id),
@@ -46,7 +46,7 @@ RenderStateHAnimClass::RenderStateHAnimClass(RenderStateListClass *list, int id,
 	Combo.Copy(combo);
 }
 
-RenderStateHAnimClass::RenderStateHAnimClass(RenderStateListClass *list, const RenderStateHAnimClass &source) :
+RenderStateHAnimClass::RenderStateHAnimClass(const RenderStateListClass *list, const RenderStateHAnimClass &source) :
 	RenderStateClass(list, source),
 	Combo(true),
 	NextID(source.NextID),

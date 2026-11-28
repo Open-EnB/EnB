@@ -37,7 +37,7 @@ class ExprLexer  // NAME 5: thunk order A, binary.md 5.11; NAME 3 [ExprLexer]
 {
 public:
 	virtual ~ExprLexer() {}
-	virtual ExprLexerToken Get_Token() = 0;	// +4  // NAME 3 [Get_Token]
+	virtual ExprLexerToken Get_Token() const = 0;	// +4  // NAME 3 [Get_Token]
 	virtual bool Has_Token() = 0;					// +8  // NAME 3 [Has_Token]: the current token is valid
 	virtual bool Has_Error() = 0;					// +0xC  // NAME 3 [Has_Error]: no valid token, text left
 	virtual void Next() = 0;						// +0x10  // NAME 3 [Next]

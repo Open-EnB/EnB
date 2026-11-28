@@ -55,7 +55,7 @@ class PxCallbackAccurate : public PxProcessNode, public PxCallback  // NAME 5: t
 public:
 	PxCallbackAccurate(PxObject *object, PxCallbackFunction callback);		// 0x44E020  // NAME 2 [object, callback]: what it stores
 	PxCallbackAccurate(PxObject *object, const PxCallbackAccurate &src);	// 0x44E260 (only the function is copied)  // NAME 2 [object, src]: as the boxes'
-	virtual ~PxCallbackAccurate();											// 0x44E390 (deleting 0x44E1A0)
+	protected: virtual ~PxCallbackAccurate(); public:											// 0x44E390 (deleting 0x44E1A0)  // NAME 5: thunk order confirmed, binary.md 5.11
 
 	virtual void Process();								// 0x44F2F0 (node slot +0x04)
 	virtual bool Test(PxObject *object) = 0;			// node slot +0x08  // NAME 2: what Process asks
@@ -104,7 +104,7 @@ public:
 	PxAccurateBoxCallback(PxObject *object, const PxAccurateBoxCallback &src);					// 0x44F8F0  // NAME 2 [object, src]: as the boxes'
 	virtual ~PxAccurateBoxCallback();									// 0x44FCF0 (deleting 0x44F8C0)
 
-	virtual PxCallback *Clone(PxObject *object);		// 0x44FAD0
+	virtual PxCallback *Clone(PxObject *object) const;		// 0x44FAD0
 	virtual void Attach(PxList *list);					// 0x44FE50
 	virtual void Detach(PxList *list);					// 0x44FE70
 	virtual void Update();								// 0x44FE90
@@ -127,7 +127,7 @@ public:
 	PxAccurateSphereCallback(PxObject *object, const PxAccurateSphereCallback &src);			// 0x450350  // NAME 2 [object, src]: as the boxes'
 	virtual ~PxAccurateSphereCallback();								// 0x4506B0 (deleting 0x450320)
 
-	virtual PxCallback *Clone(PxObject *object);		// 0x450620
+	virtual PxCallback *Clone(PxObject *object) const;		// 0x450620
 	virtual void Attach(PxList *list);					// 0x450820
 	virtual void Detach(PxList *list);					// 0x450860
 	virtual void Update();								// 0x4508A0

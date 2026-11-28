@@ -93,20 +93,20 @@ extern Unknown45C430Class Unknown_BDC0A0;							// 0xBDC0A0 (rs_list.cpp; its in
 class RenderStateRenderObjClass : public RenderStateClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
-	RenderStateRenderObjClass(RenderStateListClass *list, int id, int link_id, unsigned int flags, const char *name, int next_id, float duration);	// 0x45E5F0  // NAME 1 [name, next_id, duration]: the members they set
-	RenderStateRenderObjClass(RenderStateListClass *list, int id, int link_id, unsigned int flags, RenderObjClass *robj, int next_id, float duration);	// 0x45E880  // NAME 1 [robj, next_id, duration]: the members they set
-	RenderStateRenderObjClass(RenderStateListClass *list, const RenderStateRenderObjClass &source);	// 0x45E9F0  // NAME 1 [list, source]: neutral
+	RenderStateRenderObjClass(const RenderStateListClass *list, int id, int link_id, unsigned int flags, const char *name, int next_id, float duration);	// 0x45E5F0  // NAME 1 [name, next_id, duration]: the members they set
+	RenderStateRenderObjClass(const RenderStateListClass *list, int id, int link_id, unsigned int flags, RenderObjClass *robj, int next_id, float duration);	// 0x45E880  // NAME 5: thunk order confirmed, binary.md 5.11
+	RenderStateRenderObjClass(const RenderStateListClass *list, const RenderStateRenderObjClass &source);	// 0x45E9F0  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual ~RenderStateRenderObjClass();									// 0x45EC00 (deleting 0x45E850)
 	virtual RenderStateClass *Unknown_04(RenderStateListClass *list);	// +0x04 0x45EB70
 	virtual void Unknown_0C();										// +0x0C 0x45EF10 (drops a model it can load again)  // NAME 1: neutral (D10)
 	virtual bool Unknown_10();										// +0x10 0x45EF80 (loads the model)  // NAME 1: neutral (D10)
 	virtual void Unknown_14(RsTrackClass *owner);					// +0x14 0x45EE50
 	virtual void Unknown_18(RsTrackClass *owner);					// +0x18 0x45EED0
-	virtual RenderObjClass *Peek_Render_Object();					// +0x20 0x45EDC0
+	virtual RenderObjClass *Peek_Render_Object() const;					// +0x20 0x45EDC0  // NAME 5: thunk order probable, binary.md 5.11
 	virtual void Unknown_24(void *value, bool recursive);			// +0x24 0x45EC90
 	virtual void Unknown_30(RsTrackClass *owner, float seconds);	// +0x30 0x45ECD0
 	virtual void Unknown_40(float scale, float *hsv);				// +0x40 0x45F280
-	RenderStateClass *Get_Next_Render_State();						// 0x45ED70 (no caller; inlined into 0x45ECD0)  // NAME 1: the assert's NextRenderState
+	protected: RenderStateClass *Get_Next_Render_State(); public:						// 0x45ED70 (no caller; inlined into 0x45ECD0)  // NAME 5: thunk order confirmed, binary.md 5.11
 
 	char *RenderObjName;											// +0x2C (nstrdup'd name)  // NAME 2: the asserts' text
 	RenderObjClass *RenderObj;										// +0x30  // NAME 2: the asserts' text
@@ -121,9 +121,9 @@ public:
 class RenderStateBoneClass : public RenderStateRenderObjClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
-	RenderStateBoneClass(RenderStateListClass *list, int id, int link_id, unsigned int flags, const char *name, int next_id, float duration, const char *bone_path, int arg);	// 0x458710  // NAME 1 [bone_path, arg]: what 0x458B20 passes on
-	RenderStateBoneClass(RenderStateListClass *list, int id, int link_id, unsigned int flags, RenderObjClass *robj, int next_id, float duration, const char *bone_path, int arg);	// 0x4588A0
-	RenderStateBoneClass(RenderStateListClass *list, const RenderStateBoneClass &source);	// 0x458810
+	RenderStateBoneClass(const RenderStateListClass *list, int id, int link_id, unsigned int flags, const char *name, int next_id, float duration, const char *bone_path, int arg);	// 0x458710  // NAME 1 [bone_path, arg]: what 0x458B20 passes on
+	RenderStateBoneClass(const RenderStateListClass *list, int id, int link_id, unsigned int flags, RenderObjClass *robj, int next_id, float duration, const char *bone_path, int arg);	// 0x4588A0
+	RenderStateBoneClass(const RenderStateListClass *list, const RenderStateBoneClass &source);	// 0x458810  // NAME 5: thunk order probable, binary.md 5.11
 	virtual ~RenderStateBoneClass();									// 0x458A60 (deleting 0x4587E0)
 	virtual RenderStateClass *Unknown_04(RenderStateListClass *list);	// +0x04 0x458970
 	virtual void Unknown_14(RsTrackClass *owner);					// +0x14 0x458B20
@@ -186,8 +186,8 @@ extern char *Unknown_B70E40[];									// 0xB70E40 ('Axial', 'Silhouette', 'Envi
 class Unknown45D840Class : public RenderStateClass	// NAME 1: neutral (D10); rs.ini TYPE 'message'
 {
 public:
-	Unknown45D840Class(RenderStateListClass *list, int id, int link_id, unsigned int flags, int message);	// 0x45D840  // NAME 1 [message]: the key
-	Unknown45D840Class(RenderStateListClass *list, const Unknown45D840Class &source);	// 0x45D8C0
+	Unknown45D840Class(const RenderStateListClass *list, int id, int link_id, unsigned int flags, int message);	// 0x45D840  // NAME 1 [message]: the key
+	Unknown45D840Class(const RenderStateListClass *list, const Unknown45D840Class &source);	// 0x45D8C0
 	virtual ~Unknown45D840Class();									// 0x45D990 (deleting 0x45D890)
 	virtual RenderStateClass *Unknown_04(RenderStateListClass *list);	// +0x04 0x45D900
 	virtual void Unknown_14(RsTrackClass *owner);					// +0x14 0x45D9B0

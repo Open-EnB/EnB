@@ -73,7 +73,7 @@ BitSet &BitSet::operator=(const BitSet &other)
 }
 
 
-bool BitSet::operator==(const BitSet &other) const
+bool BitSet::operator==(const BitSet &other)
 {
 	if (NumBits != other.NumBits || NumBytes != other.NumBytes) {
 		return false;
@@ -102,7 +102,7 @@ void BitSet::Set(unsigned int pos)
 }
 
 
-void BitSet::Set_All()
+void BitSet::Set_All() const
 {
 	memset(Buffer, 0xFF, NumBytes);
 }

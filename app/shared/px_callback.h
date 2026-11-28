@@ -21,7 +21,7 @@ class PxCallback  // NAME 2: PxWrapper's 'Update(Callbacks)' calls them
 {
 public:
 	virtual ~PxCallback() {}								// +0x00 (0x44E150; deleting 0x44E170)
-	virtual PxCallback *Clone(PxObject *object) = 0;		// +0x04 (PxWrapper's copy)  // NAME 2: what the copy uses it for
+	virtual PxCallback *Clone(PxObject *object) const = 0;		// +0x04 (PxWrapper's copy)  // NAME 2: what the copy uses it for
 	virtual void Attach(PxList *list) = 0;					// +0x08 (PxWrapper::Add_To_List)  // NAME 2: inserts its box in the list
 	virtual void Detach(PxList *list) = 0;					// +0x0C (PxWrapper::Unknown_456730)  // NAME 2: removes it
 	virtual void Update() = 0;								// +0x10 ('PxWrapper::Update(Callbacks)')  // NAME 3: the profile string

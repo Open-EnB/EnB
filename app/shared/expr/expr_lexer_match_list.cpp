@@ -91,7 +91,7 @@ void ExprLexerMatchList::Add_Token(const char *token)
 
 
 // @0x4C6530
-int ExprLexerMatchList::Match(const char *text)
+int ExprLexerMatchList::Match(const char *text) const
 {
 	int best = 0;
 	int len = 0;

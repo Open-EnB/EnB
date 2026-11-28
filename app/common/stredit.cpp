@@ -413,13 +413,13 @@ char *StringEditClass::Get_String(int length, char *buffer)
 	return(buffer);
 }
 
-void StringEditClass::Set_String(const std::string &text)
+void StringEditClass::Set_String(std::string &text)
 {
 	Clear();
 	Insert(text.c_str());
 }
 
-void StringEditClass::Insert_String(const std::string &text)
+void StringEditClass::Insert_String(std::string &text)
 {
 	bool mode = InsertMode;
 	InsertMode = true;

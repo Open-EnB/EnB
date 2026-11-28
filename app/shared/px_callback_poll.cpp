@@ -49,7 +49,7 @@ void PxPollCallback::On_Exit(PxBox *box)
 }
 
 // 0x452BB0
-PxCallback *PxPollCallback::Clone(PxObject *object)
+PxCallback *PxPollCallback::Clone(PxObject *object) const
 {
 	return(new PxPollCallback(object, *this));
 }
@@ -109,7 +109,7 @@ void PxPollAccurateCallback::Unknown_453300()
 }
 
 // 0x453320
-PxCallback *PxPollAccurateCallback::Clone(PxObject *object)
+PxCallback *PxPollAccurateCallback::Clone(PxObject *object) const
 {
 	return(new PxPollAccurateCallback(object, *this));
 }

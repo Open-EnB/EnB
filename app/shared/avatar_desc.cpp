@@ -750,7 +750,7 @@ void AvatarDescriptionClass::Load_Defaults(int type, const char *name)
 #include "unknown_4a1590.h"
 
 // 0x4C1020
-std::string AvatarDescriptionClass::Get_Full_Name()
+std::string AvatarDescriptionClass::Get_Full_Name() const
 {
 	std::string name;
 	Get_Full_Name(name);
@@ -758,7 +758,7 @@ std::string AvatarDescriptionClass::Get_Full_Name()
 }
 
 // 0x4C1200
-std::string &AvatarDescriptionClass::Get_Full_Name(std::string &name)
+std::string &AvatarDescriptionClass::Get_Full_Name(std::string &name) const
 {
 	name = First_Name;
 	if (Last_Name[0] != 0) {

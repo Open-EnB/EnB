@@ -15,7 +15,7 @@ GMResetMissionRequestPacketClass::GMResetMissionRequestPacketClass(PacketClass *
 	delete [] name;
 }
 
-GMResetMissionRequestPacketClass::GMResetMissionRequestPacketClass(int unknown0c, const char *mission_name, bool unknown20) :
+GMResetMissionRequestPacketClass::GMResetMissionRequestPacketClass(unsigned long unknown0c, const char *mission_name, bool unknown20) :
 	Unknown0C(unknown0c),
 	Unknown20(unknown20)
 {

@@ -614,13 +614,13 @@ static void Move(PxEnd *e, PxEnd *next, int i)  // NAME 2: unlinks e on axis i a
 	next->Prev[i] = e;
 }
 
-static void Enter(PxBox *box, PxBox *other, bool box_wants, bool other_wants)  // NAME 2: the On_Enter pair
+void PxBoxAccess::Enter(PxBox *box, PxBox *other, bool box_wants, bool other_wants)  // NAME 2: the On_Enter pair
 {
 	if (box_wants) box->On_Enter(other);
 	if (other_wants) other->On_Enter(box);
 }
 
-static void Exit(PxBox *box, PxBox *other, bool box_wants, bool other_wants)  // NAME 2: the On_Exit pair
+void PxBoxAccess::Exit(PxBox *box, PxBox *other, bool box_wants, bool other_wants)  // NAME 2: the On_Exit pair
 {
 	if (box_wants) box->On_Exit(other);
 	if (other_wants) other->On_Exit(box);
@@ -661,7 +661,7 @@ void PxList::Set_Corners(PxBox *box, const Vector3 &low, const Vector3 &high)
 						if (other_wants || box_wants) {
 							if (Overlap(other->Low->Pos, other->High->Pos, low, high)) {
 								if (Notify_Once(other)) {
-									Enter(box, other, box_wants, other_wants);
+									PxBoxAccess::Enter(box, other, box_wants, other_wants);
 								}
 							}
 						}
@@ -683,7 +683,7 @@ void PxList::Set_Corners(PxBox *box, const Vector3 &low, const Vector3 &high)
 						if (other_wants || box_wants) {
 							if (Overlap(old_low, old_high, other->Low->Pos, other->High->Pos)) {
 								if (Notify_Once(other)) {
-									Exit(box, other, box_wants, other_wants);
+									PxBoxAccess::Exit(box, other, box_wants, other_wants);
 								}
 							}
 						}
@@ -708,7 +708,7 @@ void PxList::Set_Corners(PxBox *box, const Vector3 &low, const Vector3 &high)
 						if (other_wants || box_wants) {
 							if (Overlap(old_low, old_high, other->Low->Pos, other->High->Pos)) {
 								if (Notify_Once(other)) {
-									Exit(box, other, box_wants, other_wants);
+									PxBoxAccess::Exit(box, other, box_wants, other_wants);
 								}
 							}
 						}
@@ -729,7 +729,7 @@ void PxList::Set_Corners(PxBox *box, const Vector3 &low, const Vector3 &high)
 						if (other_wants || box_wants) {
 							if (Overlap(other->Low->Pos, other->High->Pos, low, high)) {
 								if (Notify_Once(other)) {
-									Enter(box, other, box_wants, other_wants);
+									PxBoxAccess::Enter(box, other, box_wants, other_wants);
 								}
 							}
 						}

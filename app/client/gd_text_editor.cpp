@@ -332,7 +332,7 @@ std::string TextEditorGadget::Get_Text()
 // @0x6729B0
 void TextEditorGadget::Set_Text(const std::string &text)
 {
-	Edit->Set_String(text);
+	Edit->Set_String(const_cast<std::string &>(text));	// the client passes it as a reference
 	Update_Lines(true);
 	Slider->Unknown_A4(0, false);
 }
@@ -344,7 +344,7 @@ void TextEditorGadget::Insert_Text(const std::string &text)
 		Edit->Clear();
 		Unknown60 = false;
 	}
-	Edit->Insert_String(text);
+	Edit->Insert_String(const_cast<std::string &>(text));	// the client passes it as a reference
 	Update_Lines(true);
 }
 

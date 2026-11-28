@@ -107,7 +107,7 @@ RenderObjClass *ENBAssetManager::Create_Render_Obj(const char *name)
 }
 
 // @0x48B220
-RenderObjClass *ENBAssetManager::Create_Render_Obj(const char *name, float Scale, Vector3 &HSV_shift)
+RenderObjClass *ENBAssetManager::Create_Render_Obj(const char *name, float Scale, const Vector3 &HSV_shift)
 {
 	bool scale = (WWMath::Fabs(Scale - ident_scale) > 0.01f);
 	bool hsv_shift = (WWMath::Fabs(HSV_shift.X - ident_HSV.X) > 1.0f) ||

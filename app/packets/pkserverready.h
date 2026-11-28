@@ -21,7 +21,7 @@
 class ServerReadyPacketClass : public UnknownPacketBaseClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
-	ServerReadyPacketClass(int sector, int ip, unsigned short port);	// 0x8A6140
+	ServerReadyPacketClass(long sector, int ip, unsigned short port);	// 0x8A6140  // NAME 5: thunk order confirmed, binary.md 5.11
 	ServerReadyPacketClass(PacketClass *raw);	// 0x8A61E0
 	virtual PacketClass *Build();	// +0x04 0x8A62A0
 	virtual bool Process_Packet(void *client);	// +0x08 0x8683D0 (clientstub.cpp)

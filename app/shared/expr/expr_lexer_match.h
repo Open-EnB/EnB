@@ -17,7 +17,7 @@ class ExprLexerMatch  // NAME 5: thunk order A, binary.md 5.11; NAME 3 [ExprLexe
 {
 public:
 	virtual ~ExprLexerMatch() {}
-	virtual int Match(const char *text) = 0;		// +4  // NAME 3 [Match]
+	virtual int Match(const char *text) const = 0;		// +4  // NAME 3 [Match]
 };
 
 #endif

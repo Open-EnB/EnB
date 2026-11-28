@@ -17,7 +17,7 @@
 #include "..\..\wwlib\nstrdup.h"
 
 // 0x458710 (deleting destructor 0x4587E0)
-RenderStateBoneClass::RenderStateBoneClass(RenderStateListClass *list, int id, int link_id, unsigned int flags, const char *name, int next_id, float duration, const char *bone_path, int arg) :
+RenderStateBoneClass::RenderStateBoneClass(const RenderStateListClass *list, int id, int link_id, unsigned int flags, const char *name, int next_id, float duration, const char *bone_path, int arg) :
 	RenderStateRenderObjClass(list, id, link_id, flags, name, next_id, duration),
 	Unknown48(arg)
 {
@@ -29,7 +29,7 @@ RenderStateBoneClass::RenderStateBoneClass(RenderStateListClass *list, int id, i
 }
 
 // 0x458810
-RenderStateBoneClass::RenderStateBoneClass(RenderStateListClass *list, const RenderStateBoneClass &source) :
+RenderStateBoneClass::RenderStateBoneClass(const RenderStateListClass *list, const RenderStateBoneClass &source) :
 	RenderStateRenderObjClass(list, source)
 {
 	if (source.Unknown44 != NULL && *source.Unknown44 != 0) {
@@ -41,7 +41,7 @@ RenderStateBoneClass::RenderStateBoneClass(RenderStateListClass *list, const Ren
 }
 
 // 0x4588A0
-RenderStateBoneClass::RenderStateBoneClass(RenderStateListClass *list, int id, int link_id, unsigned int flags, RenderObjClass *robj, int next_id, float duration, const char *bone_path, int arg) :
+RenderStateBoneClass::RenderStateBoneClass(const RenderStateListClass *list, int id, int link_id, unsigned int flags, RenderObjClass *robj, int next_id, float duration, const char *bone_path, int arg) :
 	RenderStateRenderObjClass(list, id, link_id, flags, robj, next_id, duration),
 	Unknown48(arg)
 {

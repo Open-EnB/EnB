@@ -42,7 +42,7 @@ public:
 	const char *Get_String() const { return Name.Get_String(); }  // NAME 2: describes what it does
 	bool Is_Wildcard() const { return HasWildcard; }				// (LookupClass's asserts)
 
-	void Split() const;														// 0x4AD890  // NAME 2: describes what it does
+	private: void Split() const; public:														// 0x4AD890  // NAME 5: thunk order confirmed, binary.md 5.11
 
 	// the part that matches any part (0xBE3B24, made on first use)
 	static const PermString &Wildcard()  // NAME 2: after the asserts' Is_Wildcard

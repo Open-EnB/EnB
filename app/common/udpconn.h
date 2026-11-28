@@ -122,8 +122,8 @@ public:
 class CordMgrTask : public KernelTaskClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
-	CordMgrTask();					// 0x82DCE0: makes the CordMgr
-	virtual ~CordMgrTask();		// +0x04 0x82DD70 / 0x82DDA0: deletes it
+	private: CordMgrTask();					// 0x82DCE0: makes the CordMgr  // NAME 5: thunk order confirmed, binary.md 5.11
+	virtual ~CordMgrTask(); public:		// +0x04 0x82DD70 / 0x82DDA0: deletes it  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual void Run();					// +0x30 0x82DF90 ('CordMgr::Run')
 	virtual int Get_Interval();			// +0x34 0x82E020 (100 ms)
 	virtual bool Delete_On_Remove();	// +0x44 0x82DE30 (false)

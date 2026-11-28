@@ -244,7 +244,7 @@ PxAccurateBoxCallback::PxAccurateBoxCallback(PxObject *object, const PxAccurateB
 
 // 0x44FAD0
 // (exact: it inlines the copy constructor 0x44F8F0)
-PxCallback *PxAccurateBoxCallback::Clone(PxObject *object)
+PxCallback *PxAccurateBoxCallback::Clone(PxObject *object) const
 {
 	return(new PxAccurateBoxCallback(object, *this));
 }
@@ -326,7 +326,7 @@ PxAccurateSphereCallback::PxAccurateSphereCallback(PxObject *object, const PxAcc
 
 // 0x450620
 // (exact: it inlines the copy constructor 0x450350)
-PxCallback *PxAccurateSphereCallback::Clone(PxObject *object)
+PxCallback *PxAccurateSphereCallback::Clone(PxObject *object) const
 {
 	return(new PxAccurateSphereCallback(object, *this));
 }

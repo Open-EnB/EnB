@@ -21,7 +21,7 @@
 class GMDestroyItemRequestPacketClass : public UnknownPacketBaseClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
-	GMDestroyItemRequestPacketClass(int unknown0c, const char *item_name, bool unknown20);	// 0x8716D0
+	GMDestroyItemRequestPacketClass(unsigned long unknown0c, const char *item_name, bool unknown20);	// 0x8716D0  // NAME 5: thunk order probable, binary.md 5.11
 	GMDestroyItemRequestPacketClass(PacketClass *raw);	// 0x8714F0
 	virtual ~GMDestroyItemRequestPacketClass();	// +0x00 0x8716A0 / 0x871840
 	virtual PacketClass *Build();	// +0x04 0x8718B0

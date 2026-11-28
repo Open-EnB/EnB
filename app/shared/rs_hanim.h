@@ -17,8 +17,8 @@ class HTreeClass;
 class RenderStateHAnimClass : public RenderStateClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
-	RenderStateHAnimClass(RenderStateListClass *list, int id, int link_id, unsigned int flags, const char *hAnimName, const char *suffix, int next_id, HAnimComboDataClass *combo);	// 0x4596A0  // NAME 2 [hAnimName]: the assert's text; NAME 1 [suffix, next_id, combo]: rs_list.cpp's keys
-	RenderStateHAnimClass(RenderStateListClass *list, const RenderStateHAnimClass &source);	// 0x4597E0  // NAME 1 [list, source]: neutral
+	RenderStateHAnimClass(const RenderStateListClass *list, int id, int link_id, unsigned int flags, const char *hAnimName, const char *suffix, int next_id, HAnimComboDataClass *combo);	// 0x4596A0  // NAME 2 [hAnimName]: the assert's text; NAME 1 [suffix, next_id, combo]: rs_list.cpp's keys
+	RenderStateHAnimClass(const RenderStateListClass *list, const RenderStateHAnimClass &source);	// 0x4597E0  // NAME 5: thunk order probable, binary.md 5.11
 	virtual ~RenderStateHAnimClass();									// 0x459940 (deleting 0x4597B0)
 	virtual RenderStateClass *Unknown_04(RenderStateListClass *list);	// +0x04 0x4598B0
 	virtual void Unknown_14(RsTrackClass *owner);					// +0x14 0x459D50 (finds the animation for the owner's model)
@@ -31,7 +31,7 @@ public:
 	virtual void Unknown_48(float seconds);							// +0x48 0x459AA0 (fades the weight in)
 	const char *Get_HAnim_Name() const { return(HAnimName); }		// (the copy constructor reads both through getters)  // NAME 1: after HAnimName
 	const char *Get_HAnim_Suffix() const { return(HAnimSuffix); }	// NAME 1: after HAnimSuffix
-	RenderStateClass *Get_Next_Render_State();						// 0x4599E0 (inlined into its callers)  // NAME 1: the assert's NextRenderState
+	protected: RenderStateClass *Get_Next_Render_State(); public:						// 0x4599E0 (inlined into its callers)  // NAME 5: thunk order confirmed, binary.md 5.11
 
 	HAnimComboDataClass Combo;										// +0x2C  // NAME 1: neutral
 	int NextID;														// +0x44 (the next state's id)  // NAME 1: after NextRenderState

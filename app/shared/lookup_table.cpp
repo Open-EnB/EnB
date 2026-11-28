@@ -165,7 +165,7 @@ RefCountPtr<LookupTableClass> ContinuousLookupTable::Create(const std::string &v
 
 
 
-float ContinuousLookupTable::Lookup(float index)
+float ContinuousLookupTable::Lookup(float index) const
 {
 	FAIL_IF(index < 0) return Values[0];
 	if (index >= (int)Values.size()) {
@@ -232,7 +232,7 @@ SampledLookupTableClass::SampledLookupTableClass(INISection *section)
 	}
 }
 
-inline void SampledLookupTableClass::Find_Samples(float index, LookupSampleStruct &lower, LookupSampleStruct &upper)
+inline void SampledLookupTableClass::Find_Samples(float index, LookupSampleStruct &lower, LookupSampleStruct &upper) const
 {
 	if (Samples.size() == 0) {
 		LookupSampleStruct zero;
@@ -241,12 +241,12 @@ inline void SampledLookupTableClass::Find_Samples(float index, LookupSampleStruc
 		lower = upper = zero;
 		return;
 	}
-	std::vector<LookupSampleStruct>::iterator prev = Samples.begin();
+	std::vector<LookupSampleStruct>::const_iterator prev = Samples.begin();
 	if ((*prev).Index > index) {
 		lower = upper = *prev;
 		return;
 	}
-	std::vector<LookupSampleStruct>::iterator next = prev + 1;
+	std::vector<LookupSampleStruct>::const_iterator next = prev + 1;
 	while (next != Samples.end() && (*next).Index <= index) {
 		prev = next;
 		++next;
@@ -261,13 +261,13 @@ inline void SampledLookupTableClass::Find_Samples(float index, LookupSampleStruc
 	}
 }
 
-RefCountPtr<LookupTableClass> FloorLookupTable::Create(INISection *section)
+RefCountPtr<LookupTableClass> FloorLookupTable::Create(INISection &section)
 {
-	RefCountPtr<FloorLookupTable> table = Create_NEW(new FloorLookupTable(section));
+	RefCountPtr<FloorLookupTable> table = Create_NEW(new FloorLookupTable(&section));
 	return table;
 }
 
-float FloorLookupTable::Lookup(float index)
+float FloorLookupTable::Lookup(float index) const
 {
 	LookupSampleStruct lower;
 	LookupSampleStruct upper;
@@ -275,13 +275,13 @@ float FloorLookupTable::Lookup(float index)
 	return lower.Value;
 }
 
-RefCountPtr<LookupTableClass> CeilingLookupTable::Create(INISection *section)
+RefCountPtr<LookupTableClass> CeilingLookupTable::Create(INISection &section)
 {
-	RefCountPtr<CeilingLookupTable> table = Create_NEW(new CeilingLookupTable(section));
+	RefCountPtr<CeilingLookupTable> table = Create_NEW(new CeilingLookupTable(&section));
 	return table;
 }
 
-float CeilingLookupTable::Lookup(float index)
+float CeilingLookupTable::Lookup(float index) const
 {
 	LookupSampleStruct lower;
 	LookupSampleStruct upper;
@@ -295,7 +295,7 @@ RefCountPtr<LookupTableClass> ClosestValueLookupTable::Create(INISection *sectio
 	return table;
 }
 
-float ClosestValueLookupTable::Lookup(float index)
+float ClosestValueLookupTable::Lookup(float index) const
 {
 	LookupSampleStruct lower;
 	LookupSampleStruct upper;
@@ -312,7 +312,7 @@ RefCountPtr<LookupTableClass> InterpolatedLookupTableClass::Create(INISection *s
 	return table;
 }
 
-float InterpolatedLookupTableClass::Lookup(float index)
+float InterpolatedLookupTableClass::Lookup(float index) const
 {
 	LookupSampleStruct lower;
 	LookupSampleStruct upper;
@@ -412,9 +412,9 @@ RefCountPtr<LookupTableClass> LookupTableClass::Create(const std::string &type, 
 		FAIL_IF(!value_strings_entry) return 0;
 		return ContinuousLookupTable::Create(std::string(value_strings_entry->Value));
 	} else if (stricmp(type.c_str(), "floor") == 0) {
-		return FloorLookupTable::Create(section);
+		return FloorLookupTable::Create(*section);
 	} else if (stricmp(type.c_str(), "ceiling") == 0) {
-		return CeilingLookupTable::Create(section);
+		return CeilingLookupTable::Create(*section);
 	} else if (stricmp(type.c_str(), "closest") == 0) {
 		return ClosestValueLookupTable::Create(section);
 	} else if (stricmp(type.c_str(), "interpolated") == 0) {

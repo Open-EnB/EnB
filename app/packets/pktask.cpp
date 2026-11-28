@@ -231,7 +231,7 @@ int TaskRequestPacketClass::Print(char *buffer, int)
 	return(sprintf(buffer, "%s {Type=%d Num=%d}", "Task Request", Type, Num));
 }
 
-TaskPingPacketClass::TaskPingPacketClass(int ip, unsigned short port, char *string) :
+TaskPingPacketClass::TaskPingPacketClass(unsigned long ip, unsigned short port, char *string) :
 	Ip(ip),
 	Port(port)
 {
@@ -279,7 +279,7 @@ int TaskPingPacketClass::Print(char *buffer, int)
 	return(sprintf(buffer, "%s {Ip=%x Port=%hx}", "Task Ping", Ip, Port));
 }
 
-TaskPongPacketClass::TaskPongPacketClass(int ip, unsigned short port) :
+TaskPongPacketClass::TaskPongPacketClass(unsigned long ip, unsigned short port) :
 	TaskPingPacketClass(ip, port, "")
 {
 }

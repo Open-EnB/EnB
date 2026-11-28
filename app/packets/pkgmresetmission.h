@@ -21,7 +21,7 @@
 class GMResetMissionRequestPacketClass : public UnknownPacketBaseClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
-	GMResetMissionRequestPacketClass(int unknown0c, const char *mission_name, bool unknown20);	// 0x871C10
+	GMResetMissionRequestPacketClass(unsigned long unknown0c, const char *mission_name, bool unknown20);	// 0x871C10  // NAME 5: thunk order probable, binary.md 5.11
 	GMResetMissionRequestPacketClass(PacketClass *raw);	// 0x871A30
 	virtual ~GMResetMissionRequestPacketClass();	// +0x00 0x871BE0 / 0x871D80
 	virtual PacketClass *Build();	// +0x04 0x871DF0

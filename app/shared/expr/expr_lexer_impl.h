@@ -27,7 +27,7 @@ public:
 	ExprLexerImpl();										// 0x4C4980
 	virtual ~ExprLexerImpl();								// 0x4C4B40
 
-	virtual ExprLexerToken Get_Token();						// 0x4C4F60
+	virtual ExprLexerToken Get_Token() const;						// 0x4C4F60  // NAME 5: thunk order probable, binary.md 5.11
 	virtual bool Has_Token();									// 0x4C50F0
 	virtual bool Has_Error();									// 0x4C5110
 	virtual void Next();										// 0x4C5150

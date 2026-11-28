@@ -3,7 +3,7 @@
 #include "..\audio\soundlib.h"
 #include "..\..\wwaudio\Sound3D.h"
 
-RenderStateSoundClass::RenderStateSoundClass(RenderStateListClass *list, int id, int link_id, unsigned int flags, const char *sound, int message) :
+RenderStateSoundClass::RenderStateSoundClass(const RenderStateListClass *list, int id, int link_id, unsigned int flags, const char *sound, int message) :
 	Unknown45D840Class(list, id, link_id, flags, message),
 	SoundName(NULL),
 	Sound(NULL),
@@ -16,7 +16,7 @@ RenderStateSoundClass::RenderStateSoundClass(RenderStateListClass *list, int id,
 	}
 }
 
-RenderStateSoundClass::RenderStateSoundClass(RenderStateListClass *list, const RenderStateSoundClass &source) :
+RenderStateSoundClass::RenderStateSoundClass(const RenderStateListClass *list, const RenderStateSoundClass &source) :
 	Unknown45D840Class(list, source),
 	SoundName(NULL),
 	Sound(NULL),

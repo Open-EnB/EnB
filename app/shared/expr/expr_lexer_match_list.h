@@ -44,7 +44,7 @@ public:
 	ExprLexerMatchList();									// 0x4C5930
 	ExprLexerMatchList(const char *tokens);				// 0x4C5C20: 'tokens' from Add's assert
 	virtual ~ExprLexerMatchList();							// 0x4C5EC0
-	virtual int Match(const char *text);						// 0x4C6530
+	virtual int Match(const char *text) const;						// 0x4C6530  // NAME 5: thunk order probable, binary.md 5.11
 
 	void Add(const char *tokens);								// 0x4C6160  // NAME 3 [Add]: the tokens, separated by spaces
 	void Add_Token(const char *token);							// 0x4C62C0  // NAME 3 [Add_Token]: 'token' from the assert

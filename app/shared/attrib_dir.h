@@ -283,7 +283,7 @@ public:
 	AttribModIterator Get_All_Mods();												// 0x4D77D0  // NAME 2: what it returns
 	AttribModIterator Get_Mods(const char *name);								// 0x4D7A20  // NAME 2: what it returns
 
-	AttributeInfo *Get_Info(const char *name);								// 0x4D5C50: made when missing  // NAME 2: what it does
+	private: AttributeInfo *Get_Info(const char *name); public:								// 0x4D5C50: made when missing  // NAME 5: thunk order confirmed, binary.md 5.11
 	AttributeInfo *Find_Info(const char *name);								// 0x4D5F10  // NAME 2: what it does
 	AttributeInfo *Find_Info(const char *name) const;						// 0x4D6070  // NAME 2: what it does
 	std::string Make_Key(const char *name) const;							// 0x4D61D0: upper case  // NAME 2: what it does

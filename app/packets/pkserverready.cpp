@@ -2,7 +2,7 @@
 #include "pkserverready.h"
 #include <stdio.h>
 
-ServerReadyPacketClass::ServerReadyPacketClass(int sector, int ip, unsigned short port) :
+ServerReadyPacketClass::ServerReadyPacketClass(long sector, int ip, unsigned short port) :
 	Sector(sector),
 	IP(ip),
 	Port(port)

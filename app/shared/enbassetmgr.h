@@ -22,7 +22,7 @@ public:
 	virtual void Release_Unused_Assets(void);									// +0x10
 	virtual RenderObjClass *Create_Render_Obj(const char *name);				// +0x14
 	virtual void Release_Unused_Textures(void);									// +0x38
-	virtual RenderObjClass *Create_Render_Obj(const char *name, float scale, Vector3 &hsv_shift);	// +0x78  // NAME 5: EA hueshift enbassetmgr.h
+	virtual RenderObjClass *Create_Render_Obj(const char *name, float scale, const Vector3 &hsv_shift);	// +0x78  // NAME 5: thunk order probable, binary.md 5.11
 
 	RenderObjClass *Create_Render_Obj(const char *name, float scale, float *hsv) { return Create_Render_Obj(name, scale, *(Vector3 *)hsv); }
 	RenderObjClass *Unknown_78(const char *name, float scale, float *hsv) { return Create_Render_Obj(name, scale, *(Vector3 *)hsv); }	// NAME 1 [Unknown_78]: compatibility alias for Create_Render_Obj

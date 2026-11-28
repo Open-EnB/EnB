@@ -7,11 +7,11 @@ are listed here until better evidence raises their tag. Regenerate with
 
 | Score | Meaning | Names |
 |---|---|---|
-| 5 | the client names it | 525 |
+| 5 | the client names it | 574 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
 | 3 | by convention from a client-named file or sibling | 1876 |
-| 2 | describes what the code does | 4978 |
-| 1 | neutral placeholder | 25279 |
+| 2 | describes what the code does | 4966 |
+| 1 | neutral placeholder | 25272 |
 
 ## For review (score 3 and below)
 
@@ -24360,7 +24360,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_38` | `app/shared/rs_hanim.cpp:242` | untagged neutral name (D10) |
 | 1 | `Unknown_462180` | `app/shared/rs_hanim.cpp:245` | untagged neutral name (D10) |
 | 1 | `Unknown_3C` | `app/shared/rs_hanim.cpp:249` | untagged neutral name (D10) |
-| 1 | `list, source` | `app/shared/rs_hanim.h:21` | neutral |
 | 1 | `Unknown_04` | `app/shared/rs_hanim.h:23` | untagged neutral name (D10) |
 | 1 | `Unknown_14` | `app/shared/rs_hanim.h:24` | untagged neutral name (D10) |
 | 1 | `Unknown_18` | `app/shared/rs_hanim.h:25` | untagged neutral name (D10) |
@@ -24372,7 +24371,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_48` | `app/shared/rs_hanim.h:31` | untagged neutral name (D10) |
 | 1 | `Get_HAnim_Name` | `app/shared/rs_hanim.h:32` | after HAnimName |
 | 1 | `Get_HAnim_Suffix` | `app/shared/rs_hanim.h:33` | after HAnimSuffix |
-| 1 | `Get_Next_Render_State` | `app/shared/rs_hanim.h:34` | the assert's NextRenderState |
 | 1 | `Combo` | `app/shared/rs_hanim.h:36` | neutral |
 | 1 | `NextID` | `app/shared/rs_hanim.h:37` | after NextRenderState |
 | 1 | `HTree` | `app/shared/rs_hanim.h:41` | neutral |
@@ -24495,8 +24493,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_4584B0` | `app/shared/rs_sound.cpp:144` | untagged neutral name (D10) |
 | 1 | `Unknown_457E90` | `app/shared/rs_sound.cpp:147` | untagged neutral name (D10) |
 | 1 | `Unknown45D840Class` | `app/shared/rs_sound.h:14` | untagged neutral name (D10) |
-| 1 | `sound, message` | `app/shared/rs_sound.h:17` | rs_list.cpp's keys |
-| 1 | `list, source` | `app/shared/rs_sound.h:18` | neutral |
 | 1 | `Unknown_04` | `app/shared/rs_sound.h:20` | untagged neutral name (D10) |
 | 1 | `Unknown_0C` | `app/shared/rs_sound.h:21` | untagged neutral name (D10) |
 | 1 | `Unknown_10` | `app/shared/rs_sound.h:22` | untagged neutral name (D10) |
@@ -24636,8 +24632,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_00` | `app/shared/rs_track.h:86` | untagged neutral name (D10) |
 | 1 | `Unknown_BDC0A0` | `app/shared/rs_track.h:88` | untagged neutral name (D10) |
 | 1 | `name, next_id, duration` | `app/shared/rs_track.h:96` | the members they set |
-| 1 | `robj, next_id, duration` | `app/shared/rs_track.h:97` | the members they set |
-| 1 | `list, source` | `app/shared/rs_track.h:98` | neutral |
 | 1 | `Unknown_0C` | `app/shared/rs_track.h:101` | neutral (D10) |
 | 1 | `Unknown_10` | `app/shared/rs_track.h:102` | neutral (D10) |
 | 1 | `Unknown_14` | `app/shared/rs_track.h:103` | untagged neutral name (D10) |
@@ -24645,7 +24639,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_24` | `app/shared/rs_track.h:106` | untagged neutral name (D10) |
 | 1 | `Unknown_30` | `app/shared/rs_track.h:107` | untagged neutral name (D10) |
 | 1 | `Unknown_40` | `app/shared/rs_track.h:108` | untagged neutral name (D10) |
-| 1 | `Get_Next_Render_State` | `app/shared/rs_track.h:109` | the assert's NextRenderState |
 | 1 | `Unknown34` | `app/shared/rs_track.h:113` | neutral (D10) |
 | 1 | `Unknown38` | `app/shared/rs_track.h:114` | neutral (D10) |
 | 1 | `NextID` | `app/shared/rs_track.h:115` | after NextRenderState |
@@ -28045,7 +28038,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `ChatEventType` | `app/common/chat_defs.h:21` | the client's FAIL_IF texts ('str.Event != event') |
 | 2 | `ChatErrorType` | `app/common/chat_defs.h:58` | the client's FAIL_IF texts ('str.Error != error'); CHAT_ERROR_OK: its text 'ok' |
 | 2 | `Read` | `app/common/circbuff.h:26` | what it does |
-| 2 | `Write` | `app/common/circbuff.h:27` | what it does |
 | 2 | `Get_Free` | `app/common/circbuff.h:28` | what it returns |
 | 2 | `Get_Used` | `app/common/circbuff.h:29` | what it returns |
 | 2 | `Unread` | `app/common/circbuff.h:30` | what it does |
@@ -28396,8 +28388,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Process_Key` | `app/common/stredit.h:33` | what it does |
 | 2 | `Insert` | `app/common/stredit.h:34` | what it does |
 | 2 | `Get_String` | `app/common/stredit.h:35` | what it does; NAME 1 [length, buffer]: neutral |
-| 2 | `Set_String` | `app/common/stredit.h:37` | what it does; NAME 1 [text]: neutral |
-| 2 | `Insert_String` | `app/common/stredit.h:38` | what it does; NAME 1 [text]: neutral |
 | 2 | `Set_Cursor` | `app/common/stredit.h:39` | what it does; NAME 1 [position]: neutral |
 | 2 | `Move_Cursor` | `app/common/stredit.h:40` | what it does; NAME 1 [delta]: neutral |
 | 2 | `Get_Length` | `app/common/stredit.h:44` | what it does |
@@ -28874,7 +28864,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Has_Set_Speed` | `app/packets/pkupdate.h:125` | what it tests |
 | 2 | `Has_Acceleration` | `app/packets/pkupdate.h:126` | what it tests |
 | 2 | `Has_RotY` | `app/packets/pkupdate.h:127` | what it tests |
-| 2 | `Has_DesiredY` | `app/packets/pkupdate.h:128` | what it tests |
 | 2 | `Has_RotZ` | `app/packets/pkupdate.h:129` | what it tests |
 | 2 | `Has_DesiredZ` | `app/packets/pkupdate.h:130` | what it tests |
 | 2 | `Has_Imparted` | `app/packets/pkupdate.h:131` | what it tests |
@@ -28986,7 +28975,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Detach_Mod` | `app/shared/attrib_dir.h:282` | as the other Detach_Mod |
 | 2 | `Get_All_Mods` | `app/shared/attrib_dir.h:283` | what it returns |
 | 2 | `Get_Mods` | `app/shared/attrib_dir.h:284` | what it returns |
-| 2 | `Get_Info` | `app/shared/attrib_dir.h:286` | what it does |
 | 2 | `Find_Info` | `app/shared/attrib_dir.h:287` | what it does |
 | 2 | `Find_Info` | `app/shared/attrib_dir.h:288` | what it does |
 | 2 | `std:` | `app/shared/attrib_dir.h:289` | what it does |
@@ -29025,7 +29013,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Swap` | `app/shared/auxdata/bitset.h:26` | describes what it does |
 | 2 | `Is_Set` | `app/shared/auxdata/bitset.h:30` | describes what it does |
 | 2 | `Set` | `app/shared/auxdata/bitset.h:32` | describes what it does |
-| 2 | `Set_All` | `app/shared/auxdata/bitset.h:33` | describes what it does |
 | 2 | `Clear` | `app/shared/auxdata/bitset.h:34` | describes what it does |
 | 2 | `Clear_All` | `app/shared/auxdata/bitset.h:35` | describes what it does |
 | 2 | `Is_Any_Set` | `app/shared/auxdata/bitset.h:36` | describes what it does |
@@ -29152,7 +29139,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Get_Rest` | `app/shared/auxdata/name.h:38` | describes what it does |
 | 2 | `Get_First` | `app/shared/auxdata/name.h:39` | describes what it does |
 | 2 | `Get_String` | `app/shared/auxdata/name.h:42` | describes what it does |
-| 2 | `Split` | `app/shared/auxdata/name.h:45` | describes what it does |
 | 2 | `Wildcard` | `app/shared/auxdata/name.h:48` | after the asserts' Is_Wildcard |
 | 2 | `Name` | `app/shared/auxdata/name.h:54` | describes what it does |
 | 2 | `Parts` | `app/shared/auxdata/name.h:55` | describes what it does |
@@ -29269,8 +29255,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Is_Valid` | `app/shared/avatar_desc.h:46` | what it does |
 | 2 | `Reset` | `app/shared/avatar_desc.h:47` | what it does |
 | 2 | `Load_Defaults` | `app/shared/avatar_desc.h:48` | what it does |
-| 2 | `std:` | `app/shared/avatar_desc.h:49` | what it does |
-| 2 | `std:` | `app/shared/avatar_desc.h:50` | what it does |
 | 2 | `Get_Body_Morph` | `app/shared/avatar_desc.h:53` | what it does |
 | 2 | `Get_Head_Morph` | `app/shared/avatar_desc.h:54` | what it does |
 | 2 | `Get_Facial_Feature` | `app/shared/avatar_desc.h:55` | what it does |
@@ -29638,8 +29622,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `SampledLookupTableClass` | `app/shared/lookup_table.h:64` | what it holds |
 | 2 | `Find_Samples` | `app/shared/lookup_table.h:71` | what it does |
 | 2 | `std:` | `app/shared/lookup_table.h:73` | what it holds |
-| 2 | `Create` | `app/shared/lookup_table.h:83` | what it does |
-| 2 | `Create` | `app/shared/lookup_table.h:93` | what it does |
 | 2 | `Create` | `app/shared/lookup_table.h:103` | what it does |
 | 2 | `InterpolatedLookupTableClass` | `app/shared/lookup_table.h:107` | the ini's type name |
 | 2 | `Create` | `app/shared/lookup_table.h:113` | what it does |
@@ -29785,8 +29767,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Overlap` | `app/shared/px.cpp:267` | what it tests |
 | 2 | `Overlap` | `app/shared/px.cpp:597` | Overlap(a, b) over corners |
 | 2 | `Move` | `app/shared/px.cpp:607` | unlinks e on axis i and links it before next |
-| 2 | `Enter` | `app/shared/px.cpp:617` | the On_Enter pair |
-| 2 | `Exit` | `app/shared/px.cpp:623` | the On_Exit pair |
+| 2 | `PxBoxAccess::Enter` | `app/shared/px.cpp:617` | the On_Enter pair |
+| 2 | `PxBoxAccess::Exit` | `app/shared/px.cpp:623` | the On_Exit pair |
 | 2 | `PxBoxVector` | `app/shared/px.cpp:629` | the boxes a corner change has already reported; the wrapper's name too (notes) |
 | 2 | `Notify_Once` | `app/shared/px.cpp:631` | what it does (the five lower_bound + insert sites) |
 | 2 | `px.h` | `app/shared/px.h:14` | provisional header name (px.cpp's) |
@@ -29899,7 +29881,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Size` | `app/shared/robj2texture.h:26` | what Render_TextureMap uses it for |
 | 2 | `Create_Projector_Render_Target` | `app/shared/robj2texture.h:33` | Renegade's pscene_projectors.cpp helper |
 | 2 | `RenderStateClass` | `app/shared/rs.h:29` | rs_track.cpp's assert names State and Get_Render_State_List() |
-| 2 | `Peek_Render_Object` | `app/shared/rs.h:42` | the assert 'Peek_Render_Object()' at rs_track.cpp line 236 |
 | 2 | `Is_Enabled` | `app/shared/rs.h:67` | rs_list.cpp's assert 'state->Is_Enabled()' (lines 198, 215, 226) |
 | 2 | `Test_Flag` | `app/shared/rs.h:72` | rs_robj.cpp's assert text |
 | 2 | `Get_Source_Filename` | `app/shared/rs.h:73` | rs_robj.cpp's assert text (0x45EF80 loads it when the model is missing) |

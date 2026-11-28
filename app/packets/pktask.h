@@ -126,7 +126,7 @@ public:
 class TaskPingPacketClass : public UnknownPacketBaseClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
-	TaskPingPacketClass(int ip, unsigned short port, char *string);	// 0x8A9710
+	TaskPingPacketClass(unsigned long ip, unsigned short port, char *string);	// 0x8A9710  // NAME 5: thunk order confirmed, binary.md 5.11
 	TaskPingPacketClass(PacketClass *raw);	// 0x8A9800
 	virtual ~TaskPingPacketClass();	// +0x00 0x8A97D0 / 0x8A98D0
 	virtual PacketClass *Build();	// +0x04 0x8A9910
@@ -145,7 +145,7 @@ public:
 class TaskPongPacketClass : public TaskPingPacketClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
-	TaskPongPacketClass(int ip, unsigned short port);	// 0x8A9A80 (TaskPingPacketClass's with "" inlined)
+	TaskPongPacketClass(unsigned long ip, unsigned short port);	// 0x8A9A80 (TaskPingPacketClass's with "" inlined)  // NAME 5: thunk order probable, binary.md 5.11
 	TaskPongPacketClass(PacketClass *raw);	// 0x8A9BB0 (TaskPingPacketClass's inlined)
 	virtual bool Process_Packet(void *client);	// +0x08 0x868520 (clientstub.cpp)
 	virtual int Print(char *buffer, int len);	// +0x10 0x8A9CB0

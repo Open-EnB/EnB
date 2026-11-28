@@ -14,8 +14,8 @@ class Sound3DClass;
 class RenderStateSoundClass : public Unknown45D840Class  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
-	RenderStateSoundClass(RenderStateListClass *list, int id, int link_id, unsigned int flags, const char *sound, int message);	// 0x45F390  // NAME 1 [sound, message]: rs_list.cpp's keys
-	RenderStateSoundClass(RenderStateListClass *list, const RenderStateSoundClass &source);	// 0x45F4D0  // NAME 1 [list, source]: neutral
+	RenderStateSoundClass(const RenderStateListClass *list, int id, int link_id, unsigned int flags, const char *sound, int message);	// 0x45F390  // NAME 5: thunk order confirmed, binary.md 5.11
+	RenderStateSoundClass(const RenderStateListClass *list, const RenderStateSoundClass &source);	// 0x45F4D0  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual ~RenderStateSoundClass();									// 0x45F6C0 (deleting 0x45F4A0)
 	virtual RenderStateClass *Unknown_04(RenderStateListClass *list);	// +0x04 0x45F5B0
 	virtual void Unknown_0C();										// +0x0C 0x45FAA0 (stops the sound)

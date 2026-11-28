@@ -46,8 +46,8 @@ public:
 	bool Is_Valid();									// 0x4C0580: a type is set  // NAME 2: what it does
 	void Reset();										// 0x4C05A0  // NAME 2: what it does
 	void Load_Defaults(int type, const char *name);		// 0x4C05D0: avatardef.ini's section for the type (0 the gender, race and profession, 1 the narrator, 2 the name)  // NAME 2: what it does
-	std::string Get_Full_Name();						// 0x4C1020: the first and last names, a space between  // NAME 2: what it does
-	std::string &Get_Full_Name(std::string &name);		// 0x4C1200: the same into name  // NAME 2: what it does
+	std::string Get_Full_Name() const;						// 0x4C1020: the first and last names, a space between  // NAME 5: thunk order confirmed, binary.md 5.11
+	std::string &Get_Full_Name(std::string &name) const;		// 0x4C1200: the same into name  // NAME 5: thunk order confirmed, binary.md 5.11
 	void Unknown_4C1460(const char *name, bool convert);	// 0x4C1460: First_Name (the fast start's 'Fast' + the user name, 1; convert: through 0x4BE9D0)  // NAME 1 [convert]: what it selects
 	void Unknown_4C15F0(const char *name, bool convert);	// 0x4C15F0: Last_Name, the same way
 	Vector3 Get_Body_Morph(int morph);					// 0x4C1780: avatardef.ini's '<gender><race>morph' section, 1-4 short_skinny .. tall_skinny  // NAME 2: what it does

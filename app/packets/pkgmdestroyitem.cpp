@@ -15,7 +15,7 @@ GMDestroyItemRequestPacketClass::GMDestroyItemRequestPacketClass(PacketClass *ra
 	delete [] name;
 }
 
-GMDestroyItemRequestPacketClass::GMDestroyItemRequestPacketClass(int unknown0c, const char *item_name, bool unknown20) :
+GMDestroyItemRequestPacketClass::GMDestroyItemRequestPacketClass(unsigned long unknown0c, const char *item_name, bool unknown20) :
 	Unknown0C(unknown0c),
 	Unknown20(unknown20)
 {

@@ -34,8 +34,8 @@ public:
 	bool Insert(const char *text);										// 0x84B020 (G_ASSERT 'StrLen == (int)strlen(String)': at the cursor)  // NAME 2: what it does
 	char *Get_String(int length = -1, char *buffer = NULL);				// 0x84B1B0 (-1: StrLen + 1; no buffer: a new one the caller deletes)  // NAME 2: what it does; NAME 1 [length, buffer]: neutral
 
-	void Set_String(const std::basic_string<char, std::char_traits<char>, std::allocator<char> > &text);							// 0x84B200 (Clear, then Insert of the text)  // NAME 2: what it does; NAME 1 [text]: neutral
-	void Insert_String(const std::basic_string<char, std::char_traits<char>, std::allocator<char> > &text);						// 0x84B270 (Insert with InsertMode on)  // NAME 2: what it does; NAME 1 [text]: neutral
+	void Set_String(std::basic_string<char, std::char_traits<char>, std::allocator<char> > &text);							// 0x84B200 (Clear, then Insert of the text)  // NAME 5: thunk order confirmed, binary.md 5.11
+	void Insert_String(std::basic_string<char, std::char_traits<char>, std::allocator<char> > &text);						// 0x84B270 (Insert with InsertMode on)  // NAME 5: thunk order confirmed, binary.md 5.11
 	bool Set_Cursor(unsigned int position);								// 0x84B2B0 (true when it moved)  // NAME 2: what it does; NAME 1 [position]: neutral
 	bool Move_Cursor(int delta);										// 0x84B2F0 (true when it moved)  // NAME 2: what it does; NAME 1 [delta]: neutral
 

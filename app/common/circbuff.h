@@ -24,7 +24,7 @@ public:
 	~CircularBufferClass();							// 0x830C60
 
 	int Read(void *buffer, int len);			// 0x830C80: at most BytesUsed; returns the bytes read  // NAME 2: what it does
-	int Write(const void *buffer, int len);		// 0x830DA0: all or nothing  // NAME 2: what it does
+	int Write(void *buffer, int len);		// 0x830DA0: all or nothing  // NAME 5: thunk order probable, binary.md 5.11
 	int Get_Free() const;						// 0x830EB0: BufferSize - BytesUsed  // NAME 2: what it returns
 	int Get_Used() const;						// 0x830ED0: BytesUsed  // NAME 2: what it returns
 	bool Unread(int len);						// 0x830EF0: the last len bytes read are back in front  // NAME 2: what it does

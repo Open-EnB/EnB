@@ -75,7 +75,7 @@ static void Unknown_45E550(RenderObjClass *robj)	// NAME 1 [Unknown_45E550, robj
 
 
 // 0x45E5F0 (deleting destructor 0x45E850)
-RenderStateRenderObjClass::RenderStateRenderObjClass(RenderStateListClass *list, int id, int link_id, unsigned int flags, const char *name, int next_id, float duration) :
+RenderStateRenderObjClass::RenderStateRenderObjClass(const RenderStateListClass *list, int id, int link_id, unsigned int flags, const char *name, int next_id, float duration) :
 	RenderStateClass(list, id, link_id, flags),
 	RenderObjName(NULL),
 	RenderObj(NULL),
@@ -135,7 +135,7 @@ RenderStateRenderObjClass::RenderStateRenderObjClass(RenderStateListClass *list,
 
 
 // 0x45E880
-RenderStateRenderObjClass::RenderStateRenderObjClass(RenderStateListClass *list, int id, int link_id, unsigned int flags, RenderObjClass *robj, int next_id, float duration) :
+RenderStateRenderObjClass::RenderStateRenderObjClass(const RenderStateListClass *list, int id, int link_id, unsigned int flags, RenderObjClass *robj, int next_id, float duration) :
 	RenderStateClass(list, id, link_id, flags),
 	RenderObjName(NULL),
 	RenderObj(NULL),
@@ -171,7 +171,7 @@ RenderStateRenderObjClass::RenderStateRenderObjClass(RenderStateListClass *list,
 	}
 }
 // 0x45E9F0
-RenderStateRenderObjClass::RenderStateRenderObjClass(RenderStateListClass *list, const RenderStateRenderObjClass &source) :
+RenderStateRenderObjClass::RenderStateRenderObjClass(const RenderStateListClass *list, const RenderStateRenderObjClass &source) :
 	RenderStateClass(list, source),
 	RenderObjName(NULL),
 	RenderObj(NULL),
@@ -274,18 +274,18 @@ RenderStateClass *RenderStateRenderObjClass::Get_Next_Render_State()
 
 
 // 0x45EDC0: the model (loaded; a copy of its own unless flag 8 or 10)
-RenderObjClass *RenderStateRenderObjClass::Peek_Render_Object()
+RenderObjClass *RenderStateRenderObjClass::Peek_Render_Object() const
 {
-	Unknown_10();
+	((RenderStateRenderObjClass *)this)->Unknown_10();
 	if (!Test_Flag(8) && !Test_Flag(10)) {
 		G_ASSERT(RenderObj);
 		if (RenderObj == NULL) {
 			return(NULL);
 		}
 		RenderObjClass *robj = RenderObj;
-		RenderObj = robj->Clone();
+		((RenderStateRenderObjClass *)this)->RenderObj = robj->Clone();
 		robj->Release_Ref();
-		Unknown_458370(8);
+		((RenderStateRenderObjClass *)this)->Unknown_458370(8);
 	}
 	return(RenderObj);
 }

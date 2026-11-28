@@ -40,7 +40,7 @@ void ExprLexerImpl::Add_Matcher(int type, ExprLexerMatch *m)
 
 
 // @0x4C4F60
-ExprLexerToken ExprLexerImpl::Get_Token()
+ExprLexerToken ExprLexerImpl::Get_Token() const
 {
 	return m_token;
 }

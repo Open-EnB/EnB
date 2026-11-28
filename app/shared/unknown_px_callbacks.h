@@ -27,7 +27,7 @@ public:
 	PxBoxCallback(PxObject *object, PxCallbackFunction callback, const Vector3 &extent);	// 0x451C30  // NAME 2 [object, callback, extent]: what it stores
 	PxBoxCallback(PxObject *object, const PxBoxCallback &src);						// 0x451DA0  // NAME 2 [object, src]: as PxBox's
 
-	virtual PxCallback *Clone(PxObject *object);		// 0x451EB0
+	virtual PxCallback *Clone(PxObject *object) const;		// 0x451EB0  // NAME 5: thunk order probable, binary.md 5.11
 	virtual void Attach(PxList *list);					// 0x451FE0
 	virtual void Detach(PxList *list);					// 0x452000
 	virtual void Update();								// 0x452020 (the box to the extent around the position)

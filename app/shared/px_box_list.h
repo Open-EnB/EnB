@@ -45,8 +45,8 @@ public:
 	PxBoxOwnerList(void *owner, const PxBoxOwnerList &src);	// 0x44DBC0 (the vector starts empty)  // NAME 2 [owner, src]: as PxBox's
 	virtual ~PxBoxOwnerList();								// 0x44DC10 (deleting 0x44DB90)
 
-	virtual void On_Enter(PxBox *box);					// 0x44DC50 (FAIL_IF l.96)
-	virtual void On_Exit(PxBox *box);					// 0x44DEB0 (FAIL_IF l.111)
+	protected: virtual void On_Enter(PxBox *box);					// 0x44DC50 (FAIL_IF l.96)  // NAME 5: thunk order confirmed, binary.md 5.11
+	virtual void On_Exit(PxBox *box); public:					// 0x44DEB0 (FAIL_IF l.111)  // NAME 5: thunk order confirmed, binary.md 5.11
 
 	std::vector<DynamicObjectClass *> Owners;						// +0x20 (the client's name, the FAIL_IFs 'Owners.end()')
 };

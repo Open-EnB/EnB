@@ -3,14 +3,14 @@
 #include "rs_track.h"
 
 // 0x45D840
-Unknown45D840Class::Unknown45D840Class(RenderStateListClass *list, int id, int link_id, unsigned int flags, int message) :
+Unknown45D840Class::Unknown45D840Class(const RenderStateListClass *list, int id, int link_id, unsigned int flags, int message) :
 	RenderStateClass(list, id, link_id, flags),
 	Message(message)
 {
 }
 
 // 0x45D8C0
-Unknown45D840Class::Unknown45D840Class(RenderStateListClass *list, const Unknown45D840Class &source) :
+Unknown45D840Class::Unknown45D840Class(const RenderStateListClass *list, const Unknown45D840Class &source) :
 	RenderStateClass(list, source),
 	Message(source.Message)
 {

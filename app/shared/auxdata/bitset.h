@@ -25,12 +25,12 @@ public:
 
 	void Swap(BitSet &other);										// 0x4A4980  // NAME 2: describes what it does
 	BitSet &operator=(const BitSet &other);				// 0x4A49C0
-	bool operator==(const BitSet &other) const;				// 0x4A4A30
+	bool operator==(const BitSet &other);				// 0x4A4A30  // NAME 5: thunk order probable, binary.md 5.11
 
 	bool Is_Set(unsigned int pos) const;								// 0x4A4AA0  // NAME 2: describes what it does
 	bool operator[](unsigned int pos) const { return Is_Set(pos); }	// encode.cpp's assert on line 660 (b[1])
 	void Set(unsigned int pos);											// 0x4A4B10  // NAME 2: describes what it does
-	void Set_All();															// 0x4A4B80  // NAME 2: describes what it does
+	void Set_All() const;															// 0x4A4B80  // NAME 5: thunk order confirmed, binary.md 5.11
 	void Clear(unsigned int pos);											// 0x4A4BB0  // NAME 2: describes what it does
 	void Clear_All();															// 0x4A4C00  // NAME 2: describes what it does
 	bool Is_Any_Set() const;												// 0x4A4C30  // NAME 2: describes what it does

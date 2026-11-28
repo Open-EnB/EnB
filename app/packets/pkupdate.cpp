@@ -341,7 +341,7 @@ unsigned int AdvancedPositionalUpdatePacketClass::Get_Flags()
 	Set_Flag(&flags, 1, Has_Set_Speed());
 	Set_Flag(&flags, 2, Has_Acceleration());
 	Set_Flag(&flags, 3, Has_RotY());
-	Set_Flag(&flags, 4, Has_DesiredY());
+	Set_Flag(&flags, 4, Has_Desired_Y());
 	Set_Flag(&flags, 5, Has_RotZ());
 	Set_Flag(&flags, 6, Has_DesiredZ());
 	Set_Flag(&flags, 7, Has_Imparted());
@@ -369,7 +369,7 @@ bool AdvancedPositionalUpdatePacketClass::Has_RotY()
 	return(fabs(RotY) >= FLAG_EPSILON);
 }
 
-bool AdvancedPositionalUpdatePacketClass::Has_DesiredY()
+bool AdvancedPositionalUpdatePacketClass::Has_Desired_Y()
 {
 	if (fabs(RotY) < FLAG_EPSILON) {
 		return(false);
