@@ -22,7 +22,7 @@
 #include "..\shared\g_assert.h"
 #include "..\..\ww3d2\ww3d.h"
 #include "..\..\wwmath\vector2.h"
-
+#include "..\shared\auth_product.h"
 extern unsigned int Unknown_BE5F34;										// 0xBE5F34 (gadget.cpp's: the event mask)  // NAME 1: neutral (D10)
 // @0x671300
 Unknown_671300Class::Unknown_671300Class(RenderObjClass *robj, int unknown1, const LayerClass &layer, int unknown2, int unknown3, int unknown4) :

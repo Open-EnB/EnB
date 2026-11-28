@@ -6,43 +6,7 @@ messages: on
 wait-event msg 'Server initialized & ready to go' within 60
 click 640,512 until antprox 'Global connection #1' every 0.5 within 120
 wait-quiet proxy 0.5 within 20
-click gadget login.username
-wait-quiet proxy 0.5 within 20
-click gadget login.username
-wait-quiet proxy 0.5 within 20
-key 0x23
-key 0x08
-key 0x08
-key 0x08
-key 0x08
-key 0x08
-key 0x08
-key 0x08
-key 0x08
-key 0x08
-key 0x08
-key 0x08
-key 0x08
-key 0x08
-key 0x08
-text admin
-click gadget login.password
-key 0x23
-key 0x08
-key 0x08
-key 0x08
-key 0x08
-key 0x08
-key 0x08
-key 0x08
-key 0x08
-key 0x08
-key 0x08
-key 0x08
-key 0x08
-key 0x08
-key 0x08
-text admin
+include _login_live_type
 shot login_typed
 click gadget login.ok
 wait-event antprox 'GLOBAL_AVATAR_LIST' within 30

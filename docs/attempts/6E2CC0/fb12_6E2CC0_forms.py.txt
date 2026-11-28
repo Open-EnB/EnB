@@ -1,0 +1,298 @@
+# ===== v6e2cc0_b1.py =====
+HYPOTHESIS = ('0x6E2CC0 r26: the client consumes Xt and keeps d.X (fxch st(2); fadd st(2)), pops d.X dead, and stores '
+              'the translation in X, Y, Z order (Z last): d.X is the value with the dead store, Xt the addend; '
+              'the sum lives in d (d.X += x ...) and goes back through Set_Translation(d)')
+FILE = 'app/client/cameraeffects.cpp'
+SYMBOL = 'CameraEffectsClass::Unknown_34'
+ADDRESS = 0x6E2CC0
+
+OLD = ('\t\t\tconst Matrix3D &cur = camera->Get_Transform();\n'
+       '\t\t\tfloat x = cur.Get_X_Translation();\n'
+       '\t\t\tfloat z = cur.Get_Z_Translation();\n'
+       '\t\t\tMatrix3D tm = cur; Vector3 d = Unknown18;\n'
+       '\t\t\ttm.Set_X_Translation(x); tm.Adjust_X_Translation(d.X);\n'
+       '\t\t\ttm.Set_Z_Translation(z);\n'
+       '\t\t\ttm.Adjust_Y_Translation(d.Y);\n')
+
+
+def F(*lines):
+    lines = list(lines) + [''] * (7 - len(lines))
+    assert len(lines) == 7, len(lines)
+    return [(OLD, ''.join('\t\t\t' + l + '\n' for l in lines))]
+
+
+C = 'const Matrix3D &cur = camera->Get_Transform();'
+X = 'float x = cur.Get_X_Translation();'
+Z = 'float z = cur.Get_Z_Translation();'
+TD = 'Matrix3D tm = cur; Vector3 d = Unknown18;'
+GY = 'tm.Get_Y_Translation()'
+
+FORMS = {
+    'swap_zy': F(C, X, Z, TD, 'tm.Set_X_Translation(d.X); tm.Adjust_X_Translation(x);', 'tm.Set_Z_Translation(z);', 'tm.Adjust_Y_Translation(d.Y);'),
+    'swap_yz': F(C, X, Z, TD, 'tm.Set_X_Translation(d.X); tm.Adjust_X_Translation(x);', 'tm.Adjust_Y_Translation(d.Y);', 'tm.Set_Z_Translation(z);'),
+    'dvec_peq': F(C, X, Z, TD, 'd.X += x; d.Y += ' + GY + '; d.Z = z;', 'tm.Set_Translation(d);'),
+    'dvec_eq': F(C, X, Z, TD, 'd.X += x; d.Y = ' + GY + ' + d.Y; d.Z = z;', 'tm.Set_Translation(d);'),
+    'dvec_xeq': F(C, X, Z, TD, 'd.X = x + d.X; d.Y = ' + GY + ' + d.Y; d.Z = z;', 'tm.Set_Translation(d);'),
+    'dvec_nolocal': F(C, TD, 'd.X += cur.Get_X_Translation(); d.Y = ' + GY + ' + d.Y; d.Z = cur.Get_Z_Translation();', 'tm.Set_Translation(d);'),
+    'dvec_tmall': F(C, TD, 'd.X += tm.Get_X_Translation(); d.Y = ' + GY + ' + d.Y; d.Z = tm.Get_Z_Translation();', 'tm.Set_Translation(d);'),
+    'dvec_direct': F('Matrix3D tm = camera->Get_Transform(); Vector3 d = Unknown18;', 'd.X += tm.Get_X_Translation(); d.Y = ' + GY + ' + d.Y; d.Z = tm.Get_Z_Translation();', 'tm.Set_Translation(d);'),
+    'dvec_pos': F(C, 'Vector3 pos = cur.Get_Translation();', TD, 'd.X += pos.X; d.Y = ' + GY + ' + d.Y; d.Z = pos.Z;', 'tm.Set_Translation(d);'),
+    'z_plus0': F(C, X, Z, TD, 'tm.Set_X_Translation(x); tm.Adjust_X_Translation(d.X);', 'tm.Set_Z_Translation(z + 0.0f);', 'tm.Adjust_Y_Translation(d.Y);'),
+    'adj_vec0': F(C, TD, 'tm.Adjust_Translation(Vector3(d.X, d.Y, 0.0f));'),
+    'adj_vec0_direct': F('Matrix3D tm = camera->Get_Transform(); Vector3 d = Unknown18;', 'tm.Adjust_Translation(Vector3(d.X, d.Y, 0.0f));'),
+    'setx_settrans': F(C, X, Z, TD, 'tm.Set_X_Translation(d.X);', 'tm.Set_Translation(Vector3(tm.Get_X_Translation() + x, ' + GY + ' + d.Y, z));'),
+    'swap_settrans_yz': F(C, X, Z, TD, 'tm.Set_X_Translation(d.X); tm.Adjust_X_Translation(x);', 'tm.Set_Translation(Vector3(tm.Get_X_Translation(), ' + GY + ' + d.Y, z));'),
+    'dvec_dz_late': F(C, X, Z, TD, 'd.X += x; d.Y = ' + GY + ' + d.Y;', 'd.Z = z; tm.Set_Translation(d);'),
+    'dvec_get': F(C, X, Z, TD, 'd.X += x; d.Y = ' + GY + ' + d.Y; d.Z = z;', 'tm.Set_X_Translation(d.X); tm.Set_Y_Translation(d.Y); tm.Set_Z_Translation(d.Z);'),
+}
+
+# ===== v6e2cc0_b2.py =====
+HYPOTHESIS = ('0x6E2CC0 r26: b1 showed VC6 folds z + 0.0f and that Adjust_Translation(Vector3(d.X, d.Y, 0.0f)) gives the '
+              'client x87 shape (fxch st(2); fadd st(2); d.X popped dead; Yt from the copy; Z stored last) with one '
+              'extra Y temp copy: the camera move is an Adjust_Translation by one Vector3 whose Z is 0; find the form '
+              'with one temp and the base inline budget (r9 third find stays out of line)')
+FILE = 'app/client/cameraeffects.cpp'
+SYMBOL = 'CameraEffectsClass::Unknown_34'
+ADDRESS = 0x6E2CC0
+
+OLD = ('\t\t\tconst Matrix3D &cur = camera->Get_Transform();\n'
+       '\t\t\tfloat x = cur.Get_X_Translation();\n'
+       '\t\t\tfloat z = cur.Get_Z_Translation();\n'
+       '\t\t\tMatrix3D tm = cur; Vector3 d = Unknown18;\n'
+       '\t\t\ttm.Set_X_Translation(x); tm.Adjust_X_Translation(d.X);\n'
+       '\t\t\ttm.Set_Z_Translation(z);\n'
+       '\t\t\ttm.Adjust_Y_Translation(d.Y);\n')
+
+
+def F(*lines):
+    lines = list(lines) + [''] * (7 - len(lines))
+    assert len(lines) == 7, len(lines)
+    return [(OLD, ''.join('\t\t\t' + l + '\n' for l in lines))]
+
+
+TM = 'Matrix3D tm = camera->Get_Transform();'
+C = 'const Matrix3D &cur = camera->Get_Transform();'
+
+FORMS = {
+    'tmp_members': F(TM, 'tm.Adjust_Translation(Vector3(Unknown18.X, Unknown18.Y, 0.0f));'),
+    'tmp_move': F(TM, 'tm.Adjust_Translation(Vector3(move[0], move[1], 0.0f));'),
+    'd_ctor': F(TM, 'Vector3 d(Unknown18.X, Unknown18.Y, 0.0f);', 'tm.Adjust_Translation(d);'),
+    'd_ctor_first': F('Vector3 d(Unknown18.X, Unknown18.Y, 0.0f);', TM, 'tm.Adjust_Translation(d);'),
+    'd_copy_z0': F(TM, 'Vector3 d = Unknown18;', 'd.Z = 0.0f;', 'tm.Adjust_Translation(d);'),
+    'd_copy_z0_first': F('Vector3 d = Unknown18;', 'd.Z = 0.0f;', TM, 'tm.Adjust_Translation(d);'),
+    'd_copy_first_z0': F('Vector3 d = Unknown18;', TM, 'd.Z = 0.0f;', 'tm.Adjust_Translation(d);'),
+    'd_set': F(TM, 'Vector3 d;', 'd.Set(Unknown18.X, Unknown18.Y, 0.0f);', 'tm.Adjust_Translation(d);'),
+    'd_ctor_move': F(TM, 'Vector3 d(move[0], move[1], 0.0f);', 'tm.Adjust_Translation(d);'),
+    'get_plus_set': F(TM, 'Vector3 d(Unknown18.X, Unknown18.Y, 0.0f);', 'tm.Set_Translation(tm.Get_Translation() + d);'),
+    'get_plus_set_tmp': F(TM, 'tm.Set_Translation(tm.Get_Translation() + Vector3(Unknown18.X, Unknown18.Y, 0.0f));'),
+    'pos_peq': F(TM, 'Vector3 d(Unknown18.X, Unknown18.Y, 0.0f);', 'Vector3 pos = tm.Get_Translation();', 'pos += d;', 'tm.Set_Translation(pos);'),
+    'adj_xyz': F(TM, 'Vector3 d = Unknown18;', 'tm.Adjust_X_Translation(d.X); tm.Adjust_Y_Translation(d.Y); tm.Adjust_Z_Translation(0.0f);'),
+    'adj_xyz_nod': F(TM, 'tm.Adjust_X_Translation(Unknown18.X); tm.Adjust_Y_Translation(Unknown18.Y); tm.Adjust_Z_Translation(0.0f);'),
+    'ref_d_ctor': F(C, 'Matrix3D tm = cur;', 'Vector3 d(Unknown18.X, Unknown18.Y, 0.0f);', 'tm.Adjust_Translation(d);'),
+    'd_copy_z0_setz': F(TM, 'Vector3 d = Unknown18;', 'd.Z = 0.0f;', 'tm.Set_Translation(tm.Get_Translation() + d);'),
+}
+
+# ===== v6e2cc0_b3.py =====
+HYPOTHESIS = ('0x6E2CC0: b2 found the camera move exact (39/39 rows, res 0) as Matrix3D tm = camera->Get_Transform(); '
+              'Vector3 d = Unknown18; d.Z = 0.0f; tm.Adjust_Translation(d); the older form had been spending the '
+              'inline budget that keeps the ForceY / ForceZ finds out of line: find the client-plausible spender '
+              'after the find sites (the six wrap loops as an inline helper per axis, list accessors) and map how '
+              'much is needed with dead Head() reads (diagnostic)')
+FILE = 'app/client/cameraeffects.cpp'
+SYMBOL = 'CameraEffectsClass::Unknown_34'
+ADDRESS = 0x6E2CC0
+
+OLD = ('\t\t\tconst Matrix3D &cur = camera->Get_Transform();\n'
+       '\t\t\tfloat x = cur.Get_X_Translation();\n'
+       '\t\t\tfloat z = cur.Get_Z_Translation();\n'
+       '\t\t\tMatrix3D tm = cur; Vector3 d = Unknown18;\n'
+       '\t\t\ttm.Set_X_Translation(x); tm.Adjust_X_Translation(d.X);\n'
+       '\t\t\ttm.Set_Z_Translation(z);\n'
+       '\t\t\ttm.Adjust_Y_Translation(d.Y);\n')
+NEW = ('\t\t\tMatrix3D tm = camera->Get_Transform();\n'
+       '\t\t\tVector3 d = Unknown18;\n'
+       '\t\t\td.Z = 0.0f;\n'
+       '\t\t\ttm.Adjust_Translation(d);\n'
+       '\n'
+       '\n'
+       '\n')
+CAM = [(OLD, NEW)]
+
+LOOPS = ('\t\t\twhile (move[0] > 12.0f) move[0] -= 12.0f;\n'
+         '\t\t\twhile (move[0] < -12.0f) move[0] += 12.0f;\n'
+         '\t\t\twhile (Unknown18.Y > 12.0f) Unknown18.Y -= 12.0f;\n'
+         '\t\t\twhile (Unknown18.Y < -12.0f) Unknown18.Y += 12.0f;\n'
+         '\t\t\twhile (Unknown18.Z > 12.0f) Unknown18.Z -= 12.0f;\n'
+         '\t\t\twhile (Unknown18.Z < -12.0f) Unknown18.Z += 12.0f;\n')
+ANCHOR = 'void Unknown_491550(float *x, float *y);'
+WRAP_REF = 'static inline void Unknown_Wrap(float &v) { while (v > 12.0f) v -= 12.0f; while (v < -12.0f) v += 12.0f; } '
+WRAP_PTR = 'static inline void Unknown_Wrap(float *v) { while (*v > 12.0f) *v -= 12.0f; while (*v < -12.0f) *v += 12.0f; } '
+WRAP_VEC = ('static inline void Unknown_Wrap(Vector3 &v) { while (v.X > 12.0f) v.X -= 12.0f; while (v.X < -12.0f) v.X += 12.0f; '
+            'while (v.Y > 12.0f) v.Y -= 12.0f; while (v.Y < -12.0f) v.Y += 12.0f; '
+            'while (v.Z > 12.0f) v.Z -= 12.0f; while (v.Z < -12.0f) v.Z += 12.0f; } ')
+TAIL = '\t// (budget-device audit 2026-11-19: two dead finds here changed nothing, the residue the same without them)\n'
+
+
+def L(*lines):
+    lines = list(lines) + [''] * (6 - len(lines))
+    assert len(lines) == 6
+    return [(LOOPS, ''.join(('\t\t\t' + l if l else '') + '\n' for l in lines))]
+
+
+def H(text):
+    return [(ANCHOR, text + ANCHOR)]
+
+
+def DEAD(k, read='Head();'):
+    return [(TAIL, '\t' + ' '.join([read] * k) + '\n')]
+
+
+FORMS = {
+    'cam': CAM,
+    'wrap_ref_move': CAM + H(WRAP_REF) + L('Unknown_Wrap(move[0]);', 'Unknown_Wrap(Unknown18.Y);', 'Unknown_Wrap(Unknown18.Z);'),
+    'wrap_ref_xyz': CAM + H(WRAP_REF) + L('Unknown_Wrap(Unknown18.X);', 'Unknown_Wrap(Unknown18.Y);', 'Unknown_Wrap(Unknown18.Z);'),
+    'wrap_ptr_move': CAM + H(WRAP_PTR) + L('Unknown_Wrap(move);', 'Unknown_Wrap(&Unknown18.Y);', 'Unknown_Wrap(&Unknown18.Z);'),
+    'wrap_ptr_xyz': CAM + H(WRAP_PTR) + L('Unknown_Wrap(&Unknown18.X);', 'Unknown_Wrap(&Unknown18.Y);', 'Unknown_Wrap(&Unknown18.Z);'),
+    'wrap_vec': CAM + H(WRAP_VEC) + L('Unknown_Wrap(Unknown18);'),
+    'wrap_yz_only': CAM + H(WRAP_REF) + L('while (move[0] > 12.0f) move[0] -= 12.0f;', 'while (move[0] < -12.0f) move[0] += 12.0f;', 'Unknown_Wrap(Unknown18.Y);', 'Unknown_Wrap(Unknown18.Z);'),
+    'dead1': CAM + DEAD(1),
+    'dead2': CAM + DEAD(2),
+    'dead3': CAM + DEAD(3),
+    'dead4': CAM + DEAD(4),
+    'dead6': CAM + DEAD(6),
+    'dead8': CAM + DEAD(8),
+    'deadz2': CAM + DEAD(2, 'Unknown18.Length2();'),
+    'deadz4': CAM + DEAD(4, 'Unknown18.Length2();'),
+}
+
+# ===== v6e2cc0_b4.py =====
+HYPOTHESIS = ('0x6E2CC0: b3 exact with the six wrap loops as an inline per-axis helper (the budget the finds need) and '
+              'the Adjust_Translation camera move; which plain form holds: without the move pointer, helper by '
+              'reference or pointer, d declared in one line (file-check for the other functions of the object)')
+FILE = 'app/client/cameraeffects.cpp'
+SYMBOL = 'CameraEffectsClass::Unknown_34'
+ADDRESS = 0x6E2CC0
+
+OLD = ('\t\t\tconst Matrix3D &cur = camera->Get_Transform();\n'
+       '\t\t\tfloat x = cur.Get_X_Translation();\n'
+       '\t\t\tfloat z = cur.Get_Z_Translation();\n'
+       '\t\t\tMatrix3D tm = cur; Vector3 d = Unknown18;\n'
+       '\t\t\ttm.Set_X_Translation(x); tm.Adjust_X_Translation(d.X);\n'
+       '\t\t\ttm.Set_Z_Translation(z);\n'
+       '\t\t\ttm.Adjust_Y_Translation(d.Y);\n')
+NEW = ('\t\t\tMatrix3D tm = camera->Get_Transform();\n'
+       '\t\t\tVector3 d = Unknown18;\n'
+       '\t\t\td.Z = 0.0f;\n'
+       '\t\t\ttm.Adjust_Translation(d);\n'
+       '\n'
+       '\n'
+       '\n')
+CAM = [(OLD, NEW)]
+
+LOOPS = ('\t\t\twhile (move[0] > 12.0f) move[0] -= 12.0f;\n'
+         '\t\t\twhile (move[0] < -12.0f) move[0] += 12.0f;\n'
+         '\t\t\twhile (Unknown18.Y > 12.0f) Unknown18.Y -= 12.0f;\n'
+         '\t\t\twhile (Unknown18.Y < -12.0f) Unknown18.Y += 12.0f;\n'
+         '\t\t\twhile (Unknown18.Z > 12.0f) Unknown18.Z -= 12.0f;\n'
+         '\t\t\twhile (Unknown18.Z < -12.0f) Unknown18.Z += 12.0f;\n')
+ANCHOR = 'void Unknown_491550(float *x, float *y);'
+WRAP_REF = 'static inline void Unknown_Wrap(float &v) { while (v > 12.0f) v -= 12.0f; while (v < -12.0f) v += 12.0f; } '
+WRAP_PTR = 'static inline void Unknown_Wrap(float *v) { while (*v > 12.0f) *v -= 12.0f; while (*v < -12.0f) *v += 12.0f; } '
+MOVE = '\t\tfloat *move = &Unknown18.X;\n'
+CALL = '\t\t\tUnknown_491550(move, move + 1);\n'
+NOMOVE = [(MOVE, '\n'), (CALL, '\t\t\tUnknown_491550(&Unknown18.X, &Unknown18.Y);\n')]
+
+
+def L(*lines):
+    lines = list(lines) + [''] * (6 - len(lines))
+    assert len(lines) == 6
+    return [(LOOPS, ''.join(('\t\t\t' + l if l else '') + '\n' for l in lines))]
+
+
+def H(text):
+    return [(ANCHOR, text + ANCHOR)]
+
+
+XYZ = L('Unknown_Wrap(Unknown18.X);', 'Unknown_Wrap(Unknown18.Y);', 'Unknown_Wrap(Unknown18.Z);')
+PXYZ = L('Unknown_Wrap(&Unknown18.X);', 'Unknown_Wrap(&Unknown18.Y);', 'Unknown_Wrap(&Unknown18.Z);')
+
+FORMS = {
+    'ref_xyz': CAM + H(WRAP_REF) + XYZ,
+    'ref_xyz_nomove': CAM + H(WRAP_REF) + XYZ + NOMOVE,
+    'ptr_xyz_nomove': CAM + H(WRAP_PTR) + PXYZ + NOMOVE,
+    'loops_nomove': CAM + NOMOVE + [(LOOPS, LOOPS.replace('move[0]', 'Unknown18.X'))],
+    'ref_xyz_nomove_oldcam': H(WRAP_REF) + XYZ + NOMOVE,
+    'ref_xyz_nomove_noshake': CAM + H(WRAP_REF) + XYZ + NOMOVE + [
+        ('static inline DeltaTemplateClass<float> *Unknown_Shake_Field(DeltaCompoundClass *aux, const char *field) { NameClass name(field); return(Unknown_Find_Field<DeltaTemplateClass<float> >(aux, name)); }',
+         'static inline DeltaTemplateClass<float> *Unknown_Shake_Field(DeltaCompoundClass *aux, const NameClass &name) { return(Unknown_Find_Field<DeltaTemplateClass<float> >(aux, name)); }')],
+}
+
+# ===== v6e2cc0_b5.py =====
+HYPOTHESIS = ('0x6E2CC0: b3 exact with the six wrap loops as an inline per-axis helper (the budget the finds need) and '
+              'the Adjust_Translation camera move; which plain form holds: without the move pointer, helper by '
+              'reference or pointer, d declared in one line (file-check for the other functions of the object)')
+FILE = 'app/client/cameraeffects.cpp'
+SYMBOL = 'CameraEffectsClass::Unknown_34'
+ADDRESS = 0x6E2CC0
+
+OLD = ('\t\t\tconst Matrix3D &cur = camera->Get_Transform();\n'
+       '\t\t\tfloat x = cur.Get_X_Translation();\n'
+       '\t\t\tfloat z = cur.Get_Z_Translation();\n'
+       '\t\t\tMatrix3D tm = cur; Vector3 d = Unknown18;\n'
+       '\t\t\ttm.Set_X_Translation(x); tm.Adjust_X_Translation(d.X);\n'
+       '\t\t\ttm.Set_Z_Translation(z);\n'
+       '\t\t\ttm.Adjust_Y_Translation(d.Y);\n')
+NEW = ('\t\t\tMatrix3D tm = camera->Get_Transform();\n'
+       '\t\t\tVector3 d = Unknown18;\n'
+       '\t\t\td.Z = 0.0f;\n'
+       '\t\t\ttm.Adjust_Translation(d);\n'
+       '\n'
+       '\n'
+       '\n')
+CAM = [(OLD, NEW)]
+
+LOOPS = ('\t\t\twhile (move[0] > 12.0f) move[0] -= 12.0f;\n'
+         '\t\t\twhile (move[0] < -12.0f) move[0] += 12.0f;\n'
+         '\t\t\twhile (Unknown18.Y > 12.0f) Unknown18.Y -= 12.0f;\n'
+         '\t\t\twhile (Unknown18.Y < -12.0f) Unknown18.Y += 12.0f;\n'
+         '\t\t\twhile (Unknown18.Z > 12.0f) Unknown18.Z -= 12.0f;\n'
+         '\t\t\twhile (Unknown18.Z < -12.0f) Unknown18.Z += 12.0f;\n')
+ANCHOR = 'void Unknown_491550(float *x, float *y);'
+WRAP_REF = 'static inline void Unknown_Wrap(float &v) { while (v > 12.0f) v -= 12.0f; while (v < -12.0f) v += 12.0f; } '
+WRAP_PTR = 'static inline void Unknown_Wrap(float *v) { while (*v > 12.0f) *v -= 12.0f; while (*v < -12.0f) *v += 12.0f; } '
+MOVE = '\t\tfloat *move = &Unknown18.X;\n'
+CALL = '\t\t\tUnknown_491550(move, move + 1);\n'
+NOMOVE = [(MOVE, '\n'), (CALL, '\t\t\tUnknown_491550(&Unknown18.X, &Unknown18.Y);\n')]
+
+
+def L(*lines):
+    lines = list(lines) + [''] * (6 - len(lines))
+    assert len(lines) == 6
+    return [(LOOPS, ''.join(('\t\t\t' + l if l else '') + '\n' for l in lines))]
+
+
+def H(text):
+    return [(ANCHOR, text + ANCHOR)]
+
+
+XYZ = L('Unknown_Wrap(Unknown18.X);', 'Unknown_Wrap(Unknown18.Y);', 'Unknown_Wrap(Unknown18.Z);')
+PXYZ = L('Unknown_Wrap(&Unknown18.X);', 'Unknown_Wrap(&Unknown18.Y);', 'Unknown_Wrap(&Unknown18.Z);')
+
+HYPOTHESIS = ('0x6E2CC0: b4 exact needs &Unknown18 in ebx (the move pointer); plainer sources for it: operator[] at the '
+              'snap call, a Vector3 reference declared before Set, index wraps, the pointer after Set')
+SET = '\t\tUnknown18.Set(0.0f, 0.0f, 0.0f);\n'
+HIT = '\t\t\tVector3 hit = Unknown18;\n'
+IDXCALL = [(MOVE, '\n'), (CALL, '\t\t\tUnknown_491550(&Unknown18[0], &Unknown18[1]);\n')]
+REFV = [(MOVE, '\t\tVector3 &v = Unknown18;\n'), (SET, '\t\tv.Set(0.0f, 0.0f, 0.0f);\n'), (CALL, '\t\t\tUnknown_491550(&v.X, &v.Y);\n')]
+CAMV = [(OLD, NEW.replace('Vector3 d = Unknown18;', 'Vector3 d = v;'))]
+
+FORMS = {
+    'idx_call': CAM + H(WRAP_REF) + XYZ + IDXCALL,
+    'idx_call_idx_wrap': CAM + H(WRAP_REF) + L('Unknown_Wrap(Unknown18[0]);', 'Unknown_Wrap(Unknown18[1]);', 'Unknown_Wrap(Unknown18[2]);') + IDXCALL,
+    'idx_call_idx_x': CAM + H(WRAP_REF) + L('Unknown_Wrap(Unknown18[0]);', 'Unknown_Wrap(Unknown18.Y);', 'Unknown_Wrap(Unknown18.Z);') + IDXCALL,
+    'refv_all': CAMV + H(WRAP_REF) + L('Unknown_Wrap(v.X);', 'Unknown_Wrap(v.Y);', 'Unknown_Wrap(v.Z);') + REFV + [(HIT, '\t\t\tVector3 hit = v;\n')],
+    'refv_x': CAMV + H(WRAP_REF) + L('Unknown_Wrap(v.X);', 'Unknown_Wrap(Unknown18.Y);', 'Unknown_Wrap(Unknown18.Z);') + REFV + [(HIT, '\t\t\tVector3 hit = v;\n')],
+    'move_wrap_ptr3': CAM + H(WRAP_PTR) + L('Unknown_Wrap(move);', 'Unknown_Wrap(move + 1);', 'Unknown_Wrap(move + 2);'),
+    'move_after_set': CAM + H(WRAP_REF) + XYZ + [(MOVE + SET, SET + MOVE)],
+}
+

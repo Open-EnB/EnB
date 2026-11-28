@@ -1,0 +1,55 @@
+"""A12: ours vs the client's LandClass::Unknown_470F80 (0x470F80) in emu.py on several fields."""
+import sys
+sys.path.insert(0, 'C:/EnBDevelopment/EnB/.work/a12')
+import emu  # noqa: E402
+emu.ALIASES['?Unknown_472F80@LandClass@@IAEXPAE000EABVVector3@@@Z'] = 0x472F80
+
+OBJ = 'C:/EnBDevelopment/EnB/.work/a12/unknown_46c730.obj'
+SYM = '?Unknown_470F80@LandClass@@IAEXPAE00@Z'
+THIS, FIELD = 0x30000000, 0x31000000
+CASES = [(4, 2, 3), (8, 3, 7), (2, 1, 1), (16, 4, 15), (4, 3, 3), (8, 3, 15), (3, 2, 3), (5, 3, 7)]
+
+
+def make_setup(size, log2, mask):
+    def setup(mem, cpu, seed):
+        mem.wu(THIS + 0x90, 4, FIELD)
+        mem.wu(FIELD + 0x1C, 4, log2)
+        mem.wu(FIELD + 0x20, 4, size)
+        mem.wu(FIELD + 0x28, 4, mask)
+        cpu.r['ecx'] = THIS
+        return [0x40000000, 0x41000000, 0x42000000]
+    return setup
+
+
+def stubs(cpu, key, words, idx, seed):
+    if key == ('direct', 0xA264EC):
+        emu.ftol(cpu)
+        return 0
+    if key == ('direct', 0x472F80):
+        h = cpu.m.read(words[3], 8)
+        color = cpu.m.read(words[5], 12)
+        return 0x18, {'h': h.hex(), 'color': color.hex(), 'normal': words[4] & 0xFF}
+    raise emu.Stop('unknown callee %r' % (key,))
+
+
+def main():
+    entry, reader, extra, names = emu.link_ours(OBJ, SYM)
+    creader = emu.client_reader()
+    bad = 0
+    for size, log2, mask in CASES:
+        for seed in (1, 2, 3):
+            setup = make_setup(size, log2, mask)
+            a = emu.run_one(entry, reader, extra, seed, setup, stubs, 3)
+            b = emu.run_one(0x470F80, creader, {}, seed, setup, stubs, 3)
+            d = emu.compare(a, b)
+            print('size %2d log2 %d mask %2d seed %d: %s, %d calls, %d bytes written, steps %d/%d: %s' % (
+                size, log2, mask, seed, b['status'], len(b['calls']), len(b['writes']), a['steps'], b['steps'],
+                'SAME' if not d else 'DIFF'))
+            for x in d[:6]:
+                print('    ' + x)
+            bad += bool(d)
+    print('differing runs:', bad)
+
+
+if __name__ == '__main__':
+    main()

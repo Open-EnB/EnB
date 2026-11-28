@@ -1,7 +1,7 @@
 // Earth & Beyond client (reconstruction): app\packets\pkmasterjoin.cpp. Notes at the end of the file.
 #include "pkmasterjoin.h"
 #include <stdio.h>
-
+#include "..\shared\auth_product.h"
 MasterJoinPacketClass::MasterJoinPacketClass(const TicketClass &ticket) :
 	Ticket(ticket),
 	Unknown58(0)

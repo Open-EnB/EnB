@@ -29,7 +29,7 @@
 #include "radar_system_data_cache.h"
 #include "..\..\ww3d2\layer.h"
 #include "..\shared\auxdata\permstr.h"
-
+#include "..\shared\auth_product.h"
 static Vector3 CoordsColor(0.0f, 0.5f, 1.0f);		// 0xBE87A0 (0x7BF870): the avatar's or the map's position  // NAME 1: what 0x7C1C50 shows in it
 static Vector3 PointerCoordsColor(0.1f, 1.0f, 0.1f);	// 0xBE87B0 (0x7BF8A0): the pointer's  // NAME 1: what 0x7C1C50 shows in it
 static Vector3 TargetCoordsColor(1.0f, 0.1f, 0.1f);	// 0xBE8790 (0x7BF8D0): the target's  // NAME 1: what 0x7C1C50 shows in it

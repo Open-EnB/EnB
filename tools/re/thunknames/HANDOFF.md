@@ -2,7 +2,7 @@
 
 Two briefs: **A** for a review agent (read-only audit of the method and its results), **B** for the session that
 continues the recovery after the review. Background in one paragraph, then the briefs. Method and tools:
-`tools/re/thunknames/README.md`; the link rule: `docs/binary.md` §5.1-5.2 (and §5.6 for this work).
+`tools/re/thunknames/README.md`; the link rule: `docs/binary.md` §5.1-5.2 (and §5.11 for this work).
 
 ## Background
 VC6 LINK /INCREMENTAL writes client.exe's thunk table (19,983 `jmp` slots at 0x401005) in the order of its
@@ -26,7 +26,7 @@ class candidates, about 2.3M Sonnet / Haiku tokens to produce; never regenerate 
 
 ## A. Review: done 2026-11-26 evening (the brief below is kept for its questions)
 
-Outcome and figures: `docs/binary.md` §5.6 "The review", the progress.md entry of that evening. By question:
+Outcome and figures: `docs/binary.md` §5.11 "The review", the progress.md entry of that evening. By question:
 1. **Chance model:** the multiplier lacked nothing for the model rounds (the salted null finds the class chance
    conservative, 0.06-0.21x); it lacked the dictionary sizes for round 1 and classsearch2 (rescore.py counts them)
    and the unsplit buckets' double weight (fixed: `gapguess.prob`). Slots of one class are independent enough: the
@@ -59,7 +59,7 @@ entered and spread. Report findings ranked by how many anchors they put at risk,
 classes affected and a test that settles it. Do not re-run the model rounds. Local compute is free (an 18-core
 Mac or the Windows workstation); a full re-score of the saved proposals takes under a minute.
 
-**Read:** `tools/re/thunknames/README.md` (method, the steps in order), `docs/binary.md` §5.1-5.2 and §5.6, then the
+**Read:** `tools/re/thunknames/README.md` (method, the steps in order), `docs/binary.md` §5.1-5.2 and §5.11, then the
 code in `tools/re/thunknames/`: `gapguess.py` (state, windows, near part, cascade, conflict handling), `tier2_eval.py`
 (class scoring and its null), `classsearch2.py` (own variants, dictionary, its null), `tier1c.py` +
 `t1c_keep.py` (convention variants, the kinds kept), `propagate.py`, `mangle.py` (the shared name-boundary rule).

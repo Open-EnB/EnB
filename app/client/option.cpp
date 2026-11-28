@@ -7,7 +7,7 @@
 #include "..\..\wwlib\ini.h"
 #include "..\..\wwlib\point.h"
 #include "..\..\wwlib\wwstring.h"
-
+#include "..\shared\auth_product.h"
 void Message_Info(const char *sender, const char *category, const char *file, int line, const char *format, ...);	// NAME 5 [Message_Info]: the client's WWPROFILE("Message_Info") label (D198)
 
 OptionClass *OptionClass::Instance;

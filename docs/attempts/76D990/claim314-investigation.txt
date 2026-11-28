@@ -1,0 +1,145 @@
+Report: first-report.md
+
+# Decode first pass, 0x76D990
+
+No target match, no production edit or commit. Nine inputs were compiled with
+the canonical runner, based on the immutable claim snapshot. Every complete TU
+result retains all 11 baseline file/address pairs and all 11 symbol/address
+pairs; no new target pair. All inputs, hashes, compiler logs, object, matches,
+lossless base-SHA-bound replay.json and complete instruction diffs are in
+`.work/claim-314/runs/decode_*`. `records.py` regenerates and roundtrip-checks
+the compact patches. Grouping hashes and complete comparisons are recorded in
+`.work/claim-314/analysis.json`; raw and relocation-masked hashes happen to be
+equal for each body because its object relocation fields are zero. The actual
+raw and masked groupings are therefore the same. These are diagnostics, not
+proof of the function's full body or runtime equivalence.
+
+The historical row records four source forms, score 0.28, and a zero-form
+semantic review, not five compiled forms. The old source patches and objects
+are unavailable; don't equate prior score with fresh objdiff similarity.
+Baseline here has 1,145 body bytes versus retail 1,173, frame 0x3c vs 0x40,
+and objdiff similarity 0.29. The baseline instruction diff is saved as
+`76D990/baseline-diff.txt`. Three historical names (bufcnt-len, row first,
+Get_Next_Code outside while) were not replayed without their actual forms.
+
+## Runs, actual grouping and outcomes
+
+All numbers are diagnostic objdiff similarity, not a byte-matching score.
+
+| Run | Change from snapshot or named parent | length | similarity | raw/masked group SHA-256 prefix |
+|---|---|---:|---:|---|
+| decode_oc | c assigned independently to oc and byte fc | 1135 | .29 | 09b6316516ea |
+| decode_oc_len | oc plus increment len before using it | 1130 | .30 | 222d07a2cdd5 |
+| decode_oc_early | oc plus oc/fc/x/y initialized before Lengths loop | 1147 | .34 | 46c1ae5fbb73 |
+| decode_early_idx | oc_early plus real signed table-index local | 1147 | .34 | 46c1ae5fbb73, identical |
+| decode_early_len | oc_early plus incremented len | 1142 | .35 | a953963a0883 |
+| decode_early_size | early_len plus short code-size intermediate | 1140 | .38 | 89abda8b9f95 |
+| decode_early_order | early_size plus rearranged initializations | 1140 | .38 | 8863ba111c50 |
+| decode_code_size | early_size plus named reused short code-size | 1140 | .37 | 207778cfba93 |
+| decode_declarations | early_size plus initialization at declaration | 1127 | .33 | 702079734f68 |
+
+The oc correction is a real behavior change, not an equivalent rewrite for all
+inputs: retail 0x76DB03 stores the code to the oc slot directly and 0x76DB07
+stores its low byte to fc, while the baseline chains through fc and zero extends
+the truncated value. The difference can occur for codes above 255 accepted by
+the clear path; whether a particular image stream is valid is a separate issue.
+The corrected form does not match overall and requires coordinator review.
+The early_len form emits the exact operations from retail 0x76DBF4 through
+0x76DC05, including increment then both uses. The `++len` equivalence relies on
+the decoder's bounded, constructed table lengths; do not assume equivalence
+for an arbitrarily corrupted decoder object. CodeSize's short intermediate
+aligns the retail `movsx ecx,cx` at 0x76D9EA and the Get_Byte byte-load sequence.
+
+Retail spills a sign-extended index at 0x76DB7F across the inner assertion;
+the real local `index` form emitted identical bytes to its parent. Retail
+compares `c` with 16-bit instructions at 0x76DA97/0x76DAA0, and explicitly
+sign-extends the word oc at 0x76DCF6 and loads its word at 0x76DD21. Dword
+stack stores alone do not justify widening those locals to int. The length and
+count paths similarly use word tests and sign extensions. The best diagnostic
+form still differs in frame size, early register saves, slot locations and
+branch layout across the body. Three subsequent batches (initialization order,
+named short intermediate, declaration initialization) did not cut this
+remaining mismatch; no distinct evidence-backed type/lifetime lead remains in
+this pass. Cross-function review can investigate why register saves occur on
+the early Get_Byte failure path and how the asserted table-index lifetime is
+spilled without inventing operations.
+
+No candidate was marked exact, so no full body/relocation/addend/constant,
+branch/call/EH graph proof was claimed or performed. REA output supplied by
+root was used only as supplementary control-flow evidence; assembly controls.
+No header or helper was changed. Compiler/staging gate released, no processes
+or VM leases remain. Root owns integration and any assertion/marker edits.
+
+
+Report: group-tests-report.md
+
+# Decode 0x76D990 group-lead tests
+
+No match or production change. Four canonical runner compiles preserved all 11 original file/address and 11 symbol/address pairs; there were no intermediate integration gains. Assert lines and conditions were preserved. Gate released to root after all jobs ended; no VM leases. Original source revision 3a69e9d2056673c8431a90f47d7d973aeb6ddb4e, baseline input SHA-256 ad1c7431c7b7c6499e2ecba0aae1147af369f3af0eb4a5b1cb35a5141f17e7dd. The four historical compiled forms lack their original patches/objects; no reconstruction is claimed. See first-report.md for first-pass nine forms and original behavior caveats, especially oc/fc change and bounded len assumption.
+
+The group hypothesis was that a real common error result would prevent shrink-wrapping of EBX/EBP. Each form assigns a short result on size failure, executes the unchanged successful control flow in the valid-size else branch, and returns that result at the end; result 0 denotes success. Normal read order, asserted conditions, and callback ordering are unchanged. The early-size parent includes the distinct retailer-supported oc change, short CodeSize intermediate, early initialization and incremented length as described in first-report.md. The common-return source does not itself change those semantics.
+
+| Run (prefix group_decode_) | input SHA-256 | length, objdiff similarity, frame | raw and masked body SHA-256 |
+|---|---|---|---|
+| early_return | 555c5e3c60782a040f4d1cfc9af9ae8319fcea8faa6bdd7a1d65f4a66ea66243 | 1139, .38, 0x38 | 17ef20c2a38455bf13ee272f3e9765b696b5416fb5d39e9171736e7ce557cd24 |
+| base_return | a3e6aeae11fe35a9506a9c09341fd87e30c9e01f0fe986152eca2a6d9a96b03a | 1149, .30, 0x3c | b36209af5a85160f7213e58ca5ee54ad2070f887f7f460b82d78c65dea8bd2d5 |
+| late_return | 1180b4945bf801d95a4e229d21c47f2ec1df29aceba763fe81237c4d02173e32 | 1135, .37, 0x38 | a36206e94b9a7fce3c561c1af312d1093a62cf37b10da9372d30df2bcd18954b |
+| first_index | b704bbc5b45891307f14315b1e52756b54d6677c18f3ea227d8b28c801aff640 | 1139, .38, 0x38 | 17ef20c2a38455bf13ee272f3e9765b696b5416fb5d39e9171736e7ce557cd24 |
+
+Early_return initializes result to 0 before checking size. Retail and this form both push EBX and EBP at entry, followed by ESI, ECX-to-ESI, EDI, zero EDI, with matching setup of CodeSize through shift. This establishes a real lever, but the frame is 0x38 rather than retail 0x40; stack displacements and subsequent layout diverge, and VC6 tail-duplicates failure epilogues rather than reproducing retail's epilogue at 0x76DA86. The baseline control also pushes EBX/EBP at entry, but regresses register allocation elsewhere. First_index expresses the sign-extended initial newcodes value as an int reused for the initial Lengths access and the clear reset; actual object is identical to early_return. Assigning zero to result after the successful body (late_return) permits EBX/EBP shrink-wrapping again. Neither follow-up cuts the discrepancy; further work requires another concrete lifetime/frame lever rather than equivalent index or return spellings.
+
+All input.cpp, input.json, compile.rsp, compile.log, gifload.obj, matches.json, result.json, replay.json and complete three target objdiffs are in .work/claim-314/runs/group_decode_*/. Each replay.json is compact, tied to the original source SHA-256, and roundtripped. Independent analysis files in .work/claim-314/76D990/group-tests/ contain both pair set differences, raw and masked hashes, and diagnostic results. Full body/branch/call/relocation/constant/EH audit was not performed because no target matched. Root must independently audit and rebuild any eventual candidate. No headers, helper interfaces or production files were touched.
+
+
+Report: sol-report.md
+
+# Decode 0x76D990: fresh Sol cycle
+
+No match, production edit, header retention, commit, or external write. Twelve changed inputs were compiled canonically; all preserve every original 11 file/address and 11 symbol/address pair, with zero gains or losses. These are the original claim baseline sets; the newly solved Set_Data/Get_Next_Code candidates had not yet been integrated. Root owns combining those candidates, independent rebuilds and final proof. Compiler/staging gate was explicitly released after the last completed job; no compiler jobs or VM leases remain.
+
+Read the full claim/user/Sol briefs, AGENTS and bounded startup sections, every current first/group/direct report for all three targets and whole-group review, complete attempts histories, all 13 actual Terra Decode source differences, and actual parent/candidate object comparisons relevant to the hypotheses. Four historical compiled Decode forms have no surviving patches/objects; their exact source and machine groups remain unknown. Historical zero-form semantic inspection is not a compilation. This cycle adds 12 compiled forms to the 13 fresh Terra forms and four historical forms, without treating baseline or zero-form inspection as changed forms.
+
+Baseline revision: 3a69e9d2056673c8431a90f47d7d973aeb6ddb4e. Original input SHA-256: ad1c7431c7b7c6499e2ecba0aae1147af369f3af0eb4a5b1cb35a5141f17e7dd. Baseline Decode is 1145 executable bytes, frame0x3c, diagnostic objdiff .29; retail is 1173 bytes/frame0x40. These similarities include objdiff's alignment/relocation/branch formatting effects and are diagnostics only.
+
+## Evidence and actual outcome groups
+
+Every run lives under /home/dev/Projects/EnB/.work/claim-314/runs/sol_decode_NAME/ with input.cpp, input.json, compile.rsp/log, gifload.obj, matches.json, result.json and three actual objdiffs. Lossless, original-base-hash-bound replay.json and record.json for every tested input live under /home/dev/Projects/EnB/.work/claim-314/76D990/sol/NAME/. Each record includes the full input hash, roundtrip-verified edits, BOTH complete pair sets before/after and differences, all three body hashes, frame, all 18 Decode relocations/addends, 10 call sites and receiver-adjacent instructions, and absence of target EH symbols. Records are under9KB. prepare.py and package.py reproduce these sources/records; forms.json contains full input/output hashes and exact raw/masked groups. No failed compilation, assertion-guard rejection, launch failure, or unchanged control occurred in this cycle.
+
+| Run suffix | Actual change | bytes / frame / diagnostic | Raw and masked group prefix |
+|---|---|---|---|
+| counter_early | On decode_early_size: i=len at Lengths fetch, before either length condition | 1169 / 0x40 / .79 | 0f754a313859 |
+| counter_common | Same counter lifetime on group_decode_early_return | 1168 / 0x3c / .75 | d737ae34e7eb |
+| scope_early | Branch-local code/direct, inner-loop-local len on early_size | 1140 / 0x3c / .38 | 89abda8b9f95, exact parent duplicate |
+| counter_order | Counter lifetime on actual prior early_order parent | 1169 / 0x40 / .81 | c7805ab32aa9 |
+| counter_status_label | Existing short size carries errors and success to a genuine shared return label | 1159 / 0x40 / .75 | 66113c4d70b5 |
+| counter_test_early | Counter also supplies both eligibility tests | 1169 / 0x40 / .79 | 0f754a313859, counter_early duplicate |
+| counter_common_index | Actual first_index parent plus positive counter lifetime | 1168 / 0x3c / .75 | d737ae34e7eb, counter_common duplicate |
+| counter_scope | Traversal scopes plus counter/initial-order parent | 1169 / 0x40 / .81 | c7805ab32aa9, counter_order duplicate |
+| counter_resets | Both row-reset sites store bufcnt before xcount, as retail | 1169 / 0x40 / .81 | 744c451898bb, distinct despite same score |
+| counter_success_scope | Successful initial-byte branch encloses decoder, size error returns outside | 1169 / 0x40 / .81 | 744c451898bb, counter_resets duplicate |
+| counter_remaining | Real promoted int remaining-space local supplies eligibility condition | 1169 / 0x40 / .81 | 744c451898bb, counter_resets duplicate |
+| counter_result_errors | Common short error status explicitly propagates negatives, separate success0 return | 1170 / 0x40 / .81 | f392e5e2f603 |
+
+Twelve sources collapse into seven actual output groups; six are new to the fresh Terra/baseline groups and one is the prior early_size group. Raw and relocation-masked grouping coincide because these object relocation fields contain zero placeholders. This does not prove correct linked targets or data. No masked candidate arose, so no full executable/branch/relocation-target/constants/EH proof is asserted.
+
+## Concrete positive mechanism and remaining residue
+
+Retail 0x76DB7C sign-extends code, spills that index at frame slot0x3c, loads len, spills len at0x4c and copies len into EBP at0x76DB92 BEFORE either eligibility branch. The previous actual early_size body held the index in EBP through the failed tests and copied i=len only inside the successful direct-copy branch. Assigning the genuine reverse counter before the condition forces the index spill and explains the missing four-byte frame slot exactly: frame0x3c becomes0x40. Many formerly different register ties, slot roles and entire later blocks also become retail's. This is the main positive result; it changes a real local lifetime rather than inventing padding or a frame object.
+
+The prior explicit initialization order, tested in this new context, reproduces retail's oc/ycount/top_slot/xcount/fc stores. Reordering the independent reset stores makes another distinct actual code change in the expected direction. Current best diagnostic source is /home/dev/Projects/EnB/.work/claim-314/runs/sol_decode_counter_resets/input.cpp, SHA-256 recorded in its input.json and sol/forms.json; body hash 744c451898bbc92e94800031db907639347de562a60daf1b8dea67572bdac7e4. It has1169 bytes/frame0x40/.81, with no target match or pair gain.
+
+Remaining differences in its actual complete objdiff are mainly shrink-wrapped EBX/EBP saves/restores and their startup scheduling/row slot before those pushes, plus EAX/EDX selection for promoted bufcnt-len subtraction. Retail saves EBX/EBP at entry; this source saves them after the successful byte/size checks. Most later machine slots and operation sequences now align. A common-result shape gives entry saves, but it folds the cached initial newcodes index, shrinks frame to0x3c and changes return lowering; it is not a solution. The real size/status label regresses instead of combining both benefits. The last explicit-error-status variant remains shrink-wrapped and emits1170 bytes, so size proximity is not proof of improvement.
+
+Retail role map after four register pushes (not a claim about original names): fc0x13, sp0x14, bufcnt0x18, c0x1c, slot0x20, ycount0x24, oc0x28, top_slot0x2c, xcount0x30, clear0x34, row0x38, current code index0x3c, direct0x40, initial CodeSize expression0x44, initial newcodes index0x48, len0x4c. Retail0x76DC7D's [esp+0x48] is read BEFORE removing twelve assertion-argument bytes: it reloads the current code-index slot0x3c, not the initial-newcodes slot0x48. This distinction matters when diagnosing spills. Full read-only retail listing is in sol/retail-dis.txt.
+
+## Semantics, rejected directions and checkpoint
+
+All physical G_ASSERT lines and exact asserted conditions survive the runner guard. All four physical assertions remain executed on the same logical paths. The early i assignment is valid because the zeroing loop has finished, i is used only by a direct-copy traversal, and each such traversal gets a fresh length. Counter-based tests consume the same loaded short as len. The int remaining local expresses the original promoted subtraction exactly and has no artificial side effect. Error wrappers/labels preserve Get_Byte calls, error returns, successful callback order and table operations.
+
+Positive parents include Terra's independent oc=c/fc-byte assignment, which follows retail but DOES change baseline behavior for accepted clear-path codes above255. It is not an all-input-equivalent rewrite and was not adopted without a target gain. Short CodeSize narrowing and ++len are justified on the decoder's constructed bounded lengths/initial sizes, as documented in the first report; no broader corrupted-object equivalence is claimed.
+
+Rejected without compilation: unsupported full-int oc/c inferred solely from spills (retail explicitly reads/compares words); artificial frame padding/types/objects; register-hint or return-spelling sweeps; invented initialization aggregate/helper without source evidence; volatile/ASM/pragmas/flags/dead reads. No compiler-invalid or newly semantically invalid diagnostic was used. Two prepared forms remain UNTESTED: scope_common and counter_test_common, listed in forms.json. They are generated siblings of already duplicated local-scope/counter-condition families, not unresolved distinct hypotheses.
+
+The positive counter and initialization changes justified following the new smaller residue. After the scope/index duplicates, actual residue inspection supplied the reset-order lead, which changed the expected stores. The final success-scope, genuine arithmetic-local and explicit-error-status hypotheses provided no further cut. At this checkpoint there is no remaining distinct evidence-backed Sol lead; further equivalent spellings would repeat canonical groups. This is bounded exhaustion of the investigated mechanisms, not a claim that all equivalent C++ was searched. Reopen on demonstrated source control/lifetime structure that simultaneously explains entry EBX/EBP saves, the cached newcodes index and separate short returns, or a concrete related exact example with that mechanism. Root may assess the user-authorized Astra phase using this now much smaller residue and the actual saved sources.
+
+Root owns tracked attempt packaging, integration, independent final source-hash-bound recompilation/audits and required broad checks. The existing canonical assertion-path case difference (app/client vs retail app/Client) remains preexisting and unnormalized; no new-target literal audit is claimed. Gate released, no jobs/leases, no production changes.

@@ -18,7 +18,7 @@
 #include "..\shared\g_assert.h"
 #include "..\shared\auxdata\auxdata.h"
 #include "..\shared\auxdata\delta_interpolator.h"
-
+#include "..\shared\auth_product.h"
 void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);	// 0x496AE0 (ro_funcs.cpp, cdecl)  // NAME 1 [robj, make_geometry_unique]: as eff_o.cpp's
 #include "distance_calc_client.h"	// 0x7E6060 / 0x7E6130
 

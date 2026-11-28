@@ -6,7 +6,7 @@
 #include "starmap_data.h"
 #include "navigation_data.h"
 #include "emote_data.h"
-
+#include "..\shared\auth_product.h"
 #include "..\shared\g_assert.h"
 // Not the client's source (its sgistl form is unknown: P-L21-1, attempts row 0x71DCE0): the value maps' hashtable
 // constructor flat gives the client's out-of-line hash_map() 0x7A2140.. (reserve's size() inlined: the B form)

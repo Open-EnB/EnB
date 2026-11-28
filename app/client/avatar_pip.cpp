@@ -20,7 +20,7 @@
 #include "aux_player.h"	// the player's constructors (0x7E49C0 / 0x7E4A30 number them)
 RefCountPtr<RenderObjClass> Unknown_497300(RenderObjClass *robj);	// 0x497300 (cdecl, ro_funcs.cpp's neighbourhood)  // NAME 1 [robj]: as ui_avatr.cpp's
 template<class C> inline C *Unknown_Find_Valid(DeltaCompoundClass *root, const NameClass &name) { C *t = Unknown_Find_Field<C>(root, name); if (t && t->Unknown70) return(t); return(NULL); }	// NAME 1: neutral (D10): as co.cpp's
-
+#include "..\shared\auth_product.h"
 // 0x7E3A20's avatar set-up (as 0x7E43E0, through a named conversion; expanded only there)
 static inline void Unknown_Set_Avatar(AvatarPipClass *pip, const RefCountPtr<CharacterViewAvatarClass> &avatar)	// NAME 1: neutral (D10)
 {

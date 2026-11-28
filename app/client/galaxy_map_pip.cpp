@@ -20,7 +20,7 @@
 #include "..\..\ww3d2\vertmaterial.h"
 #include "..\..\ww3d2\ww3d.h"
 #include "wwmath.h"
-
+#include "..\shared\auth_product.h"
 void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);	// ro_funcs.cpp's (avatar.cpp declares it the same)
 
 // .data 0xB7923C / 0xB79240: the two angles 0x53FDA0 chooses between  // NAME 1: neutral (D10)
@@ -32,15 +32,15 @@ static const float Unknown_AEEE48[19] = {
 	0.2f, 0.8f, 0.9f, 1.0f, 1.0f, 1.0f, 0.9f, 0.6f, 0.4f, 0.1f, 0.05f
 };
 
-// 0x5404E0 reads the field through this: the registers after the call match only so (the test folds away)
-static inline int Unknown_Sector_Value(DeltaTemplateClass<int> *sector)	// NAME 1: neutral (D10)
+// 0x5404E0: two-layer find with two dead Children.size() reads (D272) puts Cast out of line and matches sector->Value directly
+template<class C> static inline C *Unknown_Find_Inner(DeltaCompoundClass *root, const NameClass &name)	// NAME 1: neutral (D10), as co.cpp's
 {
-	if (!sector) return(0);
-	return(sector->Value);
+	C *t = Unknown_Find_Field<C>(root, name);
+	if (!t) return(NULL); return(t);
 }
 
 static inline GalaxyMapClientClass *Unknown_Map(SClient *client) { return(client->GalaxyMap); }	// NAME 1: neutral (D10)
-template<class C> inline C *Unknown_Find_Valid(DeltaCompoundClass *root, const NameClass &name) { C *t = Unknown_Find_Field<C>(root, name); if (!t) return(NULL); if (!t->Unknown70) return(NULL); return(t); }	// NAME 1: neutral (D10): avatar_pip.cpp's
+template<class C> inline C *Unknown_Find_Valid(DeltaCompoundClass *root, const NameClass &name) { C *t = Unknown_Find_Inner<C>(root, name); root->Children.size(); root->Children.size(); if (!t || !t->Unknown70) return(NULL); return(t); }	// NAME 1: neutral (D10): avatar_pip.cpp's
 
 // @0x53F390
 GalaxyMapPipClass::GalaxyMapPipClass(SClient *client) :
@@ -404,7 +404,7 @@ void GalaxyMapPipClass::Unknown_53FE30()
 	GalaxyBackground->Set_Transform(tm);
 }
 
-// NOT EXACT: only UnknownRTTIClass::Cast: the client calls it out of line here, ours expands it, and one register follows (see notes)
+// 0x5404E0 exact via Unknown_Find_Inner + two dead Children.size() reads (D272) and direct sector->Value
 // @0x5404E0
 void GalaxyMapPipClass::Unknown_5404E0(bool arg)
 {
@@ -413,7 +413,7 @@ void GalaxyMapPipClass::Unknown_5404E0(bool arg)
 	if (aux) {
 		DeltaTemplateClass<int> *sector = Unknown_Find_Valid<DeltaTemplateClass<int> >(aux, "SectorNum");
 		if (sector) {
-			Render->Unknown_7A8770(Unknown_Sector_Value(sector));
+			Render->Unknown_7A8770(sector->Value);
 		}
 	}
 	SphereClass v; Render->Unknown_7A89A0(v);

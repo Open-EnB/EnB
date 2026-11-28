@@ -8,7 +8,7 @@
 #include "..\..\ww3d2\camera.h"
 #include "aabox.h"
 #include "matrix3d.h"
-
+#include "..\shared\auth_product.h"
 
 PipSceneClass::PipSceneClass(SClient *client) :
 	Unknown04(client),

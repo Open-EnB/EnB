@@ -1,7 +1,7 @@
 # Thunk-order name recovery
 
 Recovers retail's exact decorated names (class, method, signature) from the order of client.exe's incremental
-thunk table. The rule: [docs/binary.md](../../../docs/binary.md) §5.1-5.2; this work and its results: §5.6.
+thunk table. The rule: [docs/binary.md](../../../docs/binary.md) §5.1-5.2; this work and its results: §5.11.
 Status, review and next steps: [HANDOFF.md](HANDOFF.md) (delete it when its two sessions are done).
 
 ## The idea in four lines

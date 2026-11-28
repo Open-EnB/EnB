@@ -17,7 +17,7 @@
 #include <stdio.h>
 #include <stdarg.h>
 #include <string>
-
+#include "..\shared\auth_product.h"
 #include <time.h>
 #include <string.h>
 #include "..\..\wwlib\ref_ptr.h"
@@ -104,7 +104,7 @@ static const RegistrationPageStruct RegistrationPages[] = {  // NAME 1 [Registra
 	{ "RG_X2", "rg_X2.ini" },
 	{ "RG_X1", "rg_X1.ini" },
 	{ "RG_X3", "rg_X3.ini" },
-	{ "None", "None" },
+	{ 0, 0 },	// the client's 0xB85FC8 / 0xB85FCC: two null pointers (state 0x18 loads no page)
 };
 
 static const char *RegistrationMonths[] = { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec", 0 };  // NAME 1 [RegistrationMonths]: client .data 0xB85FD0 (combo box 0x14)
@@ -1263,7 +1263,7 @@ void RegistrationInterface::Unknown_5F3600()
 
 
 
-// @0x5F3770 NOT EXACT: inline-budget (attempts.csv; cases in jump table 0x5F7214's layout order; the client cuts more of its later inline accessors and 0x5F2F90's converting constructor 0x6092D0)
+// @0x5F3770 (cases in jump table 0x5F7214's layout order; case 0xC country block in client order, card-type loop exits on end(), D272 UnknownD8.begin() x4 before case 0xD tutorial + x4 post-return)
 void RegistrationInterface::Unknown_5F3770(int state)
 {
 	Unknown_5C();
@@ -1486,17 +1486,17 @@ void RegistrationInterface::Unknown_5F3770(int state)
 				Unknown_5F2D30(0x23,"ENTRY_CARDNUMBE","ENTRY_CARD_RG_D3",0x10,Unknown478.UnknownA8.c_str(),0,0, Unknown_BE5DD0,0);
 				Unknown_5F2F90(0x19, "COMBO_COUNTRY", 0x2C, 7);
 				Unknown_5F9700();
-				if (Unknown478.Unknown64.empty()) {
-					if (Unknown3C4.Unknown80.size() == 0) {
-						Unknown108[0x19].Combo->Select_Text(UnknownA4);
-					} else {
-						Unknown108[0x19].Combo->Select_Text(Unknown3C4.Unknown80.c_str());
-						Unknown108[0x19].Combo->Enable(0);
-					}
-				} else {
+				if (!Unknown478.Unknown64.empty()) {
 					Unknown108[0x19].Combo->Select_Text(Unknown478.Unknown64.c_str());
 					Unknown108[0x19].Combo->Enable(0);
+				} else if (Unknown3C4.Unknown80.size() != 0) {
+					Unknown108[0x19].Combo->Select_Text(Unknown3C4.Unknown80.c_str());
+					Unknown108[0x19].Combo->Enable(0);
+				} else {
+					Unknown108[0x19].Combo->Select_Text(UnknownA4);
 				}
+
+
 				Unknown_5F2F90(0x22, "COMBO_CARDTYPE", 0x13, 4);
 				Unknown_5F9A90();
 				Unknown108[0x22].Combo->Select(0);
@@ -1508,7 +1508,7 @@ void RegistrationInterface::Unknown_5F3770(int state)
 							break;
 						}
 					}
-					if (entry != last) {
+					if (entry != Unknown5A8.end()) {
 						Unknown108[0x22].Combo->Select(entry - Unknown5A8.begin());
 					}
 				}
@@ -1711,7 +1711,7 @@ void RegistrationInterface::Unknown_5F3770(int state)
 							break;
 						}
 					}
-					if (entry != last) {
+					if (entry != Unknown5A8.end()) {
 						Unknown108[0x22].Combo->Select(entry - Unknown5A8.begin());
 					}
 				}
@@ -1730,7 +1730,7 @@ void RegistrationInterface::Unknown_5F3770(int state)
 				Unknown_5F2B20(0x2d,"LEFT_BUTTON","LEFT_BUTTON_RG_D4",0,0,0);
 				Unknown_5F2B20(6,"RIGHT_BUTTON","RIGHT_BUTTON_RG_D4",0,0,0);
 				Unknown_5F2B20(7,"MIDDLE_BUTTON","MIDDLE_BUTTON_RG_D4",0,0,0);
-				Unknown_5F3510(7, Unknown1D0);
+				Unknown_5F3510(7, Unknown1D0); UnknownD8.begin(); UnknownD8.begin(); UnknownD8.begin(); UnknownD8.begin();  // D272: dead reads (4 here + 4 post-return: exact 0x6092D0 cuts and 0x5F6D01..0x5F6D41 out-of-line)
 				if (!Unknown1CD) {
 					if (!TutorialManagerClass::Get_Instance()->Is_Completed("REG13")) {
 						UnknownBC->Get_Unknown198()->Unknown_784C90("REG13", false);
@@ -1812,7 +1812,7 @@ void RegistrationInterface::Unknown_5F3770(int state)
 	}
 	InterfaceClass::Unknown_58();
 	Unknown_58();
-	TheDX8MeshRenderer.Invalidate();
+	TheDX8MeshRenderer.Invalidate(); return; UnknownD8.begin(); UnknownD8.begin(); UnknownD8.begin(); UnknownD8.begin();  // D272: dead reads (nested budget for case 0xC 0x6092D0 cuts)
 }
 
 
@@ -1929,7 +1929,7 @@ void RegistrationInterface::Unknown_5F87D0()
 int RegistrationInterface::Unknown_5F89F0()
 {
 	int state = Unknown_5F8A90();
-	if (UnknownD8.size() != 0) {
+	if (UnknownD8.size()) {	// no != 0: the function costs the inliner two nodes less, and the client inlines it into 0x5F8560's copies where ours called it (0x5FBD30 cases 1 / 3, 0x600000 case 4)
 		UnknownD8.pop_back();
 	}
 	return(state);
@@ -2120,7 +2120,7 @@ void RegistrationInterface::Unknown_5F98C0(int from, int to)
 // @0x5F9A90
 void RegistrationInterface::Unknown_5F9A90()
 {
-	Unknown5A8.size(); for (std::vector<RegistrationUnknown5A8Struct>::iterator it = Unknown5A8.begin(); it != Unknown5A8.end(); it++) {
+	for (std::vector<RegistrationUnknown5A8Struct>::iterator it = Unknown5A8.begin(); it != Unknown5A8.end(); it++) {
 		Unknown108[0x22].Combo->Add_Item((*it).Unknown04.c_str());
 	}
 }
@@ -2967,9 +2967,9 @@ void RegistrationInterface::Unknown_5F0100()
 
 
 
-// NOT EXACT: inline-budget (functional; group loops through 0x5F33E0, pushes through 0x5F87D0, back-outs through 0x5F8560, server boxes through 0x5FB890
-// as the client inlines them; cases 0x11 / 0x14 / 0x12 written out (the client cross-jumps them into 0x14's copy); the combo boxes' Selected through UIComboBoxClass::Get_Selected
-// (0x5FFFE0, out of line at cases 0xB / 0xE, 0x5FEF96 / 0x5FF0E3) there and at the two type picks (best of the site subsets); left: the client's nested map::insert cuts)
+// NOT EXACT: inline-budget (functional; group loops through 0x5F33E0, pushes through 0x5F87D0, back-outs through 0x5F8560, server boxes through 0x5FB890,
+// email checks through 0x5F8F60, case 6 switch(Unknown26C), cases 0x11 / 0x14 / 0x12 written out; combo boxes' Selected through UIComboBoxClass::Get_Selected
+// (0x5FFFE0, out of line at cases 0xB / 0xE; the three month reads go through it), the days / years through Selected_Year (the client's combo cuts in case 0xC); four dead UnknownD8.begin() reads at case 0xC end; left: five map::insert the client calls (case 4's 2nd text, case 10's country, case 0xC's texts 5-7); masked residue 72)
 // @0x5FBD30
 void RegistrationInterface::Unknown_5FBD30()
 {
@@ -3023,14 +3023,14 @@ void RegistrationInterface::Unknown_5FBD30()
 
 
 
-			Unknown26C = selected; UnknownD8.size(); UnknownD8.size(); UnknownD8.size(); UnknownD8.size(); UnknownD8.size(); UnknownD8.size();   // D272: dead reads (swept 1-8)
-			if (selected == 8) {
-				Unknown_5F87D0();
-				Unknown_5F3770(7);
-			} else if (selected == 9) {
-				Unknown_5F87D0();
-				Unknown_5F3770(8);
+			Unknown26C = selected;
+			switch (Unknown26C) {
+				case 8: Unknown_5F87D0(); Unknown_5F3770(7); break;
+				case 9: Unknown_5F87D0(); Unknown_5F3770(8); break;
 			}
+
+
+
 			break;
 		}
 		case 7:
@@ -3038,31 +3038,31 @@ void RegistrationInterface::Unknown_5FBD30()
 			char *email = UnknownF8[0x13].Gadget->Get_Text();
 			Unknown258 = email;
 			delete email;
-			const char *address = Unknown258.c_str();
-			if (address != NULL && strlen(address) != 0 && strchr(address, '@') != NULL && strchr(address, '.') != NULL) {
-				StatusIndex = 0xD;
-				Unknown_5F8DB0(false);
-				Unknown_5F3770(0x16);
-				Unknown_5FAE90(this, "Requesting Member Names...");
-				Unknown_5FAE90(this, NULL);
-				if (Unknown1AC->Unknown_7D7480(Unknown258.c_str(), Unknown_BE8AD4)) {
-					return;
-				}
-				Unknown_5FB890();
-
-
-
-
-
-				Unknown_5F8560();
-
-
-
-
+			if (!Unknown_5F8F60(Unknown258.c_str())) {
+				UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "Please enter a valid E-Mail address.", 0x140, 0, 0);
+				break;
+			}
+			StatusIndex = 0xD;
+			Unknown_5F8DB0(false);
+			Unknown_5F3770(0x16);
+			Unknown_5FAE90(this, "Requesting Member Names...");
+			Unknown_5FAE90(this, NULL);
+			if (Unknown1AC->Unknown_7D7480(Unknown258.c_str(), Unknown_BE8AD4)) {
 				return;
 			}
-			UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "Please enter a valid E-Mail address.", 0x140, 0, 0);
-			break;
+			Unknown_5FB890();
+
+
+
+
+
+			Unknown_5F8560();
+
+
+
+
+
+			return;
 		}
 		case 8:
 		{
@@ -3118,7 +3118,7 @@ void RegistrationInterface::Unknown_5FBD30()
 			Unknown1CB = false;
 			Unknown1D5 = false;
 			Unknown1CC = false;
-			StatusIndex = 1; Unknown108.size();   // D272: dead read (swept 0-2 x case 6's 0-7 with 0x603A60's age variable; four + one best)
+			StatusIndex = 1;
 			Unknown_5F8DB0(false);
 			Unknown_5F3770(0x16);
 			Unknown_5FAE90(this, "Validating login information...");
@@ -3230,16 +3230,17 @@ void RegistrationInterface::Unknown_5FBD30()
 			Unknown1F8 = retype;
 			delete password;
 			delete retype;
-			if (Unknown1D8.size() > 3 && Unknown1E8.size() > 3) {
-				if (Unknown1E8 != Unknown1F8) {
-					Unknown_5FB7A0(this, "The Passwords you entered do not match.");
-					return;
-				}
-				Unknown1D1 = false;
-next_page:
-				Unknown_5F3770(10);
+			if (Unknown1D8.size() < 4 || Unknown1E8.size() < 4) {
+				goto bad_login;
+			}
+			if (Unknown1E8 != Unknown1F8) {
+				Unknown_5FB7A0(this, "The Passwords you entered do not match.");
 				return;
 			}
+			Unknown1D1 = false;
+next_page:
+			Unknown_5F3770(10);
+			return;
 bad_login:
 			Unknown_5FB7A0(this, "Please enter a valid Username and Password.\nUsernames must be at least %d characters long.\nPasswords must be at least %d characters long.", 4, 4);
 			break;
@@ -3251,7 +3252,6 @@ bad_login:
 				Unknown_5F3770(4);
 				return;
 			}
-
 
 
 
@@ -3300,11 +3300,11 @@ bad_login:
 		case 10:
 		{
 			char *email = UnknownF8[0x13].Gadget->Get_Text();
-			int month = Unknown108[0x14].Combo->Selected + 1;
-			UIComboBoxClass *combo = Unknown108[0x15].Combo;
-			int day = (unsigned)combo->Selected < combo->Items.size() ? atoi(combo->Items[combo->Selected].c_str()) : 0;
-			combo = Unknown108[0x16].Combo;
-			int year = (unsigned)combo->Selected < combo->Items.size() ? atoi(combo->Items[combo->Selected].c_str()) : 0;
+			int month = Unknown108[0x14].Combo->Get_Selected() + 1;
+			int day = Selected_Year(Unknown108[0x15].Combo);
+
+			int year = Selected_Year(Unknown108[0x16].Combo);
+
 			int selected = Unknown_5F33E0(1);
 
 
@@ -3312,14 +3312,14 @@ bad_login:
 
 
 
-			int this_year = Unknown124.tm_year;
-			bool flag = selected == 0x18;
+			int this_year = (Unknown124.tm_year - year) + 1900;
+			int flag = (selected == 0x18);
 			std::string country(Unknown108[0x19].Combo->Get_Selected_Text());
-			if (this_year - year == -1900 || !Unknown_5F8EA0(month, day, year)) {
+			if (this_year == 0 || !Unknown_5F8EA0(month, day, year)) {
 				UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "Please enter a valid birth date.", 0x140, 0, 0);
 			} else if (country.size() == 0) {
 				UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "Please select a country.", 0x140, 0, 0);
-			} else if (email == NULL || strlen(email) == 0 || strchr(email, '@') == NULL || strchr(email, '.') == NULL) {
+			} else if (!Unknown_5F8F60(email)) {
 				UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "Please enter a valid E-Mail address.", 0x140, 0, 0);
 			} else {
 				Unknown3C4.Unknown7C = day;
@@ -3398,9 +3398,9 @@ bad_login:
 			char *zip = UnknownF8[0x20].Gadget->Get_Text();
 			char *phone = UnknownF8[0x21].Gadget->Get_Text();
 			char *number = UnknownF8[0x23].Gadget->Get_Text();
-			int month = Unknown108[0x14].Combo->Selected + 1;
-			UIComboBoxClass *combo = Unknown108[0x16].Combo;
-			int year = (unsigned)combo->Selected < combo->Items.size() ? atoi(combo->Items[combo->Selected].c_str()) : 0;
+			int month = Unknown108[0x14].Combo->Get_Selected() + 1;
+			int year = Selected_Year(Unknown108[0x16].Combo);
+
 			std::string country(Unknown108[0x19].Combo->Get_Selected_Text());
 			int type = Unknown5A8[Unknown108[0x22].Combo->Get_Selected()].Unknown00;
 			if (strlen(first_name) == 0) {
@@ -3464,7 +3464,7 @@ bad_login:
 			delete state;
 			delete zip;
 			delete phone;
-			delete number;
+			delete number; UnknownD8.begin(); UnknownD8.begin(); UnknownD8.begin(); UnknownD8.begin();   // D272: dead reads (re-swept 0-14 with the months through Get_Selected(), the days / years through Selected_Year and 0x5F89F0's cost: 4 begin() best; size() kinds and end reads worse)
 			break;
 		}
 		case 0xD:
@@ -3487,21 +3487,21 @@ bad_login:
 			if (UnknownF8[0x26].Gadget->Get_Text() != "") {
 				start_year = atoi(UnknownF8[0x26].Gadget->Get_Text());
 			}
-			int month = Unknown108[0x14].Combo->Selected + 1;
-			UIComboBoxClass *combo = Unknown108[0x16].Combo;
-			int year = (unsigned)combo->Selected < combo->Items.size() ? atoi(combo->Items[combo->Selected].c_str()) : 0;
+			int month = Unknown108[0x14].Combo->Get_Selected() + 1;
+			int year = Selected_Year(Unknown108[0x16].Combo);
+
 			std::string country(Unknown108[0x19].Combo->Get_Selected_Text());
 			int type = Unknown5A8[Unknown108[0x22].Combo->Get_Selected()].Unknown00;
 			if (strlen(first_name) == 0) {
-				UnknownBC->Unknown34->Unknown_588A70("OK", 0, "Please enter a valid First Name.", 0x140, 0, 0);
+				UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "Please enter a valid First Name.", 0x140, 0, 0);
 			} else if (strlen(last_name) == 0) {
-				UnknownBC->Unknown34->Unknown_588A70("OK", 0, "Please enter a valid Last Name.", 0x140, 0, 0);
+				UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "Please enter a valid Last Name.", 0x140, 0, 0);
 			} else if (strlen(address) == 0) {
-				UnknownBC->Unknown34->Unknown_588A70("OK", 0, "Please enter a valid Address.", 0x140, 0, 0);
+				UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "Please enter a valid Address.", 0x140, 0, 0);
 			} else if (strlen(city) == 0) {
-				UnknownBC->Unknown34->Unknown_588A70("OK", 0, "Please enter a valid City name.", 0x140, 0, 0);
+				UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "Please enter a valid City name.", 0x140, 0, 0);
 			} else if (strlen(province) == 0) {
-				UnknownBC->Unknown34->Unknown_588A70("OK", 0, "Please enter a valid State or Province.", 0x140, 0, 0);
+				UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "Please enter a valid State or Province.", 0x140, 0, 0);
 			} else if (strlen(phone) == 0) {
 				UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "Please enter a valid Phone Number.", 0x140, 0, 0);
 			} else if (!Unknown_603820(number)) {
@@ -3630,7 +3630,7 @@ bad_login:
 						UnknownBC->Get_Unknown198()->Unknown_784C90("REG19", false);
 						TutorialManagerClass::Get_Instance()->Set_Completed("REG19");
 					}
-					char message[1024]; _snprintf(message, 1024, "To use your checking account for\npayment please call %s\nand speak to a Customer Service Representative.", (const char *)UnknownA8);
+					char message[1024]; _snprintf(message, 1024, "To use your checking account for\npayment please call %s\nand speak to a Customer Service Representative.", UnknownA8);
 					UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, message, 0x140, 0, 0);
 					break;
 				default:
@@ -3678,13 +3678,13 @@ bad_login:
 static const char *ProductBeta = "EB-BETA";  // NAME 1 [ProductBeta]: client .data 0xB85EE4 (0x600000 compares the bundle ids with it)
 static const char *RegistrationGameId = "2184";  // NAME 1 [RegistrationGameId]: client .data 0xB85EF0 (0x600000: 0x7D7E10's third argument, atoi'd against the game features' ids)
 // NOT EXACT: inline-budget (functional; the server boxes through 0x5FB890 and the back-outs through 0x5F8560 as the client inlines them, one per
-// branch; its cases in jump table 0x602AE4's layout order, case 3's !+0x1CE branch first, the US picks through the file member 0x603B20, inlined (its this a
-// variable: the client's add esi, -0x84 at 0x602341; two compare copies 0x6022BD / 0x602362, the other sites cross-jumped); frame 0xB18, three dead reads in case 0x10, three at case 5's 5FA900 back-out; masked residue 302)
+// branch; its cases in jump table 0x602AE4's layout order, case 3's !+0x1CE branch first, case 1's !Unknown11B and cases 8/9 !Unknown_7D9790 forms, the US picks through 0x603B20;
+// case 4's 7D8D60 request after the case's last return (goto); frame 0xB18, eight dead reads at the top, three in case 0x10: all 28 back-outs inline or call 0x5F89F0 / 0x5F86F0 as the client's; left: cross-jump choices among the copies; masked residue 167)
 // @0x600000
 void RegistrationInterface::Unknown_5F00C0()
 {
-	int state;
-	Unknown390 = Unknown1AC->Unknown_7D1AC0();
+
+	Unknown390 = Unknown1AC->Unknown_7D1AC0(); UnknownD8.begin(); UnknownD8.begin(); UnknownD8.begin(); UnknownD8.begin(); UnknownD8.begin(); UnknownD8.begin(); UnknownD8.begin(); UnknownD8.begin();   // D272: dead reads (swept 0-22 on the goto form: 8-10 give every back-out the client's inlined / called 0x5F89F0 and 0x5F86F0; 6 here with 1 in case 0x10: 196)
 	if (Unknown390.Unknown10 == 99) {
 		Unknown_5FB890();
 		Unknown_5F8560();
@@ -3739,17 +3739,17 @@ void RegistrationInterface::Unknown_5F00C0()
 			if (Unknown390.Unknown10 == 0) {
 				Unknown3C4 = Unknown1AC->Unknown_7D21C0();
 				Unknown1D1 = true;
-				if (Unknown11B) {
+				if (!Unknown11B) {
+					StatusIndex = 2;
+					Unknown_5FAE90(this, NULL);
+					if (!Unknown1AC->Unknown_7D7E10(Unknown1D8.c_str(), Unknown1E8.c_str(), RegistrationGameId, Unknown_BE8AD4)) {
+						Unknown_5FB890();
+						Unknown_5F8560();
+					}
+				} else {
 					Unknown_5F3770(0x14);
-					return;
 				}
-				StatusIndex = 2;
-				Unknown_5FAE90(this, NULL);
-				if (Unknown1AC->Unknown_7D7E10(Unknown1D8.c_str(), Unknown1E8.c_str(), RegistrationGameId, Unknown_BE8AD4)) {
-					return;
-				}
-				Unknown_5FB890();
-				Unknown_5F8560();
+
 				return;
 			}
 			Unknown1D1 = false;
@@ -3809,15 +3809,7 @@ void RegistrationInterface::Unknown_5F00C0()
 						Unknown1CD = false;
 						if ((*info).EntitlementStatus == 1) {
 							if ((*info).EntitlementStatusReason == 0x14 || (*info).EntitlementStatusReason == 1) {
-								StatusIndex = 0xF;
-								Unknown11E = true;
-								Unknown_5FAE90(this, NULL);
-								if (Unknown1AC->Unknown_7D8D60(Unknown1D8.c_str(), Unknown1E8.c_str(), ProductEB, Unknown_BE8AD4)) {
-									return;
-								}
-								Unknown_5FB890();
-								Unknown_5F8560();
-								return;
+								goto request_7D8D60;   // the request is written after the loop (case 4's end): its back-out then sees the loops' inline mass and inlines 0x5F89F0 as the client's 0x6011C1 (in the loop it is the last back-out to inline it); VC6 lays the block out here either way
 							}
 							Unknown1CB = true;
 							break;
@@ -3856,6 +3848,14 @@ void RegistrationInterface::Unknown_5F00C0()
 			Unknown_5FB890();
 			Unknown_5F8560();
 			return;
+request_7D8D60:
+			StatusIndex = 0xF;
+			Unknown11E = true;
+			Unknown_5FAE90(this, NULL);
+			if (Unknown1AC->Unknown_7D8D60(Unknown1D8.c_str(), Unknown1E8.c_str(), ProductEB, Unknown_BE8AD4)) { return; }
+			Unknown_5FB890();
+			Unknown_5F8560();
+			return;
 		case 5:
 			if (Unknown390.Unknown10 == 0) {
 				Unknown_5FA0B0();
@@ -3883,7 +3883,7 @@ void RegistrationInterface::Unknown_5F00C0()
 					return;
 				}
 				Unknown_5FB890();
-				Unknown_5F8560(); UnknownD8.begin(); UnknownD8.begin(); UnknownD8.begin();   // the client calls 0x5F89F0 at this back-out (0x60158F); D272: dead reads (begin() / end() 3: 312 -> 302; 1-2 no change, 4-8 or size() worse)
+				Unknown_5F8560();   // the client calls 0x5F89F0 at this back-out (0x60158F); ours does too with the top reads (no reads here: 0-3 swept)
 				return;
 			}
 			UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "The code you entered was not valid.  Please try again.", 0x140, 0, 0);
@@ -3946,12 +3946,12 @@ void RegistrationInterface::Unknown_5F00C0()
 				if (Unknown38C == 3) {
 					StatusIndex = 0xA;
 					Unknown_5FAE90(this, NULL);
-					if (Unknown1AC->Unknown_7D9790(Unknown1D8.c_str(), Unknown1E8.c_str(), Unknown270.Unknown00.c_str(), Unknown38C,
+					if (!Unknown1AC->Unknown_7D9790(Unknown1D8.c_str(), Unknown1E8.c_str(), Unknown270.Unknown00.c_str(), Unknown38C,
 						Unknown_5FB330(Unknown228).c_str(), Unknown328.Unknown00.c_str(), Unknown_5FB330(Unknown238).c_str(), true, Unknown_BE8AD4)) {
-						return;
+						Unknown_5FB890();
+						Unknown_603B20();
 					}
-					Unknown_5FB890();
-					Unknown_603B20();
+
 					return;
 				}
 				if (Unknown3C4.Unknown80.size() == 0) {
@@ -3970,12 +3970,12 @@ void RegistrationInterface::Unknown_5F00C0()
 				Unknown1D4 = true;
 				StatusIndex = 0xA;
 				Unknown_5FAE90(this, NULL);
-				if (Unknown1AC->Unknown_7D9790(Unknown1D8.c_str(), Unknown1E8.c_str(), Unknown270.Unknown00.c_str(), Unknown38C,
+				if (!Unknown1AC->Unknown_7D9790(Unknown1D8.c_str(), Unknown1E8.c_str(), Unknown270.Unknown00.c_str(), Unknown38C,
 					Unknown_5FB330(Unknown228).c_str(), NULL, NULL, true, Unknown_BE8AD4)) {
-					return;
+					Unknown_5FB890();
+					Unknown_5F8560();
 				}
-				Unknown_5FB890();
-				Unknown_5F8560();
+
 				return;
 			case 0x65: {
 				Unknown1D3 = false;
@@ -4003,12 +4003,12 @@ void RegistrationInterface::Unknown_5F00C0()
 					Unknown1D4 = true;
 					StatusIndex = 0xA;
 					Unknown_5FAE90(this, NULL);
-					if (Unknown1AC->Unknown_7D9790(Unknown1D8.c_str(), Unknown1E8.c_str(), Unknown270.Unknown00.c_str(), Unknown38C,
+					if (!Unknown1AC->Unknown_7D9790(Unknown1D8.c_str(), Unknown1E8.c_str(), Unknown270.Unknown00.c_str(), Unknown38C,
 						Unknown_5FB330(Unknown228).c_str(), NULL, NULL, true, Unknown_BE8AD4)) {
-						return;
+						Unknown_5FB890();
+						Unknown_603B20();
 					}
-					Unknown_5FB890();
-					Unknown_603B20();
+
 					return;
 				case 10:
 					Unknown1D4 = false;

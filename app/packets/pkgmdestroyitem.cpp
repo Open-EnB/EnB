@@ -1,7 +1,7 @@
 // Earth & Beyond client (reconstruction): app\packets\pkgmdestroyitem.cpp. Notes at the end of the file.
 #include "pkgmdestroyitem.h"
 #include <stdio.h>
-
+#include "..\shared\auth_product.h"
 GMDestroyItemPacketClass::GMDestroyItemPacketClass(RawPacketClass *raw) :
 	Unknown0C(0),
 	Unknown20(false)

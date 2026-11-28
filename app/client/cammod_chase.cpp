@@ -4,7 +4,7 @@
 #include "client.h"
 #include "co.h"
 #include "..\shared\g_assert.h"
-
+#include "..\shared\auth_product.h"
 // 0x79BB80
 ChaseCameraModuleClass::ChaseCameraModuleClass(SClient *client) :
 	CameraModuleClass(client),
@@ -142,7 +142,7 @@ void ChaseCameraModuleClass::Unknown_79BF40(int id)
 #include "vector2.h"
 
 // 0x79BFC0
-// NOT EXACT: 0.90, the inlining is the client's; left: the client negates dir.Y before it copies the translation, and its first inline Rotate_X adds row 0's products in the other order
+// NOT EXACT: 0.99, the inlining is the client's; left: the client negates dir.Y before it copies the translation (the copy's X in memory, -dir.Y on the x87)
 void ChaseCameraModuleClass::Unknown_79BFC0(ClientObjectClass *obj, Quaternion *des_quat, Vector3 *des_pos)
 {
 	FAIL_IF(!des_quat) {return;}
@@ -151,7 +151,7 @@ void ChaseCameraModuleClass::Unknown_79BFC0(ClientObjectClass *obj, Quaternion *
 	Matrix3D tm = obj->Unknown_28(false);
 	float target = obj->Unknown_6F3ED0() * 0.25f;
 	Unknown24.Set_Target(target);
-	Unknown24.Get_Value((float)WW3D::Get_Frame_Time());
+	float value = Unknown24.Get_Value((float)WW3D::Get_Frame_Time());
 	tm.Rotate_X(Unknown24.Get_Current());
 	if (!Unknown14) {
 		Vector3 dir(tm[0][0], tm[1][0], 0.0f);
@@ -181,4 +181,7 @@ void ChaseCameraModuleClass::Unknown_79BFC0(ClientObjectClass *obj, Quaternion *
 ** angle), flattened onto XY when +0x14 is clear (a Vector3 with Z 0: its Normalize takes Length2 twice, Z stays on the FPU
 ** stack and goes into the matrix's [2][0]; with it the client's inlining follows: Rotate_Z out of line, Translate_Z inline; P2), then Rotate_Y(-pi/2), Rotate_Z(-pi/2), heading, tilt, the distance
 ** along Z and the elevation; CM1's draft read the first turn as Rotate_Z.
+** B15 (2026-11-26): the accel's value is a named float local, unused (the client discards Get_Value's result with
+** fstp st(0)); its one extra definition orders the first Rotate_X's row 0 sum as the client's (s*tmp2 + c*tmp1, a
+** commutative add: same value). A dead int sweep found the threshold: exactly one more definition, 2..8 give the old order.
 */

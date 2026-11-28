@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <string.h>
 
-static int Clamp_Int(__int64 t);	// at the end of the file (the client's duration.h, line 205)  // NAME 2: describes what it does
+#include "..\shared\duration.h"	// Clamp_Int (the value constructor's clamp: duration.h, line 205)
 
 MessageLinePacketClass::MessageLinePacketClass(char *string, char *ephemeral_type, __int64 time_ms, int display_priority) :
 	String(nstrdup(string)),
@@ -134,77 +134,7 @@ int SuperLinePacketClass::Print(char *buffer, int)
 **	  then opcodes 36 and 35 (builder P3, 2026-10-26, 11 of 11 exact in appfile.py match). SuperLine's
 **	  value constructor nstrdup's in its initialiser list (the base vtable is stored before the call).
 **	* The value constructor inlines a clamp of a 64-bit time whose FAIL_IF ('t > INT_MAX') the client
-**	  reports from ..\shared\duration.h, line 205. It is defined here, at the end of the file on that
-**	  line, not in duration.h: adding it there reorders the symbols of every object that includes
-**	  duration.h and flips objmatch's tie-breaks in aux_roots.cpp (3 pairs gained, 2 lost), so the
-**	  move waits for the user (P4's proposal). The string differs, the bytes match (a relocation).
+**	  reports from ..\shared\duration.h, line 205: Clamp_Int is duration.h's (on that line there;
+**	  A10, run 2026-11-26-night), included here by that spelling.
 **	* The file name is provisional (no assert names it).
 */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// duration.h's clamp of a 64-bit time to an int (the client's line 205: see the notes)
-static int Clamp_Int(__int64 t)
-{
-	FAIL_IF(t > INT_MAX) return INT_MAX;
-	if (t < INT_MIN) {
-		return INT_MIN;
-	}
-	return (int)t;
-}

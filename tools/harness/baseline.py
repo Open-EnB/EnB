@@ -11,7 +11,8 @@ noise in the private repository Open-EnB/baselines, checked out at machine.py's 
     python tools/harness/baseline.py tools [--add EXE...] [--store DIR]
 
 Layout of the store:  runs/<client>/<env>/<scenario>/<YYYYMMDD-HHMMSS>/   one stored run (UTC start time):
-    manifest.json, e2e.log, events.log, antprox.out, d3d8shot.log, camera.txt, messages.log (if any; filtered
+    manifest.json, e2e.log, events.log, antprox.out, d3d8shot.log, camera.txt, camera-track.txt (capture
+    --camera-track), messages.log (if any; filtered
     above MESSAGES_RAW_MAX, the manifest's messages_log),
     result-<scenario>.json, shot_*.png, packets.json ({scenario: [packets the client sent]}, e2e.sent_packets)
 runs/<client>/<env>/<scenario>/noise.json: every stored run of the scenario against every other (raw shot_diff).
@@ -70,7 +71,7 @@ sys.path.insert(0, HERE)
 import machine                                  # noqa: E402
 
 SCHEMA = 1
-LOGS = ('e2e.log', 'events.log', 'antprox.out', 'd3d8shot.log', 'camera.txt', 'messages.log')
+LOGS = ('e2e.log', 'events.log', 'antprox.out', 'd3d8shot.log', 'camera.txt', 'camera-track.txt', 'messages.log')
 # messages.log (the client's -ENABLE_MESSAGES stream) is stored as it is only up to MESSAGES_RAW_MAX; a larger one (a
 # space session's: 49-58 MB, 99 % effect_description.cpp's three asserts a frame and frameint.cpp's frame-rate line)
 # is stored filtered (filter_messages: the frame-rate lines dropped, an assert repeated since the last other line
@@ -405,6 +406,9 @@ def store_run(store, client, label, name, session, result, start_utc, common, in
     for f in LOGS + tuple(f'result-{x}.json' for x in names):
         if f != 'messages.log' and os.path.exists(os.path.join(session, f)):
             shutil.copy2(os.path.join(session, f), os.path.join(dest, f))
+    for f in sorted(os.listdir(session)):   # e2e db-avatars dumps (UI-01: the created character as stored)
+        if re.fullmatch(r'db-[A-Za-z0-9_-]+\.sql', f):
+            shutil.copy2(os.path.join(session, f), os.path.join(dest, f))
     mlog = store_messages(session, dest)
     entries = []
     for x in names:
@@ -499,7 +503,9 @@ def capture(args):
         'antprox': antprox_used(bool(args.live)),
         'antreplay': antreplay_used(bool(args.live)),
         'enb': git_state(),
-        'server': {'mode': 'live', 'server': args.live} if args.live else {'mode': 'replay'},
+        'server': dict({'mode': 'live', 'server': args.live}, **({'antprox_args': args.antprox_arg}
+                                                                 if args.antprox_arg else {}))
+        if args.live else {'mode': 'replay'},
     }
     if not args.live:                   # the recordings antprox /REPLAY reads (clientrun.start_antprox)
         recs = clientrun.recordings_folder()
@@ -544,9 +550,11 @@ def capture(args):
             cmd = [sys.executable, os.path.join(HERE, 'e2e.py'), '--retail', '--instance', args.instance, '--keep',
                    '--out', staging, '--manifest', man_path]
             if args.live:
-                cmd += ['--live', args.live]
+                cmd += ['--live', args.live] + [f'--antprox-arg={a}' for a in args.antprox_arg or []]
             if not args.no_audio:
                 cmd += ['--audio']
+            if args.camera_track:
+                cmd += ['--camera-track']
             if args.db_snapshot is not None:
                 cmd += ['--db-snapshot', str(args.db_snapshot)]
             cmd += ['run'] + names
@@ -562,7 +570,8 @@ def capture(args):
             if args.db_snapshot is not None:
                 snaps = sorted(d for d in os.listdir(staging) if d.endswith('-db-snapshot')
                                and os.path.getmtime(os.path.join(staging, d)) >= t0 - 1)
-                sql = os.path.join(staging, snaps[-1], f'avatar{args.db_snapshot}.sql') if snaps else None
+                import e2e
+                sql = os.path.join(staging, snaps[-1], e2e.db_snapshot_file(args.db_snapshot)) if snaps else None
                 db.update(avatar=args.db_snapshot,
                           sha256=sha256_file(sql) if sql and os.path.exists(sql) else None)
             if not os.path.exists(man_path):
@@ -1484,15 +1493,35 @@ def audio_cut_stored(stored):
     return 'input' if stored and all(a.get('cut') == 'input' for a in stored) else 'end'
 
 
+# Sounds the client picks at random from a fixed set by its own code (not by the run's events): every variant reads as
+# the set's name, so a run that drew another one of them is the same run. {name: (variants lower-case, evidence)}.
+AUDIO_RANDOM_SETS = {
+    '1492_00_32{3,4,5}Se.mp3': (('1492_00_323se.mp3', '1492_00_324se.mp3', '1492_00_325se.mp3'),
+                                "the login greeting: 0x5ADA50 plays tutorial step 'ReturningUser%d' with time(NULL) % 3; "
+                                "tutorialdef.ini's ReturningUser0 / 1 / 2 speak 323se / 325se / 324se"),
+}
+_AUDIO_RANDOM = {v: name for name, (vs, _) in AUDIO_RANDOM_SETS.items() for v in vs}
+
+
+def audio_random_set(a, snd):
+    """The AUDIO_RANDOM_SETS name SND (a stream's file, a sample's hash:size named in A) is a variant of, or None."""
+    return _AUDIO_RANDOM.get(str(a.get('names', {}).get(snd, snd)).lower())
+
+
+def _asound(a, snd):
+    return audio_random_set(a, snd) or snd
+
+
 def audio_strict(a):
-    return [tuple(x[:4]) for x in a['sequence'] if x[1] in AUDIO_STRICT]
+    """The streams' and 3D samples' items (event, kind, sound, loop) in order; a random set's variant as the set."""
+    return [(x[0], x[1], _asound(a, x[2]), x[3]) for x in a['sequence'] if x[1] in AUDIO_STRICT]
 
 
 def audio_loose(a):
     c = {}
     for x in a['sequence']:
         if x[1] not in AUDIO_STRICT:
-            k = f'{x[0]} {x[1]} {x[2]}'
+            k = f'{x[0]} {x[1]} {_asound(a, x[2])}'
             c[k] = c.get(k, 0) + 1
     return c
 
@@ -1543,6 +1572,8 @@ def audio_noise(entries):
 
 
 RETAIL_UNSTABLE = 'RETAIL-UNSTABLE'
+# verify --run --audio-only's word for each audio_verdict
+AUDIO_ONLY_WORD = {True: 'SAME', False: 'DIFF', RETAIL_UNSTABLE: RETAIL_UNSTABLE, None: 'NONE'}
 
 
 def name_samples(summaries, data_dir=None):
@@ -1569,7 +1600,11 @@ def name_samples(summaries, data_dir=None):
 def audio_family(a, snd):
     """A sound's family: its file name (a stream's own, a sample's from the load events) with every digit run as
     '#', so the client's random variants of one sound share it (TerranWander07-2.mp3 and TerranWander01-5.mp3:
-    TerranWander#-#.mp3); a sample of no known name stays its hash:size."""
+    TerranWander#-#.mp3); a sample of no known name stays its hash:size; a random set's variant (AUDIO_RANDOM_SETS)
+    or the set itself is the set, a family of its own."""
+    rs = snd if snd in AUDIO_RANDOM_SETS else audio_random_set(a, snd)
+    if rs:
+        return rs
     name = a.get('names', {}).get(snd, snd)
     if name == snd and ':' in str(snd):
         return snd
@@ -1679,6 +1714,104 @@ def audio_verdict(mine, stored, nz):
     if shaky:
         return RETAIL_UNSTABLE, '; '.join(shaky)
     return True, f'{len(st)} stream/3D items, {sum(mc.values())} 2D'
+
+
+# ---------------------------------------------------------------- the database rows a scenario left (db-avatars)
+
+# e2e's db-avatars dumps (db-NAME.sql: the rows of each character the client created, UI-01) compared row by row with
+# the stored runs' dumps of the same name; the server's wall-clock columns are left out (a run's login time, not the
+# client's: the three stored ui_charcreate runs differ only in last_login)
+DB_DUMP_RE = re.compile(r'db-[A-Za-z0-9_-]+\.sql')
+DB_WALL_CLOCK = ('last_login', 'last_logout', 'last_logout_t')
+
+
+def _sql_values(s, i):
+    """The tuples of one INSERT's VALUES from S[i:] (strings with backslash escapes, NULL as None): (rows, end)."""
+    rows, row, n = [], None, len(s)
+    while i < n:
+        ch = s[i]
+        if ch == '(':
+            row, i = [], i + 1
+            continue
+        if ch == ')':
+            rows.append(tuple(row))
+            row, i = None, i + 1
+            continue
+        if ch == ';' and row is None:
+            return rows, i + 1
+        if ch in ', \t\r\n':
+            i += 1
+            continue
+        if ch == "'":
+            j, buf = i + 1, []
+            while j < n and s[j] != "'":
+                if s[j] == '\\' and j + 1 < n:
+                    j += 1
+                buf.append(s[j])
+                j += 1
+            row.append(''.join(buf))
+            i = j + 1
+            continue
+        m = re.compile(r'[^,)\s]+').match(s, i)
+        tok = m.group(0)
+        row.append(None if tok.upper() == 'NULL' else tok)
+        i = m.end()
+    return rows, i
+
+
+def sql_dump_rows(path):
+    """{table: sorted [((column, value), ...)]} of a db-avatars dump's INSERTs, DB_WALL_CLOCK columns left out."""
+    s = open(path, encoding='utf-8', errors='replace').read()
+    out = {}
+    for m in re.finditer(r'INSERT INTO `([^`]+)` \(([^)]*)\) VALUES ', s):
+        cols = [c.strip(' `') for c in m.group(2).split(',')]
+        rows, _ = _sql_values(s, m.end())
+        out.setdefault(m.group(1), []).extend(
+            tuple((c, v) for c, v in zip(cols, r) if c not in DB_WALL_CLOCK) for r in rows)
+    return {t: sorted(rs, key=repr) for t, rs in out.items()}
+
+
+def _db_first_diff(a, b):
+    """The first difference of two sql_dump_rows readings, as text; None when equal."""
+    for t in sorted(set(a) | set(b)):
+        ra, rb = a.get(t, []), b.get(t, [])
+        if len(ra) != len(rb):
+            return f'{t}: {len(ra)} rows, stored {len(rb)}'
+        for x, y in zip(ra, rb):
+            if x != y:
+                dx, dy = dict(x), dict(y)
+                c = next(c for c in list(dx) + list(dy) if dx.get(c) != dy.get(c))
+                return f'{t}.{c} {dx.get(c)}, stored {dy.get(c)}'
+    return None
+
+
+def db_dump_verdict(mine, stored):
+    """(ok, text) for MINE {db-NAME.sql: path} against the stored runs' [{db-NAME.sql: path}]: ok None when no
+    stored run has a dump; False when the run lacks one the stored runs have or its rows equal no stored run's."""
+    names = sorted(set().union(*stored)) if stored else []
+    if not names:
+        return None, 'no database dump stored'
+    texts, bad = [], False
+    for f in names:
+        theirs = [sql_dump_rows(st[f]) for st in stored if f in st]
+        if f not in mine:
+            bad = True
+            texts.append(f'{f} not in the run ({len(theirs)} stored)')
+            continue
+        own = sql_dump_rows(mine[f])
+        if any(own == t for t in theirs):
+            texts.append(f'{f} the same ({sum(len(r) for r in own.values())} rows in {len(own)} tables, '
+                         f'{"/".join(DB_WALL_CLOCK)} left out)')
+        else:
+            bad = True
+            texts.append(f'{f} {_db_first_diff(own, theirs[0])} (equal to none of the {len(theirs)} stored)')
+    return not bad, '; '.join(texts)
+
+
+def db_dumps_in(d):
+    """{db-NAME.sql: path} of folder D."""
+    return {f: os.path.join(d, f) for f in sorted(os.listdir(d)) if DB_DUMP_RE.fullmatch(f)} if os.path.isdir(d) \
+        else {}
 
 
 # ---------------------------------------------------------------- inputs: what a second device needs to repeat a run
@@ -2188,6 +2321,7 @@ def verify_run(args):
     holders = [(c, e, s, d, dir_scenarios(d)) for c, e, s, d in scenario_dirs(store)
                if (not client or c == client) and (not env or e == env)]
     bad, apart, used = 0, 0, set()
+    audio_tally = {}
     for name in names:
         # a set folder when --set names it; else a run of several scenarios prefers a set that ran this one, and a
         # run of one scenario the scenario's own folder
@@ -2279,16 +2413,28 @@ def verify_run(args):
         stored_audio = [read_json(en['audio']) for en in ents if en.get('audio')]
         named = name_samples([mine_audio[audio_cut_stored(stored_audio)].get(name)] + stored_audio)
         a_ok, a_text = audio_verdict(named[0], named[1:], nzs.get('audio'))
+        if getattr(args, 'audio_only', False):     # AU-01: the audio verdict alone, one line a scenario
+            k = AUDIO_ONLY_WORD[a_ok]
+            audio_tally[k] = audio_tally.get(k, 0) + 1
+            print(f'{name}: AUDIO {k} {a_text}' + (f' ({"; ".join(notes)})' if notes else '')
+                  + f'  [{c}/{e}/{s}, {len(ents)} runs]')
+            continue
         if a_ok is False:
             what.append(f'audio {a_text}')
         elif a_ok == RETAIL_UNSTABLE:
             shaky.append(f'audio {a_text}')
+        own_dir = next((x for x in dirs if os.path.isfile(os.path.join(x, f'result-{name}.json'))), None)
+        d_ok, d_text = db_dump_verdict(db_dumps_in(own_dir) if own_dir else {},
+                                       [db_dumps_in(en['dir']) for en in ents])
+        if d_ok is False:
+            hard.append(f'database {d_text}')
         line = f'{len(mine)} packets, shots {within} of {len(set(stored_shots) | set(mine_shots))} within noise'
         line += (f', draw logs {logs_same} of {len(mine_shots)} the same' + (f' ({logs_ms} as a multiset)' if logs_ms
                                                                             else '')
                  if logs_same or not logs_none else '') + \
             (f', no draw log stored for {logs_none}' if logs_none else '')
         line += f', audio the same ({a_text})' if a_ok is True else f', {a_text}'
+        line += f', database {d_text}' if d_ok else ''
         # packets, shots, draw logs and audio carry state from the scenario before (texture address modes, draw
         # order, matrices: retail itself differs so): after another scenario than stored they are not comparable
         apart_here = bool(what or shaky) and not hard and bool(notes)
@@ -2308,6 +2454,11 @@ def verify_run(args):
         bad += bool(hard or what) and not apart_here
         apart += apart_here
         unstable += shaky_here
+    if getattr(args, 'audio_only', False):
+        print('baseline verify --run --audio-only: ' + ', '.join(f'{audio_tally.get(k, 0)} {k}' for k in
+                                                                 ('SAME', RETAIL_UNSTABLE, 'DIFF', 'NONE'))
+              + (f', {bad} without a baseline' if bad else ''))
+        return 1 if bad or audio_tally.get('DIFF') else 4 if audio_tally.get(RETAIL_UNSTABLE) else 0
     missed = skipped_scenarios(args, dirs, results, names, holders, used)
     print(f'baseline verify --run: {len(names) - bad - apart - unstable} of {len(names)} scenarios the same as the '
           'baseline'
@@ -2384,6 +2535,11 @@ def list_store(args):
     return 0
 
 
+def _db_snapshot_arg(text):
+    import e2e
+    return e2e.db_snapshot_arg(text)
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__.split('\n')[0])
     ap.add_argument('command', choices=['capture', 'verify', 'list', 'inputs', 'tools'])
@@ -2392,11 +2548,17 @@ def main(argv=None):
     ap.add_argument('--runs', type=int, default=3, help='capture: PASS runs to store per scenario (default 3)')
     ap.add_argument('--retries', type=int, default=1, help='capture: failed attempts allowed before giving up (1)')
     ap.add_argument('--live', nargs='?', const='localhost', metavar='SERVER', help='capture: e2e --live [SERVER]')
-    ap.add_argument('--db-snapshot', nargs='?', const=6, type=int, metavar='AVATAR', help='capture: e2e --db-snapshot')
+    ap.add_argument('--db-snapshot', nargs='?', const=6, type=_db_snapshot_arg, metavar='AVATAR',
+                    help="capture: e2e --db-snapshot (an avatar id, or 'schema': the whole net7_user schema)")
     ap.add_argument('--restart', action=argparse.BooleanOptionalAction, default=None,
                     help='capture --live: restart Net7.exe before each run (default: when a scenario is sp_*; '
                          '--no-restart: restore in place)')
+    ap.add_argument('--antprox-arg', action='append', metavar='ARG',
+                    help="capture --live: e2e --antprox-arg ARG (repeatable; /NOPATCHES: retail unpatched, as ours "
+                         "runs; UI-01's creation records differ by Net-7's class patches); the manifest's server records them")
     ap.add_argument('--no-audio', action='store_true', help='capture: without the audio log (e2e --audio is on)')
+    ap.add_argument('--camera-track', action='store_true',
+                    help="capture: e2e --camera-track (camera-track.txt, the camera's path; camtrack.py compares)")
     ap.add_argument('--no-db-restore', action='store_true',
                     help="capture --live: do not put the store's database state (inputs/db) back before each run")
     ap.add_argument('--write', action='store_true', help='inputs: rewrite inputs/manifest.json from the files')
@@ -2409,6 +2571,9 @@ def main(argv=None):
     ap.add_argument('--run', help='verify: an e2e run (folder, folders joined by ",", e2e manifest) or a stored manifest')
     ap.add_argument('--client', help='verify --run: the stored client (retail-XXXXXXXX)')
     ap.add_argument('--env', help='verify --run: the stored env (<label>-<W>x<H>)')
+    ap.add_argument('--audio-only', action='store_true',
+                    help='verify --run: the audio verdict alone (test-plan AU-01: streams and 3D sounds in order, '
+                         '2D sounds by count), one line a scenario; exit 1 on a DIFF, 4 RETAIL-UNSTABLE')
     ap.add_argument('--allow-stale', action='store_true',
                     help='verify --run: go on when our exe is older than the newest client-source commit')
     ap.add_argument('--set', help='capture: the scenarios as ONE e2e session a run, stored as this set (no names: '

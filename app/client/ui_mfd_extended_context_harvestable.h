@@ -6,6 +6,7 @@
 #include <list>
 #include <vector>
 #include "ui_mfd_extended_context_strings.h"
+#include "ui_mfd_extended_context.h"	// UIMFDExtendedContextWatchClass, Unknown_5BF790
 #include "inv_data_peek.h"	// InvDataPeekClass (Peek)
 
 class ClientClass;

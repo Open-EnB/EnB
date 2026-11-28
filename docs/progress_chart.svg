@@ -27,116 +27,119 @@
     <line x1="70" x2="840" y1="83.7" y2="83.7" class="grid"/><text x="62" y="87.7" class="muted" font-size="11.5" text-anchor="end">100%</text>
     <line x1="70" x2="840" y1="52.0" y2="52.0" class="grid"/><text x="62" y="56.0" class="muted" font-size="11.5" text-anchor="end">120%</text>
     <text x="70.0" y="262" class="muted" font-size="11.5" text-anchor="middle">10-22</text>
-    <text x="92.0" y="262" class="muted" font-size="11.5" text-anchor="middle">10-23</text>
-    <text x="114.0" y="262" class="muted" font-size="11.5" text-anchor="middle">10-24</text>
-    <text x="136.0" y="262" class="muted" font-size="11.5" text-anchor="middle">10-25</text>
-    <text x="158.0" y="262" class="muted" font-size="11.5" text-anchor="middle">10-26</text>
-    <text x="180.0" y="262" class="muted" font-size="11.5" text-anchor="middle">10-27</text>
-    <text x="202.0" y="262" class="muted" font-size="11.5" text-anchor="middle">10-28</text>
-    <text x="224.0" y="262" class="muted" font-size="11.5" text-anchor="middle">10-29</text>
-    <text x="246.0" y="262" class="muted" font-size="11.5" text-anchor="middle">10-30</text>
-    <text x="268.0" y="262" class="muted" font-size="11.5" text-anchor="middle">10-31</text>
-    <text x="290.0" y="262" class="muted" font-size="11.5" text-anchor="middle">11-01</text>
-    <text x="312.0" y="262" class="muted" font-size="11.5" text-anchor="middle">11-02</text>
-    <text x="334.0" y="262" class="muted" font-size="11.5" text-anchor="middle">11-03</text>
-    <text x="356.0" y="262" class="muted" font-size="11.5" text-anchor="middle">11-04</text>
-    <text x="378.0" y="262" class="muted" font-size="11.5" text-anchor="middle">11-05</text>
-    <text x="400.0" y="262" class="muted" font-size="11.5" text-anchor="middle">11-06</text>
-    <text x="422.0" y="262" class="muted" font-size="11.5" text-anchor="middle">11-07</text>
-    <text x="444.0" y="262" class="muted" font-size="11.5" text-anchor="middle">11-08</text>
-    <text x="466.0" y="262" class="muted" font-size="11.5" text-anchor="middle">11-09</text>
-    <text x="488.0" y="262" class="muted" font-size="11.5" text-anchor="middle">11-10</text>
-    <text x="510.0" y="262" class="muted" font-size="11.5" text-anchor="middle">11-11</text>
-    <text x="532.0" y="262" class="muted" font-size="11.5" text-anchor="middle">11-12</text>
-    <text x="554.0" y="262" class="muted" font-size="11.5" text-anchor="middle">11-13</text>
-    <text x="576.0" y="262" class="muted" font-size="11.5" text-anchor="middle">11-14</text>
-    <text x="598.0" y="262" class="muted" font-size="11.5" text-anchor="middle">11-15</text>
-    <text x="620.0" y="262" class="muted" font-size="11.5" text-anchor="middle">11-16</text>
-    <text x="642.0" y="262" class="muted" font-size="11.5" text-anchor="middle">11-17</text>
-    <text x="664.0" y="262" class="muted" font-size="11.5" text-anchor="middle">11-18</text>
-    <text x="686.0" y="262" class="muted" font-size="11.5" text-anchor="middle">11-19</text>
-    <text x="708.0" y="262" class="muted" font-size="11.5" text-anchor="middle">11-20</text>
-    <text x="730.0" y="262" class="muted" font-size="11.5" text-anchor="middle">11-21</text>
-    <text x="752.0" y="262" class="muted" font-size="11.5" text-anchor="middle">11-22</text>
-    <text x="774.0" y="262" class="muted" font-size="11.5" text-anchor="middle">11-23</text>
-    <text x="796.0" y="262" class="muted" font-size="11.5" text-anchor="middle">11-24</text>
-    <text x="818.0" y="262" class="muted" font-size="11.5" text-anchor="middle">11-25</text>
-    <text x="840.0" y="262" class="muted" font-size="11.5" text-anchor="middle">11-26</text>
-    <line x1="136.0" x2="136.0" y1="52" y2="242" class="grid" stroke-dasharray="4 3"/><text x="132.0" y="64" class="muted" font-size="11" text-anchor="end">counting rule D80</text>
-    <polyline points="70.0,227.3 92.0,217.1 114.0,211.1 136.0,206.2 158.0,202.9 180.0,184.0 202.0,178.8 224.0,177.1 246.0,175.3 268.0,167.4 290.0,160.7 312.0,157.6 334.0,153.5 356.0,148.2 378.0,142.3 400.0,133.0 422.0,128.6 444.0,123.4 466.0,119.5 488.0,115.8 510.0,109.1 532.0,106.1 554.0,99.1 576.0,95.4 598.0,92.7 620.0,91.7 642.0,90.2 664.0,89.1 686.0,84.9 708.0,84.8 730.0,84.1 752.0,83.7 774.0,83.7 796.0,83.7 818.0,83.8 840.0,83.9" fill="none" class="l-written" stroke-width="2.5" stroke-linejoin="round"/>
+    <text x="91.4" y="262" class="muted" font-size="11.5" text-anchor="middle">10-23</text>
+    <text x="112.8" y="262" class="muted" font-size="11.5" text-anchor="middle">10-24</text>
+    <text x="134.2" y="262" class="muted" font-size="11.5" text-anchor="middle">10-25</text>
+    <text x="155.6" y="262" class="muted" font-size="11.5" text-anchor="middle">10-26</text>
+    <text x="176.9" y="262" class="muted" font-size="11.5" text-anchor="middle">10-27</text>
+    <text x="198.3" y="262" class="muted" font-size="11.5" text-anchor="middle">10-28</text>
+    <text x="219.7" y="262" class="muted" font-size="11.5" text-anchor="middle">10-29</text>
+    <text x="241.1" y="262" class="muted" font-size="11.5" text-anchor="middle">10-30</text>
+    <text x="262.5" y="262" class="muted" font-size="11.5" text-anchor="middle">10-31</text>
+    <text x="283.9" y="262" class="muted" font-size="11.5" text-anchor="middle">11-01</text>
+    <text x="305.3" y="262" class="muted" font-size="11.5" text-anchor="middle">11-02</text>
+    <text x="326.7" y="262" class="muted" font-size="11.5" text-anchor="middle">11-03</text>
+    <text x="348.1" y="262" class="muted" font-size="11.5" text-anchor="middle">11-04</text>
+    <text x="369.4" y="262" class="muted" font-size="11.5" text-anchor="middle">11-05</text>
+    <text x="390.8" y="262" class="muted" font-size="11.5" text-anchor="middle">11-06</text>
+    <text x="412.2" y="262" class="muted" font-size="11.5" text-anchor="middle">11-07</text>
+    <text x="433.6" y="262" class="muted" font-size="11.5" text-anchor="middle">11-08</text>
+    <text x="455.0" y="262" class="muted" font-size="11.5" text-anchor="middle">11-09</text>
+    <text x="476.4" y="262" class="muted" font-size="11.5" text-anchor="middle">11-10</text>
+    <text x="497.8" y="262" class="muted" font-size="11.5" text-anchor="middle">11-11</text>
+    <text x="519.2" y="262" class="muted" font-size="11.5" text-anchor="middle">11-12</text>
+    <text x="540.6" y="262" class="muted" font-size="11.5" text-anchor="middle">11-13</text>
+    <text x="561.9" y="262" class="muted" font-size="11.5" text-anchor="middle">11-14</text>
+    <text x="583.3" y="262" class="muted" font-size="11.5" text-anchor="middle">11-15</text>
+    <text x="604.7" y="262" class="muted" font-size="11.5" text-anchor="middle">11-16</text>
+    <text x="626.1" y="262" class="muted" font-size="11.5" text-anchor="middle">11-17</text>
+    <text x="647.5" y="262" class="muted" font-size="11.5" text-anchor="middle">11-18</text>
+    <text x="668.9" y="262" class="muted" font-size="11.5" text-anchor="middle">11-19</text>
+    <text x="690.3" y="262" class="muted" font-size="11.5" text-anchor="middle">11-20</text>
+    <text x="711.7" y="262" class="muted" font-size="11.5" text-anchor="middle">11-21</text>
+    <text x="733.1" y="262" class="muted" font-size="11.5" text-anchor="middle">11-22</text>
+    <text x="754.4" y="262" class="muted" font-size="11.5" text-anchor="middle">11-23</text>
+    <text x="775.8" y="262" class="muted" font-size="11.5" text-anchor="middle">11-24</text>
+    <text x="797.2" y="262" class="muted" font-size="11.5" text-anchor="middle">11-25</text>
+    <text x="818.6" y="262" class="muted" font-size="11.5" text-anchor="middle">11-26</text>
+    <text x="840.0" y="262" class="muted" font-size="11.5" text-anchor="middle">11-27</text>
+    <line x1="134.2" x2="134.2" y1="52" y2="242" class="grid" stroke-dasharray="4 3"/><text x="130.2" y="64" class="muted" font-size="11" text-anchor="end">counting rule D80</text>
+    <polyline points="70.0,227.3 91.4,217.1 112.8,211.1 134.2,206.2 155.6,202.9 176.9,184.0 198.3,178.8 219.7,177.1 241.1,175.3 262.5,167.4 283.9,160.7 305.3,157.6 326.7,153.5 348.1,148.2 369.4,142.3 390.8,133.0 412.2,128.6 433.6,123.4 455.0,119.5 476.4,115.8 497.8,109.1 519.2,106.1 540.6,99.1 561.9,95.4 583.3,92.7 604.7,91.7 626.1,90.2 647.5,89.1 668.9,84.9 690.3,84.8 711.7,84.1 733.1,83.7 754.4,83.7 775.8,83.7 797.2,83.8 818.6,84.0 840.0,84.2" fill="none" class="l-written" stroke-width="2.5" stroke-linejoin="round"/>
     <circle cx="70.0" cy="227.3" r="3.2" class="l-written" fill="none" stroke-width="2"><title>2026-10-22: 9.30%</title></circle>
-    <circle cx="92.0" cy="217.1" r="3.2" class="l-written" fill="none" stroke-width="2"><title>2026-10-23: 15.74%</title></circle>
-    <circle cx="114.0" cy="211.1" r="3.2" class="l-written" fill="none" stroke-width="2"><title>2026-10-24: 19.50%</title></circle>
-    <circle cx="136.0" cy="206.2" r="3.2" class="l-written" fill="none" stroke-width="2"><title>2026-10-25: 22.60%</title></circle>
-    <circle cx="158.0" cy="202.9" r="3.2" class="l-written" fill="none" stroke-width="2"><title>2026-10-26: 24.73%</title></circle>
-    <circle cx="180.0" cy="184.0" r="3.2" class="l-written" fill="none" stroke-width="2"><title>2026-10-27: 36.60%</title></circle>
-    <circle cx="202.0" cy="178.8" r="3.2" class="l-written" fill="none" stroke-width="2"><title>2026-10-28: 39.94%</title></circle>
-    <circle cx="224.0" cy="177.1" r="3.2" class="l-written" fill="none" stroke-width="2"><title>2026-10-29: 41.02%</title></circle>
-    <circle cx="246.0" cy="175.3" r="3.2" class="l-written" fill="none" stroke-width="2"><title>2026-10-30: 42.15%</title></circle>
-    <circle cx="268.0" cy="167.4" r="3.2" class="l-written" fill="none" stroke-width="2"><title>2026-10-31: 47.12%</title></circle>
-    <circle cx="290.0" cy="160.7" r="3.2" class="l-written" fill="none" stroke-width="2"><title>2026-11-01: 51.32%</title></circle>
-    <circle cx="312.0" cy="157.6" r="3.2" class="l-written" fill="none" stroke-width="2"><title>2026-11-02: 53.33%</title></circle>
-    <circle cx="334.0" cy="153.5" r="3.2" class="l-written" fill="none" stroke-width="2"><title>2026-11-03: 55.87%</title></circle>
-    <circle cx="356.0" cy="148.2" r="3.2" class="l-written" fill="none" stroke-width="2"><title>2026-11-04: 59.26%</title></circle>
-    <circle cx="378.0" cy="142.3" r="3.2" class="l-written" fill="none" stroke-width="2"><title>2026-11-05: 62.98%</title></circle>
-    <circle cx="400.0" cy="133.0" r="3.2" class="l-written" fill="none" stroke-width="2"><title>2026-11-06: 68.82%</title></circle>
-    <circle cx="422.0" cy="128.6" r="3.2" class="l-written" fill="none" stroke-width="2"><title>2026-11-07: 71.64%</title></circle>
-    <circle cx="444.0" cy="123.4" r="3.2" class="l-written" fill="none" stroke-width="2"><title>2026-11-08: 74.90%</title></circle>
-    <circle cx="466.0" cy="119.5" r="3.2" class="l-written" fill="none" stroke-width="2"><title>2026-11-09: 77.39%</title></circle>
-    <circle cx="488.0" cy="115.8" r="3.2" class="l-written" fill="none" stroke-width="2"><title>2026-11-10: 79.72%</title></circle>
-    <circle cx="510.0" cy="109.1" r="3.2" class="l-written" fill="none" stroke-width="2"><title>2026-11-11: 83.94%</title></circle>
-    <circle cx="532.0" cy="106.1" r="3.2" class="l-written" fill="none" stroke-width="2"><title>2026-11-12: 85.82%</title></circle>
-    <circle cx="554.0" cy="99.1" r="3.2" class="l-written" fill="none" stroke-width="2"><title>2026-11-13: 90.22%</title></circle>
-    <circle cx="576.0" cy="95.4" r="3.2" class="l-written" fill="none" stroke-width="2"><title>2026-11-14: 92.61%</title></circle>
-    <circle cx="598.0" cy="92.7" r="3.2" class="l-written" fill="none" stroke-width="2"><title>2026-11-15: 94.33%</title></circle>
-    <circle cx="620.0" cy="91.7" r="3.2" class="l-written" fill="none" stroke-width="2"><title>2026-11-16: 94.91%</title></circle>
-    <circle cx="642.0" cy="90.2" r="3.2" class="l-written" fill="none" stroke-width="2"><title>2026-11-17: 95.88%</title></circle>
-    <circle cx="664.0" cy="89.1" r="3.2" class="l-written" fill="none" stroke-width="2"><title>2026-11-18: 96.57%</title></circle>
-    <circle cx="686.0" cy="84.9" r="3.2" class="l-written" fill="none" stroke-width="2"><title>2026-11-19: 99.22%</title></circle>
-    <circle cx="708.0" cy="84.8" r="3.2" class="l-written" fill="none" stroke-width="2"><title>2026-11-20: 99.31%</title></circle>
-    <circle cx="730.0" cy="84.1" r="3.2" class="l-written" fill="none" stroke-width="2"><title>2026-11-21: 99.73%</title></circle>
-    <circle cx="752.0" cy="83.7" r="3.2" class="l-written" fill="none" stroke-width="2"><title>2026-11-22: 99.96%</title></circle>
-    <circle cx="774.0" cy="83.7" r="3.2" class="l-written" fill="none" stroke-width="2"><title>2026-11-23: 100.00%</title></circle>
-    <circle cx="796.0" cy="83.7" r="3.2" class="l-written" fill="none" stroke-width="2"><title>2026-11-24: 99.98%</title></circle>
-    <circle cx="818.0" cy="83.8" r="3.2" class="l-written" fill="none" stroke-width="2"><title>2026-11-25: 99.92%</title></circle>
-    <circle cx="840.0" cy="83.9" r="3.2" class="l-written" fill="none" stroke-width="2"><title>2026-11-26: 99.84%</title></circle>
-    <polyline points="70.0,227.3 92.0,217.1 114.0,211.1 136.0,207.2 158.0,204.1 180.0,188.4 202.0,184.7 224.0,183.1 246.0,181.9 268.0,175.1 290.0,169.8 312.0,166.2 334.0,163.6 356.0,160.0 378.0,154.3 400.0,146.6 422.0,143.8 444.0,138.7 466.0,135.3 488.0,132.3 510.0,126.1 532.0,124.1 554.0,118.8 576.0,116.2 598.0,113.8 620.0,113.2 642.0,111.8 664.0,111.2 686.0,109.9 708.0,106.6 730.0,105.4 752.0,104.0 774.0,103.4 796.0,102.6 818.0,101.8 840.0,100.5" fill="none" class="l-exact" stroke-width="2.5" stroke-linejoin="round"/>
+    <circle cx="91.4" cy="217.1" r="3.2" class="l-written" fill="none" stroke-width="2"><title>2026-10-23: 15.74%</title></circle>
+    <circle cx="112.8" cy="211.1" r="3.2" class="l-written" fill="none" stroke-width="2"><title>2026-10-24: 19.50%</title></circle>
+    <circle cx="134.2" cy="206.2" r="3.2" class="l-written" fill="none" stroke-width="2"><title>2026-10-25: 22.60%</title></circle>
+    <circle cx="155.6" cy="202.9" r="3.2" class="l-written" fill="none" stroke-width="2"><title>2026-10-26: 24.73%</title></circle>
+    <circle cx="176.9" cy="184.0" r="3.2" class="l-written" fill="none" stroke-width="2"><title>2026-10-27: 36.60%</title></circle>
+    <circle cx="198.3" cy="178.8" r="3.2" class="l-written" fill="none" stroke-width="2"><title>2026-10-28: 39.94%</title></circle>
+    <circle cx="219.7" cy="177.1" r="3.2" class="l-written" fill="none" stroke-width="2"><title>2026-10-29: 41.02%</title></circle>
+    <circle cx="241.1" cy="175.3" r="3.2" class="l-written" fill="none" stroke-width="2"><title>2026-10-30: 42.15%</title></circle>
+    <circle cx="262.5" cy="167.4" r="3.2" class="l-written" fill="none" stroke-width="2"><title>2026-10-31: 47.12%</title></circle>
+    <circle cx="283.9" cy="160.7" r="3.2" class="l-written" fill="none" stroke-width="2"><title>2026-11-01: 51.32%</title></circle>
+    <circle cx="305.3" cy="157.6" r="3.2" class="l-written" fill="none" stroke-width="2"><title>2026-11-02: 53.33%</title></circle>
+    <circle cx="326.7" cy="153.5" r="3.2" class="l-written" fill="none" stroke-width="2"><title>2026-11-03: 55.87%</title></circle>
+    <circle cx="348.1" cy="148.2" r="3.2" class="l-written" fill="none" stroke-width="2"><title>2026-11-04: 59.26%</title></circle>
+    <circle cx="369.4" cy="142.3" r="3.2" class="l-written" fill="none" stroke-width="2"><title>2026-11-05: 62.98%</title></circle>
+    <circle cx="390.8" cy="133.0" r="3.2" class="l-written" fill="none" stroke-width="2"><title>2026-11-06: 68.82%</title></circle>
+    <circle cx="412.2" cy="128.6" r="3.2" class="l-written" fill="none" stroke-width="2"><title>2026-11-07: 71.64%</title></circle>
+    <circle cx="433.6" cy="123.4" r="3.2" class="l-written" fill="none" stroke-width="2"><title>2026-11-08: 74.90%</title></circle>
+    <circle cx="455.0" cy="119.5" r="3.2" class="l-written" fill="none" stroke-width="2"><title>2026-11-09: 77.39%</title></circle>
+    <circle cx="476.4" cy="115.8" r="3.2" class="l-written" fill="none" stroke-width="2"><title>2026-11-10: 79.72%</title></circle>
+    <circle cx="497.8" cy="109.1" r="3.2" class="l-written" fill="none" stroke-width="2"><title>2026-11-11: 83.94%</title></circle>
+    <circle cx="519.2" cy="106.1" r="3.2" class="l-written" fill="none" stroke-width="2"><title>2026-11-12: 85.82%</title></circle>
+    <circle cx="540.6" cy="99.1" r="3.2" class="l-written" fill="none" stroke-width="2"><title>2026-11-13: 90.22%</title></circle>
+    <circle cx="561.9" cy="95.4" r="3.2" class="l-written" fill="none" stroke-width="2"><title>2026-11-14: 92.61%</title></circle>
+    <circle cx="583.3" cy="92.7" r="3.2" class="l-written" fill="none" stroke-width="2"><title>2026-11-15: 94.33%</title></circle>
+    <circle cx="604.7" cy="91.7" r="3.2" class="l-written" fill="none" stroke-width="2"><title>2026-11-16: 94.91%</title></circle>
+    <circle cx="626.1" cy="90.2" r="3.2" class="l-written" fill="none" stroke-width="2"><title>2026-11-17: 95.88%</title></circle>
+    <circle cx="647.5" cy="89.1" r="3.2" class="l-written" fill="none" stroke-width="2"><title>2026-11-18: 96.57%</title></circle>
+    <circle cx="668.9" cy="84.9" r="3.2" class="l-written" fill="none" stroke-width="2"><title>2026-11-19: 99.22%</title></circle>
+    <circle cx="690.3" cy="84.8" r="3.2" class="l-written" fill="none" stroke-width="2"><title>2026-11-20: 99.31%</title></circle>
+    <circle cx="711.7" cy="84.1" r="3.2" class="l-written" fill="none" stroke-width="2"><title>2026-11-21: 99.73%</title></circle>
+    <circle cx="733.1" cy="83.7" r="3.2" class="l-written" fill="none" stroke-width="2"><title>2026-11-22: 99.96%</title></circle>
+    <circle cx="754.4" cy="83.7" r="3.2" class="l-written" fill="none" stroke-width="2"><title>2026-11-23: 100.00%</title></circle>
+    <circle cx="775.8" cy="83.7" r="3.2" class="l-written" fill="none" stroke-width="2"><title>2026-11-24: 99.98%</title></circle>
+    <circle cx="797.2" cy="83.8" r="3.2" class="l-written" fill="none" stroke-width="2"><title>2026-11-25: 99.92%</title></circle>
+    <circle cx="818.6" cy="84.0" r="3.2" class="l-written" fill="none" stroke-width="2"><title>2026-11-26: 99.76%</title></circle>
+    <circle cx="840.0" cy="84.2" r="3.2" class="l-written" fill="none" stroke-width="2"><title>2026-11-27: 99.65%</title></circle>
+    <polyline points="70.0,227.3 91.4,217.1 112.8,211.1 134.2,207.2 155.6,204.1 176.9,188.4 198.3,184.7 219.7,183.1 241.1,181.9 262.5,175.1 283.9,169.8 305.3,166.2 326.7,163.6 348.1,160.0 369.4,154.3 390.8,146.6 412.2,143.8 433.6,138.7 455.0,135.3 476.4,132.3 497.8,126.1 519.2,124.1 540.6,118.8 561.9,116.2 583.3,113.8 604.7,113.2 626.1,111.8 647.5,111.2 668.9,109.9 690.3,106.6 711.7,105.4 733.1,104.0 754.4,103.4 775.8,102.6 797.2,101.8 818.6,99.2 840.0,98.5" fill="none" class="l-exact" stroke-width="2.5" stroke-linejoin="round"/>
     <circle cx="70.0" cy="227.3" r="3.2" class="l-exact" fill="none" stroke-width="2"><title>2026-10-22: 9.30%</title></circle>
-    <circle cx="92.0" cy="217.1" r="3.2" class="l-exact" fill="none" stroke-width="2"><title>2026-10-23: 15.74%</title></circle>
-    <circle cx="114.0" cy="211.1" r="3.2" class="l-exact" fill="none" stroke-width="2"><title>2026-10-24: 19.50%</title></circle>
-    <circle cx="136.0" cy="207.2" r="3.2" class="l-exact" fill="none" stroke-width="2"><title>2026-10-25: 21.99%</title></circle>
-    <circle cx="158.0" cy="204.1" r="3.2" class="l-exact" fill="none" stroke-width="2"><title>2026-10-26: 23.93%</title></circle>
-    <circle cx="180.0" cy="188.4" r="3.2" class="l-exact" fill="none" stroke-width="2"><title>2026-10-27: 33.86%</title></circle>
-    <circle cx="202.0" cy="184.7" r="3.2" class="l-exact" fill="none" stroke-width="2"><title>2026-10-28: 36.17%</title></circle>
-    <circle cx="224.0" cy="183.1" r="3.2" class="l-exact" fill="none" stroke-width="2"><title>2026-10-29: 37.17%</title></circle>
-    <circle cx="246.0" cy="181.9" r="3.2" class="l-exact" fill="none" stroke-width="2"><title>2026-10-30: 37.98%</title></circle>
-    <circle cx="268.0" cy="175.1" r="3.2" class="l-exact" fill="none" stroke-width="2"><title>2026-10-31: 42.26%</title></circle>
-    <circle cx="290.0" cy="169.8" r="3.2" class="l-exact" fill="none" stroke-width="2"><title>2026-11-01: 45.59%</title></circle>
-    <circle cx="312.0" cy="166.2" r="3.2" class="l-exact" fill="none" stroke-width="2"><title>2026-11-02: 47.85%</title></circle>
-    <circle cx="334.0" cy="163.6" r="3.2" class="l-exact" fill="none" stroke-width="2"><title>2026-11-03: 49.49%</title></circle>
-    <circle cx="356.0" cy="160.0" r="3.2" class="l-exact" fill="none" stroke-width="2"><title>2026-11-04: 51.81%</title></circle>
-    <circle cx="378.0" cy="154.3" r="3.2" class="l-exact" fill="none" stroke-width="2"><title>2026-11-05: 55.38%</title></circle>
-    <circle cx="400.0" cy="146.6" r="3.2" class="l-exact" fill="none" stroke-width="2"><title>2026-11-06: 60.26%</title></circle>
-    <circle cx="422.0" cy="143.8" r="3.2" class="l-exact" fill="none" stroke-width="2"><title>2026-11-07: 62.03%</title></circle>
-    <circle cx="444.0" cy="138.7" r="3.2" class="l-exact" fill="none" stroke-width="2"><title>2026-11-08: 65.27%</title></circle>
-    <circle cx="466.0" cy="135.3" r="3.2" class="l-exact" fill="none" stroke-width="2"><title>2026-11-09: 67.41%</title></circle>
-    <circle cx="488.0" cy="132.3" r="3.2" class="l-exact" fill="none" stroke-width="2"><title>2026-11-10: 69.29%</title></circle>
-    <circle cx="510.0" cy="126.1" r="3.2" class="l-exact" fill="none" stroke-width="2"><title>2026-11-11: 73.21%</title></circle>
-    <circle cx="532.0" cy="124.1" r="3.2" class="l-exact" fill="none" stroke-width="2"><title>2026-11-12: 74.48%</title></circle>
-    <circle cx="554.0" cy="118.8" r="3.2" class="l-exact" fill="none" stroke-width="2"><title>2026-11-13: 77.83%</title></circle>
-    <circle cx="576.0" cy="116.2" r="3.2" class="l-exact" fill="none" stroke-width="2"><title>2026-11-14: 79.44%</title></circle>
-    <circle cx="598.0" cy="113.8" r="3.2" class="l-exact" fill="none" stroke-width="2"><title>2026-11-15: 80.94%</title></circle>
-    <circle cx="620.0" cy="113.2" r="3.2" class="l-exact" fill="none" stroke-width="2"><title>2026-11-16: 81.32%</title></circle>
-    <circle cx="642.0" cy="111.8" r="3.2" class="l-exact" fill="none" stroke-width="2"><title>2026-11-17: 82.20%</title></circle>
-    <circle cx="664.0" cy="111.2" r="3.2" class="l-exact" fill="none" stroke-width="2"><title>2026-11-18: 82.64%</title></circle>
-    <circle cx="686.0" cy="109.9" r="3.2" class="l-exact" fill="none" stroke-width="2"><title>2026-11-19: 83.43%</title></circle>
-    <circle cx="708.0" cy="106.6" r="3.2" class="l-exact" fill="none" stroke-width="2"><title>2026-11-20: 85.54%</title></circle>
-    <circle cx="730.0" cy="105.4" r="3.2" class="l-exact" fill="none" stroke-width="2"><title>2026-11-21: 86.27%</title></circle>
-    <circle cx="752.0" cy="104.0" r="3.2" class="l-exact" fill="none" stroke-width="2"><title>2026-11-22: 87.17%</title></circle>
-    <circle cx="774.0" cy="103.4" r="3.2" class="l-exact" fill="none" stroke-width="2"><title>2026-11-23: 87.54%</title></circle>
-    <circle cx="796.0" cy="102.6" r="3.2" class="l-exact" fill="none" stroke-width="2"><title>2026-11-24: 88.04%</title></circle>
-    <circle cx="818.0" cy="101.8" r="3.2" class="l-exact" fill="none" stroke-width="2"><title>2026-11-25: 88.57%</title></circle>
-    <circle cx="840.0" cy="100.5" r="3.2" class="l-exact" fill="none" stroke-width="2"><title>2026-11-26: 89.35%</title></circle>
+    <circle cx="91.4" cy="217.1" r="3.2" class="l-exact" fill="none" stroke-width="2"><title>2026-10-23: 15.74%</title></circle>
+    <circle cx="112.8" cy="211.1" r="3.2" class="l-exact" fill="none" stroke-width="2"><title>2026-10-24: 19.50%</title></circle>
+    <circle cx="134.2" cy="207.2" r="3.2" class="l-exact" fill="none" stroke-width="2"><title>2026-10-25: 21.99%</title></circle>
+    <circle cx="155.6" cy="204.1" r="3.2" class="l-exact" fill="none" stroke-width="2"><title>2026-10-26: 23.93%</title></circle>
+    <circle cx="176.9" cy="188.4" r="3.2" class="l-exact" fill="none" stroke-width="2"><title>2026-10-27: 33.86%</title></circle>
+    <circle cx="198.3" cy="184.7" r="3.2" class="l-exact" fill="none" stroke-width="2"><title>2026-10-28: 36.17%</title></circle>
+    <circle cx="219.7" cy="183.1" r="3.2" class="l-exact" fill="none" stroke-width="2"><title>2026-10-29: 37.17%</title></circle>
+    <circle cx="241.1" cy="181.9" r="3.2" class="l-exact" fill="none" stroke-width="2"><title>2026-10-30: 37.98%</title></circle>
+    <circle cx="262.5" cy="175.1" r="3.2" class="l-exact" fill="none" stroke-width="2"><title>2026-10-31: 42.26%</title></circle>
+    <circle cx="283.9" cy="169.8" r="3.2" class="l-exact" fill="none" stroke-width="2"><title>2026-11-01: 45.59%</title></circle>
+    <circle cx="305.3" cy="166.2" r="3.2" class="l-exact" fill="none" stroke-width="2"><title>2026-11-02: 47.85%</title></circle>
+    <circle cx="326.7" cy="163.6" r="3.2" class="l-exact" fill="none" stroke-width="2"><title>2026-11-03: 49.49%</title></circle>
+    <circle cx="348.1" cy="160.0" r="3.2" class="l-exact" fill="none" stroke-width="2"><title>2026-11-04: 51.81%</title></circle>
+    <circle cx="369.4" cy="154.3" r="3.2" class="l-exact" fill="none" stroke-width="2"><title>2026-11-05: 55.38%</title></circle>
+    <circle cx="390.8" cy="146.6" r="3.2" class="l-exact" fill="none" stroke-width="2"><title>2026-11-06: 60.26%</title></circle>
+    <circle cx="412.2" cy="143.8" r="3.2" class="l-exact" fill="none" stroke-width="2"><title>2026-11-07: 62.03%</title></circle>
+    <circle cx="433.6" cy="138.7" r="3.2" class="l-exact" fill="none" stroke-width="2"><title>2026-11-08: 65.27%</title></circle>
+    <circle cx="455.0" cy="135.3" r="3.2" class="l-exact" fill="none" stroke-width="2"><title>2026-11-09: 67.41%</title></circle>
+    <circle cx="476.4" cy="132.3" r="3.2" class="l-exact" fill="none" stroke-width="2"><title>2026-11-10: 69.29%</title></circle>
+    <circle cx="497.8" cy="126.1" r="3.2" class="l-exact" fill="none" stroke-width="2"><title>2026-11-11: 73.21%</title></circle>
+    <circle cx="519.2" cy="124.1" r="3.2" class="l-exact" fill="none" stroke-width="2"><title>2026-11-12: 74.48%</title></circle>
+    <circle cx="540.6" cy="118.8" r="3.2" class="l-exact" fill="none" stroke-width="2"><title>2026-11-13: 77.83%</title></circle>
+    <circle cx="561.9" cy="116.2" r="3.2" class="l-exact" fill="none" stroke-width="2"><title>2026-11-14: 79.44%</title></circle>
+    <circle cx="583.3" cy="113.8" r="3.2" class="l-exact" fill="none" stroke-width="2"><title>2026-11-15: 80.94%</title></circle>
+    <circle cx="604.7" cy="113.2" r="3.2" class="l-exact" fill="none" stroke-width="2"><title>2026-11-16: 81.32%</title></circle>
+    <circle cx="626.1" cy="111.8" r="3.2" class="l-exact" fill="none" stroke-width="2"><title>2026-11-17: 82.20%</title></circle>
+    <circle cx="647.5" cy="111.2" r="3.2" class="l-exact" fill="none" stroke-width="2"><title>2026-11-18: 82.64%</title></circle>
+    <circle cx="668.9" cy="109.9" r="3.2" class="l-exact" fill="none" stroke-width="2"><title>2026-11-19: 83.43%</title></circle>
+    <circle cx="690.3" cy="106.6" r="3.2" class="l-exact" fill="none" stroke-width="2"><title>2026-11-20: 85.54%</title></circle>
+    <circle cx="711.7" cy="105.4" r="3.2" class="l-exact" fill="none" stroke-width="2"><title>2026-11-21: 86.27%</title></circle>
+    <circle cx="733.1" cy="104.0" r="3.2" class="l-exact" fill="none" stroke-width="2"><title>2026-11-22: 87.17%</title></circle>
+    <circle cx="754.4" cy="103.4" r="3.2" class="l-exact" fill="none" stroke-width="2"><title>2026-11-23: 87.54%</title></circle>
+    <circle cx="775.8" cy="102.6" r="3.2" class="l-exact" fill="none" stroke-width="2"><title>2026-11-24: 88.04%</title></circle>
+    <circle cx="797.2" cy="101.8" r="3.2" class="l-exact" fill="none" stroke-width="2"><title>2026-11-25: 88.57%</title></circle>
+    <circle cx="818.6" cy="99.2" r="3.2" class="l-exact" fill="none" stroke-width="2"><title>2026-11-26: 90.20%</title></circle>
+    <circle cx="840.0" cy="98.5" r="3.2" class="l-exact" fill="none" stroke-width="2"><title>2026-11-27: 90.65%</title></circle>
     <text x="28" y="286" class="muted" font-size="11">One point per day, from that day's last commit; the D80 rule change (2026-10-25) makes earlier days under-count; every day is measured under today's other rules.</text>
   </g>
 </svg>

@@ -22,7 +22,7 @@
 bool Unknown_C404F8;			// NAME 1: neutral (D10): the client's 0xC404F8, 0x514480 copies 'Doppler_Enabled' to it (its home file is unknown)
 #include "enbscene.h"	// the +0x10C scene (0x75ECF0, 0xF4 bytes)
 class UIStarmapClass { public: StarmapPipClass *Unknown_7C8DB0(bool on); };	// ui_starmap.h's, as far as 0x512A00 calls it (the PDA's +0xA8 object)
-
+#include "..\shared\auth_product.h"
 
 
 

@@ -26,7 +26,7 @@ public:
 	virtual void Unknown_10(); virtual void Unknown_14();
 	virtual SClient *As_Space_Client();					// +0x18 (ClientClass::As_Space_Client; SClient's returns itself)  // NAME 3: the FAIL_IF's
 };
-
+#include "..\shared\auth_product.h"
 extern unsigned int Unknown_BE5F34;		// (gadget.cpp's: the event mask)
 extern KernelEventClass Unknown_BE5EB0;	// (gadget.cpp's: the last event)
 static DurationClass UIScanInterruptDelay(2000);	// 0xBE5E10 (its initialiser 0x60D7D0): how long the threat's interrupt message stays  // NAME 1: neutral (D10)
@@ -539,7 +539,7 @@ UIScanThreatClass::~UIScanThreatClass()
 #include "cfaction_database.h"
 #include <stdio.h>
 #include "co_player_relationship.h"
-template<class C> inline C *Unknown_Scan_Find_Field(char *const &root, const char *name) { NameClass n(name); DeltaCompoundClass *r = (DeltaCompoundClass *)root; C *t = Unknown_Find_Field<C>(r, n); if (t && t->Unknown70) return(t); return(NULL); } template<class C> inline C *Unknown_Scan_Find(char *const &root, const char *name) { return(Unknown_Scan_Find_Field<C>(root, name)); } template<class C> inline C *Unknown_Scan_Find_Field(DeltaCompoundClass *const &root, const char *name) { NameClass n(name); DeltaCompoundClass *r = root; C *t = Unknown_Find_Field<C>(r, n); if (t && t->Unknown70) return(t); return(NULL); } template<class C> inline C *Unknown_Scan_Find(DeltaCompoundClass *const &root, const char *name) { return(Unknown_Scan_Find_Field<C>(root, name)); } template<class C> inline C *Unknown_Scan_Changed_Field(DeltaCompoundClass *const &root, const char *name) { NameClass n(name); DeltaCompoundClass *r = root; C *t = Unknown_Find_Field<C>(r, n); if (t && t->Unknown70 > 1) return(t); return(NULL); } template<class C> inline C *Unknown_Scan_Changed(DeltaCompoundClass *const &root, const char *name) { return(Unknown_Scan_Changed_Field<C>(root, name)); }	// NAME 1: neutral (D10): two inline layers (ui_analyze.cpp's form) send the finds out of line as the client (0x60E6A0, the char * root: 0x610290 / 0x514BD0; 0x60F1A0: 0x610370); auxdata.h's Unknown_Find_Set_Field, and one changed since (+0x70 above 1): ui_faction.cpp's
+template<class C> inline C *Unknown_Scan_Find_Field(char *const &root, const char *name) { NameClass n(name); DeltaCompoundClass *r = (DeltaCompoundClass *)root; C *t = Unknown_Find_Field<C>(r, n); if (t && t->Unknown70) return(t); return(NULL); } template<class C> inline C *Unknown_Scan_Find(char *const &root, const char *name) { return(Unknown_Scan_Find_Field<C>(root, name)); } template<class C> inline C *Unknown_Scan_Find_Field(DeltaCompoundClass *const &root, const NameClass &n) { DeltaCompoundClass *r = root; C *t = Unknown_Find_Field<C>(r, n); return(t); } template<class C> inline C *Unknown_Scan_Find(DeltaCompoundClass *const &root, const NameClass &name) { C *t = Unknown_Scan_Find_Field<C>(root, name); if (!t || !t->Unknown70) return(NULL); return(t); } template<class C> inline C *Unknown_Scan_Changed_Field(DeltaCompoundClass *const &root, const NameClass &n) { DeltaCompoundClass *r = root; C *t = Unknown_Find_Field<C>(r, n); return(t); } template<class C> inline C *Unknown_Scan_Changed(DeltaCompoundClass *const &root, const NameClass &name) { C *t = Unknown_Scan_Changed_Field<C>(root, name); if (!t || t->Unknown70 <= 1) return(NULL); return(t); }	// NAME 1: neutral (D10): two inline layers (ui_analyze.cpp's form) send the finds out of line as the client (0x60E6A0, the char * root: 0x610290 / 0x514BD0; 0x60F1A0: 0x610370); auxdata.h's Unknown_Find_Set_Field, and one changed since (+0x70 above 1): ui_faction.cpp's
 
 
 template<class C> inline C *Unknown_Find_Changed_Field(DeltaCompoundClass *root, const NameClass &name)	// NAME 1: neutral (D10)
@@ -743,7 +743,7 @@ TargetingClass *ScannerInterface::Get_Targeting()	// @0x60F110 (out of line, no 
 
 
 
-// NOT EXACT: frame / order (IB2; similarity 0.66): the Reputation finds out of line as the client (0x610370) through two inline layers typed <DeltaCompoundClass>; the client tail-merges only cases 2 and 5
+
 // @0x60F1A0
 void ScannerInterface::Unknown_60F1A0(bool arg)
 {
@@ -769,7 +769,7 @@ void ScannerInterface::Unknown_60F1A0(bool arg)
 					InterruptInfo->Unknown28 = 2;
 					InterruptInfo->Unknown14->Change_Text("Interrupted!", 0);
 					InterruptInfo->Unknown18 = true;
-					InterruptInfo->Unknown20 = DurationClass((unsigned int)((ClientClass *)Client)->Unknown10BC);
+					InterruptInfo->Unknown20 = DurationClass((unsigned int)((ClientClass *)Get_Client())->Unknown10BC);
 				}
 				break;
 			case 3:
@@ -777,7 +777,7 @@ void ScannerInterface::Unknown_60F1A0(bool arg)
 					InterruptInfo->Unknown28 = 3;
 					InterruptInfo->Unknown14->Change_Text("Interruption Failed!", 0);
 					InterruptInfo->Unknown18 = true;
-					InterruptInfo->Unknown20 = DurationClass((unsigned int)((ClientClass *)Client)->Unknown10BC);
+					InterruptInfo->Unknown20 = DurationClass((unsigned int)((ClientClass *)Get_Client())->Unknown10BC);
 				}
 				break;
 			case 4:
@@ -785,7 +785,7 @@ void ScannerInterface::Unknown_60F1A0(bool arg)
 					InterruptInfo->Unknown28 = 4;
 					InterruptInfo->Unknown14->Change_Text("Skill Activated!", 0);
 					InterruptInfo->Unknown18 = true;
-					InterruptInfo->Unknown20 = DurationClass((unsigned int)((ClientClass *)Client)->Unknown10BC);
+					InterruptInfo->Unknown20 = DurationClass((unsigned int)((ClientClass *)Get_Client())->Unknown10BC);
 				}
 				break;
 			case 5:
@@ -793,7 +793,7 @@ void ScannerInterface::Unknown_60F1A0(bool arg)
 					InterruptInfo->Unknown28 = 5;
 					InterruptInfo->Unknown14->Change_Text("Skill Deactivated", 0);
 					InterruptInfo->Unknown18 = true;
-					InterruptInfo->Unknown20 = DurationClass((unsigned int)((ClientClass *)Client)->Unknown10BC);
+					InterruptInfo->Unknown20 = DurationClass((unsigned int)((ClientClass *)Get_Client())->Unknown10BC);
 				}
 				break;
 			default:
@@ -809,7 +809,7 @@ void ScannerInterface::Unknown_60F1A0(bool arg)
 	}
 
 	if (InterruptInfo->Unknown2C) {
-		if (InterruptInfo->Unknown18 && DurationClass((unsigned int)((ClientClass *)Client)->Unknown10BC) - InterruptInfo->Unknown20 >= UIScanInterruptDelay) {
+		if (InterruptInfo->Unknown18 && DurationClass((unsigned int)((ClientClass *)Get_Client())->Unknown10BC) - InterruptInfo->Unknown20 >= UIScanInterruptDelay) {
 			InterruptInfo->Unknown18 = false;
 			InterruptInfo->Unknown_Refresh();
 			expired = true;
@@ -849,9 +849,9 @@ void ScannerInterface::Unknown_60F1A0(bool arg)
 			const std::string &name = CFactionDatabaseClass::Get_Name(std::string(faction->String));
 			FactionFont->Set_Color(Vector3(0.7f, 0.7f, 0.7f));
 			for (int i = 0; i < count; i++) {
-				DeltaFactionClass *entry = (DeltaFactionClass *)reputation->Faction.Children[i];
-				if (entry->Name.String && strcmp(entry->Name.String, faction->String) == 0) {
-					int reaction = (int)entry->Reaction.Value;
+				const char *entry_name = ((DeltaFactionClass *)reputation->Faction.Children[i])->Name.Get(); // NAME 2: the faction entry string used by the null check and comparison
+				if (entry_name && strcmp(entry_name, faction->String) == 0) {
+					int reaction = (int)((DeltaFactionClass *)reputation->Faction.Children[i])->Reaction.Value;
 					if (reaction >= 2000) {
 						FactionFont->Set_Color(Vector3(0.1f, 1.0f, 0.1f));
 					} else if (reaction >= -2000) {
@@ -1079,7 +1079,7 @@ void UIScanThreatClass::Unknown_Set_Sort_Level(int sort_level)
 **	and 0x60E6A0 are not rebuilt yet (TL1 added 0x60ED10, 0x60ED60). Blank lines keep the asserts on their client lines.
 **
 **	TL1 (2026-11-08): 0x60EFE0 (the con line's colour: exact only with the gutter set named and its Target copied) and
-**	0x60F1A0 (the threat's interrupt message, the faction and tech-level lines; functional) are rebuilt between
+**	0x60F1A0 (the threat's interrupt message, the faction and tech-level lines; exact, claim 312) are rebuilt between
 **	'#pragma auto_inline(off)' / '(on)' (on blank lines): without it /Ob2 inlines both into 0x60E580 (0.85 -> 0.36).
 **	The threat's +0x14 / +0x30 are RefCountPtr members (the destructor's 0x51C630 / 0x4740B0 take [edi+0x14] /
 **	[edi+0x30]), its +0x20 the DurationClass the interrupt message started at; 0xBE5E10 is a file static DurationClass

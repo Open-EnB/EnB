@@ -197,6 +197,18 @@ public:
 	__int64 Time;		// +0x00
 };
 
+
+// a 64-bit time clamped to an int: MessageLinePacketClass's value constructor (0x89D760) inlines it,
+// its FAIL_IF on the client's line 205 (see the notes)
+inline int Clamp_Int(__int64 t)  // NAME 2: describes what it does
+{
+	FAIL_IF(t > INT_MAX) return INT_MAX;
+	if (t < INT_MIN) {
+		return INT_MIN;
+	}
+	return (int)t;
+}
+
 typedef DurationTemplateClass<1> MillisecondsClass;		// NAME 2: the unit of DurationClass
 typedef DurationTemplateClass<1000> SecondsClass;		// NAME 2: the unit (time_string_format.cpp's " second")
 typedef DurationTemplateClass<60000> MinutesClass;		// NAME 2: the unit (" minute")
@@ -242,4 +254,9 @@ public:
 **	DurationClass::operator+ (0x514B00, out of line in MainViewClass::Update, its only copy) sits behind
 **	__DURATION_SUM, which only mainview.cpp defines: a member every file saw would move aux_roots.cpp's
 **	SYMBOL_PAD windows (BG7, run 2026-11-19).
+**
+**	Clamp_Int is the client's: MessageLinePacketClass's value constructor (0x89D760, pkmessageline's
+**	object) inlines a clamp whose FAIL_IF ('t > INT_MAX') reports ..\shared\duration.h, line 205
+**	(A10, run 2026-11-26-night; it sat at the end of pkmessageline.cpp before). The lines after it
+**	moved down; nothing below it uses __LINE__, and an includer's own __LINE__s don't depend on them.
 */

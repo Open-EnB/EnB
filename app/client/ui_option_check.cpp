@@ -11,7 +11,7 @@
 #include "control_keys_manager.h"
 #include "local_interface_sort.h"
 #include "..\audio\soundlib.h"
-
+#include "..\shared\auth_product.h"
 // The buttons Unknown_54 makes (0xB82D68), each page's ini (0xB82D78) and texts (0xB82D80)
 static const char *Unknown_B82D68[3] = { "exit", "ok", "cancel" };	// NAME 1: neutral (D10)
 static const char *Unknown_B82D78[2] = { "fa_opt03a-chat.ini", "fa_opt03a-camera.ini" };	// NAME 1: neutral (D10)

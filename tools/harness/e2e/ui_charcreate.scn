@@ -1,0 +1,161 @@
+name: UI-01 character creation (live): race and profession, every avatar tab, Random Appearance, the ship pages, the name and the server list, Play Game, then the character deleted from character select
+# test-plan UI-01 (P0). Live only, named only (ui_*): e2e.py --live --audio --db-snapshot schema run ui_charcreate.
+# The run creates avatar N+1 of the test account and deletes it again; --db-snapshot schema puts the whole net7_user
+# schema back after the run (the new avatar_id and faction_data's auto-increment included), in place.
+# tutorial: fresh: without tutorial.dat the creation pages queue their tutorial voice lines (Read_Completed_File
+# 0x6AD4B0 marks every creation step done while the file exists): the ship page's four, 1492_00_300se..303se, the
+# fourth of them B-04's (ui_shipcust constructor 0x622180). Retail plays them in a row, about 38 s in all; any
+# click on a ship tab before the last one starts clears the queue (CharacterViewClass 0x67C7B0), so the scenario
+# waits for 303se's end first.
+# Random Appearance (0x557290, B-14) on the Head and Face tab and on the Body and Clothing tab: the look it draws
+# goes to the server in the creation request; db-avatars writes the stored character (avatar_data: parts, colours,
+# the head and body blend pulls height_weight_0..4; ship_data) to db-created.sql, which is compared between clients,
+# not the shots.
+# Gadgets: gadgets.txt's select.*, class.*, avatar.*, ship.*, name.*, quit.*, delete.* (CS6's shots, 2026-11-26).
+tutorial: fresh
+timeout: 420
+include _login_live_account
+shot select_start
+click gadget select.slot3
+wait-quiet proxy 1.0 within 20
+click gadget select.enter
+wait-event audio 'start \S+ 1492_00_328se\.mp3' within 40
+wait-quiet proxy 1.5 within 40
+shot class_enter
+# every class once (each loads its two models and queues its race's voice lines), a shot a race
+click gadget class.enforcer
+wait-quiet proxy 1.0 within 20
+click gadget class.tradesman
+wait-quiet proxy 1.0 within 20
+click gadget class.scout
+wait-quiet proxy 1.0 within 20
+shot class_terran
+click gadget class.defender
+wait-quiet proxy 1.0 within 20
+click gadget class.seeker
+wait-quiet proxy 1.0 within 20
+click gadget class.explorer
+wait-quiet proxy 1.0 within 20
+shot class_jenquai
+click gadget class.warrior
+wait-quiet proxy 1.0 within 20
+click gadget class.sentinel
+wait-quiet proxy 1.0 within 20
+click gadget class.privateer
+wait-quiet proxy 1.0 within 20
+shot class_progen
+# the avatar page: AvatarCreationIntro's line, then the gender toggled twice
+click gadget create.next
+wait-event audio 'start \S+ 1492_00_347se\.mp3' within 40
+wait-quiet proxy 1.5 within 40
+shot avatar_enter
+click gadget avatar.gender
+wait-quiet proxy 1.0 within 20
+shot avatar_female
+click gadget avatar.gender
+wait-quiet proxy 1.0 within 20
+# Head and Face: every row's next part, the three colours
+click gadget avatar.head
+wait-quiet proxy 1.0 within 20
+click gadget avatar.hair.next
+click gadget avatar.beard.next
+click gadget avatar.face.next
+click gadget avatar.headtype.next
+click gadget avatar.details.next
+click gadget avatar.glasses.next
+click gadget avatar.ears.next
+wait-quiet proxy 1.0 within 20
+click gadget avatar.hair.color
+click gadget avatar.palette
+click gadget avatar.skin.color
+click gadget avatar.palette
+click gadget avatar.eye.color
+click gadget avatar.palette
+wait-quiet proxy 1.0 within 20
+shot avatar_head
+click gadget avatar.random
+wait-quiet proxy 1.0 within 20
+shot avatar_head_random
+# Body and Clothing: the shirt and pants, a colour, a metal, taller and heavier, then Random Appearance
+click gadget avatar.body
+wait-quiet proxy 1.0 within 20
+click gadget avatar.shirt.next
+click gadget avatar.pant.next
+wait-quiet proxy 1.0 within 20
+click gadget avatar.shirt.color1
+click gadget avatar.palette
+click gadget avatar.pant.color1
+click gadget avatar.metal2
+click gadget avatar.taller
+click gadget avatar.heavier
+wait-quiet proxy 1.0 within 20
+shot avatar_body
+click gadget avatar.random
+wait-quiet proxy 1.0 within 20
+shot avatar_body_random
+# the ship page: ShipCreationGeometry's four lines in a row (B-04: the fourth, 303se)
+click gadget create.next
+expect-event audio 'start \S+ 1492_00_300se\.mp3' within 30
+wait-event audio 'start \S+ 1492_00_303se\.mp3' within 60
+wait-event audio 'close \S+ 1492_00_303se\.mp3' within 40
+shot ship_enter
+click gadget ship.hull.next
+click gadget ship.wing.next
+wait-quiet proxy 1.0 within 20
+shot ship_hull
+click gadget ship.paint
+wait-quiet proxy 1.0 within 20
+click gadget ship.paint.primary
+click gadget ship.paint.palette
+click gadget ship.paint.secondary
+click gadget ship.paint.palette
+click gadget ship.paint.metal2
+wait-quiet proxy 1.0 within 20
+shot ship_paint
+click gadget ship.name
+wait-quiet proxy 1.0 within 20
+click gadget ship.name.field
+wait-quiet proxy 0.5 within 20
+text CSIX
+key enter
+click gadget ship.name.palette
+wait-quiet proxy 1.0 within 20
+shot ship_name
+click gadget ship.decals
+wait-quiet proxy 1.0 within 20
+click gadget ship.decal3
+wait-quiet proxy 1.0 within 20
+shot ship_decal
+# the name page: the name, the server list's row, Play Game
+click gadget create.next
+wait-quiet proxy 1.5 within 40
+shot name_enter
+click gadget name.field
+wait-quiet proxy 0.5 within 20
+text Csixtest
+key enter
+wait-quiet proxy 1.0 within 20
+click gadget name.server0
+wait-quiet proxy 1.0 within 20
+shot name_ready
+click gadget create.next
+wait-event antprox 'received START_ACK' within 120
+wait-quiet proxy 1.5 within 60
+shot world_new
+db-avatars created
+# back to character select by the quit menu, the new character picked and deleted
+key esc
+wait-quiet proxy 1.0 within 15
+click gadget quit.charselect
+wait-event antprox 'GLOBAL_AVATAR_LIST' within 60
+wait-quiet proxy 1.0 within 40
+click gadget select.slot3
+wait-quiet proxy 1.0 within 20
+shot select_new
+click gadget select.delete
+wait-quiet proxy 1.0 within 20
+shot delete_confirm
+click gadget delete.yes
+wait-quiet proxy 1.5 within 40
+shot select_deleted
+alive 2

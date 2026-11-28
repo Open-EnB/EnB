@@ -9,7 +9,7 @@
 #include "option.h"
 #include "control_keys_manager.h"
 #include "..\audio\soundlib.h"
-
+#include "..\shared\auth_product.h"
 // The buttons Unknown_54 makes: their models' names and their texts (0xB834B0 / 0xB834D4)
 static const char *Unknown_B834B0[8] = { "exit", "bttn00", "bttn01", "bttn02", "bttn03", "bttn04", "bttn05", "bttn06" };	// NAME 1: neutral (D10)
 static const char *Unknown_B834D4[8] = { NULL, "Camera_opt01a", "Control_opt01a", "Interface_opt01a", "Graphics_opt01a", "Sound_opt01a", "Credits_opt01a", "Fonts_opt01a" };	// NAME 1: neutral (D10)

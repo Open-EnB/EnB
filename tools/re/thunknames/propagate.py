@@ -1,6 +1,6 @@
 """Propagate every confirmed class rename to every off name: qualifiers and parameter / return types alike
 (mangle.rename_all: each spelled-out `Old@`). Off names do not set windows, so this never moves an anchor; it
-makes later guesses start from the confirmed spelling (docs/binary.md §5.6).
+makes later guesses start from the confirmed spelling (docs/binary.md §5.11).
 
 Confirmed renames come from the accepted hits (docs/data/thunk-name-hits.tsv: `before` -> `name` with another
 class qualifier). A rename is NOT propagated when our class may be a split of two retail classes:

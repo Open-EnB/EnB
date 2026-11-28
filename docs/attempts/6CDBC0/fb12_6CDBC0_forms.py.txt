@@ -1,0 +1,462 @@
+# ===== lib6c.py (shared pieces, exec'd by b7-b9) =====
+# Shared pieces for the 0x6CDBC0 batches (imported by the v6cdbc0_bN.py files through runpy's globals: exec this file)
+FILE = 'app/client/unknown_6cce60.cpp'
+SYMBOL = 'FontSys::Change_Text'
+ADDRESS = 0x6CDBC0
+
+T4 = '\t\t\t\t'
+T5 = '\t\t\t\t\t'
+Z274 = [T4 + 'Unknown274[%d] = 0;\n' % i for i in range(12)]
+LOOPK = [T4 + 'for (int k = 0; k < 4; k++) Unknown274[12 + k] = 0;\n']
+Z254 = [T4 + 'Unknown254[%d] = 0;\n' % i for i in range(6)]
+Z26C = [T4 + 'Unknown26C = 0;\n', T4 + 'Unknown270 = 0;\n']
+ALL = ''.join(Z26C + Z274 + LOOPK + Z254)
+NLINES = ALL.count('\n')
+ANCHOR = "// Info.Text copy calls Store_Length out of line as the client's does (FN1)\n"
+ANCHOR2 = '// The text printed into +0x2D0\'s texture again (Change_Text\'s three sites): as a helper, Change_Text\'s effects-branch\n'
+
+PBODY = ('p[6] = 0; p[7] = 0; ' + ' '.join('p[%d] = 0;' % (8 + i) for i in range(12)) +
+         ' for (int k = 0; k < 4; k++) p[20 + k] = 0; ' + ' '.join('p[%d] = 0;' % i for i in range(6)))
+RESET = ('void Reset() { Unknown18 = 0; Unknown1C = 0; ' + ' '.join('Unknown20[%d] = 0;' % i for i in range(12)) +
+         ' for (int k = 0; k < 4; k++) Unknown20[12 + k] = 0; ' + ' '.join('Unknown00[%d] = 0;' % i for i in range(6)) + ' }')
+STRUCT = 'struct UnknownTimers { int Unknown00[6]; int Unknown18; int Unknown1C; int Unknown20[16]; ' + RESET + ' };'
+S4 = 'struct UnknownColor4 { float R, G, B, A; void Set(float r, float g, float b, float a) { R = r; G = g; B = b; A = a; } };'
+
+A = lambda n, c: '(float)Colors[%d]->RGB.%s * 0.00392156f' % (n, c)
+ARGS = lambda n: ', '.join(A(n, c) for c in 'XYZ')
+COL = (T5 + 'Unknown494.Color.Set(' + ARGS(0) + ');\n' +
+       T5 + 'Unknown494.Unknown0C = 1.0f;\n' +
+       T5 + 'Unknown4B4.Color.Set(' + ARGS(1) + ');\n' +
+       T5 + 'Unknown4B4.Unknown0C = 1.0f;\n')
+COL4 = [(COL, ''.join(T5 + l + '\n' for l in ('((UnknownColor4 *)&Unknown494)->Set(' + ARGS(0) + ', 1.0f);', '',
+                                             '((UnknownColor4 *)&Unknown4B4)->Set(' + ARGS(1) + ', 1.0f);', '')))]
+TIM_P = [(ALL, T4 + '{ int *p = Unknown254; ' + PBODY + ' }\n' + '\n' * (NLINES - 1))]
+TIM_M = [(ALL, T4 + '((UnknownTimers *)Unknown254)->Reset();\n' + '\n' * (NLINES - 1))]
+
+HEAD0 = ('\tif (unknown == 0) {\n'
+         '\t\tInvalidate_Cached_Bounding_Volumes();\n'
+         '\t\tif (text == NULL) {\n'
+         '\t\t\tUnknown2F0 = " ";\n'
+         '\t\t\tPrint_Text(this);\n'
+         '\t\t} else if (Unknown2F0 != text) {\n'
+         '\t\t\tUnknown2F0 = text;\n'
+         '\t\t\tif (Unknown2F0.Is_Empty()) {\n'
+         '\t\t\t\tUnknown2F0 = " ";\n'
+         '\t\t\t}\n'
+         '\t\t\tPrint_Text(this);\n'
+         '\t\t}\n')
+COPY2 = ('\t\t\t\tInfo.Text = Unknown2F0;\n'
+         '\t\t\t\tPrint_Text(this);\n')
+PRINT = {
+    'h': 'Print_Text(this);',
+    'e': 'Reset_XSpacing(Font.Peek()); Unknown4C4 = Unknown2D0.Unknown_6D8DC0(&Font, Unknown2F0, 0); Unknown4C5 = false;',
+    'r': '*(int *)((char *)Font.Peek() + 0xD28) = *(int *)((char *)Font.Peek() + 0xD2C); Unknown4C4 = Unknown2D0.Unknown_6D8DC0(&Font, Unknown2F0, 0); Unknown4C5 = false;',
+}
+
+
+def head(new):
+    assert new.count('\n') == HEAD0.count('\n')
+    return [(HEAD0, new)]
+
+
+def prints(code):
+    """code: three letters (site 1, site 2, the effects site), each a key of PRINT"""
+    h = HEAD0
+    i = h.index('Print_Text(this);')
+    h = h[:i] + PRINT[code[0]] + h[i + len('Print_Text(this);'):]
+    i = h.rindex('Print_Text(this);')
+    h = h[:i] + PRINT[code[1]] + h[i + len('Print_Text(this);'):]
+    out = []
+    if h != HEAD0:
+        out.append((HEAD0, h))
+    if code[2] != 'h':
+        out.append((COPY2, COPY2.replace('Print_Text(this);', PRINT[code[2]])))
+    return out
+
+
+def defs(*texts):
+    return [(ANCHOR, ' '.join(texts) + '\n')]
+
+
+TAIL = '\tif (strcmp(Unknown2F0, " ") == 0) {\n'
+
+
+def END(read, k):
+    return [(TAIL, '\t' + ' '.join([read] * k) + ' if (strcmp(Unknown2F0, " ") == 0) {\n')] if k else []
+
+# ===== v6cdbc0_b1.py =====
+HYPOTHESIS = ('0x6CDBC0: sibling evidence, new: 0x6D5170 (the constructors\' init) zeroes +0x26C, +0x270, +0x274[0..11], the '
+              '4-loop and +0x254[0..5] in the same order with the same separate zero register for the loop: one inline '
+              'member shared by both (in the header). As an inline layer it is one expansion after the six early '
+              'sites, and the block leaves Change_Text\'s own statement count (B6: the load hoists come back when '
+              'the block is gone)')
+FILE = 'app/client/unknown_6cce60.cpp'
+SYMBOL = 'FontSys::Change_Text'
+ADDRESS = 0x6CDBC0
+
+T4 = '\t\t\t\t'
+Z274 = [T4 + 'Unknown274[%d] = 0;\n' % i for i in range(12)]
+LOOPK = [T4 + 'for (int k = 0; k < 4; k++) Unknown274[12 + k] = 0;\n']
+Z254 = [T4 + 'Unknown254[%d] = 0;\n' % i for i in range(6)]
+Z26C = [T4 + 'Unknown26C = 0;\n', T4 + 'Unknown270 = 0;\n']
+LOOPJ = [T4 + 'for (int j = 0; j < 0xFF; j++) {\n', T4 + '\tUnknown303[j] = 0;\n', T4 + '}\n']
+ANCHOR = "// Info.Text copy calls Store_Length out of line as the client's does (FN1)\n"
+
+
+def body(lines, f='f->'):
+    out = []
+    for l in lines:
+        l = l.strip()
+        for m in ('Unknown274', 'Unknown254', 'Unknown26C', 'Unknown270', 'Unknown303'):
+            l = l.replace(m, f + m)
+        out.append(l)
+    return ' '.join(out)
+
+
+def helper(name, lines, kind='static inline'):
+    return '%s void %s(FontSys *f) { %s }' % (kind, name, body(lines))
+
+
+def form(groups, kind='static inline'):
+    """groups: list of (name, lines) moved into helpers; every moved line is replaced, the count kept"""
+    hunks = []
+    defs = []
+    for name, lines in groups:
+        old = ''.join(lines)
+        new = T4 + name + '(this);\n' + '\n' * (len(lines) - 1)
+        hunks.append((old, new))
+        defs.append(helper(name, lines, kind))
+    hunks.append((ANCHOR, ' '.join(defs) + '\n'))
+    return hunks
+
+
+ALL = Z26C + Z274 + LOOPK + Z254
+FORMS = {
+    'reset_26c_254': form([('Reset_Timers', ALL)]),
+    'reset_274_254': form([('Reset_Timers', Z274 + LOOPK + Z254)]),
+    'reset_303_254': form([('Reset_Timers', LOOPJ + ALL)]),
+    'reset_two': form([('Reset_A', Z26C + Z274 + LOOPK), ('Reset_B', Z254)]),
+    'reset_three': form([('Reset_A', Z26C), ('Reset_B', Z274 + LOOPK), ('Reset_C', Z254)]),
+    'reset_274_only': form([('Reset_Timers', Z274 + LOOPK)]),
+    'reset_274x12': form([('Reset_Timers', Z274)]),
+    'reset_254_only': form([('Reset_Timers', Z254)]),
+    'reset_26c_274': form([('Reset_Timers', Z26C + Z274 + LOOPK)]),
+    'reset_26c_254_plain': form([('Reset_Timers', ALL)], kind='static'),
+}
+
+# ===== v6cdbc0_b2.py =====
+HYPOTHESIS = ('0x6CDBC0 probes (diagnostic): b1 showed each top-level site has its own nested allowance (Copy2: GL in / SL '
+              'out flips to GL out / SL in) and a later big inline layer cuts the EARLY sites; the client needs site 1 '
+              'alone below Store_Length\'s cost. Which code before / right after site 1 moves site 1\'s allowance: the '
+              'profile sample, Invalidate, own statements, an expansion before the if, the print layer per site')
+FILE = 'app/client/unknown_6cce60.cpp'
+SYMBOL = 'FontSys::Change_Text'
+ADDRESS = 0x6CDBC0
+
+PROF = '\tWWPROFILE("FontSys::Change_Text");\n'
+HEAD0 = ('\tif (unknown == 0) {\n'
+         '\t\tInvalidate_Cached_Bounding_Volumes();\n'
+         '\t\tif (text == NULL) {\n'
+         '\t\t\tUnknown2F0 = " ";\n'
+         '\t\t\tPrint_Text(this);\n'
+         '\t\t} else if (Unknown2F0 != text) {\n'
+         '\t\t\tUnknown2F0 = text;\n'
+         '\t\t\tif (Unknown2F0.Is_Empty()) {\n'
+         '\t\t\t\tUnknown2F0 = " ";\n'
+         '\t\t\t}\n'
+         '\t\t\tPrint_Text(this);\n'
+         '\t\t}\n')
+PRINT_EXPL = ('Reset_XSpacing(Font.Peek()); Unknown4C4 = Unknown2D0.Unknown_6D8DC0(&Font, Unknown2F0, 0); Unknown4C5 = false;')
+PRINT_RAW = ('*(int *)((char *)Font.Peek() + 0xD28) = *(int *)((char *)Font.Peek() + 0xD2C); Unknown4C4 = Unknown2D0.Unknown_6D8DC0(&Font, Unknown2F0, 0); Unknown4C5 = false;')
+
+
+def H(new):
+    assert new.count('\n') == HEAD0.count('\n'), (new.count('\n'), HEAD0.count('\n'))
+    return [(HEAD0, new)]
+
+
+def rep(a, b, n=1):
+    assert HEAD0.count(a) >= n, a
+    return H(HEAD0.replace(a, b, n))
+
+
+def first(a, b):
+    i = HEAD0.index(a)
+    return H(HEAD0[:i] + b + HEAD0[i + len(a):])
+
+
+def last(a, b):
+    i = HEAD0.rindex(a)
+    return H(HEAD0[:i] + b + HEAD0[i + len(a):])
+
+
+FORMS = {
+    'no_profile': [(PROF, '\n')],
+    'no_invalidate0': rep('\t\tInvalidate_Cached_Bounding_Volumes();\n', '\t\t\n'),
+    'invalidate_bits': rep('Invalidate_Cached_Bounding_Volumes();', 'Bits &= ~0x2000;'),
+    'own2_before': rep('\t\tInvalidate_Cached_Bounding_Volumes();\n', '\t\tInvalidate_Cached_Bounding_Volumes(); Unknown458 = 0; Unknown404 = false;\n'),
+    'own6_before': rep('\t\tInvalidate_Cached_Bounding_Volumes();\n', '\t\tInvalidate_Cached_Bounding_Volumes(); Unknown458 = 0; Unknown404 = false; Unknown405 = false; Unknown440 = 0; Unknown444 = 0; Unknown408 = false;\n'),
+    'exp_before': rep('\t\tInvalidate_Cached_Bounding_Volumes();\n', '\t\tInvalidate_Cached_Bounding_Volumes(); Invalidate_Cached_Bounding_Volumes();\n'),
+    'exp3_before': rep('\t\tInvalidate_Cached_Bounding_Volumes();\n', '\t\tInvalidate_Cached_Bounding_Volumes(); Invalidate_Cached_Bounding_Volumes(); Invalidate_Cached_Bounding_Volumes(); Invalidate_Cached_Bounding_Volumes();\n'),
+    'print1_explicit': first('Print_Text(this);', PRINT_EXPL),
+    'print2_explicit': last('Print_Text(this);', PRINT_EXPL),
+    'print12_explicit': rep('Print_Text(this);', PRINT_EXPL, 2),
+    'print1_raw': first('Print_Text(this);', PRINT_RAW),
+    'print12_raw': rep('Print_Text(this);', PRINT_RAW, 2),
+    'site1_then_print_after': H(HEAD0.replace('\t\t\tUnknown2F0 = " ";\n\t\t\tPrint_Text(this);\n\t\t} else if', '\t\t\tUnknown2F0 = " "; Print_Text(this);\n\n\t\t} else if')),
+    'dead_after_s1': first('\t\t\tUnknown2F0 = " ";\n', '\t\t\tUnknown2F0 = " "; Unknown2F0.Is_Empty(); Unknown2F0.Is_Empty();\n'),
+    'dead4_after_s1': first('\t\t\tUnknown2F0 = " ";\n', '\t\t\tUnknown2F0 = " "; Unknown2F0.Is_Empty(); Unknown2F0.Is_Empty(); Unknown2F0.Is_Empty(); Unknown2F0.Is_Empty();\n'),
+    'len_after_s1': first('\t\t\tUnknown2F0 = " ";\n', '\t\t\tUnknown2F0 = " "; Unknown2F0.Get_Length();\n'),
+}
+
+# ===== v6cdbc0_b3.py =====
+HYPOTHESIS = ('0x6CDBC0 map (diagnostic): the full call string under a graded level-1 spender at the function\'s end '
+              '(k dead Font.Peek() / Is_Empty() reads before the final strcmp): which nested Store_Length / Get_Length '
+              'sites lose in which order, to tell a running balance from a per-site allowance (F2 reported sites by '
+              'name only)')
+FILE = 'app/client/unknown_6cce60.cpp'
+SYMBOL = 'FontSys::Change_Text'
+ADDRESS = 0x6CDBC0
+
+TAIL = '\tif (strcmp(Unknown2F0, " ") == 0) {\n'
+
+
+def END(read, k):
+    return [(TAIL, '\t' + ' '.join([read] * k) + ' if (strcmp(Unknown2F0, " ") == 0) {\n')]
+
+
+FORMS = {}
+for k in (1, 2, 3, 4, 6, 8, 10, 12, 14, 16):
+    FORMS['peek%02d' % k] = END('Font.Peek();', k)
+for k in (2, 4, 6, 7, 8, 9, 10, 11, 12, 13, 14, 16):
+    FORMS['empty%02d' % k] = END('Unknown2F0.Is_Empty();', k)
+
+# ===== v6cdbc0_b4.py =====
+HYPOTHESIS = ('0x6CDBC0: the 22 zero stores shared with 0x6D5170 are a sub-object\'s (+0x254..+0x2B0, 0x60 bytes) inline '
+              'reset: stores through the sub-object\'s own this are not this->member locations, so they leave the '
+              'function\'s table of member locations (B6: the hoists come back when 18 of the stores become two rep '
+              'stos); emulate with a pointer / a struct view at +0x254')
+FILE = 'app/client/unknown_6cce60.cpp'
+SYMBOL = 'FontSys::Change_Text'
+ADDRESS = 0x6CDBC0
+
+T4 = '\t\t\t\t'
+Z274 = [T4 + 'Unknown274[%d] = 0;\n' % i for i in range(12)]
+LOOPK = [T4 + 'for (int k = 0; k < 4; k++) Unknown274[12 + k] = 0;\n']
+Z254 = [T4 + 'Unknown254[%d] = 0;\n' % i for i in range(6)]
+Z26C = [T4 + 'Unknown26C = 0;\n', T4 + 'Unknown270 = 0;\n']
+ALL = ''.join(Z26C + Z274 + LOOPK + Z254)
+NLINES = ALL.count('\n')
+ANCHOR = "// Info.Text copy calls Store_Length out of line as the client's does (FN1)\n"
+
+PBODY = ('p[6] = 0; p[7] = 0; ' + ' '.join('p[%d] = 0;' % (8 + i) for i in range(12)) +
+         ' for (int k = 0; k < 4; k++) p[20 + k] = 0; ' + ' '.join('p[%d] = 0;' % i for i in range(6)))
+STRUCT = ('struct UnknownTimers { int Unknown00[6]; int Unknown18; int Unknown1C; int Unknown20[16]; '
+          'void Reset() { Unknown18 = 0; Unknown1C = 0; ' + ' '.join('Unknown20[%d] = 0;' % i for i in range(12)) +
+          ' for (int k = 0; k < 4; k++) Unknown20[12 + k] = 0; ' + ' '.join('Unknown00[%d] = 0;' % i for i in range(6)) + ' } };')
+TBODY = ('t->Unknown18 = 0; t->Unknown1C = 0; ' + ' '.join('t->Unknown20[%d] = 0;' % i for i in range(12)) +
+         ' for (int k = 0; k < 4; k++) t->Unknown20[12 + k] = 0; ' + ' '.join('t->Unknown00[%d] = 0;' % i for i in range(6)))
+
+
+def F(call, define=None):
+    h = [(ALL, T4 + call + '\n' + '\n' * (NLINES - 1))]
+    if define:
+        h.append((ANCHOR, define + '\n'))
+    return h
+
+
+FORMS = {
+    'ptr_helper': F('Reset_Timers(Unknown254);', 'static inline void Reset_Timers(int *p) { ' + PBODY + ' }'),
+    'ptr_local': F('{ int *p = Unknown254; ' + PBODY + ' }'),
+    'struct_method': F('((UnknownTimers *)Unknown254)->Reset();', STRUCT),
+    'struct_local': F('{ UnknownTimers *t = (UnknownTimers *)Unknown254; ' + TBODY + ' }', STRUCT),
+    'struct_helper': F('Reset_Timers((UnknownTimers *)Unknown254);', STRUCT + ' static inline void Reset_Timers(UnknownTimers *t) { ' + TBODY + ' }'),
+    'struct_ref': F('{ UnknownTimers &t = *(UnknownTimers *)Unknown254; ' + TBODY.replace('t->', 't.') + ' }', STRUCT),
+}
+
+# ===== v6cdbc0_b5.py =====
+HYPOTHESIS = ('0x6CDBC0: b4 brought 5 of the 7 hoisted rows back when the 22 zero stores go through a pointer at +0x254 '
+              '(a sub-object\'s this). Does a plain nested struct member (Timers.x = 0, no pointer, no budget) count '
+              'the same for VC6, or only a method / pointer? The block as a struct member of FontSys (anonymous-union '
+              'view in the header for the test), also the 16 ints as four 4-int structs')
+FILE = 'app/client/unknown_6cce60.cpp'
+SYMBOL = 'FontSys::Change_Text'
+ADDRESS = 0x6CDBC0
+
+import os
+HDR = 'app/client/fontsys.h'
+_h = open(os.path.join('C:/EnBDevelopment/EnB/.work/wt/FB12', HDR), encoding='utf-8').read().split('\n')
+_i = [n for n, l in enumerate(_h) if l.startswith('\tint Unknown254[6];')][0]
+OLDH = '\n'.join(_h[_i:_i + 4]) + '\n'
+assert 'Unknown274[16]' in OLDH and 'Unknown26C' in OLDH and 'Unknown270' in OLDH, OLDH
+
+T4 = '\t\t\t\t'
+Z274 = [T4 + 'Unknown274[%d] = 0;\n' % i for i in range(12)]
+LOOPK = [T4 + 'for (int k = 0; k < 4; k++) Unknown274[12 + k] = 0;\n']
+Z254 = [T4 + 'Unknown254[%d] = 0;\n' % i for i in range(6)]
+Z26C = [T4 + 'Unknown26C = 0;\n', T4 + 'Unknown270 = 0;\n']
+ALL = ''.join(Z26C + Z274 + LOOPK + Z254)
+NLINES = ALL.count('\n')
+
+RESET = ('void Reset() { Unknown18 = 0; Unknown1C = 0; ' + ' '.join('Unknown20[%d] = 0;' % i for i in range(12)) +
+         ' for (int k = 0; k < 4; k++) Unknown20[12 + k] = 0; ' + ' '.join('Unknown00[%d] = 0;' % i for i in range(6)) + ' }')
+VIEW = ('\tunion { struct { int Unknown254[6]; int Unknown26C; int Unknown270; int Unknown274[16]; }; '
+        'struct UnknownTimers { int Unknown00[6]; int Unknown18; int Unknown1C; int Unknown20[16]; ' + RESET + ' } Timers; '
+        'struct UnknownQuads { int Unknown00[6]; int Unknown18; int Unknown1C; struct { int V[4]; } Q[4]; } Quads; };\n\n\n\n')
+H = [(HDR, OLDH, VIEW), ('app/client/fontmanager.h', '#include "fontsys.h"', '#include "fontsys.h" ')]
+DIRECT = ('Timers.Unknown18 = 0; Timers.Unknown1C = 0; ' + ' '.join('Timers.Unknown20[%d] = 0;' % i for i in range(12)) +
+          ' for (int k = 0; k < 4; k++) Timers.Unknown20[12 + k] = 0; ' + ' '.join('Timers.Unknown00[%d] = 0;' % i for i in range(6)))
+QUADS = ('Unknown26C = 0; Unknown270 = 0; ' + ' '.join('Quads.Q[%d].V[%d] = 0;' % (i // 4, i % 4) for i in range(12)) +
+         ' for (int k = 0; k < 4; k++) Quads.Q[3].V[k] = 0; ' + ' '.join('Unknown254[%d] = 0;' % i for i in range(6)))
+
+
+def F(call):
+    return H + [(FILE, ALL, T4 + call + '\n' + '\n' * (NLINES - 1))]
+
+
+FORMS = {
+    'view_only': H,
+    'nested_direct': F(DIRECT),
+    'nested_method': F('Timers.Reset();'),
+    'nested_ptr': F('{ UnknownTimers *t = &Timers; ' + DIRECT.replace('Timers.', 't->') + ' }'),
+    'nested_ref': F('{ UnknownTimers &t = Timers; ' + DIRECT.replace('Timers.', 't.') + ' }'),
+    'quads_direct': F(QUADS),
+}
+
+# ===== v6cdbc0_b6.py =====
+HYPOTHESIS = ('0x6CDBC0: on the pointer form of the timers block (b4, 5 of 7 hoists back): the last two hoisted rows are '
+              'the alpha stores (+0x4A0 / +0x4C0 = 1.0f) the client schedules above the three colour fstp: all four '
+              'stores of one colour through one base (a 4-float Set(r, g, b, a) of the 16-byte struct, or four '
+              'stores through one pointer) instead of Vector3::Set plus a direct member store')
+FILE = 'app/client/unknown_6cce60.cpp'
+SYMBOL = 'FontSys::Change_Text'
+ADDRESS = 0x6CDBC0
+
+T4 = '\t\t\t\t'
+Z274 = [T4 + 'Unknown274[%d] = 0;\n' % i for i in range(12)]
+LOOPK = [T4 + 'for (int k = 0; k < 4; k++) Unknown274[12 + k] = 0;\n']
+Z254 = [T4 + 'Unknown254[%d] = 0;\n' % i for i in range(6)]
+Z26C = [T4 + 'Unknown26C = 0;\n', T4 + 'Unknown270 = 0;\n']
+ALL = ''.join(Z26C + Z274 + LOOPK + Z254)
+NLINES = ALL.count('\n')
+ANCHOR = "// Info.Text copy calls Store_Length out of line as the client's does (FN1)\n"
+PBODY = ('p[6] = 0; p[7] = 0; ' + ' '.join('p[%d] = 0;' % (8 + i) for i in range(12)) +
+         ' for (int k = 0; k < 4; k++) p[20 + k] = 0; ' + ' '.join('p[%d] = 0;' % i for i in range(6)))
+PTR = [(ALL, T4 + '{ int *p = Unknown254; ' + PBODY + ' }\n' + '\n' * (NLINES - 1))]
+
+T5 = '\t\t\t\t\t'
+A = lambda n, c: '(float)Colors[%d]->RGB.%s * 0.00392156f' % (n, c)
+ARGS = lambda n: ', '.join(A(n, c) for c in 'XYZ')
+COL = (T5 + 'Unknown494.Color.Set(' + ARGS(0) + ');\n' +
+       T5 + 'Unknown494.Unknown0C = 1.0f;\n' +
+       T5 + 'Unknown4B4.Color.Set(' + ARGS(1) + ');\n' +
+       T5 + 'Unknown4B4.Unknown0C = 1.0f;\n')
+S4 = 'struct UnknownColor4 { float R, G, B, A; void Set(float r, float g, float b, float a) { R = r; G = g; B = b; A = a; } };'
+
+
+def C(l1, l2, l3, l4, define=None):
+    h = PTR + [(COL, ''.join(T5 + l + '\n' for l in (l1, l2, l3, l4)))]
+    if define:
+        h.append((ANCHOR, define + '\n'))
+    return h
+
+
+def stores(dst, n, fmt):
+    return ' '.join(fmt % (dst, i, A(n, c)) for i, c in enumerate('XYZ'))
+
+
+FORMS = {
+    'ptr_only': PTR,
+    'set4_local': C('((UnknownColor4 *)&Unknown494)->Set(' + ARGS(0) + ', 1.0f);', '',
+                    '((UnknownColor4 *)&Unknown4B4)->Set(' + ARGS(1) + ', 1.0f);', '', S4),
+    'direct_members': C('Unknown494.Color.X = %s; Unknown494.Color.Y = %s; Unknown494.Color.Z = %s;' % (A(0, 'X'), A(0, 'Y'), A(0, 'Z')),
+                        'Unknown494.Unknown0C = 1.0f;',
+                        'Unknown4B4.Color.X = %s; Unknown4B4.Color.Y = %s; Unknown4B4.Color.Z = %s;' % (A(1, 'X'), A(1, 'Y'), A(1, 'Z')),
+                        'Unknown4B4.Unknown0C = 1.0f;'),
+    'float_ptr': C('{ float *c = (float *)&Unknown494; ' + stores('c', 0, '%s[%d] = %s;') + ' c[3] = 1.0f; }', '',
+                   '{ float *c = (float *)&Unknown4B4; ' + stores('c', 1, '%s[%d] = %s;') + ' c[3] = 1.0f; }', ''),
+    'alpha_first': C('Unknown494.Unknown0C = 1.0f;', 'Unknown494.Color.Set(' + ARGS(0) + ');',
+                     'Unknown4B4.Unknown0C = 1.0f;', 'Unknown4B4.Color.Set(' + ARGS(1) + ');'),
+    'vec3_assign': C('Unknown494.Color = Vector3(' + ARGS(0) + ');', 'Unknown494.Unknown0C = 1.0f;',
+                     'Unknown4B4.Color = Vector3(' + ARGS(1) + ');', 'Unknown4B4.Unknown0C = 1.0f;'),
+    'set_alpha_ptr': C('{ FontStyleColorStruct *c = &Unknown494; c->Color.Set(' + ARGS(0) + '); c->Unknown0C = 1.0f; }', '',
+                       '{ FontStyleColorStruct *c = &Unknown4B4; c->Color.Set(' + ARGS(1) + '); c->Unknown0C = 1.0f; }', ''),
+    'set4_local_base': [(COL, ''.join(T5 + l + '\n' for l in ('((UnknownColor4 *)&Unknown494)->Set(' + ARGS(0) + ', 1.0f);', '',
+                                                             '((UnknownColor4 *)&Unknown4B4)->Set(' + ARGS(1) + ', 1.0f);', ''))),
+                        (ANCHOR, S4 + '\n')],
+}
+
+# ===== v6cdbc0_b7.py =====
+exec(open('C:/EnBDevelopment/EnB/.work/fb12/lib6c.py', encoding='utf-8').read())
+HYPOTHESIS = ('0x6CDBC0: b6 left only site 1\'s Store_Length (res 11, every hoist back) with the timers through a local '
+              'pointer and a 4-float colour Set. The timers reset as the sub-object\'s inline method (the sequence '
+              '0x6D5170 shares) costs about 12 dead reads of budget; with it, which print forms (the Print_Text layer '
+              'per site, or written out) give the budget back and leave site 1 alone below Store_Length\'s cost')
+
+M = TIM_M + COL4
+FORMS = {}
+for code in ('hhh', 'ehh', 'heh', 'hhe', 'eeh', 'ehe', 'hee', 'eee', 'rrr', 'rhh', 'reh', 'ree'):
+    FORMS['m_' + code] = M + prints(code) + defs(STRUCT, S4)
+for code in ('eee', 'rrr'):
+    FORMS['p_' + code] = TIM_P + COL4 + prints(code) + defs(S4)
+
+# ===== v6cdbc0_b8.py =====
+exec(open('C:/EnBDevelopment/EnB/.work/fb12/lib6c.py', encoding='utf-8').read())
+HYPOTHESIS = ('0x6CDBC0: b7 exact (res 0) with the timers reset as the sub-object\'s method, the 4-float colour Set, the '
+              'effects site\'s print through Print_Text (the client reads Font through &Font there: lea eax, mov ecx,'
+              '[eax]) and the two unknown == 0 sites written out (site 1 raw, site 2 with Reset_XSpacing). Which '
+              'uniform form of the two written-out sites holds: both raw, both with the helper, one Peek in a local, '
+              'the colour as Set(r, g, b) with the alpha inside, the reset without +0x26C / +0x270')
+
+PRINT['q'] = '{ Font32Class *font = Font.Peek(); *(int *)((char *)font + 0xD28) = *(int *)((char *)font + 0xD2C); } Unknown4C4 = Unknown2D0.Unknown_6D8DC0(&Font, Unknown2F0, 0); Unknown4C5 = false;'
+PRINT['g'] = 'Reset_XSpacing(Font); Unknown4C4 = Unknown2D0.Unknown_6D8DC0(&Font, Unknown2F0, 0); Unknown4C5 = false;'
+S3 = 'struct UnknownColor4 { Vector3 Color; float A; void Set(float r, float g, float b) { Color.Set(r, g, b); A = 1.0f; } };'
+COL3 = [(COL, ''.join(T5 + l + '\n' for l in ('((UnknownColor4 *)&Unknown494)->Set(' + ARGS(0) + ');', '',
+                                             '((UnknownColor4 *)&Unknown4B4)->Set(' + ARGS(1) + ');', '')))]
+RESET2 = RESET.replace('Unknown18 = 0; Unknown1C = 0; ', '')
+STRUCT2 = 'struct UnknownTimers { int Unknown00[6]; int Unknown18; int Unknown1C; int Unknown20[16]; ' + RESET2 + ' };'
+ALL2 = ''.join(Z274 + LOOPK + Z254)
+TIM_M2 = [(ALL2, T4 + '((UnknownTimers *)Unknown254)->Reset();\n' + '\n' * (ALL2.count('\n') - 1))]
+
+M = TIM_M + COL4
+FORMS = {}
+for code in ('rrh', 'erh', 'qqh', 'qeh', 'rqh', 'qrh'):
+    FORMS['m_' + code] = M + prints(code) + defs(STRUCT, S4)
+for code in ('reh', 'eeh', 'rrh', 'hhh'):
+    FORMS['m3_' + code] = TIM_M + COL3 + prints(code) + defs(STRUCT, S3)
+for code in ('reh', 'eeh', 'rrh', 'hhh'):
+    FORMS['m2_' + code] = TIM_M2 + COL4 + prints(code) + defs(STRUCT2, S4)
+
+# ===== v6cdbc0_b9.py =====
+exec(open('C:/EnBDevelopment/EnB/.work/fb12/lib6c.py', encoding='utf-8').read())
+HYPOTHESIS = ('0x6CDBC0: b8 exact with both unknown == 0 print sites written out and the effects site through '
+              'Print_Text. Final wording: the spacing store as Font->XSpacing = Font->MinSpacing (FontSys a friend of '
+              'Font32Class) against the raw casts, the colour through a pointer helper (Color.Set + alpha) against '
+              'the 4-float view; --file-check for the other functions of the object')
+
+FRIEND = [('app/client/fontmanager.h', '#include "fontdatabase.h"', '#include "fontdatabase.h" '), ('app/client/fontdatabase.h', '#include "font32bit.h"', '#include "font32bit.h" '), ('app/client/font32bit.h', '\tprotected:\n\t\tvoid Minimize_Font_Image', '\tfriend class FontSys; protected:\n\t\tvoid Minimize_Font_Image')]
+PRINT['f'] = 'Font->XSpacing = Font->MinSpacing; Unknown4C4 = Unknown2D0.Unknown_6D8DC0(&Font, Unknown2F0, 0); Unknown4C5 = false;'
+PRINT['p'] = 'Font.Peek()->XSpacing = Font.Peek()->MinSpacing; Unknown4C4 = Unknown2D0.Unknown_6D8DC0(&Font, Unknown2F0, 0); Unknown4C5 = false;'
+SETC = 'static inline void Set_Rgb(FontStyleColorStruct *c, float r, float g, float b) { c->Color.Set(r, g, b); c->Unknown0C = 1.0f; }'
+COLH = [(COL, ''.join(T5 + l + '\n' for l in ('Set_Rgb(&Unknown494, ' + ARGS(0) + ');', '',
+                                             'Set_Rgb(&Unknown4B4, ' + ARGS(1) + ');', '')))]
+SETC4 = 'static inline void Set_Rgb(FontStyleColorStruct *c, float r, float g, float b, float a) { c->Color.Set(r, g, b); c->Unknown0C = a; }'
+COLH4 = [(COL, ''.join(T5 + l + '\n' for l in ('Set_Rgb(&Unknown494, ' + ARGS(0) + ', 1.0f);', '',
+                                              'Set_Rgb(&Unknown4B4, ' + ARGS(1) + ', 1.0f);', '')))]
+RXS_OLD = '\t*(int *)((char *)font + 0xD28) = *(int *)((char *)font + 0xD2C);\n'
+RXS_NEW = '\tfont->XSpacing = font->MinSpacing;\n'
+PT_OLD = '\tReset_XSpacing(f->Font.Peek());\n'
+PT_NEW = '\tf->Font->XSpacing = f->Font->MinSpacing;\n'
+
+FORMS = {
+    'v4_rrh': TIM_M + COL4 + prints('rrh') + defs(STRUCT, S4),
+    'h3_rrh': TIM_M + COLH + prints('rrh') + defs(STRUCT, SETC),
+    'h4_rrh': TIM_M + COLH4 + prints('rrh') + defs(STRUCT, SETC4),
+    'v4_ffh': TIM_M + COL4 + prints('ffh') + defs(STRUCT, S4) + FRIEND,
+    'h3_ffh': TIM_M + COLH + prints('ffh') + defs(STRUCT, SETC) + FRIEND,
+    'h3_pph': TIM_M + COLH + prints('pph') + defs(STRUCT, SETC) + FRIEND,
+    'h3_ffh_friendhelper': TIM_M + COLH + prints('ffh') + defs(STRUCT, SETC) + FRIEND + [(RXS_OLD, RXS_NEW)],
+    'h3_ffh_printarrow': TIM_M + COLH + prints('ffh') + defs(STRUCT, SETC) + FRIEND + [(PT_OLD, PT_NEW)],
+    'h3_ffh_both': TIM_M + COLH + prints('ffh') + defs(STRUCT, SETC) + FRIEND + [(RXS_OLD, RXS_NEW), (PT_OLD, PT_NEW)],
+}
+

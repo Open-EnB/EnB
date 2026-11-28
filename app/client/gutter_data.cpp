@@ -24,7 +24,7 @@
 bool Unknown_495FD0(RenderObjClass *robj, TextureClass *tex, int index);	// 0x495FD0 (ro_funcs.cpp): the texture onto the mesh's stage index
 void Unknown_42ECF0(float *x, float *y);							// 0x42ECF0 (cdecl): the pointer's position, 0..1  // NAME 1 [x, y]: as gadget.cpp's
 const char *Get_Icon_Name(ClientObjectClass *co);		// 0x7B6A00
-
+#include "..\shared\auth_product.h"
 inline void GutterDataClass::Remove_Labels_From_Scene()
 {
 	if (NameLabel && NameLabel->Peek_Scene()) {

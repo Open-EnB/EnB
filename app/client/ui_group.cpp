@@ -16,7 +16,7 @@
 #include "..\packets\pkrequesttarget.h"
 #include "fontmanager.h"	// FontSys, FontManagerClass (0xBE67C4) and fontdatabase.h's FontStringFilesClass (0xBE67BC)
 #include "ui_power.h"		// UIPowerClass (the members' +0x2C)
-
+#include "..\shared\auth_product.h"
 
 extern FontManagerClass *Unknown_BE67C4;	// NAME 1: neutral (D10)
 class UIGroupAvatarClass : public RefCountClass { public: char Unknown[0x1CC - sizeof(RefCountClass)]; char Name[1]; };	// NAME 1: neutral (D10): what SClient 0x74C7B0 returns, as far as 0x595530 reads it (the name at +0x1CC)
@@ -728,7 +728,7 @@ extern unsigned int Unknown_BE5F34;						// gadget.cpp's: the key modifiers (0x5
 
 
 // 0x5946D0
-// NOT EXACT: (masked 5, attempts.py 0x5946D0): case 2 as if (!modifier) { .. } return(true) as case 3; case 11-15 index local k = key - 11 (add edi,-0xb); case 23-27 UIGroupMemberClass *m = Members[key - 23]; case 29-33 and case 47 single-use ClientClass *c = (ClientClass *)Client for c->Get_Avatar_ID() (r13 18/18 and r89 7/7 exact); two dead Peek()s in 0x593180 (D272); case 47 else if, 0x5979A0/0x597A60 as ifs; left: r5 17-21 (2, reg edx vs eax), r6 23-27 (2, mov ecx,eax), r96 end pad (1)
+// Exact (attempts.py 0x5946D0), no goto: each break case (11-15, 41-45, 29-33, 35-39) ends with its own sound + 'if (SymbolChatUI) ..' tail (VC6 merges the four into the one after 35-39, 0x594A72; 11-15's SymbolChatUI temporaries leave eax free for case 17-21), the modifier test wraps the body and the sound, case 47 breaks to the return(true) after the switch (0x5950AE, where every return(true) jump goes); case 23-27 plain (three Members[key - 23] reads); case 11-15 index local k (add edi,-0xb); case 47 single-use ClientClass *c; two dead Peek()s in 0x593180 (D272)
 bool UIGroupClass::Unknown_68(int key)
 {
 	SClient *sclient = (SClient *)((ClientClass *)Client)->As_Space_Client();
@@ -752,7 +752,7 @@ bool UIGroupClass::Unknown_68(int key)
 				targeting->Select_Group_Member(k);
 				Unknown0E8->Unknown_593180(Members[k]->Unknown18);
 			} }
-			break;
+			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2); if (SymbolChatUI) { SymbolChatUI->Unknown_5C(); } break;
 		default:
 			return(false);
 		case 17:
@@ -769,7 +769,7 @@ bool UIGroupClass::Unknown_68(int key)
 		case 26:
 		case 27:
 
-			{ UIGroupMemberClass *m = Members[key - 23]; if (m && strcmp(m->Unknown28, "G_TARGET") == 0) {
+			{ if (Members[key - 23] && strcmp(Members[key - 23]->Unknown28, "G_TARGET") == 0) {
 
 				((ClientClass *)Client)->Send_Packet(&RequestTargetsTargetPacketClass(((ClientClass *)Client)->Get_Avatar_ID(), Members[key - 23]->ID));
 			} }
@@ -784,7 +784,7 @@ bool UIGroupClass::Unknown_68(int key)
 		case 43:
 		case 44:
 		case 45:
-			if (modifier) goto symbol;
+			if (!modifier) {
 			if (Members[key - 41]) {
 
 				((ClientClass *)Client)->Send_Packet(&RequestTargetsTargetPacketClass(((ClientClass *)Client)->Get_Avatar_ID(), Members[key - 41]->ID));
@@ -795,24 +795,24 @@ bool UIGroupClass::Unknown_68(int key)
 					Members[key - 41]->Unknown20 = 0;
 				}
 			}
-			break;
+			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2); } if (SymbolChatUI) { SymbolChatUI->Unknown_5C(); } break;
 		case 29:
 		case 30:
 		case 31:
 		case 32:
 		case 33:
-			if (modifier) goto symbol;
+			if (!modifier) {
 			if (Members[key - 29]) {
 
-				ClientClass *c = (ClientClass *)Client; ((ClientClass *)Client)->Send_Packet(&CTA_Request_PacketClass(c->Get_Avatar_ID(), Members[key - 29]->ID, 12));
+				((ClientClass *)Client)->Send_Packet(&CTA_Request_PacketClass(((ClientClass *)Client)->Get_Avatar_ID(), Members[key - 29]->ID, 12));
 			}
-			break;
+			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2); } if (SymbolChatUI) { SymbolChatUI->Unknown_5C(); } break;
 		case 35:
 		case 36:
 		case 37:
 		case 38:
 		case 39:
-			if (modifier) goto symbol;
+			if (!modifier) {
 
 			if (Members[key - 35]) {
 
@@ -822,7 +822,7 @@ bool UIGroupClass::Unknown_68(int key)
 					((ClientClass *)Client)->Send_Packet(&Action2PacketClass(((ClientClass *)Client)->Get_Avatar_ID(), 15, Members[key - 35]->Name.c_str(), 0));
 				}
 			}
-			break;
+			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2); } if (SymbolChatUI) { SymbolChatUI->Unknown_5C(); } break;
 		case 1:
 			if (modifier) return(true);
 			if (!Unknown0F1 && Unknown0C0[0]) {
@@ -904,15 +904,15 @@ bool UIGroupClass::Unknown_68(int key)
 				((ClientClass *)Client)->Send_Packet(&CTA_Request_PacketClass(((ClientClass *)Client)->Get_Avatar_ID(), 0, 8));
 			} else return(true);
 			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
-			return(true);
-	}
-	SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
-symbol:
-	if (SymbolChatUI) {
-		SymbolChatUI->Unknown_5C();
+			break;
 	}
 	return(true);
 }
+
+
+
+
+
 
 
 
@@ -1251,9 +1251,9 @@ void UIGroupClass::Unknown_5966A0()
 
 
 
-template<class C> inline C *Unknown_Find_Aux_Field(DeltaCompoundClass *const &root, const char *name) { NameClass n(name); DeltaCompoundClass *r = root; return(Unknown_Find_Field<C>(r, n)); } template<class C> inline C *Unknown_Find_Aux(DeltaCompoundClass *const &root, const char *name) { return(Unknown_Find_Aux_Field<C>(root, name)); }	// NAME 1: neutral (D10): auxdata.h's find through two inline layers (ui_manu.cpp's form): out of line as the client in both branches
+template<class C> inline C *Unknown_Find_Aux_Field(DeltaCompoundClass *const &root, const char *name) { NameClass n(name); DeltaCompoundClass *r = root; return(Unknown_Find_Field<C>(r, n)); } template<class C> inline C *Unknown_Find_Aux(DeltaCompoundClass *const &root, const char *name) { return(Unknown_Find_Aux_Field<C>(root, name)); } static inline DeltaGroupMemberClass *Unknown_Group_Member(DeltaGroupInfoClass *g, int i) { return((DeltaGroupMemberClass *)g->Members.Children[i]); }	// NAME 1: neutral (D10): auxdata.h's find through two inline layers (ui_manu.cpp's form): out of line as the client in both branches; Unknown_Group_Member: the group's i-th member through one inline layer (0x596770's second loop: the client's inline cut, no dead read)
 // 0x596770
-// NOT EXACT: inline budget, 69 masked rows (B10; 116 with the direct finds): the two-layer find sends both finds out of line as the client, two dead Members.size() after Add_Member spend what that frees (D272), the member loop's branch negated (the client lays Remove_Member first, it++ before the test); left: the Add_Member temporary's assign out of line (the client inlines it and calls _Grow / _Eos: the two reads between Get_Member and the test instead give that, 76), the second loop's registers; attempts.py show 0x596770
+// NOT EXACT: register, 11 masked rows (FB8; 69 with two dead Members.size() after Add_Member, 116 with the direct finds): the two-layer find sends both finds out of line as the client; the second loop reads the group's i-th member through Unknown_Group_Member (one inline layer: the client's inline cut in both temporaries, 382 / 382 rows, no dead read); the member loop's branch negated (the client lays Remove_Member first, it++ before the test); left: the first loop's compare (the client loads the member name's _Len after pushing the length and pushes the strlen's eax for the 0; 9 rows) and one register pair at the second loop's head (2); attempts.py show 0x596770
 void UIGroupClass::Unknown_596770(bool arg)
 {
 	ClientClass *client = (ClientClass *)Client;
@@ -1290,17 +1290,17 @@ void UIGroupClass::Unknown_596770(bool arg)
 			}
 		}
 		for (int i = 0; i < 5; i++) {
-			int id = ((DeltaGroupMemberClass *)group->Members.Children[i])->GameID.Value;
-			const char *name = ((DeltaGroupMemberClass *)group->Members.Children[i])->Name.String;
-			int position = ((DeltaGroupMemberClass *)group->Members.Children[i])->Position.Value;
-			int formation = ((DeltaGroupMemberClass *)group->Members.Children[i])->Formation.Value;
+			int id = Unknown_Group_Member(group, i)->GameID.Value;
+			const char *name = Unknown_Group_Member(group, i)->Name.String;
+			int position = Unknown_Group_Member(group, i)->Position.Value;
+			int formation = Unknown_Group_Member(group, i)->Formation.Value;
 			if (!name || !*name) break;
 			if (!position && formation) {
 				Unknown_597B70(true);
 			}
 			it = Get_Member(name);
 			if (it == Members.end()) {
-				Add_Member(name, id, position); Members.size(); Members.size();
+				Add_Member(name, id, position);
 			} else {
 				(*it)->ID = id;
 			}
@@ -1922,7 +1922,7 @@ void UIGroupClass::Unknown_74(ControlKeysManager *manager)
 **	  the member class: constructor 0x593200, destructor 0x5932E0 (not exact), 0x5934A0 (line 403), 0x5935C0
 **	  (456), 0x593750, 0x593790, 0x593830, 0x5938A0 (563);
 **	  the window: constructor 0x593BD0, destructor 0x593D70 (scalar deleting 0x593D40), slot +0x54 0x594040
-**	  (not exact), the +0xE8 object's 0x5944A0, slot +0x60 0x5944D0 (not exact), slot +0x68 0x5946D0 (735, 751; the buttons' and keys' switch; not exact), slot +0x7C 0x595480, 0x5954C0, the member rows 0x595530 (not exact),
+**	  (not exact), the +0xE8 object's 0x5944A0, slot +0x60 0x5944D0 (not exact), slot +0x68 0x5946D0 (735, 751; the buttons' and keys' switch), slot +0x7C 0x595480, 0x5954C0, the member rows 0x595530 (not exact),
 **	  0x596040, Get_Member 0x596090,
 **	  Add_Member 0x596130 (1165, 1168), Remove_Member 0x596390 / 0x596560 (1198), 0x5966A0,
 **	  0x596770 (1260-1266; not exact), 0x596DB0, 0x596E20 (1388, 1391; not exact), 0x597000, 0x597080, 0x597200, 0x597310 (not exact),

@@ -20,7 +20,7 @@
 #include "..\shared\g_assert.h"
 #include <math.h>
 #include <stdio.h>
-
+#include "auth_product.h"
 void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);	// 0x496AE0
 void Unknown_75B7B0(RenderObjClass *robj, float phase);					// 0x75B7B0 (a planet's phase)  // NAME 1 [robj, phase]: neutral
 void Unknown_75B8F0(RenderObjClass *robj, const Vector3 &dir, const Vector3 &camera);	// 0x75B8F0 (a planet lit from dir)  // NAME 1 [robj, dir, camera]: neutral

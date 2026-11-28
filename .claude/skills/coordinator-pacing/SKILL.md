@@ -270,6 +270,7 @@ Landing and bring-over (the lander does the landing; these are what you see arou
   The watch set also misses a pad address that moved files in the branch (0x702240 went from aux_roots to sclient): `--first-window`
   or the middle of a window then picks a value that loses it. Read `.work/log/sendpad-sets.json` (every value's whole exact set) for the window where all three are exact.
 - **A checker's logs vanish with its worktree:** tell it to keep its check logs in the main tree's `.work/log`, not under the worktree it removes.
+- **A checker that removes its worktree while e2e still runs kills the client exe:** the scenario then fails 'client exited' and the rest report 'client.exe missing'. Say in the brief: remove the worktree only after e2e's count line and live.py's lock release.
 - **A stale `%TEMP%\enb_vc6_synccache_<ip>.json` left by an older worktree of the same name fails every compile of the new one:** delete the file (workflow.md §3.5).
 - **A worktree with uncommitted generated files (names-review.md, imports.md) makes the lander refuse at step 1:**
   discard them (`git checkout -- FILE`); the landing regenerates them.

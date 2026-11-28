@@ -11,7 +11,7 @@
 #include <math.h>
 #include "wwmath.h"
 #include "..\shared\g_assert.h"
-
+#include "..\shared\auth_product.h"
 static const float WaveTime = 2000.0f;
 static const float LoopTime = 3000.0f;
 static const float RollTime = 2000.0f;

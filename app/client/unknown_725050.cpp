@@ -1,6 +1,6 @@
 // Earth & Beyond client (reconstruction): app\client\unknown_725050.cpp, PROVISIONAL file name (D137). Notes at the end of the file.
 #include "client.h"
-
+#include "..\shared\auth_product.h"
 // 0x725050
 UnknownB02C90Class::UnknownB02C90Class(void *owner) :
 	Unknown04(owner), Unknown08(owner), Unknown1C(true)

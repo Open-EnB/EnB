@@ -33,7 +33,7 @@
 #include "..\audio\soundlib.h"
 #include "..\shared\auxdata\auxdata.h"
 #include "..\shared\auxdata\delta_template.h"
-
+#include "..\shared\auth_product.h"
 extern FontManagerClass *Unknown_BE67C4;			// NAME 1 [Unknown_BE67C4]: 0xBE67C4
 bool Unknown_495FD0(RenderObjClass *robj, TextureClass *tex, int index);	// 0x495FD0 (ro_funcs.cpp): the texture onto the model
 void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);	// 0x496AE0 (ro_funcs.cpp)
@@ -623,26 +623,26 @@ static const float Unknown_AF77B4 = 1.0f;	// NAME 1 [Unknown_AF77B4]: neutral (D
 static const float Unknown_AF77B8 = 1.0f;	// NAME 1 [Unknown_AF77B8]: neutral (D10)
 static const float Unknown_AF77BC = 1.0f;	// NAME 1 [Unknown_AF77BC]: neutral (D10)
 static void Set_Float(float &dst, float value) { dst = value; }	// NAME 1 [Set_Float]: neutral (D10)
-static bool Is_Pressed(GadgetClass *gadget) { return Unknown_BE5F24 == gadget || Unknown_BE5F28 == gadget; }	// NAME 1 [Is_Pressed]: neutral (D10)
-// NOT EXACT: functional (D64)
+static bool Is_Pressed(GadgetClass *gadget) { return Unknown_BE5F24 == gadget || Unknown_BE5F28 == gadget; } static bool Is_Pressed_Id(std::map<int, StarbaseShipCustGadgetStruct> &m, int k) { GadgetClass *g = m[k].Gadget; return Is_Pressed(g); }	// NAME 1 [Is_Pressed, Is_Pressed_Id]: neutral (D10)
+
 // @0x61A4D0
 void StarbaseShipCustomizeInterface::Unknown_61A4D0()
 {
 	GadgetClass *gadget;
-	gadget = Gadgets[0x0E].Gadget;
-	if (Is_Pressed(gadget)) {
+
+	if (Is_Pressed_Id(Gadgets, 0x0E)) {
 		Set_Float(Unknown2E0->Unknown0B8, Unknown_AF77B4);
 	} else {
-		gadget = Gadgets[0x0D].Gadget;
-		if (Is_Pressed(gadget)) {
+
+		if (Is_Pressed_Id(Gadgets, 0x0D)) {
 			Set_Float(Unknown2E0->Unknown0B8, -Unknown_AF77B4);
 		} else {
-			gadget = Gadgets[0x0B].Gadget;
-			if (Is_Pressed(gadget)) {
+
+			if (Is_Pressed_Id(Gadgets, 0x0B)) {
 				Set_Float(Unknown2E0->Unknown0BC, Unknown_AF77B4);
 			} else {
-				gadget = Gadgets[0x0C].Gadget;
-				if (Is_Pressed(gadget)) {
+
+				if (Is_Pressed_Id(Gadgets, 0x0C)) {
 					Set_Float(Unknown2E0->Unknown0BC, -Unknown_AF77B4);
 				} else {
 					Unknown2E0->Unknown0B8 = 0.0f;
@@ -686,16 +686,16 @@ void StarbaseShipCustomizeInterface::Unknown_61A4D0()
 	}
 	if (Unknown237) {
 		Unknown237 = false;
-		int id = 0;
-		std::map<int, StarbaseShipCustGadgetStruct>::iterator it = Gadgets.begin();
-		while (it != Gadgets.end()) {
-			if (it->second.Group == 0 && it->second.Selected) {
-				id = it->second.Id;
-				break;
-			}
-			it++;
-		}
-		switch (id) {
+
+
+
+
+
+
+
+
+
+		switch (Unknown_61BC50(0)) {
 			case 1:
 				Unknown_61BD80(0);
 				return;
@@ -726,19 +726,19 @@ void StarbaseShipCustomizeInterface::Unknown_61A4D0()
 		}
 		SBaseView->Unknown_69F440();
 	}
-	if (SBaseView->Get_Unknown34()->Is_Active()) {
-		if (!Unknown235) {
-			Unknown235 = true;
-			Unknown_61AC20(false);
-		}
+	if (SBaseView->Unknown34->Active && !Unknown235) {
+		Unknown235 = true;
+		Unknown_61AC20(false);
 		return;
 	}
-	if (Unknown235) {
+	if (!SBaseView->Unknown34->Active && Unknown235) {
 		Unknown235 = false;
 		Unknown_61AC20(true);
 		Unknown_61D260();
 	}
-	Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); }	// dead reads (D130; not the client's): with the while loop and the two file-static inlines they spend VC6's inline budget as the client does: map::insert out of line at the first four lookups, the step's _Min 0x6209D0 out of line at 0x61A943 (5-7 reads; fewer inline _Min, 8+ put _Inc out of line)
+
+
+	Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); }	// D272 budget device: 4 dead Gadgets.size() reads with Is_Pressed_Id on Group 1 and inlined Unknown_61BC50(0) match the client's inline cuts (map::insert out of line at lookups 1..4, _Tree::begin 0x61FBE0 and _Min 0x6209D0 out of line, _Inc inlined)
 
 // @0x61AC20
 void StarbaseShipCustomizeInterface::Unknown_61AC20(bool on)

@@ -1,4 +1,4 @@
-"""Where the name-recovery tools read and write (docs/binary.md §5.6, README.md here).
+"""Where the name-recovery tools read and write (docs/binary.md §5.11, README.md here).
 
 Tracked inputs: the state (docs/data/thunk-names.tsv), the accepted hits (docs/data/thunk-name-hits.tsv), the
 model proposals (tools/re/thunknames/proposals/). Scratch outputs: .work/names/ (untracked). The retail client and the

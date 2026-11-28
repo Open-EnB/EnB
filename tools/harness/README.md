@@ -534,6 +534,7 @@ Each script has its usage in its docstring; `python tools/harness/X.py --help` w
 | `machine.py`, `machine.example.json` | the per-machine config: every path outside the tree (below, "Machine config and the baseline store") | nothing |
 | `baseline.py`, `tools/test_baseline.py` | the baseline store `Open-EnB/baselines`: capture retail runs with manifests and noise, verify them (no game needed), compare a run (below) | the store's checkout; capture: retail, the local Net-7 server |
 | `msglisten.py` | listens to a running client's debug-message server (the client's `-ENABLE_MESSAGES`: app/shared/message/msgserv.cpp's MsgServer on the first free TCP port of 9999-10009, bound to every interface by the client's own code, so run it on this host only). `msglisten.py [--pid PID | --port P] [--out FILE] [--seconds N] [--levels MASK] [--modules A,B] [--files F,G] [--prefix TEXT] [--raw]`: `--pid` finds that client's port with netstat (several clients each get their own) and waits for it; it sends one filter record (`S` name `` ` `` levels `` ` `` modules `` ` `` files `` ` `` prefix, `\0`-ended, empty fields as ' ') and prints each `M` record (level `` ` `` [sender,]category `` ` `` file `` ` `` line `` ` `` x `` ` `` y `` ` `` sec.usec `` ` `` text, `\0`-ended) as `HH:MM:SS.uuuuuu LEVEL category: text  file(line)`. The client drops messages while no listener is connected and accepts one at most once a second in the server's run (the kernel task, every 200 ms, and after each error report), so start-up asserts before WinMain's 'adding message server to kernel' never arrive. `clientrun.py run|replay --messages` starts the client with `-ENABLE_MESSAGES` (replay: antprox `/CLIENTOP:`) and msglisten beside it into `<shots dir>\messages.log` | a client started with `-ENABLE_MESSAGES` |
+| `pldcheck.py`, `test_pldcheck.py` | the land's horizon tables as the client writes them (.pld, Save_PLD 0x46ECF0; test-plan SP-12, B-29): `run` deletes an instance's .pld files and runs `sp_land_pld` / `sp_land_pld_all` live, `compare` retail run to run, then ours, table by table outside retail's spread (`--table normal_index_1E4`: B-29's verdict) (below, "The land's horizon tables") | the local Net-7 server, the live lock |
 | `artdir.py` | the art folder default of drawcheck, vidtest_sbs and run_vidtest (D120): `build/art` when it exists, else a warning | `build/art` (`cp -rp` of EBCONFIG) |
 | `vidtest_e2e.py` | starts vidtest as E&BConfig does (its command line, `CreateProcessA` with a relative name, E&BConfig's working directory = a copy of EBCONFIG at `build/programs/vidtest/e2e_ebconfig`, never the install) and reads `results.ini` as E&BConfig does; `--original` runs the retail VIDTEST (which has no `-nomsgbox`; ours gets it appended) | built vidtest, retail EBCONFIG folder to copy |
 | `vidtest_exitcodes.py` | the exit-code matrix (cases `finish close key mode res scenes`, `--case NAME`, repeatable) with `-nomsgbox` always; window and any stray message box are found by process id; results.ini compared with `--ref` | built vidtest |
@@ -702,6 +703,14 @@ stride, FVF, the textures of stages 0 and 1, the world matrix, 34 render states,
 1), the frame's distinct view and projection matrices with the order they were set in, and each texture drawn
 (creation parameters and an FNV-1a 64 hash of level 0's contents at that frame). The schema is above
 d3d8shot.c's `Log_Draw`. Without the variable nothing changes (the shot in the trigger's own frame, no JSON).
+**Textures created against released (2026-11-26, CS8; test-plan SP-05, B-12):** with the draw log the proxy also
+hooks IDirect3DDevice8::CreateTexture (slot 20) and the texture vtable's Release (patched once per vtable), and each
+draw log carries `texture_life`: every texture created since the device's creation and every one whose last Release
+returned 0, in total and per kind (size, levels, format, usage, pool), plus a `textures created N, released M, live
+L` line in d3d8shot.log. A leak is a kind whose created - released grows over cycles that should give it back.
+`python tools/harness/texlife.py DIR [--kind WxH[:FORMAT]] [--all]` prints, shot by shot in frame order, the totals
+and each kind whose counts moved since the shot before (unit tests: `tools/harness/test_texlife.py`). Draw logs from
+an older proxy have no counts ('no counts'); `baseline.py`'s draw-log compare does not read the key.
 `expect-ink SHOT X,Y,W,H MIN` (2026-11-21) asserts on that shot: at least MIN pixels in the box whose brightest
 channel reaches 200 (`INK_LEVEL`; the UI's text is near white on the dark blue panels), so a scenario checks that a list
 was filled, not only that its packets went (sb_refinery's ore rows, sb_manufacture's second category level).
@@ -734,6 +743,34 @@ the last name. Live antprox logs opcode numbers; e2e appends the names (`... = s
   which queues hull, sector and ammo saves of its own (`PlayerManager::DropPlayerFromSector`). Nothing outside the
   avatar's rows is touched; to undo by hand, pipe the script into `docker exec -i net7-mysql sh -c 'mysql -uroot
   -p"$MYSQL_ROOT_PASSWORD" net7_user'` with the server stopped.
+- **The account screens (`ui_*`, test-plan UI-01 / UI-02, 2026-11-26, CS6):** `ui_charcreate` creates a character
+  (every class, every avatar tab, Random Appearance on the head and body tabs, the ship pages, the name, the server
+  list, Play Game) and deletes it from character select; `ui_account` walks the login screen's Account Management
+  menu (Edit Account's No, Register Account's notice and second page, Add Gametime Code's Back), every slot, every
+  Previous out of creation, a relogin, the world and Quit to Login. Named only, live only:
+  `e2e.py --live --retail --instance X --audio --db-snapshot schema --antprox-arg=/NOPATCHES run ui_charcreate`.
+  `--db-snapshot schema` dumps the whole `net7_user` schema (DROP / CREATE with each AUTO_INCREMENT, one consistent
+  read) and puts it back in place after the run (0.9 s): a created character takes a new avatar_id in every avatar
+  table and moves faction_data's auto-increment, which an avatar's rows cannot undo. `/NOPATCHES`: antprox-rs
+  patches the retail client for Net-7 (class names and flags, tattoo save) and never ours (an unknown build), and
+  the patched retail stores another character for the same clicks (prof 1 against 2): retail is captured unpatched,
+  as ours runs (`baseline.py capture --antprox-arg=/NOPATCHES`, recorded in the manifest's `server.antprox_args`).
+  The header `tutorial: fresh` removes the instance's tutorial.dat: while it exists
+  `TutorialManagerClass::Read_Completed_File` (0x6AD4B0) marks every creation step done and no creation voice line
+  plays; without it retail plays 1492_90_001Se at login, 328se on the class page, 347se on the avatar page and the
+  ship page's 300se..303se in a row (about 38 s; a ship-tab click before 303se starts clears the queue). The
+  `audio` source (`--audio`) gives each named sound's `open` / `start` / `stop` / `end` / `close` as
+  `start m28 FILE`, so a step can wait on a voice line. The step `db-avatars NAME` writes the rows of the characters
+  the account gained since the session started to `db-NAME.sql`: avatar_data (parts, colours, the blend pulls
+  height_weight_0..4), ship_data, faction_data, as the server stored the creation request. Random Appearance draws
+  from a generator that repeats run to run: the stored character is the same on every unpatched retail run and on
+  ours, column for column; `baseline.py verify --run` compares each `db-NAME.sql` of the run with the stored runs'
+  (`db_dump_verdict`: the rows of every table equal to one stored run's, the server's wall-clock columns last_login /
+  last_logout / last_logout_t left out; a dump the stored runs have and the run lacks, or other rows: DIFF). The narrator's gesture on the login screen follows the returning-user line
+  (`ReturningUser%d`, `time(NULL) % 3`, 0x5ADA50): login-screen shots compare only between runs that played the
+  same 323Se / 324Se / 325Se. Character select's and the creation pages' buttons take a click only after their
+  turn-in (about 3 s after a page change) and the login screen's Account Management only after the pointer
+  rested on it.
 - **Restoring in place (control port, 2026-11-24):** Net7.exe has a loopback UDP control port (`Net7/Net7/ControlPort.cpp`):
   `e2e.net7_control_port` takes machine.py `net7_control_port` (`ENB_NET7_CONTROL_PORT`) when set, else the last
   `control_port=` line of `<net7_bin>\Net7Config.cfg` (the server reads it at start), else 3810; 0 is off. Commands:
@@ -833,6 +870,82 @@ the last name. Live antprox logs opcode numbers; e2e appends the names (`... = s
   window follows and the chat panel's request flag stays set; Join -> Existing's box takes digits only (edit flags
   0xC4, stredit's 4: 'ab12' shows '12'), and its Confirm then prints 'Another request is pending' and sends nothing.
   Retail and ours alike (the scenario's header has the coordinates and the client's functions).
+- **Gate, landing, dock with the camera's path (`sp_gate`, `sp_land`, `sp_dock`; test-plan SP-01 to SP-03,
+  2026-11-26, CS5):** Elanor from her login place: `sp_gate` warps to the Sector Gate to Saturn (W, >> four times,
+  Q) and clicks its verb (1238,672): Net-7 opens the gate, sends CAMERA_CONTROL 4 5.8 s later, the client's
+  stargate camera draws two or three frames, the client's own ACTION about 0.3 s later, the hand-off to Saturn;
+  `sp_land` wormholes to Endriago (GM `/wormhole 2210`), warps to the planet (W, >> twice, Q) and clicks Land:
+  the client's Land verb (ui_verb.cpp: ACTION 0x1D, camera request 8) runs the landing camera (state 5,
+  camctrl_land.cpp 0x793CE0), which holds one place about 4 s while the ship flies its spline (shots `land_1s`,
+  `land_2s5` hold the ship's place in their draw logs), then the surface and its Launchpad (W, the verb):
+  CAMERA_CONTROL 4 there runs the stargate camera (state 3) as at a gate in space; `sp_dock` warps to Jove's Fury
+  (W, >> three times, Q) and docks: CAMERA_CONTROL 5 (request 10) runs the docking camera (state 6,
+  camctrl_dock.cpp 0x792750) about 5 s; then it walks to the hangar's ship as `sb_rooms` does and launches. Not
+  reachable on the local Net-7: the planet-landing camera (state 7, camctrl_pland.cpp 0x794A90; CAMERA_CONTROL 1,
+  which Net-7 never sends; GM `/ccamera 1` beside the planet changed nothing) and the take-off camera (state 9,
+  camctrl_takeoff.cpp; the cockpit's warp button in view mode 1, ui_cpit.cpp 0x583250: clicks at 640,922, 640,912
+  and 690,920 on Endriago's surface changed nothing, as R10 found on the replay). Run each with `--camera-track
+  --db-snapshot 7`; the store's runs come from `baseline.py capture sp_gate sp_land sp_dock --live --db-snapshot 7
+  --camera-track` (`--camera-track` stores camera-track.txt). **Restart Net-7 before every run of either client**
+  (baseline.py capture does for `sp_*`; for ours `ENB_NET7_RESTART=1 baseline.py inputs --apply-db` first): the
+  server's time since its start moves the planets (the space shots: Jupiter in front of the sun or beside it) and
+  turns a planet surface's first view (a top-down one); on a server up for half an hour ours' shots differed from
+  the store's by 55 cells where retail's own runs differ by 1-2. The gate warp's end has two kinds on both clients
+  even so: the warp camera (0x797B50) cuts to its exit place either 4.1-4.2 s or 3.0-3.6 s before the server's
+  WARP_INDEX, 1000-1400 units apart (retail 5 and 3 of 8 runs, ours 3 and 6 of 9; `sp_gate`'s later anchors follow
+  it), so a run is compared with retail runs of its own kind: `camtrack.py`'s `warp_kind` (early / late by the cut's
+  time) and `ANCHOR_KINDS` (warp_end, gate_verb, gate_verb_offset, stargate_camera, stargate_offset compared per
+  kind; the output names each run's kind and cut; a kind of ours with no retail run: NO RETAIL OF ITS KIND); the
+  store holds both kinds since 2026-11-26 (CS7). `camtrack.py compare --retail
+  DIR... --ours DIR... --scenario sp_land` compares each 3-D view of the track around the scenario's moments
+  (SCENARIOS): the held places to 0.1 unit, the path by place (time-free) and the angle at the same time from the
+  anchor give or take 0.1 s, the tolerance retail's own spread at that time plus each run's frame-to-frame shake;
+  `%rel` anchors compare a camera that a cut puts beside the ship by its offset (the ship's own place at the
+  server's CAMERA_CONTROL follows the server's timing). `camtrack.py ship ... --shots land_1s land_2s5 --ref
+  surface` compares the ship's place under the held landing camera. Windows end before the scenario's next input
+  (a camera move after it follows the harness's timing). Unit tests: `python -m unittest
+  tools/harness/test_camtrack.py`.
+- **The maps, the cargo and the manufacturing exit (test-plan SP-05, UI-05, item 11; 2026-11-26, CS8):**
+  `sp_starmap` (Elanor): the route to Nav Group Shrine (W, >> twice), the navigation map (its 'Dest:' line), '=' /
+  '-' held ([Zoom Map In] / [Zoom Map Out]), a left drag (pan), two close / open cycles, the galaxy map (the window's
+  SECTOR_BTTN 142,252; LABEL 172,252 is left alone: it cycles the label setting), two left clicks (the system, then
+  the sector under the pointer: its gate spokes labelled), two right clicks (out, full out), '=' held, back, then
+  `/wormhole 2210` and the map in Endriago: the draw logs' `texture_life` (above) shows the map pictures (B-12) made
+  at the first opening and the zoom and given back at the sector change. `ui_cargo_equip` (Elanor): O and I (the
+  cargo window and the equipment window beside it; I closes both), the cargo's shield dragged onto the Shields slot
+  and back (a swap each, INVENTORY_MOVE), `/resetship`'s YES_NO query (Yes 486,578, No 800,578) with the shield
+  dropped into space meanwhile (B-06: no dump query, nothing sent), No, the swap twice more (sent), the cargo one
+  column right (236,740; left 35,740), 600 of a 1200 stack into the empty slot and back: a stack of more than one
+  asks the number on gd_selct.cpp's quantity bar (placed at the pointer; digits typed then Enter, or a click on the
+  bar; until then every other transaction is refused). `_sb_manufacture_exit` (Zanor, named only so the station
+  set keeps its stored runs): sb_manufacture's walk to the Vesta 4P with the components in hold, the Manufacture
+  label lit by 0x5B2480 (`expect-ink`), the pointer on the exit gadget, its click. Each passes on retail first time;
+  run each in a client of its own after a Net-7 restart (`sp_starmap` leaves Elanor in Endriago until the
+  `--db-snapshot 7` restore).
+- **The land's horizon tables (`sp_land_pld`, `sp_land_pld_all`, `pldcheck.py`; test-plan SP-12, bug B-29, 2026-11-26,
+  CS9):** a planet surface's LandClass::Load_Assets (0x4691D0) reads its horizon tables from the height map's .pld when
+  that is newer than the .pgm, the colour map and the ini, and otherwise computes them (Compute_Horizons 0x46E670; its
+  normal step 0x46F120 fills the normal-index table +0x1E4 through Nearest_Normal 0x46F0A0) and writes them through
+  the writing file factory into `Data\client\output` (Save_PLD 0x46ECF0: the count, +0x1E4, +0x1E8, +0x1EC, +0x1F0,
+  +0x1F4, +0x1F8, the 256 normals). CLIENT_DATA_ROOT's output folder holds a .pld for every planet (2022) and an
+  instance copies it, so on a plain run 0x46F120 never runs. `pldcheck.py run --instance NAME [--retail | --exe PATH]
+  --runs N --out DIR [--scenario S] [--admin-level 90]` deletes the .pld files of the instance's own folders
+  (release, Data\client, its output copy; never a junction) before each run, runs `e2e.py --live --db-snapshot 7
+  --keep ... run S` and copies each .pld the client wrote into DIR/run-K with run.json. `sp_land_pld` (the default) is
+  sp_land's flow to Endriago's surface (endriago_256, about 100 s); `sp_land_pld_all` wormholes from one surface
+  sector to the next through the eight LANDnnnn.ini maps the data has (2295 endriago, 1309 nostrandvor, 3595 primus,
+  3679 asheroth1930, 4195 swooping, 2409 river4 (512 x 512), 1493 zwiehander, 2290 RISCO; about 160 s): Net-7 refuses
+  /wormhole out of a sector that is not space unless the avatar's admin level is exactly 90 (PlayerConnection.cpp
+  Player::HandleWormholeRequest; avatar_info.admin, read at login; the store has 100), so run it with `--admin-level
+  90`, which sets Elanor's level before each run and puts the old one back after it. A surface's launchpad is no way
+  out after a wormhole (W targets a nav point, no gate verb). `pldcheck.py compare --retail DIR... --ours DIR...
+  [--table normal_index_1E4]` checks retail run to run first, then ours against retail's first, table by table, the
+  entries where retail's own runs differ left out (the retail spread) and the rest named with their grid x / y.
+  **Retail's own spread:** +0x1EC (all six) and +0x1F0 / +0x1F4 / +0x1F8 (some) at six edge cells, x 0 and 255 of
+  rows 0, 254 and 255, differ run to run on 6 of the 8 maps (primus and river4 stable), on retail and on ours alike;
+  +0x1E4 and +0x1E8 are equal run to run everywhere. The file is the client's own dump: nothing reads or writes the
+  process. No Net-7 restart is needed (the tables depend on the map and the ini only). Unit tests: `python -m
+  unittest tools/harness/test_pldcheck.py`.
 - **Extended keys (2026-11-21):** the client's keyboard code (w32kbd.cpp) reads lParam's scan code and extended
   bit; an arrow key posted with lParam 1 is the numpad's and nothing happens. `clientrun.key_lparam` gives every
   posted key its scan code and, for the arrows, Insert / Delete / Home / End / PgUp / PgDn, the extended bit, as a
@@ -943,7 +1056,7 @@ build-side roots: EA, SDK, references.)
 rule: observations and run inputs only, never the game's files):
 
 ```
-python tools/harness/baseline.py capture NAME... [--runs 3] [--live [SERVER]] [--restart | --no-restart] [--no-db-restore] [--no-audio] [--db-snapshot [AVATAR]] [--instance bl]
+python tools/harness/baseline.py capture NAME... [--runs 3] [--live [SERVER]] [--restart | --no-restart] [--no-db-restore] [--no-audio] [--db-snapshot [AVATAR|schema]] [--antprox-arg=ARG] [--instance bl]
 python tools/harness/baseline.py capture --set SET [NAME...] [--runs 3] [--live [SERVER]] [--restart | --no-restart]   # one session a run
 python tools/harness/baseline.py verify [NAME...]            # every stored file against its manifest's SHA-256
 python tools/harness/baseline.py verify --run RUN [--client C] [--env E]    # an e2e run against the baseline
@@ -1014,8 +1127,10 @@ missing on either side stays DIFF. **`RETAIL-UNSTABLE`** (2026-11-25 evening, co
 folded into a pass, no tolerance widened): a scenario whose only differences are where the stored retail runs
 disagree among themselves, leave one out (as `.work/cs/loo.py` measured: station 3D audio identical in 0 of 9 retail
 runs). Audio (`audio_stability`): per sound family (`audio_family`: the file name with each digit run as `#`, so the
-client's random variants share one: the space music TerranWander07-2 / 01-5, the station radio 1492_00_323Se / 325Se,
-sfx_foot_glass_N; samples the log gives only as hash:size are named first from the client data's files and mixes,
+client's random variants share one: the space music TerranWander07-2 / 01-5, sfx_foot_glass_N; a set the client
+draws from by its own code is one sound whatever the variant (`AUDIO_RANDOM_SETS`, with its evidence: the login
+greeting 1492_00_323Se / 324Se / 325Se, 0x5ADA50's `ReturningUser%d` by `time(NULL) % 3`), so a run that drew
+another of them matches, in noise.json's strict sequence too; samples the log gives only as hash:size are named first from the client data's files and mixes,
 `name_samples`, audiolog's cache), the `m` / `t` events of its streams or 3D samples (`KIND FAMILY`): a family whose
 events in the run match no stored run's is weighed by its shape (events and loops): the same shape as a stored run,
 only another variant played, RETAIL-UNSTABLE when the stored runs' variants fail leave one out, else DIFF (retail
@@ -1151,6 +1266,10 @@ just before), `volume`, `pan`, `rate`, `loop`, `loop_block`, `seek_ms`, `seek`, 
 `orientation` (fx..uz), `velocity`, `distances` (max, min), `effects`, `cone`. Events on a sound carry `snd`: the
 stream's file, or `hash:size`; `audiolog.py` names those from the data's mix files (MIX1 entries of the same
 size, hashed; cached in `.work/audio-names.json`).
+
+**AU-01's reading (2026-11-26):** `baseline.py verify --run RUN --audio-only [--set SET]` prints the audio verdict
+alone, one line a scenario (`AUDIO SAME | RETAIL-UNSTABLE | DIFF | NONE`: streams and 3D sounds in order, 2D sounds
+by count against the stored range), and a count line; packets, shots and draw logs are not read.
 
 **Reader:** `audiolog.py summary RUN`, `sequence RUN [--kinds mt]`, `diff A B [--kinds mt] [--counts]
 [--time-tol MS] [--all --float-tol X]` (module docstring). **Run-to-run noise (retail, replay, 2026-11-24):**

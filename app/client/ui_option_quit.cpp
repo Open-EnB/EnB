@@ -11,7 +11,7 @@
 #include "control_keys_manager.h"
 #include "local_interface_sort.h"
 #include "..\audio\soundlib.h"
-
+#include "..\shared\auth_product.h"
 extern FontManagerClass *Unknown_BE67C4;	// NAME 1 [Unknown_BE67C4]: 0xBE67C4, as ui_login.cpp's
 
 // The buttons Unknown_54 makes: their models' names and their texts (0xB835F0 / 0xB83608)

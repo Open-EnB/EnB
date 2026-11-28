@@ -23,7 +23,7 @@
 #include "ui_power.h"		// UIPowerClass (+0xD0)
 #include "ui_cpit_inv.h"	// UICpitInvClass (+0xC8 / +0xCC)
 #include "..\shared\auxdata\delta_numbering.h"
-
+#include "..\shared\auth_product.h"
 
 
 
@@ -1280,7 +1280,7 @@ void UICpitClass::Unknown_5821C0(ClientObjectClass *avatar)
 {
 	DeltaCompoundClass *aux = (DeltaCompoundClass *)avatar->AuxData;
 	{
-		DeltaTemplateClass<float> *max_speed = Unknown_Find_Changed<DeltaTemplateClass<float> >(aux, "MaxSpeed");
+		DeltaTemplateClass<float> *max_speed = Unknown_Find_Changed_Field<DeltaTemplateClass<float> >(aux, "MaxSpeed");	// one layer: 0x585090 numbers T<float> before T<int> (Cast<float> instantiated a layer above int's)
 		DeltaTemplateClass<bool> *lock_speed = Unknown_Find_Changed<DeltaTemplateClass<bool> >(aux, "LockSpeed");
 		if (max_speed || lock_speed) {
 			if (max_speed && !lock_speed) {

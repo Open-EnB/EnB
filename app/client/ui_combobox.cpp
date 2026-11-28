@@ -9,7 +9,7 @@
 #include "rendobj.h"
 #include "hanim.h"
 #include "..\..\wwlib\ref_ptr.h"
-
+#include "..\shared\auth_product.h"
 #include "fontmanager.h"	// FontSys, FontManagerClass (0xBE67C4) and fontdatabase.h's FontStringFilesClass (0xBE67BC)
 #include "unknown_675120.h"	// the gadgets (before ui_combobox.h: its text gadget is declared only with them)
 #include "gd_slider.h"
@@ -150,7 +150,7 @@ UIComboBoxClass::UIComboBoxClass(InterfaceClass *owner, LayerClass *layer, Rende
 	InterfaceClass::Unknown_58();
 }
 
-// NOT EXACT: inline-budget (the client expands the label's assign and the style's _Grow; ours calls them)
+// Init gets the client, not the owner (0x578C6A pushes [esp+0x28], the second parameter; A4's args audit, 2026-11-26)
 // 0x5789E0
 UIComboBoxClass::UIComboBoxClass(InterfaceClass *owner, SClient *client, RenderObjClass *model, const char *name, int select_key, int toggle_key, int width, int max_rows, const char *style) :
 	InterfaceClass((LineDisplayClientClass *)client),
@@ -176,7 +176,7 @@ UIComboBoxClass::UIComboBoxClass(InterfaceClass *owner, SClient *client, RenderO
 		Style = style;
 	}
 	AttachBone = Model->Get_Bone_Index(name);
-	Init(owner);
+	Init(client);
 }
 
 // 0x578D50
@@ -203,8 +203,8 @@ UIComboBoxClass::~UIComboBoxClass()
 }
 
 // the Arrow registration reads the view through Get_View(): its inline expansion spends the budget so Style == "Combo01" calls compare(II PBD I) out of line as the client (&Style in ebx, the scale in ebp)
-// 0x5790C0: owner NULL (the first constructor): the gadgets on Layer; else on an empty layer
-void UIComboBoxClass::Init(InterfaceClass *owner)
+// 0x5790C0: client NULL (the first constructor): the gadgets on Layer; else on an empty layer
+void UIComboBoxClass::Init(SClient *client)
 {
 	Anim = new HAnimComboClass(2);
 	Unknown_BE67BC->Load("fc_combobox.ini");
@@ -246,7 +246,7 @@ void UIComboBoxClass::Init(InterfaceClass *owner)
 		Matrix3D bone_tm = Mesh->Unknown_5B9210(bone);
 		int left = (int)bone_tm.Get_X_Translation();
 		UIComboBoxTextClass *row = NULL;
-		if (owner) {
+		if (client) {
 			row = new UIComboBoxTextClass(Mesh, bone, right - left);
 		} else {
 			row = new UIComboBoxTextClass(Mesh, bone, Layer, right - left);
@@ -257,7 +257,7 @@ void UIComboBoxClass::Init(InterfaceClass *owner)
 		Unknown64.Unknown_6870E0(row, i + 3, View, true, false);
 		Rows.push_back(row);
 	}
-	if (owner) {
+	if (client) {
 		Arrow = new ButtonGadgetClass(Mesh, "ARROWBOX00", 5, 3);
 	} else {
 		Arrow = new ButtonGadgetClass(Mesh, "ARROWBOX00", *Layer, 5, 3);
@@ -269,7 +269,7 @@ void UIComboBoxClass::Init(InterfaceClass *owner)
 	int left = (int)left_tm.Get_X_Translation();
 	tm = Mesh->Unknown_5B9210("TEXTFIELD02");
 	right = (int)tm.Get_X_Translation();
-	if (owner) {
+	if (client) {
 		TextField = new UIComboBoxTextClass(Mesh, "TEXTFIELD00", right - left);
 	} else {
 		TextField = new UIComboBoxTextClass(Mesh, "TEXTFIELD00", Layer, right - left);
@@ -277,7 +277,7 @@ void UIComboBoxClass::Init(InterfaceClass *owner)
 	TextField->Unknown_65FFA0(-1);
 	TextField->RObj->Set_Sort_Level(5);
 	Unknown64.Unknown_6870E0(TextField, 1, View, true, false);
-	if (owner) {
+	if (client) {
 		Slider = new GadgetSlider(false, NULL);
 	} else {
 		Slider = new GadgetSlider(false, Layer);

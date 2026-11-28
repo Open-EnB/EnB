@@ -812,6 +812,8 @@ static void Start_Draw_Log(int frame)
 	memset(LogCalls, 0, sizeof(LogCalls));
 }
 
+static void Tex_Life(Buf *b, int frame);
+
 static void Write_Draw_Log(int frame)
 {
 	Buf b;
@@ -823,6 +825,7 @@ static void Write_Draw_Log(int frame)
 	Buf_Add(&b, "\"counts\":{\"draws\":%d,\"DIP\":%d,\"DP\":%d,\"DPUP\":%d,\"DIPUP\":%d,\"views\":%d,\"projections\":%d,"
 		"\"textures\":%d,\"lost\":%d},\n", LogDrawCount, LogCalls[0], LogCalls[1], LogCalls[2], LogCalls[3],
 		LogViewCount, LogProjCount, LogTexCount, LogLost);
+	Tex_Life(&b, frame);
 	Buf_Add(&b, "\"render_states\":[");
 	for (i = 0; i < (int)(sizeof(LogStateNames) / sizeof(LogStateNames[0])); i++) Buf_Add(&b, i ? ",\"%s\"" : "\"%s\"", LogStateNames[i]);
 	Buf_Add(&b, "],\n\"stage_states\":[");
@@ -937,6 +940,114 @@ static HRESULT STDMETHODCALLTYPE Hook_Draw_Indexed_UP(void *dev, UINT type, UINT
 #define HOOK(dev, slot, real, type, hook) \
 	if (VT(dev, slot) != (void *)(hook)) { real = (type)VT(dev, slot); Patch(&VT(dev, slot), (void *)(hook)); }
 
+/* The textures' lives (draw log, 2026-11-26, CS8: test-plan SP-05 / B-12): every IDirect3DDevice8::CreateTexture
+   since the device's creation and every texture's last Release (the texture's own vtable slot 2 returning 0), counted
+   per kind (size, levels, format, usage, pool); each draw log's "texture_life" holds the counts so far, so a leak is
+   the difference of two shots' created - released, a texture a client never gives back */
+#define SLOT_CREATETEXTURE		20
+typedef HRESULT (STDMETHODCALLTYPE *CreateTextureType)(void *, UINT, UINT, UINT, DWORD, UINT, UINT, void **);
+static CreateTextureType	RealCreateTexture;
+typedef struct { UINT W, H, Levels, Format, Pool; DWORD Usage; int Created, Released; } TexKind;
+#define TEXKINDS	256
+static TexKind			TexKinds[TEXKINDS];
+static int				TexKindCount = 0, TexKindLost = 0;
+typedef struct { void *Obj; int Kind; } TexLive;		/* open addressing on the texture pointer; Kind -1: a tombstone */
+#define TEXLIVES	32768
+static TexLive			TexLives[TEXLIVES];
+static int				TexCreated = 0, TexReleased = 0, TexUntracked = 0;
+typedef struct { void **Vtbl; ReleaseType Release; } TexVtbl;
+static TexVtbl			TexVtbls[8];
+static int				TexVtblCount = 0;
+
+static int Tex_Kind(UINT w, UINT h, UINT levels, DWORD usage, UINT format, UINT pool)
+{
+	int i;
+	for (i = 0; i < TexKindCount; i++) {
+		TexKind *k = &TexKinds[i];
+		if (k->W == w && k->H == h && k->Levels == levels && k->Usage == usage && k->Format == format && k->Pool == pool) return i;
+	}
+	if (TexKindCount >= TEXKINDS) { TexKindLost++; return -1; }
+	TexKinds[TexKindCount].W = w; TexKinds[TexKindCount].H = h; TexKinds[TexKindCount].Levels = levels;
+	TexKinds[TexKindCount].Usage = usage; TexKinds[TexKindCount].Format = format; TexKinds[TexKindCount].Pool = pool;
+	TexKinds[TexKindCount].Created = TexKinds[TexKindCount].Released = 0;
+	return TexKindCount++;
+}
+
+static TexLive *Tex_Find(void *obj, int add)
+{
+	UINT h = (UINT)(((size_t)obj >> 4) * 2654435761u) & (TEXLIVES - 1), n;
+	TexLive *free_slot = NULL;
+	for (n = 0; n < TEXLIVES; n++, h = (h + 1) & (TEXLIVES - 1)) {
+		TexLive *e = &TexLives[h];
+		if (e->Obj == obj && e->Kind >= 0) return e;
+		if (e->Obj && e->Kind < 0) { if (!free_slot) free_slot = e; continue; }	/* a tombstone */
+		if (!e->Obj) { if (!free_slot) free_slot = e; break; }
+	}
+	if (!add || !free_slot) return NULL;
+	free_slot->Obj = obj;
+	free_slot->Kind = 0;
+	return free_slot;
+}
+
+static ULONG STDMETHODCALLTYPE Hook_Tex_Release(void *tex)
+{
+	ReleaseType real = NULL;
+	ULONG n;
+	int i;
+	for (i = 0; i < TexVtblCount; i++) if (TexVtbls[i].Vtbl == *(void ***)tex) { real = TexVtbls[i].Release; break; }
+	if (!real) return 0;		/* cannot happen: only a vtable it saved points here */
+	n = real(tex);
+	if (n == 0) {
+		TexLive *e = Tex_Find(tex, 0);
+		if (e) {
+			if (e->Kind >= 1) TexKinds[e->Kind - 1].Released++;
+			TexReleased++;
+			e->Kind = -1;
+		}
+	}
+	return n;
+}
+
+static HRESULT STDMETHODCALLTYPE Hook_Create_Texture(void *dev, UINT w, UINT h, UINT levels, DWORD usage, UINT format,
+	UINT pool, void **tex)
+{
+	HRESULT hr = RealCreateTexture(dev, w, h, levels, usage, format, pool, tex);
+	if (SUCCEEDED(hr) && tex && *tex) {
+		void **vtbl = *(void ***)*tex;
+		int i, kind = Tex_Kind(w, h, levels, usage, format, pool);
+		TexLive *e;
+		for (i = 0; i < TexVtblCount; i++) if (TexVtbls[i].Vtbl == vtbl) break;
+		if (i == TexVtblCount && TexVtblCount < 8 && vtbl[SLOT_RELEASE] != (void *)Hook_Tex_Release) {
+			TexVtbls[TexVtblCount].Vtbl = vtbl;
+			TexVtbls[TexVtblCount].Release = (ReleaseType)vtbl[SLOT_RELEASE];
+			TexVtblCount++;
+			Patch(&vtbl[SLOT_RELEASE], (void *)Hook_Tex_Release);
+		}
+		e = Tex_Find(*tex, 1);
+		if (e) e->Kind = kind + 1;	/* 0: no kind (the table was full) */
+		else TexUntracked++;
+		if (kind >= 0) TexKinds[kind].Created++;
+		TexCreated++;
+	}
+	return hr;
+}
+
+/* the draw log's "texture_life" and its d3d8shot.log line: the counts since the device's creation */
+static void Tex_Life(Buf *b, int frame)
+{
+	int i;
+	Buf_Add(b, "\"texture_life\":{\"created\":%d,\"released\":%d,\"live\":%d,\"untracked\":%d,\"kinds_lost\":%d,\"kinds\":[",
+		TexCreated, TexReleased, TexCreated - TexReleased, TexUntracked, TexKindLost);
+	for (i = 0; i < TexKindCount; i++) {
+		TexKind *k = &TexKinds[i];
+		Buf_Add(b, "%s\n{\"w\":%u,\"h\":%u,\"levels\":%u,\"format\":%u,\"usage\":%lu,\"pool\":%u,\"created\":%d,\"released\":%d}",
+			i ? "," : "", k->W, k->H, k->Levels, k->Format, k->Usage, k->Pool, k->Created, k->Released);
+	}
+	Buf_Add(b, "]},\n");
+	Log("frame %d: textures created %d, released %d, live %d (%d kinds)\n", frame, TexCreated, TexReleased,
+		TexCreated - TexReleased, TexKindCount);
+}
+
 static void Hook_Dump(void *dev)
 {
 	HOOK(dev, SLOT_SETTRANSFORM, RealSetTransform, SetTransformType, Hook_Set_Transform);
@@ -961,6 +1072,7 @@ static void Hook_Draw_Log(void *dev)
 	HOOK(dev, SLOT_DRAWINDEXED, RealDrawIndexed, DrawIndexedType, Hook_Draw_Indexed);
 	HOOK(dev, SLOT_DRAWPRIMITIVEUP, RealDrawPrimitiveUP, DrawPrimitiveUPType, Hook_Draw_Primitive_UP);
 	HOOK(dev, SLOT_DRAWINDEXEDUP, RealDrawIndexedUP, DrawIndexedUPType, Hook_Draw_Indexed_UP);
+	HOOK(dev, SLOT_CREATETEXTURE, RealCreateTexture, CreateTextureType, Hook_Create_Texture);
 }
 
 static void Log(const char *format, ...)

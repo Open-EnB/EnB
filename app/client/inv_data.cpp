@@ -4,7 +4,7 @@
 #include "sclient.h"
 #include "co.h"
 #include "..\shared\g_assert.h"
-
+#include "..\shared\auth_product.h"
 // The item 0x68AAA0 returns, as far as this file reads it (as ui_inv.cpp declares it)
 struct InvDataPeekItemStruct	// NAME 1: neutral (D10)
 {

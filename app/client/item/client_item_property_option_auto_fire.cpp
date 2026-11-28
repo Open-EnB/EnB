@@ -2,7 +2,7 @@
 #include "client_item_property_builder.h"
 #include "..\sclient.h"
 #include "..\..\packets\pkitemstate.h"
-
+#include "..\..\shared\auth_product.h"
 static inline unsigned Get_Ship_ID(SClient *client) { return(client->ShipID); }	// an inline layer the client spends (as a ClientClass member in client.h it cost sclient.cpp's 0x74D990 its registers)  // NAME 1: as Get_Avatar_ID
 
 RefCountPtr<ClientItemPropertyOptionAutoFireClass> ClientItemPropertyOptionAutoFireClass::Create(SClient *space_client, const RefCountPtr<InvDataClass> &data, int slot)

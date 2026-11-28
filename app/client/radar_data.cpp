@@ -11,7 +11,7 @@
 #include "wwmath.h"
 #include "..\shared\g_assert.h"
 unsigned int Unknown_Get_Ticks();				// 0x4A3B40, the aux-data clock
-
+#include "..\shared\auth_product.h"
 
 
 

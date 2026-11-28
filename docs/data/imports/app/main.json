@@ -1,5 +1,7 @@
 {
- "ambiguous": [],
+ "ambiguous": [
+  "0x42B2F0"
+ ],
  "copy": "reconstructed",
  "description": "RECONSTRUCTED: main.cpp, named by its log texts 'Main.cpp: activating / deactivating kernel rendering.' (client 0x4441E0-0x445560, after kernel.cpp): the four global random generators 0xBDBB84 / 0xBDADC8 / 0xBDB1B8 / 0xBDB1C0, <iostream>'s Init / _Winit, WinMain's exception hooks and window-message handlers 0x445330-0x4454C0, <string>'s guard 0x445540 (CRT entries 17-23). Directory interim (D137): beside main_client.cpp.",
  "expected": {},
@@ -8,20 +10,12 @@
   "0x42F250",
   "0x4338D0",
   "0x433950",
-  "0x4441E0",
-  "0x444200",
-  "0x444220",
-  "0x444240",
-  "0x4442C0",
-  "0x444380",
-  "0x445260",
-  "0x445300",
   "0x445330",
   "0x445350",
   "0x445420",
   "0x4454A0",
   "0x4454C0",
-  "0x445540"
+  "0x526DE0"
  ],
  "merged": [],
  "name": "main/main.cpp",
@@ -33,6 +27,7 @@
  ],
  "short_known": [
   "0x42B320",
-  "0x433950"
+  "0x433950",
+  "0x4454C0"
  ]
 }

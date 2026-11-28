@@ -1,0 +1,62 @@
+# Space (live server): test-plan SP-02, the planet landing and the launchpad. Elanor (_login_space) wormholes to
+# Endriago (GM `/wormhole 2210`: the hand-off, she arrives at Brendan's Weft), targets the planet Endriago (W, then
+# the target panel's >> twice: Inward Belt Point 1, Endriago; net7 sector_objects 628, landable, gate_to 2295),
+# warps to it (Q) and clicks its Land verb (the target panel's right verb, 1238,672). The client's VERB_LAND
+# (ui_verb.cpp) sends ACTION 0x1D and asks for camera request 8: state 5, the landing camera (CameraController05Class,
+# camctrl_land.cpp 0x793CE0), which holds one place about 4 s while the ship flies its spline (the shots land_1s and
+# land_2s5 hold the ship's place in their draw logs); then the client's ACTION and the server's hand-off to the
+# surface, Porvenir Mons Area (2295; its sector-entry camera after START_ACK). Net-7 answers the Land verb with a
+# CLIENT_SOUND only: it never sends CAMERA_CONTROL 1 (request 13, state 7, the planet-landing camera camctrl_pland.cpp
+# 0x794A90 of bug B-01). On the surface W targets the Launchpad to Endriago Sector (net7 629, a stargate to 2210)
+# and its verb gates: CAMERA_CONTROL 4 about 6 s later (request 6, state 3: the stargate camera camctrl_stargate.cpp
+# 0x795C80, as at a gate in space; a place beside the ship, turning after it as it climbs away, about 0.6 s), the
+# client's ACTION, the hand-off, Endriago's space and its entry camera. The take-off camera (state 9,
+# camctrl_takeoff.cpp 0x796440 / 0x796920, bug B-02) is asked for only by the cockpit's warp button in view mode 1
+# (ui_cpit.cpp 0x583250, request 17), which this flow does not reach.
+#   e2e.py --live [--retail] --db-snapshot 7 --camera-track --instance NAME run sp_land
+name: space: land on Endriago, leave by its launchpad (SP-02)
+timeout: 480
+include _login_space
+key 0x0D
+wait-quiet proxy 0.5 within 10
+text '/wormhole 2210'
+key 0x0D
+wait-event antprox 'sent SERVER_HANDOFF' within 60
+wait-event antprox 'received START_ACK$' within 120
+wait-quiet proxy 1.5 within 60
+key 0x57 until antprox 'sent SET_TARGET$' every 1.5 within 15
+wait-quiet proxy 0.5 within 10
+click 1248,987 until antprox 'sent SET_TARGET$' every 1.5 within 15
+wait-quiet proxy 0.5 within 10
+click 1248,987 until antprox 'sent SET_TARGET$' every 1.5 within 15
+wait-quiet proxy 0.5 within 10
+shot planet_target
+key 0x51
+expect-event antprox 'received WARP$' within 10
+wait-event antprox 'sent WARP_INDEX$' within 120
+wait-quiet proxy 1.0 within 20
+shot at_planet
+click 1238,672 until antprox 'received ACTION$' every 3 within 60
+wait-since antprox 'received ACTION$' 1
+shot land_1s
+wait-since antprox 'received ACTION$' 2.5
+shot land_2s5
+wait-event antprox 'sent SERVER_HANDOFF' within 30
+move 1000,880
+wait-event antprox 'received START_ACK$' within 120
+wait-event antprox 'sent CAMERA_CONTROL$' within 30
+wait-since antprox 'sent CAMERA_CONTROL$' 6
+shot surface
+key 0x57 until antprox 'sent SET_TARGET$' every 1.5 within 15
+wait-quiet proxy 0.5 within 10
+shot launchpad_target
+click 1238,672 until antprox 'received ACTION$' every 3 within 30
+expect-event antprox 'sent ACTIVATE_NEXT_RENDER_STATE$' within 10
+wait-event antprox 'sent CAMERA_CONTROL$' within 30
+wait-event antprox 'sent SERVER_HANDOFF' within 30
+move 1000,880
+wait-event antprox 'received START_ACK$' within 120
+wait-event antprox 'sent CAMERA_CONTROL$' within 30
+wait-since antprox 'sent CAMERA_CONTROL$' 6
+shot endriago_space
+expect-no CRASH

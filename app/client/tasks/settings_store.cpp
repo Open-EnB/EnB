@@ -373,7 +373,7 @@ bool Unknown_7CA2D0Class::Unknown_7CB8A0(int which)
 }
 
 // @0x7CB8F0
-
+#include "..\..\shared\auth_product.h"
 
 unsigned long __stdcall Unknown_7CA2D0Class::Unknown_7CB8F0(void *store)
 {

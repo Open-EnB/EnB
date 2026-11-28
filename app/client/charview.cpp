@@ -26,7 +26,7 @@
 #include "..\..\wwlib\ref_ptr.h"
 #include "wwmath.h"
 #include <vector>
-
+#include "..\shared\auth_product.h"
 // The frame's platform turn (0x679930): a file inline the frame expands (as its own code, the client's Matrix3D's
 // Vector4 constructor goes through ??_H and Rotate_Z is called out of line, ViewRObjs[4] and +0x1A0 read again)
 inline void CharacterViewClass::Unknown_Inline_Platform()

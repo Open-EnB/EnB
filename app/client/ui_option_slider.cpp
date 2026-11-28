@@ -14,7 +14,7 @@
 #include "fontmanager.h"
 #include "local_interface_sort.h"
 #include "..\audio\soundlib.h"
-
+#include "..\shared\auth_product.h"
 // The check box (unknown_7e7e00.h: 0x68 bytes, table 0xB075E4)
 #include "unknown_7e7e00.h"
 

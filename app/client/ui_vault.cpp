@@ -20,7 +20,7 @@
 #include "..\packets\pkinventorymove.h"
 #include "..\audio\soundlib.h"
 #include "..\shared\g_assert.h"
-
+#include "..\shared\auth_product.h"
 void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);	// 0x496AE0 (ro_funcs.cpp, cdecl)  // NAME 1 [robj, make_geometry_unique]: as eff_o.cpp's
 extern FontManagerClass *Unknown_BE67C4;	// NAME 1: neutral (D10)
 

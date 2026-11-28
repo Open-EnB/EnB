@@ -1,0 +1,3 @@
+0x76D990 HtmlGifImageClass::Decode: Sol phase, 12 actual compiler inputs.
+Sol: early i=len assignment before eligibility forces code-index spill and correct frame0x40; actual init/reset orders improve1140/.38 to1169/.81 vsretail1173. Twelve compiles seven raw/masked groups; all11/11preserved. Commonreturn loses cached first index; scope/index/remaining-space duplicates, shared-size-error label and explicit error status regress/no gain. Three final distinct batches no cut. No production partial kept; Astra insight authorized for remaining target within limits.
+Actual full reports and base-bound replay forms are in .work/claim-314 and packaged claim314-forms JSON.

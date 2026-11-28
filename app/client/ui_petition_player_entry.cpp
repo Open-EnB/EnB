@@ -13,7 +13,7 @@
 #include "..\packets\pkpetitionstuck.h"
 #include "..\audio\soundlib.h"
 #include "..\shared\g_assert.h"
-
+#include "..\shared\auth_product.h"
 extern const int Unknown_B08C9C;			// 0xB08C9C (8: textgadg.h's flags, as ui_registration.cpp declares it)  // NAME 1: neutral (D10)
 
 // 0x5D6080

@@ -87,17 +87,17 @@ const char *Type_Name(TargetGeneratorSummaryBF)
 {
 	return("TargetGeneratorSummaryBF");
 }
-
+static inline const std::string &Unknown_Pass(const std::string &s) { return(s); }	// NAME 1 [Unknown_Pass]: neutral (D10): a pass-through on the split's one argument sends the temporary's _Eos out of line, as the client
 // @0x84BE60
-// NOT EXACT: inline-budget (the temporary string's _Eos stays out of line in the client, and value lives in ebx)
+// NOT EXACT: register (the client keeps value in ebx through the loop and ors it unfused; ours keeps the zero there)
 bool String_To_Value(const char *text, TargetGeneratorSummaryBF *value)
 {
 	*value = (TargetGeneratorSummaryBF)0;
 	std::vector<std::string> list;
-	String_Split(list, std::string(text), Unknown_BF3F80);
+	String_Split(list, Unknown_Pass(std::string(text)), Unknown_BF3F80);
 	bool found = false;
 	for (std::vector<std::string>::iterator it = list.begin(); it != list.end(); ++it) {
-		for (int i = 0; i < 7; i++) {
+		for (unsigned int i = 0; i < sizeof(Unknown_BF3F90) / sizeof(Unknown_BF3F90[0]); i++) {
 			const TargetGeneratorFlagStruct &entry = Unknown_BF3F90[i];
 			if (_stricmp(entry.Name.c_str(), it->c_str()) == 0) {
 				*value = (TargetGeneratorSummaryBF)(*value | entry.Flag);

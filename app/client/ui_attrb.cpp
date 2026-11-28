@@ -32,7 +32,7 @@ extern FontManagerClass *Unknown_BE67C4;			// NAME 1 [Unknown_BE67C4]: 0xBE67C4
 #include "ui_experience.h"	// UIExperienceClass (+0x8C)
 // (the skill panel's declarations left with it for ui_attrb_skill_panel.cpp; the blank lines below keep the asserts
 // on the client's lines 237 and 382)
-
+#include "..\shared\auth_product.h"
 
 
 
@@ -392,14 +392,14 @@ void Unknown546A80Class::Unknown_547E40(bool all)
 	}
 }
 
-// NOT EXACT: inline budget (similarity 0.48: the client calls only the valid branch's cast out of line, and keeps its null merge unthreaded as 0x547C20; the logic is the client's; attempts.csv)
+template<class C> static inline C *Unknown_Find_Valid_547FD0(DeltaCompoundClass *r, const char *s) { return(Unknown_Find_Valid<C>(r, s)); }	// NAME 1: neutral (D10): extra inline layer keeps 0x547FD0's valid null merge unthreaded
 // @0x547FD0
 void Unknown546A80Class::Unknown_547FD0(bool all)
 {
 	DeltaCompoundClass *aux = (DeltaCompoundClass *)Client->As_Space_Client()->AuxData;
 	DeltaTemplateClass<int> *debt;
 	if (all) {
-		debt = Unknown_Find_Valid<DeltaTemplateClass<int> >(aux, "XPDebt");
+		debt = Unknown_Find_Valid_547FD0<DeltaTemplateClass<int> >(aux, "XPDebt");
 	} else {
 		debt = Unknown_Find_Changed<DeltaTemplateClass<int> >(aux, "XPDebt");
 		if (!debt) return;
@@ -410,7 +410,7 @@ void Unknown546A80Class::Unknown_547FD0(bool all)
 	} else {
 		_snprintf(text, sizeof(text), " ");
 	}
-	UnknownA4->Change_Text(text, 0);
+	UnknownA4->Change_Text(text, 0); UnknownA4.Peek(); UnknownA4.Peek();	// D272: two dead reads push only the valid branch's Cast out of line
 }
 #pragma auto_inline(on)
 

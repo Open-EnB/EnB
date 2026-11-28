@@ -1,0 +1,61 @@
+# Station (live server): test-plan item 11, bug B-05. The manufacturing terminal of sb_manufacture (room 1, -43.4,40.6)
+# down to the Vesta 4P, as sb_manufacture walks it. Each refresh of the window ends in UIManuClass 0x5B2480
+# (ui_manu.cpp): the 'go' button (Unknown0CC[6], the Manufacture label left of the window, 262,340) on with its font
+# at 1.0 when the item's Validity is 13 and nothing is being made, else off at 0.33; then, on both branches, the exit
+# button (Unknown0CC[1], 'exit' of 0xB81850, the close box at 858,221) switched on (slot +0x40, 0x5B271A): the call
+# ours lacked until 2026-11-24. The shots: the window with the item picked (manu_item_go: the Manufacture label
+# bright, 471 ink pixels on retail's stored station runs, and the close box), the pointer resting on the close box
+# (manu_exit_hover: the gadget under the pointer), and after its click (MANUFACTURE_ACTION: the window closed, the
+# button took the click). The store's database state has the Vesta's three components in the hold ('(in hold)').
+# Named only (the '_' prefix): an sb_ name would join the live station set, whose five stored retail runs lack it.
+#   e2e.py --live [--retail] --db-snapshot --instance NAME run _sb_manufacture_exit
+name: starbase manufacturing: the item picked, the Manufacture label and the exit gadget (B-05)
+timeout: 300
+include _sb_home
+walk-to -47,30
+walk-to -44,38
+face 8 tol 4
+wait-quiet proxy 1.0 within 20
+click 617,525 until antprox 'received MANUFACTURE_ITEM_CATAGORY' every 2 within 20
+wait-quiet proxy 1.0 within 20
+move 1000,880
+wait-quiet proxy 0.5 within 10
+shot manu_open
+# the close box drawn from the window's opening
+expect-ink manu_open 844,206,30,30 20
+# the category row: the computer (the root), then the '?' slot beside it, the root's children (Items), the third
+# (silver), its first child (a leaf: its item list), the Vesta 4P (as sb_manufacture)
+click 460,263
+expect-event antprox 'received MANUFACTURE_ACTION' within 10
+wait-quiet proxy 1.0 within 20
+click 598,285
+expect-event antprox 'received MANUFACTURE_ACTION' within 10
+wait-quiet proxy 1.0 within 20
+click 569,428
+wait-quiet proxy 1.0 within 20
+click 661,641
+wait-quiet proxy 1.0 within 20
+click 784,416
+expect-event antprox 'received MANUFACTURE_ITEM_CATAGORY' within 10
+wait-quiet proxy 1.0 within 20
+click 465,409
+expect-event antprox 'received MANUFACTURE_ITEM_ID' within 10
+wait-event antprox 'sent MESSAGE_STRING' within 10
+wait-quiet proxy 1.0 within 20
+move 1000,880
+wait-quiet proxy 0.5 within 10
+shot manu_item_go
+# 0x5B2480's go branch: the Manufacture label at full opacity (the components in hold), the close box on
+expect-ink manu_item_go 262,340,125,22 300
+expect-ink manu_item_go 844,206,30,30 20
+move 858,221
+wait-quiet proxy 1.5 within 10
+shot manu_exit_hover
+click 858,221
+expect-event antprox 'received MANUFACTURE_ACTION' within 10
+wait-quiet proxy 1.0 within 20
+move 1000,880
+wait-quiet proxy 0.5 within 10
+shot manu_closed
+walk-to -47,30
+walk-to -48,5

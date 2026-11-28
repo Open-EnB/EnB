@@ -17,7 +17,7 @@ class SClient { public: char Unknown00[0x1284]; PDAInterfaceClass *Unknown1284; 
 class InvDataClass { public: Unknown688830Class *Unknown_688830(); char Unknown00[0x20]; SClient *Client; };	// NAME 3: Peek_Inv_Data, inv_data's __FILE__ 0xB90004
 extern FontStringFilesClass *Unknown_BE67BC;	// NAME 1: neutral (D10)
 extern FontManagerClass *Unknown_BE67C4;	// NAME 1: neutral (D10)
-
+#include "..\shared\auth_product.h"
 
 // 0x68FB60
 InvTradeRenderClass::InvTradeRenderClass() :

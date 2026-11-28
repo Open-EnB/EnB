@@ -402,6 +402,16 @@ SPLITS = [
      "The player's tree after the skill's: MissionStage, Mission, Faction, Reputation, the group's, Player.",
      ['aux_roots_skill.h', 'aux_roots_item.h']),
 ]
+# Splits cut out of another split's header (included back in its place there, line-neutral): ui_line_display's
+# numbering initialisers 0x5AA540 / 0x5AADA0 store T<bool> before T<int> and I<MissionStage> before I<Skill> (A8,
+# run 2026-11-26): the client's ui_line_display.cpp parsed the mission classes before the skill's (aux_mission.h).
+NESTED_SPLITS = {
+    'aux_roots_player.h': [
+        ('aux_roots_mission.h', 'DeltaMissionStageClass', 'DeltaMissionClass',
+         "The mission classes (MissionStage, Mission); aux_roots_player.h includes it back in its place.",
+         ['aux_roots_types.h']),
+    ],
+}
 # Every object's G initialiser numbers I<Attachment> (0xC41580) before the ship inventory's arrays (co 0x707A20,
 # ship_stats_display 0x6A3CA0, radar_system 0x7BDEA0): aux_roots.h includes the lego header first, in the ship
 # inventory's place (and the ship inventory's in the lego's): ('aux_roots_shipinv.h', 'aux_roots_lego.h'). Off until
@@ -1083,7 +1093,7 @@ inline char *Unknown_Hex_String(char *buf, int size, const unsigned char *data, 
 # defined last, not the client's order); in co.cpp, the client's object (its constructors 0x6F6000-0x6FBEF0, the
 # template instances 0x7014B0..0x7045F0 and the numbering initialisers 0x7057D0 / 0x707A20 / 0x709B80 in its tail),
 # the client's address order holds them over a window several values wide (.work/pad/measure.tsv; COM's sweep).
-SYMBOL_PAD = 60
+SYMBOL_PAD = 52
 PAD = '''
 // VC6 symbol pad (not the client's code): the aux-data constructors (auxroots.py's region above) match only when the
 // count of the declarations this file sees falls in a window of a cycle of 64 (tools/re/auxroots.py SYMBOL_PAD)
@@ -1116,7 +1126,7 @@ REGION_END = '// (end of the region tools/re/auxroots.py generates)'
 # TC1's ui_stringentry.h (UIPTradeCreditsClass out of sclient.h): 0x758210 and 0x702240 both only at 33 and 55-57: 56.
 # P1 (run 2026-11-18b): aux_ship_player.h back to the item / ship inventory / Hull / player headers first (the
 # client's numbering, 0x755C60): only 4 keeps all six (0x758210 61-4 and 33-40, 0x702240 2-7 and 41-43).
-SEND_SYMBOL_PAD = 57
+SEND_SYMBOL_PAD = 14
 SEND_PAD = '''// VC6 symbol pad (not the client's code): sclient.cpp's copy of 0x758210 matches only when the count of
 // the declarations it sees falls in a window (tools/re/auxroots.py SEND_SYMBOL_PAD)
 enum AuxRootsSendSymbolPadType { %s };	// NAME 1: a build aid (SC1)
@@ -1359,6 +1369,11 @@ def generate(doc, out_dir):
             h = h[:a] + f'#ifndef {guard}\n' + block + '\n#endif' + h[a + len(block) + 1:]
         else:
             h, block = cut(h, first, last, header)
+        for sub, sfirst, slast, swhat, sincs in NESTED_SPLITS.get(header, ()):
+            block, sub_block = cut(block, sfirst, slast, sub)
+            split_files.append((sub, SPLIT_HEADER % {
+                'name': sub, 'guard': '__' + sub.upper().replace('.', '_'), 'what': swhat, 'body': sub_block,
+                'includes': ''.join(f'#include "{x}"\n' for x in sincs)}))
         split_files.append((header, SPLIT_HEADER % {'name': header, 'guard': guard, 'what': what, 'body': block,
                                                     'includes': ''.join(f'#include "{x}"\n' for x in incs)}))
     if SPLIT_SWAP:

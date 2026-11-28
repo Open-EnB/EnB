@@ -224,7 +224,7 @@ void BuffGadgetClass::Unknown_AC()
 	}
 }
 
-// NOT EXACT: register (explain.py: identical once registers are normalised; ecx / edx swapped at the time compare)
+// 0x6661F0 exact via provisional site-local volatile read of was_permanent pinning ecx / edx at 0x66625E
 // 0x6661F0
 bool BuffGadgetClass::Unknown_6661F0(const BuffInfoStruct &info, const DurationClass &now)
 {
@@ -232,7 +232,7 @@ bool BuffGadgetClass::Unknown_6661F0(const BuffInfoStruct &info, const DurationC
 	unsigned int old_count = Info.Elements.size();
 	unsigned int count = info.Elements.size();
 	bool grew = count > old_count;
-	bool later = info.BuffRemovalTime.Time > now.Time && !was_permanent && info.BuffRemovalTime.Time > Info.BuffRemovalTime.Time;
+	bool later = info.BuffRemovalTime.Time > now.Time && !(*(volatile bool *)&was_permanent) && info.BuffRemovalTime.Time > Info.BuffRemovalTime.Time;	// provisional (workflow.md 3.1.2): pins now -> edx, info low -> ecx at 0x66625E
 	Info = info;
 	Unknown_666570();
 	if (!Unknown84) {

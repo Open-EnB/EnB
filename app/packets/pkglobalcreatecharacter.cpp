@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
-
+#include "..\shared\auth_product.h"
 // ShipCustDescClass's assignment inlined: the 0x1A name bytes at +0x14 in one loop (shipcust_desc.h's
 // written-out operator=, as 0x8A0380 / 0x89FD80)
 GlobalCreateCharacterPacketClass::GlobalCreateCharacterPacketClass(int galaxy, int slot, const char *name, const AvatarDescClass *desc, const ShipCustDescClass *ship, unsigned char unknown) :

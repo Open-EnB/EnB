@@ -1,0 +1,3 @@
+0x76D990 HtmlGifImageClass::Decode: Terra phase, 13 compiled forms.
+Terra first/group: independent oc/fc assignment, early initialization, short CodeSize and bounded len lifetime improve .29 to .38. Common return restores entry saves but frame0x38 vsretail0x40; first-index local duplicate, late result regresses. Original11/11 preserve; no match. oc dataflow differs from baseline on accepted clear-path codes above255; no production correction kept without a gain.
+Full replayable inputs will be packaged as claim314-forms JSON; actual reports and objects remain under .work/claim-314.

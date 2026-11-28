@@ -7,7 +7,7 @@
 #include "..\kernel\kernel.h"
 #include "..\shared\g_assert.h"
 #include "..\..\ww3d2\ww3d.h"	// WW3D::Get_Frame_Time (0xBFAE3C - 0xBFAE40, read inline)
-
+#include "..\shared\auth_product.h"
 bool Unknown_42EC60(int button, int arg);							// 0x42EC60 (a key down: input.cpp's)  // NAME 1 [button, arg]: neutral
 bool Unknown_42EE90();												// 0x42EE90 (input.cpp: the window has the focus)
 void Unknown_42ED20(float x, float y);								// 0x42ED20 (input.cpp: the pointer placed, 0..1)  // NAME 1 [x, y]: input.h's

@@ -5,7 +5,7 @@
 #include "client.h"
 #include "co.h"
 #include "..\shared\g_assert.h"
-
+#include "..\shared\auth_product.h"
 // @0x7930E0
 CameraController10Class::CameraController10Class(SClient *client) :
 	CameraControllerClass(client)

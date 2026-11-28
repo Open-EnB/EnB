@@ -14,7 +14,7 @@
 #include "..\audio\soundlib.h"
 #include "..\..\wwlib\ini.h"
 #include "..\..\wwlib\wwstring.h"
-
+#include "..\shared\auth_product.h"
 extern FontManagerClass *Unknown_BE67C4;	// NAME 1 [Unknown_BE67C4]: 0xBE67C4
 
 // The buttons Unknown_54 makes: their models' names (0xB7E4D4), also their tooltips' entries

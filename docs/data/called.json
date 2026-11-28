@@ -81,6 +81,12 @@
 "??0GridCullSystemClass@@QAE@XZ": [
 "0x8D6FA0"
 ],
+"??0GridWSClassicEnvironmentMapperClass@@QAE@MIIIW4AxisType@GridWSEnvMapperClass@@I@Z": [
+"0x939EE0"
+],
+"??0GridWSEnvironmentMapperClass@@QAE@MIIIW4AxisType@GridWSEnvMapperClass@@I@Z": [
+"0x93A890"
+],
 "??0HAnimComboClass@@QAE@H@Z": [
 "0x931660"
 ],
@@ -101,9 +107,6 @@
 ],
 "??0INIClass@@QAE@XZ": [
 "0x9C7C60"
-],
-"??0Init@ios_base@std@@QAE@XZ": [
-"0xA18314"
 ],
 "??0LayerClass@@QAE@ABV0@@Z": [
 "0x967930"
@@ -294,9 +297,6 @@
 "??0_Lockit@std@@QAE@XZ": [
 "0xA19CDC"
 ],
-"??0_Winit@std@@QAE@XZ": [
-"0xA18FD6"
-],
 "??0exception@@QAE@ABQBD@Z": [
 "0xA28F2F"
 ],
@@ -359,9 +359,6 @@
 ],
 "??1INIClass@@UAE@XZ": [
 "0x9C7FC0"
-],
-"??1Init@ios_base@std@@QAE@XZ": [
-"0xA18493"
 ],
 "??1LayerClass@@UAE@XZ": [
 "0x967A50"
@@ -444,9 +441,6 @@
 "??1_Lockit@std@@QAE@XZ": [
 "0xA19D78"
 ],
-"??1_Winit@std@@QAE@XZ": [
-"0xA19157"
-],
 "??1exception@@UAE@XZ": [
 "0xA28FD5"
 ],
@@ -509,6 +503,9 @@
 ],
 "??MXtime@@QBEDABV0@@Z": [
 "0x8BB3E0"
+],
+"??OXtime@@QBEDABV0@@Z": [
+"0x8BB430"
 ],
 "??RRandom2Class@@QAEHHH@Z": [
 "0x9D0180"
@@ -675,11 +672,17 @@
 "?Copy@SurfaceClass@@QAEXIIIIIIPBV1@@Z": [
 "0x94DD30"
 ],
+"?Copy@SurfaceClass@@QAEXPBE@Z": [
+"0x94D910"
+],
 "?Cord_SHA@@YA_NPBXHPAI@Z": [
 "0x8B4A90"
 ],
 "?CreateBrowser@DX8WebBrowser@@SAXPBD0HHHHHJPAUIDispatch@@0@Z": [
 "0x9205C0"
+],
+"?CreateCopy@SurfaceClass@@QAEPAEPAH00_N@Z": [
+"0x94DBB0"
 ],
 "?Create_3D_Sound@WWAudioClass@@QAEPAVSound3DClass@@PBDH@Z": [
 "0x9F0350"
@@ -924,6 +927,9 @@
 "?Get_List_Index@INIClass@@QAEHPBD0HQAPAD@Z": [
 "0x9CB2E0"
 ],
+"?Get_Material@MeshMatDescClass@@QBEPAVVertexMaterialClass@@HH@Z": [
+"0x946F80"
+],
 "?Get_Model@MeshClass@@QAEPAVMeshModelClass@@XZ": [
 "0x93EDB0"
 ],
@@ -966,8 +972,14 @@
 "?Get_Shader@LineGroupClass@@QAE?AVShaderClass@@XZ": [
 "0x97BAC0"
 ],
+"?Get_Shader@MeshMatDescClass@@QBE?AVShaderClass@@HH@Z": [
+"0x946FD0"
+],
 "?Get_Shader@PointGroupClass@@QAE?AVShaderClass@@XZ": [
 "0x954890"
+],
+"?Get_Single_Texture@MeshMatDescClass@@QBEPAVTextureClass@@HH@Z": [
+"0x9466A0"
 ],
 "?Get_Specular@VertexMaterialClass@@QBEXPAVVector3@@@Z": [
 "0x92EEB0"
@@ -1770,6 +1782,9 @@
 "?Stop_Root_Profile@WWProfileManager@@SAXXZ": [
 "0x9EAAD0"
 ],
+"?Stretch_Copy@SurfaceClass@@QAEXIIIIIIIIPBV1@@Z": [
+"0x94DEC0"
+],
 "?String@CRC@@SAKPBDK@Z": [
 "0x9D4840"
 ],
@@ -1841,6 +1856,9 @@
 ],
 "?YFlip@Targa@@QAEXXZ": [
 "0x9D33D0"
+],
+"?_Create_DX8_Texture@DX8Wrapper@@SAPAUIDirect3DTexture8@@PAUIDirect3DSurface8@@W4MipCountType@@@Z": [
+"0x925CC0"
 ],
 "?_Getfacet@locale@std@@QBEPBVfacet@12@I_N@Z": [
 "0xA1A3E3"
@@ -1968,6 +1986,9 @@
 "?set@Wstring@@QAEDPBD@Z": [
 "0x8B7570"
 ],
+"?set@Xtime@@QAEXJJ@Z": [
+"0x8BA890"
+],
 "?setBufferedWrites@TCPMgr@@QAEDPAVTCPCon@@D@Z": [
 "0x8BCEF0"
 ],
@@ -1979,6 +2000,9 @@
 ],
 "?strtok_r@@YAPADPADPBDPAPAD@Z": [
 "0x9DEBF0"
+],
+"?strtrim@@YAPADPAD@Z": [
+"0x9DB030"
 ],
 "?truncate@Wstring@@QAEDK@Z": [
 "0x8B7AC0"
@@ -2280,6 +2304,9 @@
 "_isgraph": [
 "0xA26404"
 ],
+"_isprint": [
+"0xA263D6"
+],
 "_ispunct": [
 "0xA26380"
 ],
@@ -2342,6 +2369,9 @@
 ],
 "_sprintf": [
 "0xA266DA"
+],
+"_srand": [
+"0xA28A24"
 ],
 "_sscanf": [
 "0xA28059"
@@ -2736,6 +2766,9 @@
 "data:?ForgetOut@BandwidthAccountingClass@@2_NA": [
 "0xBB13E9"
 ],
+"data:?FrameCount@WW3D@@0HA": [
+"0xBFAE58"
+],
 "data:?FrameCounter@WWProfileManager@@0HA": [
 "0xC4048C"
 ],
@@ -3010,18 +3043,15 @@
 "0xC415FC"
 ],
 "data:?UnknownGlobal@?$DeltaItemArrayClass@VDeltaMissionStageClass@@@@2HA": [
-"0xC415E8",
-"0xC41668"
+"0xC415E8"
 ],
 "data:?UnknownGlobal@?$DeltaItemArrayClass@VDeltaPrimaryCategoryClass@@@@2HA": [
 "0xC4162C"
 ],
 "data:?UnknownGlobal@?$DeltaItemArrayClass@VDeltaSkillAbilityClass@@@@2HA": [
-"0xC41658",
 "0xC41668"
 ],
 "data:?UnknownGlobal@?$DeltaItemArrayClass@VDeltaSkillClass@@@@2HA": [
-"0xC415E8",
 "0xC41658"
 ],
 "data:?UnknownGlobal@?$DeltaItemArrayClass@VDeltaStringClass@@@@2HA": [
@@ -3031,15 +3061,12 @@
 "0xC4160C"
 ],
 "data:?UnknownGlobal@?$DeltaTemplateClass@H@@2HA": [
-"0xC416A8",
-"0xC416AC",
-"0xC416F0"
+"0xC416A8"
 ],
 "data:?UnknownGlobal@?$DeltaTemplateClass@I@@2HA": [
 "0xC4163C"
 ],
 "data:?UnknownGlobal@?$DeltaTemplateClass@M@@2HA": [
-"0xC416A8",
 "0xC416F0"
 ],
 "data:?UnknownGlobal@?$DeltaTemplateClass@UInvSlotStruct@@@@2HA": [
@@ -3049,8 +3076,7 @@
 "0xC41588"
 ],
 "data:?UnknownGlobal@?$DeltaTemplateClass@USkillLevelAvailabilityStruct@@@@2HA": [
-"0xC4166C",
-"0xC416A8"
+"0xC4166C"
 ],
 "data:?UnknownGlobal@?$DeltaTemplateClass@VDurationClass@@@@2HA": [
 "0xBE3AA4"
@@ -3107,7 +3133,6 @@
 "0xC41564"
 ],
 "data:?UnknownGlobal@?$DeltaTemplateClass@_N@@2HA": [
-"0xC4166C",
 "0xC416AC"
 ],
 "data:?UnknownGlobal@DeltaCompoundClass@@2HA": [
@@ -4280,6 +4305,9 @@
 "data:__real@4@bffeb5c28f0000000000": [
 "0xAF7AE0"
 ],
+"data:__real@4@bffecccccd0000000000": [
+"0xB0472C"
+],
 "data:__real@4@bfff8000000000000000": [
 "0xAE784C",
 "0xAF2D14"
@@ -4292,6 +4320,9 @@
 ],
 "data:__real@4@c002b000000000000000": [
 "0xB04748"
+],
+"data:__real@4@c002c000000000000000": [
+"0xAFFE60"
 ],
 "data:__real@4@c006e400000000000000": [
 "0xB0709C"
@@ -4352,6 +4383,9 @@
 ],
 "data:__real@8@3ffbccccccccccccd000": [
 "0xAF0638"
+],
+"data:__real@8@3ffd8000000000000000": [
+"0xB04730"
 ],
 "data:__real@8@3ffd860a920000000000": [
 "0xB05968"

@@ -3,7 +3,7 @@
 unsigned int Unknown_Get_Ticks();	// 0x4A3B40 (delta_time.cpp; unknown_root.h's, not included: the client object has no permstr.h static)
 #include <stdio.h>
 #include <string.h>
-
+#include "..\shared\auth_product.h"
 LoginPacketClass::LoginPacketClass(const TicketClass &ticket, const char *name, int unknown) :
 	Ticket(ticket),
 	UnknownA4(unknown)

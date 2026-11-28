@@ -47,7 +47,7 @@ void EnvironmentMapManagerClass::Load(const char *env_map_ini_filename)
 		sprintf(section, "PROCTEX-%02d", index);
 	}
 }
-// NOT EXACT: register (masked residue 75, was 170): sprintf's 4th argument 0xFE and the Z / z cases are the client's (its push / add esp, 0x10 and switch tables); every differing region is codegen only (A2 2026-11-25: same reads, stores, guards and bounds); left: ours addresses src as dst + (src - dst) where the client steps both pointers, and the register webs around it (D64)
+
 // 0x760770
 void EnvironmentMapManagerClass::Unknown_760770(int base_asset, bool a)
 {
@@ -141,20 +141,20 @@ void EnvironmentMapManagerClass::Unknown_760770(int base_asset, bool a)
 
 		// the reflection added over the bottom right quarter, its half size copy over each other cell of a 4 x 4 grid
 		int scale = a ? 2 : 1;
-		int pitch = base_desc.Width * 3;
 		int half_height = base_desc.Height >> 1;
 		int half_pitch = (base_desc.Width >> 1) * 3;
-		unsigned char *src = reflection;
-		for (int y = 0; y < half_height; y++, src = reflection + y * half_pitch) {
-			unsigned char *dst = pixels + (half_height + y) * pitch + half_pitch;
+		int pitch = base_desc.Width * 3;
+		for (int y = 0; y < half_height; y++) {
 			for (int x = 0; x < half_pitch; x++) {
-				int s = src[x]; int value = s * scale + dst[x];
+				int s = y * half_pitch + x; int d = (half_height + y) * pitch + half_pitch + x;
+				int value = reflection[s] * scale + pixels[d];
 				if (value > 0xFF) {
 					value = 0xFF;
 				}
-				dst[x] = (unsigned char)value;
+				pixels[d] = (unsigned char)value;
 			}
 		}
+
 
 
 
@@ -168,25 +168,25 @@ void EnvironmentMapManagerClass::Unknown_760770(int base_asset, bool a)
 			for (int col = 0; col < pitch; col += quarter_pitch) {
 				if (col < half_pitch || row < half_height) {
 					for (int y = 0; y < quarter_height; y++) {
-						unsigned char *dst = pixels + (row + y) * pitch + col;
-						unsigned char *src = reflection_small + y * quarter_pitch;
 						for (int x = 0; x < quarter_pitch; x++) {
-							int s = *src; int value = s * scale + *dst;
+							int s = y * quarter_pitch + x; int d = (row + y) * pitch + col + x;
+							int value = reflection_small[s] * scale + pixels[d];
 							if (value > 0xFF) {
 								value = 0xFF;
 							}
-							*dst = (unsigned char)value; dst++; src++;
+							pixels[d] = (unsigned char)value;
 						}
 					}
-
-
-
-
-
-
 				}
 			}
 		}
+
+
+
+
+
+
+
 
 		new_surface->Copy(pixels);
 		IDirect3DTexture8 *d3d_texture = DX8Wrapper::_Create_DX8_Texture(new_surface->Peek_D3D_Surface(), MIP_LEVELS_ALL);
@@ -212,9 +212,9 @@ void EnvironmentMapManagerClass::Unknown_760770(int base_asset, bool a)
 **	level 0 surface: the full one over the bottom right quarter, the half one over the other cells of a 4 x 4 grid;
 **	the result applied to the asset manager's texture of that name as a new D3D texture (IsProcedural set).
 **	The asset manager through WW3DAssetManager::Get_Instance (the client reads 0xBFAEE0, the other app files'
-**	Unknown_BFAEE0, which nothing defines yet). Functional NOT EXACT (D64).
-**	Block 1's src row is carried around the y loop (set in the loop's step): set per row before the inner loop
-**	it moves the function's zero register off the client's ebp (value-identical: src = reflection + y * half_pitch on
-**	every row, unused when the height is 0). Both blocks still address src as dst + (src - dst)
-**	([esi+ecx]) where the client steps both pointers (inc esi; inc ecx).
+**	Unknown_BFAEE0, which nothing defines yet).
+**	Both blend blocks index pixels[] / reflection[] with int offsets computed in the inner loop (s before d), no
+**	pointer locals: the client's two stepped pointers (inc esi; inc ecx), half_height / half_pitch in edx / edi,
+**	row in memory and the dead store of the dst offset come from that; pitch is declared after half_height and
+**	half_pitch (the client's mov eax, ebx; imul eax, edx and its store order).
 */

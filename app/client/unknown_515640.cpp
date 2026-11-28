@@ -41,8 +41,8 @@ void Unknown515640Class::Unknown_60()
 {
 	ClientObjectClass *avatar = ((ClientClass *)Client)->Get_Avatar();
 	if (Unknown84 != NULL && avatar != NULL) {
-		float low = ((ClientClass *)Client)->Unknown10D4;
-		float high = ((ClientClass *)Client)->Unknown10D8;
+		float low = ((ClientClass *)Client)->Unknown10D4.X;
+		float high = ((ClientClass *)Client)->Unknown10D4.Y;
 		float t = (avatar->Unknown_24().Z - low) / (high - low);
 		Unknown84->Unknown_6865E0(1.0f - t, 0.0f);
 	}

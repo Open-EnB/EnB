@@ -10,7 +10,7 @@
 #include "gd_inv_slider.h"
 #include "local_interface_sort.h"
 #include "..\shared\g_assert.h"
-
+#include "..\shared\auth_product.h"
 // What InterfaceClass's +0x40 points to, as far as this file calls it (as pdaint.cpp declares it)
 class LineDisplayClientClass  // NAME 1: neutral (D10)
 {

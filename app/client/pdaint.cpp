@@ -20,7 +20,7 @@
 #include "..\shared\g_assert.h"
 #include "ui_experience.h"	// UIExperienceClass (+0xB4)
 void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);	// 0x496AE0 (ro_funcs.cpp, cdecl)  // NAME 1 [robj, make_geometry_unique]: as eff_o.cpp's
-
+#include "..\shared\auth_product.h"
 // What InterfaceClass's +0x40 points to, as far as this file calls it (as ui_cinfo.cpp declares it)
 class LineDisplayClientClass  // NAME 1: neutral (D10)
 {

@@ -14,7 +14,7 @@
 #include "..\..\wwlib\ref_ptr.h"
 #include "..\shared\g_assert.h"
 #include "..\audio\soundlib.h"
-
+#include "..\shared\auth_product.h"
 #include "avatar.h"	// CharacterViewAvatarClass (the window's +0xBC)
 #include "aabox.h"
 #include "random.h"
@@ -1406,18 +1406,18 @@ void StarbaseAvatarCreationInterface::Unknown_550970(int value)
 	Unknown_551BF0();
 }
 
-// NOT EXACT: register (0.71, 1713 bytes against 0x6A8: the frame time's second global loads into ebp, pushed early, and the copies' registers rotate from there; attempts.py show 0x550A10)
+// (each model through Peek_Render_Obj(): the argument gets its own register and the frame time's second global stays out of ebp; block 3 is the same if / else as blocks 1 and 2)
 // 0x550A10
 void StarbaseAvatarCreationInterface::Unknown_550A10()
 {
-	Unknown_Find_Field<DeltaTemplateClass<float> >(NULL, *(NameClass *)this); Unknown_Find_Field<DeltaTemplateClass<float> >(NULL, *(NameClass *)this); Unknown_Find_Field<DeltaTemplateClass<float> >(NULL, *(NameClass *)this); Unknown_Find_Field<DeltaTemplateClass<float> >(NULL, *(NameClass *)this); Unknown_Find_Field<DeltaTemplateClass<float> >(NULL, *(NameClass *)this); Unknown_Find_Field<DeltaTemplateClass<float> >(NULL, *(NameClass *)this);	// dead finds (D130; not the client's): they spend VC6's inline budget, so the third Rotate_Y stays out of line as the client's (matrix3d.h's copy 0x551270; four were enough before 0x5513E0-0x551C80 joined the file, five before gadget.h's, gd_robj.h's and unknown_671300.h's inline slots did; with five now it is inlined)
+	Unknown_Find_Field<DeltaTemplateClass<float> >(NULL, *(NameClass *)this); Unknown_Find_Field<DeltaTemplateClass<float> >(NULL, *(NameClass *)this);	// dead finds (not the client's): they spend VC6's inline budget, so block 3's two Rotate_Y sites stay out of line as the client's (matrix3d.h's copy 0x551270). Exact with 1, 2 or 3 of them; six were needed while the models came as Unknown240[k]->RObj and the translation went through three operator [] stores (attempts.py show 0x550A10)
 	if (Unknown0B0 != 2) {
 		return;
 	}
 	float time = WW3D::Get_Frame_Time() * 0.001f;
 	float slow = time * 0.3f;
 	float fast = time + time;
-	RefCountPtr<RenderObjClass> model = Unknown_497300(Unknown240[8]->RObj);
+	RefCountPtr<RenderObjClass> model = Unknown_497300(Unknown240[8]->Peek_Render_Obj());
 	if (model) {
 		Matrix3D tm = model->Get_Transform();
 		if (Unknown35C == 0) {
@@ -1429,13 +1429,13 @@ void StarbaseAvatarCreationInterface::Unknown_550A10()
 		InterfaceMesh->Peek_Object()->Capture_Bone(bone);
 		InterfaceMesh->Peek_Object()->Control_Bone(bone, Unknown26C[0]);
 		Matrix3D newtm(Unknown26C[0]);
-		newtm[0][3] = tm[0][3];
-		newtm[1][3] = tm[1][3];
-		newtm[2][3] = tm[2][3];
+		Vector3 pos;
+		tm.Get_Translation(&pos);
+		newtm.Set_Translation(pos);
 		model->Set_Transform(newtm);
 		Unknown240[8]->Unknown_6608F0();
 	}
-	model = Unknown_497300(Unknown240[9]->RObj);
+	model = Unknown_497300(Unknown240[9]->Peek_Render_Obj());
 	if (model) {
 		Matrix3D tm = model->Get_Transform();
 		if (Unknown35C == 1) {
@@ -1447,27 +1447,27 @@ void StarbaseAvatarCreationInterface::Unknown_550A10()
 		InterfaceMesh->Peek_Object()->Capture_Bone(bone);
 		InterfaceMesh->Peek_Object()->Control_Bone(bone, Unknown26C[1]);
 		Matrix3D newtm(Unknown26C[1]);
-		newtm[0][3] = tm[0][3];
-		newtm[1][3] = tm[1][3];
-		newtm[2][3] = tm[2][3];
+		Vector3 pos;
+		tm.Get_Translation(&pos);
+		newtm.Set_Translation(pos);
 		model->Set_Transform(newtm);
 		Unknown240[9]->Unknown_6608F0();
 	}
-	model = Unknown_497300(Unknown240[10]->RObj);
+	model = Unknown_497300(Unknown240[10]->Peek_Render_Obj());
 	if (model) {
 		Matrix3D tm = model->Get_Transform();
-		float angle = slow;
 		if (Unknown35C == 2) {
-			angle = fast;
+			Unknown26C[2].Rotate_Y(fast);
+		} else {
+			Unknown26C[2].Rotate_Y(slow);
 		}
-		Unknown26C[2].Rotate_Y(angle);
 		int bone = InterfaceMesh->Peek_Object()->Get_Bone_Index(UIAvatarCustParts[39].Button);
 		InterfaceMesh->Peek_Object()->Capture_Bone(bone);
 		InterfaceMesh->Peek_Object()->Control_Bone(bone, Unknown26C[2]);
 		Matrix3D newtm(Unknown26C[2]);
-		newtm[0][3] = tm[0][3];
-		newtm[1][3] = tm[1][3];
-		newtm[2][3] = tm[2][3];
+		Vector3 pos;
+		tm.Get_Translation(&pos);
+		newtm.Set_Translation(pos);
 		model->Set_Transform(newtm);
 		Unknown240[10]->Unknown_6608F0();
 	}
@@ -2353,7 +2353,7 @@ void StarbaseAvatarCreationInterface::Unknown_551C80()
 **	Before 0x550670 (TK15, claims #119 / #120): 0x54E610 (the gadgets hidden while the view's +0x34 is
 **	active), 0x54EC30 (NOT EXACT: the new look sent, RECUSTOMIZE_AVATAR_DONE; it brings SBaseViewClass's
 **	Get_Starbase 0x54EDA0 and the packet's implicit destructor 0x54EDD0 out of line), 0x54F2B0 (+0x368..+0x378
-**	deleted), 0x550140 (the part buttons) and 0x550550 (the zoom); NOT EXACT (register) 0x54E690 / 0x54E7F0 (the
+**	deleted), 0x550140 (the part buttons) and 0x550550 (the zoom); exact since (once register) 0x54E690 / 0x54E7F0 (the
 **	body and pants types), 0x54E950 (+0x368's value) and 0x54EAD0 (+0x36C's value); 0x54E3C0 (the model's
 **	turn while a turn button is held: 0x54E610 calls it), 0x54EE40 / 0x54EE80 (reached only through a table)
 **	exact. +0xBC is a RefCountPtr (0x54E690 hands it to +0xB8's
@@ -2367,10 +2367,10 @@ void StarbaseAvatarCreationInterface::Unknown_551C80()
 **	head pulls made), 0x54DC20 (a mode's gadgets shown), 0x54EEC0 (the choosers made), 0x54FAA0 (the colour pull
 **	dragged), 0x551320 (the FlashingGadgetEvent handler) and the destructor 0x54BAB0 (the callback taken off
 **	through SignalMap::Remove, its base SignalBaseClass::EventCallbackClass<FlashingGadgetEvent>'s constructor
-**	0x551EE0 out of line as the client's; 0x551EE0-0x551F70 exact with it). NOT EXACT: 0x54DFE0 (the tab
-**	switch: inline budget, as ui_avatr.cpp's 0x556B20), 0x54F390 (the head pull dragged: one byte), 0x54F6F0 (the
-**	tattoo pull: order-only), 0x54FFC0 (order-only) and 0x5502F0 (two bools' stack slots). Init 0x54BD30
-**	(slot +0x54) exact (SA, 2026-11-20). The key handler 0x54CBC0 (slot +0x68) NOT EXACT (masked 31, SA 2026-11-20).
+**	0x551EE0 out of line as the client's; 0x551EE0-0x551F70 exact with it). Exact since: 0x54DFE0 (the tab
+**	switch, once inline budget as ui_avatr.cpp's 0x556B20), 0x54F6F0 (the tattoo pull), 0x54FFC0 and 0x5502F0.
+**	Still NOT EXACT: 0x54F390 (the head pull dragged: one byte, the client re-tests +0x64). Init 0x54BD30
+**	(slot +0x54) exact (SA, 2026-11-20). The key handler 0x54CBC0 (slot +0x68) exact (once masked 31, SA 2026-11-20).
 **	+0xC0 is the old look (an AvatarDescClass, 0x10C bytes, up to the gadgets at +0x1CC), the avatar's +0xF8
 **	the new one; the +0xB8 gadget is ship_pip.cpp's (ship_pip.h's ShipPipClass).
 */

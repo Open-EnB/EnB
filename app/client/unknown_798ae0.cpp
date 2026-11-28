@@ -3,7 +3,7 @@
 #include "camera_manager.h"
 #include "sclient.h"
 #include "client.h"
-
+#include "..\shared\auth_product.h"
 // 0x798AE0
 CameraController00Class::CameraController00Class(SClient *client) :
 	CameraControllerClass(client),

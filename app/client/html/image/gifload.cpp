@@ -16,7 +16,7 @@ static unsigned short code_mask[13] = {
 };
 
 static unsigned char b1;
-static unsigned short ret;
+static unsigned short ret = 0; // NAME 1: reconstructed decoder word accumulator; zero initialization preserves retail BSS ordering
 
 int Build_Pixel(DSurface *surface, int red, int green, int blue)
 {
@@ -28,7 +28,7 @@ int Build_Pixel(DSurface *surface, int red, int green, int blue)
 	}
 	return(pixel);
 }
-
+static inline void Build_Colors(HtmlGifImageClass *image) { for (int i = 0; i < 256; i++) image->Colors[i] = Build_Pixel(image->Surf, image->Palette[i * 3], image->Palette[i * 3 + 1], image->Palette[i * 3 + 2]); } // NAME 2 [Build_Colors, image, i]: palette conversion loop; reload the current surface for each pixel
 HtmlGifImageClass::HtmlGifImageClass(char *name, int bits) : HtmlImageClass(name, bits)
 {
 }
@@ -37,19 +37,19 @@ HtmlGifImageClass::~HtmlGifImageClass(void)
 {
 }
 
-// NOT EXACT: 0x76D4A0, functional (D64): the client keeps i / c / count in registers and the result in the dead
-// data argument's slot (frame 0x10 vs 0x20, the header and descriptor share one 13-byte buffer)
+
+
 int HtmlGifImageClass::Set_Data(char *data, int length)
 {
 	unsigned char buffer[13];
-	int status = 0;
+
 	int i;
 	int c;
 
 	Data = data;
 	Length = length;
 	Position = 0;
-	memset(Line, 0, sizeof(Line));
+	memset(Line, 0, sizeof(Line)); int status = 0;
 
 	for (i = 0; i < 13; i++) {
 		c = Get_Byte();
@@ -60,28 +60,62 @@ int HtmlGifImageClass::Set_Data(char *data, int length)
 
 	if (strncmp((char *)buffer, "GIF87a", 3) == 0 && buffer[3] >= '0' && buffer[3] <= '9' && buffer[4] >= '0' && buffer[4] <= '9' && buffer[5] >= 'A' && buffer[5] <= 'z') {
 		Width = (buffer[7] << 8) | buffer[6];
-		Height = (buffer[9] << 8) | buffer[8];
+		Height = (buffer[9] << 8) | buffer[8]; int palette_bits = (buffer[10] & 0x0F) + 1; // NAME 2 [palette_bits]: global color-table size exponent from the GIF descriptor
 		if (Width <= 0x800 && Height <= 0x800) {
 			Create_Surface(Width, Height);
 			if (buffer[10] & 0x80) {
-				ColorCount = 1 << ((buffer[10] & 0x0F) + 1);
-				for (i = 0; i < ColorCount * 3; i++) {
+				ColorCount = 1 << palette_bits;
+				int palette_bytes = ColorCount * 3; for (i = 0; i < palette_bytes; i++) {
 					c = Get_Byte();
 					if (c < 0)
 						return(-1);
 					Palette[i] = (unsigned char)c;
 				}
-				for (i = 0; i < 256; i++)
-					Colors[i] = Build_Pixel(Surf, Palette[i * 3], Palette[i * 3 + 1], Palette[i * 3 + 2]);
+				Build_Colors(this);
 
-				for (;;) {
-					c = Get_Byte();
-					if (c < 0) {
-						status = -1;
+
+				while (true) {
+					if (Position >= Length) goto block_error;
+					c = (unsigned char)Data[Position++];
+
+
+
+
+					if (c != '!') { if (c == ',') {
+						for (i = 0; i < 9; i++) {
+							c = Get_Byte();
+							buffer[i] = (unsigned char)c;
+							if (c < 0)
+								goto block_error;
+						}
+
+
+
+
+						if (status < 0)
+							break;
+						if ((buffer[8] & 0x80) == 0x80) {
+							int count = 1 << ((buffer[8] & 0x0F) + 1);
+							for (i = 0; i < count; i++) {
+								for (int j = 0; j < 3; j++) {
+									if (Get_Byte() < 0)
+										return(-1);
+								}
+							}
+						}
+						memset(Line, 0, sizeof(Line));
+						status = Decode((short)Width);
+						if (Get_Byte() != 0) { block_error: // NAME 2 [block_error]: shared block-read and terminator failure path
+							status = -1;
+							break;
+						}
+					} else {
+						status = 0;
+						if (c != ';')
+							status = -1;
+
 						break;
-					}
-
-					if (c == '!') {
+					} } else {
 						if (Get_Byte() == 0xF9) {
 							Get_Byte();
 							if (Get_Byte() & 1)
@@ -97,40 +131,6 @@ int HtmlGifImageClass::Set_Data(char *data, int length)
 								} while (--count);
 							}
 						}
-					} else if (c == ',') {
-						for (i = 0; i < 9; i++) {
-							c = Get_Byte();
-							buffer[i] = (unsigned char)c;
-							if (c < 0)
-								break;
-						}
-						if (c < 0) {
-							status = -1;
-							break;
-						}
-						if (status < 0)
-							break;
-						if ((buffer[8] & 0x80) == 0x80) {
-							int count = 1 << ((buffer[8] & 0x0F) + 1);
-							for (i = 0; i < count; i++) {
-								for (int j = 0; j < 3; j++) {
-									if (Get_Byte() < 0)
-										return(-1);
-								}
-							}
-						}
-						memset(Line, 0, sizeof(Line));
-						status = Decode((short)Width);
-						if (Get_Byte() != 0) {
-							status = -1;
-							break;
-						}
-					} else {
-						if (c == ';')
-							status = 0;
-						else
-							status = -1;
-						break;
 					}
 				}
 				return(status);
@@ -488,7 +488,7 @@ short HtmlGifImageClass::Decode(short linewidth)
 	return(0);
 }
 
-// NOT EXACT: 0x76DF60, one instruction: the client reads ret for the final mask with a word load, ours a dword
+
 short HtmlGifImageClass::Get_Next_Code(void)
 {
 	if (BitsLeft == 0) {

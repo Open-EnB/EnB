@@ -2,7 +2,7 @@
 #include "pknotelist.h"
 #include "nstrdup.h"
 #include <stdio.h>
-
+#include "..\shared\auth_product.h"
 NoteListPacketClass::NoteListPacketClass()
 {
 }

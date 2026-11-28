@@ -1,0 +1,224 @@
+# ===== v1.py
+HYPOTHESIS = '0x7981B0 rows 1-2 sum order: VC6 orders a reassociated FP sum by symbol identity, so a different symbol set or declaration order (no code change) moves the order'
+FILE = 'app/client/unknown_7979a0.cpp'
+SYMBOL = 'CameraController02Class::Unknown_7981B0'
+ADDRESS = 0x7981B0
+
+FR = '\tMatrix3D frame = Unknown_82ECB0(dir, tm.Get_Translation());\n'
+P = '\tVector3 first = frame * one;\n\tVector3 second = frame * two;\n'
+FRP = FR + P
+ONE = '\tVector3 one; one.Y = c * range; one.Z = s * range;\n'
+TWO = '\tVector3 two; two.Y = c * range; two.Z = s * range; one.X = two.X = range + range;\n'
+TOP = 'Unknown_7981B0()\n{\n\tMatrix3D tm = Client->Get_Avatar()->Unknown_28(true);\n'
+TOPS = 'Unknown_7981B0()\n{\n'
+
+FORMS = {
+    'dummy_f_before_frame': [(FRP, '\tfloat dummy;\n' + FR[:-1] + ' (void)dummy;\n' + P)],
+    'decl_first_second_early': [(FRP, '\tVector3 first, second;\n' + FR[:-1] + ' first = frame * one;\n\tsecond = frame * two;\n')],
+    'decl_one_two_top': [(TOP, TOPS + '\tVector3 one, two;\n' + TOP[len(TOPS):-1]),
+                         (ONE, '\tone.Y = c * range; one.Z = s * range;\n'),
+                         (TWO, '\ttwo.Y = c * range; two.Z = s * range; one.X = two.X = range + range;\n')],
+    'decl_two_one_top': [(TOP, TOPS + '\tVector3 two, one;\n' + TOP[len(TOPS):-1]),
+                         (ONE, '\tone.Y = c * range; one.Z = s * range;\n'),
+                         (TWO, '\ttwo.Y = c * range; two.Z = s * range; one.X = two.X = range + range;\n')],
+    'decl_frame_first_top': [(TOP, TOPS + '\tMatrix3D frame;\n' + TOP[len(TOPS):-1]),
+                             (FRP, '\tframe = Unknown_82ECB0(dir, tm.Get_Translation());\n' + P)],
+    'two_decl_with_one': [(ONE, '\tVector3 one, two; one.Y = c * range; one.Z = s * range;\n'),
+                          (TWO, '\ttwo.Y = c * range; two.Z = s * range; one.X = two.X = range + range;\n')],
+    'dummy_v_top': [(TOP, TOPS + '\tVector3 dummy;\n' + TOP[len(TOPS):-1] + ' (void)dummy;\n')],
+}
+
+# ===== v2.py
+HYPOTHESIS = '0x7981B0 rows 1-2 sum order follows how the vector components are defined (X shared value, Y/Z scale form) or how the matrix is bound'
+FILE = 'app/client/unknown_7979a0.cpp'
+SYMBOL = 'CameraController02Class::Unknown_7981B0'
+ADDRESS = 0x7981B0
+
+FR = '\tMatrix3D frame = Unknown_82ECB0(dir, tm.Get_Translation());\n'
+P = '\tVector3 first = frame * one;\n\tVector3 second = frame * two;\n'
+FRP = FR + P
+X = ' one.X = two.X = range + range;\n'
+S1 = '\tone.Y *= 1.25f;\n\tone.Z *= 1.25f;\n'
+S2 = '\ttwo.Scale(Vector3(1.0f, 1.25f, 1.25f));\n'
+
+FORMS = {
+    'x_local': [(X, ' float x = range + range; one.X = x; two.X = x;\n')],
+    'x_mul2': [(X, ' one.X = two.X = range * 2.0f;\n')],
+    'x_2mul': [(X, ' one.X = two.X = 2.0f * range;\n')],
+    'one_explicit_mul': [(S1, '\tone.Y = one.Y * 1.25f;\n\tone.Z = one.Z * 1.25f;\n')],
+    'two_explicit_mul': [(S2, '\ttwo.Y = two.Y * 1.25f;\n\ttwo.Z = two.Z * 1.25f;\n')],
+    'frame_ref': [(FR, '\tconst Matrix3D &frame = Unknown_82ECB0(dir, tm.Get_Translation());\n')],
+    'one_z_first': [(S1, '\tone.Z *= 1.25f;\n\tone.Y *= 1.25f;\n')],
+    'one_zy_assign': [('\tVector3 one; one.Y = c * range; one.Z = s * range;\n',
+                       '\tVector3 one; one.Z = s * range; one.Y = c * range;\n')],
+    'two_zy_assign': [('\tVector3 two; two.Y = c * range; two.Z = s * range;',
+                       '\tVector3 two; two.Z = s * range; two.Y = c * range;')],
+}
+
+# ===== v3.py
+HYPOTHESIS = '0x7981B0: the X term ranks last in row 0 and first in rows 1-2 because of how X is defined; a definition of X by its own expression per vector (CSE) or at another place keeps X last'
+FILE = 'app/client/unknown_7979a0.cpp'
+SYMBOL = 'CameraController02Class::Unknown_7981B0'
+ADDRESS = 0x7981B0
+
+TWO = '\tVector3 two; two.Y = c * range; two.Z = s * range; one.X = two.X = range + range;\n'
+ONE = '\tVector3 one; one.Y = c * range; one.Z = s * range;\n'
+
+FORMS = {
+    'x_cse_both': [(TWO, '\tVector3 two; two.Y = c * range; two.Z = s * range; one.X = range + range; two.X = range + range;\n')],
+    'x_cse_two_first': [(TWO, '\tVector3 two; two.Y = c * range; two.Z = s * range; two.X = range + range; one.X = range + range;\n')],
+    'x_before_two_yz': [(TWO, '\tVector3 two; one.X = two.X = range + range; two.Y = c * range; two.Z = s * range;\n')],
+    'x_cse_split': [(ONE, '\tVector3 one; one.Y = c * range; one.Z = s * range; one.X = range + range;\n'),
+                    (TWO, '\tVector3 two; two.Y = c * range; two.Z = s * range; two.X = range + range;\n')],
+    'x_cse_first_in_each': [(ONE, '\tVector3 one; one.X = range + range; one.Y = c * range; one.Z = s * range;\n'),
+                            (TWO, '\tVector3 two; two.X = range + range; two.Y = c * range; two.Z = s * range;\n')],
+    'x_chain_first_in_two': [(TWO, '\tVector3 two; two.X = one.X = range + range; two.Y = c * range; two.Z = s * range;\n')],
+    'x_cse_before_two_yz': [(TWO, '\tVector3 two; one.X = range + range; two.X = range + range; two.Y = c * range; two.Z = s * range;\n')],
+}
+
+# ===== v4.py
+HYPOTHESIS = '0x7981B0: the client sums X last in every row as when X is defined first (scale_both / x first: the products are the client\'s); an early placeholder X (constructor 0, dead store) gives X the early rank while range + range is computed late'
+FILE = 'app/client/unknown_7979a0.cpp'
+SYMBOL = 'CameraController02Class::Unknown_7981B0'
+ADDRESS = 0x7981B0
+
+ONE = '\tVector3 one; one.Y = c * range; one.Z = s * range;\n'
+TWO = '\tVector3 two; two.Y = c * range; two.Z = s * range; one.X = two.X = range + range;\n'
+S1 = '\tone.Y *= 1.25f;\n\tone.Z *= 1.25f;\n'
+S2 = '\ttwo.Scale(Vector3(1.0f, 1.25f, 1.25f));\n'
+ONE0 = '\tVector3 one(0.0f, c * range, s * range);\n'
+TWO0 = '\tVector3 two(0.0f, c * range, s * range); one.X = two.X = range + range;\n'
+
+FORMS = {
+    'zero_both': [(ONE, ONE0), (TWO, TWO0)],
+    'zero_one': [(ONE, ONE0)],
+    'zero_two': [(TWO, TWO0)],
+    'zero_both_scale_both': [(ONE, ONE0), (TWO, TWO0), (S1, '\tone.Scale(Vector3(1.0f, 1.25f, 1.25f));\n')],
+    'zero_both_mul_both': [(ONE, ONE0), (TWO, TWO0), (S2, '\ttwo.Y *= 1.25f;\n\ttwo.Z *= 1.25f;\n')],
+    'xzero_assign': [(ONE, '\tVector3 one; one.X = 0.0f; one.Y = c * range; one.Z = s * range;\n'),
+                     (TWO, '\tVector3 two; two.X = 0.0f; two.Y = c * range; two.Z = s * range; one.X = two.X = range + range;\n')],
+    'set_late_x': [(ONE, '\tVector3 one; one.Set(0.0f, c * range, s * range);\n'),
+                   (TWO, '\tVector3 two; two.Set(0.0f, c * range, s * range); one.X = two.X = range + range;\n')],
+}
+
+# ===== v5.py
+HYPOTHESIS = '0x7981B0 on the constructor-0 placeholder base (products sum as the client): one scaled by Scale gives row 2 of product 1 its v-first operands; find the X store form that keeps the client fst'
+FILE = 'app/client/unknown_7979a0.cpp'
+SYMBOL = 'CameraController02Class::Unknown_7981B0'
+ADDRESS = 0x7981B0
+
+ONE = '\tVector3 one; one.Y = c * range; one.Z = s * range;\n'
+TWO = '\tVector3 two; two.Y = c * range; two.Z = s * range; one.X = two.X = range + range;\n'
+S1 = '\tone.Y *= 1.25f;\n\tone.Z *= 1.25f;\n'
+S2 = '\ttwo.Scale(Vector3(1.0f, 1.25f, 1.25f));\n'
+ONE0 = '\tVector3 one(0.0f, c * range, s * range);\n'
+TWO0 = '\tVector3 two(0.0f, c * range, s * range);'
+SC1 = '\tone.Scale(Vector3(1.0f, 1.25f, 1.25f));\n'
+B = [(ONE, ONE0)]
+
+
+def two(x):
+    return (TWO, TWO0 + x + '\n')
+
+
+FORMS = {
+    'sb_x_two_first': B + [two(' two.X = one.X = range + range;'), (S1, SC1)],
+    'sb_x_cse': B + [two(' one.X = range + range; two.X = range + range;'), (S1, SC1)],
+    'sb_x_cse_rev': B + [two(' two.X = range + range; one.X = range + range;'), (S1, SC1)],
+    'sb_x_sep': B + [two(' one.X = range + range; two.X = one.X;'), (S1, SC1)],
+    'sb_two_first': B + [two(' one.X = two.X = range + range;'), (S1 + S2, S2 + SC1)],
+    'mul_z_first': B + [two(' one.X = two.X = range + range;'), (S1, '\tone.Z *= 1.25f;\n\tone.Y *= 1.25f;\n')],
+    'sb_x_after_scales': B + [two(''), (S1 + S2, SC1 + S2 + '\tone.X = two.X = range + range;\n')],
+    'sb_x_between': B + [two(''), (S1 + S2, SC1 + '\tone.X = two.X = range + range;\n' + S2)],
+}
+
+# ===== v6.py
+HYPOTHESIS = '0x7981B0 on ctor-0 + one.Scale + two.Scale (products exact): the X stores split around one.Scale as the client orders them (one.X, one scaled, two.X, two scaled) remove the last scheduling rows'
+FILE = 'app/client/unknown_7979a0.cpp'
+SYMBOL = 'CameraController02Class::Unknown_7981B0'
+ADDRESS = 0x7981B0
+
+ONE = '\tVector3 one; one.Y = c * range; one.Z = s * range;\n'
+TWO = '\tVector3 two; two.Y = c * range; two.Z = s * range; one.X = two.X = range + range;\n'
+S12 = '\tone.Y *= 1.25f;\n\tone.Z *= 1.25f;\n\ttwo.Scale(Vector3(1.0f, 1.25f, 1.25f));\n'
+ONE0 = '\tVector3 one(0.0f, c * range, s * range);\n'
+TWO0 = '\tVector3 two(0.0f, c * range, s * range);'
+SC1 = '\tone.Scale(Vector3(1.0f, 1.25f, 1.25f));\n'
+SC2 = '\ttwo.Scale(Vector3(1.0f, 1.25f, 1.25f));\n'
+B = [(ONE, ONE0)]
+
+
+def f(x, body):
+    return B + [(TWO, TWO0 + x + '\n'), (S12, body)]
+
+
+FORMS = {
+    'cse': f(' one.X = range + range; two.X = range + range;', SC1 + SC2),
+    'split_x': f(' one.X = range + range;', SC1 + '\ttwo.X = range + range;\n' + SC2),
+    'split_x_two_after': f(' one.X = range + range;', SC1 + SC2[:-1] + ' two.X = range + range;\n'),
+    'cse_scale_two_first': f(' one.X = range + range; two.X = range + range;', SC2 + SC1),
+    'two_x_then_one': f(' two.X = range + range;', '\tone.X = range + range;\n' + SC1 + SC2),
+    'cse_camera_ctor': f(' one.X = range + range; two.X = range + range;', SC1 + SC2) +
+                       [('\tVector3 camera = Client->CameraManager->Position;\n', '\tVector3 camera(Client->CameraManager->Position);\n')],
+    'chain_camera_ctor': f(' one.X = two.X = range + range;', SC1 + SC2) +
+                       [('\tVector3 camera = Client->CameraManager->Position;\n', '\tVector3 camera(Client->CameraManager->Position);\n')],
+}
+
+# ===== v7.py
+HYPOTHESIS = '0x7981B0: (a) on zero_both (res 0 raw 4) one scaled with an explicit X *= 1 like Scale gives row 2 of product 1 v-first; (b) on ctor-0 + Scale both + X by CSE (products exact, res 8) the camera copy placed before / between the products moves the Client load as the client schedules it'
+FILE = 'app/client/unknown_7979a0.cpp'
+SYMBOL = 'CameraController02Class::Unknown_7981B0'
+ADDRESS = 0x7981B0
+
+ONE = '\tVector3 one; one.Y = c * range; one.Z = s * range;\n'
+TWO = '\tVector3 two; two.Y = c * range; two.Z = s * range; one.X = two.X = range + range;\n'
+S1 = '\tone.Y *= 1.25f;\n\tone.Z *= 1.25f;\n'
+S12 = '\tone.Y *= 1.25f;\n\tone.Z *= 1.25f;\n\ttwo.Scale(Vector3(1.0f, 1.25f, 1.25f));\n'
+ONE0 = '\tVector3 one(0.0f, c * range, s * range);\n'
+TWO0 = '\tVector3 two(0.0f, c * range, s * range);'
+SC1 = '\tone.Scale(Vector3(1.0f, 1.25f, 1.25f));\n'
+SC2 = '\ttwo.Scale(Vector3(1.0f, 1.25f, 1.25f));\n'
+P = '\tVector3 first = frame * one;\n\tVector3 second = frame * two;\n\tVector3 camera = Client->CameraManager->Position;\n'
+CAM = '\tVector3 camera = Client->CameraManager->Position;\n'
+F = '\tVector3 first = frame * one;\n'
+S = '\tVector3 second = frame * two;\n'
+ZB = [(ONE, ONE0), (TWO, TWO0 + ' one.X = two.X = range + range;\n')]
+CSE = [(ONE, ONE0), (TWO, TWO0 + ' one.X = range + range; two.X = range + range;\n'), (S12, SC1 + SC2)]
+
+FORMS = {
+    'zb_x_mul1': ZB + [(S1, '\tone.X *= 1.0f;\n\tone.Y *= 1.25f;\n\tone.Z *= 1.25f;\n')],
+    'zb_cse': [(ONE, ONE0), (TWO, TWO0 + ' one.X = range + range; two.X = range + range;\n')],
+    'zb_scale_vec_local': ZB + [(S12, '\tVector3 k(1.0f, 1.25f, 1.25f);\n\tone.Y *= k.Y;\n\tone.Z *= k.Z;\n\ttwo.Scale(k);\n')],
+    'cse_cam_before': CSE + [(P, CAM + F + S)],
+    'cse_cam_between': CSE + [(P, F + CAM + S)],
+    'zb_cam_before': ZB + [(P, CAM + F + S)],
+    'zb_cam_between': ZB + [(P, F + CAM + S)],
+}
+
+# ===== v8.py
+HYPOTHESIS = '0x7981B0 on ctor-0 + Scale both + X by CSE (products exact, res 8: only the Client load of the camera copy scheduled one row early): the product / camera API forms change the dependence the scheduler sees'
+FILE = 'app/client/unknown_7979a0.cpp'
+SYMBOL = 'CameraController02Class::Unknown_7981B0'
+ADDRESS = 0x7981B0
+
+TWO = '\tVector3 two(0.0f, c * range, s * range); one.X = two.X = range + range;\n'
+S12 = '\tone.Y *= 1.25f;\n\tone.Z *= 1.25f;\n\ttwo.Scale(Vector3(1.0f, 1.25f, 1.25f));\n'
+SC1 = '\tone.Scale(Vector3(1.0f, 1.25f, 1.25f));\n'
+SC2 = '\ttwo.Scale(Vector3(1.0f, 1.25f, 1.25f));\n'
+F = '\tVector3 first = frame * one;\n'
+S = '\tVector3 second = frame * two;\n'
+CAM = '\tVector3 camera = Client->CameraManager->Position;\n'
+CSE = [(TWO, '\tVector3 two(0.0f, c * range, s * range); one.X = range + range; two.X = range + range;\n'), (S12, SC1 + SC2)]
+CHAIN = [(S12, SC1 + SC2)]
+
+FORMS = {
+    'cse': CSE,
+    'cse_tv_first': CSE + [(F, '\tVector3 first; Matrix3D::Transform_Vector(frame, one, &first);\n')],
+    'cse_tv_both': CSE + [(F + S, '\tVector3 first; Matrix3D::Transform_Vector(frame, one, &first);\n\tVector3 second; Matrix3D::Transform_Vector(frame, two, &second);\n')],
+    'cse_assign_first': CSE + [(F + S, '\tVector3 first, second;\n\tfirst = frame * one; second = frame * two;\n')],
+    'cse_cam_assign': CSE + [(CAM, '\tVector3 camera; camera = Client->CameraManager->Position;\n')],
+    'chain_tv_first': CHAIN + [(F, '\tVector3 first; Matrix3D::Transform_Vector(frame, one, &first);\n')],
+    'cse_diff_locals': CSE + [('\tif ((first - camera).Length2() < (second - camera).Length2()) {\n',
+                               '\tVector3 d1 = first - camera;\n\tVector3 d2 = second - camera;\n\tif (d1.Length2() < d2.Length2()) {\n')],
+}
+

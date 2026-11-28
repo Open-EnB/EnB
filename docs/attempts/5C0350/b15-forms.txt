@@ -1,0 +1,87 @@
+# B15 batch 1 for 0x5C0350 (Opus high, D271 round two; the earlier Fable rounds were not Opus rounds).
+# Base res 230: ours merges the five inline return("") constructions into one tail, the client repeats each in place
+# with its own epilogue. siblings.py --shape: locals up front UNTRIED (sibling 0x5C0750 declares one up front).
+# Hypothesis: the locals' scopes / declaration points (all up front, the text buffer up front, initialised up front)
+# or the branch nesting (else chain, a switch on the template id) keep VC6 from merging the identical returns.
+FILE = 'app/client/ui_mfd_extended_context_harvestable.cpp'
+SYMBOL = 'UIMFDExtendedContextHarvestableClass::Get_Line_Text'
+ADDRESS = 0x5C0350
+
+F = '\tFAIL_IF(line_index >= CurrentIndexMap.size())\n\t\treturn("");\n'
+SLOT = '\tint slot = CurrentIndexMap[line_index];\n'
+ID = '\tint id = Peek.Get_Item_Template_ID(slot);\n'
+ITEM = '\tInvDataPeekItemStruct *item = Peek.Get_Item(slot, true);\n'
+QTY = '\tint quantity = Peek.Get_Stack_Count(slot);\n'
+TEXT = '\tchar text[128];\n'
+IDS = '\tif (id == -2) {\n\t\treturn("");\n\t}\n\tif (id == -1) {\n\t\treturn("");\n\t}\n'
+
+
+def up(decl):
+    return [(F, '\t' + decl + ' ' + F[1:])]
+
+
+ALL = [(F, '\tint slot; int id; InvDataPeekItemStruct *item; int quantity; char text[128]; ' + F[1:]),
+       (SLOT, '\tslot = CurrentIndexMap[line_index];\n'), (ID, '\tid = Peek.Get_Item_Template_ID(slot);\n'),
+       (ITEM, '\titem = Peek.Get_Item(slot, true);\n'), (QTY, '\tquantity = Peek.Get_Stack_Count(slot);\n'), (TEXT, '\n')]
+ALL0 = [(F, '\tint slot = -1; int id = -1; InvDataPeekItemStruct *item = NULL; int quantity = 0; char text[128]; ' + F[1:])] + ALL[1:]
+FORMS = {
+    'all_up': ALL,
+    'all_up_init': ALL0,
+    'text_up': [(F, '\tchar text[128]; ' + F[1:]), (TEXT, '\n')],
+    'item_null_up': [(F, '\tInvDataPeekItemStruct *item = NULL; ' + F[1:]), (ITEM, '\titem = Peek.Get_Item(slot, true);\n')],
+    'qty_up': [(F, '\tint quantity = 0; ' + F[1:]), (QTY, '\tquantity = Peek.Get_Stack_Count(slot);\n')],
+    'ids_or': [(IDS, '\tif (id == -2 || id == -1) {\n\t\treturn("");\n\t}\n\n\n\n')],
+    'ids_switch': [(IDS, '\tswitch (id) {\n\t\tcase -2: return("");\n\t\tcase -1: return("");\n\t}\n\n\n')],
+    'ids_else': [(IDS, '\tif (id == -2) {\n\t\treturn("");\n\t} else if (id == -1) {\n\t\treturn("");\n\t}\n\n')],
+}
+# B15 batch 2 for 0x5C0350: batch 1's locals-up-front forms with unique anchors (Has_Contents repeats the lines).
+# Batch 1: text / quantity up front and an else chain = base; `id == -2 || id == -1` 224 (more rows unmerged, but
+# not the client's two separate copies); a switch 248.
+import runpy
+_b = runpy.run_path(r'C:/EnBDevelopment/EnB/.work/b15/v/v5C_b1.py')
+FILE, SYMBOL, ADDRESS, F = _b['FILE'], _b['SYMBOL'], _b['ADDRESS'], _b['F']
+
+SLOT = '\tint slot = CurrentIndexMap[line_index];\n'
+ID = '\t}\n\tint id = Peek.Get_Item_Template_ID(slot);\n'
+TAIL = '\n\n\tFAIL_IF(0 == item)\n\t\treturn("");\n'
+ITEM = '\tInvDataPeekItemStruct *item = Peek.Get_Item(slot, true);\n' + TAIL
+QTY = '\tint quantity = Peek.Get_Stack_Count(slot);\n'
+TEXT = '\tchar text[128];\n'
+REST = [(SLOT, '\tslot = CurrentIndexMap[line_index];\n'), (ID, '\t}\n\tid = Peek.Get_Item_Template_ID(slot);\n'),
+        (ITEM, '\titem = Peek.Get_Item(slot, true);\n' + TAIL), (QTY, '\tquantity = Peek.Get_Stack_Count(slot);\n'),
+        (TEXT, '\n')]
+FORMS = {
+    'all_up': [(F, '\tint slot; int id; InvDataPeekItemStruct *item; int quantity; char text[128]; ' + F[1:])] + REST,
+    'all_up_init': [(F, '\tint slot = -1; int id = -1; InvDataPeekItemStruct *item = NULL; int quantity = 0; char text[128]; ' + F[1:])] + REST,
+    'item_null_up': [(F, '\tInvDataPeekItemStruct *item = NULL; ' + F[1:]), (ITEM, '\titem = Peek.Get_Item(slot, true);\n' + TAIL)],
+    'slot_id_up': [(F, '\tint slot; int id; ' + F[1:]), REST[0], REST[1]],
+}
+# B15 batch 3 for 0x5C0350. Batch 1's `||` form unmerged the first two return("") copies (rows 151 -> 222): VC6
+# merges identical return blocks before it duplicates the epilogue. Hypothesis: the client's returns differ at the
+# IL level while compiling to the same bytes: mixed spellings (return("") / return(std::string("")) /
+# return(std::string(text)) after text[0] = 0), so no two neighbouring blocks are the same statement.
+import runpy
+_b = runpy.run_path(r'C:/EnBDevelopment/EnB/.work/b15/v/v5C_b1.py')
+FILE, SYMBOL, ADDRESS = _b['FILE'], _b['SYMBOL'], _b['ADDRESS']
+
+R1 = '\tFAIL_IF(line_index >= CurrentIndexMap.size())\n\t\treturn("");\n'
+R2 = '\tif (slot == -1) {\n\t\treturn("");\n\t}\n'
+R3 = '\tif (id == -2) {\n\t\treturn("");\n\t}\n'
+R4 = '\tif (id == -1) {\n\t\treturn("");\n\t}\n'
+R5 = '\tFAIL_IF(0 == item)\n\t\treturn("");\n'
+R6 = '\tif (quantity == 0) {\n\t\treturn("");\n\t}\n'
+S = 'std::string("")'
+
+
+def rep(r, new):
+    return (r, r.replace('return("")', new))
+
+
+FORMS = {
+    'alt_odd': [rep(R2, 'return(%s)' % S), rep(R4, 'return(%s)' % S), rep(R6, 'return(%s)' % S)],
+    'alt_even': [rep(R1, 'return(%s)' % S), rep(R3, 'return(%s)' % S), rep(R5, 'return(%s)' % S)],
+    'fail_braced': [rep(R1, '{return("");}'), rep(R5, '{return("");}')],
+    'fail_string': [rep(R1, 'return(%s)' % S), rep(R5, 'return(%s)' % S)],
+    'ifs_string': [rep(R2, 'return(%s)' % S), rep(R3, 'return(%s)' % S), rep(R4, 'return(%s)' % S), rep(R6, 'return(%s)' % S)],
+    'last_text': [(R6, '\tif (quantity == 0) {\n\t\treturn(std::string(""));\n\t}\n')],
+}

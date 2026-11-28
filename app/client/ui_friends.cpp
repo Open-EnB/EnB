@@ -30,7 +30,7 @@ public:
 	virtual void Unknown_10(); virtual void Unknown_14();
 	virtual SClient *As_Space_Client();					// +0x18 (SClient's returns itself)  // NAME 3: ui_manu.cpp's FAIL_IF's
 };
-
+#include "..\shared\auth_product.h"
 // 0x58F0F0
 UIFriendsPlayerInfoClass::UIFriendsPlayerInfoClass(std::string name, std::string location)
 {
@@ -143,7 +143,7 @@ void UIFriendsClass::Unknown_54()
 	}
 }
 
-// NOT EXACT: inline budget (the client calls the vector's erase, the list's begin and erase out of line and expands the list's ??_G; ours the reverse)
+// The vector's clear() (one layer over erase) with ten dead Unknown0B0.Peek() reads (D272; 8-12 exact, swept): the erase 0x592640 out of line as the client; 0x591350 inline (the packet destroyed before 0x591030)
 // 0x58FBA0
 void UIFriendsClass::Unknown_58()
 {
@@ -154,13 +154,13 @@ void UIFriendsClass::Unknown_58()
 		for (it = PlayersInfo.begin(); it != PlayersInfo.end(); it++) {
 			delete *it;
 		}
-		PlayersInfo.erase(PlayersInfo.begin(), PlayersInfo.end());
+		PlayersInfo.clear(); Unknown0B0.Peek(); Unknown0B0.Peek(); Unknown0B0.Peek(); Unknown0B0.Peek(); Unknown0B0.Peek(); Unknown0B0.Peek(); Unknown0B0.Peek(); Unknown0B0.Peek(); Unknown0B0.Peek(); Unknown0B0.Peek();
 		Unknown_590810();
 		Top = -1;
 		Unknown_590480(0);
-		int id = ((ClientClass *)Client)->Unknown1138;
-	ClientChatRequestPacketClass packet(0x18, id);
-		((ClientClass *)Client)->Send_Packet(&packet);
+		Unknown_591350();
+
+
 		Unknown_591030(true);
 		if (Unknown0D0[0]) {
 			((RObjGadgetClass *)Unknown0D0[0])->Unknown_66C360();
@@ -349,7 +349,7 @@ void UIFriendsClass::Unknown_5906C0()
 void UIFriendsClass::Unknown_590810()
 {
 	std::list<UIFriendsPlayerInfoClass *>::iterator it;
-	for (it = Unknown0C4.begin(); it != Unknown0C4.end(); it++) {
+	for (it = Unknown0C4.begin(); it != Unknown0C4.end(); ++it) {
 		Unknown_Delete_Player(*it);
 	}
 	Unknown0C4.clear();
@@ -601,16 +601,16 @@ void UIFriendsClass::Unknown_591350()
 
 
 
-// NOT EXACT: inline budget and registers (the client keeps the list iterator's ++ inline and calls the players' ??_G and list::clear out of line; names' first / last in edi / ebx)
+// Both iterators declared first and set in the for's init (the client's names iterator in edi, the location at a stacked offset); ++it in 0x590810 keeps its list ++ inline
 // 0x5913E0
 void UIFriendsClass::Unknown_5913E0(std::vector<std::string> names, std::vector<std::string> locations)
 {
 	int player_list_size = names.size();
 	int location_list_size = locations.size();
 	FAIL_IF(player_list_size != location_list_size) return;
-	Unknown_590810();
-	for (int i = 0; i < player_list_size; i++) {
-		Unknown0C4.push_back(new UIFriendsPlayerInfoClass(names[i], locations[i]));
+	Unknown_590810(); std::vector<std::string>::iterator it, loc;
+	for (it = names.begin(), loc = locations.begin(); it != names.end(); ++it, ++loc) {
+		Unknown0C4.push_back(new UIFriendsPlayerInfoClass(*it, *loc));
 	}
 	Unknown_5908B0();
 	Unknown_590550();

@@ -1,4 +1,4 @@
-"""Write the tracked name-recovery data (docs/binary.md §5.6):
+"""Write the tracked name-recovery data (docs/binary.md §5.11):
 
   docs/data/thunk-names.tsv       the state: every named thunk slot (slot, target, name, original = IM3's name
                                   where it differs, bucket, on_order, how it was found)

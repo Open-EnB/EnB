@@ -349,7 +349,7 @@ void UIDynamicWindowClass::Update_Layout()
 {
 	MainWindow->Update_Layout();
 }
-// NOT EXACT: 0x58AE90, inline-budget: the client calls std::string::_Eos out of line for the font name's string where this inlines it (docs/attempts/58AE90)
+static inline const std::string &Unknown_58AE90_Pass(const std::string &text) { return(text); } // NAME 1 [text]: neutral (D10); evaluated right after font_name's temporary to push only its _Eos out of line (0x58AE90)
 void UIDynamicWindowClass::Add_Text(DynamicWindowClass *window, const char *font_name, int row_index, unsigned int flags, const char *format, ...)
 {
 	FAIL_IF(!window) return;
@@ -361,7 +361,7 @@ void UIDynamicWindowClass::Add_Text(DynamicWindowClass *window, const char *font
 		_vsnprintf(text, 511, format, args);
 		va_end(args);
 	}
-	RefCountPtr<DynamicWindowTextClass> element = DynamicWindowTextClass::Create(font_name, text, flags | 6);
+	RefCountPtr<DynamicWindowTextClass> element = DynamicWindowTextClass::Create(Unknown_58AE90_Pass(font_name), text, flags | 6);
 	window->Add_Element(element, row_index);
 }
 

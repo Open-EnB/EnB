@@ -1,0 +1,94 @@
+HYPOTHESIS = ('GN18 b3 (0x6CDBC0): b1 reset_helper (20 stmts) cut Site 1 + Site 2 while keeping Sites 3/5/6/7 inline, '
+              'and b2 h_274_14 (14 stmts) cut neither Site 1 nor Site 2; sweep 15..19 statements in Reset_Part plus '
+              'braced-block / Print_Text fine steps to land right between Site 1 and Site 2')
+FILE = 'app/client/unknown_6cce60.cpp'
+SYMBOL = 'FontSys::Change_Text'
+ADDRESS = 0x6CDBC0
+
+_SRC = open(FILE, encoding='latin-1', newline='').read()
+
+OLD_PRINT_FN = 'static inline void Print_Text(FontSys *f)'
+OLD_UNK1_BODY = '''\t\t\t\tUnknown444 = 0;
+\t\t\t\tUnknown2F4[0] = 1.0f;
+\t\t\t\tUnknown2F4[1] = -1.0f;
+\t\t\t\tUnknown488[0] = 0;
+\t\t\t\tUnknown488[1] = 0;
+\t\t\t\tUnknown488[2] = 0;
+\t\t\t\tif (Colors[0] != NULL) {
+\t\t\t\t\tUnknown494.Color.Set((float)Colors[0]->RGB.X * 0.00392156f, (float)Colors[0]->RGB.Y * 0.00392156f, (float)Colors[0]->RGB.Z * 0.00392156f);
+\t\t\t\t\tUnknown494.Unknown0C = 1.0f;
+\t\t\t\t\tUnknown4B4.Color.Set((float)Colors[1]->RGB.X * 0.00392156f, (float)Colors[1]->RGB.Y * 0.00392156f, (float)Colors[1]->RGB.Z * 0.00392156f);
+\t\t\t\t\tUnknown4B4.Unknown0C = 1.0f;
+\t\t\t\t\tUnknown4A4 = Unknown494;
+\t\t\t\t}
+\t\t\t\tfor (int j = 0; j < 0xFF; j++) {
+\t\t\t\t\tUnknown303[j] = 0;
+\t\t\t\t}
+\t\t\t\tUnknown26C = 0;
+\t\t\t\tUnknown270 = 0;
+\t\t\t\tUnknown274[0] = 0;
+\t\t\t\tUnknown274[1] = 0;
+\t\t\t\tUnknown274[2] = 0;
+\t\t\t\tUnknown274[3] = 0;
+\t\t\t\tUnknown274[4] = 0;
+\t\t\t\tUnknown274[5] = 0;
+\t\t\t\tUnknown274[6] = 0;
+\t\t\t\tUnknown274[7] = 0;
+\t\t\t\tUnknown274[8] = 0;
+\t\t\t\tUnknown274[9] = 0;
+\t\t\t\tUnknown274[10] = 0;
+\t\t\t\tUnknown274[11] = 0;
+\t\t\t\tfor (int k = 0; k < 4; k++) Unknown274[12 + k] = 0;
+\t\t\t\tUnknown254[0] = 0;
+\t\t\t\tUnknown254[1] = 0;
+\t\t\t\tUnknown254[2] = 0;
+\t\t\t\tUnknown254[3] = 0;
+\t\t\t\tUnknown254[4] = 0;
+\t\t\t\tUnknown254[5] = 0;'''
+
+OLD_TAIL = '''\tif (strcmp(Unknown2F0, " ") == 0) {
+\t\tUnknown408 = true;
+\t} else {
+\t\tUnknown408 = false;
+\t}'''
+NEW_TAIL_NB = '\tif (strcmp(Unknown2F0, " ") == 0) Unknown408 = true;\n\telse Unknown408 = false;\n\n\n'
+OLD_EFF = '''\t\t\tfor (int i = 0; i < 4; i++) {
+\t\t\t\tUnknown_6CDAB0(Effects[0][i]);
+\t\t\t}'''
+NEW_EFF_NB = '\t\t\tfor (int i = 0; i < 4; i++) Unknown_6CDAB0(Effects[0][i]);\n\n'
+
+assert _SRC.count(OLD_UNK1_BODY) == 1 and _SRC.count(OLD_PRINT_FN) == 1
+LINES = OLD_UNK1_BODY.split('\n')
+
+def wrap_slice(a, b, extra=None):
+    sub = LINES[a:b]
+    body_lines = []
+    for ln in sub:
+        s = ln.strip()
+        for sym in ('Unknown444', 'Unknown2F4', 'Unknown488', 'Colors', 'Unknown494', 'Unknown4B4', 'Unknown4A4',
+                    'Unknown303', 'Unknown26C', 'Unknown270', 'Unknown274', 'Unknown254'):
+            s = s.replace(sym, 'f->' + sym)
+        body_lines.append(s)
+    helper = 'static inline void Reset_Part(FontSys *f) { ' + ' '.join(body_lines) + ' } ' + OLD_PRINT_FN
+    new_lines = LINES[:a] + ['\t\t\t\tReset_Part(this);'] + [''] * (b - a - 1) + LINES[b:]
+    assert len(new_lines) == len(LINES)
+    edits = [(OLD_PRINT_FN, helper), (OLD_UNK1_BODY, '\n'.join(new_lines))]
+    if extra:
+        edits.extend(extra)
+    return edits
+
+# 16..37 = 21 lines (b1 reset_helper). Sweep a = 17, 18, 19, 20, 21 (20, 19, 18, 17, 16 lines)
+# Also sweep 16..32, 16..33, 16..34, 16..35, 16..36 (16..20 lines from top of counters)
+FORMS = {
+    'tail_16': wrap_slice(21, 37),
+    'tail_17': wrap_slice(20, 37),
+    'tail_18': wrap_slice(19, 37),
+    'tail_19': wrap_slice(18, 37),
+    'tail_20': wrap_slice(17, 37),
+    'top_16': wrap_slice(16, 32),
+    'top_17': wrap_slice(16, 33),
+    'top_18': wrap_slice(16, 34),
+    'top_19': wrap_slice(16, 35),
+    'top_20': wrap_slice(16, 36),
+    'top_18_nb': wrap_slice(16, 34, [(OLD_TAIL, NEW_TAIL_NB), (OLD_EFF, NEW_EFF_NB)]),
+}

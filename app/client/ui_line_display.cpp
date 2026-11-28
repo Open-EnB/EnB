@@ -7,17 +7,17 @@
 #include "..\..\wwlib\wwstring.h"
 #include "..\..\wwlib\random.h"
 #include "..\..\wwmath\vector3.h"
-
+#include "..\shared\auth_product.h"
 extern RandomClass Unknown_BDBB84;  // NAME 1 [Unknown_BDBB84]: neutral (D10): the random generator the fonts are picked with
 
 #include "fontdatabase.h"	// FontStringFilesClass at 0xBE67BC: the constructor / destructor load and unload fc_line_display.ini
 extern FontStringFilesClass *Unknown_BE67BC;	// NAME 1 [Unknown_BE67BC]: neutral (D10); sclient.h declares it so
 #include "fontmanager.h"	// FontSys, the text objects
 #include "..\shared\auxdata\auxdata.h"	// Unknown_Find_Field: 0x5A8350's 'Missions' (its copy 0x5AA9D0 sits in this object)
+#include "aux_mission.h"			// the mission classes before the skill's: 0x5AA540 numbers T<bool> first, 0x5AADA0 I<MissionStage>
 #include "aux_player.h"				// DeltaPlayerClass, DeltaMissionClass, DeltaMissionStageClass (0x5A8350)
 #include "..\audio\soundlib.h"		// SoundLibraryClass::Play_2D_Sound (0x5A8350's mission sounds)
 #include "ui_missn.h"				// Unknown_Strip_Tags (0x5C69D0)
-
 #include "control_keys_manager.h"	// ControlKeysManager: slots +0x70 / +0x74 call Add_Keys 0x71A960 / Remove_Keys 0x71AB40
 
 

@@ -1,0 +1,96 @@
+"""sites.py OBJ [5FBD30|600000]: the back-out sites of ours and the client's, each with the calls before it (to name it) and
+its decision letters (9 / 8 / A for 0x5F89F0, 6 / 2 for 0x5F86F0), followed through the cross-jumps."""
+import sys, os, re
+sys.path.insert(0, os.path.abspath('tools/re'))
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))   # needs docs/attempts/5FBD30/prof.py.txt saved beside this file as prof.py
+import trybatch as TB
+import explain as X
+import prof
+
+obj, fn = sys.argv[1], (sys.argv[2] if len(sys.argv) > 2 else '600000')
+known = X.symbol_addresses()
+sym, addr = prof.SYMS[fn]
+mangled, _ = TB.resolve_symbol(obj, sym, addr, ())
+m = TB.measure(obj, mangled, addr, known)
+L, R, eL, eR = m['_rows']
+NAMES = prof.NAMES + [('Unknown_7D', None)]
+
+
+def key(ins):
+    k = TB.call_key(ins, known)
+    if isinstance(k, str):
+        for pat, a in prof.NAMES:
+            if pat in k:
+                return a
+        mm = re.search(r'Unknown_([0-9A-F]{6})@', k)
+        if mm:
+            return int(mm.group(1), 16)
+        return k[:18]
+    return k
+
+
+def lab(k):
+    return ('%X' % k) if isinstance(k, int) else str(k)
+
+
+def follow(rows, index, i, is17, R='eax'):
+    steps = 0
+    last = None
+    while i < len(rows) and steps < 80:
+        ins = rows[i][0]
+        steps += 1
+        raw = ins.raw
+        if ins.mn == 'call':
+            return key(ins)
+        if raw == 'cmp %s, 1' % R:
+            last = 'ne'
+        elif raw == 'test %s, %s' % (R, R) or (raw.startswith('cmp %s, e' % R) and len(raw) == 12):
+            last = 'ne'
+        elif raw == 'cmp %s, 0x17' % R:
+            last = 'eq' if is17 else 'ne'
+        elif ins.mn in ('jne', 'je'):
+            if last is None:
+                return 'j?'
+            if (ins.mn == 'jne') == (last == 'ne'):
+                t = ins.target
+                if not t or t[1] not in index:
+                    return 'jt?'
+                i = index[t[1]]
+                continue
+        elif ins.mn == 'jmp':
+            t = ins.target
+            if not t or t[1] not in index:
+                return 'jm?'
+            i = index[t[1]]
+            continue
+        elif ins.mn.startswith('j'):
+            return 'jx?'
+        i += 1
+    return 'end?'
+
+
+def sites(rows):
+    index = {ins.addr: n for n, (ins, _) in enumerate(rows)}
+    out = []
+    calls = []
+    for n, (ins, _) in enumerate(rows):
+        if ins.mn == 'call':
+            calls.append(lab(key(ins)))
+        mm = prof.CMP1.match(ins.raw)
+        if not mm or n < 2 or n + 2 >= len(rows) or rows[n + 1][0].mn != 'jne':
+            continue
+        Rg = mm.group(1)
+        if not (prof.B11.match(rows[n + 2][0].raw) or (Rg == 'eax' and (prof.D4.match(rows[n - 1][0].raw) or prof.D4.match(rows[n - 2][0].raw)))):
+            continue
+        a = {0x5F8A90: '9', 0x5F89F0: '8', 0x604250: 'A', 0x604251: 'A'}.get(follow(rows, index, n, False, Rg), '?')
+        b = {0x5F86F0: '6', 0x5F2990: '2'}.get(follow(rows, index, n, True, Rg), '?')
+        out.append((ins.addr, a + b, ' '.join(calls[-3:])))
+    return out
+
+
+so, sc = sites(L), sites(R)
+print('ours %d sites, client %d' % (len(so), len(sc)))
+for i in range(max(len(so), len(sc))):
+    o = so[i] if i < len(so) else ('', '', '')
+    c = sc[i] if i < len(sc) else ('', '', '')
+    print('%2d  %6s %s %-34s | %6s %s %s' % (i + 1, ('%X' % o[0]) if o[0] != '' else '', o[1], o[2][:34], ('%X' % c[0]) if c[0] != '' else '', c[1], c[2][:34]))

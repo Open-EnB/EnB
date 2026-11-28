@@ -20,7 +20,7 @@
 #include "ui_faction.h"
 // (the FAIL_IFs' InterfaceMesh is the interface base's +0x84, Unknown5BB320Class::InterfaceMesh: sclient.h)
 extern FontManagerClass *Unknown_BE67C4;			// NAME 1 [Unknown_BE67C4]: 0xBE67C4
-
+#include "..\shared\auth_product.h"
 // What InterfaceClass's +0x40 points to, as far as this file calls it (as ui_cinfo.cpp declares it)
 class LineDisplayClientClass  // NAME 1: neutral (D10)
 {

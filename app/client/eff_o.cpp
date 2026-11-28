@@ -5,7 +5,7 @@
 **
 **	The effect object's base (client 0x6E6710-0x6E6F60 so far): see eff_o.h. Notes at the end.
 */
-
+#include "..\shared\auth_product.h"
 
 #include "scene.h"
 #include "eff_o.h"

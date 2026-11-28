@@ -9,6 +9,7 @@ import re
 import sys
 import tempfile
 import unittest
+from unittest import mock
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(HERE, 'harness'))
@@ -481,6 +482,68 @@ class DbSnapshotTest(unittest.TestCase):
 
     def test_option_needs_live(self):
         self.assertEqual(e2e.main(['run', 'sb_buysell', '--db-snapshot']), 2)
+
+    def test_snapshot_arg_and_file(self):
+        self.assertEqual(e2e.db_snapshot_arg('7'), 7)
+        self.assertEqual(e2e.db_snapshot_arg('schema'), 'schema')
+        with self.assertRaises(Exception):
+            e2e.db_snapshot_arg('everything')
+        self.assertEqual(e2e.db_snapshot_file(7), 'avatar7.sql')
+        self.assertEqual(e2e.db_snapshot_file('schema'), 'net7_user.sql')
+
+    def test_schema_snapshot_wraps_the_dump(self):
+        d = tempfile.mkdtemp()
+        seen = []
+        dump = 'DROP TABLE IF EXISTS `avatar_info`;\nCREATE TABLE `avatar_info` (`avatar_id` int);\n'
+        with mock.patch.object(e2e, '_db_run', side_effect=lambda argv, stdin=None: seen.append(argv) or dump):
+            path = e2e.db_snapshot('schema', d)
+        self.assertEqual(os.path.basename(path), 'net7_user.sql')
+        self.assertIn('--single-transaction', seen[0][6])
+        self.assertTrue(seen[0][6].endswith(' net7_user'))
+        sql = open(path, encoding='utf-8').read().splitlines()
+        self.assertEqual((sql[0], sql[-1]), ('SET FOREIGN_KEY_CHECKS=0;', 'SET FOREIGN_KEY_CHECKS=1;'))
+        with mock.patch.object(e2e, '_db_run', return_value='-- empty\n'):
+            with self.assertRaises(RuntimeError):       # a dump without the avatar tables is no snapshot
+                e2e.db_snapshot('schema', d)
+
+
+class UiScenarioTest(unittest.TestCase):
+    def test_tutorial_header(self):
+        self.assertTrue(P("tutorial: fresh\nalive 1\n")['tutorial_fresh'])
+        self.assertFalse(P("alive 1\n")['tutorial_fresh'])
+        with self.assertRaises(e2e.ScenarioError):
+            P("tutorial: kept\nalive 1\n")
+
+    def test_db_avatars_step_and_audio_source(self):
+        sc = P("db-avatars created\nwait-event audio 'start \\S+ 1492_00_303se\\.mp3' within 60\n")
+        self.assertEqual(sc['steps'][0]['dump'], 'created')
+        self.assertEqual(sc['steps'][1]['source'], 'audio')
+        for bad in ("db-avatars\n", "db-avatars a b\n", "db-avatars ../x\n"):
+            with self.assertRaises(e2e.ScenarioError, msg=bad):
+                P(bad)
+
+    def test_audio_event_line(self):
+        self.assertEqual(e2e.audio_event_line('{"ev":"open","h":"m7","file":"1492_00_303se.mp3"}'),
+                         'open m7 1492_00_303se.mp3')
+        self.assertEqual(e2e.audio_event_line('{"ev":"start","h":"m7","snd":"1492_00_303se.mp3"}'),
+                         'start m7 1492_00_303se.mp3')
+        self.assertIsNone(e2e.audio_event_line('{"ev":"volume","h":"m7","snd":"x.mp3","v":3}'))
+        self.assertIsNone(e2e.audio_event_line('{"ev":"start","h":"s1"}'))
+        self.assertIsNone(e2e.audio_event_line('not json'))
+
+    def test_audio_source_reads_only_named_sounds(self):
+        d = tempfile.mkdtemp()
+        a = os.path.join(d, 'audio.jsonl')
+        open(a, 'w').write('{"ev":"volume","h":"m1","snd":"a.mp3","v":1}\n{"ev":"start","h":"m1","snd":"a.mp3"}\n')
+        ev = e2e.Events({'audio': a})
+        ev.poll()
+        self.assertEqual([l[1:] for l in ev.lines], [('audio', 'start m1 a.mp3')])
+
+    def test_ui_scenarios_are_named_only(self):
+        self.assertFalse([n for n in e2e.scenario_names() + e2e.scenario_names(True) if n.startswith('ui_')])
+        for n in ('ui_charcreate', 'ui_account'):
+            if os.path.exists(os.path.join(e2e.SCN, n + '.scn')):
+                self.assertTrue(e2e.load(n)['steps'])
 
 
 

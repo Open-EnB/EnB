@@ -1,7 +1,7 @@
 // Earth & Beyond client (reconstruction): app\client\slot_data.cpp, what a slot's data derives from
 // (name assumed: no __FILE__; the class is the client's RTTI, the link order puts it between skill_render and slot_data_render)
 #include "slot_data.h"
-
+#include "..\shared\auth_product.h"
 // 0x6A7420
 SlotDataClass::SlotDataClass(SClient *client) :
 	Client(client),

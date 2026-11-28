@@ -5,7 +5,7 @@
 #include "dynamic_window_class.h"
 #include "dynamic_window_render_object.h"
 // fontmanager.h (with fontdatabase.h; its 0xBE67B8 is tsk_game.h's since P-H12-3)
-
+#include "..\shared\auth_product.h"
 #include "fontmanager.h"
 #include "..\shared\unknown_font_split_string.h"
 

@@ -14,7 +14,7 @@
 #include "..\shared\auxdata\delta_numbering.h"
 #include "..\shared\auxdata\delta_interpolator.h"
 #include "..\shared\g_assert.h"
-
+#include "..\shared\auth_product.h"
 // One gauge of the three (0x8C bytes, table 0xAF5CA0): gd_gauge.cpp's with the sound name of its low warning
 class UIPowerGaugeClass : public TrailGaugeGadgetClass	// NAME 1: neutral (D10)
 {

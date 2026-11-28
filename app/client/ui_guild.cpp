@@ -23,7 +23,7 @@
 #include "rendobj.h"
 #include "..\audio\soundlib.h"
 #include "..\shared\unknown_4fac20.h"	// String_Get_Token 0x4FB810 (0x81D290)
-
+#include "..\shared\auth_product.h"
 // One member of the list (0x20 bytes; the window's +0xCC and +0xDC hold them)
 class UIGuildMemberClass	// NAME 1: neutral, after ui_friends.h's UIFriendsPlayerInfoClass
 {

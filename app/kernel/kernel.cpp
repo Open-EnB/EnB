@@ -6,7 +6,7 @@
 **	The task kernel (docs/kernel-map.md 1-3). The asserts sit on the client's lines (74, 157, 196,
 **	225, 474: D25).
 */
-
+#include "..\shared\auth_product.h"
 
 
 #define ENABLE_WWPROFILE

@@ -1,0 +1,114 @@
+Report: first-report.md
+
+# Set_Data 0x76D4A0 first pass
+
+No newly exact claimed function; no production edit or commit. Compiler gate released; all runs completed and no compiler job remains. All seven inputs are recorded in data_*.json beside this report as base-hash-bound line patches, checked by replay; complete input, SHA-256, response, log, object and match results are in ../runs/data_*/. ../analysis.json contains full raw/masked hashes and both pair-set differences; ../runs/data_*/76D4A0-objdiff.txt holds actual instruction comparisons. The root runner uses the canonical configuration, including the original assertion-line guard. No source lines containing assertions were shifted or changed.
+
+The original baseline reproduces 11 file/address and 11 symbol/address pairs, all three claim targets unmatched. `Set_Data` is 1171 bytes by matcher pattern (objdiff includes alignment), retail 998 bytes through return. Its compiler frame is 0x20 versus retail 0x10. Actual baseline diff: ../runs/baseline/76D4A0-objdiff.txt. Most notable structural cause is the current inlined Build_Pixel in the palette loop: retail calls it at 0x76D656, keeps loop pointers/count in registers, and uses 0x10 frame. Current input inlines its three virtual Bytes_Per_Pixel calls and spills the palette pointer, output pointer, loop count and temporary. Outlining is a necessary lead, not proof that it alone solves the target. Retail also holds ColorCount*3 once, while baseline reloads ColorCount inside the loop; retail status lives in the dead data argument, and its extension block is laid out after image block.
+
+Recorded history: one five-form returns/status/switch batch scoring .25–.30, one zero-form semantic inspection, no original patches or objects under docs/attempts/0x76D4A0. The current source is the only surviving actual historical form; the old descriptions cannot be treated as replayable tests. No guessed historical patches were constructed.
+
+Fresh forms, grouped by exact raw and relocation-masked caller pattern (prefixes shown; full hashes in records):
+
+* baseline affd05f9be52, 1171 bytes, no pair loss.
+* data_count_local and data_count_arg: semantically preserve the palette bound by calculating ColorCount*3 once in a local or dead length argument. Both 61dda6ea104e, 1162 bytes, frame 0x20, out-of-line helper still inlined, no pair loss or claimed gain. Baseline score 0.31, these 0.32, diagnostic only. Count-local keeps the retail loop bound lifetime but the allocation remains wrong.
+* data_helper_negate and data_helper_rgb: genuine equivalent branches and 24-bit intermediate in Build_Pixel, on count-local. Both produce caller pattern 61dda6ea104e and preserve both baseline pair sets; Build_Pixel remains inlined.
+* data_helper_channels and data_helper_both: channel intermediates, with or without 24-bit intermediate, produce caller 0e4ffe05e3ed, 1162 bytes. These lose 0x76D340 Build_Pixel and 0x76D3E0, 0x76D410, 0x76D430, 0x76D450, 0x76D480 context pairs in both pair sets. They gain 0x76E910 as a different-context matcher result; no claimed gain. Invalid for retention.
+* data_helper_return: direct returns inside Build_Pixel preserve repeated virtual call semantics but change the helper's object code. Caller b3d63cf4b39e, 1148 bytes; the same six pair losses and 0x76E910 context gain; frame still 0x20 and call remains inlined. Invalid for retention.
+
+The last helper-structure batch produced no improvement; no fake code, flags, pragmas, extra calls, or semantic-changing diagnostic was used. An attempted branch-layout draft failed at the generator's substring assertion and was never compiled or saved; it is not a form. No other meaningful source-local helper lever is evidenced by these results. The next whole-group analysis should investigate the retail call boundary and natural function-wide source structure or actual helper layering with independent evidence; preservation of Build_Pixel's exact out-of-line code is mandatory. If later evidence explains a distinct change of legitimate source complexity/inline budget, replay count-local on it and inspect all relocations, receivers, branches and the full TU pair sets. The old switch/returns results alone are not a new lever. No masked candidate exists, so no final executable/EH audit is claimed.
+
+
+Report: group-tests-report.md
+
+# Set_Data group-lead tests, 0x76D4A0
+
+No newly exact function or production edits. Compiler/staging gate released, no running jobs. Baseline revision 3a69e9d2056673c8431a90f47d7d973aeb6ddb4e. Every compiled run retained all 11 original file/address and 11 symbol/address pairs, with no claimed gain. Match scores are diagnostics, not proof. Inputs, hashes, logs, objects, results and actual three-target diffs are in /home/dev/Projects/EnB/.work/claim-314/runs/NAME; group-tests/NAME.json contains base-hash-bound lossless, replay-verified patches and raw/masked hashes, pair differences and target lengths. Raw and masked target hashes coincide for all runs. Every input preserved the assertions guard. Two initial helper runs failed that guard before compilation, and direct_failure's first generator failed an assertion without producing an input; their run directories are not compilations.
+
+| Run | input SHA-256 prefix | body length | diagnostic | raw/masked output SHA-256 prefix |
+|---|---|---:|---|---|
+| group_data_bits_after_height | ecb47cdf5499 | 1006 | similarity 0.79 | d19b6582cd3c |
+| group_data_count_local_v2 | 9b2d0c7fea56 | 1021 | similarity 0.44 | 2d138f1486a4 |
+| group_data_direct_failure_v2 | bfeb4ef97cb4 | 1014 | similarity 0.69 | 26d3c164f75f |
+| group_data_dispatch_nested | 9f647a7534ad | 1014 | similarity 0.69 | 3bd33ff43533 |
+| group_data_eof_while | 4408ebb0d372 | 1048 | similarity 0.52 | cd023075c186 |
+| group_data_image_count | b3911ba5510f | 1013 | similarity 0.49 | c652f6bf7198 |
+| group_data_image_first | d5ab2f28a4a3 | 1022 | similarity 0.66 | fa5811460fe4 |
+| group_data_image_original | 1c8e585c0969 | 1022 | similarity 0.46 | 180f844583be |
+| group_data_original_v2 | d6ffd965b965 | 1030 | similarity 0.44 | f62f31e409b0 |
+| group_data_palette_bits | 9864e9806b6c | 1004 | similarity 0.71 | bd823ee7bf8f |
+| group_data_precheck | 890d1a5a3d9e | 1026 | similarity 0.75 | e50363d16d54 |
+| group_data_status_after_clear | 350bb1e74811 | 1022 | similarity 0.67 | 584c0a6920b4 |
+| group_data_status_after_data | 1a44ba24e44e | 1022 | similarity 0.67 | 584c0a6920b4 |
+| group_data_status_length | c07a43197dea | 1013 | similarity 0.53 | e2013c843c17 |
+| group_data_top_eq_minus1 | f815bf52c5c8 | 1007 | similarity 0.78 | 9428809e26d8 |
+| group_data_top_failure | 2c03f3aaff0e | 1002 | similarity 0.71 | b0c7a91e1425 |
+| group_data_trailer_branch | 73c24390fef7 | 1002 | similarity 0.71 | dae0c47a8b08 |
+
+Helper on the actual 256-entry loop causes the nested Build_Pixel call to remain out of line. The two surface-pointer versions cache Surf and are semantically diagnostic only: the client reloads it on every iteration, and callbacks could mutate it. The image-pointer forms reload Surf each iteration; count-local captures ColorCount*3 once, matching retail. Using the dead length argument for status shrinks the frame, but takes the wrong argument slot. Moving the declaration of the true status local after Data/Length or after memset yields the same output: frame 0x10, status stored in dead data argument slot as in retail. Image-first dispatch, direct return on an image descriptor read failure, and trailer-zero-then-conditional-error all preserve control-flow meaning. The equivalent nested dispatch and direct_failure_v2 have equal lengths and similarity but DISTINCT raw outputs (3bd33ff43533 versus 26d3c164f75f); their actual dispatch orders differ. Both delayed status placements are identical. EOF while regresses, as do explicit Position/Length precheck and comparison against -1.
+
+The strongest actual structural result is group_data_bits_after_height: input SHA-256 ecb47cdf5499a38c85c8a80db5c26f415b710767371d453a276e08225b41d1c1; full source and object in that run directory. Computing palette_bits after Width and Height reproduces registers and instruction sequence from the entry through retail 0x76D667, including frame, header parse, loop, per-iteration Surf load, and Build_Pixel call. Retail proceeds from the successful block byte load directly to comparison with '!'; this object still tests successful zero-extended byte for negativity first, causing extra instructions. Existing header and status source candidates leave byte count 1006 vs retail 998, with other branches/relocations unproven. This is not a match, and no full executable/branch/addend/receiver/EH audit is claimed. Reopen with distinct evidence for a natural Get_Byte failure/dispatch structure; do not repeat the unsuccessful while, explicit precheck, or == -1 forms. The group analysis has reviewed these results and records further reassessment.
+
+final-vs-baseline.diff and final-vs-parent.diff show actual source changes. Section-comparison.json compares every COFF section of baseline and bits_after_height: only the Set_Data .text section (0x4a0 to 0x3f0, three to four relocations) and its debug record raw data changed. All .data including 13-word code_mask payload, GIF87a, assert strings and path, .bss (three bytes), other sections and vtable data remain byte-identical. The extra text relocation is to Build_Pixel. The canonical baseline's source path is e:\build\beta\G\app\client\html\image\gifload.cpp; retail's existing path string is e:\build\beta\G\app\Client\html\image\gifload.cpp (case differs). Static b1/ret object section order differs from retail absolute order as documented in /home/dev/Projects/EnB/.work/claim-314/76DF60/first-report.md; linker placement is not proven. No masked candidate was found, so these comparisons do not establish full preservation of linked data, addends, or runtime behavior. Historical source patches/objects are unavailable as detailed in the first report.
+
+
+Report: direct-tests-report.md
+
+# Set_Data direct block-byte follow-up, 0x76D4A0
+
+No claimed match, production edit, header change or commit. Two canonical runner compiles completed with all 11 original file/address and 11 symbol/address pairs preserved; neither gained a pair. The parent remains the diagnostic 1006-byte group_data_bits_after_height, input SHA-256 ecb47cdf5499a38c85c8a80db5c26f415b710767371d453a276e08225b41d1c1. Baseline revision 3a69e9d2056673c8431a90f47d7d973aeb6ddb4e. Assertion physical lines and conditions passed the runner guard.
+
+| Run | Input SHA-256 | Body length / diagnostic similarity | Raw and masked body SHA-256 |
+|---|---|---|---|
+| group_direct_guard_read | c2fef757b98b803f222355866f361300d50267684156e08c58214106423b7ac8 | 1026 / 0.75 | e50363d16d549a1ebd8727bd1b83741bba2527f822ded91f7e1e32c37f7cd971 |
+| group_direct_continue | ad803f5aa2631bc5c1508a3c5d939d61a4fa1c01748501b8a2d0a37aff340b16 | 1026 / 0.75 | e50363d16d549a1ebd8727bd1b83741bba2527f822ded91f7e1e32c37f7cd971 |
+
+The first replaces only the top-level block fetch and negative test with `if (Position >= Length) return(-1); c = (unsigned char)Data[Position++];`. Get_Byte is a nonvirtual member whose body checks Position < Length and performs this same byte read and increment or returns -1. Thus the same EOF path and byte conversion apply, with no change to inner extension or descriptor reads; palette conversion still reloads Surf on every iteration. The second adds an explicit continue after a successful image data terminator; the prior control flow already reaches the next iteration there. Both produce the same actual raw and masked body as the previous group_data_precheck, despite different inputs. They match the retail instructions at 0x76D669–0x76D69B, including the guard, byte read and dispatch, but produce a cloned loop-entry and failure epilogue at object 0x2d8–0x2f6 where retail uses a backedge at 0x76D778. The explicit continue did not alter this output. No additional concrete source lever was evidenced; do not continue with a loop spelling sweep.
+
+Full inputs, input hashes, response files, logs, objects, results and three instruction diffs are in /home/dev/Projects/EnB/.work/claim-314/runs/group_direct_guard_read and /home/dev/Projects/EnB/.work/claim-314/runs/group_direct_continue. Base-hash-bound, roundtrip-verified compact patches and actual pair-set differences and raw/masked hashes are in /home/dev/Projects/EnB/.work/claim-314/76D4A0/direct-test/group_direct_guard_read.json and /home/dev/Projects/EnB/.work/claim-314/76D4A0/direct-test/group_direct_continue.json. The replay base is the original baseline SHA ad1c7431c7b7c6499e2ecba0aae1147af369f3af0eb4a5b1cb35a5141f17e7dd. The records also include unchanged Decode and Get_Next_Code output hashes. No masked match arose, so no full body, branch, relocation/addend, constants, receiver or EH proof is claimed. Prior unavailable historical patches remain unavailable as described in first-report.md.
+
+Compiler/staging gate released to root. Both jobs finished; no jobs or VM leases remain. No candidate is proposed for integration.
+
+
+Report: sol-report.md
+
+# Set_Data 0x76D4A0 Sol investigation
+
+New canonical match candidate; no production edits, commits, headers, external writes or integration. Root owns independent final source cleanup, combined-TU rebuild and final proof. Compiler/staging gate was released to root after the sixth completed compile; no sol_data job or VM lease remains. Original baseline revision 3a69e9d2056673c8431a90f47d7d973aeb6ddb4e, source SHA ad1c7431c7b7c6499e2ecba0aae1147af369f3af0eb4a5b1cb35a5141f17e7dd.
+
+Candidate: /home/dev/Projects/EnB/.work/claim-314/runs/sol_data_shared_block_error/input.cpp, SHA ae1d28955bbd4978848d4a30ed062dcfe220a2556c914433a6ace642c9340f6d. Object SHA 6f51fe92c981ee79d59bd6531a21cbb7d5072daaa4664ae7f6cb89769d00964d. Matcher reports Set_Data exact at 0x76D4A0, 998 executable bytes, +1 file/address and +1 symbol/address, zero losses in both complete original eleven-pair sets. Decode and Get_Next_Code retain their original unmatched output hashes. This is a worker candidate, not a retained production change.
+
+## Actual forms and evidence
+
+All six compiled inputs, response files, logs, objects, hashes, matches/results, replay.json and three target diffs are in /home/dev/Projects/EnB/.work/claim-314/runs/sol_data_NAME. Compact original-base-bound, replay-verified patches plus complete pair differences and all three target raw/masked hashes are also in /home/dev/Projects/EnB/.work/claim-314/76D4A0/sol-records/. sol-analysis.json has complete comparisons. All six Set_Data output hashes are distinct from each other and every earlier recorded actual output, both raw and masked; their relocation placeholders are zero, so the two grouping schemes coincide. Their hashes are in sol-records/summary.json. Historical five forms remain unavailable as actual patches/objects; they cannot be individually compared.
+
+| NAME | source SHA prefix | length / diagnostic | result |
+|---|---|---|---|
+| get_result | c61bdedc9b27 | 1005 / .60 | Get_Byte result local initialized -1 then assigned byte; loses Get_Byte 0x76E310 in both pair sets; rejected |
+| get_conditional | f37d63a30032 | 996 / .64 | Get_Byte conditional-expression return; loses same exact helper; rejected |
+| get_guard | 4149f4c431fa | 1006 / .79 | Get_Byte guard-first then byte return; loses same exact helper; rejected; equal length/score to prior parent is a distinct output |
+| pump_while | e660ee455c74 | 998 / .81 | while(true) on direct-read parent removes duplicated entry tail; all 11 preserved, but two branch targets wrong |
+| default_eof | f3683fdfb557 | 1001 / .80 | let EOF -1 flow through ordinary invalid-block dispatch/default status result; all 11 preserved, no match |
+| shared_block_error | ae1d28955bbd | 998 / .81 | while(true) plus actual shared block-error exit; exact candidate, original 11 preserved |
+
+The helper rewrites are semantic-equivalent diagnostics, not candidates: no exact-helper loss was accepted. They also alter inlining into the other two unmatched bodies, recorded in sol-analysis.json; those functions were not independently rewritten. No broad helper/body sweep followed these losses. One initial draft-generation assertion failed before a run/input was emitted, and was fixed; it is not a compiler form. A generated top_status proposal in sol-drafts/ was never compiled because the shared-error candidate matched; it is not an attempt. No compiler-invalid or assertion-guard-invalid input was compiled in this phase.
+
+## Mechanism and semantics
+
+Starting from the actual image-pointer palette helper, count-local, delayed status and bits-after-height parent, direct guard/read had already matched the retail top fetch but duplicated the loop entry after Decode. docs/workflow.md:366 documents the pump-loop distinction: while(true) versus for(;;). Applying it to the actual direct-read parent removed exactly that duplicate without changing the read count, callback order, error result, surface loads or helper code. The 998-byte result had zero masked instruction residue but failed actual branch comparison: object 0x1d7 jge and 0x21e jl jumped to constant-return epilogue 0x3d9, whereas retail 0x76D677 and 0x76D6BE jump to the existing status=-1 store at 0x76D863. This corrects earlier reports' implication that these retail failures use the constant-return tail.
+
+The final form routes these two genuine block-reading failures to a label on the existing terminator-error block (`status = -1; break;`). This expresses the existing error-result operation once, preserving every observable operation and all error results. The label jumps past no object construction or side effect and remains in the same outer loop; EOF still performs no byte read/increment. Descriptor failure still writes the failed byte to the same buffer before exit. The direct top-level byte read expands the nonvirtual Get_Byte body exactly; all other Get_Byte calls and the original exact helper definition remain unchanged. The palette helper reloads image->Surf per iteration, preserving callback mutation behavior. All physical FAIL_IF/G_ASSERT lines and exact conditions passed the canonical runner guard.
+
+No fake padding, dead reads, invented aggregate/lifetime, volatile, inline assembly, flags, pragmas or extra callback was used. New source names/labels still need root's normal evidence comments and marker cleanup before the final independent rebuild.
+
+## Explicit object audit
+
+Reproducible script: /home/dev/Projects/EnB/.work/claim-314/76D4A0/sol_audit.py. Successful result: /home/dev/Projects/EnB/.work/claim-314/76D4A0/sol-audit.json. Invocation uses native toolchain Python and REQUIRED explicit --object, --baseline, --source, --matches, --baseline-matches and --output paths. It intentionally checks this isolated Set_Data change against the original baseline; combined changes to another target need their own independently scoped audit/control rather than silently passing this strict section-preservation assertion.
+
+Audit proves all 998 executable bytes: 982 fixed bytes equal retail, the remaining sixteen bytes are precisely four zero-addend relocation fields. All 298 decoded instructions cover the entire body; every conditional/unconditional branch has the same destination offset and lands on an instruction boundary; both return encodings and stack cleanup match. There are no switch tables or embedded executable-body data. The four references are GIF87a at 0xB9C8D8 with complete `GIF87a\0` payload, strncmp at 0xA26730, Build_Pixel at 0x76D340 and Decode at 0x76D990, resolving retail thunks. Source receiver setup and all non-relocated instructions are byte identical. The one indirect call is Create_Surface through [edx+0x14] at offset 0x130, with ECX=this and the same width/height argument sequence. The palette call loads [esi+4] each iteration and passes all three byte channels in the same order.
+
+The exact Build_Pixel helper's entire 123 executable bytes are directly equal to retail, with no relocations and all three Bytes_Per_Pixel virtual calls through slot +0x40. No new out-of-line Build_Colors body is emitted. Every other COFF executable section, data/BSS/vtable/assert/mask payload and complete relocation graph is identical to the original baseline. Only Set_Data .text (1184 padded bytes ->1008) and its .debug$F record differ. There is no target SEH prologue, handler, FuncInfo, unwind predecessor/state or cleanup funclet; no new EH section or function symbol appears. Both explicit full pair-set comparisons preserve all original 11 pairs and gain only Set_Data. Existing source-path-case/static-placement limitations remain unchanged, with no new reference to those data introduced by this candidate.
+
+## Completion
+
+Investigation stops on a matched, audited candidate, not exhaustion or an arbitrary quota. No remaining Set_Data mismatch exists in this isolated candidate. Reopen only if root's final independent rebuild, name/comment edits, combined changes or linked-target audit invalidates it; use the actual branch destinations and explicit source/object hashes above. Root has the integration gate. No production source was retained by this worker and no compiler job remains from this phase.

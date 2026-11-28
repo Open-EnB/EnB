@@ -7,7 +7,7 @@
 #include "postate.h"
 #include "random.h"
 #include "..\shared\g_assert.h"
-
+#include "..\shared\auth_product.h"
 extern Random4Class Unknown_BDB1C0;				// NAME 1 [Unknown_BDB1C0]: 0xBDB1C0, the camera controllers' generator outside this file
 static float Unknown_B04FF8 = 4.0f;				// NAME 1: neutral (D10): 0x795C80's
 

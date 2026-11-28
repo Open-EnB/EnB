@@ -3,7 +3,7 @@
 #include "sclient.h"
 #include "client.h"
 #include "quat.h"
-
+#include "..\shared\auth_product.h"
 // 0x79C4A0
 CameraModule79C4A0Class::CameraModule79C4A0Class(SClient *client) :
 	CameraModuleClass(client),

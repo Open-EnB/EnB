@@ -18,7 +18,7 @@
 #include "..\audio\soundlib.h"
 #include "fontmanager.h"	// FontSys, FontManagerClass (0xBE67C4) and fontdatabase.h's FontStringFilesClass (0xBE67BC)
 #include "..\..\ww3d2\ww3d.h"	// WW3D::Get_Frame_Time (read inline)
-
+#include "..\shared\auth_product.h"
 extern FontManagerClass *Unknown_BE67C4;	// NAME 1: neutral (D10)
 
 // The client at InterfaceClass +0x40, as this file calls it (as ui_manu.cpp declares it)

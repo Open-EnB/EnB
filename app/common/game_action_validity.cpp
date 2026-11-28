@@ -2,7 +2,7 @@
 #include "game_action_validity.h"
 #include <string.h>
 #include <vector>
-
+#include "..\shared\auth_product.h"
 // aux_roots.h's, for these three (that header is the generated roots', far too much for this object)
 enum GameActionValidityBitFlag { UNKNOWN_B018F4_0 };	// NAME 5: the client's Get_Type_Name string 'GameActionValidityBitFlag'
 

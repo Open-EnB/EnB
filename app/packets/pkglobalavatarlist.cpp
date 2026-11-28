@@ -1,7 +1,7 @@
 // Earth & Beyond client (reconstruction): app\packets\pkglobalavatarlist.cpp. Notes at the end of the file.
 #include "pkglobalavatarlist.h"
 #include <stdio.h>
-
+#include "..\shared\auth_product.h"
 GlobalAvatarListPacketClass::GlobalAvatarListPacketClass(LoginCharacterClass *characters, AvatarDescClass *avatars, const std::list<LoginGalaxyClass> *galaxies)
 {
 	if (characters == NULL) {

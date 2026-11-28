@@ -1,0 +1,3 @@
+0x76D4A0 HtmlGifImageClass::Set_Data: Sol phase, 6 actual compiler inputs.
+Sol: real while(true) pump suppresses duplicate loop tail; shared block_error routes EOF/descriptor failures to retail status store. 998-byte candidate exact, +1 bothpairsets, all11preserved. Full branches/fourrefs/addends/literals/receivers/BuildPixel123bytes audited. Three GetByte helper rewrites lost exacthelper and were rejected.
+Actual full reports and base-bound replay forms are in .work/claim-314 and packaged claim314-forms JSON.

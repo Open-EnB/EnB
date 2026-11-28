@@ -21,9 +21,9 @@
 #include "..\shared\enbassetmgr.h"
 #include "font32bit.h"
 #include "fontmanager.h"
-
-void Unknown_80FCE0(RenderObjClass *robj, std::vector<ColorizationRegionStruct> &regions,
-	EnvironmentMapManagerClass *env_maps, const Vector3 *skin);
+#include "..\shared\auth_product.h"
+// No prototype for 0x80FCE0 here (defined below before any use in this file). 0x812390 is a tie-break pair: the order of
+// its multi-material loop's two hoisted mapper loads (0x812F02 / 0x812F06) moves with the count of declarations above it
 void Unknown_80FD10(RenderObjClass *robj, std::vector<ColorizationRegionStruct> &regions, int axis, const Vector3 *skin);
 void Unknown_812390(RenderObjClass *robj, std::vector<ColorizationRegionStruct> &reg_mat_defs, unsigned current_region, int axis,
 	const Vector3 *skin);
@@ -928,9 +928,9 @@ int Add_Looping_Sound_Effect(const char *sound, ClientClass *client, unsigned ob
 
 
 
-// NOT EXACT: from the disassembly (D64), the client's own FAIL_IF / G_ASSERT lines; shape and frame residues (attempts.py show 0x812390)
-// 0x812390: the region's two halves onto the mesh's '~S1' / '~S2' vertex materials (colour, stage 1 mapper, the
-// shaders' post-detail colour function) and the skin colour onto '~SK'
+// From the disassembly, on the client's own FAIL_IF / G_ASSERT lines (938-1120): the region's two halves onto the mesh's
+// '~S1' / '~S2' vertex materials (colour, stage 1 mapper, the shaders' post-detail colour function) and the skin colour
+// onto '~SK'. The work after the first loop is nested in the 'present' test, as 0x80F470 nests its own in 'if (differs)'
 // @0x812390
 void Unknown_812390(RenderObjClass *robj, std::vector<ColorizationRegionStruct> &reg_mat_defs, unsigned current_region,	// NAME 3 [reg_mat_defs, current_region]: the FAIL_IF
 	int axis, const Vector3 *skin)
@@ -1024,11 +1024,11 @@ void Unknown_812390(RenderObjClass *robj, std::vector<ColorizationRegionStruct> 
 			}
 		}
 	}
-	if (!primary_material_present && !secondary_material_present && !skin_material_present) {
-		return;
-	}
-	bool force_meshmdl_clone = mesh->Peek_Model()->Has_Polygon_Renderers(); mesh->Make_Unique(force_meshmdl_clone);
-	minfo = Create_Get(mesh->Get_Material_Info());
+	if (primary_material_present || secondary_material_present || skin_material_present) {
+
+
+		bool force_meshmdl_clone = mesh->Peek_Model()->Has_Polygon_Renderers(); mesh->Make_Unique(force_meshmdl_clone);
+		minfo = Create_Get(mesh->Get_Material_Info());
 
 
 
@@ -1038,102 +1038,103 @@ void Unknown_812390(RenderObjClass *robj, std::vector<ColorizationRegionStruct> 
 
 
 
-	FAIL_IF(!minfo) return;
-	FAIL_IF(vmat_count != minfo->Vertex_Material_Count()) {
-		return;
-	}
-	if (vmat_count == 1) {
-		RefCountPtr<VertexMaterialClass> vmat = Create_Get(minfo->Get_Vertex_Material(0));
-		FAIL_IF(!vmat) {
+		FAIL_IF(!minfo) return;
+		FAIL_IF(vmat_count != minfo->Vertex_Material_Count()) {
 			return;
 		}
-		if (skin_material_present) {
-			vmat->Set_Ambient(*skin);
-			vmat->Set_Diffuse(*skin);
-		} else {
-			ShaderClass::DetailColorFuncType func;
-			if (primary_material_present) {
-				vmat->Set_Mapper(primary_mapper.Peek(), 1);
-				vmat->Set_Ambient(primary_color);
-				vmat->Set_Diffuse(primary_color);
-				func = primary_func;
-			} else {
-				vmat->Set_Mapper(secondary_mapper.Peek(), 1);
-				vmat->Set_Ambient(secondary_color);
-				vmat->Set_Diffuse(secondary_color);
-				func = secondary_func;
-			}
-			RefCountPtr<MeshModelClass> meshmdl = Create_Get(mesh->Get_Model());
-
-
-
-
-
-
-
-
-			FAIL_IF(!meshmdl) {
-				return;
-			}
-			ShaderClass shader = meshmdl->Get_Single_Shader(0);
-			shader.Set_Post_Detail_Color_Func(func);
-			meshmdl->Set_Single_Shader(shader, 0);
-			if (meshmdl->Has_Shader_Array(0)) {
-				int poly_count = meshmdl->Get_Polygon_Count();
-				for (int p = 0; p < poly_count; p++) {
-					ShaderClass poly_shader = meshmdl->Get_Shader(p, 0);
-					poly_shader.Set_Post_Detail_Color_Func(func);
-					meshmdl->Set_Shader(p, poly_shader, 0);
-				}
-			}
-		}
-	} else {
-		for (int i = 0; i < vmat_count; i++) {
-			RefCountPtr<VertexMaterialClass> vmat = Create_Get(minfo->Get_Vertex_Material(i));
-
-
+		if (vmat_count == 1) {
+			RefCountPtr<VertexMaterialClass> vmat = Create_Get(minfo->Get_Vertex_Material(0));
 			FAIL_IF(!vmat) {
 				return;
 			}
-			const char *name = vmat->Get_Name();
-			if (name[0] == '~' && (name[1] == 'S' || name[1] == 's')) {
-				if (name[2] == '1') {
+			if (skin_material_present) {
+				vmat->Set_Ambient(*skin);
+				vmat->Set_Diffuse(*skin);
+			} else {
+				ShaderClass::DetailColorFuncType func;
+				if (primary_material_present) {
 					vmat->Set_Mapper(primary_mapper.Peek(), 1);
 					vmat->Set_Ambient(primary_color);
 					vmat->Set_Diffuse(primary_color);
-				} else if (name[2] == '2') {
+					func = primary_func;
+				} else {
 					vmat->Set_Mapper(secondary_mapper.Peek(), 1);
 					vmat->Set_Ambient(secondary_color);
 					vmat->Set_Diffuse(secondary_color);
-				} else if (name[2] == 'K' || name[2] == 'k') {
-					vmat->Set_Ambient(*skin);
-					vmat->Set_Diffuse(*skin);
+					func = secondary_func;
+				}
+				RefCountPtr<MeshModelClass> meshmdl = Create_Get(mesh->Get_Model());
+
+
+
+
+
+
+
+
+				FAIL_IF(!meshmdl) {
+					return;
+				}
+				ShaderClass shader = meshmdl->Get_Single_Shader(0);
+				shader.Set_Post_Detail_Color_Func(func);
+				meshmdl->Set_Single_Shader(shader, 0);
+				if (meshmdl->Has_Shader_Array(0)) {
+					int poly_count = meshmdl->Get_Polygon_Count();
+					for (int p = 0; p < poly_count; p++) {
+						shader = meshmdl->Get_Shader(p, 0);
+						shader.Set_Post_Detail_Color_Func(func);
+						meshmdl->Set_Shader(p, shader, 0);
+					}
 				}
 			}
-		}
-		RefCountPtr<MeshModelClass> meshmdl = Create_Get(mesh->Get_Model());
-		FAIL_IF(!meshmdl) {
-			return;
-		}
-		if (!meshmdl->Has_Shader_Array(0)) {
+		} else {
+			for (int i = 0; i < vmat_count; i++) {
+				RefCountPtr<VertexMaterialClass> vmat = Create_Get(minfo->Get_Vertex_Material(i));
 
-			FAIL_IF(primary_material_present && secondary_material_present) {
+
+				FAIL_IF(!vmat) {
+					return;
+				}
+				const char *name = vmat->Get_Name();
+				if (name[0] == '~' && (name[1] == 'S' || name[1] == 's')) {
+					if (name[2] == '1') {
+						vmat->Set_Mapper(primary_mapper.Peek(), 1);
+						vmat->Set_Ambient(primary_color);
+						vmat->Set_Diffuse(primary_color);
+					} else if (name[2] == '2') {
+						vmat->Set_Mapper(secondary_mapper.Peek(), 1);
+						vmat->Set_Ambient(secondary_color);
+						vmat->Set_Diffuse(secondary_color);
+					} else if (name[2] == 'K' || name[2] == 'k') {
+						vmat->Set_Ambient(*skin);
+						vmat->Set_Diffuse(*skin);
+					}
+				}
+			}
+			RefCountPtr<MeshModelClass> meshmdl = Create_Get(mesh->Get_Model());
+			FAIL_IF(!meshmdl) {
 				return;
 			}
-			if (primary_material_present || secondary_material_present) {
-				ShaderClass shader = meshmdl->Get_Single_Shader(0);
-				shader.Set_Post_Detail_Color_Func(primary_material_present ? primary_func : secondary_func);
-				meshmdl->Set_Single_Shader(shader, 0);
-			}
-		} else {
-			int poly_count = meshmdl->Get_Polygon_Count();
-			for (int p = 0; p < poly_count; p++) {
-				RefCountPtr<VertexMaterialClass> vmat = Create_Get(meshmdl->Get_Material(meshmdl->Get_Polygon_Array()[p].I, 0));
-				const char *name = vmat->Get_Name();
-				if (name[0] == '~' && (name[1] == 'S' || name[1] == 's') && (name[2] == '1' || name[2] == '2')) {
-					ShaderClass shader = meshmdl->Get_Shader(p, 0);
-					shader.Set_Post_Detail_Color_Func(name[2] == '1' ? primary_func : secondary_func);
-					meshmdl->Set_Shader(p, shader, 0);
+			if (!meshmdl->Has_Shader_Array(0)) {
+
+				FAIL_IF(primary_material_present && secondary_material_present) {
+					return;
+				}
+				if (primary_material_present || secondary_material_present) {
+					ShaderClass shader = meshmdl->Get_Single_Shader(0);
+					shader.Set_Post_Detail_Color_Func(primary_material_present ? primary_func : secondary_func);
+					meshmdl->Set_Single_Shader(shader, 0);
+				}
+			} else {
+				int poly_count = meshmdl->Get_Polygon_Count();
+				for (int p = 0; p < poly_count; p++) {
+					RefCountPtr<VertexMaterialClass> vmat = Create_Get(meshmdl->Get_Material(meshmdl->Get_Polygon_Array()[p].I, 0));
+					const char *name = vmat->Get_Name();
+					if (name[0] == '~' && (name[1] == 'S' || name[1] == 's') && (name[2] == '1' || name[2] == '2')) {
+						ShaderClass shader = meshmdl->Get_Shader(p, 0);
+						shader.Set_Post_Detail_Color_Func(name[2] == '1' ? primary_func : secondary_func);
+						meshmdl->Set_Shader(p, shader, 0);
+					}
 				}
 			}
 		}

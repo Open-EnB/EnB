@@ -36,7 +36,7 @@
 #include "ui_cinfo.h"
 #include "ui_attrb_skills.h"
 #include "ui_attrb.h"
-
+#include "..\shared\auth_product.h"
 // The client at InterfaceClass +0x40, as ui_chat_panel.cpp declares it
 class LineDisplayClientClass  // NAME 1: neutral (D10)
 {
@@ -2281,7 +2281,7 @@ void UIStarbaseClass::Unknown_63A100()
 
 
 
-// NOT EXACT: 0x63AC60, functional (register: the loop's inlined Unknown24 = "" stores _Eos through [eax + ecx], the client [ecx + eax]; FontSys::Set_Color per colour with four dead Peek() reads after it gives the client's stores through the tag; FontSys::Set_Color at the guild texts the client's zero register in the loop; ++it its frame 0x2C)
+// Forms of 0x63AC60 that hold its bytes: FontSys::Set_Color per colour with four dead Peek() reads after it (the client's stores through the tag, its first Unknown24 = "" assign out of line); FontSys::Set_Color at the guild texts (the client's zero register in the loop); ++it (its frame 0x2C); the empty slot loop before the tag loop (the loop's inlined Unknown24 = "" stores _Eos through [ecx + eax] as the client, [eax + ecx] without it)
 // 0x63AC60 (0x638390's frame: the name tags shown or hidden, their guild texts and colours kept up to date)
 void UIStarbaseClass::Unknown_63AC60()
 {
@@ -2310,7 +2310,7 @@ void UIStarbaseClass::Unknown_63AC60()
 			UnknownC0.D->Unknown10->Set_Hidden(true);
 		}
 	}
-
+	for (int slot = 0; slot < 14; slot++) { }	// device (FB18): a loop the back end removes, before the tag loop, turns its inlined _Eos store to the client's [ptr + n] (what the client's source had here is not known: any empty or one-pass loop before the store does it, one after it does not)
 	for (int i = 0; i < 14; i++) {
 		if (Unknown13C[i]) {
 			Unknown_63F490(Unknown13C[i]);

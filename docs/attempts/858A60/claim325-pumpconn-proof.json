@@ -1,0 +1,1118 @@
+{
+  "claim": 325,
+  "base_revision": "86654fa59d61c928c256f577d7c417872f3c13a9",
+  "audit": {
+    "root_hardening_passed": true,
+    "socket_imports": [
+      {
+        "thunk": "0x8c1b9a",
+        "iat": "0xc4437c",
+        "ordinal": 9,
+        "dll": "WS2_32.dll"
+      },
+      {
+        "thunk": "0x8c1b76",
+        "iat": "0xc4438c",
+        "ordinal": 8,
+        "dll": "WS2_32.dll"
+      }
+    ],
+    "object_sha256": "6ad88e77861203f4ba53790f17ffb76a83032696486e1f3d494fd1ce92d18f71",
+    "cpp_sha256": "593979273563e91df9080f64c60bca1c048dd4be28b3a87d35141673d97dfe70",
+    "header_sha256": "12e0dc74710320fc81810d94469a1270b4d3f46b63effca82886cd8d631274e2",
+    "length": 894,
+    "body_masked_equal": true,
+    "instruction_count": 266,
+    "branches": [
+      [
+        "0x858a93",
+        "0x858aa2"
+      ],
+      [
+        "0x858afd",
+        "0x858d7a"
+      ],
+      [
+        "0x858b0f",
+        "0x858b1c"
+      ],
+      [
+        "0x858b14",
+        "0x858b1c"
+      ],
+      [
+        "0x858b2d",
+        "0x858c38"
+      ],
+      [
+        "0x858b4e",
+        "0x858b7c"
+      ],
+      [
+        "0x858b7a",
+        "0x858b7e"
+      ],
+      [
+        "0x858bb1",
+        "0x858bdb"
+      ],
+      [
+        "0x858be5",
+        "0x858c33"
+      ],
+      [
+        "0x858be9",
+        "0x858bed"
+      ],
+      [
+        "0x858bef",
+        "0x858bf4"
+      ],
+      [
+        "0x858c26",
+        "0x858c2f"
+      ],
+      [
+        "0x858c3e",
+        "0x858c98"
+      ],
+      [
+        "0x858c4f",
+        "0x858d64"
+      ],
+      [
+        "0x858c93",
+        "0x858d64"
+      ],
+      [
+        "0x858c9b",
+        "0x858d64"
+      ],
+      [
+        "0x858cb0",
+        "0x858d64"
+      ],
+      [
+        "0x858d72",
+        "0x858b0d"
+      ],
+      [
+        "0x858dc0",
+        "0x858dc7"
+      ]
+    ],
+    "calls_receivers": [
+      {
+        "address": "0x858a9a",
+        "call": "0x9ea930",
+        "preceding": [
+          "mov byte ptr [esp + 0x10], 0",
+          "mov byte ptr [esp + 0x11], al",
+          "je 0x858aa2",
+          "push 0xbb1c14"
+        ]
+      },
+      {
+        "address": "0x858aaf",
+        "call": "0x40a29a",
+        "preceding": [
+          "add esp, 4",
+          "xor ebx, ebx",
+          "lea ecx, [esp + 0x28]",
+          "mov dword ptr [esp + 0x440], ebx"
+        ]
+      },
+      {
+        "address": "0x858ac0",
+        "call": "0x40a29a",
+        "preceding": [
+          "mov dword ptr [esp + 0x440], ebx",
+          "call 0x40a29a",
+          "lea ecx, [esp + 0x1c]",
+          "mov byte ptr [esp + 0x440], 1"
+        ]
+      },
+      {
+        "address": "0x858ad1",
+        "call": "0x40a29a",
+        "preceding": [
+          "mov byte ptr [esp + 0x440], 1",
+          "call 0x40a29a",
+          "lea ecx, [esp + 0x30]",
+          "mov byte ptr [esp + 0x440], 2"
+        ]
+      },
+      {
+        "address": "0x858ae4",
+        "call": "0x409ee4",
+        "preceding": [
+          "call 0x40a29a",
+          "push -1",
+          "lea ecx, [esp + 0x20]",
+          "mov byte ptr [esp + 0x444], 3"
+        ]
+      },
+      {
+        "address": "0x858aef",
+        "call": "0x409ee4",
+        "preceding": [
+          "mov byte ptr [esp + 0x444], 3",
+          "call 0x409ee4",
+          "push -0x3c",
+          "lea ecx, [esp + 0x34]"
+        ]
+      },
+      {
+        "address": "0x858b26",
+        "call": "0x40e048",
+        "preceding": [
+          "lea ecx, [esp + 0x38]",
+          "lea esi, [ebp + 0x14]",
+          "push ecx",
+          "mov ecx, esi"
+        ]
+      },
+      {
+        "address": "0x858b38",
+        "call": "0x41066d",
+        "preceding": [
+          "call 0x40e048",
+          "test al, al",
+          "je 0x858c38",
+          "push 0xc0"
+        ]
+      },
+      {
+        "address": "0x858b75",
+        "call": "0x413908",
+        "preceding": [
+          "mov edx, dword ptr [ebp]",
+          "push ecx",
+          "push edx",
+          "mov ecx, eax"
+        ]
+      },
+      {
+        "address": "0x858b95",
+        "call": "0x41848f",
+        "preceding": [
+          "mov eax, dword ptr [ecx]",
+          "push eax",
+          "lea eax, [esp + 0x24]",
+          "push eax"
+        ]
+      },
+      {
+        "address": "0x858ba6",
+        "call": "0x41848f",
+        "preceding": [
+          "lea ecx, [edi + 0x34]",
+          "lea edx, [esp + 0x20]",
+          "push eax",
+          "push edx"
+        ]
+      },
+      {
+        "address": "0x858bbe",
+        "call": "0x4091d8",
+        "preceding": [
+          "mov dword ptr [esp + 0x2c], ebp",
+          "je 0x858bdb",
+          "lea ecx, [ebp + 0x1c]",
+          "mov byte ptr [esp + 0x448], 5"
+        ]
+      },
+      {
+        "address": "0x858bcd",
+        "call": "0x4091d8",
+        "preceding": [
+          "mov byte ptr [esp + 0x448], 5",
+          "call 0x4091d8",
+          "mov ecx, esi",
+          "mov byte ptr [esp + 0x448], 3"
+        ]
+      },
+      {
+        "address": "0x858bd3",
+        "call": "0x412b7a",
+        "preceding": [
+          "mov ecx, esi",
+          "mov byte ptr [esp + 0x448], 3",
+          "call 0x4091d8",
+          "push ebp"
+        ]
+      },
+      {
+        "address": "0x858c0f",
+        "call": "0xa25f50",
+        "preceding": [
+          "push ebx",
+          "lea ecx, [edx + ecx*4]",
+          "push eax",
+          "push ecx"
+        ]
+      },
+      {
+        "address": "0x858c2a",
+        "call": "0x40ff06",
+        "preceding": [
+          "mov eax, dword ptr [esi + 4]",
+          "cmp edx, eax",
+          "jg 0x858c2f",
+          "mov ecx, esi"
+        ]
+      },
+      {
+        "address": "0x858c48",
+        "call": "0x402fcc",
+        "preceding": [
+          "jne 0x858c98",
+          "lea esi, [ebp + 0x1c]",
+          "lea ecx, [esp + 0x24]",
+          "push esi"
+        ]
+      },
+      {
+        "address": "0x858c65",
+        "call": "0x8c1b9a",
+        "preceding": [
+          "mov byte ptr [esp + 0x40], 0",
+          "mov byte ptr [esp + 0x41], al",
+          "mov ax, word ptr [ebp + 8]",
+          "push eax"
+        ]
+      },
+      {
+        "address": "0x858c82",
+        "call": "0x414d62",
+        "preceding": [
+          "mov ecx, dword ptr [ebp + 0x28]",
+          "lea edx, [esp + 0x48]",
+          "push 4",
+          "push edx"
+        ]
+      },
+      {
+        "address": "0x858c8e",
+        "call": "0x404c5f",
+        "preceding": [
+          "call 0x414d62",
+          "lea eax, [esp + 0x30]",
+          "mov ecx, esi",
+          "push eax"
+        ]
+      },
+      {
+        "address": "0x858ca9",
+        "call": "0x402fcc",
+        "preceding": [
+          "jne 0x858d64",
+          "lea eax, [ebp + 0x1c]",
+          "lea ecx, [esp + 0x24]",
+          "push eax"
+        ]
+      },
+      {
+        "address": "0x858cc6",
+        "call": "0x8c1b9a",
+        "preceding": [
+          "mov byte ptr [esp + 0x40], 2",
+          "mov byte ptr [esp + 0x41], al",
+          "mov ax, word ptr [ebp + 8]",
+          "push eax"
+        ]
+      },
+      {
+        "address": "0x858cd4",
+        "call": "0x8c1b76",
+        "preceding": [
+          "call 0x8c1b9a",
+          "mov word ptr [esp + 0x42], ax",
+          "mov eax, dword ptr [ebp + 0xc]",
+          "push eax"
+        ]
+      },
+      {
+        "address": "0x858ce1",
+        "call": "0x8c1b76",
+        "preceding": [
+          "call 0x8c1b76",
+          "mov dword ptr [esp + 0x44], eax",
+          "mov eax, dword ptr [ebp + 0x10]",
+          "push eax"
+        ]
+      },
+      {
+        "address": "0x858cef",
+        "call": "0x8c1b76",
+        "preceding": [
+          "push eax",
+          "call 0x8c1b76",
+          "push 0x4000",
+          "mov dword ptr [esp + 0x4c], eax"
+        ]
+      },
+      {
+        "address": "0x858d06",
+        "call": "0x9e0770",
+        "preceding": [
+          "push 0x40",
+          "lea ecx, [esp + 0x244]",
+          "push eax",
+          "push ecx"
+        ]
+      },
+      {
+        "address": "0x858d11",
+        "call": "0x8c1b76",
+        "preceding": [
+          "call 0x9e0770",
+          "add esp, 0xc",
+          "mov ebx, eax",
+          "push ebx"
+        ]
+      },
+      {
+        "address": "0x858d4a",
+        "call": "0x414d62",
+        "preceding": [
+          "push ecx",
+          "mov ecx, dword ptr [ebp + 0x28]",
+          "push ebx",
+          "push edx"
+        ]
+      },
+      {
+        "address": "0x858d57",
+        "call": "0x404c5f",
+        "preceding": [
+          "call 0x414d62",
+          "lea eax, [esp + 0x30]",
+          "lea ecx, [ebp + 0x1c]",
+          "push eax"
+        ]
+      },
+      {
+        "address": "0x858d86",
+        "call": "0x4091d8",
+        "preceding": [
+          "pop esi",
+          "pop ebp",
+          "lea ecx, [esp + 0x30]",
+          "mov byte ptr [esp + 0x440], 2"
+        ]
+      },
+      {
+        "address": "0x858d97",
+        "call": "0x4091d8",
+        "preceding": [
+          "mov byte ptr [esp + 0x440], 2",
+          "call 0x4091d8",
+          "lea ecx, [esp + 0x1c]",
+          "mov byte ptr [esp + 0x440], 1"
+        ]
+      },
+      {
+        "address": "0x858da8",
+        "call": "0x4091d8",
+        "preceding": [
+          "mov byte ptr [esp + 0x440], 1",
+          "call 0x4091d8",
+          "lea ecx, [esp + 0x28]",
+          "mov byte ptr [esp + 0x440], 0"
+        ]
+      },
+      {
+        "address": "0x858dc2",
+        "call": "0x9eaa50",
+        "preceding": [
+          "test al, al",
+          "mov dword ptr [esp + 0x43c], 0xffffffff",
+          "pop ebx",
+          "je 0x858dc7"
+        ]
+      }
+    ],
+    "relocations": [
+      {
+        "offset": "0x3",
+        "symbol": "$L36781",
+        "type": 6,
+        "addend": "00000000",
+        "target": "0xad83e8",
+        "evidence": "handler"
+      },
+      {
+        "offset": "0x9",
+        "symbol": "__except_list",
+        "type": 6,
+        "addend": "00000000",
+        "target": "0x0",
+        "evidence": "fs exception list"
+      },
+      {
+        "offset": "0x11",
+        "symbol": "__except_list",
+        "type": 6,
+        "addend": "00000000",
+        "target": "0x0",
+        "evidence": "fs exception list"
+      },
+      {
+        "offset": "0x1c",
+        "symbol": "?IsProfileEnabled@WWProfileManager@@0_NA",
+        "type": 6,
+        "addend": "00000000",
+        "target": "0xc40488",
+        "evidence": "prior exact function"
+      },
+      {
+        "offset": "0x36",
+        "symbol": "??_C@_0BK@IKGM@CordMgr?3?3Pump_Connections?$AA@",
+        "type": 6,
+        "addend": "00000000",
+        "target": "0xbb1c14",
+        "evidence": "string:'CordMgr::Pump_Connections'"
+      },
+      {
+        "offset": "0x3b",
+        "symbol": "?Start_Profile@WWProfileManager@@SAXPBD@Z",
+        "type": 20,
+        "addend": "00000000",
+        "target": "0x9ea930",
+        "evidence": "recorded called/pair"
+      },
+      {
+        "offset": "0x50",
+        "symbol": "??0Xtime@@QAE@XZ",
+        "type": 20,
+        "addend": "00000000",
+        "target": "0x40a29a",
+        "evidence": "recorded called/pair"
+      },
+      {
+        "offset": "0x61",
+        "symbol": "??0Xtime@@QAE@XZ",
+        "type": 20,
+        "addend": "00000000",
+        "target": "0x40a29a",
+        "evidence": "recorded called/pair"
+      },
+      {
+        "offset": "0x72",
+        "symbol": "??0Xtime@@QAE@XZ",
+        "type": 20,
+        "addend": "00000000",
+        "target": "0x40a29a",
+        "evidence": "recorded called/pair"
+      },
+      {
+        "offset": "0x85",
+        "symbol": "?addSeconds@Xtime@@QAEXJ@Z",
+        "type": 20,
+        "addend": "00000000",
+        "target": "0x409ee4",
+        "evidence": "recorded called/pair"
+      },
+      {
+        "offset": "0x90",
+        "symbol": "?addSeconds@Xtime@@QAEXJ@Z",
+        "type": 20,
+        "addend": "00000000",
+        "target": "0x409ee4",
+        "evidence": "recorded called/pair"
+      },
+      {
+        "offset": "0xc7",
+        "symbol": "??MXtime@@QBEDABV0@@Z",
+        "type": 20,
+        "addend": "00000000",
+        "target": "0x40e048",
+        "evidence": "recorded called/pair"
+      },
+      {
+        "offset": "0xd9",
+        "symbol": "??2@YAPAXI@Z",
+        "type": 20,
+        "addend": "00000000",
+        "target": "0x41066d",
+        "evidence": "recorded called/pair"
+      },
+      {
+        "offset": "0x116",
+        "symbol": "??0CordCon@@QAE@IGHG_NPAVUDP@@H_J@Z",
+        "type": 20,
+        "addend": "00000000",
+        "target": "0x413908",
+        "evidence": "recorded called/pair"
+      },
+      {
+        "offset": "0x136",
+        "symbol": "?add@?$ArrayList@PAVCordCon@@@@QAEDABQAVCordCon@@J@Z",
+        "type": 20,
+        "addend": "00000000",
+        "target": "0x41848f",
+        "evidence": "recorded called/pair"
+      },
+      {
+        "offset": "0x147",
+        "symbol": "?add@?$ArrayList@PAVCordCon@@@@QAEDABQAVCordCon@@J@Z",
+        "type": 20,
+        "addend": "00000000",
+        "target": "0x41848f",
+        "evidence": "recorded called/pair"
+      },
+      {
+        "offset": "0x15f",
+        "symbol": "??1Xtime@@QAE@XZ",
+        "type": 20,
+        "addend": "00000000",
+        "target": "0x4091d8",
+        "evidence": "recorded called/pair"
+      },
+      {
+        "offset": "0x16e",
+        "symbol": "??1Xtime@@QAE@XZ",
+        "type": 20,
+        "addend": "00000000",
+        "target": "0x4091d8",
+        "evidence": "recorded called/pair"
+      },
+      {
+        "offset": "0x174",
+        "symbol": "??3@YAXPAX@Z",
+        "type": 20,
+        "addend": "00000000",
+        "target": "0x412b7a",
+        "evidence": "recorded called/pair"
+      },
+      {
+        "offset": "0x1b0",
+        "symbol": "_memmove",
+        "type": 20,
+        "addend": "00000000",
+        "target": "0xa25f50",
+        "evidence": "recorded called/pair"
+      },
+      {
+        "offset": "0x1cb",
+        "symbol": "?shrinkVector@?$ArrayList@PAVCordConnectingClass@@@@AAEDXZ",
+        "type": 20,
+        "addend": "00000000",
+        "target": "0x40ff06",
+        "evidence": "recorded called/pair"
+      },
+      {
+        "offset": "0x1e9",
+        "symbol": "??OXtime@@QBEDABV0@@Z",
+        "type": 20,
+        "addend": "00000000",
+        "target": "0x402fcc",
+        "evidence": "recorded called/pair"
+      },
+      {
+        "offset": "0x206",
+        "symbol": "_htons@4",
+        "type": 20,
+        "addend": "00000000",
+        "target": "0x8c1b9a",
+        "evidence": "recorded called/pair"
+      },
+      {
+        "offset": "0x223",
+        "symbol": "?Write@UDP@@QAEJPAEKKG@Z",
+        "type": 20,
+        "addend": "00000000",
+        "target": "0x414d62",
+        "evidence": "recorded called/pair"
+      },
+      {
+        "offset": "0x22f",
+        "symbol": "??4Xtime@@QAEAAV0@ABV0@@Z",
+        "type": 20,
+        "addend": "00000000",
+        "target": "0x404c5f",
+        "evidence": "recorded called/pair"
+      },
+      {
+        "offset": "0x24a",
+        "symbol": "??OXtime@@QBEDABV0@@Z",
+        "type": 20,
+        "addend": "00000000",
+        "target": "0x402fcc",
+        "evidence": "recorded called/pair"
+      },
+      {
+        "offset": "0x267",
+        "symbol": "_htons@4",
+        "type": 20,
+        "addend": "00000000",
+        "target": "0x8c1b9a",
+        "evidence": "recorded called/pair"
+      },
+      {
+        "offset": "0x275",
+        "symbol": "_htonl@4",
+        "type": 20,
+        "addend": "00000000",
+        "target": "0x8c1b76",
+        "evidence": "recorded called/pair"
+      },
+      {
+        "offset": "0x282",
+        "symbol": "_htonl@4",
+        "type": 20,
+        "addend": "00000000",
+        "target": "0x8c1b76",
+        "evidence": "recorded called/pair"
+      },
+      {
+        "offset": "0x290",
+        "symbol": "_htonl@4",
+        "type": 20,
+        "addend": "00000000",
+        "target": "0x8c1b76",
+        "evidence": "recorded called/pair"
+      },
+      {
+        "offset": "0x2a7",
+        "symbol": "_XMP_Encode",
+        "type": 20,
+        "addend": "00000000",
+        "target": "0x9e0770",
+        "evidence": "recorded called/pair"
+      },
+      {
+        "offset": "0x2b2",
+        "symbol": "_htonl@4",
+        "type": 20,
+        "addend": "00000000",
+        "target": "0x8c1b76",
+        "evidence": "recorded called/pair"
+      },
+      {
+        "offset": "0x2eb",
+        "symbol": "?Write@UDP@@QAEJPAEKKG@Z",
+        "type": 20,
+        "addend": "00000000",
+        "target": "0x414d62",
+        "evidence": "recorded called/pair"
+      },
+      {
+        "offset": "0x2f8",
+        "symbol": "??4Xtime@@QAEAAV0@ABV0@@Z",
+        "type": 20,
+        "addend": "00000000",
+        "target": "0x404c5f",
+        "evidence": "recorded called/pair"
+      },
+      {
+        "offset": "0x327",
+        "symbol": "??1Xtime@@QAE@XZ",
+        "type": 20,
+        "addend": "00000000",
+        "target": "0x4091d8",
+        "evidence": "recorded called/pair"
+      },
+      {
+        "offset": "0x338",
+        "symbol": "??1Xtime@@QAE@XZ",
+        "type": 20,
+        "addend": "00000000",
+        "target": "0x4091d8",
+        "evidence": "recorded called/pair"
+      },
+      {
+        "offset": "0x349",
+        "symbol": "??1Xtime@@QAE@XZ",
+        "type": 20,
+        "addend": "00000000",
+        "target": "0x4091d8",
+        "evidence": "recorded called/pair"
+      },
+      {
+        "offset": "0x363",
+        "symbol": "?Stop_Profile@WWProfileManager@@SAXXZ",
+        "type": 20,
+        "addend": "00000000",
+        "target": "0x9eaa50",
+        "evidence": "recorded called/pair"
+      },
+      {
+        "offset": "0x373",
+        "symbol": "__except_list",
+        "type": 6,
+        "addend": "00000000",
+        "target": "0x0",
+        "evidence": "fs exception list"
+      }
+    ],
+    "handler": "0xad83e8",
+    "funcinfo": "0xb56aa0",
+    "object_funcinfo": [
+      429065504,
+      6,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "retail_funcinfo": [
+      429065504,
+      6,
+      11889344,
+      0,
+      0,
+      0,
+      0
+    ],
+    "states": [
+      {
+        "state": 0,
+        "predecessor": "0xffffffff",
+        "retail_action": "0xad83a0",
+        "masked_equal": true,
+        "refs": [
+          {
+            "symbol": "??1WWProfileSampleClass@@QAE@XZ",
+            "target": "0x40f8df",
+            "addend": "00000000"
+          }
+        ]
+      },
+      {
+        "state": 1,
+        "predecessor": "0x0",
+        "retail_action": "0xad83ab",
+        "masked_equal": true,
+        "refs": [
+          {
+            "symbol": "??1Xtime@@QAE@XZ",
+            "target": "0x4091d8",
+            "addend": "00000000"
+          }
+        ]
+      },
+      {
+        "state": 2,
+        "predecessor": "0x1",
+        "retail_action": "0xad83b6",
+        "masked_equal": true,
+        "refs": [
+          {
+            "symbol": "??1Xtime@@QAE@XZ",
+            "target": "0x4091d8",
+            "addend": "00000000"
+          }
+        ]
+      },
+      {
+        "state": 3,
+        "predecessor": "0x2",
+        "retail_action": "0xad83c1",
+        "masked_equal": true,
+        "refs": [
+          {
+            "symbol": "??1Xtime@@QAE@XZ",
+            "target": "0x4091d8",
+            "addend": "00000000"
+          }
+        ]
+      },
+      {
+        "state": 4,
+        "predecessor": "0x3",
+        "retail_action": "0xad83cc",
+        "masked_equal": true,
+        "refs": [
+          {
+            "symbol": "??3@YAXPAX@Z",
+            "target": "0x412b7a",
+            "addend": "00000000"
+          }
+        ]
+      },
+      {
+        "state": 5,
+        "predecessor": "0x3",
+        "retail_action": "0xad83da",
+        "masked_equal": true,
+        "refs": [
+          {
+            "symbol": "??1Xtime@@QAE@XZ",
+            "target": "0x4091d8",
+            "addend": "00000000"
+          }
+        ]
+      }
+    ],
+    "prior_matched_mgr_checks": [
+      [
+        "??0CordMgr@@QAE@IG@Z",
+        "0x856D80"
+      ],
+      [
+        "??0CordMgr@@QAE@XZ",
+        "0x856970"
+      ],
+      [
+        "??1?$ArrayList@PAVCordCon@@@@QAE@XZ",
+        "0x85AF20"
+      ],
+      [
+        "??1?$ArrayList@PAVCordConnectingClass@@@@QAE@XZ",
+        "0x85AEC0"
+      ],
+      [
+        "??1?$ArrayList@UCordDataSocketClass@@@@QAE@XZ",
+        "0x85AF50"
+      ],
+      [
+        "??1?$ArrayList@UCordListenSocketClass@@@@QAE@XZ",
+        "0x85AF80"
+      ],
+      [
+        "??1?$ArrayList@UCordReleaseClass@@@@QAE@XZ",
+        "0x85AEF0"
+      ],
+      [
+        "??1CordConnectingClass@@QAE@XZ",
+        "0x857850"
+      ],
+      [
+        "??1CordMgr@@QAE@XZ",
+        "0x857590"
+      ],
+      [
+        "??1RSAKeyClass@@QAE@XZ",
+        "0x82B0C0"
+      ],
+      [
+        "??1WWProfileSampleClass@@QAE@XZ",
+        "0x444160"
+      ],
+      [
+        "??6ostream@@QAEAAV0@P6AAAV0@AAV0@@Z@Z",
+        "0x850820"
+      ],
+      [
+        "?Cancel_Connect@CordMgr@@QAE_NH@Z",
+        "0x8595B0"
+      ],
+      [
+        "?Compute@RSAKeyClass@@QAEXXZ",
+        "0x82C330"
+      ],
+      [
+        "?Compute_Ticks@CordMgr@@QAEIGIIGIG@Z",
+        "0x85A220"
+      ],
+      [
+        "?Connect@CordMgr@@QAEHKG_N@Z",
+        "0x858EC0"
+      ],
+      [
+        "?Find_Connection@CordMgr@@QAE_NPAPAVCordCon@@IH@Z",
+        "0x859440"
+      ],
+      [
+        "?Find_Data_Socket@CordMgr@@QAEPAUCordDataSocketClass@@PAVUDP@@@Z",
+        "0x859F80"
+      ],
+      [
+        "?Get_Data_Socket@CordMgr@@QAEPAUCordDataSocketClass@@H@Z",
+        "0x859D50"
+      ],
+      [
+        "?Init@CordMgr@@QAEXXZ",
+        "0x8570C0"
+      ],
+      [
+        "?Listen@CordMgr@@QAE_NIG@Z",
+        "0x857940"
+      ],
+      [
+        "?Load@RSAKeyClass@@QAE_NPAVFileClass@@@Z",
+        "0x85AFB0"
+      ],
+      [
+        "?Pending_Messages@CordMgr@@QAEHXZ",
+        "0x8598F0"
+      ],
+      [
+        "?Process_ACK1_Packet@CordMgr@@QAE_NPAEHPAUsockaddr_in@@PAVUDP@@H@Z",
+        "0x85A430"
+      ],
+      [
+        "?Process_ACK2_Packet@CordMgr@@QAE_NPAEHPAUsockaddr_in@@PAVUDP@@H@Z",
+        "0x85ABB0"
+      ],
+      [
+        "?Process_SYN1_Packet@CordMgr@@QAE_NPAEHPAUsockaddr_in@@PAVUDP@@H@Z",
+        "0x85A3B0"
+      ],
+      [
+        "?Process_SYN2_Packet@CordMgr@@QAE_NPAEHPAUsockaddr_in@@PAVUDP@@H@Z",
+        "0x85AB30"
+      ],
+      [
+        "?Process_Zero_Read@CordMgr@@QAEXPAUsockaddr_in@@@Z",
+        "0x858980"
+      ],
+      [
+        "?Pump_Releases@CordMgr@@QAE_NXZ",
+        "0x859940"
+      ],
+      [
+        "?Read_Number@RSAKeyClass@@QAE_NPAVFileClass@@AAV?$Int@$0EA@@@@Z",
+        "0x82C260"
+      ],
+      [
+        "?Release@CordMgr@@QAE_NPAVCordCon@@@Z",
+        "0x8596F0"
+      ],
+      [
+        "?Send_Go_Away@CordMgr@@QAEXPAVUDP@@IGEG@Z",
+        "0x858640"
+      ],
+      [
+        "?Set_Buffers@CordMgr@@QAEXPAVUDP@@@Z",
+        "0x8578C0"
+      ],
+      [
+        "?Unlisten@CordMgr@@QAE_NIG@Z",
+        "0x857C00"
+      ],
+      [
+        "?Unsigned_Divide@?$Int@$0EA@@@SAXAAV1@0ABV1@1@Z",
+        "0x82C220"
+      ],
+      [
+        "?Wait@CordMgr@@QAEHHH@Z",
+        "0x857DE0"
+      ],
+      [
+        "?add@?$ArrayList@PAVCordCon@@@@QAEDABQAVCordCon@@J@Z",
+        "0x85B6F0"
+      ],
+      [
+        "?add@?$ArrayList@UCordDataSocketClass@@@@QAEDABUCordDataSocketClass@@J@Z",
+        "0x85B990"
+      ],
+      [
+        "?clear@?$ArrayList@UCordDataSocketClass@@@@QAEXXZ",
+        "0x85B970"
+      ],
+      [
+        "?clear@?$ArrayList@UCordListenSocketClass@@@@QAEXXZ",
+        "0x85BC30"
+      ],
+      [
+        "?exp_b_mod_c@?$Int@$0EA@@@QBE?AV1@ABV1@0@Z",
+        "0x82C1A0"
+      ],
+      [
+        "?flush@@YAAAVostream@@AAV1@@Z",
+        "0x850850"
+      ],
+      [
+        "?growVector@?$ArrayList@UCordDataSocketClass@@@@AAEDJ@Z",
+        "0x85BC80"
+      ],
+      [
+        "?growVector@?$ArrayList@UCordListenSocketClass@@@@AAEDJ@Z",
+        "0x85BD40"
+      ],
+      [
+        "?id@?$ctype@G@std@@$E",
+        "0x42B320"
+      ],
+      [
+        "?shrinkVector@?$ArrayList@PAVCordCon@@@@AAEDXZ",
+        "0x85B8B0"
+      ],
+      [
+        "?shrinkVector@?$ArrayList@PAVCordConnectingClass@@@@AAEDXZ",
+        "0x85B630"
+      ],
+      [
+        "?shrinkVector@?$ArrayList@UCordDataSocketClass@@@@AAEDXZ",
+        "0x85BB70"
+      ],
+      [
+        "_$E55",
+        "0x85BC50"
+      ]
+    ],
+    "context_object_sha256": "d6122bb6a2d8180affdfcfdc907092dee66c2258767892c1449cfc6abdf52c5a",
+    "context_pair_count": 75
+  },
+  "header_plan": {
+    "allowed_header": "app/wwudp/cordmgr.h",
+    "allowed_target": "0x858A60",
+    "mutator": "single explicit compiler-gate owner",
+    "runner": "runner_header.py NAME ABSOLUTE_CPP ABSOLUTE_HEADER",
+    "baseline_revision": "86654fa59d61c928c256f577d7c417872f3c13a9",
+    "exploratory_proof_scope": "Compile changed cordmgr.cpp using canonical flags/includes and same logical header path in isolated staging, match immutable cordcon context; preserve all124 file/address and symbol/address pairs. This alone is not all-consumer proof.",
+    "header_consumers": [
+      "app/wwudp/cordmgr.cpp",
+      "app/common/udpconn.cpp",
+      "tests/udpreplay/udpreplay.cpp",
+      "tests/udpreplay/conn_replay.cpp"
+    ],
+    "sole_helper_caller": "CordMgr::Pump_Connections; rg excludes unrelated ConnectionManagerClass::Add_Connection",
+    "before_retention": [
+      "independent root clean-source/header target proof covering allbytes,refs,addends,receivers,EH and prior124pairs",
+      "canonical unchanged and changed-header controls for all app consumers including udpconn, full recorded file/symbol pair preservation and body/ref/EH comparison",
+      "compile harness consumers in repository-prescribed staging and flags before and after, verify unchanged unaffected function bodies/reference identities",
+      "installed unmodified final committed-revision git vc6-preflight, which conservatively selects all registered units for header edits; do not bypass or narrow"
+    ],
+    "reject_policy": "Rejected target trial never reaches production; no need to rebuild unrelated consumers of a candidate already rejected. Record proof scope and all inputs/hash-bound header replay.",
+    "source_safety": "Preserve operation order, two list adds, delete and removal, existing post-delete c use; no layout/virtual/API changes beyond internal sole-use inline helper signature, no fake fields or dead reads. Restore both staging files finally."
+  },
+  "control_records": {
+    "before": "docs/attempts/858A60/claim325-header-before.json",
+    "after": "docs/attempts/858A60/claim325-header-after.json"
+  },
+  "preservation": {
+    "cordmgr": {
+      "before_object_sha256": "663b7bd0732a80754eb76854d874a58bc7edf02eea565719514cc52bb532915d",
+      "after_object_sha256": "6ad88e77861203f4ba53790f17ffb76a83032696486e1f3d494fd1ce92d18f71",
+      "checked_symbols": 49,
+      "body_or_relocation_changes": [],
+      "eh_funclet_changes": []
+    },
+    "cordcon": {
+      "before_object_sha256": "ec1d72bfd40da22809c0b9a55809331560eaf37b59019dcb52435a72a0ebf089",
+      "after_object_sha256": "41a4b0df8198b9d9e3ad6a49d6c3dbf7f13cbc8d8b71609f23c7308d747e4c7e",
+      "checked_symbols": 75,
+      "body_or_relocation_changes": [],
+      "eh_funclet_changes": []
+    },
+    "udpconn": {
+      "before_object_sha256": "ddfa1d80be0943f6278dcf731b3160862aef042eb9128cc847626651d52e1ca8",
+      "after_object_sha256": "cdf75f1b663f192deab69b8e1db4f4b2a2ab6627ad838cc80d0b9a69cc7a6e44",
+      "checked_symbols": 57,
+      "body_or_relocation_changes": [],
+      "eh_funclet_changes": []
+    },
+    "harness": {
+      "udpreplay": {
+        "before_functions": 156,
+        "after_functions": 156,
+        "changes": []
+      },
+      "conn_replay": {
+        "before_functions": 93,
+        "after_functions": 93,
+        "changes": []
+      }
+    }
+  },
+  "first_report": "# 0x858A60 first pass \u2014 unmatched\n\nEight actual compiler inputs, eight distinct raw and relocation-masked body hashes, zero target pair gains or losses. All eight preserve all 123 retained file/address and symbol/address pairs, including ACK1 0x85A430, and therefore all original 122 pairs. Diagnostic improvement is not exactness and no source is proposed for production retention. Original history: 34 compiled forms, three rows; actual stash docs/attempts/858A60/pumpconn_stash.cpp.txt. This is bounded exploration, not exhaustive C++ search.\n\nRetained baseline revision 072754ebf125a77fd45f72dec41879e240c2334a; base source .work/claim-325/retained-tree/app/wwudp/cordmgr.cpp SHA-256 4dd5c9d76bd97041d88ca2134d85cb72bb542baa32812c7b4f5291ea29b1a059. Native retained runner and venv; full original and retained baseline result sets in .work/claim-325/{baseline,retained-baseline}/result.json. Baseline diagnostic 43 masked rows, 12 register rows.\n\n| Input suffix | Masked rows | Body SHA-256 raw and masked | Outcome |\n|---|---:|---|---|\n| sessions | 19 | 6366786911c921ab5286a48ace5b07c9518b26084bb75295df445d52c5fbbda2 | split both session loads/htons |\n| words | 18 | 51503ae6ffee1e342e73c66e66718064b2e2ba517f415fbeec1d241c38f3bf16 | split and reuse converted ACK1 word local |\n| both | 13 | e988e13aee1a1147ba2b7bf3eb4987740a5a845ce5589fb3ec083785c284e564 | combined above |\n| both_write | 28 | ce503b1dc189c7c26c723d9788a57f39d30e33e66b364c64baa6bf8850a3841a | named port/IP/socket at both writes, worse |\n| port | 6 | fe9445ab5fee3b2e9755734948a79ca2af4d9ca43ab85fdb784d02eed146c09a | both plus SYN1 port local; best |\n| port_protocol | 27 | 3ce7ccb39fef9d03e0f9d1381489d32a1d4b750f0dd0db0ebe91e4944d9d42d4 | best plus actual protocol local, worse |\n| port_xmp | 25 | a38a9bab75806e9bc502070f665395a9a0743f15f882e6e749401d01a9854668 | best plus BigInt converted pointer local, worse |\n| port_ip | 33 | f724fb3d147d5350e513114f43c8710867245864eb26079f276a7c4d2da85798 | both plus SYN1 port and IP locals, worse |\n\nAfter best `port`, the three subsequent independent no-cut tests were `port_protocol`, `port_xmp`, and `port_ip`, so stop. The last has `both` as base and compares the two-local argument idea with the already established best one-local form. No compiler-invalid, semantic-invalid, launch, guard or generator failures. Uncompiled proposals: `write_locals` and `protocol` (separate variants against both rather than best), and an unsupported generic timeout block-scope change. No fabricated frame or dead state introduced.\n\nBest source SHA-256 62abb82f99341bd196378abc767c9ce390e37ce3b273b72cf79c7bed42700143 at .work/claim-325/858A60/first/port/cordmgr.cpp. Best remaining instructions: stack offsets for `this`, now/timeout, count, new temporary, `con`, and inlined delete operand differ; SYN2 Protocol_ uses cl instead of al and XMP_Encode argument-register scheduling differs. Full actual diff .work/claim-325/runs/first_858A60_port/858A60-objdiff.txt; zero normalized register rows does not erase physical operand and slot differences. The object's raw pattern and masked pattern hashes are identical because COFF relocation placeholders in the function body are already zero; body hash is not proof of referent or EH identity.\n\nFor each suffix table row: .work/claim-325/runs/first_858A60_SUFFIX contains input.cpp, input.json, compile.rsp/log, cordmgr.obj, full matches.json/result.json, 858A60-objdiff.txt and 858A60-analysis.json; latter contains input hash, both body hashes, original/retained complete pair-set deltas. Lossless edits and verified source-byte replay are in .work/claim-325/858A60/first/SUFFIX/replay.json; source base chain for port, port_protocol, port_xmp, port_ip includes `both` replay. Written causal hypotheses and scripts are in .work/claim-325/858A60/first/{hypotheses.md,prepare.py,prepare2.py,analyze.py}. All files individually below 64KB except raw matcher output which is the canonical per-run record, not an attempt evidence record. No success audit was performed because no candidate matched.\n\nReopen on concrete evidence for the inlined Add_Connection delete/new temporary sharing or another demonstrated workflow 3.1.2 lever that plausibly changes the frame without the already-tried declaration permutations. Shared-header helper edits require coordinator scope review and all-consumer preservation plan. Declaration reorder, loop countdown and helper forms already covered in history were not repeated; no bare block permutation tested without evidence. No production, header, snapshot, tracked inventory, commits, or external writes by this worker. Compiler gate explicitly released; no compiler jobs, sessions, or VM leases remain.\n",
+  "group_test_report": "# 0x858A60 group test: scoped local expansion\n\nOne actual compiler input, one distinct raw/masked body, no target gain. Both complete pair sets preserve all 124 retained2 pairs with zero gains and zero losses; compared with original baseline both gain ACK1 and ACK2 and lose nothing. This diagnostic is not eligible for retention. Exclusive compiler gate explicitly released; runner and analysis finished, no jobs or leases remain. No tracked, production, shared-header, snapshot, metadata or external writes.\n\nHypothesis written before compile in hypothesis.md: ACK2's proven real `con` lifetime ending after both adds and before `delete c` may fix the Pump_Connections slot residue when applied to its best conversion context. The first-pass best input's target function alone was rebased onto retained2 revision 86654fa59d61c928c256f577d7c417872f3c13a9, then helper operations expanded in source with that scope. Both list additions, delete, Pending removal, i-- and existing post-delete c->State use are preserved in order. Physical line count was preserved. The old direct/helper forms predate this conversion context and ACK2 scope evidence.\n\nBase .work/claim-325/retained2-tree/app/wwudp/cordmgr.cpp SHA256 14ab66cc73e70d56aff32ff743c267352976b2681ef5613b4b8bd4d968d24832. Input SHA256 e600bd1267bdd008e79457bac3e6a12a1994cc04dfbb5fdabb4576b6ca1ae9ba. Lossless old/new-function replay and verified byte roundtrip: .work/claim-325/858A60/group-test/{prepare.py,replay.json,cordmgr.cpp}. First-pass best port input SHA256 62abb82f99341bd196378abc767c9ce390e37ce3b273b72cf79c7bed42700143.\n\nRun .work/claim-325/runs/group_858A60_scoped_expansion contains actual input, object, compile flags/log, complete matcher results, objdiff and analysis. Object SHA256 8a73f9a21622cf7566992ebe884623949a47fce46d067e8af6e4e3c256f00af9. Raw and masked function body hashes are both 8ab05f669e301beb65e2541bcb208498ffda02dbe49497bb728f927e1c4029e3; this sole group differs from best port raw/masked fe9445ab5fee3b2e9755734948a79ca2af4d9ca43ab85fdb784d02eed146c09a. Comparison to original and retained2 full pair sets/deltas is in run's 858A60-analysis.json; complete actual pair sets in result.json.\n\nThe scoped body is 1173 bytes / 213 masked rows against retail 894 bytes, compared with best port 894 / 6 and retained2 baseline 894 / 43. Explain identifies inline-budget shape: 38 calls versus retail 33. Best port and retained2 each have two CordCon list add relocations and one Pending shrinkVector relocation; scoped expansion has none, because those operations inline. Total body relocations rise from 39 to 44. Raw differences include altered frame/register assignment and constructor/delete operand scheduling; large control-flow and inlining differences prevent isolating the original six-slot question. EH shape in all three: six predecessor states [-1, 0, 1, 2, 3, 3], with six cleanup actions present. This is not an EH identity or referent proof. Reproducible object inspection: .work/claim-325/858A60/group-test/{inspection_tool.py,inspection.json}; full diff and diagnostics in run directory.\n\nNo compiler-invalid or semantically rejected actual inputs. Direct expansion is a tested regression, not grounds to retain or to repeat unrelated permutations. A helper containing both construction and the existing operations could preserve inline budget while allowing the con scope to end before deletion, but requires a shared-header change and root's separate all-consumer scope/proof plan and explicit gate; it remains an uncompiled hypothesis. The reviewer has received the actual result for reassessment. No further supported source-local lead follows from this test; reopen on demonstrated evidence preserving the retail call shape while changing the relevant lifetime, or another distinct concrete lever.\n\n## Existing helper constructs connection: header experiment\n\nOne additional actual input, authorized under the coordinator's .work/claim-325/header-plan.json. Hypothesis was recorded before compilation in header-hypothesis.md. Changed only the existing helper signature and body in the scratch header so it constructs con in a nested scope through the two list adds, then deletes c and removes the pending entry; caller passes c and i. Best-port conversions were rebased target-only on retained2, and i-- and post-delete c use retained. Physical lines and guard text are preserved. Replay is .work/claim-325/858A60/group-test/{prepare_header.py,header-test/replay.json}; its roundtrip was verified for both files.\n\nCPP base SHA256 14ab66cc73e70d56aff32ff743c267352976b2681ef5613b4b8bd4d968d24832, input b6dcf2ad146a540784f1182c74b54e1e8791e419d649b15858183402fd29109f. Header base d18001af2f35cded0edee3e91ac2e32b324f326f0df3a69b7caf436b33c3b2a1, input c27107882454b3ea2ff0db0ca3f681210668b821da20b76934669a8db70138f4. Actual run and all pair sets/deltas: .work/claim-325/runs/group_858A60_helper_construct/; object SHA256 9609a0fc95f6c3047ea1c4595d1c53e4481df6f630b2104119988c444acd4b2e. Raw/masked function SHA256 77f0ffb8b03e40520e5ae92fdf4ddcf694d4c72c0d62fb921e97d66c29e0d552, a new body group. Both 124-pair sets preserved, zero gains or losses; original baseline gains ACK1 and ACK2 and loses nothing. Target unmatched, 894 bytes and six normalized masked rows, same normalized count as prior best but physically different.\n\nActual raw objdiff comparison shows all previously mismatched stack displacements now match retail. New temporary esp+2c, con esp+20 (push-adjusted +24), and delete operand esp+2c match. No remaining esp displacement mismatch appears in the aligned diff; protocol store esp+41 uses cl instead of al, XMP lea esp+244 uses eax instead of ecx, and sentinel esp+43c is a relocation-display difference. The remaining actual protocol and XMP instruction/register rows are identical to best-port. Earlier protocol/XMP local tests worsened output with the former incorrect frame; they were not tested under this header lifetime context. This is a diagnostic observation, not proof that those substitutions interact beneficially.\n\nThe retail call shape survives: both CordCon list add relocations and the pending shrinkVector relocation are present. Both best and header trial have 39 body relocations, with the symbol sequence identical except compiler-generated local EH label. EH shape is six predecessor states [-1,0,1,2,3,3] and six actions present, not a complete identity proof; see inspection_tool.py and inspection.json. This exploratory runner compiles cordmgr plus immutable cordcon context only. No all-consumer build, full referent/EH audit, or final preflight was performed. Compiler gate released explicitly after the run; staging restored and no active jobs or leases. Group reviewer and root received results for reassessment.\n\n## Complementary interaction batch\n\nHypothesis recorded before compilation in interaction-hypothesis.md; actual per-input replay verified with retained helper header c27107882454b3ea2ff0db0ca3f681210668b821da20b76934669a8db70138f4. Inputs base on header-test/cordmgr.cpp SHA256 b6dcf2ad146a540784f1182c74b54e1e8791e419d649b15858183402fd29109f. The two independent results kept complementary instruction improvements so the specified combined test was compiled. All 3 retain all 124 baseline pairs, no losses; no invalid inputs.\n\n| Trial | CPP SHA256 | Raw and masked body SHA256 | Object SHA256 | Result |\n| --- | --- | --- | --- | --- |\n| protocol | 9c28b6b40be02bf62373cc3353204af5c6b3bacd18dc418d6d0d837cef71389d | 38d057316c51fc4ceb6f4521cac5f336aa53bf7bffae82c8d418afe6a43932db | d36d4d45ef8da6d0002b5558eeb5da0f5b2985993a9551d8a4eae07c379e2d44 | 894 bytes, 27 rows, unmatched |\n| xmp | 53caf41c6fd328c0247ef05ee2493dbe763bebcea04cba3e200ce33a1b34f565 | f365640861e041d705b429128b2a8f515749299d4ae6702d9c0c891ee141e2d6 | b45c74dda05c076eb61908ea307d8b2a46e151262c4592c0e3e7546c0fbd7d04 | 894 bytes, 25 rows, unmatched |\n| both | 7ff621849aa2f844692f2d7627c50bac77c637baa296cc2415bc7ba5ce9460f9 | 0472e0f4198e86d5e9c61aa83f7e01be86a89b92ff03b76283f74e9e04e3c54b | eebfbb4cf517f582d0a4839901fb3391bc332eacc75c1474391043f045814e15 | 894 bytes, zero masked rows, matcher +1 both sets |\n\nPer-input actual full results and objdiffs in runs/group_858A60_helper_{protocol,xmp,both}; source and byte-replay edits in group-test/interaction_{protocol,xmp,both}. Individual protocol uses AL as client does but XMP scheduling regresses; xmp matches encrypted pointer LEA/first push but misses output buffer register. Combining resolves both instruction groups. Both named locals read the same preexisting values in their original statement locations. Each run has 39 body relocations, both add and shrink calls, and the same six predecessor/action EH shape. The combined candidate has same stack displacements as client throughout; entire relocation-masked body matches. Full before/after pair sets and deltas are in run result.json and 858A60-analysis.json. Gate released immediately after candidate; no staging or production changes kept.\n\nRead-only candidate audit, source and header hash bound: group-test/audit.py and audit.json. It checks all 894 body bytes after relocation substitution, 266 instruction boundaries and local direct-branch targets; records call receivers and all 39 relocations with addends and evidence from exact symbols/called pairs/prior matches, profile literal, handler and exception list. Six predecessor states and cleanup bodies match under relocation masks, with cleanup referents checked. The 49 retained cordmgr matched functions preserve raw bodies, relocation signatures, and EH representations; the 75 cordcon matches use the unchanged immutable context object. The coordinator must independently harden/redo target audit, execute all header-consumer controls and final preflight before retention. These are exploratory results, not a completed all-consumer proof.\n",
+  "group_reviewer_report": "# Claim 325 whole-group review \u2014 858A60 reassessment\n\nReview base: retained2 revision 86654fa59d61c928c256f577d7c417872f3c13a9, cordmgr.cpp SHA-256 14ab66cc73e70d56aff32ff743c267352976b2681ef5613b4b8bd4d968d24832, cordcon.cpp 66fa6026ea7e7e698a877990face746bc601eed69dbe0f6a6a450a9de420d906. Current controls are retained2-baseline/result.json, 124 file/address and 124 symbol/address pairs including ACK1 and ACK2. Earlier runs use earlier controls, identified in each first-report; rebase only target edits. Row counts are diagnostics. No compiler or shared state was touched by this reviewer. The group has produced a Pump_Connections matcher candidate; its full source-bound audit and all-consumer controls are pending root. No other supported group test is currently identified for the remaining five; this is bounded exhaustion, subject to fresh evidence.\n\nEvidence reviewed includes all eight history/*.txt and *.json records (224 historical compiled forms, but many individual old inputs are absent), all first reports, relevant actual replay patches, sources and objdiffs under runs/first_*, the 858A60 stash and 8551F0 stash, retained source and arraylist.h, and ACK2's proposals3.json. Root has the complete source-bound ACK audits. Old forms described only by summary are not reconstructible exact inputs. Workflow 3.1.2's stack-slot block-shape examples (lines 403\u2013415, 906\u2013920) support a lifetime hypothesis, not arbitrary block permutation; its inline-budget model (lines 201\u2013210, 267\u2013311) makes helper nesting and whole-body call shape independently significant. app/client/ui_manu.cpp:393\u2013394 and 644\u2013695 gives real two-layer helper examples where nested calls go out of line; that establishes a mechanism, not a new invented helper here.\n\n## 0x858A60 Pump_Connections \u2014 active test\n\nRetained source cordmgr.cpp:200\u2013255 constructs con and calls the sole-use inline helper in cordmgr.h:144, which performs both adds, delete and removal. The best prior actual input first_858A60_port (source 62abb82f99341bd196378abc767c9ce390e37ce3b273b72cf79c7bed42700143, rebased from ACK1-only tree) combines real session/word load splits and an actual SYN1 port local. Its actual objdiff shows retail new temporary and delete operand sharing +0x2c while native uses +0x14 and +0x3c, con's add operand likewise displaced; SYN2 protocol and XMP argument registers also differ. The identical 0x430 frame does not make slot differences unimportant. Eight first-pass inputs all preserve 123 pairs; last three failed to cut six diagnostic rows and triggered stop. Source/replays and full objects: 858A60/first and runs/first_858A60_*.\n\nNew lever: retained ACK2's actual block ends con after the two adds and before delete; its audited raw six slot displacements are corrected, whereas pre-loop and pre-c declarations duplicate each other and worsen frame. This is newly demonstrated evidence for precisely the same real allocation/add/delete sequence. Coordinator routed a fresh Terra high worker to test source-local expansion on the rebased best port input: `{ CordCon *con = new CordCon(original arguments); AllConnections_.addTail(con); Connections_.addTail(con); } delete c; Pending_.remove(i);`, keeping i-- and caller's subsequent c->State access. Historical stash's smaller helper put the second add inline; history's later helper encapsulates delete/remove and the pointer was not scoped before delete. The new split-input plus lifetime is distinct but direct expansion changes inline decisions.\n\nActual first group test is runs/group_858A60_scoped_expansion, source SHA-256 e600bd1267bdd008e79457bac3e6a12a1994cc04dfbb5fdabb4576b6ca1ae9ba and body raw/masked 8ab05f669e301beb65e2541bcb208498ffda02dbe49497bb728f927e1c4029e3. Both retained2 sets of 124 pairs survive, no gain/loss. The body becomes 1173 bytes / 213 diagnostic rows / 38 calls versus best port 894 / 6 / 33. I inspected the actual objdiff, source replay and group-test/inspection.json: both CordCon add relocations and Pending shrinkVector relocation disappear into expanded growVector/memmove/allocation paths. The new temp is still +0x14 vs client's +0x2c, but the greatly changed allocation/inlining prevents a clean conclusion about this scope within the original call shape. The six EH predecessor states and action presence agree between native inputs; this is shape inspection, not a full EH audit. The actual full results, raw object, source/replay, and inspection are in runs/group_858A60_scoped_expansion and 858A60/group-test/.\n\nThe second group test moved construction and that inner scope into the existing inline helper, retaining delete and remove inside it; caller takes c and i. Actual run is runs/group_858A60_helper_construct, C++ SHA-256 b6dcf2ad146a540784f1182c74b54e1e8791e419d649b15858183402fd29109f, scratch header c27107882454b3ea2ff0db0ca3f681210668b821da20b76934669a8db70138f4, raw/masked target body 77f0ffb8b03e40520e5ae92fdf4ddcf694d4c72c0d62fb921e97d66c29e0d552. Complete 124 pair sets survive without target gain. I examined full actual objdiff and header-test/replay.json: 894 bytes and six normalized rows, but all old stack-slot mismatches now agree with retail, including allocation temporary/delete +0x2c, con +0x20 (push-adjusted +0x24), Xtime, count and this. Actual two add and one shrink relocations remain, 39 body references in the same sequence aside from the local EH label; all six EH predecessors and action presence agree across native objects, not a full proof. The remaining real differences are the SYN2 protocol load/store registers and XMP argument registers. The recorded result is a useful new code-generation context, not a matched target or an eligible retained change. Header consumer plan: cordmgr.cpp, app/common/udpconn.cpp, tests/udpreplay/{udpreplay,conn_replay}.cpp. Broad controls are required before retaining any header edit. No naked caller block around the existing helper achieves the requested scope end before its internal delete; preserve post-delete caller access.\n\nSemantic inspection of the final candidate: Add_Connection still constructs exactly one CordCon with the same c fields and arguments, appends it to the same two lists, then deletes c and removes index i in that order; i-- and the existing subsequent c->State read remain in the caller. Session and word splits perform the existing field reads and conversions once each in the original order; port and protocol locals name the actual values. wwlib/int.h:80\u201381 defines the encrypted-key conversion as returning the address of its own digit array, with no side effect, and wwlib/mpmath.h:117 takes the corresponding const digit pointer. Naming this pointer immediately before XMP_Encode preserves the operation. These source observations do not substitute for the binary and consumer audits.\n\nOn the previous slot-wrong input, port_protocol's actual objdiff makes both protocol instructions match AL while disturbing XMP scheduling; port_xmp's real converted pointer local makes XMP's first LEA and push match while leaving its second argument register wrong. Thus those two operations had locally complementary effects even though each worsened whole-body rows. The new helper changes real function-wide allocation and fixes all old slot differences, a concrete reason to test their interaction in this new base rather than assume old whole-body outcomes repeat. The resulting batch compiled protocol local and encrypted pointer local separately, each unmatched and preserving 124 pairs, then their combination. The combined group_858A60_helper_both input has C++ SHA-256 7ff621849aa2f844692f2d7627c50bac77c637baa296cc2415bc7ba5ce9460f9 and header c27107882454b3ea2ff0db0ca3f681210668b821da20b76934669a8db70138f4; raw/masked body 0472e0f4198e86d5e9c61aa83f7e01be86a89b92ff03b76283f74e9e04e3c54b. The native matcher finds 0x858A60 and 125 pairs in both sets, no loss from retained2. I inspected its replay, actual objdiff and pair deltas: the protocol and XMP instructions now match in addition to the slots. This is a candidate only; root must independently audit all 894 code bytes, branch targets, references/addends/payloads, call receivers, full EH graph and prior-pair preservation, then compile all header consumers according to the approved plan and reprove final sources before retention. Individual runs and lossless replay are 858A60/group-test/interaction_{protocol,xmp,both} and runs/group_858A60_helper_{protocol,xmp,both}.\n\nThis finding makes a useful combined register-allocation example but does not establish a corresponding new helper/lifetime or complementary pair of operations in the other five. The ACK-derived split mechanisms were already actually tested there, often in combinations; do not automatically restart them after an unrelated source change. Their concrete reopening evidence remains below.\n\n## 0x854C90 Cord_Get_Seq\n\nRetained cordcon.cpp:1967\u20131988 has exact Cord_Get_Small for context, but its output width and masked two-byte path differ. Get_Seq's retail short path reloads output pointer between ntohs and zero-extension; baseline and first split-load form have reverse order. Full run first_854C90_splitload and 854C90/first/results.json show the same raw and masked 68-byte body as baseline and all 124 pairs preserved. Its two-assignment split follows exact TCPConnection::Key_Exchange app/common/tcpconn.cpp:188\u2013191, 224\u2013230 and successful ACK1 but does not affect this context. Twelve earlier forms cover unsigned-short and pointer locals, reference/out type, casts/masks, returns and branch changes; their exact sources are absent. No supported new source lever identified. Reopen on concrete equivalent load/store structure that changes pointer reload without adding/reordering observable stores, or reliable source evidence; a model change and another pointer-local spelling are not such evidence.\n\n## 0x8551F0 buildHeader\n\nRetained cordcon.cpp:2091 onward and libs/wwonline/wlib/arraylist.h:574\u2013635 show actual removeHead -> remove(node,0) -> get then remove. Retail inlines indexed get in the first loop but calls get within the later removeHead expansion. The gethead && remove(0) actual patch worsens call shape (1334 bytes/121 rows); direct remove(seq,0) is the identical raw/masked baseline body (1187/53). Both kept all original 122 pairs; preserved context was the initial baseline. The old stash bh_077.cpp.txt's two unused Active_.size() reads are prohibited, despite the historical budget improvement. Old bool/type tests were in that different inline context and a model change does not make them new evidence. The actual ArrayList methods provide real layers, but the tested two rewrites do not reproduce the nested boundary, and I found no distinct existing meaningful helper around this operation. General ui_manu nested helpers show what could happen, not evidence to introduce a wrapper just to spend budget. Reopen with a client-supported actual helper/operation or meaningful lifetime that makes retail's later get call out of line, followed by all-consumer checks for a shared-header change.\n\n## 0x857F20 Pump\n\nExact Wait cordmgr.cpp:1442\u20131463 copies each real data/listening record by value, as does Pump:256\u2013286. The actual retail and native copies overlap in mutually exclusive branches; Wait has separate loops and no profile/logging/receive machinery, so it does not establish the two missing frame dwords. First unsigned and named real go-away conversion locals duplicate baseline body; early successful-handler continue worsens 1431/203 to 1455/312 with unchanged frame (runs/first_857F20_*). Historical moved loop locals, buffers and from did not help. ACK2 shortening its new pointer cannot directly supply Pump's missing live object: Pump has no analogous new/add/delete sequence. Extending both record lifetimes contradicts their shared slots; hoisting Xtime changes the actual clock read. Reopen on retail-supported specific real object/lifetime or inlined helper which accounts for 0x6e4 vs 0x6ec, preserving callbacks, logging and reads; synthetic frame storage/dead reads are invalid.\n\n## 0x8586D0 Process_Go_Away_Packet\n\nActual conversion proposals and objects under 8586D0/first and runs/first_8586D0_* show port+session split 33 -> 26 diagnostic rows; reversing con/session equality gives 25; actual peer address/port splits worsen 70/74/70. Named socket receiver worsens 45. The original port launch compiled but matcher failed due system Python; native venv rerun is same source/body, not a separate form. Proposal JSON's initial 'uncompiled' field describes its pre-run state; the corresponding actual run and first-report establish it was compiled. All nine matched runs preserved 123 pairs. Exact Process_Zero_Read cordmgr.cpp:712\u2013731 uses genuine named con IP/port locals and existing direct fields, not the unavailable old Get_Ip/Get_Port/Get_Session scratch header patch. Current CordCon header has no such accessors; unrelated UDPListenerClass::Get_Port accesses another object. The historical getter improvement is evidence of possible inline sensitivity but insufficient to invent its precise source/replay or assert consumer safety. Reopen only with concrete original accessor or other demonstrated allocation mechanism and root-approved all-consumer header proof. Do not repeat the tested splits or pretend a missing patch was recovered.\n\n## 0x85A000 Process_CORD_Packet\n\nCurrent cordmgr.cpp:1129 onward, exact Process_Zero_Read, and 85A000/first/*/proposal.json show real field load splits rather than changed offsets. Native is 438 bytes vs retail 430; actual retail holds sender in EBP, session EBX, converted ID in a dead argument slot. Packet ID split and sender address split produce 18 and 17 rows; together 20; neither supplies the retail register allocation. Three independent no-cut batches scoped the actual ID, named sender and named call arguments across three bases: each produced its respective identical body. Full evidence runs/first_85A000_* and complete 124-pair deltas are in its first report. Original three variant sources are absent. Exact ACK1 split helped but gave no independently supported next lever after these tests; unrelated block around ACK2's new pointer does not justify inventing lifetimes here. Reopen on actual helper, interface or proven liveness evidence explaining sender/ID slot choice while preserving getter failure and read/call order.\n\n## 0x85A430 ACK1 \u2014 solved control\n\nExact Key_Exchange reads then converts actual fields in order. Four original tests split session, word pair, length pair, then all five; only combined gained a pair. Root's current-source audit root-ack1-after-ack2-audit.json and docs/attempts/85A430/claim325-ack1.json cover code, references, EH and existing pairs. This shows coordinated conversion sources can affect global registers but doesn't justify repeated split spelling after duplicates or omitting side effects. Its present line marker and source must survive every target rebase.\n\n## 0x85ABB0 ACK2 \u2014 solved control\n\nThree actual read splits, then the ignored-but-real conversion split, yielded zero normalized rows but wrong six raw stack displacements. Only a further real con block before delete gained exactness; pre-c and pre-loop con variants duplicate each other and fail. See 85ABB0/first/proposals*.json, runs/first_85ABB0_*, docs/attempts/85ABB0/claim325-ack2.json and root-ack2-audit.json. The retained source retains calls, list operations and destructor order, with full audited EH/reference/call targets and preservation. This directly motivates the pending Pump_Connections test; neither zero masked rows nor an anecdotal scope example alone would suffice to claim a solution.\n",
+  "control_failure": "First unchanged harness control used split /D flag on response-file lines and failed D2004 before compiling; corrected to repository flags as one line. Failed control in scratch header-consumers-before/harness, successful controls harness-v2; no source hypothesis or candidate failure.",
+  "scope": "App controls181to182 +1zero losses; two claimed TUs124to125 +1zero losses, original122 preserved; 249 harness functions identical body/ref/EH before/after, compilation-only no link/runtime test. Installed final committed-revision preflight allregisteredunits required, not yet run at packaging."
+}

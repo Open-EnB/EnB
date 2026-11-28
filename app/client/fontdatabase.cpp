@@ -505,7 +505,7 @@ void FontDatabaseClass::Load_String(INIClass &ini, char *section, FontStringStru
 }
 
 
-// NOT EXACT: frame: the inlined Add_String's key and iterator temporaries sit in other stack slots (0.76)
+
 void FontDatabaseClass::Unknown_6C1500(const char *file_name)
 {
 	INIClass ini;
@@ -743,7 +743,7 @@ FontEffectStruct *FontDatabaseClass::Find_Effect(const char *name)
 
 FontStringStruct *FontDatabaseClass::Find_String(const char *name)
 {
-	std::hash_map<std::string, FontStringStruct *>::const_iterator it = Strings.find(std::string(name));
+	std::hash_map<std::string, FontStringStruct *>::const_iterator it = Strings.find(name);
 	return it == Strings.end() ? NULL : (*it).second;
 }
 
@@ -1338,17 +1338,17 @@ FontStringFilesClass::~FontStringFilesClass()
 **	hash_map instances (libs/sgistl, D87; the bucket functions over the string hash 0x42DB00 at 0x6C7D80 /
 **	0x6C7F00 / 0x6C8080 / 0x6C8200).
 **
-**	Written so far: FontStringStruct's constructors 0x6BDA40 / 0x6BDD30 and Reset 0x6BE0E0 (NOT EXACT; the
+**	Written so far: FontStringStruct's constructors 0x6BDA40 / 0x6BDD30 and Reset 0x6BE0E0 (the
 **	struct's implicit destructor is the client's folded copy 0x67F490 in chat_window.cpp), 0x6BE520 (walks Strings, its body compiled out), the constructor 0x6BE5C0 (through an inline Load: Clear_Infos, Clear_Tables, the three ini
 **	loaders, Clear_Strings, 0x6C2080), FontStruct's inline constructor 0x6BE7C0 and implicit destructor
 **	0x6BEB60, the destructor 0x6BEBF0, Load_Init 0x6BF330 (an INIT section, its Template%d sections first,
 **	recursively), 0x6BF910 (fontsys.ini: ALL_FONTS into AllFonts, the INIT-n sections into Infos, with
-**	FontInitStruct's inline constructor), Load_String 0x6C0430 (a string template, its Template%d templates first, the String%d lines joined; NOT EXACT),
-**	the string files' loader 0x6C1500 (NOT EXACT) and unloader 0x6C1AA0 (STR-n / WRAP-n sections), Remove_String
+**	FontInitStruct's inline constructor), Load_String 0x6C0430 (a string template, its Template%d templates first, the String%d lines joined),
+**	the string files' loader 0x6C1500 and unloader 0x6C1AA0 (STR-n / WRAP-n sections), Remove_String
 **	0x6C3030 (NOT EXACT), Reload 0x6C1EC0 (the ini files again; the
 **	constructor's inline Load is the same plus 0x6C2080: written as one member the constructor inlines, it moved
 **	Load_Init's registers), 0x6C2080 (the eight fonts for the resolution: Font32Class through RefCountPtr's Create_NEW), Get_Blend_Type / Get_Direction / Get_Effect_Type 0x6C2340 / 0x6C2460 / 0x6C25A0 (the ini words to
-**	their values), Parse_Directions 0x6C2890 and Split_Four 0x6C2A10 (NOT EXACT: register), 0x6BFD00 (fontcode.ini / fontart.ini: the COLOR-n and EFFECT-n
+**	their values), Parse_Directions 0x6C2890 and Split_Four 0x6C2A10 (Split_Four NOT EXACT: register), 0x6BFD00 (fontcode.ini / fontart.ini: the COLOR-n and EFFECT-n
 **	sections through Add_Color / Add_Effect, inlined with the asserts on lines 909 / 895), Clear_Infos 0x6BEE60 (with FontInitStruct's implicit destructor 0x6BEEF0), Clear_Tables
 **	0x6BEFD0 (Colors and Effects), Clear_Strings 0x6BF1F0, Find_Font 0x6C2BF0, Get_Info(width, height) 0x6C2CB0, the tables' Find_Color /
 **	Find_Effect / Find_String 0x6C2D00-0x6C2F20 and Add_String / Add_Effect / Add_Color 0x6C3380-0x6C3720
@@ -1361,7 +1361,7 @@ FontStringFilesClass::~FontStringFilesClass()
 **	option.cpp's 0x7F8EF0; two dead text.size() place the budget as the client's) and Load_Font 0x6C5C60 (lines 1278-1308: the chat font's saved file through option.cpp's
 **	0x7F95E0 and split_string.h's SplitStringClass 0x4F9BF0 (the text split into lines)); FontStringFilesClass (0xBE67BC: the string files in use, counted): Lower 0x6C4A80, the constructor
 **	0x6C4C80, Find 0x6C51A0, Load 0x6C52B0 (HL2: Find inlined, its find 0x6C62A0 and conversion 0x6C6370 called a level
-**	deeper; NOT EXACT: frame), Unload 0x6C55B0 and the destructor 0x6C4F50 (written after Load_Font, past the
+**	deeper), Unload 0x6C55B0 and the destructor 0x6C4F50 (written after Load_Font, past the
 **	asserts; its iterator declared before the for and assigned: initialised in the for header it is begin()'s
 **	return slot and its node stays in memory, a const_iterator copy holds the table in a register). Every other function of the
 **	file is not written yet.
@@ -1380,7 +1380,7 @@ FontStringFilesClass::~FontStringFilesClass()
 **	(the latter keeps it in another register); the table finds as `const_iterator it = Table.find(std::string(name));
 **	return it == Table.end() ? NULL : (*it).second;` (the conversion copies the node into a register before the key's
 **	destructor, and the client then calls find out of line and inlines the key: an iterator and two returns inline
-**	find instead); the Add functions call them plainly (no dead reads).
+**	find instead); the Add functions call them plainly (no dead reads). Find_String's key is the implicit conversion (`Strings.find(name)`): 0x6C1500's first inlined copy then takes the key's address again (lea) instead of pushing the constructor call's value.
 */
 
 // The font database and the string files in use WinMain makes (.bss 0xBE67B8 / 0xBE67BC, after unknown_fontsound.cpp's 0xBE67B4)
