@@ -528,7 +528,7 @@ void Unknown620D20Class::Unknown_621E20()
 }
 
 static EnvironmentMapManagerClass *Unknown_Env_Maps(CharacterViewClass *view) { return(view->Unknown3A4); }	// NAME 1: neutral (D10); a file-static accessor layer (ui_avsel.cpp reads +0x3A4 through CharacterViewClass::Get_Unknown3A4)
-// NOT EXACT: functional (D64)
+// the three models' init-list stores, Selected_Decal through a ShipCustDescClass pointer (ui_ship_cust.cpp's form), the +0x3A4 accessor and View read directly at the calls: the client's registers
 // @0x622180
 ShipCustomizeInterface::ShipCustomizeInterface(UIViewClass *view, LayerClass *layer, int unknown, bool unknown2) :
 	InterfaceClass(view, (int)layer->Peek_Scene()),
@@ -541,7 +541,7 @@ ShipCustomizeInterface::ShipCustomizeInterface(UIViewClass *view, LayerClass *la
 	Unknown214(false),
 	Unknown215(false),
 	Unknown218(0),
-	Unknown22C(NULL),
+	Unknown220(NULL), Unknown224(NULL), Unknown228(NULL), Unknown22C(NULL),
 	Layer(layer),
 	Page(0),
 	Unknown248(false),
@@ -553,13 +553,13 @@ ShipCustomizeInterface::ShipCustomizeInterface(UIViewClass *view, LayerClass *la
 	Unknown264(0),
 	Unknown268(NULL)
 {
-	for (int k = 2; k >= 0; k--) {
-		Unknown220[k] = NULL;
-	}
+
+
+
 	CharacterView = (CharacterViewClass *)Get_View()->Unknown_28();
 	LoginTask = (LoginTaskClass *)CharacterView->Unknown14->Unknown_08();
 	InterfaceSortScopeClass sort(this);
-	Desc = CharacterView->Unknown244;
+	Desc = CharacterView->Unknown244; ShipCustDescClass *d = &Desc;
 	if (unknown == 0) {
 		if (!unknown2) {
 			Desc.Set_Race(CharacterView->Unknown088.Race);
@@ -575,7 +575,7 @@ ShipCustomizeInterface::ShipCustomizeInterface(UIViewClass *view, LayerClass *la
 		}
 	}
 	CharacterView->Unknown3A4->Unknown_760770(100005, true);
-	Unknown264 = (Desc.Selected_Decal == 0x7FFFFFF) ? 0 : Desc.Selected_Decal + 1;
+	Unknown264 = (d->Selected_Decal == 0x7FFFFFF) ? 0 : d->Selected_Decal + 1;
 	Unknown22C = new ShipPIPClass(0);
 	Unknown22C->Unknown_80C220((ViewClass *)CharacterView);
 	Unknown22C->Unknown_74(0);
@@ -583,12 +583,12 @@ ShipCustomizeInterface::ShipCustomizeInterface(UIViewClass *view, LayerClass *la
 
 
 	Unknown22C->Unknown_80C540(Vector2(640.0f, 480.0f), Vector3(0.0f, 0.0f, 0.0f), 0x1C);
-	Unknown64.Unknown_6870E0(Unknown22C, 0x34, Get_View(), 1, 0);
+	Unknown64.Unknown_6870E0(Unknown22C, 0x34, View, 1, 0);
 	CharacterView->Unknown_67A8D0(true);
 	Unknown268 = new SClientUnknown1334Class; Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size();	// dead reads (D272): they spend VC6's inline budget so the decal library's inlined constructor calls SwatchArray's vector constructor 0x61FB60 out of line and, with the four after the tutorial block, the Desc copy calls ShipCustPartClass::operator= 0x619320 out of line, as the client's
 	Unknown268->Load("decal_textures.ini", "decal_swatches.ini", "secret_decal_textures.ini");
 	((ControlKeyListClass *)&Unknown4C)->Add(KernelEventClass(0x1B), (void *)0x1C);
-	Unknown_621790(CharacterView->Unknown3A4, Unknown264, Unknown268);
+	Unknown_621790(Unknown_Env_Maps(CharacterView), Unknown264, Unknown268);
 	if (Unknown22C->Unknown054.Peek() == NULL) {
 		Unknown22C->Unknown_7C(Unknown160);
 	} else {
@@ -1680,7 +1680,7 @@ void ShipCustomizeInterface::Unknown_625A60(int page)
 	}
 	switch (Page) {
 		case 1:
-			Unknown220[0] = NULL; Unknown220[1] = NULL; Unknown220[2] = NULL;
+			(&Unknown220)[0] = NULL; (&Unknown220)[1] = NULL; (&Unknown220)[2] = NULL;	// (&Unknown220)[k] here and on page 3: a register lever (the array form's element expressions keep a later _Eos's ecx), not known to be the client's source
 			Unknown64.Unknown_687150(Unknown24C->Gadget);
 			if (Unknown24C) { delete Unknown24C; }
 			Unknown24C = NULL;
@@ -1745,9 +1745,9 @@ void ShipCustomizeInterface::Unknown_625A60(int page)
 			Unknown_624B50(0x12, "METAL00", NULL, 0, 0);
 			Unknown_624B50(0x13, "METAL01", NULL, 0, 0);
 			Unknown_624B50(0x14, "METAL02", NULL, 0, 0);
-			Unknown220[0] = ((RenderObjGadgetClass *)Gadgets[0x12].Gadget)->Peek_Render_Obj();
-			Unknown220[1] = ((RenderObjGadgetClass *)Gadgets[0x13].Gadget)->Peek_Render_Obj();
-			Unknown220[2] = ((RenderObjGadgetClass *)Gadgets[0x14].Gadget)->Peek_Render_Obj();
+			(&Unknown220)[0] = ((RenderObjGadgetClass *)Gadgets[0x12].Gadget)->Peek_Render_Obj();
+			(&Unknown220)[1] = ((RenderObjGadgetClass *)Gadgets[0x13].Gadget)->Peek_Render_Obj();
+			(&Unknown220)[2] = ((RenderObjGadgetClass *)Gadgets[0x14].Gadget)->Peek_Render_Obj();
 			Unknown_624B50(0x15, "PRIMARY", "primary_fa_ship02", 0, 3);
 			Unknown_624B50(0x16, "SECONDARY", "secondary_fa_ship02", 0, 3);
 			Unknown_624B50(0x17, "HULL", "hull_fa_ship02", 0, 1);
@@ -2134,17 +2134,17 @@ void ShipCustomizeInterface::Unknown_628420()
 	float time = WW3D::Get_Frame_Time() * 0.001f;
 	float slow = time * 0.3f;
 	float fast = time + time;
-	if (Unknown220[0] != NULL) {
-		Matrix3D tm = Unknown220[0]->Get_Transform(); if (*Unknown_6271D0() == METAL_CHROME) { tm.Rotate_Y(fast); } else { tm.Rotate_Y(slow); }
-		Unknown220[0]->Set_Transform(tm); Gadgets[0x12].Gadget->Unknown_6608F0();
+	if (Unknown220 != NULL) {
+		Matrix3D tm = Unknown220->Get_Transform(); if (*Unknown_6271D0() == METAL_CHROME) { tm.Rotate_Y(fast); } else { tm.Rotate_Y(slow); }
+		Unknown220->Set_Transform(tm); Gadgets[0x12].Gadget->Unknown_6608F0();
 	}
-	if (Unknown220[1] != NULL) {
-		Matrix3D tm = Unknown220[1]->Get_Transform(); if (*Unknown_6271D0() == METAL_BRONZE) { tm.Rotate_Y(fast); } else { tm.Rotate_Y(slow); }
-		Unknown220[1]->Set_Transform(tm); Gadgets[0x13].Gadget->Unknown_6608F0();
+	if (Unknown224 != NULL) {
+		Matrix3D tm = Unknown224->Get_Transform(); if (*Unknown_6271D0() == METAL_BRONZE) { tm.Rotate_Y(fast); } else { tm.Rotate_Y(slow); }
+		Unknown224->Set_Transform(tm); Gadgets[0x13].Gadget->Unknown_6608F0();
 	}
-	if (Unknown220[2] != NULL) {
-		Matrix3D tm = Unknown220[2]->Get_Transform(); if (*Unknown_6271D0() == METAL_COPPER) { tm.Rotate_Y(fast); } else { tm.Rotate_Y(slow); }
-		Unknown220[2]->Set_Transform(tm); Gadgets[0x14].Gadget->Unknown_6608F0();
+	if (Unknown228 != NULL) {
+		Matrix3D tm = Unknown228->Get_Transform(); if (*Unknown_6271D0() == METAL_COPPER) { tm.Rotate_Y(fast); } else { tm.Rotate_Y(slow); }
+		Unknown228->Set_Transform(tm); Gadgets[0x14].Gadget->Unknown_6608F0();
 	}
 }
 

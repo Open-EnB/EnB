@@ -117,7 +117,7 @@ public:
 	bool Unknown215;								// +0x215 (leaving)
 	int Unknown218;									// +0x218 (how it leaves: 5 the next step, else back)
 	RefCountPtr<TextureClass> Unknown21C;			// +0x21C 'BLACK.TGA' (no insignia)
-	RenderObjClass *Unknown220[3];					// +0x220 the metal buttons' models (page 2)
+	RenderObjClass *Unknown220; RenderObjClass *Unknown224; RenderObjClass *Unknown228;	// +0x220 / +0x224 / +0x228 the metal buttons' models (page 2: chrome, bronze, copper); three members, not an array: the constructor 0x622180 stores them in its init list between +0x21C and +0x22C
 	ShipPIPClass *Unknown22C;					// +0x22C the ship preview gadget (id 0x34)
 	LayerClass *Layer;								// +0x230  // NAME 1: as ui_login.cpp's
 	int Page;										// +0x234 (0 hull, 1 paint, 2 insignia, 3 name)  // NAME 1: what it holds
