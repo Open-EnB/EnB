@@ -146,18 +146,18 @@ void DisplacementMapLandClass::Read_Registry(void)
 }
 
 
-// NOT EXACT: frame (0x466F60: 0x21C, the client 0x220; 21 masked rows in the scaling: the client copies X / Y spacing into stack
-// temporaries with integer moves before the multiplies, ours loads the spacing array onto the x87; the DWORD one read as constant
-// 4's float bits gives the client's second store of 1 (+0x4C); docs/attempts/466F60/, attempts.csv)
+// 0x466F60: the scale factors are by-value Vector3 copies of the field's spacing (the client's integer-move temporaries, frame
+// 0x220); the DWORD one read as constant 4's float bits gives the client's second store of 1 (+0x4C)
+
 void DisplacementMapLandClass::Unknown_466F60(RenderInfoClass &rinfo)
 {
 	if (!Unknown11) {
 		return;
 	}
-	float spacing[3] = { Field->Get_Spacing(), Field->Get_YSpacing(), Field->Get_VScale() };
+	const Vector3 &sc = Field->Get_Scale();
 	float size = (float)(unsigned int)Field->Get_Size();
 	D3DXMATRIX scale;
-	D3DXMatrixScaling(&scale, spacing[0] * size, spacing[1] * size, spacing[2] * size);
+	D3DXMatrixScaling(&scale, Vector3(sc).X * size, Vector3(sc).Y * size, Vector3(sc).Z * size);
 
 
 
@@ -591,5 +591,5 @@ void DisplacementMapLandClass::Unknown_468D50(void)
 **	around eight points 0x468BE0 (six float extremes, the centre through float locals, fabs), the buffers' builder
 **	0x467A50 (16-bit index products, a D3DX vertex struct, each lock pointer in its own block), the box against the
 **	side planes 0x468760 (one test per axis, the far corner a D3DXVECTOR4, the sums as the client adds them). Functional,
-**	NOT EXACT (Matrox only, never run): the draw 0x466F60 and its helpers 0x468240, 0x468920, 0x468D50.
+**	NOT EXACT (Matrox only, never run): the draw's helpers 0x468240, 0x468920, 0x468D50 (the draw 0x466F60 is exact).
 */

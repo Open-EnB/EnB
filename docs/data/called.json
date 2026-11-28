@@ -600,6 +600,9 @@
 "?Append_Anim_Combo_Data@HAnimComboClass@@QAEXPAVHAnimComboDataClass@@@Z": [
 "0x931D10"
 ],
+"?Apply_Render_State_Changes@DX8Wrapper@@SAXXZ": [
+"0x9254A0"
+],
 "?Begin_Chunk@ChunkSaveClass@@QAE_NK@Z": [
 "0x9D3E40"
 ],
@@ -2098,6 +2101,15 @@
 ],
 "_D3DXFilterTexture@16": [
 "0x8E4435"
+],
+"_D3DXMatrixMultiply@12": [
+"0x8E5FFC"
+],
+"_D3DXMatrixScaling@16": [
+"0x8E64D9"
+],
+"_D3DXMatrixTranspose@8": [
+"0x8E60DF"
 ],
 "_RegisterBindStatusCallback@16": [
 "0xA418CE"
