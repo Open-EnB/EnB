@@ -71,7 +71,7 @@ static void Rebuild_Texture(FontSys *style, char *buffer, bool reset_spacing)
 	}
 	style->Unknown4C4 = style->Unknown2D0.Unknown_6D8DC0(&style->Font, buffer, 0);
 }
-static inline void Append_Dots(StringClass &text, bool on) { if (on) { text += "..."; text.Peek_Buffer(); } }	// NAME 2: Update_Text's "..." layer (fontsys.cpp): the client calls the += copy's Get_Length out of line here too (0x6CAC4E, as 0x6D676E); the dead read is the layer's budget (D272)
+static inline void Add_Dots(StringClass &text) { text += "..."; } static inline void Append_Dots(StringClass &text, bool on) { if (on) { text += "..."; text.Peek_Buffer(); } }	// NAME 2: Update_Text's "..." layer (fontsys.cpp): the client calls the += copy's Get_Length out of line here too (0x6CAC4E, as 0x6D676E); the dead read is the layer's budget (D272)
 static inline void Set_Complete(FontSys *style, bool done) { style->Unknown404 = done; }  // NAME 2: Is_Complete's setter (0x67EEE0 reads +0x404); an inline layer, as the client spends inline budget here
 // NOT EXACT: worked toward the client's bytes (FX1 / FX, runs 2026-11-20 and -21; FS 2026-11-22; B1 2026-11-27: the clamps and products read from the compares, notes at the end): case order, branch senses, inline layers, budget, Append_Dots (RANDLETTER / STAY), STAY's buffer local (pushed to 0x6D8DC0 and String_Pixel_Width, 0x6CC3B8 / 0x6CC3D3)
 void FontSys::Unknown_6CA0C0(FontEffectStruct *effect)
@@ -615,11 +615,11 @@ void FontSys::Unknown_6CA0C0(FontEffectStruct *effect)
 			float low = effect->Intensity;
 			if (low > spacing) spacing = low;
 		}
-		style->Unknown448 = (int)spacing;
+		int &xs = style->Unknown448; xs = (int)spacing;
 		style->Font->Set_XSpacing(style->Unknown448);
 		StringClass text(style->Info.Text);
 		if (style->Unknown406) {
-			text += "..."; text.Peek_Buffer(); text.Peek_Buffer(); text.Peek_Buffer(); text.Peek_Buffer(); text.Peek_Buffer(); text.Peek_Buffer(); text.Peek_Buffer(); text.Peek_Buffer();
+			Add_Dots(text);
 		}
 		char *buffer = text.Get_Buffer(text.Get_Length()); Rebuild_Texture(style, buffer, false);
 		rect[1] = style->Unknown2C4 = style->Font->String_Pixel_Width(buffer);
@@ -673,7 +673,7 @@ void FontSys::Unknown_6CA0C0(FontEffectStruct *effect)
 				if (style->Unknown405) {
 					// the text saved in Unknown2F0 back
 					style->Info.Text = style->Unknown2F0; style->Info.Text.Peek_Buffer();
-					StringClass text(style->Info.Text); text.Peek_Buffer(); text.Peek_Buffer();
+					StringClass text(style->Info.Text); text.Peek_Buffer();
 					Append_Dots(text, style->Unknown406);
 
 
@@ -732,8 +732,10 @@ void FontSys::Unknown_6CA0C0(FontEffectStruct *effect)
 **	(0..1), Unknown458 (SCROLL's distance), Unknown488 (SHAKE's offset). 0x6CE4E0 (the font switch) is in unknown_6cce60.cpp.
 **
 **	Inline budget (FX, run 2026-11-21): Set_Complete is a file-local layer over the +0x404 stores; with it the client's
-**	out-of-line Store_Length in LETTER (0x6CB343, 0x6CB425) follows. The Peek_Buffer reads after STRETCH's "..." and
-**	STAY's copy are dead budget reads (D272); their counts are swept (8 / 2 since GLOW's max, B1h: 7-8 equal, 5-6 / 9-10 worse).
+**	out-of-line Store_Length in LETTER (0x6CB343, 0x6CB425) follows. STRETCH's "..." goes through a one-line Add_Dots layer
+**	(0x6CCE60's form, no reads) and STAY's copy has one dead Peek_Buffer read (D272; B1h's lead: the client's call string).
+**	STRETCH stores Unknown448 through a reference local (B1x): the client rereads it for Set_XSpacing (0x6CBEC7), as VC6
+**	does when the store goes through an alias; that also gives the copy's registers (EmptyString ecx, 0x6CBED3; 57 -> 43).
 **
 **	Read from the client's compares (B1, run 2026-11-27-night; residue 134 -> 69): RANDLETTER's and LETTER's shown clamp is
 **	an if / else with length first (edi = length, cmp length, target / jl, 0x6CA3DE, 0x6CB2D8; it also sends STRETCH's copy
