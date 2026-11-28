@@ -515,7 +515,7 @@ bool LandClass::Cast_OBBox(OBBoxCollisionTestClass &boxtest)
 	return Field->Cast_OBBox(boxtest);
 }
 
-// NOT EXACT: shape (20 masked rows, B10 2026-11-28: the distance written out under WWMath::Sqrt, the field scale read by value per expression (Get_Scale), the size scaled by it, the corner copied into min after the size and added to it for the MinMax box's max corner, set member by member; left: the matrix's address pushed first, the box sums, the prologue's cell products; attempts.csv 0x46B3C0)
+// NOT EXACT: shape (7 masked rows, B10 2026-11-28: the matrix from its 16 floats, max as size += corner, the distance written out under WWMath::Sqrt, the field scale read by value per expression (Get_Scale), the size scaled by it, the corner copied into min after the size; left: the client consumes inv_extent at the last cell product, ours pops it after the change test; attempts.csv 0x46B3C0)
 void LandClass::Update_Patches(CameraClass &camera, int lod)
 {
 	Vector3 campos = camera.Get_Position(); Vector3 pos = campos;
@@ -592,8 +592,8 @@ void LandClass::Update_Patches(CameraClass &camera, int lod)
 			Vector3 size((float)(unsigned int)PatchSize, (float)(unsigned int)PatchSize,
 				(float)Field->Get_Max_Value()); size.Scale(Field->Get_Scale());
 			Vector3 min = *(const Vector3 *)&patch->X;
-			MinMaxAABoxClass minmax; minmax.MinCorner = min;
-			minmax.MaxCorner = *(const Vector3 *)&patch->X + size; AABoxClass box(minmax);
+			Vector3 max = size; max += *(const Vector3 *)&patch->X;
+			AABoxClass box(MinMaxAABoxClass(min, max));
 			bool visible = !camera.Cull_Box(box);
 			patch->Visible = visible;
 			record->Visible = visible;
@@ -601,8 +601,8 @@ void LandClass::Update_Patches(CameraClass &camera, int lod)
 		}
 	}
 	if (Unknown_BDC0D8->Unknown11) {
-		Matrix4 scale(Vector4(Field->Get_Spacing(), 0.0f, 0.0f, 0.0f), Vector4(0.0f, Field->Get_YSpacing(), 0.0f, 0.0f),
-			Vector4(0.0f, 0.0f, Field->Get_VScale(), 0.0f), Vector4(0.0f, 0.0f, 0.0f, 1.0f));
+		Matrix4 scale(Field->Get_Spacing(), 0.0f, 0.0f, 0.0f, 0.0f, Field->Get_YSpacing(), 0.0f, 0.0f,
+			0.0f, 0.0f, Field->Get_VScale(), 0.0f, 0.0f, 0.0f, 0.0f, 1.0f);
 		Unknown_BDC0D8->Unknown_466F40(camera, lod, scale);
 	}
 }
