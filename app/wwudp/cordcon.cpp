@@ -967,7 +967,7 @@ bool CordCon::examinePacket(unsigned char *data, int datalen)
 
 
 
-
+static inline int Cord_Get_Byte(const unsigned char *in, unsigned char *value) { *value = *in; return 1; }	// NAME 2: what it does, as Cord_Get_Small (inlined only: the client has no copy and no name)
 // 0x851AE0
 bool CordCon::handlePacket(unsigned char *data, int datalen)
 {
@@ -1001,10 +1001,10 @@ bool CordCon::handlePacket(unsigned char *data, int datalen)
 
 	// The ack list: 0 acks one message, 2 every message up to seq, 1 asks for a resend.
 	for (int a = 0; a < acks; a++) {
-		unsigned int kind = data[pos];
+		unsigned char kind;
 		unsigned short channel;
 		unsigned int seq;
-		pos++;
+		pos += Cord_Get_Byte(data + pos, &kind);
 		pos += Cord_Get_Small(data + pos, &channel);
 		pos += Cord_Get_Seq(data + pos, &seq);
 		if (CloseState_ == 2) {
@@ -1072,25 +1072,25 @@ bool CordCon::handlePacket(unsigned char *data, int datalen)
 			bool found = false;
 			std::vector<CordMessage>::iterator it = c->Sent.begin();
 			while (it != c->Sent.end()) {
-				if (kind == 0 ? it->Seq == seq : it->Seq <= seq) {
-					found = true;
-					if (it->SendCount == 1 && kind == 0) {
-						Xtime rtt(0);
-						rtt = current - it->SentTime;
-						if (rtt.getDay() == 0) {
-							Stats_->On_Round_Trip(rtt.getMsec());
-						}
-					}
-					Stats_->On_Ack(it->Length);
-					BytesAcked_ += it->Length;
-					CORD_HARNESS_COUNT(this, AcksMatched);
-					(*it).Free();
-					it = c->Sent.erase(it);
-					if (kind == 0) {
-						break;
-					}
-				} else {
+				if (!((kind == 0 && it->Seq == seq) || (kind == 2 && it->Seq <= seq))) {
 					++it;
+					continue;
+				}
+				found = true;
+				if (it->SendCount == 1 && kind == 0) {
+					Xtime rtt(0);
+					rtt = current - it->SentTime;
+					if (rtt.getDay() == 0) {
+						Stats_->On_Round_Trip(rtt.getMsec());
+					}
+				}
+				Stats_->On_Ack(it->Length);
+				BytesAcked_ += it->Length;
+				CORD_HARNESS_COUNT(this, AcksMatched);
+				(*it).Free();
+				it = c->Sent.erase(it);
+				if (kind == 0) {
+					break;
 				}
 			}
 			if (!found && kind == 0) {
@@ -1170,32 +1170,32 @@ bool CordCon::handlePacket(unsigned char *data, int datalen)
 		pos += Cord_Get_Small(data + pos, &len); int size = len;
 		pos += Cord_Get_Small(data + pos, &channel);
 		pos += Cord_Get_Seq(data + pos, &seq); unsigned int first = seq;
-		unsigned char type = data[pos];
-		pos++;
+		unsigned char type;
+		pos += Cord_Get_Byte(data + pos, &type);
 		if (channel >= Channels_.size()) {
 			Add_Channels((int)((channel - Channels_.size()) + 3) & ~1);
 		}
 		CordChannel *c = Channels_[channel];
 		c->LastSeq = seq;
 		int mode = type & 0x0F;
-		int bflags = type >> 4;
-		bool isfrag = (bflags & 1) != 0;
-		unsigned char frag = 0;
+		type >>= 4;
+		bool isfrag = (type & 1) != 0;
+		int frag; unsigned char fb;
 		if (isfrag) {
-			frag = data[pos++];
+			pos += Cord_Get_Byte(data + pos, &fb); frag = fb;
 			first = seq - frag;
-			if (size > (frag + 1) * CORD_FRAGMENT_SIZE) len = CORD_FRAGMENT_SIZE; else len = size - frag * CORD_FRAGMENT_SIZE;
+			if (size <= (frag + 1) * CORD_FRAGMENT_SIZE) { len -= frag * CORD_FRAGMENT_SIZE; } else { len = CORD_FRAGMENT_SIZE; }
 		}
 
 
 
 		if (mode != c->Mode && c->Mode != 0 && mode == 3) {
-			if ((bflags & 2) == 0) {
-				pos += len;
-				continue;
+			if ((type & 2) != 0) {
+				c->Expected = seq;
+				c->Delivered = seq;
+			} else {
+				pos += len; continue;
 			}
-			c->Delivered = seq;
-			c->Expected = seq;
 		}
 		if (mode != c->Mode && c->Mode == 0) {
 			Active_.push_back(c);
@@ -1229,7 +1229,7 @@ bool CordCon::handlePacket(unsigned char *data, int datalen)
 				found = true;
 			}
 		}
-		while (c->Mode == 3) {
+		while (true) { if (c->Mode != 3) break;
 			if (seq == c->Expected) {
 				c->Expected++;
 			}
@@ -1279,7 +1279,7 @@ bool CordCon::handlePacket(unsigned char *data, int datalen)
 					break;
 				}
 			}
-			if (target < 0) {
+			if (target == -1) {
 				if (first < c->Delivered) {
 					pos += len;
 					continue;
@@ -1304,7 +1304,7 @@ bool CordCon::handlePacket(unsigned char *data, int datalen)
 			t.Fragments[frag] = 1;
 			memcpy(t.Data + frag * CORD_FRAGMENT_SIZE, data + pos, len);
 			if (seq == first) {
-				if (t.Time == 0) {
+				if (msg && t.Time == 0) {
 					t.Time = current.getTime_t();
 				}
 			} else {
