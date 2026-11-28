@@ -1001,10 +1001,10 @@ bool CordCon::handlePacket(unsigned char *data, int datalen)
 
 	// The ack list: 0 acks one message, 2 every message up to seq, 1 asks for a resend.
 	for (int a = 0; a < acks; a++) {
-		unsigned char kind;
+		unsigned char kind = data[pos];
 		unsigned short channel;
 		unsigned int seq;
-		pos += Cord_Get_Byte(data + pos, &kind);
+		pos++;
 		pos += Cord_Get_Small(data + pos, &channel);
 		pos += Cord_Get_Seq(data + pos, &seq);
 		if (CloseState_ == 2) {
@@ -1158,7 +1158,7 @@ bool CordCon::handlePacket(unsigned char *data, int datalen)
 
 	// The blocks.
 	CordMessage m;
-	for (;;) {
+	while (true) {
 		if (pos == datalen) {
 			return true;
 		}
