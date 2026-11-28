@@ -21,7 +21,7 @@ class LineDisplayClientClass  // NAME 1: neutral (D10)
 public:
 	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
 	virtual void Unknown_10(); virtual void Unknown_14();
-	virtual SClient *As_Space_Client();					// +0x18
+	virtual SpaceClientClass *As_Space_Client();					// +0x18
 };
 
 // drag_slot_data.cpp's drag of a slot (SlotDataInterface's +0xA0), as this file calls it (as ui_inv.cpp declares it)
@@ -71,7 +71,7 @@ public:
 };
 
 // 0x62D1F0
-UISkillsClass::UISkillsClass(SClient *client) :
+UISkillsClass::UISkillsClass(SpaceClientClass *client) :
 	SlotDataInterface(client)
 {
 	UnknownB8_3 = false;
@@ -81,7 +81,7 @@ UISkillsClass::UISkillsClass(SClient *client) :
 // 0x62D270
 SlotDataClass *UISkillsClass::Unknown_88()
 {
-	return(new SkillDataClass((SClient *)Client));
+	return(new SkillDataClass((SpaceClientClass *)Client));
 }
 
 // 0x62D300

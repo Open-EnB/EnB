@@ -70,7 +70,7 @@ static const char *Unknown_B82CAC[21] = {	// NAME 1: neutral (D10)
 
 
 // 0x5C8DB0
-UIOptionChannelClass::UIOptionChannelClass(SClient *client, bool mode) :
+UIOptionChannelClass::UIOptionChannelClass(SpaceClientClass *client, bool mode) :
 	ChatPanelUIBase(client),
 	Mode(mode)
 {
@@ -130,7 +130,7 @@ void UIOptionChannelClass::Unknown_5C()
 // 0x5C9170
 bool UIOptionChannelClass::Unknown_68(int key)
 {
-	SClient *sclient = (SClient *)((ClientClass *)Client)->As_Space_Client();	// NAME 1: neutral (D10)
+	SpaceClientClass *sclient = (SpaceClientClass *)((ClientClass *)Client)->As_Space_Client();	// NAME 1: neutral (D10)
 	ChatPanelInterface *chat = sclient->ChatPanel.Peek();	// NAME 1: neutral (D10)
 	switch (key) {
 		case 1:
@@ -216,7 +216,7 @@ void UIOptionChannelClass::Unknown_5C93B0()
 			}
 		}
 	}
-	SClient *sclient = (SClient *)((ClientClass *)Client)->As_Space_Client();	// NAME 1: neutral (D10)
+	SpaceClientClass *sclient = (SpaceClientClass *)((ClientClass *)Client)->As_Space_Client();	// NAME 1: neutral (D10)
 	ChatPanelInterface *chat = sclient->ChatPanel.Peek();	// NAME 1: neutral (D10)
 	if (chat) {
 		chat->Unknown_5689D0(0);

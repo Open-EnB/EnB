@@ -106,7 +106,7 @@ int Packet_00ADClass::Print(char *buffer, int)
 	return(sprintf(buffer, "%s", "GroupServerLoginPacketClass"));
 }
 
-Packet_00AEClass::Packet_00AEClass(int unknown0c, int unknown10, __int64 unknown18, __int64 unknown20) :
+GroupServerRequestPacketClass::GroupServerRequestPacketClass(int unknown0c, int unknown10, __int64 unknown18, __int64 unknown20) :
 	Unknown0C(unknown0c),
 	Unknown10(unknown10),
 	Unknown18(unknown18),
@@ -114,7 +114,7 @@ Packet_00AEClass::Packet_00AEClass(int unknown0c, int unknown10, __int64 unknown
 {
 }
 
-Packet_00AEClass::Packet_00AEClass(RawPacketClass *raw) :
+GroupServerRequestPacketClass::GroupServerRequestPacketClass(RawPacketClass *raw) :
 	Unknown0C(0),
 	Unknown10(0),
 	Unknown18(0),
@@ -126,7 +126,7 @@ Packet_00AEClass::Packet_00AEClass(RawPacketClass *raw) :
 	raw->Get(Unknown20);
 }
 
-RawPacketClass *Packet_00AEClass::Build()
+RawPacketClass *GroupServerRequestPacketClass::Build()
 {
 	RawPacketClass *raw = new RawPacketClass(174, Get_Data_Size());
 	raw->Add(Unknown0C);
@@ -136,12 +136,12 @@ RawPacketClass *Packet_00AEClass::Build()
 	return(raw);
 }
 
-int Packet_00AEClass::Get_Data_Size()
+int GroupServerRequestPacketClass::Get_Data_Size()
 {
 	return(sizeof(Unknown0C) + sizeof(Unknown10) + sizeof(Unknown18) + sizeof(Unknown20));
 }
 
-int Packet_00AEClass::Print(char *buffer, int)
+int GroupServerRequestPacketClass::Print(char *buffer, int)
 {
 	return(sprintf(buffer, "%s", "GroupServerRequestPacketClass"));
 }
@@ -174,14 +174,14 @@ int GroupServerResponsePacketClass::Print(char *buffer, int)
 	return(sprintf(buffer, "%s", "GroupServerResponsePacketClass"));
 }
 
-Packet_00B0Class::Packet_00B0Class(__int64 unknown10) :
+GroupServerCreatePacketClass::GroupServerCreatePacketClass(__int64 unknown10) :
 	Unknown10(unknown10),
 	Unknown38(true),
 	Unknown3C(0)
 {
 }
 
-Packet_00B0Class::Packet_00B0Class(RawPacketClass *raw) :
+GroupServerCreatePacketClass::GroupServerCreatePacketClass(RawPacketClass *raw) :
 	Unknown10(0),
 	Unknown38(true),
 	Unknown3C(0)
@@ -193,7 +193,7 @@ Packet_00B0Class::Packet_00B0Class(RawPacketClass *raw) :
 	raw->Get(Unknown3C);
 }
 
-RawPacketClass *Packet_00B0Class::Build()
+RawPacketClass *GroupServerCreatePacketClass::Build()
 {
 	RawPacketClass *raw = new RawPacketClass(176, Get_Data_Size());
 	raw->Add(Unknown10);
@@ -204,34 +204,34 @@ RawPacketClass *Packet_00B0Class::Build()
 	return(raw);
 }
 
-int Packet_00B0Class::Get_Data_Size()
+int GroupServerCreatePacketClass::Get_Data_Size()
 {
 	return(Get_Size(Unknown18) + Get_Size(Unknown28) + sizeof(Unknown10) + sizeof(Unknown38) + sizeof(Unknown3C));
 }
 
-int Packet_00B0Class::Print(char *buffer, int)
+int GroupServerCreatePacketClass::Print(char *buffer, int)
 {
 	return(sprintf(buffer, "%s", "GroupServerCreatePacketClass"));
 }
 
-void Packet_00B0Class::Add_Unknown18(const GroupServerEntryStruct &entry)
+void GroupServerCreatePacketClass::Add_Unknown18(const GroupServerEntryStruct &entry)
 {
 	Unknown18.push_back(entry);
 }
 
-void Packet_00B0Class::Add_Unknown28(const GroupServerEntryStruct &entry)
+void GroupServerCreatePacketClass::Add_Unknown28(const GroupServerEntryStruct &entry)
 {
 	Unknown28.push_back(entry);
 }
 
-Packet_00B1Class::Packet_00B1Class(__int64 unknown10, int unknown38) :
+GroupServerUpdatePacketClass::GroupServerUpdatePacketClass(__int64 unknown10, int unknown38) :
 	Unknown10(unknown10),
 	Unknown38(unknown38),
 	Unknown3C(0)
 {
 }
 
-Packet_00B1Class::Packet_00B1Class(RawPacketClass *raw) :
+GroupServerUpdatePacketClass::GroupServerUpdatePacketClass(RawPacketClass *raw) :
 	Unknown10(0),
 	Unknown38(0),
 	Unknown3C(0)
@@ -242,7 +242,7 @@ Packet_00B1Class::Packet_00B1Class(RawPacketClass *raw) :
 	raw->Get(Unknown3C);
 }
 
-RawPacketClass *Packet_00B1Class::Build()
+RawPacketClass *GroupServerUpdatePacketClass::Build()
 {
 	RawPacketClass *raw = new RawPacketClass(177, Get_Data_Size());
 	raw->Add(Unknown10);
@@ -252,17 +252,17 @@ RawPacketClass *Packet_00B1Class::Build()
 	return(raw);
 }
 
-int Packet_00B1Class::Get_Data_Size()
+int GroupServerUpdatePacketClass::Get_Data_Size()
 {
 	return(Get_Size(Unknown18) + sizeof(Unknown10) + sizeof(Unknown38) + sizeof(Unknown3C));
 }
 
-int Packet_00B1Class::Print(char *buffer, int)
+int GroupServerUpdatePacketClass::Print(char *buffer, int)
 {
 	return(sprintf(buffer, "%s", "GroupServerUpdatePacketClass"));
 }
 
-void Packet_00B1Class::Set_Unknown18(const GroupServerEntryStruct &entry)
+void GroupServerUpdatePacketClass::Set_Unknown18(const GroupServerEntryStruct &entry)
 {
 	Unknown18 = entry;
 }

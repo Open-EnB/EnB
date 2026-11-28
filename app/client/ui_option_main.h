@@ -10,7 +10,7 @@
 class UIOptionMainClass : public ChatPanelUIBase	// NAME 1: neutral, after its tooltips' section 'UI_OPTION_MAIN'
 {
 public:
-	UIOptionMainClass(SClient *client);					// 0x5CE240 (deleting 0x5CE290)
+	UIOptionMainClass(SpaceClientClass *client);					// 0x5CE240 (deleting 0x5CE290)
 	virtual ~UIOptionMainClass();						// 0x5CE2C0
 	virtual void Unknown_54();							// +0x54 0x5CE350 ('opt01a': the buttons 'exit', 'bttn00'-'bttn06', the texts, Escape)
 	virtual void Unknown_58();							// +0x58 0x5CE460 (the base's when not Active)

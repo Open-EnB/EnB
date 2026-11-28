@@ -21,7 +21,7 @@ static const char *Unknown_B83EC8[4] = { "EXIT_BUTTON", "BACK", "SUBMIT", "Entry
 static const char *Unknown_B83EDC[4] = { "BACK_hsi02a", "SUBMIT_hsi02a", NULL, NULL };		// NAME 1: neutral (D10)
 
 // 0x5D46E0
-UIPetitionEntryClass::UIPetitionEntryClass(SClient *client) :
+UIPetitionEntryClass::UIPetitionEntryClass(SpaceClientClass *client) :
 	ChatPanelUIBase(client),
 	Slider(NULL),
 	SubjectEditor(NULL),
@@ -57,7 +57,7 @@ void UIPetitionEntryClass::Unknown_54()
 		RefCountPtr<RenderObjClass> message = Create_NEW(InterfaceMesh->Get_Sub_Object_By_Name("message"));
 		DetailsEditor = new TextEditorGadget(this, message, "UI_PETITION_STUCK_EDIT_FONT", Slider, 0x400, "Click here and enter description of problem, then press Submit to send...");
 		GadgetClass::Set_Tooltip(DetailsEditor, "UI_PETITION_ENTRY", "DETAILS");
-		DetailsEditor->Client = (SClient *)((ClientClass *)Client)->As_Space_Client();
+		DetailsEditor->Client = (SpaceClientClass *)((ClientClass *)Client)->As_Space_Client();
 		RefCountPtr<RenderObjClass> entry = Create_Get(InterfaceMesh->Get_Sub_Object_By_Name("Entry_Field00"));
 		SubjectEditor = new TextGadgetClass(this, 0xFA, "SUBJECT_EDIT_hsi02a", entry.Peek(), Unknown_B08CB0, 0);
 		SubjectEditor->Set_Text("Enter Subject Here", 0);
@@ -169,7 +169,7 @@ void UIPetitionEntryClass::Unknown_60()
 				break;
 			case USER_SELECT_YES:
 				{
-					((SClient *)((ClientClass *)Client)->As_Space_Client())->Unknown_74D990(0x13, "Petition canceled.", 0);
+					((SpaceClientClass *)((ClientClass *)Client)->As_Space_Client())->Unknown_74D990(0x13, "Petition canceled.", 0);
 					int closed = Pending;
 					Unknown_5C();
 					Closed = closed;

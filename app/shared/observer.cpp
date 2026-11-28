@@ -121,6 +121,6 @@ void ObserverSubjectClass::Unknown_49EAB0(void *event)
 // - ObserverSubjectClass is the vector alone (0x18 bytes): DynamicVectorClass's constructor stores VectorClass's table 0xAEA9A0
 //   then its own 0xAEA984; the growth step is a quarter of the size, 2 to 16.
 
-// Interim placement (D137): the frame toggle SClient::Do_Frame sets (.bss 0xBE350C, between damtype.cpp's vector
+// Interim placement (D137): the frame toggle SpaceClientClass::Do_Frame sets (.bss 0xBE350C, between damtype.cpp's vector
 // 0xBE34F8 and referral.cpp's guard 0xBE3510; its object is not known)
 int Unknown_BE350C;  // NAME 1 [Unknown_BE350C]: neutral (D10)

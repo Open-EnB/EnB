@@ -26,7 +26,7 @@ RefCountPtr<RenderObjClass> Unknown_497300(RenderObjClass *robj);	// 0x497300  /
 static const char *Unknown_B8BA54[4] = { "CANCEL", "EXIT", "CONFIRM", "VALUE_BUTTON" };	// NAME 1: neutral (D10)
 
 // 0x649890
-UIPTradeCreditsClass::UIPTradeCreditsClass(SClient *client, int a, int b) :
+UIPTradeCreditsClass::UIPTradeCreditsClass(SpaceClientClass *client, int a, int b) :
 	Unknown5BB320Class(new UIMeshClass("TRADE01A", 1), client),
 	Unknown0AC(NULL),
 	Unknown0C0(0),

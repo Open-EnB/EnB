@@ -22,7 +22,7 @@ extern FontStringFilesClass *Unknown_BE67BC;	// NAME 1: neutral (D10)
 
 
 // 0x56D280
-ChatPanelUIBase::ChatPanelUIBase(SClient *client) :
+ChatPanelUIBase::ChatPanelUIBase(SpaceClientClass *client) :
 	InterfaceClass((LineDisplayClientClass *)client),
 	InterfaceMesh(NULL),
 	Closed(0),

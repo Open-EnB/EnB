@@ -18,8 +18,8 @@ class RSLRegistryClass	// NAME 3: ClientClass +0x18 holds it, named RSLRegistry 
 public:
 	RSLRegistryClass();								// 0x763E00
 	~RSLRegistryClass();								// 0x763E30
-	void Unknown_763E70(const char *ini_name);			// 0x763E70: SClient::Init passes 'rs.ini'  // NAME 1 [ini_name]: neutral
-	void Unknown_763FF0();								// 0x763FF0 (SClient::Shutdown, before the delete: deletes every list)
+	void Unknown_763E70(const char *ini_name);			// 0x763E70: SpaceClientClass::Init passes 'rs.ini'  // NAME 1 [ini_name]: neutral
+	void Unknown_763FF0();								// 0x763FF0 (SpaceClientClass::Shutdown, before the delete: deletes every list)
 	void *Unknown_764030(int rslid);					// 0x764030 (co.cpp's model loader: the render state list of a base asset's RSLID)  // NAME 2 [rslid]: the INI key it is read from
 	RenderStateListClass *Unknown_764060(const char *name);	// 0x764060 (0x5B8330: a one-state 'object' list for name.W3D, added at the end)  // NAME 1 [name]: neutral
 

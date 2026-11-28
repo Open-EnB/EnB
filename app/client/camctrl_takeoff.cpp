@@ -24,7 +24,7 @@ public:
 };
 
 // @0x7961B0
-TakeoffCameraControllerClass::TakeoffCameraControllerClass(SClient *client) :
+TakeoffCameraControllerClass::TakeoffCameraControllerClass(SpaceClientClass *client) :
 	CameraControllerClass(client),
 	Unknown0C(NULL),
 	Unknown10(0),
@@ -49,7 +49,7 @@ void TakeoffCameraControllerClass::Unknown_04()
 	Unknown5C = false;
 	Unknown10 = Client->Unknown10BC;
 	Unknown14 = Client->Next_Local_ID();
-	EffectObjectClass *effect = Unknown_6E9490(0x170, Unknown14, 5000, Unknown10, Client, 1.0f, Vector3(0.0f, 0.0f, 0.0f), 1.0f, -1, 0);
+	EffectClass *effect = Unknown_6E9490(0x170, Unknown14, 5000, Unknown10, Client, 1.0f, Vector3(0.0f, 0.0f, 0.0f), 1.0f, -1, 0);
 
 
 
@@ -195,7 +195,7 @@ void TakeoffCameraControllerClass::Unknown_0C()
 		ship->PositionalState = state->Unknown_28();
 		delete state;
 	}
-	EffectObjectClass *effect = Client->Get_Effect(Unknown14);
+	EffectClass *effect = Client->Get_Effect(Unknown14);
 	if (effect) {
 		effect->Unknown_6E6E30();
 	}

@@ -16,7 +16,7 @@ class FactionInterface : public Unknown5BB320Class  // NAME 5: thunk order, bina
 {
 public:
 	enum { MAX_BUTTONS = 7 };							// NAME 1: the constructor clears 7, 0x58D400 makes 6 (keys 1..6)
-	FactionInterface(SClient *client);					// 0x58D080 (0xE4 bytes; deleting 0x58D1B0)  // NAME 1 [client]: as BioInterface's
+	FactionInterface(SpaceClientClass *client);					// 0x58D080 (0xE4 bytes; deleting 0x58D1B0)  // NAME 1 [client]: as BioInterface's
 	virtual ~FactionInterface();							// 0x58D1E0 ('fa_tsi30a.ini' unloaded)
 	virtual void Unknown_54();							// 0x58D400 (the panel, the buttons, the slider; FAIL_IFs '!InterfaceMesh' / '!mesh')
 	virtual void Unknown_58();							// 0x58D9F0 (activated: 0x58DC20(true) under a sort scope)

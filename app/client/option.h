@@ -26,7 +26,7 @@
 #include <hash_map.h>
 #include "vector3.h"
 
-class SClient;
+class SpaceClientClass;
 
 struct BoolOptionStruct  // NAME 2: what it holds (0x14 bytes)
 {
@@ -97,8 +97,8 @@ public:
 	static void Set_Instance(OptionManagerClass *options);			// 0x7F1840 (0xBE8B38)  // NAME 2: what it does
 
 	void Free_Options();									// 0x7F1860 (inlined into the destructor and Set_Defaults)  // NAME 2: what it does
-	void Set_Defaults(SClient *client);						// 0x7F1AD0  // NAME 2: what it does
-	void Load(__int64 character_id, SClient *client);		// 0x7F84F0 (ClientTaskClass's 0x766350)  // NAME 2: what it does
+	void Set_Defaults(SpaceClientClass *client);						// 0x7F1AD0  // NAME 2: what it does
+	void Load(__int64 character_id, SpaceClientClass *client);		// 0x7F84F0 (ClientTaskClass's 0x766350)  // NAME 2: what it does
 	void Save();											// 0x7F8EF0  // NAME 2: what it does
 
 	BoolOptionStruct *Find_Bool(const char *name);			// 0x7F9520  // NAME 2: what it does

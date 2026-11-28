@@ -427,8 +427,8 @@ void ClientObjectClass::Unknown_20()
 	EmoteDataClass *emote = Get_Emote_Data(this, false);
 	if (emote) {
 		if (GameID == Client->AvatarID && emote->Unknown_7E7A40()) {
-			if (((SClient *)Client->As_Space_Client())->CameraManager->Unknown_79B670()) {
-				((SClient *)Client->As_Space_Client())->CameraManager->Unknown_79B2B0(0x14);
+			if (((SpaceClientClass *)Client->As_Space_Client())->CameraManager->Unknown_79B670()) {
+				((SpaceClientClass *)Client->As_Space_Client())->CameraManager->Unknown_79B2B0(0x14);
 				emote->Unknown_7E76E0();
 			}
 		}
@@ -870,7 +870,7 @@ static RenderObjClass *Unknown_6F51D0(int base_asset, ClientClass *client, float
 // 0x6F5140
 RenderObjClass *ClientObjectClass::Unknown_6F5140(int base_asset, ClientClass *client, float scale, float *hsv)
 {
-	SClient *sclient = client ? (SClient *)client->As_Space_Client() : NULL;
+	SpaceClientClass *sclient = client ? (SpaceClientClass *)client->As_Space_Client() : NULL;
 	WW3DAssetManager::Get_Instance()->Set_Activate_Fog_On_Load(true);
 	if (sclient && sclient->Unknown1320) {
 		WW3D::Enable_Overbright_Modify_On_Load(true);
@@ -1481,26 +1481,26 @@ void ClientObjectClass::Unknown_6FBEF0()
 
 			switch (UnknownF8) {
 				case 5:
-					((SClient *)Client->As_Space_Client())->Unknown_74D990(0x11, "Engine unavailable. Please wait.", 0);
+					((SpaceClientClass *)Client->As_Space_Client())->Unknown_74D990(0x11, "Engine unavailable. Please wait.", 0);
 					SoundLibraryClass::Play_2D_Sound("On_Fail", 2);
 					break;
 				case 6:
 					if (Type == 1) {
 						SoundLibraryClass::Play_2D_Sound("On_Fail", 2);
-						((SClient *)Client->As_Space_Client())->Unknown_74D990(0x11, "Warp failed - local gravity interference.", 0);
+						((SpaceClientClass *)Client->As_Space_Client())->Unknown_74D990(0x11, "Warp failed - local gravity interference.", 0);
 					}
 					break;
 				case 7:
-					((SClient *)Client->As_Space_Client())->Unknown_74D990(0x11, "Warp target lost.", 0);
+					((SpaceClientClass *)Client->As_Space_Client())->Unknown_74D990(0x11, "Warp target lost.", 0);
 					break;
 				case 8:
-					((SClient *)Client->As_Space_Client())->Unknown_74D990(0, "Warp target reached.", 0);
+					((SpaceClientClass *)Client->As_Space_Client())->Unknown_74D990(0, "Warp target reached.", 0);
 					break;
 				case 9:
-					((SClient *)Client->As_Space_Client())->Unknown_74D990(0x11, "Warp followers disrupted.", 0);
+					((SpaceClientClass *)Client->As_Space_Client())->Unknown_74D990(0x11, "Warp followers disrupted.", 0);
 					break;
 				case 11:
-					((SClient *)Client->As_Space_Client())->Unknown_74D990(0x11, "Warp interrupted - out of energy.", 0);
+					((SpaceClientClass *)Client->As_Space_Client())->Unknown_74D990(0x11, "Warp interrupted - out of energy.", 0);
 					break;
 			}
 		}
@@ -1528,7 +1528,7 @@ void ClientObjectClass::Unknown_6FBEF0()
 	}
 	char loop[128];
 	char sound[128];
-	EffectObjectClass *effect;
+	EffectClass *effect;
 	switch (UnknownF8) {
 		case 1: {
 			AuxDataName trail_name("EngineTrailType");
@@ -1560,7 +1560,7 @@ void ClientObjectClass::Unknown_6FBEF0()
 				Unknown11C->Attach_To_Object(RenderObject, -1);
 			}
 			if (player) {
-				((SClient *)Client)->CameraManager->Unknown_79B2B0(2);
+				((SpaceClientClass *)Client)->CameraManager->Unknown_79B2B0(2);
 			}
 			if (Unknown_6F5A40() && Unknown184) {
 				Play_State_Animation(RenderObject, 1, 0);
@@ -1577,7 +1577,7 @@ void ClientObjectClass::Unknown_6FBEF0()
 			} else {
 				G_ASSERT(0);
 			}
-			MainViewClass *view = ((SClient *)Client->As_Space_Client())->MainView;
+			MainViewClass *view = ((SpaceClientClass *)Client->As_Space_Client())->MainView;
 			Client->Add_Effect(effect, (int)view->Unknown_64(), view->Unknown_7C());
 			break;
 		}
@@ -1590,7 +1590,7 @@ void ClientObjectClass::Unknown_6FBEF0()
 		case 2: {
 			_snprintf(sound, sizeof(sound), "warp_enter_%d", level);
 			if (player) {
-				((SClient *)Client)->CameraManager->Unknown_79B2B0(3);
+				((SpaceClientClass *)Client)->CameraManager->Unknown_79B2B0(3);
 				SoundLibraryClass::Play_2D_Sound(sound, 2);
 			} else {
 				SoundLibraryClass::Play_3D_Sound(sound, Unknown_28(true), 2, 1.0f);
@@ -1604,7 +1604,7 @@ void ClientObjectClass::Unknown_6FBEF0()
 			if (!Unknown14C) {
 				return;
 			}
-			EffectObjectClass *old = Client->Get_Effect(Unknown14C);
+			EffectClass *old = Client->Get_Effect(Unknown14C);
 			if (old) {
 				old->Unknown_6E6E30();
 			}
@@ -1619,14 +1619,14 @@ void ClientObjectClass::Unknown_6FBEF0()
 			} else {
 				G_ASSERT(0);
 			}
-			MainViewClass *view = ((SClient *)Client->As_Space_Client())->MainView;
+			MainViewClass *view = ((SpaceClientClass *)Client->As_Space_Client())->MainView;
 			Client->Add_Effect(effect, (int)view->Unknown_64(), view->Unknown_7C());
 			break;
 		}
 		case 3: case 7: case 8: case 9: case 11:	// (the lines after l.1620 are short: 0x6FC880 follows)
 			_snprintf(sound, sizeof(sound), "warp_exit_%d", level);
 			if (player) {
-				((SClient *)Client)->CameraManager->Unknown_79B2B0(4); SoundLibraryClass::Play_2D_Sound(sound, 2);
+				((SpaceClientClass *)Client)->CameraManager->Unknown_79B2B0(4); SoundLibraryClass::Play_2D_Sound(sound, 2);
 			} else {
 				SoundLibraryClass::Play_3D_Sound(sound, Unknown_28(true), 2, 1.0f);
 			}
@@ -1649,7 +1649,7 @@ void ClientObjectClass::Unknown_6FC880()
 		Unknown11C->Remove_From_Scene();
 	}
 	if (Unknown14C) {
-		EffectObjectClass *effect = Client->Get_Effect(Unknown14C);
+		EffectClass *effect = Client->Get_Effect(Unknown14C);
 		if (effect) {
 			effect->Unknown_6E6E30();
 		}
@@ -1748,7 +1748,7 @@ void ClientObjectClass::Unknown_6FCB70()
 	Unknown_Damage_Reset();
 	Unknown_6FED30();
 	if (!Colorization.empty() && RenderObject) Apply_Ship_Colorization(RenderObject, Colorization);
-	SClient *sclient = (SClient *)Client->As_Space_Client(); if (sclient && sclient->AvatarID == GameID) sclient->Unknown_74D950();
+	SpaceClientClass *sclient = (SpaceClientClass *)Client->As_Space_Client(); if (sclient && sclient->AvatarID == GameID) sclient->Unknown_74D950();
 	if (Unknown_6F5A10()) {
 		AuxDataName name("IsOrganic");
 		DeltaTemplateClass<bool> *t = Unknown_Find_Valid<DeltaTemplateClass<bool> >((DeltaContainer *)AuxData, name);
@@ -1788,7 +1788,7 @@ void ClientObjectClass::Unknown_6FD310()
 	if (!Unknown_6F5850()) {
 		return;
 	}
-	ProjDecalManagerClass *proj_decal_manager = ((SClient *)Client)->ProjDecalManager;
+	ProjDecalManagerClass *proj_decal_manager = ((SpaceClientClass *)Client)->ProjDecalManager;
 
 
 
@@ -1948,7 +1948,7 @@ void ClientObjectClass::Unknown_6FDBD0()
 	{
 		DeltaTemplateClass<int> *t = Unknown_Find_Engine_Changed_2L(this, "EngineTrailType");
 		if (t) {
-			if (Type == 1 && ((SClient *)Client->As_Space_Client())->ViewMode == 1) {
+			if (Type == 1 && ((SpaceClientClass *)Client->As_Space_Client())->ViewMode == 1) {
 				Unknown_6FD7A0(RenderObject);
 			}
 			if (Unknown120) {
@@ -2002,7 +2002,7 @@ void ClientObjectClass::Unknown_6FDBD0()
 	if (data) {
 		emote = data->Unknown_7E7A70();
 	}
-	bool camera = (GameID == Client->AvatarID && ((SClient *)Client->As_Space_Client())->CameraManager->Unknown_79B690());
+	bool camera = (GameID == Client->AvatarID && ((SpaceClientClass *)Client->As_Space_Client())->CameraManager->Unknown_79B690());
 	bool forced = (emote || camera);
 	bool on = (state == 1 || Unknown_6FC970() || forced);
 	if (UnknownFC != on) {
@@ -2184,7 +2184,7 @@ void ClientObjectClass::Unknown_6FE1E0()
 		Unknown150 = Update_Damage_Particles(RenderObject, level, hull_level, Client, GameID, Unknown150);
 	} else {
 		bool view = false;
-		switch (((SClient *)Client->As_Space_Client())->ViewMode) {
+		switch (((SpaceClientClass *)Client->As_Space_Client())->ViewMode) {
 			case 0:
 				view = false;
 				break;

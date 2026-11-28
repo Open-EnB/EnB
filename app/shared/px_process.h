@@ -4,7 +4,7 @@
 **	0x455880-0x4560B0); this header's name is provisional: no string names it.
 **
 **	A list of nodes to process (PxProcessList, ClientClass's PxProcess at +0x0C) and a static stack of the current
-**	list: SClient::Init, Shutdown and Do_Frame push their client's list around their work, and px_callback_accurate.cpp's
+**	list: SpaceClientClass::Init, Shutdown and Do_Frame push their client's list around their work, and px_callback_accurate.cpp's
 **	callbacks add themselves to the current one (Get_Current, Add). Nothing in the client calls Process 0x455CC0 or
 **	Remove_All 0x455C80.
 */
@@ -48,7 +48,7 @@ public:
 	void Process();							// 0x455CC0 (every node's Process; no caller)  // NAME 2: what it does
 
 	static PxProcessList *Get_Current();				// 0x455CF0 (the stack's top)  // NAME 2: what it returns
-	static void Push(PxProcessList *process);			// 0x455D10 (SClient::Init / Shutdown / Do_Frame)  // NAME 2 [process]: what it does
+	static void Push(PxProcessList *process);			// 0x455D10 (SpaceClientClass::Init / Shutdown / Do_Frame)  // NAME 2 [process]: what it does
 	static void Pop();									// 0x455F60 (as above, at their ends)  // NAME 2: what it does
 
 	PxProcessNode Root;						// +0x00 (the client's name, the FAIL_IF 'Root.Next != &Root')

@@ -21,7 +21,7 @@ extern FontManagerClass *Unknown_BE67C4;	// NAME 1 [Unknown_BE67C4]: 0xBE67C4
 static const char *Unknown_B7E4D4[2] = { "exit", "add" };	// NAME 1: neutral (D10)
 
 // @0x57BAD0
-UICommandsClass::UICommandsClass(SClient *client) :
+UICommandsClass::UICommandsClass(SpaceClientClass *client) :
 	ChatPanelUIBase(client),
 	Slider(NULL),
 	Top(0),

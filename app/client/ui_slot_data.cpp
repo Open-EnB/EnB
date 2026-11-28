@@ -22,14 +22,14 @@ class LineDisplayClientClass  // NAME 1: neutral (D10)
 public:
 	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
 	virtual void Unknown_10(); virtual void Unknown_14();
-	virtual SClient *As_Space_Client();					// +0x18
+	virtual SpaceClientClass *As_Space_Client();					// +0x18
 };
 #include "..\shared\auth_product.h"
 // drag_slot_data.cpp's drag of a slot (+0xA0), as this file calls it (as ui_inv.cpp declares it)
 class DragSlotDataClass	// NAME 3: class-from-file (D24) for drag_slot_data.cpp (0x6851B0, 0x685500, 0x685610)
 {
 public:
-	DragSlotDataClass(SClient *client, SlotDataRenderClass *render);	// 0x6851B0 (0x24 bytes)  // NAME 1 [client, render]: what 0x62DF90 passes
+	DragSlotDataClass(SpaceClientClass *client, SlotDataRenderClass *render);	// 0x6851B0 (0x24 bytes)  // NAME 1 [client, render]: what 0x62DF90 passes
 	virtual ~DragSlotDataClass();						// +0x00
 	virtual void Unknown_04();
 	virtual bool Unknown_08();							// +0x08 (a drop onto a gadget)
@@ -54,13 +54,13 @@ public:
 	RefCountClass Ref;									// +0x38 (InterfaceClass's RefCountClass)  // NAME 1: neutral (D10)
 	bool Unknown_630070(UIViewClass *view, int slot, bool a, bool b);	// 0x630070 (the slot's information shown)  // NAME 1 [view, slot, a, b]: what 0x62E8B0 passes
 };
-UISlotInfoClass *Unknown_630280(SClient *client, SlotDataClass *slot_data);	// 0x630280 (ui_slot_info.cpp: an item's examination or a skill's information)  // NAME 1 [client, slot_data]: what 0x62DF90 passes
+UISlotInfoClass *Unknown_630280(SpaceClientClass *client, SlotDataClass *slot_data);	// 0x630280 (ui_slot_info.cpp: an item's examination or a skill's information)  // NAME 1 [client, slot_data]: what 0x62DF90 passes
 
 // ui_slot_scut.cpp's shortcut gadgets of a slot interface (0x60 bytes), as this file calls it (ui_slot_scut.h declares it whole)
 class SlotDataShortcutInterface : public ShortcutGadgetsInterface	// NAME 5: the client's RTTI
 {
 public:
-	SlotDataShortcutInterface(SlotDataInterface *slot_iface, const std::string &name, SClient *sclient);	// 0x630490  // NAME 3 [slot_iface]: the FAIL_IF's; NAME 2 [name, sclient]: the base's
+	SlotDataShortcutInterface(SlotDataInterface *slot_iface, const std::string &name, SpaceClientClass *sclient);	// 0x630490  // NAME 3 [slot_iface]: the FAIL_IF's; NAME 2 [name, sclient]: the base's
 	virtual RenderObjGadgetClass *Unknown_0C(int slot);		// +0x0C 0x631000  // NAME 2 [slot]: as ui_slot_scut.h's
 	virtual bool Unknown_10(RenderObjGadgetClass *gadget, std::string &key);	// +0x10 0x631540  // NAME 2 [gadget, key]: as ui_slot_scut.h's
 	virtual RenderObjGadgetClass *Unknown_14(const char *key);	// +0x14 0x631270  // NAME 3 [key]: as ui_slot_scut.h's
@@ -108,7 +108,7 @@ bool SlotDataInterface::Unknown_9C(int slot, bool arg)
 
 // 0x62DE80
 
-SlotDataInterface::SlotDataInterface(SClient *client) :
+SlotDataInterface::SlotDataInterface(SpaceClientClass *client) :
 	InterfaceClass((LineDisplayClientClass *)client),
 	ShortcutUI(NULL),
 	Buttons(0),

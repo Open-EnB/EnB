@@ -92,7 +92,7 @@ void ViewClass::Unknown_14()
 	}
 }
 
-// 0x6B4900: every interface object's +0x6C with the ini (SClient 0x745080: settings.ini)
+// 0x6B4900: every interface object's +0x6C with the ini (SpaceClientClass 0x745080: settings.ini)
 void ViewClass::Unknown_6B4900(INIClass &ini)
 {
 	for (SLNode<InterfaceClass> *node = InterfaceObjects.Head(); node != NULL; node = node->Next()) {

@@ -10,7 +10,7 @@
 #include "intrface.h"
 #include "..\..\wwlib\ref_ptr.h"
 
-class SClient;
+class SpaceClientClass;
 class RenderObjClass;
 class SlotDataGadget;		// gd_slot_data.h's slot gadgets (+0x88)
 class SlotDataClass;			// slot_data.h's (+0x98)
@@ -29,7 +29,7 @@ public:
 
 
 
-	SlotDataInterface(SClient *client);					// 0x62DE80  // NAME 1 [client]: neutral
+	SlotDataInterface(SpaceClientClass *client);					// 0x62DE80  // NAME 1 [client]: neutral
 	SlotDataInterface(UIViewClass *view, int unknown);	// 0x62DD20 (no caller found)  // NAME 1 [view, unknown]: InterfaceClass's
 	virtual ~SlotDataInterface();						// 0x62E320
 	virtual void Unknown_54();							// 0x62DF90 (FAIL_IF '!SlotData' l.149, G_ASSERT 'SelectedHilight' l.160)

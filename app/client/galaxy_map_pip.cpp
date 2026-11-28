@@ -39,11 +39,11 @@ template<class C> static inline C *Unknown_Find_Inner(DeltaContainer *root, cons
 	if (!t) return(NULL); return(t);
 }
 
-static inline GalaxyMapClient *Unknown_Map(SClient *client) { return(client->GalaxyMap); }	// NAME 1: neutral (D10)
+static inline GalaxyMapClient *Unknown_Map(SpaceClientClass *client) { return(client->GalaxyMap); }	// NAME 1: neutral (D10)
 template<class C> inline C *Unknown_Find_Valid(DeltaContainer *root, const AuxDataName &name) { C *t = Unknown_Find_Inner<C>(root, name); root->Children.size(); root->Children.size(); if (!t || !t->Unknown70) return(NULL); return(t); }	// NAME 1: neutral (D10): avatar_pip.cpp's
 
 // @0x53F390
-GalaxyMapPIPClass::GalaxyMapPIPClass(SClient *client) :
+GalaxyMapPIPClass::GalaxyMapPIPClass(SpaceClientClass *client) :
 	MapPIPClass(client, false),
 	Debug(false),
 	Render(NULL),
@@ -161,7 +161,7 @@ void GalaxyMapPIPClass::Unknown_53F9E0()
 	} else {
 		Render->Unknown_7A7450();
 	}
-	DeltaPlayerClass *aux = ((SClient *)Client->As_Space_Client())->AuxData;
+	DeltaPlayerClass *aux = ((SpaceClientClass *)Client->As_Space_Client())->AuxData;
 	if (aux) {
 		DeltaTemplateClass<int> *sector = Unknown_Find_Field<DeltaTemplateClass<int> >(aux, "SectorNum");
 		if (sector && sector->Unknown70 > 1) {
@@ -409,7 +409,7 @@ void GalaxyMapPIPClass::Unknown_53FE30()
 void GalaxyMapPIPClass::Unknown_5404E0(bool arg)
 {
 	Render->Unknown_7A7070(false);
-	DeltaPlayerClass *aux = ((SClient *)Client->As_Space_Client())->AuxData;
+	DeltaPlayerClass *aux = ((SpaceClientClass *)Client->As_Space_Client())->AuxData;
 	if (aux) {
 		DeltaTemplateClass<int> *sector = Unknown_Find_Valid<DeltaTemplateClass<int> >(aux, "SectorNum");
 		if (sector) {
@@ -473,9 +473,9 @@ void GalaxyMapPIPClass::Unknown_24(int arg)
 		return;
 	}
 	if (map->Unknown_7A5540(Client)) {
-		((SClient *)Client->As_Space_Client())->Unknown_74D990(0, "Galaxymap PIP will now show the whole galaxy.", 0);
+		((SpaceClientClass *)Client->As_Space_Client())->Unknown_74D990(0, "Galaxymap PIP will now show the whole galaxy.", 0);
 	} else {
-		((SClient *)Client->As_Space_Client())->Unknown_74D990(0, "Galaxymap PIP will now show only areas that you have explored.", 0);
+		((SpaceClientClass *)Client->As_Space_Client())->Unknown_74D990(0, "Galaxymap PIP will now show only areas that you have explored.", 0);
 	}
 }
 

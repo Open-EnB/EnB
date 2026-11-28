@@ -22,7 +22,7 @@ class LineDisplayClientClass  // NAME 1: neutral (D10)
 public:
 	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
 	virtual void Unknown_10(); virtual void Unknown_14();
-	virtual SClient *As_Space_Client();					// +0x18 (as ui_manu.cpp's)  // NAME 3: the FAIL_IF's in ui_manu.cpp
+	virtual SpaceClientClass *As_Space_Client();					// +0x18 (as ui_manu.cpp's)  // NAME 3: the FAIL_IF's in ui_manu.cpp
 };
 
 
@@ -53,7 +53,7 @@ static const char *ButtonNames[CharacterInfoInterface::MAX_BUTTONS] = { "not use
 static const char *MenuNames[] = { "ATTRIBUTES_MENU", "MISSIONS_MENU", "FACTION_MENU", NULL };	// 0xB7DA60 (the tooltips of buttons 1..3 and the menu fonts)  // NAME 1: neutral (D10)
 
 // 0x5734D0
-CharacterInfoInterface::CharacterInfoInterface(SClient *client) :
+CharacterInfoInterface::CharacterInfoInterface(SpaceClientClass *client) :
 	Unknown5BB320Class(new UIMeshClass("TSI15A", 2), client),
 	UnknownAC(0),
 	UnknownB0(1)
@@ -149,7 +149,7 @@ bool CharacterInfoInterface::Unknown_68(int key)
 	case 4:
 		SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
 		{
-			SClient *client = Client->As_Space_Client();
+			SpaceClientClass *client = Client->As_Space_Client();
 			client->PDAInterface->Unknown_695A00(2, 1);
 		}
 		return(true);
@@ -248,7 +248,7 @@ void CharacterInfoInterface::Unknown_573E80(int tab)
 	}
 	UnknownAC = tab;
 	FAIL_IF(!Get_Client()) return;
-	SClient *client = Get_Client()->As_Space_Client();
+	SpaceClientClass *client = Get_Client()->As_Space_Client();
 	switch (UnknownAC) {
 	case 1:
 		UnknownB4->Unknown_58();
@@ -389,6 +389,6 @@ void CharacterInfoInterface::Unknown_5742B0(int index)
 **	Create_NEW for each tab (0x5743A0, 0x574410, 0x574480, 0x5744F0) and the adjustor thunks 0x574590 / 0x5745A0.
 **
 **	Forms the client needs: the constructor's tooltip and 0x5741A0's font switch are if / else with a call in each
-**	branch (a ?: gives a cmov-like load); key 4 reads the SClient into a local before the PDA call; 0x5742B0 tests
+**	branch (a ?: gives a cmov-like load); key 4 reads the SpaceClientClass into a local before the PDA call; 0x5742B0 tests
 **	Active first.
 */

@@ -32,7 +32,7 @@ public:
 class UIFriendsClass : public ChatPanelUIBase	// NAME 3: class-from-file (D24) for app\client\ui_friends.cpp
 {
 public:
-	UIFriendsClass(SClient *client);					// 0x58F210  // NAME 1 [client]: ChatPanelUIBase's
+	UIFriendsClass(SpaceClientClass *client);					// 0x58F210  // NAME 1 [client]: ChatPanelUIBase's
 	virtual ~UIFriendsClass();							// 0x58F450 (deleting 0x58F420)
 	virtual void Unknown_54();							// +0x54 0x58F6B0 ('tsi28a', 'fa_tsi28a.ini': the buttons, the rows, the check buttons, the slider, the 'Friend Player' entry)
 	virtual bool Unknown_68(int key);					// +0x68 0x590020 (the buttons 1-5, the sort 6 / 7, 8, the check buttons 10 / 11, the rows 13-19)  // NAME 1 [key]: InterfaceClass's

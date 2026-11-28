@@ -10,7 +10,7 @@ class GadgetClass;
 class UIPTradeCreditsClass : public Unknown5BB320Class	// NAME 1: neutral (D10): what ui_ptrade.cpp asks it for (the tooltips' section is 'UI_STRINGENTRY')
 {
 public:
-	UIPTradeCreditsClass(SClient *client, int a, int b);	// 0x649890 (the set-up passes the client, 0, 9)  // NAME 1 [client, a, b]: what the set-up passes
+	UIPTradeCreditsClass(SpaceClientClass *client, int a, int b);	// 0x649890 (the set-up passes the client, 0, 9)  // NAME 1 [client, a, b]: what the set-up passes
 	~UIPTradeCreditsClass();							// 0x649A00 (table 0xAF88BC; slot 0x6499D0)
 	virtual void Unknown_54();							// +0x54 0x649AA0 (the buttons, the entry, the back)
 	virtual void Unknown_58();							// +0x58 0x649E90 (activated: the entry focused and emptied)

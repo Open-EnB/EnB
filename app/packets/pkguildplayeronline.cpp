@@ -91,25 +91,25 @@ int GuildStatusUpdatePacket::Print(char *buffer, int len)
 		OtherGuildTagColor.X, OtherGuildTagColor.Y, OtherGuildTagColor.Z, NewGuildName.c_str()));
 }
 
-GuildSimpleGuildSectorPacketClass::GuildSimpleGuildSectorPacketClass(int type, __int64 player_id, const char *optional_param) :
+GuildSimpleGuildSectorPacket::GuildSimpleGuildSectorPacket(int type, __int64 player_id, const char *optional_param) :
 	Type(type),
 	PlayerID(player_id),
 	OptionalParam(optional_param)
 {
 }
 
-GuildSimpleGuildSectorPacketClass::GuildSimpleGuildSectorPacketClass(RawPacketClass *raw)
+GuildSimpleGuildSectorPacket::GuildSimpleGuildSectorPacket(RawPacketClass *raw)
 {
 	raw->Get(&Type, sizeof(Type));
 	raw->Get(PlayerID);
 	raw->Get(&OptionalParam);
 }
 
-GuildSimpleGuildSectorPacketClass::~GuildSimpleGuildSectorPacketClass()
+GuildSimpleGuildSectorPacket::~GuildSimpleGuildSectorPacket()
 {
 }
 
-RawPacketClass *GuildSimpleGuildSectorPacketClass::Build()
+RawPacketClass *GuildSimpleGuildSectorPacket::Build()
 {
 	RawPacketClass *raw = new RawPacketClass(203, Get_Data_Size());
 	raw->Add(&Type, sizeof(Type));
@@ -118,36 +118,36 @@ RawPacketClass *GuildSimpleGuildSectorPacketClass::Build()
 	return(raw);
 }
 
-int GuildSimpleGuildSectorPacketClass::Get_Data_Size()
+int GuildSimpleGuildSectorPacket::Get_Data_Size()
 {
 	return(RawPacketClass::Get_Size(OptionalParam) + sizeof(Type) + sizeof(PlayerID));
 }
 
-int GuildSimpleGuildSectorPacketClass::Print(char *buffer, int len)
+int GuildSimpleGuildSectorPacket::Print(char *buffer, int len)
 {
 	char id[32];
 	return(_snprintf(buffer, len, "GuildSimpleGuildSectorPacket {Type=%d PlayerID=%s OptionalParam=%s}", Type, Unknown_8B44E0(PlayerID, id), OptionalParam.c_str()));
 }
 
-GuildSimpleSectorGuildPacketClass::GuildSimpleSectorGuildPacketClass(int type, __int64 player_id, const char *optional_param) :
+GuildSimpleSectorGuildPacket::GuildSimpleSectorGuildPacket(int type, __int64 player_id, const char *optional_param) :
 	Type(type),
 	PlayerID(player_id),
 	OptionalParam(optional_param)
 {
 }
 
-GuildSimpleSectorGuildPacketClass::GuildSimpleSectorGuildPacketClass(RawPacketClass *raw)
+GuildSimpleSectorGuildPacket::GuildSimpleSectorGuildPacket(RawPacketClass *raw)
 {
 	raw->Get(&Type, sizeof(Type));
 	raw->Get(PlayerID);
 	raw->Get(&OptionalParam);
 }
 
-GuildSimpleSectorGuildPacketClass::~GuildSimpleSectorGuildPacketClass()
+GuildSimpleSectorGuildPacket::~GuildSimpleSectorGuildPacket()
 {
 }
 
-RawPacketClass *GuildSimpleSectorGuildPacketClass::Build()
+RawPacketClass *GuildSimpleSectorGuildPacket::Build()
 {
 	RawPacketClass *raw = new RawPacketClass(206, Get_Data_Size());
 	raw->Add(&Type, sizeof(Type));
@@ -156,12 +156,12 @@ RawPacketClass *GuildSimpleSectorGuildPacketClass::Build()
 	return(raw);
 }
 
-int GuildSimpleSectorGuildPacketClass::Get_Data_Size()
+int GuildSimpleSectorGuildPacket::Get_Data_Size()
 {
 	return(RawPacketClass::Get_Size(OptionalParam) + sizeof(Type) + sizeof(PlayerID));
 }
 
-int GuildSimpleSectorGuildPacketClass::Print(char *buffer, int len)
+int GuildSimpleSectorGuildPacket::Print(char *buffer, int len)
 {
 	char id[32];
 	return(_snprintf(buffer, len, "GuildSimpleSectorGuildPacket {Type=%d PlayerID=%s OptionalParam=%s}", Type, Unknown_8B44E0(PlayerID, id), OptionalParam.c_str()));
@@ -407,7 +407,7 @@ int GuildMessageGuildPacket::Print(char *buffer, int len)
 	return(_snprintf(buffer, len, "GuildMessageGuild {PlayerID=%s MessageType=%d OtherName=%s GuildName=%s}", Unknown_8B44E0(PlayerID, id), MessageType, OtherName.c_str(), GuildName.c_str()));
 }
 
-GuildPermissionsPacketClass::GuildPermissionsPacketClass(__int64 player_id, Unknown_GuildPermissionsEnum unknown18, int unknown1c, int unknown20, int unknown24) :
+GuildPermissionsPacket::GuildPermissionsPacket(__int64 player_id, Unknown_GuildPermissionsEnum unknown18, int unknown1c, int unknown20, int unknown24) :
 	PlayerID(player_id),
 	Unknown18(unknown18),
 	Unknown1C(unknown1c),
@@ -416,7 +416,7 @@ GuildPermissionsPacketClass::GuildPermissionsPacketClass(__int64 player_id, Unkn
 {
 }
 
-GuildPermissionsPacketClass::GuildPermissionsPacketClass(RawPacketClass *raw)
+GuildPermissionsPacket::GuildPermissionsPacket(RawPacketClass *raw)
 {
 	raw->Get(PlayerID);
 	int value;
@@ -427,7 +427,7 @@ GuildPermissionsPacketClass::GuildPermissionsPacketClass(RawPacketClass *raw)
 	raw->Get(Unknown24);
 }
 
-RawPacketClass *GuildPermissionsPacketClass::Build()
+RawPacketClass *GuildPermissionsPacket::Build()
 {
 	RawPacketClass *raw = new RawPacketClass(209, Get_Data_Size());
 	raw->Add(PlayerID);
@@ -439,12 +439,12 @@ RawPacketClass *GuildPermissionsPacketClass::Build()
 	return(raw);
 }
 
-int GuildPermissionsPacketClass::Get_Data_Size()
+int GuildPermissionsPacket::Get_Data_Size()
 {
 	return(sizeof(PlayerID) + sizeof(int) + sizeof(Unknown1C) + sizeof(Unknown20) + sizeof(Unknown24));
 }
 
-int GuildPermissionsPacketClass::Print(char *buffer, int len)
+int GuildPermissionsPacket::Print(char *buffer, int len)
 {
 	char id[32];
 	return(_snprintf(buffer, len, "GuildPermissionsPacket {PlayerID=%s}", Unknown_8B44E0(PlayerID, id)));
@@ -690,14 +690,14 @@ int GuildPlayerInfoDeletedPacket::Print(char *buffer, int len)
 	return(_snprintf(buffer, len, "GuildPlayerInfoDeleted { PlayerID=%s Slot=%d AccountName=%s AccountID=%s }", Unknown_8B44E0(PlayerID, player_id), Slot, AccountName, Unknown_8B44E0(AccountID, account_id)));
 }
 
-GuildDeductFeePacketClass::GuildDeductFeePacketClass(__int64 player_id, const MoneyClass &num_credits, const char *description) :
+GuildDeductFeePacket::GuildDeductFeePacket(__int64 player_id, const MoneyClass &num_credits, const char *description) :
 	PlayerID(player_id),
 	NumCredits(num_credits),
 	Description(description)
 {
 }
 
-GuildDeductFeePacketClass::GuildDeductFeePacketClass(RawPacketClass *raw) :
+GuildDeductFeePacket::GuildDeductFeePacket(RawPacketClass *raw) :
 	PlayerID(0),
 	NumCredits(),
 	Description("")
@@ -708,11 +708,11 @@ GuildDeductFeePacketClass::GuildDeductFeePacketClass(RawPacketClass *raw) :
 	raw->Get(&Description);
 }
 
-GuildDeductFeePacketClass::~GuildDeductFeePacketClass()
+GuildDeductFeePacket::~GuildDeductFeePacket()
 {
 }
 
-RawPacketClass *GuildDeductFeePacketClass::Build()
+RawPacketClass *GuildDeductFeePacket::Build()
 {
 	RawPacketClass *raw = new RawPacketClass(220, Get_Data_Size());
 	raw->Add(PlayerID);
@@ -722,12 +722,12 @@ RawPacketClass *GuildDeductFeePacketClass::Build()
 	return(raw);
 }
 
-int GuildDeductFeePacketClass::Get_Data_Size()
+int GuildDeductFeePacket::Get_Data_Size()
 {
 	return(RawPacketClass::Get_Size(Description) + sizeof(PlayerID) + MoneyPacketDataClass(&NumCredits).Get_Size());
 }
 
-int GuildDeductFeePacketClass::Print(char *buffer, int len)
+int GuildDeductFeePacket::Print(char *buffer, int len)
 {
 	char player_id[32];
 	return(_snprintf(buffer, len, "GuildDeductFeePacket { PlayerID=%s NumCredits=%s Description=%s }", Unknown_8B44E0(PlayerID, player_id), NumCredits.Amount_As_Text(false).c_str(), Description.c_str()));

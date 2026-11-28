@@ -610,7 +610,7 @@ int Update_Damage_Particles(RenderObjClass *robj, int *levels, int hull_level, C
 	}
 	int effect = effect_id;
 	if (client && effect_id) {
-		EffectObjectClass *old_effect = client->Get_Effect(effect_id);
+		EffectClass *old_effect = client->Get_Effect(effect_id);
 		if (old_effect) {
 			old_effect->Unknown_6E6E30();
 		}
@@ -798,7 +798,7 @@ int Update_Blood_Particles(RenderObjClass *robj, int hull_level, int number, uns
 		return(effect);
 	}
 	if (client && effect_id) {
-		EffectObjectClass *old_effect = client->Get_Effect(effect_id);
+		EffectClass *old_effect = client->Get_Effect(effect_id);
 		if (old_effect) {
 			old_effect->Unknown_6E6E30();
 		}
@@ -921,7 +921,7 @@ int Add_Looping_Sound_Effect(const char *sound, ClientClass *client, unsigned ob
 	FAIL_IF(!client->As_Space_Client()) {
 		return(effect_id);
 	}
-	MainViewClass *view = ((SClient *)client->As_Space_Client())->MainView;
+	MainViewClass *view = ((SpaceClientClass *)client->As_Space_Client())->MainView;
 	client->Add_Effect(effect, (int)view->Unknown_64(), view->Unknown_7C());
 	return(effect_id);
 }

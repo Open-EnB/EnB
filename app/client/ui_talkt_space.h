@@ -1,5 +1,5 @@
 // Earth & Beyond client (reconstruction): app\client\ui_talkt_space.cpp's talk tree in space (0x184 bytes, table
-// 0xAF8CA0 / 0xAF8C94 / 0xAF8C88): TalkTreeInterface with an avatar picture-in-picture; SClient's +0x129C.
+// 0xAF8CA0 / 0xAF8C94 / 0xAF8C88): TalkTreeInterface with an avatar picture-in-picture; SpaceClientClass's +0x129C.
 #ifndef UI_TALKT_SPACE_H
 #define UI_TALKT_SPACE_H
 
@@ -10,7 +10,7 @@ class AvatarPipClass;
 class SpaceTalkTreeInterface : public TalkTreeInterface  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	SpaceTalkTreeInterface(SClient *client);				// 0x64F310
+	SpaceTalkTreeInterface(SpaceClientClass *client);				// 0x64F310
 	~SpaceTalkTreeInterface();							// 0x64F390 (slot 0x64F360)
 	virtual void Unknown_54();							// +0x54 0x64F430
 	virtual void Unknown_5C();							// +0x5C 0x64F4F0

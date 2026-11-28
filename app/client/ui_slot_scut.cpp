@@ -9,7 +9,7 @@
 #include "ui_slot_scut.h"
 
 // @0x630490
-SlotDataShortcutInterface::SlotDataShortcutInterface(SlotDataInterface *slot_iface, const std::string &name, SClient *sclient) :
+SlotDataShortcutInterface::SlotDataShortcutInterface(SlotDataInterface *slot_iface, const std::string &name, SpaceClientClass *sclient) :
 	ShortcutGadgetsInterface(name, sclient),
 	SlotIFace(slot_iface),
 	Updated(false)

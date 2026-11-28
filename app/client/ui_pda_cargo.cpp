@@ -34,7 +34,7 @@ class LineDisplayClientClass  // NAME 1: neutral (D10)
 public:
 	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
 	virtual void Unknown_10(); virtual void Unknown_14();
-	virtual SClient *As_Space_Client();					// +0x18 (as ui_manu.cpp's)  // NAME 3: the FAIL_IF's in ui_manu.cpp
+	virtual SpaceClientClass *As_Space_Client();					// +0x18 (as ui_manu.cpp's)  // NAME 3: the FAIL_IF's in ui_manu.cpp
 };
 
 // 0xB83820: the buttons, gadgets 13..17 (tooltips from section 'UI_PDA_CARGO'; 'BUTTON03' twice: sort and reverse)
@@ -65,7 +65,7 @@ static const char *CargoFilterNames[] = {	// NAME 1: neutral (D10)
 
 // the dead FilterName.size() (D272, no bytes) sends FilterName("")'s _Eos out of line and inlines the Get_String assignment's, as the client (the vault's 0x656FF0)
 // 0x5CF9B0
-UIPdaCargoClass::UIPdaCargoClass(SClient *client, PDAInterfaceClass *pda) :
+UIPdaCargoClass::UIPdaCargoClass(SpaceClientClass *client, PDAInterfaceClass *pda) :
 	UIInvClass(client, 10),
 	PDA(pda),
 	Slider(NULL),
@@ -183,7 +183,7 @@ void UIPdaCargoClass::Unknown_58()
 {
 	FAIL_IF(!InterfaceMesh) return;
 	FAIL_IF(!Get_Client()) return;
-	SClient *sc = Client->As_Space_Client();
+	SpaceClientClass *sc = Client->As_Space_Client();
 	FAIL_IF(!sc) return;
 	if (!Active) {
 		InterfaceSortScopeClass scope(this);

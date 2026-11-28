@@ -36,7 +36,7 @@
 template<class C> inline C *Unknown_Find_Valid(DeltaContainer *root, const AuxDataName &name) { C *t = Unknown_Find_Field<C>(root, name); if (t && t->Unknown70) return(t); return(NULL); }	// NAME 1: neutral (D10): as avatar_pip.cpp's
 
 // @0x7BC770
-RadarSystemClass::RadarSystemClass(SClient *client) :
+RadarSystemClass::RadarSystemClass(SpaceClientClass *client) :
 	Client(client),
 	Hover(this),
 	Target(this),

@@ -94,10 +94,10 @@ struct Movie3DStruct	// NAME 1: neutral (D10)
 	int Movie;											// +0x04  // NAME 2: the 'Movie%d' entry's number
 };
 
-// The 3-D movie view (0x2A8 bytes, tables 0xB07A94 / 0xB07A88; SClient 0x74BC20 makes it, 0x74BD10 deletes it): the
+// The 3-D movie view (0x2A8 bytes, tables 0xB07A94 / 0xB07A88; SpaceClientClass 0x74BC20 makes it, 0x74BD10 deletes it): the
 // meshes of one of movie3d.ini's movies, each playing its channels' animations, in a scene of its own under the
 // interface; it observes the meshes to start and stop the animations' sounds
-class Movie3DViewClass : public Unknown65B810ViewClass, public ObserverClass	// NAME 2: SClient's member 'Movie3DView' (G_ASSERT l.4104)
+class Movie3DViewClass : public Unknown65B810ViewClass, public ObserverClass	// NAME 2: SpaceClientClass's member 'Movie3DView' (G_ASSERT l.4104)
 {
 public:
 	Movie3DViewClass(ClientTaskClass *task, int movie);	// 0x7EEF90 (movie: 1..5 of the table, 0: movie3d.ini's [TEST] or a random one)  // NAME 1 [task, movie]: what 0x74BC20 passes / what it selects
@@ -112,7 +112,7 @@ public:
 	virtual SimpleSceneClass *Unknown_5C() { return(Scene); }	// +0x5C 0x7EF190
 	virtual void Unknown_00(ObserverSubjectClass *subject, void *event);	// ObserverClass +0x00 0x7EF850: a mesh's process moved, started or ended: its sound  // NAME 1 [subject, event]: the base's
 
-	bool Unknown_7EFCC0();								// 0x7EFCC0 (SClient::Do_Frame in view mode 3: true ends the movie, 0x74BD10)
+	bool Unknown_7EFCC0();								// 0x7EFCC0 (SpaceClientClass::Do_Frame in view mode 3: true ends the movie, 0x74BD10)
 	bool Unknown_7EFD00();								// 0x7EFD00 (G_ASSERT '!Started' l.472): the movie's meshes and their channels' animations; false without a 'Movie%d' entry
 	void Unknown_7F0410();								// 0x7F0410: the meshes' animations let go (flag 2 cleared), once
 	void Unknown_7F0460();								// 0x7F0460: the lights ('Lights', 'Light%d': the viewer settings' INI) into the scene

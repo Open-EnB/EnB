@@ -189,9 +189,9 @@ ClientObjectClass *ClientClass::Find_Object(const char *name)
 }
 
 // 0x7273F0
-EffectObjectClass *ClientClass::Find_Effect(unsigned id)
+EffectClass *ClientClass::Find_Effect(unsigned id)
 {
-	HashNodeClass<EffectObjectClass *> *node = EffectList.Find(id);
+	HashNodeClass<EffectClass *> *node = EffectList.Find(id);
 	if (node) {
 		return(node->Get_Record());
 	}
@@ -237,7 +237,7 @@ ClientObjectClass *ClientClass::Remove_Object(unsigned id)
 }
 
 // 0x727780
-void ClientClass::Add_Effect(EffectObjectClass *effect, int a, int b)
+void ClientClass::Add_Effect(EffectClass *effect, int a, int b)
 {
 	effect->Node.Set_Key(effect->ID);
 	EffectList.Add(&effect->Node);
@@ -246,10 +246,10 @@ void ClientClass::Add_Effect(EffectObjectClass *effect, int a, int b)
 }
 
 // 0x7278F0
-EffectObjectClass *ClientClass::Remove_Effects(unsigned id)
+EffectClass *ClientClass::Remove_Effects(unsigned id)
 {
-	EffectObjectClass *effect = NULL;
-	HashNodeClass<EffectObjectClass *> *node = EffectList.Find(id);
+	EffectClass *effect = NULL;
+	HashNodeClass<EffectClass *> *node = EffectList.Find(id);
 	while (node) {
 		effect = node->Get_Record();
 		EffectList.Remove(node);
@@ -259,10 +259,10 @@ EffectObjectClass *ClientClass::Remove_Effects(unsigned id)
 }
 
 // 0x727AD0
-EffectObjectClass *ClientClass::Get_Effect(unsigned id)
+EffectClass *ClientClass::Get_Effect(unsigned id)
 {
-	EffectObjectClass *effect = NULL;
-	HashNodeClass<EffectObjectClass *> *node = EffectList.Find(id);
+	EffectClass *effect = NULL;
+	HashNodeClass<EffectClass *> *node = EffectList.Find(id);
 	if (node) {
 		effect = node->Get_Record();
 	}

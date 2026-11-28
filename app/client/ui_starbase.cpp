@@ -43,7 +43,7 @@ class LineDisplayClientClass  // NAME 1: neutral (D10)
 public:
 	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
 	virtual void Unknown_10(); virtual void Unknown_14();
-	virtual SClient *As_Space_Client();					// +0x18 (SClient's returns itself)  // NAME 3: ui_manu.cpp's FAIL_IF's
+	virtual SpaceClientClass *As_Space_Client();					// +0x18 (SpaceClientClass's returns itself)  // NAME 3: ui_manu.cpp's FAIL_IF's
 	virtual void Unknown_1C(); virtual void Unknown_20(); virtual void Unknown_24(); virtual void Unknown_28(); virtual void Unknown_2C();
 	virtual void Unknown_30(); virtual void Unknown_34(); virtual void Unknown_38(); virtual void Unknown_3C(); virtual void Unknown_40();
 	virtual void Unknown_44(int arg);					// +0x44 (the starbase interface's destructor passes its +0x190's +0x90)  // NAME 1 [arg]: neutral
@@ -519,7 +519,7 @@ void StarbaseInterface::Unknown_639030(int arg)
 // 0x63B5A0
 void StarbaseInterface::Unknown_63B5A0()
 {
-	SClient *client = ((LineDisplayClientClass *)Client)->As_Space_Client();
+	SpaceClientClass *client = ((LineDisplayClientClass *)Client)->As_Space_Client();
 	bool busy = false;
 	ChatPanelInterface *panel = client->ChatPanel.Peek();
 	if (panel) {
@@ -673,7 +673,7 @@ static const char *Unknown_B8ABBC[4][10] = {	// NAME 1: neutral (D10)
 	{ "tbar01_v", "jbar01_v", "pbar01_v", "nbar01_v", "nbar01_v", "nbar01_v", "nbar01_v", "nbar01_v", "nbar01_v", "nbar01_v" },
 	{ "tbar01", "jbar01", "pbar01", "nbar01", "nbar01", "nbar01", "nbar01", "nbar01", "nbar01", "nbar01" },
 };
-static inline EnvironmentMapManagerClass *Unknown_Map_Manager(SClient *client) { return(client->EnvironmentMapManager); } static inline LayerClass &Unknown_View_Layer(StarbaseViewClass *view) { return(*view->Unknown80); } void Unknown_496DB0(RenderObjClass *robj);	// 0x496DB0 (ro_funcs.cpp, cdecl), as avatar.cpp's; Unknown_View_Layer / Unknown_Map_Manager: the starbase view's +0x80 layer and the space client's map manager through inlines (0x634140's three NPC buttons and its NPC avatars take the client's registers so)  // NAME 1 [robj]: avatar.cpp's
+static inline EnvironmentMapManagerClass *Unknown_Map_Manager(SpaceClientClass *client) { return(client->EnvironmentMapManager); } static inline LayerClass &Unknown_View_Layer(StarbaseViewClass *view) { return(*view->Unknown80); } void Unknown_496DB0(RenderObjClass *robj);	// 0x496DB0 (ro_funcs.cpp, cdecl), as avatar.cpp's; Unknown_View_Layer / Unknown_Map_Manager: the starbase view's +0x80 layer and the space client's map manager through inlines (0x634140's three NPC buttons and its NPC avatars take the client's registers so)  // NAME 1 [robj]: avatar.cpp's
 inline UIStarbaseUnknownCCClass::UIStarbaseUnknownCCClass() : Unknown00(0), Avatar(NULL), AmbientAvatar(NULL), NameTag(NULL), Unknown10(NULL), Unknown14(0), Unknown18(0), Unknown1C(0), Unknown20(0), Unknown24(""), Unknown34(-1) {}
 // NOT EXACT: 0x634140, functional from the pseudocode (D64; SU1): the window's set-up (slot +0x54): the full-screen
 // gadget, the +0x1F8 interface, the player's avatar entry with its name and guild texts, the 14 NPC slots, the four
@@ -1195,7 +1195,7 @@ void StarbaseInterface::Unknown_88()
 			Unknown13C[i]->Unknown14->Unknown_40(false);
 		}
 	}
-	SClient *client = ((LineDisplayClientClass *)Client)->As_Space_Client();
+	SpaceClientClass *client = ((LineDisplayClientClass *)Client)->As_Space_Client();
 	bool busy = false;
 	ChatPanelInterface *panel = client->ChatPanel.Peek();
 	if (panel) {
@@ -1354,7 +1354,7 @@ void StarbaseInterface::Unknown_5C()
 {
 	int i;
 	if (Unknown220) {
-		EffectObjectClass *effect = ((ClientClass *)Client)->Get_Effect(Unknown220);
+		EffectClass *effect = ((ClientClass *)Client)->Get_Effect(Unknown220);
 		if (effect) {
 			effect->Unknown_6E6E30();
 		}
@@ -1459,7 +1459,7 @@ void StarbaseInterface::Unknown_60()
 	Unknown5BB320Class::Unknown_60();
 	Unknown_6390A0();
 	Unknown_63FCB0();
-	SClient *sclient = ((LineDisplayClientClass *)Client)->As_Space_Client();
+	SpaceClientClass *sclient = ((LineDisplayClientClass *)Client)->As_Space_Client();
 	if (sclient && sclient->PDAInterface) {
 		CharacterInfoInterface *cinfo = sclient->PDAInterface->Get_Character().Peek();
 		if (cinfo && cinfo->UnknownB4 && cinfo->UnknownB4->UnknownC0 && cinfo->UnknownB4->UnknownC0->Active) {
@@ -1876,7 +1876,7 @@ void StarbaseInterface::Unknown_639630()
 {
 	int i;
 	UnknownB0->Unknown_6A0E50();
-	SClient *sclient = ((LineDisplayClientClass *)Client)->As_Space_Client();
+	SpaceClientClass *sclient = ((LineDisplayClientClass *)Client)->As_Space_Client();
 	bool busy = false;
 	ChatPanelInterface *panel = sclient->ChatPanel.Peek();
 	if (panel) {
@@ -2000,7 +2000,7 @@ void StarbaseInterface::Unknown_639630()
 // 0x63A100
 void StarbaseInterface::Unknown_63A100()
 {
-	SClient *sclient = ((LineDisplayClientClass *)Client)->As_Space_Client();
+	SpaceClientClass *sclient = ((LineDisplayClientClass *)Client)->As_Space_Client();
 	FAIL_IF(!sclient) return;
 	ChatPanelInterface *panel = sclient->ChatPanel.Peek();
 	bool busy = false;
@@ -2763,7 +2763,7 @@ void StarbaseInterface::Unknown_63CA50(int id, const Matrix3D &transform, int fl
 {
 	InterfaceSortScopeClass scope(this);
 	Unknown5BB320Class::Unknown_5C();
-	SClient *sclient = ((LineDisplayClientClass *)Client)->As_Space_Client();
+	SpaceClientClass *sclient = ((LineDisplayClientClass *)Client)->As_Space_Client();
 	UIStarbaseUnknownCCClass *savatar = new UIStarbaseUnknownCCClass;
 	savatar->Unknown00 = id;
 	savatar->Avatar = Create_NEW(sclient->Unknown_74C7B0(id));
@@ -2968,7 +2968,7 @@ void StarbaseInterface::Unknown_63DFE0()
 		if (UnknownB0->Unknown_69CCD0()) {
 			Unknown1F8->Unknown_5C();
 		}
-		SClient *sclient = ((LineDisplayClientClass *)Client)->As_Space_Client();
+		SpaceClientClass *sclient = ((LineDisplayClientClass *)Client)->As_Space_Client();
 		UIStarbaseUnknownD4TableClass::const_iterator it = UnknownD4.find(UnknownC0.C);
 		UIStarbaseUnknownCCClass *savatar;
 		if (it == UnknownD4.end() || (savatar = it.Cur->Value) == NULL) {
@@ -3071,7 +3071,7 @@ void StarbaseInterface::Unknown_63E4B0(int new_room, int old_room)
 	if (old_room >= 0) {
 		old = old_room;
 	}
-	SClient *client = ((LineDisplayClientClass *)Client)->As_Space_Client();
+	SpaceClientClass *client = ((LineDisplayClientClass *)Client)->As_Space_Client();
 	client->Send_Packet(&StarbaseAvatarRoomChangePacketClass(((LineDisplayClientClass *)Client)->Get_Avatar_ID(), room, old));
 	Message_Info("Sbase", "", __FILE__, __LINE__, "(%s) Changing room from %d to %d", UnknownC0.D->Avatar->Desc.First_Name, old, room);
 }
@@ -3157,7 +3157,7 @@ void StarbaseInterface::Unknown_6418F0()
 // 0x6415B0
 void StarbaseInterface::Unknown_6415B0()
 {
-	SClient *client = ((LineDisplayClientClass *)Client)->As_Space_Client();
+	SpaceClientClass *client = ((LineDisplayClientClass *)Client)->As_Space_Client();
 	RenderObjClass *ship = Unknown184.Peek();
 	int column = UnknownB0->Info->Style;
 	if (ship) {
@@ -3577,7 +3577,7 @@ void StarbaseInterface::Unknown_63E5C0(int avatar_id, float orient, Vector3 *pos
 			return;
 		}
 	}
-	SClient *client = ((LineDisplayClientClass *)Client)->As_Space_Client();
+	SpaceClientClass *client = ((LineDisplayClientClass *)Client)->As_Space_Client();
 	if (client && client->AvatarID != avatar_id) {
 		Matrix3D tm(true);
 		tm.Rotate_Z(orient);
@@ -3817,7 +3817,7 @@ void StarbaseInterface::Unknown_6417D0()
 {
 	Unknown_6418F0();
 	Vector3 hsv_shift(0.0f, 0.0f, 0.0f);
-	EffectObjectClass *effect = Unknown_6E9490(0x30E, ((ClientClass *)Client)->Next_Local_ID(), 0, ((ClientClass *)Client)->Unknown10BC, (ClientClass *)Client, 1.0f, hsv_shift, 1.0f, -1, 0);
+	EffectClass *effect = Unknown_6E9490(0x30E, ((ClientClass *)Client)->Next_Local_ID(), 0, ((ClientClass *)Client)->Unknown10BC, (ClientClass *)Client, 1.0f, hsv_shift, 1.0f, -1, 0);
 	FAIL_IF(!effect) return;
 	UnaryEffectClass *source = effect->Unknown_10();
 	if (source) {
@@ -3926,7 +3926,7 @@ void StarbaseInterface::Unknown_63E2B0()
 		float orient; { Matrix3D tm = UnknownC0.D->Avatar->Unknown330;
 		orient = tm.Get_Z_Rotation(); }
 		Vector3 position = Matrix3D(UnknownC0.D->Avatar->Unknown330).Get_Translation();
-		SClient *client = ((LineDisplayClientClass *)Client)->As_Space_Client();
+		SpaceClientClass *client = ((LineDisplayClientClass *)Client)->As_Space_Client();
 		int room = -1;
 		if (Room >= 0) {
 			room = Room;
@@ -4176,7 +4176,7 @@ void StarbaseInterface::Unknown_63F490(UIStarbaseUnknownCCClass *savatar)
 // 0x6437A0
 void StarbaseInterface::Unknown_6437A0(int unknown, AvatarDescriptionClass *desc)
 {
-	SClient *sclient = ((LineDisplayClientClass *)Client)->As_Space_Client();
+	SpaceClientClass *sclient = ((LineDisplayClientClass *)Client)->As_Space_Client();
 	FAIL_IF(!sclient) return;
 	sclient->Unknown_74C530(unknown);
 	sclient->Unknown_74C3B0(unknown, *desc);

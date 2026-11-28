@@ -30,7 +30,7 @@ class LineDisplayClientClass  // NAME 1: neutral (D10)
 public:
 	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
 	virtual void Unknown_10(); virtual void Unknown_14();
-	virtual SClient *As_Space_Client();					// +0x18 (as ui_manu.cpp's)  // NAME 3: the FAIL_IF's in ui_manu.cpp
+	virtual SpaceClientClass *As_Space_Client();					// +0x18 (as ui_manu.cpp's)  // NAME 3: the FAIL_IF's in ui_manu.cpp
 };
 
 // 0xB8C2EC: the buttons, gadgets 37..39 (tooltips from section 'UI_VAULT'; 'BUTTON01' twice: sort and reverse)
@@ -59,7 +59,7 @@ static const char *VaultFilterNames[] = {	// NAME 1: neutral (D10)
 
 // the dead FilterName.size() (D272, no bytes) sends FilterName("")'s _Eos out of line and inlines the Get_String assignment's, as the client
 // 0x656FF0
-UIVaultClass::UIVaultClass(SClient *client) :
+UIVaultClass::UIVaultClass(SpaceClientClass *client) :
 	UIInvClass(client, 17),
 	SortIndex(0),
 	SortReverse(false), FilterName("")

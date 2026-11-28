@@ -7,7 +7,7 @@
 #include "..\shared\g_assert.h"
 
 // 0x81F100
-VerbManagerClass::VerbManagerClass(SClient *client) :
+VerbManagerClass::VerbManagerClass(SpaceClientClass *client) :
 	Client(client)
 {
 }
@@ -164,7 +164,7 @@ bool VerbManagerClass::Unknown_81FA40(int game_id, VerbInterface *window)
 **	Reconstruction notes (VB1).
 **
 **	The client's __FILE__ e:\build\beta\G\app\Client\verbmanager.cpp (0xBA8268) is 0x81F890's 'false' assert
-**	(line 143). The object runs from the constructor 0x81F100 (0x14 bytes, SClient::Init) through 0x81FA40 and
+**	(line 143). The object runs from the constructor 0x81F100 (0x14 bytes, SpaceClientClass::Init) through 0x81FA40 and
 **	its map / list instances up to 0x8207D0: 0x81F560 / 0x81F610 / 0x81F6A0 all call 0x81F890 or its partner, send
 **	VerbRequestPacketClass (whose destructor 0x81F5F0 lands among them) and 0x81F6A0 inlines 0x81FA40.
 **

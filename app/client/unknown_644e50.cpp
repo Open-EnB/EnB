@@ -43,7 +43,7 @@ class LineDisplayClientClass  // NAME 1: neutral (D10)
 public:
 	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
 	virtual void Unknown_10(); virtual void Unknown_14();
-	virtual SClient *As_Space_Client();					// +0x18 (SClient's returns itself)  // NAME 3: ui_manu.cpp's FAIL_IF's
+	virtual SpaceClientClass *As_Space_Client();					// +0x18 (SpaceClientClass's returns itself)  // NAME 3: ui_manu.cpp's FAIL_IF's
 	virtual void Unknown_1C(); virtual void Unknown_20(); virtual void Unknown_24(); virtual void Unknown_28(); virtual void Unknown_2C();
 	virtual void Unknown_30(); virtual void Unknown_34(); virtual void Unknown_38(); virtual void Unknown_3C(); virtual void Unknown_40();
 	virtual void Unknown_44(int arg);					// +0x44 (the starbase interface's destructor passes its +0x190's +0x90)  // NAME 1 [arg]: neutral
@@ -164,7 +164,7 @@ UIStarbaseSymbolChatOptionStruct::~UIStarbaseSymbolChatOptionStruct()
 
 // The gadget made over the window's raw pointer (Window.Peek()), as the chat reply list 0x56E2A0
 // 0x644F80
-UIStarbaseUnknown1F8Class::UIStarbaseUnknown1F8Class(SClient *sclient) :
+UIStarbaseUnknown1F8Class::UIStarbaseUnknown1F8Class(SpaceClientClass *sclient) :
 	InterfaceClass((LineDisplayClientClass *)sclient),
 	Unknown84(0),
 	Window(NULL),
@@ -221,7 +221,7 @@ UIStarbaseUnknown1F8Class::~UIStarbaseUnknown1F8Class()
 void UIStarbaseUnknown1F8Class::Unknown_645510()
 {
 	InterfaceSortScopeClass scope(this);
-	SClient *client = ((LineDisplayClientClass *)Client)->As_Space_Client();
+	SpaceClientClass *client = ((LineDisplayClientClass *)Client)->As_Space_Client();
 	for (int i = 1; i < 5; i++) {
 		char name[32];
 		bool usable = false;

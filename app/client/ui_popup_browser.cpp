@@ -18,7 +18,7 @@ class LineDisplayClientClass  // NAME 1: neutral (D10)
 public:
 	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
 	virtual void Unknown_10(); virtual void Unknown_14();
-	virtual SClient *As_Space_Client();					// +0x18 (SClient's returns itself)  // NAME 3: ui_manu.cpp's FAIL_IF's
+	virtual SpaceClientClass *As_Space_Client();					// +0x18 (SpaceClientClass's returns itself)  // NAME 3: ui_manu.cpp's FAIL_IF's
 };
 
 
@@ -26,7 +26,7 @@ public:
 
 
 // @0x5DAE90
-PopupBrowserInterface::PopupBrowserInterface(SClient *client, int browser_id, const char *title, const char *url) :
+PopupBrowserInterface::PopupBrowserInterface(SpaceClientClass *client, int browser_id, const char *title, const char *url) :
 	ChatPanelUIBase(client)
 {
 

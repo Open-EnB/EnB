@@ -86,7 +86,7 @@ class SkillNamesDatabase { public: static int Max_Skill();	// 0x818590 (skillnam
 // The level names (0xB79F04)
 static const char *Unknown_B79F04[] = { "", "", "Improved", "Advanced", "Expert", "Super", "Ultra", "Master", "Extreme", "Awesome" };	// NAME 1: neutral (D10)
 // @0x5482B0
-Unknown548D60Class::Unknown548D60Class(SClient *client) :
+Unknown548D60Class::Unknown548D60Class(SpaceClientClass *client) :
 	Unknown5BB320Class(new UIMeshClass("TSI12C", 1), client),
 	UnknownAC(0),
 	UnknownB0(0),

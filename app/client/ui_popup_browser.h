@@ -11,7 +11,7 @@
 class PopupBrowserInterface : public ChatPanelUIBase  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	PopupBrowserInterface(SClient *client, int browser_id, const char *title, const char *url = NULL);	// 0x5DAE90  // NAME 1 [client, browser_id, title, url]: neutral
+	PopupBrowserInterface(SpaceClientClass *client, int browser_id, const char *title, const char *url = NULL);	// 0x5DAE90  // NAME 1 [client, browser_id, title, url]: neutral
 	virtual ~PopupBrowserInterface();						// 0x5DB170 (deleting 0x5DB140; adjustors 0x5DB650 / 0x5DB660)
 
 	virtual void Unknown_54();							// +0x54 0x5DB2D0 ('JWEB01': the exit button, the title 'TITLE_JWEB01', the back gadget; FAIL_IF '!font')

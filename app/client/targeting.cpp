@@ -6,7 +6,7 @@
 #include "..\packets\pkrequesttarget.h"
 #include "..\shared\auth_product.h"
 // @0x7C6120
-TargetSelectClass::TargetSelectClass(SClient *client) :
+TargetSelectClass::TargetSelectClass(SpaceClientClass *client) :
 	TargetFindClass(client),
 	Unknown0C(0),
 	Unknown10(false)

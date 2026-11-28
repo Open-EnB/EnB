@@ -95,7 +95,7 @@ void AttachEffectClass::Unknown_6E4D00(const RefCountPtr<RenderObjClass> &robj)
 **
 **	The window: the factory's helper 0x6EC570 makes the effect; its constructor 0x6E4750 is the object's first
 **	own function, and the guarded <string> static 0x6E5010 ends it right before eff_line.cpp's 0x6E5040. The
-**	object also first emits EffectObjectClass::Unknown_14 0x6E4860, UnaryEffectClass::Unknown_10 0x6E4880
+**	object also first emits EffectClass::Unknown_14 0x6E4860, UnaryEffectClass::Unknown_10 0x6E4880
 **	and Unknown_2C 0x6E48A0 and the unary end's implicit destructor 0x6E4970. The +0xD8 byte the constructor
 **	copies from its fifth argument's stack slot is VC6's std::vector allocator (the default argument's temporary).
 **	The two FAIL_IFs fix the layout: 0x6E4D00's '!robj' on line 64, its '!sub_obj' on line 77; the functions

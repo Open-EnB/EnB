@@ -16,7 +16,7 @@ class CheckBoxGadgetClass;	// unknown_7e7e00.h's check box (0x7E8030: checked or
 class UIGroupOptClass : public ChatPanelUIBase	// NAME 3: class-from-file (D24) for ui_groupopt.cpp
 {
 public:
-	UIGroupOptClass(SClient *client);					// 0x59AD10  // NAME 1 [client]: ChatPanelUIBase's
+	UIGroupOptClass(SpaceClientClass *client);					// 0x59AD10  // NAME 1 [client]: ChatPanelUIBase's
 	virtual ~UIGroupOptClass();							// 0x59AEE0 (deleting 0x59AEB0)
 	virtual void Unknown_54();							// +0x54 0x59AFF0 ('tsi24a', 'fa_tsi24a.ini': the buttons, the check buttons)
 	virtual void Unknown_58();							// +0x58 0x59B150 (activated: the buttons and checks from GroupInfo)
@@ -27,8 +27,8 @@ public:
 	virtual int Unknown_90() { return((int)this); }	// +0x90 0x59AE90 (cpacket.cpp's FIND_MEMBER 83 reaches FindUI through it)
 	void Unknown_59B910(bool on);						// 0x59B910: the buttons and checks' slot +0x40, then 0x59B990  // NAME 1 [on]: neutral
 	void Unknown_59B990();								// 0x59B990: the buttons and checks as the player is in a group and leads it
-	bool Unknown_59BBC0();								// 0x59BBC0: the player is in a group (SClient 0x74D570; FAIL_IF '!sclient')
-	bool Unknown_59BC00();								// 0x59BC00: the player leads its group (SClient 0x74D690; FAIL_IF '!sclient')
+	bool Unknown_59BBC0();								// 0x59BBC0: the player is in a group (SpaceClientClass 0x74D570; FAIL_IF '!sclient')
+	bool Unknown_59BC00();								// 0x59BC00: the player leads its group (SpaceClientClass 0x74D690; FAIL_IF '!sclient')
 	void Unknown_59BC40();								// 0x59BC40: LookingForGroup and the options from GroupInfo (FAIL_IFs '!sclient', '!sclient->AuxData')
 
 	bool Unknown0A0;									// +0xA0 GroupInfo.LookingForGroup (key 2 toggles it)

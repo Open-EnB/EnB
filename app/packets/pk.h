@@ -108,7 +108,7 @@ public:
 	}
 	virtual ~PacketClass() {}							// +0x00 0x52B350
 	virtual RawPacketClass *Build();					// +0x04 0x52B210: the message to send  // NAME 2: what it does
-	virtual bool Process_Packet(void *client);			// +0x08 0x52B240 (SClient *)
+	virtual bool Process_Packet(void *client);			// +0x08 0x52B240 (SpaceClientClass *)
 	virtual int Get_Data_Size();						// +0x0C 0x52B270  // NAME 2: what it returns
 	virtual int Print(char *buffer, int len);			// +0x10 0x52B2A0: the packet as text (snprintf)  // NAME 2: what it does
 	virtual int Unknown_14(int a, int b);				// +0x14 0x86F010 (pk.cpp l.1344)

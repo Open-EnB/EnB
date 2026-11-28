@@ -221,7 +221,7 @@ void ToolTipClass::Unknown_6AB930(GadgetClass *gadget)
 		if (Unknown0E) {
 			UIViewClass *view = View->Unknown_20();
 			if (view && ((Unknown65B810ViewClass *)view)->Client) {
-				SClient *client = ((Unknown65B810ViewClass *)view)->Client;
+				SpaceClientClass *client = ((Unknown65B810ViewClass *)view)->Client;
 				char *name = CurGadget->Unknown24; client->Send_Packet(&Packet_0068Class(client->Get_Avatar_ID(), 0x10, name)); // NAME 1 [name]: the gadget's packet name
 
 			}

@@ -15,7 +15,7 @@ class AvatarClass;
 class UIPetitionAvatarPipClass : public ChatPanelUIBase	// NAME 3: class-from-file (D24) for ui_petition_avatar_pip.cpp
 {
 public:
-	UIPetitionAvatarPipClass(SClient *client);			// 0x5D4150 (deleting 0x5D41A0)  // NAME 1 [client]: ChatPanelUIBase's
+	UIPetitionAvatarPipClass(SpaceClientClass *client);			// 0x5D4150 (deleting 0x5D41A0)  // NAME 1 [client]: ChatPanelUIBase's
 	virtual ~UIPetitionAvatarPipClass();				// 0x5D41D0
 	virtual void Unknown_54();							// +0x54 0x5D4310 (FAIL_IF '!Interface_Mesh()', G_ASSERT 'avatar_vp': the avatar 'Megan' and its PIP over 'Avatar')
 	virtual void Unknown_58();							// +0x58 0x5D45D0 (the base's, then the PIP shows the avatar)

@@ -19,7 +19,7 @@ template<class T> class DeltaTemplateClass;
 class Unknown546A80Class : public InterfaceClass	// NAME 1: neutral (D10), as ui_attrb_skills.cpp's
 {
 public:
-	Unknown546A80Class(SClient *client, RefCountPtr<RenderObjClass> &mesh);	// 0x546A80 (the client to 0x540D30)  // NAME 1 [client, mesh]: what 0x549AA0 passes
+	Unknown546A80Class(SpaceClientClass *client, RefCountPtr<RenderObjClass> &mesh);	// 0x546A80 (the client to 0x540D30)  // NAME 1 [client, mesh]: what 0x549AA0 passes
 	virtual ~Unknown546A80Class();						// 0x546B50 (deleting 0x546B20)
 	virtual void Unknown_54();							// +0x54 0x546DD0 (the mesh, the experience display, the picture, the styles)
 	virtual void Unknown_7C(UIViewClass *view, bool arg);	// +0x7C 0x5472C0 (the base's)  // NAME 1 [view, arg]: InterfaceClass's
@@ -58,7 +58,7 @@ class FontSys;				// fontmanager.h's (+0xC0..+0xD8)
 class Unknown548D60Class : public Unknown5BB320Class	// NAME 1: neutral (D10), as ui_attrb_skills.cpp's
 {
 public:
-	Unknown548D60Class(SClient *client);				// 0x5482B0 (0xDC bytes)  // NAME 1 [client]: as BioInterface's
+	Unknown548D60Class(SpaceClientClass *client);				// 0x5482B0 (0xDC bytes)  // NAME 1 [client]: as BioInterface's
 	virtual ~Unknown548D60Class();						// 0x548440 (deleting 0x548410)
 	virtual void Unknown_54();							// 0x548610 (the buttons, the styles, the gadget)
 	virtual bool Unknown_68(int key);					// 0x548C50 (key 1 closes, key 2 sends SkillPacketClass)  // NAME 1 [key]: InterfaceClass's

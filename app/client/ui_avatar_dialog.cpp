@@ -25,13 +25,13 @@ extern FontManagerClass *Unknown_BE67C4;	// NAME 1: neutral (D10)
 void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);	// 0x496AE0 (ro_funcs.cpp, cdecl)  // NAME 1 [robj, make_geometry_unique]: as ui_manu.cpp's
 RefCountPtr<RenderObjClass> Unknown_497300(RenderObjClass *robj);	// 0x497300 (cdecl, ro_funcs.cpp's neighbourhood)  // NAME 1 [robj]: as ui_avatr.cpp's
 
-static inline EnvironmentMapManagerClass *Unknown_Inline_Env_Maps(SClient *sclient) { return(sclient->EnvironmentMapManager); }	// NAME 1: neutral (D10)
+static inline EnvironmentMapManagerClass *Unknown_Inline_Env_Maps(SpaceClientClass *sclient) { return(sclient->EnvironmentMapManager); }	// NAME 1: neutral (D10)
 // The buttons Unknown_54 makes (ids 1-9): their models' names and their font styles (0xB7AD2C / 0xB7AD54)
 static const char *Unknown_B7AD2C[10] = { "MORE", "SKILL", "TRADE", "EXIT", "ANSWER00", "ANSWER01", "ANSWER02", "ANSWER03", "ANSWER04", NULL };	// NAME 1: neutral (D10)
 static const char *Unknown_B7AD54[10] = { "More_TLI01A_AV", "Skill_TLI01A_AV", "Trade_TLI01A_AV", NULL, "WRAP_Answer00_TLI01A_AV", "WRAP_Answer01_TLI01A_AV", "WRAP_Answer02_TLI01A_AV", "WRAP_Answer03_TLI01A_AV", "WRAP_Answer04_TLI01A_AV", NULL };	// NAME 1: neutral (D10)
 
 // 0x551FB0
-UIAvatarDialogClass::UIAvatarDialogClass(SClient *client) :
+UIAvatarDialogClass::UIAvatarDialogClass(SpaceClientClass *client) :
 	Unknown5BB320Class(new UIMeshClass("TLI01A", true), client),
 	Pip(NULL),
 	State(UI_CLOSED),
@@ -159,7 +159,7 @@ void UIAvatarDialogClass::Unknown_58()
 		if (reply) {
 			reply->Set_Hidden(false);
 		}
-		SClient *sclient = ((SClient *)((ClientClass *)Client)->As_Space_Client());
+		SpaceClientClass *sclient = ((SpaceClientClass *)((ClientClass *)Client)->As_Space_Client());
 		Pip->Unknown_7E36B0(sclient, Create_Get(InterfaceMesh->Get_Sub_Object_By_Name("PICTURE")), false);
 		Pip->Unknown_7E3A20(Text.c_str(), 0, AvatarRObj.Peek());
 		Unknown0E0 = false;
@@ -194,7 +194,7 @@ void UIAvatarDialogClass::Unknown_60()
 // 0x552CD0
 bool UIAvatarDialogClass::Unknown_68(int key)
 {
-	SClient *sclient = ((SClient *)((ClientClass *)Client)->As_Space_Client());
+	SpaceClientClass *sclient = ((SpaceClientClass *)((ClientClass *)Client)->As_Space_Client());
 	switch (key) {
 		case 1:
 		case 4:
@@ -300,7 +300,7 @@ void UIAvatarDialogClass::Unknown_552D90(int answer)
 // 0x552FC0
 void UIAvatarDialogClass::Unknown_552FC0(AvatarDescriptionClass *desc)
 {
-	AvatarRObj = Create_NEW(new AvatarClass(desc, 1, 0, Unknown_Inline_Env_Maps((SClient *)((ClientClass *)Client)->As_Space_Client())));
+	AvatarRObj = Create_NEW(new AvatarClass(desc, 1, 0, Unknown_Inline_Env_Maps((SpaceClientClass *)((ClientClass *)Client)->As_Space_Client())));
 	FAIL_IF(!AvatarRObj) return;
 
 

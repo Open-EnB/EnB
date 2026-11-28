@@ -1,6 +1,6 @@
 // Earth & Beyond client (reconstruction): app\client\galaxy_map_client.h. Notes at the end of the file.
 /*
-**	The client's galaxy map (SClient +0x12A0, made by SClient::Init 0x741180): galaxy_map.h's
+**	The client's galaxy map (SpaceClientClass +0x12A0, made by SpaceClientClass::Init 0x741180): galaxy_map.h's
 **	GalaxyMapClass filled from the GALAXY_MAP packets (cpacket.cpp's 0x73AC60 hands each type
 **	to one of the Unknown_ functions), the player's explored sectors and the galaxy_map_c.ini
 **	scales the galaxy map's renderer reads.
@@ -18,7 +18,7 @@
 #include "vector3.h"
 #include "..\common\galaxy_map.h"
 
-class SClient;
+class SpaceClientClass;
 class LinearBuffer;
 class BitSet;
 
@@ -30,7 +30,7 @@ public:
 	virtual ~GalaxyMapClient();													// 0x7A49A0
 
 	void Load_Ini();																	// 0x7A4B10  // NAME 2: reads galaxy_map_c.ini's [GalaxyMap]
-	void Unknown_7A4C50(SClient *sclient, LinearBuffer &buffer);				// 0x7A4C50 (type 4)  // NAME 1 [sclient, buffer]: what the handler passes
+	void Unknown_7A4C50(SpaceClientClass *sclient, LinearBuffer &buffer);				// 0x7A4C50 (type 4)  // NAME 1 [sclient, buffer]: what the handler passes
 	void Unknown_7A4FC0(LinearBuffer &buffer);									// 0x7A4FC0 (type 5: a system)  // NAME 1 [buffer]: the packet's data
 	void Unknown_7A50A0(LinearBuffer &buffer);									// 0x7A50A0 (types 6, 7, 8, 11: a sector)  // NAME 1 [buffer]: the packet's data
 	void Unknown_7A5180(LinearBuffer &buffer);									// 0x7A5180 (type 9: a gate)  // NAME 1 [buffer]: the packet's data
@@ -39,7 +39,7 @@ public:
 	bool Unknown_7A5400(const RefCountPtr<GalaxyMapSectorClass> &sector);			// 0x7A5400 (0x7A8B70)  // NAME 1 [sector]: the assert's '!sector'
 	Vector3 Unknown_7A5470(const Vector3 &position);								// 0x7A5470 (0x7AAB60: SystemPosScale, GalaxyShift)  // NAME 1 [position]: what it scales
 	Vector3 Unknown_7A54F0(const Vector3 &position);								// 0x7A54F0 (SectorPosScale)  // NAME 1 [position]: what it scales
-	bool Unknown_7A5540(SClient *client);												// 0x7A5540 (galaxy_map_pip.cpp's 0x5408B0: toggles ShowAll)  // NAME 1 [client]: the assert's '!client'
+	bool Unknown_7A5540(SpaceClientClass *client);												// 0x7A5540 (galaxy_map_pip.cpp's 0x5408B0: toggles ShowAll)  // NAME 1 [client]: the assert's '!client'
 
 	int Version;																		// +0x78
 	int Unknown7C;																		// +0x7C (0x7A4C50 counts its requests)

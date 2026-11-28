@@ -16,7 +16,7 @@ class CharacterInfoInterface : public Unknown5BB320Class  // NAME 5: thunk order
 {
 public:
 	enum { MAX_BUTTONS = 5 };							// NAME 1: the constructor's loop (buttons 1..4)
-	CharacterInfoInterface(SClient *client);						// 0x5734D0 (0xD8 bytes; deleting 0x573740)  // NAME 1 [client]: what the base's 0x5BB320 takes
+	CharacterInfoInterface(SpaceClientClass *client);						// 0x5734D0 (0xD8 bytes; deleting 0x573740)  // NAME 1 [client]: what the base's 0x5BB320 takes
 	virtual ~CharacterInfoInterface();							// 0x573770 ('fa_cinfo.ini' unloaded)
 	virtual void Unknown_54();							// 0x5738B0 (the four tabs made, parented and initialised)
 	virtual void Unknown_58();							// 0x573CE0 (activated: the mesh's fonts, the tab +0xB0 shown, the exit button on)

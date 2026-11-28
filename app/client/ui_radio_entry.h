@@ -14,7 +14,7 @@ class TextGadgetClass;
 class UIRadioEntryClass : public ChatPanelUIBase	// NAME 3: class-from-file (D24) for app\client\ui_radio_entry.cpp
 {
 public:
-	UIRadioEntryClass(SClient *client, int state);		// 0x5E6290 (deleting 0x5E6300)  // NAME 1 [client, state]: what the members hold
+	UIRadioEntryClass(SpaceClientClass *client, int state);		// 0x5E6290 (deleting 0x5E6300)  // NAME 1 [client, state]: what the members hold
 	virtual ~UIRadioEntryClass();						// 0x5E6330
 	virtual void Unknown_54();							// +0x54 0x5E63C0 ('cht04': the buttons 'EXIT', 'TEXT_FIELD00', 'TEXT_FIELD01', 'BUTTON02', 'BUTTON03', the text boxes)
 	virtual void Unknown_58();							// +0x58 0x5E6610

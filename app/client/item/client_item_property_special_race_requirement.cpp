@@ -26,7 +26,7 @@ template<class C> inline C *Unknown_Find_Valid(DeltaContainer *root, const AuxDa
 
 
 
-RefCountPtr<ClientItemPropertySpecialRaceRequirementClass> ClientItemPropertySpecialRaceRequirementClass::Create(SClient *space_client, int races, int race)
+RefCountPtr<ClientItemPropertySpecialRaceRequirementClass> ClientItemPropertySpecialRaceRequirementClass::Create(SpaceClientClass *space_client, int races, int race)
 {
 	std::string label;
 	std::string tooltip;
@@ -74,7 +74,7 @@ RefCountPtr<ClientItemPropertySpecialRaceRequirementClass> ClientItemPropertySpe
 	return(Create_NEW(new ClientItemPropertySpecialRaceRequirementClass(space_client, 4, races, label, tooltip)));
 }
 
-ClientItemPropertySpecialRaceRequirementClass::ClientItemPropertySpecialRaceRequirementClass(SClient *space_client, int sort_order, int races, const std::string &label, const std::string &tooltip) :
+ClientItemPropertySpecialRaceRequirementClass::ClientItemPropertySpecialRaceRequirementClass(SpaceClientClass *space_client, int sort_order, int races, const std::string &label, const std::string &tooltip) :
 	ClientItemPropertySpecialClass(sort_order, tooltip, 0, 1),
 	SpaceClient(space_client),
 	Label(label),

@@ -13,7 +13,7 @@ extern Random4Class Unknown_BDB1C0;	// NAME 1: neutral (D10): the client's 0xBDB
 Matrix3D Unknown_82ECB0(const Vector3 &dir, const Vector3 &pos);	// 0x82ECB0 (a frame along dir at pos; its file is unknown)  // NAME 1 [dir, pos]: what the placements pass
 
 // 0x7979A0
-CameraController02Class::CameraController02Class(SClient *client) :
+CameraController02Class::CameraController02Class(SpaceClientClass *client) :
 	CameraControllerClass(client),
 	Unknown0C(NULL),
 	Unknown10(0),

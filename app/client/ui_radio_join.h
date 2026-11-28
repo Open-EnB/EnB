@@ -14,7 +14,7 @@ class TextGadgetClass;
 class UIRadioJoinClass : public ChatPanelUIBase	// NAME 1: neutral, after its title 'Join Private Channel'
 {
 public:
-	UIRadioJoinClass(SClient *client, int state);		// 0x5EAB40 (deleting 0x5EAB90)  // NAME 1 [client, state]: what the members hold
+	UIRadioJoinClass(SpaceClientClass *client, int state);		// 0x5EAB40 (deleting 0x5EAB90)  // NAME 1 [client, state]: what the members hold
 	virtual ~UIRadioJoinClass();						// 0x5EABC0
 	virtual void Unknown_54();							// +0x54 0x5EAC50 ('cht03': the buttons 'EXIT', 'TEXT_FIELD', 'BUTTON01', 'BUTTON03', the text box 'TEXTFIELD_Cht03')
 	virtual void Unknown_58();							// +0x58 0x5EADD0

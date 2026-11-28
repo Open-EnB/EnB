@@ -22,7 +22,7 @@ static const char *Unknown_BA8204[2] = { "exit", "button01" };	// NAME 1: neutra
 static const char *Unknown_BA8210[2] = { "EXIT", "CLOSE" };	// NAME 1: neutral (D10)
 
 // 0x81E030
-UIGuildListClass::UIGuildListClass(SClient *client) :
+UIGuildListClass::UIGuildListClass(SpaceClientClass *client) :
 	ChatPanelUIBase(client),
 	Slider(NULL),
 	Top(0),

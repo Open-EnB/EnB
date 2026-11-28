@@ -23,7 +23,7 @@ enum { USER_SELECT_YES = 1, USER_SELECT_OK = 1, USER_SELECT_NO = 2 };	// NAME 3 
 class UIPetitionEntryClass : public ChatPanelUIBase	// NAME 1: neutral, after the file and its tooltips' section 'UI_PETITION_ENTRY'
 {
 public:
-	UIPetitionEntryClass(SClient *client);				// 0x5D46E0 (deleting 0x5D4770)  // NAME 1 [client]: ChatPanelUIBase's
+	UIPetitionEntryClass(SpaceClientClass *client);				// 0x5D46E0 (deleting 0x5D4770)  // NAME 1 [client]: ChatPanelUIBase's
 	virtual ~UIPetitionEntryClass();					// 0x5D47A0
 	virtual void Unknown_54();							// +0x54 0x5D4890 ('hsi02a': the buttons, the slider, the details editor, the subject line)
 	virtual void Unknown_58();							// +0x58 0x5D4C20 (Pending cleared; the base's)

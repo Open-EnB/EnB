@@ -16,7 +16,7 @@ static float Unknown_B0519C = -3.0f;			// NAME 1: neutral (D10): the offset alon
 static float Unknown_B051A0 = 3.0f;			// NAME 1: neutral (D10): the offset across it
 
 // @0x797320
-CameraController08Class::CameraController08Class(SClient *client) :
+CameraController08Class::CameraController08Class(SpaceClientClass *client) :
 	CameraControllerClass(client),
 	Unknown0C(NULL),
 	Unknown10(0),

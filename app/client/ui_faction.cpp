@@ -27,7 +27,7 @@ class LineDisplayClientClass  // NAME 1: neutral (D10)
 public:
 	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
 	virtual void Unknown_10(); virtual void Unknown_14();
-	virtual SClient *As_Space_Client();					// +0x18 (as ui_manu.cpp's)  // NAME 3: the FAIL_IF's in ui_manu.cpp
+	virtual SpaceClientClass *As_Space_Client();					// +0x18 (as ui_manu.cpp's)  // NAME 3: the FAIL_IF's in ui_manu.cpp
 };
 
 #include "ui_faction_panel.h"	// ui_faction_panel.cpp's panel (0x58EB50)
@@ -54,7 +54,7 @@ public:
 	GaugeGadgetClass *Unknown78;						// +0x78 ('HATE_BAR%02d')
 };
 // 0x58D080
-FactionInterface::FactionInterface(SClient *client) :
+FactionInterface::FactionInterface(SpaceClientClass *client) :
 	Unknown5BB320Class(new UIMeshClass("tsi30a", 2), client),
 	UnknownBC(NULL),
 	UnknownC0(0),
@@ -178,7 +178,7 @@ void FactionInterface::Unknown_5C()
 // 0x58DAB0
 void FactionInterface::Unknown_60()
 {
-	SClient *sclient = Client->As_Space_Client();
+	SpaceClientClass *sclient = Client->As_Space_Client();
 	FAIL_IF(!sclient) return;
 
 	DeltaPlayerClass *ad_player = sclient->AuxData;
@@ -231,7 +231,7 @@ template<class C> inline C *Unknown_Find_Changed_Field(DeltaContainer *root, con
 void FactionInterface::Unknown_58DC20(bool arg)
 {
 	FAIL_IF(!Get_Client()) return;
-	SClient *sclient = Get_Client()->As_Space_Client();
+	SpaceClientClass *sclient = Get_Client()->As_Space_Client();
 	FAIL_IF(!sclient) return;
 
 	DeltaPlayerClass *aux_data = sclient->AuxData;

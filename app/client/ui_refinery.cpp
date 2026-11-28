@@ -27,7 +27,7 @@ class LineDisplayClientClass  // NAME 1: neutral (D10)
 public:
 	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
 	virtual void Unknown_10(); virtual void Unknown_14();
-	virtual SClient *As_Space_Client();					// +0x18 (ClientClass::As_Space_Client; SClient's returns itself)  // NAME 3: ui_manu.cpp's FAIL_IF's
+	virtual SpaceClientClass *As_Space_Client();					// +0x18 (ClientClass::As_Space_Client; SpaceClientClass's returns itself)  // NAME 3: ui_manu.cpp's FAIL_IF's
 };
 
 void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);	// 0x496AE0 (ro_funcs.cpp, cdecl)  // NAME 1 [robj, make_geometry_unique]: as ui_manu.cpp's
@@ -147,13 +147,13 @@ void UIRefineryClass::Unknown_7C(UIViewClass *view, bool arg)
 	Unknown0B8->Unknown_7C(view, arg);
 }
 
-static inline int Refinery_Player_Id(SClient *sclient) { return sclient->Unknown1138; }  // NAME 2: the player id read as an inline accessor (as ui_manu.cpp's Manu_Player_Id)
+static inline int Refinery_Player_Id(SpaceClientClass *sclient) { return sclient->Unknown1138; }  // NAME 2: the player id read as an inline accessor (as ui_manu.cpp's Manu_Player_Id)
 
 // @0x5EC270
 void UIRefineryClass::Unknown_58()
 {
 	Unknown_Find_Field<DeltaTemplateClass<int> >(NULL, *(AuxDataName *)this); Unknown_Find_Field<DeltaTemplateClass<int> >(NULL, *(AuxDataName *)this); Unknown_Find_Field<DeltaTemplateClass<int> >(NULL, *(AuxDataName *)this);	// not the client's (D130): dead finds spending the inline budget the client spent (it calls 0x5ED310 out of line here; 2 are not enough)
-	SClient *sclient = Client->As_Space_Client();
+	SpaceClientClass *sclient = Client->As_Space_Client();
 	((ClientClass *)Client)->Send_Packet(&ManufactureItemCatagoryPacketClass(Refinery_Player_Id(sclient), 4));
 	if (State == UI_CLOSED) {
 		InterfaceSortScopeClass scope(this);
@@ -189,7 +189,7 @@ void UIRefineryClass::Unknown_5C()
 {
 	State = UI_CLOSED;
 	Unknown0AC->Unknown_69DC60();
-	SClient *sclient = Client->As_Space_Client();
+	SpaceClientClass *sclient = Client->As_Space_Client();
 	((ClientClass *)Client)->Send_Packet(&ManufactureActionPacketClass(Refinery_Player_Id(sclient), 0));
 	((ClientClass *)Client)->Send_Packet(&ManufactureItemCatagoryPacketClass(Refinery_Player_Id(sclient), 0));
 	Unknown0B4->Unknown_5C();

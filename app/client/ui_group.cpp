@@ -19,7 +19,7 @@
 #include "..\shared\auth_product.h"
 
 extern FontManagerClass *Unknown_BE67C4;	// NAME 1: neutral (D10)
-class UIGroupAvatarClass : public RefCountClass { public: char Unknown[0x1CC - sizeof(RefCountClass)]; char Name[1]; };	// NAME 1: neutral (D10): what SClient 0x74C7B0 returns, as far as 0x595530 reads it (the name at +0x1CC)
+class UIGroupAvatarClass : public RefCountClass { public: char Unknown[0x1CC - sizeof(RefCountClass)]; char Name[1]; };	// NAME 1: neutral (D10): what SpaceClientClass 0x74C7B0 returns, as far as 0x595530 reads it (the name at +0x1CC)
 // gadget.cpp's gadget and the buttons (unknown_675120.h's ButtonGadgetClass: 0x675240 / 0x675310)
 #include "gadget.h"
 #include "unknown_675120.h"
@@ -227,7 +227,7 @@ template<class C> inline C *Unknown_Group_Find(DeltaContainer *root, const AuxDa
 void UIGroupUnknownE8Class::Unknown_592C50()
 {
 	Unknown_592BB0();
-	DeltaContainer *aux = ((SClient *)((ClientClass *)Unknown00->Client)->As_Space_Client())->AuxData;
+	DeltaContainer *aux = ((SpaceClientClass *)((ClientClass *)Unknown00->Client)->As_Space_Client())->AuxData;
 	int formation = 0;
 	if (!aux) {
 		Unknown04 = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj("tsi03a_form0"));
@@ -598,7 +598,7 @@ void UIGroupMemberClass::Unknown_593B50()
 
 
 // 0x593BD0
-GroupInterface::GroupInterface(SClient *client) :
+GroupInterface::GroupInterface(SpaceClientClass *client) :
 	Unknown5BB320Class(new UIMeshClass("TSI03A", true), client),
 	Members(0),
 	Unknown0E8(NULL),
@@ -643,7 +643,7 @@ GroupInterface::~GroupInterface()
 // (the view through InterfaceClass::Get_View(): the client's registers for 0x6870E0 / 0x5BB4F0's arguments)
 void GroupInterface::Unknown_54()
 {
-	SymbolChatUI = Create_NEW(new UISymbolChatClass((SClient *)((ClientClass *)Client)->As_Space_Client()));
+	SymbolChatUI = Create_NEW(new UISymbolChatClass((SpaceClientClass *)((ClientClass *)Client)->As_Space_Client()));
 	SymbolChatUI->Unknown_54();
 	SymbolChatUI->Unknown_64B2C0();
 	Unknown0E8 = new UIGroupUnknownE8Class(this);
@@ -731,7 +731,7 @@ extern unsigned int Unknown_BE5F34;						// gadget.cpp's: the key modifiers (0x5
 // Exact (attempts.py 0x5946D0), no goto: each break case (11-15, 41-45, 29-33, 35-39) ends with its own sound + 'if (SymbolChatUI) ..' tail (VC6 merges the four into the one after 35-39, 0x594A72; 11-15's SymbolChatUI temporaries leave eax free for case 17-21), the modifier test wraps the body and the sound, case 47 breaks to the return(true) after the switch (0x5950AE, where every return(true) jump goes); case 23-27 plain (three Members[key - 23] reads); case 11-15 index local k (add edi,-0xb); case 47 single-use ClientClass *c; two dead Peek()s in 0x593180 (D272)
 bool GroupInterface::Unknown_68(int key)
 {
-	SClient *sclient = (SClient *)((ClientClass *)Client)->As_Space_Client();
+	SpaceClientClass *sclient = (SpaceClientClass *)((ClientClass *)Client)->As_Space_Client();
 	G_ASSERT(sclient);
 	bool modifier = (Unknown_BE5F34 & 0x50) != 0;
 
@@ -842,7 +842,7 @@ bool GroupInterface::Unknown_68(int key)
 			}	return(true);
 		case 3:
 			if (!modifier) {
-				if (((SClient *)((ClientClass *)Client)->As_Space_Client())->Unknown_74D690()) {
+				if (((SpaceClientClass *)((ClientClass *)Client)->As_Space_Client())->Unknown_74D690()) {
 					View->Get_Unknown34()->Unknown_588A70("GROUP_LEAVE", 0, "Are you sure you want to disband this group?", 0x140, 0, 0);
 					return(true);
 				}
@@ -1074,7 +1074,7 @@ void GroupInterface::Unknown_595530()
 			member->Unknown50->Unknown_65FFA0(-1);
 			Unknown64.Unknown_6870E0(member->Unknown50, index + 35, Get_View(), 1, 1);
 			Unknown_5BB4F0(member->Unknown50);
-			if (((SClient *)((ClientClass *)Client)->As_Space_Client())->Unknown_74D690()) {
+			if (((SpaceClientClass *)((ClientClass *)Client)->As_Space_Client())->Unknown_74D690()) {
 				GadgetClass::Set_Tooltip(member->Unknown50, "UI_FORMATION", "BOOT");
 			} else {
 				member->Unknown50->Unknown_8C(true);
@@ -1103,7 +1103,7 @@ void GroupInterface::Unknown_595530()
 			char name[32];
 			_snprintf(name, sizeof(name), "NAME%02d_TSI03A", index);
 			FontSys *text = Unknown_BE67C4->Get_Style(name, InterfaceMesh->Peek_Mesh_Object());
-			RefCountPtr<UIGroupAvatarClass> avatar = Create_NEW((UIGroupAvatarClass *)((SClient *)((ClientClass *)Client)->As_Space_Client())->Unknown_74C7B0(member->ID));
+			RefCountPtr<UIGroupAvatarClass> avatar = Create_NEW((UIGroupAvatarClass *)((SpaceClientClass *)((ClientClass *)Client)->As_Space_Client())->Unknown_74C7B0(member->ID));
 			if (avatar) {
 				text->Change_Text(avatar->Name, 0);
 			} else {
@@ -1258,7 +1258,7 @@ void GroupInterface::Unknown_596770(bool arg)
 {
 	ClientClass *client = (ClientClass *)Client;
 	FAIL_IF(!client) return;
-	SClient *sclient = (SClient *)client->As_Space_Client();
+	SpaceClientClass *sclient = (SpaceClientClass *)client->As_Space_Client();
 
 	FAIL_IF(!sclient) return;
 	DeltaContainer *aux = sclient->AuxData;
@@ -1515,7 +1515,7 @@ void GroupInterface::Unknown_597310(RefCountPtr<RenderObjClass> model, bool rais
 // 0x5975D0
 void GroupInterface::Unknown_5975D0()
 {
-	if (((SClient *)((ClientClass *)Client)->As_Space_Client())->Unknown_74D690()) {
+	if (((SpaceClientClass *)((ClientClass *)Client)->As_Space_Client())->Unknown_74D690()) {
 		View->Unknown34->Unknown_588A70("GROUP_LEAVE", 0, "Are you sure you want to disband this group?", 320, 0, 0);
 	} else {
 		View->Unknown34->Unknown_588A70("GROUP_LEAVE", 0, "Are you sure you want to leave this group?", 320, 0, 0);
@@ -1542,7 +1542,7 @@ void GroupInterface::Unknown_597650()
 	button = Get_View()->Get_Unknown34()->Unknown_5890B0("GROUP_LEAVE");
 	if (button) {
 		if (button == 1) {
-			if (((SClient *)((ClientClass *)Client)->As_Space_Client())->Unknown_74D690()) {
+			if (((SpaceClientClass *)((ClientClass *)Client)->As_Space_Client())->Unknown_74D690()) {
 				((ClientClass *)Client)->Send_Packet(&ActionPacketClass(((ClientClass *)Client)->AvatarID, 13, ((ClientClass *)Client)->AvatarID, 0));
 			} else {
 				((ClientClass *)Client)->Send_Packet(&ActionPacketClass(((ClientClass *)Client)->AvatarID, 14, ((ClientClass *)Client)->AvatarID, 0));
@@ -1606,7 +1606,7 @@ void GroupInterface::Unknown_597920(unsigned int id, bool value)
 // 0x5979A0
 bool GroupInterface::Unknown_5979A0()
 {
-	SClient *sclient = (SClient *)((ClientClass *)Client)->As_Space_Client();
+	SpaceClientClass *sclient = (SpaceClientClass *)((ClientClass *)Client)->As_Space_Client();
 	DeltaContainer *aux = sclient->AuxData;
 	if (aux) {
 		DeltaGroupInfoClass *group = Unknown_Find_Field<DeltaGroupInfoClass>(aux, "GroupInfo");
@@ -1624,7 +1624,7 @@ bool GroupInterface::Unknown_5979A0()
 // 0x597A60
 bool GroupInterface::Unknown_597A60()
 {
-	SClient *sclient = (SClient *)((ClientClass *)Client)->As_Space_Client();
+	SpaceClientClass *sclient = (SpaceClientClass *)((ClientClass *)Client)->As_Space_Client();
 	DeltaContainer *aux = sclient->AuxData;
 	if (aux) {
 		DeltaGroupInfoClass *group = Unknown_Find_Field<DeltaGroupInfoClass>(aux, "GroupInfo");
@@ -1650,7 +1650,7 @@ bool GroupInterface::Unknown_597B00()
 {
 	ClientClass *client = (ClientClass *)Client;
 	FAIL_IF(!client) return(false);
-	SClient *sclient = (SClient *)client->As_Space_Client();
+	SpaceClientClass *sclient = (SpaceClientClass *)client->As_Space_Client();
 
 	FAIL_IF(!sclient) return(false);
 	return(sclient->Unknown_74D690());
@@ -1663,7 +1663,7 @@ void GroupInterface::Unknown_597B70(bool value)
 {
 	ClientClass *client = (ClientClass *)Client;
 	FAIL_IF(!client) return;
-	SClient *sclient = (SClient *)client->As_Space_Client();
+	SpaceClientClass *sclient = (SpaceClientClass *)client->As_Space_Client();
 
 	FAIL_IF(!sclient) return;
 	sclient->Unknown13C0 = value;
@@ -1694,7 +1694,7 @@ void GroupInterface::Unknown_597BF0()
 		}
 		Unknown0C0[i - 1]->Unknown_8C(false);
 	}
-	if (Unknown0C0[2] && ((SClient *)((ClientClass *)Client)->As_Space_Client())->Unknown_74D690()) {
+	if (Unknown0C0[2] && ((SpaceClientClass *)((ClientClass *)Client)->As_Space_Client())->Unknown_74D690()) {
 		GadgetClass::Set_Tooltip(Unknown0C0[2], "UI_FORMATION", "GRP_DISBAND");
 		Unknown_597E40(0);
 		return;
@@ -1751,7 +1751,7 @@ void GroupInterface::Unknown_597E40(bool value)
 {
 	ClientClass *client = (ClientClass *)Client;
 	FAIL_IF(!client) return;
-	SClient *sclient = (SClient *)client->As_Space_Client();
+	SpaceClientClass *sclient = (SpaceClientClass *)client->As_Space_Client();
 
 	FAIL_IF(!sclient) return;
 	if (Unknown0F1) {
@@ -1766,7 +1766,7 @@ void GroupInterface::Unknown_597E40(bool value)
 	if (sclient->Unknown_74D690()) {
 		Unknown0C0[3]->Unknown_40(false);
 		Unknown0C0[4]->Unknown_40(false);
-		DeltaContainer *aux = ((SClient *)((ClientClass *)Client)->As_Space_Client())->AuxData;
+		DeltaContainer *aux = ((SpaceClientClass *)((ClientClass *)Client)->As_Space_Client())->AuxData;
 		if (aux) {
 			DeltaGroupInfoClass *group = Unknown_Group_FieldA<DeltaGroupInfoClass>(aux, "GroupInfo");
 			if (group && group->Formation.Value) return;
@@ -1778,17 +1778,17 @@ void GroupInterface::Unknown_597E40(bool value)
 	Unknown0C0[6]->Unknown_40(false);
 	Unknown0C0[8]->Unknown_40(false);
 	Unknown0C0[7]->Unknown_40(false);
-	DeltaContainer *aux = ((SClient *)((ClientClass *)Client)->As_Space_Client())->AuxData;
+	DeltaContainer *aux = ((SpaceClientClass *)((ClientClass *)Client)->As_Space_Client())->AuxData;
 	DeltaGroupInfoClass *group;
 	if (!aux || !(group = Unknown_Group_FieldA<DeltaGroupInfoClass>(aux, "GroupInfo")) || !group->Formation.Value) {
 		Unknown0C0[4]->Unknown_40(false);
 	}
-	aux = ((SClient *)((ClientClass *)Client)->As_Space_Client())->AuxData;
+	aux = ((SpaceClientClass *)((ClientClass *)Client)->As_Space_Client())->AuxData;
 	if (aux) {
 		DeltaGroupInfoClass *info = Unknown_Group_FieldB<DeltaGroupInfoClass>(aux, "GroupInfo");
 		if (info && info->Formation.Value) goto set;
 	}
-	aux = ((SClient *)((ClientClass *)Client)->As_Space_Client())->AuxData;
+	aux = ((SpaceClientClass *)((ClientClass *)Client)->As_Space_Client())->AuxData;
 	if (aux) {
 		DeltaGroupInfoClass *named = Unknown_Group_FieldC<DeltaGroupInfoClass>(aux, "GroupInfo");
 		if (named) {
@@ -1869,7 +1869,7 @@ void GroupInterface::Unknown_598370()
 			InterfaceMesh->Peek_Object()->Add_Sub_Object_To_Bone(Unknown0E8->Unknown_5944A0().Peek(), "formation_bone");
 			Unknown0C0[0]->Set_Render_Obj(Unknown0E8->Unknown_5944A0().Peek());
 		}
-		SClient *sclient = (SClient *)((ClientClass *)Client)->As_Space_Client();
+		SpaceClientClass *sclient = (SpaceClientClass *)((ClientClass *)Client)->As_Space_Client();
 		DeltaContainer *aux = sclient->AuxData;
 		if (aux) {
 			DeltaGroupInfoClass *group = Unknown_Group_Find_Set<DeltaGroupInfoClass>(aux, "GroupInfo");
@@ -1935,7 +1935,7 @@ void GroupInterface::Unknown_74(ControlKeysManager *manager)
 **
 **	Forms: the constructor zeroes the nine buttons with a loop (VC6 makes it the rep stosd; memset puts the lea
 **	after the count); the members are initialised in the list, Members with a count of 0 (the new(0)); 0x597B00
-**	ends in a jump to SClient::Unknown_74D690 (Ghidra shows the callee's body inline); 0x5979A0 / 0x597A60 test
+**	ends in a jump to SpaceClientClass::Unknown_74D690 (Ghidra shows the callee's body inline); 0x5979A0 / 0x597A60 test
 **	the aux root through a named local before the AuxDataName and return '? true : false' (setne); 0x598200 tests
 **	on before off and reads +0xC0 again for the 0x6603A0 call; Get_Member reads Members.end() in the loop (the
 **	cached form leaves Add_Member's expansion further off); 0x597BF0 writes the disabled case first with its

@@ -25,7 +25,7 @@ class LineDisplayClientClass  // NAME 1: neutral (D10)
 public:
 	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
 	virtual void Unknown_10(); virtual void Unknown_14();
-	virtual SClient *As_Space_Client();					// +0x18 (SClient's returns itself)  // NAME 3: ui_manu.cpp's FAIL_IF's
+	virtual SpaceClientClass *As_Space_Client();					// +0x18 (SpaceClientClass's returns itself)  // NAME 3: ui_manu.cpp's FAIL_IF's
 };
 
 extern FontManagerClass *Unknown_BE67C4;				// NAME 1 [Unknown_BE67C4]: 0xBE67C4
@@ -34,7 +34,7 @@ extern FontManagerClass *Unknown_BE67C4;				// NAME 1 [Unknown_BE67C4]: 0xBE67C4
 static const char *Unknown_B84594[] = { "exit", "button01", "button02", "button03" };	// NAME 1: neutral (D10)
 
 // 0x5D8C40
-PlayerOptionsInterface::PlayerOptionsInterface(SClient *client) :
+PlayerOptionsInterface::PlayerOptionsInterface(SpaceClientClass *client) :
 	ChatPanelUIBase(client),
 	Slider(NULL),
 	Top(0),
@@ -445,7 +445,7 @@ void PlayerOptionsInterface::Unknown_5DA8C0(std::string name)
 // 0x5DAAD0
 void PlayerOptionsInterface::Unknown_5DAAD0()
 {
-	SClient *sclient = Client->As_Space_Client();
+	SpaceClientClass *sclient = Client->As_Space_Client();
 	ClientObjectClass *target;
 	if (!sclient->Unknown_744B60() && sclient && sclient->MainView && (target = sclient->MainView->Unknown_5C()) != NULL && target->Unknown_6F5A40()) {
 		Unknown0CC[3]->Unknown_40(true);
@@ -471,7 +471,7 @@ void PlayerOptionsInterface::Unknown_5DAB50()
 // 0x5DAD50
 ClientObjectClass *PlayerOptionsInterface::Unknown_5DAD50()
 {
-	SClient *sclient = Client->As_Space_Client();
+	SpaceClientClass *sclient = Client->As_Space_Client();
 	if (sclient->Unknown_744B60()) {
 		return(NULL);
 	}

@@ -11,7 +11,7 @@
 class PLandCameraControllerClass : public CameraControllerClass  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	PLandCameraControllerClass(SClient *client);			// 0x7946D0
+	PLandCameraControllerClass(SpaceClientClass *client);			// 0x7946D0
 	virtual ~PLandCameraControllerClass();					// 0x7947C0, deleting 0x794790
 	virtual void Unknown_04();							// +0x04 0x794840
 	virtual void Unknown_08(Vector3 *pos, Quaternion *rot, int *mode, int *target);	// +0x08 0x794970

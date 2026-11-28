@@ -14,7 +14,7 @@
 bool Unknown_70B3D0(ClientObjectClass *object);								// 0x70B3D0 (co_player_relationship.cpp)
 
 // @0x7C3F10
-TargetFindClass::TargetFindClass(SClient *client) :
+TargetFindClass::TargetFindClass(SpaceClientClass *client) :
 	Client(client),
 	Filter(0)
 {
@@ -295,7 +295,7 @@ unsigned TargetFindClass::Get_Flags(ClientObjectClass *co)
 **	Its end: its own <string> initialiser is 0x7C4DE0 ($E136), then the COMDATs of std::sort:
 **	0x7C4E30 _Sort, 0x7C4FF0 _Unguarded_insert, 0x7C5040 _Unguarded_partition. 0x7C50B0 / 0x7C50E0 (a PermStringInitClass at
 **	0xBE87E0 and its atexit) open the next object, target_reticle.cpp. TargetSelectClass (targeting.cpp, 0x7C6120, table
-**	0xB07134, SClient +0x12A4) derives from this class.
+**	0xB07134, SpaceClientClass +0x12A4) derives from this class.
 **
 **	Forms the bytes decide (Build_List 0x7C4530): 'Filter ? Match_Filter(co) : true' keeps the
 **	client's sete / test (|| folds them); a float local keeps the fstp after the pushes; the entry's

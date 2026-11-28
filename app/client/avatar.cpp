@@ -664,7 +664,7 @@ void AvatarClass::Unknown_77E3D0(int a)
 }
 
 // 0x77E3F0: unless made (+0x221), the NLP and models made (0x77D7F0) and the creation prototypes released (0x77D4A0);
-// one more reference added (SClient's 0x74C7B0 and 0x749590 / 0x749A70)
+// one more reference added (SpaceClientClass's 0x74C7B0 and 0x749590 / 0x749A70)
 AvatarClass *AvatarClass::Unknown_77E3F0()
 {
 	if (!Unknown221) {
@@ -676,7 +676,7 @@ AvatarClass *AvatarClass::Unknown_77E3F0()
 	return(this);
 }
 
-// 0x77E610: 0x77E3F0 without the reference (SClient's 0x74C840)
+// 0x77E610: 0x77E3F0 without the reference (SpaceClientClass's 0x74C840)
 AvatarClass *AvatarClass::Unknown_77E610()
 {
 	if (!Unknown221) {

@@ -65,7 +65,7 @@ public:
 	// (0x693040 is MapPIPClass::Unknown_693040, map_pip.cpp's)
 };
 
-// galaxy_map_client.cpp's map (SClient +0x12A0), as far as this file reads it
+// galaxy_map_client.cpp's map (SpaceClientClass +0x12A0), as far as this file reads it
 class UIStarmapGalaxyMapClass  // NAME 1: neutral (D10)
 {
 public:
@@ -88,7 +88,7 @@ inline void StarmapInterface::Unknown_Show_How_To(const RefCountPtr<UIDynamicWin
 }
 
 // @0x7C63D0
-StarmapInterface::StarmapInterface(SClient *client) :
+StarmapInterface::StarmapInterface(SpaceClientClass *client) :
 	InterfaceClass((LineDisplayClientClass *)client),
 	Frame(0),
 	MaxFrame(0),
@@ -361,7 +361,7 @@ bool StarmapInterface::Unknown_68(int key)
 	case 1:
 		SoundLibraryClass::Play_2D_Sound("TextClick03.wav", 2);
 		{
-			SClient *sclient = (SClient *)((ClientClass *)Client)->As_Space_Client();
+			SpaceClientClass *sclient = (SpaceClientClass *)((ClientClass *)Client)->As_Space_Client();
 			sclient->PDAInterface->Unknown_695A00(4, 1);
 		}
 		return(true);
@@ -370,9 +370,9 @@ bool StarmapInterface::Unknown_68(int key)
 		HowToStarmap->Unknown_5C();
 		HowToGalaxyMap->Unknown_5C();
 		if (Maximized) {
-			((SClient *)((ClientClass *)Client)->As_Space_Client())->Unknown_744560(0x16);
+			((SpaceClientClass *)((ClientClass *)Client)->As_Space_Client())->Unknown_744560(0x16);
 		} else {
-			((SClient *)((ClientClass *)Client)->As_Space_Client())->Unknown_744560(0x15);
+			((SpaceClientClass *)((ClientClass *)Client)->As_Space_Client())->Unknown_744560(0x15);
 		}
 		Maximized = !Maximized;
 		ResizeUp->Set_Hidden(Maximized);
@@ -695,7 +695,7 @@ bool StarmapInterface::Unknown_7C8E50(bool force)
 	if (StarmapPip->Unknown_693040()) {
 
 		FAIL_IF(!Client) return(false);
-		SClient *sclient = (SClient *)((ClientClass *)Client)->As_Space_Client();
+		SpaceClientClass *sclient = (SpaceClientClass *)((ClientClass *)Client)->As_Space_Client();
 
 		FAIL_IF(!sclient) return(false);
 		UIStarmapGalaxyMapClass *galaxy_map = (UIStarmapGalaxyMapClass *)sclient->GalaxyMap;

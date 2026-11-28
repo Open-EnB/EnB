@@ -20,7 +20,7 @@ class LineDisplayClientClass  // NAME 1: neutral (D10)
 public:
 	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
 	virtual void Unknown_10(); virtual void Unknown_14();
-	virtual SClient *As_Space_Client();					// +0x18 (ClientClass::As_Space_Client; SClient's returns itself)  // NAME 3: ui_manu.cpp's FAIL_IF's
+	virtual SpaceClientClass *As_Space_Client();					// +0x18 (ClientClass::As_Space_Client; SpaceClientClass's returns itself)  // NAME 3: ui_manu.cpp's FAIL_IF's
 };
 
 void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);	// 0x496AE0 (ro_funcs.cpp, cdecl)  // NAME 1 [robj, make_geometry_unique]: as ui_manu.cpp's
@@ -29,7 +29,7 @@ void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);	// 0x496AE
 static const char *Unknown_B8C58C[] = { "exit", "exit_button" };	// NAME 1: neutral (D10)
 
 // @0x65A020
-Unknown65A020Class::Unknown65A020Class(SClient *client) :
+Unknown65A020Class::Unknown65A020Class(SpaceClientClass *client) :
 	Unknown5BB320Class(new UIMeshClass("JWEB00", true), client),
 	Unknown0B4(0)
 {

@@ -133,7 +133,7 @@ class LineDisplayClientClass  // NAME 1: neutral (D10)
 public:
 	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
 	virtual void Unknown_10(); virtual void Unknown_14();
-	virtual SClient *As_Space_Client();					// +0x18 (as ui_manu.cpp's)  // NAME 3: the FAIL_IF's in ui_manu.cpp
+	virtual SpaceClientClass *As_Space_Client();					// +0x18 (as ui_manu.cpp's)  // NAME 3: the FAIL_IF's in ui_manu.cpp
 
 	char Unknown04[0x112C - 0x04];						// +0x04
 	unsigned AvatarID;									// +0x112C (0x54EC30)  // NAME 3: client.h's ClientClass::AvatarID
@@ -471,7 +471,7 @@ void StarbaseAvatarCreationInterface::Unknown_54()
 	int i;
 	Unknown0B4->Unknown_69DC40();
 	InterfaceSortScopeClass sort(this);
-	SClient *client = Unknown0B4->Client;
+	SpaceClientClass *client = Unknown0B4->Client;
 	AvatarDescriptionClass *avatar = (AvatarDescriptionClass *)client->Unknown_74C960(client->Get_Avatar_ID());
 	Unknown0BC = Create_NEW(new AvatarClass(avatar, 1, 1, client->Peek_Environment_Map_Manager()));
 	Unknown0BC->Unknown_77E3D0(1);
@@ -562,14 +562,14 @@ void StarbaseAvatarCreationInterface::Unknown_60()
 
 // The cases in the client's body order (jump table 0x54D430 by address: 1, 2, 0xD, 0xE, 3, 8, 0x10 .. 0x1B,
 // 0x24-0x27, 0x1C, 0x20 ..), 0x54EAD0 inlined for 0x12 / 0x13, the palette helper 0x5513E0 for 0x1A-0x1C, the
-// view's Client read once at the top (edi), the env maps through SClient's inline Peek_Environment_Map_Manager()
+// view's Client read once at the top (edi), the env maps through SpaceClientClass's inline Peek_Environment_Map_Manager()
 // in 0x16-0x19 (the six 0x551BF0 tails cross-jump into 0x19's; their goto done sends the inlined if's je to the
 // end's return, je 0x54D401), and case 1 reaching the Login_Mouse_Click tail at the end by goto login (VC6 places
 // it after case 1; 2, 0xD and 0xE then cross-jump back into it: jmp 0x54CC69 / 0x54CC77)
 // 0x54CBC0
 bool StarbaseAvatarCreationInterface::Unknown_68(int key)
 {
-	SClient *client = Unknown0B4->Client;
+	SpaceClientClass *client = Unknown0B4->Client;
 	if (!Unknown3CC) {
 		goto done;
 	}
@@ -960,7 +960,7 @@ void StarbaseAvatarCreationInterface::Unknown_54EAD0(int dir)
 // 0x54EC30
 void StarbaseAvatarCreationInterface::Unknown_54EC30()
 {
-	SClient *client = Client->As_Space_Client();
+	SpaceClientClass *client = Client->As_Space_Client();
 	client->Unknown_74C530(Client->AvatarID);
 	client->Unknown_74C3B0(Client->AvatarID, *Unknown0BC->Get_Desc());
 	StarbaseInterface *starbase = (StarbaseInterface *)((StarbaseViewClass *)client->Unknown135C)->Get_Starbase().Peek();
@@ -2331,7 +2331,7 @@ void StarbaseAvatarCreationInterface::Unknown_551C40(const RecustomizationCostCl
 // 0x551C80
 void StarbaseAvatarCreationInterface::Unknown_551C80()
 {
-	SClient *client = Client->As_Space_Client();
+	SpaceClientClass *client = Client->As_Space_Client();
 	int id = client->Unknown1138;
 	client->Send_Packet(&StarbaseReqPacketClass(id, 10, 0));
 }

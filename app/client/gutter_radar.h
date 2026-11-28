@@ -18,7 +18,7 @@
 #include "ref_ptr.h"
 #include "vector3.h"
 
-class SClient;
+class SpaceClientClass;
 class SimpleSceneClass;
 class ClientObjectClass;
 class TargetReticleClass;
@@ -29,7 +29,7 @@ class RadarSystemDataCacheClass;
 class GutterRadarClass	// NAME 3: class-from-file (D24) for gutter_radar.cpp
 {
 public:
-	GutterRadarClass(SClient *client, const RefCountPtr<SimpleSceneClass> &scene);	// 0x7B6BD0  // NAME 2 [client, scene]: what it stores
+	GutterRadarClass(SpaceClientClass *client, const RefCountPtr<SimpleSceneClass> &scene);	// 0x7B6BD0  // NAME 2 [client, scene]: what it stores
 	~GutterRadarClass();															// 0x7B6D80
 
 	void Set_Targets(ClientObjectClass *first, ClientObjectClass *second, MouseTargeting *mouse_target);	// 0x7B6E40 (radar_system.cpp's 0x7BCA70)  // NAME 2: what it does
@@ -40,7 +40,7 @@ private:
 	bool Project(const Vector3 &pos, float radius);									// 0x7B71D0: the object's place on the screen, or on its edge; true when it is on the screen  // NAME 2: what it does
 	float Get_Icon_Scale(const Vector3 &pos, float radius);							// 0x7B75E0: from the Gutter_Icon_* options  // NAME 2: its options
 
-	SClient *Client;								// +0x00 (the FAIL_IF's name)
+	SpaceClientClass *Client;								// +0x00 (the FAIL_IF's name)
 	RefCountPtr<SimpleSceneClass> Scene;			// +0x04  // NAME 2: what it holds
 	TargetReticleClass *Reticle08;					// +0x08: size 0x44, hud01a at sort level 0x1C, no text  // NAME 1: neutral (D10)
 	TargetReticleClass *Reticle0C;					// +0x0C: sort level 0x1A, with text  // NAME 1: neutral (D10)

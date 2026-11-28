@@ -5,7 +5,7 @@
 **
 **	ClientTaskClass (its strings: 'ClientTask::Run'; tsk_game.cpp's asserts name its members): the
 **	game's task. It joins the master server (MODE_JOIN), waits for the redirect to a sector server
-**	(MODE_WAIT_FOR_REDIRECT), runs the sector through SClient (MODE_SECTOR) and, when that ends,
+**	(MODE_WAIT_FOR_REDIRECT), runs the sector through SpaceClientClass (MODE_SECTOR) and, when that ends,
 **	hands the kernel back to a new LoginTaskClass. Vtable 0xB03FF4, 0xA8 bytes (docs/kernel-map.md 3).
 */
 
@@ -24,7 +24,7 @@
 #include "..\..\shared\unknown_login_data.h"		// TicketClass
 
 class ConnectionClass;
-class SClient;
+class SpaceClientClass;
 
 class ClientTaskClass : public KernelTaskClass		// NAME 3: the client's 'ClientTask' (its profile label) in LoginTaskClass's form (D24)
 {
@@ -63,7 +63,7 @@ public:
 	int RedirectCount;									// +0x6C (the assert 'RedirectCount <= 50')
 	ConnectionClass *Master_Connection;					// +0x70 (the asserts)
 	unsigned long Address;								// +0x74 NAME 1: the master server's, or 0 for network.ini's
-	SClient *Client;									// +0x78 (the asserts 'Client')
+	SpaceClientClass *Client;									// +0x78 (the asserts 'Client')
 	int Unknown7C;										// +0x7C
 	std::string Username;								// +0x80 NAME 1: handed back to the next LoginTaskClass
 	std::string Password;								// +0x90 NAME 1: as Username

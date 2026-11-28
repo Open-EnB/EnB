@@ -80,7 +80,7 @@ void GalaxyMapClient::Load_Ini()
 
 
 // 0x7A4C50
-void GalaxyMapClient::Unknown_7A4C50(SClient *sclient, LinearBuffer &buffer)
+void GalaxyMapClient::Unknown_7A4C50(SpaceClientClass *sclient, LinearBuffer &buffer)
 {
 	FAIL_IF(!sclient) return;
 
@@ -219,7 +219,7 @@ Vector3 GalaxyMapClient::Unknown_7A54F0(const Vector3 &position)
 }
 
 // 0x7A5540
-bool GalaxyMapClient::Unknown_7A5540(SClient *client)
+bool GalaxyMapClient::Unknown_7A5540(SpaceClientClass *client)
 {
 	FAIL_IF(!client) return(ShowAll);
 	ShowAll = !ShowAll;

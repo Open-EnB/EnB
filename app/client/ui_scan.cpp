@@ -24,7 +24,7 @@ class LineDisplayClientClass  // NAME 1: neutral (D10)
 public:
 	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
 	virtual void Unknown_10(); virtual void Unknown_14();
-	virtual SClient *As_Space_Client();					// +0x18 (ClientClass::As_Space_Client; SClient's returns itself)  // NAME 3: the FAIL_IF's
+	virtual SpaceClientClass *As_Space_Client();					// +0x18 (ClientClass::As_Space_Client; SpaceClientClass's returns itself)  // NAME 3: the FAIL_IF's
 };
 #include "..\shared\auth_product.h"
 extern unsigned int Unknown_BE5F34;		// (gadget.cpp's: the event mask)
@@ -474,7 +474,7 @@ bool ScannerInterface::Unknown_68(int key)
 void ScannerInterface::Unknown_60()
 {
 	Client->As_Space_Client();
-	SClient *sclient = Client->As_Space_Client();
+	SpaceClientClass *sclient = Client->As_Space_Client();
 	if (sclient != NULL) {
 		RadarSystemClass *radar = sclient->MainView->Radar;
 		if (radar != NULL) {	// (+0x48: radar_system.h's GutterCount; sclient.h declares the class as far as cpacket.cpp calls it)
@@ -641,7 +641,7 @@ void Unknown59E2C0Class::Unknown_60ECA0(DurationClass time)
 
 
 // @0x60ECF0
-SClient *ScannerInterface::Get_Space_Client()
+SpaceClientClass *ScannerInterface::Get_Space_Client()
 {
 	return(Client->As_Space_Client());
 }
@@ -718,7 +718,7 @@ void ScannerInterface::Unknown_60EFE0(ClientObjectClass *object)
 
 
 	FAIL_IF(!client) return;
-	SClient *sclient = client->As_Space_Client();
+	SpaceClientClass *sclient = client->As_Space_Client();
 
 	FAIL_IF(!sclient) return;
 	GutterColorSetStruct colors = Unknown_70B0A0(sclient, object);
@@ -731,7 +731,7 @@ TargetSelectClass *ScannerInterface::Get_Targeting()	// @0x60F110 (out of line, 
 
 
 	FAIL_IF(!Client) return(NULL);
-	SClient *sclient = Client->As_Space_Client();
+	SpaceClientClass *sclient = Client->As_Space_Client();
 
 	FAIL_IF(!sclient) return(NULL);
 	TargetSelectClass *ts = sclient->Targeting;
@@ -831,7 +831,7 @@ void ScannerInterface::Unknown_60F1A0(bool arg)
 
 
 		FAIL_IF(!Get_Client()) return;
-		SClient *sclient = Get_Client()->As_Space_Client();
+		SpaceClientClass *sclient = Get_Client()->As_Space_Client();
 		FAIL_IF(!sclient) return;
 
 		DeltaPlayerClass *aux_data = sclient->AuxData;

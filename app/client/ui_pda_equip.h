@@ -13,7 +13,7 @@
 #include "gd_ship_equip_pip.h"	// GadgetShipEquipPipClass, the ship's PIP's gadget
 #include "..\..\wwlib\ref_ptr.h"
 
-class SClient;
+class SpaceClientClass;
 class RenderObjClass;
 class ButtonGadgetClass;		// unknown_675120.h's buttons
 
@@ -41,7 +41,7 @@ class UIPdaEquipClass : public UIInvClass	// NAME 3: class-from-file (D24) for a
 public:
 	enum { NUM_WEAPONS = 6, NUM_DEVICES = 6, NUM_COMPONENTS = 3, NUM_FRAMES = 15 };	// NAME 1: the set-up's loops ('w%02d', 's%02d', 'c%02d')
 	enum { LAST_WEAPON_SLOT = 5, FIRST_SYSTEM_SLOT = 6, LAST_SYSTEM_SLOT = 11, SHIELD_SLOT = 12, POWER_SLOT = 13, ENGINE_SLOT = 14 };	// NAME 3: the asserts' (the last three: 0x5D2850's names)
-	UIPdaEquipClass(SClient *client);					// 0x5D10C0 (the kind 11; deleting 0x5D1220)  // NAME 1 [client]: what the PDA passes
+	UIPdaEquipClass(SpaceClientClass *client);					// 0x5D10C0 (the kind 11; deleting 0x5D1220)  // NAME 1 [client]: what the PDA passes
 	virtual ~UIPdaEquipClass();							// 0x5D1A00
 	virtual void Unknown_54();							// +0x54 0x5D1250 (FAIL_IF '!InterfaceMesh' l.110)
 	virtual void Unknown_58();							// +0x58 0x5D1CA0 (FAIL_IF '!InterfaceMesh' l.221, G_ASSERT 'attach' l.235)

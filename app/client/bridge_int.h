@@ -22,7 +22,7 @@ class AvatarClass;
 class FlashingGadgetEvent;
 class GadgetClass;
 
-// bridge_int.cpp's interface (0xC4 bytes, table 0xAEEA7C over the observer's 0xAEEA88; SClient's +0x128C, made by its
+// bridge_int.cpp's interface (0xC4 bytes, table 0xAEEA7C over the observer's 0xAEEA88; SpaceClientClass's +0x128C, made by its
 // Init and deleted by its Shutdown): the ship's bridge around the first-person camera. It owns the bridge's mesh (the
 // race's 't_i_bridge' / 'j_i_bridge' / 'p_i_bridge' model) and listens to its animations, seats the player's avatar on
 // the mesh's 'main_chair' bone, puts both into the main view's bridge scene while the camera is inside the ship, and
@@ -36,7 +36,7 @@ public:
 	virtual void Unknown_00(ObserverSubjectClass *subject, void *event);	// +0x00 0x53B500: the mesh's animation started (1: the camera back to the main bone), ended (3: the view reached) or else (the mesh's flag bit 0 cleared)
 	void Set_Avatar(AvatarDescriptionClass *desc);				// 0x53B7A0 (0x74C3B0: the player's own avatar arrived): the race's bridge model and a second avatar of that description for the chair  // NAME 1: what it does; [desc]: what it is
 	void Set_Scene(const RefCountPtr<RefCountClass> &scene);	// 0x53BBC0 (0x744C10: the main view's bridge scene, or NULL when the camera is outside): the mesh and the avatar out of the old scene and into the new one  // NAME 1: what it does; [scene]: what it is (a RefCountClass as 0x744C10 wraps it: its Create_Peek is the client's 0x514960)
-	void Do_Frame(CameraClass *camera);					// 0x53BD40 (SClient's Do_Frame, while there is a scene): the processes, the avatar, the bridge's transform and the camera's (FAIL_IF '!camera')  // NAME 1: its caller's; NAME 3 [camera]: the FAIL_IF's
+	void Do_Frame(CameraClass *camera);					// 0x53BD40 (SpaceClientClass's Do_Frame, while there is a scene): the processes, the avatar, the bridge's transform and the camera's (FAIL_IF '!camera')  // NAME 1: its caller's; NAME 3 [camera]: the FAIL_IF's
 
 	// What the avatar plays in its chair (+0x7C). The high word is the rank: a playing animation is not replaced by
 	// one of a higher rank number. Each name is the animation's tag in the avatar's personality.

@@ -21,7 +21,7 @@ struct KeyMappingStruct;		// control_keys_manager.h's
 class UIOptionControlKeysClass : public ChatPanelUIBase	// NAME 1: neutral, after its file and tooltips' section 'UI_OPTION_CONTROL_KEYS'
 {
 public:
-	UIOptionControlKeysClass(SClient *client, bool mode);	// 0x5CA010 (deleting 0x5CA180)  // NAME 1 [client, mode]: what it does with them
+	UIOptionControlKeysClass(SpaceClientClass *client, bool mode);	// 0x5CA010 (deleting 0x5CA180)  // NAME 1 [client, mode]: what it does with them
 	virtual ~UIOptionControlKeysClass();				// 0x5CA1B0
 	virtual void Unknown_54();							// +0x54 0x5CA330 ('tsi31a': the buttons, the rows, the slider, the key-press gadget, Escape)
 	virtual void Unknown_58();							// +0x58 0x5CA910 (FAIL_IF '!key_manager'; the base's when not Active)

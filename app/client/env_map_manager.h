@@ -3,7 +3,7 @@
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	Original location: unknown (PROVISIONAL: app\Client\env_map_manager.h beside env_map_manager.cpp, D137)
 **
-**	EnvironmentMapManagerClass: the environment maps (0x24 bytes): SClient +0x1338 and CharacterViewClass
+**	EnvironmentMapManagerClass: the environment maps (0x24 bytes): SpaceClientClass +0x1338 and CharacterViewClass
 **	+0x3A4 make one and Load 'envmaps.ini' into it; 0x760770 builds the reflection textures from it.
 **	sclient.cpp, charview.cpp and scriptedmovie.cpp still declare their own views of it (same layout).
 */

@@ -11,7 +11,7 @@
 class EmoteCameraControllerClass : public CameraControllerClass  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	EmoteCameraControllerClass(SClient *client);			// 0x7930E0
+	EmoteCameraControllerClass(SpaceClientClass *client);			// 0x7930E0
 	virtual ~EmoteCameraControllerClass();					// 0x7931B0, deleting 0x793180
 	virtual void Unknown_04();							// +0x04 0x793230
 	virtual void Unknown_08(Vector3 *pos, Quaternion *rot, int *mode, int *target);	// +0x08 0x793250

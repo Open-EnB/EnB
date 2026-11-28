@@ -101,7 +101,7 @@ class ArgumentControl(unittest.TestCase):
 @unittest.skipUnless(FIX and os.path.exists(os.path.join(FIX, 'lst', 'sclient.obj')), 'fixtures missing')
 class SwitchControl(unittest.TestCase):
     """No session 0 case had a wrong case target, so the control is made: the client's jump table of the exact
-    SClient::Unknown_743290 (0x7432F4) read with its first two entries swapped."""
+    SpaceClientClass::Unknown_743290 (0x7432F4) read with its first two entries swapped."""
     def test_swapped_cases(self):
         ctx = B.Context([os.path.join(FIX, 'lst')], stale=False)
         ctx.paths = [p for p in ctx.paths if p.endswith('sclient.obj')]
@@ -146,7 +146,7 @@ def patched_image(ctx, edits):
 @unittest.skipUnless(FIX and os.path.exists(os.path.join(FIX, 'lst', 'sclient.obj')), 'fixtures missing')
 class TablesControl(unittest.TestCase):
     """tables (A7): an exact function's case values sent to another body. Made controls on the client's tables: the
-    exact SClient::Unknown_743290's jump table 0x7432F4 with its first two entries swapped (bodies that differ), and
+    exact SpaceClientClass::Unknown_743290's jump table 0x7432F4 with its first two entries swapped (bodies that differ), and
     the exact starmap_data Unknown_7BF4C0's byte index table (a two-level switch) with two indexes swapped."""
 
     def test_clean(self):

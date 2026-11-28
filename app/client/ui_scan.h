@@ -16,7 +16,7 @@ class UIMeshClass;
 class GadgetClass;
 class ClientObjectClass;
 class TargetSelectClass;
-class SClient;
+class SpaceClientClass;
 class PlayerObjectRelationshipChangeEvent;
 
 // What the scanner holds at +0x1A0 (0x38 bytes, made inline in 0x60D8D0, deleted inline in 0x60DF90): the target's threat
@@ -70,7 +70,7 @@ public:
 	ClientObjectClass *Peek_Object() { return(Object); }	// (inline: 0x60ED10's FAIL_IF 'object != Peek_Object()')  // NAME 3: the FAIL_IF's
 	LineDisplayClientClass *Get_Client() { return(Client); }	// (inline: 0x60F1A0's FAIL_IF '!Get_Client()', as FactionInterface's)  // NAME 3: the FAIL_IF's
 	TargetSelectClass *Get_Targeting();					// 0x60F110 (out of line, no caller; inline in 0x60E300: FAIL_IFs '!Client', '!sclient', '!ts' l.733-739)  // NAME 2: what it returns
-	SClient *Get_Space_Client();						// 0x60ECF0 (no caller: Client's As_Space_Client)  // NAME 1: what it returns
+	SpaceClientClass *Get_Space_Client();						// 0x60ECF0 (no caller: Client's As_Space_Client)  // NAME 1: what it returns
 
 	UIMeshClass *UIMesh;								// +0x188  // NAME 5: the client's asserts 'UIMesh', '!UIMesh'
 	GadgetClass *Buttons[3];							// +0x18C (the constructor's memset; [1] 'PREV_TARGET' id 6, [2] 'NEXT_TARGET' id 7)  // NAME 2: what it holds

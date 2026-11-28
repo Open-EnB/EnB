@@ -11,7 +11,7 @@
 class UIPetitionStuckClass : public UIPetitionEntryClass	// NAME 1: neutral, after the file
 {
 public:
-	UIPetitionStuckClass(SClient *client, int unknown0B4);	// 0x5D7370 (deleting 0x5D73C0)  // NAME 1 [client, unknown0B4]: neutral
+	UIPetitionStuckClass(SpaceClientClass *client, int unknown0B4);	// 0x5D7370 (deleting 0x5D73C0)  // NAME 1 [client, unknown0B4]: neutral
 	virtual ~UIPetitionStuckClass();					// 0x5D73F0
 	virtual bool Unknown_A0();							// +0xA0 0x5D7420 (FAIL_IF '!Get_Client()': the petition sent)
 

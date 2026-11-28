@@ -43,7 +43,7 @@ void Unknown5DD960Class::Unknown_5C()
 // @0x5DDB60
 bool Unknown5DD960Class::Unknown_68(int key)
 {
-	SClient *sclient = (SClient *)Client;
+	SpaceClientClass *sclient = (SpaceClientClass *)Client;
 	switch (key - 5) {
 		case 1:
 			SoundLibraryClass::Play_2D_Sound("ButtonClick01.wav", 2);

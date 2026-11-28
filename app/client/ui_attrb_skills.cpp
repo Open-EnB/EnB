@@ -44,7 +44,7 @@ public:
 };
 
 // 0x549640
-AttributeSkillsInterface::AttributeSkillsInterface(SClient *client) :
+AttributeSkillsInterface::AttributeSkillsInterface(SpaceClientClass *client) :
 	UISkillsClass(client),
 	UnknownD4(NULL),
 	UnknownD8(NULL),
@@ -85,7 +85,7 @@ class LineDisplayClientClass  // NAME 1: neutral (D10)
 public:
 	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
 	virtual void Unknown_10(); virtual void Unknown_14();
-	virtual SClient *As_Space_Client();					// +0x18 (as ui_manu.cpp's)  // NAME 3: the FAIL_IF's in ui_manu.cpp
+	virtual SpaceClientClass *As_Space_Client();					// +0x18 (as ui_manu.cpp's)  // NAME 3: the FAIL_IF's in ui_manu.cpp
 };
 #include "..\audio\soundlib.h"
 int Unknown_82F350(int race, int prof);				// chartemplate.cpp's 0x82F350 (race and profession to the class index)  // NAME 1: neutral (D10), as chartemplate.cpp's

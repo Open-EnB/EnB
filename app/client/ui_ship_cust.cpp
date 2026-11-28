@@ -103,7 +103,7 @@ class LineDisplayClientClass  // NAME 1: neutral (D10)
 public:
 	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
 	virtual void Unknown_10(); virtual void Unknown_14();
-	virtual SClient *As_Space_Client();					// +0x18 (as ui_manu.cpp's)  // NAME 3: the FAIL_IF's in ui_manu.cpp
+	virtual SpaceClientClass *As_Space_Client();					// +0x18 (as ui_manu.cpp's)  // NAME 3: the FAIL_IF's in ui_manu.cpp
 };
 template<class C> inline C *UIShipCust_Find_Valid(DeltaContainer *root, const char *name) { AuxDataName n(name); C *t = Unknown_Find_Field<C>(root, n); if (t && t->Unknown70) return(t); return(NULL); }	// NAME 1: neutral (D10): as ui_avatar_cust.cpp's
 template<class C> inline C *UIShipCust_Find_Changed(DeltaContainer *root, const char *name) { AuxDataName n(name); C *t = Unknown_Find_Field<C>(root, n); if (t && t->Unknown70 > 1) return(t); return(NULL); }	// NAME 1: neutral (D10): as ui_avatar_cust.cpp's
@@ -803,7 +803,7 @@ void StarbaseShipCustomizeInterface::Unknown_61AF50()
 void StarbaseShipCustomizeInterface::Unknown_61AFC0()
 {
 	if (Unknown334) {
-		SClient *client = SBaseView->Client;
+		SpaceClientClass *client = SBaseView->Client;
 		Unknown_621790(client->Peek_Environment_Map_Manager(), Unknown318, Unknown330);
 		if (Unknown2E0->Unknown054.Peek() == NULL) {
 			InterfaceSortScopeClass sort(this);
@@ -2033,7 +2033,7 @@ void StarbaseShipCustomizeInterface::Unknown_61E730(FlashingGadgetEvent *event, 
 
 // @0x61E8B0
 void StarbaseShipCustomizeInterface::Unknown_61E8B0() {
-	SClient *client = SBaseView->Client;
+	SpaceClientClass *client = SBaseView->Client;
 	const int &id = client->AvatarID;
 	client->Unknown_74C960(id);
 }
@@ -2135,7 +2135,7 @@ void StarbaseShipCustomizeInterface::Unknown_61F180()
 // @0x61F1D0
 void StarbaseShipCustomizeInterface::Unknown_61F1D0()
 {
-	SClient *client = Client->As_Space_Client();
+	SpaceClientClass *client = Client->As_Space_Client();
 	int id = client->Unknown1138;
 	client->Send_Packet(&StarbaseReqPacketClass(id, 11, 0));
 }
@@ -2173,7 +2173,7 @@ void StarbaseShipCustomizeInterface::Unknown_61F250(ShipCustDescClass *desc, Shi
 // @0x61F690
 void StarbaseShipCustomizeInterface::Unknown_61F690()
 {
-	SClient *client = Client->As_Space_Client();
+	SpaceClientClass *client = Client->As_Space_Client();
 	int id = client->Unknown1138;
 	client->Send_Packet(&RecustomizeShipDonePacketClass(id, Desc));
 }

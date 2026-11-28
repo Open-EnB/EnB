@@ -16,7 +16,7 @@ class GadgetSlider;
 class UIRadioListClass : public ChatPanelUIBase	// NAME 1: neutral, after the window's lists
 {
 public:
-	UIRadioListClass(SClient *client, int state);		// 0x5E7500 (deleting 0x5E7680)  // NAME 1 [client, state]: what the members hold
+	UIRadioListClass(SpaceClientClass *client, int state);		// 0x5E7500 (deleting 0x5E7680)  // NAME 1 [client, state]: what the members hold
 	virtual ~UIRadioListClass();						// 0x5E76B0
 	virtual void Unknown_54();							// +0x54 0x5E78B0 ('cht02': the buttons 'EXIT', 'BUTTON01', 'BUTTON02', the rows 'NAME00'-'NAME06')
 	virtual void Unknown_58();							// +0x58 0x5E7AD0 (activated: the lists emptied, the list requested)

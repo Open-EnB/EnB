@@ -37,22 +37,22 @@ int GuildSimpleSectorClientPacket::Print(char *buffer, int len)
 	return(_snprintf(buffer, len, "GuildSimpleSectorClientPacket {Type=%d OptionalParam=%s}", Type, OptionalParam.c_str()));
 }
 
-GuildSimpleClientSectorPacketClass::GuildSimpleClientSectorPacketClass(int type, int player_id, const char *optional_param) : Type(type), PlayerID(player_id), OptionalParam(optional_param)
+GuildSimpleClientSectorPacket::GuildSimpleClientSectorPacket(int type, int player_id, const char *optional_param) : Type(type), PlayerID(player_id), OptionalParam(optional_param)
 {
 }
 
-GuildSimpleClientSectorPacketClass::GuildSimpleClientSectorPacketClass(RawPacketClass *raw)
+GuildSimpleClientSectorPacket::GuildSimpleClientSectorPacket(RawPacketClass *raw)
 {
 	raw->Get(&Type, sizeof(Type));
 	raw->Get(PlayerID);
 	raw->Get(&OptionalParam);
 }
 
-GuildSimpleClientSectorPacketClass::~GuildSimpleClientSectorPacketClass()
+GuildSimpleClientSectorPacket::~GuildSimpleClientSectorPacket()
 {
 }
 
-RawPacketClass *GuildSimpleClientSectorPacketClass::Build()
+RawPacketClass *GuildSimpleClientSectorPacket::Build()
 {
 	RawPacketClass *raw = new RawPacketClass(205, Get_Data_Size());
 	raw->Add(&Type, sizeof(Type));
@@ -61,12 +61,12 @@ RawPacketClass *GuildSimpleClientSectorPacketClass::Build()
 	return(raw);
 }
 
-int GuildSimpleClientSectorPacketClass::Get_Data_Size()
+int GuildSimpleClientSectorPacket::Get_Data_Size()
 {
 	return(sizeof(Type) + sizeof(PlayerID) + RawPacketClass::Get_Size(OptionalParam));
 }
 
-int GuildSimpleClientSectorPacketClass::Print(char *buffer, int len)
+int GuildSimpleClientSectorPacket::Print(char *buffer, int len)
 {
 	return(_snprintf(buffer, len, "GuildSimpleClientSectorPacket {Type=%d PlayerID=%d OptionalParam=%s}", Type, PlayerID, OptionalParam.c_str()));
 }

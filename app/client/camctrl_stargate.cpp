@@ -12,7 +12,7 @@ extern Random4Class Unknown_BDB1C0;				// NAME 1 [Unknown_BDB1C0]: 0xBDB1C0, the
 static float Unknown_B04FF8 = 4.0f;				// NAME 1: neutral (D10): 0x795C80's
 
 // @0x795900
-StargateCameraControllerClass::StargateCameraControllerClass(SClient *client) :
+StargateCameraControllerClass::StargateCameraControllerClass(SpaceClientClass *client) :
 	CameraControllerClass(client),
 	Unknown0C(NULL),
 	Unknown10(0),

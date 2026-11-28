@@ -24,7 +24,7 @@ public:
 	enum { MISSIONS_PER_PAGE = 3 };						// NAME 3: the G_ASSERTs' (l.397, 473, 528); its value from 0x5C4C90's loop
 	enum { NO_CURRENT_MISSION = -1 };					// NAME 3: the G_ASSERT's (l.688); its value from the constructor's +0xC8
 	enum { MAX_GADGETS = 5 };							// NAME 1: the constructor clears 5 (+0xD8..+0xE8)
-	MissionInterface(SClient *client);						// 0x5C4170 (0xEC bytes; deleting 0x5C42B0)  // NAME 1 [client]: as BioInterface's
+	MissionInterface(SpaceClientClass *client);						// 0x5C4170 (0xEC bytes; deleting 0x5C42B0)  // NAME 1 [client]: as BioInterface's
 	virtual ~MissionInterface();							// 0x5C42E0 ('fa_TSI22A.ini' unloaded)
 	virtual void Unknown_54();							// 0x5C4610 (FAIL_IFs '!DescriptionPanel' / '!forfeit', G_ASSERTs on the button textures)
 	virtual void Unknown_58();							// 0x5C4BB0 (activated: 0x5C5330(true) under a sort scope)

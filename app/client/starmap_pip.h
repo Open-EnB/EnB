@@ -25,7 +25,7 @@
 #include "map_pip.h"
 #include "nav_list_line_draw.h"
 
-class SClient;
+class SpaceClientClass;
 class SceneClass;
 class FontSys;
 class ClientObjectClass;
@@ -64,7 +64,7 @@ public:
 class StarmapPIPClass : public MapPIPClass  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	StarmapPIPClass(SClient *client);					// 0x7BF930  // NAME 1 [client]: neutral
+	StarmapPIPClass(SpaceClientClass *client);					// 0x7BF930  // NAME 1 [client]: neutral
 	virtual ~StarmapPIPClass();							// +0x00 0x7BFF20 (deleting 0x7BFEF0)
 	virtual bool Unknown_04(const RefCountPtr<InterfaceClass> &iface_ptr, const RefCountPtr<RenderObjClass> &vp, int arg);	// +0x04 0x7C0BC0  // NAME 2 [iface_ptr, vp]: map_pip.h's  // NAME 1 [arg]: neutral
 	virtual bool Unknown_08();							// +0x08 0x7C0D40

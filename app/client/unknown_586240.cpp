@@ -37,7 +37,7 @@ public:
 };
 
 // 0x586240
-UISpaceLightsClass::UISpaceLightsClass(SClient *client) :
+UISpaceLightsClass::UISpaceLightsClass(SpaceClientClass *client) :
 	ChatPanelUIBase(client),
 	Pull(NULL),
 	Current(-1)

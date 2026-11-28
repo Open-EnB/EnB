@@ -31,7 +31,7 @@ template<class C> inline C *Unknown_Find_Valid(DeltaContainer *root, const AuxDa
 
 
 
-RefCountPtr<ClientItemPropertySpecialSkillRequirementClass> ClientItemPropertySpecialSkillRequirementClass::Create(SClient *space_client, const std::string &skill, int level, RequirementType type)
+RefCountPtr<ClientItemPropertySpecialSkillRequirementClass> ClientItemPropertySpecialSkillRequirementClass::Create(SpaceClientClass *space_client, const std::string &skill, int level, RequirementType type)
 {
 	std::string tooltip;
 	int sort_order;
@@ -52,7 +52,7 @@ RefCountPtr<ClientItemPropertySpecialSkillRequirementClass> ClientItemPropertySp
 	return(requirement);
 }
 
-ClientItemPropertySpecialSkillRequirementClass::ClientItemPropertySpecialSkillRequirementClass(SClient *space_client, int sort_order, const std::string &tooltip, const std::string &skill, int level) :
+ClientItemPropertySpecialSkillRequirementClass::ClientItemPropertySpecialSkillRequirementClass(SpaceClientClass *space_client, int sort_order, const std::string &tooltip, const std::string &skill, int level) :
 	ClientItemPropertySpecialClass(sort_order, tooltip, 0, 1),
 	SpaceClient(space_client),
 	Skill(skill),

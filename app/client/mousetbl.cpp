@@ -146,7 +146,7 @@ void Unknown_723150()
 **	* 0x7227F0 (a cursor from a render object's material texture) and 0x722890 (the destructor out of
 **	  line) have no reference in the client; the unloader inlines the destructor.
 **	* The loader / unloader are reference counted (0xBE7CD4): LoginTaskClass's constructor / destructor
-**	  and SClient::Load_INIs / Unload_INIs each call them.
+**	  and SpaceClientClass::Load_INIs / Unload_INIs each call them.
 **	* The object's start: 0x722720 / 0x722740 before it are a singly linked list's Is_Empty / Count
 **	  (template code, placed by the linker), 0x722660 a list insert; not this file's.
 **	* mousetbl.h (PROVISIONAL name, D137) holds the struct, the enum and the table for this file and smouse.cpp (KRN2).

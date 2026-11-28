@@ -12,7 +12,7 @@
 class TakeoffCameraControllerClass : public CameraControllerClass  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	TakeoffCameraControllerClass(SClient *client);			// 0x7961B0
+	TakeoffCameraControllerClass(SpaceClientClass *client);			// 0x7961B0
 	virtual ~TakeoffCameraControllerClass();					// 0x796280, deleting 0x796250
 	virtual void Unknown_04();							// +0x04 0x796300
 	virtual void Unknown_08(Vector3 *pos, Quaternion *rot, int *mode, int *target);	// +0x08 0x796440

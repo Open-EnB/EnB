@@ -7,7 +7,7 @@
 #include "..\..\ww3d2\scene.h"
 #include "..\shared\auth_product.h"
 // @0x7B97F0
-NavListLineDrawClass::NavListLineDrawClass(SClient *client, float width, int sort, const Vector3 &color, float opacity) :
+NavListLineDrawClass::NavListLineDrawClass(SpaceClientClass *client, float width, int sort, const Vector3 &color, float opacity) :
 	Client(client),
 	Unknown04(NULL),
 	List(NULL),

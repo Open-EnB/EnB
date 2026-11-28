@@ -51,7 +51,7 @@ void OptionManagerClass::Free_Options()
 	Free_Option_Map(Strings);
 }
 
-void OptionManagerClass::Set_Defaults(SClient *client)
+void OptionManagerClass::Set_Defaults(SpaceClientClass *client)
 {
 	Free_Options();
 
@@ -318,7 +318,7 @@ void OptionManagerClass::Set_Defaults(SClient *client)
 	Strings[string_option->Get_Name()] = string_option;
 }
 
-void OptionManagerClass::Load(__int64 character_id, SClient *client)
+void OptionManagerClass::Load(__int64 character_id, SpaceClientClass *client)
 {
 	Set_Defaults(client);
 	CharacterID = character_id % 1000000000;
@@ -879,7 +879,7 @@ std::string OptionManagerClass::Get_Default_String(const char *name)
 **	the Find / Get / Get_Default accessors 0x7F9520-0x7F9970, then the hash_map instances
 **	0x7F9AF0-0x7FE980 (libs/sgistl, the string hash 0x42DB00: D87) and the helpers Find_Option
 **	0x7FCBF0... / Free_Option_Map 0x7FC600...
-**	Set_Defaults reads SClient's render budgets (soptions.h: PolyBudget +0x1158, LandPolyBudget
+**	Set_Defaults reads SpaceClientClass's render budgets (soptions.h: PolyBudget +0x1158, LandPolyBudget
 **	+0x1160, LandLOD +0x1164, TextureReduction +0x1168) into the graphics sliders' percentages.
 **	Load: an option the defaults don't have is reported ('Obsolete ... option encountered'); a
 **	section without OptionName is skipped without advancing the index (as the client).

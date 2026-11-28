@@ -32,7 +32,7 @@ class LineDisplayClientClass  // NAME 1: neutral (D10)
 public:
 	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
 	virtual void Unknown_10(); virtual void Unknown_14();
-	virtual SClient *As_Space_Client();					// +0x18
+	virtual SpaceClientClass *As_Space_Client();					// +0x18
 };
 
 // drag_slot_data.cpp's drag of a slot (the slot window's +0xA0), as this file calls it
@@ -124,7 +124,7 @@ void UIInvStripClass::Unknown_54()
 }
 
 // 0x59F3D0
-UIInvClass::UIInvClass(SClient *client, int kind) :
+UIInvClass::UIInvClass(SpaceClientClass *client, int kind) :
 	SlotDataInterface(client),
 	Kind(kind),
 	InvType(INV_NONE),
@@ -740,7 +740,7 @@ void UIInvClass::Unknown_5A06C0(SlotDataGadget *gadget)
 // 0x5A0740
 bool UIInvClass::Unknown_5A0740(SlotDataGadget *slot_gadget)
 {
-	SClient *sclient = Client->As_Space_Client();
+	SpaceClientClass *sclient = Client->As_Space_Client();
 	FAIL_IF(!sclient) return(true);
 	int from_slot = SlotDrag->Get_Slot();
 	bool handled = true;								// (the result from the transfer on: its first return is where the client has its one 'return true' block)  // NAME 2: what it holds
@@ -999,7 +999,7 @@ bool UIInvClass::Unknown_5A0EB0(int slot, int mode)
 // 0x59EA30 (MODEL = UIMeshClass), 0x59EDC0 (MODEL = RenderObjClass): the model's sub-objects named by the format and
 // the index, each kept for the set-up (Add inline: its FAIL_IF l.108)
 template<class MODEL>
-UIInvStripOfClass<MODEL>::UIInvStripOfClass(SClient *client, MODEL *model, int count, const char *format, int kind) :
+UIInvStripOfClass<MODEL>::UIInvStripOfClass(SpaceClientClass *client, MODEL *model, int count, const char *format, int kind) :
 	UIInvStripClass(client, kind)
 {
 	for (int i = 0; i < count; i++) {

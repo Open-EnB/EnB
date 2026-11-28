@@ -677,71 +677,71 @@ LY_SIZE(ChatBasicRequestPacketClass, 0x30)	// opcode 167 (pkunknown_87a940.h)
 LY_OFF(ChatBasicRequestPacketClass, Unknown0C, 0xC)	// client
 LY_OFF(ChatBasicRequestPacketClass, Unknown10, 0x10)	// client
 LY_OFF(ChatBasicRequestPacketClass, Unknown20, 0x20)	// client
-LY_SIZE(Packet_00A8Class, 0x68)	// opcode 168 (pkunknown_87acd0.h)
-LY_OFF(Packet_00A8Class, Unknown0C, 0xC)	// header
-LY_OFF(Packet_00A8Class, Unknown10, 0x10)	// header
-LY_OFF(Packet_00A8Class, Unknown20, 0x20)	// header
-LY_OFF(Packet_00A8Class, Unknown30, 0x30)	// header
-LY_OFF(Packet_00A8Class, Unknown34, 0x34)	// header
-LY_OFF(Packet_00A8Class, Unknown38, 0x38)	// header
-LY_OFF(Packet_00A8Class, Unknown40, 0x40)	// header
-LY_OFF(Packet_00A8Class, Unknown48, 0x48)	// header
-LY_OFF(Packet_00A8Class, Unknown58, 0x58)	// header
-LY_SIZE(Packet_00A9Class, 0x80)	// opcode 169 (pkunknown_87acd0.h)
-LY_OFF(Packet_00A9Class, Unknown0C, 0xC)	// header
-LY_OFF(Packet_00A9Class, Unknown10, 0x10)	// header
-LY_OFF(Packet_00A9Class, Unknown14, 0x14)	// header
-LY_OFF(Packet_00A9Class, Unknown24, 0x24)	// header
-LY_OFF(Packet_00A9Class, Unknown34, 0x34)	// header
-LY_OFF(Packet_00A9Class, Unknown44, 0x44)	// header
-LY_OFF(Packet_00A9Class, Unknown54, 0x54)	// header
-LY_OFF(Packet_00A9Class, Unknown64, 0x64)	// header
-LY_OFF(Packet_00A9Class, Data, 0x74)	// header
-LY_OFF(Packet_00A9Class, Size, 0x78)	// header
-LY_OFF(Packet_00A9Class, Owned, 0x7C)	// header
+LY_SIZE(ChatProxyLoginPacketClass, 0x68)	// opcode 168 (pkunknown_87acd0.h)
+LY_OFF(ChatProxyLoginPacketClass, Unknown0C, 0xC)	// header
+LY_OFF(ChatProxyLoginPacketClass, Unknown10, 0x10)	// header
+LY_OFF(ChatProxyLoginPacketClass, Unknown20, 0x20)	// header
+LY_OFF(ChatProxyLoginPacketClass, Unknown30, 0x30)	// header
+LY_OFF(ChatProxyLoginPacketClass, Unknown34, 0x34)	// header
+LY_OFF(ChatProxyLoginPacketClass, Unknown38, 0x38)	// header
+LY_OFF(ChatProxyLoginPacketClass, Unknown40, 0x40)	// header
+LY_OFF(ChatProxyLoginPacketClass, Unknown48, 0x48)	// header
+LY_OFF(ChatProxyLoginPacketClass, Unknown58, 0x58)	// header
+LY_SIZE(ChatProxyRequestPacketClass, 0x80)	// opcode 169 (pkunknown_87acd0.h)
+LY_OFF(ChatProxyRequestPacketClass, Unknown0C, 0xC)	// header
+LY_OFF(ChatProxyRequestPacketClass, Unknown10, 0x10)	// header
+LY_OFF(ChatProxyRequestPacketClass, Unknown14, 0x14)	// header
+LY_OFF(ChatProxyRequestPacketClass, Unknown24, 0x24)	// header
+LY_OFF(ChatProxyRequestPacketClass, Unknown34, 0x34)	// header
+LY_OFF(ChatProxyRequestPacketClass, Unknown44, 0x44)	// header
+LY_OFF(ChatProxyRequestPacketClass, Unknown54, 0x54)	// header
+LY_OFF(ChatProxyRequestPacketClass, Unknown64, 0x64)	// header
+LY_OFF(ChatProxyRequestPacketClass, Data, 0x74)	// header
+LY_OFF(ChatProxyRequestPacketClass, Size, 0x78)	// header
+LY_OFF(ChatProxyRequestPacketClass, Owned, 0x7C)	// header
 LY_SIZE(ChatProxyResponsePacketClass, 0x14)	// opcode 170 (pkunknown_87acd0.h)
 LY_OFF(ChatProxyResponsePacketClass, Unknown0C, 0xC)	// client
 LY_OFF(ChatProxyResponsePacketClass, Unknown10, 0x10)	// client
-LY_SIZE(Packet_00ABClass, 0x50)	// opcode 171 (pkunknown_87acd0.h)
-LY_OFF(Packet_00ABClass, Unknown0C, 0xC)	// header
-LY_OFF(Packet_00ABClass, Unknown1C, 0x1C)	// header
-LY_OFF(Packet_00ABClass, Unknown2C, 0x2C)	// header
-LY_OFF(Packet_00ABClass, Unknown30, 0x30)	// header
-LY_OFF(Packet_00ABClass, Unknown40, 0x40)	// header
-LY_SIZE(Packet_00ACClass, 0x8C)	// opcode 172 (pkunknown_87acd0.h)
-LY_OFF(Packet_00ACClass, Unknown0C, 0xC)	// header
-LY_OFF(Packet_00ACClass, Unknown1C, 0x1C)	// header
-LY_OFF(Packet_00ACClass, Unknown20, 0x20)	// header
-LY_OFF(Packet_00ACClass, Unknown30, 0x30)	// header
-LY_OFF(Packet_00ACClass, Unknown40, 0x40)	// header
-LY_OFF(Packet_00ACClass, Unknown50, 0x50)	// header
-LY_OFF(Packet_00ACClass, Unknown60, 0x60)	// header
-LY_OFF(Packet_00ACClass, Unknown70, 0x70)	// header
-LY_OFF(Packet_00ACClass, Data, 0x80)	// header
-LY_OFF(Packet_00ACClass, Size, 0x84)	// header
-LY_OFF(Packet_00ACClass, Owned, 0x88)	// header
+LY_SIZE(ChatProxyResponseListPacketClass, 0x50)	// opcode 171 (pkunknown_87acd0.h)
+LY_OFF(ChatProxyResponseListPacketClass, Unknown0C, 0xC)	// header
+LY_OFF(ChatProxyResponseListPacketClass, Unknown1C, 0x1C)	// header
+LY_OFF(ChatProxyResponseListPacketClass, Unknown2C, 0x2C)	// header
+LY_OFF(ChatProxyResponseListPacketClass, Unknown30, 0x30)	// header
+LY_OFF(ChatProxyResponseListPacketClass, Unknown40, 0x40)	// header
+LY_SIZE(ChatProxyEventPacketClass, 0x8C)	// opcode 172 (pkunknown_87acd0.h)
+LY_OFF(ChatProxyEventPacketClass, Unknown0C, 0xC)	// header
+LY_OFF(ChatProxyEventPacketClass, Unknown1C, 0x1C)	// header
+LY_OFF(ChatProxyEventPacketClass, Unknown20, 0x20)	// header
+LY_OFF(ChatProxyEventPacketClass, Unknown30, 0x30)	// header
+LY_OFF(ChatProxyEventPacketClass, Unknown40, 0x40)	// header
+LY_OFF(ChatProxyEventPacketClass, Unknown50, 0x50)	// header
+LY_OFF(ChatProxyEventPacketClass, Unknown60, 0x60)	// header
+LY_OFF(ChatProxyEventPacketClass, Unknown70, 0x70)	// header
+LY_OFF(ChatProxyEventPacketClass, Data, 0x80)	// header
+LY_OFF(ChatProxyEventPacketClass, Size, 0x84)	// header
+LY_OFF(ChatProxyEventPacketClass, Owned, 0x88)	// header
 LY_SIZE(Packet_00ADClass, 0x30)	// opcode 173 (pkunknown_888b60.h)
 LY_OFF(Packet_00ADClass, Unknown0C, 0xC)	// header
 LY_OFF(Packet_00ADClass, Unknown10, 0x10)	// header
-LY_SIZE(Packet_00AEClass, 0x28)	// opcode 174 (pkunknown_888b60.h)
-LY_OFF(Packet_00AEClass, Unknown0C, 0xC)	// client
-LY_OFF(Packet_00AEClass, Unknown10, 0x10)	// client
-LY_OFF(Packet_00AEClass, Unknown18, 0x18)	// client
-LY_OFF(Packet_00AEClass, Unknown20, 0x20)	// client
+LY_SIZE(GroupServerRequestPacketClass, 0x28)	// opcode 174 (pkunknown_888b60.h)
+LY_OFF(GroupServerRequestPacketClass, Unknown0C, 0xC)	// client
+LY_OFF(GroupServerRequestPacketClass, Unknown10, 0x10)	// client
+LY_OFF(GroupServerRequestPacketClass, Unknown18, 0x18)	// client
+LY_OFF(GroupServerRequestPacketClass, Unknown20, 0x20)	// client
 LY_SIZE(GroupServerResponsePacketClass, 0x14)	// opcode 175 (pkunknown_888b60.h)
 LY_OFF(GroupServerResponsePacketClass, Unknown0C, 0xC)	// client
 LY_OFF(GroupServerResponsePacketClass, Unknown10, 0x10)	// client
-LY_SIZE(Packet_00B0Class, 0x40)	// opcode 176 (pkunknown_888b60.h)
-LY_OFF(Packet_00B0Class, Unknown10, 0x10)	// header
-LY_OFF(Packet_00B0Class, Unknown18, 0x18)	// header
-LY_OFF(Packet_00B0Class, Unknown28, 0x28)	// header
-LY_OFF(Packet_00B0Class, Unknown38, 0x38)	// header
-LY_OFF(Packet_00B0Class, Unknown3C, 0x3C)	// header
-LY_SIZE(Packet_00B1Class, 0x40)	// opcode 177 (pkunknown_888b60.h)
-LY_OFF(Packet_00B1Class, Unknown10, 0x10)	// header
-LY_OFF(Packet_00B1Class, Unknown18, 0x18)	// header
-LY_OFF(Packet_00B1Class, Unknown38, 0x38)	// header
-LY_OFF(Packet_00B1Class, Unknown3C, 0x3C)	// header
+LY_SIZE(GroupServerCreatePacketClass, 0x40)	// opcode 176 (pkunknown_888b60.h)
+LY_OFF(GroupServerCreatePacketClass, Unknown10, 0x10)	// header
+LY_OFF(GroupServerCreatePacketClass, Unknown18, 0x18)	// header
+LY_OFF(GroupServerCreatePacketClass, Unknown28, 0x28)	// header
+LY_OFF(GroupServerCreatePacketClass, Unknown38, 0x38)	// header
+LY_OFF(GroupServerCreatePacketClass, Unknown3C, 0x3C)	// header
+LY_SIZE(GroupServerUpdatePacketClass, 0x40)	// opcode 177 (pkunknown_888b60.h)
+LY_OFF(GroupServerUpdatePacketClass, Unknown10, 0x10)	// header
+LY_OFF(GroupServerUpdatePacketClass, Unknown18, 0x18)	// header
+LY_OFF(GroupServerUpdatePacketClass, Unknown38, 0x38)	// header
+LY_OFF(GroupServerUpdatePacketClass, Unknown3C, 0x3C)	// header
 LY_SIZE(NameDecalPacketClass, 0x40)	// opcode 178 (pknamedecal.h)
 LY_OFF(NameDecalPacketClass, GameID, 0xC)	// client
 LY_OFF(NameDecalPacketClass, Name, 0x10)	// client
@@ -828,21 +828,21 @@ LY_OFF(GuildRecruitAcceptSectorPacket, PlayerID, 0x10)	// header
 LY_OFF(GuildRecruitAcceptSectorPacket, InviterName, 0x18)	// header
 LY_OFF(GuildRecruitAcceptSectorPacket, GuildName, 0x28)	// header
 LY_OFF(GuildRecruitAcceptSectorPacket, Accept, 0x38)	// header
-LY_SIZE(GuildSimpleGuildSectorPacketClass, 0x28)	// opcode 203 (pkguildplayeronline.h)
-LY_OFF(GuildSimpleGuildSectorPacketClass, Type, 0xC)	// header
-LY_OFF(GuildSimpleGuildSectorPacketClass, PlayerID, 0x10)	// header
-LY_OFF(GuildSimpleGuildSectorPacketClass, OptionalParam, 0x18)	// header
+LY_SIZE(GuildSimpleGuildSectorPacket, 0x28)	// opcode 203 (pkguildplayeronline.h)
+LY_OFF(GuildSimpleGuildSectorPacket, Type, 0xC)	// header
+LY_OFF(GuildSimpleGuildSectorPacket, PlayerID, 0x10)	// header
+LY_OFF(GuildSimpleGuildSectorPacket, OptionalParam, 0x18)	// header
 LY_SIZE(GuildSimpleSectorClientPacket, 0x20)	// opcode 204 (pkguildranknamesrequestclient.h)
 LY_OFF(GuildSimpleSectorClientPacket, Type, 0xC)	// client
 LY_OFF(GuildSimpleSectorClientPacket, OptionalParam, 0x10)	// client
-LY_SIZE(GuildSimpleClientSectorPacketClass, 0x24)	// opcode 205 (pkguildranknamesrequestclient.h)
-LY_OFF(GuildSimpleClientSectorPacketClass, Type, 0xC)	// client
-LY_OFF(GuildSimpleClientSectorPacketClass, PlayerID, 0x10)	// client
-LY_OFF(GuildSimpleClientSectorPacketClass, OptionalParam, 0x14)	// client
-LY_SIZE(GuildSimpleSectorGuildPacketClass, 0x28)	// opcode 206 (pkguildplayeronline.h)
-LY_OFF(GuildSimpleSectorGuildPacketClass, Type, 0xC)	// header
-LY_OFF(GuildSimpleSectorGuildPacketClass, PlayerID, 0x10)	// header
-LY_OFF(GuildSimpleSectorGuildPacketClass, OptionalParam, 0x18)	// header
+LY_SIZE(GuildSimpleClientSectorPacket, 0x24)	// opcode 205 (pkguildranknamesrequestclient.h)
+LY_OFF(GuildSimpleClientSectorPacket, Type, 0xC)	// client
+LY_OFF(GuildSimpleClientSectorPacket, PlayerID, 0x10)	// client
+LY_OFF(GuildSimpleClientSectorPacket, OptionalParam, 0x14)	// client
+LY_SIZE(GuildSimpleSectorGuildPacket, 0x28)	// opcode 206 (pkguildplayeronline.h)
+LY_OFF(GuildSimpleSectorGuildPacket, Type, 0xC)	// header
+LY_OFF(GuildSimpleSectorGuildPacket, PlayerID, 0x10)	// header
+LY_OFF(GuildSimpleSectorGuildPacket, OptionalParam, 0x18)	// header
 LY_SIZE(GuildMessageGuildPacket, 0x40)	// opcode 207 (pkguildplayeronline.h)
 LY_OFF(GuildMessageGuildPacket, PlayerID, 0x10)	// header
 LY_OFF(GuildMessageGuildPacket, MessageType, 0x18)	// header
@@ -852,12 +852,12 @@ LY_SIZE(GuildMessageSectorPacket, 0x30)	// opcode 208 (pkguildranknamesrequestcl
 LY_OFF(GuildMessageSectorPacket, MessageType, 0xC)	// client
 LY_OFF(GuildMessageSectorPacket, OtherName, 0x10)	// client
 LY_OFF(GuildMessageSectorPacket, GuildName, 0x20)	// client
-LY_SIZE(GuildPermissionsPacketClass, 0x28)	// opcode 209 (pkguildplayeronline.h)
-LY_OFF(GuildPermissionsPacketClass, PlayerID, 0x10)	// header
-LY_OFF(GuildPermissionsPacketClass, Unknown18, 0x18)	// header
-LY_OFF(GuildPermissionsPacketClass, Unknown1C, 0x1C)	// header
-LY_OFF(GuildPermissionsPacketClass, Unknown20, 0x20)	// header
-LY_OFF(GuildPermissionsPacketClass, Unknown24, 0x24)	// header
+LY_SIZE(GuildPermissionsPacket, 0x28)	// opcode 209 (pkguildplayeronline.h)
+LY_OFF(GuildPermissionsPacket, PlayerID, 0x10)	// header
+LY_OFF(GuildPermissionsPacket, Unknown18, 0x18)	// header
+LY_OFF(GuildPermissionsPacket, Unknown1C, 0x1C)	// header
+LY_OFF(GuildPermissionsPacket, Unknown20, 0x20)	// header
+LY_OFF(GuildPermissionsPacket, Unknown24, 0x24)	// header
 LY_SIZE(GuildPlayerPermissionsPacket, 0x1C)	// opcode 210 (pkguildranknamesrequestclient.h)
 LY_OFF(GuildPlayerPermissionsPacket, Unknown0C, 0xC)	// header
 LY_OFF(GuildPlayerPermissionsPacket, Unknown10, 0x10)	// header
@@ -895,10 +895,10 @@ LY_OFF(GuildPlayerInfoDeletedPacket, AccountName, 0x1C)	// header
 LY_OFF(GuildPlayerInfoDeletedPacket, AccountID, 0x60)	// header
 LY_OFF(GuildPlayerInfoDeletedPacket, Unknown68, 0x68)	// header
 LY_OFF(GuildPlayerInfoDeletedPacket, Unknown6C, 0x6C)	// header
-LY_SIZE(GuildDeductFeePacketClass, 0x30)	// opcode 220 (pkguildplayeronline.h)
-LY_OFF(GuildDeductFeePacketClass, PlayerID, 0x10)	// header
-LY_OFF(GuildDeductFeePacketClass, NumCredits, 0x18)	// header
-LY_OFF(GuildDeductFeePacketClass, Description, 0x20)	// header
+LY_SIZE(GuildDeductFeePacket, 0x30)	// opcode 220 (pkguildplayeronline.h)
+LY_OFF(GuildDeductFeePacket, PlayerID, 0x10)	// header
+LY_OFF(GuildDeductFeePacket, NumCredits, 0x18)	// header
+LY_OFF(GuildDeductFeePacket, Description, 0x20)	// header
 LY_SIZE(GPSRequestPacketClass, 0x20)	// opcode 221 (pkgpsrequest.h)
 LY_SIZE(GPSResponsePacketClass, 0x24)	// opcode 222 (pkgpsrequest.h)
 LY_OFF(GPSResponsePacketClass, Unknown0C, 0xC)	// header

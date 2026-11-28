@@ -5,7 +5,7 @@
 #include "client.h"
 #include "..\shared\auth_product.h"
 // 0x798AE0
-NullCameraControllerClass::NullCameraControllerClass(SClient *client) :
+NullCameraControllerClass::NullCameraControllerClass(SpaceClientClass *client) :
 	CameraControllerClass(client),
 	Unknown0C(0),
 	Unknown10(false)

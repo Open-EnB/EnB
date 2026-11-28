@@ -93,7 +93,7 @@ class LineDisplayClientClass  // NAME 1: neutral (D10)
 public:
 	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
 	virtual void Unknown_10(); virtual void Unknown_14();
-	virtual SClient *As_Space_Client();					// +0x18 (SClient's returns itself)  // NAME 3: ui_manu.cpp's FAIL_IF's
+	virtual SpaceClientClass *As_Space_Client();					// +0x18 (SpaceClientClass's returns itself)  // NAME 3: ui_manu.cpp's FAIL_IF's
 };
 
 // The buttons' tooltips (0xBA7F10)
@@ -122,7 +122,7 @@ extern FontManagerClass *Unknown_BE67C4;				// NAME 1 [Unknown_BE67C4]: 0xBE67C4
 static const char *Unknown_BA7ED8[13] = { "EXIT", "Recruit", "Remove", "Promote", "Demote", "Disband", "Tag", "Message", "Public", "Private", "Leave", "Contributions", "ShowStats" };	// NAME 1: neutral (D10)
 
 // 0x819420
-UIGuildClass::UIGuildClass(SClient *client) :
+UIGuildClass::UIGuildClass(SpaceClientClass *client) :
 	ChatPanelUIBase(client),
 	Slider(NULL),
 	Top(0),

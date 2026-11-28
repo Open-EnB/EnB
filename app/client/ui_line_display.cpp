@@ -43,7 +43,7 @@ public:
 	char Unknown0000[0x127C];
 	LineDisplayUnknown127CClass *Unknown127C;				// +0x127C
 	char Unknown1280[0x12C0 - 0x1280];
-	DeltaPlayerClass *AuxData;								// +0x12C0 (0x5A8350's FAIL_IF '!ad_player'; SClient's AuxData)
+	DeltaPlayerClass *AuxData;								// +0x12C0 (0x5A8350's FAIL_IF '!ad_player'; SpaceClientClass's AuxData)
 	char Unknown12C4[0x1354 - 0x12C4];
 	int Unknown1354;										// +0x1354
 	int Unknown1358;										// +0x1358

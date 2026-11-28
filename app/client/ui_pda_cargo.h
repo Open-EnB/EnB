@@ -8,7 +8,7 @@
 #include "ui_inv.h"		// UIInvClass, ui_inv.cpp's inventory window base
 #include "..\..\wwlib\ref_ptr.h"
 
-class SClient;
+class SpaceClientClass;
 class RenderObjClass;
 class ButtonGadgetClass;		// unknown_675120.h's buttons
 class UIComboBoxClass;			// ui_combobox.h's combo box (the filter)
@@ -22,7 +22,7 @@ class UIPdaCargoClass : public UIInvClass	// NAME 3: class-from-file (D24) for a
 {
 public:
 	enum { NUM_BUTTONS = 5 };							// NAME 1: the set-up's loop over 0xB83820 (gadgets 13..17)
-	UIPdaCargoClass(SClient *client, PDAInterfaceClass *pda);	// 0x5CF9B0 (the kind 10; deleting 0x5CFCB0)  // NAME 1 [client, pda]: what the PDA passes
+	UIPdaCargoClass(SpaceClientClass *client, PDAInterfaceClass *pda);	// 0x5CF9B0 (the kind 10; deleting 0x5CFCB0)  // NAME 1 [client, pda]: what the PDA passes
 	virtual ~UIPdaCargoClass();							// 0x5CFCE0
 	virtual void Unknown_54();							// +0x54 0x5CFE40 (FAIL_IFs '!InterfaceMesh' l.118, '!first_bttn' l.129; G_ASSERT 'font' l.167)
 	virtual void Unknown_58();							// +0x58 0x5D03E0 (FAIL_IFs '!InterfaceMesh' l.184, '!Get_Client()' l.185, '!sc' l.187)

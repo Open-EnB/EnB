@@ -104,7 +104,7 @@ static SSDC ShipDisplayFields;	// NAME 1: neutral (D10)
 
 
 // 0x6A2ED0
-ShipStatsDisplayClass::ShipStatsDisplayClass(SClient *client, RefCountPtr<RenderObjClass> &display) :
+ShipStatsDisplayClass::ShipStatsDisplayClass(SpaceClientClass *client, RefCountPtr<RenderObjClass> &display) :
 	Client(client),
 	Display(display),
 	UnknownC8(true)

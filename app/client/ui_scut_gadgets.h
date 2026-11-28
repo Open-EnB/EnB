@@ -12,7 +12,7 @@ class ShortcutInterface;
 class RenderObjGadgetClass;
 class GadgetClass;
 class ClientClass;
-class SClient;
+class SpaceClientClass;
 
 class UIScutProxyGadgetClass;	// gd_scut_proxy.h's: the shortcut bar's button
 
@@ -38,7 +38,7 @@ public:
 		STATE_RESTORED		// NAME 2: Get_State's other return
 	};
 
-	ShortcutGadgetsInterface(const std::string &name, SClient *sclient);	// 0x6136D0 (FAIL_IF '!sclient' l.65)  // NAME 3 [sclient]: the FAIL_IF's; NAME 2 [name]: Section's last part
+	ShortcutGadgetsInterface(const std::string &name, SpaceClientClass *sclient);	// 0x6136D0 (FAIL_IF '!sclient' l.65)  // NAME 3 [sclient]: the FAIL_IF's; NAME 2 [name]: Section's last part
 	virtual ~ShortcutGadgetsInterface();						// +0x00 0x613A20 (deleting 0x6139F0)
 	virtual void Set_UI(const RefCountPtr<ShortcutInterface> &ui);	// +0x04 0x613BA0: the old bars saved and emptied, the new one kept  // NAME 2: what it does
 	virtual void Clear_UI();							// +0x08 0x613D70 (no direct caller)  // NAME 2: what it does

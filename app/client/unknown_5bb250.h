@@ -9,7 +9,7 @@
 
 class UIMeshClass;		// ui_mesh.h
 class UIViewClass;		// sclient.h (uiview.cpp's view)
-class SClient;
+class SpaceClientClass;
 class GadgetClass;
 
 // The base of every window drawn as an animated mesh (0xAC bytes; the cockpit, the group window, the PDA pages, the
@@ -21,7 +21,7 @@ class GadgetClass;
 class Unknown5BB320Class : public InterfaceClass	// NAME 1: neutral (D10)
 {
 public:
-	Unknown5BB320Class(UIMeshClass *mesh, SClient *client);	// 0x5BB320 (the mesh at +0x84, the client to 0x540D30)  // NAME 1 [mesh, client]: what 0x593BD0 passes
+	Unknown5BB320Class(UIMeshClass *mesh, SpaceClientClass *client);	// 0x5BB320 (the mesh at +0x84, the client to 0x540D30)  // NAME 1 [mesh, client]: what 0x593BD0 passes
 	Unknown5BB320Class(UIMeshClass *mesh, UIViewClass *view, const LayerClass &layer);	// 0x5BB250 (the view and the layer's scene to 0x540A90, the layer copied)  // NAME 1 [mesh, view, layer]: what 0x57D830 passes
 	virtual ~Unknown5BB320Class();						// +0x00 0x5BB3B0 (deletes the mesh; the deleting destructor 0x5BB2F0)
 	virtual void Unknown_58();							// +0x58 0x5BB550 (activates: the mesh's model into the layer's scene, then InterfaceClass's, under a sort scope)

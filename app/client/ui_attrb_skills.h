@@ -17,7 +17,7 @@ class AttributeSkillsGadget;	// gd_attrb_skills.cpp's gadget (UnknownC4's elemen
 class AttributeSkillsInterface : public UISkillsClass  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	AttributeSkillsInterface(SClient *client);				// 0x549640 (0x124 bytes; deleting 0x549800)  // NAME 1 [client]: as BioInterface's
+	AttributeSkillsInterface(SpaceClientClass *client);				// 0x549640 (0x124 bytes; deleting 0x549800)  // NAME 1 [client]: as BioInterface's
 	virtual ~AttributeSkillsInterface();						// 0x549830 ('fa_att.ini' unloaded)
 	virtual void Unknown_54();							// 0x549AA0 (FAIL_IF '!InterfaceMesh' l.121, G_ASSERT 'robj' l.147 / 155)
 	virtual void Unknown_58();							// 0x54A200

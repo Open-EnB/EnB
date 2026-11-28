@@ -84,7 +84,7 @@ public:
 class GroupInterface : public Unknown5BB320Class  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	GroupInterface(SClient *client);						// 0x593BD0 (0xF4 bytes; the main view's 0x50C690)  // NAME 1 [client]: what 0x50C690 passes
+	GroupInterface(SpaceClientClass *client);						// 0x593BD0 (0xF4 bytes; the main view's 0x50C690)  // NAME 1 [client]: what 0x50C690 passes
 	virtual ~GroupInterface();							// 0x593D70 (slot 0x593D40)
 	virtual void Unknown_54();							// 0x594040 (0x50C690 calls it after construction)
 	virtual void Unknown_60();							// 0x5944D0
@@ -116,7 +116,7 @@ public:
 	void Unknown_5978A0(unsigned id);					// 0x5978A0 (the same)  // NAME 1 [id]: what Find_Object gets
 	void Unknown_597920(unsigned id, bool value);		// 0x597920: a ClientGroupEvent for the object (FAIL_IF '!client', line 1594)  // NAME 1 [id, value]: neutral
 	bool Unknown_597B00();								// 0x597B00: GroupInfo's +0x120 (FAIL_IFs '!client', '!sclient')
-	void Unknown_597B70(bool value);					// 0x597B70: SClient +0x13C0  // NAME 1 [value]: neutral
+	void Unknown_597B70(bool value);					// 0x597B70: SpaceClientClass +0x13C0  // NAME 1 [value]: neutral
 	void Unknown_597D10();								// 0x597D10 (FAIL_IF '!SymbolChatUI' on +0xAC)
 	void Unknown_597E40(bool value);						// 0x597E40  // NAME 1 [value]: stored in +0xF0 (false while +0xF1)
 	void Unknown_598370();								// 0x598370

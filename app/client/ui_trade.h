@@ -25,7 +25,7 @@ class InvDataClass;				// inv_data.h's (the base's 0x59FE10; +0x150 the three in
 class UITradeClass : public UIInvClass  // NAME 3: class-from-file (D24) for ui_trade.cpp
 {
 public:
-	UITradeClass(SClient *client);						// 0x650560 (G_ASSERT 'PDA' l.106)
+	UITradeClass(SpaceClientClass *client);						// 0x650560 (G_ASSERT 'PDA' l.106)
 	virtual ~UITradeClass();							// 0x6507C0 (deleting 0x650790)
 	virtual void Unknown_54();							// +0x54 0x650A40 (FAIL_IFs l.137-199: the model, the highlights, the buttons, the slider)
 	virtual void Unknown_58();							// +0x58 0x651390 (FAIL_IF '!PDA' l.247: the cargo window opened with it)

@@ -15,7 +15,7 @@ class GadgetSlider;				// gd_slider.h's
 class UIOptionSliderClass : public ChatPanelUIBase	// NAME 1: neutral, after its tooltips' section 'UI_OPTION_SLIDER'
 {
 public:
-	UIOptionSliderClass(SClient *client, int page, bool mode);	// 0x5CEDD0 (deleting 0x5CEE90)  // NAME 1 [client, page, mode]: what it does with them
+	UIOptionSliderClass(SpaceClientClass *client, int page, bool mode);	// 0x5CEDD0 (deleting 0x5CEE90)  // NAME 1 [client, page, mode]: what it does with them
 	virtual ~UIOptionSliderClass();						// 0x5CEEC0 (the sliders off the model)
 	virtual void Unknown_54();							// +0x54 0x5CEFB0 ('opt04a': the buttons 'exit', 'ok', 'cancel', 'resolution', the five sliders, the check)
 	virtual void Unknown_58();							// +0x58 0x5CF230 (the base's, then 0x5CF6C0 and 0x5CF580, when not Active)

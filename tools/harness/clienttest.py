@@ -1,4 +1,4 @@
-"""The client base, SClient and cpacket.cpp's handlers (D94(c), P-T7-1, P-T8-1): tests/clienttest.
+"""The client base, SpaceClientClass and cpacket.cpp's handlers (D94(c), P-T7-1, P-T8-1): tests/clienttest.
 
     ENB_VC6_HOSTS=<user>@<ip> python tools/harness/clienttest.py build [--out DIR]
     python tools/harness/clienttest.py run [--exe EXE] [--name alex3] [--session ffff9b25] [--count 1000] [--update]
@@ -190,7 +190,7 @@ def run(exe, name, session, count, update):
     # them from the working directory): tests/clienttest/data, never the game's (D69)
     for fn in os.listdir(DATA):
         shutil.copy(os.path.join(DATA, fn), WORK)
-    # Miles: loadingview.cpp (linked for SClient's calls) imports AIL_set_preference / AIL_serve, so the exe needs
+    # Miles: loadingview.cpp (linked for SpaceClientClass's calls) imports AIL_set_preference / AIL_serve, so the exe needs
     # Mss32.dll: the copy in build/art (artdir.py's), into the working directory (the DLL search finds it there)
     dll = os.path.join(REPO, 'build', 'art', 'MSS32.DLL')
     if os.path.exists(dll) and not os.path.exists(os.path.join(WORK, 'MSS32.DLL')):

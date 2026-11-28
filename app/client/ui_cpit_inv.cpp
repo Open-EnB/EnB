@@ -17,11 +17,11 @@ class LineDisplayClientClass  // NAME 1: neutral (D10)
 public:
 	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
 	virtual void Unknown_10(); virtual void Unknown_14();
-	virtual SClient *As_Space_Client();					// +0x18 (as ui_manu.cpp's)  // NAME 3: the FAIL_IF's in ui_manu.cpp
+	virtual SpaceClientClass *As_Space_Client();					// +0x18 (as ui_manu.cpp's)  // NAME 3: the FAIL_IF's in ui_manu.cpp
 };
 
 // @0x5850E0
-UICpitInvClass::UICpitInvClass(CockpitInterface *cpit, SClient *sclient, int kind) :
+UICpitInvClass::UICpitInvClass(CockpitInterface *cpit, SpaceClientClass *sclient, int kind) :
 	UIInvClass(sclient, kind),
 	Cpit(cpit),
 	UIMesh(NULL),

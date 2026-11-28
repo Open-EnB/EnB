@@ -93,7 +93,7 @@ public:
 class SlotDataShortcutInterface : public ShortcutGadgetsInterface	// NAME 5: the client's RTTI
 {
 public:
-	SlotDataShortcutInterface(SlotDataInterface *slot_iface, const std::string &name, SClient *sclient);	// 0x630490 (FAIL_IFs l.61, l.64)  // NAME 3 [slot_iface]: the FAIL_IF's; NAME 2 [name, sclient]: the base's
+	SlotDataShortcutInterface(SlotDataInterface *slot_iface, const std::string &name, SpaceClientClass *sclient);	// 0x630490 (FAIL_IFs l.61, l.64)  // NAME 3 [slot_iface]: the FAIL_IF's; NAME 2 [name, sclient]: the base's
 	virtual ~SlotDataShortcutInterface();				// +0x00 0x6307B0 (deleting 0x630650; FAIL_IF l.72)
 	virtual void Set_UI(const RefCountPtr<ShortcutInterface> &ui);	// +0x04 0x630980 (FAIL_IF l.83)  // NAME 2: the base's
 	virtual RenderObjGadgetClass *Unknown_0C(int slot);		// +0x0C 0x631000 (FAIL_IFs l.247-256)  // NAME 2 [slot]: what the render's slot +0x40 gets

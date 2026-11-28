@@ -448,7 +448,7 @@ void GutterDataClass::Update_Labels()
 	int old_vertical = NameLabel->Info.Justify[0];
 	int old_horizontal = NameLabel->Info.Justify[1];
 	if (rdata->Unknown08 == 1) {
-		SClient *client = (SClient *)Unknown_18();
+		SpaceClientClass *client = (SpaceClientClass *)Unknown_18();
 		if (client) {
 			mouse = client->Mouse;
 			if (mouse) {

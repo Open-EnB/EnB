@@ -44,7 +44,7 @@ class SceneClass;
 class GalaxyMapPIPClass : public MapPIPClass  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	GalaxyMapPIPClass(SClient *client);					// 0x53F390  // NAME 1 [client]: neutral
+	GalaxyMapPIPClass(SpaceClientClass *client);					// 0x53F390  // NAME 1 [client]: neutral
 	virtual ~GalaxyMapPIPClass();						// +0x00 0x53F540 (deleting 0x53F510)
 	virtual bool Unknown_04(const RefCountPtr<InterfaceClass> &iface_ptr, const RefCountPtr<RenderObjClass> &vp, int arg);	// +0x04 0x53F770
 	virtual bool Unknown_08();							// +0x08 0x53F7E0

@@ -11,7 +11,7 @@ template<class C> inline C *Unknown_Find_Valid(DeltaContainer *root, const AuxDa
 struct UnknownClientTime { char Unknown00[0x10BC]; unsigned int Time; };	// NAME 2: describes what it does
 
 // 0x6A45D0
-SkillDataClass::SkillDataClass(SClient *client) :
+SkillDataClass::SkillDataClass(SpaceClientClass *client) :
 	SlotDataClass(client),
 	Skills(client),
 	Abilities(client)

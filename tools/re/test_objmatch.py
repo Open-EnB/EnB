@@ -31,7 +31,7 @@ CK_CALLSEQ (D246 / CK): unknown_79d250.obj's (co_data.obj's until the code moved
 Get_Radar_Data's call; its calls in order give the tied pair<ClientObjectClass *const, RadarDataClass *>'s constructor
 0x7A0A80 (its one caller is 0x79E300) and _Hashtable_const_iterator's 0x7A0920 (`ck_callseq`). (find_or_insert
 0x7A0EC0 and its resize 0x7A3B50 were the cases until other rules came to credit them first: fresh objects of 2026-11-18.)
-CK_CALLSEQ_VTBL (D246 / CK2V): sclient.obj's MemberCallback<CameraModuleClass, SClient, ..CameraModuleSignal..> vtable,
+CK_CALLSEQ_VTBL (D246 / CK2V): sclient.obj's MemberCallback<CameraModuleClass, SpaceClientClass, ..CameraModuleSignal..> vtable,
 placed in the client by its slots the run knows, gives its short Sender_Type 0x7593E0 and Type 0x759400 their slot
 addresses (`ck_callseq`).
 """
@@ -398,8 +398,8 @@ class CkCallseq(unittest.TestCase):
 
 
 CK_CALLSEQ_VTBL = [
-    ('sclient.obj', '?Sender_Type@?$MemberCallback@VCameraModuleClass@@VSClient@@P82@AEXPAVCameraModuleSignal@@PAV1@@ZV3@@SignalBaseClass@@UBEABVtype_info@@XZ', '0x7593E0'),
-    ('sclient.obj', '?Type@?$MemberCallback@VCameraModuleClass@@VSClient@@P82@AEXPAVCameraModuleSignal@@PAV1@@ZV3@@SignalBaseClass@@UBEABVtype_info@@XZ', '0x759400'),
+    ('sclient.obj', '?Sender_Type@?$MemberCallback@VCameraModuleClass@@VSpaceClientClass@@P82@AEXPAVCameraModuleSignal@@PAV1@@ZV3@@SignalBaseClass@@UBEABVtype_info@@XZ', '0x7593E0'),
+    ('sclient.obj', '?Type@?$MemberCallback@VCameraModuleClass@@VSpaceClientClass@@P82@AEXPAVCameraModuleSignal@@PAV1@@ZV3@@SignalBaseClass@@UBEABVtype_info@@XZ', '0x759400'),
 ]
 
 
@@ -707,7 +707,7 @@ class ObXcuOnePerEntry(unittest.TestCase):
 
 class Cr6NamedCallers(unittest.TestCase):
     """D246 (CR6): sclient.obj's Create_NEW<ChatPanelInterface> and Create_NEW<SpaceTalkTreeInterface> (21 bytes,
-    byte-identical with 157 client copies) are called by SClient::Init, not exact, which symbols.json names at 0x741180
+    byte-identical with 157 client copies) are called by SpaceClientClass::Init, not exact, which symbols.json names at 0x741180
     from its vtable slot; its calls into the two symbols' copies, in order, are the client function's calls to 0x755AF0
     and 0x755B60 (`cr6_named`)."""
     def test_cases(self):

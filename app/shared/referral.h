@@ -8,7 +8,7 @@
 class INIClass;
 
 // one [RewardLevel<n>] section of referral.ini (12 bytes)
-struct BuddyRewardStruct	// NAME 2: what SClient 0x751460 sums from it
+struct BuddyRewardStruct	// NAME 2: what SpaceClientClass 0x751460 sums from it
 {
 	BuddyRewardStruct(int level, INIClass &ini);	// 0x49EF10
 	~BuddyRewardStruct() {}							// 0x49F170 (the unwind's out-of-line copy)
@@ -26,7 +26,7 @@ public:
 	virtual ~Unknown49F200Class();						// 0x49F1C0
 
 	const BuddyRewardStruct &Unknown_49F270(int level);	// 0x49F270 (inlined in 0x49F300)  // NAME 1 [level]: compared with RewardLevel
-	std::vector<BuddyRewardStruct> Unknown_49F300(int points_spent, int points);	// 0x49F300 (SClient 0x751460)  // NAME 1 [points_spent, points]: what 0x751460 passes
+	std::vector<BuddyRewardStruct> Unknown_49F300(int points_spent, int points);	// 0x49F300 (SpaceClientClass 0x751460)  // NAME 1 [points_spent, points]: what 0x751460 passes
 
 protected:
 	std::vector<BuddyRewardStruct> Rewards;				// +0x04  // NAME 1: neutral

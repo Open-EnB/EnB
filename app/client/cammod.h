@@ -3,7 +3,7 @@
 #ifndef CAMMOD_H  // NAME 1 [cammod.h]: PROVISIONAL (D137)
 #define CAMMOD_H
 
-class SClient;
+class SpaceClientClass;
 class SignalMap;
 class Vector3;
 class Quaternion;
@@ -20,7 +20,7 @@ public:
 class CameraModuleClass	// NAME 5: the client's typeid name .?AVCameraModuleClass@@ (0xB9ABE8)
 {
 public:
-	CameraModuleClass(SClient *client) : Client(client) {}
+	CameraModuleClass(SpaceClientClass *client) : Client(client) {}
 	virtual ~CameraModuleClass() {}
 	virtual void Unknown_04();							// +0x04 0x79BA50 (emits CameraModuleSignal(true))
 	virtual void Unknown_08(Vector3 *des_pos, Quaternion *des_quat) = 0;	// +0x08 (the camera manager passes where to put the camera)  // NAME 2 [des_pos, des_quat]: cammod_chase.cpp's FAIL_IFs
@@ -28,7 +28,7 @@ public:
 
 	static SignalMap &Get_Signal_Map();					// 0x79B9E0 (the function-local static 0xBE86A0, guard 0xBE8698)  // NAME 1: neutral, what it returns
 
-	SClient *Client;									// +0x04  // NAME 2: what it holds (SClient::Init's this)
+	SpaceClientClass *Client;									// +0x04  // NAME 2: what it holds (SpaceClientClass::Init's this)
 };
 
 #endif // CAMMOD_H

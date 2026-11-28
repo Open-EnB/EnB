@@ -324,7 +324,7 @@ ShipPositionalStateClass::ShipPositionalStateClass(int time, AdvancedPositionalU
 	Extrap = new Unknown710110Class(packet);
 }
 
-ShipPositionalStateClass::ShipPositionalStateClass(SClient *client, FormationPositionalUpdatePacketClass *packet) :
+ShipPositionalStateClass::ShipPositionalStateClass(SpaceClientClass *client, FormationPositionalUpdatePacketClass *packet) :
 	Period(0, 0, 0, 0),
 	Unknown18(false)
 {
@@ -343,7 +343,7 @@ void ShipPositionalStateClass::Unknown_716140(int time, AdvancedPositionalUpdate
 	}
 }
 
-void ShipPositionalStateClass::Unknown_716220(SClient *client, FormationPositionalUpdatePacketClass *packet)
+void ShipPositionalStateClass::Unknown_716220(SpaceClientClass *client, FormationPositionalUpdatePacketClass *packet)
 {
 	if (Unknown_B9489E) {
 		unsigned int time = client->Unknown10BC;
@@ -538,7 +538,7 @@ Unknown717010Class::Unknown717010Class(int time, AdvancedPositionalUpdatePacketC
 	Unknown18 = true;
 }
 
-Unknown717010Class::Unknown717010Class(SClient *client, FormationPositionalUpdatePacketClass *packet) :
+Unknown717010Class::Unknown717010Class(SpaceClientClass *client, FormationPositionalUpdatePacketClass *packet) :
 	ShipPositionalStateClass(client, packet),
 	MovementID(0),
 	Unknown20(false),
@@ -576,7 +576,7 @@ void Unknown717010Class::Unknown_717290(AdvancedPositionalUpdatePacketClass *pac
 	}
 }
 
-void Unknown717010Class::Unknown_717400(FormationPositionalUpdatePacketClass *packet, SClient *client)
+void Unknown717010Class::Unknown_717400(FormationPositionalUpdatePacketClass *packet, SpaceClientClass *client)
 {
 	Unknown_716220(client, packet);
 	Unknown24 = 0;

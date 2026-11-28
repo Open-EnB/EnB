@@ -392,7 +392,7 @@ bool NebulaClass::Unknown_08(const Vector3 &position)
 		CurrentRoom = found;
 	}
 	if (CurrentRoom != DefaultRoom) {
-		MainViewClass *view = ((SClient *)Client->As_Space_Client())->MainView;
+		MainViewClass *view = ((SpaceClientClass *)Client->As_Space_Client())->MainView;
 		view->Unknown_513600((int)SkyBox);
 		view->Unknown130 = false;
 		SimpleSceneClass *scene = view->Unknown_64();

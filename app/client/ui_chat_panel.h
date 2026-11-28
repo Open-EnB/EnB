@@ -1,6 +1,6 @@
 // Earth & Beyond client (reconstruction): app\client\ui_chat_panel.h, the chat panel (the client's ui_chat_panel.cpp
 // per its asserts; this header's name is provisional, NAME 1). Laid out from the constructor 0x561DD0 (0x268 bytes;
-// SClient::Init news it) and the table 0xAEFF1C (CH1, 2026-10-31).
+// SpaceClientClass::Init news it) and the table 0xAEFF1C (CH1, 2026-10-31).
 #ifndef UI_CHAT_PANEL_H  // NAME 1 [ui_chat_panel.h]: provisional header name for ui_chat_panel.cpp
 #define UI_CHAT_PANEL_H
 
@@ -32,11 +32,11 @@ enum { NUM_COMBO = 5 };	// NAME 3: the assert's
 // The chat window (ChatInt, +0x138): ui_chat_window.h; the split window the panel makes: ui_chat_window_split.h
 #include "ui_chat_window_split.h"
 
-// The chat panel (SClient +0x127C; 0x268 bytes, constructor 0x561DD0, table 0xAEFF1C)
+// The chat panel (SpaceClientClass +0x127C; 0x268 bytes, constructor 0x561DD0, table 0xAEFF1C)
 class ChatPanelInterface : public ChatPanelUIBase	// NAME 5: the client's RTTI (the receiver in MemberCallback<OptionFontInterface, ChatPanelInterface, ...> 0xB7D308 and MemberCallback<ChatWindowInterface, ChatPanelInterface, ...> 0xB7D408)
 {
 public:
-	ChatPanelInterface(SClient *client);					// 0x561DD0
+	ChatPanelInterface(SpaceClientClass *client);					// 0x561DD0
 	virtual ~ChatPanelInterface();						// 0x562410
 	virtual void Unknown_54();							// 0x5629E0 (the set-up)
 	virtual void Unknown_58();							// 0x562F50 (the pip set, the chat window and the reply list activated)
@@ -48,7 +48,7 @@ public:
 	virtual void Unknown_70(ControlKeysManager *manager);	// 0x56BC10 (FAIL_IF '!manager' l.2309)  // NAME 3 [manager]: the FAIL_IF's
 	virtual void Unknown_74(ControlKeysManager *manager);	// 0x56BD80 (FAIL_IF '!manager' l.2317)  // NAME 3 [manager]: the FAIL_IF's
 
-	void Unknown_563760(int type, const std::string &text);	// 0x563760 (SClient's 0x74D990): a chat line logged, kept and shown  // NAME 1 [type, text]: what 0x74D990 passes
+	void Unknown_563760(int type, const std::string &text);	// 0x563760 (SpaceClientClass's 0x74D990): a chat line logged, kept and shown  // NAME 1 [type, text]: what 0x74D990 passes
 	bool Unknown_5638E0(int key);						// 0x5638E0: the chat window's slot +0xB8, false without one  // NAME 1 [key]: neutral
 	void Unknown_563910(unsigned id, bool flag);		// 0x563910 (CLIENT_CHAT_EVENT 165: the sender's game id, 0; the main view: the target, true)  // NAME 1 [id, flag]: what cpacket.cpp passes
 	void Unknown_563C50();								// 0x563C50: the pip's target checked
@@ -89,7 +89,7 @@ public:
 	void Unknown_5698F0(int id);						// 0x5698F0 (FAIL_IF '(index < 0) || (index >= NUM_COMBO)' l.1980)  // NAME 1 [id]: neutral
 	void Unknown_569A00();								// 0x569A00 (slot +0x68's key 15: the options combo)
 	void Unknown_56B700();								// 0x56B700: the chat requests sent ('RestrictedStatus'), once
-	void Unknown_56BA40(bool on);						// 0x56BA40 (SClient's Do_Frame, when the lag changes)  // NAME 1 [on]: what Do_Frame passes
+	void Unknown_56BA40(bool on);						// 0x56BA40 (SpaceClientClass's Do_Frame, when the lag changes)  // NAME 1 [on]: what Do_Frame passes
 	bool Unknown_56BA80();								// 0x56BA80
 	void Unknown_56BAA0(bool show, const char *text);	// 0x56BAA0 (FAIL_IF '!font' l.2297; 0x74E710: 1 and the message)  // NAME 1 [show, text]: what 0x74E710 passes
 	void Unknown_56BEF0();								// 0x56BEF0 (FAIL_IF '!sclient' l.2326): talk to the main view's target

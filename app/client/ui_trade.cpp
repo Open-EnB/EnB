@@ -42,7 +42,7 @@ class LineDisplayClientClass  // NAME 1: neutral (D10)
 public:
 	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
 	virtual void Unknown_10(); virtual void Unknown_14();
-	virtual SClient *As_Space_Client();					// +0x18 (SClient's returns itself)  // NAME 3: ui_manu.cpp's FAIL_IF's
+	virtual SpaceClientClass *As_Space_Client();					// +0x18 (SpaceClientClass's returns itself)  // NAME 3: ui_manu.cpp's FAIL_IF's
 };
 #include <hash_set.h>
 #include "texture.h"
@@ -95,7 +95,7 @@ inline void UITradeClass::Close_Box() { if (View && View->Unknown34) View->Unkno
 
 
 // @0x650560
-UITradeClass::UITradeClass(SClient *client) : UIInvClass(client, 7), Unknown11C(0), Unknown138(0), Unknown13C(-2), Unknown140(-1),
+UITradeClass::UITradeClass(SpaceClientClass *client) : UIInvClass(client, 7), Unknown11C(0), Unknown138(0), Unknown13C(-2), Unknown140(-1),
 	Slider(NULL), Unknown170(-1), Unknown174(0), Unknown178(0) {
 	memset(Unknown0D4, 0, sizeof(Unknown0D4));
 	memset(Unknown108, 0, sizeof(Unknown108));
@@ -707,7 +707,7 @@ void UITradeClass::Unknown_652450(bool force)
 // @0x652670
 void UITradeClass::Unknown_652670()
 {
-	SClient *client = Client->As_Space_Client();
+	SpaceClientClass *client = Client->As_Space_Client();
 	if (Unknown150.empty()) {
 		Unknown150.push_back(Create_Get(new InvDataClass(1, client)));
 		Unknown150.push_back(Create_Get(new InvDataClass(2, client)));

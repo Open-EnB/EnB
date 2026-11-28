@@ -20,7 +20,7 @@ extern FontManagerClass *Unknown_BE67C4;			// NAME 1 [Unknown_BE67C4]: 0xBE67C4
 
 
 // 0x5603E0
-BioInterface::BioInterface(SClient *client) :
+BioInterface::BioInterface(SpaceClientClass *client) :
 	Unknown5BB320Class(new UIMeshClass("TSI10A", 2), client),
 	UnknownAC(NULL)
 {

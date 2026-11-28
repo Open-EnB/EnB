@@ -40,7 +40,7 @@ static const char *Unknown_B836F8[3][5] = {	// NAME 1: neutral (D10)
 };
 
 // 0x5CEDD0
-UIOptionSliderClass::UIOptionSliderClass(SClient *client, int page, bool mode) :
+UIOptionSliderClass::UIOptionSliderClass(SpaceClientClass *client, int page, bool mode) :
 	ChatPanelUIBase(client),
 	Page(page),
 	Mode(mode),
@@ -127,14 +127,14 @@ void UIOptionSliderClass::Unknown_60()
 // 0x5CF310
 bool UIOptionSliderClass::Unknown_68(int key)
 {
-	SClient *sclient = (SClient *)((ClientClass *)Client)->As_Space_Client();	// NAME 1: neutral (D10)
+	SpaceClientClass *sclient = (SpaceClientClass *)((ClientClass *)Client)->As_Space_Client();	// NAME 1: neutral (D10)
 	ChatPanelInterface *chat = sclient->ChatPanel.Peek();	// NAME 1: neutral (D10)
 	switch (key) {
 		case 1:
 			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
 			Unknown_5CF880(true);
-			((SClient *)((ClientClass *)Client)->As_Space_Client())->MainView->Unknown_514480();
-			((SClient *)((ClientClass *)Client)->As_Space_Client())->MainView->Unknown_5146D0();
+			((SpaceClientClass *)((ClientClass *)Client)->As_Space_Client())->MainView->Unknown_514480();
+			((SpaceClientClass *)((ClientClass *)Client)->As_Space_Client())->MainView->Unknown_5146D0();
 			Unknown_5C();
 			Closed = 1;
 			return(true);
@@ -144,8 +144,8 @@ bool UIOptionSliderClass::Unknown_68(int key)
 				chat->Unknown_565F30(1);
 			}
 			Unknown_5CF7E0();
-			((SClient *)((ClientClass *)Client)->As_Space_Client())->MainView->Unknown_514480();
-			((SClient *)((ClientClass *)Client)->As_Space_Client())->MainView->Unknown_5146D0();
+			((SpaceClientClass *)((ClientClass *)Client)->As_Space_Client())->MainView->Unknown_514480();
+			((SpaceClientClass *)((ClientClass *)Client)->As_Space_Client())->MainView->Unknown_5146D0();
 			Unknown_5C();
 			Closed = 1;
 			return(true);
@@ -155,8 +155,8 @@ bool UIOptionSliderClass::Unknown_68(int key)
 				chat->Unknown_565F30(1);
 			}
 			Unknown_5CF880(true);
-			((SClient *)((ClientClass *)Client)->As_Space_Client())->MainView->Unknown_514480();
-			((SClient *)((ClientClass *)Client)->As_Space_Client())->MainView->Unknown_5146D0();
+			((SpaceClientClass *)((ClientClass *)Client)->As_Space_Client())->MainView->Unknown_514480();
+			((SpaceClientClass *)((ClientClass *)Client)->As_Space_Client())->MainView->Unknown_5146D0();
 			Unknown_5C();
 			Closed = 1;
 			return(true);
@@ -169,8 +169,8 @@ bool UIOptionSliderClass::Unknown_68(int key)
 		case 12:
 			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
 			Unknown_5CF580();
-			((SClient *)((ClientClass *)Client)->As_Space_Client())->MainView->Unknown_514480();
-			((SClient *)((ClientClass *)Client)->As_Space_Client())->MainView->Unknown_5146D0();
+			((SpaceClientClass *)((ClientClass *)Client)->As_Space_Client())->MainView->Unknown_514480();
+			((SpaceClientClass *)((ClientClass *)Client)->As_Space_Client())->MainView->Unknown_5146D0();
 			return(true);
 	}
 	return(false);

@@ -14,7 +14,7 @@ class GadgetSlider;	// gd_slider.cpp's slider (+0xAC)
 class BioInterface : public Unknown5BB320Class  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	BioInterface(SClient *client);						// 0x5603E0 (0xB0 bytes; slot 0x560630)  // NAME 1 [client]: what the base's 0x5BB320 takes
+	BioInterface(SpaceClientClass *client);						// 0x5603E0 (0xB0 bytes; slot 0x560630)  // NAME 1 [client]: what the base's 0x5BB320 takes
 	virtual ~BioInterface();								// 0x560660
 	virtual void Unknown_54();							// 0x560740 (InterfaceClass's: slot +0x10)
 	virtual void Unknown_58();							// 0x560760 (the font for the mesh, when not active)

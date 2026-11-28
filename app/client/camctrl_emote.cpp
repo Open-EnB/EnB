@@ -7,7 +7,7 @@
 #include "..\shared\g_assert.h"
 #include "..\shared\auth_product.h"
 // @0x7930E0
-EmoteCameraControllerClass::EmoteCameraControllerClass(SClient *client) :
+EmoteCameraControllerClass::EmoteCameraControllerClass(SpaceClientClass *client) :
 	CameraControllerClass(client)
 {
 	Unknown0C = new CameraModule79C8E0Class(Client);

@@ -36,7 +36,7 @@ static Vector3 TargetCoordsColor(1.0f, 0.1f, 0.1f);	// 0xBE8790 (0x7BF8D0): the 
 static Vector3 HoverCoordsColor(1.0f, 1.0f, 0.0f);	// 0xBE87C0 (0x7BF900): the hovered object's  // NAME 1: what 0x7C1C50 shows in it
 
 // @0x7BF930
-StarmapPIPClass::StarmapPIPClass(SClient *client) :
+StarmapPIPClass::StarmapPIPClass(SpaceClientClass *client) :
 	MapPIPClass(client, true),
 	Unknown50(false),
 	Unknown51(false),
@@ -130,19 +130,19 @@ void StarmapPIPClass::Unknown_24(int arg)
 	switch (Label) {
 		case 0:
 			Label = 1;
-			((SClient *)Client->As_Space_Client())->Unknown_74D990(0, "Starmap PIP will now display labels of your own ship and other group member ships only.", 0);
+			((SpaceClientClass *)Client->As_Space_Client())->Unknown_74D990(0, "Starmap PIP will now display labels of your own ship and other group member ships only.", 0);
 			break;
 		case 1:
 			Label = 2;
-			((SClient *)Client->As_Space_Client())->Unknown_74D990(0, "Starmap PIP will now display labels of all visible ships.", 0);
+			((SpaceClientClass *)Client->As_Space_Client())->Unknown_74D990(0, "Starmap PIP will now display labels of all visible ships.", 0);
 			break;
 		case 2:
 			Label = 3;
-			((SClient *)Client->As_Space_Client())->Unknown_74D990(0, "Starmap PIP will now display all visible labels in the sector.", 0);
+			((SpaceClientClass *)Client->As_Space_Client())->Unknown_74D990(0, "Starmap PIP will now display all visible labels in the sector.", 0);
 			break;
 		case 3:
 			Label = 0;
-			((SClient *)Client->As_Space_Client())->Unknown_74D990(0, "Starmap PIP will now not display any labels.", 0);
+			((SpaceClientClass *)Client->As_Space_Client())->Unknown_74D990(0, "Starmap PIP will now not display any labels.", 0);
 			break;
 	}
 	IntOptionStruct *option = OptionManagerClass::Instance->Find_Int("Starmap_Label");
@@ -674,11 +674,11 @@ NavigationListClass *StarmapPIPClass::Unknown_7C0EE0()
 bool StarmapPIPClass::Unknown_7C0FA0()
 {
 	if (Unknown50) {
-		RadarSystemClass *radar = ((SClient *)Client)->MainView->Radar;
+		RadarSystemClass *radar = ((SpaceClientClass *)Client)->MainView->Radar;
 		FAIL_IF(!radar) return(false);
 		ClientObjectClass *hover = radar->Hover;
 		if (hover && hover->Get_Game_ID() != Client->AvatarID) {
-			TargetSelectClass *targeting = ((SClient *)Client)->Targeting;
+			TargetSelectClass *targeting = ((SpaceClientClass *)Client)->Targeting;
 
 
 
@@ -710,7 +710,7 @@ bool StarmapPIPClass::Unknown_7C1060()
 	if (!Unknown50) {
 		return(false);
 	}
-	RadarSystemClass *radar = ((SClient *)Client)->MainView->Radar;
+	RadarSystemClass *radar = ((SpaceClientClass *)Client)->MainView->Radar;
 	FAIL_IF(!radar) return(false);
 	return((ClientObjectClass *)radar->Hover != NULL);
 }
@@ -731,7 +731,7 @@ bool StarmapPIPClass::Unknown_7C1060()
 // @0x7C10D0
 bool StarmapPIPClass::Unknown_7C10D0()
 {
-	RadarSystemClass *radar = ((SClient *)Client)->MainView->Radar;
+	RadarSystemClass *radar = ((SpaceClientClass *)Client)->MainView->Radar;
 	FAIL_IF(!radar) return(false);
 	ClientObjectClass *hover = radar->Hover;
 	if (hover) {
@@ -1245,7 +1245,7 @@ void StarmapPIPClass::Unknown_7C2280()
 // @0x7C2340
 void StarmapPIPClass::Unknown_7C2340(unsigned id, std::string name, int type)
 {
-	ClientObjectClass *co = ((SClient *)Client->As_Space_Client())->Find_Object(id);
+	ClientObjectClass *co = ((SpaceClientClass *)Client->As_Space_Client())->Find_Object(id);
 	if (!co) {
 		return;
 	}
@@ -1275,7 +1275,7 @@ static DeltaGroupInfoClass *Find_Group(DeltaContainer *aux) { AuxDataName name("
 bool StarmapPIPClass::Is_Grouped(ClientObjectClass *co)
 {
 	if (co->Unknown_6F5A40()) {
-		DeltaContainer *aux = ((SClient *)Client->As_Space_Client())->AuxData;
+		DeltaContainer *aux = ((SpaceClientClass *)Client->As_Space_Client())->AuxData;
 		if (aux) {
 			DeltaGroupInfoClass *group = Find_Group(aux);
 			if (group) {
@@ -1302,7 +1302,7 @@ void StarmapPIPClass::Unknown_7C2850(bool force)
 	}
 	if (!Client->Get_Objects_Changed() && Labels.size() && !force) {
 		for (std::vector<Unknown_7C3220Class *>::iterator it = Labels.begin(); it != Labels.end(); it++) {
-			Unknown_7C3220Class *label = *it; unsigned id = label->ObjectID; ClientObjectClass *co = ((SClient *)Client->As_Space_Client())->Find_Object(id);
+			Unknown_7C3220Class *label = *it; unsigned id = label->ObjectID; ClientObjectClass *co = ((SpaceClientClass *)Client->As_Space_Client())->Find_Object(id);
 			if (co) {
 				label->Unknown_7C3830(co);
 			}

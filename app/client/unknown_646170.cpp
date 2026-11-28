@@ -43,7 +43,7 @@ class LineDisplayClientClass  // NAME 1: neutral (D10)
 public:
 	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
 	virtual void Unknown_10(); virtual void Unknown_14();
-	virtual SClient *As_Space_Client();					// +0x18 (SClient's returns itself)  // NAME 3: ui_manu.cpp's FAIL_IF's
+	virtual SpaceClientClass *As_Space_Client();					// +0x18 (SpaceClientClass's returns itself)  // NAME 3: ui_manu.cpp's FAIL_IF's
 	virtual void Unknown_1C(); virtual void Unknown_20(); virtual void Unknown_24(); virtual void Unknown_28(); virtual void Unknown_2C();
 	virtual void Unknown_30(); virtual void Unknown_34(); virtual void Unknown_38(); virtual void Unknown_3C(); virtual void Unknown_40();
 	virtual void Unknown_44(int arg);					// +0x44 (the starbase interface's destructor passes its +0x190's +0x90)  // NAME 1 [arg]: neutral
@@ -169,7 +169,7 @@ struct UIAvatrPullClass	// NAME 1: neutral (D10)
 class StarbaseLightInterface : public ChatPanelUIBase  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	StarbaseLightInterface(SClient *client);				// 0x646170  // NAME 1 [client]: the base's
+	StarbaseLightInterface(SpaceClientClass *client);				// 0x646170  // NAME 1 [client]: the base's
 	virtual ~StarbaseLightInterface();					// 0x646290 (deleting 0x646260)
 	virtual void Unknown_54();							// +0x54 0x646360
 	virtual void Unknown_58();							// +0x58 0x6466F0 (activated: the starbase, its lights, light 0)
@@ -211,7 +211,7 @@ public:
 };
 
 // 0x646170
-StarbaseLightInterface::StarbaseLightInterface(SClient *client) :
+StarbaseLightInterface::StarbaseLightInterface(SpaceClientClass *client) :
 	ChatPanelUIBase(client),
 	UnknownD8(NULL),
 	Starbase(NULL),

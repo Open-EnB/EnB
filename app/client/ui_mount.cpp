@@ -30,7 +30,7 @@ void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);	// 0x496AE
 // 0xBF92D0 is Matrix3D::RotateZ90 (matrix3d.obj's 8th initialiser 0x8C2380 fills it with 0 -1 0 / 1 0 0 / 0 0 1; P3, run 2026-11-24-night)
 
 // 0x5C73B0
-UIMountClass::UIMountClass(SClient *client, CameraClass *camera, int kind, int unused) :
+UIMountClass::UIMountClass(SpaceClientClass *client, CameraClass *camera, int kind, int unused) :
 	UIInvClass(client, kind),
 	Camera(camera),
 	Model(0),

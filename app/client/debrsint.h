@@ -61,7 +61,7 @@ public:
 	virtual bool Unknown_68(int key);					// +0x68 0x53D9F0: the debug keys 0-11 (G_ASSERTs on lines 198 / 223 / 246)  // NAME 1 [key]: InterfaceClass's
 	virtual void Unknown_6C(INIClass &ini);				// +0x6C 0x53DDE0: the fields back into Debris%02d  // NAME 1 [ini]: InterfaceClass's
 
-	void Set_Mode(unsigned mode);						// 0x53DFB0 (SClient's DebrisMode, through the main view's 0x513CD0)  // NAME 2: what it sets; NAME 2 [mode]: DebrisMode
+	void Set_Mode(unsigned mode);						// 0x53DFB0 (SpaceClientClass's DebrisMode, through the main view's 0x513CD0)  // NAME 2: what it sets; NAME 2 [mode]: DebrisMode
 	void Unknown_53E030(float value);					// 0x53E030 (the shown field's +0xC8, 0..1)  // NAME 1 [value]: neutral
 	float Unknown_53E0B0();								// 0x53E0B0 (the shown field's +0xC8)
 	float Get_Spacing();								// 0x53E0E0  // NAME 2: the field it reads
@@ -81,7 +81,7 @@ public:
 	void Set_Blur_Time(float blur_time);				// 0x53E4D0  // NAME 2: the field it sets
 
 	DynamicVectorClass<DebrisFieldClass *> Fields;		// +0x84 (one per Debris%02d section)  // NAME 1: what it holds
-	unsigned Mode;										// +0x9C the shown field (the main view's 0x513D00 returns it)  // NAME 2: SClient's DebrisMode
+	unsigned Mode;										// +0x9C the shown field (the main view's 0x513D00 returns it)  // NAME 2: SpaceClientClass's DebrisMode
 	int UnknownA0;										// +0xA0
 };
 

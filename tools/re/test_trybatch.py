@@ -276,7 +276,7 @@ class TablesVerdict(unittest.TestCase):
         self.assertTrue(m['exact'])
         self.assertEqual(m['tables_verdict'], 'copy')
         self.assertIn('= copy', T.fmt_form('ch_d1', m))
-        # the exact SClient::Unknown_743290 with the client's first two jump entries swapped: another body
+        # the exact SpaceClientClass::Unknown_743290 with the client's first two jump entries swapped: another body
         ctx = T._TABLES_CTX[0]
         a, b = ctx.u32(0x7432F4), ctx.u32(0x7432F8)
         keep = ctx.img.data

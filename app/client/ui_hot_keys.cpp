@@ -18,13 +18,13 @@ class LineDisplayClientClass  // NAME 1: neutral (D10)
 public:
 	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
 	virtual void Unknown_10(); virtual void Unknown_14();
-	virtual SClient *As_Space_Client();					// +0x18 (as ui_manu.cpp's)  // NAME 3: the FAIL_IF's in ui_manu.cpp
+	virtual SpaceClientClass *As_Space_Client();					// +0x18 (as ui_manu.cpp's)  // NAME 3: the FAIL_IF's in ui_manu.cpp
 };
 
 inline unsigned Unknown_Avatar_ID(LineDisplayClientClass *client) { return(((ClientClass *)client)->AvatarID); }	// NAME 1: neutral (D10), as ui_cpit.cpp's
 
 // @0x59C6F0
-UIHotKeysClass::UIHotKeysClass(SClient *client) :
+UIHotKeysClass::UIHotKeysClass(SpaceClientClass *client) :
 	InterfaceClass((LineDisplayClientClass *)client)
 {
 }
@@ -104,7 +104,7 @@ bool UIHotKeysClass::Unknown_68(int key)
 
 
 	FAIL_IF(!Client) return(false);
-	SClient *sclient = Client->As_Space_Client();
+	SpaceClientClass *sclient = Client->As_Space_Client();
 	FAIL_IF(!sclient) return(false);
 	TargetSelectClass *targeting = sclient->Targeting;
 

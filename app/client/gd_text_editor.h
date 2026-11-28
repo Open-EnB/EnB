@@ -21,7 +21,7 @@ class FontSys;
 class FontSplitStringClass;
 class GadgetSlider;
 class InterfaceClass;
-class SClient;
+class SpaceClientClass;
 class StringEditClass;
 class FontSysCursor;
 
@@ -76,7 +76,7 @@ public:
 	float LineHeight;									// +0xAC (in screen units)  // NAME 2: what it holds
 	float Unknown_B0;									// +0xB0 (the first line's width)
 	int Unknown_B4;										// +0xB4 (the constructor leaves it)
-	SClient *Client;									// +0xB8 (0x6735A0: the current view; set by nothing in this file)  // NAME 2: its type
+	SpaceClientClass *Client;									// +0xB8 (0x6735A0: the current view; set by nothing in this file)  // NAME 2: its type
 };
 
 #endif

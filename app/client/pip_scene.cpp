@@ -10,7 +10,7 @@
 #include "matrix3d.h"
 #include "..\shared\auth_product.h"
 
-PIPSceneClass::PIPSceneClass(SClient *client) :
+PIPSceneClass::PIPSceneClass(SpaceClientClass *client) :
 	Unknown04(client),
 	View(NULL),
 	Rect(0.0f, 0.0f, 0.0f, 0.0f),

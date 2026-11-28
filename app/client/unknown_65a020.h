@@ -14,7 +14,7 @@ class ButtonGadgetClass;		// unknown_675120.h's buttons (+0xAC)
 class Unknown65A020Class : public Unknown5BB320Class	// NAME 1: neutral (D10)
 {
 public:
-	Unknown65A020Class(SClient *client);				// 0x65A020 (the starbase view's 0x69F8F0, case 9)  // NAME 1 [client]: what 0x69F8F0 passes
+	Unknown65A020Class(SpaceClientClass *client);				// 0x65A020 (the starbase view's 0x69F8F0, case 9)  // NAME 1 [client]: what 0x69F8F0 passes
 	virtual ~Unknown65A020Class();						// 0x65A160 (slot +0x5C's body inline; deleting 0x65A130)
 	virtual void Unknown_54();							// 0x65A250 (the buttons 'exit' / 'exit_button', Escape, the back 'Box01')
 	virtual void Unknown_58();							// 0x65A4A0 (the browser opened 20 frames on)

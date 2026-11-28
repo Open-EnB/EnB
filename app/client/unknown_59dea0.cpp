@@ -15,7 +15,7 @@ void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);	// 0x496AE
 static const char *Unknown_B802A0[2] = { "yes", "no" };	// NAME 1: neutral (D10)
 
 // @0x59DEA0
-Unknown59DEA0Class::Unknown59DEA0Class(SClient *client) :
+Unknown59DEA0Class::Unknown59DEA0Class(SpaceClientClass *client) :
 	ChatPanelUIBase(client)
 {
 	memset(Buttons, 0, sizeof(Buttons));

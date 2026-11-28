@@ -4,7 +4,7 @@
 // nothing else; where a caller branches on the result, the result is the harness's (clienttest.h).
 //
 // Not run, by design (D69): SpaceClientOptionsClass's constructor 0x75A280 reads the registry, so soptions.cpp is
-// not compiled in and every member SClient reaches is a stand-in below (app.lib's soptions.obj is then never
+// not compiled in and every member SpaceClientClass reaches is a stand-in below (app.lib's soptions.obj is then never
 // pulled: one member missing here and the linker brings it in, LNK2005 on the others).
 #include <windows.h>
 #include <stdio.h>
@@ -43,9 +43,9 @@ void RadarSystemClass::Unknown_7BCA70(GutterRadarClass *, StarmapPIPClass *arg, 
 	Trace("stub RadarSystemClass::Unknown_7BCA70 %s, scene %s", arg ? "an object" : "NULL", scene.Peek() ? "set" : "NULL");
 }
 
-// ------------------------------------------------------------------------- SClient's methods the handlers call (sclient.cpp, not rebuilt)
+// ------------------------------------------------------------------------- SpaceClientClass's methods the handlers call (sclient.cpp, not rebuilt)
 
-// SClient's chat line 0x74D990 is sclient.cpp's real one: its call of the chat panel's 0x563760 (the line with its
+// SpaceClientClass's chat line 0x74D990 is sclient.cpp's real one: its call of the chat panel's 0x563760 (the line with its
 // type's prefix) comes here, renamed in sclient.cpp's object only (clienttest.py build; ui_chat_panel.obj keeps its own)
 // MESSAGE_TIME's and NOTE_CONTENT's lines carry the local time: the trace keeps the text up to it
 static std::string Chat_Trace_Text(const char *text)
@@ -68,9 +68,9 @@ void ChatPanelInterface::Clienttest_Unknown_563760(int type, const std::string &
 {
 	Trace("stub ChatPanelInterface::Unknown_563760 0x%X '%s'", type, Chat_Trace_Text(text.c_str()).c_str());
 }
-// (the chat colour 0x765DF0 SClient 0x750F70 reads is rebuilt: app/client/unknown_764fd0.cpp, GS1)
+// (the chat colour 0x765DF0 SpaceClientClass 0x750F70 reads is rebuilt: app/client/unknown_764fd0.cpp, GS1)
 
-// SClient's slots declared only (sclient.h): never called by the tests
+// SpaceClientClass's slots declared only (sclient.h): never called by the tests
 
 // ------------------------------------------------------------------------- co.cpp's client object
 // (co.cpp's rebuilt members link from app.lib: the type tests, the model accessor 0x6F3BC0, the aux-data
@@ -85,16 +85,16 @@ void ClientLegoRootClass::Unknown_732690() {}
 // (co.h's +0x134 AccelClass links from app.lib: accel.cpp)
 // (co.cpp's SUBPARTS 0x6FEF70 gets a sub part's lego from 0x7294D0: app.lib's unknown_7294d0.cpp)
 
-// (SClient::Do_Frame's frame toggle 0xBE350C and input flags 0xBE5F34 are observer.cpp's and gadget.cpp's, app.lib)
+// (SpaceClientClass::Do_Frame's frame toggle 0xBE350C and input flags 0xBE5F34 are observer.cpp's and gadget.cpp's, app.lib)
 
 // Do_Frame's callees that take an input event by value (gen_stubs skips a class by value)
 #include "..\..\..\app\kernel\kernel.h"
-// (SClient::Unknown_744240, which does nothing, is sclient.cpp's)
+// (SpaceClientClass::Unknown_744240, which does nothing, is sclient.cpp's)
 // (ScriptedMovieViewClass::Unknown_802960 is rebuilt in scriptedmovie.cpp, UI1; the trace never reaches it)
 
 // ------------------------------------------------------------------------- eff_o.cpp's effect, the third list's records
 
-// eff_o.cpp (app.lib) defines EffectObjectClass's members and BinaryEffectClass's Unknown_28 / _30 / _38 since EF1; no stand-ins here
+// eff_o.cpp (app.lib) defines EffectClass's members and BinaryEffectClass's Unknown_28 / _30 / _38 since EF1; no stand-ins here
 // influence.cpp (app.lib) defines Unknown86CRecordClass, the third list's records, since O5b (2026-11-13b): no stand-in here
 
 // ------------------------------------------------------------------------- ClientClass's members (client.h)
@@ -109,7 +109,7 @@ static SoundManagerClass The_Sound_Manager;
 extern SoundManagerClass *SoundManager;
 static struct Clienttest_Sound_Manager { Clienttest_Sound_Manager() { SoundManager = &The_Sound_Manager; } } Clienttest_Sound_Manager_Set;
 
-// ui_line_display.cpp (the handlers 32-36 through SClient +0x1280): the members cpacket.cpp calls, as
+// ui_line_display.cpp (the handlers 32-36 through SpaceClientClass +0x1280): the members cpacket.cpp calls, as
 // ui_line_display.h declares them (non-virtual: same mangling); clienttest.cpp points LineDisplay at a fake. The
 // constructor Init calls stands in here too: from app.lib it would pull ui_line_display.obj (LNK2005 on these)
 class LineDisplayClientClass;

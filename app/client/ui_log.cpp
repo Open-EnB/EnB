@@ -25,7 +25,7 @@ class LineDisplayClientClass  // NAME 1: neutral (D10)
 public:
 	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
 	virtual void Unknown_10(); virtual void Unknown_14();
-	virtual SClient *As_Space_Client();					// +0x18 (SClient's returns itself)  // NAME 3: ui_manu.cpp's FAIL_IF's
+	virtual SpaceClientClass *As_Space_Client();					// +0x18 (SpaceClientClass's returns itself)  // NAME 3: ui_manu.cpp's FAIL_IF's
 };
 
 // The text gadgets' flags 0x40 and 4 (textgadg.h's run 0xB08C90-0xB08CC4)
@@ -46,7 +46,7 @@ std::string Unknown_8192C0(const char *format, ...);	// NAME 1: neutral (D10)
 class UILogClass : public ChatPanelUIBase	// NAME 1: neutral, after its tooltip section 'UI_LOG'
 {
 public:
-	UILogClass(SClient *client);						// 0x5AAE40  // NAME 1 [client]: ChatPanelUIBase's
+	UILogClass(SpaceClientClass *client);						// 0x5AAE40  // NAME 1 [client]: ChatPanelUIBase's
 	virtual ~UILogClass();								// 0x5AAF60 (deleting 0x5AAF30)
 	virtual void Unknown_54();							// +0x54 0x5AB030 ('log00a', 'fa_log00a.ini': the buttons, the slider, the editor, the page entry)
 	virtual void Unknown_58();							// +0x58 0x5AB3F0 (activated: the page from the options, loaded)
@@ -74,7 +74,7 @@ static const char *Unknown_B80F58[] = { "exit2", "previous", "next", "date_stamp
 static const char *Unknown_B80F74[] = { NULL, "PREV_log00a", "NEXT_log00a", "DATESTAMP_log00a", NULL };	// NAME 1: neutral (D10)
 
 // 0x5AAE40
-UILogClass::UILogClass(SClient *client) :
+UILogClass::UILogClass(SpaceClientClass *client) :
 	ChatPanelUIBase(client),
 	Slider(NULL),
 	Editor(NULL),

@@ -29,7 +29,7 @@ class LineDisplayClientClass  // NAME 1: neutral (D10)
 public:
 	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
 	virtual void Unknown_10(); virtual void Unknown_14();
-	virtual SClient *As_Space_Client();					// +0x18 (SClient's returns itself)  // NAME 3: ui_manu.cpp's FAIL_IF's
+	virtual SpaceClientClass *As_Space_Client();					// +0x18 (SpaceClientClass's returns itself)  // NAME 3: ui_manu.cpp's FAIL_IF's
 };
 
 // money.cpp's arithmetic and comparisons (cdecl, not rebuilt)
@@ -53,7 +53,7 @@ extern FontManagerClass *Unknown_BE67C4;			// NAME 1 [Unknown_BE67C4]: 0xBE67C4
 
 
 // 0x5E1BE0
-PlayerTradeInterface::PlayerTradeInterface(SClient *client) :
+PlayerTradeInterface::PlayerTradeInterface(SpaceClientClass *client) :
 	Unknown5BB320Class(new UIMeshClass("TRADE00A", 1), client),
 	PlayerPIP(NULL),
 	OtherPIP(NULL),
@@ -130,7 +130,7 @@ void PlayerTradeInterface::Unknown_54()
 	GadgetClass::Set_Tooltip(Unknown0BC[0], "UI_PTRADE", "CANCEL");
 	GadgetClass::Set_Tooltip(Unknown0BC[2], "UI_PTRADE", "CONFIRM");
 	GadgetClass::Set_Tooltip(Unknown0BC[3], "UI_PTRADE", "CREDITS");
-	SClient *sclient = Client->As_Space_Client();
+	SpaceClientClass *sclient = Client->As_Space_Client();
 	Unknown0AC = Create_Get(new UIInvRobjStripClass(sclient, InterfaceMesh->Peek_Object(), 6, "TRADE00A.C%02d", 15));
 	Unknown0AC->Unknown_5417D0(this);
 	Unknown0AC->Unknown_54();
@@ -173,7 +173,7 @@ void PlayerTradeInterface::Unknown_58()
 	if (State == UI_CLOSED) {
 		InterfaceSortScopeClass sort(this);
 		State = UI_OPEN;
-		SClient *sclient = Client->As_Space_Client();
+		SpaceClientClass *sclient = Client->As_Space_Client();
 		Unknown0DC = sclient->PDAInterface->Unknown_695780(false);
 		PlayerPIP->Unknown_7E36B0(sclient, Create_NEW(InterfaceMesh->Get_Sub_Object_By_Name("AVATAR_YOU")), 0);
 		OtherPIP->Unknown_7E36B0(sclient, Create_NEW(InterfaceMesh->Get_Sub_Object_By_Name("AVATAR_THEM")), 0);
@@ -205,7 +205,7 @@ void PlayerTradeInterface::Unknown_5C()
 		Unknown0AC->Unknown_5C();
 		Unknown0B0->Unknown_5C();
 		Unknown0B4->Unknown_5C();
-		SClient *sclient = Client->As_Space_Client();
+		SpaceClientClass *sclient = Client->As_Space_Client();
 		if (Unknown0DC) {
 			sclient->PDAInterface->Unknown_695A00(0, 1);
 		}
@@ -239,7 +239,7 @@ void PlayerTradeInterface::Unknown_60()
 
 bool PlayerTradeInterface::Unknown_68(int key)
 {
-	SClient *sclient = Client->As_Space_Client(); int avatar; int id; // NAME 1 [avatar, id]: neutral (D10)
+	SpaceClientClass *sclient = Client->As_Space_Client(); int avatar; int id; // NAME 1 [avatar, id]: neutral (D10)
 	switch (key) {
 		case 1:
 		case 2:
@@ -466,7 +466,7 @@ void PlayerTradeInterface::Unknown_5E39F0()
 				if (t) money = t->Value;
 				if (money + Unknown0E0 >= MoneyClass(amount)) {
 					Unknown0E0.Amount = amount;
-					SClient *sclient = Client->As_Space_Client();
+					SpaceClientClass *sclient = Client->As_Space_Client();
 					__int64 offered = Unknown0E0.Amount; int id = ((ClientClass *)Client)->Unknown1134; int avatar = sclient->AvatarID; sclient->Send_Packet(&ActionPacketClass(avatar, 0x18, id, (int)offered));
 					Unknown_5E3340();
 				} else {
@@ -487,7 +487,7 @@ void PlayerTradeInterface::Unknown_5E3C90()
 	RefCountPtr<FontSys> font = Create_Peek(Unknown_BE67C4->Get_Style("RECIPIENT_NAME_TRADE00", InterfaceMesh->Peek_Object()));
 	const char *text = font->Unknown_6D87D0();
 	if (text && *text && *text != ' ') return;
-	SClient *sclient = Client->As_Space_Client();
+	SpaceClientClass *sclient = Client->As_Space_Client();
 	int id = ((ClientClass *)Client)->Unknown1134; RefCountPtr<AvatarClass> avatar = Create_NEW(sclient->Unknown_74C7B0(id));
 	if (!avatar) return;
 	std::string name;

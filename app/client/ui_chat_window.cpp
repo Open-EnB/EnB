@@ -35,7 +35,7 @@ class LineDisplayClientClass  // NAME 1: neutral (D10)
 public:
 	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
 	virtual void Unknown_10(); virtual void Unknown_14();
-	virtual SClient *As_Space_Client();					// +0x18 (ClientClass::As_Space_Client; SClient's returns itself)  // NAME 3: ui_manu.cpp's FAIL_IF's
+	virtual SpaceClientClass *As_Space_Client();					// +0x18 (ClientClass::As_Space_Client; SpaceClientClass's returns itself)  // NAME 3: ui_manu.cpp's FAIL_IF's
 };
 
 
@@ -55,7 +55,7 @@ inline ChatWinStruct::~ChatWinStruct()
 }
 
 // 0x56F420
-ChatWindowInterface::ChatWindowInterface(SClient *client, Unknown67D430Class *history, ChatGadgetClass *edit) :
+ChatWindowInterface::ChatWindowInterface(SpaceClientClass *client, Unknown67D430Class *history, ChatGadgetClass *edit) :
 	ChatPanelUIBase(client),
 	ChatHistory(history),
 	UnknownA4(edit),
@@ -610,7 +610,7 @@ Vector3 &ChatWindowInterface::Unknown_5719A0(Vector3 &color, const Unknown67D430
 	int type = entry.Get_Type();
 	color.Set(1.0f, 1.0f, 1.0f); LineDisplayClientClass *client = Client;
 	FAIL_IF(!client) return(color);
-	SClient *sclient = client->As_Space_Client();
+	SpaceClientClass *sclient = client->As_Space_Client();
 
 	FAIL_IF(!sclient) return(color);
 	color = sclient->Unknown13CC.Unknown_765DF0(type);

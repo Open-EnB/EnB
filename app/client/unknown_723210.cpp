@@ -21,7 +21,7 @@ class UnknownB02C74Class : public UnknownB02C78ActionClass  // NAME 1: neutral (
 {
 public:
 	UnknownB02C74Class() : Turn(0) {}
-	virtual bool Execute(SClient *client);				// 0x723E00
+	virtual bool Execute(SpaceClientClass *client);				// 0x723E00
 	int Turn;											// +0x08 -1, 0 or 1  // NAME 2: TurnPacketClass's sign
 };
 
@@ -30,7 +30,7 @@ class UnknownB02C70Class : public UnknownB02C78ActionClass  // NAME 1: neutral (
 {
 public:
 	UnknownB02C70Class() : Tilt(0) {}
-	virtual bool Execute(SClient *client);				// 0x723F30
+	virtual bool Execute(SpaceClientClass *client);				// 0x723F30
 	int Tilt;											// +0x08 -1, 0 or 1  // NAME 2: TiltPacketClass's sign
 };
 
@@ -39,7 +39,7 @@ class UnknownB02C6CClass : public UnknownB02C78ActionClass  // NAME 1: neutral (
 {
 public:
 	UnknownB02C6CClass() {}
-	virtual bool Execute(SClient *client);				// 0x724060
+	virtual bool Execute(SpaceClientClass *client);				// 0x724060
 };
 
 // Target a random other object when there is no target, 20 s (vtable 0xB02C60)
@@ -47,7 +47,7 @@ class UnknownB02C60Class : public UnknownB02C78ActionClass  // NAME 1: neutral (
 {
 public:
 	UnknownB02C60Class() {}
-	virtual bool Execute(SClient *client);				// 0x724180
+	virtual bool Execute(SpaceClientClass *client);				// 0x724180
 };
 
 // Fire everything at the target, 6-10 s (vtable 0xB02C5C)
@@ -55,7 +55,7 @@ class UnknownB02C5CClass : public UnknownB02C78ActionClass  // NAME 1: neutral (
 {
 public:
 	UnknownB02C5CClass() {}
-	virtual bool Execute(SClient *client);				// 0x7241F0
+	virtual bool Execute(SpaceClientClass *client);				// 0x7241F0
 };
 
 // Move an inventory item, 5-10 s (vtable 0xB02C58)
@@ -63,7 +63,7 @@ class UnknownB02C58Class : public UnknownB02C78ActionClass  // NAME 1: neutral (
 {
 public:
 	UnknownB02C58Class() {}
-	virtual bool Execute(SClient *client);				// 0x7242E0
+	virtual bool Execute(SpaceClientClass *client);				// 0x7242E0
 };
 
 // Fire one of slots 3-5 at the target, 10-15 s (vtable 0xB02C54)
@@ -71,7 +71,7 @@ class UnknownB02C54Class : public UnknownB02C78ActionClass  // NAME 1: neutral (
 {
 public:
 	UnknownB02C54Class() {}
-	virtual bool Execute(SClient *client);				// 0x7243C0
+	virtual bool Execute(SpaceClientClass *client);				// 0x7243C0
 };
 
 // Target a component and attack it once, 10-20 s (vtable 0xB02C64, 0xC bytes)
@@ -79,7 +79,7 @@ class UnknownB02C64Class : public UnknownB02C78ActionClass  // NAME 1: neutral (
 {
 public:
 	UnknownB02C64Class() {}
-	virtual bool Execute(SClient *client);				// 0x724490
+	virtual bool Execute(SpaceClientClass *client);				// 0x724490
 	bool Attacked;										// +0x08 (set once ACTION 1 is sent)  // NAME 2: what it holds
 };
 
@@ -88,20 +88,20 @@ class UnknownB02C68Class : public UnknownB02C78ActionClass  // NAME 1: neutral (
 {
 public:
 	UnknownB02C68Class() {}
-	virtual bool Execute(SClient *client);				// 0x7245C0
+	virtual bool Execute(SpaceClientClass *client);				// 0x7245C0
 };
 
-ClientObjectClass *Unknown_723210(SClient *client)
+ClientObjectClass *Unknown_723210(SpaceClientClass *client)
 {
 	return(client->MainView->Unknown_5C());
 }
 
-void Unknown_723230(SClient *client, ClientObjectClass *target)
+void Unknown_723230(SpaceClientClass *client, ClientObjectClass *target)
 {
 	client->Send_Packet(&RequestTargetPacketClass(client->Get_Avatar_ID(), target->Get_Game_ID()));
 }
 
-ClientObjectClass *Unknown_7232D0(SClient *client)
+ClientObjectClass *Unknown_7232D0(SpaceClientClass *client)
 {
 	std::list<ClientObjectClass *> objects;
 	HashNodeClass<ClientObjectClass *> *scan = client->ObjectList.First_Valid();
@@ -125,7 +125,7 @@ ClientObjectClass *Unknown_7232D0(SClient *client)
 	return(NULL);
 }
 
-ClientObjectClass *Unknown_7234B0(SClient *client)
+ClientObjectClass *Unknown_7234B0(SpaceClientClass *client)
 {
 	std::list<ClientObjectClass *> objects;
 	HashNodeClass<ClientObjectClass *> *scan = client->ObjectList.First_Valid();
@@ -149,7 +149,7 @@ ClientObjectClass *Unknown_7234B0(SClient *client)
 	return(NULL);
 }
 
-UnknownB02C78Class::UnknownB02C78Class(SClient *client) :
+UnknownB02C78Class::UnknownB02C78Class(SpaceClientClass *client) :
 	Client(client)
 {
 	Actions.push(new UnknownB02C74Class);
@@ -189,7 +189,7 @@ bool UnknownB02C78Class::Unknown_04()
 	return(false);
 }
 
-bool UnknownB02C74Class::Execute(SClient *client)
+bool UnknownB02C74Class::Execute(SpaceClientClass *client)
 {
 	int turn;
 	if (Turn == 0) {
@@ -207,7 +207,7 @@ bool UnknownB02C74Class::Execute(SClient *client)
 	return(true);
 }
 
-bool UnknownB02C70Class::Execute(SClient *client)
+bool UnknownB02C70Class::Execute(SpaceClientClass *client)
 {
 	int tilt;
 	if (Tilt == 0) {
@@ -225,7 +225,7 @@ bool UnknownB02C70Class::Execute(SClient *client)
 	return(true);
 }
 
-bool UnknownB02C6CClass::Execute(SClient *client)
+bool UnknownB02C6CClass::Execute(SpaceClientClass *client)
 {
 	Time = RandomClass()(8000, 10000) + client->Unknown10BC;
 	int move = (rand() % 12) - 1;
@@ -243,7 +243,7 @@ bool UnknownB02C6CClass::Execute(SClient *client)
 	return(true);
 }
 
-bool UnknownB02C60Class::Execute(SClient *client)
+bool UnknownB02C60Class::Execute(SpaceClientClass *client)
 {
 	if (!Unknown_723210(client)) {
 		ClientObjectClass *target = Unknown_7232D0(client);
@@ -255,7 +255,7 @@ bool UnknownB02C60Class::Execute(SClient *client)
 	return(true);
 }
 
-bool UnknownB02C5CClass::Execute(SClient *client)
+bool UnknownB02C5CClass::Execute(SpaceClientClass *client)
 {
 	if (client->MainView->Unknown_5C()) {
 		client->Send_Packet(&FirePacketClass(client->Get_Avatar_ID(), -1));
@@ -264,7 +264,7 @@ bool UnknownB02C5CClass::Execute(SClient *client)
 	return(true);
 }
 
-bool UnknownB02C58Class::Execute(SClient *client)
+bool UnknownB02C58Class::Execute(SpaceClientClass *client)
 {
 	Time = RandomClass()(5000, 10000) + client->Unknown10BC;
 	if ((rand() % 5) == 0) {
@@ -274,7 +274,7 @@ bool UnknownB02C58Class::Execute(SClient *client)
 	return(true);
 }
 
-bool UnknownB02C54Class::Execute(SClient *client)
+bool UnknownB02C54Class::Execute(SpaceClientClass *client)
 {
 	Time = RandomClass()(10000, 15000) + client->Unknown10BC;
 	if (client->MainView->Unknown_5C()) {
@@ -284,7 +284,7 @@ bool UnknownB02C54Class::Execute(SClient *client)
 	return(true);
 }
 
-bool UnknownB02C64Class::Execute(SClient *client)
+bool UnknownB02C64Class::Execute(SpaceClientClass *client)
 {
 	Time = RandomClass()(10000, 20000) + client->Unknown10BC;
 	ClientObjectClass *target = client->MainView->Unknown_5C();
@@ -304,7 +304,7 @@ bool UnknownB02C64Class::Execute(SClient *client)
 	return(true);
 }
 
-bool UnknownB02C68Class::Execute(SClient *client)
+bool UnknownB02C68Class::Execute(SpaceClientClass *client)
 {
 	Time = RandomClass()(15000, 20000) + client->Unknown10BC;
 	int bank = (rand() % 2) * 3;

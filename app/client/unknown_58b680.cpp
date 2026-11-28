@@ -31,7 +31,7 @@ bool Unknown_495FD0(RenderObjClass *robj, TextureClass *tex, int index);	// 0x49
 
 
 // 0x58B680
-UIMountHullClass::UIMountHullClass(SClient *client, const LayerClass &layer, RenderObjClass *model, int kind) :
+UIMountHullClass::UIMountHullClass(SpaceClientClass *client, const LayerClass &layer, RenderObjClass *model, int kind) :
 	UIMountClass(client, layer.Camera, kind, 0),
 	Layer(layer),
 	Model(model)

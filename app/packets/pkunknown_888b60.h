@@ -65,11 +65,11 @@ public:
 };
 
 // opcode 174 (0x00AE, ?): vtable 0xB0A7C4, constructor 0x889940, 0x28 bytes
-class Packet_00AEClass : public PacketClass  // NAME 1: neutral (D10): opcode 0x00AE (its Print says 'GroupServerRequestPacketClass')
+class GroupServerRequestPacketClass : public PacketClass  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	Packet_00AEClass(int unknown0c, int unknown10, __int64 unknown18, __int64 unknown20);	// 0x889870
-	Packet_00AEClass(RawPacketClass *raw);	// 0x889940
+	GroupServerRequestPacketClass(int unknown0c, int unknown10, __int64 unknown18, __int64 unknown20);	// 0x889870
+	GroupServerRequestPacketClass(RawPacketClass *raw);	// 0x889940
 	virtual RawPacketClass *Build();	// +0x04 0x889A10
 	virtual bool Process_Packet(void *client);	// +0x08 0x868E80 (clientstub.cpp l.332)
 	virtual int Get_Data_Size();	// +0x0C 0x889AF0
@@ -97,11 +97,11 @@ public:
 };
 
 // opcode 176 (0x00B0, ?): vtable 0xB0A824, constructor 0x889F30, 0x40 bytes
-class Packet_00B0Class : public Unknown_B0A794PacketClass  // NAME 1: neutral (D10): opcode 0x00B0 (its Print says 'GroupServerCreatePacketClass')
+class GroupServerCreatePacketClass : public Unknown_B0A794PacketClass  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	Packet_00B0Class(__int64 unknown10);	// 0x889DA0
-	Packet_00B0Class(RawPacketClass *raw);	// 0x889F30
+	GroupServerCreatePacketClass(__int64 unknown10);	// 0x889DA0
+	GroupServerCreatePacketClass(RawPacketClass *raw);	// 0x889F30
 	virtual RawPacketClass *Build();	// +0x04 0x88A2F0
 	virtual bool Process_Packet(void *client);	// +0x08 0x868EE0 (clientstub.cpp l.338)
 	virtual int Get_Data_Size();	// +0x0C 0x88A4B0
@@ -118,11 +118,11 @@ public:
 };
 
 // opcode 177 (0x00B1, ?): vtable 0xB0A854, constructor 0x88ABC0, 0x40 bytes
-class Packet_00B1Class : public Unknown_B0A794PacketClass  // NAME 1: neutral (D10): opcode 0x00B1 (its Print says 'GroupServerUpdatePacketClass')
+class GroupServerUpdatePacketClass : public Unknown_B0A794PacketClass  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	Packet_00B1Class(__int64 unknown10, int unknown38);	// 0x88A9A0
-	Packet_00B1Class(RawPacketClass *raw);	// 0x88ABC0
+	GroupServerUpdatePacketClass(__int64 unknown10, int unknown38);	// 0x88A9A0
+	GroupServerUpdatePacketClass(RawPacketClass *raw);	// 0x88ABC0
 	virtual RawPacketClass *Build();	// +0x04 0x88AD40
 	virtual bool Process_Packet(void *client);	// +0x08 0x868F10 (clientstub.cpp l.341)
 	virtual int Get_Data_Size();	// +0x0C 0x88AE50

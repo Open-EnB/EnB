@@ -13,7 +13,7 @@ static float Unknown_B04F3C = 1.75f;			// NAME 1: neutral (D10): the side offset
 static float Unknown_B04F40 = 0.5f;				// NAME 1: neutral (D10): the forward offset
 
 // @0x7953B0
-CameraController11Class::CameraController11Class(SClient *client) :
+CameraController11Class::CameraController11Class(SpaceClientClass *client) :
 	CameraControllerClass(client),
 	Unknown0C(NULL)
 {

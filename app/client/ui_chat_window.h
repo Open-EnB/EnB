@@ -42,7 +42,7 @@ struct ChatWinStruct : public ChatViewportStruct	// NAME 1: neutral (D10)
 class ChatWindowInterface : public ChatPanelUIBase	// NAME 5: the client's RTTI (.?AVChatWindowInterface@@ 0xB7D3E0, the Sender_Type of the callback table 0xAEFFF8 and of 0x570390's emit): the assert's 'ChatInt'
 {
 public:
-	ChatWindowInterface(SClient *client, Unknown67D430Class *history, ChatGadgetClass *edit);	// 0x56F420  // NAME 3 [history]: the asserts' ChatHistory; NAME 1 [client, edit]: neutral
+	ChatWindowInterface(SpaceClientClass *client, Unknown67D430Class *history, ChatGadgetClass *edit);	// 0x56F420  // NAME 3 [history]: the asserts' ChatHistory; NAME 1 [client, edit]: neutral
 	virtual ~ChatWindowInterface();						// 0x56F560 (deleting 0x56F530)
 	virtual void Unknown_54();							// +0x54 0x56F780 (G_ASSERT '!Interface_Mesh()' l.119: the set-up)
 	virtual void Unknown_58();							// +0x58 0x5701C0 (activated)

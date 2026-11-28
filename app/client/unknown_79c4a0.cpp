@@ -5,7 +5,7 @@
 #include "quat.h"
 #include "..\shared\auth_product.h"
 // 0x79C4A0
-CameraModule79C4A0Class::CameraModule79C4A0Class(SClient *client) :
+CameraModule79C4A0Class::CameraModule79C4A0Class(SpaceClientClass *client) :
 	CameraModuleClass(client),
 	Unknown08(true),
 	Unknown38(0.0f),

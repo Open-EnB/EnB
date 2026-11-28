@@ -47,7 +47,7 @@ public:
 
 
 // 0x798D20
-CameraManagerClass::CameraManagerClass(SClient *client) :
+CameraManagerClass::CameraManagerClass(SpaceClientClass *client) :
 	Client(client),
 	Module(NULL),
 	Requests(0),
@@ -97,7 +97,7 @@ CameraManagerClass::~CameraManagerClass()
 // 0x7992F0
 void CameraManagerClass::Unknown_7992F0()
 {
-	if (Client->As_Space_Client() && ((SClient *)Client->As_Space_Client())->Unknown_750B60()) {
+	if (Client->As_Space_Client() && ((SpaceClientClass *)Client->As_Space_Client())->Unknown_750B60()) {
 		return;
 	}
 	if (Client->LoadingView) {
@@ -113,7 +113,7 @@ void CameraManagerClass::Unknown_7992F0()
 // 0x7993E0
 void CameraManagerClass::Unknown_7993E0()
 {
-	if (Client->As_Space_Client() && ((SClient *)Client->As_Space_Client())->Unknown_750B60()) {
+	if (Client->As_Space_Client() && ((SpaceClientClass *)Client->As_Space_Client())->Unknown_750B60()) {
 		return;
 	}
 	if (Client->LoadingView) {
@@ -229,7 +229,7 @@ void CameraManagerClass::Unknown_7998B0(int id)
 
 
 
-static inline int Camera_Target_ID(SClient *client) { return(client->Unknown13B4); }	// NAME 1: neutral (D10): one inline layer at 0x799E40's bit 15 lookup (its Get_Avatar / Unknown_24 vtable registers, workflow.md 3.1.2 off-by-one rotation)
+static inline int Camera_Target_ID(SpaceClientClass *client) { return(client->Unknown13B4); }	// NAME 1: neutral (D10): one inline layer at 0x799E40's bit 15 lookup (its Get_Avatar / Unknown_24 vtable registers, workflow.md 3.1.2 off-by-one rotation)
 
 // 0x799DA0
 bool CameraManagerClass::Unknown_799DA0(int *new_state, int state)

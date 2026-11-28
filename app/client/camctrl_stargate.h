@@ -6,12 +6,12 @@
 #include "camctrl.h"
 #include "unknown_7979a0.h"
 
-// The camera manager's fourth controller (state 3; vtable 0xB05014, 0x1C bytes): the gate at SClient +0x13BC; phase
+// The camera manager's fourth controller (state 3; vtable 0xB05014, 0x1C bytes): the gate at SpaceClientClass +0x13BC; phase
 // 0 until 7 seconds have passed or the avatar is within half the gate's reach, then phase 1 and request 0x18
 class StargateCameraControllerClass : public CameraControllerClass  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	StargateCameraControllerClass(SClient *client);			// 0x795900
+	StargateCameraControllerClass(SpaceClientClass *client);			// 0x795900
 	virtual ~StargateCameraControllerClass();					// 0x7959D0, deleting 0x7959A0
 	virtual void Unknown_04();							// +0x04 0x795A50
 	virtual void Unknown_08(Vector3 *pos, Quaternion *rot, int *mode, int *target);	// +0x08 0x795A80

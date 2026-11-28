@@ -23,7 +23,7 @@
 bool Unknown_4967F0(RenderObjClass *robj, int arg, RenderObjClass *model);	// 0x4967F0 (gadget.cpp declares it the same)  // NAME 1 [robj, arg, model]: neutral
 RefCountPtr<RenderObjClass> Unknown_497300(RenderObjClass *robj);	// 0x497300 (gadget.cpp declares it the same)  // NAME 1 [robj]: as ui_avatr.cpp's
 
-MapPIPClass::MapPIPClass(SClient *client, bool arg) :
+MapPIPClass::MapPIPClass(SpaceClientClass *client, bool arg) :
 	PIPSceneClass(client),
 	Client(client),
 	ViewportGadget(NULL),

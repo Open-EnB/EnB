@@ -12,7 +12,7 @@
 class CameraModule79C4A0Class : public CameraModuleClass	// NAME 1: neutral (D10)
 {
 public:
-	CameraModule79C4A0Class(SClient *client);			// 0x79C4A0
+	CameraModule79C4A0Class(SpaceClientClass *client);			// 0x79C4A0
 	virtual ~CameraModule79C4A0Class() {}				// 0x79C540, deleting 0x79C510
 	virtual void Unknown_04();							// +0x04 0x79C560 (the start time, then the base's)
 	virtual void Unknown_08(Vector3 *des_pos, Quaternion *des_quat);	// +0x08 0x79C590 (+0x08 turned about axis +0x3C by the time since the start times +0x38)
@@ -23,12 +23,12 @@ public:
 	int Unknown40;										// +0x40 (0x79C560: the client clock Unknown10BC at the start)
 };
 
-// The camera manager's sixth controller (state 5; vtable 0xB04D4C, 0x18 bytes): the landing at the target SClient
+// The camera manager's sixth controller (state 5; vtable 0xB04D4C, 0x18 bytes): the landing at the target SpaceClientClass
 // +0x13B8, with effect 0x16A on the avatar; after four seconds request 9
 class LandCameraControllerClass : public CameraControllerClass  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	LandCameraControllerClass(SClient *client);			// 0x793920
+	LandCameraControllerClass(SpaceClientClass *client);			// 0x793920
 	virtual ~LandCameraControllerClass();					// 0x793A10, deleting 0x7939E0
 	virtual void Unknown_04();							// +0x04 0x793A90
 	virtual void Unknown_08(Vector3 *pos, Quaternion *rot, int *mode, int *target);	// +0x08 0x793BC0

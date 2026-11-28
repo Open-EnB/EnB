@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <algorithm>
 
-Packet_00A8Class::Packet_00A8Class() :
+ChatProxyLoginPacketClass::ChatProxyLoginPacketClass() :
 	Unknown0C(0),
 	Unknown10(""),
 	Unknown20(""),
@@ -26,7 +26,7 @@ static void Read_Strings(std::vector<std::string> &list, RawPacketClass *raw)
 	}
 }
 
-Packet_00A8Class::Packet_00A8Class(RawPacketClass *raw) :
+ChatProxyLoginPacketClass::ChatProxyLoginPacketClass(RawPacketClass *raw) :
 	Unknown0C(0),
 	Unknown10(""),
 	Unknown20(""),
@@ -46,7 +46,7 @@ Packet_00A8Class::Packet_00A8Class(RawPacketClass *raw) :
 	Read_Strings(Unknown58, raw);
 }
 
-Packet_00A8Class::~Packet_00A8Class()
+ChatProxyLoginPacketClass::~ChatProxyLoginPacketClass()
 {
 }
 
@@ -59,7 +59,7 @@ static void Write_Strings(std::vector<std::string> &list, RawPacketClass *raw)
 	}
 }
 
-RawPacketClass *Packet_00A8Class::Build()
+RawPacketClass *ChatProxyLoginPacketClass::Build()
 {
 	RawPacketClass *raw = new RawPacketClass(168, Get_Data_Size());
 	raw->Add(&Unknown0C, sizeof(Unknown0C));
@@ -83,7 +83,7 @@ static int Get_Size_Strings(std::vector<std::string> &list)
 	return(size);
 }
 
-int Packet_00A8Class::Get_Data_Size()
+int ChatProxyLoginPacketClass::Get_Data_Size()
 {
 	int size = RawPacketClass::Get_Size(Unknown10) + sizeof(Unknown0C);
 	size += RawPacketClass::Get_Size(Unknown20) + sizeof(Unknown30) + sizeof(Unknown34) + sizeof(Unknown38) + sizeof(Unknown40);
@@ -91,12 +91,12 @@ int Packet_00A8Class::Get_Data_Size()
 	return(Get_Size_Strings(Unknown58) + size);
 }
 
-int Packet_00A8Class::Print(char *buffer, int len)
+int ChatProxyLoginPacketClass::Print(char *buffer, int len)
 {
 	return(_snprintf(buffer, len, "ChatProxyLoginPacketClass"));
 }
 
-Packet_00A9Class::Packet_00A9Class() :
+ChatProxyRequestPacketClass::ChatProxyRequestPacketClass() :
 	Unknown0C(0),
 	Unknown10(-1),
 	Data(0),
@@ -105,7 +105,7 @@ Packet_00A9Class::Packet_00A9Class() :
 {
 }
 
-Packet_00A9Class::Packet_00A9Class(RawPacketClass *raw) :
+ChatProxyRequestPacketClass::ChatProxyRequestPacketClass(RawPacketClass *raw) :
 	Unknown0C(0),
 	Unknown10(-1),
 	Data(0),
@@ -135,7 +135,7 @@ Packet_00A9Class::Packet_00A9Class(RawPacketClass *raw) :
 	}
 }
 
-Packet_00A9Class::~Packet_00A9Class()
+ChatProxyRequestPacketClass::~ChatProxyRequestPacketClass()
 {
 	if (Owned && Data != 0) {
 		delete [] Data;
@@ -143,7 +143,7 @@ Packet_00A9Class::~Packet_00A9Class()
 	}
 }
 
-RawPacketClass *Packet_00A9Class::Build()
+RawPacketClass *ChatProxyRequestPacketClass::Build()
 {
 	RawPacketClass *raw = new RawPacketClass(169, Get_Data_Size());
 	raw->Add(&Unknown0C, sizeof(Unknown0C));
@@ -165,7 +165,7 @@ RawPacketClass *Packet_00A9Class::Build()
 	return(raw);
 }
 
-int Packet_00A9Class::Get_Data_Size()
+int ChatProxyRequestPacketClass::Get_Data_Size()
 {
 	int size = RawPacketClass::Get_Size(Unknown14) + sizeof(Unknown0C) + sizeof(Unknown10);
 	size += RawPacketClass::Get_Size(Unknown24);
@@ -178,12 +178,12 @@ int Packet_00A9Class::Get_Data_Size()
 	return(Size + size + sizeof(Size));
 }
 
-void Packet_00A9Class::Add_Unknown64(const std::string &string)
+void ChatProxyRequestPacketClass::Add_Unknown64(const std::string &string)
 {
 	Unknown64.push_back(string);
 }
 
-int Packet_00A9Class::Print(char *buffer, int len)
+int ChatProxyRequestPacketClass::Print(char *buffer, int len)
 {
 	return(_snprintf(buffer, len, "ChatProxyRequestPacketClass"));
 }
@@ -216,14 +216,14 @@ int ChatProxyResponsePacketClass::Print(char *buffer, int len)
 	return(_snprintf(buffer, len, "ChatProxyResponsePacketClass"));
 }
 
-Packet_00ABClass::Packet_00ABClass(const std::string &unknown0c) :
+ChatProxyResponseListPacketClass::ChatProxyResponseListPacketClass(const std::string &unknown0c) :
 	Unknown0C(unknown0c),
 	Unknown1C(""),
 	Unknown2C(-1)
 {
 }
 
-Packet_00ABClass::Packet_00ABClass(RawPacketClass *raw) :
+ChatProxyResponseListPacketClass::ChatProxyResponseListPacketClass(RawPacketClass *raw) :
 	Unknown0C(""),
 	Unknown1C(""),
 	Unknown2C(-1)
@@ -248,7 +248,7 @@ Packet_00ABClass::Packet_00ABClass(RawPacketClass *raw) :
 	}
 }
 
-RawPacketClass *Packet_00ABClass::Build()
+RawPacketClass *ChatProxyResponseListPacketClass::Build()
 {
 	RawPacketClass *raw = new RawPacketClass(171, Get_Data_Size());
 	raw->Add(Unknown0C);
@@ -267,7 +267,7 @@ RawPacketClass *Packet_00ABClass::Build()
 	return(raw);
 }
 
-int Packet_00ABClass::Get_Data_Size()
+int ChatProxyResponseListPacketClass::Get_Data_Size()
 {
 	int size = RawPacketClass::Get_Size(Unknown0C);
 	size += sizeof(Unknown2C) + sizeof(int) + RawPacketClass::Get_Size(Unknown1C);
@@ -281,22 +281,22 @@ int Packet_00ABClass::Get_Data_Size()
 	return(size);
 }
 
-void Packet_00ABClass::Add_NPC(const std::string &string)
+void ChatProxyResponseListPacketClass::Add_NPC(const std::string &string)
 {
 	Unknown30.push_back(string);
 }
 
-void Packet_00ABClass::Add_Unknown40(const std::string &string)
+void ChatProxyResponseListPacketClass::Add_Unknown40(const std::string &string)
 {
 	Unknown40.push_back(string);
 }
 
-int Packet_00ABClass::Print(char *buffer, int len)
+int ChatProxyResponseListPacketClass::Print(char *buffer, int len)
 {
 	return(_snprintf(buffer, len, "ChatProxyResponseListPacketClass"));
 }
 
-Packet_00ACClass::Packet_00ACClass() :
+ChatProxyEventPacketClass::ChatProxyEventPacketClass() :
 	Unknown1C(0),
 	Data(0),
 	Size(0),
@@ -304,7 +304,7 @@ Packet_00ACClass::Packet_00ACClass() :
 {
 }
 
-Packet_00ACClass::Packet_00ACClass(RawPacketClass *raw) :
+ChatProxyEventPacketClass::ChatProxyEventPacketClass(RawPacketClass *raw) :
 	Unknown1C(0),
 	Data(0),
 	Size(0),
@@ -333,7 +333,7 @@ Packet_00ACClass::Packet_00ACClass(RawPacketClass *raw) :
 	}
 }
 
-Packet_00ACClass::~Packet_00ACClass()
+ChatProxyEventPacketClass::~ChatProxyEventPacketClass()
 {
 	if (Owned && Data != 0) {
 		delete [] Data;
@@ -341,7 +341,7 @@ Packet_00ACClass::~Packet_00ACClass()
 	}
 }
 
-RawPacketClass *Packet_00ACClass::Build()
+RawPacketClass *ChatProxyEventPacketClass::Build()
 {
 	RawPacketClass *raw = new RawPacketClass(172, Get_Data_Size());
 	int count = Unknown0C.size();
@@ -363,7 +363,7 @@ RawPacketClass *Packet_00ACClass::Build()
 	return(raw);
 }
 
-int Packet_00ACClass::Get_Data_Size()
+int ChatProxyEventPacketClass::Get_Data_Size()
 {
 	int size = sizeof(int);
 	for (std::vector<std::string>::iterator it = Unknown0C.begin(); it != Unknown0C.end(); it++) {
@@ -378,12 +378,12 @@ int Packet_00ACClass::Get_Data_Size()
 	return(Size + size + sizeof(Size));
 }
 
-int Packet_00ACClass::Print(char *buffer, int len)
+int ChatProxyEventPacketClass::Print(char *buffer, int len)
 {
 	return(_snprintf(buffer, len, "ChatProxyEventPacketClass"));
 }
 
-void Packet_00ACClass::Add_Unknown0C(const std::string &string)
+void ChatProxyEventPacketClass::Add_Unknown0C(const std::string &string)
 {
 	if (std::find(Unknown0C.begin(), Unknown0C.end(), string) == Unknown0C.end()) {
 		Unknown0C.push_back(string);

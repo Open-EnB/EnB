@@ -30,7 +30,7 @@ struct UIMountPointStruct	// NAME 1: neutral (D10)
 class UIMountClass : public UIInvClass  // NAME 3: class-from-file (D24) for ui_mount.cpp
 {
 public:
-	UIMountClass(SClient *client, CameraClass *camera, int kind, int unused);	// 0x5C73B0 (deleting 0x5C7470; 0x58B680 passes 0 last)  // NAME 1 [client, camera, kind, unused]: what it does with them
+	UIMountClass(SpaceClientClass *client, CameraClass *camera, int kind, int unused);	// 0x5C73B0 (deleting 0x5C7470; 0x58B680 passes 0 last)  // NAME 1 [client, camera, kind, unused]: what it does with them
 	virtual ~UIMountClass();							// 0x5C74D0
 	virtual void Unknown_54();							// 0x5C74A0 (the base's, then Build)
 	virtual void Unknown_58();							// 0x5C7570 (Build under a sort scope; built: hidden, the base's)

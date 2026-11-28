@@ -12,7 +12,7 @@
 #include "vector3.h"
 #include "vector4.h"
 
-class SClient;
+class SpaceClientClass;
 class ClientClass;
 class CameraClass;
 class INIClass;
@@ -26,7 +26,7 @@ class OrbitalObject;
 class OrbitalManager		// NAME 2: the client's (OrbitalManager::Update)
 {
 public:
-	OrbitalManager(SClient *client, MainViewOrbitalCallbackClass *callback);	// 0x4F3250 (0x1D4 bytes; the main view's 0x50BA60)  // NAME 1 [client, callback]: what 0x50BA60 passes
+	OrbitalManager(SpaceClientClass *client, MainViewOrbitalCallbackClass *callback);	// 0x4F3250 (0x1D4 bytes; the main view's 0x50BA60)  // NAME 1 [client, callback]: what 0x50BA60 passes
 	~OrbitalManager();									// 0x4F4FD0 (the main view's Shutdown 0x50C2F0)
 	void Unknown_4F3310();								// 0x4F3310 (the orbitals out of the scene, the light back to none)
 	void Unknown_4F34C0(INIClass &ini);				// 0x4F34C0 (0x513700: orbital%04d.ini when it loaded)  // NAME 1 [ini]: what it gets

@@ -25,7 +25,7 @@ class LineDisplayClientClass  // NAME 1: neutral (D10)
 public:
 	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
 	virtual void Unknown_10(); virtual void Unknown_14();
-	virtual SClient *As_Space_Client();					// +0x18 (ClientClass::As_Space_Client; SClient's returns itself)  // NAME 3: ui_manu.cpp's FAIL_IF's
+	virtual SpaceClientClass *As_Space_Client();					// +0x18 (ClientClass::As_Space_Client; SpaceClientClass's returns itself)  // NAME 3: ui_manu.cpp's FAIL_IF's
 };
 
 void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);	// 0x496AE0 (ro_funcs.cpp, cdecl)  // NAME 1 [robj, make_geometry_unique]: as ui_manu.cpp's
@@ -53,7 +53,7 @@ static const char *Unknown_B8077C[] = { "not used", "exit", "exit_button", "butt
 static const char *Unknown_B807A8[] = { "ITEM_NAME_JNEWS00", "" };	// NAME 1: neutral (D10)
 
 // @0x5A1170
-UIJobsClass::UIJobsClass(SClient *client) :
+UIJobsClass::UIJobsClass(SpaceClientClass *client) :
 	Unknown5BB320Class(new UIMeshClass("JNEWS00", true), client),
 	Unknown0AC(NULL),
 	Unknown0B4(0),
@@ -160,12 +160,12 @@ void UIJobsClass::Unknown_7C(UIViewClass *view, bool arg)
 	}
 }
 
-static inline int Jobs_Player_Id(SClient *sclient) { return sclient->Unknown1138; }  // NAME 2: the player id read as an inline accessor (as ui_manu.cpp's Manu_Player_Id)
+static inline int Jobs_Player_Id(SpaceClientClass *sclient) { return sclient->Unknown1138; }  // NAME 2: the player id read as an inline accessor (as ui_manu.cpp's Manu_Player_Id)
 
 // @0x5A2050
 void UIJobsClass::Unknown_58()
 {
-	SClient *sclient = Client->As_Space_Client();
+	SpaceClientClass *sclient = Client->As_Space_Client();
 	if (State == UI_CLOSED) {
 		InterfaceSortScopeClass scope(this);
 		State = UI_OPEN;
@@ -190,7 +190,7 @@ void UIJobsClass::Unknown_58()
 // @0x5A2480
 void UIJobsClass::Unknown_5C()
 {
-	SClient *sclient = Client->As_Space_Client();
+	SpaceClientClass *sclient = Client->As_Space_Client();
 	if (State == UI_OPEN) {
 		State = UI_CLOSED;
 		if (sclient->Unknown135C) {

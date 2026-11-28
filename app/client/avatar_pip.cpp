@@ -149,7 +149,7 @@ void AvatarPipClass::Unknown_7E35D0()
 
 
 // @0x7E36B0
-bool AvatarPipClass::Unknown_7E36B0(SClient *sclient, const RefCountPtr<RenderObjClass> &vp, bool arg)
+bool AvatarPipClass::Unknown_7E36B0(SpaceClientClass *sclient, const RefCountPtr<RenderObjClass> &vp, bool arg)
 {
 	Unknown_7E35D0();
 	FAIL_IF(!vp) return(false);
@@ -298,7 +298,7 @@ void AvatarPipClass::Unknown_7E4520(const RefCountPtr<RenderObjClass> &model) {
 		Unknown034->Set_Transform(Matrix3D(true));
 		Unknown034->Add(Scene.Peek()); int polys;
 		if (OptionManagerClass::Instance->Get_Bool("Graphics_Default")) {
-			polys = (int)((float)((SClient *)Client->As_Space_Client())->PolyBudget * 0.1f);
+			polys = (int)((float)((SpaceClientClass *)Client->As_Space_Client())->PolyBudget * 0.1f);
 		} else {
 			int space = (int)(8000.0f + (OptionManagerClass::Instance->Get_Float("Graphics_Space_Poly") * 0.01f) * (40000.0f - 8000.0f));
 			polys = (int)((float)space * 0.1f); }

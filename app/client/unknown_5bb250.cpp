@@ -14,7 +14,7 @@ Unknown5BB320Class::Unknown5BB320Class(UIMeshClass *mesh, UIViewClass *view, con
 }
 
 // 0x5BB320
-Unknown5BB320Class::Unknown5BB320Class(UIMeshClass *mesh, SClient *client) :
+Unknown5BB320Class::Unknown5BB320Class(UIMeshClass *mesh, SpaceClientClass *client) :
 	InterfaceClass((LineDisplayClientClass *)client),
 	InterfaceMesh(mesh)
 {

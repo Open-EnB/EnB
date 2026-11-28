@@ -14,7 +14,7 @@
 
 #include "..\common\unknown_navlist.h"
 
-class SClient;
+class SpaceClientClass;
 class ClientObjectClass;
 class NavNodeStruct;
 
@@ -22,7 +22,7 @@ class NavNodeStruct;
 class NavigationListBuilder : public NavigationListClass  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	NavigationListBuilder(SClient *client);					// 0x7B7BF0  // NAME 2 [client]: what it stores
+	NavigationListBuilder(SpaceClientClass *client);					// 0x7B7BF0  // NAME 2 [client]: what it stores
 	virtual ~NavigationListBuilder();							// +0x00 0x7B7C30 (0x7B7C60)
 	virtual void Clear();									// +0x04 0x7B81E0
 	bool Unknown_7B7C80(ClientObjectClass *from, ClientObjectClass *to);	// 0x7B7C80  // NAME 1 [from, to]: FAIL_IF '!from'
@@ -33,7 +33,7 @@ public:
 	void Add_Path(std::vector<NavNodeStruct *> &path);	// 0x7B8BF0 (inlined in 0x7B7EF0; no caller)  // NAME 2 [Add_Path, path]: what it does
 	void Delete_Nodes(std::vector<NavNodeStruct *> &nav_points);	// 0x7B8E40 (inlined in 0x7B7EF0; no caller)  // NAME 2 [Delete_Nodes]: what it does
 
-	SClient *Client;										// +0x18  // NAME 2: what the constructor stores
+	SpaceClientClass *Client;										// +0x18  // NAME 2: what the constructor stores
 	int Unknown1C;											// +0x1C (0x7B81E0 counts in it)
 };
 

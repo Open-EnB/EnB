@@ -24,7 +24,7 @@ class LineDisplayClientClass  // NAME 1: neutral (D10)
 public:
 	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
 	virtual void Unknown_10(); virtual void Unknown_14();
-	virtual SClient *As_Space_Client();					// +0x18 (SClient's returns itself)  // NAME 3: ui_manu.cpp's FAIL_IF's
+	virtual SpaceClientClass *As_Space_Client();					// +0x18 (SpaceClientClass's returns itself)  // NAME 3: ui_manu.cpp's FAIL_IF's
 };
 
 static inline bool Unknown_Group_Checked(const CheckBoxGadgetClass *button) { return(button->Checked); }	// NAME 1 [Unknown_Group_Checked]: neutral (D10)
@@ -39,7 +39,7 @@ static const char *Unknown_B7FDAC[] = { "Look for new Group", "Stop Looking", NU
 static const char *Unknown_B7FDB8[] = { "Available Recruits", "Close List", NULL };	// NAME 1: neutral (D10)
 
 // 0x59AD10
-UIGroupOptClass::UIGroupOptClass(SClient *client) :
+UIGroupOptClass::UIGroupOptClass(SpaceClientClass *client) :
 	ChatPanelUIBase(client),
 	Unknown0A0(false),
 	Unknown0A4(0)
@@ -183,7 +183,7 @@ void UIGroupOptClass::Unknown_5C()
 // 0x59B220
 void UIGroupOptClass::Unknown_60()
 {
-	SClient *sclient = Client->As_Space_Client();
+	SpaceClientClass *sclient = Client->As_Space_Client();
 	FAIL_IF(!sclient) return;
 	AuxDataName name("GroupInfo"); DeltaGroupInfoClass *group = (DeltaGroupInfoClass *)Unknown_Find_Field<DeltaContainer>(sclient->AuxData, name);
 	if (group && group->Unknown70 > 1) {
@@ -390,7 +390,7 @@ void UIGroupOptClass::Unknown_59B990()
 // 0x59BBC0
 bool UIGroupOptClass::Unknown_59BBC0()
 {
-	SClient *sclient = Client->As_Space_Client();
+	SpaceClientClass *sclient = Client->As_Space_Client();
 	FAIL_IF(!sclient) return(false);
 	return(sclient->Unknown_74D570());
 }
@@ -398,7 +398,7 @@ bool UIGroupOptClass::Unknown_59BBC0()
 // 0x59BC00
 bool UIGroupOptClass::Unknown_59BC00()
 {
-	SClient *sclient = Client->As_Space_Client();
+	SpaceClientClass *sclient = Client->As_Space_Client();
 
 	FAIL_IF(!sclient) return(false);
 	return(sclient->Unknown_74D690());
@@ -409,7 +409,7 @@ bool UIGroupOptClass::Unknown_59BC00()
 // 0x59BC40
 void UIGroupOptClass::Unknown_59BC40()
 {
-	SClient *sclient = Client->As_Space_Client();
+	SpaceClientClass *sclient = Client->As_Space_Client();
 	FAIL_IF(!sclient) return;
 	FAIL_IF(!sclient->AuxData) return;
 	AuxDataName name("GroupInfo"); DeltaGroupInfoClass *group = (DeltaGroupInfoClass *)Unknown_Find_Field<DeltaContainer>(sclient->AuxData, name);

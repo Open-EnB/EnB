@@ -1905,7 +1905,7 @@ Vector3 Unknown713D70Class::Unknown_14()
 }
 
 
-FormationNode::FormationNode(SClient *client, FormationPositionalUpdatePacketClass *packet) :
+FormationNode::FormationNode(SpaceClientClass *client, FormationPositionalUpdatePacketClass *packet) :
 	Client(client),
 	LeaderID(packet->LeaderID),
 	Offset(packet->Offset),

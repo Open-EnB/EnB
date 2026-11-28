@@ -202,7 +202,7 @@ void FrameInterfaceClass::Unknown_60()
 	}
 	FrameRate = FrameRate * 0.9f + (1.0f / ((float)frame_time * 0.001f)) * 0.1f;
 
-	if (((SClient *)Client)->Unknown14EC == 4) {
+	if (((SpaceClientClass *)Client)->Unknown14EC == 4) {
 		StringClass text;
 		unsigned frame_allocs = FastAllocatorGeneral::Get_Allocator()->UnknownE20[2];
 		unsigned frame_count = FastAllocatorGeneral::Get_Allocator()->UnknownE20[0];
@@ -251,19 +251,19 @@ void FrameInterfaceClass::Unknown_60()
 				text += line;
 			}
 		}
-		((SClient *)Client)->Text->Draw_Text(text);
+		((SpaceClientClass *)Client)->Text->Draw_Text(text);
 		WWMemoryLogClass::Reset_Counters();
 		FastAllocatorGeneral::Get_Allocator()->Unknown_Reset_Statistics();
 	}
 
-	if (((SClient *)Client)->Unknown14EC == 1) {
+	if (((SpaceClientClass *)Client)->Unknown14EC == 1) {
 		StringClass line(255, true);
 		StringClass text(1024, true);
 		line.Format("FPS = %4.0f\n", FrameRate);
 		text += line;
 		line.Format("%d bytes free (AGP + Video)\n", DX8Wrapper::Get_Free_Texture_RAM());
 		text += line;
-		((SClient *)Client)->Text->Draw_Text(text);
+		((SpaceClientClass *)Client)->Text->Draw_Text(text);
 	}
 
 	Message_Stat("Render", "", __FILE__, __LINE__, 0, 0, "Frame Rate = %4.0f", FrameRate);
@@ -309,6 +309,6 @@ bool FrameInterfaceClass::Unknown_68(int key)
 **	+0x68 as key 0), the deleting destructor 0x53EA40 and the destructor, slots +0x54 (empty) / +0x58 / +0x5C / +0x60 /
 **	+0x68, StringClass(int, bool)'s out-of-line copy 0x53F1C0, FastAllocatorGeneral's two sums 0x53F200 / 0x53F250
 **	(defined here after slot +0x60, not inlined into it: auto_inline off), <string>'s guarded initialiser 0x53F2F0 and the closing thunks 0x53F320 / 0x53F330. The class name follows the file (D24).
-**	The client's display mode (SClient +0x14EC) picks what slot +0x60 draws with the client's text (+0x13C4): 4 the
+**	The client's display mode (SpaceClientClass +0x14EC) picks what slot +0x60 draws with the client's text (+0x13C4): 4 the
 **	memory statistics, 1 the frame rate and the free texture memory.
 */

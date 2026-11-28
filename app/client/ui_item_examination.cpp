@@ -198,13 +198,13 @@ void ItemExaminationInterface::Unknown_7C(UIViewClass *view, bool arg)
 {
 	InterfaceClass::Unknown_7C(view, arg);
 }
-class SClient;	// The callees of Unknown_94 from files the tree does not have yet (interim here, D137)
+class SpaceClientClass;	// The callees of Unknown_94 from files the tree does not have yet (interim here, D137)
 class LineDisplayClientClass  // NAME 1: neutral (D10), as ui_cinfo.cpp declares it
 {
 public:
 	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
 	virtual void Unknown_10(); virtual void Unknown_14();
-	virtual SClient *As_Space_Client();							// +0x18 (as ui_manu.cpp's)  // NAME 3: the FAIL_IF's in ui_manu.cpp
+	virtual SpaceClientClass *As_Space_Client();							// +0x18 (as ui_manu.cpp's)  // NAME 3: the FAIL_IF's in ui_manu.cpp
 };
 
 #include "item\client_item_property_builder.h"	// ClientItemPropertyBuilderClass (0x521B80 / 0x521BB0 / 0x521BD0)
@@ -234,7 +234,7 @@ bool ItemExaminationInterface::Unknown_94()
 
 	LineDisplayClientClass *client = Client;
 	FAIL_IF(!client) return(false);
-	SClient *space_client = client->As_Space_Client();
+	SpaceClientClass *space_client = client->As_Space_Client();
 	FAIL_IF(!space_client) return(false);
 	ClientItemPropertyBuilderClass info(space_client, (Unknown688830Item *)entry, Item, slot);	// NAME 1 [info]: neutral
 	UIItemExaminationPropertyRouterClass visitor(*Title, *Attributes, *Specials, *Options, *Description);	// NAME 1 [visitor]: neutral

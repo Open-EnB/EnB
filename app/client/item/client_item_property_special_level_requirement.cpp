@@ -45,7 +45,7 @@ static std::string Kind_Name(int kind)
 	}
 }
 
-RefCountPtr<ClientItemPropertySpecialLevelRequirementClass> ClientItemPropertySpecialLevelRequirementClass::Create(SClient *space_client, int kind, int level)
+RefCountPtr<ClientItemPropertySpecialLevelRequirementClass> ClientItemPropertySpecialLevelRequirementClass::Create(SpaceClientClass *space_client, int kind, int level)
 {
 	std::string tooltip;
 	if (kind == KIND_TOTAL) {
@@ -56,7 +56,7 @@ RefCountPtr<ClientItemPropertySpecialLevelRequirementClass> ClientItemPropertySp
 	return(Create_NEW(new ClientItemPropertySpecialLevelRequirementClass(space_client, tooltip, kind, level)));
 }
 
-ClientItemPropertySpecialLevelRequirementClass::ClientItemPropertySpecialLevelRequirementClass(SClient *space_client, const std::string &tooltip, int kind, int level) :
+ClientItemPropertySpecialLevelRequirementClass::ClientItemPropertySpecialLevelRequirementClass(SpaceClientClass *space_client, const std::string &tooltip, int kind, int level) :
 	ClientItemPropertySpecialClass(4, tooltip, 0, 1),
 	SpaceClient(space_client),
 	Kind(kind),

@@ -22,7 +22,7 @@
 #include "gadget.h"
 #include "pip_scene.h"
 
-class SClient;
+class SpaceClientClass;
 class InterfaceClass;
 class SimpleSceneClass;
 class CameraClass;
@@ -44,7 +44,7 @@ class StarmapPipSupportClass;
 class MapPIPClass : public PIPSceneClass  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	MapPIPClass(SClient *client, bool arg);				// 0x6927C0 (arg: the two 0x118-byte objects at +0x48 / +0x4C)  // NAME 1 [client, arg]: neutral
+	MapPIPClass(SpaceClientClass *client, bool arg);				// 0x6927C0 (arg: the two 0x118-byte objects at +0x48 / +0x4C)  // NAME 1 [client, arg]: neutral
 	virtual ~MapPIPClass();								// +0x00 0x692A60 (deleting 0x692A30)
 	virtual bool Unknown_04(const RefCountPtr<InterfaceClass> &iface, const RefCountPtr<RenderObjClass> &vp, int arg);	// +0x04 0x692B30 (FAIL_IF 'Interface', '!iface_ptr', '!vp', '!view', '!ViewportGadget'; arg: the gadget's id in the interface)  // NAME 2 [iface, vp]: the FAIL_IFs' iface_ptr is its Peek  // NAME 1 [arg]: neutral
 	virtual bool Unknown_08();							// +0x08 0x692D40 (FAIL_IF 'ViewportGadget')
@@ -59,7 +59,7 @@ public:
 	bool Unknown_693020();								// 0x693020 (ViewportGadget's +0x49)
 	bool Unknown_693040();								// 0x693040 (+0x40; 0x7C8C20, 0x7C8DB0, 0x7C8E50, 0x7C91A0)
 
-	SClient *Client;									// +0x34 (0x6927C0's client)  // NAME 1: neutral (D10): what it holds
+	SpaceClientClass *Client;									// +0x34 (0x6927C0's client)  // NAME 1: neutral (D10): what it holds
 	GadgetPipSceneClass *ViewportGadget;				// +0x38  // NAME 3: the FAIL_IF's
 	RefCountPtr<InterfaceClass> Interface;				// +0x3C  // NAME 3: the FAIL_IF's
 	bool Unknown40;										// +0x40

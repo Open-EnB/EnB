@@ -3,7 +3,7 @@
 #include "vector3.h"
 #include "matrix3d.h"
 
-extern int Unknown_BE350C;	// NAME 1: neutral (D10): SClient::Do_Frame's frame toggle (sclient.cpp)
+extern int Unknown_BE350C;	// NAME 1: neutral (D10): SpaceClientClass::Do_Frame's frame toggle (sclient.cpp)
 
 // strconv_lib.cpp's conversions of the wwmath types
 char *Value_To_String(char *buf, int size, const Vector3 &value);		// 0x4A3750

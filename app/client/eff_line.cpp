@@ -331,12 +331,12 @@ void LineEffectClass::Unknown_6E6030(Vector3 *start, Vector3 *end)
 **	Notes (reconstruction)
 **
 **	The client's eff_line.obj: 0x6E5040-0x6E6710 (its <string> guarded static ends at 0x6E66E0; eff_o.cpp's
-**	EffectObjectClass constructor 0x6E6710 opens the next object). __FILE__ is
+**	EffectClass constructor 0x6E6710 opens the next object). __FILE__ is
 **	'e:\build\beta\G\app\Client\eff_line.cpp' (0xB92DDC): FAIL_IF '!SegLineRObj' on lines 51, 138, 146 and
 **	180, '!start || !end' on 188, 215 and 261, '!Camera' on 262. effect.ini's EffectClass 'LineEffect'
 **	(0xB92F4C) is this class: eff_o.cpp's helper 0x6EAC50 makes it for a segmented line model.
 **
-**	Emitted here as well: the base's inline virtuals EffectObjectClass::Unknown_10 0x6E5420,
+**	Emitted here as well: the base's inline virtuals EffectClass::Unknown_10 0x6E5420,
 **	BinaryEffectClass::Unknown_14 0x6E5440, Unknown_30 0x6E5460 and Unknown_38 0x6E54A0, the
 **	scalar deleting destructor 0x6E54E0 and the binary end's implicit destructor 0x6E5510 (inlined by
 **	0x6E5600).

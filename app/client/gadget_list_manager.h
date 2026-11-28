@@ -4,7 +4,7 @@
 **	Original location: e:\build\beta\G\app\Client\gadget_list_manager.h (name assumed from gadget_list_manager.cpp,
 **	whose __FILE__ is 'e:\build\beta\G\app\Client\gadget_list_manager.cpp'; the client holds no string of this header)
 **
-**	The gadgets of a view (UIViewClass +0x2C; SClient +0x1278's for the packets): one list per interface, kept
+**	The gadgets of a view (UIViewClass +0x2C; SpaceClientClass +0x1278's for the packets): one list per interface, kept
 **	sorted by the gadgets' +0x0C, in GroupLists between the first and the last sort group's (constructor 0x6611B0,
 **	destructor 0x661430, 0x4C bytes), and the iterator over them (0x0C bytes, 0x661D20-0x661E80).
 */

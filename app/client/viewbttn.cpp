@@ -161,7 +161,7 @@ ViewButtonClass::~ViewButtonClass()
 bool ViewButtonClass::Unknown_2C(KernelEventClass *event, float x, float y, unsigned int mask)
 {
 	if (!(Mask & mask)) return(false);
-	SClient *sclient = View->Client;
+	SpaceClientClass *sclient = View->Client;
 	LoginUnknown18Class *mouse = sclient->Mouse;
 	int shift = Unknown_42EC60(0x10, 0);				// VK_SHIFT
 	unsigned avatar = sclient->AvatarID;

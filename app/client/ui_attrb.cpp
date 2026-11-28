@@ -93,7 +93,7 @@ class LineDisplayClientClass  // NAME 1: neutral (D10)
 public:
 	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
 	virtual void Unknown_10(); virtual void Unknown_14();
-	virtual SClient *As_Space_Client();					// +0x18 (as ui_manu.cpp's)  // NAME 3: the FAIL_IF's in ui_manu.cpp
+	virtual SpaceClientClass *As_Space_Client();					// +0x18 (as ui_manu.cpp's)  // NAME 3: the FAIL_IF's in ui_manu.cpp
 	virtual void Unknown_1C(); virtual void Unknown_20(); virtual void Unknown_24();
 	virtual ClientObjectClass *Get_Avatar();			// +0x28 (client.h's)  // NAME 2: ClientClass's slot +0x28
 };
@@ -110,7 +110,7 @@ template<class C> inline C *Unknown_Find_ChangedR(DeltaContainer *const &root, c
 template<class C> inline C *Unknown_FindR(DeltaContainer *const &root, const char *name, bool all) { return(all ? Unknown_Find_ValidR<C>(root, name) : Unknown_Find_ChangedR<C>(root, name)); }	// NAME 1: neutral (D10): the root by reference
 
 // @0x546A80
-Unknown546A80Class::Unknown546A80Class(SClient *client, RefCountPtr<RenderObjClass> &mesh) :
+Unknown546A80Class::Unknown546A80Class(SpaceClientClass *client, RefCountPtr<RenderObjClass> &mesh) :
 	InterfaceClass((LineDisplayClientClass *)client),
 	Unknown84(mesh),
 	Experience(NULL),

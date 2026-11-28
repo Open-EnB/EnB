@@ -36,7 +36,7 @@ public:
 DEFINE_AUTO_POOL(NavNodeStruct, 16);
 
 // @0x7B7BF0
-NavigationListBuilder::NavigationListBuilder(SClient *client) :
+NavigationListBuilder::NavigationListBuilder(SpaceClientClass *client) :
 	Client(client),
 	Unknown1C(0)
 {

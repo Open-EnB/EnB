@@ -31,7 +31,7 @@ class PlanetPositionalUpdatePacketClass;
 class ComponentPositionalUpdatePacketClass;
 class AdvancedPositionalUpdatePacketClass;
 class FormationPositionalUpdatePacketClass;
-class SClient;
+class SpaceClientClass;
 class DeltaContainer;
 
 
@@ -160,9 +160,9 @@ class ShipPositionalStateClass : public UnknownB027A0Class  // NAME 5: thunk ord
 {
 public:
 	ShipPositionalStateClass(int time, AdvancedPositionalUpdatePacketClass *packet);	// 0x715EF0  // NAME 1 [time, packet]: what the handler passes
-	ShipPositionalStateClass(SClient *client, FormationPositionalUpdatePacketClass *packet);	// 0x716080  // NAME 1 [client, packet]: what the handler passes
+	ShipPositionalStateClass(SpaceClientClass *client, FormationPositionalUpdatePacketClass *packet);	// 0x716080  // NAME 1 [client, packet]: what the handler passes
 	void Unknown_716140(int time, AdvancedPositionalUpdatePacketClass *packet);	// 0x716140  // NAME 1 [time, packet]: what the handler passes
-	void Unknown_716220(SClient *client, FormationPositionalUpdatePacketClass *packet);	// 0x716220  // NAME 1 [client, packet]: what the handler passes
+	void Unknown_716220(SpaceClientClass *client, FormationPositionalUpdatePacketClass *packet);	// 0x716220  // NAME 1 [client, packet]: what the handler passes
 	bool Unknown_716390(AdvancedPositionalUpdatePacketClass *packet, StateNode *extrap, int time, int other_time);	// 0x716390  // NAME 1 [packet, extrap, time, other_time]: neutral
 	bool Unknown_716400(StateNode *extrap, int time, int other_time);	// 0x716400  // NAME 1 [extrap, time, other_time]: neutral
 	bool Unknown_7165D0(AdvancedPositionalUpdatePacketClass *packet, StateNode *extrap, unsigned int time, unsigned int other_time);	// 0x7165D0  // NAME 1 [packet, extrap, time, other_time]: neutral
@@ -188,9 +188,9 @@ class Unknown717010Class : public ShipPositionalStateClass	// NAME 1: neutral (D
 {
 public:
 	Unknown717010Class(int time, AdvancedPositionalUpdatePacketClass *packet);	// 0x717010  // NAME 1 [time, packet]: what the handler passes
-	Unknown717010Class(SClient *client, FormationPositionalUpdatePacketClass *packet);	// 0x7171C0  // NAME 1 [client, packet]: what the handler passes
+	Unknown717010Class(SpaceClientClass *client, FormationPositionalUpdatePacketClass *packet);	// 0x7171C0  // NAME 1 [client, packet]: what the handler passes
 	void Unknown_717290(AdvancedPositionalUpdatePacketClass *packet, int time);	// 0x717290  // NAME 1 [packet, time]: what the handler passes
-	void Unknown_717400(FormationPositionalUpdatePacketClass *packet, SClient *client);	// 0x717400  // NAME 1 [packet, client]: what the handler passes
+	void Unknown_717400(FormationPositionalUpdatePacketClass *packet, SpaceClientClass *client);	// 0x717400  // NAME 1 [packet, client]: what the handler passes
 	void Unknown_717430(int unknown, DeltaContainer *aux_data, int time, float *turn, float *tilt, int *move_direction, bool fixed_speed);	// 0x717430 (sclient.cpp's input; '*move_direction == 0' on line 977)  // NAME 3 [move_direction]: the client's assert  // NAME 1 [unknown, aux_data, time, turn, tilt, fixed_speed]: what it does with them
 	void Unknown_7179A0(int unknown, DeltaContainer *aux_data, int time, bool level, bool auto_level);	// 0x7179A0 (sclient.cpp's input: 0x745B20 ...)  // NAME 1 [unknown, aux_data, time, level, auto_level]: what it does with them
 

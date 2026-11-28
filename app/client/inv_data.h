@@ -17,7 +17,7 @@ class InvDataClass : public SlotDataClass	// NAME 3: Peek_Inv_Data, inv_data's _
 {
 public:
 	enum { NO_SLOT = -1 };								// NAME 3: ui_inv.cpp's FAIL_IFs 'slot == InvDataClass::NO_SLOT'
-	InvDataClass(int inv_type, SClient *client);		// 0x688410  // NAME 1 [inv_type, client]: what 0x59FA00 passes
+	InvDataClass(int inv_type, SpaceClientClass *client);		// 0x688410  // NAME 1 [inv_type, client]: what 0x59FA00 passes
 	virtual ~InvDataClass();							// +0x00 0x6886D0 (deleting 0x6886A0)
 	virtual InvDataClass *Unknown_10() { return(this); }	// +0x10 0x688680
 	virtual bool Unknown_18();							// +0x18 0x688B50 (either list changed)

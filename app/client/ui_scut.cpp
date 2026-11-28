@@ -91,7 +91,7 @@ bool Unknown_42EC60(int key, int arg);					// 0x42EC60 (cdecl: the input object 
 
 // What the software mouse holds at +0x2C (0x612430: its +0x10 is 2 when a shortcut is let go)
 class UIScutMouseUnknown2CClass { public: char Unknown00[0x10]; int Unknown10; };	// NAME 1: neutral (D10)
-// The software mouse (SClient +0x1274; the view's slot +0x44), as far as the shortcut bars use it
+// The software mouse (SpaceClientClass +0x1274; the view's slot +0x44), as far as the shortcut bars use it
 class UIScutMouseClass { public: char Unknown00[0x28]; int Unknown28; UIScutMouseUnknown2CClass *Unknown2C; };	// NAME 1: neutral (D10): +0x28 a nesting count (0x6120E0)
 
 // The bank toggle of a bar (0x70 bytes, table 0xAF7490; constructor 0x6125B0, destructor 0x612740): its group models
@@ -798,7 +798,7 @@ bool UIScutBarClass::Unknown_6120E0(int key)
 	if (Get_Owner()->View->Unknown_20() == NULL) return(true);
 	Unknown65B810ViewClass *view = (Unknown65B810ViewClass *)Get_Owner()->View->Unknown_20();
 	if (view->Client == NULL) return(true);
-	SClient *sclient = (SClient *)((ClientClass *)view->Client)->As_Space_Client();
+	SpaceClientClass *sclient = (SpaceClientClass *)((ClientClass *)view->Client)->As_Space_Client();
 	if (sclient == NULL) return(true);
 	UIScutMouseClass *mouse = (UIScutMouseClass *)Get_Owner()->View->Unknown_44();
 	G_ASSERT(mouse);
@@ -846,7 +846,7 @@ bool UIScutBarClass::Unknown_6120E0(int key)
 
 GadgetClass *Unknown_6123F0(UIViewClass *view)
 {
-	SClient *client = ((Unknown65B810ViewClass *)view->Unknown_20())->Client;
+	SpaceClientClass *client = ((Unknown65B810ViewClass *)view->Unknown_20())->Client;
 	GadgetClass *gadget = GadgetClass::Unknown_65F5F0((GadgetListManagerClass *)client->Unknown1278, true, true);
 	if (gadget) {
 		return((GadgetClass *)gadget->As_RObjGadget());

@@ -22,8 +22,8 @@ extern HWND Unknown_BDAA7C;							// 0xBDAA7C (input.cpp's: the window Init was 
 extern SoundManagerClass *SoundManager;					// 0xBE82A4  // NAME 2: what it holds
 unsigned int Unknown_Get_Ticks();						// 0x4A3B40, the aux-data clock (unknown_root.h)
 
-// The scripted movie view's link back to the movie client (vtable 0xB078D4, 8 bytes; Load_Script makes it), as SClient's
-// SClientMovieCallbackClass (sclient.h) is for SClient
+// The scripted movie view's link back to the movie client (vtable 0xB078D4, 8 bytes; Load_Script makes it), as SpaceClientClass's
+// SClientMovieCallbackClass (sclient.h) is for SpaceClientClass
 class MovieClientCallbackClass : public ScriptedMovieInterfaceClass	// NAME 1: after SClientMovieCallbackClass
 {
 public:
@@ -104,9 +104,9 @@ MovieClientClass::~MovieClientClass()
 	}
 
 	// the effects left: out of the list, then eff_o.cpp's 0x6E6A90 for each
-	HashNodeClass<EffectObjectClass *> *node = EffectList.First_Valid();
+	HashNodeClass<EffectClass *> *node = EffectList.First_Valid();
 	while (node) {
-		HashNodeClass<EffectObjectClass *> *next = node->Next_Valid();
+		HashNodeClass<EffectClass *> *next = node->Next_Valid();
 		EffectList.Remove(node);
 		Unknown_6E6A90(node->Get_Record());		// (the client reads the record after Remove, which may have deleted the node)
 
@@ -142,9 +142,9 @@ void MovieClientClass::Unknown_08()
 	}
 
 	// the effects that are done: out of the list, then eff_o.cpp's 0x6E6A90
-	HashNodeClass<EffectObjectClass *> *enode = EffectList.First_Valid();
+	HashNodeClass<EffectClass *> *enode = EffectList.First_Valid();
 	while (enode) {
-		HashNodeClass<EffectObjectClass *> *next = enode->Next(); if (!next) break; EffectObjectClass *effect = enode->Get_Record();
+		HashNodeClass<EffectClass *> *next = enode->Next(); if (!next) break; EffectClass *effect = enode->Get_Record();
 
 		if (!effect->Unknown_6E6AD0()) {
 			EffectList.Remove(enode);
@@ -311,5 +311,5 @@ void MovieClientClass::Unknown_7ED100()
 **	The object runs 0x7EC3E0-0x7ED140 (meshsnd.cpp's starts at 0x7ED150). MovieClientCallbackClass's two slots are its
 **	inline members' copies (0x7ECD60 / 0x7ECD80, after Load_Script, which makes the vtable); 0x7EC550 is the inline
 **	+0x1C's copy after the constructor. Render saves and clears DX8Wrapper's and SortingRendererClass's
-**	_EnableTriangleDraw (0xBB9C40 / 0xBBB5D0) for the frames Unknown1158 counts, as SClient::Unknown_64 does.
+**	_EnableTriangleDraw (0xBB9C40 / 0xBBB5D0) for the frames Unknown1158 counts, as SpaceClientClass::Unknown_64 does.
 */

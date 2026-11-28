@@ -24,7 +24,7 @@
 #include "quat.h"
 
 class ClientClass;
-class SClient;
+class SpaceClientClass;
 class SimplePositionalUpdatePacketClass;
 class PlanetPositionalUpdatePacketClass;
 class ComponentPositionalUpdatePacketClass;
@@ -285,12 +285,12 @@ public:
 class FormationNode : public StateNode  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	FormationNode(SClient *client, FormationPositionalUpdatePacketClass *packet);	// 0x714340  // NAME 1 [client, packet]: what postate's state passes
+	FormationNode(SpaceClientClass *client, FormationPositionalUpdatePacketClass *packet);	// 0x714340  // NAME 1 [client, packet]: what postate's state passes
 	virtual void Unknown_1C(int time, Vector3 *position, Quaternion *orientation, Vector3 *velocity, float *speed, Vector3 *rotrate, bool unknown);	// +0x1C 0x714410  // NAME 2: as the base's
 	virtual void Set_Motion(unsigned int time, float *speed, float *acceleration, float *turn_rate, float *tilt_rate) {}	// +0x20 0x7147B0  // NAME 2: as the base's
 	virtual void End_Tilt(int time, float rate) {}	// +0x24 0x7147D0  // NAME 2: as the base's
 
-	SClient *Client;		// +0x04  // NAME 2: what the state passes
+	SpaceClientClass *Client;		// +0x04  // NAME 2: what the state passes
 	int LeaderID;			// +0x08  // NAME 2: the packet's LeaderID
 	Vector3 Offset;			// +0x0C  // NAME 2: the packet's Offset
 	Matrix3D Unknown18;		// +0x18 (identity)

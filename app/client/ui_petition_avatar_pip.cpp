@@ -11,7 +11,7 @@
 #include "..\shared\g_assert.h"
 #include "..\shared\auth_product.h"
 // 0x5D4150
-UIPetitionAvatarPipClass::UIPetitionAvatarPipClass(SClient *client) :
+UIPetitionAvatarPipClass::UIPetitionAvatarPipClass(SpaceClientClass *client) :
 	ChatPanelUIBase(client),
 	Pip(NULL)
 {
@@ -74,7 +74,7 @@ void UIPetitionAvatarPipClass::Unknown_54()
 		AvatarDescriptionClass desc(2, "Megan");
 		Avatar = Create_NEW(new AvatarClass(&desc, 1, 0, NULL));
 		Pip = new AvatarPipClass;
-		Pip->Unknown_7E36B0((SClient *)((ClientClass *)Client)->As_Space_Client(), avatar_vp, false);
+		Pip->Unknown_7E36B0((SpaceClientClass *)((ClientClass *)Client)->As_Space_Client(), avatar_vp, false);
 	} else {
 
 

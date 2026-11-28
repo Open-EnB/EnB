@@ -12,7 +12,7 @@
 class UIPetitionPlayerNameClass : public ChatPanelUIBase	// NAME 1: neutral, after its member NameEditor
 {
 public:
-	UIPetitionPlayerNameClass(SClient *client);			// 0x5D6AA0 (deleting 0x5D6AF0; inlined in 0x5D61E0)  // NAME 1 [client]: ChatPanelUIBase's
+	UIPetitionPlayerNameClass(SpaceClientClass *client);			// 0x5D6AA0 (deleting 0x5D6AF0; inlined in 0x5D61E0)  // NAME 1 [client]: ChatPanelUIBase's
 	virtual ~UIPetitionPlayerNameClass();				// 0x5D6B20
 	virtual void Unknown_54();							// +0x54 0x5D6BC0 ('hsi03a': 'exit_Import', 'Entry_Field01', the name box)
 	virtual void Unknown_60();							// +0x60 0x5D6DC0 (FAIL_IF '!NameEditor': the name box's text through 0x4BE9D0 while it has the focus)
@@ -28,7 +28,7 @@ public:
 class UIPetitionPlayerEntryClass : public UIPetitionEntryClass	// NAME 1: neutral, after the file and its tooltips' section 'UI_PETITION_PLAYER_ENTRY'
 {
 public:
-	UIPetitionPlayerEntryClass(SClient *client, int unknown0B8);	// 0x5D6080 (deleting 0x5D60D0)  // NAME 1 [client, unknown0B8]: neutral
+	UIPetitionPlayerEntryClass(SpaceClientClass *client, int unknown0B8);	// 0x5D6080 (deleting 0x5D60D0)  // NAME 1 [client, unknown0B8]: neutral
 	virtual ~UIPetitionPlayerEntryClass();				// 0x5D6100
 	virtual void Unknown_54();							// +0x54 0x5D61E0 (the entry window's, then the name box over it)
 	virtual void Unknown_58();							// +0x58 0x5D6440 (with the name box)

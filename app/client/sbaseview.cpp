@@ -47,7 +47,7 @@ float Unknown_77B7D0(float t);	// 0x77B7D0: an easing of 0..1 (0x69ED80)  // NAM
 #include "wwmemlog.h"	// the categories (0x6A1180)
 #include "texture.h"	// the texture totals (0x6A1180)
 // 0x94B910 (the textures' 'Frame: %d') is texture.h's TextureBaseClass::Unknown_Get_Textures_Applied_Last_Frame
-// ui_talkt_space.cpp's talk tree (sclient.cpp declares it so); 0x69CDE0 resets SClient's to it
+// ui_talkt_space.cpp's talk tree (sclient.cpp declares it so); 0x69CDE0 resets SpaceClientClass's to it
 class SpaceTalkTreeInterface : public InterfaceClass  // NAME 5: thunk order, binary.md 5.11
 {
 public:
@@ -287,8 +287,8 @@ int StarbaseViewClass::Unknown_0C(bool on)
 }
 
 // the client reads these through inline functions: as plain member reads 0x69C8F0 loads them in another order
-inline unsigned Unknown_Avatar_ID(SClient *client) { return(((ClientClass *)((ClientClass *)client)->As_Space_Client())->AvatarID); }	// NAME 1: neutral (D10), as ui_cpit.cpp's
-inline int Unknown_1134(SClient *client) { return(client->Unknown1134); }	// NAME 1: neutral (D10)
+inline unsigned Unknown_Avatar_ID(SpaceClientClass *client) { return(((ClientClass *)((ClientClass *)client)->As_Space_Client())->AvatarID); }	// NAME 1: neutral (D10), as ui_cpit.cpp's
+inline int Unknown_1134(SpaceClientClass *client) { return(client->Unknown1134); }	// NAME 1: neutral (D10)
 inline int Unknown_84(Unknown5BB320Class *starbase) { return((int)starbase->InterfaceMesh); }	// NAME 1: neutral (D10)
 
 // 0x69C8F0: the base's frame, then the talk interface's choice, the pending view change, the sounds, the trade
@@ -326,7 +326,7 @@ void StarbaseViewClass::Unknown_14()
 	}
 	if (Unknown170) {
 		Unknown_69D030(-1);
-		((SClient *)((ClientClass *)Client)->As_Space_Client())->Unknown_74BA30(1, 0, 0);
+		((SpaceClientClass *)((ClientClass *)Client)->As_Space_Client())->Unknown_74BA30(1, 0, 0);
 		Unknown170 = false;
 	}
 	Unknown_6A1B80();
@@ -401,10 +401,10 @@ void StarbaseViewClass::Unknown_69CDE0()
 		Unknown198 = NULL;
 		AvatarUI = NULL;
 		ShipUI = NULL;
-		((SClient *)((ClientClass *)Client)->As_Space_Client())->Unknown_74C9D0(RefCountPtr<TalkTreeInterface>());
+		((SpaceClientClass *)((ClientClass *)Client)->As_Space_Client())->Unknown_74C9D0(RefCountPtr<TalkTreeInterface>());
 		if (Starbase) {
 			Starbase->Unknown_8C();
-			SClient *client = (SClient *)((ClientClass *)Client)->As_Space_Client();
+			SpaceClientClass *client = (SpaceClientClass *)((ClientClass *)Client)->As_Space_Client();
 			client->PDAInterface->Unknown_695FE0(true);
 		}
 	}
@@ -428,7 +428,7 @@ void StarbaseViewClass::Unknown_69D030(int index)
 				Unknown174 = Create_Get(new StarbaseInterface(this, Unknown80, 0, name.c_str()));
 				Unknown174->Unknown_54();
 				Unknown_6B4940(Unknown174.Peek());
-				((SClient *)((ClientClass *)Client)->As_Space_Client())->Unknown_74CA70();
+				((SpaceClientClass *)((ClientClass *)Client)->As_Space_Client())->Unknown_74CA70();
 			}
 			Unknown174->Unknown_58();
 			Starbase = Unknown174;
@@ -439,7 +439,7 @@ void StarbaseViewClass::Unknown_69D030(int index)
 				Unknown178 = Create_Get(new StarbaseInterface(this, Unknown80, 1, name.c_str()));
 				Unknown178->Unknown_54();
 				Unknown_6B4940(Unknown178.Peek());
-				((SClient *)((ClientClass *)Client)->As_Space_Client())->Unknown_74CA70();
+				((SpaceClientClass *)((ClientClass *)Client)->As_Space_Client())->Unknown_74CA70();
 			}
 			Unknown178->Unknown_58();
 			Starbase = Unknown178;
@@ -450,7 +450,7 @@ void StarbaseViewClass::Unknown_69D030(int index)
 				Unknown17C = Create_Get(new StarbaseInterface(this, Unknown80, 3, name.c_str()));
 				Unknown17C->Unknown_54();
 				Unknown_6B4940(Unknown17C.Peek());
-				((SClient *)((ClientClass *)Client)->As_Space_Client())->Unknown_74CA70();
+				((SpaceClientClass *)((ClientClass *)Client)->As_Space_Client())->Unknown_74CA70();
 			}
 			Unknown17C->Unknown_58();
 			Starbase = Unknown17C;
@@ -461,7 +461,7 @@ void StarbaseViewClass::Unknown_69D030(int index)
 				Unknown180 = Create_Get(new StarbaseInterface(this, Unknown80, 2, name.c_str()));
 				Unknown180->Unknown_54();
 				Unknown_6B4940(Unknown180.Peek());
-				((SClient *)((ClientClass *)Client)->As_Space_Client())->Unknown_74CA70();
+				((SpaceClientClass *)((ClientClass *)Client)->As_Space_Client())->Unknown_74CA70();
 			}
 			Unknown180->Unknown_58();
 			Starbase = Unknown180;
@@ -1043,7 +1043,7 @@ void StarbaseViewClass::Unknown_69F8F0(int type, int arg)
 				Unknown184->Unknown_54();
 				Unknown_6B4940(Unknown184.Peek());
 				Unknown184->Unknown_58();
-				((SClient *)((ClientClass *)Client)->As_Space_Client())->Unknown_74CA70();
+				((SpaceClientClass *)((ClientClass *)Client)->As_Space_Client())->Unknown_74CA70();
 			}
 			Unknown64 = Unknown184;
 			Unknown5C = type;
@@ -1054,7 +1054,7 @@ void StarbaseViewClass::Unknown_69F8F0(int type, int arg)
 				Unknown188->Unknown_54();
 				Unknown_6B4940(Unknown188.Peek());
 				Unknown188->Unknown_58();
-				((SClient *)((ClientClass *)Client)->As_Space_Client())->Unknown_74CA70();
+				((SpaceClientClass *)((ClientClass *)Client)->As_Space_Client())->Unknown_74CA70();
 			}
 			Unknown64 = Unknown188;
 			Unknown5C = type;
@@ -1065,19 +1065,19 @@ void StarbaseViewClass::Unknown_69F8F0(int type, int arg)
 				Unknown18C->Unknown_54();
 				Unknown_6B4940(Unknown18C.Peek());
 				Unknown18C->Unknown_58();
-				((SClient *)((ClientClass *)Client)->As_Space_Client())->Unknown_74CA70();
+				((SpaceClientClass *)((ClientClass *)Client)->As_Space_Client())->Unknown_74CA70();
 			}
 			Unknown64 = Unknown18C;
 			Unknown5C = type;
 			break;
 		case 11:
 		{
-			SClient *client = (SClient *)((ClientClass *)Client)->As_Space_Client();
+			SpaceClientClass *client = (SpaceClientClass *)((ClientClass *)Client)->As_Space_Client();
 			if (!Unknown190) {
 				Unknown190 = Create_Get(new TalkTreeInterface(client, 1));
 				Unknown190->Unknown_54();
 				Unknown190->Unknown_7C(this, false);
-				((SClient *)((ClientClass *)Client)->As_Space_Client())->Unknown_74CA70();
+				((SpaceClientClass *)((ClientClass *)Client)->As_Space_Client())->Unknown_74CA70();
 			}
 			client->Unknown_74C9D0(Unknown190);
 			Unknown64 = Unknown190;
@@ -1088,39 +1088,39 @@ void StarbaseViewClass::Unknown_69F8F0(int type, int arg)
 		}
 		case 8:
 			if (!Jobs) {
-				Jobs = Create_Get(new UIJobsClass((SClient *)((ClientClass *)Client)->As_Space_Client()));
+				Jobs = Create_Get(new UIJobsClass((SpaceClientClass *)((ClientClass *)Client)->As_Space_Client()));
 				Jobs->Unknown_54();
 				Jobs->Unknown_7C(this, true);
-				((SClient *)((ClientClass *)Client)->As_Space_Client())->Unknown_74CA70();
+				((SpaceClientClass *)((ClientClass *)Client)->As_Space_Client())->Unknown_74CA70();
 			}
 			Unknown64 = Jobs;
 			Unknown5C = type;
 			break;
 		case 9:
 			{
-				SClient *client = (SClient *)((ClientClass *)Client)->As_Space_Client();
+				SpaceClientClass *client = (SpaceClientClass *)((ClientClass *)Client)->As_Space_Client();
 				client->ChatPanel->Unknown_5685C0();
 			}
 			{
-				SClient *client = (SClient *)((ClientClass *)Client)->As_Space_Client();
+				SpaceClientClass *client = (SpaceClientClass *)((ClientClass *)Client)->As_Space_Client();
 				client->ChatPanel->Unknown_568690();
 			}
 			if (!Unknown198) {
-				Unknown198 = Create_Get(new Unknown65A020Class((SClient *)((ClientClass *)Client)->As_Space_Client()));
+				Unknown198 = Create_Get(new Unknown65A020Class((SpaceClientClass *)((ClientClass *)Client)->As_Space_Client()));
 				Unknown198->Unknown_54();
 				Unknown198->Unknown_7C(this, true);
-				((SClient *)((ClientClass *)Client)->As_Space_Client())->Unknown_74CA70();
+				((SpaceClientClass *)((ClientClass *)Client)->As_Space_Client())->Unknown_74CA70();
 			}
 			Unknown64 = Unknown198;
 			Unknown5C = type;
 			break;
 		case 14:
 			{
-				SClient *client = (SClient *)((ClientClass *)Client)->As_Space_Client();
+				SpaceClientClass *client = (SpaceClientClass *)((ClientClass *)Client)->As_Space_Client();
 				client->ChatPanel->Unknown_5685C0();
 			}
 			{
-				SClient *client = (SClient *)((ClientClass *)Client)->As_Space_Client();
+				SpaceClientClass *client = (SpaceClientClass *)((ClientClass *)Client)->As_Space_Client();
 				client->ChatPanel->Unknown_568690();
 			}
 			if (!AvatarUI) {
@@ -1128,22 +1128,22 @@ void StarbaseViewClass::Unknown_69F8F0(int type, int arg)
 				AvatarUI->Unknown_54();
 				Unknown_6B4940(AvatarUI.Peek());
 				AvatarUI->Unknown_7C(this, true);
-				((SClient *)((ClientClass *)Client)->As_Space_Client())->Unknown_74CA70();
+				((SpaceClientClass *)((ClientClass *)Client)->As_Space_Client())->Unknown_74CA70();
 			}
 			Unknown64 = AvatarUI;
 			Unknown5C = type;
 			{
-				SClient *client = (SClient *)((ClientClass *)Client)->As_Space_Client();
+				SpaceClientClass *client = (SpaceClientClass *)((ClientClass *)Client)->As_Space_Client();
 				client->PDAInterface->Unknown_695FE0(false);
 			}
 			break;
 		case 13:
 			{
-				SClient *client = (SClient *)((ClientClass *)Client)->As_Space_Client();
+				SpaceClientClass *client = (SpaceClientClass *)((ClientClass *)Client)->As_Space_Client();
 				client->ChatPanel->Unknown_5685C0();
 			}
 			{
-				SClient *client = (SClient *)((ClientClass *)Client)->As_Space_Client();
+				SpaceClientClass *client = (SpaceClientClass *)((ClientClass *)Client)->As_Space_Client();
 				client->ChatPanel->Unknown_568690();
 			}
 			if (!ShipUI) {
@@ -1151,12 +1151,12 @@ void StarbaseViewClass::Unknown_69F8F0(int type, int arg)
 				Unknown_6B4940(ShipUI.Peek());
 				ShipUI->Unknown_54();
 				ShipUI->Unknown_7C(this, true);
-				((SClient *)((ClientClass *)Client)->As_Space_Client())->Unknown_74CA70();
+				((SpaceClientClass *)((ClientClass *)Client)->As_Space_Client())->Unknown_74CA70();
 			}
 			Unknown64 = ShipUI;
 			Unknown5C = type;
 			{
-				SClient *client = (SClient *)((ClientClass *)Client)->As_Space_Client();
+				SpaceClientClass *client = (SpaceClientClass *)((ClientClass *)Client)->As_Space_Client();
 				client->PDAInterface->Unknown_695FE0(false);
 			}
 			break;
@@ -1343,7 +1343,7 @@ void StarbaseViewClass::Unknown_6A0EC0()
 		float x;
 		float y;
 		Unknown_42ECF0(&x, &y);
-		if (((SClient *)((ClientClass *)Client)->As_Space_Client())->Mouse->Unknown_515320() == 5) {
+		if (((SpaceClientClass *)((ClientClass *)Client)->As_Space_Client())->Mouse->Unknown_515320() == 5) {
 			y = WWMath::Min(1.0f, y + 0.02f);
 		} else {
 			y = WWMath::Max(0.0f, y - 0.01f);
@@ -1391,9 +1391,9 @@ void StarbaseViewClass::Unknown_6A1180()
 {
 	float fps = 1.0f / ((float)WW3D::Get_Frame_Time() * 0.001f);
 	FrameRate = FrameRate * 0.9f + fps * 0.1f;
-	SClient *client = (SClient *)Client->As_Space_Client();
+	SpaceClientClass *client = (SpaceClientClass *)Client->As_Space_Client();
 	if (client) {
-		if (((SClient *)Client)->Unknown14EC == 4) {
+		if (((SpaceClientClass *)Client)->Unknown14EC == 4) {
 			StringClass text;
 			unsigned frame_allocs = FastAllocatorGeneral::Get_Allocator()->UnknownE20[2];
 			unsigned frame_count = FastAllocatorGeneral::Get_Allocator()->UnknownE20[0];
@@ -1444,7 +1444,7 @@ void StarbaseViewClass::Unknown_6A1180()
 					text += line;
 				}
 			}
-			((SClient *)Client)->Text->Draw_Text(text);
+			((SpaceClientClass *)Client)->Text->Draw_Text(text);
 			WWMemoryLogClass::Reset_Counters();
 			FastAllocatorGeneral::Get_Allocator()->Unknown_Reset_Statistics();
 		}
@@ -1684,7 +1684,7 @@ void StarbaseViewClass::Unknown_6A2500(int room, RenderObjClass *robj, const cha
 /*
 **	Notes (UI1, 2026-10-29)
 **
-**	sbaseview.cpp is the starbase view (StarbaseViewClass, sbaseview.h; SClient +0x135C; over uiview.cpp's second view,
+**	sbaseview.cpp is the starbase view (StarbaseViewClass, sbaseview.h; SpaceClientClass +0x135C; over uiview.cpp's second view,
 **	its Client at +0x4C), client 0x69CDE0-0x6A2530 (appfile.py show app\client\sbaseview.cpp; __FILE__
 **	e:\build\beta\G\app\Client\sbaseview.cpp). The asserts sit on the client's lines (D25): 738 ('ViewRObjs[type]',
 **	0x69D9D0) and 1667 ('Client == NULL', 0x6A2480); 1261 / 1262 ('!RKey.Peek()', '!RCamera.Peek()', the lights

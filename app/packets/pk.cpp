@@ -599,19 +599,19 @@ PacketClass *Unknown_869790(RawPacketClass *raw)
 			packet = new ChatBasicRequestPacketClass(raw);
 			break;
 		case 168:
-			packet = new Packet_00A8Class(raw);
+			packet = new ChatProxyLoginPacketClass(raw);
 			break;
 		case 169:
-			packet = new Packet_00A9Class(raw);
+			packet = new ChatProxyRequestPacketClass(raw);
 			break;
 		case 170:
 			packet = new ChatProxyResponsePacketClass(raw);
 			break;
 		case 171:
-			packet = new Packet_00ABClass(raw);
+			packet = new ChatProxyResponseListPacketClass(raw);
 			break;
 		case 172:
-			packet = new Packet_00ACClass(raw);
+			packet = new ChatProxyEventPacketClass(raw);
 			break;
 		case 163:
 			packet = new ClientChatRequestPacketClass(raw);
@@ -641,16 +641,16 @@ PacketClass *Unknown_869790(RawPacketClass *raw)
 			packet = new Packet_00ADClass(raw);
 			break;
 		case 174:
-			packet = new Packet_00AEClass(raw);
+			packet = new GroupServerRequestPacketClass(raw);
 			break;
 		case 175:
 			packet = new GroupServerResponsePacketClass(raw);
 			break;
 		case 176:
-			packet = new Packet_00B0Class(raw);
+			packet = new GroupServerCreatePacketClass(raw);
 			break;
 		case 177:
-			packet = new Packet_00B1Class(raw);
+			packet = new GroupServerUpdatePacketClass(raw);
 			break;
 		case 188:
 			packet = new CTARequestPacketClass(raw);
@@ -698,16 +698,16 @@ PacketClass *Unknown_869790(RawPacketClass *raw)
 			packet = new GuildRecruitAcceptSectorPacket(raw);
 			break;
 		case 203:
-			packet = new GuildSimpleGuildSectorPacketClass(raw);
+			packet = new GuildSimpleGuildSectorPacket(raw);
 			break;
 		case 204:
 			packet = new GuildSimpleSectorClientPacket(raw);
 			break;
 		case 205:
-			packet = new GuildSimpleClientSectorPacketClass(raw);
+			packet = new GuildSimpleClientSectorPacket(raw);
 			break;
 		case 206:
-			packet = new GuildSimpleSectorGuildPacketClass(raw);
+			packet = new GuildSimpleSectorGuildPacket(raw);
 			break;
 		case 207:
 			packet = new GuildMessageGuildPacket(raw);
@@ -716,7 +716,7 @@ PacketClass *Unknown_869790(RawPacketClass *raw)
 			packet = new GuildMessageSectorPacket(raw);
 			break;
 		case 209:
-			packet = new GuildPermissionsPacketClass(raw);
+			packet = new GuildPermissionsPacket(raw);
 			break;
 		case 210:
 			packet = new GuildPlayerPermissionsPacket(raw);
@@ -749,7 +749,7 @@ PacketClass *Unknown_869790(RawPacketClass *raw)
 			packet = new GuildPlayerInfoDeletedPacket(raw);
 			break;
 		case 220:
-			packet = new GuildDeductFeePacketClass(raw);
+			packet = new GuildDeductFeePacket(raw);
 			break;
 		case 221:
 			packet = new GPSRequestPacketClass(raw);

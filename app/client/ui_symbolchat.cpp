@@ -97,7 +97,7 @@ UISymbolChatOptionStruct::~UISymbolChatOptionStruct()
 }
 
 // 0x64A480
-UISymbolChatClass::UISymbolChatClass(SClient *sclient) :
+UISymbolChatClass::UISymbolChatClass(SpaceClientClass *sclient) :
 	InterfaceClass((LineDisplayClientClass *)sclient),
 	Unknown84(0),
 	Window(NULL),

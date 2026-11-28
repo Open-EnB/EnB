@@ -2,7 +2,7 @@
 **	target_find.h: the cycling target finder (app\client\target_find.cpp).
 **
 **	The client has no name for the class. Its one known derived class is targeting.h's TargetSelectClass,
-**	the object at SClient +0x12A4 (constructor 0x7C6120, vtable 0xB07134), whose slot +0x04 receives
+**	the object at SpaceClientClass +0x12A4 (constructor 0x7C6120, vtable 0xB07134), whose slot +0x04 receives
 **	every object found here.
 */
 
@@ -11,7 +11,7 @@
 
 #include <vector>
 
-class SClient;
+class SpaceClientClass;
 class ClientObjectClass;
 
 #ifndef MAX_VISIBLE_GROUP_MEMBERS
@@ -47,7 +47,7 @@ struct TargetFindEntryStruct	// NAME 1: neutral (D10)
 class TargetFindClass	// NAME 3: class-from-file (D24) for target_find.cpp
 {
 public:
-	TargetFindClass(SClient *client);								// 0x7C3F10
+	TargetFindClass(SpaceClientClass *client);								// 0x7C3F10
 	virtual ~TargetFindClass();										// +0x00 0x7C3F60 (deleting), 0x7C3F90
 	protected: virtual ClientObjectClass *Select(ClientObjectClass *co); public:		// +0x04 0x7C3F40: returns co; the derived class overrides it  // NAME 1: neutral by what callers hand it
 
@@ -72,7 +72,7 @@ protected:
 	void Build_List(std::vector<TargetFindEntryStruct> &list);		// 0x7C4530: the filter's objects, sorted by distance  // NAME 2: what it does
 	unsigned Get_Flags(ClientObjectClass *co);						// 0x7C4940 (FAIL_IF '!co')  // NAME 2: what it does
 
-	SClient *Client;												// +0x04  // NAME 2: what it holds
+	SpaceClientClass *Client;												// +0x04  // NAME 2: what it holds
 	unsigned Filter;												// +0x08 TargetFindFlagEnum bits, 0 for all  // NAME 2: what it holds
 };
 

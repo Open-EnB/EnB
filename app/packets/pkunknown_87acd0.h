@@ -21,12 +21,12 @@
 #include <vector>
 
 // opcode 168 (0x00A8, ?): vtable 0xB09F30, constructor 0x87AE80, 0x68 bytes
-class Packet_00A8Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x00A8 (its Print says 'ChatProxyLoginPacketClass')
+class ChatProxyLoginPacketClass : public PacketClass  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	Packet_00A8Class();	// 0x87ACD0
-	Packet_00A8Class(RawPacketClass *raw);	// 0x87AE80
-	virtual ~Packet_00A8Class();	// +0x00 0x87AE50 / 0x87B280
+	ChatProxyLoginPacketClass();	// 0x87ACD0
+	ChatProxyLoginPacketClass(RawPacketClass *raw);	// 0x87AE80
+	virtual ~ChatProxyLoginPacketClass();	// +0x00 0x87AE50 / 0x87B280
 	virtual RawPacketClass *Build();	// +0x04 0x87B3E0
 	virtual bool Process_Packet(void *client);	// +0x08 0x868DC0 (clientstub.cpp l.320)
 	virtual int Get_Data_Size();	// +0x0C 0x87B5A0
@@ -44,12 +44,12 @@ public:
 };
 
 // opcode 169 (0x00A9, ?): vtable 0xB09F60, constructor 0x87B7C0, 0x80 bytes
-class Packet_00A9Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x00A9 (its Print says 'ChatProxyRequestPacketClass')
+class ChatProxyRequestPacketClass : public PacketClass  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	Packet_00A9Class();	// 0x87B670
-	Packet_00A9Class(RawPacketClass *raw);	// 0x87B7C0
-	virtual ~Packet_00A9Class();	// +0x00 0x87B790 / 0x87BB60
+	ChatProxyRequestPacketClass();	// 0x87B670
+	ChatProxyRequestPacketClass(RawPacketClass *raw);	// 0x87B7C0
+	virtual ~ChatProxyRequestPacketClass();	// +0x00 0x87B790 / 0x87BB60
 	virtual RawPacketClass *Build();	// +0x04 0x87BD20
 	virtual bool Process_Packet(void *client);	// +0x08 0x868D00 (clientstub.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x87BEB0
@@ -86,11 +86,11 @@ public:
 };
 
 // opcode 171 (0x00AB, ?): vtable 0xB09FC0, constructor 0x87C6C0, 0x50 bytes
-class Packet_00ABClass : public PacketClass  // NAME 1: neutral (D10): opcode 0x00AB (its Print says 'ChatProxyResponseListPacketClass')
+class ChatProxyResponseListPacketClass : public PacketClass  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	Packet_00ABClass(const std::string &unknown0c);	// 0x87C3F0
-	Packet_00ABClass(RawPacketClass *raw);	// 0x87C6C0
+	ChatProxyResponseListPacketClass(const std::string &unknown0c);	// 0x87C3F0
+	ChatProxyResponseListPacketClass(RawPacketClass *raw);	// 0x87C6C0
 	virtual RawPacketClass *Build();	// +0x04 0x87CB00
 	virtual bool Process_Packet(void *client);	// +0x08 0x868D60 (clientstub.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x87CC80
@@ -107,12 +107,12 @@ public:
 };
 
 // opcode 172 (0x00AC, ?): vtable 0xB09FF0, constructor 0x87D2E0, 0x8C bytes
-class Packet_00ACClass : public PacketClass  // NAME 1: neutral (D10): opcode 0x00AC (its Print says 'ChatProxyEventPacketClass')
+class ChatProxyEventPacketClass : public PacketClass  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	Packet_00ACClass();	// 0x87D180
-	Packet_00ACClass(RawPacketClass *raw);	// 0x87D2E0
-	virtual ~Packet_00ACClass();	// +0x00 0x87D2B0 / 0x87D690
+	ChatProxyEventPacketClass();	// 0x87D180
+	ChatProxyEventPacketClass(RawPacketClass *raw);	// 0x87D2E0
+	virtual ~ChatProxyEventPacketClass();	// +0x00 0x87D2B0 / 0x87D690
 	virtual RawPacketClass *Build();	// +0x04 0x87D860
 	virtual bool Process_Packet(void *client);	// +0x08 0x868D90 (clientstub.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x87D9F0

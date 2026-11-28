@@ -16,7 +16,7 @@ extern FontManagerClass *Unknown_BE67C4;			// NAME 1 [Unknown_BE67C4]: 0xBE67C4
 
 
 
-UIFactionPanelClass::UIFactionPanelClass(SClient *client) :
+UIFactionPanelClass::UIFactionPanelClass(SpaceClientClass *client) :
 	Unknown5BB320Class(new UIMeshClass("TSI30B", 1), client),
 	UnknownBC(0),
 	ExitButton(NULL),

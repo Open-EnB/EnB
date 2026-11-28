@@ -27,7 +27,7 @@ class LineDisplayClientClass  // NAME 1: neutral (D10)
 public:
 	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
 	virtual void Unknown_10(); virtual void Unknown_14();
-	virtual SClient *As_Space_Client();					// +0x18 (as ui_manu.cpp's)  // NAME 3: the FAIL_IF's in ui_manu.cpp
+	virtual SpaceClientClass *As_Space_Client();					// +0x18 (as ui_manu.cpp's)  // NAME 3: the FAIL_IF's in ui_manu.cpp
 };
 #include "..\shared\auth_product.h"
 // intrlist.cpp's list (InterfaceClass +0x58; intrface.h declares it only under __INTRFACE_MEMBERS), as far as this file calls it
@@ -37,7 +37,7 @@ public:
 	void Unknown_686CC0(RenderObjClass *robj, SceneClass *scene);	// 0x686CC0
 };
 
-// ui_talkt_space.cpp's talk tree window (SClient +0x1298), as far as this file reads it
+// ui_talkt_space.cpp's talk tree window (SpaceClientClass +0x1298), as far as this file reads it
 class SpaceTalkTreeInterface : public InterfaceClass  // NAME 5: thunk order, binary.md 5.11
 {
 };
@@ -51,7 +51,7 @@ class SpaceTalkTreeInterface : public InterfaceClass  // NAME 5: thunk order, bi
 
 
 // 0x5C4170
-MissionInterface::MissionInterface(SClient *client) :
+MissionInterface::MissionInterface(SpaceClientClass *client) :
 	Unknown5BB320Class(new UIMeshClass("TSI22A", 2), client),
 	DescriptionPanel(NULL),
 	StandardBttnTexture(NULL),
@@ -210,7 +210,7 @@ void MissionInterface::Unknown_5C()
 // 0x5C4C90
 void MissionInterface::Unknown_60()
 {
-	SClient *sclient = Client->As_Space_Client();
+	SpaceClientClass *sclient = Client->As_Space_Client();
 	FAIL_IF(!sclient) return;
 
 	DeltaPlayerClass *ad_player = sclient->AuxData;
@@ -309,7 +309,7 @@ void MissionInterface::Unknown_5C4FC0(std::vector<DeltaMission *> &missions)
 {
 	missions.clear(); missions.size(); missions.size();	// (two dead reads: they spend the inline budget so copy / _Destroy stay out of line, as the client's)
 
-	SClient *sclient = Client->As_Space_Client();
+	SpaceClientClass *sclient = Client->As_Space_Client();
 	FAIL_IF(!sclient) return;
 
 	DeltaPlayerClass *ad_player = sclient->AuxData;
@@ -536,7 +536,7 @@ void MissionInterface::Unknown_5C5DB0(int new_mission)
 
 
 	FAIL_IF(!Get_Client()) return;
-	SClient *sclient = Get_Client()->As_Space_Client();
+	SpaceClientClass *sclient = Get_Client()->As_Space_Client();
 	if (CurrentMission == NO_CURRENT_MISSION) {
 		DescriptionPanel->Set_Hidden(true);
 		sclient->Unknown_744560(9);
@@ -659,7 +659,7 @@ void MissionInterface::Unknown_5C5DB0(int new_mission)
 void MissionInterface::Unknown_5C6610()
 {
 	if (UnknownC4 && UnknownC4->Active) {
-		SClient *sclient = Client->As_Space_Client();
+		SpaceClientClass *sclient = Client->As_Space_Client();
 		FAIL_IF(!sclient) return;
 
 		if (sclient->Unknown1298 && sclient->Unknown1298->Active) {

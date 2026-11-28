@@ -7,7 +7,7 @@
 #include "..\shared\g_assert.h"
 
 // 0x5D7370
-UIPetitionStuckClass::UIPetitionStuckClass(SClient *client, int unknown0B4) :
+UIPetitionStuckClass::UIPetitionStuckClass(SpaceClientClass *client, int unknown0B4) :
 	UIPetitionEntryClass(client),
 	Unknown0B4(unknown0B4)
 {

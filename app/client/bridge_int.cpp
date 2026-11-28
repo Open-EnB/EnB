@@ -229,7 +229,7 @@ void BridgeInterface::Set_Avatar(AvatarDescriptionClass *desc)
 		pilot.Personality = pilot.Gender ? 9 : 8;
 		Avatar = Create_NEW(new AvatarClass(&pilot, false, false, NULL));
 		Avatar->Unknown_77E610();
-		EnvironmentMapManagerClass *env_maps = ((SClient *)Peek_Client()->As_Space_Client())->EnvironmentMapManager;
+		EnvironmentMapManagerClass *env_maps = ((SpaceClientClass *)Peek_Client()->As_Space_Client())->EnvironmentMapManager;
 		Avatar->Unknown_780810(env_maps);
 		Avatar->Unknown_77E3D0(1);
 		Avatar->Unknown215 = true;
@@ -603,7 +603,7 @@ void BridgeInterface::Reset_Sounds(int time)
 **	<string>'s guarded initialiser 0x53D1F0 and the callback's deleting destructor 0x53D220.
 **	The class name is the client's (the callback's RTTI, type descriptor 0xB78F28); the member and function names
 **	are from their use (NAME 1 in bridge_int.h) except where an assert or an animation tag gives one.
-**	SClient's Init makes the one instance (+0x128C); 0x74C3B0 gives it the player's avatar, 0x744C10 the scene,
+**	SpaceClientClass's Init makes the one instance (+0x128C); 0x74C3B0 gives it the player's avatar, 0x744C10 the scene,
 **	Do_Frame the frame; pdaint.cpp asks for the PDA's views, ctrngadg.cpp turns the view, ui_cpit.cpp plays the
 **	warp's and the incapacitance's animations, 0x6E2CC0 a hit.
 **	Update_Camera_Bone 0x53CA80 and Stop_Animation 0x53CEE0 have no callers in the client: defined after their

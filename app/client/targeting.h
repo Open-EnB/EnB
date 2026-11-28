@@ -4,7 +4,7 @@
 **	Original location: unknown. The object 0x7C6120-0x7C636F has no __FILE__ of its own and sits between
 **	target_reticle.cpp and ui_starmap.cpp; targeting.h / targeting.cpp are assumed from the asserts' 'targeting'.
 **
-**	The object at SClient +0x12A4: TargetFindClass's selection, which asks the server for the target it picks.
+**	The object at SpaceClientClass +0x12A4: TargetFindClass's selection, which asks the server for the target it picks.
 **	Table 0xB07134, 0x14 bytes.
 */
 
@@ -20,7 +20,7 @@
 class TargetSelectClass : public TargetFindClass  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	TargetSelectClass(SClient *client);								// 0x7C6120
+	TargetSelectClass(SpaceClientClass *client);								// 0x7C6120
 	virtual ~TargetSelectClass();										// +0x00 0x7C6160 (deleting), 0x7C6190
 	virtual ClientObjectClass *Select(ClientObjectClass *co);		// +0x04 0x7C62B0: sends REQUEST_TARGET when co isn't the target already
 

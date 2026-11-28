@@ -28,7 +28,7 @@ template<class C> inline C *Unknown_Find_Valid(DeltaContainer *root, const AuxDa
 
 
 
-RefCountPtr<ClientItemPropertySpecialProfessionRequirementClass> ClientItemPropertySpecialProfessionRequirementClass::Create(SClient *space_client, int professions)
+RefCountPtr<ClientItemPropertySpecialProfessionRequirementClass> ClientItemPropertySpecialProfessionRequirementClass::Create(SpaceClientClass *space_client, int professions)
 {
 	std::string label;
 	std::string tooltip;
@@ -68,7 +68,7 @@ RefCountPtr<ClientItemPropertySpecialProfessionRequirementClass> ClientItemPrope
 	return(Create_NEW(new ClientItemPropertySpecialProfessionRequirementClass(space_client, 4, professions, label, tooltip)));
 }
 
-ClientItemPropertySpecialProfessionRequirementClass::ClientItemPropertySpecialProfessionRequirementClass(SClient *space_client, int sort_order, int professions, const std::string &label, const std::string &tooltip) :
+ClientItemPropertySpecialProfessionRequirementClass::ClientItemPropertySpecialProfessionRequirementClass(SpaceClientClass *space_client, int sort_order, int professions, const std::string &label, const std::string &tooltip) :
 	ClientItemPropertySpecialClass(sort_order, tooltip, 0, 1),
 	SpaceClient(space_client),
 	Label(label),

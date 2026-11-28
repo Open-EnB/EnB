@@ -28,7 +28,7 @@ static inline DeltaInterpolator *Find_L2(DeltaContainer *const &root, const char
 static const char *Corner_Names[TargetReticleClass::CORNER_COUNT] = { "UL", "UR", "BR", "BL" };	// NAME 2: what it holds
 
 // @0x7C5100
-TargetReticleClass::TargetReticleClass(SClient *client, const RefCountPtr<SceneClass> &scene, int sort_level, bool show_text) :
+TargetReticleClass::TargetReticleClass(SpaceClientClass *client, const RefCountPtr<SceneClass> &scene, int sort_level, bool show_text) :
 	Client(client),
 	Scene(scene),
 	ClientObject(NULL)
@@ -104,7 +104,7 @@ TargetReticleClass::~TargetReticleClass()
 	Unknown_BE67BC->Unload("fc_radar.ini");
 }
 
-// (exact; a local SClient *c = Client before DurationClass(...) gives VC6's exact register sequence inside inlined Get_Value)
+// (exact; a local SpaceClientClass *c = Client before DurationClass(...) gives VC6's exact register sequence inside inlined Get_Value)
 // @0x7C5690
 void TargetReticleClass::Update(const Vector3 &pos, float size)
 {
@@ -271,7 +271,7 @@ void TargetReticleClass::Update(const Vector3 &pos, float size)
 
 			DeltaInterpolator *percent = Find_L1(aux, "ShieldPercent");
 			if (percent != NULL && percent->Unknown70 != 0) {
-				SClient *c = Client; shield = percent->Get_Value(DurationClass((unsigned)c->Unknown10BC));
+				SpaceClientClass *c = Client; shield = percent->Get_Value(DurationClass((unsigned)c->Unknown10BC));
 			}
 		}
 

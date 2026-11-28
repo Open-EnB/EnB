@@ -29,7 +29,7 @@ inline Vector3 Unknown_Rotate(const Matrix3D &tm, const Vector3 &v)	// NAME 1: n
 }
 
 // @0x792320
-DockCameraControllerClass::DockCameraControllerClass(SClient *client) :
+DockCameraControllerClass::DockCameraControllerClass(SpaceClientClass *client) :
 	CameraControllerClass(client),
 	Unknown0C(NULL),
 	Unknown10(0),

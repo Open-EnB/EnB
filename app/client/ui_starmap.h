@@ -27,12 +27,12 @@ class GalaxyMapPIPClass;
 class UIDynamicWindowClass;
 class ButtonGadgetClass;
 class HAnimClass;
-class SClient;
+class SpaceClientClass;
 
 class StarmapInterface : public InterfaceClass  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	StarmapInterface(SClient *client);					// 0x7C63D0  // NAME 1 [client]: neutral
+	StarmapInterface(SpaceClientClass *client);					// 0x7C63D0  // NAME 1 [client]: neutral
 	virtual ~StarmapInterface();							// 0x7C6700 (slot 0x7C66D0)
 	virtual void Unknown_54();							// +0x54 0x7C6BF0 (loads the mesh, the fonts, the buttons)
 	virtual void Unknown_58();							// +0x58 0x7C81F0

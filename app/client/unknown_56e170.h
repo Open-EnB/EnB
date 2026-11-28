@@ -10,7 +10,7 @@
 #include "intrface.h"
 #include "..\..\wwlib\ref_ptr.h"
 
-class SClient;				// sclient.h's
+class SpaceClientClass;				// sclient.h's
 class DynamicWindowClass;	// dynamic_window_class.h's
 class Unknown51C800Class;	// unknown_51c800.h's
 class GadgetClass;			// gadget.h's
@@ -31,7 +31,7 @@ struct UIChatReplyListOptionStruct	// NAME 1: neutral (D10)
 class UIChatReplyListClass : public InterfaceClass	// NAME 1: neutral (D10)
 {
 public:
-	UIChatReplyListClass(SClient *client);				// 0x56E2A0  // NAME 1 [client]: what 0x5629E0 passes
+	UIChatReplyListClass(SpaceClientClass *client);				// 0x56E2A0  // NAME 1 [client]: what 0x5629E0 passes
 	virtual ~UIChatReplyListClass();					// +0x00 0x56E5A0 (deleting 0x56E570)
 	virtual void Unknown_58();							// +0x58 0x56ED10 (opened at the pointer, 'fontclick.wav')
 	virtual void Unknown_5C();							// +0x5C 0x56EE40

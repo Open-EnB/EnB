@@ -216,8 +216,8 @@ void EmoteDataClass::Unknown_7E7620()
 	Emote = 7;
 	Unknown_7E79D0();
 	unsigned id = Peek_Client_Object()->GameID;
-	if (id == ((SClient *)Unknown_18())->AvatarID) {
-		((SClient *)Unknown_18())->CameraManager->Unknown_79B2B0(0x15);
+	if (id == ((SpaceClientClass *)Unknown_18())->AvatarID) {
+		((SpaceClientClass *)Unknown_18())->CameraManager->Unknown_79B2B0(0x15);
 	}
 }
 

@@ -1,6 +1,6 @@
 // Earth & Beyond client (reconstruction)
 /*
-**	sbaseview.h: sbaseview.cpp's starbase view (SClient +0x135C) and the interfaces it holds, declared as far as
+**	sbaseview.h: sbaseview.cpp's starbase view (SpaceClientClass +0x135C) and the interfaces it holds, declared as far as
 **	cpacket.cpp's handlers call them (moved out of cpacket.cpp; this header's name is provisional, NAME 1). Notes
 **	at the end.
 */
@@ -50,7 +50,7 @@ class GadgetClass;
 class UIStarbaseUnknown1F8Class : public InterfaceClass	// NAME 1: neutral (D10)
 {
 public:
-	UIStarbaseUnknown1F8Class(SClient *sclient);		// 0x644F80  // NAME 1 [sclient]: what 0x634140 passes
+	UIStarbaseUnknown1F8Class(SpaceClientClass *sclient);		// 0x644F80  // NAME 1 [sclient]: what 0x634140 passes
 	virtual ~UIStarbaseUnknown1F8Class();				// +0x00 0x6452C0 (deleting 0x645290)
 	virtual void Unknown_58();							// +0x58 0x645B20 (opened at the pointer, 'fontclick.wav')
 	virtual void Unknown_5C();							// +0x5C 0x645C50
@@ -262,7 +262,7 @@ public:
 	std::list<unsigned int> Unknown174;	// +0x174 (destructor 0x643A50: plain elements, another type than +0xEC's)  // NAME 1: neutral (D10): element type unknown
 	GadgetClass *Unknown180;	// +0x180 (the destructor's GadgetClass::Destroy)
 	RefCountPtr<RenderObjClass> Unknown184, Unknown188;	// +0x184
-	bool Unknown18C;	// +0x18C (SClient 0x74D950 sets the starbase view's +0x174's)
+	bool Unknown18C;	// +0x18C (SpaceClientClass 0x74D950 sets the starbase view's +0x174's)
 	UIStarbaseUnknown190Class *Unknown190;	// +0x190 (0x6418F0: a ClientObjectClass of type 0x29 for the ship model +0x184 on the 'ship' bone, its game id the dock effect's source; the destructor deletes it)
 	std::list<RefCountPtr<RenderObjClass> > Unknown194, Unknown1A0;	// +0x194 (made with NULL: list(0), insert 0x644070; destructor 0x643AC0)
 	int Unknown1AC;	// +0x1AC
@@ -275,7 +275,7 @@ public:
 	std::vector<LightClass *> Lights;	// +0x204 (0x640CC0 removes and releases them; 0x640DF0 hands a copy to the lights panel; destructor 0x643BE0)  // NAME 1: neutral
 	bool Unknown214, Unknown215, Unknown216, Unknown217, Unknown218, Unknown219, Unknown21A, Unknown21B, Unknown21C;	// +0x214
 	int Unknown220;	// +0x220
-	void Unknown_640150(); void Unknown_6425D0(const char *name, const Vector3 &color);	// 0x640150 (SClient 0x74ABC0: '/starbase reset'); 0x6425D0 (SClient 0x750F70: the chat-event colour)  // NAME 1 [name, color]: what 0x750F70 passes
+	void Unknown_640150(); void Unknown_6425D0(const char *name, const Vector3 &color);	// 0x640150 (SpaceClientClass 0x74ABC0: '/starbase reset'); 0x6425D0 (SpaceClientClass 0x750F70: the chat-event colour)  // NAME 1 [name, color]: what 0x750F70 passes
 	void Unknown_6437A0(int unknown, AvatarDescriptionClass *desc);	// 0x6437A0 (RECUSTOMIZE_AVATAR_UPDATE 133)  // NAME 1 [unknown, desc]: the packet's fields
 	void Unknown_640110(int state);	// 0x640110 (TRADE 31: 8 when a trade opens, 0 when it ends)  // NAME 1 [state]: neutral
 	int Unknown_Kind();	// NAME 1: neutral (D10): the third light key as 0x640810 inlines it (an inline level: it moves 0x640810's budget to the client's out-of-line calls; 0x640D80 has its own setne form) (inline in ui_starbase.cpp: it reads the room, sbase_info.h's)
@@ -327,7 +327,7 @@ class SBaseViewUnknown188Class : public Unknown5BB320Class { public: SBaseViewUn
 #include "unknown_65a020.h"	// Unknown65A020Class: the starbase view's +0x198, the web window (0x69F8F0 case 9: 0x65A020, 0xB8 bytes; 'JWEB00')
 class UIManuClass;	// ui_manu.h: the starbase view's +0x18C (0x69F8F0 case 7: 0x5AFA00)
 
-// ui_jobs.cpp's job board window UIJobsClass (the view's +0x194; 0x1F8 bytes): ui_jobs.h. The view below (SClient
+// ui_jobs.cpp's job board window UIJobsClass (the view's +0x194; 0x1F8 bytes): ui_jobs.h. The view below (SpaceClientClass
 // +0x135C; LOUNGE_NPC 82 calls its 0x6A0FD0) holds it
 #include "ui_jobs.h"
 
@@ -376,7 +376,7 @@ struct SBaseViewChannelStruct	// NAME 1: neutral (D10)
 class StarbaseViewClass : public Unknown65B810ViewClass  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	StarbaseViewClass(ClientTaskClass *task, int arg);	// 0x69AD30 (table 0xAFD2FC; SClient 0x74B680 passes its +0x1384 task and +0x1324)  // NAME 1 [task, arg]: what the base / +0x1F4 get
+	StarbaseViewClass(ClientTaskClass *task, int arg);	// 0x69AD30 (table 0xAFD2FC; SpaceClientClass 0x74B680 passes its +0x1384 task and +0x1324)  // NAME 1 [task, arg]: what the base / +0x1F4 get
 	virtual ~StarbaseViewClass();	// +0x00 0x69B0C0 (deleting 0x69B090)
 	virtual void Unknown_04();	// +0x04 0x69B5E0 (Init: the scenes, cameras, layers, text object, interfaces and lights)
 	virtual int Unknown_0C(bool on);	// +0x0C 0x69C5E0 (not rebuilt: the render, WW3D::Begin_Render with on)
@@ -425,7 +425,7 @@ public:
 	void Unknown_69EB20(Matrix3D tm, int seconds, bool restart);	// 0x69EB20: with ViewRObjs[1], the move target +0xB4 = tm turned as 0x69E510, over seconds (+0xE4); restart: +0xE8 = 0, +0x1C4 = 3  // NAME 1 [tm, seconds, restart]: neutral
 	void Unknown_69F710();	// 0x69F710: every channel one frame on
 	bool Unknown_69F850(int index);	// 0x69F850: channel index at its end  // NAME 1 [index]: neutral
-	void Unknown_69F8F0(int type, int arg);	// 0x69F8F0: interface type (5..14) made once and shown as +0x64 (11: the talk tree, SClient's too, and STARBASE_REQUEST action 4 with arg)  // NAME 1 [type, arg]: neutral
+	void Unknown_69F8F0(int type, int arg);	// 0x69F8F0: interface type (5..14) made once and shown as +0x64 (11: the talk tree, SpaceClientClass's too, and STARBASE_REQUEST action 4 with arg)  // NAME 1 [type, arg]: neutral
 	void Unknown_6A0540();	// 0x6A0540: +0x68's object, +0x1CC and +0x1D0 out of their scenes
 	void Unknown_6A0590(const char *name);	// 0x6A0590: the lights loader (FAIL_IF '!RKey.Peek()' / '!RCamera.Peek()', l.1261 / 1262): the ambient light and the RKEY / RCAMERA lights of the INI name  // NAME 1 [name]: what INIClass::Load gets
 	void Unknown_6A1C90();	// 0x6A1C90: RCamera turned along the +0x6C camera's view plus the offset +0x1D4 (the lights loader's RKey math)

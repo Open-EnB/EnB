@@ -49,7 +49,7 @@ struct UIJobsRowStruct	// NAME 1: neutral (D10)
 class UIJobsClass : public Unknown5BB320Class	// NAME 3: class-from-file (D24) for app\client\ui_jobs.cpp
 {
 public:
-	UIJobsClass(SClient *client);						// 0x5A1170 (the starbase view's 0x69F8F0, case 8)  // NAME 1 [client]: what 0x69F8F0 passes
+	UIJobsClass(SpaceClientClass *client);						// 0x5A1170 (the starbase view's 0x69F8F0, case 8)  // NAME 1 [client]: what 0x69F8F0 passes
 	virtual ~UIJobsClass();								// 0x5A1540 (G_ASSERT 'State == UI_CLOSED', l.98; deleting 0x5A1510)
 	virtual void Unknown_54();							// 0x5A1760
 	virtual void Unknown_58();							// 0x5A2050

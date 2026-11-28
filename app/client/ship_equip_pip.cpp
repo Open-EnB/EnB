@@ -72,7 +72,7 @@
 
 
 // 0x541DE0
-ShipEquipPipClass::ShipEquipPipClass(SClient *client) :
+ShipEquipPipClass::ShipEquipPipClass(SpaceClientClass *client) :
 	PIPSceneClass(client),
 	LastMouse(0, 0),
 	Distance(0),

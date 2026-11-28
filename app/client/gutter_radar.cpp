@@ -31,7 +31,7 @@
 
 
 // @0x7B6BD0
-GutterRadarClass::GutterRadarClass(SClient *client, const RefCountPtr<SimpleSceneClass> &scene) :
+GutterRadarClass::GutterRadarClass(SpaceClientClass *client, const RefCountPtr<SimpleSceneClass> &scene) :
 	Client(client),
 	Scene(scene),
 	Reticle08(NULL),

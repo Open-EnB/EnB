@@ -51,7 +51,7 @@ public:
 class Unknown70E2E0Class : public ClientProximityObjectClass	// NAME 1: neutral (D10)
 {
 public:
-	Unknown70E2E0Class(ClientClass *client, int type, unsigned id);	// 0x70E2E0 (CREATE 4 passes its SClient, the packet's Type and GameID)  // NAME 1 [client, type, id]: as the base's
+	Unknown70E2E0Class(ClientClass *client, int type, unsigned id);	// 0x70E2E0 (CREATE 4 passes its SpaceClientClass, the packet's Type and GameID)  // NAME 1 [client, type, id]: as the base's
 	virtual ~Unknown70E2E0Class();						// +0x00 0x70E380 (scalar deleting 0x70E350; thunks 0x70E580, 0x70E590)
 	virtual void Unknown_20();							// +0x20 0x70E4E0 (the base's, then the height above the ground)
 	virtual void Unknown_3C();							// +0x3C 0x70E530 (empty)
@@ -71,7 +71,7 @@ public:
 class Unknown70E5A0Class : public ClientObjectClass	// NAME 1: neutral (D10)
 {
 public:
-	Unknown70E5A0Class(ClientClass *client, unsigned id);	// 0x70E5A0 (CREATE 4 passes its SClient and the packet's GameID)  // NAME 1 [client, id]: as the base's
+	Unknown70E5A0Class(ClientClass *client, unsigned id);	// 0x70E5A0 (CREATE 4 passes its SpaceClientClass and the packet's GameID)  // NAME 1 [client, id]: as the base's
 	virtual ~Unknown70E5A0Class();						// +0x00 0x70E6B0 (scalar deleting 0x70E680; thunk 0x70F030): releases the parent's bone
 	virtual void Unknown_14(UnknownB02C90Class *parent, int slot, int child_slot);	// +0x14 0x70E780 (attached: the parent's id, its slot's bone, captured)  // NAME 1 [parent, slot, child_slot]: as the base's
 	virtual void Unknown_18(UnknownB02C90Class *parent, int slot, int child_slot);	// +0x18 0x70E7D0 (detached: the bone released)  // NAME 1 [parent, slot, child_slot]: as the base's

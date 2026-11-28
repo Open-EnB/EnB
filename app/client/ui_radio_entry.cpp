@@ -20,7 +20,7 @@ extern FontManagerClass *Unknown_BE67C4;	// NAME 1: neutral (D10)
 static const char *Unknown_B853D0[5] = { "EXIT", "TEXT_FIELD00", "TEXT_FIELD01", "BUTTON02", "BUTTON03" };	// NAME 1: neutral (D10)
 
 // 0x5E6290
-UIRadioEntryClass::UIRadioEntryClass(SClient *client, int state) :
+UIRadioEntryClass::UIRadioEntryClass(SpaceClientClass *client, int state) :
 	ChatPanelUIBase(client),
 	State(state),
 	PasswordGadget(NULL),
@@ -181,7 +181,7 @@ bool UIRadioEntryClass::Unknown_68(int key)
 // 0x5E6A20
 void UIRadioEntryClass::Unknown_5E6A20(int key)
 {
-	SClient *sclient = (SClient *)((ClientClass *)Client)->As_Space_Client();	// NAME 1: neutral (D10)
+	SpaceClientClass *sclient = (SpaceClientClass *)((ClientClass *)Client)->As_Space_Client();	// NAME 1: neutral (D10)
 	ChatPanelInterface *chat = sclient->ChatPanel.Peek();	// NAME 1: neutral (D10)
 	switch (State) {
 		case 0:
@@ -252,7 +252,7 @@ void UIRadioEntryClass::Unknown_5E6BA0()
 // 0x5E6EC0
 void UIRadioEntryClass::Unknown_5E6EC0()
 {
-	SClient *sclient = (SClient *)((ClientClass *)Client)->As_Space_Client();	// NAME 1: neutral (D10)
+	SpaceClientClass *sclient = (SpaceClientClass *)((ClientClass *)Client)->As_Space_Client();	// NAME 1: neutral (D10)
 	ChatPanelInterface *chat = sclient->ChatPanel.Peek();	// NAME 1: neutral (D10)
 	int id = ((ClientClass *)Client)->Unknown1138;	// NAME 1: neutral (D10)
 	ClientChatRequestPacketClass packet(6, id);
@@ -299,7 +299,7 @@ void UIRadioEntryClass::Unknown_5E70A0()
 
 
 	FAIL_IF(!PasswordGadget || !ConfirmGadget) return;
-	SClient *sclient = (SClient *)((ClientClass *)Client)->As_Space_Client();	// NAME 1: neutral (D10)
+	SpaceClientClass *sclient = (SpaceClientClass *)((ClientClass *)Client)->As_Space_Client();	// NAME 1: neutral (D10)
 	ChatPanelInterface *chat = sclient->ChatPanel.Peek();	// NAME 1: neutral (D10)
 	if (strcmp(PasswordGadget->Get_Text(), ConfirmGadget->Get_Text()) == 0 && PasswordGadget->Get_Text_Length() != 0) {
 		int id = ((ClientClass *)Client)->Unknown1138;	// NAME 1: neutral (D10)

@@ -27,7 +27,7 @@ class LineDisplayClientClass  // NAME 1: neutral (D10)
 public:
 	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
 	virtual void Unknown_10(); virtual void Unknown_14();
-	virtual SClient *As_Space_Client();					// +0x18 (as ui_manu.cpp's)  // NAME 3: the FAIL_IF's in ui_manu.cpp
+	virtual SpaceClientClass *As_Space_Client();					// +0x18 (as ui_manu.cpp's)  // NAME 3: the FAIL_IF's in ui_manu.cpp
 	virtual void Unknown_1C(); virtual void Unknown_20(); virtual void Unknown_24();
 	virtual int Unknown_28();							// +0x28 (what the experience display shows)
 };
@@ -53,7 +53,7 @@ static const char *PDAButtonNames[PDAInterfaceClass::NUM_BUTTONS] = {	// NAME 1:
 };
 
 // 0x693140
-PDAInterfaceClass::PDAInterfaceClass(SClient *client) :
+PDAInterfaceClass::PDAInterfaceClass(SpaceClientClass *client) :
 	InterfaceClass((LineDisplayClientClass *)client),
 	Experience(NULL),
 	UnknownBC(true)
@@ -69,7 +69,7 @@ void PDAInterfaceClass::Unknown_54()
 	InterfaceMesh = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("TSI14A"));
 	Unknown58.Unknown_686CC0(InterfaceMesh.Peek(), NULL);
 
-	SClient *client = Get_Client()->As_Space_Client();
+	SpaceClientClass *client = Get_Client()->As_Space_Client();
 	Equipment = Create_NEW(new UIPdaEquipClass(client));
 	Equipment->Unknown_54();
 	Cargo = Create_NEW(new UIPdaCargoClass(client, this));
@@ -144,7 +144,7 @@ void PDAInterfaceClass::Unknown_60()
 {
 	if (Active) {
 		FAIL_IF(!Get_Client()) return;
-		SClient *client = Get_Client()->As_Space_Client();
+		SpaceClientClass *client = Get_Client()->As_Space_Client();
 		if (Experience) {
 			if ((int)Experience->Get_Object() != Get_Client()->Unknown_28()) {
 				Experience->Unknown_08((ClientObjectClass *)Get_Client()->Unknown_28());
@@ -211,8 +211,8 @@ bool PDAInterfaceClass::Unknown_68(int key)
 	if (!UnknownBC) {
 		return(true);
 	}
-	SClient *sc = Get_Client()->As_Space_Client(); ChatPanelInterface *chat = sc->ChatPanel.Peek();	// through a local: the Peek straight off the call left an add eax, 0x127C the client lacks
-	SClient *client = Get_Client()->As_Space_Client();
+	SpaceClientClass *sc = Get_Client()->As_Space_Client(); ChatPanelInterface *chat = sc->ChatPanel.Peek();	// through a local: the Peek straight off the call left an add eax, 0x127C the client lacks
+	SpaceClientClass *client = Get_Client()->As_Space_Client();
 	const char *sound;
 	switch (key) {
 	case 1:
@@ -531,7 +531,7 @@ RefCountPtr<InterfaceClass> PDAInterfaceClass::Unknown_6956C0(int index)
 bool PDAInterfaceClass::Unknown_695780(int index)
 {
 	FAIL_IF(!Get_Client()) return(false);
-	SClient *sc = Get_Client()->As_Space_Client();
+	SpaceClientClass *sc = Get_Client()->As_Space_Client();
 	FAIL_IF(!sc) return(false);
 	if (sc->Bridge == NULL || !sc->Bridge->Is_Busy()) {
 		UnknownB0 = Unknown_6956C0(index);
@@ -630,7 +630,7 @@ bool PDAInterfaceClass::Unknown_695A00(int index, bool arg)
 	}
 	if (arg) {
 		FAIL_IF(!Get_Client()) return(false);
-		SClient *sc = Get_Client()->As_Space_Client(); if (sc->Bridge) {
+		SpaceClientClass *sc = Get_Client()->As_Space_Client(); if (sc->Bridge) {
 			sc->Bridge->Set_View(BridgeInterface::VIEW_MAIN);
 		}
 	}
@@ -764,7 +764,7 @@ void PDAInterfaceClass::Unknown_695FE0(bool on)
 **	The object: the client's __FILE__ 'e:\build\beta\G\app\Client\pdaint.cpp' (0xB90AA8) in the asserts of
 **	0x693CA0 (lines 146, 189), 0x694BE0 / 0x695110 (458, 473), 0x6956C0 (525), 0x695780 (533, 535), 0x695A00 (632)
 **	and 0x695E10 (710, 711); the constructor 0x693140 sets the table 0xAFD148 whose slots are this file's functions.
-**	SClient::Init news it (0xC0 bytes, +0x1284).
+**	SpaceClientClass::Init news it (0xC0 bytes, +0x1284).
 **
 **	Output in the range besides these: the deleting destructor 0x693200, ChatPanelInterface's inline 0x694AA0 and
 **	the Create_NEW instantiations 0x696030 / 0x6960A0 / 0x696110 / 0x696180 / 0x6961F0 / 0x696260.

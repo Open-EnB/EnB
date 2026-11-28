@@ -31,7 +31,7 @@ public:
 };
 
 // The login ticket (vtable 0xB0C608, 0x48 bytes; constructor 0x8C15F0, destructor 0x8C16D0, assignment
-// 0x8C16F0): the master server's answer to the login, copied into SClient (+0x12D8) and the task.
+// 0x8C16F0): the master server's answer to the login, copied into SpaceClientClass (+0x12D8) and the task.
 #pragma pack(push, 4)		// the client's layout: the vtable pointer isn't padded for Character_ID
 class TicketClass : public Unknown_PacketDataClass	// NAME 1: Init's assert 'kernel && ticket'
 {

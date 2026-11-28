@@ -96,7 +96,7 @@ VerbInterface::VerbInterface(UIViewClass *view, const LayerClass &layer, UIMeshC
 	VerbMangerPtr(NULL),
 	Count(0)
 {
-	VerbMangerPtr = ((SClient *)((Unknown65B810ViewClass *)view)->Client->As_Space_Client())->VerbManager;
+	VerbMangerPtr = ((SpaceClientClass *)((Unknown65B810ViewClass *)view)->Client->As_Space_Client())->VerbManager;
 
 
 
@@ -135,7 +135,7 @@ void VerbInterface::Unknown_60() {}
 
 bool VerbInterface::Unknown_68(int event)
 {
-	SClient *client = (SClient *)((Unknown65B810ViewClass *)View->Unknown_20())->Get_Client()->As_Space_Client();
+	SpaceClientClass *client = (SpaceClientClass *)((Unknown65B810ViewClass *)View->Unknown_20())->Get_Client()->As_Space_Client();
 	MainViewClass *main_view = (MainViewClass *)View->As_Main_View();
 	UIVerbButtonClass *vb = Find_Button((VerbEnum)event);
 

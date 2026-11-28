@@ -24,7 +24,7 @@ extern Random4Class Unknown_BDB1C0;				// NAME 1 [Unknown_BDB1C0]: 0xBDB1C0, the
 static int Unknown_B9E3B0 = 0;					// NAME 1: neutral (D10): 0x794A90's section id
 
 // @0x7946D0
-PLandCameraControllerClass::PLandCameraControllerClass(SClient *client) :
+PLandCameraControllerClass::PLandCameraControllerClass(SpaceClientClass *client) :
 	CameraControllerClass(client),
 	Unknown0C(NULL),
 	Unknown10(0),
@@ -48,7 +48,7 @@ void PLandCameraControllerClass::Unknown_04()
 	Unknown_794A90();
 	Unknown10 = Client->Unknown10BC;
 	Unknown14 = Client->Next_Local_ID();
-	EffectObjectClass *effect = Unknown_6E9490(0x16A, Unknown14, 4000, Unknown10, Client, 1.0f, Vector3(0.0f, 0.0f, 0.0f), 1.0f, -1, 0);
+	EffectClass *effect = Unknown_6E9490(0x16A, Unknown14, 4000, Unknown10, Client, 1.0f, Vector3(0.0f, 0.0f, 0.0f), 1.0f, -1, 0);
 
 
 
@@ -105,7 +105,7 @@ void PLandCameraControllerClass::Unknown_0C()
 		ship->PositionalState = state->Unknown_28();
 		delete state;
 	}
-	EffectObjectClass *effect = Client->Get_Effect(Unknown14);
+	EffectClass *effect = Client->Get_Effect(Unknown14);
 	if (effect) {
 		effect->Unknown_6E6E30();
 	}

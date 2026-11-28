@@ -36,7 +36,7 @@ static const char *Unknown_B832E8[4] = { NULL, "ok_opt_font", "cancel_opt_font",
 
 
 // 0x5CC350
-OptionFontInterface::OptionFontInterface(SClient *client, const char **font_names, const char **labels, const std::string &title) :
+OptionFontInterface::OptionFontInterface(SpaceClientClass *client, const char **font_names, const char **labels, const std::string &title) :
 	ChatPanelUIBase(client),
 	SameCheck(NULL),
 	Title(title),

@@ -10,7 +10,7 @@
 class NullCameraControllerClass : public CameraControllerClass  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	NullCameraControllerClass(SClient *client);			// 0x798AE0
+	NullCameraControllerClass(SpaceClientClass *client);			// 0x798AE0
 	virtual ~NullCameraControllerClass();					// 0x798B40, deleting 0x798B10
 	virtual void Unknown_04();							// +0x04 0x798B60
 	virtual void Unknown_08(Vector3 *pos, Quaternion *rot, int *mode, int *target);	// +0x08 0x798BA0

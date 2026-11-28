@@ -20,7 +20,7 @@
 
 static const char *ShortcutIni = "shortcut.ini";	// 0xB88EA0  // NAME 2: what it holds
 // @0x6136D0
-ShortcutGadgetsInterface::ShortcutGadgetsInterface(const std::string &name, SClient *sclient) : ShortcutBeenCreated(false)
+ShortcutGadgetsInterface::ShortcutGadgetsInterface(const std::string &name, SpaceClientClass *sclient) : ShortcutBeenCreated(false)
 {
 
 

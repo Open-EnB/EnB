@@ -17,7 +17,7 @@
 extern const int Unknown_B08C9C;			// 0xB08C9C (8: textgadg.h's flags, as ui_registration.cpp declares it)  // NAME 1: neutral (D10)
 
 // 0x5D6080
-UIPetitionPlayerEntryClass::UIPetitionPlayerEntryClass(SClient *client, int unknown0B8) :
+UIPetitionPlayerEntryClass::UIPetitionPlayerEntryClass(SpaceClientClass *client, int unknown0B8) :
 	UIPetitionEntryClass(client),
 	Unknown0B8(unknown0B8)
 {
@@ -33,7 +33,7 @@ UIPetitionPlayerEntryClass::~UIPetitionPlayerEntryClass()
 void UIPetitionPlayerEntryClass::Unknown_54()
 {
 	UIPetitionEntryClass::Unknown_54();
-	PlayerName = Create_NEW(new UIPetitionPlayerNameClass((SClient *)((ClientClass *)Client)->As_Space_Client()));
+	PlayerName = Create_NEW(new UIPetitionPlayerNameClass((SpaceClientClass *)((ClientClass *)Client)->As_Space_Client()));
 	PlayerName->Unknown_5417D0(this);
 	PlayerName->Unknown_54();
 	PlayerName->NameEditor->Next = SubjectEditor;
@@ -259,7 +259,7 @@ bool UIPetitionPlayerEntryClass::Has_Text(bool warn)
 
 
 // 0x5D6AA0
-UIPetitionPlayerNameClass::UIPetitionPlayerNameClass(SClient *client) :
+UIPetitionPlayerNameClass::UIPetitionPlayerNameClass(SpaceClientClass *client) :
 	ChatPanelUIBase(client),
 	NameEditor(NULL)
 {
@@ -312,7 +312,7 @@ bool UIPetitionPlayerNameClass::Unknown_68(int key)
 		case 1:
 			{
 
-				SClient *sclient = (SClient *)((ClientClass *)Client)->As_Space_Client();	// NAME 3: the FAIL_IF's
+				SpaceClientClass *sclient = (SpaceClientClass *)((ClientClass *)Client)->As_Space_Client();	// NAME 3: the FAIL_IF's
 				FAIL_IF(!sclient) return(true);
 				ClientObjectClass *target = sclient->Get_Target();	// NAME 1: neutral (D10)
 				if (target && target->Type == 1) {

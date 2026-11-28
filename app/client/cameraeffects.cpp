@@ -69,7 +69,7 @@ public:
 template<class C> inline C *Unknown_Find_Valid(DeltaContainer *root, const AuxDataName &name) { C *t = Unknown_Find_Field<C>(root, name); if (t && t->Unknown70) return(t); return(NULL); }	static inline float Unknown_Accel_Value(AccelClass &accel, int time) { if (!accel.IsActive) return(accel.Current); return(accel.Update((float)time)); }	// NAME 1: neutral (D10): as co.cpp's; Unknown_Accel_Value NAME 1: neutral (D10), the form 0x6E3710 / 0x6E3B60 inline (an int time, converted after the test; AccelClass::Get_Value takes a float)
 
 // 0x6E2BD0
-CameraEffectsClass::CameraEffectsClass(MainViewClass *view, SClient *client) :
+CameraEffectsClass::CameraEffectsClass(MainViewClass *view, SpaceClientClass *client) :
 	View(view),
 	Client(client),
 	Unknown14(false),
@@ -92,7 +92,7 @@ void CameraEffectsClass::Unknown_34()
 		View->Unknown_40();
 		Unknown14 = false;
 	}
-	SClient *client = (SClient *)Client->As_Space_Client();
+	SpaceClientClass *client = (SpaceClientClass *)Client->As_Space_Client();
 	if (client && client->Get_Ship()) {
 		DeltaContainer *aux = (DeltaContainer *)client->Get_Ship()->AuxData;
 		if (aux) {
@@ -253,9 +253,9 @@ void CameraEffectsClass::Unknown_6E32E0(int type, float amount, float time)
 }
 
 // 0x6E34F0: the camera effects of the client's current view (no caller in the client)
-CameraEffectsClass *Unknown_6E34F0(SClient *client)	// NAME 1: neutral (D10)
+CameraEffectsClass *Unknown_6E34F0(SpaceClientClass *client)	// NAME 1: neutral (D10)
 {
-	SClient *self = (SClient *)client->As_Space_Client();
+	SpaceClientClass *self = (SpaceClientClass *)client->As_Space_Client();
 	if (self && self->CurrentView) {
 		UIViewClass *view = self->CurrentView->Unknown_1C();
 		if (view) {
@@ -290,8 +290,8 @@ UnknownAFFE84Class::UnknownAFFE84Class(CameraEffectsClass *owner, float damage) 
 		Unknown0C.Set_Value(0.0f, true);
 		return;
 	}
-	SClient *client = Owner->Client;
-	SClient *self = (SClient *)client->As_Space_Client();
+	SpaceClientClass *client = Owner->Client;
+	SpaceClientClass *self = (SpaceClientClass *)client->As_Space_Client();
 	if (self == NULL) {
 		return;
 	}

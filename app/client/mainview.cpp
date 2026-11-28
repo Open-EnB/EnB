@@ -195,8 +195,8 @@ void MainViewClass::Unknown_04()
 	DazzleLayer = new DazzleLayerClass;
 	Unknown128 = new MainViewDazzleHandlerClass(Client);
 	DazzleRenderObjClass::Install_Dazzle_Visibility_Handler(Unknown128);
-	Radar = new RadarSystemClass((SClient *)Client->As_Space_Client());
-	Unknown84 = new GutterRadarClass((SClient *)Client->As_Space_Client(), Create_Peek((SimpleSceneClass *)Unknown_50()));
+	Radar = new RadarSystemClass((SpaceClientClass *)Client->As_Space_Client());
+	Unknown84 = new GutterRadarClass((SpaceClientClass *)Client->As_Space_Client(), Create_Peek((SimpleSceneClass *)Unknown_50()));
 	Unknown110->Set_Fog_Enable(false);
 	Unknown114->Set_Fog_Enable(false);
 	Scene->Set_Fog_Enable(false);
@@ -484,7 +484,7 @@ void MainViewClass::Unknown_50CF70()
 	Camera->Set_Depth_Range(zmin, zmax);
 }
 
-static inline bool Unknown_50D060_Helper(SClient *c) { return c->ViewMode == 0 || (c->ViewMode == 1 && c->Unknown10FA); }	// NAME 1 [c]: neutral (D10)
+static inline bool Unknown_50D060_Helper(SpaceClientClass *c) { return c->ViewMode == 0 || (c->ViewMode == 1 && c->Unknown10FA); }	// NAME 1 [c]: neutral (D10)
 void MainViewClass::Unknown_50D060()
 {
 	float old_near, old_far;
@@ -549,7 +549,7 @@ void MainViewClass::Unknown_50D430(float znear, float zfar)
 // (exact: depth range 0xAECF30/0xAECF2C, Matrix3D rot copy + Rotate_Vector(rot, dir, &dir), Get_Client() on +0x05 / StarBudget)
 void MainViewClass::Unknown_50D520()
 {
-	SClient *sclient = (SClient *)Client->As_Space_Client();
+	SpaceClientClass *sclient = (SpaceClientClass *)Client->As_Space_Client();
 	BridgeInterface *bridge = sclient->Bridge;
 	if (bridge && bridge->Scene.Peek()) {
 		CameraClass *camera = Camera;
@@ -892,15 +892,15 @@ Vector3 Unknown_50EE60(const Vector3 &source)
 
 
 
-// The clock the sky runs on (SClient +0x10BC plus the server offset +0x10C0), two inline layers deep: the client calls
+// The clock the sky runs on (SpaceClientClass +0x10BC plus the server offset +0x10C0), two inline layers deep: the client calls
 // DurationClass::operator+ out of line (0x514B00, its only copy), as VC6 does at this depth (one layer inlines it)
-static inline DurationClass Unknown_Server_Time(SClient *client) { return DurationClass((unsigned)client->Unknown10BC) + client->Unknown10C0; }	// NAME 1: neutral (D10)
-static inline DurationClass Unknown_Time(SClient *client) { return Unknown_Server_Time(client); }	// NAME 1: neutral (D10)
+static inline DurationClass Unknown_Server_Time(SpaceClientClass *client) { return DurationClass((unsigned)client->Unknown10BC) + client->Unknown10C0; }	// NAME 1: neutral (D10)
+static inline DurationClass Unknown_Time(SpaceClientClass *client) { return Unknown_Server_Time(client); }	// NAME 1: neutral (D10)
 // NOT EXACT: 1.00 (masked 10 -> 4, raw 207 -> 9, frame 0xCC = client; 4 x87 rows left in r49 frame*offset Row 1; attempts.csv 0x50F1B0)
 void MainViewClass::Update(CameraClass *camera, bool under)
 {
 	WWPROFILE("MainView::Update");
-	SClient *client = Get_Client();
+	SpaceClientClass *client = Get_Client();
 	FAIL_IF(!client) return;
 	DurationClass time = Unknown_Time(client);	float hours = (float)time.Get();	hours *= 2.777778e-07f;
 	if (Get_Client()->DebugMode) {
@@ -1117,7 +1117,7 @@ void MainViewClass::Update(CameraClass *camera, bool under)
 
 
 
-// SClient +0x12A4, as far as the main view's 0x512400 uses it (its G_ASSERT calls it 'targeting')
+// SpaceClientClass +0x12A4, as far as the main view's 0x512400 uses it (its G_ASSERT calls it 'targeting')
 #include "targeting.h"	// (+0x10: 0x512400 clears it when TargetGameID's +0x70 is above 1)
 
 
@@ -1130,13 +1130,13 @@ void MainViewClass::Update(CameraClass *camera, bool under)
 
 // 0xBFAE3C is WW3D::SyncTime (WW3D::Sync 0x918200 writes it): read inline through WW3D::Get_Sync_Time (ww3d.h above)
 // Renegade's console.cpp profile display (Commando, CConsoleClass's profile text), as
-// the client has it: SClient's Unknown14EC == 3 shows it, every 250 ms rebuilt from the profile iterator (+0x1E8)
+// the client has it: SpaceClientClass's Unknown14EC == 3 shows it, every 250 ms rebuilt from the profile iterator (+0x1E8)
 void MainViewClass::Unknown_510440()
 {
 	static StringClass profile_string(1024, true);
 	static StringClass working_string(255, true);
-	if (((SClient *)Client->As_Space_Client())->Unknown14EC != 3) return;
-	((SClient *)Client->As_Space_Client())->Text->Draw_Text(profile_string, 0xFF00FF00);
+	if (((SpaceClientClass *)Client->As_Space_Client())->Unknown14EC != 3) return;
+	((SpaceClientClass *)Client->As_Space_Client())->Text->Draw_Text(profile_string, 0xFF00FF00);
 	// Only update every 1/4 second
 	static unsigned int last_time;
 	if (WW3D::Get_Sync_Time() - last_time < 250) return;
@@ -1411,7 +1411,7 @@ void MainViewClass::Unknown_512400()
 	if (!Cpit || !Cpit->Scan) return;
 	ClientObjectClass *current = Cpit->Scan->Object;
 	unsigned current_id = current ? current->GameID : 0;
-	SClient *client = Client;
+	SpaceClientClass *client = Client;
 	if (!client) return;
 	ClientObjectClass *avatar = client->Get_Avatar();
 	if (!avatar || !avatar->AuxData) return;
@@ -1604,11 +1604,11 @@ void MainViewClass::Unknown_14()
 	CameraEffects->Unknown_34();
 }
 
-// 0x512A00: every frame while the main view is current (SClient::Do_Frame): inside local_interface_sort.cpp's sort,
+// 0x512A00: every frame while the main view is current (SpaceClientClass::Do_Frame): inside local_interface_sort.cpp's sort,
 // the radar from the +0x84 object, the PDA's +0xA8 object and the scene
 void MainViewClass::Unknown_512A00()
 {
-	SClient *sclient = (SClient *)Client->As_Space_Client();
+	SpaceClientClass *sclient = (SpaceClientClass *)Client->As_Space_Client();
 	PDAInterfaceClass *pda = sclient->PDAInterface;
 	LocalInterfaceSort sort(this, 0);
 	Radar->Unknown_7BCA70(Unknown84, ((StarmapInterface *)pda->UnknownA8)->Unknown_7C8DB0(true), Create_Peek((SceneClass *)Unknown_64()));
@@ -1976,7 +1976,7 @@ void MainViewClass::Unknown_5137F0(unsigned sector)
 	sprintf(filename, "land%04d.ini", sector);
 
 
-	SClient *sclient = (SClient *)Client->As_Space_Client();
+	SpaceClientClass *sclient = (SpaceClientClass *)Client->As_Space_Client();
 
 	FAIL_IF(!sclient) {return;}
 	bool flag = sclient->Unknown1320; Land = LandClass::Create(filename, flag);	// the flag through a local, as the client (one line: the FAIL_IFs)
@@ -2143,7 +2143,7 @@ void MainViewClass::Unknown_513FC0()
 
 
 
-// 0x514010: the view mode changed (SClient 0x745F30): between the space modes 0, 1 and 5 the +0x10C scene is emptied
+// 0x514010: the view mode changed (SpaceClientClass 0x745F30): between the space modes 0, 1 and 5 the +0x10C scene is emptied
 // (+0x138 paused around it when its +0x7C is set); then each mode's off and on (cockpit, +0x138, mode 1's camera and land)
 // NOT EXACT: shape (the second switch's case 0 / 5 block sits after the dispatch in the client); attempts.csv 0x514010
 void MainViewClass::Unknown_514010(int oldmode, int newmode)
@@ -2375,8 +2375,8 @@ void MainViewClass::Unknown_18(bool arg)
 **	client's FAIL_IF lines 1974 / 1981 / 1983 (the lines above are left empty for the functions not yet rebuilt), with its
 **	neighbour 0x513B90 (gas%04d.ini's wind) after it, and 0x513700 (the stars, orbital%04d.ini) before it (HN2:
 **	clienttest's fake main view carries a StarField and an OrbitalManager for it).
-**	Client->Unknown_18() is ClientClass's slot +0x18 (0 in the base, 0x7268E0); SClient's override returns the
-**	SClient ('!sclient'). Its +0x1320 byte is LandClass::Create's flag.
+**	Client->Unknown_18() is ClientClass's slot +0x18 (0 in the base, 0x7268E0); SpaceClientClass's override returns the
+**	SpaceClientClass ('!sclient'). Its +0x1320 byte is LandClass::Create's flag.
 **
 **	MV1 (2026-10-28): the class's layout from the constructor 0x50B360 (its stores in member order before the
 **	table, sclient.h), the destructor 0x50B950, the table 0xAECF78 (34 slots: +0x5C..+0x84 are the main view's own;

@@ -70,12 +70,12 @@ public:
 };
 
 // opcode 203 (0x00CB, ?): vtable 0xB0AA94, constructor 0x88F280, 0x28 bytes
-class GuildSimpleGuildSectorPacketClass : public PacketClass  // NAME 3: the client's Print text 'GuildSimpleGuildSectorPacket {' and the PacketClass convention
+class GuildSimpleGuildSectorPacket : public PacketClass  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	GuildSimpleGuildSectorPacketClass(int type, __int64 player_id, const char *optional_param);	// 0x88F0E0
-	GuildSimpleGuildSectorPacketClass(RawPacketClass *raw);	// 0x88F280
-	virtual ~GuildSimpleGuildSectorPacketClass();	// +0x00 0x88F250 / 0x88F350
+	GuildSimpleGuildSectorPacket(int type, __int64 player_id, const char *optional_param);	// 0x88F0E0
+	GuildSimpleGuildSectorPacket(RawPacketClass *raw);	// 0x88F280
+	virtual ~GuildSimpleGuildSectorPacket();	// +0x00 0x88F250 / 0x88F350
 	virtual RawPacketClass *Build();	// +0x04 0x88F3C0
 	virtual bool Process_Packet(void *client);	// +0x08 0x868F40 (clientstub.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x88F490
@@ -87,12 +87,12 @@ public:
 };
 
 // opcode 206 (0x00CE, ?): vtable 0xB0AAC4, constructor 0x88F6C0, 0x28 bytes
-class GuildSimpleSectorGuildPacketClass : public PacketClass  // NAME 3: the client's Print text 'GuildSimpleSectorGuildPacket {' and the PacketClass convention
+class GuildSimpleSectorGuildPacket : public PacketClass  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	GuildSimpleSectorGuildPacketClass(int type, __int64 player_id, const char *optional_param);	// 0x88F520
-	GuildSimpleSectorGuildPacketClass(RawPacketClass *raw);	// 0x88F6C0
-	virtual ~GuildSimpleSectorGuildPacketClass();	// +0x00 0x88F690 / 0x88F790
+	GuildSimpleSectorGuildPacket(int type, __int64 player_id, const char *optional_param);	// 0x88F520
+	GuildSimpleSectorGuildPacket(RawPacketClass *raw);	// 0x88F6C0
+	virtual ~GuildSimpleSectorGuildPacket();	// +0x00 0x88F690 / 0x88F790
 	virtual RawPacketClass *Build();	// +0x04 0x88F800
 	virtual bool Process_Packet(void *client);	// +0x08 0x868FA0 (clientstub.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x88F8D0
@@ -207,11 +207,11 @@ public:
 };
 
 // opcode 209 (0x00D1, ?): vtable 0xB0AC44, constructor 0x891E90, 0x28 bytes
-class GuildPermissionsPacketClass : public PacketClass  // NAME 3: the client's Print text 'GuildPermissionsPacket {' and the PacketClass convention
+class GuildPermissionsPacket : public PacketClass  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	GuildPermissionsPacketClass(__int64 player_id, Unknown_GuildPermissionsEnum unknown18, int unknown1c, int unknown20, int unknown24);	// 0x891DE0
-	GuildPermissionsPacketClass(RawPacketClass *raw);	// 0x891E90
+	GuildPermissionsPacket(__int64 player_id, Unknown_GuildPermissionsEnum unknown18, int unknown1c, int unknown20, int unknown24);	// 0x891DE0
+	GuildPermissionsPacket(RawPacketClass *raw);	// 0x891E90
 	virtual RawPacketClass *Build();	// +0x04 0x891F80
 	virtual bool Process_Packet(void *client);	// +0x08 0x869180 (clientstub.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x892070
@@ -326,12 +326,12 @@ public:
 };
 
 // opcode 220 (0x00DC, ?): vtable 0xB0AD94, constructor 0x893E80, 0x30 bytes
-class GuildDeductFeePacketClass : public PacketClass  // NAME 3: the client's Print text 'GuildDeductFeePacket {' and the PacketClass convention
+class GuildDeductFeePacket : public PacketClass  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	GuildDeductFeePacketClass(__int64 player_id, const MoneyClass &num_credits, const char *description);	// 0x893CD0
-	GuildDeductFeePacketClass(RawPacketClass *raw);	// 0x893E80
-	virtual ~GuildDeductFeePacketClass();	// +0x00 0x893FE0 / 0x893E50
+	GuildDeductFeePacket(__int64 player_id, const MoneyClass &num_credits, const char *description);	// 0x893CD0
+	GuildDeductFeePacket(RawPacketClass *raw);	// 0x893E80
+	virtual ~GuildDeductFeePacket();	// +0x00 0x893FE0 / 0x893E50
 	virtual RawPacketClass *Build();	// +0x04 0x894050
 	virtual bool Process_Packet(void *client);	// +0x08 0x869330 (clientstub.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x894130

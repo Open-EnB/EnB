@@ -7,7 +7,7 @@
 #include <float.h>
 #include "..\shared\g_assert.h"
 
-extern int Unknown_BE350C;	// NAME 1: neutral (D10): SClient::Do_Frame's frame toggle (sclient.cpp)
+extern int Unknown_BE350C;	// NAME 1: neutral (D10): SpaceClientClass::Do_Frame's frame toggle (sclient.cpp)
 
 // 0x449360
 FpTTClass::FpTTClass(float max_yaw, float max_pitch, float max_slope, bool unknown38) :

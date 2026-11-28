@@ -193,7 +193,7 @@ void LoadingViewClass::Unknown_691830(const std::string &source_sector, const st
 	Unknown68 = true;
 }
 
-// 0x692160: SERVER_HANDOFF's screen with no names (SClient 0x74BA30, 0x7992F0)
+// 0x692160: SERVER_HANDOFF's screen with no names (SpaceClientClass 0x74BA30, 0x7992F0)
 void LoadingViewClass::Unknown_692160()
 {
 	std::string a, b, c, d;
@@ -242,8 +242,8 @@ int LoadingViewClass::Unknown_0C(bool on)
 		last = now;
 	}
 	int result = UIViewClass::Unknown_0C(on);
-	((SClient *)Client->As_Space_Client())->Text->Reset();
-	if (((SClient *)Client->As_Space_Client())->Unknown_750B60()) {
+	((SpaceClientClass *)Client->As_Space_Client())->Text->Reset();
+	if (((SpaceClientClass *)Client->As_Space_Client())->Unknown_750B60()) {
 		if (Unknown68) {
 			if (Unknown64) {
 				Unknown64->Remove();

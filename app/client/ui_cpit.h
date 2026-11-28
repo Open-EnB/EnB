@@ -7,7 +7,7 @@
 #include <list>
 #include "sclient.h"
 
-class SClient;
+class SpaceClientClass;
 class ClientObjectClass;
 class RenderObjClass;
 class GadgetClass;
@@ -97,7 +97,7 @@ class UICpitInvClass;
 class ShortcutInterface;
 #include "ui_scut.h"		// ui_scut.cpp's shortcut bars (the cockpit's +0xDC; moved to ui_scut.h, SC2)
 
-void Unknown_57D6C0(SClient *sclient, bool *lock_speed, bool *lock_orient);	// 0x57D6C0 (cdecl; the cockpit's 0x5806E0, the view's 0x6B58A0): the avatar's LockSpeed / LockOrient (G_ASSERT 'sclient' l.132)  // NAME 1 [sclient, lock_speed, lock_orient]: what they hold
+void Unknown_57D6C0(SpaceClientClass *sclient, bool *lock_speed, bool *lock_orient);	// 0x57D6C0 (cdecl; the cockpit's 0x5806E0, the view's 0x6B58A0): the avatar's LockSpeed / LockOrient (G_ASSERT 'sclient' l.132)  // NAME 1 [sclient, lock_speed, lock_orient]: what they hold
 
 // ui_cpit.cpp's cockpit interface (the main view's +0x1D0; 0x178 bytes, tables 0xAF0CFC / 0xAF0CF0 / 0xAF0CE4)
 class CockpitInterface : public Unknown5BB320Class  // NAME 5: thunk order, binary.md 5.11
@@ -121,15 +121,15 @@ public:
 	void Unknown_5821C0(ClientObjectClass *avatar);		// 0x5821C0 (slot +0x60 passes the avatar)  // NAME 1 [avatar]: what it gets
 	void Unknown_582190(ClientObjectClass *object, int arg);	// 0x582190: +0xD0's object (no caller; slot +0x58 expands it)  // NAME 1 [object, arg]: neutral
 	void Unknown_583250();								// 0x583250: the warp button (+0xB4): a WarpPacketClass from the radar's path (FAIL_IF '!radar' l.1615), the distress request, or the 3-D movie view's camera
-	void Unknown_583510();								// 0x583510: the turn buttons (+0xC0 / +0xC4): a TurnPacketClass and SClient 0x745B90
-	void Unknown_583790();								// 0x583790: the throttle (+0xB8) and reverse (+0xBC) buttons: MovementPacketClass and SClient 0x745E40 (nothing while IsAutoFollowing)
+	void Unknown_583510();								// 0x583510: the turn buttons (+0xC0 / +0xC4): a TurnPacketClass and SpaceClientClass 0x745B90
+	void Unknown_583790();								// 0x583790: the throttle (+0xB8) and reverse (+0xBC) buttons: MovementPacketClass and SpaceClientClass 0x745E40 (nothing while IsAutoFollowing)
 	void Unknown_583DA0(int arg);						// 0x583DA0 (empty)  // NAME 1 [arg]: neutral
 	void Unknown_583F70();								// 0x583F70: the finished effects of Unknown158 removed
 	bool Unknown_584000(bool report);					// 0x584000: the avatar's MaxSpeed is set, else (report) 'Engine unavailable. Please wait.'  // NAME 1 [report]: neutral
 	void Unknown_584110();								// 0x584110 (FAIL_IFs '!warpfont' / '!distressfont' / '!spacefont' l.1986-1988)
 	void Unknown_5845A0();								// 0x5845A0: the WARP_CPIT text dimmed while the warp button (+0xB4) is off
 	void Unknown_584A20();								// 0x584A20
-	void Unknown_584A60();								// 0x584A60 (SClient 0x745160)
+	void Unknown_584A60();								// 0x584A60 (SpaceClientClass 0x745160)
 	void Unknown_584690(IncapacitanceDetailsPacket *packet);	// 0x584690 (cpacket.cpp: INCAPACITANCE_DETAILS 144)  // NAME 1 [packet]: the handler's packet
 	void Unknown_583DC0(FontSys *text, FontSys *header, int inflicted, bool emp);	// 0x583DC0 (cpacket.cpp: CLIENT_DAMAGE 100 for the player's own damage)  // NAME 1 [text, header, inflicted, emp]: what the handler passes
 

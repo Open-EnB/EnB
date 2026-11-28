@@ -17,7 +17,7 @@ class ProxyRenderObjClass;
 class ShipEquipPipClass : public PIPSceneClass	// NAME 3: class-from-file (D24) for app\Client\ship_equip_pip.cpp
 {
 public:
-	ShipEquipPipClass(SClient *client);					// 0x541DE0 (FAIL_IF '!scene' l.96)  // NAME 1 [client]: what the window passes
+	ShipEquipPipClass(SpaceClientClass *client);					// 0x541DE0 (FAIL_IF '!scene' l.96)  // NAME 1 [client]: what the window passes
 	virtual ~ShipEquipPipClass();						// +0x00 0x542180 (deleting 0x542150)
 	void Unknown_542250(const RefCountPtr<RenderObjClass> &robj);	// 0x542250 (FAIL_IF '!camera' l.177): the ship's model (ui_pda_equip.cpp's 0x5D2B90), the camera eased to the unit's distance  // NAME 1 [Unknown_542250, robj]: neutral (D10)
 	void Unknown_542A10(const Vector2 &point, bool on);	// 0x542A10 (FAIL_IF '!camera' l.234): gd_ship_equip_pip.cpp's drag from the point  // NAME 1 [Unknown_542A10, point, on]: neutral (D10)

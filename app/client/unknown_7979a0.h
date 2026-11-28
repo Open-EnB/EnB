@@ -12,7 +12,7 @@
 class CameraModule79C8E0Class : public CameraModuleClass	// NAME 1: neutral (D10)
 {
 public:
-	CameraModule79C8E0Class(SClient *client);			// 0x79C8E0
+	CameraModule79C8E0Class(SpaceClientClass *client);			// 0x79C8E0
 	virtual ~CameraModule79C8E0Class() {}				// 0x79C950, deleting 0x79C920
 	virtual void Unknown_08(Vector3 *des_pos, Quaternion *des_quat);	// +0x08 0x79C970 (looks from Position at the object Unknown18's bounding-sphere centre)
 	Vector3 Position;									// +0x08 (the controller's placements set it; the constructor 0)  // NAME 1: what 0x798570 stores
@@ -24,7 +24,7 @@ public:
 class CameraController02Class : public CameraControllerClass	// NAME 1: neutral (D10)
 {
 public:
-	CameraController02Class(SClient *client);			// 0x7979A0
+	CameraController02Class(SpaceClientClass *client);			// 0x7979A0
 	virtual ~CameraController02Class();					// 0x797A90, deleting 0x797A60
 	virtual void Unknown_04();							// +0x04 0x797B10
 	virtual void Unknown_08(Vector3 *pos, Quaternion *rot, int *mode, int *target);	// +0x08 0x797B50 (the warp's phases 0-4 by the client clock and the warp path)

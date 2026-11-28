@@ -29,7 +29,7 @@ class LineDisplayClientClass  // NAME 1: neutral (D10)
 public:
 	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
 	virtual void Unknown_10(); virtual void Unknown_14();
-	virtual SClient *As_Space_Client();					// +0x18 (ClientClass::As_Space_Client; SClient's returns itself)  // NAME 3: ui_manu.cpp's FAIL_IF's
+	virtual SpaceClientClass *As_Space_Client();					// +0x18 (ClientClass::As_Space_Client; SpaceClientClass's returns itself)  // NAME 3: ui_manu.cpp's FAIL_IF's
 };
 
 bool Unknown_495FD0(RenderObjClass *robj, TextureClass *texture, int unknown);	// 0x495FD0 (ro_funcs.cpp, cdecl): the texture onto the model  // NAME 1 [robj, texture, unknown]: as ui_manu.cpp's
@@ -39,7 +39,7 @@ bool Unknown_495FD0(RenderObjClass *robj, TextureClass *texture, int unknown);	/
 extern FontManagerClass *Unknown_BE67C4;	// NAME 1: neutral (D10)
 
 // the PDA's window calls: sclient.h's PDAInterfaceClass 0x695780 (open window 'index') / 0x695A00 (close it)
-// and SClient 0x744560 (slot +0x58 passes 0x19, slot +0x5C 0x1A)
+// and SpaceClientClass 0x744560 (slot +0x58 passes 0x19, slot +0x5C 0x1A)
 
 // The window's buttons (0xB79660: [0] 'not used', slot +0x54's ids 1..6; [2..4] the category columns, their icons '%sf')
 static const char *Unknown_B79660[] = { "not used", "exit", "item00", "cat00", "sub00", "go", "inv" };	// NAME 1: neutral (D10)
@@ -137,7 +137,7 @@ void UIAnalyzeClass::Unknown_54()
 	GadgetClass::Set_Tooltip(Unknown0E0[5], "UI_ANALYZE", "ICON_GO");
 	GadgetClass::Set_Tooltip(Unknown0E0[6], "UI_ANALYZE", "ICON_INV");
 	((ControlKeyListClass *)Unknown4C)->Add(KernelEventClass(0x1B), (void *)1);
-	SClient *sclient = Client->As_Space_Client();
+	SpaceClientClass *sclient = Client->As_Space_Client();
 	Unknown0D4 = Create_Get(new UIInvRobjStripClass(sclient, InterfaceMesh->Peek_Object(), 6, "TSM02A.E%02d", 12));
 	Unknown0D4->Unknown_54();
 	Unknown0D4->Unknown_7C(View, 0);
@@ -160,7 +160,7 @@ void UIAnalyzeClass::Unknown_54()
 	Unknown_10();
 }
 
-static inline int Analyze_Player_Id(SClient *sclient) { return sclient->Unknown1138; }  // NAME 2: the player id read as an inline accessor (as ui_manu.cpp's Manu_Player_Id)
+static inline int Analyze_Player_Id(SpaceClientClass *sclient) { return sclient->Unknown1138; }  // NAME 2: the player id read as an inline accessor (as ui_manu.cpp's Manu_Player_Id)
 
 // @0x544020
 void UIAnalyzeClass::Unknown_7C(UIViewClass *view, bool arg)
@@ -181,7 +181,7 @@ void UIAnalyzeClass::Unknown_7C(UIViewClass *view, bool arg)
 void UIAnalyzeClass::Unknown_58()
 {
 	InterfaceSortScopeClass scope(this);
-	SClient *sclient = Client->As_Space_Client();
+	SpaceClientClass *sclient = Client->As_Space_Client();
 	((ClientClass *)Client)->Send_Packet(&ManufactureItemCatagoryPacketClass(Analyze_Player_Id(sclient), 2));
 	if (State == UI_CLOSED) {
 		State = UI_OPEN;
@@ -212,7 +212,7 @@ void UIAnalyzeClass::Unknown_5C()
 		State = UI_CLOSED;
 		((ClientClass *)Client)->Send_Packet(&ManufactureActionPacketClass(Analyze_Player_Id(Client->As_Space_Client()), 0));
 		Unknown_546000();
-		SClient *sclient = Client->As_Space_Client();
+		SpaceClientClass *sclient = Client->As_Space_Client();
 		((ClientClass *)Client)->Send_Packet(&ManufactureItemCatagoryPacketClass(Analyze_Player_Id(sclient), 0));
 		Unknown0D0->Unknown_69DC60();
 		Unknown0D4->Unknown_5C();
@@ -332,7 +332,7 @@ void UIAnalyzeClass::Unknown_60()
 			}
 			DeltaTemplateClass<UnknownB01394Enum> *validity = Unknown_Find_Valid<DeltaTemplateClass<UnknownB01394Enum> >(Unknown10C, "Validity");
 			if (validity && validity->Value == 15) {
-				int player = ((SClient *)Client)->Unknown1138; ManufactureActionPacketClass packet(player, 1); ((ClientClass *)Client)->Send_Packet(&packet);
+				int player = ((SpaceClientClass *)Client)->Unknown1138; ManufactureActionPacketClass packet(player, 1); ((ClientClass *)Client)->Send_Packet(&packet);
 			}
 		}
 	} else if (Unknown110) {

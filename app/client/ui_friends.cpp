@@ -28,7 +28,7 @@ class LineDisplayClientClass  // NAME 1: neutral (D10)
 public:
 	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
 	virtual void Unknown_10(); virtual void Unknown_14();
-	virtual SClient *As_Space_Client();					// +0x18 (SClient's returns itself)  // NAME 3: ui_manu.cpp's FAIL_IF's
+	virtual SpaceClientClass *As_Space_Client();					// +0x18 (SpaceClientClass's returns itself)  // NAME 3: ui_manu.cpp's FAIL_IF's
 };
 #include "..\shared\auth_product.h"
 // 0x58F0F0
@@ -60,7 +60,7 @@ extern FontManagerClass *Unknown_BE67C4;				// NAME 1 [Unknown_BE67C4]: 0xBE67C4
 static const char *Unknown_B7F268[] = { "exit", "add", "remove", "add_target", "send_message", "name", "status", "add_group" };	// NAME 1: neutral (D10)
 
 // 0x58F210
-UIFriendsClass::UIFriendsClass(SClient *client) :
+UIFriendsClass::UIFriendsClass(SpaceClientClass *client) :
 	ChatPanelUIBase(client),
 	Slider(NULL),
 	Top(0),
@@ -189,8 +189,8 @@ void UIFriendsClass::Unknown_60()
 	Unknown_590500();
 	Unknown_590C70();
 	Unknown_590E50();
-	SClient *sclient = Client->As_Space_Client();
-	SClient *space = Client->As_Space_Client();
+	SpaceClientClass *sclient = Client->As_Space_Client();
+	SpaceClientClass *space = Client->As_Space_Client();
 	ClientObjectClass *target;
 	if (!space->Unknown_744B60() && space && space->MainView && (target = space->MainView->Unknown_5C()) != NULL && target->Unknown_6F5A40()) {
 		Unknown0D0[3]->Unknown_40(true);
@@ -643,7 +643,7 @@ void UIFriendsClass::Unknown_591880(std::string name)
 // 0x591A30
 void UIFriendsClass::Unknown_591A30()
 {
-	SClient *sclient = Client->As_Space_Client();
+	SpaceClientClass *sclient = Client->As_Space_Client();
 	ClientObjectClass *target;
 	if (!sclient->Unknown_744B60() && sclient && sclient->MainView && (target = sclient->MainView->Unknown_5C()) != NULL && target->Unknown_6F5A40()) {
 		PlayersInfo.size(); PlayersInfo.size();		// dead reads: spend the inline budget so the name's _Tidy(false) stays out of line, as in the client
@@ -711,7 +711,7 @@ void UIFriendsClass::Unknown_591EE0()
 {
 	FAIL_IF(Selection < 0 || Selection >= (int)PlayersInfo.size()) return;
 
-	SClient *sclient = Client->As_Space_Client();
+	SpaceClientClass *sclient = Client->As_Space_Client();
 	FAIL_IF(!sclient) return;
 
 	ChatPanelInterface *cpanel = sclient->ChatPanel.Peek();
@@ -732,8 +732,8 @@ void UIFriendsClass::Unknown_591EE0()
 // 0x592090
 void UIFriendsClass::Unknown_592090()
 {
-	SClient *sclient = Client->As_Space_Client();
-	SClient *space = Client->As_Space_Client();
+	SpaceClientClass *sclient = Client->As_Space_Client();
+	SpaceClientClass *space = Client->As_Space_Client();
 	ClientObjectClass *target;
 	if (!space->Unknown_744B60() && space && space->MainView && (target = space->MainView->Unknown_5C()) != NULL && target->Unknown_6F5A40()) {
 		Unknown0D0[3]->Unknown_40(true);
@@ -750,7 +750,7 @@ void UIFriendsClass::Unknown_592090()
 // 0x592150
 ClientObjectClass *UIFriendsClass::Unknown_592150()
 {
-	SClient *sclient = Client->As_Space_Client();
+	SpaceClientClass *sclient = Client->As_Space_Client();
 	if (sclient->Unknown_744B60()) {
 		return(NULL);
 	}

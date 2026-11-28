@@ -177,7 +177,7 @@ void UIMFDPIPItemClass::Unknown_08()
 	}
 	int poly;
 	if (OptionManagerClass::Instance->Get_Bool("Graphics_Default")) {
-		poly = (int)((float)((SClient *)((ClientClass *)Owner->Client)->As_Space_Client())->PolyBudget * 0.1f);
+		poly = (int)((float)((SpaceClientClass *)((ClientClass *)Owner->Client)->As_Space_Client())->PolyBudget * 0.1f);
 	} else {
 		poly = (int)((float)(int)(8000.0f + (OptionManagerClass::Instance->Get_Float("Graphics_Space_Poly") * 0.01f) * (40000.0f - 8000.0f)) * 0.1f);
 	}
@@ -189,7 +189,7 @@ void UIMFDPIPItemClass::Unknown_08()
 	Camera->Set_Viewport(Vector2(p.X * (1.0f / 640.0f), p.Y * (1.0f / 480.0f)), Vector2((p.X + Size.X) * (1.0f / 640.0f), (p.Y + Size.Y) * (1.0f / 480.0f)));
 	float a = 0.5 / Size.Y * Size.X;
 	Camera->Set_View_Plane(Vector2(-a, -0.5f), Vector2(a, 0.5f));
-	MainViewClass *view = *(MainViewClass * volatile *)&((SClient *)((ClientClass *)Owner->Client)->As_Space_Client())->MainView;	// provisional (workflow.md 3.1.2): pins pop ebx after test ecx, ecx as the client's 0x5C27C8
+	MainViewClass *view = *(MainViewClass * volatile *)&((SpaceClientClass *)((ClientClass *)Owner->Client)->As_Space_Client())->MainView;	// provisional (workflow.md 3.1.2): pins pop ebx after test ecx, ecx as the client's 0x5C27C8
 	OrbitalManager *orbitals = view->Orbitals;
 	if (orbitals != NULL) {
 		Vector4 color = orbitals->Unknown_4F50D0(0);

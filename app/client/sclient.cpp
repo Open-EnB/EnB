@@ -1,6 +1,6 @@
 #include "..\shared\auxdata\permstr.h"	// Earth & Beyond client (reconstruction)
 /*
-**	Original location: e:\build\beta\G\app\Client\sclient.cpp (client 0x7405E0-0x7429B0, the skeleton); SClient (sclient.h). Notes at the end.
+**	Original location: e:\build\beta\G\app\Client\sclient.cpp (client 0x7405E0-0x7429B0, the skeleton); SpaceClientClass (sclient.h). Notes at the end.
 */
 #include <windows.h>
 #include "eff_o.h"							// before client.h, which declares EffectObjectClass only as far as the lists need it
@@ -25,7 +25,7 @@
 #include <vector>
 #include "verbmanager.h"
 #include "fontdatabase.h"		// FontStringFilesClass at 0xBE67BC: Init loads the default string files (P-H12-3)
-// Callees in files that aren't rebuilt (cdecl, declared here as far as SClient calls them)
+// Callees in files that aren't rebuilt (cdecl, declared here as far as SpaceClientClass calls them)
 #include "control_keys_manager.h"						// ControlKeysManager::Create / Destroy (0x719D50 / 0x719E10): Init's and the destructor's
 #include "mousetbl.h"									// Unknown_7228C0 / Unknown_723150 (0x7228C0 / 0x723150): the cursor table's loader / unloader
 														// (as tsk_login.cpp)
@@ -63,7 +63,7 @@ public:
 class SClientUnknown1334Class
 {
 public:
-	// (its destructor 0x618A50 is the implicit one: ~SClient calls it out of line, Shutdown inlines it)
+	// (its destructor 0x618A50 is the implicit one: ~SpaceClientClass calls it out of line, Shutdown inlines it)
 	void Load(const char *textures, const char *swatches, const char *secret_textures);	// 0x75BE00 (decal.cpp)  // NAME 2: what it does  // NAME 3 [textures, swatches, secret_textures]: the INI names
 
 	std::vector<RefCountPtr<TextureClass> > Unknown00;	// +0x00 (decal.h's TextureArray)
@@ -158,7 +158,7 @@ class SClientUnknown135CViewClass : public UIViewClass { public: char Unknown4C[
 class UIHotKeysClass : public InterfaceClass
 {
 public:
-	UIHotKeysClass(SClient *client);					// 0x59C6F0
+	UIHotKeysClass(SpaceClientClass *client);					// 0x59C6F0
 
 	// 0x84 bytes: no members of its own here
 };
@@ -166,7 +166,7 @@ public:
 class SpaceTalkTreeInterface : public TalkTreeInterface  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	SpaceTalkTreeInterface(SClient *client);				// 0x64F310
+	SpaceTalkTreeInterface(SpaceClientClass *client);				// 0x64F310
 	void Unknown_64EED0();								// 0x64EED0 (0x742530, for the main and +0x135C views)
 	char Unknown180[0x184 - 0x180];
 };
@@ -246,7 +246,7 @@ public:
 	virtual bool Unknown_04();							// +0x04 (Do_Frame deletes the object when it is true)
 };
 
-// The 0x50-byte view at SClient +0x1358 (constructor 0x514CC0): sclient.h
+// The 0x50-byte view at SpaceClientClass +0x1358 (constructor 0x514CC0): sclient.h
 
 
 
@@ -260,7 +260,7 @@ public:
 // 0x7593E0, 0x759400, 0x759420 (Event_Type), 0x759830 (Is_Equal), 0x7598B0 (Call), 0x7599B0 (deleting destructor)
 #include "unknown_signalbase.h"
 typedef SignalBaseClass::CallbackClass SClientCallbackBaseClass;	// NAME 1 [SClientCallbackBaseClass]: neutral (D10)
-typedef SignalBaseClass::MemberCallback<CameraModuleClass, SClient, void (SClient::*)(CameraModuleSignal *, CameraModuleClass *), CameraModuleSignal> SClientCallbackClass;	// NAME 1 [SClientCallbackClass]: neutral (D10)
+typedef SignalBaseClass::MemberCallback<CameraModuleClass, SpaceClientClass, void (SpaceClientClass::*)(CameraModuleSignal *, CameraModuleClass *), CameraModuleSignal> SClientCallbackClass;	// NAME 1 [SClientCallbackClass]: neutral (D10)
 #include "cammod.h"
 
 // 0x73FEF0 (0x749590, 0x749A70, 0x749ED0): the text without its leading and trailing white space
@@ -293,13 +293,13 @@ static void Unknown_740050(const char *text, const char *delimiters, unsigned ma
 // 0xC07550 is Render2DClass::ScreenResolution (render2d.h, included above): the text's coordinate range
 // (Init, Shutdown and Do_Frame push PxProcess on px_process.h's PxProcessList::Push 0x455D10 and pop it with
 // PxProcessList::Pop 0x455F60)
-void Unknown_6E6A90(EffectObjectClass *effect);			// 0x6E6A90 (eff_o.cpp): Shutdown, per effect left
+void Unknown_6E6A90(EffectClass *effect);			// 0x6E6A90 (eff_o.cpp): Shutdown, per effect left
 
 static std::string Unknown_BE81B0("megan_wlc.wav");	// 0xBE81B0: not used (its initialiser 0x740400 and atexit destructor 0x7404C0 sit between 0x740050 and the constructor)  // NAME 1 [Unknown_BE81B0]: neutral (D10)
 static int INIUsers;									// 0xBE81C0: Load_INIs / Unload_INIs  // NAME 2: what it counts
 struct TestEffectStruct; static std::vector<TestEffectStruct> Unknown_BE7D80;	// 0xBE7D80: testeffects.ini's records (0x74CA90; initialiser 0x740530, atexit 0x740570)  // NAME 1: neutral (D10)
 // 0x7405E0
-SClient::SClient(ClientTaskClass *task) :
+SpaceClientClass::SpaceClientClass(ClientTaskClass *task) :
 	Unknown1198(true),
 	Unknown126C(-1),
 	Unknown1270(NULL),
@@ -368,7 +368,7 @@ SClient::SClient(ClientTaskClass *task) :
 
 
 // 0x740BB0
-SClient::~SClient()
+SpaceClientClass::~SpaceClientClass()
 {
 	ControlKeysManager::Destroy(this);
 	if (Unknown1334) delete Unknown1334;
@@ -389,7 +389,7 @@ SClient::~SClient()
 }
 
 // 0x740F60
-void SClient::Load_INIs()
+void SpaceClientClass::Load_INIs()
 {
 	if (INIUsers == 0) {
 		Unknown_7228C0();
@@ -403,9 +403,9 @@ void SClient::Load_INIs()
 	INIUsers++;
 }
 
-static inline PxProcessList *Unknown_Px_Process(SClient *client) { return(client->PxProcess); } static inline void Unknown_Set_FOV(CameraManagerClass *cm, float fov) { cm->FOV = fov; }	// SClient::Init 0x741180: PxProcess and CameraManager->FOV through inline accessors (the client's registers at Load_INIs / ChatPanel / FOV / Font)  // NAME 1 [Unknown_Px_Process, Unknown_Set_FOV, client, cm, fov]: neutral
+static inline PxProcessList *Unknown_Px_Process(SpaceClientClass *client) { return(client->PxProcess); } static inline void Unknown_Set_FOV(CameraManagerClass *cm, float fov) { cm->FOV = fov; }	// SpaceClientClass::Init 0x741180: PxProcess and CameraManager->FOV through inline accessors (the client's registers at Load_INIs / ChatPanel / FOV / Font)  // NAME 1 [Unknown_Px_Process, Unknown_Set_FOV, client, cm, fov]: neutral
 // 0x741180
-void SClient::Init()
+void SpaceClientClass::Init()
 {
 	Unknown_BE67BC->Load(0);
 	VerbManager = new VerbManagerClass(this);
@@ -459,7 +459,7 @@ void SClient::Init()
 	camera->Release_Ref();
 
 	CameraManager = new CameraManagerClass(this);
-	CameraModuleClass::Get_Signal_Map().connect((CameraModuleClass *)CameraManager->Module, this, &SClient::Unknown_744E50);	// the typed connect: the client takes the sender (ebx) and the member pointer (edi:ebp) before calling Get_Signal_Map
+	CameraModuleClass::Get_Signal_Map().connect((CameraModuleClass *)CameraManager->Module, this, &SpaceClientClass::Unknown_744E50);	// the typed connect: the client takes the sender (ebx) and the member pointer (edi:ebp) before calling Get_Signal_Map
 
 
 	if (OptionManagerClass::Instance->Get_Bool("Bridge_Mode")) {
@@ -497,7 +497,7 @@ void SClient::Init()
 }
 
 // 0x741B70
-void SClient::Unload_INIs()
+void SpaceClientClass::Unload_INIs()
 {
 	if (--INIUsers == 0) {
 		Unknown_723150();
@@ -511,7 +511,7 @@ void SClient::Unload_INIs()
 
 // NOT EXACT: inline budget (similarity 0.73): +0x1334 / +0x1338 inlined as the client's (the decal views' real members), 0x7555B0 out of line; left: the client inlines the +0x133C asset's destructor in the vector loop where ours calls its scalar deleting destructor (budget: freed only by dropping two whole deletes), and register phase (eax / edx) in the view calls; 14 forms (attempts.py show 0x741BB0)
 // 0x741BB0
-void SClient::Shutdown()
+void SpaceClientClass::Shutdown()
 {
 	Unknown129C = NULL;
 	Unknown_74C9D0(NULL);
@@ -538,7 +538,7 @@ void SClient::Shutdown()
 	delete SectorSound;
 	SectorSound = NULL;
 
-	CameraModuleClass::Get_Signal_Map().Remove((CameraModuleClass *)CameraManager->Module, this, &SClient::Unknown_744E50, CameraModuleSignal(false));
+	CameraModuleClass::Get_Signal_Map().Remove((CameraModuleClass *)CameraManager->Module, this, &SpaceClientClass::Unknown_744E50, CameraModuleSignal(false));
 
 
 
@@ -606,9 +606,9 @@ void SClient::Shutdown()
 	Unknown_7555B0();
 
 	// the effects left: out of the list, then eff_o.cpp's 0x6E6A90 for each
-	HashNodeClass<EffectObjectClass *> *node = EffectList.First_Valid();
+	HashNodeClass<EffectClass *> *node = EffectList.First_Valid();
 	while (node) {
-		HashNodeClass<EffectObjectClass *> *next = node->Next_Valid();
+		HashNodeClass<EffectClass *> *next = node->Next_Valid();
 		EffectList.Remove(node);
 		Unknown_6E6A90(node->Get_Record());
 
@@ -625,7 +625,7 @@ void SClient::Shutdown()
 }
 
 // 0x742530
-UIViewClass *SClient::Unknown_742530(UIViewClass *view)
+UIViewClass *SpaceClientClass::Unknown_742530(UIViewClass *view)
 {
 	UIViewClass *old = CurrentView;
 	if (old) old->Unknown_18(false);
@@ -661,12 +661,12 @@ UIViewClass *SClient::Unknown_742530(UIViewClass *view)
 }
 
 // 0x7427A0
-void SClient::Unknown_08()
+void SpaceClientClass::Unknown_08()
 {
 }
 
 // 0x7427C0
-void SClient::Process_Packets()
+void SpaceClientClass::Process_Packets()
 {
 	WWPROFILE("SClient::Process_Packets");
 
@@ -683,7 +683,7 @@ void SClient::Process_Packets()
 }
 
 // 0x7428F0
-void SClient::Unknown_10()
+void SpaceClientClass::Unknown_10()
 {
 	MSG msg;
 	while (PeekMessage(&msg, NULL, 0, 0, PM_NOREMOVE)) {
@@ -698,21 +698,21 @@ void SClient::Unknown_10()
 }
 
 // 0x743330
-void SClient::Set_Debug_Mode(bool on)
+void SpaceClientClass::Set_Debug_Mode(bool on)
 {
 	ClientClass::Set_Debug_Mode(on);
 	Print(0x17, "Debug mode turned %s.", on ? "ON" : "OFF");
 }
 
 // 0x744B90
-void SClient::Add_Object(ClientObjectClass *object)
+void SpaceClientClass::Add_Object(ClientObjectClass *object)
 {
 	ClientClass::Add_Object(object);
 	MainView->Add_Object(object);
 }
 
 // 0x744BD0
-ClientObjectClass *SClient::Remove_Object(unsigned id)
+ClientObjectClass *SpaceClientClass::Remove_Object(unsigned id)
 {
 	ClientObjectClass *object = ClientClass::Remove_Object(id);
 	if (object) {
@@ -722,13 +722,13 @@ ClientObjectClass *SClient::Remove_Object(unsigned id)
 }
 
 // 0x745730
-unsigned SClient::Set_Avatar_ID(unsigned id)
+unsigned SpaceClientClass::Set_Avatar_ID(unsigned id)
 {
 	return(ClientClass::Set_Avatar_ID(id));
 }
 #include "..\packets\pkclientchat.h"
 // 0x744D80 (out of line for 0x6B58A0, auto-inlined into 0x7436A0's camera keys; Init has the block written out). Unknown12B0 (one DurationClass) set through its Time: the conversion (the constructor and the template's user operator=) makes this too heavy to inline four times into 0x7436A0 as the client does; Init and ctrngadg assign through it (their high half from xor reg, reg, as the client's). The mode through SpaceClientOptionsClass::Current_Camera_Mode(): 0x7436A0's case-3 copy reads it through this+0x1150
-void SClient::Unknown_744D80() {
+void SpaceClientClass::Unknown_744D80() {
 	Unknown12B0.Time = Unknown10BC;
 	CameraModeStruct &mode = Current_Camera_Mode();
 	CameraManager->Set_Heading(mode.Heading);
@@ -741,7 +741,7 @@ void SClient::Unknown_744D80() {
 // NOT EXACT: register (explain.py register-only, 2 rows): the client loads the dialog's table into eax for the button > 1 call, ours into edx; the packet is a temporary (a named local cost 6 rows)
 // 0x7429B0 (Do_Frame, after the lost-connection check: the reset-ship question; out of line as the client has it)
 #pragma auto_inline(off)
-void SClient::Unknown_7429B0()
+void SpaceClientClass::Unknown_7429B0()
 {
 	if (Unknown1378 == 1) {
 
@@ -790,7 +790,7 @@ void Unknown_42E8A0(KernelEventClass *event);			// NAME 1 [Unknown_42E8A0]: hand
 #include "..\shared\auxdata\delta.h"
 
 // 0x742B60 (placed in the blank run after Process_AI: no assert line moves)
-int SClient::Do_Frame(bool focused)
+int SpaceClientClass::Do_Frame(bool focused)
 {
 	if (Connection->Is_Dead()) {
 		if (Unknown1198) {
@@ -929,7 +929,7 @@ int SClient::Do_Frame(bool focused)
 
 // 0x743290 (cpacket.cpp: LOGOFF_CONFIRMATION 186; 0x74ABC0 after a quitting logoff): Do_Frame's answer by
 // the logoff Unknown138C asked (0x74BB50: 1 desktop, 2 login screen, 3 character selection)
-void SClient::Unknown_743290()
+void SpaceClientClass::Unknown_743290()
 {
 	switch (Unknown138C) {
 		case 0:
@@ -999,7 +999,7 @@ void SClient::Unknown_743290()
 
 // NOT EXACT: shape, 10 masked rows (the effect loop: ours reads the record before the next-node test and loops with a jmp, the client tests the next node again; the dead First_Valid spends the inline budget so that the third list's Remove 0x7572E0 is called out of line, as the client's; 30 forms)
 // 0x744260 (placed in the blank run after Do_Frame, before 0x744C10: no assert line moves; no asserts of its own)
-void SClient::Process_AI()
+void SpaceClientClass::Process_AI()
 {
 	WWPROFILE("SClient::Process_AI"); Unknown86CList.First_Valid();
 
@@ -1014,9 +1014,9 @@ void SClient::Process_AI()
 	}
 
 	// the effects that are done: out of the list, then eff_o.cpp's 0x6E6A90
-	HashNodeClass<EffectObjectClass *> *enode = EffectList.First_Valid();
+	HashNodeClass<EffectClass *> *enode = EffectList.First_Valid();
 	while (enode) {
-		EffectObjectClass *effect = enode->Get_Record(); HashNodeClass<EffectObjectClass *> *next = enode->Next(); if (!next) break;
+		EffectClass *effect = enode->Get_Record(); HashNodeClass<EffectClass *> *next = enode->Next(); if (!next) break;
 
 		if (!effect->Unknown_6E6AD0()) {
 			EffectList.Remove(enode);
@@ -1049,7 +1049,7 @@ void SClient::Process_AI()
 #pragma auto_inline(off)	// the client calls 0x743380 from Do_Frame
 // 0x743380 (Do_Frame without the +0x1278 gadget source: the input queue's event to the dispatchers, then the
 // scripted movie view or the key handler 0x7436A0)
-void SClient::Unknown_743380(KernelEventClass *event)
+void SpaceClientClass::Unknown_743380(KernelEventClass *event)
 {
 	if (!Unknown1270->Unknown_429A20(event) && (!CurrentView || !CurrentView->Get_Unknown04()->Unknown_429A20(event))) {
 		if (ScriptedMovieView) {
@@ -1061,7 +1061,7 @@ void SClient::Unknown_743380(KernelEventClass *event)
 }
 #pragma auto_inline(on)
 // 0x743440 (no caller in the client: dead code kept): Do_Frame's input block as a function; 0x7436A0's answer unused
-void SClient::Unknown_743440() {
+void SpaceClientClass::Unknown_743440() {
 	if (LoadingView && LoadingView->Unknown68) return;
 	KernelEventClass event; Unknown_42EDB0();
 	if (Unknown1278) { int i = 0;
@@ -1078,7 +1078,7 @@ void SClient::Unknown_743440() {
 static std::string &Unknown_Module() { static std::string module("sclient"); return module; } static inline float Unknown_Get_FOV(CameraManagerClass *cm) { return cm->FOV; } static void Unknown_Register_Key(const std::string &module, const char *name, int id) { ControlKeysManager::Register_Key(module, name, id); }	// 0x7436A0's module static, FOV FPU read, and first-four-key layer  // NAME 1 [Unknown_Module, Unknown_Get_FOV, Unknown_Register_Key, cm, module, name, id]: neutral (D10)
 // 0x7436A0: exact via Unknown_Module, Unknown_Get_FOV, Get_Avatar_ID, Current_Camera_Mode, named m in case 3, wrapped if/else in case 5/6
 // 0x7436A0 (Do_Frame: an event no dispatcher took; the module 'sclient' keys, registered on the first call)
-bool SClient::Unknown_7436A0(KernelEventClass event)
+bool SpaceClientClass::Unknown_7436A0(KernelEventClass event)
 {
 	if (!(event.Flags & 0x1000) && event.Key != 0) {
 		if (event.Key == 0x1B) {
@@ -1306,7 +1306,7 @@ template<class T, class U, int N> inline void Unknown_Delete_Records(HashListCla
 		node = next;
 	}
 }
-void SClient::Unknown_745750()
+void SpaceClientClass::Unknown_745750()
 {
 	TheDX8MeshRenderer.Invalidate();
 	HashNodeClass<ClientObjectClass *> *node = ObjectList.First_Valid();
@@ -1318,10 +1318,10 @@ void SClient::Unknown_745750()
 		delete object;
 		node = next;
 	}
-	HashNodeClass<EffectObjectClass *> *enode = EffectList.First_Valid();
+	HashNodeClass<EffectClass *> *enode = EffectList.First_Valid();
 	while (enode && enode->Next()) {
-		HashNodeClass<EffectObjectClass *> *next = enode->Next();
-		EffectObjectClass *effect = enode->Get_Record();
+		HashNodeClass<EffectClass *> *next = enode->Next();
+		EffectClass *effect = enode->Get_Record();
 		EffectList.Remove(enode);
 		Unknown_6E6A90(effect);
 		enode = next;
@@ -1349,7 +1349,7 @@ void SClient::Unknown_745750()
 // The player's steering (ui_cpit.cpp 0x5806E0, 0x6B58A0): each hands the avatar's type-4 state (postate.cpp) the client's
 // +0x10D4 limits, the avatar's aux data and the clock +0x10BC
 // 0x745AA0
-void SClient::Unknown_745AA0(float *turn, float *tilt, int *move_direction, bool fixed_speed)
+void SpaceClientClass::Unknown_745AA0(float *turn, float *tilt, int *move_direction, bool fixed_speed)
 {
 	ClientObjectClass *avatar = Get_Avatar();
 	if (avatar && avatar->PositionalState->Get_Type() == 4) {
@@ -1358,7 +1358,7 @@ void SClient::Unknown_745AA0(float *turn, float *tilt, int *move_direction, bool
 }
 
 // 0x745B20
-void SClient::Unknown_745B20(bool level, bool auto_level)
+void SpaceClientClass::Unknown_745B20(bool level, bool auto_level)
 {
 	ClientObjectClass *avatar = Get_Avatar();
 	if (avatar && avatar->PositionalState->Get_Type() == 4) {
@@ -1367,7 +1367,7 @@ void SClient::Unknown_745B20(bool level, bool auto_level)
 }
 
 // 0x745B90
-void SClient::Unknown_745B90(float turn)
+void SpaceClientClass::Unknown_745B90(float turn)
 {
 	if (fabs(turn) < 0.0001f) {
 		Unknown_745B20(true, false);
@@ -1377,7 +1377,7 @@ void SClient::Unknown_745B90(float turn)
 }
 
 // 0x745C70
-void SClient::Unknown_745C70(float tilt)
+void SpaceClientClass::Unknown_745C70(float tilt)
 {
 	if (fabs(tilt) < 0.0001f) {
 		Unknown_745B20(false, true);
@@ -1387,7 +1387,7 @@ void SClient::Unknown_745C70(float tilt)
 }
 
 // 0x745D50
-void SClient::Unknown_745D50(float turn, float tilt)
+void SpaceClientClass::Unknown_745D50(float turn, float tilt)
 {
 	ClientObjectClass *avatar = Get_Avatar();
 	if (avatar && avatar->PositionalState->Get_Type() == 4) {
@@ -1396,7 +1396,7 @@ void SClient::Unknown_745D50(float turn, float tilt)
 }
 
 // 0x745DD0
-void SClient::Unknown_745DD0()
+void SpaceClientClass::Unknown_745DD0()
 {
 	ClientObjectClass *avatar = Get_Avatar();
 	if (avatar && avatar->PositionalState->Get_Type() == 4) {
@@ -1405,7 +1405,7 @@ void SClient::Unknown_745DD0()
 }
 
 // 0x745E40
-void SClient::Unknown_745E40(int move_direction, bool fixed_speed)
+void SpaceClientClass::Unknown_745E40(int move_direction, bool fixed_speed)
 {
 	Unknown_745AA0(NULL, NULL, &move_direction, fixed_speed);
 }
@@ -1438,13 +1438,13 @@ void SClient::Unknown_745E40(int move_direction, bool fixed_speed)
 
 
 // 0x74B5E0 (0x639630, 0x63A100)
-bool SClient::Unknown_74B5E0()
+bool SpaceClientClass::Unknown_74B5E0()
 {
 	return(Task->Is_Focused());
 }
 
 // 0x74B600 (cpacket.cpp: mode change 76, mode 0)
-void SClient::Unknown_74B600()
+void SpaceClientClass::Unknown_74B600()
 {
 	Unknown1380 = 0;
 	if (Unknown137C) {
@@ -1455,7 +1455,7 @@ void SClient::Unknown_74B600()
 }
 
 // 0x74B640 (cpacket.cpp: mode change 76, mode 1)
-void SClient::Unknown_74B640()
+void SpaceClientClass::Unknown_74B640()
 {
 	Unknown1380 = 1;
 	if (Unknown137C) {
@@ -1466,13 +1466,13 @@ void SClient::Unknown_74B640()
 }
 
 // 0x74CA70 (0x69F8F0)
-void SClient::Unknown_74CA70()
+void SpaceClientClass::Unknown_74CA70()
 {
 	Unknown1374 = 3;
 }
 
 // 0x74D730 (camera_manager.cpp 0x799E40: some object is attacking, from RELATIONSHIP 137's IsAttacking)
-bool SClient::Unknown_74D730()
+bool SpaceClientClass::Unknown_74D730()
 {
 	for (HashNodeClass<ClientObjectClass *> *node = ObjectList.First_Valid(); node; node = node->Next_Valid()) {
 		if (node->Get_Record()->Relationship.IsAttacking) return(true);
@@ -2051,7 +2051,7 @@ bool SClient::Unknown_74D730()
 
 
 // 0x744B60 (cpacket.cpp: REMOVE 7, GROUP 30): the current view is the +0x135C one
-bool SClient::Unknown_744B60()
+bool SpaceClientClass::Unknown_744B60()
 {
 	if (CurrentView != NULL && CurrentView == Unknown135C) return(true); return(false);
 }
@@ -2061,7 +2061,7 @@ bool SClient::Unknown_744B60()
 static inline bool Unknown_Chase_Flag(ChaseCameraModuleClass *chase) { return(chase->Unknown34); }	// (inlined: 0x744C10 reads the flag with the chase module kept in ecx, the main view moved from edx)  // NAME 1: neutral (D10)
 
 // 0x744C10
-void SClient::Unknown_744C10()
+void SpaceClientClass::Unknown_744C10()
 {
 	if (!Bridge) return;
 	SimpleSceneClass *scene = NULL;
@@ -2082,7 +2082,7 @@ void SClient::Unknown_744C10()
 
 
 // 0x744E50: the camera manager's callback (Init registers it, Shutdown removes it)
-void SClient::Unknown_744E50(CameraModuleSignal *signal, CameraModuleClass *camera)
+void SpaceClientClass::Unknown_744E50(CameraModuleSignal *signal, CameraModuleClass *camera)
 {
 	Unknown_744C10();
 }
@@ -2094,7 +2094,7 @@ void SClient::Unknown_744E50(CameraModuleSignal *signal, CameraModuleClass *came
 
 
 // 0x744E70
-void SClient::Unknown_744E70(bool arg)
+void SpaceClientClass::Unknown_744E70(bool arg)
 {
 	if (!(CurrentView != NULL && CurrentView == Unknown135C) && !arg) {
 		ClientObjectClass *target = MainView->Unknown_5C();
@@ -2152,7 +2152,7 @@ void SClient::Unknown_744E70(bool arg)
 
 
 // 0x745160
-void SClient::Unknown_745160()
+void SpaceClientClass::Unknown_745160()
 {
 	Unknown1198 = false;
 	FAIL_IF(!MainView) return;
@@ -2163,7 +2163,7 @@ void SClient::Unknown_745160()
 
 // 0x745080 (no caller in the client: dead code kept): settings.ini's 'Lights' 'GlobalZ' from SpaceClientOptionsClass +0x1C, then
 // the main view's and +0x1358's interface objects (0x6B4900), saved
-void SClient::Unknown_745080()
+void SpaceClientClass::Unknown_745080()
 {
 	INIClass ini;
 	ini.Load("settings.ini");
@@ -2176,9 +2176,9 @@ void SClient::Unknown_745080()
 
 
 
-ClientObjectClass *SClient::Get_Target() { return(MainView->Unknown_5C()); }	// 0x744FE0 (called only from other files)
+ClientObjectClass *SpaceClientClass::Get_Target() { return(MainView->Unknown_5C()); }	// 0x744FE0 (called only from other files)
 // 0x745000
-void SClient::Unknown_745000(int base_asset)
+void SpaceClientClass::Unknown_745000(int base_asset)
 {
 	Unknown126C = base_asset;
 	MainView->Unknown_513540(base_asset);
@@ -2186,14 +2186,14 @@ void SClient::Unknown_745000(int base_asset)
 }
 
 // 0x745050
-void SClient::Unknown_745050()
+void SpaceClientClass::Unknown_745050()
 {
 	EnvironmentMapManager->Unknown_760770(Unknown126C, Unknown1320);
 }
 
 
 // 0x7451D0
-void SClient::Unknown_7451D0()
+void SpaceClientClass::Unknown_7451D0()
 {
 	TPoint3D<float> white(1.0f, 1.0f, 1.0f);
 	INIClass ini;
@@ -2238,7 +2238,7 @@ void SClient::Unknown_7451D0()
 
 
 // 0x7456B0
-void SClient::Unknown_7456B0()
+void SpaceClientClass::Unknown_7456B0()
 {
 	MainView->Unknown_513CD0(Unknown10F4);
 	MainView->Unknown_513D20(1.0f);
@@ -2250,7 +2250,7 @@ void SClient::Unknown_7456B0()
 
 
 // 0x745350
-void SClient::Unknown_745350()
+void SpaceClientClass::Unknown_745350()
 {
 	INIClass ini;
 	char filename[256];
@@ -2272,7 +2272,7 @@ void SClient::Unknown_745350()
 
 
 // 0x745490
-bool SClient::Unknown_745490()
+bool SpaceClientClass::Unknown_745490()
 {
 	INIClass ini;
 	char section[256];
@@ -2298,7 +2298,7 @@ bool SClient::Unknown_745490()
 
 
 // 0x745EC0
-void SClient::Unknown_745EC0(FileClass *file, int indent)
+void SpaceClientClass::Unknown_745EC0(FileClass *file, int indent)
 {
 	file->Printf_Indented(indent, "Client %x\n", this);
 	file->Printf_Indented(indent, "--------------------\n");
@@ -2328,7 +2328,7 @@ void SClient::Unknown_745EC0(FileClass *file, int indent)
 
 
 // 0x745F30
-void SClient::Unknown_745F30(int type)
+void SpaceClientClass::Unknown_745F30(int type)
 {
 	int old_mode = ViewMode; for (int i = 0; i < 0; i++) {}
 	ViewMode = type;
@@ -2376,7 +2376,7 @@ static const char *CampCommands[] = { "/camp", NULL };	// NAME 2: the command 0x
 
 // 0x745FF0 (0x74ABC0: '/chat ...'): the chat panel's own commands first, else one CLIENT_CHAT_REQUEST 163 (the
 // request type, the person, the channel and the text), or the help lines
-bool SClient::Unknown_745FF0(const char *text)
+bool SpaceClientClass::Unknown_745FF0(const char *text)
 {
 	if (ChatPanel && ChatPanel->Unknown_5638E0((int)text)) {
 		return(true);
@@ -2683,7 +2683,7 @@ bool SClient::Unknown_745FF0(const char *text)
 extern unsigned int Unknown_BE71D4;	// 0xBE71D4 (postate.cpp: the state blend time; 0x7472A0's waggle)
 // 0x7472A0 (no caller: dead code kept): '/latency get send|recv' and '/latency set send|recv|waggle = N' on the
 // connection's option slot +0x30 (0, 1 read; 2, 3 set), the waggle into the state blend time 0xBE71D4
-bool SClient::Unknown_7472A0(const char *text)
+bool SpaceClientClass::Unknown_7472A0(const char *text)
 {
 	G_ASSERT(Connection);
 	if (Connection) {
@@ -2748,7 +2748,7 @@ bool SClient::Unknown_7472A0(const char *text)
 
 // 0x747510 (0x74ABC0: '/group ...'): one ACTION each (10 invite, 11 accept, 12 refuse, 15 kick, 13 disband,
 // 14 remove), the invite and the kick on the main view's target
-bool SClient::Unknown_747510(const char *text)
+bool SpaceClientClass::Unknown_747510(const char *text)
 {
 	G_ASSERT(Connection);
 	if (Connection) {
@@ -2818,7 +2818,7 @@ bool Unknown_747990(const char *text, std::string &reason, bool *quit)	// NAME 1
 
 // 0x747AF0 (0x74ABC0 inlines it: no call left): LOGOFF_REQUEST sent with Unknown138C = 1, then 0x743290's answer
 // when the command quits
-bool SClient::Unknown_747AF0(const std::string &reason, bool quit)
+bool SpaceClientClass::Unknown_747AF0(const std::string &reason, bool quit)
 {
 	int id = Unknown1138;
 	Unknown138C = 1;
@@ -2840,7 +2840,7 @@ bool SClient::Unknown_747AF0(const std::string &reason, bool quit)
 
 
 // 0x747C70 (0x74ABC0): the emote commands, one TRIGGER_EMOTE each
-bool SClient::Unknown_747C70(const char *text)
+bool SpaceClientClass::Unknown_747C70(const char *text)
 {
 	if (strncmp(text, "/wave", strlen("/wave")) == 0) {
 		Connection->Send_Packet(&TriggerEmotePacketClass(Get_Avatar_ID(), 0));
@@ -2882,7 +2882,7 @@ bool SClient::Unknown_747C70(const char *text)
 
 // 0x747FA0 (0x74ABC0): '/resetcolor', '/setcolor <type> <red> <green> <blue>', '/seecolor <type>' over the chat
 // line colours (+0x13CC)
-bool SClient::Unknown_747FA0(const char *text)
+bool SpaceClientClass::Unknown_747FA0(const char *text)
 {
 	char buffer[256];
 
@@ -3047,7 +3047,7 @@ bool SClient::Unknown_747FA0(const char *text)
 }
 
 // 0x749020 (0x74ABC0): '/resethud', '/sethud <type> <value>' over the gutter icons' options
-bool SClient::Unknown_749020(const char *text)
+bool SpaceClientClass::Unknown_749020(const char *text)
 {
 	if (strncmp(text, "/resethud", 9) == 0) {
 		Unknown_74D990(1, "Hud option values have been reset.", 0);
@@ -3198,7 +3198,7 @@ bool SClient::Unknown_749020(const char *text)
 
 
 // The player's avatar object, as 0x74C7B0 for Get_Avatar_ID() through a const_iterator: inlined (0x749590, 0x749A70)
-static inline AvatarClass *Unknown_Player_Avatar(SClient *client, unsigned id) {	// NAME 2: what it does (the callers pass Get_Avatar_ID())
+static inline AvatarClass *Unknown_Player_Avatar(SpaceClientClass *client, unsigned id) {	// NAME 2: what it does (the callers pass Get_Avatar_ID())
 	std::hash_map<unsigned, AvatarClass *>::const_iterator it = client->Unknown1394.find(id);
 	if (it != client->Unknown1394.end() && (*it).second) {
 		AvatarClass *object = (*it).second->Unknown_77E3F0();
@@ -3244,7 +3244,7 @@ static inline AvatarClass *Unknown_Player_Avatar(SClient *client, unsigned id) {
 
 // NOT EXACT: order-only (explain.py): 296 instructions as the client's; `buffer + skip` and the EH state are scheduled after the vector's members (the client computes buffer + skip first); a rest local before the vector gives the client's order but swaps text / skip between ebp / ebx
 // 0x749590 (0x74ABC0): '/tell <player> <message>' ('/t'): the avatar's chat stream and the line to the server
-bool SClient::Unknown_749590(const char *text)
+bool SpaceClientClass::Unknown_749590(const char *text)
 {
 	int skip = 0;
 	if (strncmp(text, "/tell", 5) == 0) {
@@ -3295,7 +3295,7 @@ bool SClient::Unknown_749590(const char *text)
 
 
 // 0x749A70 (0x74ABC0): '/reply <message>' ('/r'): as '/tell', to the chat panel's last sender (its Unknown1D8)
-bool SClient::Unknown_749A70(const char *text)
+bool SpaceClientClass::Unknown_749A70(const char *text)
 {
 	int skip = 0;
 	if (strncmp(text, "/reply", 6) == 0) {
@@ -3335,7 +3335,7 @@ bool SClient::Unknown_749A70(const char *text)
 // NOT EXACT: shape (explain.py): 822 against 818 instructions, one region: the words-fail return(true) keeps its own ~channel (4 rows) where the client jumps back into the /rad message's (0x74A68C jmp 0x74A5A4); with plain return(true) in both messages VC6 joins it but keeps the shared tail in the join message, not the /rad one (818 rows, order-only). valid / monitoring leave no code (VC6 threads constant flags): they stand for whatever control flow put the join check before the /rad test in the source (the client's literal order: 'Not monitoring that channel.' 0xB99E90 lies between 'Enforcers' 0xB99EB4 and '/rad' 0xB99E88) and the return(false) between the /rad message and the send part (0x74A5BF)
 // 0x749ED0 (0x74ABC0): the channel lines '/gen /ooc /mkt /new /jen /ter /pro /exp /tra /war /sen /def /enf <message>'
 // (each when its 'Channel_*' option is on) and '/rad' (the chat panel's private channel); the channel goes in the packet's +0x24 string (0x74A789)
-bool SClient::Unknown_749ED0(const char *text)
+bool SpaceClientClass::Unknown_749ED0(const char *text)
 {
 	OptionManagerClass *options = OptionManagerClass::Instance;
 	std::string channel = "";
@@ -4056,7 +4056,7 @@ invalid:
 
 
 // 0x74BB50
-void SClient::Unknown_74BB50(int type)
+void SpaceClientClass::Unknown_74BB50(int type)
 {
 	if (Unknown138C) {
 		switch (type) {
@@ -4084,7 +4084,7 @@ void SClient::Unknown_74BB50(int type)
 
 
 // 0x74BC20
-void SClient::Unknown_74BC20(int arg)
+void SpaceClientClass::Unknown_74BC20(int arg)
 {
 
 	G_ASSERT(!Movie3DView);
@@ -4096,7 +4096,7 @@ void SClient::Unknown_74BC20(int arg)
 }
 
 // 0x74BD10
-void SClient::Unknown_74BD10()
+void SpaceClientClass::Unknown_74BD10()
 {
 
 
@@ -4109,7 +4109,7 @@ void SClient::Unknown_74BD10()
 }
 
 // 0x74BD90
-void SClient::Unknown_74BD90(int arg)
+void SpaceClientClass::Unknown_74BD90(int arg)
 {
 
 
@@ -4121,7 +4121,7 @@ void SClient::Unknown_74BD90(int arg)
 }
 
 // 0x74BF00
-void SClient::Unknown_74BF00(int mode)
+void SpaceClientClass::Unknown_74BF00(int mode)
 {
 
 	G_ASSERT(ScriptedMovieView);
@@ -4134,7 +4134,7 @@ void SClient::Unknown_74BF00(int mode)
 
 
 // 0x74BF80
-ClientObjectClass *SClient::Unknown_74BF80()
+ClientObjectClass *SpaceClientClass::Unknown_74BF80()
 {
 	if (Unknown1328) {
 		return(Find_Object(Unknown1328));
@@ -4151,7 +4151,7 @@ template<class C> inline C *Unknown_Find_Valid(DeltaContainer *root, const AuxDa
 // 0x74BFB0 (0x744690, after the listener: every frame): MusicManagerClass::Update's type, level, race and theme race, then the aux data's MusicID
 static inline int Unknown_Field_Value(DeltaContainer *root, const AuxDataName &name) { return(Unknown_Find_Valid<DeltaTemplateClass<int> >(root, name)->Value); }	// NAME 1: neutral (D10)
 // 0x74BFB0's layers (the client calls the conversions 0x755BD0, the first Find_Field and the Casts out of line)
-static inline int Unknown_Music_Type(SClient *client, int &theme_race)	// NAME 1: neutral (D10)
+static inline int Unknown_Music_Type(SpaceClientClass *client, int &theme_race)	// NAME 1: neutral (D10)
 {
 	int type = 0;
 	if (client->ViewMode == 6) { type = -1;
@@ -4163,13 +4163,13 @@ static inline int Unknown_Music_Type(SClient *client, int &theme_race)	// NAME 1
 	} else if (client->ViewMode == 1 || client->ViewMode == 5) { type = 2; }
 	return(type);
 }
-static inline AvatarDescriptionClass *Unknown_Avatar_Desc(SClient *client)	// NAME 1: neutral (D10)
+static inline AvatarDescriptionClass *Unknown_Avatar_Desc(SpaceClientClass *client)	// NAME 1: neutral (D10)
 {
 	std::hash_map<unsigned, AvatarClass *>::const_iterator it = client->Unknown1394.find(client->Get_Avatar_ID());
 	if (it == client->Unknown1394.end() || !(*it).second) return(NULL);
 	return(&(*it).second->Desc);
 }
-void SClient::Unknown_74BFB0()
+void SpaceClientClass::Unknown_74BFB0()
 {
 	int theme_race = 8;
 	int type = Unknown_Music_Type(this, theme_race);
@@ -4248,7 +4248,7 @@ void SClient::Unknown_74BFB0()
 
 
 // 0x74C370
-void SClient::Unknown_74C370(RefCountClass *object)
+void SpaceClientClass::Unknown_74C370(RefCountClass *object)
 {
 	if (Unknown12B8) {
 		Unknown12B8->Release_Ref();
@@ -4260,7 +4260,7 @@ void SClient::Unknown_74C370(RefCountClass *object)
 }
 // Exact with two dead reads after operator[] (D130, not the client's): they take its nested budget, so resize 0x759660, the node allocator 0x759030 and the second bucket count go out of line as the client's
 #pragma auto_inline(off)	// 0x74C3B0 (out of line in 0x7511A0, as the client has it)
-void SClient::Unknown_74C3B0(int game_id, AvatarDescriptionClass &desc)
+void SpaceClientClass::Unknown_74C3B0(int game_id, AvatarDescriptionClass &desc)
 {
 	if (Unknown1394.find(game_id) != Unknown1394.end()) return;
 	AvatarClass *object = new AvatarClass(&desc, false, false, NULL);
@@ -4270,7 +4270,7 @@ void SClient::Unknown_74C3B0(int game_id, AvatarDescriptionClass &desc)
 #pragma auto_inline(on)
 // 0x74C530 (cpacket.cpp: REMOVE 7 passes the GameID; ui_starbase): the id's avatar object removed, released and
 // taken out of +0x1394
-void SClient::Unknown_74C530(unsigned id)
+void SpaceClientClass::Unknown_74C530(unsigned id)
 {
 	std::hash_map<unsigned, AvatarClass *>::iterator it = Unknown1394.find(id);
 	if (it != Unknown1394.end() && (*it).second) {
@@ -4281,7 +4281,7 @@ void SClient::Unknown_74C530(unsigned id)
 	}
 }
 // 0x74C690
-void SClient::Unknown_74C690()
+void SpaceClientClass::Unknown_74C690()
 {
 	std::hash_map<unsigned, AvatarClass *>::iterator it;
 	for (it = Unknown1394.begin(); it != Unknown1394.end(); ++it) {
@@ -4294,7 +4294,7 @@ void SClient::Unknown_74C690()
 	Unknown1394.clear();
 }
 // 0x74C7B0
-AvatarClass *SClient::Unknown_74C7B0(unsigned id)
+AvatarClass *SpaceClientClass::Unknown_74C7B0(unsigned id)
 {
 	std::hash_map<unsigned, AvatarClass *>::iterator it = Unknown1394.find(id);
 	if (it != Unknown1394.end() && (*it).second) {
@@ -4306,7 +4306,7 @@ AvatarClass *SClient::Unknown_74C7B0(unsigned id)
 }
 
 // 0x74C840
-AvatarClass *SClient::Unknown_74C840(unsigned id)
+AvatarClass *SpaceClientClass::Unknown_74C840(unsigned id)
 {
 	std::hash_map<unsigned, AvatarClass *>::iterator it = Unknown1394.find(id);
 	if (it != Unknown1394.end() && (*it).second) {
@@ -4319,13 +4319,13 @@ AvatarClass *SClient::Unknown_74C840(unsigned id)
 
 // Exact with one dead read after the last return (D130, not the client's): it spends the budget that sends 0x74C840's nested hash_map::find out of line (0x756820, the key in the argument slot) as the client has it
 // 0x74C8D0 (0x74C840 for the named object's GameID)
-AvatarClass *SClient::Unknown_74C8D0(const char *name) {
+AvatarClass *SpaceClientClass::Unknown_74C8D0(const char *name) {
 	ClientObjectClass *object = Find_Object(name);
 	if (object) return(Unknown_74C840(object->GameID));
 	return(NULL); Unknown1394.size(); }	// (dead, D130)
 
 // 0x74C960
-int *SClient::Unknown_74C960(unsigned id)
+int *SpaceClientClass::Unknown_74C960(unsigned id)
 {
 	std::hash_map<unsigned, AvatarClass *>::iterator it = Unknown1394.find(id);
 	if (it != Unknown1394.end() && (*it).second) {
@@ -4335,7 +4335,7 @@ int *SClient::Unknown_74C960(unsigned id)
 }
 
 // 0x74C9D0
-void SClient::Unknown_74C9D0(const RefCountPtr<TalkTreeInterface> &tree)
+void SpaceClientClass::Unknown_74C9D0(const RefCountPtr<TalkTreeInterface> &tree)
 {
 	if (!(tree == Unknown1298)) {
 		if (tree) {
@@ -4477,7 +4477,7 @@ void Unknown_74CA90(const char *filename)
 
 #include "aux_roots_send.h"			// DeltaHullClass (0x7518A0)
 // 0x74D570 (the player is in a group: one of GroupInfo.Members' first five has a name)
-bool SClient::Unknown_74D570()
+bool SpaceClientClass::Unknown_74D570()
 {
 	AuxDataName name("GroupInfo"); DeltaGroupInfoClass *group = (DeltaGroupInfoClass *)Unknown_Find_Field<DeltaContainer>(AuxData, name);
 	if (group && group->Unknown70) {
@@ -4490,7 +4490,7 @@ bool SClient::Unknown_74D570()
 }
 
 // 0x74D690 (the player leads its group: GroupInfo.IsGroupLeader)
-bool SClient::Unknown_74D690()
+bool SpaceClientClass::Unknown_74D690()
 {
 	AuxDataName name("GroupInfo"); DeltaGroupInfoClass *group = (DeltaGroupInfoClass *)Unknown_Find_Field<DeltaContainer>(AuxData, name);
 	return(group && group->Unknown70 && group->IsGroupLeader.Value);
@@ -4501,7 +4501,7 @@ bool SClient::Unknown_74D690()
 
 // 0x744560 (ui_cpit.cpp: 11 when the hulk is let in, 12 when it goes): a UI_TRIGGER packet with the avatar's id
 // when the player's ClientSendUITriggers field is set and positive
-void SClient::Unknown_744560(int arg)
+void SpaceClientClass::Unknown_744560(int arg)
 {
 	AuxDataName name("ClientSendUITriggers");
 	DeltaTemplateClass<int> *t = Unknown_Find_Field<DeltaTemplateClass<int> >((DeltaContainer *)AuxData, name);
@@ -4512,10 +4512,10 @@ void SClient::Unknown_744560(int arg)
 
 
 
-bool Unknown_70BAC0(SClient *client, ClientObjectClass *co);	// 0x70BAC0 (cdecl; 0x74D780 skips such an object)  // NAME 1 [client, co]: what 0x74D780 passes
+bool Unknown_70BAC0(SpaceClientClass *client, ClientObjectClass *co);	// 0x70BAC0 (cdecl; 0x74D780 skips such an object)  // NAME 1 [client, co]: what 0x74D780 passes
 
 // 0x74D780
-bool SClient::Unknown_74D780(ClientObjectClass *co)
+bool SpaceClientClass::Unknown_74D780(ClientObjectClass *co)
 {
 
 	FAIL_IF(!co) return(false);
@@ -4539,14 +4539,14 @@ bool SClient::Unknown_74D780(ClientObjectClass *co)
 
 
 // 0x74D870
-bool SClient::Unknown_74D870()
+bool SpaceClientClass::Unknown_74D870()
 {
 	ClientObjectClass *co = Get_Avatar();
 	FAIL_IF(!co) return(false);
 	return(co->Unknown_6F5ED0());
 }
 
-bool SClient::Unknown_74D8B0(ClientObjectClass *co)	// 0x74D8B0
+bool SpaceClientClass::Unknown_74D8B0(ClientObjectClass *co)	// 0x74D8B0
 {
 	ClientObjectClass *player_co = Get_Avatar();
 	FAIL_IF(!player_co) return(false);
@@ -4581,7 +4581,7 @@ bool SClient::Unknown_74D8B0(ClientObjectClass *co)	// 0x74D8B0
 
 // 0x74D990: a message on the chat (the chat panel's 0x563760) with its type's prefix unless 'a' (6, 21: also on
 // the line display; 22: the line display only); errors and warnings sound when their option says so
-void SClient::Unknown_74D990(int color, char *text, int a)
+void SpaceClientClass::Unknown_74D990(int color, char *text, int a)
 {
 	if (!text || !*text) return;
 	switch (color) {
@@ -4624,7 +4624,7 @@ void SClient::Unknown_74D990(int color, char *text, int a)
 // 0xB03208's table asks for the members again ('/gc list all', 0x81BF40)
 static int Unknown_B03208[] = { 69, 72, 76, 97, 119, 120 };	// NAME 1: neutral (D10): the guild messages that change the member list
 static inline void Unknown_Clear_Lines(std::vector<std::string> &lines) { lines.clear(); }	// NAME 1 [Unknown_Clear_Lines, lines]: neutral (D10): the client's erase call sits one inline layer down
-void SClient::Unknown_74DFF0(int color, const char *text, int message_type, int arg)
+void SpaceClientClass::Unknown_74DFF0(int color, const char *text, int message_type, int arg)
 {
 	bool to_guild = false;
 	std::vector<std::string> lines;
@@ -4717,7 +4717,7 @@ void SClient::Unknown_74DFF0(int color, const char *text, int message_type, int 
 
 
 // 0x750210 (defined before 0x74EB00, which inlines it as the client does)
-void SClient::Unknown_750210()
+void SpaceClientClass::Unknown_750210()
 {
 	Unknown_74FA30();
 	Unknown_74FEC0();
@@ -4735,7 +4735,7 @@ void SClient::Unknown_750210()
 
 // 0x74E580 (GuildRecruitConfirmSectorPacket 0x73E720, GuildGMRenameConfirmSectorPacket 0x73EEF0): the current view's
 // dialog asks text with the type's buttons; value is kept in +0x119C for the answer
-void SClient::Unknown_74E580(const char *text, const char *type, const char *value)
+void SpaceClientClass::Unknown_74E580(const char *text, const char *type, const char *value)
 {
 
 	FAIL_IF(!CurrentView) return;
@@ -4752,7 +4752,7 @@ void SClient::Unknown_74E580(const char *text, const char *type, const char *val
 enum { ACTIONTYPE_MAX = 2 };							// NAME 3: the assert's (Unknown120C's two queues)
 // 0x74E710 (cpacket.cpp: CONFIRMED_ACTION_OFFER 190): type 0 asks in the current view's dialog, type 1 in the
 // chat panel; the id joins its type's offer queue
-void SClient::Unknown_74E710(const std::string &message, int id, int type)
+void SpaceClientClass::Unknown_74E710(const std::string &message, int id, int type)
 {
 
 	FAIL_IF(!CurrentView) return;
@@ -4790,7 +4790,7 @@ void SClient::Unknown_74E710(const std::string &message, int id, int type)
 	}
 }
 // 0x74EB00 (cpacket.cpp: the confirmed action's timeout 191): the id joins its type's queue, then 0x750210's work
-void SClient::Unknown_74EB00(int type, int id)
+void SpaceClientClass::Unknown_74EB00(int type, int id)
 {
 
 	G_ASSERT(type < ACTIONTYPE_MAX);
@@ -4799,7 +4799,7 @@ void SClient::Unknown_74EB00(int type, int id)
 }
 
 // 0x74EDB0 (Do_Frame, after 0x7429B0): the guild confirmations' answers to the server
-void SClient::Unknown_74EDB0()
+void SpaceClientClass::Unknown_74EDB0()
 {
 	FAIL_IF(!CurrentView) return;
 	UIViewClass *ui_view = CurrentView->Unknown_1C();
@@ -4822,7 +4822,7 @@ void SClient::Unknown_74EDB0()
 	button = dialog->Unknown_5890B0("GUILD_PROMOTE_CONFIRM");
 	if (button == 1) {
 		dialog->Unknown_5C();
-		Send_Packet(&GuildSimpleClientSectorPacketClass(2, Get_Unknown1138(), Unknown119C.c_str()));
+		Send_Packet(&GuildSimpleClientSectorPacket(2, Get_Unknown1138(), Unknown119C.c_str()));
 		changed = true;
 	} else if (button > 0) {
 		dialog->Unknown_5C();
@@ -4830,7 +4830,7 @@ void SClient::Unknown_74EDB0()
 	button = dialog->Unknown_5890B0("GUILD_NEWLEADER_CONFIRM");
 	if (button == 1) {
 		dialog->Unknown_5C();
-		Send_Packet(&GuildSimpleClientSectorPacketClass(4, Get_Unknown1138(), Unknown119C.c_str()));
+		Send_Packet(&GuildSimpleClientSectorPacket(4, Get_Unknown1138(), Unknown119C.c_str()));
 		changed = true;
 	} else if (button > 0) {
 		dialog->Unknown_5C();
@@ -4838,7 +4838,7 @@ void SClient::Unknown_74EDB0()
 	button = dialog->Unknown_5890B0("GUILD_DEMOTE_CONFIRM");
 	if (button == 1) {
 		dialog->Unknown_5C();
-		Send_Packet(&GuildSimpleClientSectorPacketClass(6, Get_Unknown1138(), Unknown119C.c_str()));
+		Send_Packet(&GuildSimpleClientSectorPacket(6, Get_Unknown1138(), Unknown119C.c_str()));
 		changed = true;
 	} else if (button > 0) {
 		dialog->Unknown_5C();
@@ -4846,7 +4846,7 @@ void SClient::Unknown_74EDB0()
 	button = dialog->Unknown_5890B0("GUILD_REMOVE_CONFIRM");
 	if (button == 1) {
 		dialog->Unknown_5C();
-		Send_Packet(&GuildSimpleClientSectorPacketClass(8, Get_Unknown1138(), Unknown119C.c_str()));
+		Send_Packet(&GuildSimpleClientSectorPacket(8, Get_Unknown1138(), Unknown119C.c_str()));
 		changed = true;
 	} else if (button > 1) {
 		dialog->Unknown_5C();
@@ -4854,14 +4854,14 @@ void SClient::Unknown_74EDB0()
 	button = dialog->Unknown_5890B0("GUILD_LEAVE_CONFIRM");
 	if (button == 1) {
 		dialog->Unknown_5C();
-		Send_Packet(&GuildSimpleClientSectorPacketClass(10, Get_Unknown1138(), Unknown119C.c_str()));
+		Send_Packet(&GuildSimpleClientSectorPacket(10, Get_Unknown1138(), Unknown119C.c_str()));
 	} else if (button > 1) {
 		dialog->Unknown_5C();
 	}
 	button = dialog->Unknown_5890B0("GUILD_DISBAND_CONFIRM");
 	if (button == 1) {
 		dialog->Unknown_5C();
-		Send_Packet(&GuildSimpleClientSectorPacketClass(12, Get_Unknown1138(), Unknown119C.c_str()));
+		Send_Packet(&GuildSimpleClientSectorPacket(12, Get_Unknown1138(), Unknown119C.c_str()));
 	} else if (button > 1) {
 		dialog->Unknown_5C();
 	}
@@ -4877,35 +4877,35 @@ void SClient::Unknown_74EDB0()
 	button = dialog->Unknown_5890B0("GUILD_GM_DISBAND_CONFIRM");
 	if (button == 1) {
 		dialog->Unknown_5C();
-		Send_Packet(&GuildSimpleClientSectorPacketClass(14, Get_Unknown1138(), Unknown119C.c_str()));
+		Send_Packet(&GuildSimpleClientSectorPacket(14, Get_Unknown1138(), Unknown119C.c_str()));
 	} else if (button > 1) {
 		dialog->Unknown_5C();
 	}
 	button = dialog->Unknown_5890B0("GUILD_GM_REMOVE_CONFIRM");
 	if (button == 1) {
 		dialog->Unknown_5C();
-		Send_Packet(&GuildSimpleClientSectorPacketClass(17, Get_Unknown1138(), Unknown119C.c_str()));
+		Send_Packet(&GuildSimpleClientSectorPacket(17, Get_Unknown1138(), Unknown119C.c_str()));
 	} else if (button > 1) {
 		dialog->Unknown_5C();
 	}
 	button = dialog->Unknown_5890B0("GUILD_GM_PROMOTE_CONFIRM");
 	if (button == 1) {
 		dialog->Unknown_5C();
-		Send_Packet(&GuildSimpleClientSectorPacketClass(19, Get_Unknown1138(), Unknown119C.c_str()));
+		Send_Packet(&GuildSimpleClientSectorPacket(19, Get_Unknown1138(), Unknown119C.c_str()));
 	} else if (button > 1) {
 		dialog->Unknown_5C();
 	}
 	button = dialog->Unknown_5890B0("GUILD_GM_DEMOTE_CONFIRM");
 	if (button == 1) {
 		dialog->Unknown_5C();
-		Send_Packet(&GuildSimpleClientSectorPacketClass(21, Get_Unknown1138(), Unknown119C.c_str()));
+		Send_Packet(&GuildSimpleClientSectorPacket(21, Get_Unknown1138(), Unknown119C.c_str()));
 	} else if (button > 1) {
 		dialog->Unknown_5C();
 	}
 	button = dialog->Unknown_5890B0("GUILD_GM_RENAME_CONFIRM");
 	if (button == 1) {
 		dialog->Unknown_5C();
-		Send_Packet(&GuildSimpleClientSectorPacketClass(15, Get_Unknown1138(), ""));
+		Send_Packet(&GuildSimpleClientSectorPacket(15, Get_Unknown1138(), ""));
 		changed = true;
 	} else if (button > 1) {
 		dialog->Unknown_5C();
@@ -4973,7 +4973,7 @@ void SClient::Unknown_74EDB0()
 
 // 0x74F5C0 (Do_Frame, after 0x751660): the answer to the confirmed-action dialog (0x74E710's type 0) goes to the
 // server and the offer leaves both queues
-void SClient::Unknown_74F5C0()
+void SpaceClientClass::Unknown_74F5C0()
 {
 	FAIL_IF(!CurrentView) return;
 	UIViewClass *ui_view = CurrentView->Unknown_1C();
@@ -5022,7 +5022,7 @@ void SClient::Unknown_74F5C0()
 
 // 0x74FA30 (0x750210): while the dialog shows a confirmed action, the oldest offer leaves both type 0 queues once
 // its timeout has come (it is in +0x120C[0]) and the dialog closes
-void SClient::Unknown_74FA30()
+void SpaceClientClass::Unknown_74FA30()
 {
 
 	FAIL_IF(!CurrentView) return;
@@ -5065,7 +5065,7 @@ void SClient::Unknown_74FA30()
 
 // 0x74FEC0 (0x750210): the chat panel's offers (type 1) as 0x74FA30, while its message button shows; the button goes
 // with the last one
-void SClient::Unknown_74FEC0()
+void SpaceClientClass::Unknown_74FEC0()
 {
 	std::deque<int> &timedlist = Unknown120C[1]; std::deque<int> &confirmedlist = Unknown11AC[1]; ChatPanelInterface *chat_panel = ChatPanel.Peek();	// NAME 3 [confirmedlist, chat_panel]: the FAIL_IFs'  // NAME 1 [timedlist]: 0x74EB00's queue
 	FAIL_IF(!chat_panel) return;
@@ -5115,7 +5115,7 @@ void SClient::Unknown_74FEC0()
 // each 2D and 3D sample's file, a '*' before the last name seen in a slot that is free now; true resets the names
 static char Sample2DNames[16][32];	// 0xBE7D94  // NAME 2: what it holds
 static char Sample3DNames[16][32];	// 0xBE7F94  // NAME 2: what it holds
-void SClient::Unknown_750260(bool reset)
+void SpaceClientClass::Unknown_750260(bool reset)
 {
 	if (reset) {
 		for (int i = 0; i < 16; i++) {
@@ -5177,7 +5177,7 @@ void SClient::Unknown_750260(bool reset)
 
 // NOT EXACT: frame (explain.py: 145 instructions, the client 146; its frame 4 bytes larger): the client keeps the chat panel in a named local ([esp+0x18]) and tests it before taking the queues; as a local (ChatPanel.Peek()) VC6 inlines pop_front / erase (169 instructions); three forms
 // 0x750800 (the chat panel's 0x563280, its message button): yes to the oldest type 1 offer, then the button goes
-void SClient::Unknown_750800()
+void SpaceClientClass::Unknown_750800()
 {
 	std::deque<int> &confirmedlist = Unknown11AC[1]; std::deque<int> &timedlist = Unknown120C[1];	// NAME 3 [confirmedlist]: the G_ASSERT's  // NAME 1 [timedlist]: 0x74EB00's queue
 	if (ChatPanel && ChatPanel->Is_Message_Button_Showing()) {
@@ -5224,7 +5224,7 @@ void SClient::Unknown_750800()
 
 
 // 0x750A70
-void SClient::Unknown_750A70(unsigned sector)
+void SpaceClientClass::Unknown_750A70(unsigned sector)
 {
 	if (MusicManager) {
 		MusicManager->Set_Sector(sector);
@@ -5248,7 +5248,7 @@ void SClient::Unknown_750A70(unsigned sector)
 
 
 // 0x750B30
-void SClient::Unknown_750B30(float elevation)
+void SpaceClientClass::Unknown_750B30(float elevation)
 {
 	if (SectorSound) {
 		SectorSound->Update(Unknown10BC, elevation);
@@ -5256,7 +5256,7 @@ void SClient::Unknown_750B30(float elevation)
 }
 
 // 0x750B60 (camera_manager.cpp 0x7992F0 / 0x7993E0: the avatar's aux data IsIncapacitated)
-bool SClient::Unknown_750B60()
+bool SpaceClientClass::Unknown_750B60()
 {
 	ClientObjectClass *avatar = Get_Avatar();
 	if (avatar && avatar->AuxData) {
@@ -5279,7 +5279,7 @@ bool SClient::Unknown_750B60()
 
 // NOT EXACT: stack slots and registers (masked residue 64, was 93; explain.py says field offset): AvatarID read once before the lego test and the view as a temporary give the client's loads; left: the client keeps the time in eax at the loop head, the effect in ebp and the binary in esi, and gives count / desc_id / interval / duration other slots (declaration orders, types and loop forms: no better; attempts.py show 0x750C20)
 // 0x750C20 (no caller references it; debug): testeffects.ini's record INDEX played Count times, Interval apart, from or to the avatar and the point Distance ahead of it, and said in the chat panel
-void SClient::Unknown_750C20(int index)
+void SpaceClientClass::Unknown_750C20(int index)
 {
 	int duration = Unknown_BE7D80[index].Duration; int desc_id = Unknown_BE7D80[index].DescID; float distance = Unknown_BE7D80[index].Distance;
 	LegoIdentifierClass lego(Unknown_BE7D80[index].Lego);
@@ -5289,7 +5289,7 @@ void SClient::Unknown_750C20(int index)
 	Matrix3D tm = Get_Avatar()->Unknown_28(true);
 	Vector3 position = tm.Get_Translation() + tm.Get_X_Vector() * distance;
 	for (unsigned i = 0; i < count; i++) {
-		EffectObjectClass *effect = Unknown_6E9490(desc_id, 0, duration, i * interval - delay + Unknown10BC, this, scale, hsv_shift, speedup, -1, 0);
+		EffectClass *effect = Unknown_6E9490(desc_id, 0, duration, i * interval - delay + Unknown10BC, this, scale, hsv_shift, speedup, -1, 0);
 		if (effect) {
 			UnaryEffectClass *unary = effect->Unknown_10();
 			if (unary) {
@@ -5327,7 +5327,7 @@ void SClient::Unknown_750C20(int index)
 // 0x7511A0
 // 0x7511A0 (the main view's 0x514010, on every view-mode change): each +0x1394 value is made again from a copy of its avatar description (+0xF8)
 // through 0x74C3B0 once the table is cleared (0x74C690 inline), then the mesh renderer, the DX8 resources, the unused assets and the audio cache are flushed
-void SClient::Unknown_7511A0()
+void SpaceClientClass::Unknown_7511A0()
 {
 	int count = 0;
 	std::vector<unsigned> ids;
@@ -5356,7 +5356,7 @@ void SClient::Unknown_7511A0()
 
 // 0x751460 (cpacket.cpp: the referral points 233): the points left to spend (+0x14F4) and what they earn, asked in
 // the current view's dialog (0x751660 sends the answer)
-void SClient::Unknown_751460(int points_total, int points_spent)
+void SpaceClientClass::Unknown_751460(int points_total, int points_spent)
 {
 
 
@@ -5399,7 +5399,7 @@ void SClient::Unknown_751460(int points_total, int points_spent)
 #include "..\packets\pkunknown_8a5510.h"
 
 // 0x751660 (Do_Frame, every frame: the SPEND_BUDDY_POINTS question; yes sends opcode 0xE8 with +0x14F4)
-void SClient::Unknown_751660()
+void SpaceClientClass::Unknown_751660()
 {
 
 
@@ -5424,7 +5424,7 @@ void SClient::Unknown_751660()
 
 // 0x7517E0 (cpacket.cpp: GUILD_PLAYER_PERMISSIONS 210): the guild window's rank rights, when it is up and the
 // player is in space
-void SClient::Unknown_7517E0(int a, int b, int c, int d)
+void SpaceClientClass::Unknown_7517E0(int a, int b, int c, int d)
 {
 	if (ChatPanel) {
 		UIGuildClass *panel = ChatPanel->UnknownE0;
@@ -5435,7 +5435,7 @@ void SClient::Unknown_7517E0(int a, int b, int c, int d)
 }
 
 // 0x751850 (cpacket.cpp: GUILD_RANK_NAMES_SECTOR 211): the guild window's rank names, as 0x7517E0
-void SClient::Unknown_751850(std::vector<GuildRankNameStruct> &ranks)
+void SpaceClientClass::Unknown_751850(std::vector<GuildRankNameStruct> &ranks)
 {
 	if (ChatPanel) {
 		UIGuildClass *panel = ChatPanel->UnknownE0;
@@ -5454,7 +5454,7 @@ void SClient::Unknown_751850(std::vector<GuildRankNameStruct> &ranks)
 
 
 // 0x7518A0 (Init): the player's aux data (AUX_DATA 27) and its player-variable roots (PLAYER_VAR_AUX_DATA 28)
-void SClient::Unknown_7518A0()
+void SpaceClientClass::Unknown_7518A0()
 {
 	G_ASSERT(!AuxData);
 	AuxData = new DeltaPlayerClass;
@@ -5474,7 +5474,7 @@ void SClient::Unknown_7518A0()
 }
 #pragma auto_inline(off)	// the client calls 0x7555B0 from Shutdown
 // 0x7555B0 (Shutdown): deletes the roots 0x7518A0 made
-void SClient::Unknown_7555B0()
+void SpaceClientClass::Unknown_7555B0()
 {
 	delete AuxData;
 	AuxData = NULL;
@@ -5496,7 +5496,7 @@ template<class T> inline void Unknown_Copy_Root(T *to, T *from)	// NAME 1: neutr
 }
 
 // 0x755600 (0x745750: SERVER_HANDOFF 58): the roots back to their defaults: a new root's encoding decoded into each
-void SClient::Unknown_755600()
+void SpaceClientClass::Unknown_755600()
 {
 	DeltaPlayerClass *player = new DeltaPlayerClass;
 	Unknown_Copy_Root(AuxData, player);
@@ -5539,11 +5539,11 @@ void SClient::Unknown_755600()
 
 
 
-SClient *Unknown_BE5F20;	// NAME 1: neutral (D10)
+SpaceClientClass *Unknown_BE5F20;	// NAME 1: neutral (D10)
 
 // NOT EXACT: shape (explain.py: 637 instructions, the client 640, residue 48): the client inlines ~reason at /self tag on's return (0x74B077) and jumps /deco into the logoff tail (0x74AD7D), ours shares the out-of-line _Tidy tail there; the returns in each /deco and /self tag branch, the camp packet as a temporary, an options local, a ?: dialog read: no better
 // 0x74ABC0 (slot +0x34: the chat line's '/' commands; true when the line was a command)
-bool SClient::Unknown_34(const char *text)
+bool SpaceClientClass::Unknown_34(const char *text)
 {
 	if (strncmp(text, "/group", strlen("/group")) == 0) {
 		return(Unknown_747510(text));
@@ -5693,7 +5693,7 @@ bool SClient::Unknown_34(const char *text)
 
 // 0x74D950 (cpacket.cpp: CHANGE_BASE_ASSET 38, after 0x744B60, for the objects 0x6F5A40 picks): in the starbase view,
 // its +0x174 object's +0x18C is set
-void SClient::Unknown_74D950()
+void SpaceClientClass::Unknown_74D950()
 {
 	if (CurrentView && CurrentView == Unknown135C && ((StarbaseViewClass *)Unknown135C)->Unknown174) {
 		((StarbaseViewClass *)Unknown135C)->Unknown174->Unknown18C = true;
@@ -5701,7 +5701,7 @@ void SClient::Unknown_74D950()
 }
 
 // 0x74DF70 (cdecl): printf into a line of the chat panel (0x74D990)
-void SClient::Print(int channel, const char *format, ...)
+void SpaceClientClass::Print(int channel, const char *format, ...)
 {
 	char buffer[512];
 	va_list va;
@@ -5715,7 +5715,7 @@ void SClient::Print(int channel, const char *format, ...)
 // NOT EXACT: branch (masked residue 0, was 36): every exit an early return gives the client's code but one jump: VC6 joins the starbase call's exit to the object-NULL return block, the client to the end (0x751092 -> 0x7510E5); if / else forms join the end but lose the client's zero register in edi (35 rows); attempts.py show 0x750F70
 // 0x750F70 (cpacket.cpp: CLIENT_CHAT_EVENT 165, the sender and 2..15 by the channel): the channel's colour (+0x13CC)
 // goes to the sender's object, or in the starbase view to its interface
-void SClient::Unknown_750F70(const char *name, int channel)
+void SpaceClientClass::Unknown_750F70(const char *name, int channel)
 {
 	if (name == NULL) {
 		return;
@@ -5747,7 +5747,7 @@ void SClient::Unknown_750F70(const char *name, int channel)
 // 0xBB9C40: DX8Wrapper::_EnableTriangleDraw (DX8Wrapper::Draw 0x9252A0 reads it): both off while 0x744690 renders the first frames
 // NOT EXACT: order only (B97, 15 rows with registers masked): the client's copy of the camera's transform interleaves its loads and stores, ours copies row by row (as 0x7ECDC0's)
 // 0x744690: ClientTaskClass::Render's frame: the loading view's while loading, else the current view's, then the listener
-void SClient::Unknown_64()
+void SpaceClientClass::Unknown_64()
 {
 	ThreadClass::Switch_Thread();
 	if (Task->Is_Focused() && LoadingView->Unknown68) {
@@ -5824,7 +5824,7 @@ void SClient::Unknown_64()
 // 0x74B680 (cpacket.cpp: starbase tow 80 and STARBASE_SET 79's entry, request false): the avatar stopped (0x745E40,
 // 0x745B90, 0x745C70 inline), the starbase's sector (0x750A70 inline) and its view made current; request: the
 // STARBASE_REQUEST for it (action 0) unless one is up
-void SClient::Unknown_74B680(bool request, int starbase_id)
+void SpaceClientClass::Unknown_74B680(bool request, int starbase_id)
 {
 	if (request) {
 		if (!Unknown1324) {
@@ -5846,7 +5846,7 @@ void SClient::Unknown_74B680(bool request, int starbase_id)
 
 // 0x74BA30 (cpacket.cpp: STARBASE_SET 79's exit; sbaseview.cpp's leave button, request true): the starbase view shut
 // and deleted, the view mode to mode; request: the loading view up and STARBASE_REQUEST action 1 for the starbase
-void SClient::Unknown_74BA30(bool request, int starbase_id, int mode)
+void SpaceClientClass::Unknown_74BA30(bool request, int starbase_id, int mode)
 {
 	if (request) {
 		if (Unknown1324) {
@@ -5882,7 +5882,7 @@ void SClient::Unknown_74BA30(bool request, int starbase_id, int mode)
 **	setter out of line from the movie views (0x74BC20-0x74BF00), as the client does (workflow.md 3.1: the
 **	budget counts loops in an inlined callee). The movie callback stores its vtable before Client: a body
 **	assignment, not an initialiser.
-**	cpacket.cpp's handlers are PacketClass's slot +0x08 (Process_Packet(SClient *)): Process_Packets
+**	cpacket.cpp's handlers are PacketClass's slot +0x08 (Process_Packet(SpaceClientClass *)): Process_Packets
 **	peeks the connection (BufferedConnectionClass +0x34), hands the packet to its handler and, when that
 **	returns true, takes it off the connection (+0x0C) and deletes it; false leaves it for the next frame.
 **	0x750260 under D165's FAIL_IF (the && form, cheaper for the inline budget): a dead
@@ -5894,7 +5894,7 @@ void SClient::Unknown_74BA30(bool request, int starbase_id, int mode)
 // @0x744240 (ret 0x10: the event by value, nothing done; placed here, after the file's notes). Do_Frame calls it:
 // auto_inline(off), as the client keeps the call (defined in this file it is inlined away, Do_Frame loses its match)
 #pragma auto_inline(off)
-void SClient::Unknown_744240(KernelEventClass event)
+void SpaceClientClass::Unknown_744240(KernelEventClass event)
 {
 }
 #pragma auto_inline(on)

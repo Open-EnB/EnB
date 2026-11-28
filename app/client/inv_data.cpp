@@ -14,7 +14,7 @@ struct InvDataPeekItemStruct	// NAME 1: neutral (D10)
 
 
 // 0x688410
-InvDataClass::InvDataClass(int inv_type, SClient *client) :
+InvDataClass::InvDataClass(int inv_type, SpaceClientClass *client) :
 	SlotDataClass(client),
 	Unknown50(inv_type),
 	Unknown54(client, Unknown_689100(inv_type, 0), inv_type == 2),
@@ -349,7 +349,7 @@ const char *InvDataClass::Unknown_689100(int inv_type, int list)
 **	Object 0x688410-0x6894FF: the constructor first, 0x689100 (the lists' names) the last function of the file's own;
 **	the SGI hash_set's and vector<bool>'s template members follow it (0x689270, 0x689290, 0x6894E0 on). Asserts:
 **	'!Peek_Object()' l.97 and 'false' l.143 in 0x6889F0, 'false' l.343 in 0x689100.
-**	Each inventory type reads its aux tree's root from a different place (0x6889F0): the player's own (SClient +0x12C0)
+**	Each inventory type reads its aux tree's root from a different place (0x6889F0): the player's own (SpaceClientClass +0x12C0)
 **	for the vault, vendor, reward and overflow lists, else the object's (+0x88) for the ship, the target, the
 **	manufacturing object or the trade partner, which the slot data then watches.
 */

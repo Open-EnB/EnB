@@ -34,7 +34,7 @@ public:
 class SlotDataClass : public UnknownObjectWatchClass, public RefCountClass	// NAME 5: the client's RTTI, 0xB8A5C8
 {
 public:
-	SlotDataClass(SClient *client);								// 0x6A7420  // NAME 3 [client]: the assert's Get_Client()
+	SlotDataClass(SpaceClientClass *client);								// 0x6A7420  // NAME 3 [client]: the assert's Get_Client()
 	virtual ~SlotDataClass();										// +0x00 0x6A7530
 	virtual void Unknown_Watch_0C();								// +0x0C 0x6A76A0
 	virtual InvDataClass *Unknown_10() { return(0); }			// +0x10 0x6A46A0
@@ -51,10 +51,10 @@ public:
 	int Unknown_6A7A00(unsigned int index);					// 0x6A7A00  // NAME 1 [index]: neutral
 	static SignalMap &Unknown_6A7AB0();							// 0x6A7AB0 (the function-local static 0xBE6688)
 
-	SClient *Get_Client() { return(Client); }					// NAME 3: skill_data.cpp's FAIL_IF
+	SpaceClientClass *Get_Client() { return(Client); }					// NAME 3: skill_data.cpp's FAIL_IF
 	DeltaContainer *Peek_Aux_Data() { return(AuxData); }	// NAME 3: skill_data.cpp's FAIL_IF
 
-	SClient *Client;													// +0x20  // NAME 3: Get_Client()
+	SpaceClientClass *Client;													// +0x20  // NAME 3: Get_Client()
 	DeltaContainer *AuxData;									// +0x24  // NAME 3: Peek_Aux_Data()
 	char Unknown28[8];												// +0x28
 	std::vector<unsigned long> Unknown30;									// +0x30

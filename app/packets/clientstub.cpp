@@ -304,19 +304,19 @@ bool ClientChatRequestPacketClass::Process_Packet(void *)	// 0x868CA0
 bool ChatBasicRequestPacketClass::Process_Packet(void *)	// 0x868CD0
 {	G_ASSERT(0); return(true); }
 
-bool Packet_00A9Class::Process_Packet(void *)	// 0x868D00
+bool ChatProxyRequestPacketClass::Process_Packet(void *)	// 0x868D00
 {	G_ASSERT(0); return(true); }
 
 bool ChatProxyResponsePacketClass::Process_Packet(void *)	// 0x868D30
 {	G_ASSERT(0); return(true); }
 
-bool Packet_00ABClass::Process_Packet(void *)	// 0x868D60
+bool ChatProxyResponseListPacketClass::Process_Packet(void *)	// 0x868D60
 {	G_ASSERT(0); return(true); }
 
-bool Packet_00ACClass::Process_Packet(void *)	// 0x868D90
+bool ChatProxyEventPacketClass::Process_Packet(void *)	// 0x868D90
 {	G_ASSERT(0); return(true); }
 
-bool Packet_00A8Class::Process_Packet(void *)	// 0x868DC0
+bool ChatProxyLoginPacketClass::Process_Packet(void *)	// 0x868DC0
 {	G_ASSERT(0); return(true); }
 
 bool CTARequestPacketClass::Process_Packet(void *)	// 0x868DF0
@@ -328,25 +328,25 @@ bool ConfirmedActionResponsePacket::Process_Packet(void *)	// 0x868E20
 bool Packet_00ADClass::Process_Packet(void *)	// 0x868E50
 {	G_ASSERT(0); return(true); }
 
-bool Packet_00AEClass::Process_Packet(void *)	// 0x868E80
+bool GroupServerRequestPacketClass::Process_Packet(void *)	// 0x868E80
 {	G_ASSERT(0); return(true); }
 
 bool GroupServerResponsePacketClass::Process_Packet(void *)	// 0x868EB0
 {	G_ASSERT(0); return(true); }
 
-bool Packet_00B0Class::Process_Packet(void *)	// 0x868EE0
+bool GroupServerCreatePacketClass::Process_Packet(void *)	// 0x868EE0
 {	G_ASSERT(0); return(true); }
 
-bool Packet_00B1Class::Process_Packet(void *)	// 0x868F10
+bool GroupServerUpdatePacketClass::Process_Packet(void *)	// 0x868F10
 {	G_ASSERT(0); return(true); }
 
-bool GuildSimpleGuildSectorPacketClass::Process_Packet(void *)	// 0x868F40
+bool GuildSimpleGuildSectorPacket::Process_Packet(void *)	// 0x868F40
 {	G_ASSERT(0); return(true); }
 
-bool GuildSimpleClientSectorPacketClass::Process_Packet(void *)	// 0x868F70
+bool GuildSimpleClientSectorPacket::Process_Packet(void *)	// 0x868F70
 {	G_ASSERT(0); return(true); }
 
-bool GuildSimpleSectorGuildPacketClass::Process_Packet(void *)	// 0x868FA0
+bool GuildSimpleSectorGuildPacket::Process_Packet(void *)	// 0x868FA0
 {	G_ASSERT(0); return(true); }
 
 bool GuildAdjustContribPacket::Process_Packet(void *)	// 0x868FD0
@@ -376,7 +376,7 @@ bool GuildMessageGuildPacket::Process_Packet(void *)	// 0x869120
 bool GuildStatusUpdatePacket::Process_Packet(void *)	// 0x869150
 {	G_ASSERT(0); return(true); }
 
-bool GuildPermissionsPacketClass::Process_Packet(void *)	// 0x869180
+bool GuildPermissionsPacket::Process_Packet(void *)	// 0x869180
 {	G_ASSERT(0); return(true); }
 
 bool GuildRankNamesRequestClientPacket::Process_Packet(void *)	// 0x8691B0
@@ -403,7 +403,7 @@ bool GuildDeletePlayerPacket::Process_Packet(void *)	// 0x8692D0
 bool GuildPlayerInfoDeletedPacket::Process_Packet(void *)	// 0x869300
 {	G_ASSERT(0); return(true); }
 
-bool GuildDeductFeePacketClass::Process_Packet(void *)	// 0x869330
+bool GuildDeductFeePacket::Process_Packet(void *)	// 0x869330
 {	G_ASSERT(0); return(true); }
 
 bool GlobalContainerRequestPacketClass::Process_Packet(void *)	// 0x869360

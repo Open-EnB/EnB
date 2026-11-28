@@ -6,7 +6,7 @@
 **
 **	The control keys: control_keys.ini's key definitions (a static table keyed by the key name,
 **	'_KeyDefinitions' in the client's asserts) and keymap.ini's user and default mappings, one
-**	ControlKeysManager (RTTI) per SClient ('_Instances'). Declared as far as the rebuilt functions need.
+**	ControlKeysManager (RTTI) per SpaceClientClass ('_Instances'). Declared as far as the rebuilt functions need.
 */
 
 
@@ -100,7 +100,7 @@ struct KeyIdStruct  // NAME 1: neutral (D10): the value of _KeyIds (0x14 bytes)
 	std::string ModuleName;												// +0x04: the client's 'key_id_ref.ModuleName'
 };
 
-class SClient;
+class SpaceClientClass;
 class ControlKeysInstancesClass;  // NAME 1: neutral (D10): _Instances' type, a class over hash_map<unsigned int, ControlKeysManager> (control_keys_manager.cpp)
 
 
@@ -151,22 +151,22 @@ public:
 	void Set_Default_SIM();											// 0x71AE20  // NAME 2: describes what it does
 	const std::string &Get_Key_Name(const ControlKeyValueStruct &key);	// 0x71AE50: the definition's name for a key  // NAME 2: describes what it does
 	void Build_Keys_Map();											// 0x71AEF0: UserKeysMap from UserKeys  // NAME 2: describes what it does
-	void Init(SClient *sclient);					// 0x719D50's, 0x71A3F0  // NAME 2: describes what it does
+	void Init(SpaceClientClass *sclient);					// 0x719D50's, 0x71A3F0  // NAME 2: describes what it does
 	static void Load_Definitions();									// 0x71B1F0: control_keys.ini's sections  // NAME 2: describes what it does
 	static void Load_Keys(std::vector<KeyMappingStruct> *keys, const char *section);	// 0x71BD90: keymap.ini's section (the player's id), else _DefaultUser  // NAME 2: describes what it does
 	static void Save_Keys(std::vector<KeyMappingStruct> *keys, const char *section);	// 0x71C170: keymap.ini's section, and [Default] User  // NAME 2: describes what it does
 	void Find_Mappings(std::vector<KeyMappingStruct *> *vector, int unknown30);	// 0x71A5B0: the user mappings whose definition's +0x30 matches  // NAME 2: describes what it does
-	static bool Create(SClient *client);				// 0x719D50 (sclient.cpp's Init): the client's manager, initialised  // NAME 2: describes what it does
-	static bool Destroy(SClient *client);				// 0x719E10 (sclient.cpp's destructor): only checks that one exists  // NAME 2: what its caller uses it for
-	static ControlKeysManager *Get(SClient *client);		// 0x719E80  // NAME 2: describes what it does
-	static int Get_Key_Id(SClient *client, const std::string &module_name, const ControlKeyValueStruct &key);	// 0x71A100  // NAME 2: describes what it does
+	static bool Create(SpaceClientClass *client);				// 0x719D50 (sclient.cpp's Init): the client's manager, initialised  // NAME 2: describes what it does
+	static bool Destroy(SpaceClientClass *client);				// 0x719E10 (sclient.cpp's destructor): only checks that one exists  // NAME 2: what its caller uses it for
+	static ControlKeysManager *Get(SpaceClientClass *client);		// 0x719E80  // NAME 2: describes what it does
+	static int Get_Key_Id(SpaceClientClass *client, const std::string &module_name, const ControlKeyValueStruct &key);	// 0x71A100  // NAME 2: describes what it does
 	static int Get_Key_Id(ControlKeysManager *manager, const std::string &module_name, const ControlKeyValueStruct &key);	// 0x71A190: the id Register_Key gave the key's definition, or -1  // NAME 2: describes what it does
 	static bool Register_Key(const std::string &module_name, const std::string &key_name, int key_id);	// 0x719ED0  // NAME 2: describes what it does
 	static bool _Does_Key_Exist(const std::string &key_name);	// 0x71B160 (no caller; inlined at 0x719ED0): the client's assert
 	static void Reset_Keys(std::vector<KeyMappingStruct> *keys);			// 0x71C710: one cleared mapping per definition  // NAME 2: describes what it does
 	static void Copy_Keys(std::vector<KeyMappingStruct> *to, const std::vector<KeyMappingStruct> &from);	// 0x71C4C0  // NAME 2: describes what it does
 
-	SClient *Client;									// +0x00: Init's sclient (the constructor zeroes it)  // NAME 2: what it holds
+	SpaceClientClass *Client;									// +0x00: Init's sclient (the constructor zeroes it)  // NAME 2: what it holds
 	std::hash_map<unsigned int, ControlKeyDefStruct *> UserKeysMap;		// +0x04: the client's asserts, keyed by the key value; 100 buckets
 	static std::hash_map<std::string, std::auto_ptr<ControlKeyDefStruct> > _KeyDefinitions;	// 0xBE7BC8: the client's asserts
 	static std::hash_map<std::string, KeyIdStruct> _KeyIds;				// 0xBE7B98 (ctor 0x71D8F0, dtor 0x719C80)  // NAME 1: neutral (D10)
@@ -174,7 +174,7 @@ public:
 	static std::vector<KeyMappingStruct> _DefaultSIM;					// 0xBE7C30: the client's asserts
 	static std::vector<KeyMappingStruct> _DefaultUser;					// 0xBE7BF8: keymap.ini's [Default] User section (Load_Definitions), _DefaultPSW's copy without one  // NAME 2: what it holds
 	static unsigned int _NumKeyDefs;								// 0xBE7C44: the client's asserts
-	static ControlKeysInstancesClass _Instances;			// 0xBE7BE0: the client's asserts, one manager per SClient; a class static (its atexit stub 0x719880 is guarded, 0xBE7B90) of a class type (hash_map<unsigned int, ControlKeysManager> inside its own class gives C2079)
+	static ControlKeysInstancesClass _Instances;			// 0xBE7BE0: the client's asserts, one manager per SpaceClientClass; a class static (its atexit stub 0x719880 is guarded, 0xBE7B90) of a class type (hash_map<unsigned int, ControlKeysManager> inside its own class gives C2079)
 
 	std::vector<KeyMappingStruct> UserKeys;				// +0x1C: the client's asserts
 	std::vector<KeyMappingStruct> RestoreKeys;				// +0x2C: the client's asserts

@@ -6,7 +6,7 @@
 
 #include "ui_slot_data.h"
 
-class SClient;
+class SpaceClientClass;
 class SkillDataClass;	// skill_data.h's (what 0x62D710 returns; ui_attrb_skills.cpp declares it as far as it calls it)
 
 // ui_skills.cpp's window (0xBC bytes, constructor 0x62D1F0, destructor 0x62D300 (deleting 0x62D240)): the slots of the
@@ -14,7 +14,7 @@ class SkillDataClass;	// skill_data.h's (what 0x62D710 returns; ui_attrb_skills.
 class UISkillsClass : public SlotDataInterface	// NAME 3: class-from-file (D24) for app\Client\ui_skills.cpp
 {
 public:
-	UISkillsClass(SClient *client);						// 0x62D1F0  // NAME 1 [client]: as SlotDataInterface's
+	UISkillsClass(SpaceClientClass *client);						// 0x62D1F0  // NAME 1 [client]: as SlotDataInterface's
 	virtual ~UISkillsClass();							// 0x62D300 (deleting 0x62D240)
 	virtual void Unknown_54();							// 0x62D330 (the base's, then the shortcut bar)
 	virtual SlotDataClass *Unknown_88();				// +0x88 0x62D270 (a new SkillDataClass)

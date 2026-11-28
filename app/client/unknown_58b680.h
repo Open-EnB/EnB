@@ -18,7 +18,7 @@ class ProxyRenderObjClass;			// ro_proxy.h's
 class UIMountHullClass : public UIMountClass	// NAME 1: neutral, after its base and the field 'Inventory.Hull' it watches
 {
 public:
-	UIMountHullClass(SClient *client, const LayerClass &layer, RenderObjClass *model, int kind);	// 0x58B680 (deleting 0x58B7F0; the base gets the layer's camera and 0 last)  // NAME 1 [client, layer, model, kind]: what it does with them
+	UIMountHullClass(SpaceClientClass *client, const LayerClass &layer, RenderObjClass *model, int kind);	// 0x58B680 (deleting 0x58B7F0; the base gets the layer's camera and 0 last)  // NAME 1 [client, layer, model, kind]: what it does with them
 	virtual ~UIMountHullClass();						// 0x58B9B0
 	virtual void Unknown_54();							// +0x54 0x58B820 (the viewport, then the base's)
 	virtual void Unknown_58();							// +0x58 0x58BB10 (the base's under a sort scope; the ship's model into Proxy)

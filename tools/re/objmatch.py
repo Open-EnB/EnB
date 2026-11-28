@@ -2320,7 +2320,7 @@ def cr5_fold_held(img, results, pending, done, claimed, text, base, thunk):
 # break_tie). Unlike CK's callseq the caller's other calls need not align (it is not exact: inlining and the stand-ins
 # change them); only the calls into the tied copies are compared. Every named caller that calls a symbol must give it
 # the same address; no other symbol holds or is proposed there. CockpitInterface::Unknown_54 0x57DD20 (its vtable slot)
-# calls ui_cpit's Create_Get at 0x584C80; SClient::Init 0x741180 sclient's two Create_NEW at 0x755AF0 / 0x755B60.
+# calls ui_cpit's Create_Get at 0x584C80; SpaceClientClass::Init 0x741180 sclient's two Create_NEW at 0x755AF0 / 0x755B60.
 USE_CR6_NAMED_CALLERS = True
 # ... and (CR6) a caller located as CK's callseq locates one: the one address the exact functions' calls give its symbol
 # (D188's `called`), an aligned caller's call (USE_CK_CALLSEQ_DEEP) or its vtable slot (USE_CK_CALLSEQ_VTBL)

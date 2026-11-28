@@ -17,7 +17,7 @@
 namespace std { template<class _E> struct char_traits; template<class _Ty> class allocator; template<class _E, class _Tr, class _A> class basic_string; }
 
 class INISection;
-class SClient;
+class SpaceClientClass;
 class ClientObjectClass;
 
 struct GutterColorStruct	// NAME 2: what it holds ('Failed to lookup gutter color %s')
@@ -42,7 +42,7 @@ struct GutterColorSetStruct	// NAME 2: what it holds
 	GutterColorStruct JumpStart;	// +0x48  // NAME 3: the ini name 'JumpStart'
 };
 
-GutterColorSetStruct Unknown_70B0A0(SClient *client, ClientObjectClass *object);	// 0x70B0A0 (radar_data.cpp)  // NAME 1 [Unknown_70B0A0]: the gutter colours of an object
-bool Unknown_70BAC0(SClient *client, ClientObjectClass *object);	// 0x70BAC0  // NAME 1 [Unknown_70BAC0]: the object is a player in the client's group
+GutterColorSetStruct Unknown_70B0A0(SpaceClientClass *client, ClientObjectClass *object);	// 0x70B0A0 (radar_data.cpp)  // NAME 1 [Unknown_70B0A0]: the gutter colours of an object
+bool Unknown_70BAC0(SpaceClientClass *client, ClientObjectClass *object);	// 0x70BAC0  // NAME 1 [Unknown_70BAC0]: the object is a player in the client's group
 
 #endif //__CO_PLAYER_RELATIONSHIP_H

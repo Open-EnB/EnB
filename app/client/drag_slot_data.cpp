@@ -53,7 +53,7 @@
 
 
 // 0x6851B0
-DragSlotDataClass::DragSlotDataClass(SClient *client, SlotDataRenderClass *render) :
+DragSlotDataClass::DragSlotDataClass(SpaceClientClass *client, SlotDataRenderClass *render) :
 	SMouseDragClass(client->Mouse),
 	Client(client),
 	SlotRender(NULL),

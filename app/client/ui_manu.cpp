@@ -183,7 +183,7 @@ class LineDisplayClientClass  // NAME 1: neutral (D10)
 public:
 	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
 	virtual void Unknown_10(); virtual void Unknown_14();
-	virtual SClient *As_Space_Client();					// +0x18 (ClientClass::As_Space_Client; SClient's returns itself)  // NAME 3: the FAIL_IF's
+	virtual SpaceClientClass *As_Space_Client();					// +0x18 (ClientClass::As_Space_Client; SpaceClientClass's returns itself)  // NAME 3: the FAIL_IF's
 };
 
 
@@ -221,7 +221,7 @@ void UIManuClass::Unknown_7C(UIViewClass *view, bool arg)
 
 void UIManuClass::Unknown_58()
 {
-	SClient *sclient = Client->As_Space_Client();
+	SpaceClientClass *sclient = Client->As_Space_Client();
 	int player_id; ((ClientClass *)Client)->Send_Packet(&ManufactureItemCatagoryPacketClass(player_id = sclient->Unknown1138, 1));	// NAME 1 [player_id]: neutral (D10)
 	if (State == UI_CLOSED) {
 		InterfaceSortScopeClass scope(this);
@@ -266,13 +266,13 @@ void UIManuClass::Unknown_58()
 	}
 }
 
-static inline int Manu_Player_Id(SClient *sclient) { return sclient->Unknown1138; }  // NAME 2: the player id read as the client's inline accessor
+static inline int Manu_Player_Id(SpaceClientClass *sclient) { return sclient->Unknown1138; }  // NAME 2: the player id read as the client's inline accessor
 void UIManuClass::Unknown_5C()
 {
 	State = UI_CLOSED;
 	Unknown0AC->Unknown_69DC60();
 	Unknown0BAE = false;
-	SClient *sclient = Client->As_Space_Client();
+	SpaceClientClass *sclient = Client->As_Space_Client();
 	((ClientClass *)Client)->Send_Packet(&ManufactureActionPacketClass(Manu_Player_Id(sclient), 0));
 	((ClientClass *)Client)->Send_Packet(&ManufactureItemCatagoryPacketClass(Manu_Player_Id(sclient), 0));
 	Unknown0B4->Unknown_5C();
@@ -436,7 +436,7 @@ void UIManuClass::Unknown_54()
 	Unknown0B0 = new GadgetSlider(false, &Layer);
 	Unknown0B0->Unknown_66E460(Create_Peek(InterfaceMesh->Peek_Object()), 0, 1);
 	Unknown64.Unknown_6870E0(Unknown0B0, 0x35, View, 1, 0);
-	SClient *sclient = Client->As_Space_Client();
+	SpaceClientClass *sclient = Client->As_Space_Client();
 	Unknown0B4 = Create_Get(new UIInvRobjStripClass(sclient, InterfaceMesh->Peek_Object(), 6, "TSM01A.E%02d", 12));
 	Unknown0B4->Unknown_54();
 	Unknown0B4->Unknown_7C(View, 0);
@@ -1567,7 +1567,7 @@ void UIManuClass::Unknown_5B5320()
 		if (reason.length() && !Unknown0BB4) {
 			LineDisplayClientClass *client = Client; std::string item = Unknown_5B5CD0((DeltaContainer *)Unknown0BA0, client);
 			std::string message = "Unable to create " + item + std::string(". ") + reason + ".";
-			((SClient *)((ClientClass *)Client)->As_Space_Client())->Unknown_74D990(0x11, (char *)message.c_str(), 0);
+			((SpaceClientClass *)((ClientClass *)Client)->As_Space_Client())->Unknown_74D990(0x11, (char *)message.c_str(), 0);
 		}
 	}
 

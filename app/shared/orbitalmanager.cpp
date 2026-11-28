@@ -198,7 +198,7 @@ void OrbitalObject::Update(CameraClass *camera, float time)
 }
 
 
-OrbitalManager::OrbitalManager(SClient *client, MainViewOrbitalCallbackClass *callback) :
+OrbitalManager::OrbitalManager(SpaceClientClass *client, MainViewOrbitalCallbackClass *callback) :
 	Client(client),
 	ViewInterface(callback)
 {

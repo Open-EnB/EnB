@@ -60,7 +60,7 @@ bool ClientTaskClass::Init(KernelClass *kernel, TicketClass *ticket, const std::
 		return false;
 	}
 	Login_Key = login_key;
-	Client = new SClient(this);
+	Client = new SpaceClientClass(this);
 	Ticket = Client->Ticket = *ticket;
 	OptionManagerClass::Instance->Load(ticket->Character_ID, Client);
 	fontDatabase->Unknown_6C47B0();

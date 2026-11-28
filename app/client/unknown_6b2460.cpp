@@ -21,7 +21,7 @@ extern FontManagerClass *Unknown_BE67C4;	// NAME 1: neutral (D10)
 static const char *Unknown_B91C40[4] = { "exit", "button01", "button02", "button03" };	// NAME 1: neutral (D10)
 
 // 0x6B2460
-Unknown6B2460Class::Unknown6B2460Class(SClient *client) :
+Unknown6B2460Class::Unknown6B2460Class(SpaceClientClass *client) :
 	ChatPanelUIBase(client),
 	Slider(NULL),
 	Top(0),

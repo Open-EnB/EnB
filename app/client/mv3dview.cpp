@@ -173,10 +173,10 @@ void Movie3DViewClass::Unknown_18(bool arg)
 {
 	Client->As_Space_Client();
 	if (arg) {
-		((SClient *)Client->As_Space_Client())->Unknown_74C370(Camera);
+		((SpaceClientClass *)Client->As_Space_Client())->Unknown_74C370(Camera);
 		Unknown_7F0410();
 	} else {
-		((SClient *)Client->As_Space_Client())->Unknown_74C370(NULL);
+		((SpaceClientClass *)Client->As_Space_Client())->Unknown_74C370(NULL);
 	}
 }
 

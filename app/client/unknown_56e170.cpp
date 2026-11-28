@@ -39,7 +39,7 @@ UIChatReplyListOptionStruct::~UIChatReplyListOptionStruct()
 }
 
 // 0x56E2A0
-UIChatReplyListClass::UIChatReplyListClass(SClient *client) :
+UIChatReplyListClass::UIChatReplyListClass(SpaceClientClass *client) :
 	InterfaceClass((LineDisplayClientClass *)client),
 	Unknown84(0),
 	Window(NULL),

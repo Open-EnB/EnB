@@ -54,7 +54,7 @@ class LineDisplayClientClass  // NAME 1: neutral (D10)
 public:
 	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
 	virtual void Unknown_10(); virtual void Unknown_14();
-	virtual SClient *As_Space_Client();					// +0x18 (ClientClass::As_Space_Client; SClient's returns itself)  // NAME 3: ui_manu.cpp's FAIL_IF's
+	virtual SpaceClientClass *As_Space_Client();					// +0x18 (ClientClass::As_Space_Client; SpaceClientClass's returns itself)  // NAME 3: ui_manu.cpp's FAIL_IF's
 };
 
 // local_interface_sort.cpp's sort object (8 bytes; as ui_cpit.cpp declares it)
@@ -152,7 +152,7 @@ extern unsigned int Unknown_BE5F34;						// gadget.cpp's: the key modifiers (0x7
 #include "ui_radio_entry.h"	// UIRadioEntryClass (0x5E6290, 0xC4 bytes: requests 6, 7, 9)
 #include "ui_radio_admin.h"	// UIRadioAdminClass (0x5E4160, 0x11C bytes: request 10, kept at +0xE8 too)
 
-// pdaint.cpp's PDA (SClient +0x1284), as far as 0x565F80 calls it
+// pdaint.cpp's PDA (SpaceClientClass +0x1284), as far as 0x565F80 calls it
 
 
 // gadget.cpp's gadget and the panel's buttons (ChatPanelUIBase::Add_Button's, 0x56D510: unknown_675120.h's
@@ -190,7 +190,7 @@ class ChatGadgetClass { public: ChatGadgetClass(LineDisplayClientClass *client);
 
 // @0x561DD0
 // 0x561DD0
-ChatPanelInterface::ChatPanelInterface(SClient *client) :
+ChatPanelInterface::ChatPanelInterface(SpaceClientClass *client) :
 	ChatPanelUIBase(client),
 	UnknownD8(NULL),
 	UnknownDC(NULL),
@@ -254,7 +254,7 @@ ChatPanelInterface::ChatPanelInterface(SClient *client) :
 #include "ui_guild.h"	// UIGuildClass (0x819420, 0x190 bytes: 'Guild Info', kept at +0xE0)
 #include "ui_commands.h"	// UICommandsClass (0x57BAD0, 0xFC bytes: 'Commands')
 #include "ui_petition.h"	// UIPetitionClass (0x5D33B0, 0xCC bytes: 'Get Help')
-class UILogClass : public ChatPanelUIBase { public: UILogClass(SClient *client); char Unknown0A0[0xCC - 0xA0]; };	// ui_log.cpp's log book (0x5AAE40, 0xCC bytes: 'Captain's Log'; declared in ui_log.cpp, no header)
+class UILogClass : public ChatPanelUIBase { public: UILogClass(SpaceClientClass *client); char Unknown0A0[0xCC - 0xA0]; };	// ui_log.cpp's log book (0x5AAE40, 0xCC bytes: 'Captain's Log'; declared in ui_log.cpp, no header)
 #include "..\packets\pkunknown_87dec0.h"	// AvatarEmotePacketClass (0x87DEC0: the avatar's emotes)
 #include "camera_manager.h"	// CameraManagerClass (SClient +0x12A8; 0x79B600 before the ship's emotes)
 // (4 dead size() reads send _Eos out of line; the combo through 0x568910 and the chat window through 0x56C6A0 inlined give 0x56CC30, Remove 0x56CE40 and ChatInt=NULL 0x56CD50 out of line; the deletes' own null tests)
@@ -542,7 +542,7 @@ void ChatPanelInterface::Unknown_60()
 		}
 	}
 	bool changed = false;
-	SClient *sclient = Client->As_Space_Client();
+	SpaceClientClass *sclient = Client->As_Space_Client();
 	if (Unknown265 != sclient->Unknown_74D570()) {
 		Unknown265 = sclient->Unknown_74D570();
 		changed = true;
@@ -562,7 +562,7 @@ void ChatPanelInterface::Unknown_64() {}
 // 0x563280
 bool ChatPanelInterface::Unknown_68(int key)
 {
-	SClient *sclient = Client->As_Space_Client();
+	SpaceClientClass *sclient = Client->As_Space_Client();
 	bool modifier = (Unknown_BE5F34 & 0x70) != 0;
 	switch (key) {
 		case 1:
@@ -641,7 +641,7 @@ bool ChatPanelInterface::Unknown_5638E0(int key)
 // 0x563910
 void ChatPanelInterface::Unknown_563910(unsigned id, bool flag)
 {
-	SClient *sclient = Client->As_Space_Client();
+	SpaceClientClass *sclient = Client->As_Space_Client();
 	if (sclient->Unknown_744B60()) return;
 	InterfaceSortScopeClass sort(this);
 	ClientObjectClass *target = sclient->MainView->Unknown_5C();
@@ -681,7 +681,7 @@ void ChatPanelInterface::Unknown_563910(unsigned id, bool flag)
 // 0x563C50
 void ChatPanelInterface::Unknown_563C50()
 {
-	SClient *sclient = Client->As_Space_Client();
+	SpaceClientClass *sclient = Client->As_Space_Client();
 	RefCountPtr<AvatarClass> object = Unknown110->Unknown02C;
 	if (Unknown118) {
 		if (!sclient->Find_Object(Unknown118) || (object && !object->Unknown204)) {
@@ -805,7 +805,7 @@ void ChatPanelInterface::Unknown_564400(bool on)
 	if (on) UnknownA4[5]->Set_Unknown14(NULL);
 }
 
-// 0x563760 (SClient's 0x74D990): a chat line, logged to chat.log ('**' while the panel is inactive), kept in the
+// 0x563760 (SpaceClientClass's 0x74D990): a chat line, logged to chat.log ('**' while the panel is inactive), kept in the
 // history (+0x13C) and shown by the chat window
 void ChatPanelInterface::Unknown_563760(int type, const std::string &text)
 {
@@ -832,7 +832,7 @@ void ChatPanelInterface::Unknown_563760(int type, const std::string &text)
 // 0x5646A0: talk on channel 'channel' (0..5 channels, 6..8 +0x158 names, 9 reply); false on chat if unavailable (Guild/Group keeps channel)
 bool ChatPanelInterface::Unknown_5646A0(int channel)
 {
-	SClient *sclient = Client->As_Space_Client();
+	SpaceClientClass *sclient = Client->As_Space_Client();
 	int old = Unknown148;
 	Unknown148 = channel; Unknown238.size(); Unknown238.size(); Unknown238.size();	// dead reads: they spend the inline budget the client spent (D272), so case 3's and case 4's assigns inline _Eos and case 5 keeps its own Unknown_B4 call (3 or 4 with the shared label call; 1 without it)
 	if (!ChatInt) return(true);
@@ -931,7 +931,7 @@ void ChatPanelInterface::Unknown_565100()
 // 0x565120
 void ChatPanelInterface::Unknown_565120()
 {
-	SClient *sclient = Client->As_Space_Client();
+	SpaceClientClass *sclient = Client->As_Space_Client();
 	Unknown228.clear();
 	for (int i = 0; Unknown_B7C530[i].Name; i++) {
 		if (OptionManagerClass::Instance->Get_Bool(Unknown_B7C530[i].Option)) {
@@ -1154,7 +1154,7 @@ void ChatPanelInterface::Unknown_565F80()
 	if (Unknown104) {
 		Unknown104->Unknown_54();
 		Unknown104->Unknown_7C(View, 1);
-		SClient *sclient = Client->As_Space_Client();
+		SpaceClientClass *sclient = Client->As_Space_Client();
 		if (sclient->PDAInterface) sclient->PDAInterface->Unknown_695F40();
 	}
 	Unknown108 = 0;
@@ -1226,7 +1226,7 @@ bool ChatPanelInterface::Unknown_567540(int arg)
 				Unknown1E8->Unknown_58();
 				return(true);
 			}
-			SClient *sclient = Client->As_Space_Client(); sclient->Unknown_74D990(17, "Unable to reply - no one to reply to.", 0);
+			SpaceClientClass *sclient = Client->As_Space_Client(); sclient->Unknown_74D990(17, "Unable to reply - no one to reply to.", 0);
 		}
 	}
 	return(false);
@@ -1424,7 +1424,7 @@ void ChatPanelInterface::Unknown_568950()
 // 0x5689D0
 void ChatPanelInterface::Unknown_5689D0(int index)
 {
-	SClient *sclient = Client->As_Space_Client();
+	SpaceClientClass *sclient = Client->As_Space_Client();
 	if (!sclient) return;
 	int id = ((ClientClass *)Client)->AvatarID; AvatarClass *avatar = sclient->Unknown_74C840(id);
 	int gender = 0;
@@ -1988,7 +1988,7 @@ void ChatPanelInterface::Unknown_5698F0(int id)
 void ChatPanelInterface::Unknown_569A00()
 {
 	if (!UnknownD4) return;
-	SClient *sclient = Client->As_Space_Client(); int id = ((ClientClass *)Client)->AvatarID;
+	SpaceClientClass *sclient = Client->As_Space_Client(); int id = ((ClientClass *)Client)->AvatarID;
 	AvatarClass *avatar = sclient->Unknown_74C840(id);
 	std::string text(UnknownD4->Get_Selected_Text());
 	int gender = 0;
@@ -2322,7 +2322,7 @@ void ChatPanelInterface::Unknown_74(ControlKeysManager *manager)
 // 0x56BEF0
 void ChatPanelInterface::Unknown_56BEF0()
 {
-	SClient *sclient = Client->As_Space_Client();
+	SpaceClientClass *sclient = Client->As_Space_Client();
 	FAIL_IF(!sclient) return;
 	if (sclient->Unknown_744B60()) return;
 	ClientObjectClass *co = NULL;
@@ -2477,7 +2477,7 @@ void ChatPanelInterface::Unknown_56C7E0()
 /*
 ** Reconstruction notes (CH1, 2026-10-31)
 **
-** The chat panel: SClient::Init news it (0x561DD0, 0x268 bytes) over ui_chat_panel_base.cpp's class (0x56D280, 0xA0
+** The chat panel: SpaceClientClass::Init news it (0x561DD0, 0x268 bytes) over ui_chat_panel_base.cpp's class (0x56D280, 0xA0
 ** bytes: InterfaceClass and five members of its own). Its table 0xAEFF1C: the destructor 0x562410, slots +0x54
 ** 0x5629E0, +0x58 0x562F50, +0x5C 0x563060, +0x60 0x5630B0, +0x64 0x563260 (empty), +0x68 0x563280, +0x70 / +0x74 the
 ** control keys, +0x7C 0x563620; +0x88 / +0x8C / +0x98 the base's, +0x90 / +0x94 / +0x9C the base's inline defaults

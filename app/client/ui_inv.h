@@ -9,7 +9,7 @@
 #include "ui_slot_data.h"
 #include "inv_transaction.h"
 
-class SClient;
+class SpaceClientClass;
 class RenderObjClass;
 class SlotDataGadget;		// gd_slot_data.h's slot gadgets
 class SlotDataClass;			// slot_data.h's
@@ -25,7 +25,7 @@ public:
 // (the stand-in build's empty-window constructor went with it, 2026-11-21)
 
 
-	UIInvClass(SClient *client, int kind);				// 0x59F3D0 (the kind into +0xBC: the trade window passes 7)  // NAME 1 [client]: neutral; NAME 2 [kind]: what it chooses
+	UIInvClass(SpaceClientClass *client, int kind);				// 0x59F3D0 (the kind into +0xBC: the trade window passes 7)  // NAME 1 [client]: neutral; NAME 2 [kind]: what it chooses
 	virtual ~UIInvClass();								// 0x59F940 (deleting 0x59F440)
 	virtual void Unknown_54();							// 0x59F470 (InvType and the flags by the kind; G_ASSERT 'InvType != INV_NONE' l.306)
 	virtual void Unknown_5C();							// 0x59FD70 (the transaction cancelled, then the base's)
@@ -65,7 +65,7 @@ public:
 // (the stand-in build's empty-window constructor went with it, 2026-11-21)
 
 
-	UIInvStripClass(SClient *client, int kind) : UIInvClass(client, kind) {}	// (inline: 0x59EA30, 0x59EDC0)  // NAME 1 [client]: neutral; NAME 2 [kind]: UIInvClass's
+	UIInvStripClass(SpaceClientClass *client, int kind) : UIInvClass(client, kind) {}	// (inline: 0x59EA30, 0x59EDC0)  // NAME 1 [client]: neutral; NAME 2 [kind]: UIInvClass's
 	virtual void Unknown_54();							// 0x59F2C0 (UIInvClass's, then a button for each of Robjs through slot +0xAC, and Robjs emptied)
 	void Add(RenderObjClass *robj);						// 0x59F060 (FAIL_IF '!robj' l.108; no caller left: inline in the constructors)  // NAME 2: what it does; NAME 3 [robj]: the FAIL_IF's
 
@@ -82,7 +82,7 @@ template<class MODEL>
 class UIInvStripOfClass : public UIInvStripClass	// NAME 1: neutral (D10)
 {
 public:
-	UIInvStripOfClass(SClient *client, MODEL *model, int count, const char *format, int kind);	// 0x59EA30, 0x59EDC0 (6 'TSM01A.E%02d' 12, 1 'TSM01A.RESULT' 13, 1 'TSM01A.OVER' 14, 6 'TRADE00A.C%02d' 15, 1 'JNEWS00.C00' 18)  // NAME 1 [client, model]: neutral; NAME 2 [count, format, kind]: what it does with them
+	UIInvStripOfClass(SpaceClientClass *client, MODEL *model, int count, const char *format, int kind);	// 0x59EA30, 0x59EDC0 (6 'TSM01A.E%02d' 12, 1 'TSM01A.RESULT' 13, 1 'TSM01A.OVER' 14, 6 'TRADE00A.C%02d' 15, 1 'JNEWS00.C00' 18)  // NAME 1 [client, model]: neutral; NAME 2 [count, format, kind]: what it does with them
 };
 
 typedef UIInvStripOfClass<RenderObjClass> UIInvRobjStripClass;	// NAME 1: neutral (D10)

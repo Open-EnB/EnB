@@ -193,11 +193,11 @@ void Unknown764FD0Class::Unknown_765E40(int index, const Vector3 &color)
 }
 
 /*
-**	Reconstruction notes (GS1, 2026-11-10). The object at SClient +0x13CC: 24 chat line colours, one per channel
-**	type, from the options' 'Color_*' entries (0x765010, SClient::Init) and read by the chat window and SClient
+**	Reconstruction notes (GS1, 2026-11-10). The object at SpaceClientClass +0x13CC: 24 chat line colours, one per channel
+**	type, from the options' 'Color_*' entries (0x765010, SpaceClientClass::Init) and read by the chat window and SpaceClientClass
 **	0x750F70 (0x765DF0, white out of range). The client's object also holds 0x765540 (the colours back into the
 **	options: Find_Vector3 / Vector3OptionStruct::Set_Value 0x765BB0), 0x765BE0 (the default colours) and 0x765E40
 **	(one colour set, clamped to 0..1 through WWMath::Clamp; the three parts are read into locals first, in order),
-**	all three called by SClient 0x747FA0 ('/resetcolor', '/setcolor'; B9-2, 2026-11-13). Interim placement (D137):
+**	all three called by SpaceClientClass 0x747FA0 ('/resetcolor', '/setcolor'; B9-2, 2026-11-13). Interim placement (D137):
 **	the file name is the constructor's address; move the functions when the client's file is known.
 */

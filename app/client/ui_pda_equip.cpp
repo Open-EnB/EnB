@@ -32,14 +32,14 @@ static Vector2i Unknown_BE5D28(0x100, 0x100); class LineDisplayClientClass  // N
 public:
 	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
 	virtual void Unknown_10(); virtual void Unknown_14();
-	virtual SClient *As_Space_Client();					// +0x18 (as ui_manu.cpp's)  // NAME 3: the FAIL_IF's in ui_manu.cpp
+	virtual SpaceClientClass *As_Space_Client();					// +0x18 (as ui_manu.cpp's)  // NAME 3: the FAIL_IF's in ui_manu.cpp
 	virtual void Unknown_1C(); virtual void Unknown_20(); virtual void Unknown_24(); virtual void Unknown_28(); virtual void Unknown_2C();
 	virtual ClientObjectClass *Get_Ship();				// +0x30 (client.h's)  // NAME 2: ClientClass's slot +0x30
 };
 template<class C> inline C *Unknown_Find_Valid(DeltaContainer *root, const AuxDataName &name) { C *t = Unknown_Find_Field<C>(root, name); if (t && t->Unknown70) return(t); return(NULL); }	// NAME 1: neutral (D10): as co.cpp's
 #include "..\shared\auxdata\delta_numbering.h"	// 0x5D32D0 numbers the int field's and the slot array's globals
 // @0x5D10C0
-UIPdaEquipClass::UIPdaEquipClass(SClient *client) :
+UIPdaEquipClass::UIPdaEquipClass(SpaceClientClass *client) :
 	UIInvClass(client, 11),
 	ShipPip(NULL),
 	Unknown124(0), Unknown128(0), Unknown12C(0), Unknown130(0), Unknown134(0), Unknown138(0), Unknown13C(0), Unknown140(0), Unknown144(0),

@@ -14,7 +14,7 @@ class UIPetitionPlayerEntryClass;
 class UIPetitionPlayerClass : public UIPetitionAvatarPipClass	// NAME 1: neutral, after its tooltips' section 'UI_PETITION_PLAYER'
 {
 public:
-	UIPetitionPlayerClass(SClient *client);				// 0x5D5740 (deleting 0x5D57B0)  // NAME 1 [client]: ChatPanelUIBase's
+	UIPetitionPlayerClass(SpaceClientClass *client);				// 0x5D5740 (deleting 0x5D57B0)  // NAME 1 [client]: ChatPanelUIBase's
 	virtual ~UIPetitionPlayerClass();					// 0x5D57E0
 	virtual void Unknown_54();							// +0x54 0x5D5880 ('hsi04a': the buttons, the back gadget at 'frame04', the PIP)
 	virtual void Unknown_58();							// +0x58 0x5D5A50 (the base's)

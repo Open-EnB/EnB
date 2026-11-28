@@ -28,7 +28,7 @@ class LineDisplayClientClass  // NAME 1: neutral (D10)
 public:
 	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
 	virtual void Unknown_10(); virtual void Unknown_14();
-	virtual SClient *As_Space_Client();					// +0x18 (SClient's returns itself)  // NAME 3: ui_manu.cpp's FAIL_IF's
+	virtual SpaceClientClass *As_Space_Client();					// +0x18 (SpaceClientClass's returns itself)  // NAME 3: ui_manu.cpp's FAIL_IF's
 };
 
 
@@ -66,7 +66,7 @@ inline void Unknown_Append(std::string &text, const char *more) { text += more; 
 inline bool Is_Unknown2C_02_03(GadgetClass *gadget) { return((bool)(gadget->Is_Unknown2C_02() ? gadget->Unknown2C_03 : 0)); }	// (inline: 0x64E7A0's bit test, one word load)  // NAME 1: neutral (D10)
 
 // NOT EXACT: 0x64B6E0 (the constructor: the +0x174 stores scheduled after the fill's setup)
-TalkTreeInterface::TalkTreeInterface(SClient *client, int mode) :
+TalkTreeInterface::TalkTreeInterface(SpaceClientClass *client, int mode) :
 	Unknown5BB320Class(new UIMeshClass(Unknown_B8BBC4[mode], 1), client),
 	Mode(mode),
 	FontFile(NULL),
@@ -333,7 +333,7 @@ void TalkTreeInterface::Unknown_5C()
 		Unknown_64D230(2);
 		Unknown_64D230(4);
 		Unknown_64C7B0(std::string(" "));
-		SClient *sclient = Client->As_Space_Client();
+		SpaceClientClass *sclient = Client->As_Space_Client();
 		int id = sclient->Unknown1138; sclient->Send_Packet(&SelectTalkTreePacketClass(id, TALK_TREE_QUIT));
 	}
 	Unknown_64E640();
@@ -622,7 +622,7 @@ void TalkTreeInterface::Unknown_60()
 	if (Unknown150) {
 		int response = Unknown154;
 		Unknown150 = false;
-		SClient *sclient = Client->As_Space_Client();
+		SpaceClientClass *sclient = Client->As_Space_Client();
 		int id = sclient->Unknown1138; sclient->Send_Packet(&SelectTalkTreePacketClass(id, response));
 	}
 	if (Unknown158 < 0) {

@@ -19,10 +19,10 @@ typedef InvDataPeekClass Unknown688830Class;	// inv_data_peek.h's view of an inv
 #include "sclient.h"	// SClient (Get_Target 0x744FE0, the slot +0x28 Get_Avatar, the clock +0x10BC) and co.h's ClientObjectClass
 #include "distance_calc_client.h"	// 0x7E6060 / 0x7E6130
 #include "..\shared\auth_product.h"
-class LineDisplayClientClass { public: virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C(); virtual void Unknown_10(); virtual void Unknown_14(); virtual SClient *As_Space_Client(); };	// NAME 1: neutral (D10), as ui_cinfo.cpp declares it
+class LineDisplayClientClass { public: virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C(); virtual void Unknown_10(); virtual void Unknown_14(); virtual SpaceClientClass *As_Space_Client(); };	// NAME 1: neutral (D10), as ui_cinfo.cpp declares it
 #include "slot_data.h"	// SlotDataClass (InvDataClass's base: Unknown_6A7990 / 6A7A00, Unknown_10)
 #include "inv_data.h"	// InvDataClass (Peek_Inv_Data)
-// (InvDataClass's client is SClient: its slot +0x18 Unknown_18 answers itself, 0x740AC0)
+// (InvDataClass's client is SpaceClientClass: its slot +0x18 Unknown_18 answers itself, 0x740AC0)
 extern FontStringFilesClass *Unknown_BE67BC;	// NAME 1: neutral (D10)
 #include "shortcut_range_gauge.h"	// ShortcutRangeGaugeClass (0x6A3D60)
 // the zero 0x68E360 compares with: its destructor is the empty 0x68EAC0
@@ -31,7 +31,7 @@ class Unknown68E360Class : public DurationClass { public: Unknown68E360Class(__i
 void Unknown_496730(RenderObjClass *robj, int a, bool b);	// NAME 1: neutral (D10); NAME 1 [robj, a, b]: neutral
 bool operator!=(const MoneyClass &a, const MoneyClass &b);	// 0x4F0640: money.cpp's inequality
 // 0x521B80: what walks an item's properties (client_item_property_builder.h's class, declared here as far as 0x68C3E0 uses it: that header's Unknown688830Item differs from this file's)
-class ClientItemPropertyBuilderClass { public: ClientItemPropertyBuilderClass(SClient *space_client, Unknown688830Item *item, const RefCountPtr<InvDataClass> &data, int slot); ~ClientItemPropertyBuilderClass(); void Build(UIItemExaminationPropertyRouterBaseClass &router); int Unknown00[4]; };	// 0x521B80 / 0x521BB0 / 0x521BD0
+class ClientItemPropertyBuilderClass { public: ClientItemPropertyBuilderClass(SpaceClientClass *space_client, Unknown688830Item *item, const RefCountPtr<InvDataClass> &data, int slot); ~ClientItemPropertyBuilderClass(); void Build(UIItemExaminationPropertyRouterBaseClass &router); int Unknown00[4]; };	// 0x521B80 / 0x521BB0 / 0x521BD0
 #include "item\client_item_property_special.h"	// ClientItemPropertySpecialClass (0x68C680 asks Is_Usable)
 
 const char *Get_Roman_Numeral(int value);
@@ -121,7 +121,7 @@ bool InventoryRenderClass::Unknown_08(SlotDataClass *sd, RenderObjClass *robj)
 }
 
 // 0x68C3E0
-bool Unknown_68C3E0(SClient *space_client, Unknown688830Item *item, const RefCountPtr<InvDataClass> &data, int slot)	// NAME 1: neutral (D10); NAME 1 [space_client, item, data, slot]: neutral
+bool Unknown_68C3E0(SpaceClientClass *space_client, Unknown688830Item *item, const RefCountPtr<InvDataClass> &data, int slot)	// NAME 1: neutral (D10); NAME 1 [space_client, item, data, slot]: neutral
 {
 	Unknown68C5A0Class visitor;	// NAME 1 [visitor]: neutral
 	ClientItemPropertyBuilderClass info(space_client, item, data, slot);	// NAME 1 [info]: neutral
@@ -180,7 +180,7 @@ void Unknown68C5A0Class::Unknown_04(ClientItemPropertySpecialClass *property)
 void InventoryRenderClass::Unknown_2C(bool force)
 {
 	FAIL_IF(!Peek_Inv_Data()->Get_Client()) return;
-	SClient *space_client = (SClient *)Peek_Inv_Data()->Get_Client()->As_Space_Client();	// NAME 2 [space_client]: its slot
+	SpaceClientClass *space_client = (SpaceClientClass *)Peek_Inv_Data()->Get_Client()->As_Space_Client();	// NAME 2 [space_client]: its slot
 	int slot = Get_Slot();
 	int count = 0;	// NAME 1 [count, usable, item, level, data, other, item_level, now, inv_data, done]: neutral
 	bool usable = true;
@@ -638,7 +638,7 @@ void Unknown68DC20Class::Unknown_2C(bool force)
 	Unknown74 = -1.0f;
 	bool flag = false;
 	FAIL_IF(!Peek_Inv_Data()->Get_Client()) return;
-	SClient *sclient = (SClient *)Peek_Inv_Data()->Get_Client()->As_Space_Client();
+	SpaceClientClass *sclient = (SpaceClientClass *)Peek_Inv_Data()->Get_Client()->As_Space_Client();
 	FAIL_IF(!sclient) return;
 	InventoryRenderClass::Unknown_2C(force);
 	int slot = Unknown20;

@@ -32,7 +32,7 @@ public:
 		NUM_ANSWERS = 5									// (the FAIL_IFs 'num > NUM_ANSWERS')  // NAME 3: the FAIL_IFs'
 	};
 
-	UIAvatarDialogClass(SClient *client);				// 0x551FB0 (deleting 0x5522B0)  // NAME 1 [client]: what ui_cpit.cpp passes
+	UIAvatarDialogClass(SpaceClientClass *client);				// 0x551FB0 (deleting 0x5522B0)  // NAME 1 [client]: what ui_cpit.cpp passes
 	virtual ~UIAvatarDialogClass();						// 0x552310 (G_ASSERT 'State == UI_CLOSED' l.85)
 	virtual void Unknown_54();							// +0x54 0x5524F0 (G_ASSERT 'font' l.117: the buttons, the six text lines, the back gadget, the PIP)
 	virtual void Unknown_58();							// +0x58 0x552980 (opens: the answers shown, the avatar in the PIP over 'PICTURE', 'message_1.wav')

@@ -22,7 +22,7 @@
 class SkillDataClass : public SlotDataClass	// NAME 3: by convention (D24) from the client's file skill_data.cpp
 {
 public:
-	SkillDataClass(SClient *client);								// 0x6A45D0
+	SkillDataClass(SpaceClientClass *client);								// 0x6A45D0
 	virtual ~SkillDataClass();										// +0x00 0x6A4710
 	virtual SkillDataClass *Unknown_14() { return(this); }	// +0x14 0x6A46C0
 	virtual bool Unknown_18();										// +0x18 0x6A4F00
