@@ -254,7 +254,9 @@ class FuncletNamed(unittest.TestCase):
             objmatch.USE_FUNCLET_NAMED = True
 
 
-def _check(test, cases, switch, flag, region=None, off_status='multiple', also_off=()):
+def _check(test, cases, switch, flag, region=None, off_status='multiple', also_off=(), moved=()):
+    """`moved`: addresses whose function a rule added later (or the object's growth) credits before `switch`'s rule
+    (2026-11-27, L1: the flag is no longer reachable): only the exact address is checked, as a regression pin."""
     img = objmatch.ClientImage(objmatch.DEFAULT_CLIENT)
     for name, sym, addr in cases:
         path = os.path.join(OBJS, name)
@@ -264,6 +266,8 @@ def _check(test, cases, switch, flag, region=None, off_status='multiple', also_o
             res = {r['symbol']: r for r in objmatch.match_objects(img, [path], region)}
             test.assertEqual(res[sym]['status'], 'exact')
             test.assertEqual(res[sym]['addresses'], [addr])
+            if addr in moved:
+                continue
             test.assertTrue(res[sym].get(flag))
             # the rule's switch: without it the function stays unresolved
             for sw in (switch,) + tuple(also_off):
@@ -349,7 +353,10 @@ class XcuSubrun(unittest.TestCase):
 class ContribTies(unittest.TestCase):
     def test_cases(self):
         # CR7's per-pool alignment reaches _Lower_bound's 0x44D6D0 from its caller too: off as well
-        _check(self, CONTRIB_TIES, 'USE_CONTRIB_TIES', 'contrib', APP_REGION, also_off=('USE_CR7_POOL_ALIGN',))
+        # CK_CALLSEQ (the caller's call sequence) and, for _Lower_bound, CR6's named callers credit them as well since
+        # 2026-11-18's objects: off too
+        _check(self, CONTRIB_TIES, 'USE_CONTRIB_TIES', 'contrib', APP_REGION,
+               also_off=('USE_CR7_POOL_ALIGN', 'USE_CK_CALLSEQ', 'USE_CR6_NAMED_CALLERS'))
 
 
 class ContribShorts(unittest.TestCase):
@@ -359,8 +366,10 @@ class ContribShorts(unittest.TestCase):
 
 class GapEdge(unittest.TestCase):
     def test_cases(self):
+        # CR1: the named targets place it too; 0x79B4D0 is credited by short_order (`order`) since camera_manager.obj's
+        # neighbours are exact now: moved
         _check(self, GAP_EDGE, 'USE_EX_GAP_EDGE', 'gap_edge', APP_REGION, off_status='short',
-               also_off=('USE_CR1_NAMED_TARGETS',))   # CR1: the named targets place it too
+               also_off=('USE_CR1_NAMED_TARGETS',), moved=('0x79B4D0',))
 
 
 CR3_DBGCONN_HASH_MAP_DTOR = '??1?$hash_map@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@UPacketStatsStruct@@U?$hash@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@U?$equal_to@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@V?$allocator@UPacketStatsStruct@@@2@@std@@QAE@XZ'
@@ -417,7 +426,9 @@ class Cr1NamedTargets(unittest.TestCase):
 
 class CkCallseqVtbl(unittest.TestCase):
     def test_cases(self):
-        _check(self, CK_CALLSEQ_VTBL, 'USE_CK_CALLSEQ_VTBL', 'ck_callseq', APP_REGION, off_status='short')
+        # both are credited by short_known 'vptr' (the vtable store) now: moved
+        _check(self, CK_CALLSEQ_VTBL, 'USE_CK_CALLSEQ_VTBL', 'ck_callseq', APP_REGION, off_status='short',
+               moved=('0x7593E0', '0x759400'))
 
 
 VX_SHARE_BUFFER_V2 = '??1?$ShareBufferClass@VVector2@@@@UAE@XZ'
@@ -660,8 +671,9 @@ class Cr4XcuSparse(unittest.TestCase):
     stretch's other entries, f92f6a0bf: fresh objects of 2026-11-18.)"""
     def test_sparse(self):
         # memconn.obj's _$E 0x827530 was the case until memconn.obj came to list the stretch's entries ('table'):
-        # fresh objects of 2026-11-19; unknown_changes.obj's _$E5 0x4AB5A0 is one now (TB3)
-        path = os.path.join(OBJS, 'unknown_changes.obj')
+        # fresh objects of 2026-11-19; unknown_changes.obj's _$E5 0x4AB5A0 until its entries were listed too (TB3);
+        # item_template.obj's _$E71 0x8312F0 is one now (2026-11-27 objects: without the rule it stays 'short')
+        path = os.path.join(OBJS, 'item_template.obj')
         if not os.path.exists(path):
             self.skipTest(f'{path} missing')
         img = objmatch.ClientImage(objmatch.DEFAULT_CLIENT)
@@ -669,10 +681,10 @@ class Cr4XcuSparse(unittest.TestCase):
         def get():
             return {r['symbol']: r for r in objmatch.match_objects(img, [path], APP_REGION, callers=True)}
         res = get()
-        syms = [k for k, r in res.items() if k.startswith('_$E') and r.get('addresses') == ['0x4AB5A0']]
+        syms = [k for k, r in res.items() if k.startswith('_$E') and r.get('addresses') == ['0x8312F0']]
         self.assertEqual(len(syms), 1)
         r = res[syms[0]]
-        self.assertEqual((r['status'], r['addresses'], r.get('xcu')), ('exact', ['0x4AB5A0'], 'sparse'))
+        self.assertEqual((r['status'], r['addresses'], r.get('xcu')), ('exact', ['0x8312F0'], 'sparse'))
         objmatch.USE_CR4_XCU_SPARSE = False
         try:
             # without the rule a later one still places it (exact, no `xcu`): the sparse rule is what fired
@@ -695,6 +707,8 @@ class ObXcuOnePerEntry(unittest.TestCase):
         def at():
             res = {r['symbol']: r for r in objmatch.match_objects(img, [path], APP_REGION)}
             return [n for n in inits if res[n]['status'] == 'exact' and res[n]['addresses'] == ['0x4ADC50']], res
+        if len(inits) < 2:      # permstr.obj holds one initialiser since 2026-11-27's objects: the twin case is gone
+            self.skipTest('permstr.obj has %d initialiser, the case needs two byte-identical ones' % len(inits))
         got, res = at()
         self.assertEqual(got, inits[:1])
         self.assertEqual([res[n].get('xcu_twin') for n in inits[1:]], ['0x4ADC50'] * (len(inits) - 1))
@@ -715,7 +729,8 @@ class Cr6NamedCallers(unittest.TestCase):
                        '0x755AF0'),
                       ('sclient.obj', '?Create_NEW@@YA?AV?$RefCountPtr@VSpaceTalkTreeInterface@@@@PAVSpaceTalkTreeInterface@@@Z',
                        '0x755B60')],
-               'USE_CR6_NAMED_CALLERS', 'cr6_named', APP_REGION)
+               'USE_CR6_NAMED_CALLERS', 'cr6_named', APP_REGION,
+               moved=('0x755AF0', '0x755B60'))     # `tiebreak` / `range` credit both since sclient.obj lists its neighbours
 
     def test_string_located(self):
         """USE_CR6_STRING_LOCATED: attrib_dir_collective.obj's Add_Destination (not exact, no name) is the one client
@@ -729,14 +744,16 @@ class Cr6NamedCallers(unittest.TestCase):
                       ('attrib_dir_collective.obj', p + 'M@std@@QAE@ABV?$basic_string@DU?$char_traits@D@std@@V?$allocator'
                        '@D@2@@1@ABM@Z', '0x4DD6F0')],
                'USE_CR6_STRING_LOCATED', 'cr6_named', APP_REGION,
-               also_off=('USE_CR7_CALLEE_LOCATED',))    # CR7: its exact callees locate it as well
+               also_off=('USE_CR7_CALLEE_LOCATED',),    # CR7: its exact callees locate it as well
+               moved=('0x4DD6F0', '0x4DDB20'))      # credited by `tiebreak` / `range` now
 
     def test_short(self):
         """USE_CR6_SHORTS: shiputils.obj's RefCountPtr<MeshModelClass>::operator-> (`mov eax, [ecx]; ret`, too short to
         search) is the one target of Unknown_812390's (0x812390, located by the exact functions' calls) client calls
         that holds its bytes, 0x813950."""
         _check(self, [('shiputils.obj', '??C?$RefCountPtr@VMeshModelClass@@@@QBEPAVMeshModelClass@@XZ', '0x813950')],
-               'USE_CR6_SHORTS', 'cr6_named', APP_REGION, off_status='short')
+               'USE_CR6_SHORTS', 'cr6_named', APP_REGION, off_status='short',
+               moved=('0x813950',))      # short_known 'call' places it now
 
 
 _GMR_ITER = ('QAE?AU?$_Hashtable_iterator@U?$pair@$$CBHV?$RefCountPtr@VGalaxyMapRenderXClass@@@@@std@@HU?$hash@H@2@U?$'
