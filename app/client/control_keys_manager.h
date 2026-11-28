@@ -138,7 +138,7 @@ class KeysSavedEvent  // NAME 5: the client's RTTI .?AVKeysSavedEvent@@ (Save's 
 class ControlKeysManager  // NAME 5: the client's RTTI .?AVControlKeysManager@@
 {
 public:
-	private: ControlKeysManager(); public:												// 0x71A300
+	private: ControlKeysManager(); public:												// 0x71A300  // NAME 5: thunk order probable, binary.md 5.11
 
 	KeyMappingStruct *Set_Key(KeyMappingStruct *entry, int set, const ControlKeyStruct &key, bool force);	// 0x71A860: returns the mapping already using key unless force  // NAME 2: describes what it does
 	ControlKeyStruct &Get_Key(KeyMappingStruct *entry, int set);	// 0x71A940: the key of a mapping's set (no caller: inlined)  // NAME 2: describes what it does

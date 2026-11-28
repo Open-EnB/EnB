@@ -33,7 +33,7 @@ struct UIAvatarCustPairStruct	// NAME 1: neutral (D10)
 class StarbaseAvatarCreationInterface : public Unknown5BB320Class	// NAME 3: the client's RTTI (0xB7AC88: SignalBaseClass::MemberCallback<GadgetClass,StarbaseAvatarCreationInterface,...>, the FlashingGadgetEvent handler 0x551320's)
 {
 public:
-	StarbaseAvatarCreationInterface(UIViewClass *view, LayerClass &layer);	// 0x54B7B0 (0x3D0 bytes; the starbase view's 0x69F8F0 passes itself and its +0x7C)  // NAME 1 [view, layer]: what 0x69F8F0 passes
+	StarbaseAvatarCreationInterface(UIViewClass *view, LayerClass &layer);	// 0x54B7B0 (0x3D0 bytes; the starbase view's 0x69F8F0 passes itself and its +0x7C)  // NAME 1 [view, layer]: what 0x69F8F0 passes  // NAME 5: thunk order probable, binary.md 5.11
 	~StarbaseAvatarCreationInterface();					// 0x54BAB0 (table 0xAEF6AC; the deleting one 0x54BA80)
 	void Unknown_551320(FlashingGadgetEvent *event, GadgetClass *gadget);	// 0x551320 (FAIL_IFs '!event', '!gadget': the FlashingGadgetEvent handler)  // NAME 2 [event, gadget]: the FAIL_IFs'
 	virtual void Unknown_54();							// +0x54 0x54BD30 (InterfaceClass's: Init calls it after construction)

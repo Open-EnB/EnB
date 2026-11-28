@@ -62,11 +62,11 @@ ClientObjectClass *TargetFindClass::Find_Next(ClientObjectClass *co)
 ClientObjectClass *TargetFindClass::Select_Prev(ClientObjectClass *co)
 {
 	Filter = 0;
-	return(Select(Find_Prev(co)));
+	return(Select(FindPrev(co)));
 }
 
 // @0x7C4120
-ClientObjectClass *TargetFindClass::Find_Prev(ClientObjectClass *co)
+ClientObjectClass *TargetFindClass::FindPrev(ClientObjectClass *co)
 {
 	std::vector<TargetFindEntryStruct> list;
 	Build_List(list);
@@ -95,7 +95,7 @@ ClientObjectClass *TargetFindClass::Select_Next_Filtered(ClientObjectClass *co)
 // @0x7C4240
 ClientObjectClass *TargetFindClass::Select_Prev_Filtered(ClientObjectClass *co)
 {
-	return(Select(Find_Prev(co)));
+	return(Select(FindPrev(co)));
 }
 
 // @0x7C4270

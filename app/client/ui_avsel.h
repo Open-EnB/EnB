@@ -21,7 +21,7 @@ class UnknownTextGadgetClass;
 class AvatarSelectionInterface : public InterfaceClass	// NAME 3: the client's RTTI (0xB7C068: SignalBaseClass::MemberCallback<GadgetClass,AvatarSelectionInterface,...>)
 {
 public:
-	AvatarSelectionInterface(UIViewClass *view, LayerClass &layer);	// 0x55C650 (charview.cpp's 0x679160, step 2)  // NAME 1 [view, layer]: neutral
+	AvatarSelectionInterface(UIViewClass *view, LayerClass &layer);	// 0x55C650 (charview.cpp's 0x679160, step 2)  // NAME 1 [view, layer]: neutral  // NAME 5: thunk order probable, binary.md 5.11
 	virtual ~AvatarSelectionInterface();				// 0x55CCC0 (0x55CC90 the deleting one)
 	virtual void Unknown_60();							// +0x60 0x55CEA0 (every frame)
 	virtual bool Unknown_68(int key);					// +0x68 0x55D060 (the events: the buttons 1-17, the referral dialog's)  // NAME 1 [key]: InterfaceClass's

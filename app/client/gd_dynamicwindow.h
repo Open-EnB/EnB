@@ -26,7 +26,7 @@ class DynamicWindowGadgetClass : public ButtonGadgetClass  // NAME 3 [DynamicWin
 public:
 	DynamicWindowGadgetClass(const RefCountPtr<DynamicWindowRenderObjectClass> &object, unsigned int mask, unsigned int flags, bool highlight);	// 0x668860  // NAME 1 [object, mask, flags, highlight]: the base's and what it does
 	DynamicWindowGadgetClass(DynamicWindowRenderObjectClass *object, unsigned int mask, unsigned int flags, bool highlight);	// 0x6689C0 (the message box passes 0x55, 3)  // NAME 1 [object, mask, flags, highlight]: the base's and what it does
-	virtual ~DynamicWindowGadgetClass();								// +0x00 0x668B20 (deleting 0x668990)
+	protected: virtual ~DynamicWindowGadgetClass(); public:								// +0x00 0x668B20 (deleting 0x668990)  // NAME 5: thunk order probable, binary.md 5.11
 	virtual RenderObjClass *Unknown_24(Vector3 *position, float *frame, bool indicator) { return(NULL); }	// +0x24 0x668970
 	virtual bool Unknown_30(float x, float y);							// +0x30 0x668C80 (FAIL_IF '!DynamicObject': the pointer inside the window's bounds)
 
