@@ -527,7 +527,7 @@ void Unknown620D20Class::Unknown_621E20()
 	Unknown170 = NULL;
 }
 
-
+static EnvironmentMapManagerClass *Unknown_Env_Maps(CharacterViewClass *view) { return(view->Unknown3A4); }	// NAME 1: neutral (D10); a file-static accessor layer (ui_avsel.cpp reads +0x3A4 through CharacterViewClass::Get_Unknown3A4)
 // NOT EXACT: functional (D64)
 // @0x622180
 ShipCustomizeInterface::ShipCustomizeInterface(UIViewClass *view, LayerClass *layer, int unknown, bool unknown2) :
@@ -553,9 +553,9 @@ ShipCustomizeInterface::ShipCustomizeInterface(UIViewClass *view, LayerClass *la
 	Unknown264(0),
 	Unknown268(NULL)
 {
-	Unknown220[0] = NULL;
-	Unknown220[1] = NULL;
-	Unknown220[2] = NULL;
+	for (int k = 0; k < 3; k++) {
+		Unknown220[k] = NULL;
+	}
 	CharacterView = (CharacterViewClass *)Get_View()->Unknown_28();
 	LoginTask = (LoginTaskClass *)CharacterView->Unknown14->Unknown_08();
 	InterfaceSortScopeClass sort(this);
@@ -571,7 +571,7 @@ ShipCustomizeInterface::ShipCustomizeInterface(UIViewClass *view, LayerClass *la
 			CharacterView->Unknown_67C920(std::string("1492_00_300se.mp3"));
 			CharacterView->Unknown_67C920(std::string("1492_00_301se.mp3"));
 			CharacterView->Unknown_67C920(std::string("1492_00_302se.mp3")); CharacterView->Unknown_67C920(std::string("1492_00_303se.mp3"));
-			TutorialManagerClass::Get_Instance()->Set_Completed("ShipCreationGeometry");
+			TutorialManagerClass::Get_Instance()->Set_Completed("ShipCreationGeometry"); Gadgets.max_size(); Gadgets.max_size(); Gadgets.max_size(); Gadgets.max_size();
 		}
 	}
 	CharacterView->Unknown3A4->Unknown_760770(100005, true);
@@ -580,12 +580,12 @@ ShipCustomizeInterface::ShipCustomizeInterface(UIViewClass *view, LayerClass *la
 	Unknown22C->Unknown_80C220((ViewClass *)CharacterView);
 	Unknown22C->Unknown_74(0);
 	Unknown22C->Unknown_65FFC0(1, NULL);
-	Vector3 position(0.0f, 0.0f, 0.0f);
-	Vector2 size(640.0f, 480.0f);
-	Unknown22C->Unknown_80C540(size, position, 0x1C);
+
+
+	Unknown22C->Unknown_80C540(Vector2(640.0f, 480.0f), Vector3(0.0f, 0.0f, 0.0f), 0x1C);
 	Unknown64.Unknown_6870E0(Unknown22C, 0x34, Get_View(), 1, 0);
 	CharacterView->Unknown_67A8D0(true);
-	Unknown268 = new SClientUnknown1334Class; Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size();	// dead reads (D272): they spend VC6's inline budget so the decal library's inlined constructor calls SwatchArray's vector constructor 0x61FB60 out of line, as the client's (9 more after the tutorial block, with 4 max_size() reads, also send ShipCustPartClass::operator= 0x619320 out of line: over D272's six)
+	Unknown268 = new SClientUnknown1334Class; Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size();	// dead reads (D272): they spend VC6's inline budget so the decal library's inlined constructor calls SwatchArray's vector constructor 0x61FB60 out of line and, with the four after the tutorial block, the Desc copy calls ShipCustPartClass::operator= 0x619320 out of line, as the client's
 	Unknown268->Load("decal_textures.ini", "decal_swatches.ini", "secret_decal_textures.ini");
 	((ControlKeyListClass *)&Unknown4C)->Add(KernelEventClass(0x1B), (void *)0x1C);
 	Unknown_621790(CharacterView->Unknown3A4, Unknown264, Unknown268);
@@ -595,7 +595,7 @@ ShipCustomizeInterface::ShipCustomizeInterface(UIViewClass *view, LayerClass *la
 		Unknown22C->Unknown_84(Unknown160);
 	}
 	Unknown_625A60(Page);
-	Unknown_6211D0(CharacterView->Unknown3A4);
+	Unknown_6211D0(Unknown_Env_Maps(CharacterView));
 	Unknown_621390(Unknown264, Unknown268);
 	Unknown_621500();
 	TheDX8MeshRenderer.Invalidate();
