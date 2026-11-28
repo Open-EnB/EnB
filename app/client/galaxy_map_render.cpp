@@ -820,7 +820,7 @@ bool GalaxyMapRenderClass::Unknown_7A89A0(SphereClass &sphere)
 	return(false);
 }
 
-// NOT EXACT: register / frame (masked residue 317 rows; the Updates push as insert at end, the client's out-of-line insert 0x7AF200): the calls and inlining are the client's (Create_Item and the 0x7AA8C0 / 0x7ABFE0 layers); the client keeps 0 in ebp and this in ebx, frame 0x60 against ours 0x64 (see attempts.csv)
+// NOT EXACT: inline budget (masked residue 77 rows): the iterator loops are for loops (the system render released before Next), the sector remove branch continues (its render released inline), the insert converts render (0x7AF200 out of line), 7 dead sums at the end (D272) give the client's registers (0 in ebp, this in ebx); left: ours inlines the sector insert's ~RefCountPtr<GalaxyMapRenderItemClass> (0x7AE7E0) and the frame is 0x64 against 0x60; 8 sums give the client's calls and frame but this in edi (see attempts.csv)
 
 
 
@@ -869,7 +869,7 @@ void GalaxyMapRenderClass::Unknown_7A8B70()
 	Remove_Stale_Items(Systems);
 	Remove_Stale_Items(Gates);
 	GalaxyMapSystemIteratorClass systems(GalaxyMap);
-	while (systems.Current) {
+	for (; systems.Current; systems.Next()) {
 		RefCountPtr<GalaxyMapRenderSystemClass> render;
 		if (!Create_Item(render, Systems, systems.Current, Scene)) {
 			render->Unknown_7AA8C0();
@@ -879,10 +879,10 @@ void GalaxyMapRenderClass::Unknown_7A8B70()
 
 
 
-		systems.Next();
+
 	}
 	GalaxyMapSectorIteratorClass sectors(GalaxyMap);
-	while (sectors.Current) {
+	for (; sectors.Current; sectors.Next()) {
 		RefCountPtr<GalaxyMapRenderSectorClass> render;
 		if (!Create_Item(render, Sectors, sectors.Current, Scene)) {
 			render->Unknown_7ABFE0();
@@ -893,24 +893,24 @@ void GalaxyMapRenderClass::Unknown_7A8B70()
 
 
 		if (!render->Unknown_7AB6D0(Systems, GalaxyMap->Unknown_7A5400(sectors.Current))) {
-			Remove_Item(Sectors, RefCountPtr<GalaxyMapRenderItemClass>(render));
-		} else if (render->Needs_Update()) {
-			Updates.insert(Updates.end(), RefCountPtr<GalaxyMapRenderItemClass>(render));
+			Remove_Item(Sectors, RefCountPtr<GalaxyMapRenderItemClass>(render)); continue;
+		} if (render->Needs_Update()) {
+			Updates.insert(Updates.end(), render);
 		}
 
 
-		sectors.Next();
+
 	}
 	GalaxyMapGateIteratorClass gates(GalaxyMap);
-	while (gates.Current) {
+	for (; gates.Current; gates.Next()) {
 		RefCountPtr<GalaxyMapRenderGateClass> render;
 		Create_Item(render, Gates, gates.Current, Scene);
 		if (!render->Unknown_7ACBB0(Sectors)) {
 			Remove_Item(Gates, RefCountPtr<GalaxyMapRenderItemClass>(render));
 		}
-		gates.Next();
+
 	}
-	Unknown_7A9500();
+	Unknown_7A9500(); (void)(SectorNum + 1); (void)(SectorNum + 1); (void)(SectorNum + 1); (void)(SectorNum + 1); (void)(SectorNum + 1); (void)(SectorNum + 1); (void)(SectorNum + 1);
 }
 
 static GalaxyMapRenderSystemClass *New_Item(const RefCountPtr<GalaxyMapSystemClass> &data)
