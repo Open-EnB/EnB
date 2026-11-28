@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-405 entries in 208 files.
+404 entries in 208 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -147,7 +147,7 @@ edit the comments in the code, not this file.
 | `app/client/mainview.cpp:687` | `MainViewClass::Render_Planet_Mode` | marker | NOT EXACT: functional from the pseudocode, masked residue 35 (the Unknown10FA-set branch first: VC6 spends the inline budget there as the client); attempts.csv 0x50E6E0 |
 | `app/client/mainview.cpp:899` | `MainViewClass::Update` | marker | NOT EXACT: 1.00 (masked 10 -> 4, raw 207 -> 9, frame 0xCC = client; 4 x87 rows left in r49 frame*offset Row 1; attempts.csv 0x50F1B0) |
 | `app/client/mainview.cpp:1227` | `MainViewClass::Unknown_510D40` | marker | NOT EXACT: frame (0x510D40, 0 masked / 18 raw rows, score 1.00, frame 0x214 = client; DynamicIBAccessClass sits at -0x160 above the 7 Get_Transform spill slots vs client -0x17c below them; attempts.csv) 0x510D40, the sea's tint over the whole screen in the colour arg (0x50CF70 passes +0x16C), no texture |
-| `app/client/mainview.cpp:1408` | `MainViewClass::Unknown_512400` | marker | NOT EXACT: functional (MV2, from the disassembly) |
+| `app/client/mainview.cpp:1408` | `MainViewClass::Unknown_512400` | marker | NOT EXACT: masked residue 29, the client's call string (all five finds through Unknown_Find_Set_Field, Find_Field out of line as the client's 0x514B60 / 0x514BD0: its `t && t->Unknown70` tests; Get_Game_ID and DeltaString::Get with seven dead ChatPanel.Peek() reads at the end (D272) cut the string constructors' and the first operator='s assigns as the client); left: the set's extra != 0 test, one ... |
 | `app/client/mainview.cpp:1786` | `MainViewClass::Unknown_60` | marker | NOT EXACT: x87 operand order, 0 masked rows, 14 raw (HS): ray.Normalize()'s Y / Z loads and the dir / ray dot products load ray first where the client loads dir; attempts.py show 0x512BB0 slot +0x60: the object under the screen point (x, y in 0..1): the avatar's model first unless skip_avatar, then the objects within the camera's far distance and 5 degrees of the ray (the planets and stations, typ... |
 | `app/client/mainview.cpp:2148` | `MainViewClass::Unknown_514010` | marker | NOT EXACT: shape (the second switch's case 0 / 5 block sits after the dispatch in the client); attempts.csv 0x514010 |
 | `app/client/mclient.cpp:133` | `MovieClientClass::Unknown_08` | marker | NOT EXACT: functional (M1): register allocation, the client keeps the next effect node in ebx where this keeps the flag constant 1 (two forms; attempts.py show 0x7EC7C0) 0x7EC7C0 |
@@ -247,7 +247,6 @@ edit the comments in the code, not this file.
 | `app/client/ui_manu.cpp:1115` | `UIManuClass::Unknown_5B3E00` | marker | NOT EXACT: inline budget (the find out of line as the client's, 0x5467F0, through two inline layers; the first two passes are 0x5B3B90 / 0x5B3CA0 inlined, calling 0x5B3CA0 / 0x5B3D70 as the client; left: the third pass's inlined 0x5B3D70, whose vector size the client calls out of line) (0x5B3E00) |
 | `app/client/ui_manu.cpp:1283` | `UIManuClass::Unknown_5B4850` | marker | NOT EXACT: register (as 0x5B2480) (0x5B4850) |
 | `app/client/ui_manu.cpp:1451` | `UIManuClass::Unknown_5B4B10` | marker | NOT EXACT: frame (the NegotiatedCost and ExpectedQuality finds out of line as the client, 0x5466A0 / 0x546710, through two inline layers, and the Casts as the client's; the stack slots differ) (0x5B4B10) |
-| `app/client/ui_mesh.cpp:62` | `UIMeshClass::Unknown_5B8850` | marker | NOT EXACT: 0x5B8850 (0.79): the client's FAIL_IF path jumps to the shared epilogue, ours repeats it |
 | `app/client/ui_mesh.cpp:194` | `UIMeshClass::Unknown_5B8EE0` | marker | NOT EXACT: 0x5B8EE0 (0.50): register choice (slot in edx, the node through lea ecx) |
 | `app/client/ui_mesh.cpp:203` | `UIMeshClass::Unknown_5B8FF0` | marker | NOT EXACT: 0x5B8FF0 (0.50): as 0x5B8EE0 |
 | `app/client/ui_mfd.cpp:494` | `MFDInterface::Update_Line` | marker | NOT EXACT: 0x5BCE50, register only: ours keeps line in ebx (one more saved register), the client in esi, reloading it from its slot |
