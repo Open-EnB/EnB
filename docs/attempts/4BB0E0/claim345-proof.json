@@ -1,0 +1,84 @@
+{
+  "claim": 345,
+  "base_revision": "64e8e4f55296d83901759bb53b0d0d8a641f7352",
+  "source_sha256": {
+    "app/shared/kv_list.cpp": "53b142c853bfc51c09d827823f33ef4b334ee292d907987cb783cb2b226262e5",
+    "app/shared/kv_list.h": "66bbaf07855a07f391822e67a0139388c67886def9748289d63ece55142ceb18",
+    "app/shared/kv_pair.h": "d0def0240e503524ceb9a4c85ecb2c4bf90531f938f04d32c0ae5068a95103f2",
+    "app/shared/kv_util.cpp": "8d0afc182456ac06f20480295c08ad281fd3d2399662166be29414d56d7482e8",
+    "app/shared/kv_pair_value.h": "76ee37e916c0dffda27794d5fa177c6bf6444db720e65f188c28e408308ed981",
+    "app/shared/kv_list_core.h": "56488d238b771e591941777fd5b2a4e5c15b32334465abdf2592cc895d041003",
+    "app/shared/kv_encoder_base.h": "5704cccb8c86abfa345fe3ea401e427429107eb49621af110cd8d35e37d5e273"
+  },
+  "newly_exact": [
+    {
+      "address": "0x4BB0E0",
+      "unit": "app/shared/kv_util.cpp",
+      "bytes": 610,
+      "relocations": 32,
+      "EH_states": 0
+    }
+  ],
+  "remaining_claimed_not_exact": [],
+  "primary_pairs_before": 53,
+  "primary_pairs_after": 54,
+  "primary_symbol_pairs_before": 53,
+  "primary_symbol_pairs_after": 54,
+  "primary_prior_graphs_checked": 53,
+  "all_consumer_units": 1049,
+  "all_consumer_pairs": {
+    "before": 43016,
+    "after": 43017,
+    "gained": [
+      [
+        "app/shared/kv_util.cpp",
+        "0x4BB0E0"
+      ]
+    ],
+    "lost": []
+  },
+  "all_consumer_symbol_pairs": {
+    "before": 43025,
+    "after": 43026,
+    "gained": [
+      [
+        "app/shared/kv_util.cpp",
+        "?Unknown_4BB0E0@@YA_NAAVKVListClass@@AAVINIClass@@PBD@Z",
+        "0x4BB0E0"
+      ]
+    ],
+    "lost": []
+  },
+  "all_consumer_old_function_graphs_checked": 43025,
+  "all_consumer_changed_graphs": [],
+  "all_consumer_graph_normalization": "Explicit before/after build-root prefix on source filename literals for non-app units only (existing D283 variation), preserving the identical relative filename and requiring a real file inside the respective snapshot; proven shared buffer symbol identity; followed EH handler/table placement. All other fixed code bytes, relocation symbols/addends/literal bytes, FuncInfo fields, predecessor states and cleanup bodies compared.",
+  "compile_errors": 0,
+  "missing_recorded_coverage": [],
+  "full_target_relocation_addend_and_literal_payload_audit": "PASS; final-target-audit.json bound to root_final2 source/object. All branches, stack/constants, direct targets and virtual slots verified; no target EH.",
+  "data_proof": "Distinct converted-key storage, same4096-byte pair-value COMMON identity in util/list; util regular BSS initializer+0,key+4 consistently mapped to retail. Both complete before/after list getter bodies independently audited at0x4B6B60 before permitting the explicit proven-data symbol alias.",
+  "limitations": "Helper spelling/linkage and512-byte converted-key capacity are inferred. Object-level role/linkage/relative-offset constraints are checked; a full rebuilt-client image linker placement is not claimed. Non-app old graphs normalize only snapshot build-root prefix on real source-file literals (existing D283), preserving relative names. Final committed-revision preflight is a separate required local handoff check; hosted verification still decides landing.",
+  "investigation": {
+    "primary_inputs": 14,
+    "successful_primary_inputs": 13,
+    "guard_rejections": 1,
+    "changed_investigation_target_inputs": 11,
+    "root_comment_control": 1,
+    "root_integration_control_with_real_member_spelling_restore": 1,
+    "primary_translation_unit_compiles": 39,
+    "consumer_inputs": 13,
+    "consumer_translation_unit_compiles": 39,
+    "raw_groups": 3,
+    "masked_groups": 3
+  },
+  "attempt_check_ack": "An early vector-member rename caused attempts.py to associate the V.erase line with parked event.cpp target0x4E8FE0. That target was never retried. Final source restores baseline Pairs spelling; final check should need no acknowledgement.",
+  "reproduction": "Replay source input records (new files have empty baseline), compile with saved canonical configuration and client source alias, use audit.py with explicit final object/source/matches/known-map. Use audit_consumers.py AFTER_PLAN OUTPUT --aliases FINAL_PROVEN_DATA_ALIAS_JSON. Alias requires complete before/after retail getter audits. Full1049 matching and old43025graphs must preserve both pair sets.",
+  "models": [
+    "gpt-6.1-terra high",
+    "gpt-6.1-terra xhigh",
+    "gpt-6.1-sol high",
+    "Codex coordinator"
+  ],
+  "escalation": "Sol solved the global-preservation obstacle with an ordinary checked free vector helper and declarations-header split. No unmatched claimed target remains; Astra escalation is unnecessary.",
+  "final_source_organization": "Existing unchecked class accessor/API remains unverified legacy reconstruction in the declaration header; actual writer calls the checked free vector helper at client kv_list.h:73. Source ownership and private header names are inferred, with NAME tags. No dummy declarations/types, conditional compilation flags or new dead reads.",
+  "rejected_broad_candidate": "First caller-match form was rejected after full1049 build lost5prior pairs. Ordinary private value helper recovered1; fresh Sol source ownership separation regained remaining4. Full rejected result and all same-path controls are preserved."
+}

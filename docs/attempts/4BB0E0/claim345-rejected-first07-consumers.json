@@ -1,0 +1,155 @@
+{
+  "status": "REJECTED pending regain: claimed target matches but five original pairs lost",
+  "units": 1049,
+  "compiler_errors": 0,
+  "worker_exit_code": 3,
+  "missing_recorded_coverage": [
+    [
+      "app/client/co.cpp",
+      "0x701D70"
+    ],
+    [
+      "app/client/co.cpp",
+      "0x702240"
+    ],
+    [
+      "app/client/co.cpp",
+      "0x7045F0"
+    ],
+    [
+      "app/client/sbaseview.cpp",
+      "0x6A1180"
+    ],
+    [
+      "app/client/sclient.cpp",
+      "0x74D990"
+    ]
+  ],
+  "deltas": {
+    "pairs": {
+      "before": 43016,
+      "after": 43012,
+      "gained": [
+        [
+          "app/shared/kv_util.cpp",
+          "0x4BB0E0"
+        ]
+      ],
+      "lost": [
+        [
+          "app/client/co.cpp",
+          "0x701D70"
+        ],
+        [
+          "app/client/co.cpp",
+          "0x702240"
+        ],
+        [
+          "app/client/co.cpp",
+          "0x7045F0"
+        ],
+        [
+          "app/client/sbaseview.cpp",
+          "0x6A1180"
+        ],
+        [
+          "app/client/sclient.cpp",
+          "0x74D990"
+        ]
+      ]
+    },
+    "symbol_pairs": {
+      "before": 43025,
+      "after": 43021,
+      "gained": [
+        [
+          "app/shared/kv_util.cpp",
+          "?Unknown_4BB0E0@@YA_NAAVKVListClass@@AAVINIClass@@PBD@Z",
+          "0x4BB0E0"
+        ]
+      ],
+      "lost": [
+        [
+          "app/client/co.cpp",
+          "??0?$DeltaItemArrayClass@VDeltaEquipItemClass@@@@QAE@PBDI@Z",
+          "0x702240"
+        ],
+        [
+          "app/client/co.cpp",
+          "??0?$DeltaItemArrayClass@VDeltaItemClass@@@@QAE@PBDI@Z",
+          "0x701D70"
+        ],
+        [
+          "app/client/co.cpp",
+          "??0?$DeltaItemArrayClass@VDeltaSubCategoryClass@@@@QAE@PBDI@Z",
+          "0x7045F0"
+        ],
+        [
+          "app/client/sbaseview.cpp",
+          "?Unknown_6A1180@SBaseViewClass@@QAEXXZ",
+          "0x6A1180"
+        ],
+        [
+          "app/client/sclient.cpp",
+          "?Unknown_74D990@SClient@@QAEXHPADH@Z",
+          "0x74D990"
+        ]
+      ]
+    }
+  },
+  "old_body_graphs_checked": 43025,
+  "changed_graphs": [
+    {
+      "unit": "app/client/co.cpp",
+      "changes": [
+        {
+          "symbol": "??0?$DeltaItemArrayClass@VDeltaItemClass@@@@QAE@PBDI@Z",
+          "reason": "body_or_reference_or_EH",
+          "before_graph_sha256": "da7507fb7c9a082a2ffcddd2a4268763f152151945ce972c8c1b3445ec8f41c8",
+          "after_graph_sha256": "8e58b1eb9cbf856fbc6b8ca96b6a68e94d6ed559ce082f7fec99634c11838c4d"
+        },
+        {
+          "symbol": "??0?$DeltaItemArrayClass@VDeltaEquipItemClass@@@@QAE@PBDI@Z",
+          "reason": "body_or_reference_or_EH",
+          "before_graph_sha256": "64c36e7c4b544dd885a6cb4901852bd97da21d1179ed1ce772368ca228535c22",
+          "after_graph_sha256": "58229a57f7183207a27aa3dae06395452b3cd41e3ba5ae904425931725126384"
+        },
+        {
+          "symbol": "??0?$DeltaItemArrayClass@VDeltaSubCategoryClass@@@@QAE@PBDI@Z",
+          "reason": "body_or_reference_or_EH",
+          "before_graph_sha256": "6970bfa9fca800c28c3a9745aad4ff093664e42a48785bf2edb5103a813d7d7d",
+          "after_graph_sha256": "d60d43f140ef59cc9afcde8b1d140f67da40901b02248d13449726a42a89c9f1"
+        }
+      ]
+    },
+    {
+      "unit": "app/client/sbaseview.cpp",
+      "changes": [
+        {
+          "symbol": "?Unknown_6A1180@SBaseViewClass@@QAEXXZ",
+          "reason": "body_or_reference_or_EH",
+          "before_graph_sha256": "db4cbffc46fb6030d9b5bb3770229c6cce7e37b9e21fb55117feb2386e886b9a",
+          "after_graph_sha256": "d9f4d65ab97523ac5df8cb552dc9cd6cd5f98f3eaf04a37311945c0ef2d3960c"
+        }
+      ]
+    },
+    {
+      "unit": "app/client/sclient.cpp",
+      "changes": [
+        {
+          "symbol": "?Unknown_74D990@SClient@@QAEXHPADH@Z",
+          "reason": "body_or_reference_or_EH",
+          "before_graph_sha256": "5019b61005661b8e8ab5d3f7053667c3332fd9a2b9d812f5fcbb436f1e8fb70f",
+          "after_graph_sha256": "9e172bb9ad7dba130b7fe40b5399e63bf384ccd794b5c6dd9edff7eac61f1488"
+        }
+      ]
+    }
+  ],
+  "source_sha256": {
+    "app/shared/kv_util.cpp": "e8505bbf0b44040a8b49ddc335c6da97c869e40c75be92add9891065b9ff7206",
+    "app/shared/kv_list.cpp": "b0b60b23ba205a8f3c7d15f4d0b61ea747aa90ad368bee36b2fe8297d4a0a50d",
+    "app/shared/kv_list.h": "81b03e33d2a4f7a6935405c9859c0ec640214279a82bf63728ebe9deb9530e7e",
+    "app/shared/kv_pair.h": "65f28413fac360e5094ac3ba05551585a2a27ca8990fca5a507791d73ca43c32"
+  },
+  "graph_normalization": "Explicit before/after build-root prefix on source filename literals for non-app units only (existing D283 variation), preserving the identical relative filename and requiring a real file inside the respective snapshot; proven shared buffer symbol identity; followed EH handler/table placement. All other fixed code bytes, relocation symbols/addends/literal bytes, FuncInfo fields, predecessor states and cleanup bodies compared."
+}

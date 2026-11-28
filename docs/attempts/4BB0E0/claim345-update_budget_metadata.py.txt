@@ -1,0 +1,28 @@
+"""Refresh affected scan rows using the generator; preserve published measurement history."""
+from pathlib import Path
+import importlib.util,json,types
+W=Path(__file__).resolve().parent;R=W.parent.parent
+spec=importlib.util.spec_from_file_location('budgetdev',R/'tools/re/budgetdev.py');b=importlib.util.module_from_spec(spec);spec.loader.exec_module(b)
+old=json.loads((W/'tree/docs/data/budget-devices.json').read_text());work=W/'budget-metadata';work.mkdir(exist_ok=True);b.WORK=str(work)
+measures={b.row_key(r):r['measure'] for r in old['rows'] if 'measure' in r}
+for r in old['rows']:
+ for side,value in r.get('sweep',{}).items():
+  if side=='reads' or value is None:continue
+  measures['_sweep|'+b.row_key(r)+'|'+side[0]+str(value)]={'verdict':'free'}
+for file,row in old['summary']['freesets'].items():
+ measures['_freeset|'+file]=dict(row,rows=[None]*row['rows'])
+(work/'measure-published-history.json').write_text(json.dumps(measures,indent=2)+'\n')
+known,sizes=b.known_starts();led=b.ledger();allexact=set().union(*led.values());others=b.matchaudit.class_index() if hasattr(b,'matchaudit') else None
+if others is None:
+ import sys
+ sys.path.insert(0,str(R/'tools/re'));import matchaudit
+ others=matchaudit.class_index()
+affected=json.loads((W/'integrated-paths.json').read_text());rows=[dict(r) for r in old['rows'] if r['file'] not in affected]
+# Published rows omit spans. cmd_table only uses their count to reproduce
+# the published sweep read count; these are not scan offsets or compiler input.
+for r in rows:
+ if 'sweep' in r:r['spans']=[None]*r['sweep']['reads']
+for rel in affected:
+ rows+=b.scan_file(str(R/rel),rel,known,led.get(rel,allexact if rel.endswith(('.h','.inl')) else set()),sizes,others)
+(work/'scan.json').write_text(json.dumps(dict(rows=rows),indent=2)+'\n');b.cmd_table(types.SimpleNamespace())
+print('Affected scan rows regenerated; historical measurements retain their published meaning and source-unproven status.')

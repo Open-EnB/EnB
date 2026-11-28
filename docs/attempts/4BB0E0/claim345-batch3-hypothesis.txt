@@ -1,0 +1,10 @@
+# Batch 3 hypothesis, before compilation
+
+The shared return improved 34 to 16 differing rows, preserved all 53 pairs,
+but the compiler holds pair in EBP and suffix in EBX, while retail assigns
+them in reverse. The strrchr return itself is copied to EBX first; retail
+tests EAX directly and computes suffix in EBP only after the null check.
+Separate the delimiter pointer from the eventual return value, reflecting
+their distinct logical roles and enabling the compiler to avoid assigning a
+callee-saved register to the delimiter before checking it. Compare actual
+registers, branch sequence, and both 53-pair sets.

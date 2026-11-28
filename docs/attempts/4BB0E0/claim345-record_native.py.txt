@@ -1,0 +1,19 @@
+"""Feed verified native match rows to the official ledger serializer (one unit only)."""
+from pathlib import Path
+import json,sys
+W=Path(__file__).resolve().parent;R=W.parent.parent;sys.path.insert(0,str(R/'tools/vc6'));import ledger
+after=W/'final-consumer-after';delta=json.loads((after/'deltas.json').read_text());assert all(not v['lost'] for v in delta.values())
+graphs=json.loads((W/'final-consumer-graphs/summary.json').read_text());assert not graphs['changes']
+rows=[r for r in json.loads((after/'app-matches.json').read_text()) if r['object']=='kv_util.obj']
+state=ledger.load();f=state['app']['files']['kv_util'];old=set(f['in_tree'])
+exact=[r for r in rows if r['status']=='exact'];f['in_tree']=sorted({a for r in exact for a in r['addresses']});assert old<=set(f['in_tree']) and '0x4BB0E0' in f['in_tree']
+f['ambiguous']=sorted({r['addresses'][0] for r in rows if r['status']=='multiple' and r.get('identical')})
+for field,flag in [('tiebreak','caller_tiebreak'),('shared','shared'),('shared_callers','shared_callers'),('short_known','short_known')]:
+ values=sorted({r['addresses'][0] for r in exact if r.get(flag)})
+ f.pop(field,None)
+ if values:f[field]=values
+ledger.save_state(state)
+ledger.describe('app','shared/kv_util.cpp',"RECONSTRUCTED from client.exe: __FILE__ 'e:\\build\\beta\\G\\app\\shared\\kv_util.cpp' (0xB73A9C), asserts at lines21,45-47,83-85,96-98,111,188,206; KV-triple reader0x4BB3F0 and section helper0x4BB4C0; KV-list writer0x4BB0E0 (610bytes), checked list accessor and shared pair value buffer. Native VC6 SP4 complete caller/reference audit and1049-unit zero-loss proof in docs/attempts/4BB0E0/claim345-proof.json; helper names/linkage inferred, no full rebuilt-image placement claim.")
+ledger.describe('app','shared/kv_list_core.h','Inferred declaration-header split of kv_list.h: existing KVListClass layout, API and legacy unchecked Get preserved; kv_encoder_base.h needs the declarations without the new checked vector helper body. Header spelling/organization and legacy accessor ownership are unverified; caller proof in docs/attempts/4BB0E0/claim345-proof.json.')
+ledger.describe('app','shared/kv_pair_value.h','Inferred private inline Pair_Value_String helper, shared4096-byte static conversion buffer used by the exact list getter0x4B6B60 and writer0x4BB0E0. Actual shared storage/virtual call role audited; original helper spelling/header ownership and full-image linker placement unproven.')
+print('Native rows recorded via ledger.save_state; description via ledger.describe. Only kv_util results updated.')

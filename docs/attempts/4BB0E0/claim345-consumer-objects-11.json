@@ -1,0 +1,402 @@
+[
+  {
+    "unit": "app/packets/pkcreate.cpp",
+    "old_object_sha256": "ea26cf040e2aff82599822e3a44185c6c53e46dcbac64006e27f71a74b91490a",
+    "new_object_sha256": "e4c928bbb82a1dbbbe4f3709e424d6c1bb119da0923bcf15e073d962eb72d91d",
+    "checked": 20,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/packets/pkcreateattachment.cpp",
+    "old_object_sha256": "be1bf379e9a99f0b8a6d706ba29f502f87bc480c2cc3780a9c6cdb93bcd4dd09",
+    "new_object_sha256": "49794462c2452d77ae30298c7c76f286ef1dd8cac86710b9892fc84538915320",
+    "checked": 20,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/packets/pkcreatecharacter.cpp",
+    "old_object_sha256": "f06857185b24be70a6cb531b91b889fdd1b682ea2c7323c141fc4e063f1ff83a",
+    "new_object_sha256": "e109aa939d1d030bf40f94541e930056a6a104e0f0ba8d4f0080c8adf37b1007",
+    "checked": 27,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/packets/pkcta_request.cpp",
+    "old_object_sha256": "fdadf812cc6ebf4cc9ef97d81ca61e2af680a9d5115564b525ed9c2418097f8f",
+    "new_object_sha256": "f4197e3c2e9abe16b15d1670f4c180a01bdd6d6017c12f70b65879b4d0e85231",
+    "checked": 27,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/packets/pkdamage.cpp",
+    "old_object_sha256": "1cb073dcc9cee130337957a0aebc2312e4f96106b886161a592d4cac46478888",
+    "new_object_sha256": "ce09d37f18d0db99aeb4fa4cf3ecf93b9bcd176468754b0bd201e9c53146dcfa",
+    "checked": 19,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/packets/pkdebug.cpp",
+    "old_object_sha256": "a0ba37ce31162ede40d8db50d51d0005d3719e9be07fb5bb8ee4ac66ce508295",
+    "new_object_sha256": "4e9b21cc03a1cd0f8411d18bfa1a3c847797303ba1f8546a73a36eae8e3ee977",
+    "checked": 19,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/packets/pkdialog.cpp",
+    "old_object_sha256": "86904ae096a76e7374d0ecf3a0eaa3568bb5de0a85ee9e25cef539b91b7ade99",
+    "new_object_sha256": "65536af0175be70500d2e03672aa0222edfa9379d9c56ceed1ba3e58857d78f5",
+    "checked": 21,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/packets/pkdirlock.cpp",
+    "old_object_sha256": "90af628779f462456f9657ff7a5e34773db0278451a6fb42091561eee90f896b",
+    "new_object_sha256": "2fcf11a21b9161938543c53413ed49bc757f2d36ed2b98032113d1bcffd2504d",
+    "checked": 46,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/packets/pkequipuse.cpp",
+    "old_object_sha256": "789e1b53efa5cdf7202528693049ed61b52a4d1cad34abc6dedfcf26d51eaf94",
+    "new_object_sha256": "621c2bcb36ecb72dd58b4d7778f8e1d8756c97bd6bbdc254bfea0b1e3ac03f8f",
+    "checked": 20,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/packets/pkfindmember.cpp",
+    "old_object_sha256": "a963baa1ba8d6781d598ee52827c568b6b88b178fc903a867fce3ce7b77ce00b",
+    "new_object_sha256": "bff09976a04f85eeb33794a4b7e895b5fad58d209a2e3c3205885aedff3ecb03",
+    "checked": 24,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/packets/pkfindplayerrequest.cpp",
+    "old_object_sha256": "568618391c2fe110a2947ad7fec6559e1190069493f34918daabb9c172f1e47b",
+    "new_object_sha256": "36b62b1a035a68e877d3ee20eba17b20770de4eaaa3940db6c707f8892f9cb2b",
+    "checked": 26,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/packets/pkfire.cpp",
+    "old_object_sha256": "db1541d67120a85583a8e62cc042c03894365a62555130a73e7d7376ddf90dae",
+    "new_object_sha256": "a26590efe23028e1c83c087238f166163d52e3b9086b22991d81e03898811257",
+    "checked": 23,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/packets/pkflag.cpp",
+    "old_object_sha256": "445e75f13a5d488452a181d0bee54f5423737334d213f97239a1002a1158dcf3",
+    "new_object_sha256": "4c283bf0e6baa413486d22f9a1933d7ad11e033a62b1ef2c4991b9fa9a40ab62",
+    "checked": 10,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/packets/pkgadget.cpp",
+    "old_object_sha256": "73f352a2bf6aa25607c89d636cc77c6c7a6d8e25df9a91564fdb12212852acb9",
+    "new_object_sha256": "a204e5062850fef15e3eda6abe7ec134ecb3d6c949c0fd8ed2f3be30fe061a5c",
+    "checked": 30,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/packets/pkgalaxymap.cpp",
+    "old_object_sha256": "66cd414a03387bdd67a9af5def6aca8c32b8fded66fa0b8752820a9201908f59",
+    "new_object_sha256": "69cb7b2c67f5e8f3995e20d8f44899b4cb667187e3fa641ea88de0dd0251a7e5",
+    "checked": 27,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/packets/pkglobalavatarlist.cpp",
+    "old_object_sha256": "7d73eacc23c4a3ba9638ba136dc7918d7e410c0684f4a32703bc88b7158e7590",
+    "new_object_sha256": "c1860911ce5a23ed92851710e381ca46efe07298f1c3baa2d8b7419bead422e3",
+    "checked": 28,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/packets/pkglobalconnect.cpp",
+    "old_object_sha256": "df2621151771f5bd46849c64b636ee9796a4afff3489538492c235606a7a25d6",
+    "new_object_sha256": "ec35f5414c75edadec752aee7d42ff401c5f362727c246b84567df84d557df2e",
+    "checked": 19,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/packets/pkglobalcreatecharacter.cpp",
+    "old_object_sha256": "7a868491a6bdf89757126c3371784608a7b4bf4ee1f9d1cab8053ee2e65127fe",
+    "new_object_sha256": "40875d2e19741d9103d9e3cf908f5f6d208b4de80827f284310a5bbf41f0071b",
+    "checked": 27,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/packets/pkglobaldeletecharacter.cpp",
+    "old_object_sha256": "9e59fe3563115f9c7c55b47167bdd94fbcb68c9de1e7fdea49134e62189ec80c",
+    "new_object_sha256": "44539cb0e7abaaa3b38195d09f9f87e7343131e4bd5396f26a197982ac1008d1",
+    "checked": 19,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/packets/pkglobalerror.cpp",
+    "old_object_sha256": "1ade5d549a8b2dc0e08723d46becf68e8924fa876fc552163299bdd3c3c2a4b2",
+    "new_object_sha256": "c93aa15ce7e30c8c4c414b35048ba139b8542b3f59a66bdafae711c7ec618347",
+    "checked": 23,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/packets/pkgloballock.cpp",
+    "old_object_sha256": "f211840c0f661d34b91f69a220b3ccd4569e5db613a92f2d3eaf977c32234922",
+    "new_object_sha256": "d452419e2bb2f7832890f352094d2311dbf9f67eec53b9d879dee1c37f4098ec",
+    "checked": 39,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/packets/pkgloballogin.cpp",
+    "old_object_sha256": "b5e8ea9ca49f9897b27e410704a91e9f19363303cf81e8797030f687ecccf64b",
+    "new_object_sha256": "843f09680aebebcb096892be131ae85b19ee1438f4ba1a45fc62c20be020dc43",
+    "checked": 28,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/packets/pkglobalticket.cpp",
+    "old_object_sha256": "9ef6cb3176e295e5f4bb409f85f3b08f8a3834e69a49e3ed6264b8369d7d0b9d",
+    "new_object_sha256": "550d7da1ebb1f855cd8faffdcb4964f65d6301f0b7a3ec4de90dac589abc7bf2",
+    "checked": 19,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/packets/pkglobalticketrequest.cpp",
+    "old_object_sha256": "8573cee2799b0b000ed3a4ae3618f121366311c80bfc601cbeca5cb0009c4514",
+    "new_object_sha256": "4c8314e1fc38ca74f8442fc5337a84c1737260bc0fc62e86206c0c2119971cc2",
+    "checked": 19,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/packets/pkgmdestroyitem.cpp",
+    "old_object_sha256": "556af9cce70331546f9ca0432832a9546b8e29ba2173f1f53d4de58d5c0332f7",
+    "new_object_sha256": "b4a7a8c42e832d64db5654da906c135056f9fd75885ff530e01f4a8f82492cf1",
+    "checked": 22,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/packets/pkgmeditplayerinventory.cpp",
+    "old_object_sha256": "48317d5accac2fb8372b0de2796383d8ee753cbe2a2e8436420759a4456fa460",
+    "new_object_sha256": "391266d8998146a5d80c79ef2c726d1ab856cd401b6f11bbcdaeba61ff74d57c",
+    "checked": 32,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/packets/pkgmresetmission.cpp",
+    "old_object_sha256": "6f94c1e188332cee6d30ea25f58c9c67b5aa24f5b7e45dc80389b72d76012415",
+    "new_object_sha256": "89b968c4dd76f1045f5c900df830c4660bad23484d80067af12af63b324e31b1",
+    "checked": 22,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/packets/pkgmviewmissionlog.cpp",
+    "old_object_sha256": "024e340540903a3fbed2122237cb146cd9a158179845a524c6f77aca928ae938",
+    "new_object_sha256": "ace642b53423ec79216664171591e775b00bf9f179ef8e9c504b54f9612636a5",
+    "checked": 32,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/packets/pkgpsrequest.cpp",
+    "old_object_sha256": "28fab331d6416dd0ca5c29a1790eac6b7fb8b2f6463600b8c9eef008e9921b96",
+    "new_object_sha256": "3842aa6c55a6fda17d118493f570219a037e111bcb60a9b534e1aec6eacfbfca",
+    "checked": 26,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/packets/pkgroup.cpp",
+    "old_object_sha256": "cce7b602135b664c4e493b5732d9fadbff93c261674ed622eb58a46f5c3dcd5c",
+    "new_object_sha256": "4a0bc09b0cc1a612545b6cfc11b8a94fb1e3f9d05a2c95f423ec1e85587b6a23",
+    "checked": 22,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/packets/pkguildplayeronline.cpp",
+    "old_object_sha256": "fce5e7ed6aa5006af33f4e366e4163d3d3d150e5377fbf77bae26ecd6a1e222d",
+    "new_object_sha256": "e0b2d8482f4bbe7e95785fcb9c76e213f8b6901f50625a828bc3e156cce88baa",
+    "checked": 161,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/packets/pkguildranknamesrequestclient.cpp",
+    "old_object_sha256": "2bb5e37d0e10f016de6d12e079daefcef550b4c709b2b1fae1e24827eba5a1b6",
+    "new_object_sha256": "2a53586f7086540f0aada1eb26228c9d998b122549ff41cb060ae4f1c74ea91d",
+    "checked": 103,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/packets/pkhullupgrade.cpp",
+    "old_object_sha256": "d6420f0e6b673e8c68402fd6626c174f0e1b0e89a6a84b3c2385bd29839a1b34",
+    "new_object_sha256": "86715d7fbffaeb30b9ae9f38c87a30776c4c32ce54e4d18bdd1ed81ac3e8c3b7",
+    "checked": 19,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/packets/pkincapacitancerequest.cpp",
+    "old_object_sha256": "9733e799e02da48801527b30f314ecc22c675a7bd80d1801aae23c8c56f4f1c6",
+    "new_object_sha256": "e0bb938a965e6a367f1bf1d4c6a7ce76c5d01656ae874757eff8db9ba2eda97c",
+    "checked": 57,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/packets/pkinitrenderstate.cpp",
+    "old_object_sha256": "4f06a3ca0eecd60bd40ddc724369b80e13a0bedd4131178e458182d8b24412fa",
+    "new_object_sha256": "3630bff70f637aede76fa07f10024f47de5538ab34ef73f8eabb79711f51aa79",
+    "checked": 44,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/packets/pkinventorymove.cpp",
+    "old_object_sha256": "9703bf52f2ac415e2cbc9e61375d553f8d234a5da5c2d72f081372355c259f4f",
+    "new_object_sha256": "24c341e8204791ae424cb43a4df427d05350152624e9a3adf0deaefc661e55a6",
+    "checked": 26,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/packets/pkitemba.cpp",
+    "old_object_sha256": "daf64674d1831bdf616c904f2141b8e49be30b5c0b5300446ec5503ef9b687fe",
+    "new_object_sha256": "d9beae2aa7a45e65834cf9369d5e9dd4b481ba5bf8a8c3b9160056ebc10f2a49",
+    "checked": 30,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/packets/pkitemstate.cpp",
+    "old_object_sha256": "ddf786a284d0b8ae71991b09a8cc5bdeabed89e90019bbe9c4c89b1540f43177",
+    "new_object_sha256": "ee8cad105f8a324338fd28df760e41d55c3748a7a15af81803bb3b420a59dd7b",
+    "checked": 19,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/packets/pkjoblist.cpp",
+    "old_object_sha256": "89105686a6e97572288bd6d4a1bf5d10866b4f0a47b2bcb4a0d144d5cdb92b83",
+    "new_object_sha256": "481d644aadaf9377e4de251c9fba0d454332cdf03dc6b53f3681800432f52080",
+    "checked": 49,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/packets/pklogin.cpp",
+    "old_object_sha256": "d30fa8696d8f191bbfa2b658de0385570814f9a460d9927b6edabb50d109804c",
+    "new_object_sha256": "020192551cfd64a918571172e0694f134013fad56cb0198be31117b6baa0ae53",
+    "checked": 19,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/packets/pklogoff.cpp",
+    "old_object_sha256": "ac3ca42c974ddb6484377107183750d94777b87e2c4ad6f90abc8ce844ff94d6",
+    "new_object_sha256": "2fd7cc26cf647f93969047d1043abc58508a1a88baa6a2968c2844081e2b70ed",
+    "checked": 42,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/packets/pkloothulkpermission.cpp",
+    "old_object_sha256": "cd96935fab5fea8337481ca34b694d6fa03faac8aa20aa624151e90f0a8d4ed1",
+    "new_object_sha256": "34e3ddd2749b5cfdc506aae3df39a2cebf21b56500ec73bb6f753d976d7ec5d1",
+    "checked": 19,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/packets/pkloungenpc.cpp",
+    "old_object_sha256": "fae342544ba0847b542d4f491c5ed155be0d9fb85c2749e18c55de4d874166ab",
+    "new_object_sha256": "ff5f6fa1a7e29fb2f37685816ebd117f661f68700539fd4561322f631e921f2b",
+    "checked": 61,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/packets/pkmanufactureitemcatagorypacket.cpp",
+    "old_object_sha256": "57e1607d145f2ba564fe67411c9268d5a79f3039a2fceb35e7b7285001ec4ee4",
+    "new_object_sha256": "0dc2d13e519236e03e0f76eeb9507ce6b48b751046822bc1cef18cd04aa6c35f",
+    "checked": 68,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/packets/pkmasterjoin.cpp",
+    "old_object_sha256": "f731b5c51b8ca566f99c8b135fab2f14e6c0fe6755c75b2db74103a56821e109",
+    "new_object_sha256": "242d609891db57e40eff2a4cfa5a89335481d11f8e86eac4b58f8aedb2566175",
+    "checked": 19,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/packets/pkmessagechatstream.cpp",
+    "old_object_sha256": "66dc7adfa856da41a47dd2caa1d3cb7028a4d179b95f7fef80c5c2457d2437f7",
+    "new_object_sha256": "a619d79130a1830e62670a9fa2b72732172f0b8dc199d85d9770f94eb9f7080c",
+    "checked": 21,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/packets/pkmessageline.cpp",
+    "old_object_sha256": "24588f588acd2db29a4e36d1889821c5762bd7ac3b2d853a341d297945e5906d",
+    "new_object_sha256": "c9d15efb3cf3150ba313aed820f3b9417229b71149af821c80360fea41c1a1bb",
+    "checked": 40,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/packets/pkmessagestring.cpp",
+    "old_object_sha256": "d1b898ef0fe3df788b68e797075efd63410c2c77241e8ab6519a9d45a22dd88c",
+    "new_object_sha256": "efc74d8dfb5305a224a8ab1872a2b94599c7ae92d486a823956f71dec33dd0d3",
+    "checked": 22,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/packets/pkmessagetime.cpp",
+    "old_object_sha256": "38a10b52f5180984beafef66054c5e68f13045f1e022782dad9140318dfa2788",
+    "new_object_sha256": "661ab1c02c7309b62fd75659c47b4ff4fcae78c11c4f181dbfd9a6891b2b7a68",
+    "checked": 21,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/packets/pkmissionforfeit.cpp",
+    "old_object_sha256": "63dc1b769127417a8f1436258106b0b37b30aa3e33f8da8f600603b7f74a7e9c",
+    "new_object_sha256": "e34aa93b3647f504b299fec3f2af72772e5fb042f08dae791d8252578e303b46",
+    "checked": 26,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  }
+]

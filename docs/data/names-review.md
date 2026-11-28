@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 231 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
-| 3 | by convention from a client-named file or sibling | 1971 |
-| 2 | describes what the code does | 5023 |
-| 1 | neutral placeholder | 25302 |
+| 3 | by convention from a client-named file or sibling | 1973 |
+| 2 | describes what the code does | 5028 |
+| 1 | neutral placeholder | 25303 |
 
 ## For review (score 3 and below)
 
@@ -23795,6 +23795,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Add_Nothing` | `app/shared/kv_time_adds.cpp:7` | the prefix pushed and popped |
 | 1 | `Type` | `app/shared/kv_tripl.h:47` | neutral guess, a short string beside the value |
 | 1 | `Get_Type` | `app/shared/kv_tripl.h:66` | neutral guess |
+| 1 | `Unknown_4BB0E0` | `app/shared/kv_util.cpp:180` | neutral address |
 | 1 | `Unknown_4BB3F0` | `app/shared/kv_util.cpp:203` | neutral (D10) |
 | 1 | `Unknown_BDC0D8` | `app/shared/land.cpp:45` | unknown |
 | 1 | `LandUnknown466BE0Class` | `app/shared/land.cpp:45` | untagged neutral name (D10) |
@@ -29576,17 +29577,18 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Add_Value` | `app/shared/kv_encoder_base.h:76` | describes what it does |
 | 2 | `Add_Pointer` | `app/shared/kv_encoder_base.h:101` | what it does |
 | 2 | `List` | `app/shared/kv_encoder_base.h:113` | describes what it does |
-| 2 | `Add` | `app/shared/kv_list.h:41` | describes what it does |
-| 2 | `Find` | `app/shared/kv_list.h:42` | describes what it does |
-| 2 | `Get_Type_Name` | `app/shared/kv_list.h:43` | describes what it does |
-| 2 | `Get_Value_String` | `app/shared/kv_list.h:44` | describes what it does |
-| 2 | `Set_Value_String` | `app/shared/kv_list.h:46` | describes what it does |
-| 2 | `Keep_Only` | `app/shared/kv_list.h:47` | describes what it does |
-| 2 | `Get_Count` | `app/shared/kv_list.h:49` | describes what it does |
-| 2 | `Get` | `app/shared/kv_list.h:50` | describes what it does |
-| 2 | `KeyEqual` | `app/shared/kv_list.h:52` | describes what it does (the SGI documentation's eqstr) |
-| 2 | `Pairs` | `app/shared/kv_list.h:57` | describes what it does |
-| 2 | `Index` | `app/shared/kv_list.h:58` | describes what it does |
+| 2 | `Get_KV_Pair` | `app/shared/kv_list.h:71` | checked vector access |
+| 2 | `Add` | `app/shared/kv_list_core.h:41` | describes what it does |
+| 2 | `Find` | `app/shared/kv_list_core.h:42` | describes what it does |
+| 2 | `Get_Type_Name` | `app/shared/kv_list_core.h:43` | describes what it does |
+| 2 | `Get_Value_String` | `app/shared/kv_list_core.h:44` | describes what it does |
+| 2 | `Set_Value_String` | `app/shared/kv_list_core.h:46` | describes what it does |
+| 2 | `Keep_Only` | `app/shared/kv_list_core.h:47` | describes what it does |
+| 2 | `Get_Count` | `app/shared/kv_list_core.h:49` | describes what it does |
+| 2 | `Get` | `app/shared/kv_list_core.h:50` | legacy unchecked helper; retail ownership unverified, writer uses Get_KV_Pair |
+| 2 | `KeyEqual` | `app/shared/kv_list_core.h:52` | describes what it does (the SGI documentation's eqstr) |
+| 2 | `Pairs` | `app/shared/kv_list_core.h:57` | describes what it does |
+| 2 | `Index` | `app/shared/kv_list_core.h:58` | describes what it does |
 | 2 | `Clone` | `app/shared/kv_pair.h:32` | descriptive name of the vtable slot (D57) |
 | 2 | `Get_Type_Name` | `app/shared/kv_pair.h:33` | descriptive name of the vtable slot (D57) |
 | 2 | `Get_Value_String` | `app/shared/kv_pair.h:34` | descriptive name of the vtable slot (D57) |
@@ -29595,6 +29597,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Update_Saved` | `app/shared/kv_pair.h:37` | descriptive name of the vtable slot (D57) |
 | 2 | `KVPairTemplateClass` | `app/shared/kv_pair.h:52` | after KVPairClass (D24) and its template role |
 | 2 | `Value` | `app/shared/kv_pair.h:77` | describes what it does |
+| 2 | `Pair_Value_String` | `app/shared/kv_pair_value.h:6` | describes the shared conversion |
+| 2 | `buf` | `app/shared/kv_pair_value.h:8` | shared conversion buffer (retail 0xBE3B60) |
 | 2 | `Add_New_String` | `app/shared/kv_string_encoder.h:24` | what it does |
 | 2 | `Add_Dup_String` | `app/shared/kv_string_encoder.h:25` | what it does |
 | 2 | `Add_Fixed_String` | `app/shared/kv_string_encoder.h:26` | what it does |
@@ -29615,6 +29619,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Index` | `app/shared/kv_tripl.h:73` | describes what it does |
 | 2 | `KeyBuffer` | `app/shared/kv_util.cpp:8` | describes what it does |
 | 2 | `Replace_Char` | `app/shared/kv_util.cpp:18` | describes what it does |
+| 2 | `Make_Section` | `app/shared/kv_util.cpp:42` | describes what it does |
+| 2 | `SectionBuffer` | `app/shared/kv_util.cpp:44` | holds the converted section |
 | 2 | `Make_Key` | `app/shared/kv_util.cpp:81` | describes what it does |
 | 2 | `Add_Section` | `app/shared/kv_util.cpp:108` | describes what it does |
 | 2 | `LandLodDistances` | `app/shared/land.cpp:46` | the distance (in field cells) of level 1 per lod setting, doubled per level (0xB7188C: eight entries, VIDTEST's |
@@ -32229,7 +32235,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `kv_encoder.h` | `app/shared/kv_encoder.h:6` | PROVISIONAL |
 | 3 | `kv_encoder_base.h` | `app/shared/kv_encoder_base.h:18` | header name assumed from the client's kv_encoder_base.cpp |
 | 3 | `KVEncoderBaseClass` | `app/shared/kv_encoder_base.h:57` | by convention (D24) from the client's file kv_encoder_base.cpp |
-| 3 | `KVListClass` | `app/shared/kv_list.h:35` | by convention (D24) from the client's file kv_list.cpp |
+| 3 | `kv_list_core.h` | `app/shared/kv_list_core.h:23` | inferred declaration-header split |
+| 3 | `KVListClass` | `app/shared/kv_list_core.h:35` | by convention (D24) from the client's file kv_list.cpp |
 | 3 | `kv_pair.h` | `app/shared/kv_pair.h:18` | header name assumed from the client's kv_pair.cpp |
 | 3 | `KVPairClass` | `app/shared/kv_pair.h:25` | by convention (D24) from the client's file kv_pair.cpp |
 | 3 | `Key` | `app/shared/kv_pair.h:39` | after the assert's parameter key (kv_pair.cpp) |
@@ -32237,6 +32244,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `kv_pair_string.h` | `app/shared/kv_pair_string.h:18` | header name assumed from the client's kv_pair_string.cpp |
 | 3 | `KVPairStringClass` | `app/shared/kv_pair_string.h:26` | by convention (D24) from the client's file kv_pair_string.cpp |
 | 3 | `Accessor` | `app/shared/kv_pair_string.h:39` | after the assert's parameter accessor (kv_pair_string.cpp) |
+| 3 | `kv_pair_value.h` | `app/shared/kv_pair_value.h:1` | inferred private conversion-header name |
 | 3 | `kv_tripl.h` | `app/shared/kv_tripl.h:24` | by convention from the client's kv_tripl.cpp and this header's assert |
 | 3 | `KVTripleClass` | `app/shared/kv_tripl.h:37` | by convention (D24) from the client's file kv_tripl.cpp |
 | 3 | `KVTripleListClass` | `app/shared/kv_tripl.h:53` | by convention (D24) from kv_tripl.cpp, KVListClass's sibling |

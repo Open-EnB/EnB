@@ -1,0 +1,48 @@
+# Claim 345, fresh individual Sol high investigation
+
+Candidate found; root still owns final all-consumer qualification. `sol_free`
+gains ONLY0x4BB0E0 in both primary pair sets, 53→54, losing none. Strict graphs
+for all1399 old exact rows across co.cpp, sbaseview.cpp and sclient.cpp remain
+unchanged. This recovers all four consumer losses in the previous best form.
+
+I inspected actual prior first01→07 sources/diffs, first02 guard failure,
+regain/private/inclass/comma/lateinclude sources/results, group reassessments,
+same-path control evidence and current attempts. `summary.json` verifies all13
+primary-run replay records (including old runs), and all4 Sol consumer archives.
+No production source, Git state, attempt ledger or shared metadata was edited.
+
+Three hypotheses were written before batches in hypotheses.md. Four changed
+source forms were compiled: sol_split, sol_unsigned and sol_iterator were
+consumer-only diagnostics, never primary target builds; sol_free received both
+consumer and primary builds. Total15 TU compiles, no compiler/guard failures.
+sol_split merely declares Get in core, checked body in kv_list.h, encoder using
+core:7 consumer changes. Unsigned Get parameter and V.begin()[index] separately
+retain the previous4 changes. No unsupported claim of target equivalence is
+made for those three forms. No spelling Cartesian sweep or artificial pad used.
+
+sol_free retains the baseline unchecked Get API in core; the writer instead
+uses a useful checked vector accessor Get_KV_Pair(list.V,i), defined in
+kv_list.h with active G_ASSERT(index < V.size()) at physical73. Encoder's
+inline methods need the class and Add but never checked indexing, so include
+core only. This is ordinary interface/helper separation. Class layout and old
+method structure survive. Existing Get has no independently recovered retail
+caller; checked helper ownership/internal header names remain inferred. Its V
+parameter is client-evidenced; its same-named list member is inferred, not proved.
+
+Actual target610bytes,32refs/addends/literals,branches/returns/receivers and noEH
+pass audit.py on explicit sol_free object/source. Raw and masked hashes share
+52fc7ccf6947aaa827399d4e8855698adfac66be4569b4185a00af742e17e102: one new
+target output group, identical to prior610-byte candidates. All53 primary old
+body/reference/EH graphs pass; before/after97-byte5ref getter audits justify
+4096-byte shared common identity. Distinct512 common and util BSS init0/key4
+fit retail constraints; no full linked-image placement is asserted.
+
+Best overlay: /home/dev/Projects/EnB/.work/claim-345/sol/free (seven files).
+Evidence: runs/sol_free/{input,analysis,deltas,target-audit,data-audit}.json,
+getter audits and three preservation files; consumer-controls/sol_*/record.json.
+Root may restore baseline Pairs member spelling and use list.Pairs in the helper
+call to reduce inferred changes: meaningful proposal, NOT compiled by Sol.
+Root handles name tags/comment corrections and final hash-bound full1049 proof.
+No further source experiments are justified while the productive candidate's
+required global proof is pending. All compiles finished, staging restored and
+exclusive gate released. Model gpt-6.1-sol high; approximately20k tokens.

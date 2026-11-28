@@ -1,0 +1,181 @@
+# Claim 345: independent whole-group review
+
+Verdict: first07 is a credible **candidate**, not final proof. I found no
+source-level semantic fault or evidence-backed reason for another variant.
+The target matches at the reported 610-byte masked level and the three-primary
+comparison retains all 53 old file/address and 53 old symbol/address pairs;
+this does not itself prove relocation targets, linked data placement, all-header
+consumers or preservation of existing relocation graphs. Root owns these gates.
+
+I read actual inputs and confirmed SHA-256 against all four recorded input
+hashes in each of first01 through first07. I inspected the retail writer,
+the retail 0x4B6B60 getter and 0x4BB3F0 reader, the changed source and exact
+sibling source, all seven input ledgers, storage symbols, relevant deltas and
+first07 analysis. The raw listings stay local. No compilation or mutation of
+shared staging, source, or Git was performed in this review.
+
+## Source and consumer assessment
+
+* The writer reads vector size once, tests each index against the current size,
+  then reads the element. Its assertion is exactly `index < V.size()` in
+  kv_list.h line 73: both V and a checked `Get` are supported directly, and
+  kv_tripl.h's sibling uses the same pattern. Existing V is renamed everywhere
+  in kv_list.cpp; repository search found no remaining actual Pairs access
+  elsewhere. Header users still require a full build and pair/graph audit.
+* Retail takes the key pointer at pair +4, asserts base/append/section at
+  kv_util.cpp lines 45/46/47, copies the base and key, replaces every dot in
+  the key, and splits at the last backslash. With a split it appends backslash
+  and prefix, returning the suffix, otherwise it returns the key buffer. It
+  preserves the empty-prefix and empty-suffix behavior of the proposed code.
+  `Replace_Char`'s own line-21 assertion remains. Writer pair assertion is
+  line 188; reader's line 206 and Make_Key/Add_Section asserts are not shifted.
+* Retail calls pair virtual slot +0x0C first with buffer 0xBE3B60 and size
+  0x1000, then slot +8, then formats `{%s}:{%s}` and invokes Put_String with
+  section, entry, value. It stops on failure; an empty list returns true. The
+  candidate emits that actual call order in this compiler; C++ argument
+  evaluation order is not a portable guarantee. No EH machinery is visible
+  in the target; its 0x508 frame, branches, and register flow correspond to
+  the 610-byte comparison, subject to root's full independent byte/relocation
+  audit. The no-argument overload changes no vtable slot and is called through
+  a base pointer; its source spelling and ownership are inferred.
+* Retail getter at 0x4B6BB3 passes 0xBE3B60 with 0x1000 to virtual +0x0C;
+  writer does the same at 0x4BB2CD. Sharing a single static therefore preserves
+  observable identity and overwrite behavior, including reentrant interactions.
+  First07 list and util objects both declare exactly the same 0x1000-byte
+  external COFF common symbol for the inline pair wrapper, with the getter
+  relocating to it. This is meaningful sharing; the old file-local symbol and
+  new common symbol must be mapped to that *same* retail storage in the graph,
+  not compared solely by masked code or ignored as a harmless rename.
+* `Make_Section` and `SectionBuffer` names have NAME tags and their ownership
+  is an inference, not recovered source. External inline linkage makes its
+  0x200 buffer a separate external COMMON, not the reader KeyBuffer. This
+  produces a consistent *possible* data layout; neither COMMON nor the matching
+  instruction bytes prove the original linkage or that a reconstructed full
+  link will place it at 0xBE4E98. Nor do the instructions uniquely prove its
+  0x200 capacity. Preserve this distinction in the final proof and reporting.
+
+## Rejected and retained forms
+
+First01 (612 bytes, 34 masked rows) and first03 (612, 16 rows) leave instruction
+residue. First02 was guard-rejected, not compiled. First04 (610, masked 0)
+puts PermStringInit +0, KeyBuffer +4, SectionBuffer +0x204 in one BSS
+contribution. Retail section buffer is 0xBE4E98, *before* kv_util initializer
+0xBE5098 and KeyBuffer 0xBE509C, so this contribution is incompatible.
+First05 moves the declaration but retains that layout and loses two old
+initializer symbol/address tuples. First06's internal inline helper retains
+that incompatible local BSS order. First07's common section buffer removes
+the forced order; util BSS still has initializer +0, KeyBuffer +4. Its
+independent common storage permits, but does not establish, the retail order.
+No additional speculative forms are indicated by the available evidence.
+
+For integration, revise the stale kv_util.cpp note claiming the writer is
+unbuilt and kv_list.h's claim that no assert names the header. The existing
+budget-held, source-unproven V.size() comment/read changed spelling with the
+field rename; generated budget-device data currently records Pairs.size(), so
+regenerate/check affected metadata without concealing that status. Preserve
+all assertion line positions when changing comments.
+
+Outstanding acceptance checks: root's full relocation/addend/literal/call and
+old-graph audit, retail absolute data identity and constraints, and all
+registered header consumers against the fresh baseline. A constrained object
+mapping is evidence of compatibility, not a full linked-image placement proof.
+
+## All-consumer graph reassessment
+
+The 1049-unit graph audit subsequently found changes in three DeltaItemArray
+constructors in co.cpp, SBaseViewClass::Unknown_6A1180, and
+SClient::Unknown_74D990. I inspected the old/new object graphs, compiler
+responses, and affected source. The constructor differences swap independent
+reload instructions, sclient exchanges the order of two register moves and
+reverses a commutative addressing operand, and sbaseview swaps the calls to
+WWMemoryLogClass::Get_Allocate_Count and Get_Free_Count while adjusting the
+subtraction and registers. They are real object-code changes; only a successful
+same-path control can attribute them to the header changes. All three units
+transitively encounter KV declarations, but do not call the new helper in the
+changed functions. In particular sclient brings in auxdata at line 4145,
+before the changed definition at 4584.
+
+The recorded compile responses use the same e:\build\beta\G source alias but
+use different absolute /I roots: the baseline cache tree versus
+all-consumer-tree. `docs/workflow.md` section 3.1.2 specifically records that
+0x6A1180's operand call order can change with overlay versus canonical compile
+paths, and sbaseview.cpp itself documents this sensitivity. Recompile original
+source under the exact after-tree path and settings as a control before
+attributing the differences to the candidate. A repeat or more controlled
+experiment may be needed if the control differs from both. This review did not
+compile or mutate the shared tree.
+
+If same-path controls demonstrate KV header effects, the concrete isolation
+hypothesis is to restore kv_pair.h and replace its no-argument member overload
+with an external-inline free conversion helper in a small private header included
+only by kv_list.cpp and kv_util.cpp. Its function-local static remains one
+0x1000-byte COMMON and it forwards to the existing virtual buffer/size method;
+this is a meaningful representation of the observed shared buffer, but is
+unproven until the target and getter objects, data alias graph, all old pairs and
+consumers are verified. Keep checked Get's actual assertion in kv_list.h line
+73, since moving it changes the client's reported file. This is a testable
+lead, not evidence that an alternate spelling will preserve the graphs.
+
+## Accessor isolation follow-up
+
+Coordinator's same-path controls supersede the earlier path hypothesis:
+original source changes no graphs, and independently changing the checked
+accessor body reproduces four changed consumer graphs. Include-only and
+V-rename-only controls reproduce none; moving the shared formatter out of
+kv_pair.h recovers the fifth graph, but checked Get still perturbs the other
+four in both in-class and comma-expression forms. The outstanding include
+position test is owned by the compiler worker.
+
+I searched repository accessor patterns for a natural deferred-instantiation
+form. The strongest structural analogue is KVTripleListClass::Get(int),
+whose out-of-class checked inline body is ordinary, not a member template.
+DeltaArrayClass<T>::Get_Value is a templated checked accessor because its
+owning array class already has an independently justified value-type template;
+that does not establish a generic KV-list index or support inventing a dummy
+template parameter. Its `__DELTA_ARRAY_MEMBERS` conditional explicitly exists
+to influence optimizer declaration counts, so it is not evidence for retail
+behavior or a permissible deferred-body fix under the no-artifice constraint.
+No evidence-backed delayed accessor form was found in this read-only review.
+
+## Postsolve review: split core and checked free helper
+
+The sol_free sensitive-consumer control reports no changed old graphs in
+co.cpp (632), sbaseview.cpp (160), and sclient.cpp (607). I independently
+checked all seven current overlay hashes against that control's recorded
+inputs. It is a targeted control, not yet the primary/all-consumer proof.
+
+The overlay retains the existing unchecked `KVListClass::Get(int)` in the
+new `kv_list_core.h`, with the original class member order and vector/index
+layout. Encoder clients now include that core header and therefore retain the
+previous class interface, while `kv_list.h` includes the core and defines the
+separate checked `Get_KV_Pair` helper. The writer explicitly passes list.V to
+that helper. Its actual source line 73 still invokes G_ASSERT with the literal
+`index < V.size()`, so the header path, expression and line are real, not a
+caller-side emulation. There is no assertion suppression, conditional compile
+flag, fake type, new dead read, or generated padding data. The blank physical
+lines preserve the observed assertion line. The existing budget-held V.size()
+read remains unchanged in purpose.
+
+Retail proves the writer's checked access, not whether it came from a member
+or free function. It does not prove the retained unchecked member's existence
+or behavior either. The free helper and header split are useful reconstructions,
+not recovered source ownership. Mark the legacy unchecked helper as unverified,
+and identify the new core/formatter header names as inferred NAMEs. With the
+source's actual unsigned writer index and VC6's 32-bit integer conversions, the
+signed helper parameter reproduces the tested positive and high-bit index
+comparison patterns; compare the compiled body before accepting it. As with
+the preceding candidate, the client assertion reports and continues, so the
+helper must not be presented as a safe bounds-checking API.
+
+The private `Pair_Value_String` helper in the two relevant source files owns
+a function-local 0x1000 static and forwards to the unchanged virtual slot. It
+can represent the observed shared getter/writer storage and reentrant overwrite
+semantics, if fresh objects prove a single common symbol and its correspondence
+to retail 0xBE3B60. The separate 0x200 section static and reader KeyBuffer have
+the same qualification as before: check all relocation/addend/literal mappings,
+object section constraints and old graph identity; compatibility is not an
+absolute linked-image proof. The writer's callback order also needs the fresh
+compiled-body audit because source argument order is not portable. The old
+getter's note and the writer's note should call the new function a free helper,
+not a pair member wrapper. Regenerate affected budget/names metadata and run
+the complete all-consumer and primary checks before retaining any change.

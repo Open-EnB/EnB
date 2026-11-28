@@ -1,0 +1,53 @@
+"""Compare old exact body/relocation and EH graphs, normalizing local EH addresses."""
+from pathlib import Path
+import argparse,hashlib,json,struct,sys
+R=Path('/home/dev/Projects/EnB');sys.path.insert(0,str(R/'tools/re'))
+from objmatch import CoffObject,object_unwind
+ALIASES={}
+def u32(b):return struct.unpack('<I',b)[0]
+def raw(o,s,a,n):return o.data[o.sections[s]['raw']+a:o.sections[s]['raw']+a+n]
+def signature(o,s,a,n,overrides=None):
+ overrides=overrides or {};b=bytearray(raw(o,s,a,n));rr=[]
+ for off,width,kind,sym,add in o.reloc_targets(s,a,n):
+  name=sym['name'];lit=o.literal(sym)
+  if name in overrides:target=overrides[name]
+  elif name in ALIASES:target=['proven_data_address',ALIASES[name]]
+  elif sym['section']-1==s:target=['self',sym['value']-a]
+  elif lit is not None:target=['literal',lit.hex()]
+  elif name.startswith('$') or name.startswith('__eh'):target=['local',o.sections[sym['section']-1]['name'],sym['value']]
+  else:target=['symbol',name]
+  rr.append([off,width,kind,target,add.hex()]);b[off:off+width]=bytes(width)
+ return [b.hex(),rr]
+def graph(o,fun,n):
+ _,s,a,_=fun;un=object_unwind(o,s,a,n)
+ if not un:return dict(body=signature(o,s,a,n),eh=None)
+ off,xsec,states=un;h=next(r[3] for r in o.reloc_targets(s,a,n) if r[0]==off)
+ hs,ha=h['section']-1,h['value'];fr=next(r for r in o.reloc_targets(hs,ha,10) if r[0]==1)
+ fs,fa=fr[3]['section']-1,fr[3]['value']+u32(fr[4]);mr=next(r for r in o.reloc_targets(fs,fa,28) if r[0]==8)
+ ms,ma=mr[3]['section']-1,mr[3]['value']+u32(mr[4]);stategraphs=[]
+ for state in states:stategraphs.append(None if state is None else signature(o,xsec,state[0],state[1]-state[0]))
+ predecessors=[struct.unpack('<i',raw(o,ms,ma+8*i,4))[0] for i in range(len(states))]
+ fi=bytearray(raw(o,fs,fa,28));fi[8:12]=bytes(4)
+ # Section-relative addends have already been followed; compare graph identity rather than table placement.
+ handler=bytearray(raw(o,hs,ha,10));handler[1:5]=bytes(4);hr=[]
+ for ro,width,kind,sym,add in o.reloc_targets(hs,ha,10):
+  if ro==1:hr.append([ro,width,kind,'FuncInfo'])
+  else:hr.append([ro,width,kind,sym['name'],add.hex()]);handler[ro:ro+width]=bytes(width)
+ body=signature(o,s,a,n,{h['name']:['EHhandler']})
+ # Body's local handler addend addresses its position in .text$x; normalize only this audited edge.
+ for rel in body[1]:
+  if rel[0]==off:rel[4]='normalized_EH_handler_addend'
+ return dict(body=body,eh=dict(handler=[handler.hex(),hr],funcinfo=fi.hex(),predecessors=predecessors,states=stategraphs))
+def main():
+ p=argparse.ArgumentParser();p.add_argument('before');p.add_argument('after');p.add_argument('matches');p.add_argument('--object-name',required=True);p.add_argument('--out',required=True);p.add_argument('--aliases');a=p.parse_args()
+ global ALIASES
+ if a.aliases:ALIASES=json.loads(Path(a.aliases).read_text())
+ old=CoffObject(a.before);new=CoffObject(a.after);fa={f[0]:f for f in old.functions()};fb={f[0]:f for f in new.functions()};changes=[];checked=[]
+ for row in json.loads(Path(a.matches).read_text()):
+  if row['object']!=a.object_name or row['status']!='exact':continue
+  name=row['symbol'];checked.append(name)
+  if name not in fb or graph(old,fa[name],row['length'])!=graph(new,fb[name],row['length']):changes.append(name)
+ receipt=dict(before_sha256=hashlib.sha256(Path(a.before).read_bytes()).hexdigest(),after_sha256=hashlib.sha256(Path(a.after).read_bytes()).hexdigest(),checked=len(checked),changes=changes,proven_data_aliases=ALIASES,normalization='Followed EH handler/table placement and explicitly audited shared-buffer symbol aliases; body fixed bytes, all other relocations/addends/literal payloads, handler, FuncInfo fixed fields, predecessor states and cleanup graphs compared')
+ Path(a.out).write_text(json.dumps(receipt,indent=2)+'\n');print(json.dumps(receipt))
+ if changes:raise SystemExit(1)
+if __name__=='__main__':main()

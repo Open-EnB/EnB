@@ -1,0 +1,10 @@
+# Batch 6 hypothesis, before compilation
+
+First06 shows an internal inline helper's local static remains in the same
+BSS contribution, in the wrong relative order. Retail references establish
+that the PermStringInit preceding section buffer is from kv_pair.cpp, while
+the PermStringInit between buffers is from kv_util.cpp. A normal externally
+linked inline helper can emit its local static as a common external symbol,
+as observed in the value-buffer wrapper. Test that genuine linkage variant;
+examine the COFF section and selection, original symbol pairs and code. A
+common symbol alone does not prove its position in the final retail link.

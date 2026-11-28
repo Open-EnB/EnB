@@ -1,0 +1,74 @@
+# Claim 345, individual first pass: 0x4BB0E0
+
+Status: candidate, not proven or kept. First07 produces a 610-byte target
+with zero masked instruction residue and gains its primary file/address and
+symbol/address pairs while losing none of the 53 original pairs in either set.
+These are three-primary-TU results, not the required all-consumer result or
+proof of the absolute linked storage addresses. Coordinator owns integration,
+fresh final-object audits, all-consumer proof and disposition. No production
+source or git state was changed by this worker; the exclusive compiler gate
+was released with no running jobs.
+
+Evidence: `../runs/firstNN/inputs/`, `input.json` (hash-bound source and
+lossless diff), result and deltas, native objects and logs; `analysis.json`,
+`explain.json`, and `objdiff.txt` where analysis ran. `batch1.md` through
+`batch6.md` contain hypotheses written before their batches; numbered Python
+preparers generate the subsequent inputs from the scratch candidates.
+Base is the immutable `../tree`, commit 64e8e4f55296d83901759bb53b0d0d8a641f7352.
+
+## Reconstructed operations and evidence
+
+Retail 0x4BB0E0 receives list, INI object and base string as cdecl arguments,
+captures list size, then visits each pair by index. It checks `index < V.size()`
+in the inlined list accessor (kv_list.h:73) and `pair` in the writer
+(kv_util.cpp:188). Its inlined section helper checks `base`, `append`, and
+`section` on lines 45, 46, and 47, respectively; copies base and the key,
+changes dots to backslashes, and splits at the last backslash. If there is a
+split it appends a separator and prefix to base, returning the suffix as the
+entry; otherwise it returns the entire converted key. It evaluates the pair's
+virtual value-to-string operation before its virtual type accessor, formats
+`{%s}:{%s}`, calls INIClass::Put_String, exits false on the first failure and
+otherwise returns true. The local buffers are 0x200 and 0x300 bytes; value
+conversion receives a 0x1000-byte shared buffer. Assertions remain active.
+
+The V name is directly supported by the exact client assert text. KVTripleListClass
+has a structurally analogous checked Get (kv_tripl.h:90-94). Other added names
+are descriptive/neutral guesses, with NAME tags. Candidate helper structure and
+the no-argument pair value wrapper are inferences, not recovered source names.
+Retail references to 0xBE3B60 occur in both 0x4B6B60 and this writer, while
+each immediately calls the same virtual slot +0x0C with size 0x1000: the
+candidate represents this as a zero-argument inline KVPairClass wrapper with
+a function-local static. The existing list lookup calls that wrapper.
+
+## Trial ledger
+
+| Input | Classification and result |
+|---|---|
+| first01 | Compiled initial reconstruction, 612 bytes, 34 masked rows, 53/53 old primary pairs in both sets. The suffix was calculated after strcat, with corresponding register differences. |
+| first02 | Captured but **not compiled**: runner rejected moved kv_util.cpp assertion/log lines. Input and failure.json preserved; no compiler result. |
+| first03 | Compiled line-neutral shared-return helper; 612 bytes, 16 masked rows; 53/53 primary pairs in both sets. Pointer lifetime improved, but pair/suffix registers were reversed. |
+| first04 | Separate delimiter and result variables; 610 bytes, zero masked residue, target gain and zero primary pair losses. Reject this storage representation: sec5 holds PermStringInit +0, KeyBuffer +4, SectionBuffer +0x204; this coupled order cannot represent the retail relative addresses. |
+| first05 | Source declaration/include rearrangement, compiled; target file/address gain but lost symbol pairs `_$E15` at 0x4BB0C0 and `_$E17` at 0x4BB090, replaced by `_$E2` and `_$E4`. Reject. COFF buffer order stayed the same as first04. No separate analyzer report was run. |
+| first06 | Local static in an internal inline helper; target masked residue zero and 53/53 primary pairs preserved. Reject coupled BSS layout: PermStringInit +0, KeyBuffer +4, SectionBuffer +0x204 (local static), same incompatible order as first04. |
+| first07 | External inline helper with local static; target masked residue zero and 53/53 primary pairs preserved. SectionBuffer is a 0x200-byte external common symbol, section 0, storage class 2, with no COFF section association/selection; kv_util's sec5 holds PermStringInit +0 and KeyBuffer +4. The pair-value buffer is the same 0x1000-byte external common symbol in both kv_list and kv_util objects. This permits a mapping consistent with retail but does not establish actual linker placement. |
+
+The preparer initially produced a transient, uncompiled header preparation
+that put the new inline Get outside the header guard and accidentally removed
+the hash_set forward declaration. This draft was overwritten before any runner
+invocation and was not hash-captured; it is not a compiler input or test.
+The final generated candidate directories correspond to the captured runner
+inputs except candidate2, whose earlier guard-rejected version is in first02.
+No other prepared-but-untested variant is claimed.
+
+## Storage and remaining proof
+
+Retail references tie the static initializer at 0xBE4E94 to kv_pair.cpp and
+kv_util's initializer to 0xBE5098; section storage is at 0xBE4E98 and reader
+KeyBuffer is at 0xBE509C. The common-symbol trial does not force their placement
+and cannot by itself prove that a final linker gives those addresses. Audit
+all target relocations and addends, literal payloads, calls/receivers, full
+branches and frame, prior pairs' relocation graphs, final linked storage and
+all consumers of changed headers on fresh objects. Reject if those checks fail.
+The helper and buffer sizes are evidence-based but their source spelling and
+linkage remain inferred. No inline assembly, padding, flags or new dead reads
+were introduced. Existing list lookup's preexisting budget expression remains.

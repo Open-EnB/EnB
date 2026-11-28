@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "Inferred private inline Pair_Value_String helper, shared4096-byte static conversion buffer used by the exact list getter0x4B6B60 and writer0x4BB0E0. Actual shared storage/virtual call role audited; original helper spelling/header ownership and full-image linker placement unproven."
+}

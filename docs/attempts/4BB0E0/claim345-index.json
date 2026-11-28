@@ -1,0 +1,59 @@
+{
+  "claim": 345,
+  "address": "0x4BB0E0",
+  "base_revision": "64e8e4f55296d83901759bb53b0d0d8a641f7352",
+  "trials": [
+    "docs/attempts/4BB0E0/claim345-first01.json",
+    "docs/attempts/4BB0E0/claim345-first02.json",
+    "docs/attempts/4BB0E0/claim345-first03.json",
+    "docs/attempts/4BB0E0/claim345-first04.json",
+    "docs/attempts/4BB0E0/claim345-first05.json",
+    "docs/attempts/4BB0E0/claim345-first06.json",
+    "docs/attempts/4BB0E0/claim345-first07.json",
+    "docs/attempts/4BB0E0/claim345-root_final.json"
+  ],
+  "attempt_forms": 6,
+  "compiler_guard_failures": 1,
+  "formatting_controls": 1,
+  "raw_output_groups": 3,
+  "masked_output_groups": 3,
+  "replay": "Read each source from git show base_revision:unit as UTF-8, verify base_sha256, apply character-offset edits from last to first, verify input_sha256. All eight captured inputs round-trip. Use saved canonical compiler response files, mapping absolute root/snapshot/SDK paths to the corresponding unchanged local resources.",
+  "proof": "docs/attempts/4BB0E0/claim345-proof.json",
+  "inferred_source": "Helper names/linkage and converted-key capacity are inferred. COMMON independence and shared symbol identity fit retail data roles/section constraints; no full rebuilt image placement is asserted.",
+  "models": [
+    "gpt-6.1-terra high",
+    "gpt-6.1-terra xhigh",
+    "gpt-6.1-sol high",
+    "Codex coordinator"
+  ],
+  "escalation": "Sol/Astra needed only for remaining unmatched targets after normal cycle; target reaches a complete caller audit in first pass. Mandatory group review completed with zero forms.",
+  "outcome": "NEWLY EXACT claimed writer0x4BB0E0,610bytes; all1049units compiled, all43025oldgraphs preserved, +1file/address +1symbol/address,0lost. Final committed revision preflight remains separately required.",
+  "regain_forms": 4,
+  "regain_report": "docs/attempts/4BB0E0/claim345-regain-report.txt",
+  "failed_all_consumer_proof": "docs/attempts/4BB0E0/claim345-rejected-first07-consumers.json",
+  "Sol_or_Astra": "Sol solved the global-preservation obstacle with an ordinary checked free vector helper and declarations-header split. No unmatched claimed target remains; Astra escalation is unnecessary.",
+  "counts": {
+    "primary_inputs": 14,
+    "successful_primary_inputs": 13,
+    "guard_rejections": 1,
+    "changed_investigation_target_inputs": 11,
+    "root_comment_control": 1,
+    "root_integration_control_with_real_member_spelling_restore": 1,
+    "primary_translation_unit_compiles": 39,
+    "consumer_inputs": 13,
+    "consumer_translation_unit_compiles": 39,
+    "raw_groups": 3,
+    "masked_groups": 3
+  },
+  "final_source_hashes": {
+    "app/shared/kv_list.cpp": "53b142c853bfc51c09d827823f33ef4b334ee292d907987cb783cb2b226262e5",
+    "app/shared/kv_list.h": "66bbaf07855a07f391822e67a0139388c67886def9748289d63ece55142ceb18",
+    "app/shared/kv_pair.h": "d0def0240e503524ceb9a4c85ecb2c4bf90531f938f04d32c0ae5068a95103f2",
+    "app/shared/kv_util.cpp": "8d0afc182456ac06f20480295c08ad281fd3d2399662166be29414d56d7482e8",
+    "app/shared/kv_pair_value.h": "76ee37e916c0dffda27794d5fa177c6bf6444db720e65f188c28e408308ed981",
+    "app/shared/kv_list_core.h": "56488d238b771e591941777fd5b2a4e5c15b32334465abdf2592cc895d041003",
+    "app/shared/kv_encoder_base.h": "5704cccb8c86abfa345fe3ea401e427429107eb49621af110cd8d35e37d5e273"
+  },
+  "final_source_organization": "Ordinary declarations core header for encoder users; checked free vector helper at actual kv_list.h:73 for writer; shared conversion helper included only by its two users. Existing unchecked class Get remains unverified legacy API. Source ownership/header spellings inferred, all new helper names tagged.",
+  "all_consumer_proof": "docs/attempts/4BB0E0/claim345-all-consumer-deltas.json"
+}

@@ -1,0 +1,402 @@
+[
+  {
+    "unit": "wwlib/random.cpp",
+    "old_object_sha256": "e3467192121d81429e35f220688d74fb4748d67e500c3832f8bcce7fcc49974c",
+    "new_object_sha256": "a1ad69bed74e57cb1f1263d7348aefbb68b17af593bbaec76e0b8eab976ccef3",
+    "checked": 13,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwlib/rawfile.cpp",
+    "old_object_sha256": "94b82683d4b1589ce631c2b2948518e4175ebc8571659d478a72a1fffa24d655",
+    "new_object_sha256": "d3d683014c251dc2ee0f298fbe5fbc7789ad063c368895928f702537181613d1",
+    "checked": 34,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwlib/rc4.cpp",
+    "old_object_sha256": "6d2d755c7d1836cdf26e97aef7117b55eac3c9cdbc0194f7883a6b5ffdef798b",
+    "new_object_sha256": "0cb0c491a0ac3588ef7c47d5bc75aae4639faf8449f3f104466715c917f4b592",
+    "checked": 5,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwlib/readline.cpp",
+    "old_object_sha256": "cfffd650d029c15603365152ff54aea91be59907163ff3740598e795f9f42bd5",
+    "new_object_sha256": "1541bed752c57851c5ebd813d9e875a4cf5aae64c2df50e6fbf965b938839bb8",
+    "checked": 4,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwlib/realcrc.cpp",
+    "old_object_sha256": "a1ffa4c27e6b0beb965730a37ecf3d26834dafeb7b56f52ae11d6d779eea0f5d",
+    "new_object_sha256": "e2625c60896fe98eea66ae6fc1ad4e14579f69a33549f654fb3df02095bb198b",
+    "checked": 3,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwlib/registry.cpp",
+    "old_object_sha256": "b1863dfafa2557b227cdcc192af02aa92cc1faf19d463e684c24041af59e0a3c",
+    "new_object_sha256": "3525b244b614bdfa5e09a85df0ef4ae7c540e529aafac19ac63e3cc99011a676",
+    "checked": 40,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwlib/rgb.cpp",
+    "old_object_sha256": "1d60eeafb131ac6dae3249b9a83592f2cb6a8a7fd807f9fe0adeb685276f36dc",
+    "new_object_sha256": "5d74155df7b4eb128717eb3eb70c7ab6132a10b070a9f69e5b93d18fa5dd187a",
+    "checked": 5,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwlib/rndstraw.cpp",
+    "old_object_sha256": "874fb391c20cd18c4d16b66a534b03e0249fedbc57cc43530005d022fa2c9eab",
+    "new_object_sha256": "63f231d0ce8aba2a928b4b0a08e4dc1b481ed1503758b1e047d1cf821d4a58a3",
+    "checked": 2,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwlib/rndstrng.cpp",
+    "old_object_sha256": "22ae172651a5c14649c2e112b0e37b5832f290e38f8e44e56e347c2fe827f253",
+    "new_object_sha256": "ab48401db2256982b66ce9342fd4903f3f6087ce052513b92dca17aae05e7b27",
+    "checked": 2,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwlib/sampler.cpp",
+    "old_object_sha256": "3f540d1bb1747ac0a8291037ae04f79f959f9a34e0bd86f95214e32ca1a85386",
+    "new_object_sha256": "7f9728c6919eb9d3db704762cd456106cfe05e1dbeebb9a065acb67ee31df38d",
+    "checked": 21,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwlib/sha.cpp",
+    "old_object_sha256": "969f3165f0a76ed0ee102f87eb67c318ce167e660df81acc56997bc0ed1bf323",
+    "new_object_sha256": "6f5422a75a5c5b9abd98e2e456827f41afb4862b58a8ef9df9d94cd42c39e943",
+    "checked": 4,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwlib/slnode.cpp",
+    "old_object_sha256": "3c4ae13392dc0317e13559dc82473d0db6fb609f798d53db4828e56bc62be1a6",
+    "new_object_sha256": "cbe182682ddd8d95c78bef56cfc2eb57cd696845b16657a6e7cd2a26637f3451",
+    "checked": 2,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwlib/srandom.cpp",
+    "old_object_sha256": "f3d557902d1a41fc0b06de394e8081c7bc0c3c999d18a74bc996fb09a425b95c",
+    "new_object_sha256": "c7abf34b8d1a1fdedeb73294d0e79353a0a6fedc5d9334cc38aa7c11511f707f",
+    "checked": 6,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwlib/stimer.cpp",
+    "old_object_sha256": "5898e063a325c39d6b242ada0942e7a04eb17afe9644d95f6ea515390954fa4a",
+    "new_object_sha256": "21e206afcf612c3136ac928162afc907aa4cdf180b5db58935e96865668b8a63",
+    "checked": 2,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwlib/straw.cpp",
+    "old_object_sha256": "3924370d6c992ee572ae98f2204c25f59bc7a17b64039934ed4010b6f680cd32",
+    "new_object_sha256": "bf88d8b75e315236ce6e380034f24594b2cf69434054dd1b80a2658f73d40f98",
+    "checked": 3,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwlib/strtok_r.cpp",
+    "old_object_sha256": "c29da3211682b0a20016d82db527c4a47a0cd5ca4b6580748b465641c6c74cc4",
+    "new_object_sha256": "ff7abd3be6ab00a6fbe699dc273f1263b8da18ca03cf6771655dcef9d15e7d98",
+    "checked": 1,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwlib/systimer.cpp",
+    "old_object_sha256": "fcaef958f2e8d25ed415f6284ccce3d39622bcfb752b9da52d843477344fe01c",
+    "new_object_sha256": "36bddc1875d8ca53bc859009025092c3cd377ea03421293c3accb532503d5314",
+    "checked": 2,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwlib/tagblock.cpp",
+    "old_object_sha256": "a9ea45379706651a823c339392ca8ad515b61bf9b9fa79345de23560709f791e",
+    "new_object_sha256": "f8883eddb5c8588f0fe16bab651e23387215f3cf72578ce2fd7ad0d5d3d7fee0",
+    "checked": 4,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwlib/textfile.cpp",
+    "old_object_sha256": "48533059cd369f627e26a34c7c6fd95cecf8c57613304a6be5ade6d02b7a4e85",
+    "new_object_sha256": "313a018e0b3bcce0f15dc52961e166481b374e21616587e42b4178784f9f2558",
+    "checked": 11,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwlib/thread.cpp",
+    "old_object_sha256": "a638c962bc8ee1dfd18c6b73bbcabf55b172516cac55411f47dbc5820cf75bfe",
+    "new_object_sha256": "3a8becf8f516745e0f32eb43b0b746b24c61496ef0a7c7b01301b03c54894fa2",
+    "checked": 11,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwlib/trim.cpp",
+    "old_object_sha256": "c947203dc0e323a458fc3a7dfaaf2d5992fa6ea123d3ccf26a9a2bfcee1211ee",
+    "new_object_sha256": "7db863ee4f1b6543bda40e88592ab3c6f8833884a360830e94e7c904eef713f3",
+    "checked": 2,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwlib/unknown_jpeg.cpp",
+    "old_object_sha256": "5d8214135bff4be775ee02c061b8fbfbcbb08d333d1148675740b72bd650d040",
+    "new_object_sha256": "56c20ac7610dc890762d4c51500f4ab19ada9303e34110a1338d008132694296",
+    "checked": 21,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwlib/widestring.cpp",
+    "old_object_sha256": "43fc9100135bde09bece69a6a0fd990f9c1d4a14014379b39c021059a8b301a2",
+    "new_object_sha256": "fdffe851e63518ad648bdd8da4d645073de1b9695b8be9b3dee78ae6930611b8",
+    "checked": 12,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwlib/win.cpp",
+    "old_object_sha256": "7e035395da3753bd986ee7f9bf72f0f18407a013b12b08506bc806c3acb87779",
+    "new_object_sha256": "81e67a988dc64cc9e2d38863374fd1cfda3da3df9e5c7d4dd1cfae468a8b5699",
+    "checked": 0,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwlib/wwfile.cpp",
+    "old_object_sha256": "0d0cf0608f34b5ea4add6ea5f431a424e6f8fce9c6c38db1b17333583bd910ea",
+    "new_object_sha256": "c2a3bd01d8ae5feb00282a50ca297bffc09cf4a05aa5a31cb34a4b404e71aad8",
+    "checked": 3,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwlib/wwfont.cpp",
+    "old_object_sha256": "4c688c7901c5f7c903abe39855e9d54eb440b79ad3a9719f3a02c3c01981b4bc",
+    "new_object_sha256": "a80b3c88ad6fc238b8080587a24bb0e062e0caf9a64aa21524fbc4cfef0ccd83",
+    "checked": 14,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwlib/wwstring.cpp",
+    "old_object_sha256": "d04dc09eb312fd9d1e08f2e25faca1dc372da1587e9cabe3201f27e924abe300",
+    "new_object_sha256": "a745384cdce021367ce1456561fe8f0e29623c4c6fee8570b92610203ca78828",
+    "checked": 12,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwlib/xpipe.cpp",
+    "old_object_sha256": "750d55764e3f4bf1297721d77f8d3160cc5a5268cbc9ec8472c93a47ee7455a5",
+    "new_object_sha256": "b8eb46a7a8a09e564c7135448a845ed693180b145b9f80455aaecbdbb53b7af0",
+    "checked": 4,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwlib/xstraw.cpp",
+    "old_object_sha256": "24c52ffd77eac829f70225889d5a2617f522a275a075022e99bbba429136bb25",
+    "new_object_sha256": "9a4a0ed59a82bf82c84b6583b159ab5d1da28d221b276c3c51178ca27932b4df",
+    "checked": 3,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwlib/xsurface.cpp",
+    "old_object_sha256": "46b965656d25abc3dcad136ef81116ee42291d949684c2d0128494a58a56be60",
+    "new_object_sha256": "c652c7eb1eb97db1bbb7d069060005f6ffb213f8a5c8d3bb0194899e989408fb",
+    "checked": 29,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwmath/aabox.cpp",
+    "old_object_sha256": "c8304e2f0e8cb07f71b5619671b3196b2dda0c6a34d90f97450fc8dc733e2664",
+    "new_object_sha256": "550d350c609b66fbae8cbcce9d1592ea049e517320303f605fc6a2333d61b7a6",
+    "checked": 4,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwmath/aabtreecull.cpp",
+    "old_object_sha256": "116ffa51ea97ebdd57800ce1b5bd1263ceebd35eb8c94cf2eb237a8297888a98",
+    "new_object_sha256": "922c3b4308d39b50e1ea334f68689ef615f6d3a2a040ec0764a17506be70e44a",
+    "checked": 97,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwmath/cardinalspline.cpp",
+    "old_object_sha256": "39fa9a355fbb083de70ec17afd8a4c093a09bd7b71a3b5fe4ed8a67a4abfe2c7",
+    "new_object_sha256": "7badf13d540e7c8ca01d13906d6bba2e42435ab81bb00ee48a4fa34b840f5953",
+    "checked": 64,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwmath/catmullromspline.cpp",
+    "old_object_sha256": "adfa3a0625294b64f2e646172bc73ad8a06212a27b01ac62f0d1f79addedbb9f",
+    "new_object_sha256": "cfc1a92ec06ae32061f424ede1a4d25a238d3f1336a0c362d1aa491a0f55c6db",
+    "checked": 42,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwmath/colmath.cpp",
+    "old_object_sha256": "cd6539dcea59493c349b162301a2d4e8622a8bf86566406f201fffc77c787d20",
+    "new_object_sha256": "81ecb71b2bbf7050d92d6a873ea92598094689c8873102450442ee6d2fd9f08a",
+    "checked": 3,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwmath/colmathaabox.cpp",
+    "old_object_sha256": "80b879a3e9a74106be4ddc441d10a896ef2448491f48628eb88a09dfbf99c272",
+    "new_object_sha256": "a59f5198b0cf2fbbb2add696839137fffa45e242bd92bdd2a980b630367e0efb",
+    "checked": 9,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwmath/colmathaabtri.cpp",
+    "old_object_sha256": "f0fb68e04fc3653b2df813408dc37449005009688bca7d17afd5b3357c9bdd0a",
+    "new_object_sha256": "658b74e2176ee79cfc8d0ccf7d56660e23c56eb278c411a74e37231d95673c09",
+    "checked": 8,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwmath/colmathfrustum.cpp",
+    "old_object_sha256": "2360b592dbb3e0f117fbb5c2a798e5750ce7ffef444aa8ebc07cd387f3df9b12",
+    "new_object_sha256": "cc64a0fd02c2676acb5c6ffdd2543161948a5e1490ea86502842657c4eaea457",
+    "checked": 7,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwmath/colmathline.cpp",
+    "old_object_sha256": "3b40632e6ae77fc16d42ecaeb0272fd5c9edb6bcc07231db2e5bc12f7ca9401f",
+    "new_object_sha256": "ae635bad1b8bca83edbb4bd08602530440e933f41617d6e6bc861f78d00030ff",
+    "checked": 9,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwmath/colmathobbobb.cpp",
+    "old_object_sha256": "3eec742ca446275f5f9a6f1f1092468818d468a0a6304fd75bad452649bd79f4",
+    "new_object_sha256": "a91224d49ea4d545382bc77187eb6982b00c236a6e367f0e7b569ec0ef297959",
+    "checked": 16,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwmath/colmathobbox.cpp",
+    "old_object_sha256": "f4d2a98bc751ff922420b226b4b39d6c9447a04a0e34529c62ea6d5c442f876a",
+    "new_object_sha256": "af4d357ffc8b0c55e3dc7c075b13040738452d1ebff518a169160b1670395153",
+    "checked": 9,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwmath/colmathobbtri.cpp",
+    "old_object_sha256": "77f39b86d2f36a9aceb80fedc75c1664787efb409972d38a9801f6697bdaf88e",
+    "new_object_sha256": "e7737d4c19f4d21642838489c5da350c9c596c7812adb7e8f86e3cb09230302e",
+    "checked": 13,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwmath/colmathplane.cpp",
+    "old_object_sha256": "6fbdffd732375c0bb10cbdfc1419382358ec13469b76495082e101d7d49652a2",
+    "new_object_sha256": "2c741baa64483962690a558cff5b2f57a2fe7f4b80783252ac7637ec2177748a",
+    "checked": 11,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwmath/colmathsphere.cpp",
+    "old_object_sha256": "4356d682f41af71020c6cb04e02449fee2d7a24f10463dc990e916643a950d4b",
+    "new_object_sha256": "46ac8d896f5ddef9fbd8b66665cc6b2ec1906369d7f9cb8a963ad84074f3185a",
+    "checked": 1,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwmath/cullsys.cpp",
+    "old_object_sha256": "2d6c056510e9018c8e6c79e6ed90f2ee75a8fe9d3044af6fe0c1c4480c850513",
+    "new_object_sha256": "9c3797a01a939a9f658f6e91e85a2390d25ff08a3c3c73beab3c124ca8e17f1a",
+    "checked": 18,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwmath/curve.cpp",
+    "old_object_sha256": "a09b823c8d047f6a0773ee9c79b4d59c217df8df4eed09ab021cefabcadacbf0",
+    "new_object_sha256": "24629bb63fb22ec104c910820fa09bd27eabfb7ebda1915836ee9fc72cbe6a2b",
+    "checked": 82,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwmath/euler.cpp",
+    "old_object_sha256": "4f693c1f68a7fa3925ac4634bbdd97cea5c8a9f5e3952fabd6d4ee39570a323d",
+    "new_object_sha256": "b30917a74af7565fd7ba69743e9f5ffd11b5725c1401f814354419e30f46b91a",
+    "checked": 1,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwmath/frustum.cpp",
+    "old_object_sha256": "e1102639537604422f9b0152f175aae514befc30717cefff99ce6d04fcc58024",
+    "new_object_sha256": "ac91573633323bc95bb7c7009fbd59bd19aecb243c1ac9bd17a44d27a9f53b4d",
+    "checked": 4,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwmath/gridcull.cpp",
+    "old_object_sha256": "14217bc7ffd98c97eed23f501667d374f80f4627bd55e691b1630dcf47f2e16f",
+    "new_object_sha256": "ec30e5126f021e496681e4995bbe94114b7e7e9840d709ff9060ddbc3f048333",
+    "checked": 39,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwmath/hermitespline.cpp",
+    "old_object_sha256": "3440c72abed48d75cd6f9eacc73e15338e5052c3439b0206669245ce8e9cdc45",
+    "new_object_sha256": "03eb15fe08cdd2651fedd54765bb21384983567c5406134ca673dd058421a5b6",
+    "checked": 61,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  }
+]

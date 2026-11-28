@@ -1,0 +1,59 @@
+{
+  "object_sha256": "ddf8fb98d0d408ac9387cb59c35f2b2fe72db5baf198739d947c6459387a0f39",
+  "source_sha256": "53b142c853bfc51c09d827823f33ef4b334ee292d907987cb783cb2b226262e5",
+  "functions": [
+    {
+      "symbol": "?Get_Value_String@KVListClass@@QAEPBDPBD@Z",
+      "va": "0x4b6b60",
+      "length": 97,
+      "relocations": [
+        {
+          "offset": "0xe",
+          "symbol": "??_C@_0CH@HLKN@e?3?2build?2beta?2G?2app?2shared?2kv_li@",
+          "kind": 6,
+          "addend": "0x0",
+          "linked": "0xb738e0",
+          "resolved": "0xb738e0"
+        },
+        {
+          "offset": "0x13",
+          "symbol": "??_C@_03DCHJ@key?$AA@",
+          "kind": 6,
+          "addend": "0x0",
+          "linked": "0xb73910",
+          "resolved": "0xb73910"
+        },
+        {
+          "offset": "0x18",
+          "symbol": "?G_Assert_Report@@YAXPBD0H@Z",
+          "kind": 20,
+          "addend": "0x0",
+          "linked": "0x40aa51",
+          "resolved": "0x4e9410"
+        },
+        {
+          "offset": "0x39",
+          "symbol": "?find@?$hashtable@U?$pair@QBDPAVKVPairClass@@@std@@PBDU?$hash@PBD@2@U?$_Select1st@U?$pair@QBDPAVKVPairClass@@@std@@@2@UKeyEqual@KVListClass@@V?$allocator@PAVKVPairClass@@@2@@std@@QBE?AU?$_Hashtable_const_iterator@U?$pair@QBDPAVKVPairClass@@@std@@PBDU?$hash@PBD@2@U?$_Select1st@U?$pair@QBDPAVKVPairClass@@@std@@@2@UKeyEqual@KVListClass@@V?$allocator@PAVKVPairClass@@@2@@2@ABQBD@Z",
+          "kind": 20,
+          "addend": "0x0",
+          "linked": "0x404a7f",
+          "resolved": "0x4b7030"
+        },
+        {
+          "offset": "0x54",
+          "symbol": "?buf@?1??Pair_Value_String@@YAPADPBVKVPairClass@@@Z@4PADA",
+          "kind": 6,
+          "addend": "0x0",
+          "linked": "0xbe3b60",
+          "resolved": "0xbe3b60"
+        }
+      ],
+      "handler": null,
+      "states": [],
+      "predecessors": []
+    }
+  ],
+  "semantic_graph_pass": true,
+  "full_literal_payload_parity": true,
+  "exceptions": []
+}

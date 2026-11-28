@@ -1,0 +1,44 @@
+"""Audit every old exact body and reference/EH graph in explicit full build plans."""
+from pathlib import Path
+import argparse,hashlib,importlib.util,json,sys
+W=Path(__file__).resolve().parent
+spec=importlib.util.spec_from_file_location('preservation',W/'preservation.py');m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m)
+p=argparse.ArgumentParser();p.add_argument('after_plan');p.add_argument('out');p.add_argument('--aliases',required=True);a=p.parse_args()
+oldp=Path(json.loads((W/'global-baseline/canonical-location.json').read_text())['plan']);bp=json.loads(oldp.read_text());ap=json.loads(Path(a.after_plan).read_text());out=Path(a.out);out.mkdir(exist_ok=False)
+assert bp['units']==ap['units']
+m.ALIASES=json.loads(Path(a.aliases).read_text())
+def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
+def filelit(tree,unit):return ('Z:'+str(Path(tree)/unit).replace('/',chr(92))).encode()+bytes(1)
+def norm(v,paths,seen):
+ if isinstance(v,list):
+  if len(v)==2 and v[0]=='literal':
+   value=bytes.fromhex(v[1])
+   for prefix,tree in paths:
+    if value.startswith(prefix) and value.endswith(bytes(1)):
+     suffix=value[len(prefix):-1].decode('ascii');source=(Path(tree)/suffix.replace(chr(92),'/')).resolve()
+     assert source.is_relative_to(Path(tree).resolve()) and source.is_file(),source
+     seen.add(v[1]);return ['literal','D283_build_root_only',suffix]
+  return [norm(x,paths,seen) for x in v]
+ if isinstance(v,dict):return {k:norm(x,paths,seen) for k,x in v.items()}
+ return v
+matches={lib:json.loads((Path(bp['output'])/(lib+'-matches.json')).read_text()) for lib in set(bp['units'].values())}
+rowsby={}
+for lib,rows in matches.items():
+ for r in rows:
+  if r['status']=='exact':rowsby.setdefault((lib,r['object']),[]).append(r)
+summary=dict(units=0,functions=0,file_address_pairs=0,symbol_address_pairs=0,changes=[],path_normalized_units=[],alias_map=m.ALIASES,units_receipts=[])
+for i,(unit,lib) in enumerate(bp['units'].items(),1):
+ before=Path(bp['output'])/str(i)/(Path(unit).stem+'.obj');after=Path(ap['output'])/str(i)/before.name
+ old=m.CoffObject(str(before));new=m.CoffObject(str(after));fa={f[0]:f for f in old.functions()};fb={f[0]:f for f in new.functions()};checked=0;changes=[];seen=set();paths=[(('Z:'+str(Path(tree)).replace('/',chr(92))+chr(92)).encode(),tree) for tree in [bp['tree'],ap['tree']]] if lib!='app' else []
+ for r in rowsby.get((lib,before.name),[]):
+  name=r['symbol'];checked+=1
+  if name not in fb:changes.append(dict(symbol=name,reason='missing'));continue
+  x=norm(m.graph(old,fa[name],r['length']),paths,seen);y=norm(m.graph(new,fb[name],r['length']),paths,seen)
+  if x!=y:changes.append(dict(symbol=name,reason='body_or_reference_or_EH',before_graph_sha256=hashlib.sha256(json.dumps(x,sort_keys=True).encode()).hexdigest(),after_graph_sha256=hashlib.sha256(json.dumps(y,sort_keys=True).encode()).hexdigest()))
+ receipt=dict(unit=unit,old_object_sha256=sha(before),new_object_sha256=sha(after),checked=checked,changes=changes,exact_build_source_path_normalized=bool(seen))
+ name=f'unit-{i:04d}.json';(out/name).write_text(json.dumps(receipt,indent=2)+'\n');summary['units_receipts'].append(name);summary['units']+=1;summary['functions']+=checked
+ if seen:summary['path_normalized_units'].append(unit)
+ if changes:summary['changes'].append(dict(unit=unit,changes=changes));print(json.dumps(dict(unit=unit,changes=changes)),flush=True)
+ if i%100==0:print(f'Graph audit {i}/{len(bp["units"])}; {summary["functions"]} functions; {len(summary["changes"])} changed units',flush=True)
+base=json.loads((Path(bp['output'])/'result.json').read_text());summary.update(file_address_pairs=len(base['pairs']),symbol_address_pairs=len(base['symbol_pairs']),normalization='Explicit before/after build-root prefix on source filename literals for non-app units only (existing D283 variation), preserving the identical relative filename and requiring a real file inside the respective snapshot; proven shared buffer symbol identity; followed EH handler/table placement. All other fixed code bytes, relocation symbols/addends/literal bytes, FuncInfo fields, predecessor states and cleanup bodies compared.')
+(out/'summary.json').write_text(json.dumps(summary,indent=2)+'\n');assert not summary['changes'],summary['changes'];print(json.dumps(dict(units=summary['units'],functions=summary['functions'],changes=0,path_normalized_units=len(summary['path_normalized_units']))))

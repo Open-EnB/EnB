@@ -1,0 +1,402 @@
+[
+  {
+    "unit": "app/common/target_generator_summary.cpp",
+    "old_object_sha256": "9a4b9e085a33527d13fb544dc7d739cdfa143b4548e39385d8a0ecf2871b3a84",
+    "new_object_sha256": "cd7df45ce5b902c77bf3ddfadd5670b2cbc37fbd05a3aed58eed5a6d010bf5aa",
+    "checked": 28,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/common/tcpconn.cpp",
+    "old_object_sha256": "0610173679618d885c0f5dfa865a9afbfc9ae4f062b07bf45ab942f4f9ed1e02",
+    "new_object_sha256": "33e16a63ba5d16616c98f9ef9752e7276167a614f0006b40dd85bf3d5c2b0e67",
+    "checked": 68,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/common/udpconn.cpp",
+    "old_object_sha256": "0e96af8de5774bd818044603ec00126605175dbf84d546e88cd03a1c47470bc3",
+    "new_object_sha256": "167ebb70486db7fb39502e4a1d28460f2d6a195bb794b51eb4a4116df0115b16",
+    "checked": 57,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/common/unknown_835040.cpp",
+    "old_object_sha256": "a28bbca73ddc0ab9ef35015cbfd1a272823f5f0678dc52b856da653e0ecb957c",
+    "new_object_sha256": "4cab1f6c3422166dbcee0d05a13784d981fb08e4a27eb6957c0f8c0b33abb29f",
+    "checked": 26,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/common/unknown_847d20.cpp",
+    "old_object_sha256": "fd38b4617ff1c1a86dc8bfa1e4714dc84274434ec0d107f43c32bee89215d656",
+    "new_object_sha256": "aaef75befa04856691661c4a98fba5459805c807a7d6a028eed83c8b33e5fdaa",
+    "checked": 7,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/common/unknown_galaxy.cpp",
+    "old_object_sha256": "99f5b0f42d732a4708259f136fb58d8b3b67f6cc43e36064ebfce3538d1ac574",
+    "new_object_sha256": "45a7252ca4b5e41abbca80621695e8b1fb781caf0728bdceb93018868040edc0",
+    "checked": 3,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/common/unknown_listener.cpp",
+    "old_object_sha256": "9523da2cc17fdcdbeaee4f693aa1f82190c15cc9437ae62f639217294497e48a",
+    "new_object_sha256": "e7da1ae04ac703ef2e7e26dd9c4ad3be5ad608c99ac68d983b57b6e545b13669",
+    "checked": 12,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/common/unknown_memregistry.cpp",
+    "old_object_sha256": "d0aa56bdb0324cee90db1ddaa57a65510e6f4487fd332563abded1e76a2b0f6e",
+    "new_object_sha256": "aeabb3baeec39b031534d74fe7c88ac27b5c190d5ddd68e19a4d6128b14a5376",
+    "checked": 23,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/common/unknown_navlist.cpp",
+    "old_object_sha256": "7d9120277dd8d27ff216026e213e355bfdd23cdf721dd51cb100bc55b7026c52",
+    "new_object_sha256": "a218ad4115c31d3bd46b27436c4829151c06af8f36f03be4c05396ffc74523c1",
+    "checked": 24,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/common/unknown_rate.cpp",
+    "old_object_sha256": "59959c75817217727b8af6afda6576b586a72d03e44a02994cfa1231d0fb7c73",
+    "new_object_sha256": "2aeacd3e14b98dd387fb4c931a64b26812f19f430ad5abc8bba0016956ec6852",
+    "checked": 6,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/common/unknown_verb.cpp",
+    "old_object_sha256": "1cc9624603bc3de883e53f2bfc7d83d6ed4fa758fbe4e59168cca71a835f798e",
+    "new_object_sha256": "f57f92662f5cae9f73e6de952e190377ff870e15d1b9d554e60c270ac5fdfc1f",
+    "checked": 3,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/common/vendor_defs.cpp",
+    "old_object_sha256": "6b2e8171dcc54bd9ec7a86edc732a4ecb87e9f5a7159748df0a2cd18bb922bad",
+    "new_object_sha256": "6e7ce35663c3437748577a1a7623db0c59b66a4ace6348f3922d2d7b98fcce4d",
+    "checked": 6,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/common/weapontype.cpp",
+    "old_object_sha256": "8a7faa990e847e6acecc396ff6da1368992f877754526fd2b76111799f2651c9",
+    "new_object_sha256": "e5df6a2fab8213bd54296f385426bd9d7e2d7a87b41e956e19c87ec6551089cd",
+    "checked": 2,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/dbgmgr/dbgmgr.cpp",
+    "old_object_sha256": "08da1bee3ebc7c7f8150a51ed04faa74b29a748abb3bf68449cc20b51bc322ae",
+    "new_object_sha256": "3e6ff16e481ff4e80fd7f674c4171593a29b6aa277d38d105f26ac0fbd72bd35",
+    "checked": 18,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/display/display.cpp",
+    "old_object_sha256": "d31c465aeed960af2a81c61200a5f4331e0bb3135f3f90676e3e5fddeae10d21",
+    "new_object_sha256": "7641afd3e495f050dd1e8fc6f45356f0e709e423610030d04e8ca2ed6f58b80c",
+    "checked": 7,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/input/inpdsp.cpp",
+    "old_object_sha256": "64d89fcf3d3feef45a7788ee0572687164b32080f83f63ae35254ea0f23b9f39",
+    "new_object_sha256": "a7b107a9304705324fff6b49ab9a46120a8368e33d602b568bd3ad4cc6ec975d",
+    "checked": 32,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/input/inpkeys.cpp",
+    "old_object_sha256": "2c74e6884580d365364a9dacfc43a57049ee036e04c28ed7bf91b6a4c00df646",
+    "new_object_sha256": "ab63f3a3e950bb4ce63e627e7d2adbdc58c64c9b06b9ba2261a5d2cbc78e33c0",
+    "checked": 51,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/input/input.cpp",
+    "old_object_sha256": "1c5daf1440dc983ede15f8022f2b0df309c67ef69925a1981dac88ad9083bf39",
+    "new_object_sha256": "35a3acb6edc069cf42e130a784270997f3e2a789243a4d64ed0af302894a5658",
+    "checked": 47,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/input/unknown_42f360.cpp",
+    "old_object_sha256": "0683f7efffa4b290948d8b287424e66094cbd1e91657ed6b44f283a2d8a562f2",
+    "new_object_sha256": "d531db6684b99cc07255fed3fffedef8a60b1ce0efc9bc986ed46230ed440c7b",
+    "checked": 7,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/input/w32kbd.cpp",
+    "old_object_sha256": "3224bb68894a90cd221a901122ec11853ab635d66955453da5302110a55b84dc",
+    "new_object_sha256": "1b2d91864baaac901180f08a6a241fd1d05959dbe6ad3b09e34d42772759083a",
+    "checked": 10,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/input/w32mouse.cpp",
+    "old_object_sha256": "b655fc384cf1d90942157439d3ceb26cded61fca43471a5d626e6945a0e8f561",
+    "new_object_sha256": "09222f8237bafb1d349c517fb85ff9c71584915adc9736ee87086cf7239a75b2",
+    "checked": 20,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/input/w32window.cpp",
+    "old_object_sha256": "f59bf0a63e52ea37366226e5c99fd4831f7fd5a98f903ece953bf888648cb123",
+    "new_object_sha256": "0d03e18b5d829aa74edcf440dc21254162b6b9e3ec7f170110f5818be9fe3166",
+    "checked": 2,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/input/winmsg.cpp",
+    "old_object_sha256": "0574a5a375257bc035823240bc1b3b973312b138e8071fe7e4d337772f45310d",
+    "new_object_sha256": "c1b7dc6f95fddb1900731f26a45080b4fc280d03ca52e6626e727696478805a7",
+    "checked": 19,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/kernel/kernel.cpp",
+    "old_object_sha256": "6b2e078f3445cfe9180938e84259c8935ba3471df1e102a6db984e963e1172d3",
+    "new_object_sha256": "913fa9e54f7950303aaf11f0cff7737c26b1f9a2a640c7e2a40867d88dac5c1d",
+    "checked": 46,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/main/main.cpp",
+    "old_object_sha256": "1748c26742d183956918eb2791f686afe32ed1a011b1103a1bf548c005c3f80f",
+    "new_object_sha256": "d0f524d8153c16b1867a121e6444a851d9830acaf964b0194981b04e4ce5f91b",
+    "checked": 10,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/main/main_client.cpp",
+    "old_object_sha256": "3a41ac305bd520e0b801ae5944935c793080fce403896f8ef661c881d000d683",
+    "new_object_sha256": "ea5256bb6d6d214335c265cfc57c73cc7849b6f442e574b53d9b491617655eae",
+    "checked": 0,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/main/unknown_4441e0.cpp",
+    "old_object_sha256": "ea5403cdb339a4dac78f87226900e202fa38f07abf82b0d2133dbc365ba6f9bb",
+    "new_object_sha256": "6af06f21b9cc5e11deb6cb0a2e6dabcb061c236fdfddbfac78c59d2b3de0b7fd",
+    "checked": 4,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/main/unknown_445560.cpp",
+    "old_object_sha256": "228c084b0e0ee83780f1f4e1def7154adea115080ec1da18311b2b6467b21641",
+    "new_object_sha256": "18d3005043c0a5cb135f78452a7fe693589222be0b8ca866aebd9050d2cea0bf",
+    "checked": 16,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/packets/clientstub.cpp",
+    "old_object_sha256": "9ec330e22bf81dedbb6b930b4a30dbd0643dd8594f35941aa268ca7833a012a5",
+    "new_object_sha256": "492436227d698ff7b2766816c01883a4de0eeec0a106924be9d3bca4705a7936",
+    "checked": 152,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/packets/gameedit/pkgeaset.cpp",
+    "old_object_sha256": "51e6d4990429ab41a53102e7ce3bf2bea32113fdfd9ebd553c87aea41d1c640b",
+    "new_object_sha256": "dc1cc59654708fcba9eff116aa86f6d3dfd5e7feb86856a18b9e625cff2c045e",
+    "checked": 20,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/packets/gameedit/pkgeclon.cpp",
+    "old_object_sha256": "c7fefd488d930f132bccb8d8305b9fa14e1b7551886f8aa810285cfd1cabe390",
+    "new_object_sha256": "304403809cb77cfb811dc19d7c8057abc1d43df55d576c04bc798408594c986f",
+    "checked": 28,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/packets/gameedit/pkgekv.cpp",
+    "old_object_sha256": "bd88396077f7931a020706dc5747a772059ef9467ae1e179d5e761025a6e2a89",
+    "new_object_sha256": "ff45a71dd84f1ec070f95f0450a4ce973bd1e8939eb2d1f22b99fb81385dca44",
+    "checked": 41,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/packets/gameedit/pkgeobj.cpp",
+    "old_object_sha256": "13fc4f18a756cff1044482abde98208f2c41cd84089595aa1fd21c11f1c51292",
+    "new_object_sha256": "1d9bb8cbc601fa3e8ed2abe31fbcf02a3a4b10388872fef0a008ca06e822700c",
+    "checked": 71,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/packets/gameedit/pkgeplan.cpp",
+    "old_object_sha256": "eaf17255d991aa4f361f4203ec35be1ff2086df4e5db5089b7a61a63265a2768",
+    "new_object_sha256": "f16d5100cbc3e198ea62902412c3f59a6c01e0f6530ab3dec1fd934343ad86bc",
+    "checked": 42,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/packets/gameedit/pkgesave.cpp",
+    "old_object_sha256": "dce654668a876159a2972837c16723aa43ba6d8367f27e0ee8887af141c32b7c",
+    "new_object_sha256": "fe27da30c8606e635c6558dc2d9f4004d25d05fb60224012a4ae03aa7a3271a7",
+    "checked": 27,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/packets/gameedit/pkgespwn.cpp",
+    "old_object_sha256": "11d75dec51c07d843c186ac9e86fd36e2e5357fcf7c5eb9efd7cbfc01e19ba7c",
+    "new_object_sha256": "bfd858184439b3a6c6860fde9864d2b6b313c97b827d78b3e583cc221ab25e6b",
+    "checked": 27,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/packets/packet_data.cpp",
+    "old_object_sha256": "e6ae6958d902e81303b686393547a9a66b4f6e744f58b9cda24fb57ec12fbb58",
+    "new_object_sha256": "568c6a2de2158b79fa929afe07ef6886e3762a3f53bd16c2fc8504befd976287",
+    "checked": 0,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/packets/pk.cpp",
+    "old_object_sha256": "48b93503d43a5efac6ac796a6a206e2ee35f3022c8259e2315e18194aa267f5a",
+    "new_object_sha256": "78595b202efd30771f5d3008466685d49f21a87b83bedec401a4b54f3aa2f3bf",
+    "checked": 61,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/packets/pk_player_object_relationship.cpp",
+    "old_object_sha256": "a6d3706e13bbfd5f0eb8e7ec8b574941683bc646ce416b9699cd77a136bbf293",
+    "new_object_sha256": "961ba1490ebf05fe11c6979518f83016ee94490dcd089d2a30e99ee9f32b632b",
+    "checked": 65,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/packets/pk_sub_parts.cpp",
+    "old_object_sha256": "2b4c2dfe41e7ee8e84ac7ac4a0d381857bc3ec94224ca9413bef2c14a956641e",
+    "new_object_sha256": "d8fe8f631d98d3de794bbb397d19484a5945a1e34e7272775297f73aa997534e",
+    "checked": 40,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/packets/pkaction.cpp",
+    "old_object_sha256": "9c921740e16b6b7adbd8333dddffe2054336e7c6011546f907f4feff9a755af9",
+    "new_object_sha256": "5b95fbf3e0c71cf4cdc4c8646f94fc54015c30aab69e4cfbd2f7fe32d39e1e11",
+    "checked": 29,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/packets/pkauxdata.cpp",
+    "old_object_sha256": "9e78ad3cb92c1b6f0e777439287948fdaa6b44514989960fcfaceaf33771fcb2",
+    "new_object_sha256": "d98cc708397fb59142d5c191fffa1b4a8d8f5648aa4b0d627f9167bd43284aae",
+    "checked": 28,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/packets/pkcameracontrol.cpp",
+    "old_object_sha256": "266bc677e23f4a66a844023830996c892f80d24860b8a50cf80c5b080de39dc4",
+    "new_object_sha256": "8e77faf4659bbd34e4c228e2c73d74f20096ec10e38a273d835fa3a0692ba49b",
+    "checked": 21,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/packets/pkchangebaseasset.cpp",
+    "old_object_sha256": "489098efb46a6f90144c38041d536c15d89dbdba96745c8d27aaec2c67b36a56",
+    "new_object_sha256": "d0e7511faa9c8187ee5a4c7f9cf1ffbe884acd6673e6ee87dc809aa612d51b91",
+    "checked": 20,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/packets/pkclickindicator.cpp",
+    "old_object_sha256": "5af791b10d351a176a99beece14aa2c28314628b6c8009a5594c273e23cb6b12",
+    "new_object_sha256": "200db4d6fe7b55c442cf790e6373364ec96fe13a3e3fe4886fb2db6945d78ba6",
+    "checked": 19,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/packets/pkclientavatar.cpp",
+    "old_object_sha256": "d4959e3a39e1f7bfa6260f4aa4e79e0051b69be7491273ceff99c6a0e944d09a",
+    "new_object_sha256": "99cd152ee56f92737288258bfeacda4e32b68ff2cbd76998a31832b9d10a76c1",
+    "checked": 20,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/packets/pkclientchat.cpp",
+    "old_object_sha256": "9a06ed35a4dec0a9f6d6d207f7f31ebee77e8834394016b3650b8f58b8f9669a",
+    "new_object_sha256": "81841c9b2b18e235e70868a6f5f0ee6ab26e20f165f517fe4b3c790bf71c6f1b",
+    "checked": 70,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/packets/pkclientship.cpp",
+    "old_object_sha256": "e7414d674595d56dca0c06d1b789fcd473673a36f130a9444a3e85c399959ccd",
+    "new_object_sha256": "95964e2003fd76f42bed923e4df098225c479bf68226c6b55171643c13db7f98",
+    "checked": 19,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/packets/pkcolorization.cpp",
+    "old_object_sha256": "bf620c2b0b0fe3d66cae1e590ff34c2b304cf878e5ac5313a8dbc841ba776702",
+    "new_object_sha256": "2703abf13919f29ae7a2e2e289b77232225e76de9c1e049c355bf73451e8b0d8",
+    "checked": 24,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/packets/pkconfirmedaction.cpp",
+    "old_object_sha256": "e3b2f95124cf77d4f950559f3af035bb8eec26062bc8807f2e90b1cfd348dd2f",
+    "new_object_sha256": "fc35bef2e60c1a3499f65b05d5ba023dedd234d51baa67419c0c67f520334a5d",
+    "checked": 39,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  }
+]

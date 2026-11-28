@@ -1,0 +1,377 @@
+{
+  "counts": {
+    "primary_inputs": 14,
+    "successful_primary_inputs": 13,
+    "guard_rejections": 1,
+    "changed_investigation_target_inputs": 11,
+    "root_comment_control": 1,
+    "root_integration_control_with_real_member_spelling_restore": 1,
+    "primary_translation_unit_compiles": 39,
+    "consumer_inputs": 13,
+    "consumer_translation_unit_compiles": 39,
+    "raw_groups": 3,
+    "masked_groups": 3
+  },
+  "groups": {
+    "raw": {
+      "aee24e10376032650c4aea468c57641cca145d5a2b3a3268f3b3888a97fd7c06": [
+        "first01"
+      ],
+      "f858c8b22d66cbaed2da8988e620ab2a49523ca4cdc41edb645f43b0336b1619": [
+        "first03"
+      ],
+      "52fc7ccf6947aaa827399d4e8855698adfac66be4569b4185a00af742e17e102": [
+        "first04",
+        "first05",
+        "first06",
+        "first07",
+        "regain_comma",
+        "regain_inclass",
+        "regain_lateinclude",
+        "regain_private",
+        "root_final",
+        "root_final2",
+        "sol_free"
+      ]
+    },
+    "masked": {
+      "aee24e10376032650c4aea468c57641cca145d5a2b3a3268f3b3888a97fd7c06": [
+        "first01"
+      ],
+      "f858c8b22d66cbaed2da8988e620ab2a49523ca4cdc41edb645f43b0336b1619": [
+        "first03"
+      ],
+      "52fc7ccf6947aaa827399d4e8855698adfac66be4569b4185a00af742e17e102": [
+        "first04",
+        "first05",
+        "first06",
+        "first07",
+        "regain_comma",
+        "regain_inclass",
+        "regain_lateinclude",
+        "regain_private",
+        "root_final",
+        "root_final2",
+        "sol_free"
+      ]
+    }
+  },
+  "primary_runs": [
+    {
+      "run": "first01",
+      "translation_unit_compiles": 3,
+      "guard_rejected": false
+    },
+    {
+      "run": "first02",
+      "translation_unit_compiles": 0,
+      "guard_rejected": true
+    },
+    {
+      "run": "first03",
+      "translation_unit_compiles": 3,
+      "guard_rejected": false
+    },
+    {
+      "run": "first04",
+      "translation_unit_compiles": 3,
+      "guard_rejected": false
+    },
+    {
+      "run": "first05",
+      "translation_unit_compiles": 3,
+      "guard_rejected": false
+    },
+    {
+      "run": "first06",
+      "translation_unit_compiles": 3,
+      "guard_rejected": false
+    },
+    {
+      "run": "first07",
+      "translation_unit_compiles": 3,
+      "guard_rejected": false
+    },
+    {
+      "run": "regain_comma",
+      "translation_unit_compiles": 3,
+      "guard_rejected": false
+    },
+    {
+      "run": "regain_inclass",
+      "translation_unit_compiles": 3,
+      "guard_rejected": false
+    },
+    {
+      "run": "regain_lateinclude",
+      "translation_unit_compiles": 3,
+      "guard_rejected": false
+    },
+    {
+      "run": "regain_private",
+      "translation_unit_compiles": 3,
+      "guard_rejected": false
+    },
+    {
+      "run": "root_final",
+      "translation_unit_compiles": 3,
+      "guard_rejected": false
+    },
+    {
+      "run": "root_final2",
+      "translation_unit_compiles": 3,
+      "guard_rejected": false
+    },
+    {
+      "run": "sol_free",
+      "translation_unit_compiles": 3,
+      "guard_rejected": false
+    }
+  ],
+  "consumer_runs": [
+    {
+      "run": "list_only",
+      "classification": "header_component_isolation_diagnostic",
+      "translation_unit_compiles": 3,
+      "changed_graphs": [
+        [
+          "app/client/co.cpp",
+          "??0?$DeltaItemArrayClass@VDeltaItemClass@@@@QAE@PBDI@Z"
+        ],
+        [
+          "app/client/co.cpp",
+          "??0?$DeltaItemArrayClass@VDeltaEquipItemClass@@@@QAE@PBDI@Z"
+        ],
+        [
+          "app/client/co.cpp",
+          "??0?$DeltaItemArrayClass@VDeltaSubCategoryClass@@@@QAE@PBDI@Z"
+        ],
+        [
+          "app/client/sbaseview.cpp",
+          "?Unknown_6A1180@SBaseViewClass@@QAEXXZ"
+        ]
+      ]
+    },
+    {
+      "run": "original",
+      "classification": "unchanged_consumer_control",
+      "translation_unit_compiles": 3,
+      "changed_graphs": []
+    },
+    {
+      "run": "pair_only",
+      "classification": "header_component_isolation_diagnostic",
+      "translation_unit_compiles": 3,
+      "changed_graphs": [
+        [
+          "app/client/co.cpp",
+          "??0?$DeltaItemArrayClass@VDeltaItemClass@@@@QAE@PBDI@Z"
+        ],
+        [
+          "app/client/co.cpp",
+          "??0?$DeltaItemArrayClass@VDeltaEquipItemClass@@@@QAE@PBDI@Z"
+        ],
+        [
+          "app/client/co.cpp",
+          "??0?$DeltaItemArrayClass@VDeltaSubCategoryClass@@@@QAE@PBDI@Z"
+        ],
+        [
+          "app/client/sbaseview.cpp",
+          "?Unknown_6A1180@SBaseViewClass@@QAEXXZ"
+        ]
+      ]
+    },
+    {
+      "run": "regain_comma",
+      "classification": "header_component_isolation_diagnostic",
+      "translation_unit_compiles": 3,
+      "changed_graphs": [
+        [
+          "app/client/co.cpp",
+          "??0?$DeltaItemArrayClass@VDeltaItemClass@@@@QAE@PBDI@Z"
+        ],
+        [
+          "app/client/co.cpp",
+          "??0?$DeltaItemArrayClass@VDeltaEquipItemClass@@@@QAE@PBDI@Z"
+        ],
+        [
+          "app/client/co.cpp",
+          "??0?$DeltaItemArrayClass@VDeltaSubCategoryClass@@@@QAE@PBDI@Z"
+        ],
+        [
+          "app/client/sbaseview.cpp",
+          "?Unknown_6A1180@SBaseViewClass@@QAEXXZ"
+        ]
+      ]
+    },
+    {
+      "run": "regain_inclass",
+      "classification": "header_component_isolation_diagnostic",
+      "translation_unit_compiles": 3,
+      "changed_graphs": [
+        [
+          "app/client/co.cpp",
+          "??0?$DeltaItemArrayClass@VDeltaItemClass@@@@QAE@PBDI@Z"
+        ],
+        [
+          "app/client/co.cpp",
+          "??0?$DeltaItemArrayClass@VDeltaEquipItemClass@@@@QAE@PBDI@Z"
+        ],
+        [
+          "app/client/co.cpp",
+          "??0?$DeltaItemArrayClass@VDeltaSubCategoryClass@@@@QAE@PBDI@Z"
+        ],
+        [
+          "app/client/sbaseview.cpp",
+          "?Unknown_6A1180@SBaseViewClass@@QAEXXZ"
+        ]
+      ]
+    },
+    {
+      "run": "regain_include_only",
+      "classification": "header_component_isolation_diagnostic",
+      "translation_unit_compiles": 3,
+      "changed_graphs": []
+    },
+    {
+      "run": "regain_lateinclude",
+      "classification": "header_component_isolation_diagnostic",
+      "translation_unit_compiles": 3,
+      "changed_graphs": [
+        [
+          "app/client/co.cpp",
+          "??0?$DeltaItemArrayClass@VDeltaItemClass@@@@QAE@PBDI@Z"
+        ],
+        [
+          "app/client/co.cpp",
+          "??0?$DeltaItemArrayClass@VDeltaEquipItemClass@@@@QAE@PBDI@Z"
+        ],
+        [
+          "app/client/co.cpp",
+          "??0?$DeltaItemArrayClass@VDeltaSubCategoryClass@@@@QAE@PBDI@Z"
+        ],
+        [
+          "app/client/sbaseview.cpp",
+          "?Unknown_6A1180@SBaseViewClass@@QAEXXZ"
+        ]
+      ]
+    },
+    {
+      "run": "regain_private",
+      "classification": "header_component_isolation_diagnostic",
+      "translation_unit_compiles": 3,
+      "changed_graphs": [
+        [
+          "app/client/co.cpp",
+          "??0?$DeltaItemArrayClass@VDeltaItemClass@@@@QAE@PBDI@Z"
+        ],
+        [
+          "app/client/co.cpp",
+          "??0?$DeltaItemArrayClass@VDeltaEquipItemClass@@@@QAE@PBDI@Z"
+        ],
+        [
+          "app/client/co.cpp",
+          "??0?$DeltaItemArrayClass@VDeltaSubCategoryClass@@@@QAE@PBDI@Z"
+        ],
+        [
+          "app/client/sbaseview.cpp",
+          "?Unknown_6A1180@SBaseViewClass@@QAEXXZ"
+        ]
+      ]
+    },
+    {
+      "run": "regain_rename_only",
+      "classification": "header_component_isolation_diagnostic",
+      "translation_unit_compiles": 3,
+      "changed_graphs": []
+    },
+    {
+      "run": "sol_free",
+      "classification": "header_component_isolation_diagnostic",
+      "translation_unit_compiles": 3,
+      "changed_graphs": []
+    },
+    {
+      "run": "sol_iterator",
+      "classification": "header_component_isolation_diagnostic",
+      "translation_unit_compiles": 3,
+      "changed_graphs": [
+        [
+          "app/client/co.cpp",
+          "??0?$DeltaItemArrayClass@VDeltaItemClass@@@@QAE@PBDI@Z"
+        ],
+        [
+          "app/client/co.cpp",
+          "??0?$DeltaItemArrayClass@VDeltaEquipItemClass@@@@QAE@PBDI@Z"
+        ],
+        [
+          "app/client/co.cpp",
+          "??0?$DeltaItemArrayClass@VDeltaSubCategoryClass@@@@QAE@PBDI@Z"
+        ],
+        [
+          "app/client/sbaseview.cpp",
+          "?Unknown_6A1180@SBaseViewClass@@QAEXXZ"
+        ]
+      ]
+    },
+    {
+      "run": "sol_split",
+      "classification": "header_component_isolation_diagnostic",
+      "translation_unit_compiles": 3,
+      "changed_graphs": [
+        [
+          "app/client/co.cpp",
+          "??0DeltaPrimaryCategoryClass@@QAE@PBD@Z"
+        ],
+        [
+          "app/client/co.cpp",
+          "??0?$DeltaItemArrayClass@VDeltaItemClass@@@@QAE@PBDI@Z"
+        ],
+        [
+          "app/client/co.cpp",
+          "??0?$DeltaItemArrayClass@VDeltaEquipItemClass@@@@QAE@PBDI@Z"
+        ],
+        [
+          "app/client/co.cpp",
+          "??0?$DeltaItemArrayClass@VDeltaSubCategoryClass@@@@QAE@PBDI@Z"
+        ],
+        [
+          "app/client/sbaseview.cpp",
+          "?Unknown_6A1180@SBaseViewClass@@QAEXXZ"
+        ],
+        [
+          "app/client/sclient.cpp",
+          "??0?$DeltaItemArrayClass@VDeltaEquipItemClass@@@@QAE@PBDI@Z"
+        ],
+        [
+          "app/client/sclient.cpp",
+          "??0?$DeltaItemArrayClass@VDeltaFactionClass@@@@QAE@PBDI@Z"
+        ]
+      ]
+    },
+    {
+      "run": "sol_unsigned",
+      "classification": "header_component_isolation_diagnostic",
+      "translation_unit_compiles": 3,
+      "changed_graphs": [
+        [
+          "app/client/co.cpp",
+          "??0?$DeltaItemArrayClass@VDeltaItemClass@@@@QAE@PBDI@Z"
+        ],
+        [
+          "app/client/co.cpp",
+          "??0?$DeltaItemArrayClass@VDeltaEquipItemClass@@@@QAE@PBDI@Z"
+        ],
+        [
+          "app/client/co.cpp",
+          "??0?$DeltaItemArrayClass@VDeltaSubCategoryClass@@@@QAE@PBDI@Z"
+        ],
+        [
+          "app/client/sbaseview.cpp",
+          "?Unknown_6A1180@SBaseViewClass@@QAEXXZ"
+        ]
+      ]
+    }
+  ],
+  "missing_transient": "First worker uncompiled header draft overwritten before capture; no invented hash/replay. Separate root uncompiled V preparation is losslessly preserved in prepared-final2-v.json."
+}

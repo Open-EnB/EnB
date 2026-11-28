@@ -1,0 +1,25 @@
+{
+  "pairs": {
+    "before": 43016,
+    "after": 43017,
+    "gained": [
+      [
+        "app/shared/kv_util.cpp",
+        "0x4BB0E0"
+      ]
+    ],
+    "lost": []
+  },
+  "symbol_pairs": {
+    "before": 43025,
+    "after": 43026,
+    "gained": [
+      [
+        "app/shared/kv_util.cpp",
+        "?Unknown_4BB0E0@@YA_NAAVKVListClass@@AAVINIClass@@PBD@Z",
+        "0x4BB0E0"
+      ]
+    ],
+    "lost": []
+  }
+}

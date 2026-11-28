@@ -1,0 +1,9 @@
+"""Populate the installed gate's canonical cache through its own build API."""
+from pathlib import Path
+import hashlib,importlib.util,json,subprocess,sys
+R=Path('/home/dev/Projects/EnB');W=R/'.work/claim-345'
+spec=importlib.util.spec_from_file_location('preflight',R/'.git/local-vc6-preflight/preflight.py');m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m)
+home,cfg=m.config();rev=(W/'revision.txt').read_text().strip();tree,env=m.snapshot(R,home,rev);reg=m.registered(tree);units={u:reg[u] for u in sorted(reg)};stamp=m.fingerprint(cfg)
+code=m.git(R,'ls-tree','-r',rev).splitlines();key=hashlib.sha256(json.dumps([rev,code,units,units,stamp],sort_keys=True).encode()).hexdigest()
+(W/'global-baseline/canonical-location.json').write_text(json.dumps(dict(tree=str(tree),plan=str(home/'cache/builds'/key/'plan.json'),key=key,units=len(units),revision=rev),indent=2)+'\n')
+result=m.build(R,home,cfg,rev,tree,env,units,stamp,dict(units));(W/'global-baseline/canonical-result.json').write_text(json.dumps(result,indent=2)+'\n');print(json.dumps(dict(units=len(units),pairs=len(result['pairs']),symbols=len(result['symbol_pairs']),result_path=result['result_path'])))

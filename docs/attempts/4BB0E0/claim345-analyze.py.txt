@@ -1,0 +1,10 @@
+from pathlib import Path
+import hashlib,json,os,subprocess,sys
+R=Path('/home/dev/Projects/EnB');W=R/'.work/claim-345';sys.path.insert(0,str(R/'tools/re'))
+from objmatch import CoffObject,object_unwind
+name=sys.argv[1];folder=W/'runs'/name;objpath=folder/'kv_util/kv_util.obj';obj=CoffObject(str(objpath));prefix='?Unknown_4BB0E0@@';f=next(x for x in obj.functions() if x[0].startswith(prefix));sym,sc,s,e=f;_,_,n=obj.pattern(sc,s,e);raw=obj.data[obj.sections[sc]['raw']+s:obj.sections[sc]['raw']+s+n];masked=bytearray(raw);rels=[]
+for off,width,kind,target,addend in obj.reloc_targets(sc,s,n):masked[off:off+width]=bytes(width);rels.append(dict(offset=off,width=width,kind=kind,symbol=target['name'],addend=addend.hex()))
+env=dict(os.environ,ENB_RETAIL_INSTALL='/home/dev/Games/earth-and-beyond/prefix/drive_c/Program Files (x86)/EA GAMES/Earth & Beyond')
+diff=subprocess.run([sys.executable,str(R/'tools/re/objdiff.py'),str(objpath),sym,'0x4BB0E0'],env=env,capture_output=True,text=True,check=True).stdout;(folder/'objdiff.txt').write_text(diff)
+ex=json.loads(subprocess.run([sys.executable,str(R/'tools/re/explain.py'),str(objpath),sym,'0x4BB0E0','--json'],env=env,capture_output=True,text=True,check=True).stdout);(folder/'explain.json').write_text(json.dumps(ex,indent=2)+'\n')
+result=json.loads((folder/'result.json').read_text());row=dict(symbol=sym,length=n,raw_sha256=hashlib.sha256(raw).hexdigest(),masked_sha256=hashlib.sha256(masked).hexdigest(),relocations=rels,unwind=object_unwind(obj,sc,s,n),explain=ex,exact=any(a=='0x4BB0E0' for u,a in result['pairs']),diagnostic_similarity=diff.splitlines()[-1]);(folder/'analysis.json').write_text(json.dumps(row,indent=2)+'\n');print(json.dumps(dict(run=name,length=n,residue=ex['residue'],kind=ex['class'],exact=row['exact'])))

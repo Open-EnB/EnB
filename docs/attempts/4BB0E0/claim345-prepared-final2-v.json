@@ -1,0 +1,810 @@
+{
+  "classification": "prepared_but_uncompiled",
+  "reason": "Root comment-clean V-member variant was prepared, then Sol suggested restoring baseline guessed Pairs member spelling because client V names the checked free helper parameter. Root integration control compiles the Pairs source. This V preparation was never submitted to any compiler.",
+  "base_revision": "64e8e4f55296d83901759bb53b0d0d8a641f7352",
+  "inputs": [
+    {
+      "unit": "app/shared/kv_encoder_base.h",
+      "base_sha256": "55486019d2df771185b4fd6daa56fdb827f99bd5984a6489f5aea65e23f51a2a",
+      "input_sha256": "5704cccb8c86abfa345fe3ea401e427429107eb49621af110cd8d35e37d5e273",
+      "edits": [
+        {
+          "start": 770,
+          "end": 770,
+          "text": "_core"
+        }
+      ]
+    },
+    {
+      "unit": "app/shared/kv_list.cpp",
+      "base_sha256": "5ea34be2a154e5c76e0898472ce7260055f875ff43a30612c5bf5bf4b0d3371a",
+      "input_sha256": "7f9ef1107f6c31aebe1c587d64e4252c0fb7cf1eea70a494c77b9ca6b6fc5d73",
+      "edits": [
+        {
+          "start": 183,
+          "end": 183,
+          "text": "#include \"kv_pair_value.h\""
+        },
+        {
+          "start": 390,
+          "end": 395,
+          "text": "V"
+        },
+        {
+          "start": 420,
+          "end": 425,
+          "text": "V"
+        },
+        {
+          "start": 434,
+          "end": 439,
+          "text": "V"
+        },
+        {
+          "start": 661,
+          "end": 666,
+          "text": "V"
+        },
+        {
+          "start": 689,
+          "end": 694,
+          "text": "V"
+        },
+        {
+          "start": 712,
+          "end": 717,
+          "text": "V"
+        },
+        {
+          "start": 857,
+          "end": 862,
+          "text": "V"
+        },
+        {
+          "start": 1396,
+          "end": 1401,
+          "text": "V"
+        },
+        {
+          "start": 1555,
+          "end": 1580,
+          "text": ""
+        },
+        {
+          "start": 1662,
+          "end": 1667,
+          "text": "V"
+        },
+        {
+          "start": 1696,
+          "end": 1697,
+          "text": "P"
+        },
+        {
+          "start": 1700,
+          "end": 1705,
+          "text": ""
+        },
+        {
+          "start": 1719,
+          "end": 1725,
+          "text": "pa"
+        },
+        {
+          "start": 1726,
+          "end": 1735,
+          "text": "r"
+        },
+        {
+          "start": 2361,
+          "end": 2366,
+          "text": "V"
+        },
+        {
+          "start": 2389,
+          "end": 2394,
+          "text": "V"
+        },
+        {
+          "start": 2536,
+          "end": 2541,
+          "text": "V"
+        },
+        {
+          "start": 3132,
+          "end": 3136,
+          "text": "us"
+        },
+        {
+          "start": 3139,
+          "end": 3139,
+          "text": "the pa"
+        },
+        {
+          "start": 3140,
+          "end": 3143,
+          "text": "r"
+        },
+        {
+          "start": 3144,
+          "end": 3144,
+          "text": "wr"
+        },
+        {
+          "start": 3145,
+          "end": 3145,
+          "text": "pper's shared"
+        }
+      ]
+    },
+    {
+      "unit": "app/shared/kv_list.h",
+      "base_sha256": "b14c69b8571c54533940483611a00a49a894a098d2121d413fd89d735bc38fe6",
+      "input_sha256": "66bbaf07855a07f391822e67a0139388c67886def9748289d63ece55142ceb18",
+      "edits": [
+        {
+          "start": 3,
+          "end": 255,
+          "text": "KV"
+        },
+        {
+          "start": 261,
+          "end": 262,
+          "text": "i"
+        },
+        {
+          "start": 263,
+          "end": 269,
+          "text": "t"
+        },
+        {
+          "start": 271,
+          "end": 275,
+          "text": "fac"
+        },
+        {
+          "start": 276,
+          "end": 326,
+          "text": ""
+        },
+        {
+          "start": 331,
+          "end": 337,
+          "text": "ch"
+        },
+        {
+          "start": 338,
+          "end": 346,
+          "text": "c"
+        },
+        {
+          "start": 348,
+          "end": 401,
+          "text": ""
+        },
+        {
+          "start": 403,
+          "end": 406,
+          "text": "v"
+        },
+        {
+          "start": 407,
+          "end": 408,
+          "text": "ctor"
+        },
+        {
+          "start": 410,
+          "end": 415,
+          "text": "cc"
+        },
+        {
+          "start": 418,
+          "end": 418,
+          "text": ". H"
+        },
+        {
+          "start": 419,
+          "end": 440,
+          "text": "lp"
+        },
+        {
+          "start": 442,
+          "end": 443,
+          "text": " owner"
+        },
+        {
+          "start": 444,
+          "end": 461,
+          "text": ""
+        },
+        {
+          "start": 462,
+          "end": 466,
+          "text": ""
+        },
+        {
+          "start": 467,
+          "end": 513,
+          "text": "p"
+        },
+        {
+          "start": 517,
+          "end": 657,
+          "text": ""
+        },
+        {
+          "start": 659,
+          "end": 676,
+          "text": ""
+        },
+        {
+          "start": 677,
+          "end": 679,
+          "text": ""
+        },
+        {
+          "start": 680,
+          "end": 707,
+          "text": "r"
+        },
+        {
+          "start": 710,
+          "end": 822,
+          "text": ""
+        },
+        {
+          "start": 823,
+          "end": 872,
+          "text": ""
+        },
+        {
+          "start": 923,
+          "end": 924,
+          "text": "\"kv_li"
+        },
+        {
+          "start": 926,
+          "end": 926,
+          "text": "_co"
+        },
+        {
+          "start": 927,
+          "end": 930,
+          "text": "e"
+        },
+        {
+          "start": 932,
+          "end": 933,
+          "text": "\""
+        },
+        {
+          "start": 943,
+          "end": 966,
+          "text": "\"g"
+        },
+        {
+          "start": 967,
+          "end": 1006,
+          "text": ""
+        },
+        {
+          "start": 1009,
+          "end": 1013,
+          "text": ""
+        },
+        {
+          "start": 1014,
+          "end": 1039,
+          "text": "r"
+        },
+        {
+          "start": 1042,
+          "end": 1067,
+          "text": "\"\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
+        },
+        {
+          "start": 1069,
+          "end": 1457,
+          "text": ""
+        },
+        {
+          "start": 1462,
+          "end": 2466,
+          "text": ""
+        },
+        {
+          "start": 2482,
+          "end": 2509,
+          "text": "_KV_"
+        },
+        {
+          "start": 2513,
+          "end": 2665,
+          "text": ""
+        },
+        {
+          "start": 2672,
+          "end": 2738,
+          "text": ""
+        },
+        {
+          "start": 2765,
+          "end": 2767,
+          "text": "&V, "
+        },
+        {
+          "start": 2768,
+          "end": 2800,
+          "text": ""
+        },
+        {
+          "start": 2802,
+          "end": 2804,
+          "text": ""
+        },
+        {
+          "start": 2805,
+          "end": 2808,
+          "text": "index"
+        },
+        {
+          "start": 2820,
+          "end": 2828,
+          "text": ""
+        },
+        {
+          "start": 2829,
+          "end": 2873,
+          "text": ""
+        },
+        {
+          "start": 2876,
+          "end": 2877,
+          "text": "ecked vecto"
+        },
+        {
+          "start": 2879,
+          "end": 2885,
+          "text": ""
+        },
+        {
+          "start": 2886,
+          "end": 2891,
+          "text": "cce"
+        },
+        {
+          "start": 2893,
+          "end": 2925,
+          "text": "\n{\n\tG_ASS"
+        },
+        {
+          "start": 2926,
+          "end": 2933,
+          "text": "RT(i"
+        },
+        {
+          "start": 2937,
+          "end": 2937,
+          "text": " < V.size())"
+        },
+        {
+          "start": 2938,
+          "end": 2938,
+          "text": "\n"
+        },
+        {
+          "start": 2939,
+          "end": 2941,
+          "text": "return"
+        },
+        {
+          "start": 2942,
+          "end": 2959,
+          "text": "V"
+        },
+        {
+          "start": 2960,
+          "end": 2961,
+          "text": "i"
+        },
+        {
+          "start": 2966,
+          "end": 2990,
+          "text": ";"
+        },
+        {
+          "start": 2992,
+          "end": 2993,
+          "text": ""
+        }
+      ]
+    },
+    {
+      "unit": "app/shared/kv_list_core.h",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "input_sha256": "f693d9ed4da66023e4999355e5bbc3fe8a8d63a8ff7519a9d6d7eb01c24dff28",
+      "edits": [
+        {
+          "start": 0,
+          "end": 0,
+          "text": "// Earth & Beyond client (reconstruction)\n/*\n**\tThis file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).\n**\tKVListClass declaration split from kv_list.h; the original header name is\n**\tproven by the checked helper assertion there. Internal split is inferred.\n**\n**\tThe list an encoder's key/value pairs go to: the pairs in the order added, and an index by\n**\tkey. The client doesn't name the class (D24); the method names are guesses (D10), their\n**\tasserts' arguments are the client's (key, buf, value, item).\n**\n**\tThe index is SGI STL's hash_map<const char *, KVPairClass *> (libs/sgistl, D87): at +0x10, its\n**\tbuckets +0x18, its count +0x24; the hash __stl_hash_string 0x4B6970 (this file's copy), the\n**\tkeys compared with strcmp; the default constructor's 100 buckets come from this file's copy of\n**\t__stl_prime_list (0xAEB764).\n*/\n\n\n\n#if defined(_MSC_VER)\n#pragma once\n#endif\n\n#ifndef __KV_LIST_CORE_H  // NAME 3 [kv_list_core.h]: inferred declaration-header split\n#define __KV_LIST_CORE_H\n\n#include <string.h>\n#include <vector>\n#include <hash_map.h>\n\n// Keep_Only's argument; the class itself in libs/sgistl/hash_set.h, which only kv_list.cpp includes\nnamespace std { template <class _Value, class _HashFcn, class _EqualKey, class _Alloc> class hash_set; }\n\nclass KVPairClass;\n\nclass KVListClass  // NAME 3: by convention (D24) from the client's file kv_list.cpp\n{\npublic:\n\tKVListClass();\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t// 0x4B62B0\n\t~KVListClass();\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t// 0x4B6520 (deletes the pairs)\n\n\tvoid Add(KVPairClass *item);\t\t\t\t\t\t\t\t\t\t\t// 0x4B6760 (line 23): replaces (and deletes) a pair with the same key  // NAME 2: describes what it does\n\tKVPairClass *Find(const char *key) const;\t\t\t\t\t\t\t\t\t// 0x4B69A0 (line 51)  // NAME 2: describes what it does\n\tconst char *Get_Type_Name(const char *key);\t\t\t\t\t\t// 0x4B6A80 (line 68)  // NAME 2: describes what it does\n\tconst char *Get_Value_String(const char *key);\t\t\t\t\t// 0x4B6B60 (line 82; shared conversion buffer 0xBE3B60)  // NAME 2: describes what it does\n\tchar *Get_Value_String(const char *key, char *buf, int size);\t// 0x4B6BF0 (line 97)\n\tbool Set_Value_String(const char *key, const char *value);\t\t// 0x4B6CE0 (line 113)  // NAME 2: describes what it does\n\tvoid Keep_Only(std::hash_set<std::string, std::hash<std::string>, std::equal_to<std::string>, std::allocator<std::string> > &keys);\t\t\t\t\t// 0x4B6DC0: drops (and deletes) the pairs whose key isn't in keys; no caller in the client  // NAME 2: describes what it does\n\n\tint Get_Count() const { return V.size(); }  // NAME 2: describes what it does\n\tKVPairClass *Get(int index) const { return V[index]; }  // NAME 2: legacy unchecked helper; retail ownership unverified, writer uses Get_KV_Pair\n\n\tstruct KeyEqual  // NAME 2: describes what it does (the SGI documentation's eqstr)\n\t{\n\t\tbool operator()(const char *a, const char *b) const { return strcmp(a, b) == 0; }\n\t};\n\n\tstd::vector<KVPairClass *> V;\t\t\t\t\t\t\t\t\t\t\t// +0x00  // NAME 3 [V]: after the checked helper parameter; member spelling unproven\n\tstd::hash_map<const char *, KVPairClass *, std::hash<const char *>, KeyEqual> Index;\t// +0x10  // NAME 2 [Index]: describes what it does\n};\n\n#endif //__KV_LIST_CORE_H\n"
+        }
+      ]
+    },
+    {
+      "unit": "app/shared/kv_pair.h",
+      "base_sha256": "d0def0240e503524ceb9a4c85ecb2c4bf90531f938f04d32c0ae5068a95103f2",
+      "input_sha256": "d0def0240e503524ceb9a4c85ecb2c4bf90531f938f04d32c0ae5068a95103f2",
+      "edits": []
+    },
+    {
+      "unit": "app/shared/kv_pair_value.h",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "input_sha256": "76ee37e916c0dffda27794d5fa177c6bf6444db720e65f188c28e408308ed981",
+      "edits": [
+        {
+          "start": 0,
+          "end": 0,
+          "text": "#ifndef __KV_PAIR_VALUE_H  // NAME 3 [kv_pair_value.h]: inferred private conversion-header name\n#define __KV_PAIR_VALUE_H\n\n#include \"kv_pair.h\"\n\ninline char *Pair_Value_String(const KVPairClass *pair)  // NAME 2: describes the shared conversion\n{\n\tstatic char buf[0x1000];  // NAME 2: shared conversion buffer (retail 0xBE3B60)\n\treturn pair->Get_Value_String(buf, sizeof(buf));\n}\n\n#endif\n"
+        }
+      ]
+    },
+    {
+      "unit": "app/shared/kv_util.cpp",
+      "base_sha256": "95315110685026f5c2699920bc492ab2f3b9dde35b4eaa84f1be079d2e3302dc",
+      "input_sha256": "db67d23e187663efe179a4395bbc67470f02019332a4209d7ac2ad43ce8fc44b",
+      "edits": [
+        {
+          "start": 388,
+          "end": 388,
+          "text": "#include \"kv_list.h\""
+        },
+        {
+          "start": 389,
+          "end": 389,
+          "text": "#include \"kv_pair.h\""
+        },
+        {
+          "start": 390,
+          "end": 390,
+          "text": "#include <stdio.h>"
+        },
+        {
+          "start": 391,
+          "end": 391,
+          "text": "#include \"kv_pair_value.h\""
+        },
+        {
+          "start": 681,
+          "end": 681,
+          "text": "inline const char *Make_Section(const char *base, const char *append, char *section)  // NAME 2: describes what it does"
+        },
+        {
+          "start": 682,
+          "end": 682,
+          "text": "{"
+        },
+        {
+          "start": 683,
+          "end": 683,
+          "text": "\tstatic char SectionBuffer[0x200];  // NAME 2: holds the converted section"
+        },
+        {
+          "start": 684,
+          "end": 684,
+          "text": "\tG_ASSERT(base);"
+        },
+        {
+          "start": 685,
+          "end": 685,
+          "text": "\tG_ASSERT(append);"
+        },
+        {
+          "start": 686,
+          "end": 686,
+          "text": "\tG_ASSERT(section);"
+        },
+        {
+          "start": 687,
+          "end": 687,
+          "text": "\tstrcpy(section, base);"
+        },
+        {
+          "start": 688,
+          "end": 688,
+          "text": "\tstrcpy(SectionBuffer, append);"
+        },
+        {
+          "start": 689,
+          "end": 689,
+          "text": "\tReplace_Char(SectionBuffer, '.', '\\\\');"
+        },
+        {
+          "start": 690,
+          "end": 690,
+          "text": "\tchar *split = strrchr(SectionBuffer, '\\\\'); const char *entry;"
+        },
+        {
+          "start": 691,
+          "end": 691,
+          "text": "\tif (split != NULL) {"
+        },
+        {
+          "start": 692,
+          "end": 692,
+          "text": "\t\t*split = '\\0'; entry = split + 1;"
+        },
+        {
+          "start": 693,
+          "end": 693,
+          "text": "\t\tstrcat(section, \"\\\\\");"
+        },
+        {
+          "start": 694,
+          "end": 694,
+          "text": "\t\tstrcat(section, SectionBuffer);"
+        },
+        {
+          "start": 695,
+          "end": 695,
+          "text": "\t} else {"
+        },
+        {
+          "start": 696,
+          "end": 696,
+          "text": "\t\tentry = SectionBuffer;"
+        },
+        {
+          "start": 697,
+          "end": 697,
+          "text": "\t}"
+        },
+        {
+          "start": 698,
+          "end": 698,
+          "text": "\treturn entry;"
+        },
+        {
+          "start": 699,
+          "end": 699,
+          "text": "}"
+        },
+        {
+          "start": 2175,
+          "end": 2175,
+          "text": "bool Unknown_4BB0E0(KVListClass &list, INIClass &ini, const char *base)  // NAME 1: neutral address\n{\n\tunsigned int count = list.Get_Count();\n\tfor (unsigned int i = 0; i < count; i++) {\n\t\tKVPairClass *pair = Get_KV_Pair(list.V, i);"
+        },
+        {
+          "start": 2179,
+          "end": 2179,
+          "text": "\t\tG_ASSERT(pair);"
+        },
+        {
+          "start": 2180,
+          "end": 2180,
+          "text": "\t\tchar section[0x200];"
+        },
+        {
+          "start": 2181,
+          "end": 2181,
+          "text": "\t\tconst char *entry = Make_Section(base, pair->Key.Get_String(), section);"
+        },
+        {
+          "start": 2182,
+          "end": 2182,
+          "text": "\t\tchar value[0x300];"
+        },
+        {
+          "start": 2183,
+          "end": 2183,
+          "text": "\t\tsprintf(value, \"{%s}:{%s}\", pair->Get_Type_Name(), Pair_Value_String(pair));"
+        },
+        {
+          "start": 2184,
+          "end": 2184,
+          "text": "\t\tif (!ini.Put_String(section, entry, value)) return false;"
+        },
+        {
+          "start": 2185,
+          "end": 2185,
+          "text": "\t}"
+        },
+        {
+          "start": 2186,
+          "end": 2186,
+          "text": "\treturn true;"
+        },
+        {
+          "start": 2187,
+          "end": 2191,
+          "text": "}"
+        },
+        {
+          "start": 3368,
+          "end": 3386,
+          "text": "T"
+        },
+        {
+          "start": 3406,
+          "end": 3406,
+          "text": "610 bytes) checks each "
+        },
+        {
+          "start": 3408,
+          "end": 3409,
+          "text": "st it"
+        },
+        {
+          "start": 3410,
+          "end": 3410,
+          "text": "m"
+        },
+        {
+          "start": 3411,
+          "end": 3411,
+          "text": "(kv_list.h:73, here:"
+        },
+        {
+          "start": 3414,
+          "end": 3415,
+          "text": "),"
+        },
+        {
+          "start": 3416,
+          "end": 3416,
+          "text": "bu"
+        },
+        {
+          "start": 3417,
+          "end": 3417,
+          "text": "lds "
+        },
+        {
+          "start": 3418,
+          "end": 3419,
+          "text": "he"
+        },
+        {
+          "start": 3427,
+          "end": 3428,
+          "text": "\n**\ta"
+        },
+        {
+          "start": 3429,
+          "end": 3431,
+          "text": "d "
+        },
+        {
+          "start": 3432,
+          "end": 3432,
+          "text": "ntry"
+        },
+        {
+          "start": 3433,
+          "end": 3434,
+          "text": "thro"
+        },
+        {
+          "start": 3435,
+          "end": 3438,
+          "text": "gh th"
+        },
+        {
+          "start": 3439,
+          "end": 3455,
+          "text": ""
+        },
+        {
+          "start": 3463,
+          "end": 3463,
+          "text": " helper (asserts 45-47)"
+        },
+        {
+          "start": 3465,
+          "end": 3467,
+          "text": "form"
+        },
+        {
+          "start": 3469,
+          "end": 3491,
+          "text": "s"
+        },
+        {
+          "start": 3503,
+          "end": 3503,
+          "text": ","
+        },
+        {
+          "start": 3504,
+          "end": 3504,
+          "text": "and s"
+        },
+        {
+          "start": 3505,
+          "end": 3507,
+          "text": ""
+        },
+        {
+          "start": 3508,
+          "end": 3511,
+          "text": "ps"
+        },
+        {
+          "start": 3512,
+          "end": 3522,
+          "text": "on "
+        },
+        {
+          "start": 3532,
+          "end": 3532,
+          "text": " failure.\n**\tIts shared value conversion buffer is the private helper's 0x1000 bytes (0xBE3B60"
+        },
+        {
+          "start": 3533,
+          "end": 3533,
+          "text": ","
+        },
+        {
+          "start": 3534,
+          "end": 3534,
+          "text": "also used by the list\n**\tgetter 0x4B6B60. The converted-key buffer at 0xBE4E98 is distinct from the reader's KeyBuffer 0xBE509C.\n**\tHelper spelling/linkage and the converted-key capacity are inferred: the external inline helper gives\n**\tindependent common storage, compatible with retail's buffer before this file's initializer 0xBE5098.\n**\tThe object audit checks relocation roles and section offsets; full-image linker placement is not pr"
+        },
+        {
+          "start": 3537,
+          "end": 3537,
+          "text": "n.\n**\tThe checked f"
+        },
+        {
+          "start": 3538,
+          "end": 3538,
+          "text": "ee vector helper lives in"
+        },
+        {
+          "start": 3548,
+          "end": 3549,
+          "text": " at line 73; it"
+        },
+        {
+          "start": 3551,
+          "end": 3551,
+          "text": "ownership is inferred. The class\n**\tdeclarations and existing unchecked accessor remain in kv_"
+        },
+        {
+          "start": 3555,
+          "end": 3555,
+          "text": "_core.h, used by the encoders, so the new\n**\thelper body is included only where needed"
+        },
+        {
+          "start": 3557,
+          "end": 3557,
+          "text": "Neither accessor's original source spelling is recovered.\n**\t"
+        },
+        {
+          "start": 3578,
+          "end": 3579,
+          "text": "p"
+        },
+        {
+          "start": 3580,
+          "end": 3580,
+          "text": "eserv"
+        },
+        {
+          "start": 3585,
+          "end": 3585,
+          "text": " cl"
+        },
+        {
+          "start": 3586,
+          "end": 3586,
+          "text": "ent's asse"
+        },
+        {
+          "start": 3587,
+          "end": 3587,
+          "text": "tion location"
+        }
+      ]
+    }
+  ]
+}

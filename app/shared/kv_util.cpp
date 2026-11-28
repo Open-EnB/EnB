@@ -6,10 +6,10 @@
 #include "ini.h"
 #include "inisup.h"
 static char KeyBuffer[0x200];		// 0xBE509C  // NAME 2: describes what it does
-
-
-
-
+#include "kv_list.h"
+#include "kv_pair.h"
+#include <stdio.h>
+#include "kv_pair_value.h"
 
 
 
@@ -39,25 +39,25 @@ inline static void Replace_Char(char *string, char from, char to)	// NAME 2: des
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+inline const char *Make_Section(const char *base, const char *append, char *section)  // NAME 2: describes what it does
+{
+	static char SectionBuffer[0x200];  // NAME 2: holds the converted section
+	G_ASSERT(base);
+	G_ASSERT(append);
+	G_ASSERT(section);
+	strcpy(section, base);
+	strcpy(SectionBuffer, append);
+	Replace_Char(SectionBuffer, '.', '\\');
+	char *split = strrchr(SectionBuffer, '\\'); const char *entry;
+	if (split != NULL) {
+		*split = '\0'; entry = split + 1;
+		strcat(section, "\\");
+		strcat(section, SectionBuffer);
+	} else {
+		entry = SectionBuffer;
+	}
+	return entry;
+}
 
 
 
@@ -177,23 +177,23 @@ static bool Add_Section(KVTripleListClass &list, INISection *section, const char
 
 
 
+bool Unknown_4BB0E0(KVListClass &list, INIClass &ini, const char *base)  // NAME 1: neutral address
+{
+	unsigned int count = list.Get_Count();
+	for (unsigned int i = 0; i < count; i++) {
+		KVPairClass *pair = Get_KV_Pair(list.Pairs, i);
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+		G_ASSERT(pair);
+		char section[0x200];
+		const char *entry = Make_Section(base, pair->Key.Get_String(), section);
+		char value[0x300];
+		sprintf(value, "{%s}:{%s}", pair->Get_Type_Name(), Pair_Value_String(pair));
+		if (!ini.Put_String(section, entry, value)) return false;
+	}
+	return true;
+}
 
 
 
@@ -222,6 +222,15 @@ bool Unknown_4BB3F0(KVTripleListClass &list, INIClass &ini, const char *section_
 **	line 21 inlined). The reader takes every section named section_base or section_base\..., and each entry
 **	'name={type}:{value}' (or '{value}') of it becomes a KVTripleClass(key, value, type) whose key is the section's
 **	rest and the entry's name joined with '.'; skill_ability_names.cpp's 0x814A30 fills the abilities from it.
-**	Not rebuilt yet: the writer 0x4BB0E0 (line 188; its section-name builder of lines 45-47 inlined, static buffer
-**	0xBE4E98, '{%s}:{%s}' through INIClass::Put_String) over kv_list.h's list. The lines left blank are theirs.
+**	The writer 0x4BB0E0 (610 bytes) checks each list item (kv_list.h:73, here:188), builds the section
+**	and entry through the inlined helper (asserts 45-47), formats '{%s}:{%s}', and stops on Put_String failure.
+**	Its shared value conversion buffer is the private helper's 0x1000 bytes (0xBE3B60), also used by the list
+**	getter 0x4B6B60. The converted-key buffer at 0xBE4E98 is distinct from the reader's KeyBuffer 0xBE509C.
+**	Helper spelling/linkage and the converted-key capacity are inferred: the external inline helper gives
+**	independent common storage, compatible with retail's buffer before this file's initializer 0xBE5098.
+**	The object audit checks relocation roles and section offsets; full-image linker placement is not proven.
+**	The checked free vector helper lives in kv_list.h at line 73; its ownership is inferred. The class
+**	declarations and existing unchecked accessor remain in kv_list_core.h, used by the encoders, so the new
+**	helper body is included only where needed. Neither accessor's original source spelling is recovered.
+**	The lines left blank preserve the client's assertion locations.
 */

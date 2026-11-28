@@ -1,0 +1,21 @@
+# Batch 1 hypothesis (written before compilation)
+
+The writer uses a checked KVListClass accessor and an inlined section builder;
+retail's argument and assertion sequence directly supports those operations.
+The pair's zero-argument string accessor has a static buffer shared by inline
+COMDAT: both retail writer and existing list lookup reference 0xBE3B60 and
+both immediately invoke the same virtual +0x0C with size 0x1000. The first
+trial introduces a natural inline overload to represent that shared lifetime,
+and refactors the existing list lookup to use it. This is an inference about
+source structure, not proved by instruction bytes alone. Examine its actual
+object symbol/linkage and all-consumer preservation, with full final relocation
+audit. A separate section static represents 0xBE4E98, never the reader's
+KeyBuffer 0xBE509C.
+
+Inspect baseline form first for compilation and branches, full frame, call
+and relocation targets, code-size and masked differences. If this form works,
+compare the list lookup and symbol graph to the baseline. Variants should be
+chosen from actual residue, not spelling sweeps. In particular, compiler
+inlining the shared helper may change budget and needs real preservation proof.
+All four candidate sources are generated losslessly by prepare.py; input
+snapshots must be captured by the coordinator's runner before compilation.

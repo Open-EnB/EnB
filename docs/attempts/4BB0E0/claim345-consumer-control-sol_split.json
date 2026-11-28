@@ -1,0 +1,853 @@
+{
+  "name": "sol_split",
+  "classification": "header_component_isolation_diagnostic",
+  "mode": "folder",
+  "source_path": "/home/dev/Projects/EnB/.work/claim-345/all-consumer-tree",
+  "archived_snapshot": "/home/dev/Projects/EnB/.work/claim-345/consumer-control-trees/sol_split",
+  "inputs": [
+    {
+      "unit": "app/shared/kv_encoder_base.h",
+      "base_sha256": "55486019d2df771185b4fd6daa56fdb827f99bd5984a6489f5aea65e23f51a2a",
+      "input_sha256": "5704cccb8c86abfa345fe3ea401e427429107eb49621af110cd8d35e37d5e273",
+      "edits": [
+        {
+          "start": 770,
+          "end": 770,
+          "text": "_core"
+        }
+      ]
+    },
+    {
+      "unit": "app/shared/kv_list.cpp",
+      "base_sha256": "5ea34be2a154e5c76e0898472ce7260055f875ff43a30612c5bf5bf4b0d3371a",
+      "input_sha256": "7f9ef1107f6c31aebe1c587d64e4252c0fb7cf1eea70a494c77b9ca6b6fc5d73",
+      "edits": [
+        {
+          "start": 183,
+          "end": 183,
+          "text": "#include \"kv_pair_value.h\""
+        },
+        {
+          "start": 390,
+          "end": 395,
+          "text": "V"
+        },
+        {
+          "start": 420,
+          "end": 425,
+          "text": "V"
+        },
+        {
+          "start": 434,
+          "end": 439,
+          "text": "V"
+        },
+        {
+          "start": 661,
+          "end": 666,
+          "text": "V"
+        },
+        {
+          "start": 689,
+          "end": 694,
+          "text": "V"
+        },
+        {
+          "start": 712,
+          "end": 717,
+          "text": "V"
+        },
+        {
+          "start": 857,
+          "end": 862,
+          "text": "V"
+        },
+        {
+          "start": 1396,
+          "end": 1401,
+          "text": "V"
+        },
+        {
+          "start": 1555,
+          "end": 1580,
+          "text": ""
+        },
+        {
+          "start": 1662,
+          "end": 1667,
+          "text": "V"
+        },
+        {
+          "start": 1696,
+          "end": 1697,
+          "text": "P"
+        },
+        {
+          "start": 1700,
+          "end": 1705,
+          "text": ""
+        },
+        {
+          "start": 1719,
+          "end": 1725,
+          "text": "pa"
+        },
+        {
+          "start": 1726,
+          "end": 1735,
+          "text": "r"
+        },
+        {
+          "start": 2361,
+          "end": 2366,
+          "text": "V"
+        },
+        {
+          "start": 2389,
+          "end": 2394,
+          "text": "V"
+        },
+        {
+          "start": 2536,
+          "end": 2541,
+          "text": "V"
+        },
+        {
+          "start": 3132,
+          "end": 3136,
+          "text": "us"
+        },
+        {
+          "start": 3139,
+          "end": 3139,
+          "text": "the pa"
+        },
+        {
+          "start": 3140,
+          "end": 3143,
+          "text": "r"
+        },
+        {
+          "start": 3144,
+          "end": 3144,
+          "text": "wr"
+        },
+        {
+          "start": 3145,
+          "end": 3145,
+          "text": "pper's shared"
+        }
+      ]
+    },
+    {
+      "unit": "app/shared/kv_list.h",
+      "base_sha256": "b14c69b8571c54533940483611a00a49a894a098d2121d413fd89d735bc38fe6",
+      "input_sha256": "cd42915f2e687526786766c72d9854ef15019fcda4673f0ec4a166b38f567377",
+      "edits": [
+        {
+          "start": 3,
+          "end": 255,
+          "text": "KV"
+        },
+        {
+          "start": 261,
+          "end": 262,
+          "text": "i"
+        },
+        {
+          "start": 263,
+          "end": 269,
+          "text": "t"
+        },
+        {
+          "start": 271,
+          "end": 279,
+          "text": "f"
+        },
+        {
+          "start": 280,
+          "end": 282,
+          "text": "c"
+        },
+        {
+          "start": 285,
+          "end": 288,
+          "text": "lu"
+        },
+        {
+          "start": 290,
+          "end": 298,
+          "text": "c"
+        },
+        {
+          "start": 300,
+          "end": 323,
+          "text": "ck"
+        },
+        {
+          "start": 325,
+          "end": 333,
+          "text": ""
+        },
+        {
+          "start": 339,
+          "end": 339,
+          "text": "ed"
+        },
+        {
+          "start": 340,
+          "end": 347,
+          "text": "acc"
+        },
+        {
+          "start": 348,
+          "end": 349,
+          "text": "ssor"
+        },
+        {
+          "start": 351,
+          "end": 353,
+          "text": "D"
+        },
+        {
+          "start": 354,
+          "end": 379,
+          "text": ""
+        },
+        {
+          "start": 382,
+          "end": 382,
+          "text": "ration "
+        },
+        {
+          "start": 383,
+          "end": 465,
+          "text": "p"
+        },
+        {
+          "start": 467,
+          "end": 469,
+          "text": ""
+        },
+        {
+          "start": 470,
+          "end": 513,
+          "text": ""
+        },
+        {
+          "start": 517,
+          "end": 657,
+          "text": ""
+        },
+        {
+          "start": 659,
+          "end": 676,
+          "text": ""
+        },
+        {
+          "start": 677,
+          "end": 679,
+          "text": ""
+        },
+        {
+          "start": 680,
+          "end": 707,
+          "text": "r"
+        },
+        {
+          "start": 710,
+          "end": 822,
+          "text": ""
+        },
+        {
+          "start": 823,
+          "end": 872,
+          "text": ""
+        },
+        {
+          "start": 923,
+          "end": 924,
+          "text": "\"kv_li"
+        },
+        {
+          "start": 926,
+          "end": 926,
+          "text": "_co"
+        },
+        {
+          "start": 927,
+          "end": 930,
+          "text": "e"
+        },
+        {
+          "start": 932,
+          "end": 933,
+          "text": "\""
+        },
+        {
+          "start": 943,
+          "end": 966,
+          "text": "\"g"
+        },
+        {
+          "start": 967,
+          "end": 1006,
+          "text": ""
+        },
+        {
+          "start": 1009,
+          "end": 1013,
+          "text": ""
+        },
+        {
+          "start": 1014,
+          "end": 1039,
+          "text": "r"
+        },
+        {
+          "start": 1042,
+          "end": 1046,
+          "text": "\"\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
+        },
+        {
+          "start": 1047,
+          "end": 1051,
+          "text": ""
+        },
+        {
+          "start": 1053,
+          "end": 1067,
+          "text": ""
+        },
+        {
+          "start": 1069,
+          "end": 1084,
+          "text": ""
+        },
+        {
+          "start": 1086,
+          "end": 1414,
+          "text": ""
+        },
+        {
+          "start": 1427,
+          "end": 1551,
+          "text": ""
+        },
+        {
+          "start": 1553,
+          "end": 1555,
+          "text": "L"
+        },
+        {
+          "start": 1556,
+          "end": 1557,
+          "text": "st"
+        },
+        {
+          "start": 1562,
+          "end": 2136,
+          "text": ""
+        },
+        {
+          "start": 2138,
+          "end": 2479,
+          "text": ""
+        },
+        {
+          "start": 2499,
+          "end": 2499,
+          "text": "\n{\n\tG_ASSERT(index"
+        },
+        {
+          "start": 2500,
+          "end": 2501,
+          "text": "<"
+        },
+        {
+          "start": 2502,
+          "end": 2502,
+          "text": "V.size());\n\t"
+        },
+        {
+          "start": 2509,
+          "end": 2514,
+          "text": "V"
+        },
+        {
+          "start": 2522,
+          "end": 2990,
+          "text": ""
+        },
+        {
+          "start": 2992,
+          "end": 2993,
+          "text": ""
+        }
+      ]
+    },
+    {
+      "unit": "app/shared/kv_list_core.h",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "input_sha256": "891d96beaa0d99c07967ec93514c95a068897a719a4a43ce8b6c7cc37222895d",
+      "edits": [
+        {
+          "start": 0,
+          "end": 0,
+          "text": "// Earth & Beyond client (reconstruction)\n/*\n**\tThis file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).\n**\tClass declaration split from kv_list.h; the checked inline accessor stays there\n**\tat its client assertion location (line 73). This internal split is inferred.\n**\n**\tThe list an encoder's key/value pairs go to: the pairs in the order added, and an index by\n**\tkey. The client doesn't name the class (D24); the method names are guesses (D10), their\n**\tasserts' arguments are the client's (key, buf, value, item).\n**\n**\tThe index is SGI STL's hash_map<const char *, KVPairClass *> (libs/sgistl, D87): at +0x10, its\n**\tbuckets +0x18, its count +0x24; the hash __stl_hash_string 0x4B6970 (this file's copy), the\n**\tkeys compared with strcmp; the default constructor's 100 buckets come from this file's copy of\n**\t__stl_prime_list (0xAEB764).\n*/\n\n\n\n#if defined(_MSC_VER)\n#pragma once\n#endif\n\n#ifndef __KV_LIST_CORE_H\n#define __KV_LIST_CORE_H\n\n#include <string.h>\n#include <vector>\n#include <hash_map.h>\n// Keep_Only's argument; the class itself in libs/sgistl/hash_set.h, which only kv_list.cpp includes\nnamespace std { template <class _Value, class _HashFcn, class _EqualKey, class _Alloc> class hash_set; }\n\nclass KVPairClass;\n\nclass KVListClass  // NAME 3: by convention (D24) from the client's file kv_list.cpp\n{\npublic:\n\tKVListClass();\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t// 0x4B62B0\n\t~KVListClass();\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t// 0x4B6520 (deletes the pairs)\n\n\tvoid Add(KVPairClass *item);\t\t\t\t\t\t\t\t\t\t\t// 0x4B6760 (line 23): replaces (and deletes) a pair with the same key  // NAME 2: describes what it does\n\tKVPairClass *Find(const char *key) const;\t\t\t\t\t\t\t\t\t// 0x4B69A0 (line 51)  // NAME 2: describes what it does\n\tconst char *Get_Type_Name(const char *key);\t\t\t\t\t\t// 0x4B6A80 (line 68)  // NAME 2: describes what it does\n\tconst char *Get_Value_String(const char *key);\t\t\t\t\t// 0x4B6B60 (line 82; shared pair buffer 0xBE3B60)  // NAME 2: describes what it does\n\tchar *Get_Value_String(const char *key, char *buf, int size);\t// 0x4B6BF0 (line 97)\n\tbool Set_Value_String(const char *key, const char *value);\t\t// 0x4B6CE0 (line 113)  // NAME 2: describes what it does\n\tvoid Keep_Only(std::hash_set<std::string, std::hash<std::string>, std::equal_to<std::string>, std::allocator<std::string> > &keys);\t\t\t\t\t// 0x4B6DC0: drops (and deletes) the pairs whose key isn't in keys; no caller in the client  // NAME 2: describes what it does\n\n\tint Get_Count() const { return V.size(); }  // NAME 2: describes what it does\n\tKVPairClass *Get(int index) const;  // NAME 2: describes what it does\n\n\tstruct KeyEqual  // NAME 2: describes what it does (the SGI documentation's eqstr)\n\t{\n\t\tbool operator()(const char *a, const char *b) const { return strcmp(a, b) == 0; }\n\t};\n\n\tstd::vector<KVPairClass *> V;  // +0x00, name from client assertion\n\tstd::hash_map<const char *, KVPairClass *, std::hash<const char *>, KeyEqual> Index;\t// +0x10  // NAME 2 [Index]: describes what it does\n};\n\n#endif //__KV_LIST_CORE_H\n"
+        }
+      ]
+    },
+    {
+      "unit": "app/shared/kv_pair.h",
+      "base_sha256": "d0def0240e503524ceb9a4c85ecb2c4bf90531f938f04d32c0ae5068a95103f2",
+      "input_sha256": "d0def0240e503524ceb9a4c85ecb2c4bf90531f938f04d32c0ae5068a95103f2",
+      "edits": []
+    },
+    {
+      "unit": "app/shared/kv_pair_value.h",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "input_sha256": "a99ced4f7a39b3cde910e7bd9281aad4ccc03fd3fd83ce5913b34442b36783b5",
+      "edits": [
+        {
+          "start": 0,
+          "end": 0,
+          "text": "#ifndef __KV_PAIR_VALUE_H\n#define __KV_PAIR_VALUE_H\n\n#include \"kv_pair.h\"\n\ninline char *Pair_Value_String(const KVPairClass *pair)  // NAME 2: describes the shared conversion\n{\n\tstatic char buf[0x1000];\n\treturn pair->Get_Value_String(buf, sizeof(buf));\n}\n\n#endif\n"
+        }
+      ]
+    },
+    {
+      "unit": "app/shared/kv_util.cpp",
+      "base_sha256": "95315110685026f5c2699920bc492ab2f3b9dde35b4eaa84f1be079d2e3302dc",
+      "input_sha256": "bfa1ce5ded0740ea1a6d8950aa2c9d4eaec648ddd55a3c81d4511aaafcaae0e3",
+      "edits": [
+        {
+          "start": 388,
+          "end": 388,
+          "text": "#include \"kv_list.h\""
+        },
+        {
+          "start": 389,
+          "end": 389,
+          "text": "#include \"kv_pair.h\""
+        },
+        {
+          "start": 390,
+          "end": 390,
+          "text": "#include <stdio.h>"
+        },
+        {
+          "start": 391,
+          "end": 391,
+          "text": "#include \"kv_pair_value.h\""
+        },
+        {
+          "start": 681,
+          "end": 681,
+          "text": "inline const char *Make_Section(const char *base, const char *append, char *section)  // NAME 2: describes what it does"
+        },
+        {
+          "start": 682,
+          "end": 682,
+          "text": "{"
+        },
+        {
+          "start": 683,
+          "end": 683,
+          "text": "\tstatic char SectionBuffer[0x200];  // NAME 2: holds the converted section"
+        },
+        {
+          "start": 684,
+          "end": 684,
+          "text": "\tG_ASSERT(base);"
+        },
+        {
+          "start": 685,
+          "end": 685,
+          "text": "\tG_ASSERT(append);"
+        },
+        {
+          "start": 686,
+          "end": 686,
+          "text": "\tG_ASSERT(section);"
+        },
+        {
+          "start": 687,
+          "end": 687,
+          "text": "\tstrcpy(section, base);"
+        },
+        {
+          "start": 688,
+          "end": 688,
+          "text": "\tstrcpy(SectionBuffer, append);"
+        },
+        {
+          "start": 689,
+          "end": 689,
+          "text": "\tReplace_Char(SectionBuffer, '.', '\\\\');"
+        },
+        {
+          "start": 690,
+          "end": 690,
+          "text": "\tchar *split = strrchr(SectionBuffer, '\\\\'); const char *entry;"
+        },
+        {
+          "start": 691,
+          "end": 691,
+          "text": "\tif (split != NULL) {"
+        },
+        {
+          "start": 692,
+          "end": 692,
+          "text": "\t\t*split = '\\0'; entry = split + 1;"
+        },
+        {
+          "start": 693,
+          "end": 693,
+          "text": "\t\tstrcat(section, \"\\\\\");"
+        },
+        {
+          "start": 694,
+          "end": 694,
+          "text": "\t\tstrcat(section, SectionBuffer);"
+        },
+        {
+          "start": 695,
+          "end": 695,
+          "text": "\t} else {"
+        },
+        {
+          "start": 696,
+          "end": 696,
+          "text": "\t\tentry = SectionBuffer;"
+        },
+        {
+          "start": 697,
+          "end": 697,
+          "text": "\t}"
+        },
+        {
+          "start": 698,
+          "end": 698,
+          "text": "\treturn entry;"
+        },
+        {
+          "start": 699,
+          "end": 699,
+          "text": "}"
+        },
+        {
+          "start": 2175,
+          "end": 2175,
+          "text": "bool Unknown_4BB0E0(KVListClass &list, INIClass &ini, const char *base)  // NAME 1: neutral address\n{\n\tunsigned int count = list.Get_Count();\n\tfor (unsigned int i = 0; i < count; i++) {\n\t\tKVPairClass *pair = list.Get(i);"
+        },
+        {
+          "start": 2179,
+          "end": 2179,
+          "text": "\t\tG_ASSERT(pair);"
+        },
+        {
+          "start": 2180,
+          "end": 2180,
+          "text": "\t\tchar section[0x200];"
+        },
+        {
+          "start": 2181,
+          "end": 2181,
+          "text": "\t\tconst char *entry = Make_Section(base, pair->Key.Get_String(), section);"
+        },
+        {
+          "start": 2182,
+          "end": 2182,
+          "text": "\t\tchar value[0x300];"
+        },
+        {
+          "start": 2183,
+          "end": 2183,
+          "text": "\t\tsprintf(value, \"{%s}:{%s}\", pair->Get_Type_Name(), Pair_Value_String(pair));"
+        },
+        {
+          "start": 2184,
+          "end": 2184,
+          "text": "\t\tif (!ini.Put_String(section, entry, value)) return false;"
+        },
+        {
+          "start": 2185,
+          "end": 2185,
+          "text": "\t}"
+        },
+        {
+          "start": 2186,
+          "end": 2186,
+          "text": "\treturn true;"
+        },
+        {
+          "start": 2187,
+          "end": 2191,
+          "text": "}"
+        },
+        {
+          "start": 3368,
+          "end": 3386,
+          "text": "T"
+        },
+        {
+          "start": 3406,
+          "end": 3406,
+          "text": "610 bytes) checks each "
+        },
+        {
+          "start": 3408,
+          "end": 3409,
+          "text": "st it"
+        },
+        {
+          "start": 3410,
+          "end": 3410,
+          "text": "m"
+        },
+        {
+          "start": 3411,
+          "end": 3411,
+          "text": "(kv_list.h:73, here:"
+        },
+        {
+          "start": 3414,
+          "end": 3415,
+          "text": "),"
+        },
+        {
+          "start": 3416,
+          "end": 3416,
+          "text": "bu"
+        },
+        {
+          "start": 3417,
+          "end": 3417,
+          "text": "lds "
+        },
+        {
+          "start": 3418,
+          "end": 3419,
+          "text": "he"
+        },
+        {
+          "start": 3427,
+          "end": 3428,
+          "text": "\n**\ta"
+        },
+        {
+          "start": 3429,
+          "end": 3431,
+          "text": "d "
+        },
+        {
+          "start": 3432,
+          "end": 3432,
+          "text": "ntry"
+        },
+        {
+          "start": 3433,
+          "end": 3434,
+          "text": "thro"
+        },
+        {
+          "start": 3435,
+          "end": 3438,
+          "text": "gh th"
+        },
+        {
+          "start": 3439,
+          "end": 3455,
+          "text": ""
+        },
+        {
+          "start": 3463,
+          "end": 3463,
+          "text": " helper (asserts 45-47)"
+        },
+        {
+          "start": 3465,
+          "end": 3467,
+          "text": "form"
+        },
+        {
+          "start": 3469,
+          "end": 3491,
+          "text": "s"
+        },
+        {
+          "start": 3503,
+          "end": 3503,
+          "text": ","
+        },
+        {
+          "start": 3504,
+          "end": 3504,
+          "text": "and s"
+        },
+        {
+          "start": 3505,
+          "end": 3507,
+          "text": ""
+        },
+        {
+          "start": 3508,
+          "end": 3511,
+          "text": "ps"
+        },
+        {
+          "start": 3512,
+          "end": 3522,
+          "text": "on "
+        },
+        {
+          "start": 3532,
+          "end": 3533,
+          "text": ""
+        },
+        {
+          "start": 3534,
+          "end": 3534,
+          "text": "failure.\n**\tIts shared value c"
+        },
+        {
+          "start": 3535,
+          "end": 3535,
+          "text": "n"
+        },
+        {
+          "start": 3538,
+          "end": 3538,
+          "text": "sion"
+        },
+        {
+          "start": 3539,
+          "end": 3543,
+          "text": "buffer "
+        },
+        {
+          "start": 3545,
+          "end": 3545,
+          "text": " "
+        },
+        {
+          "start": 3546,
+          "end": 3547,
+          "text": ""
+        },
+        {
+          "start": 3548,
+          "end": 3548,
+          "text": "e pair wrapper"
+        },
+        {
+          "start": 3550,
+          "end": 3550,
+          "text": " 0x1000 bytes (0xBE3B60), also used by the"
+        },
+        {
+          "start": 3555,
+          "end": 3555,
+          "text": "\n**\tgetter 0x4B6B60"
+        },
+        {
+          "start": 3557,
+          "end": 3557,
+          "text": "The converted-key buffer at 0xBE4E98 is distinct from the reader's KeyBuffer 0xBE509C.\n**\tHelper spelling/linkage and the converted-key capacity are inferred: the external inline helper gives\n**\tindependent common storage, compatible with retail's buffer before this file's initializer 0xBE5098.\n**\tThe object audit checks relocation roles and section offsets; full-image linker placement is not proven.\n**\t"
+        },
+        {
+          "start": 3578,
+          "end": 3579,
+          "text": "p"
+        },
+        {
+          "start": 3580,
+          "end": 3580,
+          "text": "eserv"
+        },
+        {
+          "start": 3585,
+          "end": 3585,
+          "text": " cl"
+        },
+        {
+          "start": 3586,
+          "end": 3586,
+          "text": "ent's asse"
+        },
+        {
+          "start": 3587,
+          "end": 3587,
+          "text": "tion location"
+        }
+      ]
+    }
+  ],
+  "compiler_inputs": [
+    {
+      "unit": "app/client/co.cpp",
+      "source_sha256": "42f883902863f4de52c14a06120b3e7b88f0daa03c61aed3250775407a536ed5",
+      "response": "/nologo /c /MT /W3 /O2 /Ob2 /GX\n/DWIN32\n/D_WINDOWS\n/DWIN32_LEAN_AND_MEAN\n/DWINVER=0x400\n/DNDEBUG\n/DENABLE_WWPROFILE\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\all-consumer-tree\\wwdebug\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\all-consumer-tree\\wwlib\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\all-consumer-tree\\wwmath\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\all-consumer-tree\\wwsaveload\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\all-consumer-tree\\wwaudio\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\all-consumer-tree\\ww3d2\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\all-consumer-tree\\wwshade\"\n/I\"C:\\EnBDevelopment\\SDK\\directx8\\include\"\n/I\"C:\\EnBDevelopment\\SDK\\radtools\\include_enb\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\all-consumer-tree\\libs\\wwonline\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\all-consumer-tree\\libs\\sgistl\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\all-consumer-tree\"\n\"e:\\build\\beta\\G\\app\\client\\co.cpp\"",
+      "object_sha256": "94d5dc0985cf2ce9485d2860c22677102e2d86e7aba848965109a7eda4bf76c4",
+      "old_exact_graphs": 632,
+      "changed_graphs": [
+        "??0DeltaPrimaryCategoryClass@@QAE@PBD@Z",
+        "??0?$DeltaItemArrayClass@VDeltaItemClass@@@@QAE@PBDI@Z",
+        "??0?$DeltaItemArrayClass@VDeltaEquipItemClass@@@@QAE@PBDI@Z",
+        "??0?$DeltaItemArrayClass@VDeltaSubCategoryClass@@@@QAE@PBDI@Z"
+      ]
+    },
+    {
+      "unit": "app/client/sbaseview.cpp",
+      "source_sha256": "7707bf1e4508a1962613df6270c72480937fa5eba42dee0e9c75419b4bf0881e",
+      "response": "/nologo /c /MT /W3 /O2 /Ob2 /GX\n/DWIN32\n/D_WINDOWS\n/DWIN32_LEAN_AND_MEAN\n/DWINVER=0x400\n/DNDEBUG\n/DENABLE_WWPROFILE\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\all-consumer-tree\\wwdebug\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\all-consumer-tree\\wwlib\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\all-consumer-tree\\wwmath\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\all-consumer-tree\\wwsaveload\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\all-consumer-tree\\wwaudio\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\all-consumer-tree\\ww3d2\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\all-consumer-tree\\wwshade\"\n/I\"C:\\EnBDevelopment\\SDK\\directx8\\include\"\n/I\"C:\\EnBDevelopment\\SDK\\radtools\\include_enb\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\all-consumer-tree\\libs\\wwonline\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\all-consumer-tree\\libs\\sgistl\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\all-consumer-tree\"\n\"e:\\build\\beta\\G\\app\\client\\sbaseview.cpp\"",
+      "object_sha256": "589ed83a1c329aa6fa1a47bc121575a5fd13c1a11b9715477be1d288633a7b05",
+      "old_exact_graphs": 160,
+      "changed_graphs": [
+        "?Unknown_6A1180@SBaseViewClass@@QAEXXZ"
+      ]
+    },
+    {
+      "unit": "app/client/sclient.cpp",
+      "source_sha256": "4bb040c9cc6118303fda6b8bcd53ee578b3858a701282899a6789e649b63121a",
+      "response": "/nologo /c /MT /W3 /O2 /Ob2 /GX\n/DWIN32\n/D_WINDOWS\n/DWIN32_LEAN_AND_MEAN\n/DWINVER=0x400\n/DNDEBUG\n/DENABLE_WWPROFILE\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\all-consumer-tree\\wwdebug\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\all-consumer-tree\\wwlib\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\all-consumer-tree\\wwmath\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\all-consumer-tree\\wwsaveload\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\all-consumer-tree\\wwaudio\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\all-consumer-tree\\ww3d2\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\all-consumer-tree\\wwshade\"\n/I\"C:\\EnBDevelopment\\SDK\\directx8\\include\"\n/I\"C:\\EnBDevelopment\\SDK\\radtools\\include_enb\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\all-consumer-tree\\libs\\wwonline\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\all-consumer-tree\\libs\\sgistl\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\all-consumer-tree\"\n\"e:\\build\\beta\\G\\app\\client\\sclient.cpp\"",
+      "object_sha256": "de49f6391e9e8ba3542c313215968f8ae783429b22af06f40a01551695aebf1a",
+      "old_exact_graphs": 607,
+      "changed_graphs": [
+        "??0?$DeltaItemArrayClass@VDeltaEquipItemClass@@@@QAE@PBDI@Z",
+        "??0?$DeltaItemArrayClass@VDeltaFactionClass@@@@QAE@PBDI@Z"
+      ]
+    }
+  ],
+  "changed_prior_graphs": [
+    [
+      "app/client/co.cpp",
+      "??0DeltaPrimaryCategoryClass@@QAE@PBD@Z"
+    ],
+    [
+      "app/client/co.cpp",
+      "??0?$DeltaItemArrayClass@VDeltaItemClass@@@@QAE@PBDI@Z"
+    ],
+    [
+      "app/client/co.cpp",
+      "??0?$DeltaItemArrayClass@VDeltaEquipItemClass@@@@QAE@PBDI@Z"
+    ],
+    [
+      "app/client/co.cpp",
+      "??0?$DeltaItemArrayClass@VDeltaSubCategoryClass@@@@QAE@PBDI@Z"
+    ],
+    [
+      "app/client/sbaseview.cpp",
+      "?Unknown_6A1180@SBaseViewClass@@QAEXXZ"
+    ],
+    [
+      "app/client/sclient.cpp",
+      "??0?$DeltaItemArrayClass@VDeltaEquipItemClass@@@@QAE@PBDI@Z"
+    ],
+    [
+      "app/client/sclient.cpp",
+      "??0?$DeltaItemArrayClass@VDeltaFactionClass@@@@QAE@PBDI@Z"
+    ]
+  ]
+}

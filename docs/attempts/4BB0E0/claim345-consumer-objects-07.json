@@ -1,0 +1,402 @@
+[
+  {
+    "unit": "app/client/ui_petition_entry.cpp",
+    "old_object_sha256": "21959582e90c9d29230f0306f3a9b6dc20e9334da084c9f07bf540d154eed165",
+    "new_object_sha256": "757e3ac26618e4e99b3becc2a84f6adf9a3ace2d71c618eec6743872034303e1",
+    "checked": 48,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/ui_petition_player.cpp",
+    "old_object_sha256": "97af7baf29939a5bfcf093a71a4dc8509b7a62ec7b57415fc09bbe03e15de108",
+    "new_object_sha256": "7dbf0e0d2500a39b7ffcb66c001f7b92b4489b095c3cee9f8e8156b3198300e7",
+    "checked": 40,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/ui_petition_player_entry.cpp",
+    "old_object_sha256": "f5ac851a12cb6cc4bfbe40deb8229f54c47f80cc844f3f18af45e9ac8c53e831",
+    "new_object_sha256": "c05d4ebb92cb42e4efa1dc697258d15a31539c746804a343f674e1b08ef94b13",
+    "checked": 64,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/ui_petition_stuck.cpp",
+    "old_object_sha256": "1cf1f61ff4fed04093c7bd14fd95ea3e8d26d69225e38b930019876aa8f00600",
+    "new_object_sha256": "3571cba51e15a9bfd798a184b50a634c4e83c2973090e4a473d37ac8bcee48a7",
+    "checked": 29,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/ui_ping.cpp",
+    "old_object_sha256": "9b23a66605727f04c63dd25ee95494174513f4d31ee13cb388d61cb7cb459702",
+    "new_object_sha256": "dfceda5241dc832af5bfd6930b1a0ac5d3e43291ca19c28b5c7e6dd458ee070d",
+    "checked": 41,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/ui_playeropt.cpp",
+    "old_object_sha256": "e3c8e45a457ba6811f5a05f6b695bd5be753116eb987d69b31196c253a296b60",
+    "new_object_sha256": "8e4b5db81ee67ba4e9b800eddcc691f5532f5e05fd56484c31733e1062136e22",
+    "checked": 79,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/ui_popup_browser.cpp",
+    "old_object_sha256": "e7fe8d6e18068a434ee86426c7f961bc89c5f8c3978aa65c3156b445a589d257",
+    "new_object_sha256": "9cab495b22f84aac58182b2bb9a1d6c472d47399d370af76eca307ba719086fd",
+    "checked": 41,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/ui_popupmsg.cpp",
+    "old_object_sha256": "e1f8d167ae12d8ea9e73ef8f325c2abf76f0866c10a26b2f8151d41d35fae08e",
+    "new_object_sha256": "8676aa2c104d260412cd9a1479e940702c80e280d5d81f39a82960da28ec5aa6",
+    "checked": 37,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/ui_power.cpp",
+    "old_object_sha256": "b960c53b0c32bc0618ef3e355153565f19e56e7808fdcbc83c807a206cd19242",
+    "new_object_sha256": "8c4a73881dcab735c168e70356b06f5754c036eba4d30ad5090b97f6c115dd13",
+    "checked": 50,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/ui_proc.cpp",
+    "old_object_sha256": "545d4649ae1d6d234fc8be23dd9e5c462cb49ea6cfbc8413037afd23fcf8cf64",
+    "new_object_sha256": "6495622dad2383e2dcaeb6978f129c5c087d6c10b09a1eee84954e4846cb3e9b",
+    "checked": 29,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/ui_pterm.cpp",
+    "old_object_sha256": "17d6bd63e64ef930524cff59682df6264ec270aaf6c3e2942676aab39207aa6f",
+    "new_object_sha256": "d3db0d7091900d3236e44ffb21578ce676045118b5e81a68aae1be172920a43c",
+    "checked": 35,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/ui_ptmis.cpp",
+    "old_object_sha256": "57c296b67456464f98568db7c586b61af9982474bfad6086e741b63aa07ded98",
+    "new_object_sha256": "62e76ba481b45351219b4a48c4fe36161d6fc37e6b50a8e60fef9401fb5e6f19",
+    "checked": 36,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/ui_ptnew.cpp",
+    "old_object_sha256": "3fcba282f69f839d0223b8484a847a9bcb569ff26943cc00b69f94700f4078ab",
+    "new_object_sha256": "33a6d1b965c7429da51fcca84fbe4e3e415efd631e00f17139cb74c5e72fca02",
+    "checked": 36,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/ui_ptppl.cpp",
+    "old_object_sha256": "f1c1cd11f55bb0524554963bfb650b518b5c8226365541033938fff41efd78d1",
+    "new_object_sha256": "79bf4c2c84a77148374c032ae48614391e7a8e4dda683dbf08a5ddab8439ab5e",
+    "checked": 35,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/ui_ptrade.cpp",
+    "old_object_sha256": "37a6696f5e0fc05952e915ea895870ba033f767065156c5d91f9bd6eabe2ef65",
+    "new_object_sha256": "6ed761ae7eddc1d467d2202470cd14e90c139fc961c0543868f5bc9666311dc6",
+    "checked": 99,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/ui_radio_admin.cpp",
+    "old_object_sha256": "5a7fb9469819819d512b94ab31b71ed4af226212bc796b405ce83fa1d21fdb17",
+    "new_object_sha256": "4521db54e0638bd2e1e29858a78e08731df02a1d19552550b8b990caf1c4cd1e",
+    "checked": 70,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/ui_radio_entry.cpp",
+    "old_object_sha256": "94a0494b750343ebe5e699275abbfb35653d363987cc6639e25246901c1615a1",
+    "new_object_sha256": "e9f8a398896440b37825e8fbbce79c4b1e704e47c2b45870c0e02df6c8cef9ff",
+    "checked": 50,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/ui_radio_join.cpp",
+    "old_object_sha256": "aceea46b4c58042be76a33156e0ab0baf6ebcdf46da8109c6596a851f0306e26",
+    "new_object_sha256": "bda4d39e68a1a839db2f54d3a51fc19b31019853dbe62dca6ad1965abaf1f841",
+    "checked": 49,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/ui_radio_list.cpp",
+    "old_object_sha256": "0dd12d7335b23eaaf142a45029bff99d8cf8e5e649e7ac8bfecab3559921e32d",
+    "new_object_sha256": "24d31589a9bfcf77e8e928594c0e39777b68ae62c39bd23ba6c36106945a9722",
+    "checked": 70,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/ui_radio_main.cpp",
+    "old_object_sha256": "4cfab65841955bc49c56f32e5750abafd36d6d5642beb6f80e0e96a099b98adf",
+    "new_object_sha256": "d747c8065df5e375c62284b7b9b127990b502b7f6f7f63dd5c43d877cac82884",
+    "checked": 54,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/ui_refinery.cpp",
+    "old_object_sha256": "1d7b2a8171987654604d8429264ae587bb349b58e12380f0c3c33b3626f0792a",
+    "new_object_sha256": "1df985879193a249b3b012af47ada4715bca35a8f967529ae524795c9359c593",
+    "checked": 97,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/ui_registration.cpp",
+    "old_object_sha256": "c49c3480c2981852b37dbfb316d9fcf865125b3831bae556d6c71b0c06552a7f",
+    "new_object_sha256": "f149f891d71c1cbcf6e23834e0961c1d502c2bc2291703bc89f777f1401d43a1",
+    "checked": 315,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/ui_scan.cpp",
+    "old_object_sha256": "0eb6137088ad90e2f3ac0121c54dba2c8fa7dd4aa1772a2f8d0549fa2c740e5b",
+    "new_object_sha256": "2482faff9ead3ccf4b9952da13046e22a4dc894ad2fb175d6c4ee39a095482c4",
+    "checked": 91,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/ui_scut.cpp",
+    "old_object_sha256": "b7aa094fb2bff9a7ceeb0505077a5586112b4d44bcc2088da1dba7df7282c10b",
+    "new_object_sha256": "f8538879f0998b9c11f7bbab45257ed552136682a9d6ed11fb0fd1760a9b7a0a",
+    "checked": 89,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/ui_scut_gadgets.cpp",
+    "old_object_sha256": "1012f4978e1dcf12d6691be389149422d794e413a2a67a6a9c5ba1012c8982fb",
+    "new_object_sha256": "6bd7ba244f72a28e30b2684f3faf962abd029bf2bac1a273dc8bbb231fd8990c",
+    "checked": 49,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/ui_shard.cpp",
+    "old_object_sha256": "31b7b125432dd72e73d76f7faeaa053202adc2bc11928912b213e35ad6f52d50",
+    "new_object_sha256": "d64775ef74376bb1183ba46e7ce713ccaf5ee4f3fb97e8d78163cd24897722fa",
+    "checked": 53,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/ui_ship_cust.cpp",
+    "old_object_sha256": "a240f35c2cf32cb9daebf099ac06877df6b4f9440861e1d167ba213a86a8888f",
+    "new_object_sha256": "91f34073f983ccaf527ea4457a2c3b6d8d3f54f352a1d739623d1167022617d3",
+    "checked": 133,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/ui_shipcust.cpp",
+    "old_object_sha256": "d4df984fe83ef6f01835bcd63d67d29ff741291726f8fd542a160cee5dd24de9",
+    "new_object_sha256": "ca684c7b93b5696797c413913a933983956e697b19fb918a7a41686db70c035d",
+    "checked": 121,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/ui_sinfo.cpp",
+    "old_object_sha256": "f9652fcab0d36431720a0f2fb8b96edede629e69b6e3c2087f1ac3207c6a8fae",
+    "new_object_sha256": "6ee5e5d872e8f7213593e1889b5c749d7a53ffd0c166bae4135068b368685e89",
+    "checked": 20,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/ui_skill_info.cpp",
+    "old_object_sha256": "356d4e27c5f4fb991060de406bb001fdafd23aa234416c3cb180ab3a6e6a3e85",
+    "new_object_sha256": "f8bbe5c5e2c673b1129f0a98160ef76967b42b68d59e924d1bf2e27a28a34dea",
+    "checked": 59,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/ui_skills.cpp",
+    "old_object_sha256": "a7fffb546c73a62c0fb72a64c2327a5111f7b0e5e1c06a107a938e363efc4ac3",
+    "new_object_sha256": "8833a258dce0601cafd9002286f9ea4cd3e2740bf669d68fbe7e4d7c723ab6f2",
+    "checked": 52,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/ui_slot_data.cpp",
+    "old_object_sha256": "15795de39096606d38b1df0a90ee3faa6cba3c6aa3d37bf55a464c1553977d3d",
+    "new_object_sha256": "2a132c6eb24e611d8a5cc3ca02ed4064cc66acb828f8430d8c99ac652819c498",
+    "checked": 83,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/ui_slot_info.cpp",
+    "old_object_sha256": "08ed133e5e2eb3555d1c58aee617608c75472f481a127a78b49ae65092e90015",
+    "new_object_sha256": "74beba6fef602dd509ec5c86783b3870defbdccbbf2cb6d921f77e92befac9c0",
+    "checked": 37,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/ui_slot_scut.cpp",
+    "old_object_sha256": "7827537d189fb9fafac5d5202e901ec82231bf993c049b660043c644f76067c0",
+    "new_object_sha256": "026770e0d3d415f850de079e6c30cc97c60eb39628f4122558d31df4d6bb6f39",
+    "checked": 42,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/ui_starbase.cpp",
+    "old_object_sha256": "926162c7ba8b130a720fe069714061bd621f28e8cdd4350faedc997fc2db1a0a",
+    "new_object_sha256": "e48d4c7cc652283a152b2650cd5834084c5cf98f67f24cc308b8265454c66690",
+    "checked": 180,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/ui_starmap.cpp",
+    "old_object_sha256": "1923d627b6e2c64ad5f144306d84de9fcdf62b694d07f5dc57beef965dd30a5f",
+    "new_object_sha256": "55e3beb2c2566c2a4924da43c897916a8c7b29f6bd47e18a7d818ccb93cd175a",
+    "checked": 62,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/ui_string_list.cpp",
+    "old_object_sha256": "f913d73fdaee2d21cc9cb5d585988c090fd07123cb0cf966787afd009e5032fb",
+    "new_object_sha256": "2bc048303c31d504f7bc3eab68f4b0145ab1475c34e2718fc4a1fe8368510b04",
+    "checked": 45,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/ui_stringentry.cpp",
+    "old_object_sha256": "a0c2afd8338c5d69110fd4eaf08c23c8876dbea06b03fbcd971e18103f73a1ed",
+    "new_object_sha256": "fa0f41aae9b781c6ef9ac100ec84ee695c90e5da3519660d6b61fd212d678ed8",
+    "checked": 40,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/ui_symbolchat.cpp",
+    "old_object_sha256": "62302aae67d315bc2301415ebb8058399acc27aecffbd1b0640b857abf109874",
+    "new_object_sha256": "a491e16622fa0a771ed49d41ba851835134c5ea0cf23bf2a34c12e76f5d6bc81",
+    "checked": 48,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/ui_talkt.cpp",
+    "old_object_sha256": "6dbbfa424804f724ed69210b4264e2165b699a2db7038846b30a48e5e6730f9d",
+    "new_object_sha256": "cd8142d0596157570c007433777cf0ca43987798e78f7765d00aabd78876a04a",
+    "checked": 93,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/ui_talkt_space.cpp",
+    "old_object_sha256": "dd6deb9f034061e3c3eb728aa564265b6e1836999f72c2e35e881ba9f9ae3cc2",
+    "new_object_sha256": "6c3a440d29290d03c5912abfd7e547a44520fb61e09100c33e88c0d357caf2a4",
+    "checked": 34,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/ui_test.cpp",
+    "old_object_sha256": "ee808139cfa456b486cabd920e9d1d1e5446e30c23dabdef01b5c5ca0962839d",
+    "new_object_sha256": "acb1629f0b8c1044c001a150b493f52fe351793e1e5fdf038464b2c49efc59d7",
+    "checked": 56,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/ui_trade.cpp",
+    "old_object_sha256": "55a23ef5e2d61c3a2cc1852bcbfaca513dcea95a3cfb6d8d41e52e230a4c489b",
+    "new_object_sha256": "0800355255a770eb9dee1c3b8d80fe0694933684f19c8d0b774db6542f8018ee",
+    "checked": 94,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/ui_treem.cpp",
+    "old_object_sha256": "7d27112889aaf2de863ec42fbdaca601e4a3c3a0b229479830e3594d620dc1ee",
+    "new_object_sha256": "4b738480d344dd31fc81e5d9531377c7a7972c7c10f553d553acbd554efb6ab0",
+    "checked": 74,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/ui_vault.cpp",
+    "old_object_sha256": "bcd1818ed7bcffa2be2e89b4a5384268ba3dd7fc0b4135155d45ada4efa98b4a",
+    "new_object_sha256": "df5fdeb32f1f23b9e6aa15d940c437011ad9c6ef25d8cc00210364ea913e975d",
+    "checked": 57,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/ui_verb.cpp",
+    "old_object_sha256": "70e7886c68eb77dac6e5fc610d00ee6eec8f1b460be9933458b11440757e0d50",
+    "new_object_sha256": "fd9b6b2569f8b4fadc58bf138262fc0de1eeea0e1c1d1055c34f87f3548f3a2a",
+    "checked": 91,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/uiview.cpp",
+    "old_object_sha256": "ac6038b81bc4248f520f01cec0ca64d8639b64a48d529d351380fec6fb782524",
+    "new_object_sha256": "943b7958fc8064f3f6b3b56eaab8febc570fb5d2e6ca73dcce9c4b6830779e60",
+    "checked": 42,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/unknown_514cc0.cpp",
+    "old_object_sha256": "29700372820ffb6ff955cd3656a90f259fc470f3cdc0f57b0f818366c5a26822",
+    "new_object_sha256": "d8b201a6d92b62019832b13af617b08c0c87922cfa8bc4ca1e31a29b90c98cb1",
+    "checked": 23,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/unknown_515640.cpp",
+    "old_object_sha256": "7f95b6e1829586554b0b97f57d642c586d9d80c1fb8025b42854c6bf8ba39fc7",
+    "new_object_sha256": "3f8d950bd196f123ddb7482046844c103e2574474d2777f3df746c0603958581",
+    "checked": 30,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/unknown_51c800.cpp",
+    "old_object_sha256": "b5e068118d297233bd09fad48681c748ae00b3f158c1287b816cb2a8f8a677d9",
+    "new_object_sha256": "8c2ed00c0c9777a2673048246530fe264be62dc54945d89bf0cd132a737a2c43",
+    "checked": 7,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  }
+]

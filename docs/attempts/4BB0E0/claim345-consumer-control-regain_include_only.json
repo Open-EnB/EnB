@@ -1,0 +1,66 @@
+{
+  "name": "regain_include_only",
+  "classification": "header_component_isolation_diagnostic",
+  "mode": "folder",
+  "source_path": "/home/dev/Projects/EnB/.work/claim-345/all-consumer-tree",
+  "archived_snapshot": "/home/dev/Projects/EnB/.work/claim-345/consumer-control-trees/regain_include_only",
+  "inputs": [
+    {
+      "unit": "app/shared/kv_list.cpp",
+      "base_sha256": "5ea34be2a154e5c76e0898472ce7260055f875ff43a30612c5bf5bf4b0d3371a",
+      "input_sha256": "5ea34be2a154e5c76e0898472ce7260055f875ff43a30612c5bf5bf4b0d3371a",
+      "edits": []
+    },
+    {
+      "unit": "app/shared/kv_list.h",
+      "base_sha256": "b14c69b8571c54533940483611a00a49a894a098d2121d413fd89d735bc38fe6",
+      "input_sha256": "4f4fe14552a77384dd4ffb6985095d2c65a1c9f7099bbaf6c3168e298dba6198",
+      "edits": [
+        {
+          "start": 973,
+          "end": 973,
+          "text": "\n#include \"g_assert.h\""
+        }
+      ]
+    },
+    {
+      "unit": "app/shared/kv_pair.h",
+      "base_sha256": "d0def0240e503524ceb9a4c85ecb2c4bf90531f938f04d32c0ae5068a95103f2",
+      "input_sha256": "d0def0240e503524ceb9a4c85ecb2c4bf90531f938f04d32c0ae5068a95103f2",
+      "edits": []
+    },
+    {
+      "unit": "app/shared/kv_util.cpp",
+      "base_sha256": "95315110685026f5c2699920bc492ab2f3b9dde35b4eaa84f1be079d2e3302dc",
+      "input_sha256": "95315110685026f5c2699920bc492ab2f3b9dde35b4eaa84f1be079d2e3302dc",
+      "edits": []
+    }
+  ],
+  "compiler_inputs": [
+    {
+      "unit": "app/client/co.cpp",
+      "source_sha256": "42f883902863f4de52c14a06120b3e7b88f0daa03c61aed3250775407a536ed5",
+      "response": "/nologo /c /MT /W3 /O2 /Ob2 /GX\n/DWIN32\n/D_WINDOWS\n/DWIN32_LEAN_AND_MEAN\n/DWINVER=0x400\n/DNDEBUG\n/DENABLE_WWPROFILE\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\all-consumer-tree\\wwdebug\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\all-consumer-tree\\wwlib\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\all-consumer-tree\\wwmath\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\all-consumer-tree\\wwsaveload\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\all-consumer-tree\\wwaudio\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\all-consumer-tree\\ww3d2\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\all-consumer-tree\\wwshade\"\n/I\"C:\\EnBDevelopment\\SDK\\directx8\\include\"\n/I\"C:\\EnBDevelopment\\SDK\\radtools\\include_enb\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\all-consumer-tree\\libs\\wwonline\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\all-consumer-tree\\libs\\sgistl\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\all-consumer-tree\"\n\"e:\\build\\beta\\G\\app\\client\\co.cpp\"",
+      "object_sha256": "008131bfd3cd104bd47a13c6d779847324b0d42fb1904fa410ff2dc202caa375",
+      "old_exact_graphs": 632,
+      "changed_graphs": []
+    },
+    {
+      "unit": "app/client/sbaseview.cpp",
+      "source_sha256": "7707bf1e4508a1962613df6270c72480937fa5eba42dee0e9c75419b4bf0881e",
+      "response": "/nologo /c /MT /W3 /O2 /Ob2 /GX\n/DWIN32\n/D_WINDOWS\n/DWIN32_LEAN_AND_MEAN\n/DWINVER=0x400\n/DNDEBUG\n/DENABLE_WWPROFILE\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\all-consumer-tree\\wwdebug\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\all-consumer-tree\\wwlib\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\all-consumer-tree\\wwmath\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\all-consumer-tree\\wwsaveload\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\all-consumer-tree\\wwaudio\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\all-consumer-tree\\ww3d2\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\all-consumer-tree\\wwshade\"\n/I\"C:\\EnBDevelopment\\SDK\\directx8\\include\"\n/I\"C:\\EnBDevelopment\\SDK\\radtools\\include_enb\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\all-consumer-tree\\libs\\wwonline\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\all-consumer-tree\\libs\\sgistl\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\all-consumer-tree\"\n\"e:\\build\\beta\\G\\app\\client\\sbaseview.cpp\"",
+      "object_sha256": "f7b4c551f8930e75af35d90d11b2289423ccb6b32fecf5dcf9f021fdf46a4785",
+      "old_exact_graphs": 160,
+      "changed_graphs": []
+    },
+    {
+      "unit": "app/client/sclient.cpp",
+      "source_sha256": "4bb040c9cc6118303fda6b8bcd53ee578b3858a701282899a6789e649b63121a",
+      "response": "/nologo /c /MT /W3 /O2 /Ob2 /GX\n/DWIN32\n/D_WINDOWS\n/DWIN32_LEAN_AND_MEAN\n/DWINVER=0x400\n/DNDEBUG\n/DENABLE_WWPROFILE\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\all-consumer-tree\\wwdebug\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\all-consumer-tree\\wwlib\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\all-consumer-tree\\wwmath\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\all-consumer-tree\\wwsaveload\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\all-consumer-tree\\wwaudio\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\all-consumer-tree\\ww3d2\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\all-consumer-tree\\wwshade\"\n/I\"C:\\EnBDevelopment\\SDK\\directx8\\include\"\n/I\"C:\\EnBDevelopment\\SDK\\radtools\\include_enb\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\all-consumer-tree\\libs\\wwonline\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\all-consumer-tree\\libs\\sgistl\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\all-consumer-tree\"\n\"e:\\build\\beta\\G\\app\\client\\sclient.cpp\"",
+      "object_sha256": "a2a2d578a992aad1c1fcc5153ed1bd5b85e237ccbc76744a3f58f29ec9c671ff",
+      "old_exact_graphs": 607,
+      "changed_graphs": []
+    }
+  ],
+  "changed_prior_graphs": []
+}

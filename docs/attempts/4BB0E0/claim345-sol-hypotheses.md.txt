@@ -1,0 +1,41 @@
+# Sol batch 1, before compilation
+
+Same-path controls isolate the checked accessor body as the source of four
+consumer changes. The consumers only obtain KVListClass transitively through
+the encoder interface; its inline operations need Add and the class definition,
+but never Get. Separating class declarations into kv_list_core.h and keeping
+the checked indexed body in kv_list.h, included by real indexed callers, is a
+normal interface/inline implementation split. It preserves the actual assert
+file, expression, physical line73, class layout, method order, and full runtime
+operation. No compile flag, fake declaration, or unchecked alternate API is used.
+Test the three sensitive consumers first. If preservation improves, compile
+the three primary units and audit the whole target and prior primary graphs.
+The split is a proposed reconstruction organization, not an assertion that the
+client used this exact header name. All consumers still require final proof.
+
+# Sol batch 2, before compilation
+
+Split control changed seven graphs rather than four; hiding the body is not
+sufficient, and no primary target build of that rejected form is warranted.
+Two ordinary accessor details remain inferred. The writer's index and vector
+size are unsigned; Get's guessed signed parameter need not be authoritative.
+Test unsigned index, preserving condition and indexed operation. Separately,
+vector indexed access can be written as iterator indexing (`V.begin()[index]`),
+preserving the actual bounds check and undefined out-of-bounds continuation
+semantics while changing which genuine vector inline helper is parsed/called.
+These are substantive type/helper forms, not fabricated count restoration.
+Each starts from the private helper representation; test consumers first and
+only run primary proof if preservation improves.
+
+# Sol batch 3, before compilation
+
+Coordinator observes the client proves checked access, expression and header
+location, but not guessed Get member ownership. The first split removed a
+real existing inline API body from encoder consumers, changing their compiler
+declarations. Preserve that original unchecked Get as a separate API in core
+and add a useful checked free vector accessor in kv_list.h:73; writer uses
+the latter on list.V. Encoder consumers receive the original class structure
+without this checked helper. This keeps all writer assertions and has no
+alternate conditionals or invented count padding. Source helper ownership and
+internal header name remain inferred. Test three sensitive consumers, then
+target and complete old primary graphs if preservation improves.

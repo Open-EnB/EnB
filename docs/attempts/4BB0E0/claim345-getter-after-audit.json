@@ -1,0 +1,59 @@
+{
+  "object_sha256": "e1b2e85e9a63af8d810b341228824e929dce41b93d591866fc03c074e79ec67b",
+  "source_sha256": "b0b60b23ba205a8f3c7d15f4d0b61ea747aa90ad368bee36b2fe8297d4a0a50d",
+  "functions": [
+    {
+      "symbol": "?Get_Value_String@KVListClass@@QAEPBDPBD@Z",
+      "va": "0x4b6b60",
+      "length": 97,
+      "relocations": [
+        {
+          "offset": "0xe",
+          "symbol": "??_C@_0CH@HLKN@e?3?2build?2beta?2G?2app?2shared?2kv_li@",
+          "kind": 6,
+          "addend": "0x0",
+          "linked": "0xb738e0",
+          "resolved": "0xb738e0"
+        },
+        {
+          "offset": "0x13",
+          "symbol": "??_C@_03DCHJ@key?$AA@",
+          "kind": 6,
+          "addend": "0x0",
+          "linked": "0xb73910",
+          "resolved": "0xb73910"
+        },
+        {
+          "offset": "0x18",
+          "symbol": "?G_Assert_Report@@YAXPBD0H@Z",
+          "kind": 20,
+          "addend": "0x0",
+          "linked": "0x40aa51",
+          "resolved": "0x4e9410"
+        },
+        {
+          "offset": "0x39",
+          "symbol": "?find@?$hashtable@U?$pair@QBDPAVKVPairClass@@@std@@PBDU?$hash@PBD@2@U?$_Select1st@U?$pair@QBDPAVKVPairClass@@@std@@@2@UKeyEqual@KVListClass@@V?$allocator@PAVKVPairClass@@@2@@std@@QBE?AU?$_Hashtable_const_iterator@U?$pair@QBDPAVKVPairClass@@@std@@PBDU?$hash@PBD@2@U?$_Select1st@U?$pair@QBDPAVKVPairClass@@@std@@@2@UKeyEqual@KVListClass@@V?$allocator@PAVKVPairClass@@@2@@2@ABQBD@Z",
+          "kind": 20,
+          "addend": "0x0",
+          "linked": "0x404a7f",
+          "resolved": "0x4b7030"
+        },
+        {
+          "offset": "0x54",
+          "symbol": "?buf@?1??Get_Value_String@KVPairClass@@QBEPADXZ@4PADA",
+          "kind": 6,
+          "addend": "0x0",
+          "linked": "0xbe3b60",
+          "resolved": "0xbe3b60"
+        }
+      ],
+      "handler": null,
+      "states": [],
+      "predecessors": []
+    }
+  ],
+  "semantic_graph_pass": true,
+  "full_literal_payload_parity": true,
+  "exceptions": []
+}

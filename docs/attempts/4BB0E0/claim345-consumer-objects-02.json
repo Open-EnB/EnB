@@ -1,0 +1,402 @@
+[
+  {
+    "unit": "app/client/debris.cpp",
+    "old_object_sha256": "7402dd2f12a8c0a9fc30daea4af84847a40247e9789b024a831f97c2f2828cda",
+    "new_object_sha256": "a5602a8eb656c8d8c06708b298ad3be901c2a54dbc6e92376274201210755f43",
+    "checked": 113,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/debrsint.cpp",
+    "old_object_sha256": "138fb51a7e54bd184e47709c2a7658829802acbfdbedfd1eec708e9ce4f1ca31",
+    "new_object_sha256": "a009220033fa8455c19ae790bd8d1af9a4c29ad87fae56cbc17dfca15c5652c6",
+    "checked": 60,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/decal.cpp",
+    "old_object_sha256": "6f2e106e5cb28a8a33e72242fd141f91be29a4903af45711203764d048e71b3c",
+    "new_object_sha256": "92e8a213ec8d4b97a00f780e10cb72b2bfba56c9262a8a1f774ff870f7fedefd",
+    "checked": 28,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/deffont.cpp",
+    "old_object_sha256": "26effce2cb9c1cf21e977dc151f8800814230342b4e5d86a29f064ba905dc5df",
+    "new_object_sha256": "5bb75f405af6b9d08c84076374c2cb7ae4978ca17af1a7b8af04a4469461316c",
+    "checked": 27,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/distance_calc_client.cpp",
+    "old_object_sha256": "3abd2fe2bf99d3a80572596b92d3081c034b33a0c428f39563081445a989e448",
+    "new_object_sha256": "94ea410c75a19be40fadafc091f22d62dac1dd4800d728756bbb153647032841",
+    "checked": 6,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/drag_mouse.cpp",
+    "old_object_sha256": "b1400c346d525cf01a564ea4aaa2f3c01ecebc6b2206770e2ef877fb0301642c",
+    "new_object_sha256": "537796b5fb3693f3555e7e9e77b14e90355ae9d264e9c401de47a0a652c8849e",
+    "checked": 9,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/drag_slot_data.cpp",
+    "old_object_sha256": "009ea36607f59684cbfffb490b310e1560fa715b697526647fa6b0f1e7ffecc3",
+    "new_object_sha256": "75b1b539224edd9c87bca6037e4347df0656c7f12a7ba7552ac0b6fffb8241ff",
+    "checked": 12,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/dynamic_window_background.cpp",
+    "old_object_sha256": "715f48bd01e89693e9aef7865bfa16c0a06c2102305fd16ba0160501202b45e4",
+    "new_object_sha256": "691cf83b18ad39d12a928eaf5145f3334a22b7f3fd92d10e62a35eb2cabee4a7",
+    "checked": 46,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/dynamic_window_class.cpp",
+    "old_object_sha256": "dc5f348386a04e781dbe56181152687f4620cd4f486649d9fc50f016521ca67b",
+    "new_object_sha256": "33526a00bf3cc169562d298e02e72332cbe06ee3cd12126456a9ecb6533ac250",
+    "checked": 36,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/dynamic_window_horizontal.cpp",
+    "old_object_sha256": "71f5cd50e988e1c11e2b62e479163b9d9f4373a2a87d6d6d50aae57103ed92c8",
+    "new_object_sha256": "2b17186e31b6d2c8d9f46938012ee2707b0a47de9fabccc5b960874f7b232334",
+    "checked": 40,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/dynamic_window_icon.cpp",
+    "old_object_sha256": "9502cf78e4f875812b2915f4f576149a026ec8ab91f995019d64e6dbf7cc56bc",
+    "new_object_sha256": "a8e9677dd203bbcb48e3b08e7c8ccccd24027b1657b7b54c93e1f345eee5788c",
+    "checked": 29,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/dynamic_window_move.cpp",
+    "old_object_sha256": "ffc90078c20927ffff9a81e727fb0011f62c2a67942111f4486f8b69e782ddc1",
+    "new_object_sha256": "c7128038396a883133206958e9bad249f363e93399211610e32735f20cee2639",
+    "checked": 41,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/dynamic_window_multi_line_text.cpp",
+    "old_object_sha256": "6d8172f364a29c9db14654e2ee305bedf6f93655d5d326e2a1e4085801f55b36",
+    "new_object_sha256": "6acddc0705aaed2b52ab5e3f118b0592ef14550961d9568bc17e86f258c8aaaa",
+    "checked": 64,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/dynamic_window_render_object.cpp",
+    "old_object_sha256": "48848ac5bf60df98b0e432cae58e35d0d709c2ed5f8c6aa62ffbf7e373b38e02",
+    "new_object_sha256": "cc23e16511dd1b3df060fdf6a521800fedb18d2685d7f1f2a2a4f8f6a81b4af4",
+    "checked": 31,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/dynamic_window_text.cpp",
+    "old_object_sha256": "6f31258b2ac18be82fbb74596e03e1446a0a6688f1184ff4d3000a43e3a744d3",
+    "new_object_sha256": "322e8c2ff7e487aa63f4582706420782274d2631fa7bca9f21e02fd5e2af90fd",
+    "checked": 14,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/dynamic_window_toggle.cpp",
+    "old_object_sha256": "ad30b9f1911264097a332b81084082021fdd6350e60ac030de4995f50c56f59b",
+    "new_object_sha256": "4ea4aea12a9f1570e61c86ff6aefb837156dd7bb682c383ff661345f7fd35c04",
+    "checked": 47,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/dynamic_window_vertical.cpp",
+    "old_object_sha256": "7577844557cc73f216f6bfdc2336f7bb98d23085efe3eb59b771ea62c416c7b9",
+    "new_object_sha256": "da68e6f6d422923bf3b51a5853dc6227b6632c5563d34ef5eb7ad753c60fd8e8",
+    "checked": 40,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/eff_attach.cpp",
+    "old_object_sha256": "09664f11c2bc4cc52346ef121a2e343474638ffae49270ccdc06bf60996f605c",
+    "new_object_sha256": "0df0ef99faead538a23e8e0268daed757e26c211a438a8ef13881b21c143efcb",
+    "checked": 22,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/eff_line.cpp",
+    "old_object_sha256": "0c86d95c7b93e211e731d63c0eeb7a9965743280c33a8a293af9bba8088bd0a2",
+    "new_object_sha256": "f7f18d274d3127e61f9d4158433ed58627298f3ed53df6cf70c4e6d83552f99f",
+    "checked": 22,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/eff_o.cpp",
+    "old_object_sha256": "f1e8c05f419c712ccaf2144d87551550135e448bb39eebeb20e1972b9554f98b",
+    "new_object_sha256": "32135849d3f9c1869f2f928cf5a0d98a229bb52baa0d4a538f9f4a0dd2245d22",
+    "checked": 99,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/eff_particlejet.cpp",
+    "old_object_sha256": "b6264b2c69f27824f57e3ac5e8cf2245bb442c942ef7ede8850ad85e516e0a00",
+    "new_object_sha256": "0ce86513b11cb8093623f3cc94ab83f3c400b6c78f4add42415e9c2695c8a374",
+    "checked": 18,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/eff_pass.cpp",
+    "old_object_sha256": "e22bab5128efe7476b4544aa32729d843bc04ff9deb6ec365a97b1a4709b35fa",
+    "new_object_sha256": "fbd72582c0b3ca8e8c20c87809fa923cddb65318d7241c534f54d10ca771050a",
+    "checked": 28,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/eff_robj.cpp",
+    "old_object_sha256": "4a19a7158cfcdd7fc7ec97721f19400fc8ff0fd073961b0f6d0daa39e9ecc33e",
+    "new_object_sha256": "90b1090747d96dd4899b20c8e405ce8fa1b68276e52ce0f3394fec294039d8cd",
+    "checked": 41,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/eff_rs.cpp",
+    "old_object_sha256": "2447d0669cad0a34ecc042155036e802d61ecfc9e07776fa798f63bc7ba99dc2",
+    "new_object_sha256": "c07d1ec720e25badde72a4c64be520c40cc56ab81bfe7b4083944129eb0d5982",
+    "checked": 15,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/eff_seek.cpp",
+    "old_object_sha256": "580dfd985174e317201b0f9b026dd17069217189bcdebd72e105a385dc21cfb5",
+    "new_object_sha256": "9834606420f8b17c4e9eb196643edcace94f8672bc1b0e0c8d40f2fdbf06b532",
+    "checked": 53,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/eff_warp.cpp",
+    "old_object_sha256": "ffe23c57fcf538cd7ef8e3cf11e31cab47538c67e3facd3ef28ae97c55d651fa",
+    "new_object_sha256": "efc629df409a8d014d6bbdedeba138dd5c98e6f3cdedd92bad4caf9a07cab7a3",
+    "checked": 10,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/emote_data.cpp",
+    "old_object_sha256": "daa81efd711911dac460f8a6be7a37379bd0cc74c4f37679843382c5ab05edff",
+    "new_object_sha256": "ce276491573e3450c23b05f6a02533787106fe7f7c3bd43cd5bb36a256760d9b",
+    "checked": 32,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/enbdazzle.cpp",
+    "old_object_sha256": "59cbcb2b44c14a807e6d36a82874f4dba9f3b1411aa4e362ff0d70c5a35e937a",
+    "new_object_sha256": "511c0fa93ff94bd6ed73b65672e97934320d1d5f86e10191c708ec57ed228ab3",
+    "checked": 16,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/enbscene.cpp",
+    "old_object_sha256": "dbc97c0151b68dba7634730240333beb842a041bd6f17bf9820d0ac5da506a14",
+    "new_object_sha256": "daa211d268712378a3e3b5e4159a58551543ce0e860d125b2a687f06b9823cbc",
+    "checked": 33,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/env_map_manager.cpp",
+    "old_object_sha256": "fcccf7d673607a075c4939faeb2114e3c2c1bacc7e859c471326567c60831612",
+    "new_object_sha256": "2d0d2fe06c03438f52a157c6e11b6ca18911b6b4ab7a34b67e83637e8ec0b356",
+    "checked": 31,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/extrap.cpp",
+    "old_object_sha256": "424218ac4487b30109220aca4db7818a902ff722ab262996836a37aff2cdf75d",
+    "new_object_sha256": "346a05510d1e2c47794efd7093e470b7eb19689ed6d88fa862942171f7fb334d",
+    "checked": 103,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/font32bit.cpp",
+    "old_object_sha256": "7229130e3e41381b5aa278b6a62d5ea82234c7117f9e88148fe600915a672937",
+    "new_object_sha256": "e24e7401b655e9797f214655f79fb76a0a34b1c4811b8e432151317f175370ed",
+    "checked": 30,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/fontdatabase.cpp",
+    "old_object_sha256": "92f7d4136a4add0034e614945407d8560e27f7634d1d6e8315c3be35d8d446e7",
+    "new_object_sha256": "81510bd1d601ea41779c87de7faa34a55caf967ed112c57466801aaa849e3b6d",
+    "checked": 163,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/fontmanager.cpp",
+    "old_object_sha256": "1a9c15c3e5ac15113826c098fffcd38b5536a679a06f012a8c77de75be59f804",
+    "new_object_sha256": "5306627bdca9e6e511debb9f88393175f25e28d44d289836795767cb1d3fcd8a",
+    "checked": 111,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/fontsys.cpp",
+    "old_object_sha256": "c3450efe5126ae9d65b6aa2e1882f8ea3cd8fd6b14bb5e12176c99f9898b3d5a",
+    "new_object_sha256": "41925ed0cedd3b7d0d8646d67cf555902de9c60a14769596f81628254138f773",
+    "checked": 140,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/fontsys_cursor.cpp",
+    "old_object_sha256": "555a7c4814ab819ae971d951b2d10a5dcdea9a6b6feaaf0f68807a73c14d76fd",
+    "new_object_sha256": "6ea73981aee5836eea197a71114be091f7d6248c11cc071249b0c824d6e9e396",
+    "checked": 109,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/fonttexture.cpp",
+    "old_object_sha256": "31e1499d0727d7a742188237be403028ce27e976f064e53123d42cc53fc4d36e",
+    "new_object_sha256": "8aa0d9a5c706279acf49f37ca8b3cacf92b5eb39e6f1d609b20b81eb746b4e18",
+    "checked": 6,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/frameint.cpp",
+    "old_object_sha256": "b786ae2e16d9a8d652285cd954a0eba93eb66734f1815324f38843efee69bb1e",
+    "new_object_sha256": "48a7498da65ba685336bab1bb7bacedd48e4b2e5bec8ed64cdf6d7236f9a5925",
+    "checked": 34,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/gadget.cpp",
+    "old_object_sha256": "5b605c5e322620b57c91b507789c9d3c12535e9790d5a7481f149515cb4b6b72",
+    "new_object_sha256": "3a2b1f2b8b689d3ee16fd22857fc351a12a1eb765aeb20dc811ec87480bceab3",
+    "checked": 62,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/gadget_collection_interface.cpp",
+    "old_object_sha256": "306c2106e7fc7c3088df982187ebe79722d7351a18a7d2b05d1487e899f61082",
+    "new_object_sha256": "c730622cb1855d2e2f7f2d03dc5d3f9bc890d09f27ba10eef2c0dc0c71c8af7c",
+    "checked": 0,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/gadget_list_manager.cpp",
+    "old_object_sha256": "54875e5654d0aa7177957d5727ce71317e6f08e45c65de76643b5cc48811e76a",
+    "new_object_sha256": "cc8a412c9fad82c8c04d530b118f951232a1b1b633592afafd3a189e79685da1",
+    "checked": 50,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/galaxy_map_client.cpp",
+    "old_object_sha256": "e9cd9f74067fa4969018ada01bd40fd5aae37dab7530a5bce5f23c462e43ef1c",
+    "new_object_sha256": "3ee92fda8b2ad7dca9084d321195c6dd8dd59b499c3a420628c5b33aa8cf9da0",
+    "checked": 23,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/galaxy_map_focal_point.cpp",
+    "old_object_sha256": "0e7d96b5fc482ecc9a3f075a868d89a36e536eb61c84ecaf18c5a9fc4af91d85",
+    "new_object_sha256": "1032dd04b43ecce80ee69352ada2d56cd36fd74df93589a41c9dd7ef44672886",
+    "checked": 13,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/galaxy_map_pip.cpp",
+    "old_object_sha256": "22145f592deeb3c119c9385f5b4e2b532d8b7f4c565b489dae24441a3b27638c",
+    "new_object_sha256": "9f5a20a56d3fa0f969dc0ca9fb51ecf4261e919a8487a86bdc17c00e75124e97",
+    "checked": 36,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/galaxy_map_render.cpp",
+    "old_object_sha256": "ea977ec38d6bbd111bb135777462d46cadcfdaea2477e2c1febc839743740e17",
+    "new_object_sha256": "ac562157253147baf83cedd3f37e02da81971f137281f1858b9160cbccc5b5ac",
+    "checked": 239,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/galaxy_map_robj.cpp",
+    "old_object_sha256": "237c9f90c8c776d7e162e983a851abdd190d58baea435e63ef394d8fc4fd9bf0",
+    "new_object_sha256": "0e8a10dedcf713e17e08ed16e7bb956c18f7ba95adebe07735ba888a2a9c07fd",
+    "checked": 141,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/gauge3d.cpp",
+    "old_object_sha256": "0d6c11c9e4665bea4835ccd2d4128652522389bd57701cd4ab79d0cad1e6877b",
+    "new_object_sha256": "3ef5afa361443e29fec970cca3ed7182e327f35748897cbf6a0f463d777e92d5",
+    "checked": 114,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/gd_attrb_skills.cpp",
+    "old_object_sha256": "6d70d6a25641261bfdf7c61d9890e5a79b8c1ee544713ee02aab448997b7760a",
+    "new_object_sha256": "7f2b3d983826261d9e29aa0ce96040436f16e02dbf327781b1a12cdb8604ca4e",
+    "checked": 59,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/gd_buffgadg.cpp",
+    "old_object_sha256": "6e39fbcdaea9a268cdd793ea1129399dcf6d4c8ec84fc09948b1f64cbc0b02ae",
+    "new_object_sha256": "83d7f6575bb0bea2055af86d775c4d25c2592e720a904332d5602a39d172dfe4",
+    "checked": 82,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/client/gd_dynamicelement.cpp",
+    "old_object_sha256": "8e6f77c9c3f036b533382346e6737d3636009dbd1c941a8d6a9e6c1d8aba1f66",
+    "new_object_sha256": "18216a923763158552d3b4fd4d0348cdf80ea28e93387b2245bc3d7815c1e01c",
+    "checked": 23,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  }
+]

@@ -1,0 +1,20 @@
+from pathlib import Path
+import hashlib,json,shutil,subprocess,sys
+W=Path(__file__).resolve().parent;R=W.parent.parent
+location=json.loads((W/'global-baseline/canonical-location.json').read_text())
+label=sys.argv[1] if len(sys.argv)>1 else 'all-consumer';source=Path(sys.argv[2]).resolve() if len(sys.argv)>2 else W/'final-inputs'
+plan=json.loads(Path(location['plan']).read_text());tree=W/(label+'-tree');out=W/(label+'-after')
+assert not tree.exists() and not out.exists()
+shutil.copytree(W/'tree',tree);out.mkdir()
+sources={}
+for p in source.rglob('*'):
+ if p.is_file():
+  rel=p.relative_to(source);shutil.copyfile(p,tree/rel);sources[str(rel)]=hashlib.sha256(p.read_bytes()).hexdigest()
+plan.update(tree=str(tree),output=str(out),revision=location['revision']+'+uncommitted-final-overlays',key=hashlib.sha256(json.dumps(sources,sort_keys=True).encode()).hexdigest())
+(out/'source-hashes.json').write_text(json.dumps(sources,indent=2)+'\n');(out/'plan.json').write_text(json.dumps(plan,indent=2)+'\n')
+with (out/'worker.log').open('w') as log:
+ r=subprocess.run([sys.executable,str(R/'.git/local-vc6-preflight/preflight.py'),'--worker',str(out/'plan.json')],cwd=R,stdout=log,stderr=subprocess.STDOUT)
+assert r.returncode==0, (r.returncode,str(out/'worker.log'))
+before=json.loads((W/'global-baseline/canonical-result.json').read_text());after=json.loads((out/'result.json').read_text())
+delta={k:dict(before=len(before[k]),after=len(after[k]),gained=sorted(set(map(tuple,after[k]))-set(map(tuple,before[k]))),lost=sorted(set(map(tuple,before[k]))-set(map(tuple,after[k])))) for k in ['pairs','symbol_pairs']}
+(out/'deltas.json').write_text(json.dumps(delta,indent=2)+'\n');print(json.dumps(delta));assert all(not v['lost'] for v in delta.values())

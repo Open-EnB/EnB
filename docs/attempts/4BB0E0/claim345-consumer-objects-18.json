@@ -1,0 +1,402 @@
+[
+  {
+    "unit": "ww3d2/render2dsentence.cpp",
+    "old_object_sha256": "f34c403dfb648ae4bd2b8d81d22cb1c19da371efe483ee5afb833c5f1494bccc",
+    "new_object_sha256": "5916d8888ad5e0553e3b8b220126b950be6ace1f433cabc87ba47286d4d02fd1",
+    "checked": 106,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "ww3d2/renderobjectrecycler.cpp",
+    "old_object_sha256": "e4e4c89268dec608bdf3e8272417f76f43794d379c7c2c262222dd0ac851bfa2",
+    "new_object_sha256": "4e122f559707d76708709fe6240f3321d400fb74223e26b08562d33ed331eded",
+    "checked": 1,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "ww3d2/rendobj.cpp",
+    "old_object_sha256": "1dc01b630895c8dab5204eed6a5d8da175ef41413cd16ed07e7d9cc8d8a9d992",
+    "new_object_sha256": "ae8ea5fbffc32ce6d49940948e613f6dea94cdf3299e51a98d6e05acf2e8c3db",
+    "checked": 143,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "ww3d2/rinfo.cpp",
+    "old_object_sha256": "87fef5870e393d9103b27b5e93dd471f3891339b04bfcfdfca20039d19b86e9c",
+    "new_object_sha256": "e3fb33fab5a1b726364481569bace4e74a77804fcafe9b1019acccb3d8275057",
+    "checked": 12,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "ww3d2/ringobj.cpp",
+    "old_object_sha256": "411f1bf903d32d2fe33fe965263c97c211c7cc13554144c12684ba6095f8e87d",
+    "new_object_sha256": "ba06b60fc76d56c48334d79d5b6f56c613d572736b8d06eadf709aa65ca566b6",
+    "checked": 219,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "ww3d2/scene.cpp",
+    "old_object_sha256": "d67f01419cf504e55362f4a49b44db6c13a740c759391874ab683796db2acf98",
+    "new_object_sha256": "71864f60e8e6f6f874b30bc6e17a6f03ea8205c28f3286174788823570137000",
+    "checked": 48,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "ww3d2/segline.cpp",
+    "old_object_sha256": "16588448055855f57e74ac875b9d028ceadae0a8973e863811137a9aa31364e8",
+    "new_object_sha256": "a9b6b9aebf575cc585ef0b43485423ce6a6e6b150ca67793afe5c1171c09995e",
+    "checked": 158,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "ww3d2/seglinerenderer.cpp",
+    "old_object_sha256": "a3c2f371a40ea7c7713f309b7932b69228967ead9297d2774832067895c905e0",
+    "new_object_sha256": "fc52640efca8b54a97ad63e2f28730fde39f9c0a49c9b13c196deb5be153dc8d",
+    "checked": 18,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "ww3d2/shader.cpp",
+    "old_object_sha256": "1d33e0eedb5a27ad2a8470d2fb4035f3b378866db088cfafe753e486561bda9d",
+    "new_object_sha256": "e67dd4ca2a41abba2958bfac86ede4586ba4fa58efc53b079d3278ab9ea1fd72",
+    "checked": 33,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "ww3d2/shattersystem.cpp",
+    "old_object_sha256": "a5c4584ec5b1eff470d3246b24e8ba206b0a7dd62db6ed5fa88836361c46afdd",
+    "new_object_sha256": "891838e73f66321af94108efd3541cbe44bfcb5f7f9caf2c5dd675f856f1058a",
+    "checked": 75,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "ww3d2/snappts.cpp",
+    "old_object_sha256": "09308f1e07abf7f4eaf92294b70473f23bef077815aa718fa9330fab48dcddb5",
+    "new_object_sha256": "460650a5f07a320847ce4474c27f238c2bfd2857dbc824976cbf45d2726948f3",
+    "checked": 2,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "ww3d2/sortingrenderer.cpp",
+    "old_object_sha256": "b7d4926dbc9d24c8c4b6fc766ba537daa7c1511e54b0ad8a42652fa972c463b0",
+    "new_object_sha256": "fde2a41940dd7da4e6851a18b9c04f591470ee972200ae7d9ed22f342664a308",
+    "checked": 29,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "ww3d2/soundrobj.cpp",
+    "old_object_sha256": "08b726afac6f1651678abba026d0e9afa510006cc2178abe45deaf9cf3e61a08",
+    "new_object_sha256": "bcd3a9c4c6844f43d3fcdaff9a4b6ec4c2dd80a8a5bdbc4128b2e1f3939a0029",
+    "checked": 121,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "ww3d2/sphereobj.cpp",
+    "old_object_sha256": "075a7766cb0e59b2ad1202e6978660f88fcbcd0465b7c87b2c7ad355e02403d2",
+    "new_object_sha256": "75c4eb27c1c629c29487ee2cda591262be26a7c51c8b20ed25f2056ea87324ee",
+    "checked": 221,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "ww3d2/static_sort_list.cpp",
+    "old_object_sha256": "887c6fcfcda78f3f4a4f1ef0a96656e96368915a80bb3d9099fcb90367b61e46",
+    "new_object_sha256": "e57e57babf5574025a475c96a6e5d966e8b13b960ef1c8d0b0efb0b5492b2fb6",
+    "checked": 9,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "ww3d2/statistics.cpp",
+    "old_object_sha256": "7916aca77d9b21cb0b8c9e09f074d71f054029ae64ad84f0effa72f7444d3af8",
+    "new_object_sha256": "4c48bb958d9f8876a1e6c1262a7e3c209083579febd532deacd968fade4686a9",
+    "checked": 39,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "ww3d2/streak.cpp",
+    "old_object_sha256": "b4619b71a677f9b05df38bbd1735e2a9723d7f594de581f560909a3b08467392",
+    "new_object_sha256": "d6347e4f788cf9b9a01d867769d5485becf4526c159bf6adef349f9e48405855",
+    "checked": 107,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "ww3d2/streakRender.cpp",
+    "old_object_sha256": "042d08cbcd31751879f3cb241e760cb706117a34231d29b70b9a396219b8fab5",
+    "new_object_sha256": "13c3f6443522594e50b379a352a2603d1c1fb459598f17bb0b10da8d2d0ed318",
+    "checked": 11,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "ww3d2/stripoptimizer.cpp",
+    "old_object_sha256": "a96700100fc0b90d87b2a78ba1abab64380cd5d8fa76e6dfd36e4130482d5230",
+    "new_object_sha256": "97af5d83a005c1acee6580a4dfa7f28b6fc178767ffb1295343ac22b49620483",
+    "checked": 2,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "ww3d2/surfaceclass.cpp",
+    "old_object_sha256": "a02da7dd7f3eef7a134555f0c0221dfcda9688a1da20efb882c686b5344d6e49",
+    "new_object_sha256": "846c582290a711dd136f826efb95b39be3a4716ac8759aaaea8eaeff75c61375",
+    "checked": 31,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "ww3d2/texproject.cpp",
+    "old_object_sha256": "3ba453f949fae6de00df63386967bb5318335e9284fbe78615f75930d7a0e227",
+    "new_object_sha256": "c5cfe410c776122d644556429a8cba6f3cd5a24644d7276493114bae6379d307",
+    "checked": 43,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "ww3d2/texture.cpp",
+    "old_object_sha256": "117d24a14fe01a4ffaf147fbe2b625429528b792a530fdfab3523b185b12434e",
+    "new_object_sha256": "3a6279bf687c7766d3bce41af68f8adf0952a151ac3afec1d82d381cec78fd53",
+    "checked": 60,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "ww3d2/textureloader.cpp",
+    "old_object_sha256": "d42accfe70f2c0e32c977ce14940bc5d3fb9107eef3d4ac6199aa03267b694c0",
+    "new_object_sha256": "aff0a920aa0e044a82d1216c355bfd7a8e8182be8db27a3574672706fb848a8e",
+    "checked": 63,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "ww3d2/texturethumbnail.cpp",
+    "old_object_sha256": "00dbb2dc50b977de335f7096c0df357213cc51ed25d2f2ae9deeaf9eac142f21",
+    "new_object_sha256": "ebd3ca7cb68f1a8ea94a96ff4e0bebc4b4ba5419559c88e8594e5a58d9a92da5",
+    "checked": 48,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "ww3d2/txt.cpp",
+    "old_object_sha256": "f1cad4dfb0aba46b11966e35207fa45a0676a82f63e5161c31ad5394730b403f",
+    "new_object_sha256": "42c126b08ca217c21923d307df2f3e8d8afaf5ddde3f470d7907bb14dd788e25",
+    "checked": 14,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "ww3d2/txt2d.cpp",
+    "old_object_sha256": "b31967653e6c611699d5b3ddea292bf97271012b086d9a6fbcc15700a30d36b3",
+    "new_object_sha256": "042eab38acbf2e9596e1e961200136cf638cb63298812bce3323a4a0e3ae8cf0",
+    "checked": 1,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "ww3d2/unknown_distortion.cpp",
+    "old_object_sha256": "70a24cff15de1205af7da8c9745e9accd1eb8901ec36d417e967a88b1fc64d55",
+    "new_object_sha256": "571c5ae26fd1f29e23b7d078005e88d98da3b1ca7c0ad5f7d0a51f29df7f8b12",
+    "checked": 153,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "ww3d2/vertmaterial.cpp",
+    "old_object_sha256": "8685933f1b98e1b0deff44d1ff564d28f4a3d680b2a23eeeb8c375c811409369",
+    "new_object_sha256": "7982b642baca26a1561d449f863c224ff072c2eadefdf8ea88432638f400c9c5",
+    "checked": 81,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "ww3d2/visrasterizer.cpp",
+    "old_object_sha256": "1c5b25f62c0bb8bb8026d5bdad5bdf7b5366acba313eb18473443b36b94214df",
+    "new_object_sha256": "fc0aaffaea9baed9eed9e424a3e9963cae9dc255d7d105f2305ffa85422e975f",
+    "checked": 42,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "ww3d2/w3d_dep.cpp",
+    "old_object_sha256": "af83c4209c374d4e6521318e8e4e13268308d50e402aa8e95485fbd65dff3dd5",
+    "new_object_sha256": "b9ea3bceb3e327d1e3d277bdc60311782393923e4e1e3b9730f2c2f8ae7e0391",
+    "checked": 14,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "ww3d2/w3d_util.cpp",
+    "old_object_sha256": "c3dd3056add41e76f77d442b93c656fc78c8b3316042486f77b1927169e699ce",
+    "new_object_sha256": "3e437394e74441d3a38a12416fa5e0acd572d3cd269e4376b86d9b67ccc66817",
+    "checked": 11,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "ww3d2/ww3d.cpp",
+    "old_object_sha256": "e9ed74eafbebff6c384450adcc2b5fc285f6b74a9837545c65c6a06f3e793464",
+    "new_object_sha256": "229fb41b9b10ca7e59e26d5cf4a07812e6a3eec583e96439ceade04619f2ae63",
+    "checked": 78,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "ww3d2/ww3dformat.cpp",
+    "old_object_sha256": "d3ed59361280085a054f5eafa601facdbbbebfc96065249e978ce80771696782",
+    "new_object_sha256": "d9df9d8545be6f2976c6d2c0003ed48a033fc102ef6bd25ada8457a4d71bb901",
+    "checked": 14,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwaudio/AudibleSound.cpp",
+    "old_object_sha256": "e78a6f833614bb8e0d89c789302d7f2c2258631fce29098ea34b6e318f7104eb",
+    "new_object_sha256": "1735e4e041b6610c15bee95d1b55a1f048567b761bfc692994e31afcba6f28dc",
+    "checked": 169,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwaudio/AudioEvents.cpp",
+    "old_object_sha256": "f901c1ba11b909d1d22ce2ab7fc73666a18934f148e568226805d1c913eca247",
+    "new_object_sha256": "a0acfb4ff9c1677a5e0d41aed10121230abfa669db8c834e89fbb1baa19506ff",
+    "checked": 22,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwaudio/FilteredSound.cpp",
+    "old_object_sha256": "0ddca11a7cf3b61f58d35825f60cb319df79b87de57e32a10f772b6aa2320a1c",
+    "new_object_sha256": "271bcf2a321fc1abe1c1d6e9ded85c223fcbaa3d3f7de69b3341f1e4b49e9961",
+    "checked": 83,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwaudio/Listener.cpp",
+    "old_object_sha256": "3bda3160a57653542d321def77a3177893b195292a9082d2bf92778fc5b125b0",
+    "new_object_sha256": "dd7ac4fba9f46fad2a88fac8662ff36eac09fec1e34005e4d8acba04f7ab64bd",
+    "checked": 91,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwaudio/LogicalListener.cpp",
+    "old_object_sha256": "ff44f5d200669f00d58a029be8ab33c884ffa012fc339555621a6f1eae5c0821",
+    "new_object_sha256": "d65960f3b6d1f1368bbc03b2fdb3736eeb361a19b727f9b74a19469762fac202",
+    "checked": 51,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwaudio/LogicalSound.cpp",
+    "old_object_sha256": "6a0ef4c348b1263a75ffef3d1e77f9927894a7d3b9bd925e8a95a6d197ca8c2f",
+    "new_object_sha256": "7b15fc4117e7abbeae1cace757f470820f288e56821ebf75b45128e208e0a957",
+    "checked": 56,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwaudio/Sound3D.cpp",
+    "old_object_sha256": "dd127179fdfac42bb787f6a0612ec94045586f8fb02345972536d8ae37e7ff16",
+    "new_object_sha256": "90fec2db0026a304bf6f1b1915e5958fe526760e4841ec1ad7b1d1b7cf96d416",
+    "checked": 96,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwaudio/SoundBuffer.cpp",
+    "old_object_sha256": "6b8ed7a0f151620e9b91fbb9030b358b1e212d3ac9ca588c57f6aec4625b1b4e",
+    "new_object_sha256": "17c779fd2feb17f1205defdddbc83c976dcb7e3298e1b113eb7173df9d8fa32e",
+    "checked": 47,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwaudio/SoundPseudo3D.cpp",
+    "old_object_sha256": "3646d7eb92f33d6a734bfb77d65afd2199e96c0bb1eb12c68c4c27176d593cd6",
+    "new_object_sha256": "64294c5a2834b126b5347541b06c60e839aa487348bba8e8c50b73480eb55ae1",
+    "checked": 89,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwaudio/SoundScene.cpp",
+    "old_object_sha256": "1b2b981759aebdb7cd83e51906f5447b05e229de4a7ee51cd515dd6729861f23",
+    "new_object_sha256": "93993d6362ab4fe1ba68c6d39b92cbb80bf2a2123e7b4b15ebd7224317986a09",
+    "checked": 71,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwaudio/SoundSceneObj.cpp",
+    "old_object_sha256": "f68588969dc0437563c3f84f97fcd6434cc534ffb81dd41cac7cbd7b72103953",
+    "new_object_sha256": "8c863b85e160796517dbcb3bf649f8ae7b6d1ed1b0eb1b7c55f2d563dd03d7dd",
+    "checked": 79,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwaudio/Threads.cpp",
+    "old_object_sha256": "80ecdcca84935431b9facd6f01407184c4880fed25c86539e3e9fbf7847e464f",
+    "new_object_sha256": "4575ccdf0071a97a407c6f1c19b8962ea9d67bb5795af0881a10cedc241243c0",
+    "checked": 11,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwaudio/Utils.cpp",
+    "old_object_sha256": "fa9f5b03eed75f1966ebad16713edc909552a13aa15df8545461a40913fc6d20",
+    "new_object_sha256": "375c88d94f46e8de66899b5d45cf9ccb8c476a9aad9ef8a4f08e96bf7e35cfad",
+    "checked": 0,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwaudio/WWAudio.cpp",
+    "old_object_sha256": "e868d040eadac797a354ecb0af3f71c70972bc1c2d15618e69e6e340e0bc419b",
+    "new_object_sha256": "17c07c6038dcffb6d5d289eb2eccb95b790d99615b2483b0806d25ccf411bc66",
+    "checked": 223,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwaudio/listenerhandle.cpp",
+    "old_object_sha256": "25a84c3c42b10caf0bf4d8731f3530355600e7b4061dfbd4e995af9c7b8efda8",
+    "new_object_sha256": "b8249602ab5c4f1dda5acecc2cf6bd122b992de6c25c3ffc325e9f612bdf2688",
+    "checked": 8,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwaudio/sound2dhandle.cpp",
+    "old_object_sha256": "f22d2e8d9c49bd76640c863838b3f5ea103607b3d22b1fd6235ebe0f3a64d530",
+    "new_object_sha256": "b936ceb3ff8bcdb3e8bbfb3edc4eab9447b1ebb286fa68573b1831c2ece8206b",
+    "checked": 30,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwaudio/sound3dhandle.cpp",
+    "old_object_sha256": "b7cc5c8a64ee0cd5fd6ddedd36d9022ff7a80602d27346db925be1011a89adaf",
+    "new_object_sha256": "06d08a0f67a5db5bebb8b84991d89360df517d54260005c36a011c9be98bd9cc",
+    "checked": 30,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  }
+]

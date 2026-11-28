@@ -1,0 +1,985 @@
+{
+  "run": "regain_comma",
+  "base_revision": "64e8e4f55296d83901759bb53b0d0d8a641f7352",
+  "inputs": [
+    {
+      "unit": "app/shared/kv_util.cpp",
+      "base_sha256": "95315110685026f5c2699920bc492ab2f3b9dde35b4eaa84f1be079d2e3302dc",
+      "input_sha256": "bfa1ce5ded0740ea1a6d8950aa2c9d4eaec648ddd55a3c81d4511aaafcaae0e3",
+      "edits": [
+        {
+          "start": 388,
+          "end": 388,
+          "text": "#include \"kv_list.h\""
+        },
+        {
+          "start": 389,
+          "end": 389,
+          "text": "#include \"kv_pair.h\""
+        },
+        {
+          "start": 390,
+          "end": 390,
+          "text": "#include <stdio.h>"
+        },
+        {
+          "start": 391,
+          "end": 391,
+          "text": "#include \"kv_pair_value.h\""
+        },
+        {
+          "start": 681,
+          "end": 681,
+          "text": "inline const char *Make_Section(const char *base, const char *append, char *section)  // NAME 2: describes what it does"
+        },
+        {
+          "start": 682,
+          "end": 682,
+          "text": "{"
+        },
+        {
+          "start": 683,
+          "end": 683,
+          "text": "\tstatic char SectionBuffer[0x200];  // NAME 2: holds the converted section"
+        },
+        {
+          "start": 684,
+          "end": 684,
+          "text": "\tG_ASSERT(base);"
+        },
+        {
+          "start": 685,
+          "end": 685,
+          "text": "\tG_ASSERT(append);"
+        },
+        {
+          "start": 686,
+          "end": 686,
+          "text": "\tG_ASSERT(section);"
+        },
+        {
+          "start": 687,
+          "end": 687,
+          "text": "\tstrcpy(section, base);"
+        },
+        {
+          "start": 688,
+          "end": 688,
+          "text": "\tstrcpy(SectionBuffer, append);"
+        },
+        {
+          "start": 689,
+          "end": 689,
+          "text": "\tReplace_Char(SectionBuffer, '.', '\\\\');"
+        },
+        {
+          "start": 690,
+          "end": 690,
+          "text": "\tchar *split = strrchr(SectionBuffer, '\\\\'); const char *entry;"
+        },
+        {
+          "start": 691,
+          "end": 691,
+          "text": "\tif (split != NULL) {"
+        },
+        {
+          "start": 692,
+          "end": 692,
+          "text": "\t\t*split = '\\0'; entry = split + 1;"
+        },
+        {
+          "start": 693,
+          "end": 693,
+          "text": "\t\tstrcat(section, \"\\\\\");"
+        },
+        {
+          "start": 694,
+          "end": 694,
+          "text": "\t\tstrcat(section, SectionBuffer);"
+        },
+        {
+          "start": 695,
+          "end": 695,
+          "text": "\t} else {"
+        },
+        {
+          "start": 696,
+          "end": 696,
+          "text": "\t\tentry = SectionBuffer;"
+        },
+        {
+          "start": 697,
+          "end": 697,
+          "text": "\t}"
+        },
+        {
+          "start": 698,
+          "end": 698,
+          "text": "\treturn entry;"
+        },
+        {
+          "start": 699,
+          "end": 699,
+          "text": "}"
+        },
+        {
+          "start": 2175,
+          "end": 2175,
+          "text": "bool Unknown_4BB0E0(KVListClass &list, INIClass &ini, const char *base)  // NAME 1: neutral address\n{\n\tunsigned int count = list.Get_Count();\n\tfor (unsigned int i = 0; i < count; i++) {\n\t\tKVPairClass *pair = list.Get(i);"
+        },
+        {
+          "start": 2179,
+          "end": 2179,
+          "text": "\t\tG_ASSERT(pair);"
+        },
+        {
+          "start": 2180,
+          "end": 2180,
+          "text": "\t\tchar section[0x200];"
+        },
+        {
+          "start": 2181,
+          "end": 2181,
+          "text": "\t\tconst char *entry = Make_Section(base, pair->Key.Get_String(), section);"
+        },
+        {
+          "start": 2182,
+          "end": 2182,
+          "text": "\t\tchar value[0x300];"
+        },
+        {
+          "start": 2183,
+          "end": 2183,
+          "text": "\t\tsprintf(value, \"{%s}:{%s}\", pair->Get_Type_Name(), Pair_Value_String(pair));"
+        },
+        {
+          "start": 2184,
+          "end": 2184,
+          "text": "\t\tif (!ini.Put_String(section, entry, value)) return false;"
+        },
+        {
+          "start": 2185,
+          "end": 2185,
+          "text": "\t}"
+        },
+        {
+          "start": 2186,
+          "end": 2186,
+          "text": "\treturn true;"
+        },
+        {
+          "start": 2187,
+          "end": 2191,
+          "text": "}"
+        },
+        {
+          "start": 3368,
+          "end": 3386,
+          "text": "T"
+        },
+        {
+          "start": 3406,
+          "end": 3406,
+          "text": "610 bytes) checks each "
+        },
+        {
+          "start": 3408,
+          "end": 3409,
+          "text": "st it"
+        },
+        {
+          "start": 3410,
+          "end": 3410,
+          "text": "m"
+        },
+        {
+          "start": 3411,
+          "end": 3411,
+          "text": "(kv_list.h:73, here:"
+        },
+        {
+          "start": 3414,
+          "end": 3415,
+          "text": "),"
+        },
+        {
+          "start": 3416,
+          "end": 3416,
+          "text": "bu"
+        },
+        {
+          "start": 3417,
+          "end": 3417,
+          "text": "lds "
+        },
+        {
+          "start": 3418,
+          "end": 3419,
+          "text": "he"
+        },
+        {
+          "start": 3427,
+          "end": 3428,
+          "text": "\n**\ta"
+        },
+        {
+          "start": 3429,
+          "end": 3431,
+          "text": "d "
+        },
+        {
+          "start": 3432,
+          "end": 3432,
+          "text": "ntry"
+        },
+        {
+          "start": 3433,
+          "end": 3434,
+          "text": "thro"
+        },
+        {
+          "start": 3435,
+          "end": 3438,
+          "text": "gh th"
+        },
+        {
+          "start": 3439,
+          "end": 3455,
+          "text": ""
+        },
+        {
+          "start": 3463,
+          "end": 3463,
+          "text": " helper (asserts 45-47)"
+        },
+        {
+          "start": 3465,
+          "end": 3467,
+          "text": "form"
+        },
+        {
+          "start": 3469,
+          "end": 3491,
+          "text": "s"
+        },
+        {
+          "start": 3503,
+          "end": 3503,
+          "text": ","
+        },
+        {
+          "start": 3504,
+          "end": 3504,
+          "text": "and s"
+        },
+        {
+          "start": 3505,
+          "end": 3507,
+          "text": ""
+        },
+        {
+          "start": 3508,
+          "end": 3511,
+          "text": "ps"
+        },
+        {
+          "start": 3512,
+          "end": 3522,
+          "text": "on "
+        },
+        {
+          "start": 3532,
+          "end": 3533,
+          "text": ""
+        },
+        {
+          "start": 3534,
+          "end": 3534,
+          "text": "failure.\n**\tIts shared value c"
+        },
+        {
+          "start": 3535,
+          "end": 3535,
+          "text": "n"
+        },
+        {
+          "start": 3538,
+          "end": 3538,
+          "text": "sion"
+        },
+        {
+          "start": 3539,
+          "end": 3543,
+          "text": "buffer "
+        },
+        {
+          "start": 3545,
+          "end": 3545,
+          "text": " "
+        },
+        {
+          "start": 3546,
+          "end": 3547,
+          "text": ""
+        },
+        {
+          "start": 3548,
+          "end": 3548,
+          "text": "e pair wrapper"
+        },
+        {
+          "start": 3550,
+          "end": 3550,
+          "text": " 0x1000 bytes (0xBE3B60), also used by the"
+        },
+        {
+          "start": 3555,
+          "end": 3555,
+          "text": "\n**\tgetter 0x4B6B60"
+        },
+        {
+          "start": 3557,
+          "end": 3557,
+          "text": "The converted-key buffer at 0xBE4E98 is distinct from the reader's KeyBuffer 0xBE509C.\n**\tHelper spelling/linkage and the converted-key capacity are inferred: the external inline helper gives\n**\tindependent common storage, compatible with retail's buffer before this file's initializer 0xBE5098.\n**\tThe object audit checks relocation roles and section offsets; full-image linker placement is not proven.\n**\t"
+        },
+        {
+          "start": 3578,
+          "end": 3579,
+          "text": "p"
+        },
+        {
+          "start": 3580,
+          "end": 3580,
+          "text": "eserv"
+        },
+        {
+          "start": 3585,
+          "end": 3585,
+          "text": " cl"
+        },
+        {
+          "start": 3586,
+          "end": 3586,
+          "text": "ent's asse"
+        },
+        {
+          "start": 3587,
+          "end": 3587,
+          "text": "tion location"
+        }
+      ]
+    },
+    {
+      "unit": "app/shared/kv_list.cpp",
+      "base_sha256": "5ea34be2a154e5c76e0898472ce7260055f875ff43a30612c5bf5bf4b0d3371a",
+      "input_sha256": "7f9ef1107f6c31aebe1c587d64e4252c0fb7cf1eea70a494c77b9ca6b6fc5d73",
+      "edits": [
+        {
+          "start": 183,
+          "end": 183,
+          "text": "#include \"kv_pair_value.h\""
+        },
+        {
+          "start": 390,
+          "end": 395,
+          "text": "V"
+        },
+        {
+          "start": 420,
+          "end": 425,
+          "text": "V"
+        },
+        {
+          "start": 434,
+          "end": 439,
+          "text": "V"
+        },
+        {
+          "start": 661,
+          "end": 666,
+          "text": "V"
+        },
+        {
+          "start": 689,
+          "end": 694,
+          "text": "V"
+        },
+        {
+          "start": 712,
+          "end": 717,
+          "text": "V"
+        },
+        {
+          "start": 857,
+          "end": 862,
+          "text": "V"
+        },
+        {
+          "start": 1396,
+          "end": 1401,
+          "text": "V"
+        },
+        {
+          "start": 1555,
+          "end": 1580,
+          "text": ""
+        },
+        {
+          "start": 1662,
+          "end": 1667,
+          "text": "V"
+        },
+        {
+          "start": 1696,
+          "end": 1697,
+          "text": "P"
+        },
+        {
+          "start": 1700,
+          "end": 1705,
+          "text": ""
+        },
+        {
+          "start": 1719,
+          "end": 1725,
+          "text": "pa"
+        },
+        {
+          "start": 1726,
+          "end": 1735,
+          "text": "r"
+        },
+        {
+          "start": 2361,
+          "end": 2366,
+          "text": "V"
+        },
+        {
+          "start": 2389,
+          "end": 2394,
+          "text": "V"
+        },
+        {
+          "start": 2536,
+          "end": 2541,
+          "text": "V"
+        },
+        {
+          "start": 3132,
+          "end": 3136,
+          "text": "us"
+        },
+        {
+          "start": 3139,
+          "end": 3139,
+          "text": "the pa"
+        },
+        {
+          "start": 3140,
+          "end": 3143,
+          "text": "r"
+        },
+        {
+          "start": 3144,
+          "end": 3144,
+          "text": "wr"
+        },
+        {
+          "start": 3145,
+          "end": 3145,
+          "text": "pper's shared"
+        }
+      ]
+    },
+    {
+      "unit": "app/shared/kv_list.h",
+      "base_sha256": "b14c69b8571c54533940483611a00a49a894a098d2121d413fd89d735bc38fe6",
+      "input_sha256": "9c7c65c8a5fa059df4f1f44229e73a76cd0201ddca5413cc3f678c7d9fd62d56",
+      "edits": [
+        {
+          "start": 196,
+          "end": 196,
+          "text": "d"
+        },
+        {
+          "start": 197,
+          "end": 197,
+          "text": "by the indexed-"
+        },
+        {
+          "start": 198,
+          "end": 198,
+          "text": "cce"
+        },
+        {
+          "start": 200,
+          "end": 225,
+          "text": ""
+        },
+        {
+          "start": 235,
+          "end": 235,
+          "text": "ion"
+        },
+        {
+          "start": 236,
+          "end": 236,
+          "text": "at li"
+        },
+        {
+          "start": 237,
+          "end": 239,
+          "text": ""
+        },
+        {
+          "start": 240,
+          "end": 241,
+          "text": ""
+        },
+        {
+          "start": 242,
+          "end": 244,
+          "text": "73"
+        },
+        {
+          "start": 974,
+          "end": 974,
+          "text": "#include \"g_assert.h\""
+        },
+        {
+          "start": 1839,
+          "end": 1839,
+          "text": "sh"
+        },
+        {
+          "start": 1840,
+          "end": 1840,
+          "text": "red"
+        },
+        {
+          "start": 1841,
+          "end": 1843,
+          "text": "p"
+        },
+        {
+          "start": 1844,
+          "end": 1845,
+          "text": ""
+        },
+        {
+          "start": 1846,
+          "end": 1859,
+          "text": "r"
+        },
+        {
+          "start": 1866,
+          "end": 1867,
+          "text": ""
+        },
+        {
+          "start": 2414,
+          "end": 2419,
+          "text": "V"
+        },
+        {
+          "start": 2465,
+          "end": 2465,
+          "text": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
+        },
+        {
+          "start": 2500,
+          "end": 2525,
+          "text": ""
+        },
+        {
+          "start": 2559,
+          "end": 2559,
+          "text": "\n\t{\n\t\treturn (G_ASSERT(index < V.size()), V[index]);\n\t}"
+        },
+        {
+          "start": 2765,
+          "end": 2770,
+          "text": "V"
+        },
+        {
+          "start": 2771,
+          "end": 2782,
+          "text": "  "
+        },
+        {
+          "start": 2790,
+          "end": 2790,
+          "text": ","
+        },
+        {
+          "start": 2791,
+          "end": 2794,
+          "text": "nam"
+        },
+        {
+          "start": 2795,
+          "end": 2795,
+          "text": " from"
+        },
+        {
+          "start": 2802,
+          "end": 2803,
+          "text": " a"
+        },
+        {
+          "start": 2804,
+          "end": 2805,
+          "text": "ser"
+        },
+        {
+          "start": 2806,
+          "end": 2806,
+          "text": "i"
+        },
+        {
+          "start": 2807,
+          "end": 2852,
+          "text": "n"
+        },
+        {
+          "start": 2995,
+          "end": 2995,
+          "text": "\n\n\n\n\n\n\n\n\n\n"
+        }
+      ]
+    },
+    {
+      "unit": "app/shared/kv_pair.h",
+      "base_sha256": "d0def0240e503524ceb9a4c85ecb2c4bf90531f938f04d32c0ae5068a95103f2",
+      "input_sha256": "d0def0240e503524ceb9a4c85ecb2c4bf90531f938f04d32c0ae5068a95103f2",
+      "edits": []
+    },
+    {
+      "unit": "app/shared/kv_pair_value.h",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "input_sha256": "a99ced4f7a39b3cde910e7bd9281aad4ccc03fd3fd83ce5913b34442b36783b5",
+      "edits": [
+        {
+          "start": 0,
+          "end": 0,
+          "text": "#ifndef __KV_PAIR_VALUE_H\n#define __KV_PAIR_VALUE_H\n\n#include \"kv_pair.h\"\n\ninline char *Pair_Value_String(const KVPairClass *pair)  // NAME 2: describes the shared conversion\n{\n\tstatic char buf[0x1000];\n\treturn pair->Get_Value_String(buf, sizeof(buf));\n}\n\n#endif\n"
+        }
+      ]
+    }
+  ],
+  "replay_verified": true,
+  "classification": "changed_compiled_rejected_consumer_losses",
+  "translation_unit_compiles": 3,
+  "compiler_inputs": [
+    {
+      "unit": "app/shared/kv_util.cpp",
+      "response": "/nologo /c /MT /W3 /O2 /Ob2 /GX\n/DWIN32\n/D_WINDOWS\n/DWIN32_LEAN_AND_MEAN\n/DWINVER=0x400\n/DNDEBUG\n/DENABLE_WWPROFILE\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\build-tree\\wwdebug\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\build-tree\\wwlib\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\build-tree\\wwmath\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\build-tree\\wwsaveload\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\build-tree\\wwaudio\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\build-tree\\ww3d2\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\build-tree\\wwshade\"\n/I\"Z:C:\\EnBDevelopment\\SDK\\directx8\\include\"\n/I\"Z:C:\\EnBDevelopment\\SDK\\radtools\\include_enb\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\build-tree\\libs\\wwonline\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\build-tree\\libs\\sgistl\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\build-tree\"\n\"e:\\build\\beta\\G\\app\\shared\\kv_util.cpp\"",
+      "object_sha256": "5c5a1e691ed9ff1b73c93c678f50d5b8fedbf62e5f5b33c0679058f1c04a8314"
+    },
+    {
+      "unit": "app/shared/kv_list.cpp",
+      "response": "/nologo /c /MT /W3 /O2 /Ob2 /GX\n/DWIN32\n/D_WINDOWS\n/DWIN32_LEAN_AND_MEAN\n/DWINVER=0x400\n/DNDEBUG\n/DENABLE_WWPROFILE\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\build-tree\\wwdebug\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\build-tree\\wwlib\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\build-tree\\wwmath\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\build-tree\\wwsaveload\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\build-tree\\wwaudio\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\build-tree\\ww3d2\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\build-tree\\wwshade\"\n/I\"Z:C:\\EnBDevelopment\\SDK\\directx8\\include\"\n/I\"Z:C:\\EnBDevelopment\\SDK\\radtools\\include_enb\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\build-tree\\libs\\wwonline\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\build-tree\\libs\\sgistl\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\build-tree\"\n\"e:\\build\\beta\\G\\app\\shared\\kv_list.cpp\"",
+      "object_sha256": "3cc960008f239a8fb5ad9398342012e08a4956d7c712899e1d199aafe341ef8c"
+    },
+    {
+      "unit": "app/shared/kv_pair.cpp",
+      "response": "/nologo /c /MT /W3 /O2 /Ob2 /GX\n/DWIN32\n/D_WINDOWS\n/DWIN32_LEAN_AND_MEAN\n/DWINVER=0x400\n/DNDEBUG\n/DENABLE_WWPROFILE\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\build-tree\\wwdebug\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\build-tree\\wwlib\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\build-tree\\wwmath\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\build-tree\\wwsaveload\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\build-tree\\wwaudio\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\build-tree\\ww3d2\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\build-tree\\wwshade\"\n/I\"Z:C:\\EnBDevelopment\\SDK\\directx8\\include\"\n/I\"Z:C:\\EnBDevelopment\\SDK\\radtools\\include_enb\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\build-tree\\libs\\wwonline\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\build-tree\\libs\\sgistl\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-345\\build-tree\"\n\"e:\\build\\beta\\G\\app\\shared\\kv_pair.cpp\"",
+      "object_sha256": "210fa20cc0883e6eb517211ba5edbb1d4dcb99c8f4d51c246049f0fab6d289c0"
+    }
+  ],
+  "analysis": {
+    "symbol": "?Unknown_4BB0E0@@YA_NAAVKVListClass@@AAVINIClass@@PBD@Z",
+    "length": 610,
+    "raw_sha256": "52fc7ccf6947aaa827399d4e8855698adfac66be4569b4185a00af742e17e102",
+    "masked_sha256": "52fc7ccf6947aaa827399d4e8855698adfac66be4569b4185a00af742e17e102",
+    "relocations": [
+      {
+        "offset": 95,
+        "width": 4,
+        "kind": 6,
+        "symbol": "??_C@_0CF@LKAP@e?3?2build?2beta?2G?2app?2shared?2kv_li@",
+        "addend": "00000000"
+      },
+      {
+        "offset": 100,
+        "width": 4,
+        "kind": 6,
+        "symbol": "??_C@_0BB@OBKE@index?5?$DM?5V?4size?$CI?$CJ?$AA@",
+        "addend": "00000000"
+      },
+      {
+        "offset": 105,
+        "width": 4,
+        "kind": 20,
+        "symbol": "?G_Assert_Report@@YAXPBD0H@Z",
+        "addend": "00000000"
+      },
+      {
+        "offset": 128,
+        "width": 4,
+        "kind": 6,
+        "symbol": "??_C@_0CH@CGBG@e?3?2build?2beta?2G?2app?2shared?2kv_ut@",
+        "addend": "00000000"
+      },
+      {
+        "offset": 133,
+        "width": 4,
+        "kind": 6,
+        "symbol": "??_C@_04OJPI@pair?$AA@",
+        "addend": "00000000"
+      },
+      {
+        "offset": 138,
+        "width": 4,
+        "kind": 20,
+        "symbol": "?G_Assert_Report@@YAXPBD0H@Z",
+        "addend": "00000000"
+      },
+      {
+        "offset": 162,
+        "width": 4,
+        "kind": 6,
+        "symbol": "??_C@_0CH@CGBG@e?3?2build?2beta?2G?2app?2shared?2kv_ut@",
+        "addend": "00000000"
+      },
+      {
+        "offset": 167,
+        "width": 4,
+        "kind": 6,
+        "symbol": "??_C@_04PIEA@base?$AA@",
+        "addend": "00000000"
+      },
+      {
+        "offset": 172,
+        "width": 4,
+        "kind": 20,
+        "symbol": "?G_Assert_Report@@YAXPBD0H@Z",
+        "addend": "00000000"
+      },
+      {
+        "offset": 186,
+        "width": 4,
+        "kind": 6,
+        "symbol": "??_C@_0CH@CGBG@e?3?2build?2beta?2G?2app?2shared?2kv_ut@",
+        "addend": "00000000"
+      },
+      {
+        "offset": 191,
+        "width": 4,
+        "kind": 6,
+        "symbol": "??_C@_06NAPD@append?$AA@",
+        "addend": "00000000"
+      },
+      {
+        "offset": 196,
+        "width": 4,
+        "kind": 20,
+        "symbol": "?G_Assert_Report@@YAXPBD0H@Z",
+        "addend": "00000000"
+      },
+      {
+        "offset": 214,
+        "width": 4,
+        "kind": 6,
+        "symbol": "??_C@_0CH@CGBG@e?3?2build?2beta?2G?2app?2shared?2kv_ut@",
+        "addend": "00000000"
+      },
+      {
+        "offset": 219,
+        "width": 4,
+        "kind": 6,
+        "symbol": "??_C@_07NDOK@section?$AA@",
+        "addend": "00000000"
+      },
+      {
+        "offset": 224,
+        "width": 4,
+        "kind": 20,
+        "symbol": "?G_Assert_Report@@YAXPBD0H@Z",
+        "addend": "00000000"
+      },
+      {
+        "offset": 278,
+        "width": 4,
+        "kind": 6,
+        "symbol": "?SectionBuffer@?1??Make_Section@@YAPBDPBD0PAD@Z@4PADA",
+        "addend": "00000000"
+      },
+      {
+        "offset": 287,
+        "width": 4,
+        "kind": 6,
+        "symbol": "?SectionBuffer@?1??Make_Section@@YAPBDPBD0PAD@Z@4PADA",
+        "addend": "00000000"
+      },
+      {
+        "offset": 310,
+        "width": 4,
+        "kind": 6,
+        "symbol": "??_C@_0CH@CGBG@e?3?2build?2beta?2G?2app?2shared?2kv_ut@",
+        "addend": "00000000"
+      },
+      {
+        "offset": 315,
+        "width": 4,
+        "kind": 6,
+        "symbol": "??_C@_06EMNG@string?$AA@",
+        "addend": "00000000"
+      },
+      {
+        "offset": 320,
+        "width": 4,
+        "kind": 20,
+        "symbol": "?G_Assert_Report@@YAXPBD0H@Z",
+        "addend": "00000000"
+      },
+      {
+        "offset": 330,
+        "width": 4,
+        "kind": 6,
+        "symbol": "?SectionBuffer@?1??Make_Section@@YAPBDPBD0PAD@Z@4PADA",
+        "addend": "00000000"
+      },
+      {
+        "offset": 335,
+        "width": 4,
+        "kind": 20,
+        "symbol": "_strchr",
+        "addend": "00000000"
+      },
+      {
+        "offset": 353,
+        "width": 4,
+        "kind": 20,
+        "symbol": "_strchr",
+        "addend": "00000000"
+      },
+      {
+        "offset": 367,
+        "width": 4,
+        "kind": 6,
+        "symbol": "?SectionBuffer@?1??Make_Section@@YAPBDPBD0PAD@Z@4PADA",
+        "addend": "00000000"
+      },
+      {
+        "offset": 372,
+        "width": 4,
+        "kind": 20,
+        "symbol": "_strrchr",
+        "addend": "00000000"
+      },
+      {
+        "offset": 390,
+        "width": 4,
+        "kind": 6,
+        "symbol": "??_C@_01PCFE@?2?$AA@",
+        "addend": "00000000"
+      },
+      {
+        "offset": 440,
+        "width": 4,
+        "kind": 6,
+        "symbol": "?SectionBuffer@?1??Make_Section@@YAPBDPBD0PAD@Z@4PADA",
+        "addend": "00000000"
+      },
+      {
+        "offset": 482,
+        "width": 4,
+        "kind": 6,
+        "symbol": "?SectionBuffer@?1??Make_Section@@YAPBDPBD0PAD@Z@4PADA",
+        "addend": "00000000"
+      },
+      {
+        "offset": 494,
+        "width": 4,
+        "kind": 6,
+        "symbol": "?buf@?1??Pair_Value_String@@YAPADPBVKVPairClass@@@Z@4PADA",
+        "addend": "00000000"
+      },
+      {
+        "offset": 520,
+        "width": 4,
+        "kind": 6,
+        "symbol": "??_C@_09BGEB@?$HL?$CFs?$HN?3?$HL?$CFs?$HN?$AA@",
+        "addend": "00000000"
+      },
+      {
+        "offset": 526,
+        "width": 4,
+        "kind": 20,
+        "symbol": "_sprintf",
+        "addend": "00000000"
+      },
+      {
+        "offset": 555,
+        "width": 4,
+        "kind": 20,
+        "symbol": "?Put_String@INIClass@@QAE_NPBD00@Z",
+        "addend": "00000000"
+      }
+    ],
+    "unwind": null,
+    "explain": {
+      "symbol": "Unknown_4BB0E0",
+      "mangled": "?Unknown_4BB0E0@@YA_NAAVKVListClass@@AAVINIClass@@PBD@Z",
+      "address": "0x4BB0E0",
+      "ours": 209,
+      "client": 209,
+      "residue": 0,
+      "residue_regs": 0,
+      "tables": [],
+      "branch": {
+        "bytes": [
+          610,
+          610
+        ],
+        "size": 0,
+        "target": 0
+      },
+      "class": "identical",
+      "reason": "nothing differs once stack offsets are masked"
+    },
+    "exact": true,
+    "diagnostic_similarity": "similarity 0.80"
+  },
+  "deltas": {
+    "pairs": {
+      "gained": [
+        [
+          "app/shared/kv_util.cpp",
+          "0x4BB0E0"
+        ]
+      ],
+      "lost": []
+    },
+    "symbol_pairs": {
+      "gained": [
+        [
+          "app/shared/kv_util.cpp",
+          "?Unknown_4BB0E0@@YA_NAAVKVListClass@@AAVINIClass@@PBD@Z",
+          "0x4BB0E0"
+        ]
+      ],
+      "lost": []
+    },
+    "all_pairs": {
+      "gained": [
+        [
+          "app/shared/kv_util.cpp",
+          "0x4BB0E0"
+        ]
+      ],
+      "lost": []
+    },
+    "all_symbol_pairs": {
+      "gained": [
+        [
+          "app/shared/kv_util.cpp",
+          "?Unknown_4BB0E0@@YA_NAAVKVListClass@@AAVINIClass@@PBD@Z",
+          "0x4BB0E0"
+        ]
+      ],
+      "lost": []
+    }
+  }
+}

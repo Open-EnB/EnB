@@ -1,0 +1,394 @@
+[
+  {
+    "unit": "wwmath/lineseg.cpp",
+    "old_object_sha256": "fbdec246e76bc62302095d75d0be82927b16b4ecbdbef427edcd69a5fe8bfd3e",
+    "new_object_sha256": "2cf83e7c1b1200d7d98b4b7bfb5e390bcead4008449d0820c1897011a356370b",
+    "checked": 6,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwmath/lookuptable.cpp",
+    "old_object_sha256": "f60f7338eab88aa52acb32216bbc79ea83fd533e5ba7cade913fb478b3dec0a0",
+    "new_object_sha256": "f257396b0f8ed691a7523c7ec289b71063859275f6a78263ea005f785a91bc95",
+    "checked": 24,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwmath/matrix3.cpp",
+    "old_object_sha256": "4e6dae6580fe1bc5275af6ef14dd8c5f63b6b22fce5402de3a5d67c533475d0d",
+    "new_object_sha256": "33ced5e51ad86865f7ee42d349f99ccb16f16c8749f2e9cb9ca9c2ba1c963d9a",
+    "checked": 24,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwmath/matrix3d.cpp",
+    "old_object_sha256": "f4e0018b9d179b0be378d985709bf78c16afa91222b8f15d8fe9b5b23a69f86c",
+    "new_object_sha256": "1770383297642c0c6cf3065cac78d403628296c9b0b0b729d91db91315915fa8",
+    "checked": 35,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwmath/matrix4.cpp",
+    "old_object_sha256": "ddb6d7356bd5541a5587a26d4a1d39f419a19d1733d4c1e5135e3ceed804677d",
+    "new_object_sha256": "1aa9246d236416f42ec5b5d973b4aa781a4a5ecb1df956475d1fd72966145421",
+    "checked": 6,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwmath/obbox.cpp",
+    "old_object_sha256": "95ea864636259a9a76aa07d81e759cbfa8fec4a324878c55b19a669f8f67ab55",
+    "new_object_sha256": "86f12c02c67f969302e73f2c74f4b9c3d5e77bb473af392b285eb2b218998f55",
+    "checked": 2,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwmath/ode.cpp",
+    "old_object_sha256": "573ca583659a3d25b97e2f168ce2563989f4bc9517d4481730f141c82c4ca45a",
+    "new_object_sha256": "c7e045c1a72c70f7c063c4cadef5723804b2b53c6f3d47c50d7a9e37a78a40ec",
+    "checked": 10,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwmath/pot.cpp",
+    "old_object_sha256": "07dcee37235e6ee7fd3559c60164fe25e2683218337599903820c54a832dff40",
+    "new_object_sha256": "d7ee91e5544640a2faeadc23c82641be56933a66b8ce12db7a5128b4e2f5dde1",
+    "checked": 2,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwmath/quat.cpp",
+    "old_object_sha256": "ae08e1f75494aef3d47a5532ee30e220ec7b4d8f161a21699bbb6aec7660447e",
+    "new_object_sha256": "c29a5d6b58f9d06454e4ba457c759ba081facfc1c6f8e83431ff30a1a02fc615",
+    "checked": 23,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwmath/tcbspline.cpp",
+    "old_object_sha256": "4caf75ffccaa5dc3a5a04d1be9f5b126e5aa2ae8521adfda7b3525e100291b50",
+    "new_object_sha256": "a5995974119f90bf684c7f0c0a80181df5d33117260133eaeae5796a5505f6e1",
+    "checked": 39,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwmath/tri.cpp",
+    "old_object_sha256": "bdc33380eb5e36572cb062a86b2d56834b1de9c6fca6af783d114a7125fc84ac",
+    "new_object_sha256": "a235f6e6fd261c0fd05f65af86385c7499a26b74bde4212580f9f56d0a8f2dc6",
+    "checked": 2,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwmath/v3_rnd.cpp",
+    "old_object_sha256": "da83bfc42c3004f8ba06c5ab9f1f2ca5ee1c1bad3ffd9e488d2097e1fca86ea9",
+    "new_object_sha256": "ba72369e7c716404f29f6119fcdac9a73212edc67298d5e6d341a7f0a1ba113f",
+    "checked": 36,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwmath/vehiclecurve.cpp",
+    "old_object_sha256": "e06f3d2334166281d042207ff42a4ccf26e522f7f7c0b3de869776b8959a6f51",
+    "new_object_sha256": "f0937ae2937d1824feadf65889f97924cdfe89e733d046a9f04d32e18bb9d2b0",
+    "checked": 4,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwmath/vp.cpp",
+    "old_object_sha256": "2f19ed91f9c6d5677fadc030ad2a2f20c662bf5ea5ca8bb707f711bd1b8ff85f",
+    "new_object_sha256": "15385c25b04be39262830a33fb454bfcc15a8ff8757e2bf8c858657f36304808",
+    "checked": 27,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwmath/wwmath.cpp",
+    "old_object_sha256": "b2ca9428e1d55ee81c6caba484b606cfdadbe448f561232f9739b2ed9099114c",
+    "new_object_sha256": "d9d3a83f33bfcf1ce03c9630071150306934c6f21061b6c270ff9471649de04e",
+    "checked": 4,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwsaveload/definition.cpp",
+    "old_object_sha256": "87a7ec031d0132a457a9fa9aea252dc20beaa8578ca6a7212f32c534507bdd8e",
+    "new_object_sha256": "6e588c8ff5a14a29e3509d7ab31aa59a464226b4067b2a0cea3e8c8b5b5bc3ed",
+    "checked": 7,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwsaveload/definitionfactory.cpp",
+    "old_object_sha256": "3e9c319f6b822604a0e6ae3d6982904a05ac1a1a8fdb958b9644f6b159578a50",
+    "new_object_sha256": "02df687996aef6d33d070fa302201a288cdd946acd7779364b4e060562ad6670",
+    "checked": 3,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwsaveload/definitionfactorymgr.cpp",
+    "old_object_sha256": "27c4104fcae3fe0f3e55250d2ff341e7239841e41a521d74e7580f32a4a4c1a7",
+    "new_object_sha256": "062ece2aa29de30776c66d52474b14afcdc0db29c7eada1e7b8a5ee39b89411f",
+    "checked": 10,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwsaveload/definitionmgr.cpp",
+    "old_object_sha256": "faea7fa0888a49c5566cdcd3fdbe53f6a713526702e5ea09c989aa7f4f8686b6",
+    "new_object_sha256": "89c9a3b6064cb5c066501c78ad638c53876a3fe3c6f154dcfb34e7b4775e94b4",
+    "checked": 48,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwsaveload/parameter.cpp",
+    "old_object_sha256": "8498da245b783fc28b36ca0ca38a57e02534d7dc2b35cb79f0aa20d64a34722f",
+    "new_object_sha256": "2f67e6c6b60c9547c91d58350f834b93db9dd474e7f2cd87b518276a37d26d7b",
+    "checked": 7,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwsaveload/persistfactory.cpp",
+    "old_object_sha256": "c274d59af75255869262ba29d6727453f91eb2af72f105eaf3b19856bbdbbb94",
+    "new_object_sha256": "cda7ea1ba4308524e49fd48aba11c4ff432d5e7ae19ebd7fc7bfa0ebaf35a15c",
+    "checked": 4,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwsaveload/pointerremap.cpp",
+    "old_object_sha256": "38856f12f402c91a28924c4eecf03f74a58a106225b87b319cc9c352911d4b47",
+    "new_object_sha256": "3f7b481de7a2c966bbf33f14db2713bd16c0d657edd9a78512c0fd670d4c7b20",
+    "checked": 35,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwsaveload/saveload.cpp",
+    "old_object_sha256": "db26345e715cd69201ac669a6d6b38166326b817e44f58492ac3e76f4f248f9c",
+    "new_object_sha256": "a30b701bec1baa01be7a12e4c8686009173631de39527bf1115b256c9e8c1bea",
+    "checked": 38,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwsaveload/saveloadstatus.cpp",
+    "old_object_sha256": "661497e02f08ac0cc1eb7f54bfb3b2166d6e09a1f0b1951600b45ba972d47233",
+    "new_object_sha256": "2c2a3d2cd6c64f87393bdc1369969b2af789374c84f2361cdae0b4ea084c07ae",
+    "checked": 11,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwsaveload/saveloadsubsystem.cpp",
+    "old_object_sha256": "0b7cae780b1588693a6725950feec9532f69612ac484626fc6577e82364bcd27",
+    "new_object_sha256": "b387c33dad3b28e5a108639ff8e07c5c76bfafbfaafa3abf06513cc736e07c88",
+    "checked": 7,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwsaveload/twiddler.cpp",
+    "old_object_sha256": "04c497ea776d6f746723074dc82df39bf9a2cb4f458880f4152766ee4a54ef86",
+    "new_object_sha256": "5bda62f9970d2259177e66e01cdb271e304cf8385142340efc8bf2f561eabb26",
+    "checked": 53,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwsaveload/wwsaveload.cpp",
+    "old_object_sha256": "0e4d6f47f52c2eefc38e1bb74d00908e62ec93f394b7bdad6108588569a090f7",
+    "new_object_sha256": "cb786c0c660e2ca49e4363edb2716f2dbf37e5ab4cb1d007c29a3c668577b5e6",
+    "checked": 1,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwshade/shd6bumpdiff.cpp",
+    "old_object_sha256": "5df2dc967bafcb3acd4bd3bad2830991598d4d50cd89d2f4c5babaf01d8b0ec1",
+    "new_object_sha256": "6d65009eba8034e9e0deee4c78962c0d15ba337d3db0864f541dc990abdc52a8",
+    "checked": 30,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwshade/shd6bumpspec.cpp",
+    "old_object_sha256": "f3334799826a95cf6c42d0907208e62c7b5f8d0ed224c023c9ecd65c729f44d8",
+    "new_object_sha256": "90f9d017c4cadc1dbcd54b86b807dd9cddafbfec726308d527c0c078abdcdcba",
+    "checked": 30,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwshade/shd7bumpdiff.cpp",
+    "old_object_sha256": "48caffa3fa0926256b8e4f2a99a760b2f6dc1962c4ca6e0cc6e0ef4d3696c827",
+    "new_object_sha256": "1e57dab401f07d527352ba8f84f3b358c5d92e18e4289a9a1938053e9098180d",
+    "checked": 34,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwshade/shd7bumpspec.cpp",
+    "old_object_sha256": "f24b345ada72c21f500f107cdcfd3f5b2783292f939c62031d4145283ea8646b",
+    "new_object_sha256": "f0afa0fa4b1e007eb8e2d8dc33ffbf6b9e6033410a397f70e638f3458ac93c28",
+    "checked": 34,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwshade/shd8bumpdiff.cpp",
+    "old_object_sha256": "eb0b778548961a7b2afcbee96ba3cdc5bd877bbafe321bfadacabe404a26fac1",
+    "new_object_sha256": "2d450189f90bacd678ecf892bd29397d80ae16354c9d412beb7044706747e6b2",
+    "checked": 43,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwshade/shd8bumpspec.cpp",
+    "old_object_sha256": "ce22b6792fa1415ed5235a1f69ce2b4ca174c78d3cb25690210ef448300d326c",
+    "new_object_sha256": "c9b54cac64df5f21acae858b80c06e1786099fc4c6fb1ec088eb50de1cdb37cb",
+    "checked": 44,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwshade/shdbumpdiff.cpp",
+    "old_object_sha256": "f6756be37423479e16b4967ee43df7e3a299167288a18fb641184754116f01e6",
+    "new_object_sha256": "143cced4fc93ccccc65de86c259350c79ff91f7e29bea25f96889d9f0339b4fa",
+    "checked": 40,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwshade/shdbumpspec.cpp",
+    "old_object_sha256": "59a50391c6921429f4d97b54b2e5d6a930c9ffe940629938a06189e42594227b",
+    "new_object_sha256": "e4380e27d4ace425ef5897cb0316d651d7d05281cd9d550082b571175827929a",
+    "checked": 40,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwshade/shdcubemap.cpp",
+    "old_object_sha256": "73cf83722767ec367983d2808aa3bb4cb3aebc675d4164282d0b17c7179d3492",
+    "new_object_sha256": "4042dabe854d228cf7ec18d1eb840eb80c499247ca16a4806266a5c370b4bfed",
+    "checked": 55,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwshade/shddef.cpp",
+    "old_object_sha256": "b8a40dfb8328903336577d67594aace8dfb442fbb9516f13b5e821ace1a6389f",
+    "new_object_sha256": "aa5efc51370303871938cdc8851fc34929a23f46a2d68c975e04003ce808d3e5",
+    "checked": 27,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwshade/shddeffactory.cpp",
+    "old_object_sha256": "2a0c0ef9fa800b4936e4836c5976ba519593e45896b4f2464481c0b50a8cc7c9",
+    "new_object_sha256": "6aa857c38bc203c13fe384ae81bf0ba710a03e26834618ebf36b67405cb6914d",
+    "checked": 3,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwshade/shddefmanager.cpp",
+    "old_object_sha256": "aab9d88a1be41159f993a83bd068a7444c47bf664948011b5844a64c77012d7f",
+    "new_object_sha256": "7b7ad0d7d96482a854e24c3b0d0d405d9c6816de78d7c6881d07828977e3cab4",
+    "checked": 14,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwshade/shdforcelinks.cpp",
+    "old_object_sha256": "a9ff5d5068a65234049427f70544f6f964be09a17d544bad4464c3f7078cb5fd",
+    "new_object_sha256": "74c1cefb0d354fc73a6cd95073e40c16f5979208852657c67b290baad5ee895e",
+    "checked": 1,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwshade/shdglossmask.cpp",
+    "old_object_sha256": "fa9259667bc2a5022a0a58a8e6ba6f883ed0865d7bb069018a703ae5ef823b25",
+    "new_object_sha256": "3309d4ed8936367404f73654226bc68e32d27ac48abb6351dcff11897d8c0bfe",
+    "checked": 55,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwshade/shdhwshader.cpp",
+    "old_object_sha256": "d57e7176b4b7afa54183392f8a1cd04332cbce0b841556beff0c3e7f924aa534",
+    "new_object_sha256": "d63a34c60588a2385c293f67dda4867755ef56b645a95107cbd19bad6d0dda48",
+    "checked": 23,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwshade/shdinterface.cpp",
+    "old_object_sha256": "56b0084f203a0bffb00b84a013fa8530fb9827ab5db54fd10d1a103205b74e64",
+    "new_object_sha256": "8d860588871eaf8b92ac8e220e51df82c47ff855c71f39a3b4d8e54584076f4b",
+    "checked": 11,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwshade/shdlib.cpp",
+    "old_object_sha256": "182bdf0f914c92948d7af9a1b4ae0af4e2894b58503042fdb27f2fb15159498b",
+    "new_object_sha256": "36ce9ce70b3f97347006cfef75237cef07b478c6a0f4c629d872d8e6f7bb384b",
+    "checked": 7,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwshade/shdloader.cpp",
+    "old_object_sha256": "a5fbb324ff122962a9f13ef950dae58a48d3ac30ff119a67b03a8a1676fde01b",
+    "new_object_sha256": "0c6b9ad4cd23864cad7f0baeab1d452681f65dde92907de388977e1875817533",
+    "checked": 9,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwshade/shdmesh.cpp",
+    "old_object_sha256": "2b2e719dd461389d27407f0046b1a08b4f74d165f279a05b21b00cb617740a3d",
+    "new_object_sha256": "35b387e68d0ff1e58af3d30b33148da98941a6fb95bfafb6baef20ae74ce5964",
+    "checked": 124,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwshade/shdrenderer.cpp",
+    "old_object_sha256": "9445e2f21024f4b1ec368645e34a95389bf238aa84db11e46d5b103b185a754f",
+    "new_object_sha256": "37afd585f679f7fe9ad79aeab69d8c69e5d8d0b182b154d61093b5f629905032",
+    "checked": 36,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwshade/shdsimple.cpp",
+    "old_object_sha256": "60b93afbe821e1cadc8abf541bca0595c96ec1c277961f8bf33cb595d4213f6f",
+    "new_object_sha256": "292b4cddeb5d1a9762da17911e227f555ca37a772c358f22ae415082424b0681",
+    "checked": 55,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "wwshade/shdsubmesh.cpp",
+    "old_object_sha256": "48ad75b4cc82e73a8f64c8e235a73b617c26dd4adef765ff369485ff625b8bc0",
+    "new_object_sha256": "a5b6f91cd29a1b8f31c14a83455604ce182c4434101fd6b066e559b9117a3096",
+    "checked": 30,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  }
+]

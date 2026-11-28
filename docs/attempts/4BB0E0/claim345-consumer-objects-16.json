@@ -1,0 +1,402 @@
+[
+  {
+    "unit": "app/shared/unknown_px_callbacks.cpp",
+    "old_object_sha256": "b01cb05da9fe3a675ab983f94b7d01404ce1f34f4dff8e486df77ef1c88125bb",
+    "new_object_sha256": "fc9f5c7a80f10aee518fe933bb1e69241158cd0b2cffd61bf3c3cd98599c62c6",
+    "checked": 14,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/shared/unknown_px_factories.cpp",
+    "old_object_sha256": "c187ae0b4e609e4f0c5c318e86a9809cead4a26e41f1ab4dcd717f5e2f24facc",
+    "new_object_sha256": "96907f68123b0f4fdd96ca9cec34541ab1e4a98332f6a0593fef184016799610",
+    "checked": 4,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/shared/unknown_strconv.cpp",
+    "old_object_sha256": "a7772b7ca0c4d3a8f579626aaf06411794350972794c15521f8797c168e7870d",
+    "new_object_sha256": "d106f44c44ad27506b73ceb6e7873631f5aa7a5741f087b56ffe40dbd4b19f23",
+    "checked": 26,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/shared/uvcontrl.cpp",
+    "old_object_sha256": "ac1df94d42665c5b1d534947f9ed10e61724bfef55e5ebca12e44e8d810bad00",
+    "new_object_sha256": "55ac7bbc9e73a51e0ab55e42b78dac7c6644ac83edf098cd18e47df648b0aa2e",
+    "checked": 14,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/wwudp/bandwidthaccounting.cpp",
+    "old_object_sha256": "425a3c9e070a0ab9c70b43f6801783432874b1b59340f5828d5c8f742d671ab8",
+    "new_object_sha256": "c5f8327133b9bd095a45520e01509aea6bb1fd10b109565988924bb846badf0a",
+    "checked": 33,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/wwudp/cordcon.cpp",
+    "old_object_sha256": "4647b48ce425909e2b6f914571e288d585fb4d7f13287ad7c7da1767cf3cd923",
+    "new_object_sha256": "cac551fcb97f574651c7fc6e03a4d05194d223df74f53c2dfd22785beea46d09",
+    "checked": 59,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/wwudp/cordmgr.cpp",
+    "old_object_sha256": "fef62dc14a75e494e392691e3096809864f543718878e25b434bbfc064b8ab6e",
+    "new_object_sha256": "96d0ad012ec4c48e5783a43e9b031c199f1bf0872b7e01bb424da469810074c1",
+    "checked": 51,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/wwudp/unknown_84df30.cpp",
+    "old_object_sha256": "0b2a876a475427a2ad82d9955fcdde584029c8a3033ecf8537c0f678284b0b5a",
+    "new_object_sha256": "7cb806de231df2bfe71e3e33bc1402499e34ef4baab610a6b33399262cffa7ec",
+    "checked": 30,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/wwudp/unknown_85bf30.cpp",
+    "old_object_sha256": "203e48ba15cada96c7555286ee65a5a438a84060fa29e365d99a25fd1fce2610",
+    "new_object_sha256": "3ad38e8082929dbcb1417117e8593659c387b931e6c20bfc7c4c62aa0278337c",
+    "checked": 14,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "app/wwudp/unknown_cordmsg.cpp",
+    "old_object_sha256": "514adcecfeedcb97fd5a30fcbc432c00e81453d9066deb5f01ff2b36980b486d",
+    "new_object_sha256": "7b48fb94cf985be654c4e1dffdf0982814721f3231b64362601246e402c8192b",
+    "checked": 5,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "binkmovie/BINKMovie.cpp",
+    "old_object_sha256": "ffa8e67956c651f7113668b834b9064eb85ae8d9d1eae197ad304d662320d73c",
+    "new_object_sha256": "db6d2184ceda6a57b524cca137f18961f487be90aba54f221f2eb4cd5d998a7d",
+    "checked": 24,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "binkmovie/subtitle.cpp",
+    "old_object_sha256": "eff665ff9c6c2f84957c06fae827748047c983f1aa5b5ce0ff9218f18b2bdfa6",
+    "new_object_sha256": "9eb2c370dc0d2e8e71ebc44f174967cbcf3232c87b25f31eab4d6b551ea40833",
+    "checked": 4,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "binkmovie/subtitlemanager.cpp",
+    "old_object_sha256": "c734f5e3958bd43d20b193ac8399db7f33ea56db504138647f95bfc35bf3a22e",
+    "new_object_sha256": "35546b0f310ba354f282478b8adee6fa7a92c35693be04463c25353c93617e78",
+    "checked": 20,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "binkmovie/subtitleparser.cpp",
+    "old_object_sha256": "69aca4b63500c1900f56817b122e3dbd7e8512f216dcfacc9409fb8aaf487a02",
+    "new_object_sha256": "e197de0e277a50d63983512bff56e1eedc800e30ff7641495d62675f99ac7fc5",
+    "checked": 25,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "libs/wwonline/wlib/configfile.cpp",
+    "old_object_sha256": "2e2218520a487b9a78a38f3df500ebd656de70ae0e7192f5aec909a55333c729",
+    "new_object_sha256": "8153d161d7f8fee9fe77ff03d7f5324e08e2a593cd648c0019dd65656007c68e",
+    "checked": 17,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "libs/wwonline/wlib/critsec.cpp",
+    "old_object_sha256": "999d38a5c8da04989320fa39726bb29abaa8fdd18e8f1c258cd55cd063260ee4",
+    "new_object_sha256": "43ffc940c7ccd83bb92e058d7e4c3ebf66a773c9872180d8d8e8204dea79e8b0",
+    "checked": 4,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "libs/wwonline/wlib/monod.cpp",
+    "old_object_sha256": "70c0bbc468d8401cdfd74dbd5efb4ef3cda6adde0d479f966f940f0cf26273e5",
+    "new_object_sha256": "725fa5bdace6f47f11d36df4817b9ad758209920a4c5e0dc7659b8ae46de8f8d",
+    "checked": 5,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "libs/wwonline/wlib/streamer.cpp",
+    "old_object_sha256": "13d58b71106aed00dd453ad7c7dc59f93f1a235f6f35d6f9cacff339f35e556c",
+    "new_object_sha256": "2b33a85b1c2666c93092c8ecb40833c3d1ee000f654fbcb4e9a996b094362595",
+    "checked": 9,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "libs/wwonline/wlib/unknown_8b45b0.cpp",
+    "old_object_sha256": "3012e47d909378b44626e4a4dad9cadb729a7b3866dfbbff41cb091918ddd37b",
+    "new_object_sha256": "4927297c5d94d0ea9420bfe963c08a78afd7b63861f9195e8ad01420cbf1fbe1",
+    "checked": 11,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "libs/wwonline/wlib/wdebug.cpp",
+    "old_object_sha256": "b1ad351740bb8dbfe984bbbb0b010d20aa64d3e1272c3de71f8e32defb2cc82f",
+    "new_object_sha256": "2813487931125dd41aa9c32d80b552e8bcd4a92db832bd2fb844d943ee7ffdb9",
+    "checked": 14,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "libs/wwonline/wlib/wstring.cpp",
+    "old_object_sha256": "5ebbd00edc59270d330e80e42c2486b37b260687aa5cdf9d7f99528abeb7a703",
+    "new_object_sha256": "69d6677d60ed6a50f08d136da4c42da73eb8969b93afb57d89d5f77229f80abf",
+    "checked": 43,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "libs/wwonline/wlib/wtime.cpp",
+    "old_object_sha256": "060cdd15fabe52957f1e722191c948f8e0743e0b757c15c747ed9efa4075dd87",
+    "new_object_sha256": "1734bb0b57308e0c6cfacf094afa57a9c4b4e3deab35447cf47d795c65dd2944",
+    "checked": 51,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "libs/wwonline/wlib/xtime.cpp",
+    "old_object_sha256": "143cf8536c2d0de653aa3224e5e3013810ce1785ed2e6a4563e32bfe31c5cc4d",
+    "new_object_sha256": "1b7a0a74014f27a31fd23cad133425a4d3ef91e461ca47bf55d496cea53eee00",
+    "checked": 47,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "libs/wwonline/wnet/tcpcon.cpp",
+    "old_object_sha256": "01c02cdaa620e15ad2db889bc7bda5a89a2768ce4516704a0dc886c3c904f994",
+    "new_object_sha256": "3ecdf286fbeac39974861e0bd865e1f513d74b3c380ffb20910d3ca9e59fd65a",
+    "checked": 23,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "libs/wwonline/wnet/tcpmgr.cpp",
+    "old_object_sha256": "e4a6a618686ce339fee2c22a1cf9c29a1baaee0c6feed586125e8057fbaea027",
+    "new_object_sha256": "a6d597e0fba17863ff3b76ca488524f2ad279e33cff43edb38316b6340af4728",
+    "checked": 20,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "libs/wwonline/wnet/tcpqueue.cpp",
+    "old_object_sha256": "67231fcb93df1aa3195f33a955227c51dcdd2a7a0aaf31b64b78a813e0405341",
+    "new_object_sha256": "de1a4a525cacce9b9c84d1639f4fc7e1860a699a0ed3348a4ef6b6ae1b4f0e44",
+    "checked": 12,
+    "changes": [],
+    "exact_build_source_path_normalized": true
+  },
+  {
+    "unit": "libs/wwonline/wnet/udp.cpp",
+    "old_object_sha256": "384ea5adb4ae0849b84fc219fe8f1ff082e4dd8ff033328ee3efa51bbf436859",
+    "new_object_sha256": "6315191f10245159f38d5d40ffaa4a140031166e425b438f5fa8dce7a4c9bbe7",
+    "checked": 23,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "ww3d2/aabtree.cpp",
+    "old_object_sha256": "c0c881acaf513b507e1ede5d5d2410128694e715abdd9846a3037c02015d8fed",
+    "new_object_sha256": "410835bf2c3d264b7c4c3be285b168cc01e3eff7c9b1707e22aa46cc79657d3d",
+    "checked": 34,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "ww3d2/aabtreebuilder.cpp",
+    "old_object_sha256": "13062e6f9ace6b8357ab64b962fe0a32324393b463e7385f6da2f16fa5b67223",
+    "new_object_sha256": "0944530977a02bcc6eab9f7efaaeb14e5fa5f86029d9ff57eaa4afb30e43adec",
+    "checked": 23,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "ww3d2/agg_def.cpp",
+    "old_object_sha256": "8ac06527c1c8ee401cd84b96d6834bf3194d2a95de1a2abe4a258a2bc5916eed",
+    "new_object_sha256": "bffe4eaf012a1587a16d654f44f132519e60c129353e8540302e69fee1ac7330",
+    "checked": 61,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "ww3d2/animatedsoundmgr.cpp",
+    "old_object_sha256": "46ccedd6eb34ac1c8ee9a929077226d246055e34592db27af754d09a7d4fd632",
+    "new_object_sha256": "2ef7356b60e1a7cc95680ce72511bcfb4843deabd8d1a47041f9c61cfc85a6c7",
+    "checked": 44,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "ww3d2/animobj.cpp",
+    "old_object_sha256": "d3c293e7688c3db14bb3e6c6eab8ed03377fab0dba4eefb05d5c446c5f3e6f9e",
+    "new_object_sha256": "21583eb5bf03301133c05123d216cfd2ce528c4715ddd3a663ecd31d31fc8254",
+    "checked": 89,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "ww3d2/assetmgr.cpp",
+    "old_object_sha256": "eef5127fe56e19e3377497f36d34de96777e674b95a0a6f488e98454584e13a8",
+    "new_object_sha256": "887813f9fec37a1cb419954bc616bdf7d415a4bd429a6ba3f762f0a93e454895",
+    "checked": 134,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "ww3d2/assetstatus.cpp",
+    "old_object_sha256": "0c940af18fca7796668f6daa06979dda6cc499c150092a160a1d959fb73c24b9",
+    "new_object_sha256": "b397d65aef52aa737d20052b8a943603eadf8d35590c5b594a7a64c7bf743122",
+    "checked": 20,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "ww3d2/bitmaphandler.cpp",
+    "old_object_sha256": "bd35fc72c7b3e8e839e45c9055c836f1421832d30d9d600920eec1c0818a1a56",
+    "new_object_sha256": "56ff4ab9e74bba42544a374fb1086c63e17ba3b831743102f391b94ae6b2f4cd",
+    "checked": 10,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "ww3d2/bmp2d.cpp",
+    "old_object_sha256": "167b773f53a4b46bd14121809d055ed057a8b70f2af29dd719fa1c3ef0c01694",
+    "new_object_sha256": "96f4e9cb695b9104df05658461a096837de44002a3490f38113180cefb9b141a",
+    "checked": 107,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "ww3d2/boxrobj.cpp",
+    "old_object_sha256": "60bc0bdda12f5b3c0ad4c9133ce55c9f7bc559d41f6e5fd6ef847af3c11aeb3a",
+    "new_object_sha256": "a97c8909d175aaf7c46ef441e1e7bebd719a36bc77f0cb118195c1ba99098614",
+    "checked": 166,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "ww3d2/bwrender.cpp",
+    "old_object_sha256": "2a6040b1996082880b8b98ef883799884aaaf6b90efde74427624e9a614aa98b",
+    "new_object_sha256": "aa1cb70f0b43eb498ec5983e1e667239c6c0bfb53f50433a6daf1ec55b43d7bf",
+    "checked": 11,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "ww3d2/camera.cpp",
+    "old_object_sha256": "c01dacf61c98f5e7f0ea4f5e3daf2de39813594db3f0d60a9d901a8766b6c2eb",
+    "new_object_sha256": "652072684495b013f55d25adbad60b118a4480cc40f3dc6a1b23c8500694a4ad",
+    "checked": 131,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "ww3d2/collect.cpp",
+    "old_object_sha256": "70dd8582a24ff85008f2d7692532f782700ce917e73e1b9a3f56ab24e185e7df",
+    "new_object_sha256": "4839ae13b4b2dfd7703eb16193f2870548d24638416b98f3c53ab266544bc262",
+    "checked": 164,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "ww3d2/coltest.cpp",
+    "old_object_sha256": "b9b48563e69559c42239423322f42aac6030e0955a96927999db513238236d32",
+    "new_object_sha256": "b5d81e52e3546e51a70a86d72af265123fbcc9c4dd95b7b5b90be1b9d02e2f37",
+    "checked": 12,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "ww3d2/composite.cpp",
+    "old_object_sha256": "9d70c879fe3ef4cb0c8c9c87aa7e0e71fbf3e51761d9c41a0e388b52bcae96ac",
+    "new_object_sha256": "f8f3c5b616fe55d1f0722edd38a82d9edc2caba4e1198bedab703119c7c40e00",
+    "checked": 113,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "ww3d2/dazzle.cpp",
+    "old_object_sha256": "7f6769089d5e835ed125a49af81e88b8af4356b853042809fc71d55935aad167",
+    "new_object_sha256": "036b02b15416be94b251d4b200fd297b69c9a38578f65ca858f9915a02d702b9",
+    "checked": 171,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "ww3d2/ddsfile.cpp",
+    "old_object_sha256": "5f50777233b9470e2fbba11a668e3afe797f00a0353e3f532dd53e6c27349e39",
+    "new_object_sha256": "9a03bf9040d21a985b1cb9e3220781a10ab1f9425e6b437e0d97a77bc8b04ca0",
+    "checked": 18,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "ww3d2/decalmsh.cpp",
+    "old_object_sha256": "75f9f70a22fa3062323a44b2087f26f7e04188fb3a01716312a710efc5e070f4",
+    "new_object_sha256": "19254941d1abb82d77f860bf8a8b46b23281ebbb927ed358f5c0fc2c7387c90b",
+    "checked": 102,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "ww3d2/decalsys.cpp",
+    "old_object_sha256": "2f1b7a51f139579e7ead8993774a0c17a8b122da7ae5362b7446e3b6c625727f",
+    "new_object_sha256": "5c0c170e5046b4188bf13501341890948153e39af9138fb6b7be43b4594a375a",
+    "checked": 40,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "ww3d2/distlod.cpp",
+    "old_object_sha256": "2d02ffcc3a603f5dd0a67693c2df1990061dbb13ae78c830c14f0d5cbc835263",
+    "new_object_sha256": "2836ce7c945226af3ef73097b8dd7cadad512e916a180f394e10cdea096bb150",
+    "checked": 108,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "ww3d2/dx8caps.cpp",
+    "old_object_sha256": "a5249141c69b27d2f30abef146f6c99fc2647e1376c32bf7f5b9496426386c87",
+    "new_object_sha256": "cb0dee5195c00548156a9eed29a78b9f78c109fcb138d5596369b10d8b4c4ba2",
+    "checked": 29,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "ww3d2/dx8fvf.cpp",
+    "old_object_sha256": "924beb5ba66c8117c5f0a5385e8729c4613b87fce12dc08de328be09e6c52905",
+    "new_object_sha256": "effda6152f968867a072400f073fe00e2567f0b7a36f94605b6aa412051bb029",
+    "checked": 4,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  },
+  {
+    "unit": "ww3d2/dx8indexbuffer.cpp",
+    "old_object_sha256": "676850e9da3c0032e0212604db15bad04b1127255632e69c59797a5c9fe899fe",
+    "new_object_sha256": "e2fa7f15285769c5e7ffdea853543d161a19b7342be31640e091fef6a92e538d",
+    "checked": 31,
+    "changes": [],
+    "exact_build_source_path_normalized": false
+  }
+]

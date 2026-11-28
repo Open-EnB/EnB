@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "Inferred declaration-header split of kv_list.h: existing KVListClass layout, API and legacy unchecked Get preserved; kv_encoder_base.h needs the declarations without the new checked vector helper body. Header spelling/organization and legacy accessor ownership are unverified; caller proof in docs/attempts/4BB0E0/claim345-proof.json."
+}
