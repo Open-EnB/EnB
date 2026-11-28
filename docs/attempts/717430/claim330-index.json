@@ -1,0 +1,41 @@
+{
+  "claim": 330,
+  "address": "0x717430",
+  "base_revision": "fb6e641d1bb82397154e0899d774567959bd73f1",
+  "changed_compiled_inputs": 12,
+  "evidence": [
+    "docs/attempts/717430/claim330-first_717430_branch.json",
+    "docs/attempts/717430/claim330-first_717430_neg.json",
+    "docs/attempts/717430/claim330-first_717430_wrapper.json",
+    "docs/attempts/717430/claim330-group_717430_known_gate.json",
+    "docs/attempts/717430/claim330-group_717430_path_accelscope.json",
+    "docs/attempts/717430/claim330-group_717430_path_fixed.json",
+    "docs/attempts/717430/claim330-group_717430_path_fixed_init.json",
+    "docs/attempts/717430/claim330-group_717430_path_gate.json",
+    "docs/attempts/717430/claim330-root_postate_control.json",
+    "docs/attempts/717430/claim330-sol_717430_flat_fixed.json",
+    "docs/attempts/717430/claim330-sol_717430_flat_original.json",
+    "docs/attempts/717430/claim330-sol_717430_staged_fixed.json",
+    "docs/attempts/717430/claim330-sol_717430_temporary_staged.json",
+    "docs/attempts/717430/claim330-original-history.json",
+    "docs/attempts/717430/claim330-terra-report.txt",
+    "docs/attempts/717430/claim330-sol-report.txt",
+    "docs/attempts/717430/claim330-group-tests-report.txt",
+    "docs/attempts/717430/claim330-baseline-pairs.json",
+    "docs/attempts/717430/claim330-speed-pointer-lead.txt",
+    "docs/attempts/717430/claim330-arithmetic-audit.py.txt"
+  ],
+  "whole_group_review": "docs/attempts/713D70/claim330-group-review.txt",
+  "final_astra_review": "docs/attempts/713D70/claim330-astra-review.txt",
+  "replay": "git show BASE:UNIT gives the UTF-8 LF source; apply edits in descending start order, verify input_sha256. Character offsets are Python string offsets. Canonical libdefs flags/defines/tree_includes at BASE; no expanded include paths. Compiler VC6 SP4, retail SHA256 249f852496f341c00361be95b66e7c0becc2c39e7cba026f9227e38b602651c4.",
+  "classification": "Scratch experiments only; no partial source form retained. Pair deltas include rejected inputs, not changes to production.",
+  "status": "parked",
+  "outcome": {
+    "forms": 12,
+    "baseline_groups": 245,
+    "best_groups": 45,
+    "reason": "Both rounds made progress; parked on bounded meaningful-lead exhaustion, not a D271 LIMIT claim.",
+    "best_record": "claim330-sol_717430_staged_fixed.json"
+  },
+  "verification": "docs/attempts/713D70/claim330-verification.json"
+}

@@ -1,0 +1,105 @@
+# 0x713D70 fresh individual Sol high escalation
+
+Read-only startup: reviewed full claim brief; original 713D70 text/JSON history;
+current attempts row; first report, records and all 13 actual saved input diffs;
+all three actual emitted output groups; group review; class/member definitions,
+Matrix3D copy/assignment/default construction, Vector3 construction/assignment/Set
+and scalar multiplication, Build_Matrix3D implementation, and exact siblings.
+Baseline remains 272 bytes, two masked alignment rows and 267 exact file pairs.
+
+The initializer rejection in the group review is too broad. Ordinary scalar
+member initialization and genuine Matrix3D construction are distinct real source
+levers. They must be judged from emission, including read/store order and EH
+graph, rather than rejected solely because an initializer precedes the body.
+
+Rejected without compilation: putting the entire original body in a Client
+initializer comma expression could preserve evaluation order, but has no source
+evidence and contrives a sequencing structure just to change lowering stage.
+Root explicitly rejected that proposal; it is not one of the batches below.
+
+## Batch 1 hypothesis (written before compilation)
+
+Final scalar member initialization may change constructor EH/lowering boundaries
+and scheduling of the saved EH-link load. Test Client(client),
+TractorID(packet->TractorID), and the ordinary combined initializer. Default
+Matrix3D and Vector3 constructors write nothing. These forms differ from local
+and destination-reference forms already tested. Initializer evaluation precedes
+the body; do not accept if actual packet loads/stores move relative to the
+client. In particular an early ID load crosses Build_Matrix3D and needs full
+actual-order verification. Client is a plain pointer without ownership cleanup.
+
+## Batch 2 hypothesis (written before compilation)
+
+Transform construction uses the real Matrix3D copy constructor rather than its
+reference-returning assignment operator. A minimal sequenced Time assignment in
+the initializer preserves the observed Time-before-Build ordering, after the
+same base construction: Transform((Time = packet->TimeStamp,
+Build_Matrix3D(packet->Orientation))). The returned matrix can be copied or its
+hidden result can target the member directly; inspect that actual receiver and
+temporary lifetime rather than assuming a match. No new base constructor.
+
+## Batch 3 hypothesis (written before compilation)
+
+Velocity.Set(packet->Velocity * 0.1f) invokes the existing void-returning helper
+instead of reference-returning operator=. Both copy X/Y/Z in the same source
+order from the same real product temporary. Its distinct inline/lowering
+structure might alter the final EH scheduling. Preserve the product's actual
+Y/Z stack rounding, and reject any change to packet read/store order.
+
+Root granted the exclusive compiler gate before batch 1.
+
+Batch 1 result: Client initializer emits 272 bytes/16 rows; ID initializer
+278 bytes/19 rows; combined initializer 278 bytes/70 rows. Each is a distinct
+raw and masked output group. All 267 file pairs and all baseline symbol pairs
+survive, no gains. No cut. The Client store moves before the Time/Build work;
+ID initialization also moves its packet load/store before Time and adds a
+base-vtable store. These actual-order mismatches reject the forms as candidates.
+The scalar-initializer family is not assumed impossible: it was measured, and
+its emitted reordering is the specific reason these forms fail.
+
+Batch 2 result: 278 bytes/five masked rows, distinct raw/masked output. No
+cut; 267 file and every baseline symbol pair preserved. Crucially this actual
+construction does preserve the Time/Build/copy, translation, packet float read
+and rounding sequence. It does not elide the matrix copy or target its hidden
+return receiver at the member: it still uses the stack temporary. Instead VC6
+retains the base vtable store before Build and writes the derived vtable only
+after the member has constructed. That adds six bytes and differs from the
+client's derived vtable during Build. The EH-link load remains early. This is
+the concrete falsification of this initializer form; it is not a packet-order
+assumption. The recorded unwind summary is unchanged [3,261,[[0,8]]].
+
+Batch 3 result: Vector3.Set produces exactly the baseline raw and masked target
+hash, 2ae0a9b24364f99cbdab4eb3459c74d63a19490033fb21fb25d062261a18cc43,
+272 bytes/two rows; 267 file and every baseline symbol pair preserved. No cut.
+It duplicates the baseline and ten earlier forms, with identical actual x87
+rounding and EH-link placement. This genuine helper change is not a new lead.
+
+## Evidence and stop
+
+Five compiled forms in three causal batches, five distinct raw/masked groups
+within this escalation (the Set group duplicates baseline). Every saved input
+is bound to fb6e641d1bb82397154e0899d774567959bd73f1 with SHA-256 and
+lossless offset edits; check_evidence.py independently replays all five and
+checks immutable tree hashes. Per-run 713D70-evidence.json records each full
+raw/masked target hash, relocation target/addend, unwind summary, both pair-set
+deltas and explain result, below 64 KB each. Full instruction diffs are saved
+beside each object in runs/sol_713D70_b*/713D70-objdiff.txt. Compiler inputs,
+flags, logs, objects and complete match results are preserved by runner.py.
+
+Stop after three consecutive no-cut batches and meaningful lead exhaustion.
+Best remains baseline 272 bytes/two rows, zero claimed functions exact. The
+ordinary initializer family has now been tested independently; source-level
+construction is not rejected categorically, but these observed vptr/field
+orders do not match the client. No new helper/lifetime evidence justifies
+another construction spelling or any combination of strictly worsening forms.
+Reopen only on a client-backed real construction/helper/lifetime that avoids
+these specific vptr/packet-order failures and changes the EH-link scheduling,
+or a scheduling lever proven on an exact same-TU sibling while preserving all
+baseline pairs. No padding, dead reads, invented types/destructors/base
+constructors, inline assembly, flags, shared headers or production edits.
+
+No candidate exists; a later candidate still requires an explicit-object audit
+of every executable instruction, branch, relocation target/addend, constant,
+call receiver and full EH/unwind cleanup graph, followed by root's fresh proof.
+No commits, GitHub writes or production changes. Exclusive compiler gate is
+released after the last completed run; no compiler job remains owned here.

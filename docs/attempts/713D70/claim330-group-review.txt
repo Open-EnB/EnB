@@ -1,0 +1,145 @@
+# Claim 330 whole-group review
+
+Read-only cross-check at fb6e641d: original history text and attempts rows,
+all first-pass replay inputs and reports, baseline objdiff/explain,
+`analysis.json`, `baseline/app-matches.json`, sources and the exact siblings.
+There are 267 baseline file pairs, 103 extrap and 164 postate. Target diff
+group counts are alignments, not counts of individual instructions; no
+target is currently exact. Historic rows describe families, not recoverable
+patches. A new model or another spelling alone is not a new source lever.
+
+## 0x717430
+
+Highest priority is the direct client control-flow lead in
+`717430-lead.md`. The first-pass fixed-speed inversion (1030 bytes, 245
+groups) locally moved the fixed-speed path into client order but retained the
+merged lookup tails, so its unchanged aggregate is not proof the region
+cannot improve. The uncompiled initialization-group draft moves the four
+pointer declarations before the four float declarations. These are local
+primitive zero initializations: no destructor or external access changes, and
+the client’s 0x717463–0x71747F stores have a different ordering and slot
+assignment from baseline. It is a legitimate isolated diagnostic, but the
+store order alone does not identify source declaration order, and no causal
+evidence shows it fixes the three client Cast calls or lookup tail merging.
+If run, compare the actual initialization and value/pointer stack-slot mapping
+before judging whole-function alignment; do not assume an unchanged total
+means no regional change, or that a regional change proves eventual match.
+Combining with control flow is justified only after an independent useful
+change and retention of all 267 pairs. First-pass negative multiplication
+emits two multiplies rather than the client’s fchs followed by fmul, and is
+not an exact floating-point operation match; do not carry it forward. The
+wrapper emits baseline target code and loses the exact 0x584FF0 bool Cast.
+
+Follow-up `runs/group_717430_path_gate` compiled the path-assignment form:
+1035 executable bytes, 76 masked groups, both sets of 267 baseline pairs
+retained. The full emitted diff now puts speed value at [esp+0x10], count
+at [esp+0x14] and the retained speed pointer in EBX as in the client, and
+recovers the two-LEA/test sequence at 0x7176CC–D6 apart from its first
+register. Turn/tilt/acceleration locals still occupy different slots,
+Max/Min lookup tails remain merged, first three Cast calls remain inlined,
+and acceleration lookup failures bypass its pointer test. This is a real
+masked-residue gain and regional clue, not an exact function; the runner's
+unchanged other-TU object and pair test are not full-library verification.
+The acceleration test at 0x717746 is supported by concrete client failure
+branches: placing `if (acceleration) count++` after the speed-gated lookup
+block preserves behavior because acceleration starts null, including when
+speed selection or the lookup fails. The testing worker owns this follow-up.
+`runs/group_717430_path_fixed` combines path assignment and the previously
+demonstrated fixed-speed-first branches: 1038 bytes and 47 masked groups.
+The fixed-speed ordering now matches the relevant client region, but the
+Max/Min tails still merge and all three early Casts still inline. A
+standalone acceleration-scope form is a duplicate of the 76-group form.
+The primitive initialization grouping on the 47-group form produces a
+distinct target group but remains at 47 and does not align startup stores.
+No further supported source-flow lead was found after inspecting those
+outputs; neither manufactured helper depth nor arithmetic rewrites have
+evidence here. Exact raw/masked hashes and pair results belong to the
+testing worker's records.
+
+The explain classification "relocation" cites an auxdata.h `__FILE__` path
+spelling difference. This is a known repository-wide header path difference
+covered by D283, not a local missing symbol or license to edit includes:
+workflow.md:94–104 and 1075–1081. The 0x7179A0 exact sibling has the same
+client header path. Report it during a full audit; the remaining actual
+code has different Cast inlining and cannot yet be a match.
+
+The exact same-TU 0x7179A0 sibling uses an AutoLevel lookup followed by
+another float lookup and the same Set_Motion/Extrap blending machinery; its
+five documented dead container reads deliberately spend the inline budget.
+That proves calls can be budget-sensitive, but supplies no evidence for
+inserting dead reads in this function or changing a shared helper. Its bool
+Cast pair is an explicit constraint, as the wrapper loss demonstrates.
+
+## 0x713D70
+
+The 272-byte baseline has two masked alignment rows: the saved EH link load
+moves from just after `pop edi` in client to before the final float/ID/client
+stores. Ten current inputs share the raw baseline target hash; destination
+references yield one shared 272-byte/seven-row group, moving `pop edi` before
+two final stores while leaving the EH load early; a named transform matrix
+is 285 bytes/25 rows and adds copies. All 267 pairs survived; none cut.
+The exact 0x713F30 copy constructor confirms class/member helper context,
+but has no packet transform/EH scheduling analogue. The base 0x710030
+constructor is empty; no same-TU sibling identifies a different real lifetime.
+
+Initializer-list rejection is specific: in extrap.h `Transform`, `Velocity`,
+`ImpartedDecay`, `TractorSpeed`, `TractorID`, `Client` are derived members,
+whereas `Time` belongs to the base. Any derived-member initialization runs
+before the constructor body’s `Time = packet->TimeStamp` and
+`Build_Matrix3D`/translation work, unlike the observed packet reads and
+stores. Some scalar-only variant may compile back to the same order because
+of optimization, but that would not establish source-level read/store or
+packet/this alias safety. Without client evidence for such a construction,
+it is not an executable lead under the brief. Reopen on client-backed real
+temporary/helper lifetime that delays the EH-link load without moving field
+reads/stores or changing x87 float rounding, or a proven same-TU lever that
+retains every pair; do not sweep reference names or add destructors.
+
+## 0x7140E0
+
+Baseline 178 executable bytes, nine masked groups. At client 0x71410C–2E the
+first translation component is stored before loading Time, roll is pushed
+between second load and store, then final component is stored before the
+virtual dispatch-table load; baseline hoists Time and table loads before the
+first store. At 0x714140–4F the client performs `fchs` before the two LEAs,
+baseline after them. Six current forms: scalar speed, component accessors,
+and two no-init matrix forms duplicate baseline; named pull adds a 12-byte
+frame, and translation output parameter adds a frame and integer copies.
+No pair lost, no useful cut. Historic four forms have no exact surviving
+patch; source cannot be reconstructed from their summary. The exact
+0x718160 `Unknown_08` sibling uses `Obj_Look_At` with a position return but
+does not identify an equivalent source form for this Look_At's interleaved
+virtual call and by-value translation. No fresh supported hypothesis was
+found: reopen with client/symbol evidence of a real expression or lifetime
+that affects this schedule without extra slot, moved callback or changed
+rounding. The client-controlled virtual call rules out reordering its
+observable effects for the sake of rows.
+
+## 0x718830
+
+Baseline 830 bytes/four masked groups: first Normalize has different Y/Z
+load ordering in both Length2 computations, cross operands have three
+load/multiply swaps, last Normalize has two fld/fmul differences. The
+actual component-helper patch changed the target hash and added two groups;
+the literal Normalize-body patch also changed the hash and introduced five
+cross operand swaps even while the aggregate remains four groups. Neither
+loses a baseline pair or cuts a region. Thus the latter is not a duplicate
+of baseline and its unchanged total cannot be read as unchanged code.
+
+Exact same-TU 0x718160 constructor calls the same `Direction.Normalize()`;
+its client at 0x7181F5–0x718245 loads Z, Y, X and reduces to a single stored
+length, showing optimization depends on lifetime and context. It gives no
+evidence for changing this target’s first Normalize, whose client performs
+both computations. Shared `Vector3::Normalize`/`Length2` edits risk the
+exact sibling and other consumers; preserve both source evaluations and
+temporal rounding. The result-pointer cross overload runs an assert absent
+from the known target; operand commutations may alter NaN propagation, and
+cached Length2 changes evaluation/rounding and is historically tried.
+Historic nine forms lack patches. Reopen only on client or exact sibling
+evidence for a distinct helper, object lifetime, or expression that retains
+those semantics and directs the observed x87 sequence; no arbitrary sweeps.
+
+Any eventual match needs complete explicit-object comparison of instructions,
+relocation targets/addends, constants, call receivers, branches, and EH graph,
+plus all-pair preservation and a fresh final proof. No compilation or edits
+outside this scratch group occurred during this review.

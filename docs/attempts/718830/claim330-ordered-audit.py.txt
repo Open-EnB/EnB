@@ -1,0 +1,33 @@
+"""Read-only explicit-object instruction audit; no compilation or shared writes."""
+from pathlib import Path
+import json
+import sys
+
+ROOT = Path('/home/dev/Projects/EnB')
+sys.path.insert(0, str(ROOT / 'tools/re'))
+from clientimage import ClientImage
+from objmatch import CoffObject
+import explain
+
+path = Path(sys.argv[1]).resolve()
+obj = CoffObject(str(path))
+name, sec, start, end = next(f for f in obj.functions()
+                           if f[0].startswith('?Unknown_08@Unknown718510Class@@'))
+_, _, length = obj.pattern(sec, start, end)
+ours = explain.obj_side(obj, sec, start, start + length)
+image = ClientImage('/home/dev/Games/earth-and-beyond/prefix/drive_c/Program Files (x86)/EA GAMES/Earth & Beyond/release/client.exe')
+retail = explain.client_side(image, 0x718830, length)
+assert len(ours) == len(retail) == 243
+differences = []
+for (oi, ot), (ri, rt) in zip(ours, retail):
+    if ot != rt:
+        differences.append({'object_offset': hex(oi.addr),
+                            'client_address': hex(ri.addr), 'ours': ot, 'client': rt})
+result = {'object': str(path), 'symbol': name, 'executable_length': length,
+          'instruction_count': len(ours), 'ordered_instruction_differences': differences,
+          'difference_count': len(differences),
+          'calls': [{'offset': hex(i.addr), 'text': i.raw, 'target': i.target}
+                    for i, _ in ours if i.mn == 'call'],
+          'branches': [{'offset': hex(i.addr), 'text': i.raw, 'target': i.target}
+                       for i, _ in ours if i.mn.startswith('j')]}
+print(json.dumps(result, indent=2))

@@ -1,0 +1,183 @@
+# 0x718830 fresh Sol review
+
+Four root-authorized inputs compiled under an exclusive gate. No exact candidate
+or pair gain. Best real y result-pointer helper form strictly reduces actual
+ordered instruction differences from 16 to 8, although explain's masked alignment
+group count remains four. All 267 file/address and symbol/address pairs survive.
+Root accepted this regional cut as progress. No production/header/commit/GitHub
+changes. Compiler gate released explicitly; no jobs remain owned here.
+
+Read complete claim brief, original two history records (nine summarized forms),
+current attempts including the new Terra row, both actual first-pass input/replay
+files and full three target diffs, first report/evidence, whole-group review, real
+Vector3/Quaternion/Matrix3D helper bodies, and exact same-TU 0x718160 sibling.
+Historic patches are absent. Their summaries cannot establish the exact source
+of the five October or four November variants.
+
+## What the complete diff actually establishes
+
+Baseline target is 830 executable bytes, 243 instructions and four masked
+alignment groups. The displayed objdiff window includes 832 bytes with padding;
+it is not a disagreement in executable size. Raw and masked target SHA-256 are
+b91d217cfb393c0c066db784fe6b9dab65c3e8b32d250787ab07345542a40add.
+
+* First Normalize: client 0x71885B-63 loads Y, Z, X; baseline loads Z, Y, X.
+  The X square is explicitly spilled to float in both. The sum is the Y/Z
+  squares added together, followed by the spilled X square in both; only Y/Z
+  operand ordering differs. The nonzero arm repeats Y then Z squares at
+  0x71888E-9A, versus Z then Y in baseline, retaining the second computation.
+  The first product sum's association is not a new X/Y/Z association difference.
+* After Slerp and its pending argument cleanup, y.X is
+  x.Z*up.Y - x.Y*up.Z. Only the second product loads operands oppositely in
+  baseline (0x718968-6C). After pops, x is [esp+0/4/8], up is
+  [esp+0x2C/30/34], and y is [esp+0xC/10/14]. Client y.Y is
+  x.X*up.Z - x.Z*up.X (first product reversed in baseline at 0x71897B-7F).
+  Client y.Z is x.Y*up.X - x.X*up.Y (second reversed at 0x718999-9D).
+  These are three operand swaps; subtraction signs and stored components agree.
+* y.Normalize and every product/subtraction of z=Cross(x,y) already agree in
+  baseline. The last Normalize's first two stores differ: client duplicates the
+  returned inverse length first, then multiplies the memory z.X/z.Y values at
+  0x718AA5-B1; baseline loads each component then multiplies the inverse length
+  in st(1). The final z.Z product agrees. Actual rounding/spills and second
+  Length2 evaluation must remain part of any audit.
+* Both new Terra inputs preserved all 267 file/address and symbol/address pairs.
+  Components emitted 830 bytes/six groups, raw hash c5d76388d24221addefd2a1dbeed1ef5dd04a41cc0afeed0099a120226167c0e:
+  baseline cross residue remained and y.Normalize gained a changed first scale.
+  Literal two-Length2 Normalize emitted 830 bytes/four groups, raw hash
+  623ba60821cbe31b0d565f1164fc58a68f07520e3948a3512e40a0a33d739902.
+  It does not fix first Normalize and has five additional cross product swaps
+  (three in y, two in z). Same masked group total does not mean unchanged code.
+  All three outputs are distinct. Relocation offsets/targets/addends and absence
+  of unwind metadata agree across these three saved target objects.
+
+Exact sibling 0x718160 has Direction=End-Start followed by member Normalize.
+Its actual bytes load Z,Y,X, retain a single stored length, and duplicate inverse
+length before memory component multiplies. Thus the desired final multiply
+shape is possible with the existing unchanged Normalize helper. It does not
+justify caching this target's length or editing a shared header.
+
+## Corrected assumptions and supported reopening
+
+The previous blanket NaN objection was too broad. Retail is the semantic
+reference; baseline is already NOT EXACT. A source form restoring the actual
+retail load/multiply order is not invalid merely because baseline may choose a
+different NaN payload. Finite-input assumptions are not needed to seek an exact
+retail operation trace, and this review does not infer that all inputs are finite.
+No bare operand-commutation grid is proposed; source order alone often collapses
+under VC6's canonicalization. Operation association, intermediate precision and
+rounding still need explicit checking.
+
+Root validated two independent new section 3.1 levers before any test:
+
+1. workflow.md:765/772, definition-count and per-block-definition effects on x87
+   operands, proven at 0x454730 and 0x542A10 (newer evidence than Nov15). The
+   literal Normalize input gives target-specific evidence of the far-away symbol
+   effect: it leaves the changed site's instructions identical and alters later
+   unchanged Cross_Product expansions. One real named unsigned elapsed value in
+   the existing t computation uses this lever with no dummy state. Client
+   0x7188CD-DE proves the existing subtraction, zero high dword and unsigned
+   conversion. The same source location and float conversion/multiply remain.
+2. workflow.md:348, actual vector construction versus component definitions,
+   proven at eff_line.cpp 0x6E6030. The two source arms at 313 and 319-321 feed
+   vector products through constructor and member stores respectively. The
+   existing result-pointer Cross_Product helper implements the latter with
+   exactly the same source products/subtractions. This is stronger evidence
+   than assuming that every default-construction-plus-assignment must help.
+   One y result-pointer call is approved independently from the elapsed form.
+
+The assertion rejection also needed narrowing: the existing result overload's
+assert(set_result != &a) remains fully enabled. The result y and source up are
+distinct live local objects and use distinct client frame slots. Its comparison
+is always true for every data input; ordinary optimizer removal is permitted.
+No assertion macro or helper text is removed or altered. Any emitted assertion
+call/branch, extra rounding or changed operation would reject this input.
+
+"Cross written out" in an absent historical patch cannot prove the actual
+result overload was or was not tried. The current component-helper form still
+feeds a Vector3 constructor and does not test this member-store helper. Fresh
+model selection is not the lever and grants no compile permission by itself.
+
+## Executed forms and complete result audit
+
+Root granted the exclusive shared-Wine gate after validating those new levers.
+attempts-check.txt preserves the successful pre-test `attempts.py check
+app/client/postate.cpp --ack 718830 --lever` receipt. Its lever argument cited
+workflow.md 3.1.2:765/772 definition ordering at 0x454730/0x542A10 and row348
+constructor/member stores at 0x6E6030. Canonical runner.py and analyze.py were
+used, without changing flags, headers, aliases outside the runner or production.
+The canonical runner owns its staging source/alias and restores source afterward.
+
+| Run under .work/claim-330/runs/ | Input | Actual mismatching instructions | Result |
+| --- | --- | --- | --- |
+| sol_718830_elapsed | Real unsigned elapsed local at original t computation | 16 | Exact baseline raw/masked duplicate |
+| sol_718830_cross_output | Existing y output-pointer cross helper, assert enabled | 8 | Strict regional cut; new output group |
+| sol_718830_z_output | Existing z output-pointer cross helper, assert enabled | 16 | Exact baseline raw/masked duplicate |
+| sol_718830_both_output | Both existing output-pointer cross helpers | 8 | Exact y-output raw/masked duplicate |
+
+All four are 830 executable bytes, 243 instructions, four masked groups, shape
+class. Every run preserves both full 267-entry baseline pair sets; gains/losses
+are empty. The target raw and masked hashes agree within each output group:
+baseline/elapsed/z-output b91d217cfb393c0c066db784fe6b9dab65c3e8b32d250787ab07345542a40add;
+y-output/both-output 5f1b3815d4d689e819b981d904f5c47f74b482bfdc13a14d34634de542ec516e.
+There are two distinct output groups in this escalation, including baseline.
+The best group differs from both earlier Terra outputs. No failed/invalid inputs.
+
+The y-output form fixes both computations of the first Normalize completely and
+fixes the y.X cross product's second product. Reading the complete baseline and
+new objdiff shows no other instruction changes. Ordered explicit-object audit
+audit_rows.py compares all 243 instruction positions with relocation/direct-call
+targets normalized but every stack/component operand retained: baseline has 16
+differences, best has exactly eight. The remaining instructions are:
+
+* 0x71897B-7F: baseline/best still load up.Z then multiply x.X; client loads x.X
+  then multiplies up.Z, in y.Y's first product.
+* 0x718999-9D: baseline/best still load up.Y then multiply x.X; client loads x.X
+  then multiplies up.Y, in y.Z's second product.
+* 0x718AA5-A7 and 0x718AAF-B1: final Normalize still loads z.X/z.Y before
+  multiplying by inverse length, where client duplicates inverse length first.
+
+All subtraction order, cross component stores, X-square float spills, Y/Z-square
+addition association, length-computation repetition, conversion/multiply rounding,
+Slerp argument construction, matrix component transfers and return copies remain
+as described in the baseline audit. The eight changed first-normalize/cross
+instructions now have the exact retail sequence; this is stronger than assuming
+commutative floating operations have identical NaN behavior.
+
+No assertion call/branch is added: all four direct calls are the same three
+Inv_Sqrt sites and Slerp, plus the same two virtual calls with the same this and
+hidden-result receivers. The only branches remain the three normalization-zero
+branches and t clamp, at the same offsets and local targets. All eight relocation
+entries keep exact symbols/offsets/addends; unwind metadata remains absent. The
+existing output-pointer assertions were retained in source and correctly folded
+as always true by ordinary compilation. There is no new float spill or temporary.
+
+The z-only run's duplicate provides no independent cut. Root separately approved
+one combined control before it ran: using the same real overload at both crosses
+is a natural uniform source form, with interactions possible under the already
+proven nonmonotonic definition-state lever. The combined output duplicates y-only
+and supplies no further lead. Elapsed was not combined speculatively. hypothesis.md
+contains the prewritten rationale for each authorized continuation.
+
+All four inputs have revision-bound SHA-256 and lossless old/new replay JSON in
+their named scratch folders. prepare.py regenerates them; collect.py independently
+replays inputs, checks compiled input hashes/bytes and writes per-run
+718830-evidence.json records below 64 KB with target hashes, relocations, unwind,
+both pair deltas and baseline context. Every compiled input/log/object/result/full
+objdiff is retained by canonical runner. 718830-rows.json preserves the complete
+ordered mismatch/call/branch audit for each run; baseline-rows.json is here.
+
+## Recommendation and stop
+
+Preserve the y-output source/replay as the better near miss, with the explicit
+16-to-8 actual-row evidence; do not call the unchanged aggregate a stalled round
+or an exact function. No production change is recommended without a pair gain.
+The two validated helper/local leads have now been measured, the uniform helper
+control adds nothing, and no other concrete client-backed lead was identified.
+Reopen on new real helper/lifetime/definition-state evidence addressing the two
+remaining y products or last Normalize while retaining the recovered first site;
+do not repeat dummy-state, operand-permutation or spelling grids. A future exact
+candidate requires root's full explicit-object audit and fresh pair-set proof.
+
+No commits, GitHub writes, production edits or leased VMs. All compiler jobs
+finished and the exclusive gate was released explicitly before report completion.
+Model: gpt-6.1-sol high; approximately 20K analysis/context tokens in this pass.
