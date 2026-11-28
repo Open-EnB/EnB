@@ -1374,10 +1374,10 @@ bool HTMLViewer::Draw_Item(HtmlBlockClass *block, HtmlItemStruct *item, int offx
 		int length = strlen(text);
 		int itemh = item->Height;
 		int x = item->X - offx;
-		int right = item->Width + x;
+		int y = item->Y - offy;
 		int widest = 0;
 		int dy = 0;
-		int y = item->Y - offy;
+		int right = item->Width + x;
 		while (length != 0) {
 			SIZE size;
 			int n = 1;
