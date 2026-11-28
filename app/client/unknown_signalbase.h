@@ -155,13 +155,13 @@ public:
 	}
 
 	template <class SENDER, class OBJECT, class EVENT>
-	void Remove(SENDER *sender, OBJECT *object, void (OBJECT::*function)(EVENT *, SENDER *), const EVENT &event) const  // NAME 5: thunk order probable, binary.md 5.11
+	void Remove(SENDER *sender, OBJECT *object, void (OBJECT::*function)(EVENT *, SENDER *), const EVENT &event)
 	{
 		Remove(sender, SignalBaseClass::MemberCallback<SENDER, OBJECT, void (OBJECT::*)(EVENT *, SENDER *), EVENT>(object, function));
 	}
 
 	void Add(void *sender, SignalBaseClass::CallbackClass *callback) { connect(sender, callback); }
-	void Remove(void *sender, const SignalBaseClass::CallbackClass &callback) const { ((SignalMap *)this)->disconnect(sender, callback); }
+	void Remove(void *sender, const SignalBaseClass::CallbackClass &callback) { disconnect(sender, callback); }
 
 	SignalHashMap Map;													// +0x10 (0x18 bytes: GClass's +0x20..+0x38), by the sender  // NAME 1: what it holds
 };
