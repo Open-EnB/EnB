@@ -22,11 +22,11 @@ GadgetClass *Unknown_51A9C0(UIDynamicWindowClass *window);									// 0x51A9C0 (
 
 // The item examination window (0xDC bytes; tables 0xAEE2C8 / 0xAEE2BC / 0xAEE2B0 / 0xAEE298; ui_slot_info.cpp's
 // 0x630280 makes it)
-class UIItemExaminationClass : public UISlotInfoClass  // NAME 3: class-from-file (D24) for app\Client\ui_item_examination.cpp
+class ItemExaminationInterface : public UISlotInfoClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
-	UIItemExaminationClass(LineDisplayClientClass *client, const RefCountPtr<InvDataClass> &item);	// 0x531660  // NAME 1 [client, item]: neutral
-	virtual ~UIItemExaminationClass();														// 0x5321C0 (deleting 0x532190)
+	ItemExaminationInterface(LineDisplayClientClass *client, const RefCountPtr<InvDataClass> &item);	// 0x531660  // NAME 1 [client, item]: neutral
+	virtual ~ItemExaminationInterface();														// 0x5321C0 (deleting 0x532190)
 	virtual void Unknown_54();																// 0x532480 (Escape into the key list)  // NAME 1: neutral (D10)
 	virtual void Unknown_58();																// 0x5324D0  // NAME 1: neutral (D10)
 	virtual void Unknown_5C();																// 0x532500 (the panels cleared)  // NAME 1: neutral (D10)

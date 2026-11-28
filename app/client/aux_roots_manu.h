@@ -16,12 +16,12 @@
 
 // vtable 0xB01BE8 (e.g. ManufacturingLab.PrimaryCategories.N.Categories.N.Subcategories.N)
 // NAME 4: Net-7 AuxSubCategory confirmed by structure (Net-7 Construct 3 = ours; AuxSubCategories holds SubCategory[5]; C# fields = ours (same names, same order)); C# ItemSubcategoryEntry
-class DeltaSubCategoryClass : public DeltaCompoundClass
+class DeltaSubCategoryClass : public DeltaContainer
 {
 public:
 #if defined(AUX_ROOTS_ALL) || defined(AUX_CTORS_MANU)
 	DeltaSubCategoryClass(const char *name) :
-		DeltaCompoundClass(name),
+		DeltaContainer(name),
 		Name("Name", ""),
 		ID("ID", (UnknownB0122CEnum)-1),
 		Visible("Visible")
@@ -34,19 +34,19 @@ public:
 	DeltaSubCategoryClass(const char *name);
 #endif
 
-	DeltaStringClass Name;	// +0x9C
+	DeltaString Name;	// +0x9C
 	DeltaTemplateClass<UnknownB0122CEnum> ID;	// +0x124
 	DeltaTemplateClass<bool> Visible;	// +0x1AC
 };
 
 // vtable 0xB014A0 (e.g. ManufacturingLab.PrimaryCategories.N.Categories.N)
 // NAME 4: Net-7 AuxCategory confirmed by structure (Net-7 Construct 3 = ours; AuxCategories holds Category[5]; C# fields = ours (same names, same order)); C# ItemCategoryEntry
-class DeltaCategoryClass : public DeltaCompoundClass
+class DeltaCategoryClass : public DeltaContainer
 {
 public:
 #if defined(AUX_ROOTS_ALL) || defined(AUX_CTORS_MANU)
 	DeltaCategoryClass(const char *name) :
-		DeltaCompoundClass(name),
+		DeltaContainer(name),
 		Name("Name", ""),
 		ID("ID", -1),
 		Subcategories("Subcategories", 5)
@@ -59,30 +59,30 @@ public:
 	DeltaCategoryClass(const char *name);
 #endif
 
-	DeltaStringClass Name;	// +0x9C
+	DeltaString Name;	// +0x9C
 	DeltaTemplateClass<int> ID;	// +0x124
 	DeltaItemArrayClass<DeltaSubCategoryClass> Subcategories;	// +0x1AC
 };
 
 // vtable 0xB01444 (e.g. ManufacturingLab.PrimaryCategories.N)
 // NAME 4: Net-7 AuxPrimaryCategory confirmed by structure (Net-7 Construct 2 = ours; AuxPrimaryCategories holds PrimaryCategory[2] (Init(0), Init(1)); C# fields = ours (same names, same order)); C# ItemCategoryGroup
-class DeltaPrimaryCategoryClass : public DeltaCompoundClass
+class DeltaPrimaryCategoryClass : public DeltaContainer
 {
 public:
 	DeltaPrimaryCategoryClass(const char *name);	// 0x6FB1E0
 
-	DeltaStringClass Name;	// +0x9C
+	DeltaString Name;	// +0x9C
 	DeltaItemArrayClass<DeltaCategoryClass> Categories;	// +0x124
 };
 
 // vtable 0xB015B4 (e.g. ManufacturingLab.KnownFormula.N)
 // NAME 4: Net-7 AuxKnownFormula confirmed by structure (C# fields = ours (same names, same order); Net-7 Construct 3 children = ours); C# Formula
-class DeltaKnownFormulaClass : public DeltaCompoundClass
+class DeltaKnownFormulaClass : public DeltaContainer
 {
 public:
 	DeltaKnownFormulaClass(const char *name);	// 0x6FB760
 
-	DeltaStringClass ItemName;	// +0x9C
+	DeltaString ItemName;	// +0x9C
 	DeltaTemplateClass<int> ItemID;	// +0x124
 	DeltaTemplateClass<int> TechLevel;	// +0x1AC
 };
@@ -94,10 +94,10 @@ class DeltaManufacturingLabClass : public UnknownRootClass
 public:
 	DeltaManufacturingLabClass(int unknown);
 
-	DeltaStringClass Name;	// +0xA0
+	DeltaString Name;	// +0xA0
 	DeltaTemplateClass<UnknownB013ECEnum> Mode;	// +0x128
 	DeltaTemplateClass<UnknownB01394Enum> Validity;	// +0x1B0
-	DeltaStringClass FailureMessage;	// +0x238
+	DeltaString FailureMessage;	// +0x238
 	DeltaTemplateClass<UnknownB0133CEnum> Difficulty;	// +0x2C0
 	DeltaItemArrayClass<DeltaItemClass> ManufactureTarget;	// +0x348
 	DeltaItemArrayClass<DeltaItemClass> ManufactureComponents;	// +0x3E4

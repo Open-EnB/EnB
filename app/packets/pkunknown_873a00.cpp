@@ -1,14 +1,14 @@
 // Earth & Beyond client (reconstruction): app\packets\pkunknown_873a00.cpp. Notes at the end of the file.
 #include "pkunknown_873a00.h"
 
-bool MoneyPacketDataClass::Write(LinearBufferClass *buffer)
+bool MoneyPacketDataClass::Write(LinearBuffer *buffer)
 {
 	__int64 value = Money->Amount;
 	buffer->Write(&value, sizeof(value));
 	return(true);
 }
 
-bool MoneyPacketDataClass::Read(LinearBufferClass *buffer)
+bool MoneyPacketDataClass::Read(LinearBuffer *buffer)
 {
 	__int64 value = 0;
 	buffer->Read(&value, sizeof(value));

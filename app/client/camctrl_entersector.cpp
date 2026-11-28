@@ -15,7 +15,7 @@ static Vector3 Unknown_BE8688(50.0f, 1.25f, 1.25f);	// NAME 1: neutral (D10): th
 static float Unknown_B04CBC = 0.3f * WWMATH_PI;		// NAME 1: neutral (D10): the angle's spread (54 degrees)
 
 // @0x793520
-CameraController04Class::CameraController04Class(SClient *client) :
+CameraController04Class::CameraController04Class(SpaceClientClass *client) :
 	CameraControllerClass(client),
 	Unknown0C(NULL),
 	Unknown10(0)

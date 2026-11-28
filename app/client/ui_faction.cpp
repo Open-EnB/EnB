@@ -8,7 +8,7 @@
 #include "..\..\wwlib\ref_ptr.h"
 #include "gadget.h"
 #include "gd_robj.h"
-#include "unknown_675120.h"
+#include "gd_uimesh.h"
 #include <stdio.h>
 #include "gd_uiback.h"		// UIBackGadget (0x674260)
 #include "assetmgr.h"
@@ -27,7 +27,7 @@ class LineDisplayClientClass  // NAME 1: neutral (D10)
 public:
 	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
 	virtual void Unknown_10(); virtual void Unknown_14();
-	virtual SClient *As_Space_Client();					// +0x18 (as ui_manu.cpp's)  // NAME 3: the FAIL_IF's in ui_manu.cpp
+	virtual SpaceClientClass *As_Space_Client();					// +0x18 (as ui_manu.cpp's)  // NAME 3: the FAIL_IF's in ui_manu.cpp
 };
 
 #include "ui_faction_panel.h"	// ui_faction_panel.cpp's panel (0x58EB50)
@@ -54,7 +54,7 @@ public:
 	GaugeGadgetClass *Unknown78;						// +0x78 ('HATE_BAR%02d')
 };
 // 0x58D080
-UIFactionClass::UIFactionClass(SClient *client) :
+FactionInterface::FactionInterface(SpaceClientClass *client) :
 	Unknown5BB320Class(new UIMeshClass("tsi30a", 2), client),
 	UnknownBC(NULL),
 	UnknownC0(0),
@@ -68,7 +68,7 @@ UIFactionClass::UIFactionClass(SClient *client) :
 }
 
 // 0x58D1E0
-UIFactionClass::~UIFactionClass()
+FactionInterface::~FactionInterface()
 {
 	Unknown_BE67C4->Remove(InterfaceMesh->Peek_Mesh_Object());
 	Unknown_BE67BC->Unload("fa_tsi30a.ini");
@@ -80,7 +80,7 @@ UIFactionClass::~UIFactionClass()
 }
 
 // 0x58D3C0
-void UIFactionClass::Unknown_7C(UIViewClass *view, bool arg)
+void FactionInterface::Unknown_7C(UIViewClass *view, bool arg)
 {
 	UnknownAC->Unknown_7C(view, false);
 	Unknown5BB320Class::Unknown_7C(view, arg);
@@ -113,7 +113,7 @@ void UIFactionClass::Unknown_7C(UIViewClass *view, bool arg)
 
 
 // 0x58D400
-void UIFactionClass::Unknown_54()
+void FactionInterface::Unknown_54()
 {
 	FAIL_IF(!InterfaceMesh) return;
 	RefCountPtr<RenderObjClass> mesh = Create_Peek(InterfaceMesh->Peek_Mesh_Object());
@@ -157,7 +157,7 @@ void UIFactionClass::Unknown_54()
 
 
 // 0x58D9F0
-void UIFactionClass::Unknown_58()
+void FactionInterface::Unknown_58()
 {
 	if (!Active) {
 		InterfaceSortScopeClass sort(this);
@@ -167,7 +167,7 @@ void UIFactionClass::Unknown_58()
 }
 
 // 0x58DA80
-void UIFactionClass::Unknown_5C()
+void FactionInterface::Unknown_5C()
 {
 	if (Active) {
 		UnknownAC->Unknown_5C();
@@ -176,9 +176,9 @@ void UIFactionClass::Unknown_5C()
 }
 
 // 0x58DAB0
-void UIFactionClass::Unknown_60()
+void FactionInterface::Unknown_60()
 {
-	SClient *sclient = Client->As_Space_Client();
+	SpaceClientClass *sclient = Client->As_Space_Client();
 	FAIL_IF(!sclient) return;
 
 	DeltaPlayerClass *ad_player = sclient->AuxData;
@@ -189,7 +189,7 @@ void UIFactionClass::Unknown_60()
 }
 
 // 0x58DB30
-bool UIFactionClass::Unknown_68(int key)
+bool FactionInterface::Unknown_68(int key)
 {
 	if (key >= 1 && key <= 6) {
 		int index = key - 1;
@@ -223,15 +223,15 @@ bool UIFactionClass::Unknown_68(int key)
 // A field under root that is set (+0x70), else NULL (auxdata.h's Unknown_Find_Set_Field); and one changed since (+0x70 above 1): as co_player_relationship.cpp's wrapper; 0x58DC20's dead size() reads at its end keep rtti.h's cast out of line (0x58EAE0), as the client's
 
 
-template<class C> inline C *Unknown_Find_Changed_Field(DeltaCompoundClass *root, const NameClass &name)	// NAME 1: neutral (D10)
+template<class C> inline C *Unknown_Find_Changed_Field(DeltaContainer *root, const AuxDataName &name)	// NAME 1: neutral (D10)
 { C *t = Unknown_Find_Field<C>(root, name); return((t && t->Unknown70 > 1) ? t : NULL); }
 
 // 0x58DC20
 // NOT EXACT: register (the client keeps the reputation in esi and its frame slot after the order's, +0x28; this keeps it in ebx, at +0x14; the rest is the client's, including the tail call made a jump)
-void UIFactionClass::Unknown_58DC20(bool arg)
+void FactionInterface::Unknown_58DC20(bool arg)
 {
 	FAIL_IF(!Get_Client()) return;
-	SClient *sclient = Get_Client()->As_Space_Client();
+	SpaceClientClass *sclient = Get_Client()->As_Space_Client();
 	FAIL_IF(!sclient) return;
 
 	DeltaPlayerClass *aux_data = sclient->AuxData;
@@ -239,9 +239,9 @@ void UIFactionClass::Unknown_58DC20(bool arg)
 
 	DeltaReputationClass *reputation;
 	if (arg) {
-		reputation = Unknown_Find_Set_Field<DeltaReputationClass>((DeltaCompoundClass *)aux_data, "Reputation");
+		reputation = Unknown_Find_Set_Field<DeltaReputationClass>((DeltaContainer *)aux_data, "Reputation");
 	} else {
-		reputation = Unknown_Find_Changed_Field<DeltaReputationClass>((DeltaCompoundClass *)aux_data, "Reputation");
+		reputation = Unknown_Find_Changed_Field<DeltaReputationClass>((DeltaContainer *)aux_data, "Reputation");
 	}
 	if (!reputation) return;
 
@@ -255,7 +255,7 @@ void UIFactionClass::Unknown_58DC20(bool arg)
 		while (index < 0) {
 			if (order >= 22) break;
 			for (int j = 0; j < count; j++) {
-				if (((DeltaFactionClass *)reputation->Faction.Children[j])->Order.Value == order) {
+				if (((DeltaFaction *)reputation->Faction.Children[j])->Order.Value == order) {
 					index = j;
 					break;
 				}
@@ -263,11 +263,11 @@ void UIFactionClass::Unknown_58DC20(bool arg)
 			order++;
 		}
 		if (index < 0) break;
-		const char *name = ((DeltaFactionClass *)reputation->Faction.Children[index])->Name.Get();
+		const char *name = ((DeltaFaction *)reputation->Faction.Children[index])->Name.Get();
 		if (name && *name) {
 			listed++;
 			if (i >= UnknownC0 && shown < 6) {
-				float reaction = ((DeltaFactionClass *)reputation->Faction.Children[index])->Reaction.Value;
+				float reaction = ((DeltaFaction *)reputation->Faction.Children[index])->Reaction.Value;
 				UnknownC8[shown]->Unknown_58E740(name, reaction);
 				UnknownC8[shown]->Unknown_40(true);
 				char text[32];
@@ -303,7 +303,7 @@ void UIFactionClass::Unknown_58DC20(bool arg)
 
 
 // 0x58E1C0
-void UIFactionClass::Unknown_Select(int index)
+void FactionInterface::Unknown_Select(int index)
 {
 	if (UnknownC4 != -1) {
 		UnknownAC->Unknown_5C();

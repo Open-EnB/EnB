@@ -25,8 +25,8 @@ class ObjectEffectPacketClass : public FlagPacketClass
 {
 public:
 	ObjectEffectPacketClass(int effect_id, const DurationClass &time_stamp, int game_id, const DurationClass &duration, short effect_desc_id, float scale, const Vector3 &hsv_shift);	// 0x882710
-	ObjectEffectPacketClass(RawPacketClass *raw);	// 0x882980
-	virtual RawPacketClass *Build();	// +0x04 0x882B40
+	ObjectEffectPacketClass(PacketClass *raw);	// 0x882980
+	virtual PacketClass *Encode();	// +0x04 0x882B40  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x734DF0 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x883060
 	virtual int Print(char *buffer, int len);	// +0x10 0x883250
@@ -43,16 +43,16 @@ public:
 	short EffectDescID;	// +0x1A  // NAME 3: the client's Print text 'EffectDescID='
 	float Scale;	// +0x1C (flag 3; 1 by default)  // NAME 3: the client's Print text 'Scale='
 	Vector3 HSVShift;	// +0x20 (flags 4, 5, 6; DefaultHSVShift by default)  // NAME 3: the client's Print text 'HSVShift='
-	int Channel;	// +0x2C (PacketClass::Unknown_14 of GameID; not read from the message)  // NAME 2: Get_Channel returns it
+	int Channel;	// +0x2C (UnknownPacketBaseClass::Unknown_14 of GameID; not read from the message)  // NAME 2: Get_Channel returns it
 };
 
 // opcode 10 (0x000A, POINT_EFFECT): vtable 0xB0A408, constructor 0x8834D0, 0x34 bytes
-class PointEffectPacketClass : public PacketClass
+class PointEffectPacketClass : public UnknownPacketBaseClass
 {
 public:
 	PointEffectPacketClass(int effect_id, const DurationClass &time_stamp, const Vector3 &location, const DurationClass &duration, short effect_desc_id, float scale, const Vector3 &hsv_shift);	// 0x8832D0
-	PointEffectPacketClass(RawPacketClass *raw);	// 0x8834D0
-	virtual RawPacketClass *Build();	// +0x04 0x8835C0
+	PointEffectPacketClass(PacketClass *raw);	// 0x8834D0
+	virtual PacketClass *Encode();	// +0x04 0x8835C0  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x735000 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x8836E0
 	virtual int Print(char *buffer, int len);	// +0x10 0x883700
@@ -71,8 +71,8 @@ class ObjectToObjectEffectPacketClass : public FlagPacketClass
 {
 public:
 	ObjectToObjectEffectPacketClass(int effect_id, const DurationClass &time_stamp, int source_game_id, const LegoIdentifierClass &source_lego, int target_game_id, const DurationClass &duration, short effect_desc_id, const Vector3 &target_offset, short unknown34, short unknown36, bool outside_target_radius, float scale, const Vector3 &hsv_shift, float speedup);	// 0x883790
-	ObjectToObjectEffectPacketClass(RawPacketClass *raw);	// 0x883A60
-	virtual RawPacketClass *Build();	// +0x04 0x883DD0
+	ObjectToObjectEffectPacketClass(PacketClass *raw);	// 0x883A60
+	virtual PacketClass *Encode();	// +0x04 0x883DD0  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x735280 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x884020
 	virtual int Print(char *buffer, int len);	// +0x10 0x884410
@@ -96,16 +96,16 @@ public:
 	float Scale;	// +0x48 (flag 7; 1 by default)  // NAME 3: the client's Print text 'Scale='
 	Vector3 HSVShift;	// +0x4C (flags 8, 9, 10; DefaultHSVShift by default)  // NAME 3: the client's Print text 'HSVShift='
 	float Speedup;	// +0x58 (flag 11; 1 by default)  // NAME 3: the client's Print text 'Speedup='
-	int Channel;	// +0x5C (PacketClass::Unknown_14 of TargetGameID; not read from the message)  // NAME 2: Get_Channel returns it
+	int Channel;	// +0x5C (UnknownPacketBaseClass::Unknown_14 of TargetGameID; not read from the message)  // NAME 2: Get_Channel returns it
 };
 
 // opcode 12 (0x000C, ?): vtable 0xB0A46C, constructor 0x884790, 0x5C bytes
-class ObjectToEffectEffectPacketClass : public PacketClass
+class ObjectToEffectEffectPacketClass : public UnknownPacketBaseClass
 {
 public:
 	ObjectToEffectEffectPacketClass(int effect_id, const DurationClass &time_stamp, int source_game_id, const LegoIdentifierClass &source_lego, int target_game_id, const DurationClass &duration, short effect_desc_id, const Vector3 &target_offset, short unknown34, short unknown36, float scale, const Vector3 &hsv_shift, float speedup);	// 0x8844D0
-	ObjectToEffectEffectPacketClass(RawPacketClass *raw);	// 0x884790
-	virtual RawPacketClass *Build();	// +0x04 0x8849E0
+	ObjectToEffectEffectPacketClass(PacketClass *raw);	// 0x884790
+	virtual PacketClass *Encode();	// +0x04 0x8849E0  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x735520 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x884BC0
 	virtual int Print(char *buffer, int len);	// +0x10 0x884C80
@@ -124,16 +124,16 @@ public:
 	float Scale;	// +0x44  // NAME 3: the client's Print text 'Scale='
 	Vector3 HSVShift;	// +0x48  // NAME 3: the client's Print text 'HSVShift='
 	float Speedup;	// +0x54  // NAME 3: the client's Print text 'Speedup='
-	int Channel;	// +0x58 (PacketClass::Unknown_14 of SourceGameID; not read from the message)  // NAME 2: Get_Channel returns it
+	int Channel;	// +0x58 (UnknownPacketBaseClass::Unknown_14 of SourceGameID; not read from the message)  // NAME 2: Get_Channel returns it
 };
 
 // opcode 13 (0x000D, ?): vtable 0xB0A49C, constructor 0x884FC0, 0x54 bytes
-class ObjectToPointEffectPacketClass : public PacketClass
+class ObjectToPointEffectPacketClass : public UnknownPacketBaseClass
 {
 public:
 	ObjectToPointEffectPacketClass(int effect_id, const DurationClass &time_stamp, int source_game_id, const LegoIdentifierClass &source_lego, const Vector3 &target_point, const DurationClass &duration, short effect_desc_id, float scale, const Vector3 &hsv_shift, float speedup);	// 0x884D20
-	ObjectToPointEffectPacketClass(RawPacketClass *raw);	// 0x884FC0
-	virtual RawPacketClass *Build();	// +0x04 0x8851E0
+	ObjectToPointEffectPacketClass(PacketClass *raw);	// 0x884FC0
+	virtual PacketClass *Encode();	// +0x04 0x8851E0  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x735B00 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x8853A0
 	virtual int Print(char *buffer, int len);	// +0x10 0x885460
@@ -149,16 +149,16 @@ public:
 	float Scale;	// +0x3C  // NAME 3: the client's Print text 'Scale='
 	Vector3 HSVShift;	// +0x40  // NAME 3: the client's Print text 'HSVShift='
 	float Speedup;	// +0x4C  // NAME 3: the client's Print text 'Speedup='
-	int Channel;	// +0x50 (PacketClass::Unknown_14 of SourceGameID; not read from the message)  // NAME 2: Get_Channel returns it
+	int Channel;	// +0x50 (UnknownPacketBaseClass::Unknown_14 of SourceGameID; not read from the message)  // NAME 2: Get_Channel returns it
 };
 
 // opcode 14 (0x000E, OBJECT_TO_OBJECT_LINKED_EFFECT): vtable 0xB0A4CC, constructor 0x885750, 0x60 bytes
-class ObjectToObjectDurationLinkedEffectPacketClass : public PacketClass
+class ObjectToObjectDurationLinkedEffectPacketClass : public UnknownPacketBaseClass
 {
 public:
 	ObjectToObjectDurationLinkedEffectPacketClass(int effect_id, const DurationClass &time_stamp, int source_game_id, const LegoIdentifierClass &source_lego, int target_game_id, short duration_linked_effect_desc_id, short effect_desc_id, const Vector3 &target_offset, short unknown34, short unknown36, bool outside_target_radius, float scale, const Vector3 &hsv_shift, float speedup);	// 0x8854E0
-	ObjectToObjectDurationLinkedEffectPacketClass(RawPacketClass *raw);	// 0x885750
-	virtual RawPacketClass *Build();	// +0x04 0x8859B0
+	ObjectToObjectDurationLinkedEffectPacketClass(PacketClass *raw);	// 0x885750
+	virtual PacketClass *Encode();	// +0x04 0x8859B0  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x735880 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x885BB0
 	virtual int Print(char *buffer, int len);	// +0x10 0x885C70
@@ -178,16 +178,16 @@ public:
 	float Scale;	// +0x48  // NAME 3: the client's Print text 'Scale='
 	Vector3 HSVShift;	// +0x4C  // NAME 3: the client's Print text 'HSVShift='
 	float Speedup;	// +0x58  // NAME 3: the client's Print text 'Speedup='
-	int Channel;	// +0x5C (PacketClass::Unknown_14 of TargetGameID; not read from the message)  // NAME 2: Get_Channel returns it
+	int Channel;	// +0x5C (UnknownPacketBaseClass::Unknown_14 of TargetGameID; not read from the message)  // NAME 2: Get_Channel returns it
 };
 
 // opcode 15 (0x000F, REMOVE_EFFECT): vtable 0xB0A4FC, constructor 0x885E30, 0x14 bytes
-class RemoveEffectPacketClass : public PacketClass
+class RemoveEffectPacketClass : public UnknownPacketBaseClass
 {
 public:
 	RemoveEffectPacketClass(int effect_id, int game_id);	// 0x885D30  // NAME 2: the stores (no caller left)
-	RemoveEffectPacketClass(RawPacketClass *raw);	// 0x885E30
-	virtual RawPacketClass *Build();	// +0x04 0x885EC0
+	RemoveEffectPacketClass(PacketClass *raw);	// 0x885E30
+	virtual PacketClass *Encode();	// +0x04 0x885EC0  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x735D50 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x885F80
 	virtual int Print(char *buffer, int len);	// +0x10 0x885FA0

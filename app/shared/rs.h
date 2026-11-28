@@ -39,7 +39,7 @@ public:
 	virtual void Unknown_14(RsTrackClass *owner) = 0;				// +0x14 (pure; 0x460440 activates through it)  // NAME 1 [owner]: neutral
 	virtual void Unknown_18(RsTrackClass *owner);					// +0x18 0x4582E0 (0x460710 deactivates through it)  // NAME 1 [owner]: neutral
 	virtual void Unknown_1C(RsTrackClass *owner);					// +0x1C 0x458330  // NAME 1 [owner]: neutral
-	virtual RenderObjClass *Peek_Render_Object() { return(NULL); }	// +0x20 0x4585F0  // NAME 2: the assert 'Peek_Render_Object()' at rs_track.cpp line 236
+	virtual RenderObjClass *Peek_Render_Object() const { return(NULL); }	// +0x20 0x4585F0  // NAME 5: thunk order probable, binary.md 5.11
 	virtual void Unknown_24(void *value, bool recursive);			// +0x24 0x4582C0 (rs_robj.cpp's 0x45EC90 passes them to Set_User_Data)  // NAME 1 [value, recursive]: Set_User_Data's
 	virtual void Unknown_28(int a, int b) {}						// +0x28 0x458610  // NAME 1 [a, b]: neutral
 	virtual void Unknown_2C(int a, int b) {}						// +0x2C 0x458630  // NAME 1 [a, b]: neutral

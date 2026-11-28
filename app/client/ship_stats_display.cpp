@@ -20,7 +20,7 @@ extern FontManagerClass *Unknown_BE67C4;	// NAME 1: neutral (D10)
 #include "..\shared\auth_product.h"
 // The field named string under root when it holds a value (its Unknown70 set), else NULL (the name a local of its own:
 // the two finds of each pair share the caller's two name slots)
-template<class C> inline C *Unknown_Find_Valid(DeltaCompoundClass *root, const char *string) { NameClass name(string); C *t = Unknown_Find_Field<C>(root, name); if (t && t->Unknown70) return(t); return(NULL); }	// NAME 1 [Unknown_Find_Valid, string]: neutral (D10), as co.cpp's
+template<class C> inline C *Unknown_Find_Valid(DeltaContainer *root, const char *string) { AuxDataName name(string); C *t = Unknown_Find_Field<C>(root, name); if (t && t->Unknown70) return(t); return(NULL); }	// NAME 1 [Unknown_Find_Valid, string]: neutral (D10), as co.cpp's
 
 // The fields on the display: each one's name (the font style on the mesh, after 'BaseStats.' / 'CurrentStats.' the
 // ship's field) and whether a higher value is the better one (0xBE65E0 / 0xBE661C; its constructor is the static
@@ -104,7 +104,7 @@ static SSDC ShipDisplayFields;	// NAME 1: neutral (D10)
 
 
 // 0x6A2ED0
-ShipStatsDisplayClass::ShipStatsDisplayClass(SClient *client, RefCountPtr<RenderObjClass> &display) :
+ShipStatsDisplayClass::ShipStatsDisplayClass(SpaceClientClass *client, RefCountPtr<RenderObjClass> &display) :
 	Client(client),
 	Display(display),
 	UnknownC8(true)
@@ -154,7 +154,7 @@ void ShipStatsDisplayClass::Unknown_6A34E0(bool on)
 	ClientObjectClass *ship = Client->Get_Ship();
 	FAIL_IF(!ship) return;
 	if (UnknownC8) on = true;
-	DeltaCompoundClass *aux = (DeltaCompoundClass *)ship->AuxData;
+	DeltaContainer *aux = (DeltaContainer *)ship->AuxData;
 	{
 		DeltaTemplateClass<float> *hull = Unknown_Find_Valid<DeltaTemplateClass<float> >(aux, "HullPoints");
 		DeltaTemplateClass<float> *max_hull = Unknown_Find_Valid<DeltaTemplateClass<float> >(aux, "MaxHullPoints");
@@ -254,7 +254,7 @@ void ShipStatsDisplayClass::Unknown_6A3C10()
 **
 **	The object: the previous object ends with its <string> / <locale> statics 0x6A2C30, 0x6A2CB0 (the guarded
 **	ctype id) and 0x6A2D20 (its RefCountPtr Clear copy 0x6A2BF0 sits before them); this one opens with permstr.h's
-**	PermStringInitClass static 0x6A2D50 (atexit 0x6A2D80), then SSDC's table 0x6A2DA0, the class's four functions
+**	PermStringInit static 0x6A2D50 (atexit 0x6A2D80), then SSDC's table 0x6A2DA0, the class's four functions
 **	0x6A2ED0-0x6A3C10, and ends with its own <string> statics 0x6A3C30, 0x6A3CA0 (guard) and 0x6A3D30.
 **	SSDC's bools are a memset(true) and one false: the client stores them as 0x01010101 dwords, a word and a byte.
 **	Not exact (one round): Unknown_6A34E0 picks each arrow's texture into ecx with the arrow in eax, ours the other way

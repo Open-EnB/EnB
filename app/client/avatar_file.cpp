@@ -1,0 +1,215 @@
+// Earth & Beyond client (reconstruction)
+/*
+**	PROVISIONAL file name (no assert or __FILE__ names it): AvatarFileClass and
+**	LoginNameDataClass (avatar_file.h), client 0x78CEE0-0x78E190, partly rebuilt.
+*/
+
+
+
+#include "avatar_file.h"
+#include "..\shared\auxdata\linearbu.h"
+#include "registry.h"
+#include "rawfile.h"
+#include "..\shared\unknown_login_data.h"
+#include "..\shared\avatar_desc.h"
+#include "..\shared\shipcust_desc.h"
+#include <windows.h>
+#include <stdlib.h>
+#include <string.h>
+
+// 0x78CEE0
+AvatarFileClass::AvatarFileClass()
+{
+	RegistryClass creator("SOFTWARE\\Westwood Studios\\Earth and Beyond\\Character and Starship Creator", false);
+	if (creator.Is_Valid()) {
+		RegistryClass folders("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Shell Folders", false);
+		StringClass folder;
+		if (folders.Is_Valid()) {
+			folders.Get_String("Common AppData", folder, "");
+		}
+		if (!folder.Is_Empty()) {
+			folder += "\\";
+			folder += "Westwood Studios";
+			if (Make_Folder(folder)) {
+				folder += "\\";
+				folder += "Earth and Beyond";
+				if (Make_Folder(folder)) {
+					folder += "\\";
+					folder += "Character and Starship Creator";
+					if (Make_Folder(folder)) {
+						folder += "\\";
+						Folder = folder;
+					}
+				}
+			}
+		} else {
+			char path[MAX_PATH];
+			char drive[_MAX_DRIVE];
+			char directory[_MAX_DIR];
+			GetModuleFileName(NULL, path, MAX_PATH);
+			_splitpath(path, drive, directory, NULL, NULL);
+			folder = drive;
+			folder += directory;
+			Folder = folder;
+		}
+	}
+}
+
+// 0x78D450
+int __stdcall Unknown_78D450(const unsigned char *data, unsigned int size)
+{
+	unsigned int sum = 0;
+	if (size > 0U) {
+		unsigned int value = *data; // NAME 2 [value]: checksum addend, first byte plus iteration
+		unsigned int count = size; // NAME 2 [count]: checksum loop countdown
+		do {
+			sum += value++;
+		} while (--count);
+	}
+	return sum;
+}
+
+// 0x78D480
+void AvatarFileClass::Unknown_78D480(int slot, LoginCharacterClass *character, AvatarDescriptionClass *avatar, ShipCustDescClass *ship, LoginNameDataClass *name)
+{
+	int size = avatar->Get_Short_Size() + ship->Get_Short_Size() + name->Get_Size();
+	LinearBuffer buffer(size, 0x400);
+	StringClass path;
+	RawFileClass file;
+
+	*character = LoginCharacterClass();
+	if (Get_File_Name(slot, path)) {
+		file.Open(path, RawFileClass::READ);
+		if (file.Is_Open()) {
+			int checksum;
+			if (file.Read(&checksum, 4)) {
+				unsigned char *data = new unsigned char[size];
+				if (file.Read(data, size)) {
+					if (checksum == Unknown_78D450(data, size)) {
+						character->ID = -1;
+						character->Galaxy_ID = -1;
+						buffer.Write(data, size);
+						buffer.Seek(0);
+						avatar->Read_Short(&buffer);
+						ship->Read_Short(&buffer);
+						name->Read(&buffer);
+						ship->Tech_Level = 0;
+					}
+				}
+				delete [] data;
+			}
+			file.Close();
+		}
+	}
+}
+
+
+// 0x78D8A0
+void AvatarFileClass::Unknown_78D8A0(int slot, AvatarDescriptionClass *avatar, ShipCustDescClass *ship, LoginNameDataClass *name) {
+	StringClass path;
+	int size = avatar->Get_Short_Size() + ship->Get_Short_Size() + name->Get_Size();
+	LinearBuffer buffer(size, 0x400);
+	RawFileClass file;
+	bool ok = Get_File_Name(slot, path);
+	path.Peek_Buffer();
+	if (ok) {
+		file.Open(path, RawFileClass::WRITE);
+		if (file.Is_Open()) {
+			avatar->Write_Short(&buffer);
+			ship->Write_Short(&buffer);
+			name->Write(&buffer);
+			int checksum = Unknown_78D450((unsigned char *)buffer.Buffer, size);
+			file.Write(&checksum, 4);
+			file.Write(buffer.Buffer, size);
+			file.Close();
+		}
+	}
+}
+
+
+// 0x78DAF0
+void AvatarFileClass::Unknown_78DAF0(int slot)
+{
+	StringClass path;
+	RawFileClass file;
+	int size = AvatarDescriptionClass().Get_Short_Size() + ShipCustDescClass().Get_Short_Size() + LoginNameDataClass().Get_Size();
+
+	if (Get_File_Name(slot, path)) {
+		file.Open(path, RawFileClass::READ | RawFileClass::WRITE);
+		if (file.Is_Open()) {
+			int checksum;
+			if (file.Read(&checksum, 4)) {
+				unsigned char *data = new unsigned char[size];
+				if (file.Read(data, size)) {
+					file.Close();
+					if (checksum == Unknown_78D450(data, size)) {
+						file.Delete();
+					}
+				}
+			}
+		}
+	}
+}
+
+// 0x78DE40
+bool AvatarFileClass::Get_File_Name(int slot, StringClass &name)
+{
+	if (!Folder.Is_Empty()) {
+		name = Folder;
+		name += "Avatar";
+		name += (char)(slot + '1');
+		name += ".dat";
+		return(true);
+	}
+	return(false);
+}
+
+// 0x78E060
+int Make_Folder(const char *path)
+{
+	if (!CreateDirectory(path, NULL)) {
+		DWORD error = GetLastError();
+		if (error != 0 && error != ERROR_ALREADY_EXISTS) {
+			return(false);
+		}
+	}
+	return(true);
+}
+
+// 0x78E0A0
+void LoginNameDataClass::Set_Name(const char *name)
+{
+	strncpy(Name, name, sizeof(Name) - 1);
+	Name[sizeof(Name) - 1] = 0;
+}
+
+// 0x78E0E0
+bool LoginNameDataClass::Write(LinearBuffer *buffer)
+{
+	buffer->Write(Name, sizeof(Name));
+	return(true);
+}
+
+// 0x78E110
+bool LoginNameDataClass::Read(LinearBuffer *buffer)
+{
+	buffer->Read(Name, sizeof(Name));
+	return(true);
+}
+
+// 0x78E140
+int LoginNameDataClass::Get_Size()
+{
+	return(sizeof(Name));
+}
+
+/*
+**	Reconstruction notes
+**
+**	0x78D480 reads 'Avatar<slot>.dat' through RawFileClass into a LinearBuffer and
+**	checks it. The unsigned countdown in Unknown_78D450 preserves its standalone bytes and
+**	matches the checksum loop inlined into 0x78D480. 0x78DAF0 constructs the temporary
+**	avatar, ship and login-name descriptors in that order, reproducing its initialization sequence.
+**	0x78D810 is WWLib's StringClass::operator+= (char) emitted here out of line.
+**	0x78D450 and 0x78E060 have no callers: kept out of line, inlined where used.
+*/

@@ -10,7 +10,7 @@
 #include "matrix3d.h"
 #include "..\shared\auth_product.h"
 
-PipSceneClass::PipSceneClass(SClient *client) :
+PIPSceneClass::PIPSceneClass(SpaceClientClass *client) :
 	Unknown04(client),
 	View(NULL),
 	Rect(0.0f, 0.0f, 0.0f, 0.0f),
@@ -24,7 +24,7 @@ PipSceneClass::PipSceneClass(SClient *client) :
 }
 
 
-PipSceneClass::~PipSceneClass()
+PIPSceneClass::~PIPSceneClass()
 {
 	if (View) {
 		View->Unknown_65B7E0(Scene);
@@ -33,7 +33,7 @@ PipSceneClass::~PipSceneClass()
 }
 
 
-bool PipSceneClass::Unknown_7BACD0(const RefCountPtr<RenderObjClass> &vp, bool arg)
+bool PIPSceneClass::Unknown_7BACD0(const RefCountPtr<RenderObjClass> &vp, bool arg)
 {
 
 
@@ -176,7 +176,7 @@ bool PipSceneClass::Unknown_7BACD0(const RefCountPtr<RenderObjClass> &vp, bool a
 }
 
 
-bool PipSceneClass::Unknown_7BB080(UIViewClass *view, int arg1, int arg2)
+bool PIPSceneClass::Unknown_7BB080(UIViewClass *view, int arg1, int arg2)
 {
 	if (View) {
 		View->Unknown_65B7E0(Scene);
@@ -199,7 +199,7 @@ bool PipSceneClass::Unknown_7BB080(UIViewClass *view, int arg1, int arg2)
 }
 
 
-bool PipSceneClass::Unknown_7BB110()
+bool PIPSceneClass::Unknown_7BB110()
 {
 	if (View) {
 		View->Unknown_65B7E0(Scene);

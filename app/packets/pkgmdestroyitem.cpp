@@ -2,7 +2,7 @@
 #include "pkgmdestroyitem.h"
 #include <stdio.h>
 #include "..\shared\auth_product.h"
-GMDestroyItemPacketClass::GMDestroyItemPacketClass(RawPacketClass *raw) :
+GMDestroyItemRequestPacketClass::GMDestroyItemRequestPacketClass(PacketClass *raw) :
 	Unknown0C(0),
 	Unknown20(false)
 {
@@ -15,7 +15,7 @@ GMDestroyItemPacketClass::GMDestroyItemPacketClass(RawPacketClass *raw) :
 	delete [] name;
 }
 
-GMDestroyItemPacketClass::GMDestroyItemPacketClass(int unknown0c, const char *item_name, bool unknown20) :
+GMDestroyItemRequestPacketClass::GMDestroyItemRequestPacketClass(unsigned long unknown0c, const char *item_name, bool unknown20) :
 	Unknown0C(unknown0c),
 	Unknown20(unknown20)
 {
@@ -24,13 +24,13 @@ GMDestroyItemPacketClass::GMDestroyItemPacketClass(int unknown0c, const char *it
 	}
 }
 
-GMDestroyItemPacketClass::~GMDestroyItemPacketClass()
+GMDestroyItemRequestPacketClass::~GMDestroyItemRequestPacketClass()
 {
 }
 
-RawPacketClass *GMDestroyItemPacketClass::Build()
+PacketClass *GMDestroyItemRequestPacketClass::Encode()
 {
-	RawPacketClass *raw = new RawPacketClass(236, Get_Data_Size());
+	PacketClass *raw = new PacketClass(236, Get_Data_Size());
 	raw->Add(Unknown0C);
 	int value = Unknown20;
 	raw->Add(value);
@@ -38,12 +38,12 @@ RawPacketClass *GMDestroyItemPacketClass::Build()
 	return(raw);
 }
 
-int GMDestroyItemPacketClass::Get_Data_Size()
+int GMDestroyItemRequestPacketClass::Get_Data_Size()
 {
 	return(ItemName.length() + 1 + sizeof(Unknown0C) + sizeof(int));
 }
 
-int GMDestroyItemPacketClass::Print(char *buffer, int)
+int GMDestroyItemRequestPacketClass::Print(char *buffer, int)
 {
 	return(sprintf(buffer, "GM Destroy Item { Item Name = %s }", ItemName.c_str()));
 }

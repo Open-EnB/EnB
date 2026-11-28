@@ -10,14 +10,14 @@ LogoffPacketClass::LogoffPacketClass(int player_id) : PlayerID(player_id)
 {
 }
 
-LogoffPacketClass::LogoffPacketClass(RawPacketClass *raw)
+LogoffPacketClass::LogoffPacketClass(PacketClass *raw)
 {
 	raw->Get(&PlayerID, sizeof(PlayerID));
 }
 
-RawPacketClass *LogoffPacketClass::Build()
+PacketClass *LogoffPacketClass::Encode()
 {
-	RawPacketClass *raw = new RawPacketClass(3, Get_Data_Size());
+	PacketClass *raw = new PacketClass(3, Get_Data_Size());
 	raw->Add(&PlayerID, sizeof(PlayerID));
 	return(raw);
 }
@@ -40,14 +40,14 @@ LogoffRequestPacketClass::LogoffRequestPacketClass(int player_id) : PlayerID(pla
 {
 }
 
-LogoffRequestPacketClass::LogoffRequestPacketClass(RawPacketClass *raw)
+LogoffRequestPacketClass::LogoffRequestPacketClass(PacketClass *raw)
 {
 	raw->Get(&PlayerID, sizeof(PlayerID));
 }
 
-RawPacketClass *LogoffRequestPacketClass::Build()
+PacketClass *LogoffRequestPacketClass::Encode()
 {
-	RawPacketClass *raw = new RawPacketClass(185, Get_Data_Size());
+	PacketClass *raw = new PacketClass(185, Get_Data_Size());
 	raw->Add(&PlayerID, sizeof(PlayerID));
 	return(raw);
 }
@@ -70,13 +70,13 @@ LogoffConfirmationPacketClass::LogoffConfirmationPacketClass()
 {
 }
 
-LogoffConfirmationPacketClass::LogoffConfirmationPacketClass(RawPacketClass *)
+LogoffConfirmationPacketClass::LogoffConfirmationPacketClass(PacketClass *)
 {
 }
 
-RawPacketClass *LogoffConfirmationPacketClass::Build()
+PacketClass *LogoffConfirmationPacketClass::Encode()
 {
-	RawPacketClass *raw = new RawPacketClass(186, Get_Data_Size());
+	PacketClass *raw = new PacketClass(186, Get_Data_Size());
 	return(raw);
 }
 
@@ -98,13 +98,13 @@ Packet_00BBClass::Packet_00BBClass()
 {
 }
 
-Packet_00BBClass::Packet_00BBClass(RawPacketClass *)
+Packet_00BBClass::Packet_00BBClass(PacketClass *)
 {
 }
 
-RawPacketClass *Packet_00BBClass::Build()
+PacketClass *Packet_00BBClass::Encode()
 {
-	RawPacketClass *raw = new RawPacketClass(187, Get_Data_Size());
+	PacketClass *raw = new PacketClass(187, Get_Data_Size());
 	return(raw);
 }
 
@@ -132,10 +132,10 @@ bool Packet_00BBClass::Close_Channel()
 **	  linked in alphabetical order (pk_player_object_relationship.cpp 0x874790, pk_sub_parts.cpp
 **	  0x875910, pkdebug.cpp 0x880340, pkfindmember.cpp 0x886640, pkjoblist.cpp 0x895F50, pktask.cpp
 **	  0x8A9BB0, pkupdate.cpp 0x8ABED0) and the four classes aren't in that order among themselves.
-**	* PacketClass's constructor (pk.h) is in every constructor here: the serial number reloaded
+**	* UnknownPacketBaseClass's constructor (pk.h) is in every constructor here: the serial number reloaded
 **	  after its store, the base vtable's store dropped; the members set in the initialiser list
 **	  (body assignments come after the vtable's store).
-**	* Build: `new RawPacketClass(opcode, Get_Data_Size())`, the size read through the vtable after
+**	* Build: `new PacketClass(opcode, Get_Data_Size())`, the size read through the vtable after
 **	  the allocation, then the fields (`Add(&x, sizeof(x))`: no byte order) in order.
 **	* The file's last function, after 0x89B2F0, is the guarded static initialiser every object
 **	  including <string> has (`std::ctype<unsigned short>::id`, atexit 0x42B320): compiled, not

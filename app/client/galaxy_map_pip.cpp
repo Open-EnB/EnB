@@ -33,18 +33,18 @@ static const float Unknown_AEEE48[19] = {
 };
 
 // 0x5404E0: two-layer find with two dead Children.size() reads (D272) puts Cast out of line and matches sector->Value directly
-template<class C> static inline C *Unknown_Find_Inner(DeltaCompoundClass *root, const NameClass &name)	// NAME 1: neutral (D10), as co.cpp's
+template<class C> static inline C *Unknown_Find_Inner(DeltaContainer *root, const AuxDataName &name)	// NAME 1: neutral (D10), as co.cpp's
 {
 	C *t = Unknown_Find_Field<C>(root, name);
 	if (!t) return(NULL); return(t);
 }
 
-static inline GalaxyMapClientClass *Unknown_Map(SClient *client) { return(client->GalaxyMap); }	// NAME 1: neutral (D10)
-template<class C> inline C *Unknown_Find_Valid(DeltaCompoundClass *root, const NameClass &name) { C *t = Unknown_Find_Inner<C>(root, name); root->Children.size(); root->Children.size(); if (!t || !t->Unknown70) return(NULL); return(t); }	// NAME 1: neutral (D10): avatar_pip.cpp's
+static inline GalaxyMapClient *Unknown_Map(SpaceClientClass *client) { return(client->GalaxyMap); }	// NAME 1: neutral (D10)
+template<class C> inline C *Unknown_Find_Valid(DeltaContainer *root, const AuxDataName &name) { C *t = Unknown_Find_Inner<C>(root, name); root->Children.size(); root->Children.size(); if (!t || !t->Unknown70) return(NULL); return(t); }	// NAME 1: neutral (D10): avatar_pip.cpp's
 
 // @0x53F390
-GalaxyMapPipClass::GalaxyMapPipClass(SClient *client) :
-	MapPipClass(client, false),
+GalaxyMapPIPClass::GalaxyMapPIPClass(SpaceClientClass *client) :
+	MapPIPClass(client, false),
 	Debug(false),
 	Render(NULL),
 	Ease(-1.0f),
@@ -59,13 +59,13 @@ GalaxyMapPipClass::GalaxyMapPipClass(SClient *client) :
 }
 
 // @0x53F4F0
-void GalaxyMapPipClass::Unknown_20(int arg)
+void GalaxyMapPIPClass::Unknown_20(int arg)
 {
 	Unknown_5404E0(false);
 }
 
 // @0x53F540
-GalaxyMapPipClass::~GalaxyMapPipClass()
+GalaxyMapPIPClass::~GalaxyMapPIPClass()
 {
 	if (Grid) {
 		Grid->Remove();
@@ -81,15 +81,15 @@ GalaxyMapPipClass::~GalaxyMapPipClass()
 }
 
 // @0x53F6F0
-GadgetClass *GalaxyMapPipClass::Unknown_18()
+GadgetClass *GalaxyMapPIPClass::Unknown_18()
 {
 	return(new GadgetGalaxyMapClass(this));
 }
 
 // @0x53F770
-bool GalaxyMapPipClass::Unknown_04(const RefCountPtr<InterfaceClass> &iface_ptr, const RefCountPtr<RenderObjClass> &vp, int arg)
+bool GalaxyMapPIPClass::Unknown_04(const RefCountPtr<InterfaceClass> &iface_ptr, const RefCountPtr<RenderObjClass> &vp, int arg)
 {
-	if (!MapPipClass::Unknown_04(iface_ptr, vp, arg)) {
+	if (!MapPIPClass::Unknown_04(iface_ptr, vp, arg)) {
 		return(false);
 	}
 	Unknown_53FE30();
@@ -99,15 +99,15 @@ bool GalaxyMapPipClass::Unknown_04(const RefCountPtr<InterfaceClass> &iface_ptr,
 }
 
 // @0x53F7E0
-bool GalaxyMapPipClass::Unknown_08()
+bool GalaxyMapPIPClass::Unknown_08()
 {
-	return(MapPipClass::Unknown_08() ? true : false);
+	return(MapPIPClass::Unknown_08() ? true : false);
 }
 
 // @0x53F800
-bool GalaxyMapPipClass::Unknown_0C(bool on)
+bool GalaxyMapPIPClass::Unknown_0C(bool on)
 {
-	if (!MapPipClass::Unknown_0C(on)) {
+	if (!MapPIPClass::Unknown_0C(on)) {
 		return(false);
 	}
 	if (on) {
@@ -126,18 +126,18 @@ bool GalaxyMapPipClass::Unknown_0C(bool on)
 }
 
 // @0x53F920
-void GalaxyMapPipClass::Unknown_1C(int arg)
+void GalaxyMapPIPClass::Unknown_1C(int arg)
 {
 	if (Grid->Peek_Scene()) {
 		Grid->Remove();
 		return;
 	}
-	InterfaceSortClass sort(Interface.Peek());
+	LocalInterfaceSort sort(Interface.Peek());
 	Grid->Add(Scene.Peek());
 }
 
 // @0x53F9E0
-void GalaxyMapPipClass::Unknown_53F9E0()
+void GalaxyMapPIPClass::Unknown_53F9E0()
 {
 	if (Ease >= 0.0f) {
 		float x = Ease * 10.0f;
@@ -161,7 +161,7 @@ void GalaxyMapPipClass::Unknown_53F9E0()
 	} else {
 		Render->Unknown_7A7450();
 	}
-	DeltaPlayerClass *aux = ((SClient *)Client->As_Space_Client())->AuxData;
+	DeltaPlayerClass *aux = ((SpaceClientClass *)Client->As_Space_Client())->AuxData;
 	if (aux) {
 		DeltaTemplateClass<int> *sector = Unknown_Find_Field<DeltaTemplateClass<int> >(aux, "SectorNum");
 		if (sector && sector->Unknown70 > 1) {
@@ -171,7 +171,7 @@ void GalaxyMapPipClass::Unknown_53F9E0()
 }
 
 // @0x53FCA0
-void GalaxyMapPipClass::Unknown_53FCA0(float arg)
+void GalaxyMapPIPClass::Unknown_53FCA0(float arg)
 {
 	Ease = -1.0f;
 	FocalPoint.MaxDistance = Render->Bounds.Radius * 3.0f;
@@ -180,7 +180,7 @@ void GalaxyMapPipClass::Unknown_53FCA0(float arg)
 }
 
 // @0x53FD10
-void GalaxyMapPipClass::Unknown_53FD10(const Vector2 &arg)
+void GalaxyMapPIPClass::Unknown_53FD10(const Vector2 &arg)
 {
 	Ease = -1.0f;
 	FocalPoint.Unknown_7A5980(arg, Render->Unknown14, Render->Unknown1C);
@@ -188,7 +188,7 @@ void GalaxyMapPipClass::Unknown_53FD10(const Vector2 &arg)
 }
 
 // @0x53FD60
-void GalaxyMapPipClass::Unknown_53FD60(const Vector2 &arg)
+void GalaxyMapPIPClass::Unknown_53FD60(const Vector2 &arg)
 {
 	Ease = -1.0f;
 	FocalPoint.Unknown_7A5AA0(arg);
@@ -196,22 +196,22 @@ void GalaxyMapPipClass::Unknown_53FD60(const Vector2 &arg)
 }
 
 // @0x53FDA0
-void GalaxyMapPipClass::Unknown_53FDA0(bool arg)
+void GalaxyMapPIPClass::Unknown_53FDA0(bool arg)
 {
 	SphereClass v; Render->Unknown_7A83D0(v, arg);
 	Unknown_5406A0(v, arg ? Unknown_B79240 : Unknown_B7923C);
 }
 
 // @0x53FE10
-bool GalaxyMapPipClass::Unknown_53FE10()
+bool GalaxyMapPIPClass::Unknown_53FE10()
 {
 	return(Render->Unknown_7A6A70());
 }
 
 // @0x53FE30
-void GalaxyMapPipClass::Unknown_53FE30()
+void GalaxyMapPIPClass::Unknown_53FE30()
 {
-	GalaxyMapClientClass *map = Client->GalaxyMap;
+	GalaxyMapClient *map = Client->GalaxyMap;
 	if (Debug) {
 		map->Load_Ini();
 	}
@@ -356,7 +356,7 @@ void GalaxyMapPipClass::Unknown_53FE30()
 
 	FAIL_IF(!GalaxyBackground) return;
 	Unknown_496AE0(GalaxyBackground.Peek(), true);
-	InterfaceSortClass sort(Interface.Peek());
+	LocalInterfaceSort sort(Interface.Peek());
 	GalaxyBackground->Add(Scene.Peek());
 	if (Grid) {
 		Grid->Remove();
@@ -406,10 +406,10 @@ void GalaxyMapPipClass::Unknown_53FE30()
 
 // 0x5404E0 exact via Unknown_Find_Inner + two dead Children.size() reads (D272) and direct sector->Value
 // @0x5404E0
-void GalaxyMapPipClass::Unknown_5404E0(bool arg)
+void GalaxyMapPIPClass::Unknown_5404E0(bool arg)
 {
 	Render->Unknown_7A7070(false);
-	DeltaPlayerClass *aux = ((SClient *)Client->As_Space_Client())->AuxData;
+	DeltaPlayerClass *aux = ((SpaceClientClass *)Client->As_Space_Client())->AuxData;
 	if (aux) {
 		DeltaTemplateClass<int> *sector = Unknown_Find_Valid<DeltaTemplateClass<int> >(aux, "SectorNum");
 		if (sector) {
@@ -426,7 +426,7 @@ void GalaxyMapPipClass::Unknown_5404E0(bool arg)
 }
 
 // @0x5406A0
-void GalaxyMapPipClass::Unknown_5406A0(const SphereClass &sphere, float angle)
+void GalaxyMapPIPClass::Unknown_5406A0(const SphereClass &sphere, float angle)
 {
 	Matrix3D tm(sphere.Center);
 	tm.Rotate_X(angle);
@@ -441,9 +441,9 @@ void GalaxyMapPipClass::Unknown_5406A0(const SphereClass &sphere, float angle)
 }
 
 // @0x5408B0
-void GalaxyMapPipClass::Unknown_24(int arg)
+void GalaxyMapPIPClass::Unknown_24(int arg)
 {
-	GalaxyMapClientClass *map = Client->GalaxyMap;
+	GalaxyMapClient *map = Client->GalaxyMap;
 
 
 
@@ -473,9 +473,9 @@ void GalaxyMapPipClass::Unknown_24(int arg)
 		return;
 	}
 	if (map->Unknown_7A5540(Client)) {
-		((SClient *)Client->As_Space_Client())->Unknown_74D990(0, "Galaxymap PIP will now show the whole galaxy.", 0);
+		((SpaceClientClass *)Client->As_Space_Client())->Unknown_74D990(0, "Galaxymap PIP will now show the whole galaxy.", 0);
 	} else {
-		((SClient *)Client->As_Space_Client())->Unknown_74D990(0, "Galaxymap PIP will now show only areas that you have explored.", 0);
+		((SpaceClientClass *)Client->As_Space_Client())->Unknown_74D990(0, "Galaxymap PIP will now show only areas that you have explored.", 0);
 	}
 }
 
@@ -496,6 +496,6 @@ void GalaxyMapPipClass::Unknown_24(int arg)
 **	Matrix3D(const Vector3 &) inlined).
 **
 **	0x5404E0's residue: the Cast. 0x53F9E0's find of the same field expands it, 0x5404E0's calls it (0x40C1C1); the rest
-**	of the function is the client's. Tried (attempts.csv): Find_Valid tail and non-tail, a NameClass local, helpers
+**	of the function is the client's. Tried (attempts.csv): Find_Valid tail and non-tail, a AuxDataName local, helpers
 **	around the find with early returns (they let callers inline 0x5404E0 instead), helpers before it, dead finds.
 */

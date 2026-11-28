@@ -19,13 +19,13 @@
 #include "..\shared\chat_edit_stream.h"	// the chat stream (0x4C4360-0x4C4962)
 
 // opcode 95 (0x005F, AVATAR_EMOTE_RESPONSE): vtable 0xB0B374, constructor 0x89D3F0, 0x1C bytes
-class MessageChatstreamPacketClass : public PacketClass
+class MessageChatstreamPacketClass : public UnknownPacketBaseClass
 {
 public:
 	MessageChatstreamPacketClass(unsigned char color, char *chat_string, short chatsize, int ship_id);	// 0x89D310 (ChatString is the caller's, not copied)
-	MessageChatstreamPacketClass(RawPacketClass *raw);	// 0x89D3F0
+	MessageChatstreamPacketClass(PacketClass *raw);	// 0x89D3F0
 	virtual ~MessageChatstreamPacketClass();	// +0x00 0x89D4D0 / 0x89D3C0
-	virtual RawPacketClass *Build();	// +0x04 0x89D510
+	virtual PacketClass *Encode();	// +0x04 0x89D510  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x736F10 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x89D600
 	virtual int Print(char *buffer, int len);	// +0x10 0x89D620

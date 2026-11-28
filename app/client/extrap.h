@@ -24,7 +24,7 @@
 #include "quat.h"
 
 class ClientClass;
-class SClient;
+class SpaceClientClass;
 class SimplePositionalUpdatePacketClass;
 class PlanetPositionalUpdatePacketClass;
 class ComponentPositionalUpdatePacketClass;
@@ -43,7 +43,7 @@ public:
 	virtual Vector3 Unknown_14(int time);	// +0x14 0x70F180 (Unknown_1C's rotation rate)  // NAME 2 [time]: as Unknown_04's
 	virtual Vector3 Unknown_18(int time) { return(Vector3(0.0f, 0.0f, 0.0f)); }	// +0x18 0x70F2D0  // NAME 2 [time]: as Unknown_04's
 	virtual void Unknown_1C(int time, Vector3 *position, Quaternion *orientation, Vector3 *velocity, float *speed, Vector3 *rotrate, bool unknown) = 0;	// +0x1C (pure)  // NAME 3 [position, orientation, velocity, speed, rotrate]: the client's asserts 'position->Is_Valid()' ... (0x70F630)  // NAME 1 [unknown]: neutral
-	virtual void Set_Motion(unsigned int time, float *speed, float *acceleration, float *turn_rate, float *tilt_rate);	// +0x20 0x70F1D0 (the base asserts)  // NAME 3: the client's assert text  // NAME 2 [time, speed, acceleration, turn_rate, tilt_rate]: the aux fields postate's 0x717430 reads for them
+	virtual void Set_Motion(unsigned int time, float *speed, float *acceleration, float *turn_rate, float *tilt_rate);	// +0x20 0x70F1D0 (the base asserts)  // NAME 3: the client's assert text  // NAME 2 [time, speed, acceleration, turn_rate, tilt_rate]: the aux fields postate's 0x717430 reads for them  // NAME 5: thunk order probable, binary.md 5.11
 	virtual void End_Tilt(int time, float rate);	// +0x24 0x70F210 (the base asserts)  // NAME 3: the client's assert text  // NAME 2 [time, rate]: what postate's 0x7179A0 passes
 	virtual StateNode *Unknown_28(int time) { return(this); }	// +0x28 0x70F300 (the node to use from now on: a blend returns its end node once it is over)  // NAME 2 [time]: as Unknown_04's
 };
@@ -174,10 +174,10 @@ public:
 };
 
 // The component node (vtable 0xB025C8, 0x14 bytes)
-class Unknown713C80Class : public Unknown70F4F0Class	// NAME 1: neutral (D10)
+class ComponentNode : public Unknown70F4F0Class  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
-	Unknown713C80Class(ComponentPositionalUpdatePacketClass *packet, ClientClass *client);	// 0x713C80  // NAME 1 [packet, client]: what postate's state passes
+	ComponentNode(ComponentPositionalUpdatePacketClass *packet, ClientClass *client);	// 0x713C80  // NAME 1 [packet, client]: what postate's state passes
 };
 
 // A blend from one node to another between two times (vtable 0xB024C0, 0x78 bytes)
@@ -282,15 +282,15 @@ public:
 };
 
 // A formation member: the leader's state plus an offset (vtable 0xB02628, 0x48 bytes)
-class Unknown714340Class : public StateNode	// NAME 1: neutral (D10)
+class FormationNode : public StateNode  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
-	Unknown714340Class(SClient *client, FormationPositionalUpdatePacketClass *packet);	// 0x714340  // NAME 1 [client, packet]: what postate's state passes
+	FormationNode(SpaceClientClass *client, FormationPositionalUpdatePacketClass *packet);	// 0x714340  // NAME 1 [client, packet]: what postate's state passes
 	virtual void Unknown_1C(int time, Vector3 *position, Quaternion *orientation, Vector3 *velocity, float *speed, Vector3 *rotrate, bool unknown);	// +0x1C 0x714410  // NAME 2: as the base's
-	virtual void Set_Motion(unsigned int time, float *speed, float *acceleration, float *turn_rate, float *tilt_rate) {}	// +0x20 0x7147B0  // NAME 2: as the base's
+	virtual void Set_Motion(unsigned int time, float *speed, float *acceleration, float *turn_rate, float *tilt_rate) {}	// +0x20 0x7147B0  // NAME 2: as the base's  // NAME 5: thunk order probable, binary.md 5.11
 	virtual void End_Tilt(int time, float rate) {}	// +0x24 0x7147D0  // NAME 2: as the base's
 
-	SClient *Client;		// +0x04  // NAME 2: what the state passes
+	SpaceClientClass *Client;		// +0x04  // NAME 2: what the state passes
 	int LeaderID;			// +0x08  // NAME 2: the packet's LeaderID
 	Vector3 Offset;			// +0x0C  // NAME 2: the packet's Offset
 	Matrix3D Unknown18;		// +0x18 (identity)

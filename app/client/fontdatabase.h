@@ -107,7 +107,7 @@ public:
 	void Load();														// inline: what the constructor does  // NAME 2: what it does
 	void Load_Init(INIClass &ini, char *section, FontInitStruct *info);	// 0x6BF330: one INIT section and its templates  // NAME 2: what it does
 	void Unknown_6BE520();												// 0x6BE520: walks Strings, the body compiled out  // NAME 1 [Unknown_6BE520]: neutral (D10)
-	void Load_String(INIClass &ini, char *section, FontStringStruct *str);	// 0x6C0430: one string template and its Template%d templates  // NAME 2: what it does
+	void Load_String(INIClass &ini, char *section, StringInfo *str);	// 0x6C0430: one string template and its Template%d templates  // NAME 2: what it does
 	void Unknown_6BF910();												// 0x6BF910: loads fontsys.ini's INIT sections  // NAME 1 [Unknown_6BF910]: neutral (D10)
 	void Unknown_6BFD00(const char *ini_name);								// 0x6BFD00: COLOR-n and EFFECT-n sections  // NAME 1 [Unknown_6BFD00]: neutral (D10)
 	void Unknown_6C2080();
@@ -120,9 +120,9 @@ public:
 	FontInitStruct *Get_Info(int width, int height);						// 0x6C2CB0  // NAME 2: as Get_Info, for a given resolution
 	FontColorStruct *Find_Color(const char *name);							// 0x6C2D00  // NAME 2: what it does
 	FontEffectStruct *Find_Effect(const char *name);						// 0x6C2E10  // NAME 2: what it does
-	FontStringStruct *Find_String(const char *name);						// 0x6C2F20  // NAME 2: what it does
+	StringInfo *Find_String(const char *name);						// 0x6C2F20  // NAME 2: what it does
 	void Remove_String(const char *name);									// 0x6C3030  // NAME 2: what it does
-	void Add_String(FontStringStruct *str);									// 0x6C3380  // NAME 2: what it does
+	void Add_String(StringInfo *str);									// 0x6C3380  // NAME 2: what it does
 	void Add_Effect(FontEffectStruct *effect);								// 0x6C3550  // NAME 2: what it does
 	void Add_Color(FontColorStruct *color);									// 0x6C3720  // NAME 2: what it does
 	void Clear_Infos();													// 0x6BEE60  // NAME 2: what it does
@@ -145,7 +145,7 @@ public:
 	std::vector<FontInitStruct *> Infos;									// +0x00  // NAME 2: the INIT sections, by resolution
 	std::hash_map<std::string, FontColorStruct *> Colors;					// +0x10  // NAME 2: what it holds
 	std::hash_map<std::string, FontEffectStruct *> Effects;					// +0x28  // NAME 2: what it holds
-	std::hash_map<std::string, FontStringStruct *> Strings;					// +0x40  // NAME 2: what it holds
+	std::hash_map<std::string, StringInfo *> Strings;					// +0x40  // NAME 2: what it holds
 	std::vector<std::string> AllFonts;										// +0x58, the client's name (its assert)
 	FontStruct Font[MAXFONTS];												// +0x68, the client's name (its assert)
 };

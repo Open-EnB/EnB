@@ -11,7 +11,7 @@ MessageChatstreamPacketClass::MessageChatstreamPacketClass(unsigned char color, 
 	ChatString = chat_string;
 }
 
-MessageChatstreamPacketClass::MessageChatstreamPacketClass(RawPacketClass *raw) :
+MessageChatstreamPacketClass::MessageChatstreamPacketClass(PacketClass *raw) :
 	Owned(true)
 {
 	raw->Get(&Chatsize, sizeof(Chatsize));
@@ -28,9 +28,9 @@ MessageChatstreamPacketClass::~MessageChatstreamPacketClass()
 	}
 }
 
-RawPacketClass *MessageChatstreamPacketClass::Build()
+PacketClass *MessageChatstreamPacketClass::Encode()
 {
-	RawPacketClass *raw = new RawPacketClass(95, Get_Data_Size());
+	PacketClass *raw = new PacketClass(95, Get_Data_Size());
 	raw->Add(&Chatsize, sizeof(Chatsize));
 	raw->Add(&Color, sizeof(Color));
 	raw->Add(&ShipID, sizeof(ShipID));

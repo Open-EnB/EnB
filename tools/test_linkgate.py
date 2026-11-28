@@ -75,8 +75,8 @@ class Judge(unittest.TestCase):
             shutil.rmtree(tree, ignore_errors=True)
 
     def test_lnk2005_refuses(self):
-        dup = ('client_stubs.obj : error LNK2005: "public: void __thiscall SClient::Unknown_64(void)" '
-               '(?Unknown_64@SClient@@QAEXXZ) already defined in app_sclient.obj')
+        dup = ('client_stubs.obj : error LNK2005: "public: void __thiscall SpaceClientClass::Unknown_64(void)" '
+               '(?Unknown_64@SpaceClientClass@@QAEXXZ) already defined in app_sclient.obj')
         problems, _ = linkgate.judge({'client': summary(),
                                       'clienttest': summary(exe=False, link_errors=[dup, 'fatal error LNK1169: one or '
                                                                                      'more multiply defined symbols found']),

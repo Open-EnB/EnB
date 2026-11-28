@@ -41,12 +41,12 @@ static char *EmoteSounds[] = {	// NAME 2: what it holds (EmoteDataClass plays th
 };
 
 // opcode 161 (0x00A1, TRIGGER_EMOTE): vtable 0xB0A52C, constructor 0x8860A0, 0x14 bytes
-class TriggerEmotePacketClass : public PacketClass  // NAME 2: Net-7's opcode name TRIGGER_EMOTE (the Net-7 opcode table; no structure check)
+class TriggerEmotePacketClass : public UnknownPacketBaseClass  // NAME 2: Net-7's opcode name TRIGGER_EMOTE (the Net-7 opcode table; no structure check)
 {
 public:
 	TriggerEmotePacketClass(int game_id, int emote);	// 0x886000
-	TriggerEmotePacketClass(RawPacketClass *raw);	// 0x8860A0
-	virtual RawPacketClass *Build();	// +0x04 0x886140
+	TriggerEmotePacketClass(PacketClass *raw);	// 0x8860A0
+	virtual PacketClass *Encode();	// +0x04 0x886140  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x868C40 (clientstub.cpp l.296)
 	virtual int Get_Data_Size();	// +0x0C 0x886210
 	virtual int Print(char *buffer, int len);	// +0x10 0x886230
@@ -57,12 +57,12 @@ public:
 };
 
 // opcode 162 (0x00A2, NOTIFY_EMOTE): vtable 0xB0A55C, constructor 0x886380, 0x18 bytes
-class NotifyEmotePacketClass : public PacketClass  // NAME 2: Net-7's opcode name NOTIFY_EMOTE (the Net-7 opcode table; no structure check)
+class NotifyEmotePacketClass : public UnknownPacketBaseClass  // NAME 2: Net-7's opcode name NOTIFY_EMOTE (the Net-7 opcode table; no structure check)
 {
 public:
 	NotifyEmotePacketClass(int game_id, int emote);	// 0x886270
-	NotifyEmotePacketClass(RawPacketClass *raw);	// 0x886380
-	virtual RawPacketClass *Build();	// +0x04 0x886420
+	NotifyEmotePacketClass(PacketClass *raw);	// 0x886380
+	virtual PacketClass *Encode();	// +0x04 0x886420  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x73A8E0 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x8864F0
 	virtual int Print(char *buffer, int len);	// +0x10 0x886510
@@ -70,7 +70,7 @@ public:
 
 	int GameID;	// +0x0C (network order)  // NAME 3: the client's Print text 'GameID='
 	int Emote;	// +0x10 (EmoteNames' index)  // NAME 3: the client's Print text 'Emote='
-	int Channel;	// +0x14 (PacketClass::Unknown_14 of the game id; -1 when received)  // NAME 2: Get_Channel returns it
+	int Channel;	// +0x14 (UnknownPacketBaseClass::Unknown_14 of the game id; -1 when received)  // NAME 2: Get_Channel returns it
 };
 
 #endif

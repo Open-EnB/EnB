@@ -6,7 +6,7 @@
 #include <string>
 #include "sclient.h"
 #include "gadget.h"
-#include "unknown_675120.h"
+#include "gd_uimesh.h"
 #include "gd_uiback.h"		// UIBackGadget (0x674260)
 #include "rendobj.h"
 #include "assetmgr.h"
@@ -27,7 +27,7 @@ class LineDisplayClientClass  // NAME 1: neutral (D10)
 public:
 	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
 	virtual void Unknown_10(); virtual void Unknown_14();
-	virtual SClient *As_Space_Client();					// +0x18 (as ui_manu.cpp's)  // NAME 3: the FAIL_IF's in ui_manu.cpp
+	virtual SpaceClientClass *As_Space_Client();					// +0x18 (as ui_manu.cpp's)  // NAME 3: the FAIL_IF's in ui_manu.cpp
 	virtual void Unknown_1C(); virtual void Unknown_20(); virtual void Unknown_24();
 	virtual int Unknown_28();							// +0x28 (what the experience display shows)
 };
@@ -45,7 +45,7 @@ public:
 
 
 // 0xB90A38: the mesh's buttons, gadgets 1..4 (tooltips from section 'UI_CPIT')
-static const char *PDAButtonNames[PDAInterfaceClass::NUM_BUTTONS] = {	// NAME 1: neutral (D10)
+static const char *PDAButtonNames[PDAInterface::NUM_BUTTONS] = {	// NAME 1: neutral (D10)
 	"MAP_BUT",
 	"CHARACTER_BUT",
 	"SHIP_BUT",
@@ -53,7 +53,7 @@ static const char *PDAButtonNames[PDAInterfaceClass::NUM_BUTTONS] = {	// NAME 1:
 };
 
 // 0x693140
-PDAInterfaceClass::PDAInterfaceClass(SClient *client) :
+PDAInterface::PDAInterface(SpaceClientClass *client) :
 	InterfaceClass((LineDisplayClientClass *)client),
 	Experience(NULL),
 	UnknownBC(true)
@@ -64,23 +64,23 @@ PDAInterfaceClass::PDAInterfaceClass(SClient *client) :
 }
 
 // 0x693230
-void PDAInterfaceClass::Unknown_54()
+void PDAInterface::Unknown_54()
 {
 	InterfaceMesh = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("TSI14A"));
 	Unknown58.Unknown_686CC0(InterfaceMesh.Peek(), NULL);
 
-	SClient *client = Get_Client()->As_Space_Client();
+	SpaceClientClass *client = Get_Client()->As_Space_Client();
 	Equipment = Create_NEW(new UIPdaEquipClass(client));
 	Equipment->Unknown_54();
 	Cargo = Create_NEW(new UIPdaCargoClass(client, this));
 	Cargo->Unknown_54();
 	Vault = Create_NEW(new UIVaultClass(Get_Client()->As_Space_Client()));
 	Vault->Unknown_54();
-	Character = Create_NEW(new UICinfoClass(client));
+	Character = Create_NEW(new CharacterInfoInterface(client));
 	Character->Unknown_54();
-	Ping = Create_NEW(new UIPingClass((LineDisplayClientClass *)Get_Client()->As_Space_Client()));
+	Ping = Create_NEW(new PingInterface((LineDisplayClientClass *)Get_Client()->As_Space_Client()));
 	Ping->Unknown_54();
-	Starmap = Create_NEW(new UIStarmapClass(client));
+	Starmap = Create_NEW(new StarmapInterface(client));
 	Starmap->Unknown_54();
 
 	for (int i = 0; i < NUM_BUTTONS; i++) {
@@ -101,7 +101,7 @@ void PDAInterfaceClass::Unknown_54()
 
 
 // 0x693950
-PDAInterfaceClass::~PDAInterfaceClass()
+PDAInterface::~PDAInterface()
 {
 	if (InterfaceMesh) {
 		Unknown58.Unknown_686DD0(InterfaceMesh.Peek());
@@ -140,11 +140,11 @@ PDAInterfaceClass::~PDAInterfaceClass()
 
 
 // 0x693CA0
-void PDAInterfaceClass::Unknown_60()
+void PDAInterface::Unknown_60()
 {
 	if (Active) {
 		FAIL_IF(!Get_Client()) return;
-		SClient *client = Get_Client()->As_Space_Client();
+		SpaceClientClass *client = Get_Client()->As_Space_Client();
 		if (Experience) {
 			if ((int)Experience->Get_Object() != Get_Client()->Unknown_28()) {
 				Experience->Unknown_08((ClientObjectClass *)Get_Client()->Unknown_28());
@@ -195,7 +195,7 @@ void PDAInterfaceClass::Unknown_60()
 	}
 }
 // the chat panel's window (0x694AA0) put away when a PDA window opens (inlined in each of 0x693E70's cases)
-static inline bool PDA_Window_Active(PDAInterfaceClass *pda, int index) { RefCountPtr<InterfaceClass> window = pda->Unknown_6956C0(index); if (window) { return(window->Is_Active()); } return(false); }	// 0x695C50's body inline (cases 7 / 9: the release inline on the found path, out of line on the other)  // NAME 1: neutral (D10)
+static inline bool PDA_Window_Active(PDAInterface *pda, int index) { RefCountPtr<InterfaceClass> window = pda->Unknown_6956C0(index); if (window) { return(window->Is_Active()); } return(false); }	// 0x695C50's body inline (cases 7 / 9: the release inline on the found path, out of line on the other)  // NAME 1: neutral (D10)
 // the window's own close, called with the raw pointer of a temporary: the client keeps it in esi and the temporary
 // alive until the call returns (EH state set around Unknown_5C), each expansion in its own stack slots
 inline void PDA_Close_Window(ChatPanelUIBase *window) { window->Unknown_5C(); window->Closed = 1; }	// NAME 1: neutral (D10)
@@ -206,13 +206,13 @@ inline void PDA_Close_Window(ChatPanelUIBase *window) { window->Unknown_5C(); wi
 
 
 // 0x693E70 (NOT EXACT: layout (0.94): the client has one play block, right after case 10's inner else, that every other path jumps to (eax = the name); ours keeps a second copy after the switch. The 40 name is one label in case 1: the client's cases 2 and 3/8 jump to its block)
-bool PDAInterfaceClass::Unknown_68(int key)
+bool PDAInterface::Unknown_68(int key)
 {
 	if (!UnknownBC) {
 		return(true);
 	}
-	SClient *sc = Get_Client()->As_Space_Client(); ChatPanelInterface *chat = sc->ChatPanel.Peek();	// through a local: the Peek straight off the call left an add eax, 0x127C the client lacks
-	SClient *client = Get_Client()->As_Space_Client();
+	SpaceClientClass *sc = Get_Client()->As_Space_Client(); ChatPanelInterface *chat = sc->ChatPanel.Peek();	// through a local: the Peek straight off the call left an add eax, 0x127C the client lacks
+	SpaceClientClass *client = Get_Client()->As_Space_Client();
 	const char *sound;
 	switch (key) {
 	case 1:
@@ -239,7 +239,7 @@ play40:
 			else {
 				Character->Unknown_5742B0(0);
 				sound = "SR_scifielectronic42.wav";
-				{ AudibleSoundClass *audible = SoundLibraryClass::Play_2D_Sound(sound, 0);
+				{ AudibleSoundClass *audible = SoundLibrary::Play_2D_Sound(sound, 0);
 				if (audible) {
 					audible->Set_Pan(0.5f);
 					audible->Play(true);
@@ -351,7 +351,7 @@ play40:
 	}
 	sound = "SR_scifielectronic42.wav";
 play:
-	AudibleSoundClass *audible = SoundLibraryClass::Play_2D_Sound(sound, 0);
+	AudibleSoundClass *audible = SoundLibrary::Play_2D_Sound(sound, 0);
 	if (audible) {
 		audible->Set_Pan(0.5f);
 		audible->Play(true);
@@ -361,13 +361,13 @@ play:
 }
 
 // 0x694AD0
-void PDAInterfaceClass::Unknown_58()
+void PDAInterface::Unknown_58()
 {
 	InterfaceClass::Unknown_58();
 }
 
 // 0x694AF0
-void PDAInterfaceClass::Unknown_5C()
+void PDAInterface::Unknown_5C()
 {
 	if (Active) {
 		InterfaceClass::Unknown_5C();
@@ -375,7 +375,7 @@ void PDAInterfaceClass::Unknown_5C()
 }
 
 // 0x694B10
-void PDAInterfaceClass::Unknown_7C(UIViewClass *view, bool arg)
+void PDAInterface::Unknown_7C(UIViewClass *view, bool arg)
 {
 	if (View != view) {
 		Equipment->Unknown_7C(view, false);
@@ -453,7 +453,7 @@ void PDAInterfaceClass::Unknown_7C(UIViewClass *view, bool arg)
 
 
 // 0x694BE0
-void PDAInterfaceClass::Unknown_70(ControlKeysManager *manager)
+void PDAInterface::Unknown_70(ControlKeysManager *manager)
 {
 	FAIL_IF(!manager) return;
 	manager->Add_Keys(&Unknown4C, std::string("Toggle Ping"), (void *)6, 0);
@@ -467,7 +467,7 @@ void PDAInterfaceClass::Unknown_70(ControlKeysManager *manager)
 }
 
 // 0x695110
-void PDAInterfaceClass::Unknown_74(ControlKeysManager *manager)
+void PDAInterface::Unknown_74(ControlKeysManager *manager)
 {
 
 	FAIL_IF(!manager) return;
@@ -482,7 +482,7 @@ void PDAInterfaceClass::Unknown_74(ControlKeysManager *manager)
 }
 
 // 0x695630
-RefCountPtr<UIInvClass> PDAInterfaceClass::Unknown_695630()
+RefCountPtr<UIInvClass> PDAInterface::Unknown_695630()
 {
 	if (Cargo->Is_Active()) {
 		return(Cargo);
@@ -491,7 +491,7 @@ RefCountPtr<UIInvClass> PDAInterfaceClass::Unknown_695630()
 }
 
 // 0x695680
-RefCountPtr<UIInvClass> PDAInterfaceClass::Unknown_695680()
+RefCountPtr<UIInvClass> PDAInterface::Unknown_695680()
 {
 	if (Cargo) {
 		return(Cargo);
@@ -513,7 +513,7 @@ RefCountPtr<UIInvClass> PDAInterfaceClass::Unknown_695680()
 
 
 // 0x6956C0
-RefCountPtr<InterfaceClass> PDAInterfaceClass::Unknown_6956C0(int index)
+RefCountPtr<InterfaceClass> PDAInterface::Unknown_6956C0(int index)
 {
 	switch (index) {
 	case 0: return(Cargo);
@@ -528,10 +528,10 @@ RefCountPtr<InterfaceClass> PDAInterfaceClass::Unknown_6956C0(int index)
 
 
 // 0x695780
-bool PDAInterfaceClass::Unknown_695780(int index)
+bool PDAInterface::Unknown_695780(int index)
 {
 	FAIL_IF(!Get_Client()) return(false);
-	SClient *sc = Get_Client()->As_Space_Client();
+	SpaceClientClass *sc = Get_Client()->As_Space_Client();
 	FAIL_IF(!sc) return(false);
 	if (sc->Bridge == NULL || !sc->Bridge->Is_Busy()) {
 		UnknownB0 = Unknown_6956C0(index);
@@ -601,7 +601,7 @@ bool PDAInterfaceClass::Unknown_695780(int index)
 
 
 // 0x695A00: cases 1 and 3 clear arg (the client jumps from them straight to the return-true tail), case 3 before case 2 as the client lays them out
-bool PDAInterfaceClass::Unknown_695A00(int index, bool arg)
+bool PDAInterface::Unknown_695A00(int index, bool arg)
 {
 	RefCountPtr<InterfaceClass> window = Unknown_6956C0(index);
 	if (!window || !window->Is_Active()) {
@@ -630,7 +630,7 @@ bool PDAInterfaceClass::Unknown_695A00(int index, bool arg)
 	}
 	if (arg) {
 		FAIL_IF(!Get_Client()) return(false);
-		SClient *sc = Get_Client()->As_Space_Client(); if (sc->Bridge) {
+		SpaceClientClass *sc = Get_Client()->As_Space_Client(); if (sc->Bridge) {
 			sc->Bridge->Set_View(BridgeInterface::VIEW_MAIN);
 		}
 	}
@@ -638,7 +638,7 @@ bool PDAInterfaceClass::Unknown_695A00(int index, bool arg)
 }
 
 #pragma auto_inline(off)	// 0x695C50 (0x693E70 and 0x695D70 call it out of line)
-bool PDAInterfaceClass::Unknown_695C50(int index)
+bool PDAInterface::Unknown_695C50(int index)
 {
 	RefCountPtr<InterfaceClass> window = Unknown_6956C0(index);
 	if (window) {
@@ -648,7 +648,7 @@ bool PDAInterfaceClass::Unknown_695C50(int index)
 }
 #pragma auto_inline(on)
 // 0x695CE0
-bool PDAInterfaceClass::Unknown_695CE0()
+bool PDAInterface::Unknown_695CE0()
 {
 	if (Cargo && Cargo->Is_Active()) {
 		return(true);
@@ -669,7 +669,7 @@ bool PDAInterfaceClass::Unknown_695CE0()
 }
 
 // 0x695D70
-bool PDAInterfaceClass::Unknown_695D70(int index)
+bool PDAInterface::Unknown_695D70(int index)
 {
 	if (Unknown_695C50(index)) {
 		Unknown_695A00(index, true);
@@ -680,7 +680,7 @@ bool PDAInterfaceClass::Unknown_695D70(int index)
 }
 
 // 0x695DC0
-void PDAInterfaceClass::Unknown_695DC0(bool on)
+void PDAInterface::Unknown_695DC0(bool on)
 {
 	Cargo->Unknown_5D0A20(on);
 	if (on) {
@@ -705,7 +705,7 @@ void PDAInterfaceClass::Unknown_695DC0(bool on)
 
 
 // 0x695E10
-void PDAInterfaceClass::Unknown_695E10(int type, int *num_items, int *num_slots)
+void PDAInterface::Unknown_695E10(int type, int *num_items, int *num_slots)
 {
 	FAIL_IF(!num_items) return;
 	FAIL_IF(!num_slots) return;
@@ -725,7 +725,7 @@ void PDAInterfaceClass::Unknown_695E10(int type, int *num_items, int *num_slots)
 }
 
 // 0x695F40
-void PDAInterfaceClass::Unknown_695F40()
+void PDAInterface::Unknown_695F40()
 {
 	if (Starmap->Is_Active()) {
 		Unknown_695A00(4, true);
@@ -745,7 +745,7 @@ void PDAInterfaceClass::Unknown_695F40()
 }
 
 // 0x695FE0 (NOT EXACT: block order (the client puts the off branch's own return first: 0.59))
-void PDAInterfaceClass::Unknown_695FE0(bool on)
+void PDAInterface::Unknown_695FE0(bool on)
 {
 	if (UnknownBC != on) {
 		UnknownBC = on;
@@ -764,7 +764,7 @@ void PDAInterfaceClass::Unknown_695FE0(bool on)
 **	The object: the client's __FILE__ 'e:\build\beta\G\app\Client\pdaint.cpp' (0xB90AA8) in the asserts of
 **	0x693CA0 (lines 146, 189), 0x694BE0 / 0x695110 (458, 473), 0x6956C0 (525), 0x695780 (533, 535), 0x695A00 (632)
 **	and 0x695E10 (710, 711); the constructor 0x693140 sets the table 0xAFD148 whose slots are this file's functions.
-**	SClient::Init news it (0xC0 bytes, +0x1284).
+**	SpaceClientClass::Init news it (0xC0 bytes, +0x1284).
 **
 **	Output in the range besides these: the deleting destructor 0x693200, ChatPanelInterface's inline 0x694AA0 and
 **	the Create_NEW instantiations 0x696030 / 0x6960A0 / 0x696110 / 0x696180 / 0x6961F0 / 0x696260.

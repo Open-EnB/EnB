@@ -7,7 +7,7 @@ rebuilt header gives an offset comment (`// +0xNN`) sits at that offset.
                                                    a compile error naming the class and member)
 
 The offsets' evidence: where tools/re/pkdecode.py decoded the class from the client (its constructor's
-RawPacketClass::Get calls on members, .work/pkdecode/decoded.pkl) the member at that offset is the client's
+PacketClass::Get calls on members, .work/pkdecode/decoded.pkl) the member at that offset is the client's
 ('client' in the line's comment); else the header's own comment ('header': drafted from the client by pkemit.py or
 by hand). A check is `typedef char NAME[(cond) ? 1 : -1];` (VC6 has no static_assert); offsets by offsetof. A
 member of a #pragma pack class is checked the same way (offsetof follows the packing).

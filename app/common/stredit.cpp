@@ -13,7 +13,7 @@
 **	Reconstruction notes (stredit.cpp, client 0x84AA10-0x84B350; __FILE__ 0xBB0FEC, asserts on the client's
 **	lines 335 / 382 / 400, D25: blank lines keep them there).
 **
-**	StrEditClass (stredit.h) is the text gadgets' edit buffer: String holds MaxLen characters, the terminator and
+**	StringEditClass (stredit.h) is the text gadgets' edit buffer: String holds MaxLen characters, the terminator and
 **	STRING_CHECK_VALUE after it; Cursor points into it; InsertMode (the constructor's true) is toggled by the Insert
 **	key. Process_Key takes a key event: Home / End / Left / Right (with Ctrl by words), Insert, Delete, Backspace,
 **	Enter as a newline with flag 0x40, and the event's character (input.cpp's 0x42EB80) through the flags and Chars.
@@ -24,7 +24,7 @@
 **	("Effect Radius : %d"), is another file's.
 */
 
-StrEditClass::StrEditClass(int maxlen, const char *string, unsigned int flags, const char *chars)
+StringEditClass::StringEditClass(int maxlen, const char *string, unsigned int flags, const char *chars)
 {
 	String = new char[maxlen + 2];
 	Chars = chars;
@@ -40,7 +40,7 @@ StrEditClass::StrEditClass(int maxlen, const char *string, unsigned int flags, c
 	String[maxlen + 1] = STRING_CHECK_VALUE;
 }
 
-StrEditClass::~StrEditClass()
+StringEditClass::~StringEditClass()
 {
 	delete String;
 }
@@ -189,7 +189,7 @@ StrEditClass::~StrEditClass()
 
 
 // The character's two rejections are an if each and a full buffer has its own result = true: see the notes above
-bool StrEditClass::Process_Key(KernelEventClass *event)
+bool StringEditClass::Process_Key(KernelEventClass *event)
 {
 	int key = event->Key;
 	int result = false;
@@ -358,7 +358,7 @@ bool StrEditClass::Process_Key(KernelEventClass *event)
 
 
 
-bool StrEditClass::Insert(const char *text)
+bool StringEditClass::Insert(const char *text)
 {
 	if (text == NULL || *text == '\0') {
 		return(false);
@@ -401,7 +401,7 @@ bool StrEditClass::Insert(const char *text)
 	return(true);
 }
 
-char *StrEditClass::Get_String(int length, char *buffer)
+char *StringEditClass::Get_String(int length, char *buffer)
 {
 	if (length == -1) {
 		length = StrLen + 1;
@@ -413,13 +413,13 @@ char *StrEditClass::Get_String(int length, char *buffer)
 	return(buffer);
 }
 
-void StrEditClass::Set_String(const std::string &text)
+void StringEditClass::Set_String(std::string &text)
 {
 	Clear();
 	Insert(text.c_str());
 }
 
-void StrEditClass::Insert_String(const std::string &text)
+void StringEditClass::Insert_String(std::string &text)
 {
 	bool mode = InsertMode;
 	InsertMode = true;
@@ -427,7 +427,7 @@ void StrEditClass::Insert_String(const std::string &text)
 	InsertMode = mode;
 }
 
-bool StrEditClass::Set_Cursor(unsigned int position)
+bool StringEditClass::Set_Cursor(unsigned int position)
 {
 	int old = Cursor - String;
 	if (position > (unsigned int)StrLen) {
@@ -437,7 +437,7 @@ bool StrEditClass::Set_Cursor(unsigned int position)
 	return(old != Cursor - String);
 }
 
-bool StrEditClass::Move_Cursor(int delta)
+bool StringEditClass::Move_Cursor(int delta)
 {
 	return(Set_Cursor((Cursor - String) + delta));
 }

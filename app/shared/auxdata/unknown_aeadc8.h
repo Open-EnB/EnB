@@ -3,7 +3,7 @@
 **	PROVISIONAL file name (no assert or __FILE__ names it): the one-slot key/value interface
 **	(vtable 0xAEADC8) that DeltaClass and the login's data objects derive from, out of delta.h so
 **	that unknown_packetdata.h gets it without name.h / permstr.h. The client's CRT table shows the
-**	objects including sclient.h or unknown_packetdata.h without permstr.h's PermStringInit
+**	objects including sclient.h or unknown_packetdata.h without permstr.h's _PermStringInit
 **	initialiser (148 of them), so the header their interface came from did not reach permstr.h.
 */
 

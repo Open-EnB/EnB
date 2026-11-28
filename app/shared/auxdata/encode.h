@@ -23,7 +23,7 @@
 #include "delta.h"
 #include "bitset.h"
 
-class LinearBufferClass;
+class LinearBuffer;
 class DurationClass;
 
 // ------------------------------------------------------------------------- the field lists
@@ -60,7 +60,7 @@ class DeltaListSetClass  // NAME 2: describes what it does
 {
 public:
 	DeltaListSetClass(DeltaListClass *updated, DeltaListClass *defaulted, DeltaListClass *cleared);	// 0x4A91B0
-	LinearBufferClass *Write(LinearBufferClass *buf);			// 0x4A91E0 (0 on a short write)  // NAME 2: describes what it does
+	LinearBuffer *Write(LinearBuffer *buf);			// 0x4A91E0 (0 on a short write)  // NAME 2: describes what it does
 
 	DeltaListClass *Lists[3];			// +0x00  // NAME 2: describes what it does
 };
@@ -80,7 +80,7 @@ class DeltaCollectorClass : public DeltaVisitorClass  // NAME 2: describes what 
 public:
 	DeltaCollectorClass(PolicyClass *policy, ChangeTableClass *changes);	// 0x4A8AF0
 	~DeltaCollectorClass();														// 0x4A8B40
-	virtual void Visit(DeltaCompoundClass *delta);							// 0x4A8CA0 (line 103)
+	virtual void Visit(DeltaContainer *delta);							// 0x4A8CA0 (line 103)
 	virtual void Visit(DeltaClass *delta);										// 0x4A8E60 (lines 164, 169)
 
 	DeltaListClass Updated;				// +0x04  // NAME 2: describes what it does
@@ -98,7 +98,7 @@ class RecordClass  // NAME 3: after the asserts' Records (encode.cpp)
 public:
 	virtual ~RecordClass() {}
 	virtual int Unknown_04() = 0;										// the bytes the tree form needs
-	virtual bool Unknown_08(LinearBufferClass *buf) = 0;		// writes the tree form
+	virtual bool Unknown_08(LinearBuffer *buf) = 0;		// writes the tree form
 };
 
 // A leaf's record (vtable 0xAEB2C4, 0xC bytes, pooled: 0xBE3AD0, blocks of 128)
@@ -107,7 +107,7 @@ class LeafRecordClass : public RecordClass, public AutoPoolClass<LeafRecordClass
 public:
 	LeafRecordClass(DeltaClass *delta, bool updated) : Delta(delta), Updated(updated) {}
 	virtual int Unknown_04() { return 0; }										// 0x4AA0F0
-	virtual bool Unknown_08(LinearBufferClass *buf);						// 0x4AA110
+	virtual bool Unknown_08(LinearBuffer *buf);						// 0x4AA110
 
 	DeltaClass *Delta;					// +0x04  // NAME 2: describes what it does
 	bool Updated;							// +0x08 the value is written  // NAME 2: describes what it does
@@ -118,7 +118,7 @@ public:
 class CompoundRecordClass : public RecordClass, public AutoPoolClass<CompoundRecordClass, 128>  // NAME 2: describes what it does
 {
 public:
-	CompoundRecordClass(DeltaCompoundClass *compound, bool whole) :
+	CompoundRecordClass(DeltaContainer *compound, bool whole) :
 		Compound(compound),
 		Updated(compound->Children.size()),
 		Defaulted(compound->Children.size()),
@@ -128,9 +128,9 @@ public:
 	}
 	// (the implicit destructor, 0x4AA210: VC6 stores no vtable in it)
 	virtual int Unknown_04();															// 0x4AA290
-	virtual bool Unknown_08(LinearBufferClass *buf);						// 0x4AA320 (line 660)
+	virtual bool Unknown_08(LinearBuffer *buf);						// 0x4AA320 (line 660)
 
-	BitSetClass *Get_Bits(int list)  // NAME 2: describes what it does
+	BitSet *Get_Bits(int list)  // NAME 2: describes what it does
 	{
 		switch (list) {
 			case 0: return &Updated;
@@ -140,10 +140,10 @@ public:
 		return 0;
 	}
 
-	DeltaCompoundClass *Compound;		// +0x04  // NAME 2: describes what it does
-	BitSetClass Updated;					// +0x08  // NAME 2: describes what it does
-	BitSetClass Defaulted;				// +0x14  // NAME 2: describes what it does
-	BitSetClass Cleared;					// +0x20  // NAME 2: describes what it does
+	DeltaContainer *Compound;		// +0x04  // NAME 2: describes what it does
+	BitSet Updated;					// +0x08  // NAME 2: describes what it does
+	BitSet Defaulted;				// +0x14  // NAME 2: describes what it does
+	BitSet Cleared;					// +0x20  // NAME 2: describes what it does
 	bool Whole;								// +0x2C the compound itself is in a list  // NAME 2: describes what it does
 };
 
@@ -154,7 +154,7 @@ public:
 	RecordTableClass(int count, DeltaListClass *first, DeltaListClass *second, DeltaListClass *third);	// 0x4A9A70
 	~RecordTableClass();															// 0x4A9B30
 	int Unknown_Sum();															// 0x4A9BA0 (the records' Unknown_04)
-	LinearBufferClass *Unknown_All(LinearBufferClass *buf);			// 0x4A9BE0 (0 when a record's Unknown_08 fails)
+	LinearBuffer *Unknown_All(LinearBuffer *buf);			// 0x4A9BE0 (0 when a record's Unknown_08 fails)
 	void Add(DeltaListClass *list, int id);								// 0x4A9C30 (lines 568-597)  // NAME 2: describes what it does
 
 	RecordClass **Records;		// +0x00 (the asserts' name)
@@ -163,14 +163,14 @@ public:
 
 // ------------------------------------------------------------------------- the codecs
 
-// The decoders of an aux-data update. The root's decode (DeltaCompoundClass::Decode, 0x4A3FA0)
+// The decoders of an aux-data update. The root's decode (DeltaContainer::Decode, 0x4A3FA0)
 // reads one byte and picks one: 0 the record form (RecordCodec), else the tree form
 // (Get_Tree_Codec()). Neither codec's constructor stores a vtable for the common base, so it is
 // declared novtable.
 class __declspec(novtable) DeltaCodecClass  // NAME 2 [DeltaCodecClass]: describes what it does
 {
 public:
-	virtual bool Decode(DeltaCompoundClass *root, LinearBufferClass &buf, const DurationClass &base) = 0;  // NAME 2: describes what it does
+	virtual bool Decode(DeltaContainer *root, LinearBuffer &buf, const DurationClass &base) = 0;  // NAME 2: describes what it does
 };
 
 // The record form (vtable 0xAEB29C): three lists of field ids (updated, defaulted, cleared), each a
@@ -178,7 +178,7 @@ public:
 class RecordCodecClass : public DeltaCodecClass  // NAME 2: describes what it does
 {
 public:
-	virtual bool Decode(DeltaCompoundClass *root, LinearBufferClass &buf, const DurationClass &base);	// 0x4A8FD0
+	virtual bool Decode(DeltaContainer *root, LinearBuffer &buf, const DurationClass &base);	// 0x4A8FD0
 };
 
 // The tree form (vtable 0xAEB2AC, the visitor's 0xAEB2A0; size 0x18): from the root down, each
@@ -187,12 +187,12 @@ public:
 class TreeCodecClass : public DeltaCodecClass, public DeltaVisitorClass  // NAME 2: describes what it does
 {
 public:
-	virtual bool Decode(DeltaCompoundClass *root, LinearBufferClass &buf, const DurationClass &base);	// 0x4A9350 (returns Error)
+	virtual bool Decode(DeltaContainer *root, LinearBuffer &buf, const DurationClass &base);	// 0x4A9350 (returns Error)
 	virtual bool Read_Header(bool *whole, bool *updated, bool *defaulted, bool *cleared);		// 0x4A9710  // NAME 2: describes what it does
-	virtual void Visit(DeltaCompoundClass *delta);			// 0x4A9400
+	virtual void Visit(DeltaContainer *delta);			// 0x4A9400
 	virtual void Visit(DeltaClass *delta);						// 0x4A9390
 
-	LinearBufferClass *Buffer;			// +0x08  // NAME 2: describes what it does
+	LinearBuffer *Buffer;			// +0x08  // NAME 2: describes what it does
 	const DurationClass *Base;			// +0x0C  // NAME 2: describes what it does
 	bool Error;								// +0x10  // NAME 2: describes what it does
 	int Mode;								// +0x14 for Visit(DeltaClass *): 0 updated, 1 defaulted, 2 cleared  // NAME 2: describes what it does

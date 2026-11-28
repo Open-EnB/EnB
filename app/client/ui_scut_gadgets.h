@@ -8,11 +8,11 @@
 #include <list>
 #include "..\..\wwlib\ref_ptr.h"
 
-class UIScutClass;
-class RObjGadgetClass;
+class ShortcutInterface;
+class RenderObjGadgetClass;
 class GadgetClass;
 class ClientClass;
-class SClient;
+class SpaceClientClass;
 
 class UIScutProxyGadgetClass;	// gd_scut_proxy.h's: the shortcut bar's button
 
@@ -29,7 +29,7 @@ struct ShortcutDataStruct	// NAME 2: what it holds
 
 // The gadgets on the shortcut bars and their saving in shortcut.ini (0x48 bytes, table 0xAF75DC, abstract: ui_slot_scut.cpp's
 // 0x630490 derives from it). Slots +0x0C, +0x10, +0x14 are the base's _purecall (0x9CCD10).
-class UIScutGadgetsClass	// NAME 3: class-from-file (D24) for ui_scut_gadgets.cpp
+class ShortcutGadgetsInterface  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	enum {
@@ -38,19 +38,19 @@ public:
 		STATE_RESTORED		// NAME 2: Get_State's other return
 	};
 
-	UIScutGadgetsClass(const std::string &name, SClient *sclient);	// 0x6136D0 (FAIL_IF '!sclient' l.65)  // NAME 3 [sclient]: the FAIL_IF's; NAME 2 [name]: Section's last part
-	virtual ~UIScutGadgetsClass();						// +0x00 0x613A20 (deleting 0x6139F0)
-	virtual void Set_UI(const RefCountPtr<UIScutClass> &ui);	// +0x04 0x613BA0: the old bars saved and emptied, the new one kept  // NAME 2: what it does
+	ShortcutGadgetsInterface(const std::string &name, SpaceClientClass *sclient);	// 0x6136D0 (FAIL_IF '!sclient' l.65)  // NAME 3 [sclient]: the FAIL_IF's; NAME 2 [name]: Section's last part
+	virtual ~ShortcutGadgetsInterface();						// +0x00 0x613A20 (deleting 0x6139F0)
+	virtual void Set_UI(const RefCountPtr<ShortcutInterface> &ui);	// +0x04 0x613BA0: the old bars saved and emptied, the new one kept  // NAME 2: what it does
 	virtual void Clear_UI();							// +0x08 0x613D70 (no direct caller)  // NAME 2: what it does
-	virtual RObjGadgetClass *Unknown_0C(int slot) = 0;	// +0x0C (0x614360: makes the gadget)  // NAME 3 [slot]: as Create_Shortcut's
-	virtual bool Unknown_10(RObjGadgetClass *gadget, std::string &key) = 0;	// +0x10 (0x614FB0: the gadget's %d_Key)  // NAME 2 [gadget, key]: what it fills
-	virtual RObjGadgetClass *Unknown_14(const char *key) = 0;	// +0x14 (0x614040: the gadget of a %d_Key)  // NAME 2 [key]: what it is given
+	virtual RenderObjGadgetClass *Unknown_0C(int slot) = 0;	// +0x0C (0x614360: makes the gadget)  // NAME 3 [slot]: as Create_Shortcut's
+	virtual bool Unknown_10(RenderObjGadgetClass *gadget, std::string &key) = 0;	// +0x10 (0x614FB0: the gadget's %d_Key)  // NAME 2 [gadget, key]: what it fills
+	virtual RenderObjGadgetClass *Unknown_14(const char *key) = 0;	// +0x14 (0x614040: the gadget of a %d_Key)  // NAME 2 [key]: what it is given
 	virtual int Unknown_18() { return(0); }				// +0x18 0x6139D0 (0x614360: the bar for a new gadget)
 
 	int Get_State();									// 0x613F50 (the G_ASSERT's)  // NAME 3: the FAIL_IF's
 	bool Restore();										// 0x613F80 (FAIL_IF l.135)  // NAME 2: what it does
 	bool Restore(const std::list<ShortcutDataStruct> &list);	// 0x614040 (G_ASSERTs 'added' l.160, '!restored' l.166)  // NAME 2: what it does; NAME 1 [list]: neutral
-	RObjGadgetClass *Create_Shortcut(int slot, UIScutProxyGadgetClass *button);	// 0x614360 (FAIL_IF '!ShortcutUI' l.187; 'shortcut_created_sn_1.wav')  // NAME 2: what it does; NAME 3 [slot]: ui_skills.cpp's 'from_slot != SlotDrag->Get_Slot()' (0x62DA30), the Slots of 0x6309F0, 0x685610's in 0x5A0740; NAME 2 [button]: the gadget under the pointer, or NULL for the first free one (its Set_Shortcut 0x66CB20)
+	RenderObjGadgetClass *Create_Shortcut(int slot, UIScutProxyGadgetClass *button);	// 0x614360 (FAIL_IF '!ShortcutUI' l.187; 'shortcut_created_sn_1.wav')  // NAME 2: what it does; NAME 3 [slot]: ui_skills.cpp's 'from_slot != SlotDrag->Get_Slot()' (0x62DA30), the Slots of 0x6309F0, 0x685610's in 0x5A0740; NAME 2 [button]: the gadget under the pointer, or NULL for the first free one (its Set_Shortcut 0x66CB20)
 	bool Delete_Shortcut(int scut);						// 0x614660 (FAIL_IFs l.235, l.238)  // NAME 2: what it does; NAME 3 [scut]: the FAIL_IF's
 	void Delete_All();									// 0x614730 (no direct caller)  // NAME 2: what it does
 	void Delete_Gadgets();								// (inline in the .cpp: a budget layer, see the notes; 0x613BA0 calls 0x614660 out of line through it)  // NAME 1: neutral
@@ -61,8 +61,8 @@ public:
 	void Save_Current();								// 0x6152C0  // NAME 2: what it does
 	void Init_Name(ClientClass *client);				// 0x6153B0 (FAIL_IF '!client' l.434; no direct caller)  // NAME 2: what it does; NAME 3 [client]: the FAIL_IF's
 
-	RefCountPtr<UIScutClass> ShortcutUI;				// +0x04 (FAIL_IF '!ShortcutUI' l.187)  // NAME 3: the FAIL_IF's
-	std::vector<RObjGadgetClass *> ShortcutGadgets;		// +0x08 (FAIL_IF '(unsigned)scut >= ShortcutGadgets.size()' l.235)  // NAME 3: the FAIL_IF's
+	RefCountPtr<ShortcutInterface> ShortcutUI;				// +0x04 (FAIL_IF '!ShortcutUI' l.187)  // NAME 3: the FAIL_IF's
+	std::vector<RenderObjGadgetClass *> ShortcutGadgets;		// +0x08 (FAIL_IF '(unsigned)scut >= ShortcutGadgets.size()' l.235)  // NAME 3: the FAIL_IF's
 	std::string Section;								// +0x18: <the player's id>_<name>  // NAME 2: what it is in shortcut.ini
 	std::string Name;									// +0x28 (shortcut.ini's 'Name')  // NAME 2: the entry's
 	std::list<ShortcutDataStruct> Saved;				// +0x38  // NAME 2: what it holds

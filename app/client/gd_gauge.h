@@ -6,7 +6,7 @@
 **
 **	The gauge gadgets: a bar of a screen's model whose texture is scrolled to a value of 0..1.
 **	GaugeGadgetClass (table 0xAFA1AC, 43 slots, 0x6C bytes, constructor 0x669570): the model gadget without a scene
-**	(unknown_675120.h) over the mesh's sub-object named by sprintf(format, 0), with slots +0xA4 / +0xA8 that set the
+**	(gd_uimesh.h) over the mesh's sub-object named by sprintf(format, 0), with slots +0xA4 / +0xA8 that set the
 **	value. TrailGaugeGadgetClass (table 0xAFA280, 0x88 bytes, constructor 0x669A30) adds the sub-object
 **	sprintf(format, 1): a second bar that runs after the first one's value (an AccelClass).
 */
@@ -18,7 +18,7 @@
 #ifndef GD_GAUGE_H
 #define GD_GAUGE_H
 
-#include "unknown_675120.h"
+#include "gd_uimesh.h"
 #include "..\shared\accel.h"
 #include "..\shared\uvcontrl.h"
 #include "..\shared\g_assert.h"
@@ -74,7 +74,7 @@ struct GaugeBarStruct  // NAME 1: neutral (D10): what it holds
 };
 
 // A gauge (0x6C bytes, table 0xAFA1AC): ui_faction.cpp's love / hate bars, skill_render.cpp's 'REACTOR_BAR1'
-class GaugeGadgetClass : public Unknown_675120Class	// NAME 3: class-from-file (D24) for app\Client\gd_gauge.cpp
+class GaugeGadgetClass : public UIMeshGadgetClass	// NAME 3: class-from-file (D24) for app\Client\gd_gauge.cpp
 {
 public:
 	GaugeGadgetClass(RenderObjClass *mesh, const char *format);	// 0x669570 (the sub-object sprintf(format, 0), or the mesh itself without a format)  // NAME 1 [mesh, format]: what it does with them

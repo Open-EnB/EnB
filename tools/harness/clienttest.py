@@ -1,4 +1,4 @@
-"""The client base, SClient and cpacket.cpp's handlers (D94(c), P-T7-1, P-T8-1): tests/clienttest.
+"""The client base, SpaceClientClass and cpacket.cpp's handlers (D94(c), P-T7-1, P-T8-1): tests/clienttest.
 
     ENB_VC6_HOSTS=<user>@<ip> python tools/harness/clienttest.py build [--out DIR]
     python tools/harness/clienttest.py run [--exe EXE] [--name alex3] [--session ffff9b25] [--count 1000] [--update]
@@ -131,7 +131,7 @@ def build(out):
                 # cpacket.cpp's chat list windows (ui_radio_list.cpp / ui_radio_admin.cpp / ui_playeropt.cpp, which
                 # ui_chat_panel.obj may pull in) go to clienttest.cpp's logging copies: the fake panel's +0xD8 / +0xE4 /
                 # +0xE8 are not real windows
-                f.write('#define UIPlayerOptClass Clienttest_UIPlayerOptClass\n'
+                f.write('#define PlayerOptionsInterface Clienttest_UIPlayerOptClass\n'
                         '#define UIRadioListClass Clienttest_UIRadioListClass\n'
                         '#define UIRadioAdminClass Clienttest_UIRadioAdminClass\n')
                 # the starbase interface's handlers (ui_starbase.obj, real since run 2026-11-09b, which the link pulls
@@ -190,7 +190,7 @@ def run(exe, name, session, count, update):
     # them from the working directory): tests/clienttest/data, never the game's (D69)
     for fn in os.listdir(DATA):
         shutil.copy(os.path.join(DATA, fn), WORK)
-    # Miles: loadingview.cpp (linked for SClient's calls) imports AIL_set_preference / AIL_serve, so the exe needs
+    # Miles: loadingview.cpp (linked for SpaceClientClass's calls) imports AIL_set_preference / AIL_serve, so the exe needs
     # Mss32.dll: the copy in build/art (artdir.py's), into the working directory (the DLL search finds it there)
     dll = os.path.join(REPO, 'build', 'art', 'MSS32.DLL')
     if os.path.exists(dll) and not os.path.exists(os.path.join(WORK, 'MSS32.DLL')):

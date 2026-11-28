@@ -7,7 +7,7 @@
 
 #include "..\..\wwlib\ref_ptr.h"
 
-class SClient;
+class SpaceClientClass;
 class RenderObjClass;
 class TextureClass;
 class FontSys;
@@ -19,12 +19,12 @@ class ShipStatsDisplayClass	// NAME 3: class-from-file (D24) for app\Client\ship
 {
 public:
 	enum { NUM_FIELDS = 15 };							// NAME 1: SSDC::NUM_SHIP_DISPLAY_FIELDS's value (the FAIL_IF text)
-	ShipStatsDisplayClass(SClient *client, RefCountPtr<RenderObjClass> &display);	// 0x6A2ED0 (FAIL_IF '!Display' l.113, G_ASSERT 'Client' l.114, FAIL_IF '!ChangeArrows[lp]' l.128)  // NAME 1 [client]: what the window passes
+	ShipStatsDisplayClass(SpaceClientClass *client, RefCountPtr<RenderObjClass> &display);	// 0x6A2ED0 (FAIL_IF '!Display' l.113, G_ASSERT 'Client' l.114, FAIL_IF '!ChangeArrows[lp]' l.128)  // NAME 1 [client]: what the window passes
 	~ShipStatsDisplayClass();							// 0x6A33B0
 	void Unknown_6A34E0(bool on);						// 0x6A34E0 (FAIL_IFs '!ship' l.155, '!font' l.217; the window's slot +0x58 passes true, +0x60 false): the texts and arrows from the ship's 'HullPoints' / 'MaxHullPoints' and 'BaseStats.' / 'CurrentStats.' fields  // NAME 1 [Unknown_6A34E0, on]: neutral (D10)
 	void Unknown_6A3C10();								// 0x6A3C10 (the window's key 16): the next update keeps the values again  // NAME 1: neutral (D10)
 
-	SClient *Client;									// +0x00  // NAME 5: the G_ASSERT 'Client'
+	SpaceClientClass *Client;									// +0x00  // NAME 5: the G_ASSERT 'Client'
 	RefCountPtr<RenderObjClass> Display;				// +0x04  // NAME 5: the FAIL_IF '!Display'
 	RefCountPtr<FontSys> Fonts[NUM_FIELDS];				// +0x08 (the mesh's named styles)  // NAME 1: neutral (D10)
 	RefCountPtr<RenderObjClass> ChangeArrows[NUM_FIELDS];	// +0x44 ('ud%02d')  // NAME 5: the FAIL_IF '!ChangeArrows[lp]'

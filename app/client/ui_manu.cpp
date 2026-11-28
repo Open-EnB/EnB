@@ -34,7 +34,7 @@
 extern FontManagerClass *Unknown_BE67C4;	// NAME 1: neutral (D10)
 #include "..\..\ww3d2\ww3d.h"	// WW3D::Get_Frame_Time / Get_Sync_Time (0xBFAE3C / 0xBFAE40: WW3D::SyncTime / PreviousSyncTime, written by WW3D::Sync 0x918200, read inline)
 
-// gadget.cpp's gadget, gd_slider.cpp's slider, the buttons (unknown_675120.h's ButtonGadgetClass) and the
+// gadget.cpp's gadget, gd_slider.cpp's slider, the buttons (gd_uimesh.h's ButtonGadgetClass) and the
 // check buttons (unknown_7e7e00.h's CheckBoxGadgetClass)
 #include "gadget.h"
 #include "gd_slider.h"
@@ -91,7 +91,7 @@ static unsigned int Unknown_B8183C = 9;					// NAME 1: neutral (D10): the filter
 static const float Unknown_AF2D18 = 1.0f;				// NAME 1: neutral (D10): what 0x5B3A70 stores (read from .rdata)
 
 
-UIManuClass::UIManuClass(SBaseViewClass *view, const LayerClass &layer) :
+UIManuClass::UIManuClass(StarbaseViewClass *view, const LayerClass &layer) :
 	Unknown5BB320Class(new UIMeshClass("TSM01A", true), (UIViewClass *)view, layer),
 	Unknown0AC(view),
 	Unknown0B0(NULL),
@@ -162,7 +162,7 @@ UIManuClass::~UIManuClass()
 
 
 
-// (the button gadgets slot +0x54 makes, 0x675240 / 0x675170: unknown_675120.h's ButtonGadgetClass)
+// (the button gadgets slot +0x54 makes, 0x675240 / 0x675170: gd_uimesh.h's ButtonGadgetClass)
 
 
 
@@ -183,7 +183,7 @@ class LineDisplayClientClass  // NAME 1: neutral (D10)
 public:
 	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
 	virtual void Unknown_10(); virtual void Unknown_14();
-	virtual SClient *As_Space_Client();					// +0x18 (ClientClass::As_Space_Client; SClient's returns itself)  // NAME 3: the FAIL_IF's
+	virtual SpaceClientClass *As_Space_Client();					// +0x18 (ClientClass::As_Space_Client; SpaceClientClass's returns itself)  // NAME 3: the FAIL_IF's
 };
 
 
@@ -221,12 +221,12 @@ void UIManuClass::Unknown_7C(UIViewClass *view, bool arg)
 
 void UIManuClass::Unknown_58()
 {
-	SClient *sclient = Client->As_Space_Client();
+	SpaceClientClass *sclient = Client->As_Space_Client();
 	int player_id; ((ClientClass *)Client)->Send_Packet(&ManufactureItemCatagoryPacketClass(player_id = sclient->Unknown1138, 1));	// NAME 1 [player_id]: neutral (D10)
 	if (State == UI_CLOSED) {
 		InterfaceSortScopeClass scope(this);
 		State = UI_OPEN;
-		Unknown0BAC = sclient->PDAInterface->Unknown_695780(false);
+		Unknown0BAC = sclient->PDAWindow->Unknown_695780(false);
 		Unknown_5B2820();
 
 
@@ -255,7 +255,7 @@ void UIManuClass::Unknown_58()
 		Unknown5BB320Class::Unknown_58();
 		ClientObjectClass *target = Client->As_Space_Client()->Unknown_74BF80();
 		if (target) {
-			Unknown0BA0 = (DeltaCompoundClass *)target->AuxData;
+			Unknown0BA0 = (DeltaContainer *)target->AuxData;
 		}
 		Unknown_5B4B10();
 		Unknown_5B3E00();
@@ -266,20 +266,20 @@ void UIManuClass::Unknown_58()
 	}
 }
 
-static inline int Manu_Player_Id(SClient *sclient) { return sclient->Unknown1138; }  // NAME 2: the player id read as the client's inline accessor
+static inline int Manu_Player_Id(SpaceClientClass *sclient) { return sclient->Unknown1138; }  // NAME 2: the player id read as the client's inline accessor
 void UIManuClass::Unknown_5C()
 {
 	State = UI_CLOSED;
 	Unknown0AC->Unknown_69DC60();
 	Unknown0BAE = false;
-	SClient *sclient = Client->As_Space_Client();
+	SpaceClientClass *sclient = Client->As_Space_Client();
 	((ClientClass *)Client)->Send_Packet(&ManufactureActionPacketClass(Manu_Player_Id(sclient), 0));
 	((ClientClass *)Client)->Send_Packet(&ManufactureItemCatagoryPacketClass(Manu_Player_Id(sclient), 0));
 	Unknown0B4->Unknown_5C();
 	Unknown0B8->Unknown_5C();
 	Unknown0BC->Unknown_5C();
 	if (Unknown0BAC) {
-		sclient->PDAInterface->Unknown_695A00(0, 1);
+		sclient->PDAWindow->Unknown_695A00(0, 1);
 	}
 	Unknown0BA0 = 0;
 	Unknown_BE67C4->Remove(InterfaceMesh->Peek_Mesh_Object());
@@ -348,7 +348,7 @@ bool Unknown_495FD0(RenderObjClass *robj, TextureClass *texture, int unknown);	/
 
 // The formula lists under the target item's aux data ('KnownFormula', 'PreviousAttempts'; their class's global at +0x04 is
 // 0xC41628) and their entries, as far as this file reads them
-class UIManuEntryClass : public DeltaCompoundClass	// NAME 1: neutral (D10)
+class UIManuEntryClass : public DeltaContainer	// NAME 1: neutral (D10)
 {
 public:
 	char Unknown09C[0x120 - 0x9C];						// +0x09C
@@ -390,8 +390,8 @@ public:
 
 bool Is_Validity_Attempt(UnknownB01394Enum validity);				// 0x846210 (manufacturing_defs.h keeps it from aux_roots.cpp's declaration count)
 static const char *Unknown_B81880[] = { "Manufacturing Target", "Attempt Succeeded", "N/A", " " };	// NAME 1: neutral (D10)
-template<class C> inline C *Unknown_Find_Valid(DeltaCompoundClass *root, const NameClass &name) { C *t = Unknown_Find_Field<C>(root, name); if (t && t->Unknown70) return(t); return(NULL); }	// NAME 1: neutral (D10): as co.cpp's
-template<class C> inline C *Unknown_Find_Valid_Field(DeltaCompoundClass *const &root, const char *name) { NameClass n(name); DeltaCompoundClass *r = root; C *t = Unknown_Find_Field<C>(r, n); if (t && t->Unknown70) return(t); return(NULL); } template<class C> inline C *Unknown_Find_Valid(DeltaCompoundClass *const &root, const char *name) { return(Unknown_Find_Valid_Field<C>(root, name)); }	// NAME 1: neutral (D10): as ui_analyze.cpp's (two inline layers: the client's finds 0x546780 / 0x5467F0 out of line in 0x5B4680)
+template<class C> inline C *Unknown_Find_Valid(DeltaContainer *root, const AuxDataName &name) { C *t = Unknown_Find_Field<C>(root, name); if (t && t->Unknown70) return(t); return(NULL); }	// NAME 1: neutral (D10): as co.cpp's
+template<class C> inline C *Unknown_Find_Valid_Field(DeltaContainer *const &root, const char *name) { AuxDataName n(name); DeltaContainer *r = root; C *t = Unknown_Find_Field<C>(r, n); if (t && t->Unknown70) return(t); return(NULL); } template<class C> inline C *Unknown_Find_Valid(DeltaContainer *const &root, const char *name) { return(Unknown_Find_Valid_Field<C>(root, name)); }	// NAME 1: neutral (D10): as ui_analyze.cpp's (two inline layers: the client's finds 0x546780 / 0x5467F0 out of line in 0x5B4680)
 // 0x5AFFC0
 void UIManuClass::Unknown_54()
 {
@@ -436,7 +436,7 @@ void UIManuClass::Unknown_54()
 	Unknown0B0 = new GadgetSlider(false, &Layer);
 	Unknown0B0->Unknown_66E460(Create_Peek(InterfaceMesh->Peek_Object()), 0, 1);
 	Unknown64.Unknown_6870E0(Unknown0B0, 0x35, View, 1, 0);
-	SClient *sclient = Client->As_Space_Client();
+	SpaceClientClass *sclient = Client->As_Space_Client();
 	Unknown0B4 = Create_Get(new UIInvRobjStripClass(sclient, InterfaceMesh->Peek_Object(), 6, "TSM01A.E%02d", 12));
 	Unknown0B4->Unknown_54();
 	Unknown0B4->Unknown_7C(View, 0);
@@ -474,7 +474,7 @@ void UIManuClass::Unknown_54()
 	}
 	Unknown_10();
 }
-template<class C> C *Unknown_Find_Changed(DeltaCompoundClass *root, const NameClass &name) { C *t = Unknown_Find_Field<C>(root, name); if (t && t->Unknown70 > 1) return(t); return(NULL); }	// NAME 1 [Unknown_Find_Changed]: neutral (D10); existing ui_refinery.cpp predicate
+template<class C> C *Unknown_Find_Changed(DeltaContainer *root, const AuxDataName &name) { C *t = Unknown_Find_Field<C>(root, name); if (t && t->Unknown70 > 1) return(t); return(NULL); }	// NAME 1 [Unknown_Find_Changed]: neutral (D10); existing ui_refinery.cpp predicate
 // NOT EXACT: inline budget (the nested PreviousAttempts lookup/Name boundary still differs; ManufactureComponents and Validity Casts 0x5B7210 / 0x5468D0 are recovered) (0x5B1230)
 void UIManuClass::Unknown_60()
 {
@@ -489,8 +489,8 @@ void UIManuClass::Unknown_60()
 	} else if (Unknown0BA4 != 0) {
 		bool done = false;
 		if (Unknown0BA4 == 1) {
-			NameClass name("ManufactureComponents");
-			UIManuComponentsClass *components = Unknown_Find_Changed<UIManuComponentsClass>((DeltaCompoundClass *)Unknown0BA0, name);
+			AuxDataName name("ManufactureComponents");
+			UIManuComponentsClass *components = Unknown_Find_Changed<UIManuComponentsClass>((DeltaContainer *)Unknown0BA0, name);
 			if (components) {
 				Unknown0BA4 = 0;
 				done = true;
@@ -507,12 +507,12 @@ void UIManuClass::Unknown_60()
 			}
 		}
 		if (Unknown0BA4 == 2) {
-			NameClass name("Validity");
-			DeltaTemplateClass<UnknownB01394Enum> *validity = Unknown_Find_Valid<DeltaTemplateClass<UnknownB01394Enum> >((DeltaCompoundClass *)Unknown0BA0, name);
+			AuxDataName name("Validity");
+			DeltaTemplateClass<UnknownB01394Enum> *validity = Unknown_Find_Valid<DeltaTemplateClass<UnknownB01394Enum> >((DeltaContainer *)Unknown0BA0, name);
 			if (Is_Validity_Attempt(validity->Value)) {
 				Unknown0BA4 = 0;
 				Unknown_5B1AF0(4, true, Unknown_B81880[1]);
-				SoundLibraryClass::Play_2D_Sound("success_1.wav", 2);
+				SoundLibrary::Play_2D_Sound("success_1.wav", 2);
 				if (Unknown0BAD) {
 					Unknown_5B3640(false);
 				}
@@ -551,13 +551,13 @@ bool UIManuClass::Unknown_68(int key)
 	Unknown0BB4 = false;
 	switch (key) {
 		case 1:
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			Unknown0AC->Unknown_69F440();
 			return(true);
 		case 2:
 		case 3:
 		case 4:
-			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+			SoundLibrary::Play_2D_Sound("fontclick.wav", 2);
 			Unknown_5B1C20(key - 2);
 			return(true);
 		case 8:
@@ -570,7 +570,7 @@ bool UIManuClass::Unknown_68(int key)
 		case 15:
 		case 16:
 		case 17:
-			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+			SoundLibrary::Play_2D_Sound("fontclick.wav", 2);
 			Unknown_5B1ED0(key - 8);
 			return(true);
 		case 18:
@@ -578,7 +578,7 @@ bool UIManuClass::Unknown_68(int key)
 		case 20:
 		case 21:
 		case 22:
-			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+			SoundLibrary::Play_2D_Sound("fontclick.wav", 2);
 			Unknown_5B2060(key - 18);
 			return(true);
 		case 23:
@@ -586,7 +586,7 @@ bool UIManuClass::Unknown_68(int key)
 		case 25:
 		case 26:
 		case 27:
-			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+			SoundLibrary::Play_2D_Sound("fontclick.wav", 2);
 			Unknown_5B2060(key - 23);
 			return(true);
 		case 28:
@@ -594,17 +594,17 @@ bool UIManuClass::Unknown_68(int key)
 		case 30:
 		case 31:
 		case 32:
-			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+			SoundLibrary::Play_2D_Sound("fontclick.wav", 2);
 			Unknown_5B2060(key - 28);
 			return(true);
 		case 5:
-			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+			SoundLibrary::Play_2D_Sound("fontclick.wav", 2);
 			if (!Unknown0BAD) {
 				Unknown_5B3640(true);
 			}
 			return(true);
 		case 6:
-			SoundLibraryClass::Play_2D_Sound("manufacture_1.wav", 2);
+			SoundLibrary::Play_2D_Sound("manufacture_1.wav", 2);
 			Unknown0BB4 = true;
 			Unknown_5B3A70();
 			return(true);
@@ -641,7 +641,7 @@ bool UIManuClass::Unknown_68(int key)
 
 
 
-template<class C> inline C *Unknown_Manu_Raw_Field(DeltaCompoundClass *const &root, const char *name) { NameClass n(name); DeltaCompoundClass *r = root; return(Unknown_Find_Field<C>(r, n)); } template<class C> inline C *Unknown_Manu_Raw(DeltaCompoundClass *const &root, const char *name) { return(Unknown_Manu_Raw_Field<C>(root, name)); }	// NAME 1: neutral (D10): auxdata.h's find through two inline layers (ui_analyze.cpp's form): out of line as the client in 0x5B5320 (0x5465C0 / 0x5466A0 / 0x546710 / 0x5B7130 / 0x5B6DB0), 0x5B4B10 (0x5466A0) and 0x5B2480 (0x5465C0)
+template<class C> inline C *Unknown_Manu_Raw_Field(DeltaContainer *const &root, const char *name) { AuxDataName n(name); DeltaContainer *r = root; return(Unknown_Find_Field<C>(r, n)); } template<class C> inline C *Unknown_Manu_Raw(DeltaContainer *const &root, const char *name) { return(Unknown_Manu_Raw_Field<C>(root, name)); }	// NAME 1: neutral (D10): auxdata.h's find through two inline layers (ui_analyze.cpp's form): out of line as the client in 0x5B5320 (0x5465C0 / 0x5466A0 / 0x546710 / 0x5B7130 / 0x5B6DB0), 0x5B4B10 (0x5466A0) and 0x5B2480 (0x5465C0)
 
 
 // 0x5B1AF0
@@ -673,8 +673,8 @@ void UIManuClass::Unknown_5B1C20(int level)
 		for (int i = 0; i < 10; i++) {
 			Unknown16C[i]->Unknown4E4 = true;
 		}
-		NameClass name("KnownFormula");
-		UIManuListClass *list = Unknown_Find_Valid<UIManuListClass>((DeltaCompoundClass *)Unknown0BA0, name);
+		AuxDataName name("KnownFormula");
+		UIManuListClass *list = Unknown_Find_Valid<UIManuListClass>((DeltaContainer *)Unknown0BA0, name);
 
 
 
@@ -689,9 +689,9 @@ void UIManuClass::Unknown_5B1C20(int level)
 	Unknown_5B4850();
 }
 
-inline UIManuListClass *UIManuClass::Unknown_Find_List(const char *field) { NameClass name(field); return(Unknown_Find_Field<UIManuListClass>((DeltaCompoundClass *)Unknown0BA0, name)); }
-template<class C> inline C *Unknown_Find_Set_List(DeltaCompoundClass *root, const NameClass &name) { C *t = Unknown_Find_Field<C>(root, name); return((t != NULL && t->Unknown70 != 0) ? t : NULL); }	// NAME 1: neutral (D10): the set test as one conditional expression (0x5B3850's jumps go straight to the end) with the explicit compares (their cost sends the 'PreviousAttempts' Cast out of line as the client's 0x5B7260)
-inline UIManuListClass *UIManuClass::Unknown_Find_Valid_List(const char *field) { NameClass name(field); DeltaCompoundClass *root = (DeltaCompoundClass *)Unknown0BA0; return(Unknown_Find_Set_List<UIManuListClass>(root, name)); }	// the root read into a local after the name (its cost sends both Casts out of line in 0x5B1ED0's inlined 0x5B3850 as the client's 0x5B7260; 0x5B3850 stays exact)
+inline UIManuListClass *UIManuClass::Unknown_Find_List(const char *field) { AuxDataName name(field); return(Unknown_Find_Field<UIManuListClass>((DeltaContainer *)Unknown0BA0, name)); }
+template<class C> inline C *Unknown_Find_Set_List(DeltaContainer *root, const AuxDataName &name) { C *t = Unknown_Find_Field<C>(root, name); return((t != NULL && t->Unknown70 != 0) ? t : NULL); }	// NAME 1: neutral (D10): the set test as one conditional expression (0x5B3850's jumps go straight to the end) with the explicit compares (their cost sends the 'PreviousAttempts' Cast out of line as the client's 0x5B7260)
+inline UIManuListClass *UIManuClass::Unknown_Find_Valid_List(const char *field) { AuxDataName name(field); DeltaContainer *root = (DeltaContainer *)Unknown0BA0; return(Unknown_Find_Set_List<UIManuListClass>(root, name)); }	// the root read into a local after the name (its cost sends both Casts out of line in 0x5B1ED0's inlined 0x5B3850 as the client's 0x5B7260; 0x5B3850 stays exact)
 static inline UIManuListClass *Unknown_Previous_Attempts(UIManuClass *manu) { return(manu->Unknown_Find_Valid_List("PreviousAttempts")); }	// NAME 1: neutral (D10): the extra layer of the 'PreviousAttempts' list (0x5B3850 calls its Cast out of line, the 'KnownFormula' one inline)
 inline UIManuListClass *UIManuClass::Unknown_Get_List()
 {
@@ -928,8 +928,8 @@ void UIManuClass::Unknown_5B2BD0(bool force)
 void UIManuClass::Unknown_5B2F20()
 {
 	if (!Unknown0BAD && Unknown0B98 == 3) {
-		NameClass name("KnownFormula");
-		UIManuListClass *list = Unknown_Find_Field<UIManuListClass>((DeltaCompoundClass *)Unknown0BA0, name);
+		AuxDataName name("KnownFormula");
+		UIManuListClass *list = Unknown_Find_Field<UIManuListClass>((DeltaContainer *)Unknown0BA0, name);
 		if (list && list->Unknown70 > 1) {
 			Unknown_5B3260(list);
 		}
@@ -943,11 +943,11 @@ void UIManuClass::Unknown_5B2FE0()
 		int a = Unknown0B80[0];
 		int b = Unknown0B80[1];
 		int c = Unknown0B80[2];
-		NameClass name("PrimaryCategories");
-		UIManuCategoriesClass *categories = Unknown_Find_Set_List<UIManuCategoriesClass>((DeltaCompoundClass *)Unknown0BA0, name);
+		AuxDataName name("PrimaryCategories");
+		UIManuCategoriesClass *categories = Unknown_Find_Set_List<UIManuCategoriesClass>((DeltaContainer *)Unknown0BA0, name);
 		if (categories) {
 			int id = ((UIManuNodeClass *)categories)->Unknown084[a]->Unknown1A8[b]->Unknown230[c]->Unknown1A8;
-			int player = Client->As_Space_Client()->Unknown1138; ((ClientClass *)Client)->Send_Packet(&ManufactureItemCatagoryPacket_122Class(player, id));
+			int player = Client->As_Space_Client()->Unknown1138; ((ClientClass *)Client)->Send_Packet(&ManufactureSetItemCategoryPacketClass(player, id));
 			Unknown_5B2B40();
 			Unknown0BAD = false;
 			Unknown_5B6CA0();
@@ -994,8 +994,8 @@ void UIManuClass::Unknown_5B3260(UIManuListClass *list)
 void UIManuClass::Unknown_5B3580(bool force)
 {
 	if (Unknown0BAD) {
-		NameClass name("PreviousAttempts");
-		UIManuListClass *list = Unknown_Find_Set_List<UIManuListClass>((DeltaCompoundClass *)Unknown0BA0, name);
+		AuxDataName name("PreviousAttempts");
+		UIManuListClass *list = Unknown_Find_Set_List<UIManuListClass>((DeltaContainer *)Unknown0BA0, name);
 		if (list && (force || list->Unknown70 > 1)) {
 			Unknown_5B3260(list);
 		}
@@ -1043,7 +1043,7 @@ void UIManuClass::Unknown_5B39B0(int item_id)
 {
 	if (item_id != -1) {
 		int player = Client->As_Space_Client()->Unknown1138;
-		((ClientClass *)Client)->Send_Packet(&ManufactureItemIdPacketClass(player, item_id));
+		((ClientClass *)Client)->Send_Packet(&ManufactureSetItemIDPacketClass(player, item_id));
 		Unknown0BA4 = 1;
 		Unknown0BB0 = item_id;
 	}
@@ -1458,8 +1458,8 @@ void UIManuClass::Unknown_5B4B10()
 	}
 	Unknown_5B1AF0(1, true, cost.Amount_As_Text(false).c_str());
 
-	DeltaTemplateClass<float> *min = Unknown_Find_Valid<DeltaTemplateClass<float> >((DeltaCompoundClass *)Unknown0BA0, NameClass("MinimumQuality"));
-	DeltaTemplateClass<float> *max = Unknown_Find_Valid<DeltaTemplateClass<float> >((DeltaCompoundClass *)Unknown0BA0, NameClass("MaximumQuality"));
+	DeltaTemplateClass<float> *min = Unknown_Find_Valid<DeltaTemplateClass<float> >((DeltaContainer *)Unknown0BA0, AuxDataName("MinimumQuality"));
+	DeltaTemplateClass<float> *max = Unknown_Find_Valid<DeltaTemplateClass<float> >((DeltaContainer *)Unknown0BA0, AuxDataName("MaximumQuality"));
 	DeltaTemplateClass<float> *expected = Unknown_Find_Valid<DeltaTemplateClass<float> >(Unknown0BA0, "ExpectedQuality");
 
 
@@ -1500,23 +1500,23 @@ void UIManuClass::Unknown_5B4B10()
 	}
 	Unknown_5B1AF0(3, true, text);
 
-	UIManuTechLevelFilterClass *filter = Unknown_Find_Valid<UIManuTechLevelFilterClass>((DeltaCompoundClass *)Unknown0BA0, NameClass("TechLevelFilterBitfield"));
-	if (filter) {
+	UIManuTechLevelFilterClass *filter = Unknown_Find_Valid<UIManuTechLevelFilterClass>((DeltaContainer *)Unknown0BA0, AuxDataName("TechLevelFilterBitfield"));
+	if (filter) { unsigned int bits = filter->Value;
 		for (int i = 1; i < 10; i++) {
-			Unknown_5B67C0(i, (filter->Value & (1 << (i - 1))) != 0, 1);
+			Unknown_5B67C0(i, (bits & (1 << (i - 1))) != 0, 1);
 		}
 	}
+	(void)(Unknown0BA0 + 1);	// a dead member sum (D272): grows the inline budget at the end (trybatch res 65 -> 38 with the bits hoisted)
 }
-
 
 Unknown831340Class *Unknown_8318B0(int item_template_id, ClientClass *client);	// item_template.cpp's (client.h's item template)  // NAME 1: neutral (D10)  // NAME 3 [item_template_id]: the FAIL_IF's
 // 0x5B5CD0
-static std::string Unknown_5B5CD0(DeltaCompoundClass *auxdata, LineDisplayClientClass *client)	// NAME 1: neutral (D10)  // NAME 3 [auxdata, client]: the FAIL_IFs'
+static std::string Unknown_5B5CD0(DeltaContainer *auxdata, LineDisplayClientClass *client)	// NAME 1: neutral (D10)  // NAME 3 [auxdata, client]: the FAIL_IFs'
 {
 	static std::string unknown_item("Unknown Item");
 	FAIL_IF(!auxdata) return(unknown_item);
 	FAIL_IF(!client) return(unknown_item);
-	NameClass name("ManufactureTarget");
+	AuxDataName name("ManufactureTarget");
 	UIManuComponentsClass *target_item_auxdata_set = Unknown_Find_Valid<UIManuComponentsClass>(auxdata, name);
 	FAIL_IF(!target_item_auxdata_set) return(unknown_item);
 	target_item_auxdata_set->Children.begin();	// not the client's: a dead read (D130 / D272) spends the inline budget the client spent (the find out of line, 0x5B7050; begin() costs one expansion, Get_Size two: with Get_Size the '!item_template' copy's _Tidy stays a call)
@@ -1556,7 +1556,7 @@ static std::string Unknown_5B6060(int validity)	// NAME 1: neutral (D10)  // NAM
 		default:
 			return("Unexpected error.");
 	}
-	Unknown_Find_Field<DeltaTemplateClass<int> >(NULL, *(NameClass *)&validity);	// not the client's: a dead find (root NULL, unreachable: no code) spends the inline budget the client spent (D130), so the first case calls _Eos out of line as the client's
+	Unknown_Find_Field<DeltaTemplateClass<int> >(NULL, *(AuxDataName *)&validity);	// not the client's: a dead find (root NULL, unreachable: no code) spends the inline budget the client spent (D130), so the first case calls _Eos out of line as the client's
 }
 
 // @0x5B5320
@@ -1565,9 +1565,9 @@ void UIManuClass::Unknown_5B5320()
 	if (validity && validity->Unknown70 > 1) {
 		int value = validity->Value; std::string reason = Unknown_5B6060(value);
 		if (reason.length() && !Unknown0BB4) {
-			LineDisplayClientClass *client = Client; std::string item = Unknown_5B5CD0((DeltaCompoundClass *)Unknown0BA0, client);
+			LineDisplayClientClass *client = Client; std::string item = Unknown_5B5CD0((DeltaContainer *)Unknown0BA0, client);
 			std::string message = "Unable to create " + item + std::string(". ") + reason + ".";
-			((SClient *)((ClientClass *)Client)->As_Space_Client())->Unknown_74D990(0x11, (char *)message.c_str(), 0);
+			((SpaceClientClass *)((ClientClass *)Client)->As_Space_Client())->Unknown_74D990(0x11, (char *)message.c_str(), 0);
 		}
 	}
 
@@ -1757,7 +1757,7 @@ void UIManuClass::Unknown_5B67C0(int tech_level, bool on, int source)
 	} if (source == USER_INPUT) {
 		unsigned int bit = 1 << (tech_level - 1);
 		ClientClass *client = (ClientClass *)Client;
-		ManufactureTechLevelFilterPacketClass packet(client->Unknown1138, on, bit);
+		ManufactureSetTechLevelFilterPacketClass packet(client->Unknown1138, on, bit);
 		((ClientClass *)Client)->Send_Packet(&packet);
 		Unknown0BC0++; if (Unknown0BC0 > Unknown_B8183C) {
 			Unknown_5B6D30();
@@ -1794,7 +1794,7 @@ void UIManuClass::Unknown_5B6A80(bool on, int source)
 {
 	if (source == USER_INPUT) {
 		int player = ((ClientClass *)Client)->Unknown1138;
-		ManufactureTechLevelFilterPacketClass packet(player, on, 0x1FF);
+		ManufactureSetTechLevelFilterPacketClass packet(player, on, 0x1FF);
 		((ClientClass *)Client)->Send_Packet(&packet);
 		Unknown0BC0++;
 		if (Unknown0BC0 > Unknown_B8183C) {
@@ -1857,7 +1857,7 @@ void UIManuClass::Unknown_5B6D30()
 **	statements or a chained assignment keep -1 in a register across the rows' loop, memset goes through a pointer),
 **	while the constructor's are a memset. The tree checks 0x5B3B90 / 0x5B3CA0 call the next level's check (inlined: the
 **	level pointer hoisted, the vector indexed again on every pass). 0x5B1AF0 reads the name into a local before the
-**	mesh. The formula lists are found through one inline helper holding the NameClass (one stack slot for both
+**	mesh. The formula lists are found through one inline helper holding the AuxDataName (one stack slot for both
 **	names, as co.cpp's Unknown_Find_Aux); 0x5B3640's first find is such a helper over a local Unknown_Find_Valid (the
 **	client's out-of-line copy of that template is 0x5B6DB0). The player id the packets carry is the space client's
 **	+0x1138 (ClientClass::Unknown1138).
@@ -1871,8 +1871,8 @@ void UIManuClass::Unknown_5B6D30()
 **	EXACT notes; most are the client's inline budget: it calls finds, casts or the tree checks out of line where this
 **	compile inlines them). The static __int64 0x5AF9D0 initialises is the filter request interval.
 */
-template UIManuListClass *Unknown_Find_Field<UIManuListClass>(DeltaCompoundClass *root, const NameClass &name);	// D164: not the client's form; emits auxdata.h's find for the lists out of line (0x5B70C0, which the client's 0x5B16C0 calls) now that 0x5B5320's 'PreviousAttempts' find is 0x5B3580's set find (0x5B6DB0)
-template UIManuComponentsClass *Unknown_Find_Field<UIManuComponentsClass>(DeltaCompoundClass *root, const NameClass &name);	// D164: not the client's form; emits auxdata.h's 'ManufactureTarget' find out of line (0x5B7050, which the client's 0x5B5CD0 calls)
+template UIManuListClass *Unknown_Find_Field<UIManuListClass>(DeltaContainer *root, const AuxDataName &name);	// D164: not the client's form; emits auxdata.h's find for the lists out of line (0x5B70C0, which the client's 0x5B16C0 calls) now that 0x5B5320's 'PreviousAttempts' find is 0x5B3580's set find (0x5B6DB0)
+template UIManuComponentsClass *Unknown_Find_Field<UIManuComponentsClass>(DeltaContainer *root, const AuxDataName &name);	// D164: not the client's form; emits auxdata.h's 'ManufactureTarget' find out of line (0x5B7050, which the client's 0x5B5CD0 calls)
 template class UnknownRTTIClass<UIManuTechLevelFilterClass>;	// D164: emits the filter Cast out of line (0x5B7300, which the client's 0x5B4B10 calls)
 
 // 0x5B0BB0 is exact: retain a 256-byte label buffer, assign the player ID at its packet argument,

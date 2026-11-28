@@ -18,7 +18,7 @@
 #include "ref_ptr.h"
 #include "vector3.h"
 
-class SClient;
+class SpaceClientClass;
 class SceneClass;
 class RenderObjClass;
 class MaterialInfoClass;
@@ -31,7 +31,7 @@ class TargetReticleClass	// NAME 3: class-from-file (D24) for target_reticle.cpp
 public:
 	enum { CORNER_COUNT = 4 };	// NAME 2: UL, UR, BR, BL
 
-	TargetReticleClass(SClient *client, const RefCountPtr<SceneClass> &scene, int sort_level, bool show_text);	// 0x7C5100  // NAME 2 [sort_level, show_text]: what it does with them
+	TargetReticleClass(SpaceClientClass *client, const RefCountPtr<SceneClass> &scene, int sort_level, bool show_text);	// 0x7C5100  // NAME 2 [sort_level, show_text]: what it does with them
 	~TargetReticleClass();											// 0x7C55A0
 
 	void Update(const Vector3 &pos, float size);					// 0x7C5690 (gutter_radar.cpp's 0x7B7040): pos in 0..1 of the screen; size in the same units  // NAME 2: what it does
@@ -46,7 +46,7 @@ private:
 		RefCountPtr<VertexMaterialClass> VertexMaterial;	// +0x08  // NAME 2: what it holds
 	};
 
-	SClient *Client;									// +0x00  // NAME 2: what it holds
+	SpaceClientClass *Client;									// +0x00  // NAME 2: what it holds
 	RefCountPtr<SceneClass> Scene;						// +0x04  // NAME 2: what it holds
 	RefCountPtr<RenderObjClass> TargetRObj;				// +0x08 (the FAIL_IF's name)
 	CornerStruct Corners[CORNER_COUNT];					// +0x0C  // NAME 2: what it holds

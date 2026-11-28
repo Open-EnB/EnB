@@ -137,14 +137,14 @@ LY_OFF(ColorizationPacketClass, Regions, 0x10)	// header
 LY_OFF(ColorizationPacketClass, Channel, 0x20)	// header
 LY_SIZE(TurnPacketClass, 0x14)	// opcode 18 (pkturn.h)
 LY_SIZE(TiltPacketClass, 0x14)	// opcode 19 (pktilt.h)
-LY_SIZE(MovePacketClass, 0x14)	// opcode 20 (pkmove.h)
+LY_SIZE(MovementPacketClass, 0x14)	// opcode 20 (pkmove.h)
 LY_SIZE(FirePacketClass, 0x14)	// opcode 21 (pkfire.h)
 LY_OFF(FirePacketClass, GameID, 0xC)	// header
 LY_OFF(FirePacketClass, Slot, 0x10)	// header
 LY_SIZE(FireEquippedPacketClass, 0x1C)	// opcode 22 (pkfire.h)
 LY_OFF(FireEquippedPacketClass, Unknown14, 0x14)	// header
 LY_SIZE(RequestTargetPacketClass, 0x14)	// opcode 23 (pkrequesttarget.h)
-LY_SIZE(RequestTargetsTargetPacketClass, 0x14)	// opcode 24 (pkrequesttarget.h)
+LY_SIZE(RequestTargetTargetPacketClass, 0x14)	// opcode 24 (pkrequesttarget.h)
 LY_SIZE(SetTargetPacketClass, 0x14)	// opcode 25 (pkrequesttarget.h)
 LY_OFF(SetTargetPacketClass, TargetID, 0xC)	// client
 LY_OFF(SetTargetPacketClass, Unknown10, 0x10)	// client
@@ -194,8 +194,8 @@ LY_OFF(ChangeBaseAssetPacketClass, BaseAsset, 0x10)	// client
 LY_OFF(ChangeBaseAssetPacketClass, Scale, 0x14)	// client
 LY_OFF(ChangeBaseAssetPacketClass, HSVShift, 0x18)	// client
 LY_OFF(ChangeBaseAssetPacketClass, Unknown24, 0x24)	// client
-LY_SIZE(InventoryMovePacketClass, 0x24)	// opcode 39 (pkinventorymove.h)
-LY_SIZE(InventorySortPacketClass, 0x24)	// opcode 40 (pkinventorymove.h)
+LY_SIZE(InvPacketClass, 0x24)	// opcode 39 (pkinventorymove.h)
+LY_SIZE(InvSortPacketClass, 0x24)	// opcode 40 (pkinventorymove.h)
 LY_SIZE(ItemStatePacketClass, 0x18)	// opcode 41 (pkitemstate.h)
 LY_SIZE(SetZBandPacketClass, 0x14)	// opcode 42 (pksetzband.h)
 LY_OFF(SetZBandPacketClass, Min, 0xC)	// client
@@ -234,7 +234,7 @@ LY_OFF(MasterJoinPacketClass, Unknown0C, 0xC)	// header
 LY_OFF(MasterJoinPacketClass, Ticket, 0x10)	// header
 LY_OFF(MasterJoinPacketClass, Unknown58, 0x58)	// header
 LY_OFF(MasterJoinPacketClass, Unknown5C, 0x5C)	// header
-LY_SIZE(ServerRedirectPacketClass, 0x18)	// opcode 54 (pkserverredirect.h)
+LY_SIZE(ClientRedirectPacketClass, 0x18)	// opcode 54 (pkserverredirect.h)
 LY_SIZE(ClientAvatarPacketClass, 0x14)	// opcode 55 (pkclientavatar.h)
 LY_OFF(ClientAvatarPacketClass, AvatarID, 0xC)	// client
 LY_OFF(ClientAvatarPacketClass, Unknown10, 0x10)	// client
@@ -248,13 +248,13 @@ LY_OFF(ServerHandoffPacketClass, Source_Sector, 0x58)	// header
 LY_OFF(ServerHandoffPacketClass, Source_System, 0x68)	// header
 LY_OFF(ServerHandoffPacketClass, Name, 0x78)	// header
 LY_OFF(ServerHandoffPacketClass, System, 0x88)	// header
-LY_SIZE(Packet_003BClass, 0x18)	// opcode 59 (pkserverready.h)
-LY_OFF(Packet_003BClass, Sector, 0xC)	// header
-LY_OFF(Packet_003BClass, IP, 0x10)	// header
-LY_OFF(Packet_003BClass, Port, 0x14)	// header
+LY_SIZE(ServerReadyPacketClass, 0x18)	// opcode 59 (pkserverready.h)
+LY_OFF(ServerReadyPacketClass, Sector, 0xC)	// header
+LY_OFF(ServerReadyPacketClass, IP, 0x10)	// header
+LY_OFF(ServerReadyPacketClass, Port, 0x14)	// header
 LY_SIZE(SetClientTypePacketClass, 0x10)	// opcode 60 (pksetclienttype.h)
 LY_OFF(SetClientTypePacketClass, Type, 0xC)	// header
-LY_SIZE(Packet_003DClass, 0xC)	// opcode 61 (pkunknown_8a6430.h)
+LY_SIZE(ServerStopPacketClass, 0xC)	// opcode 61 (pkserverstop.h)
 LY_SIZE(AdvancedPositionalUpdatePacketClass, 0x74)	// opcode 62 (pkupdate.h)
 LY_OFF(AdvancedPositionalUpdatePacketClass, GameID, 0xC)	// header
 LY_OFF(AdvancedPositionalUpdatePacketClass, TimeStamp, 0x10)	// header
@@ -319,7 +319,7 @@ LY_OFF(ServerParametersPacketClass, BackdropBaseAsset, 0x50)	// header
 LY_OFF(ServerParametersPacketClass, SectorNum, 0x54)	// header
 LY_SIZE(RequestTransformChangePacketClass, 0x3C)	// opcode 67 (pkrequesttransformchange.h)
 LY_SIZE(RequestTimePacketClass, 0x14)	// opcode 68 (pkrequesttime.h)
-LY_SIZE(Packet_0045Class, 0xC)	// opcode 69 (pkunknown_8a2b70.h)
+LY_SIZE(RequestVersionPacketClass, 0xC)	// opcode 69 (pkrequestversion.h)
 LY_SIZE(ComponentPositionalUpdatePacketClass, 0x54)	// opcode 70 (pkupdate.h)
 LY_OFF(ComponentPositionalUpdatePacketClass, ImpartedDecay, 0x44)	// header
 LY_OFF(ComponentPositionalUpdatePacketClass, TractorSpeed, 0x48)	// header
@@ -338,30 +338,30 @@ LY_OFF(CreateCharacterPacketClass, Ship, 0x174)	// header
 LY_OFF(CreateCharacterPacketClass, Unknown2D4, 0x2D4)	// header
 LY_OFF(CreateCharacterPacketClass, Unknown2D8, 0x2D8)	// header
 LY_OFF(CreateCharacterPacketClass, Unknown2DC, 0x2DC)	// header
-LY_SIZE(Packet_0049Class, 0x68)	// opcode 73 (pkunknown_85d1a0.h)
-LY_OFF(Packet_0049Class, Unknown0C, 0xC)	// header
-LY_OFF(Packet_0049Class, Unknown10, 0x10)	// client
-LY_OFF(Packet_0049Class, Unknown18, 0x18)	// client
-LY_OFF(Packet_0049Class, Unknown1C, 0x1C)	// client
-LY_OFF(Packet_0049Class, Unknown5D, 0x5D)	// header
-LY_OFF(Packet_0049Class, Unknown60, 0x60)	// client
+LY_SIZE(DeleteCharacterPacketClass, 0x68)	// opcode 73 (pkdeletecharacter.h)
+LY_OFF(DeleteCharacterPacketClass, Unknown0C, 0xC)	// header
+LY_OFF(DeleteCharacterPacketClass, Unknown10, 0x10)	// client
+LY_OFF(DeleteCharacterPacketClass, Unknown18, 0x18)	// client
+LY_OFF(DeleteCharacterPacketClass, Unknown1C, 0x1C)	// client
+LY_OFF(DeleteCharacterPacketClass, Unknown5D, 0x5D)	// header
+LY_OFF(DeleteCharacterPacketClass, Unknown60, 0x60)	// client
 LY_SIZE(CreateAttachmentPacketClass, 0x20)	// opcode 74 (pkcreateattachment.h)
 LY_OFF(CreateAttachmentPacketClass, Unknown0C, 0xC)	// header
 LY_OFF(CreateAttachmentPacketClass, Parent_ID, 0x10)	// client
 LY_OFF(CreateAttachmentPacketClass, Child_ID, 0x14)	// client
 LY_OFF(CreateAttachmentPacketClass, Unknown18, 0x18)	// client
 LY_OFF(CreateAttachmentPacketClass, Unknown1C, 0x1C)	// client
-LY_SIZE(Packet_004BClass, 0x14)	// opcode 75 (pkmoderequest.h)
-LY_OFF(Packet_004BClass, Unknown0C, 0xC)	// header
-LY_OFF(Packet_004BClass, Mode, 0x10)	// header
+LY_SIZE(ModeRequestPacketClass, 0x14)	// opcode 75 (pkmoderequest.h)
+LY_OFF(ModeRequestPacketClass, Unknown0C, 0xC)	// header
+LY_OFF(ModeRequestPacketClass, Mode, 0x10)	// header
 LY_SIZE(ModeChangePacketClass, 0x14)	// opcode 76 (pkmodechange.h)
 LY_OFF(ModeChangePacketClass, Unknown0C, 0xC)	// header
 LY_OFF(ModeChangePacketClass, Mode, 0x10)	// header
-LY_SIZE(Packet_004DClass, 0x60)	// opcode 77 (pkunknown_85d4b0.h)
-LY_OFF(Packet_004DClass, Unknown0C, 0xC)	// header
-LY_OFF(Packet_004DClass, Unknown10, 0x10)	// header
-LY_OFF(Packet_004DClass, Unknown58, 0x58)	// header
-LY_SIZE(StarbaseRequestPacketClass, 0x18)	// opcode 78 (pkstarbasetow.h)
+LY_SIZE(RegistrationResultPacketClass, 0x60)	// opcode 77 (pkregistrationresult.h)
+LY_OFF(RegistrationResultPacketClass, Unknown0C, 0xC)	// header
+LY_OFF(RegistrationResultPacketClass, Unknown10, 0x10)	// header
+LY_OFF(RegistrationResultPacketClass, Unknown58, 0x58)	// header
+LY_SIZE(StarbaseReqPacketClass, 0x18)	// opcode 78 (pkstarbasetow.h)
 LY_SIZE(StarbaseSetPacketClass, 0x14)	// opcode 79 (pkstarbasetow.h)
 LY_OFF(StarbaseSetPacketClass, StarbaseID, 0xC)	// header
 LY_OFF(StarbaseSetPacketClass, Action, 0x10)	// header
@@ -393,7 +393,7 @@ LY_SIZE(SkillPacketClass, 0x18)	// opcode 87 (pkskill.h)
 LY_OFF(SkillPacketClass, GameID, 0xC)	// client
 LY_OFF(SkillPacketClass, Action, 0x10)	// client
 LY_OFF(SkillPacketClass, SkillIndex, 0x14)	// client
-LY_SIZE(SkillPacket_88Class, 0x18)	// opcode 88 (pkskill.h)
+LY_SIZE(SkillAbilityPacketClass, 0x18)	// opcode 88 (pkskill.h)
 LY_SIZE(HullUpgradePacketClass, 0x14)	// opcode 89 (pkhullupgrade.h)
 LY_OFF(HullUpgradePacketClass, ShipID, 0xC)	// client
 LY_OFF(HullUpgradePacketClass, HullUpgradeLevel, 0x10)	// client
@@ -405,8 +405,8 @@ LY_SIZE(VerbUpdatePacketClass, 0x30)	// opcode 92 (pkverbrequest.h)
 LY_OFF(VerbUpdatePacketClass, GameID, 0xC)	// header
 LY_OFF(VerbUpdatePacketClass, Drops, 0x10)	// header
 LY_OFF(VerbUpdatePacketClass, Adds, 0x20)	// header
-LY_SIZE(EquipUsePacketClass, 0x14)	// opcode 93 (pkequipuse.h)
-LY_SIZE(AvatarEmotePacketClass, 0x24)	// opcode 94 (pkunknown_87dec0.h)
+LY_SIZE(UseInventoryPacketClass, 0x14)	// opcode 93 (pkequipuse.h)
+LY_SIZE(ChatstreamPacketClass, 0x24)	// opcode 94 (pkchatstream.h)
 LY_SIZE(MessageChatstreamPacketClass, 0x1C)	// opcode 95 (pkmessagechatstream.h)
 LY_OFF(MessageChatstreamPacketClass, ChatString, 0xC)	// header
 LY_OFF(MessageChatstreamPacketClass, Chatsize, 0x10)	// header
@@ -424,10 +424,10 @@ LY_SIZE(DialogPacketClass, 0x18)	// opcode 98 (pkdialog.h)
 LY_OFF(DialogPacketClass, String, 0xC)	// header
 LY_OFF(DialogPacketClass, Type, 0x10)	// header
 LY_OFF(DialogPacketClass, Size, 0x14)	// header
-LY_SIZE(Packet_0063Class, 0x18)	// opcode 99 (pkunknown_877c80.h)
-LY_OFF(Packet_0063Class, String, 0xC)	// header
-LY_OFF(Packet_0063Class, Size, 0x10)	// header
-LY_OFF(Packet_0063Class, Unknown14, 0x14)	// header
+LY_SIZE(BroadcastPacketClass, 0x18)	// opcode 99 (pkbroadcast.h)
+LY_OFF(BroadcastPacketClass, String, 0xC)	// header
+LY_OFF(BroadcastPacketClass, Size, 0x10)	// header
+LY_OFF(BroadcastPacketClass, Unknown14, 0x14)	// header
 LY_SIZE(DamagePacketClass, 0x24)	// opcode 100 (pkdamage.h)
 LY_OFF(DamagePacketClass, Damage, 0xC)	// client
 LY_OFF(DamagePacketClass, Modifer, 0x10)	// client
@@ -435,7 +435,7 @@ LY_OFF(DamagePacketClass, Type, 0x14)	// client
 LY_OFF(DamagePacketClass, Inflicted, 0x18)	// client
 LY_OFF(DamagePacketClass, Source, 0x1C)	// client
 LY_OFF(DamagePacketClass, Victim, 0x20)	// client
-LY_SIZE(UiTriggerPacketClass, 0x14)	// opcode 101 (pkuitrigger.h)
+LY_SIZE(UITriggerPacketClass, 0x14)	// opcode 101 (pkuitrigger.h)
 LY_SIZE(OpenInterfacePacketClass, 0x14)	// opcode 102 (pkopeninterface.h)
 LY_OFF(OpenInterfacePacketClass, UIChange, 0xC)	// client
 LY_OFF(OpenInterfacePacketClass, UIType, 0x10)	// client
@@ -450,11 +450,11 @@ LY_SIZE(ClickIndicatorPacketClass, 0x14)	// opcode 105 (pkclickindicator.h)
 LY_OFF(ClickIndicatorPacketClass, TurnOn, 0xC)	// client
 LY_OFF(ClickIndicatorPacketClass, Unknown0D, 0xD)	// header
 LY_OFF(ClickIndicatorPacketClass, ObjID, 0x10)	// client
-LY_SIZE(ClientSoundPacketClass, 0x1C)	// opcode 106 (pksoundcommand.h)
-LY_OFF(ClientSoundPacketClass, SoundName, 0xC)	// header
-LY_OFF(ClientSoundPacketClass, Length, 0x10)	// header
-LY_OFF(ClientSoundPacketClass, Channel, 0x14)	// header
-LY_OFF(ClientSoundPacketClass, Queue, 0x18)	// header
+LY_SIZE(SoundPacketClass, 0x1C)	// opcode 106 (pksoundcommand.h)
+LY_OFF(SoundPacketClass, SoundName, 0xC)	// header
+LY_OFF(SoundPacketClass, Length, 0x10)	// header
+LY_OFF(SoundPacketClass, Channel, 0x14)	// header
+LY_OFF(SoundPacketClass, Queue, 0x18)	// header
 LY_SIZE(SoundCommandPacketClass, 0x14)	// opcode 107 (pksoundcommand.h)
 LY_OFF(SoundCommandPacketClass, Command, 0xC)	// client
 LY_OFF(SoundCommandPacketClass, Channel, 0x10)	// client
@@ -480,23 +480,23 @@ LY_OFF(GlobalCreateCharacterPacketClass, Unknown14, 0x14)	// header
 LY_OFF(GlobalCreateCharacterPacketClass, Name, 0x18)	// header
 LY_OFF(GlobalCreateCharacterPacketClass, Desc, 0x5C)	// header
 LY_OFF(GlobalCreateCharacterPacketClass, Ship, 0x168)	// header
-LY_SIZE(Packet_0073Class, 0x68)	// opcode 115 (pkunknown_865020.h)
-LY_OFF(Packet_0073Class, Unknown0C, 0xC)	// client
-LY_OFF(Packet_0073Class, Unknown10, 0x10)	// client
-LY_OFF(Packet_0073Class, Unknown14, 0x14)	// client
-LY_OFF(Packet_0073Class, Unknown18, 0x18)	// client
-LY_OFF(Packet_0073Class, Unknown59, 0x59)	// header
-LY_OFF(Packet_0073Class, Unknown5C, 0x5C)	// client
-LY_OFF(Packet_0073Class, Unknown60, 0x60)	// client
-LY_OFF(Packet_0073Class, Unknown64, 0x64)	// client
-LY_OFF(Packet_0073Class, Unknown66, 0x66)	// header
-LY_SIZE(Packet_0074Class, 0x68)	// opcode 116 (pkunknown_8667a0.h)
-LY_OFF(Packet_0074Class, Unknown0C, 0xC)	// client
-LY_OFF(Packet_0074Class, Unknown10, 0x10)	// client
-LY_OFF(Packet_0074Class, Unknown51, 0x51)	// header
-LY_OFF(Packet_0074Class, Unknown58, 0x58)	// client
-LY_OFF(Packet_0074Class, Unknown60, 0x60)	// client
-LY_OFF(Packet_0074Class, Unknown64, 0x64)	// client
+LY_SIZE(GlobalHelloPacketClass, 0x68)	// opcode 115 (pkglobalhello.h)
+LY_OFF(GlobalHelloPacketClass, Unknown0C, 0xC)	// client
+LY_OFF(GlobalHelloPacketClass, Unknown10, 0x10)	// client
+LY_OFF(GlobalHelloPacketClass, Unknown14, 0x14)	// client
+LY_OFF(GlobalHelloPacketClass, Unknown18, 0x18)	// client
+LY_OFF(GlobalHelloPacketClass, Unknown59, 0x59)	// header
+LY_OFF(GlobalHelloPacketClass, Unknown5C, 0x5C)	// client
+LY_OFF(GlobalHelloPacketClass, Unknown60, 0x60)	// client
+LY_OFF(GlobalHelloPacketClass, Unknown64, 0x64)	// client
+LY_OFF(GlobalHelloPacketClass, Unknown66, 0x66)	// header
+LY_SIZE(GlobalPlayerStatusPacketClass, 0x68)	// opcode 116 (pkglobalplayerstatus.h)
+LY_OFF(GlobalPlayerStatusPacketClass, Unknown0C, 0xC)	// client
+LY_OFF(GlobalPlayerStatusPacketClass, Unknown10, 0x10)	// client
+LY_OFF(GlobalPlayerStatusPacketClass, Unknown51, 0x51)	// header
+LY_OFF(GlobalPlayerStatusPacketClass, Unknown58, 0x58)	// client
+LY_OFF(GlobalPlayerStatusPacketClass, Unknown60, 0x60)	// client
+LY_OFF(GlobalPlayerStatusPacketClass, Unknown64, 0x64)	// client
 LY_SIZE(GlobalErrorPacketClass, 0x24)	// opcode 117 (pkglobalerror.h)
 LY_OFF(GlobalErrorPacketClass, Unknown0C, 0xC)	// header
 LY_OFF(GlobalErrorPacketClass, Error, 0x10)	// header
@@ -508,16 +508,16 @@ LY_OFF(GlobalLoginPacketClass, Referral_Available, 0xB0)	// header
 LY_OFF(GlobalLoginPacketClass, Total_Referral_Points, 0xB4)	// header
 LY_OFF(GlobalLoginPacketClass, Spent_Referral_Points, 0xB8)	// header
 LY_OFF(GlobalLoginPacketClass, Unknown0BC, 0xBC)	// header
-LY_SIZE(Packet_0077Class, 0x20)	// opcode 119 (pkunknown_866ac0.h)
-LY_OFF(Packet_0077Class, Name, 0xC)	// header
-LY_OFF(Packet_0077Class, Unknown1C, 0x1C)	// header
-LY_SIZE(Packet_0078Class, 0x10)	// opcode 120 (pkunknown_866ac0.h)
-LY_OFF(Packet_0078Class, Result, 0xC)	// client
-LY_OFF(Packet_0078Class, Unknown0E, 0xE)	// header
+LY_SIZE(GlobalSetReferrerPacketClass, 0x20)	// opcode 119 (pkglobalsetreferrer.h)
+LY_OFF(GlobalSetReferrerPacketClass, Name, 0xC)	// header
+LY_OFF(GlobalSetReferrerPacketClass, Unknown1C, 0x1C)	// header
+LY_SIZE(GlobalSetReferrerResponsePacketClass, 0x10)	// opcode 120 (pkglobalsetreferrer.h)
+LY_OFF(GlobalSetReferrerResponsePacketClass, Result, 0xC)	// client
+LY_OFF(GlobalSetReferrerResponsePacketClass, Unknown0E, 0xE)	// header
 LY_SIZE(ManufactureItemCatagoryPacketClass, 0x14)	// opcode 121 (pkmanufactureitemcatagorypacket.h)
-LY_SIZE(ManufactureItemCatagoryPacket_122Class, 0x14)	// opcode 122 (pkmanufactureitemcatagorypacket.h)
-LY_SIZE(ManufactureItemIdPacketClass, 0x14)	// opcode 123 (pkmanufactureitemcatagorypacket.h)
-LY_SIZE(RefineryItemIdPacketClass, 0x14)	// opcode 124 (pkmanufactureitemcatagorypacket.h)
+LY_SIZE(ManufactureSetItemCategoryPacketClass, 0x14)	// opcode 122 (pkmanufactureitemcatagorypacket.h)
+LY_SIZE(ManufactureSetItemIDPacketClass, 0x14)	// opcode 123 (pkmanufactureitemcatagorypacket.h)
+LY_SIZE(RefinerySetItemIDPacketClass, 0x14)	// opcode 124 (pkmanufactureitemcatagorypacket.h)
 LY_SIZE(Packet_007DClass, 0x18)	// opcode 125 (pkmanufactureitemcatagorypacket.h)
 LY_OFF(Packet_007DClass, player, 0xC)	// client
 LY_OFF(Packet_007DClass, CargoSlotID, 0x10)	// client
@@ -525,7 +525,7 @@ LY_OFF(Packet_007DClass, VaultSlotID, 0x14)	// client
 LY_SIZE(ManufactureActionPacketClass, 0x14)	// opcode 126 (pkmanufactureitemcatagorypacket.h)
 LY_SIZE(ManufactureSetPacketClass, 0x10)	// opcode 127 (pkmanufactureitemcatagorypacket.h)
 LY_OFF(ManufactureSetPacketClass, ManufactureID, 0xC)	// client
-LY_SIZE(ManufactureTechLevelFilterPacketClass, 0x18)	// opcode 128 (pkmanufactureitemcatagorypacket.h)
+LY_SIZE(ManufactureSetTechLevelFilterPacketClass, 0x18)	// opcode 128 (pkmanufactureitemcatagorypacket.h)
 LY_SIZE(RecustomizeShipStartPacketClass, 0x1B4)	// opcode 129 (pkrecustomize.h)
 LY_OFF(RecustomizeShipStartPacketClass, Desc, 0xC)	// header
 LY_OFF(RecustomizeShipStartPacketClass, Cost, 0x16C)	// header
@@ -547,13 +547,13 @@ LY_SIZE(RecustomizeAvatarUpdatePacketClass, 0x11C)	// opcode 133 (pkrecustomize.
 LY_OFF(RecustomizeAvatarUpdatePacketClass, Desc, 0xC)	// header
 LY_OFF(RecustomizeAvatarUpdatePacketClass, Unknown118, 0x118)	// header
 LY_SIZE(MissionForfeitPacketClass, 0x14)	// opcode 134 (pkmissionforfeit.h)
-LY_SIZE(MissionDismissalPacketClass, 0x14)	// opcode 135 (pkmissionforfeit.h)
-LY_SIZE(PetitionStuckPacketClass, 0x20)	// opcode 136 (pkpetitionstuck.h)
-LY_OFF(PetitionStuckPacketClass, GameID, 0xC)	// header
-LY_OFF(PetitionStuckPacketClass, GameID2, 0x10)	// header
-LY_OFF(PetitionStuckPacketClass, Subject, 0x14)	// header
-LY_OFF(PetitionStuckPacketClass, Complaint, 0x18)	// header
-LY_OFF(PetitionStuckPacketClass, PlayerList, 0x1C)	// header
+LY_SIZE(MissionDismissPacketClass, 0x14)	// opcode 135 (pkmissionforfeit.h)
+LY_SIZE(PetitionPacketClass, 0x20)	// opcode 136 (pkpetitionstuck.h)
+LY_OFF(PetitionPacketClass, GameID, 0xC)	// header
+LY_OFF(PetitionPacketClass, GameID2, 0x10)	// header
+LY_OFF(PetitionPacketClass, Subject, 0x14)	// header
+LY_OFF(PetitionPacketClass, Complaint, 0x18)	// header
+LY_OFF(PetitionPacketClass, PlayerList, 0x1C)	// header
 LY_SIZE(PlayerObjectRelationshipPacket, 0x20)	// opcode 137 (pk_player_object_relationship.h)
 LY_OFF(PlayerObjectRelationshipPacket, ObjectID, 0xC)	// header
 LY_OFF(PlayerObjectRelationshipPacket, Relationship, 0x10)	// header
@@ -568,10 +568,10 @@ LY_OFF(PlayerObjectIsAttackingUpdatePacket, Attackers, 0x10)	// header
 LY_OFF(PlayerObjectIsAttackingUpdatePacket, Priority, 0x20)	// header
 LY_SIZE(LootHulkPermissionPacketClass, 0x10)	// opcode 140 (pkloothulkpermission.h)
 LY_OFF(LootHulkPermissionPacketClass, HulkGameID, 0xC)	// client
-LY_SIZE(IncapacitanceRequestPacketClass, 0x10)	// opcode 141 (pkincapacitancerequest.h)
-LY_SIZE(IncapacitanceDistressBeaconPacketClass, 0x14)	// opcode 142 (pkincapacitancerequest.h)
-LY_OFF(IncapacitanceDistressBeaconPacketClass, GameID, 0xC)	// header
-LY_OFF(IncapacitanceDistressBeaconPacketClass, On, 0x10)	// header
+LY_SIZE(IncapacitanceDetailsRequestPacket, 0x10)	// opcode 141 (pkincapacitancerequest.h)
+LY_SIZE(IncapacitanceDistressBeaconPacket, 0x14)	// opcode 142 (pkincapacitancerequest.h)
+LY_OFF(IncapacitanceDistressBeaconPacket, GameID, 0xC)	// header
+LY_OFF(IncapacitanceDistressBeaconPacket, On, 0x10)	// header
 LY_SIZE(Packet_008FClass, 0x10)	// opcode 143 (pkincapacitancerequest.h)
 LY_OFF(Packet_008FClass, GameID, 0xC)	// client
 LY_SIZE(IncapacitanceDetailsPacket, 0x198)	// opcode 144 (pkincapacitancerequest.h)
@@ -639,10 +639,10 @@ LY_OFF(StarbaseAvatarUpdatePacketClass, Unknown18, 0x18)	// client
 LY_OFF(StarbaseAvatarUpdatePacketClass, Unknown1C, 0x1C)	// client
 LY_OFF(StarbaseAvatarUpdatePacketClass, ActionFlag, 0x20)	// client
 LY_OFF(StarbaseAvatarUpdatePacketClass, Room, 0x24)	// client
-LY_SIZE(Starbase_Room_ChangePacketClass, 0x18)	// opcode 159 (pkstarbase_avatar_change.h)
-LY_OFF(Starbase_Room_ChangePacketClass, AvatarID, 0xC)	// client
-LY_OFF(Starbase_Room_ChangePacketClass, NewRoom, 0x10)	// client
-LY_OFF(Starbase_Room_ChangePacketClass, OldRoom, 0x14)	// client
+LY_SIZE(StarbaseAvatarRoomChangePacketClass, 0x18)	// opcode 159 (pkstarbase_avatar_change.h)
+LY_OFF(StarbaseAvatarRoomChangePacketClass, AvatarID, 0xC)	// client
+LY_OFF(StarbaseAvatarRoomChangePacketClass, NewRoom, 0x10)	// client
+LY_OFF(StarbaseAvatarRoomChangePacketClass, OldRoom, 0x14)	// client
 LY_SIZE(StarbaseAvatarRoomUpdatePacketClass, 0x18)	// opcode 160 (pkstarbase_avatar_change.h)
 LY_OFF(StarbaseAvatarRoomUpdatePacketClass, AvatarID, 0xC)	// client
 LY_OFF(StarbaseAvatarRoomUpdatePacketClass, NewRoom, 0x10)	// client
@@ -673,75 +673,75 @@ LY_OFF(ClientChatErrorPacketClass, Unknown10, 0x10)	// header
 LY_OFF(ClientChatErrorPacketClass, Unknown14, 0x14)	// header
 LY_OFF(ClientChatErrorPacketClass, Unknown24, 0x24)	// header
 LY_OFF(ClientChatErrorPacketClass, Unknown34, 0x34)	// header
-LY_SIZE(Packet_00A7Class, 0x30)	// opcode 167 (pkunknown_87a940.h)
-LY_OFF(Packet_00A7Class, Unknown0C, 0xC)	// client
-LY_OFF(Packet_00A7Class, Unknown10, 0x10)	// client
-LY_OFF(Packet_00A7Class, Unknown20, 0x20)	// client
-LY_SIZE(Packet_00A8Class, 0x68)	// opcode 168 (pkunknown_87acd0.h)
-LY_OFF(Packet_00A8Class, Unknown0C, 0xC)	// header
-LY_OFF(Packet_00A8Class, Unknown10, 0x10)	// header
-LY_OFF(Packet_00A8Class, Unknown20, 0x20)	// header
-LY_OFF(Packet_00A8Class, Unknown30, 0x30)	// header
-LY_OFF(Packet_00A8Class, Unknown34, 0x34)	// header
-LY_OFF(Packet_00A8Class, Unknown38, 0x38)	// header
-LY_OFF(Packet_00A8Class, Unknown40, 0x40)	// header
-LY_OFF(Packet_00A8Class, Unknown48, 0x48)	// header
-LY_OFF(Packet_00A8Class, Unknown58, 0x58)	// header
-LY_SIZE(Packet_00A9Class, 0x80)	// opcode 169 (pkunknown_87acd0.h)
-LY_OFF(Packet_00A9Class, Unknown0C, 0xC)	// header
-LY_OFF(Packet_00A9Class, Unknown10, 0x10)	// header
-LY_OFF(Packet_00A9Class, Unknown14, 0x14)	// header
-LY_OFF(Packet_00A9Class, Unknown24, 0x24)	// header
-LY_OFF(Packet_00A9Class, Unknown34, 0x34)	// header
-LY_OFF(Packet_00A9Class, Unknown44, 0x44)	// header
-LY_OFF(Packet_00A9Class, Unknown54, 0x54)	// header
-LY_OFF(Packet_00A9Class, Unknown64, 0x64)	// header
-LY_OFF(Packet_00A9Class, Data, 0x74)	// header
-LY_OFF(Packet_00A9Class, Size, 0x78)	// header
-LY_OFF(Packet_00A9Class, Owned, 0x7C)	// header
-LY_SIZE(Packet_00AAClass, 0x14)	// opcode 170 (pkunknown_87acd0.h)
-LY_OFF(Packet_00AAClass, Unknown0C, 0xC)	// client
-LY_OFF(Packet_00AAClass, Unknown10, 0x10)	// client
-LY_SIZE(Packet_00ABClass, 0x50)	// opcode 171 (pkunknown_87acd0.h)
-LY_OFF(Packet_00ABClass, Unknown0C, 0xC)	// header
-LY_OFF(Packet_00ABClass, Unknown1C, 0x1C)	// header
-LY_OFF(Packet_00ABClass, Unknown2C, 0x2C)	// header
-LY_OFF(Packet_00ABClass, Unknown30, 0x30)	// header
-LY_OFF(Packet_00ABClass, Unknown40, 0x40)	// header
-LY_SIZE(Packet_00ACClass, 0x8C)	// opcode 172 (pkunknown_87acd0.h)
-LY_OFF(Packet_00ACClass, Unknown0C, 0xC)	// header
-LY_OFF(Packet_00ACClass, Unknown1C, 0x1C)	// header
-LY_OFF(Packet_00ACClass, Unknown20, 0x20)	// header
-LY_OFF(Packet_00ACClass, Unknown30, 0x30)	// header
-LY_OFF(Packet_00ACClass, Unknown40, 0x40)	// header
-LY_OFF(Packet_00ACClass, Unknown50, 0x50)	// header
-LY_OFF(Packet_00ACClass, Unknown60, 0x60)	// header
-LY_OFF(Packet_00ACClass, Unknown70, 0x70)	// header
-LY_OFF(Packet_00ACClass, Data, 0x80)	// header
-LY_OFF(Packet_00ACClass, Size, 0x84)	// header
-LY_OFF(Packet_00ACClass, Owned, 0x88)	// header
-LY_SIZE(Packet_00ADClass, 0x30)	// opcode 173 (pkunknown_888b60.h)
+LY_SIZE(ChatBasicRequestPacketClass, 0x30)	// opcode 167 (pkchatbasicrequest.h)
+LY_OFF(ChatBasicRequestPacketClass, Unknown0C, 0xC)	// client
+LY_OFF(ChatBasicRequestPacketClass, Unknown10, 0x10)	// client
+LY_OFF(ChatBasicRequestPacketClass, Unknown20, 0x20)	// client
+LY_SIZE(ChatProxyLoginPacketClass, 0x68)	// opcode 168 (pkchatproxy.h)
+LY_OFF(ChatProxyLoginPacketClass, Unknown0C, 0xC)	// header
+LY_OFF(ChatProxyLoginPacketClass, Unknown10, 0x10)	// header
+LY_OFF(ChatProxyLoginPacketClass, Unknown20, 0x20)	// header
+LY_OFF(ChatProxyLoginPacketClass, Unknown30, 0x30)	// header
+LY_OFF(ChatProxyLoginPacketClass, Unknown34, 0x34)	// header
+LY_OFF(ChatProxyLoginPacketClass, Unknown38, 0x38)	// header
+LY_OFF(ChatProxyLoginPacketClass, Unknown40, 0x40)	// header
+LY_OFF(ChatProxyLoginPacketClass, Unknown48, 0x48)	// header
+LY_OFF(ChatProxyLoginPacketClass, Unknown58, 0x58)	// header
+LY_SIZE(ChatProxyRequestPacketClass, 0x80)	// opcode 169 (pkchatproxy.h)
+LY_OFF(ChatProxyRequestPacketClass, Unknown0C, 0xC)	// header
+LY_OFF(ChatProxyRequestPacketClass, Unknown10, 0x10)	// header
+LY_OFF(ChatProxyRequestPacketClass, Unknown14, 0x14)	// header
+LY_OFF(ChatProxyRequestPacketClass, Unknown24, 0x24)	// header
+LY_OFF(ChatProxyRequestPacketClass, Unknown34, 0x34)	// header
+LY_OFF(ChatProxyRequestPacketClass, Unknown44, 0x44)	// header
+LY_OFF(ChatProxyRequestPacketClass, Unknown54, 0x54)	// header
+LY_OFF(ChatProxyRequestPacketClass, Unknown64, 0x64)	// header
+LY_OFF(ChatProxyRequestPacketClass, Data, 0x74)	// header
+LY_OFF(ChatProxyRequestPacketClass, Size, 0x78)	// header
+LY_OFF(ChatProxyRequestPacketClass, Owned, 0x7C)	// header
+LY_SIZE(ChatProxyResponsePacketClass, 0x14)	// opcode 170 (pkchatproxy.h)
+LY_OFF(ChatProxyResponsePacketClass, Unknown0C, 0xC)	// client
+LY_OFF(ChatProxyResponsePacketClass, Unknown10, 0x10)	// client
+LY_SIZE(ChatProxyResponseListPacketClass, 0x50)	// opcode 171 (pkchatproxy.h)
+LY_OFF(ChatProxyResponseListPacketClass, Unknown0C, 0xC)	// header
+LY_OFF(ChatProxyResponseListPacketClass, Unknown1C, 0x1C)	// header
+LY_OFF(ChatProxyResponseListPacketClass, Unknown2C, 0x2C)	// header
+LY_OFF(ChatProxyResponseListPacketClass, Unknown30, 0x30)	// header
+LY_OFF(ChatProxyResponseListPacketClass, Unknown40, 0x40)	// header
+LY_SIZE(ChatProxyEventPacketClass, 0x8C)	// opcode 172 (pkchatproxy.h)
+LY_OFF(ChatProxyEventPacketClass, Unknown0C, 0xC)	// header
+LY_OFF(ChatProxyEventPacketClass, Unknown1C, 0x1C)	// header
+LY_OFF(ChatProxyEventPacketClass, Unknown20, 0x20)	// header
+LY_OFF(ChatProxyEventPacketClass, Unknown30, 0x30)	// header
+LY_OFF(ChatProxyEventPacketClass, Unknown40, 0x40)	// header
+LY_OFF(ChatProxyEventPacketClass, Unknown50, 0x50)	// header
+LY_OFF(ChatProxyEventPacketClass, Unknown60, 0x60)	// header
+LY_OFF(ChatProxyEventPacketClass, Unknown70, 0x70)	// header
+LY_OFF(ChatProxyEventPacketClass, Data, 0x80)	// header
+LY_OFF(ChatProxyEventPacketClass, Size, 0x84)	// header
+LY_OFF(ChatProxyEventPacketClass, Owned, 0x88)	// header
+LY_SIZE(Packet_00ADClass, 0x30)	// opcode 173 (pkgroupserver.h)
 LY_OFF(Packet_00ADClass, Unknown0C, 0xC)	// header
 LY_OFF(Packet_00ADClass, Unknown10, 0x10)	// header
-LY_SIZE(Packet_00AEClass, 0x28)	// opcode 174 (pkunknown_888b60.h)
-LY_OFF(Packet_00AEClass, Unknown0C, 0xC)	// client
-LY_OFF(Packet_00AEClass, Unknown10, 0x10)	// client
-LY_OFF(Packet_00AEClass, Unknown18, 0x18)	// client
-LY_OFF(Packet_00AEClass, Unknown20, 0x20)	// client
-LY_SIZE(Packet_00AFClass, 0x14)	// opcode 175 (pkunknown_888b60.h)
-LY_OFF(Packet_00AFClass, Unknown0C, 0xC)	// client
-LY_OFF(Packet_00AFClass, Unknown10, 0x10)	// client
-LY_SIZE(Packet_00B0Class, 0x40)	// opcode 176 (pkunknown_888b60.h)
-LY_OFF(Packet_00B0Class, Unknown10, 0x10)	// header
-LY_OFF(Packet_00B0Class, Unknown18, 0x18)	// header
-LY_OFF(Packet_00B0Class, Unknown28, 0x28)	// header
-LY_OFF(Packet_00B0Class, Unknown38, 0x38)	// header
-LY_OFF(Packet_00B0Class, Unknown3C, 0x3C)	// header
-LY_SIZE(Packet_00B1Class, 0x40)	// opcode 177 (pkunknown_888b60.h)
-LY_OFF(Packet_00B1Class, Unknown10, 0x10)	// header
-LY_OFF(Packet_00B1Class, Unknown18, 0x18)	// header
-LY_OFF(Packet_00B1Class, Unknown38, 0x38)	// header
-LY_OFF(Packet_00B1Class, Unknown3C, 0x3C)	// header
+LY_SIZE(GroupServerRequestPacketClass, 0x28)	// opcode 174 (pkgroupserver.h)
+LY_OFF(GroupServerRequestPacketClass, Unknown0C, 0xC)	// client
+LY_OFF(GroupServerRequestPacketClass, Unknown10, 0x10)	// client
+LY_OFF(GroupServerRequestPacketClass, Unknown18, 0x18)	// client
+LY_OFF(GroupServerRequestPacketClass, Unknown20, 0x20)	// client
+LY_SIZE(GroupServerResponsePacketClass, 0x14)	// opcode 175 (pkgroupserver.h)
+LY_OFF(GroupServerResponsePacketClass, Unknown0C, 0xC)	// client
+LY_OFF(GroupServerResponsePacketClass, Unknown10, 0x10)	// client
+LY_SIZE(GroupServerCreatePacketClass, 0x40)	// opcode 176 (pkgroupserver.h)
+LY_OFF(GroupServerCreatePacketClass, Unknown10, 0x10)	// header
+LY_OFF(GroupServerCreatePacketClass, Unknown18, 0x18)	// header
+LY_OFF(GroupServerCreatePacketClass, Unknown28, 0x28)	// header
+LY_OFF(GroupServerCreatePacketClass, Unknown38, 0x38)	// header
+LY_OFF(GroupServerCreatePacketClass, Unknown3C, 0x3C)	// header
+LY_SIZE(GroupServerUpdatePacketClass, 0x40)	// opcode 177 (pkgroupserver.h)
+LY_OFF(GroupServerUpdatePacketClass, Unknown10, 0x10)	// header
+LY_OFF(GroupServerUpdatePacketClass, Unknown18, 0x18)	// header
+LY_OFF(GroupServerUpdatePacketClass, Unknown38, 0x38)	// header
+LY_OFF(GroupServerUpdatePacketClass, Unknown3C, 0x3C)	// header
 LY_SIZE(NameDecalPacketClass, 0x40)	// opcode 178 (pknamedecal.h)
 LY_OFF(NameDecalPacketClass, GameID, 0xC)	// client
 LY_OFF(NameDecalPacketClass, Name, 0x10)	// client
@@ -773,91 +773,91 @@ LY_SIZE(LogoffRequestPacketClass, 0x10)	// opcode 185 (pklogoff.h)
 LY_OFF(LogoffRequestPacketClass, PlayerID, 0xC)	// client
 LY_SIZE(LogoffConfirmationPacketClass, 0xC)	// opcode 186 (pklogoff.h)
 LY_SIZE(Packet_00BBClass, 0xC)	// opcode 187 (pklogoff.h)
-LY_SIZE(CTA_Request_PacketClass, 0x18)	// opcode 188 (pkcta_request.h)
-LY_OFF(CTA_Request_PacketClass, AvatarID, 0xC)	// client
-LY_OFF(CTA_Request_PacketClass, TargetID, 0x10)	// client
-LY_OFF(CTA_Request_PacketClass, RequestType, 0x14)	// client
+LY_SIZE(CTARequestPacketClass, 0x18)	// opcode 188 (pkcta_request.h)
+LY_OFF(CTARequestPacketClass, AvatarID, 0xC)	// client
+LY_OFF(CTARequestPacketClass, TargetID, 0x10)	// client
+LY_OFF(CTARequestPacketClass, RequestType, 0x14)	// client
 LY_SIZE(CTAResponsePacketClass, 0x18)	// opcode 189 (pkcta_request.h)
 LY_OFF(CTAResponsePacketClass, AvatarID, 0xC)	// header
 LY_OFF(CTAResponsePacketClass, RequestType, 0x10)	// header
 LY_OFF(CTAResponsePacketClass, Success, 0x14)	// header
-LY_SIZE(ConfirmedActionOfferPacketClass, 0x24)	// opcode 190 (pkconfirmedaction.h)
-LY_SIZE(ConfirmedActionTimeoutPacketClass, 0x14)	// opcode 191 (pkconfirmedaction.h)
-LY_OFF(ConfirmedActionTimeoutPacketClass, ID, 0xC)	// header
-LY_OFF(ConfirmedActionTimeoutPacketClass, Type, 0x10)	// header
-LY_SIZE(ConfirmedActionResponsePacketClass, 0x18)	// opcode 192 (pkconfirmedaction.h)
-LY_SIZE(GuildPlayerOnlinePacketClass, 0x30)	// opcode 193 (pkguildplayeronline.h)
-LY_OFF(GuildPlayerOnlinePacketClass, PlayerID, 0x10)	// header
-LY_OFF(GuildPlayerOnlinePacketClass, PlayerName, 0x18)	// header
-LY_OFF(GuildPlayerOnlinePacketClass, AccountID, 0x28)	// header
-LY_SIZE(GuildAdjustContribPacketClass, 0x20)	// opcode 194 (pkguildplayeronline.h)
-LY_OFF(GuildAdjustContribPacketClass, PlayerID, 0x10)	// header
-LY_OFF(GuildAdjustContribPacketClass, Contrib, 0x18)	// header
-LY_OFF(GuildAdjustContribPacketClass, Amount, 0x1C)	// header
-LY_SIZE(GuildStatusUpdatePacketClass, 0x58)	// opcode 195 (pkguildplayeronline.h)
-LY_OFF(GuildStatusUpdatePacketClass, PlayerID, 0x10)	// header
-LY_OFF(GuildStatusUpdatePacketClass, Unknown18, 0x18)	// header
-LY_OFF(GuildStatusUpdatePacketClass, RankName, 0x1C)	// header
-LY_OFF(GuildStatusUpdatePacketClass, SameGuildTagColor, 0x2C)	// header
-LY_OFF(GuildStatusUpdatePacketClass, OtherGuildTagColor, 0x38)	// header
-LY_OFF(GuildStatusUpdatePacketClass, NewGuildName, 0x44)	// header
-LY_SIZE(GuildBeginCreationPacketClass, 0x38)	// opcode 196 (pkguildplayeronline.h)
-LY_OFF(GuildBeginCreationPacketClass, Leader, 0x10)	// header
-LY_OFF(GuildBeginCreationPacketClass, Founders, 0x18)	// header
-LY_OFF(GuildBeginCreationPacketClass, GuildName, 0x28)	// header
-LY_SIZE(GuildLeaderAcceptClientPacketClass, 0x24)	// opcode 197 (pkguildranknamesrequestclient.h)
-LY_OFF(GuildLeaderAcceptClientPacketClass, PlayerID, 0xC)	// header
-LY_OFF(GuildLeaderAcceptClientPacketClass, GuildName, 0x10)	// header
-LY_OFF(GuildLeaderAcceptClientPacketClass, Accept, 0x20)	// header
-LY_SIZE(GuildLeaderAcceptSectorPacketClass, 0x30)	// opcode 198 (pkguildplayeronline.h)
-LY_OFF(GuildLeaderAcceptSectorPacketClass, PlayerID, 0x10)	// header
-LY_OFF(GuildLeaderAcceptSectorPacketClass, GuildName, 0x18)	// header
-LY_OFF(GuildLeaderAcceptSectorPacketClass, Accept, 0x28)	// header
-LY_SIZE(GuildRecruitConfirmGuildPacketClass, 0x38)	// opcode 199 (pkguildplayeronline.h)
-LY_OFF(GuildRecruitConfirmGuildPacketClass, PlayerID, 0x10)	// header
-LY_OFF(GuildRecruitConfirmGuildPacketClass, InviterName, 0x18)	// header
-LY_OFF(GuildRecruitConfirmGuildPacketClass, GuildName, 0x28)	// header
+LY_SIZE(ConfirmedActionOfferPacket, 0x24)	// opcode 190 (pkconfirmedaction.h)
+LY_SIZE(ConfirmedActionTimeoutPacket, 0x14)	// opcode 191 (pkconfirmedaction.h)
+LY_OFF(ConfirmedActionTimeoutPacket, ID, 0xC)	// header
+LY_OFF(ConfirmedActionTimeoutPacket, Type, 0x10)	// header
+LY_SIZE(ConfirmedActionResponsePacket, 0x18)	// opcode 192 (pkconfirmedaction.h)
+LY_SIZE(GuildPlayerOnlineSectorPacket, 0x30)	// opcode 193 (pkguildplayeronline.h)
+LY_OFF(GuildPlayerOnlineSectorPacket, PlayerID, 0x10)	// header
+LY_OFF(GuildPlayerOnlineSectorPacket, PlayerName, 0x18)	// header
+LY_OFF(GuildPlayerOnlineSectorPacket, AccountID, 0x28)	// header
+LY_SIZE(GuildAdjustContribPacket, 0x20)	// opcode 194 (pkguildplayeronline.h)
+LY_OFF(GuildAdjustContribPacket, PlayerID, 0x10)	// header
+LY_OFF(GuildAdjustContribPacket, Contrib, 0x18)	// header
+LY_OFF(GuildAdjustContribPacket, Amount, 0x1C)	// header
+LY_SIZE(GuildStatusUpdatePacket, 0x58)	// opcode 195 (pkguildplayeronline.h)
+LY_OFF(GuildStatusUpdatePacket, PlayerID, 0x10)	// header
+LY_OFF(GuildStatusUpdatePacket, Unknown18, 0x18)	// header
+LY_OFF(GuildStatusUpdatePacket, RankName, 0x1C)	// header
+LY_OFF(GuildStatusUpdatePacket, SameGuildTagColor, 0x2C)	// header
+LY_OFF(GuildStatusUpdatePacket, OtherGuildTagColor, 0x38)	// header
+LY_OFF(GuildStatusUpdatePacket, NewGuildName, 0x44)	// header
+LY_SIZE(GuildBeginCreationPacket, 0x38)	// opcode 196 (pkguildplayeronline.h)
+LY_OFF(GuildBeginCreationPacket, Leader, 0x10)	// header
+LY_OFF(GuildBeginCreationPacket, Founders, 0x18)	// header
+LY_OFF(GuildBeginCreationPacket, GuildName, 0x28)	// header
+LY_SIZE(GuildLeaderAcceptClientPacket, 0x24)	// opcode 197 (pkguildranknamesrequestclient.h)
+LY_OFF(GuildLeaderAcceptClientPacket, PlayerID, 0xC)	// header
+LY_OFF(GuildLeaderAcceptClientPacket, GuildName, 0x10)	// header
+LY_OFF(GuildLeaderAcceptClientPacket, Accept, 0x20)	// header
+LY_SIZE(GuildLeaderAcceptSectorPacket, 0x30)	// opcode 198 (pkguildplayeronline.h)
+LY_OFF(GuildLeaderAcceptSectorPacket, PlayerID, 0x10)	// header
+LY_OFF(GuildLeaderAcceptSectorPacket, GuildName, 0x18)	// header
+LY_OFF(GuildLeaderAcceptSectorPacket, Accept, 0x28)	// header
+LY_SIZE(GuildRecruitConfirmGuildPacket, 0x38)	// opcode 199 (pkguildplayeronline.h)
+LY_OFF(GuildRecruitConfirmGuildPacket, PlayerID, 0x10)	// header
+LY_OFF(GuildRecruitConfirmGuildPacket, InviterName, 0x18)	// header
+LY_OFF(GuildRecruitConfirmGuildPacket, GuildName, 0x28)	// header
 LY_SIZE(GuildRecruitConfirmSectorPacket, 0x2C)	// opcode 200 (pkguildranknamesrequestclient.h)
 LY_OFF(GuildRecruitConfirmSectorPacket, InviterName, 0xC)	// client
 LY_OFF(GuildRecruitConfirmSectorPacket, GuildName, 0x1C)	// client
-LY_SIZE(GuildRecruitAcceptClientPacketClass, 0x14)	// opcode 201 (pkguildranknamesrequestclient.h)
-LY_OFF(GuildRecruitAcceptClientPacketClass, PlayerID, 0xC)	// header
-LY_OFF(GuildRecruitAcceptClientPacketClass, Accept, 0x10)	// header
-LY_SIZE(GuildRecruitAcceptSectorPacketClass, 0x40)	// opcode 202 (pkguildplayeronline.h)
-LY_OFF(GuildRecruitAcceptSectorPacketClass, PlayerID, 0x10)	// header
-LY_OFF(GuildRecruitAcceptSectorPacketClass, InviterName, 0x18)	// header
-LY_OFF(GuildRecruitAcceptSectorPacketClass, GuildName, 0x28)	// header
-LY_OFF(GuildRecruitAcceptSectorPacketClass, Accept, 0x38)	// header
-LY_SIZE(GuildSimpleGuildSectorPacketClass, 0x28)	// opcode 203 (pkguildplayeronline.h)
-LY_OFF(GuildSimpleGuildSectorPacketClass, Type, 0xC)	// header
-LY_OFF(GuildSimpleGuildSectorPacketClass, PlayerID, 0x10)	// header
-LY_OFF(GuildSimpleGuildSectorPacketClass, OptionalParam, 0x18)	// header
+LY_SIZE(GuildRecruitAcceptClientPacket, 0x14)	// opcode 201 (pkguildranknamesrequestclient.h)
+LY_OFF(GuildRecruitAcceptClientPacket, PlayerID, 0xC)	// header
+LY_OFF(GuildRecruitAcceptClientPacket, Accept, 0x10)	// header
+LY_SIZE(GuildRecruitAcceptSectorPacket, 0x40)	// opcode 202 (pkguildplayeronline.h)
+LY_OFF(GuildRecruitAcceptSectorPacket, PlayerID, 0x10)	// header
+LY_OFF(GuildRecruitAcceptSectorPacket, InviterName, 0x18)	// header
+LY_OFF(GuildRecruitAcceptSectorPacket, GuildName, 0x28)	// header
+LY_OFF(GuildRecruitAcceptSectorPacket, Accept, 0x38)	// header
+LY_SIZE(GuildSimpleGuildSectorPacket, 0x28)	// opcode 203 (pkguildplayeronline.h)
+LY_OFF(GuildSimpleGuildSectorPacket, Type, 0xC)	// header
+LY_OFF(GuildSimpleGuildSectorPacket, PlayerID, 0x10)	// header
+LY_OFF(GuildSimpleGuildSectorPacket, OptionalParam, 0x18)	// header
 LY_SIZE(GuildSimpleSectorClientPacket, 0x20)	// opcode 204 (pkguildranknamesrequestclient.h)
 LY_OFF(GuildSimpleSectorClientPacket, Type, 0xC)	// client
 LY_OFF(GuildSimpleSectorClientPacket, OptionalParam, 0x10)	// client
-LY_SIZE(GuildSimpleClientSectorPacketClass, 0x24)	// opcode 205 (pkguildranknamesrequestclient.h)
-LY_OFF(GuildSimpleClientSectorPacketClass, Type, 0xC)	// client
-LY_OFF(GuildSimpleClientSectorPacketClass, PlayerID, 0x10)	// client
-LY_OFF(GuildSimpleClientSectorPacketClass, OptionalParam, 0x14)	// client
-LY_SIZE(GuildSimpleSectorGuildPacketClass, 0x28)	// opcode 206 (pkguildplayeronline.h)
-LY_OFF(GuildSimpleSectorGuildPacketClass, Type, 0xC)	// header
-LY_OFF(GuildSimpleSectorGuildPacketClass, PlayerID, 0x10)	// header
-LY_OFF(GuildSimpleSectorGuildPacketClass, OptionalParam, 0x18)	// header
-LY_SIZE(GuildMessageGuildPacketClass, 0x40)	// opcode 207 (pkguildplayeronline.h)
-LY_OFF(GuildMessageGuildPacketClass, PlayerID, 0x10)	// header
-LY_OFF(GuildMessageGuildPacketClass, MessageType, 0x18)	// header
-LY_OFF(GuildMessageGuildPacketClass, OtherName, 0x1C)	// header
-LY_OFF(GuildMessageGuildPacketClass, GuildName, 0x2C)	// header
+LY_SIZE(GuildSimpleClientSectorPacket, 0x24)	// opcode 205 (pkguildranknamesrequestclient.h)
+LY_OFF(GuildSimpleClientSectorPacket, Type, 0xC)	// client
+LY_OFF(GuildSimpleClientSectorPacket, PlayerID, 0x10)	// client
+LY_OFF(GuildSimpleClientSectorPacket, OptionalParam, 0x14)	// client
+LY_SIZE(GuildSimpleSectorGuildPacket, 0x28)	// opcode 206 (pkguildplayeronline.h)
+LY_OFF(GuildSimpleSectorGuildPacket, Type, 0xC)	// header
+LY_OFF(GuildSimpleSectorGuildPacket, PlayerID, 0x10)	// header
+LY_OFF(GuildSimpleSectorGuildPacket, OptionalParam, 0x18)	// header
+LY_SIZE(GuildMessageGuildPacket, 0x40)	// opcode 207 (pkguildplayeronline.h)
+LY_OFF(GuildMessageGuildPacket, PlayerID, 0x10)	// header
+LY_OFF(GuildMessageGuildPacket, MessageType, 0x18)	// header
+LY_OFF(GuildMessageGuildPacket, OtherName, 0x1C)	// header
+LY_OFF(GuildMessageGuildPacket, GuildName, 0x2C)	// header
 LY_SIZE(GuildMessageSectorPacket, 0x30)	// opcode 208 (pkguildranknamesrequestclient.h)
 LY_OFF(GuildMessageSectorPacket, MessageType, 0xC)	// client
 LY_OFF(GuildMessageSectorPacket, OtherName, 0x10)	// client
 LY_OFF(GuildMessageSectorPacket, GuildName, 0x20)	// client
-LY_SIZE(GuildPermissionsPacketClass, 0x28)	// opcode 209 (pkguildplayeronline.h)
-LY_OFF(GuildPermissionsPacketClass, PlayerID, 0x10)	// header
-LY_OFF(GuildPermissionsPacketClass, Unknown18, 0x18)	// header
-LY_OFF(GuildPermissionsPacketClass, Unknown1C, 0x1C)	// header
-LY_OFF(GuildPermissionsPacketClass, Unknown20, 0x20)	// header
-LY_OFF(GuildPermissionsPacketClass, Unknown24, 0x24)	// header
+LY_SIZE(GuildPermissionsPacket, 0x28)	// opcode 209 (pkguildplayeronline.h)
+LY_OFF(GuildPermissionsPacket, PlayerID, 0x10)	// header
+LY_OFF(GuildPermissionsPacket, Unknown18, 0x18)	// header
+LY_OFF(GuildPermissionsPacket, Unknown1C, 0x1C)	// header
+LY_OFF(GuildPermissionsPacket, Unknown20, 0x20)	// header
+LY_OFF(GuildPermissionsPacket, Unknown24, 0x24)	// header
 LY_SIZE(GuildPlayerPermissionsPacket, 0x1C)	// opcode 210 (pkguildranknamesrequestclient.h)
 LY_OFF(GuildPlayerPermissionsPacket, Unknown0C, 0xC)	// header
 LY_OFF(GuildPlayerPermissionsPacket, Unknown10, 0x10)	// header
@@ -865,48 +865,48 @@ LY_OFF(GuildPlayerPermissionsPacket, Unknown14, 0x14)	// header
 LY_OFF(GuildPlayerPermissionsPacket, Unknown18, 0x18)	// header
 LY_SIZE(GuildRankNamesSectorPacket, 0x1C)	// opcode 211 (pkguildranknamesrequestclient.h)
 LY_OFF(GuildRankNamesSectorPacket, Ranks, 0xC)	// header
-LY_SIZE(GuildRankNamesRequestClientPacketClass, 0x10)	// opcode 212 (pkguildranknamesrequestclient.h)
-LY_OFF(GuildRankNamesRequestClientPacketClass, PlayerID, 0xC)	// client
-LY_SIZE(GuildRankNamesGuildPacketClass, 0x28)	// opcode 213 (pkguildplayeronline.h)
-LY_OFF(GuildRankNamesGuildPacketClass, PlayerID, 0x10)	// header
-LY_OFF(GuildRankNamesGuildPacketClass, Ranks, 0x18)	// header
-LY_SIZE(GuildRankNamesRequestSectorPacketClass, 0x18)	// opcode 214 (pkguildplayeronline.h)
-LY_OFF(GuildRankNamesRequestSectorPacketClass, PlayerID, 0x10)	// header
-LY_SIZE(GuildGMRenameConfirmGuildPacketClass, 0x38)	// opcode 215 (pkguildplayeronline.h)
-LY_OFF(GuildGMRenameConfirmGuildPacketClass, PlayerID, 0x10)	// header
-LY_OFF(GuildGMRenameConfirmGuildPacketClass, OldGuildName, 0x18)	// header
-LY_OFF(GuildGMRenameConfirmGuildPacketClass, NewGuildName, 0x28)	// header
+LY_SIZE(GuildRankNamesRequestClientPacket, 0x10)	// opcode 212 (pkguildranknamesrequestclient.h)
+LY_OFF(GuildRankNamesRequestClientPacket, PlayerID, 0xC)	// client
+LY_SIZE(GuildRankNamesGuildPacket, 0x28)	// opcode 213 (pkguildplayeronline.h)
+LY_OFF(GuildRankNamesGuildPacket, PlayerID, 0x10)	// header
+LY_OFF(GuildRankNamesGuildPacket, Ranks, 0x18)	// header
+LY_SIZE(GuildRankNamesRequestSectorPacket, 0x18)	// opcode 214 (pkguildplayeronline.h)
+LY_OFF(GuildRankNamesRequestSectorPacket, PlayerID, 0x10)	// header
+LY_SIZE(GuildGMRenameConfirmGuildPacket, 0x38)	// opcode 215 (pkguildplayeronline.h)
+LY_OFF(GuildGMRenameConfirmGuildPacket, PlayerID, 0x10)	// header
+LY_OFF(GuildGMRenameConfirmGuildPacket, OldGuildName, 0x18)	// header
+LY_OFF(GuildGMRenameConfirmGuildPacket, NewGuildName, 0x28)	// header
 LY_SIZE(GuildGMRenameConfirmSectorPacket, 0x2C)	// opcode 216 (pkguildranknamesrequestclient.h)
 LY_OFF(GuildGMRenameConfirmSectorPacket, OldGuildName, 0xC)	// client
 LY_OFF(GuildGMRenameConfirmSectorPacket, NewGuildName, 0x1C)	// client
-LY_SIZE(GuildGMRenameAcceptSectorPacketClass, 0x38)	// opcode 217 (pkguildplayeronline.h)
-LY_OFF(GuildGMRenameAcceptSectorPacketClass, PlayerID, 0x10)	// header
-LY_OFF(GuildGMRenameAcceptSectorPacketClass, OldGuildName, 0x18)	// header
-LY_OFF(GuildGMRenameAcceptSectorPacketClass, NewGuildName, 0x28)	// header
-LY_SIZE(GuildDeletePlayerPacketClass, 0x68)	// opcode 218 (pkguildplayeronline.h)
-LY_OFF(GuildDeletePlayerPacketClass, PlayerID, 0x10)	// header
-LY_OFF(GuildDeletePlayerPacketClass, Slot, 0x18)	// header
-LY_OFF(GuildDeletePlayerPacketClass, AccountName, 0x1C)	// header
-LY_OFF(GuildDeletePlayerPacketClass, AccountID, 0x60)	// header
-LY_SIZE(GuildPlayerInfoDeletedPacketClass, 0x70)	// opcode 219 (pkguildplayeronline.h)
-LY_OFF(GuildPlayerInfoDeletedPacketClass, PlayerID, 0x10)	// header
-LY_OFF(GuildPlayerInfoDeletedPacketClass, Slot, 0x18)	// header
-LY_OFF(GuildPlayerInfoDeletedPacketClass, AccountName, 0x1C)	// header
-LY_OFF(GuildPlayerInfoDeletedPacketClass, AccountID, 0x60)	// header
-LY_OFF(GuildPlayerInfoDeletedPacketClass, Unknown68, 0x68)	// header
-LY_OFF(GuildPlayerInfoDeletedPacketClass, Unknown6C, 0x6C)	// header
-LY_SIZE(GuildDeductFeePacketClass, 0x30)	// opcode 220 (pkguildplayeronline.h)
-LY_OFF(GuildDeductFeePacketClass, PlayerID, 0x10)	// header
-LY_OFF(GuildDeductFeePacketClass, NumCredits, 0x18)	// header
-LY_OFF(GuildDeductFeePacketClass, Description, 0x20)	// header
-LY_SIZE(GpsRequestPacketClass, 0x20)	// opcode 221 (pkgpsrequest.h)
-LY_SIZE(GpsResponsePacketClass, 0x24)	// opcode 222 (pkgpsrequest.h)
-LY_OFF(GpsResponsePacketClass, Unknown0C, 0xC)	// header
-LY_OFF(GpsResponsePacketClass, Unknown10, 0x10)	// header
-LY_OFF(GpsResponsePacketClass, Unknown14, 0x14)	// header
-LY_OFF(GpsResponsePacketClass, Unknown18, 0x18)	// header
-LY_OFF(GpsResponsePacketClass, Unknown1C, 0x1C)	// header
-LY_OFF(GpsResponsePacketClass, Unknown20, 0x20)	// header
+LY_SIZE(GuildGMRenameAcceptSectorPacket, 0x38)	// opcode 217 (pkguildplayeronline.h)
+LY_OFF(GuildGMRenameAcceptSectorPacket, PlayerID, 0x10)	// header
+LY_OFF(GuildGMRenameAcceptSectorPacket, OldGuildName, 0x18)	// header
+LY_OFF(GuildGMRenameAcceptSectorPacket, NewGuildName, 0x28)	// header
+LY_SIZE(GuildDeletePlayerPacket, 0x68)	// opcode 218 (pkguildplayeronline.h)
+LY_OFF(GuildDeletePlayerPacket, PlayerID, 0x10)	// header
+LY_OFF(GuildDeletePlayerPacket, Slot, 0x18)	// header
+LY_OFF(GuildDeletePlayerPacket, AccountName, 0x1C)	// header
+LY_OFF(GuildDeletePlayerPacket, AccountID, 0x60)	// header
+LY_SIZE(GuildPlayerInfoDeletedPacket, 0x70)	// opcode 219 (pkguildplayeronline.h)
+LY_OFF(GuildPlayerInfoDeletedPacket, PlayerID, 0x10)	// header
+LY_OFF(GuildPlayerInfoDeletedPacket, Slot, 0x18)	// header
+LY_OFF(GuildPlayerInfoDeletedPacket, AccountName, 0x1C)	// header
+LY_OFF(GuildPlayerInfoDeletedPacket, AccountID, 0x60)	// header
+LY_OFF(GuildPlayerInfoDeletedPacket, Unknown68, 0x68)	// header
+LY_OFF(GuildPlayerInfoDeletedPacket, Unknown6C, 0x6C)	// header
+LY_SIZE(GuildDeductFeePacket, 0x30)	// opcode 220 (pkguildplayeronline.h)
+LY_OFF(GuildDeductFeePacket, PlayerID, 0x10)	// header
+LY_OFF(GuildDeductFeePacket, NumCredits, 0x18)	// header
+LY_OFF(GuildDeductFeePacket, Description, 0x20)	// header
+LY_SIZE(GPSRequestPacketClass, 0x20)	// opcode 221 (pkgpsrequest.h)
+LY_SIZE(GPSResponsePacketClass, 0x24)	// opcode 222 (pkgpsrequest.h)
+LY_OFF(GPSResponsePacketClass, Unknown0C, 0xC)	// header
+LY_OFF(GPSResponsePacketClass, Unknown10, 0x10)	// header
+LY_OFF(GPSResponsePacketClass, Unknown14, 0x14)	// header
+LY_OFF(GPSResponsePacketClass, Unknown18, 0x18)	// header
+LY_OFF(GPSResponsePacketClass, Unknown1C, 0x1C)	// header
+LY_OFF(GPSResponsePacketClass, Unknown20, 0x20)	// header
 LY_SIZE(DirLockRequestPacketClass, 0x30)	// opcode 223 (pkdirlock.h)
 LY_SIZE(DirLockResponseGlobalPacketClass, 0x38)	// opcode 224 (pkdirlock.h)
 LY_OFF(DirLockResponseGlobalPacketClass, Unknown30, 0x30)	// header
@@ -919,24 +919,24 @@ LY_OFF(GlobalLockRequestPacketClass, Unknown20, 0x20)	// header
 LY_SIZE(GlobalLockResponsePacketClass, 0x28)	// opcode 228 (pkgloballock.h)
 LY_OFF(GlobalLockResponsePacketClass, Unknown20, 0x20)	// header
 LY_SIZE(GlobalLockReleasePacketClass, 0x20)	// opcode 229 (pkgloballock.h)
-LY_SIZE(Packet_00E6Class, 0x38)	// opcode 230 (pkunknown_863720.h)
-LY_OFF(Packet_00E6Class, Data, 0xC)	// header
-LY_OFF(Packet_00E6Class, DataSize, 0x10)	// header
-LY_OFF(Packet_00E6Class, Unknown18, 0x18)	// header
-LY_OFF(Packet_00E6Class, String, 0x20)	// header
-LY_OFF(Packet_00E6Class, Unknown28, 0x28)	// header
-LY_OFF(Packet_00E6Class, Unknown30, 0x30)	// header
-LY_OFF(Packet_00E6Class, Unknown34, 0x34)	// header
-LY_SIZE(Packet_00E7Class, 0x38)	// opcode 231 (pkunknown_863720.h)
-LY_OFF(Packet_00E7Class, Data, 0xC)	// header
-LY_OFF(Packet_00E7Class, DataSize, 0x10)	// header
-LY_OFF(Packet_00E7Class, Unknown18, 0x18)	// header
-LY_OFF(Packet_00E7Class, String, 0x20)	// header
-LY_OFF(Packet_00E7Class, Unknown28, 0x28)	// header
-LY_OFF(Packet_00E7Class, Unknown30, 0x30)	// header
-LY_SIZE(Packet_00E8Class, 0x14)	// opcode 232 (pkunknown_8a5510.h)
-LY_OFF(Packet_00E8Class, Unknown0C, 0xC)	// client
-LY_OFF(Packet_00E8Class, Unknown10, 0x10)	// client
+LY_SIZE(GlobalContainerRequestPacketClass, 0x38)	// opcode 230 (pkglobalcontainer.h)
+LY_OFF(GlobalContainerRequestPacketClass, Data, 0xC)	// header
+LY_OFF(GlobalContainerRequestPacketClass, DataSize, 0x10)	// header
+LY_OFF(GlobalContainerRequestPacketClass, Unknown18, 0x18)	// header
+LY_OFF(GlobalContainerRequestPacketClass, String, 0x20)	// header
+LY_OFF(GlobalContainerRequestPacketClass, Unknown28, 0x28)	// header
+LY_OFF(GlobalContainerRequestPacketClass, Unknown30, 0x30)	// header
+LY_OFF(GlobalContainerRequestPacketClass, Unknown34, 0x34)	// header
+LY_SIZE(GlobalContainerResponsePacketClass, 0x38)	// opcode 231 (pkglobalcontainer.h)
+LY_OFF(GlobalContainerResponsePacketClass, Data, 0xC)	// header
+LY_OFF(GlobalContainerResponsePacketClass, DataSize, 0x10)	// header
+LY_OFF(GlobalContainerResponsePacketClass, Unknown18, 0x18)	// header
+LY_OFF(GlobalContainerResponsePacketClass, String, 0x20)	// header
+LY_OFF(GlobalContainerResponsePacketClass, Unknown28, 0x28)	// header
+LY_OFF(GlobalContainerResponsePacketClass, Unknown30, 0x30)	// header
+LY_SIZE(SpendReferralPointPacketClass, 0x14)	// opcode 232 (pkspendreferralpoint.h)
+LY_OFF(SpendReferralPointPacketClass, Unknown0C, 0xC)	// client
+LY_OFF(SpendReferralPointPacketClass, Unknown10, 0x10)	// client
 LY_SIZE(ReferralPointsAvailablePacketClass, 0x14)	// opcode 233 (pkreferralpointsavailable.h)
 LY_OFF(ReferralPointsAvailablePacketClass, PointsTotal, 0xC)	// client
 LY_OFF(ReferralPointsAvailablePacketClass, PointsSpent, 0x10)	// client
@@ -946,48 +946,48 @@ LY_OFF(GMEditPlayerInventoryPacketClass, Strings, 0x10)	// header
 LY_SIZE(GMViewMissionLogPacketClass, 0x20)	// opcode 235 (pkgmviewmissionlog.h)
 LY_OFF(GMViewMissionLogPacketClass, Unknown0C, 0xC)	// header
 LY_OFF(GMViewMissionLogPacketClass, Strings, 0x10)	// header
-LY_SIZE(GMDestroyItemPacketClass, 0x24)	// opcode 236 (pkgmdestroyitem.h)
-LY_OFF(GMDestroyItemPacketClass, Unknown0C, 0xC)	// header
-LY_OFF(GMDestroyItemPacketClass, ItemName, 0x10)	// header
-LY_OFF(GMDestroyItemPacketClass, Unknown20, 0x20)	// header
-LY_SIZE(GMResetMissionPacketClass, 0x24)	// opcode 237 (pkgmresetmission.h)
-LY_OFF(GMResetMissionPacketClass, Unknown0C, 0xC)	// header
-LY_OFF(GMResetMissionPacketClass, MissionName, 0x10)	// header
-LY_OFF(GMResetMissionPacketClass, Unknown20, 0x20)	// header
-LY_SIZE(Packet_1388Class, 0x21C)	// opcode 5000 (pktask.h)
-LY_OFF(Packet_1388Class, Data, 0xC)	// header
-LY_SIZE(Packet_1389Class, 0x224)	// opcode 5001 (pktask.h)
-LY_OFF(Packet_1389Class, Data, 0xC)	// header
-LY_SIZE(Packet_138AClass, 0x14)	// opcode 5002 (pktask.h)
-LY_OFF(Packet_138AClass, Type, 0xC)	// client
-LY_OFF(Packet_138AClass, Num, 0x10)	// client
-LY_SIZE(Packet_138BClass, 0x14)	// opcode 5003 (pktask.h)
-LY_OFF(Packet_138BClass, Type, 0xC)	// client
-LY_OFF(Packet_138BClass, Num, 0x10)	// client
-LY_SIZE(Packet_138CClass, 0x18)	// opcode 5004 (pktask.h)
-LY_OFF(Packet_138CClass, Unknown14, 0x14)	// header
-LY_SIZE(Packet_138DClass, 0x1C)	// opcode 5005 (pktask.h)
-LY_OFF(Packet_138DClass, Ip, 0xC)	// header
-LY_OFF(Packet_138DClass, Port, 0x10)	// header
-LY_OFF(Packet_138DClass, String, 0x14)	// header
-LY_OFF(Packet_138DClass, Size, 0x18)	// header
-LY_SIZE(Packet_138EClass, 0x1C)	// opcode 5006 (pktask.h)
-LY_SIZE(Packet_1391Class, 0x40)	// opcode 5009 (pktask.h)
-LY_OFF(Packet_1391Class, Name, 0xC)	// header
-LY_OFF(Packet_1391Class, CharacterObjectID, 0x10)	// header
-LY_OFF(Packet_1391Class, Account, 0x18)	// header
-LY_OFF(Packet_1391Class, AccountID, 0x20)	// header
-LY_OFF(Packet_1391Class, Ip, 0x28)	// header
-LY_OFF(Packet_1391Class, Port, 0x2C)	// header
-LY_OFF(Packet_1391Class, Sector, 0x30)	// header
-LY_OFF(Packet_1391Class, Status, 0x34)	// header
-LY_OFF(Packet_1391Class, Unknown38, 0x38)	// header
-LY_SIZE(Packet_1392Class, 0x18)	// opcode 5010 (pktask.h)
-LY_OFF(Packet_1392Class, List, 0xC)	// header
-LY_SIZE(Packet_1393Class, 0xC)	// opcode 5011 (pktask.h)
-LY_SIZE(Packet_7530Class, 0x10)	// opcode 30000 (pkunknown_85f250.h)
-LY_OFF(Packet_7530Class, EditorProtocolVersion, 0xC)	// client
-LY_SIZE(Packet_7531Class, 0xC)	// opcode 30001 (pkunknown_85f250.h)
+LY_SIZE(GMDestroyItemRequestPacketClass, 0x24)	// opcode 236 (pkgmdestroyitem.h)
+LY_OFF(GMDestroyItemRequestPacketClass, Unknown0C, 0xC)	// header
+LY_OFF(GMDestroyItemRequestPacketClass, ItemName, 0x10)	// header
+LY_OFF(GMDestroyItemRequestPacketClass, Unknown20, 0x20)	// header
+LY_SIZE(GMResetMissionRequestPacketClass, 0x24)	// opcode 237 (pkgmresetmission.h)
+LY_OFF(GMResetMissionRequestPacketClass, Unknown0C, 0xC)	// header
+LY_OFF(GMResetMissionRequestPacketClass, MissionName, 0x10)	// header
+LY_OFF(GMResetMissionRequestPacketClass, Unknown20, 0x20)	// header
+LY_SIZE(TaskHelloPacketClass, 0x21C)	// opcode 5000 (pktask.h)
+LY_OFF(TaskHelloPacketClass, Data, 0xC)	// header
+LY_SIZE(SectorHelloPacketClass, 0x224)	// opcode 5001 (pktask.h)
+LY_OFF(SectorHelloPacketClass, Data, 0xC)	// header
+LY_SIZE(TaskStartPacketClass, 0x14)	// opcode 5002 (pktask.h)
+LY_OFF(TaskStartPacketClass, Type, 0xC)	// client
+LY_OFF(TaskStartPacketClass, Num, 0x10)	// client
+LY_SIZE(TaskStopPacketClass, 0x14)	// opcode 5003 (pktask.h)
+LY_OFF(TaskStopPacketClass, Type, 0xC)	// client
+LY_OFF(TaskStopPacketClass, Num, 0x10)	// client
+LY_SIZE(TaskRequestPacketClass, 0x18)	// opcode 5004 (pktask.h)
+LY_OFF(TaskRequestPacketClass, Unknown14, 0x14)	// header
+LY_SIZE(TaskPingPacketClass, 0x1C)	// opcode 5005 (pktask.h)
+LY_OFF(TaskPingPacketClass, Ip, 0xC)	// header
+LY_OFF(TaskPingPacketClass, Port, 0x10)	// header
+LY_OFF(TaskPingPacketClass, String, 0x14)	// header
+LY_OFF(TaskPingPacketClass, Size, 0x18)	// header
+LY_SIZE(TaskPongPacketClass, 0x1C)	// opcode 5006 (pktask.h)
+LY_SIZE(PlayerStatusPacketClass, 0x40)	// opcode 5009 (pktask.h)
+LY_OFF(PlayerStatusPacketClass, Name, 0xC)	// header
+LY_OFF(PlayerStatusPacketClass, CharacterObjectID, 0x10)	// header
+LY_OFF(PlayerStatusPacketClass, Account, 0x18)	// header
+LY_OFF(PlayerStatusPacketClass, AccountID, 0x20)	// header
+LY_OFF(PlayerStatusPacketClass, Ip, 0x28)	// header
+LY_OFF(PlayerStatusPacketClass, Port, 0x2C)	// header
+LY_OFF(PlayerStatusPacketClass, Sector, 0x30)	// header
+LY_OFF(PlayerStatusPacketClass, Status, 0x34)	// header
+LY_OFF(PlayerStatusPacketClass, Unknown38, 0x38)	// header
+LY_SIZE(SectorListPacketClass, 0x18)	// opcode 5010 (pktask.h)
+LY_OFF(SectorListPacketClass, List, 0xC)	// header
+LY_SIZE(RequestSectorListPacket, 0xC)	// opcode 5011 (pktask.h)
+LY_SIZE(GameEditorLoginPacketClass, 0x10)	// opcode 30000 (pkgelog.h)
+LY_OFF(GameEditorLoginPacketClass, EditorProtocolVersion, 0xC)	// client
+LY_SIZE(GameEditorLogoutPacketClass, 0xC)	// opcode 30001 (pkgelog.h)
 LY_SIZE(Packet_7535Class, 0x20)	// opcode 30005 (gameedit\pkgekv.h)
 LY_OFF(Packet_7535Class, GameID, 0xC)	// header
 LY_OFF(Packet_7535Class, Subscribe, 0x10)	// header
@@ -996,41 +996,41 @@ LY_OFF(Packet_7535Class, Data, 0x18)	// header
 LY_OFF(Packet_7535Class, Owned, 0x1C)	// header
 LY_SIZE(Packet_7536Class, 0x10)	// opcode 30006 (gameedit\pkgekv.h)
 LY_OFF(Packet_7536Class, GameID, 0xC)	// header
-LY_SIZE(Packet_7538Class, 0x1C)	// opcode 30008 (gameedit\pkgekv.h)
-LY_OFF(Packet_7538Class, GameID, 0xC)	// header
-LY_OFF(Packet_7538Class, Data, 0x10)	// header
-LY_OFF(Packet_7538Class, Size, 0x14)	// header
-LY_OFF(Packet_7538Class, Owned, 0x18)	// header
-LY_SIZE(Packet_7539Class, 0x10)	// opcode 30009 (gameedit\pkgeobj.h)
-LY_OFF(Packet_7539Class, GameID, 0xC)	// header
-LY_SIZE(Packet_753AClass, 0x40)	// opcode 30010 (gameedit\pkgeobj.h)
-LY_OFF(Packet_753AClass, GameID, 0xC)	// header
-LY_OFF(Packet_753AClass, Transform, 0x10)	// header
-LY_SIZE(Packet_753CClass, 0x18)	// opcode 30012 (gameedit\pkgeobj.h)
-LY_OFF(Packet_753CClass, Size, 0xC)	// header
-LY_OFF(Packet_753CClass, Data, 0x10)	// header
-LY_OFF(Packet_753CClass, Owned, 0x14)	// header
-LY_SIZE(Packet_753EClass, 0x18)	// opcode 30014 (gameedit\pkgeobj.h)
-LY_OFF(Packet_753EClass, Size, 0xC)	// header
-LY_OFF(Packet_753EClass, Data, 0x10)	// header
-LY_OFF(Packet_753EClass, Owned, 0x14)	// header
-LY_SIZE(Packet_753FClass, 0xC)	// opcode 30015 (gameedit\pkgeobj.h)
-LY_SIZE(Packet_7540Class, 0x18)	// opcode 30016 (gameedit\pkgeobj.h)
-LY_OFF(Packet_7540Class, Size, 0xC)	// header
-LY_OFF(Packet_7540Class, Data, 0x10)	// header
-LY_OFF(Packet_7540Class, Owned, 0x14)	// header
-LY_SIZE(Packet_7541Class, 0x18)	// opcode 30017 (gameedit\pkgespwn.h)
-LY_OFF(Packet_7541Class, Size, 0xC)	// header
-LY_OFF(Packet_7541Class, Data, 0x10)	// header
-LY_OFF(Packet_7541Class, Owned, 0x14)	// header
-LY_SIZE(Packet_7545Class, 0x48)	// opcode 30021 (gameedit\pkgeclon.h)
-LY_OFF(Packet_7545Class, GameID, 0xC)	// header
-LY_OFF(Packet_7545Class, Transform, 0x10)	// header
-LY_OFF(Packet_7545Class, NewNameSize, 0x40)	// header
-LY_OFF(Packet_7545Class, NewName, 0x44)	// header
+LY_SIZE(GameEditorKVModifyPacketClass, 0x1C)	// opcode 30008 (gameedit\pkgekv.h)
+LY_OFF(GameEditorKVModifyPacketClass, GameID, 0xC)	// header
+LY_OFF(GameEditorKVModifyPacketClass, Data, 0x10)	// header
+LY_OFF(GameEditorKVModifyPacketClass, Size, 0x14)	// header
+LY_OFF(GameEditorKVModifyPacketClass, Owned, 0x18)	// header
+LY_SIZE(GameEditorDeletePacketClass, 0x10)	// opcode 30009 (gameedit\pkgeobj.h)
+LY_OFF(GameEditorDeletePacketClass, GameID, 0xC)	// header
+LY_SIZE(GameEditorMovePacketClass, 0x40)	// opcode 30010 (gameedit\pkgeobj.h)
+LY_OFF(GameEditorMovePacketClass, GameID, 0xC)	// header
+LY_OFF(GameEditorMovePacketClass, Transform, 0x10)	// header
+LY_SIZE(GameEditorRequestTemplateListPacketClass, 0x18)	// opcode 30012 (gameedit\pkgeobj.h)
+LY_OFF(GameEditorRequestTemplateListPacketClass, Size, 0xC)	// header
+LY_OFF(GameEditorRequestTemplateListPacketClass, Data, 0x10)	// header
+LY_OFF(GameEditorRequestTemplateListPacketClass, Owned, 0x14)	// header
+LY_SIZE(GameEditorCreateEmptyPacketClass, 0x18)	// opcode 30014 (gameedit\pkgeobj.h)
+LY_OFF(GameEditorCreateEmptyPacketClass, Size, 0xC)	// header
+LY_OFF(GameEditorCreateEmptyPacketClass, Data, 0x10)	// header
+LY_OFF(GameEditorCreateEmptyPacketClass, Owned, 0x14)	// header
+LY_SIZE(GameEditorCreateCancelPacketClass, 0xC)	// opcode 30015 (gameedit\pkgeobj.h)
+LY_SIZE(GameEditorCreateFinalPacketClass, 0x18)	// opcode 30016 (gameedit\pkgeobj.h)
+LY_OFF(GameEditorCreateFinalPacketClass, Size, 0xC)	// header
+LY_OFF(GameEditorCreateFinalPacketClass, Data, 0x10)	// header
+LY_OFF(GameEditorCreateFinalPacketClass, Owned, 0x14)	// header
+LY_SIZE(GameEditorRequestSpawnDefaultsPacketClass, 0x18)	// opcode 30017 (gameedit\pkgespwn.h)
+LY_OFF(GameEditorRequestSpawnDefaultsPacketClass, Size, 0xC)	// header
+LY_OFF(GameEditorRequestSpawnDefaultsPacketClass, Data, 0x10)	// header
+LY_OFF(GameEditorRequestSpawnDefaultsPacketClass, Owned, 0x14)	// header
+LY_SIZE(GameEditorClonePacketClass, 0x48)	// opcode 30021 (gameedit\pkgeclon.h)
+LY_OFF(GameEditorClonePacketClass, GameID, 0xC)	// header
+LY_OFF(GameEditorClonePacketClass, Transform, 0x10)	// header
+LY_OFF(GameEditorClonePacketClass, NewNameSize, 0x40)	// header
+LY_OFF(GameEditorClonePacketClass, NewName, 0x44)	// header
 LY_SIZE(GameEditorRequestPlanetUnitTypesPacketClass, 0xC)	// opcode 30023 (gameedit\pkgeplan.h)
-LY_SIZE(Packet_7549Class, 0x10)	// opcode 30025 (gameedit\pkgeplan.h)
-LY_OFF(Packet_7549Class, UnitType, 0xC)	// header
+LY_SIZE(GameEditorRequestPlanetUnitDetailsPacketClass, 0x10)	// opcode 30025 (gameedit\pkgeplan.h)
+LY_OFF(GameEditorRequestPlanetUnitDetailsPacketClass, UnitType, 0xC)	// header
 LY_SIZE(GameEditorSaveSectorPacketClass, 0xC)	// opcode 30027 (gameedit\pkgesave.h)
 
 int Packet_Layout_Checks() { return 1024; }	// 263 sizes, 761 offsets (195 the client's by pkdecode, 566 the headers')

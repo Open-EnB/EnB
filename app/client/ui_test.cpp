@@ -112,8 +112,8 @@ bool UITestClass::Unknown_68(int key)
 /*
 **	Notes.
 **	Object 0x64F790-0x650508: ui_talkt_space.cpp's adjustor thunks 0x64F770 / 0x64F780 end the object before it;
-**	ui_trade.cpp's object opens at 0x650510 with permstr.h's PermStringInitClass static (0xBE5E70; atexit 0x650540),
-**	then its constructor 0x650560. No PermStringInitClass static here, so the file does not include permstr.h; the
+**	ui_trade.cpp's object opens at 0x650510 with permstr.h's PermStringInit static (0xBE5E70; atexit 0x650540),
+**	then its constructor 0x650560. No PermStringInit static here, so the file does not include permstr.h; the
 **	guarded <string> initialiser 0x6504C0 (through sclient.h) is this object's. After the eight functions above come
 **	the instances of DynamicVectorClass<Unknown5BB320Class *> (tables 0xAF8E98 / VectorClass's 0xAF8EB4, both without
 **	RTTI names: this object emits them first): 0x64F950, 0x6500A0-0x650490; the adjustor thunks 0x6504F0 (+0x04) and

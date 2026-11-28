@@ -13,7 +13,7 @@ static void Not_In_Test(const char *what)
 	printf("clienttest: %s is a stand-in (transport_stubs.cpp)\n", what);
 	exit(3);
 }
-class TCPConnection { public: TCPConnection(const char *host, unsigned short port, bool encrypt); };
-TCPConnection::TCPConnection(const char *, unsigned short, bool) { Not_In_Test("TCPConnection"); }
+class TCPConnectionClass { public: TCPConnectionClass(const char *host, unsigned short port, bool encrypt); };  // NAME 5: thunk order A, binary.md 5.11
+TCPConnectionClass::TCPConnectionClass(const char *, unsigned short, bool) { Not_In_Test("TCPConnection"); }
 class CompositeListenerClass { public: CompositeListenerClass(); };
 CompositeListenerClass::CompositeListenerClass() { Not_In_Test("CompositeListenerClass"); }

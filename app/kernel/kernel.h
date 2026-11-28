@@ -50,12 +50,12 @@ struct KernelEventClass		// NAME 1: describes what it holds; the input code's na
 
 // The task base class (constructor 0x443050, destructor 0x4430A0). No string names it; the tasks
 // call themselves ClientTask, LoginTask, MenuTask and LoginTaskClass.
-class TaskClass		// NAME 1: after the tasks' own names (LoginTaskClass); the client's not found
+class KernelTaskClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
-	TaskClass();										// 0x443050
+	KernelTaskClass();										// 0x443050
 	virtual void Describe(void *table);					// +0x00 0x4430E0 (the message server writes 'TaskType')  // NAME 1: what the message server's does
-	virtual ~TaskClass();								// +0x04 0x443070 / 0x4430A0
+	virtual ~KernelTaskClass();								// +0x04 0x443070 / 0x4430A0
 	virtual int Unknown_08();							// +0x08 .. +0x24: input handlers, all 0 (0x443FA0 ...)
 	virtual int Unknown_0C();
 	virtual int Unknown_10();
@@ -95,29 +95,29 @@ public:
 	virtual bool Handle_Key(KernelEventClass *event);	// +0x14 0x443E20  // NAME 2: what it does
 
 	static KernelClass *Get_Instance();					// 0x443250  // NAME 2: returns the instance (assert 'Instance == NULL')
-	bool Add_Task(TaskClass *task);						// 0x443380  // NAME 2: what it does
-	bool Contains_Task(TaskClass *task);				// 0x443450 (the assert 'Contains_Task(task)')
-	bool Remove_Task(TaskClass *task);					// 0x443490  // NAME 2: what it does
-	TaskClass *Get_Task(int index);						// 0x443640  // NAME 2: what it does
-	void Remove_Running(TaskClass *task);				// 0x443680: erases Iterator's task (task unused)  // NAME 1: what it does
+	bool Add_Task(KernelTaskClass *task);						// 0x443380  // NAME 2: what it does
+	bool Contains_Task(KernelTaskClass *task);				// 0x443450 (the assert 'Contains_Task(task)')
+	bool Remove_Task(KernelTaskClass *task);					// 0x443490  // NAME 2: what it does
+	KernelTaskClass *Get_Task(int index);						// 0x443640  // NAME 2: what it does
+	void Remove_Running(KernelTaskClass *task);				// 0x443680: erases Iterator's task (task unused)  // NAME 1: what it does
 	int Run();											// 0x4436C0: the loop  // NAME 2: what it does
-	int Is_Focus(TaskClass *task);						// 0x443BC0 (an int: Is_Focused converts it)  // NAME 2: what it does
-	TaskClass *Get_Focus();								// 0x443BF0  // NAME 2: what it does
+	int Is_Focus(KernelTaskClass *task);						// 0x443BC0 (an int: Is_Focused converts it)  // NAME 2: what it does
+	KernelTaskClass *Get_Focus();								// 0x443BF0  // NAME 2: what it does
 	void Next_Focus();									// 0x443C10  // NAME 2: what it does
-	bool Set_Focus(TaskClass *task);					// 0x443CD0  // NAME 2: what it does
+	bool Set_Focus(KernelTaskClass *task);					// 0x443CD0  // NAME 2: what it does
 	protected: bool Process_Input(); public:			// 0x443D90: Process_Messages' input step alone (protected: retail's ?Process_Input@KernelClass@@IAE_NXZ by the thunk order)  // NAME 2: what it does
 	void Pump_Messages();								// 0x443E90: Process_Messages' message loop alone  // NAME 2: what it does
 
 	static KernelClass *Instance;						// 0xBDADBC (the assert 'Instance == NULL')
 
-	TaskClass *Current_Task;							// +0x04 (the profile label 'Current_Task->Run()')
-	TaskClass *Pending_Delete;							// +0x08 (the assert '!Pending_Delete')
+	KernelTaskClass *Current_Task;							// +0x04 (the profile label 'Current_Task->Run()')
+	KernelTaskClass *Pending_Delete;							// +0x08 (the assert '!Pending_Delete')
 	bool Quit;											// +0x0C NAME 2: WM_QUIT seen
 	bool Render_Enabled;								// +0x0D NAME 2: Run_One_Cycle renders the focused task
 	bool Device_Ok;										// +0x0E NAME 2: the last WW3D device check passed
-	std::list<TaskClass *> Tasks;						// +0x10 NAME 2: (allocator +0x10, head +0x14, size +0x18)
-	TaskClass *Running_Task;							// +0x1C NAME 2: the task Run_One_Cycle is at
-	std::list<TaskClass *>::iterator Iterator;			// +0x20 NAME 2: Run_One_Cycle's place in Tasks
+	std::list<KernelTaskClass *> Tasks;						// +0x10 NAME 2: (allocator +0x10, head +0x14, size +0x18)
+	KernelTaskClass *Running_Task;							// +0x1C NAME 2: the task Run_One_Cycle is at
+	std::list<KernelTaskClass *>::iterator Iterator;			// +0x20 NAME 2: Run_One_Cycle's place in Tasks
 };
 
 #endif

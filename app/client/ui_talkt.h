@@ -1,5 +1,5 @@
 // Earth & Beyond client (reconstruction): app\client\ui_talkt.cpp's talk tree (0x180 bytes; table 0xAF8B4C / 0xAF8B40 /
-// 0xAF8B34; client 0x64B6E0-0x64EF40). sclient.h includes it after the class's base. SClient's +0x1298 holds it or
+// 0xAF8B34; client 0x64B6E0-0x64EF40). sclient.h includes it after the class's base. SpaceClientClass's +0x1298 holds it or
 // ui_talkt_space.cpp's (derived) +0x129C; the starbase view's +0x190 is one (0x69F8F0 hands &+0x190 straight to 0x74C9D0).
 // Base: 0x64B6E0 calls 0x5BB320, and the slots +0x88 / +0x8C of its table are Unknown5BB320Class's 0x543750 / 0x543770.
 #ifndef UI_TALKT_H
@@ -13,11 +13,11 @@ class FontSplitStringClass;
 class AudibleSoundClass;
 class UITradeClass;
 class DynamicWindowClass;
-class UITalkTreeClass : public Unknown5BB320Class	// NAME 3: class-from-file (D24) for app\client\ui_talkt.cpp
+class TalkTreeInterface : public Unknown5BB320Class  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
-	UITalkTreeClass(SClient *client, int mode);	// 0x64B6E0 (the starbase view's 0x69F8F0 passes its client and 1; ui_talkt_space.cpp's 0x64F310 its client and 0)  // NAME 1 [client]: neutral; NAME 2 [mode]: indexes the meshes 'TLI00A' / 'TLI02A'
-	~UITalkTreeClass();							// 0x64B940 (table 0xAF8B4C; slot 0x64B910)
+	TalkTreeInterface(SpaceClientClass *client, int mode);	// 0x64B6E0 (the starbase view's 0x69F8F0 passes its client and 1; ui_talkt_space.cpp's 0x64F310 its client and 0)  // NAME 1 [client]: neutral; NAME 2 [mode]: indexes the meshes 'TLI00A' / 'TLI02A'
+	~TalkTreeInterface();							// 0x64B940 (table 0xAF8B4C; slot 0x64B910)
 	virtual void Unknown_54();					// +0x54 0x64BCA0
 	virtual void Unknown_58();					// +0x58 0x64C800
 	virtual void Unknown_5C();					// +0x5C 0x64C8D0

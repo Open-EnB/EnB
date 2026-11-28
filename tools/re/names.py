@@ -8,7 +8,8 @@ Scans the committed E&B code (app/, stubs/, programs/, tests/) for
 * untagged neutral names (`Unknown...`, `m_Unknown...`, D10), which count as score 1;
 
 and writes docs/data/names-review.md: every name scoring 3 or below, lowest first, with its
-evidence. Names tagged 4 or 5 are settled and only counted.
+evidence. Names tagged 4 or 5 are settled and only counted; the thunk order's names (score 5,
+`thunk order A|B|C`: the confidence of docs/data/class-renames.tsv) are counted by confidence, B and C listed.
 
     python tools/re/names.py            # rewrite docs/data/names-review.md
     python tools/re/names.py --print    # print the list instead
@@ -31,6 +32,7 @@ EXTS = ('.cpp', '.h', '.inl', '.c')
 THRESHOLD = 3       # scores at or below this are listed for review
 
 TAG = re.compile(r'//\s*NAME\s+([1-5])\s*(?:\[([^\]]+)\])?\s*:\s*(.*)$')
+THUNK = re.compile(r'thunk order ([A-C])\b')     # `// NAME 5: thunk order A, binary.md 5.11` (classrename.py)
 UNKNOWN = re.compile(r'\b\w*Unknown\w*\b')     # m_Unknown7C, Unknown_18, DeltaUnknownGlobal
 KEYWORDS = {'const', 'virtual', 'static', 'inline', 'unsigned', 'signed', 'int', 'char', 'void', 'bool',
             'float', 'double', 'long', 'short', 'struct', 'class', 'enum', 'union', 'typedef', 'return',
@@ -127,6 +129,18 @@ def main():
         out.append('| %d | `%s` | `%s:%d` | %s |' % (score, name, path, line, evidence.replace('|', '\\|')))
     if not review:
         out.append('| | (none) | | |')
+    # the thunk order's names are score 5 with the row's confidence in the tag: counted apart, B and C listed
+    thunk = [(THUNK.match(e[4]).group(1), e) for e in rows if e[0] == 5 and THUNK.match(e[4])]
+    by_conf = collections.Counter(c for c, _ in thunk)
+    out += ['', '## Named by the thunk order (score 5)', '',
+            'Retail\'s decorated name hashes into its slot of LINK\'s thunk table ([binary.md](../binary.md) §5.11);',
+            'the tag carries the confidence of `docs/data/class-renames.tsv` (A: many anchors, to C: few).', '',
+            '| Confidence | Names |', '|---|---|']
+    out += ['| %s | %d |' % (c, by_conf[c]) for c in sorted(by_conf)] or ['| | 0 |']
+    low = [(c, e) for c, e in thunk if c != 'A']
+    if low:
+        out += ['', '| Confidence | Name | Where |', '|---|---|---|']
+        out += ['| %s | `%s` | `%s:%d` |' % (c, e[1], e[2], e[3]) for c, e in sorted(low, key=lambda x: (x[0], x[1][1]))]
     text = '\n'.join(out) + '\n'
     if args.print:
         print(text)

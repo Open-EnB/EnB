@@ -12,14 +12,14 @@
 class GadgetClass;
 class LayerClass;
 class LoginTaskClass;
-class TextGadgetClass;
+class UnknownTextGadgetClass;
 class TextureClass;
 class RenderObjClass;
 class CharacterViewClass;
 class EnvironmentMapManagerClass;
 class SClientUnknown1334Class;
 class FlashingGadgetEvent;
-class ShipPipClass;
+class ShipPIPClass;
 class UIAvatrPullClass;
 
 // The window's ship: its description with the models built from it (0x184 bytes; constructor 0x620D20, copy
@@ -117,15 +117,15 @@ public:
 	bool Unknown215;								// +0x215 (leaving)
 	int Unknown218;									// +0x218 (how it leaves: 5 the next step, else back)
 	RefCountPtr<TextureClass> Unknown21C;			// +0x21C 'BLACK.TGA' (no insignia)
-	RenderObjClass *Unknown220[3];					// +0x220 the metal buttons' models (page 2)
-	ShipPipClass *Unknown22C;					// +0x22C the ship preview gadget (id 0x34)
+	RenderObjClass *Unknown220; RenderObjClass *Unknown224; RenderObjClass *Unknown228;	// +0x220 / +0x224 / +0x228 the metal buttons' models (page 2: chrome, bronze, copper); three members, not an array: the constructor 0x622180 stores them in its init list between +0x21C and +0x22C
+	ShipPIPClass *Unknown22C;					// +0x22C the ship preview gadget (id 0x34)
 	LayerClass *Layer;								// +0x230  // NAME 1: as ui_login.cpp's
 	int Page;										// +0x234 (0 hull, 1 paint, 2 insignia, 3 name)  // NAME 1: what it holds
 	std::map<int, ShipCustGadgetStruct> Gadgets;	// +0x238  // NAME 1: what it holds
 	bool Unknown248;								// +0x248 (the page's fonts loaded)
 	UIAvatrPullClass *Unknown24C;					// +0x24C the colour palette and its pull (pages 1 and 3)
 	RefCountPtr<TextureClass> ColorSliderTexture;	// +0x250  // NAME 3: the G_ASSERT's
-	TextGadgetClass *NameGadget;					// +0x254 ('NAME_fa_ship04', id 0x36)  // NAME 1: as ui_login.cpp's
+	UnknownTextGadgetClass *NameGadget;					// +0x254 ('NAME_fa_ship04', id 0x36)  // NAME 1: as ui_login.cpp's
 	int Unknown258;									// +0x258 the part (0 hull .. 3 engine)
 	int Unknown25C;									// +0x25C the part's setting (primary, secondary)
 	int Unknown260;									// +0x260 the insignia list's first

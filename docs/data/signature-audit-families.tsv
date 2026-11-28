@@ -1,0 +1,30 @@
+index	ref_slot	ref_name	slot	target	side	grade	field	override	confirmed	name
+1	0x4011F9	?Encode@GMResetMissionRequestPacketClass@@UAEPAVPacketClass@@XZ	0x4012A3	0x89B460	state-off	-	method	Build	Encode	?Build@ManufactureItemCatagoryPacketClass@@UAEPAVPacketClass@@XZ
+1	0x4011F9	?Encode@GMResetMissionRequestPacketClass@@UAEPAVPacketClass@@XZ	0x404007	0x85EB20	state-off	-	method	Build	Encode	?Build@Packet_7536Class@@UAEPAVPacketClass@@XZ
+1	0x4011F9	?Encode@GMResetMissionRequestPacketClass@@UAEPAVPacketClass@@XZ	0x404D36	0x8673C0	state-off	-	method	Build	Encode	?Build@Packet_00B3Class@@UAEPAVPacketClass@@XZ
+1	0x4011F9	?Encode@GMResetMissionRequestPacketClass@@UAEPAVPacketClass@@XZ	0x406A55	0x85E8A0	state-off	-	method	Build	Encode	?Build@Packet_7535Class@@UAEPAVPacketClass@@XZ
+1	0x4011F9	?Encode@GMResetMissionRequestPacketClass@@UAEPAVPacketClass@@XZ	0x408292	0x89B210	state-off	-	method	Build	Encode	?Build@Packet_00BBClass@@UAEPAVPacketClass@@XZ
+1	0x4011F9	?Encode@GMResetMissionRequestPacketClass@@UAEPAVPacketClass@@XZ	0x408B8E	0x871460	state-off	-	method	Build	Encode	?Build@GalaxyMapRequestPacketClass@@UAEPAVPacketClass@@XZ
+1	0x4011F9	?Encode@GMResetMissionRequestPacketClass@@UAEPAVPacketClass@@XZ	0x409A2F	0x861980	state-off	-	method	Build	Encode	?Build@Packet_7532Class@@UAEPAVPacketClass@@XZ
+1	0x4011F9	?Encode@GMResetMissionRequestPacketClass@@UAEPAVPacketClass@@XZ	0x40A272	0x8A5960	state-off	-	method	Build	Encode	?Build@SplinePacketClass@@UAEPAVPacketClass@@XZ
+1	0x4011F9	?Encode@GMResetMissionRequestPacketClass@@UAEPAVPacketClass@@XZ	0x40BE29	0x8724E0	state-off	-	method	Build	Encode	?Build@Packet_008FClass@@UAEPAVPacketClass@@XZ
+1	0x4011F9	?Encode@GMResetMissionRequestPacketClass@@UAEPAVPacketClass@@XZ	0x40BF9B	0x86FB30	state-off	-	method	Build	Encode	?Build@GMEditPlayerInventoryPacketClass@@UAEPAVPacketClass@@XZ
+1	0x4011F9	?Encode@GMResetMissionRequestPacketClass@@UAEPAVPacketClass@@XZ	0x40C478	0x52B210	state-off	-	method	Build	Encode	?Build@PacketClass@@UAEPAVPacketClass@@XZ
+1	0x4011F9	?Encode@GMResetMissionRequestPacketClass@@UAEPAVPacketClass@@XZ	0x40CF45	0x89F0A0	state-off	-	method	Build	Encode	?Build@Packet_006CClass@@UAEPAVPacketClass@@XZ
+1	0x4011F9	?Encode@GMResetMissionRequestPacketClass@@UAEPAVPacketClass@@XZ	0x410AC8	0x89BDC0	state-off	-	method	Build	Encode	?Build@Packet_007DClass@@UAEPAVPacketClass@@XZ
+1	0x4011F9	?Encode@GMResetMissionRequestPacketClass@@UAEPAVPacketClass@@XZ	0x4117A7	0x8A37A0	state-off	-	method	Build	Encode	?Build@Starbase_Avatar_ChangePacketClass@@UAEPAVPacketClass@@XZ
+1	0x4011F9	?Encode@GMResetMissionRequestPacketClass@@UAEPAVPacketClass@@XZ	0x4120F3	0x862560	state-off	-	method	Build	Encode	?Build@GameEditorRequestSpawnDefaultsPacketClass@@UAEPAVPacketClass@@XZ
+1	0x4011F9	?Encode@GMResetMissionRequestPacketClass@@UAEPAVPacketClass@@XZ	0x4136C9	0x887EC0	state-off	-	method	Build	Encode	?Build@Packet_0068Class@@UAEPAVPacketClass@@XZ
+1	0x4011F9	?Encode@GMResetMissionRequestPacketClass@@UAEPAVPacketClass@@XZ	0x4144D9	0x8A2650	state-off	-	method	Build	Encode	?Build@SkillStringRqPacketClass@@UAEPAVPacketClass@@XZ
+1	0x4011F9	?Encode@GMResetMissionRequestPacketClass@@UAEPAVPacketClass@@XZ	0x4158AC	0x8934A0	state-off	-	method	Build	Encode	?Build@GuildGMRenameAcceptSectorPacket@@UAEPAVPacketClass@@XZ
+1	0x4011F9	?Encode@GMResetMissionRequestPacketClass@@UAEPAVPacketClass@@XZ	0x416FF4	0x870200	state-off	-	method	Build	Encode	?Build@GMViewMissionLogPacketClass@@UAEPAVPacketClass@@XZ
+1	0x4011F9	?Encode@GMResetMissionRequestPacketClass@@UAEPAVPacketClass@@XZ	0x4179F4	0x889740	state-off	-	method	Build	Encode	?Build@Packet_00ADClass@@UAEPAVPacketClass@@XZ
+1	0x4011F9	?Encode@GMResetMissionRequestPacketClass@@UAEPAVPacketClass@@XZ	0x418F66	0x876880	state-off	-	method	Build	Encode	?Build@Action2PacketClass@@UAEPAVPacketClass@@XZ
+2	0x401055	?Process_Packet@IncapacitanceRescueConfirmationPacket@@UAE_NPAX@Z	0x4127B0	0x861AE0	retail	probable	const	const		?Process_Packet@Packet_7532Class@@MBE_NPAX@Z
+4	0x405F79	?As_SlotDataGadget@SlotDataGadget@@UAEPAV1@XZ	0x41330E	0x50A900	retail	confirmed	ret	PAVSlotDataGadget@@ (class SlotDataGadget *)	PAV1@ (class #1 *)	?As_SlotDataGadget@GadgetClass@@UAEPAVSlotDataGadget@@XZ
+4	0x405F79	?As_SlotDataGadget@SlotDataGadget@@UAEPAV1@XZ	0x41330E	0x50A900	ours	exact	ret	PAVSlotDataGadget@@ (class SlotDataGadget *)	PAV1@ (class #1 *)	?As_SlotDataGadget@GadgetClass@@UAEPAVSlotDataGadget@@XZ
+4	0x41330E	?As_SlotDataGadget@GadgetClass@@UAEPAVSlotDataGadget@@XZ	0x405F79	0x670740	retail	confirmed	ret	PAV1@ (class #1 *)	PAVSlotDataGadget@@ (class SlotDataGadget *)	?As_SlotDataGadget@SlotDataGadget@@UAEPAV1@XZ
+4	0x41330E	?As_SlotDataGadget@GadgetClass@@UAEPAVSlotDataGadget@@XZ	0x405F79	0x670740	ours	exact	ret	PAV1@ (class #1 *)	PAVSlotDataGadget@@ (class SlotDataGadget *)	?As_SlotDataGadget@SlotDataGadget@@UAEPAV1@XZ
+4	0x403116	?Shutdown@ViewClass@@UAEXXZ	0x419079	0x65B8B0	state-off	-	method	Unknown_10	Shutdown	?Unknown_10@Unknown65B810ViewClass@@UAEXXZ
+26	0x40777A	?Apply_Projectors@ProjectionSceneClass@@UAEXAAVCameraClass@@@Z	0x408D5F	0x75F8B0	ours	not	param1	PAVCameraClass@@ (class CameraClass *)	AAVCameraClass@@ (class CameraClass &)	?Apply_Projectors@ENBSceneClass@@UAEXPAVCameraClass@@@Z
+26	0x408D5F	?Apply_Projectors@ENBSceneClass@@UAEXAAVCameraClass@@@Z	0x40777A	0x495990	ours	exact	param1	PAVCameraClass@@ (class CameraClass *)	AAVCameraClass@@ (class CameraClass &)	?Apply_Projectors@ProjectionSceneClass@@UAEXPAVCameraClass@@@Z

@@ -1,0 +1,26 @@
+HYPOTHESIS = ('B1h lead (on the B1h commit, masked 57): STRETCH\'s "..." through a one-line Add_Dots layer (as the next '
+              'function 0x6CCE60 has it) with no dead reads, and STAY\'s copy reads 2 -> 1: the whole call string is the '
+              'client\'s (inlineprof: only r43\'s tail merge differs; STRETCH\'s copy keeps its first Store_Length inline as '
+              '0x6CBF00); masked 61: r83 is left with registers only (EmptyString in eax / length in ecx where the client '
+              'has ecx / eax), r104 +1; lines kept')
+FILE = 'app/client/unknown_6ca0c0.cpp'
+SYMBOL = 'FontSys::Unknown_6CA0C0'
+ADDRESS = 0x6CA0C0
+
+T = '\t'
+R8 = ' text.Peek_Buffer();' * 8
+OLD_IF = (T*2 + 'if (style->Unknown406) {\n'
+          + T*3 + 'text += "...";' + R8 + '\n'
+          + T*2 + '}\n')
+LAYER_ANCHOR = 'static inline void Append_Dots(StringClass &text, bool on)'
+ADD = 'static inline void Add_Dots(StringClass &text) { text += "..."; } '
+T5 = T * 5
+STAY_OLD = (T5 + 'style->Info.Text = style->Unknown2F0; style->Info.Text.Peek_Buffer();\n'
+            + T5 + 'StringClass text(style->Info.Text); text.Peek_Buffer(); text.Peek_Buffer();\n')
+
+FORMS = {
+    'add0_s11': [(LAYER_ANCHOR, ADD + LAYER_ANCHOR),
+                 (OLD_IF, T*2 + 'if (style->Unknown406) {\n' + T*3 + 'Add_Dots(text);\n' + T*2 + '}\n'),
+                 (STAY_OLD, T5 + 'style->Info.Text = style->Unknown2F0; style->Info.Text.Peek_Buffer();\n'
+                  + T5 + 'StringClass text(style->Info.Text); text.Peek_Buffer();\n')],
+}

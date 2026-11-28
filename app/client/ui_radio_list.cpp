@@ -23,7 +23,7 @@ void Unknown_42ECF0(float *x, float *y);	// 0x42ECF0 (the pointer's position)  /
 static const char *Unknown_B856CC[3] = { "EXIT", "BUTTON01", "BUTTON02" };	// NAME 1: neutral (D10)
 
 // 0x5E7500
-UIRadioListClass::UIRadioListClass(SClient *client, int state) :
+UIRadioListClass::UIRadioListClass(SpaceClientClass *client, int state) :
 	ChatPanelUIBase(client),
 	State(state),
 	Slider(NULL),
@@ -86,7 +86,7 @@ void UIRadioListClass::Unknown_58()
 		Unknown_5E8860(true);
 		Unknown_5E8040();
 		if (Buttons[0]) {
-			((RObjGadgetClass *)Buttons[0])->Unknown_66C360();
+			((RenderObjGadgetClass *)Buttons[0])->Unknown_66C360();
 		}
 	}
 }
@@ -114,13 +114,13 @@ bool UIRadioListClass::Unknown_68(int key)
 {
 	switch (key) {
 		case 1:
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			Unknown_5C();
 			Closed = 1;
 			return(true);
 		case 2:
 		case 3:
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			Unknown_5E85F0(key);
 			return(true);
 		case 5:
@@ -130,7 +130,7 @@ bool UIRadioListClass::Unknown_68(int key)
 		case 9:
 		case 10:
 		case 11:
-			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+			SoundLibrary::Play_2D_Sound("fontclick.wav", 2);
 			Unknown_5E8580(key - 5);
 			return(true);
 	}
@@ -235,7 +235,7 @@ void UIRadioListClass::Unknown_5E8580(int index)
 // 0x5E85F0 (the two dead Names.size() after the packet's name assign spend the inline budget: its self-assign branch's erase called out of line, as the client's; D272)
 void UIRadioListClass::Unknown_5E85F0(int key)
 {
-	SClient *sclient = (SClient *)((ClientClass *)Client)->As_Space_Client();	// NAME 1: neutral (D10)
+	SpaceClientClass *sclient = (SpaceClientClass *)((ClientClass *)Client)->As_Space_Client();	// NAME 1: neutral (D10)
 	ChatPanelInterface *chat = sclient->ChatPanel.Peek();	// NAME 1: neutral (D10)
 	switch (State) {
 		case 0:
@@ -286,7 +286,7 @@ void UIRadioListClass::Unknown_5E8860(bool on)
 		if (State == 0) {
 			Buttons[1]->Unknown_40(false);
 		} else if (State == 1) {
-			((RObjGadgetClass *)Buttons[2])->Unknown_8C(true);
+			((RenderObjGadgetClass *)Buttons[2])->Unknown_8C(true);
 			Buttons[2]->Unknown_40(false);
 		}
 	}
@@ -295,7 +295,7 @@ void UIRadioListClass::Unknown_5E8860(bool on)
 // 0x5E8930
 void UIRadioListClass::Unknown_5E8930()
 {
-	SClient *sclient = (SClient *)((ClientClass *)Client)->As_Space_Client();	// NAME 1: neutral (D10)
+	SpaceClientClass *sclient = (SpaceClientClass *)((ClientClass *)Client)->As_Space_Client();	// NAME 1: neutral (D10)
 	ChatPanelInterface *chat = sclient->ChatPanel.Peek();	// NAME 1: neutral (D10)
 	if (State == 0) {
 		int id = ((ClientClass *)Client)->Unknown1138;	// NAME 1: neutral (D10)

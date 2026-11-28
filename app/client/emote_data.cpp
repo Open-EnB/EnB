@@ -103,9 +103,9 @@ void EmoteDataClass::Unknown_7E6860()
 		Queue.pop_front();
 		StartTime = Get_Client()->Unknown10BC;
 		if (Peek_Client_Object() != 0 && Peek_Client_Object()->Unknown_6F5A40()) {
-			SoundLibraryClass::Play_2D_Sound(EmoteSounds[Emote], 2);
+			SoundLibrary::Play_2D_Sound(EmoteSounds[Emote], 2);
 		} else {
-			Sound = Create_Get(SoundLibraryClass::Play_3D_Sound(EmoteSounds[Emote], Matrix3D(true), 1, 1.0f));
+			Sound = Create_Get(SoundLibrary::Play_3D_Sound(EmoteSounds[Emote], Matrix3D(true), 1, 1.0f));
 		}
 	}
 	unsigned int elapsed = Get_Client()->Unknown10BC - StartTime;
@@ -216,8 +216,8 @@ void EmoteDataClass::Unknown_7E7620()
 	Emote = 7;
 	Unknown_7E79D0();
 	unsigned id = Peek_Client_Object()->GameID;
-	if (id == ((SClient *)Unknown_18())->AvatarID) {
-		((SClient *)Unknown_18())->CameraManager->Unknown_79B2B0(0x15);
+	if (id == ((SpaceClientClass *)Unknown_18())->AvatarID) {
+		((SpaceClientClass *)Unknown_18())->CameraManager->Unknown_79B2B0(0x15);
 	}
 }
 

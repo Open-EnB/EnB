@@ -20,7 +20,7 @@
 class GaugeGadgetClass;	// gd_gauge.h
 class ShortcutRangeGaugeClass;	// shortcut_range_gauge.h
 class SkillDataClass;
-class SlotDataGadgetClass;
+class SlotDataGadget;
 
 class SkillRenderClass : public SlotDataRenderClass	// NAME 3: class-from-file (D24) for app\Client\skill_render.cpp
 {
@@ -58,6 +58,6 @@ public:
 	bool Unknown58;														// +0x58 (ready, last shown)
 };
 
-SkillRenderClass *Unknown_6A7380(SlotDataGadgetClass *gadget);			// 0x6A7380 (FAIL_IF '!slot_render')  // NAME 1 [gadget]: neutral
+SkillRenderClass *Unknown_6A7380(SlotDataGadget *gadget);			// 0x6A7380 (FAIL_IF '!slot_render')  // NAME 1 [gadget]: neutral
 
 #endif

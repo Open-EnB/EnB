@@ -22,7 +22,7 @@ DeltaTemplateClass<DurationClass>::DeltaTemplateClass(const char *name, const Du
 }
 
 
-bool DeltaTemplateClass<DurationClass>::Read(LinearBufferClass &buf, const DurationClass &base)
+bool DeltaTemplateClass<DurationClass>::Read(LinearBuffer &buf, const DurationClass &base)
 {
 	int value;
 	if (buf.Read(&value, sizeof(value)) != sizeof(value)) {
@@ -50,7 +50,7 @@ bool DeltaTemplateClass<DurationClass>::Read(LinearBufferClass &buf, const Durat
 
 
 
-bool DeltaTemplateClass<DurationClass>::Write(LinearBufferClass &buf)
+bool DeltaTemplateClass<DurationClass>::Write(LinearBuffer &buf)
 {
 	int value = Value.Get();
 	if (buf.Write(&value, sizeof(value)) != sizeof(value)) {

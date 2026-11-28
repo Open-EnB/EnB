@@ -25,36 +25,36 @@ std::pair<INIDefinitionTable::iterator, bool> INIDefinitionTable::insert_unique_
   return pair<iterator, bool>(iterator(__tmp, this), true);
 }
 
-INIManagerClass::INIManagerClass()
+INIManager::INIManager()
 {
 }
 
-INIClass *INIManagerClass::Create(const std::string &name)
+INIClass *INIManager::Create(const std::string &name)
 {
 	return new INIClass(name.c_str());
 }
 
-void INIManagerClass::Destroy(INIClass *ini)
+void INIManager::Destroy(INIClass *ini)
 {
 	delete ini;
 }
 
 struct INIManagerHolder
 {
-	INIManagerHolder() { Manager = Create_NEW(new INIManagerClass); }
+	INIManagerHolder() { Manager = Create_NEW(new INIManager); }
 	~INIManagerHolder() {}
 	RefCountPtr<DefinitionManagerClass<INIClass> > Manager;
 };
 
 // NOT EXACT: shape (explain.py: 53 masked rows), the holder's new and the Create_Peek temporary take other registers and frame slots; objmatch would also reject the atexit handler's name $E18 (symbols.json gives it to other objects)
-DefinitionAutoPtr<INIClass> INIManagerClass::Get_INI(const std::string &name)
+DefinitionAutoPtr<INIClass> INIManager::Get_INI(const std::string &name)
 {
 	DefinitionAutoPtr<INIClass> ini;
 	static INIManagerHolder holder;
 	ini.Set(Create_Peek(holder.Manager.Peek()), name);
 	return ini;
 }
-bool INIManagerClass::Split_Name(const std::string &name, std::string *ini_name, std::string *ini_section)
+bool INIManager::Split_Name(const std::string &name, std::string *ini_name, std::string *ini_section)
 {
 	FAIL_IF(!ini_name) return false;
 	FAIL_IF(!ini_section) return false;
@@ -74,7 +74,7 @@ bool INIManagerClass::Split_Name(const std::string &name, std::string *ini_name,
 **	Reconstruction notes
 **
 **	client.exe 0x4E9D40-0x4EC260 (unknown_new.cpp's delete 0x4E9D10 before it, lookup_table.cpp's
-**	_LookupTables initializer after it): INIManagerClass's Create 0x4E9D40 and Destroy 0x4E9DD0 (its
+**	_LookupTables initializer after it): INIManager's Create 0x4E9D40 and Destroy 0x4E9DD0 (its
 **	vtable 0xAEC6CC; the base's 0xAEC6E0 has a pure Create and a Destroy asserting false, line 105 of
 **	definition_manager.h), Get_INI 0x4E9E00 (a function-static holder 0xC416D8, guard 0xC416CC,
 **	default-constructed and then assigned: the client's EH states and its atexit handler 0x4EA9E0

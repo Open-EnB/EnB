@@ -7,15 +7,15 @@ SetZBandPacketClass::SetZBandPacketClass(float min, float max) : Min(min), Max(m
 {
 }
 
-SetZBandPacketClass::SetZBandPacketClass(RawPacketClass *raw)
+SetZBandPacketClass::SetZBandPacketClass(PacketClass *raw)
 {
 	raw->Get(&Min, sizeof(Min));
 	raw->Get(&Max, sizeof(Max));
 }
 
-RawPacketClass *SetZBandPacketClass::Build()
+PacketClass *SetZBandPacketClass::Encode()
 {
-	RawPacketClass *raw = new RawPacketClass(42, Get_Data_Size());
+	PacketClass *raw = new PacketClass(42, Get_Data_Size());
 	raw->Add(&Min, sizeof(Min));
 	raw->Add(&Max, sizeof(Max));
 	return(raw);
@@ -35,15 +35,15 @@ SetBBoxPacketClass::SetBBoxPacketClass(const Vector2 &min, const Vector2 &max) :
 {
 }
 
-SetBBoxPacketClass::SetBBoxPacketClass(RawPacketClass *raw)
+SetBBoxPacketClass::SetBBoxPacketClass(PacketClass *raw)
 {
 	raw->Get(&XMin, sizeof(XMin));
 	raw->Get(&XMax, sizeof(XMax));
 }
 
-RawPacketClass *SetBBoxPacketClass::Build()
+PacketClass *SetBBoxPacketClass::Encode()
 {
-	RawPacketClass *raw = new RawPacketClass(43, Get_Data_Size());
+	PacketClass *raw = new PacketClass(43, Get_Data_Size());
 	raw->Add(&XMin, sizeof(XMin));
 	raw->Add(&XMax, sizeof(XMax));
 	return(raw);

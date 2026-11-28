@@ -56,19 +56,19 @@ void PxBoxList::On_Exit(PxBox *box)
 }
 
 // 0x44DB50
-PxOwnerList::PxOwnerList(void *owner) :
+PxBoxOwnerList::PxBoxOwnerList(void *owner) :
 	PxBox(owner)
 {
 }
 
 // 0x44DBC0
-PxOwnerList::PxOwnerList(void *owner, const PxOwnerList &src) :
+PxBoxOwnerList::PxBoxOwnerList(void *owner, const PxBoxOwnerList &src) :
 	PxBox(owner, src)
 {
 }
 
 // 0x44DC10
-PxOwnerList::~PxOwnerList()
+PxBoxOwnerList::~PxBoxOwnerList()
 {
 }
 
@@ -89,10 +89,10 @@ PxOwnerList::~PxOwnerList()
 
 
 // 0x44DC50
-void PxOwnerList::On_Enter(PxBox *box)
+void PxBoxOwnerList::On_Enter(PxBox *box)
 {
-	DynObj *owner = ((PxObject *)box->Owner)->Owner;
-	std::vector<DynObj *>::iterator it = std::lower_bound(Owners.begin(), Owners.end(), owner);
+	DynamicObjectClass *owner = ((PxObject *)box->Owner)->Owner;
+	std::vector<DynamicObjectClass *>::iterator it = std::lower_bound(Owners.begin(), Owners.end(), owner);
 	FAIL_IF((it != Owners.end()) && (*it == owner)) return;
 	Owners.insert(it, owner);
 }
@@ -104,10 +104,10 @@ void PxOwnerList::On_Enter(PxBox *box)
 
 
 // 0x44DEB0
-void PxOwnerList::On_Exit(PxBox *box)
+void PxBoxOwnerList::On_Exit(PxBox *box)
 {
-	DynObj *owner = ((PxObject *)box->Owner)->Owner;
-	std::vector<DynObj *>::iterator it = std::lower_bound(Owners.begin(), Owners.end(), owner);
+	DynamicObjectClass *owner = ((PxObject *)box->Owner)->Owner;
+	std::vector<DynamicObjectClass *>::iterator it = std::lower_bound(Owners.begin(), Owners.end(), owner);
 	FAIL_IF((it == Owners.end()) || (*it != owner)) return;
 	Owners.erase(it);
 }
@@ -117,9 +117,9 @@ void PxOwnerList::On_Exit(PxBox *box)
 **
 ** px_box_list.cpp is client 0x44D740-0x44E020, after px.cpp and before px_callback_accurate.cpp; its __FILE__ is
 ** pushed by the four FAIL_IFs (lines 41, 54, 96, 111). PxBoxList (vtable 0xAE7A4C) keeps the boxes that overlap it,
-** PxOwnerList (vtable 0xAE7A5C, PxWrapper's callback box) the DynObjs that own them (the box's PxObject's +0x00);
+** PxBoxOwnerList (vtable 0xAE7A5C, PxWrapper's callback box) the DynObjs that own them (the box's PxObject's +0x00);
 ** both vectors stay sorted by address: On_Enter inserts at lower_bound, On_Exit erases there. The copy constructors
 ** copy only the PxBox part. The names of the classes and of this header are provisional (the vectors' names are
-** the asserts'). The vector<DynObj *> helpers 0x44DF70-0x44DFE0 are this file's instances (vector<PxBox *>'s are
+** the asserts'). The vector<DynamicObjectClass *> helpers 0x44DF70-0x44DFE0 are this file's instances (vector<PxBox *>'s are
 ** px.cpp's).
 */

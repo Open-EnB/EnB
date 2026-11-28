@@ -9,8 +9,8 @@
 #include "ui_slot_scut.h"
 
 // @0x630490
-SlotDataShortcutInterface::SlotDataShortcutInterface(SlotDataInterface *slot_iface, const std::string &name, SClient *sclient) :
-	UIScutGadgetsClass(name, sclient),
+SlotDataShortcutInterface::SlotDataShortcutInterface(SlotDataInterface *slot_iface, const std::string &name, SpaceClientClass *sclient) :
+	ShortcutGadgetsInterface(name, sclient),
 	SlotIFace(slot_iface),
 	Updated(false)
 {
@@ -74,9 +74,9 @@ SlotDataShortcutInterface::~SlotDataShortcutInterface()
 }
 
 // @0x630980
-void SlotDataShortcutInterface::Set_UI(const RefCountPtr<UIScutClass> &ui)
+void SlotDataShortcutInterface::Set_UI(const RefCountPtr<ShortcutInterface> &ui)
 {
-	UIScutGadgetsClass::Set_UI(ui);
+	ShortcutGadgetsInterface::Set_UI(ui);
 	SlotDataClass *slotdata = SlotIFace->Get_Slot_Data();
 
 
@@ -149,8 +149,8 @@ void SlotDataShortcutInterface::Update(SlotDataClass *slotdata)
 		std::set_difference(slots.begin(), slots.end(), Slots.begin(), Slots.end(), std::inserter(added, added.begin()));
 		if (added.size()) {
 			std::set<int> unused;
-			for (std::vector<RObjGadgetClass *>::iterator it = ShortcutGadgets.begin(); it != ShortcutGadgets.end(); ++it) {
-				SlotDataGadgetClass *sdata_gadg = (SlotDataGadgetClass *)(*it)->As_SlotDataGadget();
+			for (std::vector<RenderObjGadgetClass *>::iterator it = ShortcutGadgets.begin(); it != ShortcutGadgets.end(); ++it) {
+				SlotDataGadget *sdata_gadg = (SlotDataGadget *)(*it)->As_SlotDataGadget();
 
 
 
@@ -177,7 +177,7 @@ void SlotDataShortcutInterface::Update(SlotDataClass *slotdata)
 
 
 				FAIL_IF(!sdata_gadg) continue;
-				SlotDataGadgetClass *scut_gadg = sdata_gadg->Unknown_A4();
+				SlotDataGadget *scut_gadg = sdata_gadg->Unknown_A4();
 
 				FAIL_IF(!scut_gadg) continue;
 				if (scut_gadg->Unknown_88()) {
@@ -197,8 +197,8 @@ void SlotDataShortcutInterface::Update(SlotDataClass *slotdata)
 	}
 	Slots.swap(slots);
 	int dead = slots.size();	// (a budget lever: it keeps the set_difference and the destructors as the client has them)
-	for (std::vector<RObjGadgetClass *>::iterator it = ShortcutGadgets.begin(); it != ShortcutGadgets.end(); ++it) {
-		SlotDataGadgetClass *sdata_gadg = (SlotDataGadgetClass *)(*it)->As_SlotDataGadget();
+	for (std::vector<RenderObjGadgetClass *>::iterator it = ShortcutGadgets.begin(); it != ShortcutGadgets.end(); ++it) {
+		SlotDataGadget *sdata_gadg = (SlotDataGadget *)(*it)->As_SlotDataGadget();
 
 
 
@@ -229,7 +229,7 @@ void SlotDataShortcutInterface::Update(SlotDataClass *slotdata)
 }
 
 // @0x631000
-RObjGadgetClass *SlotDataShortcutInterface::Unknown_0C(int slot)
+RenderObjGadgetClass *SlotDataShortcutInterface::Unknown_0C(int slot)
 {
 
 
@@ -256,11 +256,11 @@ RObjGadgetClass *SlotDataShortcutInterface::Unknown_0C(int slot)
 	FAIL_IF(!slot_render) return(NULL);
 	slot_render->Unknown_40(slot);
 	LayerClass layer((SceneClass *)view->Unknown_50(), (CameraClass *)view->Unknown_54());
-	return(new SlotDataShortcutGadgetClass((SlotDataIFaceClass *)SlotIFace, slot_render.Peek(), &layer));
+	return(new SlotDataShortcutGadget((SlotDataIFaceClass *)SlotIFace, slot_render.Peek(), &layer));
 }
 
 // @0x631270
-RObjGadgetClass *SlotDataShortcutInterface::Unknown_14(const char *key)
+RenderObjGadgetClass *SlotDataShortcutInterface::Unknown_14(const char *key)
 {
 
 
@@ -276,13 +276,13 @@ RObjGadgetClass *SlotDataShortcutInterface::Unknown_14(const char *key)
 	FAIL_IF(!slot_render) return(NULL);
 	if (!slot_render->Unknown_10(key)) return(NULL);
 	LayerClass layer((SceneClass *)view->Unknown_50(), (CameraClass *)view->Unknown_54());
-	return(new SlotDataShortcutGadgetClass((SlotDataIFaceClass *)SlotIFace, slot_render.Peek(), &layer));
+	return(new SlotDataShortcutGadget((SlotDataIFaceClass *)SlotIFace, slot_render.Peek(), &layer));
 }
 
 // @0x631540
-bool SlotDataShortcutInterface::Unknown_10(RObjGadgetClass *gadget, std::string &key)
+bool SlotDataShortcutInterface::Unknown_10(RenderObjGadgetClass *gadget, std::string &key)
 {
-	SlotDataGadgetClass *sdata_gadg = (SlotDataGadgetClass *)gadget->As_SlotDataGadget();
+	SlotDataGadget *sdata_gadg = (SlotDataGadget *)gadget->As_SlotDataGadget();
 
 
 

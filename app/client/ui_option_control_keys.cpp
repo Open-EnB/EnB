@@ -47,7 +47,7 @@ static const char *Unknown_B82F58[CONTROL_KEYS_ROWS] = { "exit", "BUTTON03", "BU
 static int Unknown_BE5D1C;								// 0xBE5D1C (Set_Key_Text: the buttons' width, measured once)  // NAME 1: neutral (D10)
 
 // 0x5CA010
-UIOptionControlKeysClass::UIOptionControlKeysClass(SClient *client, bool mode) :
+UIOptionControlKeysClass::UIOptionControlKeysClass(SpaceClientClass *client, bool mode) :
 	ChatPanelUIBase(client),
 	Context(0),
 	Slider(NULL),
@@ -164,7 +164,7 @@ void UIOptionControlKeysClass::Unknown_54()
 void UIOptionControlKeysClass::Unknown_58()
 {
 	if (!Active) {
-		ControlKeysManager *key_manager = ControlKeysManager::Get((SClient *)((ClientClass *)Client)->As_Space_Client());
+		ControlKeysManager *key_manager = ControlKeysManager::Get((SpaceClientClass *)((ClientClass *)Client)->As_Space_Client());
 		FAIL_IF(!key_manager) return;
 		ChatPanelUIBase::Unknown_58();
 	}
@@ -188,7 +188,7 @@ bool UIOptionControlKeysClass::Unknown_68(int key)
 {
 	if (DialogBoxUI) return(true);
 
-	SClient *sclient = (SClient *)((ClientClass *)Client)->As_Space_Client();	// NAME 1: neutral (D10)
+	SpaceClientClass *sclient = (SpaceClientClass *)((ClientClass *)Client)->As_Space_Client();	// NAME 1: neutral (D10)
 	ChatPanelInterface *chat = sclient->ChatPanel.Peek();	// NAME 1: neutral (D10)
 	if (key == 14) return(true);
 
@@ -208,10 +208,10 @@ bool UIOptionControlKeysClass::Unknown_68(int key)
 
 
 
-	ControlKeysManager *key_manager = ControlKeysManager::Get((SClient *)((ClientClass *)Client)->As_Space_Client());
+	ControlKeysManager *key_manager = ControlKeysManager::Get((SpaceClientClass *)((ClientClass *)Client)->As_Space_Client());
 	FAIL_IF(!key_manager) return(true);
 	if (key != 13) {
-		SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+		SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 	}
 	switch (key) {
 		case 1:
@@ -297,7 +297,7 @@ bool UIOptionControlKeysClass::Unknown_68(int key)
 	if (keys_it != CurrentKeys.end()) {
 		EditKey = *keys_it;
 		if (EditKey) {
-			FontSys *font = ((RObjGadgetClass *)bttn)->Unknown34;	KeyPress->Set_Text(Create_Peek(font));	// NAME 1 [font]: what it holds
+			FontSys *font = ((RenderObjGadgetClass *)bttn)->Unknown34;	KeyPress->Set_Text(Create_Peek(font));	// NAME 1 [font]: what it holds
 			KeyPress->Unknown_40(true);
 			return(true);
 		}
@@ -320,7 +320,7 @@ bool UIOptionControlKeysClass::Unknown_68(int key)
 void UIOptionControlKeysClass::Unknown_60()
 {
 	if (EditKey && !DialogBoxUI && !KeyPress->Is_Enabled()) {
-		ControlKeysManager *key_manager = ControlKeysManager::Get((SClient *)((ClientClass *)Client)->As_Space_Client());
+		ControlKeysManager *key_manager = ControlKeysManager::Get((SpaceClientClass *)((ClientClass *)Client)->As_Space_Client());
 		FAIL_IF(!key_manager) return;
 		KernelEventClass &event = KeyPress->Event;		// NAME 1: neutral (D10)
 		bool allowed = true;							// NAME 1: neutral (D10)
@@ -431,7 +431,7 @@ void UIOptionControlKeysClass::Unknown_60()
 		int button = DialogBoxUI->Unknown_5890B0(DialogBoxID);	// NAME 1: tsk_login.h's
 		if (button) {
 			if (button == 1 && EditKey) {
-				ControlKeysManager *key_manager = ControlKeysManager::Get((SClient *)((ClientClass *)Client)->As_Space_Client());
+				ControlKeysManager *key_manager = ControlKeysManager::Get((SpaceClientClass *)((ClientClass *)Client)->As_Space_Client());
 
 
 
@@ -465,7 +465,7 @@ void UIOptionControlKeysClass::Unknown_60()
 // 0x5CB8F0
 void UIOptionControlKeysClass::Set_Context(int context)
 {
-	ControlKeysManager *key_manager = ControlKeysManager::Get((SClient *)((ClientClass *)Client)->As_Space_Client());
+	ControlKeysManager *key_manager = ControlKeysManager::Get((SpaceClientClass *)((ClientClass *)Client)->As_Space_Client());
 	FAIL_IF(!key_manager) return;
 	Context = context;
 	key_manager->Find_Mappings(&CurrentKeys, context);
@@ -585,7 +585,7 @@ bool UIOptionControlKeysClass::Show_Dialog_Box(const char *dialog_name, const ch
 {
 	FAIL_IF(!dialog_name) return(false);
 
-	SClient *sclient = Client ? (SClient *)((ClientClass *)Client)->As_Space_Client() : NULL;
+	SpaceClientClass *sclient = Client ? (SpaceClientClass *)((ClientClass *)Client)->As_Space_Client() : NULL;
 	FAIL_IF(!sclient) return(false);
 	FAIL_IF(!sclient->CurrentView) return(false);
 
@@ -605,7 +605,7 @@ void UIOptionControlKeysClass::Set_Key_Text(GadgetClass *bttn, const std::string
 {
 	FAIL_IF(!bttn) return;
 
-	FontSys *font = ((RObjGadgetClass *)bttn)->Unknown34;
+	FontSys *font = ((RenderObjGadgetClass *)bttn)->Unknown34;
 	FAIL_IF(!font) return;
 
 
@@ -613,7 +613,7 @@ void UIOptionControlKeysClass::Set_Key_Text(GadgetClass *bttn, const std::string
 
 	if (Unknown_BE5D1C < 1.0f) {
 		Unknown_BE5D1C = 320;
-		FontStringStruct *sinfo = &font->Info;
+		StringInfo *sinfo = &font->Info;
 		if (!sinfo) {
 			G_ASSERT(sinfo);
 		} else {
@@ -630,7 +630,7 @@ void UIOptionControlKeysClass::Set_Key_Text(GadgetClass *bttn, const std::string
 	str.c_str();  // (dead, D130: spends the copy's nested budget, so its _Tidy is called as the client's)
 	str.c_str();  // (dead, D130)
 	str.c_str();  // (dead, D130)
-	Font32Class *f32 = font->Font.Peek();
+	Font32Bit *f32 = font->Font.Peek();
 	G_ASSERT(f32);
 	font->Change_Text(str.c_str(), 0);
 }

@@ -3,12 +3,12 @@
 #ifndef UI_MANU_UTIL_H  // NAME 1 [ui_manu_util.h]: provisional header name for ui_manu_util.cpp (D137)
 #define UI_MANU_UTIL_H
 
-class ButtonGadgetClass;	// unknown_675120.h's (ui_manu.cpp makes them)
+class ButtonGadgetClass;	// gd_uimesh.h's (ui_manu.cpp makes them)
 class RenderObjClass;
 
 // One column of the manufacturing window's category icons (0x4C bytes; ui_manu.cpp keeps three at +0xC0..+0xC8): five
 // buttons and five sub-objects of the window's mesh that fade in and out one after another. Its functions are
-// ui_manu_util.cpp's object, 0x5B7370-0x5B7A8A (PermStringInitClass static first, the guarded <string> ids last).
+// ui_manu_util.cpp's object, 0x5B7370-0x5B7A8A (PermStringInit static first, the guarded <string> ids last).
 class UIManuUnknownC0Class	// NAME 1: neutral (D10)
 {
 public:

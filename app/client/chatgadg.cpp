@@ -14,7 +14,7 @@
 #include "..\kernel\kernel.h"
 #include "..\audio\soundlib.h"
 #include "..\packets\pkclientchat.h"
-#include "..\packets\pkunknown_87dec0.h"
+#include "..\packets\pkchatstream.h"
 #include "..\shared\auxdata\auxdata.h"
 #include "..\shared\auxdata\delta_string.h"
 #include "..\shared\g_assert.h"
@@ -23,13 +23,13 @@
 #include "..\shared\unknown_8b4560.h"
 
 #define NUM_QUICK_MESSAGES 9	// the FAIL_IFs' constant (the keys 'Save / Send Quick Message 1..9')
-extern const int Unknown_B08CA8;	// 0xB08CA8 (0x40: StrEditClass's enter flag; the text gadgets' constants, textgadg.h)  // NAME 1: neutral (D10), as ui_log.cpp
+extern const int Unknown_B08CA8;	// 0xB08CA8 (0x40: StringEditClass's enter flag; the text gadgets' constants, textgadg.h)  // NAME 1: neutral (D10), as ui_log.cpp
 // The 'chatgadg' module's control keys (ControlKeysManager): the dynamic initialiser 0x65BEA0, atexit 0x65BF60
 static std::string ModuleName("chatgadg");	// 0xBE5E78  // NAME 1: neutral (D10): what it holds
 
 // 0x65BFD0
 ChatGadgetClass::ChatGadgetClass(LineDisplayClientClass *client) :
-	TextBaseGadgetClass(0xFF, Unknown_B08CA8, NULL),
+	TextGadgetClass(0xFF, Unknown_B08CA8, NULL),
 	Client((ClientClass *)client),
 	HistoryNext(0),
 	HistoryIndex(0),
@@ -79,7 +79,7 @@ ChatGadgetClass::~ChatGadgetClass()
 // 0x65CA10
 bool ChatGadgetClass::Unknown_2C(KernelEventClass *event, float x, float y, unsigned int mask)
 {
-	SClient *sclient = (SClient *)Client->As_Space_Client();
+	SpaceClientClass *sclient = (SpaceClientClass *)Client->As_Space_Client();
 	if (sclient->LoadingView != NULL && sclient->LoadingView->Unknown68) {
 		return(true);
 	}
@@ -143,7 +143,7 @@ bool ChatGadgetClass::Unknown_2C(KernelEventClass *event, float x, float y, unsi
 				break;
 			default:
 				if (Edit->Process_Key(event)) {
-					SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+					SoundLibrary::Play_2D_Sound("fontclick.wav", 2);
 					Changed = true;
 				} else {
 					Unknown_65DE90(event);
@@ -306,7 +306,7 @@ bool ChatGadgetClass::Unknown_2C(KernelEventClass *event, float x, float y, unsi
 // 0x65CCD0
 void ChatGadgetClass::Unknown_65CCD0()
 {
-	SClient *sclient = (SClient *)Client->As_Space_Client();
+	SpaceClientClass *sclient = (SpaceClientClass *)Client->As_Space_Client();
 	FAIL_IF(!sclient) return;
 	ChatPanelInterface *chatpanel = sclient->ChatPanel.Peek();
 	int channel = 0;
@@ -325,7 +325,7 @@ void ChatGadgetClass::Unknown_65CCD0()
 					case 8:
 					case 9:
 						{
-							CharacterViewAvatarClass *avatar = (CharacterViewAvatarClass *)sclient->Unknown_74C840(Client->Get_Avatar_ID());
+							AvatarClass *avatar = (AvatarClass *)sclient->Unknown_74C840(Client->Get_Avatar_ID());
 							if (avatar != NULL) {
 								avatar->Unknown_781760(text);
 								ClientChatRequestPacketClass packet(1, Client->Get_Unknown1138());
@@ -340,17 +340,17 @@ void ChatGadgetClass::Unknown_65CCD0()
 								Client->Send_Packet(&packet);
 							}
 							if (*text != '/') {
-								((SClient *)Client->As_Space_Client())->Print(0x10, "To %s: %s", chatpanel->Unknown_565BA0(), text);
+								((SpaceClientClass *)Client->As_Space_Client())->Print(0x10, "To %s: %s", chatpanel->Unknown_565BA0(), text);
 							}
 						}
 						break;
 					case 1:
 						if (sclient->Unknown_744B60()) {
-							CharacterViewAvatarClass *avatar = sclient->Unknown_74C840(Client->Get_Avatar_ID());
+							AvatarClass *avatar = sclient->Unknown_74C840(Client->Get_Avatar_ID());
 							if (avatar != NULL) {
-								((CharacterViewAvatarClass *)avatar)->Unknown_781760(text);
+								((AvatarClass *)avatar)->Unknown_781760(text);
 								
-								Client->Send_Packet(&AvatarEmotePacketClass(Client->Get_Avatar_ID(), (Unknown_ChatStreamClass *)avatar->Unknown_7817E0(), 1, NULL));
+								Client->Send_Packet(&ChatstreamPacketClass(Client->Get_Avatar_ID(), (Unknown_ChatStreamClass *)avatar->Unknown_7817E0(), 1, NULL));
 								if (avatar->Unknown_7817E0()->Unknown_4C4940()) {
 									char line[512] = "";
 									avatar->Unknown_7817E0()->Unknown_4C48C0(line);
@@ -365,11 +365,11 @@ void ChatGadgetClass::Unknown_65CCD0()
 						break;
 					case 0:
 						if (sclient->Unknown_744B60()) {
-							CharacterViewAvatarClass *avatar = sclient->Unknown_74C840(Client->Get_Avatar_ID());
+							AvatarClass *avatar = sclient->Unknown_74C840(Client->Get_Avatar_ID());
 							if (avatar != NULL) {
-								((CharacterViewAvatarClass *)avatar)->Unknown_781760(text);
+								((AvatarClass *)avatar)->Unknown_781760(text);
 								
-								Client->Send_Packet(&AvatarEmotePacketClass(Client->Get_Avatar_ID(), (Unknown_ChatStreamClass *)avatar->Unknown_7817E0(), 1, NULL));
+								Client->Send_Packet(&ChatstreamPacketClass(Client->Get_Avatar_ID(), (Unknown_ChatStreamClass *)avatar->Unknown_7817E0(), 1, NULL));
 								if (avatar->Unknown_7817E0()->Unknown_4C4940()) {
 									char line[512] = "";
 									avatar->Unknown_7817E0()->Unknown_4C48C0(line);
@@ -403,19 +403,19 @@ void ChatGadgetClass::Unknown_65CCD0()
 						}
 						break;
 					case 3:
-						if (((SClient *)Client->As_Space_Client())->Unknown_74D570()) {
+						if (((SpaceClientClass *)Client->As_Space_Client())->Unknown_74D570()) {
 							
 							Client->Send_Packet(&ClientChatPacketClass(Client->Get_Avatar_ID(), text, 1, NULL));
 						} else {
-							((SClient *)Client->As_Space_Client())->Unknown_74D990(0x11, "Not in a group.", 0);
+							((SpaceClientClass *)Client->As_Space_Client())->Unknown_74D990(0x11, "Not in a group.", 0);
 						}
 						break;
 					case 2:
-						if (((SClient *)Client->As_Space_Client())->Unknown_728300()) {
+						if (((SpaceClientClass *)Client->As_Space_Client())->Unknown_728300()) {
 							
 							Client->Send_Packet(&ClientChatPacketClass(Client->Get_Avatar_ID(), text, 2, NULL));
 						} else {
-							((SClient *)Client->As_Space_Client())->Unknown_74D990(0x11, "Not in a guild.", 0);
+							((SpaceClientClass *)Client->As_Space_Client())->Unknown_74D990(0x11, "Not in a guild.", 0);
 						}
 						break;
 				}
@@ -470,7 +470,7 @@ void ChatGadgetClass::Unknown_65CCD0()
 // 0x65DE90  // NOT EXACT: functional (D64)
 bool ChatGadgetClass::Unknown_65DE90(KernelEventClass *event)
 {
-	SClient *sclient = (SClient *)Client->As_Space_Client();
+	SpaceClientClass *sclient = (SpaceClientClass *)Client->As_Space_Client();
 	FAIL_IF(!sclient) return(false);
 	int key = ControlKeysManager::Get_Key_Id(sclient, ModuleName, *(ControlKeyValueStruct *)event);
 	if (key == -1) {
@@ -551,7 +551,7 @@ bool ChatGadgetClass::Unknown_65DE90(KernelEventClass *event)
 			break;
 	}
 	if (!Active) {
-		SoundLibraryClass::Play_2D_Sound("message_1.wav", 2);
+		SoundLibrary::Play_2D_Sound("message_1.wav", 2);
 		Unknown_74(true);
 	}
 	Changed = true;
@@ -613,7 +613,7 @@ bool ChatGadgetClass::Unknown_65E250(int index)
 	FAIL_IF(index < 1) return(false);
 	FAIL_IF(index > NUM_QUICK_MESSAGES) return(false);
 
-	SClient *sclient = (SClient *)Client->As_Space_Client();
+	SpaceClientClass *sclient = (SpaceClientClass *)Client->As_Space_Client();
 	FAIL_IF(!sclient) return(false);
 	char message[0x100];
 	char text[0x100];
@@ -641,7 +641,7 @@ bool ChatGadgetClass::Unknown_65E3E0(int index)
 	FAIL_IF(index < 1) return(false);
 	FAIL_IF(index > NUM_QUICK_MESSAGES) return(false);
 
-	SClient *sclient = (SClient *)Client->As_Space_Client();
+	SpaceClientClass *sclient = (SpaceClientClass *)Client->As_Space_Client();
 	FAIL_IF(!sclient) return(false);
 	char text[0x100];
 	char section[0x18];
@@ -671,14 +671,14 @@ bool ChatGadgetClass::Unknown_65E520()
 // 0x65E5E0
 bool ChatGadgetClass::Unknown_65E5E0()
 {
-	SClient *sclient = (SClient *)Client->As_Space_Client();
+	SpaceClientClass *sclient = (SpaceClientClass *)Client->As_Space_Client();
 	ClientObjectClass *target;
 	if (sclient != NULL && sclient->MainView != NULL && (target = sclient->MainView->Unknown_5C()) != NULL) {
 		char text[0x100];
 		text[0] = 0;
 		if (target->AuxData != NULL) {
-			NameClass field("Name");
-			DeltaStringClass *name = Unknown_Find_Set_Field<DeltaStringClass>((DeltaCompoundClass *)target->AuxData, field);
+			AuxDataName field("Name");
+			DeltaString *name = Unknown_Find_Set_Field<DeltaString>((DeltaContainer *)target->AuxData, field);
 			const char *string = name->String;
 
 			if (string != NULL && *string != 0) {
@@ -725,15 +725,15 @@ void ChatGadgetClass::Unknown_65E7C0(bool reply)
 // 0x65E840
 bool ChatGadgetClass::Unknown_65E840()
 {
-	SClient *sclient = (SClient *)Client->As_Space_Client();
+	SpaceClientClass *sclient = (SpaceClientClass *)Client->As_Space_Client();
 	FAIL_IF(!sclient) return(false);
 
 	ChatPanelInterface *chatpanel = sclient->ChatPanel.Peek();
 	FAIL_IF(!chatpanel) return(false);
 	ClientObjectClass *target;
 	if (sclient->MainView != NULL && (target = sclient->MainView->Unknown_5C()) != NULL && target->Unknown_6F5A40() && target->AuxData != NULL) {
-		NameClass field("Owner");
-		DeltaStringClass *owner = Unknown_Find_Set_Field<DeltaStringClass>((DeltaCompoundClass *)target->AuxData, field);
+		AuxDataName field("Owner");
+		DeltaString *owner = Unknown_Find_Set_Field<DeltaString>((DeltaContainer *)target->AuxData, field);
 		const char *string = owner->String;
 
 		if (string != NULL && *string != 0) {

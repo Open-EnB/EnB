@@ -6,7 +6,7 @@
 
 #include <string>
 #include "sclient.h"
-#include "unknown_675120.h"	// ButtonGadgetClass (Add_Button news one at 0x56D510)
+#include "gd_uimesh.h"	// ButtonGadgetClass (Add_Button news one at 0x56D510)
 
 class RenderObjClass;
 class GadgetClass;			// gadget.cpp's
@@ -24,7 +24,7 @@ class DestroyGadgetEvent;	class MovableUIBackGadgetMoved;	// gd_uiback.h's (0x56
 class ChatPanelUIBase : public InterfaceClass	// NAME 5: the client's RTTI (the receiver in MemberCallback<MovableUIBackGadget, ChatPanelUIBase, void (ChatPanelUIBase::*)(MovableUIBackGadgetMoved *, MovableUIBackGadget *), MovableUIBackGadgetMoved> 0xB7D5E8: the typeid slot 0x56DF50 of the callback table 0xAF0174 that this class's destructor 0x56D330 builds with this as receiver and 0x56DEE0 as method)
 {
 public:
-	ChatPanelUIBase(SClient *client);				// 0x56D280  // NAME 1 [client]: what 0x561DD0 passes
+	ChatPanelUIBase(SpaceClientClass *client);				// 0x56D280  // NAME 1 [client]: what 0x561DD0 passes
 	virtual ~ChatPanelUIBase();					// 0x56D330 (deleting 0x56D300; out of line: ui_starbase.cpp's lights panel 0x646290 calls it)
 	virtual void Unknown_58();							// +0x58 0x56D4F0 (InterfaceClass's: activates; Closed cleared first)
 	virtual void Unknown_88(const RefCountPtr<RenderObjClass> &robj, const char *bone_name);	// +0x88 0x56DD80 (the model out of the layer and onto robj's bone; FAIL_IF '!robj', the assert's bone_name)

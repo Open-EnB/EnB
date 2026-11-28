@@ -8,15 +8,15 @@ FirePacketClass::FirePacketClass(int game_id, char slot) :
 {
 }
 
-FirePacketClass::FirePacketClass(RawPacketClass *raw)
+FirePacketClass::FirePacketClass(PacketClass *raw)
 {
 	raw->Get(&GameID, sizeof(GameID));
 	raw->Get(&Slot, sizeof(Slot));
 }
 
-RawPacketClass *FirePacketClass::Build()
+PacketClass *FirePacketClass::Encode()
 {
-	RawPacketClass *raw = new RawPacketClass(Get_Type(), Get_Data_Size());
+	PacketClass *raw = new PacketClass(Get_Type(), Get_Data_Size());
 	raw->Add(&GameID, sizeof(GameID));
 	raw->Add(&Slot, sizeof(Slot));
 	return(raw);
@@ -43,6 +43,6 @@ int FirePacketClass::Print(char *buffer, int)
 **	* Build takes the opcode from the virtual Get_Type, so FireEquipped 22 (Get_Name 'FireEquipped', 0x1C
 **	  bytes) shares the raw constructor, Build, Get_Data_Size and Print; its inline members are compiled
 **	  in pk.cpp's object (0x86E5D0-0x86E630), where the packet switch constructs it.
-**	* The scalar deleting destructor 0x887340 calls PacketClass's destructor copy 0x7242C0 (the linker's
+**	* The scalar deleting destructor 0x887340 calls UnknownPacketBaseClass's destructor copy 0x7242C0 (the linker's
 **	  pick of the COMDAT): the implicit destructor.
 */

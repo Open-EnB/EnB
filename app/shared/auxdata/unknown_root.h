@@ -5,9 +5,9 @@
 **	Original location: unknown (PROVISIONAL name, M1.3: the object 0x4A3B40-0x4A4780 between
 **	strconv_lib.cpp and bitset.cpp holds no assert and no __FILE__; renaming it later is fine)
 **
-**	The aux-data root: the DeltaCompoundClass every root tree (Ship, Player, ... in co.cpp) derives
+**	The aux-data root: the DeltaContainer every root tree (Ship, Player, ... in co.cpp) derives
 **	from. The client names it nowhere (D24, D10). Its constructor 0x4A3BD0 inlines
-**	DeltaCompoundClass's and keeps one int argument at +0x9C (the CREATE factory 0x6F6000 passes
+**	DeltaContainer's and keeps one int argument at +0x9C (the CREATE factory 0x6F6000 passes
 **	its second argument through).
 */
 
@@ -22,14 +22,14 @@
 
 #include "delta.h"
 
-class LinearBufferClass;
+class LinearBuffer;
 class PolicyClass;
 class PolicyStateClass;
 class ChangeTableClass;
 
-// vtable 0xAEAB88 (DeltaCompoundClass's 0xAEABE4 with its own destructor), size 0xA0
+// vtable 0xAEAB88 (DeltaContainer's 0xAEABE4 with its own destructor), size 0xA0
 // NAME 1: neutral; the root of every aux-data tree (vtable 0xAEAB88). Hints: C# AuxRoot (the reference game model; a schema object, not this class), Net-7 has none (its roots derive from AuxBase directly)
-class UnknownRootClass : public DeltaCompoundClass
+class UnknownRootClass : public DeltaContainer
 {
 public:
 	UnknownRootClass(int unknown, const char *name);		// 0x4A3BD0
@@ -37,7 +37,7 @@ public:
 
 	// 0x4A3D50: an update of what changed since the last (DeltaCollectorClass, encode.cpp), in the
 	// record form or the tree form, whichever is smaller; 0 when there is nothing to send
-	LinearBufferClass *Encode(PolicyClass *policy, ChangeTableClass *changes);  // NAME 2: describes what it does
+	LinearBuffer *Encode(PolicyClass *policy, ChangeTableClass *changes);  // NAME 2: describes what it does
 
 	int Unknown9C;					// +0x9C the constructor's int (the factory's second argument)
 };
@@ -54,7 +54,7 @@ public:
 	virtual void Unknown_48();										// +0x48 0x4A40B0
 	// 0x4A4660 (no caller in the client): sets the change table's time, rescans it when a field
 	// moved, and encodes when something changed
-	LinearBufferClass *Encode_Changes(unsigned int time);  // NAME 2: describes what it does
+	LinearBuffer *Encode_Changes(unsigned int time);  // NAME 2: describes what it does
 
 	PolicyClass *Policy;					// +0xA0  // NAME 2: describes what it does
 	PolicyStateClass *UnknownA4;	// +0xA4 the policy's state (0x4AF190's, 0x14 bytes)

@@ -36,7 +36,7 @@ class ManagedFontClass  // NAME 2 [ManagedFontClass]: what the manager holds per
 public:
 	ManagedFontClass(RenderObjClass *object);							// 0x6CE990: the render object's styles from the font database
 	ManagedFontClass(const char *name, RenderObjClass *object);					// 0x6CF520 (no caller), inlined in 0x6D1FD0  // NAME 2 [object]: the render object Unknown_6CF930 gets
-	void Unknown_6CF930(FontStringStruct *def, RenderObjClass *object);				// 0x6CF930: a 'W' template's lines as styles on the render object  // NAME 1 [Unknown_6CF930, object]: neutral (D10)
+	void Unknown_6CF930(StringInfo *def, RenderObjClass *object);				// 0x6CF930: a 'W' template's lines as styles on the render object  // NAME 1 [Unknown_6CF930, object]: neutral (D10)
 	~ManagedFontClass();												// 0x6CF730
 	void Unknown_All_Styles(int index, float time);					// 0x6D0950, inlined in 0x6D1C10 (its own begin / ++ called out of line there)  // NAME 1 [Unknown_All_Styles]: neutral (D10)
 	void Unknown_Set_Styles(int value);									// 0x6D0710, inlined in 0x6D28C0 (its own begin / ++ called out of line there)  // NAME 1 [Unknown_Set_Styles]: neutral (D10)

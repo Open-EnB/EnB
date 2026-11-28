@@ -62,7 +62,7 @@ void Unknown431E30Class::Load_INI()
 		SectorMusic[sector] = track; SectorMusic.size();	// a dead read: it sends operator[] (0x433410) out of line, as the client has it (workflow.md 3.1.2, inline budget)
 		music++;
 	}
-	float volume = OptionClass::Instance->Get_Float("Sound_Music") * 0.01F;
+	float volume = OptionManagerClass::Instance->Get_Float("Sound_Music") * 0.01F;
 	WWAudioClass::Get_Instance()->Set_Music_Volume(volume);
 }
 
@@ -79,7 +79,7 @@ void Unknown431E30Class::Play(int track, bool loop)
 	if (args.Find("-NOMUSIC") == NULL && Is_Active()) {
 		Stop();
 		if (track < Tracks.size()) {
-			float volume = OptionClass::Instance->Get_Float("Sound_Music") * 0.01F;
+			float volume = OptionManagerClass::Instance->Get_Float("Sound_Music") * 0.01F;
 			WWAudioClass::Get_Instance()->Set_Music_Volume(volume);
 			Track = track;
 			Sound = WWAudioClass::Get_Instance()->Create_Sound_Effect(Tracks[track].c_str());
@@ -157,7 +157,7 @@ void Unknown431E30Class::Update(bool flag)
 		return;
 	}
 	volume = WWAudioClass::Get_Instance()->Get_Sound_Effects_Volume();
-	float target = OptionClass::Instance->Get_Float("Sound_Music") * 0.01F;
+	float target = OptionManagerClass::Instance->Get_Float("Sound_Music") * 0.01F;
 	if (volume != target) {
 		WWAudioClass::Get_Instance()->Set_Music_Volume(target);
 	}

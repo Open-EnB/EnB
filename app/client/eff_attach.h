@@ -22,7 +22,7 @@
 // vtable 0xAFFE88 (12 slots), 0xF4 bytes, constructor 0x6E4750, destructor 0x6E4A30 (scalar deleting 0x6E4940).
 // Its own flag bits: 0x200 a copy hidden while the bone's first sub-object is (effect.ini's HideAsOtherObjects),
 // 0x400 its model's texture mappers reset at the start (ResetMappers).
-class AttachEffectClass : public UnknownB00060EffectClass	// NAME 3: effect.ini's EffectClass 'AttachEffect' (0xB92EB8), which the helper 0x6EC570 makes
+class AttachEffectClass : public UnaryEffectClass	// NAME 3: effect.ini's EffectClass 'AttachEffect' (0xB92EB8), which the helper 0x6EC570 makes
 {
 public:
 	AttachEffectClass(ClientClass *client, unsigned id, unsigned start_time, unsigned duration, unsigned cycle_time, const RefCountPtr<RenderObjClass> &robj, const char *bone_prefix);	// 0x6E4750  // NAME 1 [client .. cycle_time]: the base's; robj, bone_prefix: the members

@@ -44,7 +44,7 @@ bool UIMFDItemClass::Unknown_14()
 }
 
 // 0x5C2000
-UIMFDPIPItemClass::UIMFDPIPItemClass(UIMFDClass *owner) :
+UIMFDPIPItemClass::UIMFDPIPItemClass(MFDInterface *owner) :
 	UIMFDItemClass(owner),
 	Transform(true),
 	UnknownBool(false),
@@ -176,10 +176,10 @@ void UIMFDPIPItemClass::Unknown_08()
 		}
 	}
 	int poly;
-	if (OptionClass::Instance->Get_Bool("Graphics_Default")) {
-		poly = (int)((float)((SClient *)((ClientClass *)Owner->Client)->As_Space_Client())->PolyBudget * 0.1f);
+	if (OptionManagerClass::Instance->Get_Bool("Graphics_Default")) {
+		poly = (int)((float)((SpaceClientClass *)((ClientClass *)Owner->Client)->As_Space_Client())->PolyBudget * 0.1f);
 	} else {
-		poly = (int)((float)(int)(8000.0f + (OptionClass::Instance->Get_Float("Graphics_Space_Poly") * 0.01f) * (40000.0f - 8000.0f)) * 0.1f);
+		poly = (int)((float)(int)(8000.0f + (OptionManagerClass::Instance->Get_Float("Graphics_Space_Poly") * 0.01f) * (40000.0f - 8000.0f)) * 0.1f);
 	}
 	((UIViewClass *)Owner->View)->Unknown_65B7A0(Scene, Camera, poly, level);
 	Vector3 pos = PIPVP->Get_Position();
@@ -189,7 +189,7 @@ void UIMFDPIPItemClass::Unknown_08()
 	Camera->Set_Viewport(Vector2(p.X * (1.0f / 640.0f), p.Y * (1.0f / 480.0f)), Vector2((p.X + Size.X) * (1.0f / 640.0f), (p.Y + Size.Y) * (1.0f / 480.0f)));
 	float a = 0.5 / Size.Y * Size.X;
 	Camera->Set_View_Plane(Vector2(-a, -0.5f), Vector2(a, 0.5f));
-	MainViewClass *view = *(MainViewClass * volatile *)&((SClient *)((ClientClass *)Owner->Client)->As_Space_Client())->MainView;	// provisional (workflow.md 3.1.2): pins pop ebx after test ecx, ecx as the client's 0x5C27C8
+	MainViewClass *view = *(MainViewClass * volatile *)&((SpaceClientClass *)((ClientClass *)Owner->Client)->As_Space_Client())->MainView;	// provisional (workflow.md 3.1.2): pins pop ebx after test ecx, ecx as the client's 0x5C27C8
 	OrbitalManager *orbitals = view->Orbitals;
 	if (orbitals != NULL) {
 		Vector4 color = orbitals->Unknown_4F50D0(0);
@@ -246,12 +246,12 @@ void UIMFDPIPItemClass::Unknown_10()
 }
 
 // 0x5C2CD0
-Unknown5C2CD0Class::Unknown5C2CD0Class(UIMFDClass *owner) :
+Unknown5C2CD0Class::Unknown5C2CD0Class(MFDInterface *owner) :
 	UIMFDPIPItemClass(owner),
 	Carrier(NULL)
 {
 	UnknownBool = false;
-	Carrier = new ProxyRObj(true);
+	Carrier = new ProxyRenderObjClass(true);
 }
 
 // 0x5C2DC0
@@ -354,7 +354,7 @@ void Unknown5C2CD0Class::Unknown_10()
 }
 
 // 0x5C3030
-Unknown5C3030Class::Unknown5C3030Class(UIMFDClass *owner) :
+Unknown5C3030Class::Unknown5C3030Class(MFDInterface *owner) :
 	UIMFDItemClass(owner),
 	Texture(NULL)
 {
@@ -564,8 +564,8 @@ void Unknown5C3030Class::Unknown_10()
 {
 	ClientObjectClass *object = Owner->Unknown_5BD520();
 	if (object != NULL) {
-		NameClass name("Inventory.Hull");
-		if (((DeltaCompoundClass *)object->AuxData)->Get_Lookup()->Unknown_Test_70_Above_1(name)) {
+		AuxDataName name("Inventory.Hull");
+		if (((DeltaContainer *)object->AuxData)->Get_Lookup()->Unknown_Test_70_Above_1(name)) {
 			Unknown_0C();
 			Unknown_08();
 		}
@@ -573,7 +573,7 @@ void Unknown5C3030Class::Unknown_10()
 }
 
 // 0x5C3650
-Unknown5C3650Class::Unknown5C3650Class(UIMFDClass *owner) :
+Unknown5C3650Class::Unknown5C3650Class(MFDInterface *owner) :
 	UIMFDItemClass(owner)
 {
 }
@@ -628,7 +628,7 @@ bool Unknown5C3650Class::Unknown_14()
 }
 
 // 0x5C3920
-Unknown5C3920Class::Unknown5C3920Class(UIMFDClass *owner) :
+Unknown5C3920Class::Unknown5C3920Class(MFDInterface *owner) :
 	UIMFDItemClass(owner),
 	Pitch(-1),
 	Heading(-1),

@@ -12,7 +12,7 @@ ServerHandoffPacketClass::ServerHandoffPacketClass(const TicketClass &ticket, co
 {
 }
 
-ServerHandoffPacketClass::ServerHandoffPacketClass(RawPacketClass *raw) :
+ServerHandoffPacketClass::ServerHandoffPacketClass(PacketClass *raw) :
 	Ticket(0)
 {
 	raw->Get((Unknown_PacketDataClass *)&Ticket);
@@ -22,9 +22,9 @@ ServerHandoffPacketClass::ServerHandoffPacketClass(RawPacketClass *raw) :
 	raw->Get(&System);
 }
 
-RawPacketClass *ServerHandoffPacketClass::Build()
+PacketClass *ServerHandoffPacketClass::Encode()
 {
-	RawPacketClass *raw = new RawPacketClass(58, Get_Data_Size());
+	PacketClass *raw = new PacketClass(58, Get_Data_Size());
 	raw->Add((Unknown_PacketDataClass &)Ticket);
 	raw->Add(Source_Sector);
 	raw->Add(Source_System);
@@ -35,8 +35,8 @@ RawPacketClass *ServerHandoffPacketClass::Build()
 
 int ServerHandoffPacketClass::Get_Data_Size()
 {
-	return(((Unknown_PacketDataClass &)Ticket).Get_Size() + RawPacketClass::Get_Size(Source_Sector) +
-		RawPacketClass::Get_Size(Source_System) + RawPacketClass::Get_Size(Name) + RawPacketClass::Get_Size(System));
+	return(((Unknown_PacketDataClass &)Ticket).Get_Size() + PacketClass::Get_Size(Source_Sector) +
+		PacketClass::Get_Size(Source_System) + PacketClass::Get_Size(Name) + PacketClass::Get_Size(System));
 }
 
 int ServerHandoffPacketClass::Print(char *buffer, int)

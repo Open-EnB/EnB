@@ -1,6 +1,6 @@
 // Earth & Beyond client (reconstruction)
 // udpreplay --conn: CordCon's delivered messages through the game's connection layer (docs/kernel-map.md
-// 4, 5): app\common\udpconn.cpp's UDPConnection::Receive (CordCon::read into the message buffer, then
+// 4, 5): app\common\udpconn.cpp's UDPConnectionClass::Receive (CordCon::read into the message buffer, then
 // the packet factory), then each packet through app\common\connect.cpp's stream connection over a
 // memory transport (Send_Packet: the {size, opcode} header and the payload; Receive: the ring, the
 // header, the whole message, the factory again), read back in chunks of varying size so that messages
@@ -93,9 +93,9 @@ UnknownBFAEE0Class *Unknown_BFAEE0 = &BFAEE0;
 // The packets the client's factory made (pk.cpp: Unknown_Create_Packet, the generated switch, a
 // class of pk_classes.h): their constructors aren't rebuilt, so pk_ctor_stubs.cpp's hand each raw
 // message here; the harness keeps the bytes per packet and builds a raw message back from them.
-static std::map<PacketClass *, std::vector<unsigned char> > Packets;
+static std::map<UnknownPacketBaseClass *, std::vector<unsigned char> > Packets;
 
-void Conn_Record(PacketClass *packet, RawPacketClass *raw)
+void Conn_Record(UnknownPacketBaseClass *packet, PacketClass *raw)
 {
 	packet->Connection = 0;
 	packet->Serial = 0;
@@ -108,15 +108,15 @@ void Conn_Record(PacketClass *packet, RawPacketClass *raw)
 	}
 }
 
-static RawPacketClass *Build_Raw(const std::vector<unsigned char> &bytes)
+static PacketClass *Build_Raw(const std::vector<unsigned char> &bytes)
 {
-	RawPacketClass *raw = (RawPacketClass *)new char[sizeof(RawPacketClass)];
-	memset(raw, 0, sizeof(RawPacketClass));
+	PacketClass *raw = (PacketClass *)new char[sizeof(PacketClass)];
+	memset(raw, 0, sizeof(PacketClass));
 	memcpy(&raw->Header, &bytes[0], sizeof(PacketHeaderClass));
 	if (bytes.size() > 4) {
-		new (&raw->Data) LinearBufferClass(&bytes[4], (int)bytes.size() - 4, 0x400, true);
+		new (&raw->Data) LinearBuffer(&bytes[4], (int)bytes.size() - 4, 0x400, true);
 	} else {
-		new (&raw->Data) LinearBufferClass(0x10, 0x400);
+		new (&raw->Data) LinearBuffer(0x10, 0x400);
 	}
 	raw->Channel = -1;
 	raw->Reliable = true;
@@ -126,14 +126,14 @@ static RawPacketClass *Build_Raw(const std::vector<unsigned char> &bytes)
 // A packet's message: the bytes Conn_Record kept (a class not rebuilt), else what the packet's own
 // Build makes (a rebuilt class: its constructor parsed the message, Build writes it back).
 int Conn_Built = 0;
-static bool Packet_Bytes(PacketClass *p, std::vector<unsigned char> &bytes)
+static bool Packet_Bytes(UnknownPacketBaseClass *p, std::vector<unsigned char> &bytes)
 {
-	std::map<PacketClass *, std::vector<unsigned char> >::iterator it = Packets.find(p);
+	std::map<UnknownPacketBaseClass *, std::vector<unsigned char> >::iterator it = Packets.find(p);
 	if (it != Packets.end()) {
 		bytes = it->second;
 		return true;
 	}
-	RawPacketClass *raw = p->Build();
+	PacketClass *raw = p->Encode();
 	if (raw == 0) {
 		return false;
 	}
@@ -151,7 +151,7 @@ static bool Packet_Bytes(PacketClass *p, std::vector<unsigned char> &bytes)
 // D95(a): the rebuilt classes whose client Build writes a size field larger than the payload it adds
 // (AVATAR_DESCRIPTION 97: Get_Data_Size 0x110 for 0x108 bytes; 183: an entry sized 0x4C for 0x49 bytes),
 // so their Build can't give the received message back: the harness sends the message as received
-// instead (UDPConnection::Receive's buffer; the stream side: the bytes its transport read). Counted as
+// instead (UDPConnectionClass::Receive's buffer; the stream side: the bytes its transport read). Counted as
 // "sent as received".
 static const unsigned short Recorded_Opcodes[] = { 97, 183 };
 int Conn_Recorded = 0;
@@ -170,7 +170,7 @@ static bool Is_Recorded(const unsigned char *message)
 
 // A rebuilt packet of a Recorded_Opcodes class keeps the message it was made from (a class not rebuilt
 // already has it through Conn_Record).
-static bool Keep_Received(PacketClass *p, const unsigned char *message, int length)
+static bool Keep_Received(UnknownPacketBaseClass *p, const unsigned char *message, int length)
 {
 	if (p == 0 || length < 4 || !Is_Recorded(message) || Packets.find(p) != Packets.end()) {
 		return false;
@@ -184,7 +184,7 @@ static bool Keep_Received(PacketClass *p, const unsigned char *message, int leng
 	return true;
 }
 
-static void Delete_Packet(PacketClass *p)
+static void Delete_Packet(UnknownPacketBaseClass *p)
 {
 	Packets.erase(p);
 	delete p;
@@ -228,21 +228,21 @@ public:
 };
 
 static MemoryStreamClass Stream;
-static std::map<CordCon *, UDPConnection *> Connections;
+static std::map<CordCon *, UDPConnectionClass *> Connections;
 
-// The UDPConnection over a side's CordCon (the constructor for an accepted CordCon, 0x82CBF0). Its
+// The UDPConnectionClass over a side's CordCon (the constructor for an accepted CordCon, 0x82CBF0). Its
 // constructor opens a default channel (openc mode 3); the replay's sides open the capture's own
 // channels, so that one is taken back (as Write_Side does for a channel openc gave wrongly).
-static UDPConnection *Get_Connection(CordCon *con, CordMgr *mgr)
+static UDPConnectionClass *Get_Connection(CordCon *con, CordMgr *mgr)
 {
-	std::map<CordCon *, UDPConnection *>::iterator it = Connections.find(con);
+	std::map<CordCon *, UDPConnectionClass *>::iterator it = Connections.find(con);
 	if (it != Connections.end()) {
 		return it->second;
 	}
 	int active = (int)con->Active_.size();
-	UDPConnection *c = new UDPConnection(con, mgr);
+	UDPConnectionClass *c = new UDPConnectionClass(con, mgr);
 	if ((int)con->Active_.size() == active + 1) {
-		CordChannelClass *ch = con->Channels_[c->Default];
+		CordChannel *ch = con->Channels_[c->Default];
 		ch->Mode = 0;
 		ch->IsClosed = true;
 		con->Active_.pop_back();
@@ -251,7 +251,7 @@ static UDPConnection *Get_Connection(CordCon *con, CordMgr *mgr)
 	return c;
 }
 
-// Every message the CordCon has for its reader: UDPConnection::Receive, then the stream framing.
+// Every message the CordCon has for its reader: UDPConnectionClass::Receive, then the stream framing.
 // A message under 4 bytes (the replay's 1-byte fillers) has no header: the client's factory would
 // read the previous message's from the shared buffer; the harness tells them by the CordCon's
 // BytesRead_ (read adds each message's length) and counts them instead (Conn_Short). Once the CordCon is closed (state
@@ -261,11 +261,11 @@ static UDPConnection *Get_Connection(CordCon *con, CordMgr *mgr)
 int Conn_Deliver(FILE *out, int n, const char *dir, const char *name, CordCon *con, CordMgr *mgr)
 {
 	static unsigned char peek[0x10000];
-	UDPConnection *udp = Get_Connection(con, mgr);
+	UDPConnectionClass *udp = Get_Connection(con, mgr);
 	int delivered = 0;
 	for (;;) {
 		int read_before = con->BytesRead_;
-		PacketClass *p = udp->Receive();
+		UnknownPacketBaseClass *p = udp->Receive();
 		if (con->BytesRead_ != read_before && con->BytesRead_ - read_before < 4) {
 			Conn_Short++;
 			if (p) {
@@ -288,7 +288,7 @@ int Conn_Deliver(FILE *out, int n, const char *dir, const char *name, CordCon *c
 			delete p;
 			continue;
 		}
-		RawPacketClass *raw = Build_Raw(sent);
+		PacketClass *raw = Build_Raw(sent);
 		Stream.Taken.clear();
 		if (!Stream.Send_Message(raw)) {
 			Conn_Errors++;
@@ -296,7 +296,7 @@ int Conn_Deliver(FILE *out, int n, const char *dir, const char *name, CordCon *c
 		delete raw;
 		Delete_Packet(p);
 		for (int guard = 0; guard < 100000; guard++) {
-			PacketClass *q = Stream.Receive();
+			UnknownPacketBaseClass *q = Stream.Receive();
 			if (q == 0) {
 				if (Stream.Pipe.empty() && Stream.Ring.Get_Used() == 0) {
 					break;

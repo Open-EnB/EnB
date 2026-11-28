@@ -16,7 +16,7 @@ class GadgetSlider;
 class UIRadioAdminClass : public ChatPanelUIBase	// NAME 1: neutral, after its tooltips' section 'UI_RADIO_ADMIN'
 {
 public:
-	UIRadioAdminClass(SClient *client);					// 0x5E4160 (deleting 0x5E42D0)  // NAME 1 [client]: as the other windows'
+	UIRadioAdminClass(SpaceClientClass *client);					// 0x5E4160 (deleting 0x5E42D0)  // NAME 1 [client]: as the other windows'
 	virtual ~UIRadioAdminClass();						// 0x5E4300
 	virtual void Unknown_54();							// +0x54 0x5E4500 ('cht05': the buttons 'EXIT', 'BUTTON01'-'BUTTON06', the rows 'NAME00'-'NAME06')
 	virtual void Unknown_58();							// +0x58 0x5E4720 (activated: the lists emptied, the members requested)

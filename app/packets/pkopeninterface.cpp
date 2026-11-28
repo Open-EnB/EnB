@@ -7,15 +7,15 @@ OpenInterfacePacketClass::OpenInterfacePacketClass(int ui_change, int ui_type) :
 {
 }
 
-OpenInterfacePacketClass::OpenInterfacePacketClass(RawPacketClass *raw)
+OpenInterfacePacketClass::OpenInterfacePacketClass(PacketClass *raw)
 {
 	raw->Get(&UIChange, sizeof(UIChange));
 	raw->Get(&UIType, sizeof(UIType));
 }
 
-RawPacketClass *OpenInterfacePacketClass::Build()
+PacketClass *OpenInterfacePacketClass::Encode()
 {
-	RawPacketClass *raw = new RawPacketClass(102, Get_Data_Size());
+	PacketClass *raw = new PacketClass(102, Get_Data_Size());
 	raw->Add(&UIChange, sizeof(UIChange));
 	raw->Add(&UIType, sizeof(UIType));
 	return(raw);

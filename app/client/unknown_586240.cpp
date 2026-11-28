@@ -37,7 +37,7 @@ public:
 };
 
 // 0x586240
-UISpaceLightsClass::UISpaceLightsClass(SClient *client) :
+UISpaceLightsClass::UISpaceLightsClass(SpaceClientClass *client) :
 	ChatPanelUIBase(client),
 	Pull(NULL),
 	Current(-1)
@@ -126,7 +126,7 @@ void UISpaceLightsClass::Unknown_60()
 bool UISpaceLightsClass::Unknown_68(int key)
 {
 	((ClientClass *)Client)->As_Space_Client();
-	SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+	SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 	switch (key) {
 		case 1:
 			Unknown_586AA0();
@@ -294,7 +294,7 @@ void UISpaceLightsClass::Unknown_586F60()
 		Vector2 point((x - (box.Center.X - box.Extent.X)) / (box.Extent.X + box.Extent.X),
 			(y - (box.Center.Y - box.Extent.Y)) / (box.Extent.Y + box.Extent.Y));
 
-		RObjGadgetClass *area = Pull->Gadget->As_RObjGadget();
+		RenderObjGadgetClass *area = Pull->Gadget->As_RObjGadget();
 		Unknown_496C00(area->RObj, point.X, 1.0f - point.Y, &Color[Current]);
 		Position[Current].Set(point.X, point.Y, 0.0f);
 		MainViewClass *main_view = (MainViewClass *)View->As_Main_View();
@@ -326,7 +326,7 @@ void UISpaceLightsClass::Unknown_587310(Vector3 point)
 	tm.Set_Y_Translation((point.Y * height) + top - box.Center.Y);
 	tm[2][3] = 0.0f;
 	InterfaceMesh->Control_Bone(bone, tm, false);
-	RObjGadgetClass *area = Pull->Gadget->As_RObjGadget();
+	RenderObjGadgetClass *area = Pull->Gadget->As_RObjGadget();
 	Unknown_496C00(area->RObj, point.X, 1.0f - point.Y, &Color[Current]);
 	Position[Current].Set(point.X, point.Y, 0.0f);
 }

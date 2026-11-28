@@ -14,7 +14,7 @@ MessageLinePacketClass::MessageLinePacketClass(char *string, char *ephemeral_typ
 {
 }
 
-MessageLinePacketClass::MessageLinePacketClass(RawPacketClass *raw) :
+MessageLinePacketClass::MessageLinePacketClass(PacketClass *raw) :
 	String(0),
 	Ephemeral_Type(0),
 	TimeMS(0),
@@ -38,9 +38,9 @@ MessageLinePacketClass::~MessageLinePacketClass()
 	}
 }
 
-RawPacketClass *MessageLinePacketClass::Build()
+PacketClass *MessageLinePacketClass::Encode()
 {
-	RawPacketClass *raw = new RawPacketClass(Get_Type(), Get_Data_Size());
+	PacketClass *raw = new PacketClass(Get_Type(), Get_Data_Size());
 	raw->Add_String(String);
 	raw->Add_String(Ephemeral_Type);
 	raw->Add(&TimeMS, sizeof(TimeMS));
@@ -68,13 +68,13 @@ ClearMessageLinePacketClass::ClearMessageLinePacketClass()
 {
 }
 
-ClearMessageLinePacketClass::ClearMessageLinePacketClass(RawPacketClass *)
+ClearMessageLinePacketClass::ClearMessageLinePacketClass(PacketClass *)
 {
 }
 
-RawPacketClass *ClearMessageLinePacketClass::Build()
+PacketClass *ClearMessageLinePacketClass::Encode()
 {
-	return(new RawPacketClass(36, 0));
+	return(new PacketClass(36, 0));
 }
 
 int ClearMessageLinePacketClass::Get_Data_Size()
@@ -91,7 +91,7 @@ SuperLinePacketClass::SuperLinePacketClass(char *string) : String(nstrdup(string
 {
 }
 
-SuperLinePacketClass::SuperLinePacketClass(RawPacketClass *raw) : String(0)
+SuperLinePacketClass::SuperLinePacketClass(PacketClass *raw) : String(0)
 {
 	String = raw->Get_String();
 }
@@ -104,9 +104,9 @@ SuperLinePacketClass::~SuperLinePacketClass()
 	}
 }
 
-RawPacketClass *SuperLinePacketClass::Build()
+PacketClass *SuperLinePacketClass::Encode()
 {
-	RawPacketClass *raw = new RawPacketClass(Get_Type(), Get_Data_Size());
+	PacketClass *raw = new PacketClass(Get_Type(), Get_Data_Size());
 	raw->Add_String(String);
 	return(raw);
 }

@@ -20,12 +20,12 @@
 class Vector3;
 
 // opcode 157 (0x009D, STARBASE_AVATAR_CHANGE): vtable 0xB0B8F8, constructor 0x8A36B0, 0x28 bytes
-class Starbase_Avatar_ChangePacketClass : public PacketClass  // NAME 3: the client's Print text 'Starbase_Avatar_Change {' and the PacketClass convention
+class Starbase_Avatar_ChangePacketClass : public UnknownPacketBaseClass  // NAME 3: the client's Print text 'Starbase_Avatar_Change {' and the UnknownPacketBaseClass convention
 {
 public:
 	Starbase_Avatar_ChangePacketClass(int avatar_id, int room_type, float orient, Vector3 *position, int action_flag);	// 0x8A3600 (ui_starbase.cpp 0x63E2B0 sends it)  // NAME 1 [avatar_id, room_type, orient, position, action_flag]: the fields'
-	Starbase_Avatar_ChangePacketClass(RawPacketClass *raw);	// 0x8A36B0
-	virtual RawPacketClass *Build();	// +0x04 0x8A37A0
+	Starbase_Avatar_ChangePacketClass(PacketClass *raw);	// 0x8A36B0
+	virtual PacketClass *Encode();	// +0x04 0x8A37A0  // NAME 3: override of the NAME 5 virtual Encode
 	virtual bool Process_Packet(void *client);	// +0x08 0x868B50 (clientstub.cpp l.281)
 	virtual int Get_Data_Size();	// +0x0C 0x8A38C0
 	virtual int Print(char *buffer, int len);	// +0x10 0x8A38E0
@@ -40,12 +40,12 @@ public:
 };
 
 // opcode 158 (0x009E, STARBASE_AVATAR_CHANGE): vtable 0xB0B928, constructor 0x8A3A40, 0x28 bytes
-class StarbaseAvatarUpdatePacketClass : public PacketClass
+class StarbaseAvatarUpdatePacketClass : public UnknownPacketBaseClass
 {
 public:
 	StarbaseAvatarUpdatePacketClass(int avatar_id, float orient, Vector3 *position, int action_flag, int room);	// 0x8A3950  // NAME 1 [avatar_id, orient, position, action_flag, room]: the fields'
-	StarbaseAvatarUpdatePacketClass(RawPacketClass *raw);	// 0x8A3A40
-	virtual RawPacketClass *Build();	// +0x04 0x8A3B30
+	StarbaseAvatarUpdatePacketClass(PacketClass *raw);	// 0x8A3A40
+	virtual PacketClass *Encode();	// +0x04 0x8A3B30  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x73A9F0 (cpacket.cpp, register-only residue)
 	virtual int Get_Data_Size();	// +0x0C 0x8A3C50
 	virtual int Print(char *buffer, int len);	// +0x10 0x8A3C70
@@ -61,12 +61,12 @@ public:
 };
 
 // opcode 159 (0x009F, STARBASE_ROOM_CHANGE): vtable 0xB0B958, constructor 0x8A3D60, 0x18 bytes
-class Starbase_Room_ChangePacketClass : public PacketClass  // NAME 3: the client's Print text 'Starbase_Room_Change {' and the PacketClass convention
+class StarbaseAvatarRoomChangePacketClass : public UnknownPacketBaseClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
-	Starbase_Room_ChangePacketClass(int avatar_id, int new_room, int old_room);	// 0x8A3CE0
-	Starbase_Room_ChangePacketClass(RawPacketClass *raw);	// 0x8A3D60
-	virtual RawPacketClass *Build();	// +0x04 0x8A3E20
+	StarbaseAvatarRoomChangePacketClass(int avatar_id, int new_room, int old_room);	// 0x8A3CE0
+	StarbaseAvatarRoomChangePacketClass(PacketClass *raw);	// 0x8A3D60
+	virtual PacketClass *Encode();	// +0x04 0x8A3E20  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x868B80 (clientstub.cpp l.284)
 	virtual int Get_Data_Size();	// +0x0C 0x8A3F00
 	virtual int Print(char *buffer, int len);	// +0x10 0x8A3F20
@@ -77,12 +77,12 @@ public:
 };
 
 // opcode 160 (0x00A0, STARBASE_ROOM_CHANGE): vtable 0xB0B988, constructor 0x8A4020, 0x18 bytes
-class StarbaseAvatarRoomUpdatePacketClass : public PacketClass
+class StarbaseAvatarRoomUpdatePacketClass : public UnknownPacketBaseClass
 {
 public:
 	StarbaseAvatarRoomUpdatePacketClass(int avatar_id, int new_room, int old_room);	// 0x8A3F60
-	StarbaseAvatarRoomUpdatePacketClass(RawPacketClass *raw);	// 0x8A4020
-	virtual RawPacketClass *Build();	// +0x04 0x8A40E0
+	StarbaseAvatarRoomUpdatePacketClass(PacketClass *raw);	// 0x8A4020
+	virtual PacketClass *Encode();	// +0x04 0x8A40E0  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x73AB50 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x8A41C0
 	virtual int Print(char *buffer, int len);	// +0x10 0x8A41E0

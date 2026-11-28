@@ -9,7 +9,7 @@ Starbase_Avatar_ChangePacketClass::Starbase_Avatar_ChangePacketClass(int avatar_
 {
 }
 
-Starbase_Avatar_ChangePacketClass::Starbase_Avatar_ChangePacketClass(RawPacketClass *raw)
+Starbase_Avatar_ChangePacketClass::Starbase_Avatar_ChangePacketClass(PacketClass *raw)
 {
 	raw->Get(&AvatarID, sizeof(AvatarID));
 	raw->Get(&RoomType, sizeof(RoomType));
@@ -20,9 +20,9 @@ Starbase_Avatar_ChangePacketClass::Starbase_Avatar_ChangePacketClass(RawPacketCl
 	raw->Get(&ActionFlag, sizeof(ActionFlag));
 }
 
-RawPacketClass *Starbase_Avatar_ChangePacketClass::Build()
+PacketClass *Starbase_Avatar_ChangePacketClass::Encode()
 {
-	RawPacketClass *raw = new RawPacketClass(157, Get_Data_Size());
+	PacketClass *raw = new PacketClass(157, Get_Data_Size());
 	raw->Add(&AvatarID, sizeof(AvatarID));
 	raw->Add(&RoomType, sizeof(RoomType));
 	raw->Add(&Orient, sizeof(Orient));
@@ -48,7 +48,7 @@ StarbaseAvatarUpdatePacketClass::StarbaseAvatarUpdatePacketClass(int avatar_id, 
 {
 }
 
-StarbaseAvatarUpdatePacketClass::StarbaseAvatarUpdatePacketClass(RawPacketClass *raw)
+StarbaseAvatarUpdatePacketClass::StarbaseAvatarUpdatePacketClass(PacketClass *raw)
 {
 	raw->Get(&AvatarID, sizeof(AvatarID));
 	raw->Get(&Orient, sizeof(Orient));
@@ -59,9 +59,9 @@ StarbaseAvatarUpdatePacketClass::StarbaseAvatarUpdatePacketClass(RawPacketClass 
 	raw->Get(&Room, sizeof(Room));
 }
 
-RawPacketClass *StarbaseAvatarUpdatePacketClass::Build()
+PacketClass *StarbaseAvatarUpdatePacketClass::Encode()
 {
-	RawPacketClass *raw = new RawPacketClass(158, Get_Data_Size());
+	PacketClass *raw = new PacketClass(158, Get_Data_Size());
 	raw->Add(&AvatarID, sizeof(AvatarID));
 	raw->Add(&Orient, sizeof(Orient));
 	raw->Add(&Unknown14, sizeof(Unknown14));
@@ -82,32 +82,32 @@ int StarbaseAvatarUpdatePacketClass::Print(char *buffer, int len)
 	return(_snprintf(buffer, len, "Starbase_Avatar_Change {AvatarID=%d Orient=%f Position=(%f,%f,%f) ActionFlag=%d Room=%d}", AvatarID, Orient, Unknown14, Unknown18, Unknown1C, ActionFlag, Room));
 }
 
-Starbase_Room_ChangePacketClass::Starbase_Room_ChangePacketClass(int avatar_id, int new_room, int old_room) : AvatarID(avatar_id), NewRoom(new_room), OldRoom(old_room)
+StarbaseAvatarRoomChangePacketClass::StarbaseAvatarRoomChangePacketClass(int avatar_id, int new_room, int old_room) : AvatarID(avatar_id), NewRoom(new_room), OldRoom(old_room)
 {
 }
 
-Starbase_Room_ChangePacketClass::Starbase_Room_ChangePacketClass(RawPacketClass *raw)
+StarbaseAvatarRoomChangePacketClass::StarbaseAvatarRoomChangePacketClass(PacketClass *raw)
 {
 	raw->Get(&AvatarID, sizeof(AvatarID));
 	raw->Get(&NewRoom, sizeof(NewRoom));
 	raw->Get(&OldRoom, sizeof(OldRoom));
 }
 
-RawPacketClass *Starbase_Room_ChangePacketClass::Build()
+PacketClass *StarbaseAvatarRoomChangePacketClass::Encode()
 {
-	RawPacketClass *raw = new RawPacketClass(159, Get_Data_Size());
+	PacketClass *raw = new PacketClass(159, Get_Data_Size());
 	raw->Add(&AvatarID, sizeof(AvatarID));
 	raw->Add(&NewRoom, sizeof(NewRoom));
 	raw->Add(&OldRoom, sizeof(OldRoom));
 	return(raw);
 }
 
-int Starbase_Room_ChangePacketClass::Get_Data_Size()
+int StarbaseAvatarRoomChangePacketClass::Get_Data_Size()
 {
 	return(sizeof(AvatarID) + sizeof(NewRoom) + sizeof(OldRoom));
 }
 
-int Starbase_Room_ChangePacketClass::Print(char *buffer, int len)
+int StarbaseAvatarRoomChangePacketClass::Print(char *buffer, int len)
 {
 	return(_snprintf(buffer, len, "Starbase_Room_Change {AvatarID=%d NewRoom=%d OldRoom=%d}", AvatarID, NewRoom, OldRoom));
 }
@@ -116,16 +116,16 @@ StarbaseAvatarRoomUpdatePacketClass::StarbaseAvatarRoomUpdatePacketClass(int ava
 {
 }
 
-StarbaseAvatarRoomUpdatePacketClass::StarbaseAvatarRoomUpdatePacketClass(RawPacketClass *raw)
+StarbaseAvatarRoomUpdatePacketClass::StarbaseAvatarRoomUpdatePacketClass(PacketClass *raw)
 {
 	raw->Get(&AvatarID, sizeof(AvatarID));
 	raw->Get(&NewRoom, sizeof(NewRoom));
 	raw->Get(&OldRoom, sizeof(OldRoom));
 }
 
-RawPacketClass *StarbaseAvatarRoomUpdatePacketClass::Build()
+PacketClass *StarbaseAvatarRoomUpdatePacketClass::Encode()
 {
-	RawPacketClass *raw = new RawPacketClass(160, Get_Data_Size());
+	PacketClass *raw = new PacketClass(160, Get_Data_Size());
 	raw->Add(&AvatarID, sizeof(AvatarID));
 	raw->Add(&NewRoom, sizeof(NewRoom));
 	raw->Add(&OldRoom, sizeof(OldRoom));

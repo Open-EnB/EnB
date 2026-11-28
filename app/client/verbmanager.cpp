@@ -7,7 +7,7 @@
 #include "..\shared\g_assert.h"
 
 // 0x81F100
-VerbManagerClass::VerbManagerClass(SClient *client) :
+VerbManagerClass::VerbManagerClass(SpaceClientClass *client) :
 	Client(client)
 {
 }
@@ -22,21 +22,21 @@ VerbManagerClass::~VerbManagerClass()
 }
 
 // 0x81F560
-void VerbManagerClass::Unknown_81F560(int game_id, UIVerbClass *window)
+void VerbManagerClass::Unknown_81F560(int game_id, VerbInterface *window)
 {
 	Unknown_81F890(game_id, window);
 	Client->Send_Packet(&VerbRequestPacketClass(Client->Get_Avatar_ID(), game_id, 0));
 }
 
 // 0x81F610
-void VerbManagerClass::Unknown_81F610(int game_id, UIVerbClass *window)
+void VerbManagerClass::Unknown_81F610(int game_id, VerbInterface *window)
 {
 	Unknown_81F890(game_id, window);
 	Client->Send_Packet(&VerbRequestPacketClass(Client->Get_Avatar_ID(), game_id, 1));
 }
 
 // 0x81F6A0
-void VerbManagerClass::Unknown_81F6A0(int game_id, UIVerbClass *window)
+void VerbManagerClass::Unknown_81F6A0(int game_id, VerbInterface *window)
 {
 	Unknown_81FA40(game_id, window);
 	Client->Send_Packet(&VerbRequestPacketClass(Client->Get_Avatar_ID(), game_id, 2));
@@ -125,7 +125,7 @@ void VerbManagerClass::Unknown_81F810(int game_id, const std::set<VerbEnum> *add
 
 
 // 0x81F890
-bool VerbManagerClass::Unknown_81F890(int game_id, UIVerbClass *window)
+bool VerbManagerClass::Unknown_81F890(int game_id, VerbInterface *window)
 {
 	WindowMapType::iterator found;
 	WindowListType *windows;
@@ -145,7 +145,7 @@ bool VerbManagerClass::Unknown_81F890(int game_id, UIVerbClass *window)
 }
 
 // 0x81FA40
-bool VerbManagerClass::Unknown_81FA40(int game_id, UIVerbClass *window)
+bool VerbManagerClass::Unknown_81FA40(int game_id, VerbInterface *window)
 {
 	WindowMapType::iterator found = Windows.find(game_id);
 	if (found != Windows.end()) {
@@ -164,7 +164,7 @@ bool VerbManagerClass::Unknown_81FA40(int game_id, UIVerbClass *window)
 **	Reconstruction notes (VB1).
 **
 **	The client's __FILE__ e:\build\beta\G\app\Client\verbmanager.cpp (0xBA8268) is 0x81F890's 'false' assert
-**	(line 143). The object runs from the constructor 0x81F100 (0x14 bytes, SClient::Init) through 0x81FA40 and
+**	(line 143). The object runs from the constructor 0x81F100 (0x14 bytes, SpaceClientClass::Init) through 0x81FA40 and
 **	its map / list instances up to 0x8207D0: 0x81F560 / 0x81F610 / 0x81F6A0 all call 0x81F890 or its partner, send
 **	VerbRequestPacketClass (whose destructor 0x81F5F0 lands among them) and 0x81F6A0 inlines 0x81FA40.
 **

@@ -9,7 +9,7 @@ Packet_7532Class::Packet_7532Class(int game_id, const Matrix3D &transform) :
 {
 }
 
-Packet_7532Class::Packet_7532Class(RawPacketClass *raw)
+Packet_7532Class::Packet_7532Class(PacketClass *raw)
 {
 	raw->Get(&GameID, sizeof(GameID));
 	Quaternion rotation;
@@ -19,9 +19,9 @@ Packet_7532Class::Packet_7532Class(RawPacketClass *raw)
 	Transform = Matrix3D(rotation, position);
 }
 
-RawPacketClass *Packet_7532Class::Build()
+PacketClass *Packet_7532Class::Encode()
 {
-	RawPacketClass *raw = new RawPacketClass(30002, Get_Data_Size());
+	PacketClass *raw = new PacketClass(30002, Get_Data_Size());
 	Quaternion rotation = Build_Quaternion(Transform);
 	Vector3 position = Transform.Get_Translation();
 	raw->Add(&GameID, sizeof(GameID));

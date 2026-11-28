@@ -2,7 +2,7 @@
 #include "..\kv_encoder.h"	// delta.h and KVEncoderClass
 #include "lookup.h"
 #include "..\g_assert.h"
-int DeltaUnknownGlobal = DeltaUnknownCounter++; int DeltaCompoundClass::UnknownGlobal = DeltaUnknownCounter++;
+int DeltaUnknownGlobal = DeltaUnknownCounter++; int DeltaContainer::UnknownGlobal = DeltaUnknownCounter++;
 DeltaClass::DeltaClass(const char *name) :
 	Name(name),
 	FullName(name),
@@ -41,12 +41,12 @@ void DeltaClass::Unknown_00(KVEncoderClass *)
 {
 }
 
-DeltaCompoundClass *DeltaClass::As_Compound()
+DeltaContainer *DeltaClass::As_Compound()
 {
 	return 0;
 }
 
-bool DeltaClass::Unknown_10(LinearBufferClass &buf, const DurationClass &base)
+bool DeltaClass::Unknown_10(LinearBuffer &buf, const DurationClass &base)
 {
 	if (!Read(buf, base)) {
 		return false;
@@ -56,7 +56,7 @@ bool DeltaClass::Unknown_10(LinearBufferClass &buf, const DurationClass &base)
 }
 
 
-bool DeltaClass::Unknown_0C(LinearBufferClass &buf)
+bool DeltaClass::Unknown_0C(LinearBuffer &buf)
 {
 	Unknown_38(this);
 	if (Write(buf)) {
@@ -127,7 +127,7 @@ void DeltaClass::Set_Parent(DeltaClass *parent, int slot, int &index)
 }
 
 
-DeltaCompoundClass::~DeltaCompoundClass()
+DeltaContainer::~DeltaContainer()
 {
 	if (Lookup != 0) {
 		delete Lookup;
@@ -135,14 +135,14 @@ DeltaCompoundClass::~DeltaCompoundClass()
 }
 
 
-void DeltaCompoundClass::Unknown_48()
+void DeltaContainer::Unknown_48()
 {
 	int index = 0;
 	Set_Parent(0, 0, index);
 }
 
 
-void DeltaCompoundClass::Set_Parent(DeltaClass *parent, int slot, int &index)
+void DeltaContainer::Set_Parent(DeltaClass *parent, int slot, int &index)
 {
 	int start = index;
 	DeltaClass::Set_Parent(parent, slot, index);
@@ -154,7 +154,7 @@ void DeltaCompoundClass::Set_Parent(DeltaClass *parent, int slot, int &index)
 }
 
 
-bool DeltaCompoundClass::Unknown_0C(LinearBufferClass &buf)
+bool DeltaContainer::Unknown_0C(LinearBuffer &buf)
 {
 	if (!DeltaClass::Unknown_0C(buf)) {
 		return false;
@@ -169,7 +169,7 @@ bool DeltaCompoundClass::Unknown_0C(LinearBufferClass &buf)
 }
 
 
-bool DeltaCompoundClass::Unknown_10(LinearBufferClass &buf, const DurationClass &base)
+bool DeltaContainer::Unknown_10(LinearBuffer &buf, const DurationClass &base)
 {
 	if (!DeltaClass::Unknown_10(buf, base)) {
 		return false;
@@ -184,7 +184,7 @@ bool DeltaCompoundClass::Unknown_10(LinearBufferClass &buf, const DurationClass 
 }
 
 
-void DeltaCompoundClass::Unknown_20()
+void DeltaContainer::Unknown_20()
 {
 	if (Unknown70 > 1) {
 		int count = Children.size();
@@ -196,7 +196,7 @@ void DeltaCompoundClass::Unknown_20()
 }
 
 
-void DeltaCompoundClass::Unknown_18()
+void DeltaContainer::Unknown_18()
 {
 	if (Unknown70 == 0) {
 		int count = Children.size();
@@ -208,7 +208,7 @@ void DeltaCompoundClass::Unknown_18()
 }
 
 
-void DeltaCompoundClass::Unknown_1C()
+void DeltaContainer::Unknown_1C()
 {
 	if (Unknown70 != 0) {
 		int count = Children.size();
@@ -220,7 +220,7 @@ void DeltaCompoundClass::Unknown_1C()
 }
 
 
-LookupClass *DeltaCompoundClass::Get_Lookup()
+LookupClass *DeltaContainer::Get_Lookup()
 {
 	if (Lookup == 0) {
 		Lookup = new LookupClass(this);
@@ -230,7 +230,7 @@ LookupClass *DeltaCompoundClass::Get_Lookup()
 }
 
 
-void DeltaCompoundClass::Unknown_00(KVEncoderClass *visitor)
+void DeltaContainer::Unknown_00(KVEncoderClass *visitor)
 {
 	int count = Children.size();
 	for (int i = 0; i < count; i++) {
@@ -239,13 +239,13 @@ void DeltaCompoundClass::Unknown_00(KVEncoderClass *visitor)
 }
 
 
-void DeltaCompoundClass::Accept(DeltaVisitorClass &visitor)
+void DeltaContainer::Accept(DeltaVisitorClass &visitor)
 {
 	visitor.Visit(this);
 }
 
 
-void DeltaCompoundClass::Add(DeltaClass *child)
+void DeltaContainer::Add(DeltaClass *child)
 {
 	int index = Children.size();
 	Children.push_back(child);
@@ -258,21 +258,21 @@ void DeltaCompoundClass::Add(DeltaClass *child)
 **	client.exe 0x4A4D40-0x4A6040 (the object between bitset.cpp and delta_interpolator.cpp; its
 **	only __FILE__ use is Get_Lookup's assert, on the client's line 227). The functions are in the
 **	client's order; ~DeltaClass (0x4A5150) is inline in delta.h, so VC6 emits it after
-**	~DeltaCompoundClass, its first user, as the client has it. 0x4A5880-0x4A6040 are the std::vector
+**	~DeltaContainer, its first user, as the client has it. 0x4A5880-0x4A6040 are the std::vector
 **	and std::map instances these functions need (D11).
 **
-**	DeltaCompoundClass::Unknown_20 (0x4A53A0) calls DeltaClass::Unknown_20 after the if, not inside
+**	DeltaContainer::Unknown_20 (0x4A53A0) calls DeltaClass::Unknown_20 after the if, not inside
 **	it: inside, VC6 saves esi/edi in the branch where the client saves them first.
 **
-**	DeltaCompoundClass::Add (0x4A5670): the unused `index` is what makes it exact. Its inlined
+**	DeltaContainer::Add (0x4A5670): the unused `index` is what makes it exact. Its inlined
 **	size() is dead code, but it spends VC6's inline budget, so the last size() of the inlined
 **	insert is called out of line (0x4A58C0) as in the client; without it VC6 inlines that one too
 **	(D40; `Children.capacity();` or a dead `if` on size() do the same, `end()`/`begin()` don't).
 **
 **	The per-class globals are numbered at start-up from the counter DeltaUnknownCounter (0xBE3B44): the
 **	client's CRT table lists this object's initialisers 0x4A4CE0 (DeltaUnknownGlobal 0xBE3A78) and 0x4A4D10
-**	(DeltaCompoundClass::UnknownGlobal 0xBE3A74), `mov eax,[0xBE3B44]; mov [g],eax; inc eax; mov [0xBE3B44],eax`,
-**	after the header's PermStringInit pair and before the constructor 0x4A4D40. delta_money.cpp (0x4A7050),
+**	(DeltaContainer::UnknownGlobal 0xBE3A74), `mov eax,[0xBE3B44]; mov [g],eax; inc eax; mov [0xBE3B44],eax`,
+**	after the header's _PermStringInit pair and before the constructor 0x4A4D40. delta_money.cpp (0x4A7050),
 **	delta_string.cpp (0x4A78C0) and delta_time.cpp (0x4A8120) number theirs the same way. The template
 **	classes' globals (DeltaTemplateClass<T>, DeltaArrayClass<T>, DeltaItemArrayClass<T>) are numbered the same
 **	way in the client, one initialiser per object at its end (0x529580 numbers six), but here every

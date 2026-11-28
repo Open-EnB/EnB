@@ -53,16 +53,16 @@ DebugPacketClass::DebugPacketClass(int game_id, int debug_idx, int user_data) :
 {
 }
 
-DebugPacketClass::DebugPacketClass(RawPacketClass *raw)
+DebugPacketClass::DebugPacketClass(PacketClass *raw)
 {
 	raw->Get(&GameID, sizeof(GameID));
 	raw->Get(&DebugIdx, sizeof(DebugIdx));
 	raw->Get(&UserData, sizeof(UserData));
 }
 
-RawPacketClass *DebugPacketClass::Build()
+PacketClass *DebugPacketClass::Encode()
 {
-	RawPacketClass *raw = new RawPacketClass(26, Get_Data_Size());
+	PacketClass *raw = new PacketClass(26, Get_Data_Size());
 	raw->Add(&GameID, sizeof(GameID));
 	raw->Add(&DebugIdx, sizeof(DebugIdx));
 	raw->Add(&UserData, sizeof(UserData));

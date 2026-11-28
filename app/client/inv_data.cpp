@@ -14,7 +14,7 @@ struct InvDataPeekItemStruct	// NAME 1: neutral (D10)
 
 
 // 0x688410
-InvDataClass::InvDataClass(int inv_type, SClient *client) :
+InvDataClass::InvDataClass(int inv_type, SpaceClientClass *client) :
 	SlotDataClass(client),
 	Unknown50(inv_type),
 	Unknown54(client, Unknown_689100(inv_type, 0), inv_type == 2),
@@ -92,23 +92,23 @@ void InvDataClass::Unknown_688870(unsigned int mask, const std::hash_set<int> *i
 
 
 // 0x6889F0
-DeltaCompoundClass *InvDataClass::Unknown_1C()
+DeltaContainer *InvDataClass::Unknown_1C()
 {
 	G_ASSERT(!Peek_Object());
-	DeltaCompoundClass *root = NULL;
+	DeltaContainer *root = NULL;
 	ClientObjectClass *object = NULL;
 	switch (Unknown50) {
 		case 3:
 		case 19:
 		case 20:
-			root = (DeltaCompoundClass *)Get_Client()->AuxData;
+			root = (DeltaContainer *)Get_Client()->AuxData;
 			break;
 		case 1:
 		case 2:
 			object = Get_Client()->Get_Ship();
 			break;
 		case 4:
-			root = (DeltaCompoundClass *)Get_Client()->AuxData;
+			root = (DeltaContainer *)Get_Client()->AuxData;
 			break;
 		case 5:
 		case 6:
@@ -143,7 +143,7 @@ DeltaCompoundClass *InvDataClass::Unknown_1C()
 			G_ASSERT(false);
 			return(NULL);
 	}
-	if (object != NULL && (root = (DeltaCompoundClass *)object->AuxData) != NULL) {
+	if (object != NULL && (root = (DeltaContainer *)object->AuxData) != NULL) {
 		Unknown_08(object);
 	}
 	Unknown54.Attach(root);
@@ -211,7 +211,7 @@ void InvDataClass::Unknown_24()
 {
 	Unknown160 = 0;
 	Unknown17C.clear();
-	DeltaCompoundClass *root = Peek_Aux_Data();
+	DeltaContainer *root = Peek_Aux_Data();
 	Unknown54.Attach(root);
 	UnknownD8.Attach(root);
 	SlotDataClass::Unknown_24();
@@ -349,7 +349,7 @@ const char *InvDataClass::Unknown_689100(int inv_type, int list)
 **	Object 0x688410-0x6894FF: the constructor first, 0x689100 (the lists' names) the last function of the file's own;
 **	the SGI hash_set's and vector<bool>'s template members follow it (0x689270, 0x689290, 0x6894E0 on). Asserts:
 **	'!Peek_Object()' l.97 and 'false' l.143 in 0x6889F0, 'false' l.343 in 0x689100.
-**	Each inventory type reads its aux tree's root from a different place (0x6889F0): the player's own (SClient +0x12C0)
+**	Each inventory type reads its aux tree's root from a different place (0x6889F0): the player's own (SpaceClientClass +0x12C0)
 **	for the vault, vendor, reward and overflow lists, else the object's (+0x88) for the ship, the target, the
 **	manufacturing object or the trade partner, which the slot data then watches.
 */

@@ -7,8 +7,8 @@
 #include <ctype.h>
 // The one TCP manager (0xBE9180, constructed by the static initialiser 0x828A10) and the buffer
 // small writes are encrypted in (0xBE91B8).
-TCPMgr TCPConnection::TCPManager;
-std::set<TCPListenerClass *> TCPConnection::Listeners;	// 0xBE91A8 (initialiser 0x828AA0): every listener  // NAME 2: what it holds
+TCPMgr TCPConnectionClass::TCPManager;
+std::set<TCPListenerClass *> TCPConnectionClass::Listeners;	// 0xBE91A8 (initialiser 0x828AA0): every listener  // NAME 2: what it holds
 static unsigned char WriteBuffer[0x400];	// NAME 2: what it holds
 // E&B's message reporter 0x4BC000 (cdecl, printf-style: the sender (the pooled "" 0xBDA908), the
 // category, the file and line, a format); not rebuilt
@@ -57,7 +57,7 @@ int Set_Blocking(SOCKET socket, bool block) { unsigned long flag = 1; if (block)
 
 
 
-TCPConnection::TCPConnection(const char *host, unsigned short port, bool encrypt) :
+TCPConnectionClass::TCPConnectionClass(const char *host, unsigned short port, bool encrypt) :
 	Con(0),
 	Handle(0),
 	Encrypt(encrypt),
@@ -77,7 +77,7 @@ TCPConnection::TCPConnection(const char *host, unsigned short port, bool encrypt
 	}
 }
 
-TCPConnection::TCPConnection(unsigned int ip, unsigned short port, bool encrypt) :
+TCPConnectionClass::TCPConnectionClass(unsigned int ip, unsigned short port, bool encrypt) :
 	Con(0),
 	Handle(0),
 	Encrypt(encrypt),
@@ -89,7 +89,7 @@ TCPConnection::TCPConnection(unsigned int ip, unsigned short port, bool encrypt)
 	Name = nstrdup("unknown");
 }
 
-TCPConnection::~TCPConnection()
+TCPConnectionClass::~TCPConnectionClass()
 {
 	if (Handle != 0) {
 		TCPManager.cancelConnect(Handle);
@@ -113,7 +113,7 @@ TCPConnection::~TCPConnection()
 
 
 
-bool TCPConnection::Connect(bool wait)
+bool TCPConnectionClass::Connect(bool wait)
 {
 	if (wait) {
 		G_ASSERT(Con == 0);
@@ -135,7 +135,7 @@ bool TCPConnection::Connect(bool wait)
 }
 
 // Each success returns from inside its own if-block (the client keeps the three `Handle = 0; return(true);` apart).
-bool TCPConnection::Try_Connect()
+bool TCPConnectionClass::Try_Connect()
 {
 	if (Handle == 0) {
 		if (Con == 0) {
@@ -170,7 +170,7 @@ bool TCPConnection::Try_Connect()
 // RSA-encrypted in the clear ({u32 length, the number}). Waits only with wait (pumping the listeners).
 // error: 0, -1 (closed), -2 (a bad key: closed). False: no key yet.
 // Exact: the loop steps with it._Inc() (++it leaves _Inc out of line: inline budget); nbytes = ebytes = 0 picks the lea operand order; the closed block after the loop is dead but kept (removing it changes the layout).
-bool TCPConnection::Key_Exchange(bool wait, int *error)
+bool TCPConnectionClass::Key_Exchange(bool wait, int *error)
 {
 	if (error != 0) {
 		*error = 0;
@@ -363,7 +363,7 @@ failed:
 }
 
 
-bool TCPConnection::Is_Connected()
+bool TCPConnectionClass::Is_Connected()
 {
 	if (Con != 0 && Handle == 0) {
 		return(Con->isConnected() != 0);
@@ -371,7 +371,7 @@ bool TCPConnection::Is_Connected()
 	return(false);
 }
 
-bool TCPConnection::Disconnect()
+bool TCPConnectionClass::Disconnect()
 {
 	if (Handle != 0) {
 		TCPManager.cancelConnect(Handle);
@@ -386,7 +386,7 @@ bool TCPConnection::Disconnect()
 	return(true);
 }
 
-unsigned int TCPConnection::Get_Address()
+unsigned int TCPConnectionClass::Get_Address()
 {
 	if (Con == 0) {
 		return(0);
@@ -397,7 +397,7 @@ unsigned int TCPConnection::Get_Address()
 	return(ip);
 }
 
-void TCPConnection::Close()
+void TCPConnectionClass::Close()
 {
 	Disconnect();
 }
@@ -435,7 +435,7 @@ void TCPConnection::Close()
 
 
 
-int TCPConnection::Transport_Write(const void *buf, int len)
+int TCPConnectionClass::Transport_Write(const void *buf, int len)
 {
 	G_ASSERT(buf);
 	if (Con == 0) {
@@ -513,7 +513,7 @@ int TCPConnection::Transport_Write(const void *buf, int len)
 
 
 
-int TCPConnection::Transport_Read(void *buf, int len)
+int TCPConnectionClass::Transport_Read(void *buf, int len)
 {
 	G_ASSERT(buf);
 	if (Con == 0) {
@@ -552,7 +552,7 @@ int TCPConnection::Transport_Read(void *buf, int len)
 
 
 
-TCPConnection::TCPConnection(SOCKET socket) :
+TCPConnectionClass::TCPConnectionClass(SOCKET socket) :
 	Con(0),
 	Handle(0),
 	Encrypt(true),
@@ -574,8 +574,8 @@ TCPConnection::TCPConnection(SOCKET socket) :
 	Port = addr.sin_port;
 	Name = nstrdup("unknown");
 }
-void TCPConnection::Set_Name_Unknown() { Name = nstrdup("unknown"); }	// 0x829E00 (no caller)  // NAME 1: what it does
-TCPMgr *TCPConnection::Get_Manager() { return(&TCPManager); }	// 0x829E30 (no caller)  // NAME 1: what it returns
+void TCPConnectionClass::Set_Name_Unknown() { Name = nstrdup("unknown"); }	// 0x829E00 (no caller)  // NAME 1: what it does
+TCPMgr *TCPConnectionClass::Get_Manager() { return(&TCPManager); }	// 0x829E30 (no caller)  // NAME 1: what it returns
 // TCPListenerClass (vtable 0xB08880): the server's TCP listener; Pump_Pending 0x82AA10 takes the key
 // exchange's second step. The key pair comes from 'server_rsa_keyset.dat'; every listener is in Listeners.
 TCPListenerClass::TCPListenerClass() :
@@ -584,7 +584,7 @@ TCPListenerClass::TCPListenerClass() :
 {
 	KeyPair.Load(file_auto_ptr(_TheFileFactory, "server_rsa_keyset.dat"));
 	
-	TCPConnection::Listeners.insert(this);
+	TCPConnectionClass::Listeners.insert(this);
 }
 
 bool TCPListenerClass::Is_Listening() { return(PortNumber != 0); }
@@ -645,7 +645,7 @@ TCPListenerClass::~TCPListenerClass()
 	FAIL_IF(PortNumber != 0) {
 		Stop();
 	}
-	TCPConnection::Listeners.erase(this);
+	TCPConnectionClass::Listeners.erase(this);
 }
 
 
@@ -762,7 +762,7 @@ ConnectionClass *TCPListenerClass::Accept(bool pump)
 		closesocket(s);
 		return(0);
 	}
-	TCPConnection *new_connection = new TCPConnection(s);
+	TCPConnectionClass *new_connection = new TCPConnectionClass(s);
 
 
 
@@ -785,7 +785,7 @@ ConnectionClass *TCPListenerClass::Accept(bool pump)
 
 // The server's half, first step: its public key to a new connection, in the clear ({u32 n bytes, n,
 // u32 e bytes, e}, network order); Pump_Pending takes the session key that comes back
-void TCPListenerClass::Send_Key(TCPConnection *connection)
+void TCPListenerClass::Send_Key(TCPConnectionClass *connection)
 {
 	BigInt n;
 	BigInt e;
@@ -808,7 +808,7 @@ void TCPListenerClass::Send_Key(TCPConnection *connection)
 // inlines it while it waits
 void TCPListenerClass::Pump_All()
 {
-	for (std::set<TCPListenerClass *>::iterator it = TCPConnection::Listeners.begin(); it != TCPConnection::Listeners.end(); ++it) {
+	for (std::set<TCPListenerClass *>::iterator it = TCPConnectionClass::Listeners.begin(); it != TCPConnectionClass::Listeners.end(); ++it) {
 		(*it)->Accept(false);
 	}
 }
@@ -821,9 +821,9 @@ ConnectionClass *TCPListenerClass::Pump_Pending()
 {
 	unsigned char *data = 0;
 	ConnectionClass *retval = 0;
-	std::list<TCPConnection *>::iterator it;
+	std::list<TCPConnectionClass *>::iterator it;
 	for (it = Pending.begin(); it != Pending.end(); ++it) {
-		TCPConnection *connection = *it;
+		TCPConnectionClass *connection = *it;
 		if (connection != 0) {
 			connection->Con->pumpReads();
 			int available = connection->Con->peekRead(&data);

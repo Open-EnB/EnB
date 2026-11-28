@@ -11,7 +11,7 @@ GadgetPacketClass::GadgetPacketClass(int function, char *name) :
 	Name = name;
 }
 
-GadgetPacketClass::GadgetPacketClass(RawPacketClass *raw) :
+GadgetPacketClass::GadgetPacketClass(PacketClass *raw) :
 	Owned(true)
 {
 	raw->Get(&Size, sizeof(Size));
@@ -27,9 +27,9 @@ GadgetPacketClass::~GadgetPacketClass()
 	}
 }
 
-RawPacketClass *GadgetPacketClass::Build()
+PacketClass *GadgetPacketClass::Encode()
 {
-	RawPacketClass *raw = new RawPacketClass(Get_Type(), Get_Data_Size());
+	PacketClass *raw = new PacketClass(Get_Type(), Get_Data_Size());
 	raw->Add(&Size, sizeof(Size));
 	raw->Add(&Function, sizeof(Function));
 	raw->Add(Name, Size);
@@ -58,7 +58,7 @@ Packet_0068Class::Packet_0068Class(int unknown18, int function, char *name) :
 {
 }
 
-Packet_0068Class::Packet_0068Class(RawPacketClass *raw) :
+Packet_0068Class::Packet_0068Class(PacketClass *raw) :
 	GadgetPacketClass(raw),
 	Unknown18(0)
 {
@@ -70,9 +70,9 @@ int Packet_0068Class::Get_Data_Size()
 	return(GadgetPacketClass::Get_Data_Size() + sizeof(Unknown18));
 }
 
-RawPacketClass *Packet_0068Class::Build()
+PacketClass *Packet_0068Class::Encode()
 {
-	RawPacketClass *raw = GadgetPacketClass::Build();
+	PacketClass *raw = GadgetPacketClass::Encode();
 	raw->Add(&Unknown18, sizeof(Unknown18));
 	return(raw);
 }

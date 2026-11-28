@@ -6,7 +6,7 @@
 #include "matinfo.h"
 // (no permstr.h: 0x7231C0 follows this object's code and opens the next object)
 #include "mousetbl.h"
-// MCURSOR_MAX, MouseCursorStruct and the table's declaration are in mousetbl.h (shared with smouse.cpp).
+// MCURSOR_MAX, MouseCursorEntry and the table's declaration are in mousetbl.h (shared with smouse.cpp).
 //
 // The blank lines below keep the asserts on the client's lines 33 and 72 (G_ASSERT's __LINE__).
 
@@ -22,11 +22,11 @@
 
 
 
-MouseCursorStruct *Unknown_BE7C70[MCURSOR_MAX];			// 0xBE7C70: the table, by cursor number  // NAME 1 [Unknown_BE7C70]: neutral (D10)
+MouseCursorEntry *Unknown_BE7C70[MCURSOR_MAX];			// 0xBE7C70: the table, by cursor number  // NAME 1 [Unknown_BE7C70]: neutral (D10)
 static int Unknown_BE7CD4;									// 0xBE7CD4: how many loads are open  // NAME 1 [Unknown_BE7CD4]: neutral (D10)
 
 // 0x722770
-MouseCursorStruct::MouseCursorStruct(int idx, const char *name, float hot_x, float hot_y)
+MouseCursorEntry::MouseCursorEntry(int idx, const char *name, float hot_x, float hot_y)
 {
 
 
@@ -66,7 +66,7 @@ MouseCursorStruct::MouseCursorStruct(int idx, const char *name, float hot_x, flo
 
 
 // 0x7227F0
-MouseCursorStruct::MouseCursorStruct(int idx, RenderObjClass *robj, float hot_x, float hot_y)
+MouseCursorEntry::MouseCursorEntry(int idx, RenderObjClass *robj, float hot_x, float hot_y)
 {
 
 	G_ASSERT(idx < MCURSOR_MAX);
@@ -79,7 +79,7 @@ MouseCursorStruct::MouseCursorStruct(int idx, RenderObjClass *robj, float hot_x,
 }
 
 // 0x722890
-MouseCursorStruct::~MouseCursorStruct()
+MouseCursorEntry::~MouseCursorEntry()
 {
 	if (Texture != NULL) {
 		Texture->Release_Ref();
@@ -90,31 +90,31 @@ MouseCursorStruct::~MouseCursorStruct()
 void Unknown_7228C0()
 {
 	if (Unknown_BE7CD4 == 0) {
-		new MouseCursorStruct(0, "arrow_blank.tga", 0, 0);
-		new MouseCursorStruct(1, "arrow.tga", 0, 0);
-		new MouseCursorStruct(2, "cursor_w.tga", 0, 0);
-		new MouseCursorStruct(3, "cursor_y.tga", 32, 32);
-		new MouseCursorStruct(4, "csr0000.tga", 64, 50);
-		new MouseCursorStruct(5, "c_talk.tga", 3, 15);
-		new MouseCursorStruct(6, "c_terminal.tga", 10, 0);
-		new MouseCursorStruct(7, "c_exit.tga", 10, 0);
-		new MouseCursorStruct(22, "c_zoomin.tga", 0, 0);
-		new MouseCursorStruct(23, "c_zoomout.tga", 0, 0);
-		new MouseCursorStruct(24, "c_handgrab.tga", 0, 0);
-		new MouseCursorStruct(8, "arr_bl3.tga", 0, 32);
-		new MouseCursorStruct(9, "arr_l3.tga", 0, 16);
-		new MouseCursorStruct(10, "arr_tl3.tga", 0, 16);
-		new MouseCursorStruct(11, "arr_t3.tga", 0, 16);
-		new MouseCursorStruct(12, "arr_tr3.tga", 0, 16);
-		new MouseCursorStruct(13, "arr_r3.tga", 0, 16);
-		new MouseCursorStruct(14, "arr_br3.tga", 0, 32);
-		new MouseCursorStruct(15, "arr_bl4.tga", 0, 32);
-		new MouseCursorStruct(16, "arr_l4.tga", 0, 16);
-		new MouseCursorStruct(17, "arr_tl4.tga", 0, 16);
-		new MouseCursorStruct(18, "arr_t4.tga", 0, 16);
-		new MouseCursorStruct(19, "arr_tr4.tga", 0, 16);
-		new MouseCursorStruct(20, "arr_r4.tga", 0, 16);
-		new MouseCursorStruct(21, "arr_br4.tga", 0, 32);
+		new MouseCursorEntry(0, "arrow_blank.tga", 0, 0);
+		new MouseCursorEntry(1, "arrow.tga", 0, 0);
+		new MouseCursorEntry(2, "cursor_w.tga", 0, 0);
+		new MouseCursorEntry(3, "cursor_y.tga", 32, 32);
+		new MouseCursorEntry(4, "csr0000.tga", 64, 50);
+		new MouseCursorEntry(5, "c_talk.tga", 3, 15);
+		new MouseCursorEntry(6, "c_terminal.tga", 10, 0);
+		new MouseCursorEntry(7, "c_exit.tga", 10, 0);
+		new MouseCursorEntry(22, "c_zoomin.tga", 0, 0);
+		new MouseCursorEntry(23, "c_zoomout.tga", 0, 0);
+		new MouseCursorEntry(24, "c_handgrab.tga", 0, 0);
+		new MouseCursorEntry(8, "arr_bl3.tga", 0, 32);
+		new MouseCursorEntry(9, "arr_l3.tga", 0, 16);
+		new MouseCursorEntry(10, "arr_tl3.tga", 0, 16);
+		new MouseCursorEntry(11, "arr_t3.tga", 0, 16);
+		new MouseCursorEntry(12, "arr_tr3.tga", 0, 16);
+		new MouseCursorEntry(13, "arr_r3.tga", 0, 16);
+		new MouseCursorEntry(14, "arr_br3.tga", 0, 32);
+		new MouseCursorEntry(15, "arr_bl4.tga", 0, 32);
+		new MouseCursorEntry(16, "arr_l4.tga", 0, 16);
+		new MouseCursorEntry(17, "arr_tl4.tga", 0, 16);
+		new MouseCursorEntry(18, "arr_t4.tga", 0, 16);
+		new MouseCursorEntry(19, "arr_tr4.tga", 0, 16);
+		new MouseCursorEntry(20, "arr_r4.tga", 0, 16);
+		new MouseCursorEntry(21, "arr_br4.tga", 0, 32);
 	}
 	Unknown_BE7CD4++;
 }
@@ -135,7 +135,7 @@ void Unknown_723150()
 
 /*
 **	Reconstruction notes (2026-11-02, builder KRN): every function above is byte-exact with appfile.py match
-**	(0x722770, 0x7227F0, 0x722890, 0x7228C0, 0x723150), the header's PermStringInit initialiser and its
+**	(0x722770, 0x7227F0, 0x722890, 0x7228C0, 0x723150), the header's _PermStringInit initialiser and its
 **	atexit destructor (0x7231C0, 0x7231F0, the static at 0xBE7CEC) with them.
 **
 **	* The asserts ('idx < MCURSOR_MAX', the client's lines 33 and 72) name the index and the bound; the rest
@@ -146,10 +146,10 @@ void Unknown_723150()
 **	* 0x7227F0 (a cursor from a render object's material texture) and 0x722890 (the destructor out of
 **	  line) have no reference in the client; the unloader inlines the destructor.
 **	* The loader / unloader are reference counted (0xBE7CD4): LoginTaskClass's constructor / destructor
-**	  and SClient::Load_INIs / Unload_INIs each call them.
+**	  and SpaceClientClass::Load_INIs / Unload_INIs each call them.
 **	* The object's start: 0x722720 / 0x722740 before it are a singly linked list's Is_Empty / Count
 **	  (template code, placed by the linker), 0x722660 a list insert; not this file's.
 **	* mousetbl.h (PROVISIONAL name, D137) holds the struct, the enum and the table for this file and smouse.cpp (KRN2).
-**	MouseCursorStruct's constructor (0x722770, inlined in 0x7228C0) reads E&B's AssetManager (0xBDADC0:
+**	MouseCursorEntry's constructor (0x722770, inlined in 0x7228C0) reads E&B's AssetManager (0xBDADC0:
 **	0x722791), not WW3DAssetManager::TheInstance (0xBFAEE0, the address assetmgr.obj's own functions read) (relocaudit.py, run 2026-11-21 PRESET).
 */

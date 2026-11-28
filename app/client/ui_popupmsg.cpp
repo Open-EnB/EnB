@@ -20,8 +20,8 @@
 
 extern FontManagerClass *Unknown_BE67C4;			// NAME 1 [Unknown_BE67C4]: 0xBE67C4
 
-// unknown_675120.cpp's button gadget (the screen's seven buttons)
-#include "unknown_675120.h"
+// gd_uimesh.cpp's button gadget (the screen's seven buttons)
+#include "gd_uimesh.h"
 
 // intrface.cpp's scope object (constructor 0x541980 over an interface, destructor 0x6E18B0)
 #include "local_interface_sort.h"
@@ -210,7 +210,7 @@ const char *Unknown5DB670InterfaceClass::Get_Site_URL(int site)
 **	seconds), +0x68 (0x5DBD00, the buttons) and +0x7C (0x5DBB00). The screen loads 'end_screen00' with its seven
 **	buttons ('logo00' .. 'logo04', 'ebweb', 'exit'; 1-6 open a site's page through the settings store, 7 exits).
 **	The object runs from the constructor 0x5DB670 (after ui_popup_browser.cpp's window) through the adjustor thunks
-**	0x5DBF50 / 0x5DBF60 to the PermStringInitClass static at 0x5DBF70 (permstr.h's). Its one assert sits on the
+**	0x5DBF50 / 0x5DBF60 to the PermStringInit static at 0x5DBF70 (permstr.h's). Its one assert sits on the
 **	client's line 196 ('site >= 0 && site < NUM_SITES', 0x5DBEB0, which 0x5DBD50 inlines) (D25).
 **
 **	Every function of the window is here and exact. Forms: slot +0x68 is a switch whose cases 1-6 fall through into

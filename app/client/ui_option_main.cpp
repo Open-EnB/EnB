@@ -26,7 +26,7 @@ static const char *Unknown_B834D4[8] = { NULL, "Camera_opt01a", "Control_opt01a"
 
 
 // 0x5CE240
-UIOptionMainClass::UIOptionMainClass(SClient *client) :
+UIOptionMainClass::UIOptionMainClass(SpaceClientClass *client) :
 	ChatPanelUIBase(client)
 {
 	memset(Buttons, 0, sizeof(Buttons));
@@ -72,12 +72,12 @@ void UIOptionMainClass::Unknown_5C()
 // 0x5CE4A0
 bool UIOptionMainClass::Unknown_68(int key)
 {
-	SClient *sclient = (SClient *)((ClientClass *)Client)->As_Space_Client();	// NAME 1: neutral (D10)
+	SpaceClientClass *sclient = (SpaceClientClass *)((ClientClass *)Client)->As_Space_Client();	// NAME 1: neutral (D10)
 	ChatPanelInterface *chat = sclient->ChatPanel.Peek();	// NAME 1: neutral (D10)
-	SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+	SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 	switch (key) {
 		case 1:
-			OptionClass::Instance->Save();
+			OptionManagerClass::Instance->Save();
 			Unknown_5C();
 			Closed = 1;
 			return(true);

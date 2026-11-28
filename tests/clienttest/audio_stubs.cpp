@@ -1,5 +1,5 @@
 // Earth & Beyond client (reconstruction)
-// clienttest: wwaudio.lib's WWAudio.obj is linked for real now, and SClient's 0x7511A0 calls WWAudioClass::Flush_Cache
+// clienttest: wwaudio.lib's WWAudio.obj is linked for real now, and SpaceClientClass's 0x7511A0 calls WWAudioClass::Flush_Cache
 // on the instance (WWAudioClass::_theInstance, null here: constructing one starts Miles). A one-function mirror of the
 // class (same name and member, so the same symbol ?Flush_Cache@WWAudioClass@@QAEXXZ) gives the real function's address,
 // and main() jumps it to a trace line, as clienttest.cpp's Hook_Get_Ticks does for the clock.
@@ -16,7 +16,7 @@ private:
 	friend void Hook_Audio_Functions();
 };
 
-// SClient's constructor sets the instance's +0x19A5 (sounds started during the load wait): zeroed memory of the
+// SpaceClientClass's constructor sets the instance's +0x19A5 (sounds started during the load wait): zeroed memory of the
 // instance's size stands in for it
 static int The_Audio_Instance[0x1A00 / 4];
 

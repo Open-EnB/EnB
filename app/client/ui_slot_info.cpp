@@ -239,11 +239,11 @@ bool UISlotInfoClass::Unknown_630070(UIViewClass *view, int slot, bool a, bool b
 
 
 // 0x630280
-UISlotInfoClass *Unknown_630280(SClient *client, SlotDataClass *slot_data)
+UISlotInfoClass *Unknown_630280(SpaceClientClass *client, SlotDataClass *slot_data)
 {
 	InvDataClass *inv = slot_data->Unknown_10();
 	if (inv) {
-		return(new UIItemExaminationClass((LineDisplayClientClass *)client, Create_Peek(inv)));
+		return(new ItemExaminationInterface((LineDisplayClientClass *)client, Create_Peek(inv)));
 	}
 	SkillDataClass *skill = slot_data->Unknown_14();
 	if (skill) {

@@ -24,7 +24,7 @@ class LineDisplayClientClass  // NAME 1: neutral (D10)
 public:
 	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
 	virtual void Unknown_10(); virtual void Unknown_14();
-	virtual SClient *As_Space_Client();					// +0x18 (SClient's returns itself)  // NAME 3: ui_manu.cpp's FAIL_IF's
+	virtual SpaceClientClass *As_Space_Client();					// +0x18 (SpaceClientClass's returns itself)  // NAME 3: ui_manu.cpp's FAIL_IF's
 };
 
 static inline bool Unknown_Group_Checked(const CheckBoxGadgetClass *button) { return(button->Checked); }	// NAME 1 [Unknown_Group_Checked]: neutral (D10)
@@ -39,7 +39,7 @@ static const char *Unknown_B7FDAC[] = { "Look for new Group", "Stop Looking", NU
 static const char *Unknown_B7FDB8[] = { "Available Recruits", "Close List", NULL };	// NAME 1: neutral (D10)
 
 // 0x59AD10
-UIGroupOptClass::UIGroupOptClass(SClient *client) :
+UIGroupOptClass::UIGroupOptClass(SpaceClientClass *client) :
 	ChatPanelUIBase(client),
 	Unknown0A0(false),
 	Unknown0A4(0)
@@ -183,9 +183,9 @@ void UIGroupOptClass::Unknown_5C()
 // 0x59B220
 void UIGroupOptClass::Unknown_60()
 {
-	SClient *sclient = Client->As_Space_Client();
+	SpaceClientClass *sclient = Client->As_Space_Client();
 	FAIL_IF(!sclient) return;
-	NameClass name("GroupInfo"); DeltaGroupInfoClass *group = (DeltaGroupInfoClass *)Unknown_Find_Field<DeltaCompoundClass>(sclient->AuxData, name);
+	AuxDataName name("GroupInfo"); DeltaGroupInfoClass *group = (DeltaGroupInfoClass *)Unknown_Find_Field<DeltaContainer>(sclient->AuxData, name);
 	if (group && group->Unknown70 > 1) {
 		Unknown_59B990();
 		Unknown_59BC40();
@@ -196,7 +196,7 @@ void UIGroupOptClass::Unknown_60()
 		Unknown0A4 = avatar->GameID;
 	}
 	if (!FindUI->Is_Active()) {
-		((RObjGadgetClass *)Unknown0AC[2])->Unknown34->Change_Text(Unknown_B7FDB8[0], 0);
+		((RenderObjGadgetClass *)Unknown0AC[2])->Unknown34->Change_Text(Unknown_B7FDB8[0], 0);
 		GadgetClass::Set_Tooltip(Unknown0AC[2], "UI_FIND_LEAVE", "AVAILABLE_RECRUITS");
 	}
 }
@@ -207,15 +207,15 @@ bool UIGroupOptClass::Unknown_68(int key)
 {
 	int game_id; switch (key) {	// NAME 1 [game_id]: neutral (D10)
 		case 1:
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			Unknown_5C();
 			Closed = 1;
 			return(true);
 		case 2:
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			Unknown0A0 = !Unknown0A0;
 			((ClientClass *)Client)->Send_Packet(&OptionPacketClass(game_id = ((ClientClass *)Client)->AvatarID, 0, Unknown0A0));
-			((RObjGadgetClass *)Unknown0AC[1])->Unknown34->Change_Text(Unknown_B7FDAC[Unknown0A0], 0);
+			((RenderObjGadgetClass *)Unknown0AC[1])->Unknown34->Change_Text(Unknown_B7FDAC[Unknown0A0], 0);
 			if (Unknown0A0) {
 				GadgetClass::Set_Tooltip(Unknown0AC[1], "UI_FIND_LEAVE", "STOP_LOOKING");
 			} else {
@@ -223,34 +223,34 @@ bool UIGroupOptClass::Unknown_68(int key)
 			}
 			return(true);
 		case 3:
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			if (FindUI->Is_Active()) {
 				FindUI->Unknown_5C();
 			} else {
 				((ClientClass *)Client)->Send_Packet(&ActionPacketClass(((ClientClass *)Client)->AvatarID, 16, ((ClientClass *)Client)->AvatarID, 0));
 				FindUI->Unknown_58();
-				((RObjGadgetClass *)Unknown0AC[2])->Unknown34->Change_Text(Unknown_B7FDB8[1], 0);
+				((RenderObjGadgetClass *)Unknown0AC[2])->Unknown34->Change_Text(Unknown_B7FDB8[1], 0);
 				GadgetClass::Set_Tooltip(Unknown0AC[2], "UI_FIND_LEAVE", "CLOSE_LIST");
 			}
 			return(true);
 		case 4:
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			((ClientClass *)Client)->Send_Packet(&ActionPacketClass(((ClientClass *)Client)->AvatarID, 14, ((ClientClass *)Client)->AvatarID, 0));
 			return(true);
 		case 5:
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			((ClientClass *)Client)->Send_Packet(&ActionPacketClass(((ClientClass *)Client)->AvatarID, 13, ((ClientClass *)Client)->AvatarID, 0));
 			return(true);
 		case 7:
-			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+			SoundLibrary::Play_2D_Sound("fontclick.wav", 2);
 			((ClientClass *)Client)->Send_Packet(&OptionPacketClass(game_id = ((ClientClass *)Client)->AvatarID, 1, Unknown_Group_Checked(Unknown0C0[0])));
 			return(true);
 		case 8:
-			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+			SoundLibrary::Play_2D_Sound("fontclick.wav", 2);
 			((ClientClass *)Client)->Send_Packet(&OptionPacketClass(game_id = ((ClientClass *)Client)->AvatarID, 3, Unknown_Group_Checked(Unknown0C0[1])));
 			return(true);
 		case 9: {
-			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+			SoundLibrary::Play_2D_Sound("fontclick.wav", 2);
 			bool checked = Unknown_Group_Checked(Unknown0C0[2]);
 			((ClientClass *)Client)->Send_Packet(&OptionPacketClass(game_id = ((ClientClass *)Client)->AvatarID, 4, checked));
 			if (checked) {
@@ -259,7 +259,7 @@ bool UIGroupOptClass::Unknown_68(int key)
 			return(true);
 		}
 		case 10: {
-			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+			SoundLibrary::Play_2D_Sound("fontclick.wav", 2);
 			bool checked = Unknown_Group_Checked(Unknown0C0[3]);
 			((ClientClass *)Client)->Send_Packet(&OptionPacketClass(game_id = ((ClientClass *)Client)->AvatarID, 5, checked));
 			if (checked) {
@@ -390,7 +390,7 @@ void UIGroupOptClass::Unknown_59B990()
 // 0x59BBC0
 bool UIGroupOptClass::Unknown_59BBC0()
 {
-	SClient *sclient = Client->As_Space_Client();
+	SpaceClientClass *sclient = Client->As_Space_Client();
 	FAIL_IF(!sclient) return(false);
 	return(sclient->Unknown_74D570());
 }
@@ -398,7 +398,7 @@ bool UIGroupOptClass::Unknown_59BBC0()
 // 0x59BC00
 bool UIGroupOptClass::Unknown_59BC00()
 {
-	SClient *sclient = Client->As_Space_Client();
+	SpaceClientClass *sclient = Client->As_Space_Client();
 
 	FAIL_IF(!sclient) return(false);
 	return(sclient->Unknown_74D690());
@@ -409,13 +409,13 @@ bool UIGroupOptClass::Unknown_59BC00()
 // 0x59BC40
 void UIGroupOptClass::Unknown_59BC40()
 {
-	SClient *sclient = Client->As_Space_Client();
+	SpaceClientClass *sclient = Client->As_Space_Client();
 	FAIL_IF(!sclient) return;
 	FAIL_IF(!sclient->AuxData) return;
-	NameClass name("GroupInfo"); DeltaGroupInfoClass *group = (DeltaGroupInfoClass *)Unknown_Find_Field<DeltaCompoundClass>(sclient->AuxData, name);
+	AuxDataName name("GroupInfo"); DeltaGroupInfoClass *group = (DeltaGroupInfoClass *)Unknown_Find_Field<DeltaContainer>(sclient->AuxData, name);
 	if (group && group->Unknown70) {
 		Unknown0A0 = group->LookingForGroup.Value;
-		((RObjGadgetClass *)Unknown0AC[1])->Unknown34->Change_Text(Unknown_B7FDAC[Unknown0A0], 0);
+		((RenderObjGadgetClass *)Unknown0AC[1])->Unknown34->Change_Text(Unknown_B7FDAC[Unknown0A0], 0);
 		Unknown0C0[0]->Unknown_7E8030(group->AllowGroupInvite.Value);
 		Unknown0C0[1]->Unknown_7E8030(group->ForceAutoSplit.Value);
 		Unknown0C0[2]->Unknown_7E8030(group->RestrictedLootingRights.Value);

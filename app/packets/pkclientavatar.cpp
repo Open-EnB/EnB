@@ -8,14 +8,14 @@ ClientAvatarPacketClass::ClientAvatarPacketClass(int avatar_id) : AvatarID(avata
 	Unknown10 = Unknown_14(avatar_id, -1);
 }
 
-ClientAvatarPacketClass::ClientAvatarPacketClass(RawPacketClass *raw)
+ClientAvatarPacketClass::ClientAvatarPacketClass(PacketClass *raw)
 {
 	raw->Get(&AvatarID, sizeof(AvatarID));
 }
 
-RawPacketClass *ClientAvatarPacketClass::Build()
+PacketClass *ClientAvatarPacketClass::Encode()
 {
-	RawPacketClass *raw = new RawPacketClass(55, Get_Data_Size());
+	PacketClass *raw = new PacketClass(55, Get_Data_Size());
 	raw->Add(&AvatarID, sizeof(AvatarID));
 	return(raw);
 }

@@ -52,16 +52,16 @@ void EffectDescriptionClass::Get_Description_Values(std::vector<float> &values) 
 // 0x832B10: the three strings, then each value list as its count and the values
 int EffectDescriptionClass::Get_Size()
 {
-	int size = RawPacketClass::Get_Size(Unknown00);	// NAME 1 [size]: neutral
-	size += RawPacketClass::Get_Size(Name);
-	size += RawPacketClass::Get_Size(Description);
+	int size = PacketClass::Get_Size(Unknown00);	// NAME 1 [size]: neutral
+	size += PacketClass::Get_Size(Name);
+	size += PacketClass::Get_Size(Description);
 	size += sizeof(int) + NameValues.size() * sizeof(float);
 	size += sizeof(int) + DescriptionValues.size() * sizeof(float);
 	return(size);
 }
 
 // 0x832B90
-void EffectDescriptionClass::Write(RawPacketClass *raw)
+void EffectDescriptionClass::Write(PacketClass *raw)
 {
 	raw->Add(Unknown00);
 	raw->Add(Name);
@@ -82,7 +82,7 @@ void EffectDescriptionClass::Write(RawPacketClass *raw)
 }
 
 // 0x832CA0
-void EffectDescriptionClass::Read(RawPacketClass *raw)
+void EffectDescriptionClass::Read(PacketClass *raw)
 {
 	raw->Get(&Unknown00);
 	raw->Get(&Name);

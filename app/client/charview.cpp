@@ -98,10 +98,10 @@ public:
 	AvatarCreationInterface(UIViewClass *view, LayerClass *layer, bool keep);	// 0x553AF0 (ui_avatr.cpp)  // NAME 1 [view, layer, keep]: as ui_avatr.cpp's
 	char Unknown84[0x2F8 - 0x84];
 };
-class Unknown615A50InterfaceClass : public InterfaceClass	// NAME 1: neutral (D10): mode 5
+class ShardInterface : public InterfaceClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
-	Unknown615A50InterfaceClass(UIViewClass *view, LayerClass *layer);	// 0x615A50  // NAME 1 [view, layer]: as LoginInterface's
+	ShardInterface(UIViewClass *view, LayerClass *layer);	// 0x615A50  // NAME 1 [view, layer]: as LoginInterface's
 	char Unknown84[0xEC - 0x84];
 };
 // mode 6: ShipCustomizeInterface (ui_shipcust.h; the lines it held kept blank, so the FAIL_IFs below keep the client's __LINE__)
@@ -238,7 +238,7 @@ void CharacterViewClass::Unknown_04()
 		Unknown224->Stop(true);
 		Unknown224->Release_Ref(); Unknown224 = NULL;
 	}
-	Unknown224 = SoundLibraryClass::Play_2D_Sound("fe_music.mp3", 1);
+	Unknown224 = SoundLibrary::Play_2D_Sound("fe_music.mp3", 1);
 	if (Unknown224) {
 		Unknown224->Set_Loop_Count(0);
 	}
@@ -272,7 +272,7 @@ void CharacterViewClass::Unknown_08()
 			Unknown1B4 = new AvatarCreationInterface(this, Unknown074, 0);
 			break;
 		case 5:
-			Unknown1B4 = new Unknown615A50InterfaceClass(this, Unknown074);
+			Unknown1B4 = new ShardInterface(this, Unknown074);
 			break;
 		case 6:
 			Unknown1B4 = new Unknown622180InterfaceClass(this, Unknown074, Unknown1B0 == 5, 0);
@@ -301,7 +301,7 @@ void CharacterViewClass::Unknown_08()
 
 // 0x679510: Shutdown, as calls to the file's own helpers (inlined; the client calls the deque's pop_front
 // 0x67CEF0 out of line from 0x67C7B0's copy)
-void CharacterViewClass::Unknown_10()
+void CharacterViewClass::Shutdown()
 {
 	int i;
 	for (i = 0; i < 5; i++) {
@@ -319,7 +319,7 @@ void CharacterViewClass::Unknown_10()
 	Unknown_67A670();
 	Unknown_67B320();
 	Unknown_67A300();
-	UIViewClass::Unknown_10();
+	UIViewClass::Shutdown();
 	if (Unknown06C) { Unknown06C->Release_Ref(); Unknown06C = NULL; }
 	if (Unknown068) { Unknown068->Release_Ref(); Unknown068 = NULL; }
 	if (Unknown07C) { Unknown07C->Release_Ref(); Unknown07C = NULL; }
@@ -361,14 +361,14 @@ void CharacterViewClass::Unknown_10()
 
 
 // 0x679930: the avatars' +0x1C4 is their first own virtual (Null3DObjClass's table ends at +0x1C0)
-int CharacterViewClass::Unknown_0C(bool on)
+int CharacterViewClass::Render(bool on)
 {
 	Unknown_67CBD0();
 
 	Matrix3D tm = Unknown068->Get_Transform();
 	tm.Rotate_X(-WWMATH_PI / 2.0f);
 	tm.Rotate_Z(WWMATH_PI / 2.0f);
-	SoundLibraryClass::Set_Listener_Transform(tm);
+	SoundLibrary::Set_Listener_Transform(tm);
 	WWAudioClass::Get_Instance()->On_Frame_Update(0);
 
 	float time = (float)WW3D::Get_Frame_Time() * 0.001f;
@@ -535,15 +535,15 @@ void CharacterViewClass::Unknown_67A3F0()
 
 // 0x67A440 (the environment maps read through Unknown_Inline_Env_Maps: this in esi, the copy in edi, as the
 // client has them; CV2)
-void CharacterViewClass::Unknown_67A440(AvatarDescClass *desc, bool copy)
+void CharacterViewClass::Unknown_67A440(AvatarDescriptionClass *desc, bool copy)
 {
 	if (AvatarRObj == NULL) {
 		if (copy) {
-			AvatarDescClass *fresh = new AvatarDescClass(desc->Race, desc->Profession, desc->Gender);
-			AvatarRObj = new CharacterViewAvatarClass(fresh, 1, 1, Unknown_Inline_Env_Maps(this));
+			AvatarDescriptionClass *fresh = new AvatarDescriptionClass(desc->Race, desc->Profession, desc->Gender);
+			AvatarRObj = new AvatarClass(fresh, 1, 1, Unknown_Inline_Env_Maps(this));
 			delete fresh;
 		} else {
-			AvatarRObj = new CharacterViewAvatarClass(desc, 1, 1, Unknown_Inline_Env_Maps(this));
+			AvatarRObj = new AvatarClass(desc, 1, 1, Unknown_Inline_Env_Maps(this));
 		}
 		G_ASSERT(AvatarRObj);
 		if (AvatarRObj) {
@@ -582,8 +582,8 @@ void CharacterViewClass::Unknown_67A670()
 void CharacterViewClass::Unknown_67A6C0()
 {
 	if (NarratorRObj == NULL && ViewRObjs[4] != NULL) {
-		AvatarDescClass *desc = new AvatarDescClass(1, (const char *)NULL);
-		NarratorRObj = new CharacterViewAvatarClass(desc, 1, 0, NULL);
+		AvatarDescriptionClass *desc = new AvatarDescriptionClass(1, (const char *)NULL);
+		NarratorRObj = new AvatarClass(desc, 1, 0, NULL);
 		delete desc;
 		G_ASSERT(NarratorRObj);
 		if (NarratorRObj) {
@@ -845,7 +845,7 @@ void CharacterViewClass::Unknown_67B1A0(const char *name)
 		Unknown224->Stop(true);
 		Unknown224->Release_Ref(); Unknown224 = NULL;
 	}
-	Unknown224 = SoundLibraryClass::Play_2D_Sound(name, 1);
+	Unknown224 = SoundLibrary::Play_2D_Sound(name, 1);
 	if (Unknown224) {
 		Unknown224->Set_Loop_Count(0);
 	}
@@ -1244,16 +1244,16 @@ void CharacterViewClass::Unknown_67BF20()
 {
 	for (int i = 0; i < 3; i++) {
 		for (int j = 0; j < 3; j++) {
-			AvatarDescClass *male = new AvatarDescClass(i, j, 0);
-			AvatarDescClass *female = new AvatarDescClass(i, j, 1);
+			AvatarDescriptionClass *male = new AvatarDescriptionClass(i, j, 0);
+			AvatarDescriptionClass *female = new AvatarDescriptionClass(i, j, 1);
 			male->Body_Weight[0] = 0.5f;
 			male->Body_Weight[4] = 0.25f;
 			male->Body_Weight[3] = 0.25f;
 			female->Body_Weight[0] = 0.5f;
 			male->Body_Weight[2] = 0.25f;
 			female->Body_Weight[1] = 0.25f;
-			Unknown3B8[i][j][0] = new CharacterViewAvatarClass(male, 1, 0, Unknown_Inline_Env_Maps(this));
-			Unknown3B8[i][j][1] = new CharacterViewAvatarClass(female, 1, 0, Unknown_Inline_Env_Maps(this));
+			Unknown3B8[i][j][0] = new AvatarClass(male, 1, 0, Unknown_Inline_Env_Maps(this));
+			Unknown3B8[i][j][1] = new AvatarClass(female, 1, 0, Unknown_Inline_Env_Maps(this));
 			delete male;
 			delete female;
 		}
@@ -1315,7 +1315,7 @@ void CharacterViewClass::Unknown_67C380(const Vector3 *in, int index)
 // 0x67C7B0
 void CharacterViewClass::Unknown_67C7B0()
 {
-	SoundLibraryClass::Stop_Dialog();
+	SoundLibrary::Stop_Dialog();
 	while (Unknown4E0.size() != 0) {
 		Unknown4E0.pop_front();
 	}
@@ -1348,14 +1348,14 @@ static inline void Unknown_Inline_Pop(std::deque<std::string> &queue)
 // 0x67CBD0
 void CharacterViewClass::Unknown_67CBD0()
 {
-	SoundLibraryClass::Update_Dialog();
-	if (SoundLibraryClass::Is_Dialog_Playing() || Unknown4E0.size() == 0) {
+	SoundLibrary::Update_Dialog();
+	if (SoundLibrary::Is_Dialog_Playing() || Unknown4E0.size() == 0) {
 		return;
 	}
 	std::string name = Unknown4E0.front();
 	Unknown_Inline_Pop(Unknown4E0);
 	if (name.length()) {
-		SoundLibraryClass::Play_Dialog(name.c_str(), 1);
+		SoundLibrary::Play_Dialog(name.c_str(), 1);
 	}
 }
 

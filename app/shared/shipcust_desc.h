@@ -30,7 +30,7 @@
 #include "..\common\prof.h"
 enum ShipCustomizationMetal { METAL_NONE = -1, METAL_CHROME, METAL_BRONZE, METAL_COPPER };	// NAME 5: its pairs' type name; NAME 2 [METAL_*]: the converters' names
 #ifdef UNKNOWN_PACKETDATA_BODIES	// the converters the key/value pair template calls (shipcust_desc.cpp only)
-class LinearBufferClass;
+class LinearBuffer;
 char *Value_To_String(char *buf, int size, const ShipCustomizationMetal &value);	// 0x4F6970 (line 384)
 bool String_To_Value(const char *text, ShipCustomizationMetal *value);			// 0x4F6A00 (line 401)
 inline const char *Type_Name(ShipCustomizationMetal *) { return "ShipCustomizationMetal"; }	// 0x4F72B0
@@ -84,11 +84,11 @@ public:
 		Set_Profession(0);
 		Reset_Parts();
 	}
-	virtual bool Write(LinearBufferClass *buffer);		// +0x00 0x4F6330 (thunk 0x40C7F2)
-	virtual bool Read(LinearBufferClass *buffer);		// +0x04 0x4F6420
+	virtual bool Write(LinearBuffer *buffer);		// +0x00 0x4F6330 (thunk 0x40C7F2)
+	virtual bool Read(LinearBuffer *buffer);		// +0x04 0x4F6420
 	virtual int Get_Size();								// +0x08 0x4F6510
-	virtual bool Write_Short(LinearBufferClass *buffer);	// +0x0C 0x4F6530: the name one byte shorter  // NAME 2: what it does
-	virtual bool Read_Short(LinearBufferClass *buffer);	// +0x10 0x4F6620  // NAME 2: what it does
+	virtual bool Write_Short(LinearBuffer *buffer);	// +0x0C 0x4F6530: the name one byte shorter  // NAME 2: what it does
+	virtual bool Read_Short(LinearBuffer *buffer);	// +0x10 0x4F6620  // NAME 2: what it does
 	virtual int Get_Short_Size();						// +0x14 0x4F6730  // NAME 2: what it does
 	virtual void Unknown_00(KVEncoderClass *visitor);				// second table +0x00 0x4F6750 (thunk 0x40AEE8)
 	// operator= written out, memberwise as the implicit one (P-P7-1; out of line at 0x55D8A0, ui_avsel.cpp's window): the

@@ -34,7 +34,7 @@
 #include "..\..\common\item_info.h"	// ItemInfoClass, ItemEffectDescriptionClass, ItemEffectClass
 #include "..\inv_data_peek.h"	// InvDataPeekClass (InvDataClass::Unknown_688830)
 
-class SClient;
+class SpaceClientClass;
 class UIItemExaminationPropertyRouterBaseClass;
 
 // The callees in files the tree does not have yet (interim here, D137)
@@ -115,7 +115,7 @@ enum { MODE_NONE_BF = 0 };																				// the mode flags' none (G_ASSERT 
 class ClientItemPropertyBuilderClass  // NAME 3: class-from-file (D24) for client_item_property_builder.cpp
 {
 public:
-	ClientItemPropertyBuilderClass(SClient *space_client, Unknown688830Item *item, const RefCountPtr<InvDataClass> &data, int slot);	// 0x521B80  // NAME 1 [space_client, item, data, slot]: neutral
+	ClientItemPropertyBuilderClass(SpaceClientClass *space_client, Unknown688830Item *item, const RefCountPtr<InvDataClass> &data, int slot);	// 0x521B80  // NAME 1 [space_client, item, data, slot]: neutral
 	~ClientItemPropertyBuilderClass();																	// 0x521BB0
 	void Build(UIItemExaminationPropertyRouterBaseClass &router);										// 0x521BD0  // NAME 2 [Build]: what it does; NAME 1 [router]: what it gets
 
@@ -126,7 +126,7 @@ private:
 	void Unknown_5285A0(UIItemExaminationPropertyRouterBaseClass &router);								// the flags  // NAME 1: neutral (D10)
 	void Unknown_528460(UIItemExaminationPropertyRouterBaseClass &router, const ItemEffectDescriptionClass &effects);	// the effects to specials  // NAME 1: neutral (D10); NAME 1 [effects]
 
-	SClient *SpaceClient;																				// +0x00  // NAME 1: neutral
+	SpaceClientClass *SpaceClient;																				// +0x00  // NAME 1: neutral
 	Unknown688830Item *Item;																			// +0x04  // NAME 1: neutral
 	const RefCountPtr<InvDataClass> &Data;																// +0x08 (a reference: the constructor stores its address)  // NAME 1: neutral
 	int Slot;																							// +0x0C  // NAME 1: neutral

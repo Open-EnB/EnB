@@ -30,7 +30,7 @@ static const char *Unknown_B83608[5] = { NULL, "cancel_opt02a", "Quit_opt02a", "
 
 
 // 0x5CE700
-UIOptionQuitClass::UIOptionQuitClass(SClient *client, bool mode) :
+UIOptionQuitClass::UIOptionQuitClass(SpaceClientClass *client, bool mode) :
 	ChatPanelUIBase(client),
 	Mode(mode)
 {
@@ -82,9 +82,9 @@ void UIOptionQuitClass::Unknown_5C()
 // 0x5CEB00
 bool UIOptionQuitClass::Unknown_68(int key)
 {
-	SClient *sclient = (SClient *)((ClientClass *)Client)->As_Space_Client();	// NAME 1: neutral (D10)
+	SpaceClientClass *sclient = (SpaceClientClass *)((ClientClass *)Client)->As_Space_Client();	// NAME 1: neutral (D10)
 	ChatPanelInterface *chat = sclient->ChatPanel.Peek();	// NAME 1: neutral (D10)
-	SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+	SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 	switch (key) {
 		case 1:
 			Unknown_5C();
@@ -98,21 +98,21 @@ bool UIOptionQuitClass::Unknown_68(int key)
 			}
 			return(true);
 		case 3:
-			OptionClass::Instance->Save();
+			OptionManagerClass::Instance->Save();
 			sclient->Unknown_74BB50(1);
 			Unknown_5C();
 			Unknown_5C();
 			Closed = 1;
 			return(true);
 		case 4:
-			OptionClass::Instance->Save();
+			OptionManagerClass::Instance->Save();
 			sclient->Unknown_74BB50(3);
 			Unknown_5C();
 			Unknown_5C();
 			Closed = 1;
 			return(true);
 		case 5:
-			OptionClass::Instance->Save();
+			OptionManagerClass::Instance->Save();
 			sclient->Unknown_74BB50(2);
 			Unknown_5C();
 			Unknown_5C();
@@ -145,7 +145,7 @@ void UIOptionQuitClass::Unknown_5CEC70(bool on)
 void UIOptionQuitClass::Unknown_5CECB0()
 {
 	RefCountPtr<FontSys> note = Unknown_BE67C4->Unknown_6D2700("Note_opt02a", InterfaceMesh);	// NAME 1: neutral (D10)
-	SClient *sclient = (SClient *)((ClientClass *)Client)->As_Space_Client();	// NAME 1: neutral (D10)
+	SpaceClientClass *sclient = (SpaceClientClass *)((ClientClass *)Client)->As_Space_Client();	// NAME 1: neutral (D10)
 	if (sclient->Unknown_744B60()) {
 		note->Set_Hidden(true);
 	} else {
@@ -158,5 +158,5 @@ void UIOptionQuitClass::Unknown_5CECB0()
 **	Object 0x5CE700-0x5CEDCF: the adjustor thunks 0x5CEDB0 / 0x5CEDC0 of the second and third tables close it; the
 **	slider pages' constructor 0x5CEDD0 follows. The ui_option_account.cpp pattern (ChatPanelUIBase); Unknown_58 is
 **	ui_option_check.cpp's (a sort scope around the base's). Keys 3-5 ('Q', 'C', 'L' with 0x400) leave the game:
-**	SClient's 0x74BB50 takes 1 (desktop), 3 (character selection), 2 (login screen); the client calls slot +0x5C twice.
+**	SpaceClientClass's 0x74BB50 takes 1 (desktop), 3 (character selection), 2 (login screen); the client calls slot +0x5C twice.
 */

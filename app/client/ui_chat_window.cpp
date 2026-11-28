@@ -10,7 +10,7 @@
 #include "fontsys_cursor.h"
 #include "textgadg.h"
 #include "gd_slider.h"
-#include "unknown_675120.h"
+#include "gd_uimesh.h"
 #include "chat_window.h"
 #include "unknown_67d430.h"
 #include "local_interface_sort.h"
@@ -19,7 +19,7 @@
 #include "..\shared\g_assert.h"
 #include "..\shared\auth_product.h"
 // chatgadg.cpp's text entry (0x80 bytes, constructor 0x65BFD0, table 0xAF99D8), as far as this file calls it
-class ChatGadgetClass : public TextBaseGadgetClass	// chatgadg.h
+class ChatGadgetClass : public TextGadgetClass	// chatgadg.h
 {
 public:
 	void Unknown_65E7C0(bool reply);					// 0x65E7C0 (slot +0xAC's)  // NAME 1 [reply]: as chatgadg.h
@@ -35,7 +35,7 @@ class LineDisplayClientClass  // NAME 1: neutral (D10)
 public:
 	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
 	virtual void Unknown_10(); virtual void Unknown_14();
-	virtual SClient *As_Space_Client();					// +0x18 (ClientClass::As_Space_Client; SClient's returns itself)  // NAME 3: ui_manu.cpp's FAIL_IF's
+	virtual SpaceClientClass *As_Space_Client();					// +0x18 (ClientClass::As_Space_Client; SpaceClientClass's returns itself)  // NAME 3: ui_manu.cpp's FAIL_IF's
 };
 
 
@@ -55,7 +55,7 @@ inline ChatWinStruct::~ChatWinStruct()
 }
 
 // 0x56F420
-ChatWindowInterface::ChatWindowInterface(SClient *client, Unknown67D430Class *history, ChatGadgetClass *edit) :
+ChatWindowInterface::ChatWindowInterface(SpaceClientClass *client, Unknown67D430Class *history, ChatGadgetClass *edit) :
 	ChatPanelUIBase(client),
 	ChatHistory(history),
 	UnknownA4(edit),
@@ -496,7 +496,7 @@ void ChatWindowInterface::Unknown_571470(bool force)
 			bool insert; FontSys *line = UnknownB8.Peek();
 			edit->Unknown_65EBF0(buffer, sizeof(buffer), cursorpos, insert);
 			int width = (int)(Viewport.Rect.Right - Viewport.Rect.Left);
-			char *text = TextGadgetClass::Unknown_6AB190(buffer, (float)width, line->Font, cursorpos); UnknownB8->Change_Text(text, 0);
+			char *text = UnknownTextGadgetClass::Unknown_6AB190(buffer, (float)width, line->Font, cursorpos); UnknownB8->Change_Text(text, 0);
 			Vector3 position(Viewport.Rect.Left, (Viewport.Rect.Top - Viewport.Rect.Bottom) * 0.5f + Viewport.Rect.Bottom, 0.0f);
 			UnknownB8->Set_Position(position);
 			UnknownD8->Unknown_685AB0(UnknownB8, cursorpos, insert, false);
@@ -610,7 +610,7 @@ Vector3 &ChatWindowInterface::Unknown_5719A0(Vector3 &color, const Unknown67D430
 	int type = entry.Get_Type();
 	color.Set(1.0f, 1.0f, 1.0f); LineDisplayClientClass *client = Client;
 	FAIL_IF(!client) return(color);
-	SClient *sclient = client->As_Space_Client();
+	SpaceClientClass *sclient = client->As_Space_Client();
 
 	FAIL_IF(!sclient) return(color);
 	color = sclient->Unknown13CC.Unknown_765DF0(type);

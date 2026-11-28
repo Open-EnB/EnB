@@ -3,7 +3,7 @@
 #include "..\aux_skill.h"
 #include "..\..\shared\auxdata\auxdata.h"
 #include "..\..\shared\auth_product.h"
-template<class C> inline C *Unknown_Find_Valid(DeltaCompoundClass *root, const NameClass &name) { C *t = Unknown_Find_Field<C>(root, name); if (t && t->Unknown70) return(t); return(NULL); }	// NAME 1: neutral (D10): as co.cpp's
+template<class C> inline C *Unknown_Find_Valid(DeltaContainer *root, const AuxDataName &name) { C *t = Unknown_Find_Field<C>(root, name); if (t && t->Unknown70) return(t); return(NULL); }	// NAME 1: neutral (D10): as co.cpp's
 
 
 
@@ -26,7 +26,7 @@ template<class C> inline C *Unknown_Find_Valid(DeltaCompoundClass *root, const N
 
 
 
-RefCountPtr<ClientItemPropertySpecialRaceRequirementClass> ClientItemPropertySpecialRaceRequirementClass::Create(SClient *space_client, int races, int race)
+RefCountPtr<ClientItemPropertySpecialRaceRequirementClass> ClientItemPropertySpecialRaceRequirementClass::Create(SpaceClientClass *space_client, int races, int race)
 {
 	std::string label;
 	std::string tooltip;
@@ -74,7 +74,7 @@ RefCountPtr<ClientItemPropertySpecialRaceRequirementClass> ClientItemPropertySpe
 	return(Create_NEW(new ClientItemPropertySpecialRaceRequirementClass(space_client, 4, races, label, tooltip)));
 }
 
-ClientItemPropertySpecialRaceRequirementClass::ClientItemPropertySpecialRaceRequirementClass(SClient *space_client, int sort_order, int races, const std::string &label, const std::string &tooltip) :
+ClientItemPropertySpecialRaceRequirementClass::ClientItemPropertySpecialRaceRequirementClass(SpaceClientClass *space_client, int sort_order, int races, const std::string &label, const std::string &tooltip) :
 	ClientItemPropertySpecialClass(sort_order, tooltip, 0, 1),
 	SpaceClient(space_client),
 	Label(label),
@@ -108,9 +108,9 @@ std::vector<ClientItemPropertySpecialLineStruct> ClientItemPropertySpecialRaceRe
 // 0x52E500
 bool ClientItemPropertySpecialRaceRequirementClass::Is_Usable()
 {
-	DeltaCompoundClass *aux_data = (DeltaCompoundClass *)SpaceClient->AuxData;
+	DeltaContainer *aux_data = (DeltaContainer *)SpaceClient->AuxData;
 	FAIL_IF(!aux_data) return(false);
-	NameClass name("RPGInfo.Race");
+	AuxDataName name("RPGInfo.Race");
 	DeltaTemplateClass<RaceType> *race_aux_data = Unknown_Find_Valid<DeltaTemplateClass<RaceType> >(aux_data, name);
 	FAIL_IF(!race_aux_data) return(false);
 	if (Races & (1 << race_aux_data->Value)) { return(false); } return(true);

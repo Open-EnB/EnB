@@ -175,10 +175,10 @@ void StaticShadowTexMgrClass::Reset(void)
 
 /************************************************************************************
 **
-** ProjectorManagerClass Implementation
+** ProjectionManagerClass Implementation
 **
 ************************************************************************************/
-ProjectorManagerClass::ProjectorManagerClass(void) :
+ProjectionManagerClass::ProjectionManagerClass(void) :
 	ShadowNormalIntensity(0.75f),
 	ShadowBlobTexture(NULL),
 	StaticShadowTexMgr(NULL),
@@ -194,7 +194,7 @@ ProjectorManagerClass::ProjectorManagerClass(void) :
 	DynamicProjectorCullingSystem = new TypedGridCullSystemClass<TexProjectClass>;
 }
 
-ProjectorManagerClass::~ProjectorManagerClass(void)
+ProjectionManagerClass::~ProjectionManagerClass(void)
 {
 	Remove_All_Texture_Projectors();
 	delete StaticProjectorCullingSystem;
@@ -202,7 +202,7 @@ ProjectorManagerClass::~ProjectorManagerClass(void)
 	Release_Projector_Resources();
 }
 
-void ProjectorManagerClass::Release_Projector_Resources(void)
+void ProjectionManagerClass::Release_Projector_Resources(void)
 {
 	REF_PTR_RELEASE(ShadowCamera);
 	REF_PTR_RELEASE(ShadowMaterial);
@@ -213,7 +213,7 @@ void ProjectorManagerClass::Release_Projector_Resources(void)
 	}
 }
 
-CameraClass * ProjectorManagerClass::Get_Shadow_Camera(void)
+CameraClass * ProjectionManagerClass::Get_Shadow_Camera(void)
 {
 	if (ShadowCamera == NULL) {
 		ShadowCamera = new CameraClass;
@@ -227,7 +227,7 @@ CameraClass * ProjectorManagerClass::Get_Shadow_Camera(void)
 	return ShadowCamera;
 }
 
-VertexMaterialClass * ProjectorManagerClass::Get_Shadow_Material(void)
+VertexMaterialClass * ProjectionManagerClass::Get_Shadow_Material(void)
 {
 	if (ShadowMaterial == NULL) {
 		ShadowMaterial = new VertexMaterialClass;
@@ -244,7 +244,7 @@ VertexMaterialClass * ProjectorManagerClass::Get_Shadow_Material(void)
 	return ShadowMaterial;
 }
 
-ShaderClass ProjectorManagerClass::Get_Shadow_Shader(void)
+ShaderClass ProjectionManagerClass::Get_Shadow_Shader(void)
 {
 	ShaderClass shader = ShaderClass::_PresetOpaqueSolidShader;
 	shader.Set_Depth_Compare(ShaderClass::PASS_ALWAYS);
@@ -254,27 +254,27 @@ ShaderClass ProjectorManagerClass::Get_Shadow_Shader(void)
 	return shader;
 }
 
-void ProjectorManagerClass::Enable_Static_Projectors(bool onoff)
+void ProjectionManagerClass::Enable_Static_Projectors(bool onoff)
 {
 	StaticProjectorsEnabled = onoff;
 }
 
-bool ProjectorManagerClass::Are_Static_Projectors_Enabled(void)
+bool ProjectionManagerClass::Are_Static_Projectors_Enabled(void)
 {
 	return StaticProjectorsEnabled;
 }
 
-void ProjectorManagerClass::Enable_Dynamic_Projectors(bool onoff)
+void ProjectionManagerClass::Enable_Dynamic_Projectors(bool onoff)
 {
 	DynamicProjectorsEnabled = onoff;
 }
 
-bool ProjectorManagerClass::Are_Dynamic_Projectors_Enabled(void)
+bool ProjectionManagerClass::Are_Dynamic_Projectors_Enabled(void)
 {
 	return DynamicProjectorsEnabled;
 }
 
-void ProjectorManagerClass::Set_Shadow_Normal_Intensity(float normal_intensity)
+void ProjectionManagerClass::Set_Shadow_Normal_Intensity(float normal_intensity)
 {
 	if (normal_intensity < 0.0f) {
 		normal_intensity = 0.0f;
@@ -285,12 +285,12 @@ void ProjectorManagerClass::Set_Shadow_Normal_Intensity(float normal_intensity)
 	ShadowNormalIntensity = normal_intensity;
 }
 
-float ProjectorManagerClass::Get_Shadow_Normal_Intensity(void)
+float ProjectionManagerClass::Get_Shadow_Normal_Intensity(void)
 {
 	return ShadowNormalIntensity;
 }
 
-bool ProjectorManagerClass::Set_Shadow_Blob_Texture(const char * name)
+bool ProjectionManagerClass::Set_Shadow_Blob_Texture(const char * name)
 {
 	if (name == NULL) {
 		return false;
@@ -306,7 +306,7 @@ bool ProjectorManagerClass::Set_Shadow_Blob_Texture(const char * name)
 	return true;
 }
 
-TextureClass * ProjectorManagerClass::Get_Shadow_Blob_Texture(void)
+TextureClass * ProjectionManagerClass::Get_Shadow_Blob_Texture(void)
 {
 	if (ShadowBlobTexture == NULL) {
 		ShadowBlobTexture = WW3DAssetManager::Get_Instance()->Get_Texture("shadow.tga");
@@ -317,7 +317,7 @@ TextureClass * ProjectorManagerClass::Get_Shadow_Blob_Texture(void)
 	ShadowBlobTexture->Add_Ref();
 	return ShadowBlobTexture;
 }
-void ProjectorManagerClass::Add_Static_Texture_Projector(TexProjectClass * newprojector)
+void ProjectionManagerClass::Add_Static_Texture_Projector(TexProjectClass * newprojector)
 {
 	G_ASSERT(newprojector);
 	G_ASSERT(!StaticProjectorList.Is_In_List(newprojector));
@@ -326,7 +326,7 @@ void ProjectorManagerClass::Add_Static_Texture_Projector(TexProjectClass * newpr
 	StaticProjectorCullingSystem->Add_Object(newprojector);
 }
 
-void ProjectorManagerClass::Remove_Static_Texture_Projector(TexProjectClass * projector)
+void ProjectionManagerClass::Remove_Static_Texture_Projector(TexProjectClass * projector)
 {
 	G_ASSERT(projector);
 	G_ASSERT(projector->Get_Culling_System() == StaticProjectorCullingSystem);
@@ -335,7 +335,7 @@ void ProjectorManagerClass::Remove_Static_Texture_Projector(TexProjectClass * pr
 	StaticProjectorCullingSystem->Remove_Object(projector);
 }
 
-void ProjectorManagerClass::Add_Dynamic_Texture_Projector(TexProjectClass * newprojector)
+void ProjectionManagerClass::Add_Dynamic_Texture_Projector(TexProjectClass * newprojector)
 {
 	G_ASSERT(newprojector);
 	G_ASSERT(!DynamicProjectorList.Is_In_List(newprojector));
@@ -344,7 +344,7 @@ void ProjectorManagerClass::Add_Dynamic_Texture_Projector(TexProjectClass * newp
 	DynamicProjectorCullingSystem->Add_Object(newprojector);
 }
 
-void ProjectorManagerClass::Remove_Dynamic_Texture_Projector(TexProjectClass * projector)
+void ProjectionManagerClass::Remove_Dynamic_Texture_Projector(TexProjectClass * projector)
 {
 	G_ASSERT(projector);
 	G_ASSERT(projector->Get_Culling_System() == DynamicProjectorCullingSystem);
@@ -353,7 +353,7 @@ void ProjectorManagerClass::Remove_Dynamic_Texture_Projector(TexProjectClass * p
 	DynamicProjectorCullingSystem->Remove_Object(projector);
 }
 
-void ProjectorManagerClass::Remove_Texture_Projector(TexProjectClass * projector)
+void ProjectionManagerClass::Remove_Texture_Projector(TexProjectClass * projector)
 {
 	G_ASSERT(projector);
 
@@ -368,7 +368,7 @@ void ProjectorManagerClass::Remove_Texture_Projector(TexProjectClass * projector
 	}
 }
 
-void ProjectorManagerClass::Remove_All_Texture_Projectors(void)
+void ProjectionManagerClass::Remove_All_Texture_Projectors(void)
 {
 	RefMultiListIterator<TexProjectClass> dit(&DynamicProjectorList);
 	for (dit.First(); !dit.Is_Done(); dit.Next()) {
@@ -383,12 +383,12 @@ void ProjectorManagerClass::Remove_All_Texture_Projectors(void)
 	}
 }
 
-bool ProjectorManagerClass::Contains(TexProjectClass * projector)
+bool ProjectionManagerClass::Contains(TexProjectClass * projector)
 {
 	return (DynamicProjectorList.Is_In_List(projector) || StaticProjectorList.Is_In_List(projector));
 }
 
-void ProjectorManagerClass::Apply_Projectors
+void ProjectionManagerClass::Apply_Projectors
 (
 	CameraClass &						camera,
 	ProjectorReceiverListClass &	dynamic_receivers,
@@ -431,7 +431,7 @@ void ProjectorManagerClass::Apply_Projectors
 							obj != NULL;
 							obj = static_objs->Get_Next_Collected_Object(obj))
 					{
-						ProjectorReceiverClass * receiver = obj->Receiver;
+						ProjectionTargetClass * receiver = obj->Receiver;
 						if (	(receiver != NULL) && static_receivers.Is_In_List(receiver) &&
 								receiver->Intersects(static_projector->Get_Bounding_Volume()))
 						{
@@ -453,7 +453,7 @@ void ProjectorManagerClass::Apply_Projectors
 							obj != NULL;
 							obj = dynamic_objs->Get_Next_Collected_Object(obj))
 					{
-						ProjectorReceiverClass * receiver = obj->Receiver;
+						ProjectionTargetClass * receiver = obj->Receiver;
 						if ((receiver != NULL) && dynamic_receivers.Is_In_List(receiver)) {
 							if (static_projector->Get_Projection_Object_ID() != receiver->Get_Projection_Object_ID()) {
 								receiver->Add_Projector(static_projector);
@@ -491,7 +491,7 @@ void ProjectorManagerClass::Apply_Projectors
 							obj != NULL;
 							obj = static_objs->Get_Next_Collected_Object(obj))
 					{
-						ProjectorReceiverClass * receiver = obj->Receiver;
+						ProjectionTargetClass * receiver = obj->Receiver;
 						if (	(receiver != NULL) && static_receivers.Is_In_List(receiver) &&
 								receiver->Intersects(dynamic_projector->Get_Bounding_Volume()))
 						{
@@ -513,7 +513,7 @@ void ProjectorManagerClass::Apply_Projectors
 							obj != NULL;
 							obj = dynamic_objs->Get_Next_Collected_Object(obj))
 					{
-						ProjectorReceiverClass * receiver = obj->Receiver;
+						ProjectionTargetClass * receiver = obj->Receiver;
 						if ((receiver != NULL) && dynamic_receivers.Is_In_List(receiver)) {
 							if ((receiver->Get_Projection_Object_ID() != dynamic_projector->Get_Projection_Object_ID()) && (dynamic_projector->Get_Projection_Object_ID() != receiver->Get_Projection_Object_ID())) {
 								receiver->Add_Projector(dynamic_projector);
@@ -556,7 +556,7 @@ void ProjectorManagerClass::Apply_Projectors
 
 
 
-StaticShadowTexMgrClass * ProjectorManagerClass::Get_Static_Shadow_Tex_Mgr(void)
+StaticShadowTexMgrClass * ProjectionManagerClass::Get_Static_Shadow_Tex_Mgr(void)
 {
 	if (StaticShadowTexMgr == NULL) {
 		StaticShadowTexMgr = new StaticShadowTexMgrClass;
@@ -567,15 +567,15 @@ StaticShadowTexMgrClass * ProjectorManagerClass::Get_Static_Shadow_Tex_Mgr(void)
 }
 
 
-void ProjectorManagerClass::Generate_Static_Shadow_Projectors(RefMultiListClass<ProjectorCasterClass> & list)
+void ProjectionManagerClass::Generate_Static_Shadow_Projectors(RefMultiListClass<ProjectionSourceClass> & list)
 {
 	/*
 	** Collect the casters that want a static shadow; each drops its projector
 	*/
-	RefMultiListClass<ProjectorCasterClass> shadow_gen_list;
-	RefMultiListIterator<ProjectorCasterClass> it(&list);
+	RefMultiListClass<ProjectionSourceClass> shadow_gen_list;
+	RefMultiListIterator<ProjectionSourceClass> it(&list);
 	for (it.First(); !it.Is_Done(); it.Next()) {
-		ProjectorCasterClass * obj = it.Peek_Obj();
+		ProjectionSourceClass * obj = it.Peek_Obj();
 		if (obj != NULL) {
 			ProjectionDefClass * def = obj->ProjectionDef;
 			if (def && def->Unknown08) {
@@ -596,9 +596,9 @@ void ProjectorManagerClass::Generate_Static_Shadow_Projectors(RefMultiListClass<
 	/*
 	** Generate a new shadow for each one
 	*/
-	RefMultiListIterator<ProjectorCasterClass> shadow_gen_iterator(&shadow_gen_list);
+	RefMultiListIterator<ProjectionSourceClass> shadow_gen_iterator(&shadow_gen_list);
 	for (shadow_gen_iterator.First(); !shadow_gen_iterator.Is_Done(); shadow_gen_iterator.Next()) {
-		ProjectorCasterClass * obj = shadow_gen_iterator.Peek_Obj();
+		ProjectionSourceClass * obj = shadow_gen_iterator.Peek_Obj();
 		Vector3 sunvector;
 		Get_Shadow_Light_Direction(&sunvector);
 		Setup_Static_Directional_Shadow(obj,sunvector);
@@ -625,7 +625,7 @@ void ProjectorManagerClass::Generate_Static_Shadow_Projectors(RefMultiListClass<
 
 
 // NOT EXACT: 0x493620, 1 register row in the inlined Get_Static_Shadow_Tex_Mgr (mov eax,esi / test eax,eax)
-void ProjectorManagerClass::Setup_Static_Directional_Shadow(ProjectorCasterClass * caster,const Vector3 & light_dir)
+void ProjectionManagerClass::Setup_Static_Directional_Shadow(ProjectionSourceClass * caster,const Vector3 & light_dir)
 {
 	ProjectionDefClass * def = caster->ProjectionDef;
 	if (def == NULL) {
@@ -698,13 +698,13 @@ void ProjectorManagerClass::Setup_Static_Directional_Shadow(ProjectorCasterClass
 
 
 
-void ProjectorManagerClass::Get_Shadow_Light_Direction(Vector3 * set_vector)
+void ProjectionManagerClass::Get_Shadow_Light_Direction(Vector3 * set_vector)
 {
 	G_ASSERT(set_vector != NULL);
 	*set_vector = ShadowLightDirection;
 }
 
-void ProjectorManagerClass::Set_Shadow_Light_Direction(const Vector3 & dir)
+void ProjectionManagerClass::Set_Shadow_Light_Direction(const Vector3 & dir)
 {
 	ShadowLightDirection = dir;
 }
@@ -734,7 +734,7 @@ void ProjectorManagerClass::Set_Shadow_Light_Direction(const Vector3 & dir)
 
 
 
-void ProjectorCasterClass::Set_Projection(TexProjectClass * projection)
+void ProjectionSourceClass::Set_Projection(TexProjectClass * projection)
 {
 	if (Projection != NULL) {
 		Projection->Release_Ref();
@@ -745,10 +745,10 @@ void ProjectorCasterClass::Set_Projection(TexProjectClass * projection)
 	Projection = projection;
 }
 
-void ProjectorCasterClass::Create_Projection(void)
+void ProjectionSourceClass::Create_Projection(void)
 {
 	if (ProjectionDef != NULL) {
-		CasterTexProjectClass * projection = new CasterTexProjectClass(this);
+		ShadowTexProjectClass * projection = new ShadowTexProjectClass(this);
 		int size = ProjectionDef->TextureSize;
 		projection->Set_Intensity(ProjectionDef->Get_Intensity(),true);
 		projection->Enable_Attenuation(true);
@@ -775,7 +775,7 @@ void ProjectorCasterClass::Create_Projection(void)
 	}
 }
 
-void ProjectorCasterClass::Update_Projection(void)
+void ProjectionSourceClass::Update_Projection(void)
 {
 	Vector3 light_dir;
 	Manager->Get_Shadow_Light_Direction(&light_dir);
@@ -786,16 +786,16 @@ void ProjectorCasterClass::Update_Projection(void)
 		Projection->Get_Culling_System()->Update_Culling(Projection);
 	}
 }
-CasterTexProjectClass::CasterTexProjectClass(ProjectorCasterClass * owner) :
+ShadowTexProjectClass::ShadowTexProjectClass(ProjectionSourceClass * owner) :
 	Owner(owner),
 	Unknown140(false)
 {
 }
 
-// CasterTexProjectClass's destructor 0x494180 is the compiler's (a jump to
+// ShadowTexProjectClass's destructor 0x494180 is the compiler's (a jump to
 // TexProjectClass's: an empty user destructor would reset the vtables first)
 
-void CasterTexProjectClass::Pre_Render_Update(const Matrix3D & camera)
+void ShadowTexProjectClass::Pre_Render_Update(const Matrix3D & camera)
 {
 	if (!Unknown140) {
 		if (Owner->UseBlob) {
@@ -816,7 +816,7 @@ void CasterTexProjectClass::Pre_Render_Update(const Matrix3D & camera)
 	TexProjectClass::Pre_Render_Update(camera);
 }
 
-void * CasterTexProjectClass::Get_Projection_Object_ID(void) const
+void * ShadowTexProjectClass::Get_Projection_Object_ID(void) const
 {
 	return (void *)Owner->Get_Type_ID();
 }
@@ -826,14 +826,14 @@ void * CasterTexProjectClass::Get_Projection_Object_ID(void) const
 **	Reconstruction notes (kept here so the asserts stay on the client's lines)
 **
 **	E&B's copy of Renegade's wwphys/pscene_projectors.cpp, its projector code moved out of
-**	PhysicsSceneClass into ProjectorManagerClass (proj_man.h). The client's functions, in order:
+**	PhysicsSceneClass into ProjectionManagerClass (proj_man.h). The client's functions, in order:
 **	StaticShadowTexMgrClass: scalar deleting dtor 0x4918E0, dtor 0x491910, Peek_Shadow_Texture
 **	0x4919B0, Add_Shadow_Texture 0x491A80 (line 138), Remove_Shadow_Texture 0x491CB0, Reset 0x491DA0.
-**	ProjectorManagerClass: ctor 0x491DD0, scalar deleting dtor 0x491F50 (the typed culling systems'
+**	ProjectionManagerClass: ctor 0x491DD0, scalar deleting dtor 0x491F50 (the typed culling systems'
 **	0x491F80 / 0x491FB0 and dtors 0x491FE0 / 0x492000), dtor 0x492020, then the methods in proj_man.h.
-**	The casters' base (ProjectorCasterClass, 0x493D30-0x493FE0) and CasterTexProjectClass (0x494100-
+**	The casters' base (ProjectionSourceClass, 0x493D30-0x493FE0) and ShadowTexProjectClass (0x494100-
 **	0x494410) follow the light direction accessors. Apply_Projectors is E&B's own: it hands each
-**	visible projector to the receivers (ProjectorReceiverClass) the objects' culling systems collect;
+**	visible projector to the receivers (ProjectionTargetClass) the objects' culling systems collect;
 **	the dynamic half compares the IDs in two other orders than the static half (the client's forms).
 **	Two getters (0x492290, 0x492380) return inside their creating branch: the client's near jne /
 **	mov-cmp come from the duplicated Add_Ref tail. ProjectionDefClass's accessors come from the

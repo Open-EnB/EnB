@@ -336,11 +336,11 @@ bool CordListClass<T>::Remove(T &node, int pos)
 
 // One message, sent or received (0x30 bytes in the client: the records of a channel's send queue
 // and sent list, and the nodes of its receive list; write 0x850C70, handlePacket 0x851AE0).
-class CordMessageClass		// NAME 2: describes what it holds
+class CordMessage  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
-	CordMessageClass();				// 0x85BE00 (another object, 0x85AEC0-0x85C600: unknown_cordmsg.cpp)
-	~CordMessageClass();			// 0x85BEA0
+	CordMessage();				// 0x85BE00 (another object, 0x85AEC0-0x85C600: unknown_cordmsg.cpp)
+	~CordMessage();			// 0x85BEA0
 	void Free();					// 0x85BEC0: deletes Data and Fragments
 
 	Xtime SentTime;					// NAME 2: +0x00 the last send (day 0 = never, or a resend asked for)
@@ -358,28 +358,28 @@ public:
 
 // One channel of a connection (0x78 bytes; constructor 0x84DFC0, made 8 or 2 at a time when a
 // datagram names a channel the connection doesn't have yet).
-class CordChannelClass : public AutoPoolClass<CordChannelClass, 1024>	// NAME 2: describes what it is (the client's name not found)
+class CordChannel : public AutoPoolClass<CordChannel, 1024>  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
-	CordChannelClass();
-	CordChannelClass(const CordChannelClass &other);			// 0x84E170 (no caller in the client)
-	~CordChannelClass();
-	CordChannelClass &operator=(const CordChannelClass &other);	// 0x84E230 (no caller in the client)
-	void Copy(const CordChannelClass &other);					// 0x84E260 NAME 2: what it does (the client has no name)
+	CordChannel();
+	CordChannel(const CordChannel &other);			// 0x84E170 (no caller in the client)
+	~CordChannel();
+	CordChannel &operator=(const CordChannel &other);	// 0x84E230 (no caller in the client)
+	void Copy(const CordChannel &other);					// 0x84E260 NAME 2: what it does (the client has no name)
 	void Reset();								// 0x84E770 (inlined in the constructor): unused, everything dropped
 
 	int Mode;									// NAME 2: +0x00 0 unused, 3 reliable ordered, 4 sequenced, 1, 5 (channel 0)
 	unsigned int LastWrite;						// NAME 2: +0x04
 	unsigned int NextSeq;						// NAME 2: +0x08 the next sequence number to send
 	int Priority;								// NAME 2: +0x0C
-	std::vector<CordMessageClass> Queue;		// NAME 2: +0x10 written, not sent
-	std::vector<CordMessageClass> Sent;			// NAME 2: +0x20 sent, waiting for an ack
+	std::vector<CordMessage> Queue;		// NAME 2: +0x10 written, not sent
+	std::vector<CordMessage> Sent;			// NAME 2: +0x20 sent, waiting for an ack
 	int Written;								// NAME 2: +0x30
 	unsigned int Delivered;						// NAME 2: +0x34 mode 3: the next sequence number read() delivers
 	unsigned int Expected;						// NAME 2: +0x38 mode 3: the first sequence number not received in order
 	unsigned int NextSequenced;					// NAME 2: +0x3C mode 4: older ones are dropped
 	unsigned int LastSeq;						// NAME 2: +0x40
-	CordListClass<CordMessageClass> Incoming;	// NAME 2: +0x44 received, not read
+	CordListClass<CordMessage> Incoming;	// NAME 2: +0x44 received, not read
 	ArrayList<unsigned int> ToAck;			// NAME 2: +0x58
 	ArrayList<unsigned int> Missing;		// NAME 2: +0x64 resend requests to send
 	int Index;									// NAME 2: +0x70
@@ -455,7 +455,7 @@ public:
 	// expired unreliable records. 0x853A30
 	bool pumpInternal(Xtime &now);
 	// The record to send next: its channel, its place in the channel's list, the record. 0x854890
-	bool getHighestPriorityMessage(int *channel, int *index, Xtime &threshold, CordMessageClass **msg, Xtime &now);
+	bool getHighestPriorityMessage(int *channel, int *index, Xtime &threshold, CordMessage **msg, Xtime &now);
 
 	private: void Encrypt_Data(unsigned char *data, int len, unsigned short counter);			// 0x854D00
 	void Decrypt_Data(unsigned char *data, int len, unsigned short counter);			// 0x854ED0 NAME 2: Encrypt_Data's other half (RC4: the same call; no caller in the client)
@@ -467,10 +467,10 @@ public:
 	bool buildMsgHeader(unsigned char *out, int *len, int size, int channel, unsigned int seq,
 		int frag, int flags);												// 0x854FC0 (frag, flags: ints, pumpInternal 0x853A30 pushes FragIndex / Flags as dwords)
 
-	CordChannelClass *Get_Channel(int channel);	// NAME 2: grows Channels_ as the client does
+	CordChannel *Get_Channel(int channel);	// NAME 2: grows Channels_ as the client does
 	// The messages the active channels hold (queued or awaiting an ack). 0x84FED0
 	int Pending_Messages();	// NAME 2: what it counts
-	// The counts the game's connection reads (UDPConnection::Receive / Get_Stats). 0x84FDE0
+	// The counts the game's connection reads (UDPConnectionClass::Receive / Get_Stats). 0x84FDE0
 	void getStats(int *messages_sent, int *packets_in, int *bytes_sent, int *bytes_read, int *resends,
 		int *dup_acks, unsigned int *window, unsigned int *in_flight, unsigned int *round_trip, unsigned int *quality, int *idle);	// NAME 1: after openc / read
 	// Marks a channel closed (pump drops it); returns false. 0x8501A0
@@ -489,9 +489,9 @@ public:
 	int Unknown1C;								// +0x1C
 	__int64 Key_;								// NAME 2: +0x20 the RC4 session key (Encrypt_Data tests it as one 64-bit value)
 	int OpenChannels_;							// NAME 2: +0x28
-	std::vector<CordChannelClass *> Channels_;	// NAME 2: +0x2C
-	std::vector<CordChannelClass *> Active_;	// NAME 2: +0x3C channels in use, in first-use order
-	std::vector<CordChannelClass *> Ready_;		// NAME 2: +0x4C channels with received messages, in arrival order
+	std::vector<CordChannel *> Channels_;	// NAME 2: +0x2C
+	std::vector<CordChannel *> Active_;	// NAME 2: +0x3C channels in use, in first-use order
+	std::vector<CordChannel *> Ready_;		// NAME 2: +0x4C channels with received messages, in arrival order
 	int Queued_;								// NAME 2: +0x5C
 	int AcksPending_;							// NAME 2: +0x60
 	int ResendsPending_;						// NAME 2: +0x64

@@ -14,7 +14,7 @@
 
 
 
-KVPairStringClass::KVPairStringClass(const char *key, StringValueClass *accessor, bool even, bool odd) :
+KVStringPairClass::KVStringPairClass(const char *key, StringValueClass *accessor, bool even, bool odd) :
 	KVPairClass(key, even, odd),
 	Accessor(accessor),
 	Unknown10(NULL)
@@ -27,30 +27,30 @@ KVPairStringClass::KVPairStringClass(const char *key, StringValueClass *accessor
 	Unknown10 = strdup(value);
 }
 
-const char *KVPairStringClass::Get_Type_Name() const
+const char *KVStringPairClass::Get_Type_Name() const
 {
 	return "char *";
 }
-KVPairStringClass::~KVPairStringClass()
+KVStringPairClass::~KVStringPairClass()
 {
 	delete Accessor;
 	free(Unknown10);
 }
 // the client passes the two flags through byte temporaries (stored, then pushed as dwords)
 static inline bool KV_Flag(bool value) { return value; }
-KVPairStringClass::KVPairStringClass(const KVPairStringClass &that) : KVPairClass(that.Key.Get_String(), KV_Flag(that.Unknown08), KV_Flag(that.Unknown09)), Accessor(NULL), Unknown10(NULL)
+KVStringPairClass::KVStringPairClass(const KVStringPairClass &that) : KVPairClass(that.Key.Get_String(), KV_Flag(that.Unknown08), KV_Flag(that.Unknown09)), Accessor(NULL), Unknown10(NULL)
 {
 	Accessor = that.Accessor->Clone();
 	G_ASSERT(Accessor);
 	Unknown10 = _strdup(that.Unknown10);
 }
 
-KVPairClass *KVPairStringClass::Clone() const
+KVPairClass *KVStringPairClass::Clone() const
 {
-	return new KVPairStringClass(*this);
+	return new KVStringPairClass(*this);
 }
 
-char *KVPairStringClass::Get_Value_String(char *buf, int size) const
+char *KVStringPairClass::Get_Value_String(char *buf, int size) const
 {
 	const char *value = Accessor->Get();
 	if (value == NULL) {
@@ -60,13 +60,13 @@ char *KVPairStringClass::Get_Value_String(char *buf, int size) const
 	return buf;
 }
 
-bool KVPairStringClass::Set_Value_String(const char *text)
+bool KVStringPairClass::Set_Value_String(const char *text)
 {
 	Accessor->Set(text);
 	return true;
 }
 
-bool KVPairStringClass::Is_Changed() const
+bool KVStringPairClass::Is_Changed() const
 {
 	const char *value = Accessor->Get();
 	if (value == NULL) {
@@ -75,7 +75,7 @@ bool KVPairStringClass::Is_Changed() const
 	return strcmp(value, Unknown10) != 0;
 }
 
-void KVPairStringClass::Update_Saved()
+void KVStringPairClass::Update_Saved()
 {
 	free(Unknown10);
 	const char *value = Accessor->Get();
@@ -88,7 +88,7 @@ void KVPairStringClass::Update_Saved()
 /*
 **	Reconstruction notes
 **
-**	client.exe 0x4B7FC0-0x4B84A0: KVPairStringClass (D24), vtable 0xAEB810, size 0x14: the string
+**	client.exe 0x4B7FC0-0x4B84A0: KVStringPairClass (D24), vtable 0xAEB810, size 0x14: the string
 **	field's key/value pair. The constructor 0x4B7FC0 (assert on the client's line 22, D25) keeps a
 **	strdup copy of the value ("" for none); the copy constructor 0x4B8170 (line 44) clones the
 **	accessor, and Clone 0x4B8250 inlines it. The slots (kv_pair.h): Get_Type_Name 0x4B8090 ("char *"),

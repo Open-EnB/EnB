@@ -6,7 +6,7 @@
 #include "..\shared\g_assert.h"
 #include "..\shared\auth_product.h"
 // 0x79BB80
-ChaseCameraModuleClass::ChaseCameraModuleClass(SClient *client) :
+ChaseCameraModuleClass::ChaseCameraModuleClass(SpaceClientClass *client) :
 	CameraModuleClass(client),
 	Heading(0.0f),
 	Distance(1.0f),

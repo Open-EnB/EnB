@@ -67,7 +67,7 @@ bool UIScutProxyGadgetClass::Can_Be_Shortcut(GadgetClass *gadget)
 	if (!gadget) {
 		return(false);
 	}
-	RObjGadgetClass *robj_gadget = gadget->As_RObjGadget();
+	RenderObjGadgetClass *robj_gadget = gadget->As_RObjGadget();
 	if (!robj_gadget) {
 		return(false);
 	}

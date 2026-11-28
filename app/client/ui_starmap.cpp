@@ -11,7 +11,7 @@
 #include "gadget.h"
 #include "gd_robj.h"
 #include "..\kernel\kernel.h"
-#include "unknown_675120.h"
+#include "gd_uimesh.h"
 #include "fontdatabase.h"
 #include "control_keys_manager.h"
 #include "option.h"
@@ -31,11 +31,11 @@ extern FontManagerClass *Unknown_BE67C4;	// NAME 1: neutral (D10)
 extern unsigned int Unknown_BE5F34;			// (gadget.cpp's: the event mask)
 extern KernelEventClass Unknown_BE5EB0;		// (gadget.cpp's: the last event)
 
-template<class C> inline C *Unknown_Find_Valid(DeltaCompoundClass *root, const NameClass &name) { C *t = Unknown_Find_Field<C>(root, name); return((t != NULL && t->Unknown70 != 0) ? t : NULL); }
+template<class C> inline C *Unknown_Find_Valid(DeltaContainer *root, const AuxDataName &name) { C *t = Unknown_Find_Field<C>(root, name); return((t != NULL && t->Unknown70 != 0) ? t : NULL); }
 bool Unknown_496240(RenderObjClass *robj, float opacity);	// 0x496240 (ro_funcs.cpp's)
 void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);	// 0x496AE0 (ro_funcs.cpp, cdecl)
 
-enum { UISTARMAP_PTR_SIZE = sizeof(RefCountPtr<UIStarmapClass>) };	// (instantiates its friends: Create_Peek(this) is 0x7C9620, converted to the slot's RefCountPtr<InterfaceClass>)
+enum { UISTARMAP_PTR_SIZE = sizeof(RefCountPtr<StarmapInterface>) };	// (instantiates its friends: Create_Peek(this) is 0x7C9620, converted to the slot's RefCountPtr<InterfaceClass>)
 
 // The window's buttons, ids 1.. (0xB9F8B8)
 static const char *Unknown_B9F8B8[] = { "EXIT", "SECTOR_BTTN", "RESIZE_BTTN", "QUESTION_BTTN", "CENTER_BTTN", "XYZ_BTTN", "LABEL_BTTN" };	// NAME 1: neutral (D10)
@@ -48,7 +48,7 @@ static const char *Unknown_B9F8B8[] = { "EXIT", "SECTOR_BTTN", "RESIZE_BTTN", "Q
 
 
 
-// MapPipClass as this file calls it: slot +0x04 takes a RefCountPtr, slots +0x1C-+0x24 a bool
+// MapPIPClass as this file calls it: slot +0x04 takes a RefCountPtr, slots +0x1C-+0x24 a bool
 class UIStarmapPipViewClass  // NAME 1: neutral (D10)
 {
 public:
@@ -62,10 +62,10 @@ public:
 	virtual void Unknown_1C(bool arg);					// +0x1C  // NAME 1 [arg]: neutral
 	virtual void Unknown_20(bool arg);					// +0x20  // NAME 1 [arg]: neutral
 	virtual void Unknown_24(bool arg);					// +0x24  // NAME 1 [arg]: neutral
-	// (0x693040 is MapPipClass::Unknown_693040, map_pip.cpp's)
+	// (0x693040 is MapPIPClass::Unknown_693040, map_pip.cpp's)
 };
 
-// galaxy_map_client.cpp's map (SClient +0x12A0), as far as this file reads it
+// galaxy_map_client.cpp's map (SpaceClientClass +0x12A0), as far as this file reads it
 class UIStarmapGalaxyMapClass  // NAME 1: neutral (D10)
 {
 public:
@@ -79,7 +79,7 @@ public:
 
 // (0x58B160 is ui_dynamicwindow.h's UIDynamicWindowClass::Add_Text, cdecl)
 
-inline void UIStarmapClass::Unknown_Show_How_To(const RefCountPtr<UIDynamicWindowClass> &window, const Vector3 &position)
+inline void StarmapInterface::Unknown_Show_How_To(const RefCountPtr<UIDynamicWindowClass> &window, const Vector3 &position)
 {
 	window->Unknown_58A580(Vector2(0.0f, 0.0f));
 	Vector2 size = window->MainWindow->Get_Size();
@@ -88,7 +88,7 @@ inline void UIStarmapClass::Unknown_Show_How_To(const RefCountPtr<UIDynamicWindo
 }
 
 // @0x7C63D0
-UIStarmapClass::UIStarmapClass(SClient *client) :
+StarmapInterface::StarmapInterface(SpaceClientClass *client) :
 	InterfaceClass((LineDisplayClientClass *)client),
 	Frame(0),
 	MaxFrame(0),
@@ -102,13 +102,13 @@ UIStarmapClass::UIStarmapClass(SClient *client) :
 	Unknown100(0)
 {
 	memset(Buttons, 0, sizeof(Buttons));
-	StarmapPip = new StarmapPipClass(client);
-	GalaxyMapPip = new GalaxyMapPipClass(client);
+	StarmapPip = new StarmapPIPClass(client);
+	GalaxyMapPip = new GalaxyMapPIPClass(client);
 	CurrentPip = StarmapPip;
 	Unknown_BE67BC->Load("fa_tsi26a.ini");
-	MinFrame = OptionClass::Instance->Get_Float("Starmap_MinFrame");
-	MaxFrame = OptionClass::Instance->Get_Float("Starmap_MaxFrame");
-	Maximized = OptionClass::Instance->Get_Bool("Starmap_Maximized");
+	MinFrame = OptionManagerClass::Instance->Get_Float("Starmap_MinFrame");
+	MaxFrame = OptionManagerClass::Instance->Get_Float("Starmap_MaxFrame");
+	Maximized = OptionManagerClass::Instance->Get_Bool("Starmap_Maximized");
 	if (MinFrame < 0.0f || MinFrame > 59.0f) {
 		MinFrame = 29.0f;
 	}
@@ -124,7 +124,7 @@ UIStarmapClass::UIStarmapClass(SClient *client) :
 }
 
 // @0x7C6700
-UIStarmapClass::~UIStarmapClass()
+StarmapInterface::~StarmapInterface()
 {
 	DestinationFont = NULL;
 	SectorFont = NULL;
@@ -137,9 +137,9 @@ UIStarmapClass::~UIStarmapClass()
 	Unknown_BE67BC->Unload("fa_tsi26a.ini");
 	delete StarmapPip;
 	StarmapPip = NULL;
-	FloatOptionStruct *min = OptionClass::Instance->Find_Float("Starmap_MinFrame");
-	FloatOptionStruct *max = OptionClass::Instance->Find_Float("Starmap_MaxFrame");
-	BoolOptionStruct *maximized = OptionClass::Instance->Find_Bool("Starmap_Maximized");
+	FloatOptionStruct *min = OptionManagerClass::Instance->Find_Float("Starmap_MinFrame");
+	FloatOptionStruct *max = OptionManagerClass::Instance->Find_Float("Starmap_MaxFrame");
+	BoolOptionStruct *maximized = OptionManagerClass::Instance->Find_Bool("Starmap_Maximized");
 	if (min) {
 		min->Set_Value(MinFrame);
 	}
@@ -149,13 +149,13 @@ UIStarmapClass::~UIStarmapClass()
 	if (maximized) {
 		maximized->Set_Value(Maximized);
 	}
-	OptionClass::Instance->Save();
+	OptionManagerClass::Instance->Save();
 	delete GalaxyMapPip;
 	GalaxyMapPip = NULL;
 }
 
 // @0x7C6BF0
-void UIStarmapClass::Unknown_54()
+void StarmapInterface::Unknown_54()
 {
 	Unknown_10();
 	InterfaceMesh = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("tsi26a"));
@@ -275,7 +275,7 @@ void UIStarmapClass::Unknown_54()
 }
 
 // @0x7C7B40
-void UIStarmapClass::Unknown_70(ControlKeysManager *manager)
+void StarmapInterface::Unknown_70(ControlKeysManager *manager)
 {
 
 
@@ -306,7 +306,7 @@ void UIStarmapClass::Unknown_70(ControlKeysManager *manager)
 }
 
 // @0x7C7EA0
-void UIStarmapClass::Unknown_74(ControlKeysManager *manager)
+void StarmapInterface::Unknown_74(ControlKeysManager *manager)
 {
 	FAIL_IF(!manager) return;
 	manager->Remove_Keys((ControlKeyListClass *)&Unknown4C, std::string("Zoom Map In"), 0);
@@ -316,7 +316,7 @@ void UIStarmapClass::Unknown_74(ControlKeysManager *manager)
 }
 
 // @0x7C81F0
-void UIStarmapClass::Unknown_58()
+void StarmapInterface::Unknown_58()
 {
 	InterfaceSortScopeClass scope(this);
 	((UIStarmapPipViewClass *)StarmapPip)->Unknown_04(Create_Peek(this), Viewport, 10);
@@ -324,7 +324,7 @@ void UIStarmapClass::Unknown_58()
 	{
 		InterfaceSortScopeClass scope2(this);
 		float opacity = 1.0f;
-		if (CurrentPip != (MapPipClass *)GalaxyMapPip) {
+		if (CurrentPip != (MapPIPClass *)GalaxyMapPip) {
 			opacity = 0.8f;
 		}
 		Unknown_496240(Viewport.Peek(), opacity);
@@ -337,49 +337,49 @@ void UIStarmapClass::Unknown_58()
 }
 
 // @0x7C8440
-void UIStarmapClass::Unknown_5C()
+void StarmapInterface::Unknown_5C()
 {
 	InterfaceClass::Unknown_5C();
 	HowToStarmap->Unknown_5C();
 	HowToGalaxyMap->Unknown_5C();
 	Unknown_7C94C0(false);
 	StarmapPip->Unknown_08();
-	((MapPipClass *)GalaxyMapPip)->Unknown_08();
+	((MapPIPClass *)GalaxyMapPip)->Unknown_08();
 }
 
 // @0x7C8490
-bool UIStarmapClass::Unknown_68(int key)
+bool StarmapInterface::Unknown_68(int key)
 {
 	bool modified = (Unknown_BE5F34 & 0x70) != 0;
 	switch (key) {
 	case 2:
-		SoundLibraryClass::Play_2D_Sound("TextClick03.wav", 2);
+		SoundLibrary::Play_2D_Sound("TextClick03.wav", 2);
 		{
 			Unknown_7C8C20(Unknown_7C8BA0(0) ? 1 : 0);
 		}
 		return(true);
 	case 1:
-		SoundLibraryClass::Play_2D_Sound("TextClick03.wav", 2);
+		SoundLibrary::Play_2D_Sound("TextClick03.wav", 2);
 		{
-			SClient *sclient = (SClient *)((ClientClass *)Client)->As_Space_Client();
-			sclient->PDAInterface->Unknown_695A00(4, 1);
+			SpaceClientClass *sclient = (SpaceClientClass *)((ClientClass *)Client)->As_Space_Client();
+			sclient->PDAWindow->Unknown_695A00(4, 1);
 		}
 		return(true);
 	case 3:
-		SoundLibraryClass::Play_2D_Sound("TextClick03.wav", 2);
+		SoundLibrary::Play_2D_Sound("TextClick03.wav", 2);
 		HowToStarmap->Unknown_5C();
 		HowToGalaxyMap->Unknown_5C();
 		if (Maximized) {
-			((SClient *)((ClientClass *)Client)->As_Space_Client())->Unknown_744560(0x16);
+			((SpaceClientClass *)((ClientClass *)Client)->As_Space_Client())->Unknown_744560(0x16);
 		} else {
-			((SClient *)((ClientClass *)Client)->As_Space_Client())->Unknown_744560(0x15);
+			((SpaceClientClass *)((ClientClass *)Client)->As_Space_Client())->Unknown_744560(0x15);
 		}
 		Maximized = !Maximized;
 		ResizeUp->Set_Hidden(Maximized);
 		ResizeDown->Set_Hidden(!Maximized);
 		return(true);
 	case 4:
-		SoundLibraryClass::Play_2D_Sound("TextClick03.wav", 2);
+		SoundLibrary::Play_2D_Sound("TextClick03.wav", 2);
 		if (HowToStarmap->Active) {
 			HowToStarmap->Unknown_5C();
 			return(true);
@@ -399,15 +399,15 @@ bool UIStarmapClass::Unknown_68(int key)
 		}
 		return(true);
 	case 5:
-		SoundLibraryClass::Play_2D_Sound("TextClick03.wav", 2);
+		SoundLibrary::Play_2D_Sound("TextClick03.wav", 2);
 		((UIStarmapPipViewClass *)CurrentPip)->Unknown_20(modified);
 		return(true);
 	case 6:
-		SoundLibraryClass::Play_2D_Sound("TextClick03.wav", 2);
+		SoundLibrary::Play_2D_Sound("TextClick03.wav", 2);
 		((UIStarmapPipViewClass *)CurrentPip)->Unknown_1C(modified);
 		return(true);
 	case 7:
-		SoundLibraryClass::Play_2D_Sound("TextClick03.wav", 2);
+		SoundLibrary::Play_2D_Sound("TextClick03.wav", 2);
 		((UIStarmapPipViewClass *)CurrentPip)->Unknown_24(modified);
 		return(true);
 	case 9:
@@ -434,7 +434,7 @@ bool UIStarmapClass::Unknown_68(int key)
 }
 
 // @0x7C8980
-void UIStarmapClass::Unknown_60()
+void StarmapInterface::Unknown_60()
 {
 	Unknown_7C8E50(false);
 	if (CurrentPip == GalaxyMapPip) {
@@ -490,7 +490,7 @@ done:
 }
 
 // @0x7C8BA0
-bool UIStarmapClass::Unknown_7C8BA0(int mode)
+bool StarmapInterface::Unknown_7C8BA0(int mode)
 {
 	switch (mode) {
 	case 0:
@@ -583,7 +583,7 @@ bool UIStarmapClass::Unknown_7C8BA0(int mode)
 }
 
 // @0x7C8C20
-void UIStarmapClass::Unknown_7C8C20(int mode)
+void StarmapInterface::Unknown_7C8C20(int mode)
 {
 	if (Unknown_7C8BA0(mode)) {
 		return;
@@ -613,13 +613,13 @@ void UIStarmapClass::Unknown_7C8C20(int mode)
 }
 
 // @0x7C8D90
-bool UIStarmapClass::Unknown_7C8D90()
+bool StarmapInterface::Unknown_7C8D90()
 {
 	return(CurrentPip->Unknown_693020());
 }
 
 // @0x7C8DB0
-StarmapPipClass *UIStarmapClass::Unknown_7C8DB0(bool on)
+StarmapPIPClass *StarmapInterface::Unknown_7C8DB0(bool on)
 {
 	if (on && (!Active || !StarmapPip->Unknown_693040())) {
 		return(NULL);
@@ -628,7 +628,7 @@ StarmapPipClass *UIStarmapClass::Unknown_7C8DB0(bool on)
 }
 
 // @0x7C8E00
-void UIStarmapClass::Unknown_7C8E00(float frame)
+void StarmapInterface::Unknown_7C8E00(float frame)
 {
 	Frame = frame;
 	InterfaceMesh->Set_Animation(MeshAnim.Peek(), frame, 0);
@@ -636,7 +636,7 @@ void UIStarmapClass::Unknown_7C8E00(float frame)
 }
 
 // @0x7C8E50
-bool UIStarmapClass::Unknown_7C8E50(bool force)
+bool StarmapInterface::Unknown_7C8E50(bool force)
 {
 
 
@@ -695,7 +695,7 @@ bool UIStarmapClass::Unknown_7C8E50(bool force)
 	if (StarmapPip->Unknown_693040()) {
 
 		FAIL_IF(!Client) return(false);
-		SClient *sclient = (SClient *)((ClientClass *)Client)->As_Space_Client();
+		SpaceClientClass *sclient = (SpaceClientClass *)((ClientClass *)Client)->As_Space_Client();
 
 		FAIL_IF(!sclient) return(false);
 		UIStarmapGalaxyMapClass *galaxy_map = (UIStarmapGalaxyMapClass *)sclient->GalaxyMap;
@@ -738,7 +738,7 @@ bool UIStarmapClass::Unknown_7C8E50(bool force)
 }
 
 // @0x7C91A0
-bool UIStarmapClass::Unknown_7C91A0()
+bool StarmapInterface::Unknown_7C91A0()
 {
 	if (StarmapPip->Unknown_693040()) {
 		unsigned long id = 0;
@@ -749,8 +749,8 @@ bool UIStarmapClass::Unknown_7C91A0()
 		if (id != Destination) {
 			ClientObjectClass *object = ((ClientClass *)Client)->Find_Object(id);
 			if (object) {
-				NameClass field_name("Name");
-				DeltaStringClass *name = Unknown_Find_Valid<DeltaStringClass>((DeltaCompoundClass *)object->AuxData, field_name);
+				AuxDataName field_name("Name");
+				DeltaString *name = Unknown_Find_Valid<DeltaString>((DeltaContainer *)object->AuxData, field_name);
 				std::string text("Dest: ");
 				text += name ? name->Get() : "?";
 				DestinationFont->Change_Text(text.c_str(), 0);
@@ -769,12 +769,12 @@ bool UIStarmapClass::Unknown_7C91A0()
 }
 
 // @0x7C94C0
-void UIStarmapClass::Unknown_7C94C0(bool on)
+void StarmapInterface::Unknown_7C94C0(bool on)
 {
 	InterfaceSortScopeClass scope(this);
 	if (on) {
 		float opacity = 1.0f;
-		if (CurrentPip != (MapPipClass *)GalaxyMapPip) {
+		if (CurrentPip != (MapPIPClass *)GalaxyMapPip) {
 			opacity = 0.8f;
 		}
 		Unknown_496240(Viewport.Peek(), opacity);
@@ -789,7 +789,7 @@ void UIStarmapClass::Unknown_7C94C0(bool on)
 **	Placement: the FAIL_IFs at lines 211-239, 301, 311, 581 and 694-703 name the file; 0x7C91A0 and 0x7C94C0 have no
 **	assert but 0x7C8980 and 0x7C8C20 call them (the only callers), and their data are this window's (+0xAC, +0xCC, +0xA8).
 **	The object runs 0x7C63D0-0x7C96E0: after the two come the COMDATs Create_Get 0x7C9590, Clear 0x7C95C0,
-**	operator-> 0x7C9600, Create_Peek 0x7C9620 and the vtable's this-adjusters 0x7C96D0 / 0x7C96E0. The PermStringInitClass
+**	operator-> 0x7C9600, Create_Peek 0x7C9620 and the vtable's this-adjusters 0x7C96D0 / 0x7C96E0. The PermStringInit
 **	at 0xBE87E4 (0x7C6380, atexit 0x7C63B0) comes first in it, after targeting.cpp's <string> initialiser 0x7C6350.
 **
 **	Forms worth keeping: VC6 hoists the common `fld Frame` and the pushed float out of the if / else arms in 0x7C8980;

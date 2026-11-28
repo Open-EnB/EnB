@@ -25,17 +25,17 @@ class LineDisplayClientClass  // NAME 1: neutral (D10)
 public:
 	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
 	virtual void Unknown_10(); virtual void Unknown_14();
-	virtual SClient *As_Space_Client();					// +0x18 (SClient's returns itself)  // NAME 3: ui_manu.cpp's FAIL_IF's
+	virtual SpaceClientClass *As_Space_Client();					// +0x18 (SpaceClientClass's returns itself)  // NAME 3: ui_manu.cpp's FAIL_IF's
 };
 
 // The text gadgets' flags 0x40 and 4 (textgadg.h's run 0xB08C90-0xB08CC4)
 extern const int Unknown_B08C98;			// 0xB08C98 (4)  // NAME 1: neutral (D10)
 extern const int Unknown_B08CA8;			// 0xB08CA8 (0x40)  // NAME 1: neutral (D10)
 
-// OptionClass's +0x78 (the character's id, private there): read here so option.h stays as sclient.cpp's pad window needs it
+// OptionManagerClass's +0x78 (the character's id, private there): read here so option.h stays as sclient.cpp's pad window needs it
 static inline int Unknown_Character_ID()	// NAME 1: neutral (D10)
 {
-	return(*(int *)((char *)OptionClass::Instance + 0x78));
+	return(*(int *)((char *)OptionManagerClass::Instance + 0x78));
 }
 
 // 0x8192C0: a printf into a std::string (ui_guild.cpp's)
@@ -46,7 +46,7 @@ std::string Unknown_8192C0(const char *format, ...);	// NAME 1: neutral (D10)
 class UILogClass : public ChatPanelUIBase	// NAME 1: neutral, after its tooltip section 'UI_LOG'
 {
 public:
-	UILogClass(SClient *client);						// 0x5AAE40  // NAME 1 [client]: ChatPanelUIBase's
+	UILogClass(SpaceClientClass *client);						// 0x5AAE40  // NAME 1 [client]: ChatPanelUIBase's
 	virtual ~UILogClass();								// 0x5AAF60 (deleting 0x5AAF30)
 	virtual void Unknown_54();							// +0x54 0x5AB030 ('log00a', 'fa_log00a.ini': the buttons, the slider, the editor, the page entry)
 	virtual void Unknown_58();							// +0x58 0x5AB3F0 (activated: the page from the options, loaded)
@@ -62,8 +62,8 @@ public:
 
 	GadgetClass *Buttons[6];							// +0xA0 by id ('exit2', 'previous', 'next', 'date_stamp', 'Entry_Field00', ids 1-5; [0] unused)  // NAME 1: neutral
 	GadgetSlider *Slider;								// +0xB8 (id 9)  // NAME 1: neutral
-	TextEditorGadgetClass *Editor;						// +0xBC ('message', id 7)  // NAME 1: neutral
-	TextGadgetClass *PageEntry;							// +0xC0 ('PAGE_EDIT_log00a' on 'Entry_Field00', id 8)  // NAME 1: neutral
+	TextEditorGadget *Editor;						// +0xBC ('message', id 7)  // NAME 1: neutral
+	UnknownTextGadgetClass *PageEntry;							// +0xC0 ('PAGE_EDIT_log00a' on 'Entry_Field00', id 8)  // NAME 1: neutral
 	int Page;											// +0xC4 (1-999; the option 'Current_Log_Page')  // NAME 2: what it holds
 	bool Unknown0C8;									// +0xC8 (a date inserted: the editor redrawn next frame)
 	bool Unknown0C9;									// +0xC9 (the page entry open)
@@ -74,7 +74,7 @@ static const char *Unknown_B80F58[] = { "exit2", "previous", "next", "date_stamp
 static const char *Unknown_B80F74[] = { NULL, "PREV_log00a", "NEXT_log00a", "DATESTAMP_log00a", NULL };	// NAME 1: neutral (D10)
 
 // 0x5AAE40
-UILogClass::UILogClass(SClient *client) :
+UILogClass::UILogClass(SpaceClientClass *client) :
 	ChatPanelUIBase(client),
 	Slider(NULL),
 	Editor(NULL),
@@ -85,7 +85,7 @@ UILogClass::UILogClass(SClient *client) :
 	for (int i = 0; i < 6; i++) {
 		Buttons[i] = NULL;
 	}
-	Page = OptionClass::Instance->Get_Int("Current_Log_Page");
+	Page = OptionManagerClass::Instance->Get_Int("Current_Log_Page");
 	Page = (Page >= 999) ? 999 : ((Page < 1) ? 1 : Page);
 }
 
@@ -116,11 +116,11 @@ void UILogClass::Unknown_54()
 		Slider->Unknown_66E460(InterfaceMesh, 0, 0);
 		Slider->Unknown_66FA90(0, 0, true);
 		RefCountPtr<RenderObjClass> message = Create_NEW(InterfaceMesh->Get_Sub_Object_By_Name("message"));
-		Editor = new TextEditorGadgetClass(this, message, "UI_LOG_FONT", Slider, 0x400, "");
+		Editor = new TextEditorGadget(this, message, "UI_LOG_FONT", Slider, 0x400, "");
 		GadgetClass::Set_Tooltip(Editor, "UI_LOG", "DETAILS");
 		Editor->Client = Client->As_Space_Client();
 		RefCountPtr<RenderObjClass> entry = Create_Get(InterfaceMesh->Get_Sub_Object_By_Name("Entry_Field00"));
-		PageEntry = new TextGadgetClass(this, 3, "PAGE_EDIT_log00a", entry.Peek(), Unknown_B08CA8 | Unknown_B08C98, 0);
+		PageEntry = new UnknownTextGadgetClass(this, 3, "PAGE_EDIT_log00a", entry.Peek(), Unknown_B08CA8 | Unknown_B08C98, 0);
 		PageEntry->Set_Text("", 0);
 		PageEntry->Set_Unknown58(0.95f);
 
@@ -135,7 +135,7 @@ void UILogClass::Unknown_54()
 // 0x5AB3F0
 void UILogClass::Unknown_58()
 {
-	Page = OptionClass::Instance->Get_Int("Current_Log_Page");
+	Page = OptionManagerClass::Instance->Get_Int("Current_Log_Page");
 	Page = (Page >= 999) ? 999 : ((Page < 1) ? 1 : Page);
 	PageEntry->Set_Text(Unknown_8192C0("%d", Page).c_str(), 0);
 	Load_Page();
@@ -148,7 +148,7 @@ void UILogClass::Unknown_60()
 	Editor->Unknown_672AD0();
 	PageEntry->Unknown_6AAD10();
 	if (Unknown0C8 && Editor->Unknown_6732A0()) {
-		((RObjGadgetClass *)Buttons[4])->Unknown_66C360();
+		((RenderObjGadgetClass *)Buttons[4])->Unknown_66C360();
 		Editor->Update_Lines(true);
 		Editor->Unknown_672A60();
 		Unknown0C8 = false;
@@ -179,27 +179,27 @@ bool UILogClass::Unknown_68(int key)
 	switch (key) {
 		case 1:
 		{
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			Save_Page();
 			Unknown_5C();
 			Closed = 1;
-			IntOptionStruct *option = OptionClass::Instance->Find_Int("Current_Log_Page");
+			IntOptionStruct *option = OptionManagerClass::Instance->Find_Int("Current_Log_Page");
 			if (option) {
 				option->Value = Page;
-				OptionClass::Instance->Save();
+				OptionManagerClass::Instance->Save();
 			}
 			return(true);
 		}
 		case 2:
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			Previous_Page();
 			return(true);
 		case 3:
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			Next_Page();
 			return(true);
 		case 4:
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			Insert_Date();
 			return(true);
 		case 5:

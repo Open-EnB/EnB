@@ -45,7 +45,7 @@ RecustomizationCostClass::RecustomizationCostClass(const RecustomizationCostData
 
 
 // 0x849360
-int RecustomizationCostClass::Unknown_849360(int slot, AvatarDescClass *oldavatar, AvatarDescClass *newavatar)
+int RecustomizationCostClass::Unknown_849360(int slot, AvatarDescriptionClass *oldavatar, AvatarDescriptionClass *newavatar)
 {
 	FAIL_IF(!oldavatar) return(0);
 	FAIL_IF(!newavatar) return(0);
@@ -54,7 +54,7 @@ int RecustomizationCostClass::Unknown_849360(int slot, AvatarDescClass *oldavata
 }
 
 // 0x8493F0
-int RecustomizationCostClass::Unknown_8493F0(AvatarDescClass *oldavatar, AvatarDescClass *newavatar)
+int RecustomizationCostClass::Unknown_8493F0(AvatarDescriptionClass *oldavatar, AvatarDescriptionClass *newavatar)
 {
 
 	FAIL_IF(!oldavatar) return(0);
@@ -84,7 +84,7 @@ static inline bool Metal_Changed(const Vector3 &newcolor, int newmetal, const Ve
 }
 
 // 0x8494C0
-bool RecustomizationCostClass::Unknown_8494C0(int slot, AvatarDescClass *oldavatar, AvatarDescClass *newavatar)
+bool RecustomizationCostClass::Unknown_8494C0(int slot, AvatarDescriptionClass *oldavatar, AvatarDescriptionClass *newavatar)
 {
 	switch (slot) {
 		case 0:
@@ -128,7 +128,7 @@ bool RecustomizationCostClass::Unknown_8494C0(int slot, AvatarDescClass *oldavat
 }
 
 // 0x849920
-bool RecustomizationCostClass::Write(LinearBufferClass *buffer)
+bool RecustomizationCostClass::Write(LinearBuffer *buffer)
 {
 	for (int slot = 0; slot < 14; slot++) {
 		buffer->Write(&Costs.Per_Cost[slot], sizeof(int));
@@ -137,7 +137,7 @@ bool RecustomizationCostClass::Write(LinearBufferClass *buffer)
 }
 
 // 0x849960
-bool RecustomizationCostClass::Read(LinearBufferClass *buffer)
+bool RecustomizationCostClass::Read(LinearBuffer *buffer)
 {
 	for (int slot = 0; slot < 14; slot++) {
 		buffer->Read(&Costs.Per_Cost[slot], sizeof(int));
@@ -309,7 +309,7 @@ bool ShipRecustomizationCostClass::Unknown_84A150(ShipCustSettingsClass oldsetti
 }
 
 // 0x84A1D0
-bool ShipRecustomizationCostClass::Write(LinearBufferClass *buffer)
+bool ShipRecustomizationCostClass::Write(LinearBuffer *buffer)
 {
 	for (int slot = 0; slot < 12; slot++) {
 		buffer->Write(&Costs.Per_Cost[slot], sizeof(int));
@@ -318,7 +318,7 @@ bool ShipRecustomizationCostClass::Write(LinearBufferClass *buffer)
 }
 
 // 0x84A210
-bool ShipRecustomizationCostClass::Read(LinearBufferClass *buffer)
+bool ShipRecustomizationCostClass::Read(LinearBuffer *buffer)
 {
 	for (int slot = 0; slot < 12; slot++) {
 		buffer->Read(&Costs.Per_Cost[slot], sizeof(int));

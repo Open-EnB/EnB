@@ -9,7 +9,7 @@
 #include "..\shared\g_assert.h"
 
 // @0x7B77C0
-MouseTargetClass::MouseTargetClass(ClientObjectClass *self) :
+MouseTargeting::MouseTargeting(ClientObjectClass *self) :
 	Self(self),
 	Target(NULL),
 	Mouse(0.0f, 0.0f),
@@ -21,7 +21,7 @@ MouseTargetClass::MouseTargetClass(ClientObjectClass *self) :
 }
 
 // @0x7B7810
-void MouseTargetClass::Set(float x, float y, float width, float height, const LayerClass &layer)
+void MouseTargeting::Set(float x, float y, float width, float height, const LayerClass &layer)
 {
 	Mouse.Set(x, y);
 	HalfSize.Set(width * 0.5f, height * 0.5f);
@@ -61,7 +61,7 @@ void MouseTargetClass::Set(float x, float y, float width, float height, const La
 
 
 // @0x7B7880
-void MouseTargetClass::Test(RadarIconDataClass *rdata, const Vector3 &pos, float size, float scale)
+void MouseTargeting::Test(RadarIconDataClass *rdata, const Vector3 &pos, float size, float scale)
 {
 	FAIL_IF(!rdata) return;
 

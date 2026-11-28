@@ -27,7 +27,7 @@ class DynamicElementGadgetClass;
 class ToggleButtonDynamicWindow;
 class ToggleButtonStateEvent;
 
-class ItemOptionObject : public DynamicWindowHorizontalClass  // NAME 5 [ItemOptionObject]: the client's RTTI (the receiver of the callback 0xAEE684: MemberCallback<ToggleButtonDynamicWindow, ItemOptionObject, ...>)
+class ItemOptionObject : public HorizontalDynamicWindow  // NAME 5 [ItemOptionObject]: the client's RTTI (the receiver of the callback 0xAEE684: MemberCallback<ToggleButtonDynamicWindow, ItemOptionObject, ...>)
 {
 public:
 	ItemOptionObject(const RefCountPtr<ClientItemPropertyOptionClass> &option, GadgetCollectionInterface *listener);	// 0x535CB0  // NAME 1 [option, listener]
@@ -42,7 +42,7 @@ protected:
 	RefCountPtr<ToggleButtonDynamicWindow> Toggle;											// +0x70 (if_check_off.tga / if_check_on.tga)  // NAME 1 [Toggle]: what it holds
 };
 
-class UIItemExaminationOptionsClass : public DynamicWindowVerticalClass  // NAME 2 [UIItemExaminationOptionsClass]: class from file (D24), ui_item_examination_options.cpp
+class UIItemExaminationOptionsClass : public VerticalDynamicWindow  // NAME 2 [UIItemExaminationOptionsClass]: class from file (D24), ui_item_examination_options.cpp
 {
 public:
 	UIItemExaminationOptionsClass(GadgetCollectionInterface *listener);			// 0x5352D0  // NAME 1 [listener]
@@ -56,7 +56,7 @@ protected:
 	GadgetCollectionInterface *Listener;											// +0x64  // NAME 1 [Listener]: passed to each row
 	std::vector< RefCountPtr<ClientItemPropertyOptionClass> > Options;						// +0x68  // NAME 1 [Options]
 	RefCountPtr<DynamicWindowBackgroundClass> Frame;										// +0x78 ('ITEM_EXAMINATION_OPTIONS')  // NAME 1 [Frame]
-	RefCountPtr<DynamicWindowVerticalClass> List;											// +0x7C (the rows)  // NAME 1 [List]
+	RefCountPtr<VerticalDynamicWindow> List;											// +0x7C (the rows)  // NAME 1 [List]
 };
 
 #endif

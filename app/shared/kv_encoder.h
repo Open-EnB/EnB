@@ -11,7 +11,7 @@
 #include "accel.h"
 
 // The argument of DeltaClass's slot 0, an encoder (the leaves call KVEncoderBaseClass's members on
-// it). DeltaCompoundClass::Unknown_00 (0x4A55D0) calls its slot 1 once per child: a slot the
+// it). DeltaContainer::Unknown_00 (0x4A55D0) calls its slot 1 once per child: a slot the
 // encoder base's vtable (0xAEB62C, the destructor only) doesn't have, so the encoders the fields
 // are given derive from it.
 // The login objects hand it their own children and colours too (D104: slots +0x04-+0x10).

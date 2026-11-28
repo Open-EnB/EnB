@@ -14,7 +14,7 @@
 #ifndef __EXPR_MATH_PARSER_FACTORY_H	// NAME 3 [expr_math_parser_factory.h]: header name assumed from the client's expr_math_parser_factory.cpp
 #define __EXPR_MATH_PARSER_FACTORY_H
 
-class ExprMathParserClass;
+class ExprMathParser;
 class ExprMathParserImplClass;
 
 class ExprMathParserFactoryClass	// NAME 3 [ExprMathParserFactoryClass]: class-from-file (D24)
@@ -22,7 +22,7 @@ class ExprMathParserFactoryClass	// NAME 3 [ExprMathParserFactoryClass]: class-f
 public:
 	// The flags: 1 + - * / % div (and the prefix + -), 2 comparisons, 4 | ^ & << >> (and ~),
 	// 8 || && (and !), 0x10 min max (and the prefix abs sqrt).
-	static ExprMathParserClass *Create(unsigned int flags);								// 0x4D0790  // NAME 3 [Create]
+	static ExprMathParser *Create(unsigned int flags);								// 0x4D0790  // NAME 3 [Create]
 
 protected:
 	static void Add_Operators(unsigned int flags, ExprMathParserImplClass *parser);		// 0x4D0560  // NAME 3 [Add_Operators]: 'parser' from the assert

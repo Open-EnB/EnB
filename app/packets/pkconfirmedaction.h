@@ -24,12 +24,12 @@ enum ConfirmedActionEnum  // NAME 1: neutral placeholder (D10)
 };
 
 // opcode 190 (0x00BE, CONFIRMED_ACTION_OFFER): vtable 0xB0989C, constructor 0x870650, 0x24 bytes
-class ConfirmedActionOfferPacketClass : public PacketClass  // NAME 2: Net-7's opcode name CONFIRMED_ACTION_OFFER (the Net-7 opcode table; no structure check)
+class ConfirmedActionOfferPacket : public UnknownPacketBaseClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
-	ConfirmedActionOfferPacketClass(int id, const std::string &message, ConfirmedActionEnum type);	// 0x8703D0
-	ConfirmedActionOfferPacketClass(RawPacketClass *raw);	// 0x870650
-	virtual RawPacketClass *Build();	// +0x04 0x870800
+	ConfirmedActionOfferPacket(int id, const std::string &message, ConfirmedActionEnum type);	// 0x8703D0
+	ConfirmedActionOfferPacket(PacketClass *raw);	// 0x870650
+	virtual PacketClass *Encode();	// +0x04 0x870800  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x8692A0 (clientstub.cpp l.398)
 	virtual int Get_Data_Size();	// +0x0C 0x8708E0
 	virtual int Print(char *buffer, int len);	// +0x10 0x870900
@@ -40,12 +40,12 @@ public:
 };
 
 // opcode 191 (0x00BF, ?): vtable 0xB098CC, constructor 0x8709E0, 0x14 bytes
-class ConfirmedActionTimeoutPacketClass : public PacketClass  // NAME 3: the client's Print text 'Confirmed Action Timeout {'
+class ConfirmedActionTimeoutPacket : public UnknownPacketBaseClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
-	ConfirmedActionTimeoutPacketClass(ConfirmedActionEnum type, int id);	// 0x870940
-	ConfirmedActionTimeoutPacketClass(RawPacketClass *raw);	// 0x8709E0
-	virtual RawPacketClass *Build();	// +0x04 0x870AA0
+	ConfirmedActionTimeoutPacket(ConfirmedActionEnum type, int id);	// 0x870940
+	ConfirmedActionTimeoutPacket(PacketClass *raw);	// 0x8709E0
+	virtual PacketClass *Encode();	// +0x04 0x870AA0  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x73DCB0 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x870B70
 	virtual int Print(char *buffer, int len);	// +0x10 0x870B90
@@ -55,12 +55,12 @@ public:
 };
 
 // opcode 192 (0x00C0, CONFIRMED_ACTION_RESPONSE): vtable 0xB098FC, constructor 0x870C50, 0x18 bytes
-class ConfirmedActionResponsePacketClass : public PacketClass  // NAME 2: Net-7's opcode name CONFIRMED_ACTION_RESPONSE (the Net-7 opcode table; no structure check)
+class ConfirmedActionResponsePacket : public UnknownPacketBaseClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
-	ConfirmedActionResponsePacketClass(int avatar_id, int id, bool response);	// 0x870BD0
-	ConfirmedActionResponsePacketClass(RawPacketClass *raw);	// 0x870C50
-	virtual RawPacketClass *Build();	// +0x04 0x870D20
+	ConfirmedActionResponsePacket(int avatar_id, int id, bool response);	// 0x870BD0
+	ConfirmedActionResponsePacket(PacketClass *raw);	// 0x870C50
+	virtual PacketClass *Encode();	// +0x04 0x870D20  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x868E20 (clientstub.cpp l.326)
 	virtual int Get_Data_Size();	// +0x0C 0x870E00
 	virtual int Print(char *buffer, int len);	// +0x10 0x870E20

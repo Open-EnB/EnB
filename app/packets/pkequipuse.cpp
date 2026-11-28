@@ -2,33 +2,33 @@
 #include "pkequipuse.h"
 #include <stdio.h>
 
-EquipUsePacketClass::EquipUsePacketClass(int game_id, int inventory, int slot) :
+UseInventoryPacketClass::UseInventoryPacketClass(int game_id, int inventory, int slot) :
 	GameID(game_id), Inventory(inventory), Slot(slot)
 {
 }
 
-EquipUsePacketClass::EquipUsePacketClass(RawPacketClass *raw)
+UseInventoryPacketClass::UseInventoryPacketClass(PacketClass *raw)
 {
 	raw->Get(&GameID, sizeof(GameID));
 	raw->Get(&Inventory, sizeof(Inventory));
 	raw->Get(&Slot, sizeof(Slot));
 }
 
-RawPacketClass *EquipUsePacketClass::Build()
+PacketClass *UseInventoryPacketClass::Encode()
 {
-	RawPacketClass *raw = new RawPacketClass(93, Get_Data_Size());
+	PacketClass *raw = new PacketClass(93, Get_Data_Size());
 	raw->Add(&GameID, sizeof(GameID));
 	raw->Add(&Inventory, sizeof(Inventory));
 	raw->Add(&Slot, sizeof(Slot));
 	return(raw);
 }
 
-int EquipUsePacketClass::Get_Data_Size()
+int UseInventoryPacketClass::Get_Data_Size()
 {
 	return(sizeof(GameID) + sizeof(Inventory) + sizeof(Slot));
 }
 
-int EquipUsePacketClass::Print(char *buffer, int)
+int UseInventoryPacketClass::Print(char *buffer, int)
 {
 	return(sprintf(buffer, "%s {GameID=%d Inventory=%d Slot=%d}", "Use inventory item", GameID, Inventory, Slot));
 }

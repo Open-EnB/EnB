@@ -25,15 +25,15 @@
 #include "map_pip.h"
 #include "nav_list_line_draw.h"
 
-class SClient;
+class SpaceClientClass;
 class SceneClass;
 class FontSys;
 class ClientObjectClass;
 class NavigationListClass;
-class NavListBuilderClass;
-class MouseTargetClass;
+class NavigationListBuilder;
+class MouseTargeting;
 class RadarSystemDataCacheClass;
-class StarmapPipClass;
+class StarmapPIPClass;
 
 // gd_starmap.cpp's gadget, which slot +0x18 news (the blank lines keep the inline asserts below on their lines, D25)
 #include "gd_starmap.h"
@@ -61,11 +61,11 @@ public:
 	std::string Name;									// +0x0C (shown for an object named "Unknown")  // NAME 2: what it holds
 };
 
-class StarmapPipClass : public MapPipClass  // NAME 3: class-from-file (D24) for app\client\starmap_pip.cpp
+class StarmapPIPClass : public MapPIPClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
-	StarmapPipClass(SClient *client);					// 0x7BF930  // NAME 1 [client]: neutral
-	virtual ~StarmapPipClass();							// +0x00 0x7BFF20 (deleting 0x7BFEF0)
+	StarmapPIPClass(SpaceClientClass *client);					// 0x7BF930  // NAME 1 [client]: neutral
+	virtual ~StarmapPIPClass();							// +0x00 0x7BFF20 (deleting 0x7BFEF0)
 	virtual bool Unknown_04(const RefCountPtr<InterfaceClass> &iface_ptr, const RefCountPtr<RenderObjClass> &vp, int arg);	// +0x04 0x7C0BC0  // NAME 2 [iface_ptr, vp]: map_pip.h's  // NAME 1 [arg]: neutral
 	virtual bool Unknown_08();							// +0x08 0x7C0D40
 	virtual bool Unknown_0C(bool on);					// +0x0C 0x7C0AF0  // NAME 1 [on]: neutral
@@ -76,9 +76,9 @@ public:
 	virtual void Unknown_20(int arg);					// +0x20 0x7C0260  // NAME 1 [arg]: neutral
 	virtual void Unknown_24(int arg);					// +0x24 0x7C0330 (the next label mode, and says so)  // NAME 1 [arg]: neutral
 
-	void Unknown_7C0440(ClientObjectClass *hover, MouseTargetClass *mouse_target);	// 0x7C0440 (FAIL_IF 'MouseTarget'; radar_system.cpp)  // NAME 2 [hover, mouse_target]: its G_ASSERT
+	void Unknown_7C0440(ClientObjectClass *hover, MouseTargeting *mouse_target);	// 0x7C0440 (FAIL_IF 'MouseTarget'; radar_system.cpp)  // NAME 2 [hover, mouse_target]: its G_ASSERT
 	void Unknown_7C0620(RadarSystemDataCacheClass *entry);	// 0x7C0620 (FAIL_IF '!sdata', '!co'; radar_system.cpp)  // NAME 2 [entry]: as the gutter's Update
-	void Unknown_7C0910(ClientObjectClass *target, NavListBuilderClass *warp_path, NavListBuilderClass *target_path);	// 0x7C0910 (radar_system.cpp)  // NAME 2 [target, warp_path, target_path]: what it receives
+	void Unknown_7C0910(ClientObjectClass *target, NavigationListBuilder *warp_path, NavigationListBuilder *target_path);	// 0x7C0910 (radar_system.cpp)  // NAME 2 [target, warp_path, target_path]: what it receives
 	Vector2 Unknown_7C1200(const Vector2 &mouse);			// 0x7C1200 (the pointer's place in the viewport, 0..1, on the map; gd_starmap.cpp, 0x7C1C50)  // NAME 1 [mouse]: GadgetPipSceneClass's Position
 	void Unknown_7C1280(const Vector3 &position, float radius);	// 0x7C1280 (0x7C0620, 0x7C1350: the bounds grow; 0x7C1350 passes ClientObjectClass slot +0x24's Vector3)  // NAME 1 [position, radius]: what it does with them
 	void Unknown_7C1C50(ClientObjectClass *target, ClientObjectClass *hover);	// 0x7C1C50 (0x7C0910)  // NAME 1 [target, hover]: what 0x7C0910 passes
@@ -118,7 +118,7 @@ public:
 	NavListLineDrawClass *WarpPath;						// +0x90 (0.75, 2, red)  // NAME 3: 0x7C0EE0's FAIL_IF
 	int Unknown94;										// +0x94 (-1)
 	int Unknown98;										// +0x98 (-1)
-	MouseTargetClass *MouseTarget;						// +0x9C (0x7C0440 sets it, 0x7C0620 tests against it, 0x7C0910 clears it)  // NAME 3: 0x7C0440's FAIL_IF 'MouseTarget'
+	MouseTargeting *MouseTarget;						// +0x9C (0x7C0440 sets it, 0x7C0620 tests against it, 0x7C0910 clears it)  // NAME 3: 0x7C0440's FAIL_IF 'MouseTarget'
 	Unknown_7C3220Class *UnknownA0;						// +0xA0 (type 4, the scene's)
 	Unknown_7C3220Class *UnknownA4;						// +0xA4 (type 4, on)
 	RefCountPtr<FontSys> XPos;							// +0xA8 ('STARMAP_X_POS')  // NAME 2: the font's

@@ -4,7 +4,7 @@
 
 From docs/data/packet-factory.txt (tools/re/pkfactory.py) and the client image:
 
-* app/packets/pk_classes.h (GENERATED): one class per opcode, deriving from PacketClass (pk.h),
+* app/packets/pk_classes.h (GENERATED): one class per opcode, deriving from UnknownPacketBaseClass (pk.h),
   `new`ed with the case's size: a constructor from the raw message (declared: the classes'
   files aren't rebuilt) and a filler to that size. The four classes whose constructor the client
   inlines over a shared base's (opcodes 22, 32, 33, 34) get an inline constructor over that base.
@@ -250,10 +250,10 @@ def main():
             r['name'], r['tag'] = label[0].split('::')[0], None
         elif prt:
             base = re.match(r'^([A-Za-z_]\w*)', prt[0]).group(1)
-            r['name'] = base + ('PacketClass' if not base.endswith('Packet') else 'Class')
-            r['tag'] = "NAME 3: the client's Print text '%s {' and the PacketClass convention" % base
+            r['name'] = base + ('UnknownPacketBaseClass' if not base.endswith('Packet') else 'Class')
+            r['tag'] = "NAME 3: the client's Print text '%s {' and the UnknownPacketBaseClass convention" % base
         elif r['opname'] != '?':
-            r['name'] = camel(r['opname']) + 'PacketClass'
+            r['name'] = camel(r['opname']) + 'UnknownPacketBaseClass'
             r['tag'] = "NAME 2: Net-7's opcode name %s (the Net-7 opcode table; no structure check)" % r['opname']
         else:
             r['name'] = 'Packet_%04XClass' % r['op']
@@ -284,7 +284,7 @@ def main():
     def vt_stubs(vt):
         out = []
         offs = [8]
-        off = 0x28   # the classes' own virtuals after PacketClass's ten
+        off = 0x28   # the classes' own virtuals after UnknownPacketBaseClass's ten
         while 0x401000 <= slot(vt, off) < 0x8C1B50:
             offs.append(off)
             off += 4
@@ -317,7 +317,7 @@ def main():
                 r['base'] = extra[r['ctor']]
     for e in extra.values():
         # the derived classes' names share a suffix: 'PriorityMessageLine', 'QueueMessageLine' -> MessageLine
-        names = [d['name'][:-len('PacketClass')] for d in e['derived'] if d['name'].endswith('PacketClass')]
+        names = [d['name'][:-len('UnknownPacketBaseClass')] for d in e['derived'] if d['name'].endswith('UnknownPacketBaseClass')]
         suffix = ''
         if len(names) > 1:
             k = 1
@@ -327,7 +327,7 @@ def main():
             m = re.search(r'[A-Z]', suffix)
             suffix = suffix[m.start():] if m else ''
         if suffix:
-            e['name'] = suffix + 'PacketClass'
+            e['name'] = suffix + 'UnknownPacketBaseClass'
             e['tag'] = 'NAME 3: by convention from its derived classes %s' % ', '.join(d['name'] for d in e['derived'])
         else:
             e['name'] = 'Unknown_%XPacketClass' % e['ctor']
@@ -353,7 +353,7 @@ def main():
     h.append('**\tPROVISIONAL file name: the packet classes are declared in many client headers (app\\packets')
     h.append('**\tpk*.h, gameedit\\pkge*.h); here only what the factory 0x869790 needs: each class\'s size (the')
     h.append('**\tcase\'s new) and its constructor from the raw message (not rebuilt yet: declared). Members')
-    h.append('**\tare a filler to the client\'s size; the virtuals are PacketClass\'s until the classes are')
+    h.append('**\tare a filler to the client\'s size; the virtuals are UnknownPacketBaseClass\'s until the classes are')
     h.append('**\trebuilt.')
     h.append('*/')
     h.append('')
@@ -375,7 +375,7 @@ def main():
     def key(r):
         return r['op'] if 'op' in r else 'base 0x%X' % r['ctor']
 
-    def decl(r, base='PacketClass', base_size=0xC, inline_base=None):
+    def decl(r, base='UnknownPacketBaseClass', base_size=0xC, inline_base=None):
         members, _ = OVERRIDES.get(key(r), ([], []))
         out = []
         out.append('// opcode %d (0x%04X, %s): vtable 0x%X, constructor 0x%X, 0x%X bytes' % (
@@ -386,9 +386,9 @@ def main():
         out.append('{')
         out.append('public:')
         if inline_base:
-            out.append('\t%s(RawPacketClass *raw) : %s(raw) {}\t// inline (the case stores the vtable)' % (r['name'], base))
+            out.append('\t%s(PacketClass *raw) : %s(raw) {}\t// inline (the case stores the vtable)' % (r['name'], base))
         else:
-            out.append('\t%s(RawPacketClass *raw);\t// 0x%X' % (r['name'], r['ctor']))
+            out.append('\t%s(PacketClass *raw);\t// 0x%X' % (r['name'], r['ctor']))
         for off, f, line in r.get('stubs', []):
             if off == 8:
                 out.append('\tvirtual bool Process_Packet(void *client);\t// +0x08 0x%X (clientstub.cpp l.%d)' % (f, line))
@@ -433,7 +433,7 @@ def main():
     pk = open(a.pk, 'rb').read().decode('utf-8').replace('\r\n', '\n').split('\n')
     i = pk.index(BEGIN)
     j = pk.index(END)
-    sw = [BEGIN, '// @0x869790' if a.marker else '', 'PacketClass *Unknown_869790(RawPacketClass *raw)', '{',
+    sw = [BEGIN, '// @0x869790' if a.marker else '', 'UnknownPacketBaseClass *Unknown_869790(PacketClass *raw)', '{',
           '\tPacketClass *packet;', '\tswitch (raw->Header.Opcode) {']
     for r in sorted(rows, key=lambda r: r['state']):
         sw.append('\t\tcase %d:' % r['op'])
@@ -458,13 +458,13 @@ def main():
           '// GENERATED by tools/re/pkclasses.py: the packet classes\' constructors for the capture harness',
           '// (udpreplay --conn): each hands its raw message to Conn_Record (conn_replay.cpp).',
           '#include "..\\..\\..\\app\\packets\\pk_classes.h"', '',
-          'void Conn_Record(PacketClass *packet, RawPacketClass *raw);', '']
+          'void Conn_Record(UnknownPacketBaseClass *packet, PacketClass *raw);', '']
     for e in sorted(extra.values(), key=lambda e: e['ctor']):
         if not e['rebuilt']:
-            st.append('%s::%s(RawPacketClass *raw) { Conn_Record(this, raw); }' % (e['name'], e['name']))
+            st.append('%s::%s(PacketClass *raw) { Conn_Record(this, raw); }' % (e['name'], e['name']))
     for r in sorted(rows, key=lambda r: r['state']):
         if not r['inline'] and not r.get('rebuilt'):
-            st.append('%s::%s(RawPacketClass *raw) { Conn_Record(this, raw); }' % (r['name'], r['name']))
+            st.append('%s::%s(PacketClass *raw) { Conn_Record(this, raw); }' % (r['name'], r['name']))
     st.append('')
     st.append('// The rebuilt classes\' Process_Packet defined in a file not rebuilt (cpacket.cpp, ...)')
     for r in sorted(rows, key=lambda r: r['state']):

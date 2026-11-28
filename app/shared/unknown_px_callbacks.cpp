@@ -22,7 +22,7 @@ PxBoxCallback::PxBoxCallback(PxObject *object, const PxBoxCallback &src) :
 }
 
 // 0x451EB0
-PxCallback *PxBoxCallback::Clone(PxObject *object)
+PxCallback *PxBoxCallback::Clone(PxObject *object) const
 {
 	return(new PxBoxCallback(object, *this));
 }

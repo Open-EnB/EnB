@@ -9,7 +9,7 @@
 **	container interface may sit in a header of their own; dynamic_window_render_object.cpp is the base's
 **	file (0x51C930-0x51D240).
 **
-**	  DynamicWindowElementClass       a ref-counted piece of a window (22 slots; the tables 0xAED490,
+**	  DynamicWindowElement       a ref-counted piece of a window (22 slots; the tables 0xAED490,
 **	                                  0xAEDB84 have those, 0xAED8D0 / 0xAED374 / 0xAED40C two more)
 **	  DynamicWindowContainerClass     the interface a parent gives its children (3 slots, pure: 0xAED3E8)
 **	  DynamicWindowRenderObjectClass  an element shown by a render object (constructor 0x51C930, table
@@ -31,29 +31,29 @@
 
 class RenderObjClass;
 class SceneClass;
-class DynamicWindowElementClass;
+class DynamicWindowElement;
 
 // The parent side of an element (the background and the window: +0x4C; the rows and columns: +0x08)
 class DynamicWindowContainerClass  // NAME 1: from the asserts' 'child' / 'parent' (0x516CA0, 0x51CD50)
 {
 public:
-	virtual void Child_Changed(DynamicWindowElementClass &child) = 0;							// +0x00 (0x516CA0: 'Contents.Peek() == &child')  // NAME 1 [Child_Changed, child]: the assert's 'child'
+	virtual void Child_Changed(DynamicWindowElement &child) = 0;							// +0x00 (0x516CA0: 'Contents.Peek() == &child')  // NAME 1 [Child_Changed, child]: the assert's 'child'
 	virtual void Remove_All_Children(bool recursive) = 0;										// +0x04 (0x516CF0)  // NAME 1 [Remove_All_Children, recursive]: what 0x516CF0 does
-	virtual bool Remove_Child(const RefCountPtr<DynamicWindowElementClass> &child) = 0;		// +0x08 (0x516D70: FAIL_IF '!child')  // NAME 1 [Remove_Child]: the FAIL_IF's 'child'
+	virtual bool Remove_Child(const RefCountPtr<DynamicWindowElement> &child) = 0;		// +0x08 (0x516D70: FAIL_IF '!child')  // NAME 1 [Remove_Child]: the FAIL_IF's 'child'
 };
 
 // A piece of a window (abstract: 22 slots; the render-object elements add +0x58 / +0x5C)
-class DynamicWindowElementClass : public RefCountClass  // NAME 1: from the asserts' 'element' (0x517770, 0x5180E0)
+class DynamicWindowElement : public RefCountClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
-	virtual ~DynamicWindowElementClass() {}														// +0x04
+	virtual ~DynamicWindowElement() {}														// +0x04
 	virtual void Set_Min_Size(const Vector2 &min_size) = 0;									// +0x08  // NAME 1 [Set_Min_Size, min_size]: 0x5168F0's 'contents_min_size'
 	virtual void Set_Flags(unsigned int flags) = 0;												// +0x0C  // NAME 1 [Set_Flags, flags]: ORs into +0x3C
 	virtual void Clear_Flags(unsigned int flags) = 0;											// +0x10  // NAME 1 [Clear_Flags, flags]: clears bits of +0x3C
 	virtual void Set_Alignment(unsigned int flags) = 0;											// +0x14  // NAME 1 [Set_Alignment, flags]: replaces bits 0xF0 of +0x3C (0x516E00 reads 0x10-0x80 as alignment)
 	virtual void Invalidate() = 0;																// +0x18  // NAME 1 [Invalidate]: sets the dirty flag and tells the parent
 	virtual bool Is_Dirty() = 0;																// +0x1C  // NAME 1 [Is_Dirty]
-	virtual Vector2 Get_Min_Size() = 0;															// +0x20  // NAME 1 [Get_Min_Size]: what 0x517C50 lays out with
+	virtual Vector2 Get_Min_Size() const = 0;															// +0x20  // NAME 1 [Get_Min_Size]: what 0x517C50 lays out with
 	virtual bool Has_Flags(unsigned int flags) = 0;												// +0x24  // NAME 1 [Has_Flags, flags]
 	virtual void Layout(const Vector2 &position, const Vector2 &size) = 0;						// +0x28  // NAME 1 [Layout, position, size]
 	virtual Vector2 Get_Size() = 0;																// +0x2C  // NAME 1 [Get_Size]
@@ -63,14 +63,14 @@ public:
 	virtual DynamicWindowContainerClass *Get_Container() = 0;									// +0x3C  // NAME 1 [Get_Container]
 	virtual void Add_To_Scene(SceneClass *scene) = 0;											// +0x40  // NAME 1 [Add_To_Scene, scene]: compares with the render object's Peek_Scene
 	virtual void Remove_From_Scene() = 0;														// +0x44  // NAME 1 [Remove_From_Scene]
-	virtual SceneClass *Peek_Scene() = 0;														// +0x48 (0x51CEC0: the render object's)  // NAME 1 [Peek_Scene]: RenderObjClass's
+	virtual SceneClass *Peek_Scene() const = 0;														// +0x48 (0x51CEC0: the render object's)  // NAME 1 [Peek_Scene]: RenderObjClass's
 	virtual void Set_Level(int level) = 0;														// +0x4C  // NAME 1 [Set_Level, level]: the background passes one less to its contents
 	virtual int Get_Level() = 0;																// +0x50  // NAME 1 [Get_Level]
 	virtual void Set_Position(const Vector2 &position) = 0;										// +0x54  // NAME 1 [Set_Position, position]
 };
 
 // An element shown by a render object (0x4C bytes)
-class DynamicWindowRenderObjectClass : public DynamicWindowElementClass  // NAME 2 [DynamicWindowRenderObjectClass]: class from file (D24), dynamic_window_render_object.cpp
+class DynamicWindowRenderObjectClass : public DynamicWindowElement  // NAME 2 [DynamicWindowRenderObjectClass]: class from file (D24), dynamic_window_render_object.cpp
 {
 public:
 	DynamicWindowRenderObjectClass(unsigned int flags);											// 0x51C930  // NAME 1 [flags]: +0x3C
@@ -82,7 +82,7 @@ public:
 	virtual void Set_Alignment(unsigned int flags);												// +0x14 0x51CAE0
 	virtual void Invalidate();																	// +0x18 0x51CB20
 	virtual bool Is_Dirty();																	// +0x1C 0x51CB50
-	virtual Vector2 Get_Min_Size();																// +0x20 0x51CB70
+	virtual Vector2 Get_Min_Size() const;																// +0x20 0x51CB70
 	virtual bool Has_Flags(unsigned int flags);													// +0x24 0x51CBE0
 	virtual void Layout(const Vector2 &position, const Vector2 &size);							// +0x28 0x51CC10
 	virtual Vector2 Get_Size();																	// +0x2C 0x51CC80
@@ -92,7 +92,7 @@ public:
 	virtual DynamicWindowContainerClass *Get_Container();										// +0x3C 0x51CE20
 	virtual void Add_To_Scene(SceneClass *scene);												// +0x40 0x51CE40
 	virtual void Remove_From_Scene();															// +0x44 0x51CE90
-	virtual SceneClass *Peek_Scene();															// +0x48 0x51CEC0
+	virtual SceneClass *Peek_Scene() const;															// +0x48 0x51CEC0
 	virtual void Set_Level(int level);															// +0x4C 0x51CEE0
 	virtual int Get_Level();																	// +0x50 0x51CF10
 	virtual void Set_Position(const Vector2 &position);											// +0x54 0x51CF30

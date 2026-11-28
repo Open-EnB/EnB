@@ -15,11 +15,11 @@ struct HtmlLinkStruct  // NAME 1: element of the view's +0x14 list
 	char MimeType[257];  // +0x10D  // NAME 2: 0x770860's second argument copied in (0x76E9D0 passes Get_Mime_Type's result; Parse compares it with "image/gif") (257: the copy in 0x7789F0 moves 0x40 dwords and a byte)
 };
 
-class HtmlViewClass  // NAME 3: htmlview.cpp's class (D24); its template copy ArrayList<HtmlLinkStruct>::~ArrayList is 0x7787C0
+class HTMLViewer  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
-	HtmlViewClass(void);  // 0x76FFD0
-	~HtmlViewClass(void);  // 0x7701D0
+	HTMLViewer(void);  // 0x76FFD0
+	~HTMLViewer(void);  // 0x7701D0
 
 	bool Clear(void);  // 0x7702A0  // NAME 2: Links and Blocks emptied (the blocks deleted)
 	bool Open(char *url);  // 0x770460  // NAME 2: Clear, url kept, handed to the loader

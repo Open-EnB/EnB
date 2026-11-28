@@ -19,12 +19,12 @@
 
 #include "gd_pip_scene.h"
 
-class StarmapPipClass;	// starmap_pip.h's: the star map's PIP
+class StarmapPIPClass;	// starmap_pip.h's: the star map's PIP
 
 class GadgetStarmapClass : public GadgetPipSceneClass  // NAME 2: class-from-file (D24) for app\client\gd_starmap.cpp, as gd_pip_scene.cpp's GadgetPipSceneClass
 {
 public:
-	GadgetStarmapClass(StarmapPipClass *pip);			// 0x7B4700 (G_ASSERT 'StarmapPIP' l.60)  // NAME 1 [pip]: the base's
+	GadgetStarmapClass(StarmapPIPClass *pip);			// 0x7B4700 (G_ASSERT 'StarmapPIP' l.60)  // NAME 1 [pip]: the base's
 	virtual ~GadgetStarmapClass();						// +0x00 0x7B47C0 (deleting 0x7B4790)
 	virtual bool Unknown_2C(KernelEventClass *event, float x, float y, unsigned int mask);	// +0x2C 0x7B47F0 (FAIL_IF '!StarmapPIP' l.75: buttons 1 / 5 hold the gadget; a click targets the hovered object or centres the map, a drag pans or zooms)  // NAME 1 [event, x, y, mask]: GadgetClass's
 
@@ -32,7 +32,7 @@ public:
 	void Unknown_7B4C50();								// 0x7B4C50 (the first button's drag: the map panned by the pointer's move)
 	void Unknown_7B4D80();								// 0x7B4D80 (FAIL_IF '!StarmapPIP' l.193: the second button's drag, the zoom by its vertical move)
 
-	StarmapPipClass *StarmapPIP;						// +0x4C (G_ASSERT 'StarmapPIP')  // NAME 3: the asserts'
+	StarmapPIPClass *StarmapPIP;						// +0x4C (G_ASSERT 'StarmapPIP')  // NAME 3: the asserts'
 };
 
 #endif

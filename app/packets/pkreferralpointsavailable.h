@@ -19,11 +19,11 @@
 #include "pk.h"
 
 // opcode 233 (0x00E9, ?): vtable 0xB09DAC, constructor 0x878030, 0x14 bytes
-class ReferralPointsAvailablePacketClass : public PacketClass
+class ReferralPointsAvailablePacketClass : public UnknownPacketBaseClass
 {
 public:
-	ReferralPointsAvailablePacketClass(RawPacketClass *raw);	// 0x878030
-	virtual RawPacketClass *Build();	// +0x04 0x878120
+	ReferralPointsAvailablePacketClass(PacketClass *raw);	// 0x878030
+	virtual PacketClass *Encode();	// +0x04 0x878120  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x73F3D0 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x8781F0
 	virtual int Print(char *buffer, int len);	// +0x10 0x878210

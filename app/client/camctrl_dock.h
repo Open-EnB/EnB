@@ -7,12 +7,12 @@
 #include "unknown_7979a0.h"
 
 // The camera manager's seventh controller (state 6; vtable 0xB04B1C, 0x1C bytes): docking (flag 0) and undocking
-// (flag 1) at the target SClient +0x13AC, laid out from dock.ini's section for the target's render object
-class CameraController06Class : public CameraControllerClass	// NAME 1: neutral (D10): state 6, 'Camera_Dock'
+// (flag 1) at the target SpaceClientClass +0x13AC, laid out from dock.ini's section for the target's render object
+class DockCameraControllerClass : public CameraControllerClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
-	CameraController06Class(SClient *client);			// 0x792320
-	virtual ~CameraController06Class();					// 0x7924E0, deleting 0x7924B0
+	DockCameraControllerClass(SpaceClientClass *client);			// 0x792320
+	virtual ~DockCameraControllerClass();					// 0x7924E0, deleting 0x7924B0
 	virtual void Unknown_04();							// +0x04 0x792560
 	virtual void Unknown_08(Vector3 *pos, Quaternion *rot, int *mode, int *target);	// +0x08 0x792590
 	virtual void Unknown_0C();							// +0x0C 0x7926B0

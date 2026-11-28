@@ -42,7 +42,7 @@
 #include <stdio.h>
 #include <string.h>
 
-extern LandUnknown466BE0Class *Unknown_BDC0D8;	// NAME 1: unknown
+extern DisplacementMapLandClass *Unknown_BDC0D8;	// NAME 1: unknown
 // NAME 2: the distance (in field cells) of level 1 per lod setting, doubled per level (0xB7188C: eight entries, VIDTEST's
 // Land LOD 0..7 indexes it directly)
 int LandLodDistances[8] = { 8, 16, 24, 32, 48, 64, 96, 128 };
@@ -114,7 +114,7 @@ bool LandClass::Load_Assets(const char *ini_name, bool flag)
 	INIClass ini;
 	ini.Load(ini_name);
 	unsigned int max_size = DX8Wrapper::Get_Current_Caps()->Get_DX8_Caps().MaxTextureWidth;
-	Field = HeightFieldClass::Load(ini_name, max_size);
+	Field = HeightMapClass::Load(ini_name, max_size);
 	if (Field == NULL) {
 		return false;
 	}
@@ -515,14 +515,14 @@ bool LandClass::Cast_OBBox(OBBoxCollisionTestClass &boxtest)
 	return Field->Cast_OBBox(boxtest);
 }
 
-// NOT EXACT: shape (141 masked rows with RT1's variant v0: the camera position copied, the patch floats in locals, level defaulting to 4; the client's frame is 0xC larger, it copies the camera position and keeps the spacing on the x87 stack past its use (fild qword PatchSize, fmul st(1), fstp st(0)); attempts.csv 0x46B3C0)
+// NOT EXACT: shape (7 masked rows, B10 2026-11-28: the matrix from its 16 floats, max as size += corner, the distance written out under WWMath::Sqrt, the field scale read by value per expression (Get_Scale), the size scaled by it, the corner copied into min after the size; left: the client consumes inv_extent at the last cell product, ours pops it after the change test; attempts.csv 0x46B3C0)
 void LandClass::Update_Patches(CameraClass &camera, int lod)
 {
 	Vector3 campos = camera.Get_Position(); Vector3 pos = campos;
-	float extent = Field->Get_Spacing() * (float)(unsigned int)PatchSize;
+	float extent = Field->Get_Scale().X * (float)(unsigned int)PatchSize;
 	float half = extent * 0.5f;
 	float inv_extent = 1.0f / extent;
-	float inv_spacing = 1.0f / Field->Get_Spacing();
+	float inv_spacing = 1.0f / Field->Get_Scale().X;
 	int cell_x = (int)(inv_extent * campos.X);
 	int cell_y = (int)(inv_extent * campos.Y);
 	int cell_z = (int)(inv_extent * campos.Z);
@@ -544,7 +544,7 @@ void LandClass::Update_Patches(CameraClass &camera, int lod)
 				patch->Y = py;
 				patch->Z = 0.0f;
 				Vector3 delta(pos.X - (px + half), pos.Y - (py + half), pos.Z - Field->Get_VScale() * patch->MidHeight);
-				float distance = delta.Length();
+				float distance = WWMath::Sqrt(delta.X * delta.X + delta.Y * delta.Y + delta.Z * delta.Z);
 				int cells = (int)(distance * inv_spacing);
 				int threshold = LandLodDistances[lod];
 				int level = 4;
@@ -589,10 +589,10 @@ void LandClass::Update_Patches(CameraClass &camera, int lod)
 			int index = j * GridWidth + i;
 			LandPatchClass *patch = Patches[index];
 			LandPatchRecordClass *record = &PatchRecords[index];
-			Vector3 min(patch->X, patch->Y, patch->Z);
-			Vector3 size((float)(unsigned int)PatchSize * Field->Get_Spacing(), (float)(unsigned int)PatchSize * Field->Get_YSpacing(),
-				(float)Field->Get_Max_Value() * Field->Get_VScale());
-			Vector3 max = min + size;
+			Vector3 size((float)(unsigned int)PatchSize, (float)(unsigned int)PatchSize,
+				(float)Field->Get_Max_Value()); size.Scale(Field->Get_Scale());
+			Vector3 min = *(const Vector3 *)&patch->X;
+			Vector3 max = size; max += *(const Vector3 *)&patch->X;
 			AABoxClass box(MinMaxAABoxClass(min, max));
 			bool visible = !camera.Cull_Box(box);
 			patch->Visible = visible;
@@ -601,8 +601,8 @@ void LandClass::Update_Patches(CameraClass &camera, int lod)
 		}
 	}
 	if (Unknown_BDC0D8->Unknown11) {
-		Matrix4 scale(Vector4(Field->Get_Spacing(), 0.0f, 0.0f, 0.0f), Vector4(0.0f, Field->Get_YSpacing(), 0.0f, 0.0f),
-			Vector4(0.0f, 0.0f, Field->Get_VScale(), 0.0f), Vector4(0.0f, 0.0f, 0.0f, 1.0f));
+		Matrix4 scale(Field->Get_Spacing(), 0.0f, 0.0f, 0.0f, 0.0f, Field->Get_YSpacing(), 0.0f, 0.0f,
+			0.0f, 0.0f, Field->Get_VScale(), 0.0f, 0.0f, 0.0f, 0.0f, 1.0f);
 		Unknown_BDC0D8->Unknown_466F40(camera, lod, scale);
 	}
 }

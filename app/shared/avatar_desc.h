@@ -26,19 +26,19 @@
 // vtables 0xAEB9D0 (wire: six slots) / 0xAEB9CC (key/value); constructors 0x4BEB50, 0x4BEBF0, 0x4BECC0.
 // The destructor is the implicit one (inline in 0x7683F0, out of line at 0x53BB50).
 class INIClass;
-class AvatarDescClass : public Unknown_PacketDataClass, public DeltaInterfaceClass	// NAME 3: by convention (D24) from the client's avatar_desc.cpp
+class AvatarDescriptionClass : public Unknown_PacketDataClass, public DeltaInterfaceClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	static INIClass AvatarDefinitions;					// 0xBE55D8: avatardef.ini (Load_Defaults loads it)  // NAME 2: what it holds
-	AvatarDescClass();									// 0x4BEB50
-	AvatarDescClass(int type, int unknown, int unknown2);	// 0x4BEBF0 (Race, Profession, Gender)  // NAME 1 [unknown, unknown2]: neutral (D10)
-	AvatarDescClass(int type, const char *name);		// 0x4BECC0  // NAME 2 [name]: Load_Defaults'
-	AvatarDescClass(const AvatarDescClass &that);		// 0x4BED80 (16 callers in the UI)
-	virtual bool Write(LinearBufferClass *buffer);		// +0x00 0x4BF260
-	virtual bool Read(LinearBufferClass *buffer);		// +0x04 0x4BF550
+	AvatarDescriptionClass();									// 0x4BEB50
+	AvatarDescriptionClass(int type, int unknown, int unknown2);	// 0x4BEBF0 (Race, Profession, Gender)  // NAME 1 [unknown, unknown2]: neutral (D10)
+	AvatarDescriptionClass(int type, const char *name);		// 0x4BECC0  // NAME 2 [name]: Load_Defaults'
+	AvatarDescriptionClass(const AvatarDescriptionClass &that);		// 0x4BED80 (16 callers in the UI)
+	virtual bool Write(LinearBuffer *buffer);		// +0x00 0x4BF260
+	virtual bool Read(LinearBuffer *buffer);		// +0x04 0x4BF550
 	virtual int Get_Size();								// +0x08 0x4BF910
-	virtual bool Write_Short(LinearBufferClass *buffer);	// +0x0C 0x4BF930: without +0x0C and the string  // NAME 2: what it does
-	virtual bool Read_Short(LinearBufferClass *buffer);	// +0x10 0x4BFBF0  // NAME 2: what it does
+	virtual bool Write_Short(LinearBuffer *buffer);	// +0x0C 0x4BF930: without +0x0C and the string  // NAME 2: what it does
+	virtual bool Read_Short(LinearBuffer *buffer);	// +0x10 0x4BFBF0  // NAME 2: what it does
 	virtual int Get_Short_Size();						// +0x14 0x4BFEB0  // NAME 2: what it does
 	virtual void Unknown_00(KVEncoderClass *visitor);				// second table +0x00 0x4BFED0 (a LoginKVVisitorClass)
 
@@ -46,8 +46,8 @@ public:
 	bool Is_Valid();									// 0x4C0580: a type is set  // NAME 2: what it does
 	void Reset();										// 0x4C05A0  // NAME 2: what it does
 	void Load_Defaults(int type, const char *name);		// 0x4C05D0: avatardef.ini's section for the type (0 the gender, race and profession, 1 the narrator, 2 the name)  // NAME 2: what it does
-	std::string Get_Full_Name();						// 0x4C1020: the first and last names, a space between  // NAME 2: what it does
-	std::string &Get_Full_Name(std::string &name);		// 0x4C1200: the same into name  // NAME 2: what it does
+	std::string Get_Full_Name() const;						// 0x4C1020: the first and last names, a space between  // NAME 5: thunk order confirmed, binary.md 5.11
+	std::string &Get_Full_Name(std::string &name) const;		// 0x4C1200: the same into name  // NAME 5: thunk order confirmed, binary.md 5.11
 	void Unknown_4C1460(const char *name, bool convert);	// 0x4C1460: First_Name (the fast start's 'Fast' + the user name, 1; convert: through 0x4BE9D0)  // NAME 1 [convert]: what it selects
 	void Unknown_4C15F0(const char *name, bool convert);	// 0x4C15F0: Last_Name, the same way
 	Vector3 Get_Body_Morph(int morph);					// 0x4C1780: avatardef.ini's '<gender><race>morph' section, 1-4 short_skinny .. tall_skinny  // NAME 2: what it does

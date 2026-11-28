@@ -10,7 +10,7 @@
 #include <set>
 #include <vector>
 #include "sclient.h"
-#include "unknown_675120.h"
+#include "gd_uimesh.h"
 #include "co.h"
 #include "..\common\unknown_verb.h"	// VerbEnum
 
@@ -36,11 +36,11 @@ public:
 
 // The verb window (0xE0 bytes, tables 0xAF94A4 / 0xAF9498 / 0xAF948C / 0xAF9478; constructor 0x6580B0, destructor 0x658280;
 // 0x60D8D0 makes it): the buttons of the watched target's verbs, as the verb manager reports them
-class UIVerbClass : public InterfaceClass, public UnknownObjectWatchClass		// NAME 3: class-from-file (D24) for ui_verb.cpp
+class VerbInterface : public InterfaceClass, public UnknownObjectWatchClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
-	UIVerbClass(UIViewClass *view, const LayerClass &layer, UIMeshClass *mesh, int arg);	// 0x6580B0  // NAME 1 [view, layer, mesh, arg]: what it does with them
-	virtual ~UIVerbClass();								// 0x658280 (deleting 0x658250)
+	VerbInterface(UIViewClass *view, const LayerClass &layer, UIMeshClass *mesh, int arg);	// 0x6580B0  // NAME 1 [view, layer, mesh, arg]: what it does with them
+	virtual ~VerbInterface();								// 0x658280 (deleting 0x658250)
 	virtual void Unknown_54();							// 0x6583B0
 	virtual void Unknown_58();							// 0x6583D0 (only when not active)
 	virtual void Unknown_5C();							// 0x6583F0 (only when active)

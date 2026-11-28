@@ -28,7 +28,7 @@ LoginCharacterClass::~LoginCharacterClass()
 }
 
 // 0x8C0770
-bool LoginCharacterClass::Write(LinearBufferClass *buffer)
+bool LoginCharacterClass::Write(LinearBuffer *buffer)
 {
 	{
 		int net = htonl(Slot);
@@ -79,7 +79,7 @@ bool LoginCharacterClass::Write(LinearBufferClass *buffer)
 }
 
 // 0x8C0940
-bool LoginCharacterClass::Read(LinearBufferClass *buffer)
+bool LoginCharacterClass::Read(LinearBuffer *buffer)
 {
 	buffer->Read(&Slot, 4);
 	Slot = ntohl(Slot);
@@ -171,7 +171,7 @@ TicketClass &TicketClass::operator=(const TicketClass &that)
 }
 
 // 0x8C1780
-bool TicketClass::Write(LinearBufferClass *buffer)
+bool TicketClass::Write(LinearBuffer *buffer)
 {
 	int net;
 	__int64 net64;
@@ -205,7 +205,7 @@ bool TicketClass::Write(LinearBufferClass *buffer)
 }
 
 // 0x8C1960
-bool TicketClass::Read(LinearBufferClass *buffer)
+bool TicketClass::Read(LinearBuffer *buffer)
 {
 	int net;
 

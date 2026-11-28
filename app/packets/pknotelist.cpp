@@ -7,7 +7,7 @@ NoteListPacketClass::NoteListPacketClass()
 {
 }
 
-NoteListPacketClass::NoteListPacketClass(RawPacketClass *raw)
+NoteListPacketClass::NoteListPacketClass(PacketClass *raw)
 {
 	while (raw->Data.Get_Size() - raw->Data.Get_Pos() >= sizeof(NoteListEntryStruct)) {
 		NoteListEntryStruct note;
@@ -22,9 +22,9 @@ NoteListPacketClass::~NoteListPacketClass()
 {
 }
 
-RawPacketClass *NoteListPacketClass::Build()
+PacketClass *NoteListPacketClass::Encode()
 {
-	RawPacketClass *raw = new RawPacketClass(183, Get_Data_Size());
+	PacketClass *raw = new PacketClass(183, Get_Data_Size());
 	for (std::list<NoteListEntryStruct>::iterator it = Notes.begin(); it != Notes.end(); it++) {
 		raw->Add(it->Unknown00);
 		raw->Add(it->Unknown04);
@@ -64,7 +64,7 @@ NoteContentPacketClass::NoteContentPacketClass(long unknown0c, const char *unkno
 	Unknown54 = nstrdup(unknown54);
 }
 
-NoteContentPacketClass::NoteContentPacketClass(RawPacketClass *raw) :
+NoteContentPacketClass::NoteContentPacketClass(PacketClass *raw) :
 	Unknown0C(0),
 	Unknown54(0)
 {
@@ -78,9 +78,9 @@ NoteContentPacketClass::~NoteContentPacketClass()
 	delete [] Unknown54;
 }
 
-RawPacketClass *NoteContentPacketClass::Build()
+PacketClass *NoteContentPacketClass::Encode()
 {
-	RawPacketClass *raw = new RawPacketClass(184, Get_Data_Size());
+	PacketClass *raw = new PacketClass(184, Get_Data_Size());
 	raw->Add(Unknown0C);
 	raw->Add(Unknown10, sizeof(Unknown10));
 	raw->Add_String(Unknown54);
@@ -89,7 +89,7 @@ RawPacketClass *NoteContentPacketClass::Build()
 
 int NoteContentPacketClass::Get_Data_Size()
 {
-	return(RawPacketClass::Get_Size(Unknown54) + sizeof(Unknown0C) + sizeof(Unknown10));
+	return(PacketClass::Get_Size(Unknown54) + sizeof(Unknown0C) + sizeof(Unknown10));
 }
 
 int NoteContentPacketClass::Print(char *buffer, int)

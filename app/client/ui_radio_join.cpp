@@ -24,7 +24,7 @@ static inline bool Is_Request_Pending(ChatPanelInterface *chat) { return(chat->U
 static const char *Unknown_B85AB0[4] = { "EXIT", "TEXT_FIELD", "BUTTON01", "BUTTON03" };	// NAME 1: neutral (D10)
 
 // 0x5EAB40
-UIRadioJoinClass::UIRadioJoinClass(SClient *client, int state) :
+UIRadioJoinClass::UIRadioJoinClass(SpaceClientClass *client, int state) :
 	ChatPanelUIBase(client),
 	State(state),
 	Entry(NULL),
@@ -47,7 +47,7 @@ void UIRadioJoinClass::Unknown_54()
 		for (int i = 0; i < 4; i++) {
 			Buttons[i] = Add_Button(i + 1, Unknown_B85AB0[i], NULL);
 		}
-		Entry = new TextGadgetClass(this, 4, "TEXTFIELD_Cht03", Interface_Mesh(), Unknown_B08C98 | Unknown_B08CA8 | Unknown_B08CAC, 0);
+		Entry = new UnknownTextGadgetClass(this, 4, "TEXTFIELD_Cht03", Interface_Mesh(), Unknown_B08C98 | Unknown_B08CA8 | Unknown_B08CAC, 0);
 		Entry->Set_Text("", 0);
 		Unknown64.Unknown_6870E0(Entry, 6, View, 1, 0);
 		Add_Back_Gadget(0, Vector3(0.0f, 0.0f, 0.0f));
@@ -62,7 +62,7 @@ void UIRadioJoinClass::Unknown_58()
 		InterfaceSortScopeClass sort(this);	// NAME 1: neutral (D10)
 		ChatPanelUIBase::Unknown_58();
 		if (Buttons[0]) {
-			((RObjGadgetClass *)Buttons[0])->Unknown_66C360();
+			((RenderObjGadgetClass *)Buttons[0])->Unknown_66C360();
 		}
 		Entry->Unknown_74(true);
 		Entry->Set_Text("", 0);
@@ -94,17 +94,17 @@ void UIRadioJoinClass::Unknown_60()
 // 0x5EAF30
 bool UIRadioJoinClass::Unknown_68(int key)
 {
-	SClient *sclient = (SClient *)((ClientClass *)Client)->As_Space_Client();	// NAME 1: neutral (D10)
+	SpaceClientClass *sclient = (SpaceClientClass *)((ClientClass *)Client)->As_Space_Client();	// NAME 1: neutral (D10)
 	ChatPanelInterface *chat = sclient->ChatPanel.Peek();	// NAME 1: neutral (D10)
 	switch (key) {
 		case 1:
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			Entry->Unknown_74(false);
 			Unknown_5C();
 			Closed = 1;
 			return(true);
 		case 2:
-			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+			SoundLibrary::Play_2D_Sound("fontclick.wav", 2);
 			if (Entry) {
 				Entry->Unknown_74(true);
 				Entry->Set_Text("", 0);
@@ -112,7 +112,7 @@ bool UIRadioJoinClass::Unknown_68(int key)
 			}
 			return(true);
 		case 3:
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			Entry->Unknown_74(false);
 			Unknown_5C();
 			Closed = 1;
@@ -121,7 +121,7 @@ bool UIRadioJoinClass::Unknown_68(int key)
 			}
 			return(true);
 		case 4:
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			Entry->Unknown_74(false);
 			Unknown_5C();
 			Closed = 1;
@@ -161,10 +161,10 @@ void UIRadioJoinClass::Unknown_5EB140()
 // NOT EXACT: the string temporaries' inline expansions and register choices differ (inline budget)
 void UIRadioJoinClass::Unknown_5EB2F0()
 {
-	SClient *sclient = (SClient *)((ClientClass *)Client)->As_Space_Client();	// NAME 1: neutral (D10)
+	SpaceClientClass *sclient = (SpaceClientClass *)((ClientClass *)Client)->As_Space_Client();	// NAME 1: neutral (D10)
 	ChatPanelInterface *chat = sclient->ChatPanel.Peek();	// NAME 1: neutral (D10)
 	if (Is_Request_Pending(chat)) {
-		((SClient *)((ClientClass *)Client)->As_Space_Client())->Unknown_74D990(0x13, "Another request is pending. Cannot join a new channel. ", 0);
+		((SpaceClientClass *)((ClientClass *)Client)->As_Space_Client())->Unknown_74D990(0x13, "Another request is pending. Cannot join a new channel. ", 0);
 		return;
 	}
 	if (chat->Unknown_5682C0() != "") {
@@ -178,7 +178,7 @@ void UIRadioJoinClass::Unknown_5EB2F0()
 	packet.Unknown24 = std::string(Entry->Get_Text());
 	packet.Unknown34 = std::string("");
 	((ClientClass *)Client)->Send_Packet(&packet);
-	chat->Unknown_5680B0(std::string(Entry->Get_Text()));
+	const char *name = Entry->Get_Text(); chat->Unknown_5680B0(std::string(name, std::char_traits<char>::length(name)));
 	chat->Unknown225 = true;
 }
 
@@ -186,6 +186,6 @@ void UIRadioJoinClass::Unknown_5EB2F0()
 **	Notes.
 **	Object 0x5EAB40-0x5EB7BF: the constructor 0x5EAB40 opens it, after ui_radio_main.cpp's adjustor thunks
 **	(0x5EAB20 / 0x5EAB30); this window's adjustor thunks 0x5EB7A0 / 0x5EB7B0 close it and ui_refinery.cpp's
-**	PermStringInitClass initialiser 0x5EB7C0 follows. ui_chat_panel.cpp's 0x566AF0 makes it (states 0, 1) as its
+**	PermStringInit initialiser 0x5EB7C0 follows. ui_chat_panel.cpp's 0x566AF0 makes it (states 0, 1) as its
 **	stand-in Unknown5EAB40Class. Entry->Get_Text() returns a copy the client never deletes (twice in 0x5EB2F0).
 */

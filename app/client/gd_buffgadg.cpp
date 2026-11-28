@@ -19,42 +19,42 @@
 static DurationClass PulseTime(30);	// 0xBE5FA0 (seconds; initialised by 0x665150): the last seconds of a buff pulse  // NAME 1: what 0x665F20 does with it
 
 // 0x665180
-BuffInfoStruct::BuffInfoStruct() : IsPermanent(false), BuffRemovalTime(0)
+BuffDataClass::BuffDataClass() : IsPermanent(false), BuffRemovalTime(0)
 {
 }
 
 // 0x6651C0
-void BuffInfoStruct::Set_Scrub_Type_Name(const std::string &name)
+void BuffDataClass::Set_Scrub_Type_Name(const std::string &name)
 {
 	ScrubTypeName = name;
 }
 
 // 0x665340
-void BuffInfoStruct::Set_Is_Permanent(bool permanent)
+void BuffDataClass::Set_Is_Permanent(bool permanent)
 {
 	IsPermanent = permanent;
 }
 
 // 0x665360
-void BuffInfoStruct::Set_Buff_Removal_Time(const DurationClass &time)
+void BuffDataClass::Set_Buff_Removal_Time(const DurationClass &time)
 {
 	BuffRemovalTime = time;
 }
 
 // 0x665390
-void BuffInfoStruct::Add_Element(const BuffElementStruct &element)
+void BuffDataClass::Add_Element(const BuffElementStruct &element)
 {
 	Elements.push_back(element);
 }
 
 // 0x665630
-unsigned int BuffInfoStruct::Get_Element_Count() const
+unsigned int BuffDataClass::Get_Element_Count() const
 {
 	return Elements.size();
 }
 
 // 0x665670
-int BuffInfoStruct::Get_Active_Count() const
+int BuffDataClass::Get_Active_Count() const
 {
 	int count = 0;
 	for (std::vector<BuffElementStruct>::const_iterator it = Elements.begin(); it != Elements.end(); ++it) {
@@ -89,7 +89,7 @@ int BuffInfoStruct::Get_Active_Count() const
 
 // (exact since 0x665940's expiry goes through DurationClass(__int64): the static element's zero expiry stores ebx twice)
 // 0x6656A0
-const BuffElementStruct &BuffInfoStruct::Get_Element(unsigned int index) const
+const BuffElementStruct &BuffDataClass::Get_Element(unsigned int index) const
 {
 	FAIL_IF(index >= Elements.size()) {
 		static BuffElementStruct empty("", "", 0, 0, false);
@@ -131,7 +131,7 @@ struct BuffElementSortClass	// NAME 1: neutral (D10)
 };
 
 // 0x665A10
-void BuffInfoStruct::Sort_Elements()
+void BuffDataClass::Sort_Elements()
 {
 	std::sort(Elements.begin(), Elements.end(), BuffElementSortClass());
 }
@@ -152,7 +152,7 @@ void BuffInfoStruct::Sort_Elements()
 
 
 // 0x665A40
-BuffGadgetClass::BuffGadgetClass(ClientClass *client, BuffDefStruct *buffinfo, const BuffInfoStruct &info, RenderObjClass *robj, int unknown, const LayerClass &layer) :
+BuffGadgetClass::BuffGadgetClass(ClientClass *client, BuffInfoClass *buffinfo, const BuffDataClass &info, RenderObjClass *robj, int unknown, const LayerClass &layer) :
 	Unknown_671300Class(robj, unknown, layer, 0, 0, 3),
 	BuffInfo(buffinfo),
 	Unknown84(false),
@@ -226,7 +226,7 @@ void BuffGadgetClass::Unknown_AC()
 
 // 0x6661F0 exact via provisional site-local volatile read of was_permanent pinning ecx / edx at 0x66625E
 // 0x6661F0
-bool BuffGadgetClass::Unknown_6661F0(const BuffInfoStruct &info, const DurationClass &now)
+bool BuffGadgetClass::Unknown_6661F0(const BuffDataClass &info, const DurationClass &now)
 {
 	bool was_permanent = Info.IsPermanent;
 	unsigned int old_count = Info.Elements.size();
@@ -335,10 +335,10 @@ void BuffGadgetClass::Unknown_666570()
 **	The client's object 0x665150-0x666441 and on (gd_buffgadg.obj: its __FILE__ 'e:\build\beta\G\app\Client\gd_buffgadg.cpp'
 **	at 0xB8CEF0; FAIL_IF 'index >= Elements.size()' on line 94, G_ASSERT 'BuffCount' / 'robj' on 166 / 167, 'robj' on
 **	182), linked after gd_attrb_skills.cpp (whose static's initialiser is 0x665120). First PulseTime's initialiser
-**	0x665150 (too short to count), then BuffInfoStruct's members 0x665180-0x665A10 (the element constructor 0x665940
+**	0x665150 (too short to count), then BuffDataClass's members 0x665180-0x665A10 (the element constructor 0x665940
 **	between them, inlined into 0x6656A0's static), the gadget's constructor 0x665A40, its deleting destructor 0x665D30
 **	and destructor 0x665D60, slot +0xAC 0x665F20, 0x6661F0, 0x666440, 0x666470 (the buff is over), 0x6664E0 (the
-**	alternative tooltip) and 0x666570 (the tooltip text: the BuffDefStruct's tool tip, '(type)', then a line per element),
+**	alternative tooltip) and 0x666570 (the tooltip text: the BuffInfoClass's tool tip, '(type)', then a line per element),
 **	then the template instances. The COMDATs this file brings that match: Get_Scrub_Type_Name 0x6669D0, the info's vector
 **	constructor / operator= 0x666B50 / 0x666B80, the element vector's _Ufill / _Ucopy / fill / copy_backward / _Destroy
 **	(0x666EE0 / 0x666E90 / 0x666F20 / 0x6670A0 / 0x561BD0), BuffElementStruct::operator= 0x667300, std::sort's _Sort_0 /
@@ -346,7 +346,7 @@ void BuffGadgetClass::Unknown_666570()
 **
 **	Forms the client needs: the order's expiry test on Time ('>', duration.h has no operator>); 0x6661F0 computes 'grew'
 **	before the expiry test and compares the old and new BuffRemovalTime after the assignment (as the client does).
-**	RObjGadgetClass::Unknown_66C2A0 takes a float (0x665F20 passes the pulse 0..1; ro_funcs.cpp's 0x496240 'opacity').
+**	RenderObjGadgetClass::Unknown_66C2A0 takes a float (0x665F20 passes the pulse 0..1; ro_funcs.cpp's 0x496240 'opacity').
 **	0x666570 appends '+' or ' ' through an if / else (the client's two pushes before one call: the tails merged; a ?:
 **	gives neg / sbb). Not matching, the same residue each time: the element's copies 0x665940, its implicit copy
 **	constructor 0x667A60 and _Construct 0x667230 call basic_string::assign where ours inlines it.

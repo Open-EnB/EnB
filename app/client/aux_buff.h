@@ -26,7 +26,7 @@
 inline
 #endif
 DeltaElementClass::DeltaElementClass(const char *name) :
-	DeltaCompoundClass(name),
+	DeltaContainer(name),
 	SourceEntity("SourceEntity", ""),
 	SourceObject("SourceObject", ""),
 	Magnitude("Magnitude"),

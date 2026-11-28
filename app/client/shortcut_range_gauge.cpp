@@ -116,7 +116,7 @@ void ShortcutRangeGaugeClass::Unknown_6A43D0(int mode)
 	if (SoundMode != mode) {
 		Unknown_6A4500();
 		if (mode != 1) {
-			Sound = Create_Get(SoundLibraryClass::Play_2D_Sound("weapon_range_green_1.wav", 1));
+			Sound = Create_Get(SoundLibrary::Play_2D_Sound("weapon_range_green_1.wav", 1));
 		}
 		SoundMode = mode;
 	}
@@ -128,7 +128,7 @@ void ShortcutRangeGaugeClass::Unknown_6A43D0(int mode)
 **
 **	The object: ship_stats_display.cpp's <string> statics end at 0x6A3D46; this one runs from the constructor 0x6A3D60
 **	to Unknown_6A4500 0x6A4500 (no callers: its three callers inline it) and its guarded <string> static 0x6A4550; the
-**	next object opens with permstr.h's PermStringInitClass static 0x6A4580.
+**	next object opens with permstr.h's PermStringInit static 0x6A4580.
 **	Not exact: Unknown_6A4020 takes 1 - distance / range before the frame time (the client: the frame time first; no
 **	order, association, helper or double-typed factor moved it, B28 2026-11-27). The hidden case right after the tests
 **	comes from the bool local (an || test, if / else, gotos and nesting all put it after the rest).

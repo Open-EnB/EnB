@@ -1,7 +1,7 @@
 // Earth & Beyond client (reconstruction)
 /*
 **	The client's file (__FILE__ 0xB8DBA8); the header's name is assumed (D24).
-**	ChatLineClass: 0x2C bytes, vtable 0xAFC174; ChatWindowHistoryClass: vtable 0xAFC180.
+**	ChatLineData: 0x2C bytes, vtable 0xAFC174; ChatWindowHistory: vtable 0xAFC180.
 */
 
 #if defined(_MSC_VER)
@@ -18,10 +18,10 @@
 #include <vector>
 #include <string>
 
-class ChatLineClass : public RefCountClass  // NAME 3: the asserts' chat_line
+class ChatLineData : public RefCountClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
-	ChatLineClass(int id, const std::string &text, const Vector3 &color, bool first, bool last) :  // NAME 2 [id, text, color, first, last]: what they fill
+	ChatLineData(int id, const std::string &text, const Vector3 &color, bool first, bool last) :  // NAME 2 [id, text, color, first, last]: what they fill
 		Unknown08(id),
 		Text(text),
 		Color(color),
@@ -56,11 +56,11 @@ public:
 	bool Unknown29;  // +0x29  // NAME 1: neutral (D10)
 };
 
-class ChatWindowHistoryClass  // NAME 3: the file's name, its asserts' History
+class ChatWindowHistory  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
-	ChatWindowHistoryClass(int unknown);  // 0x6812C0  // NAME 1 [unknown]: neutral (D10)
-	virtual ~ChatWindowHistoryClass();  // 0x681640 (deleting 0x681610)
+	ChatWindowHistory(int unknown);  // 0x6812C0  // NAME 1 [unknown]: neutral (D10)
+	virtual ~ChatWindowHistory();  // 0x681640 (deleting 0x681610)
 
 	virtual bool Unknown_04(unsigned int max_lines, unsigned int width);  // +0x04 0x6817E0  // NAME 1 [Unknown_04, max_lines, width]: neutral (D10)
 	virtual int Unknown_08(const Vector3 &color, const std::string &text);  // +0x08 0x6821F0  // NAME 2 [color, text]: what the lines take
@@ -68,18 +68,18 @@ public:
 	virtual int Unknown_10(int unknown);  // +0x10 0x682080  // NAME 1: neutral (D10)
 	virtual bool Unknown_14(const char *command);  // +0x14 0x6828D0  // NAME 1: neutral (D10)
 
-	void Set_Font(const RefCountPtr<Font32Class> &font);  // 0x6817A0  // NAME 2: calls the splitter's Set_Font
+	void Set_Font(const RefCountPtr<Font32Bit> &font);  // 0x6817A0  // NAME 2: calls the splitter's Set_Font
 
-	const RefCountPtr<ChatLineClass> &Unknown_682730(unsigned int index);  // 0x682730  // NAME 1 [index]: neutral (D10)
-	const RefCountPtr<ChatLineClass> &Unknown_682770(unsigned int index);  // 0x682770 (lines 412, 418)  // NAME 1 [index]: neutral (D10)
+	const RefCountPtr<ChatLineData> &Unknown_682730(unsigned int index);  // 0x682730  // NAME 1 [index]: neutral (D10)
+	const RefCountPtr<ChatLineData> &Unknown_682770(unsigned int index);  // 0x682770 (lines 412, 418)  // NAME 1 [index]: neutral (D10)
 	int Unknown_682840();  // 0x682840  // NAME 1: neutral (D10)
 	int Unknown_682880();  // 0x682880  // NAME 1: neutral (D10)
 	void Unknown_681DB0();  // 0x681DB0  // NAME 1: neutral (D10)
 	void Unknown_6818C0();  // 0x6818C0  // NAME 1: neutral (D10)
 
-	std::vector< RefCountPtr<ChatLineClass> > History;  // +0x04 (the asserts' History)
+	std::vector< RefCountPtr<ChatLineData> > History;  // +0x04 (the asserts' History)
 	FontSplitStringClass Splitter;  // +0x14  // NAME 2: its class
-	RefCountPtr<ChatLineClass> NullLine;  // +0x40  // NAME 2: 0x682770's not-found return
+	RefCountPtr<ChatLineData> NullLine;  // +0x40  // NAME 2: 0x682770's not-found return
 	int Unknown44;  // +0x44  // NAME 1: neutral (D10)
 	unsigned int Unknown48;  // +0x48  // NAME 1: neutral (D10)
 	int Unknown4C;  // +0x4C  // NAME 1: neutral (D10)

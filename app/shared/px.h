@@ -16,7 +16,7 @@
 
 #include "vector3.h"
 
-class PxBox;
+class PxBox; struct PxBoxAccess { static void Enter(PxBox *box, PxBox *other, bool box_wants, bool other_wants); static void Exit(PxBox *box, PxBox *other, bool box_wants, bool other_wants); };
 class PxList;
 
 /*
@@ -50,8 +50,8 @@ public:
 	PxBox(void *owner, const PxBox &src);					// 0x44B930 (copies Self / Test / Mask)  // NAME 2 [owner, src]: as above
 	virtual ~PxBox();										// 0x44BA20 (deleting 0x44B8C0)
 
-	virtual void On_Enter(PxBox *b);						// 0x44BAF0 'PxBox::On_Enter'
-	virtual void On_Exit(PxBox *b);							// 0x44BB20 'PxBox::On_Exit'
+	protected: friend class PxList; friend struct PxBoxAccess; virtual void On_Enter(PxBox *b);						// 0x44BAF0 'PxBox::On_Enter'  // NAME 5: thunk order confirmed, binary.md 5.11
+	virtual void On_Exit(PxBox *b); public:							// 0x44BB20 'PxBox::On_Exit'  // NAME 5: thunk order confirmed, binary.md 5.11
 
 	void Get_Corners(Vector3 *low, Vector3 *high) const;			// 0x44BA70 (FAIL_IF '!(low && high)' l.180)  // NAME 2: what it does
 	void Remove();											// 0x44BB50 (FAIL_IF '!List' l.200)  // NAME 2: what it does

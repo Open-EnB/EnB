@@ -26,9 +26,9 @@ public:
 	const char *Sound;									// +0x88 ('PROPULSION', 'SHIELD')  // NAME 2: what the warning's name takes
 };
 
-// (two inline layers, NameClass and the root copy in the inner one: ui_mfd.cpp's form, the find 0x5BF2B0 out of line)
-template<class C> inline C *Unknown_Power_Field(DeltaCompoundClass *const &root, const char *name) { NameClass n(name); DeltaCompoundClass *r = root; C *t = Unknown_Find_Field<C>(r, n); if (t && t->Unknown70) return(t); return(NULL); }	// NAME 1: neutral (D10)
-template<class C> inline C *Unknown_Power_Find(DeltaCompoundClass *const &root, const char *name) { return(Unknown_Power_Field<C>(root, name)); }	// NAME 1: neutral (D10)
+// (two inline layers, AuxDataName and the root copy in the inner one: ui_mfd.cpp's form, the find 0x5BF2B0 out of line)
+template<class C> inline C *Unknown_Power_Field(DeltaContainer *const &root, const char *name) { AuxDataName n(name); DeltaContainer *r = root; C *t = Unknown_Find_Field<C>(r, n); if (t && t->Unknown70) return(t); return(NULL); }	// NAME 1: neutral (D10)
+template<class C> inline C *Unknown_Power_Find(DeltaContainer *const &root, const char *name) { return(Unknown_Power_Field<C>(root, name)); }	// NAME 1: neutral (D10)
 
 // @0x5DBFC0  (Parent through the plain base first; GenericNode() out of line by the inline_depth at the file's end)
 UIPowerClass::UIPowerClass(RenderObjClass *mesh, LayerClass *layer, InterfaceClass *parent, int arg) :
@@ -102,10 +102,10 @@ void UIPowerClass::Unknown_08(ClientObjectClass *object)
 void UIPowerClass::Unknown_10()
 {
 	if (!Object) return;
-	DeltaCompoundClass *aux = (DeltaCompoundClass *)Object->AuxData;
+	DeltaContainer *aux = (DeltaContainer *)Object->AuxData;
 	DurationClass time((unsigned)Object->Client->Unknown10BC);
 	if (EnergyGauge->Exists) {
-		DeltaInterpolatorClass *percent = Unknown_Power_Find<DeltaInterpolatorClass>(aux, "EnergyPercent");
+		DeltaInterpolator *percent = Unknown_Power_Find<DeltaInterpolator>(aux, "EnergyPercent");
 		float value = percent ? percent->Get_Value(time) : 0.0f;
 		EnergyGauge->Set_Value(value);
 		if (EnergyGauge->Is_Unknown2C_08()) {
@@ -121,7 +121,7 @@ void UIPowerClass::Unknown_10()
 		}
 	}
 	if (ShieldGauge->Exists) {
-		DeltaInterpolatorClass *percent = Unknown_Power_Find<DeltaInterpolatorClass>(aux, "ShieldPercent");
+		DeltaInterpolator *percent = Unknown_Power_Find<DeltaInterpolator>(aux, "ShieldPercent");
 		float value = percent ? percent->Get_Value(time) : 0.0f;
 		ShieldGauge->Set_Value(value);
 		if (ShieldGauge->Is_Unknown2C_08()) {
@@ -191,7 +191,7 @@ bool UIPowerGaugeClass::Set_Value(float value)
 		if (Current.Value < 2.0f && old >= 2.0f) {
 			char name[256];
 			sprintf(name, "TALK_%s_ENERGY_LOW_1.wav", Sound);
-			SoundLibraryClass::Play_2D_Sound(name, 2);
+			SoundLibrary::Play_2D_Sound(name, 2);
 		}
 		return(false);
 	}
@@ -201,9 +201,9 @@ bool UIPowerGaugeClass::Set_Value(float value)
 /*
 **	Notes (O4, 2026-11-11)
 **
-**	The client's object 0x5DBF70-0x5DCCDF: permstr.h's PermStringInitClass static 0x5DBF70 (destructor 0x5DBFA0) opens it,
+**	The client's object 0x5DBF70-0x5DCCDF: permstr.h's PermStringInit static 0x5DBF70 (destructor 0x5DBFA0) opens it,
 **	after the adjustor thunks 0x5DBF50 (-4) / 0x5DBF60 (-0x38) of Unknown5DB670InterfaceClass's deleting destructor;
-**	UIProcClass's 0x5DCCE0 follows. No __FILE__ of its own (only the headers' asserts: delta_interpolator.h l.54,
+**	UIProcessClass's 0x5DCCE0 follows. No __FILE__ of its own (only the headers' asserts: delta_interpolator.h l.54,
 **	auxdata.h l.155): the file name is NAME 1, from the tooltips' section UI_POWER and the link order. Its twin is
 **	ui_experience.cpp (the same watcher shape, the same three-bar constructor).
 **	0x5DC4A0 is exact: use the existing two-layer lookup for MaxEnergyPower and one-layer field

@@ -236,7 +236,7 @@ SkillDataClass *UISkillInfoClass::Unknown_62C9E0()
 }
 
 // 0x62CA20
-bool UISkillInfoClass::Unknown_62CA20(SlotDataGadgetClass *gadget)
+bool UISkillInfoClass::Unknown_62CA20(SlotDataGadget *gadget)
 {
 	if (gadget) {
 		SkillRender = Create_Peek(Unknown_6A7380(gadget));

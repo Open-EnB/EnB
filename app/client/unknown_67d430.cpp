@@ -91,17 +91,17 @@ const Unknown67D430EntryStruct &Unknown67D430Class::Unknown_67DA60(unsigned int 
 int Unknown67D430Class::Unknown_67DB40(int type)
 {
 	switch (type) {
-		case 2:		if (!OptionClass::Instance->Get_Bool("Channel_Broadcast")) return -1;	break;
-		case 7:		if (!OptionClass::Instance->Get_Bool("Channel_Local")) return -1;		break;
-		case 4:		if (!OptionClass::Instance->Get_Bool("Channel_Group")) return -1;		break;
-		case 8:		if (!OptionClass::Instance->Get_Bool("Channel_Guild")) return -1;		break;
-		case 3:		if (!OptionClass::Instance->Get_Bool("Chat_Tell")) return -1;			break;
-		case 6:		if (!OptionClass::Instance->Get_Bool("Chat_Tips")) return -1;			break;
-		case 5:		if (!OptionClass::Instance->Get_Bool("Chat_NPC")) return -1;			break;
-		case 21:	if (!OptionClass::Instance->Get_Bool("Chat_Warnings")) return -1;		break;
-		case 22:	if (!OptionClass::Instance->Get_Bool("Chat_Attention")) return -1;		break;
-		case 17:	if (!OptionClass::Instance->Get_Bool("Chat_Errors_IC")) return -1;		break;
-		case 0:		if (!OptionClass::Instance->Get_Bool("Chat_Status_IC")) return -1;		break;
+		case 2:		if (!OptionManagerClass::Instance->Get_Bool("Channel_Broadcast")) return -1;	break;
+		case 7:		if (!OptionManagerClass::Instance->Get_Bool("Channel_Local")) return -1;		break;
+		case 4:		if (!OptionManagerClass::Instance->Get_Bool("Channel_Group")) return -1;		break;
+		case 8:		if (!OptionManagerClass::Instance->Get_Bool("Channel_Guild")) return -1;		break;
+		case 3:		if (!OptionManagerClass::Instance->Get_Bool("Chat_Tell")) return -1;			break;
+		case 6:		if (!OptionManagerClass::Instance->Get_Bool("Chat_Tips")) return -1;			break;
+		case 5:		if (!OptionManagerClass::Instance->Get_Bool("Chat_NPC")) return -1;			break;
+		case 21:	if (!OptionManagerClass::Instance->Get_Bool("Chat_Warnings")) return -1;		break;
+		case 22:	if (!OptionManagerClass::Instance->Get_Bool("Chat_Attention")) return -1;		break;
+		case 17:	if (!OptionManagerClass::Instance->Get_Bool("Chat_Errors_IC")) return -1;		break;
+		case 0:		if (!OptionManagerClass::Instance->Get_Bool("Chat_Status_IC")) return -1;		break;
 	}
 	return Colors[type];
 }

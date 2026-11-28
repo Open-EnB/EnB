@@ -21,7 +21,7 @@
 #include <stdio.h>
 bool Unknown_C404F8;			// NAME 1: neutral (D10): the client's 0xC404F8, 0x514480 copies 'Doppler_Enabled' to it (its home file is unknown)
 #include "enbscene.h"	// the +0x10C scene (0x75ECF0, 0xF4 bytes)
-class UIStarmapClass { public: StarmapPipClass *Unknown_7C8DB0(bool on); };	// ui_starmap.h's, as far as 0x512A00 calls it (the PDA's +0xA8 object)
+class StarmapInterface { public: StarmapPIPClass *Unknown_7C8DB0(bool on); };  // NAME 5: thunk order A, binary.md 5.11; ui_starmap.h's, as far as 0x512A00 calls it (the PDA's +0xA8 object)
 #include "..\shared\auth_product.h"
 
 
@@ -188,15 +188,15 @@ void MainViewClass::Unknown_04()
 	Unknown1C->Set_Fog_Enable(false);
 	Unknown110 = new SimpleSceneClass;
 	Unknown114 = new SimpleSceneClass;
-	Scene = new MainViewSceneClass;
+	Scene = new ENBSceneClass;
 	Unknown118 = new SimpleSceneClass;
 	Unknown11C = new SimpleSceneClass;
 	Unknown120 = new SimpleSceneClass;
 	DazzleLayer = new DazzleLayerClass;
 	Unknown128 = new MainViewDazzleHandlerClass(Client);
 	DazzleRenderObjClass::Install_Dazzle_Visibility_Handler(Unknown128);
-	Radar = new RadarSystemClass((SClient *)Client->As_Space_Client());
-	Unknown84 = new GutterRadarClass((SClient *)Client->As_Space_Client(), Create_Peek((SimpleSceneClass *)Unknown_50()));
+	Radar = new RadarSystemClass((SpaceClientClass *)Client->As_Space_Client());
+	Unknown84 = new GutterRadarClass((SpaceClientClass *)Client->As_Space_Client(), Create_Peek((SimpleSceneClass *)Unknown_50()));
 	Unknown110->Set_Fog_Enable(false);
 	Unknown114->Set_Fog_Enable(false);
 	Scene->Set_Fog_Enable(false);
@@ -229,9 +229,9 @@ void MainViewClass::Unknown_04()
 
 // 0x50C2F0: Shutdown (slot +0x10), Init's counterpart: the lights off the +0x120 scene, the dazzle handler and layer, the
 // interface objects, the radar, the scenes, the land, the orbitals and the profile iterator
-void MainViewClass::Unknown_10()
+void MainViewClass::Shutdown()
 {
-	UIViewClass::Unknown_10();
+	UIViewClass::Shutdown();
 	for (int i = 0; i < 4; i++) {
 		Unknown120->Remove_Render_Object(Unknown154[i].Peek());
 		Unknown154[i] = NULL;
@@ -310,16 +310,16 @@ void MainViewClass::Unknown_08()
 	object->Unknown_58();
 	Unknown_6B4940(object);
 	REF_PTR_RELEASE(object);
-	Cpit = new UICpitClass(this, LayerClass(Unknown1C, Unknown20.Peek()));
+	Cpit = new CockpitInterface(this, LayerClass(Unknown1C, Unknown20.Peek()));
 	Cpit->Unknown_54();
 	Unknown_6B4940(Cpit);
-	Unknown1D4 = new UIBuffClass(this, LayerClass(Unknown1C, Unknown20.Peek()));
+	Unknown1D4 = new BuffInterface(this, LayerClass(Unknown1C, Unknown20.Peek()));
 	Unknown1D4->Unknown_54();
 	Unknown_6B4940(Unknown1D4);
-	Group = new UIGroupClass(Client);
+	Group = new GroupInterface(Client);
 	Group->Unknown_54();
 	Group->Unknown_7C(this, 0);
-	Unknown1E4 = new UIPTradeClass(Client);
+	Unknown1E4 = new PlayerTradeInterface(Client);
 	Unknown1E4->Unknown_54();
 	Unknown1E4->Unknown_7C(this, 0);
 	Unknown1DC = new BackInterfaceClass(this, Unknown110);
@@ -386,7 +386,7 @@ void MainViewClass::Unknown_08()
 
 
 
-int MainViewClass::Unknown_0C(bool on)
+int MainViewClass::Render(bool on)
 {
 	float znear, zfar;
 	Camera->Get_Clip_Planes(znear, zfar);
@@ -484,7 +484,7 @@ void MainViewClass::Unknown_50CF70()
 	Camera->Set_Depth_Range(zmin, zmax);
 }
 
-static inline bool Unknown_50D060_Helper(SClient *c) { return c->ViewMode == 0 || (c->ViewMode == 1 && c->Unknown10FA); }	// NAME 1 [c]: neutral (D10)
+static inline bool Unknown_50D060_Helper(SpaceClientClass *c) { return c->ViewMode == 0 || (c->ViewMode == 1 && c->Unknown10FA); }	// NAME 1 [c]: neutral (D10)
 void MainViewClass::Unknown_50D060()
 {
 	float old_near, old_far;
@@ -549,7 +549,7 @@ void MainViewClass::Unknown_50D430(float znear, float zfar)
 // (exact: depth range 0xAECF30/0xAECF2C, Matrix3D rot copy + Rotate_Vector(rot, dir, &dir), Get_Client() on +0x05 / StarBudget)
 void MainViewClass::Unknown_50D520()
 {
-	SClient *sclient = (SClient *)Client->As_Space_Client();
+	SpaceClientClass *sclient = (SpaceClientClass *)Client->As_Space_Client();
 	BridgeInterface *bridge = sclient->Bridge;
 	if (bridge && bridge->Scene.Peek()) {
 		CameraClass *camera = Camera;
@@ -644,7 +644,7 @@ WW3DErrorType MainViewClass::Render_Gas_Giant_Mode(float znear, float zfar)
 	return(WW3D_ERROR_OK);
 }
 
-// NOT EXACT: similarity 0.75 (as Render_Gas_Giant_Mode, and the inline choices of 0x50D1E0 / 0x50E6A0); attempts.csv 0x50E090
+// NOT EXACT: masked residue 64 (the Unknown10FA-set branch first gives the client's 0x50D1E0 / 0x50E6A0 inlining; left: the inlined 0x50CCF0 copies Unknown54 by an early integer mov, scheduling); attempts.csv 0x50E090
 WW3DErrorType MainViewClass::Render_Space_Mode(float znear, float zfar)
 {
 	WWPROFILE("MainView::Render_Space_Mode");
@@ -668,14 +668,14 @@ WW3DErrorType MainViewClass::Render_Space_Mode(float znear, float zfar)
 	float budget = (float)PolyBudget - cost;
 	if (budget <= 0.0f) budget = 0.0f;
 	PredictiveLODOptimizerClass::Optimize_LODs(budget);
-	if (!Client->Unknown10FA) {
-		Unknown_50D060();
+	if (Client->Unknown10FA) {
 		Unknown_50D1E0();
 		Unknown_50CE00(near2, far2);
+		Unknown_50D060();
 	} else {
+		Unknown_50D060();
 		Unknown_50D1E0();
 		Unknown_50CE00(near2, far2);
-		Unknown_50D060();
 	}
 	Unknown_50D310(znear, zfar);
 	Unknown_50D430(near2, far2);
@@ -892,15 +892,15 @@ Vector3 Unknown_50EE60(const Vector3 &source)
 
 
 
-// The clock the sky runs on (SClient +0x10BC plus the server offset +0x10C0), two inline layers deep: the client calls
+// The clock the sky runs on (SpaceClientClass +0x10BC plus the server offset +0x10C0), two inline layers deep: the client calls
 // DurationClass::operator+ out of line (0x514B00, its only copy), as VC6 does at this depth (one layer inlines it)
-static inline DurationClass Unknown_Server_Time(SClient *client) { return DurationClass((unsigned)client->Unknown10BC) + client->Unknown10C0; }	// NAME 1: neutral (D10)
-static inline DurationClass Unknown_Time(SClient *client) { return Unknown_Server_Time(client); }	// NAME 1: neutral (D10)
+static inline DurationClass Unknown_Server_Time(SpaceClientClass *client) { return DurationClass((unsigned)client->Unknown10BC) + client->Unknown10C0; }	// NAME 1: neutral (D10)
+static inline DurationClass Unknown_Time(SpaceClientClass *client) { return Unknown_Server_Time(client); }	// NAME 1: neutral (D10)
 // NOT EXACT: 1.00 (masked 10 -> 4, raw 207 -> 9, frame 0xCC = client; 4 x87 rows left in r49 frame*offset Row 1; attempts.csv 0x50F1B0)
 void MainViewClass::Update(CameraClass *camera, bool under)
 {
 	WWPROFILE("MainView::Update");
-	SClient *client = Get_Client();
+	SpaceClientClass *client = Get_Client();
 	FAIL_IF(!client) return;
 	DurationClass time = Unknown_Time(client);	float hours = (float)time.Get();	hours *= 2.777778e-07f;
 	if (Get_Client()->DebugMode) {
@@ -916,7 +916,7 @@ void MainViewClass::Update(CameraClass *camera, bool under)
 		{
 			WWPROFILE("AdjustDayNight");
 			const Vector3 &sundir = Orbitals->Unknown20;		// (the client takes it before the camera position: Orbitals in edi across Get_Position)
-			((MainViewSceneClass *)Scene)->Unknown_75F690(sundir, camera->Get_Position());
+			((ENBSceneClass *)Scene)->Unknown_75F690(sundir, camera->Get_Position());
 			Scene->Set_Ambient_Light(Orbitals->Unknown58);
 			Scene->Set_Fog_Enable(false);
 			if (Get_Client()->Unknown10F8) {
@@ -958,7 +958,7 @@ void MainViewClass::Update(CameraClass *camera, bool under)
 			Lighting.LightColor = sun;
 			Lighting.SunDirection = Orbitals->Unknown20;
 			Lighting.ShadowBias = Orbitals->Unknown30;
-			((MainViewSceneClass *)Scene)->Unknown_75F700(sun * 0.5f);
+			((ENBSceneClass *)Scene)->Unknown_75F700(sun * 0.5f);
 			const LandLightingStruct &lighting = Lighting;
 
 			static bool was_under;		// the client's 0xBE59E4
@@ -1090,8 +1090,8 @@ void MainViewClass::Update(CameraClass *camera, bool under)
 	}
 	if (Orbitals->Unknown4C) {
 		Scene->Add_Render_Object(Unknown144[0].Peek());
-		Vector3 shadow_dir = -Orbitals->Unknown20;	ProjectorManagerClass *projectors = ((MainViewSceneClass *)Scene)->ProjectorManager;	projectors->Set_Shadow_Light_Direction(shadow_dir);
-		((MainViewSceneClass *)Scene)->Apply_Projectors(Camera);
+		Vector3 shadow_dir = -Orbitals->Unknown20;	ProjectionManagerClass *projectors = ((ENBSceneClass *)Scene)->ProjectorManager;	projectors->Set_Shadow_Light_Direction(shadow_dir);
+		((ENBSceneClass *)Scene)->Apply_Projectors(Camera);
 		if (Get_Client()->Unknown10F8) {
 			Vector3 dir;		// one vector for both (the client: one slot, its X kept in st(0) across Get_Diffuse's null test)
 			Unknown144[0]->Get_Spot_Direction(dir);
@@ -1117,7 +1117,7 @@ void MainViewClass::Update(CameraClass *camera, bool under)
 
 
 
-// SClient +0x12A4, as far as the main view's 0x512400 uses it (its G_ASSERT calls it 'targeting')
+// SpaceClientClass +0x12A4, as far as the main view's 0x512400 uses it (its G_ASSERT calls it 'targeting')
 #include "targeting.h"	// (+0x10: 0x512400 clears it when TargetGameID's +0x70 is above 1)
 
 
@@ -1130,13 +1130,13 @@ void MainViewClass::Update(CameraClass *camera, bool under)
 
 // 0xBFAE3C is WW3D::SyncTime (WW3D::Sync 0x918200 writes it): read inline through WW3D::Get_Sync_Time (ww3d.h above)
 // Renegade's console.cpp profile display (Commando, CConsoleClass's profile text), as
-// the client has it: SClient's Unknown14EC == 3 shows it, every 250 ms rebuilt from the profile iterator (+0x1E8)
+// the client has it: SpaceClientClass's Unknown14EC == 3 shows it, every 250 ms rebuilt from the profile iterator (+0x1E8)
 void MainViewClass::Unknown_510440()
 {
 	static StringClass profile_string(1024, true);
 	static StringClass working_string(255, true);
-	if (((SClient *)Client->As_Space_Client())->Unknown14EC != 3) return;
-	((SClient *)Client->As_Space_Client())->Text->Draw_Text(profile_string, 0xFF00FF00);
+	if (((SpaceClientClass *)Client->As_Space_Client())->Unknown14EC != 3) return;
+	((SpaceClientClass *)Client->As_Space_Client())->Text->Draw_Text(profile_string, 0xFF00FF00);
 	// Only update every 1/4 second
 	static unsigned int last_time;
 	if (WW3D::Get_Sync_Time() - last_time < 250) return;
@@ -1405,23 +1405,23 @@ void MainViewClass::Set_Camera(CameraClass *camera)
 }
 
 
-// NOT EXACT: functional (MV2, from the disassembly)
+// NOT EXACT: masked residue 29, the client's call string (all five finds through Unknown_Find_Set_Field, Find_Field out of line as the client's 0x514B60 / 0x514BD0: its `t && t->Unknown70` tests; Get_Game_ID and DeltaString::Get with seven dead ChatPanel.Peek() reads at the end (D272) cut the string constructors' and the first operator='s assigns as the client); left: the set's extra != 0 test, one AuxDataName slot too many (frame 0x13C / 0x108); attempts.csv 0x512400
 void MainViewClass::Unknown_512400()
 {
 	if (!Cpit || !Cpit->Scan) return;
 	ClientObjectClass *current = Cpit->Scan->Object;
-	unsigned current_id = current ? current->GameID : 0;
-	SClient *client = Client;
+	unsigned current_id = current ? current->Get_Game_ID() : 0;
+	SpaceClientClass *client = Client;
 	if (!client) return;
 	ClientObjectClass *avatar = client->Get_Avatar();
 	if (!avatar || !avatar->AuxData) return;
-	NameClass target_name("TargetGameID");
-	DeltaTemplateClass<int> *target = Unknown_Find_Field<DeltaTemplateClass<int> >((DeltaCompoundClass *)avatar->AuxData, target_name);
-	if (!target || !target->Unknown70) return;
-	NameClass set_name("TargetGameID");
-	DeltaTemplateClass<int> *set = Unknown_Find_Field<DeltaTemplateClass<int> >((DeltaCompoundClass *)avatar->AuxData, set_name);
+	AuxDataName target_name("TargetGameID");
+	DeltaTemplateClass<int> *target = Unknown_Find_Set_Field<DeltaTemplateClass<int> >((DeltaContainer *)avatar->AuxData, target_name);
+	if (!target) return;
+	AuxDataName set_name("TargetGameID");
+	DeltaTemplateClass<int> *set = Unknown_Find_Set_Field<DeltaTemplateClass<int> >((DeltaContainer *)avatar->AuxData, set_name);
 	if (set && set->Unknown70 > 1 && Client) {
-		TargetingClass *targeting = Client->Targeting;
+		TargetSelectClass *targeting = Client->Targeting;
 		if (targeting) {
 			targeting->Unknown10 = false;
 		} else {
@@ -1429,12 +1429,12 @@ void MainViewClass::Unknown_512400()
 		}
 	}
 	if (current_id == (unsigned)target->Value) return;
-	NameClass threat_name("TargetThreat");
-	DeltaStringClass *threat_data_assessment = Unknown_Find_Field<DeltaStringClass>((DeltaCompoundClass *)avatar->AuxData, threat_name); if (!threat_data_assessment || !threat_data_assessment->Unknown70) threat_data_assessment = NULL;
-	NameClass sound_name("TargetThreatSound");
-	DeltaStringClass *threat_data_sound = Unknown_Find_Field<DeltaStringClass>((DeltaCompoundClass *)avatar->AuxData, sound_name); if (!threat_data_sound || !threat_data_sound->Unknown70) threat_data_sound = NULL;
-	NameClass level_name("TargetThreatLevel");
-	DeltaTemplateClass<int> *threat_mob_level = Unknown_Find_Field<DeltaTemplateClass<int> >((DeltaCompoundClass *)avatar->AuxData, level_name); if (!threat_mob_level || !threat_mob_level->Unknown70) threat_mob_level = NULL;
+	AuxDataName threat_name("TargetThreat");
+	DeltaString *threat_data_assessment = Unknown_Find_Set_Field<DeltaString>((DeltaContainer *)avatar->AuxData, threat_name);
+	AuxDataName sound_name("TargetThreatSound");
+	DeltaString *threat_data_sound = Unknown_Find_Set_Field<DeltaString>((DeltaContainer *)avatar->AuxData, sound_name);
+	AuxDataName level_name("TargetThreatLevel");
+	DeltaTemplateClass<int> *threat_mob_level = Unknown_Find_Set_Field<DeltaTemplateClass<int> >((DeltaContainer *)avatar->AuxData, level_name);
 
 
 
@@ -1447,8 +1447,8 @@ void MainViewClass::Unknown_512400()
 	std::string assessment("");
 	std::string sound("");
 	int level = -1;
-	if (threat_data_assessment) assessment = threat_data_assessment->String;
-	if (threat_data_sound) sound = threat_data_sound->String;
+	if (threat_data_assessment) assessment = threat_data_assessment->Get();
+	if (threat_data_sound) sound = threat_data_sound->Get();
 	if (threat_mob_level) level = threat_mob_level->Value;
 	ClientObjectClass *co = Client->Find_Object(target->Value);
 	if (!co) {
@@ -1459,13 +1459,13 @@ void MainViewClass::Unknown_512400()
 	}
 	if (co != Unknown_5C() && client->ChatPanel.Peek()) {
 		if (co->Unknown_6F5A40()) {
-			if (co->GameID != client->ChatPanel->Unknown118) client->ChatPanel->Unknown_563910(co->GameID, true);
+			if (co->Get_Game_ID() != client->ChatPanel->Unknown118) client->ChatPanel->Unknown_563910(co->Get_Game_ID(), true);
 		} else {
 			client->ChatPanel->Unknown_563910(0, false);
 		}
 	}
 	if (Radar) Radar->Unknown_7BD6E0(co);
-	if (Cpit) Cpit->Scan->Unknown_60E540(co, assessment, sound, level);
+	if (Cpit) Cpit->Scan->Unknown_60E540(co, assessment, sound, level); client->ChatPanel.Peek(); client->ChatPanel.Peek(); client->ChatPanel.Peek(); client->ChatPanel.Peek(); client->ChatPanel.Peek(); client->ChatPanel.Peek(); client->ChatPanel.Peek();
 }
 
 
@@ -1604,14 +1604,14 @@ void MainViewClass::Unknown_14()
 	CameraEffects->Unknown_34();
 }
 
-// 0x512A00: every frame while the main view is current (SClient::Do_Frame): inside local_interface_sort.cpp's sort,
+// 0x512A00: every frame while the main view is current (SpaceClientClass::Do_Frame): inside local_interface_sort.cpp's sort,
 // the radar from the +0x84 object, the PDA's +0xA8 object and the scene
 void MainViewClass::Unknown_512A00()
 {
-	SClient *sclient = (SClient *)Client->As_Space_Client();
-	PDAInterfaceClass *pda = sclient->PDAInterface;
-	InterfaceSortClass sort(this, 0);
-	Radar->Unknown_7BCA70(Unknown84, ((UIStarmapClass *)pda->UnknownA8)->Unknown_7C8DB0(true), Create_Peek((SceneClass *)Unknown_64()));
+	SpaceClientClass *sclient = (SpaceClientClass *)Client->As_Space_Client();
+	PDAInterface *pda = sclient->PDAWindow;
+	LocalInterfaceSort sort(this, 0);
+	Radar->Unknown_7BCA70(Unknown84, ((StarmapInterface *)pda->UnknownA8)->Unknown_7C8DB0(true), Create_Peek((SceneClass *)Unknown_64()));
 }
 
 
@@ -1976,7 +1976,7 @@ void MainViewClass::Unknown_5137F0(unsigned sector)
 	sprintf(filename, "land%04d.ini", sector);
 
 
-	SClient *sclient = (SClient *)Client->As_Space_Client();
+	SpaceClientClass *sclient = (SpaceClientClass *)Client->As_Space_Client();
 
 	FAIL_IF(!sclient) {return;}
 	bool flag = sclient->Unknown1320; Land = LandClass::Create(filename, flag);	// the flag through a local, as the client (one line: the FAIL_IFs)
@@ -2143,7 +2143,7 @@ void MainViewClass::Unknown_513FC0()
 
 
 
-// 0x514010: the view mode changed (SClient 0x745F30): between the space modes 0, 1 and 5 the +0x10C scene is emptied
+// 0x514010: the view mode changed (SpaceClientClass 0x745F30): between the space modes 0, 1 and 5 the +0x10C scene is emptied
 // (+0x138 paused around it when its +0x7C is set); then each mode's off and on (cockpit, +0x138, mode 1's camera and land)
 // NOT EXACT: shape (the second switch's case 0 / 5 block sits after the dispatch in the client); attempts.csv 0x514010
 void MainViewClass::Unknown_514010(int oldmode, int newmode)
@@ -2281,12 +2281,12 @@ void MainViewClass::Unknown_514450()
 
 void MainViewClass::Unknown_514480()
 {
-	bool graphics_default = OptionClass::Instance->Get_Bool("Graphics_Default");
-	float gamma = OptionClass::Instance->Get_Float("Graphics_Gamma");
-	float land_poly = OptionClass::Instance->Get_Float("Graphics_Land_Poly");
-	float land_detail = OptionClass::Instance->Get_Float("Graphics_Land_Detail");
-	float space_poly = OptionClass::Instance->Get_Float("Graphics_Space_Poly");
-	float texture_size = OptionClass::Instance->Get_Float("Graphics_Texture_Size");
+	bool graphics_default = OptionManagerClass::Instance->Get_Bool("Graphics_Default");
+	float gamma = OptionManagerClass::Instance->Get_Float("Graphics_Gamma");
+	float land_poly = OptionManagerClass::Instance->Get_Float("Graphics_Land_Poly");
+	float land_detail = OptionManagerClass::Instance->Get_Float("Graphics_Land_Detail");
+	float space_poly = OptionManagerClass::Instance->Get_Float("Graphics_Space_Poly");
+	float texture_size = OptionManagerClass::Instance->Get_Float("Graphics_Texture_Size");
 	DefaultChanged = false;
 	GraphicsChanged = false;
 	if (graphics_default != GraphicsDefault) {
@@ -2313,7 +2313,7 @@ void MainViewClass::Unknown_514480()
 		GraphicsTextureSize = texture_size;
 		GraphicsChanged = true;
 	}
-	Unknown_C404F8 = OptionClass::Instance->Get_Bool("Doppler_Enabled");
+	Unknown_C404F8 = OptionManagerClass::Instance->Get_Bool("Doppler_Enabled");
 }
 
 // 0x5146A0: reloads the Graphics_* options, marks both flags dirty and applies them
@@ -2375,8 +2375,8 @@ void MainViewClass::Unknown_18(bool arg)
 **	client's FAIL_IF lines 1974 / 1981 / 1983 (the lines above are left empty for the functions not yet rebuilt), with its
 **	neighbour 0x513B90 (gas%04d.ini's wind) after it, and 0x513700 (the stars, orbital%04d.ini) before it (HN2:
 **	clienttest's fake main view carries a StarField and an OrbitalManager for it).
-**	Client->Unknown_18() is ClientClass's slot +0x18 (0 in the base, 0x7268E0); SClient's override returns the
-**	SClient ('!sclient'). Its +0x1320 byte is LandClass::Create's flag.
+**	Client->Unknown_18() is ClientClass's slot +0x18 (0 in the base, 0x7268E0); SpaceClientClass's override returns the
+**	SpaceClientClass ('!sclient'). Its +0x1320 byte is LandClass::Create's flag.
 **
 **	MV1 (2026-10-28): the class's layout from the constructor 0x50B360 (its stores in member order before the
 **	table, sclient.h), the destructor 0x50B950, the table 0xAECF78 (34 slots: +0x5C..+0x84 are the main view's own;
@@ -2388,7 +2388,7 @@ void MainViewClass::Unknown_18(bool arg)
 **	
 **	S2 (run 2026-11-18): the CRT table ends this object with 0x514B30 (entry 148), <string>'s guard batched with
 **	the Elements array's numbering 0x514C40 (149) and the base array's 0x514C90 (150), as ui_buff.cpp's
-**	object: so this file includes aux_buff.h (on aux_roots.h's line). Unknown514CC0ViewClass (0x514CC0-
+**	object: so this file includes aux_buff.h (on aux_roots.h's line). MenuViewClass (0x514CC0-
 **	0x514F80, closed by the plain guard 0x514F60, entry 151) is an object of its own: unknown_514cc0.cpp.
 **
 **	BG7 (run 2026-11-19), Update 0x50F1B0 (0.37 -> 0.87, frame 0xCC as the client's): DurationClass::operator+

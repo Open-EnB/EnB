@@ -15,7 +15,7 @@ MemoryConnectionClass::~MemoryConnectionClass()
 	Release();
 }
 
-bool MemoryConnectionClass::Send_Message(RawPacketClass *packet)
+bool MemoryConnectionClass::Send_Message(PacketClass *packet)
 {
 
 	G_ASSERT(0);
@@ -23,7 +23,7 @@ bool MemoryConnectionClass::Send_Message(RawPacketClass *packet)
 }
 
 // The packet built and queued on the send pipe, due after its delay
-bool MemoryConnectionClass::Send_Packet(PacketClass *vp)
+bool MemoryConnectionClass::Send_Packet(UnknownPacketBaseClass *vp)
 {
 
 	G_ASSERT(vp);
@@ -38,19 +38,19 @@ bool MemoryConnectionClass::Send_Packet(PacketClass *vp)
 	if (!Is_Connected()) {
 		return(false);
 	}
-	MemoryMessageClass message; message.Packet = vp->Build(); message.Time = Unknown_Get_Ticks() + SendPipe->Delay;
+	MemoryMessageClass message; message.Packet = vp->Encode(); message.Time = Unknown_Get_Ticks() + SendPipe->Delay;
 	SendPipe->Messages.push_back(message);
 	return(true);
 }
 
 // The receive pipe's first message once it is due, as a packet
-PacketClass *MemoryConnectionClass::Receive()
+UnknownPacketBaseClass *MemoryConnectionClass::Receive()
 {
 	if (RecvPipe != 0 && RecvPipe->Messages.size() != 0) {
 		MemoryMessageClass &message = RecvPipe->Messages.front();
 		if (message.Time <= Unknown_Get_Ticks()) {
 			message.Packet->Data.Seek(0);
-			PacketClass *packet = Unknown_869790(message.Packet);
+			UnknownPacketBaseClass *packet = Unknown_869790(message.Packet);
 			packet->Connection = this;
 			delete message.Packet;
 			RecvPipe->Messages.pop_front();

@@ -23,7 +23,7 @@
 
 class FontSys;
 
-class DynamicWindowMultiLineTextClass : public DynamicWindowElementClass, public DynamicWindowContainerClass  // NAME 2 [DynamicWindowMultiLineTextClass]: class from file (D24)
+class DynamicWindowMultiLineTextClass : public DynamicWindowElement, public DynamicWindowContainerClass  // NAME 2 [DynamicWindowMultiLineTextClass]: class from file (D24)
 {
 public:
 	DynamicWindowMultiLineTextClass(const std::string &font_name, const RefCountPtr<FontSys> &sample_font, const Vector2 &min_size, unsigned int flags);	// 0x51B180 (G_ASSERT 'CharacterHeight > 0')  // NAME 1 [font_name, sample_font, min_size, flags]: the FAIL_IFs'; Set_Min_Size's; the base's
@@ -40,7 +40,7 @@ public:
 	virtual void Set_Alignment(unsigned int flags);
 	virtual void Invalidate();
 	virtual bool Is_Dirty();
-	virtual Vector2 Get_Min_Size();
+	virtual Vector2 Get_Min_Size() const;
 	virtual bool Has_Flags(unsigned int flags);
 	virtual void Layout(const Vector2 &position, const Vector2 &size);							// (FAIL_IF 'height <= 0')
 	virtual Vector2 Get_Size();
@@ -50,14 +50,14 @@ public:
 	virtual DynamicWindowContainerClass *Get_Container();
 	virtual void Add_To_Scene(SceneClass *scene);
 	virtual void Remove_From_Scene();
-	virtual SceneClass *Peek_Scene();
+	virtual SceneClass *Peek_Scene() const;
 	virtual void Set_Level(int level);
 	virtual int Get_Level();
 	virtual void Set_Position(const Vector2 &position);
 
-	virtual void Child_Changed(DynamicWindowElementClass &child);								// +0x08 +0x00 0x51BDE0
+	virtual void Child_Changed(DynamicWindowElement &child);								// +0x08 +0x00 0x51BDE0
 	virtual void Remove_All_Children(bool recursive);											// +0x08 +0x04 0x51BE00 (G_ASSERT(0))
-	virtual bool Remove_Child(const RefCountPtr<DynamicWindowElementClass> &child);			// +0x08 +0x08 0x51BE30 (G_ASSERT(0))
+	virtual bool Remove_Child(const RefCountPtr<DynamicWindowElement> &child);			// +0x08 +0x08 0x51BE30 (G_ASSERT(0))
 
 protected:
 	void Refresh();																				// 0x51BE60 (re-split at the laid-out width, then tell the parent)  // NAME 1 [Refresh]
@@ -78,8 +78,8 @@ protected:
 	Vector2 Position;																			// +0x4C  // NAME 1 [Position]
 	unsigned int Flags;																			// +0x54  // NAME 1 [Flags]
 	std::string Text;																			// +0x58  // NAME 1 [Text]
-	std::vector< RefCountPtr<DynamicWindowElementClass> > Lines;								// +0x68 (FAIL_IF 'Lines.size() > ...')
-	RefCountPtr<DynamicWindowElementClass> Unknown78;											// +0x78 (released by the destructor)  // NAME 1: neutral
+	std::vector< RefCountPtr<DynamicWindowElement> > Lines;								// +0x68 (FAIL_IF 'Lines.size() > ...')
+	RefCountPtr<DynamicWindowElement> Unknown78;											// +0x78 (released by the destructor)  // NAME 1: neutral
 	unsigned int TopLineIndex;																			// +0x7C (FAIL_IF 'TopLineIndex <= 0')
 	unsigned int DisplayedLines;																			// +0x80 (FAIL_IF '... TopLineIndex + DisplayedLines')
 };

@@ -5,7 +5,7 @@
 **	__FILE__ is 'e:\build\beta\G\app\Client\ChatGadg.cpp'; the client holds no string of this header)
 **
 **	The chat panel's text entry (0x80 bytes, constructor 0x65BFD0, table 0xAF99D8): a text gadget whose
-**	enter sends the line on the chat panel's channel (ClientChatPacketClass, AvatarEmotePacketClass,
+**	enter sends the line on the chat panel's channel (ClientChatPacketClass, ChatstreamPacketClass,
 **	ClientChatRequestPacketClass), with a history of the last ten lines (up / down), the 'chatgadg' module's
 **	control keys while it is idle (the channels, reply, positions, quick messages kept in chat.ini).
 **	Declared as far as chatgadg.cpp and its callers use it (D10).
@@ -26,7 +26,7 @@ class LineDisplayClientClass;
 class ClientClass;
 class INIClass;
 
-class ChatGadgetClass : public TextBaseGadgetClass  // NAME 3: class-from-file (D24) for app\Client\ChatGadg.cpp
+class ChatGadgetClass : public TextGadgetClass  // NAME 3: class-from-file (D24) for app\Client\ChatGadg.cpp
 {
 public:
 	ChatGadgetClass(LineDisplayClientClass *client);					// 0x65BFD0 (the 'chatgadg' keys registered on the first one; chat.ini loaded)  // NAME 1 [client]: what ui_chat_panel.cpp passes

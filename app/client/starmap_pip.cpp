@@ -36,8 +36,8 @@ static Vector3 TargetCoordsColor(1.0f, 0.1f, 0.1f);	// 0xBE8790 (0x7BF8D0): the 
 static Vector3 HoverCoordsColor(1.0f, 1.0f, 0.0f);	// 0xBE87C0 (0x7BF900): the hovered object's  // NAME 1: what 0x7C1C50 shows in it
 
 // @0x7BF930
-StarmapPipClass::StarmapPipClass(SClient *client) :
-	MapPipClass(client, true),
+StarmapPIPClass::StarmapPIPClass(SpaceClientClass *client) :
+	MapPIPClass(client, true),
 	Unknown50(false),
 	Unknown51(false),
 	Unknown54(1.0f),
@@ -69,23 +69,23 @@ StarmapPipClass::StarmapPipClass(SClient *client) :
 	XPos = Create_NEW(new FontSys("STARMAP_X_POS", 0, 0));
 	YPos = Create_NEW(new FontSys("STARMAP_Y_POS", 0, 0));
 	ZPos = Create_NEW(new FontSys("STARMAP_Z_POS", 0, 0));
-	ShowCoords = OptionClass::Instance->Get_Int("Starmap_ShowCoords");
-	Label = OptionClass::Instance->Get_Int("Starmap_Label");
+	ShowCoords = OptionManagerClass::Instance->Get_Int("Starmap_ShowCoords");
+	Label = OptionManagerClass::Instance->Get_Int("Starmap_Label");
 }
 
 
 // @0x7BFF20
-StarmapPipClass::~StarmapPipClass()
+StarmapPIPClass::~StarmapPIPClass()
 {
-	IntOptionStruct *option = OptionClass::Instance->Find_Int("Starmap_ShowCoords");
+	IntOptionStruct *option = OptionManagerClass::Instance->Find_Int("Starmap_ShowCoords");
 	if (option) {
 		option->Set_Value(ShowCoords);
 	}
-	option = OptionClass::Instance->Find_Int("Starmap_Label");
+	option = OptionManagerClass::Instance->Find_Int("Starmap_Label");
 	if (option) {
 		option->Set_Value(Label);
 	}
-	OptionClass::Instance->Save();
+	OptionManagerClass::Instance->Save();
 	Unknown_7C2280();
 	delete UnknownA0;
 	UnknownA0 = NULL;
@@ -99,19 +99,19 @@ StarmapPipClass::~StarmapPipClass()
 }
 
 // @0x7C01C0
-GadgetClass *StarmapPipClass::Unknown_18()
+GadgetClass *StarmapPIPClass::Unknown_18()
 {
 	return(new GadgetStarmapClass(this));
 }
 
 // @0x7C0240
-void StarmapPipClass::Unknown_1C(int arg)
+void StarmapPIPClass::Unknown_1C(int arg)
 {
 	Unknown_7C2060(ShowCoords + 1);
 }
 
 // @0x7C0260
-void StarmapPipClass::Unknown_20(int arg)
+void StarmapPIPClass::Unknown_20(int arg)
 {
 	Unknown60 = Client->AvatarID;
 	if ((char)arg && Unknown50) {
@@ -122,7 +122,7 @@ void StarmapPipClass::Unknown_20(int arg)
 
 
 // @0x7C0330
-void StarmapPipClass::Unknown_24(int arg)
+void StarmapPIPClass::Unknown_24(int arg)
 {
 	if (!Unknown50) {
 		return;
@@ -130,22 +130,22 @@ void StarmapPipClass::Unknown_24(int arg)
 	switch (Label) {
 		case 0:
 			Label = 1;
-			((SClient *)Client->As_Space_Client())->Unknown_74D990(0, "Starmap PIP will now display labels of your own ship and other group member ships only.", 0);
+			((SpaceClientClass *)Client->As_Space_Client())->Unknown_74D990(0, "Starmap PIP will now display labels of your own ship and other group member ships only.", 0);
 			break;
 		case 1:
 			Label = 2;
-			((SClient *)Client->As_Space_Client())->Unknown_74D990(0, "Starmap PIP will now display labels of all visible ships.", 0);
+			((SpaceClientClass *)Client->As_Space_Client())->Unknown_74D990(0, "Starmap PIP will now display labels of all visible ships.", 0);
 			break;
 		case 2:
 			Label = 3;
-			((SClient *)Client->As_Space_Client())->Unknown_74D990(0, "Starmap PIP will now display all visible labels in the sector.", 0);
+			((SpaceClientClass *)Client->As_Space_Client())->Unknown_74D990(0, "Starmap PIP will now display all visible labels in the sector.", 0);
 			break;
 		case 3:
 			Label = 0;
-			((SClient *)Client->As_Space_Client())->Unknown_74D990(0, "Starmap PIP will now not display any labels.", 0);
+			((SpaceClientClass *)Client->As_Space_Client())->Unknown_74D990(0, "Starmap PIP will now not display any labels.", 0);
 			break;
 	}
-	IntOptionStruct *option = OptionClass::Instance->Find_Int("Starmap_Label");
+	IntOptionStruct *option = OptionManagerClass::Instance->Find_Int("Starmap_Label");
 	if (option) {
 		option->Set_Value(Label);
 	}
@@ -156,21 +156,21 @@ void StarmapPipClass::Unknown_24(int arg)
 
 
 // @0x7C0AF0
-bool StarmapPipClass::Unknown_0C(bool on)
+bool StarmapPIPClass::Unknown_0C(bool on)
 {
 	if (on) {
 		Unknown60 = Client->AvatarID;
 	} else {
 		Unknown_7C2280();
 	}
-	return(MapPipClass::Unknown_0C(on));
+	return(MapPIPClass::Unknown_0C(on));
 }
 
 
 // @0x7C0BC0
-bool StarmapPipClass::Unknown_04(const RefCountPtr<InterfaceClass> &iface_ptr, const RefCountPtr<RenderObjClass> &vp, int arg)
+bool StarmapPIPClass::Unknown_04(const RefCountPtr<InterfaceClass> &iface_ptr, const RefCountPtr<RenderObjClass> &vp, int arg)
 {
-	if (!MapPipClass::Unknown_04(iface_ptr, vp, arg)) {
+	if (!MapPIPClass::Unknown_04(iface_ptr, vp, arg)) {
 		return(false);
 	}
 	XPos->Set_Sort_Level(Unknown48->Get_Sort_Level());
@@ -182,9 +182,9 @@ bool StarmapPipClass::Unknown_04(const RefCountPtr<InterfaceClass> &iface_ptr, c
 
 // (the double compare is the client's fld X; fld Y; fcompp: a float compare gives fld X; fcomp Y)
 // @0x7C0C80
-bool StarmapPipClass::Unknown_10(const RefCountPtr<RenderObjClass> &vp)
+bool StarmapPIPClass::Unknown_10(const RefCountPtr<RenderObjClass> &vp)
 {
-	if (!MapPipClass::Unknown_10(vp)) {
+	if (!MapPIPClass::Unknown_10(vp)) {
 		return(false);
 	}
 	Unknown68.Z = ((double)ViewportSize.X > ViewportSize.Y) ? ViewportSize.X : ViewportSize.Y;
@@ -198,9 +198,9 @@ bool StarmapPipClass::Unknown_10(const RefCountPtr<RenderObjClass> &vp)
 
 
 // @0x7C0D40
-bool StarmapPipClass::Unknown_08()
+bool StarmapPIPClass::Unknown_08()
 {
-	if (!MapPipClass::Unknown_08()) {
+	if (!MapPIPClass::Unknown_08()) {
 		return(false);
 	}
 	Unknown_7C2060(ShowCoords);
@@ -209,9 +209,9 @@ bool StarmapPipClass::Unknown_08()
 
 
 // @0x7C0D70
-void StarmapPipClass::Unknown_14()
+void StarmapPIPClass::Unknown_14()
 {
-	MapPipClass::Unknown_14();
+	MapPIPClass::Unknown_14();
 	Unknown50 = false;
 	Unknown51 = false;
 	if (ViewportGadget) {
@@ -231,7 +231,7 @@ void StarmapPipClass::Unknown_14()
 
 
 // @0x7C0EA0
-void StarmapPipClass::Unknown_7C0EA0(bool on)
+void StarmapPIPClass::Unknown_7C0EA0(bool on)
 {
 	if (on) {
 		Unknown60 = Client->AvatarID;
@@ -278,7 +278,7 @@ float Unknown_7BF630();								// 0x7BF630 (starmap_data.cpp: the PC icon size)
 // NOT EXACT: shape (0.80): the client loads the gadget's Position.X through its address (add eax, 0x38) and puts the
 // Unknown60 = 0 block after the return; forms tried in attempts.csv
 // @0x7C0440
-void StarmapPipClass::Unknown_7C0440(ClientObjectClass *hover, MouseTargetClass *mouse_target)
+void StarmapPIPClass::Unknown_7C0440(ClientObjectClass *hover, MouseTargeting *mouse_target)
 {
 	FAIL_IF(MouseTarget) {
 		MouseTarget = NULL;
@@ -353,7 +353,7 @@ void StarmapPipClass::Unknown_7C0440(ClientObjectClass *hover, MouseTargetClass 
 
 void Unknown_491550(float *x, float *y);			// 0x491550 (unknown_490900.cpp; not in its header: sbaseview.h reaches sclient.cpp, whose send pad 0x758210 moves with a declaration more)  // NAME 1: neutral (D10)
 // @0x7C0620
-void StarmapPipClass::Unknown_7C0620(RadarSystemDataCacheClass *entry)
+void StarmapPIPClass::Unknown_7C0620(RadarSystemDataCacheClass *entry)
 {
 	StarmapDataClass *sdata = entry->Get_Starmap_Data(true);
 
@@ -383,7 +383,7 @@ void StarmapPipClass::Unknown_7C0620(RadarSystemDataCacheClass *entry)
 
 
 // @0x7C0910
-void StarmapPipClass::Unknown_7C0910(ClientObjectClass *target, NavListBuilderClass *warp_path, NavListBuilderClass *target_path)
+void StarmapPIPClass::Unknown_7C0910(ClientObjectClass *target, NavigationListBuilder *warp_path, NavigationListBuilder *target_path)
 {
 	if (Unknown94 != warp_path->Unknown1C) {
 		Unknown94 = warp_path->Unknown1C;
@@ -638,7 +638,7 @@ void StarmapPipClass::Unknown_7C0910(ClientObjectClass *target, NavListBuilderCl
 
 
 // @0x7C0EE0
-NavigationListClass *StarmapPipClass::Unknown_7C0EE0()
+NavigationListClass *StarmapPIPClass::Unknown_7C0EE0()
 {
 	NavigationListClass *list;
 	FAIL_IF(!WarpPath) return(NULL);
@@ -671,14 +671,14 @@ NavigationListClass *StarmapPipClass::Unknown_7C0EE0()
 
 
 // @0x7C0FA0
-bool StarmapPipClass::Unknown_7C0FA0()
+bool StarmapPIPClass::Unknown_7C0FA0()
 {
 	if (Unknown50) {
-		RadarSystemClass *radar = ((SClient *)Client)->MainView->Radar;
+		RadarSystemClass *radar = ((SpaceClientClass *)Client)->MainView->Radar;
 		FAIL_IF(!radar) return(false);
 		ClientObjectClass *hover = radar->Hover;
 		if (hover && hover->Get_Game_ID() != Client->AvatarID) {
-			TargetingClass *targeting = ((SClient *)Client)->Targeting;
+			TargetSelectClass *targeting = ((SpaceClientClass *)Client)->Targeting;
 
 
 
@@ -686,7 +686,7 @@ bool StarmapPipClass::Unknown_7C0FA0()
 
 			FAIL_IF(!targeting) return(false);
 			targeting->Select_And_Set_Filter(hover);
-			SoundLibraryClass::Play_2D_Sound("TextClick01.wav", 2);
+			SoundLibrary::Play_2D_Sound("TextClick01.wav", 2);
 			return(true);
 		}
 	}
@@ -705,12 +705,12 @@ bool StarmapPipClass::Unknown_7C0FA0()
 
 
 // @0x7C1060
-bool StarmapPipClass::Unknown_7C1060()
+bool StarmapPIPClass::Unknown_7C1060()
 {
 	if (!Unknown50) {
 		return(false);
 	}
-	RadarSystemClass *radar = ((SClient *)Client)->MainView->Radar;
+	RadarSystemClass *radar = ((SpaceClientClass *)Client)->MainView->Radar;
 	FAIL_IF(!radar) return(false);
 	return((ClientObjectClass *)radar->Hover != NULL);
 }
@@ -729,9 +729,9 @@ bool StarmapPipClass::Unknown_7C1060()
 
 
 // @0x7C10D0
-bool StarmapPipClass::Unknown_7C10D0()
+bool StarmapPIPClass::Unknown_7C10D0()
 {
-	RadarSystemClass *radar = ((SClient *)Client)->MainView->Radar;
+	RadarSystemClass *radar = ((SpaceClientClass *)Client)->MainView->Radar;
 	FAIL_IF(!radar) return(false);
 	ClientObjectClass *hover = radar->Hover;
 	if (hover) {
@@ -743,7 +743,7 @@ bool StarmapPipClass::Unknown_7C10D0()
 
 
 // @0x7C1120
-void StarmapPipClass::Unknown_7C1120(float arg)
+void StarmapPIPClass::Unknown_7C1120(float arg)
 {
 	if (Unknown50) {
 		float mult = (ScaleMult + ScaleMult) * arg + ScaleMult;
@@ -755,7 +755,7 @@ void StarmapPipClass::Unknown_7C1120(float arg)
 }
 
 // @0x7C1200
-Vector2 StarmapPipClass::Unknown_7C1200(const Vector2 &mouse)
+Vector2 StarmapPIPClass::Unknown_7C1200(const Vector2 &mouse)
 {
 	Vector2 pos((mouse.X - 0.5f) * ViewportSize.X, -((mouse.Y - 0.5f) * ViewportSize.Y));
 	pos.X += Unknown68.X;
@@ -766,7 +766,7 @@ Vector2 StarmapPipClass::Unknown_7C1200(const Vector2 &mouse)
 
 
 // @0x7C1280
-void StarmapPipClass::Unknown_7C1280(const Vector3 &position, float radius)
+void StarmapPIPClass::Unknown_7C1280(const Vector3 &position, float radius)
 {
 	bool changed = false;
 	if (position.X - radius < Unknown74.X) {
@@ -856,7 +856,7 @@ void StarmapPipClass::Unknown_7C1280(const Vector3 &position, float radius)
 
 
 // @0x7C1350
-bool StarmapPipClass::Unknown_7C1350()
+bool StarmapPIPClass::Unknown_7C1350()
 {
 	bool found = false;
 	Unknown_14();
@@ -915,7 +915,7 @@ bool StarmapPipClass::Unknown_7C1350()
 
 
 // @0x7C1510
-void StarmapPipClass::Unknown_7C1510(bool arg)
+void StarmapPIPClass::Unknown_7C1510(bool arg)
 {
 	if (Unknown50) {
 		FAIL_IF(MapRange_ws.X < WWMATH_EPSILON) return;
@@ -969,7 +969,7 @@ void StarmapPipClass::Unknown_7C1510(bool arg)
 
 
 // @0x7C1770
-void StarmapPipClass::Unknown_7C1770(float x, float y)
+void StarmapPIPClass::Unknown_7C1770(float x, float y)
 {
 	if (Unknown50) {
 		FAIL_IF(!Camera) return;
@@ -1033,7 +1033,7 @@ void StarmapPipClass::Unknown_7C1770(float x, float y)
 
 
 
-inline void StarmapPipClass::Unknown_Set_ScaleMult(float mult)
+inline void StarmapPIPClass::Unknown_Set_ScaleMult(float mult)
 {
 	if (ScaleMult == mult) return;
 	FAIL_IF(CurMult < WWMATH_EPSILON) {
@@ -1047,7 +1047,7 @@ inline void StarmapPipClass::Unknown_Set_ScaleMult(float mult)
 
 
 // @0x7C1A90
-void StarmapPipClass::Unknown_7C1A90(float mult)
+void StarmapPIPClass::Unknown_7C1A90(float mult)
 {
 	if (Unknown50) {
 		if (mult < 0.5f) {
@@ -1063,7 +1063,7 @@ void StarmapPipClass::Unknown_7C1A90(float mult)
 
 
 
-inline void StarmapPipClass::Unknown_Set_54(float value)
+inline void StarmapPIPClass::Unknown_Set_54(float value)
 {
 	if (Unknown54 == value) return;
 	FAIL_IF(CurMult < WWMATH_EPSILON) {
@@ -1077,7 +1077,7 @@ inline void StarmapPipClass::Unknown_Set_54(float value)
 
 
 // @0x7C1B70
-void StarmapPipClass::Unknown_7C1B70(float value)
+void StarmapPIPClass::Unknown_7C1B70(float value)
 {
 	if (Unknown50) {
 		Unknown_Set_54(value);
@@ -1085,7 +1085,7 @@ void StarmapPipClass::Unknown_7C1B70(float value)
 }
 
 // @0x7C1C30
-void StarmapPipClass::Unknown_7C1C30()
+void StarmapPIPClass::Unknown_7C1C30()
 {
 	CurMult = ScaleMult * Unknown54;
 }
@@ -1125,7 +1125,7 @@ void StarmapPipClass::Unknown_7C1C30()
 
 
 // @0x7C1C50
-void StarmapPipClass::Unknown_7C1C50(ClientObjectClass *target, ClientObjectClass *hover)
+void StarmapPIPClass::Unknown_7C1C50(ClientObjectClass *target, ClientObjectClass *hover)
 {
 	if (!Unknown50) {
 		return;
@@ -1180,7 +1180,7 @@ void StarmapPipClass::Unknown_7C1C50(ClientObjectClass *target, ClientObjectClas
 
 // NOT EXACT: written from the pseudocode (D64), functional
 // @0x7C2060
-void StarmapPipClass::Unknown_7C2060(int mode)
+void StarmapPIPClass::Unknown_7C2060(int mode)
 {
 	ShowCoords = mode;
 	if (!Interface) {
@@ -1194,7 +1194,7 @@ void StarmapPipClass::Unknown_7C2060(int mode)
 			ZPos->Remove();
 		}
 	} else if (mode > 0 && mode <= 2) {
-		InterfaceSortClass sort(Interface.Peek());
+		LocalInterfaceSort sort(Interface.Peek());
 		if (!XPos->Peek_Scene()) {
 			XPos->Add((SceneClass *)Interface->Unknown44);
 		}
@@ -1225,7 +1225,7 @@ static void Delete_Label(Unknown_7C3220Class *label)
 	delete label;
 }
 
-static void Delete_Labels(StarmapPipClass *pip)
+static void Delete_Labels(StarmapPIPClass *pip)
 {
 	for (std::vector<Unknown_7C3220Class *>::iterator it = pip->Labels.begin(); it != pip->Labels.end(); it++) {
 		Delete_Label(*it);
@@ -1234,7 +1234,7 @@ static void Delete_Labels(StarmapPipClass *pip)
 }
 
 // @0x7C2280
-void StarmapPipClass::Unknown_7C2280()
+void StarmapPIPClass::Unknown_7C2280()
 {
 	for (std::vector<Unknown_7C3220Class *>::iterator it = Labels.begin(); it != Labels.end(); it++) {
 		delete *it;
@@ -1243,9 +1243,9 @@ void StarmapPipClass::Unknown_7C2280()
 }
 
 // @0x7C2340
-void StarmapPipClass::Unknown_7C2340(unsigned id, std::string name, int type)
+void StarmapPIPClass::Unknown_7C2340(unsigned id, std::string name, int type)
 {
-	ClientObjectClass *co = ((SClient *)Client->As_Space_Client())->Find_Object(id);
+	ClientObjectClass *co = ((SpaceClientClass *)Client->As_Space_Client())->Find_Object(id);
 	if (!co) {
 		return;
 	}
@@ -1268,19 +1268,19 @@ void Unknown_7C3220Class::Set_Name(std::string name)
 
 #include "..\shared\auxdata\auxdata.h"
 #include "aux_group.h"					// DeltaGroupInfoClass (0x7C2850)
-// The set GroupInfo field: a layer of its own (with the NameClass and the find in Is_Grouped itself, Is_Grouped's id and member locals stop its expansion in 0x7C2850); Find_Set_Field's instance 0x7C30E0 spelled out here, its four dead reads (D272) send Cast out of line in 0x7C2760 only.
-template<> inline DeltaCompoundClass *Unknown_Find_Set_Field<DeltaCompoundClass>(DeltaCompoundClass *root, const NameClass &name) { DeltaCompoundClass *t = Unknown_Find_Field<DeltaCompoundClass>(root, name); root->Children.size(); root->Children.size(); root->Children.size(); root->Children.size(); if (t) { if (t->Unknown70) { return(t); } } return(NULL); }
-static DeltaGroupInfoClass *Find_Group(DeltaCompoundClass *aux) { NameClass name("GroupInfo"); return((DeltaGroupInfoClass *)Unknown_Find_Set_Field<DeltaCompoundClass>(aux, name)); }	// NAME 2: describes what it does
+// The set GroupInfo field: a layer of its own (with the AuxDataName and the find in Is_Grouped itself, Is_Grouped's id and member locals stop its expansion in 0x7C2850); Find_Set_Field's instance 0x7C30E0 spelled out here, its four dead reads (D272) send Cast out of line in 0x7C2760 only.
+template<> inline DeltaContainer *Unknown_Find_Set_Field<DeltaContainer>(DeltaContainer *root, const AuxDataName &name) { DeltaContainer *t = Unknown_Find_Field<DeltaContainer>(root, name); root->Children.size(); root->Children.size(); root->Children.size(); root->Children.size(); if (t) { if (t->Unknown70) { return(t); } } return(NULL); }
+static DeltaGroupInfoClass *Find_Group(DeltaContainer *aux) { AuxDataName name("GroupInfo"); return((DeltaGroupInfoClass *)Unknown_Find_Set_Field<DeltaContainer>(aux, name)); }	// NAME 2: describes what it does
 // @0x7C2760
-bool StarmapPipClass::Is_Grouped(ClientObjectClass *co)
+bool StarmapPIPClass::Is_Grouped(ClientObjectClass *co)
 {
 	if (co->Unknown_6F5A40()) {
-		DeltaCompoundClass *aux = ((SClient *)Client->As_Space_Client())->AuxData;
+		DeltaContainer *aux = ((SpaceClientClass *)Client->As_Space_Client())->AuxData;
 		if (aux) {
 			DeltaGroupInfoClass *group = Find_Group(aux);
 			if (group) {
 				unsigned id = co->GameID; for (int i = 0; i < 5; i++) {
-					DeltaGroupMemberClass *member = (DeltaGroupMemberClass *)group->Members.Children[i]; if (id == member->GameID.Value) {
+					DeltaGroupMember *member = (DeltaGroupMember *)group->Members.Children[i]; if (id == member->GameID.Value) {
 						return(true);
 					}
 				}
@@ -1290,11 +1290,11 @@ bool StarmapPipClass::Is_Grouped(ClientObjectClass *co)
 	return(false);
 }
 
-// Is_Grouped is expanded here (its NameClass and Find_Set_Field 0x7C30E0 out of line through Find_Group, the bool in
+// Is_Grouped is expanded here (its AuxDataName and Find_Set_Field 0x7C30E0 out of line through Find_Group, the bool in
 // the dead force slot); its id and member locals give the client's registers in the expanded loop (the Children base
 // in edi, the element in ecx). attempts.py show 0x7C2850
 // @0x7C2850
-void StarmapPipClass::Unknown_7C2850(bool force)
+void StarmapPIPClass::Unknown_7C2850(bool force)
 {
 	if (!Label) {
 		Delete_Labels(this);
@@ -1302,7 +1302,7 @@ void StarmapPipClass::Unknown_7C2850(bool force)
 	}
 	if (!Client->Get_Objects_Changed() && Labels.size() && !force) {
 		for (std::vector<Unknown_7C3220Class *>::iterator it = Labels.begin(); it != Labels.end(); it++) {
-			Unknown_7C3220Class *label = *it; unsigned id = label->ObjectID; ClientObjectClass *co = ((SClient *)Client->As_Space_Client())->Find_Object(id);
+			Unknown_7C3220Class *label = *it; unsigned id = label->ObjectID; ClientObjectClass *co = ((SpaceClientClass *)Client->As_Space_Client())->Find_Object(id);
 			if (co) {
 				label->Unknown_7C3830(co);
 			}
@@ -1341,7 +1341,7 @@ void StarmapPipClass::Unknown_7C2850(bool force)
 }
 
 // @0x7C2D30
-void StarmapPipClass::Unknown_7C2D30()
+void StarmapPIPClass::Unknown_7C2D30()
 {
 	TargetPath->Unknown_7B9CD0();
 	WarpPath->Unknown_7B9CD0();
@@ -1368,14 +1368,14 @@ void StarmapPipClass::Unknown_7C2D30()
 **	that 0x7C0AF0 and the destructor expand; 0x7C0D70 has the loop written out (that form is the exact one there).
 **	+0x84 is a Vector2: as two ints the constructor's 'or ecx,-1' moved one store earlier.
 **
-**	The object starts at 0x7BF820: permstr.h's PermStringInitClass static (0xBE87BC), then the four colours of
+**	The object starts at 0x7BF820: permstr.h's PermStringInit static (0xBE87BC), then the four colours of
 **	0x7C1C50's coordinates (0x7BF870-0x7BF900, in their definition order). 0x7C1C50 calls 0x7C1200 inline and keeps
 **	the tail after the fallback only in the if (show) {} else {} form.
 **
 **	Exact: 0x7BF870, 0x7BF8A0, 0x7BF8D0, 0x7BF900, 0x7BF930, 0x7BFF20, 0x7C01C0, 0x7C0240, 0x7C0330, 0x7C0620, 0x7C0910,
 **	0x7C0AF0, 0x7C0BC0, 0x7C0D40, 0x7C0D70, 0x7C0EA0, 0x7C0EE0, 0x7C0FA0, 0x7C1060, 0x7C10D0, 0x7C1120, 0x7C1200, 0x7C1280,
 **	0x7C1350, 0x7C1510, 0x7C1770, 0x7C1A90, 0x7C1B70, 0x7C1C30, 0x7C1C50, 0x7C2280, 0x7C2340, 0x7C25B0, 0x7C2D30, 0x7C3220, 0x7C3720,
-**	0x7C3830, 0x7C3A90. NOT EXACT (D64, functional; attempts.csv): 0x7C0260 (MapPipClass's slot +0x20 takes an
+**	0x7C3830, 0x7C3A90. NOT EXACT (D64, functional; attempts.csv): 0x7C0260 (MapPIPClass's slot +0x20 takes an
 **	int, the client tests a byte), 0x7C0440 (the gadget's Position.X load, the else block's place), 0x7C0C80 now exact (its max is a
 **	double compare, O5), 0x7C2060 (registers, order); 0x7C2850 exact (Find_Group, Is_Grouped's locals); 0x7C2760 exact (Find_Set_Field's instance spelled out with four dead reads). 0x7C1770 exact with t.Y * diff.Y written diff.Y * t.Y
 **	(the operand order picks the slots; +0x68..+0x70 is one Vector3, copied whole). Not rebuilt: 0x7C2DA0-0x7C30E0 (template instances; the POC and

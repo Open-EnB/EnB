@@ -23,7 +23,7 @@ ObjectEffectPacketClass::ObjectEffectPacketClass(int effect_id, const DurationCl
 	Channel = Unknown_14(GameID, -1);
 }
 
-ObjectEffectPacketClass::ObjectEffectPacketClass(RawPacketClass *raw) :
+ObjectEffectPacketClass::ObjectEffectPacketClass(PacketClass *raw) :
 	EffectID(0),
 	TimeStamp(0),
 	GameID(0),
@@ -45,11 +45,11 @@ ObjectEffectPacketClass::ObjectEffectPacketClass(RawPacketClass *raw) :
 	Get_Flagged(raw, flags, 6, &HSVShift.Z, sizeof(HSVShift.Z));
 }
 
-RawPacketClass *ObjectEffectPacketClass::Build()
+PacketClass *ObjectEffectPacketClass::Encode()
 {
 	unsigned int flags = Get_Flags();
 	int size = Get_Size(flags);
-	RawPacketClass *raw = new RawPacketClass(9, size);
+	PacketClass *raw = new PacketClass(9, size);
 	Write_Flags(raw, flags);
 	raw->Add(&GameID, sizeof(GameID));
 	raw->Add(&EffectDescID, sizeof(EffectDescID));
@@ -119,7 +119,7 @@ PointEffectPacketClass::PointEffectPacketClass(int effect_id, const DurationClas
 	}
 }
 
-PointEffectPacketClass::PointEffectPacketClass(RawPacketClass *raw)
+PointEffectPacketClass::PointEffectPacketClass(PacketClass *raw)
 {
 	raw->Get(&EffectID, sizeof(EffectID));
 	raw->Get(&TimeStamp, sizeof(TimeStamp));
@@ -130,9 +130,9 @@ PointEffectPacketClass::PointEffectPacketClass(RawPacketClass *raw)
 	raw->Get(&HSVShift, sizeof(HSVShift));
 }
 
-RawPacketClass *PointEffectPacketClass::Build()
+PacketClass *PointEffectPacketClass::Encode()
 {
-	RawPacketClass *raw = new RawPacketClass(10, Get_Data_Size());
+	PacketClass *raw = new PacketClass(10, Get_Data_Size());
 	raw->Add(&EffectID, sizeof(EffectID));
 	raw->Add(&TimeStamp, sizeof(TimeStamp));
 	raw->Add(&Location, sizeof(Location));
@@ -173,7 +173,7 @@ ObjectToObjectEffectPacketClass::ObjectToObjectEffectPacketClass(int effect_id, 
 	Channel = Unknown_14(TargetGameID, -1);
 }
 
-ObjectToObjectEffectPacketClass::ObjectToObjectEffectPacketClass(RawPacketClass *raw) :
+ObjectToObjectEffectPacketClass::ObjectToObjectEffectPacketClass(PacketClass *raw) :
 	EffectID(0),
 	TimeStamp(0),
 	SourceGameID(0),
@@ -214,11 +214,11 @@ ObjectToObjectEffectPacketClass::ObjectToObjectEffectPacketClass(RawPacketClass 
 	}
 }
 
-RawPacketClass *ObjectToObjectEffectPacketClass::Build()
+PacketClass *ObjectToObjectEffectPacketClass::Encode()
 {
 	unsigned int flags = Get_Flags();
 	int size = Get_Size(flags);
-	RawPacketClass *raw = new RawPacketClass(11, size);
+	PacketClass *raw = new PacketClass(11, size);
 	Write_Flags(raw, flags);
 	raw->Add(&SourceGameID, sizeof(SourceGameID));
 	raw->Add(&TargetGameID, sizeof(TargetGameID));
@@ -246,7 +246,7 @@ int ObjectToObjectEffectPacketClass::Get_Data_Size()
 int ObjectToObjectEffectPacketClass::Get_Size(unsigned int flags)
 {
 	int size = Get_Flag_Size() + sizeof(SourceGameID) + sizeof(TargetGameID) + sizeof(EffectDescID);
-	size += RawPacketClass::Get_Size(SourceLego.Get_Name().c_str());
+	size += PacketClass::Get_Size(SourceLego.Get_Name().c_str());
 	size += Flagged_Size(flags, 0, sizeof(EffectID));
 	size += Flagged_Size(flags, 1, sizeof(TimeStamp));
 	size += Flagged_Size(flags, 2, sizeof(Duration));
@@ -309,7 +309,7 @@ ObjectToEffectEffectPacketClass::ObjectToEffectEffectPacketClass(int effect_id, 
 	Channel = Unknown_14(source_game_id, -1);
 }
 
-ObjectToEffectEffectPacketClass::ObjectToEffectEffectPacketClass(RawPacketClass *raw)
+ObjectToEffectEffectPacketClass::ObjectToEffectEffectPacketClass(PacketClass *raw)
 {
 	raw->Get(&EffectID, sizeof(EffectID));
 	raw->Get(&TimeStamp, sizeof(TimeStamp));
@@ -330,9 +330,9 @@ ObjectToEffectEffectPacketClass::ObjectToEffectEffectPacketClass(RawPacketClass 
 	raw->Get(&Speedup, sizeof(Speedup));
 }
 
-RawPacketClass *ObjectToEffectEffectPacketClass::Build()
+PacketClass *ObjectToEffectEffectPacketClass::Encode()
 {
-	RawPacketClass *raw = new RawPacketClass(12, Get_Data_Size());
+	PacketClass *raw = new PacketClass(12, Get_Data_Size());
 	raw->Add(&EffectID, sizeof(EffectID));
 	raw->Add(&TimeStamp, sizeof(TimeStamp));
 	raw->Add(&SourceGameID, sizeof(SourceGameID));
@@ -352,7 +352,7 @@ RawPacketClass *ObjectToEffectEffectPacketClass::Build()
 int ObjectToEffectEffectPacketClass::Get_Data_Size()
 {
 	std::string name = SourceLego.Get_Name();
-	return(RawPacketClass::Get_Size(name.c_str()) + sizeof(EffectID) + sizeof(TimeStamp) + sizeof(SourceGameID) + sizeof(TargetGameID) + sizeof(Duration) + sizeof(EffectDescID) + sizeof(TargetOffset) + sizeof(Unknown34) + sizeof(Unknown36) + sizeof(Scale) + sizeof(HSVShift) + sizeof(Speedup));
+	return(PacketClass::Get_Size(name.c_str()) + sizeof(EffectID) + sizeof(TimeStamp) + sizeof(SourceGameID) + sizeof(TargetGameID) + sizeof(Duration) + sizeof(EffectDescID) + sizeof(TargetOffset) + sizeof(Unknown34) + sizeof(Unknown36) + sizeof(Scale) + sizeof(HSVShift) + sizeof(Speedup));
 }
 
 int ObjectToEffectEffectPacketClass::Print(char *buffer, int)
@@ -377,7 +377,7 @@ ObjectToPointEffectPacketClass::ObjectToPointEffectPacketClass(int effect_id, co
 	Channel = Unknown_14(SourceGameID, -1);
 }
 
-ObjectToPointEffectPacketClass::ObjectToPointEffectPacketClass(RawPacketClass *raw)
+ObjectToPointEffectPacketClass::ObjectToPointEffectPacketClass(PacketClass *raw)
 {
 	raw->Get(&EffectID, sizeof(EffectID));
 	raw->Get(&TimeStamp, sizeof(TimeStamp));
@@ -395,9 +395,9 @@ ObjectToPointEffectPacketClass::ObjectToPointEffectPacketClass(RawPacketClass *r
 	raw->Get(&Speedup, sizeof(Speedup));
 }
 
-RawPacketClass *ObjectToPointEffectPacketClass::Build()
+PacketClass *ObjectToPointEffectPacketClass::Encode()
 {
-	RawPacketClass *raw = new RawPacketClass(13, Get_Data_Size());
+	PacketClass *raw = new PacketClass(13, Get_Data_Size());
 	raw->Add(&EffectID, sizeof(EffectID));
 	raw->Add(&TimeStamp, sizeof(TimeStamp));
 	raw->Add(&SourceGameID, sizeof(SourceGameID));
@@ -414,7 +414,7 @@ RawPacketClass *ObjectToPointEffectPacketClass::Build()
 int ObjectToPointEffectPacketClass::Get_Data_Size()
 {
 	std::string name = SourceLego.Get_Name();
-	return(RawPacketClass::Get_Size(name.c_str()) + sizeof(EffectID) + sizeof(TimeStamp) + sizeof(SourceGameID) + sizeof(TargetPoint) + sizeof(Duration) + sizeof(EffectDescID) + sizeof(Scale) + sizeof(HSVShift) + sizeof(Speedup));
+	return(PacketClass::Get_Size(name.c_str()) + sizeof(EffectID) + sizeof(TimeStamp) + sizeof(SourceGameID) + sizeof(TargetPoint) + sizeof(Duration) + sizeof(EffectDescID) + sizeof(Scale) + sizeof(HSVShift) + sizeof(Speedup));
 }
 
 int ObjectToPointEffectPacketClass::Print(char *buffer, int)
@@ -443,7 +443,7 @@ ObjectToObjectDurationLinkedEffectPacketClass::ObjectToObjectDurationLinkedEffec
 	Channel = Unknown_14(TargetGameID, -1);
 }
 
-ObjectToObjectDurationLinkedEffectPacketClass::ObjectToObjectDurationLinkedEffectPacketClass(RawPacketClass *raw)
+ObjectToObjectDurationLinkedEffectPacketClass::ObjectToObjectDurationLinkedEffectPacketClass(PacketClass *raw)
 {
 	raw->Get(&EffectID, sizeof(EffectID));
 	raw->Get(&TimeStamp, sizeof(TimeStamp));
@@ -465,9 +465,9 @@ ObjectToObjectDurationLinkedEffectPacketClass::ObjectToObjectDurationLinkedEffec
 	raw->Get(&Speedup, sizeof(Speedup));
 }
 
-RawPacketClass *ObjectToObjectDurationLinkedEffectPacketClass::Build()
+PacketClass *ObjectToObjectDurationLinkedEffectPacketClass::Encode()
 {
-	RawPacketClass *raw = new RawPacketClass(14, Get_Data_Size());
+	PacketClass *raw = new PacketClass(14, Get_Data_Size());
 	raw->Add(&EffectID, sizeof(EffectID));
 	raw->Add(&TimeStamp, sizeof(TimeStamp));
 	raw->Add(&SourceGameID, sizeof(SourceGameID));
@@ -488,7 +488,7 @@ RawPacketClass *ObjectToObjectDurationLinkedEffectPacketClass::Build()
 int ObjectToObjectDurationLinkedEffectPacketClass::Get_Data_Size()
 {
 	std::string name = SourceLego.Get_Name();
-	return(RawPacketClass::Get_Size(name.c_str()) + sizeof(EffectID) + sizeof(TimeStamp) + sizeof(SourceGameID) + sizeof(TargetGameID) + sizeof(DurationLinkedEffectDescID) + sizeof(EffectDescID) + sizeof(TargetOffset) + sizeof(Unknown34) + sizeof(Unknown36) + sizeof(OutsideTargetRadius) + sizeof(Scale) + sizeof(HSVShift) + sizeof(Speedup));
+	return(PacketClass::Get_Size(name.c_str()) + sizeof(EffectID) + sizeof(TimeStamp) + sizeof(SourceGameID) + sizeof(TargetGameID) + sizeof(DurationLinkedEffectDescID) + sizeof(EffectDescID) + sizeof(TargetOffset) + sizeof(Unknown34) + sizeof(Unknown36) + sizeof(OutsideTargetRadius) + sizeof(Scale) + sizeof(HSVShift) + sizeof(Speedup));
 }
 
 int ObjectToObjectDurationLinkedEffectPacketClass::Print(char *buffer, int)
@@ -502,14 +502,14 @@ RemoveEffectPacketClass::RemoveEffectPacketClass(int effect_id, int game_id) : E
 	Unknown10 = Unknown_14(game_id, -1);
 }
 
-RemoveEffectPacketClass::RemoveEffectPacketClass(RawPacketClass *raw)
+RemoveEffectPacketClass::RemoveEffectPacketClass(PacketClass *raw)
 {
 	raw->Get(&EffectID, sizeof(EffectID));
 }
 
-RawPacketClass *RemoveEffectPacketClass::Build()
+PacketClass *RemoveEffectPacketClass::Encode()
 {
-	RawPacketClass *raw = new RawPacketClass(15, Get_Data_Size());
+	PacketClass *raw = new PacketClass(15, Get_Data_Size());
 	raw->Add(&EffectID, sizeof(EffectID));
 	return(raw);
 }

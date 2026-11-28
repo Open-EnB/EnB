@@ -11,7 +11,7 @@
 #include "..\..\wwlib\ref_ptr.h"
 #include "..\shared\auth_product.h"
 #include "fontmanager.h"	// FontSys, FontManagerClass (0xBE67C4) and fontdatabase.h's FontStringFilesClass (0xBE67BC)
-#include "unknown_675120.h"	// the gadgets (before ui_combobox.h: its text gadget is declared only with them)
+#include "gd_uimesh.h"	// the gadgets (before ui_combobox.h: its text gadget is declared only with them)
 #include "gd_slider.h"
 #include "assetmgr.h"
 #include "matrix3d.h"
@@ -35,7 +35,7 @@ extern FontStringFilesClass *Unknown_BE67BC;	// NAME 1: 0xBE67BC (fontdatabase.h
 
 // 0x578120
 UIComboBoxTextClass::UIComboBoxTextClass(UIMeshClass *mesh, const char *bone, LayerClass *layer, int width) :
-	Unknown_675120Class((RenderObjClass *)NULL, *layer, 5),
+	UIMeshGadgetClass((RenderObjClass *)NULL, *layer, 5),
 	Hover(false),
 	Selected(false),
 	Layer(layer),
@@ -49,7 +49,7 @@ UIComboBoxTextClass::UIComboBoxTextClass(UIMeshClass *mesh, const char *bone, La
 
 // 0x578210
 UIComboBoxTextClass::UIComboBoxTextClass(UIMeshClass *mesh, const char *bone, int width) :
-	Unknown_675120Class((RenderObjClass *)NULL, 5),
+	UIMeshGadgetClass((RenderObjClass *)NULL, 5),
 	Hover(false),
 	Selected(false),
 	Mesh(mesh),
@@ -152,7 +152,7 @@ UIComboBoxClass::UIComboBoxClass(InterfaceClass *owner, LayerClass *layer, Rende
 
 // Init gets the client, not the owner (0x578C6A pushes [esp+0x28], the second parameter; A4's args audit, 2026-11-26)
 // 0x5789E0
-UIComboBoxClass::UIComboBoxClass(InterfaceClass *owner, SClient *client, RenderObjClass *model, const char *name, int select_key, int toggle_key, int width, int max_rows, const char *style) :
+UIComboBoxClass::UIComboBoxClass(InterfaceClass *owner, SpaceClientClass *client, RenderObjClass *model, const char *name, int select_key, int toggle_key, int width, int max_rows, const char *style) :
 	InterfaceClass((LineDisplayClientClass *)client),
 	AttachBone(0),
 	Model(model),
@@ -204,7 +204,7 @@ UIComboBoxClass::~UIComboBoxClass()
 
 // the Arrow registration reads the view through Get_View(): its inline expansion spends the budget so Style == "Combo01" calls compare(II PBD I) out of line as the client (&Style in ebx, the scale in ebp)
 // 0x5790C0: client NULL (the first constructor): the gadgets on Layer; else on an empty layer
-void UIComboBoxClass::Init(SClient *client)
+void UIComboBoxClass::Init(SpaceClientClass *client)
 {
 	Anim = new HAnimComboClass(2);
 	Unknown_BE67BC->Load("fc_combobox.ini");

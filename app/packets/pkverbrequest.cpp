@@ -6,16 +6,16 @@ VerbRequestPacketClass::VerbRequestPacketClass(int subject_id, int object_id, in
 {
 }
 
-VerbRequestPacketClass::VerbRequestPacketClass(RawPacketClass *raw)
+VerbRequestPacketClass::VerbRequestPacketClass(PacketClass *raw)
 {
 	raw->Get(SubjectID);
 	raw->Get(ObjectID);
 	raw->Get(&Action, sizeof(Action));
 }
 
-RawPacketClass *VerbRequestPacketClass::Build()
+PacketClass *VerbRequestPacketClass::Encode()
 {
-	RawPacketClass *raw = new RawPacketClass(Get_Type(), Get_Data_Size());
+	PacketClass *raw = new PacketClass(Get_Type(), Get_Data_Size());
 	raw->Add(SubjectID);
 	raw->Add(ObjectID);
 	raw->Add(&Action, sizeof(Action));
@@ -42,7 +42,7 @@ int VerbRequestPacketClass::Print(char *buffer, int)
 // distinct count slots of 0x8AFD10, the per-copy verb slots of 0x8AFF40 and the set::begin() const copy
 // 0x8B0440 the Prints call are the helpers' traces); the two loops that walk a set are while loops with
 // the step last (a for loop leaves the client's _Inc out of line).
-static void Read_Verbs(RawPacketClass *raw, std::set<VerbEnum> &verbs)
+static void Read_Verbs(PacketClass *raw, std::set<VerbEnum> &verbs)
 {
 	int count;
 	raw->Get(count);
@@ -53,7 +53,7 @@ static void Read_Verbs(RawPacketClass *raw, std::set<VerbEnum> &verbs)
 	}
 }
 
-static void Write_Verbs(RawPacketClass *raw, const std::set<VerbEnum> &verbs)
+static void Write_Verbs(PacketClass *raw, const std::set<VerbEnum> &verbs)
 {
 	int count = verbs.size();
 	raw->Add(count);
@@ -83,16 +83,16 @@ VerbListPacketClass::VerbListPacketClass(int game_id, const std::set<VerbEnum> &
 {
 }
 
-VerbListPacketClass::VerbListPacketClass(RawPacketClass *raw) :
+VerbListPacketClass::VerbListPacketClass(PacketClass *raw) :
 	GameID(0)
 {
 	raw->Get(GameID);
 	Read_Verbs(raw, Verbs);
 }
 
-RawPacketClass *VerbListPacketClass::Build()
+PacketClass *VerbListPacketClass::Encode()
 {
-	RawPacketClass *raw = new RawPacketClass(Get_Type(), Get_Data_Size());
+	PacketClass *raw = new PacketClass(Get_Type(), Get_Data_Size());
 	raw->Add(GameID);
 	Write_Verbs(raw, Verbs);
 	return(raw);
@@ -117,7 +117,7 @@ VerbUpdatePacketClass::VerbUpdatePacketClass(int game_id, const std::set<VerbEnu
 {
 }
 
-VerbUpdatePacketClass::VerbUpdatePacketClass(RawPacketClass *raw) :
+VerbUpdatePacketClass::VerbUpdatePacketClass(PacketClass *raw) :
 	GameID(0)
 {
 	raw->Get(GameID);
@@ -125,9 +125,9 @@ VerbUpdatePacketClass::VerbUpdatePacketClass(RawPacketClass *raw) :
 	Read_Verbs(raw, Adds);
 }
 
-RawPacketClass *VerbUpdatePacketClass::Build()
+PacketClass *VerbUpdatePacketClass::Encode()
 {
-	RawPacketClass *raw = new RawPacketClass(Get_Type(), Get_Data_Size());
+	PacketClass *raw = new PacketClass(Get_Type(), Get_Data_Size());
 	raw->Add(GameID);
 	Write_Verbs(raw, Drops);
 	Write_Verbs(raw, Adds);

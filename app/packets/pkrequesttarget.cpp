@@ -7,15 +7,15 @@ RequestTargetPacketClass::RequestTargetPacketClass(int game_id, int target_id) :
 {
 }
 
-RequestTargetPacketClass::RequestTargetPacketClass(RawPacketClass *raw)
+RequestTargetPacketClass::RequestTargetPacketClass(PacketClass *raw)
 {
 	raw->Get(&GameID, sizeof(GameID));
 	raw->Get(&TargetID, sizeof(TargetID));
 }
 
-RawPacketClass *RequestTargetPacketClass::Build()
+PacketClass *RequestTargetPacketClass::Encode()
 {
-	RawPacketClass *raw = new RawPacketClass(23, Get_Data_Size());
+	PacketClass *raw = new PacketClass(23, Get_Data_Size());
 	raw->Add(&GameID, sizeof(GameID));
 	raw->Add(&TargetID, sizeof(TargetID));
 	return(raw);
@@ -31,30 +31,30 @@ int RequestTargetPacketClass::Print(char *buffer, int)
 	return(sprintf(buffer, "%s {GameID=%d TargetID=%d}", "Request_Target", GameID, TargetID));
 }
 
-RequestTargetsTargetPacketClass::RequestTargetsTargetPacketClass(int game_id, int target_id) : GameID(game_id), TargetID(target_id)
+RequestTargetTargetPacketClass::RequestTargetTargetPacketClass(int game_id, int target_id) : GameID(game_id), TargetID(target_id)
 {
 }
 
-RequestTargetsTargetPacketClass::RequestTargetsTargetPacketClass(RawPacketClass *raw)
+RequestTargetTargetPacketClass::RequestTargetTargetPacketClass(PacketClass *raw)
 {
 	raw->Get(&GameID, sizeof(GameID));
 	raw->Get(&TargetID, sizeof(TargetID));
 }
 
-RawPacketClass *RequestTargetsTargetPacketClass::Build()
+PacketClass *RequestTargetTargetPacketClass::Encode()
 {
-	RawPacketClass *raw = new RawPacketClass(24, Get_Data_Size());
+	PacketClass *raw = new PacketClass(24, Get_Data_Size());
 	raw->Add(&GameID, sizeof(GameID));
 	raw->Add(&TargetID, sizeof(TargetID));
 	return(raw);
 }
 
-int RequestTargetsTargetPacketClass::Get_Data_Size()
+int RequestTargetTargetPacketClass::Get_Data_Size()
 {
 	return(sizeof(GameID) + sizeof(TargetID));
 }
 
-int RequestTargetsTargetPacketClass::Print(char *buffer, int)
+int RequestTargetTargetPacketClass::Print(char *buffer, int)
 {
 	return(sprintf(buffer, "%s {GameID=%d TargetID=%d}", "Request_Target_Target", GameID, TargetID));
 }
@@ -63,15 +63,15 @@ SetTargetPacketClass::SetTargetPacketClass(int target_id, int unknown10) : Targe
 {
 }
 
-SetTargetPacketClass::SetTargetPacketClass(RawPacketClass *raw)
+SetTargetPacketClass::SetTargetPacketClass(PacketClass *raw)
 {
 	raw->Get(&TargetID, sizeof(TargetID));
 	raw->Get(&Unknown10, sizeof(Unknown10));
 }
 
-RawPacketClass *SetTargetPacketClass::Build()
+PacketClass *SetTargetPacketClass::Encode()
 {
-	RawPacketClass *raw = new RawPacketClass(25, Get_Data_Size());
+	PacketClass *raw = new PacketClass(25, Get_Data_Size());
 	raw->Add(&TargetID, sizeof(TargetID));
 	raw->Add(&Unknown10, sizeof(Unknown10));
 	return(raw);

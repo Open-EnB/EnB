@@ -104,7 +104,7 @@ as the short `funclet` kind below) jumps or calls to under the function's own sy
 and `funclet_tie` set. It runs last so that no earlier credit is displaced (in the D80 rounds it moved sclient's
 ~deque<int> 0x755A10 to emote_data's copy 0x7E6570), and its credits never widen an object's range (the funclet
 fixes the symbol's address, not which object's copy the linker kept: dynamic_window_class's
-~RefCountPtr<DynamicWindowElementClass> 0x517030 lies in dynamic_window_background's stretch). Mostly shared
+~RefCountPtr<DynamicWindowElement> 0x517030 lies in dynamic_window_background's stretch). Mostly shared
 COMDAT destructors (~basic_string<char> 0x42A6C0, RefCountPtr / vector instances). What the funclets leave
 gets one pushed round (D246 / CR4, USE_PUSHED_TIES) the same way: the one survivor that exact functions'
 absolute references under the function's own symbol reach (pushed_targets: an atexit destructor, an eh vector
@@ -384,7 +384,7 @@ CR5_FOLD_ROUNDS = 4        # (CR5) the fold round repeats while it credits: a cr
 
 def _vx_class(name):
     """VX: the class part of a mangled member / vtable name ('' for a free function): `?Evaluate@?$ExprMathEvalEqualClass@H@@..`
-    -> `?$ExprMathEvalEqualClass@H`, `??_7CharacterViewAvatarClass@@6B..` -> `CharacterViewAvatarClass`."""
+    -> `?$ExprMathEvalEqualClass@H`, `??_7CharacterViewAvatarClass@@6B..` -> `AvatarClass`."""
     if name.startswith(('??_7', '??_G', '??_E')):
         rest = name[4:]
     elif name.startswith(('??0', '??1')):
@@ -422,7 +422,7 @@ def vx_table_foreign(obj, sym, raw, known, img):
     symbols.json names as a member of another class than the vtable's and its slots' (ExprMathEvalEqualClass<float>'s
     Evaluate slot holding Evaluate<int> 0x4CE080): the table is another class's, not ours. A slot holding another of our
     own slots' functions (a slot inserted / removed: CompositeRenderObjClass's Cast_AABox.. one slot off in
-    CharacterViewAvatarClass's table) or a member of our own class (an override we lack: ScriptedMovieViewClass's
+    AvatarClass's table) or a member of our own class (an override we lack: ScriptedMovieViewClass's
     0x8023A0 in ViewClass::Unknown_18's slot) is a layout difference, not a contradiction."""
     info = obj.sections[sym['section'] - 1]
     slots = []
@@ -938,7 +938,7 @@ def run_self_names(img, objs, known, thunk):
                 if slot.startswith(('??_E', '??_G')):
                     out.setdefault(('??_G' if slot[3] == 'E' else '??_E') + slot[4:], set()).add(v)
     # a self name is one address: a symbol named at several (two classes of one name, aux_roots' and
-    # delta.cpp's DeltaCompoundClass; KVAccessorClass<unsigned> tables) names none of them
+    # delta.cpp's DeltaContainer; KVAccessorClass<unsigned> tables) names none of them
     return {k: v for k, v in out.items() if len(v) == 1}
 
 
@@ -1017,7 +1017,7 @@ def match_objects(img, paths, region=None, callers=False, extern_called=None, ca
 
     def learn(r, obj, sec, s, length, addr):
         # A COMDAT copy of an inline function can be byte-identical to another function of its
-        # object (dbgconn.obj's inline ~ForwardingConnectionClass and ~StatsConnectionClass 0x8251A0,
+        # object (dbgconn.obj's inline ~ForwardingConnectionClass and ~PacketStatsConnection 0x8251A0,
         # P1): when the symbol also matches an address of its own elsewhere, the shared one is the
         # other function's and must not become a "known" target that confirms the wrong twin.
         shared = claimed[addr] - {r['symbol']}
@@ -2023,7 +2023,7 @@ def cr2_xcu_known(img, results, claimed, text, base, known, thunk):
                     continue
                 sv, cf = break_tie(obj, sec, s, length, text, base, [t], img, known)
                 surv += sv
-                # the proof is a global it writes at its known address: a call (PermStringInitClass's, ios_base::
+                # the proof is a global it writes at its known address: a call (PermStringInit's, ios_base::
                 # Init's) is the same in every object's copy (money.obj's $E17 took cameraeffects' 0x4442C0)
                 imp = _data_implied(obj, sec, s, length, text, base, t) if cf else None
                 if imp and any(isinstance(key, str) and v in known.get(key, ()) for key, v in imp.items()):
@@ -2319,8 +2319,8 @@ def cr5_fold_held(img, results, pending, done, claimed, text, base, thunk):
 # differ where the client inlines or repeats a call); one symbol one address, distinct symbols distinct addresses, each address one of its symbol's survivors (D80's
 # break_tie). Unlike CK's callseq the caller's other calls need not align (it is not exact: inlining and the stand-ins
 # change them); only the calls into the tied copies are compared. Every named caller that calls a symbol must give it
-# the same address; no other symbol holds or is proposed there. UICpitClass::Unknown_54 0x57DD20 (its vtable slot)
-# calls ui_cpit's Create_Get at 0x584C80; SClient::Init 0x741180 sclient's two Create_NEW at 0x755AF0 / 0x755B60.
+# the same address; no other symbol holds or is proposed there. CockpitInterface::Unknown_54 0x57DD20 (its vtable slot)
+# calls ui_cpit's Create_Get at 0x584C80; SpaceClientClass::Init 0x741180 sclient's two Create_NEW at 0x755AF0 / 0x755B60.
 USE_CR6_NAMED_CALLERS = True
 # ... and (CR6) a caller located as CK's callseq locates one: the one address the exact functions' calls give its symbol
 # (D188's `called`), an aligned caller's call (USE_CK_CALLSEQ_DEEP) or its vtable slot (USE_CK_CALLSEQ_VTBL)

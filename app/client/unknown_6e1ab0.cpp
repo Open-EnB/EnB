@@ -80,7 +80,7 @@ void Unknown6E1AB0Class::Set_Color(const Vector4 &color)
 **
 **	The constructor (0x6E1AB0) maps the position from 0..1 screen space to -1..1 (y down) and the size to twice
 **	itself, builds one tri strip of four vertices (0, 0), (0, -h), (w, 0), (w, -h) in one color with the same
-**	material and depth-less, sorted shader as Rect3DClass (culling left on), and places it by an identity
+**	material and depth-less, sorted shader as Rectangle3DClass (culling left on), and places it by an identity
 **	transform given the translation. Its form is the client's: `Matrix3D tm(true)` + Set_Translation (the
 **	identity stores, then x, y and z last) spends the inline budget that leaves the last three vertices' UV
 **	out of line (0x406ACD); x / y clamped and rescaled in place keep the client's parameter-slot reuse.

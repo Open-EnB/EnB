@@ -10,7 +10,7 @@ SplinePacketClass::SplinePacketClass(int count, SplineEntryClass **entries)
 	SplineDatabaseClass::Pack(count, entries, Block);
 }
 
-SplinePacketClass::SplinePacketClass(RawPacketClass *raw)
+SplinePacketClass::SplinePacketClass(PacketClass *raw)
 {
 	raw->Get(&Blocksize, sizeof(Blocksize));
 	Block = new char[Blocksize];
@@ -22,9 +22,9 @@ SplinePacketClass::~SplinePacketClass()
 	delete [] Block;
 }
 
-RawPacketClass *SplinePacketClass::Build()
+PacketClass *SplinePacketClass::Encode()
 {
-	RawPacketClass *raw = new RawPacketClass(56, Get_Data_Size());
+	PacketClass *raw = new PacketClass(56, Get_Data_Size());
 	raw->Add(&Blocksize, sizeof(Blocksize));
 	raw->Add(Block, Blocksize);
 	return(raw);

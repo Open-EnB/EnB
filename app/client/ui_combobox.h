@@ -10,7 +10,7 @@
 #include "sclient.h"
 #include "..\..\wwlib\ref_ptr.h"
 
-class ButtonGadgetClass;		// unknown_675120.h's button
+class ButtonGadgetClass;		// gd_uimesh.h's button
 class FontSys;					// fontmanager.h
 class GadgetSlider;				// gd_slider.h's slider
 class HAnimClass;				// hanim.h
@@ -20,10 +20,10 @@ class UIComboBoxClass;
 class UIComboBoxTextClass;
 
 // The text gadget (0x7C bytes, table 0xAF097C): a line of text on a bone of the box's mesh. The box's text field
-// and each row of its list. Declared where the includer has the gadgets (unknown_675120.h before this header:
+// and each row of its list. Declared where the includer has the gadgets (gd_uimesh.h before this header:
 // ui_chat_panel.cpp and cpacket.cpp still have their own views of GadgetClass, so this header cannot include it).
-#ifdef UNKNOWN_675120_H
-class UIComboBoxTextClass : public Unknown_675120Class	// NAME 1: neutral (D10): what the box makes of it
+#ifdef GD_UIMESH_H
+class UIComboBoxTextClass : public UIMeshGadgetClass	// NAME 1: neutral (D10): what the box makes of it
 {
 public:
 	UIComboBoxTextClass(UIMeshClass *mesh, const char *bone, LayerClass *layer, int width);	// 0x578120  // NAME 1 [mesh, bone, layer, width]: the members they set
@@ -51,7 +51,7 @@ class UIComboBoxClass : public InterfaceClass	// NAME 3: class-from-file (D24)
 {
 public:
 	UIComboBoxClass(InterfaceClass *owner, LayerClass *layer, RenderObjClass *model, const char *name, int select_key, int toggle_key, int width, int max_rows, const char *style);	// 0x5786C0 (ui_registration.cpp's 0x5F2F90)  // NAME 1 [owner, layer, model, name, select_key, toggle_key, width, max_rows, style]: the members they set
-	UIComboBoxClass(InterfaceClass *owner, SClient *client, RenderObjClass *model, const char *name, int select_key, int toggle_key, int width, int max_rows, const char *style);	// 0x5789E0 (ui_pda_cargo.cpp's filter: 'filter', 0x15, 0x14, 0x19, 0xC, 'Combo01')  // NAME 1 [owner, client, model, name, select_key, toggle_key, width, max_rows, style]: the members they set
+	UIComboBoxClass(InterfaceClass *owner, SpaceClientClass *client, RenderObjClass *model, const char *name, int select_key, int toggle_key, int width, int max_rows, const char *style);	// 0x5789E0 (ui_pda_cargo.cpp's filter: 'filter', 0x15, 0x14, 0x19, 0xC, 'Combo01')  // NAME 1 [owner, client, model, name, select_key, toggle_key, width, max_rows, style]: the members they set
 	virtual ~UIComboBoxClass();							// +0x00 0x578D50 (deleting 0x5789B0)
 	virtual void Unknown_58();							// +0x58 0x579D80 (the base's)
 	virtual void Unknown_5C();							// +0x5C 0x579DA0 (the base's)
@@ -59,7 +59,7 @@ public:
 	virtual bool Unknown_68(int key);					// +0x68 0x57A060 (1 the arrow, 2 the slider, 3.. a row)  // NAME 1 [key]: InterfaceClass's
 	virtual void Unknown_7C(UIViewClass *view, bool arg);	// +0x7C 0x57A030 (the base's)  // NAME 1 [view, arg]: InterfaceClass's
 
-	void Init(SClient *client);							// 0x5790C0 (the mesh, the animations, the rows, the arrow, the text field, the slider; client NULL: the gadgets on Layer)  // NAME 2: describes what it does; NAME 1 [client]: what the second constructor passes (its client, 0x578C6A: [esp+0x28], not its owner)
+	void Init(SpaceClientClass *client);							// 0x5790C0 (the mesh, the animations, the rows, the arrow, the text field, the slider; client NULL: the gadgets on Layer)  // NAME 2: describes what it does; NAME 1 [client]: what the second constructor passes (its client, 0x578C6A: [esp+0x28], not its owner)
 	void Unknown_57A310();								// 0x57A310 (empty, no caller)
 	void Update_Drop_Down();							// 0x57A330 (the drop-down's opening / closing per frame)  // NAME 2: describes what it does
 	void Update_Rows();									// 0x57AAB0 (the rows' text from the top item)  // NAME 2: describes what it does

@@ -8,14 +8,14 @@ RemovePacketClass::RemovePacketClass(int game_id, int channel) : GameID(game_id)
 	Unknown10 = Unknown_14(game_id, channel);
 }
 
-RemovePacketClass::RemovePacketClass(RawPacketClass *raw)
+RemovePacketClass::RemovePacketClass(PacketClass *raw)
 {
 	raw->Get(&GameID, sizeof(GameID));
 }
 
-RawPacketClass *RemovePacketClass::Build()
+PacketClass *RemovePacketClass::Encode()
 {
-	RawPacketClass *raw = new RawPacketClass(7, Get_Data_Size());
+	PacketClass *raw = new PacketClass(7, Get_Data_Size());
 	raw->Add(&GameID, sizeof(GameID));
 	return(raw);
 }

@@ -3,7 +3,7 @@
 #include "..\g_assert.h"
 #include <string.h>
 
-BitSetClass::BitSetClass(unsigned int size) : Buffer(NULL), NumBytes(0), NumBits(size)
+BitSet::BitSet(unsigned int size) : Buffer(NULL), NumBytes(0), NumBits(size)
 {
 	G_ASSERT(size > 0);
 	NumBits = size;
@@ -21,7 +21,7 @@ BitSetClass::BitSetClass(unsigned int size) : Buffer(NULL), NumBytes(0), NumBits
 }
 
 
-BitSetClass::BitSetClass(const void *buffer, unsigned int buff_size) :
+BitSet::BitSet(const void *buffer, unsigned int buff_size) :
 	Buffer(NULL), NumBytes(0), NumBits(0)
 {
 
@@ -42,13 +42,13 @@ BitSetClass::BitSetClass(const void *buffer, unsigned int buff_size) :
 }
 
 
-BitSetClass::~BitSetClass()
+BitSet::~BitSet()
 {
 	delete [] Buffer;
 }
 
 
-void BitSetClass::Swap(BitSetClass &other)
+void BitSet::Swap(BitSet &other)
 {
 	char *b = Buffer;
 	Buffer = other.Buffer;
@@ -62,7 +62,7 @@ void BitSetClass::Swap(BitSetClass &other)
 }
 
 
-BitSetClass &BitSetClass::operator=(const BitSetClass &other)
+BitSet &BitSet::operator=(const BitSet &other)
 {
 	NumBytes = other.NumBytes;
 	NumBits = other.NumBits;
@@ -73,7 +73,7 @@ BitSetClass &BitSetClass::operator=(const BitSetClass &other)
 }
 
 
-bool BitSetClass::operator==(const BitSetClass &other) const
+bool BitSet::operator==(const BitSet &other)
 {
 	if (NumBits != other.NumBits || NumBytes != other.NumBytes) {
 		return false;
@@ -87,7 +87,7 @@ bool BitSetClass::operator==(const BitSetClass &other) const
 	return memcmp(Buffer, other.Buffer, NumBytes) == 0;
 }
 
-bool BitSetClass::Is_Set(unsigned int pos) const
+bool BitSet::Is_Set(unsigned int pos) const
 {
 	G_ASSERT(Buffer && pos >= 0 && pos < NumBits);
 
@@ -95,33 +95,33 @@ bool BitSetClass::Is_Set(unsigned int pos) const
 }
 
 
-void BitSetClass::Set(unsigned int pos)
+void BitSet::Set(unsigned int pos)
 {
 	G_ASSERT(Buffer && pos >= 0 && pos < NumBits);
 	Buffer[pos >> 3] |= (1 << (pos & 7));
 }
 
 
-void BitSetClass::Set_All()
+void BitSet::Set_All() const
 {
 	memset(Buffer, 0xFF, NumBytes);
 }
 
 
-void BitSetClass::Clear(unsigned int pos)
+void BitSet::Clear(unsigned int pos)
 {
 	G_ASSERT(pos >= 0 && pos < NumBits);
 	Buffer[pos >> 3] &= ~(1 << (pos & 7));
 }
 
 
-void BitSetClass::Clear_All()
+void BitSet::Clear_All()
 {
 	memset(Buffer, 0, NumBytes);
 }
 
 
-bool BitSetClass::Is_Any_Set() const
+bool BitSet::Is_Any_Set() const
 {
 	for (unsigned int i = 0; i < NumBytes; i++) {
 		if (Buffer[i] != 0) {
@@ -132,7 +132,7 @@ bool BitSetClass::Is_Any_Set() const
 }
 
 // 0x4A4C60
-bool BitSetClass::Is_None_Set() const
+bool BitSet::Is_None_Set() const
 {
 	for (unsigned int i = 0; i < NumBytes; i++) {
 		if (Buffer[i] != 0) {
@@ -152,5 +152,5 @@ bool BitSetClass::Is_None_Set() const
 **	values (8, 19, 28, 29, 36, 92, 100, 113); the blank lines and comments between functions are
 **	placed to keep them there. Class and member names: bitset.h.
 **	2026-11-17 (U1): 0x4A4C60, Is_Any_Set's inverse (no caller), the object's last function: delta.cpp's
-**	PermStringInitClass static 0x4A4C90 opens the next object.
+**	PermStringInit static 0x4A4C90 opens the next object.
 */

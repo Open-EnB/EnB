@@ -85,21 +85,21 @@ public:
 	// +0x00 the implicit destructor 0x678970 (it stores no vtable; deleting 0x678820)
 	virtual void Unknown_04();							// +0x04 0x678B70 (the constructor calls it: the scenes, cameras, music, env maps)
 	virtual void Unknown_08();							// +0x08 0x679160: the mode's screen
-	virtual int Unknown_0C(bool on);					// +0x0C 0x679930 (LoginTaskClass::Render passes true): the frame
-	virtual void Unknown_10();							// +0x10 0x679510 Shutdown (LoginTaskClass::Delete_Character_View)
+	virtual int Render(bool on);					// +0x0C 0x679930 (LoginTaskClass::Render passes true): the frame  // NAME 5: thunk order confirmed, binary.md 5.11
+	virtual void Shutdown();							// +0x10 0x679510 Shutdown (LoginTaskClass::Delete_Character_View)  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual void Unknown_18(bool on);					// +0x18 0x67A210 (the screen's +0x58 when on, +0x5C when not)  // NAME 1 [on]: what it selects
 	virtual int Unknown_28() { return((int)this); }		// +0x28 0x6787E0 (the screens' views give the character view)
 	virtual int Unknown_5C() { return(0); }				// +0x5C 0x678800
 
 	// the inline accessors ui_login.cpp reads the view through
 	ViewUnknown34Class *Get_Unknown034() { return(Unknown34); }	// NAME 1: neutral (D10)
-	CharacterViewAvatarClass *Get_Unknown198() { return(NarratorRObj); }	// NAME 1: neutral (D10)
+	AvatarClass *Get_Unknown198() { return(NarratorRObj); }	// NAME 1: neutral (D10)
 	int Get_Unknown1B0() { return(Unknown1B0); }		// NAME 1: neutral (D10)
 	RenderObjClass *Peek_Model() { return(ViewRObjs[0]); }	// NAME 1: neutral (D10), as ui_avatr.cpp's
 #ifdef __CHARVIEW_AVSEL_MEMBERS	// ui_avsel.cpp only: other files' declaration counts move sclient.cpp's SEND_SYMBOL_PAD window (workflow.md 3.4), so they do not see these
 	LayerClass *Get_Unknown070() { return(Unknown070); }	// (ui_avsel.cpp's 0x55E370 reads +0x70 through it)  // NAME 1: neutral (D10)
 	EnvironmentMapManagerClass *Get_Unknown3A4() { return(Unknown3A4); }	// (ui_avsel.cpp's 0x55E370 reads +0x3A4 through it)  // NAME 1: neutral (D10)
-	void Unknown_5594B0(AvatarDescClass desc);			// 0x5594B0 (+0x88 = desc, by value; out of line in ui_avatr.cpp, ui_avsel.cpp calls it)  // NAME 1 [desc]: neutral
+	void Unknown_5594B0(AvatarDescriptionClass desc);			// 0x5594B0 (+0x88 = desc, by value; out of line in ui_avatr.cpp, ui_avsel.cpp calls it)  // NAME 1 [desc]: neutral
 	void Set_Unknown244(const ShipCustDescClass &desc) { Unknown244 = desc; }	// (ui_avsel.cpp's 0x55D060 copies +0x244 through it: the copy one inline level deep, 0x55D8A0 out of line)  // NAME 1: what it stores
 #endif
 	void Unknown_67A250();								// 0x67A250 (every +0x1CC set: 0x67A9B0)
@@ -110,7 +110,7 @@ public:
 	void Unknown_67AB20(int type, const char *name);	// 0x67AB20 (the G_ASSERT 'ViewRObjs[type]'): the model of the type by name  // NAME 2 [type]: the assert's; NAME 1 [name]: what ui_login.cpp passes ('FE01A')
 	void Unknown_67B7A0(int set);						// 0x67B7A0 (ui_avsel.cpp's and 0x574710's constructors: the two lights of the 3-D scene, the set's colours and directions)  // NAME 1 [set]: neutral
 	void Unknown_67BBE0();								// 0x67BBE0 (0x67AB20, type 4: the two lights into +0x84)
-	void Unknown_67A440(AvatarDescClass *desc, bool copy);	// 0x67A440 (the G_ASSERT 'AvatarRObj': ui_avatr.cpp's player avatar, from desc or from a fresh description of its race, profession and gender)  // NAME 1 [desc, copy]: what it does with them
+	void Unknown_67A440(AvatarDescriptionClass *desc, bool copy);	// 0x67A440 (the G_ASSERT 'AvatarRObj': ui_avatr.cpp's player avatar, from desc or from a fresh description of its race, profession and gender)  // NAME 1 [desc, copy]: what it does with them
 	void Unknown_67A670();								// 0x67A670 (+0x198 released)
 	void Unknown_67A8D0(bool off);						// 0x67A8D0 (the narrator walks off, or on)  // NAME 1 [off]: what it selects
 	void Unknown_67A960();								// 0x67A960 (the narrator's Idle0)
@@ -164,14 +164,14 @@ public:
 	SimpleSceneClass *Unknown07C;						// +0x7C
 	CameraClass *Unknown080;							// +0x80 (rendered after the 3-D scene, with +0x84)
 	SimpleSceneClass *Unknown084;						// +0x84
-	AvatarDescClass Unknown088;							// +0x88
-	CharacterViewAvatarClass *AvatarRObj;				// +0x194 (0x67A440's G_ASSERT 'AvatarRObj')  // NAME 3: the assert's
-	CharacterViewAvatarClass *NarratorRObj;				// +0x198 (0x67A6C0's G_ASSERT 'NarratorRObj')  // NAME 3: the assert's
+	AvatarDescriptionClass Unknown088;							// +0x88
+	AvatarClass *AvatarRObj;				// +0x194 (0x67A440's G_ASSERT 'AvatarRObj')  // NAME 3: the assert's
+	AvatarClass *NarratorRObj;				// +0x198 (0x67A6C0's G_ASSERT 'NarratorRObj')  // NAME 3: the assert's
 	bool Unknown19C;									// +0x19C
 	bool Unknown19D;									// +0x19D
 	bool Unknown19E;									// +0x19E
 	float Unknown1A0;									// +0x1A0 the platform's angle (the frame adds 0.2 per second)
-	CharacterViewAvatarClass *Unknown1A4[2];			// +0x1A4 (avatar.cpp's, as +0x194)
+	AvatarClass *Unknown1A4[2];			// +0x1A4 (avatar.cpp's, as +0x194)
 	int Mode;											// +0x1AC (0x67A370's FAIL_IF 'mode')  // NAME 2: the FAIL_IF's
 	int Unknown1B0;										// +0x1B0 the mode before (0x622180's screen tests it for 5)
 	InterfaceClass *Unknown1B4;							// +0x1B4 the mode's screen (0x679160)
@@ -190,7 +190,7 @@ public:
 	EnvironmentMapManagerClass *Unknown3A4;				// +0x3A4 'envmaps.ini' (ui_login.cpp's)
 	LightClass *Unknown3A8[2];							// +0x3A8 the two lights of the 3-D scene +0x6C (0x67B7A0; removed with the model of type 1 or 2)
 	LightClass *Unknown3B0[2];							// +0x3B0 the two lights of the model of type 4 (0x67BBE0)
-	CharacterViewAvatarClass *Unknown3B8[3][3][2];		// +0x3B8 an avatar for each race, profession and gender (0x67BF20, avatar.cpp's 0x77B870)
+	AvatarClass *Unknown3B8[3][3][2];		// +0x3B8 an avatar for each race, profession and gender (0x67BF20, avatar.cpp's 0x77B870)
 	Vector2 Unknown400[10][2];							// +0x400 ten pairs of texture offsets (0.5 each; 0x67C200 / 0x67C270 by the pair's index)
 	Vector2 Unknown4A0[2];								// +0x4A0 (0.5, 0.5)
 	Vector3 Unknown4B0[2];								// +0x4B0 (0.5, 0.5, 1)

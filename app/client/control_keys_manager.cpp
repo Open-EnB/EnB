@@ -59,7 +59,7 @@ std::hash_map<std::string, KeyIdStruct> ControlKeysManager::_KeyIds;
 
 
 
-bool ControlKeysManager::Create(SClient *client)
+bool ControlKeysManager::Create(SpaceClientClass *client)
 {
 	FAIL_IF(!client) return false;
 
@@ -73,14 +73,14 @@ bool ControlKeysManager::Create(SClient *client)
 
 
 
-bool ControlKeysManager::Destroy(SClient *client)
+bool ControlKeysManager::Destroy(SpaceClientClass *client)
 {
 	std::hash_map<unsigned int, ControlKeysManager>::iterator manager_it = _Instances.find((unsigned int)client);
 	FAIL_IF(manager_it == _Instances.end()) return false;
 	return true;
 }
 
-ControlKeysManager *ControlKeysManager::Get(SClient *client)
+ControlKeysManager *ControlKeysManager::Get(SpaceClientClass *client)
 {
 	std::hash_map<unsigned int, ControlKeysManager>::iterator manager_it = _Instances.find((unsigned int)client);
 	if (manager_it == _Instances.end()) return NULL;
@@ -113,7 +113,7 @@ bool ControlKeysManager::Register_Key(const std::string &module_name, const std:
 
 
 // 0x71A100: exact once 0x71A190 calls find out of line (it is then called, not inlined)
-int ControlKeysManager::Get_Key_Id(SClient *client, const std::string &module_name, const ControlKeyValueStruct &key)
+int ControlKeysManager::Get_Key_Id(SpaceClientClass *client, const std::string &module_name, const ControlKeyValueStruct &key)
 {
 	ControlKeysManager *keys_manager = Get(client); FAIL_IF(!keys_manager) return -1;
 	return Get_Key_Id(keys_manager, module_name, key);
@@ -152,7 +152,7 @@ ControlKeysManager::ControlKeysManager() :
 
 
 
-void ControlKeysManager::Init(SClient *sclient)
+void ControlKeysManager::Init(SpaceClientClass *sclient)
 {
 	if (!_NumKeyDefs) {
 		G_ASSERT(_DefaultPSW.empty());

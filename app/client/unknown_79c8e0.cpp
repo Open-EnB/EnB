@@ -8,7 +8,7 @@
 #include "quat.h"
 
 // 0x79C8E0
-CameraModule79C8E0Class::CameraModule79C8E0Class(SClient *client) :
+CameraModule79C8E0Class::CameraModule79C8E0Class(SpaceClientClass *client) :
 	CameraModuleClass(client),
 	Position(0.0f, 0.0f, 0.0f),
 	Unknown14(true),

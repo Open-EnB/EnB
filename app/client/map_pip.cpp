@@ -23,8 +23,8 @@
 bool Unknown_4967F0(RenderObjClass *robj, int arg, RenderObjClass *model);	// 0x4967F0 (gadget.cpp declares it the same)  // NAME 1 [robj, arg, model]: neutral
 RefCountPtr<RenderObjClass> Unknown_497300(RenderObjClass *robj);	// 0x497300 (gadget.cpp declares it the same)  // NAME 1 [robj]: as ui_avatr.cpp's
 
-MapPipClass::MapPipClass(SClient *client, bool arg) :
-	PipSceneClass(client),
+MapPIPClass::MapPIPClass(SpaceClientClass *client, bool arg) :
+	PIPSceneClass(client),
 	Client(client),
 	ViewportGadget(NULL),
 	Unknown40(false),
@@ -37,19 +37,19 @@ MapPipClass::MapPipClass(SClient *client, bool arg) :
 	}
 }
 
-void MapPipClass::Unknown_1C(int arg)
+void MapPIPClass::Unknown_1C(int arg)
 {
 }
 
-void MapPipClass::Unknown_20(int arg)
+void MapPIPClass::Unknown_20(int arg)
 {
 }
 
-void MapPipClass::Unknown_24(int arg)
+void MapPIPClass::Unknown_24(int arg)
 {
 }
 
-MapPipClass::~MapPipClass()
+MapPIPClass::~MapPIPClass()
 {
 }
 
@@ -100,7 +100,7 @@ MapPipClass::~MapPipClass()
 
 
 
-bool MapPipClass::Unknown_04(const RefCountPtr<InterfaceClass> &iface, const RefCountPtr<RenderObjClass> &vp, int arg)
+bool MapPIPClass::Unknown_04(const RefCountPtr<InterfaceClass> &iface, const RefCountPtr<RenderObjClass> &vp, int arg)
 {
 	FAIL_IF(Interface) return(false);
 	InterfaceClass *iface_ptr = iface.Peek(); FAIL_IF(!iface_ptr) return(false);
@@ -161,7 +161,7 @@ bool MapPipClass::Unknown_04(const RefCountPtr<InterfaceClass> &iface, const Ref
 
 
 
-bool MapPipClass::Unknown_08()
+bool MapPIPClass::Unknown_08()
 {
 	if (!Interface) {
 		FAIL_IF(ViewportGadget) {
@@ -200,7 +200,7 @@ bool MapPipClass::Unknown_08()
 
 
 
-bool MapPipClass::Unknown_0C(bool on)
+bool MapPIPClass::Unknown_0C(bool on)
 {
 	FAIL_IF(!Interface) {
 		return(false);
@@ -232,7 +232,7 @@ bool MapPipClass::Unknown_0C(bool on)
 	return(false);
 }
 
-bool MapPipClass::Unknown_10(const RefCountPtr<RenderObjClass> &vp)
+bool MapPIPClass::Unknown_10(const RefCountPtr<RenderObjClass> &vp)
 {
 	if (!Unknown_7BACD0(Unknown_497300(vp->Get_Container()), true)) {
 		return(false);
@@ -246,16 +246,16 @@ bool MapPipClass::Unknown_10(const RefCountPtr<RenderObjClass> &vp)
 	return(true);
 }
 
-void MapPipClass::Unknown_14()
+void MapPIPClass::Unknown_14()
 {
 }
 
-bool MapPipClass::Unknown_693020()
+bool MapPIPClass::Unknown_693020()
 {
 	return(ViewportGadget->PointerInside);
 }
 
-bool MapPipClass::Unknown_693040()
+bool MapPIPClass::Unknown_693040()
 {
 	return(Unknown40);
 }

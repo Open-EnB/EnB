@@ -23,17 +23,17 @@
 #include "starmap_pip.h"
 
 class NavigationListClass;
-class GalaxyMapPipClass;
+class GalaxyMapPIPClass;
 class UIDynamicWindowClass;
 class ButtonGadgetClass;
 class HAnimClass;
-class SClient;
+class SpaceClientClass;
 
-class UIStarmapClass : public InterfaceClass  // NAME 3: class-from-file (D24) for ui_starmap.cpp
+class StarmapInterface : public InterfaceClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
-	UIStarmapClass(SClient *client);					// 0x7C63D0  // NAME 1 [client]: neutral
-	virtual ~UIStarmapClass();							// 0x7C6700 (slot 0x7C66D0)
+	StarmapInterface(SpaceClientClass *client);					// 0x7C63D0  // NAME 1 [client]: neutral
+	virtual ~StarmapInterface();							// 0x7C6700 (slot 0x7C66D0)
 	virtual void Unknown_54();							// +0x54 0x7C6BF0 (loads the mesh, the fonts, the buttons)
 	virtual void Unknown_58();							// +0x58 0x7C81F0
 	virtual void Unknown_5C();							// +0x5C 0x7C8440
@@ -48,11 +48,11 @@ public:
 	bool Unknown_7C8BA0(int mode);						// 0x7C8BA0 (0 the star map is current, 1 the galaxy map)  // NAME 1 [mode]: neutral
 	void Unknown_7C8C20(int mode);						// 0x7C8C20 (switches the current PIP)  // NAME 1 [mode]: neutral
 	bool Unknown_7C8D90();								// 0x7C8D90
-	StarmapPipClass *Unknown_7C8DB0(bool on);			// 0x7C8DB0 (the main view's 0x512A00)  // NAME 1 [on]: what 0x512A00 passes
+	StarmapPIPClass *Unknown_7C8DB0(bool on);			// 0x7C8DB0 (the main view's 0x512A00)  // NAME 1 [on]: what 0x512A00 passes
 	void Unknown_7C8E00(float frame);					// 0x7C8E00  // NAME 2 [frame]: Frame
 	bool Unknown_7C8E50(bool force);					// 0x7C8E50 (the labels)  // NAME 1 [force]: neutral
 	bool Unknown_7C91A0();								// 0x7C91A0 (the "Dest: " label; 0x7C8980 every frame)
-	void Unknown_7C94C0(bool on);						// 0x7C94C0 (the current PIP on or off)  // NAME 1 [on]: MapPipClass::Unknown_0C's
+	void Unknown_7C94C0(bool on);						// 0x7C94C0 (the current PIP on or off)  // NAME 1 [on]: MapPIPClass::Unknown_0C's
 
 	RefCountPtr<RenderObjClass> InterfaceMesh;			// +0x84  // NAME 3: the FAIL_IF's
 	RefCountPtr<RenderObjClass> Viewport;				// +0x88  // NAME 3: the FAIL_IF's
@@ -61,9 +61,9 @@ public:
 	float MaxFrame;										// +0x94 (the option 'Starmap_MaxFrame')  // NAME 2: the option's
 	float MinFrame;										// +0x98 (the option 'Starmap_MinFrame')  // NAME 2: the option's
 	bool Maximized;										// +0x9C (the option 'Starmap_Maximized')  // NAME 2: the option's
-	StarmapPipClass *StarmapPip;						// +0xA0  // NAME 2: what it holds
-	GalaxyMapPipClass *GalaxyMapPip;					// +0xA4  // NAME 2: what it holds
-	MapPipClass *CurrentPip;							// +0xA8 (one of the two)  // NAME 2: what it holds
+	StarmapPIPClass *StarmapPip;						// +0xA0  // NAME 2: what it holds
+	GalaxyMapPIPClass *GalaxyMapPip;					// +0xA4  // NAME 2: what it holds
+	MapPIPClass *CurrentPip;							// +0xA8 (one of the two)  // NAME 2: what it holds
 	RefCountPtr<FontSys> DestinationFont;				// +0xAC  // NAME 3: the assert's
 	RefCountPtr<FontSys> SectorFont;					// +0xB0  // NAME 3: the assert's
 	RefCountPtr<FontSys> SystemTitle;					// +0xB4  // NAME 3: the assert's

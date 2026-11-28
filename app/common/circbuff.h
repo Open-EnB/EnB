@@ -17,14 +17,14 @@
 #ifndef CIRCBUFF_H  // NAME 3 [circbuff.h]: header name assumed from the client's circbuff.cpp
 #define CIRCBUFF_H
 
-class CircBuffClass  // NAME 3: by convention (D24) from the client's file circbuff.cpp
+class CircularBufferClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
-	CircBuffClass(int size, void *buffer = 0);	// 0x830BF0 (no buffer: its own, new'd)
-	~CircBuffClass();							// 0x830C60
+	CircularBufferClass(int size, void *buffer = 0);	// 0x830BF0 (no buffer: its own, new'd)
+	~CircularBufferClass();							// 0x830C60
 
 	int Read(void *buffer, int len);			// 0x830C80: at most BytesUsed; returns the bytes read  // NAME 2: what it does
-	int Write(const void *buffer, int len);		// 0x830DA0: all or nothing  // NAME 2: what it does
+	int Write(void *buffer, int len);		// 0x830DA0: all or nothing  // NAME 5: thunk order probable, binary.md 5.11
 	int Get_Free() const;						// 0x830EB0: BufferSize - BytesUsed  // NAME 2: what it returns
 	int Get_Used() const;						// 0x830ED0: BytesUsed  // NAME 2: what it returns
 	bool Unread(int len);						// 0x830EF0: the last len bytes read are back in front  // NAME 2: what it does

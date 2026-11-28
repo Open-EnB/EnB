@@ -21,7 +21,7 @@ class LineDisplayClientClass  // NAME 1: neutral (D10)
 public:
 	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
 	virtual void Unknown_10(); virtual void Unknown_14();
-	virtual SClient *As_Space_Client();					// +0x18
+	virtual SpaceClientClass *As_Space_Client();					// +0x18
 };
 
 // drag_slot_data.cpp's drag of a slot (SlotDataInterface's +0xA0), as this file calls it (as ui_inv.cpp declares it)
@@ -66,12 +66,12 @@ public:
 class UISkillInfoClass : public UISlotInfoClass	// NAME 3: class-from-file (D24) for app\Client\ui_skill_info.cpp
 {
 public:
-	bool Unknown_62CA20(SlotDataGadgetClass *gadget);	// 0x62CA20  // NAME 1 [gadget]: what 0x62D540 passes
-	SlotDataGadgetClass *UnknownB0;						// +0xB0 (the gadget shown)  // NAME 1: neutral (D10)
+	bool Unknown_62CA20(SlotDataGadget *gadget);	// 0x62CA20  // NAME 1 [gadget]: what 0x62D540 passes
+	SlotDataGadget *UnknownB0;						// +0xB0 (the gadget shown)  // NAME 1: neutral (D10)
 };
 
 // 0x62D1F0
-UISkillsClass::UISkillsClass(SClient *client) :
+UISkillsClass::UISkillsClass(SpaceClientClass *client) :
 	SlotDataInterface(client)
 {
 	UnknownB8_3 = false;
@@ -81,7 +81,7 @@ UISkillsClass::UISkillsClass(SClient *client) :
 // 0x62D270
 SlotDataClass *UISkillsClass::Unknown_88()
 {
-	return(new SkillDataClass((SClient *)Client));
+	return(new SkillDataClass((SpaceClientClass *)Client));
 }
 
 // 0x62D300
@@ -97,12 +97,12 @@ void UISkillsClass::Unknown_54()
 }
 
 // 0x62D360
-bool UISkillsClass::Unknown_98(SlotDataGadgetClass *gadget, KernelEventClass *event, unsigned int mask)
+bool UISkillsClass::Unknown_98(SlotDataGadget *gadget, KernelEventClass *event, unsigned int mask)
 {
 	bool up = event->Up;
 	bool right = (mask & 0xF0) != 0;
 	if (!up) {
-		SoundLibraryClass::Play_2D_Sound("TextClick03.wav", 2);
+		SoundLibrary::Play_2D_Sound("TextClick03.wav", 2);
 	}
 	UISkillInfoClass *info = Unknown9C->Unknown_8C();
 	if (info && info->UnknownB0) {
@@ -120,7 +120,7 @@ bool UISkillsClass::Unknown_98(SlotDataGadgetClass *gadget, KernelEventClass *ev
 	if (!SlotDataInterface::Unknown_98(gadget, event, mask) && !right) {
 		if (mask & 0x1000) {
 			if (up) {
-				Unknown_62D730((SlotDataGadgetClass *)gadget->Unknown_A4());
+				Unknown_62D730((SlotDataGadget *)gadget->Unknown_A4());
 				return(true);
 			}
 		} else {
@@ -142,7 +142,7 @@ bool UISkillsClass::Unknown_98(SlotDataGadgetClass *gadget, KernelEventClass *ev
 
 
 // 0x62D540
-bool UISkillsClass::Unknown_A0(SlotDataGadgetClass *gadget)
+bool UISkillsClass::Unknown_A0(SlotDataGadget *gadget)
 {
 	UISkillInfoClass *skill_info = Unknown9C->Unknown_8C();
 	FAIL_IF(!skill_info) return(false);
@@ -161,9 +161,9 @@ void UISkillsClass::Unknown_A4(std::string &name, int index, int arg)
 
 
 // 0x62D6A0
-SlotDataGadgetClass *UISkillsClass::Unknown_AC(RenderObjClass *robj, const int *slot)
+SlotDataGadget *UISkillsClass::Unknown_AC(RenderObjClass *robj, const int *slot)
 {
-	SlotDataGadgetClass *gadget = SlotDataInterface::Unknown_AC(robj, slot);
+	SlotDataGadget *gadget = SlotDataInterface::Unknown_AC(robj, slot);
 	SkillRenderClass *render = Unknown_6A7380(gadget);
 	if (render) render->Unknown38 = 2; else G_ASSERT(render);
 	return(gadget);
@@ -185,7 +185,7 @@ SkillDataClass *UISkillsClass::Unknown_62D710()
 
 // 0x62D730
 // NOT EXACT: functional (D64), from the pseudocode
-void UISkillsClass::Unknown_62D730(SlotDataGadgetClass *gadget)
+void UISkillsClass::Unknown_62D730(SlotDataGadget *gadget)
 {
 	if (!gadget) return;
 	if (gadget->Unknown_670910() == -1) return;
@@ -199,7 +199,7 @@ void UISkillsClass::Unknown_62D730(SlotDataGadgetClass *gadget)
 		if (!abilities.Get_Can_Be_Used_While_Incapacitated(ability) && Client->As_Space_Client()->Unknown_750B60()) {
 			Client->As_Space_Client()->Unknown_74D990(0x11, "Cannot perform action while incapacitated.", 0);
 		} else {
-			((ClientClass *)Client)->Send_Packet(&SkillPacket_88Class(((ClientClass *)Client)->AvatarID, 0, ability));
+			((ClientClass *)Client)->Send_Packet(&SkillAbilityPacketClass(((ClientClass *)Client)->AvatarID, 0, ability));
 		}
 	}
 }
@@ -215,7 +215,7 @@ void UISkillsClass::Unknown_62D730(SlotDataGadgetClass *gadget)
 
 
 // 0x62D960
-void UISkillsClass::Unknown_62D960(SlotDataGadgetClass *gadget, KernelEventClass *event)
+void UISkillsClass::Unknown_62D960(SlotDataGadget *gadget, KernelEventClass *event)
 {
 	if (((UISkillsViewUnknown44Struct *)View->Unknown_44())->Unknown2C == NULL) {
 		int slot = gadget->Unknown_670910();
@@ -235,13 +235,13 @@ void UISkillsClass::Unknown_62D960(SlotDataGadgetClass *gadget, KernelEventClass
 
 
 // 0x62DA30
-void UISkillsClass::Unknown_62DA30(SlotDataGadgetClass *gadget)
+void UISkillsClass::Unknown_62DA30(SlotDataGadget *gadget)
 {
 	if (((UISkillsViewUnknown44Struct *)View->Unknown_44())->Unknown2C == SlotDrag) {
 		int from_slot = gadget->Unknown_670910();
 		FAIL_IF(from_slot != SlotDrag->Get_Slot()) return;
 		if (!SlotDrag->Unknown_08()) {
-			Unknown_62D730((SlotDataGadgetClass *)gadget->Unknown_A4());
+			Unknown_62D730((SlotDataGadget *)gadget->Unknown_A4());
 			return;
 		}
 		SlotDrag->Unknown_0C();
@@ -250,11 +250,11 @@ void UISkillsClass::Unknown_62DA30(SlotDataGadgetClass *gadget)
 			if (target) {
 				UIScutProxyGadgetClass *button = (UIScutProxyGadgetClass *)target->As_UIScutProxyGadget();
 				if (button && ShortcutUI) {
-					SkillRenderClass *render = Unknown_6A7380((SlotDataGadgetClass *)gadget->As_SlotDataGadget());
+					SkillRenderClass *render = Unknown_6A7380((SlotDataGadget *)gadget->As_SlotDataGadget());
 					int ability = render->Unknown34;
 					int slot = render->Get_Slot();
-					RObjGadgetClass *shortcut = ShortcutUI->Create_Shortcut(from_slot, button);
-					SkillRenderClass *new_render = Unknown_6A7380((SlotDataGadgetClass *)shortcut->As_SlotDataGadget());
+					RenderObjGadgetClass *shortcut = ShortcutUI->Create_Shortcut(from_slot, button);
+					SkillRenderClass *new_render = Unknown_6A7380((SlotDataGadget *)shortcut->As_SlotDataGadget());
 
 
 
@@ -302,7 +302,7 @@ bool UISkillsClass::Unknown_9C(int slot, bool arg)
 
 /*
 **	Notes (SK1, 2026-11-09).
-**	The object runs from before 0x62D1F0 (its PermStringInitClass static, 0xBE5E50) to the adjustor thunks 0x62DCB0 /
+**	The object runs from before 0x62D1F0 (its PermStringInit static, 0xBE5E50) to the adjustor thunks 0x62DCB0 /
 **	0x62DCC0. UISkillsClass is the class-from-file name (D24) of the window ui_attrb_skills.h's attributes tab is over
 **	(it was flattened there as Unknown62D1F0Class). Written from the pseudocode, the asserts on the client's lines;
 **	the functions so marked (D64) are functional only. 0x62D360 inlines 0x62D960 (its FAIL_IFs l.224 / 227).

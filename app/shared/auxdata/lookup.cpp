@@ -7,7 +7,7 @@
 
 // Fills a LookupClass from a tree (vtable 0xAEB318; a local of the constructor): every field in
 // visiting order, so a field's index is its position in the walk, and each by its name below the
-// root (NameClass::Get_Rest of its FullName). The name is a guess (D10).
+// root (AuxDataName::Get_Rest of its FullName). The name is a guess (D10).
 class LookupBuilderClass : public DeltaVisitorClass  // NAME 2: describes what it does
 {
 public:
@@ -16,14 +16,14 @@ public:
 		Map(&map)
 	{
 	}
-	virtual void Visit(DeltaCompoundClass *delta);		// 0x4AC560
+	virtual void Visit(DeltaContainer *delta);		// 0x4AC560
 	virtual void Visit(DeltaClass *delta);					// 0x4AC3B0
 
 	LookupClass *Lookup;										// +0x04  // NAME 2: describes what it does
 	std::map<const char *, DeltaClass *> *Map;			// +0x08  // NAME 2 [Map]: describes what it does
 };
 
-LookupClass::LookupClass(DeltaCompoundClass *owner)
+LookupClass::LookupClass(DeltaContainer *owner)
 {
 	LookupBuilderClass builder(this, Unknown10);
 	owner->Accept(builder);
@@ -35,7 +35,7 @@ void LookupBuilderClass::Visit(DeltaClass *delta)
 	(*Map)[delta->FullName.Get_Rest().Get_String()] = delta;
 }
 
-void LookupBuilderClass::Visit(DeltaCompoundClass *delta)
+void LookupBuilderClass::Visit(DeltaContainer *delta)
 {
 	Lookup->Entries.push_back(delta);
 	(*Map)[delta->FullName.Get_Rest().Get_String()] = delta;
@@ -99,14 +99,14 @@ bool LookupClass::Unknown_Test_70_Above_1(int index) const
 
 
 
-DeltaClass *LookupClass::Find(const NameClass &name)
+DeltaClass *LookupClass::Find(const AuxDataName &name)
 {
 	G_ASSERT(!name.Is_Wildcard());
 	std::map<const char *, DeltaClass *>::iterator i = Unknown10.find(name.Get_String());
 	if (i == Unknown10.end()) return 0;
 	return (*i).second;
 }
-bool LookupClass::Unknown_Test_70(const NameClass &name) const
+bool LookupClass::Unknown_Test_70(const AuxDataName &name) const
 {
 	G_ASSERT(!name.Is_Wildcard());
 	std::map<const char *, DeltaClass *>::const_iterator i = Unknown10.find(name.Get_String());
@@ -115,7 +115,7 @@ bool LookupClass::Unknown_Test_70(const NameClass &name) const
 	}
 	return (*i).second->Unknown70 != 0;	// NOT EXACT: the client calls the map's find out of line (0x4ACBD0); VC6 here inlines it
 }
-bool LookupClass::Unknown_Test_70_Above_1(const NameClass &name) const
+bool LookupClass::Unknown_Test_70_Above_1(const AuxDataName &name) const
 {
 	G_ASSERT(!name.Is_Wildcard());
 	std::map<const char *, DeltaClass *>::const_iterator i = Unknown10.find(name.Get_String());

@@ -12,7 +12,7 @@
 #include <list>
 
 class GadgetSlider;				// gd_slider.h's slider (+0xAC)
-class ButtonGadgetClass;		// unknown_675120.h's buttons (+0xF8, +0x124)
+class ButtonGadgetClass;		// gd_uimesh.h's buttons (+0xF8, +0x124)
 class FontSys;					// fontmanager.h's text objects (+0x14C)
 class JobListPacketClass;		// pkjoblist.h's packets
 class JobDescriptionPacketClass;
@@ -49,7 +49,7 @@ struct UIJobsRowStruct	// NAME 1: neutral (D10)
 class UIJobsClass : public Unknown5BB320Class	// NAME 3: class-from-file (D24) for app\client\ui_jobs.cpp
 {
 public:
-	UIJobsClass(SClient *client);						// 0x5A1170 (the starbase view's 0x69F8F0, case 8)  // NAME 1 [client]: what 0x69F8F0 passes
+	UIJobsClass(SpaceClientClass *client);						// 0x5A1170 (the starbase view's 0x69F8F0, case 8)  // NAME 1 [client]: what 0x69F8F0 passes
 	virtual ~UIJobsClass();								// 0x5A1540 (G_ASSERT 'State == UI_CLOSED', l.98; deleting 0x5A1510)
 	virtual void Unknown_54();							// 0x5A1760
 	virtual void Unknown_58();							// 0x5A2050
@@ -69,7 +69,7 @@ public:
 	void Unknown_5A3390(int count);						// 0x5A3390: the slider over count rows  // NAME 1 [count]: neutral
 	void Unknown_5A3400();								// 0x5A3400: the first row from the slider (the rows refilled when it moved)
 	void Unknown_5A3440(int category);					// 0x5A3440: a category picked ('COMBAT JOBS' / 'TRADE JOBS' / 'EXPLORE JOBS')  // NAME 1 [category]: neutral
-	void Unknown_5A36F0();								// 0x5A36F0: the pick accepted (StarbaseRequestPacketClass 8)
+	void Unknown_5A36F0();								// 0x5A36F0: the pick accepted (StarbaseReqPacketClass 8)
 	void Unknown_5A37D0();								// 0x5A37D0: JobInfo emptied
 	void Unknown_5A3890();								// 0x5A3890: the job list emptied
 	void Unknown_5A3930(const char *title, const char *detail, const char *item);	// 0x5A3930: the description's texts  // NAME 1 [title, detail, item]: neutral

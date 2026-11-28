@@ -31,7 +31,7 @@ ClientChatPacketClass::ClientChatPacketClass(int game_id, char *string, char typ
 	}
 }
 
-ClientChatPacketClass::ClientChatPacketClass(RawPacketClass *raw) :
+ClientChatPacketClass::ClientChatPacketClass(PacketClass *raw) :
 	Target(0),
 	Owned(true)
 {
@@ -61,9 +61,9 @@ ClientChatPacketClass::~ClientChatPacketClass()
 	}
 }
 
-RawPacketClass *ClientChatPacketClass::Build()
+PacketClass *ClientChatPacketClass::Encode()
 {
-	RawPacketClass *raw = new RawPacketClass(51, Get_Data_Size());
+	PacketClass *raw = new PacketClass(51, Get_Data_Size());
 	raw->Add(&GameID, sizeof(GameID));
 	raw->Add(&Type, sizeof(Type));
 	raw->Add(&Size, sizeof(Size));
@@ -101,7 +101,7 @@ ClientChatRequestPacketClass::ClientChatRequestPacketClass(int unknown10, int un
 {
 }
 
-ClientChatRequestPacketClass::ClientChatRequestPacketClass(RawPacketClass *raw) :
+ClientChatRequestPacketClass::ClientChatRequestPacketClass(PacketClass *raw) :
 	Unknown0C(0),
 	Unknown10(-1),
 	Unknown44(0),
@@ -135,9 +135,9 @@ void ClientChatRequestPacketClass::Unknown_878D90(Unknown_ChatStreamClass *strea
 	Unknown44 = (char *)stream->Unknown04;
 }
 
-RawPacketClass *ClientChatRequestPacketClass::Build()
+PacketClass *ClientChatRequestPacketClass::Encode()
 {
-	RawPacketClass *raw = new RawPacketClass(163, Get_Data_Size());
+	PacketClass *raw = new PacketClass(163, Get_Data_Size());
 	raw->Add(&Unknown0C, sizeof(Unknown0C));
 	raw->Add(&Unknown10, sizeof(Unknown10));
 	raw->Add(Unknown14);
@@ -153,9 +153,9 @@ RawPacketClass *ClientChatRequestPacketClass::Build()
 int ClientChatRequestPacketClass::Get_Data_Size()
 {
 	int size = sizeof(Unknown0C) + sizeof(Unknown10);
-	size += RawPacketClass::Get_Size(Unknown14);
-	size += RawPacketClass::Get_Size(Unknown24);
-	size += RawPacketClass::Get_Size(Unknown34);
+	size += PacketClass::Get_Size(Unknown14);
+	size += PacketClass::Get_Size(Unknown24);
+	size += PacketClass::Get_Size(Unknown34);
 	return(size + sizeof(Unknown48) + Unknown48);
 }
 
@@ -174,7 +174,7 @@ ClientChatEventPacketClass::ClientChatEventPacketClass(int unknown0c) :
 }
 
 
-ClientChatEventPacketClass::ClientChatEventPacketClass(RawPacketClass *raw) :
+ClientChatEventPacketClass::ClientChatEventPacketClass(PacketClass *raw) :
 	Unknown0C(0),
 	Unknown10(0),
 	Unknown74(0),
@@ -205,9 +205,9 @@ ClientChatEventPacketClass::~ClientChatEventPacketClass()
 	}
 }
 
-RawPacketClass *ClientChatEventPacketClass::Build()
+PacketClass *ClientChatEventPacketClass::Encode()
 {
-	RawPacketClass *raw = new RawPacketClass(165, Get_Data_Size());
+	PacketClass *raw = new PacketClass(165, Get_Data_Size());
 	raw->Add(&Unknown0C, sizeof(Unknown0C));
 	raw->Add(&Unknown10, sizeof(Unknown10));
 	raw->Add(Unknown14);
@@ -226,12 +226,12 @@ RawPacketClass *ClientChatEventPacketClass::Build()
 int ClientChatEventPacketClass::Get_Data_Size()
 {
 	int size = sizeof(Unknown0C) + sizeof(Unknown10);
-	size += RawPacketClass::Get_Size(Unknown14);
-	size += RawPacketClass::Get_Size(Unknown24);
-	size += RawPacketClass::Get_Size(Unknown34);
-	size += RawPacketClass::Get_Size(Unknown44);
-	size += RawPacketClass::Get_Size(Unknown54);
-	size += RawPacketClass::Get_Size(Unknown64);
+	size += PacketClass::Get_Size(Unknown14);
+	size += PacketClass::Get_Size(Unknown24);
+	size += PacketClass::Get_Size(Unknown34);
+	size += PacketClass::Get_Size(Unknown44);
+	size += PacketClass::Get_Size(Unknown54);
+	size += PacketClass::Get_Size(Unknown64);
 	return(size + sizeof(Unknown78) + Unknown78);
 }
 
@@ -246,7 +246,7 @@ ClientChatListPacketClass::ClientChatListPacketClass(int unknown0c, const std::s
 {
 }
 
-ClientChatListPacketClass::ClientChatListPacketClass(RawPacketClass *raw) :
+ClientChatListPacketClass::ClientChatListPacketClass(PacketClass *raw) :
 	Unknown0C(-1)
 {
 	raw->Get(&Unknown0C, sizeof(Unknown0C));
@@ -270,9 +270,9 @@ ClientChatListPacketClass::ClientChatListPacketClass(RawPacketClass *raw) :
 	}
 }
 
-RawPacketClass *ClientChatListPacketClass::Build()
+PacketClass *ClientChatListPacketClass::Encode()
 {
-	RawPacketClass *raw = new RawPacketClass(164, Get_Data_Size());
+	PacketClass *raw = new PacketClass(164, Get_Data_Size());
 	raw->Add(&Unknown0C, sizeof(Unknown0C));
 	raw->Add(Unknown10);
 	int count = Unknown20.size();
@@ -291,14 +291,14 @@ RawPacketClass *ClientChatListPacketClass::Build()
 
 int ClientChatListPacketClass::Get_Data_Size()
 {
-	int size = RawPacketClass::Get_Size(Unknown10) + sizeof(Unknown0C) + sizeof(int);
+	int size = PacketClass::Get_Size(Unknown10) + sizeof(Unknown0C) + sizeof(int);
 	std::vector<std::string>::iterator it;
 	for (it = Unknown20.begin(); it != Unknown20.end(); ++it) {
-		size += RawPacketClass::Get_Size(*it);
+		size += PacketClass::Get_Size(*it);
 	}
 	size += sizeof(int);
 	for (it = Unknown30.begin(); it != Unknown30.end(); ++it) {
-		size += RawPacketClass::Get_Size(*it);
+		size += PacketClass::Get_Size(*it);
 	}
 	return(size);
 }
@@ -327,7 +327,7 @@ ClientChatErrorPacketClass::ClientChatErrorPacketClass(int unknown0c) :
 {
 }
 
-ClientChatErrorPacketClass::ClientChatErrorPacketClass(RawPacketClass *raw) :
+ClientChatErrorPacketClass::ClientChatErrorPacketClass(PacketClass *raw) :
 	Unknown0C(1),
 	Unknown10(-1),
 	Unknown14(""),
@@ -341,9 +341,9 @@ ClientChatErrorPacketClass::ClientChatErrorPacketClass(RawPacketClass *raw) :
 	raw->Get(&Unknown34);
 }
 
-RawPacketClass *ClientChatErrorPacketClass::Build()
+PacketClass *ClientChatErrorPacketClass::Encode()
 {
-	RawPacketClass *raw = new RawPacketClass(166, Get_Data_Size());
+	PacketClass *raw = new PacketClass(166, Get_Data_Size());
 	raw->Add(&Unknown0C, sizeof(Unknown0C));
 	raw->Add(&Unknown10, sizeof(Unknown10));
 	raw->Add(Unknown14);
@@ -354,9 +354,9 @@ RawPacketClass *ClientChatErrorPacketClass::Build()
 
 int ClientChatErrorPacketClass::Get_Data_Size()
 {
-	int size = RawPacketClass::Get_Size(Unknown14) + sizeof(Unknown0C) + sizeof(Unknown10);
-	size += RawPacketClass::Get_Size(Unknown24);
-	return(size + RawPacketClass::Get_Size(Unknown34));
+	int size = PacketClass::Get_Size(Unknown14) + sizeof(Unknown0C) + sizeof(Unknown10);
+	size += PacketClass::Get_Size(Unknown24);
+	return(size + PacketClass::Get_Size(Unknown34));
 }
 
 int ClientChatErrorPacketClass::Print(char *buffer, int len)

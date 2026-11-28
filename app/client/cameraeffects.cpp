@@ -66,10 +66,10 @@ public:
 	unsigned Unknown0C;								// +0x0C (the tick count it ends at: time seconds from now)
 };
 
-template<class C> inline C *Unknown_Find_Valid(DeltaCompoundClass *root, const NameClass &name) { C *t = Unknown_Find_Field<C>(root, name); if (t && t->Unknown70) return(t); return(NULL); }	static inline float Unknown_Accel_Value(AccelClass &accel, int time) { if (!accel.IsActive) return(accel.Current); return(accel.Update((float)time)); }	// NAME 1: neutral (D10): as co.cpp's; Unknown_Accel_Value NAME 1: neutral (D10), the form 0x6E3710 / 0x6E3B60 inline (an int time, converted after the test; AccelClass::Get_Value takes a float)
+template<class C> inline C *Unknown_Find_Valid(DeltaContainer *root, const AuxDataName &name) { C *t = Unknown_Find_Field<C>(root, name); if (t && t->Unknown70) return(t); return(NULL); }	static inline float Unknown_Accel_Value(AccelClass &accel, int time) { if (!accel.IsActive) return(accel.Current); return(accel.Update((float)time)); }	// NAME 1: neutral (D10): as co.cpp's; Unknown_Accel_Value NAME 1: neutral (D10), the form 0x6E3710 / 0x6E3B60 inline (an int time, converted after the test; AccelClass::Get_Value takes a float)
 
 // 0x6E2BD0
-CameraEffectsClass::CameraEffectsClass(MainViewClass *view, SClient *client) :
+CameraEffectsClass::CameraEffectsClass(MainViewClass *view, SpaceClientClass *client) :
 	View(view),
 	Client(client),
 	Unknown14(false),
@@ -78,8 +78,8 @@ CameraEffectsClass::CameraEffectsClass(MainViewClass *view, SClient *client) :
 {
 }
 
-// a shake field of the ship's aux data (0x6E2CC0's four finds, one NameClass slot)
-static inline DeltaTemplateClass<float> *Unknown_Shake_Field(DeltaCompoundClass *aux, const char *field) { NameClass name(field); return(Unknown_Find_Field<DeltaTemplateClass<float> >(aux, name)); }	// NAME 1: neutral (D10)
+// a shake field of the ship's aux data (0x6E2CC0's four finds, one AuxDataName slot)
+static inline DeltaTemplateClass<float> *Unknown_Shake_Field(DeltaContainer *aux, const char *field) { AuxDataName name(field); return(Unknown_Find_Field<DeltaTemplateClass<float> >(aux, name)); }	// NAME 1: neutral (D10)
 static inline void Unknown_Wrap(float &v) { while (v > 12.0f) v -= 12.0f; while (v < -12.0f) v += 12.0f; } void Unknown_491550(float *x, float *y);	// 0x491550 (unknown_490900.cpp: the point snapped to whole device pixels)  // NAME 1: neutral (D10); Unknown_Wrap NAME 1 [v]: neutral (D10), 0x6E2CC0's two loops per axis (inline there)
 
 // (0x6E2CC0's camera move: the transform copied, Adjust_Translation by +0x18 with its Z cleared: the client's x87 order, d.X kept past d.Y's copy and Zt stored last; the per-axis wrap is an inline layer, the budget that keeps the four finds out of line)
@@ -92,9 +92,9 @@ void CameraEffectsClass::Unknown_34()
 		View->Unknown_40();
 		Unknown14 = false;
 	}
-	SClient *client = (SClient *)Client->As_Space_Client();
+	SpaceClientClass *client = (SpaceClientClass *)Client->As_Space_Client();
 	if (client && client->Get_Ship()) {
-		DeltaCompoundClass *aux = (DeltaCompoundClass *)client->Get_Ship()->AuxData;
+		DeltaContainer *aux = (DeltaContainer *)client->Get_Ship()->AuxData;
 		if (aux) {
 			DeltaTemplateClass<float> *field = Unknown_Shake_Field(aux, "Shake.ForceX");
 			if (field && field->Unknown70 > 1) {
@@ -253,9 +253,9 @@ void CameraEffectsClass::Unknown_6E32E0(int type, float amount, float time)
 }
 
 // 0x6E34F0: the camera effects of the client's current view (no caller in the client)
-CameraEffectsClass *Unknown_6E34F0(SClient *client)	// NAME 1: neutral (D10)
+CameraEffectsClass *Unknown_6E34F0(SpaceClientClass *client)	// NAME 1: neutral (D10)
 {
-	SClient *self = (SClient *)client->As_Space_Client();
+	SpaceClientClass *self = (SpaceClientClass *)client->As_Space_Client();
 	if (self && self->CurrentView) {
 		UIViewClass *view = self->CurrentView->Unknown_1C();
 		if (view) {
@@ -285,24 +285,24 @@ UnknownAFFE64Class::UnknownAFFE64Class(CameraEffectsClass *owner, const Vector3 
 // 0x6E37F0
 UnknownAFFE84Class::UnknownAFFE84Class(CameraEffectsClass *owner, float damage) : UnknownAFFE6CClass(owner)
 {
-	Unknown_Find_Field<DeltaTemplateClass<float> >(NULL, *(NameClass *)this); Unknown_Find_Field<DeltaTemplateClass<float> >(NULL, *(NameClass *)this);	// dead finds (D130; not the client's): they spend VC6's inline budget, so the two finds' casts stay out of line as the client's (with one, 0x6E37F0 is not exact)
+	Unknown_Find_Field<DeltaTemplateClass<float> >(NULL, *(AuxDataName *)this); Unknown_Find_Field<DeltaTemplateClass<float> >(NULL, *(AuxDataName *)this);	// dead finds (D130; not the client's): they spend VC6's inline budget, so the two finds' casts stay out of line as the client's (with one, 0x6E37F0 is not exact)
 	if (damage <= 0.0f) {
 		Unknown0C.Set_Value(0.0f, true);
 		return;
 	}
-	SClient *client = Owner->Client;
-	SClient *self = (SClient *)client->As_Space_Client();
+	SpaceClientClass *client = Owner->Client;
+	SpaceClientClass *self = (SpaceClientClass *)client->As_Space_Client();
 	if (self == NULL) {
 		return;
 	}
-	DeltaCompoundClass *aux = (DeltaCompoundClass *)self->Get_Ship()->AuxData;
+	DeltaContainer *aux = (DeltaContainer *)self->Get_Ship()->AuxData;
 	if (aux == NULL) {
 		return;
 	}
-	NameClass max_name("MaxShieldPower");
+	AuxDataName max_name("MaxShieldPower");
 	DeltaTemplateClass<float> *max_power = Unknown_Find_Valid<DeltaTemplateClass<float> >(aux, max_name);
-	NameClass percent_name("ShieldPercent");
-	DeltaInterpolatorClass *percent = Unknown_Find_Valid<DeltaInterpolatorClass>(aux, percent_name);
+	AuxDataName percent_name("ShieldPercent");
+	DeltaInterpolator *percent = Unknown_Find_Valid<DeltaInterpolator>(aux, percent_name);
 	float power;
 	if (max_power) power = max_power->Value;
 	else power = damage * 4.0f;

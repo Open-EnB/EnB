@@ -6,7 +6,7 @@
 #include <string.h>
 #include <ctype.h>
 
-HtmlViewClass::HtmlViewClass(void) :
+HTMLViewer::HTMLViewer(void) :
 	Surf(NULL),
 	Loader(NULL)
 {
@@ -22,11 +22,11 @@ HtmlViewClass::HtmlViewClass(void) :
 	Dirty = 0;
 }
 
-HtmlViewClass::~HtmlViewClass(void)
+HTMLViewer::~HTMLViewer(void)
 {
 }
 
-bool HtmlViewClass::Clear(void)
+bool HTMLViewer::Clear(void)
 {
 	Links.clear();
 	HtmlBlockClass *block;
@@ -39,7 +39,7 @@ bool HtmlViewClass::Clear(void)
 	return true;
 }
 
-bool HtmlViewClass::Open(char *url)
+bool HTMLViewer::Open(char *url)
 {
 	Clear();
 	strcpy(Url, url);
@@ -49,13 +49,13 @@ bool HtmlViewClass::Open(char *url)
 	return true;
 }
 
-bool HtmlViewClass::Set_Loader(HtmlLoaderClass *loader)
+bool HTMLViewer::Set_Loader(HtmlLoaderClass *loader)
 {
 	Loader = loader;
 	return true;
 }
 
-bool HtmlViewClass::Update(void)
+bool HTMLViewer::Update(void)
 {
 	if (Loader != NULL)
 		Loader->Update();
@@ -66,20 +66,20 @@ bool HtmlViewClass::Update(void)
 	return dirty;
 }
 
-bool HtmlViewClass::Set_Surface(DSurface *surface)
+bool HTMLViewer::Set_Surface(DSurface *surface)
 {
 	Surf = surface;
 	Layout();
 	return true;
 }
 
-bool HtmlViewClass::Clear_Links(void)
+bool HTMLViewer::Clear_Links(void)
 {
 	Links.clear();
 	return true;
 }
 
-bool HtmlViewClass::Clear_Blocks(void)
+bool HTMLViewer::Clear_Blocks(void)
 {
 	HtmlBlockClass *block;
 	while (Blocks.getTail(block)) {
@@ -145,7 +145,7 @@ bool HtmlViewClass::Clear_Blocks(void)
 
 
 
-bool HtmlViewClass::Add_Data(char *name, char *mimetype, char *data, int length, bool render)
+bool HTMLViewer::Add_Data(char *name, char *mimetype, char *data, int length, bool render)
 {
 	if (name != NULL && mimetype != NULL && data != NULL && length != 0) {
 		HtmlLinkStruct *link;
@@ -169,7 +169,7 @@ bool HtmlViewClass::Add_Data(char *name, char *mimetype, char *data, int length,
 	return true;
 }
 
-void HtmlViewClass::Layout(void)
+void HTMLViewer::Layout(void)
 {
 	HtmlBlockClass *block;
 	while (Blocks.removeTail(block)) {
@@ -467,7 +467,7 @@ static int Get_Value(int offset, Wstring &tag, Wstring &value);  // 0x7784D0
 
 
 // NOT EXACT: 0x7710D0, register allocation (<li> / <body> add clamps, the <img> link count, the end loops, the <table> inset: each client form alone rotates block / fontheight / tagend from ebp / ebx / edi); budget and frame as the client's
-int HtmlViewClass::Parse(HtmlLinkStruct *link, HtmlBlockClass *block, int offset)
+int HTMLViewer::Parse(HtmlLinkStruct *link, HtmlBlockClass *block, int offset)
 {
 	char *start;
 	if (!link->Data.getPointer(&start, offset))
@@ -1106,7 +1106,7 @@ int HtmlViewClass::Parse(HtmlLinkStruct *link, HtmlBlockClass *block, int offset
 
 
 // 0x7759E0
-bool HtmlViewClass::Add_Text(HtmlBlockClass *block, char *cptr_in, int maxlength, int maxwidth, int)
+bool HTMLViewer::Add_Text(HtmlBlockClass *block, char *cptr_in, int maxlength, int maxwidth, int)
 {
 	int x = block->CursorX;
 	int y = block->CursorY;
@@ -1229,7 +1229,7 @@ bool HtmlViewClass::Add_Text(HtmlBlockClass *block, char *cptr_in, int maxlength
 }
 
 // 0x7761E0
-bool HtmlViewClass::Render(int scrollx, int scrolly, int x, int y, int width, int height)
+bool HTMLViewer::Render(int scrollx, int scrolly, int x, int y, int width, int height)
 {
 	if (Surf == NULL)
 		return false;
@@ -1266,7 +1266,7 @@ bool HtmlViewClass::Render(int scrollx, int scrolly, int x, int y, int width, in
 	return true;
 }
 
-bool HtmlViewClass::Draw_Block(HtmlBlockClass *block, int x, int y, int width, int height)
+bool HTMLViewer::Draw_Block(HtmlBlockClass *block, int x, int y, int width, int height)
 {
 	if (Surf == NULL)
 		return false;
@@ -1330,7 +1330,7 @@ bool HtmlViewClass::Draw_Block(HtmlBlockClass *block, int x, int y, int width, i
 
 // NOT EXACT: 0x7767A0, the text loop's setup loads are scheduled differently (the client holds item
 // in esi before strlen)
-bool HtmlViewClass::Draw_Item(HtmlBlockClass *block, HtmlItemStruct *item, int offx, int offy, int clipx, int clipy, int clipw, int cliph)
+bool HTMLViewer::Draw_Item(HtmlBlockClass *block, HtmlItemStruct *item, int offx, int offy, int clipx, int clipy, int clipw, int cliph)
 {
 	if (Surf == NULL)
 		return false;
@@ -1374,10 +1374,10 @@ bool HtmlViewClass::Draw_Item(HtmlBlockClass *block, HtmlItemStruct *item, int o
 		int length = strlen(text);
 		int itemh = item->Height;
 		int x = item->X - offx;
-		int right = item->Width + x;
+		int y = item->Y - offy;
 		int widest = 0;
 		int dy = 0;
-		int y = item->Y - offy;
+		int right = item->Width + x;
 		while (length != 0) {
 			SIZE size;
 			int n = 1;
@@ -1459,7 +1459,7 @@ bool HtmlViewClass::Draw_Item(HtmlBlockClass *block, HtmlItemStruct *item, int o
 	return true;
 }
 
-char *HtmlViewClass::Click(int x, int y, int)
+char *HTMLViewer::Click(int x, int y, int)
 {
 	static char href[256];
 
@@ -1484,7 +1484,7 @@ char *HtmlViewClass::Click(int x, int y, int)
 }
 
 // NOT EXACT: 0x7772C0, the loop top reloads this before i (the client i first); Click's twin
-char *HtmlViewClass::Hit_Test(int x, int y, int *type, int *index)
+char *HTMLViewer::Hit_Test(int x, int y, int *type, int *index)
 {
 	for (int i = Blocks.length() - 1; i >= 0; i--) {
 		HtmlBlockClass *block = NULL;
@@ -1510,7 +1510,7 @@ char *HtmlViewClass::Hit_Test(int x, int y, int *type, int *index)
 	return NULL;
 }
 
-bool HtmlViewClass::Find_Link(char *name, HtmlLinkStruct **link)
+bool HTMLViewer::Find_Link(char *name, HtmlLinkStruct **link)
 {
 	for (int i = 0; i < Links.length(); i++) {
 		Links.getPointer(link, i);
@@ -1521,7 +1521,7 @@ bool HtmlViewClass::Find_Link(char *name, HtmlLinkStruct **link)
 	return false;
 }
 
-bool HtmlViewClass::Find_Image(char *name, HtmlImageClass **image)
+bool HTMLViewer::Find_Image(char *name, HtmlImageClass **image)
 {
 	for (int i = 0; i < Images.length(); i++) {
 		HtmlImageClass *entry;
@@ -1535,17 +1535,17 @@ bool HtmlViewClass::Find_Image(char *name, HtmlImageClass **image)
 	return false;
 }
 
-int HtmlViewClass::Get_Unknown13C(void)
+int HTMLViewer::Get_Unknown13C(void)
 {
 	return Unknown13C;
 }
 
-int HtmlViewClass::Get_Unknown138(void)
+int HTMLViewer::Get_Unknown138(void)
 {
 	return Unknown138;
 }
 
-char *HtmlViewClass::Get_Title(void)
+char *HTMLViewer::Get_Title(void)
 {
 	char *title = "";
 	if (Blocks.length() != 0) {
@@ -1558,7 +1558,7 @@ char *HtmlViewClass::Get_Title(void)
 	return title;
 }
 
-void HtmlViewClass::Draw_Bevel(int x, int y, int width, int height, int clipx, int clipy, int clipw, int cliph, int thickness, bool raised)
+void HTMLViewer::Draw_Bevel(int x, int y, int width, int height, int clipx, int clipy, int clipw, int cliph, int thickness, bool raised)
 {
 	int light = 0xFFFFFF;
 	int dark = 0;
@@ -1575,7 +1575,7 @@ void HtmlViewClass::Draw_Bevel(int x, int y, int width, int height, int clipx, i
 	}
 }
 
-void HtmlViewClass::Draw_Line(int x1, int y1, int x2, int y2, int clipx, int clipy, int clipw, int cliph, int color, int alpha)
+void HTMLViewer::Draw_Line(int x1, int y1, int x2, int y2, int clipx, int clipy, int clipw, int cliph, int color, int alpha)
 {
 	if (Surf->Bytes_Per_Pixel() == 4) {
 		Draw_Line_32(x1, y1, x2, y2, clipx, clipy, clipw, cliph, color, alpha);
@@ -1600,7 +1600,7 @@ static unsigned int InvAlpha32;  // NAME 1: 0xC41554, 0xFF - Alpha32 (assigned f
 			((c & 0xFF) * InvAlpha32 + ((col) & 0xFF) * Alpha32)) >> 8; \
 	}
 
-void HtmlViewClass::Draw_Line_32(int x1, int y1, int x2, int y2, int clipx, int clipy, int clipw, int cliph, int color, int alpha)
+void HTMLViewer::Draw_Line_32(int x1, int y1, int x2, int y2, int clipx, int clipy, int clipw, int cliph, int color, int alpha)
 {
 	int count, right, bottom, pitch, dx, dy, sx, sy, err;
 	unsigned int *buffer, *p;
@@ -1682,7 +1682,7 @@ void HtmlViewClass::Draw_Line_32(int x1, int y1, int x2, int y2, int clipx, int 
 #pragma auto_inline(on)
 
 #pragma auto_inline(off)
-void HtmlViewClass::Draw_Line_24(int, int, int, int, int, int, int, int, int, int)
+void HTMLViewer::Draw_Line_24(int, int, int, int, int, int, int, int, int, int)
 {
 }
 #pragma auto_inline(on)
@@ -1701,7 +1701,7 @@ static unsigned int InvAlpha16;  // NAME 1: 0xC4154C, 0xFF - Alpha16 (assigned f
 			(((c & 0x1F) * InvAlpha16 + ((col) & 0x1F) * Alpha16) >> 8)); \
 	}
 
-void HtmlViewClass::Draw_Line_16(int x1, int y1, int x2, int y2, int clipx, int clipy, int clipw, int cliph, int color, int alpha)
+void HTMLViewer::Draw_Line_16(int x1, int y1, int x2, int y2, int clipx, int clipy, int clipw, int cliph, int color, int alpha)
 {
 	int count, right, bottom, pitch, dx, dy, sx, sy, err;
 	unsigned short *buffer, *p;
@@ -1818,7 +1818,7 @@ static int Get_Value(int offset, Wstring &tag, Wstring &value)
 **	  exact since B2 (2026-11-25), see below. The class sits here until the view's header exists.
 **	* The functions with asserts sit on the client's lines (D25): Add_Data's G_ASSERT(0) on 158, Add_Text's
 **	  two on 1114 / 1115; the blank lines before Add_Text keep the parser 0x7710D0 (its assert on 926) a gap.
-**	* HV2 (2026-11-01): the view, HtmlViewClass (htmlview.h), 0x76FFD0-0x770720, every function exact. The
+**	* HV2 (2026-11-01): the view, HTMLViewer (htmlview.h), 0x76FFD0-0x770720, every function exact. The
 **	  file starts at 0x76FFD0: 0x76F0F0-0x76FFCF is HtmlBlockClass's object (unknown_htmlblock.cpp, ended by
 **	  its ArrayList copies), and the view's ArrayList<HtmlLinkStruct> destructor is this file's template
 **	  copy 0x7787C0. 0x770430 (the 0x210-byte link's destructor, a COMDAT inside the run) pairs with several.

@@ -20,7 +20,7 @@ void Unknown_5BF4D0()
 }
 
 // 0x5BF4F0
-RefCountPtr<UIMFDExtendedContextClass> UIMFDExtendedContextClass::Create(ClientObjectClass *self, ClientObjectClass *co, UIMFDClass *owner)
+RefCountPtr<UIMFDExtendedContextClass> UIMFDExtendedContextClass::Create(ClientObjectClass *self, ClientObjectClass *co, MFDInterface *owner)
 {
 	if (co == NULL) {
 		return(NULL);
@@ -33,7 +33,7 @@ RefCountPtr<UIMFDExtendedContextClass> UIMFDExtendedContextClass::Create(ClientO
 }
 
 // 0x5BF600
-UIMFDExtendedContextClass::UIMFDExtendedContextClass(UIMFDClass *owner) :
+UIMFDExtendedContextClass::UIMFDExtendedContextClass(MFDInterface *owner) :
 	Owner(owner)
 {
 }

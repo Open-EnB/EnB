@@ -10,7 +10,7 @@
 #include "rendobj.h"
 #include "..\..\wwlib\ref_ptr.h"
 #include "gadget.h"
-#include "unknown_675120.h"
+#include "gd_uimesh.h"
 #include "fontmanager.h"
 #include "..\packets\pkskill.h"
 #include "..\audio\soundlib.h"
@@ -93,7 +93,7 @@ class LineDisplayClientClass  // NAME 1: neutral (D10)
 public:
 	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
 	virtual void Unknown_10(); virtual void Unknown_14();
-	virtual SClient *As_Space_Client();					// +0x18 (as ui_manu.cpp's)  // NAME 3: the FAIL_IF's in ui_manu.cpp
+	virtual SpaceClientClass *As_Space_Client();					// +0x18 (as ui_manu.cpp's)  // NAME 3: the FAIL_IF's in ui_manu.cpp
 	virtual void Unknown_1C(); virtual void Unknown_20(); virtual void Unknown_24();
 	virtual ClientObjectClass *Get_Avatar();			// +0x28 (client.h's)  // NAME 2: ClientClass's slot +0x28
 };
@@ -102,15 +102,15 @@ int Unknown_82F350(int race, int prof);				// chartemplate.cpp's 0x82F350 (race 
 const char *Unknown_82F3C0(int index);				// chartemplate.cpp's 0x82F3C0 (the class's name)  // NAME 1: neutral (D10), as chartemplate.cpp's
 
 // auxdata.h's find, set (+0x70) or changed since (+0x70 above 1), else NULL
-template<class C> inline C *Unknown_Find_Valid(DeltaCompoundClass *root, const char *name) { NameClass n(name); C *t = Unknown_Find_Field<C>(root, n); if (t && t->Unknown70) return(t); return(NULL); }	// NAME 1: neutral (D10), as ui_avatar_cust.cpp's
-template<class C> inline C *Unknown_Find_Changed(DeltaCompoundClass *root, const char *name) { NameClass n(name); C *t = Unknown_Find_Field<C>(root, n); if (t && t->Unknown70 > 1) return(t); return(NULL); }	// NAME 1: neutral (D10), as ui_avatar_cust.cpp's
-template<class C> inline C *Unknown_Find(DeltaCompoundClass *root, const char *name, bool all) { return(all ? Unknown_Find_Valid<C>(root, name) : Unknown_Find_Changed<C>(root, name)); }	// NAME 1: neutral (D10)
-template<class C> inline C *Unknown_Find_ValidR(DeltaCompoundClass *const &root, const char *name) { NameClass n(name); C *t = Unknown_Find_Field<C>(root, n); if (t && t->Unknown70) return(t); return(NULL); }	// NAME 1: neutral (D10): the root by reference: the root by reference (0x547E40 reads it again after the NameClass)
-template<class C> inline C *Unknown_Find_ChangedR(DeltaCompoundClass *const &root, const char *name) { NameClass n(name); C *t = Unknown_Find_Field<C>(root, n); if (t && t->Unknown70 > 1) return(t); return(NULL); }	// NAME 1: neutral (D10): the root by reference: the root by reference (0x547E40 reads it again after the NameClass)
-template<class C> inline C *Unknown_FindR(DeltaCompoundClass *const &root, const char *name, bool all) { return(all ? Unknown_Find_ValidR<C>(root, name) : Unknown_Find_ChangedR<C>(root, name)); }	// NAME 1: neutral (D10): the root by reference
+template<class C> inline C *Unknown_Find_Valid(DeltaContainer *root, const char *name) { AuxDataName n(name); C *t = Unknown_Find_Field<C>(root, n); if (t && t->Unknown70) return(t); return(NULL); }	// NAME 1: neutral (D10), as ui_avatar_cust.cpp's
+template<class C> inline C *Unknown_Find_Changed(DeltaContainer *root, const char *name) { AuxDataName n(name); C *t = Unknown_Find_Field<C>(root, n); if (t && t->Unknown70 > 1) return(t); return(NULL); }	// NAME 1: neutral (D10), as ui_avatar_cust.cpp's
+template<class C> inline C *Unknown_Find(DeltaContainer *root, const char *name, bool all) { return(all ? Unknown_Find_Valid<C>(root, name) : Unknown_Find_Changed<C>(root, name)); }	// NAME 1: neutral (D10)
+template<class C> inline C *Unknown_Find_ValidR(DeltaContainer *const &root, const char *name) { AuxDataName n(name); C *t = Unknown_Find_Field<C>(root, n); if (t && t->Unknown70) return(t); return(NULL); }	// NAME 1: neutral (D10): the root by reference: the root by reference (0x547E40 reads it again after the AuxDataName)
+template<class C> inline C *Unknown_Find_ChangedR(DeltaContainer *const &root, const char *name) { AuxDataName n(name); C *t = Unknown_Find_Field<C>(root, n); if (t && t->Unknown70 > 1) return(t); return(NULL); }	// NAME 1: neutral (D10): the root by reference: the root by reference (0x547E40 reads it again after the AuxDataName)
+template<class C> inline C *Unknown_FindR(DeltaContainer *const &root, const char *name, bool all) { return(all ? Unknown_Find_ValidR<C>(root, name) : Unknown_Find_ChangedR<C>(root, name)); }	// NAME 1: neutral (D10): the root by reference
 
 // @0x546A80
-Unknown546A80Class::Unknown546A80Class(SClient *client, RefCountPtr<RenderObjClass> &mesh) :
+Unknown546A80Class::Unknown546A80Class(SpaceClientClass *client, RefCountPtr<RenderObjClass> &mesh) :
 	InterfaceClass((LineDisplayClientClass *)client),
 	Unknown84(mesh),
 	Experience(NULL),
@@ -224,7 +224,7 @@ bool Unknown546A80Class::Unknown_68(int key)
 void Unknown546A80Class::Unknown_547570()
 {
 	if (SkillNamesDatabase::Max_Skill()) {
-		CharacterViewAvatarClass *avatar = Client->As_Space_Client()->Unknown_74C840(((ClientClass *)Client)->Get_Avatar_ID());
+		AvatarClass *avatar = Client->As_Space_Client()->Unknown_74C840(((ClientClass *)Client)->Get_Avatar_ID());
 
 
 
@@ -239,7 +239,7 @@ void Unknown546A80Class::Unknown_547570()
 		int race = 0;
 		int profession = 0;
 		if (avatar) {
-			AvatarDescClass *desc = &avatar->Desc;
+			AvatarDescriptionClass *desc = &avatar->Desc;
 			desc->Get_Full_Name(name);
 			race = desc->Race;
 			profession = desc->Profession;
@@ -266,7 +266,7 @@ int Unknown546A80Class::Unknown_547730(DeltaTemplateClass<int> *field, const cha
 // @0x5477C0
 void Unknown546A80Class::Unknown_5477C0(bool all)
 {
-	DeltaCompoundClass *aux = (DeltaCompoundClass *)Client->As_Space_Client()->AuxData;
+	DeltaContainer *aux = (DeltaContainer *)Client->As_Space_Client()->AuxData;
 	bool changed = false;
 	DeltaTemplateClass<int> *field;
 	if (all) {
@@ -316,7 +316,7 @@ void Unknown546A80Class::Unknown_5477C0(bool all)
 // @0x547C20
 void Unknown546A80Class::Unknown_547C20(bool all)
 {
-	DeltaCompoundClass *aux = (DeltaCompoundClass *)Client->As_Space_Client()->AuxData;
+	DeltaContainer *aux = (DeltaContainer *)Client->As_Space_Client()->AuxData;
 	MoneyClass money;
 	DeltaTemplateClass<MoneyClass> *field;
 	if (all) {
@@ -381,7 +381,7 @@ void Unknown546A80Class::Unknown_547E40(bool all)
 	ClientObjectClass *avatar = Client->Get_Avatar();
 	G_ASSERT(avatar);
 	if (avatar && avatar->AuxData) {
-		DeltaStringClass *rank = Unknown_FindR<DeltaStringClass>(*(DeltaCompoundClass **)&avatar->AuxData, "Rank", all);
+		DeltaString *rank = Unknown_FindR<DeltaString>(*(DeltaContainer **)&avatar->AuxData, "Rank", all);
 		if (rank) {
 			Unknown9C->Change_Text(rank->String, 0);
 			return;
@@ -392,11 +392,11 @@ void Unknown546A80Class::Unknown_547E40(bool all)
 	}
 }
 
-template<class C> static inline C *Unknown_Find_Valid_547FD0(DeltaCompoundClass *r, const char *s) { return(Unknown_Find_Valid<C>(r, s)); }	// NAME 1: neutral (D10): extra inline layer keeps 0x547FD0's valid null merge unthreaded
+template<class C> static inline C *Unknown_Find_Valid_547FD0(DeltaContainer *r, const char *s) { return(Unknown_Find_Valid<C>(r, s)); }	// NAME 1: neutral (D10): extra inline layer keeps 0x547FD0's valid null merge unthreaded
 // @0x547FD0
 void Unknown546A80Class::Unknown_547FD0(bool all)
 {
-	DeltaCompoundClass *aux = (DeltaCompoundClass *)Client->As_Space_Client()->AuxData;
+	DeltaContainer *aux = (DeltaContainer *)Client->As_Space_Client()->AuxData;
 	DeltaTemplateClass<int> *debt;
 	if (all) {
 		debt = Unknown_Find_Valid_547FD0<DeltaTemplateClass<int> >(aux, "XPDebt");
@@ -422,11 +422,11 @@ void Unknown546A80Class::Unknown_547FD0(bool all)
 **	2026-11-08): the constructor 0x546A80 (InterfaceClass through the __INTRFACE_MEMBERS constructor 0x540D30), the
 **	deleting destructor 0x546B20, the destructor 0x546B50 (the slot +0x5C body written out: the client does not call it),
 **	slots +0x54 0x546DD0, +0x7C 0x5472C0, +0x58 0x5472F0, +0x5C 0x547370, +0x60 0x5473F0, +0x68 0x547550, 0x5473B0, 0x547570
-**	(G_ASSERT 'avatar' line 237; the avatar's AvatarDescClass is its +0xF8), 0x547730 (inlined in 0x5477C0, emitted for
+**	(G_ASSERT 'avatar' line 237; the avatar's AvatarDescriptionClass is its +0xF8), 0x547730 (inlined in 0x5477C0, emitted for
 **	nobody), 0x5477C0 and 0x547E40 (G_ASSERT 'avatar' line 382) exact; RefCountPtr<FontSys>::operator= 0x548150 (the
 **	sixth style's assignment goes out of line), the Cast instance 0x5481C0 and the thunks 0x548240 / 0x548250 come with
 **	them. The forms that matter: the root by reference for 0x547E40 (it reads the avatar's +0x88 again after each
-**	NameClass), plain roots elsewhere; 0x547570 reads the id through ClientClass::Get_Avatar_ID(); 0x5477C0 takes the
+**	AuxDataName), plain roots elsewhere; 0x547570 reads the id through ClientClass::Get_Avatar_ID(); 0x5477C0 takes the
 **	experience display's +0x04 into a local before the compare (the inline getter costs the third find's inlining);
 **	auto_inline(off) around 0x547E40 / 0x547FD0 keeps them out of 0x5472F0 / 0x5473F0 as the client has them. NOT EXACT
 **	0x547C20 (layout) and 0x547FD0 (inline budget): attempts.csv. PS (run 2026-11-18): the object ends at 0x54825F (CRT
@@ -438,6 +438,6 @@ void Unknown546A80Class::Unknown_547FD0(bool all)
 **	assignment, Set, a FontSys pointer helper, a reference to +0x494, a local pointer, memcpy, a chained Set returning the
 **	struct; attempts.csv). Its flags are bit fields read through bool accessors (the client's word load, shr, test 1;
 **	plain shifts or bare bit fields give a byte test), the last call's argument an if / else of two calls. pkskill.h's inline ~SkillPacketClass 0x548D40 is emitted here between them. After the slots: the adjustor
-**	thunks 0x5495D0 (-4) / 0x5495E0 (-0x38) of the deleting destructor and permstr.h's PermStringInitClass static
+**	thunks 0x5495D0 (-4) / 0x5495E0 (-0x38) of the deleting destructor and permstr.h's PermStringInit static
 **	(0x5495A0 here; ui_attrb_skills.cpp's notes name 0x5495F0 / 0x549620).
 */

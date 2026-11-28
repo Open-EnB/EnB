@@ -1,10 +1,10 @@
-// Earth & Beyond client (reconstruction): app\shared\observer.cpp, a subject's list of observers (SubjectClass,
+// Earth & Beyond client (reconstruction): app\shared\observer.cpp, a subject's list of observers (ObserverSubjectClass,
 // 0x49E890-0x49EB30 and the vector templates it emits to 0x49EF10; the assert sits on the client's line). Notes at the end.
 #include "observer.h"
 #include "g_assert.h"
 
 // @0x49E890
-SubjectClass::SubjectClass(int size) : Observers(size)
+ObserverSubjectClass::ObserverSubjectClass(int size) : Observers(size)
 {
 	int step = size / 4;
 	if (step < 2) {
@@ -16,7 +16,7 @@ SubjectClass::SubjectClass(int size) : Observers(size)
 }
 
 // @0x49E950
-SubjectClass::~SubjectClass()
+ObserverSubjectClass::~ObserverSubjectClass()
 {
 	Unknown_49EA60();
 }
@@ -94,7 +94,7 @@ SubjectClass::~SubjectClass()
 
 
 // @0x49EA60
-void SubjectClass::Unknown_49EA60()
+void ObserverSubjectClass::Unknown_49EA60()
 {
 	int num;
 	while ((num = Observers.Count()) != 0) {
@@ -104,7 +104,7 @@ void SubjectClass::Unknown_49EA60()
 }
 
 // @0x49EAB0
-void SubjectClass::Unknown_49EAB0(void *event)
+void ObserverSubjectClass::Unknown_49EAB0(void *event)
 {
 	int i = Observers.Count();
 	while (i--) {
@@ -118,9 +118,9 @@ void SubjectClass::Unknown_49EAB0(void *event)
 //   std::vector instance closing damtype.cpp's object; after 0x49EAB0 come DynamicVectorClass<ObserverClass *>'s
 //   members (0x49EAF0, 0x49EB30-0x49EEE0, emitted for the two tables the constructor stores), then 0x49EF10, the
 //   referral.ini reader of the next object (no __FILE__ of its own, then selector.cpp).
-// - SubjectClass is the vector alone (0x18 bytes): DynamicVectorClass's constructor stores VectorClass's table 0xAEA9A0
+// - ObserverSubjectClass is the vector alone (0x18 bytes): DynamicVectorClass's constructor stores VectorClass's table 0xAEA9A0
 //   then its own 0xAEA984; the growth step is a quarter of the size, 2 to 16.
 
-// Interim placement (D137): the frame toggle SClient::Do_Frame sets (.bss 0xBE350C, between damtype.cpp's vector
+// Interim placement (D137): the frame toggle SpaceClientClass::Do_Frame sets (.bss 0xBE350C, between damtype.cpp's vector
 // 0xBE34F8 and referral.cpp's guard 0xBE3510; its object is not known)
 int Unknown_BE350C;  // NAME 1 [Unknown_BE350C]: neutral (D10)

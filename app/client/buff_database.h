@@ -21,10 +21,10 @@
 #include <string>
 #include <hash_map.h>
 
-struct BuffDefStruct  // NAME 2: what it holds (one BUFF-n section, 0x14 bytes)
+struct BuffInfoClass  // NAME 5: thunk order C, binary.md 5.11
 {
-	BuffDefStruct(const char *type, const char *asset, const char *tool_tip, const char *alt_tool_tip, bool is_good);	// 0x676CD0
-	~BuffDefStruct();																		// 0x676D40
+	BuffInfoClass(const char *type, const char *asset, const char *tool_tip, const char *alt_tool_tip, bool is_good);	// 0x676CD0
+	~BuffInfoClass();																		// 0x676D40
 
 	char *Type;																				// +0x00, BuffType  // NAME 2: the ini key
 	char *Asset;																			// +0x04, BuffAsset  // NAME 2: the ini key
@@ -40,12 +40,12 @@ public:
 	~BuffDatabaseClass();																// 0x677410
 
 	static void Set_Instance(BuffDatabaseClass *database);					// 0x677640 (0xBE6014)  // NAME 2: describes what it does
-	BuffDefStruct *Find(const char *type);											// 0x677660  // NAME 2: describes what it does
+	BuffInfoClass *Find(const char *type);											// 0x677660  // NAME 2: describes what it does
 
 	static BuffDatabaseClass *Instance;												// 0xBE6014  // NAME 2: describes what it holds
 
 private:
-	std::hash_map<std::string, BuffDefStruct *> Buffs;							// +0x00  // NAME 2: describes what it holds
+	std::hash_map<std::string, BuffInfoClass *> Buffs;							// +0x00  // NAME 2: describes what it holds
 };
 
 #endif //__BUFF_DATABASE_H

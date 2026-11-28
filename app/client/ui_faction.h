@@ -12,12 +12,12 @@ class UIFactionPanelClass;	// ui_faction_panel.cpp's panel (+0xAC; 200 bytes)
 class Unknown58E210Class;	// the faction buttons (0x7C bytes; 0x58E210 makes them)
 // The faction tab (0xE4 bytes, tables 0xAF1774 / 0xAF1768 / 0xAF175C; 0x5738B0 makes it, the third of the character info
 // window's tabs): a 'tsi30a' mesh, the strings of 'fa_tsi30a.ini', six faction buttons, a slider (gadget 8) and a panel
-class UIFactionClass : public Unknown5BB320Class	// NAME 3: class-from-file (D24) for app\Client\ui_faction.cpp
+class FactionInterface : public Unknown5BB320Class  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	enum { MAX_BUTTONS = 7 };							// NAME 1: the constructor clears 7, 0x58D400 makes 6 (keys 1..6)
-	UIFactionClass(SClient *client);					// 0x58D080 (0xE4 bytes; deleting 0x58D1B0)  // NAME 1 [client]: as UIBioClass's
-	virtual ~UIFactionClass();							// 0x58D1E0 ('fa_tsi30a.ini' unloaded)
+	FactionInterface(SpaceClientClass *client);					// 0x58D080 (0xE4 bytes; deleting 0x58D1B0)  // NAME 1 [client]: as BioInterface's
+	virtual ~FactionInterface();							// 0x58D1E0 ('fa_tsi30a.ini' unloaded)
 	virtual void Unknown_54();							// 0x58D400 (the panel, the buttons, the slider; FAIL_IFs '!InterfaceMesh' / '!mesh')
 	virtual void Unknown_58();							// 0x58D9F0 (activated: 0x58DC20(true) under a sort scope)
 	virtual void Unknown_5C();							// 0x58DA80 (deactivated: the panel's +0x5C)
@@ -25,7 +25,7 @@ public:
 	virtual bool Unknown_68(int key);					// 0x58DB30 (keys 1..6 a faction, 8 the slider, 9 taken)  // NAME 1 [key]: InterfaceClass's
 	virtual void Unknown_7C(UIViewClass *view, bool arg);	// 0x58D3C0 (the panel's with false, then the base's)  // NAME 1 [view, arg]: InterfaceClass's
 	void Unknown_58DC20(bool arg);						// 0x58DC20 (FAIL_IFs '!Get_Client()' / '!sclient' / '!aux_data': the reputations)  // NAME 1 [arg]: neutral
-	LineDisplayClientClass *Get_Client() { return(Client); }	// (inline: 0x58DC20's FAIL_IF '!Get_Client()', as UICinfoClass's)  // NAME 3: the FAIL_IF's
+	LineDisplayClientClass *Get_Client() { return(Client); }	// (inline: 0x58DC20's FAIL_IF '!Get_Client()', as CharacterInfoInterface's)  // NAME 3: the FAIL_IF's
 	void Unknown_Select(int index);						// (inline, defined in ui_faction.cpp: 0x58DB30's two forms)  // NAME 1: neutral (D10)  // NAME 1 [index]: neutral
 
 	RefCountPtr<UIFactionPanelClass> UnknownAC;			// +0xAC (the panel, 0x58D400 makes it)

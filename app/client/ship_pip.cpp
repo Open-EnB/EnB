@@ -108,7 +108,7 @@ static const float Unknown_B07DC8 = 0.05f;								// type 0: the float parent's 
 
 
 // @0x80B2E0
-ShipPipClass::ShipPipClass(int type) :
+ShipPIPClass::ShipPIPClass(int type) :
 	GadgetClass(0x77),
 	Type(type),
 	PIPView(NULL),
@@ -135,7 +135,7 @@ ShipPipClass::ShipPipClass(int type) :
 }
 
 // @0x80B520
-ShipPipClass::~ShipPipClass()
+ShipPIPClass::~ShipPIPClass()
 {
 	Unknown_80();
 }
@@ -153,7 +153,7 @@ static Vector3 Unknown_BE8BC8[3] = { Vector3(0.15f, 0.1f, 0.09f), Vector3(0.15f,
 static Vector3 Unknown_BE8C70[3] = { Vector3(0.5f, 0.0f, 0.0f), Vector3(0.5f, 0.4f, 0.1f), Vector3(0.1f, 0.45f, 0.45f) };	// type 1: the second light's diffuse by race
 
 // @0x80BAB0
-void ShipPipClass::Unknown_74(int race)
+void ShipPIPClass::Unknown_74(int race)
 {
 	if (Type == 0) {
 		Unknown04C = Create_NEW(new LightClass(LightClass::DIRECTIONAL));
@@ -234,7 +234,7 @@ void ShipPipClass::Unknown_74(int race)
 
 
 // @0x80C180
-void ShipPipClass::Unknown_80C180()
+void ShipPIPClass::Unknown_80C180()
 {
 	Unknown_80();
 	Unknown0D8 = NULL;
@@ -246,7 +246,7 @@ void ShipPipClass::Unknown_80C180()
 }
 
 // @0x80C220
-bool ShipPipClass::Unknown_80C220(ViewClass *view)
+bool ShipPIPClass::Unknown_80C220(ViewClass *view)
 {
 	Unknown_80C180();
 	PIPView = view->Unknown_1C();
@@ -269,7 +269,7 @@ bool ShipPipClass::Unknown_80C220(ViewClass *view)
 }
 
 // @0x80C540
-void ShipPipClass::Unknown_80C540(const Vector2 &size, const Vector3 &position, unsigned int sort_level)
+void ShipPIPClass::Unknown_80C540(const Vector2 &size, const Vector3 &position, unsigned int sort_level)
 {
 	Unknown048 = sort_level;
 	Unknown040 = size.X;
@@ -280,7 +280,7 @@ void ShipPipClass::Unknown_80C540(const Vector2 &size, const Vector3 &position, 
 }
 
 // @0x80C5C0
-void ShipPipClass::Unknown_80()
+void ShipPIPClass::Unknown_80()
 {
 	if (Unknown054) {
 		Unknown04C->Remove();
@@ -291,9 +291,9 @@ void ShipPipClass::Unknown_80()
 	}
 }
 
-// NOT EXACT: ShipPipClass, frame (sub esp 0xA0 against 0x74: the client keeps a Matrix3D temporary for +0x6C's Set(Vector3), the bone index in ebp)
+// NOT EXACT: ShipPIPClass, frame (sub esp 0xA0 against 0x74: the client keeps a Matrix3D temporary for +0x6C's Set(Vector3), the bone index in ebp)
 // @0x80C640
-void ShipPipClass::Unknown_7C(const RefCountPtr<RenderObjClass> &model)
+void ShipPIPClass::Unknown_7C(const RefCountPtr<RenderObjClass> &model)
 {
 	if (Unknown054) {
 		Unknown_80();
@@ -331,7 +331,7 @@ void ShipPipClass::Unknown_7C(const RefCountPtr<RenderObjClass> &model)
 
 // The zoom by distance within +0xB0..+0xAC as 0x80CA30 (twice) and 0x80CE10 inline it: a nested inline, which is why
 // their Matrix3D::Translate(0, 0, z) stays out of line (0x80CD90) where 0x80E190's Translate_Z does not  // NAME 1 [Unknown_Min, Unknown_Zoom, pip, distance]: neutral, PROVISIONAL (the form is the client's, the helpers' names and signatures a guess)
-static inline float Unknown_Min(ShipPipClass *pip) { return(pip->Unknown0B0); } static inline void Unknown_Zoom(ShipPipClass *pip, float distance)
+static inline float Unknown_Min(ShipPIPClass *pip) { return(pip->Unknown0B0); } static inline void Unknown_Zoom(ShipPIPClass *pip, float distance)
 {
 	if (distance != 0.0f) {
 		float clamped = WWMath::Clamp(distance + pip->Unknown0B4, Unknown_Min(pip), pip->Unknown0AC);
@@ -342,7 +342,7 @@ static inline float Unknown_Min(ShipPipClass *pip) { return(pip->Unknown0B0); } 
 
 // 0x80CA30 (exact: reading +0xB0 through Unknown_Min keeps min on x87 and spills max to [esp+4], frame 0x48)
 // @0x80CA30
-void ShipPipClass::Unknown_84(const RefCountPtr<RenderObjClass> &model)
+void ShipPIPClass::Unknown_84(const RefCountPtr<RenderObjClass> &model)
 {
 	if (Unknown054) {
 		FloatParent->Remove_Sub_Objects_From_Bone("NewShipScale");
@@ -373,9 +373,9 @@ void ShipPipClass::Unknown_84(const RefCountPtr<RenderObjClass> &model)
 	Unknown_90();
 }
 
-// NOT EXACT: ShipPipClass, frame (the trackball's Matrix3D inverse and Quaternion swap stack slots, 0x64 against 0x24)
+// NOT EXACT: ShipPIPClass, frame (the trackball's Matrix3D inverse and Quaternion swap stack slots, 0x64 against 0x24)
 // @0x80CE10
-void ShipPipClass::Unknown_78()
+void ShipPIPClass::Unknown_78()
 {
 	if (!Unknown0E8) {
 		return;
@@ -440,7 +440,7 @@ void ShipPipClass::Unknown_78()
 }
 
 // @0x80D540
-bool ShipPipClass::Unknown_30(float x, float y)
+bool ShipPIPClass::Unknown_30(float x, float y)
 {
 	if (Is_Enabled()) {
 		int px = (int)(x * 640.0f - Unknown064.X);
@@ -456,7 +456,7 @@ bool ShipPipClass::Unknown_30(float x, float y)
 
 // NOT EXACT: r15/zoom matched (res 116->31, raw 147->41); remaining: r17/r19 Translate FPU order and eax vs ecx at 4 Unknown_80E7D0() sites
 // @0x80D5E0
-bool ShipPipClass::Unknown_2C(KernelEventClass *event, float x, float y, unsigned int mask)
+bool ShipPIPClass::Unknown_2C(KernelEventClass *event, float x, float y, unsigned int mask)
 {
 	if (!Is_Enabled()) {
 		return(false);
@@ -584,7 +584,7 @@ bool ShipPipClass::Unknown_2C(KernelEventClass *event, float x, float y, unsigne
 }
 
 // @0x80E020
-void ShipPipClass::Unknown_80E020(float x, float y)
+void ShipPIPClass::Unknown_80E020(float x, float y)
 {
 	Unknown0CC += x;
 	Unknown0D0 += y;
@@ -602,7 +602,7 @@ void ShipPipClass::Unknown_80E020(float x, float y)
 }
 
 // @0x80E190
-void ShipPipClass::Unknown_80E190(float distance)
+void ShipPIPClass::Unknown_80E190(float distance)
 {
 	if (distance != 0.0f) {
 		float clamped = WWMath::Clamp(distance + Unknown0B4, Unknown0B0, Unknown0AC);
@@ -612,7 +612,7 @@ void ShipPipClass::Unknown_80E190(float distance)
 }
 
 // @0x80E260
-void ShipPipClass::Unknown_88()
+void ShipPIPClass::Unknown_88()
 {
 	if (Type == 0) {
 		Unknown0CC = Unknown_B07D9C;
@@ -621,7 +621,7 @@ void ShipPipClass::Unknown_88()
 		if (Unknown0DC) {
 			Unknown0CC = Unknown_B07DAC;
 			if (Unknown054) {
-				float h = ((CharacterViewAvatarClass *)Unknown054.Peek())->Unknown_77D9F0(false) - 7.3f;
+				float h = ((AvatarClass *)Unknown054.Peek())->Unknown_77D9F0(false) - 7.3f;
 				Unknown0D0 = Unknown_B07DB0 + h;
 			} else {
 				Unknown0D0 = Unknown_B07DB0;
@@ -635,7 +635,7 @@ void ShipPipClass::Unknown_88()
 }
 
 // @0x80E350
-void ShipPipClass::Unknown_8C()
+void ShipPIPClass::Unknown_8C()
 {
 	Matrix3D tm(true);
 	if (Type == 0) {
@@ -653,7 +653,7 @@ void ShipPipClass::Unknown_8C()
 }
 
 // @0x80E530
-void ShipPipClass::Unknown_90()
+void ShipPIPClass::Unknown_90()
 {
 	Vector3 xv = Unknown06C.Get_X_Vector() * Unknown0CC;
 	Vector3 yv = Unknown06C.Get_Y_Vector() * Unknown0D0;
@@ -670,7 +670,7 @@ void ShipPipClass::Unknown_90()
 }
 
 // @0x80E7A0
-float ShipPipClass::Unknown_80E7A0()
+float ShipPIPClass::Unknown_80E7A0()
 {
 	if (Type == 0) {
 		return(Unknown_B07DC4);
@@ -679,7 +679,7 @@ float ShipPipClass::Unknown_80E7A0()
 }
 
 // @0x80E7D0
-LoginUnknown18Class *ShipPipClass::Unknown_80E7D0()
+LoginUnknown18Class *ShipPIPClass::Unknown_80E7D0()
 {
 	if (PIPView->Unknown14->Unknown_08()) {
 		return(((LoginTaskClass *)PIPView->Unknown14->Unknown_08())->Unknown0018);

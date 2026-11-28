@@ -247,16 +247,16 @@ void UIDynamicWindowClass::Get_Center(Vector2 &center)
 
 
 // 0x58A670
-void UIDynamicWindowClass::Add_Object(DynamicWindowElementClass *object, int row_index)
+void UIDynamicWindowClass::Add_Object(DynamicWindowElement *object, int row_index)
 {
 	FAIL_IF(!object) return;
 	MainWindow->Add_Object(object, row_index);
 }
 // 0x58A6C0
-void UIDynamicWindowClass::Remove_Object(DynamicWindowElementClass *object)
+void UIDynamicWindowClass::Remove_Object(DynamicWindowElement *object)
 {
 	FAIL_IF(!object) return;
-	RefCountPtr<DynamicWindowElementClass> element = RefCountPtr<DynamicWindowElementClass>(Create_Peek(object));
+	RefCountPtr<DynamicWindowElement> element = RefCountPtr<DynamicWindowElement>(Create_Peek(object));
 	MainWindow->Remove_Child(element);
 }
 // 0x58A7E0
@@ -269,11 +269,11 @@ void UIDynamicWindowClass::Add_Object(DynamicWindowRenderObjectClass *object, in
 void UIDynamicWindowClass::Remove_Object(DynamicWindowRenderObjectClass *object)
 {
 	FAIL_IF(!object) return;
-	RefCountPtr<DynamicWindowElementClass> element = Create_Peek(object);
+	RefCountPtr<DynamicWindowElement> element = Create_Peek(object);
 	MainWindow->Remove_Child(element);
 }
 // 0x58A950
-void UIDynamicWindowClass::Add_Element(const RefCountPtr<DynamicWindowElementClass> &element, int row_index)
+void UIDynamicWindowClass::Add_Element(const RefCountPtr<DynamicWindowElement> &element, int row_index)
 {
 	FAIL_IF(!MainWindow) return;
 	MainWindow->Add_Element(element, row_index);
@@ -285,7 +285,7 @@ void UIDynamicWindowClass::Remove_All(bool recursive)
 	MainWindow->Remove_All(recursive);
 }
 // 0x58A9F0
-void UIDynamicWindowClass::Remove_Element(const RefCountPtr<DynamicWindowElementClass> &element)
+void UIDynamicWindowClass::Remove_Element(const RefCountPtr<DynamicWindowElement> &element)
 {
 	FAIL_IF(!MainWindow) return;
 	MainWindow->Remove_Element(element, -1);
@@ -391,7 +391,7 @@ void UIDynamicWindowClass::Add_Text(const char *font_name, int row_index, unsign
 **	message box's object before it); GadgetCollectionInterface's inline destructor 0x58A030 / 0x58A050, the destructor
 **	0x58A080 / 0x58A0B0, the members in source order, the template instances 0x58B420-0x58B5A0 (the two Create_Peek,
 **	vector<GadgetClass *>'s destructor and helpers, std::copy, _Construct), the guarded <string> initialiser 0x58B5D0
-**	and the adjustor thunks 0x58B600 / 0x58B610 / 0x58B620 (+0x04, +0x38, +0x84) close it; 0x58B630's PermStringInitClass
+**	and the adjustor thunks 0x58B600 / 0x58B610 / 0x58B620 (+0x04, +0x38, +0x84) close it; 0x58B630's PermStringInit
 **	static opens the next object. The asserts sit on the client's lines 252-373 (blank lines above 0x58A670 keep them).
 **	Unknown_68 emits a GadgetEvent with the gadget id on Unknown_4F7EF0's map, GadgetCollectionInterface as sender
 **	(dynamic_window_toggle.cpp's ToggleButtonDynamicWindow listens). 0x58B160 is a variadic member (cdecl, this first):

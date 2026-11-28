@@ -19,12 +19,12 @@
 #include "pk.h"
 
 // opcode 100 (0x0064, CLIENT_DAMAGE): vtable 0xB0A1A0, constructor 0x880030, 0x24 bytes
-class DamagePacketClass : public PacketClass
+class DamagePacketClass : public UnknownPacketBaseClass
 {
 public:
 	DamagePacketClass(float damage, float modifer, int type, int inflicted, int source, int victim);	// 0x87FF60
-	DamagePacketClass(RawPacketClass *raw);	// 0x880030
-	virtual RawPacketClass *Build();	// +0x04 0x880110
+	DamagePacketClass(PacketClass *raw);	// 0x880030
+	virtual PacketClass *Encode();	// +0x04 0x880110  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x738970 (cpacket.cpp, NOT EXACT)
 	virtual int Get_Data_Size();	// +0x0C 0x880220
 	virtual int Print(char *buffer, int len);	// +0x10 0x880240

@@ -12,18 +12,18 @@ class LineDisplayClientClass  // NAME 1: neutral (D10)
 public:
 	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
 	virtual void Unknown_10(); virtual void Unknown_14();
-	virtual SClient *As_Space_Client();					// +0x18 (SClient's returns itself)  // NAME 3: ui_manu.cpp's FAIL_IF's
+	virtual SpaceClientClass *As_Space_Client();					// +0x18 (SpaceClientClass's returns itself)  // NAME 3: ui_manu.cpp's FAIL_IF's
 };
 
 // 0x64F310
-UITalkTreeSpaceClass::UITalkTreeSpaceClass(SClient *client) :
-	UITalkTreeClass(client, 0),
+SpaceTalkTreeInterface::SpaceTalkTreeInterface(SpaceClientClass *client) :
+	TalkTreeInterface(client, 0),
 	AvatarPIP(NULL)
 {
 }
 
 // 0x64F390
-UITalkTreeSpaceClass::~UITalkTreeSpaceClass()
+SpaceTalkTreeInterface::~SpaceTalkTreeInterface()
 {
 	delete AvatarPIP;
 	AvatarPIP = NULL;
@@ -96,44 +96,44 @@ UITalkTreeSpaceClass::~UITalkTreeSpaceClass()
 
 
 // 0x64F430
-void UITalkTreeSpaceClass::Unknown_54()
+void SpaceTalkTreeInterface::Unknown_54()
 {
-	UITalkTreeClass::Unknown_54();
+	TalkTreeInterface::Unknown_54();
 	FAIL_IF(AvatarPIP) return;
 	AvatarPIP = new AvatarPipClass;
 }
 
 // 0x64F4F0
-void UITalkTreeSpaceClass::Unknown_5C()
+void SpaceTalkTreeInterface::Unknown_5C()
 {
-	UITalkTreeClass::Unknown_5C();
+	TalkTreeInterface::Unknown_5C();
 	AvatarPIP->Unknown_7E4350();
 }
 
 // 0x64F520
-void UITalkTreeSpaceClass::Unknown_90(TalkTreePacketClass *packet)
+void SpaceTalkTreeInterface::Unknown_90(TalkTreePacketClass *packet)
 {
 	if (!Active) {
 		AvatarPIP->Unknown_7E36B0(Client->As_Space_Client(), Create_NEW(InterfaceMesh->Get_Sub_Object_By_Name("PICTURE")), 0);
 	}
-	UITalkTreeClass::Unknown_90(packet);
+	TalkTreeInterface::Unknown_90(packet);
 }
 
 // 0x64F600
-void UITalkTreeSpaceClass::Unknown_60()
+void SpaceTalkTreeInterface::Unknown_60()
 {
-	UITalkTreeClass::Unknown_60();
+	TalkTreeInterface::Unknown_60();
 	if (Active) {
 		Unknown_64F630();
 	}
 }
 
 // 0x64F630: the NPC's picture and full name (0x64CF90 returns the name, or NULL)
-void UITalkTreeSpaceClass::Unknown_64F630()
+void SpaceTalkTreeInterface::Unknown_64F630()
 {
 	const char *name = Unknown_64CF90();	// NAME 1: what 0x7E3A20 takes
 	if (AvatarPIP->Unknown_7E3A20(name, 0, NULL)) {
-		RefCountPtr<CharacterViewAvatarClass> &avatar = AvatarPIP->Unknown02C;	// NAME 2: the PIP's +0x2C avatar
+		RefCountPtr<AvatarClass> &avatar = AvatarPIP->Unknown02C;	// NAME 2: the PIP's +0x2C avatar
 		std::string full_name;	// NAME 2: what Get_Full_Name fills
 		avatar->Desc.Get_Full_Name(full_name);
 		Unknown_64C7B0(full_name);

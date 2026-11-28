@@ -22,7 +22,7 @@ extern FontManagerClass *Unknown_BE67C4;	// NAME 1: neutral (D10)
 static const char *Unknown_B91B80[4] = { "exit", "button01", "button02", "button03" };	// NAME 1: neutral (D10)
 
 // 0x6AF220
-Unknown6AF220Class::Unknown6AF220Class(SClient *client) :
+Unknown6AF220Class::Unknown6AF220Class(SpaceClientClass *client) :
 	ChatPanelUIBase(client),
 	Slider(NULL),
 	Top(0),
@@ -70,7 +70,7 @@ void Unknown6AF220Class::Unknown_54()
 				}
 			}
 		}
-		((RObjGadgetClass *)Buttons[3])->Unknown_8C(true);
+		((RenderObjGadgetClass *)Buttons[3])->Unknown_8C(true);
 		for (i = 0; i < 7; i++) {
 			_snprintf(name, 0x20, "name%02d", i);
 			Rows[i] = Add_Button(i + 6, name, NULL);
@@ -99,7 +99,7 @@ void Unknown6AF220Class::Unknown_58()
 		Unknown_6B02C0(0);
 		Unknown_6B0940(true);
 		if (Buttons[0]) {
-			((RObjGadgetClass *)Buttons[0])->Unknown_66C360();
+			((RenderObjGadgetClass *)Buttons[0])->Unknown_66C360();
 		}
 		ChatPanelUIBase::Unknown_58();
 	}
@@ -127,16 +127,16 @@ bool Unknown6AF220Class::Unknown_68(int key)
 {
 	switch (key) {
 		case 1:
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			Unknown_5C();
 			Closed = 1;
 			return(true);
 		case 2:
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			Unknown_6B0C80();
 			return(true);
 		case 3:
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			Unknown_6B0E90();
 			return(true);
 		case 6:
@@ -146,7 +146,7 @@ bool Unknown6AF220Class::Unknown_68(int key)
 		case 10:
 		case 11:
 		case 12:
-			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+			SoundLibrary::Play_2D_Sound("fontclick.wav", 2);
 			Unknown_6B0820(key - 6);
 			Items.size();	// dead read (D130, not the client's code): spends the inline budget so the expanded 0x6B0820 calls the map's lower_bound 0x6B18E0 out of line as the client does
 			return(true);
@@ -286,7 +286,7 @@ void Unknown6AF220Class::Unknown_6B0C80()
 {
 	int index = Selected;
 	if (index != -1) {
-		GMDestroyItemPacketClass packet(Unknown104, Items[index].c_str(), false);
+		GMDestroyItemRequestPacketClass packet(Unknown104, Items[index].c_str(), false);
 		((ClientClass *)Client)->Send_Packet(&packet);
 		Items.erase(Items.begin() + index);
 		Unknown_6B0F30(0);
@@ -296,7 +296,7 @@ void Unknown6AF220Class::Unknown_6B0C80()
 // 0x6B0E90
 void Unknown6AF220Class::Unknown_6B0E90()
 {
-	GMDestroyItemPacketClass packet(Unknown104, NULL, true);
+	GMDestroyItemRequestPacketClass packet(Unknown104, NULL, true);
 	((ClientClass *)Client)->Send_Packet(&packet);
 	Unknown_5C();
 	Closed = 1;

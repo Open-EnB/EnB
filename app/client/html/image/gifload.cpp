@@ -331,8 +331,8 @@ int HtmlGifImageClass::Set_Data(char *data, int length)
 
 
 
-// NOT EXACT: 0x76D990, functional (D64): Bennett's structure and the client's branch order, but the register
-// allocation differs throughout (the client keeps 0 in edi and bufptr in edi later, frame 0x40 vs 0x3C)
+// NOT EXACT: 0x76D990, functional (D64): Bennett's structure and the client's branch order (11-26 counter form, len = 0 at its declaration: B12);
+// left: the client pushes ebx / ebp at entry where ours pushes them after the two early returns (a result local through one exit gives the pushes but merges the return-0 exit)
 short HtmlGifImageClass::Decode(short linewidth)
 {
 	unsigned char *sp;
@@ -351,7 +351,7 @@ short HtmlGifImageClass::Decode(short linewidth)
 	short xcount;
 	short ycount;
 	short direct;
-	short len;
+	short len = 0;
 	short i;
 	int row = 0;
 
@@ -360,8 +360,8 @@ short HtmlGifImageClass::Decode(short linewidth)
 	if (size < 2 || 9 < size)
 		return(BAD_CODE_SIZE);
 
-	CodeSize = size + 1;
-	top_slot = 1 << CodeSize;
+	CodeSize = (short)(size + 1);
+	oc = 0; ycount = 0; top_slot = 1 << CodeSize; xcount = 0; fc = 0;
 	clear = 1 << size;
 	ending = clear + 1;
 	slot = newcodes = ending + 1;
@@ -370,8 +370,8 @@ short HtmlGifImageClass::Decode(short linewidth)
 	for (i = 0; i < slot; i++)
 		Lengths[i] = 0;
 
-	oc = fc = 0;
-	xcount = ycount = 0;
+	
+	
 	sp = Stack;
 	bufptr = Line;
 	bufcnt = linewidth;
@@ -381,7 +381,7 @@ short HtmlGifImageClass::Decode(short linewidth)
 			break;
 
 		if (c == clear) {
-			CodeSize = size + 1;
+			CodeSize = (short)(size + 1);
 			Lengths[newcodes] = 0;
 			top_slot = 1 << CodeSize;
 			slot = newcodes;
@@ -391,7 +391,7 @@ short HtmlGifImageClass::Decode(short linewidth)
 				break;
 			if (c >= slot)
 				c = 0;
-			oc = fc = c;
+			oc = c; fc = (unsigned char)c;
 			*sp++ = fc;
 		} else {
 			code = c;
@@ -407,10 +407,10 @@ short HtmlGifImageClass::Decode(short linewidth)
 			direct = 0;
 			while (code >= newcodes) {
 				G_ASSERT(code < 4096);
-				len = Lengths[code];
+				i = len = Lengths[code];
 				if (len > 0 && bufcnt - len > 0) {
 					direct = -1;
-					i = len;
+					
 					do {
 
 
@@ -419,8 +419,8 @@ short HtmlGifImageClass::Decode(short linewidth)
 						code = Prefix[code];
 					} while (i > 0);
 					*bufptr = (unsigned char)code;
-					bufptr += len + 1;
-					bufcnt -= len + 1;
+					++len; bufptr += len;
+					bufcnt -= len;
 					if (bufcnt == 0) {
 						if (--ycount < 0) {
 							Out_Line(Line, bufptr - Line, row);
@@ -428,8 +428,8 @@ short HtmlGifImageClass::Decode(short linewidth)
 							ycount = 0;
 						}
 						bufptr = Line;
-						xcount = 0;
 						bufcnt = linewidth;
+						xcount = 0;
 					}
 				} else {
 
@@ -480,8 +480,8 @@ short HtmlGifImageClass::Decode(short linewidth)
 					ycount = 0;
 				}
 				bufptr = Line;
-				xcount = 0;
 				bufcnt = linewidth;
+				xcount = 0;
 			}
 		}
 	}

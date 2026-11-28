@@ -3,7 +3,7 @@
 #include "slot_data.h"
 #include "..\shared\auth_product.h"
 // 0x6A7420
-SlotDataClass::SlotDataClass(SClient *client) :
+SlotDataClass::SlotDataClass(SpaceClientClass *client) :
 	Client(client),
 	AuxData(0),
 	Unknown30(0),

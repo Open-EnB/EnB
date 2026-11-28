@@ -1,7 +1,7 @@
 // Earth & Beyond client (reconstruction): app\shared\unknown_4dfbf0.cpp. Notes at the end of the file.
 #include "unknown_4dfbf0.h"
 
-AttribLinkModClass *Link_Attribute(AttribDir *src, const std::string &src_name, AttribDir *dst, const std::string &dst_name, int type, void *owner)
+AttribLinkModClass *Link_Attribute(AttributeDirectory *src, const std::string &src_name, AttributeDirectory *dst, const std::string &dst_name, int type, void *owner)
 {
 	AttribLinkModClass *mod = new AttribLinkModClass(src, src_name, dst, dst_name, type, owner);
 	dst->Attach_Mod(dst_name.c_str(), mod);
@@ -9,7 +9,7 @@ AttribLinkModClass *Link_Attribute(AttribDir *src, const std::string &src_name, 
 	return mod;
 }
 
-AttribLinkModClass::AttribLinkModClass(AttribDir *src, const std::string &src_name, AttribDir *dst, const std::string &dst_name, int type, void *owner) :
+AttribLinkModClass::AttribLinkModClass(AttributeDirectory *src, const std::string &src_name, AttributeDirectory *dst, const std::string &dst_name, int type, void *owner) :
 	Shadow(src->Get_Shadow(src_name.c_str())),
 	Src(src),
 	SrcName(src_name),
@@ -45,7 +45,7 @@ void AttribLinkModClass::Value_Changed(const char *name, float value)
 	Dst->Recalculate(DstName.c_str());
 }
 
-AttribBinaryModClass::AttribBinaryModClass(int type, void *owner, AttribDir *dir, const std::string &name, const std::string &a, const std::string &b) :
+AttribBinaryModClass::AttribBinaryModClass(int type, void *owner, AttributeDirectory *dir, const std::string &name, const std::string &a, const std::string &b) :
 	Type(type),
 	Owner(owner),
 	Dir(dir),
@@ -75,12 +75,12 @@ AttribBinaryModClass::~AttribBinaryModClass()
 	Dir->Detach_Update(B.c_str(), Name.c_str());
 }
 
-AttribSumModClass *Create_Sum_Mod(int type, void *owner, AttribDir *dir, const std::string &name, const std::string &a, const std::string &b)
+AttribSumModClass *Create_Sum_Mod(int type, void *owner, AttributeDirectory *dir, const std::string &name, const std::string &a, const std::string &b)
 {
 	return new AttribSumModClass(type, owner, dir, name, a, b);
 }
 
-AttribSumModClass::AttribSumModClass(int type, void *owner, AttribDir *dir, const std::string &name, const std::string &a, const std::string &b) :
+AttribSumModClass::AttribSumModClass(int type, void *owner, AttributeDirectory *dir, const std::string &name, const std::string &a, const std::string &b) :
 	AttribBinaryModClass(type, owner, dir, name, a, b)
 {
 }

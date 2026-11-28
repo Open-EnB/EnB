@@ -194,7 +194,7 @@ void InterfaceClass::Unknown_58()
 		issl->Interface_To_Front(this);
 		Unknown58.Unknown_686E90();
 		Unknown64.Unknown_6871D0(View->Get_Unknown04(), Unknown70, Unknown78);
-		ControlKeysManager *manager = ControlKeysManager::Get((SClient *)(Client ? ((ClientClass *)Client)->As_Space_Client() : 0));
+		ControlKeysManager *manager = ControlKeysManager::Get((SpaceClientClass *)(Client ? ((ClientClass *)Client)->As_Space_Client() : 0));
 		Unknown_70(manager);
 		if (manager) {
 			ControlKeysManager::Get_Signal_Map().Add(manager, this, &InterfaceClass::Unknown_541830);
@@ -225,7 +225,7 @@ void InterfaceClass::Unknown_5C()
 {
 	G_ASSERT(!PartialDeactivatedGadget);
 	if (Active) {
-		ControlKeysManager *manager = ControlKeysManager::Get((SClient *)(Client ? ((ClientClass *)Client)->As_Space_Client() : 0));
+		ControlKeysManager *manager = ControlKeysManager::Get((SpaceClientClass *)(Client ? ((ClientClass *)Client)->As_Space_Client() : 0));
 		Unknown4C.Unknown_721F80(View->Get_Unknown04(), this);
 		if (manager) {
 			ControlKeysManager::Get_Signal_Map().Remove(manager, this, &InterfaceClass::Unknown_541830, KeysSavedEvent());
@@ -451,13 +451,13 @@ void InterfaceClass::Unknown_541930()
 
 // 0x541980
 InterfaceSortScopeClass::InterfaceSortScopeClass(InterfaceClass *ui) :
-	InterfaceSortClass(ui)
+	LocalInterfaceSort(ui)
 {
 }
 
 // 0x5419B0
 InterfaceSortScopeClass::InterfaceSortScopeClass(const RefCountPtr<InterfaceClass> &ui) :
-	InterfaceSortClass(ui.Peek())
+	LocalInterfaceSort(ui.Peek())
 {
 }
 
@@ -472,7 +472,7 @@ InterfaceSortScopeClass::InterfaceSortScopeClass(const RefCountPtr<InterfaceClas
 **	(447). Compiled with them: the key handler's slot 0x540C90 and its destructors 0x540CB0 / 0x540CE0, the
 **	deleting destructor 0x540D00, the two MemberCallback instances 0x541AD0-0x541D90, Create_Peek 0x5419E0, the
 **	RefCountPtr destructor 0x541A10, the template disconnect 0x541A50 and the adjustor thunks 0x541DC0 / 0x541DD0.
-**	0x541980 / 0x5419B0 (local_interface_sort.h's InterfaceSortScopeClass: InterfaceSortClass's constructor over an
+**	0x541980 / 0x5419B0 (local_interface_sort.h's InterfaceSortScopeClass: LocalInterfaceSort's constructor over an
 **	interface or a RefCountPtr, the windows' sort scope) end the file. 0x5411F0 (a jmp to 0x6E18B0) is the scope's
 **	implicit destructor, emitted out of line after 0x541010 for the unwind funclets of 0x541010 / 0x541690 (their
 **	`sort` locals are InterfaceSortScopeClass: the constructor 0x541980 inlines there, the funclets call 0x5411F0);

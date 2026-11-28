@@ -6,7 +6,7 @@
     python tools/re/auxroots.py tree ROOT                   prints one extracted tree
 
 The trees come from tools/re/auxextract.py (symbolic execution of the 12 roots' constructors: the
-CREATE factory 0x6F6000's ten, the Player root 0x752510 and the Hull root SClient 0x7518A0 builds inline). Each compound the client builds has
+CREATE factory 0x6F6000's ten, the Player root 0x752510 and the Hull root SpaceClientClass 0x7518A0 builds inline). Each compound the client builds has
 its own vtable, so each becomes one C++ class: the roots `Delta<Name>Class` (derived from
 UnknownRootClass, unknown_root.h; `<Name>` is the client's string; D56 score 3), the nested
 compounds `Delta<X>Class` where tools/re/auxnames.py matched Net-7's `Aux<X>` (or a C# class) by
@@ -19,8 +19,8 @@ other than 0x3FF stored after the Add (Ship's narrow Add 0x6F8C70 is a member of
 are classes whose constructor takes the count and adds `new` elements named "%d" (the client's
 format 0xB71A6C, its assert 'item' in ..\\shared/auxdata/delta_array.h line 71).
 
-Leaf types by vtable: string DeltaStringClass, float/int/bool/time/money DeltaTemplateClass<T>
-(T = float, int, bool, DurationClass, MoneyClass), 0xAEAE54 DeltaInterpolatorClass; every other
+Leaf types by vtable: string DeltaString, float/int/bool/time/money DeltaTemplateClass<T>
+(T = float, int, bool, DurationClass, MoneyClass), 0xAEAE54 DeltaInterpolator; every other
 leaf vtable gets a value type of its own (enum: `Unknown<VT>Enum`; 12-byte colour, 12/16/20-byte
 blobs: `Unknown<VT>Type`; the client's name where its KVPair's Get_Type_Name gives one, CLIENT_TYPES)
 with the conversions KVPairTemplateClass needs.
@@ -62,11 +62,11 @@ ROOT_CTOR = {'Ship': 0x6F66E0, 'Component': 0x6FBDA0, 'Light': 0x6F9870, 'Decora
              'Harvestable': 0x6F9ED0, 'ManufacturingLab': 0x6FA6F0, 'Player': 0x752510}
 SEND_ROOTS = {'Player', 'Hull'}     # derived from UnknownSendRootClass (unknown_root.h)
 # Send roots the client builds inline in another file's function (auxextract.py INLINE_SEND): their
-# constructor is inline in the header and takes the base's first argument (Hull: SClient 0x7518A0
+# constructor is inline in the header and takes the base's first argument (Hull: SpaceClientClass 0x7518A0
 # passes its +0x112C).
 INLINE_SEND = {'Hull': 0x7518A0}
 # Send roots whose constructor (and its nested out-of-line constructors) the client compiles as copies of
-# inline functions in its first caller's object: Player 0x752510 follows SClient 0x7518A0 (sclient.cpp's
+# inline functions in its first caller's object: Player 0x752510 follows SpaceClientClass 0x7518A0 (sclient.cpp's
 # object 0x7405E0-0x75A280: Player's tree 0x752510-0x7551D0 sits between 0x7518A0 and 0x7555B0, its only
 # callers 0x7518A0 / 0x755600). Their definitions go to aux_roots_send.h, which sclient.cpp includes,
 # children first and the root's last: VC6 emits the pending inline copies in definition order, and
@@ -109,7 +109,7 @@ LEAF_VALUES = {(0xB01790, 'Validity'): 0x100}
 INLINE_ROOT_VT = {'Planet': 0xB00894, 'Stargate': 0xB007DC, 'Starbase': 0xB00838}   # built in the factory
 
 LEAF = {
-    0xAEB0E4: ('DeltaStringClass', None),
+    0xAEB0E4: ('DeltaString', None),
     0xAEAEB0: ('DeltaTemplateClass<float>', None),
     0xB00D34: ('DeltaTemplateClass<int>', None),
     0xB00D8C: ('DeltaTemplateClass<bool>', None),
@@ -374,7 +374,7 @@ FAMILY_MOVED = {0x6FA150: ('aux_item.h', "the item family's constructor"),
 # included back where they were (aux_roots.h line-neutral): an object that includes aux_roots.h alone sees the classes
 # in the same order as before, aux_ship_player.h includes the item's, the ship inventory's, Hull's and the player's
 # tree first. The types header leaves out delta_interpolator.h (its
-# DeltaInterpolatorClass instantiates T<float> before the item's T<int>; aux_roots.h includes it as before).
+# DeltaInterpolator instantiates T<float> before the item's T<int>; aux_roots.h includes it as before).
 TYPES_MARK = '// ------------------------------------------------------------------------- value types'
 CLASSES_MARK = '// ------------------------------------------------------------------------- the compounds'
 # The class headers, in aux_roots.h's order: (header, first class, last class, what it holds, its includes). Each family
@@ -429,6 +429,30 @@ GROUP_VTS = (0xB039C8, 0xB038B8)       # GroupMember, GroupInfo (adjacent in the
 GROUP_CTORS = {0x7548D0, 0x754DB0}     # GroupInfo, GroupMember (in Player's tree, SEND_HEADER_ROOTS)
 FORMATION_VT = 0xB03970
 
+
+def retail_names(text):
+    """The generated text with the thunk order's class names (binary.md 5.11): the generator's tables and patterns
+    spell the convention's Delta<X>Class, and this last pass renames them as tools/re/thunknames/classrename.py
+    renamed the rest of the source (docs/data/class-renames.tsv's `keep` rows, the same D56 tag)."""
+    import collections
+    sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), 'thunknames'))
+    import classrename
+    global _RETAIL, _CONFIDENCE
+    if _RETAIL is None:
+        # only the generator's own classes: its comments also name classes the rename left for later (SpaceClientClass)
+        _RETAIL = {r['ours']: r['retail'] for r in classrename.load_rows()
+                   if r['ours'].startswith('Delta') and r['split_suspect'] in ('0', '')}
+        _CONFIDENCE = {r['retail']: r['confidence'] for r in classrename.load_rows()}
+    counts = collections.Counter()
+    out = classrename.rename_text(text, _RETAIL, counts)
+    if counts:
+        out = classrename.tag_definitions(out, {_RETAIL[k]: _CONFIDENCE[_RETAIL[k]] for k in counts},
+                                          collections.Counter())
+    return out
+
+
+_RETAIL = _CONFIDENCE = None
+
 class Gen:
     def __init__(self, doc):
         self.hints = json.load(open(NAMES)) if os.path.exists(NAMES) else {}
@@ -451,7 +475,7 @@ class Gen:
 
     # ---- the client's constructors
 
-    # constructors shared by many nodes (the root bases, DeltaCompoundClass's out-of-line copy
+    # constructors shared by many nodes (the root bases, DeltaContainer's out-of-line copy
     # 0x6F85F0, the interpolator's): not a class's own
     SHARED = {0x4A3BD0, 0x4A5170, 0x4A3FF0, 0x4A40B0, 0x6F85F0, 0x4A6110}
 
@@ -566,7 +590,7 @@ class Gen:
         if n['type'] in ('struct', 'array'):
             vt = int(n['vt'], 16)
             if vt == INTERPOLATOR:
-                return 'DeltaInterpolatorClass'
+                return 'DeltaInterpolator'
             return self.compound(n, path)
         return self.leaf_class(n)
 
@@ -590,12 +614,12 @@ class Gen:
             inst = None
             if ecls.startswith('DeltaTemplateClass<') and el.get('mask') is None:
                 inst = f'DeltaArrayClass<{ecls[len("DeltaTemplateClass<"):-1]}>'
-            elif el['type'] == 'struct' and ecls != 'DeltaInterpolatorClass' and el.get('mask') is None:
+            elif el['type'] == 'struct' and ecls != 'DeltaInterpolator' and el.get('mask') is None:
                 inst = f'DeltaItemArrayClass<{ecls}>'
-            elif ecls == 'DeltaStringClass' and el.get('mask') is None:
+            elif ecls == 'DeltaString' and el.get('mask') is None:
                 # string elements too (0xB00E9C, MountBoneNames: 0x701B60 asserts in delta_item_array.h, line 60,
-                # and builds DeltaStringClass(name, ""), delta_string.h's default; 0x6F8880 inlines its destructor)
-                inst = 'DeltaItemArrayClass<DeltaStringClass>'
+                # and builds DeltaString(name, ""), delta_string.h's default; 0x6F8880 inlines its destructor)
+                inst = 'DeltaItemArrayClass<DeltaString>'
             if inst is not None and vt in ARRAY_DERIVED:
                 # a class of its own derived from the template instance (see ARRAY_DERIVED)
                 base_vt, base_ctor = ARRAY_DERIVED[vt]
@@ -622,12 +646,12 @@ class Gen:
                 self.classes[vt] = inst
                 return inst
             lines = [f'// vtable 0x{hexu(vt)}: an array of {ecls} (e.g. {path}, {n["count"]} elements)', tag,
-                     f'class {name} : public DeltaCompoundClass', '{', 'public:',
-                     f'\t{name}(const char *name, int count) : DeltaCompoundClass(name)', '\t{',
+                     f'class {name} : public DeltaContainer', '{', 'public:',
+                     f'\t{name}(const char *name, int count) : DeltaContainer(name)', '\t{',
                      '\t\tfor (int i = 0; i < count; i++) {',
                      '\t\t\tchar item_name[16];',
                      '\t\t\tsprintf(item_name, "%d", i);',
-                     f'\t\t\t{ecls} *item = new {ecls}(item_name' + (', ""' if ecls == 'DeltaStringClass' else '') + ');',
+                     f'\t\t\t{ecls} *item = new {ecls}(item_name' + (', ""' if ecls == 'DeltaString' else '') + ');',
                      '\t\t\tif (item == 0) {', '\t\t\t\tG_ASSERT(item);', '\t\t\t\tbreak;', '\t\t\t}']
             if el.get('mask') is not None:
                 lines.append(f'\t\t\titem->Unknown80 = 0x{el["mask"]:X};')
@@ -658,7 +682,7 @@ class Gen:
             ctor_args = arg + (f', {f["count"]}' if f['type'] == 'array' else '')
             if f['type'] == 'array' and f['name'] in ARRAY_VALUES:
                 ctor_args += ', ' + ARRAY_VALUES[f['name']]
-            if cls == 'DeltaStringClass':
+            if cls == 'DeltaString':
                 ctor_args += ', "' + f.get('default', '').replace('\\', '\\\\').replace('"', '\\"') + '"'
             elif 'value' in f and not (f['type'] == 'money' and f['value'] == 0):
                 ctor_args += ', ' + self.literal(f, cls)
@@ -715,7 +739,7 @@ class Gen:
                 init = [f'{basecls}(unknown, "{n["_cname"]}")']
                 sig = f'{name}(int unknown)'
         else:
-            basecls = bcls or 'DeltaCompoundClass'
+            basecls = bcls or 'DeltaContainer'
             init = [f'{basecls}(name)']
             sig = f'{name}(const char *name)'
         init += [f'{m}({a})' for _, _, m, a in members]
@@ -728,7 +752,7 @@ class Gen:
         if root and not inline:
             lines.append(f'\t{sig};')
             if ship:
-                lines.append('\tvoid Add(DeltaClass *child) { DeltaCompoundClass::Add(child); }')
+                lines.append('\tvoid Add(DeltaClass *child) { DeltaContainer::Add(child); }')
                 lines.append('\tvoid Add(int narrow, DeltaClass *child);\t// 0x6F8C70: narrow sets the mask to 0xCF')
         elif vt in self.ooline:
             # the client's out-of-line copy of an inline constructor: VC6 emits it right after its
@@ -889,7 +913,7 @@ STUBS_HEAD = r'''// Earth & Beyond client (reconstruction): GENERATED by tools/r
 # own: aux_roots.cpp doesn't include it, so they don't move its SYMBOL_PAD windows (workflow.md 3.3; with
 # Hull in aux_roots.h no pad had all six constructors exact, 3/6 at best).
 SEND_HEADER = r'''// Earth & Beyond client (reconstruction): GENERATED by tools/re/auxroots.py, do not edit.
-// The aux-data roots other files build inline (auxroots.py INLINE_SEND: Hull, SClient 0x7518A0), the
+// The aux-data roots other files build inline (auxroots.py INLINE_SEND: Hull, SpaceClientClass 0x7518A0), the
 // value types only they use and the constructors their file compiles (SEND_HEADER_ROOTS: Player's tree,
 // interim D137). NOT EXACT (D42) where aux_roots.h is.
 // NAME 1 [aux_roots_send.h]: provisional file name (a build aid: kept out of aux_roots.cpp, workflow.md 3.3)
@@ -978,7 +1002,7 @@ SPLIT_HEADER = r'''// Earth & Beyond client (reconstruction): GENERATED by tools
 #endif //%(guard)s
 '''
 TYPES_WHAT = "The aux-data value types: their type names and conversions (aux_roots.h's value types)."
-HULL_WHAT = "The Hull root (built inline in SClient 0x7518A0) and its value type."
+HULL_WHAT = "The Hull root (built inline in SpaceClientClass 0x7518A0) and its value type."
 TYPES_INCLUDES = r'''#include <stdio.h>
 #include <string.h>
 #include "..\shared\auxdata\unknown_root.h"
@@ -1118,7 +1142,7 @@ REGION_END = '// (end of the region tools/re/auxroots.py generates)'
 # (PH1, .work/ph1/sweep.py sc). 2026-11-09b PD1: sclient.cpp including gadget.h (Do_Frame calls
 # GadgetClass::Process_Input by name) moved the window to 9-14 (importer path, .work/pd1/sendpad_imp.py); SB1's
 # sbaseview.h / pkstarbase_avatar_change.h retypes moved it to 36-38 (PD1, same sweep). AV1's avatar.h in sclient.cpp (the +0x1394 values as
-# CharacterViewAvatarClass): 40-42 (and 21 alone; same sweep). TX1's WW3D::Sync by name in Do_Frame (was the gen
+# AvatarClass): 40-42 (and 21 alone; same sweep). TX1's WW3D::Sync by name in Do_Frame (was the gen
 # stand-in Unknown_918200): 42-44 (and 22-23; same sweep). GS1's sclient.cpp rebuilds (0x743380, 0x744B60, 0x744E50)
 # and ui_scut.h's duplicate 0x5417D0 gone: 29-31 (and 26; same sweep). GS1's 0x744560 (pkuitrigger.h after auxdata.h):
 # 46-49 (and 44; same sweep). ST1's sbaseview.h retype (AvatarUI +0x19C onto ui_avatar_cust.h's
@@ -1126,7 +1150,7 @@ REGION_END = '// (end of the region tools/re/auxroots.py generates)'
 # TC1's ui_stringentry.h (UIPTradeCreditsClass out of sclient.h): 0x758210 and 0x702240 both only at 33 and 55-57: 56.
 # P1 (run 2026-11-18b): aux_ship_player.h back to the item / ship inventory / Hull / player headers first (the
 # client's numbering, 0x755C60): only 4 keeps all six (0x758210 61-4 and 33-40, 0x702240 2-7 and 41-43).
-SEND_SYMBOL_PAD = 3
+SEND_SYMBOL_PAD = 33
 SEND_PAD = '''// VC6 symbol pad (not the client's code): sclient.cpp's copy of 0x758210 matches only when the count of
 // the declarations it sees falls in a window (tools/re/auxroots.py SEND_SYMBOL_PAD)
 enum AuxRootsSendSymbolPadType { %s };	// NAME 1: a build aid (SC1)
@@ -1180,7 +1204,7 @@ def write_co(out_dir, body, pad):
 SHIP_ADD = '''// Ship's narrow Add (0x6F8C70)
 void DeltaShipClass::Add(int narrow, DeltaClass *child)
 {
-	DeltaCompoundClass::Add(child); child->DeltaClass::As_Delta();	// the dead read spends inline budget as the client's (D272): Ship inlines four narrow Adds (Name-Rank), calls the rest
+	DeltaContainer::Add(child); child->DeltaClass::As_Delta();	// the dead read spends inline budget as the client's (D272): Ship inlines four narrow Adds (Name-Rank), calls the rest
 	if (narrow == 1) {
 		child->Unknown80 = 0xCF;
 	}
@@ -1400,17 +1424,17 @@ def generate(doc, out_dir):
     body = '\n\n'.join(text for _, text in sorted(ctors))
     pad = PAD % ', '.join(f'{PAD_NAME}{i:02d}' for i in range(SYMBOL_PAD)) if SYMBOL_PAD else ''
     os.makedirs(out_dir, exist_ok=True)
-    write_co(out_dir, body, pad)
+    write_co(out_dir, retail_names(body), pad)
     for name, text in (('aux_roots.h', h), ('aux_roots_send.h', send), ('aux_roots_group.h', group),
                        ('aux_group_ctors.h', group_ctors), ('aux_formation.h', formation_h), ('aux_roots_types.h', types_h),
                        ('aux_roots_hull.h', hull_h)) + tuple(split_files):
         with open(os.path.join(out_dir, name), 'w', newline='\n') as f:
-            f.write(text)
+            f.write(retail_names(text))
     if os.path.normcase(os.path.abspath(out_dir)) == os.path.normcase(OUT_DIR):
         for header, body in sorted(moved.items()):
-            family_body(out_dir, header, body)
+            family_body(out_dir, header, retail_names(body))
         with open(STUBS, 'w', newline='\n') as f:
-            f.write(g.stub_source())
+            f.write(retail_names(g.stub_source()))
     print(f'{len(g.classes)} classes ({len(roots)} roots), {len(g.types)} value types -> {out_dir}')
     return g
 

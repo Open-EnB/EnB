@@ -349,7 +349,7 @@ void AmbientSoundManagerClass::Play_Ambient_Sounds(int channel, int fade_out, in
 	Stop_Sounds(fade_out);
 
 	for (std::vector<std::string>::iterator looping = LoopingSounds[CurrentChannel].begin(); looping != LoopingSounds[CurrentChannel].end(); looping++) {
-		AudibleSoundClass *playing = SoundLibraryClass::Play_2D_Sound(looping->c_str(), 1);
+		AudibleSoundClass *playing = SoundLibrary::Play_2D_Sound(looping->c_str(), 1);
 		PlayingSounds.push_back(playing);
 	}
 
@@ -360,7 +360,7 @@ void AmbientSoundManagerClass::Play_Ambient_Sounds(int channel, int fade_out, in
 
 
 		G_ASSERT(sound->RenderObj);
-		Sound3DClass *playing = SoundLibraryClass::Play_3D_Sound(sound->Name.c_str(), sound->RenderObj->Get_Bone_Transform(sound->BoneIndex), 0, 1.0f);
+		Sound3DClass *playing = SoundLibrary::Play_3D_Sound(sound->Name.c_str(), sound->RenderObj->Get_Bone_Transform(sound->BoneIndex), 0, 1.0f);
 		if (playing != NULL) {
 			playing->Attach_To_Object(sound->RenderObj, sound->BoneIndex);
 			playing->Add_To_Scene(true);
@@ -413,13 +413,13 @@ void AmbientSoundManagerClass::Update(int time, const Matrix3D &tm)
 		FAIL_IF(sound == NULL) return;
 		if ((unsigned)(time - sound->NextTime) < 0x80000000) {
 			if (!sound->Positional) {
-				AudibleSoundClass *playing = SoundLibraryClass::Play_2D_Sound(sound->Name.c_str(), 1);
+				AudibleSoundClass *playing = SoundLibrary::Play_2D_Sound(sound->Name.c_str(), 1);
 				if (playing != NULL) {
 					playing->Set_Pan(WWMath::Random_Float(sound->MinPan, sound->MaxPan));
 					PlayingSounds.push_back(playing);
 				}
 			} else {
-				AudibleSoundClass *playing = SoundLibraryClass::Play_3D_Sound(sound->Name.c_str(), tm, 1, 1.0f);
+				AudibleSoundClass *playing = SoundLibrary::Play_3D_Sound(sound->Name.c_str(), tm, 1, 1.0f);
 				PlayingSounds.push_back(playing);
 			}
 			sound->NextTime = Unknown_BDBB84(sound->MinDelay, sound->MaxDelay) + time;
@@ -437,7 +437,7 @@ void AmbientSoundManagerClass::Update(int time, const Matrix3D &tm)
 
 
 			FAIL_IF(sound->RenderObj == NULL) return;
-			Sound3DClass *playing = SoundLibraryClass::Play_3D_Sound(sound->Name.c_str(), sound->RenderObj->Get_Bone_Transform(sound->BoneIndex), 1, 1.0f);
+			Sound3DClass *playing = SoundLibrary::Play_3D_Sound(sound->Name.c_str(), sound->RenderObj->Get_Bone_Transform(sound->BoneIndex), 1, 1.0f);
 			sound->NextTime = Unknown_BDBB84(sound->MinDelay, sound->MaxDelay) + time;
 			PlayingSounds.push_back(playing);
 		}
@@ -458,7 +458,7 @@ void AmbientSoundManagerClass::Update(int time)
 
 		FAIL_IF(sound == NULL) return;
 		if ((unsigned)(time - sound->NextTime) < 0x80000000) {
-			AudibleSoundClass *playing = SoundLibraryClass::Play_2D_Sound(sound->Name.c_str(), 1);
+			AudibleSoundClass *playing = SoundLibrary::Play_2D_Sound(sound->Name.c_str(), 1);
 			if (playing != NULL) {
 				playing->Set_Pan(WWMath::Random_Float(sound->MinPan, sound->MaxPan));
 				PlayingSounds.push_back(playing);

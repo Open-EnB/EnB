@@ -15,7 +15,7 @@
 #include "..\kernel\kernel.h"
 #include "..\shared\g_assert.h"
 
-extern const int Unknown_B08C98;			// 0xB08C98 (4: StrEditClass's digits; textgadg.h's flag constants)  // NAME 1: neutral (D10), as ui_log.cpp
+extern const int Unknown_B08C98;			// 0xB08C98 (4: StringEditClass's digits; textgadg.h's flag constants)  // NAME 1: neutral (D10), as ui_log.cpp
 extern const int Unknown_B08CA8;			// 0xB08CA8 (0x40: enter)  // NAME 1: neutral (D10), as ui_log.cpp
 extern const int Unknown_B08CAC;			// 0xB08CAC (0x80)  // NAME 1: neutral (D10), as textgadg.h
 
@@ -36,11 +36,11 @@ SelectGadgetClass::SelectGadgetClass(UIViewClass *view, int max) :
 	View(view)
 {
 	Unknown_65FFA0(-1000);
-	Edit = new StrEditClass(10, NULL, Unknown_B08C98 | Unknown_B08CA8 | Unknown_B08CAC, NULL);
-	Bar = new Rect3DClass(Vector4(0.0f, 0.8f, 0.3f, 1.0f), Vector4(0.1f, 0.1f, 0.1f, 0.1f));
-	Frame = new Rect3DClass(Vector4(0.1f, 1.0f, 0.1f, 1.0f), Vector4(0.1f, 0.1f, 0.1f, 0.1f));
-	Back = new Rect3DClass(Vector4(0.1f, 0.1f, 0.1f, 1.0f), Vector4(0.1f, 0.1f, 0.1f, 0.1f));
-	TextBack = new Rect3DClass(Vector4(0.1f, 0.1f, 0.1f, 1.0f), Vector4(0.1f, 0.1f, 0.1f, 0.1f));
+	Edit = new StringEditClass(10, NULL, Unknown_B08C98 | Unknown_B08CA8 | Unknown_B08CAC, NULL);
+	Bar = new Rectangle3DClass(Vector4(0.0f, 0.8f, 0.3f, 1.0f), Vector4(0.1f, 0.1f, 0.1f, 0.1f));
+	Frame = new Rectangle3DClass(Vector4(0.1f, 1.0f, 0.1f, 1.0f), Vector4(0.1f, 0.1f, 0.1f, 0.1f));
+	Back = new Rectangle3DClass(Vector4(0.1f, 0.1f, 0.1f, 1.0f), Vector4(0.1f, 0.1f, 0.1f, 0.1f));
+	TextBack = new Rectangle3DClass(Vector4(0.1f, 0.1f, 0.1f, 1.0f), Vector4(0.1f, 0.1f, 0.1f, 0.1f));
 	Text = new FontSys("GD_SELECT_FONT", NULL, NULL);
 	Text->Set_Sort_Level(4);
 	Bar->Set_Sort_Level(4);
@@ -361,7 +361,7 @@ void SelectGadgetClass::Unknown_40(bool on)
 		for (int num = Max; num != 0; digits++) {
 			num /= 10;
 		}
-		RefCountPtr<Font32Class> &font = Text->Font;
+		RefCountPtr<Font32Bit> &font = Text->Font;
 		float char_width;
 		if (font) {
 			char_width = (font->Get_Char_Width('5', 640.0f) + 2.0f) * digits;

@@ -7,7 +7,7 @@ ItemStatePacketClass::ItemStatePacketClass(int id, int inventory, int slot, int 
 {
 }
 
-ItemStatePacketClass::ItemStatePacketClass(RawPacketClass *raw)
+ItemStatePacketClass::ItemStatePacketClass(PacketClass *raw)
 {
 	raw->Get(&ID, sizeof(ID));
 	raw->Get(&State, sizeof(State));
@@ -16,9 +16,9 @@ ItemStatePacketClass::ItemStatePacketClass(RawPacketClass *raw)
 	raw->Get(&Slot, sizeof(Slot));
 }
 
-RawPacketClass *ItemStatePacketClass::Build()
+PacketClass *ItemStatePacketClass::Encode()
 {
-	RawPacketClass *raw = new RawPacketClass(41, Get_Data_Size());
+	PacketClass *raw = new PacketClass(41, Get_Data_Size());
 	raw->Add(&ID, sizeof(ID));
 	raw->Add(&State, sizeof(State));
 	raw->Add(&BoolVal, sizeof(BoolVal));

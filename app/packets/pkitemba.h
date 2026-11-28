@@ -22,15 +22,15 @@
 #include "..\common\item_info.h"	// ItemInfoClass
 
 // opcode 37 (0x0025, ITEM_BASE): vtable 0xB0AE94, constructor 0x8955C0, 0x6C bytes
-class ItemBasePacketClass : public PacketClass  // NAME 3: the client's Print text 'Item_Base' and Net-7's ITEM_BASE
+class ItemBasePacketClass : public UnknownPacketBaseClass  // NAME 3: the client's Print text 'Item_Base' and Net-7's ITEM_BASE
 {
 public:
 	ItemBasePacketClass(int item_template_id, int category, int subcategory, int item_type, const RefCountPtr<ItemInfoClass> &info,
 		short game_basset, short icon_base_asset, short tech_level, int cost, int max_stack, unsigned int effect_usage, int flags,
 		const std::string &name, const std::string &unknown30, const std::string &unknown40, int channel);	// 0x895300
-	ItemBasePacketClass(RawPacketClass *raw);	// 0x8955C0
+	ItemBasePacketClass(PacketClass *raw);	// 0x8955C0
 	virtual ~ItemBasePacketClass();	// +0x00 0x895820 / 0x895590
-	virtual RawPacketClass *Build();	// +0x04 0x895960
+	virtual PacketClass *Encode();	// +0x04 0x895960  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x7371B0 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x895AF0
 	virtual int Print(char *buffer, int len);	// +0x10 0x895B40

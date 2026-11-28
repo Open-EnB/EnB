@@ -1,0 +1,57 @@
+HYPOTHESIS = ('B1x batch 3, the alias lever of batch 2 (VC6 keeps a store through a reference / pointer local in place '
+              'and reloads after it) or its absence, applied to the other scheduling residues: GLOW (r77 tail: the '
+              'client stores Unknown254[1] after the Z fstp, ours between fild and fmul: the channel stores through a '
+              'Vector3 reference pin it), STAY else (r104: the client loads Unknown440 above the rotation store, so '
+              'that store is not through the rotation reference; its 254 store order), SHAKE (r81: the client loads '
+              'Intensity * 0.5 for Y before the 254 / 404 stores: Vector3 operator[] vs .X / .Y), REVERT (r81: the '
+              'client keeps 47C.X before the 458 store). On the tree (s11 + refstore, 43); lines kept')
+FILE = 'app/client/unknown_6ca0c0.cpp'
+SYMBOL = 'FontSys::Unknown_6CA0C0'
+ADDRESS = 0x6CA0C0
+
+T = '\t'
+T2 = T * 2
+G0 = (T2 + 'style->Unknown4C5 = false;\n\n\n'
+      + T2 + 'style->Unknown4A4.Color.X = (float)(max(')
+GX = 'style->Unknown4A4.Color.X = (float)(max(style->Colors[1]->RGB.X'
+GY = 'style->Unknown4A4.Color.Y = (float)(max(style->Colors[1]->RGB.Y'
+GZ = 'style->Unknown4A4.Color.Z = (float)(max(style->Colors[1]->RGB.Z'
+GLOW_REF = [(G0, T2 + 'style->Unknown4C5 = false;\n' + T2 + 'Vector3 &color = style->Unknown4A4.Color;\n\n'
+             + T2 + 'style->Unknown4A4.Color.X = (float)(max(')]
+GLOW_ALL = GLOW_REF + [(GX, GX.replace('style->Unknown4A4.Color.X', 'color.X')),
+                       (GY, GY.replace('style->Unknown4A4.Color.Y', 'color.Y')),
+                       (GZ, GZ.replace('style->Unknown4A4.Color.Z', 'color.Z'))]
+GLOW_Z = GLOW_REF + [(GZ, GZ.replace('style->Unknown4A4.Color.Z', 'color.Z'))]
+GLOW_PTR = [(G0, T2 + 'style->Unknown4C5 = false;\n' + T2 + 'float *rgb = &style->Unknown4A4.Color.X;\n\n'
+             + T2 + 'style->Unknown4A4.Color.X = (float)(max(')]
+GLOW_PTRZ = GLOW_PTR + [(GZ, GZ.replace('style->Unknown4A4.Color.Z', 'rgb[2]'))]
+
+T4 = T * 4
+ROT = T4 + 'rotation = -1.0f;\n' + T4 + 'style->Unknown270 -= limit;\n'
+STAY_ROT = [(ROT, T4 + 'style->Unknown2F4[1] = -1.0f;\n' + T4 + 'style->Unknown270 -= limit;\n')]
+T3 = T * 3
+RECT = (T3 + 'rect[0] = 0;\n' + T3 + 'rect[1] = style->Unknown2C4;\n' + T3 + 'rect[2] = 0;\n'
+        + T3 + 'Set_Complete(style, false);\n' + T3 + 'rect[3] = style->Unknown2C8;\n')
+STAY_RECT = [(RECT, RECT.replace('rect[', 'style->Unknown420['))]
+
+SH0 = T2 + 'style->Unknown488[0] = effect->Intensity * 0.5f - dx;\n'
+SH1 = T2 + 'style->Unknown488[1] = effect->Intensity * 0.5f - dy;\n'
+SHAKE_XY = [(SH0, SH0.replace('Unknown488[0]', 'Unknown488.X')), (SH1, SH1.replace('Unknown488[1]', 'Unknown488.Y'))]
+SHAKE_Y = [(SH1, SH1.replace('Unknown488[1]', 'Unknown488.Y'))]
+
+RV = (T3 + 'style->Unknown47C.X = style->Unknown470.X;\n' + T3 + 'style->Unknown458 = 0;\n')
+REV_REF = [(RV, T3 + 'Vector3 &pos = style->Unknown47C; pos.X = style->Unknown470.X;\n' + T3 + 'style->Unknown458 = 0;\n')]
+REV_458 = [(RV, T3 + 'style->Unknown47C.X = style->Unknown470.X;\n' + T3 + 'float &distance = style->Unknown458; distance = 0;\n')]
+
+FORMS = {
+    'glow_all': GLOW_ALL,
+    'glow_z': GLOW_Z,
+    'glow_ptrz': GLOW_PTRZ,
+    'stay_rot': STAY_ROT,
+    'stay_rect': STAY_RECT,
+    'stay_both': STAY_ROT + STAY_RECT,
+    'shake_xy': SHAKE_XY,
+    'shake_y': SHAKE_Y,
+    'rev_ref': REV_REF,
+    'rev_458': REV_458,
+}

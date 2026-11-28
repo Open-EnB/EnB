@@ -10,7 +10,7 @@
 #include "rendobj.h"
 #include "..\..\wwlib\ref_ptr.h"
 #include "gadget.h"
-#include "unknown_675120.h"
+#include "gd_uimesh.h"
 #include "fontmanager.h"
 #include "..\packets\pkskill.h"
 #include "..\audio\soundlib.h"
@@ -86,7 +86,7 @@ class SkillNamesDatabase { public: static int Max_Skill();	// 0x818590 (skillnam
 // The level names (0xB79F04)
 static const char *Unknown_B79F04[] = { "", "", "Improved", "Advanced", "Expert", "Super", "Ultra", "Master", "Extreme", "Awesome" };	// NAME 1: neutral (D10)
 // @0x5482B0
-Unknown548D60Class::Unknown548D60Class(SClient *client) :
+Unknown548D60Class::Unknown548D60Class(SpaceClientClass *client) :
 	Unknown5BB320Class(new UIMeshClass("TSI12C", 1), client),
 	UnknownAC(0),
 	UnknownB0(0),
@@ -130,11 +130,11 @@ bool Unknown548D60Class::Unknown_68(int key)
 {
 	switch (key) {
 		case 1:
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			Unknown_5C();
 			return(true);
 		case 2:
-			SoundLibraryClass::Play_2D_Sound("skill_train_1.wav", 2);
+			SoundLibrary::Play_2D_Sound("skill_train_1.wav", 2);
 			{
 				int id = ((ClientClass *)Client)->AvatarID;
 				((ClientClass *)Client)->Send_Packet(&SkillPacketClass(id, 1, UnknownAC));
@@ -259,7 +259,7 @@ void Unknown548D60Class::Unknown_5494E0(bool on)
 **
 **	Client 0x548260-0x5495EF, an object of its own by the CRT initialiser table (PS, run 2026-11-18): ui_attrb.cpp's entries
 **	are 223-225 (permstr.h's static 0x546A30, <string>'s initialiser 0x548190, the Delta numbering 0x548210); entries
-**	226-227 open and close this one: permstr.h's PermStringInitClass static 0x548260 (atexit 0x548290, the static
+**	226-227 open and close this one: permstr.h's PermStringInit static 0x548260 (atexit 0x548290, the static
 **	0xBE5B2C) and <string>'s guarded initialiser 0x5495A0; ui_attrb_skills.cpp's static 0x5495F0 follows. The panel
 **	(Unknown548D60Class, AT2's notes in ui_attrb.cpp): the constructor 0x5482B0, the deleting destructor 0x548410, the
 **	destructor 0x548440, slots +0x54 0x548610 and +0x68 0x548C50, pkskill.h's inline ~SkillPacketClass 0x548D40, 0x548D60,

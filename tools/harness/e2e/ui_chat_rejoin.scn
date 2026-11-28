@@ -1,0 +1,66 @@
+# Chat (live server, UI-08 / B-32; named only: ui_* stays out of the /REPLAY default set): the saved channels' rejoin
+# at world entry and the Set Channels window's join and leave. Zanor (avatar 6, docked) has Channel_Newbie on (player100663360_options.ini), so the chat panel's first
+# update in the world (ui_chat_panel.cpp 0x5630B0 -> ChatPanelInterface::Unknown_56B700 0x56B700) sends a
+# CLIENT_CHAT_REQUEST type 6 for 'New Players', one per option-enabled channel whose number is "5" (0xB7C530), then
+# type 0x1D (RestrictedStatus off). Set Channels (UIOptionChannelClass, opt06a) with General Chat ticked and OK sends
+# type 6 'General' itself (0x5C93B0 -> 0x5C9580); Quit to Character Selection and Enter make a new chat panel whose
+# rejoin sends 'New Players' and 'General'; General unticked and OK sends type 7 (0x5C9740) and leaves the options as
+# they were.
+# The request's payload (Net-7 PacketStructures.h ClientChatRequest): PlayerID, type (4 bytes each), three strings
+# (2-byte length, text), a 4-byte data size. The client puts the channel in the second string and " " in the third,
+# the first empty (B-32: ours put the name first and " " second until 2026-11-27). The bytes are logged only by a
+# diagnostic antprox-rs (T1, 2026-11-27: ANTPROX_DUMP_OPCODES=00a3 appends ', N bytes: HEX' to the verbose 'Sending
+# [0x00a3] via UDP'); with the stock proxy the hex steps below cannot match, so run it with that build (ANTPROX_EXE):
+# a clone of AntaresProxy-Rust at the store's antprox-rs commit (baselines/tools/antprox/manifest.json, 9601958),
+# tools/harness/antprox_dump_patch.py on its crates/antprox/src/net7/udp_link.rs, cargo build --release (40 s).
+# Run: ANTPROX_DUMP_OPCODES=00a3 ANTPROX_EXE=<that build> e2e.py --live --instance NAME [--retail] run ui_chat_rejoin
+name: chat channels (live): the saved channels' rejoin at world entry, Set Channels join / leave, the rejoin after Quit to Character Selection, a /gen line
+timeout: 400
+include _login_live
+# the login's rejoin: type 6, '' / 'New Players' / ' ', data size 0 (30 bytes)
+expect-event antprox 'via UDP, 30 bytes: [0-9a-f]{8}0600000000000b004e657720506c617965727301002000000000 ' within 20
+expect-event antprox 'via UDP, 18 bytes: [0-9a-f]{8}1d000000' within 20
+# Set Channels: General Chat ticked, OK: type 6 'General' from the window itself (26 bytes)
+click gadget chat.tab.chat
+alive 0.5
+click gadget chat.channels
+expect-event proxy 'opt06a\.ini", R, disposition 3\) = ok' within 10
+wait-quiet proxy 1.0 within 15
+click 572,347
+alive 0.5
+shot channels_general_ticked
+click 471,596
+expect-event antprox 'via UDP, 26 bytes: [0-9a-f]{8}060000000000070047656e6572616c01002000000000 ' within 10
+wait-quiet proxy 1.0 within 15
+# Quit to Character Selection and back in: a new chat panel, its rejoin
+key esc
+wait-quiet proxy 1.0 within 15
+click gadget quit.charselect
+wait-event antprox 'GLOBAL_AVATAR_LIST' within 60
+wait-quiet proxy 1.5 within 40
+click gadget select.slot0
+click gadget select.enter until antprox 'received LOGIN' redo 1 every 1 within 60
+wait-event antprox 'received START_ACK' within 120
+wait-quiet proxy 1.5 within 60
+expect-event antprox 'via UDP, 30 bytes: [0-9a-f]{8}0600000000000b004e657720506c617965727301002000000000 ' within 20
+expect-event antprox 'via UDP, 26 bytes: [0-9a-f]{8}060000000000070047656e6572616c01002000000000 ' within 20
+# B-21: '/gen hi' typed (SClient 0x749ED0): the channel in the second string, the first empty, the text third; the
+# server, the channel joined, sends the line back as a CLIENT_CHAT_EVENT
+key enter
+alive 0.5
+text '/gen hi'
+key enter
+expect-event antprox 'via UDP, \d+ bytes: [0-9a-f]{16}0000070047656e6572616c02006869' within 10
+expect-event antprox 'sent CLIENT_CHAT_EVENT' within 10
+wait-quiet proxy 1.0 within 15
+# General unticked, OK: type 7 'General', no third string (25 bytes); the options as they were
+click gadget chat.tab.chat
+alive 0.5
+click gadget chat.channels
+expect-event proxy 'opt06a\.ini", R, disposition 3\) = ok' within 10
+wait-quiet proxy 1.0 within 15
+click 572,347
+alive 0.5
+click 471,596
+expect-event antprox 'via UDP, 25 bytes: [0-9a-f]{8}070000000000070047656e6572616c000000000000 ' within 10
+wait-quiet proxy 1.0 within 15

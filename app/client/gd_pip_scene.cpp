@@ -39,7 +39,7 @@
 
 
 
-GadgetPipSceneClass::GadgetPipSceneClass(PipSceneClass *pip) :
+GadgetPipSceneClass::GadgetPipSceneClass(PIPSceneClass *pip) :
 	GadgetClass(0x1077),
 	PIPScene(pip),
 	Position(0.0f, 0.0f),
@@ -66,7 +66,7 @@ bool GadgetPipSceneClass::Unknown_30(float x, float y)
 		return(false);
 	}
 	bool wrapped = false;
-	PipSceneClass *pip = PIPScene;
+	PIPSceneClass *pip = PIPScene;
 	if (WrapPointer) {
 		if (Wrap_Pointer()) {
 			Unknown_42ECF0(&x, &y);

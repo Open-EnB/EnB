@@ -427,8 +427,8 @@ void ClientObjectClass::Unknown_20()
 	EmoteDataClass *emote = Get_Emote_Data(this, false);
 	if (emote) {
 		if (GameID == Client->AvatarID && emote->Unknown_7E7A40()) {
-			if (((SClient *)Client->As_Space_Client())->CameraManager->Unknown_79B670()) {
-				((SClient *)Client->As_Space_Client())->CameraManager->Unknown_79B2B0(0x14);
+			if (((SpaceClientClass *)Client->As_Space_Client())->CameraManager->Unknown_79B670()) {
+				((SpaceClientClass *)Client->As_Space_Client())->CameraManager->Unknown_79B2B0(0x14);
 				emote->Unknown_7E76E0();
 			}
 		}
@@ -467,7 +467,7 @@ void ClientObjectClass::Unknown_20()
 		}
 	}
 }
-template<class C> inline C *Unknown_Find_Aux(C *, ClientObjectClass *object, const char *field) { NameClass name(field); return(Unknown_Find_Field<C>((DeltaCompoundClass *)object->AuxData, name)); }  // NAME 1: neutral (D10); the field under the aux data, the name built first and the aux data read after it (0x6F4610, 0x6FDBD0: one NameClass slot, auxdata.h's find out of line)
+template<class C> inline C *Unknown_Find_Aux(C *, ClientObjectClass *object, const char *field) { AuxDataName name(field); return(Unknown_Find_Field<C>((DeltaContainer *)object->AuxData, name)); }  // NAME 1: neutral (D10); the field under the aux data, the name built first and the aux data read after it (0x6F4610, 0x6FDBD0: one AuxDataName slot, auxdata.h's find out of line)
 static inline bool Clamp_Changed(float &value, float min, float max)
 {
 	if (value < min) {
@@ -480,7 +480,7 @@ static inline bool Clamp_Changed(float &value, float min, float max)
 	}
 	return(false);
 }
-// NOT EXACT: register (eax / edx swapped for the vtable loads from the thrust sound on), the one-case switch 0x6F5A40 at done (movsx / dec where the client compares the byte) and 'x || y' (the client ORs the bools); the find is out of line as the client's since Unknown_Find_Aux (IB1)
+// NOT EXACT: register (eax / edx swapped for the vtable loads from the thrust sound on to the first Get_Type triple; the second triple matches, so the Z clamp's temp count is the suspect) and the client's 'test al, al' after 'or al, cl'; the find is out of line as the client's since Unknown_Find_Aux (IB1); 'Type == 1' at done (cmp byte, not the switch 0x6F5A40) and 'x | y' (or al, cl) are the client's (B12)
 // 0x6F4610
 Matrix3D ClientObjectClass::Unknown_28(bool thrust)
 {
@@ -543,7 +543,7 @@ Matrix3D ClientObjectClass::Unknown_28(bool thrust)
 		}
 	}
 done:
-	if (Unknown_6F5A40()) {
+	if (Type == 1) {
 		Vector3 pos = tm.Get_Translation();
 		if (PositionalState->Get_Type() != 12 && PositionalState->Get_Type() != 13 && PositionalState->Get_Type() != PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
 			if (Clamp_Changed(pos.Z, Client->Unknown10D4.X, Client->Unknown10D4.Y)) {
@@ -553,7 +553,7 @@ done:
 		if (PositionalState->Get_Type() != 12 && PositionalState->Get_Type() != 13 && PositionalState->Get_Type() != PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
 			bool x = Clamp_Changed(pos.X, Client->Unknown10DC.X, Client->Unknown10E4.X);
 			bool y = Clamp_Changed(pos.Y, Client->Unknown10DC.Y, Client->Unknown10E4.Y);
-			if (x || y) {
+			if (x | y) {
 				tm.Set_Translation(pos);
 			}
 		}
@@ -831,7 +831,7 @@ float ClientObjectClass::Unknown_6F4290()
 }
 
 
-template<class C> inline C *Unknown_Find_Valid(DeltaCompoundClass *root, const NameClass &name) { C *t = Unknown_Find_Field<C>(root, name); if (t && t->Unknown70) return(t); return(NULL); }	// NAME 1: neutral (D10)
+template<class C> inline C *Unknown_Find_Valid(DeltaContainer *root, const AuxDataName &name) { C *t = Unknown_Find_Field<C>(root, name); if (t && t->Unknown70) return(t); return(NULL); }	// NAME 1: neutral (D10)
 #include "sclient.h"
 #define RSTRACK_CLASSID	0x10001	// NAME 2: the class id the handlers test
 #include "assetmgr.h"
@@ -870,7 +870,7 @@ static RenderObjClass *Unknown_6F51D0(int base_asset, ClientClass *client, float
 // 0x6F5140
 RenderObjClass *ClientObjectClass::Unknown_6F5140(int base_asset, ClientClass *client, float scale, float *hsv)
 {
-	SClient *sclient = client ? (SClient *)client->As_Space_Client() : NULL;
+	SpaceClientClass *sclient = client ? (SpaceClientClass *)client->As_Space_Client() : NULL;
 	WW3DAssetManager::Get_Instance()->Set_Activate_Fog_On_Load(true);
 	if (sclient && sclient->Unknown1320) {
 		WW3D::Enable_Overbright_Modify_On_Load(true);
@@ -1173,8 +1173,8 @@ int ClientObjectClass::Unknown_6F5E20() { return(Type == 38); }
 // 0x6F5E40
 bool ClientObjectClass::Unknown_6F5E40()
 {
-	NameClass name("IsOrganic");
-	DeltaTemplateClass<bool> *t = Unknown_Find_Valid<DeltaTemplateClass<bool> >((DeltaCompoundClass *)AuxData, name);
+	AuxDataName name("IsOrganic");
+	DeltaTemplateClass<bool> *t = Unknown_Find_Valid<DeltaTemplateClass<bool> >((DeltaContainer *)AuxData, name);
 	if (t) return(t->Value);
 	return(false);
 }
@@ -1182,8 +1182,8 @@ bool ClientObjectClass::Unknown_6F5E40()
 // 0x6F5ED0
 bool ClientObjectClass::Unknown_6F5ED0()
 {
-	NameClass name("IsInPVP");
-	DeltaTemplateClass<bool> *t = Unknown_Find_Field<DeltaTemplateClass<bool> >((DeltaCompoundClass *)AuxData, name);
+	AuxDataName name("IsInPVP");
+	DeltaTemplateClass<bool> *t = Unknown_Find_Field<DeltaTemplateClass<bool> >((DeltaContainer *)AuxData, name);
 	if (t && t->Unknown70) return(t->Value);
 	return(false);
 }
@@ -1200,8 +1200,8 @@ bool ClientObjectClass::Unknown_6F58B0()
 // 0x6F5F60
 bool ClientObjectClass::Unknown_6F5F60()
 {
-	NameClass name("IsInPVP");
-	DeltaTemplateClass<bool> *t = Unknown_Find_Field<DeltaTemplateClass<bool> >((DeltaCompoundClass *)AuxData, name);
+	AuxDataName name("IsInPVP");
+	DeltaTemplateClass<bool> *t = Unknown_Find_Field<DeltaTemplateClass<bool> >((DeltaContainer *)AuxData, name);
 	if (t && t->Unknown70 <= 1) t = NULL;
 	return(t != NULL);
 }
@@ -1245,7 +1245,7 @@ UnknownRootClass *ClientObjectClass::Unknown_Create_Aux_Root(int type, int unkno
 // Ship's narrow Add (0x6F8C70)
 void DeltaShipClass::Add(int narrow, DeltaClass *child)
 {
-	DeltaCompoundClass::Add(child); child->DeltaClass::As_Delta();	// the dead read spends inline budget as the client's (D272): Ship inlines four narrow Adds (Name-Rank), calls the rest
+	DeltaContainer::Add(child); child->DeltaClass::As_Delta();	// the dead read spends inline budget as the client's (D272): Ship inlines four narrow Adds (Name-Rank), calls the rest
 	if (narrow == 1) {
 		child->Unknown80 = 0xCF;
 	}
@@ -1258,7 +1258,7 @@ void DeltaShipClass::Add(int narrow, DeltaClass *child)
 // ManufacturingLab.KnownFormula.N (0x6FB760)
 inline
 DeltaKnownFormulaClass::DeltaKnownFormulaClass(const char *name) :
-	DeltaCompoundClass(name),
+	DeltaContainer(name),
 	ItemName("ItemName", ""),
 	ItemID("ItemID", -1),
 	TechLevel("TechLevel")
@@ -1445,17 +1445,17 @@ DeltaKnownFormulaClass::DeltaKnownFormulaClass(const char *name) :
 
 
 
-template<class C> static inline C *Unknown_Find_Inner(DeltaCompoundClass *root, const NameClass &name) {	// NAME 1: neutral (D10)
-	DeltaCompoundClass *r = root; C *t = Unknown_Find_Field<C>(r, name); if (!t) return(NULL); return(t);
+template<class C> static inline C *Unknown_Find_Inner(DeltaContainer *root, const AuxDataName &name) {	// NAME 1: neutral (D10)
+	DeltaContainer *r = root; C *t = Unknown_Find_Field<C>(r, name); if (!t) return(NULL); return(t);
 }
-static inline bool Unknown_Read_Changed_2L(ClientObjectClass *o, const NameClass &name, int &out) {	// NAME 1: neutral (D10)
-	DeltaCompoundClass *r = (DeltaCompoundClass *)o->AuxData; DeltaTemplateClass<int> *t = Unknown_Find_Inner<DeltaTemplateClass<int> >(r, name); o->Get_Game_ID(); if (!t || t->Unknown70 <= 1) return(false); out = t->Value; return(true);	// dead Get_Game_ID() spends inline budget (D272)
+static inline bool Unknown_Read_Changed_2L(ClientObjectClass *o, const AuxDataName &name, int &out) {	// NAME 1: neutral (D10)
+	DeltaContainer *r = (DeltaContainer *)o->AuxData; DeltaTemplateClass<int> *t = Unknown_Find_Inner<DeltaTemplateClass<int> >(r, name); o->Get_Game_ID(); if (!t || t->Unknown70 <= 1) return(false); out = t->Value; return(true);	// dead Get_Game_ID() spends inline budget (D272)
 }
-static inline bool Unknown_Check_Global_2L(ClientObjectClass *o, const NameClass &name) {	// NAME 1: neutral (D10)
-	DeltaCompoundClass *r = (DeltaCompoundClass *)o->AuxData; DeltaTemplateClass<int> *t = Unknown_Find_Inner<DeltaTemplateClass<int> >(r, name); o->Get_Game_ID(); if (!t || t->Unknown70 <= 1) return(false); if (o->Unknown128) return(false); o->UnknownF8 = t->Value; return(true);
+static inline bool Unknown_Check_Global_2L(ClientObjectClass *o, const AuxDataName &name) {	// NAME 1: neutral (D10)
+	DeltaContainer *r = (DeltaContainer *)o->AuxData; DeltaTemplateClass<int> *t = Unknown_Find_Inner<DeltaTemplateClass<int> >(r, name); o->Get_Game_ID(); if (!t || t->Unknown70 <= 1) return(false); if (o->Unknown128) return(false); o->UnknownF8 = t->Value; return(true);
 }
-template<class C> static inline C *Unknown_Find_Valid_2L(ClientObjectClass *o, const NameClass &name) {	// NAME 1: neutral (D10)
-	DeltaCompoundClass *r = (DeltaCompoundClass *)o->AuxData; C *t = Unknown_Find_Inner<C>(r, name); o->Get_Game_ID(); if (!t || !t->Unknown70) return(NULL); return(t);
+template<class C> static inline C *Unknown_Find_Valid_2L(ClientObjectClass *o, const AuxDataName &name) {	// NAME 1: neutral (D10)
+	DeltaContainer *r = (DeltaContainer *)o->AuxData; C *t = Unknown_Find_Inner<C>(r, name); o->Get_Game_ID(); if (!t || !t->Unknown70) return(NULL); return(t);
 }
 
 
@@ -1475,37 +1475,37 @@ void ClientObjectClass::Unknown_6FBEF0()
 {
 	bool player = (Unknown_6F5A40() && GameID == Client->AvatarID);
 	{
-		NameClass name("PrivateWarpState");
+		AuxDataName name("PrivateWarpState");
 		if (Unknown_Read_Changed_2L(this, name, UnknownF8)) {
 
 
 			switch (UnknownF8) {
 				case 5:
-					((SClient *)Client->As_Space_Client())->Unknown_74D990(0x11, "Engine unavailable. Please wait.", 0);
-					SoundLibraryClass::Play_2D_Sound("On_Fail", 2);
+					((SpaceClientClass *)Client->As_Space_Client())->Unknown_74D990(0x11, "Engine unavailable. Please wait.", 0);
+					SoundLibrary::Play_2D_Sound("On_Fail", 2);
 					break;
 				case 6:
 					if (Type == 1) {
-						SoundLibraryClass::Play_2D_Sound("On_Fail", 2);
-						((SClient *)Client->As_Space_Client())->Unknown_74D990(0x11, "Warp failed - local gravity interference.", 0);
+						SoundLibrary::Play_2D_Sound("On_Fail", 2);
+						((SpaceClientClass *)Client->As_Space_Client())->Unknown_74D990(0x11, "Warp failed - local gravity interference.", 0);
 					}
 					break;
 				case 7:
-					((SClient *)Client->As_Space_Client())->Unknown_74D990(0x11, "Warp target lost.", 0);
+					((SpaceClientClass *)Client->As_Space_Client())->Unknown_74D990(0x11, "Warp target lost.", 0);
 					break;
 				case 8:
-					((SClient *)Client->As_Space_Client())->Unknown_74D990(0, "Warp target reached.", 0);
+					((SpaceClientClass *)Client->As_Space_Client())->Unknown_74D990(0, "Warp target reached.", 0);
 					break;
 				case 9:
-					((SClient *)Client->As_Space_Client())->Unknown_74D990(0x11, "Warp followers disrupted.", 0);
+					((SpaceClientClass *)Client->As_Space_Client())->Unknown_74D990(0x11, "Warp followers disrupted.", 0);
 					break;
 				case 11:
-					((SClient *)Client->As_Space_Client())->Unknown_74D990(0x11, "Warp interrupted - out of energy.", 0);
+					((SpaceClientClass *)Client->As_Space_Client())->Unknown_74D990(0x11, "Warp interrupted - out of energy.", 0);
 					break;
 			}
 		}
 	}
-	{ NameClass name("GlobalWarpState"); if (!Unknown_Check_Global_2L(this, name)) return; }
+	{ AuxDataName name("GlobalWarpState"); if (!Unknown_Check_Global_2L(this, name)) return; }
 
 
 
@@ -1515,7 +1515,7 @@ void ClientObjectClass::Unknown_6FBEF0()
 
 
 	DeltaStatsClass *stats;
-	{ NameClass stats_name("CurrentStats"); stats = Unknown_Find_Valid_2L<DeltaStatsClass>(this, stats_name); }
+	{ AuxDataName stats_name("CurrentStats"); stats = Unknown_Find_Valid_2L<DeltaStatsClass>(this, stats_name); }
 
 	int level = 1;
 	if (stats) {
@@ -1528,18 +1528,18 @@ void ClientObjectClass::Unknown_6FBEF0()
 	}
 	char loop[128];
 	char sound[128];
-	EffectObjectClass *effect;
+	EffectClass *effect;
 	switch (UnknownF8) {
 		case 1: {
-			NameClass trail_name("EngineTrailType");
+			AuxDataName trail_name("EngineTrailType");
 			DeltaTemplateClass<int> *trail = Unknown_Find_Valid_2L<DeltaTemplateClass<int> >(this, trail_name);
 			int trail_id = 22; if (trail) trail_id = trail->Value + 22;
 			_snprintf(loop, sizeof(loop), "engine_loop_%d", trail_id);
 			_snprintf(sound, sizeof(sound), "warp_start_%d", level);
 			if (player) {
-				SoundLibraryClass::Play_2D_Sound(sound, 2);
+				SoundLibrary::Play_2D_Sound(sound, 2);
 			} else {
-				SoundLibraryClass::Play_3D_Sound(sound, Unknown_28(true), 2, 1.0f);
+				SoundLibrary::Play_3D_Sound(sound, Unknown_28(true), 2, 1.0f);
 			}
 			if (Unknown118) {
 				Unknown118->Stop(true);
@@ -1551,8 +1551,8 @@ void ClientObjectClass::Unknown_6FBEF0()
 				Unknown11C->Remove_From_Scene();
 				Unknown11C->Release_Ref();
 			}
-			if (player) { static const float v25 = 2.5f; Unknown118 = SoundLibraryClass::Play_3D_Sound(loop, Unknown_28(true), 0, v25); } else { Unknown118 = SoundLibraryClass::Play_3D_Sound(loop, Unknown_28(true), 0, 1.0f); }	// two calls, as the client pushes 2.5f and 1.0f separately (F8)
-			Unknown11C = SoundLibraryClass::Play_3D_Sound("Warp_Secondary", Unknown_28(true), 0, 1.0f);
+			if (player) { static const float v25 = 2.5f; Unknown118 = SoundLibrary::Play_3D_Sound(loop, Unknown_28(true), 0, v25); } else { Unknown118 = SoundLibrary::Play_3D_Sound(loop, Unknown_28(true), 0, 1.0f); }	// two calls, as the client pushes 2.5f and 1.0f separately (F8)
+			Unknown11C = SoundLibrary::Play_3D_Sound("Warp_Secondary", Unknown_28(true), 0, 1.0f);
 			if (Unknown118) {
 				Unknown118->Attach_To_Object(RenderObject, -1);
 			}
@@ -1560,7 +1560,7 @@ void ClientObjectClass::Unknown_6FBEF0()
 				Unknown11C->Attach_To_Object(RenderObject, -1);
 			}
 			if (player) {
-				((SClient *)Client)->CameraManager->Unknown_79B2B0(2);
+				((SpaceClientClass *)Client)->CameraManager->Unknown_79B2B0(2);
 			}
 			if (Unknown_6F5A40() && Unknown184) {
 				Play_State_Animation(RenderObject, 1, 0);
@@ -1571,13 +1571,13 @@ void ClientObjectClass::Unknown_6FBEF0()
 			if (!effect) {
 				return;
 			}
-			UnknownB00060EffectClass *target = effect->Unknown_10();
+			UnaryEffectClass *target = effect->Unknown_10();
 			if (target) {
 				target->Set_Source_Object_ID(GameID);
 			} else {
 				G_ASSERT(0);
 			}
-			MainViewClass *view = ((SClient *)Client->As_Space_Client())->MainView;
+			MainViewClass *view = ((SpaceClientClass *)Client->As_Space_Client())->MainView;
 			Client->Add_Effect(effect, (int)view->Unknown_64(), view->Unknown_7C());
 			break;
 		}
@@ -1590,10 +1590,10 @@ void ClientObjectClass::Unknown_6FBEF0()
 		case 2: {
 			_snprintf(sound, sizeof(sound), "warp_enter_%d", level);
 			if (player) {
-				((SClient *)Client)->CameraManager->Unknown_79B2B0(3);
-				SoundLibraryClass::Play_2D_Sound(sound, 2);
+				((SpaceClientClass *)Client)->CameraManager->Unknown_79B2B0(3);
+				SoundLibrary::Play_2D_Sound(sound, 2);
 			} else {
-				SoundLibraryClass::Play_3D_Sound(sound, Unknown_28(true), 2, 1.0f);
+				SoundLibrary::Play_3D_Sound(sound, Unknown_28(true), 2, 1.0f);
 			}
 			if (Unknown118) {
 				Unknown118->Add_To_Scene(true);
@@ -1604,7 +1604,7 @@ void ClientObjectClass::Unknown_6FBEF0()
 			if (!Unknown14C) {
 				return;
 			}
-			EffectObjectClass *old = Client->Get_Effect(Unknown14C);
+			EffectClass *old = Client->Get_Effect(Unknown14C);
 			if (old) {
 				old->Unknown_6E6E30();
 			}
@@ -1613,22 +1613,22 @@ void ClientObjectClass::Unknown_6FBEF0()
 			if (!effect) {
 				return;
 			}
-			UnknownB00060EffectClass *target = effect->Unknown_10();
+			UnaryEffectClass *target = effect->Unknown_10();
 			if (target) {
 				target->Set_Source_Object_ID(GameID);
 			} else {
 				G_ASSERT(0);
 			}
-			MainViewClass *view = ((SClient *)Client->As_Space_Client())->MainView;
+			MainViewClass *view = ((SpaceClientClass *)Client->As_Space_Client())->MainView;
 			Client->Add_Effect(effect, (int)view->Unknown_64(), view->Unknown_7C());
 			break;
 		}
 		case 3: case 7: case 8: case 9: case 11:	// (the lines after l.1620 are short: 0x6FC880 follows)
 			_snprintf(sound, sizeof(sound), "warp_exit_%d", level);
 			if (player) {
-				((SClient *)Client)->CameraManager->Unknown_79B2B0(4); SoundLibraryClass::Play_2D_Sound(sound, 2);
+				((SpaceClientClass *)Client)->CameraManager->Unknown_79B2B0(4); SoundLibrary::Play_2D_Sound(sound, 2);
 			} else {
-				SoundLibraryClass::Play_3D_Sound(sound, Unknown_28(true), 2, 1.0f);
+				SoundLibrary::Play_3D_Sound(sound, Unknown_28(true), 2, 1.0f);
 			}
 			if (Unknown_6F5A40() && Unknown184 != true) {
 				Play_State_Animation(RenderObject, 2, 0); Unknown184 = true;
@@ -1649,7 +1649,7 @@ void ClientObjectClass::Unknown_6FC880()
 		Unknown11C->Remove_From_Scene();
 	}
 	if (Unknown14C) {
-		EffectObjectClass *effect = Client->Get_Effect(Unknown14C);
+		EffectClass *effect = Client->Get_Effect(Unknown14C);
 		if (effect) {
 			effect->Unknown_6E6E30();
 		}
@@ -1748,10 +1748,10 @@ void ClientObjectClass::Unknown_6FCB70()
 	Unknown_Damage_Reset();
 	Unknown_6FED30();
 	if (!Colorization.empty() && RenderObject) Apply_Ship_Colorization(RenderObject, Colorization);
-	SClient *sclient = (SClient *)Client->As_Space_Client(); if (sclient && sclient->AvatarID == GameID) sclient->Unknown_74D950();
+	SpaceClientClass *sclient = (SpaceClientClass *)Client->As_Space_Client(); if (sclient && sclient->AvatarID == GameID) sclient->Unknown_74D950();
 	if (Unknown_6F5A10()) {
-		NameClass name("IsOrganic");
-		DeltaTemplateClass<bool> *t = Unknown_Find_Valid<DeltaTemplateClass<bool> >((DeltaCompoundClass *)AuxData, name);
+		AuxDataName name("IsOrganic");
+		DeltaTemplateClass<bool> *t = Unknown_Find_Valid<DeltaTemplateClass<bool> >((DeltaContainer *)AuxData, name);
 		if (!t || !t->Value) {
 			{ float hsv[3] = { 0.0f, 0.0f, 0.0f }; Unknown158[0] = Create_Get(Unknown_6F5140(0x618, Client, 1.0f, hsv)); }
 			{ float hsv[3] = { 0.0f, 0.0f, 0.0f }; Unknown158[2] = Create_Get(Unknown_6F5140(0x618, Client, 1.0f, hsv)); }
@@ -1788,7 +1788,7 @@ void ClientObjectClass::Unknown_6FD310()
 	if (!Unknown_6F5850()) {
 		return;
 	}
-	ProjDecalManagerClass *proj_decal_manager = ((SClient *)Client)->ProjDecalManager;
+	ProjDecalManagerClass *proj_decal_manager = ((SpaceClientClass *)Client)->ProjDecalManager;
 
 
 
@@ -1799,8 +1799,8 @@ void ClientObjectClass::Unknown_6FD310()
 	bool blotch_changed[5];
 	DeltaArrayClass<ProjectedDecalClass> *arrays[NUM_DAMAGE_POOLS];
 	{
-		NameClass name("DamageSpot");
-		DeltaArrayClass<ProjectedDecalClass> *t = Unknown_Find_Field<DeltaArrayClass<ProjectedDecalClass> >((DeltaCompoundClass *)AuxData, name);
+		AuxDataName name("DamageSpot");
+		DeltaArrayClass<ProjectedDecalClass> *t = Unknown_Find_Field<DeltaArrayClass<ProjectedDecalClass> >((DeltaContainer *)AuxData, name);
 		if (t && t->Unknown70 <= 1) t = NULL;
 		arrays[0] = t;
 		if (t) {
@@ -1810,8 +1810,8 @@ void ClientObjectClass::Unknown_6FD310()
 		}
 	}
 	{
-		NameClass name("DamageLine");
-		DeltaArrayClass<ProjectedDecalClass> *t = Unknown_Find_Field<DeltaArrayClass<ProjectedDecalClass> >((DeltaCompoundClass *)AuxData, name);
+		AuxDataName name("DamageLine");
+		DeltaArrayClass<ProjectedDecalClass> *t = Unknown_Find_Field<DeltaArrayClass<ProjectedDecalClass> >((DeltaContainer *)AuxData, name);
 		if (t && t->Unknown70 <= 1) t = NULL;
 		arrays[1] = t;
 		if (t) {
@@ -1821,8 +1821,8 @@ void ClientObjectClass::Unknown_6FD310()
 		}
 	}
 	{
-		NameClass name("DamageBlotch");
-		DeltaArrayClass<ProjectedDecalClass> *t = Unknown_Find_Field<DeltaArrayClass<ProjectedDecalClass> >((DeltaCompoundClass *)AuxData, name);
+		AuxDataName name("DamageBlotch");
+		DeltaArrayClass<ProjectedDecalClass> *t = Unknown_Find_Field<DeltaArrayClass<ProjectedDecalClass> >((DeltaContainer *)AuxData, name);
 		if (t && t->Unknown70 <= 1) t = NULL;
 		arrays[2] = t;
 		if (t) {
@@ -1933,22 +1933,22 @@ void ClientObjectClass::Unknown_6FD7A0(RenderObjClass *robj)
 
 
 
-static inline DeltaTemplateClass<int> *Unknown_Find_Engine_Changed(ClientObjectClass *o, const char *f) { NameClass n(f); DeltaTemplateClass<int> *t = Unknown_Find_Field<DeltaTemplateClass<int> >((DeltaCompoundClass *)o->AuxData, n); if (t && t->Unknown70 > 1) return(t); return(NULL); }	// NAME 1: neutral (D10)
+static inline DeltaTemplateClass<int> *Unknown_Find_Engine_Changed(ClientObjectClass *o, const char *f) { AuxDataName n(f); DeltaTemplateClass<int> *t = Unknown_Find_Field<DeltaTemplateClass<int> >((DeltaContainer *)o->AuxData, n); if (t && t->Unknown70 > 1) return(t); return(NULL); }	// NAME 1: neutral (D10)
 static inline DeltaTemplateClass<int> *Unknown_Find_Engine_Changed_2L(ClientObjectClass *o, const char *f) { return(Unknown_Find_Engine_Changed(o, f)); }	// NAME 1: neutral (D10)
-static inline DeltaTemplateClass<int> *Unknown_Find_Engine_Valid(ClientObjectClass *o, const char *f) { NameClass n(f); DeltaTemplateClass<int> *t = Unknown_Find_Field<DeltaTemplateClass<int> >((DeltaCompoundClass *)o->AuxData, n); if (t && t->Unknown70) return(t); return(NULL); }	// NAME 1: neutral (D10)
+static inline DeltaTemplateClass<int> *Unknown_Find_Engine_Valid(ClientObjectClass *o, const char *f) { AuxDataName n(f); DeltaTemplateClass<int> *t = Unknown_Find_Field<DeltaTemplateClass<int> >((DeltaContainer *)o->AuxData, n); if (t && t->Unknown70) return(t); return(NULL); }	// NAME 1: neutral (D10)
 
 
 // 0x6FDBD0 (the engine sounds: the engine and thrust loops when EngineTrailType changed, then EngineThrustState)
 void ClientObjectClass::Unknown_6FDBD0()
 {
-	Unknown_Find_Field<DeltaTemplateClass<int> >(NULL, *(NameClass *)this);	// dead find (root NULL: no code, D272) spends the inline budget: IsOrganic's Find_Field<bool> 0x7079B0 and EngineTrailType's Cast<int> 0x531590 out of line, Find_Valid<bool> and EngineThrustState's Cast<int> inline
+	Unknown_Find_Field<DeltaTemplateClass<int> >(NULL, *(AuxDataName *)this);	// dead find (root NULL: no code, D272) spends the inline budget: IsOrganic's Find_Field<bool> 0x7079B0 and EngineTrailType's Cast<int> 0x531590 out of line, Find_Valid<bool> and EngineThrustState's Cast<int> inline
 	if (!Unknown_6F58B0()) {
 		return;
 	}
 	{
 		DeltaTemplateClass<int> *t = Unknown_Find_Engine_Changed_2L(this, "EngineTrailType");
 		if (t) {
-			if (Type == 1 && ((SClient *)Client->As_Space_Client())->ViewMode == 1) {
+			if (Type == 1 && ((SpaceClientClass *)Client->As_Space_Client())->ViewMode == 1) {
 				Unknown_6FD7A0(RenderObject);
 			}
 			if (Unknown120) {
@@ -1964,9 +1964,9 @@ void ClientObjectClass::Unknown_6FDBD0()
 			} else {
 				_snprintf(sound, sizeof(sound), "npc_engine_loop_%d", BaseAsset % 6);
 			}
-			Unknown120 = SoundLibraryClass::Play_3D_Sound(sound, Unknown_28(false), 0, 1.0f);
+			Unknown120 = SoundLibrary::Play_3D_Sound(sound, Unknown_28(false), 0, 1.0f);
 			if (!Unknown120) {
-				Unknown120 = SoundLibraryClass::Play_3D_Sound("engine_loop_1", Unknown_28(false), 0, 1.0f);
+				Unknown120 = SoundLibrary::Play_3D_Sound("engine_loop_1", Unknown_28(false), 0, 1.0f);
 			}
 			if (Unknown120) {
 				Unknown120->Attach_To_Object(RenderObject, -1);
@@ -1982,9 +1982,9 @@ void ClientObjectClass::Unknown_6FDBD0()
 			} else {
 				_snprintf(sound, sizeof(sound), "npc_thrust_loop_%d", BaseAsset % 6);
 			}
-			Unknown124 = SoundLibraryClass::Play_3D_Sound(sound, Unknown_28(false), 0, 1.0f);
+			Unknown124 = SoundLibrary::Play_3D_Sound(sound, Unknown_28(false), 0, 1.0f);
 			if (!Unknown124) {
-				Unknown124 = SoundLibraryClass::Play_3D_Sound("imploop1.wav", Unknown_28(false), 0, 1.0f);
+				Unknown124 = SoundLibrary::Play_3D_Sound("imploop1.wav", Unknown_28(false), 0, 1.0f);
 			}
 			if (Unknown124) {
 				Unknown124->Attach_To_Object(RenderObject, -1);
@@ -2002,7 +2002,7 @@ void ClientObjectClass::Unknown_6FDBD0()
 	if (data) {
 		emote = data->Unknown_7E7A70();
 	}
-	bool camera = (GameID == Client->AvatarID && ((SClient *)Client->As_Space_Client())->CameraManager->Unknown_79B690());
+	bool camera = (GameID == Client->AvatarID && ((SpaceClientClass *)Client->As_Space_Client())->CameraManager->Unknown_79B690());
 	bool forced = (emote || camera);
 	bool on = (state == 1 || Unknown_6FC970() || forced);
 	if (UnknownFC != on) {
@@ -2116,7 +2116,7 @@ static inline int Unknown_Damage_Level(const float &damage) { if (damage >= 0.5f
 
 // 0x6FE1E0 (the damage state: the damage sounds of a type-1 object, then the shield or hull and the four quadrants' levels into the model)
 void ClientObjectClass::Unknown_6FE1E0()
-{	Unknown_Find_Field<DeltaTemplateClass<int> >(NULL, *(NameClass *)this); Unknown_Find_Field<DeltaTemplateClass<int> >(NULL, *(NameClass *)this); Unknown_Find_Field<DeltaTemplateClass<int> >(NULL, *(NameClass *)this); Unknown_Find_Field<DeltaTemplateClass<int> >(NULL, *(NameClass *)this); 	// dead finds (root NULL: no code) spend the inline budget (P-IB1-1): the float field's Cast 0x546970 then goes out of line as the client's; with Unknown_Find_Valid on ShieldPercent and the quadrants 96 -> 73 rows
+{	Unknown_Find_Field<DeltaTemplateClass<int> >(NULL, *(AuxDataName *)this); Unknown_Find_Field<DeltaTemplateClass<int> >(NULL, *(AuxDataName *)this); Unknown_Find_Field<DeltaTemplateClass<int> >(NULL, *(AuxDataName *)this); Unknown_Find_Field<DeltaTemplateClass<int> >(NULL, *(AuxDataName *)this); 	// dead finds (root NULL: no code) spend the inline budget (P-IB1-1): the float field's Cast 0x546970 then goes out of line as the client's; with Unknown_Find_Valid on ShieldPercent and the quadrants 96 -> 73 rows
 	if (!Unknown_6F5850()) {
 		return;
 	}
@@ -2124,31 +2124,31 @@ void ClientObjectClass::Unknown_6FE1E0()
 		unsigned now = Client->Unknown10BC;
 		if ((unsigned)Unknown154 < now) {
 			if (Unknown104[0] == 4 || Unknown104[1] == 4 || Unknown104[2] == 4 || Unknown104[3] == 4 || Unknown104[4] == 4) {
-				SoundLibraryClass::Play_3D_Sound("Level_3_Ship_Damage", Unknown_28(true), 2, 1.0f);
+				SoundLibrary::Play_3D_Sound("Level_3_Ship_Damage", Unknown_28(true), 2, 1.0f);
 				Unknown154 = now + 4000;
 			} else if (Unknown104[0] == 3 || Unknown104[1] == 3 || Unknown104[2] == 3 || Unknown104[3] == 3 || Unknown104[4] == 3) {
-				SoundLibraryClass::Play_3D_Sound("Level_2_Ship_Damage", Unknown_28(true), 2, 1.0f);
+				SoundLibrary::Play_3D_Sound("Level_2_Ship_Damage", Unknown_28(true), 2, 1.0f);
 				Unknown154 = now + 5000;
 			} else if (Unknown104[0] == 2 || Unknown104[1] == 2 || Unknown104[2] == 2 || Unknown104[3] == 2 || Unknown104[4] == 2) {
-				SoundLibraryClass::Play_3D_Sound("Level_1_Ship_Damage", Unknown_28(true), 2, 1.0f);
+				SoundLibrary::Play_3D_Sound("Level_1_Ship_Damage", Unknown_28(true), 2, 1.0f);
 				Unknown154 = now + 6000;
 			}
 		}
 	}
 	float hull = 0.0f;
 	if (Unknown_6F5E40()) {
-		NameClass name("ShieldPercent");
-		DeltaInterpolatorClass *t = Unknown_Find_Valid<DeltaInterpolatorClass>((DeltaCompoundClass *)AuxData, name);
+		AuxDataName name("ShieldPercent");
+		DeltaInterpolator *t = Unknown_Find_Valid<DeltaInterpolator>((DeltaContainer *)AuxData, name);
 		float shield;
 		if (t) shield = t->Get_Value(DurationClass((unsigned)Client->Unknown10BC));
 		else shield = 1.0f;
 		hull = WWMath::Clamp(1.0f - shield, 0.0f, 1.0f);
 	} else {
 
-		NameClass hp_name("HullPoints");
-		DeltaTemplateClass<float> *points = Unknown_Find_Valid<DeltaTemplateClass<float> >((DeltaCompoundClass *)AuxData, hp_name);
-		NameClass max_name("MaxHullPoints");
-		DeltaTemplateClass<float> *max = Unknown_Find_Valid<DeltaTemplateClass<float> >((DeltaCompoundClass *)AuxData, max_name);
+		AuxDataName hp_name("HullPoints");
+		DeltaTemplateClass<float> *points = Unknown_Find_Valid<DeltaTemplateClass<float> >((DeltaContainer *)AuxData, hp_name);
+		AuxDataName max_name("MaxHullPoints");
+		DeltaTemplateClass<float> *max = Unknown_Find_Valid<DeltaTemplateClass<float> >((DeltaContainer *)AuxData, max_name);
 
 		if (points && max && max->Value != 0.0f) {
 			hull = 1.0f - WWMath::Clamp(points->Value / max->Value, 0.0f, 1.0f);
@@ -2156,8 +2156,8 @@ void ClientObjectClass::Unknown_6FE1E0()
 	}
 	float quadrant[4];
 	{
-		NameClass name("VisibleQuadrantDamagePercent");
-		DeltaArrayClass<float> *t = Unknown_Find_Valid<DeltaArrayClass<float> >((DeltaCompoundClass *)AuxData, name);
+		AuxDataName name("VisibleQuadrantDamagePercent");
+		DeltaArrayClass<float> *t = Unknown_Find_Valid<DeltaArrayClass<float> >((DeltaContainer *)AuxData, name);
 
 		if (t) {
 			for (int i = 0; i < 4; i++) {
@@ -2184,7 +2184,7 @@ void ClientObjectClass::Unknown_6FE1E0()
 		Unknown150 = Update_Damage_Particles(RenderObject, level, hull_level, Client, GameID, Unknown150);
 	} else {
 		bool view = false;
-		switch (((SClient *)Client->As_Space_Client())->ViewMode) {
+		switch (((SpaceClientClass *)Client->As_Space_Client())->ViewMode) {
 			case 0:
 				view = false;
 				break;
@@ -2208,7 +2208,7 @@ void ClientObjectClass::Unknown_6FE1E0()
 // NOT EXACT: register (the client holds the 1 in ebx: levels, hull level, +0x104 stores and the Type <= 1 compare; 10 register-masked rows; attempts.py show 0x6FEAC0)
 // 0x6FEAC0 (unreferenced in the client) the damage state back to level 1: the model's levels and +0x104
 void ClientObjectClass::Unknown_6FEAC0()
-{	Unknown_Find_Field<DeltaTemplateClass<int> >(NULL, *(NameClass *)this); 	// a dead find (root NULL: no code, P-IB1-1): the bool Cast 0x584FF0 then stays out of line, as the client's
+{	Unknown_Find_Field<DeltaTemplateClass<int> >(NULL, *(AuxDataName *)this); 	// a dead find (root NULL: no code, P-IB1-1): the bool Cast 0x584FF0 then stays out of line, as the client's
 	Unknown_Damage_Reset();
 
 
@@ -2320,13 +2320,13 @@ void ClientObjectClass::Unknown_6FEF70(SubPartsPacket *packet)
 
 
 
-static __forceinline DeltaStringClass *Unknown_Valid_F(DeltaCompoundClass *root, const NameClass &name) { DeltaStringClass *t = Unknown_Find_Field<DeltaStringClass>(root, name); if (t && t->Unknown70) return(t); return(NULL); }	// NAME 1: neutral (D10)
-static inline DeltaStringClass *Unknown_Name_Sel(ClientObjectClass *o) { DeltaStringClass *t; switch (o->Type) { default: { NameClass n1("Name"); t = Unknown_Valid_F((DeltaCompoundClass *)o->AuxData, n1); if (!t) { NameClass o1("Owner"); t = Unknown_Valid_F((DeltaCompoundClass *)o->AuxData, o1); } } break; case 1: { NameClass o2("Owner"); t = Unknown_Valid_F((DeltaCompoundClass *)o->AuxData, o2); if (!t) { NameClass n2("Name"); t = Unknown_Valid_F((DeltaCompoundClass *)o->AuxData, n2); } } break; } return(t); }	// NAME 1: neutral (D10)
+static __forceinline DeltaString *Unknown_Valid_F(DeltaContainer *root, const AuxDataName &name) { DeltaString *t = Unknown_Find_Field<DeltaString>(root, name); if (t && t->Unknown70) return(t); return(NULL); }	// NAME 1: neutral (D10)
+static inline DeltaString *Unknown_Name_Sel(ClientObjectClass *o) { DeltaString *t; switch (o->Type) { default: { AuxDataName n1("Name"); t = Unknown_Valid_F((DeltaContainer *)o->AuxData, n1); if (!t) { AuxDataName o1("Owner"); t = Unknown_Valid_F((DeltaContainer *)o->AuxData, o1); } } break; case 1: { AuxDataName o2("Owner"); t = Unknown_Valid_F((DeltaContainer *)o->AuxData, o2); if (!t) { AuxDataName n2("Name"); t = Unknown_Valid_F((DeltaContainer *)o->AuxData, n2); } } break; } return(t); }	// NAME 1: neutral (D10)
 inline unsigned Unknown_Changed(DeltaClass *d) { return(d->Unknown70); }	// +0x70: 2 when the field changed since the last update, 1 when set, 0 when not  // NAME 1: neutral (D10)
-// 0x6FF4B0 the Name / Owner pick of 0x6FF7A0 (Unknown_Name_Sel: the client's four unshared NameClass slots, frame 0xD0, its Casts out of line in the default arm)  // NOT EXACT: inline-budget (the client also calls rtti.h's cast 0x5469C0 at the type-1 arm's two lookups and the assign's max_size / _Eos; ours inlines them; a dead read after the assign sends the assign's out but Name's whole Find_Field with them)
+// 0x6FF4B0 the Name / Owner pick of 0x6FF7A0 (Unknown_Name_Sel: the client's four unshared AuxDataName slots, frame 0xD0, its Casts out of line in the default arm)  // NOT EXACT: inline-budget (the client also calls rtti.h's cast 0x5469C0 at the type-1 arm's two lookups and the assign's max_size / _Eos; ours inlines them; a dead read after the assign sends the assign's out but Name's whole Find_Field with them)
 void ClientObjectClass::Get_Name(std::string &name)
 {
-	DeltaStringClass *t = Unknown_Name_Sel(this);
+	DeltaString *t = Unknown_Name_Sel(this);
 	name = t ? t->String : "Unknown";
 
 
@@ -2348,18 +2348,18 @@ void ClientObjectClass::Get_Name(std::string &name)
 // A field of the aux data changed since the last update (+0x70 above 1)
 template<class C> inline bool Unknown_Field_Changed(C *, ClientObjectClass *object, const char *field)  // NAME 1: neutral (D10)
 {
-	NameClass name(field);
-	C *t = Unknown_Find_Field<C>((DeltaCompoundClass *)object->AuxData, name);
+	AuxDataName name(field);
+	C *t = Unknown_Find_Field<C>((DeltaContainer *)object->AuxData, name);
 	return(t && Unknown_Changed(t) > 1);
 }
 
 // 0x6FFC80 (the two dead type tests spend the inline budget: rtti.h's cast then stays out of line for Owner only, as the client's)
 bool ClientObjectClass::Unknown_6FFC80(std::string &text)
 {
-	Unknown_6F5A40(); Unknown_6F5A40(); if (Unknown_Field_Changed((DeltaStringClass *)NULL, this, "Owner")
-		|| Unknown_Field_Changed((DeltaStringClass *)NULL, this, "Name")
-		|| Unknown_Field_Changed((DeltaStringClass *)NULL, this, "Rank")
-		|| Unknown_Field_Changed((DeltaStringClass *)NULL, this, "Title")) {
+	Unknown_6F5A40(); Unknown_6F5A40(); if (Unknown_Field_Changed((DeltaString *)NULL, this, "Owner")
+		|| Unknown_Field_Changed((DeltaString *)NULL, this, "Name")
+		|| Unknown_Field_Changed((DeltaString *)NULL, this, "Rank")
+		|| Unknown_Field_Changed((DeltaString *)NULL, this, "Title")) {
 		Unknown_6FF7A0(text);
 		return(true);
 	}
@@ -2369,9 +2369,9 @@ bool ClientObjectClass::Unknown_6FFC80(std::string &text)
 // 0x700400
 bool ClientObjectClass::Unknown_700400()
 {
-	if (Unknown_Field_Changed((DeltaStringClass *)NULL, this, "GuildName")
+	if (Unknown_Field_Changed((DeltaString *)NULL, this, "GuildName")
 		|| Unknown_Field_Changed((DeltaTemplateClass<GuildRankType> *)NULL, this, "GuildRank")
-		|| Unknown_Field_Changed((DeltaStringClass *)NULL, this, "GuildRankName")
+		|| Unknown_Field_Changed((DeltaString *)NULL, this, "GuildRankName")
 		|| Unknown_Field_Changed((DeltaTemplateClass<Vector3> *)NULL, this, "SameGuildTagColor")
 		|| Unknown_Field_Changed((DeltaTemplateClass<Vector3> *)NULL, this, "OtherGuildTagColor")) return(true);
 	return(false);
@@ -2395,8 +2395,8 @@ bool ClientObjectClass::Unknown_700400()
 void ClientObjectClass::Unknown_6FF1D0()
 {
 	if (Type == 38 && RenderObject && RenderObject->Class_ID() == RSTRACK_CLASSID && AuxData) {
-		NameClass name("PercentFull");
-		DeltaTemplateClass<float> *t = Unknown_Find_Field<DeltaTemplateClass<float> >((DeltaCompoundClass *)AuxData, name);
+		AuxDataName name("PercentFull");
+		DeltaTemplateClass<float> *t = Unknown_Find_Field<DeltaTemplateClass<float> >((DeltaContainer *)AuxData, name);
 		if (t && t->Unknown70 > 1) {
 			float percent = t->Value;
 			int state;
@@ -2416,8 +2416,8 @@ void ClientObjectClass::Unknown_6FF1D0()
 void ClientObjectClass::Unknown_6FF330(std::string &text)
 {
 	int level = 0;
-	NameClass name("CombatLevel");
-	DeltaTemplateClass<int> *t = Unknown_Find_Field<DeltaTemplateClass<int> >((DeltaCompoundClass *)AuxData, name);
+	AuxDataName name("CombatLevel");
+	DeltaTemplateClass<int> *t = Unknown_Find_Field<DeltaTemplateClass<int> >((DeltaContainer *)AuxData, name);
 	if (t && t->Unknown70) level = t->Value;
 	char buf[64];
 	_snprintf(buf, sizeof(buf), " (%d)", level);
@@ -2606,19 +2606,19 @@ void ClientObjectClass::Unknown_7009A0(bool on, bool force)
 }
 
 
-// 0x6FF7A0 the name label: the object's name, behind its Title or Rank for a type other than 0. The Name / Owner pick is an inline of its own (Unknown_Name_Sel: an inlined function's NameClass locals each keep a slot, as the client's four; inside the function the two arms share theirs), Title / Rank in closed scopes (they take the last slot, the client's esp+0x74); the valid-or-NULL lookup __forceinline inside the pick (a plain inline is called there)  // NOT EXACT: branch (two jump targets: the first lookup's valid exit of each arm passes the join's test eax where the client jumps past it, 0x6FF7FC / 0x6FF868; all else identical, the frame slots included)
+// 0x6FF7A0 the name label: the object's name, behind its Title or Rank for a type other than 0. The Name / Owner pick is an inline of its own (Unknown_Name_Sel: an inlined function's AuxDataName locals each keep a slot, as the client's four; inside the function the two arms share theirs), Title / Rank in closed scopes (they take the last slot, the client's esp+0x74); the valid-or-NULL lookup __forceinline inside the pick (a plain inline is called there)  // NOT EXACT: branch (two jump targets: the first lookup's valid exit of each arm passes the join's test eax where the client jumps past it, 0x6FF7FC / 0x6FF868; all else identical, the frame slots included)
 void ClientObjectClass::Unknown_6FF7A0(std::string &text)
 {
-	DeltaStringClass *t = Unknown_Name_Sel(this);
+	DeltaString *t = Unknown_Name_Sel(this);
 	const char *name = t ? t->String : "Unknown";
 	if (Type == 0) {
 		text = std::string(name);
 	} else {
-		const char *title; { NameClass ti("Title"); t = Unknown_Find_Valid<DeltaStringClass>((DeltaCompoundClass *)AuxData, ti); title = t ? t->String : ""; }
+		const char *title; { AuxDataName ti("Title"); t = Unknown_Find_Valid<DeltaString>((DeltaContainer *)AuxData, ti); title = t ? t->String : ""; }
 		if (*title) {
 			text = std::string(title) + " " + name;
 		} else {
-			const char *rank; { NameClass ra("Rank"); t = Unknown_Find_Valid<DeltaStringClass>((DeltaCompoundClass *)AuxData, ra); rank = t ? t->String : ""; }
+			const char *rank; { AuxDataName ra("Rank"); t = Unknown_Find_Valid<DeltaString>((DeltaContainer *)AuxData, ra); rank = t ? t->String : ""; }
 			if (*rank) {
 				text = std::string(rank) + " " + name;
 			} else {

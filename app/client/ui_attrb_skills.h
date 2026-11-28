@@ -10,15 +10,15 @@
 #include "ui_skills.h"
 class GadgetSlider;			// gd_slider.h's sliders (+0xD4, +0xD8)
 class RenderObjClass; class Unknown546A80Class;	// ui_attrb.h's (+0xC0)
-class Unknown664500Class;	// gd_attrb_skills.cpp's gadget (UnknownC4's elements; ui_attrb_skills.cpp declares it as far as it calls it)
+class AttributeSkillsGadget;	// gd_attrb_skills.cpp's gadget (UnknownC4's elements; ui_attrb_skills.cpp declares it as far as it calls it)
 
 // The attributes tab (0x124 bytes, tables 0xAEF4FC / 0xAEF4F0 / 0xAEF4E4; 0x5738B0 makes it, the first of the character
 // info window's tabs): the strings of 'fa_att.ini', two sliders, two panels and a layer
-class UIAttrbSkillsClass : public UISkillsClass	// NAME 3: class-from-file (D24) for app\Client\ui_attrb_skills.cpp
+class AttributeSkillsInterface : public UISkillsClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
-	UIAttrbSkillsClass(SClient *client);				// 0x549640 (0x124 bytes; deleting 0x549800)  // NAME 1 [client]: as UIBioClass's
-	virtual ~UIAttrbSkillsClass();						// 0x549830 ('fa_att.ini' unloaded)
+	AttributeSkillsInterface(SpaceClientClass *client);				// 0x549640 (0x124 bytes; deleting 0x549800)  // NAME 1 [client]: as BioInterface's
+	virtual ~AttributeSkillsInterface();						// 0x549830 ('fa_att.ini' unloaded)
 	virtual void Unknown_54();							// 0x549AA0 (FAIL_IF '!InterfaceMesh' l.121, G_ASSERT 'robj' l.147 / 155)
 	virtual void Unknown_58();							// 0x54A200
 	virtual void Unknown_5C();							// 0x54A3C0 (deactivated: the two panels' +0x5C, then the base's)
@@ -42,7 +42,7 @@ public:
 
 	RefCountPtr<RenderObjClass> InterfaceMesh;			// +0xBC (the mesh, Init's 'TSI12B': its fonts and its interface list entry)  // NAME 3: Init's FAIL_IF '!InterfaceMesh' (l.121)
 	RefCountPtr<Unknown546A80Class> UnknownC0;			// +0xC0 (ui_attrb.h's: the constructor news one; ui_starbase.cpp 0x638390 calls its 0x5473B0)
-	std::vector<Unknown664500Class *> UnknownC4;		// +0xC4 (its allocator byte, then +0xC8 first / +0xCC last / +0xD0 end)
+	std::vector<AttributeSkillsGadget *> UnknownC4;		// +0xC4 (its allocator byte, then +0xC8 first / +0xCC last / +0xD0 end)
 	GadgetSlider *UnknownD4;							// +0xD4
 	GadgetSlider *UnknownD8;							// +0xD8
 	GadgetClass *UnknownDC;								// +0xDC

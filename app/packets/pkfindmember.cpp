@@ -19,7 +19,7 @@ void FindMemberPacketClass::Add_Player(int unknown00, int unknown04, char unknow
 	NumPlayers++;
 }
 
-FindMemberPacketClass::FindMemberPacketClass(RawPacketClass *raw)
+FindMemberPacketClass::FindMemberPacketClass(PacketClass *raw)
 {
 	raw->Get(&NumPlayers, sizeof(NumPlayers));
 	for (int i = 0; i < NumPlayers; i++) {
@@ -43,9 +43,9 @@ FindMemberPacketClass::~FindMemberPacketClass()
 	PlayerList.erase(PlayerList.begin(), PlayerList.end()); PlayerList.size();	// the dead size() keeps erase's inner it++ out of line, as the client (workflow.md 3.1, 6bd0611)
 }
 
-RawPacketClass *FindMemberPacketClass::Build()
+PacketClass *FindMemberPacketClass::Encode()
 {
-	RawPacketClass *raw = new RawPacketClass(83, Get_Data_Size());
+	PacketClass *raw = new PacketClass(83, Get_Data_Size());
 	raw->Add(&NumPlayers, sizeof(NumPlayers));
 	for (std::list<FindMemberStruct *>::iterator it = PlayerList.begin(); it != PlayerList.end(); it++) {
 		FindMemberStruct *player = *it;

@@ -32,7 +32,7 @@ int Unknown_4316A0(unsigned int message, int wparam);	// NAME 1 [Unknown_4316A0,
 
 
 
-Win32MouseHandlerClass::Win32MouseHandlerClass(KeyQueueClass *queue) : MouseClass(queue)
+Win32MouseHandlerClass::Win32MouseHandlerClass(KeyQueueClass *queue) : MouseHandlerClass(queue)
 {
 	G_ASSERT(Mouse == NULL);
 	Mouse = this;
@@ -190,7 +190,7 @@ int Unknown_4314C0(unsigned short button, bool up)
 	event.Unknown04 = x;
 	event.Unknown08 = y;
 	event.Unknown0C = time;
-	MouseClass::Queue->Add(event);
+	MouseHandlerClass::Queue->Add(event);
 	return 0;
 }
 
@@ -337,7 +337,7 @@ void Win32MouseHandlerClass::Set_Pixel_Position(int x, int y)
 **	0x431490 (no reference in the client), WM_ACTIVATEAPP 0x4312C0, WM_MOVE 0x431470, the button
 **	event 0x4314C0 and the button / wheel messages 0x4316A0, the pixel and 0..1 positions 0x431900 /
 **	0x431950 / 0x431B70 / 0x431C30, and Update 0x431AA0 (NOT EXACT, register). 0x431A80 is
-**	MouseClass's destructor out of line (input.h). The next object starts at 0x431CA0 (the main
+**	MouseHandlerClass's destructor out of line (input.h). The next object starts at 0x431CA0 (the main
 **	window).
 **	Forms that matched: Get_Position clamps through WWMath::Clamp (the client's fld / fcom / fld
 **	constant), 0x4314C0 inline; 0x4316A0 with `result = -1` before the switch and the wheel's

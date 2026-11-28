@@ -8,12 +8,12 @@
 #include "..\shared\g_assert.h"
 #include "..\shared\kv_encoder.h"	// delta.h, and <string>: the client's object ends with <string>'s initialiser (0x5BF6B0); which header gave it is not known
 
-class UIMFDClass;
+class MFDInterface;
 class ClientObjectClass;
 
 // UIMFDExtendedContextClass, the panel every extended context derives from, is in ui_mfd_extended_context_base.h:
-// ui_mfd_extended_context_strings.cpp derives from it without this header (its client object has no PermStringInit,
-// so it never saw kv_encoder.h's delta.h / name.h / permstr.h, which the Watch below needs for DeltaCompoundClass).
+// ui_mfd_extended_context_strings.cpp derives from it without this header (its client object has no _PermStringInit,
+// so it never saw kv_encoder.h's delta.h / name.h / permstr.h, which the Watch below needs for DeltaContainer).
 
 
 
@@ -27,14 +27,14 @@ class ClientObjectClass;
 
 
 
-RefCountPtr<UIMFDExtendedContextClass> Unknown_5BF790(ClientObjectClass *self, ClientObjectClass *co, UIMFDClass *owner);	// 0x5BF790 (ui_mfd_extended_context_harvestable.cpp's '0 == co', l.45)  // NAME 1: neutral (D10)
+RefCountPtr<UIMFDExtendedContextClass> Unknown_5BF790(ClientObjectClass *self, ClientObjectClass *co, MFDInterface *owner);	// 0x5BF790 (ui_mfd_extended_context_harvestable.cpp's '0 == co', l.45)  // NAME 1: neutral (D10)
 
 // The panel kept while an object's 'HarvestableResources' has no contents yet (0x20 bytes, vtable 0xAF395C): it makes the
 // real panel, ExtendedContext, once the field is set and drops it when it empties
 class UIMFDExtendedContextWatchClass : public UIMFDExtendedContextClass	// NAME 1: neutral (D10)
 {
 public:
-	UIMFDExtendedContextWatchClass(DeltaCompoundClass *field, ClientObjectClass *self, ClientObjectClass *co, UIMFDClass *owner) :
+	UIMFDExtendedContextWatchClass(DeltaContainer *field, ClientObjectClass *self, ClientObjectClass *co, MFDInterface *owner) :
 		UIMFDExtendedContextClass(owner),
 		Self(self),
 		CO(co),
@@ -46,7 +46,7 @@ public:
 
 
 	// 0x5C0B70
-	static RefCountPtr<UIMFDExtendedContextWatchClass> Create(DeltaCompoundClass *field, ClientObjectClass *self, ClientObjectClass *co, UIMFDClass *owner);	// NAME 2 [field]: what it holds
+	static RefCountPtr<UIMFDExtendedContextWatchClass> Create(DeltaContainer *field, ClientObjectClass *self, ClientObjectClass *co, MFDInterface *owner);	// NAME 2 [field]: what it holds
 
 	virtual void Unknown_08();							// 0x5C0C80
 	virtual void Unknown_0C();							// 0x5C0CB0
@@ -55,12 +55,12 @@ public:
 
 	ClientObjectClass *Self;							// +0x0C  // NAME 1: neutral (D10)
 	ClientObjectClass *CO;								// +0x10  // NAME 2: what it holds
-	DeltaCompoundClass *Field;							// +0x14  // NAME 2: what it holds
+	DeltaContainer *Field;							// +0x14  // NAME 2: what it holds
 	RefCountPtr<UIMFDExtendedContextClass> ExtendedContext;	// +0x18  // NAME 5: the client's assert
 	bool Shown;											// +0x1C  // NAME 2: what it holds
 };
 
-inline RefCountPtr<UIMFDExtendedContextWatchClass> UIMFDExtendedContextWatchClass::Create(DeltaCompoundClass *field, ClientObjectClass *self, ClientObjectClass *co, UIMFDClass *owner)
+inline RefCountPtr<UIMFDExtendedContextWatchClass> UIMFDExtendedContextWatchClass::Create(DeltaContainer *field, ClientObjectClass *self, ClientObjectClass *co, MFDInterface *owner)
 {
 	FAIL_IF(0 == co) {
 		return(NULL);
@@ -108,7 +108,7 @@ inline void UIMFDExtendedContextWatchClass::Update_Context()
 {
 	if (Field->Unknown70 != 0) {
 		if (ExtendedContext == NULL) {
-			UIMFDClass *owner = Owner; ExtendedContext = Unknown_5BF790(Self, CO, owner);
+			MFDInterface *owner = Owner; ExtendedContext = Unknown_5BF790(Self, CO, owner);
 
 
 

@@ -18,13 +18,13 @@
 #include "pk.h"
 
 // opcode 237 (0x00ED, ?): vtable 0xB099C4, constructor 0x871A30, 0x24 bytes
-class GMResetMissionPacketClass : public PacketClass  // NAME 3: the client's Print text 'GM Reset Mission {'
+class GMResetMissionRequestPacketClass : public UnknownPacketBaseClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
-	GMResetMissionPacketClass(int unknown0c, const char *mission_name, bool unknown20);	// 0x871C10
-	GMResetMissionPacketClass(RawPacketClass *raw);	// 0x871A30
-	virtual ~GMResetMissionPacketClass();	// +0x00 0x871BE0 / 0x871D80
-	virtual RawPacketClass *Build();	// +0x04 0x871DF0
+	GMResetMissionRequestPacketClass(unsigned long unknown0c, const char *mission_name, bool unknown20);	// 0x871C10  // NAME 5: thunk order probable, binary.md 5.11
+	GMResetMissionRequestPacketClass(PacketClass *raw);	// 0x871A30
+	virtual ~GMResetMissionRequestPacketClass();	// +0x00 0x871BE0 / 0x871D80
+	virtual PacketClass *Encode();	// +0x04 0x871DF0  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x8695A0 (clientstub.cpp l.446)
 	virtual int Get_Data_Size();	// +0x0C 0x871EE0
 	virtual int Print(char *buffer, int len);	// +0x10 0x871F00

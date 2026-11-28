@@ -170,7 +170,7 @@ char *Value_To_String(char *buf, int size, StarbaseArtEnum r)
 /*
 **	Reconstruction notes
 **
-**	The object: 0x84A640-0x84A9E2 (after skill_level_availability.cpp's 0x84A600; StrEditClass's
+**	The object: 0x84A640-0x84A9E2 (after skill_level_availability.cpp's 0x84A600; StringEditClass's
 **	constructor 0x84AA10 follows), its data the four name tables 0xBB0C98-0xBB0D1B (contiguous, ahead of
 **	every string: defined first), their texts, the type names, the FAIL_IF texts and the __FILE__ string
 **	0xBB0E54. No guarded <string> initialiser. The FAIL_IFs pin lines 40/41, 82/83, 123/124 and 165/166.

@@ -20,7 +20,7 @@
 #include "random.h"
 extern RandomClass Unknown_BDBB84;					// NAME 1 [Unknown_BDBB84]: neutral (D10), as eff_o.cpp's
 #include "local_interface_sort.h"	// InterfaceSortScopeClass (0x54BD30)
-#include "unknown_675120.h"	// ButtonGadgetClass (0x54BD30's buttons)
+#include "gd_uimesh.h"	// ButtonGadgetClass (0x54BD30's buttons)
 #include "control_key_list.h"	// ControlKeyListClass (0x54BD30: Escape)
 
 
@@ -78,7 +78,7 @@ extern RandomClass Unknown_BDBB84;					// NAME 1 [Unknown_BDBB84]: neutral (D10)
 
 
 
-// The window's +0xB8: ship_pip.cpp's gadget (ui_avatr.cpp's +0x94); its +0x54 is avatar.h's CharacterViewAvatarClass
+// The window's +0xB8: ship_pip.cpp's gadget (ui_avatr.cpp's +0x94); its +0x54 is avatar.h's AvatarClass
 #include "ship_pip.h"
 
 
@@ -133,7 +133,7 @@ class LineDisplayClientClass  // NAME 1: neutral (D10)
 public:
 	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
 	virtual void Unknown_10(); virtual void Unknown_14();
-	virtual SClient *As_Space_Client();					// +0x18 (as ui_manu.cpp's)  // NAME 3: the FAIL_IF's in ui_manu.cpp
+	virtual SpaceClientClass *As_Space_Client();					// +0x18 (as ui_manu.cpp's)  // NAME 3: the FAIL_IF's in ui_manu.cpp
 
 	char Unknown04[0x112C - 0x04];						// +0x04
 	unsigned AvatarID;									// +0x112C (0x54EC30)  // NAME 3: client.h's ClientClass::AvatarID
@@ -261,8 +261,8 @@ static const char *UIAvatarCustRaces[3] = { "T", "J", "P" };	// 0xB7A46C: the mo
 
 
 
-template<class C> inline C *Unknown_Find_Valid(DeltaCompoundClass *root, const char *name) { NameClass n(name); C *t = Unknown_Find_Field<C>(root, n); if (t && t->Unknown70) return(t); return(NULL); }	// NAME 1: neutral (D10)
-template<class C> inline C *Unknown_Find_Changed(DeltaCompoundClass *root, const char *name) { NameClass n(name); C *t = Unknown_Find_Field<C>(root, n); if (t && t->Unknown70 > 1) return(t); return(NULL); }	// NAME 1: neutral (D10)
+template<class C> inline C *Unknown_Find_Valid(DeltaContainer *root, const char *name) { AuxDataName n(name); C *t = Unknown_Find_Field<C>(root, n); if (t && t->Unknown70) return(t); return(NULL); }	// NAME 1: neutral (D10)
+template<class C> inline C *Unknown_Find_Changed(DeltaContainer *root, const char *name) { AuxDataName n(name); C *t = Unknown_Find_Field<C>(root, n); if (t && t->Unknown70 > 1) return(t); return(NULL); }	// NAME 1: neutral (D10)
 
 // What the window holds at +0x368..+0x378 (its destructor 0x585BF0 not inlined; 0x54F2B0 deletes them)
 class UIAvatrUnknown2ECStruct	// NAME 1: neutral (D10), as unknown_585920.cpp / ui_avatr.cpp name it
@@ -388,7 +388,7 @@ StarbaseAvatarCreationInterface::StarbaseAvatarCreationInterface(UIViewClass *vi
 	Unknown5BB320Class(new UIMeshClass("buy_avatar00", -1), view, layer),
 	Unknown0AC(&layer),
 	Unknown0B0(3),
-	Unknown0B4((SBaseViewClass *)view->Unknown_30()),
+	Unknown0B4((StarbaseViewClass *)view->Unknown_30()),
 	Unknown0B8(NULL),
 	Unknown2FC(NULL),
 	Unknown300(0.5f, 0.5f),
@@ -471,9 +471,9 @@ void StarbaseAvatarCreationInterface::Unknown_54()
 	int i;
 	Unknown0B4->Unknown_69DC40();
 	InterfaceSortScopeClass sort(this);
-	SClient *client = Unknown0B4->Client;
-	AvatarDescClass *avatar = (AvatarDescClass *)client->Unknown_74C960(client->Get_Avatar_ID());
-	Unknown0BC = Create_NEW(new CharacterViewAvatarClass(avatar, 1, 1, client->Peek_Environment_Map_Manager()));
+	SpaceClientClass *client = Unknown0B4->Client;
+	AvatarDescriptionClass *avatar = (AvatarDescriptionClass *)client->Unknown_74C960(client->Get_Avatar_ID());
+	Unknown0BC = Create_NEW(new AvatarClass(avatar, 1, 1, client->Peek_Environment_Map_Manager()));
 	Unknown0BC->Unknown_77E3D0(1);
 	Unknown0BC->Unknown_Inline_231();
 	Unknown0BC->Unknown232 = true;
@@ -485,19 +485,19 @@ void StarbaseAvatarCreationInterface::Unknown_54()
 	for (i = 0; i < 14; i++) {
 		RefCountPtr<RenderObjClass> sub = Create_Get(InterfaceMesh->Peek_Object()->Get_Sub_Object_By_Name(UIAvatarCustParts[i].Button));
 		Unknown_496AE0(sub.Peek(), 0);
-		Unknown1CC[i] = (RObjGadgetClass *)new ButtonGadgetClass(sub.Peek(), *Unknown0AC, 0x55, 3);
+		Unknown1CC[i] = (RenderObjGadgetClass *)new ButtonGadgetClass(sub.Peek(), *Unknown0AC, 0x55, 3);
 		Unknown64.Unknown_6870E0((GadgetClass *)Unknown1CC[i], i + 1, View, 1, 0);
 	}
 	for (i = 0; i < 15; i++) {
 		RefCountPtr<RenderObjClass> sub = Create_Get(InterfaceMesh->Peek_Object()->Get_Sub_Object_By_Name(UIAvatarCustParts[i + 14].Button));
 		Unknown_496AE0(sub.Peek(), 0);
-		Unknown204[i] = (RObjGadgetClass *)new ButtonGadgetClass(sub.Peek(), *Unknown0AC, 0x55, 3);
+		Unknown204[i] = (RenderObjGadgetClass *)new ButtonGadgetClass(sub.Peek(), *Unknown0AC, 0x55, 3);
 		Unknown64.Unknown_6870E0((GadgetClass *)Unknown204[i], i + 0x10, View, 1, 0);
 	}
 	for (i = 0; i < 11; i++) {
 		RefCountPtr<RenderObjClass> sub = Create_Get(InterfaceMesh->Peek_Object()->Get_Sub_Object_By_Name(UIAvatarCustParts[i + 29].Button));
 		Unknown_496AE0(sub.Peek(), 0);
-		Unknown240[i] = (RObjGadgetClass *)new ButtonGadgetClass(sub.Peek(), *Unknown0AC, 0x55, 3);
+		Unknown240[i] = (RenderObjGadgetClass *)new ButtonGadgetClass(sub.Peek(), *Unknown0AC, 0x55, 3);
 		Unknown64.Unknown_6870E0((GadgetClass *)Unknown240[i], i + 0x20, View, 1, 0);
 	}
 	{
@@ -510,7 +510,7 @@ void StarbaseAvatarCreationInterface::Unknown_54()
 			sub->Set_Hidden(1);
 		}
 	}
-	Unknown0B8 = new ShipPipClass(1);
+	Unknown0B8 = new ShipPIPClass(1);
 	Unknown0B8->Unknown_74(Unknown0BC->Desc.Race);
 	Unknown0B8->Unknown_80C220((ViewClass *)Unknown0B4);
 	Unknown0B8->Set_Last_Sort_Group(true);
@@ -556,20 +556,20 @@ void StarbaseAvatarCreationInterface::Unknown_60()
 	Unknown_54FAA0();
 	Unknown_550A10();
 	Unknown0B8->Unknown_78();
-	((CharacterViewAvatarClass *)Unknown0B8->Unknown054.Peek())->Unknown_1C4();
+	((AvatarClass *)Unknown0B8->Unknown054.Peek())->Unknown_1C4();
 	Unknown5BB320Class::Unknown_60();
 }
 
 // The cases in the client's body order (jump table 0x54D430 by address: 1, 2, 0xD, 0xE, 3, 8, 0x10 .. 0x1B,
 // 0x24-0x27, 0x1C, 0x20 ..), 0x54EAD0 inlined for 0x12 / 0x13, the palette helper 0x5513E0 for 0x1A-0x1C, the
-// view's Client read once at the top (edi), the env maps through SClient's inline Peek_Environment_Map_Manager()
+// view's Client read once at the top (edi), the env maps through SpaceClientClass's inline Peek_Environment_Map_Manager()
 // in 0x16-0x19 (the six 0x551BF0 tails cross-jump into 0x19's; their goto done sends the inlined if's je to the
 // end's return, je 0x54D401), and case 1 reaching the Login_Mouse_Click tail at the end by goto login (VC6 places
 // it after case 1; 2, 0xD and 0xE then cross-jump back into it: jmp 0x54CC69 / 0x54CC77)
 // 0x54CBC0
 bool StarbaseAvatarCreationInterface::Unknown_68(int key)
 {
-	SClient *client = Unknown0B4->Client;
+	SpaceClientClass *client = Unknown0B4->Client;
 	if (!Unknown3CC) {
 		goto done;
 	}
@@ -584,15 +584,15 @@ bool StarbaseAvatarCreationInterface::Unknown_68(int key)
 		case 2:
 			Unknown_54DFE0(2);
 			Unknown_550670();
-			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
+			SoundLibrary::Play_2D_Sound("Login_Mouse_Click", 2);
 			return(true);
 		case 0xD:
 			Unknown_551900();
-			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
+			SoundLibrary::Play_2D_Sound("Login_Mouse_Click", 2);
 			return(true);
 		case 0xE:
 			Unknown0B4->Unknown_69F440();
-			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
+			SoundLibrary::Play_2D_Sound("Login_Mouse_Click", 2);
 			return(true);
 		case 3:
 			Unknown0B8->Unknown_8C();
@@ -615,27 +615,27 @@ bool StarbaseAvatarCreationInterface::Unknown_68(int key)
 		case 0x14:
 			Unknown370->Unknown_585CC0(); Unknown0BC->Unknown_7859F0(Unknown370->Get_Unknown18()); Unknown_5502F0();
 			Unknown0B8->Unknown_84(Unknown0BC);
-			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2); Unknown_551BF0(); goto done;
+			SoundLibrary::Play_2D_Sound("ButtonClick02.wav", 2); Unknown_551BF0(); goto done;
 		case 0x15:
 			Unknown370->Unknown_585C90(); Unknown0BC->Unknown_7859F0(Unknown370->Get_Unknown18()); Unknown_5502F0();
 			Unknown0B8->Unknown_84(Unknown0BC);
-			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2); Unknown_551BF0(); goto done;
+			SoundLibrary::Play_2D_Sound("ButtonClick02.wav", 2); Unknown_551BF0(); goto done;
 		case 0x16:
 			Unknown374->Unknown_585CC0(); Unknown0BC->Unknown_77FCE0(Unknown374->Get_Unknown18(), true); TheDX8MeshRenderer.Invalidate();
 			Unknown0BC->Unknown_780810(client->Peek_Environment_Map_Manager()); Unknown0B8->Unknown_84(Unknown0BC);
-			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2); Unknown_551BF0(); goto done;
+			SoundLibrary::Play_2D_Sound("ButtonClick02.wav", 2); Unknown_551BF0(); goto done;
 		case 0x17:
 			Unknown374->Unknown_585C90(); Unknown0BC->Unknown_77FCE0(Unknown374->Get_Unknown18(), true); TheDX8MeshRenderer.Invalidate();
 			Unknown0BC->Unknown_780810(client->Peek_Environment_Map_Manager()); Unknown0B8->Unknown_84(Unknown0BC);
-			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2); Unknown_551BF0(); goto done;
+			SoundLibrary::Play_2D_Sound("ButtonClick02.wav", 2); Unknown_551BF0(); goto done;
 		case 0x18:
 			Unknown378->Unknown_585CC0(); Unknown0BC->Unknown_77FC90(Unknown378->Get_Unknown18(), true); TheDX8MeshRenderer.Invalidate();
 			Unknown0BC->Unknown_780810(client->Peek_Environment_Map_Manager()); Unknown0B8->Unknown_84(Unknown0BC);
-			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2); Unknown_551BF0(); goto done;
+			SoundLibrary::Play_2D_Sound("ButtonClick02.wav", 2); Unknown_551BF0(); goto done;
 		case 0x19:
 			Unknown378->Unknown_585C90(); Unknown0BC->Unknown_77FC90(Unknown378->Get_Unknown18(), true); TheDX8MeshRenderer.Invalidate();
 			Unknown0BC->Unknown_780810(client->Peek_Environment_Map_Manager()); Unknown0B8->Unknown_84(Unknown0BC);
-			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2); Unknown_551BF0(); goto done;
+			SoundLibrary::Play_2D_Sound("ButtonClick02.wav", 2); Unknown_551BF0(); goto done;
 		case 0x1A:
 		case 0x1B:
 			Unknown_5513E0("fa_avatar_color.tga");
@@ -675,9 +675,9 @@ bool StarbaseAvatarCreationInterface::Unknown_68(int key)
 		default:
 			return(false);
 	}
-	SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
+	SoundLibrary::Play_2D_Sound("ButtonClick02.wav", 2);
 done:	return(true);
-login:	SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2); return(true);
+login:	SoundLibrary::Play_2D_Sound("Login_Mouse_Click", 2); return(true);
 }
 
 // 0x54D720
@@ -809,7 +809,7 @@ void StarbaseAvatarCreationInterface::Unknown_54DFE0(int mode)
 			Unknown0B8->Set_Unknown0DC(true);
 			Unknown0B8->Unknown_88();
 			Unknown0B8->Unknown_8C();
-			{ CharacterViewAvatarClass *avatar = Unknown0BC.Peek(); avatar->Unknown231 = true;
+			{ AvatarClass *avatar = Unknown0BC.Peek(); avatar->Unknown231 = true;
 			avatar->Unknown214 = true; }
 			break;
 		case 2:
@@ -821,7 +821,7 @@ void StarbaseAvatarCreationInterface::Unknown_54DFE0(int mode)
 			Unknown0B8->Set_Unknown0DC(false);
 			Unknown0B8->Unknown_88();
 			Unknown0B8->Unknown_8C();
-			{ CharacterViewAvatarClass *avatar = Unknown0BC.Peek(); avatar->Unknown231 = false;
+			{ AvatarClass *avatar = Unknown0BC.Peek(); avatar->Unknown231 = false;
 			avatar->Unknown214 = true; } Unknown0BC.Peek(); Unknown0BC.Peek();	// dead Peek()s (D130; not the client's): they spend VC6's inline budget, so the helper's second copy calls its ~RefCountPtr out of line
 			break;
 	}
@@ -960,10 +960,10 @@ void StarbaseAvatarCreationInterface::Unknown_54EAD0(int dir)
 // 0x54EC30
 void StarbaseAvatarCreationInterface::Unknown_54EC30()
 {
-	SClient *client = Client->As_Space_Client();
+	SpaceClientClass *client = Client->As_Space_Client();
 	client->Unknown_74C530(Client->AvatarID);
 	client->Unknown_74C3B0(Client->AvatarID, *Unknown0BC->Get_Desc());
-	UIStarbaseClass *starbase = (UIStarbaseClass *)((SBaseViewClass *)client->Unknown135C)->Get_Starbase().Peek();
+	StarbaseInterface *starbase = (StarbaseInterface *)((StarbaseViewClass *)client->Unknown135C)->Get_Starbase().Peek();
 	if (starbase) {
 		starbase->Unknown_6435E0();
 	}
@@ -1173,7 +1173,7 @@ void StarbaseAvatarCreationInterface::Unknown_54FAA0()
 			cv = point.Y;
 		}
 		Vector3 color;
-		RObjGadgetClass *area = Unknown31C->Unknown00->As_RObjGadget();
+		RenderObjGadgetClass *area = Unknown31C->Unknown00->As_RObjGadget();
 		Unknown_496C00(area->RObj, cu, 1.0f - cv, &color);
 		Unknown320[Unknown358].Set(cu, cv);
 		switch (Unknown358) {
@@ -1271,7 +1271,7 @@ void StarbaseAvatarCreationInterface::Unknown_550140(int id)
 // 0x5502F0
 void StarbaseAvatarCreationInterface::Unknown_5502F0()
 {
-	AvatarDescClass desc(*Unknown0BC->Get_Desc());
+	AvatarDescriptionClass desc(*Unknown0BC->Get_Desc());
 	bool movable;
 	int scale;
 	desc.Get_Facial_Feature(movable, scale);
@@ -1410,7 +1410,7 @@ void StarbaseAvatarCreationInterface::Unknown_550970(int value)
 // 0x550A10
 void StarbaseAvatarCreationInterface::Unknown_550A10()
 {
-	Unknown_Find_Field<DeltaTemplateClass<float> >(NULL, *(NameClass *)this); Unknown_Find_Field<DeltaTemplateClass<float> >(NULL, *(NameClass *)this);	// dead finds (not the client's): they spend VC6's inline budget, so block 3's two Rotate_Y sites stay out of line as the client's (matrix3d.h's copy 0x551270). Exact with 1, 2 or 3 of them; six were needed while the models came as Unknown240[k]->RObj and the translation went through three operator [] stores (attempts.py show 0x550A10)
+	Unknown_Find_Field<DeltaTemplateClass<float> >(NULL, *(AuxDataName *)this); Unknown_Find_Field<DeltaTemplateClass<float> >(NULL, *(AuxDataName *)this);	// dead finds (not the client's): they spend VC6's inline budget, so block 3's two Rotate_Y sites stay out of line as the client's (matrix3d.h's copy 0x551270). Exact with 1, 2 or 3 of them; six were needed while the models came as Unknown240[k]->RObj and the translation went through three operator [] stores (attempts.py show 0x550A10)
 	if (Unknown0B0 != 2) {
 		return;
 	}
@@ -2215,7 +2215,7 @@ void StarbaseAvatarCreationInterface::Unknown_551320(FlashingGadgetEvent *event,
 		return;
 	if (gadget->Flash && gadget->Is_Unknown2C_02()) {
 		if (gadget == Unknown1CC[0] || gadget == Unknown1CC[1] || gadget == Unknown1CC[12] || gadget == Unknown1CC[13]) {
-			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Over_Buttons", 2);
+			SoundLibrary::Play_2D_Sound("Login_Mouse_Over_Buttons", 2);
 		}
 	}
 }
@@ -2235,7 +2235,7 @@ void StarbaseAvatarCreationInterface::Unknown_5513E0(const char *name)
 // 0x551520
 void StarbaseAvatarCreationInterface::Unknown_551520(bool any)
 {
-	DeltaCompoundClass *aux = (DeltaCompoundClass *)Client->As_Space_Client()->AuxData;
+	DeltaContainer *aux = (DeltaContainer *)Client->As_Space_Client()->AuxData;
 	DeltaTemplateClass<MoneyClass> *money;
 	if (any) {
 		money = Unknown_Find_Valid<DeltaTemplateClass<MoneyClass> >(aux, "Money");
@@ -2316,7 +2316,7 @@ void StarbaseAvatarCreationInterface::Unknown_551B20(bool on)
 void StarbaseAvatarCreationInterface::Unknown_551BF0()
 {
 	if (Unknown3CC) {
-		AvatarDescClass *newavatar = &Unknown0BC->Desc;
+		AvatarDescriptionClass *newavatar = &Unknown0BC->Desc;
 		Unknown388 = Unknown390.Unknown_8493F0(&Unknown0C0, newavatar);
 	}
 }
@@ -2331,9 +2331,9 @@ void StarbaseAvatarCreationInterface::Unknown_551C40(const RecustomizationCostCl
 // 0x551C80
 void StarbaseAvatarCreationInterface::Unknown_551C80()
 {
-	SClient *client = Client->As_Space_Client();
+	SpaceClientClass *client = Client->As_Space_Client();
 	int id = client->Unknown1138;
-	client->Send_Packet(&StarbaseRequestPacketClass(id, 10, 0));
+	client->Send_Packet(&StarbaseReqPacketClass(id, 10, 0));
 }
 
 /*
@@ -2351,13 +2351,13 @@ void StarbaseAvatarCreationInterface::Unknown_551C80()
 **	0xB7ABC0 to 'NO_CHANGES' 0xB7AC70) lie in this file's block of literals, around its __FILE__
 **	(0xB7AB88), before the callback's type name and ui_avatar_dialog.cpp's first literal (0xB7AD0C).
 **	Before 0x550670 (TK15, claims #119 / #120): 0x54E610 (the gadgets hidden while the view's +0x34 is
-**	active), 0x54EC30 (NOT EXACT: the new look sent, RECUSTOMIZE_AVATAR_DONE; it brings SBaseViewClass's
+**	active), 0x54EC30 (NOT EXACT: the new look sent, RECUSTOMIZE_AVATAR_DONE; it brings StarbaseViewClass's
 **	Get_Starbase 0x54EDA0 and the packet's implicit destructor 0x54EDD0 out of line), 0x54F2B0 (+0x368..+0x378
 **	deleted), 0x550140 (the part buttons) and 0x550550 (the zoom); exact since (once register) 0x54E690 / 0x54E7F0 (the
 **	body and pants types), 0x54E950 (+0x368's value) and 0x54EAD0 (+0x36C's value); 0x54E3C0 (the model's
 **	turn while a turn button is held: 0x54E610 calls it), 0x54EE40 / 0x54EE80 (reached only through a table)
 **	exact. +0xBC is a RefCountPtr (0x54E690 hands it to +0xB8's
-**	slot +0x84 through a converted temporary). The file starts at 0x54B760, its PermStringInitClass static (0xBE5B34,
+**	slot +0x84 through a converted temporary). The file starts at 0x54B760, its PermStringInit static (0xBE5B34,
 **	atexit 0x54B790): 0x54B370 is ui_attrb_skills.cpp's (its FAIL_IF, line 577), and 0x54B740 / 0x54B750 are
 **	adjustor thunks to 0x549800 (ui_attrb_skills.cpp's class); the constructor 0x54B7B0 ('buy_avatar00') and
 **	the destructor 0x54BAB0 follow.
@@ -2371,6 +2371,6 @@ void StarbaseAvatarCreationInterface::Unknown_551C80()
 **	switch, once inline budget as ui_avatr.cpp's 0x556B20), 0x54F6F0 (the tattoo pull), 0x54FFC0 and 0x5502F0.
 **	Still NOT EXACT: 0x54F390 (the head pull dragged: one byte, the client re-tests +0x64). Init 0x54BD30
 **	(slot +0x54) exact (SA, 2026-11-20). The key handler 0x54CBC0 (slot +0x68) exact (once masked 31, SA 2026-11-20).
-**	+0xC0 is the old look (an AvatarDescClass, 0x10C bytes, up to the gadgets at +0x1CC), the avatar's +0xF8
-**	the new one; the +0xB8 gadget is ship_pip.cpp's (ship_pip.h's ShipPipClass).
+**	+0xC0 is the old look (an AvatarDescriptionClass, 0x10C bytes, up to the gadgets at +0x1CC), the avatar's +0xF8
+**	the new one; the +0xB8 gadget is ship_pip.cpp's (ship_pip.h's ShipPIPClass).
 */

@@ -27,13 +27,13 @@ enum GuildPermissionEnum  // NAME 1: neutral placeholder (D10)
 };
 
 // opcode 204 (0x00CC, GUILD_SIMPLE_SECTOR_CLIENT): vtable 0xB0A884, constructor 0x88BED0, 0x20 bytes
-class GuildSimpleSectorClientPacket : public PacketClass
+class GuildSimpleSectorClientPacket : public UnknownPacketBaseClass
 {
 public:
 	GuildSimpleSectorClientPacket(int type, const char *optional_param);	// 0x88BD40  // NAME 2: the stores (no caller left)
-	GuildSimpleSectorClientPacket(RawPacketClass *raw);	// 0x88BED0
+	GuildSimpleSectorClientPacket(PacketClass *raw);	// 0x88BED0
 	virtual ~GuildSimpleSectorClientPacket();	// +0x00 0x88BEA0 / 0x88BF90
-	virtual RawPacketClass *Build();	// +0x04 0x88C000
+	virtual PacketClass *Encode();	// +0x04 0x88C000  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x73DD00 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x88C0D0
 	virtual int Print(char *buffer, int len);	// +0x10 0x88C0F0
@@ -43,13 +43,13 @@ public:
 };
 
 // opcode 205 (0x00CD, GUILD_SIMPLE_CLIENT_SECTOR): vtable 0xB0A8B4, constructor 0x88C2D0, 0x24 bytes
-class GuildSimpleClientSectorPacketClass : public PacketClass  // NAME 3: the client's Print text 'GuildSimpleClientSectorPacket {' and the PacketClass convention
+class GuildSimpleClientSectorPacket : public UnknownPacketBaseClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
-	GuildSimpleClientSectorPacketClass(int type, int player_id, const char *optional_param);	// 0x88C130 (SClient 0x74EDB0)  // NAME 1 [type, player_id, optional_param]: its fields
-	GuildSimpleClientSectorPacketClass(RawPacketClass *raw);	// 0x88C2D0
-	virtual ~GuildSimpleClientSectorPacketClass();	// +0x00 0x88C3A0 (out of line: SClient 0x74EDB0 calls it)
-	virtual RawPacketClass *Build();	// +0x04 0x88C410
+	GuildSimpleClientSectorPacket(int type, int player_id, const char *optional_param);	// 0x88C130 (SpaceClientClass 0x74EDB0)  // NAME 1 [type, player_id, optional_param]: its fields
+	GuildSimpleClientSectorPacket(PacketClass *raw);	// 0x88C2D0
+	virtual ~GuildSimpleClientSectorPacket();	// +0x00 0x88C3A0 (out of line: SpaceClientClass 0x74EDB0 calls it)
+	virtual PacketClass *Encode();	// +0x04 0x88C410  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x868F70 (clientstub.cpp l.347)
 	virtual int Get_Data_Size();	// +0x0C 0x88C4E0
 	virtual int Print(char *buffer, int len);	// +0x10 0x88C500
@@ -60,13 +60,13 @@ public:
 };
 
 // opcode 197 (0x00C5, GUILD_LEADER_ACCEPT_CLIENT): vtable 0xB0A8E4, constructor 0x88C6E0, 0x24 bytes
-class GuildLeaderAcceptClientPacketClass : public PacketClass  // NAME 3: the client's Print text 'GuildLeaderAcceptClient {' and the PacketClass convention
+class GuildLeaderAcceptClientPacket : public UnknownPacketBaseClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
-	GuildLeaderAcceptClientPacketClass(int player_id, const char *guild_name, bool accept);	// 0x88C540
-	GuildLeaderAcceptClientPacketClass(RawPacketClass *raw);	// 0x88C6E0
-	virtual ~GuildLeaderAcceptClientPacketClass();	// +0x00 0x88C6B0 / 0x88C7B0
-	virtual RawPacketClass *Build();	// +0x04 0x88C820
+	GuildLeaderAcceptClientPacket(int player_id, const char *guild_name, bool accept);	// 0x88C540
+	GuildLeaderAcceptClientPacket(PacketClass *raw);	// 0x88C6E0
+	virtual ~GuildLeaderAcceptClientPacket();	// +0x00 0x88C6B0 / 0x88C7B0
+	virtual PacketClass *Encode();	// +0x04 0x88C820  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x869030 (clientstub.cpp l.359)
 	virtual int Get_Data_Size();	// +0x0C 0x88C8F0
 	virtual int Print(char *buffer, int len);	// +0x10 0x88C910
@@ -77,13 +77,13 @@ public:
 };
 
 // opcode 200 (0x00C8, GUILD_RECRUIT_CONFIRM_SECTOR): vtable 0xB0A914, constructor 0x88CB70, 0x2C bytes
-class GuildRecruitConfirmSectorPacket : public PacketClass
+class GuildRecruitConfirmSectorPacket : public UnknownPacketBaseClass
 {
 public:
 	GuildRecruitConfirmSectorPacket(const char *inviter_name, const char *guild_name);	// 0x88C960  // NAME 1 [inviter_name, guild_name]: its fields
-	GuildRecruitConfirmSectorPacket(RawPacketClass *raw);	// 0x88CB70
+	GuildRecruitConfirmSectorPacket(PacketClass *raw);	// 0x88CB70
 	virtual ~GuildRecruitConfirmSectorPacket();	// +0x00 0x88CB40 / 0x88CC40
-	virtual RawPacketClass *Build();	// +0x04 0x88CCE0
+	virtual PacketClass *Encode();	// +0x04 0x88CCE0  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x73E720 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x88CDB0
 	virtual int Print(char *buffer, int len);	// +0x10 0x88CDE0
@@ -93,13 +93,13 @@ public:
 };
 
 // opcode 201 (0x00C9, GUILD_RECRUIT_ACCEPT_CLIENT): vtable 0xB0A944, constructor 0x88CEB0, 0x14 bytes
-class GuildRecruitAcceptClientPacketClass : public PacketClass  // NAME 3: the client's Print text 'GuildRecruitAcceptClient {' and the PacketClass convention
+class GuildRecruitAcceptClientPacket : public UnknownPacketBaseClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
-	GuildRecruitAcceptClientPacketClass(int player_id, bool accept);	// 0x88CE30
-	GuildRecruitAcceptClientPacketClass(RawPacketClass *raw);	// 0x88CEB0
-	virtual ~GuildRecruitAcceptClientPacketClass();	// +0x00 0x88CF50 (out of line: SClient 0x74EDB0 calls it)
-	virtual RawPacketClass *Build();	// +0x04 0x88CF70
+	GuildRecruitAcceptClientPacket(int player_id, bool accept);	// 0x88CE30
+	GuildRecruitAcceptClientPacket(PacketClass *raw);	// 0x88CEB0
+	virtual ~GuildRecruitAcceptClientPacket();	// +0x00 0x88CF50 (out of line: SpaceClientClass 0x74EDB0 calls it)
+	virtual PacketClass *Encode();	// +0x04 0x88CF70  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x8690C0 (clientstub.cpp l.368)
 	virtual int Get_Data_Size();	// +0x0C 0x88D040
 	virtual int Print(char *buffer, int len);	// +0x10 0x88D060
@@ -109,13 +109,13 @@ public:
 };
 
 // opcode 208 (0x00D0, GUILD_MESSAGE_SECTOR): vtable 0xB0A974, constructor 0x88D2B0, 0x30 bytes
-class GuildMessageSectorPacket : public PacketClass
+class GuildMessageSectorPacket : public UnknownPacketBaseClass
 {
 public:
 	GuildMessageSectorPacket(int message_type, const char *other_name, const char *guild_name);	// 0x88D0A0  // NAME 1 [message_type, other_name, guild_name]: its fields
-	GuildMessageSectorPacket(RawPacketClass *raw);	// 0x88D2B0
+	GuildMessageSectorPacket(PacketClass *raw);	// 0x88D2B0
 	virtual ~GuildMessageSectorPacket();	// +0x00 0x88D390
-	virtual RawPacketClass *Build();	// +0x04 0x88D430
+	virtual PacketClass *Encode();	// +0x04 0x88D430  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x73E9E0 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x88D500
 	virtual int Print(char *buffer, int len);	// +0x10 0x88D540
@@ -126,12 +126,12 @@ public:
 };
 
 // opcode 210 (0x00D2, GUILD_PLAYER_PERMISSIONS): vtable 0xB0A9A4, constructor 0x88D630, 0x1C bytes
-class GuildPlayerPermissionsPacket : public PacketClass
+class GuildPlayerPermissionsPacket : public UnknownPacketBaseClass
 {
 public:
 	GuildPlayerPermissionsPacket(GuildPermissionEnum unknown0c, int unknown10, int unknown14, int unknown18);	// 0x88D590
-	GuildPlayerPermissionsPacket(RawPacketClass *raw);	// 0x88D630
-	virtual RawPacketClass *Build();	// +0x04 0x88D710
+	GuildPlayerPermissionsPacket(PacketClass *raw);	// 0x88D630
+	virtual PacketClass *Encode();	// +0x04 0x88D710  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x73ED40 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x88D800
 	virtual int Print(char *buffer, int len);	// +0x10 0x88D820 ('GuildPlayerPermissionsPacket {Permissions}')
@@ -143,12 +143,12 @@ public:
 };
 
 // opcode 212 (0x00D4, GUILD_RANK_NAMES_REQUEST_CLIENT): vtable 0xB0A9D4, constructor 0x88D8C0, 0x10 bytes
-class GuildRankNamesRequestClientPacketClass : public PacketClass  // NAME 3: the client's Print text 'GuildRankNamesRequestClient {' and the PacketClass convention
+class GuildRankNamesRequestClientPacket : public UnknownPacketBaseClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
-	GuildRankNamesRequestClientPacketClass(int player_id);	// 0x88D850
-	GuildRankNamesRequestClientPacketClass(RawPacketClass *raw);	// 0x88D8C0
-	virtual RawPacketClass *Build();	// +0x04 0x88D950
+	GuildRankNamesRequestClientPacket(int player_id);	// 0x88D850
+	GuildRankNamesRequestClientPacket(PacketClass *raw);	// 0x88D8C0
+	virtual PacketClass *Encode();	// +0x04 0x88D950  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x8691B0 (clientstub.cpp l.383)
 	virtual int Get_Data_Size();	// +0x0C 0x88DA10
 	virtual int Print(char *buffer, int len);	// +0x10 0x88DA30
@@ -166,12 +166,12 @@ struct GuildRankNameStruct  // NAME 2: what it holds (GuildRankNamesSector's ent
 };
 
 // opcode 211 (0x00D3, GUILD_RANK_NAMES_SECTOR): vtable 0xB0AA04, constructor 0x88DE10, 0x1C bytes
-class GuildRankNamesSectorPacket : public PacketClass  // NAME 3: the client's Print text 'GuildRankNamesSector {}'
+class GuildRankNamesSectorPacket : public UnknownPacketBaseClass  // NAME 3: the client's Print text 'GuildRankNamesSector {}'
 {
 public:
 	GuildRankNamesSectorPacket(const std::vector<GuildRankNameStruct> &ranks);	// 0x88DA60  // NAME 1 [ranks]: its field
-	GuildRankNamesSectorPacket(RawPacketClass *raw);	// 0x88DE10
-	virtual RawPacketClass *Build();	// +0x04 0x88E080
+	GuildRankNamesSectorPacket(PacketClass *raw);	// 0x88DE10
+	virtual PacketClass *Encode();	// +0x04 0x88E080  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x73EE20 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x88E1B0
 	virtual int Print(char *buffer, int len);	// +0x10 0x88E220
@@ -182,13 +182,13 @@ public:
 };
 
 // opcode 216 (0x00D8, ?): vtable 0xB0AA34, constructor 0x88E580, 0x2C bytes
-class GuildGMRenameConfirmSectorPacket : public PacketClass
+class GuildGMRenameConfirmSectorPacket : public UnknownPacketBaseClass
 {
 public:
 	GuildGMRenameConfirmSectorPacket(const char *old_guild_name, const char *new_guild_name);	// 0x88E370  // NAME 1 [old_guild_name, new_guild_name]: its fields
-	GuildGMRenameConfirmSectorPacket(RawPacketClass *raw);	// 0x88E580
+	GuildGMRenameConfirmSectorPacket(PacketClass *raw);	// 0x88E580
 	virtual ~GuildGMRenameConfirmSectorPacket();	// +0x00 0x88E550 / 0x88E650
-	virtual RawPacketClass *Build();	// +0x04 0x88E6F0
+	virtual PacketClass *Encode();	// +0x04 0x88E6F0  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x73EEF0 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x88E7C0
 	virtual int Print(char *buffer, int len);	// +0x10 0x88E7F0

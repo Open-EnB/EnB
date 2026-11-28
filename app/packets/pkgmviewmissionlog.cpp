@@ -2,7 +2,7 @@
 #include "pkgmviewmissionlog.h"
 #include <stdio.h>
 #include "..\shared\auth_product.h"
-GMViewMissionLogPacketClass::GMViewMissionLogPacketClass(RawPacketClass *raw) :
+GMViewMissionLogPacketClass::GMViewMissionLogPacketClass(PacketClass *raw) :
 	Unknown0C(0)
 {
 	raw->Get(Unknown0C);
@@ -25,9 +25,9 @@ GMViewMissionLogPacketClass::~GMViewMissionLogPacketClass()
 {
 }
 
-RawPacketClass *GMViewMissionLogPacketClass::Build()
+PacketClass *GMViewMissionLogPacketClass::Encode()
 {
-	RawPacketClass *raw = new RawPacketClass(235, Get_Data_Size());
+	PacketClass *raw = new PacketClass(235, Get_Data_Size());
 	raw->Add(Unknown0C);
 	int count = Strings.size();
 	raw->Add(count);

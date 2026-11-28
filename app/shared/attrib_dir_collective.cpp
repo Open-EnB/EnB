@@ -224,7 +224,7 @@ AttribDirCollective::~AttribDirCollective()
 {
 	FAIL_IF(!Members.empty()) {
 		while (!Members.empty()) {
-			AttribDir *member = (AttribDir *)(*Members.begin()).first;
+			AttributeDirectory *member = (AttributeDirectory *)(*Members.begin()).first;
 			Remove_Member(member);
 		}
 	}
@@ -254,14 +254,14 @@ void AttribDirCollective::Add_Destination(const std::string &source, const std::
 	Dir.Attach_Mod(destination.c_str(), new AttribFunctionModClass(function, 0, this));
 	MemberMap::iterator it = Members.begin();
 	for (; it != Members.end(); ++it) {
-		AttribDir *dir = (AttribDir *)(*it).first; MemberStruct *member = (*it).second;
+		AttributeDirectory *dir = (AttributeDirectory *)(*it).first; MemberStruct *member = (*it).second;
 		float value = dir->Get_Value(source.c_str());
 		function->Add(value);
 		member->Values[source] = value;
 		dir->Attach_Callback(source.c_str(), member->Callback);
 	}
 	for (it = Members.begin(); it != Members.end(); ++it) {
-		Link((AttribDir *)(*it).first, destination);
+		Link((AttributeDirectory *)(*it).first, destination);
 	}
 }
 
@@ -293,7 +293,7 @@ void AttribDirCollective::Add_Destination(const std::string &source, const std::
 
 
 
-void AttribDirCollective::Add_Member(AttribDir *member)
+void AttribDirCollective::Add_Member(AttributeDirectory *member)
 {
 	{ MemberMap::iterator find = Members.find((unsigned int)member);
 	FAIL_IF(find != Members.end()) return; }
@@ -326,7 +326,7 @@ void AttribDirCollective::Add_Member(AttribDir *member)
 
 
 
-void AttribDirCollective::Remove_Member(AttribDir *member)
+void AttribDirCollective::Remove_Member(AttributeDirectory *member)
 {
 	MemberMap::iterator find = Members.find((unsigned int)member);
 	FAIL_IF(find == Members.end()) return;
@@ -365,13 +365,13 @@ void AttribDirCollective::Remove_Member(AttribDir *member)
 
 
 
-void AttribDirCollective::Link(AttribDir *member, const std::string &destination)
+void AttribDirCollective::Link(AttributeDirectory *member, const std::string &destination)
 {
 	Link_Attribute(&Dir, destination, member, destination, 4, this);
 	Link_Attribute(&Dir, destination, member, destination, 5, this);
 }
 
-void AttribDirCollective::Detach_Owned_Mods(AttribDir *dir)
+void AttribDirCollective::Detach_Owned_Mods(AttributeDirectory *dir)
 {
 	Detach_Owner_Mods(dir, dir->Get_All_Mods(), this, false);
 }
@@ -380,7 +380,7 @@ AttribDirCollective::MemberStruct::MemberStruct()
 {
 }
 
-AttribDirCollective::MemberCallbackClass::MemberCallbackClass(AttribDirCollective &parent, AttribDir *member) : Parent(parent), Member(member)
+AttribDirCollective::MemberCallbackClass::MemberCallbackClass(AttribDirCollective &parent, AttributeDirectory *member) : Parent(parent), Member(member)
 {
 }
 
@@ -427,7 +427,7 @@ AttribDirCollective::DestinationStruct::~DestinationStruct()
 **	RefCountPtr instances. Calculate sorts without setting Sorted (as the client does). Then the
 **	collective, 0x4DBBC0-0x4DCFF0: constructor, destructor (225), Add_Destination (252), Add_Member
 **	(299), Remove_Member (332), Link, Detach_Owned_Mods, the member callback (0xAEC344, 390-401) and
-**	the tables' instances. Members are keyed by the member AttribDir's address as an unsigned int (the
+**	the tables' instances. Members are keyed by the member AttributeDirectory's address as an unsigned int (the
 **	client converts it into a temporary for every find); the loops keep references to the key and the
 **	destination (Add_Member: the destination pointer by value; its two dead Members.size() reads send
 **	MemberStruct's constructor 0x4DD240 out of line, a D272 device). Link_Attribute 0x4DFBF0 (links a member's bound to Dir) and Detach_Owner_Mods 0x4E0700 are the

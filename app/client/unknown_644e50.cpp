@@ -31,7 +31,7 @@
 #include "..\..\ww3d2\ww3d.h"
 #include "..\shared\message.h"
 #include "local_interface_sort.h"
-#include "unknown_675120.h"	// ButtonGadgetClass
+#include "gd_uimesh.h"	// ButtonGadgetClass
 #include "hanim.h"
 #include "ui_cinfo.h"
 #include "ui_attrb_skills.h"
@@ -43,7 +43,7 @@ class LineDisplayClientClass  // NAME 1: neutral (D10)
 public:
 	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
 	virtual void Unknown_10(); virtual void Unknown_14();
-	virtual SClient *As_Space_Client();					// +0x18 (SClient's returns itself)  // NAME 3: ui_manu.cpp's FAIL_IF's
+	virtual SpaceClientClass *As_Space_Client();					// +0x18 (SpaceClientClass's returns itself)  // NAME 3: ui_manu.cpp's FAIL_IF's
 	virtual void Unknown_1C(); virtual void Unknown_20(); virtual void Unknown_24(); virtual void Unknown_28(); virtual void Unknown_2C();
 	virtual void Unknown_30(); virtual void Unknown_34(); virtual void Unknown_38(); virtual void Unknown_3C(); virtual void Unknown_40();
 	virtual void Unknown_44(int arg);					// +0x44 (the starbase interface's destructor passes its +0x190's +0x90)  // NAME 1 [arg]: neutral
@@ -69,12 +69,12 @@ RefCountPtr<RenderObjClass> Unknown_497300(RenderObjClass *robj);	// 0x497300 (c
 
 
 // The starbase avatar (unknown_78a910.cpp's Unknown78A910AvatarClass)
-class Unknown78A910AvatarClass : public CharacterViewAvatarClass	// NAME 1: neutral (D10)
+class Unknown78A910AvatarClass : public AvatarClass	// NAME 1: neutral (D10)
 {
 public:
 	void Unknown_78B570(bool b);						// 0x78B570  // NAME 1 [b]: neutral
 
-	Unknown78A910AvatarClass(int a, AvatarDescClass *desc, EnvironmentMapManagerClass *env_maps);	// 0x78A910 (0x642740: the NPC's +0x1C and description)  // NAME 1 [a]: neutral
+	Unknown78A910AvatarClass(int a, AvatarDescriptionClass *desc, EnvironmentMapManagerClass *env_maps);	// 0x78A910 (0x642740: the NPC's +0x1C and description)  // NAME 1 [a]: neutral
 	void Unknown_78AD20(int anim, int min, int max, const char *model, const char *motion);	// 0x78AD20 (0x642740: an Action%02d, its roll range, ExtraAnim%02d and ExtraName%02d)  // NAME 1 [anim, min, max, model, motion]: as unknown_78a910.cpp's
 	void Unknown_78B010(const Matrix3D &tm); void Unknown_78B290(const Matrix3D &tm);	// 0x78B010 / 0x78B290 (0x642740: a Location%02d's OffsetBoneName / DestBoneName bone)  // NAME 1 [tm]: neutral
 	void Unknown_78B530(int a, int b, int c, int d);	// 0x78B530 (0x642740: MinWait, MaxWait, RelocateChance, ActionChance)  // NAME 1 [a, b, c, d]: neutral
@@ -91,7 +91,7 @@ public:
 #include "postate.h"
 #include "coltest.h"
 #include "random.h"
-// (ui_starbase.cpp's auxdata.h left out: the client's object opens with no PermStringInit)
+// (ui_starbase.cpp's auxdata.h left out: the client's object opens with no _PermStringInit)
 extern RandomClass Unknown_BDBB84; extern Random4Class Unknown_BDB1C0;	// NAME 1 [Unknown_BDB1C0]: 0xBDB1C0, as camctrl_dock.cpp's
 // The docking sounds by the starbase's column +0x18 (0xB8A8B0: 0x6415B0)
 // What 0x634140 news for the starbase interface's +0xB8: UIStarbaseGadget6B6050Class (0x44 bytes, constructor 0x6B6050,
@@ -164,7 +164,7 @@ UIStarbaseSymbolChatOptionStruct::~UIStarbaseSymbolChatOptionStruct()
 
 // The gadget made over the window's raw pointer (Window.Peek()), as the chat reply list 0x56E2A0
 // 0x644F80
-UIStarbaseUnknown1F8Class::UIStarbaseUnknown1F8Class(SClient *sclient) :
+UIStarbaseUnknown1F8Class::UIStarbaseUnknown1F8Class(SpaceClientClass *sclient) :
 	InterfaceClass((LineDisplayClientClass *)sclient),
 	Unknown84(0),
 	Window(NULL),
@@ -221,7 +221,7 @@ UIStarbaseUnknown1F8Class::~UIStarbaseUnknown1F8Class()
 void UIStarbaseUnknown1F8Class::Unknown_645510()
 {
 	InterfaceSortScopeClass scope(this);
-	SClient *client = ((LineDisplayClientClass *)Client)->As_Space_Client();
+	SpaceClientClass *client = ((LineDisplayClientClass *)Client)->As_Space_Client();
 	for (int i = 1; i < 5; i++) {
 		char name[32];
 		bool usable = false;
@@ -292,7 +292,7 @@ void UIStarbaseUnknown1F8Class::Unknown_58()
 		Window->Set_Center(Vector2(x, y));
 		Window->Add_To_Scene((SceneClass *)View->Unknown_50());
 		InterfaceClass::Unknown_58();
-		SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+		SoundLibrary::Play_2D_Sound("fontclick.wav", 2);
 	}
 }
 
@@ -310,7 +310,7 @@ bool UIStarbaseUnknown1F8Class::Unknown_68(int key)
 {
 	if (key) {
 		Unknown84 = key;
-		SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+		SoundLibrary::Play_2D_Sound("fontclick.wav", 2);
 		return(true);
 	}
 	return(false);
@@ -349,7 +349,7 @@ int UIStarbaseUnknown1F8Class::Unknown_645DC0()
 **	UIStarbaseUnknown1F8Class 0x644F80-0x645DC0, their vector instances 0x645DF0-0x645E80), then <string>'s guarded
 **	initialiser 0x646120 (entry 418, the object's only one) and the class's vector deleting destructors 0x646150 /
 **	0x646160. ui_starbase.cpp's object ends with its own guard 0x644DE0 (entry 417); the lights panel
-**	(unknown_646170.cpp) follows with 0x648380 (entry 419). The preamble is ui_starbase.cpp's (its includes and
+**	(ui_starbase_light.cpp) follows with 0x648380 (entry 419). The preamble is ui_starbase.cpp's (its includes and
 **	declarations, no definitions) without aux_group.h, which would define and number the Delta globals the client's
 **	object does not. No assert or string names the file: PROVISIONAL (D137); the client links objects in name order,
 **	so its name sorts after ui_starbase.cpp.

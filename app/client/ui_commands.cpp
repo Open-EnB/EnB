@@ -21,7 +21,7 @@ extern FontManagerClass *Unknown_BE67C4;	// NAME 1 [Unknown_BE67C4]: 0xBE67C4
 static const char *Unknown_B7E4D4[2] = { "exit", "add" };	// NAME 1: neutral (D10)
 
 // @0x57BAD0
-UICommandsClass::UICommandsClass(SClient *client) :
+UICommandsClass::UICommandsClass(SpaceClientClass *client) :
 	ChatPanelUIBase(client),
 	Slider(NULL),
 	Top(0),
@@ -73,7 +73,7 @@ void UICommandsClass::Unknown_58()
 		Unknown_57C8B0(Commands.size());
 		Unknown_57CB20(true);
 		if (Buttons[0] != NULL) {
-			((RObjGadgetClass *)Buttons[0])->Unknown_66C360();
+			((RenderObjGadgetClass *)Buttons[0])->Unknown_66C360();
 		}
 	}
 }
@@ -100,7 +100,7 @@ bool UICommandsClass::Unknown_68(int key)
 	switch (key) {
 		case 1:
 		case 2:
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			Unknown_5C();
 			Closed = 1;
 			return(true);
@@ -111,7 +111,7 @@ bool UICommandsClass::Unknown_68(int key)
 		case 8:
 		case 9:
 		case 10:
-			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+			SoundLibrary::Play_2D_Sound("fontclick.wav", 2);
 			Unknown_57CB60(key - 4);
 			return(true);
 	}
@@ -228,7 +228,7 @@ void UICommandsClass::Unknown_57CB60(int row)
 ** Notes.
 **	The object 0x57BAD0-0x57D540: the constructor first, the guarded <string> initialiser 0x57D4F0 and the adjustor
 **	thunks 0x57D520 / 0x57D530 (the second and third tables' deleting destructor) last; ui_combobox.cpp's thunks
-**	0x57BAB0 / 0x57BAC0 before it, the next object's PermStringInitClass initialiser 0x57D540 after (the function
+**	0x57BAB0 / 0x57BAC0 before it, the next object's PermStringInit initialiser 0x57D540 after (the function
 **	records start it at 0x57D530, size 0x165: the thunk and the initialiser as one). 0x57CC00 (the vector's destructor, the
 **	constructor's unwind), 0x57CC50, 0x57CC90, 0x57D070, 0x57D340 are the std::vector<SlashCommandStruct> instances
 **	its code makes; 0x57C820 SlashCommandStruct's destructor.

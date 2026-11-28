@@ -21,7 +21,7 @@ extern FontManagerClass *Unknown_BE67C4;	// NAME 1: neutral (D10)
 static const char *Unknown_B91C40[4] = { "exit", "button01", "button02", "button03" };	// NAME 1: neutral (D10)
 
 // 0x6B2460
-Unknown6B2460Class::Unknown6B2460Class(SClient *client) :
+Unknown6B2460Class::Unknown6B2460Class(SpaceClientClass *client) :
 	ChatPanelUIBase(client),
 	Slider(NULL),
 	Top(0),
@@ -66,7 +66,7 @@ void Unknown6B2460Class::Unknown_54()
 				}
 			}
 		}
-		((RObjGadgetClass *)Buttons[3])->Unknown_8C(true);
+		((RenderObjGadgetClass *)Buttons[3])->Unknown_8C(true);
 		for (i = 0; i < 7; i++) {
 			_snprintf(name, 0x20, "name%02d", i);
 			Rows[i] = Add_Button(i + 6, name, NULL);
@@ -95,7 +95,7 @@ void Unknown6B2460Class::Unknown_58()
 		Unknown_6B2F60(0);
 		Unknown_6B32B0(true);
 		if (Buttons[0]) {
-			((RObjGadgetClass *)Buttons[0])->Unknown_66C360();
+			((RenderObjGadgetClass *)Buttons[0])->Unknown_66C360();
 		}
 		ChatPanelUIBase::Unknown_58();
 	}
@@ -123,16 +123,16 @@ bool Unknown6B2460Class::Unknown_68(int key)
 {
 	switch (key) {
 		case 1:
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			Unknown_5C();
 			Closed = 1;
 			return(true);
 		case 2:
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			Unknown_6B35F0();
 			return(true);
 		case 3:
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			Unknown_6B3810();
 			return(true);
 		case 6:
@@ -142,7 +142,7 @@ bool Unknown6B2460Class::Unknown_68(int key)
 		case 10:
 		case 11:
 		case 12:
-			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+			SoundLibrary::Play_2D_Sound("fontclick.wav", 2);
 			Unknown_6B3240(key - 6);
 			return(true);
 	}
@@ -260,7 +260,7 @@ void Unknown6B2460Class::Unknown_6B35F0()
 	int index = Selected;
 	if (index != -1) {
 		index += Top;
-		GMResetMissionPacketClass packet(UnknownF4, Items[index].c_str(), false);
+		GMResetMissionRequestPacketClass packet(UnknownF4, Items[index].c_str(), false);
 		((ClientClass *)Client)->Send_Packet(&packet);
 		Items.erase(Items.begin() + index);
 		Unknown_6B38B0(0);
@@ -270,7 +270,7 @@ void Unknown6B2460Class::Unknown_6B35F0()
 // 0x6B3810
 void Unknown6B2460Class::Unknown_6B3810()
 {
-	GMResetMissionPacketClass packet(UnknownF4, NULL, true);
+	GMResetMissionRequestPacketClass packet(UnknownF4, NULL, true);
 	((ClientClass *)Client)->Send_Packet(&packet);
 	Unknown_5C();
 	Closed = 1;

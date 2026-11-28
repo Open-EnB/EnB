@@ -6,7 +6,7 @@
 **	co.cpp's client object, ClientObjectClass (the RTTI's .?AVClientObjectClass@@): co.cpp is rebuilt
 **	only in part (its small members), so the class is declared as far as co.cpp, client.cpp, cpacket.cpp
 **	and co_data.cpp use it (moved here from client.h). What the client shows of it: the constructor 0x6F2820 (vtable
-**	0xB0070C; its first argument, the client, at +0x7C: CREATE 0x733700 passes its SClient), the
+**	0xB0070C; its first argument, the client, at +0x7C: CREATE 0x733700 passes its SpaceClientClass), the
 **	destructor 0x6F2FE0 (it deletes the object's data through co_data.cpp's Remove_All 0x79D390 and
 **	resets a MultiFixedPoolDecalSystemClass vtable at +0x4C), ClientClass's object list node at
 **	+0x60 and the game id at +0x90. the CREATE factory 0x6F6000 (co.cpp, generated) is its
@@ -167,7 +167,7 @@ public:
 class ClientObjectClass : public UnknownB02C90Class, public MultiFixedPoolDecalSystemClass		// NAME 3: the RTTI's .?AVClientObjectClass@@ for co.cpp's class, not tied to this layout by a vtable
 {
 public:
-	ClientObjectClass(ClientClass *client, int type, int id);	// 0x6F2820 (CREATE 4 passes its SClient, the packet's Type and GameID)  // NAME 2 [client, type, id]: what CREATE passes
+	ClientObjectClass(ClientClass *client, int type, int id);	// 0x6F2820 (CREATE 4 passes its SpaceClientClass, the packet's Type and GameID)  // NAME 2 [client, type, id]: what CREATE passes  // NAME 5: thunk order probable, binary.md 5.11
 	virtual ~ClientObjectClass();						// +0x00 0x6F2FE0 (scalar deleting 0x6F2F30; ClientClass's destructor deletes through it)
 	virtual void Unknown_1C();							// +0x1C 0x6F5120 (the aux data's slot +0x20)
 	virtual void Unknown_20();							// +0x20 0x6F3C60 (FAIL_IF '!RenderObject' l.1779 inline: 0x6FD2C0)
@@ -274,7 +274,7 @@ public:
 	Matrix3D Unknown_6FED80(const LegoIdentifierClass &lego);	// 0x6FED80 (G_ASSERT 'RenderObject', l.2259): +0xB4's transform of the lego or the model's  // NAME 1 [lego]: what eff_o.cpp's 0x6E8F80 passes
 
 	HashNodeClass<ClientObjectClass *> Node;			// +0x60 ClientClass::ObjectList's node  // NAME 2: what it is
-	ClientClass *Client;								// +0x7C the constructor's first argument (CREATE passes its SClient; co_data.cpp calls its slot +0x18)  // NAME 2: what it holds
+	ClientClass *Client;								// +0x7C the constructor's first argument (CREATE passes its SpaceClientClass; co_data.cpp calls its slot +0x18)  // NAME 2: what it holds
 	char Unknown80[0x88 - 0x80];						// +0x80
 	char *AuxData;										// +0x88 (co.cpp's FAIL_IF '!aux_data', l.2461)  // NAME 3: the FAIL_IF's name
 	Unknown8CClass *Unknown8C;							// +0x8C (the destructor deletes it)

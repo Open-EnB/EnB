@@ -22,7 +22,7 @@
 // A render object on the unary end (vtable 0xB001C0, 12 slots, 0xDC bytes, constructor 0x6EEEA0, destructor
 // 0x6EF040). Its own flag bits: 0x200 the model scaled by the source's radius, 0x400 moved from the source's
 // centre to its surface towards the camera, 0x800 facing the camera, 0x1000 its texture mappers reset at the start.
-class RObjEffectClass : public UnknownB00060EffectClass	// NAME 3: effect.ini's EffectClass 'RObjEffect' (0xB92F6C), which the helper 0x6EA830 makes
+class RObjEffectClass : public UnaryEffectClass	// NAME 3: effect.ini's EffectClass 'RObjEffect' (0xB92F6C), which the helper 0x6EA830 makes
 {
 public:
 	RObjEffectClass(ClientClass *client, unsigned id, unsigned start_time, unsigned duration, unsigned cycle_time, RenderObjClass *robj);	// 0x6EEEA0 (FAIL_IF '!RObj' l.40)  // NAME 1 [client .. cycle_time]: the base's; robj: the member
@@ -52,14 +52,14 @@ public:
 // A render object on the binary end (vtable 0xB00238, 16 slots, 0xE4 bytes, constructor 0x6EF910, destructor
 // 0x6EFA70): the base of RObjLookAtEffectClass and of eff_seek.cpp's five effects. Its own flag bits: 0x4000 a
 // unary next link gets the model's transform, 0x8000 its texture mappers reset at the start.
-class Unknown6EF910EffectClass : public UnknownB0009CEffectClass	// NAME 1: neutral (D10)
+class Unknown6EF910EffectClass : public BinaryEffectClass	// NAME 1: neutral (D10)
 {
 public:
 	Unknown6EF910EffectClass(ClientClass *client, unsigned id, unsigned start_time, unsigned duration, unsigned cycle_time, RenderObjClass *robj);	// 0x6EF910  // NAME 1 [client .. cycle_time]: the base's; robj: the member
 	virtual ~Unknown6EF910EffectClass();				// +0x00 0x6EFA70 (scalar deleting 0x6EFA40; G_ASSERT 'RObj->Get_Scene() == NULL' l.208)
 	virtual void Unknown_18();							// +0x18 0x6EFBB0 (the model into the scene)
 	virtual void Unknown_20();							// +0x20 0x6EFC00 (the model out of its scene)
-	virtual void Unknown_3C(UnknownB00060EffectClass *unary, int next);	// +0x3C 0x6EFC20 (flag 0x4000)  // NAME 1 [unary, next]: the base's
+	virtual void Unknown_3C(UnaryEffectClass *unary, int next);	// +0x3C 0x6EFC20 (flag 0x4000)  // NAME 1 [unary, next]: the base's
 
 	RenderObjClass *RObj;								// +0xE0  // NAME 3: the destructor's G_ASSERT 'RObj->Get_Scene() == NULL'
 };

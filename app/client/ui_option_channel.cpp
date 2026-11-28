@@ -70,7 +70,7 @@ static const char *Unknown_B82CAC[21] = {	// NAME 1: neutral (D10)
 
 
 // 0x5C8DB0
-UIOptionChannelClass::UIOptionChannelClass(SClient *client, bool mode) :
+UIOptionChannelClass::UIOptionChannelClass(SpaceClientClass *client, bool mode) :
 	ChatPanelUIBase(client),
 	Mode(mode)
 {
@@ -101,7 +101,7 @@ void UIOptionChannelClass::Unknown_54()
 			Checks[i] = Add_Check_Button(i + 5, name, NULL);
 			if (!Unknown_B82CAC[i]) {
 				Checks[i]->Unknown_40(false);
-				((RObjGadgetClass *)Checks[i])->Unknown_8C(true);
+				((RenderObjGadgetClass *)Checks[i])->Unknown_8C(true);
 			}
 		}
 		Add_Back_Gadget(0, Vector3(0.0f, 0.0f, 0.0f));
@@ -130,16 +130,16 @@ void UIOptionChannelClass::Unknown_5C()
 // 0x5C9170
 bool UIOptionChannelClass::Unknown_68(int key)
 {
-	SClient *sclient = (SClient *)((ClientClass *)Client)->As_Space_Client();	// NAME 1: neutral (D10)
+	SpaceClientClass *sclient = (SpaceClientClass *)((ClientClass *)Client)->As_Space_Client();	// NAME 1: neutral (D10)
 	ChatPanelInterface *chat = sclient->ChatPanel.Peek();	// NAME 1: neutral (D10)
 	switch (key) {
 		case 1:
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			Unknown_5C();
 			Closed = 1;
 			return(true);
 		case 2:
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			if (!Mode) {
 				chat->Unknown_565F30(1);
 			}
@@ -148,14 +148,14 @@ bool UIOptionChannelClass::Unknown_68(int key)
 			Closed = 1;
 			return(true);
 		case 3:
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			if (!Mode) {
 				chat->Unknown_565F30(1);
 			}
 			break;
 		case 5: case 6: case 7: case 8: case 9: case 10: case 11: case 12: case 13: case 14: case 15:
 		case 16: case 17: case 18: case 19: case 20: case 21: case 22: case 23: case 24: case 25:
-			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+			SoundLibrary::Play_2D_Sound("fontclick.wav", 2);
 			return(true);
 		default:
 			return(false);
@@ -184,7 +184,7 @@ void UIOptionChannelClass::Unknown_5C92D0(bool on)
 // 0x5C9340
 void UIOptionChannelClass::Unknown_5C9340()
 {
-	OptionClass *options = OptionClass::Instance;	// NAME 1: neutral (D10)
+	OptionManagerClass *options = OptionManagerClass::Instance;	// NAME 1: neutral (D10)
 	for (int i = 0; i < 21; i++) {
 		if (Unknown_B82CAC[i]) {
 			BoolOptionStruct *option = options->Find_Bool(Unknown_B82CAC[i]);	// NAME 1: neutral (D10)
@@ -198,7 +198,7 @@ void UIOptionChannelClass::Unknown_5C9340()
 // 0x5C93B0
 void UIOptionChannelClass::Unknown_5C93B0()
 {
-	OptionClass *options = OptionClass::Instance;	// NAME 1: neutral (D10)
+	OptionManagerClass *options = OptionManagerClass::Instance;	// NAME 1: neutral (D10)
 	for (int i = 0; i < 21; i++) {
 		if (Unknown_B82CAC[i]) {
 			bool on = Checks[i]->Checked;	// NAME 1: neutral (D10)
@@ -216,7 +216,7 @@ void UIOptionChannelClass::Unknown_5C93B0()
 			}
 		}
 	}
-	SClient *sclient = (SClient *)((ClientClass *)Client)->As_Space_Client();	// NAME 1: neutral (D10)
+	SpaceClientClass *sclient = (SpaceClientClass *)((ClientClass *)Client)->As_Space_Client();	// NAME 1: neutral (D10)
 	ChatPanelInterface *chat = sclient->ChatPanel.Peek();	// NAME 1: neutral (D10)
 	if (chat) {
 		chat->Unknown_5689D0(0);

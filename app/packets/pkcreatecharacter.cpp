@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "..\shared\auth_product.h"
-CreateCharacterPacketClass::CreateCharacterPacketClass(RawPacketClass *raw) :
+CreateCharacterPacketClass::CreateCharacterPacketClass(PacketClass *raw) :
 	Unknown2D4(0),
 	Unknown2D8(0),
 	Unknown2DC(0)
@@ -17,9 +17,9 @@ CreateCharacterPacketClass::CreateCharacterPacketClass(RawPacketClass *raw) :
 	raw->Get((Unknown_PacketDataClass *)&Ship);
 }
 
-// The client calls AvatarDescClass's assignment out of line (0x85CB00, emitted in this object), inlines
+// The client calls AvatarDescriptionClass's assignment out of line (0x85CB00, emitted in this object), inlines
 // ShipCustDescClass's and stores the three ints after the members' constructors (assigned in the body)
-CreateCharacterPacketClass::CreateCharacterPacketClass(int unknown0C, int unknown10, const char *name, __int64 unknown60, const AvatarDescClass *desc, const ShipCustDescClass &ship, bool unknown14) :
+CreateCharacterPacketClass::CreateCharacterPacketClass(int unknown0C, int unknown10, const char *name, __int64 unknown60, const AvatarDescriptionClass *desc, const ShipCustDescClass &ship, bool unknown14) :
 	Unknown2D4(0),
 	Unknown2D8(0),
 	Unknown2DC(0)
@@ -39,9 +39,9 @@ CreateCharacterPacketClass::~CreateCharacterPacketClass()
 {
 }
 
-RawPacketClass *CreateCharacterPacketClass::Build()
+PacketClass *CreateCharacterPacketClass::Encode()
 {
-	RawPacketClass *raw = new RawPacketClass(72, Get_Data_Size());
+	PacketClass *raw = new PacketClass(72, Get_Data_Size());
 	raw->Add(Unknown0C);
 	raw->Add(Unknown10);
 	raw->Add(Unknown14);
@@ -68,7 +68,7 @@ int CreateCharacterPacketClass::Print(char *buffer, int)
 **
 **	* Client 0x85C5F0-0x85D170 (0x85C5C0 is the previous object's guarded static, 0xC416FC; this one's is
 **	  0x85D170): opcode 72, written by hand (builder P7, 2026-10-27): three ints, a 0x41-byte name, an
-**	  __int64, an AvatarDescClass and a ShipCustDescClass. Get_Data_Size counts the description as 0x10C
+**	  __int64, an AvatarDescriptionClass and a ShipCustDescClass. Get_Data_Size counts the description as 0x10C
 **	  bytes (0x161 with the rest) and asks only the ship for its size, as the client does.
 **	* The file name is provisional (no assert names it).
 */

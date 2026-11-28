@@ -12,7 +12,7 @@ extern Random4Class Unknown_BDB1C0;				// NAME 1 [Unknown_BDB1C0]: 0xBDB1C0, the
 static float Unknown_B04FF8 = 4.0f;				// NAME 1: neutral (D10): 0x795C80's
 
 // @0x795900
-CameraController03Class::CameraController03Class(SClient *client) :
+StargateCameraControllerClass::StargateCameraControllerClass(SpaceClientClass *client) :
 	CameraControllerClass(client),
 	Unknown0C(NULL),
 	Unknown10(0),
@@ -22,7 +22,7 @@ CameraController03Class::CameraController03Class(SClient *client) :
 }
 
 // @0x7959D0
-CameraController03Class::~CameraController03Class()
+StargateCameraControllerClass::~StargateCameraControllerClass()
 {
 	if (Unknown0C) {
 		delete Unknown0C;
@@ -31,7 +31,7 @@ CameraController03Class::~CameraController03Class()
 }
 
 // @0x795A50
-void CameraController03Class::Unknown_04()
+void StargateCameraControllerClass::Unknown_04()
 {
 	Unknown_795C80(0);
 	Unknown10 = Client->Unknown10BC;
@@ -40,7 +40,7 @@ void CameraController03Class::Unknown_04()
 
 // @0x795A80
 
-void CameraController03Class::Unknown_08(Vector3 *pos, Quaternion *rot, int *mode, int *target)
+void StargateCameraControllerClass::Unknown_08(Vector3 *pos, Quaternion *rot, int *mode, int *target)
 {
 	float distance = CameraManagerClass::Unknown_79B6B0();
 
@@ -94,14 +94,14 @@ void CameraController03Class::Unknown_08(Vector3 *pos, Quaternion *rot, int *mod
 }
 
 // @0x795C60
-void CameraController03Class::Unknown_0C()
+void StargateCameraControllerClass::Unknown_0C()
 {
 	Unknown0C->Unknown_0C();
 }
 
 // @0x795C80
 // NOT EXACT: register-only: registers and one spill slot; every call, literal and member offset is the client's; functional
-void CameraController03Class::Unknown_795C80(bool phase)
+void StargateCameraControllerClass::Unknown_795C80(bool phase)
 {
 	FAIL_IF(!Client->Get_Avatar()) {
 		return;

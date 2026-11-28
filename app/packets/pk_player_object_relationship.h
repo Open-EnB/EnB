@@ -23,12 +23,12 @@
 #include "relationship.h"	// MobReactionType, RelationshipClass
 
 // opcode 137 (0x0089, RELATIONSHIP): vtable 0xB09B14, constructor 0x873C30, 0x20 bytes
-class PlayerObjectRelationshipPacket : public PacketClass
+class PlayerObjectRelationshipPacket : public UnknownPacketBaseClass
 {
 public:
 	PlayerObjectRelationshipPacket(int object_id, int channel, const RelationshipClass &relationship, int priority);	// 0x873AE0
-	PlayerObjectRelationshipPacket(RawPacketClass *raw);	// 0x873C30
-	virtual RawPacketClass *Build();	// +0x04 0x873D10
+	PlayerObjectRelationshipPacket(PacketClass *raw);	// 0x873C30
+	virtual PacketClass *Encode();	// +0x04 0x873D10  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x7398E0 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x873DF0
 	virtual int Print(char *buffer, int len);	// +0x10 0x873E10
@@ -38,7 +38,7 @@ public:
 	int ObjectID;	// +0x0C (-1 by default)  // NAME 3: the client's Print text 'ObjectID='
 	RelationshipClass Relationship;	// +0x10  // NAME 2: what it holds
 	int Priority;	// +0x18 (-63 by default; not read from the message)  // NAME 2: Get_Priority returns it
-	int Channel;	// +0x1C (PacketClass::Unknown_14 of ObjectID; -1 by default)  // NAME 2: Get_Channel returns it
+	int Channel;	// +0x1C (UnknownPacketBaseClass::Unknown_14 of ObjectID; -1 by default)  // NAME 2: Get_Channel returns it
 };
 
 // One reaction of opcode 138: 8 bytes (the id in network order, the reaction as its 4 bytes)
@@ -69,12 +69,12 @@ public:
 };
 
 // opcode 138 (0x008A, ?): vtable 0xB09B44, constructor 0x873F70, 0x20 bytes
-class PlayerObjectReactionUpdatePacket : public PacketClass
+class PlayerObjectReactionUpdatePacket : public UnknownPacketBaseClass
 {
 public:
 	PlayerObjectReactionUpdatePacket(int priority);	// 0x873E90
-	PlayerObjectReactionUpdatePacket(RawPacketClass *raw);	// 0x873F70
-	virtual RawPacketClass *Build();	// +0x04 0x874270
+	PlayerObjectReactionUpdatePacket(PacketClass *raw);	// 0x873F70
+	virtual PacketClass *Encode();	// +0x04 0x874270  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x7399D0 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x874380
 	virtual int Print(char *buffer, int len);	// +0x10 0x874530
@@ -88,12 +88,12 @@ public:
 };
 
 // opcode 139 (0x008B, ATTACKER_UPDATES): vtable 0xB09B94, constructor 0x874BE0, 0x24 bytes
-class PlayerObjectIsAttackingUpdatePacket : public PacketClass
+class PlayerObjectIsAttackingUpdatePacket : public UnknownPacketBaseClass
 {
 public:
 	PlayerObjectIsAttackingUpdatePacket(bool attacking, int priority);	// 0x874AE0
-	PlayerObjectIsAttackingUpdatePacket(RawPacketClass *raw);	// 0x874BE0
-	virtual RawPacketClass *Build();	// +0x04 0x874ED0
+	PlayerObjectIsAttackingUpdatePacket(PacketClass *raw);	// 0x874BE0
+	virtual PacketClass *Encode();	// +0x04 0x874ED0  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x739AC0 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x874FE0
 	virtual int Print(char *buffer, int len);	// +0x10 0x875020

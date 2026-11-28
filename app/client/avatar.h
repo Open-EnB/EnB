@@ -40,11 +40,11 @@ struct Unknown_AvatarQueueStruct	// NAME 1: neutral (D10)
 };
 
 // avatar.cpp's model (the view's +0x194, +0x198 and +0x1A4)
-class CharacterViewAvatarClass : public CompositeRenderObjClass	// NAME 1: neutral (D10)
+class AvatarClass : public CompositeRenderObjClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
-	CharacterViewAvatarClass(AvatarDescClass *desc, bool a, bool b, EnvironmentMapManagerClass *env_maps);	// 0x77B870 (0x384 bytes)
-	virtual ~CharacterViewAvatarClass();				// 0x77C080
+	AvatarClass(AvatarDescriptionClass *desc, bool a, bool b, EnvironmentMapManagerClass *env_maps);	// 0x77B870 (0x384 bytes)
+	virtual ~AvatarClass();				// 0x77C080
 	virtual RenderObjClass *Clone() const;				// 0x77C870
 	virtual void Set_Transform(const Matrix3D &m);		// 0x77D1E0 (the body too; +0x330 keeps it unless +0x36C)
 	virtual void Set_Position(const Vector3 &v);		// 0x77D2B0 (the body too)
@@ -64,8 +64,8 @@ public:
 	void Unknown_77DA20();								// 0x77DA20 (the models from Desc: body, collision, head, mask, face animation, weapons, accessories)  // NAME 1: neutral
 	void Unknown_781680();								// 0x781680 (a new PlayerNLP: FAIL_IF 'PlayerNLP != 0'; 0x77D7F0, 0x77E3F0, 0x77E610)  // NAME 1: neutral
 	float Unknown_77D9F0(bool a);						// 0x77D9F0 (0x80E260: false): +0x234, plus 1 when a  // NAME 1 [a]: neutral
-	CharacterViewAvatarClass *Unknown_77E3F0();		// 0x77E3F0 (the models made on first use, +0x221; one more reference; SClient's 0x74C7B0)  // NAME 1: neutral
-	CharacterViewAvatarClass *Unknown_77E610();		// 0x77E610 (0x77E3F0 without the reference; SClient's 0x74C840)  // NAME 1: neutral
+	AvatarClass *Unknown_77E3F0();		// 0x77E3F0 (the models made on first use, +0x221; one more reference; SpaceClientClass's 0x74C7B0)  // NAME 1: neutral
+	AvatarClass *Unknown_77E610();		// 0x77E610 (0x77E3F0 without the reference; SpaceClientClass's 0x74C840)  // NAME 1: neutral
 	void Unknown_77E3D0(int a);							// 0x77E3D0 (0x67A6C0: 1)  // NAME 1 [a]: neutral
 	void Unknown_784A50(const char *name, bool a, bool b);	// 0x784A50 ('/walk_on' 1, 1; '/walk_off' 1, 0: the text parsed by the NLP into +0xE8, then 0x784700)  // NAME 1 [name, a, b]: neutral
 	void Unknown_784B80(char *data, int size, bool flag);	// 0x784B80 (a chat stream's bytes into +0xE8, then 0x784700; CLIENT_CHAT_EVENT 165, MESSAGE_CHATSTREAM 95)  // NAME 1 [data, size, flag]: what the handler passes
@@ -160,7 +160,7 @@ void Unknown_780AF0();								// 0x780AF0 (the body morph: ARM / SHIRT / PANT me
 	void Unknown_77FDA0(int num);						// 0x77FDA0 (Weapon_Unique_Num set and its weapon made onto the leg / arm bone, with a body; unreferenced: 0x77DA20 inlines it)  // NAME 1 [num]: neutral
 	void Unknown_77FE20(int num);						// 0x77FE20 (Weapon_Hip_Num's, WEAPHIP; unreferenced: 0x77DA20 inlines it)  // NAME 1 [num]: neutral
 	void Unknown_77FE70(int num);						// 0x77FE70 (Weapon_Back_Num's, WEAPBAK; unreferenced: 0x77DA20 inlines it)  // NAME 1 [num]: neutral
-	void Unknown_780810(EnvironmentMapManagerClass *env_maps);	// 0x780810 (the constructor; ui_avatar_cust / SClient): the shirt and pants colorization regions and the skin colour onto the body and head (shiputils.cpp 0x80FCE0)  // NAME 1 [env_maps]: neutral
+	void Unknown_780810(EnvironmentMapManagerClass *env_maps);	// 0x780810 (the constructor; ui_avatar_cust / SpaceClientClass): the shirt and pants colorization regions and the skin colour onto the body and head (shiputils.cpp 0x80FCE0)  // NAME 1 [env_maps]: neutral
 	void Unknown_7804A0(const Vector3 &color);			// 0x7804A0 (Eye_Color onto LEYE010..4 / REYE010..4)  // NAME 1 [color]: neutral
 	void Unknown_77E830(const float *weights);			// 0x77E830 (the body morph weights, normalised; ui_avatr.cpp's 0x558060)  // NAME 1 [weights]: its assert's
 	void Unknown_77E900(const float *weights);			// 0x77E900 (the head morph weights, normalised; ui_avatr.cpp's 0x558060)  // NAME 1 [weights]: its assert's
@@ -193,8 +193,8 @@ void Unknown_780AF0();								// 0x780AF0 (the body morph: ARM / SHIRT / PANT me
 	int Unknown0E4;										// +0xE4 (0x783B50: the WW3D frame count of the last update)
 	Unknown_ChatStreamClass Unknown0E8;					// +0xE8 (0x77B870: 0x4C4430; the NLP's command stream, 0x784A50)
 	PlayerNLPClass *PlayerNLP;							// +0xF4 (0x77B870: 0x78EB50)  // NAME 2: PlayerNLP != 0 assert
-	AvatarDescClass *Get_Desc() { return(&Desc); }	// (inline: ui_avatr.cpp's 0x559350 calls an out-of-line copy, 0x559490)  // NAME 1: neutral (D10), as ui_avatar_cust.cpp's view
-	AvatarDescClass Desc;								// +0xF8 (0x10C bytes)
+	AvatarDescriptionClass *Get_Desc() { return(&Desc); }	// (inline: ui_avatr.cpp's 0x559350 calls an out-of-line copy, 0x559490)  // NAME 1: neutral (D10), as ui_avatar_cust.cpp's view
+	AvatarDescriptionClass Desc;								// +0xF8 (0x10C bytes)
 	int Unknown204;										// +0x204 (0x77E3D0 sets it)
 	int Unknown208;										// +0x208
 	int Unknown20C;										// +0x20C

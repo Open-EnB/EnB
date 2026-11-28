@@ -9,14 +9,14 @@ GlobalDeleteCharacterPacketClass::GlobalDeleteCharacterPacketClass(int slot) :
 {
 }
 
-GlobalDeleteCharacterPacketClass::GlobalDeleteCharacterPacketClass(RawPacketClass *raw)
+GlobalDeleteCharacterPacketClass::GlobalDeleteCharacterPacketClass(PacketClass *raw)
 {
 	raw->Get(Unknown0C);
 }
 
-RawPacketClass *GlobalDeleteCharacterPacketClass::Build()
+PacketClass *GlobalDeleteCharacterPacketClass::Encode()
 {
-	RawPacketClass *raw = new RawPacketClass(113, Get_Data_Size());
+	PacketClass *raw = new PacketClass(113, Get_Data_Size());
 	raw->Add(Unknown0C);
 	return(raw);
 }

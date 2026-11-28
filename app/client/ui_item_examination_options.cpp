@@ -8,14 +8,14 @@
 #include <algorithm>
 
 UIItemExaminationOptionsClass::UIItemExaminationOptionsClass(GadgetCollectionInterface *listener) :
-	DynamicWindowVerticalClass(0x82),
+	VerticalDynamicWindow(0x82),
 	Listener(listener)
 {
 	Frame = Create_NEW(new DynamicWindowBackgroundClass("ITEM_EXAMINATION_OPTIONS", 2));
-	RefCountPtr<DynamicWindowVerticalClass> contents = Create_NEW(new DynamicWindowVerticalClass(6));
+	RefCountPtr<VerticalDynamicWindow> contents = Create_NEW(new VerticalDynamicWindow(6));
 	RefCountPtr<DynamicWindowTextClass> title = DynamicWindowTextClass::Create("OPTIONS_IEI00", "Options", 0);
 	contents->Add_Element(title);
-	List = Create_NEW(new DynamicWindowVerticalClass(6));
+	List = Create_NEW(new VerticalDynamicWindow(6));
 	contents->Add_Element(List);
 	Frame->Set_Contents(contents);
 }
@@ -55,7 +55,7 @@ void UIItemExaminationOptionsClass::Clear()
 }
 
 ItemOptionObject::ItemOptionObject(const RefCountPtr<ClientItemPropertyOptionClass> &option, GadgetCollectionInterface *listener) :
-	DynamicWindowHorizontalClass(6),
+	HorizontalDynamicWindow(6),
 	Option(option),
 	Listener(listener),
 	Gadget(NULL)

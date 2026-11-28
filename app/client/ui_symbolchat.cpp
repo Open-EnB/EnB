@@ -97,7 +97,7 @@ UISymbolChatOptionStruct::~UISymbolChatOptionStruct()
 }
 
 // 0x64A480
-UISymbolChatClass::UISymbolChatClass(SClient *sclient) :
+UISymbolChatClass::UISymbolChatClass(SpaceClientClass *sclient) :
 	InterfaceClass((LineDisplayClientClass *)sclient),
 	Unknown84(0),
 	Window(NULL),
@@ -214,7 +214,7 @@ void UISymbolChatClass::Unknown_58()
 		Window->Set_Center(Vector2(x, y));
 		Window->Add_To_Scene((SceneClass *)View->Unknown_50());
 		InterfaceClass::Unknown_58();
-		SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+		SoundLibrary::Play_2D_Sound("fontclick.wav", 2);
 	}
 }
 
@@ -233,7 +233,7 @@ bool UISymbolChatClass::Unknown_68(int key)
 {
 	if (key) {
 		Unknown84 = key;
-		SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+		SoundLibrary::Play_2D_Sound("fontclick.wav", 2);
 		return(true);
 	}
 	return(false);

@@ -15,11 +15,11 @@
 #include "aux_roots_types.h"
 
 // vtable 0xB03638 (e.g. Player.RPGInfo.Skills.N)
-// NAME 4: Net-7 AuxSkill confirmed by structure (C# fields = ours (same names, same order); Net-7 Construct 7 children = ours); C# Skill
-class DeltaSkillClass : public DeltaCompoundClass
+// NAME 5: thunk order A, binary.md 5.11; before the rename NAME 4: Net-7 AuxSkill confirmed by structure (C# fields = ours (same names, same order); Net-7 Construct 7 children = ours); C# Skill
+class DeltaSkill : public DeltaContainer
 {
 public:
-	DeltaSkillClass(const char *name);	// 0x753520
+	DeltaSkill(const char *name);	// 0x753520
 
 	DeltaTemplateClass<int> Level;	// +0x9C
 	DeltaTemplateClass<int> RecycleTime;	// +0x124
@@ -27,15 +27,15 @@ public:
 	DeltaTemplateClass<SkillLevelAvailabilityStruct> Availability;	// +0x240
 	DeltaTemplateClass<int> QuestOnlyLevels;	// +0x2D4
 	DeltaTemplateClass<int> MaxSkillLevels;	// +0x35C
-	DeltaStringClass Affiliations;	// +0x3E4
+	DeltaString Affiliations;	// +0x3E4
 };
 
 // vtable 0xB036EC (e.g. Player.RPGInfo.SkillAbilities.N)
-// NAME 4: Net-7 AuxSkillAbility confirmed by structure (C# fields = ours (same names, same order); Net-7 Construct 7 children = ours); C# SkillAbility
-class DeltaSkillAbilityClass : public DeltaCompoundClass
+// NAME 5: thunk order A, binary.md 5.11; before the rename NAME 4: Net-7 AuxSkillAbility confirmed by structure (C# fields = ours (same names, same order); Net-7 Construct 7 children = ours); C# SkillAbility
+class DeltaSkillAbility : public DeltaContainer
 {
 public:
-	DeltaSkillAbilityClass(const char *name);	// 0x7538B0
+	DeltaSkillAbility(const char *name);	// 0x7538B0
 
 	DeltaTemplateClass<bool> HasAbility;	// +0x9C
 	DeltaTemplateClass<EffectGeneratorUsageBF> Usage;	// +0x124
@@ -48,15 +48,15 @@ public:
 
 // vtable 0xB03474 (e.g. Player.RPGInfo)
 // NAME 4: Net-7 AuxRPGInfo confirmed by structure (C# fields = ours (same names, same order); Net-7 Construct 16 children = ours); C# PilotRpgInfo
-class DeltaRPGInfoClass : public DeltaCompoundClass
+class DeltaRPGInfoClass : public DeltaContainer
 {
 public:
 	DeltaRPGInfoClass(const char *name);	// 0x752E60
 
 	DeltaTemplateClass<RaceType> Race;	// +0x9C
 	DeltaTemplateClass<ProfessionType> Profession;	// +0x124
-	DeltaItemArrayClass<DeltaSkillClass> Skills;	// +0x1AC
-	DeltaItemArrayClass<DeltaSkillAbilityClass> SkillAbilities;	// +0x248
+	DeltaItemArrayClass<DeltaSkill> Skills;	// +0x1AC
+	DeltaItemArrayClass<DeltaSkillAbility> SkillAbilities;	// +0x248
 	DeltaTemplateClass<int> SkillPoints;	// +0x2E4
 	DeltaTemplateClass<int> TotalSkillPoints;	// +0x36C
 	DeltaTemplateClass<float> CombatExp;	// +0x3F4

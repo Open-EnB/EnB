@@ -17,7 +17,7 @@
 #include "item\client_item_property_icon.h"
 #include "item\client_item_property_type.h"	// ClientItemPropertyTypeClass: the subtitles (slot +0x10 of the filler passes it)
 
-class UIItemExaminationTitleClass : public DynamicWindowHorizontalClass  // NAME 2: its text 'TITLE_IEI00' and ui_item_examination_title.cpp
+class UIItemExaminationTitleClass : public HorizontalDynamicWindow  // NAME 2: its text 'TITLE_IEI00' and ui_item_examination_title.cpp
 {
 public:
 	UIItemExaminationTitleClass();															// 0x539980
@@ -31,7 +31,7 @@ public:
 protected:
 	RefCountPtr<DynamicWindowIconClass> Icon;												// +0x64 (the item's icon, 32 x 32)  // NAME 1 [Icon]: what it holds
 	RefCountPtr<DynamicWindowTextClass> Text;												// +0x68 ('TITLE_IEI00')  // NAME 1 [Text]: what it holds
-	RefCountPtr<DynamicWindowHorizontalClass> Subtitles;									// +0x6C (0x53A2F0's 'SUBTITLE_..._IEI00' texts)  // NAME 1 [Subtitles]: what it holds
+	RefCountPtr<HorizontalDynamicWindow> Subtitles;									// +0x6C (0x53A2F0's 'SUBTITLE_..._IEI00' texts)  // NAME 1 [Subtitles]: what it holds
 };
 
 #include "manufacturing_category_ui_util.h"	// Unknown_7EA190 0x7EA190 (an icon's texture name by id; the title asks for 100), Unknown_7EB4D0 0x7EB4D0 (an item type's name)

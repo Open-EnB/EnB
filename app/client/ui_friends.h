@@ -17,11 +17,11 @@ class CheckBoxGadgetClass;	// ui_manu.cpp's check button (0x7E8030: checked or n
 class UIPTradeCreditsClass;	// sclient.h's: the text entry (ui_ptrade.cpp's credits entry; here 'Friend Player')
 
 // One player of the list (0x20 bytes; the window's list +0xC4 and PlayersInfo hold them)
-class UIFriendsPlayerInfoClass	// NAME 2: what PlayersInfo holds (the asserts' 'PlayersInfo', '!friend_info')
+class FriendsInfoClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
-	UIFriendsPlayerInfoClass(std::string name, std::string location);	// 0x58F0F0 (0x5908B0)  // NAME 1 [name, location]: the members they set
-	~UIFriendsPlayerInfoClass() {}						// 0x590780 (inline, called out of line from the deleting destructor 0x590C40)
+	FriendsInfoClass(std::string name, std::string location);	// 0x58F0F0 (0x5908B0)  // NAME 1 [name, location]: the members they set
+	~FriendsInfoClass() {}						// 0x590780 (inline, called out of line from the deleting destructor 0x590C40)
 
 	std::string Name;									// +0x00 (the rows' 'name%02d_TSI28A' styles)  // NAME 2: its style's
 	std::string Location;								// +0x10 ('offline' when not on; 'LOCATION%02d_TSI28A'; the assert's 'location_list_size')  // NAME 2: its style's
@@ -32,7 +32,7 @@ public:
 class UIFriendsClass : public ChatPanelUIBase	// NAME 3: class-from-file (D24) for app\client\ui_friends.cpp
 {
 public:
-	UIFriendsClass(SClient *client);					// 0x58F210  // NAME 1 [client]: ChatPanelUIBase's
+	UIFriendsClass(SpaceClientClass *client);					// 0x58F210  // NAME 1 [client]: ChatPanelUIBase's
 	virtual ~UIFriendsClass();							// 0x58F450 (deleting 0x58F420)
 	virtual void Unknown_54();							// +0x54 0x58F6B0 ('tsi28a', 'fa_tsi28a.ini': the buttons, the rows, the check buttons, the slider, the 'Friend Player' entry)
 	virtual bool Unknown_68(int key);					// +0x68 0x590020 (the buttons 1-5, the sort 6 / 7, 8, the check buttons 10 / 11, the rows 13-19)  // NAME 1 [key]: InterfaceClass's
@@ -68,8 +68,8 @@ public:
 	bool Unknown0AD;									// +0xAD ('RestrictedStatus')
 	bool Unknown0AE;									// +0xAE
 	RefCountPtr<UIPTradeCreditsClass> Unknown0B0;		// +0xB0 ('Friend Player': 0x58F6B0 makes it by 0x649890; the destructor's slot +0x5C)
-	std::vector<UIFriendsPlayerInfoClass *> PlayersInfo;	// +0xB4  // NAME 3: the asserts'
-	std::list<UIFriendsPlayerInfoClass *> Unknown0C4;	// +0xC4 (the destructor erases its nodes, not the players)
+	std::vector<FriendsInfoClass *> PlayersInfo;	// +0xB4  // NAME 3: the asserts'
+	std::list<FriendsInfoClass *> Unknown0C4;	// +0xC4 (the destructor erases its nodes, not the players)
 	GadgetClass *Unknown0D0[8];							// +0xD0 (the constructor clears them; [2] and [4] on while a row is selected)
 	GadgetClass *Unknown0F0[7];							// +0xF0 the rows (slot +0x30: the pointer over one)
 	CheckBoxGadgetClass *Unknown10C[2];				// +0x10C the check buttons ('check%02d', ids 10 / 11: not restricted, restricted)

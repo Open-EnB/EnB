@@ -5,7 +5,7 @@
 #include "client.h"
 #include "..\shared\auth_product.h"
 // @0x794510
-CameraController01Class::CameraController01Class(SClient *client) :
+CameraController01Class::CameraController01Class(SpaceClientClass *client) :
 	CameraControllerClass(client),
 	Unknown0C(true)
 {

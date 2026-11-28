@@ -18,14 +18,14 @@ void Unknown_496730(RenderObjClass *robj, int a, bool b);	void Unknown_496AE0(Re
 const char *Get_Roman_Numeral(int value);	// inv_render.cpp's
 #include "..\shared\auth_product.h"
 // 0x68B370
-InvManuRenderClass::InvManuRenderClass() :
+InventoryManuRenderClass::InventoryManuRenderClass() :
 	LevelText(0)
 {
 	LevelText = new FontSys("INVENTORY_LEVEL", 0, 0);
 }
 
 // 0x68B540
-InvManuRenderClass::~InvManuRenderClass()
+InventoryManuRenderClass::~InventoryManuRenderClass()
 {
 	if (LevelText) {
 		LevelText->Remove();
@@ -34,7 +34,7 @@ InvManuRenderClass::~InvManuRenderClass()
 }
 
 // 0x68B5E0
-void InvManuRenderClass::Unknown_2C(bool force)
+void InventoryManuRenderClass::Unknown_2C(bool force)
 {
 	int slot = Unknown20;	// NAME 1 [slot, data, item, count]: neutral
 	if (slot != -1) {
@@ -78,7 +78,7 @@ void InvManuRenderClass::Unknown_2C(bool force)
 }
 
 // 0x68B860
-TextureClass *InvManuRenderClass::Unknown_34()
+TextureClass *InventoryManuRenderClass::Unknown_34()
 {
 	int slot = Unknown20;
 	if (slot != -1) {
@@ -115,7 +115,7 @@ TextureClass *InvManuRenderClass::Unknown_34()
 
 
 // 0x68B980
-const char *InvManuRenderClass::Unknown_28(std::string *string)
+const char *InventoryManuRenderClass::Unknown_28(std::string *string)
 {
 	char buffer[32];	// NAME 1 [buffer, data, item, quality]: neutral
 	FAIL_IF(!string) return(0);
@@ -151,7 +151,7 @@ const char *InvManuRenderClass::Unknown_28(std::string *string)
 
 
 // 0x68BCF0
-InvDataClass *InvManuRenderClass::Peek_Inv_Data()
+InvDataClass *InventoryManuRenderClass::Peek_Inv_Data()
 {
 	SlotDataClass *sd = SlotData;
 	FAIL_IF(!sd) return(0);
@@ -162,7 +162,7 @@ InvDataClass *InvManuRenderClass::Peek_Inv_Data()
 }
 
 // 0x68BD60
-int InvManuRenderClass::Unknown_30(int level)
+int InventoryManuRenderClass::Unknown_30(int level)
 {
 	int result = SlotDataRenderClass::Unknown_30(level);
 	if (result) {
@@ -173,7 +173,7 @@ int InvManuRenderClass::Unknown_30(int level)
 }
 
 // 0x68BDA0
-void InvManuRenderClass::Unknown_68BDA0(int value)
+void InventoryManuRenderClass::Unknown_68BDA0(int value)
 {
 	if (value > 0) {
 		LevelText->Unknown_6CE420(0, "%s", Get_Roman_Numeral(value));

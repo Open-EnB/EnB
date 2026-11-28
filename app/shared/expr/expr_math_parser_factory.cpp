@@ -10,7 +10,7 @@
 class ExprMathFactoryParserClass : public ExprMathParserImplClass	// NAME 3 [ExprMathFactoryParserClass]
 {
 public:
-	virtual ExprMathTreeClass *Parse_Primary(ExprMathLexerClass *lex);	// 0x4D07E0
+	virtual ExprMathTreeNode *Parse_Primary(ExprLexer *lex);	// 0x4D07E0
 };
 
 
@@ -64,7 +64,7 @@ void ExprMathParserFactoryClass::Add_Operators(unsigned int flags, ExprMathParse
 
 
 // @0x4D0790
-ExprMathParserClass *ExprMathParserFactoryClass::Create(unsigned int flags)
+ExprMathParser *ExprMathParserFactoryClass::Create(unsigned int flags)
 {
 	ExprMathFactoryParserClass *parser = new ExprMathFactoryParserClass;
 	Add_Operators(flags, parser);
@@ -73,11 +73,11 @@ ExprMathParserClass *ExprMathParserFactoryClass::Create(unsigned int flags)
 
 
 // @0x4D07E0
-ExprMathTreeClass *ExprMathFactoryParserClass::Parse_Primary(ExprMathLexerClass *lex)
+ExprMathTreeNode *ExprMathFactoryParserClass::Parse_Primary(ExprLexer *lex)
 {
-	ExprMathTokenClass token = Peek(lex);
+	ExprLexerToken token = Peek(lex);
 	if (token.Type == 2 || token.Type == 1 || token.Type == 5) {
-		ExprMathTreeClass *leaf = new ExprMathTreeClass(token);
+		ExprMathTreeNode *leaf = new ExprMathTreeNode(token);
 		lex->Next();
 		return leaf;
 	}
@@ -91,7 +91,7 @@ ExprMathTreeClass *ExprMathFactoryParserClass::Parse_Primary(ExprMathLexerClass 
 **	client.exe 0x4D0560-0x4D0A7F by the FAIL_IF (line 32) and the vtable 0xAEC0E0: Add_Operators 0x4D0560,
 **	Create 0x4D0790 (the parser's constructor inlined), the parser's Parse_Primary 0x4D07E0 (as
 **	ExprMathParserImplClass's 0x4D18A0, plus token type 5), its destructors 0x4D0920 / 0x4D0950, then the
-**	COMDATs this object places: ~ExprMathParserClass 0x4D0A20 / deleting 0x4D0A40 and
+**	COMDATs this object places: ~ExprMathParser 0x4D0A20 / deleting 0x4D0A40 and
 **	allocator<string>::deallocate 0x4D0A70. The parser class is declared here only: no other file
 **	references its vtable.
 */

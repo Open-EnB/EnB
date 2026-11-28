@@ -7,15 +7,15 @@ MissionForfeitPacketClass::MissionForfeitPacketClass(int playerid, int id) : pla
 {
 }
 
-MissionForfeitPacketClass::MissionForfeitPacketClass(RawPacketClass *raw) : playerid(0), ID(-1)
+MissionForfeitPacketClass::MissionForfeitPacketClass(PacketClass *raw) : playerid(0), ID(-1)
 {
 	raw->Get(playerid);
 	raw->Get(ID);
 }
 
-RawPacketClass *MissionForfeitPacketClass::Build()
+PacketClass *MissionForfeitPacketClass::Encode()
 {
-	RawPacketClass *raw = new RawPacketClass(134, Get_Data_Size());
+	PacketClass *raw = new PacketClass(134, Get_Data_Size());
 	raw->Add(playerid);
 	raw->Add(ID);
 	return(raw);
@@ -31,30 +31,30 @@ int MissionForfeitPacketClass::Print(char *buffer, int)
 	return(sprintf(buffer, "Mission Forfeit request {playerid=%d} Internal Mission ID = %d", playerid, ID));
 }
 
-MissionDismissalPacketClass::MissionDismissalPacketClass(int playerid, int id) : playerid(playerid), ID(id)
+MissionDismissPacketClass::MissionDismissPacketClass(int playerid, int id) : playerid(playerid), ID(id)
 {
 }
 
-MissionDismissalPacketClass::MissionDismissalPacketClass(RawPacketClass *raw) : playerid(0), ID(-1)
+MissionDismissPacketClass::MissionDismissPacketClass(PacketClass *raw) : playerid(0), ID(-1)
 {
 	raw->Get(playerid);
 	raw->Get(ID);
 }
 
-RawPacketClass *MissionDismissalPacketClass::Build()
+PacketClass *MissionDismissPacketClass::Encode()
 {
-	RawPacketClass *raw = new RawPacketClass(135, Get_Data_Size());
+	PacketClass *raw = new PacketClass(135, Get_Data_Size());
 	raw->Add(playerid);
 	raw->Add(ID);
 	return(raw);
 }
 
-int MissionDismissalPacketClass::Get_Data_Size()
+int MissionDismissPacketClass::Get_Data_Size()
 {
 	return(sizeof(playerid) + sizeof(ID));
 }
 
-int MissionDismissalPacketClass::Print(char *buffer, int)
+int MissionDismissPacketClass::Print(char *buffer, int)
 {
 	return(sprintf(buffer, "Mission Dismiss request {playerid=%d} Internal Mission ID = %d", playerid, ID));
 }

@@ -4,21 +4,21 @@
 
 void Message_Error(const char *sender, const char *category, const char *file, int line, const char *format, ...);	// NAME 5 [Message_Error]: the client's WWPROFILE("Message_Error") label (D198)
 
-SymbolSubstitutionClass::SymbolSubstitutionClass()
+SymbolTableClass::SymbolTableClass()
 {
 }
 
-SymbolSubstitutionClass::~SymbolSubstitutionClass()
+SymbolTableClass::~SymbolTableClass()
 {
 	Symbols.clear();
 }
 
-void SymbolSubstitutionClass::Add_Symbol(const std::string &name, const std::string &value)
+void SymbolTableClass::Add_Symbol(const std::string &name, const std::string &value)
 {
 	Symbols[name] = value;
 }
 
-const std::string &SymbolSubstitutionClass::Get_Symbol(const std::string &name) const
+const std::string &SymbolTableClass::Get_Symbol(const std::string &name) const
 {
 	std::hash_map<std::string, std::string>::const_iterator it = Symbols.find(name);
 	if (it == Symbols.end()) {
@@ -28,7 +28,7 @@ const std::string &SymbolSubstitutionClass::Get_Symbol(const std::string &name) 
 	return it->second;
 }
 
-void SymbolSubstitutionClass::Clear()
+void SymbolTableClass::Clear()
 {
 	Symbols.clear();
 }
@@ -97,7 +97,7 @@ static size_t Find_Mark(const std::string &str, size_t pos)	// NAME 2: describes
 	return index;
 }
 // NOT EXACT: inline budget, the client calls string::erase(iterator) 0x4E2A00 out of line in the last loop
-bool Substitute_Symbols(std::string &str, const SymbolSubstitutionClass &symbols)
+bool Substitute_Symbols(std::string &str, const SymbolTableClass &symbols)
 {
 	std::string original(str);
 	size_t start;

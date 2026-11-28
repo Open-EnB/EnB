@@ -7,7 +7,7 @@
 #include <list>
 #include "sclient.h"
 
-class SClient;
+class SpaceClientClass;
 class ClientObjectClass;
 class RenderObjClass;
 class GadgetClass;
@@ -15,9 +15,9 @@ class ActIconClass;	// acticon.h's
 class Unknown_673EE0Class;
 class Unknown_671300Class;
 class IncapacitanceDetailsPacket;
-class AvatarDescClass;
+class AvatarDescriptionClass;
 class FontSys;
-class UICpitClass;
+class CockpitInterface;
 
 // UnknownAF0DD0Class, the object watcher's base: client.h (through sclient.h) or eff_o.h declares it
 
@@ -42,22 +42,22 @@ public:
 class UICpitHulkWatchClass : public UnknownObjectWatchClass	// NAME 1: neutral (D10)
 {
 public:
-	UICpitHulkWatchClass(UICpitClass *owner);			// 0x584A80  // NAME 2 [owner]: what it holds
+	UICpitHulkWatchClass(CockpitInterface *owner);			// 0x584A80  // NAME 2 [owner]: what it holds
 	virtual void Unknown_Watch_0C();							// +0x0C 0x584AF0 (FAIL_IF '!co' l.2082; the cockpit's 0x582070)
 	void operator = (ClientObjectClass *object) { Unknown_08(object); }	// (the base's: the implicit copy assignment hides it)
 
-	UICpitClass *Owner;									// +0x18  // NAME 2: what it holds
+	CockpitInterface *Owner;									// +0x18  // NAME 2: what it holds
 };
 
 // The cockpit's watcher of the object being harvested (+0x110; vtable 0xAF0DA8, constructor 0x584B70)
 class UICpitHarvestWatchClass : public UnknownObjectWatchClass	// NAME 1: neutral (D10)
 {
 public:
-	UICpitHarvestWatchClass(UICpitClass *owner);		// 0x584B70  // NAME 2 [owner]: what it holds
+	UICpitHarvestWatchClass(CockpitInterface *owner);		// 0x584B70  // NAME 2 [owner]: what it holds
 	virtual void Unknown_Watch_0C();							// +0x0C 0x584BE0 (FAIL_IF '!co' l.2097; the cockpit's 0x5820C0(false))
 	void operator = (ClientObjectClass *object) { Unknown_08(object); }	// (the base's: the implicit copy assignment hides it)
 
-	UICpitClass *Owner;									// +0x18  // NAME 2: what it holds
+	CockpitInterface *Owner;									// +0x18  // NAME 2: what it holds
 };
 
 class UIPowerClass;	// ui_power.h's power gauges (+0xD0, constructor 0x5DBFC0)
@@ -94,17 +94,17 @@ class UICpitInvClass;
 
 
 
-class UIScutClass;
+class ShortcutInterface;
 #include "ui_scut.h"		// ui_scut.cpp's shortcut bars (the cockpit's +0xDC; moved to ui_scut.h, SC2)
 
-void Unknown_57D6C0(SClient *sclient, bool *lock_speed, bool *lock_orient);	// 0x57D6C0 (cdecl; the cockpit's 0x5806E0, the view's 0x6B58A0): the avatar's LockSpeed / LockOrient (G_ASSERT 'sclient' l.132)  // NAME 1 [sclient, lock_speed, lock_orient]: what they hold
+void Unknown_57D6C0(SpaceClientClass *sclient, bool *lock_speed, bool *lock_orient);	// 0x57D6C0 (cdecl; the cockpit's 0x5806E0, the view's 0x6B58A0): the avatar's LockSpeed / LockOrient (G_ASSERT 'sclient' l.132)  // NAME 1 [sclient, lock_speed, lock_orient]: what they hold
 
 // ui_cpit.cpp's cockpit interface (the main view's +0x1D0; 0x178 bytes, tables 0xAF0CFC / 0xAF0CF0 / 0xAF0CE4)
-class UICpitClass : public Unknown5BB320Class	// NAME 3: class-from-file (D24) for ui_cpit.cpp
+class CockpitInterface : public Unknown5BB320Class  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
-	UICpitClass(MainViewClass *view, const LayerClass &layer);	// 0x57D830 (0x178 bytes; the main view's 0x50C690)  // NAME 1 [view, layer]: what 0x50C690 passes
-	virtual ~UICpitClass();								// 0x57EB80 (slot 0x57DC50)
+	CockpitInterface(MainViewClass *view, const LayerClass &layer);	// 0x57D830 (0x178 bytes; the main view's 0x50C690)  // NAME 1 [view, layer]: what 0x50C690 passes
+	virtual ~CockpitInterface();								// 0x57EB80 (slot 0x57DC50)
 	virtual void Unknown_54();							// 0x57DD20 (G_ASSERT 'View->As_Main_View()' l.289; the main view calls it after construction)
 	virtual void Unknown_58();							// 0x57F080 (the main view's 0x5141A0)
 	virtual void Unknown_5C();							// 0x57F1B0 (the main view's 0x5141E0 / 0x514220)
@@ -121,15 +121,15 @@ public:
 	void Unknown_5821C0(ClientObjectClass *avatar);		// 0x5821C0 (slot +0x60 passes the avatar)  // NAME 1 [avatar]: what it gets
 	void Unknown_582190(ClientObjectClass *object, int arg);	// 0x582190: +0xD0's object (no caller; slot +0x58 expands it)  // NAME 1 [object, arg]: neutral
 	void Unknown_583250();								// 0x583250: the warp button (+0xB4): a WarpPacketClass from the radar's path (FAIL_IF '!radar' l.1615), the distress request, or the 3-D movie view's camera
-	void Unknown_583510();								// 0x583510: the turn buttons (+0xC0 / +0xC4): a TurnPacketClass and SClient 0x745B90
-	void Unknown_583790();								// 0x583790: the throttle (+0xB8) and reverse (+0xBC) buttons: MovePacketClass and SClient 0x745E40 (nothing while IsAutoFollowing)
+	void Unknown_583510();								// 0x583510: the turn buttons (+0xC0 / +0xC4): a TurnPacketClass and SpaceClientClass 0x745B90
+	void Unknown_583790();								// 0x583790: the throttle (+0xB8) and reverse (+0xBC) buttons: MovementPacketClass and SpaceClientClass 0x745E40 (nothing while IsAutoFollowing)
 	void Unknown_583DA0(int arg);						// 0x583DA0 (empty)  // NAME 1 [arg]: neutral
 	void Unknown_583F70();								// 0x583F70: the finished effects of Unknown158 removed
 	bool Unknown_584000(bool report);					// 0x584000: the avatar's MaxSpeed is set, else (report) 'Engine unavailable. Please wait.'  // NAME 1 [report]: neutral
 	void Unknown_584110();								// 0x584110 (FAIL_IFs '!warpfont' / '!distressfont' / '!spacefont' l.1986-1988)
 	void Unknown_5845A0();								// 0x5845A0: the WARP_CPIT text dimmed while the warp button (+0xB4) is off
 	void Unknown_584A20();								// 0x584A20
-	void Unknown_584A60();								// 0x584A60 (SClient 0x745160)
+	void Unknown_584A60();								// 0x584A60 (SpaceClientClass 0x745160)
 	void Unknown_584690(IncapacitanceDetailsPacket *packet);	// 0x584690 (cpacket.cpp: INCAPACITANCE_DETAILS 144)  // NAME 1 [packet]: the handler's packet
 	void Unknown_583DC0(FontSys *text, FontSys *header, int inflicted, bool emp);	// 0x583DC0 (cpacket.cpp: CLIENT_DAMAGE 100 for the player's own damage)  // NAME 1 [text, header, inflicted, emp]: what the handler passes
 
@@ -145,7 +145,7 @@ public:
 	UIPowerClass *Unknown0D0;						// +0xD0 (0x28 bytes, 0x5DBFC0: ui_power.h)
 	ScannerInterface *Scan;									// +0xD4 (0x1B0 bytes, 0x60D800; the main view's 0x5136A0 returns it, 0x513630 calls 0x60E540 on it)  // NAME 3: its file's (ui_scan.cpp)
 	int Unknown0D8;										// +0xD8
-	UIScutClass *UnknownDC;								// +0xDC (0xB8 bytes, 0x610570; the main view's 0x514400 returns it)
+	ShortcutInterface *UnknownDC;								// +0xDC (0xB8 bytes, 0x610570; the main view's 0x514400 returns it)
 	RefCountPtr<UIAvatarDialogClass> Unknown0E0;				// +0xE0 (0x1B4 bytes, 0x551FB0)
 	bool Unknown0E4;									// +0xE4 (0x584A20 clears it)
 	int Unknown0E8;										// +0xE8

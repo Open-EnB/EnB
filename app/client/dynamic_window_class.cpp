@@ -8,7 +8,7 @@ DynamicWindowClass::DynamicWindowClass(const char *name, int unknown) :
 	RowElements(),
 	Position(0.0f, 0.0f)
 {
-	Rows = Create_NEW(new DynamicWindowVerticalClass(6));
+	Rows = Create_NEW(new VerticalDynamicWindow(6));
 	Set_Contents(Rows);
 }
 
@@ -43,10 +43,10 @@ void DynamicWindowClass::Remove_All(bool recursive)
 
 
 
-void DynamicWindowClass::Add_Object(DynamicWindowElementClass *object, int row_index)
+void DynamicWindowClass::Add_Object(DynamicWindowElement *object, int row_index)
 {
 	FAIL_IF(!object) return;
-	RefCountPtr<DynamicWindowElementClass> element = Create_Peek(object);
+	RefCountPtr<DynamicWindowElement> element = Create_Peek(object);
 	Add_Element(element, row_index);
 }
 
@@ -54,12 +54,12 @@ void DynamicWindowClass::Add_Object(DynamicWindowElementClass *object, int row_i
 void DynamicWindowClass::Add_Object(DynamicWindowRenderObjectClass *object, int row_index)
 {
 	FAIL_IF(!object) return;
-	RefCountPtr<DynamicWindowElementClass> element = Create_Peek((DynamicWindowElementClass *)object);
+	RefCountPtr<DynamicWindowElement> element = Create_Peek((DynamicWindowElement *)object);
 	Add_Element(element, row_index);
 }
 
 
-void DynamicWindowClass::Add_Element(const RefCountPtr<DynamicWindowElementClass> &element, int row_index)
+void DynamicWindowClass::Add_Element(const RefCountPtr<DynamicWindowElement> &element, int row_index)
 {
 	FAIL_IF(!element) return;
 	if (row_index < 0) {
@@ -69,7 +69,7 @@ void DynamicWindowClass::Add_Element(const RefCountPtr<DynamicWindowElementClass
 		}
 	}
 	for (int i = RowElements.size(); i <= row_index; i++) {
-		RefCountPtr<DynamicWindowHorizontalClass> row = Create_NEW(new DynamicWindowHorizontalClass(2));
+		RefCountPtr<HorizontalDynamicWindow> row = Create_NEW(new HorizontalDynamicWindow(2));
 		Rows->Insert_Element(row, i);
 		RowElements.push_back(row);
 	}
@@ -87,10 +87,10 @@ void DynamicWindowClass::Add_Element(const RefCountPtr<DynamicWindowElementClass
 
 
 
-bool DynamicWindowClass::Remove_Object(DynamicWindowElementClass *object, int row_index)
+bool DynamicWindowClass::Remove_Object(DynamicWindowElement *object, int row_index)
 {
 	FAIL_IF(!object) return false;
-	RefCountPtr<DynamicWindowElementClass> element = Create_Peek(object);
+	RefCountPtr<DynamicWindowElement> element = Create_Peek(object);
 	return Remove_Element(element, row_index);
 }
 
@@ -98,12 +98,12 @@ bool DynamicWindowClass::Remove_Object(DynamicWindowElementClass *object, int ro
 bool DynamicWindowClass::Remove_Object(DynamicWindowRenderObjectClass *object, int row_index)
 {
 	FAIL_IF(!object) return false;
-	RefCountPtr<DynamicWindowElementClass> element = Create_Peek((DynamicWindowElementClass *)object);
+	RefCountPtr<DynamicWindowElement> element = Create_Peek((DynamicWindowElement *)object);
 	return Remove_Element(element, row_index);
 }
 
 
-bool DynamicWindowClass::Remove_Element(const RefCountPtr<DynamicWindowElementClass> &element, int row_index)
+bool DynamicWindowClass::Remove_Element(const RefCountPtr<DynamicWindowElement> &element, int row_index)
 {
 	FAIL_IF(!element) return false;
 
@@ -182,7 +182,7 @@ void DynamicWindowClass::Set_Position(const Vector2 &position)
 
 void DynamicWindowClass::Remove_All_Children(bool recursive)
 {
-	for (std::vector< RefCountPtr<DynamicWindowHorizontalClass> >::iterator it = RowElements.begin(); it != RowElements.end(); ++it) {
+	for (std::vector< RefCountPtr<HorizontalDynamicWindow> >::iterator it = RowElements.begin(); it != RowElements.end(); ++it) {
 		(*it)->Remove_All_Children(recursive);
 	}
 	Rows->Remove_All_Children(true);
@@ -223,10 +223,10 @@ void DynamicWindowClass::Remove_All_Children(bool recursive)
 
 
 
-bool DynamicWindowClass::Remove_Child(const RefCountPtr<DynamicWindowElementClass> &element)
+bool DynamicWindowClass::Remove_Child(const RefCountPtr<DynamicWindowElement> &element)
 {
 	FAIL_IF(!element) return false;
-	for (std::vector< RefCountPtr<DynamicWindowHorizontalClass> >::iterator it = RowElements.begin(); it != RowElements.end(); ++it) {
+	for (std::vector< RefCountPtr<HorizontalDynamicWindow> >::iterator it = RowElements.begin(); it != RowElements.end(); ++it) {
 		if ((*it)->Remove_Child(element)) {
 			return true;
 		}

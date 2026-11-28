@@ -91,13 +91,13 @@ Vector3 UnknownB026ECClass::Unknown_14(int unknown)
 	return(PositionState->Unknown_14(unknown));
 }
 
-Unknown714B50Class::Unknown714B50Class(ConstantPositionalUpdatePacketClass *packet) :
+ConstantPositionalStateClass::ConstantPositionalStateClass(ConstantPositionalUpdatePacketClass *packet) :
 	Transform(*(Quaternion *)packet->Unknown1C, *(Vector3 *)packet->Unknown10),
 	Position(*(Vector3 *)packet->Unknown10)
 {
 }
 
-void Unknown714B50Class::Unknown_714D50(ConstantPositionalUpdatePacketClass *packet)
+void ConstantPositionalStateClass::Unknown_714D50(ConstantPositionalUpdatePacketClass *packet)
 {
 	Position = *(Vector3 *)packet->Unknown10;
 	Transform = Matrix3D(*(Quaternion *)packet->Unknown1C, *(Vector3 *)packet->Unknown10);
@@ -305,33 +305,33 @@ void Unknown715AB0Class::Unknown_715C20(SimplePositionalUpdatePacketClass *packe
 	Extrap = new Unknown7125F0Class(Extrap, new Unknown70F250Class(packet), start, end);
 }
 
-Unknown715CF0Class::Unknown715CF0Class(PlanetPositionalUpdatePacketClass *packet, ClientClass *client) :
+PlanetPositionalStateClass::PlanetPositionalStateClass(PlanetPositionalUpdatePacketClass *packet, ClientClass *client) :
 	Client(client)
 {
 	Extrap = new Unknown713520Class(packet, Client);
 }
 
-void Unknown715CF0Class::Unknown_715E60(PlanetPositionalUpdatePacketClass *packet)
+void PlanetPositionalStateClass::Unknown_715E60(PlanetPositionalUpdatePacketClass *packet)
 {
 	delete Extrap;
 	Extrap = new Unknown713520Class(packet, Client);
 }
 
-Unknown715EF0Class::Unknown715EF0Class(int time, AdvancedPositionalUpdatePacketClass *packet) :
+ShipPositionalStateClass::ShipPositionalStateClass(int time, AdvancedPositionalUpdatePacketClass *packet) :
 	Period(time, 0, time + packet->UpdatePeriod * 2, packet->UpdatePeriod),
 	Unknown18(false)
 {
 	Extrap = new Unknown710110Class(packet);
 }
 
-Unknown715EF0Class::Unknown715EF0Class(SClient *client, FormationPositionalUpdatePacketClass *packet) :
+ShipPositionalStateClass::ShipPositionalStateClass(SpaceClientClass *client, FormationPositionalUpdatePacketClass *packet) :
 	Period(0, 0, 0, 0),
 	Unknown18(false)
 {
-	Extrap = new Unknown714340Class(client, packet);
+	Extrap = new FormationNode(client, packet);
 }
 
-void Unknown715EF0Class::Unknown_716140(int time, AdvancedPositionalUpdatePacketClass *packet)
+void ShipPositionalStateClass::Unknown_716140(int time, AdvancedPositionalUpdatePacketClass *packet)
 {
 	if (Unknown_B9489E) {
 		Unknown_30(time, packet);
@@ -343,11 +343,11 @@ void Unknown715EF0Class::Unknown_716140(int time, AdvancedPositionalUpdatePacket
 	}
 }
 
-void Unknown715EF0Class::Unknown_716220(SClient *client, FormationPositionalUpdatePacketClass *packet)
+void ShipPositionalStateClass::Unknown_716220(SpaceClientClass *client, FormationPositionalUpdatePacketClass *packet)
 {
 	if (Unknown_B9489E) {
 		unsigned int time = client->Unknown10BC;
-		StateNode *next = new Unknown714340Class(client, packet);
+		StateNode *next = new FormationNode(client, packet);
 		unsigned int end = time + 5000;
 		Extrap = new Unknown7125F0Class(Extrap, next, time, end);
 		unsigned int value = Period.Get(time);
@@ -355,7 +355,7 @@ void Unknown715EF0Class::Unknown_716220(SClient *client, FormationPositionalUpda
 	}
 }
 
-bool Unknown715EF0Class::Unknown_716390(AdvancedPositionalUpdatePacketClass *packet, StateNode *extrap, int time, int other_time)
+bool ShipPositionalStateClass::Unknown_716390(AdvancedPositionalUpdatePacketClass *packet, StateNode *extrap, int time, int other_time)
 {
 	if (packet->ImpartedVelocity.Length2() > 0.000001f) {
 		return(false);
@@ -363,7 +363,7 @@ bool Unknown715EF0Class::Unknown_716390(AdvancedPositionalUpdatePacketClass *pac
 	return(Unknown_716400(extrap, time, other_time));
 }
 
-bool Unknown715EF0Class::Unknown_716400(StateNode *extrap, int time, int other_time)
+bool ShipPositionalStateClass::Unknown_716400(StateNode *extrap, int time, int other_time)
 {
 	if (!Unknown_B9489C) {
 		return(false);
@@ -392,7 +392,7 @@ bool Unknown715EF0Class::Unknown_716400(StateNode *extrap, int time, int other_t
 	return(true);
 }
 
-bool Unknown715EF0Class::Unknown_7165D0(AdvancedPositionalUpdatePacketClass *packet, StateNode *extrap, unsigned int time, unsigned int other_time)
+bool ShipPositionalStateClass::Unknown_7165D0(AdvancedPositionalUpdatePacketClass *packet, StateNode *extrap, unsigned int time, unsigned int other_time)
 {
 	if (time < packet->TimeStamp) {
 		return(false);
@@ -400,7 +400,7 @@ bool Unknown715EF0Class::Unknown_7165D0(AdvancedPositionalUpdatePacketClass *pac
 	return(Unknown_7166A0(extrap, time, other_time));
 }
 
-bool Unknown715EF0Class::Unknown_7166A0(StateNode *extrap, int time, int other_time)
+bool ShipPositionalStateClass::Unknown_7166A0(StateNode *extrap, int time, int other_time)
 {
 	float speed = 0.0f;
 	Extrap->Unknown_1C(time, 0, 0, 0, &speed, 0, true);
@@ -414,7 +414,7 @@ bool Unknown715EF0Class::Unknown_7166A0(StateNode *extrap, int time, int other_t
 	return(false);
 }
 
-void Unknown715EF0Class::Unknown_30(int time, AdvancedPositionalUpdatePacketClass *packet)
+void ShipPositionalStateClass::Unknown_30(int time, AdvancedPositionalUpdatePacketClass *packet)
 {
 	Vector3 position;
 	float speed;
@@ -434,7 +434,7 @@ void Unknown715EF0Class::Unknown_30(int time, AdvancedPositionalUpdatePacketClas
 	Unknown_34(time, packet, duration);
 }
 
-void Unknown715EF0Class::Unknown_34(int time, AdvancedPositionalUpdatePacketClass *packet, unsigned int duration)
+void ShipPositionalStateClass::Unknown_34(int time, AdvancedPositionalUpdatePacketClass *packet, unsigned int duration)
 {
 	if (duration == 0) {
 		delete Extrap;
@@ -455,7 +455,7 @@ void Unknown715EF0Class::Unknown_34(int time, AdvancedPositionalUpdatePacketClas
 	}
 }
 
-Vector3 Unknown715EF0Class::Unknown_0C(int time)
+Vector3 ShipPositionalStateClass::Unknown_0C(int time)
 {
 	time -= Unknown_38(time);
 	if (!Extrap) {
@@ -465,7 +465,7 @@ Vector3 Unknown715EF0Class::Unknown_0C(int time)
 	return(Extrap->Unknown_04(time));
 }
 
-Vector3 Unknown715EF0Class::Unknown_10(int time)
+Vector3 ShipPositionalStateClass::Unknown_10(int time)
 {
 	time -= Unknown_38(time);
 	if (!Extrap) {
@@ -475,7 +475,7 @@ Vector3 Unknown715EF0Class::Unknown_10(int time)
 	return(Extrap->Unknown_0C(time));
 }
 
-Vector3 Unknown715EF0Class::Unknown_14(int time)
+Vector3 ShipPositionalStateClass::Unknown_14(int time)
 {
 	time -= Unknown_38(time);
 	if (!Extrap) {
@@ -485,7 +485,7 @@ Vector3 Unknown715EF0Class::Unknown_14(int time)
 	return(Extrap->Unknown_14(time));
 }
 
-Matrix3D Unknown715EF0Class::Unknown_08(int time)
+Matrix3D ShipPositionalStateClass::Unknown_08(int time)
 {
 	time -= Unknown_38(time);
 	if (!Extrap) {
@@ -498,7 +498,7 @@ Matrix3D Unknown715EF0Class::Unknown_08(int time)
 	return(Matrix3D(orientation, position));
 }
 
-Vector3 Unknown715EF0Class::Unknown_1C(int time)
+Vector3 ShipPositionalStateClass::Unknown_1C(int time)
 {
 	time -= Unknown_38(time);
 	Vector3 position(0.0f, 0.0f, 0.0f);
@@ -509,7 +509,7 @@ Vector3 Unknown715EF0Class::Unknown_1C(int time)
 	return(position);
 }
 
-Matrix3D Unknown715EF0Class::Unknown_20(int time)
+Matrix3D ShipPositionalStateClass::Unknown_20(int time)
 {
 	time -= Unknown_38(time);
 	if (!Extrap) {
@@ -521,7 +521,7 @@ Matrix3D Unknown715EF0Class::Unknown_20(int time)
 	return(Matrix3D(orientation, position));
 }
 
-unsigned int Unknown715EF0Class::Unknown_38(int time)
+unsigned int ShipPositionalStateClass::Unknown_38(int time)
 {
 	if (Unknown_B9489F) {
 		return(Period.Get(time));
@@ -530,7 +530,7 @@ unsigned int Unknown715EF0Class::Unknown_38(int time)
 }
 
 Unknown717010Class::Unknown717010Class(int time, AdvancedPositionalUpdatePacketClass *packet) :
-	Unknown715EF0Class(time, packet),
+	ShipPositionalStateClass(time, packet),
 	MovementID(packet->MovementID),
 	Unknown20(false),
 	Unknown24(Extrap)
@@ -538,8 +538,8 @@ Unknown717010Class::Unknown717010Class(int time, AdvancedPositionalUpdatePacketC
 	Unknown18 = true;
 }
 
-Unknown717010Class::Unknown717010Class(SClient *client, FormationPositionalUpdatePacketClass *packet) :
-	Unknown715EF0Class(client, packet),
+Unknown717010Class::Unknown717010Class(SpaceClientClass *client, FormationPositionalUpdatePacketClass *packet) :
+	ShipPositionalStateClass(client, packet),
 	MovementID(0),
 	Unknown20(false),
 	Unknown24(0)
@@ -576,7 +576,7 @@ void Unknown717010Class::Unknown_717290(AdvancedPositionalUpdatePacketClass *pac
 	}
 }
 
-void Unknown717010Class::Unknown_717400(FormationPositionalUpdatePacketClass *packet, SClient *client)
+void Unknown717010Class::Unknown_717400(FormationPositionalUpdatePacketClass *packet, SpaceClientClass *client)
 {
 	Unknown_716220(client, packet);
 	Unknown24 = 0;
@@ -918,7 +918,7 @@ void Unknown717010Class::Unknown_717400(FormationPositionalUpdatePacketClass *pa
 
 
 // NOT EXACT: inline-budget (the client calls the float field's Cast 0x546970 out of line in the first lookups, ours inlines all; 286 vs 314 instructions; one form; attempts.py show 0x717430)
-void Unknown717010Class::Unknown_717430(int unknown, DeltaCompoundClass *aux_data, int time, float *turn, float *tilt, int *move_direction, bool fixed_speed)
+void Unknown717010Class::Unknown_717430(int unknown, DeltaContainer *aux_data, int time, float *turn, float *tilt, int *move_direction, bool fixed_speed)
 {
 	int count = 0;
 	float turn_rate_value = 0.0f;
@@ -930,56 +930,56 @@ void Unknown717010Class::Unknown_717430(int unknown, DeltaCompoundClass *aux_dat
 	float acceleration_value = 0.0f;
 	float *acceleration = 0;
 	if (turn) {
-		NameClass name("MaxTurnRate");
+		AuxDataName name("MaxTurnRate");
 		DeltaTemplateClass<float> *t = Unknown_Find_Set_Field<DeltaTemplateClass<float> >(aux_data, name);
 		if (t) {
-			turn_rate_value = -(t->Value * *turn) * 0.001f;
+			turn_rate_value = -(t->Value * *turn); turn_rate_value *= 0.001f;
 			turn_rate = &turn_rate_value;
 			count = 1;
 		}
 	}
 	if (tilt) {
-		NameClass name("MaxTiltRate");
+		AuxDataName name("MaxTiltRate");
 		DeltaTemplateClass<float> *t = Unknown_Find_Set_Field<DeltaTemplateClass<float> >(aux_data, name);
 		if (t) {
-			tilt_rate_value = -(t->Value * *tilt) * 0.001f;
+			tilt_rate_value = -(t->Value * *tilt); tilt_rate_value *= 0.001f;
 			tilt_rate = &tilt_rate_value;
 			count++;
 		}
 	}
 	if (move_direction) {
-		bool known = true;
+		
 		if (*move_direction == 1) {
-			if (!fixed_speed) {
-				NameClass name("MaxSpeed");
+			if (fixed_speed) {
+				speed_value = 10.0f; speed = &speed_value;
+			} else {
+				AuxDataName name("MaxSpeed");
 				DeltaTemplateClass<float> *t = Unknown_Find_Set_Field<DeltaTemplateClass<float> >(aux_data, name);
 				if (t) {
-					speed_value = t->Value * 0.001f;
+					speed_value = t->Value * 0.001f; speed = &speed_value;
 				} else {
-					known = false;
+					
 				}
-			} else {
-				speed_value = 10.0f;
 			}
 		} else if (*move_direction == -1) {
-			if (!fixed_speed) {
-				NameClass name("MinSpeed");
+			if (fixed_speed) {
+				speed_value = -10.0f; speed = &speed_value;
+			} else {
+				AuxDataName name("MinSpeed");
 				DeltaTemplateClass<float> *t = Unknown_Find_Set_Field<DeltaTemplateClass<float> >(aux_data, name);
 				if (t) {
-					speed_value = t->Value * 0.001f;
+					speed_value = t->Value * 0.001f; speed = &speed_value;
 				} else {
-					known = false;
+					
 				}
-			} else {
-				speed_value = -10.0f;
 			}
 		} else {
 			G_ASSERT(*move_direction == 0);
-			speed_value = 0.0f;
+			speed_value = 0.0f; speed = &speed_value;
 		}
-		if (known) {
-			speed = &speed_value;
-			NameClass name("Acceleration");
+		if (speed) {
+			
+			AuxDataName name("Acceleration");
 			DeltaTemplateClass<float> *t = Unknown_Find_Set_Field<DeltaTemplateClass<float> >(aux_data, name);
 			if (t) {
 				acceleration_value = t->Value * 0.000001f;
@@ -1010,15 +1010,15 @@ void Unknown717010Class::Unknown_717430(int unknown, DeltaCompoundClass *aux_dat
 }
 
 // 0x7179A0 (the five dead aux_data->Children.size() after the AutoLevel find spend the inline budget: its Cast 0x584FF0 called out of line, as the client's; D272)
-void Unknown717010Class::Unknown_7179A0(int unknown, DeltaCompoundClass *aux_data, int time, bool level, bool auto_level)
+void Unknown717010Class::Unknown_7179A0(int unknown, DeltaContainer *aux_data, int time, bool level, bool auto_level)
 {
 	float zero = 0.0f;
 	float tilt_rate = 0.0f;
 	if (auto_level) {
-		NameClass name("AutoLevel");
+		AuxDataName name("AutoLevel");
 		DeltaTemplateClass<bool> *t = Unknown_Find_Set_Field<DeltaTemplateClass<bool> >(aux_data, name); aux_data->Children.size(); aux_data->Children.size(); aux_data->Children.size(); aux_data->Children.size(); aux_data->Children.size();
 		if (t && t->Value) {
-			NameClass rate_name("MaxTiltRate");
+			AuxDataName rate_name("MaxTiltRate");
 			DeltaTemplateClass<float> *r = Unknown_Find_Set_Field<DeltaTemplateClass<float> >(aux_data, rate_name);
 			if (r) {
 				tilt_rate = r->Value * 0.001f;
@@ -1083,7 +1083,7 @@ unsigned int Unknown717010Class::Unknown_38(int time)
 
 Unknown717EF0Class::Unknown717EF0Class(ComponentPositionalUpdatePacketClass *packet, ClientClass *client)
 {
-	Extrap = new Unknown713C80Class(packet, client);
+	Extrap = new ComponentNode(packet, client);
 	TractorID = packet->TractorID;
 	TractorEffectID = packet->TractorEffectID;
 }
@@ -1092,7 +1092,7 @@ void Unknown717EF0Class::Unknown_718080(ComponentPositionalUpdatePacketClass *pa
 {
 	unsigned int start = packet->TimeStamp;
 	unsigned int end = start + 250;
-	Extrap = new Unknown7125F0Class(Extrap, new Unknown713C80Class(packet, client), start, end);
+	Extrap = new Unknown7125F0Class(Extrap, new ComponentNode(packet, client), start, end);
 	TractorID = packet->TractorID;
 	TractorEffectID = packet->TractorEffectID;
 }

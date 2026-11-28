@@ -13,7 +13,7 @@ PlayerObjectRelationshipPacket::PlayerObjectRelationshipPacket(int object_id, in
 {
 }
 
-PlayerObjectRelationshipPacket::PlayerObjectRelationshipPacket(RawPacketClass *raw) :
+PlayerObjectRelationshipPacket::PlayerObjectRelationshipPacket(PacketClass *raw) :
 	ObjectID(-1),
 	Priority(-63),
 	Channel(-1)
@@ -23,9 +23,9 @@ PlayerObjectRelationshipPacket::PlayerObjectRelationshipPacket(RawPacketClass *r
 	raw->Get(&Relationship.IsAttacking, sizeof(Relationship.IsAttacking));
 }
 
-RawPacketClass *PlayerObjectRelationshipPacket::Build()
+PacketClass *PlayerObjectRelationshipPacket::Encode()
 {
-	RawPacketClass *raw = new RawPacketClass(137, Get_Data_Size());
+	PacketClass *raw = new PacketClass(137, Get_Data_Size());
 	raw->Add(ObjectID);
 	raw->Add(&Relationship.Reaction, sizeof(Relationship.Reaction));
 	raw->Add(&Relationship.IsAttacking, sizeof(Relationship.IsAttacking));
@@ -51,7 +51,7 @@ PlayerObjectReactionUpdatePacket::PlayerObjectReactionUpdatePacket(int priority)
 {
 }
 
-PlayerObjectReactionUpdatePacket::PlayerObjectReactionUpdatePacket(RawPacketClass *raw)
+PlayerObjectReactionUpdatePacket::PlayerObjectReactionUpdatePacket(PacketClass *raw)
 {
 	int count = 0;
 	raw->Get(count);
@@ -64,9 +64,9 @@ PlayerObjectReactionUpdatePacket::PlayerObjectReactionUpdatePacket(RawPacketClas
 	}
 }
 
-RawPacketClass *PlayerObjectReactionUpdatePacket::Build()
+PacketClass *PlayerObjectReactionUpdatePacket::Encode()
 {
-	RawPacketClass *raw = new RawPacketClass(138, Get_Data_Size());
+	PacketClass *raw = new PacketClass(138, Get_Data_Size());
 	int count = Reactions.size();
 	raw->Add(count);
 	for (std::vector<ReactionUpdateStruct>::iterator it = Reactions.begin(); it != Reactions.end(); ++it) {
@@ -178,7 +178,7 @@ PlayerObjectIsAttackingUpdatePacket::PlayerObjectIsAttackingUpdatePacket(bool at
 {
 }
 
-PlayerObjectIsAttackingUpdatePacket::PlayerObjectIsAttackingUpdatePacket(RawPacketClass *raw)
+PlayerObjectIsAttackingUpdatePacket::PlayerObjectIsAttackingUpdatePacket(PacketClass *raw)
 {
 	raw->Get(&Attacking, sizeof(Attacking));
 	int count = 0;
@@ -191,9 +191,9 @@ PlayerObjectIsAttackingUpdatePacket::PlayerObjectIsAttackingUpdatePacket(RawPack
 	}
 }
 
-RawPacketClass *PlayerObjectIsAttackingUpdatePacket::Build()
+PacketClass *PlayerObjectIsAttackingUpdatePacket::Encode()
 {
-	RawPacketClass *raw = new RawPacketClass(139, Get_Data_Size());
+	PacketClass *raw = new PacketClass(139, Get_Data_Size());
 	raw->Add(&Attacking, sizeof(Attacking));
 	int count = Attackers.size();
 	raw->Add(count);
@@ -271,7 +271,7 @@ AttackerUpdateIteratorClass *PlayerObjectIsAttackingUpdatePacket::Get_Iterator()
 **	* The client's file (its FAIL_IFs on lines 159 and 251 name it), 0x873AE0-0x8754A0 (the object ends
 **	  with the guarded static every <string> includer has, 0xC416FC). Opcode 137 (RELATIONSHIP) written
 **	  by hand (builder P3, 2026-10-26), 5 of 5 exact in appfile.py match: the value constructor calls
-**	  PacketClass::Unknown_14 in its initialiser list (the own vtable is stored after the call), the raw
+**	  UnknownPacketBaseClass::Unknown_14 in its initialiser list (the own vtable is stored after the call), the raw
 **	  one constructs RelationshipClass out of line (0x848C80) and reads ObjectID through Get(int &).
 **	  Print's conversions are faction_and_reputation.cpp's (0x835890) and strconv_lib.cpp's (0x4A30A0),
 **	  both not rebuilt: stubs/app_stubs.cpp stands in for them and for RelationshipClass's constructor.

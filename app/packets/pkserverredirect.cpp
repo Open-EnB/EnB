@@ -3,22 +3,22 @@
 #include <winsock.h>
 #include <stdio.h>
 
-ServerRedirectPacketClass::ServerRedirectPacketClass(int sector, int ip, unsigned short port) :
-	Packet_003BClass(sector, ip, port)
+ClientRedirectPacketClass::ClientRedirectPacketClass(int sector, int ip, unsigned short port) :
+	ServerReadyPacketClass(sector, ip, port)
 {
 }
 
-ServerRedirectPacketClass::ServerRedirectPacketClass(RawPacketClass *raw) :
-	Packet_003BClass(raw)
+ClientRedirectPacketClass::ClientRedirectPacketClass(PacketClass *raw) :
+	ServerReadyPacketClass(raw)
 {
 }
 
-int ServerRedirectPacketClass::Get_Type()
+int ClientRedirectPacketClass::Get_Type()
 {
 	return(54);
 }
 
-int ServerRedirectPacketClass::Print(char *buffer, int)
+int ClientRedirectPacketClass::Print(char *buffer, int)
 {
 	return(sprintf(buffer, "%s {IP=%x Port=%hd}", "Client_Redirect", ntohl(IP), ntohs(Port)));
 }

@@ -7,15 +7,15 @@ HullUpgradePacketClass::HullUpgradePacketClass(int ship_id, int hull_upgrade_lev
 {
 }
 
-HullUpgradePacketClass::HullUpgradePacketClass(RawPacketClass *raw)
+HullUpgradePacketClass::HullUpgradePacketClass(PacketClass *raw)
 {
 	raw->Get(&ShipID, sizeof(ShipID));
 	raw->Get(&HullUpgradeLevel, sizeof(HullUpgradeLevel));
 }
 
-RawPacketClass *HullUpgradePacketClass::Build()
+PacketClass *HullUpgradePacketClass::Encode()
 {
-	RawPacketClass *raw = new RawPacketClass(89, Get_Data_Size());
+	PacketClass *raw = new PacketClass(89, Get_Data_Size());
 	raw->Add(&ShipID, sizeof(ShipID));
 	raw->Add(&HullUpgradeLevel, sizeof(HullUpgradeLevel));
 	return(raw);

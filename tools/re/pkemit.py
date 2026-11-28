@@ -58,12 +58,12 @@ def decl(cls, ctors):
     m = cls['members']
     out = ['// opcode %d (0x%04X, %s): vtable 0x%X, constructor 0x%X, 0x%X bytes' % (
         cls['op'], cls['op'], cls['opname'], cls['vt'], cls['ctor'], cls['size'])]
-    out.append('class %s : public PacketClass%s' % (cls['name'], class_name_tag(cls)))
+    out.append('class %s : public UnknownPacketBaseClass%s' % (cls['name'], class_name_tag(cls)))
     out += ['{', 'public:']
     for f, sig, _ in ctors:
         out.append('\t%s(%s);\t// 0x%X' % (cls['name'], sig, f))
-    out.append('\t%s(RawPacketClass *raw);\t// 0x%X' % (cls['name'], cls['ctor']))
-    out.append('\tvirtual RawPacketClass *Build();\t// +0x04 0x%X' % cls['build'])
+    out.append('\t%s(PacketClass *raw);\t// 0x%X' % (cls['name'], cls['ctor']))
+    out.append('\tvirtual PacketClass *Encode();\t// +0x04 0x%X' % cls['build'])
     if cls['pp'] != 0x52B240:
         if gen.CLIENTSTUB[0] <= cls['pp'] < gen.CLIENTSTUB[1]:
             out.append('\tvirtual bool Process_Packet(void *client);\t// +0x08 0x%X (clientstub.cpp l.%d)' % (
@@ -184,10 +184,10 @@ def defs(cls):
         else:
             get.append('\traw->Get(%s);' % mv['cname'])
     uses = any('raw->' in g for g in get)
-    out.append((cls['ctor'], ['%s::%s(RawPacketClass *%s)%s' % (cls['name'], cls['name'], 'raw' if uses else '', il),
+    out.append((cls['ctor'], ['%s::%s(PacketClass *%s)%s' % (cls['name'], cls['name'], 'raw' if uses else '', il),
                               '{'] + get + ['}']))
-    b = ['RawPacketClass *%s::Build()' % cls['name'], '{',
-         '\tRawPacketClass *raw = new RawPacketClass(%s, Get_Data_Size());' % (
+    b = ['PacketClass *%s::Encode()' % cls['name'], '{',
+         '\tRawPacketClass *raw = new PacketClass(%s, Get_Data_Size());' % (
              'Get_Type()' if cls.get('gettype') else cls['op'])]
     for off, kind, n in cls['adds']:
         mv = byoff[off]
@@ -204,7 +204,7 @@ def defs(cls):
     terms = []
     for off, kind, n in cls['adds']:
         nm = byoff[off]['cname']
-        terms.append('RawPacketClass::Get_Size(%s)' % nm if kind == 'string' else
+        terms.append('PacketClass::Get_Size(%s)' % nm if kind == 'string' else
                      '%s.length() + 1' % nm if kind == 'cstr' else 'sizeof(%s)' % nm)
     expr = ' + '.join(terms) if terms else '0'
     out.append((cls['sizef'], ['int %s::Get_Data_Size()' % cls['name'], '{', '\treturn(%s);' % expr, '}']))
@@ -242,7 +242,7 @@ if os.path.exists(_p):
             NOTEXACT[int(_a, 16)] = _r
 
 # drafted files that hold classes written by hand too: never rewritten (their decoded classes are kept as drafted)
-HAND = {'pkglobalerror', 'pkcreatecharacter', 'pkrecustomize', 'pkserverhandoff', 'pkmasterjoin', 'pkloungenpc', 'pktalktreeaction', 'pkunknown_877640', 'pkunknown_85d1a0', 'pkunknown_85f250', 'gameedit\\pkgekv', 'pkunknown_85d4b0', 'gameedit\\pkgeobj', 'gameedit\\pkgeplan', 'gameedit\\pkgesave', 'pkfindmember', 'pkserverredirect', 'pkunknown_87dec0', 'pkitemba', 'pkunknown_863720', 'pkmessagechatstream', 'pkserverready', 'pkjoblist', 'pktask', 'pkgadget', 'pkglobalconnect', 'pkspline', 'pknote', 'pkpetitionstuck', 'pkmessagetime', 'pkmodechange', 'pkmoderequest', 'pkguildplayeronline', 'pkgmeditplayerinventory', 'pkgmviewmissionlog', 'pkgmdestroyitem', 'pkgmresetmission', 'pkgpsrequest', 'pkincapacitancerequest', 'pkguildranknamesrequestclient', 'pkconfirmedaction', 'pktriggeremote', 'pkcta_request', 'pkserverparameters', 'pksetclienttype', 'pknotelist', 'pkmanufactureitemcatagorypacket', 'pkstarbasetow', 'pkdebug', 'pkinventorymove', 'pknamedecal', 'pkverbrequest', 'pkrequesttime', 'pkwarpindex', 'pksoundcommand', 'pkupdate', 'pkpointeffect', 'pk_player_object_relationship', 'pkclientchat', 'pkmessagestring', 'pkgroup', 'pkdialog', 'pkunknown_877c80', 'pkmove', 'pknavdelete', 'pkunknown_888b60', 'pkmessageline', 'pkcolorization'}   # opcode 106 by hand (builder P, 2026-10-26); 62, 9, 137, 165, 29, 30, 98, 99, 20, 153, 139, 174, 35, 36, 17 (builder P3, 2026-10-26)
+HAND = {'pkglobalerror', 'pkcreatecharacter', 'pkrecustomize', 'pkserverhandoff', 'pkmasterjoin', 'pkloungenpc', 'pktalktreeaction', 'pkunknown_877640', 'pkdeletecharacter', 'gameedit\\pkgelog', 'gameedit\\pkgekv', 'pkregistrationresult', 'gameedit\\pkgeobj', 'gameedit\\pkgeplan', 'gameedit\\pkgesave', 'pkfindmember', 'pkserverredirect', 'pkchatstream', 'pkitemba', 'pkglobalcontainer', 'pkmessagechatstream', 'pkserverready', 'pkjoblist', 'pktask', 'pkgadget', 'pkglobalconnect', 'pkspline', 'pknote', 'pkpetitionstuck', 'pkmessagetime', 'pkmodechange', 'pkmoderequest', 'pkguildplayeronline', 'pkgmeditplayerinventory', 'pkgmviewmissionlog', 'pkgmdestroyitem', 'pkgmresetmission', 'pkgpsrequest', 'pkincapacitancerequest', 'pkguildranknamesrequestclient', 'pkconfirmedaction', 'pktriggeremote', 'pkcta_request', 'pkserverparameters', 'pksetclienttype', 'pknotelist', 'pkmanufactureitemcatagorypacket', 'pkstarbasetow', 'pkdebug', 'pkinventorymove', 'pknamedecal', 'pkverbrequest', 'pkrequesttime', 'pkwarpindex', 'pksoundcommand', 'pkupdate', 'pkpointeffect', 'pk_player_object_relationship', 'pkclientchat', 'pkmessagestring', 'pkgroup', 'pkdialog', 'pkbroadcast', 'pkmove', 'pknavdelete', 'pkgroupserver', 'pkmessageline', 'pkcolorization'}   # opcode 106 by hand (builder P, 2026-10-26); 62, 9, 137, 165, 29, 30, 98, 99, 20, 153, 139, 174, 35, 36, 17 (builder P3, 2026-10-26)
 
 # the names the files have in the tree (a file keeps its name when more of its classes are drafted)
 KEEP = dict((op, inc[:-2]) for op, (name, inc) in pkclasses.rebuilt_classes().items())

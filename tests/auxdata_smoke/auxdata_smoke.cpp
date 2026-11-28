@@ -1,7 +1,7 @@
 // Earth & Beyond client (reconstruction)
 // M1.2's check (milestones.md 2.2: harness (b) on a hand-built root): a hand-built root goes through the rebuilt
 // encoder side (DeltaListClass, RecordTableClass, the records, DeltaListSetClass::Write) and back
-// through DeltaCompoundClass::Decode (both codecs, the lookup build), and the decoded tree
+// through DeltaContainer::Decode (both codecs, the lookup build), and the decoded tree
 // re-encodes to the same bytes. Built and run by tools/harness/auxdata_smoke.py.
 #include <stdio.h>
 #include <string.h>
@@ -14,15 +14,15 @@
 
 struct Tree
 {
-	DeltaCompoundClass *Root;
-	DeltaCompoundClass *Sub;
+	DeltaContainer *Root;
+	DeltaContainer *Sub;
 	DeltaTemplateClass<float> *Leaf[5];
 };
 
 static void Make(Tree &t, float base)
 {
-	t.Root = new DeltaCompoundClass("root");
-	t.Sub = new DeltaCompoundClass("sub");
+	t.Root = new DeltaContainer("root");
+	t.Sub = new DeltaContainer("sub");
 	char name[8];
 	for (int i = 0; i < 5; i++) {
 		sprintf(name, "f%d", i);
@@ -46,7 +46,7 @@ static int Encode(Tree &t, int form, unsigned char *out)
 	updated.Add(t.Leaf[2]);
 	defaulted.Add(t.Leaf[1]);
 	cleared.Add(t.Leaf[4]);
-	LinearBufferClass buf(0x400, 0x400);
+	LinearBuffer buf(0x400, 0x400);
 	unsigned char f = (unsigned char)form;
 	buf.Write(&f, 1);
 	if (form) {
@@ -79,7 +79,7 @@ static int Check(int form)
 	if (n1 <= 0) {
 		return 1;
 	}
-	LinearBufferClass in(one, n1, 0x400, false);
+	LinearBuffer in(one, n1, 0x400, false);
 	DurationClass base(0);
 	bool result = b.Root->Decode(in, base);
 	int fails = 0;

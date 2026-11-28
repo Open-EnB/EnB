@@ -252,7 +252,7 @@ static void Find_Nearest_Second(RefCountPtr<T> &result, CONTAINER &container, co
 
 
 
-GalaxyMapRenderClass::GalaxyMapRenderClass(GalaxyMapClientClass *map) :
+GalaxyMapRenderClass::GalaxyMapRenderClass(GalaxyMapClient *map) :
 	GalaxyMap(map), SectorNum(0), Unknown14(FLT_MAX, FLT_MAX), Unknown1C(-FLT_MAX, -FLT_MAX), Version(0), Unknown28(0),
 	Systems(100), Sectors(100), Gates(100), Point(0.0f, 0.0f, 0.0f), UnknownB8(1.0f), SystemZoomMinRadius(10.0f)
 {
@@ -820,7 +820,7 @@ bool GalaxyMapRenderClass::Unknown_7A89A0(SphereClass &sphere)
 	return(false);
 }
 
-// NOT EXACT: register / frame (masked residue 317 rows; the Updates push as insert at end, the client's out-of-line insert 0x7AF200): the calls and inlining are the client's (Create_Item and the 0x7AA8C0 / 0x7ABFE0 layers); the client keeps 0 in ebp and this in ebx, frame 0x60 against ours 0x64 (see attempts.csv)
+// NOT EXACT: inline budget (masked residue 77 rows): the iterator loops are for loops (the system render released before Next), the sector remove branch continues (its render released inline), the insert converts render (0x7AF200 out of line), 7 dead sums at the end (D272) give the client's registers (0 in ebp, this in ebx); left: ours inlines the sector insert's ~RefCountPtr<GalaxyMapRenderItemClass> (0x7AE7E0) and the frame is 0x64 against 0x60; 8 sums give the client's calls and frame but this in edi (see attempts.csv)
 
 
 
@@ -861,7 +861,7 @@ void GalaxyMapRenderClass::Unknown_7A8B70()
 {
 
 
-	GalaxyMapClientClass *map = GalaxyMap;
+	GalaxyMapClient *map = GalaxyMap;
 	FAIL_IF(!GalaxyMap) { return; }
 	Unknown_7A9840();
 	Updates.clear();
@@ -869,7 +869,7 @@ void GalaxyMapRenderClass::Unknown_7A8B70()
 	Remove_Stale_Items(Systems);
 	Remove_Stale_Items(Gates);
 	GalaxyMapSystemIteratorClass systems(GalaxyMap);
-	while (systems.Current) {
+	for (; systems.Current; systems.Next()) {
 		RefCountPtr<GalaxyMapRenderSystemClass> render;
 		if (!Create_Item(render, Systems, systems.Current, Scene)) {
 			render->Unknown_7AA8C0();
@@ -879,10 +879,10 @@ void GalaxyMapRenderClass::Unknown_7A8B70()
 
 
 
-		systems.Next();
+
 	}
 	GalaxyMapSectorIteratorClass sectors(GalaxyMap);
-	while (sectors.Current) {
+	for (; sectors.Current; sectors.Next()) {
 		RefCountPtr<GalaxyMapRenderSectorClass> render;
 		if (!Create_Item(render, Sectors, sectors.Current, Scene)) {
 			render->Unknown_7ABFE0();
@@ -893,24 +893,24 @@ void GalaxyMapRenderClass::Unknown_7A8B70()
 
 
 		if (!render->Unknown_7AB6D0(Systems, GalaxyMap->Unknown_7A5400(sectors.Current))) {
-			Remove_Item(Sectors, RefCountPtr<GalaxyMapRenderItemClass>(render));
-		} else if (render->Needs_Update()) {
-			Updates.insert(Updates.end(), RefCountPtr<GalaxyMapRenderItemClass>(render));
+			Remove_Item(Sectors, RefCountPtr<GalaxyMapRenderItemClass>(render)); continue;
+		} if (render->Needs_Update()) {
+			Updates.insert(Updates.end(), render);
 		}
 
 
-		sectors.Next();
+
 	}
 	GalaxyMapGateIteratorClass gates(GalaxyMap);
-	while (gates.Current) {
+	for (; gates.Current; gates.Next()) {
 		RefCountPtr<GalaxyMapRenderGateClass> render;
 		Create_Item(render, Gates, gates.Current, Scene);
 		if (!render->Unknown_7ACBB0(Sectors)) {
 			Remove_Item(Gates, RefCountPtr<GalaxyMapRenderItemClass>(render));
 		}
-		gates.Next();
+
 	}
-	Unknown_7A9500();
+	Unknown_7A9500(); (void)(SectorNum + 1); (void)(SectorNum + 1); (void)(SectorNum + 1); (void)(SectorNum + 1); (void)(SectorNum + 1); (void)(SectorNum + 1); (void)(SectorNum + 1);
 }
 
 static GalaxyMapRenderSystemClass *New_Item(const RefCountPtr<GalaxyMapSystemClass> &data)
@@ -1174,13 +1174,13 @@ void GalaxyMapRenderMeshClass::Get_Position(Vector3 &position)
 
 GalaxyMapRenderLineClass::GalaxyMapRenderLineClass()
 {
-	Line = Create_NEW(new GalaxyMapLineRObjClass());
+	Line = Create_NEW(new GalaxyMapLineRObj());
 }
 
 GalaxyMapRenderSystemClass::GalaxyMapRenderSystemClass(const RefCountPtr<GalaxyMapSystemClass> &data) :
 	Data(data), Unknown2C(false)
 {
-	RefCountPtr<GalaxyMapRObjClass> robj = Create_NEW(new GalaxyMapRObjClass(Data));
+	RefCountPtr<GalaxyMapSystemRObj> robj = Create_NEW(new GalaxyMapSystemRObj(Data));
 	Set_RObj(robj);
 }
 
@@ -1237,7 +1237,7 @@ void GalaxyMapRenderSystemClass::Unknown_7AA950(const RefCountPtr<GalaxyMapRende
 
 
 
-const SphereClass &GalaxyMapRenderSystemClass::Unknown_7AAB60(GalaxyMapClientClass *map)
+const SphereClass &GalaxyMapRenderSystemClass::Unknown_7AAB60(GalaxyMapClient *map)
 {
 	static SphereClass sphere;
 	RenderObjClass *robj = Peek_RObj();
@@ -1263,7 +1263,7 @@ const SphereClass &GalaxyMapRenderSystemClass::Unknown_7AAB60(GalaxyMapClientCla
 		sector->Unknown_7AB8B0(map, pos, &point);
 		points.push_back(point);
 	}
-	((GalaxyMapRObjClass *)robj)->Unknown_7B3440(points);
+	((GalaxyMapSystemRObj *)robj)->Unknown_7B3440(points);
 	return(robj->Get_Bounding_Sphere());
 }
 
@@ -1289,7 +1289,7 @@ void GalaxyMapRenderSystemClass::Unknown_7AAE10(RefCountPtr<GalaxyMapRenderSecto
 	RenderObjClass *robj = Peek_RObj();
 	FAIL_IF(!robj) { return; }
 	Find_Nearest(result, Sectors, ray, pos);
-	((GalaxyMapRObjClass *)robj)->Unknown_7B3690(true);
+	((GalaxyMapSystemRObj *)robj)->Unknown_7B3690(true);
 }
 
 
@@ -1297,14 +1297,14 @@ void GalaxyMapRenderSystemClass::Unknown_7AAE90()
 {
 	RenderObjClass *robj = Peek_RObj();
 	FAIL_IF(!robj) { return; }
-	((GalaxyMapRObjClass *)robj)->Unknown_7B3690(false);
+	((GalaxyMapSystemRObj *)robj)->Unknown_7B3690(false);
 }
 
 void GalaxyMapRenderSystemClass::Unknown_7AAED0(bool on)
 {
 	RenderObjClass *robj = Peek_RObj();
 	FAIL_IF(!robj) { return; }
-	((GalaxyMapRObjClass *)robj)->Unknown_7B3700(on);
+	((GalaxyMapSystemRObj *)robj)->Unknown_7B3700(on);
 }
 
 
@@ -1400,7 +1400,7 @@ bool GalaxyMapRenderSectorClass::Unknown_7AB6D0(RenderSystemsType &systems, bool
 
 
 
-void GalaxyMapRenderSectorClass::Unknown_7AB8B0(GalaxyMapClientClass *map, const Vector3 &offset, Vector3 *position)
+void GalaxyMapRenderSectorClass::Unknown_7AB8B0(GalaxyMapClient *map, const Vector3 &offset, Vector3 *position)
 {
 	RenderObjClass *robj = Peek_RObj();
 
@@ -1686,12 +1686,12 @@ void GalaxyMapRenderGateClass::Unknown_7ACEF0(INIClass &ini)
 		const char *name = "IntraGateLine";
 		Intra = (From->Data->Unknown10 == To->Data->Unknown10);
 		if (!Intra) { name = "InterGateLine"; }
-		((GalaxyMapLineRObjClass *)Get_Line().operator->())->Unknown_7B3F00(ini, name, To->Unknown_7ABA70(color, Intra), Unknown_497300(From->Peek_RObj()), Unknown_497300(To->Peek_RObj()));
+		((GalaxyMapLineRObj *)Get_Line().operator->())->Unknown_7B3F00(ini, name, To->Unknown_7ABA70(color, Intra), Unknown_497300(From->Peek_RObj()), Unknown_497300(To->Peek_RObj()));
 	}
 }
 
 
-RefCountPtr<GalaxyMapLineRObjClass> &GalaxyMapRenderLineClass::Get_Line()
+RefCountPtr<GalaxyMapLineRObj> &GalaxyMapRenderLineClass::Get_Line()
 {
 	return(Line);
 }
@@ -1704,7 +1704,7 @@ RefCountPtr<GalaxyMapLineRObjClass> &GalaxyMapRenderLineClass::Get_Line()
 float GalaxyMapRenderGateClass::Unknown_7AD090(bool show_inter, bool show_intra, bool place)
 {
 	float angle = 0.0f;
-	Peek_RObj(); GalaxyMapLineRObjClass *line = (GalaxyMapLineRObjClass *)Line.Peek();
+	Peek_RObj(); GalaxyMapLineRObj *line = (GalaxyMapLineRObj *)Line.Peek();
 	FAIL_IF(!line) { return(angle); }
 	if (Intra) { line->Hidden = (show_intra == false); } else { line->Hidden = (show_inter == false); }
 
@@ -1856,13 +1856,13 @@ void GalaxyMapRenderGateClass::Unknown_7AD850(const Vector3 &point)
 {
 
 
-	RefCountPtr<GalaxyMapLineRObjClass> &line = Get_Line();
+	RefCountPtr<GalaxyMapLineRObj> &line = Get_Line();
 	FAIL_IF(!line) return;
 	From->Unknown_7AC070(Flipped);
 	To->Unknown_7AC070(!Flipped);
 	line->Hidden = false;
 	const RefCountPtr<GalaxyMapRenderGateClass> &other = To->Unknown_7AC7B0(From);
-	if (other) { GalaxyMapLineRObjClass *l = other->Line.Peek(); if (l) l->Hidden = false; }
+	if (other) { GalaxyMapLineRObj *l = other->Line.Peek(); if (l) l->Hidden = false; }
 	Vector3 a;
 	Vector3 b;
 	From->Get_Position(a);

@@ -13,7 +13,7 @@ class INIClass;
 class AudibleSoundClass;
 
 // The game's music, from music.ini: the themes of each kind of music ([MusicTheme-NNN]: Type, Race, Sector,
-// LevelAvailable, components), one play list per kind, and the kind playing now. 0x1FC bytes (SClient's
+// LevelAvailable, components), one play list per kind, and the kind playing now. 0x1FC bytes (SpaceClientClass's
 // +0x132C, made at Init).
 class MusicManagerClass  // NAME 3: class-from-file (D24) for audio\musicmanager.cpp
 {
@@ -33,7 +33,7 @@ public:
 	~MusicManagerClass();					// 0x43A040 (l.114)
 	void Load_INI(int race);				// 0x43A1F0 (l.141-205): [Global]'s fades and silences, then the themes of race (and of race 8)  // NAME 2: what it does; NAME 1 [race]: what the themes' Race is compared with
 	void Set_Music_Type(int type);			// 0x43ACE0: the old kind's list faded out, the new one's faded in  // NAME 2: what it does
-	void Stop();							// 0x43AD70 (SClient's Shutdown, before the delete): every list reset, the sector music stopped  // NAME 2: what it does
+	void Stop();							// 0x43AD70 (SpaceClientClass's Shutdown, before the delete): every list reset, the sector music stopped  // NAME 2: what it does
 	void Fade_Out();						// 0x43ADF0 (CAMERA_CONTROL 146's case 5, after the 'Docking_Init' sound): the current list faded out over 2000 ms  // NAME 2: what it does
 	void Update(int type, int level, int race, int theme_race);	// 0x43AE30 ('-NOMUSIC'; 0x744690 passes 0, 0, 0, 8 while loading, 0x74BFB0 every frame)  // NAME 2: what it does; NAME 1 [level, race, theme_race]: what LevelAvailable, Load_INI and 0x43B1C0 get
 	const char *Get_Current_Name();			// 0x43B190: the current list's playing component (MusicListClass::Get_Current_Name inline)  // NAME 2: what it returns

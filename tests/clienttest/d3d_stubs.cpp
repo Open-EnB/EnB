@@ -21,7 +21,7 @@ public:
 	static void Set_Device(IDirect3DDevice8 *device) { D3DDevice = device; }
 };
 
-// clienttest.cpp's main calls it once the SClient and the asset manager are made
+// clienttest.cpp's main calls it once the SpaceClientClass and the asset manager are made
 void Install_Fake_D3D_Device()
 {
 	for (int i = 0; i < sizeof(Fake_D3D_Table) / sizeof(Fake_D3D_Table[0]); i++) {

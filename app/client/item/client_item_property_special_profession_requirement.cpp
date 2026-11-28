@@ -3,7 +3,7 @@
 #include "..\aux_skill.h"
 #include "..\..\shared\auxdata\auxdata.h"
 #include "..\..\shared\auth_product.h"
-template<class C> inline C *Unknown_Find_Valid(DeltaCompoundClass *root, const NameClass &name) { C *t = Unknown_Find_Field<C>(root, name); if (t && t->Unknown70) return(t); return(NULL); }	// NAME 1: neutral (D10): as co.cpp's
+template<class C> inline C *Unknown_Find_Valid(DeltaContainer *root, const AuxDataName &name) { C *t = Unknown_Find_Field<C>(root, name); if (t && t->Unknown70) return(t); return(NULL); }	// NAME 1: neutral (D10): as co.cpp's
 
 
 
@@ -28,7 +28,7 @@ template<class C> inline C *Unknown_Find_Valid(DeltaCompoundClass *root, const N
 
 
 
-RefCountPtr<ClientItemPropertySpecialProfessionRequirementClass> ClientItemPropertySpecialProfessionRequirementClass::Create(SClient *space_client, int professions)
+RefCountPtr<ClientItemPropertySpecialProfessionRequirementClass> ClientItemPropertySpecialProfessionRequirementClass::Create(SpaceClientClass *space_client, int professions)
 {
 	std::string label;
 	std::string tooltip;
@@ -68,7 +68,7 @@ RefCountPtr<ClientItemPropertySpecialProfessionRequirementClass> ClientItemPrope
 	return(Create_NEW(new ClientItemPropertySpecialProfessionRequirementClass(space_client, 4, professions, label, tooltip)));
 }
 
-ClientItemPropertySpecialProfessionRequirementClass::ClientItemPropertySpecialProfessionRequirementClass(SClient *space_client, int sort_order, int professions, const std::string &label, const std::string &tooltip) :
+ClientItemPropertySpecialProfessionRequirementClass::ClientItemPropertySpecialProfessionRequirementClass(SpaceClientClass *space_client, int sort_order, int professions, const std::string &label, const std::string &tooltip) :
 	ClientItemPropertySpecialClass(sort_order, tooltip, 0, 1),
 	SpaceClient(space_client),
 	Label(label),
@@ -102,9 +102,9 @@ std::vector<ClientItemPropertySpecialLineStruct> ClientItemPropertySpecialProfes
 // 0x52D900
 bool ClientItemPropertySpecialProfessionRequirementClass::Is_Usable()
 {
-	DeltaCompoundClass *aux_data = (DeltaCompoundClass *)SpaceClient->AuxData;
+	DeltaContainer *aux_data = (DeltaContainer *)SpaceClient->AuxData;
 	FAIL_IF(!aux_data) return(false);
-	NameClass name("RPGInfo.Profession");
+	AuxDataName name("RPGInfo.Profession");
 	DeltaTemplateClass<ProfessionType> *profession_aux_data = Unknown_Find_Valid<DeltaTemplateClass<ProfessionType> >(aux_data, name);
 	FAIL_IF(!profession_aux_data) return(false);
 	if (Professions & (1 << profession_aux_data->Value)) { return(false); } return(true);

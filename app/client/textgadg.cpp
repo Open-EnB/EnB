@@ -28,20 +28,20 @@ RefCountPtr<RenderObjClass> Unknown_497300(RenderObjClass *robj);	// 0x497300  /
 
 typedef char Unknown_RefCountPtr_Scene_Size[sizeof(RefCountPtr<SceneClass>)];	// NAME 1: not the client's: instantiates RefCountPtr<SceneClass> so its friend Create_Peek (0x514960) is visible (VC6 injects a template's friends on instantiation, as sclient.cpp)
 
-TextBaseGadgetClass *TextBaseGadgetClass::_ActiveUI = NULL;
+TextGadgetClass *TextGadgetClass::_ActiveUI = NULL;
 
 /*
 **	Reconstruction notes (textgadg.cpp, client 0x6AA000-0x6AB310; __FILE__ 0xB91874, asserts on the client's lines
 **	194-564, D25: blank lines keep them there).
 **
-**	TextBaseGadgetClass (0x6AA000-0x6AA810): the text in StrEditClass Edit (stredit.cpp: the edit buffer, the cursor,
+**	TextGadgetClass (0x6AA000-0x6AA810): the text in StringEditClass Edit (stredit.cpp: the edit buffer, the cursor,
 **	the keys); Hidden holds a star per character for
 **	the password box. Slot +0x74 moves the input focus ('_ActiveUI', 0xBE66C0) and the keyboard's text mode
 **	(input.cpp's 0x42EE00, a bool here). Slot +0x2C takes the key events (mask 0x100) while active: tab to Next (or
 **	Unknown39 when none), enter, escape (Unknown3A), the rest to Edit (Unknown3B, Changed).
-**	TextGadgetClass (0x6AA810-0x6AB190): a FontSys (fontmanager.h, 0x4E8 bytes) named string_name on the model
+**	UnknownTextGadgetClass (0x6AA810-0x6AB190): a FontSys (fontmanager.h, 0x4E8 bytes) named string_name on the model
 **	(or its top container), the box of the model's sub-object named by the style's Attach, a cursor
-**	(fontsys_cursor.cpp's TextCursorClass, 0x685680). 0x6AAD10 runs every frame: on Changed the text redrawn
+**	(fontsys_cursor.cpp's FontSysCursor, 0x685680). 0x6AAD10 runs every frame: on Changed the text redrawn
 **	(clipped to the box around the cursor, 0x6AB190; with flag 0x400 scrolled to fit the screen-scaled box), the
 **	cursor moved; while active the cursor blinks at GetCaretBlinkTime (flag 0x1000).
 **	The flags are extern constants in .rdata 0xB08C90-0xB08CC4 (1 ... 0x1000, 0x2C0): their file is not known; the tree
@@ -50,7 +50,7 @@ TextBaseGadgetClass *TextBaseGadgetClass::_ActiveUI = NULL;
 **	file's at 0xAC14A9; tooltip.cpp in this tree).
 */
 
-TextBaseGadgetClass::TextBaseGadgetClass(int length, unsigned int flags, const char *chars) :
+TextGadgetClass::TextGadgetClass(int length, unsigned int flags, const char *chars) :
 	GadgetClass(0x100),
 	Edit(NULL),
 	Hidden(NULL),
@@ -61,11 +61,11 @@ TextBaseGadgetClass::TextBaseGadgetClass(int length, unsigned int flags, const c
 	Active(false),
 	Next(NULL)
 {
-	Edit = new StrEditClass(length, NULL, flags, chars);
-	Hidden = new StrEditClass(length, NULL, Unknown_B08CC4, NULL);
+	Edit = new StringEditClass(length, NULL, flags, chars);
+	Hidden = new StringEditClass(length, NULL, Unknown_B08CC4, NULL);
 }
 
-TextBaseGadgetClass::~TextBaseGadgetClass()
+TextGadgetClass::~TextGadgetClass()
 {
 	if (_ActiveUI == this) {
 		Unknown_74(false);
@@ -74,13 +74,13 @@ TextBaseGadgetClass::~TextBaseGadgetClass()
 	delete Hidden;
 }
 
-bool TextBaseGadgetClass::Unknown_2C(KernelEventClass *event, float x, float y, unsigned int mask)
+bool TextGadgetClass::Unknown_2C(KernelEventClass *event, float x, float y, unsigned int mask)
 {
 	if ((mask & 0x100) && Active) {
 		if (!event->Is_Up()) {
 			switch (event->Key) {
 				case 9:
-					SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+					SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 					Unknown_74(false);
 					if (Next != NULL) {
 						Next->Unknown_74(true);
@@ -89,16 +89,16 @@ bool TextBaseGadgetClass::Unknown_2C(KernelEventClass *event, float x, float y, 
 					}
 					break;
 				case 0x0D:
-					SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+					SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 					Unknown_74(false);
 					break;
 				case 0x1B:
-					SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+					SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 					Unknown_74(false);
 					Unknown3A = true;
 					break;
 				default:
-					SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+					SoundLibrary::Play_2D_Sound("fontclick.wav", 2);
 					if (Edit->Process_Key(event)) {
 						Unknown3B = true;
 						Changed = true;
@@ -185,7 +185,7 @@ bool TextBaseGadgetClass::Unknown_2C(KernelEventClass *event, float x, float y, 
 
 
 
-void TextBaseGadgetClass::Unknown_6AA340(char *print, int s_size, int *cursorpos, bool *insert, const char *prompt, bool password)
+void TextGadgetClass::Unknown_6AA340(char *print, int s_size, int *cursorpos, bool *insert, const char *prompt, bool password)
 {
 	int dummy;
 	if (cursorpos == NULL) {
@@ -216,7 +216,7 @@ void TextBaseGadgetClass::Unknown_6AA340(char *print, int s_size, int *cursorpos
 	}
 }
 
-void TextBaseGadgetClass::Set_Text(const char *text, bool append)
+void TextGadgetClass::Set_Text(const char *text, bool append)
 {
 	Changed = true;
 	if (!append) {
@@ -227,7 +227,7 @@ void TextBaseGadgetClass::Set_Text(const char *text, bool append)
 	}
 }
 
-void TextBaseGadgetClass::Unknown_6AA5F0()
+void TextGadgetClass::Unknown_6AA5F0()
 {
 	char stars[256];
 	int len = strlen(Edit->String);
@@ -239,17 +239,17 @@ void TextBaseGadgetClass::Unknown_6AA5F0()
 	Hidden->Insert(stars);
 }
 
-int TextBaseGadgetClass::Get_Text_Length()
+int TextGadgetClass::Get_Text_Length()
 {
 	return(Edit->Get_Length());
 }
 
-char *TextBaseGadgetClass::Get_Text()
+char *TextGadgetClass::Get_Text()
 {
 	return(Edit->Get_String(Edit->Get_Length() + 1));
 }
 
-char *TextBaseGadgetClass::Get_Hidden_Text()
+char *TextGadgetClass::Get_Hidden_Text()
 {
 	return(Hidden->Get_String(Hidden->Get_Length() + 1));
 }
@@ -283,7 +283,7 @@ char *TextBaseGadgetClass::Get_Hidden_Text()
 
 
 
-void TextBaseGadgetClass::Unknown_74(bool on)
+void TextGadgetClass::Unknown_74(bool on)
 {
 	if (Active != on) {
 		Active = on;
@@ -332,8 +332,8 @@ void TextBaseGadgetClass::Unknown_74(bool on)
 
 
 
-TextGadgetClass::TextGadgetClass(InterfaceClass *iface, int length, const char *string_name, RenderObjClass *model, unsigned int flags, const char *chars) :
-	TextBaseGadgetClass(length, flags, chars),
+UnknownTextGadgetClass::UnknownTextGadgetClass(InterfaceClass *iface, int length, const char *string_name, RenderObjClass *model, unsigned int flags, const char *chars) :
+	TextGadgetClass(length, flags, chars),
 	Text(NULL),
 	Model(Unknown_497300(model)),
 	Cursor(NULL),
@@ -364,7 +364,7 @@ TextGadgetClass::TextGadgetClass(InterfaceClass *iface, int length, const char *
 	}
 }
 
-TextGadgetClass::~TextGadgetClass()
+UnknownTextGadgetClass::~UnknownTextGadgetClass()
 {
 	if (Active) {
 		Unknown_74(false);
@@ -372,12 +372,12 @@ TextGadgetClass::~TextGadgetClass()
 	Text = NULL;
 }
 
-void TextGadgetClass::Unknown_74(bool on)
+void UnknownTextGadgetClass::Unknown_74(bool on)
 {
 	if (!on) {
 		Cursor->Unknown_685DD0();
 	}
-	TextBaseGadgetClass::Unknown_74(on);
+	TextGadgetClass::Unknown_74(on);
 }
 
 
@@ -388,12 +388,12 @@ void TextGadgetClass::Unknown_74(bool on)
 
 // NOT EXACT: registers and stack (0.58; 0x128 bytes of locals in the client, 0x12C here): the client keeps the text
 // in ebx and &Text in ebp (recomputed after the width loop), here &Text in ebx and the text spilled
-void TextGadgetClass::Unknown_6AAD10()
+void UnknownTextGadgetClass::Unknown_6AAD10()
 {
 	bool changed = Changed;
 	Changed = false;
 	if (changed) {
-		RefCountPtr<Font32Class> &font = Text->Font;
+		RefCountPtr<Font32Bit> &font = Text->Font;
 		G_ASSERT(font);
 		if (font == NULL) {
 			return;
@@ -458,7 +458,7 @@ void TextGadgetClass::Unknown_6AAD10()
 	}
 }
 
-void TextGadgetClass::Unknown_64(AABoxClass &box)
+void UnknownTextGadgetClass::Unknown_64(AABoxClass &box)
 {
 	if (Text) {
 		box = Text->Get_Bounding_Box();
@@ -467,7 +467,7 @@ void TextGadgetClass::Unknown_64(AABoxClass &box)
 	GadgetClass::Unknown_64(box);
 }
 
-void TextGadgetClass::Unknown_28(LayerClass *layer)
+void UnknownTextGadgetClass::Unknown_28(LayerClass *layer)
 {
 	Cursor->Unknown_685A30(Create_Peek(layer->Scene));
 }
@@ -536,7 +536,7 @@ void TextGadgetClass::Unknown_28(LayerClass *layer)
 
 
 
-char *TextGadgetClass::Unknown_6AB190(char *string, float pwidth, RefCountPtr<Font32Class> &font, int &cp)
+char *UnknownTextGadgetClass::Unknown_6AB190(char *string, float pwidth, RefCountPtr<Font32Bit> &font, int &cp)
 {
 	FAIL_IF(pwidth <= 0.0f) {
 		pwidth = 1.0f;

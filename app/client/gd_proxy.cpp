@@ -21,7 +21,7 @@ ProxyGadgetClass::~ProxyGadgetClass()
 }
 
 
-void ProxyGadgetClass::Set_Target(RObjGadgetClass *target)
+void ProxyGadgetClass::Set_Target(RenderObjGadgetClass *target)
 {
 	Target = target;
 }
@@ -149,7 +149,7 @@ RenderObjClass *RObjProxyGadgetClass::Unknown_24(Vector3 *position, float *frame
 }
 
 
-void RObjProxyGadgetClass::Set_Target(RObjGadgetClass *target)
+void RObjProxyGadgetClass::Set_Target(RenderObjGadgetClass *target)
 {
 	ProxyGadgetClass::Set_Target(target);
 	if (TargetModel) {

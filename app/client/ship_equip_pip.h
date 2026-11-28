@@ -9,15 +9,15 @@
 #include "matrix3d.h"
 
 class LightClass;
-class ProxyRObj;
+class ProxyRenderObjClass;
 
 // The ship's PIP (0xB0 bytes, table 0xAEF058: the destructor only; ui_pda_equip.cpp makes it, gd_ship_equip_pip.cpp
 // turns and zooms it): the ship's model through a proxy in the PIP's scene, a light turned 30 degrees off the camera,
 // the camera on a trackball at a distance scaled by CameraManagerClass::Unknown_79B6B0
-class ShipEquipPipClass : public PipSceneClass	// NAME 3: class-from-file (D24) for app\Client\ship_equip_pip.cpp
+class ShipEquipPipClass : public PIPSceneClass	// NAME 3: class-from-file (D24) for app\Client\ship_equip_pip.cpp
 {
 public:
-	ShipEquipPipClass(SClient *client);					// 0x541DE0 (FAIL_IF '!scene' l.96)  // NAME 1 [client]: what the window passes
+	ShipEquipPipClass(SpaceClientClass *client);					// 0x541DE0 (FAIL_IF '!scene' l.96)  // NAME 1 [client]: what the window passes
 	virtual ~ShipEquipPipClass();						// +0x00 0x542180 (deleting 0x542150)
 	void Unknown_542250(const RefCountPtr<RenderObjClass> &robj);	// 0x542250 (FAIL_IF '!camera' l.177): the ship's model (ui_pda_equip.cpp's 0x5D2B90), the camera eased to the unit's distance  // NAME 1 [Unknown_542250, robj]: neutral (D10)
 	void Unknown_542A10(const Vector2 &point, bool on);	// 0x542A10 (FAIL_IF '!camera' l.234): gd_ship_equip_pip.cpp's drag from the point  // NAME 1 [Unknown_542A10, point, on]: neutral (D10)
@@ -26,7 +26,7 @@ public:
 	void Unknown_543270(const Matrix3D &tm);			// 0x543270 (FAIL_IF '!camera' l.340; no callers: the others inline it): the camera's and the light's transform  // NAME 1 [Unknown_543270, tm]: neutral (D10)
 
 	RefCountPtr<LightClass> Light;						// +0x34  // NAME 2: what it holds
-	RefCountPtr<ProxyRObj> Proxy;						// +0x38 (in the scene; proxies the ship's model)  // NAME 2: what it holds
+	RefCountPtr<ProxyRenderObjClass> Proxy;						// +0x38 (in the scene; proxies the ship's model)  // NAME 2: what it holds
 	Vector2 LastMouse;									// +0x3C (Unknown_543200's last point)  // NAME 2: what it holds
 	float Distance;										// +0x44 (the camera's from the model)  // NAME 2: what it holds
 	float Unknown48;									// +0x48 (CameraManagerClass::Unknown_79B6B0 when last placed)  // NAME 1: neutral (D10)

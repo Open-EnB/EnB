@@ -865,7 +865,7 @@ void GadgetClass::Unknown_6603A0(bool indicator, UIViewClass *view)
 	}
 	if (model) {
 		SceneClass *scene = model->Peek_Scene();
-		InterfaceSortClass sort(Unknown_497300(model));
+		LocalInterfaceSort sort(Unknown_497300(model));
 		Flash = new GadgetFlashStruct;
 		Flash->Clone = model->Clone();
 		model->Add_Ref();

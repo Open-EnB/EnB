@@ -22,7 +22,7 @@
 
 class PlayerObjectRelationshipChangeEvent;
 class ClientGroupEvent;
-class SClient;
+class SpaceClientClass;
 
 class RadarDataClass : public ClientObjectDataClass  // NAME 5: the client's typeid name .PAVRadarDataClass@@ (co_data.cpp's registry)
 {
@@ -37,7 +37,7 @@ public:
 	void Unknown_7BBA90(PlayerObjectRelationshipChangeEvent *event, ClientObjectClass *object);	// 0x7BBA90: the object's relationship changed  // NAME 2 [event, object]: the event's type, the FAIL_IF
 	void Unknown_7BBC00(ClientGroupEvent *event, ClientObjectClass *object);	// 0x7BBC00: the object's group changed  // NAME 2 [event, object]: the event's type, the FAIL_IF
 
-	SClient *Peek_SClient() { return((SClient *)Unknown_18()); }	// NAME 1: neutral
+	SpaceClientClass *Peek_SClient() { return((SpaceClientClass *)Unknown_18()); }	// NAME 1: neutral
 	bool Get_Unknown78() { return(Unknown78); }			// NAME 1: neutral
 
 	int Unknown08;						// +0x08 (gutter_data.cpp's 0x7B63C0: 1 and 2 show the labels; 0x7c bytes: co_data.cpp's new)  // NAME 1: neutral (D10)

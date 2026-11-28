@@ -62,7 +62,7 @@ DeltaCollectorClass::~DeltaCollectorClass()
 
 
 // NOT EXACT: frame, the client keeps the bool in the argument slot (frame 0xC, ours 0x10)
-void DeltaCollectorClass::Visit(DeltaCompoundClass *delta)
+void DeltaCollectorClass::Visit(DeltaContainer *delta)
 {
 	unsigned int value = 0;
 	int action = Policy->Get_Action(delta->Unknown7C, (int *)&value);
@@ -172,7 +172,7 @@ void DeltaCollectorClass::Visit(DeltaClass *delta)
 
 
 
-bool RecordCodecClass::Decode(DeltaCompoundClass *root, LinearBufferClass &buf, const DurationClass &base)
+bool RecordCodecClass::Decode(DeltaContainer *root, LinearBuffer &buf, const DurationClass &base)
 {
 	LookupClass *lookup = root->Get_Lookup();
 	int updated = 0;
@@ -223,7 +223,7 @@ DeltaListSetClass::DeltaListSetClass(DeltaListClass *updated, DeltaListClass *de
 	Lists[2] = cleared;
 }
 
-LinearBufferClass *DeltaListSetClass::Write(LinearBufferClass *buf)
+LinearBuffer *DeltaListSetClass::Write(LinearBuffer *buf)
 {
 	int count = Lists[0]->Count;
 	if (buf->Write(&count, 4) != 4) {
@@ -263,7 +263,7 @@ LinearBufferClass *DeltaListSetClass::Write(LinearBufferClass *buf)
 	return buf;
 }
 
-bool TreeCodecClass::Decode(DeltaCompoundClass *root, LinearBufferClass &buf, const DurationClass &base)
+bool TreeCodecClass::Decode(DeltaContainer *root, LinearBuffer &buf, const DurationClass &base)
 {
 	Buffer = &buf;
 	Base = &base;
@@ -379,7 +379,7 @@ void TreeCodecClass::Visit(DeltaClass *delta)
 
 
 // The client's form (0x4A9400): early returns; the mode chosen inside "any state"
-void TreeCodecClass::Visit(DeltaCompoundClass *delta)
+void TreeCodecClass::Visit(DeltaContainer *delta)
 {
 	int count = delta->Children.size();
 	bool whole;
@@ -418,7 +418,7 @@ void TreeCodecClass::Visit(DeltaCompoundClass *delta)
 		cleared_pos = bit_count;
 		bit_count += count;
 	}
-	BitSetClass bits(bit_count);
+	BitSet bits(bit_count);
 	int size = bits.NumBytes;
 	if (Buffer->Read(bits.Buffer, size) != size) {
 		Error = true;
@@ -447,7 +447,7 @@ void TreeCodecClass::Visit(DeltaCompoundClass *delta)
 bool TreeCodecClass::Read_Header(bool *whole, bool *updated, bool *defaulted, bool *cleared)
 {
 	int pos = Buffer->Get_Pos();
-	BitSetClass bits(4);
+	BitSet bits(4);
 	int size = bits.NumBytes;
 	if (Buffer->Read(bits.Buffer, size) != size) {
 		return false;
@@ -543,7 +543,7 @@ int RecordTableClass::Unknown_Sum()
 	return total;
 }
 
-LinearBufferClass *RecordTableClass::Unknown_All(LinearBufferClass *buf)
+LinearBuffer *RecordTableClass::Unknown_All(LinearBuffer *buf)
 {
 	for (int i = 0; i < Count; i++) {
 		if (Records[i] != 0 && !Records[i]->Unknown_08(buf)) {
@@ -590,13 +590,13 @@ void RecordTableClass::Add(DeltaListClass *list, int kind)	// NAME 1: which of t
 			int parent_index = parent->Unknown7C;
 			CompoundRecordClass *record = (CompoundRecordClass *)Records[parent_index];
 			if (record == 0) {
-				record = new CompoundRecordClass((DeltaCompoundClass *)parent, false);
+				record = new CompoundRecordClass((DeltaContainer *)parent, false);
 				Records[parent_index] = record;
 
 
 				G_ASSERT(record);
 			}
-			BitSetClass *bits = record->Get_Bits(kind);
+			BitSet *bits = record->Get_Bits(kind);
 			if (bits->Is_Set(bit)) {
 				break;
 			}
@@ -606,7 +606,7 @@ void RecordTableClass::Add(DeltaListClass *list, int kind)	// NAME 1: which of t
 	}
 }
 
-bool LeafRecordClass::Unknown_08(LinearBufferClass *buf)
+bool LeafRecordClass::Unknown_08(LinearBuffer *buf)
 {
 	if (Updated) {
 		return Delta->Unknown_0C(*buf);
@@ -643,10 +643,10 @@ int CompoundRecordClass::Unknown_04()
 
 
 
-bool CompoundRecordClass::Unknown_08(LinearBufferClass *buf)
+bool CompoundRecordClass::Unknown_08(LinearBuffer *buf)
 {
 	if (Whole) {
-		BitSetClass b(4);
+		BitSet b(4);
 		b.Set(0);
 		if (Updated.Is_Any_Set()) {
 			b.Set(1);
@@ -684,7 +684,7 @@ bool CompoundRecordClass::Unknown_08(LinearBufferClass *buf)
 		cleared_pos = bit_count;
 		bit_count += count;
 	}
-	BitSetClass b(bit_count);
+	BitSet b(bit_count);
 	if (Updated.Is_Any_Set()) {
 		b.Set(1);
 		for (int i = 0; i < count; i++) {

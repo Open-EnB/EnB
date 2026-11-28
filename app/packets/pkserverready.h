@@ -18,12 +18,12 @@
 #include "pk.h"
 
 // opcode 59 (0x003B, ?): vtable 0xB0BB9C, constructor 0x8A61E0, 0x18 bytes
-class Packet_003BClass : public PacketClass  // NAME 1: neutral (D10): opcode 0x003B
+class ServerReadyPacketClass : public UnknownPacketBaseClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
-	Packet_003BClass(int sector, int ip, unsigned short port);	// 0x8A6140
-	Packet_003BClass(RawPacketClass *raw);	// 0x8A61E0
-	virtual RawPacketClass *Build();	// +0x04 0x8A62A0
+	ServerReadyPacketClass(long sector, int ip, unsigned short port);	// 0x8A6140  // NAME 5: thunk order confirmed, binary.md 5.11
+	ServerReadyPacketClass(PacketClass *raw);	// 0x8A61E0
+	virtual PacketClass *Encode();	// +0x04 0x8A62A0  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x8683D0 (clientstub.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x8A63A0
 	virtual int Print(char *buffer, int len);	// +0x10 0x8A63C0

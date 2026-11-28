@@ -131,7 +131,7 @@ bool DynamicWindowMultiLineTextClass::Is_Dirty()
 	return Dirty;
 }
 
-Vector2 DynamicWindowMultiLineTextClass::Get_Min_Size()
+Vector2 DynamicWindowMultiLineTextClass::Get_Min_Size() const
 {
 	return MinSize;
 }
@@ -155,7 +155,7 @@ void DynamicWindowMultiLineTextClass::Layout(const Vector2 &position, const Vect
 	FAIL_IF(height <= 0) return;
 	Vector2 line_position = position;
 	Vector2 line_size(size.X, height);
-	for (std::vector< RefCountPtr<DynamicWindowElementClass> >::iterator it = Lines.begin(); it != Lines.end(); ++it) {
+	for (std::vector< RefCountPtr<DynamicWindowElement> >::iterator it = Lines.begin(); it != Lines.end(); ++it) {
 		(*it)->Layout(line_position, line_size);
 		line_position.Y -= height;
 	}
@@ -220,13 +220,13 @@ void DynamicWindowMultiLineTextClass::Add_To_Scene(SceneClass *scene)
 
 void DynamicWindowMultiLineTextClass::Remove_From_Scene()
 {
-	for (std::vector< RefCountPtr<DynamicWindowElementClass> >::iterator it = Lines.begin(); it != Lines.end(); ++it) {
+	for (std::vector< RefCountPtr<DynamicWindowElement> >::iterator it = Lines.begin(); it != Lines.end(); ++it) {
 		(*it)->Remove_From_Scene();
 	}
 	Scene = NULL;
 }
 
-SceneClass *DynamicWindowMultiLineTextClass::Peek_Scene()
+SceneClass *DynamicWindowMultiLineTextClass::Peek_Scene() const
 {
 	return Scene;
 }
@@ -234,7 +234,7 @@ SceneClass *DynamicWindowMultiLineTextClass::Peek_Scene()
 void DynamicWindowMultiLineTextClass::Set_Level(int level)
 {
 	Level = level;
-	for (std::vector< RefCountPtr<DynamicWindowElementClass> >::iterator it = Lines.begin(); it != Lines.end(); ++it) {
+	for (std::vector< RefCountPtr<DynamicWindowElement> >::iterator it = Lines.begin(); it != Lines.end(); ++it) {
 		(*it)->Set_Level(Level);
 	}
 }
@@ -250,7 +250,7 @@ void DynamicWindowMultiLineTextClass::Set_Position(const Vector2 &position)
 	Position_Lines();
 }
 
-void DynamicWindowMultiLineTextClass::Child_Changed(DynamicWindowElementClass &child)
+void DynamicWindowMultiLineTextClass::Child_Changed(DynamicWindowElement &child)
 {
 	Invalidate();
 }
@@ -278,7 +278,7 @@ void DynamicWindowMultiLineTextClass::Remove_All_Children(bool recursive)
 
 
 
-bool DynamicWindowMultiLineTextClass::Remove_Child(const RefCountPtr<DynamicWindowElementClass> &child)
+bool DynamicWindowMultiLineTextClass::Remove_Child(const RefCountPtr<DynamicWindowElement> &child)
 {
 	G_ASSERT(0);
 	return false;
@@ -297,7 +297,7 @@ void DynamicWindowMultiLineTextClass::Refresh()
 
 void DynamicWindowMultiLineTextClass::Clear_Lines()
 {
-	for (std::vector< RefCountPtr<DynamicWindowElementClass> >::iterator it = Lines.begin(); it != Lines.end(); ++it) {
+	for (std::vector< RefCountPtr<DynamicWindowElement> >::iterator it = Lines.begin(); it != Lines.end(); ++it) {
 		(*it)->Remove_From_Scene();
 		(*it)->Clear_Parent();
 	}
@@ -341,7 +341,7 @@ void DynamicWindowMultiLineTextClass::Split_Lines(float width)
 	unsigned int shown = 0;
 	for (int i = 0; i < count; i++) {
 		std::string line(split.Get(i));
-		RefCountPtr<DynamicWindowElementClass> line_element = DynamicWindowTextClass::Create(FontName, line, Flags);
+		RefCountPtr<DynamicWindowElement> line_element = DynamicWindowTextClass::Create(FontName, line, Flags);
 
 
 

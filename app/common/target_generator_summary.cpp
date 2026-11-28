@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 
-struct TargetSummaryText	// NAME 2: what it holds
+struct TargetSummaryStrings  // NAME 5: thunk order C, binary.md 5.11
 {
 	std::string Scope;		// +0x00 ("to group", "to targets", ...)  // NAME 2: what it holds
 	std::string Radius;		// +0x10 ("Effect Radius : %d")  // NAME 2: what it holds
@@ -13,9 +13,9 @@ struct TargetSummaryText	// NAME 2: what it holds
 };
 
 // 0x84B360 (the implicit destructor is 0x84B8A0, the implicit copy constructor 0x84B930)
-TargetSummaryText Target_Summary_Text(unsigned char flags, int radius)	// NAME 2: what it does; NAME 1 [flags, radius]: neutral
+TargetSummaryStrings Target_Summary_Text(unsigned char flags, int radius)	// NAME 2: what it does; NAME 1 [flags, radius]: neutral
 {
-	TargetSummaryText text;
+	TargetSummaryStrings text;
 	char buffer[128];
 	sprintf(buffer, "Effect Radius : %d", radius);
 	if (flags & 2) {

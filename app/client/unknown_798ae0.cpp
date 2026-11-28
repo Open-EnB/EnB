@@ -5,7 +5,7 @@
 #include "client.h"
 #include "..\shared\auth_product.h"
 // 0x798AE0
-CameraController00Class::CameraController00Class(SClient *client) :
+NullCameraControllerClass::NullCameraControllerClass(SpaceClientClass *client) :
 	CameraControllerClass(client),
 	Unknown0C(0),
 	Unknown10(false)
@@ -13,12 +13,12 @@ CameraController00Class::CameraController00Class(SClient *client) :
 }
 
 // 0x798B40
-CameraController00Class::~CameraController00Class()
+NullCameraControllerClass::~NullCameraControllerClass()
 {
 }
 
 // 0x798B60
-void CameraController00Class::Unknown_04()
+void NullCameraControllerClass::Unknown_04()
 {
 	Unknown0C = Client->Unknown10BC;
 	Unknown10 = Client->Get_Avatar() != NULL;
@@ -27,10 +27,10 @@ void CameraController00Class::Unknown_04()
 }
 
 // 0x798BA0
-void CameraController00Class::Unknown_08(Vector3 *pos, Quaternion *rot, int *mode, int *target)
+void NullCameraControllerClass::Unknown_08(Vector3 *pos, Quaternion *rot, int *mode, int *target)
 {
 	if (!Unknown11 && (Flags & 1)) {
-		CameraController00Class::Unknown_04();
+		NullCameraControllerClass::Unknown_04();
 	}
 	if (Unknown10) {
 		if (!Client->Get_Avatar()) {
@@ -60,7 +60,7 @@ void CameraController00Class::Unknown_08(Vector3 *pos, Quaternion *rot, int *mod
 }
 
 // 0x798CD0
-void CameraController00Class::Unknown_0C()
+void NullCameraControllerClass::Unknown_0C()
 {
 }
 

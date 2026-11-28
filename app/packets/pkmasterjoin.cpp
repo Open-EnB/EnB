@@ -8,7 +8,7 @@ MasterJoinPacketClass::MasterJoinPacketClass(const TicketClass &ticket) :
 {
 }
 
-MasterJoinPacketClass::MasterJoinPacketClass(RawPacketClass *raw) :
+MasterJoinPacketClass::MasterJoinPacketClass(PacketClass *raw) :
 	Ticket(0),
 	Unknown58(0)
 {
@@ -19,9 +19,9 @@ MasterJoinPacketClass::~MasterJoinPacketClass()
 {
 }
 
-RawPacketClass *MasterJoinPacketClass::Build()
+PacketClass *MasterJoinPacketClass::Encode()
 {
-	RawPacketClass *raw = new RawPacketClass(53, Get_Data_Size());
+	PacketClass *raw = new PacketClass(53, Get_Data_Size());
 	raw->Add((Unknown_PacketDataClass &)Ticket);
 	return(raw);
 }
@@ -42,6 +42,6 @@ int MasterJoinPacketClass::Print(char *buffer, int)
 **
 **	* Client 0x8974C0-0x8977D0 (0x897490 is the previous object's guarded static, 0xC416FC; this one's is
 **	  0x8977D0): MASTER_JOIN 53, written by hand (builder P6, 2026-10-27): the login ticket
-**	  (unknown_login_data.h's TicketClass) through RawPacketClass's Get / Add of its wire interface.
+**	  (unknown_login_data.h's TicketClass) through PacketClass's Get / Add of its wire interface.
 **	* The file name is provisional (no assert names it).
 */

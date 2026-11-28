@@ -5,13 +5,13 @@
 #include "control_keys_manager.h"
 #include "ww3d.h"
 #include "render2d.h"
-#include "texture.h"
 #include "dx8wrapper.h"
 #include "dx8vertexbuffer.h"
 #include "dx8indexbuffer.h"
 #include "wwstring.h"
-#include "wwmemlog.h"
+#include "texture.h"
 #include "fastallocator.h"
+#include "wwmemlog.h"
 #include "..\shared\g_assert.h"
 #include "..\shared\message.h"
 #include "..\shared\auth_product.h"
@@ -191,8 +191,8 @@ void FrameInterfaceClass::Unknown_5C()
 
 
 
-
-// NOT EXACT: functional (D64), register-only and order-only (the three subtractions call their right operand first in the client)
+static inline void Frame_Memory_Line(StringClass &text, int i, unsigned memory) { StringClass line; line.Format("%s : %2.2fMb\n", WWMemoryLogClass::Get_Category_Name(i), (float)memory / (1024.0f * 1024.0f)); text += line; } static inline void Frame_Display_Memory_Line(StringClass &text, int i, unsigned memory) { Frame_Memory_Line(text, i, memory); } static inline void Frame_FPS_Line(StringClass &text, StringClass &line, float rate) { line.Format("FPS = %4.0f\n", rate); text += line; } static inline void Frame_Video_Line(StringClass &text, StringClass &line) { line.Format("%d bytes free (AGP + Video)\n", DX8Wrapper::Get_Free_Texture_RAM()); text += line; text.Is_Empty(); }
+// slot +0x60's file-static layers above (the notes)
 // 0x53EB00
 void FrameInterfaceClass::Unknown_60()
 {
@@ -200,9 +200,9 @@ void FrameInterfaceClass::Unknown_60()
 	if (frame_time <= 1) {
 		frame_time = 1;
 	}
-	FrameRate = FrameRate * 0.9f + (1.0f / ((float)frame_time * 0.001f)) * 0.1f;
+	float rate = 1.0f / ((float)frame_time * 0.001f); FrameRate = FrameRate * 0.9f + rate * 0.1f;
 
-	if (((SClient *)Client)->Unknown14EC == 4) {
+	if (((SpaceClientClass *)Client)->Unknown14EC == 4) {
 		StringClass text;
 		unsigned frame_allocs = FastAllocatorGeneral::Get_Allocator()->UnknownE20[2];
 		unsigned frame_count = FastAllocatorGeneral::Get_Allocator()->UnknownE20[0];
@@ -246,24 +246,24 @@ void FrameInterfaceClass::Unknown_60()
 		for (int i = 0; i < count; i++) {
 			unsigned memory = WWMemoryLogClass::Get_Current_Allocated_Memory(i);
 			if (memory != 0) {
-				StringClass line;
-				line.Format("%s : %2.2fMb\n", WWMemoryLogClass::Get_Category_Name(i), (float)memory / (1024.0f * 1024.0f));
-				text += line;
+				Frame_Display_Memory_Line(text, i, memory);
+
+
 			}
 		}
-		((SClient *)Client)->Text->Draw_Text(text);
+		((SpaceClientClass *)Client)->Text->Draw_Text(text);
 		WWMemoryLogClass::Reset_Counters();
 		FastAllocatorGeneral::Get_Allocator()->Unknown_Reset_Statistics();
 	}
 
-	if (((SClient *)Client)->Unknown14EC == 1) {
+	if (((SpaceClientClass *)Client)->Unknown14EC == 1) {
 		StringClass line(255, true);
 		StringClass text(1024, true);
-		line.Format("FPS = %4.0f\n", FrameRate);
-		text += line;
-		line.Format("%d bytes free (AGP + Video)\n", DX8Wrapper::Get_Free_Texture_RAM());
-		text += line;
-		((SClient *)Client)->Text->Draw_Text(text);
+		Frame_FPS_Line(text, line, FrameRate);
+
+		Frame_Video_Line(text, line);
+
+		((SpaceClientClass *)Client)->Text->Draw_Text(text);
 	}
 
 	Message_Stat("Render", "", __FILE__, __LINE__, 0, 0, "Frame Rate = %4.0f", FrameRate);
@@ -309,6 +309,13 @@ bool FrameInterfaceClass::Unknown_68(int key)
 **	+0x68 as key 0), the deleting destructor 0x53EA40 and the destructor, slots +0x54 (empty) / +0x58 / +0x5C / +0x60 /
 **	+0x68, StringClass(int, bool)'s out-of-line copy 0x53F1C0, FastAllocatorGeneral's two sums 0x53F200 / 0x53F250
 **	(defined here after slot +0x60, not inlined into it: auto_inline off), <string>'s guarded initialiser 0x53F2F0 and the closing thunks 0x53F320 / 0x53F330. The class name follows the file (D24).
-**	The client's display mode (SClient +0x14EC) picks what slot +0x60 draws with the client's text (+0x13C4): 4 the
+**	The client's display mode (SpaceClientClass +0x14EC) picks what slot +0x60 draws with the client's text (+0x13C4): 4 the
 **	memory statistics, 1 the frame rate and the free texture memory.
+**	Slot +0x60's layers (B8, 2026-11-28): the category line (StringClass line, Format, +=) in Frame_Memory_Line under a
+**	one-line Frame_Display_Memory_Line, the two FPS lines in Frame_FPS_Line / Frame_Video_Line, the latter with a dead
+**	text.Is_Empty() after its += (D272): the client calls StringClass(int, bool) and += out of line only in the loop and
+**	Store_Length out of line only in the second FPS +=, the nested cuts these layers give. The reciprocal is a named float
+**	local (the client computes it before loading FrameRate). The include order (texture.h after the dx8 headers,
+**	fastallocator.h before wwmemlog.h) sets the two texture differences' call order (right operand first), as in
+**	sbaseview.cpp 0x6A1180 (B30); measured through verify's compile path, trybatch's overlay breaks the tie the other way.
 */

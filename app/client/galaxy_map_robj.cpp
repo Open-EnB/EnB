@@ -51,7 +51,7 @@ static float _max_tile = 0.0f;		// 0xBE8720: the line's tile factor at 256  // N
 
 
 // @0x7B2B30
-GalaxyMapRObjClass::GalaxyMapRObjClass(const RefCountPtr<GalaxyMapSystemClass> &system) :
+GalaxyMapSystemRObj::GalaxyMapSystemRObj(const RefCountPtr<GalaxyMapSystemClass> &system) :
 	DynamicMeshClass(_max_polys, _max_verts), UVFlags(system->HashID),
 	Color(system->Unknown20),
 	NameOffset(0, 0),
@@ -88,19 +88,19 @@ GalaxyMapRObjClass::GalaxyMapRObjClass(const RefCountPtr<GalaxyMapSystemClass> &
 }
 
 // @0x7B3100
-GalaxyMapRObjClass::~GalaxyMapRObjClass()
+GalaxyMapSystemRObj::~GalaxyMapSystemRObj()
 {
 }
 
 // @0x7B31F0
-void GalaxyMapRObjClass::Set_Position(const Vector3 &v)
+void GalaxyMapSystemRObj::Set_Position(const Vector3 &v)
 {
 	DynamicMeshClass::Set_Position(v);
 	Unknown_7B3C60();
 }
 
 // @0x7B3260
-void GalaxyMapRObjClass::Add(SceneClass *scene)
+void GalaxyMapSystemRObj::Add(SceneClass *scene)
 {
 	Name->Set_Hidden(0);
 	Name->Unknown_6CE7D0(0);
@@ -109,14 +109,14 @@ void GalaxyMapRObjClass::Add(SceneClass *scene)
 }
 
 // @0x7B32B0
-void GalaxyMapRObjClass::Remove(void)
+void GalaxyMapSystemRObj::Remove(void)
 {
 	Name->Remove();
 	DynamicMeshClass::Remove();
 }
 
 // @0x7B32E0
-void GalaxyMapRObjClass::Render(RenderInfoClass &rinfo)
+void GalaxyMapSystemRObj::Render(RenderInfoClass &rinfo)
 {
 	if (Blink) {
 		Blink += WW3D::Get_Frame_Time();
@@ -133,7 +133,7 @@ void GalaxyMapRObjClass::Render(RenderInfoClass &rinfo)
 }
 
 // @0x7B3440
-void GalaxyMapRObjClass::Unknown_7B3440(std::vector<Vector3> &points)
+void GalaxyMapSystemRObj::Unknown_7B3440(std::vector<Vector3> &points)
 {
 	if (points.begin() == points.end()) {
 		Vector2 empty(-0.5f, -5.0f);
@@ -177,7 +177,7 @@ void GalaxyMapRObjClass::Unknown_7B3440(std::vector<Vector3> &points)
 }
 
 // @0x7B3690
-void GalaxyMapRObjClass::Unknown_7B3690(bool on)
+void GalaxyMapSystemRObj::Unknown_7B3690(bool on)
 {
 	if (on) {
 		if (!Blink) {
@@ -190,7 +190,7 @@ void GalaxyMapRObjClass::Unknown_7B3690(bool on)
 }
 
 // @0x7B3700
-void GalaxyMapRObjClass::Unknown_7B3700(bool on)
+void GalaxyMapSystemRObj::Unknown_7B3700(bool on)
 {
 	if (on) {
 		Name->Set_Hidden(0);
@@ -241,7 +241,7 @@ static inline void Swap_UV(Vector2 &uv) { if (uv.X != uv.Y) { float t = uv.X; uv
 
 
 // @0x7B3770
-void GalaxyMapRObjClass::Unknown_7B3770(const Vector2 &min, const Vector2 &max, bool resize)
+void GalaxyMapSystemRObj::Unknown_7B3770(const Vector2 &min, const Vector2 &max, bool resize)
 {
 	if (resize) {
 		Resize(_max_polys, _max_verts);
@@ -284,7 +284,7 @@ void GalaxyMapRObjClass::Unknown_7B3770(const Vector2 &min, const Vector2 &max, 
 }
 
 // @0x7B3C60
-void GalaxyMapRObjClass::Unknown_7B3C60()
+void GalaxyMapSystemRObj::Unknown_7B3C60()
 {
 	Vector3 pos = Get_Position();
 	pos.X += NameOffset.X;
@@ -293,7 +293,7 @@ void GalaxyMapRObjClass::Unknown_7B3C60()
 }
 
 // @0x7B3CD0
-void GalaxyMapRObjClass::Unknown_7B3CD0()
+void GalaxyMapSystemRObj::Unknown_7B3CD0()
 {
 	if (!Blink) {
 		Material->Set_Emissive(Color);
@@ -311,7 +311,7 @@ void GalaxyMapRObjClass::Unknown_7B3CD0()
 }
 
 // @0x7B3E30
-GalaxyMapLineRObjClass::GalaxyMapLineRObjClass() :
+GalaxyMapLineRObj::GalaxyMapLineRObj() :
 	Color(0, 0, 0),
 	Hidden(false),
 	Fade(0)
@@ -319,7 +319,7 @@ GalaxyMapLineRObjClass::GalaxyMapLineRObjClass() :
 }
 
 // @0x7B3ED0
-GalaxyMapLineRObjClass::~GalaxyMapLineRObjClass()
+GalaxyMapLineRObj::~GalaxyMapLineRObj()
 {
 }
 
@@ -364,7 +364,7 @@ GalaxyMapLineRObjClass::~GalaxyMapLineRObjClass()
 
 
 // @0x7B3F00
-bool GalaxyMapLineRObjClass::Unknown_7B3F00(INIClass &ini, const char *name, const Vector3 &color, RefCountPtr<RenderObjClass> from, RefCountPtr<RenderObjClass> to)
+bool GalaxyMapLineRObj::Unknown_7B3F00(INIClass &ini, const char *name, const Vector3 &color, RefCountPtr<RenderObjClass> from, RefCountPtr<RenderObjClass> to)
 {
 	FAIL_IF(!from) return(false);
 	FAIL_IF(!to) return(false);
@@ -410,7 +410,7 @@ bool GalaxyMapLineRObjClass::Unknown_7B3F00(INIClass &ini, const char *name, con
 }
 
 // @0x7B43F0
-void GalaxyMapLineRObjClass::Render(RenderInfoClass &rinfo)
+void GalaxyMapLineRObj::Render(RenderInfoClass &rinfo)
 {
 	float time = WW3D::Get_Frame_Time() * 0.001;
 	if (Hidden) {
@@ -431,7 +431,7 @@ void GalaxyMapLineRObjClass::Render(RenderInfoClass &rinfo)
 **
 **	The client's __FILE__ 0xB9EB80 (e:\build\beta\G\app\Client\galaxy_map_robj.cpp), FAIL_IFs at lines
 **	65, 256, 369, 370 and 377; client 0x7B2B30-0x7B46EA, the object's <string> initialiser at
-**	0x7B4640 followed by the tables' adjustor thunks 0x7B4670-0x7B46A0 and PermStringInit's
+**	0x7B4640 followed by the tables' adjustor thunks 0x7B4670-0x7B46A0 and _PermStringInit's
 **	initialiser 0x7B46B0. Out-of-line templates here: Create_Peek 0x7B45A0, DynamicVectorClass<
 **	VertexMaterialClass *>::Add 0x7B45D0; the classes' inline Class_ID 0x7B30B0 (DynamicMeshClass's)
 **	and 0x7B3E80 (SegmentedLineClass's).

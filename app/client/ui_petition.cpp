@@ -22,7 +22,7 @@ static const char *Unknown_B83CF0[8] = { NULL, "KNOWLEDGE_hsi01a", "BUG_hsi01a",
 static const Vector3 *Unknown_B83D10[8] = { NULL, &Unknown_BE5D58, &Unknown_BE5D48, &Unknown_BE5D48, &Unknown_BE5D38, &Unknown_BE5D38, &Unknown_BE5D38, NULL };	// NAME 1: neutral (D10)
 
 // 0x5D33B0
-UIPetitionClass::UIPetitionClass(SClient *client) :
+UIPetitionClass::UIPetitionClass(SpaceClientClass *client) :
 	UIPetitionAvatarPipClass(client)
 {
 	memset(Buttons, 0, sizeof(Buttons));
@@ -88,7 +88,7 @@ bool UIPetitionClass::Unknown_68(int key)
 {
 	switch (key) {
 		case 1:
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			if (Page) {
 				Page->Unknown_94();
 			} else {
@@ -99,28 +99,28 @@ bool UIPetitionClass::Unknown_68(int key)
 		case 2:
 			if (!Page) {
 				Unknown_5C();
-				Page = Create_Get(new UIPopupBrowserClass((SClient *)((ClientClass *)Client)->As_Space_Client(), 0, "Knowledgebase", NULL));
+				Page = Create_Get(new PopupBrowserInterface((SpaceClientClass *)((ClientClass *)Client)->As_Space_Client(), 0, "Knowledgebase", NULL));
 				Page->Unknown_54();
 				Page->Unknown_7C(View, 1);
-				SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+				SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			}
 			break;
 		case 3:
 			if (!Page) {
 				Unknown_5C();
-				Page = Create_Get(new UIPopupBrowserClass((SClient *)((ClientClass *)Client)->As_Space_Client(), 2, "Bug Submission", NULL));
+				Page = Create_Get(new PopupBrowserInterface((SpaceClientClass *)((ClientClass *)Client)->As_Space_Client(), 2, "Bug Submission", NULL));
 				Page->Unknown_54();
 				Page->Unknown_7C(View, 1);
-				SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+				SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			}
 			break;
 		case 4:
 			if (!Page) {
 				Unknown_5C();
-				Page = Create_Get(new UIPopupBrowserClass((SClient *)((ClientClass *)Client)->As_Space_Client(), 1, "Tech Support", NULL));
+				Page = Create_Get(new PopupBrowserInterface((SpaceClientClass *)((ClientClass *)Client)->As_Space_Client(), 1, "Tech Support", NULL));
 				Page->Unknown_54();
 				Page->Unknown_7C(View, 1);
-				SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+				SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			}
 			break;
 		case 5:
@@ -131,12 +131,12 @@ bool UIPetitionClass::Unknown_68(int key)
 			if (Page) {
 				return(true);
 			}
-			Page = Create_Get(new UIPetitionStuckClass((SClient *)((ClientClass *)Client)->As_Space_Client(), (key == 6) ? 2 : 1));
+			Page = Create_Get(new UIPetitionStuckClass((SpaceClientClass *)((ClientClass *)Client)->As_Space_Client(), (key == 6) ? 2 : 1));
 			Page->Unknown_5417D0(this);
 			Page->Unknown_54();
 			Page->Unknown_88(InterfaceMesh, "TRANS_BONE");
 			Page->Unknown_7C(View, 1);
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			Unknown_5D4070(key);
 			return(true);
 		case 7:
@@ -144,11 +144,11 @@ bool UIPetitionClass::Unknown_68(int key)
 				return(true);
 			}
 			Unknown_5C();
-			Page = Create_Get(new UIPetitionPlayerClass((SClient *)((ClientClass *)Client)->As_Space_Client()));
+			Page = Create_Get(new UIPetitionPlayerClass((SpaceClientClass *)((ClientClass *)Client)->As_Space_Client()));
 			Page->Unknown_5417D0(this);
 			Page->Unknown_54();
 			Page->Unknown_7C(View, 1);
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			break;
 		default:
 			return(false);

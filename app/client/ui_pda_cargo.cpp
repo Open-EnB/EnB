@@ -12,7 +12,7 @@
 #include "assetmgr.h"
 #include "gadget.h"
 #include "gadget_list_manager.h"
-#include "unknown_675120.h"
+#include "gd_uimesh.h"
 #include "gd_slot_data.h"
 #include "gd_inv_slider.h"
 #include "ui_combobox.h"
@@ -34,7 +34,7 @@ class LineDisplayClientClass  // NAME 1: neutral (D10)
 public:
 	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
 	virtual void Unknown_10(); virtual void Unknown_14();
-	virtual SClient *As_Space_Client();					// +0x18 (as ui_manu.cpp's)  // NAME 3: the FAIL_IF's in ui_manu.cpp
+	virtual SpaceClientClass *As_Space_Client();					// +0x18 (as ui_manu.cpp's)  // NAME 3: the FAIL_IF's in ui_manu.cpp
 };
 
 // 0xB83820: the buttons, gadgets 13..17 (tooltips from section 'UI_PDA_CARGO'; 'BUTTON03' twice: sort and reverse)
@@ -65,7 +65,7 @@ static const char *CargoFilterNames[] = {	// NAME 1: neutral (D10)
 
 // the dead FilterName.size() (D272, no bytes) sends FilterName("")'s _Eos out of line and inlines the Get_String assignment's, as the client (the vault's 0x656FF0)
 // 0x5CF9B0
-UIPdaCargoClass::UIPdaCargoClass(SClient *client, PDAInterfaceClass *pda) :
+UIPdaCargoClass::UIPdaCargoClass(SpaceClientClass *client, PDAInterface *pda) :
 	UIInvClass(client, 10),
 	PDA(pda),
 	Slider(NULL),
@@ -76,7 +76,7 @@ UIPdaCargoClass::UIPdaCargoClass(SClient *client, PDAInterfaceClass *pda) :
 	for (int i = 0; i < NUM_BUTTONS; i++) {
 		Buttons5[i] = NULL;
 	}
-	OptionClass *options = OptionClass::Instance; if (options) {
+	OptionManagerClass *options = OptionManagerClass::Instance; if (options) {
 		SortIndex = options->Get_Bool("Inv_Sort_Cargo");
 		SortReverse = options->Get_Bool("Inv_Sort_Cargo_Reverse");
 		FilterName = options->Get_String("Inv_Filter_Cargo");
@@ -119,7 +119,7 @@ void UIPdaCargoClass::Unknown_54()
 	Unknown_BE67C4->Add(InterfaceMesh.Peek());
 	Unknown58.Unknown_686CC0(InterfaceMesh.Peek(), NULL);
 	bool made = Unknown_C4(InterfaceMesh.Peek(), "TSI04A.C%02d", 12);
-	SlotDataGadgetClass *first_bttn = made ? Buttons[0] : NULL;
+	SlotDataGadget *first_bttn = made ? Buttons[0] : NULL;
 
 
 
@@ -183,7 +183,7 @@ void UIPdaCargoClass::Unknown_58()
 {
 	FAIL_IF(!InterfaceMesh) return;
 	FAIL_IF(!Get_Client()) return;
-	SClient *sc = Client->As_Space_Client();
+	SpaceClientClass *sc = Client->As_Space_Client();
 	FAIL_IF(!sc) return;
 	if (!Active) {
 		InterfaceSortScopeClass scope(this);
@@ -205,8 +205,8 @@ void UIPdaCargoClass::Unknown_58()
 void UIPdaCargoClass::Unknown_5C()
 {
 	if (Active) {
-		if (OptionClass::Instance) {
-			OptionClass::Instance->Save();
+		if (OptionManagerClass::Instance) {
+			OptionManagerClass::Instance->Save();
 		}
 		Filter->Unknown_5C();
 		UIInvClass::Unknown_5C();
@@ -219,39 +219,39 @@ bool UIPdaCargoClass::Unknown_68(int key)
 {
 	switch (key) {
 		case 14:
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			PDA->Unknown_695D70(1);
 			return(true);
 		case 13:
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			PDA->Unknown_695D70(3);
 			return(true);
 		case 15:
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			Unknown_5D0D20(false);
 			Buttons5[2]->Unknown_6607D0();
 			return(true);
 		case 16:
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			Unknown_5D0D20(true);
 			Buttons5[3]->Unknown_6607D0();
 			return(true);
 		case 17:
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			PDA->Unknown_695A00(0, true);
 			return(true);
 		case 20:
-			SoundLibraryClass::Play_2D_Sound("TextClick03.wav", 2);
+			SoundLibrary::Play_2D_Sound("TextClick03.wav", 2);
 			return(true);
 		case 21:
 			break;
 		default:
 			return(UIInvClass::Unknown_68(key));
 	}
-	SoundLibraryClass::Play_2D_Sound("TextClick03.wav", 2);
+	SoundLibrary::Play_2D_Sound("TextClick03.wav", 2);
 	FilterName = Filter->Get_Selected_Text();
 	if (FilterName.size() != 0) {
-		StringOptionStruct *option = OptionClass::Instance->Find_String("Inv_Filter_Cargo");
+		StringOptionStruct *option = OptionManagerClass::Instance->Find_String("Inv_Filter_Cargo");
 		if (option) {
 			option->Value = FilterName.c_str();
 		}
@@ -290,11 +290,11 @@ void UIPdaCargoClass::Unknown_5D0A20(bool on)
 	UnknownB8_0 = on;
 }
 
-template<class C> inline C *Cargo_Find_Valid(DeltaCompoundClass *root, const char *str) { NameClass n(str); C *t = Unknown_Find_Field<C>(root, n); return (t && t->Unknown70) ? t : NULL; } template<class C> inline C *Cargo_Find_Valid_Outer(DeltaCompoundClass *root, const char *str) { return Cargo_Find_Valid<C>(root, str); } template<class C> inline C *Cargo_Find_Changed(DeltaCompoundClass *root, const char *str) { NameClass n(str); C *t = Unknown_Find_Field<C>(root, n); return (t && t->Unknown70 > 1) ? t : NULL; } // NAME 1: neutral; two lookup layers as ui_attrb_skills.cpp 0x54A640
+template<class C> inline C *Cargo_Find_Valid(DeltaContainer *root, const char *str) { AuxDataName n(str); C *t = Unknown_Find_Field<C>(root, n); return (t && t->Unknown70) ? t : NULL; } template<class C> inline C *Cargo_Find_Valid_Outer(DeltaContainer *root, const char *str) { return Cargo_Find_Valid<C>(root, str); } template<class C> inline C *Cargo_Find_Changed(DeltaContainer *root, const char *str) { AuxDataName n(str); C *t = Unknown_Find_Field<C>(root, n); return (t && t->Unknown70 > 1) ? t : NULL; } // NAME 1: neutral; two lookup layers as ui_attrb_skills.cpp 0x54A640
 // 0x5D0A50
 void UIPdaCargoClass::Unknown_5D0A50(bool all)
 {
-	DeltaCompoundClass *aux = (DeltaCompoundClass *)Client->As_Space_Client()->AuxData;
+	DeltaContainer *aux = (DeltaContainer *)Client->As_Space_Client()->AuxData;
 	MoneyClass money;
 	DeltaTemplateClass<MoneyClass> *field;
 	if (all) {
@@ -316,7 +316,7 @@ void UIPdaCargoClass::Unknown_5D0A50(bool all)
 // 0x5D0D20
 void UIPdaCargoClass::Unknown_5D0D20(bool reverse)
 {
-	OptionClass *options = OptionClass::Instance;
+	OptionManagerClass *options = OptionManagerClass::Instance;
 	if (options) {
 		if (reverse) {
 			SortReverse = !SortReverse;
@@ -338,7 +338,7 @@ void UIPdaCargoClass::Unknown_5D0D20(bool reverse)
 			_snprintf(buffer, sizeof(buffer), "Sorting Cargo by %s", sort_name.c_str());
 		}
 		Client->As_Space_Client()->Unknown_74D990(0, buffer, 0);
-		((ClientClass *)Client)->Send_Packet(&InventorySortPacketClass(((ClientClass *)Client)->Get_Avatar_ID(), (InventoryEnum)1, sort1, sort2, sort3, SortReverse));
+		((ClientClass *)Client)->Send_Packet(&InvSortPacketClass(((ClientClass *)Client)->Get_Avatar_ID(), (InventoryEnum)1, sort1, sort2, sort3, SortReverse));
 		if (reverse) {
 			BoolOptionStruct *option = options->Find_Bool("Inv_Sort_Cargo_Reverse");
 			if (option) {

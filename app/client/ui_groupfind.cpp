@@ -27,7 +27,7 @@ class LineDisplayClientClass  // NAME 1: neutral (D10)
 public:
 	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
 	virtual void Unknown_10(); virtual void Unknown_14();
-	virtual SClient *As_Space_Client();					// +0x18 (SClient's returns itself)  // NAME 3: ui_manu.cpp's FAIL_IF's
+	virtual SpaceClientClass *As_Space_Client();					// +0x18 (SpaceClientClass's returns itself)  // NAME 3: ui_manu.cpp's FAIL_IF's
 };
 
 extern FontManagerClass *Unknown_BE67C4;				// NAME 1 [Unknown_BE67C4]: 0xBE67C4
@@ -46,7 +46,7 @@ static const char *Unknown_B7FB54[NUMBER_PLAYER_RACES][MAX_PLAYER_PROFESSIONS] =
 };
 
 // 0x598DF0
-UIGroupFindClass::UIGroupFindClass(SClient *client) :
+UIGroupFindClass::UIGroupFindClass(SpaceClientClass *client) :
 	ChatPanelUIBase(client),
 	Slider(NULL),
 	Top(0),
@@ -110,7 +110,7 @@ void UIGroupFindClass::Unknown_58()
 		Top = -1;
 		Unknown_599B10(0);
 		if (Unknown0A8[0]) {
-			((RObjGadgetClass *)Unknown0A8[0])->Unknown_66C360();
+			((RenderObjGadgetClass *)Unknown0A8[0])->Unknown_66C360();
 		}
 	}
 }
@@ -160,13 +160,13 @@ bool UIGroupFindClass::Unknown_68(int key)
 {
 	switch (key) {
 		case 1:
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			Unknown_5C();
 			return(true);
 		case 2:
 		case 3:
 		case 4:
-			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+			SoundLibrary::Play_2D_Sound("fontclick.wav", 2);
 			Unknown_599F30(key - 2);
 			return(true);
 		case 6:
@@ -177,7 +177,7 @@ bool UIGroupFindClass::Unknown_68(int key)
 		case 11:
 		case 12:
 		case 13:
-			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+			SoundLibrary::Play_2D_Sound("fontclick.wav", 2);
 			Unknown_59A290(key - 6);
 			return(true);
 	}
@@ -348,7 +348,7 @@ void UIGroupFindClass::Unknown_59A290(int row)
 	FAIL_IF(index < 0) return;
 	unsigned id = PlayersInfo[index]->ID;
 	if (id) {
-		SClient *sclient = Client->As_Space_Client();
+		SpaceClientClass *sclient = Client->As_Space_Client();
 
 
 
@@ -389,7 +389,7 @@ int UIGroupFindClass::Unknown_59A3D0(int a, int b)
 // 0x59A400
 void UIGroupFindClass::Unknown_59A400(FindMemberPacketClass *packet)
 {
-	SClient *sclient;
+	SpaceClientClass *sclient;
 	if (Client && (sclient = Client->As_Space_Client()) != NULL) {
 		Unknown_599E60();
 

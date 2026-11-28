@@ -7,7 +7,7 @@
 #include "..\..\ww3d2\scene.h"
 #include "..\shared\auth_product.h"
 // @0x7B97F0
-NavListLineDrawClass::NavListLineDrawClass(SClient *client, float width, int sort, const Vector3 &color, float opacity) :
+NavListLineDrawClass::NavListLineDrawClass(SpaceClientClass *client, float width, int sort, const Vector3 &color, float opacity) :
 	Client(client),
 	Unknown04(NULL),
 	List(NULL),
@@ -60,7 +60,7 @@ void NavListLineDrawClass::Unknown_7B9CD0()
 
 // NOT EXACT: (0.91, attempts.py 0x7B99C0): two dead Lines.end() after the inlined 0x7B9CD0 send Scene = NULL (0x7BA340) out of line as the client (D272); left: the client threads the size test's begin == 0 path to the exit
 // @0x7B99C0
-void NavListLineDrawClass::Unknown_7B99C0(ClientObjectClass *avatar, NavListBuilderClass *path, const RefCountPtr<SceneClass> &scene, bool arg)
+void NavListLineDrawClass::Unknown_7B99C0(ClientObjectClass *avatar, NavigationListBuilder *path, const RefCountPtr<SceneClass> &scene, bool arg)
 {
 	Unknown_7B9CD0(); Lines.end(); Lines.end();
 	Unknown04 = avatar;
@@ -195,7 +195,7 @@ void NavListLineDrawClass::Unknown_7B9DC0(int index)
 				if (Unknown20 >= 1.0f) {
 					CurLine++;
 					Unknown20 = 0.0f;
-					SoundLibraryClass::Play_2D_Sound(CurLine >= count ? "starmap_build_destination_1.wav" : "starmap_build_1.wav", 2);
+					SoundLibrary::Play_2D_Sound(CurLine >= count ? "starmap_build_destination_1.wav" : "starmap_build_1.wav", 2);
 				} else {
 					end = (end - start) * Unknown20 + start;
 				}

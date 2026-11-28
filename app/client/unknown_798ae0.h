@@ -7,11 +7,11 @@
 
 // The camera manager's first controller (state 0; vtable 0xB05318, 0x14 bytes): asks for request 0x16 once the avatar
 // has been there for 15 seconds, or at once when it started with flag 0 set
-class CameraController00Class : public CameraControllerClass	// NAME 1: neutral (D10)
+class NullCameraControllerClass : public CameraControllerClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
-	CameraController00Class(SClient *client);			// 0x798AE0
-	virtual ~CameraController00Class();					// 0x798B40, deleting 0x798B10
+	NullCameraControllerClass(SpaceClientClass *client);			// 0x798AE0
+	virtual ~NullCameraControllerClass();					// 0x798B40, deleting 0x798B10
 	virtual void Unknown_04();							// +0x04 0x798B60
 	virtual void Unknown_08(Vector3 *pos, Quaternion *rot, int *mode, int *target);	// +0x08 0x798BA0
 	virtual void Unknown_0C();							// +0x0C 0x798CD0 (empty)

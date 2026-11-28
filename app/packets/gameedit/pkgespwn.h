@@ -18,13 +18,13 @@
 #include "..\pk.h"
 
 // opcode 30017 (0x7541, ?): vtable 0xB09308, constructor 0x862440, 0x18 bytes
-class Packet_7541Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x7541 (Print 'GameEditorRequestSpawnDefaults')
+class GameEditorRequestSpawnDefaultsPacketClass : public UnknownPacketBaseClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
-	Packet_7541Class(char *s);	// 0x862350 (Data is the caller's text, not copied)
-	Packet_7541Class(RawPacketClass *raw);	// 0x862440
-	virtual ~Packet_7541Class();	// +0x00 0x862520 / 0x862410
-	virtual RawPacketClass *Build();	// +0x04 0x862560
+	GameEditorRequestSpawnDefaultsPacketClass(char *s);	// 0x862350 (Data is the caller's text, not copied)
+	GameEditorRequestSpawnDefaultsPacketClass(PacketClass *raw);	// 0x862440
+	virtual ~GameEditorRequestSpawnDefaultsPacketClass();	// +0x00 0x862520 / 0x862410
+	virtual PacketClass *Encode();	// +0x04 0x862560  // NAME 3: override of the NAME 5 virtual Encode
 	virtual bool Process_Packet(void *client);	// +0x08 0x868370 (clientstub.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x862630
 	virtual int Print(char *buffer, int len);	// +0x10 0x862650
@@ -35,13 +35,13 @@ public:
 };
 
 // 0x7542 (30018, not in the packet switch: sent only): vtable 0xB09338, constructor 0x862700, 0x18 bytes
-class Packet_7542Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x7542 (Print 'GameEditorSpawnDefaults')
+class GameEditorSpawnDefaultsPacketClass : public UnknownPacketBaseClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
-	Packet_7542Class(char *data, int size);	// 0x862680 (Data is the caller's, not copied)
-	Packet_7542Class(RawPacketClass *raw);	// 0x862700
-	virtual ~Packet_7542Class();	// +0x00 0x8627E0 / 0x8626D0
-	virtual RawPacketClass *Build();	// +0x04 0x862820
+	GameEditorSpawnDefaultsPacketClass(char *data, int size);	// 0x862680 (Data is the caller's, not copied)
+	GameEditorSpawnDefaultsPacketClass(PacketClass *raw);	// 0x862700
+	virtual ~GameEditorSpawnDefaultsPacketClass();	// +0x00 0x8627E0 / 0x8626D0
+	virtual PacketClass *Encode();	// +0x04 0x862820  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x862950
 	virtual int Get_Data_Size();	// +0x0C 0x862900
 	virtual int Print(char *buffer, int len);	// +0x10 0x862920

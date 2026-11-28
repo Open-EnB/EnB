@@ -19,12 +19,12 @@
 #include "pk.h"
 
 // opcode 41 (0x0029, ITEM_STATE): vtable 0xB0AEC4, constructor 0x895CA0, 0x18 bytes
-class ItemStatePacketClass : public PacketClass  // NAME 2: Net-7's opcode name ITEM_STATE (the Net-7 opcode table; no structure check)
+class ItemStatePacketClass : public UnknownPacketBaseClass  // NAME 2: Net-7's opcode name ITEM_STATE (the Net-7 opcode table; no structure check)
 {
 public:
 	ItemStatePacketClass(int id, int inventory, int slot, int state, bool bool_val);	// 0x895C00 (the auto fire option 0x52B160)  // NAME 1 [id, inventory, slot, state, bool_val]: the members'
-	ItemStatePacketClass(RawPacketClass *raw);	// 0x895CA0
-	virtual RawPacketClass *Build();	// +0x04 0x895D70
+	ItemStatePacketClass(PacketClass *raw);	// 0x895CA0
+	virtual PacketClass *Encode();	// +0x04 0x895D70  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x867D70 (clientstub.cpp l.59)
 	virtual int Get_Data_Size();	// +0x0C 0x895E60
 	virtual int Print(char *buffer, int len);	// +0x10 0x895E80

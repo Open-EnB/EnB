@@ -9,7 +9,7 @@
 
 class HAnimComboClass;			// hanim.h's
 class HAnimComboDataClass;		// hanim.h's
-class ResizeGadgetClass;		// gd_resize.h's
+class ResizeGadget;		// gd_resize.h's
 
 // One of the window's two resize handles (0x14 bytes, at +0xF0 and +0x104; destructor 0x573430, inline in 0x572040)
 struct ChatWinSplitResizeStruct	// NAME 1: neutral (D10)
@@ -17,7 +17,7 @@ struct ChatWinSplitResizeStruct	// NAME 1: neutral (D10)
 	ChatWinSplitResizeStruct() : Unknown00(NULL), Unknown04(NULL), Unknown08(-1), Unknown0C(0), Unknown10(0) {}
 	inline ~ChatWinSplitResizeStruct();					// 0x573430 (ui_chat_window_split.cpp)
 	HAnimComboDataClass *Unknown00;						// +0x00 (the handle's animation data)
-	ResizeGadgetClass *Unknown04;						// +0x04 (the handle's resize gadget)
+	ResizeGadget *Unknown04;						// +0x04 (the handle's resize gadget)
 	unsigned int Unknown08;								// +0x08 (-1: the saved value; 0x5732A0 sets the animation's frame to it)
 	int Unknown0C;										// +0x0C
 	unsigned int Unknown10;								// +0x10 (0x5732A0's upper bound for +0x08)
@@ -25,11 +25,11 @@ struct ChatWinSplitResizeStruct	// NAME 1: neutral (D10)
 
 // The split chat window (0x120 bytes; constructor 0x571F00, table 0xAF052C: slots +0x00 0x572010, +0x54 0x5723B0,
 // +0x58 0x572DE0, +0x5C 0x572E00, +0x60 0x572E20, +0x68 0x572EE0, +0xA8 0x573220)
-class UIChatWindowSplitClass : public ChatWindowInterface	// NAME 3: class-from-file (D24) for app\client\ui_chat_window_split.cpp
+class ChatWindowSplitInterface : public ChatWindowInterface  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
-	UIChatWindowSplitClass(SClient *client, Unknown67D430Class *history, ChatGadgetClass *edit, int kind);	// 0x571F00 (0x56C180: the panel's +0x13C, +0x140 and the kind 0..2)  // NAME 1 [client, history, edit, kind]: what 0x56C180 passes
-	virtual ~UIChatWindowSplitClass();					// 0x572040 (deleting 0x572010)
+	ChatWindowSplitInterface(SpaceClientClass *client, Unknown67D430Class *history, ChatGadgetClass *edit, int kind);	// 0x571F00 (0x56C180: the panel's +0x13C, +0x140 and the kind 0..2)  // NAME 1 [client, history, edit, kind]: what 0x56C180 passes
+	virtual ~ChatWindowSplitInterface();					// 0x572040 (deleting 0x572010)
 	virtual void Unknown_54();							// +0x54 0x5723B0 (the set-up: 'ChatWinSplit_*')
 	virtual void Unknown_58();							// +0x58 0x572DE0
 	virtual void Unknown_5C();							// +0x5C 0x572E00

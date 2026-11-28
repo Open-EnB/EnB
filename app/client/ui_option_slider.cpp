@@ -40,7 +40,7 @@ static const char *Unknown_B836F8[3][5] = {	// NAME 1: neutral (D10)
 };
 
 // 0x5CEDD0
-UIOptionSliderClass::UIOptionSliderClass(SClient *client, int page, bool mode) :
+UIOptionSliderClass::UIOptionSliderClass(SpaceClientClass *client, int page, bool mode) :
 	ChatPanelUIBase(client),
 	Page(page),
 	Mode(mode),
@@ -91,7 +91,7 @@ void UIOptionSliderClass::Unknown_54()
 		Check = Add_Check_Button(12, "check00", NULL);
 		if (Page) {
 			Buttons[3]->Unknown_40(false);
-			((RObjGadgetClass *)Buttons[3])->Unknown_8C(true);
+			((RenderObjGadgetClass *)Buttons[3])->Unknown_8C(true);
 		}
 		Add_Back_Gadget(0, Vector3(0.0f, 0.0f, 0.0f));
 	}
@@ -127,50 +127,50 @@ void UIOptionSliderClass::Unknown_60()
 // 0x5CF310
 bool UIOptionSliderClass::Unknown_68(int key)
 {
-	SClient *sclient = (SClient *)((ClientClass *)Client)->As_Space_Client();	// NAME 1: neutral (D10)
+	SpaceClientClass *sclient = (SpaceClientClass *)((ClientClass *)Client)->As_Space_Client();	// NAME 1: neutral (D10)
 	ChatPanelInterface *chat = sclient->ChatPanel.Peek();	// NAME 1: neutral (D10)
 	switch (key) {
 		case 1:
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			Unknown_5CF880(true);
-			((SClient *)((ClientClass *)Client)->As_Space_Client())->MainView->Unknown_514480();
-			((SClient *)((ClientClass *)Client)->As_Space_Client())->MainView->Unknown_5146D0();
+			((SpaceClientClass *)((ClientClass *)Client)->As_Space_Client())->MainView->Unknown_514480();
+			((SpaceClientClass *)((ClientClass *)Client)->As_Space_Client())->MainView->Unknown_5146D0();
 			Unknown_5C();
 			Closed = 1;
 			return(true);
 		case 2:
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			if (!Mode) {
 				chat->Unknown_565F30(1);
 			}
 			Unknown_5CF7E0();
-			((SClient *)((ClientClass *)Client)->As_Space_Client())->MainView->Unknown_514480();
-			((SClient *)((ClientClass *)Client)->As_Space_Client())->MainView->Unknown_5146D0();
+			((SpaceClientClass *)((ClientClass *)Client)->As_Space_Client())->MainView->Unknown_514480();
+			((SpaceClientClass *)((ClientClass *)Client)->As_Space_Client())->MainView->Unknown_5146D0();
 			Unknown_5C();
 			Closed = 1;
 			return(true);
 		case 3:
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			if (!Mode) {
 				chat->Unknown_565F30(1);
 			}
 			Unknown_5CF880(true);
-			((SClient *)((ClientClass *)Client)->As_Space_Client())->MainView->Unknown_514480();
-			((SClient *)((ClientClass *)Client)->As_Space_Client())->MainView->Unknown_5146D0();
+			((SpaceClientClass *)((ClientClass *)Client)->As_Space_Client())->MainView->Unknown_514480();
+			((SpaceClientClass *)((ClientClass *)Client)->As_Space_Client())->MainView->Unknown_5146D0();
 			Unknown_5C();
 			Closed = 1;
 			return(true);
 		case 4:
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			chat->Unknown_565F30(10);
 			Unknown_5C();
 			Closed = 1;
 			return(true);
 		case 12:
-			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+			SoundLibrary::Play_2D_Sound("fontclick.wav", 2);
 			Unknown_5CF580();
-			((SClient *)((ClientClass *)Client)->As_Space_Client())->MainView->Unknown_514480();
-			((SClient *)((ClientClass *)Client)->As_Space_Client())->MainView->Unknown_5146D0();
+			((SpaceClientClass *)((ClientClass *)Client)->As_Space_Client())->MainView->Unknown_514480();
+			((SpaceClientClass *)((ClientClass *)Client)->As_Space_Client())->MainView->Unknown_5146D0();
 			return(true);
 	}
 	return(false);
@@ -199,14 +199,14 @@ void UIOptionSliderClass::Unknown_5CF580()
 // 0x5CF6C0
 void UIOptionSliderClass::Unknown_5CF6C0()
 {
-	OptionClass *options = OptionClass::Instance;	// NAME 1: neutral (D10)
+	OptionManagerClass *options = OptionManagerClass::Instance;	// NAME 1: neutral (D10)
 	if (Unknown_B836EC[Page]) {
 		BoolOptionStruct *option = options->Find_Bool(Unknown_B836EC[Page]);	// NAME 1: neutral (D10)
 		if (option) {
 			Check->Unknown_7E8030(option->Get_Value());
 		}
 	} else {
-		((RObjGadgetClass *)Check)->Unknown_8C(true);
+		((RenderObjGadgetClass *)Check)->Unknown_8C(true);
 		Check->Unknown_40(false);
 	}
 	for (int i = 0; i < 5; i++) {
@@ -224,7 +224,7 @@ void UIOptionSliderClass::Unknown_5CF6C0()
 // 0x5CF7E0
 void UIOptionSliderClass::Unknown_5CF7E0()
 {
-	OptionClass *options = OptionClass::Instance;	// NAME 1: neutral (D10)
+	OptionManagerClass *options = OptionManagerClass::Instance;	// NAME 1: neutral (D10)
 	if (Unknown_B836EC[Page]) {
 		BoolOptionStruct *option = options->Find_Bool(Unknown_B836EC[Page]);	// NAME 1: neutral (D10)
 		if (option) {
@@ -245,7 +245,7 @@ void UIOptionSliderClass::Unknown_5CF7E0()
 void UIOptionSliderClass::Unknown_5CF880(bool restore)
 {
 	if (Page == 1) {
-		OptionClass *options = OptionClass::Instance;	// NAME 1: neutral (D10)
+		OptionManagerClass *options = OptionManagerClass::Instance;	// NAME 1: neutral (D10)
 		for (int i = 0; i < 5; i++) {
 			if (Unknown_B836F8[Page][i]) {
 				FloatOptionStruct *option = options->Find_Float(Unknown_B836F8[Page][i]);	// NAME 1: neutral (D10)

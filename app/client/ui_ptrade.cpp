@@ -29,7 +29,7 @@ class LineDisplayClientClass  // NAME 1: neutral (D10)
 public:
 	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
 	virtual void Unknown_10(); virtual void Unknown_14();
-	virtual SClient *As_Space_Client();					// +0x18 (SClient's returns itself)  // NAME 3: ui_manu.cpp's FAIL_IF's
+	virtual SpaceClientClass *As_Space_Client();					// +0x18 (SpaceClientClass's returns itself)  // NAME 3: ui_manu.cpp's FAIL_IF's
 };
 
 // money.cpp's arithmetic and comparisons (cdecl, not rebuilt)
@@ -53,7 +53,7 @@ extern FontManagerClass *Unknown_BE67C4;			// NAME 1 [Unknown_BE67C4]: 0xBE67C4
 
 
 // 0x5E1BE0
-UIPTradeClass::UIPTradeClass(SClient *client) :
+PlayerTradeInterface::PlayerTradeInterface(SpaceClientClass *client) :
 	Unknown5BB320Class(new UIMeshClass("TRADE00A", 1), client),
 	PlayerPIP(NULL),
 	OtherPIP(NULL),
@@ -77,7 +77,7 @@ UIPTradeClass::UIPTradeClass(SClient *client) :
 
 
 // 0x5E1D80
-UIPTradeClass::~UIPTradeClass()
+PlayerTradeInterface::~PlayerTradeInterface()
 {
 	G_ASSERT(State == UI_CLOSED);
 	Unknown0AC = NULL;
@@ -112,7 +112,7 @@ public:
 
 
 // 0x5E1FA0
-void UIPTradeClass::Unknown_54()
+void PlayerTradeInterface::Unknown_54()
 {
 	for (int id = 1; id < 5; id++) {
 		RefCountPtr<RenderObjClass> robj = Create_NEW(InterfaceMesh->Peek_Object()->Get_Sub_Object_By_Name(Unknown_B850B0[id - 1]));
@@ -130,7 +130,7 @@ void UIPTradeClass::Unknown_54()
 	GadgetClass::Set_Tooltip(Unknown0BC[0], "UI_PTRADE", "CANCEL");
 	GadgetClass::Set_Tooltip(Unknown0BC[2], "UI_PTRADE", "CONFIRM");
 	GadgetClass::Set_Tooltip(Unknown0BC[3], "UI_PTRADE", "CREDITS");
-	SClient *sclient = Client->As_Space_Client();
+	SpaceClientClass *sclient = Client->As_Space_Client();
 	Unknown0AC = Create_Get(new UIInvRobjStripClass(sclient, InterfaceMesh->Peek_Object(), 6, "TRADE00A.C%02d", 15));
 	Unknown0AC->Unknown_5417D0(this);
 	Unknown0AC->Unknown_54();
@@ -157,7 +157,7 @@ RenderObjClass *UIMeshClass::Unknown_5E26D0()
 
 
 // 0x5E2F70
-void UIPTradeClass::Unknown_5E2F70(bool on)
+void PlayerTradeInterface::Unknown_5E2F70(bool on)
 {
 	Unknown0DD = on;
 	RefCountPtr<FontSys> font = Create_Peek(Unknown_BE67C4->Get_Style("REC_CONFIRM_TRADE00", InterfaceMesh->Peek_Mesh_Object()));
@@ -168,19 +168,19 @@ void UIPTradeClass::Unknown_5E2F70(bool on)
 }
 
 // 0x5E26F0
-void UIPTradeClass::Unknown_58()
+void PlayerTradeInterface::Unknown_58()
 {
 	if (State == UI_CLOSED) {
 		InterfaceSortScopeClass sort(this);
 		State = UI_OPEN;
-		SClient *sclient = Client->As_Space_Client();
-		Unknown0DC = sclient->PDAInterface->Unknown_695780(false);
+		SpaceClientClass *sclient = Client->As_Space_Client();
+		Unknown0DC = sclient->PDAWindow->Unknown_695780(false);
 		PlayerPIP->Unknown_7E36B0(sclient, Create_NEW(InterfaceMesh->Get_Sub_Object_By_Name("AVATAR_YOU")), 0);
 		OtherPIP->Unknown_7E36B0(sclient, Create_NEW(InterfaceMesh->Get_Sub_Object_By_Name("AVATAR_THEM")), 0);
 		Unknown5BB320Class::Unknown_58();
 		Unknown_5E3340();
 		RefCountPtr<FontSys> font = Create_Peek(Unknown_BE67C4->Get_Style("PLAYER_NAME_TRADE00", InterfaceMesh->Peek_Object()));
-		int id = ((ClientClass *)Client)->AvatarID; RefCountPtr<CharacterViewAvatarClass> avatar = Create_NEW(sclient->Unknown_74C7B0(id));
+		int id = ((ClientClass *)Client)->AvatarID; RefCountPtr<AvatarClass> avatar = Create_NEW(sclient->Unknown_74C7B0(id));
 		if (avatar && font) {
 			std::string name;
 			avatar->Desc.Get_Full_Name(name);
@@ -198,16 +198,16 @@ void UIPTradeClass::Unknown_58()
 }
 
 // 0x5E2B30
-void UIPTradeClass::Unknown_5C()
+void PlayerTradeInterface::Unknown_5C()
 {
 	if (State == UI_OPEN) {
 		State = UI_CLOSED;
 		Unknown0AC->Unknown_5C();
 		Unknown0B0->Unknown_5C();
 		Unknown0B4->Unknown_5C();
-		SClient *sclient = Client->As_Space_Client();
+		SpaceClientClass *sclient = Client->As_Space_Client();
 		if (Unknown0DC) {
-			sclient->PDAInterface->Unknown_695A00(0, 1);
+			sclient->PDAWindow->Unknown_695A00(0, 1);
 		}
 		Unknown_5E2F70(false);
 		Unknown_5E3050(false);
@@ -218,7 +218,7 @@ void UIPTradeClass::Unknown_5C()
 }
 
 // 0x5E2BF0
-void UIPTradeClass::Unknown_60()
+void PlayerTradeInterface::Unknown_60()
 {
 	Unknown_5E3C90();
 	Unknown_5E39F0();
@@ -237,22 +237,22 @@ void UIPTradeClass::Unknown_60()
 
 // 0x5E2CE0
 
-bool UIPTradeClass::Unknown_68(int key)
+bool PlayerTradeInterface::Unknown_68(int key)
 {
-	SClient *sclient = Client->As_Space_Client(); int avatar; int id; // NAME 1 [avatar, id]: neutral (D10)
+	SpaceClientClass *sclient = Client->As_Space_Client(); int avatar; int id; // NAME 1 [avatar, id]: neutral (D10)
 	switch (key) {
 		case 1:
 		case 2:
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			sclient->Send_Packet(&ActionPacketClass(avatar = sclient->AvatarID, 0x16, id = ((ClientClass *)Client)->Unknown1134, 0));
 			return(true);
 		case 3:
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			sclient->Send_Packet(&ActionPacketClass(avatar = sclient->AvatarID, 0x15, id = ((ClientClass *)Client)->Unknown1134, 0));
 			return(true);
 		case 4:
 		{
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			Unknown0B4->Unknown_58();
 			char text[0x14];
 			if (Unknown0E0 > MoneyClass()) {
@@ -269,7 +269,7 @@ bool UIPTradeClass::Unknown_68(int key)
 }
 
 // 0x5E2F00
-void UIPTradeClass::Unknown_7C(UIViewClass *view, bool arg)
+void PlayerTradeInterface::Unknown_7C(UIViewClass *view, bool arg)
 {
 	if (Unknown0B4) Unknown0B4->Unknown_7C(view, false);
 	if (Unknown0AC) Unknown0AC->Unknown_7C(view, arg);
@@ -278,7 +278,7 @@ void UIPTradeClass::Unknown_7C(UIViewClass *view, bool arg)
 }
 
 // 0x5E3050
-void UIPTradeClass::Unknown_5E3050(bool on)
+void PlayerTradeInterface::Unknown_5E3050(bool on)
 {
 	Unknown0DE = on;
 	RefCountPtr<FontSys> font = Create_Peek(Unknown_BE67C4->Get_Style("REC_CONFIRM_TRADE00", InterfaceMesh->Peek_Mesh_Object()));
@@ -289,7 +289,7 @@ void UIPTradeClass::Unknown_5E3050(bool on)
 }
 
 // 0x5E3130
-void UIPTradeClass::Unknown_5E3130()
+void PlayerTradeInterface::Unknown_5E3130()
 {
 	RefCountPtr<FontSys> font = Create_Peek(Unknown_BE67C4->Get_Style("REC_CONFIRM_TRADE00", InterfaceMesh->Peek_Mesh_Object()));
 	if (font) font->Change_Text("Trading has successfully completed.", 0);
@@ -386,7 +386,7 @@ void UIPTradeClass::Unknown_5E3130()
 
 
 // 0x5E3210
-void UIPTradeClass::Unknown_5E3210(const char *name, bool visible, const char *text)
+void PlayerTradeInterface::Unknown_5E3210(const char *name, bool visible, const char *text)
 {
 	RefCountPtr<FontSys> font = Create_Peek(Unknown_BE67C4->Get_Style(name, InterfaceMesh->Peek_Mesh_Object()));
 	FAIL_IF(!font) return;
@@ -395,21 +395,21 @@ void UIPTradeClass::Unknown_5E3210(const char *name, bool visible, const char *t
 }
 
 // The money field's lookups through two inline layers: with them the client's find 0x5466A0 stays out of line (as ui_avatar_cust.cpp's)
-template<class C> inline C *Unknown_Find_Valid(DeltaCompoundClass *root, const char *name) { NameClass n(name); C *t = Unknown_Find_Field<C>(root, n); if (t && t->Unknown70) return(t); return(NULL); }	// NAME 1: neutral (D10)
-static inline DeltaTemplateClass<MoneyClass> *Unknown_Find_Money(DeltaCompoundClass *aux, const char *field) { return(Unknown_Find_Valid<DeltaTemplateClass<MoneyClass> >(aux, field)); }	// NAME 1: neutral (D10)
+template<class C> inline C *Unknown_Find_Valid(DeltaContainer *root, const char *name) { AuxDataName n(name); C *t = Unknown_Find_Field<C>(root, n); if (t && t->Unknown70) return(t); return(NULL); }	// NAME 1: neutral (D10)
+static inline DeltaTemplateClass<MoneyClass> *Unknown_Find_Money(DeltaContainer *aux, const char *field) { return(Unknown_Find_Valid<DeltaTemplateClass<MoneyClass> >(aux, field)); }	// NAME 1: neutral (D10)
 
 // 0x5E3340
-void UIPTradeClass::Unknown_5E3340()
+void PlayerTradeInterface::Unknown_5E3340()
 {
 	MoneyClass money;
-	DeltaCompoundClass *aux = (DeltaCompoundClass *)Client->As_Space_Client()->AuxData;
+	DeltaContainer *aux = (DeltaContainer *)Client->As_Space_Client()->AuxData;
 	DeltaTemplateClass<MoneyClass> *t = Unknown_Find_Money(aux, "Money");
 	if (t) money = t->Value;
 	Unknown_5E3210("CREDITS_TRADE00", true, money.Amount_As_Text(false).c_str());
 	Unknown_5E3210("CRED1_TRADE00", true, Unknown0E0.Amount_As_Text(false).c_str());
 	if (((ClientClass *)Client)->Find_Object(((ClientClass *)Client)->Unknown1134)) {
 		money = MoneyClass();
-		DeltaCompoundClass *other = (DeltaCompoundClass *)((ClientClass *)Client)->Find_Object(((ClientClass *)Client)->Unknown1134)->AuxData;
+		DeltaContainer *other = (DeltaContainer *)((ClientClass *)Client)->Find_Object(((ClientClass *)Client)->Unknown1134)->AuxData;
 		t = Unknown_Find_Money(other, "TradeMoney");
 		if (t) money = t->Value;
 		Unknown_5E3210("CRED2_TRADE00", true, money.Amount_As_Text(false).c_str());
@@ -418,7 +418,7 @@ void UIPTradeClass::Unknown_5E3340()
 
 
 // 0x5E3750
-void UIPTradeClass::Unknown_5E3750(bool on)
+void PlayerTradeInterface::Unknown_5E3750(bool on)
 {
 	for (int i = 0; i < 4; i++) {
 		Unknown0BC[i]->Unknown_40(on);
@@ -433,11 +433,11 @@ void UIPTradeClass::Unknown_5E3750(bool on)
 }
 
 // Whether the object's field changed (above 1: LookupClass's test, or the money field's own)
-static inline bool Unknown_Changed(ClientObjectClass *object, const char *field) { NameClass name(field); return(((DeltaCompoundClass *)object->AuxData)->Get_Lookup()->Unknown_Test_70_Above_1(name)); }	// NAME 1: neutral (D10)
-static inline bool Unknown_Changed_Money(ClientObjectClass *object, const char *field) { DeltaCompoundClass *aux = (DeltaCompoundClass *)object->AuxData; NameClass name(field); DeltaTemplateClass<MoneyClass> *t = Unknown_Find_Field<DeltaTemplateClass<MoneyClass> >(aux, name); return(t && t->Unknown70 > 1); }	// NAME 1: neutral (D10)
+static inline bool Unknown_Changed(ClientObjectClass *object, const char *field) { AuxDataName name(field); return(((DeltaContainer *)object->AuxData)->Get_Lookup()->Unknown_Test_70_Above_1(name)); }	// NAME 1: neutral (D10)
+static inline bool Unknown_Changed_Money(ClientObjectClass *object, const char *field) { DeltaContainer *aux = (DeltaContainer *)object->AuxData; AuxDataName name(field); DeltaTemplateClass<MoneyClass> *t = Unknown_Find_Field<DeltaTemplateClass<MoneyClass> >(aux, name); return(t && t->Unknown70 > 1); }	// NAME 1: neutral (D10)
 
 // 0x5E37F0
-void UIPTradeClass::Unknown_5E37F0()
+void PlayerTradeInterface::Unknown_5E37F0()
 {
 	ClientClass *sclient = Client->As_Space_Client();
 	ClientObjectClass *avatar = sclient->Get_Avatar();
@@ -453,7 +453,7 @@ void UIPTradeClass::Unknown_5E37F0()
 
 
 // 0x5E39F0
-void UIPTradeClass::Unknown_5E39F0()
+void PlayerTradeInterface::Unknown_5E39F0()
 {
 	if (Unknown0B4 && Unknown0B4->Active) {
 		int result = Unknown0B4->Unknown_64A220();
@@ -461,12 +461,12 @@ void UIPTradeClass::Unknown_5E39F0()
 			if (result == 2) {
 				int amount = atoi(Unknown0B4->Unknown_64A240());
 				MoneyClass money;
-				DeltaCompoundClass *aux = (DeltaCompoundClass *)Client->As_Space_Client()->AuxData;
+				DeltaContainer *aux = (DeltaContainer *)Client->As_Space_Client()->AuxData;
 				DeltaTemplateClass<MoneyClass> *t = Unknown_Find_Money(aux, "Money");
 				if (t) money = t->Value;
 				if (money + Unknown0E0 >= MoneyClass(amount)) {
 					Unknown0E0.Amount = amount;
-					SClient *sclient = Client->As_Space_Client();
+					SpaceClientClass *sclient = Client->As_Space_Client();
 					__int64 offered = Unknown0E0.Amount; int id = ((ClientClass *)Client)->Unknown1134; int avatar = sclient->AvatarID; sclient->Send_Packet(&ActionPacketClass(avatar, 0x18, id, (int)offered));
 					Unknown_5E3340();
 				} else {
@@ -482,13 +482,13 @@ void UIPTradeClass::Unknown_5E39F0()
 
 
 // 0x5E3C90
-void UIPTradeClass::Unknown_5E3C90()
+void PlayerTradeInterface::Unknown_5E3C90()
 {
 	RefCountPtr<FontSys> font = Create_Peek(Unknown_BE67C4->Get_Style("RECIPIENT_NAME_TRADE00", InterfaceMesh->Peek_Object()));
 	const char *text = font->Unknown_6D87D0();
 	if (text && *text && *text != ' ') return;
-	SClient *sclient = Client->As_Space_Client();
-	int id = ((ClientClass *)Client)->Unknown1134; RefCountPtr<CharacterViewAvatarClass> avatar = Create_NEW(sclient->Unknown_74C7B0(id));
+	SpaceClientClass *sclient = Client->As_Space_Client();
+	int id = ((ClientClass *)Client)->Unknown1134; RefCountPtr<AvatarClass> avatar = Create_NEW(sclient->Unknown_74C7B0(id));
 	if (!avatar) return;
 	std::string name;
 	avatar->Desc.Get_Full_Name(name);

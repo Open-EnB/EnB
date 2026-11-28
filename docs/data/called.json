@@ -600,6 +600,9 @@
 "?Append_Anim_Combo_Data@HAnimComboClass@@QAEXPAVHAnimComboDataClass@@@Z": [
 "0x931D10"
 ],
+"?Apply_Render_State_Changes@DX8Wrapper@@SAXXZ": [
+"0x9254A0"
+],
 "?Begin_Chunk@ChunkSaveClass@@QAE_NK@Z": [
 "0x9D3E40"
 ],
@@ -923,6 +926,9 @@
 ],
 "?Get_Free_Count@WWMemoryLogClass@@SAHXZ": [
 "0x9EDF10"
+],
+"?Get_Free_Texture_RAM@DX8Wrapper@@SAIXZ": [
+"0x926E60"
 ],
 "?Get_Horizontal_FOV@CameraClass@@QBEMXZ": [
 "0x945990"
@@ -1820,6 +1826,9 @@
 "?Stop@BINKMovie@@SAXXZ": [
 "0xA16220"
 ],
+"?Stop_Movie_Capture@WW3D@@SAXXZ": [
+"0x918900"
+],
 "?Stop_Profile@WWProfileManager@@SAXXZ": [
 "0x9EAA50"
 ],
@@ -2095,6 +2104,15 @@
 ],
 "_D3DXFilterTexture@16": [
 "0x8E4435"
+],
+"_D3DXMatrixMultiply@12": [
+"0x8E5FFC"
+],
+"_D3DXMatrixScaling@16": [
+"0x8E64D9"
+],
+"_D3DXMatrixTranspose@8": [
+"0x8E60DF"
 ],
 "_RegisterBindStatusCallback@16": [
 "0xA418CE"
@@ -2513,7 +2531,7 @@
 "_wcslen": [
 "0xA2AD9D"
 ],
-"data:?$S6@?1??Wildcard@NameClass@@SAABVPermString@@XZ@4EA": [
+"data:?$S6@?1??Wildcard@AuxDataName@@SAABVPermString@@XZ@4EA": [
 "0xBE3B28"
 ],
 "data:??_8?$basic_iostream@DU?$char_traits@D@std@@@std@@7B?$basic_istream@DU?$char_traits@D@std@@@1@@": [
@@ -2639,7 +2657,7 @@
 "data:??_R0PAVStarmapDataClass@@@8": [
 "0xB9E7C8"
 ],
-"data:??_R0PBV?$MemberCallback@VCameraModuleClass@@VSClient@@P82@AEXPAVCameraModuleSignal@@PAV1@@ZV3@@SignalBaseClass@@@8": [
+"data:??_R0PBV?$MemberCallback@VCameraModuleClass@@VSpaceClientClass@@P82@AEXPAVCameraModuleSignal@@PAV1@@ZV3@@SignalBaseClass@@@8": [
 "0xB9AC10"
 ],
 "data:??_R0PBV?$MemberCallback@VChatWindowInterface@@VChatPanelInterface@@P82@AEXPAVChatWindowInterfaceEvent@@PAV1@@ZV3@@SignalBaseClass@@@8": [
@@ -2723,7 +2741,7 @@
 "data:?Allocator@?$AutoPoolClass@VCompoundRecordClass@@$0IA@@@0V?$ObjectPoolClass@VCompoundRecordClass@@$0IA@@@A": [
 "0xBE3AB8"
 ],
-"data:?Allocator@?$AutoPoolClass@VCordChannelClass@@$0EAA@@@0V?$ObjectPoolClass@VCordChannelClass@@$0EAA@@@A": [
+"data:?Allocator@?$AutoPoolClass@VCordChannel@@$0EAA@@@0V?$ObjectPoolClass@VCordChannel@@$0EAA@@@A": [
 "0xBF40D8"
 ],
 "data:?Allocator@?$AutoPoolClass@VDeltaListNodeClass@@$0BAA@@@0V?$ObjectPoolClass@VDeltaListNodeClass@@$0BAA@@@A": [
@@ -2747,7 +2765,7 @@
 "data:?AssetManager@@3PAVENBAssetManager@@A": [
 "0xBDADC0"
 ],
-"data:?AvatarDefinitions@AvatarDescClass@@2VINIClass@@A": [
+"data:?AvatarDefinitions@AvatarDescriptionClass@@2VINIClass@@A": [
 "0xBE55D8"
 ],
 "data:?Borrow@?$Int@$0EA@@@2_NA": [
@@ -2861,13 +2879,13 @@
 "data:?Instance@KernelClass@@2PAV1@A": [
 "0xBDADBC"
 ],
-"data:?Instance@OptionClass@@2PAV1@A": [
+"data:?Instance@OptionManagerClass@@2PAV1@A": [
 "0xBE8B38"
 ],
 "data:?Instance@TutorialManagerClass@@2PAV1@A": [
 "0xBE66C8"
 ],
-"data:?Invalid_Text@ExprMathTokenClass@@2PBDB": [
+"data:?Invalid_Text@ExprLexerToken@@2PBDB": [
 "0xB7459C"
 ],
 "data:?IsProfileEnabled@WWProfileManager@@0_NA": [
@@ -2909,16 +2927,16 @@
 "data:?Legacy_Meshes_Fogged@MeshClass@@2_NA": [
 "0xBBB084"
 ],
-"data:?Listeners@TCPConnection@@2V?$set@PAVTCPListenerClass@@U?$less@PAVTCPListenerClass@@@std@@V?$allocator@PAVTCPListenerClass@@@3@@std@@A": [
+"data:?Listeners@TCPConnectionClass@@2V?$set@PAVTCPListenerClass@@U?$less@PAVTCPListenerClass@@@std@@V?$allocator@PAVTCPListenerClass@@@3@@std@@A": [
 "0xBE91A8"
 ],
-"data:?Lock@UDPConnection@@2VCritSec@@A": [
+"data:?Lock@UDPConnectionClass@@2VCritSec@@A": [
 "0xBE96A0"
 ],
 "data:?MainWindow@@3PAUHWND__@@A": [
 "0xC1E1B4"
 ],
-"data:?Mgr@CordMgrTaskClass@@2PAVCordMgr@@A": [
+"data:?Mgr@CordMgrTask@@2PAVCordMgr@@A": [
 "0xBF16C0"
 ],
 "data:?Mono@@3VMonoClass@@A": [
@@ -2930,7 +2948,7 @@
 "data:?Network_INI@NetworkINIClass@@2VINIClass@@A": [
 "0xBE8EA8"
 ],
-"data:?Next_Serial@PacketClass@@2HA": [
+"data:?Next_Serial@UnknownPacketBaseClass@@2HA": [
 "0xBF4128"
 ],
 "data:?OverbrightModifyOnLoad@WW3D@@0_NA": [
@@ -2972,10 +2990,10 @@
 "data:?Public_Palettes@@3V?$vector@PAUUnknown848450Struct@@V?$allocator@PAUUnknown848450Struct@@@std@@@std@@A": [
 "0xBF3F58"
 ],
-"data:?Queue@KeyboardClass@@2PAVKeyQueueClass@@A": [
+"data:?Queue@KeyboardHandlerClass@@2PAVKeyQueueClass@@A": [
 "0xBDAAC4"
 ],
-"data:?Queue@MouseClass@@2PAVKeyQueueClass@@A": [
+"data:?Queue@MouseHandlerClass@@2PAVKeyQueueClass@@A": [
 "0xBDAAC8"
 ],
 "data:?RaceNames@@3PAPADA": [
@@ -3029,10 +3047,10 @@
 "data:?SyncTime@WW3D@@0IA": [
 "0xBFAE3C"
 ],
-"data:?TCPManager@TCPConnection@@2VTCPMgr@@A": [
+"data:?TCPManager@TCPConnectionClass@@2VTCPMgr@@A": [
 "0xBE9180"
 ],
-"data:?Task@CordMgrTaskClass@@2PAV1@A": [
+"data:?Task@CordMgrTask@@2PAV1@A": [
 "0xBF16C4"
 ],
 "data:?Templates@CharTemplateClass@@2V?$vector@PAVCharTemplateClass@@V?$allocator@PAVCharTemplateClass@@@std@@@std@@A": [
@@ -3089,10 +3107,10 @@
 "data:?UnknownGlobal@?$DeltaItemArrayClass@VDeltaEquipItemClass@@@@2HA": [
 "0xC415A4"
 ],
-"data:?UnknownGlobal@?$DeltaItemArrayClass@VDeltaFactionClass@@@@2HA": [
+"data:?UnknownGlobal@?$DeltaItemArrayClass@VDeltaFaction@@@@2HA": [
 "0xC415F8"
 ],
-"data:?UnknownGlobal@?$DeltaItemArrayClass@VDeltaGroupMemberClass@@@@2HA": [
+"data:?UnknownGlobal@?$DeltaItemArrayClass@VDeltaGroupMember@@@@2HA": [
 "0xC41644"
 ],
 "data:?UnknownGlobal@?$DeltaItemArrayClass@VDeltaItemClass@@@@2HA": [
@@ -3101,22 +3119,22 @@
 "data:?UnknownGlobal@?$DeltaItemArrayClass@VDeltaKnownFormulaClass@@@@2HA": [
 "0xC41628"
 ],
-"data:?UnknownGlobal@?$DeltaItemArrayClass@VDeltaMissionClass@@@@2HA": [
+"data:?UnknownGlobal@?$DeltaItemArrayClass@VDeltaMission@@@@2HA": [
 "0xC415FC"
 ],
-"data:?UnknownGlobal@?$DeltaItemArrayClass@VDeltaMissionStageClass@@@@2HA": [
+"data:?UnknownGlobal@?$DeltaItemArrayClass@VDeltaMissionStage@@@@2HA": [
 "0xC415E8"
 ],
 "data:?UnknownGlobal@?$DeltaItemArrayClass@VDeltaPrimaryCategoryClass@@@@2HA": [
 "0xC4162C"
 ],
-"data:?UnknownGlobal@?$DeltaItemArrayClass@VDeltaSkillAbilityClass@@@@2HA": [
-"0xC41668"
-],
-"data:?UnknownGlobal@?$DeltaItemArrayClass@VDeltaSkillClass@@@@2HA": [
+"data:?UnknownGlobal@?$DeltaItemArrayClass@VDeltaSkill@@@@2HA": [
 "0xC41658"
 ],
-"data:?UnknownGlobal@?$DeltaItemArrayClass@VDeltaStringClass@@@@2HA": [
+"data:?UnknownGlobal@?$DeltaItemArrayClass@VDeltaSkillAbility@@@@2HA": [
+"0xC41668"
+],
+"data:?UnknownGlobal@?$DeltaItemArrayClass@VDeltaString@@@@2HA": [
 "0xC415C8"
 ],
 "data:?UnknownGlobal@?$DeltaItemArrayClass@VDeltaSubCategoryClass@@@@2HA": [
@@ -3197,10 +3215,10 @@
 "data:?UnknownGlobal@?$DeltaTemplateClass@_N@@2HA": [
 "0xC416AC"
 ],
-"data:?UnknownGlobal@DeltaCompoundClass@@2HA": [
+"data:?UnknownGlobal@DeltaContainer@@2HA": [
 "0xBE3A74"
 ],
-"data:?UnknownGlobal@DeltaStringClass@@2HA": [
+"data:?UnknownGlobal@DeltaString@@2HA": [
 "0xBE3A9C"
 ],
 "data:?Unknown_B0804C@@3HB": [
@@ -3371,10 +3389,10 @@
 "data:?Unknown_BDA96C@@3PAEA": [
 "0xBDA96C"
 ],
-"data:?Unknown_BDAA70@@3PAVKeyboardClass@@A": [
+"data:?Unknown_BDAA70@@3PAVKeyboardHandlerClass@@A": [
 "0xBDAA70"
 ],
-"data:?Unknown_BDAA74@@3PAVMouseClass@@A": [
+"data:?Unknown_BDAA74@@3PAVMouseHandlerClass@@A": [
 "0xBDAA74"
 ],
 "data:?Unknown_BDAA78@@3PAVInputUnknownBDAA78Class@@A": [
@@ -3404,7 +3422,7 @@
 "data:?Unknown_BDC0A0@@3VUnknown45C430Class@@A": [
 "0xBDC0A0"
 ],
-"data:?Unknown_BDC0D8@@3PAVLandUnknown466BE0Class@@A": [
+"data:?Unknown_BDC0D8@@3PAVDisplacementMapLandClass@@A": [
 "0xBDC0D8"
 ],
 "data:?Unknown_BE34D0@@3_NA": [
@@ -3458,7 +3476,7 @@
 "data:?Unknown_BE71D4@@3IA": [
 "0xBE71D4"
 ],
-"data:?Unknown_BE7C70@@3PAPAUMouseCursorStruct@@A": [
+"data:?Unknown_BE7C70@@3PAPAUMouseCursorEntry@@A": [
 "0xBE7C70"
 ],
 "data:?Unknown_BE82D0@@3PAVUnknown_764480Class@@A": [
@@ -3500,7 +3518,7 @@
 "data:?_ActiveInterface@UISlotInfoClass@@2PAV1@A": [
 "0xBE5E5C"
 ],
-"data:?_ActiveUI@TextBaseGadgetClass@@2PAV1@A": [
+"data:?_ActiveUI@TextGadgetClass@@2PAV1@A": [
 "0xBE66C0"
 ],
 "data:?_AllAbilities@SkillAbilityNamesDatabase@@0V?$vector@PAUUnknown815320Struct@@V?$allocator@PAUUnknown815320Struct@@@std@@@std@@A": [
@@ -3509,7 +3527,7 @@
 "data:?_AllSkills@SkillNamesDatabase@@0V?$vector@PAVSkillNameClass@@V?$allocator@PAVSkillNameClass@@@std@@@std@@A": [
 "0xBE8E28"
 ],
-"data:?_Audio@SoundLibraryClass@@2PAVWWAudioClass@@A": [
+"data:?_Audio@SoundLibrary@@2PAVWWAudioClass@@A": [
 "0xBDAC68"
 ],
 "data:?_C@?1??_Nullstr@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@CAPBDXZ@4DB": [
@@ -3518,25 +3536,25 @@
 "data:?_Cltab@?$ctype@D@std@@0PBFB": [
 "0xC40F70"
 ],
-"data:?_CurrentDialog@SoundLibraryClass@@2PAVAudibleSoundClass@@A": [
+"data:?_CurrentDialog@SoundLibrary@@2PAVAudibleSoundClass@@A": [
 "0xBDAC6C"
 ],
-"data:?_DefaultDialogVolume@SoundLibraryClass@@2MA": [
+"data:?_DefaultDialogVolume@SoundLibrary@@2MA": [
 "0xB6F40C"
 ],
-"data:?_DefaultDropOffRadius@SoundLibraryClass@@2MA": [
+"data:?_DefaultDropOffRadius@SoundLibrary@@2MA": [
 "0xB6F3FC"
 ],
-"data:?_DefaultMaxInstances@SoundLibraryClass@@2HA": [
+"data:?_DefaultMaxInstances@SoundLibrary@@2HA": [
 "0xB6F410"
 ],
-"data:?_DefaultMaxVolRadius@SoundLibraryClass@@2MA": [
+"data:?_DefaultMaxVolRadius@SoundLibrary@@2MA": [
 "0xB6F400"
 ],
 "data:?_DefaultPSW@ControlKeysManager@@2V?$vector@UKeyMappingStruct@@V?$allocator@UKeyMappingStruct@@@std@@@std@@A": [
 "0xBE7BB8"
 ],
-"data:?_DefaultPriority@SoundLibraryClass@@2MA": [
+"data:?_DefaultPriority@SoundLibrary@@2MA": [
 "0xB6F404"
 ],
 "data:?_DefaultSIM@ControlKeysManager@@2V?$vector@UKeyMappingStruct@@V?$allocator@UKeyMappingStruct@@@std@@@std@@A": [
@@ -3545,7 +3563,7 @@
 "data:?_DefaultUser@ControlKeysManager@@2V?$vector@UKeyMappingStruct@@V?$allocator@UKeyMappingStruct@@@std@@@std@@A": [
 "0xBE7BF8"
 ],
-"data:?_DefaultVolume@SoundLibraryClass@@2MA": [
+"data:?_DefaultVolume@SoundLibrary@@2MA": [
 "0xB6F408"
 ],
 "data:?_DirtyList@GClass@@2V?$DynamicVectorClass@PAVGClass@@@@A": [
@@ -3593,10 +3611,10 @@
 "data:?_Module@@3VCComModule@ATL@@A": [
 "0xBE87E8"
 ],
-"data:?_NextDialogDef@SoundLibraryClass@@2PAVSoundDefClass@@A": [
+"data:?_NextDialogDef@SoundLibrary@@2PAVSoundDefClass@@A": [
 "0xBDAC70"
 ],
-"data:?_NextDialogName@SoundLibraryClass@@2PADA": [
+"data:?_NextDialogName@SoundLibrary@@2PADA": [
 "0xBDAC74"
 ],
 "data:?_Nil@?$_Tree@DU?$pair@$$CBDPAVChatFilterNodeClass@@@std@@U_Kfn@?$map@DPAVChatFilterNodeClass@@U?$less@D@std@@V?$allocator@PAVChatFilterNodeClass@@@3@@2@U?$less@D@2@V?$allocator@PAVChatFilterNodeClass@@@2@@std@@1PAU_Node@12@A": [
@@ -3608,7 +3626,7 @@
 "data:?_Nil@?$_Tree@HHU_Kfn@?$set@HU?$less@H@std@@V?$allocator@H@2@@std@@U?$less@H@3@V?$allocator@H@3@@std@@1PAU_Node@12@A": [
 "0xBE5E68"
 ],
-"data:?_Nil@?$_Tree@HU?$pair@$$CBHPAV?$list@PAVUIVerbClass@@V?$allocator@PAVUIVerbClass@@@std@@@std@@@std@@U_Kfn@?$map@HPAV?$list@PAVUIVerbClass@@V?$allocator@PAVUIVerbClass@@@std@@@std@@U?$less@H@2@V?$allocator@PAV?$list@PAVUIVerbClass@@V?$allocator@PAVUIVerbClass@@@std@@@std@@@2@@2@U?$less@H@2@V?$allocator@PAV?$list@PAVUIVerbClass@@V?$allocator@PAVUIVerbClass@@@std@@@std@@@2@@std@@1PAU_Node@12@A": [
+"data:?_Nil@?$_Tree@HU?$pair@$$CBHPAV?$list@PAVVerbInterface@@V?$allocator@PAVVerbInterface@@@std@@@std@@@std@@U_Kfn@?$map@HPAV?$list@PAVVerbInterface@@V?$allocator@PAVVerbInterface@@@std@@@std@@U?$less@H@2@V?$allocator@PAV?$list@PAVVerbInterface@@V?$allocator@PAVVerbInterface@@@std@@@std@@@2@@2@U?$less@H@2@V?$allocator@PAV?$list@PAVVerbInterface@@V?$allocator@PAVVerbInterface@@@std@@@std@@@2@@std@@1PAU_Node@12@A": [
 "0xBE8E7C"
 ],
 "data:?_Nil@?$_Tree@HU?$pair@$$CBHURegistrationButtonStruct@@@std@@U_Kfn@?$map@HURegistrationButtonStruct@@U?$less@H@std@@V?$allocator@URegistrationButtonStruct@@@3@@2@U?$less@H@2@V?$allocator@URegistrationButtonStruct@@@2@@std@@1PAU_Node@12@A": [
@@ -3653,7 +3671,7 @@
 "data:?_Nilrefs@?$_Tree@HHU_Kfn@?$set@HU?$less@H@std@@V?$allocator@H@2@@std@@U?$less@H@3@V?$allocator@H@3@@std@@1IA": [
 "0xBE5E64"
 ],
-"data:?_Nilrefs@?$_Tree@HU?$pair@$$CBHPAV?$list@PAVUIVerbClass@@V?$allocator@PAVUIVerbClass@@@std@@@std@@@std@@U_Kfn@?$map@HPAV?$list@PAVUIVerbClass@@V?$allocator@PAVUIVerbClass@@@std@@@std@@U?$less@H@2@V?$allocator@PAV?$list@PAVUIVerbClass@@V?$allocator@PAVUIVerbClass@@@std@@@std@@@2@@2@U?$less@H@2@V?$allocator@PAV?$list@PAVUIVerbClass@@V?$allocator@PAVUIVerbClass@@@std@@@std@@@2@@std@@1IA": [
+"data:?_Nilrefs@?$_Tree@HU?$pair@$$CBHPAV?$list@PAVVerbInterface@@V?$allocator@PAVVerbInterface@@@std@@@std@@@std@@U_Kfn@?$map@HPAV?$list@PAVVerbInterface@@V?$allocator@PAVVerbInterface@@@std@@@std@@U?$less@H@2@V?$allocator@PAV?$list@PAVVerbInterface@@V?$allocator@PAVVerbInterface@@@std@@@std@@@2@@2@U?$less@H@2@V?$allocator@PAV?$list@PAVVerbInterface@@V?$allocator@PAVVerbInterface@@@std@@@std@@@2@@std@@1IA": [
 "0xBE8E78"
 ],
 "data:?_Nilrefs@?$_Tree@HU?$pair@$$CBHURegistrationButtonStruct@@@std@@U_Kfn@?$map@HURegistrationButtonStruct@@U?$less@H@std@@V?$allocator@URegistrationButtonStruct@@@3@@2@U?$less@H@2@V?$allocator@URegistrationButtonStruct@@@2@@std@@1IA": [
@@ -3701,7 +3719,7 @@
 "data:?_ParticleEmitterLoader@@3VParticleEmitterLoaderClass@@A": [
 "0xBFAE1C"
 ],
-"data:?_PlayUndefined@SoundLibraryClass@@2_NA": [
+"data:?_PlayUndefined@SoundLibrary@@2_NA": [
 "0xBDAC78"
 ],
 "data:?_PresetATestBlendSpriteShader@ShaderClass@@2V1@A": [
@@ -3770,7 +3788,7 @@
 "data:?_SkillIndex@SkillNamesDatabase@@0V?$hash_map@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@HU?$hash@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@U?$equal_to@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@V?$allocator@H@2@@std@@A": [
 "0xBE8E38"
 ],
-"data:?_SoundDefs@SoundLibraryClass@@2V?$hash_map@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@PAVSoundDefClass@@U?$hash@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@U?$equal_to@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@V?$allocator@PAVSoundDefClass@@@2@@std@@A": [
+"data:?_SoundDefs@SoundLibrary@@2V?$hash_map@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@PAVSoundDefClass@@U?$hash@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@U?$equal_to@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@V?$allocator@PAVSoundDefClass@@@2@@std@@A": [
 "0xBDAC48"
 ],
 "data:?_SphereLoader@@3VSphereLoaderClass@@A": [
@@ -3833,7 +3851,7 @@
 "data:?render_state_changes@DX8Wrapper@@1IA": [
 "0xC00690"
 ],
-"data:?wildcard@?1??Wildcard@NameClass@@SAABVPermString@@XZ@4V3@A": [
+"data:?wildcard@?1??Wildcard@AuxDataName@@SAABVPermString@@XZ@4V3@A": [
 "0xBE3B24"
 ],
 "data:_IID_IBindStatusCallback": [

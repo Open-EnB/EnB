@@ -7,7 +7,7 @@
 #include "..\..\wwmath\matrix3d.h"
 #include "..\..\wwmath\wwmath.h"
 #include "..\shared\g_assert.h"
-// NOT EXACT: 0.76, shape (inline budget): the client inlines Rotate_Z only in case 1 (2 and 3 call 0x577940) and Set_Dirty, and calls the last vertex's UV (0x6B71E0); ours inlines Rotate_Z in cases 1 and 2, all eight UVs and calls Set_Dirty
+// NOT EXACT: inline budget (masked 28): the client inlines Rotate_Z only in case 1 (2 and 3 call 0x577940) and all three dirty flags; ours (the flags as three Set_Dirty_* calls, as the client's inlined Set_Flag triple) inlines Rotate_Z in cases 1 and 2 and calls the first Set_Flag; dead reads, case order, Clamp / Min clamps: no cut (attempts.csv)
 Bar2DClass::Bar2DClass(const Vector4 &color0, const Vector4 &color1, const Vector4 &color2, const Vector4 &color3,
 	float height, float width, float x, float y, float percent, float rate, int orientation) :
 	DynamicMeshClass(4, 8),
@@ -84,7 +84,7 @@ Bar2DClass::Bar2DClass(const Vector4 &color0, const Vector4 &color1, const Vecto
 	}
 	tm.Set_Translation(Vector3(x, y, 0));
 	Set_Transform(tm);
-	Set_Dirty();
+	Set_Dirty_Bounds(); Set_Dirty_Planes(); Set_Dirty_Vertex_Normals();
 }
 
 

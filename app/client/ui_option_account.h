@@ -10,7 +10,7 @@
 class UIOptionAccountClass : public ChatPanelUIBase	// NAME 1: neutral, after its tooltips' section 'UI_OPTION_ACCOUNT'
 {
 public:
-	UIOptionAccountClass(SClient *client, int mode);	// 0x5C8870 (deleting 0x5C88C0)  // NAME 1 [client, mode]: what it does with them
+	UIOptionAccountClass(SpaceClientClass *client, int mode);	// 0x5C8870 (deleting 0x5C88C0)  // NAME 1 [client, mode]: what it does with them
 	virtual ~UIOptionAccountClass();					// 0x5C88F0
 	virtual void Unknown_54();							// +0x54 0x5C8980 ('opt05a': the buttons 'exit' and 'ok', the texts, Escape)
 	virtual void Unknown_58();							// +0x58 0x5C8A90 (the base's when not Active)

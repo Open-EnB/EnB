@@ -14,7 +14,7 @@ Unknown5BB320Class::Unknown5BB320Class(UIMeshClass *mesh, UIViewClass *view, con
 }
 
 // 0x5BB320
-Unknown5BB320Class::Unknown5BB320Class(UIMeshClass *mesh, SClient *client) :
+Unknown5BB320Class::Unknown5BB320Class(UIMeshClass *mesh, SpaceClientClass *client) :
 	InterfaceClass((LineDisplayClientClass *)client),
 	InterfaceMesh(mesh)
 {
@@ -78,7 +78,7 @@ void Unknown5BB320Class::Unknown_60()
 /*
 **	Notes (L3, run 2026-11-10b)
 **
-**	The client's object 0x5BB250-0x5BB6D0: linked between ui_mesh.obj (to 0x5BB1F0) and ui_mfd.obj (its PermStringInitClass
+**	The client's object 0x5BB250-0x5BB6D0: linked between ui_mesh.obj (to 0x5BB1F0) and ui_mfd.obj (its PermStringInit
 **	static's initialiser is 0x5BB6D0), so its file sorts between 'ui_mesh.cpp' and 'ui_mfd.cpp'; no __FILE__ string, no
 **	assert, no literal. In address order: the constructor over a view and a layer 0x5BB250, the deleting destructor
 **	0x5BB2F0, the constructor over a client 0x5BB320, the destructor 0x5BB3B0, slot +0x7C 0x5BB470, the two gadget calls

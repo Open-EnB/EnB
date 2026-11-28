@@ -141,7 +141,7 @@ void KVEncoderBaseClass::Add_String(int mask, const char *name, StringValueClass
 		delete value;
 		return;
 	}
-	List->Add(new KVPairStringClass(Make_Key(name), value));
+	List->Add(new KVStringPairClass(Make_Key(name), value));
 }
 
 void KVEncoderBaseClass::Add(int mask, const char *name, char *buffer, int size)
@@ -150,7 +150,7 @@ void KVEncoderBaseClass::Add(int mask, const char *name, char *buffer, int size)
 	bool odd;
 	Unknown_Test(mask, even, odd);
 	if (even || odd) {
-		List->Add(new KVPairStringClass(Make_Key(name), new KVBufferAccessorClass(buffer, size), even, odd));
+		List->Add(new KVStringPairClass(Make_Key(name), new KVBufferAccessorClass(buffer, size), even, odd));
 	}
 }
 
@@ -160,7 +160,7 @@ void KVStringEncoderClass::Add_New_String(int mask, const char *name, char **val
 	bool odd;
 	Unknown_Test(mask, even, odd);
 	if (even || odd) {
-		List->Add(new KVPairStringClass(Make_Key(name), new KVNewStringAccessorClass(value), even, odd));
+		List->Add(new KVStringPairClass(Make_Key(name), new KVNewStringAccessorClass(value), even, odd));
 	}
 }
 
@@ -170,7 +170,7 @@ void KVStringEncoderClass::Add_Dup_String(int mask, const char *name, char **val
 	bool odd;
 	Unknown_Test(mask, even, odd);
 	if (even || odd) {
-		List->Add(new KVPairStringClass(Make_Key(name), new KVDupStringAccessorClass(value), even, odd));
+		List->Add(new KVStringPairClass(Make_Key(name), new KVDupStringAccessorClass(value), even, odd));
 	}
 }
 
@@ -181,7 +181,7 @@ void KVStringEncoderClass::Add_Fixed_String(int mask, const char *name, const ch
 	Unknown_Test(mask, even, odd);
 	if (even || odd) {
 		odd = false;
-		List->Add(new KVPairStringClass(Make_Key(name), new KVFixedStringAccessorClass(value), even, odd));
+		List->Add(new KVStringPairClass(Make_Key(name), new KVFixedStringAccessorClass(value), even, odd));
 	}
 }
 
@@ -191,7 +191,7 @@ void KVStringEncoderClass::Add_Std_String(int mask, const char *name, std::strin
 	bool odd;
 	Unknown_Test(mask, even, odd);
 	if (even || odd) {
-		List->Add(new KVPairStringClass(Make_Key(name), new KVStdStringAccessorClass(value), even, odd));
+		List->Add(new KVStringPairClass(Make_Key(name), new KVStdStringAccessorClass(value), even, odd));
 	}
 }
 

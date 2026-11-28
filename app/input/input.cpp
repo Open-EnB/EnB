@@ -7,14 +7,14 @@
 
 InputQueueClass *Unknown_BDA968;
 unsigned char Unknown_BDA96C[INPUT_KEY_COUNT];
-KeyboardClass *Unknown_BDAA70;
-MouseClass *Unknown_BDAA74;
+KeyboardHandlerClass *Unknown_BDAA70;
+MouseHandlerClass *Unknown_BDAA74;
 InputUnknownBDAA78Class *Unknown_BDAA78;
 HWND Unknown_BDAA7C;
 int TrackMouseCounter;
 int KeyRepeatCount;
-KeyQueueClass *KeyboardClass::Queue;
-KeyQueueClass *MouseClass::Queue;
+KeyQueueClass *KeyboardHandlerClass::Queue;
+KeyQueueClass *MouseHandlerClass::Queue;
 
 int Unknown_42E390(int unknown1, int unknown2)
 {
@@ -175,7 +175,7 @@ char Unknown_42EB80(KernelEventClass *event)
 	return buffer[0];
 }
 
-bool Unknown_42EC60(int unknown1, int unknown2)	// NAME 1 [unknown1, unknown2]: neutral (D10), as KeyboardClass::Unknown_0C
+bool Unknown_42EC60(int unknown1, int unknown2)	// NAME 1 [unknown1, unknown2]: neutral (D10), as KeyboardHandlerClass::Unknown_0C
 {
 	return Unknown_BDAA70->Unknown_0C(unknown1, unknown2);
 }
@@ -344,7 +344,7 @@ bool KeyQueueClass::Add(KernelEventClass &event)
 **	has the client's test); 0x42E8A0 with the peek and the take both written in the
 **	Unknown_BDAA80 > 0 branch; 0x42EB80 with a 12-byte char buffer and `Key & 0xFF`; 0x42EE00
 **	with one Set_Repeat call after the if / else; 0x42EEC0 with the state read into a local.
-**	0x42EB20 (UITalkTreeClass 0x64DF80's: the queue emptied) needs the queue in a local: through the
+**	0x42EB20 (TalkTreeInterface 0x64DF80's: the queue emptied) needs the queue in a local: through the
 **	global each store is an immediate 0 (26 bytes against 20); 0x42EB50 (the queue's Add, slot +0x04)
 **	has no caller in the client. The two took their 13 lines from the padding before 0x42EE00.
 **	0x42E820 / 0x42E840 / 0x42E860 / 0x42E880 (no caller, no reference: tail calls of the mouse's and the keyboard's

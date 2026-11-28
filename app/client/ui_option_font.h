@@ -33,7 +33,7 @@ struct OptionFontSettingStruct	// NAME 1: neutral (D10)
 class OptionFontInterface : public ChatPanelUIBase	// NAME 5: the client's RTTI (.?AVOptionFontInterface@@, the sender of MemberCallback<OptionFontInterface, ChatPanelInterface, ...> 0xB7D308)
 {
 public:
-	OptionFontInterface(SClient *client, const char **font_names, const char **labels, const std::string &title);	// 0x5CC350 (deleting 0x5CC750; NULL-ended lists)  // NAME 1 [client, font_names, labels, title]: what it does with them
+	OptionFontInterface(SpaceClientClass *client, const char **font_names, const char **labels, const std::string &title);	// 0x5CC350 (deleting 0x5CC750; NULL-ended lists)  // NAME 1 [client, font_names, labels, title]: what it does with them
 	virtual ~OptionFontInterface();						// 0x5CC780
 	virtual void Unknown_54();							// +0x54 0x5CC9D0 ('opt04a': FAIL_IF 'FontNames.empty()'; the title, the buttons, the check box, the sliders, Escape)
 	virtual void Unknown_58();							// +0x58 0x5CCFC0 (the base's)

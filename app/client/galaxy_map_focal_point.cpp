@@ -15,7 +15,7 @@ static inline float Unknown_Clamp(float val, float min, float max)	// NAME 1: ne
 	return(val);
 }
 
-GalaxyMapFocalPointClass::GalaxyMapFocalPointClass() :
+GalaxyMapFocalPoint::GalaxyMapFocalPoint() :
 	Transform(true),
 	Distance(0.0f),
 	MinDistance(2.0f),
@@ -23,17 +23,17 @@ GalaxyMapFocalPointClass::GalaxyMapFocalPointClass() :
 {
 }
 
-GalaxyMapFocalPointClass::~GalaxyMapFocalPointClass()
+GalaxyMapFocalPoint::~GalaxyMapFocalPoint()
 {
 }
 
-void GalaxyMapFocalPointClass::Unknown_7A57A0(const Matrix3D &transform, float distance)
+void GalaxyMapFocalPoint::Unknown_7A57A0(const Matrix3D &transform, float distance)
 {
 	Transform = transform;
 	Distance = distance;
 }
 
-void GalaxyMapFocalPointClass::Unknown_7A5820(const Matrix3D &transform)
+void GalaxyMapFocalPoint::Unknown_7A5820(const Matrix3D &transform)
 {
 	Transform = transform;
 }
@@ -80,7 +80,7 @@ void GalaxyMapFocalPointClass::Unknown_7A5820(const Matrix3D &transform)
 
 
 
-void GalaxyMapFocalPointClass::Unknown_7A5890(const RefCountPtr<CameraClass> &camera)
+void GalaxyMapFocalPoint::Unknown_7A5890(const RefCountPtr<CameraClass> &camera)
 {
 	FAIL_IF(!camera) {
 		return;
@@ -90,7 +90,7 @@ void GalaxyMapFocalPointClass::Unknown_7A5890(const RefCountPtr<CameraClass> &ca
 	camera->Set_Transform(tm);
 }
 
-void GalaxyMapFocalPointClass::Unknown_7A5980(const Vector2 &arg, const Vector2 &min, const Vector2 &max)
+void GalaxyMapFocalPoint::Unknown_7A5980(const Vector2 &arg, const Vector2 &min, const Vector2 &max)
 {
 	float y = -(arg.Y * Distance);
 	float x = arg.X * Distance;
@@ -102,7 +102,7 @@ void GalaxyMapFocalPointClass::Unknown_7A5980(const Vector2 &arg, const Vector2 
 	Transform[2][3] = 0.0f;
 }
 
-void GalaxyMapFocalPointClass::Unknown_7A5AA0(const Vector2 &arg)
+void GalaxyMapFocalPoint::Unknown_7A5AA0(const Vector2 &arg)
 {
 	float a = arg.X * 50.0f;
 	Transform.In_Place_Pre_Rotate_Z(DEG_TO_RADF(a));
@@ -128,7 +128,7 @@ void GalaxyMapFocalPointClass::Unknown_7A5AA0(const Vector2 &arg)
 	}
 }
 
-void GalaxyMapFocalPointClass::Unknown_7A5E10(float arg)
+void GalaxyMapFocalPoint::Unknown_7A5E10(float arg)
 {
 	float m = (Distance < 1.0f) ? 1.0f : Distance;
 	float d = Distance;
@@ -136,13 +136,13 @@ void GalaxyMapFocalPointClass::Unknown_7A5E10(float arg)
 	Distance = WWMath::Clamp(Distance, MinDistance, MaxDistance);
 }
 
-void GalaxyMapFocalPointClass::Unknown_7A5ED0(const GalaxyMapFocalPointClass &a, const GalaxyMapFocalPointClass &b, float t)
+void GalaxyMapFocalPoint::Unknown_7A5ED0(const GalaxyMapFocalPoint &a, const GalaxyMapFocalPoint &b, float t)
 {
 	Transform = Lerp(a.Transform, b.Transform, t);
 	Distance = (b.Distance - a.Distance) * t + a.Distance;
 }
 
-bool GalaxyMapFocalPointClass::operator == (const GalaxyMapFocalPointClass &that) const
+bool GalaxyMapFocalPoint::operator == (const GalaxyMapFocalPoint &that) const
 {
 	if (Distance == that.Distance) {
 		return(Transform == that.Transform);

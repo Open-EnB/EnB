@@ -15,14 +15,14 @@
 
 #include <stddef.h>
 
-class ExprMathLexerClass;
-class ExprMathTreeClass;
+class ExprLexer;
+class ExprMathTreeNode;
 
-class ExprMathParserClass	// NAME 3 [ExprMathParserClass]: base of ExprMathParserImplClass
+class ExprMathParser  // NAME 5: thunk order A, binary.md 5.11; NAME 3 [ExprMathParser]: base of ExprMathParserImplClass
 {
 public:
-	virtual ~ExprMathParserClass() {}											// 0x4D0A20, deleting 0x4D0A40
-	virtual ExprMathTreeClass *Parse(ExprMathLexerClass *lex) { return NULL; }	// NAME 3 [Parse]: lex from the assert '!lex'
+	virtual ~ExprMathParser() {}											// 0x4D0A20, deleting 0x4D0A40
+	virtual ExprMathTreeNode *Parse(ExprLexer *lex) { return NULL; }	// NAME 3 [Parse]: lex from the assert '!lex'
 };
 
 #endif

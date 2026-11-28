@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include "ui_ping.h"
 #include "gadget.h"
-#include "unknown_675120.h"
+#include "gd_uimesh.h"
 #include "gd_uiback.h"		// UIBackGadget (0x674260)
 #include "unknown_51c800.h"
 #include "dynamic_window_class.h"
@@ -33,7 +33,7 @@ static const char *UIPingLabels[3] = {	// NAME 1: neutral (D10)
 };
 
 // 0x5D7630
-UIPingClass::UIPingClass(LineDisplayClientClass *client) :
+PingInterface::PingInterface(LineDisplayClientClass *client) :
 	InterfaceClass(client),
 	Button(NULL),
 	Unknown0AC(0),
@@ -55,7 +55,7 @@ UIPingClass::UIPingClass(LineDisplayClientClass *client) :
 }
 
 // 0x5D7A00
-UIPingClass::~UIPingClass()
+PingInterface::~PingInterface()
 {
 	Unknown_5C();
 	if (Efficiency) {
@@ -90,7 +90,7 @@ UIPingClass::~UIPingClass()
 }
 
 // 0x5D7D60
-void UIPingClass::Unknown_54()
+void PingInterface::Unknown_54()
 {
 	Mesh = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("TSI05C"));
 	Unknown58.Unknown_686CC0(Mesh.Peek(), NULL);
@@ -113,7 +113,7 @@ void UIPingClass::Unknown_54()
 
 	RefCountPtr<FontSys> text = Create_NEW(new FontSys("HEADER_INFO", 0, 0));
 	Header = Create_NEW(new Unknown51C800Class(text.Peek(), 6));
-	Info->Add_Object((DynamicWindowElementClass *)Header.Peek(), 0);
+	Info->Add_Object((DynamicWindowElement *)Header.Peek(), 0);
 
 	char name[32];
 	for (int i = 0; i < 3; i++) {
@@ -122,12 +122,12 @@ void UIPingClass::Unknown_54()
 		_snprintf(name, sizeof(name), "%s000", UIPingLabels[i]);
 		text->Change_Text(name, 0);
 		Rows[i] = Create_NEW(new Unknown51C800Class(text.Peek(), 6));
-		Unknown098->Add_Object((DynamicWindowElementClass *)Rows[i].Peek(), i);
+		Unknown098->Add_Object((DynamicWindowElement *)Rows[i].Peek(), i);
 	}
 }
 
 // 0x5D83D0
-void UIPingClass::Unknown_58()
+void PingInterface::Unknown_58()
 {
 	if (!Active) {
 		InterfaceSortScopeClass scope(this);
@@ -137,7 +137,7 @@ void UIPingClass::Unknown_58()
 }
 
 // 0x5D8460
-void UIPingClass::Unknown_5C()
+void PingInterface::Unknown_5C()
 {
 	if (Active) {
 		if (Shown) {
@@ -149,7 +149,7 @@ void UIPingClass::Unknown_5C()
 }
 
 // 0x5D84A0
-void UIPingClass::Unknown_60()
+void PingInterface::Unknown_60()
 {
 	if (Active) {
 		Timer += WW3D::Get_Frame_Time() * 0.001f;
@@ -160,7 +160,7 @@ void UIPingClass::Unknown_60()
 }
 
 // 0x5D8510
-bool UIPingClass::Unknown_68(int key)
+bool PingInterface::Unknown_68(int key)
 {
 	switch (key) {
 		case 1:
@@ -249,7 +249,7 @@ bool UIPingClass::Unknown_68(int key)
 
 
 // 0x5D85B0
-void UIPingClass::Unknown_5D85B0()
+void PingInterface::Unknown_5D85B0()
 {
 	Timer = 0;
 	ClientClass *client = (ClientClass *)Client;

@@ -17,7 +17,7 @@
 // Player.GroupInfo (0x7548D0)
 inline
 DeltaGroupInfoClass::DeltaGroupInfoClass(const char *name) :
-	DeltaCompoundClass(name),
+	DeltaContainer(name),
 	IsGroupLeader("IsGroupLeader"),
 	LookingForGroup("LookingForGroup", true),
 	AllowGroupInvite("AllowGroupInvite", true),
@@ -47,8 +47,8 @@ DeltaGroupInfoClass::DeltaGroupInfoClass(const char *name) :
 #if defined(AUX_CTORS_GROUP)
 // Player.GroupInfo.Members.N (0x754DB0)
 inline
-DeltaGroupMemberClass::DeltaGroupMemberClass(const char *name) :
-	DeltaCompoundClass(name),
+DeltaGroupMember::DeltaGroupMember(const char *name) :
+	DeltaContainer(name),
 	Name("Name", ""),
 	GameID("GameID"),
 	Formation("Formation"),

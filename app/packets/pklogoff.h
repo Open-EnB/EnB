@@ -18,13 +18,13 @@
 #include "pk.h"
 
 // opcode 3 (0x0003, LOGOFF): vtable 0xB0B044, constructor 0x89ABE0, 0x10 bytes
-class LogoffPacketClass : public PacketClass  // NAME 3: the client's Print text 'Logoff' and the PacketClass convention
+class LogoffPacketClass : public UnknownPacketBaseClass  // NAME 3: the client's Print text 'Logoff' and the UnknownPacketBaseClass convention
 {
 public:
 	LogoffPacketClass(int player_id);					// 0x89AB30
-	LogoffPacketClass(RawPacketClass *raw);				// 0x89ABE0
+	LogoffPacketClass(PacketClass *raw);				// 0x89ABE0
 	virtual ~LogoffPacketClass() {}						// +0x00 0x89AB90 (0x89ABC0)
-	virtual RawPacketClass *Build();					// +0x04 0x89AC70
+	virtual PacketClass *Encode();					// +0x04 0x89AC70  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);			// +0x08 0x867B00 (clientstub.cpp l.20)
 	virtual int Get_Data_Size();						// +0x0C 0x89AD30
 	virtual int Print(char *buffer, int len);			// +0x10 0x89AD50
@@ -34,12 +34,12 @@ public:
 };
 
 // opcode 185 (0x00B9, LOGOFF_REQUEST): vtable 0xB0B074, constructor 0x89ADF0, 0x10 bytes
-class LogoffRequestPacketClass : public PacketClass  // NAME 3: the client's Print text 'Logoff Request {' and the PacketClass convention
+class LogoffRequestPacketClass : public UnknownPacketBaseClass  // NAME 3: the client's Print text 'Logoff Request {' and the UnknownPacketBaseClass convention
 {
 public:
 	LogoffRequestPacketClass(int player_id);			// 0x89AD80
-	LogoffRequestPacketClass(RawPacketClass *raw);		// 0x89ADF0
-	virtual RawPacketClass *Build();					// +0x04 0x89AE80
+	LogoffRequestPacketClass(PacketClass *raw);		// 0x89ADF0
+	virtual PacketClass *Encode();					// +0x04 0x89AE80  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);			// +0x08 0x867B30 (clientstub.cpp l.23)
 	virtual int Get_Data_Size();						// +0x0C 0x89AF40
 	virtual int Print(char *buffer, int len);			// +0x10 0x89AF60
@@ -48,26 +48,26 @@ public:
 };
 
 // opcode 186 (0x00BA, LOGOFF_CONFIRMATION): vtable 0xB0B0A4, constructor 0x89B020, 0xC bytes
-class LogoffConfirmationPacketClass : public PacketClass
+class LogoffConfirmationPacketClass : public UnknownPacketBaseClass
 {
 public:
 	LogoffConfirmationPacketClass();					// 0x89AF90
-	LogoffConfirmationPacketClass(RawPacketClass *raw);	// 0x89B020
+	LogoffConfirmationPacketClass(PacketClass *raw);	// 0x89B020
 	virtual ~LogoffConfirmationPacketClass() {}			// +0x00 0x89AFD0 (0x89B000)
-	virtual RawPacketClass *Build();					// +0x04 0x89B060
+	virtual PacketClass *Encode();					// +0x04 0x89B060  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);			// +0x08 0x7333B0 (cpacket.cpp)
 	virtual int Get_Data_Size();						// +0x0C 0x89B0F0
 	virtual int Print(char *buffer, int len);			// +0x10 0x89B110
 };
 
 // opcode 187 (0x00BB, ?): vtable 0xB0B0D4, constructor 0x89B1D0, 0xC bytes; its Print text is 186's
-class Packet_00BBClass : public PacketClass  // NAME 1: neutral (D10): opcode 0x00BB
+class Packet_00BBClass : public UnknownPacketBaseClass  // NAME 1: neutral (D10): opcode 0x00BB
 {
 public:
 	Packet_00BBClass();									// 0x89B140
-	Packet_00BBClass(RawPacketClass *raw);				// 0x89B1D0
+	Packet_00BBClass(PacketClass *raw);				// 0x89B1D0
 	virtual ~Packet_00BBClass() {}						// +0x00 0x89B180 (0x89B1B0)
-	virtual RawPacketClass *Build();					// +0x04 0x89B210
+	virtual PacketClass *Encode();					// +0x04 0x89B210  // NAME 3: override of the NAME 5 virtual Encode
 	virtual bool Process_Packet(void *client);			// +0x08 0x867B60 (clientstub.cpp l.26)
 	virtual int Get_Data_Size();						// +0x0C 0x89B2A0
 	virtual int Print(char *buffer, int len);			// +0x10 0x89B2C0

@@ -10,7 +10,7 @@ Packet_006CClass::Packet_006CClass(__int64 unknown10, __int64 unknown18) :
 {
 }
 
-Packet_006CClass::Packet_006CClass(RawPacketClass *raw) :
+Packet_006CClass::Packet_006CClass(PacketClass *raw) :
 	Unknown10(0),
 	Unknown18(0),
 	Unknown20(0),
@@ -20,9 +20,9 @@ Packet_006CClass::Packet_006CClass(RawPacketClass *raw) :
 	raw->Get(Unknown18);
 }
 
-RawPacketClass *Packet_006CClass::Build()
+PacketClass *Packet_006CClass::Encode()
 {
-	RawPacketClass *raw = new RawPacketClass(108, Get_Data_Size());
+	PacketClass *raw = new PacketClass(108, Get_Data_Size());
 	raw->Add(Unknown10);
 	raw->Add(Unknown18);
 	return(raw);

@@ -1,0 +1,31 @@
+HYPOTHESIS = 'S1 re-measure: claim271 ns_expand_both_guard (parent 0x655460 exact, lost Next_Shown/Open/Close/Toggle on 11-23) on HEAD'
+FILE = 'app/client/ui_treem.cpp'
+SYMBOL = 'UITreeMClass::Unknown_68'
+ADDRESS = 0x655460
+
+OLD = ("\tbool valid = item != NULL && item < &Items[Items.Count() - 1]; UITreeMItemStruct *next = valid ? item + 1 : NULL;\n"
+       "\twhile (next != NULL) {\n"
+       "\t\tif (next->Level == item->Level) { return(next); }\n"
+       "\t\tif (next->Level < item->Level) { break; }\n"
+       "\t\tnext = (next != NULL && next < &Items[Items.Count() - 1]) ? next + 1 : NULL;\n")
+BOTH = ("\tUITreeMItemStruct *next = NULL; if (item != NULL && item < &Items[Items.Count() - 1]) { next = item + 1; }\n"
+        "\twhile (next != NULL) {\n"
+        "\t\tif (next->Level == item->Level) { return(next); }\n"
+        "\t\tif (next->Level < item->Level) { break; }\n"
+        "\t\tif (next != NULL && next < &Items[Items.Count() - 1]) { next = next + 1; } else { next = NULL; }\n")
+FIRST = ("\tUITreeMItemStruct *next = NULL; if (item != NULL && item < &Items[Items.Count() - 1]) { next = item + 1; }\n"
+         "\twhile (next != NULL) {\n"
+         "\t\tif (next->Level == item->Level) { return(next); }\n"
+         "\t\tif (next->Level < item->Level) { break; }\n"
+         "\t\tnext = (next != NULL && next < &Items[Items.Count() - 1]) ? next + 1 : NULL;\n")
+STEP = ("\tbool valid = item != NULL && item < &Items[Items.Count() - 1]; UITreeMItemStruct *next = valid ? item + 1 : NULL;\n"
+        "\twhile (next != NULL) {\n"
+        "\t\tif (next->Level == item->Level) { return(next); }\n"
+        "\t\tif (next->Level < item->Level) { break; }\n"
+        "\t\tif (next != NULL && next < &Items[Items.Count() - 1]) { next = next + 1; } else { next = NULL; }\n")
+
+FORMS = {
+    'both_guard': [(OLD, BOTH)],
+    'first_if': [(OLD, FIRST)],
+    'step_if': [(OLD, STEP)],
+}

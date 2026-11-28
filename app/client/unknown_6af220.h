@@ -18,7 +18,7 @@ class FontSys;				// fontmanager.h's
 class Unknown6AF220Class : public ChatPanelUIBase	// NAME 1: neutral (D10), as cpacket.cpp's handler 0x73F2E0 names it
 {
 public:
-	Unknown6AF220Class(SClient *client);				// 0x6AF220  // NAME 1 [client]: ChatPanelUIBase's
+	Unknown6AF220Class(SpaceClientClass *client);				// 0x6AF220  // NAME 1 [client]: ChatPanelUIBase's
 	virtual ~Unknown6AF220Class();						// 0x6AF810 (deleting 0x6AF6A0)
 	virtual void Unknown_54();							// +0x54 0x6AFB10 ('tsi27a', 'fa_tsi27a.ini': the four buttons, the seven rows, the title, the slider)
 	virtual void Unknown_58();							// +0x58 0x6AFDE0 (activated: the list emptied, the buttons on)

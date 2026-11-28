@@ -6,7 +6,7 @@
 #include "..\g_assert.h"
 
 // @0x4C5930
-ExprLexerMatchListClass::ExprLexerMatchListClass() :
+ExprLexerMatchList::ExprLexerMatchList() :
 	Begin(NULL)
 {
 	Begin = new ExprLexerMatchNodeStruct;
@@ -15,7 +15,7 @@ ExprLexerMatchListClass::ExprLexerMatchListClass() :
 
 
 // @0x4C5C20
-ExprLexerMatchListClass::ExprLexerMatchListClass(const char *tokens) :
+ExprLexerMatchList::ExprLexerMatchList(const char *tokens) :
 	Begin(NULL)
 {
 	Begin = new ExprLexerMatchNodeStruct;
@@ -25,7 +25,7 @@ ExprLexerMatchListClass::ExprLexerMatchListClass(const char *tokens) :
 
 
 // @0x4C5EC0
-ExprLexerMatchListClass::~ExprLexerMatchListClass()
+ExprLexerMatchList::~ExprLexerMatchList()
 {
 	delete Begin;
 	Begin = NULL;
@@ -33,7 +33,7 @@ ExprLexerMatchListClass::~ExprLexerMatchListClass()
 
 
 // @0x4C6160
-void ExprLexerMatchListClass::Add(const char *tokens)
+void ExprLexerMatchList::Add(const char *tokens)
 {
 	FAIL_IF(!tokens) return;
 
@@ -62,7 +62,7 @@ void ExprLexerMatchListClass::Add(const char *tokens)
 
 
 // @0x4C62C0
-void ExprLexerMatchListClass::Add_Token(const char *token)
+void ExprLexerMatchList::Add_Token(const char *token)
 {
 	FAIL_IF(!token) return;
 
@@ -91,7 +91,7 @@ void ExprLexerMatchListClass::Add_Token(const char *token)
 
 
 // @0x4C6530
-int ExprLexerMatchListClass::Match(const char *text)
+int ExprLexerMatchList::Match(const char *text) const
 {
 	int best = 0;
 	int len = 0;

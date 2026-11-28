@@ -10,14 +10,14 @@
 #include "..\..\wwlib\ref_ptr.h"
 #include "..\packets\pkrecustomize.h"
 
-class SBaseViewClass;
+class StarbaseViewClass;
 class UIViewClass;
 class LayerClass;
 class GadgetClass;
-class RObjGadgetClass;		// gd_robj.h's (the buttons at +0x1CC / +0x204 / +0x240: their slot +0x8C, the model at +0x30)
+class RenderObjGadgetClass;		// gd_robj.h's (the buttons at +0x1CC / +0x204 / +0x240: their slot +0x8C, the model at +0x30)
 class FlashingGadgetEvent;
-class ShipPipClass;	// ship_pip.h
-class CharacterViewAvatarClass;	// avatar.h
+class ShipPIPClass;	// ship_pip.h
+class AvatarClass;	// avatar.h
 class UIAvatrUnknown2ECStruct;
 class UIAvatrPullClass;
 
@@ -33,7 +33,7 @@ struct UIAvatarCustPairStruct	// NAME 1: neutral (D10)
 class StarbaseAvatarCreationInterface : public Unknown5BB320Class	// NAME 3: the client's RTTI (0xB7AC88: SignalBaseClass::MemberCallback<GadgetClass,StarbaseAvatarCreationInterface,...>, the FlashingGadgetEvent handler 0x551320's)
 {
 public:
-	StarbaseAvatarCreationInterface(UIViewClass *view, LayerClass &layer);	// 0x54B7B0 (0x3D0 bytes; the starbase view's 0x69F8F0 passes itself and its +0x7C)  // NAME 1 [view, layer]: what 0x69F8F0 passes
+	StarbaseAvatarCreationInterface(UIViewClass *view, LayerClass &layer);	// 0x54B7B0 (0x3D0 bytes; the starbase view's 0x69F8F0 passes itself and its +0x7C)  // NAME 1 [view, layer]: what 0x69F8F0 passes  // NAME 5: thunk order probable, binary.md 5.11
 	~StarbaseAvatarCreationInterface();					// 0x54BAB0 (table 0xAEF6AC; the deleting one 0x54BA80)
 	void Unknown_551320(FlashingGadgetEvent *event, GadgetClass *gadget);	// 0x551320 (FAIL_IFs '!event', '!gadget': the FlashingGadgetEvent handler)  // NAME 2 [event, gadget]: the FAIL_IFs'
 	virtual void Unknown_54();							// +0x54 0x54BD30 (InterfaceClass's: Init calls it after construction)
@@ -77,13 +77,13 @@ public:
 
 	LayerClass *Unknown0AC;								// +0xAC (the constructor's layer)
 	int Unknown0B0;										// +0xB0 (the mode: 1, 2)
-	SBaseViewClass *Unknown0B4;							// +0xB4 (its Client's EnvironmentMapManager; 0x551A80 calls 0x69F440)
-	ShipPipClass *Unknown0B8;					// +0xB8 (ship_pip.cpp's gadget)
-	RefCountPtr<CharacterViewAvatarClass> Unknown0BC;	// +0xBC (a RefCountPtr: the destructor 0x54BAB0 releases it twice, by hand and as a member)
-	AvatarDescClass Unknown0C0;							// +0xC0 (the old look: 0x551BF0)
-	RObjGadgetClass *Unknown1CC[14];					// +0x1CC ([0] on in mode 1, [1] in mode 2)
-	RObjGadgetClass *Unknown204[15];					// +0x204 ([10]-[12]: parts 0-2)
-	RObjGadgetClass *Unknown240[11];					// +0x240 ([4]-[7]: parts 3-6; [8]-[10] the metal models' gadgets)
+	StarbaseViewClass *Unknown0B4;							// +0xB4 (its Client's EnvironmentMapManager; 0x551A80 calls 0x69F440)
+	ShipPIPClass *Unknown0B8;					// +0xB8 (ship_pip.cpp's gadget)
+	RefCountPtr<AvatarClass> Unknown0BC;	// +0xBC (a RefCountPtr: the destructor 0x54BAB0 releases it twice, by hand and as a member)
+	AvatarDescriptionClass Unknown0C0;							// +0xC0 (the old look: 0x551BF0)
+	RenderObjGadgetClass *Unknown1CC[14];					// +0x1CC ([0] on in mode 1, [1] in mode 2)
+	RenderObjGadgetClass *Unknown204[15];					// +0x204 ([10]-[12]: parts 0-2)
+	RenderObjGadgetClass *Unknown240[11];					// +0x240 ([4]-[7]: parts 3-6; [8]-[10] the metal models' gadgets)
 	Matrix3D Unknown26C[3];								// +0x26C (the models' turning frames; the constructor's loop)
 	UIAvatrPullClass *Unknown2FC;			// +0x2FC
 	Vector2 Unknown300;									// +0x300 (0.5, 0.5)

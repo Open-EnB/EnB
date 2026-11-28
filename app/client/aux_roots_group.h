@@ -18,13 +18,13 @@
 #include "aux_formation.h"
 
 // vtable 0xB039C8 (e.g. Player.GroupInfo.Members.N)
-// NAME 4: Net-7 AuxGroupMember confirmed by structure (C# fields = ours (same names, same order); Net-7 Construct 4 children = ours); C# GroupMember
-class DeltaGroupMemberClass : public DeltaCompoundClass
+// NAME 5: thunk order A, binary.md 5.11; before the rename NAME 4: Net-7 AuxGroupMember confirmed by structure (C# fields = ours (same names, same order); Net-7 Construct 4 children = ours); C# GroupMember
+class DeltaGroupMember : public DeltaContainer
 {
 public:
-	DeltaGroupMemberClass(const char *name);	// 0x754DB0
+	DeltaGroupMember(const char *name);	// 0x754DB0
 
-	DeltaStringClass Name;	// +0x9C
+	DeltaString Name;	// +0x9C
 	DeltaTemplateClass<int> GameID;	// +0x124
 	DeltaTemplateClass<FormationState> Formation;	// +0x1AC
 	DeltaTemplateClass<int> Position;	// +0x234
@@ -32,7 +32,7 @@ public:
 
 // vtable 0xB038B8 (e.g. Player.GroupInfo)
 // NAME 4: Net-7 AuxGroupInfo confirmed by structure (C# fields = ours (same names, same order); Net-7 Construct 11 children = ours); C# PilotGroupInfo
-class DeltaGroupInfoClass : public DeltaCompoundClass
+class DeltaGroupInfoClass : public DeltaContainer
 {
 public:
 	DeltaGroupInfoClass(const char *name);	// 0x7548D0
@@ -44,10 +44,10 @@ public:
 	DeltaTemplateClass<bool> ForceAutoSplit;	// +0x2BC
 	DeltaTemplateClass<bool> RestrictedLootingRights;	// +0x344
 	DeltaTemplateClass<bool> AutoReleaseLootingRestrictions;	// +0x3CC
-	DeltaStringClass FormationName;	// +0x454
+	DeltaString FormationName;	// +0x454
 	DeltaTemplateClass<FormationState> Formation;	// +0x4DC
 	DeltaTemplateClass<int> Position;	// +0x564
-	DeltaItemArrayClass<DeltaGroupMemberClass> Members;	// +0x5EC
+	DeltaItemArrayClass<DeltaGroupMember> Members;	// +0x5EC
 };
 
 // the constructors here, unless the object compiles the player's tree (aux_roots_send.h includes them in its order)

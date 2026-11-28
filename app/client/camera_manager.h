@@ -1,6 +1,6 @@
 // Earth & Beyond client (reconstruction): app\client\camera_manager.h, the camera manager (the client's camera_manager.cpp
 // per its __FILE__ 0xB9E5C0; this header's name is provisional, NAME 3 by D24). Laid out from the constructor 0x798D20
-// (0x4C bytes, SClient::Init's new) and the destructor 0x799220 (CM1, 2026-11-07).
+// (0x4C bytes, SpaceClientClass::Init's new) and the destructor 0x799220 (CM1, 2026-11-07).
 #ifndef CAMERA_MANAGER_H  // NAME 3 [camera_manager.h]: header name from camera_manager.cpp (D24)
 #define CAMERA_MANAGER_H
 
@@ -22,7 +22,7 @@
 #include "camctrl_takeoff.h"
 #include "camctrl_tractor.h"
 
-class SClient;
+class SpaceClientClass;
 
 class CameraManagerClass	// NAME 3: class-from-file (D24) for camera_manager.cpp
 {
@@ -31,16 +31,16 @@ public:
 		STATE_LAST_CONTROLLER = 12						// NAME 5: the constructor's assert
 	};
 
-	CameraManagerClass(SClient *client);				// 0x798D20
+	CameraManagerClass(SpaceClientClass *client);				// 0x798D20
 	~CameraManagerClass();								// 0x799220
-	void Unknown_7992F0();								// 0x7992F0 (ACTION 7 for SClient +0x13AC)
-	void Unknown_7993E0();								// 0x7993E0 (ACTION 19 for SClient +0x13BC)
-	void Unknown_7994D0();								// 0x7994D0 (ACTION 8 for SClient +0x13B8)
+	void Unknown_7992F0();								// 0x7992F0 (ACTION 7 for SpaceClientClass +0x13AC)
+	void Unknown_7993E0();								// 0x7993E0 (ACTION 19 for SpaceClientClass +0x13BC)
+	void Unknown_7994D0();								// 0x7994D0 (ACTION 8 for SpaceClientClass +0x13B8)
 	void Unknown_799590();								// 0x799590 (ACTION 27 for the avatar)
 	void Unknown_799610(const Vector3 &pos, const Quaternion &rot);	// 0x799610 (eases Position / Orientation toward them)  // NAME 1 [pos, rot]: what they are
 	void Unknown_7998B0(int id);						// 0x7998B0 (pulls the camera in front of the object whose ID the controller gave)  // NAME 1 [id]: Find_Object's
 	bool Unknown_799DA0(int *new_state, int state);		// 0x799DA0  // NAME 2 [new_state]: its FAIL_IF; NAME 1 [state]: neutral
-	void Unknown_799E40();								// 0x799E40 (SClient's Process_AI: the requests' state changes, the controller's placement, the camera)
+	void Unknown_799E40();								// 0x799E40 (SpaceClientClass's Process_AI: the requests' state changes, the controller's placement, the camera)
 	void Unknown_79B2B0(int request);					// 0x79B2B0 (sets the request's bit in Requests)  // NAME 1 [request]: neutral
 	bool Unknown_79B330(int request);					// 0x79B330 (tests and clears it)  // NAME 1 [request]: neutral
 	void Set_Heading(float heading); float Get_Heading();	// 0x79B370, 0x79B390  // NAME 2: sclient.cpp's
@@ -58,7 +58,7 @@ public:
 	static float Unknown_79B6B0();						// 0x79B6B0 (75: the camera controllers', the radar's and the UI's)
 	ChaseCameraModuleClass *Get_Player_Chase_Camera_Module() { return(Module); }	// NAME 5: sclient.cpp's FAIL_IF
 
-	SClient *Client;									// +0x00  // NAME 2: what it holds
+	SpaceClientClass *Client;									// +0x00  // NAME 2: what it holds
 	ChaseCameraModuleClass *Module;						// +0x04  // NAME 1: neutral
 	unsigned Requests;									// +0x08 (one bit per request, 0x79B2B0 / 0x79B330)  // NAME 1: neutral
 	std::vector<CameraControllerClass *> Controllers;	// +0x0C (allocator), +0x10 .. +0x18  // NAME 5: the constructor's assert

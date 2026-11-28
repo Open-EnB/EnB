@@ -83,11 +83,11 @@ def near_part(i, i0, b0, i1, b1, r=R_NEAR):
 #     each other, do not reach the threshold once the candidates tried are counted).
 # Names with "Unknown" are ours by construction and never anchors (5 lay on the run by chance).
 WEAK = {'t1c-access', 't1c-const', 't1c-int', 't1c-ptrcv', 't1c-ptrref', 't1c-callconv', 't1c-underscore',
-        't1c-access+const',
+        't1c-access+const', 'sa-single',   # sigaudit's Build -> Encode on a slot already on the run (not testable: the test skips anchors)
         't2-method', 't2-lmethod'}    # one slot's method name from a model's list (tier2_methods.py: 't2-lvmethod',
                                       # one name on two or more slots of an override group, is not weak)
 RENAME = ('r1', 't1c-suffix', 't2-class', 'cs2-own', 'cs2-dict')
-_TIER = re.compile(r'^(r1|t1[abc]-[\w+]+|t2-\w+|cs2-\w+)\b')
+_TIER = re.compile(r'^(r1|t1[abc]-[\w+]+|t2-\w+|cs2-\w+|sa-\w+)\b')
 
 
 def tier_of(how):

@@ -1,7 +1,7 @@
 // Earth & Beyond client (reconstruction): app\shared\unknown_4e0700.cpp. Notes at the end of the file.
 #include "unknown_4e0700.h"
 
-int Detach_Owner_Mods(AttribDir *dir, AttribModIterator mods, void *owner, int keep)
+int Detach_Owner_Mods(AttributeDirectory *dir, AttribModIterator mods, void *owner, int keep)
 {
 	int count = 0;
 	while (!mods.Is_Done()) {

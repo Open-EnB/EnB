@@ -5,12 +5,12 @@
 //	GameID		4 bytes
 //	count		4 bytes
 //	count times:
-//		Name	a string (RawPacketClass::Add_String / Get_String)
+//		Name	a string (PacketClass::Add_String / Get_String)
 //		Value	4 bytes
 //
 // Layout (0x24 bytes, vtable 0xB09BE4):
 //	+0x0C	GameID (-1 when the raw constructor starts)
-//	+0x10	Channel: PacketClass::Unknown_14 of the game id for a packet made here, -1 for a
+//	+0x10	Channel: UnknownPacketBaseClass::Unknown_14 of the game id for a packet made here, -1 for a
 //			received one (Get_Channel returns it)
 //	+0x14	SubParts, a std::vector<SubPartStruct> (0x14 bytes each: a std::string and an int)
 //
@@ -30,7 +30,7 @@ SubPartsPacket::SubPartsPacket(int game_id) :
 {
 }
 
-SubPartsPacket::SubPartsPacket(RawPacketClass *raw) :
+SubPartsPacket::SubPartsPacket(PacketClass *raw) :
 	GameID(-1),
 	Channel(-1)
 {
@@ -68,9 +68,9 @@ const SubPartStruct &SubPartsPacket::Get(unsigned int index)
 	return(SubParts[index]);
 }
 
-RawPacketClass *SubPartsPacket::Build()
+PacketClass *SubPartsPacket::Encode()
 {
-	RawPacketClass *raw = new RawPacketClass(180, Get_Data_Size());
+	PacketClass *raw = new PacketClass(180, Get_Data_Size());
 	raw->Add(GameID);
 	int count = SubParts.size();
 	raw->Add(count);
@@ -85,7 +85,7 @@ int SubPartsPacket::Get_Data_Size()
 {
 	int size = sizeof(GameID) + sizeof(int);
 	for (std::vector<SubPartStruct>::iterator it = SubParts.begin(); it != SubParts.end(); ++it) {
-		size += sizeof(it->Value) + RawPacketClass::Get_Size(it->Name.c_str());
+		size += sizeof(it->Value) + PacketClass::Get_Size(it->Name.c_str());
 	}
 	return(size);
 }

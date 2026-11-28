@@ -19,13 +19,13 @@
 #include "pk.h"
 
 // opcode 151 (0x0097, GALAXY_MAP): vtable 0xB0992C, constructor 0x870FD0, 0x1C bytes
-class GalaxyMapPacketClass : public PacketClass
+class GalaxyMapPacketClass : public UnknownPacketBaseClass
 {
 public:
-	GalaxyMapPacketClass(int type, LinearBufferClass &buffer, int channel);	// 0x870E90
-	GalaxyMapPacketClass(RawPacketClass *raw);	// 0x870FD0
+	GalaxyMapPacketClass(int type, LinearBuffer &buffer, int channel);	// 0x870E90
+	GalaxyMapPacketClass(PacketClass *raw);	// 0x870FD0
 	virtual ~GalaxyMapPacketClass();	// +0x00 0x871180 / 0x870FA0
-	virtual RawPacketClass *Build();	// +0x04 0x8710A0
+	virtual PacketClass *Encode();	// +0x04 0x8710A0  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x73AC60 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x8711C0
 	virtual int Print(char *buffer, int len);	// +0x10 0x8711E0
@@ -42,9 +42,9 @@ public:
 class GalaxyMapRequestPacketClass : public GalaxyMapPacketClass  // NAME 2: Net-7's opcode name GALAXY_MAP_REQUEST (the Net-7 opcode table; no structure check)
 {
 public:
-	GalaxyMapRequestPacketClass(int type, LinearBufferClass &buffer, int channel, bool b);	// 0x871220
-	GalaxyMapRequestPacketClass(RawPacketClass *raw);	// 0x871350
-	virtual RawPacketClass *Build();	// +0x04 0x871460
+	GalaxyMapRequestPacketClass(int type, LinearBuffer &buffer, int channel, bool b);	// 0x871220
+	GalaxyMapRequestPacketClass(PacketClass *raw);	// 0x871350
+	virtual PacketClass *Encode();	// +0x04 0x871460  // NAME 3: override of the NAME 5 virtual Encode
 	virtual bool Process_Packet(void *client);	// +0x08 0x868C70 (clientstub.cpp l.299)
 	virtual int Get_Data_Size();	// +0x0C 0x8714A0
 	virtual int Get_Type() { return(152); }	// +0x28 0x871300

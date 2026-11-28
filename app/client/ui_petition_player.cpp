@@ -15,7 +15,7 @@ static const char *Unknown_B84118[7] = { NULL, "BAD_NAME_hsi04a", "CHAT_HARASS_h
 static const char *Unknown_B84134[7] = { "EXIT", "NAME", "HARASS", "GAME", "SPAM", "CHEATING", NULL };	// NAME 1: neutral (D10)
 
 // 0x5D5740
-UIPetitionPlayerClass::UIPetitionPlayerClass(SClient *client) :
+UIPetitionPlayerClass::UIPetitionPlayerClass(SpaceClientClass *client) :
 	UIPetitionAvatarPipClass(client)
 {
 	memset(Buttons, 0, sizeof(Buttons));
@@ -89,7 +89,7 @@ bool UIPetitionPlayerClass::Unknown_68(int key)
 	int type;	// NAME 1: neutral (D10)
 	switch (key) {
 		case 1:
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			if (Page) {
 				Page->Unknown_94();
 			} else {
@@ -130,7 +130,7 @@ bool UIPetitionPlayerClass::Unknown_68(int key)
 		default:
 			return(false);
 	}
-	Page = Create_Get(new UIPetitionPlayerEntryClass((SClient *)((ClientClass *)Client)->As_Space_Client(), type));
+	Page = Create_Get(new UIPetitionPlayerEntryClass((SpaceClientClass *)((ClientClass *)Client)->As_Space_Client(), type));
 	Page->Unknown_5417D0(this);
 	Page->Unknown_54();
 	Page->Unknown_88(InterfaceMesh, "TRANS_BONE");

@@ -285,7 +285,7 @@ bool LoginUnknown18Class::Unknown_5155A0(SMouseDragClass *drag)
 **	Reconstruction notes
 **
 **	client.exe: smouse.cpp 0x514960-0x515E20; the software mouse (tsk_login.h's LoginUnknown18Class, 0x30
-**	bytes: LoginTaskClass +0x18, SClient +0x1274) 0x514FE0-0x5155D5: a Bitmap2DObjClass of mousetbl.cpp's
+**	bytes: LoginTaskClass +0x18, SpaceClientClass +0x1274) 0x514FE0-0x5155D5: a Bitmap2DObjClass of mousetbl.cpp's
 **	cursor texture moved to the pointer every frame, and the dragged object (+0x2C). FAIL_IFs on the
 **	client's lines 267, 269 and 278 (D25). All exact (ACT, SM; run 2026-11-02): the constructor stores in
 **	declaration order (VC6 schedules the -1s first), the destructor and 0x5153B0 release the model in

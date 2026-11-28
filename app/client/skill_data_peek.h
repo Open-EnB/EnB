@@ -28,7 +28,7 @@ public:
 	SkillDataPeekClass(void *owner);							// 0x6A5330
 
 	~SkillDataPeekClass();							// 0x6A5380 (0x6A4710's unwind states; it clears, the name stays)
-	void Attach(DeltaCompoundClass *root);					// 0x6A53A0  // NAME 2: describes what it does
+	void Attach(DeltaContainer *root);					// 0x6A53A0  // NAME 2: describes what it does
 
 	bool Unknown_6A5440();										// the list's Unknown70 > 1  // NAME 1: neutral (D10)
 	bool Unknown_6A5470(int skill);							// skill's Unknown70 > 1  // NAME 1: neutral (D10)
@@ -42,7 +42,7 @@ public:
 	int Get_Max_Skill_Levels(int skill);					// 0x6A59E0  // NAME 2: the client's field name (0xB913DC)
 
 protected:
-	DeltaCompoundClass *Get_Skill(int skill);				// 0x6A5A50  // NAME 2: describes what it does
+	DeltaContainer *Get_Skill(int skill);				// 0x6A5A50  // NAME 2: describes what it does
 	DeltaClass *Get_Field(int skill, int field);			// 0x6A5B10  // NAME 2: describes what it does
 	void Update_Fields();										// 0x6A5BD0  // NAME 2: describes what it does
 
@@ -142,8 +142,8 @@ protected:
 	}
 
 	void *Owner;					// +0x00 the constructor's argument  // NAME 2: describes what it does
-	NameClass Name;				// +0x04 'RPGInfo.Skills'  // NAME 2: describes what it does
-	DeltaCompoundClass *List;	// +0x38 what Name finds under Attach's root  // NAME 2: describes what it does
+	AuxDataName Name;				// +0x04 'RPGInfo.Skills'  // NAME 2: describes what it does
+	DeltaContainer *List;	// +0x38 what Name finds under Attach's root  // NAME 2: describes what it does
 	unsigned int Count;			// +0x3C List's children  // NAME 2: describes what it does
 	int Fields[7];					// +0x40 each field's position in a skill, -1 if it has none  // NAME 2: describes what it does
 	int Status;						// +0x5C 2 after a failed read, else the field's Unknown70 < 2  // NAME 2: describes what it does

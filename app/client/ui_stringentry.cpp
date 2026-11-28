@@ -6,7 +6,7 @@
 #include "rendobj.h"
 #include "..\..\wwlib\ref_ptr.h"
 #include "gadget.h"
-#include "unknown_675120.h"
+#include "gd_uimesh.h"
 #include "textgadg.h"
 #include "fontmanager.h"
 #include "local_interface_sort.h"
@@ -26,7 +26,7 @@ RefCountPtr<RenderObjClass> Unknown_497300(RenderObjClass *robj);	// 0x497300  /
 static const char *Unknown_B8BA54[4] = { "CANCEL", "EXIT", "CONFIRM", "VALUE_BUTTON" };	// NAME 1: neutral (D10)
 
 // 0x649890
-UIPTradeCreditsClass::UIPTradeCreditsClass(SClient *client, int a, int b) :
+UIPTradeCreditsClass::UIPTradeCreditsClass(SpaceClientClass *client, int a, int b) :
 	Unknown5BB320Class(new UIMeshClass("TRADE01A", 1), client),
 	Unknown0AC(NULL),
 	Unknown0C0(0),
@@ -62,11 +62,11 @@ void UIPTradeCreditsClass::Unknown_54()
 	}
 	RefCountPtr<RenderObjClass> model = Create_Get(InterfaceMesh->Peek_Mesh_Object()->Get_Sub_Object_By_Name("TEXT_BOX"));
 	if (Unknown0C4 == 0) {
-		Unknown0AC = new TextGadgetClass(this, Unknown0C8, "VALUE_BUTTON01", model.Peek(), Unknown_B08C98 | Unknown_B08CA8 | Unknown_B08CAC, 0);
+		Unknown0AC = new UnknownTextGadgetClass(this, Unknown0C8, "VALUE_BUTTON01", model.Peek(), Unknown_B08C98 | Unknown_B08CA8 | Unknown_B08CAC, 0);
 	} else if (Unknown0C4 == 1) {
-		Unknown0AC = new TextGadgetClass(this, Unknown0C8, "VALUE_BUTTON01", model.Peek(), Unknown_B08C9C | Unknown_B08CAC, 0);
+		Unknown0AC = new UnknownTextGadgetClass(this, Unknown0C8, "VALUE_BUTTON01", model.Peek(), Unknown_B08C9C | Unknown_B08CAC, 0);
 	} else {
-		Unknown0AC = new TextGadgetClass(this, Unknown0C8, "VALUE_BUTTON01", model.Peek(), Unknown_B08CAC, 0);
+		Unknown0AC = new UnknownTextGadgetClass(this, Unknown0C8, "VALUE_BUTTON01", model.Peek(), Unknown_B08CAC, 0);
 	}
 	Unknown0AC->Set_Text("", 0);
 	Unknown64.Unknown_6870E0(Unknown0AC, 6, View, 1, 0);
@@ -127,17 +127,17 @@ bool UIPTradeCreditsClass::Unknown_68(int key)
 	switch (key) {
 		case 1:
 		case 2:
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			Unknown0AC->Unknown_74(false);
 			Unknown0C0 = 1;
 			return(true);
 		case 3:
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			Unknown0AC->Unknown_74(false);
 			Unknown0C0 = 2;
 			return(true);
 		case 4:
-			SoundLibraryClass::Play_2D_Sound("message_1.wav", 2);
+			SoundLibrary::Play_2D_Sound("message_1.wav", 2);
 			Unknown0AC->Unknown_74(true);
 			Unknown0AC->Set_Text("", 0);
 			Unknown0CC = true;

@@ -34,13 +34,13 @@ bool TurnPacketClass::Process_Packet(void *)	// 0x867BC0
 bool TiltPacketClass::Process_Packet(void *)	// 0x867BF0
 {	G_ASSERT(0); return(true); }
 
-bool MovePacketClass::Process_Packet(void *)	// 0x867C20
+bool MovementPacketClass::Process_Packet(void *)	// 0x867C20
 {	G_ASSERT(0); return(true); }
 
 bool FirePacketClass::Process_Packet(void *)	// 0x867C50
 {	G_ASSERT(0); return(true); }
 
-bool EquipUsePacketClass::Process_Packet(void *)	// 0x867C80
+bool UseInventoryPacketClass::Process_Packet(void *)	// 0x867C80
 {	G_ASSERT(0); return(true); }
 
 bool DebugPacketClass::Process_Packet(void *)	// 0x867CB0
@@ -49,10 +49,10 @@ bool DebugPacketClass::Process_Packet(void *)	// 0x867CB0
 bool RequestTargetPacketClass::Process_Packet(void *)	// 0x867CE0
 {	G_ASSERT(0); return(true); }
 
-bool InventoryMovePacketClass::Process_Packet(void *)	// 0x867D10
+bool InvPacketClass::Process_Packet(void *)	// 0x867D10
 {	G_ASSERT(0); return(true); }
 
-bool InventorySortPacketClass::Process_Packet(void *)	// 0x867D40
+bool InvSortPacketClass::Process_Packet(void *)	// 0x867D40
 {	G_ASSERT(0); return(true); }
 
 bool ItemStatePacketClass::Process_Packet(void *)	// 0x867D70
@@ -70,25 +70,25 @@ bool Action2PacketClass::Process_Packet(void *)	// 0x867E00
 bool SkillPacketClass::Process_Packet(void *)	// 0x867E30
 {	G_ASSERT(0); return(true); }
 
-bool SkillPacket_88Class::Process_Packet(void *)	// 0x867E60
+bool SkillAbilityPacketClass::Process_Packet(void *)	// 0x867E60
 {	G_ASSERT(0); return(true); }
 
-bool Packet_003DClass::Process_Packet(void *)	// 0x867E90
+bool ServerStopPacketClass::Process_Packet(void *)	// 0x867E90
 {	G_ASSERT(0); return(true); }
 
 bool RequestTransformChangePacketClass::Process_Packet(void *)	// 0x867EC0
 {	G_ASSERT(0); return(true); }
 
-bool Packet_0045Class::Process_Packet(void *)	// 0x867EF0
+bool RequestVersionPacketClass::Process_Packet(void *)	// 0x867EF0
 {	G_ASSERT(0); return(true); }
 
-bool Packet_7530Class::Process_Packet(void *)	// 0x867F20
+bool GameEditorLoginPacketClass::Process_Packet(void *)	// 0x867F20
 {	G_ASSERT(0); return(true); }
 
-bool Packet_004BClass::Process_Packet(void *)	// 0x867F50
+bool ModeRequestPacketClass::Process_Packet(void *)	// 0x867F50
 {	G_ASSERT(0); return(true); }
 
-bool StarbaseRequestPacketClass::Process_Packet(void *)	// 0x867F80
+bool StarbaseReqPacketClass::Process_Packet(void *)	// 0x867F80
 {	G_ASSERT(0); return(true); }
 
 bool SelectTalkTreePacketClass::Process_Packet(void *)	// 0x867FB0
@@ -106,10 +106,10 @@ bool CreateCharacterPacketClass::Process_Packet(void *)	// 0x868040
 bool CreateCharacterPacketClass::Unknown_28(void *)	// 0x868070
 {	G_ASSERT(0); return(true); }
 
-bool Packet_0049Class::Process_Packet(void *)	// 0x8680A0
+bool DeleteCharacterPacketClass::Process_Packet(void *)	// 0x8680A0
 {	G_ASSERT(0); return(true); }
 
-bool Packet_7545Class::Process_Packet(void *)	// 0x8680D0
+bool GameEditorClonePacketClass::Process_Packet(void *)	// 0x8680D0
 {	G_ASSERT(0); return(true); }
 
 bool Packet_7535Class::Process_Packet(void *)	// 0x868100
@@ -118,82 +118,82 @@ bool Packet_7535Class::Process_Packet(void *)	// 0x868100
 bool Packet_7536Class::Process_Packet(void *)	// 0x868130
 {	G_ASSERT(0); return(true); }
 
-bool Packet_7538Class::Process_Packet(void *)	// 0x868160
+bool GameEditorKVModifyPacketClass::Process_Packet(void *)	// 0x868160
 {	G_ASSERT(0); return(true); }
 
-bool Packet_7531Class::Process_Packet(void *)	// 0x868190
+bool GameEditorLogoutPacketClass::Process_Packet(void *)	// 0x868190
 {	G_ASSERT(0); return(true); }
 
-bool Packet_7540Class::Process_Packet(void *)	// 0x8681C0
+bool GameEditorCreateFinalPacketClass::Process_Packet(void *)	// 0x8681C0
 {	G_ASSERT(0); return(true); }
 
-bool Packet_753EClass::Process_Packet(void *)	// 0x8681F0
+bool GameEditorCreateEmptyPacketClass::Process_Packet(void *)	// 0x8681F0
 {	G_ASSERT(0); return(true); }
 
-bool Packet_753FClass::Process_Packet(void *)	// 0x868220
+bool GameEditorCreateCancelPacketClass::Process_Packet(void *)	// 0x868220
 {	G_ASSERT(0); return(true); }
 
-bool Packet_7539Class::Process_Packet(void *)	// 0x868250
+bool GameEditorDeletePacketClass::Process_Packet(void *)	// 0x868250
 {	G_ASSERT(0); return(true); }
 
-bool Packet_753AClass::Process_Packet(void *)	// 0x868280
+bool GameEditorMovePacketClass::Process_Packet(void *)	// 0x868280
 {	G_ASSERT(0); return(true); }
 
-bool Packet_753CClass::Process_Packet(void *)	// 0x8682B0
+bool GameEditorRequestTemplateListPacketClass::Process_Packet(void *)	// 0x8682B0
 {	G_ASSERT(0); return(true); }
 
 bool GameEditorRequestPlanetUnitTypesPacketClass::Process_Packet(void *)	// 0x8682E0
 {	G_ASSERT(0); return(true); }
 
-bool Packet_7549Class::Process_Packet(void *)	// 0x868310
+bool GameEditorRequestPlanetUnitDetailsPacketClass::Process_Packet(void *)	// 0x868310
 {	G_ASSERT(0); return(true); }
 
 bool GameEditorSaveSectorPacketClass::Process_Packet(void *)	// 0x868340
 {	G_ASSERT(0); return(true); }
 
-bool Packet_7541Class::Process_Packet(void *)	// 0x868370
+bool GameEditorRequestSpawnDefaultsPacketClass::Process_Packet(void *)	// 0x868370
 {	G_ASSERT(0); return(true); }
 
 bool MasterJoinPacketClass::Process_Packet(void *)	// 0x8683A0
 {	G_ASSERT(0); return(true); }
 
-bool Packet_003BClass::Process_Packet(void *)	// 0x8683D0
+bool ServerReadyPacketClass::Process_Packet(void *)	// 0x8683D0
 {	G_ASSERT(0); return(true); }
 
-bool Packet_1388Class::Process_Packet(void *)	// 0x868400
+bool TaskHelloPacketClass::Process_Packet(void *)	// 0x868400
 {	G_ASSERT(0); return(true); }
 
-bool Packet_1389Class::Process_Packet(void *)	// 0x868430
+bool SectorHelloPacketClass::Process_Packet(void *)	// 0x868430
 {	G_ASSERT(0); return(true); }
 
-bool Packet_138AClass::Process_Packet(void *)	// 0x868460
+bool TaskStartPacketClass::Process_Packet(void *)	// 0x868460
 {	G_ASSERT(0); return(true); }
 
-bool Packet_138BClass::Process_Packet(void *)	// 0x868490
+bool TaskStopPacketClass::Process_Packet(void *)	// 0x868490
 {	G_ASSERT(0); return(true); }
 
-bool Packet_138CClass::Process_Packet(void *)	// 0x8684C0
+bool TaskRequestPacketClass::Process_Packet(void *)	// 0x8684C0
 {	G_ASSERT(0); return(true); }
 
-bool Packet_138DClass::Process_Packet(void *)	// 0x8684F0
+bool TaskPingPacketClass::Process_Packet(void *)	// 0x8684F0
 {	G_ASSERT(0); return(true); }
 
-bool Packet_138EClass::Process_Packet(void *)	// 0x868520
+bool TaskPongPacketClass::Process_Packet(void *)	// 0x868520
 {	G_ASSERT(0); return(true); }
 
-bool Packet_1391Class::Process_Packet(void *)	// 0x868550
+bool PlayerStatusPacketClass::Process_Packet(void *)	// 0x868550
 {	G_ASSERT(0); return(true); }
 
-bool Packet_1392Class::Process_Packet(void *)	// 0x868580
+bool SectorListPacketClass::Process_Packet(void *)	// 0x868580
 {	G_ASSERT(0); return(true); }
 
-bool Packet_1393Class::Process_Packet(void *)	// 0x8685B0
+bool RequestSectorListPacket::Process_Packet(void *)	// 0x8685B0
 {	G_ASSERT(0); return(true); }
 
-bool AvatarEmotePacketClass::Process_Packet(void *)	// 0x8685E0
+bool ChatstreamPacketClass::Process_Packet(void *)	// 0x8685E0
 {	G_ASSERT(0); return(true); }
 
-bool Packet_0063Class::Process_Packet(void *)	// 0x868610
+bool BroadcastPacketClass::Process_Packet(void *)	// 0x868610
 {	G_ASSERT(0); return(true); }
 
 bool Packet_0068Class::Process_Packet(void *)	// 0x868640
@@ -202,13 +202,13 @@ bool Packet_0068Class::Process_Packet(void *)	// 0x868640
 bool ManufactureItemCatagoryPacketClass::Process_Packet(void *)	// 0x868670
 {	G_ASSERT(0); return(true); }
 
-bool ManufactureItemCatagoryPacket_122Class::Process_Packet(void *)	// 0x8686A0
+bool ManufactureSetItemCategoryPacketClass::Process_Packet(void *)	// 0x8686A0
 {	G_ASSERT(0); return(true); }
 
-bool ManufactureItemIdPacketClass::Process_Packet(void *)	// 0x8686D0
+bool ManufactureSetItemIDPacketClass::Process_Packet(void *)	// 0x8686D0
 {	G_ASSERT(0); return(true); }
 
-bool RefineryItemIdPacketClass::Process_Packet(void *)	// 0x868700
+bool RefinerySetItemIDPacketClass::Process_Packet(void *)	// 0x868700
 {	G_ASSERT(0); return(true); }
 
 bool Packet_007DClass::Process_Packet(void *)	// 0x868730
@@ -217,16 +217,16 @@ bool Packet_007DClass::Process_Packet(void *)	// 0x868730
 bool ManufactureActionPacketClass::Process_Packet(void *)	// 0x868760
 {	G_ASSERT(0); return(true); }
 
-bool ManufactureTechLevelFilterPacketClass::Process_Packet(void *)	// 0x868790
+bool ManufactureSetTechLevelFilterPacketClass::Process_Packet(void *)	// 0x868790
 {	G_ASSERT(0); return(true); }
 
 bool MissionForfeitPacketClass::Process_Packet(void *)	// 0x8687C0
 {	G_ASSERT(0); return(true); }
 
-bool MissionDismissalPacketClass::Process_Packet(void *)	// 0x8687F0
+bool MissionDismissPacketClass::Process_Packet(void *)	// 0x8687F0
 {	G_ASSERT(0); return(true); }
 
-bool UiTriggerPacketClass::Process_Packet(void *)	// 0x868820
+bool UITriggerPacketClass::Process_Packet(void *)	// 0x868820
 {	G_ASSERT(0); return(true); }
 
 bool GlobalConnectPacketClass::Process_Packet(void *)	// 0x868850
@@ -238,10 +238,10 @@ bool GlobalCreateCharacterPacketClass::Process_Packet(void *)	// 0x868880
 bool GlobalDeleteCharacterPacketClass::Process_Packet(void *)	// 0x8688B0
 {	G_ASSERT(0); return(true); }
 
-bool Packet_0073Class::Process_Packet(void *)	// 0x8688E0
+bool GlobalHelloPacketClass::Process_Packet(void *)	// 0x8688E0
 {	G_ASSERT(0); return(true); }
 
-bool Packet_0074Class::Process_Packet(void *)	// 0x868910
+bool GlobalPlayerStatusPacketClass::Process_Packet(void *)	// 0x868910
 {	G_ASSERT(0); return(true); }
 
 bool GlobalTicketRequestPacketClass::Process_Packet(void *)	// 0x868940
@@ -250,19 +250,19 @@ bool GlobalTicketRequestPacketClass::Process_Packet(void *)	// 0x868940
 bool Packet_006CClass::Process_Packet(void *)	// 0x868970
 {	G_ASSERT(0); return(true); }
 
-bool Packet_004DClass::Process_Packet(void *)	// 0x8689A0
+bool RegistrationResultPacketClass::Process_Packet(void *)	// 0x8689A0
 {	G_ASSERT(0); return(true); }
 
-bool RequestTargetsTargetPacketClass::Process_Packet(void *)	// 0x8689D0
+bool RequestTargetTargetPacketClass::Process_Packet(void *)	// 0x8689D0
 {	G_ASSERT(0); return(true); }
 
-bool PetitionStuckPacketClass::Process_Packet(void *)	// 0x868A00
+bool PetitionPacketClass::Process_Packet(void *)	// 0x868A00
 {	G_ASSERT(0); return(true); }
 
-bool IncapacitanceRequestPacketClass::Process_Packet(void *)	// 0x868A30
+bool IncapacitanceDetailsRequestPacket::Process_Packet(void *)	// 0x868A30
 {	G_ASSERT(0); return(true); }
 
-bool IncapacitanceDistressBeaconPacketClass::Process_Packet(void *)	// 0x868A60
+bool IncapacitanceDistressBeaconPacket::Process_Packet(void *)	// 0x868A60
 {	G_ASSERT(0); return(true); }
 
 bool Packet_008FClass::Process_Packet(void *)	// 0x868A90
@@ -280,7 +280,7 @@ bool WarpPacketClass::Process_Packet(void *)	// 0x868B20
 bool Starbase_Avatar_ChangePacketClass::Process_Packet(void *)	// 0x868B50
 {	G_ASSERT(0); return(true); }
 
-bool Starbase_Room_ChangePacketClass::Process_Packet(void *)	// 0x868B80
+bool StarbaseAvatarRoomChangePacketClass::Process_Packet(void *)	// 0x868B80
 {	G_ASSERT(0); return(true); }
 
 bool Packet_00B3Class::Process_Packet(void *)	// 0x868BB0
@@ -301,115 +301,115 @@ bool GalaxyMapRequestPacketClass::Process_Packet(void *)	// 0x868C70
 bool ClientChatRequestPacketClass::Process_Packet(void *)	// 0x868CA0
 {	G_ASSERT(0); return(true); }
 
-bool Packet_00A7Class::Process_Packet(void *)	// 0x868CD0
+bool ChatBasicRequestPacketClass::Process_Packet(void *)	// 0x868CD0
 {	G_ASSERT(0); return(true); }
 
-bool Packet_00A9Class::Process_Packet(void *)	// 0x868D00
+bool ChatProxyRequestPacketClass::Process_Packet(void *)	// 0x868D00
 {	G_ASSERT(0); return(true); }
 
-bool Packet_00AAClass::Process_Packet(void *)	// 0x868D30
+bool ChatProxyResponsePacketClass::Process_Packet(void *)	// 0x868D30
 {	G_ASSERT(0); return(true); }
 
-bool Packet_00ABClass::Process_Packet(void *)	// 0x868D60
+bool ChatProxyResponseListPacketClass::Process_Packet(void *)	// 0x868D60
 {	G_ASSERT(0); return(true); }
 
-bool Packet_00ACClass::Process_Packet(void *)	// 0x868D90
+bool ChatProxyEventPacketClass::Process_Packet(void *)	// 0x868D90
 {	G_ASSERT(0); return(true); }
 
-bool Packet_00A8Class::Process_Packet(void *)	// 0x868DC0
+bool ChatProxyLoginPacketClass::Process_Packet(void *)	// 0x868DC0
 {	G_ASSERT(0); return(true); }
 
-bool CTA_Request_PacketClass::Process_Packet(void *)	// 0x868DF0
+bool CTARequestPacketClass::Process_Packet(void *)	// 0x868DF0
 {	G_ASSERT(0); return(true); }
 
-bool ConfirmedActionResponsePacketClass::Process_Packet(void *)	// 0x868E20
+bool ConfirmedActionResponsePacket::Process_Packet(void *)	// 0x868E20
 {	G_ASSERT(0); return(true); }
 
 bool Packet_00ADClass::Process_Packet(void *)	// 0x868E50
 {	G_ASSERT(0); return(true); }
 
-bool Packet_00AEClass::Process_Packet(void *)	// 0x868E80
+bool GroupServerRequestPacketClass::Process_Packet(void *)	// 0x868E80
 {	G_ASSERT(0); return(true); }
 
-bool Packet_00AFClass::Process_Packet(void *)	// 0x868EB0
+bool GroupServerResponsePacketClass::Process_Packet(void *)	// 0x868EB0
 {	G_ASSERT(0); return(true); }
 
-bool Packet_00B0Class::Process_Packet(void *)	// 0x868EE0
+bool GroupServerCreatePacketClass::Process_Packet(void *)	// 0x868EE0
 {	G_ASSERT(0); return(true); }
 
-bool Packet_00B1Class::Process_Packet(void *)	// 0x868F10
+bool GroupServerUpdatePacketClass::Process_Packet(void *)	// 0x868F10
 {	G_ASSERT(0); return(true); }
 
-bool GuildSimpleGuildSectorPacketClass::Process_Packet(void *)	// 0x868F40
+bool GuildSimpleGuildSectorPacket::Process_Packet(void *)	// 0x868F40
 {	G_ASSERT(0); return(true); }
 
-bool GuildSimpleClientSectorPacketClass::Process_Packet(void *)	// 0x868F70
+bool GuildSimpleClientSectorPacket::Process_Packet(void *)	// 0x868F70
 {	G_ASSERT(0); return(true); }
 
-bool GuildSimpleSectorGuildPacketClass::Process_Packet(void *)	// 0x868FA0
+bool GuildSimpleSectorGuildPacket::Process_Packet(void *)	// 0x868FA0
 {	G_ASSERT(0); return(true); }
 
-bool GuildAdjustContribPacketClass::Process_Packet(void *)	// 0x868FD0
+bool GuildAdjustContribPacket::Process_Packet(void *)	// 0x868FD0
 {	G_ASSERT(0); return(true); }
 
-bool GuildBeginCreationPacketClass::Process_Packet(void *)	// 0x869000
+bool GuildBeginCreationPacket::Process_Packet(void *)	// 0x869000
 {	G_ASSERT(0); return(true); }
 
-bool GuildLeaderAcceptClientPacketClass::Process_Packet(void *)	// 0x869030
+bool GuildLeaderAcceptClientPacket::Process_Packet(void *)	// 0x869030
 {	G_ASSERT(0); return(true); }
 
-bool GuildLeaderAcceptSectorPacketClass::Process_Packet(void *)	// 0x869060
+bool GuildLeaderAcceptSectorPacket::Process_Packet(void *)	// 0x869060
 {	G_ASSERT(0); return(true); }
 
-bool GuildRecruitConfirmGuildPacketClass::Process_Packet(void *)	// 0x869090
+bool GuildRecruitConfirmGuildPacket::Process_Packet(void *)	// 0x869090
 {	G_ASSERT(0); return(true); }
 
-bool GuildRecruitAcceptClientPacketClass::Process_Packet(void *)	// 0x8690C0
+bool GuildRecruitAcceptClientPacket::Process_Packet(void *)	// 0x8690C0
 {	G_ASSERT(0); return(true); }
 
-bool GuildRecruitAcceptSectorPacketClass::Process_Packet(void *)	// 0x8690F0
+bool GuildRecruitAcceptSectorPacket::Process_Packet(void *)	// 0x8690F0
 {	G_ASSERT(0); return(true); }
 
-bool GuildMessageGuildPacketClass::Process_Packet(void *)	// 0x869120
+bool GuildMessageGuildPacket::Process_Packet(void *)	// 0x869120
 {	G_ASSERT(0); return(true); }
 
-bool GuildStatusUpdatePacketClass::Process_Packet(void *)	// 0x869150
+bool GuildStatusUpdatePacket::Process_Packet(void *)	// 0x869150
 {	G_ASSERT(0); return(true); }
 
-bool GuildPermissionsPacketClass::Process_Packet(void *)	// 0x869180
+bool GuildPermissionsPacket::Process_Packet(void *)	// 0x869180
 {	G_ASSERT(0); return(true); }
 
-bool GuildRankNamesRequestClientPacketClass::Process_Packet(void *)	// 0x8691B0
+bool GuildRankNamesRequestClientPacket::Process_Packet(void *)	// 0x8691B0
 {	G_ASSERT(0); return(true); }
 
-bool GuildRankNamesRequestSectorPacketClass::Process_Packet(void *)	// 0x8691E0
+bool GuildRankNamesRequestSectorPacket::Process_Packet(void *)	// 0x8691E0
 {	G_ASSERT(0); return(true); }
 
-bool GuildRankNamesGuildPacketClass::Process_Packet(void *)	// 0x869210
+bool GuildRankNamesGuildPacket::Process_Packet(void *)	// 0x869210
 {	G_ASSERT(0); return(true); }
 
-bool GuildGMRenameConfirmGuildPacketClass::Process_Packet(void *)	// 0x869240
+bool GuildGMRenameConfirmGuildPacket::Process_Packet(void *)	// 0x869240
 {	G_ASSERT(0); return(true); }
 
-bool GuildGMRenameAcceptSectorPacketClass::Process_Packet(void *)	// 0x869270
+bool GuildGMRenameAcceptSectorPacket::Process_Packet(void *)	// 0x869270
 {	G_ASSERT(0); return(true); }
 
-bool GuildPlayerOnlinePacketClass::Process_Packet(void *)	// 0x8692A0
+bool GuildPlayerOnlineSectorPacket::Process_Packet(void *)	// 0x8692A0
 {	G_ASSERT(0); return(true); }
 
-bool GuildDeletePlayerPacketClass::Process_Packet(void *)	// 0x8692D0
+bool GuildDeletePlayerPacket::Process_Packet(void *)	// 0x8692D0
 {	G_ASSERT(0); return(true); }
 
-bool GuildPlayerInfoDeletedPacketClass::Process_Packet(void *)	// 0x869300
+bool GuildPlayerInfoDeletedPacket::Process_Packet(void *)	// 0x869300
 {	G_ASSERT(0); return(true); }
 
-bool GuildDeductFeePacketClass::Process_Packet(void *)	// 0x869330
+bool GuildDeductFeePacket::Process_Packet(void *)	// 0x869330
 {	G_ASSERT(0); return(true); }
 
-bool Packet_00E6Class::Process_Packet(void *)	// 0x869360
+bool GlobalContainerRequestPacketClass::Process_Packet(void *)	// 0x869360
 {	G_ASSERT(0); return(true); }
 
-bool Packet_00E7Class::Process_Packet(void *)	// 0x869390
+bool GlobalContainerResponsePacketClass::Process_Packet(void *)	// 0x869390
 {	G_ASSERT(0); return(true); }
 
 bool DirLockRequestPacketClass::Process_Packet(void *)	// 0x8693C0
@@ -424,10 +424,10 @@ bool DirLockResponseSectorPacketClass::Process_Packet(void *)	// 0x869420
 bool DirLockReleasePacketClass::Process_Packet(void *)	// 0x869450
 {	G_ASSERT(0); return(true); }
 
-bool GpsRequestPacketClass::Process_Packet(void *)	// 0x869480
+bool GPSRequestPacketClass::Process_Packet(void *)	// 0x869480
 {	G_ASSERT(0); return(true); }
 
-bool GpsResponsePacketClass::Process_Packet(void *)	// 0x8694B0
+bool GPSResponsePacketClass::Process_Packet(void *)	// 0x8694B0
 {	G_ASSERT(0); return(true); }
 
 bool GlobalLockRequestPacketClass::Process_Packet(void *)	// 0x8694E0
@@ -439,16 +439,16 @@ bool GlobalLockResponsePacketClass::Process_Packet(void *)	// 0x869510
 bool GlobalLockReleasePacketClass::Process_Packet(void *)	// 0x869540
 {	G_ASSERT(0); return(true); }
 
-bool GMDestroyItemPacketClass::Process_Packet(void *)	// 0x869570
+bool GMDestroyItemRequestPacketClass::Process_Packet(void *)	// 0x869570
 {	G_ASSERT(0); return(true); }
 
-bool GMResetMissionPacketClass::Process_Packet(void *)	// 0x8695A0
+bool GMResetMissionRequestPacketClass::Process_Packet(void *)	// 0x8695A0
 {	G_ASSERT(0); return(true); }
 
-bool Packet_0077Class::Process_Packet(void *)	// 0x8695D0
+bool GlobalSetReferrerPacketClass::Process_Packet(void *)	// 0x8695D0
 {	G_ASSERT(0); return(true); }
 
-bool Packet_00E8Class::Process_Packet(void *)	// 0x869600
+bool SpendReferralPointPacketClass::Process_Packet(void *)	// 0x869600
 {	G_ASSERT(0); return(true); }
 
 bool RecustomizeShipDonePacketClass::Process_Packet(void *)	// 0x869630

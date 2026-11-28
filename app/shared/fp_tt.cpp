@@ -7,7 +7,7 @@
 #include <float.h>
 #include "..\shared\g_assert.h"
 
-extern int Unknown_BE350C;	// NAME 1: neutral (D10): SClient::Do_Frame's frame toggle (sclient.cpp)
+extern int Unknown_BE350C;	// NAME 1: neutral (D10): SpaceClientClass::Do_Frame's frame toggle (sclient.cpp)
 
 // 0x449360
 FpTTClass::FpTTClass(float max_yaw, float max_pitch, float max_slope, bool unknown38) :
@@ -38,7 +38,7 @@ FpTTClass::~FpTTClass()
 }
 
 // 0x449540
-// NOT EXACT: 0.44, frame (sub esp 0x48 against 0x44): the client shares stack slots between the target delta, the climb vector and the new axes
+// NOT EXACT: 0.82, frame (sub esp 0x48 against 0x44): the client shares stack slots between the target delta, the climb vector and the new axes; it keeps the pitch cos / sin on the FPU and the climb pair in memory
 int FpTTClass::Unknown_04(const Vector3 &target, Matrix3D *transforms, float dist, float &yaw, float &pitch)
 {
 	Unknown2C = NULL;
@@ -133,23 +133,23 @@ int FpTTClass::Unknown_04(const Vector3 &target, Matrix3D *transforms, float dis
 		pitch = 0.0f;
 		Unknown44 = 0.0f;
 	} else {
+		float pitch_cos = MaxPitchCos; float pitch_sin = MaxPitchSin;
 		climb_c = WWMath::Inv_Sqrt(slope * slope + 1.0f);
 		climb_s = climb_c * slope;
-		if (climb_c * xy_len + climb_s * x_axis.Z < MaxPitchCos) {
-			if (climb_s * xy_len - climb_c * x_axis.Z <= 0.0f) {
-				climb_s = MaxPitchCos * x_axis.Z + -MaxPitchSin * xy_len;
-				climb_c = MaxPitchCos * xy_len - -MaxPitchSin * x_axis.Z;
-				pitch = -MaxPitch;
-				Unknown44 = slope;
-			} else {
-				climb_s = MaxPitchSin * xy_len + MaxPitchCos * x_axis.Z;
+		bool up = climb_s * xy_len - climb_c * x_axis.Z > 0.0f;
+		if (climb_c * xy_len + climb_s * x_axis.Z < pitch_cos) {
+			if (up) {
+				climb_s = pitch_cos * x_axis.Z + pitch_sin * xy_len;
 				pitch = MaxPitch;
-				climb_c = MaxPitchCos * xy_len - MaxPitchSin * x_axis.Z;
-				Unknown44 = slope;
-			}
+				climb_c = pitch_cos * xy_len - pitch_sin * x_axis.Z;
+			} else {
+				pitch_sin = -pitch_sin;
+				climb_s = pitch_sin * xy_len + pitch_cos * x_axis.Z;
+				climb_c = pitch_cos * xy_len - pitch_sin * x_axis.Z;
+				pitch = -MaxPitch;
+			} Unknown44 = slope;
 		} else {
-			pitch = 0.0f;
-			Unknown44 = slope;
+			pitch = 0.0f; Unknown44 = slope;
 		}
 	}
 
@@ -318,14 +318,14 @@ int FpTTClass::Unknown_04(const Vector3 &target, Matrix3D *transforms, float dis
 
 // 0x449EA0
 // NOT EXACT: register (195 masked rows, 94 with registers masked; frame 0x94 and 785 rows as the client): the pitch turns through Vector2::Rotate_Towards_Vector as the yaw does; this sits in esi (spilled) where the client keeps it in ebp, and the registers shift with it (forms in attempts.csv)
-int FpTTClass::Unknown_08(const Vector3 &target, Matrix3D *transforms, float dist, float &yaw, float &pitch, PxWrapper &proxim, float radius, DynObj *self, Vector3 *aims)
+int FpTTClass::Unknown_08(const Vector3 &target, Matrix3D *transforms, float dist, float &yaw, float &pitch, PxWrapper &proxim, float radius, DynamicObjectClass *self, Vector3 *aims)
 {
 	G_ASSERT(proxim.Get_Avoidance());
 	Vector3 pos = transforms[Unknown_BE350C ^ 1].Get_Translation();
 	Vector3 delta = target - pos;
-	std::vector<DynObj *> &list = proxim.Unknown_4568E0();
+	std::vector<DynamicObjectClass *> &list = proxim.Unknown_4568E0();
 	int count = list.size();
-	DynObj *nearest = NULL;
+	DynamicObjectClass *nearest = NULL;
 	bool inside = false;
 	Vector3 away;
 	if (count != 0) {
@@ -333,7 +333,7 @@ int FpTTClass::Unknown_08(const Vector3 &target, Matrix3D *transforms, float dis
 		float best_ahead = FLT_MAX;
 		float best_inside = FLT_MAX;
 		for (int i = 0; i < count; i++) {
-			DynObj *obj = list[i];
+			DynamicObjectClass *obj = list[i];
 			float reach = obj->Unknown04 + radius;
 			float reach2 = reach * reach;
 			Vector3 d = obj->Unknown_Dyn48() - pos;

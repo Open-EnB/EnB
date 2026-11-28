@@ -23,7 +23,7 @@ class UIPTradeCreditsClass;	// the text entry (ui_ptrade.cpp's credits entry)
 class UIGuildClass : public ChatPanelUIBase	// NAME 1: neutral, after its tooltip section 'UI_GUILD'
 {
 public:
-	UIGuildClass(SClient *client);						// 0x819420  // NAME 1 [client]: ChatPanelUIBase's
+	UIGuildClass(SpaceClientClass *client);						// 0x819420  // NAME 1 [client]: ChatPanelUIBase's
 	virtual ~UIGuildClass();							// 0x8196D0 (deleting 0x8196A0)
 	virtual void Unknown_54();							// +0x54 0x8199F0 ('tsi35a', 'fa_tsi35a.ini': the buttons, the rows, the list window and the two entries, the slider)
 	virtual void Unknown_58();							// +0x58 0x819FB0 (activated: the lists emptied; the rank names and the list requested, or 'Create a new Guild')

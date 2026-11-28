@@ -30,20 +30,20 @@
 
 
 // 0x8B20D0
-MsgServer::MsgServer()
+MessageServerClass::MessageServerClass()
 {
 	WSADATA data;
 	WSAStartup(0x101, &data);
 }
 
 // 0x8B21B0
-MsgServer::~MsgServer()
+MessageServerClass::~MessageServerClass()
 {
 	WSACleanup();
 }
 
 // 0x8B2230
-void MsgServer::Unknown_8B2230()
+void MessageServerClass::Unknown_8B2230()
 {
 	G_ASSERT(Get_Internal_Server_Protocol() == NULL);
 	Server.Unknown_4BCCB0();
@@ -51,27 +51,27 @@ void MsgServer::Unknown_8B2230()
 }
 
 // 0x8B2280
-bool MsgServer::Shutdown()
+bool MessageServerClass::Shutdown()
 {
 	Set_Internal_Server_Protocol(NULL);
 	return true;
 }
 
 // 0x8B22A0
-int MsgServer::Get_Interval()
+int MessageServerClass::Get_Interval()
 {
 	return 200;
 }
 
 // 0x8B22C0
-void MsgServer::Run()
+void MessageServerClass::Run()
 {
 	WWPROFILE("MsgServer::Run");
 	Server.Unknown_4BCD30();
 }
 
 // 0x8B2350
-void MsgServer::Describe(void *table)
+void MessageServerClass::Describe(void *table)
 {
 	((KVEncoderBaseClass *)table)->Add(0x3FF, "TaskType", "MessageServer", strlen("MessageServer") + 1);
 }
@@ -80,7 +80,7 @@ void MsgServer::Describe(void *table)
 **	Reconstruction notes
 **
 **	client.exe 0x8B20D0-0x8B2379 (the object ends at configfile.cpp's 0x8B23C0, wlib): the task's
-**	constructor (TaskClass, the server member, WSAStartup(1.1) into a stack WSADATA), the inline
+**	constructor (KernelTaskClass, the server member, WSAStartup(1.1) into a stack WSADATA), the inline
 **	Delete_On_Remove and the deleting destructor the vtable 0xB0C418 emits after it, the destructor
 **	(WSACleanup), 0x8B2230 (WinMain's call after new: the assert, Unknown_4BCCB0's listen on the first
 **	free port of 9999-10009 (TCPMgr::addListener(0, ...): every interface, the client's choice), then

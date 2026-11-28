@@ -12,7 +12,7 @@
 class UIPetitionClass : public UIPetitionAvatarPipClass	// NAME 1: neutral, after its tooltips' section 'UI_PETITION'
 {
 public:
-	UIPetitionClass(SClient *client);					// 0x5D33B0 (deleting 0x5D3420)  // NAME 1 [client]: ChatPanelUIBase's
+	UIPetitionClass(SpaceClientClass *client);					// 0x5D33B0 (deleting 0x5D3420)  // NAME 1 [client]: ChatPanelUIBase's
 	virtual ~UIPetitionClass();							// 0x5D3450
 	virtual void Unknown_54();							// +0x54 0x5D34F0 ('hsi01a': the buttons, their colours, the back gadget at 'frame04', the PIP)
 	virtual void Unknown_60();							// +0x60 0x5D3710 (the page checked, then the PIP's)

@@ -13,15 +13,15 @@ class LoginTaskClass;
 class RenderObjClass;
 class FlashingGadgetEvent;
 class CharacterViewClass;
-class CharacterViewAvatarClass;
-class TextGadgetClass;
+class AvatarClass;
+class UnknownTextGadgetClass;
 
 // The character select window (ui_avsel.cpp's __FILE__; the client's RTTI: the type name of its FlashingGadgetEvent
 // callback, 0xB7C068), 0x124 bytes, tables 0xAEFB20 / 0xAEFB14 / 0xAEFB08
 class AvatarSelectionInterface : public InterfaceClass	// NAME 3: the client's RTTI (0xB7C068: SignalBaseClass::MemberCallback<GadgetClass,AvatarSelectionInterface,...>)
 {
 public:
-	AvatarSelectionInterface(UIViewClass *view, LayerClass &layer);	// 0x55C650 (charview.cpp's 0x679160, step 2)  // NAME 1 [view, layer]: neutral
+	AvatarSelectionInterface(UIViewClass *view, LayerClass &layer);	// 0x55C650 (charview.cpp's 0x679160, step 2)  // NAME 1 [view, layer]: neutral  // NAME 5: thunk order probable, binary.md 5.11
 	virtual ~AvatarSelectionInterface();				// 0x55CCC0 (0x55CC90 the deleting one)
 	virtual void Unknown_60();							// +0x60 0x55CEA0 (every frame)
 	virtual bool Unknown_68(int key);					// +0x68 0x55D060 (the events: the buttons 1-17, the referral dialog's)  // NAME 1 [key]: InterfaceClass's
@@ -52,7 +52,7 @@ public:
 	bool Unknown097;									// +0x97
 	bool Unknown098;									// +0x98
 	GadgetClass *Unknown09C[8];							// +0x9C (Unknown_B7B8E0's buttons)
-	CharacterViewAvatarClass *Unknown0BC[5];					// +0xBC (the five avatars)
+	AvatarClass *Unknown0BC[5];					// +0xBC (the five avatars)
 	GadgetClass *Unknown0D0[5];							// +0xD0
 	bool Unknown0E4[5];									// +0xE4
 	float Unknown0EC;									// +0xEC (slot +0x60: a countdown, then +0xF4 is selected)
@@ -68,7 +68,7 @@ public:
 	LayerClass *Layer;									// +0x104 (the constructor's)  // NAME 2: what it holds
 	RefCountPtr<RenderObjClass> BuddyReferralUI;		// +0x108 (G_ASSERT 'BuddyReferralUI')  // NAME 3: the assert's
 	GadgetClass *Unknown10C[2];							// +0x10C (Unknown_B7B960's buttons)
-	TextGadgetClass *Unknown114;						// +0x114
+	UnknownTextGadgetClass *Unknown114;						// +0x114
 	GadgetClass *Unknown118;							// +0x118 ('click_me')
 	StringClass Unknown11C;								// +0x11C
 	bool Unknown120;									// +0x120

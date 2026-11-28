@@ -12,7 +12,7 @@
 class UIPetitionPlayerNameClass : public ChatPanelUIBase	// NAME 1: neutral, after its member NameEditor
 {
 public:
-	UIPetitionPlayerNameClass(SClient *client);			// 0x5D6AA0 (deleting 0x5D6AF0; inlined in 0x5D61E0)  // NAME 1 [client]: ChatPanelUIBase's
+	UIPetitionPlayerNameClass(SpaceClientClass *client);			// 0x5D6AA0 (deleting 0x5D6AF0; inlined in 0x5D61E0)  // NAME 1 [client]: ChatPanelUIBase's
 	virtual ~UIPetitionPlayerNameClass();				// 0x5D6B20
 	virtual void Unknown_54();							// +0x54 0x5D6BC0 ('hsi03a': 'exit_Import', 'Entry_Field01', the name box)
 	virtual void Unknown_60();							// +0x60 0x5D6DC0 (FAIL_IF '!NameEditor': the name box's text through 0x4BE9D0 while it has the focus)
@@ -20,15 +20,15 @@ public:
 
 	bool Get_Names(std::string &names);					// 0x5D7150 (the names typed, when more than 2 printable characters; inlined at 0x5D6550 / 0x5D6890)  // NAME 1 [Get_Names, names]: what it does
 
-	TextGadgetClass *NameEditor;						// +0xA0 'Entry_Field01' (id 8, 'PLAYER_NAME_hsi03a')  // NAME 3: the FAIL_IF '!NameEditor'
+	UnknownTextGadgetClass *NameEditor;						// +0xA0 'Entry_Field01' (id 8, 'PLAYER_NAME_hsi03a')  // NAME 3: the FAIL_IF '!NameEditor'
 };
 
 // The players page (0xBC bytes, tables 0xAF53A8 / 0xAF539C / 0xAF5390): the entry window with the name box; its submit
-// sends a PetitionStuckPacketClass with the names as the player list
+// sends a PetitionPacketClass with the names as the player list
 class UIPetitionPlayerEntryClass : public UIPetitionEntryClass	// NAME 1: neutral, after the file and its tooltips' section 'UI_PETITION_PLAYER_ENTRY'
 {
 public:
-	UIPetitionPlayerEntryClass(SClient *client, int unknown0B8);	// 0x5D6080 (deleting 0x5D60D0)  // NAME 1 [client, unknown0B8]: neutral
+	UIPetitionPlayerEntryClass(SpaceClientClass *client, int unknown0B8);	// 0x5D6080 (deleting 0x5D60D0)  // NAME 1 [client, unknown0B8]: neutral
 	virtual ~UIPetitionPlayerEntryClass();				// 0x5D6100
 	virtual void Unknown_54();							// +0x54 0x5D61E0 (the entry window's, then the name box over it)
 	virtual void Unknown_58();							// +0x58 0x5D6440 (with the name box)

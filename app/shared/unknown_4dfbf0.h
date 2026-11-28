@@ -26,7 +26,7 @@
 class AttribLinkModClass : public AttribModClass, public AttribCallbackClass  // NAME 2: what it is
 {
 public:
-	AttribLinkModClass(AttribDir *src, const std::string &src_name, AttribDir *dst, const std::string &dst_name, int type, void *owner);	// 0x4DFCD0
+	AttribLinkModClass(AttributeDirectory *src, const std::string &src_name, AttributeDirectory *dst, const std::string &dst_name, int type, void *owner);	// 0x4DFCD0
 	virtual ~AttribLinkModClass();																// 0x4DFF00
 	virtual int Get_Type();																			// 0x4E0010
 	virtual float Get_Value();																		// 0x4E0050
@@ -34,9 +34,9 @@ public:
 	virtual void Value_Changed(const char *name, float value);							// 0x4E0070
 
 	AttribShadowClass Shadow;																		// +0x08: Src's attribute  // NAME 2: what it holds
-	AttribDir *Src;																					// +0x0C  // NAME 2: what it holds
+	AttributeDirectory *Src;																					// +0x0C  // NAME 2: what it holds
 	std::string SrcName;																				// +0x10  // NAME 2: what it holds
-	AttribDir *Dst;																					// +0x20  // NAME 2: what it holds
+	AttributeDirectory *Dst;																					// +0x20  // NAME 2: what it holds
 	std::string DstName;																				// +0x24  // NAME 2: what it holds
 	int Type;																							// +0x34  // NAME 2: as AttribModValueClass
 	void *Owner;																						// +0x38  // NAME 2: as AttribModValueClass
@@ -46,14 +46,14 @@ public:
 class AttribBinaryModClass : public AttribModClass  // NAME 2: what it is
 {
 public:
-	AttribBinaryModClass(int type, void *owner, AttribDir *dir, const std::string &name, const std::string &a, const std::string &b);	// 0x4E00A0
+	AttribBinaryModClass(int type, void *owner, AttributeDirectory *dir, const std::string &name, const std::string &a, const std::string &b);	// 0x4E00A0
 	virtual ~AttribBinaryModClass();																// 0x4E02D0
 	virtual int Get_Type();																			// 0x4E0260
 	virtual void *Get_Owner();																		// 0x4E0280
 
 	int Type;																							// +0x04  // NAME 2: as AttribModValueClass
 	void *Owner;																						// +0x08  // NAME 2: as AttribModValueClass
-	AttribDir *Dir;																					// +0x0C  // NAME 2: what it holds
+	AttributeDirectory *Dir;																					// +0x0C  // NAME 2: what it holds
 	std::string Name;																					// +0x10: the attribute modded  // NAME 2: what it holds
 	std::string A;																						// +0x20  // NAME 2: what it holds
 	std::string B;																						// +0x30  // NAME 2: what it holds
@@ -65,12 +65,12 @@ public:
 class AttribSumModClass : public AttribBinaryModClass  // NAME 2: what it computes
 {
 public:
-	AttribSumModClass(int type, void *owner, AttribDir *dir, const std::string &name, const std::string &a, const std::string &b);	// 0x4E04C0
+	AttribSumModClass(int type, void *owner, AttributeDirectory *dir, const std::string &name, const std::string &a, const std::string &b);	// 0x4E04C0
 	virtual ~AttribSumModClass();																	// 0x4E0540
 	virtual float Get_Value();																		// 0x4E06A0
 };
 
-AttribLinkModClass *Link_Attribute(AttribDir *src, const std::string &src_name, AttribDir *dst, const std::string &dst_name, int type, void *owner);	// 0x4DFBF0  // NAME 2: what it does
-AttribSumModClass *Create_Sum_Mod(int type, void *owner, AttribDir *dir, const std::string &name, const std::string &a, const std::string &b);	// 0x4E0430  // NAME 2: what it does
+AttribLinkModClass *Link_Attribute(AttributeDirectory *src, const std::string &src_name, AttributeDirectory *dst, const std::string &dst_name, int type, void *owner);	// 0x4DFBF0  // NAME 2: what it does
+AttribSumModClass *Create_Sum_Mod(int type, void *owner, AttributeDirectory *dir, const std::string &name, const std::string &a, const std::string &b);	// 0x4E0430  // NAME 2: what it does
 
 #endif //__UNKNOWN_4DFBF0_H

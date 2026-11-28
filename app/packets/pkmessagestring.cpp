@@ -20,7 +20,7 @@ MessageStringPacketClass::MessageStringPacketClass(unsigned char color, const st
 	strcpy(String, text.c_str());
 }
 
-MessageStringPacketClass::MessageStringPacketClass(RawPacketClass *raw) :
+MessageStringPacketClass::MessageStringPacketClass(PacketClass *raw) :
 	Owned(true)
 {
 	raw->Get(&Size, sizeof(Size));
@@ -36,9 +36,9 @@ MessageStringPacketClass::~MessageStringPacketClass()
 	}
 }
 
-RawPacketClass *MessageStringPacketClass::Build()
+PacketClass *MessageStringPacketClass::Encode()
 {
-	RawPacketClass *raw = new RawPacketClass(29, Get_Data_Size());
+	PacketClass *raw = new PacketClass(29, Get_Data_Size());
 	raw->Add(&Size, sizeof(Size));
 	raw->Add(&Color, sizeof(Color));
 	raw->Add(String, Size);

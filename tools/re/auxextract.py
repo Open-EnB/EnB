@@ -34,7 +34,7 @@ ALLOC = 0x4e9cb0            # operator new
 SKIP = {0x4e9410, 0x4e9d10, 0xa266da}   # assert, operator delete, sprintf
 COMPOUND_READ = 0x4a3c70
 VALUE_CTORS = {0x700b80, 0x700b40, 0x4a7080}   # DeltaTemplateClass<int> / <float> / <MoneyClass>(name, const T &) out of line (M1.3)
-STRING_CTOR = 0x4a78f0       # DeltaStringClass(name, default) (M1.3)    # DeltaCompound's raw read: reads nothing
+STRING_CTOR = 0x4a78f0       # DeltaString(name, default) (M1.3)    # DeltaCompound's raw read: reads nothing
 RDATA = (0xae7000, 0xb6c000)
 REGS = ('eax', 'ebx', 'ecx', 'edx', 'esi', 'edi', 'ebp')
 MEM_RE = re.compile(r'^(?:dword|word|byte) ptr \[(\w+)(?: ([+-]) (0x[0-9a-f]+|\d+))?\]$')
@@ -46,9 +46,9 @@ ROOTS = {
     'Harvestable': 0x6f9ed0, 'ManufacturingLab': 0x6fa6f0, 'Player': 0x752510, 'Hulk': 0x6f6076,
 }
 # Roots built inline in another function: name -> (first instruction after the allocation, the
-# instruction after the constructor, the register holding `this`). Hull: SClient 0x7518A0 news 0xADC
+# instruction after the constructor, the register holding `this`). Hull: SpaceClientClass 0x7518A0 news 0xADC
 # bytes and builds it in esi (its UnknownSendRootClass base, 'Hull', vtable 0xB03304, then Unknown_48
-# 0x4A40B0 at 0x751ADD); SClient 0x755600 builds the same class (0x7557E4).
+# 0x4A40B0 at 0x751ADD); SpaceClientClass 0x755600 builds the same class (0x7557E4).
 INLINE_SEND = {'Hull': (0x75197F, 0x751AE2, 'esi')}
 # Planet, Starbase and Stargate are built inline in the factory and hold only Name.
 NAME_ONLY = ('Planet', 'Starbase', 'Stargate')

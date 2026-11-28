@@ -13,7 +13,7 @@ class CheckBoxGadgetClass;	// ui_manu.cpp's check button (0x7E8030: checked or n
 class UIOptionChannelClass : public ChatPanelUIBase	// NAME 1: neutral, after its tooltips' section 'UI_OPTION_CHANNEL'
 {
 public:
-	UIOptionChannelClass(SClient *client, bool mode);	// 0x5C8DB0 (deleting 0x5C8E30)  // NAME 1 [client, mode]: what it does with them
+	UIOptionChannelClass(SpaceClientClass *client, bool mode);	// 0x5C8DB0 (deleting 0x5C8E30)  // NAME 1 [client, mode]: what it does with them
 	virtual ~UIOptionChannelClass();					// 0x5C8E60
 	virtual void Unknown_54();							// +0x54 0x5C8EF0 ('opt06a': the buttons 'exit', 'ok', 'cancel', the 21 checks, Escape)
 	virtual void Unknown_58();							// +0x58 0x5C9070 (the checks from the options, then the base's, when not Active)

@@ -3,7 +3,7 @@
 IM8's zseq.py (run 2026-11-26) with IM7's objseq.py / rkinds.py, as one standing tool. Retail's table (XCU_TABLE in
 .data, the entries whose initialiser, through its incremental-link thunk, lies in the app region below LIB_LO) as
 kinds, with its zero slots (Z) kept: CTYPE (reads the ctype<unsigned short>::id guard 0xC416FC), PERMSTR (first call
-PermStringInitClass's constructor), IOS / WIOS (ios_base::Init / _Winit), other. Ours: each object of the order list
+PermStringInit's constructor), IOS / WIOS (ios_base::Init / _Winit), other. Ours: each object of the order list
 classified from the .obj (each .CRT$XCU relocation -> the initialiser's section -> its relocations: the ctype guard,
 else the first call that is not atexit), then the zero slots the incremental link pads after an object of n entries
 (1 -> 0, 2-6 -> 1, 7-11 -> 2, 12-17 -> 3, 18+ -> 4: measured on IM8's all trial, binary.md §5.6). The two sequences
@@ -63,7 +63,7 @@ def coff(data):
 
 
 def call_kind(name):
-    if 'PermStringInitClass' in name:
+    if 'PermStringInit' in name:
         return 'PERMSTR'
     if '_Winit' in name:
         return 'WIOS'

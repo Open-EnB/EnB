@@ -8,7 +8,7 @@
 #include "intrface.h"
 #include "..\..\wwlib\ref_ptr.h"
 
-class SClient;				// sclient.h's
+class SpaceClientClass;				// sclient.h's
 class DynamicWindowClass;	// dynamic_window_class.h's
 class Unknown51C800Class;	// unknown_51c800.h's
 class GadgetClass;			// gadget.h's
@@ -31,7 +31,7 @@ struct UISymbolChatOptionStruct	// NAME 1: neutral (D10)
 class UISymbolChatClass : public InterfaceClass	// NAME 2: the FAIL_IF's '!SymbolChatUI'
 {
 public:
-	UISymbolChatClass(SClient *sclient);				// 0x64A480 (0x594040)  // NAME 1 [sclient]: what 0x594040 passes
+	UISymbolChatClass(SpaceClientClass *sclient);				// 0x64A480 (0x594040)  // NAME 1 [sclient]: what 0x594040 passes
 	virtual ~UISymbolChatClass();						// +0x00 0x64A7D0 (deleting 0x64A7A0)
 	virtual void Unknown_58();							// +0x58 0x64B050 (opened at the pointer, 'fontclick.wav')
 	virtual void Unknown_5C();							// +0x5C 0x64B180

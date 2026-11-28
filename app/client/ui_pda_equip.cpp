@@ -13,7 +13,7 @@
 #include "assetmgr.h"
 #include "gadget.h"
 #include "gadget_list_manager.h"
-#include "unknown_675120.h"
+#include "gd_uimesh.h"
 #include "gd_slot_data.h"
 #include "fontdatabase.h"
 #include "fontmanager.h"
@@ -32,14 +32,14 @@ static Vector2i Unknown_BE5D28(0x100, 0x100); class LineDisplayClientClass  // N
 public:
 	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
 	virtual void Unknown_10(); virtual void Unknown_14();
-	virtual SClient *As_Space_Client();					// +0x18 (as ui_manu.cpp's)  // NAME 3: the FAIL_IF's in ui_manu.cpp
+	virtual SpaceClientClass *As_Space_Client();					// +0x18 (as ui_manu.cpp's)  // NAME 3: the FAIL_IF's in ui_manu.cpp
 	virtual void Unknown_1C(); virtual void Unknown_20(); virtual void Unknown_24(); virtual void Unknown_28(); virtual void Unknown_2C();
 	virtual ClientObjectClass *Get_Ship();				// +0x30 (client.h's)  // NAME 2: ClientClass's slot +0x30
 };
-template<class C> inline C *Unknown_Find_Valid(DeltaCompoundClass *root, const NameClass &name) { C *t = Unknown_Find_Field<C>(root, name); if (t && t->Unknown70) return(t); return(NULL); }	// NAME 1: neutral (D10): as co.cpp's
+template<class C> inline C *Unknown_Find_Valid(DeltaContainer *root, const AuxDataName &name) { C *t = Unknown_Find_Field<C>(root, name); if (t && t->Unknown70) return(t); return(NULL); }	// NAME 1: neutral (D10): as co.cpp's
 #include "..\shared\auxdata\delta_numbering.h"	// 0x5D32D0 numbers the int field's and the slot array's globals
 // @0x5D10C0
-UIPdaEquipClass::UIPdaEquipClass(SClient *client) :
+UIPdaEquipClass::UIPdaEquipClass(SpaceClientClass *client) :
 	UIInvClass(client, 11),
 	ShipPip(NULL),
 	Unknown124(0), Unknown128(0), Unknown12C(0), Unknown130(0), Unknown134(0), Unknown138(0), Unknown13C(0), Unknown140(0), Unknown144(0),
@@ -112,7 +112,7 @@ void UIPdaEquipClass::Unknown_54()
 	if (!Unknown_C0(InterfaceMesh, "w%02d", NUM_WEAPONS)) failed = true;
 	if (!Unknown_C0(InterfaceMesh, "s%02d", NUM_DEVICES)) failed = true;
 	if (!Unknown_C0(InterfaceMesh, "c%02d", NUM_COMPONENTS)) failed = true;
-	SlotDataGadgetClass *first = Buttons[0];
+	SlotDataGadget *first = Buttons[0];
 	if (failed || !first) {
 		InterfaceMesh.Clear();
 		InterfaceMesh = NULL;
@@ -134,7 +134,7 @@ void UIPdaEquipClass::Unknown_54()
 	}
 	RefCountPtr<RenderObjClass> robj;
 	robj = Create_Get(InterfaceMesh->Get_Sub_Object_By_Name("skills01"));
-	Unknown_675120Class *stats = new Unknown_675120Class(robj.Peek(), 0x11);
+	UIMeshGadgetClass *stats = new UIMeshGadgetClass(robj.Peek(), 0x11);
 	stats->Unknown_65FFC0(1, (GadgetClass *)first);
 	Unknown64.Unknown_6870E0(stats, 0x10, View, 1, 0);
 	stats->Unknown5C_03 = 0;
@@ -272,7 +272,7 @@ void UIPdaEquipClass::Unknown_60()
 
 
 // @0x5D2180
-template <class T> static inline void Close_PDA_Of(T *space) { space->PDAInterface->Unknown_695A00(1, true); } bool UIPdaEquipClass::Unknown_68(int key)
+template <class T> static inline void Close_PDA_Of(T *space) { space->PDAWindow->Unknown_695A00(1, true); } bool UIPdaEquipClass::Unknown_68(int key)
 {
 	FAIL_IF(!InterfaceMesh) return(false);
 	switch (key) {
@@ -355,14 +355,14 @@ void UIPdaEquipClass::Unknown_B0()
 
 	ClientObjectClass *ship = Client->Get_Ship();
 	if (!ship) return;
-	DeltaCompoundClass *aux = (DeltaCompoundClass *)ship->AuxData;
+	DeltaContainer *aux = (DeltaContainer *)ship->AuxData;
 	if (!aux) return;
-	NameClass weapons_name("Inventory.FutureWeapons");
+	AuxDataName weapons_name("Inventory.FutureWeapons");
 	DeltaTemplateClass<int> *future_weapons = Unknown_Find_Valid<DeltaTemplateClass<int> >(aux, weapons_name);
 
 	FAIL_IF(!future_weapons) return;
 	int future_weapon_count = future_weapons->Value;
-	NameClass devices_name("Inventory.FutureDevices");
+	AuxDataName devices_name("Inventory.FutureDevices");
 	DeltaTemplateClass<int> *future_devices = Unknown_Find_Valid<DeltaTemplateClass<int> >(aux, devices_name);
 	FAIL_IF(!future_devices) return;
 	int future_device_count = future_devices->Value;
@@ -373,7 +373,7 @@ void UIPdaEquipClass::Unknown_B0()
 		FAIL_IF(weapon_idx > LAST_WEAPON_SLOT) break;
 		if (Frames[weapon_idx]) {
 			Frames[weapon_idx]->Set_Hidden(0);
-			Buttons[weapon_idx]->RObjGadgetClass::Unknown_90(blank.Peek());
+			Buttons[weapon_idx]->RenderObjGadgetClass::Unknown_90(blank.Peek());
 			Buttons[weapon_idx]->Unknown_8C(false);
 			GadgetClass::Set_Tooltip(Buttons[weapon_idx], "UI_PDA_EQUIP", "FUTURE_WEAPON");
 		} weapon_idx++; i++;
@@ -386,7 +386,7 @@ void UIPdaEquipClass::Unknown_B0()
 		FAIL_IF(device_idx > LAST_SYSTEM_SLOT) break;
 		if (Frames[device_idx]) {
 			Frames[device_idx]->Set_Hidden(0);
-			Buttons[device_idx]->RObjGadgetClass::Unknown_90(blank.Peek());
+			Buttons[device_idx]->RenderObjGadgetClass::Unknown_90(blank.Peek());
 			Buttons[device_idx]->Unknown_8C(false);
 			GadgetClass::Set_Tooltip(Buttons[device_idx], "UI_PDA_EQUIP", "FUTURE_DEVICE");
 		} device_idx++; i++;
@@ -451,9 +451,9 @@ void UIPdaEquipClass::Unknown_5D2C50()
 	FAIL_IF(!Get_Client()) return;
 	ClientObjectClass *ship = Client->Get_Ship();
 	if (!ship || !ship->RenderObject) return;
-	DeltaCompoundClass *aux = (DeltaCompoundClass *)ship->AuxData;
+	DeltaContainer *aux = (DeltaContainer *)ship->AuxData;
 	if (!aux) return;
-	NameClass mounts_name("Inventory.Mounts");
+	AuxDataName mounts_name("Inventory.Mounts");
 	DeltaArrayClass<InvSlotStruct> *mounts = Unknown_Find_Valid<DeltaArrayClass<InvSlotStruct> >(aux, mounts_name);
 	if (!mounts) return;
 	int count = mounts->Children.size();
@@ -489,7 +489,7 @@ void UIPdaEquipClass::Unknown_5D2EB0()
 **
 **	O4, 2026-11-14: 0x5D2EB0 is not a vector helper but a member with no caller (Mounts deleted and emptied), the
 **	out-of-line copy of what 0x5D1A00 and 0x5D2C50 inline (defined after them). 0x5D2850 is a switch (the client's
-**	sub/dec chain on 12, 13, 14) with a 32-byte buffer (its 0x20 frame). 0x5D2210 calls RObjGadgetClass's +0x90
+**	sub/dec chain on 12, 13, 14) with a 32-byte buffer (its 0x20 frame). 0x5D2210 calls RenderObjGadgetClass's +0x90
 **	qualified (a direct call: the slot gadget's own +0x90 asserts), its case bodies in the order 0x40, 0x80, 4, and
 **	the weapons' count read before the devices' find. The finds go through a file-local Unknown_Find_Valid (co.cpp's
 **	form), which sends Cast out of line as the client has it. The destructor removes the mesh's fonts through

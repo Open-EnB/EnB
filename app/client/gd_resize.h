@@ -6,7 +6,7 @@
 **
 **	gd_resize.cpp's drag handle: a model gadget that follows the pointer between two corners (table 0xAFA954,
 **	0x8C bytes; constructor 0x66BA50, destructor 0x66BAF0). Its base is the model gadget that stays out of the
-**	scene (constructor 0x675120, table 0xAFB870: unknown_675120.h).
+**	scene (constructor 0x675120, table 0xAFB870: gd_uimesh.h).
 */
 
 #if defined(_MSC_VER)
@@ -20,13 +20,13 @@
 #include "vector2.h"
 #include "..\..\wwlib\ref_ptr.h"
 
-#include "unknown_675120.h"
+#include "gd_uimesh.h"
 
-class ResizeGadgetClass : public Unknown_675120Class  // NAME 3 [ResizeGadgetClass]: class-from-file (D24) for app\Client\gd_resize.cpp
+class ResizeGadget : public UIMeshGadgetClass  // NAME 5: thunk order A, binary.md 5.11; NAME 3 [ResizeGadget]: class-from-file (D24) for app\Client\gd_resize.cpp
 {
 public:
-	ResizeGadgetClass(const RefCountPtr<RenderObjClass> &robj);		// 0x66BA50 (mask 0x77)  // NAME 1 [robj]: neutral
-	virtual ~ResizeGadgetClass();										// +0x00 0x66BAF0 (deleting 0x66BAC0)
+	ResizeGadget(const RefCountPtr<RenderObjClass> &robj);		// 0x66BA50 (mask 0x77)  // NAME 1 [robj]: neutral
+	protected: virtual ~ResizeGadget(); public:										// +0x00 0x66BAF0 (deleting 0x66BAC0)  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Unknown_2C(KernelEventClass *event, float x, float y, unsigned int mask);	// +0x2C 0x66BB10 (FAIL_IF '!Peek_Render_Obj()' l.64: the drag)  // NAME 1 [event, x, y, mask]: the base's
 	virtual void Unknown_40(bool on);									// +0x40 0x66BD60 (hidden while off)  // NAME 1 [on]: the base's
 	void Unknown_66BDA0();												// 0x66BDA0 (+0x60 from the model's position)

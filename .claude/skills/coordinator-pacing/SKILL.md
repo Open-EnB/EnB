@@ -386,6 +386,8 @@ Stop times, launchers and POC checks:
 - **A checker in a fresh worktree builds wlib and wnet (and binkmovie) before clienttest:** otherwise 87 unresolved Wstring / TCPCon / CritSec externals look like a regression. A fresh
   worktree can also carry a stale `.work/vc6_hosts.json` (an old VM IP: every build times out over ssh): `vc6.py discover`
   in the main tree, then in the worktree.
+- **Briefs for stuck-function builders say "dead reads: no cap (D272)"** and give attempts.py's latest score for each function as "check first": two builders read D272 as a six-read cap and parked early, and `parked_bytes.py` ranks by size, not by residue (a brief's 0.63 was stale).
+- **A landing batch that stops on generated-file conflicts** (ghidra_symbols.py, symbols.json, symbols_named.json) lands its first branch alone and rebases the rest (target's side for the generated files, both sides' appended symbols_named.json rows kept); a branch that loses an exact function from the same night is refused, not landed, and a fixer bisects its header hunks.
 - **Builder briefs say: run trybatch from inside the worktree and never wrap a verify in `timeout`** (workflow.md §3.4,
   §3.6); a builder that hands back "told to stop early" without a coordinator message is resumable by SendMessage.
 - **bring-over refuses "the commits record other pairs than the verify gives"** when an order-only flip toggles (a D246 entry's address) or another branch's landing regained an address: rerun as a batch of one (`--batch-name ID`).

@@ -31,13 +31,13 @@ bool Unknown_495FD0(RenderObjClass *robj, TextureClass *tex, int index);	// 0x49
 
 
 // 0x58B680
-UIMountHullClass::UIMountHullClass(SClient *client, const LayerClass &layer, RenderObjClass *model, int kind) :
+UIMountHullClass::UIMountHullClass(SpaceClientClass *client, const LayerClass &layer, RenderObjClass *model, int kind) :
 	UIMountClass(client, layer.Camera, kind, 0),
 	Layer(layer),
 	Model(model)
 {
 	Unknown402 = true;
-	Proxy = new ProxyRObj(false);
+	Proxy = new ProxyRenderObjClass(false);
 }
 
 // 0x58B9B0
@@ -73,8 +73,8 @@ void UIMountHullClass::Unknown_60()
 {
 	ClientObjectClass *ship = ((ClientClass *)Client)->Get_Ship();
 	if (ship) {
-		DeltaCompoundClass *auxdata = (DeltaCompoundClass *)ship->AuxData;
-		NameClass hull("Inventory.Hull");
+		DeltaContainer *auxdata = (DeltaContainer *)ship->AuxData;
+		AuxDataName hull("Inventory.Hull");
 		if (auxdata->Get_Lookup()->Unknown_Test_70_Above_1(hull)) {
 			bool shown = Shown;
 			Unknown_5C();
@@ -155,10 +155,10 @@ void UIMountHullClass::Toggle()
 /*
 **	Reconstruction notes (unknown_58b680.cpp, client 0x58B630-0x58BF8F)
 **
-**	The object: a PermStringInitClass static at 0x58B630 (its atexit destructor 0x58B660) opens it, after
+**	The object: a PermStringInit static at 0x58B630 (its atexit destructor 0x58B660) opens it, after
 **	ui_dynamicwindow.cpp's guarded <string> id 0x58B5D0 and its three deleting-destructor thunks 0x58B600-0x58B620;
 **	the guarded <string> id 0x58BF40 and this class's two thunks 0x58BF70 / 0x58BF80 close it, before the next
-**	object's PermStringInitClass static 0x58BF90. No string names the file and no caller of the constructor exists.
+**	object's PermStringInit static 0x58BF90. No string names the file and no caller of the constructor exists.
 **	ui_mount.h's inline Is_Shown / Show / Hide (0x58B770 / 0x58B790 / 0x58B7C0) are emitted here, with the table.
 **
 **	Its data: Model's bones 'vp_tl' / 'vp_br' (RenderObjClass slot +0xB8, Get_Bone_Transform) give the camera's
@@ -169,6 +169,6 @@ void UIMountHullClass::Toggle()
 **
 **	Forms that matter: the base gets layer.Camera read directly (no Peek_Camera call); 0x58B850 copies the bones'
 **	translations into Vector3 locals (only X, Y used: the frame is the client's 0x20); WWMATH_PI / 4.0 makes the
-**	client's double constant; 0x58BA70 loads the auxdata before the NameClass; 0x58BB10 holds the ship's render
+**	client's double constant; 0x58BA70 loads the auxdata before the AuxDataName; 0x58BB10 holds the ship's render
 **	object in a local.
 */

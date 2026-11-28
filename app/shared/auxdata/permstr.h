@@ -40,13 +40,13 @@ public:
 };
 
 // Makes the table on the first construction and frees it on the last destruction (s_Count).
-class PermStringInitClass  // NAME 2: describes what it does (D38)
+class PermStringInit  // NAME 5: thunk order C, binary.md 5.11
 {
 public:
-	PermStringInitClass();				// 0x4AE1E0
-	~PermStringInitClass();				// 0x4AE2D0
+	PermStringInit();				// 0x4AE1E0
+	~PermStringInit();				// 0x4AE2D0
 };
 
-static PermStringInitClass PermStringInit;  // NAME 2: describes what it does
+static PermStringInit _PermStringInit;  // NAME 2: describes what it does (the class took the name PermStringInit: thunk order)
 
 #endif //__PERMSTR_H

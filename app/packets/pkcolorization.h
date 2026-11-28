@@ -36,12 +36,12 @@ typedef std::pair<ColorizationHalfStruct, ColorizationHalfStruct> ColorizationRe
 
 
 // opcode 17 (0x0011, COLORIZATION): vtable 0xB0A110, constructor 0x87F510, 0x24 bytes
-class ColorizationPacketClass : public PacketClass
+class ColorizationPacketClass : public UnknownPacketBaseClass
 {
 public:
 	ColorizationPacketClass(int game_id, const std::vector<ColorizationRegionStruct> &regions);	// 0x87F320
-	ColorizationPacketClass(RawPacketClass *raw);	// 0x87F510
-	virtual RawPacketClass *Build();	// +0x04 0x87F730
+	ColorizationPacketClass(PacketClass *raw);	// 0x87F510
+	virtual PacketClass *Encode();	// +0x04 0x87F730  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x735ED0 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x87F870
 	virtual int Print(char *buffer, int len);	// +0x10 0x87F8A0
@@ -49,7 +49,7 @@ public:
 
 	int GameID;	// +0x0C  // NAME 3: the client's Print text 'GameID='
 	std::vector<ColorizationRegionStruct> Regions;	// +0x10 (a short count, then the regions)  // NAME 3: the client's Print text 'NumRegions='
-	int Channel;	// +0x20 (PacketClass::Unknown_14 of GameID; not read from the message)  // NAME 2: Get_Channel returns it
+	int Channel;	// +0x20 (UnknownPacketBaseClass::Unknown_14 of GameID; not read from the message)  // NAME 2: Get_Channel returns it
 };
 
 #endif

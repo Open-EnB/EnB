@@ -1,0 +1,13 @@
+HYPOTHESIS = 'S1 re-measure: claim259 exact-loader proposal (destructor defined after the loader: loader exact, lost 0x5BA460 order credit) on HEAD'
+FILE = 'app/client/ui_mesh.cpp'
+SYMBOL = 'UIMeshClass::Unknown_5B8850'
+ADDRESS = 0x5B8850
+
+DTOR_OLD = "UIMeshClass::~UIMeshClass()\n{\n\tUnknown_5B8850(NULL, 0);\n}\n\n// NOT EXACT: 0x5B8850"
+DTOR_GONE = "\n\n\n\n\n// NOT EXACT: 0x5B8850"
+TAIL_OLD = "\t\t}\n\t}\n}\n\nRenderObjClass *UIMeshClass::Peek_Object()"
+TAIL_NEW = "\t\t}\n\t}\n}\nUIMeshClass::~UIMeshClass() { Unknown_5B8850(NULL, 0); }\nRenderObjClass *UIMeshClass::Peek_Object()"
+
+FORMS = {
+    'dtor_after_loader': [(DTOR_OLD, DTOR_GONE), (TAIL_OLD, TAIL_NEW)],
+}

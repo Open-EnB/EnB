@@ -20,13 +20,13 @@
 #include "sclient.h"
 #include <string>
 
-class ButtonGadgetClass;	// unknown_675120.h's (+0xC0)
+class ButtonGadgetClass;	// gd_uimesh.h's (+0xC0)
 class ManagedFontClass;		// fontmanager.h's (+0xC4)
 
 class UIFactionPanelClass : public Unknown5BB320Class	// NAME 2 [UIFactionPanelClass]: class from file (D24), ui_faction_panel.cpp
 {
 public:
-	UIFactionPanelClass(SClient *client);				// 0x58EB50 (0xC8 bytes)  // NAME 1 [client]: as UIBioClass's
+	UIFactionPanelClass(SpaceClientClass *client);				// 0x58EB50 (0xC8 bytes)  // NAME 1 [client]: as BioInterface's
 	virtual ~UIFactionPanelClass();						// 0x58ECB0 (deleting 0x58EC80, its thunk 0x58F080)
 	virtual void Unknown_54();							// +0x54 0x58EDC0 (the exit button and the back gadget; G_ASSERT 'WrapGroup')
 	virtual bool Unknown_68(int key);					// +0x68 0x58EF80 (key 1: a sound and Unknown_5C)  // NAME 1 [key]: InterfaceClass's

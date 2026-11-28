@@ -116,7 +116,7 @@ void ToolTipClass::Unknown_6AB5B0() {
 		Unknown08 = Unknown_Get_Ticks();
 		int delay = (gadget->Is_Unknown2C_06() ? 30 : 1200) * 2;
 		if (!Unknown0F) {
-			delay = OptionClass::Instance->Get_Float("Interface_Tooltip_Delay") * delay * 0.01f;
+			delay = OptionManagerClass::Instance->Get_Float("Interface_Tooltip_Delay") * delay * 0.01f;
 		}
 		Unknown08 += delay;
 	}
@@ -128,7 +128,7 @@ void ToolTipClass::Unknown_6AB5B0() {
 		} else {
 			Unknown_6ABE90();
 		}
-		InterfaceSortClass sort(View, true);
+		LocalInterfaceSort sort(View, true);
 		if (Window->Peek_Scene() == NULL) {
 			Window->Add_To_Scene((SceneClass *)View->Unknown_50());
 		}
@@ -221,7 +221,7 @@ void ToolTipClass::Unknown_6AB930(GadgetClass *gadget)
 		if (Unknown0E) {
 			UIViewClass *view = View->Unknown_20();
 			if (view && ((Unknown65B810ViewClass *)view)->Client) {
-				SClient *client = ((Unknown65B810ViewClass *)view)->Client;
+				SpaceClientClass *client = ((Unknown65B810ViewClass *)view)->Client;
 				char *name = CurGadget->Unknown24; client->Send_Packet(&Packet_0068Class(client->Get_Avatar_ID(), 0x10, name)); // NAME 1 [name]: the gadget's packet name
 
 			}
@@ -247,7 +247,7 @@ void ToolTipClass::Unknown_6AB930(GadgetClass *gadget)
 		Unknown08 = Unknown_Get_Ticks();
 		int delay = gadget->Is_Unknown2C_06() ? 30 : 1200;
 		if (!Unknown0F) {
-			delay = OptionClass::Instance->Get_Float("Interface_Tooltip_Delay") * delay * 0.01f;
+			delay = OptionManagerClass::Instance->Get_Float("Interface_Tooltip_Delay") * delay * 0.01f;
 		}
 		Unknown08 += delay;
 		GadgetClass::Get_Signal_Map().Add(CurGadget, this, &ToolTipClass::Unknown_6AB8F0);
@@ -309,7 +309,7 @@ void ToolTipClass::Unknown_6ABC60()
 	if (Unknown0C || CurGadget == NULL || View == NULL) {
 		return;
 	}
-	const RefCountPtr<Font32Class> &font = Lines[0]->Font; // NAME 1: alias of the first line's font for the splitter
+	const RefCountPtr<Font32Bit> &font = Lines[0]->Font; // NAME 1: alias of the first line's font for the splitter
 	FontSplitStringClass split(font);
 	int width = 100;
 	GadgetClass *gadget; // NAME 1: selected current gadget, read in the chosen branch
@@ -342,7 +342,7 @@ fits:
 	for (int i = 0; i < lines; i++) {
 		Lines[i]->Change_Text(split.Get(i), 2);
 		Lines[i]->Unknown_6CE910(!CurGadget->Is_Enabled());
-		DynamicWindowElementClass *element = new Unknown51C800Class(Lines[i], 6);
+		DynamicWindowElement *element = new Unknown51C800Class(Lines[i], 6);
 		Window->Add_Object(element, i);
 		element->Release_Ref();
 	}

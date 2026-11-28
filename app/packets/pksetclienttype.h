@@ -20,12 +20,12 @@
 char *Sector_Type_Name(int sector_type);	// 0x84A3B0 (app/common/sector_types.h; declared here too: pk_classes.h is pad-sensitive)  // NAME 2: what it returns
 
 // opcode 60 (0x003C, CLIENT_TYPE): vtable 0xB0A170, constructor 0x87FD80, 0x10 bytes
-class SetClientTypePacketClass : public PacketClass
+class SetClientTypePacketClass : public UnknownPacketBaseClass
 {
 public:
 	SetClientTypePacketClass(int type);	// 0x87FCF0
-	SetClientTypePacketClass(RawPacketClass *raw);	// 0x87FD80
-	virtual RawPacketClass *Build();	// +0x04 0x87FE10
+	SetClientTypePacketClass(PacketClass *raw);	// 0x87FD80
+	virtual PacketClass *Encode();	// +0x04 0x87FE10  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x737E10 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x87FED0
 	virtual int Print(char *buffer, int len);	// +0x10 0x87FEF0

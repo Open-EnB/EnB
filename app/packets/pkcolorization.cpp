@@ -9,7 +9,7 @@ ColorizationPacketClass::ColorizationPacketClass(int game_id, const std::vector<
 	Channel = Unknown_14(GameID, -1);
 }
 
-ColorizationPacketClass::ColorizationPacketClass(RawPacketClass *raw)
+ColorizationPacketClass::ColorizationPacketClass(PacketClass *raw)
 {
 	raw->Get(&GameID, sizeof(GameID));
 	short count = 0;
@@ -25,9 +25,9 @@ ColorizationPacketClass::ColorizationPacketClass(RawPacketClass *raw)
 	}
 }
 
-RawPacketClass *ColorizationPacketClass::Build()
+PacketClass *ColorizationPacketClass::Encode()
 {
-	RawPacketClass *raw = new RawPacketClass(17, Get_Data_Size());
+	PacketClass *raw = new PacketClass(17, Get_Data_Size());
 	raw->Add(&GameID, sizeof(GameID));
 	int count = Regions.size();
 	raw->Add(&count, sizeof(short));

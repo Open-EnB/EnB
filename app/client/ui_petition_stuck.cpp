@@ -7,7 +7,7 @@
 #include "..\shared\g_assert.h"
 
 // 0x5D7370
-UIPetitionStuckClass::UIPetitionStuckClass(SClient *client, int unknown0B4) :
+UIPetitionStuckClass::UIPetitionStuckClass(SpaceClientClass *client, int unknown0B4) :
 	UIPetitionEntryClass(client),
 	Unknown0B4(unknown0B4)
 {
@@ -47,14 +47,14 @@ bool UIPetitionStuckClass::Unknown_A0()
 	std::string subject;
 	std::string details;
 	Get_Text(subject, details);
-	int ship_id; ((ClientClass *)Get_Client())->Send_Packet(&PetitionStuckPacketClass(ship_id = ((ClientClass *)Get_Client())->ShipID, Unknown0B4, subject.c_str(), details.c_str(), 0)); // NAME 1 [ship_id]: neutral (D10)
+	int ship_id; ((ClientClass *)Get_Client())->Send_Packet(&PetitionPacketClass(ship_id = ((ClientClass *)Get_Client())->ShipID, Unknown0B4, subject.c_str(), details.c_str(), 0)); // NAME 1 [ship_id]: neutral (D10)
 	return(true);
 }
 
 /*
 **	Notes.
 **	Object 0x5D7370-0x5D762F: the adjustor thunks 0x5D7610 / 0x5D7620 of the second and third tables close it;
-**	UIPingClass's constructor 0x5D7630 follows. ui_petition.cpp makes the page.
+**	PingInterface's constructor 0x5D7630 follows. ui_petition.cpp makes the page.
 **	0x5D7420 is exact: assign the signed ship ID at the packet argument site, preserving read
 **	order and temporary lifetimes while recovering the retail register choice.
 */

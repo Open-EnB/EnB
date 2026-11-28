@@ -18,14 +18,14 @@
 #include "dynamic_window_render_object.h"
 #include <vector>
 
-class DynamicWindowVerticalClass : public DynamicWindowElementClass, public DynamicWindowContainerClass  // NAME 2 [DynamicWindowVerticalClass]: class from file (D24), dynamic_window_vertical.cpp
+class VerticalDynamicWindow : public DynamicWindowElement, public DynamicWindowContainerClass  // NAME 5: thunk order A, binary.md 5.11; NAME 2 [VerticalDynamicWindow]: class from file (D24), dynamic_window_vertical.cpp
 {
 public:
-	DynamicWindowVerticalClass(unsigned int flags);											// 0x51EAE0  // NAME 1 [flags]: +0x50
-	virtual ~DynamicWindowVerticalClass();													// +0x04 0x51EBA0
+	VerticalDynamicWindow(unsigned int flags);											// 0x51EAE0  // NAME 1 [flags]: +0x50
+	virtual ~VerticalDynamicWindow();													// +0x04 0x51EBA0
 
-	void Insert_Element(const RefCountPtr<DynamicWindowElementClass> &element, int index);	// 0x51ECD0 (FAIL_IF '!element')  // NAME 1 [Insert_Element, element, index]
-	void Add_Element(const RefCountPtr<DynamicWindowElementClass> &element);				// 0x51EEE0 (at the end)  // NAME 1 [Add_Element, element]
+	void Insert_Element(const RefCountPtr<DynamicWindowElement> &element, int index);	// 0x51ECD0 (FAIL_IF '!element')  // NAME 1 [Insert_Element, element, index]
+	void Add_Element(const RefCountPtr<DynamicWindowElement> &element);				// 0x51EEE0 (at the end)  // NAME 1 [Add_Element, element]
 
 	virtual void Set_Min_Size(const Vector2 &min_size);
 	virtual void Set_Flags(unsigned int flags);
@@ -33,7 +33,7 @@ public:
 	virtual void Set_Alignment(unsigned int flags);
 	virtual void Invalidate();
 	virtual bool Is_Dirty();
-	virtual Vector2 Get_Min_Size();
+	virtual Vector2 Get_Min_Size() const;  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Has_Flags(unsigned int flags);
 	virtual void Layout(const Vector2 &position, const Vector2 &size);						// (FAIL_IF 'excess_size.X < 0')
 	virtual Vector2 Get_Size();
@@ -43,19 +43,19 @@ public:
 	virtual DynamicWindowContainerClass *Get_Container();
 	virtual void Add_To_Scene(SceneClass *scene);
 	virtual void Remove_From_Scene();
-	virtual SceneClass *Peek_Scene();
+	virtual SceneClass *Peek_Scene() const;  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual void Set_Level(int level);
 	virtual int Get_Level();
 	virtual void Set_Position(const Vector2 &position);
 
-	virtual void Child_Changed(DynamicWindowElementClass &child);							// +0x08 +0x00
+	virtual void Child_Changed(DynamicWindowElement &child);							// +0x08 +0x00
 	virtual void Remove_All_Children(bool recursive);										// +0x08 +0x04
-	virtual bool Remove_Child(const RefCountPtr<DynamicWindowElementClass> &child);		// +0x08 +0x08
+	virtual bool Remove_Child(const RefCountPtr<DynamicWindowElement> &child);		// +0x08 +0x08
 
 protected:
 	void Update_Content_Size();																// 0x51F850  // NAME 1 [Update_Content_Size]
 
-	std::vector< RefCountPtr<DynamicWindowElementClass> > Elements;						// +0x0C  // NAME 1 [Elements]
+	std::vector< RefCountPtr<DynamicWindowElement> > Elements;						// +0x0C  // NAME 1 [Elements]
 	Vector2 MinSize;																		// +0x1C  // NAME 1 [MinSize]: Set_Min_Size's
 	Vector2 ContentSize;																	// +0x24  // NAME 1 [ContentSize]: the widest child, the heights summed
 	bool ContentDirty;																		// +0x2C  // NAME 1 [ContentDirty]

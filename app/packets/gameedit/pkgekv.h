@@ -19,13 +19,13 @@
 #include "..\pk.h"
 
 // opcode 30005 (0x7535, ?): vtable 0xB08EB8, constructor 0x85E750, 0x20 bytes
-class Packet_7535Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x7535 (Print 'GameEditorRequestKeyValues')
+class Packet_7535Class : public UnknownPacketBaseClass  // NAME 1: neutral (D10): opcode 0x7535 (Print 'GameEditorRequestKeyValues')
 {
 public:
 	Packet_7535Class(int game_id, char subscribe, char *s);	// 0x85E640 (Data is the caller's text, not copied; Subscribe = subscribe != 0)
-	Packet_7535Class(RawPacketClass *raw);	// 0x85E750
+	Packet_7535Class(PacketClass *raw);	// 0x85E750
 	virtual ~Packet_7535Class();	// +0x00 0x85E860 / 0x85E720
-	virtual RawPacketClass *Build();	// +0x04 0x85E8A0
+	virtual PacketClass *Encode();	// +0x04 0x85E8A0  // NAME 3: override of the NAME 5 virtual Encode
 	virtual bool Process_Packet(void *client);	// +0x08 0x868100 (clientstub.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x85E990
 	virtual int Print(char *buffer, int len);	// +0x10 0x85E9B0
@@ -38,12 +38,12 @@ public:
 };
 
 // opcode 30006 (0x7536, ?): vtable 0xB08EE8, constructor 0x85EA90, 0x10 bytes
-class Packet_7536Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x7536
+class Packet_7536Class : public UnknownPacketBaseClass  // NAME 1: neutral (D10): opcode 0x7536
 {
 public:
 	Packet_7536Class(int game_id);	// 0x85EA00
-	Packet_7536Class(RawPacketClass *raw);	// 0x85EA90
-	virtual RawPacketClass *Build();	// +0x04 0x85EB20
+	Packet_7536Class(PacketClass *raw);	// 0x85EA90
+	virtual PacketClass *Encode();	// +0x04 0x85EB20  // NAME 3: override of the NAME 5 virtual Encode
 	virtual bool Process_Packet(void *client);	// +0x08 0x868130 (clientstub.cpp l.119)
 	virtual int Get_Data_Size();	// +0x0C 0x85EBE0
 	virtual int Print(char *buffer, int len);	// +0x10 0x85EC00
@@ -52,13 +52,13 @@ public:
 };
 
 // 0x7537 (30007, not in the packet switch: sent only): vtable 0xB08F18, constructor 0x85ECB0, 0x1C bytes
-class Packet_7537Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x7537 (Print 'GameEditorUpdateKeyValues')
+class GameEditorKVUpdatePacketClass : public UnknownPacketBaseClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
-	Packet_7537Class(int game_id, char *data, int size);	// 0x85EC30 (Data is the caller's, not copied)
-	Packet_7537Class(RawPacketClass *raw);	// 0x85ECB0
-	virtual ~Packet_7537Class();	// +0x00 0x85EDA0 / 0x85EC80
-	virtual RawPacketClass *Build();	// +0x04 0x85EDE0
+	GameEditorKVUpdatePacketClass(int game_id, char *data, int size);	// 0x85EC30 (Data is the caller's, not copied)
+	GameEditorKVUpdatePacketClass(PacketClass *raw);	// 0x85ECB0
+	virtual ~GameEditorKVUpdatePacketClass();	// +0x00 0x85EDA0 / 0x85EC80
+	virtual PacketClass *Encode();	// +0x04 0x85EDE0  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x85EF20
 	virtual int Get_Data_Size();	// +0x0C 0x85EED0
 	virtual int Print(char *buffer, int len);	// +0x10 0x85EEF0
@@ -70,13 +70,13 @@ public:
 };
 
 // opcode 30008 (0x7538, ?): vtable 0xB08F48, constructor 0x85EFC0, 0x1C bytes
-class Packet_7538Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x7538 (Print 'GameEditorModifyKeyValues')
+class GameEditorKVModifyPacketClass : public UnknownPacketBaseClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
-	Packet_7538Class(int game_id, char *data, int size);	// 0x85EF40 (Data is the caller's, not copied)
-	Packet_7538Class(RawPacketClass *raw);	// 0x85EFC0
-	virtual ~Packet_7538Class();	// +0x00 0x85F0B0 / 0x85EF90
-	virtual RawPacketClass *Build();	// +0x04 0x85F0F0
+	GameEditorKVModifyPacketClass(int game_id, char *data, int size);	// 0x85EF40 (Data is the caller's, not copied)
+	GameEditorKVModifyPacketClass(PacketClass *raw);	// 0x85EFC0
+	virtual ~GameEditorKVModifyPacketClass();	// +0x00 0x85F0B0 / 0x85EF90
+	virtual PacketClass *Encode();	// +0x04 0x85F0F0  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x868160 (clientstub.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x85F1D0
 	virtual int Print(char *buffer, int len);	// +0x10 0x85F1F0

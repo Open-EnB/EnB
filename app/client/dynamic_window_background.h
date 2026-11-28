@@ -57,10 +57,10 @@ public:
 	DynamicWindowBackgroundClass(const std::string &name, unsigned int flags);					// 0x516250  // NAME 1 [name, flags]: the dynawin.ini section, the base's flags
 	virtual ~DynamicWindowBackgroundClass();													// +0x04 0x516680 (deleting 0x516650)
 
-	void Set_Contents(const RefCountPtr<DynamicWindowElementClass> &contents);					// 0x516810  // NAME 1 [Set_Contents, contents]: 'Contents'
+	void Set_Contents(const RefCountPtr<DynamicWindowElement> &contents);					// 0x516810  // NAME 1 [Set_Contents, contents]: 'Contents'
 
 	virtual void Set_Min_Size(const Vector2 &min_size);										// +0x08 0x5168F0 (FAIL_IF 'contents_min_size.X <= 0.0f')
-	virtual Vector2 Get_Min_Size();																// +0x20 0x516A00
+	virtual Vector2 Get_Min_Size() const;																// +0x20 0x516A00
 	virtual void Layout(const Vector2 &position, const Vector2 &size);							// +0x28 0x516AE0
 	virtual DynamicWindowContainerClass *Get_Container();										// +0x3C 0x516BB0
 	virtual void Add_To_Scene(SceneClass *scene);												// +0x40 0x516BD0
@@ -69,12 +69,12 @@ public:
 	virtual void Set_Position(const Vector2 &position);											// +0x54 0x516C70
 	virtual Vector2 Fit_Size(const Vector2 &position, const Vector2 &size);						// +0x5C 0x516E00
 
-	virtual void Child_Changed(DynamicWindowElementClass &child);								// +0x4C +0x00 0x516CA0
+	virtual void Child_Changed(DynamicWindowElement &child);								// +0x4C +0x00 0x516CA0
 	virtual void Remove_All_Children(bool recursive);											// +0x4C +0x04 0x516CF0
-	virtual bool Remove_Child(const RefCountPtr<DynamicWindowElementClass> &child);			// +0x4C +0x08 0x516D70
+	virtual bool Remove_Child(const RefCountPtr<DynamicWindowElement> &child);			// +0x4C +0x08 0x516D70
 
 protected:
-	RefCountPtr<DynamicWindowElementClass> Contents;											// +0x50 (G_ASSERT 'Contents.Peek() == &child')
+	RefCountPtr<DynamicWindowElement> Contents;											// +0x50 (G_ASSERT 'Contents.Peek() == &child')
 	HAnimComboClass *AnimCombo;																	// +0x54  // NAME 1 [AnimCombo]
 	HAnimComboDataClass *AnimX;																	// +0x58  // NAME 1 [AnimX]: dynawin.ini's key
 	HAnimComboDataClass *AnimY;																	// +0x5C  // NAME 1 [AnimY]: dynawin.ini's key

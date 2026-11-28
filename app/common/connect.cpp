@@ -196,9 +196,9 @@ ConnectionClass *Create_Connection(const char *name, unsigned short port, bool e
 		G_ASSERT(new_connection);
 	} else {
 		if (protocol != 0 && stricmp(protocol, "UDP") == 0) {
-			new_connection = new UDPConnection(name, port, encrypt);
+			new_connection = new UDPConnectionClass(name, port, encrypt);
 		} else {
-			new_connection = new TCPConnection(name, port, encrypt);
+			new_connection = new TCPConnectionClass(name, port, encrypt);
 		}
 
 
@@ -226,7 +226,7 @@ ConnectionClass *Create_Connection(const char *name, unsigned short port, bool e
 
 	bool stats = ArgvClass().Find("-PACKET_STATS") != 0;
 	if (stats) {
-		new_connection = new StatsConnectionClass(new_connection);
+		new_connection = new PacketStatsConnection(new_connection);
 		G_ASSERT(new_connection);
 	}
 	Unknown_Debug_End_Step("done");
@@ -409,10 +409,10 @@ INIClass &NetworkINIClass::Get_Network_INI()
 
 
 // ForwardingConnectionClass (vtable 0xB08590): every slot passes to the wrapped connection
-PacketClass *ForwardingConnectionClass::Receive()
+UnknownPacketBaseClass *ForwardingConnectionClass::Receive()
 {
 	if (Connection == 0) return(0);
-	PacketClass *packet = Connection->Receive();
+	UnknownPacketBaseClass *packet = Connection->Receive();
 	if (packet != 0) packet->Connection = this;
 	return(packet);
 }
@@ -423,15 +423,15 @@ bool ForwardingConnectionClass::Get_Stats(float *a, float *b, float *c, float *d
 	return(Connection->Get_Stats(a, b, c, d, e, f, g));
 }
 
-// PeekConnectionClass (vtable 0xB0854C)
-PeekConnectionClass::PeekConnectionClass(ConnectionClass *connection) :
+// BufferedConnectionClass (vtable 0xB0854C)
+BufferedConnectionClass::BufferedConnectionClass(ConnectionClass *connection) :
 	ForwardingConnectionClass(connection),
 	Last_Packet(0)
 {
 }
 
-bool ForwardingConnectionClass::Send_Message(RawPacketClass *packet) { return(Connection->Send_Message(packet)); }
-bool ForwardingConnectionClass::Send_Packet(PacketClass *packet) { return(Connection->Send_Packet(packet)); }
+bool ForwardingConnectionClass::Send_Message(PacketClass *packet) { return(Connection->Send_Message(packet)); }
+bool ForwardingConnectionClass::Send_Packet(UnknownPacketBaseClass *packet) { return(Connection->Send_Packet(packet)); }
 unsigned int ForwardingConnectionClass::Get_Address() { if (Connection != 0) return(Connection->Get_Address()); return(0); }
 void ForwardingConnectionClass::Set_Unknown04(bool on) { if (Connection != 0) Connection->Set_Unknown04(on); }
 bool ForwardingConnectionClass::Get_Unknown04() { if (Connection != 0) return(Connection->Get_Unknown04()); return(false); }
@@ -447,7 +447,7 @@ bool ForwardingConnectionClass::Unknown_30(int option, int *data) { if (Connecti
 
 
 
-PeekConnectionClass::~PeekConnectionClass()
+BufferedConnectionClass::~BufferedConnectionClass()
 {
 	if (Last_Packet != 0) {
 		delete Last_Packet;
@@ -455,7 +455,7 @@ PeekConnectionClass::~PeekConnectionClass()
 	}
 }
 
-PacketClass *PeekConnectionClass::Peek()
+UnknownPacketBaseClass *BufferedConnectionClass::Peek()
 {
 	if (Last_Packet != 0) return(Last_Packet);
 	Last_Packet = ForwardingConnectionClass::Receive();
@@ -463,16 +463,16 @@ PacketClass *PeekConnectionClass::Peek()
 
 }
 
-PacketClass *PeekConnectionClass::Receive()
+UnknownPacketBaseClass *BufferedConnectionClass::Receive()
 {
-	PacketClass *packet = Peek();
+	UnknownPacketBaseClass *packet = Peek();
 	if (packet == 0) return(0);
 	G_ASSERT(Last_Packet);
 	Last_Packet = 0;
 	return(packet);
 }
 
-bool PeekConnectionClass::Is_Dead()
+bool BufferedConnectionClass::Is_Dead()
 {
 	return(Last_Packet == 0 && ForwardingConnectionClass::Is_Dead());
 }
@@ -530,7 +530,7 @@ void ConnectionManagerClass::Set_Name(const char *name)
 	Name = nstrdup(name);
 }
 
-void ConnectionManagerClass::Set_Listener(ConnectionListenerClass *listener)
+void ConnectionManagerClass::Set_Listener(ConnectionSourceClass *listener)
 {
 	if (Listener != 0) {
 		if (Listener->Is_Listening()) {
@@ -606,7 +606,7 @@ void ConnectionManagerClass::Accept_New(std::list<ConnectionClass *> *accepted)
 
 
 
-PacketClass *ConnectionManagerClass::Peek(bool next)
+UnknownPacketBaseClass *ConnectionManagerClass::Peek(bool next)
 {
 	int count = Connections.size();
 	for (int i = 0; i < count; i++) {
@@ -615,7 +615,7 @@ PacketClass *ConnectionManagerClass::Peek(bool next)
 		else index = (RoundRobin + i) % count;
 		ConnectionEntryClass &entry = Connections[index];
 		if (!entry.Marked && !entry.Connection->Is_Dead()) {
-			PacketClass *packet = entry.Connection->Peek();
+			UnknownPacketBaseClass *packet = entry.Connection->Peek();
 			if (packet != 0) {
 				RoundRobin = index;
 				Current = entry.Connection;
@@ -628,18 +628,18 @@ PacketClass *ConnectionManagerClass::Peek(bool next)
 
 
 
-PacketClass *ConnectionManagerClass::Get_Packet(bool next)
+UnknownPacketBaseClass *ConnectionManagerClass::Get_Packet(bool next)
 {
-	PacketClass *retval = Peek(next);
+	UnknownPacketBaseClass *retval = Peek(next);
 	if (retval == 0) {
 		return(0);
 	}
-	PacketClass *testpacket = Connections[RoundRobin].Connection->Receive();
+	UnknownPacketBaseClass *testpacket = Connections[RoundRobin].Connection->Receive();
 	G_ASSERT(retval == testpacket);
 	return(retval);
 }
 
-PacketClass *ConnectionManagerClass::Receive()
+UnknownPacketBaseClass *ConnectionManagerClass::Receive()
 {
 	if (RoundRobin < (int)Connections.size()) {
 		ConnectionEntryClass &entry = Connections[RoundRobin];
@@ -648,7 +648,7 @@ PacketClass *ConnectionManagerClass::Receive()
 	return(0);
 }
 
-int ConnectionManagerClass::Broadcast(PacketClass *packet)
+int ConnectionManagerClass::Broadcast(UnknownPacketBaseClass *packet)
 {
 	int count = 0;
 	for (std::vector<ConnectionEntryClass>::iterator it = Connections.begin(); it != Connections.end(); it++) {
@@ -660,7 +660,7 @@ int ConnectionManagerClass::Broadcast(PacketClass *packet)
 	return(count);
 }
 
-bool ConnectionManagerClass::Mark(PacketClass *packet)
+bool ConnectionManagerClass::Mark(UnknownPacketBaseClass *packet)
 {
 	int count = Connections.size();
 	for (int i = 0; i < count; i++) {
@@ -741,7 +741,7 @@ bool ConnectionManagerClass::Remove_Connection(ConnectionClass *connection)
 
 
 
-bool ConnectionManagerClass::Add_Unwrapped(PeekConnectionClass *connection)
+bool ConnectionManagerClass::Add_Unwrapped(BufferedConnectionClass *connection)
 {
 	FAIL_IF(!connection) return(false);
 	Connections.push_back(ConnectionEntryClass(connection));
@@ -838,13 +838,13 @@ bool ConnectionManagerClass::Add_Connection(ConnectionClass *connection)
 {
 	FAIL_IF(!connection) return(false);
 	bool stats = ArgvClass().Find("-PACKET_STATS") != 0;
-	PeekConnectionClass *peek;
+	BufferedConnectionClass *peek;
 	if (Unknown1C) {
-		peek = new PeekConnectionClass(new TimedLogConnectionClass(connection, Name));
+		peek = new BufferedConnectionClass(new TimedLogConnectionClass(connection, Name));
 	} else if (stats) {
-		peek = new PeekConnectionClass(new StatsConnectionClass(connection));
+		peek = new BufferedConnectionClass(new PacketStatsConnection(connection));
 	} else {
-		peek = new PeekConnectionClass(connection);
+		peek = new BufferedConnectionClass(connection);
 	}
 	Connections.push_back(ConnectionEntryClass(peek));
 	return(true);
@@ -866,7 +866,7 @@ bool ConnectionManagerClass::Add_Connection(ConnectionClass *connection)
 ConnectionManagerClass *Create_Connection_Manager(const char *server_type)
 {
 	INIClass &ini = NetworkINIClass::Get_Network_INI();
-	ConnectionListenerClass *listener = new CompositeListenerClass;
+	ConnectionSourceClass *listener = new CompositeListenerClass;
 	unsigned short port;
 	if (server_type != 0 && (port = ini.Get_Int(server_type, "Port", 0)) != 0) {
 		bool success = listener->Listen(port);
@@ -915,13 +915,13 @@ ConnectionManagerClass *Create_Connection_Manager(const char *server_type)
 }
 
 // 0x8232C0 (too short to count)
-bool NullConnectionClass::Send_Packet(PacketClass *packet) { return(true); }
+bool NullConnectionClass::Send_Packet(UnknownPacketBaseClass *packet) { return(true); }
 
 // 0x8232E0 (too short to count)
-bool NullConnectionClass::Send_Message(RawPacketClass *packet) { return(true); }
+bool NullConnectionClass::Send_Message(PacketClass *packet) { return(true); }
 
 // 0x823300 (too short to count)
-PacketClass *NullConnectionClass::Receive() { return(NULL); }
+UnknownPacketBaseClass *NullConnectionClass::Receive() { return(NULL); }
 
 
 
@@ -1025,7 +1025,7 @@ StreamConnectionClass::~StreamConnectionClass()
 }
 
 
-bool StreamConnectionClass::Write_Message(RawPacketClass *packet)
+bool StreamConnectionClass::Write_Message(PacketClass *packet)
 {
 	if (Transport_Write(&packet->Header, 4) != 4) {
 		return(false);
@@ -1041,16 +1041,16 @@ bool StreamConnectionClass::Write_Message(RawPacketClass *packet)
 }
 
 
-bool StreamConnectionClass::Send_Packet(PacketClass *packet)
+bool StreamConnectionClass::Send_Packet(UnknownPacketBaseClass *packet)
 {
-	RawPacketClass *raw = packet->Build();
+	PacketClass *raw = packet->Encode();
 	bool ok = Write_Message(raw);
 	delete raw;
 	return(ok);
 }
 
 
-bool StreamConnectionClass::Send_Message(RawPacketClass *packet)
+bool StreamConnectionClass::Send_Message(PacketClass *packet)
 {
 	return(Write_Message(packet));
 }
@@ -1079,7 +1079,7 @@ bool StreamConnectionClass::Message_Ready()
 }
 
 
-PacketClass *StreamConnectionClass::Receive()
+UnknownPacketBaseClass *StreamConnectionClass::Receive()
 {
 	if (Ring.Get_Free() > 0x80) {
 		Fill();
@@ -1102,7 +1102,7 @@ PacketClass *StreamConnectionClass::Receive()
 	*(PacketHeaderClass *)buffer = Header;
 	int bytes = Ring.Read(buffer + sizeof(Header), readbytes);
 	G_ASSERT(readbytes == bytes);
-	PacketClass *packet = Unknown_Create_Packet(buffer);
+	UnknownPacketBaseClass *packet = Unknown_Create_Packet(buffer);
 	delete buffer;
 	if (packet) {
 		packet->Connection = this;

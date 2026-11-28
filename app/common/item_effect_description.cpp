@@ -93,7 +93,7 @@ int ItemEffectDescriptionClass::Get_Size()
 }
 
 // 0x83DF10
-void ItemEffectDescriptionClass::Write(RawPacketClass *raw)
+void ItemEffectDescriptionClass::Write(PacketClass *raw)
 {
 	int count = Effects.size();
 	raw->Add(count);
@@ -111,7 +111,7 @@ void ItemEffectDescriptionClass::Write(RawPacketClass *raw)
 }
 
 // 0x83E040
-void ItemEffectDescriptionClass::Read(RawPacketClass *raw)
+void ItemEffectDescriptionClass::Read(PacketClass *raw)
 {
 	int count = 0;
 	raw->Get(count);

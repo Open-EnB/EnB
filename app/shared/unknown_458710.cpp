@@ -6,7 +6,7 @@
 **	inlined, so it is a separate object, linked between rs.cpp and the next rs_*.cpp.
 **
 **	A render-object state whose model goes onto the owner's bone path while it is active
-**	(Unknown458710Class over rs_robj.cpp's Unknown45E850Class; both declared in rs_track.h for now).
+**	(RenderStateBoneClass over rs_robj.cpp's RenderStateRenderObjClass; both declared in rs_track.h for now).
 **	Notes at the end.
 */
 
@@ -17,8 +17,8 @@
 #include "..\..\wwlib\nstrdup.h"
 
 // 0x458710 (deleting destructor 0x4587E0)
-Unknown458710Class::Unknown458710Class(RenderStateListClass *list, int id, int link_id, unsigned int flags, const char *name, int next_id, float duration, const char *bone_path, int arg) :
-	Unknown45E850Class(list, id, link_id, flags, name, next_id, duration),
+RenderStateBoneClass::RenderStateBoneClass(const RenderStateListClass *list, int id, int link_id, unsigned int flags, const char *name, int next_id, float duration, const char *bone_path, int arg) :
+	RenderStateRenderObjClass(list, id, link_id, flags, name, next_id, duration),
 	Unknown48(arg)
 {
 	if (bone_path != NULL && *bone_path != 0) {
@@ -29,8 +29,8 @@ Unknown458710Class::Unknown458710Class(RenderStateListClass *list, int id, int l
 }
 
 // 0x458810
-Unknown458710Class::Unknown458710Class(RenderStateListClass *list, const Unknown458710Class &source) :
-	Unknown45E850Class(list, source)
+RenderStateBoneClass::RenderStateBoneClass(const RenderStateListClass *list, const RenderStateBoneClass &source) :
+	RenderStateRenderObjClass(list, source)
 {
 	if (source.Unknown44 != NULL && *source.Unknown44 != 0) {
 		Unknown44 = nstrdup(source.Unknown44);
@@ -41,8 +41,8 @@ Unknown458710Class::Unknown458710Class(RenderStateListClass *list, const Unknown
 }
 
 // 0x4588A0
-Unknown458710Class::Unknown458710Class(RenderStateListClass *list, int id, int link_id, unsigned int flags, RenderObjClass *robj, int next_id, float duration, const char *bone_path, int arg) :
-	Unknown45E850Class(list, id, link_id, flags, robj, next_id, duration),
+RenderStateBoneClass::RenderStateBoneClass(const RenderStateListClass *list, int id, int link_id, unsigned int flags, RenderObjClass *robj, int next_id, float duration, const char *bone_path, int arg) :
+	RenderStateRenderObjClass(list, id, link_id, flags, robj, next_id, duration),
 	Unknown48(arg)
 {
 	if (bone_path != NULL && *bone_path != 0) {
@@ -53,13 +53,13 @@ Unknown458710Class::Unknown458710Class(RenderStateListClass *list, int id, int l
 }
 
 // 0x458970: the copy into another list
-RenderStateClass *Unknown458710Class::Unknown_04(RenderStateListClass *list)
+RenderStateClass *RenderStateBoneClass::Unknown_04(RenderStateListClass *list)
 {
-	return(new Unknown458710Class(list, *this));
+	return(new RenderStateBoneClass(list, *this));
 }
 
 // 0x458A60
-Unknown458710Class::~Unknown458710Class()
+RenderStateBoneClass::~RenderStateBoneClass()
 {
 	if (Unknown44 != NULL) {
 		delete Unknown44;
@@ -67,7 +67,7 @@ Unknown458710Class::~Unknown458710Class()
 }
 
 // 0x458AE0: the bone path (the old copy is not freed: the client's code)
-void Unknown458710Class::Unknown_458AE0(const char *bone_path)
+void RenderStateBoneClass::Unknown_458AE0(const char *bone_path)
 {
 	if (bone_path != NULL && *bone_path != 0) {
 		Unknown44 = nstrdup(bone_path);
@@ -77,7 +77,7 @@ void Unknown458710Class::Unknown_458AE0(const char *bone_path)
 }
 
 // 0x458B20: activation: the model onto the owner's bone path
-void Unknown458710Class::Unknown_14(RsTrackClass *owner)
+void RenderStateBoneClass::Unknown_14(RsTrackClass *owner)
 {
 	Unknown_457E10();
 	RenderObjClass *robj = Peek_Render_Object();
@@ -88,7 +88,7 @@ void Unknown458710Class::Unknown_14(RsTrackClass *owner)
 }
 
 // 0x458B70: deactivation: hidden, off the bone path
-void Unknown458710Class::Unknown_18(RsTrackClass *owner)
+void RenderStateBoneClass::Unknown_18(RsTrackClass *owner)
 {
 	Unknown_457E90();
 	RenderObjClass *robj = Peek_Render_Object();
@@ -99,7 +99,7 @@ void Unknown458710Class::Unknown_18(RsTrackClass *owner)
 }
 
 // 0x458BC0
-void Unknown458710Class::Unknown_1C(RsTrackClass *owner)
+void RenderStateBoneClass::Unknown_1C(RsTrackClass *owner)
 {
 	Unknown_457E10();
 	RenderObjClass *robj = Peek_Render_Object();

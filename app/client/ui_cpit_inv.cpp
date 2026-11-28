@@ -6,7 +6,7 @@
 #include "ui_mesh.h"
 #include "gadget.h"
 #include "gadget_list_manager.h"
-#include "unknown_675120.h"
+#include "gd_uimesh.h"
 #include "gd_inv_slider.h"
 #include "local_interface_sort.h"
 #include "..\shared\g_assert.h"
@@ -17,11 +17,11 @@ class LineDisplayClientClass  // NAME 1: neutral (D10)
 public:
 	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
 	virtual void Unknown_10(); virtual void Unknown_14();
-	virtual SClient *As_Space_Client();					// +0x18 (as ui_manu.cpp's)  // NAME 3: the FAIL_IF's in ui_manu.cpp
+	virtual SpaceClientClass *As_Space_Client();					// +0x18 (as ui_manu.cpp's)  // NAME 3: the FAIL_IF's in ui_manu.cpp
 };
 
 // @0x5850E0
-UICpitInvClass::UICpitInvClass(UICpitClass *cpit, SClient *sclient, int kind) :
+UICpitInvClass::UICpitInvClass(CockpitInterface *cpit, SpaceClientClass *sclient, int kind) :
 	UIInvClass(sclient, kind),
 	Cpit(cpit),
 	UIMesh(NULL),

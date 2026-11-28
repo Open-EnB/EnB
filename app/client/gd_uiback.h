@@ -13,7 +13,7 @@
 #define GD_UIBACK_H
 
 #include "unknown_671300.h"
-#include "unknown_675120.h"
+#include "gd_uimesh.h"
 #include "..\..\wwlib\ref_ptr.h"
 #include "vector2.h"
 #include "vector3.h"
@@ -45,13 +45,13 @@ public:
 
 class RenderObjClass;
 
-// The base of the movable gadget and of 0x674C10's class (0x60 bytes, over Unknown_675120Class; ui_bio.cpp's bio tab, ui_cinfo.cpp's character info window and ui_cpit.cpp make it)
-class UIBackGadget : public Unknown_675120Class	// NAME 3: MovableUIBackGadget's base (RTTI); gd_uiback.cpp (D208)
+// The base of the movable gadget and of 0x674C10's class (0x60 bytes, over UIMeshGadgetClass; ui_bio.cpp's bio tab, ui_cinfo.cpp's character info window and ui_cpit.cpp make it)
+class UIBackGadget : public UIMeshGadgetClass	// NAME 3: MovableUIBackGadget's base (RTTI); gd_uiback.cpp (D208)
 {
 public:
 	UIBackGadget(UIMeshClass *mesh, const char *name);	// 0x6741A0 (nothing calls it)  // NAME 1 [mesh, name]: the base's
 	UIBackGadget(const RefCountPtr<RenderObjClass> &model);	// 0x674260 (0x60 bytes)  // NAME 1 [model]: what the windows pass
-	protected: virtual ~UIBackGadget(); public:										// 0x6742F0 (deleting 0x674230; out of line next to the constructor: ui_ptrade.cpp's credits button 0x5E4040 calls it)
+	protected: virtual ~UIBackGadget(); public:										// 0x6742F0 (deleting 0x674230; out of line next to the constructor: ui_ptrade.cpp's credits button 0x5E4040 calls it)  // NAME 5: thunk order probable, binary.md 5.11
 };
 
 // The gadget that drags its target with the pointer (RTTI 'MovableUIBackGadget'; 0xA4 bytes, table 0xAFB6B8)
@@ -60,7 +60,7 @@ class MovableUIBackGadget : public UIBackGadget	// NAME 5: the client's RTTI .?A
 public:
 	MovableUIBackGadget(const RefCountPtr<RenderObjClass> &model, const Vector3 &offset);	// 0x674310 (the target: the model itself)  // NAME 1 [model, offset]: what it does with them
 	MovableUIBackGadget(const RefCountPtr<RenderObjClass> &model, const RefCountPtr<Unknown_AFB794Class> &target);	// 0x674740  // NAME 1 [model, target]: what it does with them
-	protected: virtual ~MovableUIBackGadget();						// +0x00 0x674860 (deleting 0x674710)
+	protected: virtual ~MovableUIBackGadget();						// +0x00 0x674860 (deleting 0x674710)  // NAME 5: thunk order confirmed, binary.md 5.11
 	public: virtual bool Unknown_2C(KernelEventClass *event, float x, float y, unsigned int mask);	// +0x2C 0x6748F0  // NAME 1 [event, x, y, mask]: the base's
 
 	RefCountPtr<Unknown_AFB794Class> Unknown60;			// +0x60 (the target)

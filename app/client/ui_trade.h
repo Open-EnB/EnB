@@ -12,10 +12,10 @@
 #include "..\shared\money.h"
 #include "..\..\wwlib\ref_ptr.h"
 
-class ButtonGadgetClass;		// unknown_675120.h's buttons (+0xD4)
+class ButtonGadgetClass;		// gd_uimesh.h's buttons (+0xD4)
 class ProxyGadgetClass;			// gd_proxy.h's highlights (+0x108)
 class GadgetInvSlider;		// gd_inv_slider.h's (+0x160)
-class SlotDataGadgetClass;		// gd_slot_data.h's slot gadgets (the base's +0x88)
+class SlotDataGadget;		// gd_slot_data.h's slot gadgets (the base's +0x88)
 class RenderObjClass;
 class TextureClass;
 class SlotDataClass;			// slot_data.h's (the base's +0x98)
@@ -25,7 +25,7 @@ class InvDataClass;				// inv_data.h's (the base's 0x59FE10; +0x150 the three in
 class UITradeClass : public UIInvClass  // NAME 3: class-from-file (D24) for ui_trade.cpp
 {
 public:
-	UITradeClass(SClient *client);						// 0x650560 (G_ASSERT 'PDA' l.106)
+	UITradeClass(SpaceClientClass *client);						// 0x650560 (G_ASSERT 'PDA' l.106)
 	virtual ~UITradeClass();							// 0x6507C0 (deleting 0x650790)
 	virtual void Unknown_54();							// +0x54 0x650A40 (FAIL_IFs l.137-199: the model, the highlights, the buttons, the slider)
 	virtual void Unknown_58();							// +0x58 0x651390 (FAIL_IF '!PDA' l.247: the cargo window opened with it)
@@ -69,7 +69,7 @@ public:
 	MoneyClass Money;									// +0x148 (the credits shown; 0xFFFFFFFF without the field)  // NAME 2: what it holds
 	std::vector<RefCountPtr<InvDataClass> > Unknown150;	// +0x150 (0x652670's three inventories)  // NAME 1: neutral (D10)
 	GadgetInvSlider *Slider;								// +0x160 (destroyed by the destructor)  // NAME 2: as the other windows'
-	RefCountPtr<PDAInterfaceClass> PDA;					// +0x164 (0x653B90's, the client's +0x1284; G_ASSERT 'PDA' l.106)  // NAME 3: the assert's
+	RefCountPtr<PDAInterface> PDA;					// +0x164 (0x653B90's, the client's +0x1284; G_ASSERT 'PDA' l.106)  // NAME 3: the assert's
 	RefCountPtr<TextureClass> StandardBttnTexture;		// +0x168 (G_ASSERT 'StandardBttnTexture' l.190)  // NAME 3: the assert's
 	RefCountPtr<TextureClass> SelectedBttnTexture;		// +0x16C ('I_blank_SEL.tga'; G_ASSERT 'SelectedBttnTexture' l.194)  // NAME 3: the assert's
 	int Unknown170;										// +0x170 (the highlighted proxy, -1)  // NAME 1: neutral (D10)

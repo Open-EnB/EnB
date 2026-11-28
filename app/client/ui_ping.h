@@ -11,16 +11,16 @@ class RenderObjClass;		// ww3d2's
 class FontSys;				// fontmanager.h's
 class DynamicWindowClass;	// dynamic_window_class.h's
 class Unknown51C800Class;	// unknown_51c800.h's
-class ButtonGadgetClass;	// unknown_675120.h's
+class ButtonGadgetClass;	// gd_uimesh.h's
 
 // ui_ping.cpp's ping window (0xC0 bytes; the cockpit's 0x693230 makes it, tables 0xAF5768 / 0xAF575C / 0xAF5750):
 // the 'TSI05C' mesh with its 'color' button lit by the round trip time, the efficiency text, and a dialog box of
 // three rows (latency, data volume, efficiency) shown by key 1
-class UIPingClass : public InterfaceClass	// NAME 3: class-from-file (D24) for app\Client\ui_ping.cpp
+class PingInterface : public InterfaceClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
-	UIPingClass(LineDisplayClientClass *client);		// 0x5D7630 (0xC0 bytes)  // NAME 1 [client]: InterfaceClass's
-	virtual ~UIPingClass();								// 0x5D7A00 (deleting 0x5D79D0)
+	PingInterface(LineDisplayClientClass *client);		// 0x5D7630 (0xC0 bytes)  // NAME 1 [client]: InterfaceClass's
+	virtual ~PingInterface();								// 0x5D7A00 (deleting 0x5D79D0)
 	virtual void Unknown_54();							// +0x54 0x5D7D60 (the mesh, its gadgets, the texts)
 	virtual void Unknown_58();							// +0x58 0x5D83D0 (activated: the texts updated)
 	virtual void Unknown_5C();							// +0x5C 0x5D8460 (deactivated: the dialog box taken off)

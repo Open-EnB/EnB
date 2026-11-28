@@ -12,16 +12,16 @@ CreateAttachmentPacketClass::CreateAttachmentPacketClass(int unknown0c, int pare
 	Unknown1C = Unknown_14(unknown0c, -1);
 }
 
-CreateAttachmentPacketClass::CreateAttachmentPacketClass(RawPacketClass *raw)
+CreateAttachmentPacketClass::CreateAttachmentPacketClass(PacketClass *raw)
 {
 	raw->Get(Parent_ID);
 	raw->Get(Child_ID);
 	raw->Get(Unknown18);
 }
 
-RawPacketClass *CreateAttachmentPacketClass::Build()
+PacketClass *CreateAttachmentPacketClass::Encode()
 {
-	RawPacketClass *raw = new RawPacketClass(74, Get_Data_Size());
+	PacketClass *raw = new PacketClass(74, Get_Data_Size());
 	raw->Add(Parent_ID);
 	raw->Add(Child_ID);
 	raw->Add(Unknown18);

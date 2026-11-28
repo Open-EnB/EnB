@@ -21,7 +21,7 @@ static const char *Unknown_B83EC8[4] = { "EXIT_BUTTON", "BACK", "SUBMIT", "Entry
 static const char *Unknown_B83EDC[4] = { "BACK_hsi02a", "SUBMIT_hsi02a", NULL, NULL };		// NAME 1: neutral (D10)
 
 // 0x5D46E0
-UIPetitionEntryClass::UIPetitionEntryClass(SClient *client) :
+UIPetitionEntryClass::UIPetitionEntryClass(SpaceClientClass *client) :
 	ChatPanelUIBase(client),
 	Slider(NULL),
 	SubjectEditor(NULL),
@@ -41,7 +41,7 @@ UIPetitionEntryClass::~UIPetitionEntryClass()
 	Slider = NULL;
 }
 
-// NOT EXACT: register (the two TextGadgetClass setters give the client's one load per call; left: the Entry_Field00 Create_Get's vtable / result registers, the TextGadgetClass constructor's flags / model registers, the first Unknown_6870E0's view in eax (client edx); GV3)
+// NOT EXACT: register (the two UnknownTextGadgetClass setters give the client's one load per call; left: the Entry_Field00 Create_Get's vtable / result registers, the UnknownTextGadgetClass constructor's flags / model registers, the first Unknown_6870E0's view in eax (client edx); GV3)
 // 0x5D4890
 void UIPetitionEntryClass::Unknown_54()
 {
@@ -55,11 +55,11 @@ void UIPetitionEntryClass::Unknown_54()
 		Slider->Unknown_66E460(InterfaceMesh, 0, 0);
 		Slider->Unknown_66FA90(0, 0, true);
 		RefCountPtr<RenderObjClass> message = Create_NEW(InterfaceMesh->Get_Sub_Object_By_Name("message"));
-		DetailsEditor = new TextEditorGadgetClass(this, message, "UI_PETITION_STUCK_EDIT_FONT", Slider, 0x400, "Click here and enter description of problem, then press Submit to send...");
+		DetailsEditor = new TextEditorGadget(this, message, "UI_PETITION_STUCK_EDIT_FONT", Slider, 0x400, "Click here and enter description of problem, then press Submit to send...");
 		GadgetClass::Set_Tooltip(DetailsEditor, "UI_PETITION_ENTRY", "DETAILS");
-		DetailsEditor->Client = (SClient *)((ClientClass *)Client)->As_Space_Client();
+		DetailsEditor->Client = (SpaceClientClass *)((ClientClass *)Client)->As_Space_Client();
 		RefCountPtr<RenderObjClass> entry = Create_Get(InterfaceMesh->Get_Sub_Object_By_Name("Entry_Field00"));
-		SubjectEditor = new TextGadgetClass(this, 0xFA, "SUBJECT_EDIT_hsi02a", entry.Peek(), Unknown_B08CB0, 0);
+		SubjectEditor = new UnknownTextGadgetClass(this, 0xFA, "SUBJECT_EDIT_hsi02a", entry.Peek(), Unknown_B08CB0, 0);
 		SubjectEditor->Set_Text("Enter Subject Here", 0);
 		SubjectEditor->Set_Unknown3B(false);
 		SubjectEditor->Set_Unknown58(0.95f);
@@ -169,7 +169,7 @@ void UIPetitionEntryClass::Unknown_60()
 				break;
 			case USER_SELECT_YES:
 				{
-					((SClient *)((ClientClass *)Client)->As_Space_Client())->Unknown_74D990(0x13, "Petition canceled.", 0);
+					((SpaceClientClass *)((ClientClass *)Client)->As_Space_Client())->Unknown_74D990(0x13, "Petition canceled.", 0);
 					int closed = Pending;
 					Unknown_5C();
 					Closed = closed;
@@ -213,11 +213,11 @@ bool UIPetitionEntryClass::Unknown_68(int key)
 			Closed = 1;
 			return(true);
 		case 1:
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			Unknown_94();
 			return(true);
 		case 3:
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			if (Has_Text(true) && Unknown_A0()) {
 				Unknown_5C();
 				Closed = 2;

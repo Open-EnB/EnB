@@ -19,7 +19,7 @@ class UIAvatrPullClass;		// unknown_585920.cpp's pull (0x10 bytes)
 class UISpaceLightsClass : public ChatPanelUIBase	// NAME 1: neutral, after its model's 'light01a' names and the starbase's lights panel
 {
 public:
-	UISpaceLightsClass(SClient *client);				// 0x586240 (deleting 0x5862E0)  // NAME 1 [client]: the base's
+	UISpaceLightsClass(SpaceClientClass *client);				// 0x586240 (deleting 0x5862E0)  // NAME 1 [client]: the base's
 	virtual ~UISpaceLightsClass();						// 0x586310
 	virtual void Unknown_54();							// +0x54 0x5863D0 ('light01a': seven buttons, four sliders, the pad; Escape)
 	virtual void Unknown_58();							// +0x58 0x586720 (activated: the lights read, light 0)

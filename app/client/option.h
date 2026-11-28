@@ -26,7 +26,7 @@
 #include <hash_map.h>
 #include "vector3.h"
 
-class SClient;
+class SpaceClientClass;
 
 struct BoolOptionStruct  // NAME 2: what it holds (0x14 bytes)
 {
@@ -88,17 +88,17 @@ struct StringOptionStruct  // NAME 2: what it holds (0x30 bytes)
 	std::string Default;									// +0x20  // NAME 2: what it holds
 };
 
-class OptionClass  // NAME 3: by convention (D24) from the client's file option.cpp (WinMain's 'options manager')
+class OptionManagerClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
-	OptionClass();											// 0x7F0F60
-	~OptionClass();											// 0x7F1470
+	OptionManagerClass();											// 0x7F0F60
+	~OptionManagerClass();											// 0x7F1470
 
-	static void Set_Instance(OptionClass *options);			// 0x7F1840 (0xBE8B38)  // NAME 2: what it does
+	static void Set_Instance(OptionManagerClass *options);			// 0x7F1840 (0xBE8B38)  // NAME 2: what it does
 
 	void Free_Options();									// 0x7F1860 (inlined into the destructor and Set_Defaults)  // NAME 2: what it does
-	void Set_Defaults(SClient *client);						// 0x7F1AD0  // NAME 2: what it does
-	void Load(__int64 character_id, SClient *client);		// 0x7F84F0 (ClientTaskClass's 0x766350)  // NAME 2: what it does
+	void Set_Defaults(SpaceClientClass *client);						// 0x7F1AD0  // NAME 2: what it does
+	void Load(__int64 character_id, SpaceClientClass *client);		// 0x7F84F0 (ClientTaskClass's 0x766350)  // NAME 2: what it does
 	void Save();											// 0x7F8EF0  // NAME 2: what it does
 
 	BoolOptionStruct *Find_Bool(const char *name);			// 0x7F9520  // NAME 2: what it does
@@ -119,7 +119,7 @@ public:
 	Vector3 Get_Default_Vector3(const char *name);			// 0x7F9920  // NAME 2: what it does
 	std::string Get_Default_String(const char *name);		// 0x7F9970  // NAME 2: what it does
 
-	static OptionClass *Instance;							// 0xBE8B38  // NAME 2: what it holds
+	static OptionManagerClass *Instance;							// 0xBE8B38  // NAME 2: what it holds
 
 private:
 	std::hash_map<std::string, BoolOptionStruct *> Bools;			// +0x00  // NAME 2: what it holds

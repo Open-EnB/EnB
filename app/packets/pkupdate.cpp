@@ -7,16 +7,16 @@ const unsigned int DEFAULT_UPDATE_PERIOD = 500;	// 0xB0C0A8: the default UpdateP
 const float FLAG_EPSILON = 0.000001f;	// 0xB0C0AC: the flags' threshold for angles and the imparted motion  // NAME 2: what it is
 
 
-ConstantPositionalUpdatePacketClass::ConstantPositionalUpdatePacketClass(RawPacketClass *raw)
+ConstantPositionalUpdatePacketClass::ConstantPositionalUpdatePacketClass(PacketClass *raw)
 {
 	raw->Get(&GameID, sizeof(GameID));
 	raw->Get(Unknown10, sizeof(Unknown10));
 	raw->Get(Unknown1C, sizeof(Unknown1C));
 }
 
-RawPacketClass *ConstantPositionalUpdatePacketClass::Build()
+PacketClass *ConstantPositionalUpdatePacketClass::Encode()
 {
-	RawPacketClass *raw = new RawPacketClass(Get_Type(), Get_Data_Size());
+	PacketClass *raw = new PacketClass(Get_Type(), Get_Data_Size());
 	raw->Add(&GameID, sizeof(GameID));
 	raw->Add(Unknown10, sizeof(Unknown10));
 	raw->Add(Unknown1C, sizeof(Unknown1C));
@@ -83,7 +83,7 @@ SimplePositionalUpdatePacketClass::SimplePositionalUpdatePacketClass(int priorit
 	Channel = Unknown_14(GameID, -1);
 }
 
-SimplePositionalUpdatePacketClass::SimplePositionalUpdatePacketClass(RawPacketClass *raw)
+SimplePositionalUpdatePacketClass::SimplePositionalUpdatePacketClass(PacketClass *raw)
 {
 	raw->Get(&GameID, sizeof(GameID));
 	raw->Get(&TimeStamp, sizeof(TimeStamp));
@@ -97,9 +97,9 @@ SimplePositionalUpdatePacketClass::SimplePositionalUpdatePacketClass(RawPacketCl
 	G_ASSERT(Velocity.Is_Valid());
 }
 
-RawPacketClass *SimplePositionalUpdatePacketClass::Build()
+PacketClass *SimplePositionalUpdatePacketClass::Encode()
 {
-	RawPacketClass *raw = new RawPacketClass(Get_Type(), Get_Data_Size());
+	PacketClass *raw = new PacketClass(Get_Type(), Get_Data_Size());
 	raw->Add(&GameID, sizeof(GameID));
 	raw->Add(&TimeStamp, sizeof(TimeStamp));
 	raw->Add(&Position, sizeof(Position));
@@ -225,7 +225,7 @@ AdvancedPositionalUpdatePacketClass::AdvancedPositionalUpdatePacketClass() :
 
 
 
-AdvancedPositionalUpdatePacketClass::AdvancedPositionalUpdatePacketClass(RawPacketClass *raw) :
+AdvancedPositionalUpdatePacketClass::AdvancedPositionalUpdatePacketClass(PacketClass *raw) :
 	GameID(0),
 	TimeStamp(0),
 	Position(0.0f, 0.0f, 0.0f),
@@ -285,11 +285,11 @@ AdvancedPositionalUpdatePacketClass::AdvancedPositionalUpdatePacketClass(RawPack
 	G_ASSERT(WWMath::Is_Valid_Float(SetSpeed));
 }
 
-RawPacketClass *AdvancedPositionalUpdatePacketClass::Build()
+PacketClass *AdvancedPositionalUpdatePacketClass::Encode()
 {
 	unsigned int flags = Get_Flags();
 	int size = Get_Size(flags);
-	RawPacketClass *raw = new RawPacketClass(62, size);
+	PacketClass *raw = new PacketClass(62, size);
 	Write_Flags(raw, flags);
 	raw->Add(&GameID, sizeof(GameID));
 	raw->Add(&TimeStamp, sizeof(TimeStamp));
@@ -341,7 +341,7 @@ unsigned int AdvancedPositionalUpdatePacketClass::Get_Flags()
 	Set_Flag(&flags, 1, Has_Set_Speed());
 	Set_Flag(&flags, 2, Has_Acceleration());
 	Set_Flag(&flags, 3, Has_RotY());
-	Set_Flag(&flags, 4, Has_DesiredY());
+	Set_Flag(&flags, 4, Has_Desired_Y());
 	Set_Flag(&flags, 5, Has_RotZ());
 	Set_Flag(&flags, 6, Has_DesiredZ());
 	Set_Flag(&flags, 7, Has_Imparted());
@@ -369,7 +369,7 @@ bool AdvancedPositionalUpdatePacketClass::Has_RotY()
 	return(fabs(RotY) >= FLAG_EPSILON);
 }
 
-bool AdvancedPositionalUpdatePacketClass::Has_DesiredY()
+bool AdvancedPositionalUpdatePacketClass::Has_Desired_Y()
 {
 	if (fabs(RotY) < FLAG_EPSILON) {
 		return(false);
@@ -455,7 +455,7 @@ PlanetPositionalUpdatePacketClass::PlanetPositionalUpdatePacketClass(int game_id
 {
 }
 
-PlanetPositionalUpdatePacketClass::PlanetPositionalUpdatePacketClass(RawPacketClass *raw)
+PlanetPositionalUpdatePacketClass::PlanetPositionalUpdatePacketClass(PacketClass *raw)
 {
 	raw->Get(&GameID, sizeof(GameID));
 	raw->Get(&TimeStamp, sizeof(TimeStamp));
@@ -469,9 +469,9 @@ PlanetPositionalUpdatePacketClass::PlanetPositionalUpdatePacketClass(RawPacketCl
 	raw->Get(&TiltAngle, sizeof(TiltAngle));
 }
 
-RawPacketClass *PlanetPositionalUpdatePacketClass::Build()
+PacketClass *PlanetPositionalUpdatePacketClass::Encode()
 {
-	RawPacketClass *raw = new RawPacketClass(Get_Type(), Get_Data_Size());
+	PacketClass *raw = new PacketClass(Get_Type(), Get_Data_Size());
 	raw->Add(&GameID, sizeof(GameID));
 	raw->Add(&TimeStamp, sizeof(TimeStamp));
 	raw->Add(&Position, sizeof(Position));
@@ -512,7 +512,7 @@ ComponentPositionalUpdatePacketClass::ComponentPositionalUpdatePacketClass(int p
 	Channel = Unknown_14(GameID, 4);
 }
 
-ComponentPositionalUpdatePacketClass::ComponentPositionalUpdatePacketClass(RawPacketClass *raw) :
+ComponentPositionalUpdatePacketClass::ComponentPositionalUpdatePacketClass(PacketClass *raw) :
 	SimplePositionalUpdatePacketClass(raw)
 {
 	raw->Get(&ImpartedDecay, sizeof(ImpartedDecay));
@@ -521,9 +521,9 @@ ComponentPositionalUpdatePacketClass::ComponentPositionalUpdatePacketClass(RawPa
 	raw->Get(&TractorEffectID, sizeof(TractorEffectID));
 }
 
-RawPacketClass *ComponentPositionalUpdatePacketClass::Build()
+PacketClass *ComponentPositionalUpdatePacketClass::Encode()
 {
-	RawPacketClass *raw = SimplePositionalUpdatePacketClass::Build();
+	PacketClass *raw = SimplePositionalUpdatePacketClass::Encode();
 	raw->Add(&ImpartedDecay, sizeof(ImpartedDecay));
 	raw->Add(&TractorSpeed, sizeof(TractorSpeed));
 	raw->Add(&TractorID, sizeof(TractorID));
@@ -562,7 +562,7 @@ FormationPositionalUpdatePacketClass::FormationPositionalUpdatePacketClass(int g
 	Channel = Unknown_14(GameID, -1);
 }
 
-FormationPositionalUpdatePacketClass::FormationPositionalUpdatePacketClass(RawPacketClass *raw) :
+FormationPositionalUpdatePacketClass::FormationPositionalUpdatePacketClass(PacketClass *raw) :
 	GameID(0),
 	LeaderID(0),
 	Offset(0.0f, 0.0f, 0.0f)
@@ -572,9 +572,9 @@ FormationPositionalUpdatePacketClass::FormationPositionalUpdatePacketClass(RawPa
 	raw->Get(&Offset, sizeof(Offset));
 }
 
-RawPacketClass *FormationPositionalUpdatePacketClass::Build()
+PacketClass *FormationPositionalUpdatePacketClass::Encode()
 {
-	RawPacketClass *raw = new RawPacketClass(65, Get_Data_Size());
+	PacketClass *raw = new PacketClass(65, Get_Data_Size());
 	raw->Add(&GameID, sizeof(GameID));
 	raw->Add(&LeaderID, sizeof(LeaderID));
 	raw->Add(&Offset, sizeof(Offset));

@@ -33,9 +33,9 @@ class AABoxClass;
 struct KernelEventClass;  // kernel.h's input event (0x10 bytes): what slots +0x2C / +0x34 get
 
 // The gadgets slots +0x08 to +0x14 answer with (each its own class's 'are you a ...')
-class RObjGadgetClass;
+class RenderObjGadgetClass;
 class RObjProxyGadgetClass;
-class SlotDataGadgetClass;
+class SlotDataGadget;
 class UIScutProxyGadgetClass;
 
 // Slot +0x64 fills an AABoxClass (0x18 bytes; ret 4 and nothing in eax: an out-parameter): zero in the base,
@@ -61,11 +61,11 @@ class GadgetClass  // NAME 5: the client's RTTI .?AVGadgetClass@@
 {
 public:
 	GadgetClass(unsigned int mask);										// 0x65ED50 (+0x10; the id from the counter 0xB8C9E0)  // NAME 1 [mask]: slot +0x34 masks its argument with it
-	protected: virtual ~GadgetClass(); public:												// +0x00 0x65EE60 (G_ASSERT 'Destroyed'; deleting 0x65EDD0)
+	protected: virtual ~GadgetClass(); public:												// +0x00 0x65EE60 (G_ASSERT 'Destroyed'; deleting 0x65EDD0)  // NAME 5: thunk order probable, binary.md 5.11
 	virtual void Unknown_04();											// +0x04 0x65EF90 (empty; Destroy calls it before the delete)
-	virtual RObjGadgetClass *As_RObjGadget() { return(NULL); }		// +0x08 0x50A8C0 (the first of five 'are you a ...' slots, +0x08 to +0x1C: NULL here, the gadget itself in the class that is one; this one gd_robj.h's RObjGadgetClass, 0x51AD20)  // NAME 2: what it answers (D239: named after the client's FAIL_IF '!gadget->As_SlotDataShortcutGadget()' of the same family)
+	virtual RenderObjGadgetClass *As_RObjGadget() { return(NULL); }		// +0x08 0x50A8C0 (the first of five 'are you a ...' slots, +0x08 to +0x1C: NULL here, the gadget itself in the class that is one; this one gd_robj.h's RenderObjGadgetClass, 0x51AD20)  // NAME 2: what it answers (D239: named after the client's FAIL_IF '!gadget->As_SlotDataShortcutGadget()' of the same family)
 	virtual RObjProxyGadgetClass *As_RObjProxyGadget() { return(NULL); }								// +0x0C 0x50A8E0 (gd_proxy.h's RObjProxyGadgetClass answers this one: 0x66B510)  // NAME 2: what it answers (D239: named after the client's FAIL_IF '!gadget->As_SlotDataShortcutGadget()' of the same family)
-	virtual SlotDataGadgetClass *As_SlotDataGadget() { return(NULL); }								// +0x10 0x50A900 (gd_slot_data.h's SlotDataGadgetClass answers this one: 0x670740)  // NAME 2: what it answers (D239: named after the client's FAIL_IF '!gadget->As_SlotDataShortcutGadget()' of the same family)
+	virtual SlotDataGadget *As_SlotDataGadget() { return(NULL); }								// +0x10 0x50A900 (gd_slot_data.h's SlotDataGadget answers this one: 0x670740)  // NAME 2: what it answers (D239: named after the client's FAIL_IF '!gadget->As_SlotDataShortcutGadget()' of the same family)
 	virtual UIScutProxyGadgetClass *As_UIScutProxyGadget() { return(NULL); }								// +0x14 0x50A920 (the shortcut bar's proxy button, gd_scut_proxy.h's UIScutProxyGadgetClass, answers this one: 0x66CA10, ui_scut.cpp's 0x610F30)  // NAME 2: what it answers (D239: named after the client's FAIL_IF '!gadget->As_SlotDataShortcutGadget()' of the same family)
 	virtual GadgetClass *Unknown_18() { return(NULL); }								// +0x18 0x50A940 (the rectangle gadget of constructor 0x6B56A0, table 0xAFE0C4, answers this one: 0x6B57B0)
 	virtual GadgetClass *Unknown_1C() { return(NULL); }								// +0x1C 0x50A960 (the rectangle gadget of constructor 0x6B6050, table 0xAFE174, answers this one: 0x6B60A0)
@@ -85,7 +85,7 @@ public:
 	virtual void Unknown_54(GadgetListManagerClass *manager, InterfaceClass *iface);	// +0x54 0x6600F0 (FAIL_IF '!manager': onto the manager, 0x661700; 'InList')  // NAME 2 [manager]: the FAIL_IF's; NAME 1 [iface]: what intrface.cpp passes (its +0x78)
 	virtual void Unknown_58(GadgetListManagerClass *manager);			// +0x58 0x660140 (FAIL_IF '!manager': off the manager, 0x6617E0)  // NAME 2 [manager]: the FAIL_IF's
 	virtual int Get_Id() { return(Id); }								// +0x5C 0x50AAA0  // NAME 1: neutral (D10): the member it returns
-	virtual bool Is_Enabled() const { return(Unknown2C_05); }					// +0x60 0x50AAC0 (bit 5 of +0x2C: slot +0x40's)  // NAME 3: gd_key_press.cpp's FAIL_IF 'Is_Enabled()' l.135, where it calls this slot
+	virtual bool Is_Enabled() const { return(Unknown2C_05); }					// +0x60 0x50AAC0 (bit 5 of +0x2C: slot +0x40's)  // NAME 3: gd_key_press.cpp's FAIL_IF 'Is_Enabled()' l.135, where it calls this slot  // NAME 5: thunk order probable, binary.md 5.11
 	virtual void Unknown_64(AABoxClass &box);							// +0x64 0x6602F0 (zero)  // NAME 1 [box]: what it fills
 	virtual bool Unknown_68();											// +0x68 0x6601E0 (G_ASSERT '*sticky == NULL': held by the last event's buttons)
 	virtual void Unknown_6C();											// +0x6C 0x660250 (G_ASSERT '*sticky == this': released)

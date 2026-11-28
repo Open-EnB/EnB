@@ -14,7 +14,7 @@ void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);	// 0x496AE
 static const char *Unknown_B7D938[] = { "tsi05f", "tsi05d", "tsi05e" };	// 0xB7D938 (the kinds' models: slot +0x98's names, the animations '<model>.<model>-1' / '-2')  // NAME 1: neutral (D10)
 
 // 0x571F00
-UIChatWindowSplitClass::UIChatWindowSplitClass(SClient *client, Unknown67D430Class *history, ChatGadgetClass *edit, int kind) :
+ChatWindowSplitInterface::ChatWindowSplitInterface(SpaceClientClass *client, Unknown67D430Class *history, ChatGadgetClass *edit, int kind) :
 	ChatWindowInterface(client, history, edit),
 	UnknownE8(kind),
 	UnknownEC(NULL),
@@ -77,11 +77,11 @@ UIChatWindowSplitClass::UIChatWindowSplitClass(SClient *client, Unknown67D430Cla
 
 
 // 0x572040  // NOT EXACT: register-only (W2, 0.76): the second Remove_Anim_Combo_Data argument is loaded before the first call (esi); the client loads it into ecx after it
-UIChatWindowSplitClass::~UIChatWindowSplitClass()
+ChatWindowSplitInterface::~ChatWindowSplitInterface()
 {
 	std::string name; name = Unknown11C;
 	name += "Size";
-	IntOptionStruct *option = OptionClass::Instance->Find_Int(name.c_str());
+	IntOptionStruct *option = OptionManagerClass::Instance->Find_Int(name.c_str());
 	if (option) {
 		option->Value = UnknownF0.Unknown08;
 	} else {
@@ -90,7 +90,7 @@ UIChatWindowSplitClass::~UIChatWindowSplitClass()
 
 	name = Unknown11C;
 	name += "Split";
-	option = OptionClass::Instance->Find_Int(name.c_str());
+	option = OptionManagerClass::Instance->Find_Int(name.c_str());
 	if (option) {
 		option->Value = Unknown104.Unknown08;
 	} else {
@@ -112,7 +112,7 @@ UIChatWindowSplitClass::~UIChatWindowSplitClass()
 
 
 // 0x5723B0
-void UIChatWindowSplitClass::Unknown_54()
+void ChatWindowSplitInterface::Unknown_54()
 {
 	if (!Unknown_98(Unknown_B7D938[UnknownE8], NULL)) return;
 	ChatWindowInterface::Unknown_54();
@@ -139,7 +139,7 @@ void UIChatWindowSplitClass::Unknown_54()
 	RefCountPtr<RenderObjClass> robj;
 	robj = Create_Get(InterfaceMesh->Get_Sub_Object_By_Name("GIZMO_HORIZ01"));
 	Unknown_496AE0(robj.Peek(), 0);
-	UnknownF0.Unknown04 = new ResizeGadgetClass(robj);
+	UnknownF0.Unknown04 = new ResizeGadget(robj);
 	GadgetClass::Set_Tooltip(UnknownF0.Unknown04, "UI_CHAT_WINDOW_SPLIT", "Resize");
 	Unknown64.Unknown_6870E0(UnknownF0.Unknown04, 0x65, View, 1, 1);
 
@@ -149,7 +149,7 @@ void UIChatWindowSplitClass::Unknown_54()
 	} else {
 		robj = NULL;
 	}
-	Unknown104.Unknown04 = new ResizeGadgetClass(robj);
+	Unknown104.Unknown04 = new ResizeGadget(robj);
 	GadgetClass::Set_Tooltip(Unknown104.Unknown04, "UI_CHAT_WINDOW_SPLIT", Unknown11C);
 	Unknown64.Unknown_6870E0(Unknown104.Unknown04, 0x66, View, 1, 1);
 
@@ -180,29 +180,29 @@ void UIChatWindowSplitClass::Unknown_54()
 	std::string option;
 	option = Unknown11C;
 	option += "Size";
-	int size = OptionClass::Instance->Get_Int(option.c_str());
+	int size = OptionManagerClass::Instance->Get_Int(option.c_str());
 	option = Unknown11C;
 	option += "Split";
-	Unknown_5732A0(size, OptionClass::Instance->Get_Int(option.c_str()));
+	Unknown_5732A0(size, OptionManagerClass::Instance->Get_Int(option.c_str()));
 	int kind = (UnknownE8 != 0) + 1; Unknown_A0(kind);	// a named local: the closing RefCountPtr Release_Ref then loads the vtable into eax as the client
 }
 
 
 
 // 0x572DE0
-void UIChatWindowSplitClass::Unknown_58()
+void ChatWindowSplitInterface::Unknown_58()
 {
 	ChatWindowInterface::Unknown_58();
 }
 
 // 0x572E00
-void UIChatWindowSplitClass::Unknown_5C()
+void ChatWindowSplitInterface::Unknown_5C()
 {
 	ChatWindowInterface::Unknown_5C();
 }
 
 // 0x572E20
-void UIChatWindowSplitClass::Unknown_60()
+void ChatWindowSplitInterface::Unknown_60()
 {
 	if (UnknownF0.Unknown04->Unknown88) {
 		Unknown_5732A0((int)UnknownF0.Unknown04->Unknown68.Y, Unknown104.Unknown08);
@@ -223,7 +223,7 @@ void UIChatWindowSplitClass::Unknown_60()
 }
 
 // 0x572EE0
-bool UIChatWindowSplitClass::Unknown_68(int key)
+bool ChatWindowSplitInterface::Unknown_68(int key)
 {
 	unsigned int mask = Unknown_BE5F34;
 	switch (key) {
@@ -231,7 +231,7 @@ bool UIChatWindowSplitClass::Unknown_68(int key)
 			if (mask & 0x10) {
 				std::string name; name = Unknown11C;
 				name += "Size";
-				int def = OptionClass::Instance->Get_Default_Int(name.c_str());
+				int def = OptionManagerClass::Instance->Get_Default_Int(name.c_str());
 				if (UnknownF0.Unknown08 == def) {
 					Unknown_5732A0(UnknownF0.Unknown0C, Unknown104.Unknown08);
 				} else {
@@ -244,7 +244,7 @@ bool UIChatWindowSplitClass::Unknown_68(int key)
 			if (mask & 0x10) {
 				std::string name; name.size(); name = Unknown11C;
 				name += "Split";
-				int def = OptionClass::Instance->Get_Default_Int(name.c_str());
+				int def = OptionManagerClass::Instance->Get_Default_Int(name.c_str());
 				if (Unknown104.Unknown08 == def) {
 					Unknown_5732A0(UnknownF0.Unknown08, Unknown104.Unknown0C);
 				} else {
@@ -260,7 +260,7 @@ bool UIChatWindowSplitClass::Unknown_68(int key)
 }
 
 // 0x573220
-void UIChatWindowSplitClass::Unknown_A8()
+void ChatWindowSplitInterface::Unknown_A8()
 {
 	ChatWindowInterface::Unknown_A8();
 	if (UnknownE4) {
@@ -326,7 +326,7 @@ void UIChatWindowSplitClass::Unknown_A8()
 
 
 // 0x5732A0
-void UIChatWindowSplitClass::Unknown_5732A0(unsigned int size, unsigned int split)
+void ChatWindowSplitInterface::Unknown_5732A0(unsigned int size, unsigned int split)
 {
 	FAIL_IF(!UnknownEC) return;
 	if (size >= UnknownF0.Unknown10) size = UnknownF0.Unknown10;

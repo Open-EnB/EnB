@@ -21,7 +21,7 @@ static inline bool Is_Request_Pending(ChatPanelInterface *chat) { return(chat->U
 static const char *Unknown_B85774[4] = { "EXIT", "BUTTON01", "BUTTON02", "BUTTON03" };	// NAME 1: neutral (D10)
 
 // 0x5E9410
-UIRadioMainClass::UIRadioMainClass(SClient *client, int state, std::string channel) :
+UIRadioMainClass::UIRadioMainClass(SpaceClientClass *client, int state, std::string channel) :
 	ChatPanelUIBase(client),
 	State(state),
 	Channel(channel)
@@ -58,7 +58,7 @@ void UIRadioMainClass::Unknown_58()
 		ChatPanelUIBase::Unknown_58();
 		Unknown_5EA260(true);
 		if (Buttons[0]) {
-			((RObjGadgetClass *)Buttons[0])->Unknown_66C360();
+			((RenderObjGadgetClass *)Buttons[0])->Unknown_66C360();
 		}
 	}
 }
@@ -77,14 +77,14 @@ bool UIRadioMainClass::Unknown_68(int key)
 {
 	switch (key) {
 		case 1:
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			Unknown_5C();
 			Closed = 1;
 			return(true);
 		case 2:
 		case 3:
 		case 4:
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			Unknown_5E9910(key);
 			return(true);
 	}
@@ -94,7 +94,7 @@ bool UIRadioMainClass::Unknown_68(int key)
 // 0x5E9910
 void UIRadioMainClass::Unknown_5E9910(int key)
 {
-	SClient *sclient = (SClient *)((ClientClass *)Client)->As_Space_Client();	// NAME 1: neutral (D10)
+	SpaceClientClass *sclient = (SpaceClientClass *)((ClientClass *)Client)->As_Space_Client();	// NAME 1: neutral (D10)
 	ChatPanelInterface *chat = sclient->ChatPanel.Peek();	// NAME 1: neutral (D10)
 	switch (State) {
 		case 0:
@@ -226,11 +226,11 @@ void UIRadioMainClass::Unknown_5EA260(bool on)
 		}
 	}
 	if (State == 1 || State == 3 || Channel == "") {
-		((RObjGadgetClass *)Buttons[2])->Unknown_8C(true);
+		((RenderObjGadgetClass *)Buttons[2])->Unknown_8C(true);
 		Buttons[2]->Unknown_40(false);
 	}
 	if (State == 2) {
-		((RObjGadgetClass *)Buttons[3])->Unknown_8C(true);
+		((RenderObjGadgetClass *)Buttons[3])->Unknown_8C(true);
 		Buttons[3]->Unknown_40(false);
 	}
 }
@@ -238,10 +238,10 @@ void UIRadioMainClass::Unknown_5EA260(bool on)
 // 0x5EA370
 void UIRadioMainClass::Unknown_5EA370()
 {
-	SClient *sclient = (SClient *)((ClientClass *)Client)->As_Space_Client();	// NAME 1: neutral (D10)
+	SpaceClientClass *sclient = (SpaceClientClass *)((ClientClass *)Client)->As_Space_Client();	// NAME 1: neutral (D10)
 	ChatPanelInterface *chat = sclient->ChatPanel.Peek();	// NAME 1: neutral (D10)
 	if (Is_Request_Pending(chat)) {
-		((SClient *)((ClientClass *)Client)->As_Space_Client())->Unknown_74D990(0x13, "Another request is pending. Cannot create a new channel.", 0);
+		((SpaceClientClass *)((ClientClass *)Client)->As_Space_Client())->Unknown_74D990(0x13, "Another request is pending. Cannot create a new channel.", 0);
 		return;
 	}
 	int id = ((ClientClass *)Client)->Unknown1138;	// NAME 1: neutral (D10)
@@ -255,7 +255,7 @@ void UIRadioMainClass::Unknown_5EA370()
 // 0x5EA550
 void UIRadioMainClass::Unknown_5EA550()
 {
-	SClient *sclient = (SClient *)((ClientClass *)Client)->As_Space_Client();	// NAME 1: neutral (D10)
+	SpaceClientClass *sclient = (SpaceClientClass *)((ClientClass *)Client)->As_Space_Client();	// NAME 1: neutral (D10)
 	ChatPanelInterface *chat = sclient->ChatPanel.Peek();	// NAME 1: neutral (D10)
 	int id = ((ClientClass *)Client)->Unknown1138;	// NAME 1: neutral (D10)
 	ClientChatRequestPacketClass packet(0x15, id);
@@ -267,10 +267,10 @@ void UIRadioMainClass::Unknown_5EA550()
 // 0x5EA7F0
 void UIRadioMainClass::Unknown_5EA7F0()
 {
-	SClient *sclient = (SClient *)((ClientClass *)Client)->As_Space_Client();	// NAME 1: neutral (D10)
+	SpaceClientClass *sclient = (SpaceClientClass *)((ClientClass *)Client)->As_Space_Client();	// NAME 1: neutral (D10)
 	ChatPanelInterface *chat = sclient->ChatPanel.Peek();	// NAME 1: neutral (D10)
 	if (Is_Request_Pending(chat)) {
-		((SClient *)((ClientClass *)Client)->As_Space_Client())->Unknown_74D990(0x13, "Another request is pending. Cannot leave the channel.", 0);
+		((SpaceClientClass *)((ClientClass *)Client)->As_Space_Client())->Unknown_74D990(0x13, "Another request is pending. Cannot leave the channel.", 0);
 		return;
 	}
 	if (chat->Unknown_5682C0() != "") {

@@ -30,12 +30,12 @@ struct SubPartStruct  // NAME 2: what it holds (the assert's 'SubParts')
 };
 
 // opcode 180 (0x00B4, SUBPARTS): vtable 0xB09BE4, constructor 0x8756B0, 0x24 bytes
-class SubPartsPacket : public PacketClass
+class SubPartsPacket : public UnknownPacketBaseClass
 {
 public:
 	SubPartsPacket(int game_id);	// 0x8754D0
-	SubPartsPacket(RawPacketClass *raw);	// 0x8756B0
-	virtual RawPacketClass *Build();	// +0x04 0x875B70
+	SubPartsPacket(PacketClass *raw);	// 0x8756B0
+	virtual PacketClass *Encode();	// +0x04 0x875B70  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x733A50 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x875CA0
 	virtual int Print(char *buffer, int len);	// +0x10 0x875CF0
@@ -46,7 +46,7 @@ public:
 	const SubPartStruct &Get(unsigned int index);	// 0x875A80 (an empty one out of range)  // NAME 2: what it returns
 
 	int GameID;	// +0x0C (network order)  // NAME 3: the client's Print text 'GameID='
-	int Channel;	// +0x10 (PacketClass::Unknown_14 of the game id; -1 when received)  // NAME 2: Get_Channel returns it
+	int Channel;	// +0x10 (UnknownPacketBaseClass::Unknown_14 of the game id; -1 when received)  // NAME 2: Get_Channel returns it
 	std::vector<SubPartStruct> SubParts;	// +0x14  // NAME 5: the client's assert 'index >= SubParts.size()'
 };
 

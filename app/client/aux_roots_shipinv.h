@@ -16,12 +16,12 @@
 
 // vtable 0xB00C7C (e.g. Ship.Inventory)
 // NAME 4: Net-7 AuxShipInv confirmed by structure (C# fields = ours (same names, same order); Net-7 Construct 11 children = ours); C# ShipInventory
-class DeltaShipInvClass : public DeltaCompoundClass
+class DeltaShipInvClass : public DeltaContainer
 {
 public:
 #if defined(AUX_ROOTS_ALL) || defined(AUX_CTORS_SHIPINV)
 	DeltaShipInvClass(const char *name) :
-		DeltaCompoundClass(name),
+		DeltaContainer(name),
 		CargoSpace("CargoSpace"),
 		EquipMountModel("EquipMountModel", ""),
 		Mounts("Mounts", 20),
@@ -51,9 +51,9 @@ public:
 #endif
 
 	DeltaTemplateClass<int> CargoSpace;	// +0x9C
-	DeltaStringClass EquipMountModel;	// +0x124
+	DeltaString EquipMountModel;	// +0x124
 	DeltaArrayClass<InvSlotStruct> Mounts;	// +0x1AC
-	DeltaItemArrayClass<DeltaStringClass> MountBoneNames;	// +0x248
+	DeltaItemArrayClass<DeltaString> MountBoneNames;	// +0x248
 	DeltaTemplateClass<int> FutureWeapons;	// +0x2E4
 	DeltaTemplateClass<int> FutureDevices;	// +0x36C
 	DeltaItemArrayClass<DeltaItemClass> Cargo;	// +0x3F4

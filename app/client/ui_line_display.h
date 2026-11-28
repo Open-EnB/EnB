@@ -73,11 +73,11 @@ struct LineDisplayLineStruct  // NAME 2: what it holds
 
 // the UI kit's base classes: intrface.h
 
-class UILineDisplayClass : public InterfaceClass  // NAME 3: by convention (D24) from the client's ui_line_display.cpp (table 0xAF2930)
+class LineDisplayInterface : public InterfaceClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
-	UILineDisplayClass(LineDisplayClientClass *client);										// 0x5A5410
-	virtual ~UILineDisplayClass();															// 0x5A58A0
+	LineDisplayInterface(LineDisplayClientClass *client);										// 0x5A5410
+	virtual ~LineDisplayInterface();															// 0x5A58A0
 	virtual void Unknown_54();																// 0x5A5DA0: loads ephemeral.ini and fc_line_display.ini  // NAME 1: neutral (D10)
 	virtual void Unknown_58();																// 0x5A6500
 	virtual void Unknown_5C();																// 0x5A6520

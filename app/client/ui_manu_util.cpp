@@ -1,7 +1,7 @@
 // Earth & Beyond client (reconstruction): app\Client\ui_manu_util.cpp. Notes at the end of the file.
 #include <stdio.h>
 #include "ui_manu.h"
-#include "unknown_675120.h"	// ButtonGadgetClass (over gd_robj.h's RObjGadgetClass: the model at +0x30, slot +0x8C)
+#include "gd_uimesh.h"	// ButtonGadgetClass (over gd_robj.h's RObjGadgetClass: the model at +0x30, slot +0x8C)
 #include "rendobj.h"
 #include "assetmgr.h"
 #include "texture.h"
@@ -191,7 +191,7 @@ void UIManuUnknownC0Class::Unknown_5B7880()
 **	Reconstruction notes (RECONSTRUCTED, 2026-11-13, O12).
 **
 **	The client's ui_manu_util.cpp per the asserts' __FILE__ (lines 107, 113, 114 in 0x5B7570). Its object,
-**	0x5B7370-0x5B7A8A: it opens with permstr.h's PermStringInitClass static (0x5B7370, 0xBE5C48) after ui_manu.cpp's
+**	0x5B7370-0x5B7A8A: it opens with permstr.h's PermStringInit static (0x5B7370, 0xBE5C48) after ui_manu.cpp's
 **	object (whose guarded <string> ids initialiser is 0x5B71A0, followed by its COMDATs 0x5B7210-0x5B7360), then
 **	UIManuUnknownC0Class's six functions 0x5B73C0-0x5B7880, then the header ids initialisers 0x5B79C0 / 0x5B7A40
 **	(the guarded std::ctype<unsigned short>::id one, 0xC416FC). mu01's object follows at 0x5B7AB0.

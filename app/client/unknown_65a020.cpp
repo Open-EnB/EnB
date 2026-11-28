@@ -4,7 +4,7 @@
 #include "sbaseview.h"
 #include "gadget.h"
 #include "gd_uiback.h"
-#include "unknown_675120.h"
+#include "gd_uimesh.h"
 #include "rendobj.h"
 #include "control_keys_manager.h"
 #include "tasks\tsk_login.h"
@@ -20,7 +20,7 @@ class LineDisplayClientClass  // NAME 1: neutral (D10)
 public:
 	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
 	virtual void Unknown_10(); virtual void Unknown_14();
-	virtual SClient *As_Space_Client();					// +0x18 (ClientClass::As_Space_Client; SClient's returns itself)  // NAME 3: ui_manu.cpp's FAIL_IF's
+	virtual SpaceClientClass *As_Space_Client();					// +0x18 (ClientClass::As_Space_Client; SpaceClientClass's returns itself)  // NAME 3: ui_manu.cpp's FAIL_IF's
 };
 
 void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);	// 0x496AE0 (ro_funcs.cpp, cdecl)  // NAME 1 [robj, make_geometry_unique]: as ui_manu.cpp's
@@ -29,7 +29,7 @@ void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);	// 0x496AE
 static const char *Unknown_B8C58C[] = { "exit", "exit_button" };	// NAME 1: neutral (D10)
 
 // @0x65A020
-Unknown65A020Class::Unknown65A020Class(SClient *client) :
+Unknown65A020Class::Unknown65A020Class(SpaceClientClass *client) :
 	Unknown5BB320Class(new UIMeshClass("JWEB00", true), client),
 	Unknown0B4(0)
 {
@@ -96,8 +96,8 @@ void Unknown65A020Class::Unknown_60()
 bool Unknown65A020Class::Unknown_68(int key)
 {
 	if (key > 0 && key <= 2) {
-		SoundLibraryClass::Play_2D_Sound("INTERFACE_MenuSlide01C.wav", 2);
-		((SBaseViewClass *)View->Unknown_30())->Unknown_69F440();
+		SoundLibrary::Play_2D_Sound("INTERFACE_MenuSlide01C.wav", 2);
+		((StarbaseViewClass *)View->Unknown_30())->Unknown_69F440();
 		return(true);
 	}
 	return(false);
@@ -106,7 +106,7 @@ bool Unknown65A020Class::Unknown_68(int key)
 /*
 **	Reconstruction notes (client 0x65A020-0x65A6C0; PROVISIONAL file, D137).
 **
-**	* The object: UIVerbClass's destructor 0x65A010 ends ui_verb.cpp's; this one's functions 0x65A020-0x65A657, the
+**	* The object: VerbInterface's destructor 0x65A010 ends ui_verb.cpp's; this one's functions 0x65A020-0x65A657, the
 **	  guarded std::ctype<unsigned short>::id initialiser 0x65A670 (the end of an object including <string>), then the
 **	  adjustors 0x65A6A0 / 0x65A6B0 of the tables 0xAF96A4 / 0xAF9698; uiview.cpp's UIViewClass constructor
 **	  follows at 0x65A6C0. Its data: the button names 0xB8C58C, 'FA_JWEB00.INI' 0xB8C598, 'JWEB00' 0xB8C5A8,

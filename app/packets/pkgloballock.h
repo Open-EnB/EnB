@@ -20,28 +20,28 @@
 
 // the base of GlobalLockRequestPacketClass, GlobalLockResponsePacketClass, GlobalLockReleasePacketClass:
 // vtable 0xB094F4, constructors 0x8653F0 / 0x865470 (inlined in the derived ones)
-class GlobalLockPacketClass : public PacketClass  // NAME 3: by convention from its derived classes' Print texts 'GlobalLock...'
+class GlobalLockBasePacketClass : public UnknownPacketBaseClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
-	GlobalLockPacketClass(__int64 a, int b);	// 0x8653F0
-	GlobalLockPacketClass(RawPacketClass *raw);	// 0x865470
-	virtual RawPacketClass *Build() = 0;	// +0x04 _purecall
+	GlobalLockBasePacketClass(__int64 a, int b);	// 0x8653F0
+	GlobalLockBasePacketClass(PacketClass *raw);	// 0x865470
+	virtual PacketClass *Encode() = 0;	// +0x04 _purecall  // NAME 3: override of the NAME 5 virtual Encode
 	virtual bool Process_Packet(void *client) = 0;	// +0x08 _purecall
 	virtual int Get_Data_Size();	// +0x0C 0x865570
 	virtual int Print(char *buffer, int len) = 0;	// +0x10 _purecall
-	virtual void Unknown_28(RawPacketClass *raw);	// +0x28 0x865530: Adds the base's members  // NAME 1: neutral (D10)
+	virtual void Unknown_28(PacketClass *raw);	// +0x28 0x865530: Adds the base's members  // NAME 1: neutral (D10)
 
 	__int64 Unknown10;	// +0x10
 	int Unknown18;	// +0x18
 };
 
 // opcode 227 (0x00E3, ?): vtable 0xB09528, constructor 0x865630, 0x28 bytes
-class GlobalLockRequestPacketClass : public GlobalLockPacketClass  // NAME 3: the client's Print text 'GlobalLockRequest'
+class GlobalLockRequestPacketClass : public GlobalLockBasePacketClass  // NAME 3: the client's Print text 'GlobalLockRequest'
 {
 public:
 	GlobalLockRequestPacketClass(__int64 a, int b, int x);	// 0x865590
-	GlobalLockRequestPacketClass(RawPacketClass *raw);	// 0x865630
-	virtual RawPacketClass *Build();	// +0x04 0x865710
+	GlobalLockRequestPacketClass(PacketClass *raw);	// 0x865630
+	virtual PacketClass *Encode();	// +0x04 0x865710  // NAME 5: thunk order probable, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x8694E0 (clientstub.cpp l.434)
 	virtual int Get_Data_Size();	// +0x0C 0x8657E0
 	virtual int Print(char *buffer, int len);	// +0x10 0x865800
@@ -50,12 +50,12 @@ public:
 };
 
 // opcode 228 (0x00E4, ?): vtable 0xB0955C, constructor 0x8658D0, 0x28 bytes
-class GlobalLockResponsePacketClass : public GlobalLockPacketClass  // NAME 3: the client's Print text 'GlobalLockResponse'
+class GlobalLockResponsePacketClass : public GlobalLockBasePacketClass  // NAME 3: the client's Print text 'GlobalLockResponse'
 {
 public:
 	GlobalLockResponsePacketClass(int x, __int64 a, int b);	// 0x865830
-	GlobalLockResponsePacketClass(RawPacketClass *raw);	// 0x8658D0
-	virtual RawPacketClass *Build();	// +0x04 0x8659B0
+	GlobalLockResponsePacketClass(PacketClass *raw);	// 0x8658D0
+	virtual PacketClass *Encode();	// +0x04 0x8659B0  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x869510 (clientstub.cpp l.437)
 	virtual int Get_Data_Size();	// +0x0C 0x865A80
 	virtual int Print(char *buffer, int len);	// +0x10 0x865AA0
@@ -64,12 +64,12 @@ public:
 };
 
 // opcode 229 (0x00E5, ?): vtable 0xB09590, constructor 0x865B50, 0x20 bytes
-class GlobalLockReleasePacketClass : public GlobalLockPacketClass  // NAME 3: the client's Print text 'GlobalLockRelease'
+class GlobalLockReleasePacketClass : public GlobalLockBasePacketClass  // NAME 3: the client's Print text 'GlobalLockRelease'
 {
 public:
 	GlobalLockReleasePacketClass(__int64 a);	// 0x865AD0
-	GlobalLockReleasePacketClass(RawPacketClass *raw);	// 0x865B50
-	virtual RawPacketClass *Build();	// +0x04 0x865C10
+	GlobalLockReleasePacketClass(PacketClass *raw);	// 0x865B50
+	virtual PacketClass *Encode();	// +0x04 0x865C10  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x869540 (clientstub.cpp l.440)
 	virtual int Get_Data_Size();	// +0x0C 0x865CE0
 	virtual int Print(char *buffer, int len);	// +0x10 0x865D00

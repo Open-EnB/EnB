@@ -23,7 +23,7 @@ void Unknown_42ECF0(float *x, float *y);	// 0x42ECF0 (the pointer's position)  /
 static const char *Unknown_B85344[7] = { "EXIT", "BUTTON01", "BUTTON02", "BUTTON03", "BUTTON04", "BUTTON05", "BUTTON06" };	// NAME 1: neutral (D10)
 
 // 0x5E4160
-UIRadioAdminClass::UIRadioAdminClass(SClient *client) :
+UIRadioAdminClass::UIRadioAdminClass(SpaceClientClass *client) :
 	ChatPanelUIBase(client),
 	Slider(NULL),
 	Top(0),
@@ -83,7 +83,7 @@ void UIRadioAdminClass::Unknown_58()
 		Unknown_5E5B10();
 		Unknown_5E5A40(true);
 		if (Buttons[0]) {
-			((RObjGadgetClass *)Buttons[0])->Unknown_66C360();
+			((RenderObjGadgetClass *)Buttons[0])->Unknown_66C360();
 		}
 	}
 }
@@ -112,7 +112,7 @@ bool UIRadioAdminClass::Unknown_68(int key)
 	switch (key) {
 		case 1:
 		case 7:
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			Unknown_5C();
 			Closed = 1;
 			return(true);
@@ -121,7 +121,7 @@ bool UIRadioAdminClass::Unknown_68(int key)
 		case 4:
 		case 5:
 		case 6:
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			Unknown_5E5360(key);
 			return(true);
 		case 9:
@@ -131,7 +131,7 @@ bool UIRadioAdminClass::Unknown_68(int key)
 		case 13:
 		case 14:
 		case 15:
-			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+			SoundLibrary::Play_2D_Sound("fontclick.wav", 2);
 			Unknown_5E5290(key - 9);
 			return(true);
 	}
@@ -230,7 +230,7 @@ void UIRadioAdminClass::Unknown_5E5290(int index)
 {
 	Selection = index + Top;
 	if (Selection >= 0 && Selection < (int)Names.size()) {
-		SClient *sclient = (SClient *)((ClientClass *)Client)->As_Space_Client();	// NAME 1: neutral (D10)
+		SpaceClientClass *sclient = (SpaceClientClass *)((ClientClass *)Client)->As_Space_Client();	// NAME 1: neutral (D10)
 		ChatPanelInterface *chat = sclient->ChatPanel.Peek();	// NAME 1: neutral (D10)
 		if (chat && chat->Unknown224) {
 			Buttons[1]->Unknown_40(true);
@@ -249,7 +249,7 @@ void UIRadioAdminClass::Unknown_5E5360(int key)
 	if (Selection < 0 || Selection >= (int)Names.size()) {
 		return;
 	}
-	SClient *sclient = (SClient *)((ClientClass *)Client)->As_Space_Client();	// NAME 1: neutral (D10)
+	SpaceClientClass *sclient = (SpaceClientClass *)((ClientClass *)Client)->As_Space_Client();	// NAME 1: neutral (D10)
 	ChatPanelInterface *chat = sclient->ChatPanel.Peek();	// NAME 1: neutral (D10)
 	switch (key) {
 		case 2:
@@ -326,7 +326,7 @@ void UIRadioAdminClass::Unknown_5E5A40(bool on)
 // 0x5E5B10
 void UIRadioAdminClass::Unknown_5E5B10()
 {
-	SClient *sclient = (SClient *)((ClientClass *)Client)->As_Space_Client();	// NAME 1: neutral (D10)
+	SpaceClientClass *sclient = (SpaceClientClass *)((ClientClass *)Client)->As_Space_Client();	// NAME 1: neutral (D10)
 	ChatPanelInterface *chat = sclient->ChatPanel.Peek();	// NAME 1: neutral (D10)
 	int id = ((ClientClass *)Client)->Unknown1138;	// NAME 1: neutral (D10)
 	ClientChatRequestPacketClass packet(0x1B, id);

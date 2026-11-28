@@ -60,8 +60,8 @@ struct Unknown8155B0Struct	// NAME 1: neutral (D10)
 class SkillAbilityNamesDatabase	// NAME 3: its sibling SkillNamesDatabase, skill_ability_names.cpp's __FILE__
 {
 public:
-	static void Unknown_814430();													// 0x814430 (SClient::Unload_INIs)
-	static void Unknown_814620(const char *ini, const char *ex_ini);		// 0x814620 (SClient's 'cskill_ability_t.ini', 'cskill_ability_ex_t.ini')
+	static void Unknown_814430();													// 0x814430 (SpaceClientClass::Unload_INIs)
+	static void Unknown_814620(const char *ini, const char *ex_ini);		// 0x814620 (SpaceClientClass's 'cskill_ability_t.ini', 'cskill_ability_ex_t.ini')
 	static int Unknown_815230();													// 0x815230 (_AllAbilities' size)
 	static int Unknown_815260(const std::string &name);						// 0x815260 (an ability by name, or -1)
 	static unsigned int Unknown_815300(const std::string &name);			// 0x815300 (a skill by name)

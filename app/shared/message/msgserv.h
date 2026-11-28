@@ -22,14 +22,14 @@
 #include "..\message.h"
 
 // 0x48 bytes; vtable 0xB0C418
-class MsgServer : public TaskClass	// NAME 5: the client's profiler label 'MsgServer::Run'
+class MessageServerClass : public KernelTaskClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
-	MsgServer();									// 0x8B20D0 (WSAStartup 1.1)
-	virtual ~MsgServer();							// 0x8B21B0 (WSACleanup); 0x8B2180 deleting
+	MessageServerClass();									// 0x8B20D0 (WSAStartup 1.1)
+	virtual ~MessageServerClass();							// 0x8B21B0 (WSACleanup); 0x8B2180 deleting
 
 	virtual void Describe(void *table);				// +0x00 0x8B2350 'TaskType' = 'MessageServer'
-	virtual void Run();								// +0x30 0x8B22C0 'MsgServer::Run'
+	virtual void Run();								// +0x30 0x8B22C0 'MessageServerClass::Run'
 	virtual int Get_Interval();						// +0x34 0x8B22A0 200 ms
 	virtual bool Shutdown();						// +0x40 0x8B2280 clears the reporters' server
 	virtual bool Delete_On_Remove() { return true; }	// +0x44 0x8B2160 (emitted after the constructor: inline)

@@ -20,6 +20,6 @@ extern const OpcodeInfo Opcode_Table[];
 extern const int Opcode_Count;
 
 // What the stubs return where a handler branches on it (clienttest.cpp sets them)
-extern bool Stub_Focused;	// TaskClass::Is_Focused (Process_Packets' loading view)
+extern bool Stub_Focused;	// KernelTaskClass::Is_Focused (Process_Packets' loading view)
 
 #endif

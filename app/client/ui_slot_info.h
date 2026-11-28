@@ -35,8 +35,8 @@ public:
 	static UISlotInfoClass *_ActiveInterface;												// 0xBE5E5C (the one shown)  // NAME 3: the asserts'
 };
 
-class SClient;
+class SpaceClientClass;
 class SlotDataClass;
-UISlotInfoClass *Unknown_630280(SClient *client, SlotDataClass *slot_data);			// 0x630280 (G_ASSERT 'false' l.252: an item's examination window or a skill's information window)  // NAME 1 [client, slot_data]: what SlotDataInterface's 0x62DF90 passes
+UISlotInfoClass *Unknown_630280(SpaceClientClass *client, SlotDataClass *slot_data);			// 0x630280 (G_ASSERT 'false' l.252: an item's examination window or a skill's information window)  // NAME 1 [client, slot_data]: what SlotDataInterface's 0x62DF90 passes
 
 #endif

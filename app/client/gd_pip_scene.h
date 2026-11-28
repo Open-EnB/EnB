@@ -27,14 +27,14 @@
 class GadgetPipSceneClass : public GadgetClass  // NAME 3: class-from-file (D24) for app\client\gd_pip_scene.cpp
 {
 public:
-	GadgetPipSceneClass(PipSceneClass *pip);			// 0x66ACE0 (G_ASSERT 'PIPScene' l.50; GadgetClass(0x1077))  // NAME 1 [pip]: what the callers pass
+	GadgetPipSceneClass(PIPSceneClass *pip);			// 0x66ACE0 (G_ASSERT 'PIPScene' l.50; GadgetClass(0x1077))  // NAME 1 [pip]: what the callers pass
 	virtual ~GadgetPipSceneClass();						// +0x00 0x66ADD0 (deleting 0x66ADA0)
 	virtual bool Unknown_30(float x, float y);			// +0x30 0x66AE60 (FAIL_IF '!PIPScene' l.64: the pointer inside the scene's rectangle, Position set)  // NAME 1 [x, y]: GadgetClass's
 
 	static bool Wrap_Pointer();							// 0x66B080 (the pointer at an edge of the window put to the opposite one; no caller)  // NAME 2: what it does
 	void Set_Cursor(int cursor);						// 0x66B170 (FAIL_IF '!PIPScene' l.147, '!PIPScene->Peek_Client()', '!mouse': the software mouse's cursor)  // NAME 2: what it does; NAME 1 [cursor]: tsk_login.h's
 
-	PipSceneClass *PIPScene;							// +0x30 (G_ASSERT 'PIPScene')  // NAME 3: the assert's
+	PIPSceneClass *PIPScene;							// +0x30 (G_ASSERT 'PIPScene')  // NAME 3: the assert's
 	RefCountPtr<RefCountClass> Unknown34;				// +0x34 (released by the destructor; nothing here sets it)
 	Vector2 Position;									// +0x38 (the pointer in the viewport, in its pixels from the top left; 0x53F9E0 hands it to 0x7A72C0 by value)  // NAME 1: what slot +0x30 stores
 	Vector2 WrapPosition;								// +0x40 (Position when the pointer was wrapped)  // NAME 1: what slot +0x30 stores

@@ -60,10 +60,10 @@ ClientClass::ClientClass() :
 {
 	srand(timeGetTime());
 	Unknown1138 = rand();
-	Connection = new PeekConnectionClass(new NullConnectionClass);
+	Connection = new BufferedConnectionClass(new NullConnectionClass);
 	RSLRegistry = new RSLRegistryClass;
 	Px = new PxList;
-	PxProcess = new PxProcessClass;
+	PxProcess = new PxProcessList;
 	Splines = new SplineDatabaseClass(NULL);
 	Splines->Load("splines.wsd");
 	Unknown831340List.Add(new Unknown831340Class(-1, -1, -1, RefCountPtr<ItemInfoClass>(), -1, -1, -1, 0, 0, 1, 0, 0, "Null Item", "", ""), -1), Unknown831340List.Num_Records(), Unknown831340List.Num_Records(), Unknown831340List.Num_Records(), Unknown831340List.Num_Records(), Unknown831340List.Num_Records(); Unknown831340List.Num_Records(); Unknown831340List.Num_Records(); Unknown831340List.Num_Records();
@@ -189,9 +189,9 @@ ClientObjectClass *ClientClass::Find_Object(const char *name)
 }
 
 // 0x7273F0
-EffectObjectClass *ClientClass::Find_Effect(unsigned id)
+EffectClass *ClientClass::Find_Effect(unsigned id)
 {
-	HashNodeClass<EffectObjectClass *> *node = EffectList.Find(id);
+	HashNodeClass<EffectClass *> *node = EffectList.Find(id);
 	if (node) {
 		return(node->Get_Record());
 	}
@@ -237,7 +237,7 @@ ClientObjectClass *ClientClass::Remove_Object(unsigned id)
 }
 
 // 0x727780
-void ClientClass::Add_Effect(EffectObjectClass *effect, int a, int b)
+void ClientClass::Add_Effect(EffectClass *effect, int a, int b)
 {
 	effect->Node.Set_Key(effect->ID);
 	EffectList.Add(&effect->Node);
@@ -246,10 +246,10 @@ void ClientClass::Add_Effect(EffectObjectClass *effect, int a, int b)
 }
 
 // 0x7278F0
-EffectObjectClass *ClientClass::Remove_Effects(unsigned id)
+EffectClass *ClientClass::Remove_Effects(unsigned id)
 {
-	EffectObjectClass *effect = NULL;
-	HashNodeClass<EffectObjectClass *> *node = EffectList.Find(id);
+	EffectClass *effect = NULL;
+	HashNodeClass<EffectClass *> *node = EffectList.Find(id);
 	while (node) {
 		effect = node->Get_Record();
 		EffectList.Remove(node);
@@ -259,10 +259,10 @@ EffectObjectClass *ClientClass::Remove_Effects(unsigned id)
 }
 
 // 0x727AD0
-EffectObjectClass *ClientClass::Get_Effect(unsigned id)
+EffectClass *ClientClass::Get_Effect(unsigned id)
 {
-	EffectObjectClass *effect = NULL;
-	HashNodeClass<EffectObjectClass *> *node = EffectList.Find(id);
+	EffectClass *effect = NULL;
+	HashNodeClass<EffectClass *> *node = EffectList.Find(id);
 	if (node) {
 		effect = node->Get_Record();
 	}
@@ -291,7 +291,7 @@ Unknown86CRecordClass *ClientClass::Remove_Unknown86C(unsigned id)
 // 0x727E10
 void ClientClass::Open_Connection()
 {
-	ConnectionClass *connection = new PeekConnectionClass(new RateConnectionClass(Create_Connection("SectorServer", true)));
+	ConnectionClass *connection = new BufferedConnectionClass(new RateConnectionClass(Create_Connection("SectorServer", true)));
 	delete Connection;
 	Connection = connection;
 }
@@ -299,7 +299,7 @@ void ClientClass::Open_Connection()
 // 0x727F00
 void ClientClass::Open_Connection(unsigned long ip, unsigned short port)
 {
-	ConnectionClass *connection = new PeekConnectionClass(new RateConnectionClass(Create_Connection(ip, port, true, true)));
+	ConnectionClass *connection = new BufferedConnectionClass(new RateConnectionClass(Create_Connection(ip, port, true, true)));
 	delete Connection;
 	Connection = connection;
 }
@@ -339,7 +339,7 @@ bool ClientClass::Get_Stats(float *a, float *b, float *c, float *d, float *e, fl
 }
 
 // 0x728150
-bool ClientClass::Send_Packet(PacketClass *packet)
+bool ClientClass::Send_Packet(UnknownPacketBaseClass *packet)
 {
 	return(Connection->Send_Packet(packet));
 }

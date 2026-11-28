@@ -25,7 +25,7 @@
 #include "galaxy_map_focal_point.h"
 #include "galaxy_map_render.h"
 
-class GalaxyMapClientClass;
+class GalaxyMapClient;
 class SceneClass;
 
 // gd_galaxy_map.cpp's gadget, which slot +0x18 news (the blank lines keep the inline asserts below on their lines, D25)
@@ -41,11 +41,11 @@ class SceneClass;
 
 
 
-class GalaxyMapPipClass : public MapPipClass  // NAME 3: class-from-file (D24) for app\client\galaxy_map_pip.cpp
+class GalaxyMapPIPClass : public MapPIPClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
-	GalaxyMapPipClass(SClient *client);					// 0x53F390  // NAME 1 [client]: neutral
-	virtual ~GalaxyMapPipClass();						// +0x00 0x53F540 (deleting 0x53F510)
+	GalaxyMapPIPClass(SpaceClientClass *client);					// 0x53F390  // NAME 1 [client]: neutral
+	virtual ~GalaxyMapPIPClass();						// +0x00 0x53F540 (deleting 0x53F510)
 	virtual bool Unknown_04(const RefCountPtr<InterfaceClass> &iface_ptr, const RefCountPtr<RenderObjClass> &vp, int arg);	// +0x04 0x53F770
 	virtual bool Unknown_08();							// +0x08 0x53F7E0
 	virtual bool Unknown_0C(bool on);					// +0x0C 0x53F800
@@ -66,9 +66,9 @@ public:
 
 	bool Debug;											// +0x50 (-GALAXY_MAP_DEBUG)  // NAME 2: the command line's
 	GalaxyMapRenderClass *Render;						// +0x54  // NAME 2: what it holds
-	GalaxyMapFocalPointClass FocalPoint;				// +0x58 (the camera's, this frame)  // NAME 2: what it holds
-	GalaxyMapFocalPointClass Target;					// +0x94 (the ease's end)  // NAME 2: what it holds
-	GalaxyMapFocalPointClass Start;						// +0xD0 (the ease's start)  // NAME 2: what it holds
+	GalaxyMapFocalPoint FocalPoint;				// +0x58 (the camera's, this frame)  // NAME 2: what it holds
+	GalaxyMapFocalPoint Target;					// +0x94 (the ease's end)  // NAME 2: what it holds
+	GalaxyMapFocalPoint Start;						// +0xD0 (the ease's start)  // NAME 2: what it holds
 	float Ease;											// +0x10C (0 .. 1 while easing, else -1)  // NAME 2: what it holds
 	float EaseRate;										// +0x110 (0x5406A0: 0.001)  // NAME 2: what it holds
 	RefCountPtr<RenderObjClass> GalaxyBackground;		// +0x114  // NAME 3: the FAIL_IF's

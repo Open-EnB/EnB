@@ -8,7 +8,7 @@
 #include "rendobj.h"
 #include "co.h"
 #include "gadget.h"
-#include "unknown_675120.h"
+#include "gd_uimesh.h"
 #include "local_interface_sort.h"
 #include "fontdatabase.h"
 #include "..\shared\g_assert.h"
@@ -21,7 +21,7 @@
 #include "ui_mfd.h"
 #include "ui_power.h"		// UIPowerClass (+0xC8)
 extern unsigned int Unknown_BE5F34;
-template<class C> inline C *Unknown_Find_Valid(DeltaCompoundClass *root, const NameClass &name) { C *t = Unknown_Find_Field<C>(root, name); return((t != NULL && t->Unknown70 != 0) ? t : NULL); }	// (cameraeffects.cpp's)  // NAME 1: neutral (D10)
+template<class C> inline C *Unknown_Find_Valid(DeltaContainer *root, const AuxDataName &name) { C *t = Unknown_Find_Field<C>(root, name); return((t != NULL && t->Unknown70 != 0) ? t : NULL); }	// (cameraeffects.cpp's)  // NAME 1: neutral (D10)
 #include "distance_calc_client.h"	// 0x7E6060 / 0x7E6130
 #define MFD_RAD_TO_DEG 57.29577791868204	// 0xAF3630  // NAME 2: what it holds
 #include "targeting.h"	// SClient +0x12A4 (the FAIL_IF's '!targeting')
@@ -43,7 +43,7 @@ static const char *UIMFDButtonNames[] = {	// NAME 2: what it holds
 	"na", "SCANNER_CLICK", "INFO00_CLICK", "INFO01_CLICK"
 };
 
-UIMFDClass::UIMFDClass(UIViewClass *view, RenderObjClass *robj, const LayerClass &layer, int flag) :
+MFDInterface::MFDInterface(UIViewClass *view, RenderObjClass *robj, const LayerClass &layer, int flag) :
 	InterfaceClass(view, (int)layer.Scene),
 	Unknown9C(flag),
 	RObj(NULL),
@@ -59,12 +59,12 @@ UIMFDClass::UIMFDClass(UIViewClass *view, RenderObjClass *robj, const LayerClass
 	Unknown_5BF4B0();
 }
 
-void UIMFDClass::Add_Item(UIMFDItemClass *item)
+void MFDInterface::Add_Item(UIMFDItemClass *item)
 {
 	Items.push_back(item);
 }
 
-void UIMFDClass::Set_RObj(RenderObjClass *robj)
+void MFDInterface::Set_RObj(RenderObjClass *robj)
 {
 
 
@@ -188,7 +188,7 @@ void UIMFDClass::Set_RObj(RenderObjClass *robj)
 	}
 }
 
-void UIMFDClass::Unknown_54()
+void MFDInterface::Unknown_54()
 {
 
 	G_ASSERT(RObj);
@@ -228,12 +228,12 @@ void UIMFDClass::Unknown_54()
 		robj->Release_Ref();
 		Unknown64.Unknown_6870E0(gadget, i, View, 1, 0);
 	}
-	UnknownC8 = new UIPowerClass(RObj, &Layer, (UICpitClass *)this, -1);
+	UnknownC8 = new UIPowerClass(RObj, &Layer, (CockpitInterface *)this, -1);
 	Unknown_10();
-	UIMFDClass::Unknown_88((ClientObjectClass *)-1);
+	MFDInterface::Unknown_88((ClientObjectClass *)-1);
 }
 
-UIMFDClass::~UIMFDClass()
+MFDInterface::~MFDInterface()
 {
 	int count = Items.size();
 	for (int i = 0; i < count; i++) {
@@ -252,7 +252,7 @@ UIMFDClass::~UIMFDClass()
 	Unknown_5BF4D0();
 }
 
-void UIMFDClass::Unknown_58()
+void MFDInterface::Unknown_58()
 {
 	InterfaceSortScopeClass sort(this);
 	InterfaceClass::Unknown_58();
@@ -260,24 +260,24 @@ void UIMFDClass::Unknown_58()
 	Unknown_5BCB30();
 }
 
-void UIMFDClass::Unknown_5C()
+void MFDInterface::Unknown_5C()
 {
 	InterfaceClass::Unknown_5C();
 	Items[Current]->Unknown_0C();
 	Current = 0;
 }
 
-bool UIMFDClass::Unknown_68(int key)
+bool MFDInterface::Unknown_68(int key)
 {
 	bool shift = ((Unknown_BE5F34 >> 4) & 1) != 0;
 	bool object = Object != NULL;
 	switch (key) {
 		case 1:
 			if (object) {
-				SoundLibraryClass::Play_2D_Sound("TextClick01.wav", 2);
+				SoundLibrary::Play_2D_Sound("TextClick01.wav", 2);
 				if (shift) {
 					if (Unknown9C == 1) {
-						SClient *sclient = (SClient *)((ClientClass *)Client)->As_Space_Client();
+						SpaceClientClass *sclient = (SpaceClientClass *)((ClientClass *)Client)->As_Space_Client();
 
 
 
@@ -320,7 +320,7 @@ bool UIMFDClass::Unknown_68(int key)
 
 
 						FAIL_IF(!sclient) { return(true); }
-						TargetingClass *targeting = sclient->Targeting;
+						TargetSelectClass *targeting = sclient->Targeting;
 
 						FAIL_IF(!targeting) {
 							return(true);
@@ -334,7 +334,7 @@ bool UIMFDClass::Unknown_68(int key)
 			return(true);
 		case 2:
 			if (object) {
-				SoundLibraryClass::Play_2D_Sound("TextClick01.wav", 2);
+				SoundLibrary::Play_2D_Sound("TextClick01.wav", 2);
 				if (shift) {
 					Previous_Type(Lines[0]);
 				} else {
@@ -344,7 +344,7 @@ bool UIMFDClass::Unknown_68(int key)
 			return(true);
 		case 3:
 			if (object) {
-				SoundLibraryClass::Play_2D_Sound("TextClick01.wav", 2);
+				SoundLibrary::Play_2D_Sound("TextClick01.wav", 2);
 				if (shift) {
 					Previous_Type(Lines[1]);
 				} else {
@@ -356,7 +356,7 @@ bool UIMFDClass::Unknown_68(int key)
 	return(false);
 }
 
-void UIMFDClass::Unknown_60()
+void MFDInterface::Unknown_60()
 {
 	if (UnknownDC) {
 		Items[Current]->Unknown_0C();
@@ -370,13 +370,13 @@ void UIMFDClass::Unknown_60()
 	}
 }
 
-void UIMFDClass::Unknown_88(ClientObjectClass *object)
+void MFDInterface::Unknown_88(ClientObjectClass *object)
 {
 	if (object != Object) {
 		if (object == (ClientObjectClass *)-1) {
 			object = NULL;
 		} else if (object != NULL) {
-			SoundLibraryClass::Play_2D_Sound("targety1.wav", 2);
+			SoundLibrary::Play_2D_Sound("targety1.wav", 2);
 		}
 		if (Is_Active()) {
 			Items[Current]->Unknown_0C();
@@ -407,12 +407,12 @@ void UIMFDClass::Unknown_88(ClientObjectClass *object)
 	}
 }
 
-bool UIMFDClass::Unknown_5BCB00()
+bool MFDInterface::Unknown_5BCB00()
 {
 	return(Items[Current]->Unknown_18() != 0);
 }
 
-void UIMFDClass::Unknown_5BCB30()
+void MFDInterface::Unknown_5BCB30()
 {
 	int count = Items.size();
 	Items[Current]->Unknown_0C();
@@ -436,7 +436,7 @@ void UIMFDClass::Unknown_5BCB30()
 	Items[Current]->Unknown_08();
 }
 
-void UIMFDClass::Next_Type(InfoLineStruct &line)
+void MFDInterface::Next_Type(InfoLineStruct &line)
 {
 	int type = line.Type + 1;
 	UIMFDValueStruct value;
@@ -451,7 +451,7 @@ void UIMFDClass::Next_Type(InfoLineStruct &line)
 	Set_Type(line, type);
 }
 
-void UIMFDClass::Previous_Type(InfoLineStruct &line)
+void MFDInterface::Previous_Type(InfoLineStruct &line)
 {
 	int type = line.Type - 1;
 	UIMFDValueStruct value;
@@ -466,7 +466,7 @@ void UIMFDClass::Previous_Type(InfoLineStruct &line)
 	Set_Type(line, type);
 }
 
-void UIMFDClass::Set_Type(InfoLineStruct &line, int type)
+void MFDInterface::Set_Type(InfoLineStruct &line, int type)
 {
 	line.Type = type;
 	*(int *)line.Text = -1;
@@ -479,20 +479,20 @@ void UIMFDClass::Set_Type(InfoLineStruct &line, int type)
 	Update_Line(line, true);
 }
 
-bool UIMFDClass::Has_Value(int type)
+bool MFDInterface::Has_Value(int type)
 {
 	UIMFDValueStruct value;
 	Get_Value(type, value);
 	return(value.Flags != 0);
 }
 
-ClientObjectClass *UIMFDClass::Unknown_5BD500()
+ClientObjectClass *MFDInterface::Unknown_5BD500()
 {
 	return((ClientObjectClass *)((ClientClass *)Client)->Get_Avatar());
 }
-ClientObjectClass *UIMFDClass::Unknown_5BD520() { return(Object); }
+ClientObjectClass *MFDInterface::Unknown_5BD520() { return(Object); }
 // NOT EXACT: 0x5BCE50, register only: ours keeps line in ebx (one more saved register), the client in esi, reloading it from its slot
-void UIMFDClass::Update_Line(InfoLineStruct &line, bool force)
+void MFDInterface::Update_Line(InfoLineStruct &line, bool force)
 {
 	UIMFDValueStruct value;
 	char text[0x40];
@@ -579,7 +579,7 @@ void UIMFDClass::Update_Line(InfoLineStruct &line, bool force)
 }
 
 // NOT EXACT: 0x5BD540, inline budget: the client calls 0x5BDED0's two finds (case 10) where ours inlines 0x5BE330
-void UIMFDClass::Get_Value(int type, UIMFDValueStruct &value)
+void MFDInterface::Get_Value(int type, UIMFDValueStruct &value)
 {
 	value.Flags = 0;
 	value.Self = ((ClientClass *)Client)->Get_Avatar();
@@ -636,7 +636,7 @@ void UIMFDClass::Get_Value(int type, UIMFDValueStruct &value)
 	}
 }
 
-void UIMFDClass::Set_Name(UIMFDValueStruct &value)
+void MFDInterface::Set_Name(UIMFDValueStruct &value)
 {
 	ClientObjectClass *co = value.Target;
 	if (co != NULL && co->AuxData != NULL) {
@@ -649,7 +649,7 @@ void UIMFDClass::Set_Name(UIMFDValueStruct &value)
 	}
 }
 
-void UIMFDClass::Set_Turn_To(UIMFDValueStruct &value)
+void MFDInterface::Set_Turn_To(UIMFDValueStruct &value)
 {
 	if (value.Target != value.Self) {
 		Vector3 d = value.Target->Unknown_24();
@@ -664,7 +664,7 @@ void UIMFDClass::Set_Turn_To(UIMFDValueStruct &value)
 	}
 }
 
-void UIMFDClass::Set_Dist(UIMFDValueStruct &value)
+void MFDInterface::Set_Dist(UIMFDValueStruct &value)
 {
 	if (value.Target != value.Self) {
 		value.Float = Unknown_7E6060(value.Target, value.Self);
@@ -673,7 +673,7 @@ void UIMFDClass::Set_Dist(UIMFDValueStruct &value)
 }
 
 // NOT EXACT: 0x5BDC20, the two positions' frame slots are swapped (slot order only: binding Self's to a const reference fixes the slots but calls Target's Unknown_30 first)
-void UIMFDClass::Set_ETA(UIMFDValueStruct &value)
+void MFDInterface::Set_ETA(UIMFDValueStruct &value)
 {
 	if (value.Target != value.Self) {
 		value.Int = -1;
@@ -692,7 +692,7 @@ void UIMFDClass::Set_ETA(UIMFDValueStruct &value)
 	}
 }
 
-void UIMFDClass::Set_Dir(UIMFDValueStruct &value)
+void MFDInterface::Set_Dir(UIMFDValueStruct &value)
 {
 	Matrix3D m = value.Target->Unknown_28(true);
 	value.Int = (int)(atan2(m[0][0], m[1][0]) * MFD_RAD_TO_DEG + 360.0) % 360;
@@ -700,7 +700,7 @@ void UIMFDClass::Set_Dir(UIMFDValueStruct &value)
 }
 
 // NOT EXACT: 0x5BDDF0, the first matrix is read through eax where the client reads its slot (frame)
-void UIMFDClass::Set_Same_Dir(UIMFDValueStruct &value)
+void MFDInterface::Set_Same_Dir(UIMFDValueStruct &value)
 {
 	if (value.Target != value.Self) {
 		int dir = Get_Heading(value.Self->Unknown_28(true));
@@ -711,7 +711,7 @@ void UIMFDClass::Set_Same_Dir(UIMFDValueStruct &value)
 }
 
 // NOT EXACT: 0x5BDED0, inline budget: the ShieldPercent find out of line as the client (0x5BF2B0); the client also calls Set_SP_Max's float Cast out of line
-void UIMFDClass::Set_SP_Cur(UIMFDValueStruct &value)
+void MFDInterface::Set_SP_Cur(UIMFDValueStruct &value)
 {
 	UIMFDValueStruct max = value;
 	UIMFDValueStruct per = value;
@@ -882,13 +882,13 @@ void UIMFDClass::Set_SP_Cur(UIMFDValueStruct &value)
 		value.Flags |= 8;
 	}
 }
-template<class C> inline C *Unknown_MFD_Field(DeltaCompoundClass *const &root, const char *name) { NameClass n(name); DeltaCompoundClass *r = root; C *t = Unknown_Find_Field<C>(r, n); if (t && t->Unknown70) return(t); return(NULL); } template<class C> inline C *Unknown_MFD_Find(DeltaCompoundClass *const &root, const char *name) { return(Unknown_MFD_Field<C>(root, name)); }	// NAME 1: neutral (D10): two inline layers (ui_analyze.cpp's form): the find 0x5BF2B0 out of line in 0x5BDED0 as the client
-void UIMFDClass::Set_SP_Percent(UIMFDValueStruct &value, bool as_float)
+template<class C> inline C *Unknown_MFD_Field(DeltaContainer *const &root, const char *name) { AuxDataName n(name); DeltaContainer *r = root; C *t = Unknown_Find_Field<C>(r, n); if (t && t->Unknown70) return(t); return(NULL); } template<class C> inline C *Unknown_MFD_Find(DeltaContainer *const &root, const char *name) { return(Unknown_MFD_Field<C>(root, name)); }	// NAME 1: neutral (D10): two inline layers (ui_analyze.cpp's form): the find 0x5BF2B0 out of line in 0x5BDED0 as the client
+void MFDInterface::Set_SP_Percent(UIMFDValueStruct &value, bool as_float)
 {
-	DeltaCompoundClass *aux = (DeltaCompoundClass *)value.Target->AuxData;
+	DeltaContainer *aux = (DeltaContainer *)value.Target->AuxData;
 	if (aux != NULL) {
 
-		DeltaInterpolatorClass *percent = Unknown_MFD_Find<DeltaInterpolatorClass>(aux, "ShieldPercent");
+		DeltaInterpolator *percent = Unknown_MFD_Find<DeltaInterpolator>(aux, "ShieldPercent");
 		if (percent != NULL) {
 			DurationClass time;
 			time = DurationClass((unsigned)value.Target->Client->Unknown10BC);	// assigned, not constructed: the inline operator= spends the budget that sends Cast 0x5BF350 out of line as the client
@@ -903,11 +903,11 @@ void UIMFDClass::Set_SP_Percent(UIMFDValueStruct &value, bool as_float)
 	}
 }
 
-void UIMFDClass::Set_SP_Max(UIMFDValueStruct &value)
+void MFDInterface::Set_SP_Max(UIMFDValueStruct &value)
 {
-	DeltaCompoundClass *aux = (DeltaCompoundClass *)value.Target->AuxData;
+	DeltaContainer *aux = (DeltaContainer *)value.Target->AuxData;
 	if (aux != NULL) {
-		NameClass name("MaxShieldPower");
+		AuxDataName name("MaxShieldPower");
 		DeltaTemplateClass<float> *max = Unknown_Find_Valid<DeltaTemplateClass<float> >(aux, name);
 		if (max != NULL) {
 			value.Int = (int)max->Value;
@@ -916,37 +916,37 @@ void UIMFDClass::Set_SP_Max(UIMFDValueStruct &value)
 	}
 }
 
-void UIMFDClass::Set_Level(UIMFDValueStruct &value)
+void MFDInterface::Set_Level(UIMFDValueStruct &value)
 {
 }
 
-void UIMFDClass::Set_Prof(UIMFDValueStruct &value)
+void MFDInterface::Set_Prof(UIMFDValueStruct &value)
 {
 }
 
-void UIMFDClass::Set_Race(UIMFDValueStruct &value)
+void MFDInterface::Set_Race(UIMFDValueStruct &value)
 {
 }
 
-void UIMFDClass::Set_Vel(UIMFDValueStruct &value)
+void MFDInterface::Set_Vel(UIMFDValueStruct &value)
 {
 	Vector3 velocity = value.Target->Unknown_2C();
 	value.Int = (int)(velocity.Length() * 1000.0f);
 	value.Flags |= 4;
 }
 
-void UIMFDClass::Set_Rel_Vel(UIMFDValueStruct &value)
+void MFDInterface::Set_Rel_Vel(UIMFDValueStruct &value)
 {
 }
 
 Unknown5BE4F0Class::Unknown5BE4F0Class(UIViewClass *view, RenderObjClass *robj, const LayerClass &layer)
-	: UIMFDClass(view, robj, layer, 0)
+	: MFDInterface(view, robj, layer, 0)
 {
 }
 
 void Unknown5BE4F0Class::Unknown_54()
 {
-	UIMFDClass::Unknown_54();
+	MFDInterface::Unknown_54();
 	Items.push_back(new Unknown5C3030Class(this));
 	Items.push_back(new Unknown5C3920Class(this));
 }
@@ -967,13 +967,13 @@ void Unknown5BE4F0Class::Unknown_90()
 }
 
 Unknown5BE980Class::Unknown5BE980Class(UIViewClass *view, RenderObjClass *robj, const LayerClass &layer)
-	: UIMFDClass(view, robj, layer, 1)
+	: MFDInterface(view, robj, layer, 1)
 {
 }
 
 void Unknown5BE980Class::Unknown_54()
 {
-	UIMFDClass::Unknown_54();
+	MFDInterface::Unknown_54();
 	Items.push_back(new Unknown5C2CD0Class(this));
 	Items.push_back(new Unknown5C3650Class(this));
 }

@@ -27,7 +27,7 @@ struct SlashCommandStruct  // NAME 1: neutral, after the file it is read from
 class UICommandsClass : public ChatPanelUIBase	// NAME 1: neutral, after its tooltips' section 'UI_COMMANDS'
 {
 public:
-	UICommandsClass(SClient *client);					// 0x57BAD0 (deleting 0x57BBB0)  // NAME 1 [client]: ChatPanelUIBase's
+	UICommandsClass(SpaceClientClass *client);					// 0x57BAD0 (deleting 0x57BBB0)  // NAME 1 [client]: ChatPanelUIBase's
 	virtual ~UICommandsClass();							// 0x57BBE0
 	virtual void Unknown_54();							// +0x54 0x57BE50 ('tsi29a': the buttons 'exit', 'add', the rows 'name00'-'name06', the slider, the list)
 	virtual void Unknown_58();							// +0x58 0x57C080 (when not Active: the base's, the rows from the top, the buttons on)

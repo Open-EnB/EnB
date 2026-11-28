@@ -1,7 +1,7 @@
 // Earth & Beyond client (reconstruction): app\common\galaxy_map.h. Notes at the end of the file.
 /*
 **	The galaxy map's data objects (systems, sectors, gates, starbases), reference counted and
-**	written to / read from a LinearBufferClass, and the map holding them (AllData and the Systems /
+**	written to / read from a LinearBuffer, and the map holding them (AllData and the Systems /
 **	Sectors / Gates / Starbases hash maps of galaxy_map.cpp's asserts). Each data class has a
 **	Create factory and a Set; galaxy_map_client.cpp (0x7A4830-0x7A5260) builds and fills the map.
 */
@@ -22,7 +22,7 @@
 #include "..\shared\g_assert.h"
 #include "..\shared\auxdata\linearbu.h"
 
-class LinearBufferClass;
+class LinearBuffer;
 class GalaxyMapSystemClass;
 class GalaxyMapSectorClass;
 class GalaxyMapGateClass;
@@ -161,8 +161,8 @@ public:
 		G_ASSERT(!Is_In_Galaxy_Map());
 	}
 	virtual int Get_Type() { return(-1); }										// +0x08 0x837DD0  // NAME 1: what it returns (the system's 5)
-	virtual void Read(LinearBufferClass *buffer);								// +0x0C 0x837C10  // NAME 2 [Read, buffer]: LinearBufferClass::Read of GalaxyMapID
-	virtual void Write(LinearBufferClass *buffer);								// +0x10 0x837C40  // NAME 2 [Write, buffer]: LinearBufferClass::Write of GalaxyMapID
+	virtual void Read(LinearBuffer *buffer);								// +0x0C 0x837C10  // NAME 2 [Read, buffer]: LinearBuffer::Read of GalaxyMapID
+	virtual void Write(LinearBuffer *buffer);								// +0x10 0x837C40  // NAME 2 [Write, buffer]: LinearBuffer::Write of GalaxyMapID
 	virtual GalaxyMapSystemClass *As_System() { return(NULL); }				// +0x14 0x837DF0 (the system's 0x837EE0 returns this)  // NAME 2: the system's override
 	virtual GalaxyMapSectorClass *As_Sector() { return(NULL); }				// +0x18 0x837E10  // NAME 2: Remove_Data 0x836B70 calls the sector's Get_Hash_ID through it (Sectors)
 	virtual GalaxyMapGateClass *As_Gate() { return(NULL); }					// +0x1C 0x837E30  // NAME 2: Remove_Data's Gates branch
@@ -191,11 +191,11 @@ class GalaxyMapSystemClass : public GalaxyMapDataClass	// NAME 2: 0x7A4FC0 hands
 public:
 	GalaxyMapSystemClass();	virtual ~GalaxyMapSystemClass() {}	// 0x837F00 (galaxy_map.cpp; Create 0x837C70 inlines it); the destructor 0x837F80 stores the vtable: explicit
 	virtual int Get_Type() { return(5); }										// +0x08 0x837EC0
-	virtual void Read(LinearBufferClass *buffer);								// +0x0C 0x8381B0
-	virtual void Write(LinearBufferClass *buffer);								// +0x10 0x838320
+	virtual void Read(LinearBuffer *buffer);								// +0x0C 0x8381B0
+	virtual void Write(LinearBuffer *buffer);								// +0x10 0x838320
 	virtual GalaxyMapSystemClass *As_System() { return(this); }				// +0x14 0x837EE0
 	virtual int Get_Hash_ID() { return(HashID); }								// +0x24 0x837EA0
-	int Get_Unknown3C() { return(Unknown3C); }									// inline: GalaxyMapRObjClass's constructor 0x7B2B30 reads the name's placement through it (the client's eax)  // NAME 1: neutral (D10)
+	int Get_Unknown3C() { return(Unknown3C); }									// inline: GalaxyMapSystemRObj's constructor 0x7B2B30 reads the name's placement through it (the client's eax)  // NAME 1: neutral (D10)
 
 	void Set(int hash_id, const std::string &name, const Vector3 &unknown20, const Vector3 &unknown2c, float unknown38, int unknown3c);	// 0x838050 (no caller)  // NAME 1 [Set, hash_id, name]: stores the members Read carries
 	static RefCountPtr<GalaxyMapSystemClass> Create();						// 0x837C70 (galaxy_map_client.cpp's 0x7A4FC0)  // NAME 2: what it does
@@ -214,8 +214,8 @@ class GalaxyMapSectorClass : public GalaxyMapDataClass	// NAME 2: galaxy_map.cpp
 public:
 	GalaxyMapSectorClass();	virtual ~GalaxyMapSectorClass() {}				// 0x8384A0 (galaxy_map.cpp; Create 0x8383B0 inlines it); the destructor stores the vtable: explicit
 	virtual int Get_Type() { return(Unknown24); }								// +0x08 0x838480
-	virtual void Read(LinearBufferClass *buffer);								// +0x0C 0x838780
-	virtual void Write(LinearBufferClass *buffer);								// +0x10 0x8388E0
+	virtual void Read(LinearBuffer *buffer);								// +0x0C 0x838780
+	virtual void Write(LinearBuffer *buffer);								// +0x10 0x8388E0
 	virtual GalaxyMapSectorClass *As_Sector() { return(this); }				// +0x18 0x838440
 	virtual int Get_Hash_ID() { return(HashID); }								// +0x24 0x838460
 
@@ -235,8 +235,8 @@ class GalaxyMapGateClass : public GalaxyMapDataClass	// NAME 2: galaxy_map.cpp's
 public:
 	GalaxyMapGateClass();														// 0x838A60 (galaxy_map.cpp; Create 0x838970 inlines it)
 	virtual int Get_Type() { return(9); }										// +0x08 0x838A40
-	virtual void Read(LinearBufferClass *buffer);								// +0x0C 0x838B80
-	virtual void Write(LinearBufferClass *buffer);								// +0x10 0x838BD0
+	virtual void Read(LinearBuffer *buffer);								// +0x0C 0x838B80
+	virtual void Write(LinearBuffer *buffer);								// +0x10 0x838BD0
 	virtual GalaxyMapGateClass *As_Gate() { return(this); }					// +0x1C 0x838A00
 	virtual int Get_Hash_ID() { return(GalaxyMapID); }							// +0x24 0x838A20 (the map id: a gate has no hash id of its own)
 
@@ -254,8 +254,8 @@ class GalaxyMapStarbaseClass : public GalaxyMapDataClass	// NAME 2: galaxy_map.c
 public:
 	GalaxyMapStarbaseClass();	virtual ~GalaxyMapStarbaseClass() {}			// 0x838D10 (galaxy_map.cpp; Create 0x838C20 inlines it); the destructor stores the vtable: explicit
 	virtual int Get_Type() { return(10); }										// +0x08 0x838CF0
-	virtual void Read(LinearBufferClass *buffer);								// +0x0C 0x838F80
-	virtual void Write(LinearBufferClass *buffer);								// +0x10 0x8390C0
+	virtual void Read(LinearBuffer *buffer);								// +0x0C 0x838F80
+	virtual void Write(LinearBuffer *buffer);								// +0x10 0x8390C0
 	virtual GalaxyMapStarbaseClass *As_Starbase() { return(this); }			// +0x20 0x838CB0
 	virtual int Get_Hash_ID() { return(HashID); }								// +0x24 0x838CD0
 
@@ -276,8 +276,8 @@ public:
 	virtual ~GalaxyMapClass();														// 0x836240 (calls Clear: the client inlines it)
 	virtual void Clear();															// +0x04 0x836740  // NAME 1: empties AllData and the four maps
 
-	void Write(LinearBufferClass *buffer);											// 0x836590  // NAME 2: LinearBufferClass::Write of MaxDataObjects, as the data's Write
-	void Read(LinearBufferClass *buffer);											// 0x8365C0 (galaxy_map_client.cpp's 0x7A4C50)  // NAME 2: as the data's Read; grows AllData to MaxDataObjects
+	void Write(LinearBuffer *buffer);											// 0x836590  // NAME 2: LinearBuffer::Write of MaxDataObjects, as the data's Write
+	void Read(LinearBuffer *buffer);											// 0x8365C0 (galaxy_map_client.cpp's 0x7A4C50)  // NAME 2: as the data's Read; grows AllData to MaxDataObjects
 
 	void Add_System(const RefCountPtr<GalaxyMapSystemClass> &system);				// 0x836F30 (galaxy_map_client.cpp's 0x7A4FC0)  // NAME 2: FAIL_IF 'Systems.find(system->Get_Hash_ID()) != Systems.end()'
 	void Add_Sector(const RefCountPtr<GalaxyMapSectorClass> &sector);				// 0x837190  // NAME 2: FAIL_IF 'Sectors.find(sector->Get_Hash_ID()) != Sectors.end()'

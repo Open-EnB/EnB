@@ -17,11 +17,11 @@ class UIPTradeCreditsClass;	// sclient.h's: the text entry (ui_ptrade.cpp's cred
 
 // ui_playeropt.cpp's player options window: the ignore list (0x114 bytes; constructor 0x5D8C40 over
 // ui_chat_panel_base.cpp's 0x56D280, destructor 0x5D8E90, tables 0xAF58B0 / 0xAF58A4 / 0xAF5898)
-class UIPlayerOptClass : public ChatPanelUIBase	// NAME 3: class-from-file (D24) for app\client\ui_playeropt.cpp
+class PlayerOptionsInterface : public ChatPanelUIBase  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
-	UIPlayerOptClass(SClient *client);					// 0x5D8C40  // NAME 1 [client]: ChatPanelUIBase's
-	virtual ~UIPlayerOptClass();						// 0x5D8E90 (deleting 0x5D8E60)
+	PlayerOptionsInterface(SpaceClientClass *client);					// 0x5D8C40  // NAME 1 [client]: ChatPanelUIBase's
+	virtual ~PlayerOptionsInterface();						// 0x5D8E90 (deleting 0x5D8E60)
 	virtual void Unknown_54();							// +0x54 0x5D9100 ('tsi27a', 'fa_tsi27a.ini': the buttons, the rows, the slider, the 'Ignore Player' entry)
 	virtual void Unknown_58();							// +0x58 0x5D9410 (activated: both lists emptied, request 0x17 sent, the buttons on)
 	virtual void Unknown_5C();							// +0x5C 0x5D9610 (deactivated: the buttons off, both lists emptied)

@@ -20,13 +20,13 @@
 #include "..\shared\shipcust_desc.h"
 
 // opcode 72 (0x0048, ?): vtable 0xB08D64, constructor 0x85C5F0, 0x2E0 bytes
-class CreateCharacterPacketClass : public PacketClass  // NAME 3: the client's Print text 'Create Character' (opcode 0x0048)
+class CreateCharacterPacketClass : public UnknownPacketBaseClass  // NAME 3: the client's Print text 'Create Character' (opcode 0x0048)
 {
 public:
-	CreateCharacterPacketClass(RawPacketClass *raw);	// 0x85C5F0
+	CreateCharacterPacketClass(PacketClass *raw);	// 0x85C5F0
 	virtual ~CreateCharacterPacketClass();	// +0x00 0x85C7D0 / 0x85CF80
-	CreateCharacterPacketClass(int unknown0C, int unknown10, const char *name, __int64 unknown60, const AvatarDescClass *desc, const ShipCustDescClass &ship, bool unknown14);	// 0x85C800
-	virtual RawPacketClass *Build();	// +0x04 0x85D000
+	CreateCharacterPacketClass(int unknown0C, int unknown10, const char *name, __int64 unknown60, const AvatarDescriptionClass *desc, const ShipCustDescClass &ship, bool unknown14);	// 0x85C800
+	virtual PacketClass *Encode();	// +0x04 0x85D000  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x868040 (clientstub.cpp l.104)
 	virtual int Get_Data_Size();	// +0x0C 0x85D110
 	virtual int Print(char *buffer, int len);	// +0x10 0x85D140
@@ -37,7 +37,7 @@ public:
 	int Unknown14;	// +0x14 (the value constructor's bool)  // NAME 1: neutral (D10)
 	char Name[0x41];	// +0x18 (0x41 bytes on the wire)  // NAME 1: what the value constructor copies into it (a string)
 	__int64 Unknown60;	// +0x60  // NAME 1: neutral (D10)
-	AvatarDescClass Desc;	// +0x68  // NAME 2: what it holds
+	AvatarDescriptionClass Desc;	// +0x68  // NAME 2: what it holds
 	ShipCustDescClass Ship;	// +0x174  // NAME 2: what it holds
 	int Unknown2D4;	// +0x2D4 (0; not in the message)  // NAME 1: neutral (D10)
 	int Unknown2D8;	// +0x2D8 (0)  // NAME 1: neutral (D10)

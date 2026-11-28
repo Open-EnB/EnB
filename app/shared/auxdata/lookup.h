@@ -3,9 +3,9 @@
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	Original location: e:\build\beta\G\app\shared\auxdata\lookup.h (name assumed from lookup.cpp)
 **
-**	A compound field's lookup table (DeltaCompoundClass::Lookup, made by Get_Lookup 0x4A5510).
+**	A compound field's lookup table (DeltaContainer::Lookup, made by Get_Lookup 0x4A5510).
 **	Only what delta.cpp and lookup.cpp use so far (lookup.cpp's constructor 0x4AC250 is not rebuilt yet).
-**	The layout comes from it and from ~DeltaCompoundClass (0x4A5070): a std::vector at +0x00 and a
+**	The layout comes from it and from ~DeltaContainer (0x4A5070): a std::vector at +0x00 and a
 **	std::map at +0x10, size 0x20: the vector holds the fields (lookup.cpp's index accessors), the
 **	map's key and value types are placeholders until lookup.cpp's name functions are rebuilt.
 **	The client doesn't name the class (D24).
@@ -24,22 +24,22 @@
 #include <map>
 
 class DeltaClass;
-class DeltaCompoundClass;
-class NameClass;
+class DeltaContainer;
+class AuxDataName;
 
 class LookupClass  // NAME 3: by convention (D24) from the client's file lookup.cpp
 {
 public:
-	LookupClass(DeltaCompoundClass *owner);				// 0x4AC250
+	LookupClass(DeltaContainer *owner);				// 0x4AC250
 
 	// The name is the asserts'; the signed/unsigned compare is the client's (jl, then jb).
 	bool Is_Valid_Index(int index) const { return index >= 0 && index < Entries.size(); }
 	DeltaClass *Get_Delta(int index) const;				// 0x4AC850  // NAME 2: describes what it does
 	bool Unknown_Test_70(int index) const;				// 0x4AC8D0, the field's Unknown70 != 0
 	bool Unknown_Test_70_Above_1(int index) const;		// 0x4AC960, the field's Unknown70 > 1
-	DeltaClass *Find(const NameClass &name);				// 0x4AC9F0 (no wildcards)  // NAME 2: describes what it does
-	bool Unknown_Test_70(const NameClass &name) const;			// 0x4ACA90, by name (no wildcards)
-	bool Unknown_Test_70_Above_1(const NameClass &name) const;	// 0x4ACB20, by name (no wildcards)
+	DeltaClass *Find(const AuxDataName &name);				// 0x4AC9F0 (no wildcards)  // NAME 2: describes what it does
+	bool Unknown_Test_70(const AuxDataName &name) const;			// 0x4ACA90, by name (no wildcards)
+	bool Unknown_Test_70_Above_1(const AuxDataName &name) const;	// 0x4ACB20, by name (no wildcards)
 
 	std::vector<DeltaClass *> Entries;					// +0x00 (the name is a guess)  // NAME 2 [Entries]: describes what it does
 	std::map<const char *, DeltaClass *> Unknown10;	// +0x10 the fields by their interned names

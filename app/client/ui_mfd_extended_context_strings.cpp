@@ -9,7 +9,7 @@
 #include "ui_mfd_extended_context_strings.h"
 
 // 0x5C1090
-UIMFDExtendedContextStringsClass::UIMFDExtendedContextStringsClass(ClientObjectClass *co, UIMFDClass *owner) :
+UIMFDExtendedContextStringsClass::UIMFDExtendedContextStringsClass(ClientObjectClass *co, MFDInterface *owner) :
 	UIMFDExtendedContextClass(owner),
 	UnknownCount(0)
 {
@@ -32,7 +32,7 @@ UIMFDExtendedContextStringsClass::~UIMFDExtendedContextStringsClass()
 void UIMFDExtendedContextStringsClass::Create_Fonts()
 {
 	int level = 15;
-	UIMFDClass *owner = Owner;
+	MFDInterface *owner = Owner;
 	FontSys *fontbase = owner->Lines[0].Font;
 
 

@@ -6,12 +6,12 @@
 #include "camctrl.h"
 #include "unknown_7979a0.h"
 
-// The camera manager's ninth controller (state 8; vtable 0xB051BC, 0x20 bytes): follows the object SClient +0x13B4
+// The camera manager's ninth controller (state 8; vtable 0xB051BC, 0x20 bytes): follows the object SpaceClientClass +0x13B4
 // (phase 1) until it is within reach of the avatar or 15 seconds pass (phase 2 for a second, then 3: request 0x10)
 class CameraController08Class : public CameraControllerClass	// NAME 1: neutral (D10)
 {
 public:
-	CameraController08Class(SClient *client);			// 0x797320
+	CameraController08Class(SpaceClientClass *client);			// 0x797320
 	virtual ~CameraController08Class();					// 0x797410, deleting 0x7973E0
 	virtual void Unknown_04();							// +0x04 0x797490
 	virtual void Unknown_08(Vector3 *pos, Quaternion *rot, int *mode, int *target);	// +0x08 0x7974D0
@@ -23,7 +23,7 @@ public:
 	CameraModule79C8E0Class *Unknown0C;					// +0x0C (0x79C8E0's module)
 	unsigned Unknown10;									// +0x10 (the client clock +0x10BC at the start)
 	unsigned Unknown14;									// +0x14 (phase 2's end: the clock + 1000)
-	int Unknown18;										// +0x18 (SClient +0x13B4 at the start)
+	int Unknown18;										// +0x18 (SpaceClientClass +0x13B4 at the start)
 	int Unknown1C;										// +0x1C (the phase, 1-3)
 };
 

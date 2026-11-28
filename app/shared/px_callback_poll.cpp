@@ -34,7 +34,7 @@ void PxPollCallback::Process()
 void PxPollCallback::On_Enter(PxBox *box)
 {
 	if (Boxes.empty()) {
-		PxProcessClass::Get_Current()->Add(this);
+		PxProcessList::Get_Current()->Add(this);
 	}
 	PxBoxList::On_Enter(box);
 }
@@ -44,12 +44,12 @@ void PxPollCallback::On_Exit(PxBox *box)
 {
 	PxBoxList::On_Exit(box);
 	if (Boxes.empty()) {
-		PxProcessClass::Get_Current()->Remove(this);
+		PxProcessList::Get_Current()->Remove(this);
 	}
 }
 
 // 0x452BB0
-PxCallback *PxPollCallback::Clone(PxObject *object)
+PxCallback *PxPollCallback::Clone(PxObject *object) const
 {
 	return(new PxPollCallback(object, *this));
 }
@@ -109,7 +109,7 @@ void PxPollAccurateCallback::Unknown_453300()
 }
 
 // 0x453320
-PxCallback *PxPollAccurateCallback::Clone(PxObject *object)
+PxCallback *PxPollAccurateCallback::Clone(PxObject *object) const
 {
 	return(new PxPollAccurateCallback(object, *this));
 }
@@ -233,8 +233,8 @@ void PxPollAccurateCallback::Set_Extent(const Vector3 &extent)
 ** callback vtables. The class and function names are provisional; Type, SPHERE and VOLUME are the FAIL_IFs'.
 **
 ** PxPollCallback is a PxBoxList, a PxProcessNode (+0x30) and a PxCallback (+0x3C): its first overlap puts it in
-** PxProcessClass::Get_Current(), its last takes it out, and Process reports every overlapping box's object with
+** PxProcessList::Get_Current(), its last takes it out, and Process reports every overlapping box's object with
 ** PX_EVENT_UPDATE. PxPollAccurateCallback filters those reports by a sphere (Extent.X as radius plus the other's)
-** or by its volume grown by the other's radius. Nothing calls PxProcessClass::Process (px_process.cpp's notes), so in
+** or by its volume grown by the other's radius. Nothing calls PxProcessList::Process (px_process.cpp's notes), so in
 ** the retail client these Process functions never run.
 */

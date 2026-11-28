@@ -69,7 +69,7 @@ void ExprMathParserImplClass::Add_Similar(int type, const char *ops, const char 
 
 
 // @0x4D10A0
-ExprMathTreeClass *ExprMathParserImplClass::Parse(ExprMathLexerClass *lex)
+ExprMathTreeNode *ExprMathParserImplClass::Parse(ExprLexer *lex)
 {
 	FAIL_IF(!lex) return NULL;
 	return Parse_Level(lex, 0);
@@ -79,18 +79,18 @@ ExprMathTreeClass *ExprMathParserImplClass::Parse(ExprMathLexerClass *lex)
 // @0x4D10E0
 // Parses one level; the level past the last group: a parenthesised expression or a primary.
 // NOT EXACT: the level > size guard keeps its own return NULL, and the token's destructor is inline / called on the other two exits
-ExprMathTreeClass *ExprMathParserImplClass::Parse_Level(ExprMathLexerClass *lex, int level)
+ExprMathTreeNode *ExprMathParserImplClass::Parse_Level(ExprLexer *lex, int level)
 {
 	G_ASSERT(level <= (int)m_groups.size());
 	if (level > (int)m_groups.size()) {
 		return NULL;
 	}
 	if (level == (int)m_groups.size()) {
-		ExprMathTokenClass token = Peek(lex);
+		ExprLexerToken token = Peek(lex);
 		if (token.Is_Valid()) {
 			if (token.Text == "(") {
 				lex->Next();
-				ExprMathTreeClass *tree = Parse_Level(lex, 0);
+				ExprMathTreeNode *tree = Parse_Level(lex, 0);
 				if (tree) {
 					token = Peek(lex);
 					if (token.Is_Valid() && token.Text == ")") {
@@ -113,48 +113,48 @@ ExprMathTreeClass *ExprMathParserImplClass::Parse_Level(ExprMathLexerClass *lex,
 
 
 // @0x4D13E0
-ExprMathTreeClass *ExprMathParserImplClass::Parse_Unary(ExprMathLexerClass *lex, int level)
+ExprMathTreeNode *ExprMathParserImplClass::Parse_Unary(ExprLexer *lex, int level)
 {
 	if (Is_Operator(Peek(lex), level)) {
-		ExprMathTokenClass op = lex->Get_Token();
+		ExprLexerToken op = lex->Get_Token();
 		lex->Next();
-		ExprMathTreeClass *operand = Parse_Level(lex, level);
+		ExprMathTreeNode *operand = Parse_Level(lex, level);
 		if (!operand) {
 			return NULL;
 		}
-		return new ExprMathUnaryClass(op, operand);
+		return new ExprMathTreeUnary(op, operand);
 	}
 	return Parse_Level(lex, level + 1);
 }
 
 
 // @0x4D1600
-ExprMathTreeClass *ExprMathParserImplClass::Parse_Binary(ExprMathLexerClass *lex, int level)
+ExprMathTreeNode *ExprMathParserImplClass::Parse_Binary(ExprLexer *lex, int level)
 {
-	ExprMathTreeClass *left = Parse_Level(lex, level + 1);
+	ExprMathTreeNode *left = Parse_Level(lex, level + 1);
 	if (!left) {
 		return NULL;
 	}
 	while (Is_Operator(Peek(lex), level)) {
-		ExprMathTokenClass op = lex->Get_Token();
+		ExprLexerToken op = lex->Get_Token();
 		lex->Next();
-		ExprMathTreeClass *right = Parse_Level(lex, level + 1);
+		ExprMathTreeNode *right = Parse_Level(lex, level + 1);
 		if (!right) {
 			delete left;
 			return NULL;
 		}
-		left = new ExprMathBinaryClass(op, left, right);
+		left = new ExprMathTreeBinary(op, left, right);
 	}
 	return left;
 }
 
 
 // @0x4D18A0
-ExprMathTreeClass *ExprMathParserImplClass::Parse_Primary(ExprMathLexerClass *lex)
+ExprMathTreeNode *ExprMathParserImplClass::Parse_Primary(ExprLexer *lex)
 {
-	ExprMathTokenClass token = Peek(lex);
+	ExprLexerToken token = Peek(lex);
 	if (token.Type == 2 || token.Type == 1) {
-		ExprMathTreeClass *leaf = new ExprMathTreeClass(token);
+		ExprMathTreeNode *leaf = new ExprMathTreeNode(token);
 		lex->Next();
 		return leaf;
 	}
@@ -163,7 +163,7 @@ ExprMathTreeClass *ExprMathParserImplClass::Parse_Primary(ExprMathLexerClass *le
 
 
 // @0x4D19E0
-bool ExprMathParserImplClass::Is_Operator(const ExprMathTokenClass &token, int level)
+bool ExprMathParserImplClass::Is_Operator(const ExprLexerToken &token, int level)
 {
 	if (!token.Is_Valid()) {
 		return false;
@@ -177,7 +177,7 @@ bool ExprMathParserImplClass::Is_Operator(const ExprMathTokenClass &token, int l
 
 
 // @0x4D1AC0
-ExprMathTokenClass ExprMathParserImplClass::Peek(ExprMathLexerClass *lex)
+ExprLexerToken ExprMathParserImplClass::Peek(ExprLexer *lex)
 {
 	while (lex->Get_Token().Type == 0) {
 		lex->Next();

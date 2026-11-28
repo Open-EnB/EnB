@@ -27,7 +27,7 @@ PolicyRuleSetClass::~PolicyRuleSetClass()
 	Rules.clear();
 }
 
-void PolicyRuleSetClass::Add_Rule(const NameClass &pattern, int action, int value)
+void PolicyRuleSetClass::Add_Rule(const AuxDataName &pattern, int action, int value)
 {
 	G_ASSERT(action == EXCLUDE || action == INCLUDE || action == REDUNDANT);
 
@@ -101,7 +101,7 @@ void PolicyRuleSetClass::Add_Rule(const NameClass &pattern, int action, int valu
 	Rules.push_back(new PolicyRuleClass(pattern, action, value, &Enabled, this));
 }
 
-CompiledPolicyClass::CompiledPolicyClass(PolicyClass *policy, DeltaCompoundClass *c, CompiledPolicyClass *next) :
+CompiledPolicyClass::CompiledPolicyClass(PolicyClass *policy, DeltaContainer *c, CompiledPolicyClass *next) :
 	Root(0),
 	Next(next),
 	Size(0),
@@ -212,7 +212,7 @@ CompiledPolicyClass::~CompiledPolicyClass()
 	delete [] Table;
 }
 
-PolicyRuleClass **CompiledPolicyClass::Compile_Rules(const std::vector<PolicyRuleClass *> &rules, DeltaCompoundClass *c)
+PolicyRuleClass **CompiledPolicyClass::Compile_Rules(const std::vector<PolicyRuleClass *> &rules, DeltaContainer *c)
 {
 	int count = c->Unknown98;
 	PolicyRuleClass **result = new PolicyRuleClass *[count];
@@ -231,7 +231,7 @@ PolicyRuleClass **CompiledPolicyClass::Compile_Rules(const std::vector<PolicyRul
 	return result;
 }
 
-PolicyRuleClass *CompiledPolicyClass::Find_Rule(const std::vector<PolicyRuleClass *> &rules, const NameClass &name)
+PolicyRuleClass *CompiledPolicyClass::Find_Rule(const std::vector<PolicyRuleClass *> &rules, const AuxDataName &name)
 {
 	for (std::vector<PolicyRuleClass *>::const_iterator it = rules.begin(); it != rules.end(); it++) {
 		PolicyRuleClass *rule = *it; if (rule->Pattern.Is_Parent_Or_Same(name)) {
@@ -418,7 +418,7 @@ PolicyStateClass *PolicyClass::Make_State(int a, int b)
 
 
 
-void PolicyClass::Bind(PolicyStateClass *state, DeltaCompoundClass *root)
+void PolicyClass::Bind(PolicyStateClass *state, DeltaContainer *root)
 {
 	unsigned int count = Sets.size();
 	for (unsigned int i = 0; i < count; i++) {
@@ -548,6 +548,6 @@ void PolicyStateClass::Add(const RefCountPtr<PolicyConditionClass> &condition)
 **	Get_Action gives the first enabled rule's action and value (EXCLUDE when none).
 **
 **	DeltaUnknownCounter (0xBE3B44, delta.h), the counter the Delta classes' per-class globals are numbered from:
-**	placed here by .bss order (PROVISIONAL, D137): after this object's PermStringInit 0xBE3B40, before
+**	placed here by .bss order (PROVISIONAL, D137): after this object's _PermStringInit 0xBE3B40, before
 **	delta_visitor.cpp's 0xBE3B48; no string names it.
 */

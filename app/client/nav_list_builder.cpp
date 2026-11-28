@@ -36,19 +36,19 @@ public:
 DEFINE_AUTO_POOL(NavNodeStruct, 16);
 
 // @0x7B7BF0
-NavListBuilderClass::NavListBuilderClass(SClient *client) :
+NavigationListBuilder::NavigationListBuilder(SpaceClientClass *client) :
 	Client(client),
 	Unknown1C(0)
 {
 }
 
 // @0x7B7C60
-NavListBuilderClass::~NavListBuilderClass()
+NavigationListBuilder::~NavigationListBuilder()
 {
 }
 
 // @0x7B7C80
-bool NavListBuilderClass::Unknown_7B7C80(ClientObjectClass *from, ClientObjectClass *to)
+bool NavigationListBuilder::Unknown_7B7C80(ClientObjectClass *from, ClientObjectClass *to)
 {
 	Clear();
 	if (to) {
@@ -156,7 +156,7 @@ bool NavListBuilderClass::Unknown_7B7C80(ClientObjectClass *from, ClientObjectCl
 
 // NOT EXACT: order only (the loop's exit reloads co_from before to; ours to first)
 // @0x7B7EF0
-bool NavListBuilderClass::Unknown_7B7EF0(float range, ClientObjectClass *co_from, ClientObjectClass *to)
+bool NavigationListBuilder::Unknown_7B7EF0(float range, ClientObjectClass *co_from, ClientObjectClass *to)
 {
 	Clear();
 	if (to) {
@@ -211,14 +211,14 @@ bool NavListBuilderClass::Unknown_7B7EF0(float range, ClientObjectClass *co_from
 }
 
 // @0x7B81E0
-void NavListBuilderClass::Clear()
+void NavigationListBuilder::Clear()
 {
 	NavigationListClass::Clear();
 	Unknown1C++;
 }
 
 // @0x7B8210
-void NavListBuilderClass::Build_Nodes(std::vector<NavNodeStruct *> &nav_points, ClientObjectClass *from, float range, ClientObjectClass *dest)
+void NavigationListBuilder::Build_Nodes(std::vector<NavNodeStruct *> &nav_points, ClientObjectClass *from, float range, ClientObjectClass *dest)
 {
 
 
@@ -307,7 +307,7 @@ void NavListBuilderClass::Build_Nodes(std::vector<NavNodeStruct *> &nav_points, 
 }
 
 // @0x7B8510
-void NavListBuilderClass::Link_Nodes(std::vector<NavNodeStruct *> &nav_points, float range1, float range2)
+void NavigationListBuilder::Link_Nodes(std::vector<NavNodeStruct *> &nav_points, float range1, float range2)
 {
 
 
@@ -356,7 +356,7 @@ void NavListBuilderClass::Link_Nodes(std::vector<NavNodeStruct *> &nav_points, f
 }
 
 // @0x7B8880
-bool NavListBuilderClass::Find_Path(std::vector<NavNodeStruct *> &nav_points, std::vector<NavNodeStruct *> &result)
+bool NavigationListBuilder::Find_Path(std::vector<NavNodeStruct *> &nav_points, std::vector<NavNodeStruct *> &result)
 {
 
 
@@ -478,7 +478,7 @@ bool NavListBuilderClass::Find_Path(std::vector<NavNodeStruct *> &nav_points, st
 }
 
 // @0x7B8BF0
-void NavListBuilderClass::Add_Path(std::vector<NavNodeStruct *> &path)
+void NavigationListBuilder::Add_Path(std::vector<NavNodeStruct *> &path)
 {
 	for (std::vector<NavNodeStruct *>::iterator it = path.begin(); it != path.end(); ++it) {
 		NavNodeStruct *node = *it;
@@ -487,7 +487,7 @@ void NavListBuilderClass::Add_Path(std::vector<NavNodeStruct *> &path)
 }
 
 // @0x7B8E40
-void NavListBuilderClass::Delete_Nodes(std::vector<NavNodeStruct *> &nav_points)
+void NavigationListBuilder::Delete_Nodes(std::vector<NavNodeStruct *> &nav_points)
 {
 	for (std::vector<NavNodeStruct *>::iterator it = nav_points.begin(); it != nav_points.end(); ++it) {
 		delete *it;

@@ -1,5 +1,5 @@
 // Earth & Beyond client (reconstruction): app\client\font32bit.h (D24: paired with the client's font32bit.cpp).
-// Font32Class: a wwlib FontClass over a 4-bit-alpha SurfaceClass font image, Renegade's Font3DDataClass tables
+// Font32Bit: a wwlib FontClass over a 4-bit-alpha SurfaceClass font image, Renegade's Font3DDataClass tables
 // (font3d.cpp) with the spacing and the screen scale; fontdatabase.cpp's fonts (font32Ptr).
 #ifndef FONT32BIT_H
 #define FONT32BIT_H
@@ -10,11 +10,11 @@
 
 class SurfaceClass;
 
-class Font32Class : public FontClass, public RefCountClass							// NAME 2: what font32Ptr points at (0xD30 bytes; vtables 0xAFE94C / 0xAFE940)
+class Font32Bit : public FontClass, public RefCountClass  // NAME 5: thunk order A, binary.md 5.11
 {
 	public:
-		Font32Class(void);															// 0x6BBD50, no caller
-		Font32Class(const char * font_name, int spacing, float scale);				// 0x6BBAC0
+		Font32Bit(void);															// 0x6BBD50, no caller
+		Font32Bit(const char * font_name, int spacing, float scale);				// 0x6BBAC0
 		// the implicit destructor: 0x6BBCC0 (deleting 0x6BBC90)
 
 		virtual int Char_Pixel_Width(char c) const;									// 0x6BCC40
@@ -36,9 +36,9 @@ class Font32Class : public FontClass, public RefCountClass							// NAME 2: what
 		protected: void Update_Resolution(void);												// 0x6BCDE0, inlined into Load_Font_Image  // NAME 2 [Update_Resolution]: ScreenWidth / ScreenHeight from WW3D
 
 	friend class FontSys; protected:	// (FontSys stores XSpacing itself: Change_Text 0x6CDBC0's written-out print sites)
-		void Minimize_Font_Image(SurfaceClass * surface);								// 0x6BBE20, no caller (font3d.cpp's name, NAME 4)
+		private: void Minimize_Font_Image(SurfaceClass * surface); protected:								// 0x6BBE20, no caller (font3d.cpp's name, NAME 4)  // NAME 5: thunk order confirmed, binary.md 5.11
 		void Make_Proportional(SurfaceClass * surface);							// 0x6BC120 (font3d.cpp's name, NAME 4)
-		bool Load_Font_Image(const char * filename);								// 0x6BC3A0 (font3d.cpp's name, NAME 4)
+		private: bool Load_Font_Image(const char * filename); protected:								// 0x6BC3A0 (font3d.cpp's name, NAME 4)  // NAME 5: thunk order confirmed, binary.md 5.11
 
 		RefCountPtr<SurfaceClass> Surface;											// +0x0C  // NAME 2: the font image
 		float UOffsetTable[256];													// +0x10 (font3d.cpp's names)

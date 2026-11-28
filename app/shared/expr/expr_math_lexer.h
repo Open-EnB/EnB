@@ -3,7 +3,7 @@
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	Interim placement (D137): the token, the lexer interface (vtable 0xAEBB00) and the interface of the
 **	lexer's matchers (vtable 0xAEBB30). The client names no header for them; the lexer's files are
-**	expr_lexer_impl.cpp (ExprLexerImplClass), expr_lexer_match_list.cpp and expr_math_lexer_factory.cpp.
+**	expr_lexer_impl.cpp (ExprLexerImpl), expr_lexer_match_list.cpp and expr_math_lexer_factory.cpp.
 */
 
 #if defined(_MSC_VER)
@@ -15,16 +15,16 @@
 
 #include <string>
 
-class ExprMathTokenClass	// NAME 3 [ExprMathTokenClass]: 0x14 bytes, a type and its text
+class ExprLexerToken  // NAME 5: thunk order A, binary.md 5.11; NAME 3 [ExprLexerToken]: 0x14 bytes, a type and its text
 {
 public:
-	ExprMathTokenClass();										// 0x4C7620: type -1, the text from a global
-	ExprMathTokenClass(int type, const char *text);				// 0x4C7740
-	ExprMathTokenClass(int type, const std::string &text);		// 0x4C7850
+	ExprLexerToken();										// 0x4C7620: type -1, the text from a global
+	ExprLexerToken(int type, const char *text);				// 0x4C7740
+	ExprLexerToken(int type, const std::string &text);		// 0x4C7850
 
 	bool Is_Valid() const;		// 0x4C79E0  // NAME 3 [Is_Valid]: type != -1 and the text differs from Invalid_Text
-	bool operator==(const ExprMathTokenClass &other) const;	// 0x4C7A60
-	bool operator!=(const ExprMathTokenClass &other) const;	// 0x4C7AE0
+	bool operator==(const ExprLexerToken &other) const;	// 0x4C7A60
+	bool operator!=(const ExprLexerToken &other) const;	// 0x4C7AE0
 
 	static const char *Invalid_Text;	// 0xB7459C ("")  // NAME 3 [Invalid_Text]: the default token's text
 
@@ -33,11 +33,11 @@ public:
 };
 
 // The lexer's interface: 4 bytes, vtable 0xAEBB00 (destructor 0x4C4AE0, six pure slots).
-class ExprMathLexerClass	// NAME 3 [ExprMathLexerClass]
+class ExprLexer  // NAME 5: thunk order A, binary.md 5.11; NAME 3 [ExprLexer]
 {
 public:
-	virtual ~ExprMathLexerClass() {}
-	virtual ExprMathTokenClass Get_Token() = 0;	// +4  // NAME 3 [Get_Token]
+	virtual ~ExprLexer() {}
+	virtual ExprLexerToken Get_Token() const = 0;	// +4  // NAME 3 [Get_Token]
 	virtual bool Has_Token() = 0;					// +8  // NAME 3 [Has_Token]: the current token is valid
 	virtual bool Has_Error() = 0;					// +0xC  // NAME 3 [Has_Error]: no valid token, text left
 	virtual void Next() = 0;						// +0x10  // NAME 3 [Next]

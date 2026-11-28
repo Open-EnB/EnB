@@ -18,13 +18,13 @@
 #include "pk.h"
 
 // opcode 188 (0x00BC, CTA_REQUEST): vtable 0xB097DC, constructor 0x86F0F0, 0x18 bytes
-class CTA_Request_PacketClass : public PacketClass  // NAME 3: the client's Print text 'CTA_Request_Packet {' and the PacketClass convention
+class CTARequestPacketClass : public UnknownPacketBaseClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
-	CTA_Request_PacketClass(int avatar_id, int target_id, int request_type);	// 0x86F070
-	CTA_Request_PacketClass(RawPacketClass *raw);	// 0x86F0F0
-	virtual ~CTA_Request_PacketClass();	// +0x00 0x86F1C0 / 0x86F0C0
-	virtual RawPacketClass *Build();	// +0x04 0x86F1E0
+	CTARequestPacketClass(int avatar_id, int target_id, int request_type);	// 0x86F070
+	CTARequestPacketClass(PacketClass *raw);	// 0x86F0F0
+	virtual ~CTARequestPacketClass();	// +0x00 0x86F1C0 / 0x86F0C0
+	virtual PacketClass *Encode();	// +0x04 0x86F1E0  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x868DF0 (clientstub.cpp l.323)
 	virtual int Get_Data_Size();	// +0x0C 0x86F2C0
 	virtual int Print(char *buffer, int len);	// +0x10 0x86F2E0
@@ -35,12 +35,12 @@ public:
 };
 
 // opcode 189 (0x00BD, CTA_RESPONSE): vtable 0xB0980C, constructor 0x86F3C0, 0x18 bytes
-class CTAResponsePacketClass : public PacketClass
+class CTAResponsePacketClass : public UnknownPacketBaseClass
 {
 public:
 	CTAResponsePacketClass(int avatar_id, int request_type, bool success);	// 0x86F320
-	CTAResponsePacketClass(RawPacketClass *raw);	// 0x86F3C0
-	virtual RawPacketClass *Build();	// +0x04 0x86F4B0
+	CTAResponsePacketClass(PacketClass *raw);	// 0x86F3C0
+	virtual PacketClass *Encode();	// +0x04 0x86F4B0  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x73DAA0 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x86F590
 	virtual int Print(char *buffer, int len);	// +0x10 0x86F5B0

@@ -4,9 +4,9 @@
 **	Original location: e:\build\beta\G\app\Client\gd_slot_data.h (name assumed from gd_slot_data.cpp, whose
 **	__FILE__ is 0xB8D684; the client holds no string of this header)
 **
-**	gd_slot_data.cpp's gadgets: a slot on a screen, over a model gadget without a scene (Unknown_675120Class),
+**	gd_slot_data.cpp's gadgets: a slot on a screen, over a model gadget without a scene (UIMeshGadgetClass),
 **	drawn by its SlotRender (slot_data_render.cpp) and reporting its events to its SlotIFace (ui_slot_data.cpp's
-**	screen). SlotDataGadgetClass: table 0xAFB0CC, 0x6C bytes, constructor 0x670650; SlotDataShortcutGadgetClass adds a
+**	screen). SlotDataGadget: table 0xAFB0CC, 0x6C bytes, constructor 0x670650; SlotDataShortcutGadget adds a
 **	shortcut bar's hold on the slot: table 0xAFB1A4, 0x70 bytes, constructor 0x670E30. Notes in gd_slot_data.cpp.
 */
 
@@ -18,12 +18,12 @@
 #define GD_SLOT_DATA_H
 
 #include "gd_robj.h"
-#include "unknown_675120.h"
+#include "gd_uimesh.h"
 #include "slot_data_render.h"
 #include <string>
 
-class SlotDataGadgetClass;
-class SlotDataShortcutGadgetClass;
+class SlotDataGadget;
+class SlotDataShortcutGadget;
 class UIScutBarClass;
 
 // What a slot reports to (ui_slot_data.cpp's screen, not in the tree yet): one slot used
@@ -40,15 +40,15 @@ public:
 	virtual void Unknown_70(); virtual void Unknown_74(); virtual void Unknown_78(); virtual void Unknown_7C();
 	virtual void Unknown_80(); virtual void Unknown_84(); virtual void Unknown_88(); virtual void Unknown_8C();
 	virtual void Unknown_90(); virtual void Unknown_94();
-	virtual void Unknown_98(SlotDataGadgetClass *gadget, KernelEventClass *event, unsigned int mask);	// +0x98 (0x670B20)  // NAME 1 [gadget, event, mask]: what it passes
+	virtual void Unknown_98(SlotDataGadget *gadget, KernelEventClass *event, unsigned int mask);	// +0x98 (0x670B20)  // NAME 1 [gadget, event, mask]: what it passes
 };
 
-class SlotDataGadgetClass : public Unknown_675120Class  // NAME 3: class-from-file (D24) for app\Client\gd_slot_data.cpp
+class SlotDataGadget : public UIMeshGadgetClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
-	SlotDataGadgetClass(SlotDataIFaceClass *slot_iface, SlotDataRenderClass *slot_render);	// 0x670650 (mask 0xE55)  // NAME 2 [slot_iface, slot_render]: the asserts' members; ui_slot_data.cpp's '!slot_render'
-	virtual ~SlotDataGadgetClass();										// +0x00 0x6707B0 (deleting 0x670780)
-	virtual SlotDataGadgetClass *As_SlotDataGadget() { return(this); }						// +0x10 0x670740 (itself)
+	SlotDataGadget(SlotDataIFaceClass *slot_iface, SlotDataRenderClass *slot_render);	// 0x670650 (mask 0xE55)  // NAME 2 [slot_iface, slot_render]: the asserts' members; ui_slot_data.cpp's '!slot_render'
+	protected: virtual ~SlotDataGadget(); public:										// +0x00 0x6707B0 (deleting 0x670780)  // NAME 5: thunk order confirmed, binary.md 5.11
+	virtual SlotDataGadget *As_SlotDataGadget() { return(this); }						// +0x10 0x670740 (itself)
 	virtual void Unknown_20(int arg);									// +0x20 0x670990 (the tooltip from the render)  // NAME 1 [arg]: the base's
 	virtual RenderObjClass *Unknown_24(Vector3 *position, float *frame, bool indicator);	// +0x24 0x670CF0
 	virtual bool Unknown_2C(KernelEventClass *event, float x, float y, unsigned int mask);	// +0x2C 0x670B20 (highlight, press, report to SlotIFace)
@@ -57,7 +57,7 @@ public:
 	virtual void Unknown_90(class TextureClass *texture);				// +0x90 0x670D20 (G_ASSERT 'false')
 	virtual Vector3 Unknown_9C();										// +0x9C 0x670D50 (the base's, darkened when the render says so)
 	virtual Vector3 Unknown_A0();										// +0xA0 0x670DE0
-	virtual SlotDataShortcutGadgetClass *Unknown_A4() { return(NULL); }			// +0xA4 0x670760
+	virtual SlotDataShortcutGadget *Unknown_A4() { return(NULL); }			// +0xA4 0x670760
 	virtual void Unknown_A8(bool arg);									// +0xA8 0x670CB0 (the render's +0x2C)  // NAME 1 [arg]: neutral
 	virtual void Unknown_AC(int slot);									// +0xAC 0x670890 (the render's +0x40, the tooltip)  // NAME 1 [slot]: as the render's
 
@@ -70,17 +70,17 @@ public:
 	bool Unknown68;														// +0x68 (true; 0x670C90: the report to SlotIFace on or off)
 };
 
-class SlotDataShortcutGadgetClass : public SlotDataGadgetClass  // NAME 3: ui_inv.cpp's FAIL_IF '!gadget->As_SlotDataShortcutGadget()' (its +0xA4 returns this)
+class SlotDataShortcutGadget : public SlotDataGadget  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
-	SlotDataShortcutGadgetClass(SlotDataIFaceClass *slot_iface, SlotDataRenderClass *slot_render, LayerClass *layer);	// 0x670E30  // NAME 1 [layer]: what slot +0x28 takes
-	virtual ~SlotDataShortcutGadgetClass() {}									// +0x00 0x670F70 (deleting 0x670F40)
+	SlotDataShortcutGadget(SlotDataIFaceClass *slot_iface, SlotDataRenderClass *slot_render, LayerClass *layer);	// 0x670E30  // NAME 1 [layer]: what slot +0x28 takes
+	protected: virtual ~SlotDataShortcutGadget() {} public:									// +0x00 0x670F70 (deleting 0x670F40)  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual void Unknown_04();											// +0x04 0x671050 (off its shortcut bar)
 	virtual void Unknown_7C(int arg);									// +0x7C 0x671090 (ShortcutOwner set)  // NAME 1 [arg]: the base's
 	virtual void Unknown_80(int arg);									// +0x80 0x671110 (ShortcutOwner cleared)  // NAME 1 [arg]: the base's
 	virtual void Unknown_84(int arg);									// +0x84 0x671150 ('scut_gadg': its tooltip from the render)  // NAME 1 [arg]: the base's
 	virtual bool Unknown_88() { return(ShortcutOwner != NULL); }		// +0x88 0x670F20
-	virtual SlotDataShortcutGadgetClass *Unknown_A4() { return(this); }			// +0xA4 0x670F00
+	virtual SlotDataShortcutGadget *Unknown_A4() { return(this); }			// +0xA4 0x670F00
 
 	UIScutBarClass *ShortcutOwner;										// +0x6C  // NAME 3: the asserts'
 };

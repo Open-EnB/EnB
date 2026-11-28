@@ -43,7 +43,7 @@ public:
 	char Unknown0000[0x127C];
 	LineDisplayUnknown127CClass *Unknown127C;				// +0x127C
 	char Unknown1280[0x12C0 - 0x1280];
-	DeltaPlayerClass *AuxData;								// +0x12C0 (0x5A8350's FAIL_IF '!ad_player'; SClient's AuxData)
+	DeltaPlayerClass *AuxData;								// +0x12C0 (0x5A8350's FAIL_IF '!ad_player'; SpaceClientClass's AuxData)
 	char Unknown12C4[0x1354 - 0x12C4];
 	int Unknown1354;										// +0x1354
 	int Unknown1358;										// +0x1358
@@ -157,7 +157,7 @@ void LineDisplayStringStruct::Show(int on)
 
 
 
-UILineDisplayClass::UILineDisplayClass(LineDisplayClientClass *client) :
+LineDisplayInterface::LineDisplayInterface(LineDisplayClientClass *client) :
 	InterfaceClass(0, 0),
 	Current(0),
 	HistoryIndex(-1),
@@ -174,7 +174,7 @@ UILineDisplayClass::UILineDisplayClass(LineDisplayClientClass *client) :
 
 
 // The hash_map iterators declared before their loops (registers as the client, as 0x677410); two padding lines below Unknown_5C removed for the later reports' lines
-UILineDisplayClass::~UILineDisplayClass()
+LineDisplayInterface::~LineDisplayInterface()
 {
 	Unknown_BE67BC->Unload("fc_line_display.ini");
 	Clear();
@@ -199,7 +199,7 @@ UILineDisplayClass::~UILineDisplayClass()
 }
 
 
-void UILineDisplayClass::Unknown_54()
+void LineDisplayInterface::Unknown_54()
 {
 	char section[64];
 	INIClass ini("ephemeral.ini");
@@ -234,14 +234,14 @@ void UILineDisplayClass::Unknown_54()
 }
 
 
-void UILineDisplayClass::Unknown_58()
+void LineDisplayInterface::Unknown_58()
 {
 	UnknownB8 = false;
 	InterfaceClass::Unknown_58();
 }
 
 
-void UILineDisplayClass::Unknown_5C()
+void LineDisplayInterface::Unknown_5C()
 {
 	Clear();
 	InterfaceClass::Unknown_5C();
@@ -278,14 +278,14 @@ void UILineDisplayClass::Unknown_5C()
 
 
 
-void UILineDisplayClass::Unknown_70(ControlKeysManager *manager)
+void LineDisplayInterface::Unknown_70(ControlKeysManager *manager)
 {
 	FAIL_IF(!manager) return;
 	manager->Add_Keys((ControlKeyListClass *)Unknown4C, std::string("Prev Ephemeral History"), (void *)1, 0);
 	manager->Add_Keys((ControlKeyListClass *)Unknown4C, std::string("Next Ephemeral History"), (void *)2, 0);
 }
 
-void UILineDisplayClass::Unknown_74(ControlKeysManager *manager)
+void LineDisplayInterface::Unknown_74(ControlKeysManager *manager)
 {
 	FAIL_IF(!manager) return;
 	manager->Remove_Keys((ControlKeyListClass *)Unknown4C, std::string("Prev Ephemeral History"), 0);
@@ -314,7 +314,7 @@ static inline void Push_Line(std::vector<LineDisplayLineStruct *> &lines, LineDi
 
 
 // 0x5A69B0: the trim's push_back goes through Push_Line, so insert(P, x) 0x5A8DD0 is called out of line as in the client
-void UILineDisplayClass::Unknown_60()
+void LineDisplayInterface::Unknown_60()
 {
 	Unknown_5A8350();
 	if (!Unknown44) {
@@ -412,12 +412,12 @@ void UILineDisplayClass::Unknown_60()
 			text->Set_Position(offset);
 		}
 	}
-	InterfaceSortClass sort(Unknown_541800(), 1);
+	LocalInterfaceSort sort(Unknown_541800(), 1);
 	text->Add((SceneClass *)Unknown44);
 }
 
 
-bool UILineDisplayClass::Unknown_68(int key)
+bool LineDisplayInterface::Unknown_68(int key)
 {
 	switch (key) {
 		case 1:
@@ -452,7 +452,7 @@ bool UILineDisplayClass::Unknown_68(int key)
 }
 
 
-std::string UILineDisplayClass::Format_Line(const char *text, int count, int index)
+std::string LineDisplayInterface::Format_Line(const char *text, int count, int index)
 {
 	std::string line("");
 	if (count == 1) {
@@ -472,7 +472,7 @@ std::string UILineDisplayClass::Format_Line(const char *text, int count, int ind
 }
 
 
-void UILineDisplayClass::Add_Line(const char *text, int display_time, const char *font, int priority)
+void LineDisplayInterface::Add_Line(const char *text, int display_time, const char *font, int priority)
 {
 	if (!text || !font) {
 		return;
@@ -505,20 +505,20 @@ void UILineDisplayClass::Add_Line(const char *text, int display_time, const char
 }
 
 
-void UILineDisplayClass::Add_Line_7(const char *text, int display_time, const char *font)
+void LineDisplayInterface::Add_Line_7(const char *text, int display_time, const char *font)
 {
 	Add_Line(text, display_time, font, 7);
 }
 
 
-void UILineDisplayClass::Add_Line_3(const char *text, int display_time, const char *font)
+void LineDisplayInterface::Add_Line_3(const char *text, int display_time, const char *font)
 {
 	Add_Line(text, display_time, font, 3);
 }
 
 
 // 0x5A7A80: Find_Ephemeral inlined (its copy 0x5A8B60 has no caller); its const_iterator conversions 0x5A9010 stay out of line
-void UILineDisplayClass::Show_Ephemeral(const char *type)
+void LineDisplayInterface::Show_Ephemeral(const char *type)
 {
 	if (type) {
 		EphemeralStruct *e = Find_Ephemeral(type);
@@ -529,7 +529,7 @@ void UILineDisplayClass::Show_Ephemeral(const char *type)
 }
 
 
-void UILineDisplayClass::Flush_Lines()
+void LineDisplayInterface::Flush_Lines()
 {
 	for (std::vector<LineDisplayLineStruct *>::iterator line = Lines.begin(); line != Lines.end(); ++line) {
 		History.push_back(*line);
@@ -588,7 +588,7 @@ void UILineDisplayClass::Flush_Lines()
 
 
 // The iterator declared before the loop (registers as the client); the called string in a named local (the client loads it before the argument)
-void UILineDisplayClass::Unknown_7C(UIViewClass *unknown1, bool unknown2)
+void LineDisplayInterface::Unknown_7C(UIViewClass *unknown1, bool unknown2)
 {
 	Clear();
 	LineDisplaySClientClass *sclient = Client ? Client->Unknown_18() : 0;
@@ -617,7 +617,7 @@ void UILineDisplayClass::Unknown_7C(UIViewClass *unknown1, bool unknown2)
 
 
 // The hash_map iterator declared before the loop and assigned from begin() keeps it in registers as the client (0x5A7E80, 0x5A8100, 0x677410, 0x6ACD10)
-void UILineDisplayClass::Clear()
+void LineDisplayInterface::Clear()
 {
 	Style = "";
 	UnknownFC = false;
@@ -633,7 +633,7 @@ void UILineDisplayClass::Clear()
 }
 
 
-void UILineDisplayClass::Skip()
+void LineDisplayInterface::Skip()
 {
 	if (HistoryMode && Current) {
 		Current->DisplayTimeMS = 0;
@@ -652,7 +652,7 @@ void UILineDisplayClass::Skip()
 
 
 // 0x5A8350: the mission messages (the stage, completed, expired and failed lines and their sounds); the client's Add_Line_3 / Add_Line_7 wrappers and the stage item in a local
-void UILineDisplayClass::Unknown_5A8350()
+void LineDisplayInterface::Unknown_5A8350()
 {
 	LineDisplaySClientClass *sclient = Client->Unknown_18();
 	FAIL_IF(!sclient) return;
@@ -660,12 +660,12 @@ void UILineDisplayClass::Unknown_5A8350()
 	DeltaPlayerClass *ad_player = sclient->AuxData;
 	FAIL_IF(!ad_player) return;
 
-	NameClass name("Missions");
-	DeltaItemArrayClass<DeltaMissionClass> *missions = Unknown_Find_Set_Field<DeltaItemArrayClass<DeltaMissionClass> >((DeltaCompoundClass *)ad_player, name);
+	AuxDataName name("Missions");
+	DeltaItemArrayClass<DeltaMission> *missions = Unknown_Find_Set_Field<DeltaItemArrayClass<DeltaMission> >((DeltaContainer *)ad_player, name);
 	if (missions && missions->Unknown70 > 1) {
 		if (UnknownB8) {
 			for (int i = 0; i < 12; i++) {
-				DeltaMissionClass *delta_item = (DeltaMissionClass *)missions->Children[i];
+				DeltaMission *delta_item = (DeltaMission *)missions->Children[i];
 
 
 				FAIL_IF(!delta_item) continue;
@@ -734,7 +734,7 @@ void UILineDisplayClass::Unknown_5A8350()
 
 						G_ASSERT(stage_idx >= 0);
 						if (stage_idx >= 0) {
-							DeltaMissionStageClass *stage_item = (DeltaMissionStageClass *)delta_item->Stages.Children[stage_idx]; text += stage_item->Text.Get();
+							DeltaMissionStage *stage_item = (DeltaMissionStage *)delta_item->Stages.Children[stage_idx]; text += stage_item->Text.Get();
 						}
 						Unknown_Strip_Tags(text);
 						Add_Line_7(text.c_str(), 5000, "MessageLine");
@@ -743,7 +743,7 @@ void UILineDisplayClass::Unknown_5A8350()
 						}
 					}
 					if (sound) {
-						SoundLibraryClass::Play_2D_Sound(sound, 2);
+						SoundLibrary::Play_2D_Sound(sound, 2);
 					}
 				}
 			}
@@ -754,7 +754,7 @@ void UILineDisplayClass::Unknown_5A8350()
 
 
 
-EphemeralStruct *UILineDisplayClass::Find_Ephemeral(const char *type)
+EphemeralStruct *LineDisplayInterface::Find_Ephemeral(const char *type)
 {
 	std::hash_map<std::string, EphemeralStruct *>::const_iterator i = Ephemerals.find(std::string(type));
 	if (i == Ephemerals.end()) {
@@ -765,7 +765,7 @@ EphemeralStruct *UILineDisplayClass::Find_Ephemeral(const char *type)
 
 
 
-RefCountPtr<LineDisplayTextClass> UILineDisplayClass::Find_Text(const char *name)
+RefCountPtr<LineDisplayTextClass> LineDisplayInterface::Find_Text(const char *name)
 {
 	std::hash_map<std::string, LineDisplayStringStruct *>::const_iterator i = Strings.find(std::string(name));
 	if (i == Strings.end()) {

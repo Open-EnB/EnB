@@ -24,7 +24,7 @@ class ChatFontSys : public FontSys  // NAME 2: a FontSys (0x4EC bytes, vtable 0x
 public:
 	ChatFontSys(const char *name) : FontSys(name, 0, " ") { Set_Sort_Level(10); }
 
-	void Set_Line(const RefCountPtr<ChatLineClass> &line)  // NAME 2: what it does
+	void Set_Line(const RefCountPtr<ChatLineData> &line)  // NAME 2: what it does
 	{
 		if (Line.Peek()) {
 			Line = line;
@@ -35,7 +35,7 @@ public:
 		}
 	}
 
-	void Set_Line_Always(const RefCountPtr<ChatLineClass> &line)  // NAME 2: Set_Line without its test: 0x67E250 compares first
+	void Set_Line_Always(const RefCountPtr<ChatLineData> &line)  // NAME 2: Set_Line without its test: 0x67E250 compares first
 	{
 		if (line.Peek() != Line.Peek()) {
 			Line = line;
@@ -48,10 +48,10 @@ public:
 
 	bool Unknown_680320(const char *indent, RefCountPtr<SceneClass> scene);  // 0x680320  // NAME 2 [indent, scene]: the text after it; +0x34 Add, +0x40 Peek_Scene
 
-	RefCountPtr<ChatLineClass> Line;  // +0x4E8  // NAME 2: what it holds
+	RefCountPtr<ChatLineData> Line;  // +0x4E8  // NAME 2: what it holds
 };
 
-class ChatWindowClass : public ChatWindowHistoryClass  // NAME 3: the file's name, the assert 'window->ChatWindow'
+class ChatWindowClass : public ChatWindowHistory  // NAME 3: the file's name, the assert 'window->ChatWindow'
 {
 public:
 	ChatWindowClass(GadgetSlider *owner, int unknown, int index);  // 0x67DC80 (ui_chat_window.cpp's 0x56FD30)  // NAME 1 [owner, unknown, index]: neutral (D10)
@@ -83,7 +83,7 @@ public:
 	GadgetSlider *Unknown74;  // +0x74: the constructor's owner  // NAME 1: neutral (D10)
 	float LineHeight;  // +0x78: Font->Get_Char_Height(480)  // NAME 2: what it holds
 	std::vector< RefCountPtr<ChatFontSys> > Fonts;  // +0x7C  // NAME 3: the asserts' font_ptr
-	RefCountPtr<Font32Class> Font;  // +0x8C  // NAME 2: its class
+	RefCountPtr<Font32Bit> Font;  // +0x8C  // NAME 2: its class
 	unsigned int Unknown90;  // +0x90  // NAME 1: neutral (D10)
 	int Unknown94;  // +0x94  // NAME 1: neutral (D10)
 	int Unknown98;  // +0x98  // NAME 1: neutral (D10)

@@ -90,7 +90,7 @@ RadarDataClass::~RadarDataClass()
 void RadarDataClass::Unknown_7BB570()
 {
 	ClientObjectClass *co = Peek_Client_Object();
-	SClient *client = Peek_SClient();
+	SpaceClientClass *client = Peek_SClient();
 	if (client && co && client->Unknown_74D8B0(co)) {
 		Unknown_7BB960();
 	}
@@ -144,7 +144,7 @@ void RadarDataClass::Unknown_7BB8C0(int state)
 // @0x7BB910
 void RadarDataClass::Unknown_7BB910()
 {
-	SClient *client = Peek_SClient();
+	SpaceClientClass *client = Peek_SClient();
 
 
 
@@ -205,7 +205,7 @@ void RadarDataClass::Unknown_7BB910()
 // @0x7BB960
 void RadarDataClass::Unknown_7BB960()
 {
-	SClient *client = Peek_SClient();
+	SpaceClientClass *client = Peek_SClient();
 	FAIL_IF(!client) return;
 	Get_Unknown78(); Get_Unknown78(); Get_Unknown78(); Get_Unknown78(); Get_Unknown78(); Get_Unknown78(); Get_Unknown78(); Colors = Unknown_70B0A0(client, Peek_Client_Object());	// (no code: spends the budget that keeps 0x70AC60 out of line in 0x7BB1D0: 7 to 9 do)
 	Get_Client()->ObjectsChanged = true;
@@ -232,6 +232,6 @@ void RadarDataClass::Unknown_7BBC00(ClientGroupEvent *event, ClientObjectClass *
 /*
 **	Notes
 **
-**	The client's __FILE__ 0xB9F070. The object runs from 0x7BB1D0 (a PermStringInitClass static's initialiser at
+**	The client's __FILE__ 0xB9F070. The object runs from 0x7BB1D0 (a PermStringInit static's initialiser at
 **	0x7BB180 precedes it) to the callbacks' template members, 0x7BC02B.
 */

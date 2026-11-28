@@ -10,7 +10,7 @@
 #include "..\shared\g_assert.h"
 
 UISliderGadget::UISliderGadget(RenderObjClass *screen, const char *pull, const char *bar, const LayerClass *layer, bool horizontal, float extra) :
-	Unknown_675120Class(screen->Get_Sub_Object_By_Name(bar), *layer, 0x77),
+	UIMeshGadgetClass(screen->Get_Sub_Object_By_Name(bar), *(LayerClass *)layer, 0x77),
 	Pull(NULL),
 	Screen(screen),
 	IsHorizontal(horizontal),
@@ -48,7 +48,7 @@ UISliderGadget::UISliderGadget(RenderObjClass *screen, const char *pull, const c
 
 
 UISliderGadget::UISliderGadget(RenderObjClass *screen, const char *pull, const char *bar, bool horizontal, float extra) :
-	Unknown_675120Class(screen->Get_Sub_Object_By_Name(bar), 0x77),
+	UIMeshGadgetClass(screen->Get_Sub_Object_By_Name(bar), 0x77),
 	Pull(NULL),
 	Screen(screen),
 	IsHorizontal(horizontal),
@@ -208,7 +208,7 @@ bool UISliderGadget::Unknown_30(float x, float y)
 		Unknown0C0.X = 0;
 		Unknown0C0.Y = 0;
 	}
-	return(RObjGadgetClass::Unknown_30(x, y));
+	return(RenderObjGadgetClass::Unknown_30(x, y));
 }
 
 
@@ -297,7 +297,7 @@ RenderObjClass *UISliderGadget::Unknown_24(Vector3 *position, float *frame, bool
 
 void UISliderGadget::Unknown_8C(bool on)
 {
-	RObjGadgetClass::Unknown_8C(on);
+	RenderObjGadgetClass::Unknown_8C(on);
 	if (Pull != NULL) {
 		Pull->Set_Hidden(on);
 	}
@@ -314,7 +314,7 @@ void UISliderGadget::Unknown_675CF0(int count, int a, int b)
 void UISliderGadget::Unknown_A4(int top)
 {
 	if (Unknown0B4 != top) {
-		SoundLibraryClass::Play_2D_Sound("SR_rollover14b.wav", 2);
+		SoundLibrary::Play_2D_Sound("SR_rollover14b.wav", 2);
 	}
 	Unknown0B4 = top;
 	int range = abs(Unknown0B0 - Unknown0AC);
@@ -378,11 +378,11 @@ void UISliderGadget::Unknown_675F00(Vector2 point)
 **	Reconstruction notes (gd_uisld.cpp, client 0x675370-0x675FEF; __FILE__ 0xB8D78C, FAIL_IF '!retval' on the client's line 293,
 **	D25: the blank lines between the definitions above it keep it there).
 **
-**	The object: from the scroll bar's first constructor 0x675370 (right after unknown_675120.cpp's last function 0x675350) to
+**	The object: from the scroll bar's first constructor 0x675370 (right after gd_uimesh.cpp's last function 0x675350) to
 **	<string>'s guarded ctype initialiser 0x675FD0, which ends it (workflow.md 3.3). Its 16 functions: the two constructors,
 **	the table's three inline getters 0x675460 / 0x675480 / 0x6754A0 and the deleting destructor 0x6754C0, the constructors'
 **	helper 0x6755E0, the destructor, the slots +0x40 / +0x30 / +0x2C / +0x24 / +0x8C / +0xA4 and the two members 0x675CF0 /
-**	0x675F00. Table 0xAFBA80 over unknown_675120.h's 0xAFB870, with four new slots +0xA4..+0xB0.
+**	0x675F00. Table 0xAFBA80 over gd_uimesh.h's 0xAFB870, with four new slots +0xA4..+0xB0.
 **
 **	The class name: none in the client (no RTTI, no string); D24's class-from-file for gd_uisld.cpp, spelled as the sibling
 **	gd_uiback.cpp's UIBackGadget (RTTI .?AVMovableUIBackGadget@@'s base). 'uisld' read as 'UI slider' (gd_slider.cpp holds

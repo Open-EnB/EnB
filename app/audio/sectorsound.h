@@ -10,7 +10,7 @@
 class INIClass;
 
 // A sector's ambient sounds, from sectorsounds<sector>.ini: one channel per section that has a MaxElevation,
-// and the channel whose elevation band holds the listener plays. 0x58 bytes (SClient's +0x1330: made at
+// and the channel whose elevation band holds the listener plays. 0x58 bytes (SpaceClientClass's +0x1330: made at
 // 0x750A70 for SERVER_PARAMETERS' sector, updated from 0x750B30).
 class SectorSoundClass : public AmbientSoundManagerClass  // NAME 3: class-from-file (D24) for audio/sectorsound.cpp
 {

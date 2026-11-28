@@ -32,11 +32,11 @@ class LightClass;
 class RenderObjClass;
 class LoginUnknown18Class;
 
-class ShipPipClass : public GadgetClass  // NAME 3: class-from-file (D24) for app\client\ship_pip.cpp
+class ShipPIPClass : public GadgetClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
-	ShipPipClass(int type);												// 0x80B2E0 (0 or 1, else G_ASSERT 'false'; ui_avatr.cpp passes 1)  // NAME 1 [type]: neutral
-	virtual ~ShipPipClass();											// +0x00 0x80B520 (deleting 0x80B4F0; slot +0x80 inline)
+	ShipPIPClass(int type);												// 0x80B2E0 (0 or 1, else G_ASSERT 'false'; ui_avatr.cpp passes 1)  // NAME 1 [type]: neutral
+	virtual ~ShipPIPClass();											// +0x00 0x80B520 (deleting 0x80B4F0; slot +0x80 inline)
 	// +0x04 GadgetClass's 0x65EF90; +0x08..+0x28 GadgetClass's inline defaults
 	virtual bool Unknown_2C(KernelEventClass *event, float x, float y, unsigned int mask);	// +0x2C 0x80D5E0 (the drags: turn, pan, zoom; the software mouse's cursor)  // NAME 1 [event, x, y, mask]: GadgetClass's
 	virtual bool Unknown_30(float x, float y);							// +0x30 0x80D540 (the pointer over the picture: +0xA4 / +0xA8 from x * 640, y * 480)  // NAME 1 [x, y]: GadgetClass's

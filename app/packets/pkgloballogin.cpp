@@ -10,7 +10,7 @@ GlobalLoginPacketClass::GlobalLoginPacketClass(const LoginTicketInfoClass &info,
 {
 }
 
-GlobalLoginPacketClass::GlobalLoginPacketClass(RawPacketClass *raw)
+GlobalLoginPacketClass::GlobalLoginPacketClass(PacketClass *raw)
 {
 	raw->Get(&Ticket_Info.EA_Customer);
 	raw->Get(&Ticket_Info.EA_Ticket);
@@ -32,9 +32,9 @@ GlobalLoginPacketClass::~GlobalLoginPacketClass()
 {
 }
 
-RawPacketClass *GlobalLoginPacketClass::Build()
+PacketClass *GlobalLoginPacketClass::Encode()
 {
-	RawPacketClass *raw = new RawPacketClass(118, Get_Data_Size());
+	PacketClass *raw = new PacketClass(118, Get_Data_Size());
 	raw->Add(Ticket_Info.EA_Customer);
 	raw->Add(Ticket_Info.EA_Ticket);
 	raw->Add(*(__int64 *)&Ticket_Info.Unknown20);
@@ -54,11 +54,11 @@ RawPacketClass *GlobalLoginPacketClass::Build()
 
 int GlobalLoginPacketClass::Get_Data_Size()
 {
-	return(RawPacketClass::Get_Size(Ticket_Info.EA_Customer) + RawPacketClass::Get_Size(Ticket_Info.EA_Ticket) + sizeof(__int64) +
-		RawPacketClass::Get_Size(Ticket_Info.Metrics_ID) + RawPacketClass::Get_Size(Ticket_Info.Login_Key) +
-		RawPacketClass::Get_Size(Ticket_Info.EMail) + RawPacketClass::Get_Size(Ticket_Info.Alias) +
-		RawPacketClass::Get_Size(Ticket_Info.Entitlement_Expiry) + RawPacketClass::Get_Size(Ticket_Info.Approval_Code) +
-		RawPacketClass::Get_Size(Ticket_Info.Approval_Message) + sizeof(Ticket_Info.Create_Time) + sizeof(Referral_Available) +
+	return(PacketClass::Get_Size(Ticket_Info.EA_Customer) + PacketClass::Get_Size(Ticket_Info.EA_Ticket) + sizeof(__int64) +
+		PacketClass::Get_Size(Ticket_Info.Metrics_ID) + PacketClass::Get_Size(Ticket_Info.Login_Key) +
+		PacketClass::Get_Size(Ticket_Info.EMail) + PacketClass::Get_Size(Ticket_Info.Alias) +
+		PacketClass::Get_Size(Ticket_Info.Entitlement_Expiry) + PacketClass::Get_Size(Ticket_Info.Approval_Code) +
+		PacketClass::Get_Size(Ticket_Info.Approval_Message) + sizeof(Ticket_Info.Create_Time) + sizeof(Referral_Available) +
 		sizeof(Total_Referral_Points) + sizeof(Spent_Referral_Points));
 }
 

@@ -1,4 +1,4 @@
-// Earth & Beyond client (reconstruction): app\client\unknown_5b7ab0.h, the menu window of the view at SClient +0x1358
+// Earth & Beyond client (reconstruction): app\client\unknown_5b7ab0.h, the menu window of the view at SpaceClientClass +0x1358
 // (interim placement, D137: the client's object 0x5B7AB0-0x5B8120 has no __FILE__ string; file name provisional,
 // NAME 1). Moved out of sclient.h, which includes it.
 
@@ -11,7 +11,7 @@
 
 #include "unknown_5bb250.h"
 
-// the interface object of the view at SClient +0x1358 (0xAC bytes, tables 0xAF30A8 / 0xAF309C / 0xAF3090): the mesh
+// the interface object of the view at SpaceClientClass +0x1358 (0xAC bytes, tables 0xAF30A8 / 0xAF309C / 0xAF3090): the mesh
 // mu01 and its five option buttons MU01A.OPTION1..5 (ids 1..5), with the animations mu01a.mu01-idl / -on / -o1..o5
 class Unknown5B7AB0Class : public Unknown5BB320Class	// NAME 1: neutral (D10)
 {

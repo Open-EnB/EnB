@@ -409,7 +409,7 @@ int PlayerNLPClass::Unknown_78EE00(int value, bool sitting)
 	} else {
 		sprintf(name, "idle_talk%d", level);
 	}
-	Unknown_78F700Class::BAnimStruct *body_anim = Personality->Find_BAnim(name);
+	PersonalityClass::BAnimStruct *body_anim = Personality->Find_BAnim(name);
 	G_ASSERT(body_anim);
 	return(body_anim->AnimNumber);
 }
@@ -450,7 +450,7 @@ int PlayerNLPClass::Unknown_78EEF0(const char *text, int len)
 	} else {
 		_snprintf(name, sizeof(name), "idle_talk%d", level);
 	}
-	Unknown_78F700Class::BAnimStruct *body_anim = Personality->Find_BAnim(name);
+	PersonalityClass::BAnimStruct *body_anim = Personality->Find_BAnim(name);
 	G_ASSERT(body_anim);
 	return(body_anim->AnimNumber);
 }
@@ -513,7 +513,7 @@ void PlayerNLPClass::Unknown_78F050(const char *text, int len, NLPLexiconClass *
 			if (name[n - 1] == ' ') {
 				name[n - 1] = '\0';
 			}
-			Unknown_78F700Class::BAnimStruct *gesture = Personality->Find_BAnim(name);
+			PersonalityClass::BAnimStruct *gesture = Personality->Find_BAnim(name);
 			if (gesture == NULL) {
 				int number = Personality->Get_Mood_Number(name);
 				if (number < 0) {
@@ -572,7 +572,7 @@ void PlayerNLPClass::Unknown_78F050(const char *text, int len, NLPLexiconClass *
 						p += m;
 					}
 				} else {
-					Unknown_78F700Class::BAnimStruct *gesture = Personality->Find_BAnim(tag);
+					PersonalityClass::BAnimStruct *gesture = Personality->Find_BAnim(tag);
 					if (count + n != 0) {
 						stream->Unknown_4C45B0(1, (unsigned char)gesture->AnimNumber, start, count + n);
 					}
@@ -704,7 +704,7 @@ void PlayerNLPClass::Unknown_78F050(const char *text, int len, NLPLexiconClass *
 // 0x78F640
 int PlayerNLPClass::Unknown_78F640(const char *tag)
 {
-	Unknown_78F700Class::BAnimStruct *body_anim = Personality->Find_BAnim(tag);
+	PersonalityClass::BAnimStruct *body_anim = Personality->Find_BAnim(tag);
 	FAIL_IF(!body_anim) {
 		return(0);
 	}
@@ -724,6 +724,6 @@ void PlayerNLPClass::Unknown_78F690(const char *text, int len, int *mood, Unknow
 **
 **	The client's nlp.cpp: 0x78E190 to 0x78F690 (the asserts on lines 413, 454 and 708), its data
 **	0xB9D668 and strings 0xB9D670-0xB9D9C0. The personality code from 0x78F700 is another file's
-**	(unknown_personality.cpp): 0x78EC00 calls 0x790D40 (20 instructions) where the same compiler
+**	(personality.cpp): 0x78EC00 calls 0x790D40 (20 instructions) where the same compiler
 **	inlines it when both share a file.
 */

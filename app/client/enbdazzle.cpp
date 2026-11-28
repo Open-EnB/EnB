@@ -44,7 +44,7 @@ struct DazzleOccluderStruct			// NAME 1: neutral (D10): what 0x75DEE0 collects f
 
 
 // @0x75DD00
-MainViewDazzleHandlerClass::MainViewDazzleHandlerClass(SClient *client) : Client(client)
+MainViewDazzleHandlerClass::MainViewDazzleHandlerClass(SpaceClientClass *client) : Client(client)
 {
 	if (_Points == NULL) {
 		FAIL_IF(_Instances) {

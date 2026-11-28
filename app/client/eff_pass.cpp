@@ -29,7 +29,7 @@
 
 // 0x6ED6C0
 PassEffectClass::PassEffectClass(ClientClass *client, unsigned id, unsigned start_time, unsigned duration, unsigned cycle_time, const RefCountPtr<MaterialPassClass> &pass, bool projection0, bool projection1) :
-	UnknownB00060EffectClass(client, id, start_time, duration, cycle_time),
+	UnaryEffectClass(client, id, start_time, duration, cycle_time),
 	Pass(pass)
 {
 	for (int i = 0; i < 2; i++) {
@@ -73,7 +73,7 @@ void PassEffectClass::Unknown_6EDBB0(const Vector2 &scale, unsigned stage)
 // 0x6EDC00
 void PassEffectClass::Unknown_18()
 {
-	UnknownB00060EffectClass::Unknown_18();
+	UnaryEffectClass::Unknown_18();
 	if (Get_Flag(10)) {
 		Pass->Peek_Material()->Reset_Mappers();
 	}
@@ -192,7 +192,7 @@ void PassEffectClass::Unknown_18()
 // 0x6EE260
 void PassEffectClass::Unknown_1C()
 {
-	UnknownB00060EffectClass::Unknown_1C();
+	UnaryEffectClass::Unknown_1C();
 	FAIL_IF(!Camera) return;
 	if (Get_Flag(9) && SourceObject) {
 		RefCountPtr<RenderObjClass> robj = Create_Get(SourceObject->Unknown_6F3BC0());

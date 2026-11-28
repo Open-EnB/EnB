@@ -4,7 +4,7 @@
 #include <math.h>
 #include "..\shared\g_assert.h"
 
-extern int Unknown_BE350C;	// NAME 1: neutral (D10): SClient::Do_Frame's frame toggle (sclient.cpp)
+extern int Unknown_BE350C;	// NAME 1: neutral (D10): SpaceClientClass::Do_Frame's frame toggle (sclient.cpp)
 
 // 0x448C30
 FpItaClass::FpItaClass(float max_turn)
@@ -166,7 +166,7 @@ int FpItaClass::Unknown_04(const Vector3 &target, Matrix3D *transforms, float di
 // 0x449300
 void FpItaClass::Unknown_0C(float &yaw, float &pitch) { yaw = 0.0f; pitch = 0.0f; }
 // 0x449330
-int FpItaClass::Unknown_08(const Vector3 &target, Matrix3D *transforms, float dist, float &yaw, float &pitch, PxWrapper &proxim, float radius, DynObj *self, Vector3 *aims)
+int FpItaClass::Unknown_08(const Vector3 &target, Matrix3D *transforms, float dist, float &yaw, float &pitch, PxWrapper &proxim, float radius, DynamicObjectClass *self, Vector3 *aims)
 {
 	G_ASSERT(0);
 	return(1);
@@ -177,7 +177,7 @@ int FpItaClass::Unknown_08(const Vector3 &target, Matrix3D *transforms, float di
 **	client's line 151 in 0x448D00, G_ASSERT '0' on line 171 in 0x449330).
 **
 **	- The object follows unknown_445740.cpp and precedes fp_tt.cpp (0x449360), and holds no initialiser: the
-**	  PermStringInitClass static 0x448BE0 (atexit 0x448C10) before it is unknown_445740's, whose CRT table run is
+**	  PermStringInit static 0x448BE0 (atexit 0x448C10) before it is unknown_445740's, whose CRT table run is
 **	  [0x448BE0, 0x448BB0] between two zero slots and whose static 0xBDC064 precedes its FollowUsesPursue 0xBDC065; it holds
 **	  the fp_*.cpp base's deleting destructor 0x4492D0 (fp_tt.h's FpBaseClass, the first object to need it).
 **	- FpItaClass's table 0xAE78FC: the deleting destructor 0x448CB0, 0x448D00, 0x449330, 0x449300; its destructor

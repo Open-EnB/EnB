@@ -22,7 +22,7 @@
 #include <string>
 #include <vector>
 
-class RawPacketClass;
+class PacketClass;
 
 // Which field of an item's info (the client's asserts 'item_info <= ITEM_INFO_NONE' and
 // 'item_info >= NUM_ITEM_INFO'; the values between them have no name in the client: named from
@@ -100,8 +100,8 @@ public:
 	int Get_Enum_Mapping(ItemInfoEnum iteminfo);																	// 0x83FDE0 (the field's index, 0xFF: none)  // NAME 2: what it returns
 	unsigned int Get_Field_Count();																		// 0x83FE00  // NAME 2: what it returns
 	int Get_Size();																						// 0x83FE30 (its bytes in a message)  // NAME 2: what it returns
-	void Write(RawPacketClass *raw);																	// 0x83FEF0  // NAME 2: what it does
-	void Read(RawPacketClass *raw);																		// 0x840030  // NAME 2: what it does
+	void Write(PacketClass *raw);																	// 0x83FEF0  // NAME 2: what it does
+	void Read(PacketClass *raw);																		// 0x840030  // NAME 2: what it does
 	void Set_Int(ItemInfoEnum iteminfo, int val, bool force);													// 0x840420 (a zero only when forced)  // NAME 2: what it does; NAME 1 [force]
 	void Set_Float(ItemInfoEnum iteminfo, float val, bool force);												// 0x840540  // NAME 2: what it does; NAME 1 [force]
 	void Set_String(ItemInfoEnum iteminfo, const char *val);														// 0x840670  // NAME 2: what it does

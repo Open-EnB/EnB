@@ -28,7 +28,7 @@ static const char *Unknown_B82B88[2] = { NULL, "ok_opt05a" };	// NAME 1: neutral
 
 
 // 0x5C8870
-UIOptionAccountClass::UIOptionAccountClass(SClient *client, int mode) :
+UIOptionAccountClass::UIOptionAccountClass(SpaceClientClass *client, int mode) :
 	ChatPanelUIBase(client),
 	Mode(mode)
 {
@@ -76,9 +76,9 @@ void UIOptionAccountClass::Unknown_5C()
 // 0x5C8AD0
 bool UIOptionAccountClass::Unknown_68(int key)
 {
-	SClient *sclient = (SClient *)((ClientClass *)Client)->As_Space_Client();	// NAME 1: neutral (D10)
+	SpaceClientClass *sclient = (SpaceClientClass *)((ClientClass *)Client)->As_Space_Client();	// NAME 1: neutral (D10)
 	ChatPanelInterface *chat = sclient->ChatPanel.Peek();	// NAME 1: neutral (D10)
-	SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+	SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 	switch (key) {
 		case 1:
 			Unknown_5C();
@@ -112,5 +112,5 @@ void UIOptionAccountClass::Unknown_5C8B90()
 **	Notes.
 **	Object 0x5C8870-0x5C8CBF: the adjustor thunks 0x5C8CA0 / 0x5C8CB0 of the second and third tables close it; the 'opt06a'
 **	page's constructor 0x5C8DB0 follows. Unknown_54, Unknown_58, Unknown_5C and Unknown_68 follow ui_starbase.cpp's lights
-**	panel (UIStarbaseLightsClass), the same ChatPanelUIBase pattern.
+**	panel (StarbaseLightInterface), the same ChatPanelUIBase pattern.
 */

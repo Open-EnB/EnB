@@ -7,7 +7,7 @@
 
 // 0x44E020
 // Exact with PxAccurateActiveStruct's zeroing default constructor (Active(0)'s fill value; the client stores {NULL, false} before _Ufill 0x451370 in 0x44F3D0)
-PxAccurateCallback::PxAccurateCallback(PxObject *object, PxCallbackFunction callback) :
+PxCallbackAccurate::PxCallbackAccurate(PxObject *object, PxCallbackFunction callback) :
 	Object(object),
 	Callback(callback),
 	Overlaps(100),
@@ -17,7 +17,7 @@ PxAccurateCallback::PxAccurateCallback(PxObject *object, PxCallbackFunction call
 
 // 0x44E260
 // Exact as 0x44E020
-PxAccurateCallback::PxAccurateCallback(PxObject *object, const PxAccurateCallback &src) :
+PxCallbackAccurate::PxCallbackAccurate(PxObject *object, const PxCallbackAccurate &src) :
 	Object(object),
 	Callback(src.Callback),
 	Overlaps(100),
@@ -26,13 +26,13 @@ PxAccurateCallback::PxAccurateCallback(PxObject *object, const PxAccurateCallbac
 }
 
 // 0x44E390
-PxAccurateCallback::~PxAccurateCallback()
+PxCallbackAccurate::~PxCallbackAccurate()
 {
 }
 
 // 0x44E470
 // (exact with Tight_Exit reading overlap.Flag after its State store: the inlined copy keeps the client's pointer to the value, add eax, 8)
-void PxAccurateCallback::Overlap(PxBox *box, bool enter)
+void PxCallbackAccurate::Overlap(PxBox *box, bool enter)
 {
 	if (enter) {
 		if (box->Self & 2) {
@@ -50,7 +50,7 @@ void PxAccurateCallback::Overlap(PxBox *box, bool enter)
 }
 
 // 0x44E780
-void PxAccurateCallback::Tight_Enter(PxObject *object)
+void PxCallbackAccurate::Tight_Enter(PxObject *object)
 {
 	PxAccurateOverlapStruct &overlap = Overlaps[object];
 	if (overlap.State == 1) {
@@ -64,7 +64,7 @@ void PxAccurateCallback::Tight_Enter(PxObject *object)
 }
 
 // 0x44E960
-void PxAccurateCallback::Loose_Enter(PxObject *object)
+void PxCallbackAccurate::Loose_Enter(PxObject *object)
 {
 	PxAccurateOverlapStruct &overlap = Overlaps[object];
 	if (overlap.State != 2) {
@@ -74,7 +74,7 @@ void PxAccurateCallback::Loose_Enter(PxObject *object)
 }
 
 // 0x44EAE0
-void PxAccurateCallback::Tight_Exit(PxObject *object)
+void PxCallbackAccurate::Tight_Exit(PxObject *object)
 {
 	std::hash_map<PxObject *, PxAccurateOverlapStruct>::iterator it = Overlaps.find(object);
 	if (it != Overlaps.end()) {
@@ -127,7 +127,7 @@ void PxAccurateCallback::Tight_Exit(PxObject *object)
 
 
 // 0x44EDB0
-void PxAccurateCallback::Loose_Exit(PxObject *object)
+void PxCallbackAccurate::Loose_Exit(PxObject *object)
 {
 	std::hash_map<PxObject *, PxAccurateOverlapStruct>::iterator it = Overlaps.find(object);
 	FAIL_IF(it == Overlaps.end()) return;
@@ -142,10 +142,10 @@ void PxAccurateCallback::Loose_Exit(PxObject *object)
 }
 
 // 0x44EF80
-void PxAccurateCallback::Activate(PxObject *object, bool inside)
+void PxCallbackAccurate::Activate(PxObject *object, bool inside)
 {
 	if (Active.empty()) {
-		PxProcessClass::Get_Current()->Add(this);
+		PxProcessList::Get_Current()->Add(this);
 	}
 	PxAccurateActiveStruct active;
 	active.Object = object;
@@ -163,7 +163,7 @@ void PxAccurateCallback::Activate(PxObject *object, bool inside)
 
 
 // 0x44F200
-void PxAccurateCallback::Deactivate(PxObject *object, bool &inside)
+void PxCallbackAccurate::Deactivate(PxObject *object, bool &inside)
 {
 	PxAccurateActiveStruct key(object, false);
 	std::vector<PxAccurateActiveStruct>::iterator it = std::lower_bound(Active.begin(), Active.end(), key);
@@ -171,12 +171,12 @@ void PxAccurateCallback::Deactivate(PxObject *object, bool &inside)
 	inside = it->Inside;
 	Active.erase(it);
 	if (Active.empty()) {
-		PxProcessClass::Get_Current()->Remove(this);
+		PxProcessList::Get_Current()->Remove(this);
 	}
 }
 
 // 0x44F2F0
-void PxAccurateCallback::Process()
+void PxCallbackAccurate::Process()
 {
 	for (std::vector<PxAccurateActiveStruct>::iterator it = Active.begin(), end = Active.end(); it != end; it++) {
 		PxObject *object = it->Object;
@@ -193,13 +193,13 @@ void PxAccurateCallback::Process()
 }
 
 // 0x44F370
-void PxAccurateCallback::Enter(PxObject *object)
+void PxCallbackAccurate::Enter(PxObject *object)
 {
 	Callback(Object->Owner, object->Owner, PX_EVENT_ENTER);
 }
 
 // 0x44F3A0
-void PxAccurateCallback::Exit(PxObject *object)
+void PxCallbackAccurate::Exit(PxObject *object)
 {
 	Callback(Object->Owner, object->Owner, PX_EVENT_EXIT);
 }
@@ -207,7 +207,7 @@ void PxAccurateCallback::Exit(PxObject *object)
 // 0x44F3D0
 // Exact as 0x44E020: the hashtable constructor 0x450DB0 and _Ufill 0x451370 out of line, the fill value {NULL, false} stored
 PxAccurateBoxCallback::PxAccurateBoxCallback(PxObject *object, PxCallbackFunction callback, const Vector3 &extent) :
-	PxAccurateCallback(object, callback),
+	PxCallbackAccurate(object, callback),
 	Box(NULL),
 	Extent(extent)
 {
@@ -228,13 +228,13 @@ void PxAccurateBox::On_Enter(PxBox *box)
 // (the exit half of Overlap written out, Callback loaded once before the branch as the client's esi; three dead Overlaps.end() after Loose_Exit send its Deactivate out of line and keep Tight_Exit's Activate inline: 1, 2 or 4 reads miss; D272)
 void PxAccurateBox::On_Exit(PxBox *box)
 {
-	PxAccurateCallback *cb = Callback;
+	PxCallbackAccurate *cb = Callback;
 	if (box->Self & 2) { cb->Tight_Exit((PxObject *)box->Owner); } else { cb->Loose_Exit((PxObject *)box->Owner); cb->Overlaps.end(); cb->Overlaps.end(); cb->Overlaps.end(); }
 }
 // 0x44F8F0
 // (exact with Update's high corner as pos + Extent: the inlined copy's X sum then loads pos.X first, as the client)
 PxAccurateBoxCallback::PxAccurateBoxCallback(PxObject *object, const PxAccurateBoxCallback &src) :
-	PxAccurateCallback(object, src),
+	PxCallbackAccurate(object, src),
 	Box(NULL),
 	Extent(src.Extent)
 {
@@ -244,7 +244,7 @@ PxAccurateBoxCallback::PxAccurateBoxCallback(PxObject *object, const PxAccurateB
 
 // 0x44FAD0
 // (exact: it inlines the copy constructor 0x44F8F0)
-PxCallback *PxAccurateBoxCallback::Clone(PxObject *object)
+PxCallback *PxAccurateBoxCallback::Clone(PxObject *object) const
 {
 	return(new PxAccurateBoxCallback(object, *this));
 }
@@ -297,7 +297,7 @@ bool PxAccurateBoxCallback::Test(PxObject *object)
 // 0x450030
 // Exact as 0x44F3D0
 PxAccurateSphereCallback::PxAccurateSphereCallback(PxObject *object, PxCallbackFunction callback, float radius) :
-	PxAccurateCallback(object, callback),
+	PxCallbackAccurate(object, callback),
 	InnerBox(NULL),
 	OuterBox(NULL),
 	Radius(radius)
@@ -314,7 +314,7 @@ PxAccurateSphereCallback::PxAccurateSphereCallback(PxObject *object, PxCallbackF
 // 0x450350
 // Exact as 0x44F3D0
 PxAccurateSphereCallback::PxAccurateSphereCallback(PxObject *object, const PxAccurateSphereCallback &src) :
-	PxAccurateCallback(object, src),
+	PxCallbackAccurate(object, src),
 	InnerBox(NULL),
 	OuterBox(NULL),
 	Radius(src.Radius)
@@ -326,7 +326,7 @@ PxAccurateSphereCallback::PxAccurateSphereCallback(PxObject *object, const PxAcc
 
 // 0x450620
 // (exact: it inlines the copy constructor 0x450350)
-PxCallback *PxAccurateSphereCallback::Clone(PxObject *object)
+PxCallback *PxAccurateSphereCallback::Clone(PxObject *object) const
 {
 	return(new PxAccurateSphereCallback(object, *this));
 }
@@ -407,10 +407,10 @@ bool PxAccurateSphereCallback::Test(PxObject *object)
 ** (only loose: the object is in Active and Process tests it each frame) or 2 (tight: no test needed) and Flag (Enter
 ** reported). Tight_Enter takes it out of Active and reports Enter once; Loose_Enter puts it in Active unless tight;
 ** Tight_Exit puts it back in Active; Loose_Exit takes it out, reports Exit if it was in and forgets it. Activate /
-** Deactivate keep Active sorted and add / remove the node to / from PxProcessClass::Get_Current() as it fills and
+** Deactivate keep Active sorted and add / remove the node to / from PxProcessList::Get_Current() as it fills and
 ** empties. Overlap 0x44E470, Tight_Enter .. Deactivate and the hash_map's Overlaps have no caller (client.py refs):
 ** only PxAccurateBox::On_Enter / On_Exit (vtable 0xAE7B44) reach this code (On_Exit: Overlap's exit half). The template
 ** instances 0x450B40-0x451B60 come from these functions (vector insert / erase / _Insert_n / _Ufill / _Ucopy,
 ** the hashtable's constructor / find / find_or_insert / erase / resize / bucket vector, _Lower_bound).
-** They sit in the proximity system's dormant path: PxAccurateCallback::Process runs only from PxProcessClass::Process.
+** They sit in the proximity system's dormant path: PxCallbackAccurate::Process runs only from PxProcessList::Process.
 */

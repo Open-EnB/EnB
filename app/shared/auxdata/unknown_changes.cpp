@@ -11,7 +11,7 @@ class ChangeSentVisitorClass : public DeltaVisitorClass  // NAME 2: describes wh
 {
 public:
 	ChangeSentVisitorClass(ChangeTableClass *table) : Table(table) {}
-	virtual void Visit(DeltaCompoundClass *delta);			// 0x4AB7D0
+	virtual void Visit(DeltaContainer *delta);			// 0x4AB7D0
 	virtual void Visit(DeltaClass *delta);						// 0x4AB780
 
 	ChangeTableClass *Table;			// +0x04  // NAME 2: describes what it does
@@ -22,7 +22,7 @@ class ChangeBuildVisitorClass : public DeltaVisitorClass  // NAME 2: describes w
 {
 public:
 	ChangeBuildVisitorClass(ChangeTableClass *table) : Parent(0), Link(&Head), Count(0), Head(0), Table(table) {}
-	virtual void Visit(DeltaCompoundClass *delta);			// 0x4ABA70
+	virtual void Visit(DeltaContainer *delta);			// 0x4ABA70
 	virtual void Visit(DeltaClass *delta);						// 0x4ABA30
 
 	ChangeEntryClass *Parent;			// +0x04  // NAME 2: describes what it does
@@ -37,7 +37,7 @@ class ChangeScanVisitorClass : public DeltaVisitorClass  // NAME 2: describes wh
 {
 public:
 	ChangeScanVisitorClass(ChangeEntryClass *entry) : Entry(entry) {}
-	virtual void Visit(DeltaCompoundClass *delta);			// 0x4ABB80
+	virtual void Visit(DeltaContainer *delta);			// 0x4ABB80
 	virtual void Visit(DeltaClass *delta);						// 0x4ABCA0
 
 	ChangeEntryClass *Entry;			// +0x04 the visited field's  // NAME 2: describes what it does
@@ -85,7 +85,7 @@ void ChangeSentVisitorClass::Visit(DeltaClass *delta)
 	Table->Set_Entry_Sent(delta->Unknown7C, delta->Unknown70);
 }
 
-void ChangeSentVisitorClass::Visit(DeltaCompoundClass *delta)
+void ChangeSentVisitorClass::Visit(DeltaContainer *delta)
 {
 	Table->Set_Entry_Sent(delta->Unknown7C, delta->Unknown70)->Dirty = false;
 	Visit_Children(delta);
@@ -122,7 +122,7 @@ void ChangeTableClass::Set_Unsent(ChangeEntryClass *entry)
 	entry->Sent = 0;
 }
 
-ChangeTableClass::ChangeTableClass(DeltaCompoundClass *root) : Root(0), Time(0), Delta(root)
+ChangeTableClass::ChangeTableClass(DeltaContainer *root) : Root(0), Time(0), Delta(root)
 {
 	Entries.resize(root->Unknown98, ChangeEntryClass());
 	ChangeBuildVisitorClass visitor(this);
@@ -139,7 +139,7 @@ void ChangeBuildVisitorClass::Visit(DeltaClass *delta)
 	Count++;
 }
 
-void ChangeBuildVisitorClass::Visit(DeltaCompoundClass *delta)
+void ChangeBuildVisitorClass::Visit(DeltaContainer *delta)
 {
 	ChangeEntryClass *entry = &Table->Entries[delta->Unknown7C];
 	entry->Parent = Parent;
@@ -167,7 +167,7 @@ void ChangeTableClass::Scan()
 	Delta->Accept(visitor);
 }
 
-void ChangeScanVisitorClass::Visit(DeltaCompoundClass *delta)
+void ChangeScanVisitorClass::Visit(DeltaContainer *delta)
 {
 	ChangeEntryClass *entry = Entry;
 	if (entry->Stamp != delta->Unknown70) {
@@ -262,6 +262,6 @@ void ChangeTableClass::Include(ChangeEntryClass *entry)
 **	(DeltaClass::Unknown_34 counts it up on every change; a compound's moves with any field below,
 **	so Scan skips a compound whose Stamp is current), and sums Changed, First and Last up the
 **	compounds marked Dirty. Not rebuilt: 0x4AB580 (returns +0x0C less +0x08 of its object; no
-**	caller found) and the file's PermStringInitClass static 0x4AB5A0 (permstr.h's, compiled with
+**	caller found) and the file's PermStringInit static 0x4AB5A0 (permstr.h's, compiled with
 **	the include).
 */

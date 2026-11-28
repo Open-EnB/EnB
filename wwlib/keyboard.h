@@ -652,8 +652,8 @@ typedef enum KeyNumType {
 **	expects it to be of KeyNumType.
 */
 
-//lint -esym(1725,KeyboardClass::MouseQX,KeyboardClass::MouseQY)
-struct KeyboardClass : public WWKeyboardClass
+//lint -esym(1725,KeyboardHandlerClass::MouseQX,KeyboardHandlerClass::MouseQY)
+struct KeyboardHandlerClass : public WWKeyboardClass  // NAME 5: thunk order A, binary.md 5.11
 {
 	/*
 	**	This flag is used to indicate whether the WW library has taken over
@@ -662,7 +662,7 @@ struct KeyboardClass : public WWKeyboardClass
 	*/
 	unsigned IsLibrary;
 
-	KeyboardClass() : IsLibrary(true) {}
+	KeyboardHandlerClass() : IsLibrary(true) {}
 	KeyNumType Get(void) {return ((KeyNumType)WWKeyboardClass::Get());};
 	KeyNumType Check(void) {return ((KeyNumType)WWKeyboardClass::Check());};
 	KeyASCIIType To_ASCII(KeyNumType key) {return((KeyASCIIType)WWKeyboardClass::To_ASCII((unsigned short)key));};

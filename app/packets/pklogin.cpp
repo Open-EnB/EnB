@@ -20,7 +20,7 @@ LoginPacketClass::LoginPacketClass(const TicketClass &ticket, const char *name, 
 	Name[sizeof(Name) - 1] = 0;
 }
 
-LoginPacketClass::LoginPacketClass(RawPacketClass *raw) :
+LoginPacketClass::LoginPacketClass(PacketClass *raw) :
 	Ticket(0)
 {
 	raw->Get(&Ticket);
@@ -37,9 +37,9 @@ LoginPacketClass::~LoginPacketClass()
 {
 }
 
-RawPacketClass *LoginPacketClass::Build()
+PacketClass *LoginPacketClass::Encode()
 {
-	RawPacketClass *raw = new RawPacketClass(2, Get_Data_Size());
+	PacketClass *raw = new PacketClass(2, Get_Data_Size());
 	raw->Add(Ticket);
 	TimeSent = Unknown_Get_Ticks();
 	raw->Add(&TimeSent, sizeof(TimeSent));
@@ -64,7 +64,7 @@ int LoginPacketClass::Print(char *buffer, int)
 **
 **	* Client 0x89A740-0x89AB00 (each object ends with <string>'s guarded static 0xC416FC): LOGIN 2, written
 **	  by hand (builder P9, 2026-10-27): the login ticket (unknown_login_data.h's TicketClass) through
-**	  RawPacketClass's Get / Add of its wire interface, a time stamp as pkrequesttime.cpp's, a 0x41-byte name
+**	  PacketClass's Get / Add of its wire interface, a time stamp as pkrequesttime.cpp's, a 0x41-byte name
 **	  and an int. The destructor is declared (the client's 0x89A940 stores the class's own vtable first).
 **	* The file name is provisional (no assert names it).
 */

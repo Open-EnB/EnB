@@ -22,12 +22,12 @@
 #include <string>
 
 // opcode 90 (0x005A, VERB_REQUEST): vtable 0xB0C234, constructor 0x8AEB60, 0x18 bytes
-class VerbRequestPacketClass : public PacketClass  // NAME 2: Net-7's opcode name VERB_REQUEST (the Net-7 opcode table; no structure check)
+class VerbRequestPacketClass : public UnknownPacketBaseClass  // NAME 2: Net-7's opcode name VERB_REQUEST (the Net-7 opcode table; no structure check)
 {
 public:
 	VerbRequestPacketClass(int subject_id, int object_id, int action);	// 0x8AEAE0
-	VerbRequestPacketClass(RawPacketClass *raw);	// 0x8AEB60
-	virtual RawPacketClass *Build();	// +0x04 0x8AEC00
+	VerbRequestPacketClass(PacketClass *raw);	// 0x8AEB60
+	virtual PacketClass *Encode();	// +0x04 0x8AEC00  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x868010 (clientstub.cpp l.101)
 	virtual int Get_Data_Size();	// +0x0C 0x8AED00
 	virtual int Print(char *buffer, int len);	// +0x10 0x8AED20
@@ -40,12 +40,12 @@ public:
 
 
 // opcode 91 (0x005B, ?): vtable 0xB0C268, constructor 0x8AF150, 0x20 bytes
-class VerbListPacketClass : public PacketClass  // NAME 3: the client's Print text 'VerbList'
+class VerbListPacketClass : public UnknownPacketBaseClass  // NAME 3: the client's Print text 'VerbList'
 {
 public:
 	VerbListPacketClass(int game_id, const std::set<VerbEnum> &verbs);	// 0x8AED60
-	VerbListPacketClass(RawPacketClass *raw);	// 0x8AF150
-	virtual RawPacketClass *Build();	// +0x04 0x8AF550
+	VerbListPacketClass(PacketClass *raw);	// 0x8AF150
+	virtual PacketClass *Encode();	// +0x04 0x8AF550  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x7387F0 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x8AF6B0
 	virtual int Print(char *buffer, int len);	// +0x10 0x8AF6D0
@@ -56,12 +56,12 @@ public:
 };
 
 // opcode 92 (0x005C, VERB_UPDATE): vtable 0xB0C29C, constructor 0x8AFD10, 0x30 bytes
-class VerbUpdatePacketClass : public PacketClass
+class VerbUpdatePacketClass : public UnknownPacketBaseClass
 {
 public:
 	VerbUpdatePacketClass(int game_id, const std::set<VerbEnum> &drops, const std::set<VerbEnum> &adds);	// 0x8AF8D0  // NAME 1 [game_id, drops, adds]: the members'
-	VerbUpdatePacketClass(RawPacketClass *raw);	// 0x8AFD10
-	virtual RawPacketClass *Build();	// +0x04 0x8AFF40
+	VerbUpdatePacketClass(PacketClass *raw);	// 0x8AFD10
+	virtual PacketClass *Encode();	// +0x04 0x8AFF40  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x7388B0 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x8B0130
 	virtual int Print(char *buffer, int len);	// +0x10 0x8B0150

@@ -15,12 +15,12 @@
 #include "..\..\ww3d2\shader.h"
 #include "wwprofile.h"
 
-// 0x6D47C0 (exact with the Wait read cached in a local and FontStringStruct::operator='s per-loop counters)
+// 0x6D47C0 (exact with the Wait read cached in a local and StringInfo::operator='s per-loop counters)
 FontSys::FontSys(const char *name, RenderObjClass *object, const char *text) :
 	DynamicMeshClass(2, 4),
 	Font(NULL)
 {
-	FontStringStruct *def = fontDatabase->Find_String(name);
+	StringInfo *def = fontDatabase->Find_String(name);
 	if (def != NULL) {
 		Info = *def;
 	}
@@ -37,7 +37,7 @@ FontSys::FontSys(const char *name, RenderObjClass *object, const char *text) :
 	Unknown26C = (int)(wait * 1000.0f);
 }
 // 0x6D4C70 (exact once Info's Offset is a TPoint2D<float>: the by-value copy stores the point as the client, F1B)
-FontSys::FontSys(FontStringStruct def, RenderObjClass *object, const char *text) :
+FontSys::FontSys(StringInfo def, RenderObjClass *object, const char *text) :
 	DynamicMeshClass(2, 4),
 	Font(NULL)
 {
@@ -1045,7 +1045,7 @@ void FontSys::Unknown_6D8A80(bool on)
 **	~FontSys 0x67F230), Class_ID 0x67EF00, Get_Name 0x67EF20, Render 0x6D8270, Set_Container 0x6D5920,
 **	Set_Transform 0x6D87F0, Set_Position 0x6D88C0, the bounding volumes 0x6D5B90 / 0x6D5C10, Set_Hidden 0x67EF40,
 **	Is_Complete 0x67EEE0.
-**	Functional (D64) for the POC client: TextGadgetClass's constructor needs a real object with a table. Not yet
+**	Functional (D64) for the POC client: UnknownTextGadgetClass's constructor needs a real object with a table. Not yet
 **	rebuilt: Update_Text 0x6D64C0, 0x6D8C50, 0x6D8DC0 (fonttexture.cpp).
 **	The small setters 0x6D5EF0 (ui_registration.cpp's 0x5F8DB0), 0x6D8780 (cpacket.cpp's CLIENT_DAMAGE 100),
 **	0x6D8940, 0x6D8970, 0x6D89C0 (ui_line_display.cpp) and 0x6D8A80 (gutter_data.cpp, ui_starbase.cpp) sit in the

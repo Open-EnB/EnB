@@ -62,7 +62,7 @@ void NavigationDataClass::Unknown_7BA940(NavigationPacketClass *packet)
 /*
 **	Notes (reconstruction)
 **
-**	The client's navigation_data.obj: 0x7BA8B0-0x7BA9B0, before pip_scene.cpp's PipSceneClass (0x7BA9C0).
+**	The client's navigation_data.obj: 0x7BA8B0-0x7BA9B0, before pip_scene.cpp's PIPSceneClass (0x7BA9C0).
 **	__FILE__ is 'e:\build\beta\G\app\client\navigation_data.cpp' (0xB9EFD4): the FAIL_IF '!packet' on
 **	line 55 (0x7BA940). The constructor 0x7BA8B0 sets the vtable 0xB065C8 (typeid co_data.cpp's
 **	'.PAVNavigationDataClass@@'); its deleting destructor 0x7BA8F0 calls the destructor 0x7BA920. 0x7BA940

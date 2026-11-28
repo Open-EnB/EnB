@@ -37,6 +37,66 @@ MAIN = 'C:/EnBDevelopment/EnB'
 FIX = os.environ.get('BEHAUDIT_FIXTURES') or next(
     (p for p in (os.path.join(REPO, '.work', 'behaudit', 'fixtures'), MAIN + '/.work/behaudit/fixtures')
      if os.path.isdir(p)), '')
+# The fixtures are older than some class renames (the thunk order's, D288 / D289: UITalkTreeClass -> TalkTreeInterface,
+# SClient -> SpaceClientClass, ...), and pairing is by mangled name against symbols.json, so the fixtures' symbols are
+# renamed in a temporary copy (a COFF string table rewrite) instead of rebuilding the pre-fix objects.
+FIXTURE_RENAMES = {'UITalkTreeSpaceClass': 'SpaceTalkTreeInterface', 'UITalkTreeClass': 'TalkTreeInterface',
+                   'SClient': 'SpaceClientClass'}
+
+
+def rename_coff(data, renames):
+    """The COFF object `data` with the class names of `renames` replaced inside its long symbol / section names."""
+    import re
+    import struct
+    nsec, = struct.unpack_from('<H', data, 2)
+    symptr, nsyms = struct.unpack_from('<II', data, 8)
+    optsz, = struct.unpack_from('<H', data, 16)
+    strtab = symptr + 18 * nsyms
+    pat = re.compile(rb'(?<![A-Za-z0-9_])([VU]?)(%s)@' % b'|'.join(re.escape(k.encode()) for k in renames))
+    cache, out = {}, bytearray(4)
+
+    def new_off(off):
+        if off not in cache:
+            end = data.index(b'\0', strtab + off)
+            name = pat.sub(lambda m: m.group(1) + renames[m.group(2).decode()].encode() + b'@', data[strtab + off:end])
+            cache[off] = len(out)
+            out.extend(name + b'\0')
+        return cache[off]
+    res = bytearray(data[:strtab])
+    i = 0
+    while i < nsyms:
+        o = symptr + 18 * i
+        if data[o:o + 4] == b'\0\0\0\0':
+            struct.pack_into('<I', res, o + 4, new_off(struct.unpack_from('<I', data, o + 4)[0]))
+        i += 1 + data[o + 17]
+    sh = 20 + optsz
+    for k in range(nsec):
+        nm = bytes(data[sh + 40 * k:sh + 40 * k + 8]).rstrip(b'\0')
+        if nm[:1] == b'/' and nm[1:].isdigit():
+            res[sh + 40 * k:sh + 40 * k + 8] = (b'/%d' % new_off(int(nm[1:]))).ljust(8, b'\0')
+    struct.pack_into('<I', out, 0, len(out))
+    return bytes(res + out)
+
+
+def renamed_fixtures(src):
+    import atexit
+    import shutil
+    import tempfile
+    if not src:
+        return src
+    dst = tempfile.mkdtemp(prefix='behaudit_fx_')
+    atexit.register(shutil.rmtree, dst, True)
+    for root, _, files in os.walk(src):
+        os.makedirs(os.path.join(dst, os.path.relpath(root, src)), exist_ok=True)
+        for f in files:
+            d = open(os.path.join(root, f), 'rb').read()
+            if f.endswith('.obj'):
+                d = rename_coff(d, FIXTURE_RENAMES)
+            open(os.path.join(dst, os.path.relpath(root, src), f), 'wb').write(d)
+    return dst
+
+
+FIX = renamed_fixtures(FIX)
 LIBS = os.environ.get('BEHAUDIT_LIBOBJS')     # a full build's root (every library's obj/ folder)
 CONTROLS = ['5DED10', '557290', '7BEF50', '64BCA0', '470EF0', '8494C0', '74ABC0', '466B20']
 
@@ -101,7 +161,7 @@ class ArgumentControl(unittest.TestCase):
 @unittest.skipUnless(FIX and os.path.exists(os.path.join(FIX, 'lst', 'sclient.obj')), 'fixtures missing')
 class SwitchControl(unittest.TestCase):
     """No session 0 case had a wrong case target, so the control is made: the client's jump table of the exact
-    SClient::Unknown_743290 (0x7432F4) read with its first two entries swapped."""
+    SpaceClientClass::Unknown_743290 (0x7432F4) read with its first two entries swapped."""
     def test_swapped_cases(self):
         ctx = B.Context([os.path.join(FIX, 'lst')], stale=False)
         ctx.paths = [p for p in ctx.paths if p.endswith('sclient.obj')]
@@ -146,7 +206,7 @@ def patched_image(ctx, edits):
 @unittest.skipUnless(FIX and os.path.exists(os.path.join(FIX, 'lst', 'sclient.obj')), 'fixtures missing')
 class TablesControl(unittest.TestCase):
     """tables (A7): an exact function's case values sent to another body. Made controls on the client's tables: the
-    exact SClient::Unknown_743290's jump table 0x7432F4 with its first two entries swapped (bodies that differ), and
+    exact SpaceClientClass::Unknown_743290's jump table 0x7432F4 with its first two entries swapped (bodies that differ), and
     the exact starmap_data Unknown_7BF4C0's byte index table (a two-level switch) with two indexes swapped."""
 
     def test_clean(self):

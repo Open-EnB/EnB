@@ -9,7 +9,7 @@ ChangeBaseAssetPacketClass::ChangeBaseAssetPacketClass(int game_id, int base_ass
 	Unknown24 = Unknown_14(GameID, -1);
 }
 
-ChangeBaseAssetPacketClass::ChangeBaseAssetPacketClass(RawPacketClass *raw)
+ChangeBaseAssetPacketClass::ChangeBaseAssetPacketClass(PacketClass *raw)
 {
 	raw->Get(&GameID, sizeof(GameID));
 	raw->Get(&BaseAsset, sizeof(BaseAsset));
@@ -17,9 +17,9 @@ ChangeBaseAssetPacketClass::ChangeBaseAssetPacketClass(RawPacketClass *raw)
 	raw->Get(&HSVShift, sizeof(HSVShift));
 }
 
-RawPacketClass *ChangeBaseAssetPacketClass::Build()
+PacketClass *ChangeBaseAssetPacketClass::Encode()
 {
-	RawPacketClass *raw = new RawPacketClass(38, Get_Data_Size());
+	PacketClass *raw = new PacketClass(38, Get_Data_Size());
 	raw->Add(&GameID, sizeof(GameID));
 	raw->Add(&BaseAsset, sizeof(BaseAsset));
 	raw->Add(&Scale, sizeof(Scale));

@@ -14,9 +14,9 @@ public:
 	~MovieClientClass();										// 0x7EC570 (not virtual: delete calls it directly)
 	virtual void Init();										// +0x00 0x7EC780: empty
 	virtual void Shutdown();									// +0x04 0x7EC7A0: empty
-	virtual void Unknown_08();									// +0x08 0x7EC7C0: every object's frame, the effects that are done removed (as SClient's)
+	virtual void Unknown_08();									// +0x08 0x7EC7C0: every object's frame, the effects that are done removed (as SpaceClientClass's)
 	virtual void Process_Packets();								// +0x0C 0x7EC970: empty
-	virtual void Unknown_10();									// +0x10 0x7EC990: the window messages (as SClient's)
+	virtual void Unknown_10();									// +0x10 0x7EC990: the window messages (as SpaceClientClass's)
 	virtual int Do_Frame(bool focused);							// +0x14 0x7ECAA0: the clock (paused, or 30 frames a second for -CREATEMOVIE), the view's frame  // NAME 1 [focused]: the task's Is_Focused()
 	virtual int Unknown_1C() { return((int)this); }				// +0x1C 0x7EC550
 	void Handle_Input(KernelEventClass event);					// 0x7ECA50: the view's input  // NAME 2: Pre_Run's events

@@ -30,13 +30,13 @@ struct TalkTreeResponseStruct  // NAME 2: Print's 'NumResponses' counts them
 };
 
 // opcode 84 (0x0054, TALK_TREE): vtable 0xB0BC60, constructor 0x8A6CA0, 0x3C bytes
-class TalkTreePacketClass : public PacketClass  // NAME 3: the client's Print text 'TalkTreePacket'
+class TalkTreePacketClass : public UnknownPacketBaseClass  // NAME 3: the client's Print text 'TalkTreePacket'
 {
 public:
 	TalkTreePacketClass(const std::string &npc_say, const std::string &npc_sound_file_name);	// 0x8A6A80
-	TalkTreePacketClass(RawPacketClass *raw);	// 0x8A6CA0
+	TalkTreePacketClass(PacketClass *raw);	// 0x8A6CA0
 	virtual ~TalkTreePacketClass();	// +0x00 0x8A6B90 / 0x8A7040
-	virtual RawPacketClass *Build();	// +0x04 0x8A7180
+	virtual PacketClass *Encode();	// +0x04 0x8A7180  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x738670 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x8A7300
 	virtual int Print(char *buffer, int len);	// +0x10 0x8A7340
@@ -51,12 +51,12 @@ public:
 };
 
 // opcode 86 (0x0056, TALK_TREE_ACTION): vtable 0xB0BC90, constructor 0x8A7430, 0x10 bytes
-class TalkTreeActionPacketClass : public PacketClass
+class TalkTreeActionPacketClass : public UnknownPacketBaseClass
 {
 public:
 	TalkTreeActionPacketClass(int action);	// 0x8A73C0
-	TalkTreeActionPacketClass(RawPacketClass *raw);	// 0x8A7430
-	virtual RawPacketClass *Build();	// +0x04 0x8A74E0
+	TalkTreeActionPacketClass(PacketClass *raw);	// 0x8A7430
+	virtual PacketClass *Encode();	// +0x04 0x8A74E0  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x738730 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x8A75A0
 	virtual int Print(char *buffer, int len);	// +0x10 0x8A75C0
@@ -65,12 +65,12 @@ public:
 };
 
 // opcode 85 (0x0055, SELECT_TALK_TREE): vtable 0xB0BCC0, constructor 0x8A7670, 0x14 bytes
-class SelectTalkTreePacketClass : public PacketClass  // NAME 2: Net-7's opcode name SELECT_TALK_TREE (the Net-7 opcode table; no structure check)
+class SelectTalkTreePacketClass : public UnknownPacketBaseClass  // NAME 2: Net-7's opcode name SELECT_TALK_TREE (the Net-7 opcode table; no structure check)
 {
 public:
 	SelectTalkTreePacketClass(int player_id, int selection);	// 0x8A75F0 (the UI's 0x64C8D0, 0x64D770)  // NAME 2 [player_id, selection]: the members
-	SelectTalkTreePacketClass(RawPacketClass *raw);	// 0x8A7670
-	virtual RawPacketClass *Build();	// +0x04 0x8A7710
+	SelectTalkTreePacketClass(PacketClass *raw);	// 0x8A7670
+	virtual PacketClass *Encode();	// +0x04 0x8A7710  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x867FB0 (clientstub.cpp l.95)
 	virtual int Get_Data_Size();	// +0x0C 0x8A77E0
 	virtual int Print(char *buffer, int len);	// +0x10 0x8A7800

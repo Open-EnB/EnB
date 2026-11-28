@@ -50,7 +50,7 @@ Movie3DViewClass::Movie3DViewClass(ClientTaskClass *task, int movie) :
 	Started(false)
 {
 	INI.Load("movie3d.ini");
-	Ship = new ProxyRObj(NULL);
+	Ship = new ProxyRenderObjClass(NULL);
 }
 
 // @0x7EF220
@@ -114,7 +114,7 @@ Movie3DViewClass::~Movie3DViewClass()
 }
 
 // @0x7EF7D0
-void Movie3DViewClass::Unknown_10()
+void Movie3DViewClass::Shutdown()
 {
 	Settings->Unknown00->Remove();
 	Light->Remove();
@@ -126,11 +126,11 @@ void Movie3DViewClass::Unknown_10()
 		Camera->Release_Ref();
 		Camera = NULL;
 	}
-	UIViewClass::Unknown_10();
+	UIViewClass::Shutdown();
 }
 
 // @0x7EF850
-void Movie3DViewClass::Unknown_00(SubjectClass *subject, void *event)
+void Movie3DViewClass::Unknown_00(ObserverSubjectClass *subject, void *event)
 {
 	UIProcEventStruct *info = (UIProcEventStruct *)event;
 	int id = info->Proc->Id;
@@ -148,7 +148,7 @@ void Movie3DViewClass::Unknown_00(SubjectClass *subject, void *event)
 }
 
 // @0x7EF8C0
-int Movie3DViewClass::Unknown_0C(bool on)
+int Movie3DViewClass::Render(bool on)
 {
 	WW3D::Begin_Render(on, true, Vector3(Settings->BackgroundColor));
 	Scene->Visibility_Check(Camera);
@@ -173,10 +173,10 @@ void Movie3DViewClass::Unknown_18(bool arg)
 {
 	Client->As_Space_Client();
 	if (arg) {
-		((SClient *)Client->As_Space_Client())->Unknown_74C370(Camera);
+		((SpaceClientClass *)Client->As_Space_Client())->Unknown_74C370(Camera);
 		Unknown_7F0410();
 	} else {
-		((SClient *)Client->As_Space_Client())->Unknown_74C370(NULL);
+		((SpaceClientClass *)Client->As_Space_Client())->Unknown_74C370(NULL);
 	}
 }
 
@@ -713,10 +713,10 @@ char *Movie3DViewClass::Unknown_7F09B0(const char *format, int number)
 // - The object: __FILE__ e:\build\beta\G\app\Client\mv3dview.cpp (0xBA1F58) and its two asserts, '!Started' on line 472
 //   (0x7EFD00) and 'str && *str' on line 697 (0x7F0880). It starts at 0x7EEF60, the initialiser of Random (the CRT
 //   table's slot 0xB6CE24, right after mv3dsnd.cpp's guarded <string> initialiser 0x7EEF30, slot 0xB6CE20), and ends
-//   with its own guarded <string> initialiser 0x7F0F30; option.cpp's OptionClass follows at 0x7F0F60.
+//   with its own guarded <string> initialiser 0x7F0F30; option.cpp's OptionManagerClass follows at 0x7F0F60.
 // - After 0x7F0880 come the inline members and the template instances the object emits: 0x7F09B0 (Unknown_7F09B0),
 //   DynamicVectorClass<UIMeshClass *>'s members (tables 0xB07B24 / 0xB07B08; 0x7EF1E0 is its base's destructor),
-//   0x7F0A50 and 0x7F0E70 (DynamicVectorClass<ObserverClass *>'s Add and Delete(int): SubjectClass::Attach's and the
+//   0x7F0A50 and 0x7F0E70 (DynamicVectorClass<ObserverClass *>'s Add and Delete(int): ObserverSubjectClass::Attach's and the
 //   destructor's nested calls, out of line here), and 0x7F0EC0 (VectorClass<char *>'s constructor).
 // - Add_Mesh is an inline member: 0x7EFD00 keeps a second copy of this for it, and with it the observers' Add is called
 //   out of line while the meshes' Add is inlined (the direct statements inline both).

@@ -91,7 +91,7 @@ Vector3 SteeringClass::Evade(const SteeringVehicleStruct &vehicle, const Steerin
 // 0x446000
 Vector3 SteeringClass::Avoid_Obstacles(const SteeringVehicleStruct &vehicle, PxWrapper *proxim)
 {
-	std::vector<DynObj *> &list = proxim->Unknown_4568E0();
+	std::vector<DynamicObjectClass *> &list = proxim->Unknown_4568E0();
 	int count = list.size();
 	if (count == 0) {
 		return Vector3(0.0f, 0.0f, 0.0f);
@@ -103,7 +103,7 @@ Vector3 SteeringClass::Avoid_Obstacles(const SteeringVehicleStruct &vehicle, PxW
 	avoid.Y = 0.0f;
 	avoid.Z = 0.0f;
 	for (int i = 0; i < count; i++) {
-		DynObj *obj = list[i];
+		DynamicObjectClass *obj = list[i];
 		if (obj->Unknown_Dyn54().Length2() <= 0.0001f) {
 			Vector3 local;
 			Matrix3D::Inverse_Rotate_Vector(vehicle.Transform, obj->Unknown_Dyn48() - vehicle.Position, &local);
@@ -141,16 +141,16 @@ Vector3 SteeringClass::Avoid_Obstacles(const SteeringVehicleStruct &vehicle, PxW
 // 0x4463B0
 Vector3 SteeringClass::Avoid_Collisions(const SteeringVehicleStruct &vehicle, PxWrapper *proxim)
 {
-	std::vector<DynObj *> &list = proxim->Unknown_4568E0();
+	std::vector<DynamicObjectClass *> &list = proxim->Unknown_4568E0();
 	int count = list.size();
 	if (count == 0) {
 		return Vector3(0.0f, 0.0f, 0.0f);
 	}
 	Vector3 nearest_point(0.0f, 0.0f, 0.0f);
 	float nearest_time = 480.0f;
-	DynObj *nearest = NULL;
+	DynamicObjectClass *nearest = NULL;
 	for (int i = 0; i < count; i++) {
-		DynObj *obj = list[i];
+		DynamicObjectClass *obj = list[i];
 		Vector3 velocity = obj->Unknown_Dyn54();
 		if (velocity.Length2() >= 0.0001f) {
 			Vector3 position = obj->Unknown_Dyn48();
@@ -188,14 +188,14 @@ Vector3 SteeringClass::Avoid_Collisions(const SteeringVehicleStruct &vehicle, Px
 
 // 0x446810
 Vector3 SteeringClass::Separation(const SteeringVehicleStruct &vehicle, PxWrapper *proxim) {
-	std::vector<DynObj *> &list = proxim->Unknown_4568E0();
+	std::vector<DynamicObjectClass *> &list = proxim->Unknown_4568E0();
 	int count = list.size();
 	if (count == 0) {
 		return Vector3(0.0f, 0.0f, 0.0f);
 	}
 	Vector3 sum(0.0f, 0.0f, 0.0f);
 	for (int i = 0; i < count; i++) {
-		DynObj *obj = list[i];
+		DynamicObjectClass *obj = list[i];
 		Vector3 away = vehicle.Position - obj->Unknown_Dyn48();
 		float distance = away.Length();
 		float radius = proxim->Owner->Unknown04;
@@ -212,7 +212,7 @@ Vector3 SteeringClass::Separation(const SteeringVehicleStruct &vehicle, PxWrappe
 
 // 0x4469A0
 Vector3 SteeringClass::Cohesion(const SteeringVehicleStruct &vehicle, PxWrapper *proxim) {
-	std::vector<DynObj *> &list = proxim->Unknown_4568E0();
+	std::vector<DynamicObjectClass *> &list = proxim->Unknown_4568E0();
 	int count = list.size();
 	if (count == 0) {
 		return Vector3(0.0f, 0.0f, 0.0f);
@@ -220,7 +220,7 @@ Vector3 SteeringClass::Cohesion(const SteeringVehicleStruct &vehicle, PxWrapper 
 	int n = 0;
 	Vector3 sum(0.0f, 0.0f, 0.0f);
 	for (int i = 0; i < count; i++) {
-		DynObj *obj = list[i];
+		DynamicObjectClass *obj = list[i];
 		Vector3 local;
 		Matrix3D::Inverse_Transform_Vector(vehicle.Transform, obj->Unknown_Dyn48(), &local);
 		float dist = local.Length();
@@ -241,7 +241,7 @@ Vector3 SteeringClass::Cohesion(const SteeringVehicleStruct &vehicle, PxWrapper 
 // 0x446CB0
 Vector3 SteeringClass::Alignment(const SteeringVehicleStruct &vehicle, PxWrapper *proxim)
 {
-	std::vector<DynObj *> &list = proxim->Unknown_4568E0();
+	std::vector<DynamicObjectClass *> &list = proxim->Unknown_4568E0();
 	int count = list.size();
 	if (count == 0) {
 		return Vector3(0.0f, 0.0f, 0.0f);
@@ -249,7 +249,7 @@ Vector3 SteeringClass::Alignment(const SteeringVehicleStruct &vehicle, PxWrapper
 	int n = 0;
 	Vector3 sum(0.0f, 0.0f, 0.0f);
 	for (int i = 0; i < count; i++) {
-		DynObj *obj = list[i];
+		DynamicObjectClass *obj = list[i];
 		Vector3 offset = obj->Unknown_Dyn48() - vehicle.Position;
 		if (offset.Length() <= 300.0f) {
 			n++;

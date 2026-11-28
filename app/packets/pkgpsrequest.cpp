@@ -3,7 +3,7 @@
 #include "nstrdup.h"
 #include <stdio.h>
 
-GpsRequestPacketClass::GpsRequestPacketClass(char *unknown0c, char *unknown10, char *unknown14, char *unknown18, int unknown1c) :
+GPSRequestPacketClass::GPSRequestPacketClass(char *unknown0c, char *unknown10, char *unknown14, char *unknown18, int unknown1c) :
 	Unknown1C(unknown1c)
 {
 	Unknown0C = nstrdup(unknown0c);
@@ -12,7 +12,7 @@ GpsRequestPacketClass::GpsRequestPacketClass(char *unknown0c, char *unknown10, c
 	Unknown18 = nstrdup(unknown18);
 }
 
-GpsRequestPacketClass::GpsRequestPacketClass(RawPacketClass *raw)
+GPSRequestPacketClass::GPSRequestPacketClass(PacketClass *raw)
 {
 	Unknown0C = raw->Get_String();
 	Unknown10 = raw->Get_String();
@@ -21,7 +21,7 @@ GpsRequestPacketClass::GpsRequestPacketClass(RawPacketClass *raw)
 	raw->Get(Unknown1C);
 }
 
-GpsRequestPacketClass::~GpsRequestPacketClass()
+GPSRequestPacketClass::~GPSRequestPacketClass()
 {
 	delete [] Unknown0C;
 	Unknown0C = 0;
@@ -33,9 +33,9 @@ GpsRequestPacketClass::~GpsRequestPacketClass()
 	Unknown18 = 0;
 }
 
-RawPacketClass *GpsRequestPacketClass::Build()
+PacketClass *GPSRequestPacketClass::Encode()
 {
-	RawPacketClass *raw = new RawPacketClass(221, Get_Data_Size());
+	PacketClass *raw = new PacketClass(221, Get_Data_Size());
 	raw->Add_String(Unknown0C);
 	raw->Add_String(Unknown10);
 	raw->Add_String(Unknown14);
@@ -44,20 +44,20 @@ RawPacketClass *GpsRequestPacketClass::Build()
 	return(raw);
 }
 
-int GpsRequestPacketClass::Get_Data_Size()
+int GPSRequestPacketClass::Get_Data_Size()
 {
-	int size = RawPacketClass::Get_Size(Unknown0C);
-	size += RawPacketClass::Get_Size(Unknown10);
-	size += RawPacketClass::Get_Size(Unknown14);
-	return(RawPacketClass::Get_Size(Unknown18) + size + sizeof(Unknown1C));
+	int size = PacketClass::Get_Size(Unknown0C);
+	size += PacketClass::Get_Size(Unknown10);
+	size += PacketClass::Get_Size(Unknown14);
+	return(PacketClass::Get_Size(Unknown18) + size + sizeof(Unknown1C));
 }
 
-int GpsRequestPacketClass::Print(char *buffer, int len)
+int GPSRequestPacketClass::Print(char *buffer, int len)
 {
 	return(_snprintf(buffer, len, "%s", "GPSRequest"));
 }
 
-GpsResponsePacketClass::GpsResponsePacketClass(char *unknown0c, char *unknown10, char *unknown14, char *unknown18, int unknown1c, int unknown20) :
+GPSResponsePacketClass::GPSResponsePacketClass(char *unknown0c, char *unknown10, char *unknown14, char *unknown18, int unknown1c, int unknown20) :
 	Unknown1C(unknown1c),
 	Unknown20(unknown20)
 {
@@ -67,7 +67,7 @@ GpsResponsePacketClass::GpsResponsePacketClass(char *unknown0c, char *unknown10,
 	Unknown18 = nstrdup(unknown18);
 }
 
-GpsResponsePacketClass::GpsResponsePacketClass(RawPacketClass *raw)
+GPSResponsePacketClass::GPSResponsePacketClass(PacketClass *raw)
 {
 	Unknown0C = raw->Get_String();
 	Unknown10 = raw->Get_String();
@@ -77,7 +77,7 @@ GpsResponsePacketClass::GpsResponsePacketClass(RawPacketClass *raw)
 	raw->Get(Unknown20);
 }
 
-GpsResponsePacketClass::~GpsResponsePacketClass()
+GPSResponsePacketClass::~GPSResponsePacketClass()
 {
 	delete [] Unknown0C;
 	Unknown0C = 0;
@@ -89,9 +89,9 @@ GpsResponsePacketClass::~GpsResponsePacketClass()
 	Unknown18 = 0;
 }
 
-RawPacketClass *GpsResponsePacketClass::Build()
+PacketClass *GPSResponsePacketClass::Encode()
 {
-	RawPacketClass *raw = new RawPacketClass(222, Get_Data_Size());
+	PacketClass *raw = new PacketClass(222, Get_Data_Size());
 	raw->Add_String(Unknown0C);
 	raw->Add_String(Unknown10);
 	raw->Add_String(Unknown14);
@@ -101,15 +101,15 @@ RawPacketClass *GpsResponsePacketClass::Build()
 	return(raw);
 }
 
-int GpsResponsePacketClass::Get_Data_Size()
+int GPSResponsePacketClass::Get_Data_Size()
 {
-	int size = RawPacketClass::Get_Size(Unknown0C);
-	size += RawPacketClass::Get_Size(Unknown10);
-	size += RawPacketClass::Get_Size(Unknown14);
-	return(RawPacketClass::Get_Size(Unknown18) + size + sizeof(Unknown1C) + sizeof(Unknown20));
+	int size = PacketClass::Get_Size(Unknown0C);
+	size += PacketClass::Get_Size(Unknown10);
+	size += PacketClass::Get_Size(Unknown14);
+	return(PacketClass::Get_Size(Unknown18) + size + sizeof(Unknown1C) + sizeof(Unknown20));
 }
 
-int GpsResponsePacketClass::Print(char *buffer, int len)
+int GPSResponsePacketClass::Print(char *buffer, int len)
 {
 	return(_snprintf(buffer, len, "%s", "GPSResponse"));
 }

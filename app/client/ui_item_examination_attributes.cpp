@@ -9,12 +9,12 @@ UIItemExaminationAttributesClass::UIItemExaminationAttributesClass(GadgetCollect
 	DynamicWindowBackgroundClass("ITEM_EXAMINATION_ATTRIBUTES", 6),
 	Listener(listener)
 {
-	RefCountPtr<DynamicWindowVerticalClass> contents = Create_NEW(new DynamicWindowVerticalClass(6));
+	RefCountPtr<VerticalDynamicWindow> contents = Create_NEW(new VerticalDynamicWindow(6));
 	Vector2 min_size(120.0f, 40.0f);
 	contents->Set_Min_Size(min_size);
 	RefCountPtr<DynamicWindowTextClass> title = DynamicWindowTextClass::Create("ATTRIBUTES_IEI00", "Attributes", 6);
 	contents->Add_Element(title);
-	List = Create_NEW(new DynamicWindowVerticalClass(6));
+	List = Create_NEW(new VerticalDynamicWindow(6));
 	contents->Add_Element(List);
 	Set_Contents(contents);
 }
@@ -49,14 +49,14 @@ void UIItemExaminationAttributesClass::Clear()
 }
 
 UIItemExaminationAttributeClass::UIItemExaminationAttributeClass(const RefCountPtr<ClientItemPropertyAttributeClass> &attribute, GadgetCollectionInterface *listener) :
-	DynamicWindowHorizontalClass(6),
+	HorizontalDynamicWindow(6),
 	Listener(listener),
 	Gadget(NULL)
 {
 	RefCountPtr<DynamicWindowTextClass> label = DynamicWindowTextClass::Create("ATTRIBUTE00_IEI00", attribute->Label, 0x12);
 	Add_Element(label);
 	static Vector2 value_size(65.0f, 0.0f);
-	RefCountPtr<DynamicWindowHorizontalClass> value = Create_NEW(new DynamicWindowHorizontalClass(0));
+	RefCountPtr<HorizontalDynamicWindow> value = Create_NEW(new HorizontalDynamicWindow(0));
 	value->Set_Min_Size(value_size);
 	RefCountPtr<DynamicWindowTextClass> amount = DynamicWindowTextClass::Create("ATTRIBUTE00_VAR_IEI00", attribute->Unknown_14() + " ", 0x10);
 	value->Add_Element(amount);

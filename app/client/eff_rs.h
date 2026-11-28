@@ -18,7 +18,7 @@
 
 // vtable 0xB002D0 (12 slots), 0xE4 bytes, constructor 0x6F0200; its destructor is the implicit one (the unary end's,
 // 0x6F02C0; scalar deleting 0x6F0290). Its own flag bit: 0x200, effect.ini's ForceReactivate.
-class RenderStateEffectClass : public UnknownB00060EffectClass	// NAME 3: effect.ini's EffectClass 'RenderStateEffect' (0xB92EA0), which the helper 0x6EC7D0 makes
+class RenderStateEffectClass : public UnaryEffectClass	// NAME 3: effect.ini's EffectClass 'RenderStateEffect' (0xB92EA0), which the helper 0x6EC7D0 makes
 {
 public:
 	RenderStateEffectClass(ClientClass *client, unsigned id, unsigned start_time, unsigned duration, unsigned cycle_time, int render_state, int action, unsigned action_time);	// 0x6F0200  // NAME 1 [client .. cycle_time]: the base's; render_state .. action_time: effect.ini's RenderStateID, ActionType, ActionTime (ms)

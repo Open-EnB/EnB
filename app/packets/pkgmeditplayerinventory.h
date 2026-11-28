@@ -19,13 +19,13 @@
 #include <vector>
 
 // opcode 234 (0x00EA, ?): vtable 0xB0983C, constructor 0x86F630, 0x20 bytes
-class GMEditPlayerInventoryPacketClass : public PacketClass  // NAME 3: the client's Print text 'GM Edit Player Inventory'
+class GMEditPlayerInventoryPacketClass : public UnknownPacketBaseClass  // NAME 3: the client's Print text 'GM Edit Player Inventory'
 {
 public:
 	GMEditPlayerInventoryPacketClass(int unknown0c, const std::vector<std::string> &strings);	// 0x86F870
-	GMEditPlayerInventoryPacketClass(RawPacketClass *raw);	// 0x86F630
+	GMEditPlayerInventoryPacketClass(PacketClass *raw);	// 0x86F630
 	virtual ~GMEditPlayerInventoryPacketClass();	// +0x00 0x86F840 / 0x86FAA0
-	virtual RawPacketClass *Build();	// +0x04 0x86FB30
+	virtual PacketClass *Encode();	// +0x04 0x86FB30  // NAME 3: override of the NAME 5 virtual Encode
 	virtual bool Process_Packet(void *client);	// +0x08 0x73F2E0 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C PKGMEDITPLAYERINVENTORY_HDS
 	virtual int Print(char *buffer, int len);	// +0x10 0x86FCA0

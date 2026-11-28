@@ -186,6 +186,6 @@ bool CordStatsClass::Allow(int channel, unsigned int len, int send_count, const 
 /*
 **	Client 0x85BF30-0x85C5E0, an object of its own by the CRT initialiser table (SG, run 2026-11-18): the
 **	connection's send window and statistics CordCon keeps at +0x68 (CordStatsClass, 0x4C bytes), then <string>'s
-**	guarded initialiser 0x85C5C0 (entry 794); unknown_cordmsg.cpp's object (CordMessageClass) ends with its own
+**	guarded initialiser 0x85C5C0 (entry 794); unknown_cordmsg.cpp's object (CordMessage) ends with its own
 **	guard 0x85BF00 (entry 793). No assert or string names the file: PROVISIONAL (D137).
 */

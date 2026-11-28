@@ -40,7 +40,7 @@ Unknown_6D8B90Class::~Unknown_6D8B90Class()
 }
 
 
-bool Unknown_6D8B90Class::Is_Printed(RefCountPtr<Font32Class> *font, const char *str)
+bool Unknown_6D8B90Class::Is_Printed(RefCountPtr<Font32Bit> *font, const char *str)
 {
 	if (Texture != NULL && Text != NULL && str != NULL) {
 		if (strcmp(Text, str) == 0 && Font == *font) {
@@ -87,7 +87,7 @@ bool Unknown_6D8B90Class::Is_Printed(RefCountPtr<Font32Class> *font, const char 
 
 
 
-bool Unknown_6D8B90Class::Unknown_6D8DC0(RefCountPtr<Font32Class> *font, const char *str, int unknown)
+bool Unknown_6D8B90Class::Unknown_6D8DC0(RefCountPtr<Font32Bit> *font, const char *str, int unknown)
 {
 	FAIL_IF(!str) str = "";
 	if (Is_Printed(font, str) && unknown == 0) {
@@ -177,7 +177,7 @@ bool Unknown_6D8B90Class::Unknown_6D8DC0(RefCountPtr<Font32Class> *font, const c
 **	__FILE__ 'e:\build\beta\G\app\Client\fonttexture.cpp' (0xB92870): 0x6D8DC0's FAIL_IFs '!str' (line 92; the tree's
 **	parameter name str, as the client's), 'fw <= 0' (114), 'fh <= 0' (116). The holder's statics 0xBE67C8-0xBE67D8 are
 **	this file's. The object starts at the constructor 0x6D8B90 (fontsys.cpp's last function before it) and ends with
-**	0x6D8DC0 (gauge3d.cpp follows at 0x6D9360). Font +0x08 is a RefCountPtr<Font32Class>: the destructor releases it
+**	0x6D8DC0 (gauge3d.cpp follows at 0x6D9360). Font +0x08 is a RefCountPtr<Font32Bit>: the destructor releases it
 **	after the EH state's end (a member's destructor) and 0x6D8DC0's assignment is RefCountPtr's operator=. Is_Printed
 **	0x6D8D30 (no callers left; inlined in 0x6D8DC0) is the same-text test. The shared surface 0xBE67C8 is a file
 **	static: as a global its REF_PTR_RELEASE compiles to the plain dec / jne, as a static to the client's

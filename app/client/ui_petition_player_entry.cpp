@@ -17,7 +17,7 @@
 extern const int Unknown_B08C9C;			// 0xB08C9C (8: textgadg.h's flags, as ui_registration.cpp declares it)  // NAME 1: neutral (D10)
 
 // 0x5D6080
-UIPetitionPlayerEntryClass::UIPetitionPlayerEntryClass(SClient *client, int unknown0B8) :
+UIPetitionPlayerEntryClass::UIPetitionPlayerEntryClass(SpaceClientClass *client, int unknown0B8) :
 	UIPetitionEntryClass(client),
 	Unknown0B8(unknown0B8)
 {
@@ -33,7 +33,7 @@ UIPetitionPlayerEntryClass::~UIPetitionPlayerEntryClass()
 void UIPetitionPlayerEntryClass::Unknown_54()
 {
 	UIPetitionEntryClass::Unknown_54();
-	PlayerName = Create_NEW(new UIPetitionPlayerNameClass((SClient *)((ClientClass *)Client)->As_Space_Client()));
+	PlayerName = Create_NEW(new UIPetitionPlayerNameClass((SpaceClientClass *)((ClientClass *)Client)->As_Space_Client()));
 	PlayerName->Unknown_5417D0(this);
 	PlayerName->Unknown_54();
 	PlayerName->NameEditor->Next = SubjectEditor;
@@ -206,7 +206,7 @@ bool UIPetitionPlayerEntryClass::Unknown_A0()
 	std::string subject;
 	std::string details;
 	Get_Text(subject, details);
-	int ship_id; ((ClientClass *)Get_Client())->Send_Packet(&PetitionStuckPacketClass(ship_id = ((ClientClass *)Get_Client())->ShipID, Unknown0B8, subject.c_str(), details.c_str(), names.c_str())); // NAME 1 [ship_id]: neutral (D10)
+	int ship_id; ((ClientClass *)Get_Client())->Send_Packet(&PetitionPacketClass(ship_id = ((ClientClass *)Get_Client())->ShipID, Unknown0B8, subject.c_str(), details.c_str(), names.c_str())); // NAME 1 [ship_id]: neutral (D10)
 	return(true);
 }
 
@@ -259,7 +259,7 @@ bool UIPetitionPlayerEntryClass::Has_Text(bool warn)
 
 
 // 0x5D6AA0
-UIPetitionPlayerNameClass::UIPetitionPlayerNameClass(SClient *client) :
+UIPetitionPlayerNameClass::UIPetitionPlayerNameClass(SpaceClientClass *client) :
 	ChatPanelUIBase(client),
 	NameEditor(NULL)
 {
@@ -283,7 +283,7 @@ void UIPetitionPlayerNameClass::Unknown_54()
 		GadgetClass::Set_Tooltip(button, "UI_PETITION_PLAYER_ENTRY", "EDIT");
 		Add_Back_Gadget(1, Vector3(0.0f, 0.0f, 0.0f));
 		RefCountPtr<RenderObjClass> entry = Create_Get(InterfaceMesh->Get_Sub_Object_By_Name("Entry_Field01"));
-		NameEditor = new TextGadgetClass(this, 0xFA, "PLAYER_NAME_hsi03a", entry.Peek(), Unknown_B08C9C | Unknown_B08CB0, 0);
+		NameEditor = new UnknownTextGadgetClass(this, 0xFA, "PLAYER_NAME_hsi03a", entry.Peek(), Unknown_B08C9C | Unknown_B08CB0, 0);
 		NameEditor->Set_Text("Enter name or click Import Name", 0);
 		NameEditor->Set_Unknown3B(false);
 		NameEditor->Set_Unknown58(0.9f);
@@ -300,7 +300,7 @@ void UIPetitionPlayerNameClass::Unknown_60()
 	NameEditor->Unknown_6AAD10();
 }
 
-template<> inline DeltaStringClass *Unknown_Find_Set_Field<DeltaStringClass>(DeltaCompoundClass *root, const NameClass &name) { DeltaStringClass *t = Unknown_Find_Field<DeltaStringClass>(root, name); root->Children.size(); root->Children.size(); root->Children.size(); root->Children.size(); root->Children.size(); root->Children.size(); if (t) { if (t->Unknown70) { return(t); } } return(NULL); }	// auxdata.h's Find_Set_Field instance spelled out: its six dead reads (D272, provisional) send rtti.h's Cast 0x5469C0 out of line at both lookups of 0x5D6EE0 (five or seven: not exact)
+template<> inline DeltaString *Unknown_Find_Set_Field<DeltaString>(DeltaContainer *root, const AuxDataName &name) { DeltaString *t = Unknown_Find_Field<DeltaString>(root, name); root->Children.size(); root->Children.size(); root->Children.size(); root->Children.size(); root->Children.size(); root->Children.size(); if (t) { if (t->Unknown70) { return(t); } } return(NULL); }	// auxdata.h's Find_Set_Field instance spelled out: its six dead reads (D272, provisional) send rtti.h's Cast 0x5469C0 out of line at both lookups of 0x5D6EE0 (five or seven: not exact)
 // 0x5D6EE0
 bool UIPetitionPlayerNameClass::Unknown_68(int key)
 {
@@ -312,16 +312,16 @@ bool UIPetitionPlayerNameClass::Unknown_68(int key)
 		case 1:
 			{
 
-				SClient *sclient = (SClient *)((ClientClass *)Client)->As_Space_Client();	// NAME 3: the FAIL_IF's
+				SpaceClientClass *sclient = (SpaceClientClass *)((ClientClass *)Client)->As_Space_Client();	// NAME 3: the FAIL_IF's
 				FAIL_IF(!sclient) return(true);
 				ClientObjectClass *target = sclient->Get_Target();	// NAME 1: neutral (D10)
 				if (target && target->Type == 1) {
-					SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
-					NameClass owner("Owner");
-					DeltaStringClass *t = Unknown_Find_Set_Field<DeltaStringClass>((DeltaCompoundClass *)target->AuxData, owner);	// NAME 1: neutral (D10)
+					SoundLibrary::Play_2D_Sound("fontclick.wav", 2);
+					AuxDataName owner("Owner");
+					DeltaString *t = Unknown_Find_Set_Field<DeltaString>((DeltaContainer *)target->AuxData, owner);	// NAME 1: neutral (D10)
 					if (!t) {
-						NameClass field("Name");
-						t = Unknown_Find_Set_Field<DeltaStringClass>((DeltaCompoundClass *)target->AuxData, field);
+						AuxDataName field("Name");
+						t = Unknown_Find_Set_Field<DeltaString>((DeltaContainer *)target->AuxData, field);
 					}
 					const char *name = t ? t->String : "Unknown";	// NAME 1: neutral (D10)
 					bool append = NameEditor->Unknown3B;	// NAME 1: neutral (D10)
@@ -333,7 +333,7 @@ bool UIPetitionPlayerNameClass::Unknown_68(int key)
 					return(true);
 				}
 				sclient->Unknown_74D990(0x13, "Player target must be selected!", 0);
-				SoundLibraryClass::Play_2D_Sound("failure_1.wav", 2);
+				SoundLibrary::Play_2D_Sound("failure_1.wav", 2);
 			}
 			return(true);
 	}

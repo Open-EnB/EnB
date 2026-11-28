@@ -15,7 +15,7 @@ extern Random4Class Unknown_BDB1C0;				// NAME 1 [Unknown_BDB1C0]: 0xBDB1C0, the
 static float Unknown_B04D30 = 0.00002f;			// NAME 1: neutral (D10): the module's +0x38, signed at random
 
 // @0x793920
-CameraController05Class::CameraController05Class(SClient *client) :
+LandCameraControllerClass::LandCameraControllerClass(SpaceClientClass *client) :
 	CameraControllerClass(client),
 	Unknown0C(NULL),
 	Unknown10(0),
@@ -25,7 +25,7 @@ CameraController05Class::CameraController05Class(SClient *client) :
 }
 
 // @0x793A10
-CameraController05Class::~CameraController05Class()
+LandCameraControllerClass::~LandCameraControllerClass()
 {
 	if (Unknown0C) {
 		delete Unknown0C;
@@ -34,12 +34,12 @@ CameraController05Class::~CameraController05Class()
 }
 
 // @0x793A90
-void CameraController05Class::Unknown_04()
+void LandCameraControllerClass::Unknown_04()
 {
 	Unknown_793CE0();
 	Unknown10 = Client->Unknown10BC;
 	Unknown14 = Client->Next_Local_ID();
-	EffectObjectClass *effect = Unknown_6E9490(0x16A, Unknown14, 4000, Unknown10, Client, 1.0f, Vector3(0.0f, 0.0f, 0.0f), 1.0f, -1, 0);
+	EffectClass *effect = Unknown_6E9490(0x16A, Unknown14, 4000, Unknown10, Client, 1.0f, Vector3(0.0f, 0.0f, 0.0f), 1.0f, -1, 0);
 
 
 
@@ -67,7 +67,7 @@ void CameraController05Class::Unknown_04()
 
 	FAIL_IF(!effect) return;
 
-	UnknownB00060EffectClass *source = effect->Unknown_10();
+	UnaryEffectClass *source = effect->Unknown_10();
 	if (source) {
 		source->Set_Source_Object_ID(Client->AvatarID);
 	} else {
@@ -78,7 +78,7 @@ void CameraController05Class::Unknown_04()
 }
 
 // @0x793BC0
-void CameraController05Class::Unknown_08(Vector3 *pos, Quaternion *rot, int *mode, int *target)
+void LandCameraControllerClass::Unknown_08(Vector3 *pos, Quaternion *rot, int *mode, int *target)
 {
 	Unknown0C->Unknown_08(pos, rot);
 	if (Client->Unknown10BC - Unknown10 > 4000) {
@@ -90,7 +90,7 @@ void CameraController05Class::Unknown_08(Vector3 *pos, Quaternion *rot, int *mod
 }
 
 // @0x793C40
-void CameraController05Class::Unknown_0C()
+void LandCameraControllerClass::Unknown_0C()
 {
 	Unknown0C->Unknown_0C();
 	ClientObjectClass *ship = Client->Get_Avatar();
@@ -102,7 +102,7 @@ void CameraController05Class::Unknown_0C()
 		ship->PositionalState = state->Unknown_28();
 		delete state;
 	}
-	EffectObjectClass *effect = Client->Get_Effect(Unknown14);
+	EffectClass *effect = Client->Get_Effect(Unknown14);
 	if (effect) {
 		effect->Unknown_6E6E30();
 	}
@@ -110,7 +110,7 @@ void CameraController05Class::Unknown_0C()
 
 // @0x793CE0
 // NOT EXACT: registers only (432/432 rows, the client's stack slots; D5 2026-11-24: every call, member offset and constant audited against the client's bytes)
-void CameraController05Class::Unknown_793CE0()
+void LandCameraControllerClass::Unknown_793CE0()
 {
 	ClientObjectClass *target = Client->Find_Object(Client->Unknown13B8);
 	FAIL_IF(!target) {

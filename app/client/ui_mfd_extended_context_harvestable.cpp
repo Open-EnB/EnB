@@ -11,7 +11,7 @@
 #include "..\shared\auxdata\delta_item_array.h"
 #include "ui_mfd_extended_context_harvestable.h"
 #include "..\shared\auth_product.h"
-template<class C> inline C *Unknown_Find_Valid(DeltaCompoundClass *root, const NameClass &name) { C *t = Unknown_Find_Field<C>(root, name); if (t == NULL || t->Unknown70 == 0) return(NULL); return(t); }	// (cameraeffects.cpp's)  // NAME 1: neutral (D10)
+template<class C> inline C *Unknown_Find_Valid(DeltaContainer *root, const AuxDataName &name) { C *t = Unknown_Find_Field<C>(root, name); if (t == NULL || t->Unknown70 == 0) return(NULL); return(t); }	// (cameraeffects.cpp's)  // NAME 1: neutral (D10)
 class SkillNamesDatabase { public: static int Unknown_818520(const char *name); };	// 0x818520 (skillnam.cpp's: a skill's index by its name)  // NAME 1: neutral (D10)
 
 static const char *HarvestableName = "HarvestableResources";	// 0xB82294  // NAME 2: what it holds
@@ -38,7 +38,7 @@ void Unknown_5BF760()
 
 
 // 0x5BF790
-RefCountPtr<UIMFDExtendedContextClass> Unknown_5BF790(ClientObjectClass *self, ClientObjectClass *co, UIMFDClass *owner)
+RefCountPtr<UIMFDExtendedContextClass> Unknown_5BF790(ClientObjectClass *self, ClientObjectClass *co, MFDInterface *owner)
 {
 
 
@@ -51,18 +51,18 @@ RefCountPtr<UIMFDExtendedContextClass> Unknown_5BF790(ClientObjectClass *self, C
 
 	FAIL_IF(-1 == prospect_skill_index)
 		return(NULL);
-	SClient *player = (SClient *)self->Client->As_Space_Client();
+	SpaceClientClass *player = (SpaceClientClass *)self->Client->As_Space_Client();
 	FAIL_IF(0 == player)
 		return(NULL);
 	DeltaPlayerClass *avatar_aux_data = player->AuxData;
 	FAIL_IF(0 == avatar_aux_data)
 		return(NULL);
-	{ NameClass name("RPGInfo.Skills"); DeltaItemArrayClass<DeltaSkillClass> *skills = Unknown_Find_Valid<DeltaItemArrayClass<DeltaSkillClass> >(avatar_aux_data, name);
+	{ AuxDataName name("RPGInfo.Skills"); DeltaItemArrayClass<DeltaSkill> *skills = Unknown_Find_Valid<DeltaItemArrayClass<DeltaSkill> >(avatar_aux_data, name);
 
 
 	FAIL_IF(0 == skills)
 		return(NULL);
-	DeltaSkillClass *skill = (DeltaSkillClass *)skills->Children[prospect_skill_index];
+	DeltaSkill *skill = (DeltaSkill *)skills->Children[prospect_skill_index];
 	if (skill->Level.Value == 0)
 		return(NULL);
 	}
@@ -72,7 +72,7 @@ RefCountPtr<UIMFDExtendedContextClass> Unknown_5BF790(ClientObjectClass *self, C
 	FAIL_IF(0 == co->AuxData)
 		return(NULL);
 	DeltaItemArrayClass<DeltaItemClass> *harvestable_aux_data;
-	{ NameClass name(HarvestableName); harvestable_aux_data = Unknown_Find_Field<DeltaItemArrayClass<DeltaItemClass> >((DeltaCompoundClass *)co->AuxData, name); }
+	{ AuxDataName name(HarvestableName); harvestable_aux_data = Unknown_Find_Field<DeltaItemArrayClass<DeltaItemClass> >((DeltaContainer *)co->AuxData, name); }
 
 
 
@@ -87,12 +87,12 @@ RefCountPtr<UIMFDExtendedContextClass> Unknown_5BF790(ClientObjectClass *self, C
 static inline void Unknown_Clear(std::list<int> &v) { v.clear(); }
 static inline ClientClass *Unknown_Client(ClientObjectClass *co) { return(co->Client); }
 // 0x5BFB00
-UIMFDExtendedContextHarvestableClass::UIMFDExtendedContextHarvestableClass(ClientObjectClass *co, UIMFDClass *owner) :
+UIMFDExtendedContextHarvestableClass::UIMFDExtendedContextHarvestableClass(ClientObjectClass *co, MFDInterface *owner) :
 	UIMFDExtendedContextStringsClass(co, owner),
 	Peek(Unknown_Client(co), "HarvestableResources", false),
 	UnknownB4(false)
 {
-	Peek.Attach((DeltaCompoundClass *)co->AuxData);
+	Peek.Attach((DeltaContainer *)co->AuxData);
 	Create_Fonts();
 	Unknown_Clear(Slots);
 	unsigned int count = Peek.Count;

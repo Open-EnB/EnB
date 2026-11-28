@@ -14,11 +14,11 @@
 
 // The lock around every CordMgr / CordCon call (0xBE96A0) and the message buffer Receive reads
 // into and the sends copy into (0xBE96B8: the header, then the payload).
-CritSec UDPConnection::Lock;
+CritSec UDPConnectionClass::Lock;
 static char Buffer[UDP_DATABUFFER_SIZE];
 
-CordMgrTaskClass *CordMgrTaskClass::Task = 0;
-CordMgr *CordMgrTaskClass::Mgr = 0;
+CordMgrTask *CordMgrTask::Task = 0;
+CordMgr *CordMgrTask::Mgr = 0;
 
 // 0x82C5E0
 static uint32 Channel_Hash(const UDPChannelKeyClass &key)
@@ -33,8 +33,8 @@ static CordMgr *TheMgr;	// NAME 2: what it holds
 // The pump task and the CordMgr, once (0x82C660; inlined in the constructors)
 void Init_Mgr()	// NAME 2: what it does
 {
-	CordMgrTaskClass::Init();
-	TheMgr = CordMgrTaskClass::Mgr;
+	CordMgrTask::Init();
+	TheMgr = CordMgrTask::Mgr;
 }
 
 
@@ -70,7 +70,7 @@ void Init_Mgr()	// NAME 2: what it does
 
 
 
-UDPConnection::UDPConnection(const char *host, unsigned short port, bool encrypt) :
+UDPConnectionClass::UDPConnectionClass(const char *host, unsigned short port, bool encrypt) :
 	Channels(Channel_Hash), InRate(2), OutRate(2),
 	LastOut(0),
 	LastIn(0),
@@ -100,7 +100,7 @@ UDPConnection::UDPConnection(const char *host, unsigned short port, bool encrypt
 	Mgr = TheMgr;
 }
 
-UDPConnection::UDPConnection(unsigned int ip, unsigned short port, bool encrypt) :
+UDPConnectionClass::UDPConnectionClass(unsigned int ip, unsigned short port, bool encrypt) :
 	Channels(Channel_Hash), InRate(2), OutRate(2),
 	LastOut(0),
 	LastIn(0),
@@ -124,7 +124,7 @@ UDPConnection::UDPConnection(unsigned int ip, unsigned short port, bool encrypt)
 
 
 // NOT EXACT: two register choices (con's Ip_ / Port_ reads, the openc tail); Encrypt stays unset
-UDPConnection::UDPConnection(CordCon *con, CordMgr *mgr) :
+UDPConnectionClass::UDPConnectionClass(CordCon *con, CordMgr *mgr) :
 	Channels(Channel_Hash), InRate(2), OutRate(2),
 	LastOut(0), LastIn(0),
 	Mgr(mgr),
@@ -146,7 +146,7 @@ UDPConnection::UDPConnection(CordCon *con, CordMgr *mgr) :
 
 
 // Disconnect through the base class (the client's virtual call); Pending and Name go with it
-UDPConnection::~UDPConnection()
+UDPConnectionClass::~UDPConnectionClass()
 {
 	if (Con) {
 		Lock.lock();
@@ -177,7 +177,7 @@ UDPConnection::~UDPConnection()
 }
 
 
-bool UDPConnection::Get_Stats(float *out_rate, float *in_rate, float *round_trip, float *window, float *in_flight,
+bool UDPConnectionClass::Get_Stats(float *out_rate, float *in_rate, float *round_trip, float *window, float *in_flight,
 	float *quality, int *idle)
 {
 	int messages_sent, packets_in, bytes_sent, bytes_read, resends, dup_acks;
@@ -199,7 +199,7 @@ bool UDPConnection::Get_Stats(float *out_rate, float *in_rate, float *round_trip
 }
 
 
-unsigned int UDPConnection::Get_Address()
+unsigned int UDPConnectionClass::Get_Address()
 {
 	if (Con) {
 		return(Con->Ip_);
@@ -208,7 +208,7 @@ unsigned int UDPConnection::Get_Address()
 }
 
 
-bool UDPConnection::Connect(bool wait)
+bool UDPConnectionClass::Connect(bool wait)
 {
 	if (!wait) {
 		return(Try_Connect());
@@ -225,7 +225,7 @@ bool UDPConnection::Connect(bool wait)
 }
 
 
-bool UDPConnection::Try_Connect()
+bool UDPConnectionClass::Try_Connect()
 {
 	if (Pending == 0) {
 		if (Con == 0) {
@@ -248,7 +248,7 @@ bool UDPConnection::Try_Connect()
 }
 
 
-bool UDPConnection::Is_Connected()
+bool UDPConnectionClass::Is_Connected()
 {
 	if (Con == 0) {
 		return(false);
@@ -264,13 +264,13 @@ bool UDPConnection::Is_Connected()
 }
 
 
-bool UDPConnection::Is_Dead()
+bool UDPConnectionClass::Is_Dead()
 {
 	return(!Is_Connected());
 }
 
 
-bool UDPConnection::Disconnect()
+bool UDPConnectionClass::Disconnect()
 {
 	if (Pending) {
 		Mgr->Cancel_Connect(Pending);
@@ -357,7 +357,7 @@ static inline bool Find_Ptr(Dictionary<UDPChannelKeyClass, UDPChannelClass> &d, 
 
 // Exact: the last lookup goes through Find_Ptr (getValue there leaves keyHash out of line, getPointer direct
 // inlines operator == too: inline budget); CordCon::write takes (channel, len, data, priority) in the client
-bool UDPConnection::Send_Data(int len, int channel, int priority, bool reliable, bool close)
+bool UDPConnectionClass::Send_Data(int len, int channel, int priority, bool reliable, bool close)
 {
 	if (Con == 0) {
 		return(false);
@@ -431,7 +431,7 @@ bool UDPChannelKeyClass::operator == (const UDPChannelKeyClass &other) const
 }
 
 // Exact (0x82D8C0): the client keeps -1 - channel and Fixed's +0x80 apart (the index form below)
-void UDPConnection::Open_Fixed_Channel(int channel)
+void UDPConnectionClass::Open_Fixed_Channel(int channel)
 {
 	// an index subscripted twice keeps the client's unfolded [this + index*4 + 0x80]
 	// (a slot pointer folds the -1 into the displacement)
@@ -448,7 +448,7 @@ void UDPConnection::Open_Fixed_Channel(int channel)
 }
 
 
-bool UDPConnection::Is_Fixed_Channel(unsigned int channel)
+bool UDPConnectionClass::Is_Fixed_Channel(unsigned int channel)
 {
 	if (channel == Default) {
 		return(true);
@@ -484,7 +484,7 @@ bool UDPConnection::Is_Fixed_Channel(unsigned int channel)
 
 
 
-bool UDPConnection::Send_Message(RawPacketClass *packet)
+bool UDPConnectionClass::Send_Message(PacketClass *packet)
 {
 	FAIL_IF(packet->Header.Size > UDP_DATABUFFER_SIZE) return(false);
 	*(PacketHeaderClass *)Buffer = packet->Header;
@@ -508,9 +508,9 @@ bool UDPConnection::Send_Message(RawPacketClass *packet)
 
 
 
-bool UDPConnection::Send_Packet(PacketClass *source)
+bool UDPConnectionClass::Send_Packet(UnknownPacketBaseClass *source)
 {
-	RawPacketClass *packet = source->Build();
+	PacketClass *packet = source->Encode();
 	FAIL_IF(packet->Header.Size > UDP_DATABUFFER_SIZE) {
 		delete packet;
 		return(false);
@@ -524,7 +524,7 @@ bool UDPConnection::Send_Packet(PacketClass *source)
 }
 
 
-PacketClass *UDPConnection::Receive()
+UnknownPacketBaseClass *UDPConnectionClass::Receive()
 {
 	if (Con == 0) {
 		return(0);
@@ -553,7 +553,7 @@ PacketClass *UDPConnection::Receive()
 	if (!got) {
 		return(0);
 	}
-	PacketClass *packet = Unknown_Create_Packet(Buffer);
+	UnknownPacketBaseClass *packet = Unknown_Create_Packet(Buffer);
 	if (packet == 0) {
 		return(0);
 	}
@@ -561,44 +561,44 @@ PacketClass *UDPConnection::Receive()
 	return(packet);
 }
 
-void UDPConnection::Unknown_82DCB0() { Name = nstrdup("unknown"); }	// NAME 1 [Unknown_82DCB0]: no caller, no string
-CordMgrTaskClass::CordMgrTaskClass()
+void UDPConnectionClass::Unknown_82DCB0() { Name = nstrdup("unknown"); }	// NAME 1 [Unknown_82DCB0]: no caller, no string
+CordMgrTask::CordMgrTask()
 {
 	Mgr = new CordMgr;
 }
 
 
-CordMgrTaskClass::~CordMgrTaskClass()
+CordMgrTask::~CordMgrTask()
 {
 	delete Mgr;
 	Mgr = 0;
 }
 
 
-bool CordMgrTaskClass::Delete_On_Remove()
+bool CordMgrTask::Delete_On_Remove()
 {
 	return(false);
 }
 
 
-CordMgrTaskClass *CordMgrTaskClass::Init()
+CordMgrTask *CordMgrTask::Init()
 {
 	if (Task == 0) {
-		Task = new CordMgrTaskClass;
+		Task = new CordMgrTask;
 		KernelClass::Get_Instance()->Add_Task(Task);
 	}
 	return(Task);
 }
 
 
-CordMgr *CordMgrTaskClass::Get_Mgr()
+CordMgr *CordMgrTask::Get_Mgr()
 {
 	Init();
 	return(Mgr);
 }
 
 
-void CordMgrTaskClass::Shutdown_Task()
+void CordMgrTask::Shutdown_Task()
 {
 	if (Task) {
 		delete Task;
@@ -606,14 +606,14 @@ void CordMgrTaskClass::Shutdown_Task()
 }
 
 
-void CordMgrTaskClass::Run()
+void CordMgrTask::Run()
 {
 	WWPROFILE("CordMgr::Run");
 	Mgr->Pump();
 }
 
 
-int CordMgrTaskClass::Get_Interval()
+int CordMgrTask::Get_Interval()
 {
 	return(100);
 }
@@ -717,9 +717,9 @@ bool UDPListenerClass::Listen(unsigned short port)
 
 
 	FAIL_IF(PortNumber != 0) return(false);
-	UDPConnection::Lock.lock();
+	UDPConnectionClass::Lock.lock();
 	bool ok = Mgr->Listen(0, port);
-	UDPConnection::Lock.unlock();
+	UDPConnectionClass::Lock.unlock();
 	if (!ok) {
 		return(false);
 	}
@@ -740,9 +740,9 @@ bool UDPListenerClass::Stop()
 
 
 	FAIL_IF(PortNumber == 0) return(false);
-	UDPConnection::Lock.lock();
+	UDPConnectionClass::Lock.lock();
 	bool ok = Mgr->Unlisten(0, PortNumber);
-	UDPConnection::Lock.unlock();
+	UDPConnectionClass::Lock.unlock();
 	PortNumber = 0;
 	return(ok == true);
 }
@@ -751,11 +751,11 @@ bool UDPListenerClass::Stop()
 ConnectionClass *UDPListenerClass::Accept()
 {
 	CordCon *con;
-	UDPConnection::Lock.lock();
+	UDPConnectionClass::Lock.lock();
 	bool ok = Mgr->Find_Connection(&con, PortNumber, 0);
-	UDPConnection::Lock.unlock();
+	UDPConnectionClass::Lock.unlock();
 	if (ok) {
-		ConnectionClass *new_connection = new UDPConnection(con, Mgr);
+		ConnectionClass *new_connection = new UDPConnectionClass(con, Mgr);
 
 
 

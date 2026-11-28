@@ -8,11 +8,11 @@
 
 // The camera manager's eighth controller (state 7; vtable 0xB04EA8, 0x18 bytes): the landing on a planet, from
 // landingpattern.ini, with effect 0x16A on the avatar; after four seconds request 14
-class CameraController07Class : public CameraControllerClass	// NAME 1: neutral (D10)
+class PLandCameraControllerClass : public CameraControllerClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
-	CameraController07Class(SClient *client);			// 0x7946D0
-	virtual ~CameraController07Class();					// 0x7947C0, deleting 0x794790
+	PLandCameraControllerClass(SpaceClientClass *client);			// 0x7946D0
+	virtual ~PLandCameraControllerClass();					// 0x7947C0, deleting 0x794790
 	virtual void Unknown_04();							// +0x04 0x794840
 	virtual void Unknown_08(Vector3 *pos, Quaternion *rot, int *mode, int *target);	// +0x08 0x794970
 	virtual void Unknown_0C();							// +0x0C 0x7949F0

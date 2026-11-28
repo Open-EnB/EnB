@@ -20,7 +20,7 @@ GroupPacketClass::GroupPacketClass(unsigned char type, const std::string &text) 
 	strcpy(String, text.c_str());
 }
 
-GroupPacketClass::GroupPacketClass(RawPacketClass *raw) :
+GroupPacketClass::GroupPacketClass(PacketClass *raw) :
 	Owned(true)
 {
 	raw->Get(&Size, sizeof(Size));
@@ -36,9 +36,9 @@ GroupPacketClass::~GroupPacketClass()
 	}
 }
 
-RawPacketClass *GroupPacketClass::Build()
+PacketClass *GroupPacketClass::Encode()
 {
-	RawPacketClass *raw = new RawPacketClass(30, Get_Data_Size());
+	PacketClass *raw = new PacketClass(30, Get_Data_Size());
 	raw->Add(&Size, sizeof(Size));
 	raw->Add(&Type, sizeof(Type));
 	raw->Add(String, Size);

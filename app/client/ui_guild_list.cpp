@@ -22,7 +22,7 @@ static const char *Unknown_BA8204[2] = { "exit", "button01" };	// NAME 1: neutra
 static const char *Unknown_BA8210[2] = { "EXIT", "CLOSE" };	// NAME 1: neutral (D10)
 
 // 0x81E030
-UIGuildListClass::UIGuildListClass(SClient *client) :
+UIGuildListClass::UIGuildListClass(SpaceClientClass *client) :
 	ChatPanelUIBase(client),
 	Slider(NULL),
 	Top(0),
@@ -75,7 +75,7 @@ void UIGuildListClass::Unknown_58()
 		Slider->Unknown_A4(0.0f, false);
 		Unknown_81EC50(true);
 		if (Unknown0BC[0]) {
-			((RObjGadgetClass *)Unknown0BC[0])->Unknown_66C360();
+			((RenderObjGadgetClass *)Unknown0BC[0])->Unknown_66C360();
 		}
 		Unknown0A8 = 0;
 	}
@@ -103,7 +103,7 @@ void UIGuildListClass::Unknown_60()
 bool UIGuildListClass::Unknown_68(int key)
 {
 	if (key > 0 && key <= 2) {
-		SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+		SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 		Unknown0A8 = 1;
 		return(true);
 	}

@@ -35,17 +35,17 @@ struct INISection;
 class LookupTableClass : public RefCountClass  // NAME 3: by convention (D24) from the client's file lookup_table.cpp
 {
 public:
-	protected: virtual ~LookupTableClass() {} public: virtual float Lookup(float index) = 0;													// slot 2  // NAME 2: what it does (the self-test's floor->Lookup(index))
+	protected: virtual ~LookupTableClass() {} public: virtual float Lookup(float index) const = 0;													// slot 2  // NAME 2: what it does (the self-test's floor->Lookup(index))
 
 	static RefCountPtr<LookupTableClass> Create(const std::string &type, INISection *section);	// 0x4ED390: by the section's Type  // NAME 2: what it does
 };
 
 // Type=continuous: Values=v0,v1,...; Lookup(i) is Values[(int)i] (vtable 0xAEC788, 0x18 bytes)
-class ContinuousLookupTableClass : public LookupTableClass  // NAME 2: the ini's type name
+class ContinuousLookupTable : public LookupTableClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
-	virtual ~ContinuousLookupTableClass() {}												// 0x4EDA70
-	virtual float Lookup(float index);														// 0x4ED9A0
+	virtual ~ContinuousLookupTable() {}												// 0x4EDA70
+	virtual float Lookup(float index) const;														// 0x4ED9A0  // NAME 5: thunk order confirmed, binary.md 5.11
 
 	static RefCountPtr<LookupTableClass> Create(const std::string &values);			// 0x4ED660  // NAME 2: what it does
 
@@ -68,37 +68,37 @@ public:
 	virtual ~SampledLookupTableClass() {}													// 0x4EDE90
 
 protected:
-	void Find_Samples(float index, LookupSampleStruct &lower, LookupSampleStruct &upper);	// inline  // NAME 2: what it does
+	void Find_Samples(float index, LookupSampleStruct &lower, LookupSampleStruct &upper) const;	// inline  // NAME 2: what it does
 
 	std::vector<LookupSampleStruct> Samples;													// +0x08  // NAME 2: what it holds
 };
 
 // Type=floor: the sample at or below the index (vtable 0xAEC7A8)
-class FloorLookupTableClass : public SampledLookupTableClass  // NAME 2: the ini's type name
+class FloorLookupTable : public SampledLookupTableClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
-	FloorLookupTableClass(INISection *section) : SampledLookupTableClass(section) {}
-	virtual float Lookup(float index);														// 0x4EDED0
+	FloorLookupTable(INISection *section) : SampledLookupTableClass(section) {}
+	virtual float Lookup(float index) const;														// 0x4EDED0  // NAME 5: thunk order confirmed, binary.md 5.11
 
-	static RefCountPtr<LookupTableClass> Create(INISection *section);					// 0x4EDB00  // NAME 2: what it does
+	static RefCountPtr<LookupTableClass> Create(INISection &section);					// 0x4EDB00  // NAME 5: thunk order confirmed, binary.md 5.11
 };
 
 // Type=ceiling: the sample at or above the index (vtable 0xAEC7C8)
-class CeilingLookupTableClass : public SampledLookupTableClass  // NAME 2: the ini's type name
+class CeilingLookupTable : public SampledLookupTableClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
-	CeilingLookupTableClass(INISection *section) : SampledLookupTableClass(section) {}
-	virtual float Lookup(float index);														// 0x4EE100
+	CeilingLookupTable(INISection *section) : SampledLookupTableClass(section) {}
+	virtual float Lookup(float index) const;														// 0x4EE100  // NAME 5: thunk order confirmed, binary.md 5.11
 
-	static RefCountPtr<LookupTableClass> Create(INISection *section);					// 0x4EE020  // NAME 2: what it does
+	static RefCountPtr<LookupTableClass> Create(INISection &section);					// 0x4EE020  // NAME 5: thunk order confirmed, binary.md 5.11
 };
 
 // Type=closest: the sample nearest to the index (vtable 0xAEC7D8)
-class ClosestLookupTableClass : public SampledLookupTableClass  // NAME 2: the ini's type name
+class ClosestValueLookupTable : public SampledLookupTableClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
-	ClosestLookupTableClass(INISection *section) : SampledLookupTableClass(section) {}
-	virtual float Lookup(float index);														// 0x4EE380
+	ClosestValueLookupTable(INISection *section) : SampledLookupTableClass(section) {}
+	virtual float Lookup(float index) const;														// 0x4EE380  // NAME 5: thunk order confirmed, binary.md 5.11
 
 	static RefCountPtr<LookupTableClass> Create(INISection *section);					// 0x4EE2A0  // NAME 2: what it does
 };
@@ -108,7 +108,7 @@ class InterpolatedLookupTableClass : public SampledLookupTableClass  // NAME 2: 
 {
 public:
 	InterpolatedLookupTableClass(INISection *section) : SampledLookupTableClass(section) {}
-	virtual float Lookup(float index);														// 0x4EE630
+	virtual float Lookup(float index) const;														// 0x4EE630
 
 	static RefCountPtr<LookupTableClass> Create(INISection *section);					// 0x4EE550  // NAME 2: what it does
 };

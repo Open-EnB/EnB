@@ -42,13 +42,13 @@ public:
 
 
 
-FontStringStruct::FontStringStruct()
+StringInfo::StringInfo()
 {
 	Reset();
 }
 
 
-FontStringStruct::FontStringStruct(const char *string_id, const char *text)
+StringInfo::StringInfo(const char *string_id, const char *text)
 {
 	Reset();
 	StringID = string_id;
@@ -57,7 +57,7 @@ FontStringStruct::FontStringStruct(const char *string_id, const char *text)
 
 
 // The first nine assignments inline (Store_Length called), the sounds' and the loop's call operator= (HL2, 2026-10-29)
-void FontStringStruct::Reset()
+void StringInfo::Reset()
 {
 	StringID = "NewStringInfo";
 	Unknown04 = "";
@@ -105,7 +105,7 @@ void FontStringStruct::Reset()
 
 void FontDatabaseClass::Unknown_6BE520()
 {
-	for (std::hash_map<std::string, FontStringStruct *>::iterator it = Strings.begin(); it != Strings.end(); ++it) {
+	for (std::hash_map<std::string, StringInfo *>::iterator it = Strings.begin(); it != Strings.end(); ++it) {
 	}
 }
 
@@ -235,7 +235,7 @@ void FontDatabaseClass::Clear_Infos()
 
 void FontDatabaseClass::Clear_Strings()
 {
-	for (std::hash_map<std::string, FontStringStruct *>::iterator str = Strings.begin(); str != Strings.end(); ++str) {
+	for (std::hash_map<std::string, StringInfo *>::iterator str = Strings.begin(); str != Strings.end(); ++str) {
 		delete (*str).second;
 	}
 	Strings.clear();
@@ -338,7 +338,7 @@ void FontDatabaseClass::Unknown_6BFD00(const char *ini_name)
 
 
 // 0x6C0430 (D185's variant: Text through a reference in the append branch, kept on the same lines for the asserts' __LINE__)
-void FontDatabaseClass::Load_String(INIClass &ini, char *section, FontStringStruct *str)
+void FontDatabaseClass::Load_String(INIClass &ini, char *section, StringInfo *str)
 {
 	int misses = 10;
 	StringClass text;
@@ -517,7 +517,7 @@ void FontDatabaseClass::Unknown_6C1500(const char *file_name)
 	for (; misses > 0; index++) {
 		sprintf(section, "STR-%d", index);
 		if (ini.Find_Section(section)->Is_Valid()) {
-			FontStringStruct *str = new FontStringStruct;
+			StringInfo *str = new StringInfo;
 			Load_String(ini, section, str);
 			Add_String(str);
 			misses = 10;
@@ -529,10 +529,10 @@ void FontDatabaseClass::Unknown_6C1500(const char *file_name)
 	misses = 10;
 	index = 0;
 	for (; misses > 0; index++) {
-		FontStringStruct *str = NULL;
+		StringInfo *str = NULL;
 		sprintf(section, "WRAP-%d", index);
 		if (ini.Find_Section(section)->Is_Valid()) {
-			str = new FontStringStruct;
+			str = new StringInfo;
 			Load_String(ini, section, str);
 			Add_String(str);
 			misses = 10;
@@ -607,7 +607,7 @@ void FontDatabaseClass::Unknown_6C2080()
 	}
 	for (i = 0; i < MAXFONTS; i++) {
 		if (info->Font[i].Get_Length() > 0) {
-			Font[i].font32Ptr = Create_NEW(new Font32Class(info->Font[i], info->Spacing[i], info->Scale[i]));
+			Font[i].font32Ptr = Create_NEW(new Font32Bit(info->Font[i], info->Spacing[i], info->Scale[i]));
 		}
 	}
 }
@@ -741,9 +741,9 @@ FontEffectStruct *FontDatabaseClass::Find_Effect(const char *name)
 }
 
 
-FontStringStruct *FontDatabaseClass::Find_String(const char *name)
+StringInfo *FontDatabaseClass::Find_String(const char *name)
 {
-	std::hash_map<std::string, FontStringStruct *>::const_iterator it = Strings.find(name);
+	std::hash_map<std::string, StringInfo *>::const_iterator it = Strings.find(name);
 	return it == Strings.end() ? NULL : (*it).second;
 }
 
@@ -752,7 +752,7 @@ FontStringStruct *FontDatabaseClass::Find_String(const char *name)
 void FontDatabaseClass::Remove_String(const char *name)
 {
 	if (name != NULL) {
-		std::hash_map<std::string, FontStringStruct *>::iterator it = Strings.find(std::string(name));
+		std::hash_map<std::string, StringInfo *>::iterator it = Strings.find(std::string(name));
 		if (it != Strings.end()) {
 			delete (*it).second;
 			Strings.erase(it);
@@ -873,7 +873,7 @@ void FontDatabaseClass::Remove_String(const char *name)
 
 
 
-void FontDatabaseClass::Add_String(FontStringStruct *str)
+void FontDatabaseClass::Add_String(StringInfo *str)
 {
 	if (str && str->StringID) {
 		std::string name(str->StringID);
@@ -946,7 +946,7 @@ void FontDatabaseClass::Set_Font(const char *chat_name, unsigned int font_index,
 		info->Unknown98[chat_index] = value98;
 	}
 	if (changed) {
-		Font[chat_index].font32Ptr = Create_NEW(new Font32Class(info->Font[chat_index], info->Spacing[chat_index], info->Scale[chat_index]));
+		Font[chat_index].font32Ptr = Create_NEW(new Font32Bit(info->Font[chat_index], info->Spacing[chat_index], info->Scale[chat_index]));
 	} else {
 		Font[chat_index].font32Ptr->Set_XSpacing(info->Spacing[chat_index]);
 	}
@@ -1234,7 +1234,7 @@ bool FontInitStruct::Save_Fonts(FontDatabaseClass *fdb)
 {
 	FAIL_IF(!fdb) return false;
 	for (int i = 0; i < MAXFONTS; i++) {
-		StringOptionStruct *option = OptionClass::Instance->Find_String(FontID[i]);
+		StringOptionStruct *option = OptionManagerClass::Instance->Find_String(FontID[i]);
 		if (option != NULL) {
 			std::string text(option->Value);
 			int length = Name.length();
@@ -1268,7 +1268,7 @@ bool FontInitStruct::Save_Fonts(FontDatabaseClass *fdb)
 			text.size();
 		}
 	}
-	OptionClass::Instance->Save();
+	OptionManagerClass::Instance->Save();
 	return true;
 }
 
@@ -1277,7 +1277,7 @@ bool FontInitStruct::Load_Font(unsigned int idx, FontDatabaseClass *fdb)
 {
 	FAIL_IF(idx >= MAXFONTS) return false;
 	FAIL_IF(!fdb) return false;
-	StringOptionStruct *option = OptionClass::Instance->Find_String(FontID[idx]);
+	StringOptionStruct *option = OptionManagerClass::Instance->Find_String(FontID[idx]);
 	if (option == NULL) return false;
 	std::string file_name(option->Value);
 	int length = Name.length();
@@ -1338,7 +1338,7 @@ FontStringFilesClass::~FontStringFilesClass()
 **	hash_map instances (libs/sgistl, D87; the bucket functions over the string hash 0x42DB00 at 0x6C7D80 /
 **	0x6C7F00 / 0x6C8080 / 0x6C8200).
 **
-**	Written so far: FontStringStruct's constructors 0x6BDA40 / 0x6BDD30 and Reset 0x6BE0E0 (the
+**	Written so far: StringInfo's constructors 0x6BDA40 / 0x6BDD30 and Reset 0x6BE0E0 (the
 **	struct's implicit destructor is the client's folded copy 0x67F490 in chat_window.cpp), 0x6BE520 (walks Strings, its body compiled out), the constructor 0x6BE5C0 (through an inline Load: Clear_Infos, Clear_Tables, the three ini
 **	loaders, Clear_Strings, 0x6C2080), FontStruct's inline constructor 0x6BE7C0 and implicit destructor
 **	0x6BEB60, the destructor 0x6BEBF0, Load_Init 0x6BF330 (an INIT section, its Template%d sections first,
@@ -1347,7 +1347,7 @@ FontStringFilesClass::~FontStringFilesClass()
 **	the string files' loader 0x6C1500 and unloader 0x6C1AA0 (STR-n / WRAP-n sections), Remove_String
 **	0x6C3030 (NOT EXACT), Reload 0x6C1EC0 (the ini files again; the
 **	constructor's inline Load is the same plus 0x6C2080: written as one member the constructor inlines, it moved
-**	Load_Init's registers), 0x6C2080 (the eight fonts for the resolution: Font32Class through RefCountPtr's Create_NEW), Get_Blend_Type / Get_Direction / Get_Effect_Type 0x6C2340 / 0x6C2460 / 0x6C25A0 (the ini words to
+**	Load_Init's registers), 0x6C2080 (the eight fonts for the resolution: Font32Bit through RefCountPtr's Create_NEW), Get_Blend_Type / Get_Direction / Get_Effect_Type 0x6C2340 / 0x6C2460 / 0x6C25A0 (the ini words to
 **	their values), Parse_Directions 0x6C2890 and Split_Four 0x6C2A10 (Split_Four NOT EXACT: register), 0x6BFD00 (fontcode.ini / fontart.ini: the COLOR-n and EFFECT-n
 **	sections through Add_Color / Add_Effect, inlined with the asserts on lines 909 / 895), Clear_Infos 0x6BEE60 (with FontInitStruct's implicit destructor 0x6BEEF0), Clear_Tables
 **	0x6BEFD0 (Colors and Effects), Clear_Strings 0x6BF1F0, Find_Font 0x6C2BF0, Get_Info(width, height) 0x6C2CB0, the tables' Find_Color /

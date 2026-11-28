@@ -4,7 +4,7 @@
 #include "sclient.h"
 #include "client.h"
 #include "gadget.h"
-#include "unknown_675120.h"
+#include "gd_uimesh.h"
 #include "layer.h"
 #include "rendobj.h"
 #include "assetmgr.h"
@@ -21,7 +21,7 @@
 #include "ui_analyze.h"
 #include "..\..\ww3d2\ww3d.h"	// WW3D::Get_Frame_Time (read inline, as ui_manu.cpp's)
 #include "..\shared\auth_product.h"
-class SBaseViewClass;
+class StarbaseViewClass;
 
 // The client at InterfaceClass +0x40, as this file calls it (as ui_manu.cpp declares it)
 class LineDisplayClientClass  // NAME 1: neutral (D10)
@@ -29,7 +29,7 @@ class LineDisplayClientClass  // NAME 1: neutral (D10)
 public:
 	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
 	virtual void Unknown_10(); virtual void Unknown_14();
-	virtual SClient *As_Space_Client();					// +0x18 (ClientClass::As_Space_Client; SClient's returns itself)  // NAME 3: ui_manu.cpp's FAIL_IF's
+	virtual SpaceClientClass *As_Space_Client();					// +0x18 (ClientClass::As_Space_Client; SpaceClientClass's returns itself)  // NAME 3: ui_manu.cpp's FAIL_IF's
 };
 
 bool Unknown_495FD0(RenderObjClass *robj, TextureClass *texture, int unknown);	// 0x495FD0 (ro_funcs.cpp, cdecl): the texture onto the model  // NAME 1 [robj, texture, unknown]: as ui_manu.cpp's
@@ -38,8 +38,8 @@ bool Unknown_495FD0(RenderObjClass *robj, TextureClass *texture, int unknown);	/
 
 extern FontManagerClass *Unknown_BE67C4;	// NAME 1: neutral (D10)
 
-// the PDA's window calls: sclient.h's PDAInterfaceClass 0x695780 (open window 'index') / 0x695A00 (close it)
-// and SClient 0x744560 (slot +0x58 passes 0x19, slot +0x5C 0x1A)
+// the PDA's window calls: sclient.h's PDAInterface 0x695780 (open window 'index') / 0x695A00 (close it)
+// and SpaceClientClass 0x744560 (slot +0x58 passes 0x19, slot +0x5C 0x1A)
 
 // The window's buttons (0xB79660: [0] 'not used', slot +0x54's ids 1..6; [2..4] the category columns, their icons '%sf')
 static const char *Unknown_B79660[] = { "not used", "exit", "item00", "cat00", "sub00", "go", "inv" };	// NAME 1: neutral (D10)
@@ -65,13 +65,13 @@ void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);	// 0x496AE
 // The item's fields this file reads (as ui_manu.cpp's)
 // 'Validity': DeltaManufacturingLabClass's DeltaTemplateClass<UnknownB01394Enum> (aux_roots.h; its per-class global 0xC41640)
 
-template<class C> static inline C *Unknown_Find_Root_Field(DeltaCompoundClass *root, NameClass &name) { if (!root) return(NULL); C *t = Unknown_Find_Field<C>(root, name); if (!t) return(NULL); return(t); }	// NAME 1: neutral (D10): the find with its own root test (0x546090 calls the Cast out of line inside it, as the client)  // NAME 1 [root, name]: neutral
-// The field if it is set, else NULL, through two inline layers: with them the client's finds 0x546780 / 0x5467F0 stay out of line in 0x545E40 (the root copied after the NameClass: the client's registers; IB1)
-template<class C> inline C *Unknown_Find_Valid_Field(DeltaCompoundClass *const &root, const char *name) { NameClass n(name); DeltaCompoundClass *r = root; C *t = Unknown_Find_Field<C>(r, n); if (t && t->Unknown70) return(t); return(NULL); }	// NAME 1: neutral (D10)  // NAME 1 [root, name, n, r, t]: neutral
-template<class C> inline C *Unknown_Find_Valid(DeltaCompoundClass *const &root, const char *name) { return(Unknown_Find_Valid_Field<C>(root, name)); }	// NAME 1: neutral (D10)  // NAME 1 [root, name]: neutral
+template<class C> static inline C *Unknown_Find_Root_Field(DeltaContainer *root, AuxDataName &name) { if (!root) return(NULL); C *t = Unknown_Find_Field<C>(root, name); if (!t) return(NULL); return(t); }	// NAME 1: neutral (D10): the find with its own root test (0x546090 calls the Cast out of line inside it, as the client)  // NAME 1 [root, name]: neutral
+// The field if it is set, else NULL, through two inline layers: with them the client's finds 0x546780 / 0x5467F0 stay out of line in 0x545E40 (the root copied after the AuxDataName: the client's registers; IB1)
+template<class C> inline C *Unknown_Find_Valid_Field(DeltaContainer *const &root, const char *name) { AuxDataName n(name); DeltaContainer *r = root; C *t = Unknown_Find_Field<C>(r, n); if (t && t->Unknown70) return(t); return(NULL); }	// NAME 1: neutral (D10)  // NAME 1 [root, name, n, r, t]: neutral
+template<class C> inline C *Unknown_Find_Valid(DeltaContainer *const &root, const char *name) { return(Unknown_Find_Valid_Field<C>(root, name)); }	// NAME 1: neutral (D10)  // NAME 1 [root, name]: neutral
 
 // 'Mode': DeltaManufacturingLabClass's DeltaTemplateClass<UnknownB013ECEnum> (aux_roots.h; its per-class global 0xC41634)
-template<class C> inline C *Unknown_Find_Changed_Field(DeltaCompoundClass *const &root, const char *name) { NameClass n(name); DeltaCompoundClass *r = root; C *t = Unknown_Find_Field<C>(r, n); if (t && t->Unknown70 > 1) return(t); return(NULL); } template<class C> inline C *Unknown_Find_Changed(DeltaCompoundClass *const &root, const char *name) { return(Unknown_Find_Changed_Field<C>(root, name)); }	// NAME 1: neutral (D10): Unknown_Find_Valid's two layers with the changed test (> 1): the client's out-of-line finds in 0x545190  // NAME 1 [root, name, n, r, t]: neutral
+template<class C> inline C *Unknown_Find_Changed_Field(DeltaContainer *const &root, const char *name) { AuxDataName n(name); DeltaContainer *r = root; C *t = Unknown_Find_Field<C>(r, n); if (t && t->Unknown70 > 1) return(t); return(NULL); } template<class C> inline C *Unknown_Find_Changed(DeltaContainer *const &root, const char *name) { return(Unknown_Find_Changed_Field<C>(root, name)); }	// NAME 1: neutral (D10): Unknown_Find_Valid's two layers with the changed test (> 1): the client's out-of-line finds in 0x545190  // NAME 1 [root, name, n, r, t]: neutral
 
 
 
@@ -79,7 +79,7 @@ template<class C> inline C *Unknown_Find_Changed_Field(DeltaCompoundClass *const
 
 
 // @0x5435D0
-UIAnalyzeClass::UIAnalyzeClass(SBaseViewClass *view, const LayerClass &layer) :
+UIAnalyzeClass::UIAnalyzeClass(StarbaseViewClass *view, const LayerClass &layer) :
 	Unknown5BB320Class(new UIMeshClass("TSM02A", true), (UIViewClass *)view, layer),
 	Unknown0AC(layer),
 	Unknown0D0(view),
@@ -137,7 +137,7 @@ void UIAnalyzeClass::Unknown_54()
 	GadgetClass::Set_Tooltip(Unknown0E0[5], "UI_ANALYZE", "ICON_GO");
 	GadgetClass::Set_Tooltip(Unknown0E0[6], "UI_ANALYZE", "ICON_INV");
 	((ControlKeyListClass *)Unknown4C)->Add(KernelEventClass(0x1B), (void *)1);
-	SClient *sclient = Client->As_Space_Client();
+	SpaceClientClass *sclient = Client->As_Space_Client();
 	Unknown0D4 = Create_Get(new UIInvRobjStripClass(sclient, InterfaceMesh->Peek_Object(), 6, "TSM02A.E%02d", 12));
 	Unknown0D4->Unknown_54();
 	Unknown0D4->Unknown_7C(View, 0);
@@ -160,7 +160,7 @@ void UIAnalyzeClass::Unknown_54()
 	Unknown_10();
 }
 
-static inline int Analyze_Player_Id(SClient *sclient) { return sclient->Unknown1138; }  // NAME 2: the player id read as an inline accessor (as ui_manu.cpp's Manu_Player_Id)
+static inline int Analyze_Player_Id(SpaceClientClass *sclient) { return sclient->Unknown1138; }  // NAME 2: the player id read as an inline accessor (as ui_manu.cpp's Manu_Player_Id)
 
 // @0x544020
 void UIAnalyzeClass::Unknown_7C(UIViewClass *view, bool arg)
@@ -181,11 +181,11 @@ void UIAnalyzeClass::Unknown_7C(UIViewClass *view, bool arg)
 void UIAnalyzeClass::Unknown_58()
 {
 	InterfaceSortScopeClass scope(this);
-	SClient *sclient = Client->As_Space_Client();
+	SpaceClientClass *sclient = Client->As_Space_Client();
 	((ClientClass *)Client)->Send_Packet(&ManufactureItemCatagoryPacketClass(Analyze_Player_Id(sclient), 2));
 	if (State == UI_CLOSED) {
 		State = UI_OPEN;
-		Unknown118 = sclient->PDAInterface->Unknown_695780(false);
+		Unknown118 = sclient->PDAWindow->Unknown_695780(false);
 		Unknown_BE67C4->Add(InterfaceMesh->Peek_Mesh_Object());
 		Unknown_545610();
 		Unknown0D0->Unknown_69DC40();
@@ -196,7 +196,7 @@ void UIAnalyzeClass::Unknown_58()
 		Unknown_544D80();
 		ClientObjectClass *target = Client->As_Space_Client()->Unknown_74BF80();
 		if (target) {
-			Unknown10C = (DeltaCompoundClass *)target->AuxData;
+			Unknown10C = (DeltaContainer *)target->AuxData;
 		}
 		Unknown0E0[2]->Unknown_40(false);
 		Unknown0E0[3]->Unknown_40(false);
@@ -212,14 +212,14 @@ void UIAnalyzeClass::Unknown_5C()
 		State = UI_CLOSED;
 		((ClientClass *)Client)->Send_Packet(&ManufactureActionPacketClass(Analyze_Player_Id(Client->As_Space_Client()), 0));
 		Unknown_546000();
-		SClient *sclient = Client->As_Space_Client();
+		SpaceClientClass *sclient = Client->As_Space_Client();
 		((ClientClass *)Client)->Send_Packet(&ManufactureItemCatagoryPacketClass(Analyze_Player_Id(sclient), 0));
 		Unknown0D0->Unknown_69DC60();
 		Unknown0D4->Unknown_5C();
 		Unknown0D8->Unknown_5C();
 		Unknown0DC->Unknown_5C();
 		if (Unknown118) {
-			sclient->PDAInterface->Unknown_695A00(0, 1);
+			sclient->PDAWindow->Unknown_695A00(0, 1);
 		}
 		Unknown_BE67C4->Remove(InterfaceMesh->Peek_Mesh_Object());
 		Unknown5BB320Class::Unknown_5C();
@@ -311,7 +311,7 @@ void UIAnalyzeClass::Unknown_5C()
 
 
 
-// 0x5443F0: a named packet with its id read first (the client's lea [esp+S] argument; 0x545D30's local). The Unknown110 branch before the refresh and the cases 17..14 in the client's order (its blocks, its jump table); 'Validity' / 'Mode' through Unknown_Find_Root_Field with named NameClass locals (the Casts 0x5468D0 / 0x546920 out of line), the last find's name in its own block; one dead read of 0x544C50's accessor before the result texts, two at the end (D272) (0x5443F0)
+// 0x5443F0: a named packet with its id read first (the client's lea [esp+S] argument; 0x545D30's local). The Unknown110 branch before the refresh and the cases 17..14 in the client's order (its blocks, its jump table); 'Validity' / 'Mode' through Unknown_Find_Root_Field with named AuxDataName locals (the Casts 0x5468D0 / 0x546920 out of line), the last find's name in its own block; one dead read of 0x544C50's accessor before the result texts, two at the end (D272) (0x5443F0)
 // @0x5443F0
 void UIAnalyzeClass::Unknown_60()
 {
@@ -332,7 +332,7 @@ void UIAnalyzeClass::Unknown_60()
 			}
 			DeltaTemplateClass<UnknownB01394Enum> *validity = Unknown_Find_Valid<DeltaTemplateClass<UnknownB01394Enum> >(Unknown10C, "Validity");
 			if (validity && validity->Value == 15) {
-				int player = ((SClient *)Client)->Unknown1138; ManufactureActionPacketClass packet(player, 1); ((ClientClass *)Client)->Send_Packet(&packet);
+				int player = ((SpaceClientClass *)Client)->Unknown1138; ManufactureActionPacketClass packet(player, 1); ((ClientClass *)Client)->Send_Packet(&packet);
 			}
 		}
 	} else if (Unknown110) {
@@ -340,12 +340,12 @@ void UIAnalyzeClass::Unknown_60()
 
 
 
-		NameClass name("Validity"); DeltaTemplateClass<UnknownB01394Enum> *validity = Unknown_Find_Root_Field<DeltaTemplateClass<UnknownB01394Enum> >(Unknown10C, name);
+		AuxDataName name("Validity"); DeltaTemplateClass<UnknownB01394Enum> *validity = Unknown_Find_Root_Field<DeltaTemplateClass<UnknownB01394Enum> >(Unknown10C, name);
 		if (validity && validity->Unknown70 && validity->Value != 13) {
 			Unknown110 = false;
 			Unknown114 = Unknown_AEF0EC;
 			Unknown_545610();
-			NameClass mode_name("Mode"); DeltaTemplateClass<UnknownB013ECEnum> *mode = Unknown_Find_Root_Field<DeltaTemplateClass<UnknownB013ECEnum> >(Unknown10C, mode_name);
+			AuxDataName mode_name("Mode"); DeltaTemplateClass<UnknownB013ECEnum> *mode = Unknown_Find_Root_Field<DeltaTemplateClass<UnknownB013ECEnum> >(Unknown10C, mode_name);
 			if (mode && mode->Unknown70) {
 				bool analyze = mode->Value == 2;
 				const char *result = NULL;
@@ -387,12 +387,12 @@ void UIAnalyzeClass::Unknown_60()
 					if (analyze && success) {
 						Unknown_545E40();
 					}
-					SoundLibraryClass::Play_2D_Sound(sound, 2);
+					SoundLibrary::Play_2D_Sound(sound, 2);
 				}
 			}
 		}
 	} else if (Unknown10C->Unknown70 > 1) { Unknown_545610(); }
-	{ NameClass name("Validity"); DeltaTemplateClass<UnknownB01394Enum> *validity = Unknown_Find_Field<DeltaTemplateClass<UnknownB01394Enum> >(Unknown10C, name);
+	{ AuxDataName name("Validity"); DeltaTemplateClass<UnknownB01394Enum> *validity = Unknown_Find_Field<DeltaTemplateClass<UnknownB01394Enum> >(Unknown10C, name);
 	if (validity && validity->Unknown70 > 1) {
 		Unknown_545610();
 		Unknown_546090();
@@ -406,15 +406,15 @@ bool UIAnalyzeClass::Unknown_68(int key)
 	if (!Unknown110) {
 		switch (key) {
 			case 1:
-				SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+				SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 				Unknown0D0->Unknown_69F440();
 				return(true);
 			case 5:
-				SoundLibraryClass::Play_2D_Sound("analyze_1.wav", 2);
+				SoundLibrary::Play_2D_Sound("analyze_1.wav", 2);
 				Unknown_5458B0();
 				return(true);
 			case 6:
-				SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+				SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 				Unknown_545D30();
 				return(true);
 		}
@@ -577,7 +577,7 @@ void UIAnalyzeClass::Unknown_545610()
 	Unknown0FC[0]->Set_Hidden(true);
 	Unknown0FC[1]->Set_Hidden(true);
 	Unknown0FC[2]->Set_Hidden(true);
-	NameClass name("Validity");
+	AuxDataName name("Validity");
 	DeltaTemplateClass<UnknownB01394Enum> *validity = Unknown_Find_Set_Field<DeltaTemplateClass<UnknownB01394Enum> >(Unknown10C, name);
 	if (!validity) {
 		Unknown0E0[5]->Unknown_40(false);
@@ -585,7 +585,7 @@ void UIAnalyzeClass::Unknown_545610()
 		return;
 	}
 	const char *go = NULL;
-	NameClass mode_name("Mode");
+	AuxDataName mode_name("Mode");
 	DeltaTemplateClass<UnknownB013ECEnum> *mode = Unknown_Find_Set_Field<DeltaTemplateClass<UnknownB013ECEnum> >(Unknown10C, mode_name); InterfaceMesh->Peek_Mesh_Object(); InterfaceMesh->Peek_Mesh_Object(); InterfaceMesh->Peek_Mesh_Object(); InterfaceMesh->Peek_Mesh_Object(); InterfaceMesh->Peek_Mesh_Object();
 	bool analyze = (mode && mode->Value == 2);
 	if (analyze) {
@@ -700,8 +700,8 @@ void UIAnalyzeClass::Unknown_546000()
 // @0x546090
 void UIAnalyzeClass::Unknown_546090()
 {
-	NameClass name("FailureMessage");
-	DeltaStringClass *failure = Unknown_Find_Root_Field<DeltaStringClass>(Unknown10C, name);
+	AuxDataName name("FailureMessage");
+	DeltaString *failure = Unknown_Find_Root_Field<DeltaString>(Unknown10C, name);
 	if (failure && failure->Unknown70) {
 		if (strcmp(failure->Get(), "") != 0) {
 			Unknown_544C50(7, true, failure->Get());
@@ -770,5 +770,5 @@ void UIAnalyzeClass::Unknown_5461C0(int level, int a, int b, int c)
 // vector reads out of line too).
 // JD (2026-11-15): the destructor clears the three icon columns only when set (`if (Unknown0FC[i]) Unknown0FC[i] =
 // NULL;`: the client's je at +0x6B skips the store), the three strips unconditionally; 0x5437C0 exact.
-template DeltaTemplateClass<UnknownB013ECEnum> *Unknown_Find_Field<DeltaTemplateClass<UnknownB013ECEnum> >(DeltaCompoundClass *root, const NameClass &name);	// D164: not the client's form; emits auxdata.h's 'Mode' find out of line (0x546630, which the client's 0x5458B0 calls)
+template DeltaTemplateClass<UnknownB013ECEnum> *Unknown_Find_Field<DeltaTemplateClass<UnknownB013ECEnum> >(DeltaContainer *root, const AuxDataName &name);	// D164: not the client's form; emits auxdata.h's 'Mode' find out of line (0x546630, which the client's 0x5458B0 calls)
 template class UnknownRTTIClass<DeltaTemplateClass<UnknownB013ECEnum> >;	// D164: not the client's form; emits rtti.h's 'Mode' Cast out of line (0x546920, which the client's 0x5443F0 / 0x545610 call)

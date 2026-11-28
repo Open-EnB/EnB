@@ -23,26 +23,26 @@
 #define MAX_NAME_LENGTH	10
 
 // size 0x34 (DeltaClass's Name at +0x08, FullName at +0x3C)
-class NameClass  // NAME 3: by convention (D24) from the client's file name.cpp
+class AuxDataName  // NAME 5: thunk order B, binary.md 5.11
 {
 public:
-	NameClass(const char *name);											// 0x4AD380
-	NameClass(const NameClass &that);									// 0x4AD3F0
-	NameClass &operator=(const NameClass &that);						// 0x4AD460
-	NameClass &operator=(const char *name);								// 0x4AD4B0
-	bool operator==(const NameClass &that) const;					// 0x4AD500
-	bool Is_Parent_Of(const NameClass &that) const;					// 0x4AD610 (fewer parts, all matching)  // NAME 2: describes what it does (D38)
-	bool Is_Parent_Or_Same(const NameClass &that) const;			// 0x4AD6F0  // NAME 2: describes what it does (D38)
-	bool Match_Parts(const NameClass &that) const;					// 0x4AD7D0 (this name's parts against that's)  // NAME 2: describes what it does (D38)
-	NameClass &Append(const NameClass &rhs);							// 0x4AD9F0 ("this.rhs")  // NAME 2: describes what it does
+	AuxDataName(const char *name);											// 0x4AD380
+	AuxDataName(const AuxDataName &that);									// 0x4AD3F0
+	AuxDataName &operator=(const AuxDataName &that);						// 0x4AD460
+	AuxDataName &operator=(const char *name);								// 0x4AD4B0
+	bool operator==(const AuxDataName &that) const;					// 0x4AD500
+	bool Is_Parent_Of(const AuxDataName &that) const;					// 0x4AD610 (fewer parts, all matching)  // NAME 2: describes what it does (D38)
+	bool Is_Parent_Or_Same(const AuxDataName &that) const;			// 0x4AD6F0  // NAME 2: describes what it does (D38)
+	bool Match_Parts(const AuxDataName &that) const;					// 0x4AD7D0 (this name's parts against that's)  // NAME 2: describes what it does (D38)
+	AuxDataName &Append(const AuxDataName &rhs);							// 0x4AD9F0 ("this.rhs")  // NAME 2: describes what it does
 	PermString Get_Rest() const;											// 0x4ADBB0 (after the first dot, or "")  // NAME 2: describes what it does
 	PermString Get_First() const;											// 0x4ADB80  // NAME 2: describes what it does
 
-	// DeltaCompoundClass::Unknown_00 (0x4A55D0) passes the whole name on as a string.
+	// DeltaContainer::Unknown_00 (0x4A55D0) passes the whole name on as a string.
 	const char *Get_String() const { return Name.Get_String(); }  // NAME 2: describes what it does
 	bool Is_Wildcard() const { return HasWildcard; }				// (LookupClass's asserts)
 
-	void Split() const;														// 0x4AD890  // NAME 2: describes what it does
+	private: void Split() const; public:														// 0x4AD890  // NAME 5: thunk order confirmed, binary.md 5.11
 
 	// the part that matches any part (0xBE3B24, made on first use)
 	static const PermString &Wildcard()  // NAME 2: after the asserts' Is_Wildcard

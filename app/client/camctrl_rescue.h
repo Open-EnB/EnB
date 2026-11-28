@@ -11,7 +11,7 @@
 class CameraController11Class : public CameraControllerClass	// NAME 1: neutral (D10)
 {
 public:
-	CameraController11Class(SClient *client);			// 0x7953B0
+	CameraController11Class(SpaceClientClass *client);			// 0x7953B0
 	virtual ~CameraController11Class();					// 0x795480, deleting 0x795450
 	virtual void Unknown_04();							// +0x04 0x795500
 	virtual void Unknown_08(Vector3 *pos, Quaternion *rot, int *mode, int *target);	// +0x08 0x795520

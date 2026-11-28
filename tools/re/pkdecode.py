@@ -4,9 +4,9 @@
     python tools/re/pkemit.py [--write] ...     drafts the files from it (app/packets/pk*.cpp / .h)
 
 A class is drafted when every part decodes:
-  * the constructor from the raw message: PacketClass's inline constructor, zero stores to members
-    (the initialiser list) and RawPacketClass::Get calls on members;
-  * Build: `new RawPacketClass(opcode, Get_Data_Size())` and Add calls on members;
+  * the constructor from the raw message: UnknownPacketBaseClass's inline constructor, zero stores to members
+    (the initialiser list) and PacketClass::Get calls on members;
+  * Build: `new PacketClass(opcode, Get_Data_Size())` and Add calls on members;
   * Get_Data_Size: a constant;
   * Print: sprintf(buffer, fmt, ...) or _snprintf(buffer, len, fmt, ...) of members and constants;
   * the destructor trivial; slots +0x18..+0x24 the base's or one-instruction bodies; slots from +0x28
@@ -110,7 +110,7 @@ def is_trivial_dtor(f):
 
 
 def is_trivial_dtor_call(sdd):
-    """The scalar deleting destructor calls a destructor that only stores PacketClass's vtable."""
+    """The scalar deleting destructor calls a destructor that only stores UnknownPacketBaseClass's vtable."""
     for ins in code(sdd):
         if ins.mnemonic == 'call' and isimm(ins.op_str):
             return is_trivial_dtor(resolve(imm(ins.op_str)))
@@ -752,7 +752,7 @@ def analyse(op, name, vt, ctor, size):
     opcode, adds, typecall = decode_build(slot(vt, 4))
     gettype = None
     if typecall:
-        # Build's `new RawPacketClass(Get_Type(), Get_Data_Size())`: Get_Type returns the opcode
+        # Build's `new PacketClass(Get_Type(), Get_Data_Size())`: Get_Type returns the opcode
         gettype = slot(vt, 0x28)
         c28 = code(gettype)
         if len(c28) != 2 or c28[0].mnemonic != 'mov' or ops(c28[0])[0] != 'eax' or not isimm(ops(c28[0])[1]) or                 c28[1].mnemonic != 'ret' or c28[1].op_str:
@@ -979,7 +979,7 @@ def main():
             if not (lo <= r['ctor'] < hi):
                 continue
             allc.append(r['op'])
-            if r['inline'] or r['op'] not in names or names[r['op']][1] != 'PacketClass':
+            if r['inline'] or r['op'] not in names or names[r['op']][1] != 'UnknownPacketBaseClass':
                 continue
             nm, base, tags = names[r['op']]
             try:

@@ -8,11 +8,11 @@
 
 // The pop-up browser panel ('fc_jweb01.ini', 'JWEB01'; 0xCC bytes, table 0xAF59F8): the chat panel's request 11
 // ('Credits', id 5) and its slot +0x68's key 16 ('Online Manual', id 6)
-class UIPopupBrowserClass : public ChatPanelUIBase	// NAME 3: class-from-file (D24) for ui_popup_browser.cpp
+class PopupBrowserInterface : public ChatPanelUIBase  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
-	UIPopupBrowserClass(SClient *client, int browser_id, const char *title, const char *url = NULL);	// 0x5DAE90  // NAME 1 [client, browser_id, title, url]: neutral
-	virtual ~UIPopupBrowserClass();						// 0x5DB170 (deleting 0x5DB140; adjustors 0x5DB650 / 0x5DB660)
+	PopupBrowserInterface(SpaceClientClass *client, int browser_id, const char *title, const char *url = NULL);	// 0x5DAE90  // NAME 1 [client, browser_id, title, url]: neutral
+	virtual ~PopupBrowserInterface();						// 0x5DB170 (deleting 0x5DB140; adjustors 0x5DB650 / 0x5DB660)
 
 	virtual void Unknown_54();							// +0x54 0x5DB2D0 ('JWEB01': the exit button, the title 'TITLE_JWEB01', the back gadget; FAIL_IF '!font')
 	virtual void Unknown_58();							// +0x58 0x5DB4A0 (activated: the base's, the software mouse hidden)

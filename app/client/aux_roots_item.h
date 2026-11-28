@@ -16,7 +16,7 @@
 
 // vtable 0xB0111C (e.g. Ship.Inventory.Cargo.N)
 // NAME 4: Net-7 AuxItem confirmed by structure (C# fields = ours (same names, same order); Net-7 Construct 10 children = ours); C# Item
-class DeltaItemClass : public DeltaCompoundClass
+class DeltaItemClass : public DeltaContainer
 {
 public:
 	DeltaItemClass(const char *name);	// 0x6FA150
@@ -27,20 +27,20 @@ public:
 	DeltaTemplateClass<float> AveCost;	// +0x240
 	DeltaTemplateClass<float> Structure;	// +0x2C8
 	DeltaTemplateClass<float> Quality;	// +0x350
-	DeltaStringClass InstanceInfo;	// +0x3D8
-	DeltaStringClass InstanceActivatedEffectInfo;	// +0x460
-	DeltaStringClass InstanceEquipEffectInfo;	// +0x4E8
-	DeltaStringClass BuilderName;	// +0x570
+	DeltaString InstanceInfo;	// +0x3D8
+	DeltaString InstanceActivatedEffectInfo;	// +0x460
+	DeltaString InstanceEquipEffectInfo;	// +0x4E8
+	DeltaString BuilderName;	// +0x570
 };
 
 // vtable 0xB01790 (e.g. Ship.Inventory.Equipped.N.Effects)
 // NAME 4: Net-7 AuxEffect confirmed by structure (C# fields = ours (same names, same order); Net-7 Construct 4 children = ours); C# ItemEffects
-class DeltaEffectClass : public DeltaCompoundClass
+class DeltaEffectClass : public DeltaContainer
 {
 public:
 #if defined(AUX_ROOTS_ALL) || defined(AUX_CTORS_ITEM)
 	DeltaEffectClass(const char *name) :
-		DeltaCompoundClass(name),
+		DeltaContainer(name),
 		Range("Range"),
 		Usage("Usage"),
 		Targets("Targets"),

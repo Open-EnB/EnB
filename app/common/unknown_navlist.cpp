@@ -34,7 +34,7 @@ NavigationListClass::NavigationListClass(const NavigationListClass &src) :
 {
 }
 
-NavigationListClass::NavigationListClass(RawPacketClass *raw) :
+NavigationListClass::NavigationListClass(PacketClass *raw) :
 	Index(0)
 {
 	unsigned short count;
@@ -50,7 +50,7 @@ NavigationListClass::~NavigationListClass()
 {
 }
 
-void NavigationListClass::Add(RawPacketClass *raw)
+void NavigationListClass::Add(PacketClass *raw)
 {
 	int count = List.size();
 	raw->Add(&count, sizeof(short));

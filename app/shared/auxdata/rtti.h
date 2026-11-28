@@ -5,7 +5,7 @@
 **
 **	The aux data's type test: a delta object as a T when its per-class global at +0x04 is T's,
 **	else NULL. Inlined in most callers, called out of line where a caller's budget runs out:
-**	0x5469C0 for DeltaStringClass (global 0xBE3A9C), 0x709B30 for the class with global 0xC4158C.
+**	0x5469C0 for DeltaString (global 0xBE3A9C), 0x709B30 for the class with global 0xC4158C.
 **	The client doesn't name it (D24).
 */
 

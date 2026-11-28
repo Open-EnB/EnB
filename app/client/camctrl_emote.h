@@ -8,11 +8,11 @@
 
 // The camera manager's eleventh controller (state 10; vtable 0xB04BEC, 0x10 bytes): holds the camera where it is,
 // at least four times 0x79B6B0's distance from the avatar
-class CameraController10Class : public CameraControllerClass	// NAME 1: neutral (D10)
+class EmoteCameraControllerClass : public CameraControllerClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
-	CameraController10Class(SClient *client);			// 0x7930E0
-	virtual ~CameraController10Class();					// 0x7931B0, deleting 0x793180
+	EmoteCameraControllerClass(SpaceClientClass *client);			// 0x7930E0
+	virtual ~EmoteCameraControllerClass();					// 0x7931B0, deleting 0x793180
 	virtual void Unknown_04();							// +0x04 0x793230
 	virtual void Unknown_08(Vector3 *pos, Quaternion *rot, int *mode, int *target);	// +0x08 0x793250
 	virtual void Unknown_0C();							// +0x0C 0x793280

@@ -19,12 +19,12 @@
 #include "pk.h"
 
 // opcode 102 (0x0066, OPEN_INTERFACE): vtable 0xB0B534, constructor 0x89F290, 0x14 bytes
-class OpenInterfacePacketClass : public PacketClass
+class OpenInterfacePacketClass : public UnknownPacketBaseClass
 {
 public:
 	OpenInterfacePacketClass(int ui_change, int ui_type);	// 0x89F1F0
-	OpenInterfacePacketClass(RawPacketClass *raw);	// 0x89F290
-	virtual RawPacketClass *Build();	// +0x04 0x89F330
+	OpenInterfacePacketClass(PacketClass *raw);	// 0x89F290
+	virtual PacketClass *Encode();	// +0x04 0x89F330  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x7397D0 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x89F400
 	virtual int Print(char *buffer, int len);	// +0x10 0x89F420

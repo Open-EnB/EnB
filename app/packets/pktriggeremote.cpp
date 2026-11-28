@@ -18,15 +18,15 @@ TriggerEmotePacketClass::TriggerEmotePacketClass(int game_id, int emote) :
 {
 }
 
-TriggerEmotePacketClass::TriggerEmotePacketClass(RawPacketClass *raw)
+TriggerEmotePacketClass::TriggerEmotePacketClass(PacketClass *raw)
 {
 	raw->Get(GameID);
 	raw->Get(&Emote, sizeof(Emote));
 }
 
-RawPacketClass *TriggerEmotePacketClass::Build()
+PacketClass *TriggerEmotePacketClass::Encode()
 {
-	RawPacketClass *raw = new RawPacketClass(161, Get_Data_Size());
+	PacketClass *raw = new PacketClass(161, Get_Data_Size());
 	raw->Add(GameID);
 	raw->Add(&Emote, sizeof(Emote));
 	return(raw);
@@ -51,16 +51,16 @@ NotifyEmotePacketClass::NotifyEmotePacketClass(int game_id, int emote) :
 	Channel = Unknown_14(game_id, -1);
 }
 
-NotifyEmotePacketClass::NotifyEmotePacketClass(RawPacketClass *raw) :
+NotifyEmotePacketClass::NotifyEmotePacketClass(PacketClass *raw) :
 	Channel(-1)
 {
 	raw->Get(GameID);
 	raw->Get(&Emote, sizeof(Emote));
 }
 
-RawPacketClass *NotifyEmotePacketClass::Build()
+PacketClass *NotifyEmotePacketClass::Encode()
 {
-	RawPacketClass *raw = new RawPacketClass(162, Get_Data_Size());
+	PacketClass *raw = new PacketClass(162, Get_Data_Size());
 	raw->Add(GameID);
 	raw->Add(&Emote, sizeof(Emote));
 	return(raw);

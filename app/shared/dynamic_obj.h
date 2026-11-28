@@ -3,9 +3,9 @@
 **	Original location: e:\build\beta\G\app\shared\. dynamic_obj.cpp is the client's (its asserts, client
 **	0x44AC70-0x44B740); this header's name is provisional: no string names it.
 **
-**	DynObj, the client's name ('DynObj::Update_Proximity' 0x44B090, 'DynObj::Update_Avoidance' 0x44B150): an
+**	DynamicObjectClass, the client's name ('DynamicObjectClass::Update_Proximity' 0x44B090, 'DynamicObjectClass::Update_Avoidance' 0x44B150): an
 **	object the proximity system tracks through its PxWrapper (px_wrapper.cpp). Type 24's base 0x70DBC0
-**	(co_subtypes.h) is a ClientObjectClass and a DynObj. Notes at the end of dynamic_obj.cpp.
+**	(co_subtypes.h) is a ClientObjectClass and a DynamicObjectClass. Notes at the end of dynamic_obj.cpp.
 */
 #if defined(_MSC_VER)
 #pragma once
@@ -23,13 +23,13 @@ class PxWrapper;
 // vtable 0xAE796C, 42 slots; 0x24 bytes. The slots defined here are the client's inline ones (after Update_Avoidance,
 // in vtable order). Slot names are neutral except +0x34 / +0x40, which share ClientObjectClass's names: one function
 // overrides both in type 24's base (0x70DD40 through the thunk 0x70E2C0, 0x70DDE0 through 0x70E2D0).
-class DynObj	// its Get_Name text is 'Unnamed ProximityObject' (0x44B310)
+class DynamicObjectClass  // NAME 5: thunk order A, binary.md 5.11; its Get_Name text is 'Unnamed ProximityObject' (0x44B310)
 {
 public:
-	DynObj();											// 0x44AC70
-	DynObj(const DynObj &src);							// 0x44ADA0
-	virtual ~DynObj();									// +0x00 0x44AE70 (scalar deleting 0x44AD10)
-	virtual DynObj *Unknown_Dyn04() { return(this); }	// +0x04 0x44B1F0
+	DynamicObjectClass();											// 0x44AC70
+	DynamicObjectClass(const DynamicObjectClass &src);							// 0x44ADA0
+	virtual ~DynamicObjectClass();									// +0x00 0x44AE70 (scalar deleting 0x44AD10)
+	virtual DynamicObjectClass *Unknown_Dyn04() { return(this); }	// +0x04 0x44B1F0
 	virtual int Unknown_Dyn08() { return(0); }			// +0x08 0x44B210
 	virtual int Unknown_Dyn0C() { return(0); }			// +0x0C 0x44B230
 	virtual int Unknown_Dyn10() { return(0); }			// +0x10 0x44B250
@@ -68,7 +68,7 @@ public:
 	virtual float Unknown_Dyn94() { return(0.25f); }	// +0x94 0x44B6C0
 	virtual bool Unknown_Dyn98() { return(false); }		// +0x98 0x44B6E0
 	virtual bool Unknown_Dyn9C() { return(false); }		// +0x9C 0x44B700
-	virtual bool Unknown_DynA0(DynObj *other, const Vector3 &impulse, const Vector3 &point, bool flag) { return(false); }	// +0xA0 0x44B720 (PxCollision 0x453C20: true asks for slot +0x64)  // NAME 1 [other, impulse, point, flag]: what 0x453C20 passes
+	virtual bool Unknown_DynA0(DynamicObjectClass *other, const Vector3 &impulse, const Vector3 &point, bool flag) { return(false); }	// +0xA0 0x44B720 (PxCollision 0x453C20: true asks for slot +0x64)  // NAME 1 [other, impulse, point, flag]: what 0x453C20 passes
 	virtual bool Unknown_DynA4(int a) { return(true); }	// +0xA4 0x44B740  // NAME 1 [a]: neutral
 
 	void *Unknown_44AF50(int type, PxCallbackFunction callback, float radius);			// 0x44AF50 (PxWrapper 0x456F60)  // NAME 1 [type, callback, radius]: the factory 0x452140's
@@ -80,8 +80,8 @@ public:
 	void Unknown_44B030(bool value);					// 0x44B030 (PxWrapper 0x456890, +0x0D)  // NAME 1 [value]: as PxWrapper's
 	void Unknown_44B050(bool value);					// 0x44B050 (PxWrapper 0x456840, +0x0C)  // NAME 1 [value]: as PxWrapper's
 	void Unknown_44B070(bool value);					// 0x44B070 (PxWrapper 0x4567D0, +0x0E)  // NAME 1 [value]: as PxWrapper's
-	void Update_Proximity();							// 0x44B090 'DynObj::Update_Proximity'
-	void Update_Avoidance(const Vector3 &low, const Vector3 &high);	// 0x44B150 'DynObj::Update_Avoidance'  // NAME 1 [low, high]: PxWrapper 0x456900's FAIL_IFs
+	void Update_Proximity();							// 0x44B090 'DynamicObjectClass::Update_Proximity'
+	void Update_Avoidance(const Vector3 &low, const Vector3 &high);	// 0x44B150 'DynamicObjectClass::Update_Avoidance'  // NAME 1 [low, high]: PxWrapper 0x456900's FAIL_IFs
 
 	float Unknown04;									// +0x04 0 (type 24's slot +0x34 0x70DCF0 stores its radius here; Update_Proximity passes it as PxWrapper::Update's radius)
 	AABoxClass Unknown08;								// +0x08 (slot +0x7C returns it by value, the copy constructor copies it)  // NAME 3 [AABoxClass]: 6 dwords returned by value; type a guess

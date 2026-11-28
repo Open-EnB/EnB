@@ -8,9 +8,9 @@
 #include "ui_inv.h"		// UIInvRobjStripClass, the strips of slots
 #include "..\..\wwlib\ref_ptr.h"
 
-class SBaseViewClass;		// sbaseview.cpp's starbase view (+0xD0)
-class ButtonGadgetClass;	// unknown_675120.h's (+0xE0)
-class DeltaCompoundClass;	// the item's aux data (+0x10C)
+class StarbaseViewClass;		// sbaseview.cpp's starbase view (+0xD0)
+class ButtonGadgetClass;	// gd_uimesh.h's (+0xE0)
+class DeltaContainer;	// the item's aux data (+0x10C)
 
 #ifndef ENB_UI_STATE_ENUM	// UI_CLOSED / UI_OPEN: also ui_manu.h / ui_analyze.h (sbaseview.cpp includes both)
 #define ENB_UI_STATE_ENUM
@@ -26,7 +26,7 @@ enum
 class UIAnalyzeClass : public Unknown5BB320Class	// NAME 3: class-from-file (D24) for app\client\ui_analyze.cpp
 {
 public:
-	UIAnalyzeClass(SBaseViewClass *view, const LayerClass &layer);	// 0x5435D0 (0x11C bytes: sbaseview.cpp's 0x69F8F0 case 6)  // NAME 1 [view, layer]: as ui_manu.cpp's
+	UIAnalyzeClass(StarbaseViewClass *view, const LayerClass &layer);	// 0x5435D0 (0x11C bytes: sbaseview.cpp's 0x69F8F0 case 6)  // NAME 1 [view, layer]: as ui_manu.cpp's
 	virtual ~UIAnalyzeClass();							// 0x5437C0 (G_ASSERT 'State == UI_CLOSED', l.116; deleting 0x543790)
 	virtual void Unknown_54();							// 0x5439F0 (the buttons, the three sub-windows, the icons)
 	virtual void Unknown_58();							// 0x544090
@@ -46,14 +46,14 @@ public:
 	void Unknown_5461C0(int level, int a, int b, int c);	// 0x5461C0: the icon of a category column (as ui_manu.cpp's 0x5B42F0)  // NAME 1 [level, a, b, c]: neutral
 
 	LayerClass Unknown0AC;								// +0x0AC (the constructor's layer)
-	SBaseViewClass *Unknown0D0;							// +0x0D0 (the constructor's view: sbaseview.cpp's starbase view)
+	StarbaseViewClass *Unknown0D0;							// +0x0D0 (the constructor's view: sbaseview.cpp's starbase view)
 	RefCountPtr<UIInvRobjStripClass> Unknown0D4;			// +0x0D4 'TSM02A.E%02d'
 	RefCountPtr<UIInvRobjStripClass> Unknown0D8;			// +0x0D8 'TSM02A.RESULT'
 	RefCountPtr<UIInvRobjStripClass> Unknown0DC;			// +0x0DC 'TSM02A.OVER'
 	ButtonGadgetClass *Unknown0E0[7];					// +0x0E0 (+0xE8..+0xF0: the category columns)
 	RefCountPtr<RenderObjClass> Unknown0FC[3];			// +0x0FC the category columns' icons
 	int State;											// +0x108 (UI_CLOSED when shut)  // NAME 3: the destructor's G_ASSERT 'State == UI_CLOSED'
-	DeltaCompoundClass *Unknown10C;						// +0x10C: the item's aux data
+	DeltaContainer *Unknown10C;						// +0x10C: the item's aux data
 	bool Unknown110;									// +0x110
 	float Unknown114;									// +0x114 (0x546090: 2.0f)
 	bool Unknown118;									// +0x118

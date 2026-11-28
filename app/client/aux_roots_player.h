@@ -66,13 +66,13 @@
 
 
 // vtable 0xB03B14 (e.g. Player.Reputation.Faction.N)
-// NAME 4: Net-7 AuxFaction confirmed by structure (C# fields = ours (same names, same order); Net-7 Construct 3 children = ours); C# FactionStanding
-class DeltaFactionClass : public DeltaCompoundClass
+// NAME 5: thunk order C, binary.md 5.11; before the rename NAME 4: Net-7 AuxFaction confirmed by structure (C# fields = ours (same names, same order); Net-7 Construct 3 children = ours); C# FactionStanding
+class DeltaFaction : public DeltaContainer
 {
 public:
 #if defined(AUX_CTORS_FACTION)
-	DeltaFactionClass(const char *name) :
-		DeltaCompoundClass(name),
+	DeltaFaction(const char *name) :
+		DeltaContainer(name),
 		Name("Name", ""),
 		Reaction("Reaction"),
 		Order("Order")
@@ -82,22 +82,22 @@ public:
 		Add(&Order);
 	}
 #else
-	DeltaFactionClass(const char *name);
+	DeltaFaction(const char *name);
 #endif
 
-	DeltaStringClass Name;	// +0x9C
+	DeltaString Name;	// +0x9C
 	DeltaTemplateClass<float> Reaction;	// +0x124
 	DeltaTemplateClass<int> Order;	// +0x1AC
 };
 
 // vtable 0xB033BC (e.g. Player.Reputation)
 // NAME 4: Net-7 AuxReputation confirmed by structure (C# fields = ours (same names, same order); Net-7 Construct 2 children = ours); C# PilotReputation
-class DeltaReputationClass : public DeltaCompoundClass
+class DeltaReputationClass : public DeltaContainer
 {
 public:
 #if defined(AUX_CTORS_FACTION)
 	DeltaReputationClass(const char *name) :
-		DeltaCompoundClass(name),
+		DeltaContainer(name),
 		Faction("Faction", 32),
 		Affiliation("Affiliation", "")
 	{
@@ -108,8 +108,8 @@ public:
 	DeltaReputationClass(const char *name);
 #endif
 
-	DeltaItemArrayClass<DeltaFactionClass> Faction;	// +0x9C
-	DeltaStringClass Affiliation;	// +0x138
+	DeltaItemArrayClass<DeltaFaction> Faction;	// +0x9C
+	DeltaString Affiliation;	// +0x138
 };
 
 #include "aux_roots_group.h"
@@ -159,14 +159,14 @@ public:
 	DeltaItemArrayClass<DeltaItemClass> RewardInventory;	// +0x300
 	DeltaItemArrayClass<DeltaItemClass> OverflowInventory;	// +0x39C
 	DeltaRPGInfoClass RPGInfo;	// +0x438
-	DeltaStringClass CommunityEventFlags;	// +0xD90
+	DeltaString CommunityEventFlags;	// +0xD90
 	DeltaTemplateClass<int> MusicID;	// +0xE18
-	DeltaItemArrayClass<DeltaMissionClass> Missions;	// +0xEA0
+	DeltaItemArrayClass<DeltaMission> Missions;	// +0xEA0
 	DeltaReputationClass Reputation;	// +0xF3C
 	DeltaTemplateClass<int> PIPAvatarID;	// +0x10FC
-	DeltaStringClass RegistrationStarbase;	// +0x1184
-	DeltaStringClass RegistrationStarbaseSector;	// +0x120C
-	DeltaStringClass SectorName;	// +0x1294
+	DeltaString RegistrationStarbase;	// +0x1184
+	DeltaString RegistrationStarbaseSector;	// +0x120C
+	DeltaString SectorName;	// +0x1294
 	DeltaTemplateClass<int> SectorNum;	// +0x131C
 	DeltaTemplateClass<int> ClientSendUITriggers;	// +0x13A4
 	DeltaGroupInfoClass GroupInfo;	// +0x142C

@@ -897,7 +897,7 @@ bool SplineDatabaseClass::Create_Blend(const char *spline_name, const char *desc
 	if (strlen(spline_name) >= 0x80) {
 		return false;
 	}
-	if (description != NULL && strlen(description) >= 0x80) {
+	if (description != NULL && strlen(spline_name) >= 0x80) {
 		return false;
 	}
 	SplineEntryClass *entry = new SplineEntryClass(TYPE_BLEND, spline_name, description, false, alpha_clr, beta_clr);
@@ -1221,11 +1221,11 @@ bool SplineDatabaseClass::Update(void)
 SplineEntryClass *SplineDatabaseClass::Find(const char *spline_name, int unused)
 {
 	G_ASSERT(spline_name != NULL);
-	HashNodeClass<SplineEntryClass *> *node = Splines.Find(Get_Key(spline_name));
-	if (node == NULL) {
-		return NULL;
-	}
-	return node->Get();
+	return Find(Get_Key(spline_name), unused);
+
+
+
+
 }
 
 SplineEntryClass *SplineDatabaseClass::Find(unsigned int key, int unused)
@@ -1539,8 +1539,8 @@ bool SplineDatabaseClass::Create_Color(const char *name, const char *description
 // NOT EXACT: inline-budget (HashListClass::Find out of line at some lookups)
 bool SplineDatabaseClass::Resolve(void)
 {
-	bool ok = true;
-	for (HashNodeClass<SplineEntryClass *> *node = Splines.First_Valid(); node != NULL; node = node->Next_Valid()) {
+	HashNodeClass<SplineEntryClass *> *node = Splines.First_Valid();
+	bool ok = true; while (node != NULL) {
 		SplineEntryClass *entry = node->Get();
 		if (entry->Type == TYPE_COLOR) {
 			char name[128];
@@ -1548,17 +1548,17 @@ bool SplineDatabaseClass::Resolve(void)
 			strcat(name, "_R");
 			char *suffix = &name[strlen(name) - 1];
 			SplineEntryClass *component = Find(name);
-			if (component != NULL) {
-				component->Hidden = true;
-			} else {
+			if (component == NULL) {
 				ok = false;
+			} else {
+				component->Hidden = true;
 			}
 			*suffix = 'G';
 			component = Find(name);
-			if (component != NULL) {
-				component->Hidden = true;
-			} else {
+			if (component == NULL) {
 				ok = false;
+			} else {
+				component->Hidden = true;
 			}
 			*suffix = 'B';
 			component = Find(name);
@@ -1576,7 +1576,7 @@ bool SplineDatabaseClass::Resolve(void)
 			if (found == NULL || found->Get() == NULL) {
 				ok = false;
 			}
-		}
+		} node = node->Next_Valid();
 	}
 	return ok;
 }

@@ -9,8 +9,8 @@
 #include "..\..\wwmath\rect.h"
 
 class FontSys;					// fontmanager.h's (not included here: ui_chat_panel.cpp declares its own)
-class TextCursorClass;			// fontsys_cursor.h's
-class ButtonGadgetClass;		// unknown_675120.h's
+class FontSysCursor;			// fontsys_cursor.h's
+class ButtonGadgetClass;		// gd_uimesh.h's
 class ChatWindowClass;			// chat_window.h's
 class Unknown67D430Class;		// unknown_67d430.h's: the chat panel's ring of chat lines (+0x13C)
 class ChatGadgetClass;		// chatgadg.cpp's text entry (0x80 bytes, constructor 0x65BFD0): the chat panel's +0x140
@@ -42,7 +42,7 @@ struct ChatWinStruct : public ChatViewportStruct	// NAME 1: neutral (D10)
 class ChatWindowInterface : public ChatPanelUIBase	// NAME 5: the client's RTTI (.?AVChatWindowInterface@@ 0xB7D3E0, the Sender_Type of the callback table 0xAEFFF8 and of 0x570390's emit): the assert's 'ChatInt'
 {
 public:
-	ChatWindowInterface(SClient *client, Unknown67D430Class *history, ChatGadgetClass *edit);	// 0x56F420  // NAME 3 [history]: the asserts' ChatHistory; NAME 1 [client, edit]: neutral
+	ChatWindowInterface(SpaceClientClass *client, Unknown67D430Class *history, ChatGadgetClass *edit);	// 0x56F420  // NAME 3 [history]: the asserts' ChatHistory; NAME 1 [client, edit]: neutral
 	virtual ~ChatWindowInterface();						// 0x56F560 (deleting 0x56F530)
 	virtual void Unknown_54();							// +0x54 0x56F780 (G_ASSERT '!Interface_Mesh()' l.119: the set-up)
 	virtual void Unknown_58();							// +0x58 0x5701C0 (activated)
@@ -84,7 +84,7 @@ public:
 	RefCountPtr<FontSys> UnknownB8;						// +0xB8 ('Chat_Line': the entry's text)
 	ChatViewportStruct Viewport;						// +0xBC ('chat_vp_tl', 'chat_vp_br')  // NAME 1: neutral
 	RefCountPtr<RenderObjClass> UnknownD4;				// +0xD4 ('TEXTBOX')
-	RefCountPtr<TextCursorClass> UnknownD8;				// +0xD8 (the entry's cursor, 0x685680)
+	RefCountPtr<FontSysCursor> UnknownD8;				// +0xD8 (the entry's cursor, 0x685680)
 	ButtonGadgetClass *UnknownDC;						// +0xDC ('DEST_BOX', the gadget 1)
 	RefCountPtr<FontSys> DestBttnText;					// +0xE0 ('Chat_Dest_Bttn')  // NAME 3: the assert's '!DestBttnText'
 	bool UnknownE4;										// +0xE4 (0x571210 flips it: the frame hidden)

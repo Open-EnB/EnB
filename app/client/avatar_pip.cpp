@@ -19,10 +19,10 @@
 #include "wwmath.h"
 #include "aux_player.h"	// the player's constructors (0x7E49C0 / 0x7E4A30 number them)
 RefCountPtr<RenderObjClass> Unknown_497300(RenderObjClass *robj);	// 0x497300 (cdecl, ro_funcs.cpp's neighbourhood)  // NAME 1 [robj]: as ui_avatr.cpp's
-template<class C> inline C *Unknown_Find_Valid(DeltaCompoundClass *root, const NameClass &name) { C *t = Unknown_Find_Field<C>(root, name); if (t && t->Unknown70) return(t); return(NULL); }	// NAME 1: neutral (D10): as co.cpp's
+template<class C> inline C *Unknown_Find_Valid(DeltaContainer *root, const AuxDataName &name) { C *t = Unknown_Find_Field<C>(root, name); if (t && t->Unknown70) return(t); return(NULL); }	// NAME 1: neutral (D10): as co.cpp's
 #include "..\shared\auth_product.h"
 // 0x7E3A20's avatar set-up (as 0x7E43E0, through a named conversion; expanded only there)
-static inline void Unknown_Set_Avatar(AvatarPipClass *pip, const RefCountPtr<CharacterViewAvatarClass> &avatar)	// NAME 1: neutral (D10)
+static inline void Unknown_Set_Avatar(AvatarPipClass *pip, const RefCountPtr<AvatarClass> &avatar)	// NAME 1: neutral (D10)
 {
 	pip->Unknown_7E4350();
 	pip->Unknown02C = avatar;
@@ -35,7 +35,7 @@ AvatarPipClass::AvatarPipClass() :
 	Client(NULL),
 	Unknown038(false)
 {
-	Unknown034 = Create_NEW(new ProxyRObj(false));
+	Unknown034 = Create_NEW(new ProxyRenderObjClass(false));
 	Unknown028 = Create_NEW(new LightClass(LightClass::POINT));
 	Unknown028->Set_Intensity(1.0f);
 	Unknown028->Set_Force_Visible(true);
@@ -149,7 +149,7 @@ void AvatarPipClass::Unknown_7E35D0()
 
 
 // @0x7E36B0
-bool AvatarPipClass::Unknown_7E36B0(SClient *sclient, const RefCountPtr<RenderObjClass> &vp, bool arg)
+bool AvatarPipClass::Unknown_7E36B0(SpaceClientClass *sclient, const RefCountPtr<RenderObjClass> &vp, bool arg)
 {
 	Unknown_7E35D0();
 	FAIL_IF(!vp) return(false);
@@ -197,7 +197,7 @@ bool AvatarPipClass::Unknown_7E36B0(SClient *sclient, const RefCountPtr<RenderOb
 // @0x7E3A20
 // NOT EXACT: order (4 masked rows): the client pushes the light's Set_Transform argument before the last translation
 // store; pos is a dead copy here (without it the distance's squares sum in another order)
-bool AvatarPipClass::Unknown_7E3A20(const char *name, unsigned id, CharacterViewAvatarClass *avatar)
+bool AvatarPipClass::Unknown_7E3A20(const char *name, unsigned id, AvatarClass *avatar)
 {
 	bool changed = false;
 	if (!Unknown010) return(false);
@@ -213,7 +213,7 @@ bool AvatarPipClass::Unknown_7E3A20(const char *name, unsigned id, CharacterView
 			if (id) {
 				avatar_id = id;
 			} else {
-				DeltaTemplateClass<int> *npc_id = Unknown_Find_Valid<DeltaTemplateClass<int> >((DeltaCompoundClass *)aux, "PIPAvatarID");
+				DeltaTemplateClass<int> *npc_id = Unknown_Find_Valid<DeltaTemplateClass<int> >((DeltaContainer *)aux, "PIPAvatarID");
 
 
 
@@ -221,7 +221,7 @@ bool AvatarPipClass::Unknown_7E3A20(const char *name, unsigned id, CharacterView
 				FAIL_IF(!npc_id) return(false);
 				avatar_id = npc_id->Value;
 			}
-			RefCountPtr<CharacterViewAvatarClass> object = Create_NEW((CharacterViewAvatarClass *)Client->Unknown_74C7B0(avatar_id));
+			RefCountPtr<AvatarClass> object = Create_NEW((AvatarClass *)Client->Unknown_74C7B0(avatar_id));
 			if (object) {
 				Unknown_Set_Avatar(this, object);
 				changed = true;
@@ -283,7 +283,7 @@ void AvatarPipClass::Unknown_7E4350()
 }
 
 // @0x7E43E0
-void AvatarPipClass::Unknown_7E43E0(const RefCountPtr<CharacterViewAvatarClass> &avatar)
+void AvatarPipClass::Unknown_7E43E0(const RefCountPtr<AvatarClass> &avatar)
 {
 	Unknown_7E4350();
 	Unknown02C = avatar;
@@ -297,10 +297,10 @@ void AvatarPipClass::Unknown_7E4520(const RefCountPtr<RenderObjClass> &model) {
 		Unknown034->Unknown_47FF70(Unknown030.Peek());
 		Unknown034->Set_Transform(Matrix3D(true));
 		Unknown034->Add(Scene.Peek()); int polys;
-		if (OptionClass::Instance->Get_Bool("Graphics_Default")) {
-			polys = (int)((float)((SClient *)Client->As_Space_Client())->PolyBudget * 0.1f);
+		if (OptionManagerClass::Instance->Get_Bool("Graphics_Default")) {
+			polys = (int)((float)((SpaceClientClass *)Client->As_Space_Client())->PolyBudget * 0.1f);
 		} else {
-			int space = (int)(8000.0f + (OptionClass::Instance->Get_Float("Graphics_Space_Poly") * 0.01f) * (40000.0f - 8000.0f));
+			int space = (int)(8000.0f + (OptionManagerClass::Instance->Get_Float("Graphics_Space_Poly") * 0.01f) * (40000.0f - 8000.0f));
 			polys = (int)((float)space * 0.1f); }
 		PIPView->Unknown_65B7A0(Scene, Camera, polys, Unknown010->Get_Sort_Level() + 1);
 		Unknown028->Add(Scene.Peek()); }
@@ -328,7 +328,7 @@ void AvatarPipClass::Unknown_7E4740(bool force)
 **
 **	The window 0x7E31B0-0x7E4980: the constructor, the destructor, 0x7E35D0, 0x7E36B0, 0x7E3A20, 0x7E4350, 0x7E43E0,
 **	0x7E4520, 0x7E4740, then RefCountPtr<SimpleSceneClass>'s operator =(DummyPtrType *) 0x7E4940 and
-**	RefCountPtr<CharacterViewAvatarClass>'s operator =(const RefCountPtr &) 0x7E4980 out of line; cfaction_database.cpp
+**	RefCountPtr<AvatarClass>'s operator =(const RefCountPtr &) 0x7E4980 out of line; cfaction_database.cpp
 **	follows at 0x7E4AE0. The FAIL_IFs sit on the client's lines: '!vp' 155, '!sclient' 156, '!Client->CurrentView'
 **	161, '!PIPView' 163 (0x7E36B0); '!Client' 208, '!aux' 211, '!npc_id' 221 (0x7E3A20).
 **

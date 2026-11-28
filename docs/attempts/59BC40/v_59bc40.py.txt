@@ -1,0 +1,11 @@
+HYPOTHESIS = 'S1 re-measure: 11-13 file-end inline_depth(1) (0x59BC40 exact, broke 0x59AD10 / 0x59AEE0) on HEAD, plus inline_depth(0) around the function'
+FILE = 'app/client/ui_groupopt.cpp'
+SYMBOL = 'UIGroupOptClass::Unknown_59BC40'
+ADDRESS = 0x59BC40
+
+END_OLD = "\t}\n}\n\n\n/*\n** Reconstruction notes (O7"
+FORMS = {
+    'end_depth1': [(END_OLD, "\t}\n}\n#pragma inline_depth(1)\n\n/*\n** Reconstruction notes (O7")],
+    'end_depth2': [(END_OLD, "\t}\n}\n#pragma inline_depth(2)\n\n/*\n** Reconstruction notes (O7")],
+    'end_depth3': [(END_OLD, "\t}\n}\n#pragma inline_depth(3)\n\n/*\n** Reconstruction notes (O7")],
+}

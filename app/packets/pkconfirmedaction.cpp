@@ -2,14 +2,14 @@
 #include "pkconfirmedaction.h"
 #include <stdio.h>
 
-ConfirmedActionOfferPacketClass::ConfirmedActionOfferPacketClass(int id, const std::string &message, ConfirmedActionEnum type) :
+ConfirmedActionOfferPacket::ConfirmedActionOfferPacket(int id, const std::string &message, ConfirmedActionEnum type) :
 	ID(id),
 	Message(message),
 	Type(type)
 {
 }
 
-ConfirmedActionOfferPacketClass::ConfirmedActionOfferPacketClass(RawPacketClass *raw) :
+ConfirmedActionOfferPacket::ConfirmedActionOfferPacket(PacketClass *raw) :
 	ID(0),
 	Message(""),
 	Type(CONFIRMED_ACTION_NONE)
@@ -21,32 +21,32 @@ ConfirmedActionOfferPacketClass::ConfirmedActionOfferPacketClass(RawPacketClass 
 	raw->Get(&Message);
 }
 
-RawPacketClass *ConfirmedActionOfferPacketClass::Build()
+PacketClass *ConfirmedActionOfferPacket::Encode()
 {
-	RawPacketClass *raw = new RawPacketClass(190, Get_Data_Size());
+	PacketClass *raw = new PacketClass(190, Get_Data_Size());
 	raw->Add((int)Type);
 	raw->Add(ID);
 	raw->Add(Message);
 	return(raw);
 }
 
-int ConfirmedActionOfferPacketClass::Get_Data_Size()
+int ConfirmedActionOfferPacket::Get_Data_Size()
 {
-	return(RawPacketClass::Get_Size(Message) + sizeof(int) + sizeof(ID));
+	return(PacketClass::Get_Size(Message) + sizeof(int) + sizeof(ID));
 }
 
-int ConfirmedActionOfferPacketClass::Print(char *buffer, int len)
+int ConfirmedActionOfferPacket::Print(char *buffer, int len)
 {
 	return(_snprintf(buffer, len, "Confirmed Action Offer {Type=%d ID=%d, Message=%s}", Type, ID, Message.c_str()));
 }
 
-ConfirmedActionTimeoutPacketClass::ConfirmedActionTimeoutPacketClass(ConfirmedActionEnum type, int id) :
+ConfirmedActionTimeoutPacket::ConfirmedActionTimeoutPacket(ConfirmedActionEnum type, int id) :
 	ID(id),
 	Type(type)
 {
 }
 
-ConfirmedActionTimeoutPacketClass::ConfirmedActionTimeoutPacketClass(RawPacketClass *raw) :
+ConfirmedActionTimeoutPacket::ConfirmedActionTimeoutPacket(PacketClass *raw) :
 	ID(0),
 	Type(CONFIRMED_ACTION_NONE)
 {
@@ -56,32 +56,32 @@ ConfirmedActionTimeoutPacketClass::ConfirmedActionTimeoutPacketClass(RawPacketCl
 	raw->Get(ID);
 }
 
-RawPacketClass *ConfirmedActionTimeoutPacketClass::Build()
+PacketClass *ConfirmedActionTimeoutPacket::Encode()
 {
-	RawPacketClass *raw = new RawPacketClass(191, Get_Data_Size());
+	PacketClass *raw = new PacketClass(191, Get_Data_Size());
 	raw->Add((int)Type);
 	raw->Add(ID);
 	return(raw);
 }
 
-int ConfirmedActionTimeoutPacketClass::Get_Data_Size()
+int ConfirmedActionTimeoutPacket::Get_Data_Size()
 {
 	return(sizeof(int) + sizeof(ID));
 }
 
-int ConfirmedActionTimeoutPacketClass::Print(char *buffer, int len)
+int ConfirmedActionTimeoutPacket::Print(char *buffer, int len)
 {
 	return(_snprintf(buffer, len, "Confirmed Action Timeout {Type=%d, ID=%d}", Type, ID));
 }
 
-ConfirmedActionResponsePacketClass::ConfirmedActionResponsePacketClass(int avatar_id, int id, bool response) :
+ConfirmedActionResponsePacket::ConfirmedActionResponsePacket(int avatar_id, int id, bool response) :
 	AvatarID(avatar_id),
 	ID(id),
 	Response(response)
 {
 }
 
-ConfirmedActionResponsePacketClass::ConfirmedActionResponsePacketClass(RawPacketClass *raw) :
+ConfirmedActionResponsePacket::ConfirmedActionResponsePacket(PacketClass *raw) :
 	AvatarID(0),
 	ID(0),
 	Response(false)
@@ -93,9 +93,9 @@ ConfirmedActionResponsePacketClass::ConfirmedActionResponsePacketClass(RawPacket
 	Response = value > 0;
 }
 
-RawPacketClass *ConfirmedActionResponsePacketClass::Build()
+PacketClass *ConfirmedActionResponsePacket::Encode()
 {
-	RawPacketClass *raw = new RawPacketClass(192, Get_Data_Size());
+	PacketClass *raw = new PacketClass(192, Get_Data_Size());
 	raw->Add(AvatarID);
 	raw->Add(ID);
 	int value = Response;
@@ -103,12 +103,12 @@ RawPacketClass *ConfirmedActionResponsePacketClass::Build()
 	return(raw);
 }
 
-int ConfirmedActionResponsePacketClass::Get_Data_Size()
+int ConfirmedActionResponsePacket::Get_Data_Size()
 {
 	return(sizeof(AvatarID) + sizeof(ID) + sizeof(int));
 }
 
-int ConfirmedActionResponsePacketClass::Print(char *buffer, int len)
+int ConfirmedActionResponsePacket::Print(char *buffer, int len)
 {
 	return(_snprintf(buffer, len, "Confirmed Action Response {AvatarID = %d, ID=%d, Response=%d}", AvatarID, ID, Response));
 }

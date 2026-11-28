@@ -1,8 +1,8 @@
-// Earth & Beyond client (reconstruction): app\client\unknown_5b7ab0.cpp, the menu window of the view at SClient +0x1358
+// Earth & Beyond client (reconstruction): app\client\unknown_5b7ab0.cpp, the menu window of the view at SpaceClientClass +0x1358
 // (interim placement, D137: the client's object has no __FILE__ string; file name provisional, NAME 1). Notes at the end of the file.
 #include "sclient.h"
 #include "ui_mesh.h"
-#include "unknown_675120.h"
+#include "gd_uimesh.h"
 #include "local_interface_sort.h"
 #include "unknown_5b7ab0.h"
 #include "..\shared\auth_product.h"
@@ -98,6 +98,6 @@ void Unknown5B7AB0Class::Unknown_60()
 **	destructor 0x5B7B70, the destructor 0x5B7BA0, slots +0x54 0x5B7C40, +0x58 0x5B7EE0, +0x5C 0x5B7FA0, +0x68 0x5B7FC0,
 **	+0x60 0x5B80B0, the guarded initialiser of std::ctype<unsigned short>::id 0x5B80D0 (every <string> includer's) and
 **	the deleting destructor's adjustor thunks 0x5B8100 (-4) / 0x5B8110 (-0x38). The constructor passes the base a NULL
-**	mesh and makes mu01 in its body (the tables are stored before the new). Its only maker is the view at SClient
+**	mesh and makes mu01 in its body (the tables are stored before the new). Its only maker is the view at SpaceClientClass
 **	+0x1358 (mainview.cpp's 0x514E70); what the menu is for is not known yet (MU01A.OPTION1..5).
 */

@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <string.h>
 
-Packet_7541Class::Packet_7541Class(char *s) :
+GameEditorRequestSpawnDefaultsPacketClass::GameEditorRequestSpawnDefaultsPacketClass(char *s) :
 	Size(0),
 	Data(NULL),
 	Owned(false)
@@ -19,7 +19,7 @@ Packet_7541Class::Packet_7541Class(char *s) :
 	Size = strlen(s) + 1;
 }
 
-Packet_7541Class::Packet_7541Class(RawPacketClass *raw) :
+GameEditorRequestSpawnDefaultsPacketClass::GameEditorRequestSpawnDefaultsPacketClass(PacketClass *raw) :
 	Size(0),
 	Data(NULL),
 	Owned(false)
@@ -36,16 +36,16 @@ Packet_7541Class::Packet_7541Class(RawPacketClass *raw) :
 	}
 }
 
-Packet_7541Class::~Packet_7541Class()
+GameEditorRequestSpawnDefaultsPacketClass::~GameEditorRequestSpawnDefaultsPacketClass()
 {
 	if (Owned) {
 		delete [] Data;
 	}
 }
 
-RawPacketClass *Packet_7541Class::Build()
+PacketClass *GameEditorRequestSpawnDefaultsPacketClass::Encode()
 {
-	RawPacketClass *raw = new RawPacketClass(30017, Get_Data_Size());
+	PacketClass *raw = new PacketClass(30017, Get_Data_Size());
 	raw->Add(&Size, sizeof(Size));
 	if (Size > 0) {
 		raw->Add(Data, Size);
@@ -53,24 +53,24 @@ RawPacketClass *Packet_7541Class::Build()
 	return(raw);
 }
 
-int Packet_7541Class::Get_Data_Size()
+int GameEditorRequestSpawnDefaultsPacketClass::Get_Data_Size()
 {
 	return(Size + sizeof(Size));
 }
 
-int Packet_7541Class::Print(char *buffer, int)
+int GameEditorRequestSpawnDefaultsPacketClass::Print(char *buffer, int)
 {
 	return(sprintf(buffer, "%s {SpawnLocationTemplateName=%s}", "GameEditorRequestSpawnDefaults", Data));
 }
 
-Packet_7542Class::Packet_7542Class(char *data, int size) :
+GameEditorSpawnDefaultsPacketClass::GameEditorSpawnDefaultsPacketClass(char *data, int size) :
 	Data(data),
 	Size(size),
 	Owned(false)
 {
 }
 
-Packet_7542Class::Packet_7542Class(RawPacketClass *raw) :
+GameEditorSpawnDefaultsPacketClass::GameEditorSpawnDefaultsPacketClass(PacketClass *raw) :
 	Data(NULL),
 	Size(0),
 	Owned(false)
@@ -96,33 +96,33 @@ Packet_7542Class::Packet_7542Class(RawPacketClass *raw) :
 	}
 }
 
-Packet_7542Class::~Packet_7542Class()
+GameEditorSpawnDefaultsPacketClass::~GameEditorSpawnDefaultsPacketClass()
 {
 	if (Owned) {
 		delete [] Data;
 	}
 }
 
-RawPacketClass *Packet_7542Class::Build()
+PacketClass *GameEditorSpawnDefaultsPacketClass::Encode()
 {
-	RawPacketClass *packet = new RawPacketClass(30018, Get_Data_Size());
+	PacketClass *packet = new PacketClass(30018, Get_Data_Size());
 	G_ASSERT(packet);
 	packet->Add(&Size, sizeof(Size));
 	packet->Add(Data, Size);
 	return(packet);
 }
 
-int Packet_7542Class::Get_Data_Size()
+int GameEditorSpawnDefaultsPacketClass::Get_Data_Size()
 {
 	return(Size + sizeof(Size));
 }
 
-int Packet_7542Class::Print(char *buffer, int)
+int GameEditorSpawnDefaultsPacketClass::Print(char *buffer, int)
 {
 	return(sprintf(buffer, "%s {DefaultValues=%s}", "GameEditorSpawnDefaults", Data));
 }
 
-bool Packet_7542Class::Process_Packet(void *)
+bool GameEditorSpawnDefaultsPacketClass::Process_Packet(void *)
 {
 	return(true);
 }

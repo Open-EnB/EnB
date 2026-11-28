@@ -10,7 +10,7 @@
 
 // A proxy render object that keeps its proxied object at a fixed offset from this one's own transform.
 // Table 0xAE9B48; 0xD0 bytes.
-class OffsetRenderObjClass : public ProxyRObj	// the client's Get_Name, 0xB71AD0
+class OffsetRenderObjClass : public ProxyRenderObjClass	// the client's Get_Name, 0xB71AD0
 {
 public:
 	OffsetRenderObjClass(void);								// 0x47F560

@@ -53,7 +53,7 @@ struct BandwidthEntryClass		// NAME 2: describes what it holds
 	int Idle;					// NAME 2: +0x38 runs without a datagram (dropped after 10)
 };
 
-class BandwidthAccountingClass : public TaskClass	// NAME 2: after its windows' titles
+class BandwidthAccountingClass : public KernelTaskClass	// NAME 2: after its windows' titles
 {
 public:
 	BandwidthAccountingClass();							// 0x84C760

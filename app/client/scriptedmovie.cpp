@@ -152,9 +152,9 @@ void Unknown_7FF230();	// 0x7FF230 (the file before this one: the screen fade an
 #include "ww3d.h"	// 0xBB9654 is WW3D::ThumbnailEnabled (ww3d.cpp, initial true): WW3D::Set_Thumbnail_Enabled (the constructor clears it, the destructor sets it)
 #include "textureloader.h"	// 0xC01290 is TextureLoader::_UnknownInvalidationTime: 300000 while the scripted movie view is up (the constructor), else 0 (the destructor)
 #include "render2d.h"	// 0xC07550 is Render2DClass::ScreenResolution: the text's coordinate range
-// (sclient.h names SClient's +0x1338 as the asserts do: EnvironmentMapManager, the constructor's l.231)
+// (sclient.h names SpaceClientClass's +0x1338 as the asserts do: EnvironmentMapManager, the constructor's l.231)
 
-// 0x8000C0: the view: its scene, camera, environment maps and decals (SClient's, or its own without one), the script
+// 0x8000C0: the view: its scene, camera, environment maps and decals (SpaceClientClass's, or its own without one), the script
 ScriptedMovieViewClass::ScriptedMovieViewClass(ClientTaskClass *task, int arg, SClientMovieCallbackClass *callback) :
 	UIViewClass(task, 6),
 	ClientInterface((ScriptedMovieInterfaceClass *)callback),
@@ -204,7 +204,7 @@ ScriptedMovieViewClass::ScriptedMovieViewClass(ClientTaskClass *task, int arg, S
 
 
 	G_ASSERT(ClientInterface);
-	CameraEffects = new CameraEffectsClass((MainViewClass *)this, (SClient *)Get_Client());
+	CameraEffects = new CameraEffectsClass((MainViewClass *)this, (SpaceClientClass *)Get_Client());
 	ScriptedScene = new SimpleSceneClass;
 	ScriptedScene->Set_Ambient_Light(Vector3(0.0f, 0.0f, 0.0f));
 	ScriptedCamera = new CameraClass;
@@ -214,7 +214,7 @@ ScriptedMovieViewClass::ScriptedMovieViewClass(ClientTaskClass *task, int arg, S
 	for (int i = 0; i < MAX_LIGHTS_PER_SCENE; i++) Lights[i] = NULL;
 	UIViewClass::Unknown_04();
 	Unknown_7FF230();
-	SClient *sclient = (SClient *)ClientInterface->Unknown_00()->As_Space_Client();
+	SpaceClientClass *sclient = (SpaceClientClass *)ClientInterface->Unknown_00()->As_Space_Client();
 	if (sclient != NULL) {
 
 
@@ -249,7 +249,7 @@ ScriptedMovieViewClass::ScriptedMovieViewClass(ClientTaskClass *task, int arg, S
 	Unknown15C->Set_Coordinate_Range(Render2DClass::Get_Screen_Resolution());
 	Unknown15C->Enable_Alpha(true);
 	Unknown15C->Reset();
-	SoundLibraryClass::_PlayUndefined = true;
+	SoundLibrary::_PlayUndefined = true;
 }
 
 void Unknown_7FF3A0();	// 0x7FF3A0 (the file before this one: the screen fade and the letterbox), the destructor calls it
@@ -279,7 +279,7 @@ void Unknown_7FF3A0();	// 0x7FF3A0 (the file before this one: the screen fade an
 
 
 // D130: the two dead BoneClientObjectList.size() reads after its clear() are not the client's: they send clear()'s copy 0x80AF50 out of line as in the client; the bone loop reuses the lights loop's i (the assert 0xBA250C)
-// 0x8008B0: the objects, lights, lines, sounds, bones' objects and cameras freed; SClient's managers kept
+// 0x8008B0: the objects, lights, lines, sounds, bones' objects and cameras freed; SpaceClientClass's managers kept
 ScriptedMovieViewClass::~ScriptedMovieViewClass()
 {
 	ClientClass *client = Get_Client();
@@ -328,7 +328,7 @@ ScriptedMovieViewClass::~ScriptedMovieViewClass()
 		delete *itor3;
 	}
 	UnknownF0.clear();
-	SoundLibraryClass::Flush_Playlist();
+	SoundLibrary::Flush_Playlist();
 	if (Unknown174) {
 		delete Unknown174;
 		Unknown174 = NULL;
@@ -382,7 +382,7 @@ ScriptedMovieViewClass::~ScriptedMovieViewClass()
 	Unknown_802D30();
 	WW3D::Set_Thumbnail_Enabled(true);
 	TextureLoader::_UnknownInvalidationTime = 0;
-	SoundLibraryClass::_PlayUndefined = false;
+	SoundLibrary::_PlayUndefined = false;
 }
 
 
@@ -408,7 +408,7 @@ ScriptedMovieViewClass::~ScriptedMovieViewClass()
 
 
 // 0x8010A0: the view's shutdown (slot +0x10): its scenes, camera, stars, orbitals and skybox released; the client keeps
-void ScriptedMovieViewClass::Unknown_10()
+void ScriptedMovieViewClass::Shutdown()
 {
 	ClientClass *client = Get_Client();
 	G_ASSERT(client);
@@ -428,7 +428,7 @@ void ScriptedMovieViewClass::Unknown_10()
 		delete BackgroundDazzleLayer;
 		BackgroundDazzleLayer = NULL;
 	}
-	SClient *sclient = (SClient *)client->As_Space_Client();
+	SpaceClientClass *sclient = (SpaceClientClass *)client->As_Space_Client();
 	if (sclient) {
 		sclient->Unknown_745050();
 	} else {
@@ -437,7 +437,7 @@ void ScriptedMovieViewClass::Unknown_10()
 	}
 	Unknown140 = NULL;
 	DecalMaterialManager = NULL;
-	UIViewClass::Unknown_10();
+	UIViewClass::Shutdown();
 }
 
 
@@ -458,7 +458,7 @@ void Unknown_7FF810();					// 0x7FF810 (the file before this one: the screen fad
 // 0x8012C0: the view's render (slot +0x0C): the background, the stars, the orbitals and the dazzles, the scene, the fade;
 // with +0x171 and +0x158 the frame, the frame rate and the polygon / vertex counts as text
 // NOT EXACT: shape (0.83): the client reads the background colour as three dwords and the inlined 0x801D70 copies zfar as an integer before znear
-int ScriptedMovieViewClass::Unknown_0C(bool on)
+int ScriptedMovieViewClass::Render(bool on)
 {
 
 
@@ -744,7 +744,7 @@ void ScriptedMovieViewClass::Unknown_14()
 	Unknown_802B20();
 	if (!Unknown172) {
 		if (Unknown174) {
-			SoundLibraryClass::Play_2D_Sound(Unknown174, 2);
+			SoundLibrary::Play_2D_Sound(Unknown174, 2);
 			delete Unknown174;
 			Unknown174 = NULL;
 		}
@@ -1000,7 +1000,7 @@ void ScriptedMovieViewClass::Unknown_802900()
 	}
 }
 
-// 0x802930: SClient::Do_Frame ends the movie when it is true (also before +0x6C / +0x6D are set)
+// 0x802930: SpaceClientClass::Do_Frame ends the movie when it is true (also before +0x6C / +0x6D are set)
 
 // 0x802930
 bool ScriptedMovieViewClass::Unknown_802930()
@@ -1010,7 +1010,7 @@ bool ScriptedMovieViewClass::Unknown_802930()
 	return(Unknown6E ? true : false);
 }
 
-// 0x802960: the keys while the movie plays (SClient::Do_Frame): Esc ends it, 0x22 the next camera, space
+// 0x802960: the keys while the movie plays (SpaceClientClass::Do_Frame): Esc ends it, 0x22 the next camera, space
 // pauses, 0x6B five seconds on
 void ScriptedMovieViewClass::Unknown_802960(KernelEventClass event)
 {
@@ -1627,7 +1627,7 @@ bool ScriptedMovieViewClass::Create_Orbital(ScriptedMovieLineClass *params)
 {
 
 	G_ASSERT(OrbitalManager == NULL);
-	OrbitalManager = new ::OrbitalManager((SClient *)Get_Client(), (MainViewOrbitalCallbackClass *)new ScriptedMovieOrbitalCallbackClass(this));
+	OrbitalManager = new ::OrbitalManager((SpaceClientClass *)Get_Client(), (MainViewOrbitalCallbackClass *)new ScriptedMovieOrbitalCallbackClass(this));
 
 	G_ASSERT(OrbitalManager != NULL);
 	G_ASSERT(OrbitalScene == NULL);
@@ -2363,7 +2363,7 @@ bool ScriptedMovieViewClass::Play_Audio(ScriptedMovieLineClass *params)
 		volume = atof(param);
 	}
 	if (slot == -1 || bone_name == NULL) {
-		AudibleSoundClass *sound2d = SoundLibraryClass::Play_2D_Sound(audio_name, 1);
+		AudibleSoundClass *sound2d = SoundLibrary::Play_2D_Sound(audio_name, 1);
 
 
 
@@ -2461,7 +2461,7 @@ bool ScriptedMovieViewClass::Stop_Audio(ScriptedMovieLineClass *params)
 
 
 // 0x8070C0: the effect of a line's id, duration (seconds), scale and hsv shift (eff_o.cpp's factory 0x6E9490), timed through
-EffectObjectClass *ScriptedMovieViewClass::Unknown_8070C0(ClientClass *client, ScriptedMovieLineClass *params)
+EffectClass *ScriptedMovieViewClass::Unknown_8070C0(ClientClass *client, ScriptedMovieLineClass *params)
 {
 	const char *param = params->Unknown_7FFDC0();
 
@@ -2492,7 +2492,7 @@ EffectObjectClass *ScriptedMovieViewClass::Unknown_8070C0(ClientClass *client, S
 	if (param != NULL) {
 		value = atof(param);
 	}
-	EffectObjectClass *effect;
+	EffectClass *effect;
 	unsigned id;
 	int time;
 	{
@@ -2544,7 +2544,7 @@ void ScriptedMovieViewClass::Unknown_807520(unsigned int time)
 	for (std::vector<ScriptedMovieEffectStruct>::iterator itor = Effects.begin(); itor != Effects.end(); ) {
 		if ((*itor).EndTime <= time) {
 			G_ASSERT(Get_Client());
-			EffectObjectClass *effect = Get_Client()->Get_Effect((*itor).ID);
+			EffectClass *effect = Get_Client()->Get_Effect((*itor).ID);
 			if (effect) {
 				effect->Unknown_6E6E30();
 			}
@@ -2586,11 +2586,11 @@ bool ScriptedMovieViewClass::Create_Special_Effect_Between_Objects(ScriptedMovie
 	FAIL_IF((param == NULL) && "User error: Create_Special_Effect_Between_Objects: Need target slot") {return(false);}
 	int target = atoi(param);
 	bool targetset = false;
-	EffectObjectClass *effect = Unknown_8070C0(client, params);
+	EffectClass *effect = Unknown_8070C0(client, params);
 	if (effect != NULL) {
 
 
-		UnknownB0009CEffectClass *binary_effect = effect->Unknown_14();
+		BinaryEffectClass *binary_effect = effect->Unknown_14();
 
 		FAIL_IF(binary_effect == NULL) {return(false);}
 		for (std::vector<ScriptedMovieObjectStruct>::iterator itor = Objects.begin(); itor != Objects.end(); itor++) {
@@ -2670,11 +2670,11 @@ bool ScriptedMovieViewClass::Create_Special_Effect_Between_Bones(ScriptedMovieLi
 
 
 	FAIL_IF((param == NULL) && "User error: Create_Special_Effect_Between_Bones: Need target bone name") {return(false);}
-	EffectObjectClass *effect = Unknown_8070C0(client, params);
+	EffectClass *effect = Unknown_8070C0(client, params);
 	if (effect != NULL) {
 
 
-		UnknownB0009CEffectClass *binary_effect = effect->Unknown_14();
+		BinaryEffectClass *binary_effect = effect->Unknown_14();
 
 
 		FAIL_IF(binary_effect == NULL) {return(false);}
@@ -2740,11 +2740,11 @@ bool ScriptedMovieViewClass::Create_Special_Effect_Between_Object_And_Bone(Scrip
 	const char *target_bone = params->Unknown_7FFDC0();
 
 	FAIL_IF((param == NULL) && "User error: Create_Special_Effect_Between_Object_And_Bone: Need target bone name") {return(false);}
-	EffectObjectClass *effect = Unknown_8070C0(client, params);
+	EffectClass *effect = Unknown_8070C0(client, params);
 	if (effect != NULL) {
 
 
-		UnknownB0009CEffectClass *binary_effect = effect->Unknown_14();
+		BinaryEffectClass *binary_effect = effect->Unknown_14();
 
 
 		FAIL_IF(binary_effect == NULL) {return(false);}
@@ -2805,11 +2805,11 @@ bool ScriptedMovieViewClass::Create_Special_Effect_On_Bone(ScriptedMovieLineClas
 	const char *bone_name = params->Unknown_7FFDC0();
 
 	FAIL_IF((param == NULL) && "User error: Create_Special_Effect_On_Bone: Need bone name for source") {return(false);}
-	EffectObjectClass *effect = Unknown_8070C0(client, params);
+	EffectClass *effect = Unknown_8070C0(client, params);
 	if (effect == NULL) {
 		return(false);
 	}
-	UnknownB00060EffectClass *unary_effect = effect->Unknown_10();
+	UnaryEffectClass *unary_effect = effect->Unknown_10();
 
 
 	FAIL_IF(unary_effect == NULL) {return(false);}
@@ -2855,11 +2855,11 @@ bool ScriptedMovieViewClass::Create_Special_Effect_On_Object(ScriptedMovieLineCl
 
 	FAIL_IF((param == NULL) && "User error: Create_Special_Effect_On_Object: Need source slot") {return(false);}
 	int source = atoi(param);
-	EffectObjectClass *effect = Unknown_8070C0(client, params);
+	EffectClass *effect = Unknown_8070C0(client, params);
 	if (effect == NULL) {
 		return(false);
 	}
-	UnknownB00060EffectClass *unary_effect = effect->Unknown_10();
+	UnaryEffectClass *unary_effect = effect->Unknown_10();
 
 
 	FAIL_IF(unary_effect == NULL) {return(false);}
@@ -3802,7 +3802,7 @@ void ScriptedMovieFadeClass::Unknown_80A730(float time, Vector3 from, Vector3 to
 **	Notes (UI1, 2026-10-29)
 **
 **	scriptedmovie.cpp is the scripted movie view (ScriptedMovieViewClass, sclient.h: 0x178 bytes over uiview.cpp's
-**	UIViewClass; SClient 0x74BD90 makes it), client 0x7FFD30-0x80A730 (appfile.py show app\client\scriptedmovie.cpp;
+**	UIViewClass; SpaceClientClass 0x74BD90 makes it), client 0x7FFD30-0x80A730 (appfile.py show app\client\scriptedmovie.cpp;
 **	__FILE__ e:\build\beta\G\app\Client\scriptedmovie.cpp, 254 asserts on lines 206-3533). Written so far: a few
 **	short members, the asserting ones on the client's lines (D25: 832, 855, 877, 1178); the script commands
 **	(0x806AD0 near line 2318's 0x806AF0, 0x809710 / 0x809730 before line 3533's 0x809750) placed by their

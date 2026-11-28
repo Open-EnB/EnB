@@ -7,15 +7,15 @@ TiltPacketClass::TiltPacketClass(int game_id, float intensity) : GameID(game_id)
 {
 }
 
-TiltPacketClass::TiltPacketClass(RawPacketClass *raw)
+TiltPacketClass::TiltPacketClass(PacketClass *raw)
 {
 	raw->Get(&GameID, sizeof(GameID));
 	raw->Get(&Intensity, sizeof(Intensity));
 }
 
-RawPacketClass *TiltPacketClass::Build()
+PacketClass *TiltPacketClass::Encode()
 {
-	RawPacketClass *raw = new RawPacketClass(19, Get_Data_Size());
+	PacketClass *raw = new PacketClass(19, Get_Data_Size());
 	raw->Add(&GameID, sizeof(GameID));
 	raw->Add(&Intensity, sizeof(Intensity));
 	return(raw);

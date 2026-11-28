@@ -20,7 +20,7 @@
 #include "eff_robj.h"
 #include "catmullromspline.h"
 
-#define INFINITE_DURATION	0xFFFFFFFF	// NAME 3: the asserts' 'duration != INFINITE_DURATION' (EffectObjectClass::Duration's -1; its own header is not known, eff_o.h compares with (unsigned)-1)
+#define INFINITE_DURATION	0xFFFFFFFF	// NAME 3: the asserts' 'duration != INFINITE_DURATION' (EffectClass::Duration's -1; its own header is not known, eff_o.h compares with (unsigned)-1)
 
 // The seekers' base (vtable 0xB003A0, 16 slots, 0xE4 bytes, constructor 0x6F0580; its destructor is the implicit
 // one, 0x6F06C0, scalar deleting 0x6F0690): a duration that is neither infinite nor zero, the model placed at

@@ -12,7 +12,7 @@
 #ifndef GD_UISLD_H  // NAME 3 [GD_UISLD_H]: header name from gd_uisld.cpp's __FILE__ (D24)
 #define GD_UISLD_H
 
-#include "unknown_675120.h"
+#include "gd_uimesh.h"
 #include "vector2.h"
 #include "vector3.h"
 #include "matrix3d.h"
@@ -22,7 +22,7 @@ class LayerClass;
 
 // The windows' scroll bar: a 'bar_*' model with a 'pull_*' bone the pointer drags along it (0xD0 bytes, table 0xAFBA80;
 // ui_ptmis.cpp, ui_ptnew.cpp, ui_ptppl.cpp, ui_string_list.cpp, ui_treem.cpp and ui_commands.cpp make it)
-class UISliderGadget : public Unknown_675120Class	// NAME 3: class-from-file (D24) for app\Client\gd_uisld.cpp, as gd_uiback.cpp's UIBackGadget (RTTI)
+class UISliderGadget : public UIMeshGadgetClass	// NAME 3: class-from-file (D24) for app\Client\gd_uisld.cpp, as gd_uiback.cpp's UIBackGadget (RTTI)
 {
 public:
 	UISliderGadget(RenderObjClass *screen, const char *pull, const char *bar, const LayerClass *layer, bool horizontal, float extra);	// 0x675370 (the gadget's model the screen's 'bar_*')  // NAME 1 [screen, pull, bar, layer, horizontal, extra]: what the pages pass and what 0x6755E0 does with them

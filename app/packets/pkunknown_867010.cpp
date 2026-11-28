@@ -11,16 +11,16 @@ Packet_00B3Class::Packet_00B3Class(const char *name) : Name(name), Unknown1C(0)
 {
 }
 
-Packet_00B3Class::Packet_00B3Class(RawPacketClass *raw) : Unknown1C(0)
+Packet_00B3Class::Packet_00B3Class(PacketClass *raw) : Unknown1C(0)
 {
 	char *string = raw->Get_String();
 	Name = string;
 	delete [] string;
 }
 
-RawPacketClass *Packet_00B3Class::Build()
+PacketClass *Packet_00B3Class::Encode()
 {
-	RawPacketClass *raw = new RawPacketClass(179, Get_Data_Size());
+	PacketClass *raw = new PacketClass(179, Get_Data_Size());
 	raw->Add_String(Name.c_str());
 	return(raw);
 }

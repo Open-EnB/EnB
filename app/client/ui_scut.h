@@ -8,7 +8,7 @@
 #include "..\shared\observer.h"
 class GadgetClass;			// gadget.cpp's
 class RenderObjClass;
-class UIScutClass;
+class ShortcutInterface;
 class UIScutBarClass;
 class UIScutBankGadgetClass;
 class UIScutProxyGadgetClass;
@@ -35,12 +35,12 @@ enum {
 
 // One shortcut bar (0x58 bytes, table 0xAF7484; constructor 0x610F80, destructor 0x611220): three proxy buttons over two
 // groups of three shortcuts, and the bank toggle that shows the group
-class UIScutBarClass : public ObserverClass	// NAME 2: what UIScutClass's Bars holds (the FAIL_IFs' 'bar')
+class UIScutBarClass : public ObserverClass	// NAME 2: what ShortcutInterface's Bars holds (the FAIL_IFs' 'bar')
 {
 public:
-	UIScutBarClass(UIScutClass *owner, UIMeshClass *mesh, LayerClass *layer, int bar, int *id, int index);	// 0x610F80 (the shortcut interface's constructor: itself, its mesh and layer, the bar's number twice and the next control id)  // NAME 1 [owner, mesh, layer, id, index]: what 0x610570 passes; NAME 3 [bar]: the FAIL_IFs'
+	UIScutBarClass(ShortcutInterface *owner, UIMeshClass *mesh, LayerClass *layer, int bar, int *id, int index);	// 0x610F80 (the shortcut interface's constructor: itself, its mesh and layer, the bar's number twice and the next control id)  // NAME 1 [owner, mesh, layer, id, index]: what 0x610570 passes; NAME 3 [bar]: the FAIL_IFs'
 	~UIScutBarClass();									// 0x611220
-	virtual void Unknown_00(SubjectClass *subject, void *event);	// +0x00 0x612510: the buttons' shortcuts shown again  // NAME 1 [subject, event]: the base's
+	virtual void Unknown_00(ObserverSubjectClass *subject, void *event);	// +0x00 0x612510: the buttons' shortcuts shown again  // NAME 1 [subject, event]: the base's
 	void Unknown_6112B0();								// 0x6112B0 (FAIL_IF '!ProxyButtons[lp]' l.479): the proxy buttons' help section
 	void Unknown_611300(ControlKeysManager *manager);	// 0x611300: the 'Use Slot %d' keys added  // NAME 1 [manager]: the interface's slot +0x70's
 	void Unknown_611710(ControlKeysManager *manager);	// 0x611710: the 'Use Slot %d' keys removed  // NAME 1 [manager]: the interface's slot +0x74's
@@ -53,8 +53,8 @@ public:
 	void Unknown_612430();								// 0x612430 (G_ASSERTs l.904 / 907): the active shortcut dropped
 	void Unknown_6124F0(UIScutProxyGadgetClass *gadget);	// 0x6124F0: the active shortcut set  // NAME 1 [gadget]: neutral
 
-	UIScutClass *Get_Owner() { return(Owner); }			// NAME 1: what it returns
-	UIScutClass *Owner;									// +0x04: the shortcut interface  // NAME 1: what the constructor is given
+	ShortcutInterface *Get_Owner() { return(Owner); }			// NAME 1: what it returns
+	ShortcutInterface *Owner;									// +0x04: the shortcut interface  // NAME 1: what the constructor is given
 	UIMeshClass *Mesh;									// +0x08 (the bar observes it)  // NAME 2: what it holds
 	int Index;											// +0x0C  // NAME 1: neutral
 	UIScutProxyGadgetClass *ProxyButtons[NUM_SHORTCUT_BUTTONS];	// +0x10 (FAIL_IF '!ProxyButtons[lp]' l.479)  // NAME 3: the FAIL_IF's
@@ -70,11 +70,11 @@ public:
 };
 
 // ui_scut.cpp's interface (0xB8 bytes, constructor 0x610570, tables 0xAF73D8 / 0xAF73CC / 0xAF73C0)
-class UIScutClass : public Unknown5BB320Class	// NAME 3: class-from-file (D24) for ui_scut.cpp
+class ShortcutInterface : public Unknown5BB320Class  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
-	UIScutClass(UIViewClass *view, LayerClass *layer);	// 0x610570 (0x57DD20 passes the view and the cockpit's layer)  // NAME 1 [view, layer]: what 0x57DD20 passes
-	virtual ~UIScutClass();								// 0x610800 (slot 0x610750)
+	ShortcutInterface(UIViewClass *view, LayerClass *layer);	// 0x610570 (0x57DD20 passes the view and the cockpit's layer)  // NAME 1 [view, layer]: what 0x57DD20 passes
+	virtual ~ShortcutInterface();								// 0x610800 (slot 0x610750)
 	virtual void Unknown_54();							// 0x610940
 	virtual void Unknown_60();							// 0x610980
 	virtual bool Unknown_68(int key);					// 0x610A40  // NAME 1 [key]: the base's

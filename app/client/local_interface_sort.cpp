@@ -57,7 +57,7 @@ enum { SCENE_ID_INTERFACE = SceneClass::SCENE_ID_LAST + 1 };	// InterfaceSceneCl
 // 0x6E0E80
 static void Peek_Back(RefCountPtr<InterfaceClass> &dest, InterfaceStaticSortListClass *list) { dest = Create_Peek(list->Set_Current_Back()); }
 static void Peek_End(RefCountPtr<InterfaceClass> &dest, InterfaceStaticSortListClass *list, bool front) {
-	if (front) { dest = Create_Peek(list->Set_Current_Front()); } else { Peek_Back(dest, list); } } InterfaceSortClass::InterfaceSortClass(InterfaceClass *ui) : SortList(NULL) {
+	if (front) { dest = Create_Peek(list->Set_Current_Front()); } else { Peek_Back(dest, list); } } LocalInterfaceSort::LocalInterfaceSort(InterfaceClass *ui) : SortList(NULL) {
 	FAIL_IF(!ui) return;
 	ui = ui->Unknown78;
 	FAIL_IF(!ui) return;
@@ -85,7 +85,7 @@ static void Peek_End(RefCountPtr<InterfaceClass> &dest, InterfaceStaticSortListC
 
 
 // 0x6E1090
-InterfaceSortClass::InterfaceSortClass(InterfaceStaticSortListClass *sort_list, bool front) :
+LocalInterfaceSort::LocalInterfaceSort(InterfaceStaticSortListClass *sort_list, bool front) :
 	SortList(sort_list)
 {
 	FAIL_IF(!SortList) return;
@@ -94,7 +94,7 @@ InterfaceSortClass::InterfaceSortClass(InterfaceStaticSortListClass *sort_list, 
 }
 
 // 0x6E1200
-InterfaceSortClass::InterfaceSortClass(InterfaceSceneClass *ui_scene, bool front) :
+LocalInterfaceSort::LocalInterfaceSort(InterfaceSceneClass *ui_scene, bool front) :
 	SortList(NULL)
 {
 	FAIL_IF(!ui_scene) return;
@@ -106,7 +106,7 @@ InterfaceSortClass::InterfaceSortClass(InterfaceSceneClass *ui_scene, bool front
 }
 
 // 0x6E1390
-InterfaceSortClass::InterfaceSortClass(SceneClass *castable_ui_scene, bool front) :
+LocalInterfaceSort::LocalInterfaceSort(SceneClass *castable_ui_scene, bool front) :
 	SortList(NULL)
 {
 
@@ -122,7 +122,7 @@ InterfaceSortClass::InterfaceSortClass(SceneClass *castable_ui_scene, bool front
 }
 
 // 0x6E1560
-InterfaceSortClass::InterfaceSortClass(UIViewClass *uiview, bool front) :
+LocalInterfaceSort::LocalInterfaceSort(UIViewClass *uiview, bool front) :
 	SortList(NULL)
 {
 
@@ -139,7 +139,7 @@ InterfaceSortClass::InterfaceSortClass(UIViewClass *uiview, bool front) :
 }
 
 // 0x6E1730
-InterfaceSortClass::InterfaceSortClass(const RefCountPtr<RenderObjClass> &robj) :
+LocalInterfaceSort::LocalInterfaceSort(const RefCountPtr<RenderObjClass> &robj) :
 	SortList(NULL)
 {
 	SceneClass *scene = robj->Peek_Scene();
@@ -155,7 +155,7 @@ InterfaceSortClass::InterfaceSortClass(const RefCountPtr<RenderObjClass> &robj) 
 }
 
 // 0x6E18B0
-InterfaceSortClass::~InterfaceSortClass()
+LocalInterfaceSort::~LocalInterfaceSort()
 {
 	if (SortList) {
 		SortList->Set_Current_Interface(Previous.Peek());
@@ -164,7 +164,7 @@ InterfaceSortClass::~InterfaceSortClass()
 }
 
 // 0x6E1940 (exact in verify; appfile match says PREFIX: the client's size 0x160 counts the int3 padding to 0x6E1AA0)
-void InterfaceSortClass::Unknown_6E1940(bool front)
+void LocalInterfaceSort::Unknown_6E1940(bool front)
 {
 	if (front) Previous = Create_Peek(SortList->Set_Current_Front());
 	else Previous = Create_Peek(SortList->Set_Current_Back());

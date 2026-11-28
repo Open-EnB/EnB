@@ -159,7 +159,7 @@ bool GutterDataClass::Add_To_Scene(const RefCountPtr<SimpleSceneClass> &scene)
 	bool added = RadarIconDataClass::Add_To_Scene(scene);
 	if (added) {
 		if (Indicator) {
-			InterfaceSortClass sort((InterfaceSceneClass *)scene.Peek(), false);
+			LocalInterfaceSort sort((InterfaceSceneClass *)scene.Peek(), false);
 			Indicator->Unknown_6B3ED0(scene);
 		}
 		return(true);
@@ -448,7 +448,7 @@ void GutterDataClass::Update_Labels()
 	int old_vertical = NameLabel->Info.Justify[0];
 	int old_horizontal = NameLabel->Info.Justify[1];
 	if (rdata->Unknown08 == 1) {
-		SClient *client = (SClient *)Unknown_18();
+		SpaceClientClass *client = (SpaceClientClass *)Unknown_18();
 		if (client) {
 			mouse = client->Mouse;
 			if (mouse) {

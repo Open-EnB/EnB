@@ -12,7 +12,7 @@
 // (byte-exact since +0xD8 / +0xE0..+0xE8 / +0xFC / +0x100 became ints and +0x10C an AABoxClass)
 // @0x66DFC0
 GadgetSlider::GadgetSlider(bool arg, LayerClass *layer) :
-	RObjGadgetClass(NULL, 0x1077),
+	RenderObjGadgetClass(NULL, 0x1077),
 	SliderObject(NULL),
 	MinArrow(NULL),
 	MaxArrow(NULL),
@@ -246,9 +246,9 @@ void GadgetSlider::Unknown_8C(bool on)
 		on = true;
 	}
 	if (UnknownBC < (float)(Unknown_B8D438 - Unknown_B8D43C)) {
-		RObjGadgetClass::Unknown_8C(true);
+		RenderObjGadgetClass::Unknown_8C(true);
 	} else {
-		RObjGadgetClass::Unknown_8C(on);
+		RenderObjGadgetClass::Unknown_8C(on);
 	}
 	if (UnknownBC <= 0.0f) {
 		on = true;
@@ -517,12 +517,12 @@ void GadgetSlider::Unknown_74()
 	if (MaxArrow != NULL) {
 		MaxArrow->Add(Layer.Peek_Scene());
 	}
-	RObjGadgetClass::Unknown_74();
+	RenderObjGadgetClass::Unknown_74();
 }
 // @0x66F8A0
 void GadgetSlider::Unknown_78()
 {
-	RObjGadgetClass::Unknown_78();
+	RenderObjGadgetClass::Unknown_78();
 	if (MinArrow != NULL) {
 		MinArrow->Remove();
 	}
@@ -619,7 +619,7 @@ void GadgetSlider::Unknown_A4(float val, bool arg2)
 		int index = (int)floor(val);
 		if (UnknownD8 != index) {
 			UnknownD8 = index;
-			SoundLibraryClass::Play_2D_Sound("slider_bar_1.wav", 2);
+			SoundLibrary::Play_2D_Sound("slider_bar_1.wav", 2);
 			Get_Signal_Map().emit(this, GadgetSliderEvent(UnknownD8));
 		}
 		Value = val;

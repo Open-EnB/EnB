@@ -20,7 +20,7 @@
 
 #include <vector>
 
-class RawPacketClass;
+class PacketClass;
 
 bool Music_Type_From_Name(const char *name, int *type);		// 0x8462A0 (no caller)  // NAME 2: what it does
 char *Music_Type_Name(char *buffer, int len, int type);		// 0x8462F0 (no caller)  // NAME 2: what it does
@@ -30,11 +30,11 @@ class NavigationListClass	// NAME 3: WARP's Print text 'NavigationListSize='
 public:
 	NavigationListClass();								// 0x846330
 	NavigationListClass(const NavigationListClass &src);	// 0x846390
-	NavigationListClass(RawPacketClass *raw);			// 0x846430
+	NavigationListClass(PacketClass *raw);			// 0x846430
 	virtual ~NavigationListClass();						// +0x00 0x846360 (0x8466F0)
 	virtual void Clear();								// +0x04 0x846870  // NAME 2: what it does
 
-	void Add(RawPacketClass *raw);						// 0x846730: a 2-byte count, then the ids  // NAME 2: what it does
+	void Add(PacketClass *raw);						// 0x846730: a 2-byte count, then the ids  // NAME 2: what it does
 	int Get_Data_Size();								// 0x8467B0  // NAME 2: what it returns
 	unsigned long Get_Current();						// 0x8467F0 (-1 past the end)  // NAME 2: what it returns
 	bool Is_Last();										// 0x846830  // NAME 2: what it returns

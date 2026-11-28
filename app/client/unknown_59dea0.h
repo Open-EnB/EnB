@@ -11,7 +11,7 @@ class GadgetClass;
 class Unknown59DEA0Class : public ChatPanelUIBase	// NAME 1: neutral (D10)
 {
 public:
-	Unknown59DEA0Class(SClient *client);				// 0x59DEA0 (deleting 0x59DEF0)  // NAME 1 [client]: the base's
+	Unknown59DEA0Class(SpaceClientClass *client);				// 0x59DEA0 (deleting 0x59DEF0)  // NAME 1 [client]: the base's
 	virtual ~Unknown59DEA0Class();						// 0x59DF20
 	virtual void Unknown_54();							// +0x54 0x59DFA0 ('founders00a': the two buttons)
 	virtual bool Unknown_68(int key);					// +0x68 0x59E110 (1 'yes': '/founder enable'; 2 'no')  // NAME 1 [key]: InterfaceClass's

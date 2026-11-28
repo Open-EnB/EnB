@@ -20,10 +20,10 @@
 
 #include "..\packets\pk.h"
 
-class AvatarDescClass;
+class AvatarDescriptionClass;
 class ShipCustDescClass;
 class ShipCustSettingsClass;
-class LinearBufferClass;
+class LinearBuffer;
 
 // The avatar's 14 costs (0x38 bytes; the constructor 0x849320 copies one)
 struct RecustomizationCostDataStruct  // NAME 1: neutral (D10)
@@ -38,11 +38,11 @@ class RecustomizationCostClass : public Unknown_PacketDataClass  // NAME 1: neut
 public:
 	RecustomizationCostClass();	// 0x8492F0 (the 14 ints 0)
 	RecustomizationCostClass(const RecustomizationCostDataStruct &data);	// 0x849320  // NAME 1 [data]: neutral
-	int Unknown_849360(int slot, AvatarDescClass *oldavatar, AvatarDescClass *newavatar);	// 0x849360 (lines 50-52): the slot's cost (inline in 0x8493F0)  // NAME 5 [slot, oldavatar, newavatar]: the FAIL_IFs'
-	int Unknown_8493F0(AvatarDescClass *oldavatar, AvatarDescClass *newavatar);	// 0x8493F0 (lines 60 / 61): the costs of the slots that differ, summed  // NAME 5 [oldavatar, newavatar]: the FAIL_IFs'
-	bool Unknown_8494C0(int slot, AvatarDescClass *oldavatar, AvatarDescClass *newavatar);	// 0x8494C0: the slot differs  // NAME 1 [slot, oldavatar, newavatar]: as 0x849360's
-	virtual bool Write(LinearBufferClass *buffer);	// +0x00 0x849920
-	virtual bool Read(LinearBufferClass *buffer);	// +0x04 0x849960
+	int Unknown_849360(int slot, AvatarDescriptionClass *oldavatar, AvatarDescriptionClass *newavatar);	// 0x849360 (lines 50-52): the slot's cost (inline in 0x8493F0)  // NAME 5 [slot, oldavatar, newavatar]: the FAIL_IFs'
+	int Unknown_8493F0(AvatarDescriptionClass *oldavatar, AvatarDescriptionClass *newavatar);	// 0x8493F0 (lines 60 / 61): the costs of the slots that differ, summed  // NAME 5 [oldavatar, newavatar]: the FAIL_IFs'
+	bool Unknown_8494C0(int slot, AvatarDescriptionClass *oldavatar, AvatarDescriptionClass *newavatar);	// 0x8494C0: the slot differs  // NAME 1 [slot, oldavatar, newavatar]: as 0x849360's
+	virtual bool Write(LinearBuffer *buffer);	// +0x00 0x849920
+	virtual bool Read(LinearBuffer *buffer);	// +0x04 0x849960
 	virtual int Get_Size();	// +0x08 0x8499A0
 
 	RecustomizationCostDataStruct Costs;	// +0x04  // NAME 5: the FAIL_IF 'Costs.Per_Cost[slot] == 0'
@@ -65,8 +65,8 @@ public:
 	int Unknown_849AC0(ShipCustDescClass *oldship, ShipCustDescClass *newship);	// 0x849AC0 (lines 259 / 260): the costs of the slots that differ, summed  // NAME 5 [oldship, newship]: the FAIL_IFs'
 	bool Unknown_849B90(int slot, ShipCustDescClass *oldship, ShipCustDescClass *newship);	// 0x849B90: the slot differs  // NAME 1 [slot, oldship, newship]: as 0x849A30's
 	bool Unknown_84A150(ShipCustSettingsClass oldsettings, ShipCustSettingsClass newsettings);	// 0x84A150: a part's colour setting differs  // NAME 1 [oldsettings, newsettings]: neutral
-	virtual bool Write(LinearBufferClass *buffer);	// +0x00 0x84A1D0
-	virtual bool Read(LinearBufferClass *buffer);	// +0x04 0x84A210
+	virtual bool Write(LinearBuffer *buffer);	// +0x00 0x84A1D0
+	virtual bool Read(LinearBuffer *buffer);	// +0x04 0x84A210
 	virtual int Get_Size();	// +0x08 0x84A250
 
 	ShipRecustomizationCostDataStruct Costs;	// +0x04  // NAME 5: the FAIL_IF 'Costs.Per_Cost[slot] == 0'

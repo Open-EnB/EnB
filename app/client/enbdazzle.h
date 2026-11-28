@@ -15,14 +15,14 @@
 
 #include "..\..\ww3d2\dazzle.h"
 
-class SClient;
+class SpaceClientClass;
 
 class MainViewDazzleHandlerClass : public DazzleVisibilityClass	// NAME 1: neutral (D10)
 {
 public:
-	MainViewDazzleHandlerClass(SClient *client); ~MainViewDazzleHandlerClass();	// 0x75DD00 / 0x75DE70 (Shutdown 0x50C2F0)  // NAME 1 [client]: what 0x50BA60 passes
+	MainViewDazzleHandlerClass(SpaceClientClass *client); ~MainViewDazzleHandlerClass();	// 0x75DD00 / 0x75DE70 (Shutdown 0x50C2F0)  // NAME 1 [client]: what 0x50BA60 passes
 	virtual float Compute_Dazzle_Visibility(RenderInfoClass &rinfo, DazzleRenderObjClass *dazzle, const Vector3 &point) const;	// +0x00 0x75DEE0  // NAME 3: the base's
-	SClient *Client;								// +0x04  // NAME 2: what it holds
+	SpaceClientClass *Client;								// +0x04  // NAME 2: what it holds
 };
 
 #endif

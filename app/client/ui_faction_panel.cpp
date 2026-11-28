@@ -4,7 +4,7 @@
 #include "rendobj.h"
 #include "..\..\wwlib\ref_ptr.h"
 #include "gadget.h"
-#include "unknown_675120.h"
+#include "gd_uimesh.h"
 #include "gd_uiback.h"		// UIBackGadget (0x674260)
 #include "fontmanager.h"
 #include "..\audio\soundlib.h"
@@ -16,7 +16,7 @@ extern FontManagerClass *Unknown_BE67C4;			// NAME 1 [Unknown_BE67C4]: 0xBE67C4
 
 
 
-UIFactionPanelClass::UIFactionPanelClass(SClient *client) :
+UIFactionPanelClass::UIFactionPanelClass(SpaceClientClass *client) :
 	Unknown5BB320Class(new UIMeshClass("TSI30B", 1), client),
 	UnknownBC(0),
 	ExitButton(NULL),
@@ -88,7 +88,7 @@ bool UIFactionPanelClass::Unknown_68(int key)
 {
 	switch (key) {
 		case 1:
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			Unknown_5C();
 			return(true);
 	}

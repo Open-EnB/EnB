@@ -21,7 +21,7 @@ class ParticleEmitterClass;
 
 // The particle-jet effect (vtable 0xB00138, 16 slots, 0xF0 bytes, constructor 0x6ECC50, destructor 0x6ECED0,
 // scalar deleting 0x6ECEA0). Flag 0x4000 (effect.ini's 'Invert') aims it from the target at the source.
-class ParticleJetEffectClass : public UnknownB0009CEffectClass	// NAME 3: effect.ini's EffectClass 'ParticleJetEffect', which the helper 0x6EC950 makes
+class ParticleJetEffectClass : public BinaryEffectClass	// NAME 3: effect.ini's EffectClass 'ParticleJetEffect', which the helper 0x6EC950 makes
 {
 public:
 	ParticleJetEffectClass(ClientClass *client, unsigned id, unsigned start_time, unsigned duration, unsigned cycle_time, RenderObjClass *emitter, float min_lifetime);	// 0x6ECC50 (FAIL_IFs '!Emitter' l.18, 'ForwardVelocity < 0.01f' l.37)  // NAME 3 [min_lifetime]: effect.ini's 'MinLifetime'  // NAME 1 [client .. cycle_time, emitter]: the base's, the helper's

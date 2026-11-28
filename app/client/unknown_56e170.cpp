@@ -39,7 +39,7 @@ UIChatReplyListOptionStruct::~UIChatReplyListOptionStruct()
 }
 
 // 0x56E2A0
-UIChatReplyListClass::UIChatReplyListClass(SClient *client) :
+UIChatReplyListClass::UIChatReplyListClass(SpaceClientClass *client) :
 	InterfaceClass((LineDisplayClientClass *)client),
 	Unknown84(0),
 	Window(NULL),
@@ -129,7 +129,7 @@ void UIChatReplyListClass::Unknown_58()
 		Window->Set_Center(Vector2(x, y));
 		Window->Add_To_Scene((SceneClass *)View->Unknown_50());
 		InterfaceClass::Unknown_58();
-		SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+		SoundLibrary::Play_2D_Sound("fontclick.wav", 2);
 	}
 }
 
@@ -147,7 +147,7 @@ bool UIChatReplyListClass::Unknown_68(int key)
 {
 	if (key) {
 		Unknown84 = key;
-		SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+		SoundLibrary::Play_2D_Sound("fontclick.wav", 2);
 		return(true);
 	}
 	return(false);

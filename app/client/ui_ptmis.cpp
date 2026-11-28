@@ -253,7 +253,7 @@ void UIPTMisClass::Unknown_5DF410()
 **
 **	The client's __FILE__ (0xB84D98) and the constructor's G_ASSERTs on lines 71 / 72 ('ListScreen' 'TLI03A',
 **	'DescScreen' 'TLI06A') name the file and the two screens; the class name is class-from-file (D24), as
-**	ui_ptrade.cpp's UIPTradeClass. The object runs from the constructor 0x5DE8A0 (after ui_pterm.cpp's last function
+**	ui_ptrade.cpp's PlayerTradeInterface. The object runs from the constructor 0x5DE8A0 (after ui_pterm.cpp's last function
 **	0x5DE880) through the adjustor thunks 0x5DF950 / 0x5DF960; ui_ptnew.cpp's constructor follows at 0x5DF970.
 **	Its own slots (tables 0xAF6100 / 0xAF60F4 / 0xAF60E8 over InterfaceClass): the destructor, +0x54 (0x5DECF0,
 **	the base's body emitted as the class's own), +0x58 open, +0x5C close, +0x60 empty, +0x68 the buttons.
@@ -268,6 +268,6 @@ void UIPTMisClass::Unknown_5DF410()
 **	'<= -1'; the count clamp reads Count() twice.
 **
 **	pt_data.cpp's missions list (0x696320) comes from pt_data.h (included where its local declaration stood,
-**	so no assert moves); the scroll bar 0x675370 is gd_uisld.h's UISliderGadget (included where unknown_675120.h
+**	so no assert moves); the scroll bar 0x675370 is gd_uisld.h's UISliderGadget (included where gd_uimesh.h
 **	stood, its local declaration's lines left blank). The class is declared in ui_ptmis.h (PROVISIONAL name, D137).
 */

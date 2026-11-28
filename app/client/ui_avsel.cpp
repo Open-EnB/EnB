@@ -53,7 +53,7 @@
 
 
 
-#include "unknown_675120.h"
+#include "gd_uimesh.h"
 
 
 
@@ -112,7 +112,7 @@ extern FontManagerClass *Unknown_BE67C4;			// NAME 1 [Unknown_BE67C4]: 0xBE67C4
 
 
 
-// charview.h's CharacterViewClass (the view's slot +0x28), avatar.h's CharacterViewAvatarClass (the five avatars)
+// charview.h's CharacterViewClass (the view's slot +0x28), avatar.h's AvatarClass (the five avatars)
 // and env_map_manager.h's EnvironmentMapManagerClass (the view's +0x3A4)
 #include "charview.h"
 #include "env_map_manager.h"
@@ -259,8 +259,8 @@ class LoginTaskClass;
 
 
 
-// The edit box (the referral's name): textgadg.cpp's TextGadgetClass (0x80 bytes, constructor 0x6AA810); its cursor
-// +0x4C is fontsys_cursor.h's TextCursorClass (Rect3DClass::Set_Color 0x6E2A20)
+// The edit box (the referral's name): textgadg.cpp's UnknownTextGadgetClass (0x80 bytes, constructor 0x6AA810); its cursor
+// +0x4C is fontsys_cursor.h's FontSysCursor (Rectangle3DClass::Set_Color 0x6E2A20)
 #include "textgadg.h"
 #include "fontsys_cursor.h"
 
@@ -448,7 +448,7 @@ bool AvatarSelectionInterface::Unknown_68(int key)
 				Unknown_55F760();
 				return false;
 			case 1: case 2: case 3: case 4: case 5:
-				SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
+				SoundLibrary::Play_2D_Sound("ButtonClick02.wav", 2);
 				if (Unknown096) {
 					Unknown0BC[Unknown090]->Unknown_784A50("/normal", 0, 0);
 				}
@@ -457,7 +457,7 @@ bool AvatarSelectionInterface::Unknown_68(int key)
 				Unknown_55ED20();
 				if (Unknown090 != previous) Unknown_55E8E0(); return true;
 			case 11: case 12: case 13: case 14: case 15:
-				SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
+				SoundLibrary::Play_2D_Sound("ButtonClick02.wav", 2);
 				if (Unknown096) {
 					Unknown0BC[Unknown090]->Unknown_784A50("/normal", 0, 0);
 				}
@@ -466,7 +466,7 @@ bool AvatarSelectionInterface::Unknown_68(int key)
 				Unknown_55ED20();
 				if (Unknown090 != previous) Unknown_55E8E0(); return true;
 			case 6:
-				SoundLibraryClass::Play_2D_Sound("Avatar_Delete_Character", 2);
+				SoundLibrary::Play_2D_Sound("Avatar_Delete_Character", 2);
 				if (Unknown090 >= 0) {
 					Unknown0BC[Unknown090]->Unknown_784A50("/angry please no", 1, 0);
 					Unknown084->Get_Unknown034()->Unknown_588A70("YES_NO", 0, "Confirm deletion of the character?", 0x140, 0, 0);
@@ -476,7 +476,7 @@ bool AvatarSelectionInterface::Unknown_68(int key)
 				}
 				return true;
 			case 7:
-				SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
+				SoundLibrary::Play_2D_Sound("Login_Mouse_Click", 2);
 				if (Unknown090 >= 0) {
 					Unknown08C = 7;
 					Unknown088->Selected = Unknown090;
@@ -503,7 +503,7 @@ bool AvatarSelectionInterface::Unknown_68(int key)
 				}
 				return true;
 			case 8:
-				SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
+				SoundLibrary::Play_2D_Sound("Login_Mouse_Click", 2);
 				if (Unknown096) {
 					if (Unknown0BC[Unknown090]) {
 						Unknown0BC[Unknown090]->Unknown_784A50("/normal", 0, 0);
@@ -521,7 +521,7 @@ bool AvatarSelectionInterface::Unknown_68(int key)
 				return true;
 
 			case 10:
-				SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
+				SoundLibrary::Play_2D_Sound("Login_Mouse_Click", 2);
 				Unknown084->Unknown_67B270();
 				Unknown0F9 = true;
 				Unknown_55EF90();
@@ -533,7 +533,7 @@ bool AvatarSelectionInterface::Unknown_68(int key)
 
 
 	} else {
-		SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
+		SoundLibrary::Play_2D_Sound("ButtonClick02.wav", 2);
 		switch (key) {
 			case 1: case 8:
 				Unknown11C = "";
@@ -758,7 +758,7 @@ void AvatarSelectionInterface::Unknown_55E070()
 		}
 	} else if (Unknown100 != highlight) {
 		Unknown100 = highlight;
-		SoundLibraryClass::Play_2D_Sound("Avatar_Highlight", 2);
+		SoundLibrary::Play_2D_Sound("Avatar_Highlight", 2);
 	}
 }
 
@@ -778,7 +778,7 @@ void AvatarSelectionInterface::Unknown_55E2E0(int text, const char *string, bool
 void AvatarSelectionInterface::Unknown_55E370(bool active)
 {
 	LoginCharacterClass *chars = Unknown088->Characters;
-	AvatarDescClass *descs = Unknown088->Unknown0350;
+	AvatarDescriptionClass *descs = Unknown088->Unknown0350;
 	G_ASSERT(chars);
 	TheDX8MeshRenderer.Invalidate();
 	if (!active) {
@@ -799,8 +799,8 @@ void AvatarSelectionInterface::Unknown_55E370(bool active)
 			if (chars[i].ID != 0) {
 				Unknown_55E2E0(i, descs[i].Get_Full_Name().c_str(), i == Unknown090);
 				Unknown0E4[i] = true;
-				AvatarDescClass *desc = new AvatarDescClass(descs[i]);
-				Unknown0BC[i] = new CharacterViewAvatarClass(desc, true, false, Unknown084->Get_Unknown3A4());
+				AvatarDescriptionClass *desc = new AvatarDescriptionClass(descs[i]);
+				Unknown0BC[i] = new AvatarClass(desc, true, false, Unknown084->Get_Unknown3A4());
 				if (Unknown0BC[i]) {
 					char name[64];
 					sprintf(name, "DUDE%02d", i);
@@ -826,7 +826,7 @@ void AvatarSelectionInterface::Unknown_55E370(bool active)
 // 0x55E8E0
 void AvatarSelectionInterface::Unknown_55E8E0()
 {
-	AvatarDescClass *descs = Unknown088->Unknown0350;
+	AvatarDescriptionClass *descs = Unknown088->Unknown0350;
 	Unknown_55ED20();
 	for (int i = 0; i < 5; i++) {
 		if (Unknown0E4[i]) {
@@ -1135,7 +1135,7 @@ void AvatarSelectionInterface::Unknown_55F6D0(FlashingGadgetEvent *event, Gadget
 	FAIL_IF(!gadget)
 		return;
 	if (gadget->Flash && gadget->Is_Unknown2C_02()) {
-		SoundLibraryClass::Play_2D_Sound("Login_Mouse_Over_Buttons", 2);
+		SoundLibrary::Play_2D_Sound("Login_Mouse_Over_Buttons", 2);
 	}
 }
 
@@ -1167,7 +1167,7 @@ void AvatarSelectionInterface::Unknown_55F760()
 		Unknown10C[i] = new ButtonGadgetClass(robj.Peek(), *Layer, 0x55, 3);
 		Unknown64.Unknown_6870E0(Unknown10C[i], i + 1, View, 1, 0);
 	}
-	Unknown114 = new TextGadgetClass(this, 20, "ENTRY_NAME_BUDDYREF1", BuddyReferralUI.Peek(), Unknown_B08CAC | Unknown_B08CBC | Unknown_B08CC0, 0);
+	Unknown114 = new UnknownTextGadgetClass(this, 20, "ENTRY_NAME_BUDDYREF1", BuddyReferralUI.Peek(), Unknown_B08CAC | Unknown_B08CBC | Unknown_B08CC0, 0);
 	Unknown114->Unknown_28(Layer);
 	Unknown114->Cursor->Set_Color(Vector4(1.0f, 1.0f, 1.0f, 1.0f));
 	Unknown114->Set_Text("", false);

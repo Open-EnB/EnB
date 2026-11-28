@@ -12,7 +12,7 @@
 class UIRadioMainClass : public ChatPanelUIBase	// NAME 1: neutral, after its tooltips' section 'UI_RADIO_MAIN'
 {
 public:
-	UIRadioMainClass(SClient *client, int state, std::string channel);	// 0x5E9410 (deleting 0x5E95D0)  // NAME 1 [client, state, channel]: what the members hold
+	UIRadioMainClass(SpaceClientClass *client, int state, std::string channel);	// 0x5E9410 (deleting 0x5E95D0)  // NAME 1 [client, state, channel]: what the members hold
 	virtual ~UIRadioMainClass();						// 0x5E9600
 	virtual void Unknown_54();							// +0x54 0x5E96F0 ('cht01': the buttons 'EXIT', 'BUTTON01'-'BUTTON03', then the texts)
 	virtual void Unknown_58();							// +0x58 0x5E97C0

@@ -23,19 +23,19 @@ void PxProcessNode::Remove()
 {
 	Prev->Next = Next; Next->Prev = Prev; Prev = NULL; Next = NULL;
 }
-static struct PxProcessStack : public std::vector<PxProcessClass *> { PxProcessStack(const std::allocator<PxProcessClass *> &alloc = std::allocator<PxProcessClass *>()) : std::vector<PxProcessClass *>(alloc) {} } Stack;  // NAME 2: Push / Pop's, and the wrapper's name (0xBDC080; notes)
+static struct PxProcessStack : public std::vector<PxProcessList *> { PxProcessStack(const std::allocator<PxProcessList *> &alloc = std::allocator<PxProcessList *>()) : std::vector<PxProcessList *>(alloc) {} } Stack;  // NAME 2: Push / Pop's, and the wrapper's name (0xBDC080; notes)
 // 0x455A30
 void PxProcessNode::Process()
 {
 }
 // 0x455A90
-PxProcessClass::PxProcessClass()
+PxProcessList::PxProcessList()
 {
 	Root.Prev = &Root; Root.Next = &Root;
 }
 
 // 0x455AB0
-PxProcessClass::~PxProcessClass()
+PxProcessList::~PxProcessList()
 {
 	FAIL_IF(Root.Next != &Root) {
 		while (Root.Next != &Root) Root.Next->Remove();
@@ -44,7 +44,7 @@ PxProcessClass::~PxProcessClass()
 }
 
 // 0x455B70
-void PxProcessClass::Add(PxProcessNode *node)
+void PxProcessList::Add(PxProcessNode *node)
 {
 	FAIL_IF(!node) return;
 	FAIL_IF(node->Next || node->Prev) return;
@@ -55,7 +55,7 @@ void PxProcessClass::Add(PxProcessNode *node)
 }
 
 // 0x455BF0
-void PxProcessClass::Remove(PxProcessNode *node)
+void PxProcessList::Remove(PxProcessNode *node)
 {
 
 	FAIL_IF(!node) return;
@@ -64,7 +64,7 @@ void PxProcessClass::Remove(PxProcessNode *node)
 }
 
 // 0x455C80
-void PxProcessClass::Remove_All()
+void PxProcessList::Remove_All()
 {
 	while (Root.Next != &Root) {
 		Root.Next->Remove();
@@ -72,7 +72,7 @@ void PxProcessClass::Remove_All()
 }
 
 // 0x455CC0
-void PxProcessClass::Process()
+void PxProcessList::Process()
 {
 	for (PxProcessNode *node = Root.Next; node != &Root; node = node->Next) {
 		node->Process();
@@ -80,19 +80,19 @@ void PxProcessClass::Process()
 }
 
 // 0x455CF0
-PxProcessClass *PxProcessClass::Get_Current()
+PxProcessList *PxProcessList::Get_Current()
 {
 	return(Stack.back());
 }
 
 // 0x455D10
-void PxProcessClass::Push(PxProcessClass *process)
+void PxProcessList::Push(PxProcessList *process)
 {
 	Stack.push_back(process);
 }
 
 // 0x455F60
-void PxProcessClass::Pop()
+void PxProcessList::Pop()
 {
 	Stack.pop_back();
 }
@@ -101,17 +101,17 @@ void PxProcessClass::Pop()
 ** Notes
 **
 ** px_process.cpp is client 0x455880-0x4560B0 (its __FILE__ in the FAIL_IFs, lines 16-62), after PxObject's three
-** functions 0x4557F0-0x455860 (no string places them) and before px_wrapper.cpp. The class name PxProcessClass is
+** functions 0x4557F0-0x455860 (no string places them) and before px_wrapper.cpp. The class name PxProcessList is
 ** client.h's (D24); PxProcessNode, the function names and the header name are provisional; Next, Prev, Root and
 ** node are the asserts' names. 0x4559E0 / 0x455A10 construct Stack and register its destructor: the stub is
 ** unguarded, so Stack is a file static, not a class static member (that one's stub is guarded); its type is a
 ** wrapper (PxProcessStack) whose constructor 0x455FB0 and implicit destructor 0x455A50 the client
-** calls out of line, where a bare vector's inline into the $E. The vector<PxProcessClass *> members
+** calls out of line, where a bare vector's inline into the $E. The vector<PxProcessList *> members
 ** 0x455FE0-0x456080 are this file's instances.
 **
 ** Use in the retail client: ClientClass's constructor 0x726100 makes the list and its destructor deletes it;
-** SClient::Init 0x741180, Shutdown 0x741BB0 and Do_Frame 0x742B60 push it at their start and pop it at their end
-** (sclient.cpp calls them as PxProcessClass::Push / Pop). px_callback_accurate.cpp's callbacks
+** SpaceClientClass::Init 0x741180, Shutdown 0x741BB0 and Do_Frame 0x742B60 push it at their start and pop it at their end
+** (sclient.cpp calls them as PxProcessList::Push / Pop). px_callback_accurate.cpp's callbacks
 ** (0x44E470-0x44F6E0, 0x452AF0, 0x452B40) add and remove themselves on Get_Current(). Process 0x455CC0 and
 ** Remove_All 0x455C80 have no call, jump or pointer reference (their thunks 0x40B52D / 0x410EF1 included): the nodes
 ** are kept but never processed.

@@ -11,7 +11,7 @@
 #include "gd_slider.h"
 #include "gd_uiback.h"
 #include "unknown_7e7e00.h"
-#include "unknown_675120.h"
+#include "gd_uimesh.h"
 #include "unknown_signalbase.h"
 #include "..\shared\g_assert.h"
 #include "..\shared\auth_product.h"
@@ -22,7 +22,7 @@ extern FontStringFilesClass *Unknown_BE67BC;	// NAME 1: neutral (D10)
 
 
 // 0x56D280
-ChatPanelUIBase::ChatPanelUIBase(SClient *client) :
+ChatPanelUIBase::ChatPanelUIBase(SpaceClientClass *client) :
 	InterfaceClass((LineDisplayClientClass *)client),
 	InterfaceMesh(NULL),
 	Closed(0),

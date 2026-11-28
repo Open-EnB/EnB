@@ -58,9 +58,9 @@ char Random_Letter()	// NAME 2: random ASCII alphanumeric for FONT_EFFECT_RANDLE
 
 // The client writes the font's XSpacing (+0xD28) from MinSpacing (+0xD2C) directly; font32bit.h has both protected
 // (an inline of the client's header, or public members: to settle). Reached through a derived class meanwhile.
-struct Font32SpacingAccess : public Font32Class
+struct Font32SpacingAccess : public Font32Bit
 {
-	static void Reset_XSpacing(Font32Class *font) { Font32SpacingAccess *f = (Font32SpacingAccess *)font; f->XSpacing = f->MinSpacing; }
+	static void Reset_XSpacing(Font32Bit *font) { Font32SpacingAccess *f = (Font32SpacingAccess *)font; f->XSpacing = f->MinSpacing; }
 };
 
 // The text as drawn after a change (the effects that rebuild the string: RANDLETTER, STAY, STRETCH share the tail).
@@ -71,9 +71,9 @@ static void Rebuild_Texture(FontSys *style, char *buffer, bool reset_spacing)
 	}
 	style->Unknown4C4 = style->Unknown2D0.Unknown_6D8DC0(&style->Font, buffer, 0);
 }
-static inline void Append_Dots(StringClass &text, bool on) { if (on) { text += "..."; text.Peek_Buffer(); } }	// NAME 2: Update_Text's "..." layer (fontsys.cpp): the client calls the += copy's Get_Length out of line here too (0x6CAC4E, as 0x6D676E); the dead read is the layer's budget (D272)
+static inline void Add_Dots(StringClass &text) { text += "..."; } static inline void Append_Dots(StringClass &text, bool on) { if (on) { text += "..."; text.Peek_Buffer(); } }	// NAME 2: Update_Text's "..." layer (fontsys.cpp): the client calls the += copy's Get_Length out of line here too (0x6CAC4E, as 0x6D676E); the dead read is the layer's budget (D272)
 static inline void Set_Complete(FontSys *style, bool done) { style->Unknown404 = done; }  // NAME 2: Is_Complete's setter (0x67EEE0 reads +0x404); an inline layer, as the client spends inline budget here
-// NOT EXACT: worked toward the client's bytes (FX1 / FX, runs 2026-11-20 and -21; FS 2026-11-22): case order, branch senses, inline layers, budget, Append_Dots (RANDLETTER / STAY), STAY's buffer local (pushed to 0x6D8DC0 and String_Pixel_Width, 0x6CC3B8 / 0x6CC3D3)
+// NOT EXACT: worked toward the client's bytes (FX1 / FX, runs 2026-11-20 and -21; FS 2026-11-22; B1 2026-11-27: the clamps and products read from the compares, notes at the end): case order, branch senses, inline layers, budget, Append_Dots (RANDLETTER / STAY), STAY's buffer local (pushed to 0x6D8DC0 and String_Pixel_Width, 0x6CC3B8 / 0x6CC3D3)
 void FontSys::Unknown_6CA0C0(FontEffectStruct *effect)
 {
 	FontSys *style = this;
@@ -154,14 +154,14 @@ void FontSys::Unknown_6CA0C0(FontEffectStruct *effect)
 		if (effect->Initial < 0.0) {
 			alpha = Approach(alpha, effect->Intensity, (float)delta * rate);
 		} else {
-			float amount = rate * (float)style->Unknown274[4];
+
 			if (effect->Initial < effect->Intensity) {
-				float value = amount + effect->Initial;
+				float value = rate * (float)style->Unknown274[4] + effect->Initial;
 				float high = effect->Intensity;
 				if (high < value) value = high;
 				alpha = value;
 			} else {
-				float value = effect->Initial - amount;
+				float value = effect->Initial - rate * (float)style->Unknown274[4];
 				float low = effect->Intensity;
 				if (low > value) value = low;
 				alpha = value;
@@ -181,7 +181,7 @@ void FontSys::Unknown_6CA0C0(FontEffectStruct *effect)
 		const StringClass &source = style->Info.Text;
 		int length = source.Get_Length();
 		int target = (int)((float)style->Unknown270 * effect->Speed) / 200;
-		int shown = (target <= length) ? target : length;
+		int shown; if (length < target) shown = length; else shown = target;
 		StringClass text;
 
 		if (effect->Direction == FONT_DIRECTION_RIGHT) {
@@ -387,7 +387,7 @@ void FontSys::Unknown_6CA0C0(FontEffectStruct *effect)
 		} else {
 			int length = style->Info.Text.Get_Length();
 			int target = (int)((float)style->Unknown270 * effect->Speed) / 200;
-			int shown = (target <= length) ? target : length;
+			int shown; if (length < target) shown = length; else shown = target;
 			StringClass text(style->Info.Text.Get_Buffer(length));
 			if (effect->Direction == FONT_DIRECTION_RIGHT) {
 				text.Erase(shown, length - shown);
@@ -453,9 +453,9 @@ void FontSys::Unknown_6CA0C0(FontEffectStruct *effect)
 			case FONT_DIRECTION_UP:
 				old = style->Unknown420[3];
 				rect[2] = 0;
-				rect[3] = (style->Unknown2C8 - amount > 1) ? style->Unknown2C8 - amount : 1;
+				{ int value = (style->Unknown2C8 - amount > 1) ? style->Unknown2C8 - amount : 1; rect[3] = value;
 				if (rect[3] == 1) Set_Complete(style, true);
-				if (old != rect[3]) style->Unknown4C5 = false;
+				if (old != value) style->Unknown4C5 = false; }
 				break;
 			case FONT_DIRECTION_DOWN:
 				old = style->Unknown420[2]; if (amount >= style->Unknown2C8) amount = style->Unknown2C8;
@@ -474,9 +474,9 @@ void FontSys::Unknown_6CA0C0(FontEffectStruct *effect)
 		style->Unknown4C5 = false;
 
 
-		style->Unknown4A4.Color.X = (float)(style->Colors[style->Unknown44C]->RGB.X < style->Colors[1]->RGB.X ? style->Colors[1]->RGB.X : style->Colors[style->Unknown44C]->RGB.X) * 0.00392156f;
-		style->Unknown4A4.Color.Y = (float)(style->Colors[style->Unknown44C]->RGB.Y < style->Colors[1]->RGB.Y ? style->Colors[1]->RGB.Y : style->Colors[style->Unknown44C]->RGB.Y) * 0.00392156f;
-		style->Unknown4A4.Color.Z = (float)(style->Colors[style->Unknown44C]->RGB.Z < style->Colors[1]->RGB.Z ? style->Colors[1]->RGB.Z : style->Colors[style->Unknown44C]->RGB.Z) * 0.00392156f;
+		style->Unknown4A4.Color.X = (float)(max(style->Colors[1]->RGB.X, style->Colors[style->Unknown44C]->RGB.X)) * 0.00392156f;
+		style->Unknown4A4.Color.Y = (float)(max(style->Colors[1]->RGB.Y, style->Colors[style->Unknown44C]->RGB.Y)) * 0.00392156f;
+		style->Unknown4A4.Color.Z = (float)(max(style->Colors[1]->RGB.Z, style->Colors[style->Unknown44C]->RGB.Z)) * 0.00392156f;
 		style->Unknown254[1] = 2;
 		break;
 	}
@@ -604,26 +604,26 @@ void FontSys::Unknown_6CA0C0(FontEffectStruct *effect)
 
 	case FONT_EFFECT_STRETCH: {
 		// the letter spacing from Initial toward Intensity
-		float amount = effect->Speed * 0.05f * style->Unknown274[10];
+		float rate = effect->Speed * 0.05f;
 		float spacing;
 		if (effect->Initial < effect->Intensity) {
-			spacing = amount + effect->Initial;
+			spacing = rate * (float)style->Unknown274[10] + effect->Initial;
 			float high = effect->Intensity;
 			if (high < spacing) spacing = high;
 		} else {
-			spacing = effect->Initial - amount;
+			spacing = effect->Initial - rate * (float)style->Unknown274[10];
 			float low = effect->Intensity;
 			if (low > spacing) spacing = low;
 		}
-		style->Unknown448 = (int)spacing;
+		int &xs = style->Unknown448; xs = (int)spacing;
 		style->Font->Set_XSpacing(style->Unknown448);
 		StringClass text(style->Info.Text);
 		if (style->Unknown406) {
-			text += "..."; text.Peek_Buffer(); text.Peek_Buffer(); text.Peek_Buffer(); text.Peek_Buffer(); text.Peek_Buffer(); text.Peek_Buffer(); text.Peek_Buffer(); text.Peek_Buffer(); text.Peek_Buffer(); text.Peek_Buffer(); text.Peek_Buffer();
+			Add_Dots(text);
 		}
 		char *buffer = text.Get_Buffer(text.Get_Length()); Rebuild_Texture(style, buffer, false);
 		rect[1] = style->Unknown2C4 = style->Font->String_Pixel_Width(buffer);
-		rect[3] = style->Unknown2C8 = style->Font->Get_Height();
+		style->Unknown420[3] = style->Unknown2C8 = style->Font->Get_Height();
 		style->Unknown274[10] += delta;
 		if ((float)style->Unknown448 == effect->Intensity) {
 			Set_Complete(style, true);
@@ -673,7 +673,7 @@ void FontSys::Unknown_6CA0C0(FontEffectStruct *effect)
 				if (style->Unknown405) {
 					// the text saved in Unknown2F0 back
 					style->Info.Text = style->Unknown2F0; style->Info.Text.Peek_Buffer();
-					StringClass text(style->Info.Text); text.Peek_Buffer(); text.Peek_Buffer();
+					StringClass text(style->Info.Text); text.Peek_Buffer();
 					Append_Dots(text, style->Unknown406);
 
 
@@ -714,7 +714,7 @@ void FontSys::Unknown_6CA0C0(FontEffectStruct *effect)
 **	0x6CA070 (56 bytes, Random_Letter, exact) sits right before 0x6CA0C0 in this object (inlined at its three
 **	RANDLETTER call sites in 0x6CA0C0, out-of-line copy with thunk 0x40F2D6).
 **	0x6CA0C0 (11,680 bytes) and 0x6D5B10 (0x80, now in fontsys.cpp): FNT4 of the POC queue (.work/poc/ledger.md), builder TXT2, run 2026-11-02.
-**	Interim file (D137): the function before 0x6CA0C0 is fontdatabase.cpp's, the next one unknown_creator's; no known file
+**	Interim file (D137): the function before 0x6CA0C0 is fontdatabase.cpp's, the next one avatar_file's; no known file
 **	fits. Both are FontSys members, as in the client (__thiscall over the style; PF, run 2026-11-02-night; 0x6D5B10
 **	sits just before fontsys.cpp's Get_Obj_Space_Bounding_Sphere 0x6D5B90, so its file is probably fontsys.cpp).
 **	FontColorStruct / FontEffectStruct stay restated above: defining them in fontdatabase.h instantiates their TPoints
@@ -732,6 +732,15 @@ void FontSys::Unknown_6CA0C0(FontEffectStruct *effect)
 **	(0..1), Unknown458 (SCROLL's distance), Unknown488 (SHAKE's offset). 0x6CE4E0 (the font switch) is in unknown_6cce60.cpp.
 **
 **	Inline budget (FX, run 2026-11-21): Set_Complete is a file-local layer over the +0x404 stores; with it the client's
-**	out-of-line Store_Length in LETTER (0x6CB343, 0x6CB425) follows. The Peek_Buffer reads after STRETCH's "..." and
-**	STAY's copy are dead budget reads (D272); their counts are swept (11 / 2 give the client's zero register in edi).
+**	out-of-line Store_Length in LETTER (0x6CB343, 0x6CB425) follows. STRETCH's "..." goes through a one-line Add_Dots layer
+**	(0x6CCE60's form, no reads) and STAY's copy has one dead Peek_Buffer read (D272; B1h's lead: the client's call string).
+**	STRETCH stores Unknown448 through a reference local (B1x): the client rereads it for Set_XSpacing (0x6CBEC7), as VC6
+**	does when the store goes through an alias; that also gives the copy's registers (EmptyString ecx, 0x6CBED3; 57 -> 43).
+**
+**	Read from the client's compares (B1, run 2026-11-27-night; residue 134 -> 69): RANDLETTER's and LETTER's shown clamp is
+**	an if / else with length first (edi = length, cmp length, target / jl, 0x6CA3DE, 0x6CB2D8; it also sends STRETCH's copy
+**	operator= out of line as the client, 0x6CBF44); FADE's and STRETCH's elapsed-time product is written in each branch
+**	(fimul after the Initial / Intensity compare, 0x6CA313, 0x6CBE75), STRETCH over a rate local; wipe-out UP keeps its
+**	clamp in a local (cmp ecx, eax after the +0x404 store, 0x6CB6A0); STRETCH stores rect[3] through style (fild
+**	Unknown448 hoisted above the +0x42C store, 0x6CC05E). GLOW is always.h's max(C1, Ck) (B1h: its arguments loaded right to left, Ck first, &Colors[k] kept in eax, 0x6CB6FB-0x6CB715; 69 -> 57).
 */

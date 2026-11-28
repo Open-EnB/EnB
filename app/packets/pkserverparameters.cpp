@@ -25,7 +25,7 @@ ServerParametersPacketClass::ServerParametersPacketClass(float zband_min, float 
 {
 }
 
-ServerParametersPacketClass::ServerParametersPacketClass(RawPacketClass *raw)
+ServerParametersPacketClass::ServerParametersPacketClass(PacketClass *raw)
 {
 	raw->Get(&ZBandMin, sizeof(ZBandMin));
 	raw->Get(&ZBandMax, sizeof(ZBandMax));
@@ -48,9 +48,9 @@ ServerParametersPacketClass::ServerParametersPacketClass(RawPacketClass *raw)
 	raw->Get(&SectorNum, sizeof(SectorNum));
 }
 
-RawPacketClass *ServerParametersPacketClass::Build()
+PacketClass *ServerParametersPacketClass::Encode()
 {
-	RawPacketClass *raw = new RawPacketClass(66, Get_Data_Size());
+	PacketClass *raw = new PacketClass(66, Get_Data_Size());
 	raw->Add(&ZBandMin, sizeof(ZBandMin));
 	raw->Add(&ZBandMax, sizeof(ZBandMax));
 	raw->Add(&Min, sizeof(Min));

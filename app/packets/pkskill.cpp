@@ -7,16 +7,16 @@ SkillPacketClass::SkillPacketClass(int game_id, int action, int skill_index) : G
 {
 }
 
-SkillPacketClass::SkillPacketClass(RawPacketClass *raw)
+SkillPacketClass::SkillPacketClass(PacketClass *raw)
 {
 	raw->Get(&GameID, sizeof(GameID));
 	raw->Get(&Action, sizeof(Action));
 	raw->Get(&SkillIndex, sizeof(SkillIndex));
 }
 
-RawPacketClass *SkillPacketClass::Build()
+PacketClass *SkillPacketClass::Encode()
 {
-	RawPacketClass *raw = new RawPacketClass(87, Get_Data_Size());
+	PacketClass *raw = new PacketClass(87, Get_Data_Size());
 	raw->Add(&GameID, sizeof(GameID));
 	raw->Add(&Action, sizeof(Action));
 	raw->Add(&SkillIndex, sizeof(SkillIndex));
@@ -33,32 +33,32 @@ int SkillPacketClass::Print(char *buffer, int)
 	return(sprintf(buffer, "Skill {GameID=%d Action=%d, SkillIndex=%d}", GameID, Action, SkillIndex));
 }
 
-SkillPacket_88Class::SkillPacket_88Class(int game_id, int action, int ability_index) : GameID(game_id), Action(action), AbilityIndex(ability_index)
+SkillAbilityPacketClass::SkillAbilityPacketClass(int game_id, int action, int ability_index) : GameID(game_id), Action(action), AbilityIndex(ability_index)
 {
 }
 
-SkillPacket_88Class::SkillPacket_88Class(RawPacketClass *raw)
+SkillAbilityPacketClass::SkillAbilityPacketClass(PacketClass *raw)
 {
 	raw->Get(&GameID, sizeof(GameID));
 	raw->Get(&Action, sizeof(Action));
 	raw->Get(&AbilityIndex, sizeof(AbilityIndex));
 }
 
-RawPacketClass *SkillPacket_88Class::Build()
+PacketClass *SkillAbilityPacketClass::Encode()
 {
-	RawPacketClass *raw = new RawPacketClass(88, Get_Data_Size());
+	PacketClass *raw = new PacketClass(88, Get_Data_Size());
 	raw->Add(&GameID, sizeof(GameID));
 	raw->Add(&Action, sizeof(Action));
 	raw->Add(&AbilityIndex, sizeof(AbilityIndex));
 	return(raw);
 }
 
-int SkillPacket_88Class::Get_Data_Size()
+int SkillAbilityPacketClass::Get_Data_Size()
 {
 	return(sizeof(GameID) + sizeof(Action) + sizeof(AbilityIndex));
 }
 
-int SkillPacket_88Class::Print(char *buffer, int)
+int SkillAbilityPacketClass::Print(char *buffer, int)
 {
 	return(sprintf(buffer, "Skill {GameID=%d Action=%d, AbilityIndex=%d}", GameID, Action, AbilityIndex));
 }

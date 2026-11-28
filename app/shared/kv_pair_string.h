@@ -23,12 +23,12 @@
 #include "string_value.h"	// StringValueClass
 
 // vtable 0xAEB810, size 0x14
-class KVPairStringClass : public KVPairClass  // NAME 3: by convention (D24) from the client's file kv_pair_string.cpp
+class KVStringPairClass : public KVPairClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
-	KVPairStringClass(const char *key, StringValueClass *accessor, bool even = true, bool odd = true);	// 0x4B7FC0
-	KVPairStringClass(const KVPairStringClass &that);							// 0x4B8170 (line 44)
-	virtual ~KVPairStringClass();													// +0x00 0x4B80E0 (deleting 0x4B80B0)
+	KVStringPairClass(const char *key, StringValueClass *accessor, bool even = true, bool odd = true);	// 0x4B7FC0
+	private: KVStringPairClass(const KVStringPairClass &that); public:							// 0x4B8170 (line 44)  // NAME 5: thunk order confirmed, binary.md 5.11
+	virtual ~KVStringPairClass();													// +0x00 0x4B80E0 (deleting 0x4B80B0)
 	virtual KVPairClass *Clone() const;											// +0x04 0x4B8250
 	virtual const char *Get_Type_Name() const;									// +0x08 0x4B8090
 	virtual char *Get_Value_String(char *buf, int size) const;				// +0x0C 0x4B8360

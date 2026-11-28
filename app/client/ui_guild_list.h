@@ -16,7 +16,7 @@ class FontSys;				// fontmanager.h's
 class UIGuildListClass : public ChatPanelUIBase	// NAME 1: neutral, after its tooltip section 'UI_GUILD_LIST'
 {
 public:
-	UIGuildListClass(SClient *client);					// 0x81E030  // NAME 1 [client]: ChatPanelUIBase's
+	UIGuildListClass(SpaceClientClass *client);					// 0x81E030  // NAME 1 [client]: ChatPanelUIBase's
 	virtual ~UIGuildListClass();						// 0x81E1E0 (deleting 0x81E1B0)
 	virtual void Unknown_54();							// +0x54 0x81E3E0 ('tsi36a', 'fa_tsi36a.ini': the two buttons, the nine rows, the slider)
 	virtual void Unknown_58();							// +0x58 0x81E5C0 (activated: the lines emptied, the buttons on)

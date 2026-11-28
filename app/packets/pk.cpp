@@ -10,17 +10,17 @@ unsigned __int64 Unknown_8B4510(unsigned __int64 value);	// NAME 1 [Unknown_8B45
 unsigned __int64 Unknown_8B4560(unsigned __int64 value);	// NAME 1 [Unknown_8B4560]: wwonline's 64-bit ntohl
 
 
-PacketClass *Unknown_Create_Packet(void *buffer)
+UnknownPacketBaseClass *Unknown_Create_Packet(void *buffer)
 {
-	RawPacketClass raw(buffer);
+	PacketClass raw(buffer);
 	return(Unknown_869790(&raw));
 }
 
 // BEGIN pkclasses.py (generated: the switch 0x869790; do not edit by hand)
 
-PacketClass *Unknown_869790(RawPacketClass *raw)
+UnknownPacketBaseClass *Unknown_869790(PacketClass *raw)
 {
-	PacketClass *packet;
+	UnknownPacketBaseClass *packet;
 	switch (raw->Header.Opcode) {
 		case 0:
 			packet = new VersionRequestPacketClass(raw);
@@ -107,7 +107,7 @@ PacketClass *Unknown_869790(RawPacketClass *raw)
 			packet = new TiltPacketClass(raw);
 			break;
 		case 20:
-			packet = new MovePacketClass(raw);
+			packet = new MovementPacketClass(raw);
 			break;
 		case 21:
 			packet = new FirePacketClass(raw);
@@ -119,7 +119,7 @@ PacketClass *Unknown_869790(RawPacketClass *raw)
 			packet = new RequestTargetPacketClass(raw);
 			break;
 		case 24:
-			packet = new RequestTargetsTargetPacketClass(raw);
+			packet = new RequestTargetTargetPacketClass(raw);
 			break;
 		case 25:
 			packet = new SetTargetPacketClass(raw);
@@ -164,10 +164,10 @@ PacketClass *Unknown_869790(RawPacketClass *raw)
 			packet = new ChangeBaseAssetPacketClass(raw);
 			break;
 		case 39:
-			packet = new InventoryMovePacketClass(raw);
+			packet = new InvPacketClass(raw);
 			break;
 		case 40:
-			packet = new InventorySortPacketClass(raw);
+			packet = new InvSortPacketClass(raw);
 			break;
 		case 41:
 			packet = new ItemStatePacketClass(raw);
@@ -218,19 +218,19 @@ PacketClass *Unknown_869790(RawPacketClass *raw)
 			packet = new MasterJoinPacketClass(raw);
 			break;
 		case 54:
-			packet = new ServerRedirectPacketClass(raw);
+			packet = new ClientRedirectPacketClass(raw);
 			break;
 		case 58:
 			packet = new ServerHandoffPacketClass(raw);
 			break;
 		case 59:
-			packet = new Packet_003BClass(raw);
+			packet = new ServerReadyPacketClass(raw);
 			break;
 		case 60:
 			packet = new SetClientTypePacketClass(raw);
 			break;
 		case 61:
-			packet = new Packet_003DClass(raw);
+			packet = new ServerStopPacketClass(raw);
 			break;
 		case 66:
 			packet = new ServerParametersPacketClass(raw);
@@ -239,7 +239,7 @@ PacketClass *Unknown_869790(RawPacketClass *raw)
 			packet = new RequestTransformChangePacketClass(raw);
 			break;
 		case 69:
-			packet = new Packet_0045Class(raw);
+			packet = new RequestVersionPacketClass(raw);
 			break;
 		case 71:
 			packet = new ClientShipPacketClass(raw);
@@ -248,7 +248,7 @@ PacketClass *Unknown_869790(RawPacketClass *raw)
 			packet = new DialogPacketClass(raw);
 			break;
 		case 99:
-			packet = new Packet_0063Class(raw);
+			packet = new BroadcastPacketClass(raw);
 			break;
 		case 108:
 			packet = new Packet_006CClass(raw);
@@ -272,10 +272,10 @@ PacketClass *Unknown_869790(RawPacketClass *raw)
 			packet = new GlobalCreateCharacterPacketClass(raw);
 			break;
 		case 115:
-			packet = new Packet_0073Class(raw);
+			packet = new GlobalHelloPacketClass(raw);
 			break;
 		case 116:
-			packet = new Packet_0074Class(raw);
+			packet = new GlobalPlayerStatusPacketClass(raw);
 			break;
 		case 117:
 			packet = new GlobalErrorPacketClass(raw);
@@ -284,10 +284,10 @@ PacketClass *Unknown_869790(RawPacketClass *raw)
 			packet = new GlobalLoginPacketClass(raw);
 			break;
 		case 30000:
-			packet = new Packet_7530Class(raw);
+			packet = new GameEditorLoginPacketClass(raw);
 			break;
 		case 30001:
-			packet = new Packet_7531Class(raw);
+			packet = new GameEditorLogoutPacketClass(raw);
 			break;
 		case 30005:
 			packet = new Packet_7535Class(raw);
@@ -296,46 +296,46 @@ PacketClass *Unknown_869790(RawPacketClass *raw)
 			packet = new Packet_7536Class(raw);
 			break;
 		case 30008:
-			packet = new Packet_7538Class(raw);
+			packet = new GameEditorKVModifyPacketClass(raw);
 			break;
 		case 30012:
-			packet = new Packet_753CClass(raw);
+			packet = new GameEditorRequestTemplateListPacketClass(raw);
 			break;
 		case 30014:
-			packet = new Packet_753EClass(raw);
+			packet = new GameEditorCreateEmptyPacketClass(raw);
 			break;
 		case 30015:
-			packet = new Packet_753FClass(raw);
+			packet = new GameEditorCreateCancelPacketClass(raw);
 			break;
 		case 30016:
-			packet = new Packet_7540Class(raw);
+			packet = new GameEditorCreateFinalPacketClass(raw);
 			break;
 		case 30009:
-			packet = new Packet_7539Class(raw);
+			packet = new GameEditorDeletePacketClass(raw);
 			break;
 		case 30010:
-			packet = new Packet_753AClass(raw);
+			packet = new GameEditorMovePacketClass(raw);
 			break;
 		case 30017:
-			packet = new Packet_7541Class(raw);
+			packet = new GameEditorRequestSpawnDefaultsPacketClass(raw);
 			break;
 		case 30023:
 			packet = new GameEditorRequestPlanetUnitTypesPacketClass(raw);
 			break;
 		case 30025:
-			packet = new Packet_7549Class(raw);
+			packet = new GameEditorRequestPlanetUnitDetailsPacketClass(raw);
 			break;
 		case 30027:
 			packet = new GameEditorSaveSectorPacketClass(raw);
 			break;
 		case 30021:
-			packet = new Packet_7545Class(raw);
+			packet = new GameEditorClonePacketClass(raw);
 			break;
 		case 72:
 			packet = new CreateCharacterPacketClass(raw);
 			break;
 		case 73:
-			packet = new Packet_0049Class(raw);
+			packet = new DeleteCharacterPacketClass(raw);
 			break;
 		case 74:
 			packet = new CreateAttachmentPacketClass(raw);
@@ -344,13 +344,13 @@ PacketClass *Unknown_869790(RawPacketClass *raw)
 			packet = new ModeChangePacketClass(raw);
 			break;
 		case 75:
-			packet = new Packet_004BClass(raw);
+			packet = new ModeRequestPacketClass(raw);
 			break;
 		case 77:
-			packet = new Packet_004DClass(raw);
+			packet = new RegistrationResultPacketClass(raw);
 			break;
 		case 78:
-			packet = new StarbaseRequestPacketClass(raw);
+			packet = new StarbaseReqPacketClass(raw);
 			break;
 		case 79:
 			packet = new StarbaseSetPacketClass(raw);
@@ -377,28 +377,28 @@ PacketClass *Unknown_869790(RawPacketClass *raw)
 			packet = new SelectTalkTreePacketClass(raw);
 			break;
 		case 5000:
-			packet = new Packet_1388Class(raw);
+			packet = new TaskHelloPacketClass(raw);
 			break;
 		case 5001:
-			packet = new Packet_1389Class(raw);
+			packet = new SectorHelloPacketClass(raw);
 			break;
 		case 5002:
-			packet = new Packet_138AClass(raw);
+			packet = new TaskStartPacketClass(raw);
 			break;
 		case 5003:
-			packet = new Packet_138BClass(raw);
+			packet = new TaskStopPacketClass(raw);
 			break;
 		case 5004:
-			packet = new Packet_138CClass(raw);
+			packet = new TaskRequestPacketClass(raw);
 			break;
 		case 5005:
-			packet = new Packet_138DClass(raw);
+			packet = new TaskPingPacketClass(raw);
 			break;
 		case 5006:
-			packet = new Packet_138EClass(raw);
+			packet = new TaskPongPacketClass(raw);
 			break;
 		case 5009:
-			packet = new Packet_1391Class(raw);
+			packet = new PlayerStatusPacketClass(raw);
 			break;
 		case 90:
 			packet = new VerbRequestPacketClass(raw);
@@ -410,16 +410,16 @@ PacketClass *Unknown_869790(RawPacketClass *raw)
 			packet = new VerbUpdatePacketClass(raw);
 			break;
 		case 5011:
-			packet = new Packet_1393Class(raw);
+			packet = new RequestSectorListPacket(raw);
 			break;
 		case 5010:
-			packet = new Packet_1392Class(raw);
+			packet = new SectorListPacketClass(raw);
 			break;
 		case 93:
-			packet = new EquipUsePacketClass(raw);
+			packet = new UseInventoryPacketClass(raw);
 			break;
 		case 94:
-			packet = new AvatarEmotePacketClass(raw);
+			packet = new ChatstreamPacketClass(raw);
 			break;
 		case 95:
 			packet = new MessageChatstreamPacketClass(raw);
@@ -434,13 +434,13 @@ PacketClass *Unknown_869790(RawPacketClass *raw)
 			packet = new SkillPacketClass(raw);
 			break;
 		case 88:
-			packet = new SkillPacket_88Class(raw);
+			packet = new SkillAbilityPacketClass(raw);
 			break;
 		case 100:
 			packet = new DamagePacketClass(raw);
 			break;
 		case 101:
-			packet = new UiTriggerPacketClass(raw);
+			packet = new UITriggerPacketClass(raw);
 			break;
 		case 103:
 			packet = new GadgetPacketClass(raw);
@@ -452,7 +452,7 @@ PacketClass *Unknown_869790(RawPacketClass *raw)
 			packet = new ClickIndicatorPacketClass(raw);
 			break;
 		case 106:
-			packet = new ClientSoundPacketClass(raw);
+			packet = new SoundPacketClass(raw);
 			break;
 		case 107:
 			packet = new SoundCommandPacketClass(raw);
@@ -461,13 +461,13 @@ PacketClass *Unknown_869790(RawPacketClass *raw)
 			packet = new ManufactureItemCatagoryPacketClass(raw);
 			break;
 		case 122:
-			packet = new ManufactureItemCatagoryPacket_122Class(raw);
+			packet = new ManufactureSetItemCategoryPacketClass(raw);
 			break;
 		case 123:
-			packet = new ManufactureItemIdPacketClass(raw);
+			packet = new ManufactureSetItemIDPacketClass(raw);
 			break;
 		case 124:
-			packet = new RefineryItemIdPacketClass(raw);
+			packet = new RefinerySetItemIDPacketClass(raw);
 			break;
 		case 125:
 			packet = new Packet_007DClass(raw);
@@ -479,16 +479,16 @@ PacketClass *Unknown_869790(RawPacketClass *raw)
 			packet = new ManufactureSetPacketClass(raw);
 			break;
 		case 128:
-			packet = new ManufactureTechLevelFilterPacketClass(raw);
+			packet = new ManufactureSetTechLevelFilterPacketClass(raw);
 			break;
 		case 134:
 			packet = new MissionForfeitPacketClass(raw);
 			break;
 		case 135:
-			packet = new MissionDismissalPacketClass(raw);
+			packet = new MissionDismissPacketClass(raw);
 			break;
 		case 136:
-			packet = new PetitionStuckPacketClass(raw);
+			packet = new PetitionPacketClass(raw);
 			break;
 		case 140:
 			packet = new LootHulkPermissionPacketClass(raw);
@@ -509,10 +509,10 @@ PacketClass *Unknown_869790(RawPacketClass *raw)
 			packet = new PlayerObjectIsAttackingUpdatePacket(raw);
 			break;
 		case 141:
-			packet = new IncapacitanceRequestPacketClass(raw);
+			packet = new IncapacitanceDetailsRequestPacket(raw);
 			break;
 		case 142:
-			packet = new IncapacitanceDistressBeaconPacketClass(raw);
+			packet = new IncapacitanceDistressBeaconPacket(raw);
 			break;
 		case 143:
 			packet = new Packet_008FClass(raw);
@@ -569,7 +569,7 @@ PacketClass *Unknown_869790(RawPacketClass *raw)
 			packet = new StarbaseAvatarUpdatePacketClass(raw);
 			break;
 		case 159:
-			packet = new Starbase_Room_ChangePacketClass(raw);
+			packet = new StarbaseAvatarRoomChangePacketClass(raw);
 			break;
 		case 160:
 			packet = new StarbaseAvatarRoomUpdatePacketClass(raw);
@@ -596,22 +596,22 @@ PacketClass *Unknown_869790(RawPacketClass *raw)
 			packet = new NoteContentPacketClass(raw);
 			break;
 		case 167:
-			packet = new Packet_00A7Class(raw);
+			packet = new ChatBasicRequestPacketClass(raw);
 			break;
 		case 168:
-			packet = new Packet_00A8Class(raw);
+			packet = new ChatProxyLoginPacketClass(raw);
 			break;
 		case 169:
-			packet = new Packet_00A9Class(raw);
+			packet = new ChatProxyRequestPacketClass(raw);
 			break;
 		case 170:
-			packet = new Packet_00AAClass(raw);
+			packet = new ChatProxyResponsePacketClass(raw);
 			break;
 		case 171:
-			packet = new Packet_00ABClass(raw);
+			packet = new ChatProxyResponseListPacketClass(raw);
 			break;
 		case 172:
-			packet = new Packet_00ACClass(raw);
+			packet = new ChatProxyEventPacketClass(raw);
 			break;
 		case 163:
 			packet = new ClientChatRequestPacketClass(raw);
@@ -626,10 +626,10 @@ PacketClass *Unknown_869790(RawPacketClass *raw)
 			packet = new GMViewMissionLogPacketClass(raw);
 			break;
 		case 236:
-			packet = new GMDestroyItemPacketClass(raw);
+			packet = new GMDestroyItemRequestPacketClass(raw);
 			break;
 		case 237:
-			packet = new GMResetMissionPacketClass(raw);
+			packet = new GMResetMissionRequestPacketClass(raw);
 			break;
 		case 165:
 			packet = new ClientChatEventPacketClass(raw);
@@ -641,82 +641,82 @@ PacketClass *Unknown_869790(RawPacketClass *raw)
 			packet = new Packet_00ADClass(raw);
 			break;
 		case 174:
-			packet = new Packet_00AEClass(raw);
+			packet = new GroupServerRequestPacketClass(raw);
 			break;
 		case 175:
-			packet = new Packet_00AFClass(raw);
+			packet = new GroupServerResponsePacketClass(raw);
 			break;
 		case 176:
-			packet = new Packet_00B0Class(raw);
+			packet = new GroupServerCreatePacketClass(raw);
 			break;
 		case 177:
-			packet = new Packet_00B1Class(raw);
+			packet = new GroupServerUpdatePacketClass(raw);
 			break;
 		case 188:
-			packet = new CTA_Request_PacketClass(raw);
+			packet = new CTARequestPacketClass(raw);
 			break;
 		case 189:
 			packet = new CTAResponsePacketClass(raw);
 			break;
 		case 190:
-			packet = new ConfirmedActionOfferPacketClass(raw);
+			packet = new ConfirmedActionOfferPacket(raw);
 			break;
 		case 191:
-			packet = new ConfirmedActionTimeoutPacketClass(raw);
+			packet = new ConfirmedActionTimeoutPacket(raw);
 			break;
 		case 192:
-			packet = new ConfirmedActionResponsePacketClass(raw);
+			packet = new ConfirmedActionResponsePacket(raw);
 			break;
 		case 193:
-			packet = new GuildPlayerOnlinePacketClass(raw);
+			packet = new GuildPlayerOnlineSectorPacket(raw);
 			break;
 		case 194:
-			packet = new GuildAdjustContribPacketClass(raw);
+			packet = new GuildAdjustContribPacket(raw);
 			break;
 		case 195:
-			packet = new GuildStatusUpdatePacketClass(raw);
+			packet = new GuildStatusUpdatePacket(raw);
 			break;
 		case 196:
-			packet = new GuildBeginCreationPacketClass(raw);
+			packet = new GuildBeginCreationPacket(raw);
 			break;
 		case 197:
-			packet = new GuildLeaderAcceptClientPacketClass(raw);
+			packet = new GuildLeaderAcceptClientPacket(raw);
 			break;
 		case 198:
-			packet = new GuildLeaderAcceptSectorPacketClass(raw);
+			packet = new GuildLeaderAcceptSectorPacket(raw);
 			break;
 		case 199:
-			packet = new GuildRecruitConfirmGuildPacketClass(raw);
+			packet = new GuildRecruitConfirmGuildPacket(raw);
 			break;
 		case 200:
 			packet = new GuildRecruitConfirmSectorPacket(raw);
 			break;
 		case 201:
-			packet = new GuildRecruitAcceptClientPacketClass(raw);
+			packet = new GuildRecruitAcceptClientPacket(raw);
 			break;
 		case 202:
-			packet = new GuildRecruitAcceptSectorPacketClass(raw);
+			packet = new GuildRecruitAcceptSectorPacket(raw);
 			break;
 		case 203:
-			packet = new GuildSimpleGuildSectorPacketClass(raw);
+			packet = new GuildSimpleGuildSectorPacket(raw);
 			break;
 		case 204:
 			packet = new GuildSimpleSectorClientPacket(raw);
 			break;
 		case 205:
-			packet = new GuildSimpleClientSectorPacketClass(raw);
+			packet = new GuildSimpleClientSectorPacket(raw);
 			break;
 		case 206:
-			packet = new GuildSimpleSectorGuildPacketClass(raw);
+			packet = new GuildSimpleSectorGuildPacket(raw);
 			break;
 		case 207:
-			packet = new GuildMessageGuildPacketClass(raw);
+			packet = new GuildMessageGuildPacket(raw);
 			break;
 		case 208:
 			packet = new GuildMessageSectorPacket(raw);
 			break;
 		case 209:
-			packet = new GuildPermissionsPacketClass(raw);
+			packet = new GuildPermissionsPacket(raw);
 			break;
 		case 210:
 			packet = new GuildPlayerPermissionsPacket(raw);
@@ -725,37 +725,37 @@ PacketClass *Unknown_869790(RawPacketClass *raw)
 			packet = new GuildRankNamesSectorPacket(raw);
 			break;
 		case 212:
-			packet = new GuildRankNamesRequestClientPacketClass(raw);
+			packet = new GuildRankNamesRequestClientPacket(raw);
 			break;
 		case 213:
-			packet = new GuildRankNamesGuildPacketClass(raw);
+			packet = new GuildRankNamesGuildPacket(raw);
 			break;
 		case 214:
-			packet = new GuildRankNamesRequestSectorPacketClass(raw);
+			packet = new GuildRankNamesRequestSectorPacket(raw);
 			break;
 		case 215:
-			packet = new GuildGMRenameConfirmGuildPacketClass(raw);
+			packet = new GuildGMRenameConfirmGuildPacket(raw);
 			break;
 		case 216:
 			packet = new GuildGMRenameConfirmSectorPacket(raw);
 			break;
 		case 217:
-			packet = new GuildGMRenameAcceptSectorPacketClass(raw);
+			packet = new GuildGMRenameAcceptSectorPacket(raw);
 			break;
 		case 218:
-			packet = new GuildDeletePlayerPacketClass(raw);
+			packet = new GuildDeletePlayerPacket(raw);
 			break;
 		case 219:
-			packet = new GuildPlayerInfoDeletedPacketClass(raw);
+			packet = new GuildPlayerInfoDeletedPacket(raw);
 			break;
 		case 220:
-			packet = new GuildDeductFeePacketClass(raw);
+			packet = new GuildDeductFeePacket(raw);
 			break;
 		case 221:
-			packet = new GpsRequestPacketClass(raw);
+			packet = new GPSRequestPacketClass(raw);
 			break;
 		case 222:
-			packet = new GpsResponsePacketClass(raw);
+			packet = new GPSResponsePacketClass(raw);
 			break;
 		case 223:
 			packet = new DirLockRequestPacketClass(raw);
@@ -779,19 +779,19 @@ PacketClass *Unknown_869790(RawPacketClass *raw)
 			packet = new GlobalLockReleasePacketClass(raw);
 			break;
 		case 230:
-			packet = new Packet_00E6Class(raw);
+			packet = new GlobalContainerRequestPacketClass(raw);
 			break;
 		case 231:
-			packet = new Packet_00E7Class(raw);
+			packet = new GlobalContainerResponsePacketClass(raw);
 			break;
 		case 119:
-			packet = new Packet_0077Class(raw);
+			packet = new GlobalSetReferrerPacketClass(raw);
 			break;
 		case 120:
-			packet = new Packet_0078Class(raw);
+			packet = new GlobalSetReferrerResponsePacketClass(raw);
 			break;
 		case 232:
-			packet = new Packet_00E8Class(raw);
+			packet = new SpendReferralPointPacketClass(raw);
 			break;
 		case 233:
 			packet = new ReferralPointsAvailablePacketClass(raw);
@@ -1083,54 +1083,54 @@ PacketClass *Unknown_869790(RawPacketClass *raw)
 // END pkclasses.py
 
 
-int RawPacketClass::Add(const void *data, int len)
+int PacketClass::Add(const void *data, int len)
 {
 	return(Data.Write(data, len));
 }
 
-void RawPacketClass::Add(Unknown_PacketDataClass &object)
+void PacketClass::Add(Unknown_PacketDataClass &object)
 {
 	object.Write(&Data);
 }
 
-void RawPacketClass::Add(const __int64 &value)
+void PacketClass::Add(const __int64 &value)
 {
 	__int64 net = Unknown_8B4510(value);
 	Data.Write(&net, 8);
 }
 
-void RawPacketClass::Add(const int &value)
+void PacketClass::Add(const int &value)
 {
 	int net = htonl(value);
 	Data.Write(&net, 4);
 }
 
-void RawPacketClass::Add(const short &value)
+void PacketClass::Add(const short &value)
 {
 	short net = htons(value);
 	Data.Write(&net, 2);
 }
 
-void RawPacketClass::Add(const bool &value)
+void PacketClass::Add(const bool &value)
 {
 	bool net = htonl(value) != 0;
 	Data.Write(&net, 1);
 }
 
-void RawPacketClass::Add(const float &value)
+void PacketClass::Add(const float &value)
 {
 	unsigned long net = htonl(*(const unsigned long *)&value);
 	Data.Write(&net, 4);
 }
 
-void RawPacketClass::Add_String(const char *string)
+void PacketClass::Add_String(const char *string)
 {
 	Data.Write_String(string);
 }
 
 
 
-void RawPacketClass::Add(const char *str)
+void PacketClass::Add(const char *str)
 {
 	G_ASSERT(str);
 	int len = strlen(str) + 1;
@@ -1139,7 +1139,7 @@ void RawPacketClass::Add(const char *str)
 }
 
 
-void RawPacketClass::Add(const std::string &s)
+void PacketClass::Add(const std::string &s)
 {
 	unsigned int slen = s.length();
 	FAIL_IF(slen > 0xFFFF) slen = 0xFFFF;
@@ -1150,7 +1150,7 @@ void RawPacketClass::Add(const std::string &s)
 
 
 
-void RawPacketClass::Get(std::string *s)
+void PacketClass::Get(std::string *s)
 {
 	FAIL_IF(!s) return;
 	unsigned int len = 0;
@@ -1162,55 +1162,55 @@ void RawPacketClass::Get(std::string *s)
 	delete buffer;
 }
 
-int RawPacketClass::Get_Size(const std::string &s)
+int PacketClass::Get_Size(const std::string &s)
 {
 	unsigned int length = s.length();
 	FAIL_IF(length > 0xFFFF) length = 0xFFFF;
 	return(length + 2);
 }
 
-int RawPacketClass::Get(void *buffer, int len)
+int PacketClass::Get(void *buffer, int len)
 {
 	return(Data.Read(buffer, len));
 }
 
-void RawPacketClass::Get(Unknown_PacketDataClass *object)
+void PacketClass::Get(Unknown_PacketDataClass *object)
 {
 	if (object) {
 		object->Read(&Data);
 	}
 }
 
-void RawPacketClass::Get(Unknown_PacketDataClass &object)
+void PacketClass::Get(Unknown_PacketDataClass &object)
 {
 	object.Read(&Data);
 }
 
-void RawPacketClass::Get(__int64 &value)
+void PacketClass::Get(__int64 &value)
 {
 	Data.Read(&value, 8);
 	value = Unknown_8B4560(value);
 }
 
-void RawPacketClass::Get(int &value)
+void PacketClass::Get(int &value)
 {
 	Data.Read(&value, 4);
 	value = ntohl(value);
 }
 
-void RawPacketClass::Get(short &value)
+void PacketClass::Get(short &value)
 {
 	Data.Read(&value, 2);
 	value = ntohs(value);
 }
 
-void RawPacketClass::Get(bool &value)
+void PacketClass::Get(bool &value)
 {
 	Data.Read(&value, 1);
 	value = ntohl(value) != 0;
 }
 
-void RawPacketClass::Get(float &value)
+void PacketClass::Get(float &value)
 {
 	unsigned long net;
 	Data.Read(&net, 4);
@@ -1218,7 +1218,7 @@ void RawPacketClass::Get(float &value)
 	value = *(float *)&net;
 }
 
-char *RawPacketClass::Get_String()
+char *PacketClass::Get_String()
 {
 	return(Data.Read_String());
 }
@@ -1228,7 +1228,7 @@ char *RawPacketClass::Get_String()
 
 
 
-void RawPacketClass::Get(char **str)
+void PacketClass::Get(char **str)
 {
 	FAIL_IF(!str) return;
 	*str = 0;
@@ -1255,7 +1255,7 @@ void RawPacketClass::Get(char **str)
 }
 
 
-int RawPacketClass::Get_Size(const char *str)
+int PacketClass::Get_Size(const char *str)
 {
 	return(strlen(str) + 1);
 }
@@ -1339,7 +1339,7 @@ int RawPacketClass::Get_Size(const char *str)
 
 
 
-int PacketClass::Unknown_14(int a, int b)
+int UnknownPacketBaseClass::Unknown_14(int a, int b)
 {
 	G_ASSERT(0);
 	return(0);
@@ -1349,7 +1349,7 @@ int PacketClass::Unknown_14(int a, int b)
 /*
 **	Reconstruction notes (pk.cpp, PARTIAL)
 **
-**	* Rebuilt: the factory 0x8696C0 (the message wrapped in a RawPacketClass on its stack, the
+**	* Rebuilt: the factory 0x8696C0 (the message wrapped in a PacketClass on its stack, the
 **	  switch called), the raw message's field helpers 0x86E870-0x86EFE0 (all exact) and the base's slot
 **	  +0x14 default 0x86F010 (assert line 1344). The numbers go in network byte order (htonl / htons,
 **	  wwonline's 64-bit pair 0x8B4510 / 0x8B4560); a bool through htonl and back (`!= 0`), a float
@@ -1361,6 +1361,6 @@ int PacketClass::Unknown_14(int a, int b)
 **	  'PriorityMessage', 'QueueMessage', 'PushMessage'), and the static after 0x86F010.
 */
 
-// The packets' serial numbers (PacketClass's constructor, inline in every packet's): 0xBF4128,
+// The packets' serial numbers (UnknownPacketBaseClass's constructor, inline in every packet's): 0xBF4128,
 // here after the notes so no assert moves (D25).
-int PacketClass::Next_Serial;
+int UnknownPacketBaseClass::Next_Serial;

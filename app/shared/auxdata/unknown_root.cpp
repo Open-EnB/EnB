@@ -25,7 +25,7 @@ unsigned int Unknown_Get_Ticks()
 #include "policy.h"
 #include "unknown_changes.h"
 
-UnknownRootClass::UnknownRootClass(int unknown, const char *name) : DeltaCompoundClass(name), Unknown9C(unknown)
+UnknownRootClass::UnknownRootClass(int unknown, const char *name) : DeltaContainer(name), Unknown9C(unknown)
 {
 }
 
@@ -33,14 +33,14 @@ UnknownRootClass::UnknownRootClass(int unknown, const char *name) : DeltaCompoun
 
 
 
-LinearBufferClass *UnknownRootClass::Encode(PolicyClass *policy, ChangeTableClass *changes)
+LinearBuffer *UnknownRootClass::Encode(PolicyClass *policy, ChangeTableClass *changes)
 {
 	DeltaCollectorClass collector(policy, changes);
 	Accept(collector);
 	if (collector.Updated.Count == 0 && collector.Defaulted.Count == 0 && collector.Cleared.Count == 0) {
 		return 0;
 	}
-	LinearBufferClass *buf = new LinearBufferClass(0x400, 0x400);
+	LinearBuffer *buf = new LinearBuffer(0x400, 0x400);
 	DeltaListSetClass set(&collector.Updated, &collector.Defaulted, &collector.Cleared);
 	int count = Unknown98;
 	RecordTableClass records(count, &collector.Updated, &collector.Defaulted, &collector.Cleared);
@@ -63,7 +63,7 @@ LinearBufferClass *UnknownRootClass::Encode(PolicyClass *policy, ChangeTableClas
 	return buf;
 }
 
-bool DeltaCompoundClass::Decode(LinearBufferClass &buf, const DurationClass &base)
+bool DeltaContainer::Decode(LinearBuffer &buf, const DurationClass &base)
 {
 	char encoding;
 	buf.Read(&encoding, 1);
@@ -109,14 +109,14 @@ class PolicyIncludeAllClass : public PolicyConditionalSetClass  // NAME 2: descr
 public:
 	PolicyIncludeAllClass() : PolicyConditionalSetClass(Create_NEW(New_Always()))
 	{
-		NameClass name("*");
+		AuxDataName name("*");
 		Add_Rule(name, INCLUDE, -1);
 	}
 };
 
 void UnknownSendRootClass::Unknown_48()
 {
-	DeltaCompoundClass::Unknown_48();
+	DeltaContainer::Unknown_48();
 	PolicyIncludeAllClass *rule_set = new PolicyIncludeAllClass;
 	Policy = new PolicyClass;
 	Policy->Add(rule_set);
@@ -132,7 +132,7 @@ UnknownSendRootClass::~UnknownSendRootClass()
 	delete Changes;
 }
 
-LinearBufferClass *UnknownSendRootClass::Encode_Changes(unsigned int time)
+LinearBuffer *UnknownSendRootClass::Encode_Changes(unsigned int time)
 {
 	Changes->Time = time;
 	if (Changes->Root->Dirty || Changes->Delta->Unknown70 != Changes->Root->Stamp) {
@@ -145,7 +145,7 @@ LinearBufferClass *UnknownSendRootClass::Encode_Changes(unsigned int time)
 }
 
 // 0x4B0860: in another object (0x4AF.../0x4B0..., not attributed either); here until it has a file
-void DeltaVisitorClass::Visit_Children(DeltaCompoundClass *delta)
+void DeltaVisitorClass::Visit_Children(DeltaContainer *delta)
 {
 	int count = delta->Children.size();
 	for (int i = 0; i < count; i++) {
@@ -162,10 +162,10 @@ void DeltaVisitorClass::Visit_Children(DeltaCompoundClass *delta)
 **	* UnknownRootClass (vtable 0xAEAB88, size 0xA0): constructor 0x4A3BD0 (int, name: the int at
 **	  +0x9C), destructor 0x4A3D30 (deleting 0x4A3D00). The 10 roots of the CREATE factory 0x6F6000
 **	  and the Player root 0x752510 derive from it (app/client/aux_roots.cpp, generated).
-**	* DeltaCompoundClass::Decode 0x4A3FA0: the encoding byte picks the record form (0) or the tree
+**	* DeltaContainer::Decode 0x4A3FA0: the encoding byte picks the record form (0) or the tree
 **	  form (encode.cpp). The packet entry 0x7364C0 calls it on the root.
 **	* DeltaVisitorClass::Visit_Children 0x4B0860 (another object, unattributed).
-**	The same object also has DeltaClass's inline virtuals 0x4A3C50-0x4A3CB0 and DeltaCompoundClass's
+**	The same object also has DeltaClass's inline virtuals 0x4A3C50-0x4A3CB0 and DeltaContainer's
 **	vtable 0xAEABE4 and deleting destructor 0x4A3CD0 (emitted here first: compiler-generated).
 **	* UnknownSendRootClass::Unknown_48 0x4A40B0: the always-true condition comes through one inline
 **	  layer (New_Always), so its PolicyConditionClass constructor 0x4A4520 stays out of line as in the
@@ -182,7 +182,7 @@ void DeltaVisitorClass::Visit_Children(DeltaCompoundClass *delta)
 **	  its Unknown_48 0x4A40B0 (makes the collector +0xA0, a policy object +0xA4 and the change
 **	  table +0xA8, 0x4AB910), destructor 0x4A4590, 0x4A4660 (the encode driver), and the ref-counted
 **	  helpers 0x4A42D0-0x4A4780 (vtables 0xAEAC9C-0xAEACD4).
-**	* The clock is defined before the includes (PS, run 2026-11-18): permstr.h's PermStringInitClass static (0x4A3B80,
+**	* The clock is defined before the includes (PS, run 2026-11-18): permstr.h's PermStringInit static (0x4A3B80,
 **	  atexit 0x4A3BB0; CRT entry 49, the object's only one) follows the clock 0x4A3B40 in the client, so the header
 **	  that brings it (unknown_root.h through delta.h and name.h) comes after it.
 */

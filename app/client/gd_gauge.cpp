@@ -53,7 +53,7 @@ const int GAUGE_OBJ_NAME_SIZE = 32;	// NAME 1: neutral (D10): the asserts' 'size
 
 
 GaugeGadgetClass::GaugeGadgetClass(RenderObjClass *mesh, const char *format) :
-	Unknown_675120Class(NULL, 0),
+	UIMeshGadgetClass(NULL, 0),
 	Exists(false)
 {
 	if (mesh) {
@@ -87,14 +87,14 @@ RenderObjClass *GaugeGadgetClass::Unknown_24(Vector3 *position, float *frame, bo
 	if (!indicator) {
 		return(NULL);
 	}
-	return(Unknown_675120Class::Unknown_24(position, frame, indicator));
+	return(UIMeshGadgetClass::Unknown_24(position, frame, indicator));
 }
 
 
 
 void GaugeGadgetClass::Set_Render_Obj(RenderObjClass *robj)
 {
-	Unknown_675120Class::Set_Render_Obj(robj);
+	UIMeshGadgetClass::Set_Render_Obj(robj);
 	if (robj) {
 		Unknown_496AE0(robj, true);
 		Exists = true;

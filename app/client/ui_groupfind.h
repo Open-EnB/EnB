@@ -43,7 +43,7 @@ struct UIGroupFindRowStruct	// NAME 1: neutral (D10)
 class UIGroupFindClass : public ChatPanelUIBase	// NAME 3: class-from-file (D24) for ui_groupfind.cpp (its tooltips' 'UI_GROUPFIND')
 {
 public:
-	UIGroupFindClass(SClient *client);					// 0x598DF0 (ui_groupopt.cpp's 0x59AD10)  // NAME 1 [client]: ChatPanelUIBase's
+	UIGroupFindClass(SpaceClientClass *client);					// 0x598DF0 (ui_groupopt.cpp's 0x59AD10)  // NAME 1 [client]: ChatPanelUIBase's
 	virtual ~UIGroupFindClass();						// 0x599080 (deleting 0x599050)
 	virtual void Unknown_54();							// +0x54 0x599260 ('tsi25a', 'fa_tsi25a.ini': the buttons, the rows, the slider)
 	virtual void Unknown_58();							// +0x58 0x599660 (activated: both lists emptied, the slider reset)

@@ -18,13 +18,13 @@
 #include "pk.h"
 
 // opcode 98 (0x0062, ?): vtable 0xB0A260, constructor 0x881410, 0x18 bytes
-class DialogPacketClass : public PacketClass
+class DialogPacketClass : public UnknownPacketBaseClass
 {
 public:
 	DialogPacketClass(int type, char *text);	// 0x881300
-	DialogPacketClass(RawPacketClass *raw);	// 0x881410
+	DialogPacketClass(PacketClass *raw);	// 0x881410
 	virtual ~DialogPacketClass();	// +0x00 0x8813E0 / 0x8814E0
-	virtual RawPacketClass *Build();	// +0x04 0x881520
+	virtual PacketClass *Encode();	// +0x04 0x881520  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x736DA0 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x881600
 	virtual int Print(char *buffer, int len);	// +0x10 0x881620

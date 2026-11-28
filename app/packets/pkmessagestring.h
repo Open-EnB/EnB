@@ -18,14 +18,14 @@
 #include "pk.h"
 
 // opcode 29 (0x001D, MESSAGE_STRING): vtable 0xB0B444, constructor 0x89E310, 0x14 bytes
-class MessageStringPacketClass : public PacketClass
+class MessageStringPacketClass : public UnknownPacketBaseClass
 {
 public:
 	MessageStringPacketClass(unsigned char color, char *text);	// 0x89E120 (String is text's, not copied)
 	MessageStringPacketClass(unsigned char color, const std::string &text);	// 0x89E200 (String a copy)
-	MessageStringPacketClass(RawPacketClass *raw);	// 0x89E310
+	MessageStringPacketClass(PacketClass *raw);	// 0x89E310
 	virtual ~MessageStringPacketClass();	// +0x00 0x89E1D0 / 0x89E3E0
-	virtual RawPacketClass *Build();	// +0x04 0x89E420
+	virtual PacketClass *Encode();	// +0x04 0x89E420  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x736760 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x89E500
 	virtual int Print(char *buffer, int len);	// +0x10 0x89E520

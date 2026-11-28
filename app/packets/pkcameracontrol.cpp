@@ -8,15 +8,15 @@ CameraControlPacketClass::CameraControlPacketClass(int message, int game_id) : M
 	Unknown14 = Unknown_14(game_id, -1);
 }
 
-CameraControlPacketClass::CameraControlPacketClass(RawPacketClass *raw) : Message(-1), GameID(0), Unknown14(-1)
+CameraControlPacketClass::CameraControlPacketClass(PacketClass *raw) : Message(-1), GameID(0), Unknown14(-1)
 {
 	raw->Get(Message);
 	raw->Get(GameID);
 }
 
-RawPacketClass *CameraControlPacketClass::Build()
+PacketClass *CameraControlPacketClass::Encode()
 {
-	RawPacketClass *raw = new RawPacketClass(Get_Type(), Get_Data_Size());
+	PacketClass *raw = new PacketClass(Get_Type(), Get_Data_Size());
 	raw->Add(Message);
 	raw->Add(GameID);
 	return(raw);

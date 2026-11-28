@@ -10,7 +10,7 @@ GlobalConnectPacketClass::GlobalConnectPacketClass(const char *ticket, const cha
 	Password = nstrdup(password);
 }
 
-GlobalConnectPacketClass::GlobalConnectPacketClass(RawPacketClass *raw)
+GlobalConnectPacketClass::GlobalConnectPacketClass(PacketClass *raw)
 {
 	raw->Get(&Ticket);
 	raw->Get(&Password);
@@ -22,9 +22,9 @@ GlobalConnectPacketClass::~GlobalConnectPacketClass()
 	delete [] Password;
 }
 
-RawPacketClass *GlobalConnectPacketClass::Build()
+PacketClass *GlobalConnectPacketClass::Encode()
 {
-	RawPacketClass *raw = new RawPacketClass(109, Get_Data_Size());
+	PacketClass *raw = new PacketClass(109, Get_Data_Size());
 	raw->Add(Ticket);
 	raw->Add(Password);
 	return(raw);

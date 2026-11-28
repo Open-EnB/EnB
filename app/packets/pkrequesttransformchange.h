@@ -21,12 +21,12 @@
 #include "quat.h"
 
 // opcode 67 (0x0043, REQUEST_TRANSFORM_CHANGE): vtable 0xB0B808, constructor 0x8A28C0, 0x3C bytes
-class RequestTransformChangePacketClass : public PacketClass  // NAME 2: Net-7's opcode name REQUEST_TRANSFORM_CHANGE (the Net-7 opcode table; no structure check)
+class RequestTransformChangePacketClass : public UnknownPacketBaseClass  // NAME 2: Net-7's opcode name REQUEST_TRANSFORM_CHANGE (the Net-7 opcode table; no structure check)
 {
 public:
 	RequestTransformChangePacketClass(int player_id, int game_id, const Vector3 &position, const Quaternion &orientation, const Vector3 &velocity);	// 0x8A27B0  // NAME 2: the stores (no caller left)
-	RequestTransformChangePacketClass(RawPacketClass *raw);	// 0x8A28C0
-	virtual RawPacketClass *Build();	// +0x04 0x8A2990
+	RequestTransformChangePacketClass(PacketClass *raw);	// 0x8A28C0
+	virtual PacketClass *Encode();	// +0x04 0x8A2990  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x867EC0 (clientstub.cpp l.80)
 	virtual int Get_Data_Size();	// +0x0C 0x8A2A80
 	virtual int Print(char *buffer, int len);	// +0x10 0x8A2AA0

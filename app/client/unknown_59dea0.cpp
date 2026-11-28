@@ -4,7 +4,7 @@
 #include "unknown_59dea0.h"
 #include "client.h"
 #include "gadget.h"
-#include "unknown_675120.h"
+#include "gd_uimesh.h"
 #include "rendobj.h"
 #include "..\audio\soundlib.h"
 #include "..\packets\pkclientchat.h"
@@ -15,7 +15,7 @@ void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);	// 0x496AE
 static const char *Unknown_B802A0[2] = { "yes", "no" };	// NAME 1: neutral (D10)
 
 // @0x59DEA0
-Unknown59DEA0Class::Unknown59DEA0Class(SClient *client) :
+Unknown59DEA0Class::Unknown59DEA0Class(SpaceClientClass *client) :
 	ChatPanelUIBase(client)
 {
 	memset(Buttons, 0, sizeof(Buttons));
@@ -48,12 +48,12 @@ bool Unknown59DEA0Class::Unknown_68(int key)
 {
 	switch (key) {
 		case 1:
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			((ClientClass *)Client)->Send_Packet(&ClientChatPacketClass(((ClientClass *)Client)->Get_Avatar_ID(), "/founder enable", 3, NULL));
 			Unknown_5C();
 			break;
 		case 2:
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			Unknown_5C();
 			break;
 		default:

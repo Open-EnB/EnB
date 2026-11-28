@@ -2,47 +2,47 @@
 #include "pkgloballock.h"
 #include <stdio.h>
 
-GlobalLockPacketClass::GlobalLockPacketClass(__int64 a, int b) : Unknown10(a), Unknown18(b)
+GlobalLockBasePacketClass::GlobalLockBasePacketClass(__int64 a, int b) : Unknown10(a), Unknown18(b)
 {
 }
 
-GlobalLockPacketClass::GlobalLockPacketClass(RawPacketClass *raw)
+GlobalLockBasePacketClass::GlobalLockBasePacketClass(PacketClass *raw)
 {
 	raw->Get(Unknown10);
 	raw->Get(Unknown18);
 }
 
-void GlobalLockPacketClass::Unknown_28(RawPacketClass *raw)
+void GlobalLockBasePacketClass::Unknown_28(PacketClass *raw)
 {
 	raw->Add(Unknown10);
 	raw->Add(Unknown18);
 }
 
-int GlobalLockPacketClass::Get_Data_Size()
+int GlobalLockBasePacketClass::Get_Data_Size()
 {
 	return(sizeof(Unknown10) + sizeof(Unknown18));
 }
 
-GlobalLockRequestPacketClass::GlobalLockRequestPacketClass(__int64 a, int b, int x) : GlobalLockPacketClass(a, b), Unknown20(x)
+GlobalLockRequestPacketClass::GlobalLockRequestPacketClass(__int64 a, int b, int x) : GlobalLockBasePacketClass(a, b), Unknown20(x)
 {
 }
 
-GlobalLockRequestPacketClass::GlobalLockRequestPacketClass(RawPacketClass *raw) : GlobalLockPacketClass(raw)
+GlobalLockRequestPacketClass::GlobalLockRequestPacketClass(PacketClass *raw) : GlobalLockBasePacketClass(raw)
 {
 	raw->Get(Unknown20);
 }
 
-RawPacketClass *GlobalLockRequestPacketClass::Build()
+PacketClass *GlobalLockRequestPacketClass::Encode()
 {
-	RawPacketClass *raw = new RawPacketClass(227, Get_Data_Size());
-	GlobalLockPacketClass::Unknown_28(raw);
+	PacketClass *raw = new PacketClass(227, Get_Data_Size());
+	GlobalLockBasePacketClass::Unknown_28(raw);
 	raw->Add(Unknown20);
 	return(raw);
 }
 
 int GlobalLockRequestPacketClass::Get_Data_Size()
 {
-	return(GlobalLockPacketClass::Get_Data_Size() + sizeof(Unknown20));
+	return(GlobalLockBasePacketClass::Get_Data_Size() + sizeof(Unknown20));
 }
 
 int GlobalLockRequestPacketClass::Print(char *buffer, int)
@@ -50,26 +50,26 @@ int GlobalLockRequestPacketClass::Print(char *buffer, int)
 	return(sprintf(buffer, "%s", "GlobalLockRequest"));
 }
 
-GlobalLockResponsePacketClass::GlobalLockResponsePacketClass(int x, __int64 a, int b) : GlobalLockPacketClass(a, b), Unknown20(x)
+GlobalLockResponsePacketClass::GlobalLockResponsePacketClass(int x, __int64 a, int b) : GlobalLockBasePacketClass(a, b), Unknown20(x)
 {
 }
 
-GlobalLockResponsePacketClass::GlobalLockResponsePacketClass(RawPacketClass *raw) : GlobalLockPacketClass(raw)
+GlobalLockResponsePacketClass::GlobalLockResponsePacketClass(PacketClass *raw) : GlobalLockBasePacketClass(raw)
 {
 	raw->Get(Unknown20);
 }
 
-RawPacketClass *GlobalLockResponsePacketClass::Build()
+PacketClass *GlobalLockResponsePacketClass::Encode()
 {
-	RawPacketClass *raw = new RawPacketClass(228, Get_Data_Size());
-	GlobalLockPacketClass::Unknown_28(raw);
+	PacketClass *raw = new PacketClass(228, Get_Data_Size());
+	GlobalLockBasePacketClass::Unknown_28(raw);
 	raw->Add(Unknown20);
 	return(raw);
 }
 
 int GlobalLockResponsePacketClass::Get_Data_Size()
 {
-	return(GlobalLockPacketClass::Get_Data_Size() + sizeof(Unknown20));
+	return(GlobalLockBasePacketClass::Get_Data_Size() + sizeof(Unknown20));
 }
 
 int GlobalLockResponsePacketClass::Print(char *buffer, int)
@@ -77,24 +77,24 @@ int GlobalLockResponsePacketClass::Print(char *buffer, int)
 	return(sprintf(buffer, "%s", "GlobalLockResponse"));
 }
 
-GlobalLockReleasePacketClass::GlobalLockReleasePacketClass(__int64 a) : GlobalLockPacketClass(a, 0)
+GlobalLockReleasePacketClass::GlobalLockReleasePacketClass(__int64 a) : GlobalLockBasePacketClass(a, 0)
 {
 }
 
-GlobalLockReleasePacketClass::GlobalLockReleasePacketClass(RawPacketClass *raw) : GlobalLockPacketClass(raw)
+GlobalLockReleasePacketClass::GlobalLockReleasePacketClass(PacketClass *raw) : GlobalLockBasePacketClass(raw)
 {
 }
 
-RawPacketClass *GlobalLockReleasePacketClass::Build()
+PacketClass *GlobalLockReleasePacketClass::Encode()
 {
-	RawPacketClass *raw = new RawPacketClass(229, Get_Data_Size());
-	GlobalLockPacketClass::Unknown_28(raw);
+	PacketClass *raw = new PacketClass(229, Get_Data_Size());
+	GlobalLockBasePacketClass::Unknown_28(raw);
 	return(raw);
 }
 
 int GlobalLockReleasePacketClass::Get_Data_Size()
 {
-	return(GlobalLockPacketClass::Get_Data_Size());
+	return(GlobalLockBasePacketClass::Get_Data_Size());
 }
 
 int GlobalLockReleasePacketClass::Print(char *buffer, int)
@@ -110,7 +110,7 @@ int GlobalLockReleasePacketClass::Print(char *buffer, int)
 **	  0xC416FC, atexit 0x42B320). Written by hand from the client (builder P, 2026-10-26): three packet
 **	  classes over one base the factory never makes (vtable 0xB094F4: Build, Process_Packet and Print
 **	  pure; +0x28 adds the base's members), as pkdirlock.cpp's. Every destructor is implicit (only
-**	  PacketClass's vtable stored).
+**	  UnknownPacketBaseClass's vtable stored).
 **	* The file name and the class names are provisional: the Print texts give only 'GlobalLockRequest',
 **	  'GlobalLockResponse', 'GlobalLockRelease'.
 */

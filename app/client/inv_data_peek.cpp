@@ -82,13 +82,13 @@ InvDataPeekClass::~InvDataPeekClass()
 
 
 // 0x689AF0
-void InvDataPeekClass::Attach(DeltaCompoundClass *root)
+void InvDataPeekClass::Attach(DeltaContainer *root)
 {
 	List = 0;
 	Count = 0;
 	Mounts = 0;
 	if (root && Name.Get_String()[0]) {
-		const NameClass &name = Name;
+		const AuxDataName &name = Name;
 		LookupClass *lookup = root->Get_Lookup();
 		DeltaClass *d = lookup->Find(name);
 		if (d) {
@@ -98,7 +98,7 @@ void InvDataPeekClass::Attach(DeltaCompoundClass *root)
 			}
 		}
 		if (HasMounts) {
-			NameClass mounts_name("Inventory.Mounts");  // NAME 1: neutral (D10)
+			AuxDataName mounts_name("Inventory.Mounts");  // NAME 1: neutral (D10)
 			Mounts = Unknown_Find_Set_Field<DeltaArrayClass<InvSlotStruct> >(root,
 				mounts_name);
 			G_ASSERT(Mounts);
@@ -119,7 +119,7 @@ bool InvDataPeekClass::Changed()
 // 0x689C60
 bool InvDataPeekClass::Slot_Changed(int slot)
 {
-	DeltaCompoundClass *d = Get_Slot(slot);
+	DeltaContainer *d = Get_Slot(slot);
 	if (!d) {
 		return(false);
 	}
@@ -156,7 +156,7 @@ float InvDataPeekClass::Get_Quality(int slot) { return(Peek_Value(slot, 8, 0.0f)
 // 0x68A090
 std::string InvDataPeekClass::Get_Instance_Info(int slot)
 {
-	DeltaStringClass *encoded_info_delta_string = UnknownRTTIClass<DeltaStringClass>::Cast(Get_Field(slot, 9));
+	DeltaString *encoded_info_delta_string = UnknownRTTIClass<DeltaString>::Cast(Get_Field(slot, 9));
 	FAIL_IF(!encoded_info_delta_string) return(NULL);
 	return(encoded_info_delta_string->Get());
 }
@@ -164,7 +164,7 @@ std::string InvDataPeekClass::Get_Instance_Info(int slot)
 // 0x68A270
 std::string InvDataPeekClass::Get_Instance_Activated_Effect_Info(int slot)
 {
-	DeltaStringClass *encoded_effect_values_string = UnknownRTTIClass<DeltaStringClass>::Cast(Get_Field(slot, 10));
+	DeltaString *encoded_effect_values_string = UnknownRTTIClass<DeltaString>::Cast(Get_Field(slot, 10));
 	FAIL_IF(!encoded_effect_values_string) return(NULL);
 	return(encoded_effect_values_string->Get());
 }
@@ -172,7 +172,7 @@ std::string InvDataPeekClass::Get_Instance_Activated_Effect_Info(int slot)
 // 0x68A450
 std::string InvDataPeekClass::Get_Instance_Equip_Effect_Info(int slot)
 {
-	DeltaStringClass *encoded_effect_values_string = UnknownRTTIClass<DeltaStringClass>::Cast(Get_Field(slot, 11));
+	DeltaString *encoded_effect_values_string = UnknownRTTIClass<DeltaString>::Cast(Get_Field(slot, 11));
 	FAIL_IF(!encoded_effect_values_string) return(NULL);
 	return(encoded_effect_values_string->Get());
 }
@@ -262,7 +262,7 @@ ItemStateEnum InvDataPeekClass::Get_Item_State(int slot) { return(Peek_Value(slo
 // 0x68A8C0
 std::string InvDataPeekClass::Get_Builder_Name(int slot)
 {
-	DeltaStringClass *encoded_info_delta_string = UnknownRTTIClass<DeltaStringClass>::Cast(Get_Field(slot, 12));
+	DeltaString *encoded_info_delta_string = UnknownRTTIClass<DeltaString>::Cast(Get_Field(slot, 12));
 	FAIL_IF(!encoded_info_delta_string) return(NULL);
 	return(encoded_info_delta_string->Get());
 }
@@ -338,14 +338,14 @@ int InvDataPeekClass::Get_Mount_I04(int slot)
 
 
 // 0x68AF20
-DeltaCompoundClass *InvDataPeekClass::Get_Slot(int slot)
+DeltaContainer *InvDataPeekClass::Get_Slot(int slot)
 {
 	Status = 2;
 	if (!List) return(0);
 	if ((unsigned int)slot >= Count) return(0);
 	DeltaClass *ditem = List->Children[slot];
 	FAIL_IF(!ditem) return(0);
-	DeltaCompoundClass *dcont = ditem->As_Compound();
+	DeltaContainer *dcont = ditem->As_Compound();
 
 	FAIL_IF(!dcont) return(0);
 	if (dcont->Unknown70) {
@@ -364,7 +364,7 @@ DeltaClass *InvDataPeekClass::Get_Field(int slot, int field)
 	if (index == -1) {
 		return(0);
 	}
-	DeltaCompoundClass *dcont = Get_Slot(slot);
+	DeltaContainer *dcont = Get_Slot(slot);
 	if (!dcont) {
 		return(0);
 	}
@@ -395,7 +395,7 @@ void InvDataPeekClass::Update_Fields()
 	if (List) {
 		DeltaClass *ditem = List->Children[0];
 		FAIL_IF(!ditem) return;
-		DeltaCompoundClass *dcont = ditem->As_Compound();
+		DeltaContainer *dcont = ditem->As_Compound();
 
 		FAIL_IF(!dcont) return;
 		int count = dcont->Children.size();
@@ -421,7 +421,7 @@ void InvDataPeekClass::Update_Fields()
 
 /*
 **	Notes.
-**	Object 0x689A20-0x68B35F: opened by permstr.h's PermStringInit (0x689A20), closed by <string>'s initialiser after
+**	Object 0x689A20-0x68B35F: opened by permstr.h's _PermStringInit (0x689A20), closed by <string>'s initialiser after
 **	Update_Fields. The fourteen field getters read the slot's DeltaItemClass / DeltaEquipItemClass (aux_roots.h) by
 **	the field's position, found once per Attach by name (Update_Fields); the four string getters are one pattern written
 **	four times (their FAIL_IF texts differ: Get_Builder_Name repeats Get_Instance_Info's), not a template.

@@ -4,14 +4,14 @@
 #include <stdio.h>
 
 
-Packet_7540Class::Packet_7540Class(char *data, int size) :
+GameEditorCreateFinalPacketClass::GameEditorCreateFinalPacketClass(char *data, int size) :
 	Size(size),
 	Data(data),
 	Owned(false)
 {
 }
 
-Packet_7540Class::Packet_7540Class(RawPacketClass *raw)
+GameEditorCreateFinalPacketClass::GameEditorCreateFinalPacketClass(PacketClass *raw)
 {
 	raw->Get(&Size, sizeof(Size));
 	Data = new char[Size];
@@ -23,7 +23,7 @@ Packet_7540Class::Packet_7540Class(RawPacketClass *raw)
 	raw->Get(Data, Size);
 }
 
-Packet_7540Class::~Packet_7540Class()
+GameEditorCreateFinalPacketClass::~GameEditorCreateFinalPacketClass()
 {
 	if (Owned) {
 		delete [] Data;
@@ -31,32 +31,32 @@ Packet_7540Class::~Packet_7540Class()
 	}
 }
 
-RawPacketClass *Packet_7540Class::Build()
+PacketClass *GameEditorCreateFinalPacketClass::Encode()
 {
-	RawPacketClass *raw = new RawPacketClass(30016, Get_Data_Size());
+	PacketClass *raw = new PacketClass(30016, Get_Data_Size());
 	raw->Add(&Size, sizeof(Size));
 	raw->Add(Data, Size);
 	return(raw);
 }
 
-int Packet_7540Class::Get_Data_Size()
+int GameEditorCreateFinalPacketClass::Get_Data_Size()
 {
 	return(Size + sizeof(Size));
 }
 
-int Packet_7540Class::Print(char *buffer, int)
+int GameEditorCreateFinalPacketClass::Print(char *buffer, int)
 {
 	return(sprintf(buffer, "%s {%s}", "GameEditorCreateFinal", Data));
 }
 
-Packet_753EClass::Packet_753EClass(char *data, int size) :
+GameEditorCreateEmptyPacketClass::GameEditorCreateEmptyPacketClass(char *data, int size) :
 	Size(size),
 	Data(data),
 	Owned(false)
 {
 }
 
-Packet_753EClass::Packet_753EClass(RawPacketClass *raw)
+GameEditorCreateEmptyPacketClass::GameEditorCreateEmptyPacketClass(PacketClass *raw)
 {
 	raw->Get(&Size, sizeof(Size));
 	Data = new char[Size];
@@ -78,7 +78,7 @@ Packet_753EClass::Packet_753EClass(RawPacketClass *raw)
 	raw->Get(Data, Size);
 }
 
-Packet_753EClass::~Packet_753EClass()
+GameEditorCreateEmptyPacketClass::~GameEditorCreateEmptyPacketClass()
 {
 	if (Owned) {
 		delete [] Data;
@@ -86,108 +86,108 @@ Packet_753EClass::~Packet_753EClass()
 	}
 }
 
-RawPacketClass *Packet_753EClass::Build()
+PacketClass *GameEditorCreateEmptyPacketClass::Encode()
 {
-	RawPacketClass *raw = new RawPacketClass(30014, Get_Data_Size());
+	PacketClass *raw = new PacketClass(30014, Get_Data_Size());
 	raw->Add(&Size, sizeof(Size));
 	raw->Add(Data, Size);
 	return(raw);
 }
 
-int Packet_753EClass::Get_Data_Size()
+int GameEditorCreateEmptyPacketClass::Get_Data_Size()
 {
 	return(Size + sizeof(Size));
 }
 
-int Packet_753EClass::Print(char *buffer, int)
+int GameEditorCreateEmptyPacketClass::Print(char *buffer, int)
 {
 	return(sprintf(buffer, "%s {%s}", "GameEditorCreateEmpty", Data));
 }
 
-Packet_753FClass::Packet_753FClass()
+GameEditorCreateCancelPacketClass::GameEditorCreateCancelPacketClass()
 {
 }
 
-Packet_753FClass::Packet_753FClass(RawPacketClass *)
+GameEditorCreateCancelPacketClass::GameEditorCreateCancelPacketClass(PacketClass *)
 {
 }
 
-RawPacketClass *Packet_753FClass::Build()
+PacketClass *GameEditorCreateCancelPacketClass::Encode()
 {
-	RawPacketClass *raw = new RawPacketClass(30015, Get_Data_Size());
+	PacketClass *raw = new PacketClass(30015, Get_Data_Size());
 	return(raw);
 }
 
-int Packet_753FClass::Get_Data_Size()
+int GameEditorCreateCancelPacketClass::Get_Data_Size()
 {
 	return(0);
 }
 
-int Packet_753FClass::Print(char *buffer, int)
+int GameEditorCreateCancelPacketClass::Print(char *buffer, int)
 {
 	return(sprintf(buffer, "%s", "GameEditorCreateCancel"));
 }
 
-Packet_7539Class::Packet_7539Class(int game_id) : GameID(game_id)
+GameEditorDeletePacketClass::GameEditorDeletePacketClass(int game_id) : GameID(game_id)
 {
 }
 
-Packet_7539Class::Packet_7539Class(RawPacketClass *raw)
+GameEditorDeletePacketClass::GameEditorDeletePacketClass(PacketClass *raw)
 {
 	raw->Get(&GameID, sizeof(GameID));
 }
 
-RawPacketClass *Packet_7539Class::Build()
+PacketClass *GameEditorDeletePacketClass::Encode()
 {
-	RawPacketClass *raw = new RawPacketClass(30009, Get_Data_Size());
+	PacketClass *raw = new PacketClass(30009, Get_Data_Size());
 	raw->Add(&GameID, sizeof(GameID));
 	return(raw);
 }
 
-int Packet_7539Class::Get_Data_Size()
+int GameEditorDeletePacketClass::Get_Data_Size()
 {
 	return(sizeof(GameID));
 }
 
-int Packet_7539Class::Print(char *buffer, int)
+int GameEditorDeletePacketClass::Print(char *buffer, int)
 {
 	return(sprintf(buffer, "%s {GameID=%d}", "GameEditorDelete", GameID));
 }
 
-Packet_753AClass::Packet_753AClass(int game_id, const Matrix3D &transform) : GameID(game_id), Transform(transform) {}
+GameEditorMovePacketClass::GameEditorMovePacketClass(int game_id, const Matrix3D &transform) : GameID(game_id), Transform(transform) {}
 
-Packet_753AClass::Packet_753AClass(RawPacketClass *raw)
+GameEditorMovePacketClass::GameEditorMovePacketClass(PacketClass *raw)
 {
 	raw->Get(&GameID, sizeof(GameID));
 	raw->Get(&Transform, sizeof(Transform));
 }
 
-RawPacketClass *Packet_753AClass::Build()
+PacketClass *GameEditorMovePacketClass::Encode()
 {
-	RawPacketClass *raw = new RawPacketClass(30010, Get_Data_Size());
+	PacketClass *raw = new PacketClass(30010, Get_Data_Size());
 	raw->Add(&GameID, sizeof(GameID));
 	raw->Add(&Transform, sizeof(Transform));
 	return(raw);
 }
 
-int Packet_753AClass::Get_Data_Size()
+int GameEditorMovePacketClass::Get_Data_Size()
 {
 	return(sizeof(GameID) + sizeof(Transform));
 }
 
-int Packet_753AClass::Print(char *buffer, int)
+int GameEditorMovePacketClass::Print(char *buffer, int)
 {
 	return(sprintf(buffer, "%s {GameID=%d}", "GameEditorMove", GameID));
 }
 
-Packet_753BClass::Packet_753BClass(char *data, int size) :
+GameEditorTemplateCategoriesPacketClass::GameEditorTemplateCategoriesPacketClass(char *data, int size) :
 	Data(data),
 	Size(size),
 	Owned(false)
 {
 }
 
-Packet_753BClass::Packet_753BClass(RawPacketClass *raw)
+GameEditorTemplateCategoriesPacketClass::GameEditorTemplateCategoriesPacketClass(PacketClass *raw)
 {
 	raw->Get(&Size, sizeof(Size));
 	Data = new char[Size];
@@ -249,7 +249,7 @@ Packet_753BClass::Packet_753BClass(RawPacketClass *raw)
 	raw->Get(Data, Size);
 }
 
-Packet_753BClass::~Packet_753BClass()
+GameEditorTemplateCategoriesPacketClass::~GameEditorTemplateCategoriesPacketClass()
 {
 	if (Owned) {
 		delete [] Data;
@@ -257,37 +257,37 @@ Packet_753BClass::~Packet_753BClass()
 	}
 }
 
-RawPacketClass *Packet_753BClass::Build()
+PacketClass *GameEditorTemplateCategoriesPacketClass::Encode()
 {
-	RawPacketClass *raw = new RawPacketClass(30011, Get_Data_Size());
+	PacketClass *raw = new PacketClass(30011, Get_Data_Size());
 	raw->Add(&Size, sizeof(Size));
 	raw->Add(Data, Size);
 	return(raw);
 }
 
-int Packet_753BClass::Get_Data_Size()
+int GameEditorTemplateCategoriesPacketClass::Get_Data_Size()
 {
 	return(Size + sizeof(Size));
 }
 
-int Packet_753BClass::Print(char *buffer, int)
+int GameEditorTemplateCategoriesPacketClass::Print(char *buffer, int)
 {
 	return(sprintf(buffer, "%s {%s}", "GameEditorTemplateCategories", Data));
 }
 
-bool Packet_753BClass::Process_Packet(void *)
+bool GameEditorTemplateCategoriesPacketClass::Process_Packet(void *)
 {
 	return(true);
 }
 
-Packet_753CClass::Packet_753CClass(char *data, int size) :
+GameEditorRequestTemplateListPacketClass::GameEditorRequestTemplateListPacketClass(char *data, int size) :
 	Size(size),
 	Data(data),
 	Owned(false)
 {
 }
 
-Packet_753CClass::Packet_753CClass(RawPacketClass *raw)
+GameEditorRequestTemplateListPacketClass::GameEditorRequestTemplateListPacketClass(PacketClass *raw)
 {
 	raw->Get(&Size, sizeof(Size));
 	Data = new char[Size];
@@ -312,7 +312,7 @@ Packet_753CClass::Packet_753CClass(RawPacketClass *raw)
 	raw->Get(Data, Size);
 }
 
-Packet_753CClass::~Packet_753CClass()
+GameEditorRequestTemplateListPacketClass::~GameEditorRequestTemplateListPacketClass()
 {
 	if (Owned) {
 		delete [] Data;
@@ -320,32 +320,32 @@ Packet_753CClass::~Packet_753CClass()
 	}
 }
 
-RawPacketClass *Packet_753CClass::Build()
+PacketClass *GameEditorRequestTemplateListPacketClass::Encode()
 {
-	RawPacketClass *raw = new RawPacketClass(30012, Get_Data_Size());
+	PacketClass *raw = new PacketClass(30012, Get_Data_Size());
 	raw->Add(&Size, sizeof(Size));
 	raw->Add(Data, Size);
 	return(raw);
 }
 
-int Packet_753CClass::Get_Data_Size()
+int GameEditorRequestTemplateListPacketClass::Get_Data_Size()
 {
 	return(Size + sizeof(Size));
 }
 
-int Packet_753CClass::Print(char *buffer, int)
+int GameEditorRequestTemplateListPacketClass::Print(char *buffer, int)
 {
 	return(sprintf(buffer, "%s {%s}", "GameEditorRequestTemplateList", Data));
 }
 
-Packet_753DClass::Packet_753DClass(char *data, int size) :
+GameEditorTemplateListPacketClass::GameEditorTemplateListPacketClass(char *data, int size) :
 	Data(data),
 	Size(size),
 	Owned(false)
 {
 }
 
-Packet_753DClass::Packet_753DClass(RawPacketClass *raw)
+GameEditorTemplateListPacketClass::GameEditorTemplateListPacketClass(PacketClass *raw)
 {
 	raw->Get(&Size, sizeof(Size));
 	Data = new char[Size];
@@ -367,7 +367,7 @@ Packet_753DClass::Packet_753DClass(RawPacketClass *raw)
 	raw->Get(Data, Size);
 }
 
-Packet_753DClass::~Packet_753DClass()
+GameEditorTemplateListPacketClass::~GameEditorTemplateListPacketClass()
 {
 	if (Owned) {
 		delete [] Data;
@@ -375,25 +375,25 @@ Packet_753DClass::~Packet_753DClass()
 	}
 }
 
-RawPacketClass *Packet_753DClass::Build()
+PacketClass *GameEditorTemplateListPacketClass::Encode()
 {
-	RawPacketClass *raw = new RawPacketClass(30013, Get_Data_Size());
+	PacketClass *raw = new PacketClass(30013, Get_Data_Size());
 	raw->Add(&Size, sizeof(Size));
 	raw->Add(Data, Size);
 	return(raw);
 }
 
-int Packet_753DClass::Get_Data_Size()
+int GameEditorTemplateListPacketClass::Get_Data_Size()
 {
 	return(Size + sizeof(Size));
 }
 
-int Packet_753DClass::Print(char *buffer, int)
+int GameEditorTemplateListPacketClass::Print(char *buffer, int)
 {
 	return(sprintf(buffer, "%s {%s}", "GameEditorTemplateList", Data));
 }
 
-bool Packet_753DClass::Process_Packet(void *)
+bool GameEditorTemplateListPacketClass::Process_Packet(void *)
 {
 	return(true);
 }

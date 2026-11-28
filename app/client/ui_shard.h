@@ -11,18 +11,18 @@
 class GadgetClass;
 class LayerClass;
 class LoginTaskClass;
-class TextGadgetClass;
+class UnknownTextGadgetClass;
 class CharacterViewClass;
 
 // The galaxy select window (ui_shard.cpp's __FILE__ 0xB89390, the FAIL_IF 'ShardSelection < 0 || ShardSelection >=
 // (int)SortedGalaxies.size()'; layout fa_fe02a.ini on the model FE02A), 0xEC bytes, tables 0xAF76A0 / 0xAF7694 /
 // 0xAF7688. The character view's mode 5 (LoginTaskClass step 5): after the ship, or for a character not yet
 // registered; its Accept names the character and sends the creation (LoginTaskClass slot +0x48).
-class Unknown615A50InterfaceClass : public InterfaceClass	// NAME 1: neutral (D10), as charview.cpp's (no RTTI: the window has no gadget callback)
+class ShardInterface : public InterfaceClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
-	Unknown615A50InterfaceClass(UIViewClass *view, LayerClass *layer);	// 0x615A50 (charview.cpp's 0x679160, mode 5)  // NAME 1 [view, layer]: as LoginInterface's
-	virtual ~Unknown615A50InterfaceClass();			// 0x616090 (0x616060 the deleting one)
+	ShardInterface(UIViewClass *view, LayerClass *layer);	// 0x615A50 (charview.cpp's 0x679160, mode 5)  // NAME 1 [view, layer]: as LoginInterface's
+	virtual ~ShardInterface();			// 0x616090 (0x616060 the deleting one)
 	virtual void Unknown_60();						// +0x60 0x616220 (every frame)
 	virtual bool Unknown_68(int key);				// +0x68 0x6164E0 (the events)  // NAME 1 [key]: InterfaceClass's
 
@@ -44,7 +44,7 @@ public:
 	int Unknown8C;									// +0x8C (the first row shown)
 	int ShardSelection;								// +0x90 (-1: none)  // NAME 3: the FAIL_IF's
 	int Unknown94;									// +0x94 (how it leaves: 9 next, 10 back)
-	TextGadgetClass *NameGadget;					// +0x98 ('Name_fe02a')  // NAME 1: as ui_login.cpp's
+	UnknownTextGadgetClass *NameGadget;					// +0x98 ('Name_fe02a')  // NAME 1: as ui_login.cpp's
 	bool Unknown9C;									// +0x9C (a name is set)
 	bool Unknown9D;									// +0x9D (skip the beginner tutorial: the creation's last argument)
 	bool Unknown9E;									// +0x9E (tutorial.dat read)

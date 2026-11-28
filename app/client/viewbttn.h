@@ -4,7 +4,7 @@
 **	Original location: e:\build\beta\G\app\client\viewbttn.h (name assumed from viewbttn.cpp, whose
 **	__FILE__ is 'e:\build\beta\G\app\client\viewbttn.cpp' (0xB91D5C); the client holds no string of this header)
 **
-**	The main view's full-screen mouse gadget (UICpitClass::Unknown_54 0x57DD20 makes it with 0, 0, 640, 480 and
+**	The main view's full-screen mouse gadget (CockpitInterface::Unknown_54 0x57DD20 makes it with 0, 0, 640, 480 and
 **	the main view): a right drag turns and tilts the avatar towards the pointer, with the option
 **	'Cpit_ThrottleRightMouse' the pointer inside the screen's middle moves it forward; the pointer over an object
 **	targets it (the avatar: the camera block). 0x5C bytes; constructor 0x6B56A0, table 0xAFE0C4 (30 slots),

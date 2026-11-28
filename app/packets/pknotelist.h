@@ -31,13 +31,13 @@ struct NoteListEntryStruct  // NAME 1: neutral (D10): what it is
 };
 
 // opcode 183 (0x00B7, ?): vtable 0xB0A0B0, constructor 0x87EB30, 0x18 bytes
-class NoteListPacketClass : public PacketClass
+class NoteListPacketClass : public UnknownPacketBaseClass
 {
 public:
 	NoteListPacketClass();	// 0x87EA60
-	NoteListPacketClass(RawPacketClass *raw);	// 0x87EB30
+	NoteListPacketClass(PacketClass *raw);	// 0x87EB30
 	virtual ~NoteListPacketClass();	// +0x00 0x87EB00 / 0x87ECB0
-	virtual RawPacketClass *Build();	// +0x04 0x87ED50
+	virtual PacketClass *Encode();	// +0x04 0x87ED50  // NAME 5: thunk order probable, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x73AE40 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x87EE40 (0x4C a note: 3 bytes more than Build adds, D95(a))
 	virtual int Print(char *buffer, int len);	// +0x10 0x87EE60 ('NoteList:')
@@ -47,13 +47,13 @@ public:
 };
 
 // opcode 184 (0x00B8, ?): vtable 0xB0A0E0, constructor 0x87F020, 0x58 bytes
-class NoteContentPacketClass : public PacketClass
+class NoteContentPacketClass : public UnknownPacketBaseClass
 {
 public:
 	NoteContentPacketClass(long unknown0c, const char *unknown10, const char *unknown54);	// 0x87EF50
-	NoteContentPacketClass(RawPacketClass *raw);	// 0x87F020
+	NoteContentPacketClass(PacketClass *raw);	// 0x87F020
 	virtual ~NoteContentPacketClass();	// +0x00 0x87EFF0 / 0x87F0E0
-	virtual RawPacketClass *Build();	// +0x04 0x87F110
+	virtual PacketClass *Encode();	// +0x04 0x87F110  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x73AF80 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x87F1E0
 	virtual int Print(char *buffer, int len);	// +0x10 0x87F200 ('NoteContent:')

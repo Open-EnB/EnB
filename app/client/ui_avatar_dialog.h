@@ -10,10 +10,10 @@
 #include "unknown_5bb250.h"
 #include "..\..\wwlib\ref_ptr.h"
 
-class AvatarDescClass;
+class AvatarDescriptionClass;
 class AvatarPipClass;
 class ButtonGadgetClass;
-class CharacterViewAvatarClass;
+class AvatarClass;
 class RenderObjClass;
 class FontSplitStringClass;
 class FontSys;
@@ -32,7 +32,7 @@ public:
 		NUM_ANSWERS = 5									// (the FAIL_IFs 'num > NUM_ANSWERS')  // NAME 3: the FAIL_IFs'
 	};
 
-	UIAvatarDialogClass(SClient *client);				// 0x551FB0 (deleting 0x5522B0)  // NAME 1 [client]: what ui_cpit.cpp passes
+	UIAvatarDialogClass(SpaceClientClass *client);				// 0x551FB0 (deleting 0x5522B0)  // NAME 1 [client]: what ui_cpit.cpp passes
 	virtual ~UIAvatarDialogClass();						// 0x552310 (G_ASSERT 'State == UI_CLOSED' l.85)
 	virtual void Unknown_54();							// +0x54 0x5524F0 (G_ASSERT 'font' l.117: the buttons, the six text lines, the back gadget, the PIP)
 	virtual void Unknown_58();							// +0x58 0x552980 (opens: the answers shown, the avatar in the PIP over 'PICTURE', 'message_1.wav')
@@ -41,7 +41,7 @@ public:
 	virtual bool Unknown_68(int key);					// +0x68 0x552CD0 (1 / 4 close, 5-9 the answers)  // NAME 1 [key]: InterfaceClass's
 
 	void Unknown_552D90(int answer);					// 0x552D90 (an answer chosen: its reply said, or closed)  // NAME 1 [answer]: what it holds
-	void Unknown_552FC0(AvatarDescClass *desc);			// 0x552FC0 (FAIL_IF '!AvatarRObj' l.304, '!font' l.310 / l.319: the avatar and its name)  // NAME 1 [desc]: what 0x584690 passes
+	void Unknown_552FC0(AvatarDescriptionClass *desc);			// 0x552FC0 (FAIL_IF '!AvatarRObj' l.304, '!font' l.310 / l.319: the avatar and its name)  // NAME 1 [desc]: what 0x584690 passes
 	void Unknown_553370(std::string text);				// 0x553370 (the text wrapped over 'TALK00''s width)  // NAME 1 [text]: neutral
 	void Unknown_553500(std::vector<std::string> lines);	// 0x553500 (FAIL_IF 'num > NUM_ANSWERS' l.352: the answers)  // NAME 1 [lines]: neutral
 	void Unknown_5537A0(std::vector<std::string> lines);	// 0x5537A0 (FAIL_IF 'num > NUM_ANSWERS' l.371: the replies)  // NAME 1 [lines]: neutral
@@ -52,7 +52,7 @@ public:
 	int State;											// +0xD8 (UI_CLOSED / UI_OPEN)  // NAME 3: the assert's
 	int Answer;											// +0xDC (the answer chosen, -1 none)  // NAME 2: what it holds
 	bool Unknown0E0;									// +0xE0 (an answer was chosen: slot +0x60 closes once the avatar is done)
-	RefCountPtr<CharacterViewAvatarClass> AvatarRObj;	// +0xE4 (0x552FC0 stores Create_NEW 0x53CF50's through the same-type operator=: the client reloads the source into ecx)  // NAME 3: the FAIL_IF '!AvatarRObj'
+	RefCountPtr<AvatarClass> AvatarRObj;	// +0xE4 (0x552FC0 stores Create_NEW 0x53CF50's through the same-type operator=: the client reloads the source into ecx)  // NAME 3: the FAIL_IF '!AvatarRObj'
 	FontSplitStringClass *Split;						// +0xE8 (the text's lines)  // NAME 2: what it does
 	std::string Text;									// +0xEC (the avatar's text)  // NAME 2: what it holds
 	std::string Answers[NUM_ANSWERS];					// +0xFC (0x553500)  // NAME 2: what they hold

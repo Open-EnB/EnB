@@ -144,7 +144,7 @@ void Unknown59E2C0Class::Unknown_59E970()
 **
 **	The client's object 0x59E2C0-0x59EA1A: the constructor 0x59E2C0, the deleting destructor 0x59E510, the destructor
 **	0x59E540, 0x59E600, the slots +0x0C 0x59E680 / +0x08 0x59E700 / +0x10 0x59E790 (G_ASSERT l.125), 0x59E970, then the
-**	guarded <string> initialiser 0x59E9B0 and permstr.h's PermStringInitClass static 0x59E9E0 (destructor 0x59EA10);
+**	guarded <string> initialiser 0x59E9B0 and permstr.h's PermStringInit static 0x59E9E0 (destructor 0x59EA10);
 **	ui_scan.cpp's two time setters 0x60EC70 / 0x60ECA0 stay there. The owner (+0x18) is a plain base declared first: the
 **	constructor stores it before the watcher base (ui_experience.cpp 0x58C450's finding). The skill's share is a double
 **	division ((double) both times: two fild qword and fdivp; (float) casts give fidiv). The constructor's residue: the

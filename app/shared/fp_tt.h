@@ -25,7 +25,7 @@ public:
 	FpTTClass(float max_yaw, float max_pitch, float max_slope, bool unknown38);	// 0x449360 (the angles clamped to 0..pi)  // NAME 1 [all]: what it does with them
 	virtual ~FpTTClass();																		// 0x449520 (deleting 0x4494F0)
 	virtual int Unknown_04(const Vector3 &target, Matrix3D *transforms, float dist, float &yaw, float &pitch);	// 0x449540: 0 when Unknown39, else 2
-	virtual int Unknown_08(const Vector3 &target, Matrix3D *transforms, float dist, float &yaw, float &pitch, PxWrapper &proxim, float radius, DynObj *self, Vector3 *aims);	// 0x449EA0 (G_ASSERT 'proxim.Get_Avoidance()' l.323): the result of Unknown_04, or 2
+	virtual int Unknown_08(const Vector3 &target, Matrix3D *transforms, float dist, float &yaw, float &pitch, PxWrapper &proxim, float radius, DynamicObjectClass *self, Vector3 *aims);	// 0x449EA0 (G_ASSERT 'proxim.Get_Avoidance()' l.323): the result of Unknown_04, or 2
 	virtual void Unknown_0C(float &yaw, float &pitch);											// 0x44AC40: atan2 of +0x3C / +0x40 and of +0x44
 
 	float MaxYaw;							// +0x04 (0..pi)  // NAME 1: the angle the yaw turns by
@@ -38,7 +38,7 @@ public:
 	float MaxSlope;							// +0x20 (tan of the third angle)  // NAME 1: the clamp of the target's slope
 	float MaxYawHalfCos;					// +0x24 (cos(MaxYaw / 2))  // NAME 1: what it is
 	int Unknown28;							// +0x28 (0, 1, 2: 0x449540's switch)
-	DynObj *Unknown2C;						// +0x2C (0x449EA0: the obstacle states 1 / 2 turn around)
+	DynamicObjectClass *Unknown2C;						// +0x2C (0x449EA0: the obstacle states 1 / 2 turn around)
 	Vector2 Unknown30;						// +0x30 (the constructor: 1, 0)
 	bool Unknown38;							// +0x38 (the constructor's last argument)
 	bool Unknown39;							// +0x39

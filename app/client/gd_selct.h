@@ -20,8 +20,8 @@
 #include "gadget.h"
 
 class UIViewClass;
-class StrEditClass;
-class Rect3DClass;
+class StringEditClass;
+class Rectangle3DClass;
 class FontSys;
 
 class SelectGadgetClass : public RectangleGadgetClass  // NAME 2: class-from-file (D24) for app\Client\gd_selct.cpp, after its GD_SELECT_FONT
@@ -37,13 +37,13 @@ public:
 	bool Armed;											// +0x41 (the button or key that finishes went down on this gadget)  // NAME 1: what slot +0x2C does with it
 	void Set_Max(int max) { Max = max; }	int Max;											// +0x44 (inv_transaction.cpp's stack count; Set_Max inline: its 0x690AA0 loads the gadget into ecx)  // NAME 1 [Max, Set_Max]: what slot +0x40 does with it
 	int Value;											// +0x48 (the number picked; 0 when cancelled)  // NAME 1: what inv_transaction.cpp reads
-	StrEditClass *Edit;									// +0x4C (10 digits, flags 0xC4)  // NAME 1: its type
+	StringEditClass *Edit;									// +0x4C (10 digits, flags 0xC4)  // NAME 1: its type
 	FontSys *Text;										// +0x50 (GD_SELECT_FONT: the number)  // NAME 1: what it shows
 	float TextX;										// +0x54 (the number's x: right of the bar)  // NAME 1: what slot +0x40 puts there
-	Rect3DClass *Bar;									// +0x58 (green: the part picked)  // NAME 1: what slot +0x2C sizes
-	Rect3DClass *Frame;									// +0x5C (light green, a pixel larger: the outline)  // NAME 1: what slot +0x40 puts there
-	Rect3DClass *Back;									// +0x60 (dark: the whole range)  // NAME 1: what slot +0x40 puts there
-	Rect3DClass *TextBack;								// +0x64 (dark: behind the number)  // NAME 1: what slot +0x40 puts there
+	Rectangle3DClass *Bar;									// +0x58 (green: the part picked)  // NAME 1: what slot +0x2C sizes
+	Rectangle3DClass *Frame;									// +0x5C (light green, a pixel larger: the outline)  // NAME 1: what slot +0x40 puts there
+	Rectangle3DClass *Back;									// +0x60 (dark: the whole range)  // NAME 1: what slot +0x40 puts there
+	Rectangle3DClass *TextBack;								// +0x64 (dark: behind the number)  // NAME 1: what slot +0x40 puts there
 	UIViewClass *View;									// +0x68 (slot +0x44 the mouse, +0x50 the scene)  // NAME 1: its type
 };
 

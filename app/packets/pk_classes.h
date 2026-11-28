@@ -4,7 +4,7 @@
 **	PROVISIONAL file name: the packet classes are declared in many client headers (app\packets
 **	pk*.h, gameedit\pkge*.h); here only what the factory 0x869790 needs: each class's size (the
 **	case's new) and its constructor from the raw message (not rebuilt yet: declared). Members
-**	are a filler to the client's size; the virtuals are PacketClass's until the classes are
+**	are a filler to the client's size; the virtuals are UnknownPacketBaseClass's until the classes are
 **	rebuilt.
 */
 
@@ -120,23 +120,23 @@
 #include "pktriggeremote.h"	// rebuilt
 #include "pkturn.h"	// rebuilt
 #include "pkuitrigger.h"	// rebuilt
-#include "pkunknown_85d1a0.h"	// rebuilt
-#include "pkunknown_85d4b0.h"	// rebuilt
-#include "pkunknown_85f250.h"	// rebuilt
-#include "pkunknown_863720.h"	// rebuilt
-#include "pkunknown_865020.h"	// rebuilt
-#include "pkunknown_8667a0.h"	// rebuilt
-#include "pkunknown_866ac0.h"	// rebuilt
+#include "pkdeletecharacter.h"	// rebuilt
+#include "pkregistrationresult.h"	// rebuilt
+#include "gameedit\pkgelog.h"	// rebuilt
+#include "pkglobalcontainer.h"	// rebuilt
+#include "pkglobalhello.h"	// rebuilt
+#include "pkglobalplayerstatus.h"	// rebuilt
+#include "pkglobalsetreferrer.h"	// rebuilt
 #include "pkunknown_867010.h"	// rebuilt
 #include "pkunknown_877640.h"	// rebuilt
-#include "pkunknown_877c80.h"	// rebuilt
-#include "pkunknown_87a940.h"	// rebuilt
-#include "pkunknown_87acd0.h"	// rebuilt
-#include "pkunknown_87dec0.h"	// rebuilt
-#include "pkunknown_888b60.h"	// rebuilt
-#include "pkunknown_8a2b70.h"	// rebuilt
-#include "pkunknown_8a5510.h"	// rebuilt
-#include "pkunknown_8a6430.h"	// rebuilt
+#include "pkbroadcast.h"	// rebuilt
+#include "pkchatbasicrequest.h"	// rebuilt
+#include "pkchatproxy.h"	// rebuilt
+#include "pkchatstream.h"	// rebuilt
+#include "pkgroupserver.h"	// rebuilt
+#include "pkrequestversion.h"	// rebuilt
+#include "pkspendreferralpoint.h"	// rebuilt
+#include "pkserverstop.h"	// rebuilt
 #include "pkupdate.h"	// rebuilt
 #include "pkverbrequest.h"	// rebuilt
 #include "pkversionrequest.h"	// rebuilt

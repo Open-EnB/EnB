@@ -10,7 +10,7 @@
 class CameraController01Class : public CameraControllerClass	// NAME 1: neutral (D10)
 {
 public:
-	CameraController01Class(SClient *client);			// 0x794510
+	CameraController01Class(SpaceClientClass *client);			// 0x794510
 	virtual ~CameraController01Class();					// 0x794570, deleting 0x794540
 	virtual void Unknown_04();							// +0x04 0x794590
 	virtual void Unknown_08(Vector3 *pos, Quaternion *rot, int *mode, int *target);	// +0x08 0x7945E0 (target: the followed id)

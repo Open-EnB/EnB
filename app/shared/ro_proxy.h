@@ -9,13 +9,13 @@
 
 // A render object that stands in for another, its "proxied" object: nearly every virtual forwards to it.
 // Table 0xAE9D88; 0xC4 bytes. ro_offset.h's class (constructor 0x47F560, table 0xAE9B48, 0xD0 bytes) derives from it.
-class ProxyRObj : public RenderObjClass	// the client's profile name 'ProxyRObj::Render' (0xB71B34)
+class ProxyRenderObjClass : public RenderObjClass  // NAME 5: thunk order A, binary.md 5.11; the client's profile name 'ProxyRenderObjClass::Render' (0xB71B34)
 {
 public:
-	ProxyRObj(bool arg);									// 0x47FA70  // NAME 1 [arg]: neutral
-	ProxyRObj(const ProxyRObj &src);						// 0x47FB60
-	const ProxyRObj &operator=(const ProxyRObj &src);		// 0x47FC90
-	virtual ~ProxyRObj(void);								// 0x47FCD0
+	ProxyRenderObjClass(bool arg);									// 0x47FA70  // NAME 1 [arg]: neutral
+	ProxyRenderObjClass(const ProxyRenderObjClass &src);						// 0x47FB60
+	const ProxyRenderObjClass &operator=(const ProxyRenderObjClass &src);		// 0x47FC90
+	virtual ~ProxyRenderObjClass(void);								// 0x47FCD0
 
 	virtual RenderObjClass *Clone(void) const;				// 0x47FDE0
 	virtual int Class_ID(void) const { return(0x10002); }	// 0x480AF0

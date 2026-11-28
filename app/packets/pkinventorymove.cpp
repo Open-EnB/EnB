@@ -2,7 +2,7 @@
 #include "pkinventorymove.h"
 #include <stdio.h>
 
-InventoryMovePacketClass::InventoryMovePacketClass(int id, InventoryEnum from_inv, int from_slot, InventoryEnum to_inv, int to_slot, int num) :
+InvPacketClass::InvPacketClass(int id, InventoryEnum from_inv, int from_slot, InventoryEnum to_inv, int to_slot, int num) :
 	ID(id),
 	FromInv(from_inv),
 	FromSlot(from_slot),
@@ -12,7 +12,7 @@ InventoryMovePacketClass::InventoryMovePacketClass(int id, InventoryEnum from_in
 {
 }
 
-InventoryMovePacketClass::InventoryMovePacketClass(RawPacketClass *raw)
+InvPacketClass::InvPacketClass(PacketClass *raw)
 {
 	raw->Get(ID);
 	int value;
@@ -25,9 +25,9 @@ InventoryMovePacketClass::InventoryMovePacketClass(RawPacketClass *raw)
 	raw->Get(Num);
 }
 
-RawPacketClass *InventoryMovePacketClass::Build()
+PacketClass *InvPacketClass::Encode()
 {
-	RawPacketClass *raw = new RawPacketClass(39, Get_Data_Size());
+	PacketClass *raw = new PacketClass(39, Get_Data_Size());
 	raw->Add(ID);
 	int value = FromInv;
 	raw->Add(value);
@@ -39,18 +39,18 @@ RawPacketClass *InventoryMovePacketClass::Build()
 	return(raw);
 }
 
-int InventoryMovePacketClass::Get_Data_Size()
+int InvPacketClass::Get_Data_Size()
 {
 	return(sizeof(ID) + sizeof(int) + sizeof(FromSlot) + sizeof(int) + sizeof(ToSlot) + sizeof(Num));
 }
 
-int InventoryMovePacketClass::Print(char *buffer, int)
+int InvPacketClass::Print(char *buffer, int)
 {
 	return(sprintf(buffer, "%s {ID=%d FromInv=%d FromSlot=%d ToInv=%d ToSlot=%d Num=%d}", "Inventory", ID, FromInv, FromSlot, ToInv, ToSlot, Num));
 }
 
 
-InventorySortPacketClass::InventorySortPacketClass(int id, InventoryEnum target_inv, int sort1, int sort2, int sort3, bool reverse) :
+InvSortPacketClass::InvSortPacketClass(int id, InventoryEnum target_inv, int sort1, int sort2, int sort3, bool reverse) :
 	ID(id),
 	TargetInv(target_inv),
 	Sort1(sort1),
@@ -60,7 +60,7 @@ InventorySortPacketClass::InventorySortPacketClass(int id, InventoryEnum target_
 {
 }
 
-InventorySortPacketClass::InventorySortPacketClass(RawPacketClass *raw)
+InvSortPacketClass::InvSortPacketClass(PacketClass *raw)
 {
 	raw->Get(ID);
 	int value;
@@ -72,9 +72,9 @@ InventorySortPacketClass::InventorySortPacketClass(RawPacketClass *raw)
 	raw->Get(Reverse);
 }
 
-RawPacketClass *InventorySortPacketClass::Build()
+PacketClass *InvSortPacketClass::Encode()
 {
-	RawPacketClass *raw = new RawPacketClass(40, Get_Data_Size());
+	PacketClass *raw = new PacketClass(40, Get_Data_Size());
 	raw->Add(ID);
 	int value = TargetInv;
 	raw->Add(value);
@@ -85,12 +85,12 @@ RawPacketClass *InventorySortPacketClass::Build()
 	return(raw);
 }
 
-int InventorySortPacketClass::Get_Data_Size()
+int InvSortPacketClass::Get_Data_Size()
 {
 	return(sizeof(ID) + sizeof(int) + sizeof(Sort1) + sizeof(Sort2) + sizeof(Sort3) + sizeof(Reverse));
 }
 
-int InventorySortPacketClass::Print(char *buffer, int)
+int InvSortPacketClass::Print(char *buffer, int)
 {
 	return(sprintf(buffer, "%s {ID=%d TargetInv=%d Sort1=%d Sort2=%d Sort3=%d Reverse=%d}", "InventorySort", ID, TargetInv, Sort1, Sort2, Sort3, Reverse));
 }
@@ -101,7 +101,7 @@ int InventorySortPacketClass::Print(char *buffer, int)
 **
 **	* Client 0x894CA0-0x8952D0 (0x894C70 is the previous object's guarded static, 0xC416FC; this one's
 **	  is 0x8952D0). INVENTORY_MOVE 39 written by hand (builder P4, 2026-10-26); every field is a
-**	  network-order int (RawPacketClass::Get(int &) / Add(const int &)); the two inventories are read
+**	  network-order int (PacketClass::Get(int &) / Add(const int &)); the two inventories are read
 **	  into an int and stored (an enum). The destructor the scalar deleting one calls (0x690F80) is a
 **	  copy from an earlier object (COMDAT).
 **	* INVENTORY_SORT 40 likewise (its Reverse a bool: Get(bool &) / Add(const bool &)).

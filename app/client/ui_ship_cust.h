@@ -12,12 +12,12 @@
 #include "..\..\wwlib\ref_ptr.h"
 #include "..\packets\pkrecustomize.h"
 
-class SBaseViewClass;
+class StarbaseViewClass;
 class UIViewClass;
-class ShipPipClass;
+class ShipPIPClass;
 class LayerClass;
 class UIAvatrPullClass;
-class TextGadgetClass;
+class UnknownTextGadgetClass;
 class TextureClass;
 class GadgetClass;
 class FlashingGadgetEvent;
@@ -47,7 +47,7 @@ struct StarbaseShipCustGadgetStruct	// NAME 1: neutral (D10)
 class StarbaseShipCustomizeInterface : public Unknown5BB320Class, public Unknown620D20Class	// NAME 3: the client's RTTI (0xB89BB0, among this file's strings: SignalBaseClass::MemberCallback<GadgetClass,StarbaseShipCustomizeInterface,...>, the FlashingGadgetEvent handler's)
 {
 public:
-	StarbaseShipCustomizeInterface(UIViewClass *view, LayerClass &layer);	// 0x6181B0 ('BUY_SHIP01'; sbaseview.cpp's 0x69F8F0)  // NAME 1 [view, layer]: as ui_avatar_cust.cpp's
+	StarbaseShipCustomizeInterface(UIViewClass *view, LayerClass &layer);	// 0x6181B0 ('BUY_SHIP01'; sbaseview.cpp's 0x69F8F0)  // NAME 1 [view, layer]: as ui_avatar_cust.cpp's  // NAME 5: thunk order probable, binary.md 5.11
 	virtual ~StarbaseShipCustomizeInterface();			// 0x6186A0 (the deleting one 0x618540)
 	virtual void Unknown_54();							// +0x54 0x618CA0 (after construction: the description from the avatar, the preview, the decal library, page 0)
 	virtual void Unknown_60();							// 0x6193A0 (every frame, then Unknown5BB320Class's 0x5BB660)
@@ -87,7 +87,7 @@ public:
 	void Unknown_61F250(ShipCustDescClass *desc, ShipRecustomizationCostClass *cost, int a, int b, int c, int d);	// 0x61F250 (RECUSTOMIZE_SHIP_START 129: cpacket.cpp)  // NAME 1 [desc, cost, a, b, c, d]: the packet's fields
 	void Unknown_61E730(FlashingGadgetEvent *event, GadgetClass *gadget);	// 0x61E730 (FAIL_IFs '!event' l.2017, '!gadget' l.2020)  // NAME 3 [event, gadget]: the FAIL_IFs'
 
-	SBaseViewClass *SBaseView;								// +0x230 (its Client's EnvironmentMapManager; not InterfaceClass's View, +0x48)  // NAME 1: neutral (D10)
+	StarbaseViewClass *SBaseView;								// +0x230 (its Client's EnvironmentMapManager; not InterfaceClass's View, +0x48)  // NAME 1: neutral (D10)
 	bool Unknown234;									// +0x234 (the constructor 0x6181B0 clears +0x234 .. +0x239)
 	bool Unknown235;									// +0x235
 	bool Unknown236;									// +0x236
@@ -100,14 +100,14 @@ public:
 	RenderObjClass *Unknown2D4;							// +0x2D4
 	RenderObjClass *Unknown2D8;							// +0x2D8
 	RenderObjClass *Unknown2DC;							// +0x2DC
-	ShipPipClass *Unknown2E0;							// +0x2E0 the ship preview gadget (as ui_shipcust.cpp's +0x22C)
+	ShipPIPClass *Unknown2E0;							// +0x2E0 the ship preview gadget (as ui_shipcust.cpp's +0x22C)
 	LayerClass *Layer;									// +0x2E4 (the buttons are made over it)  // NAME 1: as ui_shipcust.h's
 	int Page;											// +0x2E8 (1: the paint page, as ui_shipcust.cpp's +0x234)  // NAME 1: as ui_shipcust.h's
 	std::map<int, StarbaseShipCustGadgetStruct> Gadgets;		// +0x2EC (as ui_shipcust.cpp's +0x238)  // NAME 1: as ui_shipcust.h's
 	bool Unknown2FC;									// +0x2FC (the page's fonts loaded, as ui_shipcust.cpp's +0x248)
 	UIAvatrPullClass *Unknown300;						// +0x300 the colour palette and its pull (as ui_shipcust.cpp's +0x24C)
 	RefCountPtr<TextureClass> ColorSliderTexture;		// +0x304  // NAME 3: 0x61B760's G_ASSERT (l.1108)
-	TextGadgetClass *NameGadget;						// +0x308 (the ship's name: 'NAME_buy_ship04')  // NAME 1: as ui_shipcust.h's
+	UnknownTextGadgetClass *NameGadget;						// +0x308 (the ship's name: 'NAME_buy_ship04')  // NAME 1: as ui_shipcust.h's
 	int Unknown30C;										// +0x30C the part
 	int Unknown310;										// +0x310 the part's setting
 	int Unknown314;										// +0x314 the insignia list's first

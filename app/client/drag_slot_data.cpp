@@ -53,7 +53,7 @@
 
 
 // 0x6851B0
-DragSlotDataClass::DragSlotDataClass(SClient *client, SlotDataRenderClass *render) :
+DragSlotDataClass::DragSlotDataClass(SpaceClientClass *client, SlotDataRenderClass *render) :
 	SMouseDragClass(client->Mouse),
 	Client(client),
 	SlotRender(NULL),
@@ -99,7 +99,7 @@ bool DragSlotDataClass::Update(float x, float y)
 	FAIL_IF(!SlotRender) return(moved);
 	if (State == 2) {
 		if (moved) {
-			SoundLibraryClass::Play_2D_Sound("SR_ziprollover02.wav", 2);
+			SoundLibrary::Play_2D_Sound("SR_ziprollover02.wav", 2);
 			UIViewClass *view = Client->CurrentView;
 			SceneClass *scene = NULL;
 			if (view) {
@@ -111,7 +111,7 @@ bool DragSlotDataClass::Update(float x, float y)
 
 
 			FAIL_IF(!scene) return(moved);
-			InterfaceSortClass sort(scene, true);
+			LocalInterfaceSort sort(scene, true);
 			SlotRender->Unknown_6A8B60(scene);
 		}
 		Vector3 position(x * 640.0f - 320.0f, y * -480.0f, -1.0f); position.Y += 240.0f;
@@ -160,7 +160,7 @@ void DragSlotDataClass::Unknown_685500(int slot, int mode, bool arg)
 bool DragSlotDataClass::Drop()
 {
 	if (SMouseDragClass::Drop()) {
-		SoundLibraryClass::Play_2D_Sound("TextClick02.wav", 2);
+		SoundLibrary::Play_2D_Sound("TextClick02.wav", 2);
 		return(true);
 	}
 	return(false);

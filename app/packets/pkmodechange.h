@@ -18,12 +18,12 @@
 #include "pk.h"
 
 // opcode 76 (0x004C, ?): vtable 0xB0B2E4, constructor 0x89CBB0, 0x14 bytes
-class ModeChangePacketClass : public PacketClass
+class ModeChangePacketClass : public UnknownPacketBaseClass
 {
 public:
 	ModeChangePacketClass(int unknown0c, int mode);	// 0x89CAF0
-	ModeChangePacketClass(RawPacketClass *raw);	// 0x89CBB0
-	virtual RawPacketClass *Build();	// +0x04 0x89CC50
+	ModeChangePacketClass(PacketClass *raw);	// 0x89CBB0
+	virtual PacketClass *Encode();	// +0x04 0x89CC50  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x738100 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C PKMODECHANGE_HDS
 	virtual int Print(char *buffer, int len);	// +0x10 0x89CD40

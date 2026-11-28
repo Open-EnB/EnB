@@ -44,7 +44,7 @@ public:
 };
 
 // 0x549640
-UIAttrbSkillsClass::UIAttrbSkillsClass(SClient *client) :
+AttributeSkillsInterface::AttributeSkillsInterface(SpaceClientClass *client) :
 	UISkillsClass(client),
 	UnknownD4(NULL),
 	UnknownD8(NULL),
@@ -60,7 +60,7 @@ UIAttrbSkillsClass::UIAttrbSkillsClass(SClient *client) :
 }
 
 // 0x549830
-UIAttrbSkillsClass::~UIAttrbSkillsClass()
+AttributeSkillsInterface::~AttributeSkillsInterface()
 {
 	((InterfaceUnknown58Class *)&Unknown4C[0x58 - 0x4C])->Unknown_686DD0(InterfaceMesh.Peek());	// (InterfaceClass +0x58)
 	Unknown_54B050();
@@ -85,7 +85,7 @@ class LineDisplayClientClass  // NAME 1: neutral (D10)
 public:
 	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
 	virtual void Unknown_10(); virtual void Unknown_14();
-	virtual SClient *As_Space_Client();					// +0x18 (as ui_manu.cpp's)  // NAME 3: the FAIL_IF's in ui_manu.cpp
+	virtual SpaceClientClass *As_Space_Client();					// +0x18 (as ui_manu.cpp's)  // NAME 3: the FAIL_IF's in ui_manu.cpp
 };
 #include "..\audio\soundlib.h"
 int Unknown_82F350(int race, int prof);				// chartemplate.cpp's 0x82F350 (race and profession to the class index)  // NAME 1: neutral (D10), as chartemplate.cpp's
@@ -106,7 +106,7 @@ int Unknown_82F350(int race, int prof);				// chartemplate.cpp's 0x82F350 (race 
 
 #include "assetmgr.h"
 #include "gd_robj.h"
-#include "unknown_675120.h"
+#include "gd_uimesh.h"
 
 
 
@@ -115,7 +115,7 @@ int Unknown_82F350(int race, int prof);				// chartemplate.cpp's 0x82F350 (race 
 
 
 // 0x549AA0
-void UIAttrbSkillsClass::Unknown_54()
+void AttributeSkillsInterface::Unknown_54()
 {
 	InterfaceMesh = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj("TSI12B"));
 	FAIL_IF(!InterfaceMesh) return;
@@ -175,14 +175,14 @@ void UIAttrbSkillsClass::Unknown_54()
 
 #include "..\shared\auxdata\auxdata.h"
 #include "aux_skill.h"				// (after auxdata.h, as ui_buff.cpp)
-// auxdata.h's find, set (+0x70) or changed since (+0x70 above 1), else NULL, through two inline layers (NameClass and the root copy inner, ui_analyze.cpp's form; IB2: in place of a dead size() read): the find is called out of line, as the client's
-template<class C> inline C *Unknown_Find_Set_Field_Inner(DeltaCompoundClass * root, const char *name) { NameClass n(name); DeltaCompoundClass *r = root; C *t = Unknown_Find_Field<C>(r, n); return((t && t->Unknown70) ? t : NULL); } template<class C> inline C *Unknown_Find_Set_Field(DeltaCompoundClass * root, const char *name) { return(Unknown_Find_Set_Field_Inner<C>(root, name)); }	// NAME 1: neutral (D10)
-template<class C> inline C *Unknown_Find_Changed_Field_Inner(DeltaCompoundClass * root, const char *name) { NameClass n(name); DeltaCompoundClass *r = root; C *t = Unknown_Find_Field<C>(r, n); return((t && t->Unknown70 > 1) ? t : NULL); } template<class C> inline C *Unknown_Find_Changed_Field(DeltaCompoundClass * root, const char *name) { return(Unknown_Find_Changed_Field_Inner<C>(root, name)); }	// NAME 1: neutral (D10)
+// auxdata.h's find, set (+0x70) or changed since (+0x70 above 1), else NULL, through two inline layers (AuxDataName and the root copy inner, ui_analyze.cpp's form; IB2: in place of a dead size() read): the find is called out of line, as the client's
+template<class C> inline C *Unknown_Find_Set_Field_Inner(DeltaContainer * root, const char *name) { AuxDataName n(name); DeltaContainer *r = root; C *t = Unknown_Find_Field<C>(r, n); return((t && t->Unknown70) ? t : NULL); } template<class C> inline C *Unknown_Find_Set_Field(DeltaContainer * root, const char *name) { return(Unknown_Find_Set_Field_Inner<C>(root, name)); }	// NAME 1: neutral (D10)
+template<class C> inline C *Unknown_Find_Changed_Field_Inner(DeltaContainer * root, const char *name) { AuxDataName n(name); DeltaContainer *r = root; C *t = Unknown_Find_Field<C>(r, n); return((t && t->Unknown70 > 1) ? t : NULL); } template<class C> inline C *Unknown_Find_Changed_Field(DeltaContainer * root, const char *name) { return(Unknown_Find_Changed_Field_Inner<C>(root, name)); }	// NAME 1: neutral (D10)
 // 0x54A640
-// The text and the font in the found block (if (points) { ... }): the client's frame (0x54) shares one NameClass slot between the finds and puts the font in arg's slot
-void UIAttrbSkillsClass::Unknown_54A640(bool arg)
+// The text and the font in the found block (if (points) { ... }): the client's frame (0x54) shares one AuxDataName slot between the finds and puts the font in arg's slot
+void AttributeSkillsInterface::Unknown_54A640(bool arg)
 {
-	DeltaCompoundClass *aux_data = (DeltaCompoundClass *)Client->As_Space_Client()->AuxData;
+	DeltaContainer *aux_data = (DeltaContainer *)Client->As_Space_Client()->AuxData;
 	DeltaTemplateClass<int> *points;
 	if (arg) {
 		points = Unknown_Find_Set_Field<DeltaTemplateClass<int> >(aux_data, "RPGInfo.SkillPoints");
@@ -208,7 +208,7 @@ void UIAttrbSkillsClass::Unknown_54A640(bool arg)
 }
 
 // 0x54A860
-void UIAttrbSkillsClass::Unknown_54A860(int skill)
+void AttributeSkillsInterface::Unknown_54A860(int skill)
 {
 	UnknownEC = skill;
 	Unknown_54B400();
@@ -218,21 +218,21 @@ void UIAttrbSkillsClass::Unknown_54A860(int skill)
 
 
 // 0x54ACE0
-void UIAttrbSkillsClass::Unknown_54ACE0()
+void AttributeSkillsInterface::Unknown_54ACE0()
 {
 	bool active = Active;
 	if (active) {
 		UISkillsClass::Unknown_5C();
 	}
 	Unknown_54B050();
-	unsigned id = ((ClientClass *)Client)->AvatarID; CharacterViewAvatarClass *avatar = Client->As_Space_Client()->Unknown_74C840(id);
+	unsigned id = ((ClientClass *)Client)->AvatarID; AvatarClass *avatar = Client->As_Space_Client()->Unknown_74C840(id);
 	if (avatar) {
 		int index = Unknown_82F350(avatar->Desc.Race, avatar->Desc.Profession);
 		SkillDataClass *list = Unknown_62D710();
 		int count = list->Unknown_6A7990();
 		for (int i = 0; i < count; i++) {
 			int skill = list->Unknown_6A7A00(i);
-			Unknown664500Class *gadget = new Unknown664500Class();
+			AttributeSkillsGadget *gadget = new AttributeSkillsGadget();
 			gadget->Unknown_663DF0(this, skill, index);
 			Unknown64.Unknown_6870E0(gadget, i + 5005, View, 1, 1);
 			UnknownC4.push_back(gadget);
@@ -342,9 +342,9 @@ void UIAttrbSkillsClass::Unknown_54ACE0()
 
 
 // 0x54A900
-void UIAttrbSkillsClass::Unknown_54A900()
+void AttributeSkillsInterface::Unknown_54A900()
 {
-	for (std::vector<Unknown664500Class *>::iterator it = UnknownC4.begin(); it != UnknownC4.end(); it++) {
+	for (std::vector<AttributeSkillsGadget *>::iterator it = UnknownC4.begin(); it != UnknownC4.end(); it++) {
 		(*it)->Unknown_6647F0();
 	}
 	Unknown_62D710();
@@ -354,7 +354,7 @@ void UIAttrbSkillsClass::Unknown_54A900()
 	int count = UnknownC4.size();
 	for (int i = 0; i < UnknownF0 && index < count; i++) {
 		if (skip == 0) {
-			Unknown664500Class *gadget = UnknownC4[index];
+			AttributeSkillsGadget *gadget = UnknownC4[index];
 			FAIL_IF(!gadget) continue;
 			gadget->Unknown_28(&Layer);
 			if (gadget->Unknown_6645A0(level, level < 9)) {
@@ -392,13 +392,13 @@ void UIAttrbSkillsClass::Unknown_54A900()
 
 #pragma auto_inline(off)		// (+0x60 calls it out of line: VC6 would inline it)
 // 0x54AB20
-void UIAttrbSkillsClass::Unknown_54AB20()
+void AttributeSkillsInterface::Unknown_54AB20()
 {
 	if (Unknown_62D710()->Unknown50.Unknown_6A5440()) {
 		int index = UnknownE8;
 		int count = UnknownC4.size();
 		for (int i = 0; i < UnknownF0 && index < count; i++, index++) {
-			Unknown664500Class *gadget = UnknownC4[index];
+			AttributeSkillsGadget *gadget = UnknownC4[index];
 			FAIL_IF(!gadget) continue;
 			gadget->Unknown_A4(false);
 		}
@@ -418,7 +418,7 @@ void UIAttrbSkillsClass::Unknown_54AB20()
 #include "local_interface_sort.h"
 // 0x54A200
 // NOT EXACT: register (similarity 0.71: the inlined 0x54B370 keeps the count in ecx and the gadget in edx, the client the reverse; 0x54B140 inlines it as the client does)
-void UIAttrbSkillsClass::Unknown_58()
+void AttributeSkillsInterface::Unknown_58()
 {
 	if (!Active) {
 		InterfaceSortScopeClass sort(this);
@@ -449,7 +449,7 @@ void UIAttrbSkillsClass::Unknown_58()
 
 
 // 0x54A480
-bool UIAttrbSkillsClass::Unknown_68(int key)
+bool AttributeSkillsInterface::Unknown_68(int key)
 {
 	switch (key) {
 		case 5000:
@@ -465,7 +465,7 @@ bool UIAttrbSkillsClass::Unknown_68(int key)
 			break;
 		default:
 			if (key >= 5005) {
-				SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+				SoundLibrary::Play_2D_Sound("fontclick.wav", 2);
 				UnknownEC = key - 5005;
 				Unknown_54B400();
 
@@ -481,13 +481,13 @@ bool UIAttrbSkillsClass::Unknown_68(int key)
 
 #pragma auto_inline(off)		// (the destructor calls it out of line: VC6 would inline it)
 // 0x54B050
-void UIAttrbSkillsClass::Unknown_54B050()
+void AttributeSkillsInterface::Unknown_54B050()
 {
 	G_ASSERT(!Is_Active());
 
 
-	for (std::vector<Unknown664500Class *>::iterator it = UnknownC4.begin(); it != UnknownC4.end(); it++) {
-		Unknown664500Class *gadget = *it;
+	for (std::vector<AttributeSkillsGadget *>::iterator it = UnknownC4.begin(); it != UnknownC4.end(); it++) {
+		AttributeSkillsGadget *gadget = *it;
 		FAIL_IF(!gadget) continue;
 		gadget->Unknown_664430();
 		Unknown64.Unknown_687150(gadget);
@@ -501,7 +501,7 @@ void UIAttrbSkillsClass::Unknown_54B050()
 
 static inline float Slider_Value(GadgetSlider *slider) { return(slider->Value); }	// NAME 1: neutral (D10): the value through x87, as the client passes it
 // 0x54B140
-void UIAttrbSkillsClass::Unknown_54B140()
+void AttributeSkillsInterface::Unknown_54B140()
 {
 	bool slider = false;
 	bool common = false;
@@ -568,12 +568,12 @@ void UIAttrbSkillsClass::Unknown_54B140()
 
 
 // 0x54B370
-void UIAttrbSkillsClass::Unknown_54B370()
+void AttributeSkillsInterface::Unknown_54B370()
 {
 	UnknownF8 = 0;
 	int count = UnknownF0;
-	for (std::vector<Unknown664500Class *>::reverse_iterator it = UnknownC4.rbegin(); it != UnknownC4.rend(); it++) {
-		Unknown664500Class *gadget = *it;
+	for (std::vector<AttributeSkillsGadget *>::reverse_iterator it = UnknownC4.rbegin(); it != UnknownC4.rend(); it++) {
+		AttributeSkillsGadget *gadget = *it;
 		FAIL_IF(!gadget) return;
 		if (gadget->Unknown110) {
 			count--;
@@ -586,9 +586,9 @@ void UIAttrbSkillsClass::Unknown_54B370()
 	}
 }
 // 0x54B400
-void UIAttrbSkillsClass::Unknown_54B400()
+void AttributeSkillsInterface::Unknown_54B400()
 {
-	unsigned id = ((ClientClass *)Client)->AvatarID; CharacterViewAvatarClass *avatar = Client->As_Space_Client()->Unknown_74C840(id);
+	unsigned id = ((ClientClass *)Client)->AvatarID; AvatarClass *avatar = Client->As_Space_Client()->Unknown_74C840(id);
 	if (avatar) {
 		int index = Unknown_82F350(avatar->Desc.Race, avatar->Desc.Profession);
 		((Unknown548D60Class *)UnknownFC.Peek())->Unknown_548D60(Unknown_62D710(), Unknown_62D710()->Unknown_6A7A00(UnknownEC), index);
@@ -596,7 +596,7 @@ void UIAttrbSkillsClass::Unknown_54B400()
 }
 
 // 0x54A3C0
-void UIAttrbSkillsClass::Unknown_5C()
+void AttributeSkillsInterface::Unknown_5C()
 {
 	if (Active) {
 		UnknownFC->Unknown_5C();
@@ -606,7 +606,7 @@ void UIAttrbSkillsClass::Unknown_5C()
 }
 
 // 0x54A400
-void UIAttrbSkillsClass::Unknown_60()
+void AttributeSkillsInterface::Unknown_60()
 {
 	UISkillsClass::Unknown_60();
 	Unknown_54B140();
@@ -620,7 +620,7 @@ void UIAttrbSkillsClass::Unknown_60()
 }
 
 // 0x54A5B0
-void UIAttrbSkillsClass::Unknown_7C(UIViewClass *view, bool arg)
+void AttributeSkillsInterface::Unknown_7C(UIViewClass *view, bool arg)
 {
 	if (view) {
 		Layer.Set_Scene((SceneClass *)view->Unknown_50());
@@ -635,7 +635,7 @@ void UIAttrbSkillsClass::Unknown_7C(UIViewClass *view, bool arg)
 }
 
 // 0x54ABE0
-void UIAttrbSkillsClass::Unknown_54ABE0()
+void AttributeSkillsInterface::Unknown_54ABE0()
 {
 	int value = UnknownE4 ? UnknownD4->Value : UnknownD8->Value;
 	if (UnknownE8 != value) {
@@ -645,21 +645,21 @@ void UIAttrbSkillsClass::Unknown_54ABE0()
 }
 
 // 0x54AC50
-void UIAttrbSkillsClass::Unknown_B0()
+void AttributeSkillsInterface::Unknown_B0()
 {
 }
 
 // 0x54AC70
-void UIAttrbSkillsClass::Unknown_CC()
+void AttributeSkillsInterface::Unknown_CC()
 {
 	Unknown_54ACE0();
 }
 
 // 0x54AC90
-void UIAttrbSkillsClass::Unknown_D0()
+void AttributeSkillsInterface::Unknown_D0()
 {
-	for (std::vector<Unknown664500Class *>::iterator it = UnknownC4.begin(); it != UnknownC4.end(); it++) {
-		Unknown664500Class *gadget = *it;
+	for (std::vector<AttributeSkillsGadget *>::iterator it = UnknownC4.begin(); it != UnknownC4.end(); it++) {
+		AttributeSkillsGadget *gadget = *it;
 		if (gadget->Is_Enabled()) {
 			gadget->Unknown_664500();
 		}
@@ -668,7 +668,7 @@ void UIAttrbSkillsClass::Unknown_D0()
 /*
 **	Notes (TB1, 2026-11-05)
 **
-**	The client's object 0x549640-~0x54B75F: the constructor 0x549640 first, right after ui_attrb.cpp's PermStringInitClass
+**	The client's object 0x549640-~0x54B75F: the constructor 0x549640 first, right after ui_attrb.cpp's PermStringInit
 **	static (0x5495F0 / atexit 0x549620, the end of ui_attrb.obj); its destructor 0x549830 (deleting 0x549800) and the
 **	slots 0x549AA0.. carry ui_attrb_skills.cpp's asserts; the adjustor thunks 0x54B740 (-4) / 0x54B750 (-0x38) of the
 **	deleting destructor close it. 0x5738B0 (ui_cinfo.cpp) makes it, the character info window's first tab. The

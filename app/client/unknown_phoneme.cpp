@@ -1,7 +1,7 @@
 // Earth & Beyond client (reconstruction)
-// PROVISIONAL file name (D10): the lip-sync phoneme converter (Unknown_791310Class, unknown_personality.h),
+// PROVISIONAL file name (D10): the lip-sync phoneme converter (Unknown_791310Class, personality.h),
 // client 0x791310-0x792040 after the personality manager's file. Notes at the end of the file.
-#include "unknown_personality.h"
+#include "personality.h"
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>

@@ -7,15 +7,15 @@ ClickIndicatorPacketClass::ClickIndicatorPacketClass(bool turn_on, int obj_id) :
 {
 }
 
-ClickIndicatorPacketClass::ClickIndicatorPacketClass(RawPacketClass *raw)
+ClickIndicatorPacketClass::ClickIndicatorPacketClass(PacketClass *raw)
 {
 	raw->Get(&TurnOn, sizeof(TurnOn));
 	raw->Get(&ObjID, sizeof(ObjID));
 }
 
-RawPacketClass *ClickIndicatorPacketClass::Build()
+PacketClass *ClickIndicatorPacketClass::Encode()
 {
-	RawPacketClass *raw = new RawPacketClass(105, Get_Data_Size());
+	PacketClass *raw = new PacketClass(105, Get_Data_Size());
 	raw->Add(&TurnOn, sizeof(TurnOn));
 	raw->Add(&ObjID, sizeof(ObjID));
 	return(raw);

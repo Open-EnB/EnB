@@ -10,7 +10,7 @@ DirLockPacketClass::DirLockPacketClass(int a, const char *name, __int64 b, Unkno
 	}
 }
 
-DirLockPacketClass::DirLockPacketClass(RawPacketClass *raw)
+DirLockPacketClass::DirLockPacketClass(PacketClass *raw)
 {
 	raw->Get(Unknown0C);
 	Unknown10 = raw->Get_String();
@@ -25,7 +25,7 @@ DirLockPacketClass::~DirLockPacketClass()
 	Unknown10 = 0;
 }
 
-void DirLockPacketClass::Unknown_28(RawPacketClass *raw)
+void DirLockPacketClass::Unknown_28(PacketClass *raw)
 {
 	raw->Add(Unknown0C);
 	raw->Add_String(Unknown10);
@@ -36,20 +36,20 @@ void DirLockPacketClass::Unknown_28(RawPacketClass *raw)
 
 int DirLockPacketClass::Get_Data_Size()
 {
-	return(RawPacketClass::Get_Size(Unknown10) + sizeof(Unknown0C) + sizeof(Unknown18) + sizeof(Unknown20) + sizeof(Unknown28));
+	return(PacketClass::Get_Size(Unknown10) + sizeof(Unknown0C) + sizeof(Unknown18) + sizeof(Unknown20) + sizeof(Unknown28));
 }
 
 DirLockRequestPacketClass::DirLockRequestPacketClass(int a, const char *name, __int64 b, Unknown_DirLockStruct c, int d) : DirLockPacketClass(a, name, b, c, d)
 {
 }
 
-DirLockRequestPacketClass::DirLockRequestPacketClass(RawPacketClass *raw) : DirLockPacketClass(raw)
+DirLockRequestPacketClass::DirLockRequestPacketClass(PacketClass *raw) : DirLockPacketClass(raw)
 {
 }
 
-RawPacketClass *DirLockRequestPacketClass::Build()
+PacketClass *DirLockRequestPacketClass::Encode()
 {
-	RawPacketClass *raw = new RawPacketClass(223, Get_Data_Size());
+	PacketClass *raw = new PacketClass(223, Get_Data_Size());
 	DirLockPacketClass::Unknown_28(raw);
 	return(raw);
 }
@@ -69,14 +69,14 @@ DirLockResponseSectorPacketClass::DirLockResponseSectorPacketClass(int x, int a,
 	Unknown30 = x;
 }
 
-DirLockResponseSectorPacketClass::DirLockResponseSectorPacketClass(RawPacketClass *raw) : DirLockPacketClass(raw)
+DirLockResponseSectorPacketClass::DirLockResponseSectorPacketClass(PacketClass *raw) : DirLockPacketClass(raw)
 {
 	raw->Get(Unknown30);
 }
 
-RawPacketClass *DirLockResponseSectorPacketClass::Build()
+PacketClass *DirLockResponseSectorPacketClass::Encode()
 {
-	RawPacketClass *raw = new RawPacketClass(225, Get_Data_Size());
+	PacketClass *raw = new PacketClass(225, Get_Data_Size());
 	DirLockPacketClass::Unknown_28(raw);
 	raw->Add(Unknown30);
 	return(raw);
@@ -96,15 +96,15 @@ DirLockResponseGlobalPacketClass::DirLockResponseGlobalPacketClass(int x, int a,
 {
 }
 
-DirLockResponseGlobalPacketClass::DirLockResponseGlobalPacketClass(RawPacketClass *raw) : DirLockPacketClass(raw)
+DirLockResponseGlobalPacketClass::DirLockResponseGlobalPacketClass(PacketClass *raw) : DirLockPacketClass(raw)
 {
 	raw->Get(Unknown30);
 	raw->Get(Unknown34);
 }
 
-RawPacketClass *DirLockResponseGlobalPacketClass::Build()
+PacketClass *DirLockResponseGlobalPacketClass::Encode()
 {
-	RawPacketClass *raw = new RawPacketClass(224, Get_Data_Size());
+	PacketClass *raw = new PacketClass(224, Get_Data_Size());
 	DirLockPacketClass::Unknown_28(raw);
 	raw->Add(Unknown30);
 	raw->Add(Unknown34);
@@ -125,13 +125,13 @@ DirLockReleasePacketClass::DirLockReleasePacketClass(int a, const char *name, __
 {
 }
 
-DirLockReleasePacketClass::DirLockReleasePacketClass(RawPacketClass *raw) : DirLockPacketClass(raw)
+DirLockReleasePacketClass::DirLockReleasePacketClass(PacketClass *raw) : DirLockPacketClass(raw)
 {
 }
 
-RawPacketClass *DirLockReleasePacketClass::Build()
+PacketClass *DirLockReleasePacketClass::Encode()
 {
-	RawPacketClass *raw = new RawPacketClass(226, Get_Data_Size());
+	PacketClass *raw = new PacketClass(226, Get_Data_Size());
 	DirLockPacketClass::Unknown_28(raw);
 	return(raw);
 }

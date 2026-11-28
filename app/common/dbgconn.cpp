@@ -51,7 +51,7 @@ LogConnectionClass::~LogConnectionClass()
 	}
 }
 
-bool LogConnectionClass::Send_Message(RawPacketClass *packet)
+bool LogConnectionClass::Send_Message(PacketClass *packet)
 {
 	if (File != 0) {
 		Describe(packet, "Sent");
@@ -61,7 +61,7 @@ bool LogConnectionClass::Send_Message(RawPacketClass *packet)
 	return(Connection->Send_Message(packet));
 }
 
-bool LogConnectionClass::Send_Packet(PacketClass *packet)
+bool LogConnectionClass::Send_Packet(UnknownPacketBaseClass *packet)
 {
 	if (File != 0) {
 		Describe(packet, "Sent");
@@ -71,9 +71,9 @@ bool LogConnectionClass::Send_Packet(PacketClass *packet)
 	return(Connection->Send_Packet(packet));
 }
 
-PacketClass *LogConnectionClass::Receive()
+UnknownPacketBaseClass *LogConnectionClass::Receive()
 {
-	PacketClass *packet = ForwardingConnectionClass::Receive();
+	UnknownPacketBaseClass *packet = ForwardingConnectionClass::Receive();
 	if (packet != 0 && File != 0) {
 		Describe(packet, "Received");
 		fprintf(File, "%s\n", Buffer);
@@ -82,13 +82,13 @@ PacketClass *LogConnectionClass::Receive()
 	return(packet);
 }
 
-int LogConnectionClass::Describe(PacketClass *packet, const char *label)
+int LogConnectionClass::Describe(UnknownPacketBaseClass *packet, const char *label)
 {
 	int len = sprintf(Buffer, "%8s\t", label);
 	return(len + packet->Print(Buffer + len, 0x800 - len));
 }
 
-int LogConnectionClass::Describe(RawPacketClass *packet, const char *label)
+int LogConnectionClass::Describe(PacketClass *packet, const char *label)
 {
 	return(sprintf(Buffer, "%8s\t%s", label, packet->Unknown2A));
 }
@@ -122,7 +122,7 @@ int TimedLogConnectionClass::Format_Time(char *buffer, unsigned int ms)
 	unsigned int minutes = ms / 60000; ms %= 60000; return(sprintf(buffer, "%02u:%02u.%03u", minutes, ms / 1000, ms % 1000));
 }
 
-int TimedLogConnectionClass::Describe(PacketClass *packet, const char *label)
+int TimedLogConnectionClass::Describe(UnknownPacketBaseClass *packet, const char *label)
 {
 	unsigned int now = Unknown_Get_Ticks();
 	int len = Format_Time(Buffer, now - Start);
@@ -131,7 +131,7 @@ int TimedLogConnectionClass::Describe(PacketClass *packet, const char *label)
 	return(len + sprintf(Buffer + len, "\t time=%u", now));
 }
 
-int TimedLogConnectionClass::Describe(RawPacketClass *packet, const char *label)
+int TimedLogConnectionClass::Describe(PacketClass *packet, const char *label)
 {
 	unsigned int now = Unknown_Get_Ticks();
 	int size = packet->Header.Size; int len = Format_Time(Buffer, now - Start);
@@ -157,21 +157,21 @@ RateConnectionClass::RateConnectionClass(ConnectionClass *connection) :
 
 
 
-bool RateConnectionClass::Send_Message(RawPacketClass *packet)
+bool RateConnectionClass::Send_Message(PacketClass *packet)
 {
 	Count(packet->Header.Size, Out);
 	return(Connection->Send_Message(packet));
 }
 
-bool RateConnectionClass::Send_Packet(PacketClass *packet)
+bool RateConnectionClass::Send_Packet(UnknownPacketBaseClass *packet)
 {
 	Count(packet->Get_Data_Size() + 4, Out);
 	return(Connection->Send_Packet(packet));
 }
 
-PacketClass *RateConnectionClass::Receive()
+UnknownPacketBaseClass *RateConnectionClass::Receive()
 {
-	PacketClass *packet = ForwardingConnectionClass::Receive();
+	UnknownPacketBaseClass *packet = ForwardingConnectionClass::Receive();
 	if (packet == 0) {
 		return(0);
 	}
@@ -206,11 +206,11 @@ bool RateConnectionClass::Get_Stats(float *out_rate, float *in_rate, float *c, f
 	return(true);
 }
 
-// StatsConnectionClass (vtable 0xB08794): -PACKET_STATS; counts by the packet's printed name
+// PacketStatsConnection (vtable 0xB08794): -PACKET_STATS; counts by the packet's printed name
 void Record_Sent(const char *name, int bytes);		// 0x8255B0  // NAME 2: what it does
 void Record_Received(const char *name, int bytes);	// 0x825390  // NAME 2: what it does
 
-StatsConnectionClass::StatsConnectionClass(ConnectionClass *connection) :
+PacketStatsConnection::PacketStatsConnection(ConnectionClass *connection) :
 	ForwardingConnectionClass(connection)
 {
 
@@ -298,18 +298,18 @@ StatsConnectionClass::StatsConnectionClass(ConnectionClass *connection) :
 	G_ASSERT(connection);
 }
 
-StatsConnectionClass::~StatsConnectionClass()
+PacketStatsConnection::~PacketStatsConnection()
 {
 }
 
-bool StatsConnectionClass::Send_Message(RawPacketClass *packet)
+bool PacketStatsConnection::Send_Message(PacketClass *packet)
 {
 
 	G_ASSERT(0);
 	return(Connection->Send_Message(packet));
 }
 
-bool StatsConnectionClass::Send_Packet(PacketClass *packet)
+bool PacketStatsConnection::Send_Packet(UnknownPacketBaseClass *packet)
 {
 	if (packet != 0) {
 		char text[0x800];
@@ -322,9 +322,9 @@ bool StatsConnectionClass::Send_Packet(PacketClass *packet)
 	return(Connection->Send_Packet(packet));
 }
 
-PacketClass *StatsConnectionClass::Receive()
+UnknownPacketBaseClass *PacketStatsConnection::Receive()
 {
-	PacketClass *packet = ForwardingConnectionClass::Receive();
+	UnknownPacketBaseClass *packet = ForwardingConnectionClass::Receive();
 	if (packet == 0) {
 		return(0);
 	}

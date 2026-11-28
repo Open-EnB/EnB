@@ -21,7 +21,7 @@ class DeltaDecorationClass : public UnknownRootClass
 public:
 	DeltaDecorationClass(int unknown);
 
-	DeltaStringClass Name;	// +0xA0
+	DeltaString Name;	// +0xA0
 	DeltaTemplateClass<bool> AppearsInRadar;	// +0x128
 	DeltaTemplateClass<float> RadarRange;	// +0x1B0
 };

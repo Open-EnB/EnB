@@ -8,7 +8,7 @@
 #include "rendobj.h"
 #include "assetmgr.h"
 #include "gadget.h"
-#include "unknown_675120.h"
+#include "gd_uimesh.h"
 #include "..\shared\g_assert.h"
 #include "..\shared\duration.h"
 #include "..\audio\soundlib.h"
@@ -43,7 +43,7 @@ void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);	// 0x496AE
 
 
 // 0x5608D0
-UIBuffClass::UIBuffClass(UIViewClass *view, const LayerClass &layer) : Unknown5BB320Class(new UIMeshClass("TSI02A", 1), view, layer), UnknownAC(0)
+BuffInterface::BuffInterface(UIViewClass *view, const LayerClass &layer) : Unknown5BB320Class(new UIMeshClass("TSI02A", 1), view, layer), UnknownAC(0)
 {
 	((int *)Unknown70)[1] = 2;	// InterfaceClass's +0x74 (typed only for intrface.cpp)
 	Unknown_BE67BC->Load("fc_buff.ini");
@@ -51,7 +51,7 @@ UIBuffClass::UIBuffClass(UIViewClass *view, const LayerClass &layer) : Unknown5B
 }
 
 // 0x560A10
-UIBuffClass::~UIBuffClass()
+BuffInterface::~BuffInterface()
 {
 	Unknown_5C();
 	for (int i = 0; i < MAX_BUFFS; i++) Unknown_560FA0(i);	// (inlined)
@@ -59,7 +59,7 @@ UIBuffClass::~UIBuffClass()
 }
 
 // 0x560B30
-void UIBuffClass::Unknown_58()
+void BuffInterface::Unknown_58()
 {
 	if (UnknownAC == 0) {
 		Unknown5BB320Class::Unknown_58();
@@ -68,7 +68,7 @@ void UIBuffClass::Unknown_58()
 }
 
 // 0x560B60
-void UIBuffClass::Unknown_5C()
+void BuffInterface::Unknown_5C()
 {
 	if (UnknownAC == 1) {
 		Unknown5BB320Class::Unknown_5C();
@@ -77,14 +77,14 @@ void UIBuffClass::Unknown_5C()
 }
 
 // 0x560B90
-void UIBuffClass::Unknown_60()
+void BuffInterface::Unknown_60()
 {
 	Unknown_561030();
 	Unknown5BB320Class::Unknown_60();
 }
 
 // 0x560BC0
-void UIBuffClass::Unknown_560BC0(const BuffInfoStruct &info, int slot)
+void BuffInterface::Unknown_560BC0(const BuffDataClass &info, int slot)
 {
 	FAIL_IF(!BuffTable[slot]) return;
 
@@ -93,7 +93,7 @@ void UIBuffClass::Unknown_560BC0(const BuffInfoStruct &info, int slot)
 	BuffGadgetClass *buff_gadget = BuffTable[slot];
 	FAIL_IF(!buff_gadget) return;
 
-	BuffDefStruct *buffinfo = buff_gadget->BuffInfo;
+	BuffInfoClass *buffinfo = buff_gadget->BuffInfo;
 	FAIL_IF(!buffinfo) return;
 	if (buff_gadget->Unknown_6661F0(info, DurationClass((unsigned int)((ClientClass *)Client)->Unknown10BC))) {
 		bool good = buffinfo->IsGoodBuff;
@@ -108,7 +108,7 @@ void UIBuffClass::Unknown_560BC0(const BuffInfoStruct &info, int slot)
 
 
 // 0x560D20
-void UIBuffClass::Unknown_560D20(const char *type, const BuffInfoStruct &info, int slot)
+void BuffInterface::Unknown_560D20(const char *type, const BuffDataClass &info, int slot)
 {
 
 
@@ -129,7 +129,7 @@ void UIBuffClass::Unknown_560D20(const char *type, const BuffInfoStruct &info, i
 
 
 
-	BuffDefStruct *buffinfo = BuffDatabaseClass::Instance->Find(type);
+	BuffInfoClass *buffinfo = BuffDatabaseClass::Instance->Find(type);
 	FAIL_IF(!buffinfo) return;
 
 	InterfaceClass::Unknown_5C();
@@ -153,7 +153,7 @@ void UIBuffClass::Unknown_560D20(const char *type, const BuffInfoStruct &info, i
 }
 
 // 0x560FA0
-void UIBuffClass::Unknown_560FA0(int slot)
+void BuffInterface::Unknown_560FA0(int slot)
 {
 	if (BuffTable[slot]) {
 		InterfaceClass::Unknown_5C();
@@ -185,10 +185,10 @@ void UIBuffClass::Unknown_560FA0(int slot)
 void Unknown_42ECF0(float *x, float *y);				// 0x42ECF0 (the pointer's position, 0..1; as gadget.cpp declares it)  // NAME 1 [x, y]: neutral
 
 enum { MAX_BUFF_ELEMENTS = 5 };	// NAME 3: the assert's (the ship's BuffArray.N.Elements count)
-template<class C> inline C *Unknown_Find_Aux_Field(ClientObjectClass *object, const char *name) { NameClass n(name); DeltaCompoundClass *r = (DeltaCompoundClass *)object->AuxData; return(Unknown_Find_Field<C>(r, n)); } template<class C> inline C *Unknown_Find_Aux(ClientObjectClass *object, const char *name) { return(Unknown_Find_Aux_Field<C>(object, name)); }	// NAME 1: neutral (D10): two inline layers (as ui_analyze.cpp's): the client's find 0x561C40 out of line in 0x561030
-// 0x5615C0: the ship's DeltaBuffClass to a BuffInfoStruct (static: called directly)
+template<class C> inline C *Unknown_Find_Aux_Field(ClientObjectClass *object, const char *name) { AuxDataName n(name); DeltaContainer *r = (DeltaContainer *)object->AuxData; return(Unknown_Find_Field<C>(r, n)); } template<class C> inline C *Unknown_Find_Aux(ClientObjectClass *object, const char *name) { return(Unknown_Find_Aux_Field<C>(object, name)); }	// NAME 1: neutral (D10): two inline layers (as ui_analyze.cpp's): the client's find 0x561C40 out of line in 0x561030
+// 0x5615C0: the ship's DeltaBuffClass to a BuffDataClass (static: called directly)
 // NOT EXACT: inline-budget (the client calls string::assign out of line for the first two strings, inlines the third)
-static void Unknown_5615C0(BuffInfoStruct &info, DeltaBuffClass *buff)	// NAME 1 [Unknown_5615C0, info, buff]: neutral (D10)
+static void Unknown_5615C0(BuffDataClass &info, DeltaBuffClass *buff)	// NAME 1 [Unknown_5615C0, info, buff]: neutral (D10)
 {
 	info.Set_Scrub_Type_Name(std::string(buff->ScrubTypeName.Get()));
 	info.Set_Is_Permanent(buff->IsPermanent.Value);
@@ -213,8 +213,8 @@ static void Unknown_5615C0(BuffInfoStruct &info, DeltaBuffClass *buff)	// NAME 1
 
 // 0x561030: the ship's BuffArray to the slots (a new buff made, a changed one updated, an emptied one taken off), then
 // each gadget's state, and the mesh's 'frame' hidden without buffs (slot +0x60)
-static inline const char *Type_Of(BuffDefStruct *d) { return d->Type; } static inline void Add_New_Buff(UIBuffClass *ui, DeltaBuffClass *buff, const char *type, int slot) { BuffInfoStruct info; Unknown_5615C0(info, buff); ui->Unknown_560D20(type, info, slot); }	// NAME 1: neutral (D10)
-void UIBuffClass::Unknown_561030()
+static inline const char *Type_Of(BuffInfoClass *d) { return d->Type; } static inline void Add_New_Buff(BuffInterface *ui, DeltaBuffClass *buff, const char *type, int slot) { BuffDataClass info; Unknown_5615C0(info, buff); ui->Unknown_560D20(type, info, slot); }	// NAME 1: neutral (D10)
+void BuffInterface::Unknown_561030()
 {
 	ClientObjectClass *avatar = ((ClientClass *)Client)->Get_Avatar();
 	if (avatar && avatar->AuxData) {
@@ -233,7 +233,7 @@ void UIBuffClass::Unknown_561030()
 					if (strcmp(type, "") == 0) {
 						Unknown_560FA0(slot);
 					} else if (BuffTable[slot] && BuffTable[slot]->BuffInfo && strcmp(Type_Of(BuffTable[slot]->BuffInfo), type) == 0) {
-						BuffInfoStruct info;
+						BuffDataClass info;
 						Unknown_5615C0(info, buff);
 						Unknown_560BC0(info, slot);
 					} else {
@@ -270,12 +270,12 @@ void UIBuffClass::Unknown_561030()
 }
 
 // 0x561B40
-void UIBuffClass::Unknown_561B40(bool good)
+void BuffInterface::Unknown_561B40(bool good)
 {
 	if (good) {
-		SoundLibraryClass::Play_2D_Sound("click1c.wav", 2);
+		SoundLibrary::Play_2D_Sound("click1c.wav", 2);
 	} else {
-		SoundLibraryClass::Play_2D_Sound("cost.wav", 2);
+		SoundLibrary::Play_2D_Sound("cost.wav", 2);
 	}
 }
 
@@ -285,10 +285,10 @@ void UIBuffClass::Unknown_561B40(bool good)
 **	The client's object 0x5608D0-0x561DC0 (ui_buff.obj: its __FILE__ 'e:\build\beta\G\app\Client\ui_buff.cpp' at 0xB7C18C),
 **	linked after ui_bio's 0x5608BF and before ui_chat_panel.cpp's constructor 0x561DD0. 0x561030 and its static helper
 **	0x5615C0 are NOT EXACT (inline budget); the static is defined first (its asserts are on lines 197 / 205, and defined
-**	after 0x561030 the BuffInfoStruct destructor 0x561A60 does not match). The COMDATs they bring: the destructors
+**	after 0x561030 the BuffDataClass destructor 0x561A60 does not match). The COMDATs they bring: the destructors
 **	0x561A60 / 0x5619D0 and the vector's _Destroy 0x561BD0 match; auxdata.h's find 0x561C40 and ~vector 0x561B80 are
 **	inlined in ours. After the slots: the adjustor thunks 0x561D60 (-4) / 0x561D70 (-0x38) of the deleting
-**	destructor 0x5609E0, the STL locale ids 0x561CB0 / 0x561D00 and the PermStringInitClass static's initialiser
+**	destructor 0x5609E0, the STL locale ids 0x561CB0 / 0x561D00 and the PermStringInit static's initialiser
 **	0x561D80 / atexit 0x561DB0 (0xBE5B64).
 **
 **	Forms the client needs: 0x560BC0 passes IsGoodBuff through a local (the client stores it and reloads it as the

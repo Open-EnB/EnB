@@ -6,7 +6,7 @@
 #include "client.h"
 #include "sbaseview.h"
 #include "gadget.h"
-#include "unknown_675120.h"
+#include "gd_uimesh.h"
 #include "gd_slider.h"
 #include "local_interface_sort.h"
 #include "rendobj.h"
@@ -25,7 +25,7 @@ class LineDisplayClientClass  // NAME 1: neutral (D10)
 public:
 	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
 	virtual void Unknown_10(); virtual void Unknown_14();
-	virtual SClient *As_Space_Client();					// +0x18 (ClientClass::As_Space_Client; SClient's returns itself)  // NAME 3: ui_manu.cpp's FAIL_IF's
+	virtual SpaceClientClass *As_Space_Client();					// +0x18 (ClientClass::As_Space_Client; SpaceClientClass's returns itself)  // NAME 3: ui_manu.cpp's FAIL_IF's
 };
 
 void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);	// 0x496AE0 (ro_funcs.cpp, cdecl)  // NAME 1 [robj, make_geometry_unique]: as ui_manu.cpp's
@@ -53,7 +53,7 @@ static const char *Unknown_B8077C[] = { "not used", "exit", "exit_button", "butt
 static const char *Unknown_B807A8[] = { "ITEM_NAME_JNEWS00", "" };	// NAME 1: neutral (D10)
 
 // @0x5A1170
-UIJobsClass::UIJobsClass(SClient *client) :
+UIJobsClass::UIJobsClass(SpaceClientClass *client) :
 	Unknown5BB320Class(new UIMeshClass("JNEWS00", true), client),
 	Unknown0AC(NULL),
 	Unknown0B4(0),
@@ -160,12 +160,12 @@ void UIJobsClass::Unknown_7C(UIViewClass *view, bool arg)
 	}
 }
 
-static inline int Jobs_Player_Id(SClient *sclient) { return sclient->Unknown1138; }  // NAME 2: the player id read as an inline accessor (as ui_manu.cpp's Manu_Player_Id)
+static inline int Jobs_Player_Id(SpaceClientClass *sclient) { return sclient->Unknown1138; }  // NAME 2: the player id read as an inline accessor (as ui_manu.cpp's Manu_Player_Id)
 
 // @0x5A2050
 void UIJobsClass::Unknown_58()
 {
-	SClient *sclient = Client->As_Space_Client();
+	SpaceClientClass *sclient = Client->As_Space_Client();
 	if (State == UI_CLOSED) {
 		InterfaceSortScopeClass scope(this);
 		State = UI_OPEN;
@@ -176,13 +176,13 @@ void UIJobsClass::Unknown_58()
 		Unknown_5A32B0();
 		Unknown0B0->Unknown_7C(View, true);
 		if (sclient->Unknown135C) {
-			((SBaseViewClass *)sclient->Unknown135C)->Unknown_69DC40();
+			((StarbaseViewClass *)sclient->Unknown135C)->Unknown_69DC40();
 		}
 		Unknown5BB320Class::Unknown_58();
 		Unknown_5A3090();
 		Unknown_5A3890();
 		sclient->Unknown_744560(0x1B);
-		sclient->Send_Packet(&StarbaseRequestPacketClass(Jobs_Player_Id(sclient), 6, 0));
+		sclient->Send_Packet(&StarbaseReqPacketClass(Jobs_Player_Id(sclient), 6, 0));
 		Unknown_5A3440(0);
 	}
 }
@@ -190,13 +190,13 @@ void UIJobsClass::Unknown_58()
 // @0x5A2480
 void UIJobsClass::Unknown_5C()
 {
-	SClient *sclient = Client->As_Space_Client();
+	SpaceClientClass *sclient = Client->As_Space_Client();
 	if (State == UI_OPEN) {
 		State = UI_CLOSED;
 		if (sclient->Unknown135C) {
-			((SBaseViewClass *)sclient->Unknown135C)->Unknown_69DC60();
+			((StarbaseViewClass *)sclient->Unknown135C)->Unknown_69DC60();
 		}
-		sclient->Send_Packet(&StarbaseRequestPacketClass(Jobs_Player_Id(sclient), 9, 0));
+		sclient->Send_Packet(&StarbaseReqPacketClass(Jobs_Player_Id(sclient), 9, 0));
 		Unknown0B0->Unknown_5C();
 		Unknown5BB320Class::Unknown_5C();
 		sclient->Unknown_744560(0x1C);
@@ -216,8 +216,8 @@ bool UIJobsClass::Unknown_68(int key)
 	if (!Unknown0C4) {
 		switch (key) {
 			case 2:
-				SoundLibraryClass::Play_2D_Sound("INTERFACE_MenuSlide01C.wav", 2);
-				((SBaseViewClass *)View->Unknown_30())->Unknown_69F440();
+				SoundLibrary::Play_2D_Sound("INTERFACE_MenuSlide01C.wav", 2);
+				((StarbaseViewClass *)View->Unknown_30())->Unknown_69F440();
 				return(true);
 			case 3:
 				Unknown_5A3440(0);
@@ -362,7 +362,7 @@ void UIJobsClass::Unknown_5A2730(int row)
 	Unknown0D0 = job_id;
 	Unknown_5A3090();
 	Unknown_5A3240();
-	Client->As_Space_Client()->Send_Packet(&StarbaseRequestPacketClass(Jobs_Player_Id(Client->As_Space_Client()), 7, JobInfo[Unknown0CC]->Unknown44));
+	Client->As_Space_Client()->Send_Packet(&StarbaseReqPacketClass(Jobs_Player_Id(Client->As_Space_Client()), 7, JobInfo[Unknown0CC]->Unknown44));
 	Unknown0C4 = 2;
 }
 
@@ -597,7 +597,7 @@ void UIJobsClass::Unknown_5A3440(int category)
 void UIJobsClass::Unknown_5A36F0()
 {
 	if (Unknown0CC >= 0 && Unknown0CC < (int)JobInfo.size()) {
-		Client->As_Space_Client()->Send_Packet(&StarbaseRequestPacketClass(Jobs_Player_Id(Client->As_Space_Client()), 8, JobInfo[Unknown0CC]->Unknown44));
+		Client->As_Space_Client()->Send_Packet(&StarbaseReqPacketClass(Jobs_Player_Id(Client->As_Space_Client()), 8, JobInfo[Unknown0CC]->Unknown44));
 		Unknown0C4 = 3;
 	}
 }
@@ -927,5 +927,5 @@ int UIJobsClass::Unknown_5A45A0(int category)
 /*
 ** Reconstruction notes (JB1, 2026-11-09)
 ** The window's functions 0x5A1170-0x5A45A0 in the client's order, then the STL instances 0x5A45F0-0x5A4A50, the
-** thunks 0x5A4AE0 / 0x5A4AF0 and the PermStringInitClass static 0x5A4B00.
+** thunks 0x5A4AE0 / 0x5A4AF0 and the PermStringInit static 0x5A4B00.
 */

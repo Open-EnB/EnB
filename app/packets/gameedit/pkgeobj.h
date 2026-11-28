@@ -20,13 +20,13 @@
 #include "matrix3d.h"
 
 // opcode 30016 (0x7540, ?): vtable 0xB09008, constructor 0x85F8F0, 0x18 bytes
-class Packet_7540Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x7540 (Print 'GameEditorCreateFinal')
+class GameEditorCreateFinalPacketClass : public UnknownPacketBaseClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
-	Packet_7540Class(char *data, int size);	// 0x85F870 (Data is the caller's, not copied)
-	Packet_7540Class(RawPacketClass *raw);	// 0x85F8F0
-	virtual ~Packet_7540Class();	// +0x00 0x85F9D0 / 0x85F8C0
-	virtual RawPacketClass *Build();	// +0x04 0x85FA10
+	GameEditorCreateFinalPacketClass(char *data, int size);	// 0x85F870 (Data is the caller's, not copied)
+	GameEditorCreateFinalPacketClass(PacketClass *raw);	// 0x85F8F0
+	virtual ~GameEditorCreateFinalPacketClass();	// +0x00 0x85F9D0 / 0x85F8C0
+	virtual PacketClass *Encode();	// +0x04 0x85FA10  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x8681C0 (clientstub.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x85FAE0
 	virtual int Print(char *buffer, int len);	// +0x10 0x85FB00
@@ -37,13 +37,13 @@ public:
 };
 
 // opcode 30014 (0x753E, ?): vtable 0xB09038, constructor 0x85FBB0, 0x18 bytes
-class Packet_753EClass : public PacketClass  // NAME 1: neutral (D10): opcode 0x753E (Print 'GameEditorCreateEmpty')
+class GameEditorCreateEmptyPacketClass : public UnknownPacketBaseClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
-	Packet_753EClass(char *data, int size);	// 0x85FB30 (Data is the caller's, not copied)
-	Packet_753EClass(RawPacketClass *raw);	// 0x85FBB0
-	virtual ~Packet_753EClass();	// +0x00 0x85FC90 / 0x85FB80
-	virtual RawPacketClass *Build();	// +0x04 0x85FCD0
+	GameEditorCreateEmptyPacketClass(char *data, int size);	// 0x85FB30 (Data is the caller's, not copied)
+	GameEditorCreateEmptyPacketClass(PacketClass *raw);	// 0x85FBB0
+	virtual ~GameEditorCreateEmptyPacketClass();	// +0x00 0x85FC90 / 0x85FB80
+	virtual PacketClass *Encode();	// +0x04 0x85FCD0  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x8681F0 (clientstub.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x85FDA0
 	virtual int Print(char *buffer, int len);	// +0x10 0x85FDC0
@@ -54,12 +54,12 @@ public:
 };
 
 // opcode 30015 (0x753F, ?): vtable 0xB09068, constructor 0x85FE60, 0xC bytes
-class Packet_753FClass : public PacketClass  // NAME 1: neutral (D10): opcode 0x753F
+class GameEditorCreateCancelPacketClass : public UnknownPacketBaseClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
-	Packet_753FClass();	// 0x85FDF0
-	Packet_753FClass(RawPacketClass *raw);	// 0x85FE60
-	virtual RawPacketClass *Build();	// +0x04 0x85FEC0
+	GameEditorCreateCancelPacketClass();	// 0x85FDF0
+	GameEditorCreateCancelPacketClass(PacketClass *raw);	// 0x85FE60
+	virtual PacketClass *Encode();	// +0x04 0x85FEC0  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x868220 (clientstub.cpp l.134)
 	virtual int Get_Data_Size();	// +0x0C 0x85FF50
 	virtual int Print(char *buffer, int len);	// +0x10 0x85FF70
@@ -67,12 +67,12 @@ public:
 };
 
 // opcode 30009 (0x7539, ?): vtable 0xB09098, constructor 0x860030, 0x10 bytes
-class Packet_7539Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x7539
+class GameEditorDeletePacketClass : public UnknownPacketBaseClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
-	Packet_7539Class(int game_id);	// 0x85FFA0
-	Packet_7539Class(RawPacketClass *raw);	// 0x860030
-	virtual RawPacketClass *Build();	// +0x04 0x8600C0
+	GameEditorDeletePacketClass(int game_id);	// 0x85FFA0
+	GameEditorDeletePacketClass(PacketClass *raw);	// 0x860030
+	virtual PacketClass *Encode();	// +0x04 0x8600C0  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x868250 (clientstub.cpp l.137)
 	virtual int Get_Data_Size();	// +0x0C 0x860180
 	virtual int Print(char *buffer, int len);	// +0x10 0x8601A0
@@ -81,12 +81,12 @@ public:
 };
 
 // opcode 30010 (0x753A, ?): vtable 0xB090C8, constructor 0x8602C0, 0x40 bytes
-class Packet_753AClass : public PacketClass  // NAME 1: neutral (D10): opcode 0x753A
+class GameEditorMovePacketClass : public UnknownPacketBaseClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
-	Packet_753AClass(int game_id, const Matrix3D &transform);	// 0x8601D0  // NAME 2 [transform]: what it is
-	Packet_753AClass(RawPacketClass *raw);	// 0x8602C0
-	virtual RawPacketClass *Build();	// +0x04 0x860360
+	GameEditorMovePacketClass(int game_id, const Matrix3D &transform);	// 0x8601D0  // NAME 2 [transform]: what it is
+	GameEditorMovePacketClass(PacketClass *raw);	// 0x8602C0
+	virtual PacketClass *Encode();	// +0x04 0x860360  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x868280 (clientstub.cpp l.140)
 	virtual int Get_Data_Size();	// +0x0C 0x860430
 	virtual int Print(char *buffer, int len);	// +0x10 0x860450
@@ -96,13 +96,13 @@ public:
 };
 
 // 0x753B (30011, not in the packet switch: sent only): vtable 0xB090F8, constructor 0x860500, 0x18 bytes
-class Packet_753BClass : public PacketClass  // NAME 1: neutral (D10): opcode 0x753B (Print 'GameEditorTemplateCategories')
+class GameEditorTemplateCategoriesPacketClass : public UnknownPacketBaseClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
-	Packet_753BClass(char *data, int size);	// 0x860480 (Data is the caller's, not copied)
-	Packet_753BClass(RawPacketClass *raw);	// 0x860500
-	virtual ~Packet_753BClass();	// +0x00 0x8605E0 / 0x8604D0
-	virtual RawPacketClass *Build();	// +0x04 0x860620
+	GameEditorTemplateCategoriesPacketClass(char *data, int size);	// 0x860480 (Data is the caller's, not copied)
+	GameEditorTemplateCategoriesPacketClass(PacketClass *raw);	// 0x860500
+	virtual ~GameEditorTemplateCategoriesPacketClass();	// +0x00 0x8605E0 / 0x8604D0
+	virtual PacketClass *Encode();	// +0x04 0x860620  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x860740
 	virtual int Get_Data_Size();	// +0x0C 0x8606F0
 	virtual int Print(char *buffer, int len);	// +0x10 0x860710
@@ -113,13 +113,13 @@ public:
 };
 
 // opcode 30012 (0x753C, ?): vtable 0xB09128, constructor 0x8607E0, 0x18 bytes
-class Packet_753CClass : public PacketClass  // NAME 1: neutral (D10): opcode 0x753C (Print 'GameEditorRequestTemplateList')
+class GameEditorRequestTemplateListPacketClass : public UnknownPacketBaseClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
-	Packet_753CClass(char *data, int size);	// 0x860760 (Data is the caller's, not copied)
-	Packet_753CClass(RawPacketClass *raw);	// 0x8607E0
-	virtual ~Packet_753CClass();	// +0x00 0x8608C0 / 0x8607B0
-	virtual RawPacketClass *Build();	// +0x04 0x860900
+	GameEditorRequestTemplateListPacketClass(char *data, int size);	// 0x860760 (Data is the caller's, not copied)
+	GameEditorRequestTemplateListPacketClass(PacketClass *raw);	// 0x8607E0
+	virtual ~GameEditorRequestTemplateListPacketClass();	// +0x00 0x8608C0 / 0x8607B0
+	virtual PacketClass *Encode();	// +0x04 0x860900  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x8682B0 (clientstub.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x8609D0
 	virtual int Print(char *buffer, int len);	// +0x10 0x8609F0
@@ -130,13 +130,13 @@ public:
 };
 
 // 0x753D (30013, not in the packet switch: sent only): vtable 0xB09158, constructor 0x860AA0, 0x18 bytes
-class Packet_753DClass : public PacketClass  // NAME 1: neutral (D10): opcode 0x753D (Print 'GameEditorTemplateList')
+class GameEditorTemplateListPacketClass : public UnknownPacketBaseClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
-	Packet_753DClass(char *data, int size);	// 0x860A20 (Data is the caller's, not copied)
-	Packet_753DClass(RawPacketClass *raw);	// 0x860AA0
-	virtual ~Packet_753DClass();	// +0x00 0x860B80 / 0x860A70
-	virtual RawPacketClass *Build();	// +0x04 0x860BC0
+	GameEditorTemplateListPacketClass(char *data, int size);	// 0x860A20 (Data is the caller's, not copied)
+	GameEditorTemplateListPacketClass(PacketClass *raw);	// 0x860AA0
+	virtual ~GameEditorTemplateListPacketClass();	// +0x00 0x860B80 / 0x860A70
+	virtual PacketClass *Encode();	// +0x04 0x860BC0  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Process_Packet(void *client);	// +0x08 0x860CE0
 	virtual int Get_Data_Size();	// +0x0C 0x860C90
 	virtual int Print(char *buffer, int len);	// +0x10 0x860CB0
