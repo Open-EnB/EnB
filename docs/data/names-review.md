@@ -10,7 +10,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 824 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
 | 3 | by convention from a client-named file or sibling | 1898 |
-| 2 | describes what the code does | 4965 |
+| 2 | describes what the code does | 4966 |
 | 1 | neutral placeholder | 25272 |
 
 ## For review (score 3 and below)
@@ -30143,6 +30143,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `SortCountdown` | `app/wwudp/bandwidthaccounting.cpp:98` | 0xBB13EC |
 | 2 | `LastInIndex` | `app/wwudp/bandwidthaccounting.cpp:99` | 0xBB13F0 |
 | 2 | `LastOutIndex` | `app/wwudp/bandwidthaccounting.cpp:100` | 0xBB13F4 |
+| 2 | `Cord_Get_Byte` | `app/wwudp/cordcon.cpp:970` | what it does, as Cord_Get_Small (inlined only: the client has no copy and no name) |
 | 2 | `current` | `app/wwudp/cordcon.cpp:1435` | the copy of now the expiry loop compares |
 | 2 | `first` | `app/wwudp/cordcon.cpp:1854` | the share of first sends |
 | 2 | `Cord_Put_Small` | `app/wwudp/cordcon.cpp:1947` | what it does (the client has no name) |
