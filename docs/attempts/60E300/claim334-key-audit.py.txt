@@ -1,0 +1,61 @@
+"""Audit explicitly supplied scanner object and source against retail 0x60E300."""
+import argparse, hashlib, json, struct, sys
+from pathlib import Path
+ROOT = Path('/home/dev/Projects/EnB')
+sys.path.insert(0, str(ROOT/'tools/re'))
+from objmatch import CoffObject, object_unwind
+from clientimage import ClientImage
+
+p = argparse.ArgumentParser()
+p.add_argument('--object', required=True); p.add_argument('--source', required=True)
+p.add_argument('--source-sha256', required=True); p.add_argument('--output', required=True)
+a = p.parse_args()
+objpath, source = Path(a.object), Path(a.source)
+sha = lambda b: hashlib.sha256(b).hexdigest()
+assert sha(source.read_bytes()) == a.source_sha256
+client = ClientImage('/home/dev/Games/earth-and-beyond/prefix/drive_c/Program Files (x86)/EA GAMES/Earth & Beyond/release/client.exe')
+obj = CoffObject(str(objpath)); addr=0x60E300
+sym, sec, start, end = next(f for f in obj.functions() if f[0] == '?Unknown_68@ScannerInterface@@UAE_NH@Z')
+_, _, size = obj.pattern(sec,start,end)
+assert size == 293
+raw = bytearray(obj.data[obj.sections[sec]['raw']+start:obj.sections[sec]['raw']+start+size])
+retail = bytearray(client.data[client.offset(addr):client.offset(addr)+size])
+# Every relocation offset, expected symbol prefix and retail target. Function
+# addresses are incremental-link thunks; strings are checked by content below.
+expected = {
+ 1:('Unknown_BE5F34',0xBE5F34), 0x21:('Unknown_BE5EB0',0xBE5EB0),
+ 0x47:('Unknown_68@UIMFDClass',0x418994),
+ 0x6e:('??_C@',0xB8899C),0x73:('??_C@',0xB7C16C),
+ 0x78:('Fail_If_Report',0x402C3E),0x85:('??_C@',0xB8899C),
+ 0x8a:('??_C@',0xB6F5E0),0x8f:('G_Assert_Report',0x40AA51),
+ 0xac:('??_C@',0xB8899C),0xb1:('??_C@',0xB766B4),
+ 0xc7:('??_C@',0xB8899C),0xcc:('??_C@',0xB889D8),
+ 0xd5:('??_C@',0xB7AA68),0xda:('Play_2D_Sound',0x411B99),
+ 0xf0:('Select_Next_Target_Filtered',0x40F97F),
+ 0xfc:('Select_Next_Target@',0x404674),
+ 0x10e:('Select_Prev_Target_Filtered',0x405736),
+ 0x11a:('Select_Prev_Target@',0x418656)}
+relocs = obj.reloc_targets(sec,start,size); assert {r[0] for r in relocs} == set(expected)
+rows=[]; exceptions=[]
+for off,width,kind,s,addend in relocs:
+    name,target=expected[off]; assert width==4 and name in s['name']
+    assert addend == bytes(4)
+    val=struct.unpack('<I',retail[off:off+4])[0]
+    got=(addr+off+4+struct.unpack('<i',retail[off:off+4])[0]) & 0xffffffff if kind==0x14 else val
+    assert kind in (6,0x14) and got==target
+    row=dict(offset=hex(off),kind=kind,symbol=s['name'],stored_addend=addend.hex(),retail_target=hex(got))
+    if s['name'].startswith('??_C@'):
+        actual=obj.literal(s); assert actual is not None
+        literal=actual[:-1].decode('latin1'); retail_literal=client.cstr(got)
+        if off in (0x6e,0x85,0xac,0xc7):
+            assert literal.lower() == retail_literal.lower()
+            if literal != retail_literal: exceptions.append(dict(offset=hex(off),object=literal,retail=retail_literal,reason='source path case; D283'))
+        else: assert literal == retail_literal
+        row.update(object_literal=literal,retail_literal=retail_literal)
+    raw[off:off+width]=bytes(width); retail[off:off+width]=bytes(width)
+    rows.append(row)
+assert raw==retail
+assert object_unwind(obj,sec,start,size) is None
+result=dict(object=str(objpath.resolve()),object_sha256=sha(objpath.read_bytes()),source=str(source.resolve()),source_sha256=sha(source.read_bytes()),client_sha256=sha(client.data),function=sym,body_length=size,masked_body_equal=True,masked_sha256=sha(raw),relocations=rows,literal_exceptions=exceptions,eh='none',tables='none',receivers='fallback ECX=this; client accessor virtual [vtable+0x18]; target calls ECX=TargetingClass*',control_flow='unrelocated instruction and branch bytes equal across whole 293-byte body, including all returns; no switch table',selector='unsigned key-5 modulo 2^32 selects 1 and 2 exactly for key 6 and 7; all other paths retain original key for fallback')
+Path(a.output).write_text(json.dumps(result,indent=2)+'\n')
+print(json.dumps(dict(pass_audit=True,relocations=len(rows),literal_exceptions=len(exceptions),body_bytes=size)))

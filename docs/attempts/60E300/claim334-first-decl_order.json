@@ -1,0 +1,300 @@
+{
+  "run": "first_60E300_decl_order",
+  "base_sha256": "1cef4dfcbec1f039814906a12e804524a1d78ec4878fd79e2cedde32ce4170bc",
+  "source_sha256": "3df45141dd20ed03059a1f6620ea3956a70b6b958acf5df367267fa7927809b3",
+  "edits": [
+    {
+      "start": 308,
+      "end": 308,
+      "before": [],
+      "after": [
+        "\tbool control = (Unknown_BE5F34 & 0x800) != 0;\n"
+      ]
+    },
+    {
+      "start": 309,
+      "end": 310,
+      "before": [
+        "\tbool control = (Unknown_BE5F34 & 0x800) != 0;\n"
+      ],
+      "after": []
+    },
+    {
+      "start": 311,
+      "end": 312,
+      "before": [
+        "\tbool shifted;\n"
+      ],
+      "after": [
+        "\tbool plain;\n"
+      ]
+    },
+    {
+      "start": 313,
+      "end": 315,
+      "before": [
+        "\t\tcase 6: next = false; shifted = modifier; break;\n",
+        "\t\tcase 7: next = true; shifted = modifier; break;\n"
+      ],
+      "after": [
+        "\t\tcase 6: next = false; plain = !modifier; break;\n",
+        "\t\tcase 7: next = true; plain = !modifier; break;\n"
+      ]
+    },
+    {
+      "start": 316,
+      "end": 318,
+      "before": [
+        "\t\t\tif (Unknown_BE5EB0.Key == 0x101) { next = true; shifted = control; }\n",
+        "\t\t\telse if (Unknown_BE5EB0.Key == 0x102) { next = false; shifted = control; }\n"
+      ],
+      "after": [
+        "\t\t\tif (Unknown_BE5EB0.Key == 0x101) { next = true; plain = !control; }\n",
+        "\t\t\telse if (Unknown_BE5EB0.Key == 0x102) { next = false; plain = !control; }\n"
+      ]
+    },
+    {
+      "start": 320,
+      "end": 321,
+      "before": [
+        "\tbool plain = !shifted;\n"
+      ],
+      "after": [
+        "\t\n"
+      ]
+    },
+    {
+      "start": 326,
+      "end": 329,
+      "before": [
+        "\t\tif (!next) {\n",
+        "\t\t\tif (!plain) {\n",
+        "\t\t\t\tts->Select_Prev_Target();\n"
+      ],
+      "after": [
+        "\t\tif (next) {\n",
+        "\t\t\tif (plain) {\n",
+        "\t\t\t\tts->Select_Next_Target_Filtered();\n"
+      ]
+    },
+    {
+      "start": 330,
+      "end": 331,
+      "before": [
+        "\t\t\t\tts->Select_Prev_Target_Filtered();\n"
+      ],
+      "after": [
+        "\t\t\t\tts->Select_Next_Target();\n"
+      ]
+    },
+    {
+      "start": 333,
+      "end": 335,
+      "before": [
+        "\t\t\tif (!plain) {\n",
+        "\t\t\t\tts->Select_Next_Target();\n"
+      ],
+      "after": [
+        "\t\t\tif (plain) {\n",
+        "\t\t\t\tts->Select_Prev_Target_Filtered();\n"
+      ]
+    },
+    {
+      "start": 336,
+      "end": 337,
+      "before": [
+        "\t\t\t\tts->Select_Next_Target_Filtered();\n"
+      ],
+      "after": [
+        "\t\t\t\tts->Select_Prev_Target();\n"
+      ]
+    }
+  ],
+  "deltas": {
+    "pairs": {
+      "gained": [],
+      "lost": []
+    },
+    "symbol_pairs": {
+      "gained": [],
+      "lost": []
+    },
+    "all_pairs": {
+      "gained": [],
+      "lost": []
+    },
+    "all_symbol_pairs": {
+      "gained": [],
+      "lost": []
+    }
+  },
+  "target": {
+    "symbol": "?Unknown_68@ScannerInterface@@UAE_NH@Z",
+    "object": "/home/dev/Projects/EnB/.work/claim-334/runs/first_60E300_decl_order/ui_scan.obj",
+    "length": 298,
+    "raw_sha256": "2d9b48bc2b02b41a127233a3af7aa9dca8b8a1fc370eb81f079d1450f2243ad3",
+    "masked_sha256": "2d9b48bc2b02b41a127233a3af7aa9dca8b8a1fc370eb81f079d1450f2243ad3",
+    "relocations": [
+      {
+        "offset": 2,
+        "width": 4,
+        "type": 6,
+        "symbol": "?Unknown_BE5F34@@3IA",
+        "addend": "00000000"
+      },
+      {
+        "offset": 38,
+        "width": 4,
+        "type": 6,
+        "symbol": "?Unknown_BE5EB0@@3UKernelEventClass@@A",
+        "addend": "00000000"
+      },
+      {
+        "offset": 76,
+        "width": 4,
+        "type": 20,
+        "symbol": "?Unknown_68@UIMFDClass@@UAE_NH@Z",
+        "addend": "00000000"
+      },
+      {
+        "offset": 115,
+        "width": 4,
+        "type": 6,
+        "symbol": "??_C@_0CH@OHMB@e?3?2build?2beta?2G?2app?2client?2ui_sc@",
+        "addend": "00000000"
+      },
+      {
+        "offset": 120,
+        "width": 4,
+        "type": 6,
+        "symbol": "??_C@_07MDOP@?$CBClient?$AA@",
+        "addend": "00000000"
+      },
+      {
+        "offset": 125,
+        "width": 4,
+        "type": 20,
+        "symbol": "?Fail_If_Report@@YAXPBD0H@Z",
+        "addend": "00000000"
+      },
+      {
+        "offset": 138,
+        "width": 4,
+        "type": 6,
+        "symbol": "??_C@_0CH@OHMB@e?3?2build?2beta?2G?2app?2client?2ui_sc@",
+        "addend": "00000000"
+      },
+      {
+        "offset": 143,
+        "width": 4,
+        "type": 6,
+        "symbol": "??_C@_05NAGO@false?$AA@",
+        "addend": "00000000"
+      },
+      {
+        "offset": 148,
+        "width": 4,
+        "type": 20,
+        "symbol": "?G_Assert_Report@@YAXPBD0H@Z",
+        "addend": "00000000"
+      },
+      {
+        "offset": 177,
+        "width": 4,
+        "type": 6,
+        "symbol": "??_C@_0CH@OHMB@e?3?2build?2beta?2G?2app?2client?2ui_sc@",
+        "addend": "00000000"
+      },
+      {
+        "offset": 182,
+        "width": 4,
+        "type": 6,
+        "symbol": "??_C@_08CLAO@?$CBsclient?$AA@",
+        "addend": "00000000"
+      },
+      {
+        "offset": 204,
+        "width": 4,
+        "type": 6,
+        "symbol": "??_C@_0CH@OHMB@e?3?2build?2beta?2G?2app?2client?2ui_sc@",
+        "addend": "00000000"
+      },
+      {
+        "offset": 209,
+        "width": 4,
+        "type": 6,
+        "symbol": "??_C@_03PONO@?$CBts?$AA@",
+        "addend": "00000000"
+      },
+      {
+        "offset": 218,
+        "width": 4,
+        "type": 6,
+        "symbol": "??_C@_0BC@MEAI@ButtonClick02?4wav?$AA@",
+        "addend": "00000000"
+      },
+      {
+        "offset": 223,
+        "width": 4,
+        "type": 20,
+        "symbol": "?Play_2D_Sound@SoundLibraryClass@@SAPAVAudibleSoundClass@@PBDH@Z",
+        "addend": "00000000"
+      },
+      {
+        "offset": 245,
+        "width": 4,
+        "type": 20,
+        "symbol": "?Select_Next_Target_Filtered@TargetingClass@@QAEPAVClientObjectClass@@XZ",
+        "addend": "00000000"
+      },
+      {
+        "offset": 257,
+        "width": 4,
+        "type": 20,
+        "symbol": "?Select_Next_Target@TargetingClass@@QAEPAVClientObjectClass@@XZ",
+        "addend": "00000000"
+      },
+      {
+        "offset": 275,
+        "width": 4,
+        "type": 20,
+        "symbol": "?Select_Prev_Target_Filtered@TargetingClass@@QAEPAVClientObjectClass@@XZ",
+        "addend": "00000000"
+      },
+      {
+        "offset": 287,
+        "width": 4,
+        "type": 20,
+        "symbol": "?Select_Prev_Target@TargetingClass@@QAEPAVClientObjectClass@@XZ",
+        "addend": "00000000"
+      }
+    ],
+    "unwind": null,
+    "explain": {
+      "symbol": "ScannerInterface::Unknown_68",
+      "mangled": "?Unknown_68@ScannerInterface@@UAE_NH@Z",
+      "address": "0x60E300",
+      "ours": 100,
+      "client": 99,
+      "residue": 9,
+      "residue_regs": 8,
+      "tables": [],
+      "branch": {
+        "bytes": [
+          298,
+          293
+        ],
+        "size": 0,
+        "target": 0
+      },
+      "class": "shape",
+      "reason": "9 masked rows differ; no simpler class fits"
+    },
+    "diagnostic_similarity": "similarity 0.69",
+    "exact": false
+  },
+  "base_revision": "54282a8ae7b8da85142a15f03a81d194f2ef6904",
+  "unit": "app/client/ui_scan.cpp",
+  "replay_verified": true,
+  "edit_offsets": "zero-based line offsets; before/after retain line endings"
+}

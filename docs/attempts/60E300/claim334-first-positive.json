@@ -1,0 +1,240 @@
+{
+  "run": "first_60E300_positive",
+  "base_sha256": "1cef4dfcbec1f039814906a12e804524a1d78ec4878fd79e2cedde32ce4170bc",
+  "source_sha256": "1cfcb0ad49a19e04119051258bb02709563fd318676c23c6d0c52c0c803aafea",
+  "edits": [
+    {
+      "start": 326,
+      "end": 329,
+      "before": [
+        "\t\tif (!next) {\n",
+        "\t\t\tif (!plain) {\n",
+        "\t\t\t\tts->Select_Prev_Target();\n"
+      ],
+      "after": [
+        "\t\tif (next) {\n",
+        "\t\t\tif (plain) {\n",
+        "\t\t\t\tts->Select_Next_Target_Filtered();\n"
+      ]
+    },
+    {
+      "start": 330,
+      "end": 331,
+      "before": [
+        "\t\t\t\tts->Select_Prev_Target_Filtered();\n"
+      ],
+      "after": [
+        "\t\t\t\tts->Select_Next_Target();\n"
+      ]
+    },
+    {
+      "start": 333,
+      "end": 335,
+      "before": [
+        "\t\t\tif (!plain) {\n",
+        "\t\t\t\tts->Select_Next_Target();\n"
+      ],
+      "after": [
+        "\t\t\tif (plain) {\n",
+        "\t\t\t\tts->Select_Prev_Target_Filtered();\n"
+      ]
+    },
+    {
+      "start": 336,
+      "end": 337,
+      "before": [
+        "\t\t\t\tts->Select_Next_Target_Filtered();\n"
+      ],
+      "after": [
+        "\t\t\t\tts->Select_Prev_Target();\n"
+      ]
+    }
+  ],
+  "deltas": {
+    "pairs": {
+      "gained": [],
+      "lost": []
+    },
+    "symbol_pairs": {
+      "gained": [],
+      "lost": []
+    },
+    "all_pairs": {
+      "gained": [],
+      "lost": []
+    },
+    "all_symbol_pairs": {
+      "gained": [],
+      "lost": []
+    }
+  },
+  "target": {
+    "symbol": "?Unknown_68@ScannerInterface@@UAE_NH@Z",
+    "object": "/home/dev/Projects/EnB/.work/claim-334/runs/first_60E300_positive/ui_scan.obj",
+    "length": 293,
+    "raw_sha256": "aadc6f2a7bf185e0ff8d009160e66c03794a821478b441b25861fc9b3b3b54ed",
+    "masked_sha256": "aadc6f2a7bf185e0ff8d009160e66c03794a821478b441b25861fc9b3b3b54ed",
+    "relocations": [
+      {
+        "offset": 1,
+        "width": 4,
+        "type": 6,
+        "symbol": "?Unknown_BE5F34@@3IA",
+        "addend": "00000000"
+      },
+      {
+        "offset": 37,
+        "width": 4,
+        "type": 6,
+        "symbol": "?Unknown_BE5EB0@@3UKernelEventClass@@A",
+        "addend": "00000000"
+      },
+      {
+        "offset": 67,
+        "width": 4,
+        "type": 20,
+        "symbol": "?Unknown_68@UIMFDClass@@UAE_NH@Z",
+        "addend": "00000000"
+      },
+      {
+        "offset": 105,
+        "width": 4,
+        "type": 6,
+        "symbol": "??_C@_0CH@OHMB@e?3?2build?2beta?2G?2app?2client?2ui_sc@",
+        "addend": "00000000"
+      },
+      {
+        "offset": 110,
+        "width": 4,
+        "type": 6,
+        "symbol": "??_C@_07MDOP@?$CBClient?$AA@",
+        "addend": "00000000"
+      },
+      {
+        "offset": 115,
+        "width": 4,
+        "type": 20,
+        "symbol": "?Fail_If_Report@@YAXPBD0H@Z",
+        "addend": "00000000"
+      },
+      {
+        "offset": 128,
+        "width": 4,
+        "type": 6,
+        "symbol": "??_C@_0CH@OHMB@e?3?2build?2beta?2G?2app?2client?2ui_sc@",
+        "addend": "00000000"
+      },
+      {
+        "offset": 133,
+        "width": 4,
+        "type": 6,
+        "symbol": "??_C@_05NAGO@false?$AA@",
+        "addend": "00000000"
+      },
+      {
+        "offset": 138,
+        "width": 4,
+        "type": 20,
+        "symbol": "?G_Assert_Report@@YAXPBD0H@Z",
+        "addend": "00000000"
+      },
+      {
+        "offset": 168,
+        "width": 4,
+        "type": 6,
+        "symbol": "??_C@_0CH@OHMB@e?3?2build?2beta?2G?2app?2client?2ui_sc@",
+        "addend": "00000000"
+      },
+      {
+        "offset": 173,
+        "width": 4,
+        "type": 6,
+        "symbol": "??_C@_08CLAO@?$CBsclient?$AA@",
+        "addend": "00000000"
+      },
+      {
+        "offset": 195,
+        "width": 4,
+        "type": 6,
+        "symbol": "??_C@_0CH@OHMB@e?3?2build?2beta?2G?2app?2client?2ui_sc@",
+        "addend": "00000000"
+      },
+      {
+        "offset": 200,
+        "width": 4,
+        "type": 6,
+        "symbol": "??_C@_03PONO@?$CBts?$AA@",
+        "addend": "00000000"
+      },
+      {
+        "offset": 209,
+        "width": 4,
+        "type": 6,
+        "symbol": "??_C@_0BC@MEAI@ButtonClick02?4wav?$AA@",
+        "addend": "00000000"
+      },
+      {
+        "offset": 214,
+        "width": 4,
+        "type": 20,
+        "symbol": "?Play_2D_Sound@SoundLibraryClass@@SAPAVAudibleSoundClass@@PBDH@Z",
+        "addend": "00000000"
+      },
+      {
+        "offset": 236,
+        "width": 4,
+        "type": 20,
+        "symbol": "?Select_Next_Target_Filtered@TargetingClass@@QAEPAVClientObjectClass@@XZ",
+        "addend": "00000000"
+      },
+      {
+        "offset": 249,
+        "width": 4,
+        "type": 20,
+        "symbol": "?Select_Next_Target@TargetingClass@@QAEPAVClientObjectClass@@XZ",
+        "addend": "00000000"
+      },
+      {
+        "offset": 268,
+        "width": 4,
+        "type": 20,
+        "symbol": "?Select_Prev_Target_Filtered@TargetingClass@@QAEPAVClientObjectClass@@XZ",
+        "addend": "00000000"
+      },
+      {
+        "offset": 281,
+        "width": 4,
+        "type": 20,
+        "symbol": "?Select_Prev_Target@TargetingClass@@QAEPAVClientObjectClass@@XZ",
+        "addend": "00000000"
+      }
+    ],
+    "unwind": null,
+    "explain": {
+      "symbol": "ScannerInterface::Unknown_68",
+      "mangled": "?Unknown_68@ScannerInterface@@UAE_NH@Z",
+      "address": "0x60E300",
+      "ours": 107,
+      "client": 99,
+      "residue": 30,
+      "residue_regs": 20,
+      "tables": [],
+      "branch": {
+        "bytes": [
+          293,
+          293
+        ],
+        "size": 0,
+        "target": 0
+      },
+      "class": "shape",
+      "reason": "30 masked rows differ; no simpler class fits"
+    },
+    "diagnostic_similarity": "similarity 0.59",
+    "exact": false
+  },
+  "base_revision": "54282a8ae7b8da85142a15f03a81d194f2ef6904",
+  "unit": "app/client/ui_scan.cpp",
+  "replay_verified": true,
+  "edit_offsets": "zero-based line offsets; before/after retain line endings"
+}

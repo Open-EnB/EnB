@@ -1,0 +1,44 @@
+[
+  {
+    "date": "2026-11-07",
+    "address": "0x60D8D0",
+    "symbol": "UIScanClass::Unknown_54",
+    "file": "app/client/ui_scan.cpp",
+    "library": "app",
+    "status": "partial",
+    "score": "0.59",
+    "forms": "1",
+    "blocker": "source",
+    "evidence": "first functional draft from pseudocode (WE9)",
+    "stash": "",
+    "model": "opus"
+  },
+  {
+    "date": "2026-11-25 01:18",
+    "address": "0x60D8D0",
+    "symbol": "UIScanClass::Unknown_54",
+    "file": "app/client/ui_scan.cpp",
+    "library": "app",
+    "status": "partial",
+    "score": "",
+    "forms": "0",
+    "blocker": "source",
+    "evidence": "semantics checked 2026-11-25 by reader R1: codegen only (registers; the client's extra test ebp,ebp / je before cmp ebp,1 / jle (0x60DD25) is a redundant level != 0 test rea...)",
+    "stash": "",
+    "model": "claude-opus-5-5"
+  },
+  {
+    "date": "2026-11-25 04:53",
+    "address": "0x60D8D0",
+    "symbol": "ScannerInterface::Unknown_54",
+    "file": "app/client/ui_scan.cpp",
+    "library": "app",
+    "status": "partial",
+    "score": "0.90",
+    "forms": "2",
+    "blocker": "register",
+    "evidence": "K2 2026-11-25: masked 37 -> 36, rows 366 -> 368 of 369: 'if (level != 0 && level > 1)' gives the client's test ebp,ebp / je before cmp ebp,1 / jle (0x60DD25; 'if (level) if (level > 1)' the same code). Semantics checked: codegen only (the redundant test changes nothing; left: register choices ebp/edi/ebx, and the EH state -1 the client loads with or ebp,-1, ours from ebx: the one missing row).",
+    "stash": "",
+    "model": "Claude Opus 5.5"
+  }
+]

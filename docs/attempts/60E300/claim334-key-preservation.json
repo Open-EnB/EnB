@@ -1,0 +1,7 @@
+{
+  "before_object_sha256": "081a11fe3e70020673d3321c2b699e88a32dd1906bc780958a5b386db77bd859",
+  "after_object_sha256": "ac62a95eb38667ddae2e084b9d3f99ad8220dda366c2b573f6310a889fb16c14",
+  "checked_symbols": 91,
+  "body_or_relocation_changes": [],
+  "eh_funclet_changes": []
+}

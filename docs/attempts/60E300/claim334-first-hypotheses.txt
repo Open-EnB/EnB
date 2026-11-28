@@ -1,0 +1,54 @@
+# 60E300 first pass: hypotheses before compilation
+
+Baseline source SHA is recorded by the runner for each input. Baseline target
+has 32 masked alignment groups. Retail reads the modifier and control flags,
+tests keys 6 and 7, falls back using the unchanged key and receiver, keeps the
+direction byte in the incoming parameter's stack slot, and tests direction then
+the inverted shift flag before the four target calls. Baseline source tests
+the same logical choices with both conditionals written negative; its compiler
+keeps the receiver in EDI and direction in BL. Get_Targeting is the real inline
+helper, with its three assertion sites and fallback behavior preserved.
+
+Batch A: Rewrite the four target calls using positive `next` and `plain` tests,
+without changing their call mapping. This corresponds to the retail branch
+layout and may change the direction's live range and register allocation.
+Also test moving the shift inversion into each genuine input path, keeping the
+same input reads and key fallback. This may allow VC6 to merge the two tests
+into the retail flag join. Compare code, calls, frame and pair sets, not scores
+alone. Do not directly reassign the argument or add dummy operations to force
+its storage; the compiler can legitimately reuse its dead stack slot.
+
+Retail CFG check: LEA EDX,[ESI-5], then two decrements and zero tests,
+recognizes exactly input 6 then 7 modulo 2^32. Key 5 and all other values
+proceed to the global 0x101/0x102 tests; only if neither matches does the
+original ESI key reach the UIMFDClass parent through 0x418994 with original
+ECX. Its 0x5BC5E0 body is exact in the immutable ui_mfd baseline object.
+
+Batch B (after A): path_plain reproduces the key-slot reuse, receiver, all
+helper/call blocks and positive target dispatch; four masked groups remain.
+The key selector emits `sub 6` instead of retail `lea key-5; dec; dec`, and
+the modifier TEST is scheduled before saving ESI. Try actual alternative case
+flow, retaining the unchanged original key for fallback. Independently try
+control before modifier declaration, or evaluate modifier in its handled
+cases, to affect the order of flag computation without changing observable
+global reads (the input is a nonvolatile word). No fabricated case 5 or
+arithmetic introduced solely to steer code generation.
+
+Batch C: B's moved flag read changes the allocated modifier register; inverted
+declaration order loses the common global load, and the simple if-chain loses
+the argument-slot lifetime. The remaining plausible semantic structure is a
+shared handled-key branch with direction derived only after either key is
+identified, and the ordinary switch with default placed before the cases.
+Both preserve the key checks before the global Key access and fallback.
+
+Batch D: C showed default placement is byte-identical to path_plain, while the
+shared-key condition is worse. Test retaining the original combined modifier
+bits as a single ordinary local with each boolean derived from it, and the
+same two-condition key flow with 7 checked before 6. These test the distinct
+flag-data and conditional-lifetime hypotheses, not an artificial key case.
+
+Batch E: direct retail LEA(key-5), DEC, DEC supports a live biased selector as
+one possible source-level explanation. Test `switch ((unsigned)key - 5u)` with
+cases 1 and 2 exactly once on path_plain. Unsigned arithmetic is defined for
+all input bit patterns; fallback retains the original key and both handled
+sets remain identical. No assertion is made that retail source used this form.
