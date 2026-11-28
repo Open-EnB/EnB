@@ -1820,6 +1820,9 @@
 "?Stop@BINKMovie@@SAXXZ": [
 "0xA16220"
 ],
+"?Stop_Movie_Capture@WW3D@@SAXXZ": [
+"0x918900"
+],
 "?Stop_Profile@WWProfileManager@@SAXXZ": [
 "0x9EAA50"
 ],

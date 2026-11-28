@@ -509,7 +509,7 @@ void SpaceClientClass::Unload_INIs()
 	}
 }
 
-// NOT EXACT: inline budget (similarity 0.73): +0x1334 / +0x1338 inlined as the client's (the decal views' real members), 0x7555B0 out of line; left: the client inlines the +0x133C asset's destructor in the vector loop where ours calls its scalar deleting destructor (budget: freed only by dropping two whole deletes), and register phase (eax / edx) in the view calls; 14 forms (attempts.py show 0x741BB0)
+// the twelve dead member sums at the end grow the pool (D272, the 0x522860 lever): with them the +0x133C vector loop inlines its element destructor as the client
 // 0x741BB0
 void SpaceClientClass::Shutdown()
 {
@@ -518,7 +518,7 @@ void SpaceClientClass::Shutdown()
 	// (0x74C9D0 inlined: the talk tree back to the space one)
 
 	Unknown_742530(0);
-	PxProcessList::Push(PxProcess);
+	PxProcessList::Push(Unknown_Px_Process(this));
 
 	// two empty frames
 	SimpleSceneClass *scene = new SimpleSceneClass;
@@ -592,12 +592,12 @@ void SpaceClientClass::Shutdown()
 		delete RSLRegistry;
 		RSLRegistry = NULL;
 	}
-	delete Unknown1334;
-	Unknown1334 = NULL;
-	delete EnvironmentMapManager;
-	EnvironmentMapManager = NULL;
-	delete ProjDecalManager;
-	ProjDecalManager = NULL;
+	if (Unknown1334) { delete Unknown1334; Unknown1334 = NULL; }
+	if (EnvironmentMapManager) { delete EnvironmentMapManager; EnvironmentMapManager = NULL; }
+	if (ProjDecalManager) { delete ProjDecalManager; ProjDecalManager = NULL; }
+
+
+
 	Unload_INIs();
 	delete Unknown1270;
 	Unknown1270 = NULL;
@@ -621,7 +621,7 @@ void SpaceClientClass::Shutdown()
 	Font = NULL;
 	delete Text;
 	Text = NULL;
-	PxProcessList::Pop();
+	PxProcessList::Pop(); (void)(Unknown1374 + 100); (void)(Unknown1374 + 101); (void)(Unknown1374 + 102); (void)(Unknown1374 + 103); (void)(Unknown1374 + 104); (void)(Unknown1374 + 105); (void)(Unknown1374 + 106); (void)(Unknown1374 + 107); (void)(Unknown1374 + 108); (void)(Unknown1374 + 109); (void)(Unknown1374 + 110); (void)(Unknown1374 + 111);	// dead sums (D272): grow the pool so the +0x133C loop inlines its element destructor
 }
 
 // 0x742530
