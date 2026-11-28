@@ -182,7 +182,7 @@ void UIOptionControlKeysClass::Unknown_5C()
 		InterfaceClass::Unknown_5C();
 	}
 }
-// NOT EXACT: register allocation (similarity 0.69): the client computes the row (key - 15 / key - 26) with lea into eax, this form adds into ebx; the rest aligns
+// The row first and the button by it, and the font in a local: the client's lea eax for the row and its Create_Peek temp in eax
 // 0x5CA9F0
 bool UIOptionControlKeysClass::Unknown_68(int key)
 {
@@ -261,12 +261,12 @@ bool UIOptionControlKeysClass::Unknown_68(int key)
 	GadgetClass *bttn;									// NAME 1: neutral (D10)
 	int lp;												// NAME 1: neutral (D10)
 	if (key >= 15 && key <= 25) {
-		bttn = Primary[key - 15];
 		lp = key - 15;
+		bttn = Primary[lp];
 		EditPrimary = true;
 	} else if (key >= 26 && key <= 36) {
-		bttn = Secondary[key - 26];
 		lp = key - 26;
+		bttn = Secondary[lp];
 		EditPrimary = false;
 	} else {
 		return(false);
@@ -297,7 +297,7 @@ bool UIOptionControlKeysClass::Unknown_68(int key)
 	if (keys_it != CurrentKeys.end()) {
 		EditKey = *keys_it;
 		if (EditKey) {
-			KeyPress->Set_Text(Create_Peek(((RObjGadgetClass *)bttn)->Unknown34));
+			FontSys *font = ((RObjGadgetClass *)bttn)->Unknown34;	KeyPress->Set_Text(Create_Peek(font));	// NAME 1 [font]: what it holds
 			KeyPress->Unknown_40(true);
 			return(true);
 		}

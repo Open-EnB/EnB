@@ -1,0 +1,71 @@
+"""A13: ours vs the client's GalaxyMapRenderClass::Unknown_7A72C0 (a screen point unprojected onto the z = 0 plane)."""
+import struct
+import sys
+sys.path.insert(0, 'C:/EnBDevelopment/EnB/.work/a13')
+import emu  # noqa: E402
+from harness import Harness, fhash, f32  # noqa: E402
+
+emu.ALIASES['?Unknown_7A7560@GalaxyMapRenderClass@@QAE_NXZ'] = 0x7A7560
+emu.ALIASES['?Unknown_7A7D70@GalaxyMapRenderClass@@QAEX_N@Z'] = 0x7A7D70
+OBJ = 'C:/EnBDevelopment/EnB/.work/a13/objs/galaxy_map_render.obj'
+SYM = '?Unknown_7A72C0@GalaxyMapRenderClass@@QAEXMM@Z'
+THIS, CAM = 0x30000000, 0x31000000
+FAIL, UNPROJ, GETPOS, U7560, U7D70 = 0x4E9450, 0x944C40, 0x941E60, 0x7A7560, 0x7A7D70
+CASES = [(cam, x, y, geo) for cam in (0, 1) for x in (0.0, 0.5, 0.9) for y in (0.1, 0.5) for geo in ('down', 'flat', 'up')]
+
+
+def setup(case):
+    cam, x, y, geo = case
+
+    def f(mem, cpu, seed):
+        mem.wu(THIS + 0x10, 4, CAM if cam else 0)
+        cpu.r['ecx'] = THIS
+        return [struct.unpack('<I', struct.pack('<f', x))[0], struct.unpack('<I', struct.pack('<f', y))[0]]
+    return f
+
+
+def stubs(case):
+    cam, x, y, geo = case
+
+    def f(cpu, key, words, idx, seed):
+        m = cpu.m
+        if key == ('direct', FAIL):
+            cs = lambda a: m.read(a, 80).split(bytes(1))[0].decode('latin1').lower()  # noqa: E731
+            return 0, {'_cdecl': 1, 'expr': cs(words[0]), 'file': cs(words[1]), 'line': words[2]}, 0
+        if key == ('direct', UNPROJ):
+            v = struct.unpack('<2f', m.read(words[1], 8))
+            z = {'down': -1.0, 'flat': 30.0 + 1e-5, 'up': 31.0}[geo]
+            m.write(words[0], struct.pack('<3f', v[0] * 3 + fhash(seed, 1), v[1] * 2 + fhash(seed, 2), z))
+            return 8, {'v': v}, 0
+        if key == ('direct', GETPOS):
+            m.write(words[0], struct.pack('<3f', fhash(seed, 3), fhash(seed, 4), 30.0))
+            cpu.r['eax'] = words[0]
+            return 4, None
+        if key == ('direct', U7560):
+            cpu.r['eax'] = (cpu.r['eax'] & ~0xFF) | (seed & 1)
+            return 0, None
+        if key == ('direct', U7D70):
+            return 4, None, 1
+        raise emu.Stop('callee %r' % (key,))
+    return f
+
+
+def main():
+    H = Harness(OBJ, SYM, 0x7A72C0, 2, void=True, stk_any=True)
+    if len(sys.argv) > 1 and sys.argv[1] == 'ctl':
+        base = [(1, 0.5, 0.1, 'down'), (1, 0.9, 0.5, 'up'), (0, 0.5, 0.5, 'down')]
+        H.run(base, setup, stubs, seeds=(1, 2), label='base')
+        off, ins = H.find(lambda i: i.mnemonic == 'push' and i.op_str == '0x1be')
+        H.mutate('1 (+%#x push 0x1be: line -> 0x1bf)' % off, off, 1, 0xBF, base, setup, stubs, seeds=(1, 2))
+        off, ins = H.find(lambda i: i.mnemonic == 'fchs')
+        H.mutate('2 (+%#x fchs dropped)' % off, off, 1, 0xD0, base, setup, stubs, seeds=(1, 2))
+        off, ins = H.find(lambda i: 'dword ptr' in i.op_str and '0x88]' in i.op_str and i.mnemonic in ('fstp', 'mov'))
+        H.mutate('3 (+%#x %s %s: +0x88 -> +0x8c)' % (off, ins.mnemonic, ins.op_str), off,
+                 ins.size - 4, 0x8C, base + [(1, 0.5, 0.5, 'flat')], setup, stubs, seeds=(1, 2))
+        return
+    H.run(CASES, setup, stubs, seeds=(1, 2), verbose=False)
+    H.coverage()
+
+
+if __name__ == '__main__':
+    main()

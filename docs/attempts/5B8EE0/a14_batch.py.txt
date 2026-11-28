@@ -1,0 +1,57 @@
+"""A14: run auto.py over the candidates (cands.log: <= 8 call targets, object not stale, not yet proved),
+in two input modes: plain stubs, and out-buffer stubs (--retbuf 8 --retkind int: a callee whose first argument
+is a stack pointer fills 8 bytes there and returns it). Per-address extra arguments in EXTRA."""
+import concurrent.futures as cf
+import os
+import subprocess
+import sys
+
+D = 'C:/EnBDevelopment/EnB/.work/a14'
+os.makedirs(D + '/runs', exist_ok=True)
+EXTRA = {
+    '0x8C0F90': ['--sym', '?Get_Value_String@?$KVPairTemplateClass@_J@@UBEPADPADH@Z'],
+    '0x4AB7D0': ['--sym', '?Visit@ChangeSentVisitorClass@@UAEXPAVDeltaCompoundClass@@@Z'],
+    '0x7F9700': ['--sym', 'Get_String'],
+    '0x7F9970': ['--sym', 'Get_Default_String'],
+    '0x7C2760': ['--alias', '?UnknownGlobal@DeltaCompoundClass@@2HA=0xBE3A74'],
+    '0x82CBF0': ['--narrow', '0x8C1B9A=2'],
+    '0x5BDED0': ['--alias', '?UnknownGlobal@?$DeltaTemplateClass@M@@2HA=0xC416F0'],
+    '0x448BE0': ['--sym', '_$E29'],
+    '0x655460': ['--exec', '0x655DE0'],
+    '0x464290': ['--fpu24'],
+    '0x463F00': ['--fpu24'],
+}
+MODES = {'plain': [], 'outbuf': ['--retbuf', '8', '--retkind', 'int'], 'bss': ['--fillbss', '--seeds', '40']}
+if os.environ.get('A14_MODES') == 'mix':
+    MODES = {'mix': ['--retbuf', '8', '--retkind', 'int', '--fillbss', '--seeds', '150']}
+todo = []
+for line in open(D + '/cands.log'):
+    f = line.split()
+    if int(f[0]) > 8 or 'STALE' in line or line.rstrip().endswith('None') or 'PROVED' in line:
+        continue
+    todo.append(f[4])
+if len(sys.argv) > 1:
+    todo = [t for t in todo if t in sys.argv[1:]] or sys.argv[1:]
+
+
+def one(job):
+    a, mode = job
+    out = D + '/runs/%s.%s.log' % (a, mode)
+    try:
+        p = subprocess.run([sys.executable, D + '/auto.py', a, '--seeds', '60', '--control'] + EXTRA.get(a, []) +
+                           MODES[mode], capture_output=True, text=True, timeout=240)
+        txt = p.stdout + p.stderr
+    except subprocess.TimeoutExpired:
+        txt = 'TIMEOUT'
+    open(out, 'w').write(txt)
+    lines = txt.splitlines()
+    head = [x for x in lines if x.startswith('runs ')]
+    ctl = [x for x in lines if x.startswith('control')]
+    err = [x for x in lines if 'Error' in x or 'Traceback' in x or x == 'TIMEOUT']
+    return a, mode, (head[0] if head else (err[-1] if err else lines[-1] if lines else '?')), ctl
+
+
+jobs = [(a, m) for a in todo for m in MODES]
+with cf.ThreadPoolExecutor(6) as ex:
+    for a, mode, h, ctl in ex.map(one, jobs):
+        print(a, mode, h[:200], '|', '; '.join(c.split(': ', 1)[-1] for c in ctl), flush=True)

@@ -1,0 +1,83 @@
+"""A13: ours vs the client's Unknown718510Class::Unknown_08 (a Matrix3D from position, direction, slerped up) in emu.py."""
+import math
+import struct
+import sys
+sys.path.insert(0, 'C:/EnBDevelopment/EnB/.work/a13')
+import emu  # noqa: E402
+from harness import Harness, fhash, f32  # noqa: E402
+
+OBJ = 'C:/EnBDevelopment/EnB/.work/a13/objs/postate.obj'
+SYM = '?Unknown_08@Unknown718510Class@@UAE?AVMatrix3D@@H@Z'
+THIS, RET = 0x30000000, 0x40000000
+INVSQRT, SLERP = 0x447C40, 0x8D23C0
+START = 100000
+# (time - start, rate, direction mode, up mode)
+CASES = [(dt, rate, dm, um) for dt in (-5, 0, 1, 250, 999, 1000, 5000) for rate in (0.001, 0.0, 1.0)
+         for dm in ('rand', 'zero', 'up', 'x') for um in ('rand', 'same', 'zup')]
+
+
+def setup(case):
+    dt, rate, dm, um = case
+
+    def f(mem, cpu, seed):
+        mem.wu(THIS + 8, 4, START)
+        mem.write(THIS + 0x2C, struct.pack('<f', rate))
+        u1 = (fhash(seed, 1), fhash(seed, 2), fhash(seed, 3))
+        u2 = (fhash(seed, 4), fhash(seed, 5), fhash(seed, 6)) if um == 'rand' else u1
+        if um == 'zup':
+            u1, u2 = (0.0, 0.0, 1.0), (0.0, 0.0, 1.0)
+        mem.write(THIS + 0x10, struct.pack('<6f', *(u1 + u2)))
+        cpu.r['ecx'] = THIS
+        return [RET, (START + dt) & 0xFFFFFFFF]
+    return f
+
+
+def stubs(case):
+    dt, rate, dm, um = case
+
+    def f(cpu, key, words, idx, seed):
+        m = cpu.m
+        if key[0] == 'indirect' and key[1] in (0xC, 0x10):
+            if key[1] == 0xC:
+                v = (fhash(seed, 20) * 10, fhash(seed, 21) * 10, fhash(seed, 22) * 10)
+            else:
+                v = {'rand': (fhash(seed, 23), fhash(seed, 24), fhash(seed, 25)), 'zero': (0.0, 0.0, 0.0),
+                     'up': (0.0, 0.0, 2.0), 'x': (3.0, 0.0, 0.0)}[dm]
+            m.write(words[0], struct.pack('<3f', *v))
+            cpu.r['eax'] = words[0]
+            return 8, None
+        if key == ('direct', INVSQRT):
+            v = struct.unpack('<f', struct.pack('<I', words[0]))[0]
+            cpu.st.append(f32(1.0 / math.sqrt(v)) if v > 0 else math.inf)
+            return 4, {'_cdecl': 1}, 1
+        if key == ('direct', SLERP):
+            a = struct.unpack('<4f', m.read(words[1], 16))
+            b = struct.unpack('<4f', m.read(words[2], 16))
+            t = struct.unpack('<f', struct.pack('<I', words[3]))[0]
+            m.write(words[0], struct.pack('<4f', *[a[i] * (1 - t) + b[i] * t for i in range(4)]))
+            return 0, {'_cdecl': 1, 'a': a, 'b': b, 't': t}, 0
+        raise emu.Stop('callee %r' % (key,))
+    return f
+
+
+def main():
+    H = Harness(OBJ, SYM, 0x718830, 2, void=False)
+    if len(sys.argv) > 1 and sys.argv[1] == 'ctl':
+        base = [(250, 0.001, 'rand', 'rand'), (1000, 0.001, 'x', 'same'), (-5, 1.0, 'rand', 'zup')]
+        H.run(base, setup, stubs, seeds=(1, 2), label='base')
+        off, ins = H.find(lambda i: i.mnemonic == 'fmul' and i.op_str.endswith('+ 0x2c]'))
+        H.mutate('1 (+%#x %s %s: rate +0x2c -> +0x28)' % (off, ins.mnemonic, ins.op_str), off, ins.size - 1, 0x28,
+                 base, setup, stubs, seeds=(1, 2))
+        off, ins = H.find(lambda i: i.mnemonic == 'mov' and i.op_str.endswith('[esi + 8]'))
+        H.mutate('2 (+%#x %s %s: start +8 -> +0xc)' % (off, ins.mnemonic, ins.op_str), off, ins.size - 1, 0x0C,
+                 base, setup, stubs, seeds=(1, 2))
+        off, ins = H.find(lambda i: i.mnemonic == 'mov' and i.op_str.endswith(', 0x3f800000'), 1)
+        H.mutate('3 (+%#x %s %s: w 1.0 -> 2.0)' % (off, ins.mnemonic, ins.op_str), off, ins.size - 1, 0x40,
+                 base, setup, stubs, seeds=(1, 2))
+        return
+    H.run(CASES, setup, stubs, seeds=(1, 2), verbose=False)
+    H.coverage()
+
+
+if __name__ == '__main__':
+    main()

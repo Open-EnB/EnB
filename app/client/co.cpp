@@ -17,7 +17,7 @@
 #include "..\shared\g_assert.h"
 #include "client_object_events.h"
 #include "..\shared\auth_product.h"
-
+#include "emote_data.h"
 
 
 
@@ -414,7 +414,7 @@ static inline bool Clamp_In_Place(float &value, float min, float max)
 #include "_mono.h"
 #include "ww3d.h"
 #include "sclient.h"
-#include "emote_data.h"
+
 
 #include "camera_manager.h"
 
@@ -2320,29 +2320,29 @@ void ClientObjectClass::Unknown_6FEF70(SubPartsPacket *packet)
 
 
 
-
-
+static __forceinline DeltaStringClass *Unknown_Valid_F(DeltaCompoundClass *root, const NameClass &name) { DeltaStringClass *t = Unknown_Find_Field<DeltaStringClass>(root, name); if (t && t->Unknown70) return(t); return(NULL); }	// NAME 1: neutral (D10)
+static inline DeltaStringClass *Unknown_Name_Sel(ClientObjectClass *o) { DeltaStringClass *t; switch (o->Type) { default: { NameClass n1("Name"); t = Unknown_Valid_F((DeltaCompoundClass *)o->AuxData, n1); if (!t) { NameClass o1("Owner"); t = Unknown_Valid_F((DeltaCompoundClass *)o->AuxData, o1); } } break; case 1: { NameClass o2("Owner"); t = Unknown_Valid_F((DeltaCompoundClass *)o->AuxData, o2); if (!t) { NameClass n2("Name"); t = Unknown_Valid_F((DeltaCompoundClass *)o->AuxData, n2); } } break; } return(t); }	// NAME 1: neutral (D10)
 inline unsigned Unknown_Changed(DeltaClass *d) { return(d->Unknown70); }	// +0x70: 2 when the field changed since the last update, 1 when set, 0 when not  // NAME 1: neutral (D10)
-// 0x6FF4B0  // NOT EXACT: inline-budget (the client calls rtti.h's cast 0x5469C0 at all four lookups, ours inlines them; its four NameClass slots are unshared, frame 0xD0: one full-expression of temporaries gives that frame but keeps the casts inline)
+// 0x6FF4B0 the Name / Owner pick of 0x6FF7A0 (Unknown_Name_Sel: the client's four unshared NameClass slots, frame 0xD0, its Casts out of line in the default arm)  // NOT EXACT: inline-budget (the client also calls rtti.h's cast 0x5469C0 at the type-1 arm's two lookups and the assign's max_size / _Eos; ours inlines them; a dead read after the assign sends the assign's out but Name's whole Find_Field with them)
 void ClientObjectClass::Get_Name(std::string &name)
 {
-	DeltaStringClass *t;
+	DeltaStringClass *t = Unknown_Name_Sel(this);
+	name = t ? t->String : "Unknown";
 
-	switch (Type) {
-		case 1: {
-			NameClass owner("Owner"); t = Unknown_Find_Field<DeltaStringClass>((DeltaCompoundClass *)AuxData, owner);
-			if (!t || !t->Unknown70) {
-				NameClass field("Name"); t = Unknown_Find_Field<DeltaStringClass>((DeltaCompoundClass *)AuxData, field);
-			}
-		} break;
-		default: {
-			NameClass field("Name"); t = Unknown_Find_Field<DeltaStringClass>((DeltaCompoundClass *)AuxData, field);
-			if (!t || !t->Unknown70) {
-				NameClass owner("Owner"); t = Unknown_Find_Field<DeltaStringClass>((DeltaCompoundClass *)AuxData, owner);
-			}
-		} break;
-	}
-	name = (t && t->Unknown70) ? t->String : "Unknown";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
 
 // A field of the aux data changed since the last update (+0x70 above 1)
@@ -2605,45 +2605,45 @@ void ClientObjectClass::Unknown_7009A0(bool on, bool force)
 	}
 }
 
-// 0x6FF7A0 the name label: the object's name, behind its Title or Rank for a type other than 0; the lookups through Unknown_Find_Valid (the client calls 0x514BD0 below it at all six sites), the dead type test at the end spends the last Rank ~string's nested budget (its _Tidy called, as the client)  // NOT EXACT: frame slots (the client gives the four selection NameClasses four slots and Title / Rank share one; ours the reverse; code otherwise identical)
+
+// 0x6FF7A0 the name label: the object's name, behind its Title or Rank for a type other than 0. The Name / Owner pick is an inline of its own (Unknown_Name_Sel: an inlined function's NameClass locals each keep a slot, as the client's four; inside the function the two arms share theirs), Title / Rank in closed scopes (they take the last slot, the client's esp+0x74); the valid-or-NULL lookup __forceinline inside the pick (a plain inline is called there)  // NOT EXACT: branch (two jump targets: the first lookup's valid exit of each arm passes the join's test eax where the client jumps past it, 0x6FF7FC / 0x6FF868; all else identical, the frame slots included)
 void ClientObjectClass::Unknown_6FF7A0(std::string &text)
 {
-	DeltaStringClass *t;
-	if (!Unknown_6F5A40()) {
-		NameClass name_field("Name");
-		t = Unknown_Find_Valid<DeltaStringClass>((DeltaCompoundClass *)AuxData, name_field);
-		if (!t) {
-			NameClass owner_field("Owner");
-			t = Unknown_Find_Valid<DeltaStringClass>((DeltaCompoundClass *)AuxData, owner_field);
-		}
-	} else {
-		NameClass owner_field("Owner");
-		t = Unknown_Find_Valid<DeltaStringClass>((DeltaCompoundClass *)AuxData, owner_field);
-		if (!t) {
-			NameClass name_field("Name");
-			t = Unknown_Find_Valid<DeltaStringClass>((DeltaCompoundClass *)AuxData, name_field);
-		}
-	}
+	DeltaStringClass *t = Unknown_Name_Sel(this);
 	const char *name = t ? t->String : "Unknown";
 	if (Type == 0) {
 		text = std::string(name);
 	} else {
-		NameClass title_field("Title");
-		t = Unknown_Find_Valid<DeltaStringClass>((DeltaCompoundClass *)AuxData, title_field);
-		const char *title = t ? t->String : "";
+		const char *title; { NameClass ti("Title"); t = Unknown_Find_Valid<DeltaStringClass>((DeltaCompoundClass *)AuxData, ti); title = t ? t->String : ""; }
 		if (*title) {
 			text = std::string(title) + " " + name;
 		} else {
-			NameClass rank_field("Rank");
-			t = Unknown_Find_Valid<DeltaStringClass>((DeltaCompoundClass *)AuxData, rank_field);
-			const char *rank = t ? t->String : "";
+			const char *rank; { NameClass ra("Rank"); t = Unknown_Find_Valid<DeltaStringClass>((DeltaCompoundClass *)AuxData, ra); rank = t ? t->String : ""; }
 			if (*rank) {
 				text = std::string(rank) + " " + name;
 			} else {
 				text = name;
 			}
 		}
-	} Unknown_6F5A40();
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
 template class UnknownRTTIClass<DeltaStatsClass>;	// the CurrentStats find's Cast 0x7099F0: the client calls it out of line (0x6FC0F3 in 0x6FBEF0, whose copy here inlines it: parked, inline budget)
 /*
@@ -2685,4 +2685,4 @@ template class UnknownRTTIClass<DeltaStatsClass>;	// the CurrentStats find's Cas
 */
 // VC6 symbol pad (not the client's code): the aux-data constructors (auxroots.py's region above) match only when the
 // count of the declarations this file sees falls in a window of a cycle of 64 (tools/re/auxroots.py SYMBOL_PAD)
-enum CoSymbolPadType { CO_PAD_00, CO_PAD_01, CO_PAD_02, CO_PAD_03, CO_PAD_04, CO_PAD_05, CO_PAD_06, CO_PAD_07, CO_PAD_08, CO_PAD_09, CO_PAD_10, CO_PAD_11, CO_PAD_12, CO_PAD_13, CO_PAD_14, CO_PAD_15, CO_PAD_16, CO_PAD_17, CO_PAD_18, CO_PAD_19, CO_PAD_20, CO_PAD_21, CO_PAD_22, CO_PAD_23, CO_PAD_24, CO_PAD_25, CO_PAD_26, CO_PAD_27, CO_PAD_28, CO_PAD_29, CO_PAD_30, CO_PAD_31, CO_PAD_32, CO_PAD_33, CO_PAD_34, CO_PAD_35, CO_PAD_36, CO_PAD_37, CO_PAD_38, CO_PAD_39, CO_PAD_40, CO_PAD_41, CO_PAD_42, CO_PAD_43, CO_PAD_44, CO_PAD_45, CO_PAD_46, CO_PAD_47, CO_PAD_48, CO_PAD_49, CO_PAD_50, CO_PAD_51 };	// NAME 1: a build aid (HX1)
+enum CoSymbolPadType { CO_PAD_00, CO_PAD_01, CO_PAD_02, CO_PAD_03, CO_PAD_04, CO_PAD_05 };	// NAME 1: a build aid (HX1)

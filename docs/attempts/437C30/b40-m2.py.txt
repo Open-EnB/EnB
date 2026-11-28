@@ -1,0 +1,27 @@
+HYPOTHESIS = 'B40 batch m2 (0x437C30): batch m1 showed theme.max_size() reads after Stop() move nothing below 6 and a cliff at 6 (the else branch _Freefront goes inline); the one difference is the stop branch return 2 ~vector _Destroy (ours inline, the client calls 0x438E00). A codeless layer at one stop branch site (Stop(), its theme.size() test, its Themes.size() != 0 test; file-static __forceinline or inline) with 0-5 dead theme.max_size() reads after Stop() moves the cut onto that ~vector'
+FILE = 'app/audio/musiclist.cpp'
+SYMBOL = 'MusicListClass::Update'
+ADDRESS = 0x437C30
+FN = "// @0x437C30\n"
+S0 = "\t\tStop(); if (0) { Themes.size(); } if (0) { Themes.size(); }\n\t\tif (CurrentComponent >= (int)theme.size()) {\n\t\t\tCurrentComponent = 0;\n\t\t\tThemes.pop_front();\n\t\t\tif (Themes.size() != 0) {\n"
+KW = {'F': 'static __forceinline', 'I': 'static inline'}
+def form(site, kind, n):
+    kw = KW[kind]
+    reads = "theme.max_size(); " * n
+    stop, cond, nz = "Stop();", "(int)theme.size()", "Themes.size() != 0"
+    if site == 'S':
+        helper = kw + " void Unknown_Stop_L(MusicListClass *m) { m->Stop(); } "
+        stop = "Unknown_Stop_L(this);"
+    elif site == 'C':
+        helper = kw + " int Unknown_Size_L(const MusicListClass::ThemeType &t) { return((int)t.size()); } "
+        cond = "Unknown_Size_L(theme)"
+    else:
+        helper = kw + " bool Unknown_Any_L(const std::deque<MusicListClass::ThemeType> &q) { return(q.size() != 0); } "
+        nz = "Unknown_Any_L(Themes)"
+    return [(FN, helper + FN),
+            (S0, "\t\t" + stop + " if (0) { Themes.size(); } if (0) { Themes.size(); } " + reads + "\n\t\tif (CurrentComponent >= " + cond + ") {\n\t\t\tCurrentComponent = 0;\n\t\t\tThemes.pop_front();\n\t\t\tif (" + nz + ") {\n")]
+FORMS = {}
+for site in 'SCN':
+    for kind in 'FI':
+        for n in range(0, 6):
+            FORMS['%s%s_%d' % (site, kind, n)] = form(site, kind, n)

@@ -1,0 +1,78 @@
+"""A13: ours vs the client's LandClass::Upload_Lightmap (ARGB8888 -> 4444 in place, copy, update, release) in emu.py."""
+import struct
+import sys
+sys.path.insert(0, 'C:/EnBDevelopment/EnB/.work/a13')
+import emu  # noqa: E402
+from harness import Harness, fhash  # noqa: E402
+
+OBJ = 'C:/EnBDevelopment/EnB/.work/a13/objs/unknown_46c730.obj'
+SYM = '?Upload_Lightmap@LandClass@@IAEXAAVVector2i@@0@Z'
+THIS, HF, BUF, SURF, R0, R1 = 0x30000000, 0x31000000, 0x50000000, 0x32000000, 0x40000000, 0x40000100
+GETSURF, COPY, UPDATE = 0x94BB50, 0x94DA30, 0x926110
+W = 8
+CASES = [(conv, rect, ref, idx) for conv in (0, 1) for rect in ((0, 0, 8, 8), (2, 1, 5, 7), (3, 3, 3, 6), (6, 2, 4, 5))
+         for ref in (0, 1, 2) for idx in (0, 1)]
+
+
+def setup(case):
+    conv, rect, ref, idx = case
+
+    def f(mem, cpu, seed):
+        mem.wu(THIS + 0x90, 4, HF)
+        mem.wu(HF + 0x20, 4, W)
+        mem.wu(THIS + 0x134, 1, conv)
+        mem.wu(THIS + 0x138, 1, idx)
+        mem.wu(THIS + 0x120C, 4, BUF)
+        mem.wu(THIS + 0x120, 4, 0x33000000)
+        mem.wu(THIS + 0x118, 4, 0x34000000)
+        mem.wu(THIS + 0x11C, 4, 0x35000000)
+        mem.write(BUF, bytes(int((fhash(seed, k) + 4) * 31) & 0xFF for k in range(4 * W * W)))
+        mem.wu(SURF, 4, 0x4D000000)
+        mem.wu(SURF + 4, 4, ref)
+        mem.write(R0, struct.pack('<2i', rect[0], rect[1]))
+        mem.write(R1, struct.pack('<2i', rect[2], rect[3]))
+        cpu.r['ecx'] = THIS
+        return [R0, R1]
+    return f
+
+
+def stubs(case):
+    ref = case[2]
+
+    def f(cpu, key, words, idx, seed):
+        m = cpu.m
+        if key == ('direct', GETSURF):
+            cpu.r['eax'] = SURF if ref else 0
+            return 4, None
+        if key == ('direct', COPY):
+            return 12, {'buf': m.read(BUF, 4 * W * W).hex()}
+        if key == ('direct', UPDATE):
+            return 0, {'_cdecl': 1}, 2
+        if key[0] == 'indirect' and key[1] == 0:
+            return 0, None, 0   # the release's Delete_This()
+        raise emu.Stop('callee %r' % (key,))
+    return f
+
+
+def main():
+    H = Harness(OBJ, SYM, 0x46D6B0, 2, void=True, stk_any=True)
+    if len(sys.argv) > 1 and sys.argv[1] == 'ctl':
+        base = [(1, (0, 0, 8, 8), 1, 0), (1, (2, 1, 5, 7), 2, 1)]
+        H.run(base, setup, stubs, seeds=(1, 2), label='base')
+        off, ins = H.find(lambda i: i.mnemonic == 'and' and i.op_str.endswith(', 0xf0'))
+        H.mutate('1 (+%#x %s %s: mask 0xF0 -> 0xF8)' % (off, ins.mnemonic, ins.op_str), off, ins.size - 1, 0xF8,
+                 base, setup, stubs, seeds=(1, 2))
+        off, ins = H.find(lambda i: i.mnemonic == 'shr' and i.op_str.endswith(', 4'))
+        H.mutate('2 (+%#x %s %s: shift 4 -> 3)' % (off, ins.mnemonic, ins.op_str), off, ins.size - 1, 3,
+                 base, setup, stubs, seeds=(1, 2))
+        off, ins = H.find(lambda i: i.mnemonic == 'dec' or (i.mnemonic == 'add' and i.op_str.endswith(', -1')))
+        H.mutate('3 (+%#x %s %s: refcount dec -> inc)' % (off, ins.mnemonic, ins.op_str), off, 0,
+                 H.reader.code[off] - 8 if ins.mnemonic == 'dec' else H.reader.code[off], base, setup, stubs,
+                 seeds=(1, 2))
+        return
+    H.run(CASES, setup, stubs, seeds=(1, 2), verbose=False)
+    H.coverage()
+
+
+if __name__ == '__main__':
+    main()

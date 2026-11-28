@@ -92,7 +92,7 @@ bool SplineDatabaseClass::Load(const char *database_filename)
 	return true;
 }
 
-// NOT EXACT: shape (the filename copy and the save chunks: the client inlines Save_Chunks with Write_String and Save_Entry out of line)
+// NOT EXACT: inline-budget (Save_Chunks inlined as the client, but GenericList::First_Valid called out of line in its entries loop)
 // @0x484D00
 bool SplineDatabaseClass::Save(const char *database_filename)
 {
@@ -1677,35 +1677,35 @@ bool SplineDatabaseClass::Reload(void)
 	return true;
 }
 
-// NOT EXACT: shape / inline budget (the client inlines Save_Entry here and calls Save_Curve)
+// the key names and the entries behind inline layers: VC6 inlines it in Save as the client, and Save_Entry here
 // @0x487B20
 bool SplineDatabaseClass::Save_Chunks(ChunkSaveClass &csave)
 {
 	if (!Save_Header(csave)) {
 		return false;
 	}
-	if (csave.Begin_Chunk(0x808)) {
-		int count = KeyNames.Count() - 1;
-		if (csave.Write(&count, 4) >= 4) {
-			for (unsigned int i = 1; i < (unsigned int)(count + 1); i++) {
-				if (!Write_String(csave, KeyNames[i])) {
-					return false;
-				}
-			}
-			if (csave.End_Chunk()) {
-				for (HashNodeClass<SplineEntryClass *> *node = Splines.First_Valid(); node != NULL; node = node->Next_Valid()) {
-					SplineEntryClass *entry = node->Get();
-					if (entry == NULL || !Save_Entry(csave, entry)) {
-						return false;
-					}
-				}
-				return true;
-			}
+	if (!Save_Key_Names(csave)) {
+		return false;
+	}
+	for (HashNodeClass<SplineEntryClass *> *node = Splines.First_Valid(); node != NULL; node = node->Next_Valid()) {
+		SplineEntryClass *entry = node->Get();
+		if (entry == NULL || !Save_Entry(csave, entry)) {
+			return false;
 		}
 	}
-	return false;
+	return true;
 }
-
+inline bool SplineDatabaseClass::Save_Key_Names(ChunkSaveClass &csave)
+{
+	if (!csave.Begin_Chunk(0x808)) return false;
+	int count = KeyNames.Count() - 1;
+	if (csave.Write(&count, 4) < 4) return false;
+	for (unsigned int i = 1; i < (unsigned int)(count + 1); i++) {
+		if (!Write_String(csave, KeyNames[i])) return false;
+	}
+	if (!csave.End_Chunk()) return false;
+	return true;
+}
 
 
 
@@ -1730,6 +1730,14 @@ bool SplineDatabaseClass::Save_Header(ChunkSaveClass &csave)
 }
 
 // NOT EXACT: shape / inline budget (the client inlines Save_Curve's switch)
+inline bool SplineDatabaseClass::Save_Entry_Data(ChunkSaveClass &csave, SplineEntryClass *entry, SplineEntryHeaderStruct &header)
+{
+	if (!csave.Write(&header, sizeof(header))) return false;
+	if (!csave.Write(entry->Name, header.NameLength)) return false;
+	if (!Write_String(csave, entry->Description)) return false;
+	if (!Save_Curve(csave, entry)) return false;
+	return true;
+}
 bool SplineDatabaseClass::Save_Entry(ChunkSaveClass &csave, SplineEntryClass *entry)
 {
 	SplineEntryHeaderStruct header;
@@ -1741,20 +1749,12 @@ bool SplineDatabaseClass::Save_Entry(ChunkSaveClass &csave, SplineEntryClass *en
 	if (!csave.Begin_Chunk(0x811)) {
 		return false;
 	}
-	if (!csave.Write(&header, sizeof(header))) {
-		return false;
-	}
-	if (!csave.Write(entry->Name, header.NameLength)) {
-		return false;
-	}
-	if (!Write_String(csave, entry->Description)) {
-		return false;
-	}
-	if (!Save_Curve(csave, entry)) {
+	if (!Save_Entry_Data(csave, entry, header)) {
 		return false;
 	}
 	if (csave.End_Chunk()) return true; return false;
 }
+
 
 
 static inline bool Save_Linear_Keys(ChunkSaveClass &csave, Curve1DClass *curve)
@@ -1843,7 +1843,20 @@ bool SplineDatabaseClass::Save_Hermite(ChunkSaveClass &csave, SplineEntryClass *
 	return true;
 }
 
-// NOT EXACT: shape (the client repeats the epilogue for the header's two failures and keeps &KeyNames in edi)
+bool SplineDatabaseClass::Load_Key_Names(ChunkLoadClass &cload)	// the key names' chunk 0x808, inline in Load_Chunks (its only caller): the missing layer that sends Read_String and Add out of line
+{
+	DynamicVectorClass<char *> &names = KeyNames; unsigned int count;
+	if (!cload.Open_Chunk() || cload.Cur_Chunk_ID() != 0x808 || cload.Read(&count, 4) < 4) return false;
+	char *name = NULL;
+	names.Resize(count + 1);
+	for (unsigned int i = 0; i < count; i++) {
+		if (!Read_String(cload, &name)) return false;
+		names.Add(name);
+		name = NULL;
+	}
+	if (!cload.Close_Chunk()) return false;
+	return true;
+}
 bool SplineDatabaseClass::Load_Chunks(ChunkLoadClass &cload)
 {
 	SplineFileHeaderStruct *header = Load_Header(cload);
@@ -1853,20 +1866,7 @@ bool SplineDatabaseClass::Load_Chunks(ChunkLoadClass &cload)
 	if (header->Version != 0x100) {
 		return false;
 	}
-	unsigned int count;
-	if (!cload.Open_Chunk() || cload.Cur_Chunk_ID() != 0x808 || cload.Read(&count, 4) < 4) {
-		return false;
-	}
-	char *name = NULL;
-	KeyNames.Resize(count + 1);
-	for (unsigned int i = 0; i < count; i++) {
-		if (!Read_String(cload, &name)) {
-			return false;
-		}
-		KeyNames.Add(name);
-		name = NULL;
-	}
-	if (!cload.Close_Chunk()) {
+	if (!Load_Key_Names(cload)) {
 		return false;
 	}
 	for (unsigned int index = 0; index < header->Count; index++) {
@@ -3254,7 +3254,7 @@ inline GenericNode::GenericNode(void) : NextNode(0), PrevNode(0) {}
 **	  0x485380 Get_Curve (478)                 0x486CE0 Get_Curve, 0x486D30 Get_Keys, 0x486D80 Get_Entries
 **	  0x485440 Get_Color_Curves (NE)           0x487190 Free_Splines, 0x487360 Free_Key_Names
 **	  0x487660 Resolve (NE)                    0x4873E0 Get_Key, 0x487900 Reload (1662)
-**	  0x488500 Load_Chunks (NE)                0x4887F0 Load_Header, 0x488870 Load_Entry (NE)
+**	  0x488500 Load_Chunks                     0x4887F0 Load_Header, 0x488870 Load_Entry (NE)
 **	  0x488DC0 Load_Hermite                    0x488F20 Read_String
 **	  0x489050 SplineEntryClass (2795)         0x489590 ~SplineEntryClass
 **
@@ -3263,7 +3263,9 @@ inline GenericNode::GenericNode(void) : NextNode(0), PrevNode(0) {}
 **	  832), 0x487400 Create_Color (1523).
 **
 **	  The save side: Save 0x484D00, Save_Chunks 0x487B20, Save_Header 0x487E70, Save_Entry 0x487F00,
-**	  Save_Curve 0x4881F0, Save_Hermite 0x4883A0, Write_String 0x488FB0.
+**	  Save_Curve 0x4881F0, Save_Hermite 0x4883A0, Write_String 0x488FB0. Two inline layers without a
+**	  client copy decide the inlining: Save_Key_Names (Save_Chunks small enough for Save to inline) and
+**	  Save_Entry_Data (Save_Entry small enough for Save_Chunks to inline; Save still calls it).
 **
 **	  Create_Blend 0x486200 (896), Delete 0x4864F0 (965); the packing code: Get_Packed_Size 0x486E10
 **	  (1333) and 0x4895E0 (2959), Pack 0x486EF0 (1356) and 0x489660 (3074), Unpack 0x486F60 (1409) and

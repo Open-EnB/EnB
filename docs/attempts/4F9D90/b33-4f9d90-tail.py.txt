@@ -1,0 +1,47 @@
+HYPOTHESIS = 'B33 c1 batch 6 (0x4F9D90): the client pad loop control (old counter compared with a re-read CursorLine) with the for-init cut: break-test for loops, and the pop loop as a for (both tail loops in one form)'
+FILE = 'app/shared/split_string.cpp'
+SYMBOL = 'SplitStringClass::Split'
+ADDRESS = 0x4F9D90
+
+PAD = """		while (last++ < CursorLine) {
+			Lines.push_back(std::string(""));
+		}
+"""
+POP = """		while (last > CursorLine) {
+			if (Lines[last].length() != 0) {
+				break;
+			}
+			Lines.pop_back();
+			last--;
+		}
+"""
+POPFOR = """		for (; last > CursorLine; last--) {
+			if (Lines[last].length() != 0) {
+				break;
+			}
+			Lines.pop_back();
+		}
+"""
+POPFOR_J = """		for (int j = last; j > CursorLine; j--) {
+			if (Lines[j].length() != 0) {
+				break;
+			}
+			Lines.pop_back();
+		}
+"""
+
+def pad(loop, body='\t\t\tLines.push_back(std::string(""));\n'):
+    return "\t\t" + loop + " {\n" + body + "\t\t}\n"
+
+BRK = pad("for (int i = last; ; )", body='\t\t\tif (!(i++ < CursorLine)) {\n\t\t\t\tbreak;\n\t\t\t}\n\t\t\tLines.push_back(std::string(""));\n')
+
+FORMS = {
+    'brk': [(PAD, BRK)],
+    'decl_post': [(PAD, pad("int i; for (i = last; i++ < CursorLine; )"))],
+    'popfor': [(POP, POPFOR)],
+    'popfor_j': [(POP, POPFOR_J)],
+    'popfor_ipre': [(POP, POPFOR), (PAD, pad("for (int i = last; i < CursorLine; i++)"))],
+    'popfor_j_ipost': [(POP, POPFOR_J), (PAD, pad("for (int i = last; i++ < CursorLine; )"))],
+    'brk_popfor': [(POP, POPFOR), (PAD, BRK)],
+    'last_brk': [(PAD, pad("for (;;)", body='\t\t\tif (!(last++ < CursorLine)) {\n\t\t\t\tbreak;\n\t\t\t}\n\t\t\tLines.push_back(std::string(""));\n'))],
+}

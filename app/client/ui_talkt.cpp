@@ -284,12 +284,12 @@ void UITalkTreeClass::Unknown_58()
 	}
 }
 
-// NOT EXACT: 0x64C8D0 (Unknown_5C: inline budget, _Eos / _Tidy out of line in the client)
+// 0x64C8D0; D272: the six dead SpeechFile.max_size() reads are not the client's: a budget device (a pool by count, their place is free), with them the temporary string's _Tidy / _Eos and 0x64E640's erase are called and 0x64D100's erase is inlined one level, as the client does (five inline 0x64E640's erase, seven call both)
 void UITalkTreeClass::Unknown_5C()
 {
+	SpeechFile.max_size(); SpeechFile.max_size(); SpeechFile.max_size(); SpeechFile.max_size(); SpeechFile.max_size(); SpeechFile.max_size();	// six dead reads (D272)
 	if (ActiveUI) {
 		if (Active) {
-
 
 
 
@@ -334,7 +334,7 @@ void UITalkTreeClass::Unknown_5C()
 		Unknown_64D230(4);
 		Unknown_64C7B0(std::string(" "));
 		SClient *sclient = Client->As_Space_Client();
-		sclient->Send_Packet(&SelectTalkTreePacketClass(sclient->Unknown1138, TALK_TREE_QUIT));
+		int id = sclient->Unknown1138; sclient->Send_Packet(&SelectTalkTreePacketClass(id, TALK_TREE_QUIT));
 	}
 	Unknown_64E640();
 	Unknown_64D100();
@@ -354,10 +354,10 @@ void UITalkTreeClass::Unknown_7C(UIViewClass *view, bool arg)
 	}
 }
 
-// NOT EXACT: 0x64CC90 (Unknown_90: the vector's _Destroy out of line in the client)
+static inline void Clear_Responses(std::vector<TalkTreeResponseStruct> &v) { v.erase(v.begin(), v.end()); }	// NAME 1: neutral (D10): the layer that gives 0x64CC90 the client's out-of-line operator= 0x64F0B0 and _Destroy 0x64F070
+// NOT EXACT: 0x64CC90 (Unknown_90: inline-budget: the client calls the SpeechFile erase's _Split and _Eos and inlines the assign's _Eos, ours the reverse; frame 8 vs the client's 4)
 void UITalkTreeClass::Unknown_90(TalkTreePacketClass *packet)
 {
-
 
 
 
@@ -396,7 +396,7 @@ void UITalkTreeClass::Unknown_90(TalkTreePacketClass *packet)
 	if (!Active && !ActiveUI) {
 		Unknown_58();
 	}
-	Responses.clear();
+	Clear_Responses(Responses);
 	packet->Swap_Responses(Responses);
 	NPCSplit->Split(packet->NPCSay.c_str(), (float)NPCLineWidth, 0);
 	if (NPCSpeechHandle) { NPCSpeechHandle->Stop(true); NPCSpeechHandle = NULL; } SpeechFile.erase();	// Unknown_64E640, written inline
@@ -431,7 +431,7 @@ void UITalkTreeClass::Unknown_64CFF0()
 // 0x64D100
 void UITalkTreeClass::Unknown_64D100()
 {
-	Unknown_Empty(PlayerText);
+	PlayerText.erase();
 	for (int lp = 1; lp <= ANSWER_COUNT; lp++) {
 		Buttons[lp]->Unknown_40(false);
 	}
@@ -615,7 +615,7 @@ bool UITalkTreeClass::Unknown_68(int event_id)
 	return(true);
 }
 
-// NOT EXACT: 0x64D770 (Unknown_60, inline budget: SpeechFile.erase()'s nested _Grow calls max_size out of line in the client, inlined in ours)
+// 0x64D770; D272: the two dead SpeechFile.max_size() reads before the erase are not the client's: a budget device, with them the erase's nested _Grow calls max_size out of line as the client does (one read changes nothing, four send more out)
 void UITalkTreeClass::Unknown_60()
 {
 	Unknown5BB320Class::Unknown_60();
@@ -631,7 +631,7 @@ void UITalkTreeClass::Unknown_60()
 	if (!SpeechFile.empty() && !NPCSpeechHandle) {
 		NPCSpeechHandle = Create_Get(SoundLibraryClass::Play_Dialog(SpeechFile.c_str(), 1));
 		if (!NPCSpeechHandle) {
-			SpeechFile.erase();
+			SpeechFile.max_size(); SpeechFile.max_size(); SpeechFile.erase();	// two dead reads (D272)
 		}
 	}
 	Unknown_64E7A0();

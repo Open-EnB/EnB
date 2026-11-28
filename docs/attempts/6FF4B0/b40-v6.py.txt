@@ -1,0 +1,31 @@
+HYPOTHESIS = 'B40 batch 6 (0x6FF4B0), from 0x437C30 (exact with dead reads before the last return plus its branch tests in the other order): the assign flipped (!t ? "Unknown" : t->String), the pick as if (Type != 1) / else or with the inner tests flipped (t == NULL), each with 0-6 dead name.max_size() after the assign'
+FILE = 'app/client/co.cpp'
+SYMBOL = 'ClientObjectClass::Get_Name'
+ADDRESS = 0x6FF4B0
+SELLINE_END = "return(t); }\t// NAME 1: neutral (D10)\ninline unsigned Unknown_Changed"
+A = "\tDeltaStringClass *t = Unknown_Name_Sel(this);\n\tname = t ? t->String : \"Unknown\";\n"
+R = "(DeltaCompoundClass *)o->AuxData"
+def site(nm):
+    return "t = Unknown_Valid_F(%s, %s);" % (R, nm)
+def sel(shape, inner):
+    a = "NameClass n1(\"Name\"); " + site('n1') + " if (" + inner + ") { NameClass o1(\"Owner\"); " + site('o1') + " }"
+    b = "NameClass o2(\"Owner\"); " + site('o2') + " if (" + inner + ") { NameClass n2(\"Name\"); " + site('n2') + " }"
+    if shape == 'sw':
+        body = "switch (o->Type) { default: { " + a + " } break; case 1: { " + b + " } break; }"
+    elif shape == 'ne':
+        body = "if (o->Type != 1) { " + a + " } else { " + b + " }"
+    else:
+        body = "if (o->Type == 1) { " + b + " } else { " + a + " }"
+    return "static inline DeltaStringClass *Unknown_Name_Sel2(ClientObjectClass *o) { DeltaStringClass *t; " + body + " return(t); }"
+def form(shape, inner, flip, aft):
+    asg = "name = !t ? \"Unknown\" : t->String;" if flip else "name = t ? t->String : \"Unknown\";"
+    return [(SELLINE_END, "return(t); } " + sel(shape, inner) + "\t// NAME 1: neutral (D10)\ninline unsigned Unknown_Changed"),
+            (A, "\tDeltaStringClass *t = Unknown_Name_Sel2(this);\n\t" + asg + " " + "name.max_size(); " * aft + "\n")]
+FORMS = {}
+for shape in ('sw', 'ne', 'eq'):
+    for inner in ('!t', 't == NULL'):
+        for flip in (0, 1):
+            for aft in (0, 1, 3, 5):
+                if shape == 'sw' and inner == '!t' and flip == 0 and aft in (0, 1):
+                    continue
+                FORMS['%s_%s_f%d_a%d' % (shape, 'n' if inner == '!t' else 'q', flip, aft)] = form(shape, inner, flip, aft)

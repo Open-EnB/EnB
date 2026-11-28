@@ -1,11 +1,11 @@
 // Earth & Beyond client (reconstruction): app\packets\pk.cpp (PARTIAL). Notes at the end of the file.
 #include "pk.h"
-#include "pk_classes.h"
+#include "..\shared\auth_product.h"
 #include "..\shared\g_assert.h"
 #include "..\..\wwlib\nstrdup.h"
 #include <string.h>
 #include <winsock.h>
-#include "..\shared\auth_product.h"
+#include "pk_classes.h"
 unsigned __int64 Unknown_8B4510(unsigned __int64 value);	// NAME 1 [Unknown_8B4510]: wwonline's 64-bit htonl (a byte-order probe, then two htonl)
 unsigned __int64 Unknown_8B4560(unsigned __int64 value);	// NAME 1 [Unknown_8B4560]: wwonline's 64-bit ntohl
 

@@ -5760,5 +5760,15 @@
   "symbol": "?Unknown_38@UnknownB0009CEffectClass@@UAEXABVVector3@@@Z",
   "evidence": "the binary end's vtable 0xB0009C slot +0x38 holds the thunk 0x410686, which jumps to 0x6E54A0; it writes TargetPosition +0xB4..+0xBC (eff_o.h), emitted in eff_line.cpp's run and credited there by the ledger; the EA copies' bytematch had named it SegmentedLineClass::Set_Color by a layout coincidence (K1, run 2026-11-24-night)",
   "replaces": "?Set_Color@SegmentedLineClass@@QAEXABVVector3@@@Z"
+ },
+ {
+  "address": "0x7F9700",
+  "symbol": "?Get_String@OptionClass@@QAE?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@PBD@Z",
+  "evidence": "inlines Find_String (the strings hash_map at this+0x60, as exact 0x7F95E0) and returns a copy of the found StringOptionStruct's Value +0x10 (option.h), else \"\"; between the exact Get_Vector3 0x7F96B0 and Get_Default_Bool 0x7F9880 in option.cpp's order; 5 callers; A14's execution check (run 2026-11-26-night) and B23 (run 2026-11-27)"
+ },
+ {
+  "address": "0x7F9970",
+  "symbol": "?Get_Default_String@OptionClass@@QAE?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@PBD@Z",
+  "evidence": "the same code as Get_String 0x7F9700 copying Default +0x20 instead of Value +0x10 (option.h); right after the exact Get_Default_Vector3 0x7F9920, last of option.cpp's accessors; A14's execution check (run 2026-11-26-night) and B23 (run 2026-11-27)"
  }
 ]

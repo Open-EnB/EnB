@@ -1,0 +1,25 @@
+HYPOTHESIS = 'B40 batch 4 (0x6FF4B0): dead max_size() reads inside Get_Name own copy of the pick (Unknown_Name_Sel2 taking the target string), placed before the type-1 arm first lookup (P3), before its second (P4) or after the switch (PA), swept 1-8, with 0 or 1 dead read after the assign: wanted the type-1 Casts out of line without cutting the default arm first Find_Field'
+FILE = 'app/client/co.cpp'
+SYMBOL = 'ClientObjectClass::Get_Name'
+ADDRESS = 0x6FF4B0
+SELLINE_END = "return(t); }\t// NAME 1: neutral (D10)\ninline unsigned Unknown_Changed"
+A = "\tDeltaStringClass *t = Unknown_Name_Sel(this);\n\tname = t ? t->String : \"Unknown\";\n"
+R = "(DeltaCompoundClass *)o->AuxData"
+def site(nm):
+    return "t = Unknown_Valid_F(%s, %s);" % (R, nm)
+def sel(p3='', p4='', pa='', p1=''):
+    return ("static inline DeltaStringClass *Unknown_Name_Sel2(ClientObjectClass *o, const std::string &s) { DeltaStringClass *t; switch (o->Type) { default: { NameClass n1(\"Name\"); "
+        + p1 + site('n1') + " if (!t) { NameClass o1(\"Owner\"); " + site('o1') + " } } break; case 1: { NameClass o2(\"Owner\"); "
+        + p3 + site('o2') + " if (!t) { NameClass n2(\"Name\"); " + p4 + site('n2') + " } } break; } " + pa + "return(t); }")
+def form(aft, **kw):
+    return [(SELLINE_END, "return(t); } " + sel(**kw) + "\t// NAME 1: neutral (D10)\ninline unsigned Unknown_Changed"),
+            (A, "\tDeltaStringClass *t = Unknown_Name_Sel2(this, name);\n\tname = t ? t->String : \"Unknown\"; " + "name.max_size(); " * aft + "\n")]
+FORMS = {}
+for n in range(1, 9):
+    for aft in (0, 1):
+        r = "s.max_size(); " * n
+        FORMS['p3_%d_a%d' % (n, aft)] = form(aft, p3=r)
+        FORMS['p4_%d_a%d' % (n, aft)] = form(aft, p4=r)
+        FORMS['pa_%d_a%d' % (n, aft)] = form(aft, pa=r)
+FORMS['none_a0'] = form(0)
+FORMS['none_a1'] = form(1)

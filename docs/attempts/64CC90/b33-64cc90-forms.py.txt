@@ -1,0 +1,41 @@
+HYPOTHESIS = 'B33 c1 batch 3 (0x64CC90): batch 2 found the client clear (operator= and _Destroy called) with a static inline erase(begin, end) helper; now the SpeechFile erase layer (_Split and _Eos called) and the assign tail copies'
+FILE = 'app/client/ui_talkt.cpp'
+SYMBOL = 'UITalkTreeClass::Unknown_90'
+ADDRESS = 0x64CC90
+
+L = "\tif (NPCSpeechHandle) { NPCSpeechHandle->Stop(true); NPCSpeechHandle = NULL; } SpeechFile.erase();\t// Unknown_64E640, written inline\n"
+CL = "\tResponses.clear();\n"
+AS = "\tSpeechFile = packet->NPCSoundFileName;\n"
+HEAD = "// NOT EXACT: 0x64CC90 (Unknown_90: the vector's _Destroy out of line in the client)\n"
+
+CLH2 = "static inline void Clear_Responses(std::vector<TalkTreeResponseStruct> &v) { v.erase(v.begin(), v.end()); }"
+CLH3 = "static void Clear_Responses(std::vector<TalkTreeResponseStruct> &v) { v.erase(v.begin(), v.end()); }"
+CLH4 = "static inline void Clear_Responses(std::vector<TalkTreeResponseStruct> &v) { v.clear(); }"
+ERH = "static inline void Erase_String(std::string &s) { s.erase(); }"
+ASH = "static void Set_String(std::string &d, const std::string &s) { d = s; }"
+
+def f(clh, erh=False, ash=False, line=None):
+    head = clh + " "
+    if erh:
+        head += ERH + " "
+    if ash:
+        head += ASH + " "
+    hunks = [(HEAD, head + HEAD), (CL, "\tClear_Responses(Responses);\n")]
+    if erh:
+        hunks.append((L, "\tif (NPCSpeechHandle) { NPCSpeechHandle->Stop(true); NPCSpeechHandle = NULL; } Erase_String(SpeechFile);\n"))
+    if line:
+        hunks.append((L, line))
+    if ash:
+        hunks.append((AS, "\tSet_String(SpeechFile, packet->NPCSoundFileName);\n"))
+    return hunks
+
+FORMS = {
+    'clh2': f(CLH2),
+    'clh3': f(CLH3),
+    'clh4': f(CLH4),
+    'clh2_erh': f(CLH2, True),
+    'clh2_erh_ash': f(CLH2, True, True),
+    'clh2_erase2': f(CLH2, line="\tif (NPCSpeechHandle) { NPCSpeechHandle->Stop(true); NPCSpeechHandle = NULL; } SpeechFile.erase(0, std::string::npos);\n"),
+    'clh2_nested': f(CLH2, line="\tif (NPCSpeechHandle) { NPCSpeechHandle->Stop(true); NPCSpeechHandle = NULL; }\tSpeechFile.erase(SpeechFile.begin(), SpeechFile.end());\n"),
+    'clh3_ash': f(CLH3, ash=True),
+}

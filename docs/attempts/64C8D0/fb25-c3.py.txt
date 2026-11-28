@@ -1,0 +1,24 @@
+HYPOTHESIS = 'FB25 batch 3 (0x64C8D0): the read count is a pool (position free); every count that inlines one erase inlines the first (64E640) where the client inlines the second (64D100): make the first costlier or the second cheaper (Unknown_Empty layer on SpeechFile, plain PlayerText.erase(), a dead read after the erase inside 64E640) across counts 0-7, file-checked'
+FILE = 'app/client/ui_talkt.cpp'
+SYMBOL = 'UITalkTreeClass::Unknown_5C'
+ADDRESS = 0x64C8D0
+
+TOP = "void UITalkTreeClass::Unknown_5C()\n{\n\tif (ActiveUI) {\n"
+E640 = "\t\tNPCSpeechHandle = NULL;\n\t}\n\tSpeechFile.erase();\n}\n\n// 0x64E7A0\n"
+D100 = "void UITalkTreeClass::Unknown_64D100()\n{\n\tUnknown_Empty(PlayerText);\n"
+MS = "SpeechFile.max_size(); "
+def top(n):
+    return [(TOP, "void UITalkTreeClass::Unknown_5C()\n{\n\t" + MS * n + " if (ActiveUI) {\n")] if n else []
+def e640(code):
+    return (E640, E640.replace("SpeechFile.erase();", code))
+V = {
+    'v1': [e640("Unknown_Empty(SpeechFile);")],
+    'v2': [(D100, D100.replace("Unknown_Empty(PlayerText);", "PlayerText.erase();"))],
+    'v3': [e640("Unknown_Empty(SpeechFile);"), (D100, D100.replace("Unknown_Empty(PlayerText);", "PlayerText.erase();"))],
+    'v6': [e640("SpeechFile.erase(); SpeechFile.size();")],
+    'v7': [e640("SpeechFile.size(); SpeechFile.erase();")],
+}
+FORMS = {}
+for k, h in V.items():
+    for n in (0, 2, 3, 4, 5, 6, 7):
+        FORMS['%s_ms%d' % (k, n)] = top(n) + h

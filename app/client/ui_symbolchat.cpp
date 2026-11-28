@@ -143,7 +143,7 @@ UISymbolChatClass::~UISymbolChatClass()
 	Unknown_BE67BC->Unload("fc_symbolchat.ini");
 }
 
-// NOT EXACT: written from the client's code (register only: this in ebp, the client's esi; see attempts.csv)
+
 // 0x64A9B0
 void UISymbolChatClass::Unknown_64A9B0()
 {
@@ -151,8 +151,8 @@ void UISymbolChatClass::Unknown_64A9B0()
 	if (!ini.Is_Loaded()) {
 		Message_Error("Symbol Chat", "", __FILE__, __LINE__, "symbolchatdef.ini file not found");
 	} else {
-		int count = 0;
-		for (int category = 0; UISymbolChatSections[category] != NULL; category++) {
+		// (category zeroed before count, as the client's two stores)
+		for (int category = 0, count = 0; UISymbolChatSections[category] != NULL; category++) {
 			int i = 0;
 			while (true) {
 				char section[32];
@@ -168,8 +168,7 @@ void UISymbolChatClass::Unknown_64A9B0()
 				text->Change_Text(symbol_string, 0);
 				UISymbolChatOptionStruct *option = new UISymbolChatOptionStruct;
 				option->Window = Create_NEW(new DynamicWindowClass("SYMBOL_CHAT_OPTION", 1));
-				i++;
-				Sections[category]->Add_Object(option->Window.Peek(), i);
+				Sections[category]->Add_Object(option->Window.Peek(), i + 1);
 				option->Text = Create_NEW(new Unknown51C800Class(text.Peek(), 6));
 				option->Window->Add_Object(option->Text.Peek(), 0);
 				option->Gadget = new DynamicWindowGadgetClass(option->Window.Peek(), 5, 3, false);
@@ -179,6 +178,7 @@ void UISymbolChatClass::Unknown_64A9B0()
 				option->Unknown10 = category == 2 ? true : false;
 				Options.push_back(option);
 				count++;
+				i++;
 			}
 		}
 	}

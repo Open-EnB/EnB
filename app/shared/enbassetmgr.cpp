@@ -331,8 +331,8 @@ TextureClass *ENBAssetManager::Unknown_48CF90(const char *name, float *hsv)
 }
 
 // @0x48CB40
-// NOT EXACT: register-only (explain.py: identical once registers are normalised; the client loads the mip count after
-// pushing the format, ours before; 19 argument forms, attempts.py show 0x48CB40); the logic is the client's (D64)
+// The mip count is read from the public member MipLevelCount, not through Get_Mip_Level_Count: the client loads it
+// after pushing the format, as a plain member read is scheduled (the inline accessor's load is hoisted)
 TextureClass *ENBAssetManager::Recolor_Texture(TextureClass *texture, float *hsv)	// NAME 5: EA hueshift enbassetmgr.h
 {
 	WWPROFILE("Recolor_Texture()");
@@ -349,7 +349,7 @@ TextureClass *ENBAssetManager::Recolor_Texture(TextureClass *texture, float *hsv
 	sprintf(newname, "#%s!H%gS%gV%g", lower_case_name, hsv[0], hsv[1], hsv[2]);
 
 	// a new texture under the same file, shifted when it loads
-	TextureClass *newtex = W3DNEW TextureClass(name, NULL, (MipCountType)texture->Get_Mip_Level_Count(),
+	TextureClass *newtex = W3DNEW TextureClass(name, NULL, texture->MipLevelCount,
 		texture->Get_Texture_Format(), texture->Is_Compression_Allowed());
 	newtex->Set_Mag_Filter(texture->Get_Mag_Filter());
 	newtex->Set_Min_Filter(texture->Get_Min_Filter());

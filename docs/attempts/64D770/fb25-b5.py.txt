@@ -1,0 +1,36 @@
+HYPOTHESIS = 'FB25 batch 5 (0x64D770): the erase reached one or more layers deeper so that only the costlier nested max_size falls under the depth threshold: SpeechFile.resize(0) (the STL own layer: resize(n) is erase(n) when n <= _Len), 2-4 codeless layers, static layers, a layer with an inline call after the erase inside it'
+FILE = 'app/client/ui_talkt.cpp'
+SYMBOL = 'UITalkTreeClass::Unknown_60'
+ADDRESS = 0x64D770
+
+HEAD = "// NOT EXACT: 0x64D770 (Unknown_60, inline budget: SpeechFile.erase()'s nested _Grow calls max_size out of line in the client, inlined in ours)\n"
+ER = "\t\tif (!NPCSpeechHandle) {\n\t\t\tSpeechFile.erase();\n"
+def er(code, pre=""):
+    h = [(ER, "\t\tif (!NPCSpeechHandle) {\n\t\t\t" + code + "\n")]
+    if pre:
+        h.insert(0, (HEAD, pre + " " + HEAD))
+    return h
+L1 = "inline void E1(std::string &s) { s.erase(); }"
+L2 = L1 + " inline void E2(std::string &s) { E1(s); }"
+L3 = L2 + " inline void E3(std::string &s) { E2(s); }"
+L4 = L3 + " inline void E4(std::string &s) { E3(s); }"
+L6 = L4 + " inline void E5(std::string &s) { E4(s); } inline void E6(std::string &s) { E5(s); }"
+NOP = "static inline void Nop_Spend() {}"
+FORMS = {
+    'resize0': er("SpeechFile.resize(0);"),
+    'resize0c': er("SpeechFile.resize(0, 0);"),
+    'erase_it': er("SpeechFile.erase(SpeechFile.begin(), SpeechFile.end());"),
+    'assign_empty': er('SpeechFile = "";'),
+    'lay2': er("E2(SpeechFile);", L2),
+    'lay3': er("E3(SpeechFile);", L3),
+    'lay4': er("E4(SpeechFile);", L4),
+    'lay6': er("E6(SpeechFile);", L6),
+    'lay1_nop_in': er("E1(SpeechFile);", NOP + " inline void E1(std::string &s) { s.erase(); Nop_Spend(); }"),
+    'lay1_size_in': er("E1(SpeechFile);", "inline void E1(std::string &s) { s.erase(); s.size(); }"),
+    'lay1_pre_in': er("E1(SpeechFile);", "inline void E1(std::string &s) { s.size(); s.erase(); }"),
+    'lay2_size_mid': er("E2(SpeechFile);", L1 + " inline void E2(std::string &s) { E1(s); s.size(); }"),
+    'lay_resize': er("E1(SpeechFile);", "inline void E1(std::string &s) { s.resize(0); }"),
+    'lay1_ret': er("E1(SpeechFile);", "inline std::string &E1(std::string &s) { return(s.erase()); }"),
+    'member_64cff0like': er("SpeechFile.erase(0, SpeechFile.size());"),
+    'erase_len': er("SpeechFile.erase(0, SpeechFile.length());"),
+}

@@ -1268,19 +1268,19 @@ void Unknown_7C3220Class::Set_Name(std::string name)
 
 #include "..\shared\auxdata\auxdata.h"
 #include "aux_group.h"					// DeltaGroupInfoClass (0x7C2850)
-
-// NOT EXACT: inline budget (0.92, attempts.py 0x7C2760): the client calls UnknownRTTIClass<DeltaCompoundClass>::Cast out of line in Unknown_Find_Field; here it is inlined (Find_Valid helpers one, two and three layers deep give the same)
+// The set GroupInfo field: a layer of its own (with the NameClass and the find in Is_Grouped itself, Is_Grouped's id and member locals stop its expansion in 0x7C2850); Find_Set_Field's instance 0x7C30E0 spelled out here, its four dead reads (D272) send Cast out of line in 0x7C2760 only.
+template<> inline DeltaCompoundClass *Unknown_Find_Set_Field<DeltaCompoundClass>(DeltaCompoundClass *root, const NameClass &name) { DeltaCompoundClass *t = Unknown_Find_Field<DeltaCompoundClass>(root, name); root->Children.size(); root->Children.size(); root->Children.size(); root->Children.size(); if (t) { if (t->Unknown70) { return(t); } } return(NULL); }
+static DeltaGroupInfoClass *Find_Group(DeltaCompoundClass *aux) { NameClass name("GroupInfo"); return((DeltaGroupInfoClass *)Unknown_Find_Set_Field<DeltaCompoundClass>(aux, name)); }	// NAME 2: describes what it does
 // @0x7C2760
 bool StarmapPipClass::Is_Grouped(ClientObjectClass *co)
 {
 	if (co->Unknown_6F5A40()) {
 		DeltaCompoundClass *aux = ((SClient *)Client->As_Space_Client())->AuxData;
 		if (aux) {
-			NameClass name("GroupInfo");
-			DeltaGroupInfoClass *group = (DeltaGroupInfoClass *)Unknown_Find_Set_Field<DeltaCompoundClass>(aux, name);
+			DeltaGroupInfoClass *group = Find_Group(aux);
 			if (group) {
-				for (int i = 0; i < 5; i++) {
-					if (co->GameID == ((DeltaGroupMemberClass *)group->Members.Children[i])->GameID.Value) {
+				unsigned id = co->GameID; for (int i = 0; i < 5; i++) {
+					DeltaGroupMemberClass *member = (DeltaGroupMemberClass *)group->Members.Children[i]; if (id == member->GameID.Value) {
 						return(true);
 					}
 				}
@@ -1290,9 +1290,9 @@ bool StarmapPipClass::Is_Grouped(ClientObjectClass *co)
 	return(false);
 }
 
-// NOT EXACT: registers (0.94): Is_Grouped is expanded here (its NameClass and Find_Set_Field 0x7C30E0 out of line, the
-// bool in the dead force slot); left: the avatar compare's load order, the refresh loop's Find_Object push and the
-// ObjectList load (register choice only). attempts.csv
+// Is_Grouped is expanded here (its NameClass and Find_Set_Field 0x7C30E0 out of line through Find_Group, the bool in
+// the dead force slot); its id and member locals give the client's registers in the expanded loop (the Children base
+// in edi, the element in ecx). attempts.py show 0x7C2850
 // @0x7C2850
 void StarmapPipClass::Unknown_7C2850(bool force)
 {
@@ -1302,7 +1302,7 @@ void StarmapPipClass::Unknown_7C2850(bool force)
 	}
 	if (!Client->Get_Objects_Changed() && Labels.size() && !force) {
 		for (std::vector<Unknown_7C3220Class *>::iterator it = Labels.begin(); it != Labels.end(); it++) {
-			Unknown_7C3220Class *label = *it; ClientObjectClass *co = ((SClient *)Client->As_Space_Client())->Find_Object(label->ObjectID);
+			Unknown_7C3220Class *label = *it; unsigned id = label->ObjectID; ClientObjectClass *co = ((SClient *)Client->As_Space_Client())->Find_Object(id);
 			if (co) {
 				label->Unknown_7C3830(co);
 			}
@@ -1321,7 +1321,7 @@ void StarmapPipClass::Unknown_7C2850(bool force)
 		bool flag = false;
 		bool grouped = Is_Grouped(co);
 		bool player = co->Unknown_6F5A40();
-		bool avatar = co->Get_Game_ID() == Client->AvatarID;
+		bool avatar = Client->Get_Avatar_ID() == co->Get_Game_ID();
 		std::string name("");
 		co->Unknown_6FF7A0(name);
 		if (player && co->Unknown_700860()) { flag = true; }
@@ -1377,7 +1377,7 @@ void StarmapPipClass::Unknown_7C2D30()
 **	0x7C1350, 0x7C1510, 0x7C1770, 0x7C1A90, 0x7C1B70, 0x7C1C30, 0x7C1C50, 0x7C2280, 0x7C2340, 0x7C25B0, 0x7C2D30, 0x7C3220, 0x7C3720,
 **	0x7C3830, 0x7C3A90. NOT EXACT (D64, functional; attempts.csv): 0x7C0260 (MapPipClass's slot +0x20 takes an
 **	int, the client tests a byte), 0x7C0440 (the gadget's Position.X load, the else block's place), 0x7C0C80 now exact (its max is a
-**	double compare, O5), 0x7C2060 (registers, order), 0x7C2850 (inline budget). 0x7C1770 exact with t.Y * diff.Y written diff.Y * t.Y
+**	double compare, O5), 0x7C2060 (registers, order); 0x7C2850 exact (Find_Group, Is_Grouped's locals); 0x7C2760 exact (Find_Set_Field's instance spelled out with four dead reads). 0x7C1770 exact with t.Y * diff.Y written diff.Y * t.Y
 **	(the operand order picks the slots; +0x68..+0x70 is one Vector3, copied whole). Not rebuilt: 0x7C2DA0-0x7C30E0 (template instances; the POC and
 **	clienttest get them from generated stubs).
 */

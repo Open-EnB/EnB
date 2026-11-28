@@ -127,7 +127,7 @@ void NavListLineDrawClass::Unknown_7B99C0(ClientObjectClass *avatar, NavListBuil
 
 
 
-// NOT EXACT: written from the pseudocode (D64), functional (masked residue 19, attempts.py 0x7B9DC0): inline budget: the !data exit's inlined 0x7B9CD0 calls clear() where the client inlines it to erase(begin, end) and shares the !co exit's tail
+// four dead sums after count grow the function's inline budget to the client's: the !data exit's inlined 0x7B9CD0 then expands clear() and shares the !co exit's tail
 // @0x7B9DC0
 void NavListLineDrawClass::Unknown_7B9DC0(int index)
 {
@@ -136,7 +136,7 @@ void NavListLineDrawClass::Unknown_7B9DC0(int index)
 	}
 	FAIL_IF(!Client) return;
 	std::vector<unsigned long> &object_list = List->List;
-	int count = object_list.size();
+	int count = object_list.size(); (void)(count + 0); (void)(count + 1); (void)(count + 2); (void)(count + 3);
 	if (!count || (unsigned)index >= (unsigned)count) {
 		Unknown_7B9CD0();
 		return;
@@ -233,10 +233,10 @@ void NavListLineDrawClass::Unknown_7B9DC0(int index)
 **
 **	+0x0C is the vector's allocator byte: the constructor copies a stack byte into it (VC6's vector(const A &)).
 **
-**	Exact: 0x7B97F0, 0x7B98E0, 0x7B9CD0, 0x7B9C80, 0x7B9CB0 (see the commits). NOT EXACT: 0x7B99C0 (it expands
-**	0x7B9CD0, so that is defined first; the size test and the loop are separate statements: the client tests the
-**	count twice; its line's constructor takes the width, the colour, the opacity and the sort, the two points its
-**	own) and 0x7B9DC0 (it expands 0x7B9CD0 at each bail-out). Both read the line's height 0.05 from memory
+**	Exact: 0x7B97F0, 0x7B98E0, 0x7B9CD0, 0x7B9C80, 0x7B9CB0, 0x7B9DC0 (it expands 0x7B9CD0 at each bail-out). NOT
+**	EXACT: 0x7B99C0 (it expands 0x7B9CD0, so that is defined first; the size test and the loop are separate
+**	statements: the client tests the count twice; its line's constructor takes the width, the colour, the opacity
+**	and the sort, the two points its own). Both read the line's height 0.05 from memory
 **	(0xB062E8: mov / fld, never an immediate), so it is a const float, not a literal. Not rebuilt: what follows
 **	(0x7BA2C0, 0x7BA340, 0x7BA380, ...: the POC and clienttest get them from generated stubs).
 */

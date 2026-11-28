@@ -1,0 +1,96 @@
+"""A13: ours vs the client's HeightFieldClass::Get_Normal (0x464290) / Get_Downhill (0x463F00) in emu.py.
+
+    python run_hf.py 464290|463F00 [ctl]
+"""
+import math
+import struct
+import sys
+sys.path.insert(0, 'C:/EnBDevelopment/EnB/.work/a13')
+import emu  # noqa: E402
+from harness import Harness, fhash, f32  # noqa: E402
+
+OBJ = 'C:/EnBDevelopment/EnB/.work/a13/objs/heightfield.obj'
+SYMS = {'464290': '?Get_Normal@HeightFieldClass@@QAEXPAVVector3@@ABVVector2@@@Z',
+        '463F00': '?Get_Downhill@HeightFieldClass@@QAEXPAVVector3@@ABVVector2@@@Z'}
+THIS, HT, OUT, PT = 0x30000000, 0x60000000, 0x40000000, 0x41000000
+FLOOR, FTOL, INVSQRT = 0xA26D75, 0xA264EC, 0x447C40
+# (log2 size, spacing x, spacing y, heights, point mode)
+CASES = [(lg, sx, sy, hm, pm) for lg in (2, 3) for sx, sy in ((1.0, 1.0), (2.5, 0.75), (0.5, 3.0))
+         for hm in ('hash', 'flat', 'ramp', 'slopex', 'slopey', 'max') for pm in range(10)]
+
+
+def setup(case):
+    lg, sx, sy, hm, pm = case
+    n = 1 << lg
+
+    def f(mem, cpu, seed):
+        mem.wu(THIS + 0, 4, HT)
+        mem.write(THIS + 0xC, struct.pack('<3f', sx, sy, 0.01 + abs(fhash(seed, 77)) / 50))
+        mem.wu(THIS + 7 * 4, 4, lg)
+        mem.wu(THIS + 10 * 4, 4, n - 1)
+        mem.wu(THIS + 12 * 4, 4, n // 2)
+        for k in range(n * n):
+            x, y = k & (n - 1), k >> lg
+            v = {'hash': int((fhash(seed, k) + 4) * 8000), 'flat': 1000, 'ramp': 300 * x + 700 * y,
+                 'slopex': 2000 * x, 'slopey': 2000 * y, 'max': 0xFFFF * ((x + y) & 1)}[hm]
+            mem.wu(HT + 2 * k, 2, v & 0xFFFF)
+        # points: random, on a grid line, on the cell's diagonal, negative, far outside (wrap)
+        fx, fy = fhash(seed, pm, 1) * sx, fhash(seed, pm, 2) * sy
+        if pm == 1:
+            fx = round(fx / sx) * sx
+        elif pm == 2:
+            fy = round(fy / sy) * sy
+        elif pm == 3:
+            fy = (fx / sx) * sy
+        elif pm == 4:
+            fx, fy = fx + 37 * sx, fy - 53 * sy
+        elif pm == 5:
+            fx, fy = 0.0, 0.0
+        mem.write(PT, struct.pack('<2f', fx, fy))
+        cpu.r['ecx'] = THIS
+        return [OUT, PT]
+    return f
+
+
+def stubs(case):
+    def f(cpu, key, words, idx, seed):
+        if key == ('direct', FLOOR):
+            v = struct.unpack('<d', struct.pack('<II', words[0], words[1]))[0]
+            cpu.st.append(float(math.floor(v)))
+            return 0, {'_cdecl': 1}, 2
+        if key == ('direct', FTOL):
+            st = list(cpu.st)
+            emu.ftol(cpu)
+            return 0, {'_cdecl': 1, 'v': st[-1]}, 0
+        if key == ('direct', INVSQRT):
+            v = struct.unpack('<f', struct.pack('<I', words[0]))[0]
+            cpu.st.append(f32(1.0 / math.sqrt(v)) if v > 0 else math.inf)
+            return 4, {'_cdecl': 1}, 1
+        raise emu.Stop('callee %r' % (key,))
+    return f
+
+
+def main():
+    which = sys.argv[1]
+    H = Harness(OBJ, SYMS[which], int(which, 16), 2, void=True)
+    if len(sys.argv) > 2 and sys.argv[2] == 'ctl':
+        base = [(3, 1.0, 1.0, 'hash', 0), (3, 2.5, 0.75, 'ramp', 3), (2, 0.5, 3.0, 'hash', 4),
+                (3, 1.0, 1.0, 'slopex', 6)]
+        H.run(base, setup, stubs, seeds=(1, 2), label='base')
+        off, ins = H.find(lambda i: i.mnemonic == 'fmul' and i.op_str.endswith('+ 0x14]'))
+        H.mutate('1 (+%#x %s %s: height scale +0x14 -> +0x10)' % (off, ins.mnemonic, ins.op_str), off,
+                 ins.size - 1, 0x10, base, setup, stubs, seeds=(1, 2))
+        off, ins = H.find(lambda i: i.mnemonic in ('fdiv', 'fdivr') and i.op_str.endswith('+ 0x10]'))
+        H.mutate('2 (+%#x %s %s: y spacing -> x spacing)' % (off, ins.mnemonic, ins.op_str), off,
+                 ins.size - 1, 0x0C, base, setup, stubs, seeds=(1, 2))
+        off, ins = H.find(lambda i: i.mnemonic == 'inc' or (i.mnemonic == 'lea' and '+ 1]' in i.op_str))
+        H.mutate('3 (+%#x %s %s: neighbour +1 -> +2 / dropped)' % (off, ins.mnemonic, ins.op_str), off,
+                 ins.size - 1, (ins.bytes[-1] + 1) & 0xFF if ins.mnemonic == 'lea' else 0x90, base, setup, stubs,
+                 seeds=(1, 2))
+        return
+    H.run(CASES, setup, stubs, seeds=(1, 2), verbose=False)
+    H.coverage()
+
+
+if __name__ == '__main__':
+    main()

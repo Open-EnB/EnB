@@ -64,13 +64,14 @@ ShortcutRangeGaugeClass::~ShortcutRangeGaugeClass()
 	Unknown_6A4500();
 }
 
-// NOT EXACT: functional from the pseudocode (D64); the hidden case and the turn's factors are laid out in another order
+// NOT EXACT: functional from the pseudocode (D64); the turn's product takes 1 - distance / range before the frame time (6 rows)
 // 0x6A4020
 void ShortcutRangeGaugeClass::Unknown_6A4020(float distance, float range, int state, bool arg)
 {
 	if (!Unknown04) return;
 	float double_range = range * 2;
-	if (!state || distance < 0.0f || range <= 0.0f) {
+	bool show = state != 0 && distance >= 0.0f && range > 0.0f;	// a local: the client's tests fall into the hidden case (an || test puts it after the rest)
+	if (!show) {
 		if (!RenderObject->Is_Hidden()) RenderObject->Set_Hidden(1);
 		Unknown_6A4500();
 		return;
@@ -109,7 +110,6 @@ void ShortcutRangeGaugeClass::Unknown_6A4020(float distance, float range, int st
 		RenderObject->Set_Transform(tm);
 	}
 }
-
 // 0x6A43D0
 void ShortcutRangeGaugeClass::Unknown_6A43D0(int mode)
 {
@@ -129,7 +129,7 @@ void ShortcutRangeGaugeClass::Unknown_6A43D0(int mode)
 **	The object: ship_stats_display.cpp's <string> statics end at 0x6A3D46; this one runs from the constructor 0x6A3D60
 **	to Unknown_6A4500 0x6A4500 (no callers: its three callers inline it) and its guarded <string> static 0x6A4550; the
 **	next object opens with permstr.h's PermStringInitClass static 0x6A4580.
-**	Not exact (one round): Unknown_6A4020 puts the hidden case after the rest (the client: right after its tests) and
-**	takes 1 - distance / range before the frame time (the client: the frame time first); an else for the
-**	return, !(range > 0) and three orders of the turn's product did not move either.
+**	Not exact: Unknown_6A4020 takes 1 - distance / range before the frame time (the client: the frame time first; no
+**	order, association, helper or double-typed factor moved it, B28 2026-11-27). The hidden case right after the tests
+**	comes from the bool local (an || test, if / else, gotos and nesting all put it after the rest).
 */

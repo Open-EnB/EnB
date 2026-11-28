@@ -1,0 +1,17 @@
+HYPOTHESIS = 'FB25 batch 4 (0x64C8D0): plain PlayerText.erase() in 0x64D100 with six dead max_size reads leaves only the packet id load order (res 4): int id = sclient->Unknown1138 before the packet as in 0x64D770, counts 4-8 around it'
+FILE = 'app/client/ui_talkt.cpp'
+SYMBOL = 'UITalkTreeClass::Unknown_5C'
+ADDRESS = 0x64C8D0
+
+TOP = "void UITalkTreeClass::Unknown_5C()\n{\n\tif (ActiveUI) {\n"
+D100 = "void UITalkTreeClass::Unknown_64D100()\n{\n\tUnknown_Empty(PlayerText);\n"
+SEND = "\t\tsclient->Send_Packet(&SelectTalkTreePacketClass(sclient->Unknown1138, TALK_TREE_QUIT));\n"
+MS = "SpeechFile.max_size(); "
+def top(n):
+    return [(TOP, "void UITalkTreeClass::Unknown_5C()\n{\n\t" + MS * n + " if (ActiveUI) {\n")] if n else []
+V2 = [(D100, D100.replace("Unknown_Empty(PlayerText);", "PlayerText.erase();"))]
+ID = [(SEND, "\t\tint id = sclient->Unknown1138; sclient->Send_Packet(&SelectTalkTreePacketClass(id, TALK_TREE_QUIT));\n")]
+FORMS = {}
+for n in (4, 5, 6, 7, 8, 9, 10):
+    FORMS['id_ms%d' % n] = top(n) + V2 + ID
+FORMS['id_only'] = V2 + ID

@@ -1,0 +1,17 @@
+HYPOTHESIS = 'B40 batch 1 (0x6FF4B0, FB25 lever): dead name.max_size() reads (a mid-size budget spender, the count a pool) at the top of Get_Name or between the pick and the assign, swept 1-12, send the type-1 arm Casts and the assign max_size / _Eos out of line as the client'
+FILE = 'app/client/co.cpp'
+SYMBOL = 'ClientObjectClass::Get_Name'
+ADDRESS = 0x6FF4B0
+A = "\tDeltaStringClass *t = Unknown_Name_Sel(this);\n\tname = t ? t->String : \"Unknown\";\n"
+def top(n):
+    return (A, "\t" + "name.max_size(); " * n + "DeltaStringClass *t = Unknown_Name_Sel(this);\n\tname = t ? t->String : \"Unknown\";\n")
+def mid(n):
+    return (A, "\tDeltaStringClass *t = Unknown_Name_Sel(this); " + "name.max_size(); " * n + "\n\tname = t ? t->String : \"Unknown\";\n")
+def aft(n):
+    return (A, "\tDeltaStringClass *t = Unknown_Name_Sel(this);\n\tname = t ? t->String : \"Unknown\"; " + "name.max_size(); " * n + "\n")
+FORMS = {}
+for n in range(1, 13):
+    FORMS['top%d' % n] = [top(n)]
+    FORMS['mid%d' % n] = [mid(n)]
+for n in (1, 2, 3, 4, 6):
+    FORMS['aft%d' % n] = [aft(n)]

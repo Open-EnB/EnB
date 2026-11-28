@@ -1,0 +1,62 @@
+"""A13: ours vs the client's Unknown710110Class::Set_Motion (the extrapolator's targets from four optional floats)."""
+import struct
+import sys
+sys.path.insert(0, 'C:/EnBDevelopment/EnB/.work/a13')
+import emu  # noqa: E402
+from harness import Harness, fhash  # noqa: E402
+
+OBJ = 'C:/EnBDevelopment/EnB/.work/a13/objs/extrap.obj'
+SYM = '?Set_Motion@Unknown710110Class@@UAEXIPAM000@Z'
+THIS, INNER, PA, PB, PC, PD = 0x30000000, 0x31000000, 0x40000000, 0x40000100, 0x40000200, 0x40000300
+VALS = (0.0, 0.5, -0.5, 1e-7, -3.0, 2.25)
+CASES = [(mask, time, a, cur, c) for mask in range(16) for time in (0, 99, 100, 12345, 0xFFFFFFF0)
+         for a in (0.5, -0.5, 1e-7) for cur in (50.0, -50.0) for c in (0.5, -3.0, 0.0)]
+
+
+def setup(case):
+    mask, time, a, cur, c = case
+
+    def f(mem, cpu, seed):
+        mem.wu(THIS + 4, 4, INNER)
+        mem.wu(INNER, 4, 0x4E000000)
+        mem.wu(INNER + 4, 4, 77)
+        mem.write(INNER + 0x38, struct.pack('<f', cur))
+        mem.write(PA, struct.pack('<f', a))
+        mem.write(PB, struct.pack('<f', 0.75 + fhash(seed, 1) / 10))
+        mem.write(PC, struct.pack('<f', c))
+        mem.write(PD, struct.pack('<f', -c + fhash(seed, 2) / 10))
+        cpu.r['ecx'] = THIS
+        ptrs = [PA, PB, PC, PD]
+        return [time] + [p if mask >> i & 1 else 0 for i, p in enumerate(ptrs)]
+    return f
+
+
+def stubs(case):
+    def f(cpu, key, words, idx, seed):
+        if key[0] == 'indirect' and key[1] == 4:
+            return 4, None
+        raise emu.Stop('callee %r' % (key,))
+    return f
+
+
+def main():
+    H = Harness(OBJ, SYM, 0x7102B0, 5, void=True, stk_any=True)
+    if len(sys.argv) > 1 and sys.argv[1] == 'ctl':
+        base = [(15, 12345, 0.5, 50.0, 0.5), (15, 99, -0.5, -50.0, -3.0), (3, 100, 1e-7, 50.0, 0.0)]
+        H.run(base, setup, stubs, seeds=(1, 2), label='base')
+        off, ins = H.find(lambda i: i.mnemonic == 'mov' and i.op_str.endswith(', 0x64'))
+        H.mutate('1 (+%#x %s %s: modulus 100 -> 99)' % (off, ins.mnemonic, ins.op_str), off, ins.size - 4, 0x63,
+                 base, setup, stubs, seeds=(1, 2))
+        off, ins = H.find(lambda i: i.mnemonic == 'mov' and i.op_str == 'byte ptr [esi + 0x40], bl')
+        H.mutate('2 (+%#x %s %s: flag +0x40 -> +0x41)' % (off, ins.mnemonic, ins.op_str), off, ins.size - 1, 0x41,
+                 base, setup, stubs, seeds=(1, 2))
+        off, ins = H.find(lambda i: i.mnemonic == 'mov' and i.op_str == 'byte ptr [esi + 0x48], bl')
+        H.mutate('3 (+%#x %s %s: flag +0x48 -> +0x49)' % (off, ins.mnemonic, ins.op_str), off, ins.size - 1, 0x49,
+                 base, setup, stubs, seeds=(1, 2))
+        return
+    H.run(CASES, setup, stubs, seeds=(1,), verbose=False)
+    H.coverage()
+
+
+if __name__ == '__main__':
+    main()

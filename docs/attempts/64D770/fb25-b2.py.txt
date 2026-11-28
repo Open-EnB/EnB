@@ -1,0 +1,39 @@
+HYPOTHESIS = 'FB25 batch 2 (0x64D770): workflow 3.1.1 model: an expansion BEFORE a site takes the later sites budget (spender counts at the top and right before the erase, never tried: earlier rounds only spent after it); less own mass (brace pairs dropped); non-inline mass after the erase'
+FILE = 'app/client/ui_talkt.cpp'
+SYMBOL = 'UITalkTreeClass::Unknown_60'
+ADDRESS = 0x64D770
+
+TOP = "\tUnknown5BB320Class::Unknown_60();\n\tif (Unknown150) {\n"
+ER = "\t\tif (!NPCSpeechHandle) {\n\t\t\tSpeechFile.erase();\n"
+ERB = "\t\tif (!NPCSpeechHandle) {\n\t\t\tSpeechFile.erase();\n\t\t}\n"
+Q = "\tif (Unknown158 < 0) {\n\t\tUnknown_5C();\n\t}\n"
+CG = "\t\tNPCSpeechHandle = Create_Get(SoundLibraryClass::Play_Dialog(SpeechFile.c_str(), 1));\n"
+
+def top(code):
+    return (TOP, "\tUnknown5BB320Class::Unknown_60(); " + code + "\n\tif (Unknown150) {\n")
+def before_er(code):
+    return (ER, "\t\tif (!NPCSpeechHandle) {\n\t\t\t" + code + " SpeechFile.erase();\n")
+def before_cg(code):
+    return (CG, "\t\t" + code + CG[2:])
+def after_er(code):
+    return (ER, ER[:-1] + " " + code + "\n")
+NBQ = (Q, "\tif (Unknown158 < 0)\n\t\tUnknown_5C();\n\n")
+NBE = (ERB, "\t\tif (!NPCSpeechHandle)\n\t\t\tSpeechFile.erase();\n\n")
+
+FORMS = {}
+for n in (2, 4, 8, 16, 32):
+    FORMS['peek_top%d' % n] = [top("NPCSpeechHandle.Peek(); " * n)]
+    FORMS['size_top%d' % n] = [top("SpeechFile.size(); " * n)]
+for n in (1, 2, 4, 8, 16):
+    FORMS['peek_ber%d' % n] = [before_er("NPCSpeechHandle.Peek(); " * n)]
+    FORMS['size_ber%d' % n] = [before_er("SpeechFile.size(); " * n)]
+    FORMS['size_bcg%d' % n] = [before_cg("SpeechFile.size(); " * n)]
+FORMS['nbq'] = [NBQ]
+FORMS['nbe'] = [NBE]
+FORMS['nbqe'] = [NBQ, NBE]
+FORMS['aft_empty'] = [after_er(";")]
+FORMS['aft_brace'] = [after_er("{}")]
+FORMS['aft_sum'] = [after_er("(void)(Unknown158 + 1);")]
+FORMS['aft_if0'] = [after_er("if (0) { Unknown_5C(); }")]
+FORMS['bef_if0'] = [before_er("if (0) { Unknown_5C(); }")]
+FORMS['top_if0'] = [top("if (0) { Unknown_5C(); }")]

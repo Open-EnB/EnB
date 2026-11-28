@@ -2250,7 +2250,7 @@ void ChatPanelInterface::Unknown_569A00()
 
 
 
-// NOT EXACT: register-only (masked 90 -> 7: the channel table by int index, the client's jl; two dead Unknown228.size() after the " " temporary send the name temporary's _Tidy() and the " " one's assign out of line as the client, D272; left: the allocator byte through cl / al and the 0x1D packet's Client load in edx / eax)
+// NOT EXACT: order-only, 2 rows under verify (the loop end reloads this before options, the client options first; exact under trybatch and with 16-32 extern declarations before it: a declaration-count tie-break). The name in Unknown24 and " " in Unknown34 (the client's packet+0x24 / +0x34; ours wrote +0x14 / +0x24), the 6 packet's id through Get_Unknown1138(), the 0x1C / 0x1D ids in int locals; the channel table by int index (the client's jl); two dead Unknown228.size() after the " " temporary send the name temporary's _Tidy() and the " " one's assign out of line as the client, D272
 // 0x56B700
 void ChatPanelInterface::Unknown_56B700()
 {
@@ -2258,16 +2258,16 @@ void ChatPanelInterface::Unknown_56B700()
 	if (options) {
 		for (int i = 0; i < 17; i++) { ChatChannelStruct *channel = &Unknown_B7C530[i];
 			if (channel->Name && atoi(channel->Number) == 5 && options->Get_Bool(channel->Option)) {
-				ClientChatRequestPacketClass packet(6, ((ClientClass *)Client)->Unknown1138);
-				packet.Unknown14 = std::string(channel->Name);
-				packet.Unknown24 = std::string(" "); Unknown228.size(); Unknown228.size();
+				ClientChatRequestPacketClass packet(6, ((ClientClass *)Client)->Get_Unknown1138());
+				packet.Unknown24 = std::string(channel->Name);
+				packet.Unknown34 = std::string(" "); Unknown228.size(); Unknown228.size();
 				((ClientClass *)Client)->Send_Packet(&packet);
 			}
 		}
 		if (options->Get_Bool("RestrictedStatus")) {
-			((ClientClass *)Client)->Send_Packet(&ClientChatRequestPacketClass(0x1C, ((ClientClass *)Client)->Unknown1138));
+			int id = ((ClientClass *)Client)->Unknown1138; ((ClientClass *)Client)->Send_Packet(&ClientChatRequestPacketClass(0x1C, id));
 		} else {
-			((ClientClass *)Client)->Send_Packet(&ClientChatRequestPacketClass(0x1D, ((ClientClass *)Client)->Unknown1138));
+			int id = ((ClientClass *)Client)->Unknown1138; ((ClientClass *)Client)->Send_Packet(&ClientChatRequestPacketClass(0x1D, id));
 		}
 	}
 }

@@ -181,7 +181,7 @@ void StarFieldClass::Free_Layers(void)
 	Layers.clear();
 }
 
-// NOT EXACT: register-only (cmp al,bl on Load's result), parked: attempts.csv 0x4829E0
+// 0x4829E0
 void StarFieldClass::Init(int system)
 {
 	Free_Layers();
@@ -190,36 +190,45 @@ void StarFieldClass::Init(int system)
 	ini.Load("stars.ini");
 	if (ini.Is_Loaded()) {
 		char section[100];
-		StarLayerClass *layer;
+		bool loaded = false;
 		int count = 0;
-		for (;;) {
+		do {
 			_snprintf(section, 100, "STAR%.4d\\%d", system, count);
-			layer = new StarLayerClass;
-			if (layer->Load(ini, section) == false) break;
-			Layers.push_back(layer);
-			count++;
-		}
-		delete layer;
-
-		if (count == 0) {
-			for (;;) {
-				_snprintf(section, 100, "STAR%.4d\\%d", (system / 100) * 100, count);
-				layer = new StarLayerClass;
-				if (layer->Load(ini, section) == false) break;
+			StarLayerClass *layer = new StarLayerClass;
+			loaded = layer->Load(ini, section);
+			if (loaded) {
 				Layers.push_back(layer);
 				count++;
+			} else {
+				delete layer;
 			}
-			delete layer;
+		} while (loaded);
 
-			if (count == 0) {
-				for (;;) {
-					sprintf(section, "Default\\%d", count);
-					layer = new StarLayerClass;
-					if (layer->Load(ini, section) == false) break;
+		if (count == 0) {
+			do {
+				_snprintf(section, 100, "STAR%.4d\\%d", (system / 100) * 100, count);
+				StarLayerClass *layer = new StarLayerClass;
+				loaded = layer->Load(ini, section);
+				if (loaded) {
 					Layers.push_back(layer);
 					count++;
+				} else {
+					delete layer;
 				}
-				delete layer;
+			} while (loaded);
+
+			if (count == 0) {
+				do {
+					sprintf(section, "Default\\%d", count);
+					StarLayerClass *layer = new StarLayerClass;
+					loaded = layer->Load(ini, section);
+					if (loaded) {
+						Layers.push_back(layer);
+						count++;
+					} else {
+						delete layer;
+					}
+				} while (loaded);
 			}
 		}
 
@@ -276,10 +285,10 @@ float StarFieldClass::Get_Cost(void) const
 **	the points transformed into camera space and drawn with an identity transform; the budget
 **	counts polygons (two per star in quad mode).
 **
-**	NOT EXACT: Load and Init only (the other functions are exact). Load (0.70): the asserts on the
+**	NOT EXACT: Load only (the other functions are exact). Load (0.70): the asserts on the
 **	client's lines, the frames store as one ternary and powf (r stored before pow) match; left: the
 **	Hemisphere branch loads z (sample[1]) last where the client loads it first, the fifth
-**	Create_NEW temporary zeroed after its release, frame 0x4C vs 0x50. Init (0.72): the client
-**	compares Load's result with cmp al,bl (ebx 0) and calls the vector's insert(it, x) 0x483020 out
-**	of line in the Default loop. Both parked (attempts.csv).
+**	Create_NEW temporary zeroed after its release, frame 0x4C vs 0x50; parked (attempts.csv). Init
+**	is exact as bool-flag do / while loops on Load's result (the flag gives the client's cmp al, bl,
+**	as TextureLoadTaskClass::Begin_Load; VC6 threads the flag branches).
 */

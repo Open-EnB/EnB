@@ -1,0 +1,30 @@
+HYPOTHESIS = 'B40 batch m4 (0x437C30): batch m3 r5 (five dead theme.max_size() before the last return 0) cuts 31 -> 15: one ~vector _Destroy goes out of line, but at the stop branch return 3 copy laid out after its return 2 (ours: inline ~vector + delete + return 2, then the X copy); pairs of r4-r7 with 1-3 reads at the other places (stop branch before return 2 / after pop_front / after Stop, the else branch, after the theme copy, the top) or without the two if (0) size reads move the cut onto the return 2 copy'
+FILE = 'app/audio/musiclist.cpp'
+SYMBOL = 'MusicListClass::Update'
+ADDRESS = 0x437C30
+T0 = "\tif (Music != NULL && Music->Is_Playing()) {\n\t\tUpdate_Fade_Out();\n\t\treturn 0;\n"
+C0 = "\tThemeType theme = Themes.front();\n\tif (Music != NULL && !Music->Is_Playing()) {\n"
+E0 = "\t} else {\n\t\tCurrentComponent++;\n"
+R0 = "\t\t\treturn 2;\n\t\t}\n\t}\n\treturn 0;\n}\n"
+S0 = "\t\tStop(); if (0) { Themes.size(); } if (0) { Themes.size(); }\n"
+P0 = "\t\t\tThemes.pop_front();\n\t\t\tif (Themes.size() != 0) {\n\t\t\t\treturn 2;\n"
+def r(n):
+    return (R0, "\t\t\treturn 2;\n\t\t}\n\t}\n\t" + "theme.max_size(); " * n + "return 0;\n}\n")
+def rd(k):
+    return "theme.max_size(); " * k
+EXTRA = {
+    't': lambda k: (T0, "\t" + "Themes.max_size(); " * k + "if (Music != NULL && Music->Is_Playing()) {\n\t\tUpdate_Fade_Out();\n\t\treturn 0;\n"),
+    'c': lambda k: (C0, "\tThemeType theme = Themes.front(); " + rd(k) + "\n\tif (Music != NULL && !Music->Is_Playing()) {\n"),
+    'e': lambda k: (E0, "\t} else {\n\t\tCurrentComponent++; " + rd(k) + "\n"),
+    's': lambda k: (S0, "\t\tStop(); if (0) { Themes.size(); } if (0) { Themes.size(); } " + rd(k) + "\n"),
+    'p': lambda k: (P0, "\t\t\tThemes.pop_front(); " + rd(k) + "\n\t\t\tif (Themes.size() != 0) {\n\t\t\t\treturn 2;\n"),
+    'v': lambda k: (P0, "\t\t\tThemes.pop_front();\n\t\t\tif (Themes.size() != 0) {\n\t\t\t\t" + rd(k) + "return 2;\n"),
+}
+FORMS = {}
+for n in (4, 5, 6):
+    for x, f in EXTRA.items():
+        for k in (1, 2, 3):
+            FORMS['r%d_%s%d' % (n, x, k)] = [r(n), f(k)]
+for n in (3, 4, 5, 6, 7):
+    FORMS['r%d_noif' % n] = [r(n), (S0, "\t\tStop();\n")]
+    FORMS['r%d_if1' % n] = [r(n), (S0, "\t\tStop(); if (0) { Themes.size(); }\n")]

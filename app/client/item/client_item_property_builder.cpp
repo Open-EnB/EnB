@@ -79,7 +79,7 @@ void ClientItemPropertyBuilderClass::Unknown_521C10(UIItemExaminationPropertyRou
 }
 
 
-// NOT EXACT: 0x522860 (functional, masked residue 56 rows, frame 0x66C as the client's: 25 dead Data.Peek() reads in the gap above FAIL_IF (D272) and a copy-initialised RefCountPtr<const ClientItemPropertyClass> local at the Mode Route (the client re-reads it from its slot) spend the inline budget, so the Modes Create's three string constructors and the separator's destructor go out of line and case 26's three assigns expand as the client's; left: the Modes case's inline profile (0x5266A7, ours 28 rows to the client's 60) and the case tail at 0x5237F0 not merged into 0x525D60 (any bare dead statement splits it); CB, 2026-11-20-night)
+// 0x522860: the inline budget is the client's with 7 dead Data.Peek() reads and 18 dead (void)(Slot + k) sums in the gap above FAIL_IF (D272; sums grow the function's pool, the reads spend it) and a copy-initialised RefCountPtr<const ClientItemPropertyClass> local at the Mode Route (the client re-reads it from its slot); each level compare sits inside its Has_Field block (the client jumps past it when the field is absent)
 void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRouterBaseClass &router)
 {
 	Data->Unknown_688830()->Get_Quality(Slot);
@@ -91,24 +91,24 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 	Data.Peek();
 	Data.Peek();
 	Data.Peek();
-	Data.Peek();
-	Data.Peek();
-	Data.Peek();
-	Data.Peek();
-	Data.Peek();
-	Data.Peek();
-	Data.Peek();
-	Data.Peek();
-	Data.Peek();
-	Data.Peek();
-	Data.Peek();
-	Data.Peek();
-	Data.Peek();
-	Data.Peek();
-	Data.Peek();
-	Data.Peek();
-	Data.Peek();
-	Data.Peek();
+	(void)(Slot + 100);
+	(void)(Slot + 101);
+	(void)(Slot + 102);
+	(void)(Slot + 103);
+	(void)(Slot + 104);
+	(void)(Slot + 105);
+	(void)(Slot + 106);
+	(void)(Slot + 107);
+	(void)(Slot + 108);
+	(void)(Slot + 109);
+	(void)(Slot + 110);
+	(void)(Slot + 111);
+	(void)(Slot + 112);
+	(void)(Slot + 113);
+	(void)(Slot + 114);
+	(void)(Slot + 115);
+	(void)(Slot + 116);
+	(void)(Slot + 117);
 
 
 
@@ -224,11 +224,11 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 				ok = info->Get_Int(ITEM_INFO_DAMAGE, &actual);
 
 				G_ASSERT(ok);
-			}
-			if (actual < base) {
-				level = 0;
-			} else if (actual > base) {
-				level = 2;
+				if (actual < base) {
+					level = 0;
+				} else if (actual > base) {
+					level = 2;
+				}
 			}
 			RefCountPtr<ClientItemPropertyClass> property = ClientItemPropertyAttributeIntegerClass::Create(5, "Damage", "units", "Base damage inflicted by weapon", 0, base, actual, level);
 			router.Route(property);
@@ -292,11 +292,11 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 				ok = info->Get_Float(ITEM_INFO_ENERGY_USE, &actual);
 
 				G_ASSERT(ok);
-			}
-			if (actual < base) {
-				level = 2;
-			} else if (actual > base) {
-				level = 0;
+				if (actual < base) {
+					level = 2;
+				} else if (actual > base) {
+					level = 0;
+				}
 			}
 			RefCountPtr<ClientItemPropertyClass> property = ClientItemPropertyAttributeFloatClass::Create(6, "Energy Use", "units", "Energy required to activate item", 0, base, actual, level);
 			router.Route(property);
@@ -315,11 +315,11 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 				ok = info->Get_Float(ITEM_INFO_ENERGY_DRAIN, &actual);
 
 				G_ASSERT(ok);
-			}
-			if (actual < base) {
-				level = 2;
-			} else if (actual > base) {
-				level = 0;
+				if (actual < base) {
+					level = 2;
+				} else if (actual > base) {
+					level = 0;
+				}
 			}
 			RefCountPtr<ClientItemPropertyClass> property = ClientItemPropertyAttributeFloatClass::Create(6, "Energy Drain", "units/sec", "Energy required to activate item", 0, base, actual, level);
 			router.Route(property);
@@ -376,11 +376,11 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 				ok = info->Get_Int(ITEM_INFO_MANEUVERABILITY, &actual);
 
 				G_ASSERT(ok);
-			}
-			if (actual < base) {
-				level = 0;
-			} else if (actual > base) {
-				level = 2;
+				if (actual < base) {
+					level = 0;
+				} else if (actual > base) {
+					level = 2;
+				}
 			}
 			RefCountPtr<ClientItemPropertyClass> property = ClientItemPropertyAttributeFloatClass::Create(6, "Maneuverability", "units", "Ability to defeat anti-missile systems", 0, (float)base, (float)actual, level);
 			router.Route(property);
@@ -399,11 +399,11 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 				ok = info->Get_Int(ITEM_INFO_MAX_POWER, &actual);
 
 				G_ASSERT(ok);
-			}
-			if (actual < base) {
-				level = 0;
-			} else if (actual > base) {
-				level = 2;
+				if (actual < base) {
+					level = 0;
+				} else if (actual > base) {
+					level = 2;
+				}
 			}
 			RefCountPtr<ClientItemPropertyClass> property = ClientItemPropertyAttributeFloatClass::Create(6, "Max Power", "units", "Maximum amount of power this reactor can hold", 0, (float)base, (float)actual, level);
 			router.Route(property);
@@ -525,11 +525,11 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 				ok = info->Get_Float(ITEM_INFO_SHIELD_USE, &actual);
 
 				G_ASSERT(ok);
-			}
-			if (actual < base) {
-				level = 2;
-			} else if (actual > base) {
-				level = 0;
+				if (actual < base) {
+					level = 2;
+				} else if (actual > base) {
+					level = 0;
+				}
 			}
 			RefCountPtr<ClientItemPropertyClass> property = ClientItemPropertyAttributeFloatClass::Create(6, "Shield Use", "units", "Shield energy required to activate item", 0, base, actual, level);
 			router.Route(property);
@@ -548,11 +548,11 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 				ok = info->Get_Int(ITEM_INFO_CAPACITY, &actual);
 
 				G_ASSERT(ok);
-			}
-			if (actual < base) {
-				level = 0;
-			} else if (actual > base) {
-				level = 2;
+				if (actual < base) {
+					level = 0;
+				} else if (actual > base) {
+					level = 2;
+				}
 			}
 			RefCountPtr<ClientItemPropertyClass> property = ClientItemPropertyAttributeIntegerClass::Create(6, "Capacity", "units", "Maximum amount of damage this shield can absorb when fully charged.", 0, base, actual, level);
 			router.Route(property);
@@ -571,11 +571,11 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 				ok = info->Get_Float(ITEM_INFO_SHIELD_DRAIN, &actual);
 
 				G_ASSERT(ok);
-			}
-			if (actual < base) {
-				level = 2;
-			} else if (actual > base) {
-				level = 0;
+				if (actual < base) {
+					level = 2;
+				} else if (actual > base) {
+					level = 0;
+				}
 			}
 			RefCountPtr<ClientItemPropertyClass> property = ClientItemPropertyAttributeFloatClass::Create(6, "Shield Drain", "units/sec", "Shield energy required to activate item", 0, base, actual, level);
 			router.Route(property);
@@ -632,11 +632,11 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 				ok = info->Get_Int(ITEM_INFO_SIGNATURE, &actual);
 
 				G_ASSERT(ok);
-			}
-			if (actual < base) {
-				level = 2;
-			} else if (actual > base) {
-				level = 0;
+				if (actual < base) {
+					level = 2;
+				} else if (actual > base) {
+					level = 0;
+				}
 			}
 			RefCountPtr<ClientItemPropertyClass> property = ClientItemPropertyAttributeDistanceClass::Create(6, "Signature", "Specifies an increased distance that an NPC will notice the player when engine is equipped.", 0, base, actual, level);
 			router.Route(property);
@@ -659,11 +659,11 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 				ok = info->Get_Int(ITEM_INFO_THRUST, &actual);
 
 				G_ASSERT(ok);
-			}
-			if (actual < base) {
-				level = 0;
-			} else if (actual > base) {
-				level = 2;
+				if (actual < base) {
+					level = 0;
+				} else if (actual > base) {
+					level = 2;
+				}
 			}
 			RefCountPtr<ClientItemPropertyClass> property = ClientItemPropertyAttributeIntegerClass::Create(6, "Thrust", "units", "Higher thrust values will increase the ship's maximum speed.", 0, base, actual, level);
 			router.Route(property);
@@ -694,11 +694,11 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 				ok = info->Get_Int(ITEM_INFO_WARP, &actual);
 
 				G_ASSERT(ok);
-			}
-			if (actual < base) {
-				level = 0;
-			} else if (actual > base) {
-				level = 2;
+				if (actual < base) {
+					level = 0;
+				} else if (actual > base) {
+					level = 2;
+				}
 			}
 			RefCountPtr<ClientItemPropertyClass> property = ClientItemPropertyAttributeIntegerClass::Create(6, "Warp", "", "Shows how fast the ship will travel while warping with this engine equipped.", 0, base, actual, level);
 			router.Route(property);
@@ -717,11 +717,11 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 				ok = info->Get_Float(ITEM_INFO_WARP_DRAIN, &actual);
 
 				G_ASSERT(ok);
-			}
-			if (actual < base) {
-				level = 0;
-			} else if (actual > base) {
-				level = 2;
+				if (actual < base) {
+					level = 0;
+				} else if (actual > base) {
+					level = 2;
+				}
 			}
 			RefCountPtr<ClientItemPropertyClass> property = ClientItemPropertyAttributeFloatClass::Create(6, "Warp Drain", "units/sec", "How fast engine will drain reactor when in free warp (warping with no target.)", 0, base, actual, level);
 			router.Route(property);
@@ -771,11 +771,11 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 				ok = info->Get_Float(ITEM_INFO_BUILD_VALUE, &actual);
 
 				G_ASSERT(ok);
-			}
-			if (actual < base) {
-				level = 0;
-			} else if (actual > base) {
-				level = 2;
+				if (actual < base) {
+					level = 0;
+				} else if (actual > base) {
+					level = 2;
+				}
 			}
 			RefCountPtr<ClientItemPropertyClass> property = ClientItemPropertyAttributeFloatClass::Create(7, "Build Value", "levels", "Improvement in Build/Refine ability when used.", 0, base, actual, level);
 			router.Route(property);
@@ -794,11 +794,11 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 				ok = info->Get_Float(ITEM_INFO_CRITICAL, &actual);
 
 				G_ASSERT(ok);
-			}
-			if (actual < base) {
-				level = 0;
-			} else if (actual > base) {
-				level = 2;
+				if (actual < base) {
+					level = 0;
+				} else if (actual > base) {
+					level = 2;
+				}
 			}
 			RefCountPtr<ClientItemPropertyClass> property = ClientItemPropertyAttributePercentClass::Create(8, "Critical", "Improvement in chances for a Critical Success when used.", 0, base, actual, level);
 			router.Route(property);
@@ -880,7 +880,7 @@ void ClientItemPropertyBuilderClass::Unknown_5285A0(UIItemExaminationPropertyRou
 **	explicit shift folds to a mask test); 0x521C10 (the name, id, icon, level, description, quality, structure and
 **	maker properties; stack slots), 0x522860 (the template's attributes by id, each compared with the slot's delta
 **	copy: level 0 worse, 1 unchanged, 2 better; the requirements; the asserts on the client's lines 155-796) and
-**	0x527F40 (inline budget) NOT EXACT. The callees in files the tree does not have yet are declared in
+**	0x527F40 (inline budget) NOT EXACT (0x522860 exact since B34, run 2026-11-27: see its comment). The callees in files the tree does not have yet are declared in
 **	client_item_property_builder.h (interim, D137).
 **	CIPB, run 2026-11-17b: 0x527F40 exact once 0x528460 takes the ItemEffectDescriptionClass (its vector at +0) and
 **	reads Get_Effects() in the loop: the extra inline accessor layer is the budget that sends both strings' _Tidy

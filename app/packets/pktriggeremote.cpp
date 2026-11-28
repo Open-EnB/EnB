@@ -2,15 +2,15 @@
 #include "pktriggeremote.h"
 #include <stdio.h>
 
-static char *EmoteNames[] = {	// 0xBB4450 (Print's Emote; the sound names 'wave.wav', ... follow it)  // NAME 2: what it holds
-	"Wave",
-	"Loop",
-	"Dive",
-	"Right Roll",
-	"Left Roll",
-	"Spin Right",
-	"Spin Left"
-};
+
+
+
+
+
+
+
+
+
 
 TriggerEmotePacketClass::TriggerEmotePacketClass(int game_id, int emote) :
 	GameID(game_id),
@@ -85,4 +85,6 @@ int NotifyEmotePacketClass::Print(char *buffer, int)
 **	  is 0x886550): TRIGGER_EMOTE 161 and NOTIFY_EMOTE 162, written by hand (builder P4, 2026-10-26).
 **	  Their implicit destructors are copies (0x747F80) or this object's (0x886360).
 **	* The file name is provisional (no assert names it).
+**	* Print reads EmoteNames 0xBB4450, this object's copy of the header's static table (binary.md 5.10:
+**	  retail holds 9 copies of the names and the sounds, one per includer of pktriggeremote.h).
 */

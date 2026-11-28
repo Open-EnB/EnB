@@ -1,0 +1,549 @@
+A13 v2: emu.py and harness.py as of the second batch (fs:[0] / __except_list, STACK_FILL for uninitialized locals, x87 underflow as a stop), full diffs against A12's emu.py and an empty harness.
+--- .work/a12/emu.py	2026-11-27 02:11:57.748765800 -0800
++++ .work/a13/emu.py	2026-11-27 04:26:47.844342000 -0800
+@@ -33,7 +33,10 @@
+ M32 = 0xFFFFFFFF
+ 
+ _SYMS = None
+-ALIASES = {}  # mangled name -> client address, for callees symbols.json does not name
++PC24 = False  # x87 precision control 24 bits (D3D8's CreateDevice without FPU_PRESERVE)
++STACK_FILL = None  # 4 bytes: what an unwritten stack dword reads (both frames alike)
++COV = None  # a set: every eip executed, when set
++ALIASES = {'__except_list': 0}  # A13: fs:[__except_list] is fs:[0]; mangled name -> client address, for callees symbols.json does not name
+ 
+ 
+ def symbols():
+@@ -75,6 +78,8 @@
+         v = self.extra.get(a)
+         if v is not None:
+             return v
++        if STACK_FILL is not None and STACK_LO <= a < STACK_TOP:  # A13: uninitialized locals read one pattern
++            return STACK_FILL[a & 3]
+         for start, vsize, raw, rsize in IMG.sections.values():
+             if start <= a < start + max(vsize, rsize):
+                 if a < start + rsize:
+@@ -108,7 +113,9 @@
+         self.m = mem
+         self.r = {k: 0 for k in REG32}
+         self.st = []  # x87 stack, st0 = st[-1]
+-        self.cf = self.zf = self.sf = self.of = False
++        self.cf = self.zf = self.sf = self.of = self.pf = False
++        self.fsw = 0
++        self.df = False
+         self.code = code_reader
+         self.call_handler = call_handler
+         self.steps = 0
+@@ -143,6 +150,8 @@
+     def ea(self, ins, op):
+         mm = op.mem
+         a = mm.disp
++        if mm.segment == x86.X86_REG_FS:  # A13: the SEH chain (fs:[0]) lives in a fixed fake TEB
++            a += 0x7FFDE000
+         if mm.base:
+             a += self.greg(ins.reg_name(mm.base))
+         if mm.index:
+@@ -175,6 +184,7 @@
+         mask = (1 << bits) - 1
+         res &= mask
+         self.cf = self.of = False
++        self.pf = bin(res & 0xFF).count('1') % 2 == 0
+         self.zf = res == 0
+         self.sf = bool(res >> (bits - 1))
+ 
+@@ -186,6 +196,7 @@
+         self.sf = bool(r >> (bits - 1))
+         sa, sb, sr = a >> (bits - 1), b >> (bits - 1), r >> (bits - 1)
+         self.of = sa == sb and sr != sa
++        self.pf = bin(r & 0xFF).count('1') % 2 == 0
+ 
+     def flags_sub(self, a, b, bits):
+         mask = (1 << bits) - 1
+@@ -195,6 +206,7 @@
+         self.sf = bool(r >> (bits - 1))
+         sa, sb, sr = a >> (bits - 1), b >> (bits - 1), r >> (bits - 1)
+         self.of = sa != sb and sr != sa
++        self.pf = bin(r & 0xFF).count('1') % 2 == 0
+         return r
+ 
+     def cond(self, mn):
+@@ -203,11 +215,50 @@
+             'jbe': self.cf or self.zf, 'ja': not (self.cf or self.zf), 'js': self.sf, 'jns': not self.sf,
+             'jl': self.sf != self.of, 'jge': self.sf == self.of, 'jle': self.zf or self.sf != self.of,
+             'jg': not self.zf and self.sf == self.of, 'jo': self.of, 'jno': not self.of,
++            'jp': self.pf, 'jnp': not self.pf,
+         }
+         if mn not in c:
+             raise Stop('cond ' + mn)
+         return c[mn]
+ 
++    def strop(self, ins, mn):
++        parts = mn.split()
++        pre = parts[0] if len(parts) > 1 else ''
++        op = parts[-1]
++        n = {'b': 1, 'w': 2, 'd': 4}[op[-1]]
++        step = -n if self.df else n
++        reps = self.r['ecx'] if pre else 1
++        k = 0
++        while k < reps:
++            if op.startswith('movs'):
++                self.m.write(self.r['edi'], self.m.read(self.r['esi'], n))
++                self.r['esi'] = (self.r['esi'] + step) & M32
++                self.r['edi'] = (self.r['edi'] + step) & M32
++            elif op.startswith('stos'):
++                self.m.wu(self.r['edi'], n, self.r['eax'])
++                self.r['edi'] = (self.r['edi'] + step) & M32
++            elif op.startswith('lods'):
++                self.sreg({1: 'al', 2: 'ax', 4: 'eax'}[n], self.m.u(self.r['esi'], n))
++                self.r['esi'] = (self.r['esi'] + step) & M32
++            elif op.startswith('scas'):
++                self.flags_sub(self.r['eax'] & ((1 << 8 * n) - 1), self.m.u(self.r['edi'], n), 8 * n)
++                self.r['edi'] = (self.r['edi'] + step) & M32
++            elif op.startswith('cmps'):
++                self.flags_sub(self.m.u(self.r['esi'], n), self.m.u(self.r['edi'], n), 8 * n)
++                self.r['esi'] = (self.r['esi'] + step) & M32
++                self.r['edi'] = (self.r['edi'] + step) & M32
++            else:
++                raise Stop('strop ' + mn)
++            k += 1
++            if pre:
++                self.r['ecx'] = (self.r['ecx'] - 1) & M32
++                if pre in ('repne', 'repnz') and self.zf:
++                    break
++                if pre in ('repe', 'repz') and op[:4] in ('scas', 'cmps') and not self.zf:
++                    break
++            if k > 1 << 20:
++                raise Stop('string op runaway')
++
+     # --- x87
+     def fmem(self, ins, op):
+         a = self.ea(ins, op)
+@@ -236,6 +287,15 @@
+         else:
+             raise Stop('fstore size')
+ 
++    @staticmethod
++    def rnd(v):
++        if not PC24 or not math.isfinite(v):
++            return v
++        try:
++            return struct.unpack('<f', struct.pack('<f', v))[0]
++        except OverflowError:
++            return math.copysign(math.inf, v)
++
+     def sti(self, i):
+         return self.st[-1 - i]
+ 
+@@ -292,17 +352,55 @@
+             if mn == 'fistp':
+                 self.st.pop()
+             return
++        if mn in ('fcom', 'fcomp', 'fcompp', 'fucom', 'fucomp', 'fucompp', 'ficom', 'ficomp', 'ftst'):
++            x = self.sti(0)
++            if mn == 'ftst':
++                y = 0.0
++            elif memop:
++                y = self.imem(ins, memop[0]) if mn.startswith('fi') else self.fmem(ins, memop[0])
++            elif mn.endswith('pp'):
++                y = self.sti(1)
++            else:
++                y = self.sti(b[1] & 7) if len(b) > 1 and b[0] in (0xD8, 0xDD, 0xDA) else self.sti(1)
++            if math.isnan(x) or math.isnan(y):
++                c = 0x4500
++            elif x < y:
++                c = 0x0100
++            elif x == y:
++                c = 0x4000
++            else:
++                c = 0
++            self.fsw = c
++            if mn.endswith('pp'):
++                self.st.pop()
++                self.st.pop()
++            elif mn.endswith('p'):
++                self.st.pop()
++            return
++        if mn == 'fnstsw':
++            if ops and ops[0].type == x86.X86_OP_REG:
++                self.sreg('ax', self.fsw)
++            else:
++                self.m.wu(self.ea(ins, memop[0]), 2, self.fsw)
++            return
++        if mn == 'fldpi':
++            self.st.append(math.pi)
++            return
++        if mn in ('fnstcw', 'fldcw'):
++            if mn == 'fnstcw':
++                self.m.wu(self.ea(ins, memop[0]), 2, 0x027F)
++            return
+         if mn == 'fxch':
+             i = b[1] - 0xC8
+             self.st[-1], self.st[-1 - i] = self.st[-1 - i], self.st[-1]
+             return
+         if mn == 'fpatan':
+             x0 = self.st.pop()
+-            self.set_sti(0, math.atan2(self.sti(0), x0))
++            self.set_sti(0, self.rnd(math.atan2(self.sti(0), x0)))
+             return
+         if mn in ('fsin', 'fcos', 'fchs', 'fabs', 'fsqrt'):
+             f = {'fsin': math.sin, 'fcos': math.cos, 'fchs': lambda v: -v, 'fabs': abs, 'fsqrt': math.sqrt}[mn]
+-            self.set_sti(0, f(self.sti(0)))
++            self.set_sti(0, self.rnd(f(self.sti(0))))
+             return
+         kinds = {'fadd': 'add', 'fmul': 'mul', 'fsub': 'sub', 'fsubr': 'subr', 'fdiv': 'div', 'fdivr': 'divr',
+                  'fiadd': 'add', 'fimul': 'mul', 'fisub': 'sub', 'fisubr': 'subr', 'fidiv': 'div', 'fidivr': 'divr'}
+@@ -310,17 +408,17 @@
+             kind = kinds.get(mn) or kinds[base]
+             if memop:
+                 y = self.imem(ins, memop[0]) if mn.startswith('fi') else self.fmem(ins, memop[0])
+-                self.set_sti(0, arith(self.sti(0), y, kind))
++                self.set_sti(0, self.rnd(arith(self.sti(0), y, kind)))
+                 return
+             op0 = b[0]
+             i = b[1] & 7
+             grp = (b[1] >> 3) & 7  # 0 add 1 mul 4 sub 5 subr 6 div 7 divr (D8); DC/DE reversed sub/div
+             if op0 == 0xD8:
+                 k = {0: 'add', 1: 'mul', 4: 'sub', 5: 'subr', 6: 'div', 7: 'divr'}[grp]
+-                self.set_sti(0, arith(self.sti(0), self.sti(i), k))
++                self.set_sti(0, self.rnd(arith(self.sti(0), self.sti(i), k)))
+             elif op0 in (0xDC, 0xDE):
+                 k = {0: 'add', 1: 'mul', 4: 'subr', 5: 'sub', 6: 'divr', 7: 'div'}[grp]
+-                self.set_sti(i, arith(self.sti(i), self.sti(0), k))
++                self.set_sti(i, self.rnd(arith(self.sti(i), self.sti(0), k)))
+                 if op0 == 0xDE:
+                     self.st.pop()
+             else:
+@@ -334,6 +432,8 @@
+             if eip == RET_SENTINEL:
+                 return
+             self.steps += 1
++            if COV is not None:
++                COV.add(eip)
+             if self.steps > limit:
+                 raise Stop('step limit')
+             ins = self.code(eip)
+@@ -341,7 +441,10 @@
+             mn = ins.mnemonic
+             ops = ins.operands
+             if mn.startswith('f'):
+-                self.x87(ins)
++                try:
++                    self.x87(ins)
++                except IndexError:
++                    raise Stop('x87 stack underflow at %x' % eip)
+             elif mn == 'mov':
+                 self.put(ins, ops[0], self.get(ins, ops[1]))
+             elif mn in ('movzx', 'movsx'):
+@@ -435,6 +538,66 @@
+             elif mn == 'leave':
+                 self.r['esp'] = self.r['ebp']
+                 self.r['ebp'] = self.pop()
++            elif mn.startswith('set'):
++                self.put(ins, ops[0], 1 if self.cond('j' + mn[3:]) else 0)
++            elif mn == 'sahf':
++                ah = (self.r['eax'] >> 8) & 0xFF
++                self.cf = bool(ah & 1)
++                self.pf = bool(ah & 4)
++                self.zf = bool(ah & 0x40)
++                self.sf = bool(ah & 0x80)
++            elif mn == 'xchg':
++                x0, x1 = self.get(ins, ops[0]), self.get(ins, ops[1])
++                self.put(ins, ops[0], x1)
++                self.put(ins, ops[1], x0)
++            elif mn in ('cwde', 'cbw', 'cwd'):
++                if mn == 'cwde':
++                    v = self.r['eax'] & 0xFFFF
++                    self.r['eax'] = v - 0x10000 & M32 if v >> 15 else v
++                elif mn == 'cbw':
++                    v = self.r['eax'] & 0xFF
++                    self.sreg('ax', v - 0x100 if v >> 7 else v)
++                else:
++                    self.sreg('dx', 0xFFFF if self.r['eax'] & 0x8000 else 0)
++            elif mn in ('mul', 'div', 'idiv') and ops[0].size == 4:
++                v = self.get(ins, ops[0])
++                if mn == 'mul':
++                    p = self.r['eax'] * v
++                    self.r['eax'], self.r['edx'] = p & M32, p >> 32
++                    self.cf = self.of = bool(p >> 32)
++                else:
++                    num = (self.r['edx'] << 32) | self.r['eax']
++                    if mn == 'idiv':
++                        if num >> 63:
++                            num -= 1 << 64
++                        if v >> 31:
++                            v -= 1 << 32
++                    if v == 0:
++                        raise Stop('divide by zero at %x' % eip)
++                    q = abs(num) // abs(v)
++                    if (num < 0) != (v < 0):
++                        q = -q
++                    rr = num - q * v
++                    self.r['eax'], self.r['edx'] = q & M32, rr & M32
++            elif mn in ('rol', 'ror'):
++                bits = 8 * ops[0].size
++                a = self.get(ins, ops[0])
++                n = (self.get(ins, ops[1]) if len(ops) > 1 else 1) % bits
++                mask = (1 << bits) - 1
++                r = ((a << n) | (a >> (bits - n))) & mask if mn == 'rol' else ((a >> n) | (a << (bits - n))) & mask
++                self.put(ins, ops[0], r)
++            elif mn in ('shld', 'shrd'):
++                a, bv = self.get(ins, ops[0]), self.get(ins, ops[1])
++                n = self.get(ins, ops[2]) & 31
++                if mn == 'shld':
++                    r = ((a << n) | (bv >> (32 - n))) & M32 if n else a
++                else:
++                    r = ((a >> n) | (bv << (32 - n))) & M32 if n else a
++                self.put(ins, ops[0], r)
++            elif mn in ('cld', 'std'):
++                self.df = mn == 'std'
++            elif mn.split()[-1][:4] in ('movs', 'stos', 'scas', 'cmps', 'lods') or mn[:4] in ('movs', 'stos', 'scas', 'cmps', 'lods'):
++                self.strop(ins, mn)
+             elif mn == 'nop' or mn == 'wait':
+                 pass
+             elif mn == 'jmp':
+@@ -520,6 +683,8 @@
+             struct.pack_into('<I', code, va, (target + add - (OURS_CODE + va + 4)) & M32)
+         else:
+             raise SystemExit('reloc type %x' % typ)
++    for i, bt in enumerate(code):  # A13: the code is readable data too (switch tables)
++        extra[OURS_CODE + i] = bt
+     cache = {}
+ 
+     def reader(eip):
+@@ -565,6 +730,12 @@
+         idx = len(log)
+         st_before = list(c.st)
+         res = stubs(c, key, words, idx, seed)
++        if isinstance(res, str) and res.startswith('PASS'):  # A13: run the client's own callee in place
++            n = int(res[4:] or 0)
++            log.append({'key': key, 'pass': True, 'ecx': 'stk' if STACK_LO <= c.r['ecx'] < STACK_TOP else c.r['ecx'],
++                        'args': [('stk', w - c.r['esp']) if STACK_LO <= w < STACK_TOP else w for w in words[:n]]})
++            c.push(ret)
++            return tgt
+         if not isinstance(res, tuple):
+             res = (res, None)
+         pop_n, out = res[0], res[1]
+--- /dev/null	2026-11-27 04:30:20.000000000 -0800
++++ .work/a13/harness.py	2026-11-27 04:05:11.028173900 -0800
+@@ -0,0 +1,150 @@
++"""A13: generic pair runner and positive controls on top of emu.py (A12's interpreter, extended in .work/a13).
++
++    H = Harness(obj, symbol, client_addr, nargs, void)
++    H.run(cases, setup(case) -> setup_fn, stubs(case) -> stubs_fn, seeds)
++    H.controls(cases, ...)  # mutate ours, expect a DIFF
++"""
++import struct
++import sys
++sys.path.insert(0, 'C:/EnBDevelopment/EnB/.work/a13')
++import emu  # noqa: E402
++import os  # noqa: E402
++emu.PC24 = os.environ.get('PC24') == '1'
++print('x87 precision:', '24 bits (D3D8 game mode)' if emu.PC24 else '53 bits (CRT default)')
++from capstone import x86  # noqa: E402
++
++
++def fhash(seed, *k):
++    """A float in [-4, 4) from integers: identical on both sides for the same key."""
++    h = 2166136261
++    for v in (seed,) + k:
++        h = ((h ^ (v & 0xFFFFFFFF)) * 16777619) & 0xFFFFFFFF
++    return ((h >> 8) % 8000) / 1000.0 - 4.0
++
++
++def f32(v):
++    return struct.unpack('<f', struct.pack('<f', v))[0]
++
++
++class Harness:
++    def __init__(self, obj, symbol, client_addr, nargs, void=True, ignore_st=False, retmask=0xFFFFFFFF, stk_any=False):
++        self.entry, self.reader, self.extra, self.names = emu.link_ours(obj, symbol)
++        self.creader = emu.client_reader()
++        self.both = lambda eip: self.reader(eip) if eip >= emu.OURS_CODE else self.creader(eip)
++        self.caddr = client_addr
++        self.nargs = nargs
++        self.void = void
++        self.ignore_st = ignore_st
++        self.retmask = retmask
++        self.stk_any = stk_any
++
++    def one(self, case, seed, setup, stubs):
++        a = emu.run_one(self.entry, self.both, self.extra, seed, setup(case), stubs(case), self.nargs)
++        b = emu.run_one(self.caddr, self.creader, {}, seed, setup(case), stubs(case), self.nargs)
++        if self.stk_any:  # frames differ: a pointer into the frame is compared as 'stk' (contents via the stubs)
++            for r in (a, b):
++                for c in r['calls']:
++                    c['args'] = ['stk' if isinstance(x, tuple) else x for x in c['args']]
++        if self.ignore_st:
++            for r in (a, b):
++                for c in r['calls']:
++                    c.pop('st', None)
++        a['eax'] &= self.retmask
++        b['eax'] &= self.retmask
++        d = emu.compare(a, b)
++        if self.void:
++            d = [x for x in d if not x.startswith('eax:')]
++        return a, b, d
++
++    def run(self, cases, setup, stubs, seeds=(1, 2), verbose=True, label=''):
++        emu.COV = set()
++        bad = 0
++        n = 0
++        for case in cases:
++            for seed in seeds:
++                a, b, d = self.one(case, seed, setup, stubs)
++                n += 1
++                if verbose:
++                    print('%s case %r seed %d: client %s, %d calls, %d bytes written, %d steps: %s' % (
++                        label, case, seed, b['status'], len(b['calls']), len(b['writes']), b['steps'],
++                        'SAME' if not d else 'DIFF'))
++                    for x in d[:4]:
++                        print('    ' + x[:600])
++                bad += bool(d)
++        print('%s differing runs: %d of %d' % (label, bad, n))
++        return bad
++
++    def coverage(self, size=None):
++        """Share of the client function's reachable instructions (traversed from its start) the runs executed."""
++        seen = set()
++        todo = [self.caddr]
++        while todo:
++            va = todo.pop()
++            while va not in seen:
++                ins = self.creader(va)
++                seen.add(va)
++                mn = ins.mnemonic
++                if mn.startswith('j') and ins.operands[0].type == x86.X86_OP_IMM:
++                    todo.append(ins.operands[0].imm & 0xFFFFFFFF)
++                    if mn == 'jmp':
++                        break
++                elif mn == 'jmp' and ins.operands[0].type == x86.X86_OP_MEM and ins.operands[0].mem.disp:
++                    tab = ins.operands[0].mem.disp & 0xFFFFFFFF  # a switch table: follow its entries
++                    for k in range(64):
++                        t = int.from_bytes(emu.IMG.data[emu.IMG.offset(tab + 4 * k):emu.IMG.offset(tab + 4 * k) + 4],
++                                           'little')
++                        if not self.caddr <= t < self.caddr + 0x4000:
++                            break
++                        todo.append(t)
++                    break
++                elif mn in ('ret', 'jmp', 'int3'):
++                    break
++                va += ins.size
++        hit = sorted(a for a in seen if a in emu.COV)
++        miss = sorted(a for a in seen if a not in emu.COV)
++        print('client coverage: %d of %d reachable instructions; missed %s' % (len(hit), len(seen),
++              [hex(a) for a in miss[:16]]))
++
++    # ---- positive controls
++    def find(self, pred, nth=0):
++        code = bytes(self.reader.code)
++        k = 0
++        for ins in emu.MD.disasm(code, emu.OURS_CODE):
++            if ins.address < self.entry:
++                continue
++            if pred(ins):
++                if k == nth:
++                    return ins.address - emu.OURS_CODE, ins
++                k += 1
++        raise SystemExit('control site not found')
++
++    def mutate(self, label, off, k, val, cases, setup, stubs, seeds=(1,)):
++        code = self.reader.code
++        saved = code[off + k]
++        code[off + k] = val
++        self.reader.cache.clear()
++        bad = 0
++        n = 0
++        for case in cases:
++            for seed in seeds:
++                _, _, d = self.one(case, seed, setup, stubs)
++                bad += bool(d)
++                n += 1
++        code[off + k] = saved
++        self.reader.cache.clear()
++        print('control %s: %d of %d runs differ (%s)' % (label, bad, n, 'CAUGHT' if bad else 'MISSED'))
++        return bad
++
++
++def summary(H, cases, setup, stubs, seeds):
++    """Count the differing runs by (kinds, dword addresses written differently)."""
++    from collections import Counter
++    c = Counter()
++    for case in cases:
++        for seed in seeds:
++            a, b, d = H.one(case, seed, setup, stubs)
++            if d:
++                offs = sorted({x & ~3 for x in a['writes'] if a['writes'][x] != b['writes'].get(x)})
++                c[(tuple(hex(o) for o in offs[:6]), tuple(x.split(':')[0].split(' ')[0] for x in d))] += 1
++    for k, v in c.most_common(12):
++        print(v, k)
+--- /dev/null	2026-11-27 04:30:25.000000000 -0800
++++ .work/a13/run_7e70a0.py	2026-11-27 04:17:29.562717300 -0800
+@@ -0,0 +1,69 @@
++"""A13: ours vs the client's EmoteDataClass::Unknown_7E70A0 (an emote's Matrix3D at phase t, seven modes) in emu.py.
++Matrix3D::Rotate_X / Rotate_Z run as the client's own code on both sides."""
++import math
++import struct
++import sys
++sys.path.insert(0, 'C:/EnBDevelopment/EnB/.work/a13')
++import emu  # noqa: E402
++from harness import Harness, fhash, f32  # noqa: E402
++
++emu.ALIASES['??0Vector4@@QAE@XZ'] = 0x4012CB  # the client pushes its thunk of the Vector4 constructor
++OBJ = 'C:/EnBDevelopment/EnB/.work/a13/objs/emote_data.obj'
++SYM = '?Unknown_7E70A0@EmoteDataClass@@QAE?AVMatrix3D@@M@Z'
++THIS, RET, OWNER = 0x30000000, 0x40000000, 0x31000000
++VCTOR, INVSQRT, ROTX, ROTZ = 0x42F250, 0x447C40, 0x69F3B0, 0x577940
++CASES = [(mode, t) for mode in (0, 1, 2, 3, 4, 5, 6, 7, -1) for t in (0.0, 0.1, 0.25, 0.5, 0.73, 1.0, -0.3, 2.2)]
++
++
++def setup(case):
++    mode, t = case
++
++    def f(mem, cpu, seed):
++        mem.wu(THIS, 4, 0x47000000)  # vtable: the calls are keyed by it
++        mem.wu(THIS + 0x3C, 4, mode & 0xFFFFFFFF)
++        cpu.r['ecx'] = THIS
++        return [RET, struct.unpack('<I', struct.pack('<f', t))[0]]
++    return f
++
++
++def stubs(case):
++    def f(cpu, key, words, idx, seed):
++        if key == ('direct', VCTOR):
++            return 16, None
++        if key[0] == 'indirect' and key[1] == 0:
++            cpu.r['eax'] = OWNER
++            cpu.m.wu(OWNER, 4, 0x48000000)
++            return 0, None
++        if key[0] == 'indirect' and key[1] == 0x30:
++            cpu.st.append(f32(1.25 + fhash(seed, 1) / 8))
++            return 0, None
++        if key == ('direct', INVSQRT):
++            v = struct.unpack('<f', struct.pack('<I', words[0]))[0]
++            cpu.st.append(f32(1.0 / math.sqrt(v)) if v > 0 else math.inf)
++            return 4, {'_cdecl': 1}, 1
++        if key in (('direct', ROTX), ('direct', ROTZ)):
++            return 'PASS1'
++        raise emu.Stop('callee %r' % (key,))
++    return f
++
++
++def main():
++    H = Harness(OBJ, SYM, 0x7E70A0, 2, void=False, stk_any=True)
++    if len(sys.argv) > 1 and sys.argv[1] == 'ctl':
++        base = [(0, 0.1), (1, 0.73), (2, 0.25), (3, 0.5), (5, 0.1)]
++        H.run(base, setup, stubs, seeds=(1, 2), label='base')
++        off, ins = H.find(lambda i: i.mnemonic == 'cmp' and i.op_str.endswith(', 6'))
++        H.mutate('1 (+%#x %s %s: last mode 6 -> 5)' % (off, ins.mnemonic, ins.op_str), off, ins.size - 1, 5,
++                 base + [(6, 0.1)], setup, stubs, seeds=(1, 2))
++        off, ins = H.find(lambda i: i.mnemonic == 'fsin')
++        H.mutate('2 (+%#x fsin -> fcos)' % off, off, 1, 0xFF, base, setup, stubs, seeds=(1, 2))
++        off, ins = H.find(lambda i: i.mnemonic == 'fmul' and '0x21' in i.op_str)
++        H.mutate('3 (+%#x %s %s: another constant)' % (off, ins.mnemonic, ins.op_str), off, ins.size - 4,
++                 (H.reader.code[off + ins.size - 4] + 0x10) & 0xFF, base, setup, stubs, seeds=(1, 2))
++        return
++    H.run(CASES, setup, stubs, seeds=(1, 2), verbose=False)
++    H.coverage()
++
++
++if __name__ == '__main__':
++    main()

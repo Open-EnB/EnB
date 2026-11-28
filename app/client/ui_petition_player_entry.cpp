@@ -300,7 +300,7 @@ void UIPetitionPlayerNameClass::Unknown_60()
 	NameEditor->Unknown_6AAD10();
 }
 
-// NOT EXACT: inline-budget (the client calls rtti.h's DeltaStringClass cast 0x4099A8 out of line at both lookups, ours inlines it; as co.cpp's 0x6FF4B0)
+template<> inline DeltaStringClass *Unknown_Find_Set_Field<DeltaStringClass>(DeltaCompoundClass *root, const NameClass &name) { DeltaStringClass *t = Unknown_Find_Field<DeltaStringClass>(root, name); root->Children.size(); root->Children.size(); root->Children.size(); root->Children.size(); root->Children.size(); root->Children.size(); if (t) { if (t->Unknown70) { return(t); } } return(NULL); }	// auxdata.h's Find_Set_Field instance spelled out: its six dead reads (D272, provisional) send rtti.h's Cast 0x5469C0 out of line at both lookups of 0x5D6EE0 (five or seven: not exact)
 // 0x5D6EE0
 bool UIPetitionPlayerNameClass::Unknown_68(int key)
 {
@@ -318,12 +318,12 @@ bool UIPetitionPlayerNameClass::Unknown_68(int key)
 				if (target && target->Type == 1) {
 					SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
 					NameClass owner("Owner");
-					DeltaStringClass *t = Unknown_Find_Field<DeltaStringClass>((DeltaCompoundClass *)target->AuxData, owner);	// NAME 1: neutral (D10)
-					if (!t || !t->Unknown70) {
+					DeltaStringClass *t = Unknown_Find_Set_Field<DeltaStringClass>((DeltaCompoundClass *)target->AuxData, owner);	// NAME 1: neutral (D10)
+					if (!t) {
 						NameClass field("Name");
-						t = Unknown_Find_Field<DeltaStringClass>((DeltaCompoundClass *)target->AuxData, field);
+						t = Unknown_Find_Set_Field<DeltaStringClass>((DeltaCompoundClass *)target->AuxData, field);
 					}
-					const char *name = (t && t->Unknown70) ? t->String : "Unknown";	// NAME 1: neutral (D10)
+					const char *name = t ? t->String : "Unknown";	// NAME 1: neutral (D10)
 					bool append = NameEditor->Unknown3B;	// NAME 1: neutral (D10)
 					if (append) {
 						NameEditor->Set_Text("; ", true);

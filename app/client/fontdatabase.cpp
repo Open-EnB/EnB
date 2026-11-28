@@ -914,7 +914,7 @@ void FontDatabaseClass::Add_Color(FontColorStruct *color)
 }
 
 
-// NOT EXACT: registers (attempts.py show 0x6C38F0): Get_Info() inlined, its Get_Info(width, height) out of line as the client's 0x6C2CB0; left: info in ebp (client ebx), the this / info / bits slots
+// NOT EXACT: registers (attempts.py show 0x6C38F0): the name and font tests are StringClass's == / != (the client loads chat_name before the buffer, and the font's buffer as strcmp's first argument); left: the font test's two arms each reload chat_index / info before the scale test (ours joins first)
 void FontDatabaseClass::Set_Font(const char *chat_name, unsigned int font_index, float scale, int spacing, int value98, bool force)
 {
 
@@ -922,12 +922,12 @@ void FontDatabaseClass::Set_Font(const char *chat_name, unsigned int font_index,
 	FontInitStruct *info = Get_Info();
 	FAIL_IF(!info) return;
 	unsigned int chat_index;
-	for (chat_index = 0; (int)chat_index < MAXFONTS; chat_index++) if (strcmp(info->FontID[chat_index], chat_name) == 0) break;
+	for (chat_index = 0; (int)chat_index < MAXFONTS; chat_index++) if (info->FontID[chat_index] == chat_name) break;
 	FAIL_IF(chat_index >= MAXFONTS) return;
 
 	FAIL_IF(!Font[chat_index].font32Ptr) return;
 	bool changed = force;
-	if (font_index < AllFonts.size() && strcmp(AllFonts[font_index].c_str(), info->Font[chat_index]) != 0) {
+	if (font_index < AllFonts.size() && info->Font[chat_index] != AllFonts[font_index].c_str()) {
 		info->Font[chat_index] = AllFonts[font_index].c_str();
 		changed = true;
 	}

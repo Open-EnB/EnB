@@ -1,0 +1,66 @@
+import itertools
+HYPOTHESIS = ('FB22 c4: the x87 orders left (plane sums t1 / t2, the divisor\'s operands, d1\'s Y / X) are '
+              'function-wide state set by the set of locals (workflow 3.1): the product of the natural local '
+              'forms (second vector, range local, result pointer, named Vector2, dist local, d1 term order)')
+FILE = 'app/shared/unknown_499180.cpp'
+SYMBOL = 'Unknown_4991F0'
+ADDRESS = 0x4991F0
+
+SIG = 'bool Unknown_4991F0(Vector3 *a, const Vector3 *b, float *out_val, float dist_sq, Vector3 *normal, Vector3 *p1, Vector3 *p2)\n{\n'
+
+
+def gen(vec='dir', rng='direct', res='direct', d2='temp', slope='one', d1='yx', top=''):
+    v = 'dir' if vec == 'dir' else 'delta'
+    R = 'result->' if res == 'ptr' else 'intersection.Result.'
+    RP = 'result' if res == 'ptr' else '&intersection.Result'
+    s = SIG + top
+    s += '\tVector3 dir = *p2 - *p1;\n'
+    if vec == 'top':
+        s += '\tVector3 delta;\n'
+    s += '\tfloat len_sq = dir.Length2();\n\tdir.Normalize();\n\n'
+    s += '\tIntersectionClass intersection(p1, &dir, NULL);\n\n'
+    if res == 'ptr':
+        s += '\tIntersectionResultClass *result = &intersection.Result;\n'
+    s += '\tif (!intersection.Intersect_Plane_Quick(%s, *normal, *a)) {\n\t\treturn true;\n\t}\n' % RP
+    if rng == 'local':
+        s += '\tfloat range = %sRange;\n\tif (range < 0.0f) {\n\t\treturn true;\n\t}\n\tif (range * range > len_sq) {\n\t\treturn true;\n\t}\n\n' % R
+    else:
+        s += '\tif (%sRange < 0.0f) {\n\t\treturn true;\n\t}\n\tif (%sRange * %sRange > len_sq) {\n\t\treturn true;\n\t}\n\n' % (R, R, R)
+    s += '\tintersection.Calculate_Intersection(%s);\n\n' % RP
+    if vec == 'dir':
+        s += '\tdir = %sIntersection - *a;\n' % R
+    elif vec == 'delta':
+        s += '\tVector3 delta = %sIntersection - *a;\n' % R
+    elif vec == 'assign':
+        s += '\tVector3 delta;\n\tdelta = %sIntersection - *a;\n' % R
+    else:
+        s += '\tdelta = %sIntersection - *a;\n' % R
+    if d1 == 'yx':
+        s += '\tfloat d1_xy_sq = %s.Y * %s.Y + %s.X * %s.X;\n' % (v, v, v, v)
+    else:
+        s += '\tfloat d1_xy_sq = %s.X * %s.X + %s.Y * %s.Y;\n' % (v, v, v, v)
+    s += '\tif (d1_xy_sq == 0.0f) {\n\t\treturn true;\n\t}\n\tif (d1_xy_sq > dist_sq) {\n\t\treturn true;\n\t}\n\n'
+    if d2 == 'temp':
+        s += '\tfloat d2_xy_sq = Vector2(%sIntersection.X - b->X, %sIntersection.Y - b->Y).Length2();\n' % (R, R)
+    else:
+        s += '\tVector2 flat(%sIntersection.X - b->X, %sIntersection.Y - b->Y);\n\tfloat d2_xy_sq = flat.Length2();\n' % (R, R)
+    s += '\tif (d2_xy_sq == 0.0f) {\n\t\treturn true;\n\t}\n\tif (d2_xy_sq > dist_sq) {\n\t\treturn true;\n\t}\n\n'
+    if slope == 'one':
+        s += '\tfloat slope = %s.Z / sqrtf(d1_xy_sq);\n' % v
+    else:
+        s += '\tfloat dist = sqrtf(d1_xy_sq);\n\tfloat slope = %s.Z / dist;\n' % v
+    s += '\tif (slope < *out_val) {\n\t\treturn true;\n\t}\n\t*out_val = slope;\n\treturn false;\n}\n'
+    return s
+
+
+FORMS = {}
+for vec, rng, res, d2, slope, d1 in itertools.product(('dir', 'delta', 'assign', 'top'), ('direct', 'local'), ('direct', 'ptr'),
+                                                      ('temp', 'named'), ('one', 'two'), ('yx', 'xy')):
+    FORMS['%s_r%s_p%s_v%s_s%s_%s' % (vec, rng[0], res[0], d2[0], slope[0], d1)] = gen(vec, rng, res, d2, slope, d1)
+
+_src = open('C:/EnBDevelopment/EnB/.work/wt/FB22/' + FILE, encoding='latin-1').read()
+_a = _src.index('bool Unknown_4991F0(')
+_b = _src.index('\n}\n', _a) + 3
+_old = _src[_a:_b]
+_sigline = _old[:_old.index('\n') + 1]
+FORMS = dict((k, [(_old, _sigline + v[v.index('\n') + 1:])]) for k, v in FORMS.items())

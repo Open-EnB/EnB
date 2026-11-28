@@ -1,0 +1,14 @@
+HYPOTHESIS = 'B40 batch m3 (0x437C30): the FB25 count sweep placed away from the stop branch: 1-12 dead max_size() reads at the top of Update (Themes), right after the theme copy (theme), in the else branch after CurrentComponent++ (theme), before the last return 0 (theme): a pool spent elsewhere may leave the stop branch return 2 ~vector _Destroy out of line as the client'
+FILE = 'app/audio/musiclist.cpp'
+SYMBOL = 'MusicListClass::Update'
+ADDRESS = 0x437C30
+T0 = "\tif (Music != NULL && Music->Is_Playing()) {\n\t\tUpdate_Fade_Out();\n\t\treturn 0;\n"
+C0 = "\tThemeType theme = Themes.front();\n\tif (Music != NULL && !Music->Is_Playing()) {\n"
+E0 = "\t} else {\n\t\tCurrentComponent++;\n"
+R0 = "\t\t\treturn 2;\n\t\t}\n\t}\n\treturn 0;\n}\n"
+FORMS = {}
+for n in range(1, 13):
+    FORMS['t%d' % n] = [(T0, "\t" + "Themes.max_size(); " * n + "if (Music != NULL && Music->Is_Playing()) {\n\t\tUpdate_Fade_Out();\n\t\treturn 0;\n")]
+    FORMS['c%d' % n] = [(C0, "\tThemeType theme = Themes.front(); " + "theme.max_size(); " * n + "\n\tif (Music != NULL && !Music->Is_Playing()) {\n")]
+    FORMS['e%d' % n] = [(E0, "\t} else {\n\t\tCurrentComponent++; " + "theme.max_size(); " * n + "\n")]
+    FORMS['r%d' % n] = [(R0, "\t\t\treturn 2;\n\t\t}\n\t}\n\t" + "theme.max_size(); " * n + "return 0;\n}\n")]

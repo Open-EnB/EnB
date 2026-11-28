@@ -1,0 +1,58 @@
+"""A13: ours vs the client's Unknown713D70Class constructor (from a ComponentPositionalUpdatePacket) in emu.py."""
+import struct
+import sys
+sys.path.insert(0, 'C:/EnBDevelopment/EnB/.work/a13')
+import emu  # noqa: E402
+from harness import Harness, fhash  # noqa: E402
+
+OBJ = 'C:/EnBDevelopment/EnB/.work/a13/objs/extrap.obj'
+SYM = '??0Unknown713D70Class@@QAE@PAVComponentPositionalUpdatePacketClass@@PAVClientClass@@@Z'
+THIS, PKT, CLI = 0x30000000, 0x40000000, 0x31000000
+BUILD = 0x8D2C10
+CASES = [(k,) for k in range(12)]
+
+
+def setup(case):
+    def f(mem, cpu, seed):
+        k = case[0]
+        mem.write(PKT + 0x10, struct.pack('<16f', *[fhash(seed, k, j) * (10 if j < 4 else 1) for j in range(16)]))
+        mem.wu(PKT + 0x10, 4, 1000 + k)
+        mem.wu(PKT + 0x4C, 4, 77 + k)
+        cpu.r['ecx'] = THIS
+        return [PKT, CLI]
+    return f
+
+
+def stubs(case):
+    def f(cpu, key, words, idx, seed):
+        m = cpu.m
+        if key == ('direct', BUILD):
+            q = struct.unpack('<4f', m.read(words[1], 16))
+            m.write(words[0], struct.pack('<12f', *[q[j % 4] * (j + 1) for j in range(12)]))
+            cpu.r['eax'] = words[0]
+            return 0, {'_cdecl': 1, 'q': q}, 0
+        raise emu.Stop('callee %r' % (key,))
+    return f
+
+
+def main():
+    H = Harness(OBJ, SYM, 0x713D70, 2, void=False, stk_any=True)
+    if len(sys.argv) > 1 and sys.argv[1] == 'ctl':
+        base = [(0,), (5,)]
+        H.run(base, setup, stubs, seeds=(1,), label='base')
+        off, ins = H.find(lambda i: 'dword ptr' in i.op_str and i.op_str.endswith('+ 0x48]'))
+        H.mutate('1 (+%#x %s %s: +0x48 -> +0x4c)' % (off, ins.mnemonic, ins.op_str), off, ins.size - 1, 0x4C,
+                 base, setup, stubs, seeds=(1,))
+        off, ins = H.find(lambda i: 'dword ptr' in i.op_str and i.op_str.endswith('+ 0x18]') and 'esp' not in i.op_str)
+        H.mutate('2 (+%#x %s %s: +0x18 -> +0x1c)' % (off, ins.mnemonic, ins.op_str), off, ins.size - 1, 0x1C,
+                 base, setup, stubs, seeds=(1,))
+        off, ins = H.find(lambda i: i.mnemonic == 'fmul' and '0x21' in i.op_str)
+        H.mutate('3 (+%#x %s %s: 0.1 -> another constant)' % (off, ins.mnemonic, ins.op_str), off, ins.size - 4,
+                 (H.reader.code[off + ins.size - 4] + 0x10) & 0xFF, base, setup, stubs, seeds=(1,))
+        return
+    H.run(CASES, setup, stubs, seeds=(1, 2, 3), verbose=False)
+    H.coverage()
+
+
+if __name__ == '__main__':
+    main()

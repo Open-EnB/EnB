@@ -1,0 +1,40 @@
+HYPOTHESIS = ('FB24 c1: the client three tails (mov eax,[ebp+10h] / pops / mov [eax],2 / ret) are byte-identical while ours written '
+              'three times take eax / ecx / edx: one *mode = 2 in the source, its tail duplicated by the compiler after allocation; '
+              'the two tm are separate block locals so the Unknown_30 calls do not merge. Also the 5000 branch in the middle (the '
+              'Client temporary in eax would end before phase 1, where the client takes eax first)')
+FILE = 'app/client/camctrl_takeoff.cpp'
+SYMBOL = 'Unknown_08'
+ADDRESS = 0x796440
+SRC = open('app/client/camctrl_takeoff.cpp', newline='').read()
+a = SRC.index('void CameraController09Class::Unknown_08(Vector3 *pos, Quaternion *rot, int *mode, int *target)\n')
+b = SRC.index('// @0x796850', a)
+OLD = SRC[a:b]
+T = '\t\t\t*mode = 2;\n\t\t\treturn;\n'
+assert OLD.count(T) == 2
+i0 = OLD.index(T)
+i1 = OLD.index(T, i0 + 1)
+def cut(s, which, rep='\n\n'):
+    if 1 in which:
+        s = s[:i1] + rep + s[i1 + len(T):]
+    if 0 in which:
+        s = s[:i0] + rep + s[i0 + len(T):]
+    return s
+E = '\t} else {\n\t\tClient->CameraManager->Unknown_79B2B0(0x12);\n\t}\n'
+P1 = '\t} else if (elapsed < 5000) { Matrix3D tm;\n'
+assert E in OLD and P1 in OLD
+def mid(s):
+    s = s.replace(E, '\t}\n\n\n')
+    return s.replace(P1, '\t} else if (elapsed >= 5000) { Client->CameraManager->Unknown_79B2B0(0x12); } else { Matrix3D tm;\n')
+FORMS = {
+    'one_tail': cut(OLD, (0, 1)),
+    'tail_p0': cut(OLD, (0,)),
+    'tail_p1': cut(OLD, (1,)),
+    'goto_tail': cut(OLD, (0, 1), '\t\t\tgoto done;\n\n').replace('\t*mode = 2;\n}', 'done:\t*mode = 2;\n}'),
+    'mid': mid(OLD),
+    'mid_one_tail': mid(cut(OLD, (0, 1))),
+    'not5c': OLD.replace('if (!Unknown5C) {', 'if (Unknown5C == false) {'),
+    'one_tail_not5c': cut(OLD, (0, 1)).replace('if (!Unknown5C) {', 'if (Unknown5C == false) {'),
+}
+for k, v in FORMS.items():
+    assert v != OLD, k
+FORMS = dict((k, [(OLD, v)]) for k, v in FORMS.items())

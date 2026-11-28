@@ -237,6 +237,7 @@ Landing and bring-over (the lander does the landing; these are what you see arou
   a loss of only the three send pad addresses (0x758210, 0x702240, 0x74D990) is the pad, and the landing's retune
   confirms it. The lone-file sweep and the full verify can disagree for a branch (the audio branch: a window found,
   the verify after it still lost a pad address): the landing refuses that branch.
+- **A local fast-forward `git push . A:B` runs the pre-push check (2026-11-27):** use `git update-ref` with the old value, or `git branch -f` when B is not checked out.
 - **Run `linkgate.py check --tree .` (it needs a path) after any rebase of a header-changing branch** (the rebase's verify builds app
   only). A rename in one branch breaks files landed meanwhile that call the old names: it shows as "N lost outright"
   after the rebase; grep the rebased tree for the old names. A rebase stopped at a conflict keeps its start-time base;

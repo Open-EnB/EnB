@@ -109,7 +109,7 @@ UIPdaCargoClass::~UIPdaCargoClass()
 
 
 
-// NOT EXACT: functional from the pseudocode (D64)
+// the button id written i + N at each use (no id local): the client's induction order (slot, name, id)
 // 0x5CFE40
 void UIPdaCargoClass::Unknown_54()
 {
@@ -132,12 +132,12 @@ void UIPdaCargoClass::Unknown_54()
 	}
 	int first = ((GadgetClass *)first_bttn)->Unknown0C;
 	for (int i = 0; i < NUM_BUTTONS; i++) {
-		int id = i + 13;
+
 		RenderObjClass *robj = InterfaceMesh->Get_Sub_Object_By_Name(CargoButtonNames[i]);
 		Unknown_496AE0(robj, 0);
-		if (id == 15) {
+		if (i + 13 == 15) {
 			Buttons5[i] = new ButtonGadgetClass(robj, 5, 3);
-		} else if (id == 16) {
+		} else if (i + 13 == 16) {
 			Buttons5[i] = new ButtonGadgetClass(robj, 0x50, 3);
 		} else {
 			Buttons5[i] = new ButtonGadgetClass(robj, 0x55, 3);
@@ -145,7 +145,7 @@ void UIPdaCargoClass::Unknown_54()
 		GadgetClass::Set_Tooltip(Buttons5[i], "UI_PDA_CARGO", CargoButtonNames[i]);
 		Buttons5[i]->Unknown_65FFA0(first);
 		robj->Release_Ref();
-		Unknown64.Unknown_6870E0(Buttons5[i], id, View, 1, 0);
+		Unknown64.Unknown_6870E0(Buttons5[i], i + 13, View, 1, 0);
 	}
 
 	Filter = Create_NEW(new UIComboBoxClass(this, Client->As_Space_Client(), InterfaceMesh.Peek(), "filter", 0x15, 0x14, 0x19, 0xC, "Combo01"));

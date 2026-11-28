@@ -5,7 +5,7 @@
 #include "gutter_data.h"
 #include "starmap_data.h"
 #include "navigation_data.h"
-#include "emote_data.h"
+class EmoteDataClass;	// not emote_data.h: retail's co_data holds no emote table (binary.md 5.10)
 #include "..\shared\auth_product.h"
 #include "..\shared\g_assert.h"
 // Not the client's source (its sgistl form is unknown: P-L21-1, attempts row 0x71DCE0): the value maps' hashtable

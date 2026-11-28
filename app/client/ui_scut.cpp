@@ -289,10 +289,10 @@ struct ShortcutSlotCompareStruct	// NAME 1: neutral (D10)
 	{
 		G_ASSERT(a.Bar != b.Bar);
 		if (!a.Found && b.Found) return(false);
-		if (a.Found && !b.Found) return(true);
-		if (a.Group < b.Group) return(true);
-		if (a.Group > b.Group) return(false);
-		return(a.Bar < b.Bar);
+		else if (a.Found && !b.Found) return(true);
+		else if (a.Group < b.Group) return(true);
+		else if (a.Group > b.Group) return(false);
+		else return(a.Bar < b.Bar);
 	}
 };
 
@@ -786,7 +786,7 @@ void UIScutBarClass::Unknown_611F60(int group)
 
 
 
-// NOT EXACT: register (the mask passed as the unsigned int it is: the client's dword read of +0x10; left: the client loads both floats before the mask)
+// 0x6120E0: the shortcut's transform copied by value (Matrix3D pos, as 0x7C8490 does) gives the client's fld x, fld y before the mask
 bool UIScutBarClass::Unknown_6120E0(int key)
 {
 	if (Bank->Unknown1C == key) {
@@ -813,7 +813,7 @@ bool UIScutBarClass::Unknown_6120E0(int key)
 			KernelEventClass event;
 			mouse->Unknown28++;
 			ProxyButtons[index]->Save_Sticky(false);
-			const Matrix3D &pos = shortcut->Unknown_66C6C0();
+			Matrix3D pos = shortcut->Unknown_66C6C0();
 			shortcut->Unknown_2C(&event, pos.Get_X_Translation(), pos.Get_Y_Translation(), ((shortcut->Mask & 1) | 0x1000));
 			sclient->Unknown_743380(&event);
 			ProxyButtons[index]->Pressed = true;
@@ -830,7 +830,7 @@ bool UIScutBarClass::Unknown_6120E0(int key)
 			KernelEventClass event(0, 0x1000);
 			ProxyButtons[index]->Save_Sticky(true);
 			if (shortcut) {
-				const Matrix3D &pos = shortcut->Unknown_66C6C0();
+				Matrix3D pos = shortcut->Unknown_66C6C0();
 				shortcut->Unknown_2C(&event, pos.Get_X_Translation(), pos.Get_Y_Translation(), ((shortcut->Mask & 4) | 0x1000));
 			}
 			sclient->Unknown_743380(&event);
@@ -1038,9 +1038,10 @@ void UIScutBankGadgetClass::Unknown_612820(int num)
 **	  and listener slot (0x611220-0x611F60, 0x612510), 0x6123F0, the active shortcut's drop 0x612430 (two NULL stores, one
 **	  a branch: the client's zero register), the bank's constructor, destructor, slot +0x40, and the
 **	  sort's comparison struct and instances 0x612940-0x6134F0, the bar's constructor 0x610F80 (the view through Get_View());
-**	  still differing (attempts.csv): the bar's control keys 0x611300 / 0x611710 and key
-**	  handler 0x6120E0 (registers), the bank's 0x612820 (stack pops) and
-**	  std::_Sort_0 0x6129C0 (the STL instance's inline budget).
+**	  still differing (attempts.csv): the bar's control keys 0x611300 / 0x611710 and the bank's 0x612820 (stack
+**	  pops); the key handler 0x6120E0 is exact with the transform copied by value. std::_Sort_0 0x6129C0 takes the client's
+**	  inline cut (the second _Insertion_sort with operator() out of line, _Unguarded_insert inlined) only with the
+**	  order's tests written as an else-if chain (the same code in operator() 0x613090, a smaller IL body).
 **	0x611B10 sits between #pragma auto_inline(off) / (on): the client calls it out of line from 0x610B00, 0x610C70 and
 **	0x611BD0. The bar's destructor removes it from the mesh's list through the base's inline slot +0x04 (0x53B310),
 **	which gives the client's schedule inside 0x610800. The sort's operator() returns int (mov eax, 1 in the client).

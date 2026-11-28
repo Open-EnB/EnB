@@ -716,7 +716,7 @@ void GalaxyMapRenderClass::Unknown_7A7D70(bool changed)
 
 
 
-// NOT EXACT: written from the client's code (see attempts.csv)
+// 0x7A83D0
 void GalaxyMapRenderClass::Unknown_7A83D0(SphereClass &sphere, bool arg)
 {
 	if (PickedSystem) {
@@ -729,7 +729,7 @@ void GalaxyMapRenderClass::Unknown_7A83D0(SphereClass &sphere, bool arg)
 			sphere.Center = Point;
 			sphere.Radius = UnknownB8;
 		}
-		sphere.Radius = (sphere.Radius < SystemZoomMinRadius) ? SystemZoomMinRadius : sphere.Radius;
+		sphere.Radius = MAX(SystemZoomMinRadius, sphere.Radius);
 		if (arg) { sphere.Radius = sphere.Radius + sphere.Radius; }
 	} else if (GalaxyMapRenderGateClass *gate = PickedGate.Peek()) {
 		if (arg) {
@@ -738,11 +738,11 @@ void GalaxyMapRenderClass::Unknown_7A83D0(SphereClass &sphere, bool arg)
 			gate->From->Get_Position(a);
 			gate->To->Get_Position(b);
 			Vector3 d = a - b;
-			sphere.Center = d * 0.5f + b;
+			d *= 0.5f;
+			sphere.Center = d + b;
 			sphere.Radius = (a - b).Length() * 0.5f;
 		} else {
 			RenderObjClass *robj = PickedGate->Unknown_7AE220()->Peek_RObj();
-
 
 
 
@@ -760,7 +760,7 @@ void GalaxyMapRenderClass::Unknown_7A83D0(SphereClass &sphere, bool arg)
 		sphere.Center = Point;
 		sphere.Radius = UnknownB8;
 	}
-	sphere.Radius = (sphere.Radius < SystemZoomMinRadius) ? SystemZoomMinRadius : sphere.Radius;
+	sphere.Radius = MAX(SystemZoomMinRadius, sphere.Radius);
 }
 
 

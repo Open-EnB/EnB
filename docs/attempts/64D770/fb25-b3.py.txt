@@ -1,0 +1,16 @@
+HYPOTHESIS = 'FB25 batch 3 (0x64D770): the cliff of spenders before the erase lies between 16 and 32: sweep by 1 at the top and by 2 right before the erase, read each step inline string'
+FILE = 'app/client/ui_talkt.cpp'
+SYMBOL = 'UITalkTreeClass::Unknown_60'
+ADDRESS = 0x64D770
+
+TOP = "\tUnknown5BB320Class::Unknown_60();\n\tif (Unknown150) {\n"
+ER = "\t\tif (!NPCSpeechHandle) {\n\t\t\tSpeechFile.erase();\n"
+def top(code):
+    return (TOP, "\tUnknown5BB320Class::Unknown_60(); " + code + "\n\tif (Unknown150) {\n")
+def before_er(code):
+    return (ER, "\t\tif (!NPCSpeechHandle) {\n\t\t\t" + code + " SpeechFile.erase();\n")
+FORMS = {}
+for n in range(17, 32):
+    FORMS['peek_top%d' % n] = [top("NPCSpeechHandle.Peek(); " * n)]
+for n in range(18, 34, 2):
+    FORMS['peek_ber%d' % n] = [before_er("NPCSpeechHandle.Peek(); " * n)]

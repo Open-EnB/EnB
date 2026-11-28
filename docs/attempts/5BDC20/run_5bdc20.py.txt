@@ -1,0 +1,77 @@
+"""A13: ours vs the client's UIMFDClass::Set_ETA (time to target from the two objects' distance, radii, speed)."""
+import struct
+import sys
+sys.path.insert(0, 'C:/EnBDevelopment/EnB/.work/a13')
+import emu  # noqa: E402
+from harness import Harness, fhash, f32  # noqa: E402
+
+OBJ = 'C:/EnBDevelopment/EnB/.work/a13/objs/ui_mfd.obj'
+SYM = '?Set_ETA@UIMFDClass@@QAEXAAUUIMFDValueStruct@@@Z'
+THIS, VAL, OA, OB = 0x30000000, 0x40000000, 0x31000000, 0x32000000
+FTOL = 0xA264EC
+CASES = [(same, dist, ra, rb, spd) for same in (0, 1) for dist in (0.0, 5.0, 300.0) for ra in (0.0, 2.0)
+         for rb in (0.0, 9.0) for spd in (0.0, 0.0005, 0.002, 3.0)]
+
+
+def setup(case):
+    same, dist, ra, rb, spd = case
+
+    def f(mem, cpu, seed):
+        mem.wu(VAL, 4, OA)
+        mem.wu(VAL + 4, 4, OA if same else OB)
+        mem.wu(VAL + 8, 4, 1234)
+        mem.wu(VAL + 0xC, 4, 0x101)
+        mem.wu(OA, 4, 0x58000000)
+        mem.wu(OB, 4, 0x58000100)
+        cpu.r['ecx'] = THIS
+        return [VAL]
+    return f
+
+
+def stubs(case):
+    same, dist, ra, rb, spd = case
+
+    def f(cpu, key, words, idx, seed):
+        m = cpu.m
+        a = cpu.r['ecx'] == OA
+        if key[0] == 'indirect' and key[1] == 0x24:
+            p = (1.0, 2.0, 3.0) if a else (1.0 + dist * 0.6, 2.0 - dist * 0.8, 3.0)
+            m.write(words[0], struct.pack('<3f', *p))
+            cpu.r['eax'] = words[0]
+            return 4, None
+        if key[0] == 'indirect' and key[1] == 0x30:
+            cpu.st.append(f32(ra if a else rb))
+            return 0, None
+        if key[0] == 'indirect' and key[1] == 0x2C:
+            m.write(words[0], struct.pack('<3f', spd * 0.6, spd * 0.8, 0.0))
+            cpu.r['eax'] = words[0]
+            return 4, None
+        if key == ('direct', FTOL):
+            v = cpu.st[-1]
+            emu.ftol(cpu)
+            return 0, {'_cdecl': 1, 'v': v}, 0
+        raise emu.Stop('callee %r' % (key,))
+    return f
+
+
+def main():
+    H = Harness(OBJ, SYM, 0x5BDC20, 1, void=True, stk_any=True, ignore_st=True)
+    if len(sys.argv) > 1 and sys.argv[1] == 'ctl':
+        base = [(0, 300.0, 2.0, 9.0, 0.002), (0, 5.0, 0.0, 0.0, 3.0)]
+        H.run(base, setup, stubs, seeds=(1,), label='base')
+        off, ins = H.find(lambda i: i.mnemonic == 'or' and i.op_str.endswith(', 0x20'))
+        H.mutate('1 (+%#x %s %s: flag 0x20 -> 0x40)' % (off, ins.mnemonic, ins.op_str), off, ins.size - 1, 0x40,
+                 base, setup, stubs, seeds=(1,))
+        off, ins = H.find(lambda i: i.mnemonic == 'call' and i.op_str.endswith('+ 0x2c]'))
+        H.mutate('2 (+%#x %s %s: vcall 0x2c -> 0x24)' % (off, ins.mnemonic, ins.op_str), off, ins.size - 1, 0x24,
+                 base, setup, stubs, seeds=(1,))
+        off, ins = H.find(lambda i: i.mnemonic == 'fsubr' and i.op_str == 'dword ptr [ebp - 4]')
+        H.mutate('3 (+%#x %s %s: distance - radii -> radii - distance)' % (off, ins.mnemonic, ins.op_str), off, 1,
+                 H.reader.code[off + 1] ^ 0x08, base, setup, stubs, seeds=(1,))
+        return
+    H.run(CASES, setup, stubs, seeds=(1,), verbose=False)
+    H.coverage()
+
+
+if __name__ == '__main__':
+    main()

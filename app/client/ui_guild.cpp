@@ -1,6 +1,6 @@
 // Earth & Beyond client (reconstruction): app\client\ui_guild.cpp, the guild window (no __FILE__; client 0x8192C0-0x81E02F
 // after time_mgr.cpp's end 0x8192A7, its data 0xBA7F10-0xBA81FF after time_mgr.cpp's __FILE__). So far the printf helper,
-// the window, its list helpers and chat commands (TM1), 0x81C380 (B9-5, NOT EXACT) and its helper 0x81D290. Notes at the end.
+// the window, its list helpers and chat commands (TM1), 0x81C380 (B9-5; B38) and its helper 0x81D290. Notes at the end.
 // PLACEMENT: provisional (D137): the file name from the tooltip section 'UI_GUILD' (the windows' UI_<file> pattern) and the model 'tsi35a'; a __FILE__ or an assert would place it
 #include <stdio.h>
 #include <stdarg.h>
@@ -397,8 +397,8 @@ void UIGuildClass::Unknown_81AC90()
 void UIGuildClass::Unknown_81AE10()
 {
 	std::list<UIGuildMemberClass *>::iterator it;
-	for (it = Unknown0DC.begin(); it != Unknown0DC.end(); it++) {
-		Unknown_Delete_Member(*it);
+	for (it = Unknown0DC.begin(); it != Unknown0DC.end(); ++it) {
+		delete *it;
 	}
 	Unknown0DC.clear();
 }
@@ -587,8 +587,8 @@ void UIGuildClass::Unknown_81C1F0(std::vector<std::string> lines)
 	Unknown0BC->Unknown_81EEA0(lines);
 }
 
-// NOT EXACT: inline budget (0x81AE10 inline: the client inlines the member's deleting destructor, ours calls it; the
-// client's list clear() is a call) (0x81C380)
+// 0x81AE10's ++it and plain delete (no helper layer) leave the inlined copy here the nested budget for the member's
+// deleting destructor (0x81AD80 + operator delete) with the list's clear() a call, as the client's
 // 0x81C380 (sclient.cpp 0x74DFF0, guild message type 3): the members rebuilt from the lines (0x81D290 parses each
 // into its name and location), then sorted (0x81AEB0), the buttons (0x81BA60) and the rows (0x81ABA0)
 void UIGuildClass::Unknown_81C380(std::vector<std::string> lines)

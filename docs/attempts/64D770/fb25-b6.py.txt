@@ -1,0 +1,33 @@
+HYPOTHESIS = 'FB25 batch 6 (0x64D770): batch 3 showed the nested decisions inside _Grow are not monotonic in the pool (26 spenders inline _Eos(0) too): map the other kinds: big growth (sums 32-128, if (0) dead calls), dead max_size() / c_str() / begin() reads before the erase, 26-27 spenders with growth'
+FILE = 'app/client/ui_talkt.cpp'
+SYMBOL = 'UITalkTreeClass::Unknown_60'
+ADDRESS = 0x64D770
+
+TOP = "\tUnknown5BB320Class::Unknown_60();\n\tif (Unknown150) {\n"
+RESP = "\t\tint response = Unknown154;\n"
+ER = "\t\tif (!NPCSpeechHandle) {\n\t\t\tSpeechFile.erase();\n"
+def sums(n):
+    return "".join(" (void)(response + %d);" % k for k in range(n))
+def S(n):
+    return (RESP, RESP[:-1] + sums(n) + "\n")
+def top(code):
+    return (TOP, "\tUnknown5BB320Class::Unknown_60(); " + code + "\n\tif (Unknown150) {\n")
+def before_er(code):
+    return (ER, "\t\tif (!NPCSpeechHandle) {\n\t\t\t" + code + " SpeechFile.erase();\n")
+FORMS = {}
+for n in (32, 64, 128):
+    FORMS['s%d' % n] = [S(n)]
+for n in (4, 16, 64):
+    FORMS['if0_%d' % n] = [top("if (0) { Unknown_5C(); } " * n)]
+for n in (1, 2, 4, 8):
+    FORMS['ms_top%d' % n] = [top("SpeechFile.max_size(); " * n)]
+    FORMS['ms_ber%d' % n] = [before_er("SpeechFile.max_size(); " * n)]
+for n in (1, 4, 12):
+    FORMS['cstr_top%d' % n] = [top("SpeechFile.c_str(); " * n)]
+    FORMS['begin_top%d' % n] = [top("Responses.begin(); " * n)]
+for p in (26, 27, 28):
+    for n in (1, 2, 4, 8):
+        FORMS['p%d_s%d' % (p, n)] = [top("NPCSpeechHandle.Peek(); " * p), S(n)]
+FORMS['p26_ms1'] = [top("NPCSpeechHandle.Peek(); " * 26 + "SpeechFile.max_size();")]
+FORMS['p24_ms1'] = [top("NPCSpeechHandle.Peek(); " * 24 + "SpeechFile.max_size();")]
+FORMS['p20_ms4'] = [top("NPCSpeechHandle.Peek(); " * 20 + "SpeechFile.max_size(); " * 4)]

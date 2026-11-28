@@ -1,7 +1,7 @@
 #include "..\shared\auxdata\permstr.h"	// Earth & Beyond client (reconstruction)
 #define AUX_CTORS_BUFF		// first: the manufacturing lab's and the buff's trees, numbered at start-up (0x6A2C30, 0x6A2CB0, 0x6A2D20)
 #include "aux_manu.h"
-#include "sbaseview.h"
+#include "fastallocator.h"	// the allocator's totals (0x6A1180)
 #include "wwmath.h"
 #include "..\shared\g_assert.h"
 #include "..\..\ww3d2\rendobj.h"
@@ -40,12 +40,12 @@ float Unknown_77B7D0(float t);	// 0x77B7D0: an easing of 0..1 (0x69ED80)  // NAM
 #include "sbase_info.h"	// StarbaseInfoClass (+0x1B4; LOUNGE_NPC 0x6A0FD0, 0x6A2120)
 #include "ui_avatar_cust.h"	// AvatarUI (+0x19C, 0x69F8F0)
 #include "render2d.h"	// SClient's Text (0x6A1180)
-#include "texture.h"	// the texture totals (0x6A1180)
+#include "sbaseview.h"	// after fastallocator.h, before texture.h: in another order 0x6A1180 calls a difference's right operand first (B30)
 #include "dx8vertexbuffer.h"	// the VB totals (0x6A1180)
 #include "dx8indexbuffer.h"	// the IB totals (0x6A1180)
 #include "wwstring.h"
 #include "wwmemlog.h"	// the categories (0x6A1180)
-#include "fastallocator.h"	// the allocator's totals (0x6A1180)
+#include "texture.h"	// the texture totals (0x6A1180)
 // 0x94B910 (the textures' 'Frame: %d') is texture.h's TextureBaseClass::Unknown_Get_Textures_Applied_Last_Frame
 // ui_talkt_space.cpp's talk tree (sclient.cpp declares it so); 0x69CDE0 resets SClient's to it
 class UITalkTreeSpaceClass : public InterfaceClass	// NAME 3: class-from-file (D24) for ui_talkt_space.cpp
@@ -1384,7 +1384,7 @@ void SBaseViewClass::Unknown_6A1130()
 inline unsigned SBaseViewClass::Fast_Allocated_Size(FastAllocatorGeneral *allocator) { int size=0; for (int i=0;i<FastAllocatorGeneral::MAX_ALLOC_SIZE/FastAllocatorGeneral::ALLOC_STEP;++i) { FastCriticalSectionClass::LockClass lock(allocator->CriticalSections[i]); size+=allocator->allocators[i].Get_Allocated_Size(); } return size; }
 inline unsigned SBaseViewClass::Fast_Allocation_Count(FastAllocatorGeneral *allocator) { int count=0; for (int i=0;i<FastAllocatorGeneral::MAX_ALLOC_SIZE/FastAllocatorGeneral::ALLOC_STEP;++i) { FastCriticalSectionClass::LockClass lock(allocator->CriticalSections[i]); count+=allocator->allocators[i].Get_Allocation_Count(); } return count; }
 
-// NOT EXACT: register-only (D89, explain.py): one sub's operands swapped since Starbase / +0x64 became RefCountPtr<Unknown5BB320Class> (D240 entry)
+// The include order (fastallocator.h first, sbaseview.h, then texture.h last) sets the call order of 0x6A1180's three differences
 // 0x6A1180: the frame rate kept; the client's debug pages (Unknown14EC 4: memory, as frameint.cpp's; 1: the frame
 // rate), its audio page, and its text rendered and reset (0x69C5E0 calls it before End_Render)
 void SBaseViewClass::Unknown_6A1180()

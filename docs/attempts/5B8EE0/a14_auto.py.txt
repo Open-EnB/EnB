@@ -1,0 +1,827 @@
+"""A14: generic behaviour check by execution (A12's method, emu2.py): ours (our object, linked at client.exe's
+addresses) and the client's bytes run on the same inputs with logged callee stubs, over many seeds.
+
+    python auto.py ADDR [--seeds N] [--obj PATH] [--sym NAME] [--control]
+
+Automatic parts: the function in our object (attempts row's symbol, else the best mnemonic match), the
+calling convention (client's `ret N`), aliases for symbols of ours that symbols.json does not name and our
+file-static data placed at the client's addresses (both from aligning the two instruction streams), callee
+stubs (pop count from the callee's own `ret N` in client.exe, else the caller's `add esp` / its pushes),
+results from a seed-mixed value class (0, small ints, pointers, floats, random). Compared: the call log
+(target, ecx, the stack words, the contents behind non-stack pointers), every non-stack byte written,
+eax (non-void), stack depth, callee-saved registers. Coverage: share of the client's instructions run.
+"""
+import argparse
+import bisect
+import csv
+import difflib
+import functools
+import hashlib
+import json
+import os
+import re
+import struct
+import sys
+
+sys.path.insert(0, 'C:/EnBDevelopment/EnB/.work/a14')
+sys.path.insert(0, 'C:/EnBDevelopment/EnB/tools/re')
+import emu2 as emu  # noqa: E402
+from capstone import x86  # noqa: E402
+from explain import pick  # noqa: E402
+from objmatch import CoffObject  # noqa: E402
+
+M32 = emu.M32
+IMG = emu.IMG
+MD = emu.MD
+ROOT = 'C:/EnBDevelopment/EnB'
+FTOL = 0xA264EC
+THIS = 0x30000000
+ARGBASE = 0x60000000
+TEXT = IMG.sections['.text']
+TEXT_LO, TEXT_HI = TEXT[0], TEXT[0] + TEXT[1]
+
+
+def in_image(a):
+    return any(s <= a < s + max(v, r) for s, v, _, r in IMG.sections.values())
+
+
+# ------------------------------------------------------------------ inputs
+def h32(*k):
+    return int.from_bytes(hashlib.blake2b(struct.pack('<%dI' % len(k), *[x & M32 for x in k]),
+                                          digest_size=4).digest(), 'little')
+
+
+def value_class(seed, key):
+    """A dword drawn from a mix of classes, by seed mode."""
+    mode = seed % 3
+    h = h32(seed, key, 7)
+    h2 = h32(seed, key, 11)
+    if mode == 0:
+        return h2
+    c = h % 10
+    if mode == 2 and c < 6:
+        return 0
+    if c < 2:
+        return 0
+    if c == 2:
+        return h2 % 4
+    if c == 3:
+        return 1
+    if c in (4, 5):
+        return (0x50000000 + (h2 & 0x0FFFFFF0)) & M32
+    if c == 6:
+        return struct.unpack('<I', struct.pack('<f', ((h2 % 33) - 16) * 0.5))[0]
+    if c == 7:
+        return 0x3F800000
+    if c == 8:
+        return M32
+    return h2
+
+
+@functools.lru_cache(maxsize=1 << 20)
+def _dword(seed, a4):
+    return value_class(seed, a4)
+
+
+def filler(seed, a):
+    if seed % 3 == 0:
+        return emu.hbyte(seed, a)
+    return (_dword(seed, a >> 2) >> (8 * (a & 3))) & 0xFF
+
+
+emu.FILLER = filler
+
+
+# ------------------------------------------------------------------ the function
+def latest_row(addr):
+    row = None
+    for r in csv.DictReader(open(ROOT + '/docs/data/attempts.csv', encoding='utf-8')):
+        if int(r['address'], 16) == addr:
+            row = r
+    return row
+
+
+_starts = None
+
+
+def client_size(addr):
+    global _starts
+    if _starts is None:
+        s = {int(x['address'], 16) for x in json.load(open(ROOT + '/docs/data/symbols.json'))}
+        s |= {int(f['address'], 16) for f in json.load(open(ROOT + '/docs/data/app-functions.json'))['functions']}
+        _starts = sorted(s)
+    i = bisect.bisect_right(_starts, addr)
+    return _starts[i] - addr
+
+
+def client_insns(addr, n):
+    o = IMG.offset(addr)
+    return list(MD.disasm(IMG.data[o:o + n], addr))
+
+
+def shape(insns):
+    return [i.mnemonic for i in insns]
+
+
+def choose(obj, symbol, cins):
+    funcs = obj.functions()
+    cands = pick(funcs, symbol) if symbol else []
+    if symbol and not cands:
+        # 'Class::Visit(DeltaClass *)', 'KVPairTemplateClass<MoneyClass>::Get_Value_String': the bare method
+        bare = re.sub(r'\(.*\)$', '', symbol).strip()
+        bare = re.sub(r'<[^<>]*>', '', bare)
+        cands = pick(funcs, bare) or pick(funcs, bare.rsplit('::', 1)[-1])
+    cs = shape(cins)
+
+    full = [i.mnemonic + ' ' + i.op_str for i in cins]
+
+    def score(f):
+        name, sec, s, e = f
+        info = obj.sections[sec]
+        code = obj.data[info['raw'] + s:info['raw'] + e]
+        oi = list(MD.disasm(code, 0))
+        while oi and oi[-1].mnemonic in ('nop', 'int3'):
+            oi.pop()
+        r1 = difflib.SequenceMatcher(None, shape(oi), cs, autojunk=False).ratio()
+        r2 = difflib.SequenceMatcher(None, [i.mnemonic + ' ' + i.op_str for i in oi], full, autojunk=False).ratio()
+        return r1 + 0.001 * r2
+    pool = cands or funcs
+    best = max(pool, key=score)
+    choose.by_name = bool(cands)
+    return best, score(best)
+
+
+# ------------------------------------------------------------------ linking ours
+_SYMS = None
+
+
+def symbols():
+    global _SYMS
+    if _SYMS is None:
+        _SYMS = {}
+        for e in json.load(open(ROOT + '/docs/data/symbols.json')):
+            if e.get('kind') == 'thunk':
+                continue
+            _SYMS.setdefault(e['symbol'], int(e['address'], 16))
+    return _SYMS
+
+
+UNRES = 0x7F000000
+INV_THUNKS = {}
+for _t, _r in emu.THUNKS.items():
+    INV_THUNKS.setdefault(emu.real_target(_t), _t)
+MANUAL = {}  # --alias NAME=ADDR
+RETKIND = 'float'  # --retkind int: the buffer gets mixed-class dwords (pointers, 0, small ints)
+RETBUF = 0  # --retbuf N: calls whose first argument is a stack pointer fill N bytes there and return it
+RETRANGE = {}  # --retrange ADDR=LO:HI
+NARROW = {}  # --narrow ADDR=BYTES: a callee whose stack arguments are that narrow (htons: 2): upper bits are junk
+
+
+def link(obj, fn, aliases, sec_at):
+    name, sec, s, e = fn
+    info = obj.sections[sec]
+    code = bytearray(obj.data[info['raw']:info['raw'] + info['size']])
+    syms = {x['index']: x for x in obj.symbols}
+    extra, placed, unres = {}, {}, {}
+    rtarget = {}
+    nxt = [emu.OURS_DATA]
+
+    def place(secnum):
+        if secnum in placed:
+            return placed[secnum]
+        si = obj.sections[secnum - 1]
+        base = sec_at.get(secnum)
+        if base is None:
+            base = nxt[0]
+            nxt[0] += (si['size'] + 0x100) & ~0xF
+        raw = obj.data[si['raw']:si['raw'] + si['size']] if si['raw'] else bytes(si['size'])
+        for i, bt in enumerate(raw):
+            extra[base + i] = bt
+        placed[secnum] = base
+        return base
+    for va, si, typ in info['relocs']:
+        sym = syms[si]
+        add = struct.unpack_from('<i', code, va)[0]
+        nm = sym['name']
+        if nm in aliases:
+            target = aliases[nm]
+        elif nm in symbols() and nm != name and not nm.startswith('__real@'):
+            target = symbols()[nm]
+        elif sym['section'] > 0 and sym['section'] - 1 == sec:
+            target = emu.OURS_CODE + sym['value']
+        elif sym['section'] > 0:
+            target = place(sym['section']) + sym['value']
+            unres.setdefault(target, ('sec', sym['section'], sym['value'], nm))
+        elif nm == '__ftol':
+            target = FTOL
+        elif nm.startswith('__imp__') and iat(nm):
+            target = iat(nm)
+        else:
+            target = UNRES + (int(hashlib.md5(nm.encode()).hexdigest(), 16) & 0xFFFFF0)
+            unres[target] = ('sym', nm)
+        rtarget[va] = (target, typ)
+        if typ == 0x06 and target in INV_THUNKS:
+            target = INV_THUNKS[target]  # a function's address as data: the client's incremental thunk
+        if typ == 0x06:
+            struct.pack_into('<I', code, va, (target + add) & M32)
+        elif typ == 0x14:
+            struct.pack_into('<I', code, va, (target + add - (emu.OURS_CODE + va + 4)) & M32)
+        else:
+            raise SystemExit('reloc type %x' % typ)
+    for i, bt in enumerate(code):  # jump tables in the section are read as data
+        extra[emu.OURS_CODE + i] = bt
+    cache = {}
+
+    def reader(eip):
+        ins = cache.get(eip)
+        if ins is None:
+            off = eip - emu.OURS_CODE
+            if not 0 <= off < len(code):
+                raise emu.Stop('ours: eip %x outside the section' % eip)
+            ins = next(MD.disasm(bytes(code[off:off + 16]), eip))
+            cache[eip] = ins
+        return ins
+    reader.code = code
+    reader.cache = cache
+    reader.rtarget = rtarget
+    return emu.OURS_CODE + s, reader, extra, unres, placed
+
+
+def values_of(ins):
+    out = []
+    for op in ins.operands:
+        if op.type == x86.X86_OP_IMM:
+            out.append(op.imm & M32)
+        elif op.type == x86.X86_OP_MEM:
+            out.append(op.mem.disp & M32)
+    return out
+
+
+def resolve(obj, fn, cins, rounds=3):
+    """Aliases / section placements from aligning ours (linked) with the client's instructions."""
+    aliases, sec_at = dict(MANUAL), {}
+    for _ in range(rounds):
+        entry, reader, extra, unres, placed = link(obj, fn, aliases, sec_at)
+        name, sec, s, e = fn
+        oins = list(MD.disasm(bytes(reader.code[s:e]), emu.OURS_CODE + s))
+        sm = difflib.SequenceMatcher(None, shape(oins), shape(cins), autojunk=False)
+        changed = False
+        bases = sorted(unres)
+        for tag, i1, i2, j1, j2 in sm.get_opcodes():
+            if tag != 'equal':
+                continue
+            for a, b in zip(oins[i1:i2], cins[j1:j2]):
+                ao = a.address - emu.OURS_CODE
+                vals_a, vals_b = values_of(a), values_of(b)
+                if len(vals_a) != len(vals_b):
+                    continue
+                for r in range(ao, ao + a.size):
+                    tt = reader.rtarget.get(r)
+                    if tt is None or tt[0] not in unres:
+                        continue
+                    t = tt[0]
+                    va = struct.unpack_from('<I', reader.code, r)[0]
+                    if tt[1] == 0x14:
+                        va = (emu.OURS_CODE + r + 4 + va) & M32
+                    if va not in vals_a:
+                        continue
+                    vb = vals_b[vals_a.index(va)]
+                    if va == vb:
+                        continue
+                    info = unres[t]
+                    if info[0] == 'sym' and -0x40 <= va - t < 0x100:
+                        tgt = vb - (va - t)
+                        if info[1] not in aliases:
+                            aliases[info[1]] = tgt
+                            changed = True
+                    elif info[0] == 'sec' and va - t < 0x1000 and in_image(vb) and info[3] and                             not info[3].startswith('.') and info[3] not in aliases:
+                        aliases[info[3]] = vb - (va - t)  # a named static: its own client address
+                        changed = True
+                    elif info[0] == 'sec' and va - t < 0x10000 and in_image(vb):
+                        secnum, off = info[1], info[2]
+                        base = vb - (va - t) - off
+                        if secnum not in sec_at:
+                            sec_at[secnum] = base
+                            changed = True
+        if not changed:
+            break
+    return aliases, sec_at
+
+
+# ------------------------------------------------------------------ callee stubs
+@functools.lru_cache(maxsize=None)
+def ret_imm(t):
+    """The pop count of the client function at t: its `ret N` (None when no ret is found early)."""
+    if not TEXT_LO <= t < TEXT_HI:
+        return None
+    o = IMG.offset(t)
+    best = None
+    client_size(t)  # loads the known starts
+    i = bisect.bisect_right(_starts, t)
+    end = _starts[i] if i < len(_starts) else t + 0x4000
+    for ins in MD.disasm(IMG.data[o:o + min(end - t, 0x4000)], t):
+        if ins.mnemonic == 'ret':
+            n = ins.operands[0].imm if ins.operands else 0
+            best = n if best is None else max(best, n)
+        elif ins.mnemonic == 'jmp' and ins.operands[0].type == x86.X86_OP_MEM and best is None \
+                and ins.address == t:
+            return None  # import thunk
+    return best
+
+
+def mangled_ret(name):
+    if not name or not name.startswith('?') or '@@' not in name:
+        return None
+    s = name.split('@@', 1)[1]
+    try:
+        k = 2 if s[0] == 'Y' or s[0] in 'CDKLST' else 3
+        return s[k:k + 2] if s[k] in '_?' else s[k]
+    except IndexError:
+        return None
+
+
+class Side:
+    def __init__(self, reader, start, end):
+        self.reader = reader
+        self.addrs = []
+        a = start
+        while a < end:
+            try:
+                ins = reader(a)
+            except Exception:
+                break
+            self.addrs.append(a)
+            a += ins.size
+        # prologue: leading push reg / mov ebp,esp / sub esp
+        self.prologue_end = start
+        for a in self.addrs:
+            ins = reader(a)
+            if (ins.mnemonic == 'push' and ins.operands[0].type == x86.X86_OP_REG) or \
+               (ins.mnemonic == 'mov' and ins.op_str == 'ebp, esp') or \
+               (ins.mnemonic == 'sub' and ins.op_str.startswith('esp,')):
+                self.prologue_end = a + ins.size
+            else:
+                break
+
+    def pushes_before(self, call_eip):
+        k = bisect.bisect_left(self.addrs, call_eip)
+        n = 0
+        for a in reversed(self.addrs[:k]):
+            if a < self.prologue_end:
+                break
+            ins = self.reader(a)
+            if ins.mnemonic == 'call' or ins.mnemonic.startswith('j') or ins.mnemonic == 'ret':
+                break
+            if ins.mnemonic == 'push':
+                n += 1
+            if ins.mnemonic in ('sub', 'add') and ins.op_str.startswith('esp,'):
+                break
+        return n
+
+
+_REV = None
+
+
+def rev_name(t):
+    global _REV
+    if _REV is None:
+        _REV = {}
+        for e in json.load(open(ROOT + '/docs/data/symbols.json')):
+            _REV.setdefault(int(e['address'], 16), e['symbol'])
+    return _REV.get(t)
+
+
+def not_thiscall(nm):
+    """True when a mangled name is no __thiscall member (ecx is then no argument)."""
+    if not nm:
+        return False
+    if not nm.startswith('?'):
+        return True  # a C name (_htonl@4, _memset)
+    if '@@' not in nm:
+        return False
+    s = nm.split('@@', 1)[1]
+    if s[:1] in ('Y', 'C', 'D', 'K', 'L', 'S', 'T'):
+        return True  # global or static member
+    return len(s) > 2 and s[2] != 'E'
+
+
+_IAT = None
+
+
+def iat(nm):
+    global _IAT
+    if _IAT is None:
+        import pefile
+        from clientimage import DEFAULT_CLIENT
+        pe = pefile.PE(DEFAULT_CLIENT, fast_load=True)
+        pe.parse_data_directories(directories=[pefile.DIRECTORY_ENTRY['IMAGE_DIRECTORY_ENTRY_IMPORT']])
+        _IAT = {}
+        for d in pe.DIRECTORY_ENTRY_IMPORT:
+            for i in d.imports:
+                if i.name:
+                    _IAT[i.name.decode()] = i.address
+    base = re.sub(r'@\d+$', '', nm[len('__imp__'):])
+    return _IAT.get(base)
+
+
+def make_stubs(side, names):
+    def stubs(cpu, key, words, idx, seed, eip, ret_addr):
+        if key[0] == 'direct':
+            t = key[1]
+            if t == FTOL:
+                emu.ftol(cpu)
+                return 0, {'_cdecl': 1, 'ftol': 1}, 0
+            n = ret_imm(t)
+            nm = names.get(t) or rev_name(t)
+        else:
+            t = key[2]
+            n = None
+            nm = names.get(t)
+        try:
+            nxt = side.reader(ret_addr) if ret_addr not in (None, emu.RET_SENTINEL) else None
+        except emu.Stop:
+            nxt = None
+        shown = None
+        if nxt is not None and nxt.mnemonic == 'add' and nxt.op_str.startswith('esp, '):
+            shown = nxt.operands[1].imm // 4
+            if n is None:
+                n = 0
+        if n is None:
+            n = 4 * cpu.dyn_args()
+        if shown is None:
+            shown = n // 4 if n else cpu.dyn_args()
+        cpu.pushlog.clear()
+        cpu.r['eax'] = value_class(seed + 1, 0x7000 + idx)
+        cpu.r['edx'] = value_class(seed + 2, 0x7000 + idx)
+        rr = RETRANGE.get(key[1] if key[0] == 'direct' else None)
+        if rr:
+            cpu.r['eax'] = rr[0] + h32(seed, idx, 99) % (rr[1] - rr[0])
+        if RETBUF and shown and emu.STACK_LO <= words[0] < emu.STACK_TOP:
+            # a by-value struct result: the callee fills the hidden buffer and returns its address
+            for k in range(RETBUF // 4):
+                if RETKIND == 'int':
+                    cpu.m.wu(words[0] + 4 * k, 4, value_class(seed + 3, 0x9000 + 64 * idx + k))
+                else:
+                    cpu.m.write(words[0] + 4 * k, struct.pack('<f', ((h32(seed, idx, k) % 41) - 20) * 0.25))
+            cpu.r['eax'] = words[0]
+        out = {'_cdecl': 1} if (nxt is not None and nxt.mnemonic == 'add' and nxt.op_str.startswith('esp, '))             or not_thiscall(nm) else None
+        return n, out, shown
+    return stubs
+
+
+# ------------------------------------------------------------------ running
+FPU24 = False  # --fpu24: every x87 result rounded to 24 bits (the precision control Direct3D 8 sets)
+
+
+def _r24(v):
+    try:
+        return struct.unpack('<f', struct.pack('<f', v))[0]
+    except (OverflowError, struct.error):
+        return v
+
+
+class F24Stack(emu.FStack):
+    def append(self, v):
+        list.append(self, _r24(v))
+
+    def __setitem__(self, i, v):
+        return emu.FStack.__setitem__(self, i, _r24(v))
+
+
+ENTRY_REGS = {'ebx': 0x0BB00001, 'esi': 0x05100002, 'edi': 0x0ED00003, 'ebp': 0x0EB00004}
+
+
+class XCPU(emu.CPU):
+    """Logs each push since the last call: an argument, or a callee-saved register still holding its entry value."""
+    def __init__(self, *a):
+        super().__init__(*a)
+        self.pushlog = {}
+        self.cur = None
+
+    def push(self, v):
+        super().push(v)
+        ins = self.cur
+        if ins is not None and ins.mnemonic == 'push':
+            op = ins.operands[0]
+            kind = 'arg'
+            if op.type == x86.X86_OP_REG:
+                rn = ins.reg_name(op.reg)
+                if rn in ENTRY_REGS and v == ENTRY_REGS[rn]:
+                    kind = 'save'
+            self.pushlog[self.r['esp']] = kind
+
+    def dyn_args(self):
+        k = 0
+        while self.pushlog.get((self.r['esp'] + 4 * k) & M32) == 'arg':
+            k += 1
+        return k
+
+
+def describe_ptr(mem, w):
+    """A word as logged: stack pointers as 'stk', image / data pointers with their first bytes."""
+    if emu.STACK_LO <= w < emu.STACK_TOP:
+        return 'stk'
+    if TEXT_LO <= w < TEXT_HI:
+        return ('code', emu.real_target(w))
+    if in_image(w) or emu.OURS_DATA <= w < emu.OURS_DATA + 0x1000000:
+        if w >= emu.OURS_DATA or not TEXT_LO <= w < TEXT_HI:
+            # static data: compared by content (a C string up to its NUL), not by address
+            return ('data', mem.read(w, 32).split(b'\0')[0][:32].hex())
+        return ('ptr', w, mem.read(w, 16).hex())
+    return w
+
+
+EXEC = set()  # client functions run for real on both sides (one side inlines them), not stubbed
+CREADER = emu.client_reader()
+
+
+def run_one(entry, reader, extra, seed, nargs, side, names, trace=None):
+    mem = emu.Memory(seed, extra)
+    log = []
+    stubs = make_stubs(side, names)
+    own = reader
+
+    xcache = {}
+
+    def reader(eip):
+        if emu.OURS_CODE <= eip < emu.OURS_CODE + 0x1000000:
+            return own(eip)
+        if emu.OURS_DATA <= eip < emu.OURS_DATA + 0x1000000:
+            # another code section of our object (an out-of-line inline / template copy): its raw bytes
+            ins = xcache.get(eip)
+            if ins is None:
+                raw = bytes(extra.get(eip + i, 0xCC) for i in range(16))
+                ins = next(MD.disasm(raw, eip))
+                xcache[eip] = ins
+            return ins
+        return CREADER(eip)
+
+    def handler(c, key, eip):
+        ret = c.pop()
+        if key[0] == 'direct':
+            key = ('direct', emu.real_target(key[1]))
+            if key[1] in EXEC or emu.OURS_DATA <= key[1] < emu.OURS_DATA + 0x1000000:
+                c.push(ret)
+                c.pushlog.clear()
+                return key[1]
+        else:
+            key = ('indirect', key[1] if isinstance(key[1], int) else str(key[1]), key[2])
+        esp = c.r['esp']
+        words = [c.m.u(esp + 4 * i, 4) for i in range(8)]
+        idx = len(log)
+        st_before = [round(x, 6) if x == x else 'nan' for x in c.st]
+        pop_n, out, nshow = stubs(c, key, words, idx, seed, eip, ret)
+        shown = [describe_ptr(c.m, w) for w in words[:nshow]]
+        nw = NARROW.get(key[1] if key[0] == 'direct' else key[2])
+        if nw:
+            shown = [x & ((1 << (8 * nw)) - 1) if isinstance(x, int) else x for x in shown]
+        ecx = c.r['ecx']
+        e = {'key': key if key[0] == 'direct' else ('indirect', key[2]), 'ecx': 'stk' if emu.STACK_LO <= ecx < emu.STACK_TOP else ecx,
+             'args': shown, 'st': st_before}
+        if out:
+            if out.pop('_cdecl', False):
+                e['ecx'] = None
+            e.update(out)
+        log.append(e)
+        c.r['esp'] = (c.r['esp'] + pop_n) & M32
+        return ret
+
+    cpu = XCPU(mem, reader, handler)
+    cpu.r.update(ENTRY_REGS)
+    under = [0]
+
+    def gen():
+        under[0] += 1
+        vals = [0.0, 1.0, -1.0, 0.5, 2.5, 100.0, -3.25, 1e-3, 7.0, -0.25]
+        return vals[(seed * 7 + len(log) * 3 + under[0]) % len(vals)]
+    cpu.st = (F24Stack if FPU24 else emu.FStack)(gen)
+    cpu.trace = trace
+    cpu.r['esp'] = emu.STACK_TOP - 0x1000
+    cpu.r['ecx'] = THIS
+    for i in reversed(range(nargs)):
+        v = ARGBASE + i * 0x100000 if seed % 3 == 0 else value_class(seed, 0x6F000 + i)
+        cpu.push(v)
+    cpu.push(emu.RET_SENTINEL)
+    esp0 = cpu.r['esp']
+    try:
+        cpu.run(entry)
+        status = 'ret'
+    except emu.Stop as ex:
+        status = 'stop: %s' % ex
+    except (IndexError, KeyError, ValueError, OverflowError, ZeroDivisionError) as ex:
+        status = 'error: %r' % (ex,)
+    writes = {a: v for a, v in mem.w.items() if not emu.STACK_LO <= a < emu.STACK_TOP and
+              not 0x7FFD0000 <= a < 0x7FFD1000}
+    return {'status': status, 'calls': log, 'writes': writes, 'eax': cpu.r['eax'],
+            'esp': cpu.r['esp'] - esp0, 'st': len(cpu.st), 'steps': cpu.steps,
+            'regs': {k: cpu.r[k] for k in ('ebx', 'esi', 'edi', 'ebp')}}
+
+
+def compare(a, b, void, width=4):
+    if width < 4 and not void:
+        a, b = dict(a), dict(b)
+        a['eax'] &= (1 << (8 * width)) - 1
+        b['eax'] &= (1 << (8 * width)) - 1
+    d = emu.compare(a, b)
+    if void:
+        d = [x for x in d if not x.startswith('eax:')]
+    if a['status'] == b['status'] and a['status'] != 'ret':
+        d = [x for x in d if not x.startswith(('eax:', 'regs:', 'esp:', 'st:'))]
+    if a['status'] == b['status'] == 'stop: step limit':
+        return []  # both loop on random links (a cyclic list / tree): inconclusive, counted apart
+    return d
+
+
+class Check:
+    def __init__(self, addr, obj_path=None, sym=None):
+        self.addr = addr
+        row = latest_row(addr)
+        self.row = row
+        self.n = client_size(addr)
+        self.cins = client_insns(addr, self.n)
+        # trim the client's listing after the last ret (jump tables, padding)
+        last = max((k for k, i in enumerate(self.cins) if i.mnemonic in ('ret', 'jmp')), default=len(self.cins) - 1)
+        self.cins = self.cins[:last + 1]
+        f = row['file'] if row else None
+        self.obj_path = obj_path or (ROOT + '/build/app/obj/' + os.path.splitext(os.path.basename(f))[0] + '.obj')
+        self.obj = CoffObject(self.obj_path)
+        self.fn, self.ratio = choose(self.obj, sym if sym is not None else (row['symbol'] if row else ''), self.cins)
+        self.aliases, self.sec_at = resolve(self.obj, self.fn, self.cins)
+        self.entry, self.reader, self.extra, self.unres, self.placed = link(self.obj, self.fn, self.aliases, self.sec_at)
+        self.creader = emu.client_reader()
+        self.syn = {k: v for k, v in self.extra.items() if k >= emu.OURS_CODE}
+        emu.TAIL_STARTS = set(_starts) - {addr}
+        rets = [i.operands[0].imm if i.operands else 0 for i in self.cins if i.mnemonic == 'ret']
+        self.callee_pops = max(rets) if rets else 0
+        self.nargs = self.callee_pops // 4 if self.callee_pops else 6
+        rt = mangled_ret(self.fn[0])
+        self.void = rt == 'X' or self.fn[0].startswith('??1')
+        self.width = 4
+        if rt in ('D', 'E', 'C', '_N'):
+            self.width = 1  # char / unsigned char / signed char / _N bool
+        elif rt in ('F', 'G'):
+            self.width = 2  # short / unsigned short
+        name, sec, s, e = self.fn
+        self.oside = Side(self.reader, self.entry, emu.OURS_CODE + e)
+        self.cside = Side(self.creader, addr, addr + self.n)
+        self.names = {}
+        for nm, t in self.aliases.items():
+            self.names[t] = nm
+
+    def run(self, seeds, trace=None, ours_reader=None):
+        res = []
+        for seed in seeds:
+            a = run_one(self.entry, ours_reader or self.reader, self.extra, seed, self.nargs, self.oside, self.names)
+            b = run_one(self.addr, self.creader, self.syn, seed, self.nargs, self.cside, self.names, trace)
+            res.append((seed, a, b, compare(a, b, self.void, self.width)))
+        return res
+
+    def auto_exec(self, seeds):
+        """Run for real the client callees only one side calls (the other inlines them), until both agree."""
+        for _ in range(4):
+            res = self.run(seeds)
+            ta, tb = set(), set()
+            for seed, a, b, d in res:
+                if a['status'] != 'ret' or b['status'] != 'ret':
+                    continue
+                ta |= {c['key'][1] for c in a['calls'] if c['key'][0] == 'direct'}
+                tb |= {c['key'][1] for c in b['calls'] if c['key'][0] == 'direct'}
+            new = {t for t in ta ^ tb if TEXT_LO <= t < TEXT_HI and t != FTOL} - EXEC
+            if not new:
+                return
+            EXEC.update(new)
+
+
+def summary(chk, res, trace):
+    cadd = {i.address for i in chk.cins}
+    cov = len(trace & cadd) / max(1, len(cadd))
+    bad = [r for r in res if r[3]]
+    stops = sum(1 for r in res if r[2]['status'] == r[1]['status'] == 'stop: step limit')
+    return cov, bad, stops
+
+
+def control(chk, seeds, otrace):
+    """Positive controls: one-byte changes to our copy that the run must catch."""
+    code = chk.reader.code
+    name, sec, s, e = chk.fn
+    picks = []
+    for ins in MD.disasm(bytes(code[s:e]), emu.OURS_CODE + s):
+        if ins.address not in otrace:
+            continue
+        mm = [o for o in ins.operands if o.type == x86.X86_OP_MEM]
+        if ins.mnemonic == 'mov' and mm and ins.operands[0].type == x86.X86_OP_MEM and mm[0].mem.base and \
+                ins.reg_name(mm[0].mem.base) not in ('esp', 'ebp') and -128 <= mm[0].mem.disp < 124 and \
+                mm[0].mem.disp != 0 and not picks:
+            # disp8 store: the disp byte is the last byte before any imm
+            raw = bytes(ins.bytes)
+            k = len(raw) - 1 - (ins.operands[1].size if ins.operands[1].type == x86.X86_OP_IMM else 0)
+            if raw[k] == mm[0].mem.disp & 0xFF:
+                picks.append(('store %s: disp +4' % ins.op_str, ins.address - emu.OURS_CODE + k, (raw[k] + 4) & 0xFF))
+    for ins in MD.disasm(bytes(code[s:e]), emu.OURS_CODE + s):
+        if ins.address in otrace and ins.mnemonic.startswith('j') and ins.mnemonic != 'jmp' and ins.size == 2:
+            picks.append(('%s -> inverse at +%#x' % (ins.mnemonic, ins.address - emu.OURS_CODE - s),
+                          ins.address - emu.OURS_CODE, code[ins.address - emu.OURS_CODE] ^ 1))
+            break
+    if len(picks) < 2:
+        # fallback: the first run instruction with a disp8 memory operand (a load / push of an argument)
+        for ins in MD.disasm(bytes(code[s:e]), emu.OURS_CODE + s):
+            mm = [o for o in ins.operands if o.type == x86.X86_OP_MEM]
+            if ins.address not in otrace or not mm or ins.mnemonic.startswith('f') or ins.mnemonic == 'lea':
+                continue
+            d = mm[0].mem.disp
+            if not 0 < d < 124:
+                continue
+            raw = bytes(ins.bytes)
+            k = len(raw) - 1 - sum(o.size for o in ins.operands if o.type == x86.X86_OP_IMM)
+            if raw[k] == d:
+                picks.append(('%s %s: disp +4' % (ins.mnemonic, ins.op_str), ins.address - emu.OURS_CODE + k,
+                              (raw[k] + 4) & 0xFF))
+                break
+    out = []
+    for label, off, val in picks[:2]:
+        saved = code[off]
+        code[off] = val
+        chk.reader.cache.clear()
+        res = chk.run(seeds)
+        code[off] = saved
+        chk.reader.cache.clear()
+        out.append((label, sum(1 for r in res if r[3]), len(res)))
+    return out
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument('addr')
+    ap.add_argument('--seeds', type=int, default=60)
+    ap.add_argument('--obj')
+    ap.add_argument('--sym')
+    ap.add_argument('--show', type=int, default=3)
+    ap.add_argument('--control', action='store_true')
+    ap.add_argument('--exec', action='append')
+    ap.add_argument('--no-auto-exec', action='store_true')
+    ap.add_argument('--alias', action='append')
+    ap.add_argument('--retbuf', type=int, default=0)
+    ap.add_argument('--retkind', default='float')
+    ap.add_argument('--fpu24', action='store_true')
+    ap.add_argument('--fillbss', action='store_true')
+    ap.add_argument('--retrange', action='append')
+    ap.add_argument('--narrow', action='append')
+    a = ap.parse_args()
+    addr = int(a.addr, 16)
+    global RETBUF, RETKIND, FPU24
+    FPU24 = a.fpu24
+    emu.FILLBSS = a.fillbss
+    for x in a.retrange or []:
+        k, v = x.split('=')
+        lo, hi = v.split(':')
+        RETRANGE[int(k, 16)] = (int(lo, 0), int(hi, 0))
+    RETBUF = a.retbuf
+    RETKIND = a.retkind
+    for x in a.narrow or []:
+        k, v = x.split('=')
+        NARROW[int(k, 16)] = int(v)
+    for x in a.alias or []:
+        k, v = x.rsplit('=', 1)
+        MANUAL[k] = int(v, 16)
+    chk = Check(addr, a.obj, a.sym)
+    print('0x%X %s: ours %s (match %.2f), client %d insns, nargs %d%s, void %s' % (
+        addr, chk.row['symbol'] if chk.row else '?', chk.fn[0], chk.ratio, len(chk.cins), chk.nargs,
+        ' (callee pops)' if chk.callee_pops else ' (cdecl/none: 6 pushed)', chk.void))
+    if chk.ratio < (0.6 if choose.by_name else 0.85):
+        print('runs 0: SKIP, our function not found in %s (best match %.2f)' % (chk.obj_path, chk.ratio))
+        return
+    left = [v for k, v in chk.unres.items() if v[0] == 'sym' and v[1] not in chk.aliases]
+    print('aliases %d, sections placed at client addresses %d, unresolved symbols %s' % (
+        len(chk.aliases), len(chk.sec_at), [x[1] for x in left][:8]))
+    trace, otrace = set(), set()
+    seeds = list(range(1, a.seeds + 1))
+    for x in a.exec or []:
+        EXEC.add(int(x, 16))
+    if not a.no_auto_exec:
+        chk.auto_exec(seeds[:12])
+    if EXEC:
+        print('run for real on both sides (one side inlines them): %s' % ' '.join('%X' % x for x in sorted(EXEC)))
+    res = []
+    for seed in seeds:
+        r1 = run_one(chk.entry, chk.reader, chk.extra, seed, chk.nargs, chk.oside, chk.names, otrace)
+        r2 = run_one(addr, chk.creader, chk.syn, seed, chk.nargs, chk.cside, chk.names, trace)
+        res.append((seed, r1, r2, compare(r1, r2, chk.void, chk.width)))
+    cov, bad, stops = summary(chk, res, trace)
+    st = {}
+    for r in res:
+        st[r[2]['status'][:60]] = st.get(r[2]['status'][:60], 0) + 1
+    print('runs %d, differing %d, inconclusive %d, client statuses %s, client coverage %.0f%%' % (
+        len(res), len(bad), stops, st, 100 * cov))
+    for seed, r1, r2, d in bad[:a.show]:
+        print('  seed %d: ours %s / client %s, %d / %d calls' % (seed, r1['status'], r2['status'], len(r1['calls']), len(r2['calls'])))
+        for x in d[:4]:
+            print('    ' + x[:500])
+    unrun = sorted(i.address for i in chk.cins if i.address not in trace)
+    print('client instructions never run: %d %s' % (len(unrun), ' '.join('%X' % x for x in unrun[:24])))
+    if a.control:
+        for label, nd, n in control(chk, seeds[:30], otrace):
+            print('control (%s): %d of %d runs differ' % (label, nd, n))
+
+
+if __name__ == '__main__':
+    main()

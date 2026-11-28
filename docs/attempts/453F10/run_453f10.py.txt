@@ -1,0 +1,94 @@
+"""A13: ours vs the client's PxCollision::Unknown_453F10 (box / box separating-axis test with the contact) in emu.py."""
+import math
+import struct
+import sys
+sys.path.insert(0, 'C:/EnBDevelopment/EnB/.work/a13')
+import emu  # noqa: E402
+from harness import Harness, fhash  # noqa: E402
+
+OBJ = 'C:/EnBDevelopment/EnB/.work/a13/objs/px_collision.obj'
+SYM = '?Unknown_453F10@PxCollision@@QAE_NABVVector3@@0@Z'
+THIS, OA, OB, P1, P2 = 0x30000000, 0x31000000, 0x32000000, 0x40000000, 0x40000100
+# (orientation mode, distance between the centres)
+CASES = [(om, dist) for om in ('rand', 'ident', 'same', 'yaw') for dist in (0.0, 0.7, 1.5, 2.5, 4.0, 7.0, 30.0)]
+
+
+def rot(seed, k, om):
+    if om == 'ident' or (om == 'same' and k == 1):
+        return [1, 0, 0, 0, 1, 0, 0, 0, 1] if om == 'ident' else rot(seed, 0, 'rand')
+    if om == 'same':
+        return rot(seed, 0, 'rand')
+    a = fhash(seed, k, 1) * 0.8
+    b = fhash(seed, k, 2) * 0.8 if om == 'rand' else 0.0
+    c = fhash(seed, k, 3) * 0.8 if om == 'rand' else 0.0
+    ca, sa, cb, sb, cc, sc = math.cos(a), math.sin(a), math.cos(b), math.sin(b), math.cos(c), math.sin(c)
+    rz = [[ca, -sa, 0], [sa, ca, 0], [0, 0, 1]]
+    ry = [[cb, 0, sb], [0, 1, 0], [-sb, 0, cb]]
+    rx = [[1, 0, 0], [0, cc, -sc], [0, sc, cc]]
+    mul = lambda p, q: [[sum(p[i][t] * q[t][j] for t in range(3)) for j in range(3)] for i in range(3)]  # noqa: E731
+    m = mul(mul(rz, ry), rx)
+    return [m[i][j] for i in range(3) for j in range(3)]
+
+
+def setup(case):
+    om, dist = case
+
+    def f(mem, cpu, seed):
+        mem.wu(THIS, 4, OA)
+        mem.wu(THIS + 4, 4, OB)
+        d = (fhash(seed, 9), fhash(seed, 10), fhash(seed, 11))
+        n = math.sqrt(sum(x * x for x in d)) or 1.0
+        c1 = (fhash(seed, 12), fhash(seed, 13), fhash(seed, 14))
+        c2 = tuple(c1[i] + dist * d[i] / n for i in range(3))
+        mem.write(P1, struct.pack('<3f', *c1))
+        mem.write(P2, struct.pack('<3f', *c2))
+        cpu.r['ecx'] = THIS
+        return [P1, P2]
+    return f
+
+
+def stubs(case):
+    om, dist = case
+
+    def f(cpu, key, words, idx, seed):
+        m = cpu.m
+        if key[0] == 'indirect':
+            k = 0 if cpu.r['ecx'] == OA else 1
+            if key[1] == 0x3C:   # Get_Transform into the caller's Matrix3D
+                r = rot(seed, k, om)
+                t = (fhash(seed, k, 20) * 5, fhash(seed, k, 21) * 5, fhash(seed, k, 22) * 5)
+                m.write(words[0], struct.pack('<12f', r[0], r[1], r[2], t[0], r[3], r[4], r[5], t[1],
+                                              r[6], r[7], r[8], t[2]))
+                cpu.r['eax'] = words[0]
+                return 4, None
+            if key[1] == 0x7C:   # the box (centre and extent) into the caller's buffer
+                ext = [0.5 + abs(fhash(seed, k, 30 + j)) / 2 for j in range(3)]
+                m.write(words[0], struct.pack('<6f', fhash(seed, k, 40), fhash(seed, k, 41), fhash(seed, k, 42),
+                                              *ext))
+                cpu.r['eax'] = words[0]
+                return 4, None
+        raise emu.Stop('callee %r' % (key,))
+    return f
+
+
+def main():
+    H = Harness(OBJ, SYM, 0x453F10, 2, void=False, retmask=0xFF)
+    if len(sys.argv) > 1 and sys.argv[1] == 'ctl':
+        base = [('rand', 1.5), ('rand', 0.7), ('yaw', 2.5), ('rand', 4.0)]
+        H.run(base, setup, stubs, seeds=(1, 2), label='base')
+        off, ins = H.find(lambda i: i.mnemonic == 'mov' and i.op_str.endswith(', 0x47c35000'))
+        H.mutate('1 (+%#x %s %s: best 100000 -> tiny)' % (off, ins.mnemonic, ins.op_str), off, ins.size - 1,
+                 0x07, base, setup, stubs, seeds=(1, 2))
+        off, ins = H.find(lambda i: i.mnemonic == 'fstp' and i.op_str == 'dword ptr [esi + 0x24]')
+        H.mutate('2 (+%#x %s %s: depth store +0x24 -> +0x28)' % (off, ins.mnemonic, ins.op_str), off,
+                 ins.size - 1, 0x28, base, setup, stubs, seeds=(1, 2))
+        off, ins = H.find(lambda i: i.mnemonic == 'mov' and i.op_str == 'al, 1')
+        H.mutate('3 (+%#x %s %s: true -> 2)' % (off, ins.mnemonic, ins.op_str), off, ins.size - 1, 2,
+                 base, setup, stubs, seeds=(1, 2))
+        return
+    H.run(CASES, setup, stubs, seeds=tuple(range(1, 9)), verbose=False)
+    H.coverage()
+
+
+if __name__ == '__main__':
+    main()
