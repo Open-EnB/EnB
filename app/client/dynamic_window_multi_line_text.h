@@ -40,7 +40,7 @@ public:
 	virtual void Set_Alignment(unsigned int flags);
 	virtual void Invalidate();
 	virtual bool Is_Dirty();
-	virtual Vector2 Get_Min_Size();
+	virtual Vector2 Get_Min_Size() const;
 	virtual bool Has_Flags(unsigned int flags);
 	virtual void Layout(const Vector2 &position, const Vector2 &size);							// (FAIL_IF 'height <= 0')
 	virtual Vector2 Get_Size();
@@ -50,7 +50,7 @@ public:
 	virtual DynamicWindowContainerClass *Get_Container();
 	virtual void Add_To_Scene(SceneClass *scene);
 	virtual void Remove_From_Scene();
-	virtual SceneClass *Peek_Scene();
+	virtual SceneClass *Peek_Scene() const;
 	virtual void Set_Level(int level);
 	virtual int Get_Level();
 	virtual void Set_Position(const Vector2 &position);

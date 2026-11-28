@@ -379,8 +379,8 @@ public:
 	StarbaseViewClass(ClientTaskClass *task, int arg);	// 0x69AD30 (table 0xAFD2FC; SpaceClientClass 0x74B680 passes its +0x1384 task and +0x1324)  // NAME 1 [task, arg]: what the base / +0x1F4 get
 	virtual ~StarbaseViewClass();	// +0x00 0x69B0C0 (deleting 0x69B090)
 	virtual void Unknown_04();	// +0x04 0x69B5E0 (Init: the scenes, cameras, layers, text object, interfaces and lights)
-	virtual int Unknown_0C(bool on);	// +0x0C 0x69C5E0 (not rebuilt: the render, WW3D::Begin_Render with on)
-	virtual void Unknown_10();	// +0x10 0x69C0D0 (not rebuilt)
+	virtual int Render(bool on);	// +0x0C 0x69C5E0 (not rebuilt: the render, WW3D::Begin_Render with on)  // NAME 5: thunk order confirmed, binary.md 5.11
+	virtual void Shutdown();	// +0x10 0x69C0D0 (not rebuilt)  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual void Unknown_14();	// +0x14 0x69C8F0 (not rebuilt: the frame, the base's 0x6B4860 first)
 	virtual int Unknown_30() { return((int)this); }	// +0x30 0x69B050 (out of line after the constructor)
 	virtual SimpleSceneClass *Unknown_5C();	// +0x5C 0x69B070 (the view's own slot: the +0x70 scene)

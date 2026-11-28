@@ -301,7 +301,7 @@ void CharacterViewClass::Unknown_08()
 
 // 0x679510: Shutdown, as calls to the file's own helpers (inlined; the client calls the deque's pop_front
 // 0x67CEF0 out of line from 0x67C7B0's copy)
-void CharacterViewClass::Unknown_10()
+void CharacterViewClass::Shutdown()
 {
 	int i;
 	for (i = 0; i < 5; i++) {
@@ -319,7 +319,7 @@ void CharacterViewClass::Unknown_10()
 	Unknown_67A670();
 	Unknown_67B320();
 	Unknown_67A300();
-	UIViewClass::Unknown_10();
+	UIViewClass::Shutdown();
 	if (Unknown06C) { Unknown06C->Release_Ref(); Unknown06C = NULL; }
 	if (Unknown068) { Unknown068->Release_Ref(); Unknown068 = NULL; }
 	if (Unknown07C) { Unknown07C->Release_Ref(); Unknown07C = NULL; }
@@ -361,7 +361,7 @@ void CharacterViewClass::Unknown_10()
 
 
 // 0x679930: the avatars' +0x1C4 is their first own virtual (Null3DObjClass's table ends at +0x1C0)
-int CharacterViewClass::Unknown_0C(bool on)
+int CharacterViewClass::Render(bool on)
 {
 	Unknown_67CBD0();
 

@@ -229,9 +229,9 @@ void MainViewClass::Unknown_04()
 
 // 0x50C2F0: Shutdown (slot +0x10), Init's counterpart: the lights off the +0x120 scene, the dazzle handler and layer, the
 // interface objects, the radar, the scenes, the land, the orbitals and the profile iterator
-void MainViewClass::Unknown_10()
+void MainViewClass::Shutdown()
 {
-	UIViewClass::Unknown_10();
+	UIViewClass::Shutdown();
 	for (int i = 0; i < 4; i++) {
 		Unknown120->Remove_Render_Object(Unknown154[i].Peek());
 		Unknown154[i] = NULL;
@@ -386,7 +386,7 @@ void MainViewClass::Unknown_08()
 
 
 
-int MainViewClass::Unknown_0C(bool on)
+int MainViewClass::Render(bool on)
 {
 	float znear, zfar;
 	Camera->Get_Clip_Planes(znear, zfar);

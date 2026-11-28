@@ -217,7 +217,7 @@ void DynamicWindowBackgroundClass::Set_Min_Size(const Vector2 &min_size)
 	}
 }
 
-Vector2 DynamicWindowBackgroundClass::Get_Min_Size()
+Vector2 DynamicWindowBackgroundClass::Get_Min_Size() const
 {
 	if (!Contents && !AnimationData) {
 		return Vector2(0.0f, 0.0f);

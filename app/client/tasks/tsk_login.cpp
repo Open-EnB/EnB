@@ -261,7 +261,7 @@ void LoginTaskClass::Render()
 	WW3D::Sync(Unknown_Get_Ticks());
 	if (Step < 16) {
 		FAIL_IF(!CharacterView) return;
-		CharacterView->Unknown_0C(true);
+		CharacterView->Render(true);
 	}
 }
 
@@ -933,7 +933,7 @@ void LoginTaskClass::Delete_Character_View()
 {
 	if (CharacterView) {
 		CharacterView->Unknown_18(0);
-		CharacterView->Unknown_10();
+		CharacterView->Shutdown();
 		delete CharacterView;
 		CharacterView = NULL;
 	}

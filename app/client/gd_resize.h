@@ -26,7 +26,7 @@ class ResizeGadget : public UIMeshGadgetClass  // NAME 5: thunk order A, binary.
 {
 public:
 	ResizeGadget(const RefCountPtr<RenderObjClass> &robj);		// 0x66BA50 (mask 0x77)  // NAME 1 [robj]: neutral
-	virtual ~ResizeGadget();										// +0x00 0x66BAF0 (deleting 0x66BAC0)
+	protected: virtual ~ResizeGadget(); public:										// +0x00 0x66BAF0 (deleting 0x66BAC0)  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Unknown_2C(KernelEventClass *event, float x, float y, unsigned int mask);	// +0x2C 0x66BB10 (FAIL_IF '!Peek_Render_Obj()' l.64: the drag)  // NAME 1 [event, x, y, mask]: the base's
 	virtual void Unknown_40(bool on);									// +0x40 0x66BD60 (hidden while off)  // NAME 1 [on]: the base's
 	void Unknown_66BDA0();												// 0x66BDA0 (+0x60 from the model's position)

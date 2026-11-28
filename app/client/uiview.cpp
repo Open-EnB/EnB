@@ -105,7 +105,7 @@ void UIViewClass::Unknown_40()
 }
 
 // 0x65B330: slot +0x0C: both scenes, the 2-D one over the 3-D one
-int UIViewClass::Unknown_0C(bool on)
+int UIViewClass::Render(bool on)
 {
 	WWPROFILE("UIViewClass::Render");
 	WW3D::Begin_Render(on);
@@ -126,9 +126,9 @@ void UIViewClass::Unknown_14()
 }
 
 // 0x65B4A0: slot +0x10: Shutdown, Init's counterpart
-void UIViewClass::Unknown_10()
+void UIViewClass::Shutdown()
 {
-	ViewClass::Unknown_10();
+	ViewClass::Shutdown();
 	Unknown34->Unknown_5C();
 	REF_PTR_RELEASE(Unknown34);
 	delete Unknown30;
@@ -302,10 +302,10 @@ Unknown65B810ViewClass::Unknown65B810ViewClass(ClientTaskClass *task, int arg) :
 }
 
 // 0x65B8B0: slot +0x10
-void Unknown65B810ViewClass::Unknown_10()
+void Unknown65B810ViewClass::Shutdown()
 {
 	Client = NULL;
-	UIViewClass::Unknown_10();
+	UIViewClass::Shutdown();
 }
 
 // 0x65B8D0: slot +0x44: the client's software mouse

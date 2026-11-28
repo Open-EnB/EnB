@@ -53,7 +53,7 @@ public:
 	virtual void Set_Alignment(unsigned int flags) = 0;											// +0x14  // NAME 1 [Set_Alignment, flags]: replaces bits 0xF0 of +0x3C (0x516E00 reads 0x10-0x80 as alignment)
 	virtual void Invalidate() = 0;																// +0x18  // NAME 1 [Invalidate]: sets the dirty flag and tells the parent
 	virtual bool Is_Dirty() = 0;																// +0x1C  // NAME 1 [Is_Dirty]
-	virtual Vector2 Get_Min_Size() = 0;															// +0x20  // NAME 1 [Get_Min_Size]: what 0x517C50 lays out with
+	virtual Vector2 Get_Min_Size() const = 0;															// +0x20  // NAME 1 [Get_Min_Size]: what 0x517C50 lays out with
 	virtual bool Has_Flags(unsigned int flags) = 0;												// +0x24  // NAME 1 [Has_Flags, flags]
 	virtual void Layout(const Vector2 &position, const Vector2 &size) = 0;						// +0x28  // NAME 1 [Layout, position, size]
 	virtual Vector2 Get_Size() = 0;																// +0x2C  // NAME 1 [Get_Size]
@@ -63,7 +63,7 @@ public:
 	virtual DynamicWindowContainerClass *Get_Container() = 0;									// +0x3C  // NAME 1 [Get_Container]
 	virtual void Add_To_Scene(SceneClass *scene) = 0;											// +0x40  // NAME 1 [Add_To_Scene, scene]: compares with the render object's Peek_Scene
 	virtual void Remove_From_Scene() = 0;														// +0x44  // NAME 1 [Remove_From_Scene]
-	virtual SceneClass *Peek_Scene() = 0;														// +0x48 (0x51CEC0: the render object's)  // NAME 1 [Peek_Scene]: RenderObjClass's
+	virtual SceneClass *Peek_Scene() const = 0;														// +0x48 (0x51CEC0: the render object's)  // NAME 1 [Peek_Scene]: RenderObjClass's
 	virtual void Set_Level(int level) = 0;														// +0x4C  // NAME 1 [Set_Level, level]: the background passes one less to its contents
 	virtual int Get_Level() = 0;																// +0x50  // NAME 1 [Get_Level]
 	virtual void Set_Position(const Vector2 &position) = 0;										// +0x54  // NAME 1 [Set_Position, position]
@@ -82,7 +82,7 @@ public:
 	virtual void Set_Alignment(unsigned int flags);												// +0x14 0x51CAE0
 	virtual void Invalidate();																	// +0x18 0x51CB20
 	virtual bool Is_Dirty();																	// +0x1C 0x51CB50
-	virtual Vector2 Get_Min_Size();																// +0x20 0x51CB70
+	virtual Vector2 Get_Min_Size() const;																// +0x20 0x51CB70
 	virtual bool Has_Flags(unsigned int flags);													// +0x24 0x51CBE0
 	virtual void Layout(const Vector2 &position, const Vector2 &size);							// +0x28 0x51CC10
 	virtual Vector2 Get_Size();																	// +0x2C 0x51CC80
@@ -92,7 +92,7 @@ public:
 	virtual DynamicWindowContainerClass *Get_Container();										// +0x3C 0x51CE20
 	virtual void Add_To_Scene(SceneClass *scene);												// +0x40 0x51CE40
 	virtual void Remove_From_Scene();															// +0x44 0x51CE90
-	virtual SceneClass *Peek_Scene();															// +0x48 0x51CEC0
+	virtual SceneClass *Peek_Scene() const;															// +0x48 0x51CEC0
 	virtual void Set_Level(int level);															// +0x4C 0x51CEE0
 	virtual int Get_Level();																	// +0x50 0x51CF10
 	virtual void Set_Position(const Vector2 &position);											// +0x54 0x51CF30

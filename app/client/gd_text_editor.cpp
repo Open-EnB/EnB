@@ -330,7 +330,7 @@ std::string TextEditorGadget::Get_Text()
 }
 
 // @0x6729B0
-void TextEditorGadget::Set_Text(const std::string &text)
+void TextEditorGadget::Set_Text(std::string &text)
 {
 	Edit->Set_String(const_cast<std::string &>(text));	// the client passes it as a reference
 	Update_Lines(true);
@@ -338,7 +338,7 @@ void TextEditorGadget::Set_Text(const std::string &text)
 }
 
 // @0x6729F0
-void TextEditorGadget::Insert_Text(const std::string &text)
+void TextEditorGadget::Insert_Text(std::string &text)
 {
 	if (Unknown60) {
 		Edit->Clear();

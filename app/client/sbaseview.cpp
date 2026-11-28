@@ -175,9 +175,9 @@ void StarbaseViewClass::Unknown_04()
 
 // 0x69C0D0: the interfaces, the render objects, the channels and the scenes released (UIViewClass's 0x65B4A0
 // first, not the base's 0x65B8B0)
-void StarbaseViewClass::Unknown_10()
+void StarbaseViewClass::Shutdown()
 {
-	UIViewClass::Unknown_10();
+	UIViewClass::Shutdown();
 	Starbase = NULL;
 	Unknown64 = NULL;
 	Unknown174 = NULL;
@@ -252,7 +252,7 @@ void StarbaseViewClass::Unknown_18(bool arg)
 }
 
 // 0x69C5E0: the render (the text object follows the pointer, 0.02 up a frame with cursor 5, else 0.01 down)
-int StarbaseViewClass::Unknown_0C(bool on)
+int StarbaseViewClass::Render(bool on)
 {
 	if (Unknown1C4 > 0) {
 		Unknown1C4--;

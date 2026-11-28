@@ -123,10 +123,10 @@ bool HorizontalDynamicWindow::Is_Dirty()
 	return Dirty;
 }
 
-Vector2 HorizontalDynamicWindow::Get_Min_Size()
+Vector2 HorizontalDynamicWindow::Get_Min_Size() const
 {
 	if (ContentDirty) {
-		Update_Content_Size();
+		((HorizontalDynamicWindow *)this)->Update_Content_Size();
 	}
 	float x = max(MinSize.X, ContentSize.X);
 	float y = max(MinSize.Y, ContentSize.Y);
@@ -265,7 +265,7 @@ void HorizontalDynamicWindow::Remove_From_Scene()
 	}
 }
 
-SceneClass *HorizontalDynamicWindow::Peek_Scene()
+SceneClass *HorizontalDynamicWindow::Peek_Scene() const
 {
 	return Scene;
 }

@@ -40,8 +40,8 @@ public:
 	virtual void Set_Render_Obj(RenderObjClass *robj);	// +0x94 0x671CB0 (the lines made to fill the model)  // NAME 2: the base's
 
 	std::string Get_Text();								// 0x672870  // NAME 2: what it answers
-	void Set_Text(const std::string &text);				// 0x6729B0 (the slider back to the top)  // NAME 2: what it does; NAME 1 [text]: neutral
-	void Insert_Text(const std::string &text);			// 0x6729F0  // NAME 2: what it does; NAME 1 [text]: neutral
+	void Set_Text(std::string &text);				// 0x6729B0 (the slider back to the top)  // NAME 2: what it does; NAME 1 [text]: neutral  // NAME 5: thunk order confirmed, binary.md 5.11
+	void Insert_Text(std::string &text);			// 0x6729F0  // NAME 2: what it does; NAME 1 [text]: neutral  // NAME 5: thunk order confirmed, binary.md 5.11
 	void Unknown_672A60();								// 0x672A60 (FAIL_IF '!Slider': the top line from the slider)
 	void Unknown_672AD0();								// 0x672AD0 (the slider's 0x66FD80)
 	void Update_Lines(bool split);						// 0x672B00 (split: the text cut into lines again, the slider set; the lines and the cursor drawn)  // NAME 2: what it does; NAME 1 [split]: neutral

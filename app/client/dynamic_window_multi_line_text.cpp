@@ -131,7 +131,7 @@ bool DynamicWindowMultiLineTextClass::Is_Dirty()
 	return Dirty;
 }
 
-Vector2 DynamicWindowMultiLineTextClass::Get_Min_Size()
+Vector2 DynamicWindowMultiLineTextClass::Get_Min_Size() const
 {
 	return MinSize;
 }
@@ -226,7 +226,7 @@ void DynamicWindowMultiLineTextClass::Remove_From_Scene()
 	Scene = NULL;
 }
 
-SceneClass *DynamicWindowMultiLineTextClass::Peek_Scene()
+SceneClass *DynamicWindowMultiLineTextClass::Peek_Scene() const
 {
 	return Scene;
 }

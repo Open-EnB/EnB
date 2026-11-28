@@ -31,7 +31,7 @@ class AttributeSkillsGadget : public ButtonGadgetClass  // NAME 5: thunk order A
 {
 public:
 	AttributeSkillsGadget();									// 0x662DC0 (0x114 bytes; ui_attrb_skills.cpp's 0x54ACE0 makes it)
-	virtual ~AttributeSkillsGadget();							// +0x00 0x6636E0 (deleting 0x6636B0)
+	protected: virtual ~AttributeSkillsGadget(); public:							// +0x00 0x6636E0 (deleting 0x6636B0)  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual RenderObjClass *Unknown_24(Vector3 *position, float *frame, bool indicator);	// +0x24 0x663B50 (the hovered dot, else the base's)
 	virtual void Unknown_28(LayerClass *layer);				// +0x28 0x663DA0 (the slot gadgets too)
 	virtual bool Unknown_30(float x, float y);				// +0x30 0x663950 (which dot the pointer is on: Unknown88)

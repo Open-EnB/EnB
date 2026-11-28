@@ -30,8 +30,8 @@ class SkillRenderClass;
 class SlotDataRenderClass : public RefCountClass	// NAME 3: class-from-file (D24) for app\Client\slot_data_render.cpp
 {
 public:
-	protected: SlotDataRenderClass();													// 0x6A7B60
-	virtual ~SlotDataRenderClass();											// +0x04 0x6A80D0 (deleting 0x6A7BD0)
+	protected: SlotDataRenderClass();													// 0x6A7B60  // NAME 5: thunk order confirmed, binary.md 5.11
+	virtual ~SlotDataRenderClass();											// +0x04 0x6A80D0 (deleting 0x6A7BD0)  // NAME 5: thunk order confirmed, binary.md 5.11
 	public: virtual bool Unknown_08(SlotDataClass *sd, RenderObjClass *robj);		// +0x08 0x6A7C00  // NAME 3 [sd]: 0x6A7310's FAIL_IF; NAME 1 [robj]: neutral
 	virtual void Unknown_0C(std::string &string);							// +0x0C 0x6A82F0 (appends its state)  // NAME 1 [string]: neutral
 	virtual const char *Unknown_10(const char *state);						// +0x10 0x6A8430 (reads it back)  // NAME 3 [state]: its FAIL_IF

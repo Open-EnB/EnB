@@ -31,7 +31,7 @@ class RenderObjGadgetClass : public GadgetClass  // NAME 5: thunk order A, binar
 public:
 	RenderObjGadgetClass(RenderObjClass *robj, const LayerClass &layer, unsigned int mask);	// 0x66BDF0  // NAME 1 [robj, layer, mask]: what it does with them
 	RenderObjGadgetClass(RenderObjClass *robj, unsigned int mask);			// 0x66BEC0 (an empty layer)  // NAME 1 [robj, mask]: what it does with them
-	virtual ~RenderObjGadgetClass();											// +0x00 0x66BF60 (deleting 0x66BE90)
+	protected: virtual ~RenderObjGadgetClass(); public:											// +0x00 0x66BF60 (deleting 0x66BE90)  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual RenderObjGadgetClass *As_RObjGadget() { return(this); }	// +0x08 0x51AD20 (itself)
 	virtual RenderObjClass *Unknown_24(Vector3 *position, float *frame, bool indicator);	// +0x24 0x66C530 (the model and its position, while bit 3)
 	virtual void Unknown_28(LayerClass *layer);							// +0x28 0x66C5B0 (the layer replaced, the model moved with it)

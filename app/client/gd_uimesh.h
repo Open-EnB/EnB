@@ -27,11 +27,11 @@ class UIMeshClass;
 class UIMeshGadgetClass : public RenderObjGadgetClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
-	UIMeshGadgetClass(UIMeshClass *mesh, const char *name, const LayerClass &layer, unsigned int mask);	// 0x674F90 (the mesh's sub-object 0x5B8B40)  // NAME 1 [mesh, name, layer, mask]: the base's and what it does
-	UIMeshGadgetClass(RenderObjClass *robj, const LayerClass &layer, unsigned int mask);	// 0x675050 (RenderObjGadgetClass 0x66BDF0)  // NAME 1 [robj, layer, mask]: the base's
+	UIMeshGadgetClass(UIMeshClass *mesh, const char *name, LayerClass &layer, unsigned int mask);	// 0x674F90 (the mesh's sub-object 0x5B8B40)  // NAME 1 [mesh, name, layer, mask]: the base's and what it does  // NAME 5: thunk order confirmed, binary.md 5.11
+	UIMeshGadgetClass(RenderObjClass *robj, LayerClass &layer, unsigned int mask);	// 0x675050 (RenderObjGadgetClass 0x66BDF0)  // NAME 1 [robj, layer, mask]: the base's  // NAME 5: thunk order confirmed, binary.md 5.11
 	UIMeshGadgetClass(UIMeshClass *mesh, const char *name, unsigned int mask);	// 0x675090  // NAME 1 [mesh, name, mask]: the base's and what it does
 	UIMeshGadgetClass(RenderObjClass *robj, unsigned int mask);		// 0x675120 (RenderObjGadgetClass 0x66BEC0)  // NAME 1 [robj, mask]: the base's
-	virtual ~UIMeshGadgetClass();										// +0x00 0x675150 (deleting 0x675020)
+	protected: virtual ~UIMeshGadgetClass(); public:										// +0x00 0x675150 (deleting 0x675020)  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual void Unknown_74() {}										// +0x74 0x51ADC0 (no scene to enter)
 	virtual void Unknown_78() { Unknown_6607D0(); }						// +0x78 0x51ADE0 (only the flash stopped)
 };

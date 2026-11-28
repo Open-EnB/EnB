@@ -10,7 +10,7 @@
 #include "..\shared\g_assert.h"
 
 UISliderGadget::UISliderGadget(RenderObjClass *screen, const char *pull, const char *bar, const LayerClass *layer, bool horizontal, float extra) :
-	UIMeshGadgetClass(screen->Get_Sub_Object_By_Name(bar), *layer, 0x77),
+	UIMeshGadgetClass(screen->Get_Sub_Object_By_Name(bar), *(LayerClass *)layer, 0x77),
 	Pull(NULL),
 	Screen(screen),
 	IsHorizontal(horizontal),

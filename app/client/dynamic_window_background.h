@@ -60,7 +60,7 @@ public:
 	void Set_Contents(const RefCountPtr<DynamicWindowElement> &contents);					// 0x516810  // NAME 1 [Set_Contents, contents]: 'Contents'
 
 	virtual void Set_Min_Size(const Vector2 &min_size);										// +0x08 0x5168F0 (FAIL_IF 'contents_min_size.X <= 0.0f')
-	virtual Vector2 Get_Min_Size();																// +0x20 0x516A00
+	virtual Vector2 Get_Min_Size() const;																// +0x20 0x516A00
 	virtual void Layout(const Vector2 &position, const Vector2 &size);							// +0x28 0x516AE0
 	virtual DynamicWindowContainerClass *Get_Container();										// +0x3C 0x516BB0
 	virtual void Add_To_Scene(SceneClass *scene);												// +0x40 0x516BD0

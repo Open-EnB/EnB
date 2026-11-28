@@ -74,7 +74,7 @@ bool DynamicWindowRenderObjectClass::Is_Dirty()
 	return Dirty;
 }
 
-Vector2 DynamicWindowRenderObjectClass::Get_Min_Size()
+Vector2 DynamicWindowRenderObjectClass::Get_Min_Size() const
 {
 	float x = max(MinSize.X, NaturalSize.X);
 	float y = max(MinSize.Y, NaturalSize.Y);
@@ -178,7 +178,7 @@ void DynamicWindowRenderObjectClass::Remove_From_Scene()
 	}
 }
 
-SceneClass *DynamicWindowRenderObjectClass::Peek_Scene()
+SceneClass *DynamicWindowRenderObjectClass::Peek_Scene() const
 {
 	if (!RenderObject) {
 		return NULL;

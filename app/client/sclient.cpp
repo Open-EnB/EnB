@@ -546,22 +546,22 @@ void SpaceClientClass::Shutdown()
 	CameraManager = NULL;
 
 	if (MainView) {
-		MainView->Unknown_10();
+		MainView->Shutdown();
 	}
 	if (Unknown1358) {
-		Unknown1358->Unknown_10();
+		Unknown1358->Shutdown();
 	}
 	if (Unknown135C) {
-		Unknown135C->Unknown_10();
+		Unknown135C->Shutdown();
 	}
 	if (Movie3DView) {
-		Movie3DView->Unknown_10();
+		Movie3DView->Shutdown();
 	}
 	if (ScriptedMovieView) {
-		ScriptedMovieView->Unknown_10();
+		ScriptedMovieView->Shutdown();
 	}
 	if (LoadingView) {
-		LoadingView->Unknown_10();
+		LoadingView->Shutdown();
 	}
 	REF_PTR_RELEASE(LineDisplay);
 	REF_PTR_RELEASE(PDAWindow);
@@ -673,7 +673,7 @@ void SpaceClientClass::Process_Packets()
 	UnknownPacketBaseClass *packet;
 	while ((packet = ((BufferedConnectionClass *)Connection)->Peek()) != NULL) {
 		if (Task->Is_Focused() && LoadingView->Unknown68) {
-			LoadingView->Unknown_0C(true);
+			LoadingView->Render(true);
 		}
 		if (!packet->Process_Packet(this)) {
 			return;
@@ -4103,7 +4103,7 @@ void SpaceClientClass::Unknown_74BD10()
 
 	G_ASSERT(Movie3DView);
 	Unknown_745F30(Unknown1370);
-	Movie3DView->Unknown_10();
+	Movie3DView->Shutdown();
 	delete Movie3DView;
 	Movie3DView = NULL;
 }
@@ -4126,7 +4126,7 @@ void SpaceClientClass::Unknown_74BF00(int mode)
 
 	G_ASSERT(ScriptedMovieView);
 	Unknown_745F30(mode);
-	ScriptedMovieView->Unknown_10();
+	ScriptedMovieView->Shutdown();
 	delete ScriptedMovieView;
 	ScriptedMovieView = NULL;
 }
@@ -5755,7 +5755,7 @@ void SpaceClientClass::Unknown_64()
 		if (panel) {
 			panel->Unknown_5685C0();
 			panel->Unknown_568690(); }
-		LoadingView->Unknown_0C(true);
+		LoadingView->Render(true);
 		if (MusicManager) {
 			MusicManager->Update(MusicManagerClass::MUSIC_THEME_WANDER, 0, 0, 8);
 			SoundLibrary::Update();
@@ -5784,7 +5784,7 @@ void SpaceClientClass::Unknown_64()
 		SortingRendererClass::_Enable_Triangle_Draw(false);
 	}
 	if (CurrentView) {
-		CurrentView->Unknown_0C(on);
+		CurrentView->Render(on);
 	}
 	if (Unknown1374) {
 		Unknown1374--;
@@ -5858,7 +5858,7 @@ void SpaceClientClass::Unknown_74BA30(bool request, int starbase_id, int mode)
 		}
 	} else if (Unknown135C && starbase_id == Unknown1324) {
 		Unknown_745F30(mode);
-		Unknown135C->Unknown_10();
+		Unknown135C->Shutdown();
 		delete Unknown135C;
 		Unknown135C = NULL;
 		Unknown1324 = 0;

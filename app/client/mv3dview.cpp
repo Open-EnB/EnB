@@ -114,7 +114,7 @@ Movie3DViewClass::~Movie3DViewClass()
 }
 
 // @0x7EF7D0
-void Movie3DViewClass::Unknown_10()
+void Movie3DViewClass::Shutdown()
 {
 	Settings->Unknown00->Remove();
 	Light->Remove();
@@ -126,7 +126,7 @@ void Movie3DViewClass::Unknown_10()
 		Camera->Release_Ref();
 		Camera = NULL;
 	}
-	UIViewClass::Unknown_10();
+	UIViewClass::Shutdown();
 }
 
 // @0x7EF850
@@ -148,7 +148,7 @@ void Movie3DViewClass::Unknown_00(ObserverSubjectClass *subject, void *event)
 }
 
 // @0x7EF8C0
-int Movie3DViewClass::Unknown_0C(bool on)
+int Movie3DViewClass::Render(bool on)
 {
 	WW3D::Begin_Render(on, true, Vector3(Settings->BackgroundColor));
 	Scene->Visibility_Check(Camera);

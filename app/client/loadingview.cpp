@@ -65,9 +65,9 @@ void LoadingViewClass::Unknown_04()
 }
 
 // 0x6917A0: slot +0x10: UIViewClass's Shutdown (past the second view's 0x65B8B0), then the loading screen's objects
-void LoadingViewClass::Unknown_10()
+void LoadingViewClass::Shutdown()
 {
-	UIViewClass::Unknown_10();
+	UIViewClass::Shutdown();
 	Unknown58 = NULL;
 	Unknown5C = NULL;
 	Unknown60 = NULL;
@@ -222,7 +222,7 @@ void LoadingViewClass::Unknown_692330()
 
 // 0x692420: slot +0x0C: 'Loading' with one to five dots, once a second; the base's render; once the avatar is
 // incapacitated, the loading screen goes as START's does
-int LoadingViewClass::Unknown_0C(bool on)
+int LoadingViewClass::Render(bool on)
 {
 	static unsigned int last;	// 0xBE65D0  // NAME 1: what it holds
 	static int dots = 5;		// 0xB90830  // NAME 1: what it holds
@@ -241,7 +241,7 @@ int LoadingViewClass::Unknown_0C(bool on)
 		text->Change_Text(buffer, 0);
 		last = now;
 	}
-	int result = UIViewClass::Unknown_0C(on);
+	int result = UIViewClass::Render(on);
 	((SpaceClientClass *)Client->As_Space_Client())->Text->Reset();
 	if (((SpaceClientClass *)Client->As_Space_Client())->Unknown_750B60()) {
 		if (Unknown68) {

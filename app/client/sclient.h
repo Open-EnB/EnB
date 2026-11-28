@@ -219,8 +219,8 @@ public:
 	virtual ~ViewClass();								// +0x00 0x6B45D0 (G_ASSERT '!InterfaceObjects.Head()'; deleting 0x6B45A0)
 	virtual void Unknown_04() = 0;						// +0x04
 	virtual void Unknown_08() {}						// +0x08 0x6B4540
-	virtual int Unknown_0C(bool on) = 0;				// +0x0C
-	virtual void Unknown_10();							// +0x10 0x6B46F0 (every interface object's +0x7C with 0, 0; G_ASSERT '!node')
+	virtual int Render(bool on) = 0;				// +0x0C
+	virtual void Shutdown();							// +0x10 0x6B46F0 (every interface object's +0x7C with 0, 0; G_ASSERT '!node')  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual void Unknown_14();							// +0x14 0x6B4860 (every interface object's +0x64, or +0x60 under a sort object when its +0x7C is set)
 	virtual void Unknown_18(bool arg) {}					// +0x18 0x514CF0 (bool: the overrides 0x67A210 / 0x69C5A0 read a byte)  // NAME 1 [arg]: neutral
 	virtual UIViewClass *Unknown_1C() { return(NULL); }	// +0x1C 0x6B4560 (UIViewClass's 0x50B720 returns the view)
@@ -255,8 +255,8 @@ public:
 	virtual ~UIViewClass();								// +0x00 0x65A760 (Shutdown deletes through it; the main view's destructor calls it)
 	virtual void Unknown_04();							// +0x04 0x65A820 (Init calls it after construction: the scenes, the cameras, the interface)
 	virtual void Unknown_08() {}						// +0x08 0x65A710 (Init: the main view's, +0x1358's)
-	virtual int Unknown_0C(bool on);					// +0x0C 0x65B330 (the base's: UIViewClass::Render) Process_Packets passes true to the loading view (the main view's renders and returns a WW3DErrorType)
-	virtual void Unknown_10();							// +0x10 0x65B4A0 Shutdown (the main view's 0x50C2F0 calls this one, past 0x65B810's 0x65B8B0)
+	virtual int Render(bool on);					// +0x0C 0x65B330 (the base's: UIViewClass::Render) Process_Packets passes true to the loading view (the main view's renders and returns a WW3DErrorType)  // NAME 5: thunk order confirmed, binary.md 5.11
+	virtual void Shutdown();							// +0x10 0x65B4A0 Shutdown (the main view's 0x50C2F0 calls this one, past 0x65B810's 0x65B8B0)  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual void Unknown_14();							// +0x14 0x65B470 SpaceClientClass::Do_Frame: the current view's, after Process_AI
 	virtual UIViewClass *Unknown_1C() { return(this); }	// +0x1C 0x50B720
 	virtual int Unknown_3C() { return((int)Unknown24); }	// +0x3C 0x50B7C0
@@ -298,7 +298,7 @@ class Unknown65B810ViewClass : public UIViewClass	// NAME 1: neutral (D10)
 {
 public:
 	Unknown65B810ViewClass(ClientTaskClass *task, int arg);	// 0x65B810 (the base with 0; the task's Client (+0x78) to +0x4C; arg unused)  // NAME 1 [task, arg]: what the main view passes
-	virtual void Unknown_10();							// +0x10 0x65B8B0 (+0x4C cleared, then the base's 0x65B4A0)
+	virtual void Shutdown();							// +0x10 0x65B8B0 (+0x4C cleared, then the base's 0x65B4A0)
 	virtual UIViewClass *Unknown_20() { return(this); }	// +0x20 0x50B7E0
 	virtual int Unknown_44();							// +0x44 0x65B8D0 (+0x4C's +0x1274, 0 without one)
 
@@ -573,8 +573,8 @@ public:
 	virtual ~MainViewClass();							// +0x00 0x50B950 (deleting 0x50B900)
 	virtual void Unknown_04();							// +0x04 0x50BA60 (the scenes, the dazzle layers, the radar, the orbitals, the lights, the stars)
 	virtual void Unknown_08();							// +0x08 0x50C690 (settings.ini, the interface)
-	virtual int Unknown_0C(bool on);					// +0x0C 0x50CAE0 (the per-frame render: Render_Initializing / Gas_Giant / Planet / Space_Mode)
-	virtual void Unknown_10();							// +0x10 0x50C2F0 (Shutdown: the counterpart of +0x04)
+	virtual int Render(bool on);					// +0x0C 0x50CAE0 (the per-frame render: Render_Initializing / Gas_Giant / Planet / Space_Mode)  // NAME 5: thunk order confirmed, binary.md 5.11
+	virtual void Shutdown();							// +0x10 0x50C2F0 (Shutdown: the counterpart of +0x04)  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual void Unknown_14();							// +0x14 0x5129D0 (0x512400, then the base's 0x65B470)
 	virtual void Unknown_18(bool arg);					// +0x18 0x514930 (hands it to the radar)  // NAME 1 [arg]: neutral
 	virtual UIViewClass *As_Main_View() { return(this); }	// +0x24 0x50B800  // NAME 3: ui_cpit.cpp's G_ASSERT
@@ -709,8 +709,8 @@ public:
 	LoadingViewClass(ClientTaskClass *ctask);			// 0x691570 (G_ASSERT 'ctask', l.52; table 0xAFCF7C)  // NAME 2 [ctask]: the assert's
 	virtual ~LoadingViewClass();						// +0x00 0x691680 (deleting 0x691650)
 	virtual void Unknown_04();							// +0x04 0x691770 (the base's, then both scenes' fog off)
-	virtual int Unknown_0C(bool on);					// +0x0C 0x692420 (the loading screen, 'Loading_Text_map_load00')
-	virtual void Unknown_10();							// +0x10 0x6917A0 (UIViewClass's 0x65B4A0, then +0x58..+0x64 released)
+	virtual int Render(bool on);					// +0x0C 0x692420 (the loading screen, 'Loading_Text_map_load00')  // NAME 5: thunk order confirmed, binary.md 5.11
+	virtual void Shutdown();							// +0x10 0x6917A0 (UIViewClass's 0x65B4A0, then +0x58..+0x64 released)  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual LoadingViewClass *Unknown_5C() { return(this); }	// +0x5C 0x691630
 	void Unknown_691830(const std::string &source_sector, const std::string &source_system, const std::string &name, const std::string &system);	// 0x691830 (cpacket.cpp: SERVER_HANDOFF 58)  // NAME 1 [source_sector, source_system, name, system]: the packet's fields
 	void Unknown_692330();								// 0x692330 (cpacket.cpp: START 5)
@@ -843,7 +843,7 @@ public:
 	bool Toggle_Engine_Trails(ScriptedMovieLineClass *params, bool on);	// 0x808F00 (FAIL_IF line 3252, G_ASSERT 3258): the slot's engine trails (shiputils.cpp's 0x810750)  // NAME 2: the user error's 'Toggle_Engine_Trails'; NAME 1 [params, on]: neutral
 	bool Hide_Object(ScriptedMovieLineClass *params, bool hide);	// 0x809890 (FAIL_IF line 3595, G_ASSERTs 3601 / 3602): the slot's model hidden or shown, its trails the other way  // NAME 2: the user error's 'Hide_Object'; NAME 1 [params, hide]: neutral
 	bool Skip_Frames(ScriptedMovieLineClass *params);			// 0x8097D0 (FAIL_IF line 3567): +0x164 on by the frames at 30 a second  // NAME 2: the user error's 'Skip_Frames'; NAME 1 [params]: neutral
-	bool Turn_On_Damage_Particles(ScriptedMovieLineClass *params); bool Unknown_809600(ScriptedMovieLineClass *params, int metal); bool Unknown_809750(bool value, ScriptedMovieLineClass *params); bool Create_Special_Effect_On_Object(ScriptedMovieLineClass *params); EffectClass *Unknown_8070C0(ClientClass *client, ScriptedMovieLineClass *params); int Unknown_803180(RenderObjClass *robj, const char *bone_name); int Unknown_802D80(RenderObjClass *model, const char *bone_name); bool Create_Special_Effect_Between_Objects(ScriptedMovieLineClass *params); bool Create_Special_Effect_Between_Bones(ScriptedMovieLineClass *params); bool Create_Special_Effect_Between_Object_And_Bone(ScriptedMovieLineClass *params); bool Create_Special_Effect_On_Bone(ScriptedMovieLineClass *params); bool Set_Fog(ScriptedMovieLineClass *params); bool Add_Camera(ScriptedMovieLineClass *params); bool Create_Skybox(ScriptedMovieLineClass *params); bool Create_Orbital(ScriptedMovieLineClass *params); virtual int Unknown_0C(bool on); virtual void Unknown_10(); virtual void Unknown_14(); void Unknown_802420(); bool Play_Audio(ScriptedMovieLineClass *params); bool Create_Object(ScriptedMovieLineClass *params, bool ship); bool Create_Light(ScriptedMovieLineClass *params, int type, bool from_bone); virtual int Unknown_54() { return((int)ScriptedCamera); } virtual CameraClass *Unknown_58() { return(ScriptedCamera); } virtual SimpleSceneClass *Unknown_5C() { return(ScriptedScene); } void Unknown_8020B0(RenderObjClass *model, Vector3 a, Vector3 b, int metal); bool Change_Ship_Color(ScriptedMovieLineClass *params); bool Add_Name_Decal(ScriptedMovieLineClass *params); bool Add_Decal_To_Ship(ScriptedMovieLineClass *params);	// 0x808FD0 (FAIL_IF lines 3286-3298), 0x809600 (FAIL_IF 3452: MAKE_SHIP_CHROME / BRONZE / COPPER), 0x809750 (G_ASSERT 3533), 0x8020B0 (the ship's metal colours, shiputils.cpp's 0x80EFF0)  // NAME 2: the user errors' 'Turn_On_Damage_Particles', 'Change_Ship_Color' (0x808C30), 'Add_Name_Decal' (0x8091B0), 'Add_Decal_To_Ship' (0x8093D0), 'Create_Special_Effect_On_Object' (0x808090), '..._Between_Objects' (0x807600), '..._Between_Bones' (0x8078D0), '..._Between_Object_And_Bone' (0x807BE0), '..._On_Bone' (0x807EB0), 'Set_Fog' (0x808590), 'Add_Camera' (0x805420), 'Create_Skybox' (0x804800), 'Create_Orbital' (0x804CA0), the render +0x0C (0x8012C0), the shutdown +0x10 (0x8010A0), the frame +0x14 (0x801E60), 'Play_Audio' (0x806BD0), 'Create_Object' (0x804290: CREATE_OBJECT 0 / CREATE_SHIP_OBJECT 1), 'Create_Light' (0x805B60: point 0, directional 1, from a bone; 0x802D80 a bone's object id; 0x8070C0 makes its effect, 0x803180 its object's id, +0x5C 0x800820 is the scene); NAME 1 [params, metal, a, b, model]: neutral; NAME 2 [value]: the assert's
+	bool Turn_On_Damage_Particles(ScriptedMovieLineClass *params); bool Unknown_809600(ScriptedMovieLineClass *params, int metal); bool Unknown_809750(bool value, ScriptedMovieLineClass *params); bool Create_Special_Effect_On_Object(ScriptedMovieLineClass *params); EffectClass *Unknown_8070C0(ClientClass *client, ScriptedMovieLineClass *params); int Unknown_803180(RenderObjClass *robj, const char *bone_name); int Unknown_802D80(RenderObjClass *model, const char *bone_name); bool Create_Special_Effect_Between_Objects(ScriptedMovieLineClass *params); bool Create_Special_Effect_Between_Bones(ScriptedMovieLineClass *params); bool Create_Special_Effect_Between_Object_And_Bone(ScriptedMovieLineClass *params); bool Create_Special_Effect_On_Bone(ScriptedMovieLineClass *params); bool Set_Fog(ScriptedMovieLineClass *params); bool Add_Camera(ScriptedMovieLineClass *params); bool Create_Skybox(ScriptedMovieLineClass *params); bool Create_Orbital(ScriptedMovieLineClass *params); virtual int Render(bool on); virtual void Shutdown(); virtual void Unknown_14(); void Unknown_802420(); bool Play_Audio(ScriptedMovieLineClass *params); bool Create_Object(ScriptedMovieLineClass *params, bool ship); bool Create_Light(ScriptedMovieLineClass *params, int type, bool from_bone); virtual int Unknown_54() { return((int)ScriptedCamera); } virtual CameraClass *Unknown_58() { return(ScriptedCamera); } virtual SimpleSceneClass *Unknown_5C() { return(ScriptedScene); } void Unknown_8020B0(RenderObjClass *model, Vector3 a, Vector3 b, int metal); bool Change_Ship_Color(ScriptedMovieLineClass *params); bool Add_Name_Decal(ScriptedMovieLineClass *params); bool Add_Decal_To_Ship(ScriptedMovieLineClass *params);	// 0x808FD0 (FAIL_IF lines 3286-3298), 0x809600 (FAIL_IF 3452: MAKE_SHIP_CHROME / BRONZE / COPPER), 0x809750 (G_ASSERT 3533), 0x8020B0 (the ship's metal colours, shiputils.cpp's 0x80EFF0)  // NAME 2: the user errors' 'Turn_On_Damage_Particles', 'Change_Ship_Color' (0x808C30), 'Add_Name_Decal' (0x8091B0), 'Add_Decal_To_Ship' (0x8093D0), 'Create_Special_Effect_On_Object' (0x808090), '..._Between_Objects' (0x807600), '..._Between_Bones' (0x8078D0), '..._Between_Object_And_Bone' (0x807BE0), '..._On_Bone' (0x807EB0), 'Set_Fog' (0x808590), 'Add_Camera' (0x805420), 'Create_Skybox' (0x804800), 'Create_Orbital' (0x804CA0), the render +0x0C (0x8012C0), the shutdown +0x10 (0x8010A0), the frame +0x14 (0x801E60), 'Play_Audio' (0x806BD0), 'Create_Object' (0x804290: CREATE_OBJECT 0 / CREATE_SHIP_OBJECT 1), 'Create_Light' (0x805B60: point 0, directional 1, from a bone; 0x802D80 a bone's object id; 0x8070C0 makes its effect, 0x803180 its object's id, +0x5C 0x800820 is the scene); NAME 1 [params, metal, a, b, model]: neutral; NAME 2 [value]: the assert's  // NAME 5: thunk order confirmed, binary.md 5.11
 	ScriptedMovieInterfaceClass *ClientInterface;		// +0x4C (0x8023A0's G_ASSERT)  // NAME 3: the assert's
 	CameraClass *ScriptedCamera;						// +0x50: the camera (Set_Camera_View_Plane, Set_Clip_Plane; 0x8023A0 hands it to ClientInterface's +0x04)  // NAME 3: the asserts' 'ScriptedCamera' (0x802420, Attach_Camera)
 	SimpleSceneClass *ScriptedScene;					// +0x54 (its ambient light +0x1C, its fog colour +0x2C)  // NAME 3: the FAIL_IF's

@@ -42,7 +42,7 @@ class TextGadgetClass : public GadgetClass  // NAME 5: thunk order A, binary.md 
 {
 public:
 	TextGadgetClass(int length, unsigned int flags, const char *chars);	// 0x6AA000 (two StringEditClass of the length)  // NAME 1 [length, flags, chars]: what UnknownTextGadgetClass passes (StringEditClass's)
-	virtual ~TextGadgetClass();										// +0x00 0x6AA140 (deleting 0x6AA110)
+	protected: virtual ~TextGadgetClass(); public:										// +0x00 0x6AA140 (deleting 0x6AA110)  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual bool Unknown_2C(KernelEventClass *event, float x, float y, unsigned int mask);	// +0x2C 0x6AA200 (the keys: tab, enter, escape, the rest to the edit buffer)
 	virtual bool Unknown_30(float x, float y) { return(false); }		// +0x30 0x65C920 (folded)
 	virtual void Unknown_74(bool on);									// +0x74 0x6AA720 (G_ASSERT '_ActiveUI == this': the input focus)  // NAME 1 [on]: neutral

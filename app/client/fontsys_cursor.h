@@ -29,7 +29,7 @@ class FontSysCursor : public Rectangle3DClass  // NAME 5: thunk order A, binary.
 {
 public:
 	FontSysCursor(InterfaceClass *iface, const RefCountPtr<RenderObjClass> &unknown);	// 0x685860 (inlined in 0x685680; ret 8, unknown unused)  // NAME 1 [iface, unknown]: what it stores; neutral
-	virtual ~FontSysCursor();														// 0x685960
+	private: virtual ~FontSysCursor(); public:														// 0x685960  // NAME 5: thunk order confirmed, binary.md 5.11
 
 	void Unknown_685A30(const RefCountPtr<SceneClass> &scene);						// 0x685A30 (taken out of its scene; the scene it is drawn into)  // NAME 1 [scene]: what 0x6AB0F0 passes
 	void Unknown_685AB0(const RefCountPtr<FontSys> &line, int cursorpos, bool insert, bool center);	// 0x685AB0: into the scene, at the line's cursor position  // NAME 2 [line]: the FAIL_IF's '!line'  // NAME 1 [cursorpos, insert, center]: what it does with them

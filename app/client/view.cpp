@@ -64,7 +64,7 @@ ViewClass::~ViewClass()
 
 
 // 0x6B46F0: slot +0x10: every interface object's +0x7C with 0, 0 (it takes itself off the list, 0x6B4990)
-void ViewClass::Unknown_10()
+void ViewClass::Shutdown()
 {
 	std::vector<RefCountPtr<InterfaceClass> > objects;
 	SLNode<InterfaceClass> *node;

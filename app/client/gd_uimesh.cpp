@@ -3,13 +3,13 @@
 #include "ui_mesh.h"
 #include "rendobj.h"
 
-UIMeshGadgetClass::UIMeshGadgetClass(UIMeshClass *mesh, const char *name, const LayerClass &layer, unsigned int mask) :
+UIMeshGadgetClass::UIMeshGadgetClass(UIMeshClass *mesh, const char *name, LayerClass &layer, unsigned int mask) :
 	RenderObjGadgetClass(mesh->Get_Sub_Object_By_Name(name), layer, mask)
 {
 	Peek_Render_Obj()->Release_Ref();
 }
 
-UIMeshGadgetClass::UIMeshGadgetClass(RenderObjClass *robj, const LayerClass &layer, unsigned int mask) :
+UIMeshGadgetClass::UIMeshGadgetClass(RenderObjClass *robj, LayerClass &layer, unsigned int mask) :
 	RenderObjGadgetClass(robj, layer, mask)
 {
 }

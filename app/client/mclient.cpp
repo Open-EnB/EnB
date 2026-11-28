@@ -98,7 +98,7 @@ MovieClientClass::MovieClientClass(ScriptedMovieTaskClass *task, KernelClass *ke
 MovieClientClass::~MovieClientClass()
 {
 	if (View) {
-		View->Unknown_10();
+		View->Shutdown();
 		delete View;
 		View = NULL;
 	}
@@ -253,7 +253,7 @@ void MovieClientClass::Render()
 			SortingRendererClass::_Enable_Triangle_Draw(false);
 			on = false;
 		}
-		View->Unknown_0C(on);
+		View->Render(on);
 		if (Unknown1158) {
 			Unknown1158--;
 			DX8Wrapper::_Enable_Triangle_Draw(triangles);

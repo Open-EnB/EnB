@@ -38,12 +38,12 @@ public:
 	virtual void Unknown_78F9F0();					// +0x00 0x78F9F0: frees the name, moods and body animations  // NAME 1: neutral (D10)
 	virtual bool Load(const char *filename);		// +0x04 0x78FCB0  // NAME 2: what it does
 	virtual int Get_Gender() { return(Gender); }				// +0x08 0x78F730  // NAME 2: what it returns
-	virtual const char *Get_Name() { return(Name); }			// +0x0C 0x78F750  // NAME 2: what it returns
-	virtual const char *Get_Label() { return(Text.Label); }			// +0x10 0x78F770  // NAME 2: what it returns
+	virtual const char *Get_Name() const { return(Name); }			// +0x0C 0x78F750  // NAME 2: what it returns  // NAME 5: thunk order confirmed, binary.md 5.11
+	virtual const char *Get_Label() const { return(Text.Label); }			// +0x10 0x78F770  // NAME 2: what it returns  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual const char *Get_Desc() { return(Text.Desc); }			// +0x14 0x78F790  // NAME 2: what it returns
-	virtual int Get_Speech_Delay() { return(SpeechDelay); }	// +0x18 0x78F7B0  // NAME 2: what it returns
-	virtual int Get_Blink_Delay() { return(BlinkDelay); }		// +0x1C 0x78F7D0  // NAME 2: what it returns
-	virtual int Get_Fidget_Delay() { return(FidgetDelay); }	// +0x20 0x78F7F0  // NAME 2: what it returns
+	virtual int Get_Speech_Delay() const { return(SpeechDelay); }	// +0x18 0x78F7B0  // NAME 2: what it returns  // NAME 5: thunk order confirmed, binary.md 5.11
+	protected: virtual int Get_Blink_Delay() { return(BlinkDelay); } friend class AvatarClass; public:		// +0x1C 0x78F7D0  // NAME 2: what it returns  // NAME 5: thunk order confirmed, binary.md 5.11
+	virtual int Get_Fidget_Delay() const { return(FidgetDelay); }	// +0x20 0x78F7F0  // NAME 2: what it returns  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual int Get_Mood_Count() { return(4); }				// +0x24 0x78F810  // NAME 2: what it returns
 	virtual int Get_Mood_Number(const char *name);				// +0x28 0x78FBB0 (-1: none)  // NAME 2: what it returns
 	virtual int Get_BAnim_Count() { return(BAnimCount); }		// +0x2C 0x78F830  // NAME 2: what it returns

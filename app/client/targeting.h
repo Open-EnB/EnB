@@ -22,7 +22,7 @@ class TargetSelectClass : public TargetFindClass  // NAME 5: thunk order A, bina
 public:
 	TargetSelectClass(SpaceClientClass *client);								// 0x7C6120
 	virtual ~TargetSelectClass();										// +0x00 0x7C6160 (deleting), 0x7C6190
-	virtual ClientObjectClass *Select(ClientObjectClass *co);		// +0x04 0x7C62B0: sends REQUEST_TARGET when co isn't the target already
+	private: virtual ClientObjectClass *Select(ClientObjectClass *co); public:		// +0x04 0x7C62B0: sends REQUEST_TARGET when co isn't the target already  // NAME 5: thunk order confirmed, binary.md 5.11
 
 	void Clear_Target();											// 0x7C61B0 (ui_mfd.cpp's 0x5BC5E0)  // NAME 2: what it does
 	ClientObjectClass *Get_Target();								// 0x7C61D0  // NAME 2: what it does

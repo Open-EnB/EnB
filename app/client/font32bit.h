@@ -36,9 +36,9 @@ class Font32Bit : public FontClass, public RefCountClass  // NAME 5: thunk order
 		protected: void Update_Resolution(void);												// 0x6BCDE0, inlined into Load_Font_Image  // NAME 2 [Update_Resolution]: ScreenWidth / ScreenHeight from WW3D
 
 	friend class FontSys; protected:	// (FontSys stores XSpacing itself: Change_Text 0x6CDBC0's written-out print sites)
-		void Minimize_Font_Image(SurfaceClass * surface);								// 0x6BBE20, no caller (font3d.cpp's name, NAME 4)
+		private: void Minimize_Font_Image(SurfaceClass * surface); protected:								// 0x6BBE20, no caller (font3d.cpp's name, NAME 4)  // NAME 5: thunk order confirmed, binary.md 5.11
 		void Make_Proportional(SurfaceClass * surface);							// 0x6BC120 (font3d.cpp's name, NAME 4)
-		bool Load_Font_Image(const char * filename);								// 0x6BC3A0 (font3d.cpp's name, NAME 4)
+		private: bool Load_Font_Image(const char * filename); protected:								// 0x6BC3A0 (font3d.cpp's name, NAME 4)  // NAME 5: thunk order confirmed, binary.md 5.11
 
 		RefCountPtr<SurfaceClass> Surface;											// +0x0C  // NAME 2: the font image
 		float UOffsetTable[256];													// +0x10 (font3d.cpp's names)

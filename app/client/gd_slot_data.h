@@ -47,7 +47,7 @@ class SlotDataGadget : public UIMeshGadgetClass  // NAME 5: thunk order A, binar
 {
 public:
 	SlotDataGadget(SlotDataIFaceClass *slot_iface, SlotDataRenderClass *slot_render);	// 0x670650 (mask 0xE55)  // NAME 2 [slot_iface, slot_render]: the asserts' members; ui_slot_data.cpp's '!slot_render'
-	virtual ~SlotDataGadget();										// +0x00 0x6707B0 (deleting 0x670780)
+	protected: virtual ~SlotDataGadget(); public:										// +0x00 0x6707B0 (deleting 0x670780)  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual SlotDataGadget *As_SlotDataGadget() { return(this); }						// +0x10 0x670740 (itself)
 	virtual void Unknown_20(int arg);									// +0x20 0x670990 (the tooltip from the render)  // NAME 1 [arg]: the base's
 	virtual RenderObjClass *Unknown_24(Vector3 *position, float *frame, bool indicator);	// +0x24 0x670CF0
@@ -74,7 +74,7 @@ class SlotDataShortcutGadget : public SlotDataGadget  // NAME 5: thunk order A, 
 {
 public:
 	SlotDataShortcutGadget(SlotDataIFaceClass *slot_iface, SlotDataRenderClass *slot_render, LayerClass *layer);	// 0x670E30  // NAME 1 [layer]: what slot +0x28 takes
-	virtual ~SlotDataShortcutGadget() {}									// +0x00 0x670F70 (deleting 0x670F40)
+	protected: virtual ~SlotDataShortcutGadget() {} public:									// +0x00 0x670F70 (deleting 0x670F40)  // NAME 5: thunk order confirmed, binary.md 5.11
 	virtual void Unknown_04();											// +0x04 0x671050 (off its shortcut bar)
 	virtual void Unknown_7C(int arg);									// +0x7C 0x671090 (ShortcutOwner set)  // NAME 1 [arg]: the base's
 	virtual void Unknown_80(int arg);									// +0x80 0x671110 (ShortcutOwner cleared)  // NAME 1 [arg]: the base's

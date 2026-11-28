@@ -408,7 +408,7 @@ ScriptedMovieViewClass::~ScriptedMovieViewClass()
 
 
 // 0x8010A0: the view's shutdown (slot +0x10): its scenes, camera, stars, orbitals and skybox released; the client keeps
-void ScriptedMovieViewClass::Unknown_10()
+void ScriptedMovieViewClass::Shutdown()
 {
 	ClientClass *client = Get_Client();
 	G_ASSERT(client);
@@ -437,7 +437,7 @@ void ScriptedMovieViewClass::Unknown_10()
 	}
 	Unknown140 = NULL;
 	DecalMaterialManager = NULL;
-	UIViewClass::Unknown_10();
+	UIViewClass::Shutdown();
 }
 
 
@@ -458,7 +458,7 @@ void Unknown_7FF810();					// 0x7FF810 (the file before this one: the screen fad
 // 0x8012C0: the view's render (slot +0x0C): the background, the stars, the orbitals and the dazzles, the scene, the fade;
 // with +0x171 and +0x158 the frame, the frame rate and the polygon / vertex counts as text
 // NOT EXACT: shape (0.83): the client reads the background colour as three dwords and the inlined 0x801D70 copies zfar as an integer before znear
-int ScriptedMovieViewClass::Unknown_0C(bool on)
+int ScriptedMovieViewClass::Render(bool on)
 {
 
 
