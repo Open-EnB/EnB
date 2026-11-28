@@ -1,0 +1,43 @@
+{
+  "base_revision": "c180e8cf859d688183f1900512b33423cb939b77",
+  "unit": "app/shared/expr/expr_math_lexer_factory.cpp",
+  "source_sha256": "7d255919dc5e54375ec0f85c0078f89933def100f06eda3edd845da0b85ba413",
+  "header_sha256": "e5338bd6698039ab87b2290257c5b87f24211c445422d0a165a9a8f480d935f7",
+  "object_sha256": "3a310340806a4ff7787feb02e01849f7e8323c69b4ea121e3975ff8138692fe9",
+  "primary": false,
+  "response": "/nologo /c /MT /W3 /O2 /Ob2 /GX\n/DWIN32\n/D_WINDOWS\n/DWIN32_LEAN_AND_MEAN\n/DWINVER=0x400\n/DNDEBUG\n/DENABLE_WWPROFILE\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-342\\tree\\wwdebug\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-342\\tree\\wwlib\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-342\\tree\\wwmath\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-342\\tree\\wwsaveload\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-342\\tree\\wwaudio\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-342\\tree\\ww3d2\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-342\\tree\\wwshade\"\n/I\"C:\\EnBDevelopment\\SDK\\directx8\\include\"\n/I\"C:\\EnBDevelopment\\SDK\\radtools\\include_enb\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-342\\tree\\libs\\wwonline\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-342\\tree\\libs\\sgistl\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-342\\tree\"\n\"e:\\build\\beta\\G\\app\\shared\\expr\\expr_math_lexer_factory.cpp\"",
+  "pairs": [
+    "0x42B320",
+    "0x4C5730",
+    "0x4D0230",
+    "0x4D0360",
+    "0x4D04E0",
+    "0x4D0510"
+  ],
+  "symbol_pairs": [
+    [
+      "??1ExprLexerSpaceMatchClass@@UAE@XZ",
+      "0x4D0510"
+    ],
+    [
+      "??_GExprLexerMatchClass@@UAEPAXI@Z",
+      "0x4C5730"
+    ],
+    [
+      "??_GExprLexerSpaceMatchClass@@UAEPAXI@Z",
+      "0x4D04E0"
+    ],
+    [
+      "?Add_Operators@ExprMathLexerFactoryClass@@KAXIPAVExprLexerImplClass@@@Z",
+      "0x4D0230"
+    ],
+    [
+      "?Create@ExprMathLexerFactoryClass@@SAPAVExprMathLexerClass@@IHH@Z",
+      "0x4D0360"
+    ],
+    [
+      "?id@?$ctype@G@std@@$E",
+      "0x42B320"
+    ]
+  ]
+}

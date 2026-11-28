@@ -1,0 +1,43 @@
+# Shared accessor lead, both 0x4CB260 and 0x4CFB00
+
+Untested hypothesis for a fresh Terra high worker; this review compiled 0 forms.
+Use the original snapshot and `float_second_guard` as separate bases. Keep the
+whole function, original assertion lines and both target TUs; capture every input
+and compare against all 267 original file/address and symbol/address pairs.
+
+Existing real method `ExprMathBuildVisitorClass<T>::Get_Result()` in
+`app/shared/expr/expr_math_builder.h` returns `const PtrType &` to exactly
+`m_result`. The exact builder's `Build` uses that accessor to read the same
+member. `wwlib/ref_ptr.h` implements assignment from a same-type const reference
+and NULL comparison without modifying the source. The candidate is to use
+`Get_Result()` at the two child-result reads on which the control flow and
+assignment depend, while leaving writes, child callback ordering, factory call,
+string conversion, fold and the three check locations unchanged:
+
+```
+if (Get_Result() == NULL) return;  // first child
+left = Get_Result();
+... second child ...
+if (Get_Result() == NULL) return;  // original base
+right = Get_Result();
+```
+
+On the guarded base retain its second `if (Get_Result() != NULL) { ... }`;
+do not accidentally make factory failure share the child exit. A same-object
+const reference retains refcount and callback semantics; no artificial helper,
+dead operation, string copy or reordered lifetime. The inlining analysis is
+documented at `docs/workflow.md` lines 201-206, 470, 593 and 616: real inline
+accessors can change VC6's expansion budget despite identical machine reads.
+
+Why this might matter: guarded output gets the right frame and first cleanup
+start, but the second-null branch goes to normal cleanup rather than retail's
+backward edge to 0x4CFB49; it inlines the final left destructor and constant base
+constructor while retail calls them. The factory string's buffer selection also
+has a different schedule. An existing inline layer could influence whole-body
+inlining and CFG layout simultaneously. The exact unary uses direct member reads,
+so this is a hypothesis rather than proof that binary uses the accessor. Compare
+raw instructions, branch destinations, EH states and both call targets, not
+just a similarity number. If both bases are code duplicates or fail to improve
+a concrete retail residue, stop; do not spin through a positional sweep. A
+specific result that isolates the accessor's effect may justify one targeted
+follow-up after reassessment.

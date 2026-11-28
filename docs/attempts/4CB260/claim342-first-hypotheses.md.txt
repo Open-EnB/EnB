@@ -1,0 +1,50 @@
+# 0x4CB260 first-pass hypotheses
+
+Prior history is four shared forms (copy initialized locals; default locals at top;
+right declared later; nested single exit; reversed order as described in the row,
+with no patches available). Exact individual spellings are unknown.
+
+Retail initializes left then right before any Accept. Both child failures branch
+to one right cleanup, then share the factory-failure left cleanup. The normal path
+uses an out-of-line left destructor. Baseline duplicates both child-failure exits;
+most later operations have corresponding instruction shape.
+
+Batch 1: preserve local declaration and construction order, merge only the first
+two failure paths using one common label reached by explicit conditional branches,
+or a scoped do/while false containing the two visits; keep factory failure in its
+original position. Alternatively factor both child visits into a guarded block,
+with a shared return after the block. All forms must keep callback order, failure
+state and local destruction order; reject any jumping over initialization.
+
+Batch 2: batch 1's end label shared the failure cleanup at the second test,
+not the retail first test, and changed inlining. Place the label physically inside
+the first failure branch and branch backward from the second child check. Test it
+alone and with the named string, whose solo output did not solve either target.
+
+Batch 3: both label positions compile to the same second-test cleanup, so try
+one early return and make the second check a positive guard around the remaining
+factory work. This gives VC6 a fallthrough cleanup edge instead of two explicit
+returns while retaining local lifetimes and the existing factory failure return.
+
+Batch 4: second guard cut residue 67 -> 56 float and produces the retail's
+second null test, but target still has different shared cleanup and inlining.
+Probe the first-success guard, both second/factory success guards, and second
+guard with a named token string, to test cleanup and inline budget interactions.
+
+Batch 5: second/factory guards increased residue and named token with second
+guard is duplicate. Retail calls the constant base constructor and last local
+destructor out of line whereas second guard inlines both. Separating construction
+into a raw pointer local, or giving Create_NEW's temporary a named smart pointer
+local scoped to the folding block, may change inline cost and cleanup shape while
+retaining allocation-before-evaluation and immediate release at block end.
+
+Independent lead: token string retrieval. Retail loads the string buffer then
+conditionally substitutes the empty singleton. Baseline selects the singleton
+first after an intermediate pointer add. Introduce a named const char* from
+node->Get_Token().Text.c_str(), still construct a fresh string from it and preserve
+factory call and temporary destruction order. Do not use string copy because it
+differs on embedded NUL.
+
+Before any run, capture exact inputs, use the coordinator runner, and inspect both
+specializations including branches, EH and changed calls. Full matching requires
+relocations/addends and EH audit, not masked result alone.

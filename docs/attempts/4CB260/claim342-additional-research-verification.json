@@ -1,0 +1,59 @@
+{
+  "base_revision": "c180e8cf859d688183f1900512b33423cb939b77",
+  "research_start_revision": "3d2dbb7af38afea8fd246525bfa85e863a6f4d32",
+  "compiled_forms": 0,
+  "new_compiler_inputs": 0,
+  "new_raw_or_masked_output_groups": 0,
+  "target_status": "Both parked; no eligible reopening lever established",
+  "potential_idea": "A meaningful child-operation predicate/out-reference helper; applicability remains unproven in a void caller",
+  "independent_full_reference_audits": [
+    {
+      "address": "0x779F90",
+      "unit": "app/client/html/unknown_htmlattrib.cpp",
+      "object_sha256": "a6cd109605c4ae3fe8e79afbcfa923f0cec4ad45315f376a9ebbae2f10463214",
+      "source_sha256": "204e93ab142c452d4c4b6a2d7eab14cf6e994ffc8d1145f3b9d7b359f0284db6",
+      "length": 703,
+      "independently_reproduced_full_audit": true
+    },
+    {
+      "address": "0x4D3190",
+      "unit": "app/shared/expr/unknown_4d3190.cpp",
+      "object_sha256": "54e75b922b8c5496d98e91da97ce37b03d71ffc4647180e46630ab4407627a27",
+      "source_sha256": "70eb648b5fbfa70f0855c52228e0dd08289c738444fb2ff88dd57a0ed63dc2ba",
+      "length": 41,
+      "independently_reproduced_full_audit": true
+    }
+  ],
+  "target_eh_scope": "Only six predecessor/action maps and cleanup funclets, including fixed bytes and relocation destinations/addends; not complete handler/FuncInfo or main-body exactness",
+  "target_eh_objects": [
+    {
+      "address": "0x4cfb00",
+      "object_sha256": "60098c504cdd8b11cba19863c58ef3771acbc99db5f00752bf956e15b793cd85",
+      "predecessors": [
+        -1,
+        0,
+        1,
+        2,
+        1,
+        1
+      ],
+      "actions": 6
+    },
+    {
+      "address": "0x4cb260",
+      "object_sha256": "da2075be89a9bfa7b7847d7cec01b529f18a07d5c67a04ab1d8f6b2e8cd0bf4c",
+      "predecessors": [
+        -1,
+        0,
+        1,
+        2,
+        1,
+        1
+      ],
+      "actions": 6
+    }
+  ],
+  "production_header_sha256": "e5338bd6698039ab87b2290257c5b87f24211c445422d0a165a9a8f480d935f7",
+  "prior_trial_inputs_unchanged": 40,
+  "zero_form_review_not_a_failed_attempt_round": true
+}

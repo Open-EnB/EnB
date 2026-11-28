@@ -1,0 +1,355 @@
+{
+  "classifications": {
+    "changed_compiled": 37,
+    "coordinator_control": 1,
+    "support_include_control": 1,
+    "compiler_invalid": 1
+  },
+  "shared_source_inputs": 40,
+  "groups": {
+    "4CB260": {
+      "raw": {
+        "5c300e1595412889d4fdf5d704a5edcc4eeb415808409783056061370e2c1b74": [
+          "astra_cache_receiver",
+          "sol_int_subscript_guard"
+        ],
+        "7704026311d2feb559973cb8622e5b24c0729941f1fc47880e3382a970a11d61": [
+          "astra_cache_test",
+          "sol_int_subscript_dereference"
+        ],
+        "6cd7c72ecb39d97606ed50fe8f3d0acdb409809b547bbf1195d02ee9a5ab6ec8": [
+          "float_both_guard"
+        ],
+        "81d5c9fd277f69f75e5f8ca8312e8f7f6d0c95e575dc6bf41b0ad8645c4035dc": [
+          "float_first_child_goto",
+          "float_first_label",
+          "float_first_label_named"
+        ],
+        "012d6f2757d6a732ad1502dd903fa3b8aff9fa92a59d5aa33330200136985ba3": [
+          "float_first_guard"
+        ],
+        "77169d4fb3343e9314e241c6650857b1220b5ab626cc27fb09fdbd379fbe7bdb": [
+          "float_first_named_text",
+          "group_accessor_original",
+          "group_string_original",
+          "int_first_implicit_baseline",
+          "int_first_scope_baseline",
+          "root_original_control",
+          "sol_float_include_original",
+          "sol_float_null_original"
+        ],
+        "137bc33c647c6d314602a2189e026b08b0d94c270c4f5a18a60363b38b4c3ecc": [
+          "float_fold_ptr"
+        ],
+        "3561ee07a63c0ff0ef6ddb80e77efccf878ea751c9deb806b99565e33108d16c": [
+          "float_fold_raw"
+        ],
+        "5dec77c070ca83e95951d61c0ffe44cc07096c4dea82aecfa7d0d8e3a5822873": [
+          "float_guard_named",
+          "float_second_guard",
+          "group_accessor_guarded",
+          "group_string_guarded",
+          "int_first_implicit_guard",
+          "int_first_scope_guard",
+          "sol_float_null_guarded"
+        ],
+        "aa53092c3f45b360b4bd1d58f111ad229819df06758049d4b0393bcd503af98d": [
+          "int_first_shortcircuit"
+        ],
+        "3b3f89d2ffe9150b07a801d6a4f4341a0505e19619c4c7e526b012bc7476f0b4": [
+          "sol_float_dereference_guarded"
+        ],
+        "997be97c0e36781e51332ae9a5c41fb7599f20c4f08e95a9212ec1c4350a304d": [
+          "sol_float_dereference_reverse_factory_guarded"
+        ],
+        "cac0f3ae7925ea537388dc6df6820b5f886d185e3cab397e66b7f885a3471dc3": [
+          "sol_float_reverse_factory_guarded"
+        ],
+        "078a0848955788a70b39a9e439b35fe3c14d28355174fe1f1a947e9a15f77164": [
+          "sol_float_reverse_include_guarded"
+        ],
+        "1836db96e0c54fb8c68f6f8f184984357b90467ad26678ccb62e74adda5654c8": [
+          "sol_float_reverse_include_original"
+        ],
+        "7c384f264bad033b4c7c742905ed20505e7691ef8d0f3f9ba2f50784222f6daa": [
+          "sol_int_child_break"
+        ],
+        "7a4187845c7bdf433655374f59d0c811dfe98f89027f264b0b6fbd7fbe8f7e47": [
+          "sol_int_child_guards"
+        ],
+        "8c5dfd77b4b40b3f2e5729c8c3d66d736bd2c812fa550706b01540d875815df4": [
+          "sol_int_named_string_guard"
+        ],
+        "de61a28fa794bbb0596b92de552992bbf32bb660f2de404092905870d8837bd2": [
+          "sol_int_named_string_original"
+        ],
+        "35e5d542f11e54d522f1822840849996d9d0973c7dd8a81168601e7a69b99b16": [
+          "sol_int_separate_returns_helpers"
+        ],
+        "4203c939c730f3e3f69628575dd6e78229c06dd7a009954e0054582bd1ff968b": [
+          "sol_int_shared_failure_helpers"
+        ],
+        "1de5758b6c29a3572346229539a946e751242e66fe72ffb0dceb38a6fcdb8a8e": [
+          "sol_int_subscript_original"
+        ]
+      },
+      "masked": {
+        "5c300e1595412889d4fdf5d704a5edcc4eeb415808409783056061370e2c1b74": [
+          "astra_cache_receiver",
+          "sol_int_subscript_guard"
+        ],
+        "7704026311d2feb559973cb8622e5b24c0729941f1fc47880e3382a970a11d61": [
+          "astra_cache_test",
+          "sol_int_subscript_dereference"
+        ],
+        "6cd7c72ecb39d97606ed50fe8f3d0acdb409809b547bbf1195d02ee9a5ab6ec8": [
+          "float_both_guard"
+        ],
+        "81d5c9fd277f69f75e5f8ca8312e8f7f6d0c95e575dc6bf41b0ad8645c4035dc": [
+          "float_first_child_goto",
+          "float_first_label",
+          "float_first_label_named"
+        ],
+        "012d6f2757d6a732ad1502dd903fa3b8aff9fa92a59d5aa33330200136985ba3": [
+          "float_first_guard"
+        ],
+        "77169d4fb3343e9314e241c6650857b1220b5ab626cc27fb09fdbd379fbe7bdb": [
+          "float_first_named_text",
+          "group_accessor_original",
+          "group_string_original",
+          "int_first_implicit_baseline",
+          "int_first_scope_baseline",
+          "root_original_control",
+          "sol_float_include_original",
+          "sol_float_null_original"
+        ],
+        "137bc33c647c6d314602a2189e026b08b0d94c270c4f5a18a60363b38b4c3ecc": [
+          "float_fold_ptr"
+        ],
+        "3561ee07a63c0ff0ef6ddb80e77efccf878ea751c9deb806b99565e33108d16c": [
+          "float_fold_raw"
+        ],
+        "5dec77c070ca83e95951d61c0ffe44cc07096c4dea82aecfa7d0d8e3a5822873": [
+          "float_guard_named",
+          "float_second_guard",
+          "group_accessor_guarded",
+          "group_string_guarded",
+          "int_first_implicit_guard",
+          "int_first_scope_guard",
+          "sol_float_null_guarded"
+        ],
+        "aa53092c3f45b360b4bd1d58f111ad229819df06758049d4b0393bcd503af98d": [
+          "int_first_shortcircuit"
+        ],
+        "3b3f89d2ffe9150b07a801d6a4f4341a0505e19619c4c7e526b012bc7476f0b4": [
+          "sol_float_dereference_guarded"
+        ],
+        "997be97c0e36781e51332ae9a5c41fb7599f20c4f08e95a9212ec1c4350a304d": [
+          "sol_float_dereference_reverse_factory_guarded"
+        ],
+        "cac0f3ae7925ea537388dc6df6820b5f886d185e3cab397e66b7f885a3471dc3": [
+          "sol_float_reverse_factory_guarded"
+        ],
+        "078a0848955788a70b39a9e439b35fe3c14d28355174fe1f1a947e9a15f77164": [
+          "sol_float_reverse_include_guarded"
+        ],
+        "1836db96e0c54fb8c68f6f8f184984357b90467ad26678ccb62e74adda5654c8": [
+          "sol_float_reverse_include_original"
+        ],
+        "7c384f264bad033b4c7c742905ed20505e7691ef8d0f3f9ba2f50784222f6daa": [
+          "sol_int_child_break"
+        ],
+        "7a4187845c7bdf433655374f59d0c811dfe98f89027f264b0b6fbd7fbe8f7e47": [
+          "sol_int_child_guards"
+        ],
+        "8c5dfd77b4b40b3f2e5729c8c3d66d736bd2c812fa550706b01540d875815df4": [
+          "sol_int_named_string_guard"
+        ],
+        "de61a28fa794bbb0596b92de552992bbf32bb660f2de404092905870d8837bd2": [
+          "sol_int_named_string_original"
+        ],
+        "35e5d542f11e54d522f1822840849996d9d0973c7dd8a81168601e7a69b99b16": [
+          "sol_int_separate_returns_helpers"
+        ],
+        "4203c939c730f3e3f69628575dd6e78229c06dd7a009954e0054582bd1ff968b": [
+          "sol_int_shared_failure_helpers"
+        ],
+        "1de5758b6c29a3572346229539a946e751242e66fe72ffb0dceb38a6fcdb8a8e": [
+          "sol_int_subscript_original"
+        ]
+      }
+    },
+    "4CFB00": {
+      "raw": {
+        "cbd5e363cffeb9bf9084357dbb8c4731500b7cba87e4b8e4e41ba75f0451239a": [
+          "astra_cache_receiver",
+          "sol_int_subscript_guard"
+        ],
+        "6cda8f9c551f3eedca3f74eeb9e75398b873db2dc39e4128676be584ccb761d3": [
+          "astra_cache_test",
+          "sol_int_subscript_dereference"
+        ],
+        "6c36c7578eef32247297850c6e2cfa19ebbd82a12f90f4c98571e7054bfebe3f": [
+          "float_both_guard"
+        ],
+        "c8816fbd628ad4f48e4ae19cc4e173aadaa45ac3d0c08e2b01e3af9bde0d8e34": [
+          "float_first_child_goto",
+          "float_first_label",
+          "float_first_label_named"
+        ],
+        "efae8410e231f3d1f241d70b3b18159cb58784d98cb7d99ee697d8f2dac2397f": [
+          "float_first_guard"
+        ],
+        "fd20fbab54a7404905bf9719d2299f6245816a3ca7b7b82ec8a494cada7aef37": [
+          "float_first_named_text",
+          "group_accessor_original",
+          "group_string_original",
+          "int_first_implicit_baseline",
+          "int_first_scope_baseline",
+          "root_original_control",
+          "sol_float_include_original",
+          "sol_float_null_original"
+        ],
+        "b943bca011a6795b5df9c9fe35049f4760d8f3f96e92eddc99ab595e870f9f16": [
+          "float_fold_ptr"
+        ],
+        "14dd332dd46de300afe4af7aef4ca78e4ce692322f85a69aba548afe261b95dd": [
+          "float_fold_raw"
+        ],
+        "c9f05e9ed4d128e0a94569b3f161793d30932049354643c71fcc382365b82b80": [
+          "float_guard_named",
+          "float_second_guard",
+          "group_accessor_guarded",
+          "group_string_guarded",
+          "int_first_implicit_guard",
+          "int_first_scope_guard",
+          "sol_float_null_guarded"
+        ],
+        "5307cc727b12f4f2b52135f9ef49d31db0acb3f79346193f33d8ed2c22c99e2c": [
+          "int_first_shortcircuit"
+        ],
+        "d36eaf1254c3f6f1c3cf8d16720e45c18ba9002fd477fb418d20f0d5640d78cc": [
+          "sol_float_dereference_guarded"
+        ],
+        "0172a30caaf589160f91e9a4a2d83e5a6e717d1777312b639c2db4f7b21f7e7e": [
+          "sol_float_dereference_reverse_factory_guarded"
+        ],
+        "327e763c08c7a47c2bf59d3fc00dce1ddd820ff3846823c0f311ebe3379e313c": [
+          "sol_float_reverse_factory_guarded"
+        ],
+        "824d7c8b2a9d9ec729e77dd84571b0b843949e4b6de58133ac29771756cdffc9": [
+          "sol_float_reverse_include_guarded"
+        ],
+        "c31eb6518080543df9c516042551da347bdaacf223156076b5abe938aed36610": [
+          "sol_float_reverse_include_original"
+        ],
+        "3c5466d9080ccd77832bc1bdf4453296ea338646bc2243c73ccd5e22e3814428": [
+          "sol_int_child_break"
+        ],
+        "d37c474606a38f1ad70fbbc3a0e3ed0d55a171505652ffca074392a19995dcd1": [
+          "sol_int_child_guards"
+        ],
+        "22d8da662bfe060b2a015f3eb03555bbeeca9374b0f97b652627a5e9b0433067": [
+          "sol_int_named_string_guard"
+        ],
+        "059d178b36d916b5cb7d9a6b756a5310f7a32d4af743ac6aa678c0a567f05e3d": [
+          "sol_int_named_string_original"
+        ],
+        "fecf5a4dcea781ff3a292c2151bde46b81cff43f1321bec9cfeb4acb91dc9768": [
+          "sol_int_separate_returns_helpers"
+        ],
+        "9e4c899dd5268afb159393cd08701032f1f155a610a4ee394a6015ce166c340f": [
+          "sol_int_shared_failure_helpers"
+        ],
+        "0dc14bfcb538f16b357a819ab9acf62be1707a6808aa6803d68e6dd829c426a4": [
+          "sol_int_subscript_original"
+        ]
+      },
+      "masked": {
+        "cbd5e363cffeb9bf9084357dbb8c4731500b7cba87e4b8e4e41ba75f0451239a": [
+          "astra_cache_receiver",
+          "sol_int_subscript_guard"
+        ],
+        "6cda8f9c551f3eedca3f74eeb9e75398b873db2dc39e4128676be584ccb761d3": [
+          "astra_cache_test",
+          "sol_int_subscript_dereference"
+        ],
+        "6c36c7578eef32247297850c6e2cfa19ebbd82a12f90f4c98571e7054bfebe3f": [
+          "float_both_guard"
+        ],
+        "c8816fbd628ad4f48e4ae19cc4e173aadaa45ac3d0c08e2b01e3af9bde0d8e34": [
+          "float_first_child_goto",
+          "float_first_label",
+          "float_first_label_named"
+        ],
+        "efae8410e231f3d1f241d70b3b18159cb58784d98cb7d99ee697d8f2dac2397f": [
+          "float_first_guard"
+        ],
+        "fd20fbab54a7404905bf9719d2299f6245816a3ca7b7b82ec8a494cada7aef37": [
+          "float_first_named_text",
+          "group_accessor_original",
+          "group_string_original",
+          "int_first_implicit_baseline",
+          "int_first_scope_baseline",
+          "root_original_control",
+          "sol_float_include_original",
+          "sol_float_null_original"
+        ],
+        "b943bca011a6795b5df9c9fe35049f4760d8f3f96e92eddc99ab595e870f9f16": [
+          "float_fold_ptr"
+        ],
+        "14dd332dd46de300afe4af7aef4ca78e4ce692322f85a69aba548afe261b95dd": [
+          "float_fold_raw"
+        ],
+        "c9f05e9ed4d128e0a94569b3f161793d30932049354643c71fcc382365b82b80": [
+          "float_guard_named",
+          "float_second_guard",
+          "group_accessor_guarded",
+          "group_string_guarded",
+          "int_first_implicit_guard",
+          "int_first_scope_guard",
+          "sol_float_null_guarded"
+        ],
+        "5307cc727b12f4f2b52135f9ef49d31db0acb3f79346193f33d8ed2c22c99e2c": [
+          "int_first_shortcircuit"
+        ],
+        "d36eaf1254c3f6f1c3cf8d16720e45c18ba9002fd477fb418d20f0d5640d78cc": [
+          "sol_float_dereference_guarded"
+        ],
+        "0172a30caaf589160f91e9a4a2d83e5a6e717d1777312b639c2db4f7b21f7e7e": [
+          "sol_float_dereference_reverse_factory_guarded"
+        ],
+        "327e763c08c7a47c2bf59d3fc00dce1ddd820ff3846823c0f311ebe3379e313c": [
+          "sol_float_reverse_factory_guarded"
+        ],
+        "824d7c8b2a9d9ec729e77dd84571b0b843949e4b6de58133ac29771756cdffc9": [
+          "sol_float_reverse_include_guarded"
+        ],
+        "c31eb6518080543df9c516042551da347bdaacf223156076b5abe938aed36610": [
+          "sol_float_reverse_include_original"
+        ],
+        "3c5466d9080ccd77832bc1bdf4453296ea338646bc2243c73ccd5e22e3814428": [
+          "sol_int_child_break"
+        ],
+        "d37c474606a38f1ad70fbbc3a0e3ed0d55a171505652ffca074392a19995dcd1": [
+          "sol_int_child_guards"
+        ],
+        "22d8da662bfe060b2a015f3eb03555bbeeca9374b0f97b652627a5e9b0433067": [
+          "sol_int_named_string_guard"
+        ],
+        "059d178b36d916b5cb7d9a6b756a5310f7a32d4af743ac6aa678c0a567f05e3d": [
+          "sol_int_named_string_original"
+        ],
+        "fecf5a4dcea781ff3a292c2151bde46b81cff43f1321bec9cfeb4acb91dc9768": [
+          "sol_int_separate_returns_helpers"
+        ],
+        "9e4c899dd5268afb159393cd08701032f1f155a610a4ee394a6015ce166c340f": [
+          "sol_int_shared_failure_helpers"
+        ],
+        "0dc14bfcb538f16b357a819ab9acf62be1707a6808aa6803d68e6dd829c426a4": [
+          "sol_int_subscript_original"
+        ]
+      }
+    }
+  }
+}

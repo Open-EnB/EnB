@@ -1,0 +1,111 @@
+# Claim 342: whole-group read-only review
+
+Status: both visitor and string accessor tests returned duplicates. This review
+compiled **0 forms** and made no production edits. It is
+not another attempt round. The shared source affects both targets, so no target
+can be declared solved on one side's result alone.
+
+## Evidence and baseline
+
+Original source `/home/dev/Projects/EnB/.work/claim-342/tree/app/shared/expr/expr_math_builder.h`,
+SHA-256 `e5338bd6698039ab87b2290257c5b87f24211c445422d0a165a9a8f480d935f7`;
+revision `/home/dev/Projects/EnB/.work/claim-342/revision.txt`. The original
+history is four shared shapes, not eight independent patches; both `attempts.py
+show` rows and `/home/dev/Projects/EnB/.work/claim-342/history.json` identify no
+surviving patches. The present baseline and new original control reproduce all
+125 float and 142 int original pairs and their symbol pairs with unchanged lexer
+factory/parser context. Root reports prior body/relocation/EH graphs identical.
+The global header-consumer baseline was still running at handoff; two-TU evidence
+does not establish all-consumer safety.
+
+All 15 changed first-pass headers, output diffs, explanations, and four pair-set
+deltas are under `/home/dev/Projects/EnB/.work/claim-342/runs/` and
+`/home/dev/Projects/EnB/.work/claim-342/analysis.json`; source generators,
+hypotheses and reports are under `4CB260/first/` and `4CFB00/first/`. All
+compiled both TUs, produced no gains or losses in either pair set, and neither
+target matched. Raw and masked body hash prefixes group the outputs, not proof
+that every relocation or EH graph matches retail.
+
+| Form or output group | Float/int bytes | Explain residue float/int |
+| --- | --- | --- |
+| Original, named c_str text, scoped or implicit-conversion baseline, Get_Result or data accessor baseline | 888/882 | 67/67 |
+| First child goto, first label, label plus name | 804/804 | 131/128 |
+| First positive guard | 808/808 | 131/128 |
+| Second positive guard, named text guard, scoped, implicit, Get_Result or data guard | 808/808 | 56/53 |
+| Second guard with named raw constant | 808/808 | 56/53, distinct body hashes |
+| Second child and factory success guards | 729/729 | 85/82 |
+| Second guard with named smart-pointer constant | 822/822 | 74/71 |
+| Short-circuit child checks | 800/800 | 81/78 |
+
+The guarded 56/53 is diagnostic, not exact; retail bodies are 766/760 bytes
+and 280/279 instructions respectively. Objdiff extends beyond retail function
+ends, so do not use its trailing similarity as a body audit or compare it with
+the historical score. Full paths and raw/masked hashes are in analysis.json.
+
+## Retail control flow and context
+
+Retail constructs two empty `RefCountPtr` locals before the first callback,
+then checks the left result, assigns left, invokes the right callback and checks
+it. At int 0x4CFB49 (corresponding float sequence) the two child failures share
+the initial right cleanup; the factory-null path instead has its own cleanup at
+0x4CFCA4. The guarded candidate's second failure goes to final normal cleanup,
+not back to that first child-failure block. On success retail destroys right
+inline and calls the left destructor at 0x4CFDDE; the guard also inlines that
+destructor and the constant base constructor. The duplicate second null test
+is present in retail and the guarded form, but the c_str buffer/singleton load
+order remains different. Its explain class says 23 calls against retail's 24,
+with two client-only callees; call counts alone do not identify a complete fix.
+
+The exact unary siblings 0x4CAF50 and 0x4CF7F0 use the existing temporary
+`std::string(node->Get_Token().Text.c_str())`; exact `Visit_Leaf` siblings
+0x4CB620/0x4CFEC0 use the token string directly for other factory operations.
+Exact int/float factories 0x4CBCD0/0x4C7D80 accept const string and smart-pointer
+references, and use `Create_NEW` for new nodes. RefCountPtr's destructor
+releases then clears; assignment first increments the new referent then releases
+the old. Neither delayed destruction, extra owner copies nor callback reordering
+is automatically harmless. A whole string copy would retain embedded NUL bytes
+where the observed c_str construction truncates; do not substitute it as a
+pure spelling variant. `Clear()` by itself does not null the pointer.
+
+The related exact token collector at `app/shared/expr/unknown_4d3190.cpp:74`
+uses qualified `Visit_Leaf`; `expr_math_tree.cpp:170` documents that real extra
+inline layer making the retail `size()` call out of line. The visitor's existing
+`Get_Result` returns a const reference to the same member and exact `Build`
+already uses it. This supports the distinct inline-layer experiment documented
+in `/home/dev/Projects/EnB/.work/claim-342/group/accessor-lead.md`; it does not
+prove the binary visitor's original spelling. Fresh worker tests at
+`runs/group_accessor_original/` and `runs/group_accessor_guarded/` produced
+identical target raw/masked hashes to their respective bases for both TUs, with
+all four pair-set deltas empty. I independently checked inputs and int objdiff;
+worker reports autogenerated EH label numbers differ, unwind summaries match.
+There is no concrete reason for a positional sweep.
+
+Canonical VC6 SP4's `XSTRING:341-344` defines `data()` by calling `c_str()`,
+which supplies a different real inline layer at the actual string-buffer select
+while returning exactly the same NUL-terminated pointer in this toolchain. The
+targeted test and its C++98 portability limit are documented in
+`/home/dev/Projects/EnB/.work/claim-342/group/string-data-lead.md`. Tests at
+`runs/group_string_original/` and `runs/group_string_guarded/` produced raw
+and masked target hashes identical to their respective bases in both TUs, with
+all four pair-set deltas empty. I independently inspected the inputs, explanations
+and int instruction diffs. The extra library layer did not change the branch,
+call or buffer-select sequence on either base. This equivalence is a property of
+the actual VC6 header, not proof of the original source or a general C++98 NUL
+guarantee. Neither this result nor the visitor accessor duplicates supports a
+positional or string-spelling sweep.
+
+## Boundaries and reopening
+
+The earlier labels, goto, second guard, short-circuit condition, right lexical
+scope, named c_str, implicit string conversion, and raw/smart named fold forms
+have already been tested as listed. Do not treat source-text variation that
+reproduces an output hash as independent byte progress. Unsupported dead reads,
+dummy lifetimes, fake types, assembly, changed flags and artificial destructor
+calls are excluded by the investigation protocol. Further useful leads require
+evidence for either (1) common first child cleanup while retaining the separate
+factory exit, (2) a real inline layer or lifetime that explains both missing
+out-of-line calls and matching EH, or (3) a real string operation preserving the
+retail NUL-terminated conversion and its temporary lifetime. Evaluate the
+actual results above. No additional evidence-backed hypothesis was identified in
+this group review. Both targets remain unmatched; proceed to the requested fresh
+individual escalation, carrying these outcomes and semantic constraints forward.

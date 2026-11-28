@@ -1,0 +1,325 @@
+{
+  "object_sha256": "79c5b52c578b43dbbb57cb30af1fedf9f9a8735ac33759957d959dfec280381a",
+  "source_sha256": "204e93ab142c452d4c4b6a2d7eab14cf6e994ffc8d1145f3b9d7b359f0284db6",
+  "functions": [
+    {
+      "symbol": "?Pop@HtmlAttributeStackClass@@QAEDPAD0H@Z",
+      "va": "0x779f90",
+      "length": 703,
+      "relocations": [
+        {
+          "offset": "0x3",
+          "symbol": "$L3513",
+          "kind": 6,
+          "addend": "0x0",
+          "linked": "0xace420",
+          "resolved": "0xace420"
+        },
+        {
+          "offset": "0x9",
+          "symbol": "__except_list",
+          "kind": 6,
+          "addend": "0x0",
+          "linked": "0x0",
+          "resolved": "0x0"
+        },
+        {
+          "offset": "0x11",
+          "symbol": "__except_list",
+          "kind": 6,
+          "addend": "0x0",
+          "linked": "0x0",
+          "resolved": "0x0"
+        },
+        {
+          "offset": "0x27",
+          "symbol": "??0Wstring@@QAE@XZ",
+          "kind": 20,
+          "addend": "0x0",
+          "linked": "0x408cba",
+          "resolved": "0x8b5d90"
+        },
+        {
+          "offset": "0x38",
+          "symbol": "??0Wstring@@QAE@XZ",
+          "kind": 20,
+          "addend": "0x0",
+          "linked": "0x408cba",
+          "resolved": "0x8b5d90"
+        },
+        {
+          "offset": "0x4b",
+          "symbol": "?set@Wstring@@QAEDPBD@Z",
+          "kind": 20,
+          "addend": "0x0",
+          "linked": "0x40489f",
+          "resolved": "0x8b7570"
+        },
+        {
+          "offset": "0x66",
+          "symbol": "?set@Wstring@@QAEDPBD@Z",
+          "kind": 20,
+          "addend": "0x0",
+          "linked": "0x40489f",
+          "resolved": "0x8b7570"
+        },
+        {
+          "offset": "0x72",
+          "symbol": "?set@Wstring@@QAEDKPBD@Z",
+          "kind": 20,
+          "addend": "0x0",
+          "linked": "0x412305",
+          "resolved": "0x8b7920"
+        },
+        {
+          "offset": "0xa7",
+          "symbol": "??8Wstring@@QBEDABV0@@Z",
+          "kind": 20,
+          "addend": "0x0",
+          "linked": "0x40761c",
+          "resolved": "0x8b5f70"
+        },
+        {
+          "offset": "0xc0",
+          "symbol": "??1Wstring@@QAE@XZ",
+          "kind": 20,
+          "addend": "0x0",
+          "linked": "0x407ccf",
+          "resolved": "0x8b5ec0"
+        },
+        {
+          "offset": "0xd1",
+          "symbol": "??1Wstring@@QAE@XZ",
+          "kind": 20,
+          "addend": "0x0",
+          "linked": "0x407ccf",
+          "resolved": "0x8b5ec0"
+        },
+        {
+          "offset": "0xe2",
+          "symbol": "__except_list",
+          "kind": 6,
+          "addend": "0x0",
+          "linked": "0x0",
+          "resolved": "0x0"
+        },
+        {
+          "offset": "0x125",
+          "symbol": "??1Wstring@@QAE@XZ",
+          "kind": 20,
+          "addend": "0x0",
+          "linked": "0x407ccf",
+          "resolved": "0x8b5ec0"
+        },
+        {
+          "offset": "0x146",
+          "symbol": "_memmove",
+          "kind": 20,
+          "addend": "0x0",
+          "linked": "0xa25f50",
+          "resolved": "0xa25f50"
+        },
+        {
+          "offset": "0x161",
+          "symbol": "?shrinkVector@?$ArrayList@VWstring@@@@AAEDXZ",
+          "kind": 20,
+          "addend": "0x0",
+          "linked": "0x40f650",
+          "resolved": "0x77b590"
+        },
+        {
+          "offset": "0x19a",
+          "symbol": "?remove@?$Dictionary@VWstring@@V?$ArrayList@VWstring@@@@@@QAEDABVWstring@@AAV?$ArrayList@VWstring@@@@@Z",
+          "kind": 20,
+          "addend": "0x0",
+          "linked": "0x40bd93",
+          "resolved": "0x77ab60"
+        },
+        {
+          "offset": "0x1a8",
+          "symbol": "?clear@?$ArrayList@VWstring@@@@QAEXXZ",
+          "kind": 20,
+          "addend": "0x0",
+          "linked": "0x415357",
+          "resolved": "0x77b070"
+        },
+        {
+          "offset": "0x1d5",
+          "symbol": "??8Wstring@@QBEDABV0@@Z",
+          "kind": 20,
+          "addend": "0x0",
+          "linked": "0x40761c",
+          "resolved": "0x8b5f70"
+        },
+        {
+          "offset": "0x20b",
+          "symbol": "??1Wstring@@QAE@XZ",
+          "kind": 20,
+          "addend": "0x0",
+          "linked": "0x407ccf",
+          "resolved": "0x8b5ec0"
+        },
+        {
+          "offset": "0x22c",
+          "symbol": "_memmove",
+          "kind": 20,
+          "addend": "0x0",
+          "linked": "0xa25f50",
+          "resolved": "0xa25f50"
+        },
+        {
+          "offset": "0x247",
+          "symbol": "?shrinkVector@?$ArrayList@VWstring@@@@AAEDXZ",
+          "kind": 20,
+          "addend": "0x0",
+          "linked": "0x40f650",
+          "resolved": "0x77b590"
+        },
+        {
+          "offset": "0x27a",
+          "symbol": "?remove@?$Dictionary@VWstring@@V?$ArrayList@VWstring@@@@@@QAEDABVWstring@@AAV?$ArrayList@VWstring@@@@@Z",
+          "kind": 20,
+          "addend": "0x0",
+          "linked": "0x40bd93",
+          "resolved": "0x77ab60"
+        },
+        {
+          "offset": "0x288",
+          "symbol": "?clear@?$ArrayList@VWstring@@@@QAEXXZ",
+          "kind": 20,
+          "addend": "0x0",
+          "linked": "0x415357",
+          "resolved": "0x77b070"
+        },
+        {
+          "offset": "0x292",
+          "symbol": "??3@YAXPAX@Z",
+          "kind": 20,
+          "addend": "0x0",
+          "linked": "0x412b7a",
+          "resolved": "0x4e9d10"
+        },
+        {
+          "offset": "0x2a3",
+          "symbol": "??1Wstring@@QAE@XZ",
+          "kind": 20,
+          "addend": "0x0",
+          "linked": "0x407ccf",
+          "resolved": "0x8b5ec0"
+        },
+        {
+          "offset": "0x2b4",
+          "symbol": "??1Wstring@@QAE@XZ",
+          "kind": 20,
+          "addend": "0x0",
+          "linked": "0x407ccf",
+          "resolved": "0x8b5ec0"
+        }
+      ],
+      "handler": "0xace420",
+      "states": [
+        {
+          "state": 0,
+          "va": "0xace400",
+          "relocations": [
+            {
+              "offset": "0x4",
+              "symbol": "??1Wstring@@QAE@XZ",
+              "kind": 20,
+              "addend": "0x0",
+              "linked": "0x407ccf",
+              "resolved": "0x8b5ec0"
+            }
+          ]
+        },
+        {
+          "state": 1,
+          "va": "0xace408",
+          "relocations": [
+            {
+              "offset": "0x4",
+              "symbol": "??1Wstring@@QAE@XZ",
+              "kind": 20,
+              "addend": "0x0",
+              "linked": "0x407ccf",
+              "resolved": "0x8b5ec0"
+            }
+          ]
+        },
+        {
+          "state": 2,
+          "va": "0xace410",
+          "relocations": [
+            {
+              "offset": "0x4",
+              "symbol": "??1?$ArrayList@VWstring@@@@QAE@XZ",
+              "kind": 20,
+              "addend": "0x0",
+              "linked": "0x412913",
+              "resolved": "0x77aa10"
+            }
+          ]
+        },
+        {
+          "state": 3,
+          "va": "0xace418",
+          "relocations": [
+            {
+              "offset": "0x4",
+              "symbol": "??1?$ArrayList@VWstring@@@@QAE@XZ",
+              "kind": 20,
+              "addend": "0x0",
+              "linked": "0x412913",
+              "resolved": "0x77aa10"
+            }
+          ]
+        }
+      ],
+      "predecessors": [
+        -1,
+        0,
+        1,
+        1
+      ],
+      "handler_relocations": [
+        {
+          "offset": "0x1",
+          "symbol": "$T3501",
+          "kind": 6,
+          "addend": "0x0",
+          "linked": "0xb4c070",
+          "resolved": "0xb4c070"
+        },
+        {
+          "offset": "0x6",
+          "symbol": "___CxxFrameHandler",
+          "kind": 20,
+          "addend": "0x0",
+          "linked": "0xa25ac4",
+          "resolved": "0xa25ac4"
+        }
+      ],
+      "funcinfo_values_compiled": [
+        429065504,
+        4,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "funcinfo_values_retail": [
+        429065504,
+        4,
+        11845776,
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "semantic_graph_pass": true,
+  "full_literal_payload_parity": true,
+  "exceptions": []
+}

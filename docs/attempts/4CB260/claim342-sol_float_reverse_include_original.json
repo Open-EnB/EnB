@@ -1,0 +1,427 @@
+{
+  "run": "sol_float_reverse_include_original",
+  "unit": "app/shared/expr/expr_math_builder.h",
+  "base_revision": "c180e8cf859d688183f1900512b33423cb939b77",
+  "base_sha256": "e5338bd6698039ab87b2290257c5b87f24211c445422d0a165a9a8f480d935f7",
+  "input_sha256": "5f14242b4df19f4964bf5327ee78544c809887c9e13949f6fd226a6962720c38",
+  "edits": [
+    {
+      "start": 663,
+      "end": 663,
+      "text": "#include \"..\\g_assert.h\""
+    },
+    {
+      "start": 2607,
+      "end": 2607,
+      "text": "NULL == "
+    },
+    {
+      "start": 2615,
+      "end": 2623,
+      "text": ""
+    },
+    {
+      "start": 2702,
+      "end": 2702,
+      "text": "NULL == "
+    },
+    {
+      "start": 2710,
+      "end": 2718,
+      "text": ""
+    },
+    {
+      "start": 2860,
+      "end": 2860,
+      "text": "NULL == "
+    },
+    {
+      "start": 2868,
+      "end": 2876,
+      "text": ""
+    }
+  ],
+  "edit_offsets": "zero-based Python character offsets; apply in descending order",
+  "replay_verified": true,
+  "translation_units": [
+    {
+      "unit": "app/shared/expr/expr_math_float.cpp",
+      "source_sha256": "c9614af43d885509f0f52e0f2f99ecaafbe1a089cedf75905f8280f40a5c69ad",
+      "response_sha256": "5beb887c4de296a9852434694fbc83940bd7e88392922aea8df58c33b677cf7f",
+      "compiler_log_sha256": "8fde600a82ea0f8bb0e635dac8d4a2a1cdd9002c039ae91d51fbdb95c2b84e8d",
+      "object_sha256": "afadc62892cc1492f51549e82b984afee8b5398a6808444f022576ea930f85dc"
+    },
+    {
+      "unit": "app/shared/expr/expr_math_int.cpp",
+      "source_sha256": "8272f85b9d9b504db10e25c77a8818414c667ab6225116bc5fa15abc2df1e586",
+      "response_sha256": "5410e1f3e46cd109689281ee8d9e43c7e478fe22b9501228208f0d5e027e0044",
+      "compiler_log_sha256": "e3d645b98874befb4f90ad8b28be896971b4b131e4a661db3763bcab24bfb5bd",
+      "object_sha256": "58844993ed6d4bd1e0c4a5d780a7123bb4ff71ee68d967fddf182b1228f0adfa"
+    }
+  ],
+  "classification": "changed_compiled",
+  "pair_deltas": {
+    "pairs": {
+      "before": 267,
+      "after": 267,
+      "gained": [],
+      "lost": [],
+      "before_set_sha256": "1186b0f00af1fbaa278160e36f53346e6f0c0e2788d44f30fcb147abf6054c11",
+      "after_set_sha256": "1186b0f00af1fbaa278160e36f53346e6f0c0e2788d44f30fcb147abf6054c11"
+    },
+    "symbol_pairs": {
+      "before": 267,
+      "after": 267,
+      "gained": [],
+      "lost": [],
+      "before_set_sha256": "4c9696cb9bd01a35feb40e41c738f2e75849adc74009f0137459f4ffe047e134",
+      "after_set_sha256": "4c9696cb9bd01a35feb40e41c738f2e75849adc74009f0137459f4ffe047e134"
+    },
+    "all_pairs": {
+      "before": 273,
+      "after": 273,
+      "gained": [],
+      "lost": [],
+      "before_set_sha256": "d012d4049a295ac964b94fb3f8d3572b6177c94b25438f4648ab64636d5bfbb4",
+      "after_set_sha256": "d012d4049a295ac964b94fb3f8d3572b6177c94b25438f4648ab64636d5bfbb4"
+    },
+    "all_symbol_pairs": {
+      "before": 273,
+      "after": 273,
+      "gained": [],
+      "lost": [],
+      "before_set_sha256": "3cfd83914328895eeb6f33ac0a6c6adf6453325c0e777e34debeb386a3bf9502",
+      "after_set_sha256": "3cfd83914328895eeb6f33ac0a6c6adf6453325c0e777e34debeb386a3bf9502"
+    }
+  },
+  "targets": {
+    "4CB260": {
+      "symbol": "?Visit_Binary@?$ExprMathBuildVisitorClass@M@@UAEXPAVExprMathBinaryClass@@@Z",
+      "length": 845,
+      "raw_sha256": "1836db96e0c54fb8c68f6f8f184984357b90467ad26678ccb62e74adda5654c8",
+      "masked_sha256": "1836db96e0c54fb8c68f6f8f184984357b90467ad26678ccb62e74adda5654c8",
+      "relocations": [
+        [
+          3,
+          4,
+          6,
+          "$L17166",
+          "00000000"
+        ],
+        [
+          9,
+          4,
+          6,
+          "__except_list",
+          "00000000"
+        ],
+        [
+          17,
+          4,
+          6,
+          "__except_list",
+          "00000000"
+        ],
+        [
+          56,
+          4,
+          20,
+          "?Get_Left@ExprMathBinaryClass@@QBEPAVExprMathTreeClass@@XZ",
+          "00000000"
+        ],
+        [
+          216,
+          4,
+          20,
+          "?Get_Right@ExprMathBinaryClass@@QBEPAVExprMathTreeClass@@XZ",
+          "00000000"
+        ],
+        [
+          370,
+          4,
+          20,
+          "?Get_Token@ExprMathTreeClass@@QBEABVExprMathTokenClass@@XZ",
+          "00000000"
+        ],
+        [
+          378,
+          4,
+          6,
+          "?_C@?1??_Nullstr@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@CAPBDXZ@4DB",
+          "00000000"
+        ],
+        [
+          405,
+          4,
+          20,
+          "?_Tidy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEX_N@Z",
+          "00000000"
+        ],
+        [
+          428,
+          4,
+          20,
+          "?assign@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAEAAV12@PBDI@Z",
+          "00000000"
+        ],
+        [
+          555,
+          4,
+          20,
+          "?_Tidy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEX_N@Z",
+          "00000000"
+        ],
+        [
+          670,
+          4,
+          20,
+          "??2@YAPAXI@Z",
+          "00000000"
+        ],
+        [
+          707,
+          4,
+          20,
+          "??0?$ExprMathEvalClass@M@@QAE@XZ",
+          "00000000"
+        ],
+        [
+          717,
+          4,
+          6,
+          "??_7?$ExprMathConstantClass@M@@6B@",
+          "00000000"
+        ],
+        [
+          735,
+          4,
+          20,
+          "?Create_NEW@@YA?AV?$RefCountPtr@V?$ExprMathEvalClass@M@@@@PAV?$ExprMathEvalClass@M@@@Z",
+          "00000000"
+        ],
+        [
+          751,
+          4,
+          20,
+          "??4?$RefCountPtr@V?$ExprMathEvalClass@M@@@@QAEABV0@ABV0@@Z",
+          "00000000"
+        ],
+        [
+          803,
+          4,
+          20,
+          "??1?$RefCountPtr@V?$ExprMathEvalClass@M@@@@QAE@XZ",
+          "00000000"
+        ],
+        [
+          820,
+          4,
+          20,
+          "??1?$RefCountPtr@V?$ExprMathEvalClass@M@@@@QAE@XZ",
+          "00000000"
+        ],
+        [
+          835,
+          4,
+          6,
+          "__except_list",
+          "00000000"
+        ]
+      ],
+      "unwind": [
+        3,
+        172,
+        [
+          [
+            0,
+            8
+          ],
+          [
+            8,
+            16
+          ],
+          [
+            16,
+            24
+          ],
+          [
+            24,
+            32
+          ],
+          [
+            32,
+            43
+          ],
+          [
+            43,
+            51
+          ]
+        ]
+      ]
+    },
+    "4CFB00": {
+      "symbol": "?Visit_Binary@?$ExprMathBuildVisitorClass@H@@UAEXPAVExprMathBinaryClass@@@Z",
+      "length": 839,
+      "raw_sha256": "c31eb6518080543df9c516042551da347bdaacf223156076b5abe938aed36610",
+      "masked_sha256": "c31eb6518080543df9c516042551da347bdaacf223156076b5abe938aed36610",
+      "relocations": [
+        [
+          3,
+          4,
+          6,
+          "$L17772",
+          "00000000"
+        ],
+        [
+          9,
+          4,
+          6,
+          "__except_list",
+          "00000000"
+        ],
+        [
+          17,
+          4,
+          6,
+          "__except_list",
+          "00000000"
+        ],
+        [
+          56,
+          4,
+          20,
+          "?Get_Left@ExprMathBinaryClass@@QBEPAVExprMathTreeClass@@XZ",
+          "00000000"
+        ],
+        [
+          216,
+          4,
+          20,
+          "?Get_Right@ExprMathBinaryClass@@QBEPAVExprMathTreeClass@@XZ",
+          "00000000"
+        ],
+        [
+          370,
+          4,
+          20,
+          "?Get_Token@ExprMathTreeClass@@QBEABVExprMathTokenClass@@XZ",
+          "00000000"
+        ],
+        [
+          378,
+          4,
+          6,
+          "?_C@?1??_Nullstr@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@CAPBDXZ@4DB",
+          "00000000"
+        ],
+        [
+          405,
+          4,
+          20,
+          "?_Tidy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEX_N@Z",
+          "00000000"
+        ],
+        [
+          428,
+          4,
+          20,
+          "?assign@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAEAAV12@PBDI@Z",
+          "00000000"
+        ],
+        [
+          555,
+          4,
+          20,
+          "?_Tidy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEX_N@Z",
+          "00000000"
+        ],
+        [
+          670,
+          4,
+          20,
+          "??2@YAPAXI@Z",
+          "00000000"
+        ],
+        [
+          705,
+          4,
+          20,
+          "??0?$ExprMathEvalClass@H@@QAE@XZ",
+          "00000000"
+        ],
+        [
+          714,
+          4,
+          6,
+          "??_7?$ExprMathConstantClass@H@@6B@",
+          "00000000"
+        ],
+        [
+          729,
+          4,
+          20,
+          "?Create_NEW@@YA?AV?$RefCountPtr@V?$ExprMathEvalClass@H@@@@PAV?$ExprMathEvalClass@H@@@Z",
+          "00000000"
+        ],
+        [
+          745,
+          4,
+          20,
+          "??4?$RefCountPtr@V?$ExprMathEvalClass@H@@@@QAEABV0@ABV0@@Z",
+          "00000000"
+        ],
+        [
+          797,
+          4,
+          20,
+          "??1?$RefCountPtr@V?$ExprMathEvalClass@H@@@@QAE@XZ",
+          "00000000"
+        ],
+        [
+          814,
+          4,
+          20,
+          "??1?$RefCountPtr@V?$ExprMathEvalClass@H@@@@QAE@XZ",
+          "00000000"
+        ],
+        [
+          829,
+          4,
+          6,
+          "__except_list",
+          "00000000"
+        ]
+      ],
+      "unwind": [
+        3,
+        177,
+        [
+          [
+            0,
+            8
+          ],
+          [
+            8,
+            16
+          ],
+          [
+            16,
+            24
+          ],
+          [
+            24,
+            32
+          ],
+          [
+            32,
+            43
+          ],
+          [
+            43,
+            51
+          ]
+        ]
+      ]
+    }
+  }
+}

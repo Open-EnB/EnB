@@ -1,0 +1,162 @@
+# Int Sol escalation: pre-compilation hypotheses
+
+Read-only phase examined both retail decoded bodies (retail-int.txt and
+retail-float.txt), all 19 actual earlier header diffs, target instruction
+differences for baseline, second guard, goto, short-circuit and factory guard,
+original history via attempts.py show, exact sibling source, actual VC6 XSTRING,
+and actual wwlib/ref_ptr.h. Historic four forms have no surviving patches.
+No shared source or compiler state changed in this phase.
+
+## Batch 1: child guard and break control flow
+
+The earlier `both_guard` changes second child and factory checks, not both
+child checks. Both child positive guards with an explicit factory return is a
+distinct valid shape. Retail's first and second child failures share right
+cleanup at 0x4CFB49; factory failure has a separate right cleanup at 0x4CFCA4,
+and those two paths share the left cleanup at 0x4CFCC9. Success uses a separate
+right cleanup and out-of-line left destructor. Nested child guards may let VC6
+share only child failure while preserving factory return and success exit.
+
+The earlier reports mention do/break, but all actual tested sources were
+inspected and none contains it. A single-iteration do scope with breaks on only
+the two child failures gives an explicit common lexical failure destination,
+while factory failure remains a function return. Both RefCountPtr locals stay
+outside the scope, constructed left then right before the first Accept, and
+destroyed right then left with the same exception predecessors. No callback,
+string temporary, ownership operation or reporting assert changes. These are
+two purposeful CFG forms, not an instruction-level spelling sweep. Compare
+actual cleanup edges, calls, frame and EH in both specializations.
+
+Batch 1 actual results: sol_int_child_guards is 728/728 bytes, residue53/50;
+sol_int_child_break is 721/721 bytes, residue106/103. Both preserve267 original
+pairs/symbols with no gains. Both child checks jump to final common normal
+cleanup, unlike retail first-failure backward edge; both still inline base ctor
+and final left destructor,22 calls vs24. Thus source nesting shares the child
+exit but not the required initial cleanup. Child guards improve the old
+second-guard base but do not beat concurrent float Sol's clean45/42 helper form.
+The do/break output is distinct, not a prior shortcircuit duplicate.
+
+## Transferred proposal: real null-left RefCountPtr comparison helper
+
+Independently identified by float Sol and transferred to that worker by root
+before any int Sol compilation. My two prepared headers will never be compiled
+by me; compare their input hashes to the actual float worker run before final
+classification. They are not outstanding open leads after float's tests.
+Unlike current `m_result == NULL`,
+`NULL == m_result` selects the actual free template in wwlib/ref_ptr.h:399,
+containing FAIL_IF(0 != dummy) and `rhs.Peek()`. Its `!=` counterpart is at
+line 411. Both are documented supported operations. Literal dummy zero makes
+the FAIL_IF condition false without changing asserts or disabling logging.
+Null conversion and result are the same; the helper layer and source cost
+can affect VC6 nested inline budget, unlike the prior forwarding-only
+Get_Result/data probes. Test the complete three null comparisons on original
+and second-guard bases. This specifically targets the retail base-constructor
+and final-left-destructor calls as well as cleanup merging. Do not sweep
+individual positions unless actual results reveal a specific new causal clue.
+
+## Batch 2: const string subscript's address
+
+Root approved this distinct actual helper mechanism after reviewing the lead.
+Canonical VC6 XSTRING:335-340 const operator[](size_type) checks `_Ptr == 0`,
+returns `*_Nullstr()` in that case, otherwise `_Ptr[_P0]`. Get_Token returns
+const ExprMathTokenClass&, so Text selects this const overload, with no freeze,
+write, allocation or bounds exception. At index zero the address is exactly the
+same `_Nullstr()` or `_Ptr` as c_str(), retaining its null termination including
+the empty string and embedded-NUL truncation. c_str() instead returns a ternary
+pointer, whereas subscript returns a reference through explicit if/else. Retail
+0x4CFBE9 loads the buffer directly then substitutes the singleton on null,
+whereas every prior form initializes the singleton then conditionally overwrites
+it. A real reference-return helper can change this lowering and nested inline
+budget; data() was only a forwarding call and produced no change. Probe just
+original and second-guard bases, then inspect actual string instructions and
+missing calls rather than sweeping positions.
+
+Batch 2 actual results: original864/858 bytes,residue81/81; guard816/810 bytes,
+residue49/49. All267 original pairs/symbols preserved; no exact. The guard
+restores the retail base constructor call without changing direct null compares
+or materializing a bool, although string select remains the singleton-first
+sequence. Final left destructor remains inline. This is a complementary real
+helper effect to float Sol's operator* Is_Constant (which restores final left
+destructor while leaving base ctor inline), supporting one targeted composition.
+
+## Batch 3: scoped named string lifetime
+
+Root approved this actual lifetime mechanism after confirming earlier named
+text inputs name only a const char*, not std::string. Construct the named string
+from the same c_str() inside a lexical block containing only factory assignment.
+The returned PtrType temporary is destroyed at the factory-assignment semicolon,
+then the named string at block close, immediately before the factory-null test.
+This preserves retail's order (PtrType temp state3 -> string state2 -> local
+state1), the C-string truncation semantics and callback/factory order. The named
+object versus full-expression temporary is a documented VC6 lowering lever
+(workflow.md 3.2: std::string s(x); v.push_back(s) != v.push_back(string(x))).
+It may explain changed string scheduling and function-wide cleanup factoring.
+Probe just original and guarded bases, no extended string lifetime or string copy.
+
+Batch3 actual results: named original884/878 bytes,residue68/68; named
+guard804/804 bytes,residue57/54. All267 preserved, no exact. Both are distinct
+outputs but neither cuts its own base. The named string removes the factory
+temporary's redundant null store at destruction; retail has that store. Token
+buffer/singleton select stays wrong. Neither missing guarded direct call is
+restored, so no further naming or scope variants are backed by these results.
+
+## Batch 4, prepared after actual batch2: complementary helper composition
+
+Use actual float Sol dereference_guarded full header (early g_assert include)
+and replace only c_str with &Text[0]. Subscript guard separately restores base
+ctor without losing raw null checks; dereference guard separately restores final
+left destructor with its enabled assertion fully folded. Unlike float's
+factory-reverse composition, direct factory-null checking retains nonnull
+correlation here. Both helper operations are individually backed by actual
+compiled effects. Verify the combined calls, cleanup factoring, G_Assert_Report
+absence/presence and both targets; do not assume effects add linearly.
+
+Batch4 actual result: complementary helpers805/799 bytes,residue38/38; all267
+pairs/symbols preserved. Both retail missing calls now restored simultaneously,
+no G_Assert_Report relocation or emitted assertion path. Same six cleanup-state
+categories in unwind summaries.26 calls vs24: duplicated initial child-failure
+right/left cleanup contributes two extra indirect destruction calls. Retail's
+final right-inline/left-out-of-line sequence now matches. Buffer selection still
+singleton-first; factory check now memory-compare then later ECX reload rather
+than retail's initial ECX load. No target exact or full EH proof asserted.
+
+## Batch5: explicit shared child failure under complementary helper budget
+
+Root's independent inspection agrees new clean38/38 is useful progress. The
+remaining two extra calls are precisely the duplicated initial cleanup, while
+the normal final destruction and constant construction calls now match retail.
+Use both new helpers with old first-label source CFG: label inside first child
+early return, second child failure goto that label, factory failure retains its
+own explicit return. This replaces the second positive guard with an explicit
+shared early exit. Earlier label forms were duplicates on the OLD inline-budget
+base; the new helpers materially change called/inlined bodies and backend tail
+sharing, providing a concrete new context rather than a label spelling sweep.
+No ownership/lifetime change, no extra assert, and constructor line51 preserved.
+
+Batch5 actual result:801/795 bytes,residue113/113,all267 preserved. Both helper
+call recoveries survive, no report path,26calls; child cleanup still moves to
+the SECOND child check as in the old label family. No further label placements
+or goto spellings are justified.
+
+## Batch6: original independent exits with complementary helper budget
+
+The explicit common label removes the first cleanup location while source with
+plain first return retains it, matching retail's first-success branch layout.
+Keep ORIGINAL three independent returns, adding only the two complementary
+helpers and required early g_assert include. All prior original-source forms
+lacked the combined helper budget; original baseline had28calls versus24,
+while the new helper mechanisms demonstrably alter cleanup emission. This
+single control determines whether ordinary independent exits naturally tail
+share under the recovered call budget. No positional/null/helper sweeps or
+additional source operations. Inspect raw actual initial/second/factory cleanup
+and calls before deciding whether anything further is backed.
+
+Batch6 actual841/831 bytes,residue98/98,all267 preserved. First cleanup remains,
+second child cleanup duplicates rather than merging,28calls vs24, and the second
+assignment no longer has retail's duplicate null-test structure. No further
+specific backed CFG/string lead identified. Report/evidence.json distinguish all
+nine successful forms, nine distinct output groups, transferred prepared-only
+comparison proposals, root old-pair preservation and absent new-target proof.
+
+Prepared header proposals are not compiled attempts. All actual forms must go
+through runner.py and analyze.py under an explicit exclusive compiler gate.

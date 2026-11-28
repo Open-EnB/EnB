@@ -1,0 +1,21 @@
+# String data accessor test
+
+Pre-batch hypothesis is in hypothesis.md. Two complete header inputs change only `Create_Binary`'s `Text.c_str()` to `Text.data()`, based separately on the original snapshot and float_second_guard. Actual VC6 SP4 XSTRING lines 341–344 implement data as `return (c_str());`; the returned pointer is therefore NUL-terminated here and preserves embedded-NUL truncation and the original temporary lifetime. Standard C++98 does not independently promise termination for data().
+
+| Run | Input SHA-256 | Float bytes / residue | Int bytes / residue | Result |
+|---|---|---|---|---|
+| group_string_original | 56eb539e3824c4b47d56b74285396c04e6e9509172456983445577f098c4bf90 | 888 / 67 | 882 / 67 | original output duplicate |
+| group_string_guarded | b822fd88a75a192aee191624745ef15ce2163b93353202983f80ed8fc35cb189 | 808 / 56 | 808 / 53 | float_second_guard output duplicate |
+
+Both runs compile both TUs; all 267 original file/address and symbol/address pairs are preserved, with zero gains and zero losses in each set. Full compiler inputs, outputs, diffs and explanations are under /home/dev/Projects/EnB/.work/claim-342/runs/group_string_original/ and /home/dev/Projects/EnB/.work/claim-342/runs/group_string_guarded/; analysis.json captures relocation and unwind details.
+
+Raw and masked target hashes are identical in each case:
+
+| Base | Float | Int |
+|---|---|---|
+| original | 77169d4fb3343e9314e241c6650857b1220b5ab626cc27fb09fdbd379fbe7bdb | fd20fbab54a7404905bf9719d2299f6245816a3ca7b7b82ec8a494cada7aef37 |
+| guarded | 5dec77c070ca83e95951d61c0ffe44cc07096c4dea82aecfa7d0d8e3a5822873 | c9f05e9ed4d128e0a94569b3f161793d30932049354643c71fcc382365b82b80 |
+
+Thus each CFG, string select scheduling and calls are unchanged from its corresponding base: guarded second-child failure still takes normal cleanup instead of retail's backward child-failure edge, and the retail left destructor and constant base constructor remain inlined. Each relocation list differs only in generated EH label number at offset 3 (float $L17152 -> $L17164, int $L17758 -> $L17770), with same relocation type and zero addend. Unwind summaries equal the bases, but this is not a complete EH graph proof. No candidate matches; all-consumer verification is not claimed.
+
+The extra string accessor layer produced no useful change in either context. There is no evidence for a positional sweep or another variant of this lead. Reopen only on independent evidence for an actual operation or lifetime that changes the cleanup, calls or buffer-selection schedule while preserving semantics. No production edits or commits. Compiler and analyzer processes finished; exclusive gate released, no jobs remain from this test.

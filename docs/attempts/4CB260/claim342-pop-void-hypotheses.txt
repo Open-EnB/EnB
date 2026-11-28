@@ -1,0 +1,25 @@
+# Pop caller-return validation, written before compilation
+
+Only the already-exact HTML Pop comparator is involved; no parked expression
+visitor is rebuilt. Fresh immutable snapshot binds current evidence-only HEAD.
+Canonical VC6 flags, app source path, defines and include ordering are unchanged.
+
+1. Compile original bit8 Pop and header as a control. Require complete body,
+relocation/addend/literal and EH parity with retail0x779F90 before interpreting
+the diagnostic. Compare its native cleanup shape to the original reference.
+2. Change only Pop's declared/defined return to void and discard the formerly
+returned bool values. Preserve every remove/lookup call, condition, loop and
+nontrivial object lifetime. Dictionary::getPointer stays byte-identical. This
+is a discard-result diagnostic, not a proposed replacement of retail Pop.
+Inspect whether helper false exits and the later no-match exit retain the
+initial shared two-owner cleanup or whether all destruction collapses at end.
+EH predecessor/action types must remain equivalent; physical slots may move.
+If the void case loses that early sharing, stop: this comparator cannot supply
+the proposed visitor reopening lever. No target function trial follows.
+
+Only if the void caveat survives, write a second pre-batch hypothesis to compare
+the real Dictionary helper's early returns with a semantically equivalent
+single-result structure at unchanged signature/inline depth for both callers.
+That conditional2x2 isolates caller return type from callee control flow.
+Do not run it merely because a new source form can be generated. No compiler
+flags, assertions, artificial owners, manual destruction or dummy work allowed.

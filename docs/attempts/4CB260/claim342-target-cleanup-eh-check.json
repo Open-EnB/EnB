@@ -1,0 +1,234 @@
+[
+  {
+    "address": "0x4cfb00",
+    "object": "/home/dev/Projects/EnB/.work/claim-342/runs/sol_int_subscript_dereference/expr_math_int.obj",
+    "predecessors": [
+      -1,
+      0,
+      1,
+      2,
+      1,
+      1
+    ],
+    "states": [
+      {
+        "state": 0,
+        "predecessor": -1,
+        "retail_action": "0xaa7e40",
+        "fixed_bytes_match": true,
+        "relocations": [
+          {
+            "offset": 4,
+            "symbol": "??1?$RefCountPtr@V?$ExprMathEvalClass@H@@@@QAE@XZ",
+            "destination": "0x4cc6b0",
+            "expected": [
+              "0x4cc6b0"
+            ],
+            "match": true
+          }
+        ]
+      },
+      {
+        "state": 1,
+        "predecessor": 0,
+        "retail_action": "0xaa7e48",
+        "fixed_bytes_match": true,
+        "relocations": [
+          {
+            "offset": 4,
+            "symbol": "??1?$RefCountPtr@V?$ExprMathEvalClass@H@@@@QAE@XZ",
+            "destination": "0x4cc6b0",
+            "expected": [
+              "0x4cc6b0"
+            ],
+            "match": true
+          }
+        ]
+      },
+      {
+        "state": 2,
+        "predecessor": 1,
+        "retail_action": "0xaa7e50",
+        "fixed_bytes_match": true,
+        "relocations": [
+          {
+            "offset": 4,
+            "symbol": "??1?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAE@XZ",
+            "destination": "0x42a6c0",
+            "expected": [
+              "0x42a6c0"
+            ],
+            "match": true
+          }
+        ]
+      },
+      {
+        "state": 3,
+        "predecessor": 2,
+        "retail_action": "0xaa7e58",
+        "fixed_bytes_match": true,
+        "relocations": [
+          {
+            "offset": 4,
+            "symbol": "??1?$RefCountPtr@V?$ExprMathEvalClass@H@@@@QAE@XZ",
+            "destination": "0x4cc6b0",
+            "expected": [
+              "0x4cc6b0"
+            ],
+            "match": true
+          }
+        ]
+      },
+      {
+        "state": 4,
+        "predecessor": 1,
+        "retail_action": "0xaa7e60",
+        "fixed_bytes_match": true,
+        "relocations": [
+          {
+            "offset": 5,
+            "symbol": "??3@YAXPAX@Z",
+            "destination": "0x4e9d10",
+            "expected": [
+              "0x4e9d10"
+            ],
+            "match": true
+          }
+        ]
+      },
+      {
+        "state": 5,
+        "predecessor": 1,
+        "retail_action": "0xaa7e6b",
+        "fixed_bytes_match": true,
+        "relocations": [
+          {
+            "offset": 4,
+            "symbol": "??1?$RefCountPtr@V?$ExprMathEvalClass@H@@@@QAE@XZ",
+            "destination": "0x4cc6b0",
+            "expected": [
+              "0x4cc6b0"
+            ],
+            "match": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "address": "0x4cb260",
+    "object": "/home/dev/Projects/EnB/.work/claim-342/runs/sol_int_subscript_dereference/expr_math_float.obj",
+    "predecessors": [
+      -1,
+      0,
+      1,
+      2,
+      1,
+      1
+    ],
+    "states": [
+      {
+        "state": 0,
+        "predecessor": -1,
+        "retail_action": "0xaa75d0",
+        "fixed_bytes_match": true,
+        "relocations": [
+          {
+            "offset": 4,
+            "symbol": "??1?$RefCountPtr@V?$ExprMathEvalClass@M@@@@QAE@XZ",
+            "destination": "0x4c8840",
+            "expected": [
+              "0x4c8840"
+            ],
+            "match": true
+          }
+        ]
+      },
+      {
+        "state": 1,
+        "predecessor": 0,
+        "retail_action": "0xaa75d8",
+        "fixed_bytes_match": true,
+        "relocations": [
+          {
+            "offset": 4,
+            "symbol": "??1?$RefCountPtr@V?$ExprMathEvalClass@M@@@@QAE@XZ",
+            "destination": "0x4c8840",
+            "expected": [
+              "0x4c8840"
+            ],
+            "match": true
+          }
+        ]
+      },
+      {
+        "state": 2,
+        "predecessor": 1,
+        "retail_action": "0xaa75e0",
+        "fixed_bytes_match": true,
+        "relocations": [
+          {
+            "offset": 4,
+            "symbol": "??1?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAE@XZ",
+            "destination": "0x42a6c0",
+            "expected": [
+              "0x42a6c0"
+            ],
+            "match": true
+          }
+        ]
+      },
+      {
+        "state": 3,
+        "predecessor": 2,
+        "retail_action": "0xaa75e8",
+        "fixed_bytes_match": true,
+        "relocations": [
+          {
+            "offset": 4,
+            "symbol": "??1?$RefCountPtr@V?$ExprMathEvalClass@M@@@@QAE@XZ",
+            "destination": "0x4c8840",
+            "expected": [
+              "0x4c8840"
+            ],
+            "match": true
+          }
+        ]
+      },
+      {
+        "state": 4,
+        "predecessor": 1,
+        "retail_action": "0xaa75f0",
+        "fixed_bytes_match": true,
+        "relocations": [
+          {
+            "offset": 5,
+            "symbol": "??3@YAXPAX@Z",
+            "destination": "0x4e9d10",
+            "expected": [
+              "0x4e9d10"
+            ],
+            "match": true
+          }
+        ]
+      },
+      {
+        "state": 5,
+        "predecessor": 1,
+        "retail_action": "0xaa75fb",
+        "fixed_bytes_match": true,
+        "relocations": [
+          {
+            "offset": 4,
+            "symbol": "??1?$RefCountPtr@V?$ExprMathEvalClass@M@@@@QAE@XZ",
+            "destination": "0x4c8840",
+            "expected": [
+              "0x4c8840"
+            ],
+            "match": true
+          }
+        ]
+      }
+    ]
+  }
+]

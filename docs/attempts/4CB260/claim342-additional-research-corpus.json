@@ -1,0 +1,752 @@
+{
+  "compiled_forms": 0,
+  "global_reference_units": 1049,
+  "cleanup_search": "Native exact EH functions with backward non-loop edges followed by a state store and at least two EH states; heuristic, not exhaustive proof.",
+  "cleanup_records": 36,
+  "cleanup_candidates": [
+    {
+      "source": "app/client/client_lego_impl.cpp",
+      "symbol": "?Remove@ClientLegoImplClass@@UAE?AV?$RefCountPtr@VLegoClass@@@@ABVLegoIdentifierClass@@@Z",
+      "name": "ClientLegoImplClass::Remove",
+      "addresses": [
+        "0x72C1D0"
+      ],
+      "length": 1394,
+      "states": 25,
+      "edges": [
+        [
+          1389,
+          1137
+        ]
+      ]
+    },
+    {
+      "source": "app/client/client_lego_impl.cpp",
+      "symbol": "??A?$hash_map@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@V?$RefCountPtr@VLegoOrphanDataClass@@@@U?$hash@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@U?$equal_to@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@V?$allocator@V?$RefCountPtr@VLegoOrphanDataClass@@@@@2@@std@@QAEAAV?$RefCountPtr@VLegoOrphanDataClass@@@@ABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@1@@Z",
+      "name": "??A?$hash_map@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@V?$RefCountPtr@VLegoOrphanDataClass@@@@U?$hash@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@U?$equal_to@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@V?$allocator@V?$RefCountPtr@VLegoOrphanDataClass@@@@@2@@std@@QAEAAV?$RefCountPtr@VLegoOrphanDataClass@@@@ABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@1@@Z",
+      "addresses": [
+        "0x72E280"
+      ],
+      "length": 335,
+      "states": 3,
+      "edges": [
+        [
+          301,
+          229
+        ]
+      ]
+    },
+    {
+      "source": "app/common/connect.cpp",
+      "symbol": "?Add_Connection@ConnectionManagerClass@@QAE_NPAVConnectionClass@@@Z",
+      "name": "ConnectionManagerClass::Add_Connection",
+      "addresses": [
+        "0x822CC0"
+      ],
+      "length": 457,
+      "states": 9,
+      "edges": [
+        [
+          314,
+          272
+        ]
+      ]
+    },
+    {
+      "source": "app/client/control_keys_manager.cpp",
+      "symbol": "??A?$hash_map@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@UKeyIdStruct@@U?$hash@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@U?$equal_to@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@V?$allocator@UKeyIdStruct@@@2@@std@@QAEAAUKeyIdStruct@@ABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@1@@Z",
+      "name": "??A?$hash_map@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@UKeyIdStruct@@U?$hash@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@U?$equal_to@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@V?$allocator@UKeyIdStruct@@@2@@std@@QAEAAUKeyIdStruct@@ABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@1@@Z",
+      "addresses": [
+        "0x71DAD0"
+      ],
+      "length": 406,
+      "states": 4,
+      "edges": [
+        [
+          323,
+          273
+        ]
+      ]
+    },
+    {
+      "source": "app/wwudp/cordmgr.cpp",
+      "symbol": "?Process_ACK1_Packet@CordMgr@@QAE_NPAEHPAUsockaddr_in@@PAVUDP@@H@Z",
+      "name": "CordMgr::Process_ACK1_Packet",
+      "addresses": [
+        "0x85A430"
+      ],
+      "length": 1414,
+      "states": 3,
+      "edges": [
+        [
+          437,
+          355
+        ],
+        [
+          522,
+          355
+        ],
+        [
+          550,
+          355
+        ]
+      ]
+    },
+    {
+      "source": "app/client/cpacket.cpp",
+      "symbol": "?Process_Packet@ConstantPositionalUpdatePacketClass@@UAE_NPAX@Z",
+      "name": "ConstantPositionalUpdatePacketClass::Process_Packet",
+      "addresses": [
+        "0x733C80"
+      ],
+      "length": 252,
+      "states": 3,
+      "edges": [
+        [
+          194,
+          111
+        ]
+      ]
+    },
+    {
+      "source": "app/shared/enbassetmgr.cpp",
+      "symbol": "?Create_Render_Obj@ENBAssetManager@@UAEPAVRenderObjClass@@PBDMAAVVector3@@@Z",
+      "name": "ENBAssetManager::Create_Render_Obj",
+      "addresses": [
+        "0x48B220"
+      ],
+      "length": 1131,
+      "states": 4,
+      "edges": [
+        [
+          758,
+          668
+        ]
+      ]
+    },
+    {
+      "source": "app/shared/enbassetmgr.cpp",
+      "symbol": "?Recolor_Texture@ENBAssetManager@@QAEPAVTextureClass@@PBDPAMW4MipCountType@@@Z",
+      "name": "ENBAssetManager::Recolor_Texture",
+      "addresses": [
+        "0x48B7B0"
+      ],
+      "length": 1066,
+      "states": 4,
+      "edges": [
+        [
+          808,
+          717
+        ]
+      ]
+    },
+    {
+      "source": "app/client/gadget_list_manager.cpp",
+      "symbol": "??A?$hash_map@PAVInterfaceClass@@V?$list@PAVGadgetClass@@V?$allocator@PAVGadgetClass@@@std@@@std@@U?$hash@PAVInterfaceClass@@@3@U?$equal_to@PAVInterfaceClass@@@3@V?$allocator@V?$list@PAVGadgetClass@@V?$allocator@PAVGadgetClass@@@std@@@std@@@3@@std@@QAEAAV?$list@PAVGadgetClass@@V?$allocator@PAVGadgetClass@@@std@@@1@ABQAVInterfaceClass@@@Z",
+      "name": "??A?$hash_map@PAVInterfaceClass@@V?$list@PAVGadgetClass@@V?$allocator@PAVGadgetClass@@@std@@@std@@U?$hash@PAVInterfaceClass@@@3@U?$equal_to@PAVInterfaceClass@@@3@V?$allocator@V?$list@PAVGadgetClass@@V?$allocator@PAVGadgetClass@@@std@@@std@@@3@@std@@QAEAAV?$list@PAVGadgetClass@@V?$allocator@PAVGadgetClass@@@std@@@1@ABQAVInterfaceClass@@@Z",
+      "addresses": [
+        "0x661F60"
+      ],
+      "length": 433,
+      "states": 2,
+      "edges": [
+        [
+          428,
+          276
+        ]
+      ]
+    },
+    {
+      "source": "app/client/galaxy_map_render.cpp",
+      "symbol": "??A?$hash_map@HV?$RefCountPtr@VGalaxyMapRenderSystemClass@@@@U?$hash@H@std@@U?$equal_to@H@3@V?$allocator@V?$RefCountPtr@VGalaxyMapRenderSystemClass@@@@@3@@std@@QAEAAV?$RefCountPtr@VGalaxyMapRenderSystemClass@@@@ABH@Z",
+      "name": "??A?$hash_map@HV?$RefCountPtr@VGalaxyMapRenderSystemClass@@@@U?$hash@H@std@@U?$equal_to@H@3@V?$allocator@V?$RefCountPtr@VGalaxyMapRenderSystemClass@@@@@3@@std@@QAEAAV?$RefCountPtr@VGalaxyMapRenderSystemClass@@@@ABH@Z",
+      "addresses": [
+        "0x7B18F0"
+      ],
+      "length": 260,
+      "states": 3,
+      "edges": [
+        [
+          258,
+          195
+        ]
+      ]
+    },
+    {
+      "source": "app/client/galaxy_map_render.cpp",
+      "symbol": "??A?$hash_map@HV?$RefCountPtr@VGalaxyMapRenderSectorClass@@@@U?$hash@H@std@@U?$equal_to@H@3@V?$allocator@V?$RefCountPtr@VGalaxyMapRenderSectorClass@@@@@3@@std@@QAEAAV?$RefCountPtr@VGalaxyMapRenderSectorClass@@@@ABH@Z",
+      "name": "??A?$hash_map@HV?$RefCountPtr@VGalaxyMapRenderSectorClass@@@@U?$hash@H@std@@U?$equal_to@H@3@V?$allocator@V?$RefCountPtr@VGalaxyMapRenderSectorClass@@@@@3@@std@@QAEAAV?$RefCountPtr@VGalaxyMapRenderSectorClass@@@@ABH@Z",
+      "addresses": [
+        "0x7B1B20"
+      ],
+      "length": 260,
+      "states": 3,
+      "edges": [
+        [
+          258,
+          195
+        ]
+      ]
+    },
+    {
+      "source": "app/client/gd_buffgadg.cpp",
+      "symbol": "?_Median@std@@YA?AUBuffElementStruct@@U2@00UBuffElementSortClass@@@Z",
+      "name": "std::_Median",
+      "addresses": [
+        "0x667F70"
+      ],
+      "length": 886,
+      "states": 4,
+      "edges": [
+        [
+          712,
+          521
+        ],
+        [
+          764,
+          521
+        ],
+        [
+          777,
+          525
+        ]
+      ]
+    },
+    {
+      "source": "app/client/interface_static_sort_list.cpp",
+      "symbol": "??A?$hash_map@PAVRenderObjClass@@V?$RefCountPtr@VInterfaceRenderClass@@@@U?$hash@PAVRenderObjClass@@@std@@U?$equal_to@PAVRenderObjClass@@@4@V?$allocator@V?$RefCountPtr@VInterfaceRenderClass@@@@@4@@std@@QAEAAV?$RefCountPtr@VInterfaceRenderClass@@@@ABQAVRenderObjClass@@@Z",
+      "name": "??A?$hash_map@PAVRenderObjClass@@V?$RefCountPtr@VInterfaceRenderClass@@@@U?$hash@PAVRenderObjClass@@@std@@U?$equal_to@PAVRenderObjClass@@@4@V?$allocator@V?$RefCountPtr@VInterfaceRenderClass@@@@@4@@std@@QAEAAV?$RefCountPtr@VInterfaceRenderClass@@@@ABQAVRenderObjClass@@@Z",
+      "addresses": [
+        "0x6DCF90"
+      ],
+      "length": 261,
+      "states": 3,
+      "edges": [
+        [
+          259,
+          195
+        ]
+      ]
+    },
+    {
+      "source": "app/common/manufacturing_defs.cpp",
+      "symbol": "?Value_To_String@@YAPADPADHW4ManufacturingModeBitFlag@@@Z",
+      "name": "Value_To_String",
+      "addresses": [
+        "0x845D40"
+      ],
+      "length": 596,
+      "states": 2,
+      "edges": [
+        [
+          459,
+          130
+        ]
+      ]
+    },
+    {
+      "source": "app/client/sbase_info.cpp",
+      "symbol": "?Create@StarbaseInfoClass@@SAPAV1@PAVLoungeNPCPacketClass@@@Z",
+      "name": "StarbaseInfoClass::Create",
+      "addresses": [
+        "0x6987A0"
+      ],
+      "length": 1816,
+      "states": 7,
+      "edges": [
+        [
+          135,
+          95
+        ],
+        [
+          142,
+          95
+        ],
+        [
+          149,
+          95
+        ],
+        [
+          156,
+          95
+        ]
+      ]
+    },
+    {
+      "source": "app/client/sclient.cpp",
+      "symbol": "?Unknown_745FF0@SClient@@QAE_NPBD@Z",
+      "name": "SClient::Unknown_745FF0",
+      "addresses": [
+        "0x745FF0"
+      ],
+      "length": 3818,
+      "states": 4,
+      "edges": [
+        [
+          1785,
+          1432
+        ],
+        [
+          1995,
+          1432
+        ],
+        [
+          2066,
+          1418
+        ],
+        [
+          2137,
+          1418
+        ],
+        [
+          2208,
+          1418
+        ],
+        [
+          2279,
+          1418
+        ],
+        [
+          2350,
+          1418
+        ],
+        [
+          2421,
+          1418
+        ]
+      ]
+    },
+    {
+      "source": "app/client/shiputils.cpp",
+      "symbol": "?Unknown_80F470@@YAXPAVRenderObjClass@@AAV?$vector@U?$pair@UColorizationHalfStruct@@U1@@std@@V?$allocator@U?$pair@UColorizationHalfStruct@@U1@@std@@@2@@std@@I@Z",
+      "name": "Unknown_80F470",
+      "addresses": [
+        "0x80F470"
+      ],
+      "length": 1728,
+      "states": 5,
+      "edges": [
+        [
+          1596,
+          1378
+        ]
+      ]
+    },
+    {
+      "source": "app/shared/symbol_substitution.cpp",
+      "symbol": "??A?$hash_map@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@V12@U?$hash@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@U?$equal_to@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@V?$allocator@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@@std@@QAEAAV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@1@ABV21@@Z",
+      "name": "??A?$hash_map@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@V12@U?$hash@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@U?$equal_to@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@V?$allocator@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@@std@@QAEAAV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@1@ABV21@@Z",
+      "addresses": [
+        "0x4FD980"
+      ],
+      "length": 367,
+      "states": 4,
+      "edges": [
+        [
+          333,
+          267
+        ]
+      ]
+    },
+    {
+      "source": "app/client/tutorial_manager.cpp",
+      "symbol": "?Reload@TutorialManagerClass@@QAEXXZ",
+      "name": "TutorialManagerClass::Reload",
+      "addresses": [
+        "0x6AD7B0"
+      ],
+      "length": 1309,
+      "states": 10,
+      "edges": [
+        [
+          399,
+          305
+        ]
+      ]
+    },
+    {
+      "source": "app/client/ui_analyze.cpp",
+      "symbol": "?Unknown_60@UIAnalyzeClass@@UAEXXZ",
+      "name": "UIAnalyzeClass::Unknown_60",
+      "addresses": [
+        "0x5443F0"
+      ],
+      "length": 1544,
+      "states": 5,
+      "edges": [
+        [
+          1037,
+          859
+        ]
+      ]
+    },
+    {
+      "source": "app/client/ui_chat_panel.cpp",
+      "symbol": "?Unknown_569A00@ChatPanelInterface@@QAEXXZ",
+      "name": "ChatPanelInterface::Unknown_569A00",
+      "addresses": [
+        "0x569A00"
+      ],
+      "length": 5929,
+      "states": 37,
+      "edges": [
+        [
+          1006,
+          490
+        ],
+        [
+          1081,
+          490
+        ],
+        [
+          1992,
+          490
+        ],
+        [
+          2267,
+          490
+        ],
+        [
+          3461,
+          490
+        ],
+        [
+          3541,
+          490
+        ],
+        [
+          3805,
+          490
+        ],
+        [
+          4025,
+          490
+        ],
+        [
+          5725,
+          5584
+        ],
+        [
+          5738,
+          5584
+        ],
+        [
+          5839,
+          5588
+        ]
+      ]
+    },
+    {
+      "source": "app/client/ui_cpit.cpp",
+      "symbol": "?Unknown_68@UICpitClass@@UAE_NH@Z",
+      "name": "UICpitClass::Unknown_68",
+      "addresses": [
+        "0x5806E0"
+      ],
+      "length": 3089,
+      "states": 15,
+      "edges": [
+        [
+          908,
+          473
+        ]
+      ]
+    },
+    {
+      "source": "app/client/ui_faction.cpp",
+      "symbol": "??0Unknown58E210Class@@QAE@PAVUIMeshClass@@H@Z",
+      "name": "Unknown58E210Class::Unknown58E210Class",
+      "addresses": [
+        "0x58E210"
+      ],
+      "length": 722,
+      "states": 7,
+      "edges": [
+        [
+          316,
+          198
+        ],
+        [
+          343,
+          198
+        ]
+      ]
+    },
+    {
+      "source": "app/client/ui_item_examination_attributes.cpp",
+      "symbol": "?_Median@std@@YA?AV?$RefCountPtr@VClientItemPropertyAttributeClass@@@@V2@00@Z",
+      "name": "std::_Median",
+      "addresses": [
+        "0x534700"
+      ],
+      "length": 776,
+      "states": 4,
+      "edges": [
+        [
+          743,
+          565
+        ],
+        [
+          771,
+          565
+        ]
+      ]
+    },
+    {
+      "source": "app/client/ui_item_examination_options.cpp",
+      "symbol": "?_Median@std@@YA?AV?$RefCountPtr@VClientItemPropertyOptionClass@@@@V2@00@Z",
+      "name": "std::_Median",
+      "addresses": [
+        "0x537290"
+      ],
+      "length": 776,
+      "states": 4,
+      "edges": [
+        [
+          743,
+          565
+        ],
+        [
+          771,
+          565
+        ]
+      ]
+    },
+    {
+      "source": "app/client/ui_item_examination_specials.cpp",
+      "symbol": "?_Median@std@@YA?AV?$RefCountPtr@VClientItemPropertySpecialClass@@@@V2@00@Z",
+      "name": "std::_Median",
+      "addresses": [
+        "0x5393B0"
+      ],
+      "length": 776,
+      "states": 4,
+      "edges": [
+        [
+          743,
+          565
+        ],
+        [
+          771,
+          565
+        ]
+      ]
+    },
+    {
+      "source": "app/client/ui_option_control_keys.cpp",
+      "symbol": "?Unknown_60@UIOptionControlKeysClass@@UAEXXZ",
+      "name": "UIOptionControlKeysClass::Unknown_60",
+      "addresses": [
+        "0x5CB000"
+      ],
+      "length": 1817,
+      "states": 7,
+      "edges": [
+        [
+          1284,
+          684
+        ],
+        [
+          1308,
+          684
+        ],
+        [
+          1322,
+          684
+        ],
+        [
+          1337,
+          684
+        ]
+      ]
+    },
+    {
+      "source": "app/client/ui_talkt.cpp",
+      "symbol": "?Unknown_64E7A0@UITalkTreeClass@@QAEXXZ",
+      "name": "UITalkTreeClass::Unknown_64E7A0",
+      "addresses": [
+        "0x64E7A0"
+      ],
+      "length": 1245,
+      "states": 10,
+      "edges": [
+        [
+          239,
+          109
+        ]
+      ]
+    },
+    {
+      "source": "app/shared/unique_design_id_lookup.cpp",
+      "symbol": "?do_get@?$num_get@DV?$istreambuf_iterator@DU?$char_traits@D@std@@@std@@@std@@MBE?AV?$istreambuf_iterator@DU?$char_traits@D@std@@@2@V32@0AAVios_base@2@AAHAAG@Z",
+      "name": "?do_get@?$num_get@DV?$istreambuf_iterator@DU?$char_traits@D@std@@@std@@@std@@MBE?AV?$istreambuf_iterator@DU?$char_traits@D@std@@@2@V32@0AAVios_base@2@AAHAAG@Z",
+      "addresses": [
+        "0x504CC0"
+      ],
+      "length": 1062,
+      "states": 3,
+      "edges": [
+        [
+          988,
+          809
+        ],
+        [
+          1003,
+          813
+        ],
+        [
+          1014,
+          813
+        ]
+      ]
+    },
+    {
+      "source": "app/shared/unique_design_id_lookup.cpp",
+      "symbol": "?do_get@?$num_get@DV?$istreambuf_iterator@DU?$char_traits@D@std@@@std@@@std@@MBE?AV?$istreambuf_iterator@DU?$char_traits@D@std@@@2@V32@0AAVios_base@2@AAHAAI@Z",
+      "name": "?do_get@?$num_get@DV?$istreambuf_iterator@DU?$char_traits@D@std@@@std@@@std@@MBE?AV?$istreambuf_iterator@DU?$char_traits@D@std@@@2@V32@0AAVios_base@2@AAHAAI@Z",
+      "addresses": [
+        "0x505200"
+      ],
+      "length": 1058,
+      "states": 3,
+      "edges": [
+        [
+          984,
+          809
+        ],
+        [
+          999,
+          813
+        ],
+        [
+          1010,
+          813
+        ]
+      ]
+    },
+    {
+      "source": "app/shared/unique_design_id_lookup.cpp",
+      "symbol": "?do_get@?$num_get@DV?$istreambuf_iterator@DU?$char_traits@D@std@@@std@@@std@@MBE?AV?$istreambuf_iterator@DU?$char_traits@D@std@@@2@V32@0AAVios_base@2@AAHAAJ@Z",
+      "name": "?do_get@?$num_get@DV?$istreambuf_iterator@DU?$char_traits@D@std@@@std@@@std@@MBE?AV?$istreambuf_iterator@DU?$char_traits@D@std@@@2@V32@0AAVios_base@2@AAHAAJ@Z",
+      "addresses": [
+        "0x505740"
+      ],
+      "length": 1038,
+      "states": 3,
+      "edges": [
+        [
+          963,
+          809
+        ],
+        [
+          978,
+          813
+        ],
+        [
+          989,
+          813
+        ]
+      ]
+    },
+    {
+      "source": "app/shared/unique_design_id_lookup.cpp",
+      "symbol": "?do_get@?$num_get@DV?$istreambuf_iterator@DU?$char_traits@D@std@@@std@@@std@@MBE?AV?$istreambuf_iterator@DU?$char_traits@D@std@@@2@V32@0AAVios_base@2@AAHAAK@Z",
+      "name": "?do_get@?$num_get@DV?$istreambuf_iterator@DU?$char_traits@D@std@@@std@@@std@@MBE?AV?$istreambuf_iterator@DU?$char_traits@D@std@@@2@V32@0AAVios_base@2@AAHAAK@Z",
+      "addresses": [
+        "0x505C60"
+      ],
+      "length": 1038,
+      "states": 3,
+      "edges": [
+        [
+          963,
+          809
+        ],
+        [
+          978,
+          813
+        ],
+        [
+          989,
+          813
+        ]
+      ]
+    },
+    {
+      "source": "app/shared/unknown_474530.cpp",
+      "symbol": "?Load_Decorations@LandClass@@QAEXAAV?$vector@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@V?$allocator@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@@std@@AAV?$vector@ULandDecorationStruct@@V?$allocator@ULandDecorationStruct@@@std@@@3@PBD@Z",
+      "name": "LandClass::Load_Decorations",
+      "addresses": [
+        "0x4795D0"
+      ],
+      "length": 906,
+      "states": 2,
+      "edges": [
+        [
+          904,
+          838
+        ]
+      ]
+    },
+    {
+      "source": "app/client/unknown_creator.cpp",
+      "symbol": "??0CharacterCreatorClass@@QAE@XZ",
+      "name": "CharacterCreatorClass::CharacterCreatorClass",
+      "addresses": [
+        "0x78CEE0"
+      ],
+      "length": 1104,
+      "states": 4,
+      "edges": [
+        [
+          1099,
+          930
+        ]
+      ]
+    },
+    {
+      "source": "app/client/html/unknown_htmlattrib.cpp",
+      "symbol": "?Push@HtmlAttributeStackClass@@QAEXPAD0H@Z",
+      "name": "HtmlAttributeStackClass::Push",
+      "addresses": [
+        "0x779CA0"
+      ],
+      "length": 583,
+      "states": 5,
+      "edges": [
+        [
+          244,
+          178
+        ]
+      ]
+    },
+    {
+      "source": "app/client/html/unknown_htmlattrib.cpp",
+      "symbol": "?Pop@HtmlAttributeStackClass@@QAEDPAD0H@Z",
+      "name": "HtmlAttributeStackClass::Pop",
+      "addresses": [
+        "0x779F90"
+      ],
+      "length": 703,
+      "states": 4,
+      "edges": [
+        [
+          238,
+          182
+        ],
+        [
+          439,
+          182
+        ],
+        [
+          480,
+          182
+        ]
+      ]
+    }
+  ],
+  "string_function_records": 1049,
+  "string_record_note": "Repeated template instances across TUs included; not distinct retail addresses. Coincidentally equals1049, independently of TU count.",
+  "matched_code_and_raw_retail_listings_excluded": true,
+  "source_base_revision": "c180e8cf859d688183f1900512b33423cb939b77"
+}

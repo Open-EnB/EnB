@@ -1,0 +1,175 @@
+# Additional claim342 research: exact cleanup examples
+
+Zero compiled forms, zero production/Git/snapshot/toolchain changes. All new files
+are under /home/dev/Projects/EnB/.work/claim-342/astra-research/. Both targets remain
+parked; this investigation does not establish an eligible parked-target retry.
+There is one distinct, meaningful operation-helper hypothesis, described below,
+but its applicability to the void visitor remains unproven. No full candidate
+header was generated.
+
+## Evidence inspected and search scope
+
+Read the required current bounded instructions, fresh-session prompt, both first
+and Sol reports, group/accessor/string reports, Astra report/evidence, shared
+reassessment, and the actual full-header differences of all 40 recorded inputs.
+input-diffs.txt preserves the latter, including controls and the invalid input.
+The original historical four forms have no surviving source; no reconstruction
+of them is claimed. Inspected the actual clean38 object and retail instructions,
+not merely its score. The production/source snapshot remains the original
+e5338bd6698039ab87b2290257c5b87f24211c445422d0a165a9a8f480d935f7 header.
+
+scan.py reads the completed 1049-TU plan and existing native exact-match records.
+It disassembles matching functions, finds backward branches whose destinations
+are followed by an EH-state store, and rejects branches whose destination can
+reach the branch again (ordinary loops). It requires at least two EH states.
+The final search removes the preliminary size/first-half restrictions: 36
+function records remain in early-cleanups.json. It is a heuristic for comparable
+cleanup shapes, not proof that every cleanup pattern has been enumerated.
+The 13 records whose destinations occur in the first half were examined first.
+The others predominantly join late cleanup, switch/constructor tails, or library
+template paths; none supplied a closer demonstrated two-owner void early-exit
+mechanism. No unmatched function was rebuilt or changed.
+
+scan_strings.py independently finds 1049 exact function records (including
+repeated template instances across TUs) with buffer-first / null-fallback string
+selection. buffer-first.json records them; this count is coincidentally the same
+as the TU count and is not a count of distinct addresses.
+
+## Strongest exact comparator: a real predicate/out-reference operation
+
+HtmlAttributeStackClass::Pop, 0x779F90, symbol
+?Pop@HtmlAttributeStackClass@@QAEDPAD0H@Z, 703 bytes:
+
+- Source: /home/dev/Projects/EnB/.work/claim-342/tree/app/client/html/unknown_htmlattrib.cpp:86.
+- Object: /home/dev/Projects/EnB/.work/claim-342/global-baseline/729/unknown_htmlattrib.obj.
+- Actual inline operation: /home/dev/Projects/EnB/.work/claim-342/tree/libs/wwonline/wlib/dictionary.h:565,
+  Dictionary<K,V>::getPointer(const K &, V **) const.
+- Full independent existing audit passes: body, relocations/addends, literal
+  payloads, handler/FuncInfo, predecessor states, and cleanup funclets.
+  Receipt: /home/dev/Projects/EnB/.work/claim-342/astra-research/779F90-audit.json.
+  Decoded object/retail and EH: 779F90.txt, reproducible by inspect_evidence.py.
+
+Pop constructs real Wstring k and v before its lookup. getPointer returns C++
+bool, assigns its out-pointer only on success, and has internal false returns
+for empty table, empty bucket, and missing key. Its inlined false paths target
+the caller's first cleanup at 0x77A046 (+0xB6), which destroys v, then k, then
+zeros AL. In the successful lookup path the remaining null-node test at
+0x77A07E (+0xEE) branches backward to that cleanup. Later no-match paths at
+0x77A147 (+0x1B7) and 0x77A170 (+0x1E0) also return there. This is actual
+propagation of a meaningful helper's failure results into caller cleanup, not
+merely an accessor with an extra inline depth.
+
+Pop's own return type is **bit8, typedef char**, not C++ bool. Its success paths
+return a bool local converted to bit8; false paths return FALSE. The success
+cleanup destroys the same v/k pair at 0x77A229 and 0x77A237, then copies BL to AL
+at 0x77A248 and jumps to the common machine epilogue at 0x77A067. The distinct
+return values therefore explain why the failure and success destructor chains
+need not merge. This is the principal caveat against Visit_Binary's void return.
+Do not call Pop a demonstration that a void visitor will select this layout.
+
+EH predecessors are [-1,0,1,1]. State0 destroys k at [ebp-0x28], state1 destroys
+v at [ebp-0x20]. States2/3 destroy two branch-local ArrayList temporaries, both
+returning to state1. The failure paths share two genuinely live owners; they are
+not constructor-member cleanup or merely loop exits. Its ownership types and
+out-of-line destructor costs differ from RefCountPtr and remain another limit.
+
+## Other comparators and rejected inferences
+
+Unknown58E210Class constructor, 0x58E210, symbol
+??0Unknown58E210Class@@QAE@PAVUIMeshClass@@H@Z, object
+/home/dev/Projects/EnB/.work/claim-342/global-baseline/545/ui_faction.obj;
+source tree/app/client/ui_faction.cpp:329. Its robj/sobj cleanup shares a backward
+edge, but the earlier failure owns robj alone and the later failure owns both.
+Predecessors [-1,0,1,2,3,3,3] begin with base ButtonGadget and member string
+destruction; local robj/sobj are states2/3. Moving the visitor's second owner
+construction later would contradict its state1 before the FIRST child callback.
+This comparator does not support that lifetime change.
+
+The native baseline records this constructor as exact, but the strict full
+audit failed on its existing assertion filename payload: compiled
+e:\\build\\beta\\G\\app\\client\\ui_faction.cpp versus retail
+e:\\build\\beta\\G\\app\\Client\\ui_faction.cpp at 0xB7F120. This is explicitly
+a known path-casing exception in this research, not a full audit success or a
+new target regression. 58E210.txt retains the actual source/object/EH evidence.
+
+UITalkTreeClass::Unknown_64E7A0, object global-baseline/630/ui_talkt.obj, source
+tree/app/client/ui_talkt.cpp:840, is a void early-cleanup example, but only
+bttn_obj is live at the backward early exit. Font, split, element, and sort
+lifetimes begin later. Its ten-state map [-1,0,0,0,3,4,4,4,4,4] demonstrates that
+difference. No hidden second owner explains the visitor. The strict audit also
+stopped on an unresolved destructor attribution for DynamicWindowElementClass
+(retail resolved destination0x56F070 versus known0x517030), so no full audit of
+that example is asserted. 64E7A0.txt preserves the inspected evidence.
+
+ChatPanelInterface::Unknown_569A00, object global-baseline/533/ui_chat_panel.obj,
+source tree/app/client/ui_chat_panel.cpp:1988, has many backward returns into its
+first string cleanup, with a 37-state EH map. Only one string owner is live on
+those exits; the numerous states mostly belong to separate construction paths.
+Its ordinary separate early returns corroborate the known compiler behavior
+but add no untested source mechanism. 569A00.txt records the examined structure.
+
+## Target lifetimes are already supported
+
+eh_check.py independently checked the clean38 candidate's six predecessor/action
+maps against BOTH retail targets, including fixed funclet bytes and every
+funclet relocation destination/addend. Receipt: target-eh-check.json. Its scope
+is the predecessor/action maps and cleanup funclets only: it does not claim
+complete handler/FuncInfo parity or unmatched main-body exactness.
+
+The map is [-1,0,1,2,1,1]: left owner; right owner; constructed string temporary;
+factory returned owner temporary; allocation cleanup; folded result temporary.
+For int, actions are 0xAA7E40/48/50/58/60/6B respectively. Left/right occupy
+[ebp-0x24]/[ebp-0x28]. Both owners exist before the first Accept, and each child
+and factory operation has the applicable enclosing lifetime in the current
+candidate. An owner array/aggregate, deferred right construction, or a by-value
+child-result helper would need different lifetime evidence; none was found.
+
+Retail's int second child failure is 0x4CFBB5 -> 0x4CFB49. Initial right cleanup
+cross-jumps into the separate factory-failure suffix; normal success instead
+inlines right destruction and calls left destruction. The known clean38 code
+still duplicates early cleanup, uses the final normal cleanup on second failure,
+and is 39 bytes longer. EH agreement does not prove a unique source scope, but
+it removes a reason to posit missing owner objects or wrong cleanup actions.
+
+## Scheduling is not evidence for a different string contract
+
+Exact ExprMathInfixPrinterClass::Visit_Leaf, 0x4D3190, symbol
+?Visit_Leaf@ExprMathInfixPrinterClass@@UAEXPAVExprMathTreeClass@@@Z, source
+tree/app/shared/expr/unknown_4d3190.cpp:7, object
+global-baseline/656/unknown_4d3190.obj, uses exactly
+node->Get_Token().Text.c_str(). Its buffer is loaded first at +0x0C, tested at
++0x0F, and replaced by the null-string address only on null at +0x13. Full audit
+passes (4D3190-audit.json). Thus the actual current accessor can emit the desired
+buffer-first selection, while exact unary builders emit the other selection.
+This is whole-caller scheduling evidence, not a demonstrated independent new
+operation for the parked visitors. const-subscript/data/named-text families were
+actually tried; more spellings are not justified by this comparator.
+
+Default construction followed by assignment is a real distinct convention in
+workflow.md:544, but retail creates string state2 AFTER its assign call
+(int0x4CFC19, state store0x4CFC31), while that convention's identifying evidence
+is the state BEFORE assignment. It does not supply a target lifetime correction.
+The factory cached-receiver experiment already tests a real stable Peek after
+full assignment; its duplicate results cover that lead. No independently
+demonstrated ECX scheduling lever preserving both recovered calls was found.
+
+## Ranked conclusion
+
+1. **Evidence-backed eligible reopening lever: none established.** Keep both
+   targets parked. The full EH check and exact Pop example strengthen the
+   existing model without authorizing another plain return/label/scope round.
+2. **Plausible but unproven distinct hypothesis:** a meaningful predicate with
+   an output owner that performs child Accept, checks m_result, then assigns the
+   caller's already-live owner. Pop demonstrates inlined predicate failure
+   propagation, but not the needed void-return layout or retained helper calls.
+   hypothesis.md gives the exact semantic contract, workflow references,
+   predictions, falsifiers, and a staged validation plan BEFORE a target retry.
+3. **Duplicate or unsupported:** another named pointer/cache, string spelling,
+   plain return/label, delayed owner, aggregate owner, artificial destruction,
+   or new dummy budget cost. Meaningful helper extraction is not rejected
+   merely because its original name/spelling is unknown; only the causal
+   inference remains unproven.
+
+The focused corpus and source directions above are exhausted for this pass.
+This does not claim every equivalent C++ program was tried. No compiler job,
+lease, child agent, external message, or production mutation was started.

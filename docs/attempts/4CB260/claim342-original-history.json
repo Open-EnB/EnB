@@ -1,0 +1,60 @@
+{
+  "base_revision": "c180e8cf859d688183f1900512b33423cb939b77",
+  "claim": 342,
+  "grant": "0x4CB260-0x4CFB01: 2 unmatched, granted to vessellaj",
+  "histories": {
+    "0x4CB260": [
+      {
+        "date": "2026-11-05 22:05",
+        "address": "0x4CB260",
+        "symbol": "ExprMathBuildVisitorClass<float>::Visit_Binary",
+        "file": "shared/expr/expr_math_builder.h",
+        "library": "app",
+        "status": "partial",
+        "score": "",
+        "forms": "4",
+        "blocker": "shape",
+        "evidence": "as int's 0x4CFB00",
+        "stash": "",
+        "model": "opus"
+      }
+    ],
+    "0x4CFB00": [
+      {
+        "date": "2026-11-05 22:05",
+        "address": "0x4CFB00",
+        "symbol": "ExprMathBuildVisitorClass<int>::Visit_Binary",
+        "file": "shared/expr/expr_math_builder.h",
+        "library": "app",
+        "status": "partial",
+        "score": "0.62",
+        "forms": "4",
+        "blocker": "shape",
+        "evidence": "28 calls vs 24: the client releases one local on the first early return and jumps to a shared exit; forms: copy-init locals, both at top (kept), right declared later 0.59, nested single exit 0.65 (21 calls), reversed order",
+        "stash": "",
+        "model": "opus"
+      }
+    ]
+  },
+  "prior_patch_availability": {
+    "0x4CB260": [],
+    "0x4CFB00": []
+  },
+  "source": "app/shared/expr/expr_math_builder.h",
+  "source_sha256": "e5338bd6698039ab87b2290257c5b87f24211c445422d0a165a9a8f480d935f7",
+  "baseline_primary_pairs": 267,
+  "baseline_primary_symbol_pairs": 267,
+  "baseline_context": [
+    "app/shared/expr/expr_math_lexer_factory.cpp",
+    "app/shared/expr/expr_math_parser.cpp"
+  ],
+  "initial_isolated_missing": [
+    [
+      "app/shared/expr/expr_math_int.cpp",
+      "0x4D0200"
+    ]
+  ],
+  "contextual_coverage_missing": [],
+  "header_global_plan_units": 1049,
+  "header_global_status": "Partially compiled then safely paused for serialized target investigation; not a completed all-consumer baseline."
+}

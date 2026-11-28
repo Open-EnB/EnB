@@ -1,0 +1,42 @@
+# Pop void-caller validation: hypothesis not established
+
+Two canonical VC6 compiler inputs: one unchanged exact control, one void
+discard-result diagnostic. No parked expression visitor was compiled. Production
+C++ and all three experimental staging files were restored byte-for-byte.
+
+The original bit8/char Pop control is 703bytes and passes a complete retail audit
+at 0x779F90: fixed body, every relocation/addend/literal, handler/FuncInfo,
+predecessors and cleanup funclets. Three backward non-loop edges enter its early
+two-owner cleanup at +0xB6. That block calls Wstring destructors at +0xBF/+0xD0;
+normal success has separate owner destruction at +0x2A2/+0x2B3.
+
+The diagnostic changes the declaration and definition to void, discards only
+the formerly returned bool values, and preserves all lookup/remove calls,
+conditions, iterations, writes and nontrivial object lifetimes. The real
+Dictionary::getPointer source is hash-identical and remains inlined. Compiler
+flags, defines, include ordering, source basename/path and assertion lines are
+unchanged. It is not a proposed replacement or a newly exact retail function.
+
+| Caller | Code bytes | Backward edges into early owner cleanup | Call instructions |
+| --- | ---: | ---: | ---: |
+| Original bit8/char | 703 | 3 | 23 |
+| Diagnostic void | 643 | 0 | 21 |
+
+In the void case all exits collapse into final owner cleanup, whose Wstring
+destructor calls are at +0x258/+0x269. The only named calls removed are the two
+duplicated Wstring destructor sites. Both versions retain EH predecessors
+[-1,0,1,1], identical cleanup relocation types/targets/addends, and identical
+owner/temporary slot address loads (-0x28,-0x20,-0x18,-0x18 relative to EBP).
+Thus this is not a new owner or helper becoming out of line.
+
+The prewritten falsifier was reached: the audited Pop example does not establish
+the desired early sharing in a void caller. The conditional helper rewrite/2x2
+was therefore NOT generated or compiled. No parked-target retry is justified
+by this evidence; both expression visitors remain parked at the previous 38/38.
+This closes this comparator-based evidence path, not every possible meaningful
+helper formulation. No zero-form or diagnostic attempt row was added for them.
+
+Replay records contain all three source/header hashes and lossless character
+edits, canonical compiler response, object/code hashes, CFG/relocation/EH
+summaries and the exact-control audit. The void operation has a distinct mangled
+return signature and no retail target. Raw listings and binaries are excluded.

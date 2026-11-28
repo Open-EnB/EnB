@@ -1,0 +1,38 @@
+# Astra shared Visit_Binary investigation
+
+Read-only review inspected original attempts.py rows, all actual run input diffs,
+both final Sol reports, shared reassessment, earlier group/first-pass reports,
+actual retail instructions, clean38 objdiff/explanation and analysis.json, the
+existing RefCountPtr and canonical XSTRING helpers. Original four historical
+forms have no replayable patches. Current clean38 has 805/799-byte bodies,
+38/38 residue, versus retail 766/760; both missing direct calls recovered.
+
+## Batch 1: cache the post-factory raw pointer
+
+Retail int 4CFC9D loads m_result into ECX before its null comparison, then the
+nonnull edge reaches 4CFD0B using the same ECX. Clean38 instead compares memory
+at offset1D3 and reloads ECX at22F after the failure-cleanup region. This is a
+concrete named-value lifetime clue, separate from earlier named raw *allocated
+constant* tests. Workflow.md's named-local/cache lever applies to this region.
+
+Prepare two forms on clean38, with the cache after the complete factory result
+assignment expression and its two temporary destructions:
+
+1. `ExprMathEvalClass<T> *result = m_result.Peek();` followed by null test on
+   result, retaining `(*m_result).Is_Constant()`. This isolates explicit cached
+   test input while preserving the demonstrated real operator* inline cost.
+2. The same cache and test, using `result->Is_Constant()` as the natural cached
+   receiver. This uses the real Peek helper rather than the operator* helper;
+   no assertion implementation or configuration is altered or suppressed.
+
+Peek returns Referent without changing ownership. No operation intervenes
+between cache, test, and immediate Is_Constant on the nonnull path. Evaluate
+still reloads m_result after allocation; caching across that call would require
+a different semantic argument and is deliberately not done. Local reference
+counts and C-string temporary lifetime remain unchanged. Constructor assert
+stays on physical line51; ref_ptr operator* assertion stays enabled on356.
+
+Compare direct call and Report paths, early-child/factory cleanup edges, full
+body groups, EH and original267 pairs/symbol pairs for both specializations.
+No claim the local was in original source, or that a local spelling must help.
+If these duplicate or provide no useful mechanism, no positional cache sweep.

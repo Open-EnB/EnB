@@ -1,0 +1,27 @@
+# Shared std::string accessor-layer lead
+
+Untested hypothesis; this review compiled 0 forms. On canonical VC6 SP4,
+`/home/dev/Toolchains/enb-vc6-sp4/prefix/drive_c/VC6/VC98/Include/XSTRING:341`
+defines `c_str()` as the buffer/singleton selection and `data()` at line 343 as
+`return (c_str());`. The actual compiler header therefore supplies a real
+additional inline layer with the identical pointer and NUL termination in this
+toolchain. A whole string copy is not equivalent, since it retains embedded NULs.
+
+Test the single source change `node->Get_Token().Text.data()` in the existing
+`std::string(...)` factory argument, on original and second-guard inputs. Do not
+change temporary lifetime, argument ordering, any checks, or direct string
+internals. Compare both specialization code, branch targets, specific two missing
+out-of-line calls, c_str load/select, EH and all 267 baseline pairs/symbols. This
+is distinct from the tested named const-char pointer and implicit-conversion
+forms, which did not add a library inline layer; the exact collector's qualified
+Visit_Leaf provides local precedent for a layer affecting inline behavior.
+
+Rationale: target 0x4CFBE9 reads the token buffer then tests it and chooses the
+empty singleton; prior output adds an intermediate address and initializes the
+singleton first. The extra library accessor might affect this scheduling and the
+function-wide inlining threshold. No claim it will fix common child cleanup or
+that the client used `data()`. The guarantee of termination here relies on the
+actual VC6 implementation; C++98 standard `data()` alone does not promise a
+terminator, so any candidate's portability needs consideration independently.
+If both inputs duplicate existing output or fail to improve a concrete residue,
+stop; do not sweep alternate spellings.

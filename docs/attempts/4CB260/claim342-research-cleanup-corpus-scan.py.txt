@@ -1,0 +1,58 @@
+import json,sys
+from pathlib import Path
+sys.dont_write_bytecode=True
+R=Path('/home/dev/Projects/EnB'); W=R/'.work/claim-342'; O=W/'astra-research'
+sys.path.insert(0,str(R/'tools/re'))
+from objmatch import CoffObject,object_unwind
+import capstone
+md=capstone.Cs(capstone.CS_ARCH_X86,capstone.CS_MODE_32)
+plan=json.loads((W/'global-baseline/plan.json').read_text())
+matches={}
+for p in (W/'global-baseline').glob('*-matches.json'):
+ for m in json.loads(p.read_text()):
+  if m['status']=='exact': matches[(p.stem[:-8],m['object'],m['symbol'])]=m
+out=[]; count=0
+for n,(src,lib) in enumerate(plan['units'].items(),1):
+ path=W/'global-baseline'/str(n)/(Path(src).stem+'.obj')
+ obj=CoffObject(str(path))
+ for sym,sec,s,e in obj.functions():
+  m=matches.get((lib,path.name,sym))
+  if not m or m['length']<100: continue
+  info=obj.sections[sec]; raw=obj.data[info['raw']+s:info['raw']+s+m['length']]
+  if b'\x6a\xff' not in raw[:24]:continue
+  ins=list(md.disasm(raw,0)); byaddr={i.address:j for j,i in enumerate(ins)}
+  edges=[]
+  for j,i in enumerate(ins):
+   if not i.mnemonic.startswith('j'):continue
+   try:t=int(i.op_str,16)
+   except ValueError:continue
+   if t>=i.address or t not in byaddr:continue
+   k=byaddr[t]; block=ins[k:k+22]
+   # Early failure cleanup: stack EH state write or direct destructor soon after branch target.
+   state=any(x.mnemonic=='mov' and ('byte ptr [esp' in x.op_str or 'byte ptr [ebp' in x.op_str or x.op_str.endswith(', 0xffffffff')) for x in block[:10])
+   if not state:continue
+   todo=[k];seen=set();loop=False
+   while todo:
+    q=todo.pop()
+    if q in seen or q>=len(ins):continue
+    seen.add(q);z=ins[q]
+    if z.address==i.address:loop=True;break
+    if z.mnemonic.startswith('ret'):continue
+    if z.mnemonic.startswith('j'):
+     try:u=int(z.op_str,16)
+     except ValueError:u=-1
+     if u in byaddr:todo.append(byaddr[u])
+     if z.mnemonic=='jmp':continue
+    todo.append(q+1)
+   if loop:continue
+   edges.append([i.address,t])
+  if not edges:continue
+  unw=object_unwind(obj,sec,s,m['length'])
+  if not unw or len(unw[2])<2:continue
+  rel=[dict(offset=a,symbol=x['name']) for a,b,c,x,d in obj.reloc_targets(sec,s,m['length']) if x]
+  out.append(dict(source=src,object=str(path),symbol=sym,name=m['name'],addresses=m['addresses'],length=m['length'],states=len(unw[2]),edges=edges,relocations=rel))
+  count+=1
+(O/'early-cleanups.json').write_text(json.dumps(out,indent=2))
+print('candidates',count)
+for x in out:
+ print(x['addresses'],x['name'],x['source'],x['states'],x['edges'])

@@ -1,0 +1,34 @@
+from pathlib import Path
+import difflib,hashlib,json,re,subprocess,sys
+R=Path('/home/dev/Projects/EnB');D=R/'.work/claim-342/pop-experiment';P=D/'tree';T=D/'build-tree';A=R/'.git/local-vc6-preflight/drive-e/build/beta/G'
+UNITS=['app/client/html/unknown_htmlattrib.cpp','app/client/html/unknown_htmlattrib.h','libs/wwonline/wlib/dictionary.h'];CPP=UNITS[0]
+sys.path[:0]=[str(T/'tools/vc6'),str(T/'tools/re')]
+import libdefs
+def sha(b):return hashlib.sha256(b).hexdigest()
+def win(p):return 'Z:'+str(p).replace('/','\\')
+def guard(s):return [[i,l.strip()] for i,l in enumerate(s.splitlines(),1) if re.search(r'\b(?:G_ASSERT|FAIL_IF|WWASSERT)\s*\(|__LINE__',l)]
+def main():
+ name=sys.argv[1];assert re.fullmatch('[a-z0-9_-]+',name);folder=D/'inputs'/name;out=D/'runs'/name;out.mkdir(parents=True,exist_ok=False)
+ hashes=json.loads((D/'snapshot.json').read_text())
+ for p,h in hashes.items():assert sha((P/p).read_bytes())==h and sha((T/p).read_bytes())==h,p
+ original={u:(P/u).read_bytes() for u in UNITS};inputs={};replays=[]
+ for unit in UNITS:
+  data=(folder/unit).read_bytes() if (folder/unit).exists() else original[unit];inputs[unit]=data
+  assert guard(original[unit].decode())==guard(data.decode()),'assert lines changed:'+unit
+  old=original[unit].decode();new=data.decode();edits=[dict(start=i,end=j,text=new[k:l]) for tag,i,j,k,l in difflib.SequenceMatcher(None,old,new,autojunk=False).get_opcodes() if tag!='equal'];s=old
+  for e in reversed(edits):s=s[:e['start']]+e['text']+s[e['end']:]
+  assert s==new
+  replays.append(dict(unit=unit,base_sha256=sha(original[unit]),input_sha256=sha(data),edits=edits))
+ (out/'input.json').write_text(json.dumps(dict(run=name,base_revision=(D/'revision.txt').read_text().strip(),classification='unchanged_control' if all(inputs[u]==original[u] for u in UNITS) else 'diagnostic_changed',inputs=replays,replay_verified=True,edit_offsets='Python character offsets; apply descending'),indent=2)+'\n')
+ try:
+  assert A.is_symlink();A.unlink();A.symlink_to(T,target_is_directory=True)
+  for u,b in inputs.items():(T/u).write_bytes(b)
+  app=libdefs.APP_LIBS['app'];args=[libdefs.flags_of(T/CPP)]+['/D'+x for x in app['defines']]+['/I"'+win(x)+'"' for x in libdefs.tree_includes()]+['"'+app['file_root']+'\\'+CPP.replace('/','\\')+'"']
+  rsp=out/'compile.rsp';rsp.write_text('\n'.join(args))
+  with (out/'compile.log').open('w') as log:r=subprocess.run(['/home/dev/Toolchains/enb-vc6-sp4/bin/vc6-cl','@'+win(rsp)],cwd=out,stdout=log,stderr=log,timeout=300)
+  log=(out/'compile.log').read_text(errors='replace');assert r.returncode==0 and not re.search(r'\b(?:fatal )?error\s+[A-Z]+\d+',log,re.I),log[-2000:]
+  obj=out/'unknown_htmlattrib.obj';assert obj.is_file();(out/'compiled.json').write_text(json.dumps(dict(object_sha256=sha(obj.read_bytes()),compiler_returncode=r.returncode,source_sha256=sha(inputs[CPP]),header_sha256=sha(inputs[UNITS[1]]),dictionary_sha256=sha(inputs[UNITS[2]])),indent=2)+'\n');print(name,'compiled')
+ except Exception as e:(out/'failure.json').write_text(json.dumps(dict(error=str(e)),indent=2)+'\n');raise
+ finally:
+  for u,b in original.items():(T/u).write_bytes(b)
+if __name__=='__main__':main()

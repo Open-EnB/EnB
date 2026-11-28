@@ -1,0 +1,131 @@
+Validation update: the first caller-return comparison has now been run.
+The void diagnostic collapses cleanup at the end, reaching the prewritten
+falsifier. The second stage and parked-target retry were not run. See
+docs/attempts/4CB260/claim342-pop-void-report.txt. The original research plan
+below is preserved as the pre-experiment record.
+
+# Unproven operation-helper lead and pre-retry validation
+
+Status: research hypothesis, zero forms generated/compiled, not permission to
+retry either parked target. Exact evidence: report.md's fully audited Pop
+0x779F90 and existing Dictionary::getPointer source. The helper's C++ bool return
+must not be confused with the caller Pop's bit8/char return or Visit_Binary's void.
+
+## Meaningful operation, not an arbitrary wrapper cost
+
+The proposed operation has this semantic contract (illustrative pseudocode,
+not an assertion of the original name):
+
+    bool Build_Child(ExprMathTreeClass *child, PtrType &out) {
+        child->Accept(this);
+        if (m_result == NULL) return false;
+        out = m_result;
+        return true;
+    }
+
+The owner out remains a caller local constructed before either callback. Each
+caller expression supplies node->Get_Left() or Get_Right() in the existing
+order. Failure leaves out unchanged; success performs the original assignment
+exactly once. Returning true must NOT re-test m_result after assignment: a
+Release_Ref deletion can invoke callbacks. No owner is returned by value, no
+new owner/temporary is constructed, and no additional callback is introduced.
+
+For eventual isolation the relevant actual source control is
+/home/dev/Projects/EnB/.work/claim-342/runs/sol_int_separate_returns_helpers/input.h.
+It already has separate child early returns and both meaningful recovered
+helpers. Operation extraction would retain that source return structure; it
+would not combine a new helper with an untested guard/label arrangement.
+
+Why the 40 inputs do not cover this: Get_Result was a const-reference forwarding
+accessor, data() another accessor; both left child control flow in the caller.
+The comma-expression short-circuit had no inlined operation's internal returns.
+The first-return goto and separate-return controls likewise did not move the
+callback/check/ownership transaction into a real predicate/out-reference
+operation. This is a new semantic unit whose inline control-flow lowering can
+be investigated, not a promise that an added level or source cost will help.
+
+Applicable EXISTING workflow.md section3.1.2 references:
+
+- Line303 table row: a pseudocode reconstruction with its own members flattened;
+  restoring meaningful member operations changes the nested helpers in callers.
+- Lines793-800, Exits and cross-jumps: shared return tails and which copy survives.
+- Lines525-528, Repeated destructor sites: source sites and inlining differ.
+- Line307 table row (for the validation control below): nested conditions versus
+  equivalent combined tests can have the same body but different caller inlining.
+
+These rows identify mechanisms to investigate. Merely citing them does not make
+this a new proven lever under the LIMIT REACHED rule (workflow.md:183-191).
+
+## Required validation before any parked-target retry
+
+No part of this plan was executed. Compiler diagnostics are outside this
+read-only pass; the coordinator must review scope and acquire the exclusive
+compiler gate before performing them in isolated scratch sources/outputs.
+This is an internal workflow boundary, not an additional user-approval rule.
+Diagnostics must not alter production, game/toolchain files, or current
+snapshots, or rebuild another unmatched claimed function.
+
+First use the already-exact Pop and its REAL Wstring/ArrayList/Dictionary
+operations as a controlled diagnostic. Preserve original return-bit8 source as
+the known exact control. Make a separate diagnostic operation that discards the
+return value and has void returns, while preserving every lookup/removal call,
+iteration, write, and object lifetime. Remove only the now-unused result value;
+do not retain dummy computations to force code. This diagnostic is meaningful
+as a caller-discarded pop operation; it is not a production reconstruction.
+Do not introduce fake owner types or manually destroy anything.
+
+Hold Dictionary::getPointer and all its inline layers unchanged in this first
+comparison. Inspect whether its failure edges and the later no-match exit still
+share the first v/k cleanup when success no longer requires BL->AL. The expected
+EH map remains [-1,0,1,1] with the same actions, while the return-value writes
+vanish. If all cleanup collapses at the end, the exact Pop example has NOT
+demonstrated the needed mechanism in void context: stop, do not retry visitors.
+
+Only if that caveat survives, isolate helper CONTROL FLOW at the same return
+type and same inline depth. In a diagnostic copy of the actual Dictionary
+helper, compare its existing early false returns with a single-result structured
+form that performs the same searches/out-write and returns its bool once. Keep
+the public operation, owner types, callback order and private representation
+unchanged; do not flatten private fields into Pop or access STL internals.
+Apply this helper change to both the bit8 control and void diagnostic. This
+small 2x2 comparison separates caller return-value requirements from source
+control flow inside the real operation; it is not a source spelling sweep.
+All inputs must be preserved even if they duplicate output.
+
+A useful result would demonstrate a repeatable change in which early destructor
+copy survives in the VOID caller attributable to the predicate operation's
+internal return structure, with the owner EH maps and side effects unchanged.
+If only AL materialization changes, only the bit8 case changes, the helper
+becomes an out-of-line call, or the map acquires/loses owner lifetimes, the
+result does not establish the proposed visitor lever. A duplicate is no proof
+that every meaningful helper structure is equivalent; it simply closes this
+specific evidence path without a target attempt.
+
+Even a useful diagnostic is not a target solve: root must decide whether it is
+strong enough under the existing workflow row to authorize one narrowly
+specified extraction. Exact-byte preservation of the original Pop control is
+required; diagnostic void bodies have no retail target and must never be
+reported as newly exact functions. Supporting changes, if ever retained, need
+normal scope and all-consumer verification.
+
+## Target prediction and falsifiers if eligibility is later established
+
+The hypothesis predicts that inlining the child-operation predicate leaves its
+false-result edges available for folding into the first child cleanup. The
+target landmark is int0x4CFBB5 -> 0x4CFB49 (float corresponding edge), while
+factory failure retains its separate right cleanup sharing the left suffix.
+The duplicate second nonnull test before Add_Ref should survive as in retail.
+The two-owner EH map and all six cleanup actions should remain unchanged. The
+two recovered constant-base-constructor/final-left-destructor calls must remain.
+
+This could remove redundant destructor/delete call sites and the first-success
+offset excess; no precise residue score is predicted. It does not independently
+predict the five-byte token-select change or three-byte late ECX reload.
+Compiler-equivalent output, bool setcc/test materialization absent retail,
+cleanup still at the second/final site, extra EH ownership, an added Report
+path, or loss of either recovered call falsifies the narrow intended effect.
+
+All existing semantic hazards stay in scope: left/right callback and Add_Ref /
+Release_Ref order; reentrant deletes; factory temporary destruction before its
+null check; allocation before Evaluate; C-string embedded-NUL truncation; and
+enabled assertions. No assertion can be suppressed to rescue a code shape.

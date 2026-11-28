@@ -1,0 +1,58 @@
+{
+  "run": "sol_float_reverse_original",
+  "unit": "app/shared/expr/expr_math_builder.h",
+  "base_revision": "c180e8cf859d688183f1900512b33423cb939b77",
+  "base_sha256": "e5338bd6698039ab87b2290257c5b87f24211c445422d0a165a9a8f480d935f7",
+  "input_sha256": "b63b2627c170466c1c8ff67c0aa304b8732240d7dc240fec4c80ccf891bc4eb1",
+  "edits": [
+    {
+      "start": 2607,
+      "end": 2607,
+      "text": "NULL == "
+    },
+    {
+      "start": 2615,
+      "end": 2623,
+      "text": ""
+    },
+    {
+      "start": 2702,
+      "end": 2702,
+      "text": "NULL == "
+    },
+    {
+      "start": 2710,
+      "end": 2718,
+      "text": ""
+    },
+    {
+      "start": 2860,
+      "end": 2860,
+      "text": "NULL == "
+    },
+    {
+      "start": 2868,
+      "end": 2876,
+      "text": ""
+    }
+  ],
+  "edit_offsets": "zero-based Python character offsets; apply in descending order",
+  "replay_verified": true,
+  "translation_units": [
+    {
+      "unit": "app/shared/expr/expr_math_float.cpp",
+      "source_sha256": "c9614af43d885509f0f52e0f2f99ecaafbe1a089cedf75905f8280f40a5c69ad",
+      "response_sha256": "5beb887c4de296a9852434694fbc83940bd7e88392922aea8df58c33b677cf7f",
+      "compiler_log_sha256": "d2c2ec4c48f74026431b81f3c28c3457b19824ee46f1119047781d29fe90bb46",
+      "object_sha256": null
+    }
+  ],
+  "classification": "compiler_invalid",
+  "error_codes": [
+    "C2065",
+    "C2143"
+  ],
+  "failure": {
+    "error": "compiler failed:expr_math_float.cpp\ne:\\build\\beta\\G\\app\\shared\\expr\\..\\..\\..\\wwlib\\ref_ptr.h(401) : error C2065: 'FAIL_IF' : undeclared identifier\n        e:\\build\\beta\\G\\app\\shared\\expr\\expr_math_builder.h(77) : see reference to function template instantiation 'bool __cdecl operator ==(class DummyPtrType *,const class RefCountPtr<class ExprMathEvalClass<float> > &)' being compiled\ne:\\build\\beta\\G\\app\\shared\\expr\\..\\..\\..\\wwlib\\ref_ptr.h(401) : error C2143: syntax error : missing ';' before '{'\n        e:\\build\\beta\\G\\app\\shared\\expr\\expr_math_builder.h(77) : see reference to function template instantiation 'bool __cdecl operator ==(class DummyPtrType *,const class RefCountPtr<class ExprMathEvalClass<float> > &)' being compiled\n"
+  }
+}

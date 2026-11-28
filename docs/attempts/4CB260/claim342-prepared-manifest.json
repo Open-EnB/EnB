@@ -1,0 +1,453 @@
+[
+  {
+    "sha256": "07cecf60d1320efa904029d41051bc6090e711be215882cbc0418a591ba070d4",
+    "prepared_paths": [
+      "4CFB00/sol/subscript_dereference/expr_math_builder.h"
+    ],
+    "actual_runs": [
+      "sol_int_subscript_dereference"
+    ],
+    "classification": "prepared_and_globally_tested",
+    "note": ""
+  },
+  {
+    "sha256": "0f411a3a064933e48820689c6e013f2d36a2c1fa0d5d7e74c36c8d90d53575b8",
+    "prepared_paths": [
+      "4CB260/first/second_guard/expr_math_builder.h"
+    ],
+    "actual_runs": [
+      "float_second_guard"
+    ],
+    "classification": "prepared_and_globally_tested",
+    "note": ""
+  },
+  {
+    "sha256": "1a9d73aee7d93739afce808b92ad1b8e6a72e6544cf182381bdd766f73f163b3",
+    "prepared_paths": [
+      "4CB260/first/first_label_named/expr_math_builder.h"
+    ],
+    "actual_runs": [
+      "float_first_label_named"
+    ],
+    "classification": "prepared_and_globally_tested",
+    "note": ""
+  },
+  {
+    "sha256": "242e22814ccf31db301a1e832c53213c27801ec1d946ac38ea8b99989d0ad42d",
+    "prepared_paths": [
+      "4CB260/sol/null_original/expr_math_builder.h"
+    ],
+    "actual_runs": [
+      "sol_float_null_original"
+    ],
+    "classification": "prepared_and_globally_tested",
+    "note": ""
+  },
+  {
+    "sha256": "25ff5058cd719318e6bf292a17a0e2acc57491c784fc80d97ee80fe43acd6b4a",
+    "prepared_paths": [
+      "4CB260/sol/null_guarded/expr_math_builder.h"
+    ],
+    "actual_runs": [
+      "sol_float_null_guarded"
+    ],
+    "classification": "prepared_and_globally_tested",
+    "note": ""
+  },
+  {
+    "sha256": "2bf7accc05b593efbb96afe997aa098f32e6274b65ba71ddfd2328f9b2a3563e",
+    "prepared_paths": [
+      "4CFB00/first/scope_guard/expr_math_builder.h"
+    ],
+    "actual_runs": [
+      "int_first_scope_guard"
+    ],
+    "classification": "prepared_and_globally_tested",
+    "note": ""
+  },
+  {
+    "sha256": "39be00854483a28565a0f44756c5a83bfd4eecb009b48100fb50e0ef26dafa32",
+    "prepared_paths": [
+      "4CFB00/first/implicit_guard/expr_math_builder.h"
+    ],
+    "actual_runs": [
+      "int_first_implicit_guard"
+    ],
+    "classification": "prepared_and_globally_tested",
+    "note": ""
+  },
+  {
+    "sha256": "40963888160ec820119e8736639f7a90b272c3a2c324f5b716ea10703fbaae3a",
+    "prepared_paths": [
+      "4CB260/sol/dereference_reverse_factory_guarded/expr_math_builder.h"
+    ],
+    "actual_runs": [
+      "sol_float_dereference_reverse_factory_guarded"
+    ],
+    "classification": "prepared_and_globally_tested",
+    "note": ""
+  },
+  {
+    "sha256": "4392593f63b256c4446cb767f3ac51d0fa3ff9455b39c53219aef43ec2173b14",
+    "prepared_paths": [
+      "astra/cache_receiver/expr_math_builder.h"
+    ],
+    "actual_runs": [
+      "astra_cache_receiver"
+    ],
+    "classification": "prepared_and_globally_tested",
+    "note": ""
+  },
+  {
+    "sha256": "4bc448f3ebe06827f23d346b5512eaf8853657014cba4beadf20efa424fdfded",
+    "prepared_paths": [
+      "4CB260/sol/dereference_guarded/expr_math_builder.h"
+    ],
+    "actual_runs": [
+      "sol_float_dereference_guarded"
+    ],
+    "classification": "prepared_and_globally_tested",
+    "note": ""
+  },
+  {
+    "sha256": "4ede814579c414a43f238c8ea20d141e37623b452fc125b40dc1cf6fb79ddb03",
+    "prepared_paths": [
+      "4CFB00/sol/child_guards/expr_math_builder.h"
+    ],
+    "actual_runs": [
+      "sol_int_child_guards"
+    ],
+    "classification": "prepared_and_globally_tested",
+    "note": ""
+  },
+  {
+    "sha256": "56eb539e3824c4b47d56b74285396c04e6e9509172456983445577f098c4bf90",
+    "prepared_paths": [
+      "string-test/original/expr_math_builder.h"
+    ],
+    "actual_runs": [
+      "group_string_original"
+    ],
+    "classification": "prepared_and_globally_tested",
+    "note": ""
+  },
+  {
+    "sha256": "57645fb3e34aa2000c318e6dc46a7c54eaf16aa43a6e5dfb578f644ac59ee961",
+    "prepared_paths": [
+      "4CB260/sol/reverse_factory_guarded/expr_math_builder.h"
+    ],
+    "actual_runs": [
+      "sol_float_reverse_factory_guarded"
+    ],
+    "classification": "prepared_and_globally_tested",
+    "note": ""
+  },
+  {
+    "sha256": "58d36ef87f532b33e41baaaf3d5162e5db051ede37a0a91e57be9a97506a6f56",
+    "prepared_paths": [
+      "4CB260/first/fold_raw/expr_math_builder.h"
+    ],
+    "actual_runs": [
+      "float_fold_raw"
+    ],
+    "classification": "prepared_and_globally_tested",
+    "note": ""
+  },
+  {
+    "sha256": "5b3c03fc68aafd1fc6f85d9b4d94b71df8d61bef6163a7b159fb1b6f15f3e618",
+    "prepared_paths": [
+      "group-test/original/expr_math_builder.h"
+    ],
+    "actual_runs": [
+      "group_accessor_original"
+    ],
+    "classification": "prepared_and_globally_tested",
+    "note": ""
+  },
+  {
+    "sha256": "5f14242b4df19f4964bf5327ee78544c809887c9e13949f6fd226a6962720c38",
+    "prepared_paths": [
+      "4CB260/sol/reverse_include_original/expr_math_builder.h"
+    ],
+    "actual_runs": [
+      "sol_float_reverse_include_original"
+    ],
+    "classification": "prepared_and_globally_tested",
+    "note": ""
+  },
+  {
+    "sha256": "6434c2fa307ac4b0f2011f6844123257cf72ac7dfb668540d3fd28d261677506",
+    "prepared_paths": [
+      "4CB260/sol/reverse_include_guarded/expr_math_builder.h"
+    ],
+    "actual_runs": [
+      "sol_float_reverse_include_guarded"
+    ],
+    "classification": "prepared_and_globally_tested",
+    "note": ""
+  },
+  {
+    "sha256": "6533117472777392c03736688d630fefd2724533af37cdf50335a48398f557e7",
+    "prepared_paths": [
+      "4CB260/first/named_text/expr_math_builder.h"
+    ],
+    "actual_runs": [
+      "float_first_named_text"
+    ],
+    "classification": "prepared_and_globally_tested",
+    "note": ""
+  },
+  {
+    "sha256": "66c1082ae34dd55a33280525178b3865e552c086f6f8c1aa287a81fd5df252aa",
+    "prepared_paths": [
+      "4CB260/sol/include_original/expr_math_builder.h"
+    ],
+    "actual_runs": [
+      "sol_float_include_original"
+    ],
+    "classification": "prepared_and_globally_tested",
+    "note": ""
+  },
+  {
+    "sha256": "6d9ffcad4d19da87c1342b9817c80c56ef0e995c21c221e32e6ed3e890a8bb6d",
+    "prepared_paths": [
+      "group-test/guarded/expr_math_builder.h"
+    ],
+    "actual_runs": [
+      "group_accessor_guarded"
+    ],
+    "classification": "prepared_and_globally_tested",
+    "note": ""
+  },
+  {
+    "sha256": "79e0a591a29f2021ea0840a8171b891a5999ff514beda7f6bf9a7abc09a28716",
+    "prepared_paths": [
+      "4CB260/sol/include_guarded/expr_math_builder.h"
+    ],
+    "actual_runs": [],
+    "classification": "prepared_uncompiled",
+    "note": "Prepared intermediate support-include control on guarded base, not separately compiled. The include-only original control was actually compiled as sol_float_include_original and duplicate original; supported guarded helper variants were compiled. This intermediate control is not an open function hypothesis.",
+    "record": "prepared-79e0a591a29f2021.json"
+  },
+  {
+    "sha256": "7f50e94522ef8ad1503c2bbe7a3b7ebf22ab6b13ea4d3acad5ec39c3f3ff426c",
+    "prepared_paths": [
+      "4CB260/first/child_goto/expr_math_builder.h"
+    ],
+    "actual_runs": [
+      "float_first_child_goto"
+    ],
+    "classification": "prepared_and_globally_tested",
+    "note": ""
+  },
+  {
+    "sha256": "82fb58c1673413a8d3095782853c6cda252304b8b780b8810ca28152e59eca55",
+    "prepared_paths": [
+      "4CFB00/sol/subscript_guard/expr_math_builder.h"
+    ],
+    "actual_runs": [
+      "sol_int_subscript_guard"
+    ],
+    "classification": "prepared_and_globally_tested",
+    "note": ""
+  },
+  {
+    "sha256": "866eb4b14b48e4bab00245b8bbfd70a1bed7ad5bb97d9470208c8fad1e2603ea",
+    "prepared_paths": [
+      "4CB260/first/both_guard/expr_math_builder.h"
+    ],
+    "actual_runs": [
+      "float_both_guard"
+    ],
+    "classification": "prepared_and_globally_tested",
+    "note": ""
+  },
+  {
+    "sha256": "86fe4e01db09bf3ee1bcea4f764aa01145c835a3d4c2288ead36e04973f43147",
+    "prepared_paths": [
+      "4CFB00/sol/shared_failure_helpers/expr_math_builder.h"
+    ],
+    "actual_runs": [
+      "sol_int_shared_failure_helpers"
+    ],
+    "classification": "prepared_and_globally_tested",
+    "note": ""
+  },
+  {
+    "sha256": "9cdd30f5d30ffb35eab645e6d7548061481705496379626d693f3b13bef0ba64",
+    "prepared_paths": [
+      "4CFB00/sol/child_break/expr_math_builder.h"
+    ],
+    "actual_runs": [
+      "sol_int_child_break"
+    ],
+    "classification": "prepared_and_globally_tested",
+    "note": ""
+  },
+  {
+    "sha256": "9e2017437d0855d12a65c22299bd460ef3513e601a8b37c15e35e78cfd203ec2",
+    "prepared_paths": [
+      "4CB260/first/first_guard/expr_math_builder.h"
+    ],
+    "actual_runs": [
+      "float_first_guard"
+    ],
+    "classification": "prepared_and_globally_tested",
+    "note": ""
+  },
+  {
+    "sha256": "9efda5a085bebc2d442b8ddfbd1025f7ce6d1d27d69865b1868601d74a816ee0",
+    "prepared_paths": [
+      "4CFB00/sol/null_left_guard/expr_math_builder.h",
+      "4CB260/sol/reverse_guarded/expr_math_builder.h"
+    ],
+    "actual_runs": [],
+    "classification": "prepared_uncompiled",
+    "note": "Two workers independently prepared the same guarded reversed-null proposal without its required early g_assert dependency. Never compiled at this hash after sol_float_reverse_original proved the original form compiler-invalid because FAIL_IF was undeclared. The corrected supported guarded form was actually tested as sol_float_reverse_include_guarded and failed61/61. This is a superseded prepared source, not an open lead.",
+    "record": "prepared-9efda5a085bebc2d.json"
+  },
+  {
+    "sha256": "a3c7b33bc70c175c51e4d1a6ef778d1129a958b6eba2ac0c90434da2249ede39",
+    "prepared_paths": [
+      "4CB260/first/first_label/expr_math_builder.h"
+    ],
+    "actual_runs": [
+      "float_first_label"
+    ],
+    "classification": "prepared_and_globally_tested",
+    "note": ""
+  },
+  {
+    "sha256": "b557cc7c41cf15b626b83b79373b43f89b56bd3e674e4500dc4241f8d454bc9a",
+    "prepared_paths": [
+      "4CFB00/sol/named_string_original/expr_math_builder.h"
+    ],
+    "actual_runs": [
+      "sol_int_named_string_original"
+    ],
+    "classification": "prepared_and_globally_tested",
+    "note": ""
+  },
+  {
+    "sha256": "b63b2627c170466c1c8ff67c0aa304b8732240d7dc240fec4c80ccf891bc4eb1",
+    "prepared_paths": [
+      "4CFB00/sol/null_left_original/expr_math_builder.h",
+      "4CB260/sol/reverse_original/expr_math_builder.h"
+    ],
+    "actual_runs": [
+      "sol_float_reverse_original"
+    ],
+    "classification": "prepared_and_globally_tested",
+    "note": ""
+  },
+  {
+    "sha256": "b669760727ac3ec5e4695301f3baa73627d4151c60453e32becffef82d02d6b9",
+    "prepared_paths": [
+      "4CFB00/sol/separate_returns_helpers/expr_math_builder.h"
+    ],
+    "actual_runs": [
+      "sol_int_separate_returns_helpers"
+    ],
+    "classification": "prepared_and_globally_tested",
+    "note": ""
+  },
+  {
+    "sha256": "b822fd88a75a192aee191624745ef15ce2163b93353202983f80ed8fc35cb189",
+    "prepared_paths": [
+      "string-test/guarded/expr_math_builder.h"
+    ],
+    "actual_runs": [
+      "group_string_guarded"
+    ],
+    "classification": "prepared_and_globally_tested",
+    "note": ""
+  },
+  {
+    "sha256": "bd63128c5c338bf2dcaf0c530b3f065bbc6f27f372406904ea7fb575beb99731",
+    "prepared_paths": [
+      "4CB260/first/fold_ptr/expr_math_builder.h"
+    ],
+    "actual_runs": [
+      "float_fold_ptr"
+    ],
+    "classification": "prepared_and_globally_tested",
+    "note": ""
+  },
+  {
+    "sha256": "c3ad7f625fa97e9053ff6d3b4f55144827630c07cd390d01e0f2e58a45e7bc97",
+    "prepared_paths": [
+      "astra/cache_test/expr_math_builder.h"
+    ],
+    "actual_runs": [
+      "astra_cache_test"
+    ],
+    "classification": "prepared_and_globally_tested",
+    "note": ""
+  },
+  {
+    "sha256": "c8ec659928eb1e1198bbbe86851cf84b7955bf8dd8c6a2c58a462492aedc7e1b",
+    "prepared_paths": [
+      "4CFB00/sol/subscript_original/expr_math_builder.h"
+    ],
+    "actual_runs": [
+      "sol_int_subscript_original"
+    ],
+    "classification": "prepared_and_globally_tested",
+    "note": ""
+  },
+  {
+    "sha256": "ce3a670fb103dc2d82386c69ebbebad67f28fdb3e99ebdc82fdc33ef6b41d6a7",
+    "prepared_paths": [
+      "4CFB00/first/implicit_baseline/expr_math_builder.h"
+    ],
+    "actual_runs": [
+      "int_first_implicit_baseline"
+    ],
+    "classification": "prepared_and_globally_tested",
+    "note": ""
+  },
+  {
+    "sha256": "e791d5061025e67a6217a225fb28d49c29ea765891b1722e4816087ebd6ff710",
+    "prepared_paths": [
+      "4CFB00/first/shortcircuit/expr_math_builder.h"
+    ],
+    "actual_runs": [
+      "int_first_shortcircuit"
+    ],
+    "classification": "prepared_and_globally_tested",
+    "note": ""
+  },
+  {
+    "sha256": "e8cf053ba41c321d2c44a0506742babfa9c36091e884441f0ce83a877dee2f73",
+    "prepared_paths": [
+      "4CFB00/sol/named_string_guard/expr_math_builder.h"
+    ],
+    "actual_runs": [
+      "sol_int_named_string_guard"
+    ],
+    "classification": "prepared_and_globally_tested",
+    "note": ""
+  },
+  {
+    "sha256": "fcaf3018afb931c4455146986509a08dc923b0e8a4de2a09a8cd8c618177c430",
+    "prepared_paths": [
+      "4CB260/first/guard_named/expr_math_builder.h"
+    ],
+    "actual_runs": [
+      "float_guard_named"
+    ],
+    "classification": "prepared_and_globally_tested",
+    "note": ""
+  },
+  {
+    "sha256": "feb4e88be792404c06da94a69e26e1204653845bf57b0eeabba26dbc350f26bb",
+    "prepared_paths": [
+      "4CFB00/first/scope_baseline/expr_math_builder.h"
+    ],
+    "actual_runs": [
+      "int_first_scope_baseline"
+    ],
+    "classification": "prepared_and_globally_tested",
+    "note": ""
+  }
+]
