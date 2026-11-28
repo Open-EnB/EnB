@@ -9592,5 +9592,229 @@
   "evidence": "the packet virtual Build renamed Encode after the thunk order (SA1 audit, 248 off-order slots; binary.md 5.11; SA2a 2026-11-27)",
   "replaces": "?Build@WarpIndexPacketClass@@UAEPAVPacketClass@@XZ",
   "kind": "function"
+ },
+ {
+  "address": "0x403116",
+  "symbol": "j_?Shutdown@ViewClass@@UAEXXZ",
+  "evidence": "ViewClass virtual +0x10 Unknown_10 -> Shutdown (thunk order, confirmed); SY1 2026-11-28, symbols_named replaces row for the source rename",
+  "replaces": "j_?Unknown_10@ViewClass@@UAEXXZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x403715",
+  "symbol": "j_?Render@ScriptedMovieViewClass@@UAEH_N@Z",
+  "evidence": "ViewClass virtual +0x0C Unknown_0C -> Render (thunk order, confirmed); SY1 2026-11-28, symbols_named replaces row for the source rename",
+  "replaces": "j_?Unknown_0C@ScriptedMovieViewClass@@UAEH_N@Z",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x405AFB",
+  "symbol": "j_?FindPrev@TargetFindClass@@QAEPAVClientObjectClass@@PAV2@@Z",
+  "evidence": "Find_Prev -> FindPrev (thunk order, probable); SY1 2026-11-28, symbols_named replaces row for the source rename",
+  "replaces": "j_?Find_Prev@TargetFindClass@@QAEPAVClientObjectClass@@PAV2@@Z",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x405B5F",
+  "symbol": "j_?Render@CharacterViewClass@@UAEH_N@Z",
+  "evidence": "ViewClass virtual +0x0C Unknown_0C -> Render (thunk order, confirmed); SY1 2026-11-28, symbols_named replaces row for the source rename",
+  "replaces": "j_?Unknown_0C@CharacterViewClass@@UAEH_N@Z",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x407EE6",
+  "symbol": "j_?Shutdown@StarbaseViewClass@@UAEXXZ",
+  "evidence": "ViewClass virtual +0x10 Unknown_10 -> Shutdown (thunk order, confirmed); SY1 2026-11-28, symbols_named replaces row for the source rename",
+  "replaces": "j_?Unknown_10@StarbaseViewClass@@UAEXXZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x408887",
+  "symbol": "j_?Render@StarbaseViewClass@@UAEH_N@Z",
+  "evidence": "ViewClass virtual +0x0C Unknown_0C -> Render (thunk order, confirmed); SY1 2026-11-28, symbols_named replaces row for the source rename",
+  "replaces": "j_?Unknown_0C@StarbaseViewClass@@UAEH_N@Z",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x40A6DC",
+  "symbol": "j_?Shutdown@CharacterViewClass@@UAEXXZ",
+  "evidence": "ViewClass virtual +0x10 Unknown_10 -> Shutdown (thunk order, confirmed); SY1 2026-11-28, symbols_named replaces row for the source rename",
+  "replaces": "j_?Unknown_10@CharacterViewClass@@UAEXXZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x40C270",
+  "symbol": "j_?Render@UIViewClass@@UAEH_N@Z",
+  "evidence": "ViewClass virtual +0x0C Unknown_0C -> Render (thunk order, confirmed); SY1 2026-11-28, symbols_named replaces row for the source rename",
+  "replaces": "j_?Unknown_0C@UIViewClass@@UAEH_N@Z",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x40D1BB",
+  "symbol": "j_?Has_Desired_Y@AdvancedPositionalUpdatePacketClass@@QAE_NXZ",
+  "evidence": "Has_DesiredY -> Has_Desired_Y (thunk order, probable); SY1 2026-11-28, symbols_named replaces row for the source rename",
+  "replaces": "j_?Has_DesiredY@AdvancedPositionalUpdatePacketClass@@QAE_NXZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x40E1BF",
+  "symbol": "j_?Render@LoadingViewClass@@UAEH_N@Z",
+  "evidence": "ViewClass virtual +0x0C Unknown_0C -> Render (thunk order, confirmed); SY1 2026-11-28, symbols_named replaces row for the source rename",
+  "replaces": "j_?Unknown_0C@LoadingViewClass@@UAEH_N@Z",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x40F038",
+  "symbol": "j_?Render@MainViewClass@@UAEH_N@Z",
+  "evidence": "ViewClass virtual +0x0C Unknown_0C -> Render (thunk order, confirmed); SY1 2026-11-28, symbols_named replaces row for the source rename",
+  "replaces": "j_?Unknown_0C@MainViewClass@@UAEH_N@Z",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x40F2C2",
+  "symbol": "j_?Shutdown@LoadingViewClass@@UAEXXZ",
+  "evidence": "ViewClass virtual +0x10 Unknown_10 -> Shutdown (thunk order, confirmed); SY1 2026-11-28, symbols_named replaces row for the source rename",
+  "replaces": "j_?Unknown_10@LoadingViewClass@@UAEXXZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x4119A5",
+  "symbol": "j_?Shutdown@MainViewClass@@UAEXXZ",
+  "evidence": "ViewClass virtual +0x10 Unknown_10 -> Shutdown (thunk order, confirmed); SY1 2026-11-28, symbols_named replaces row for the source rename",
+  "replaces": "j_?Unknown_10@MainViewClass@@UAEXXZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x418070",
+  "symbol": "j_?Shutdown@ScriptedMovieViewClass@@UAEXXZ",
+  "evidence": "ViewClass virtual +0x10 Unknown_10 -> Shutdown (thunk order, confirmed); SY1 2026-11-28, symbols_named replaces row for the source rename",
+  "replaces": "j_?Unknown_10@ScriptedMovieViewClass@@UAEXXZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x418CB9",
+  "symbol": "j_?Shutdown@UIViewClass@@UAEXXZ",
+  "evidence": "ViewClass virtual +0x10 Unknown_10 -> Shutdown (thunk order, confirmed); SY1 2026-11-28, symbols_named replaces row for the source rename",
+  "replaces": "j_?Unknown_10@UIViewClass@@UAEXXZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x419079",
+  "symbol": "j_?Shutdown@Unknown65B810ViewClass@@UAEXXZ",
+  "evidence": "ViewClass virtual +0x10 Unknown_10 -> Shutdown (thunk order, confirmed); SY1 2026-11-28, symbols_named replaces row for the source rename",
+  "replaces": "j_?Unknown_10@Unknown65B810ViewClass@@UAEXXZ",
+  "kind": "thunk"
+ },
+ {
+  "address": "0x50C2F0",
+  "symbol": "?Shutdown@MainViewClass@@UAEXXZ",
+  "evidence": "ViewClass virtual +0x10 Unknown_10 -> Shutdown (thunk order, confirmed); SY1 2026-11-28, symbols_named replaces row for the source rename",
+  "replaces": "?Unknown_10@MainViewClass@@UAEXXZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x50CAE0",
+  "symbol": "?Render@MainViewClass@@UAEH_N@Z",
+  "evidence": "ViewClass virtual +0x0C Unknown_0C -> Render (thunk order, confirmed); SY1 2026-11-28, symbols_named replaces row for the source rename",
+  "replaces": "?Unknown_0C@MainViewClass@@UAEH_N@Z",
+  "kind": "function"
+ },
+ {
+  "address": "0x65B330",
+  "symbol": "?Render@UIViewClass@@UAEH_N@Z",
+  "evidence": "ViewClass virtual +0x0C Unknown_0C -> Render (thunk order, confirmed); SY1 2026-11-28, symbols_named replaces row for the source rename",
+  "replaces": "?Unknown_0C@UIViewClass@@UAEH_N@Z",
+  "kind": "function"
+ },
+ {
+  "address": "0x65B4A0",
+  "symbol": "?Shutdown@UIViewClass@@UAEXXZ",
+  "evidence": "ViewClass virtual +0x10 Unknown_10 -> Shutdown (thunk order, confirmed); SY1 2026-11-28, symbols_named replaces row for the source rename",
+  "replaces": "?Unknown_10@UIViewClass@@UAEXXZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x65B8B0",
+  "symbol": "?Shutdown@Unknown65B810ViewClass@@UAEXXZ",
+  "evidence": "ViewClass virtual +0x10 Unknown_10 -> Shutdown (thunk order, confirmed); SY1 2026-11-28, symbols_named replaces row for the source rename",
+  "replaces": "?Unknown_10@Unknown65B810ViewClass@@UAEXXZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x679510",
+  "symbol": "?Shutdown@CharacterViewClass@@UAEXXZ",
+  "evidence": "ViewClass virtual +0x10 Unknown_10 -> Shutdown (thunk order, confirmed); SY1 2026-11-28, symbols_named replaces row for the source rename",
+  "replaces": "?Unknown_10@CharacterViewClass@@UAEXXZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x679930",
+  "symbol": "?Render@CharacterViewClass@@UAEH_N@Z",
+  "evidence": "ViewClass virtual +0x0C Unknown_0C -> Render (thunk order, confirmed); SY1 2026-11-28, symbols_named replaces row for the source rename",
+  "replaces": "?Unknown_0C@CharacterViewClass@@UAEH_N@Z",
+  "kind": "function"
+ },
+ {
+  "address": "0x6917A0",
+  "symbol": "?Shutdown@LoadingViewClass@@UAEXXZ",
+  "evidence": "ViewClass virtual +0x10 Unknown_10 -> Shutdown (thunk order, confirmed); SY1 2026-11-28, symbols_named replaces row for the source rename",
+  "replaces": "?Unknown_10@LoadingViewClass@@UAEXXZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x692420",
+  "symbol": "?Render@LoadingViewClass@@UAEH_N@Z",
+  "evidence": "ViewClass virtual +0x0C Unknown_0C -> Render (thunk order, confirmed); SY1 2026-11-28, symbols_named replaces row for the source rename",
+  "replaces": "?Unknown_0C@LoadingViewClass@@UAEH_N@Z",
+  "kind": "function"
+ },
+ {
+  "address": "0x69C0D0",
+  "symbol": "?Shutdown@StarbaseViewClass@@UAEXXZ",
+  "evidence": "ViewClass virtual +0x10 Unknown_10 -> Shutdown (thunk order, confirmed); SY1 2026-11-28, symbols_named replaces row for the source rename",
+  "replaces": "?Unknown_10@StarbaseViewClass@@UAEXXZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x69C5E0",
+  "symbol": "?Render@StarbaseViewClass@@UAEH_N@Z",
+  "evidence": "ViewClass virtual +0x0C Unknown_0C -> Render (thunk order, confirmed); SY1 2026-11-28, symbols_named replaces row for the source rename",
+  "replaces": "?Unknown_0C@StarbaseViewClass@@UAEH_N@Z",
+  "kind": "function"
+ },
+ {
+  "address": "0x6B46F0",
+  "symbol": "?Shutdown@ViewClass@@UAEXXZ",
+  "evidence": "ViewClass virtual +0x10 Unknown_10 -> Shutdown (thunk order, confirmed); SY1 2026-11-28, symbols_named replaces row for the source rename",
+  "replaces": "?Unknown_10@ViewClass@@UAEXXZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x7C4120",
+  "symbol": "?FindPrev@TargetFindClass@@QAEPAVClientObjectClass@@PAV2@@Z",
+  "evidence": "Find_Prev -> FindPrev (thunk order, probable); SY1 2026-11-28, symbols_named replaces row for the source rename",
+  "replaces": "?Find_Prev@TargetFindClass@@QAEPAVClientObjectClass@@PAV2@@Z",
+  "kind": "function"
+ },
+ {
+  "address": "0x8010A0",
+  "symbol": "?Shutdown@ScriptedMovieViewClass@@UAEXXZ",
+  "evidence": "ViewClass virtual +0x10 Unknown_10 -> Shutdown (thunk order, confirmed); SY1 2026-11-28, symbols_named replaces row for the source rename",
+  "replaces": "?Unknown_10@ScriptedMovieViewClass@@UAEXXZ",
+  "kind": "function"
+ },
+ {
+  "address": "0x8012C0",
+  "symbol": "?Render@ScriptedMovieViewClass@@UAEH_N@Z",
+  "evidence": "ViewClass virtual +0x0C Unknown_0C -> Render (thunk order, confirmed); SY1 2026-11-28, symbols_named replaces row for the source rename",
+  "replaces": "?Unknown_0C@ScriptedMovieViewClass@@UAEH_N@Z",
+  "kind": "function"
+ },
+ {
+  "address": "0x8AD760",
+  "symbol": "?Has_Desired_Y@AdvancedPositionalUpdatePacketClass@@QAE_NXZ",
+  "evidence": "Has_DesiredY -> Has_Desired_Y (thunk order, probable); SY1 2026-11-28, symbols_named replaces row for the source rename",
+  "replaces": "?Has_DesiredY@AdvancedPositionalUpdatePacketClass@@QAE_NXZ",
+  "kind": "function"
  }
 ]
