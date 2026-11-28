@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1971 |
 | 2 | describes what the code does | 5023 |
-| 1 | neutral placeholder | 25240 |
+| 1 | neutral placeholder | 25242 |
 
 ## For review (score 3 and below)
 
@@ -15611,11 +15611,13 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6870E0` | `app/client/ui_petition_player_entry.cpp:291` | untagged neutral name (D10) |
 | 1 | `Unknown_4BE9D0` | `app/client/ui_petition_player_entry.cpp:299` | untagged neutral name (D10) |
 | 1 | `Unknown_6AAD10` | `app/client/ui_petition_player_entry.cpp:300` | untagged neutral name (D10) |
+| 1 | `Unknown_Find_Set_Field` | `app/client/ui_petition_player_entry.cpp:303` | untagged neutral name (D10) |
+| 1 | `Unknown_Find_Field` | `app/client/ui_petition_player_entry.cpp:303` | untagged neutral name (D10) |
+| 1 | `Unknown70` | `app/client/ui_petition_player_entry.cpp:303` | untagged neutral name (D10) |
 | 1 | `Unknown_68` | `app/client/ui_petition_player_entry.cpp:305` | untagged neutral name (D10) |
 | 1 | `Unknown_74` | `app/client/ui_petition_player_entry.cpp:310` | untagged neutral name (D10) |
 | 1 | `target` | `app/client/ui_petition_player_entry.cpp:317` | neutral (D10) |
 | 1 | `t` | `app/client/ui_petition_player_entry.cpp:321` | neutral (D10) |
-| 1 | `Unknown_Find_Set_Field` | `app/client/ui_petition_player_entry.cpp:321` | untagged neutral name (D10) |
 | 1 | `name` | `app/client/ui_petition_player_entry.cpp:326` | neutral (D10) |
 | 1 | `Unknown` | `app/client/ui_petition_player_entry.cpp:326` | untagged neutral name (D10) |
 | 1 | `append` | `app/client/ui_petition_player_entry.cpp:327` | neutral (D10) |
@@ -19164,7 +19166,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_64AF80` | `app/client/ui_symbolchat.cpp:127` | untagged neutral name (D10) |
 | 1 | `Unknown_687150` | `app/client/ui_symbolchat.cpp:129` | untagged neutral name (D10) |
 | 1 | `Unknown_64A9B0` | `app/client/ui_symbolchat.cpp:148` | untagged neutral name (D10) |
-| 1 | `Unknown51C800Class` | `app/client/ui_symbolchat.cpp:173` | untagged neutral name (D10) |
+| 1 | `Unknown51C800Class` | `app/client/ui_symbolchat.cpp:172` | untagged neutral name (D10) |
 | 1 | `Unknown_58` | `app/client/ui_symbolchat.cpp:204` | untagged neutral name (D10) |
 | 1 | `Unknown_50` | `app/client/ui_symbolchat.cpp:215` | untagged neutral name (D10) |
 | 1 | `Unknown_68` | `app/client/ui_symbolchat.cpp:232` | untagged neutral name (D10) |
