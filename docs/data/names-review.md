@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
 | 3 | by convention from a client-named file or sibling | 1898 |
 | 2 | describes what the code does | 4966 |
-| 1 | neutral placeholder | 25272 |
+| 1 | neutral placeholder | 25273 |
 
 ## For review (score 3 and below)
 
@@ -17950,6 +17950,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown168` | `app/client/ui_shipcust.cpp:492` | untagged neutral name (D10) |
 | 1 | `Unknown16C` | `app/client/ui_shipcust.cpp:494` | untagged neutral name (D10) |
 | 1 | `Unknown170` | `app/client/ui_shipcust.cpp:497` | untagged neutral name (D10) |
+| 1 | `Unknown_Env_Maps` | `app/client/ui_shipcust.cpp:530` | neutral (D10); a file-static accessor layer (ui_avsel.cpp reads +0x3A4 through CharacterViewClass::Get_Unknown3A4) |
+| 1 | `Unknown3A4` | `app/client/ui_shipcust.cpp:530` | untagged neutral name (D10) |
 | 1 | `Unknown210` | `app/client/ui_shipcust.cpp:537` | untagged neutral name (D10) |
 | 1 | `Unknown211` | `app/client/ui_shipcust.cpp:538` | untagged neutral name (D10) |
 | 1 | `Unknown212` | `app/client/ui_shipcust.cpp:539` | untagged neutral name (D10) |
@@ -17965,7 +17967,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown260` | `app/client/ui_shipcust.cpp:552` | untagged neutral name (D10) |
 | 1 | `Unknown264` | `app/client/ui_shipcust.cpp:553` | untagged neutral name (D10) |
 | 1 | `Unknown268` | `app/client/ui_shipcust.cpp:554` | untagged neutral name (D10) |
-| 1 | `Unknown220` | `app/client/ui_shipcust.cpp:556` | untagged neutral name (D10) |
+| 1 | `Unknown220` | `app/client/ui_shipcust.cpp:557` | untagged neutral name (D10) |
 | 1 | `Unknown_28` | `app/client/ui_shipcust.cpp:559` | untagged neutral name (D10) |
 | 1 | `Unknown14` | `app/client/ui_shipcust.cpp:560` | untagged neutral name (D10) |
 | 1 | `Unknown_08` | `app/client/ui_shipcust.cpp:560` | untagged neutral name (D10) |
@@ -17973,7 +17975,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown088` | `app/client/ui_shipcust.cpp:565` | untagged neutral name (D10) |
 | 1 | `Unknown_67C7B0` | `app/client/ui_shipcust.cpp:569` | untagged neutral name (D10) |
 | 1 | `Unknown_67C920` | `app/client/ui_shipcust.cpp:571` | untagged neutral name (D10) |
-| 1 | `Unknown3A4` | `app/client/ui_shipcust.cpp:577` | untagged neutral name (D10) |
 | 1 | `Unknown_760770` | `app/client/ui_shipcust.cpp:577` | untagged neutral name (D10) |
 | 1 | `Unknown_80C220` | `app/client/ui_shipcust.cpp:580` | untagged neutral name (D10) |
 | 1 | `Unknown_74` | `app/client/ui_shipcust.cpp:581` | untagged neutral name (D10) |
