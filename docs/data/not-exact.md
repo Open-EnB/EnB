@@ -7,13 +7,11 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-419 entries in 212 files.
+417 entries in 211 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
 | `app/audio/bridgesounds.cpp:8` | `BridgeSoundManagerClass::BridgeSoundManagerClass` | marker | NOT EXACT: register-only (explain.py: same length, 0.74): the client holds the 0 of m_channel in ecx and loads 0.5 into eax before it; here eax holds both in turn |
-| `app/audio/musiclist.cpp:137` | `MusicListClass::Update` | marker | NOT EXACT: inline budget (explain.py: masked residue 31, 287 rows vs 284): the client shares one `return 3` tail between the two pop_front exits, keeps the stop branch's --size in ecx / eax and calls the ~vector _Destroy 0x4117BB out of line only in the stop branch's return 2. The two dead Themes.size() after Stop() are budget devices (no bytes, D272): the return 0 ~vector inline as the client (re... |
-| `app/audio/musiclist.cpp:381` | `x437C30` | mention | NOT EXACT: Update 0x437C30 (residue 31, inline budget: the client shares the `return 3` tail of both pop_front |
 | `app/audio/musicmanager.cpp:708` | `EXACT` | mention | NOT EXACT (inline budget: |
 | `app/audio/sectorsound.cpp:56` | `SectorSoundClass::Load_INI` | marker | NOT EXACT: register-only (explain.py, same length, 0.76): the frame is the client's since num_channels == 0 returns (D252); the client loads 'this' for Load_Section before the pushes and &ini into eax |
 | `app/client/aux_group_ctors.h:4` | `DeltaGroupInfoClass::DeltaGroupInfoClass` | mention | NOT EXACT (D42) where aux_roots.h is. NAME 1 [aux_group_ctors.h]: provisional file name (the client's headers are not named by any string) |
