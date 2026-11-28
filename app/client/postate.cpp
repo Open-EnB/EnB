@@ -933,7 +933,7 @@ void Unknown717010Class::Unknown_717430(int unknown, DeltaContainer *aux_data, i
 		AuxDataName name("MaxTurnRate");
 		DeltaTemplateClass<float> *t = Unknown_Find_Set_Field<DeltaTemplateClass<float> >(aux_data, name);
 		if (t) {
-			turn_rate_value = -(t->Value * *turn) * 0.001f;
+			turn_rate_value = -(t->Value * *turn); turn_rate_value *= 0.001f;
 			turn_rate = &turn_rate_value;
 			count = 1;
 		}
@@ -942,43 +942,43 @@ void Unknown717010Class::Unknown_717430(int unknown, DeltaContainer *aux_data, i
 		AuxDataName name("MaxTiltRate");
 		DeltaTemplateClass<float> *t = Unknown_Find_Set_Field<DeltaTemplateClass<float> >(aux_data, name);
 		if (t) {
-			tilt_rate_value = -(t->Value * *tilt) * 0.001f;
+			tilt_rate_value = -(t->Value * *tilt); tilt_rate_value *= 0.001f;
 			tilt_rate = &tilt_rate_value;
 			count++;
 		}
 	}
 	if (move_direction) {
-		bool known = true;
+		
 		if (*move_direction == 1) {
-			if (!fixed_speed) {
+			if (fixed_speed) {
+				speed_value = 10.0f; speed = &speed_value;
+			} else {
 				AuxDataName name("MaxSpeed");
 				DeltaTemplateClass<float> *t = Unknown_Find_Set_Field<DeltaTemplateClass<float> >(aux_data, name);
 				if (t) {
-					speed_value = t->Value * 0.001f;
+					speed_value = t->Value * 0.001f; speed = &speed_value;
 				} else {
-					known = false;
+					
 				}
-			} else {
-				speed_value = 10.0f;
 			}
 		} else if (*move_direction == -1) {
-			if (!fixed_speed) {
+			if (fixed_speed) {
+				speed_value = -10.0f; speed = &speed_value;
+			} else {
 				AuxDataName name("MinSpeed");
 				DeltaTemplateClass<float> *t = Unknown_Find_Set_Field<DeltaTemplateClass<float> >(aux_data, name);
 				if (t) {
-					speed_value = t->Value * 0.001f;
+					speed_value = t->Value * 0.001f; speed = &speed_value;
 				} else {
-					known = false;
+					
 				}
-			} else {
-				speed_value = -10.0f;
 			}
 		} else {
 			G_ASSERT(*move_direction == 0);
-			speed_value = 0.0f;
+			speed_value = 0.0f; speed = &speed_value;
 		}
-		if (known) {
-			speed = &speed_value;
+		if (speed) {
+			
 			AuxDataName name("Acceleration");
 			DeltaTemplateClass<float> *t = Unknown_Find_Set_Field<DeltaTemplateClass<float> >(aux_data, name);
 			if (t) {
