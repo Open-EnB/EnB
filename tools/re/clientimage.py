@@ -270,6 +270,23 @@ class ClientImage:
         self._eh = (lo, hi, owner)
         return self._eh
 
+    def data_refs(self, targets):
+        """Every 4-aligned dword of .rdata / .data equal to one of `targets` (vtable slots, function pointer
+        tables): {target: [VA, ...]}."""
+        want = set(targets)
+        out = {}
+        for name in ('.rdata', '.data'):
+            if name not in self.sections:
+                continue
+            start, end, raw = self.section(name)
+            a = (-start) % 4
+            body = self.data[raw + a:raw + (end - start)]
+            body = body[:len(body) // 4 * 4]
+            for i, v in enumerate(struct.unpack('<%dI' % (len(body) // 4), body)):
+                if v in want:
+                    out.setdefault(v, []).append(start + a + 4 * i)
+        return out
+
     def dword_refs(self, targets):
         """Every place in .text whose 4 bytes equal one of `targets`: {target: [VA, ...]}."""
         start, end, raw = self.section('.text')

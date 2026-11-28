@@ -5770,5 +5770,47 @@
   "address": "0x7F9970",
   "symbol": "?Get_Default_String@OptionManagerClass@@QAE?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@PBD@Z",
   "evidence": "the same code as Get_String 0x7F9700 copying Default +0x20 instead of Value +0x10 (option.h); right after the exact Get_Default_Vector3 0x7F9920, last of option.cpp's accessors; A14's execution check (run 2026-11-26-night) and B23 (run 2026-11-27)"
+ },
+ {
+  "address": "0x407E41",
+  "symbol": "j_??_GCatmullRomSpline3DClass@@UAEPAXI@Z",
+  "kind": "thunk",
+  "replaces": "j_??_ECatmullRomSpline3DClass@@UAEPAXI@Z",
+  "evidence": "thunk order (binary.md 5.11): this slot hashes into its window as the scalar ??_G, not the vtable-style ??_E the rule names it (tn2_dtor.tsv, grade confirmed)"
+ },
+ {
+  "address": "0x409E8F",
+  "symbol": "j_??_GUIAnalyzeClass@@WDI@AEPAXI@Z",
+  "kind": "thunk",
+  "replaces": "j_??_EUIAnalyzeClass@@WDI@AEPAXI@Z",
+  "evidence": "thunk order (binary.md 5.11): this slot hashes into its window as the scalar ??_G, not the vtable-style ??_E the rule names it (tn2_dtor.tsv, grade confirmed)"
+ },
+ {
+  "address": "0x4138C7",
+  "symbol": "j_??_GLinearCurve3DClass@@UAEPAXI@Z",
+  "kind": "thunk",
+  "replaces": "j_??_ELinearCurve3DClass@@UAEPAXI@Z",
+  "evidence": "thunk order (binary.md 5.11): this slot hashes into its window as the scalar ??_G, not the vtable-style ??_E the rule names it (tn2_dtor.tsv, grade confirmed)"
+ },
+ {
+  "address": "0x415FA5",
+  "symbol": "j_??_GGlobalErrorPacketClass@@UAEPAXI@Z",
+  "kind": "thunk",
+  "replaces": "j_??_EGlobalErrorPacketClass@@UAEPAXI@Z",
+  "evidence": "thunk order (binary.md 5.11): this slot hashes into its window as the scalar ??_G, not the vtable-style ??_E the rule names it (tn2_dtor.tsv, grade confirmed)"
+ },
+ {
+  "address": "0x40CA3B",
+  "symbol": "j_??_G?$ShareBufferClass@VVector4@@@@UAEPAXI@Z",
+  "kind": "thunk",
+  "replaces": "j_??_E?$ShareBufferClass@VVector4@@@@UAEPAXI@Z",
+  "evidence": "thunk order (binary.md 5.11): this slot hashes into its window as the scalar ??_G, not the vtable-style ??_E the rule names it (tn2_dtor.tsv, grade confirmed)"
+ },
+ {
+  "address": "0x40F3DF",
+  "symbol": "j_??_G?$ExprMathEvalLessEqualClass@H@@UAEPAXI@Z",
+  "kind": "thunk",
+  "replaces": "j_??_E?$ExprMathEvalLessEqualClass@H@@UAEPAXI@Z",
+  "evidence": "thunk order (binary.md 5.11): this slot hashes into its window as the scalar ??_G, not the vtable-style ??_E the rule names it (tn2_dtor.tsv, grade confirmed)"
  }
 ]

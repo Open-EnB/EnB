@@ -16,7 +16,8 @@ Sources, best first (a name from a better source wins):
             function; `replaces` names the symbol a correction overrides, even an exact or vtable one: a constructor's
             `new` size and vtable store, a caller's assert...); it overrides a wrong strings match
   strings   string-anchored matches (docs/data/funcmatch.json, high/medium confidence)
-  thunk     incremental-link thunks named after their target (j_<name>)
+  thunk     incremental-link thunks named after their target (j_<name>; a deleting destructor's data-referenced
+            thunk `j_??_E`, thunk_symbol)
 
 An exact entry lying strictly inside another exact entry of the same symbol (a stale mid-function
 match left by a version without E&B's early-out guard) is dropped (D189(1)).
@@ -82,6 +83,18 @@ def vptr_stores(img, objs, results):
                 v = (struct.unpack_from('<I', img.data, o)[0] - struct.unpack('<I', addend)[0]) & 0xFFFFFFFF
                 out.setdefault(sym['name'], set()).add(v)
     return out
+
+
+def thunk_symbol(target_symbol, in_data):
+    """The name of a thunk to a function named `target_symbol`: `j_` + the symbol, except a deleting destructor's
+    (TN2). VC6 emits the scalar body `??_G` and makes the vector `??_E` a weak external defaulting to it (checked in
+    the objects' COFF symbol tables); a vtable references `??_E`, a `delete p` references `??_G`. LINK keys each
+    thunk by the name its referrer used, so a thunk whose address sits in the image's data (a vtable slot,
+    `in_data`) is `??_E`, the same function's other thunk (reached by calls only) `??_G`
+    (docs/binary.md 5.11: 580 of the 598 slots the order checks move onto it)."""
+    if in_data and target_symbol.startswith('??_G'):
+        return 'j_??_E' + target_symbol[4:]
+    return 'j_' + target_symbol
 
 
 def main(argv=None):
@@ -155,12 +168,14 @@ def main(argv=None):
             put(addr, m['symbol'], m.get('kind', 'function'), 'named')
 
     def put_thunks():
+        in_data = img.data_refs(thunks)
         for th, target in thunks.items():
             if target in syms and syms[target]['kind'] == 'function':
                 e = syms.get(th)
-                if a.apply_named and e and e['source'] == 'thunk' and e['symbol'] != 'j_' + syms[target]['symbol']:
+                name = thunk_symbol(syms[target]['symbol'], th in in_data)
+                if a.apply_named and e and e['source'] == 'thunk' and e['symbol'] != name:
                     del syms[th]    # the target was renamed
-                put(th, 'j_' + syms[target]['symbol'], 'thunk', 'thunk')
+                put(th, name, 'thunk', 'thunk')
 
     if a.apply_named:
         put_named()
