@@ -1753,7 +1753,7 @@ Base copy: reconstructed. Headers: 692 from reconstructed.
 | shared/kv_util.cpp | reconstructed | 6 | 0 | - | - | - |  |
 | shared/land.cpp | reconstructed | 118 | 0 | - | - | - |  |
 | shared/land_lighting.cpp | reconstructed | 0 | 0 | - | - | - |  |
-| shared/landdmap.cpp | reconstructed | 28 | 0 | - | - | - |  |
+| shared/landdmap.cpp | reconstructed | 27 | 0 | - | - | - |  |
 | common/lego_identifier.cpp | reconstructed | 49 | 0 | - | - | - |  |
 | client/line2d.cpp | reconstructed | 103 | 0 | - | - | - |  |
 | shared/auxdata/linearbu.cpp | reconstructed | 21 | 0 | - | - | - |  |
@@ -1783,7 +1783,7 @@ Base copy: reconstructed. Headers: 692 from reconstructed.
 | audio/musiclist.cpp | reconstructed | 40 | 0 | - | - | - |  |
 | audio/musicmanager.cpp | reconstructed | 31 | 0 | - | - | - |  |
 | audio/musictheme.cpp | reconstructed | 10 | 0 | - | - | - |  |
-| client/mv3dsnd.cpp | reconstructed | 24 | 0 | - | - | - |  |
+| client/mv3dsnd.cpp | reconstructed | 26 | 0 | - | - | - |  |
 | client/mv3dview.cpp | reconstructed | 65 | 0 | - | - | - |  |
 | shared/auxdata/name.cpp | reconstructed | 16 | 0 | - | - | - |  |
 | client/nav_list_builder.cpp | reconstructed | 37 | 0 | - | - | - |  |

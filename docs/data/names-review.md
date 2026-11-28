@@ -6509,6 +6509,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_BE7C70` | `app/client/mousetbl.h:26` | neutral (D10) |
 | 1 | `Unknown_7228C0` | `app/client/mousetbl.h:28` | neutral (D10) |
 | 1 | `Unknown_723150` | `app/client/mousetbl.h:29` | neutral (D10) |
+| 1 | `Unknown_7EE830` | `app/client/mv3dsnd.cpp:179` | untagged neutral name (D10) |
 | 1 | `Unknown_7EE690` | `app/client/mv3dsnd.cpp:225` | untagged neutral name (D10) |
 | 1 | `Unknown_7EDAD0` | `app/client/mv3dsnd.cpp:229` | untagged neutral name (D10) |
 | 1 | `Unknown_7EE700` | `app/client/mv3dsnd.cpp:234` | untagged neutral name (D10) |
@@ -6516,7 +6517,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_7EE770` | `app/client/mv3dsnd.cpp:243` | untagged neutral name (D10) |
 | 1 | `Unknown_7EE7E0` | `app/client/mv3dsnd.cpp:252` | untagged neutral name (D10) |
 | 1 | `Unknown_7EDBE0` | `app/client/mv3dsnd.cpp:255` | untagged neutral name (D10) |
-| 1 | `Unknown_7EE830` | `app/client/mv3dsnd.cpp:260` | untagged neutral name (D10) |
 | 1 | `Delimiters` | `app/client/mv3dview.cpp:26` | strtok's |
 | 1 | `TestSection` | `app/client/mv3dview.cpp:27` | what it holds |
 | 1 | `Movies` | `app/client/mv3dview.cpp:28` | what it holds |
@@ -29414,7 +29414,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Get_Triangles` | `app/shared/heightfield.h:64` | the triangles (three corners each) of the cells under a box, for the land's render 0x474B30 (0x465D30) |
 | 2 | `Get_Height_Byte` | `app/shared/heightfield.h:66` | a height's low byte, the grid wrapped (0x466140; the displacement map's L8 texels, 0x4677B0) |
 | 2 | `Get_Size` | `app/shared/heightfield.h:68` | ours (VIDTEST's land, functional): the grid clamped at the edges, world coordinates |
-| 2 | `Get_Scale` | `app/shared/heightfield.h:71` | XSpacing / YSpacing / VScale read as one Vector3 (LandClass 0x46F120 copies it by value: a 12-byte slot, X read) |
+| 2 | `Get_Scale` | `app/shared/heightfield.h:71` | XSpacing / YSpacing / VScale read as one Vector3, returned by value (LandClass 0x46F120 copies it: a 12-byte slot, X read; Update_Patches 0x46B3C0 reads it per expression) |
 | 2 | `Get_Log2` | `app/shared/heightfield.h:79` | the land's Load_Assets reads them (0x4691D0) |
 | 2 | `Get_YSpacing` | `app/shared/heightfield.h:81` | the land's Update_Patches reads them (0x46B3C0) |
 | 2 | `Get_Mask` | `app/shared/heightfield.h:83` | the land's horizon scanners read them (0x4733C0-0x473BC0) |
