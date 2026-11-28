@@ -91,7 +91,7 @@ GuildRecruitAcceptClientPacketClass	GuildRecruitAcceptClientPacket	9	7	1	0.00013
 GuildRecruitAcceptSectorPacketClass	GuildRecruitAcceptSectorPacket	9	7	1	0.00027	t1c	A	0	7	4	1.4e-18	keep
 GuildRecruitConfirmGuildPacketClass	GuildRecruitConfirmGuildPacket	9	7	1	0.00013	t1c	A	0	7	4	1.2e-18	keep
 GuildSimpleClientSectorPacketClass	GuildSimpleClientSectorPacket	9	6	1	0.00027	r1	A	0	6	291000	2.5e-10	keep
-GuildSimpleGuildSectorPacketClass	GuildSimpleGuildSectorPacket	9	6	1	0.0002	r1	A	0	6	291000	2.7e-10	keep
+GuildSimpleGuildSectorPacketClass	GuildSimpleGuildSectorPacket	9	6	1	0.0002	r1	A	0	6	291000	2e-10	keep
 GuildSimpleSectorGuildPacketClass	GuildSimpleSectorGuildPacket	9	6	1	0.00013	r1	A	0	6	291000	5.3e-10	keep
 GuildStatusUpdatePacketClass	GuildStatusUpdatePacket	9	6	1	0.00027	t1c	A	0	6	4	2.6e-15	keep
 HeightFieldClass	HeightMapClass	14	3	1	0.0002	t2fix2	A	0	3	15	8.4e-06	keep
@@ -273,6 +273,7 @@ Unknown713C80Class	ComponentNode	4	4	1	0.00018	n2c2	A	0	4	208	2.8e-10	keep
 Unknown714340Class	FormationNode	7	5	1	0.00024	n2c4	A	0	5	327	6.5e-11	keep
 Unknown714B50Class	ConstantPositionalStateClass	10	4	1	0.00013	t2fix	A	0	4	15	3.1e-09	keep
 Unknown715CF0Class	PlanetPositionalStateClass	6	4	1	0.00027	r3	A	0	4	32	1.6e-09	keep
+Unknown715EF0Class	ShipPositionalStateClass	21	4	1	0.00012	n2ko	A	0	4	384	3e-06	keep
 UnknownB00060EffectClass	UnaryEffectClass	12	3	1	0.00027	r3	A	0	3	20	4.7e-05	keep
 UnknownB0009CEffectClass	BinaryEffectClass	17	5	1	0.00013	r1	A	0	5	291000	3.6e-06	keep
 Unknown_675120Class	UIMeshGadgetClass	9	7	1	0.0002	r3	A	0	7	20	3.9e-18	keep

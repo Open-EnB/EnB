@@ -106,15 +106,25 @@ def load_props(props):
 _PW = {}
 
 
+def open_slots(st):
+    """Our class -> its off-order slots with a window. Slots whose method is `Unknown_XX` are left out (the default
+    since 2026-11-27; ENB_KNOWN_ONLY=0, set by --all-slots, keeps them: an environment variable so the null's
+    worker processes see it): they cannot hit, so they only widened C(n, k). Chosen before any hash is looked at,
+    and the salted null uses the same slots. First gain: Unknown715EF0Class 3/21 6e-4 -> 3/6 9e-6."""
+    known = os.environ.get('ENB_KNOWN_ONLY', '1') != '0'
+    open_by = collections.defaultdict(list)
+    for i, n in enumerate(st.names):
+        c = n and class_of(n)
+        if c and i not in st.onset and st.window(i) and not (known and n.startswith('?Unknown_')):
+            open_by[c].append(i)
+    return open_by
+
+
 def _perm_init(state, props, const, k, seed):
     global CONST
     CONST = const
     st = State(state)
-    open_by = collections.defaultdict(list)
-    for i, n in enumerate(st.names):
-        c = n and class_of(n)
-        if c and i not in st.onset and st.window(i):
-            open_by[c].append(i)
+    open_by = open_slots(st)
     _PW.update(st=st, open_by=open_by, cls_c=load_props(props)[0], k=k, seed=seed)
 
 
@@ -180,18 +190,18 @@ def main():
     ap.add_argument('--fwer', type=float, default=0.05,
                     help='with --perm: the expected false classes allowed in the whole run')
     ap.add_argument('--no-cross', action='store_true', help='skip the cross-class search')
+    ap.add_argument('--all-slots', action='store_true',
+                    help='keep Unknown_XX methods in each class\'s slots (and the null\'s); the rule before 2026-11-27')
     ap.add_argument('--methods', action='store_true',
                     help='also emit the METHOD lines\' single-slot hits (no threshold: the cloud rounds\' rule). '
                          'Off by default: tier2_methods.py scores method names, with a threshold and a null')
     a = ap.parse_args()
     global CONST
     CONST = a.const
+    if a.all_slots:
+        os.environ['ENB_KNOWN_ONLY'] = '0'
     st = State(a.state)
-    open_by = collections.defaultdict(list)
-    for i, n in enumerate(st.names):
-        c = n and class_of(n)
-        if c and i not in st.onset and st.window(i):
-            open_by[c].append(i)
+    open_by = open_slots(st)
     cls_c, meth, batch_of = load_props(a.props)
     classes = [c for c in cls_c if open_by.get(c)]
     print(f'classes with proposals {len(cls_c)} (with open slots {len(classes)}), class candidates '

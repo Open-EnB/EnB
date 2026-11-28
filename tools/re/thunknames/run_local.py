@@ -121,7 +121,7 @@ def main():
             # the state moved since it was scored: score again, then apply
             ok, out = tool(['tier2_eval.py', '--const', '--no-cross', '--perm', '1000', '--out', wdir],
                            os.path.join(wdir, 'eval.log'))
-            acc = [x for x in out.splitlines() if 'ACCEPT' in x]
+            acc = [x for x in out.splitlines() if x.rstrip().endswith('ACCEPT')]
             say(f'class round {a.pending} (pending): {len(acc)} classes accepted' + ('' if ok else ' (eval FAILED)'))
             for x in acc:
                 say('  ' + ' '.join(x.split()))
@@ -142,7 +142,7 @@ def main():
         else:
             ok, out = tool(['tier2_eval.py', '--const', '--no-cross', '--perm', '1000', '--out', wdir],
                            os.path.join(wdir, 'eval.log'))
-        acc = [x for x in out.splitlines() if 'ACCEPT' in x]
+        acc = [x for x in out.splitlines() if x.rstrip().endswith('ACCEPT')]
         say(f'class round {tag}: {len(acc)} classes accepted' + ('' if ok else ' (FAILED: ' + out[-300:] + ')'))
         for x in acc:
             say('  ' + ' '.join(x.split()))
