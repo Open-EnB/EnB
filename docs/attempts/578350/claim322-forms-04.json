@@ -1,0 +1,78 @@
+{
+  "base_revision": "b0f0f58d369b09aa14939bf2baac3ef5685507e6",
+  "base_path": "app/client/ui_combobox.cpp",
+  "base_sha256": "369e5cf801184870da323dfbc16297f34da8b4bbaaab4e575241b7c50cf75e00",
+  "records": [
+    {
+      "name": "astra_nested_guard",
+      "source_sha256": "11f7e3bd1949f3da44ed7a1a42e24ed708477832200ac75540c5ab4a59ea3639",
+      "patch": "--- app/client/ui_combobox.cpp\n+++ app/client/ui_combobox.cpp\n@@ -25,7 +25,7 @@\n UIComboBoxClass *Unknown_BE5BC4;\t// NAME 1: neutral (D10): the open combo box (.bss 0xBE5BC4, before ui_cpit.cpp's 0xBE5BD0) (0x57A330 sets it while the list is down)\n \n // (the header's inline: the text field shows the selected item unless it shows a label)\n-inline void UIComboBoxClass::Show_Selected() { if (!Has_Label()) TextField->Set_Text(Get_Item_Text(Selected)); }\n+inline void UIComboBoxClass::Show_Selected() { if (!Has_Label()) TextField->Set_Text(Get_Selected_Text()); }\n \n void Unknown_497240(RenderObjClass *robj, bool on);\t// 0x497240 (ro_funcs.cpp, cdecl: no N-patches on the model's meshes)  // NAME 1 [robj, on]: neutral\n void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);\t// 0x496AE0 (ro_funcs.cpp, cdecl)  // NAME 1 [robj, make_geometry_unique]: what the helpers pass\n@@ -324,18 +324,18 @@\n bool UIComboBoxClass::Unknown_68(int key)\n {\n \tswitch (key) {\n-\t\tcase 1:\n-\t\t\tToggle_Drop_Down();\n+\t\tdefault:\n+\t\t\tif (key >= 3) {\n+\t\t\t\tSelect(TopItem + key - 3);\n+\t\t\t\tToggle_Drop_Down();\n+\t\t\t}\n \t\t\tbreak;\n \t\tcase 2:\n \t\t\tTopItem = (int)Slider->Get_Value();\n \t\t\tUpdate_Rows();\n \t\t\tbreak;\n-\t\tdefault:\n-\t\t\tif (key >= 3) {\n-\t\t\t\tSelect(TopItem + key - 3);\n-\t\t\t\tToggle_Drop_Down();\n-\t\t\t}\n+\t\tcase 1:\n+\t\t\tToggle_Drop_Down();\n \t\t\tbreak;\n \t}\n \treturn(false);\n@@ -542,10 +542,10 @@\n // 0x57B2F0\n void UIComboBoxClass::Scroll_To_Selected()\n {\n-\tif ((int)Items.size() > NumRows && Slider->Is_Enabled()) {\n+\tif ((int)Items.size() > NumRows) { if (Slider->Is_Enabled()) {\n \t\tTopItem = min((unsigned)Selected, Items.size() - NumRows);\n \t\tTopItem = Unknown_Clamp(TopItem, 0u, Items.size() - NumRows);\n-\t} else {\n+\t} else { TopItem = 0; } } else {\n \t\tTopItem = 0;\n \t}\n }\n",
+      "model": "gpt-6-astra high",
+      "classification": "changed_form",
+      "changed": true,
+      "completed": true,
+      "snapshot_revision": "a27086a5b827f64dd20f6fb4476fa5eab5abd2f4",
+      "compiler_operator": "Codex coordinator",
+      "object_sha256": "afe845c785112034feb2678f5f00238248e9cff0ed204c51b87439a55d81fdac",
+      "output": {
+        "gained": [],
+        "lost": [],
+        "symbol_gained": [],
+        "symbol_lost": [],
+        "targets": {
+          "0x578350": {
+            "symbol": "?Init@UIComboBoxTextClass@@QAEXXZ",
+            "length": 254,
+            "raw_sha256": "a80989eb39d53ec2045ac306087edb70c7a96417b6fe4ad0e6ebe81789700c15",
+            "masked_sha256": "a80989eb39d53ec2045ac306087edb70c7a96417b6fe4ad0e6ebe81789700c15",
+            "diagnostic_similarity": "similarity 0.88",
+            "exact": false
+          },
+          "0x57A060": {
+            "symbol": "?Unknown_68@UIComboBoxClass@@UAE_NH@Z",
+            "length": 692,
+            "raw_sha256": "f44303579f6aa28fa7320475c09cd6ad3d7df8452b151166989a2a3701f06d54",
+            "masked_sha256": "f44303579f6aa28fa7320475c09cd6ad3d7df8452b151166989a2a3701f06d54",
+            "diagnostic_similarity": "similarity 0.43",
+            "exact": false
+          }
+        }
+      }
+    },
+    {
+      "name": "root_nested_baseline",
+      "source_sha256": "369e5cf801184870da323dfbc16297f34da8b4bbaaab4e575241b7c50cf75e00",
+      "patch": "",
+      "model": "Codex coordinator",
+      "classification": "unchanged_control",
+      "changed": false,
+      "completed": true,
+      "snapshot_revision": "a27086a5b827f64dd20f6fb4476fa5eab5abd2f4",
+      "object_sha256": "8a0f542f832f06010023d6fbdc199a35e136c57c9e4d6df57370db6389b64009",
+      "output": {
+        "gained": [],
+        "lost": [],
+        "symbol_gained": [],
+        "symbol_lost": [],
+        "targets": {
+          "0x578350": {
+            "symbol": "?Init@UIComboBoxTextClass@@QAEXXZ",
+            "length": 254,
+            "raw_sha256": "a80989eb39d53ec2045ac306087edb70c7a96417b6fe4ad0e6ebe81789700c15",
+            "masked_sha256": "a80989eb39d53ec2045ac306087edb70c7a96417b6fe4ad0e6ebe81789700c15",
+            "diagnostic_similarity": "similarity 0.88",
+            "exact": false
+          },
+          "0x57A060": {
+            "symbol": "?Unknown_68@UIComboBoxClass@@UAE_NH@Z",
+            "length": 676,
+            "raw_sha256": "16d546c78859d76190ede35cf507cffa4935bf074abcaad406d8c12be429c407",
+            "masked_sha256": "16d546c78859d76190ede35cf507cffa4935bf074abcaad406d8c12be429c407",
+            "diagnostic_similarity": "similarity 0.20",
+            "exact": false
+          }
+        }
+      }
+    }
+  ]
+}
