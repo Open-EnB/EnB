@@ -1,0 +1,38 @@
+{
+  "claim": 330,
+  "address": "0x718830",
+  "base_revision": "fb6e641d1bb82397154e0899d774567959bd73f1",
+  "changed_compiled_inputs": 7,
+  "evidence": [
+    "docs/attempts/718830/claim330-astra_718830_last_scale.json",
+    "docs/attempts/718830/claim330-first_718830_components.json",
+    "docs/attempts/718830/claim330-first_718830_normalize.json",
+    "docs/attempts/718830/claim330-sol_718830_both_output.json",
+    "docs/attempts/718830/claim330-sol_718830_cross_output.json",
+    "docs/attempts/718830/claim330-sol_718830_elapsed.json",
+    "docs/attempts/718830/claim330-sol_718830_z_output.json",
+    "docs/attempts/718830/claim330-original-history.json",
+    "docs/attempts/718830/claim330-terra-report.txt",
+    "docs/attempts/718830/claim330-sol-report.txt",
+    "docs/attempts/718830/claim330-ordered-audit.py.txt",
+    "docs/attempts/718830/claim330-astra-hypothesis.txt",
+    "docs/attempts/718830/claim330-astra-lever-check.txt",
+    "docs/attempts/718830/claim330-astra-whole-input-check.txt",
+    "docs/attempts/718830/claim330-sol-lever-check.txt"
+  ],
+  "whole_group_review": "docs/attempts/713D70/claim330-group-review.txt",
+  "final_astra_review": "docs/attempts/713D70/claim330-astra-review.txt",
+  "replay": "git show BASE:UNIT gives the UTF-8 LF source; apply edits in descending start order, verify input_sha256. Character offsets are Python string offsets. Canonical libdefs flags/defines/tree_includes at BASE; no expanded include paths. Compiler VC6 SP4, retail SHA256 249f852496f341c00361be95b66e7c0becc2c39e7cba026f9227e38b602651c4.",
+  "classification": "Scratch experiments only; no partial source form retained. Pair deltas include rejected inputs, not changes to production.",
+  "status": "parked",
+  "outcome": {
+    "forms": 7,
+    "baseline_groups": 4,
+    "best_groups": 4,
+    "baseline_ordered_instruction_differences": 16,
+    "best_ordered_instruction_differences": 8,
+    "reason": "New validated levers improved actual instructions despite unchanged aligned-group count; final Astra probe duplicated the better form. Further work needs new evidence.",
+    "best_record": "claim330-sol_718830_cross_output.json"
+  },
+  "verification": "docs/attempts/713D70/claim330-verification.json"
+}

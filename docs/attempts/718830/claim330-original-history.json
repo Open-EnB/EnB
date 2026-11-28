@@ -1,0 +1,30 @@
+[
+  {
+    "date": "2026-10-28",
+    "address": "0x718830",
+    "symbol": "Unknown718510Class::Unknown_08",
+    "file": "app/client/postate.cpp",
+    "library": "app",
+    "status": "partial",
+    "score": "0.90",
+    "forms": "5",
+    "blocker": "shape",
+    "evidence": "position, velocity normalised, t = min(1, elapsed * Rate), Slerp of (StartUp, 1) to (EndUp, 1), y = Cross(up, x) normalised, z = Cross(x, y) normalised, Matrix3D local Set(x, y, z, position): 17 rows left (the first Normalize's loads, the cross product's operand order, the third Normalize's fmul order). Tried: Matrix3D(x,y,z,pos) return (frame 0x50 vs 0x88), an up_vector local, (const Vector3 &)up (best), the cross written out, free Normalize()",
+    "stash": "",
+    "model": "opus"
+  },
+  {
+    "date": "2026-11-15 09:19",
+    "address": "0x718830",
+    "symbol": "Unknown718510Class::Unknown_08",
+    "file": "app/client/postate.cpp",
+    "library": "app",
+    "status": "partial",
+    "score": "",
+    "forms": "4",
+    "blocker": "shape",
+    "evidence": "S9B 2026-11-15: re-measured at HEAD: 4 masked rows (was 17): the first Normalize loads x.Y before x.Z (the client) where ours loads Z first; the cross products' operand order. Normalize written out with a len2 local in four sum orders (X Y Z, X Z Y, X (Y Z), Y Z X): 65 rows (len2 is then computed once; the client's Normalize computes Length2 twice, wwmath's form)",
+    "stash": "",
+    "model": "Opus 5.5"
+  }
+]

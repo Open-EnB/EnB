@@ -1,0 +1,16 @@
+[
+  {
+    "date": "2026-10-28 00:04",
+    "address": "0x713D70",
+    "symbol": "Unknown713D70Class::Unknown713D70Class",
+    "file": "app/client/extrap.cpp",
+    "library": "app",
+    "status": "partial",
+    "score": "0.90",
+    "forms": "1",
+    "blocker": "order",
+    "evidence": "the packet's fields in member order after Build_Matrix3D / Set_Translation; the epilogue's EH-link load is scheduled before the last stores",
+    "stash": "",
+    "model": "opus"
+  }
+]

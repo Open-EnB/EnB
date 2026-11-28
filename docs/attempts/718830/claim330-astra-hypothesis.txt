@@ -1,0 +1,42 @@
+# Astra high: final z scaling through the existing vector operator
+
+Root approved precisely one probe and granted the exclusive compiler gate on
+2026-11-27. No other input or shared header edit is authorized.
+
+Parent input is 718830/sol-review/cross_output/postate.cpp: the proven actual
+y-result-pointer helper reduces 16 ordered instruction differences to eight.
+It fixes both first-Normalize Y/Z load sequences and y.X's second product.
+Remaining y.Y/y.Z product swaps and the last normalization's first two scales
+are documented by runs/sol_718830_cross_output/718830-rows.json.
+
+Replace final z.Normalize() alone with its two-Length2, nonzero-test algorithm,
+but use the genuine Vector3::operator*=(float) to apply the inverse length.
+vector3.h:401-409 names len2 and oolen then executes three scalar compound
+assignments; operator*= at :132 takes the same float and performs X=X*k,
+Y=Y*k, Z=Z*k. It preserves the real operation and component store order while
+giving the factor an actual inline-call parameter definition. No invented
+helper, added unused state, cached second length, new vector copy, fake lifetime,
+operand permutation, changed header, assertion or compiler setting.
+
+Client 0x718AA5/AA7 and 0x718AAF/AB1 duplicates the inverse in st(0) then
+multiplies the memory component. The best object loads each component then
+multiplies st(1). workflow.md section 3.1.2 lines 765 and 772 document
+inline-symbol definition provenance and per-block defs ordering x87 operands,
+proven at 0x454730 and 0x542A10. The earlier literal x.Normalize expansion
+changed later cross products without changing its own site, and y-output
+changed the earlier x.Normalize sequence: actual target evidence of this
+function-wide effect. Changing model is not a lever or budget reset.
+
+Prior distinction: first/normalize expanded x, retaining scalar assignments;
+Sol's elapsed probe named an integer and duplicated baseline. The cross-output
+forms changed vector construction, not the inverse factor's scaling helper.
+Historic source patches are absent; their summaries do not establish bytes.
+
+Reject an extra length cache, intermediate rounding, extra call, changed branch,
+new assertion, altered field/callback order, or loss of any of the 267 file and
+symbol pairs. Measure full ordered instruction differences and region behavior,
+not only masked groups. Preserve both first-normalize gains and y.X gain; inspect
+the two remaining cross swaps. A zero needs complete body, relocation+addend,
+constant, receiver, branch and EH audit plus independent root proof.
+
+One probe only; report and release gate before considering any further form.

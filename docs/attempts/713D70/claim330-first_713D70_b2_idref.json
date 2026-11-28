@@ -1,0 +1,154 @@
+{
+  "run": "first_713D70_b2_idref",
+  "base_revision": "fb6e641d1bb82397154e0899d774567959bd73f1",
+  "unit": "app/client/extrap.cpp",
+  "base_sha256": "b5b3c1f2b03a3db911e3dd48c5bef0bafb5c8281c2521c6f7b9fc97d4090e1b2",
+  "input_sha256": "f41b3a158c5748215d593eb0d52bfbf7703977eba96815128a3bd88ae52ee86c",
+  "edits": [
+    {
+      "start": 27882,
+      "end": 27882,
+      "text": "int &id = "
+    },
+    {
+      "start": 27891,
+      "end": 27891,
+      "text": "; id"
+    }
+  ],
+  "replay_verified": true,
+  "changed": true,
+  "classification": "changed_compiled",
+  "pair_deltas": {
+    "pairs": {
+      "baseline_count": 267,
+      "after_count": 267,
+      "gained": [],
+      "lost": [],
+      "baseline_set_sha256": "c6a015d1b95f32e47fda6d1df546f2e7b407f568c71296a93932db2af3474498",
+      "after_set_sha256": "c6a015d1b95f32e47fda6d1df546f2e7b407f568c71296a93932db2af3474498"
+    },
+    "symbol_pairs": {
+      "baseline_count": 267,
+      "after_count": 267,
+      "gained": [],
+      "lost": [],
+      "baseline_set_sha256": "2abef374e880caa4cf11fb6a43bce1da7c30013962efe607271d1154c3b826d1",
+      "after_set_sha256": "2abef374e880caa4cf11fb6a43bce1da7c30013962efe607271d1154c3b826d1"
+    }
+  },
+  "targets": {
+    "713D70": {
+      "length": 272,
+      "raw_sha256": "64bb9702474b6047c0f3f38701418c07010a9f82b49a9199eb8ed04d3567fa9b",
+      "masked_sha256": "64bb9702474b6047c0f3f38701418c07010a9f82b49a9199eb8ed04d3567fa9b",
+      "relocations": [
+        [
+          3,
+          4,
+          6,
+          "$L51049",
+          "00000000"
+        ],
+        [
+          9,
+          4,
+          6,
+          "__except_list",
+          "00000000"
+        ],
+        [
+          17,
+          4,
+          6,
+          "__except_list",
+          "00000000"
+        ],
+        [
+          38,
+          4,
+          6,
+          "??_7Unknown713D70Class@@6B@",
+          "00000000"
+        ],
+        [
+          66,
+          4,
+          20,
+          "?Build_Matrix3D@@YA?AVMatrix3D@@ABVQuaternion@@@Z",
+          "00000000"
+        ],
+        [
+          167,
+          4,
+          6,
+          "__real@4@3ffbcccccd0000000000",
+          "00000000"
+        ],
+        [
+          179,
+          4,
+          6,
+          "__real@4@3ffbcccccd0000000000",
+          "00000000"
+        ],
+        [
+          188,
+          4,
+          6,
+          "__real@4@3ffbcccccd0000000000",
+          "00000000"
+        ],
+        [
+          201,
+          4,
+          6,
+          "__real@4@3ffbcccccd0000000000",
+          "00000000"
+        ],
+        [
+          239,
+          4,
+          6,
+          "__real@4@3ffbcccccd0000000000",
+          "00000000"
+        ],
+        [
+          262,
+          4,
+          6,
+          "__except_list",
+          "00000000"
+        ]
+      ]
+    },
+    "7140E0": {
+      "length": 178,
+      "raw_sha256": "742c45ac1151ae28328a03ac004bdd33a5082510e89ed13fe18ed4a7b61e71c6",
+      "masked_sha256": "742c45ac1151ae28328a03ac004bdd33a5082510e89ed13fe18ed4a7b61e71c6",
+      "relocations": [
+        [
+          22,
+          4,
+          20,
+          "?Find_Object@ClientClass@@QAEPAVClientObjectClass@@I@Z",
+          "00000000"
+        ],
+        [
+          92,
+          4,
+          20,
+          "?Look_At@Matrix3D@@QAEXABVVector3@@0M@Z",
+          "00000000"
+        ],
+        [
+          136,
+          4,
+          20,
+          "?Rotate_Vector@Matrix3D@@QBE?AVVector3@@ABV2@@Z",
+          "00000000"
+        ]
+      ]
+    }
+  }
+}

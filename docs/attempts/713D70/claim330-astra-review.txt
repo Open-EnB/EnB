@@ -1,0 +1,160 @@
+# Claim 330 final Astra high assessment
+
+No exact claimed function, no retained production change, no pair gain. One
+root-approved 0x718830 probe compiled in one hypothesis batch and duplicated the
+existing best target exactly. All 267 baseline file/address pairs and all 267
+symbol triples survive. The exclusive compiler gate has been released to root;
+runner and analyzer completed, with no compiler process owned here. No commits,
+GitHub writes, header changes, flags, padding, new helper layers or other agents.
+
+Read the full coordinator brief, AGENTS and bounded startup; all four original
+history text/JSON records and current attempts rows; first/Sol/group reports and
+group lead; all surviving input source diffs; baseline and best target listings,
+distinct output-group differences, helper bodies and the recorded pair deltas.
+The old summarized source forms are absent, so no old patch was reconstructed.
+The original immutable revision is fb6e641d1bb82397154e0899d774567959bd73f1.
+Raw/masked groups are not instruction counts; pointer/addend, receiver, literal,
+branch and EH proof is still required before treating any zero as exact.
+
+## 0x713D70: leave parked, baseline remains best
+
+272 bytes, two masked alignment rows: the one saved EH-link load is early.
+Current real reference/local/product forms mostly collapse to baseline; final
+destination references instead sink stores past pop edi. Named matrix adds a
+copy sequence. Ordinary member initialization has now been measured: Client
+and ID move stores/read ordering, while Transform initialization retains the
+base vtable during Build_Matrix3D and adds a derived-vtable store afterwards.
+The latter does preserve the packet arithmetic and Time-before-Build order;
+there is no basis for rejecting all initialization forms categorically. These
+specific emitted orders fail. Vector3::Set duplicates the original assignment.
+
+Two stalled fresh rounds already exist. No new proven scheduling lever was
+found, so no Astra retry was proposed or compiled. Another name, scalar local,
+scope, combination of worsening forms, or invented cleanup lifetime is not
+reopening evidence. Reopen only for a client-backed real construction/lifetime
+or a scheduling lever demonstrated elsewhere that delays this actual EH-link
+load without changing packet read/store order, vptr timing, call receivers or
+the product's float spills; all baseline pairs and EH graph must survive.
+
+## 0x7140E0: leave parked, baseline remains best
+
+178 bytes, nine masked groups. The client's translation stores interleave with
+the Time load and roll push before the virtual receiver-table load; ours hoists
+the Time/table loads. The final negative speed fchs is after the two LEAs in
+ours and before them in retail. Scoped position value/reference correctly avoid
+the earlier extra frame slot but reproduce baseline, as does the pull temporary
+reference. Output translation and named pull create the wrong frame; output
+translation additionally changes float component copies to integer copies.
+
+The two reference forms do rename initializer _$E93 to _$E94 at 0x7147F0.
+Their raw bytes and relocation targets/addends agree, but strict symbol triples
+do change; that observation cannot be hidden behind a constant pair count.
+There are two stalled fresh rounds and no new proven lever. The result-pointer
+Matrix3D::Rotate_Vector overload is not a direct transfer of the successful
+718830 cross helper: it would replace this client's actual out-of-line member
+call with a different inline implementation. No such probe was proposed.
+Reopening needs a demonstrated existing expression/lifetime that controls this
+specific callback preparation schedule while preserving the call and its
+receiver, read/rounding order, failure paths and 72-byte local frame.
+
+## 0x717430: real earlier progress, no supported new Astra probe
+
+The actual best remains 717430/sol/staged_fixed/postate.cpp, input SHA-256
+ea2c96222e37398a8cfd145fe4f9516af9feea1b852f226231293d26e4c81927.
+Its target is 1042 executable bytes/45 masked groups versus original 1027/245
+and retail 1101 bytes. The earlier path assignments and fixed-speed-first arms
+recovered real pointer flow and reduced 245 -> 47. Staging each rate assignment
+then *= 0.001f recovered fmul, fchs, positive-constant fmul with no intermediate
+float store/reload and reduced 47 -> 45. These are progress, not stalled rounds.
+
+The remaining blockers are substantive: client calls float Cast at 0x7174AF,
+0x717534 and 0x7175E5, while every current form inlines all five Casts. Our
+MaxSpeed/MinSpeed tails merge; client's first Cast call keeps them distinct.
+Startup float/pointer slot placement and scheduling differ. Acceleration
+failures bypass the common pointer load/test at client 0x717746; ours tests a
+success-path LEA and branches failures past it. An independent count-test scope
+already canonicalized to the same output. Repeating that spelling is no lead.
+
+The flat Find_Field gate family either duplicates the earlier 47-group target
+or creates an adverse merged assert path, and loses initializers 0x719640 and
+0x719670. The Motion_Find wrapper leaves target bytes unchanged and swaps
+the bool Cast pair +0x546970/-0x584FF0. Implicit NameClass temporaries duplicate
+the 45-group best. Existing NameClass/PermString lifetimes are trivial, and no
+existing float-value accessor or client-backed additional helper was found
+that explains the missing three Cast calls. A speculative value-pointer alias
+or new extraction wrapper would merely try to spend budget; I did not propose
+it. Likewise stack-slot permutations and manufactured live structures have no
+source evidence. Actual first-four NameClass slot reuse and separate nested
+Acceleration slot are already consistent with the current lexical structure.
+
+Stop on meaningful supported-lead exhaustion, not a fabricated round-limit
+claim. Reopen on an identified real operation or helper/lifetime that explains
+the three early Cast calls or the acceleration join and demonstrably changes
+that region while preserving the recovered arithmetic and all 267 pairs. The
+known D283 auxdata.h __FILE__ payload difference must be named during any
+candidate audit; it is not permission to change headers or include paths.
+
+## 0x718830: one approved final probe, exact duplicate of prior best
+
+Root approved final z scaling through the existing Vector3::operator*=(float)
+on the actual y-output best, based on workflow.md 3.1.2 lines 765/772 and the
+target's measured function-wide definition effect. The prewritten hypothesis
+is astra/hypothesis.md. vector3.h's operator performs the same three scalar
+multiplications but gives the factor an actual inline parameter definition.
+The probe keeps the two Length2 evaluations, zero test, inverse calculation,
+component store order and prior y-output helper. This was distinct from the
+earlier literal expansion of x.Normalize, which retained scalar assignments,
+and from naming the elapsed integer. It was not a parameter-count sweep.
+
+The single compiled source SHA-256 is
+8b31c10584cac809e992a85202832a7bb010c0b093cccef11f6b74d7310ce303.
+Canonical run: runs/astra_718830_last_scale. The result is 830 bytes, 243
+instructions, four masked groups and eight ordered instruction differences:
+exact raw AND masked duplicate of both Sol y-output and both-output forms,
+SHA-256 5f1b3815d4d689e819b981d904f5c47f74b482bfdc13a14d34634de542ec516e.
+Relocation offsets/types/targets/addends and no-unwind result also duplicate.
+Calls, branches and the complete ordered instruction trace duplicate. The first
+Normalize and y.X gains survive, but no new gain or regional improvement exists.
+
+The remaining eight rows are exactly two product operand swaps at client
+0x71897B/7F and 0x718999/9D, plus the final inverse/component multiplication
+forms at 0x718AA5/AA7 and 0x718AAF/AB1. Temporal rounding, second length
+evaluation and all other operations are unchanged from the prior best by
+executable identity. Both 267-member pair sets are independently equal to
+baseline, without even an initializer ordinal change.
+
+astra/last_scale is not a production candidate. Further constructor/Set or
+source-order permutations are not justified by this duplicate; there is no
+remaining concrete lead from this review. Reopening requires real dataflow or
+helper/construction evidence that affects the surviving x.X/up operands or
+inverse-length definition without undoing the first Normalize/y.X gains.
+Retail remains semantic gold: a form restoring the client's actual NaN operand
+selection is not invalid just because the current NOT EXACT source differs.
+No operand grid, extra rounding, cached length or fabricated finite-input
+assumption is licensed by that correction.
+
+## Reproduction and limits
+
+astra/prepare.py writes exactly the prior y-output edit and the one approved
+final-scale edit against the immutable original, preserving every source line.
+astra/last_scale/replay.json binds both parent and full input hashes to the base.
+astra/collect.py checks the saved compiled input, independent explicit-object
+raw/masked hashes, relocation targets/addends, unwind, complete pair sets,
+ordered instruction record, all immutable tree/build-tree files and baseline
+objects. It writes astra/last_scale/evidence.json (10,439 bytes, below 64 KiB).
+Full compile input/response/log/object, objdiff and explain are in the run dir.
+The ordered trace is astra/last_scale/ordered-rows.json and can be reproduced by
+718830/sol-review/audit_rows.py with the explicit object path.
+
+The full scratch-file attempts check produces documented bare-member false
+positives for unchanged/unrelated 713670, 796440 and 6F0D40. That diagnostic is
+saved. Root approved a target-only body policy check, with the exact function
+excerpt, explicit 718830 acknowledgment, explicit lever and current read time
+to exclude stale unrelated records. No unclaimed address was acknowledged or
+changed. The successful receipt is astra/attempts-check.txt.
+
+No full exact-candidate behavior proof is claimed. A later exact candidate
+still needs root's entire-body audit of control flow, relocation addends and
+targets, constants, receiver identity and EH cleanup, then a fresh independent
+pair proof. No VM was leased; all scratch belongs to astra/ plus the approved
+run directory and shared analyzer entry. Model: gpt-6-astra high.
