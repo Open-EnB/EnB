@@ -1,0 +1,15 @@
+# Int 0x4CFB00 first pass (shared float template)
+
+Five valid changed forms in three batches, both TUs compiled each; all 267 baseline file/address and symbol/address pairs preserved, no claimed gains. Context resolves 0x4D0200; broad shared-header consumer proof remains pending. No production edits. Immutable source, compile response/log, object, results, explanation and diffs: /home/dev/Projects/EnB/.work/claim-342/runs/int_first_<name>/; complete raw/masked hashes, relocations and EH information: /home/dev/Projects/EnB/.work/claim-342/analysis.json. Source inputs are full headers in sibling directories; hypotheses.txt records intent before each batch.
+
+| Run | Float/int length; masked residue | float/int raw and masked hash prefixes |
+|---|---|---|
+| shortcircuit | 800/800; 81/78 | aa53092c3f45 / 5307cc727b12 |
+| scope_baseline | 888/882; 67/67 | 77169d4fb334 / fd20fbab54a7 (baseline duplicates) |
+| scope_guard | 808/808; 56/53 | 5dec77c070ca / c9f05e9ed4d1 (float_second_guard duplicates) |
+| implicit_baseline | 888/882; 67/67 | baseline duplicates |
+| implicit_guard | 808/808; 56/53 | float_second_guard duplicates |
+
+Shortcircuit: first and second failures both jump to final cleanup, whereas retail puts shared cleanup directly after first check. Its duplicate check after each child, call and EH context differ; final left destructor is inlined. Thus 78 residue is inferior to guarded best 53. Lexical right scope leaves local constructor before both accepts and its destructor immediately before left destruction; emits exact same outputs in both contexts. Implicit c_str-to-string conversion retains embedded-NUL truncation, same factory argument full-expression temporary and emits duplicate output. Retails first two null paths merge at 0x4CFB49; factory null uses distinct 0x4CFCA4 cleanup; normal success right local is inlined then left destructor called at 0x4CFDDE. Best second guard instead sends second failure to final normal cleanup and inlines left destructor and constant base constructor. Retail string buffer select also differs from all tested. No masked-zero candidate arose, so exact relocation/addend and EH audit was not asserted.
+
+Complete original history via attempts.py show: four shared historic forms, no surviving patches; see float first-pass report /home/dev/Projects/EnB/.work/claim-342/4CB260/first/report.md for ten earlier actual forms and outputs. Exact sibling int unary 0x4CF7F0 and float unary 0x4CAF50 use same c_str spelling; no evidence justifies a global helper rewrite. Three consecutive batches provided no cut and no further backed lead; reopen if cross-function evidence shows how to merge child failure at first check while preserving the separate factory failure and out-of-line cleanup, or explains why the string selection and constructor are scheduled differently. Root owns group reassessment and final all-consumer proof. No jobs or compiler gate held at handoff.

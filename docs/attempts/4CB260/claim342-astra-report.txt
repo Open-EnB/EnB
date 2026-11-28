@@ -1,0 +1,74 @@
+# Final Astra investigation, shared Visit_Binary
+
+No exact target or production change. One causal batch compiled two successful
+changed full-header inputs, each against both canonical specializations. Both
+are prior raw/masked output duplicates; no new output group or residue cut.
+No invalid input, unchanged control, repeat compilation, or uncompiled prepared
+header belongs to this round. All267 original file/address AND symbol/address
+pairs survive each run: gained=[], lost=[], symbol_gained=[], symbol_lost=[].
+
+| Actual run | Float/int bytes | Residue | Actual duplicate group |
+| --- | --- | --- | --- |
+| astra_cache_test | 805/799 | 38/38 | sol_int_subscript_dereference, clean best |
+| astra_cache_receiver | 816/810 | 49/49 | sol_int_subscript_guard |
+
+Full hypothesis and lossless generator: /home/dev/Projects/EnB/.work/claim-342/astra/hypotheses.md and generate.py.
+Actual input headers, canonical responses/logs, objects, matcher results and native
+objdiff/explain: /home/dev/Projects/EnB/.work/claim-342/runs/astra_cache_test/ and
+/home/dev/Projects/EnB/.work/claim-342/runs/astra_cache_receiver/.
+Full input and raw/masked hashes, all four deltas, relocation comparisons and EH
+summaries: /home/dev/Projects/EnB/.work/claim-342/astra/evidence.json, reproducible
+with evidence.py. best-runs.json maps both addresses to actual formA solely for
+round recording: it duplicates the existing clean38 and is no gain.
+
+The concrete lead was retail int4CFC9D's cached ECX load before factory-null
+checking, reused at4CFD0B. Earlier named raw forms held the newly allocated
+constant, not this value. Both new inputs cache m_result.Peek() only after the
+factory assignment and temporary destructions; Peek returns Referent unchanged,
+with no ownership side effect. FormA tests the cache but retains the real
+operator* receiver. FormB also uses the cache for immediate Is_Constant. No
+operation intervenes on success, and Evaluate still reloads m_result after
+allocation. No assertion definition/configuration is changed or suppressed.
+
+FormA is byte-identical to clean38 in both targets; it still compares memory
+then reloads ECX on success. FormB has the retail cached ECX region, but this
+already exists in subscript_guard; removing the real operator* use restores
+that entire earlier output and inlines the final left destructor again. No
+G_Assert_Report relocation appears in either form. All relocation entries
+equal their duplicate groups except generated EH label name at offset3 (same
+type/width/zero addend). Six-state unwind summaries equal those groups. This
+compares summaries and relocation records, not complete recursive EH graph or
+retail exactness; neither target is a masked-zero candidate. All-consumer
+shared-header proof remains root-owned and is unnecessary for retaining none.
+
+Independent assessment agrees with the prior clean38 diagnosis: +39 bytes in
+each target,26calls versus24, duplicated initial right/left cleanup, second
+child failure directed to final cleanup instead of backward first cleanup,
+singleton-first token selection, factory ECX reload, and different factory
+failure epilogue. Retail's store-before-compare in cross-jumped cleanup is a
+scheduling difference; ordinary assignment releases elsewhere use the existing
+store-after-compare form, so this does not justify rewriting RefCountClass.
+Exact unary siblings also use singleton-first token selection, arguing against
+an unsupported global string-library rewrite.
+
+Read-only alternatives rejected: canonical const string begin() can return
+NULL on empty strings, unlike c_str/subscript; at(0) adds an empty-string throw.
+Whole string copy preserves embedded NULs that retail's C-string conversion
+truncates. A cache used for Evaluate across allocation could retain a stale
+receiver; there is no evidence to change that callback/read ordering. Additional
+cached-name positions, pure forwarding accessors, goto/guard spellings, manual
+clears/destructors, fabricated helpers, dead reads, flags or padding have no
+new backing after the actual prior results and this duplicate batch.
+
+No further distinct useful lead remains in this investigation. This is one
+nonprogress compiled round, not three batches or a claim that every equivalent
+C++ program was tried. Reopen with a demonstrated real helper/lifetime or
+source mechanism that preserves both recovered calls while changing the first
+child/factory cleanup sharing, or independently changes string selection and
+the cached receiver without losing those calls. Model change alone is no lever.
+
+Both compiler/analyzer jobs finished. Production, immutable snapshot and restored
+staging headers all hash e5338bd6698039ab87b2290257c5b87f24211c445422d0a165a9a8f480d935f7.
+No compiler processes, leases, child agents, commits or external writes from
+this worker. Exclusive compiler/staging gate released to root. Model: gpt-6-astra
+high; approximately20k tokens of investigation context/tool output and reasoning.

@@ -1,0 +1,98 @@
+# Int Sol escalation: shared Visit_Binary 0x4CFB00 / 0x4CB260
+
+No exact target or production change. Nine successful full-header inputs in six
+causal batches, both canonical TUs compiled each time; all267 original file/address
+AND symbol/address pairs survive every run, no gains/losses. No compiler-invalid
+input or unchanged control was compiled by this worker. All nine raw/masked target
+output groups are distinct from every earlier recorded run. Read-only review is
+0 forms, not another attempt round. Batches2/4 provide useful helper progress;
+last two batches do not cut. No eight-batch checkpoint or three-consecutive
+unbacked-no-cut stop reached. This productive round is not a failed/parked round.
+
+Full actual inputs, compiler responses/logs, objects, matcher results and decoded
+target diffs/explanations: /home/dev/Projects/EnB/.work/claim-342/runs/sol_int_*/
+All source hashes and full raw/masked hashes, duplicate classification, unwind
+summaries and report-relocation checks: /home/dev/Projects/EnB/.work/claim-342/4CFB00/sol/evidence.json
+Lossless generators and pre-batch causal explanations: generate.py, hypotheses.md
+in this same directory. Shared analysis.json contains complete relocation lists.
+
+| Batch | Run suffix after sol_int_ | Float/int bytes | Residue float/int |
+| --- | --- | --- | --- |
+|1|child_guards|728/728|53/50|
+|1|child_break|721/721|106/103|
+|2|subscript_original|864/858|81/81|
+|2|subscript_guard|816/810|49/49|
+|3|named_string_original|884/878|68/68|
+|3|named_string_guard|804/804|57/54|
+|4|subscript_dereference|805/799|38/38|
+|5|shared_failure_helpers|801/795|113/113|
+|6|separate_returns_helpers|841/831|98/98|
+
+The clean best full-header SHA256 is
+07cecf60d1320efa904029d41051bc6090e711be215882cbc0418a591ba070d4:
+/home/dev/Projects/EnB/.work/claim-342/4CFB00/sol/subscript_dereference/expr_math_builder.h
+It combines actual const std::string::operator[](0) address with float Sol's
+actual RefCountPtr::operator* at Is_Constant. Canonical XSTRING335-340 returns
+*_Nullstr() if _Ptr null or _Ptr[0] otherwise, so address-of yields exactly the
+same pointer as c_str(), including empty strings and embedded-NUL truncation.
+Get_Token returns const reference; no nonconst freeze overload is selected.
+Operator* follows direct factory nonnull checking with no intervening call;
+its reporting assertion stays enabled and fully folds. The early g_assert include
+uses existing blank line18; G_ASSERT(factory) remains on physical line51.
+
+Subscript alone restores the retail constant BASE constructor; operator* alone
+restores final LEFT destructor. The composition restores BOTH calls without
+the emitted reporting branch of float's40/40 free-comparison composition.
+Best38/38 has no G_Assert_Report relocation; actual final right destruction is
+inline then final left destruction is out of line, as retail. Retail766/760B
+versus805/799B means +39B both.26calls vs24 come from duplicated initial
+right/left child-failure cleanup: retail shares its suffix with factory cleanup.
+Second child failure still goes to normal final cleanup rather than backward
+to initial cleanup. Token buffer selection stays singleton-first; retail loads
+buffer then substitutes singleton. Factory null check uses memory compare and
+later ECX reload instead of retail load-before-check. Full relocation/EH exact
+audit is not claimed; no masked candidate is zero. Root independently verified
+all125float+142int old exact body/relocation/literal/EH graphs on this clean best:
+/home/dev/Projects/EnB/.work/claim-342/shared38-float-preservation.json
+/home/dev/Projects/EnB/.work/claim-342/shared38-int-preservation.json
+This is not all-consumer shared-header proof or a proof of either new target.
+
+Both-child guards were genuinely untested: prior both_guard was second child
+plus factory. They and do/break join failures at FINAL normal cleanup, losing
+the required initial block. A label inside first return with second goto,
+reopened ONLY under the newly demonstrated complementary helper budget, again
+lowers cleanup at SECOND child. Original independent returns with those helpers
+retain initial block but duplicate second cleanup (28calls) and lose retail's
+duplicated second null check. Further label/guard combinations have no concrete
+backing. Scoped named std::string preserves temporary order but removes the
+factory temporary's null store present retail, changes no needed callee and
+does not improve either base; earlier named-text forms were only const char*.
+
+The independently identified null-left comparison family was transferred to
+float Sol before my compilation. My prepared null_left_original SHA256
+b63b2627c170466c1c8ff67c0aa304b8732240d7dc240fec4c80ccf891bc4eb1
+is identical to globally compiler-invalid runs/sol_float_reverse_original/input.h;
+my prepared null_left_guard SHA256
+9efda5a085bebc2d442b8ddfbd1025f7ce6d1d27d69865b1868601d74a816ee0
+is identical to float's uncompiled reverse_guarded proposal. Neither is a new
+compiled form here or an open lead. Corrected early-include equivalents were
+globally tested in sol_float_reverse_include_original (SHA5f14242b...) and
+sol_float_reverse_include_guarded (SHA6434c2fa...), yielding205/207 and61/61.
+Full exact hashes and paths are in evidence.json. Float's clean45/42 versus
+40/40-with-emitted-report diagnostics were inspected before my tests.
+
+No further distinct backed lead found after actual prior patches, retail,
+exact unary siblings, local helper/ownership definitions and all group results
+were examined. Manual destructor/clear, delayed ownership, array/fake helper
+lifetimes, assertion suppression, dead reads or padding lack supporting evidence
+or change semantics. Reopen on evidence for a real operation/source layout that
+shares child failure at the FIRST cleanup while preserving factory cleanup,
+or changes the string-buffer select with both recovered calls and no extra
+reporting path. Do not repeat prior forwarding/accessor/null/label spellings
+without a demonstrated new mechanism. Exhaustion here does not assert all
+equivalent C++ programs were tried.
+
+All compiler/analyzer jobs finished; runner restored staging header to original
+e5338bd6698039ab87b2290257c5b87f24211c445422d0a165a9a8f480d935f7.
+Exclusive compiler/staging gate released to root. No production edits, commits,
+external writes, children, VM leases or remaining jobs from this worker.

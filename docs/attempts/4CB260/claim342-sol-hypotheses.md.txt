@@ -1,0 +1,102 @@
+# Sol float escalation
+
+Gate granted by root while global parent 105905 stopped after 649/1049.
+No production edits; own inputs only. Both specializations compiled by runner.
+
+Pre-batch 1: direct NULL construction of both existing smart pointer locals
+selects the real DummyPtrType constructor rather than default constructor.
+ref_ptr.h documents a previous exact client_lego_impl fix caused by the source
+cost of this constructor. Its current body sets the same null referent and
+retains the same destruction order/EH lifetime. Original and guarded bases
+isolate this helper selection from the earlier positive-guard effect. Historical
+copy-init-local forms lack patches and may overlap; this is explicitly a related
+constructor family, not asserted novel historical spelling.
+
+Prepared batch 2, pending batch 1 review: reversed null comparisons use real
+free operator==/!= templates in ref_ptr.h instead of member DummyPtrType
+conversion. Those helpers include FAIL_IF(0 != dummy), constant false for a
+literal NULL. Unlike forwarding Get_Result/data layers, actual source contains
+conditional assertion machinery whose cost may change inline selection; check
+that no runtime assertion was added or removed and all original checks survive.
+Both bases isolate CFG effect. No positional sweep is proposed.
+
+Batch 1 result: both null constructors are byte-for-byte duplicates of the
+respective original and guarded bases, including summarized unwind data.
+All 267 original pairs/symbols survive.
+
+Batch 2 first launch: sol_float_reverse_original is compiler-invalid because
+ref_ptr.h sees no FAIL_IF macro while its free template is parsed. Correct
+ordinary dependency by including existing ../g_assert.h at builder blank line18
+before eval_impl/ref_ptr, preserving the existing line51. Include-only original
+control isolates any side effect of this supporting include order; then compile
+the two comparison forms. Do not change or suppress any assertion macro.
+
+Rejected without compilation: removing fold base cast chooses a derived
+Create_NEW and different smart-pointer temporary. Retail 0x4CB4BC resolves
+through 0x415C8A to exactly the BASE Create_NEW at 0x4C87A0 (thunk-names.tsv).
+That concrete callee evidence favors the existing cast; no independent reason
+to expect derived Create_NEW would inline selectively to restore the base call.
+
+Do/break child-exit hypothesis delegated to int Sol by root; not compiled here.
+
+Batch 2 result: include-only control duplicates original. Full reversed checks
+original 845/839 bytes,residue205/207; guarded797/791,residue61/61. Both267
+preserved. Guarded now calls retail base constructor AND final left destructor,
+but it materializes boolean return values via sete/setne and byte compares at
+every check, and also calls right destructor out of line (26 calls vs retail24).
+
+Pre-batch 3: isolate the effect at the factory-null check, immediately preceding
+the two missing original guarded calls. Keep both child checks in their direct
+form to preserve retail raw-compare shape and duplicate second null test; reverse
+only the factory-null comparison on guarded base, with the same early assertion
+include. This is one targeted isolation grounded in the observed restored calls,
+not a positional sweep. Expected limitation: factory bool materialization may
+still mismatch retail, but call recovery and actual early cleanup decide whether
+there is further backed progress.
+
+Batch 3 result: 821/815 bytes, residue52/52,267pairs preserved; class inline-budget.
+Base constructor is now out of line, final left destructor remains inline.
+Early child CFG and token string remain unchanged from guard. Factory check
+still adds sete/byte compare, so this is diagnostic improvement only.
+
+Pre-batch 4: observed existing-helper cost restores real calls, but reversed
+comparison's bool materialization obstructs a match. Try existing dereference
+helper at Is_Constant only: (*m_result).Is_Constant(). Its real G_ASSERT is
+retained and can fold because factory null check immediately precedes it with
+no intervening call. Inspect actual instructions/calls to reject any added
+runtime assert or out-of-line dereference helper. Do not change Evaluate to
+operator*: allocation precedes Evaluate, so compiler may not prove non-null
+there, adding a reporting path absent from retail. Keep all three direct
+comparisons and previous guard, same early include support. This is not a
+fabricated helper or dead operation; ref_ptr.h explicitly supplies operator*.
+
+Batch 4 result:797/797bytes,residue45/42,267pairs preserved. Assert fully
+folded, no G_Assert_Report or operator* runtime call/relocation. Final left
+destructor now out of line, constant base ctor still inline;25vs24calls.
+Direct comparisons remain. Early child failure and string selection unresolved.
+
+Pre-batch 5: compose the two individually useful real-helper operations:
+factory-only reversed comparison recovered base ctor; Is_Constant operator*
+recovered final left destructor. Neither operation changes callback ordering,
+owner lifetime, fold evaluation order or enabled assertions. Observe whether
+both recoveries survive their combined inline cost; a new right-destructor
+call or boolean materialization still disqualifies exactness. This one
+composition tests an actual interaction, not a Cartesian family.
+
+Batch 5 result:838/832bytes,residue40/40,267pairs preserved, both desired
+calls restored. However free factory bool breaks compiler's nonnull knowledge;
+operator* now emits G_Assert_Report(offset585), absent retail. No assertion
+suppressed; reject this output as an exact candidate despite lower residue.
+Its guard means the report branch is logically unreachable with ordinary
+execution, so this is not classified as a source-semantics failure. It is an
+emitted-code mismatch. Best clean helper candidate remains batch4(45/42).
+
+No further useful source family follows: moving Evaluate ahead of allocation
+violates observed allocation-before-callback order; operator* on Evaluate
+across allocation could add a live/reporting null check and has no retail
+support. Removing base cast selects wrong known helper. Pure Get_Result/data
+layers already duplicate, both null-constructor contexts duplicate, and raw
+Peek/arrow accessors have identical bodies with no conditional-cost mechanism.
+Do/break and both-child guard CFG leads remain reserved to int worker; its
+results may justify a targeted composition with batch4. This Sol round made
+actual progress in batches3/4, so is not a failed round or LIMIT REACHED.

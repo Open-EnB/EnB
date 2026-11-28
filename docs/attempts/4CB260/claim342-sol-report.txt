@@ -1,0 +1,83 @@
+# Float Sol escalation 0x4CB260, shared int 0x4CFB00
+
+No exact target or production change. All eight successful changed header
+inputs preserve all267 original file/address AND symbol/address pairs; no gains
+or losses. One additional input is compiler-invalid, not a successful form.
+Five causal hypothesis batches; batches3/4 reduce useful residue. No eight-batch
+checkpoint or three consecutive unbacked no-cut stop was reached. This is not a
+parked/failed round. No full exact-body audit or all-consumer proof is claimed.
+
+Full inputs, canonical responses/logs, both objects, results, objdiff/explain:
+/home/dev/Projects/EnB/.work/claim-342/runs/sol_float_*/
+Raw/masked hashes, relocations, unwind summaries:
+/home/dev/Projects/EnB/.work/claim-342/analysis.json
+Pre-batch hypotheses and full-header generator:
+/home/dev/Projects/EnB/.work/claim-342/4CB260/sol/hypotheses.md and generate.py
+
+| Run suffix after sol_float_ | Classification | Float/int bytes | Residue |
+| --- | --- | --- | --- |
+| null_original | direct NULL constructor, historical family overlap |888/882|67/67|
+| null_guarded | direct NULL constructor on guard |808/808|56/53|
+| reverse_original | invalid: FAIL_IF undefined when ref_ptr template parsed | no objects | none |
+| include_original | early existing g_assert include control |888/882|67/67|
+| reverse_include_original | existing free null operators, early include |845/839|205/207|
+| reverse_include_guarded | same on guard |797/791|61/61|
+| reverse_factory_guarded | free null operator at factory check only |821/815|52/52|
+| dereference_guarded | existing operator* for Is_Constant only |797/797|45/42|
+| dereference_reverse_factory_guarded | composition; added emitted report path |838/832|40/40|
+
+Three outputs (null original, null guard, include control) exactly duplicate
+their respective original/guarded target raw and masked hashes and unwind
+summaries. Five other successful outputs are distinct per target. Generated but
+uncompiled proposals: reverse_guarded without early include, include_guarded
+control. These are not attempts. The invalid original null-helper run attempted
+float only; no int object was created. Every successful run compiled both TUs.
+
+The null-constructor hypothesis uses the actual ref_ptr.h cost mechanism, but
+its current default and DummyPtrType bodies canonicalize identically. Earlier
+historic copy-init-local forms have no patches, so overlap is explicitly unknown.
+NULL-left equality actually selects the free helper with constant-folded
+FAIL_IF. To parse it, g_assert must be included before eval_impl/ref_ptr; using
+builder blank line18 preserves G_ASSERT(factory) on line51 and leaves every
+other physical assert line intact. Include-only control duplicates original.
+
+Free operators materialize bool via sete/setne and byte compares, unlike retail
+direct null branches. Full reversed guard restores both missing base constructor
+and final left destructor, but also calls right destructor out of line. Factory
+only restores base ctor while left dtor remains inline. Operator* Is_Constant
+instead restores final left destructor, fully folds its enabled G_ASSERT, and
+has no G_Assert_Report or operator* runtime call/relocation. Its two direct child
+checks and factory check stay direct. This is the useful clean best45/42 source:
+/home/dev/Projects/EnB/.work/claim-342/4CB260/sol/dereference_guarded/expr_math_builder.h
+
+The composition restores both calls but loses compiler nonnull correlation:
+G_Assert_Report appears at offset585 in both targets,27calls vs retail24.
+That report branch is logically unreachable after the factory-null check with
+no intervening call, so source semantics are not rejected; its emitted code is
+absent retail and disqualifies exactness. Lower40/40 is diagnostic only. Do not
+omit the assertion to force it. No masked-zero candidate arose.
+
+Remaining clean-best residue: second-child null branches to normal cleanup
+rather than retail first-failure backward edge; initial cleanup/left cleanup
+tail sharing differs; string c_str pointer/singleton scheduling differs; constant
+base ctor remains inline. Retail766/760bytes vs797/797;25calls vs24. Objdiff
+extends past retail body ends, so counts/similarity are diagnostic, not proof.
+Both locals are genuinely constructed before first Accept; assignments retain
+left/right refcount and callback order. IsConstant dereference follows the
+factory nonnull check without a call; Evaluate still occurs after allocation.
+
+Rejected0-form leads: no-cast fold selects derived Create_NEW, but retail4CB4BC
+calls BASE Create_NEW via415C8A->4C87A0, confirmed thunk-names.tsv. Evaluate
+before allocation changes callback ordering; operator* Evaluate across allocation
+can add an unproved null assertion. Delayed/captured ownership or manual clears
+lack lifetime evidence. Pure accessor spelling families were exhausted by actual
+earlier duplicates and provide no new cost mechanism here. No asm/flags/padding,
+fake helpers, artificial dead reads, assertion omissions or supporting-source
+changes were used. Do/break and both-child guards reserved to int Sol by root.
+
+Reopen on a concrete child-failure CFG result from int, preferably combined with
+the clean operator* source, or evidence for another real operation explaining
+both missing ctor and direct child cleanup without extra reporting code. Existing
+helper/body source and actual retail calls were inspected, not only scores.
+Gate released after all jobs finish; staging header restored by runner; no jobs,
+VM leases, commits or external writes from this worker.

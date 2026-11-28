@@ -1,0 +1,98 @@
+{
+  "claim": 342,
+  "base_revision": "c180e8cf859d688183f1900512b33423cb939b77",
+  "production_source_sha256": "e5338bd6698039ab87b2290257c5b87f24211c445422d0a165a9a8f480d935f7",
+  "production_cpp_and_headers_unchanged": true,
+  "new_exact": [],
+  "remaining_not_exact": [
+    "0x4CB260",
+    "0x4CFB00"
+  ],
+  "claimed_file_pairs_before": 267,
+  "claimed_file_pairs_after": 267,
+  "claimed_symbol_pairs_before": 267,
+  "claimed_symbol_pairs_after": 267,
+  "claimed_pair_gain": 0,
+  "claimed_pair_loss": 0,
+  "original_control_graphs_checked": 267,
+  "partial_clean38_prior_graphs_checked": 267,
+  "all_trial_primary_and_context_file_and_symbol_deltas_empty": true,
+  "trial_counts": {
+    "classifications": {
+      "changed_compiled": 37,
+      "coordinator_control": 1,
+      "support_include_control": 1,
+      "compiler_invalid": 1
+    },
+    "source_inputs": 40,
+    "raw_groups": {
+      "4CB260": 22,
+      "4CFB00": 22
+    },
+    "masked_groups": {
+      "4CB260": 22,
+      "4CFB00": 22
+    }
+  },
+  "trial_translation_unit_compiler_inputs": 79,
+  "baseline_translation_unit_compiler_inputs": 1051,
+  "source_patch_replays_verified": 40,
+  "prepared_uncompiled_sources": [
+    {
+      "sha256": "79e0a591a29f2021ea0840a8171b891a5999ff514beda7f6bf9a7abc09a28716",
+      "prepared_paths": [
+        "4CB260/sol/include_guarded/expr_math_builder.h"
+      ],
+      "actual_runs": [],
+      "classification": "prepared_uncompiled",
+      "note": "Prepared intermediate support-include control on guarded base, not separately compiled. The include-only original control was actually compiled as sol_float_include_original and duplicate original; supported guarded helper variants were compiled. This intermediate control is not an open function hypothesis.",
+      "record": "prepared-79e0a591a29f2021.json"
+    },
+    {
+      "sha256": "9efda5a085bebc2d442b8ddfbd1025f7ce6d1d27d69865b1868601d74a816ee0",
+      "prepared_paths": [
+        "4CFB00/sol/null_left_guard/expr_math_builder.h",
+        "4CB260/sol/reverse_guarded/expr_math_builder.h"
+      ],
+      "actual_runs": [],
+      "classification": "prepared_uncompiled",
+      "note": "Two workers independently prepared the same guarded reversed-null proposal without its required early g_assert dependency. Never compiled at this hash after sol_float_reverse_original proved the original form compiler-invalid because FAIL_IF was undeclared. The corrected supported guarded form was actually tested as sol_float_reverse_include_guarded and failed61/61. This is a superseded prepared source, not an open lead.",
+      "record": "prepared-9efda5a085bebc2d.json"
+    }
+  ],
+  "source_snapshot_files_checked_twice": 6237,
+  "best_clean": {
+    "run": "sol_int_subscript_dereference",
+    "groups": {
+      "4CB260": 38,
+      "4CFB00": 38
+    },
+    "bytes": {
+      "4CB260": 805,
+      "4CFB00": 799
+    },
+    "input_sha256": "07cecf60d1320efa904029d41051bc6090e711be215882cbc0418a591ba070d4",
+    "code_not_kept": true
+  },
+  "global_reference_baseline": {
+    "base_revision": "c180e8cf859d688183f1900512b33423cb939b77",
+    "scope": "All1049 registered translation units, original unchanged tracked snapshot; native worker requires every recorded primary file/address pair to reproduce.",
+    "units": 1049,
+    "compiled_objects": 1049,
+    "compile_errors": 0,
+    "recorded_coverage_missing": [],
+    "file_address_pairs": 42979,
+    "symbol_address_pairs": 42988,
+    "file_pair_set_sha256": "d30e0058657deb89fce71dc951e113c19b0b93e8a56ecdaeb9bd9431ffe8b395",
+    "symbol_pair_set_sha256": "e00ea05f67a327ce18ea79503b0ed88f4cb023196da843d1592e66f3a77bb709",
+    "unit_mapping_sha256": "eae513ee12bc88a595046553d9627c8dd078a468e778862e1a8ec63fad7afd8a",
+    "object_manifest_sha256": "48eb2a599198be56577d79ddb3fc52f3b7b536001d20ce2aad0f082fcf125aac",
+    "compiler": "/home/dev/Toolchains/enb-vc6-sp4/bin/vc6-cl",
+    "client_sha256": "249f852496f341c00361be95b66e7c0becc2c39e7cba026f9227e38b602651c4",
+    "header_sha256": "e5338bd6698039ab87b2290257c5b87f24211c445422d0a165a9a8f480d935f7",
+    "build_configuration": "Installed preflight worker, canonical libdefs flags/defines/tree_includes, client app source alias; unchanged git-archive snapshot. No gate, matcher or flags changed.",
+    "limitations": "Reference baseline only. No experimental header qualified, no full-consumer after-variant proof or new-target exactness claim. Final contribution changes evidence only; committed preflight must verify that scope."
+  },
+  "parking": "Meaningful leads exhausted after real progress; Terra/Sol productive rounds are not stalls. Astra2forms duplicate prior groups. Float attempt tool additionally counts its unscored legacy Nov5 row and Astra stall toward LIMIT; int is parked without inventing another failed round.",
+  "proof_limits": "No target masked-zero candidate, so no new-target complete relocation/EH exactness proof is asserted. Clean38 remains only replay evidence. Global reference reproduces42979file and42988symbol pairs, but no trial header is claimed all-consumer exact. Final committed preflight must verify evidence-only scope; hosted checks/review remain separate."
+}

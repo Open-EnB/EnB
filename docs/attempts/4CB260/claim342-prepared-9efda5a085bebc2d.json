@@ -1,0 +1,58 @@
+{
+  "sha256": "9efda5a085bebc2d442b8ddfbd1025f7ce6d1d27d69865b1868601d74a816ee0",
+  "prepared_paths": [
+    "4CFB00/sol/null_left_guard/expr_math_builder.h",
+    "4CB260/sol/reverse_guarded/expr_math_builder.h"
+  ],
+  "actual_runs": [],
+  "classification": "prepared_uncompiled",
+  "note": "Two workers independently prepared the same guarded reversed-null proposal without its required early g_assert dependency. Never compiled at this hash after sol_float_reverse_original proved the original form compiler-invalid because FAIL_IF was undeclared. The corrected supported guarded form was actually tested as sol_float_reverse_include_guarded and failed61/61. This is a superseded prepared source, not an open lead.",
+  "unit": "app/shared/expr/expr_math_builder.h",
+  "base_revision": "c180e8cf859d688183f1900512b33423cb939b77",
+  "base_sha256": "e5338bd6698039ab87b2290257c5b87f24211c445422d0a165a9a8f480d935f7",
+  "input_sha256": "9efda5a085bebc2d442b8ddfbd1025f7ce6d1d27d69865b1868601d74a816ee0",
+  "edits": [
+    {
+      "start": 2607,
+      "end": 2607,
+      "text": "NULL == "
+    },
+    {
+      "start": 2615,
+      "end": 2623,
+      "text": ""
+    },
+    {
+      "start": 2702,
+      "end": 2702,
+      "text": "NULL != "
+    },
+    {
+      "start": 2710,
+      "end": 2718,
+      "text": ""
+    },
+    {
+      "start": 2722,
+      "end": 2736,
+      "text": ""
+    },
+    {
+      "start": 2860,
+      "end": 2860,
+      "text": "NULL == "
+    },
+    {
+      "start": 2868,
+      "end": 2876,
+      "text": ""
+    },
+    {
+      "start": 3033,
+      "end": 3033,
+      "text": "\n\t\t}"
+    }
+  ],
+  "replay_verified": true,
+  "edit_offsets": "zero-based Python character offsets; apply descending"
+}

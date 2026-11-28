@@ -1,0 +1,48 @@
+# First pass: float 0x4CB260 (shared template with int)
+
+No target matched. All ten changed forms compiled both TUs with 267 original
+pair/symbol pairs preserved and no gains. Context objects resolved the int
+0x4D0200 coverage ambiguity. Broad header-consumer preservation remains pending.
+Immutable input, compiler response, objects, result and diffs are under
+`/home/dev/Projects/EnB/.work/claim-342/runs/<run>/`; full source generator and
+pre-batch hypotheses are in this directory. Per-target hashes, relocations,
+EH data and call analysis are in `/home/dev/Projects/EnB/.work/claim-342/analysis.json`.
+Raw and masked code hashes below are identical as recorded by the analyzer;
+prefixes here identify groups, not independently proved relocation equality.
+
+| Batch | Run(s), suffix after float_ | Float/int bytes; residues | float/int raw + masked hash prefixes |
+|---|---|---|---|
+| baseline | baseline | 888/882; 67/67 | 77169d4fb334 / fd20fbab54a7 |
+| 1 | first_child_goto | 804/804; 131/128 | 81d5c9fd277f / c8816fbd628a |
+| 1 | first_named_text | 888/882; 67/67 | baseline duplicate |
+| 2 | first_label, first_label_named | 804/804; 131/128 | first_child_goto duplicate |
+| 3 | second_guard | 808/808; 56/53 | 5dec77c070ca / c9f05e9ed4d1 |
+| 4 | first_guard | 808/808; 131/128 | 012d6f2757d6 / efae8410e231 |
+| 4 | both_guard | 729/729; 85/82 | 6cd7c72ecb39 / 6c36c7578eef |
+| 4 | guard_named | 808/808; 56/53 | second_guard duplicate |
+| 5 | fold_raw | 808/808; 56/53 | 3561ee07a63c / 14dd332dd46d |
+| 5 | fold_ptr | 822/822; 74/71 | 137bc33c647c / b943bca011a6 |
+
+The improvement batch 3 leaves retail's first failure cleanup duplicated instead
+of joined, and its second-null path ends in normal cleanup; its second check
+does match retail's otherwise missing duplicated null test. Two calls present in
+retail (constant base constructor, left smart pointer destructor) are inlined
+in this variant. The c_str load/select order still differs. Batch 4 did not cut
+the residue; batch 5's raw pointer changes bytes but not residue, while named
+smart pointer worsens it. The goto variants put shared cleanup at the second
+check despite moving the label in source. These are diagnostics only.
+
+Semantics assumed: both child callbacks and factory call remain ordered; all
+failure states and object lifetimes are preserved. The named C string retains
+embedded-NUL truncation; replacing it with a string copy would not. The raw
+folding local preserves allocation-before-evaluation; the named smart pointer
+ends at the folding block with no intervening operation. Full EH/relocation proof
+was unnecessary because no masked candidate matched.
+
+Reopen on a backed way to make the second child failure branch backward into the
+first cleanup and recover the two out-of-line calls. A short-circuit common
+failure condition is a distinct untested lead reserved for the int worker.
+The exact unary float 0x4CAF50 independently uses the baseline token sequence,
+so changing global string helpers is unsupported. Prior history consists of four
+shared forms with no surviving patches; `attempts.py show` was inspected for both
+addresses. No production files, commits, or external resources were changed.

@@ -1,0 +1,7 @@
+{
+  "before_sha256": "7fc9a080efc0ebc009052c190bc0696cc04732cc9a01a7a50ad15685ece9d422",
+  "after_sha256": "48afc3de9c91e329f2064b436f8e6bba1a9fc826de98e28ae23b0d6832f0dfdd",
+  "checked": 125,
+  "changes": [],
+  "normalization": "EH placement only; body fixed bytes, all other relocations/addends/literals, handler, FuncInfo fixed fields, predecessor states and cleanup graphs compared"
+}

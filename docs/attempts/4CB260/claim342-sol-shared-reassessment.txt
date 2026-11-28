@@ -1,0 +1,60 @@
+# Read-only shared-clue reassessment
+
+Reviewed actual inputs, both target diffs/explanations, relocation call lists
+and four empty pair-set deltas for:
+/home/dev/Projects/EnB/.work/claim-342/runs/sol_int_subscript_dereference/
+Also rechecked actual canonical XSTRING const operator[](0) and retail decoded
+cleanup evidence. This reassessment compiles zero forms and owns no compiler
+or staging mutation gate. No production changes.
+
+The input genuinely combines two real helpers: const string subscript address
+for the NUL-terminated factory conversion, and RefCountPtr operator* for
+Is_Constant immediately following factory-null checking. Both missing retail
+callee symbols now appear in each target: base ExprMathEvalClass constructor
+and final left RefCountPtr destructor. There is no G_Assert_Report relocation.
+All267 original file/address AND symbol/address pairs survive,
+with zero gained/lost in each set. Length805/799 vs retail766/760; residue38/38;
+same callees but26 calls vs24. These remain diagnostics, not exactness proof.
+
+The two extra calls are specifically the two inlined virtual-delete sites in
+the duplicated initial child-failure cleanup: one right and one left. Retail's
+initial right cleanup instead jumps into corresponding factory-failure right
+delete/null and left cleanup. Candidate second-child failure still goes to
+normal cleanup at float offset2DA, rather than backward to initial offset49.
+
+The net39-byte excess is not simply a39-byte cleanup block. Matching both diffs:
+
+| Region | Candidate minus retail |
+| --- | ---: |
+| First-success label: candidate A0 vs retail73 | +45 |
+| Second-child null branch: near6 bytes vs backward short2 | +4 |
+| Token pointer/singleton selection | +5 |
+| Factory-null memory compare vs cached ECX load+compare | -2 |
+| Success block reloads ECX before Is_Constant | +3 |
+| Factory-failure jump5 replaces dedicated epilogue21 | -16 |
+| Total | +39 |
+
+Initial cleanup and factory-failure left release also schedule the NumRefs
+store after the compare, whereas retail stores before it. The success
+destructor tail and base construction are otherwise much closer; calls alone
+do not erase the remaining branch, scheduling and EH proof requirements.
+
+One independently backed next test: repeat first-return child_failure label
+with second-child backward goto on this actual helper composition, keeping
+factory failure separate. The old Terra first_label ran before either real
+helper cost was present and inlined the needed calls; this input has changed
+the measured inline-cost mechanism, justifying a single retest of source CFG
+sharing. It is not a general reopening of old spelling families. Int Sol
+independently selected this exact test, already compiled it as
+sol_int_shared_failure_helpers, and is analyzing it. No duplicate compile
+requested or performed here.
+
+Actual int result returned: sol_int_shared_failure_helpers is801/795bytes,
+residue113/113,26calls, all267 preserved. The merged child cleanup is still
+placed at the second test; the first cleanup block is removed. The two desired
+retail direct calls remain and there is no Report call. Thus this targeted
+label retry does not solve initial child cleanup placement despite the changed
+helper budget. No further label-position family follows. Int is preparing
+one original-three-return control on the complementary-helper source, which
+tests the remaining original orientation under the new cost mechanism; that
+is int-owned, not another request or compilation from this reassessment.

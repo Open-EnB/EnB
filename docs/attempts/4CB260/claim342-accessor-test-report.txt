@@ -1,0 +1,14 @@
+# Accessor lead test
+
+Before compilation, hypothesis.md recorded the inline-budget / shared-exit hypothesis. generate.py produced two complete headers: original/expr_math_builder.h from the original snapshot and guarded/expr_math_builder.h from runs/float_second_guard/input.h. Only the child-result checks and the two assignments use the existing const-reference Get_Result; the factory check, callbacks, writes, and original assertion lines are unchanged. Const-reference access retains refcount and lifetime behavior. Two changed forms were compiled against both specializations by runner.py, with exact inputs, responses, objects, matcher results, instruction diffs and explain data in runs/group_accessor_original and runs/group_accessor_guarded. analyze.py recorded raw/masked hashes, relocation entries and unwind summaries in analysis.json.
+
+| Form | float length / residue | int length / residue | Target output |
+|---|---:|---:|---|
+| original accessor | 888 / 67 | 882 / 67 | raw and masked hash identical to original baseline for each target |
+| guarded accessor | 808 / 56 | 808 / 53 | raw and masked hash identical to float_second_guard for each target |
+
+Both forms preserved all 267 original file/address and symbol/address pairs; no gains or losses. The raw byte identity means neither accessor changes the original or guarded control flow, string scheduling, or direct/indirect calls: guarded second-child failure still goes to normal cleanup instead of the retail backward edge, and the retail left destructor and constant base constructor calls remain inlined in the guarded output. Inspected 4CFB00 instruction diff confirms the original first cleanup shape and the guarded second null branch and first cleanup differences from retail. Compare the corresponding float instruction diff in each run: it is likewise byte-identical to its respective base.
+
+Each corresponding target relocation list is identical except the generated EH label at offset 3 ($L17152 to $L17164 for float; $L17758 to $L17770 for int); relocation type and zero addend match. Summarized unwind data is identical to each base, but this is not an independent complete proof of the EH graphs, and no exact-match candidate emerged. Existing guard best remains diagnostic, not retained. Broad shared-header consumer preservation remains root's responsibility if a future gain appears.
+
+These results show no inline-budget effect for this complete accessor substitution in either control-flow context. A positional sweep has no concrete justification; no further accessor lead is backed by this result. Reopen with independent evidence for an alternate real layer or lifetime affecting the retail backward failure edge and call emission. No production edits or commits; compiler processes finished and compiler gate released.
