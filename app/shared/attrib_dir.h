@@ -259,7 +259,7 @@ public:
 };
 
 // The directory (0x18 bytes)
-class AttributeDirectory  // NAME 5: thunk order, binary.md 5.11
+class AttributeDirectory  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	typedef std::hash_map<std::string, AttributeInfo *> AttributeMap;

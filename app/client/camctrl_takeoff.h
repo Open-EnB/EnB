@@ -9,7 +9,7 @@
 
 // The camera manager's tenth controller (state 9; vtable 0xB05100, 0x60 bytes): the take-off, with effect 0x170 on the
 // avatar for five seconds; +0x14 says yes after two
-class TakeoffCameraControllerClass : public CameraControllerClass  // NAME 5: thunk order, binary.md 5.11
+class TakeoffCameraControllerClass : public CameraControllerClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	TakeoffCameraControllerClass(SpaceClientClass *client);			// 0x7961B0

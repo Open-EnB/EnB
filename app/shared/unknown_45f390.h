@@ -11,7 +11,7 @@ class Sound3DClass;
 
 // The 'sound' render state (vtable 0xAE821C, 0x3C bytes; rs.ini TYPE 'sound'): a message state that plays
 // a 3D sound by name while it is active, moved along with the owner's transform; flag 3 keeps it looping.
-class RenderStateSoundClass : public Unknown45D840Class  // NAME 5: thunk order, binary.md 5.11
+class RenderStateSoundClass : public Unknown45D840Class  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	RenderStateSoundClass(RenderStateListClass *list, int id, int link_id, unsigned int flags, const char *sound, int message);	// 0x45F390  // NAME 1 [sound, message]: rs_list.cpp's keys

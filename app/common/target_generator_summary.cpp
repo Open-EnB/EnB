@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 
-struct TargetSummaryStrings  // NAME 5: thunk order, binary.md 5.11
+struct TargetSummaryStrings  // NAME 5: thunk order C, binary.md 5.11
 {
 	std::string Scope;		// +0x00 ("to group", "to targets", ...)  // NAME 2: what it holds
 	std::string Radius;		// +0x10 ("Effect Radius : %d")  // NAME 2: what it holds

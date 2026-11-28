@@ -38,7 +38,7 @@ public:
 ** A box keeping the objects whose boxes overlap it (0x30 bytes, vtable 0xAE7A5C; PxWrapper's callback box): the
 ** owner of each box b is its PxObject's DynamicObjectClass (b->Owner's +0x00).
 */
-class PxBoxOwnerList : public PxBox  // NAME 5: thunk order, binary.md 5.11
+class PxBoxOwnerList : public PxBox  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	PxBoxOwnerList(void *owner);							// 0x44DB50  // NAME 2 [owner]: the PxBox owner

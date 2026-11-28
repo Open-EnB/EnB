@@ -36,7 +36,7 @@ public:
 };
 
 // opcode 122 (0x007A, MANUFACTURE_ITEM_CATAGORY): vtable 0xB0B134, constructor 0x89B620, 0x14 bytes
-class ManufactureSetItemCategoryPacketClass : public PacketClass  // NAME 5: thunk order, binary.md 5.11
+class ManufactureSetItemCategoryPacketClass : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	ManufactureSetItemCategoryPacketClass(int player, int category);	// 0x89B5A0
@@ -51,7 +51,7 @@ public:
 };
 
 // opcode 123 (0x007B, MANUFACTURE_ITEM_ID): vtable 0xB0B164, constructor 0x89B860, 0x14 bytes
-class ManufactureSetItemIDPacketClass : public PacketClass  // NAME 5: thunk order, binary.md 5.11
+class ManufactureSetItemIDPacketClass : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	ManufactureSetItemIDPacketClass(int player, int item_id);	// 0x89B7E0
@@ -66,7 +66,7 @@ public:
 };
 
 // opcode 124 (0x007C, REFINERY_ITEM_ID): vtable 0xB0B194, constructor 0x89BAA0, 0x14 bytes
-class RefinerySetItemIDPacketClass : public PacketClass  // NAME 5: thunk order, binary.md 5.11
+class RefinerySetItemIDPacketClass : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	RefinerySetItemIDPacketClass(int player, int item_id);	// 0x89BA20
@@ -126,7 +126,7 @@ public:
 };
 
 // opcode 128 (0x0080, MANUFACTURE_TECH_LEVEL_FILTER): vtable 0xB0B254, constructor 0x89C3E0, 0x18 bytes
-class ManufactureSetTechLevelFilterPacketClass : public PacketClass  // NAME 5: thunk order, binary.md 5.11
+class ManufactureSetTechLevelFilterPacketClass : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	ManufactureSetTechLevelFilterPacketClass(int player, bool mode, unsigned int bit_field);	// 0x89C360

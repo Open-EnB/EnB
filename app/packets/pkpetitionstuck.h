@@ -18,7 +18,7 @@
 #include "pk.h"
 
 // opcode 136 (0x0088, ?): vtable 0xB0B594, constructor 0x89F860, 0x20 bytes
-class PetitionPacketClass : public PacketClass  // NAME 5: thunk order, binary.md 5.11
+class PetitionPacketClass : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	PetitionPacketClass(int game_id, int game_id2, const char *subject, const char *complaint, const char *player_list);	// 0x89F740

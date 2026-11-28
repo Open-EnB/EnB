@@ -16,7 +16,7 @@
 #ifndef __BITSET_H  // NAME 3 [bitset.h]: header name assumed from the client's bitset.cpp
 #define __BITSET_H
 
-class BitSet  // NAME 5: thunk order, binary.md 5.11
+class BitSet  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	BitSet(unsigned int size);										// 0x4A47B0, all bits clear

@@ -18,7 +18,7 @@ class CharacterViewClass;
 // (int)SortedGalaxies.size()'; layout fa_fe02a.ini on the model FE02A), 0xEC bytes, tables 0xAF76A0 / 0xAF7694 /
 // 0xAF7688. The character view's mode 5 (LoginTaskClass step 5): after the ship, or for a character not yet
 // registered; its Accept names the character and sends the creation (LoginTaskClass slot +0x48).
-class ShardInterface : public InterfaceClass  // NAME 5: thunk order, binary.md 5.11
+class ShardInterface : public InterfaceClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	ShardInterface(UIViewClass *view, LayerClass *layer);	// 0x615A50 (charview.cpp's 0x679160, mode 5)  // NAME 1 [view, layer]: as LoginInterface's

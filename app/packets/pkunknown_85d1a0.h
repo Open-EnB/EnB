@@ -19,7 +19,7 @@
 #include "pk.h"
 
 // opcode 73 (0x0049, ?): vtable 0xB08D98, constructor 0x85D270, 0x68 bytes
-class DeleteCharacterPacketClass : public PacketClass  // NAME 5: thunk order, binary.md 5.11
+class DeleteCharacterPacketClass : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	DeleteCharacterPacketClass(__int64 unknown10, int unknown18, const char *unknown1c, __int64 unknown60);	// 0x85D1A0 (Unknown1C strcpy'd)

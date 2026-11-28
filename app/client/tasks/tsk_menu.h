@@ -20,7 +20,7 @@
 
 #include "..\..\kernel\kernel.h"
 
-class MainMenuTaskClass : public KernelTaskClass  // NAME 5: thunk order, binary.md 5.11
+class MainMenuTaskClass : public KernelTaskClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	MainMenuTaskClass();									// 0x76BC50 (the implicit destructor 0x76BCF0, scalar deleting 0x76BCC0)

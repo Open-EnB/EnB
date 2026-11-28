@@ -21,7 +21,7 @@
 #include <vector>
 
 // opcode 168 (0x00A8, ?): vtable 0xB09F30, constructor 0x87AE80, 0x68 bytes
-class ChatProxyLoginPacketClass : public PacketClass  // NAME 5: thunk order, binary.md 5.11
+class ChatProxyLoginPacketClass : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	ChatProxyLoginPacketClass();	// 0x87ACD0
@@ -44,7 +44,7 @@ public:
 };
 
 // opcode 169 (0x00A9, ?): vtable 0xB09F60, constructor 0x87B7C0, 0x80 bytes
-class ChatProxyRequestPacketClass : public PacketClass  // NAME 5: thunk order, binary.md 5.11
+class ChatProxyRequestPacketClass : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	ChatProxyRequestPacketClass();	// 0x87B670
@@ -71,7 +71,7 @@ public:
 };
 
 // opcode 170 (0x00AA, ?): vtable 0xB09F90, constructor 0x87C230, 0x14 bytes
-class ChatProxyResponsePacketClass : public PacketClass  // NAME 5: thunk order, binary.md 5.11
+class ChatProxyResponsePacketClass : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	ChatProxyResponsePacketClass(int unknown0_c, int unknown10);	// 0x87C190
@@ -86,7 +86,7 @@ public:
 };
 
 // opcode 171 (0x00AB, ?): vtable 0xB09FC0, constructor 0x87C6C0, 0x50 bytes
-class ChatProxyResponseListPacketClass : public PacketClass  // NAME 5: thunk order, binary.md 5.11
+class ChatProxyResponseListPacketClass : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	ChatProxyResponseListPacketClass(const std::string &unknown0c);	// 0x87C3F0
@@ -107,7 +107,7 @@ public:
 };
 
 // opcode 172 (0x00AC, ?): vtable 0xB09FF0, constructor 0x87D2E0, 0x8C bytes
-class ChatProxyEventPacketClass : public PacketClass  // NAME 5: thunk order, binary.md 5.11
+class ChatProxyEventPacketClass : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	ChatProxyEventPacketClass();	// 0x87D180

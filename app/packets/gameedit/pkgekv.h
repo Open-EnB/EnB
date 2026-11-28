@@ -52,7 +52,7 @@ public:
 };
 
 // 0x7537 (30007, not in the packet switch: sent only): vtable 0xB08F18, constructor 0x85ECB0, 0x1C bytes
-class GameEditorKVUpdatePacketClass : public PacketClass  // NAME 5: thunk order, binary.md 5.11
+class GameEditorKVUpdatePacketClass : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	GameEditorKVUpdatePacketClass(int game_id, char *data, int size);	// 0x85EC30 (Data is the caller's, not copied)
@@ -70,7 +70,7 @@ public:
 };
 
 // opcode 30008 (0x7538, ?): vtable 0xB08F48, constructor 0x85EFC0, 0x1C bytes
-class GameEditorKVModifyPacketClass : public PacketClass  // NAME 5: thunk order, binary.md 5.11
+class GameEditorKVModifyPacketClass : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	GameEditorKVModifyPacketClass(int game_id, char *data, int size);	// 0x85EF40 (Data is the caller's, not copied)

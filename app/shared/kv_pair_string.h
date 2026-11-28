@@ -23,7 +23,7 @@
 #include "string_value.h"	// StringValueClass
 
 // vtable 0xAEB810, size 0x14
-class KVStringPairClass : public KVPairClass  // NAME 5: thunk order, binary.md 5.11
+class KVStringPairClass : public KVPairClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	KVStringPairClass(const char *key, StringValueClass *accessor, bool even = true, bool odd = true);	// 0x4B7FC0

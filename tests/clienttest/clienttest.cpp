@@ -1431,7 +1431,7 @@ static void Test_Verbs(SpaceClientClass *client)
 // starbase view (+0x135C) hands out its +0x60 interface (0x54EDA0, a RefCountPtr: the count at +0x3C goes up and back
 // down); 158 moves an avatar (0x63E5C0: AvatarID, Orient, the position, ActionFlag) only when the interface's room
 // (+0xAC) is the packet's Room and its +0x7C is set; 160 tells it an avatar's new room (0x63CF30) when +0x7C is set.
-class StarbaseInterface  // NAME 5: thunk order, binary.md 5.11
+class StarbaseInterface  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	void Clienttest_Unknown_63CF30(int avatar_id, int new_room);

@@ -43,7 +43,7 @@ public:
 	virtual void Unknown_98(SlotDataGadget *gadget, KernelEventClass *event, unsigned int mask);	// +0x98 (0x670B20)  // NAME 1 [gadget, event, mask]: what it passes
 };
 
-class SlotDataGadget : public UIMeshGadgetClass  // NAME 5: thunk order, binary.md 5.11
+class SlotDataGadget : public UIMeshGadgetClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	SlotDataGadget(SlotDataIFaceClass *slot_iface, SlotDataRenderClass *slot_render);	// 0x670650 (mask 0xE55)  // NAME 2 [slot_iface, slot_render]: the asserts' members; ui_slot_data.cpp's '!slot_render'
@@ -70,7 +70,7 @@ public:
 	bool Unknown68;														// +0x68 (true; 0x670C90: the report to SlotIFace on or off)
 };
 
-class SlotDataShortcutGadget : public SlotDataGadget  // NAME 5: thunk order, binary.md 5.11
+class SlotDataShortcutGadget : public SlotDataGadget  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	SlotDataShortcutGadget(SlotDataIFaceClass *slot_iface, SlotDataRenderClass *slot_render, LayerClass *layer);	// 0x670E30  // NAME 1 [layer]: what slot +0x28 takes

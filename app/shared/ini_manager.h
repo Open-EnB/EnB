@@ -22,7 +22,7 @@
 #include "..\..\wwlib\ini.h"
 
 // vtable 0xAEC6CC (0x24 bytes)
-class INIManager : public DefinitionManagerClass<INIClass>  // NAME 5: thunk order, binary.md 5.11
+class INIManager : public DefinitionManagerClass<INIClass>  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	INIManager();															// 0x4EA080, in ini_manager.cpp: Get_INI calls it

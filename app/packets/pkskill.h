@@ -35,7 +35,7 @@ public:
 };
 
 // opcode 88 (0x0058, SKILL_ABILITY): vtable 0xB0BA78, constructor 0x8A4CF0, 0x18 bytes
-class SkillAbilityPacketClass : public PacketClass  // NAME 5: thunk order, binary.md 5.11
+class SkillAbilityPacketClass : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	SkillAbilityPacketClass(int game_id, int action, int ability_index);	// 0x8A4C70

@@ -24,7 +24,7 @@
 class UIMeshClass;
 
 // The model gadget without a scene (0x60 bytes; its slots +0x74 / +0x78 the inline 0x51ADC0 / 0x51ADE0)
-class UIMeshGadgetClass : public RenderObjGadgetClass  // NAME 5: thunk order, binary.md 5.11
+class UIMeshGadgetClass : public RenderObjGadgetClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	UIMeshGadgetClass(UIMeshClass *mesh, const char *name, const LayerClass &layer, unsigned int mask);	// 0x674F90 (the mesh's sub-object 0x5B8B40)  // NAME 1 [mesh, name, layer, mask]: the base's and what it does

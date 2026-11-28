@@ -14,7 +14,7 @@ class AttributeSkillsGadget;	// gd_attrb_skills.cpp's gadget (UnknownC4's elemen
 
 // The attributes tab (0x124 bytes, tables 0xAEF4FC / 0xAEF4F0 / 0xAEF4E4; 0x5738B0 makes it, the first of the character
 // info window's tabs): the strings of 'fa_att.ini', two sliders, two panels and a layer
-class AttributeSkillsInterface : public UISkillsClass  // NAME 5: thunk order, binary.md 5.11
+class AttributeSkillsInterface : public UISkillsClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	AttributeSkillsInterface(SpaceClientClass *client);				// 0x549640 (0x124 bytes; deleting 0x549800)  // NAME 1 [client]: as BioInterface's

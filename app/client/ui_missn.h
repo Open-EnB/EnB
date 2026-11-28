@@ -18,7 +18,7 @@ class ViewUnknown34Class;
 // The missions tab (0xEC bytes, tables 0xAF3C9C / 0xAF3C90 / 0xAF3C84; 0x5738B0 makes it, the second of the character
 // info window's tabs): a 'TSI22A' mesh, the strings of 'fa_TSI22A.ini', a slider, a description panel, a dialog box and the current
 // missions (three a page)
-class MissionInterface : public Unknown5BB320Class  // NAME 5: thunk order, binary.md 5.11
+class MissionInterface : public Unknown5BB320Class  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	enum { MISSIONS_PER_PAGE = 3 };						// NAME 3: the G_ASSERTs' (l.397, 473, 528); its value from 0x5C4C90's loop

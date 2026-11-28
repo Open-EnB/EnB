@@ -100,7 +100,7 @@ class ShortcutInterface;
 void Unknown_57D6C0(SpaceClientClass *sclient, bool *lock_speed, bool *lock_orient);	// 0x57D6C0 (cdecl; the cockpit's 0x5806E0, the view's 0x6B58A0): the avatar's LockSpeed / LockOrient (G_ASSERT 'sclient' l.132)  // NAME 1 [sclient, lock_speed, lock_orient]: what they hold
 
 // ui_cpit.cpp's cockpit interface (the main view's +0x1D0; 0x178 bytes, tables 0xAF0CFC / 0xAF0CF0 / 0xAF0CE4)
-class CockpitInterface : public Unknown5BB320Class  // NAME 5: thunk order, binary.md 5.11
+class CockpitInterface : public Unknown5BB320Class  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	CockpitInterface(MainViewClass *view, const LayerClass &layer);	// 0x57D830 (0x178 bytes; the main view's 0x50C690)  // NAME 1 [view, layer]: what 0x50C690 passes

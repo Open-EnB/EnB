@@ -30,7 +30,7 @@
 #include "..\..\libs\wwonline\wnet\tcpmgr.h"
 #include "..\..\libs\wwonline\wnet\tcpcon.h"
 
-class TCPConnectionClass : public StreamConnectionClass  // NAME 5: thunk order, binary.md 5.11
+class TCPConnectionClass : public StreamConnectionClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	TCPConnectionClass(const char *host, unsigned short port, bool encrypt);	// 0x828C80

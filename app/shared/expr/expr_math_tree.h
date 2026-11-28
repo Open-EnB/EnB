@@ -23,7 +23,7 @@
 class ExprMathTreeVisitorClass;
 
 // A node and its token; alone, a leaf (a number or a name: token types 1, 2 and 5). 0x18 bytes, vtable 0xAEC0FC.
-class ExprMathTreeNode  // NAME 5: thunk order, binary.md 5.11; NAME 3 [ExprMathTreeNode]: class-from-file (D24)
+class ExprMathTreeNode  // NAME 5: thunk order A, binary.md 5.11; NAME 3 [ExprMathTreeNode]: class-from-file (D24)
 {
 public:
 	ExprMathTreeNode(const ExprLexerToken &token);				// 0x4D2580
@@ -37,7 +37,7 @@ protected:
 };
 
 // A binary operator and its operands; 0x20 bytes, vtable 0xAEC108.
-class ExprMathTreeBinary : public ExprMathTreeNode  // NAME 5: thunk order, binary.md 5.11; NAME 3 [ExprMathTreeBinary]
+class ExprMathTreeBinary : public ExprMathTreeNode  // NAME 5: thunk order A, binary.md 5.11; NAME 3 [ExprMathTreeBinary]
 {
 public:
 	ExprMathTreeBinary(const ExprLexerToken &token, ExprMathTreeNode *left, ExprMathTreeNode *right);	// 0x4D29A0
@@ -54,7 +54,7 @@ protected:
 };
 
 // A prefix operator and its operand; 0x1C bytes, vtable 0xAEC114.
-class ExprMathTreeUnary : public ExprMathTreeNode  // NAME 5: thunk order, binary.md 5.11; NAME 3 [ExprMathTreeUnary]
+class ExprMathTreeUnary : public ExprMathTreeNode  // NAME 5: thunk order A, binary.md 5.11; NAME 3 [ExprMathTreeUnary]
 {
 public:
 	ExprMathTreeUnary(const ExprLexerToken &token, ExprMathTreeNode *child);	// 0x4D2DF0

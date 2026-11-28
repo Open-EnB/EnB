@@ -65,7 +65,7 @@ public:
 };
 
 // opcode 174 (0x00AE, ?): vtable 0xB0A7C4, constructor 0x889940, 0x28 bytes
-class GroupServerRequestPacketClass : public PacketClass  // NAME 5: thunk order, binary.md 5.11
+class GroupServerRequestPacketClass : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	GroupServerRequestPacketClass(int unknown0c, int unknown10, __int64 unknown18, __int64 unknown20);	// 0x889870
@@ -82,7 +82,7 @@ public:
 };
 
 // opcode 175 (0x00AF, ?): vtable 0xB0A7F4, constructor 0x889BE0, 0x14 bytes
-class GroupServerResponsePacketClass : public PacketClass  // NAME 5: thunk order, binary.md 5.11
+class GroupServerResponsePacketClass : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	GroupServerResponsePacketClass(int unknown0_c, int unknown10);	// 0x889B40
@@ -97,7 +97,7 @@ public:
 };
 
 // opcode 176 (0x00B0, ?): vtable 0xB0A824, constructor 0x889F30, 0x40 bytes
-class GroupServerCreatePacketClass : public Unknown_B0A794PacketClass  // NAME 5: thunk order, binary.md 5.11
+class GroupServerCreatePacketClass : public Unknown_B0A794PacketClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	GroupServerCreatePacketClass(__int64 unknown10);	// 0x889DA0
@@ -118,7 +118,7 @@ public:
 };
 
 // opcode 177 (0x00B1, ?): vtable 0xB0A854, constructor 0x88ABC0, 0x40 bytes
-class GroupServerUpdatePacketClass : public Unknown_B0A794PacketClass  // NAME 5: thunk order, binary.md 5.11
+class GroupServerUpdatePacketClass : public Unknown_B0A794PacketClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	GroupServerUpdatePacketClass(__int64 unknown10, int unknown38);	// 0x88A9A0

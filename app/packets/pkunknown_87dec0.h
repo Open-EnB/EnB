@@ -19,7 +19,7 @@
 #include "pkmessagechatstream.h"
 
 // opcode 94 (0x005E, AVATAR_EMOTE): vtable 0xB0A020, constructor 0x87E010, 0x24 bytes
-class ChatstreamPacketClass : public PacketClass  // NAME 5: thunk order, binary.md 5.11
+class ChatstreamPacketClass : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	ChatstreamPacketClass(int game_id, Unknown_ChatStreamClass *stream, char type, char *target_name);	// 0x87DEC0 (the stream's bytes and the name are the caller's, not copied)

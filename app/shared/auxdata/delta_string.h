@@ -23,7 +23,7 @@
 #include "..\kv_pair_string.h"
 
 // vtable 0xAEB0E4, size 0x88
-class DeltaString : public DeltaClass  // NAME 5: thunk order, binary.md 5.11
+class DeltaString : public DeltaClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	DeltaString(const char *name, const char *string = "");			// 0x4A78F0 (the default: DeltaItemArrayClass<DeltaString>, 0x701B60)

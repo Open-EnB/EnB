@@ -22,7 +22,7 @@
 
 #include "unknown_675120.h"
 
-class ResizeGadget : public UIMeshGadgetClass  // NAME 5: thunk order, binary.md 5.11; NAME 3 [ResizeGadget]: class-from-file (D24) for app\Client\gd_resize.cpp
+class ResizeGadget : public UIMeshGadgetClass  // NAME 5: thunk order A, binary.md 5.11; NAME 3 [ResizeGadget]: class-from-file (D24) for app\Client\gd_resize.cpp
 {
 public:
 	ResizeGadget(const RefCountPtr<RenderObjClass> &robj);		// 0x66BA50 (mask 0x77)  // NAME 1 [robj]: neutral

@@ -43,7 +43,7 @@ public:
 };
 
 // opcode 205 (0x00CD, GUILD_SIMPLE_CLIENT_SECTOR): vtable 0xB0A8B4, constructor 0x88C2D0, 0x24 bytes
-class GuildSimpleClientSectorPacket : public PacketClass  // NAME 5: thunk order, binary.md 5.11
+class GuildSimpleClientSectorPacket : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	GuildSimpleClientSectorPacket(int type, int player_id, const char *optional_param);	// 0x88C130 (SpaceClientClass 0x74EDB0)  // NAME 1 [type, player_id, optional_param]: its fields
@@ -60,7 +60,7 @@ public:
 };
 
 // opcode 197 (0x00C5, GUILD_LEADER_ACCEPT_CLIENT): vtable 0xB0A8E4, constructor 0x88C6E0, 0x24 bytes
-class GuildLeaderAcceptClientPacket : public PacketClass  // NAME 5: thunk order, binary.md 5.11
+class GuildLeaderAcceptClientPacket : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	GuildLeaderAcceptClientPacket(int player_id, const char *guild_name, bool accept);	// 0x88C540
@@ -93,7 +93,7 @@ public:
 };
 
 // opcode 201 (0x00C9, GUILD_RECRUIT_ACCEPT_CLIENT): vtable 0xB0A944, constructor 0x88CEB0, 0x14 bytes
-class GuildRecruitAcceptClientPacket : public PacketClass  // NAME 5: thunk order, binary.md 5.11
+class GuildRecruitAcceptClientPacket : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	GuildRecruitAcceptClientPacket(int player_id, bool accept);	// 0x88CE30
@@ -143,7 +143,7 @@ public:
 };
 
 // opcode 212 (0x00D4, GUILD_RANK_NAMES_REQUEST_CLIENT): vtable 0xB0A9D4, constructor 0x88D8C0, 0x10 bytes
-class GuildRankNamesRequestClientPacket : public PacketClass  // NAME 5: thunk order, binary.md 5.11
+class GuildRankNamesRequestClientPacket : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	GuildRankNamesRequestClientPacket(int player_id);	// 0x88D850

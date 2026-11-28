@@ -25,7 +25,7 @@
 class InterfaceClass;
 class FontSys;
 
-class FontSysCursor : public Rectangle3DClass  // NAME 5: thunk order, binary.md 5.11; NAME 1 [FontSysCursor]: neutral (D10): what it is
+class FontSysCursor : public Rectangle3DClass  // NAME 5: thunk order A, binary.md 5.11; NAME 1 [FontSysCursor]: neutral (D10): what it is
 {
 public:
 	FontSysCursor(InterfaceClass *iface, const RefCountPtr<RenderObjClass> &unknown);	// 0x685860 (inlined in 0x685680; ret 8, unknown unused)  // NAME 1 [iface, unknown]: what it stores; neutral

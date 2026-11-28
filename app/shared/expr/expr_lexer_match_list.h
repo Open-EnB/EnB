@@ -38,7 +38,7 @@ struct ExprLexerMatchNodeStruct	// NAME 3 [ExprLexerMatchNodeStruct]
 };
 
 // 8 bytes, vtable 0xAEBBD0.
-class ExprLexerMatchList : public ExprLexerMatch  // NAME 5: thunk order, binary.md 5.11; NAME 3 [ExprLexerMatchList]: class-from-file (D24)
+class ExprLexerMatchList : public ExprLexerMatch  // NAME 5: thunk order A, binary.md 5.11; NAME 3 [ExprLexerMatchList]: class-from-file (D24)
 {
 public:
 	ExprLexerMatchList();									// 0x4C5930

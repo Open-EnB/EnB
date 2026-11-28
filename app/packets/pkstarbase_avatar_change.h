@@ -61,7 +61,7 @@ public:
 };
 
 // opcode 159 (0x009F, STARBASE_ROOM_CHANGE): vtable 0xB0B958, constructor 0x8A3D60, 0x18 bytes
-class StarbaseAvatarRoomChangePacketClass : public PacketClass  // NAME 5: thunk order, binary.md 5.11
+class StarbaseAvatarRoomChangePacketClass : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	StarbaseAvatarRoomChangePacketClass(int avatar_id, int new_room, int old_room);	// 0x8A3CE0

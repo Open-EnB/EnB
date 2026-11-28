@@ -7,7 +7,7 @@
 
 class AvatarPipClass;
 
-class SpaceTalkTreeInterface : public TalkTreeInterface  // NAME 5: thunk order, binary.md 5.11
+class SpaceTalkTreeInterface : public TalkTreeInterface  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	SpaceTalkTreeInterface(SpaceClientClass *client);				// 0x64F310

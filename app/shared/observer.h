@@ -18,7 +18,7 @@ public:
 };
 
 // 0x18 bytes, no table of its own
-class ObserverSubjectClass  // NAME 5: thunk order, binary.md 5.11
+class ObserverSubjectClass  // NAME 5: thunk order C, binary.md 5.11
 {
 public:
 	ObserverSubjectClass(int size);								// 0x49E890 (UIMeshClass passes 2)  // NAME 1 [size]: what the vector's constructor does with it

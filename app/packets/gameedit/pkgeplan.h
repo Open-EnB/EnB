@@ -31,7 +31,7 @@ public:
 };
 
 // 0x7548 (30024, not in the packet switch: sent only): vtable 0xB091B8, constructor 0x860F80, 0x18 bytes
-class GameEditorPlanetUnitTypesPacketClass : public PacketClass  // NAME 5: thunk order, binary.md 5.11
+class GameEditorPlanetUnitTypesPacketClass : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	GameEditorPlanetUnitTypesPacketClass(char *data, int size);	// 0x860F00 (Data is the caller's, not copied)
@@ -48,7 +48,7 @@ public:
 };
 
 // opcode 30025 (0x7549, ?): vtable 0xB091E8, constructor 0x861260, 0x10 bytes
-class GameEditorRequestPlanetUnitDetailsPacketClass : public PacketClass  // NAME 5: thunk order, binary.md 5.11
+class GameEditorRequestPlanetUnitDetailsPacketClass : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	GameEditorRequestPlanetUnitDetailsPacketClass(int unit_type);	// 0x8611F0
@@ -62,7 +62,7 @@ public:
 };
 
 // 0x754A (30026, not in the packet switch: sent only): vtable 0xB09218, constructor 0x8614A0, 0x18 bytes
-class GameEditorPlanetUnitDetailsPacketClass : public PacketClass  // NAME 5: thunk order, binary.md 5.11
+class GameEditorPlanetUnitDetailsPacketClass : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	GameEditorPlanetUnitDetailsPacketClass(char *data, int size);	// 0x861420 (Data is the caller's, not copied)

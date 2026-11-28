@@ -25,7 +25,7 @@ struct ChatWinSplitResizeStruct	// NAME 1: neutral (D10)
 
 // The split chat window (0x120 bytes; constructor 0x571F00, table 0xAF052C: slots +0x00 0x572010, +0x54 0x5723B0,
 // +0x58 0x572DE0, +0x5C 0x572E00, +0x60 0x572E20, +0x68 0x572EE0, +0xA8 0x573220)
-class ChatWindowSplitInterface : public ChatWindowInterface  // NAME 5: thunk order, binary.md 5.11
+class ChatWindowSplitInterface : public ChatWindowInterface  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	ChatWindowSplitInterface(SpaceClientClass *client, Unknown67D430Class *history, ChatGadgetClass *edit, int kind);	// 0x571F00 (0x56C180: the panel's +0x13C, +0x140 and the kind 0..2)  // NAME 1 [client, history, edit, kind]: what 0x56C180 passes

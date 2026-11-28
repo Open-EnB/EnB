@@ -19,7 +19,7 @@ class ClientObjectClass;
 class NavNodeStruct;
 
 // nav_list_builder.cpp's list (0x20 bytes): a navigation list that the builder fills
-class NavigationListBuilder : public NavigationListClass  // NAME 5: thunk order, binary.md 5.11
+class NavigationListBuilder : public NavigationListClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	NavigationListBuilder(SpaceClientClass *client);					// 0x7B7BF0  // NAME 2 [client]: what it stores

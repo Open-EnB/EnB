@@ -26,7 +26,7 @@
 class RenderObjClass;
 class FontSys;
 
-class RenderObjGadgetClass : public GadgetClass  // NAME 5: thunk order, binary.md 5.11; NAME 3 [RenderObjGadgetClass]: class-from-file (D24) for app\Client\gd_robj.cpp
+class RenderObjGadgetClass : public GadgetClass  // NAME 5: thunk order A, binary.md 5.11; NAME 3 [RenderObjGadgetClass]: class-from-file (D24) for app\Client\gd_robj.cpp
 {
 public:
 	RenderObjGadgetClass(RenderObjClass *robj, const LayerClass &layer, unsigned int mask);	// 0x66BDF0  // NAME 1 [robj, layer, mask]: what it does with them

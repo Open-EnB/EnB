@@ -32,7 +32,7 @@ class LightClass;
 class RenderObjClass;
 class LoginUnknown18Class;
 
-class ShipPIPClass : public GadgetClass  // NAME 5: thunk order, binary.md 5.11
+class ShipPIPClass : public GadgetClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	ShipPIPClass(int type);												// 0x80B2E0 (0 or 1, else G_ASSERT 'false'; ui_avatr.cpp passes 1)  // NAME 1 [type]: neutral

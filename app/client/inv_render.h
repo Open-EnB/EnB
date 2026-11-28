@@ -24,7 +24,7 @@ class InvDataClass;
 class ShortcutRangeGaugeClass;	// shortcut_range_gauge.h
 class Unknown688830Item;
 
-class InventoryRenderClass : public SlotDataRenderClass  // NAME 5: thunk order, binary.md 5.11
+class InventoryRenderClass : public SlotDataRenderClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	InventoryRenderClass(bool arg);												// 0x68BF10  // NAME 1 [arg]: neutral
@@ -53,7 +53,7 @@ public:
 	char Unknown54[4];														// +0x54
 };
 
-class InvItemRenderClass : public InventoryRenderClass  // NAME 5: thunk order, binary.md 5.11
+class InvItemRenderClass : public InventoryRenderClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	InvItemRenderClass();													// 0x68D870

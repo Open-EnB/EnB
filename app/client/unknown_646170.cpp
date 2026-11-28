@@ -166,7 +166,7 @@ struct UIAvatrPullClass	// NAME 1: neutral (D10)
 // 0xAF8610; no caller of the constructor in the client: a debug panel). Its texts are 'near_light02a',
 // 'far_light02a', 'Int_light02a', 'Fill_light02a' and 'GO_light02a' in the 'fa_light02a.ini' model (0x646360).
 // Declared as far as this file's functions use it (interim placement in this file, D137).
-class StarbaseLightInterface : public ChatPanelUIBase  // NAME 5: thunk order, binary.md 5.11
+class StarbaseLightInterface : public ChatPanelUIBase  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	StarbaseLightInterface(SpaceClientClass *client);				// 0x646170  // NAME 1 [client]: the base's

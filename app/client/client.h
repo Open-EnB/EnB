@@ -40,7 +40,7 @@ class ItemInfoClass;
 #include "co.h"
 
 #ifndef EFF_O_H	// eff_o.cpp's effect object as far as the lists need it (eff_o.h, included first, declares it all)
-class EffectClass  // NAME 5: thunk order, binary.md 5.11
+class EffectClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	virtual ~EffectClass();						// +0x00

@@ -38,7 +38,7 @@ public:
 };
 
 // What 0x7683F0 and 0x768CB0 make on the stack (its destructor is StringClass's, 0x7689C0)
-class AvatarFileClass  // NAME 5: thunk order, binary.md 5.11
+class AvatarFileClass  // NAME 5: thunk order C, binary.md 5.11
 {
 public:
 	AvatarFileClass();							// 0x78CEE0: the folder, made if needed

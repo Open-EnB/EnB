@@ -8,7 +8,7 @@
 
 // The camera manager's fourth controller (state 3; vtable 0xB05014, 0x1C bytes): the gate at SpaceClientClass +0x13BC; phase
 // 0 until 7 seconds have passed or the avatar is within half the gate's reach, then phase 1 and request 0x18
-class StargateCameraControllerClass : public CameraControllerClass  // NAME 5: thunk order, binary.md 5.11
+class StargateCameraControllerClass : public CameraControllerClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	StargateCameraControllerClass(SpaceClientClass *client);			// 0x795900

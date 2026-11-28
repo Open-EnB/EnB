@@ -98,7 +98,7 @@ public:
 	AvatarCreationInterface(UIViewClass *view, LayerClass *layer, bool keep);	// 0x553AF0 (ui_avatr.cpp)  // NAME 1 [view, layer, keep]: as ui_avatr.cpp's
 	char Unknown84[0x2F8 - 0x84];
 };
-class ShardInterface : public InterfaceClass  // NAME 5: thunk order, binary.md 5.11
+class ShardInterface : public InterfaceClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	ShardInterface(UIViewClass *view, LayerClass *layer);	// 0x615A50  // NAME 1 [view, layer]: as LoginInterface's

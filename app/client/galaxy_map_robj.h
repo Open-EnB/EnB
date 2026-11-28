@@ -25,7 +25,7 @@ class TextureClass;
 class VertexMaterialClass;
 
 // A system's marker on the galaxy map. 0x120 bytes, table 0xB05A44
-class GalaxyMapSystemRObj : public DynamicMeshClass  // NAME 5: thunk order, binary.md 5.11
+class GalaxyMapSystemRObj : public DynamicMeshClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	GalaxyMapSystemRObj(const RefCountPtr<GalaxyMapSystemClass> &system);	// 0x7B2B30  // NAME 2 [system]: 0x7AA420 passes its data
@@ -60,7 +60,7 @@ public:
 };
 
 // The line between two sectors. 0xFC bytes, table 0xB05CAC
-class GalaxyMapLineRObj : public SegmentedLineClass  // NAME 5: thunk order, binary.md 5.11
+class GalaxyMapLineRObj : public SegmentedLineClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	GalaxyMapLineRObj();								// 0x7B3E30

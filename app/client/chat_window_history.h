@@ -18,7 +18,7 @@
 #include <vector>
 #include <string>
 
-class ChatLineData : public RefCountClass  // NAME 5: thunk order, binary.md 5.11
+class ChatLineData : public RefCountClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	ChatLineData(int id, const std::string &text, const Vector3 &color, bool first, bool last) :  // NAME 2 [id, text, color, first, last]: what they fill
@@ -56,7 +56,7 @@ public:
 	bool Unknown29;  // +0x29  // NAME 1: neutral (D10)
 };
 
-class ChatWindowHistory  // NAME 5: thunk order, binary.md 5.11
+class ChatWindowHistory  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	ChatWindowHistory(int unknown);  // 0x6812C0  // NAME 1 [unknown]: neutral (D10)

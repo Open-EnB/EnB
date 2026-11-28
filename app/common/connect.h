@@ -102,7 +102,7 @@ public:
 // The peek connection (vtable 0xB0854C, 0x10 bytes; connect.cpp): the manager's wrapper round each
 // connection (Add_Connection 0x822CC0). +0x34 gives the next message without taking it (the
 // manager's Peek 0x8223D0 and Mark 0x8225C0 call it; Get_Packet 0x822490 then takes it with +0x0C)
-class BufferedConnectionClass : public ForwardingConnectionClass  // NAME 5: thunk order, binary.md 5.11
+class BufferedConnectionClass : public ForwardingConnectionClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	BufferedConnectionClass(ConnectionClass *connection);				// 0x821C30
@@ -125,7 +125,7 @@ public:
 };
 
 // The manager's listener (+0x24; the destructor 0x8220E0 stops it, 0x822200 asks its port)
-class ConnectionSourceClass  // NAME 5: thunk order, binary.md 5.11
+class ConnectionSourceClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	virtual ~ConnectionSourceClass() {}							// +0x00

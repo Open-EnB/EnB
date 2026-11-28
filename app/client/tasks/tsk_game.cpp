@@ -18,7 +18,7 @@
 #include "..\fontdatabase.h"	// FontDatabaseClass at 0xBE67B8 (P-H12-3)
 #include "..\..\packets\pkmasterjoin.h"	// opcode 53: 0x8974C0, 0x897650
 #include "..\..\packets\pklogin.h"	// opcode 2: 0x89A740, 0x89A940
-class ClientRedirectPacketClass : public PacketClass { public: ClientRedirectPacketClass(RawPacketClass *raw); virtual bool Process_Packet(void *client); int Unknown0C; unsigned long Address; unsigned short Port; };  // NAME 5: thunk order, binary.md 5.11; opcode 54: 0x8A1590, 0x18 bytes (pk_classes.h declares no fields)  // NAME 1 [Address, Port]: handed to Redirect
+class ClientRedirectPacketClass : public PacketClass { public: ClientRedirectPacketClass(RawPacketClass *raw); virtual bool Process_Packet(void *client); int Unknown0C; unsigned long Address; unsigned short Port; };  // NAME 5: thunk order A, binary.md 5.11; opcode 54: 0x8A1590, 0x18 bytes (pk_classes.h declares no fields)  // NAME 1 [Address, Port]: handed to Redirect
 // 0x765F80
 ClientTaskClass::ClientTaskClass(const std::string &username, const std::string &password) :
 	Ticket(0),

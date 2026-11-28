@@ -40,7 +40,7 @@ struct BuffElementStruct	// NAME 1: neutral (D10)
 };
 
 // One buff's values (0x30 bytes; the ship's BuffArray.N)
-struct BuffDataClass  // NAME 5: thunk order, binary.md 5.11
+struct BuffDataClass  // NAME 5: thunk order A, binary.md 5.11
 {
 	BuffDataClass();									// 0x665180
 	void Set_Scrub_Type_Name(const std::string &name);	// 0x6651C0  // NAME 1 [Set_Scrub_Type_Name, name]: the member it sets

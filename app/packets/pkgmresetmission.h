@@ -18,7 +18,7 @@
 #include "pk.h"
 
 // opcode 237 (0x00ED, ?): vtable 0xB099C4, constructor 0x871A30, 0x24 bytes
-class GMResetMissionRequestPacketClass : public PacketClass  // NAME 5: thunk order, binary.md 5.11
+class GMResetMissionRequestPacketClass : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	GMResetMissionRequestPacketClass(int unknown0c, const char *mission_name, bool unknown20);	// 0x871C10

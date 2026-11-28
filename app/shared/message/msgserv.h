@@ -22,7 +22,7 @@
 #include "..\message.h"
 
 // 0x48 bytes; vtable 0xB0C418
-class MessageServerClass : public KernelTaskClass  // NAME 5: thunk order, binary.md 5.11
+class MessageServerClass : public KernelTaskClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	MessageServerClass();									// 0x8B20D0 (WSAStartup 1.1)

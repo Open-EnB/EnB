@@ -12,7 +12,7 @@ class FactionInterface;		// ui_faction.h's faction tab (0xE4 bytes; 'FACTION_MEN
 class BioInterface;			// ui_bio.h's bio tab (0xB0 bytes)
 // The character info window (0xD8 bytes, tables 0xAF06E4 / 0xAF06D8 / 0xAF06CC; 0x693230 makes it): a 'TSI15A' mesh,
 // the strings of 'fa_cinfo.ini', three tab buttons and an exit button (tooltips from section 'UI_CINFO') and four tabs
-class CharacterInfoInterface : public Unknown5BB320Class  // NAME 5: thunk order, binary.md 5.11
+class CharacterInfoInterface : public Unknown5BB320Class  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	enum { MAX_BUTTONS = 5 };							// NAME 1: the constructor's loop (buttons 1..4)

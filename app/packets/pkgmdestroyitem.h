@@ -18,7 +18,7 @@
 #include "pk.h"
 
 // opcode 236 (0x00EC, ?): vtable 0xB09994, constructor 0x8714F0, 0x24 bytes
-class GMDestroyItemRequestPacketClass : public PacketClass  // NAME 5: thunk order, binary.md 5.11
+class GMDestroyItemRequestPacketClass : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	GMDestroyItemRequestPacketClass(int unknown0c, const char *item_name, bool unknown20);	// 0x8716D0

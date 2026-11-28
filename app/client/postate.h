@@ -51,7 +51,7 @@ public:
 };
 
 // Type 1, CONSTANT_POSITIONAL_UPDATE 64's state (vtable 0xB02728, 0x40 bytes): a fixed transform
-class ConstantPositionalStateClass : public PositionalStateClass  // NAME 5: thunk order, binary.md 5.11
+class ConstantPositionalStateClass : public PositionalStateClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	ConstantPositionalStateClass(ConstantPositionalUpdatePacketClass *packet);	// 0x714B50  // NAME 1 [packet]: what the handler passes
@@ -96,7 +96,7 @@ public:
 };
 
 // Type 5, PLANET_POSITIONAL_UPDATE 63's state (vtable 0xB02818, 0x0C bytes)
-class PlanetPositionalStateClass : public UnknownB027A0Class  // NAME 5: thunk order, binary.md 5.11
+class PlanetPositionalStateClass : public UnknownB027A0Class  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	PlanetPositionalStateClass(PlanetPositionalUpdatePacketClass *packet, ClientClass *client);	// 0x715CF0  // NAME 1 [packet, client]: what the handler passes
@@ -156,7 +156,7 @@ inline void UnknownLerpStruct::Change(unsigned int time, unsigned int value)
 
 // Type 8, ADVANCED_POSITIONAL_UPDATE 62's state for the other objects (vtable 0xB02854, 0x1C bytes);
 // FORMATION_POSITIONAL_UPDATE 65 makes it too
-class ShipPositionalStateClass : public UnknownB027A0Class  // NAME 5: thunk order, binary.md 5.11
+class ShipPositionalStateClass : public UnknownB027A0Class  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	ShipPositionalStateClass(int time, AdvancedPositionalUpdatePacketClass *packet);	// 0x715EF0  // NAME 1 [time, packet]: what the handler passes

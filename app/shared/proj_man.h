@@ -69,7 +69,7 @@ public:
 ** rs_proj_sup.cpp derives its casters from it (0x45D9E0 makes one, 0x20 bytes here); the receivers (0x45DC80)
 ** share its RefCountClass + MultiListObjectClass start
 */
-class ProjectionSourceClass : public RefCountClass, public MultiListObjectClass  // NAME 5: thunk order, binary.md 5.11
+class ProjectionSourceClass : public RefCountClass, public MultiListObjectClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	// rs_proj_sup.cpp's casters make these (inline; the destructor's out-of-line copy 0x45E200)
@@ -95,7 +95,7 @@ public:
 ** ProjectionTargetClass: an object projectors land on (rs_proj_sup.cpp's 0x45DC80 derives from it: its CullObject
 ** at +0x10 points back at it through +0x2C); Apply_Projectors calls these three slots
 */
-class ProjectionTargetClass : public RefCountClass, public MultiListObjectClass  // NAME 5: thunk order, binary.md 5.11
+class ProjectionTargetClass : public RefCountClass, public MultiListObjectClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	ProjectionTargetClass(CullableClass * cull_obj,int unknown14);		// inline, below (the client's assert: proj_man.h line 207)  // NAME 2 [cull_obj]: CullObject's; NAME 1 [unknown14]: neutral
@@ -213,7 +213,7 @@ inline ProjectionTargetClass::ProjectionTargetClass(CullableClass * cull_obj,int
 ** ShadowTexProjectClass: the dynamic projector Create_Projection makes (0x144 bytes, vtables 0xAEA764 / 0xAEA758
 ** / 0xAEA754): it renders its caster's model before each use
 */
-class ShadowTexProjectClass : public TexProjectClass  // NAME 5: thunk order, binary.md 5.11
+class ShadowTexProjectClass : public TexProjectClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	ShadowTexProjectClass(ProjectionSourceClass * owner);	// 0x494100

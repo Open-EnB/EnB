@@ -34,7 +34,7 @@ struct FontSoundStruct  // NAME 2 [FontSoundStruct]: a string template's sound: 
 	void Reset() { ID = ""; Vol = 1.0f; Dur = -1.0f; }		// inlined in StringInfo::Reset 0x6BE0E0  // NAME 2: what it does
 };
 
-struct StringInfo  // NAME 5: thunk order, binary.md 5.11
+struct StringInfo  // NAME 5: thunk order A, binary.md 5.11
 {
 	StringInfo();													// 0x6BDA40
 	StringInfo(const char *string_id, const char *text);				// 0x6BDD30

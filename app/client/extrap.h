@@ -174,7 +174,7 @@ public:
 };
 
 // The component node (vtable 0xB025C8, 0x14 bytes)
-class ComponentNode : public Unknown70F4F0Class  // NAME 5: thunk order, binary.md 5.11
+class ComponentNode : public Unknown70F4F0Class  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	ComponentNode(ComponentPositionalUpdatePacketClass *packet, ClientClass *client);	// 0x713C80  // NAME 1 [packet, client]: what postate's state passes
@@ -282,7 +282,7 @@ public:
 };
 
 // A formation member: the leader's state plus an offset (vtable 0xB02628, 0x48 bytes)
-class FormationNode : public StateNode  // NAME 5: thunk order, binary.md 5.11
+class FormationNode : public StateNode  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	FormationNode(SpaceClientClass *client, FormationPositionalUpdatePacketClass *packet);	// 0x714340  // NAME 1 [client, packet]: what postate's state passes

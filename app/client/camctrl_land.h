@@ -25,7 +25,7 @@ public:
 
 // The camera manager's sixth controller (state 5; vtable 0xB04D4C, 0x18 bytes): the landing at the target SpaceClientClass
 // +0x13B8, with effect 0x16A on the avatar; after four seconds request 9
-class LandCameraControllerClass : public CameraControllerClass  // NAME 5: thunk order, binary.md 5.11
+class LandCameraControllerClass : public CameraControllerClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	LandCameraControllerClass(SpaceClientClass *client);			// 0x793920

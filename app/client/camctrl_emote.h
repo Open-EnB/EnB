@@ -8,7 +8,7 @@
 
 // The camera manager's eleventh controller (state 10; vtable 0xB04BEC, 0x10 bytes): holds the camera where it is,
 // at least four times 0x79B6B0's distance from the avatar
-class EmoteCameraControllerClass : public CameraControllerClass  // NAME 5: thunk order, binary.md 5.11
+class EmoteCameraControllerClass : public CameraControllerClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	EmoteCameraControllerClass(SpaceClientClass *client);			// 0x7930E0

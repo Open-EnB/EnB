@@ -49,7 +49,7 @@ struct UDPChannelClass		// NAME 1: describes what it is
 // The connection (0xD0 bytes; constructors 0x82C680 by name, 0x82C980 by address, 0x82CBF0 over
 // an accepted CordCon).
 class CritSec;
-class UDPConnectionClass : public ConnectionClass  // NAME 5: thunk order, binary.md 5.11
+class UDPConnectionClass : public ConnectionClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	UDPConnectionClass(const char *host, unsigned short port, bool encrypt);	// 0x82C680
@@ -119,7 +119,7 @@ public:
 };
 
 // The task that pumps the CordMgr (12 bytes, vtable 0xB0889C; constructor 0x82DCE0).
-class CordMgrTask : public KernelTaskClass  // NAME 5: thunk order, binary.md 5.11
+class CordMgrTask : public KernelTaskClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	CordMgrTask();					// 0x82DCE0: makes the CordMgr

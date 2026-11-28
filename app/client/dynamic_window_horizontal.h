@@ -18,7 +18,7 @@
 #include "dynamic_window_render_object.h"
 #include <vector>
 
-class HorizontalDynamicWindow : public DynamicWindowElement, public DynamicWindowContainerClass  // NAME 5: thunk order, binary.md 5.11; NAME 2 [HorizontalDynamicWindow]: class from file (D24), dynamic_window_horizontal.cpp
+class HorizontalDynamicWindow : public DynamicWindowElement, public DynamicWindowContainerClass  // NAME 5: thunk order A, binary.md 5.11; NAME 2 [HorizontalDynamicWindow]: class from file (D24), dynamic_window_horizontal.cpp
 {
 public:
 	HorizontalDynamicWindow(unsigned int flags);											// 0x5186F0  // NAME 1 [flags]: +0x50

@@ -14,7 +14,7 @@ class HTreeClass;
 // animation for the owner's model (HAnimName on the model's hierarchy, or the hierarchy's own name plus
 // HAnimSuffix), plays it in its combo channel, and at its end moves on to the state NextID names.
 // Unknown_44 / Unknown_48 fade the channel's weight out / in over a time.
-class RenderStateHAnimClass : public RenderStateClass  // NAME 5: thunk order, binary.md 5.11
+class RenderStateHAnimClass : public RenderStateClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	RenderStateHAnimClass(RenderStateListClass *list, int id, int link_id, unsigned int flags, const char *hAnimName, const char *suffix, int next_id, HAnimComboDataClass *combo);	// 0x4596A0  // NAME 2 [hAnimName]: the assert's text; NAME 1 [suffix, next_id, combo]: rs_list.cpp's keys

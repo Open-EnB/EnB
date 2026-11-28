@@ -20,7 +20,7 @@
 
 // the base of GlobalLockRequestPacketClass, GlobalLockResponsePacketClass, GlobalLockReleasePacketClass:
 // vtable 0xB094F4, constructors 0x8653F0 / 0x865470 (inlined in the derived ones)
-class GlobalLockBasePacketClass : public PacketClass  // NAME 5: thunk order, binary.md 5.11
+class GlobalLockBasePacketClass : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	GlobalLockBasePacketClass(__int64 a, int b);	// 0x8653F0

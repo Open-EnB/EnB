@@ -336,7 +336,7 @@ bool CordListClass<T>::Remove(T &node, int pos)
 
 // One message, sent or received (0x30 bytes in the client: the records of a channel's send queue
 // and sent list, and the nodes of its receive list; write 0x850C70, handlePacket 0x851AE0).
-class CordMessage  // NAME 5: thunk order, binary.md 5.11
+class CordMessage  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	CordMessage();				// 0x85BE00 (another object, 0x85AEC0-0x85C600: unknown_cordmsg.cpp)
@@ -358,7 +358,7 @@ public:
 
 // One channel of a connection (0x78 bytes; constructor 0x84DFC0, made 8 or 2 at a time when a
 // datagram names a channel the connection doesn't have yet).
-class CordChannel : public AutoPoolClass<CordChannel, 1024>  // NAME 5: thunk order, binary.md 5.11
+class CordChannel : public AutoPoolClass<CordChannel, 1024>  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	CordChannel();

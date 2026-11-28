@@ -18,7 +18,7 @@
 #include "pk.h"
 
 // opcode 59 (0x003B, ?): vtable 0xB0BB9C, constructor 0x8A61E0, 0x18 bytes
-class ServerReadyPacketClass : public PacketClass  // NAME 5: thunk order, binary.md 5.11
+class ServerReadyPacketClass : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	ServerReadyPacketClass(int sector, int ip, unsigned short port);	// 0x8A6140

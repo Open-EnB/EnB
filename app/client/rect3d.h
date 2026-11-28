@@ -23,7 +23,7 @@
 
 class SceneClass;
 
-class Rectangle3DClass : public DynamicMeshClass  // NAME 5: thunk order, binary.md 5.11; NAME 2 [Rectangle3DClass]: rect3d.cpp's class (the file name, Westwood's Class suffix)
+class Rectangle3DClass : public DynamicMeshClass  // NAME 5: thunk order A, binary.md 5.11; NAME 2 [Rectangle3DClass]: rect3d.cpp's class (the file name, Westwood's Class suffix)
 {
 public:
 	Rectangle3DClass(const Vector4 &color, const Vector4 &rect);		// 0x6E2290: rect is x, y, width, height (y down by the height)  // NAME 2 [color, rect]: what it does with them

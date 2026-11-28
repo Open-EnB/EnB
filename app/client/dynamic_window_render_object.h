@@ -43,7 +43,7 @@ public:
 };
 
 // A piece of a window (abstract: 22 slots; the render-object elements add +0x58 / +0x5C)
-class DynamicWindowElement : public RefCountClass  // NAME 5: thunk order, binary.md 5.11
+class DynamicWindowElement : public RefCountClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	virtual ~DynamicWindowElement() {}														// +0x04

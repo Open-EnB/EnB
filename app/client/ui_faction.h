@@ -12,7 +12,7 @@ class UIFactionPanelClass;	// ui_faction_panel.cpp's panel (+0xAC; 200 bytes)
 class Unknown58E210Class;	// the faction buttons (0x7C bytes; 0x58E210 makes them)
 // The faction tab (0xE4 bytes, tables 0xAF1774 / 0xAF1768 / 0xAF175C; 0x5738B0 makes it, the third of the character info
 // window's tabs): a 'tsi30a' mesh, the strings of 'fa_tsi30a.ini', six faction buttons, a slider (gadget 8) and a panel
-class FactionInterface : public Unknown5BB320Class  // NAME 5: thunk order, binary.md 5.11
+class FactionInterface : public Unknown5BB320Class  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	enum { MAX_BUTTONS = 7 };							// NAME 1: the constructor clears 7, 0x58D400 makes 6 (keys 1..6)

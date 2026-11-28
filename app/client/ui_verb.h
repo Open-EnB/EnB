@@ -36,7 +36,7 @@ public:
 
 // The verb window (0xE0 bytes, tables 0xAF94A4 / 0xAF9498 / 0xAF948C / 0xAF9478; constructor 0x6580B0, destructor 0x658280;
 // 0x60D8D0 makes it): the buttons of the watched target's verbs, as the verb manager reports them
-class VerbInterface : public InterfaceClass, public UnknownObjectWatchClass  // NAME 5: thunk order, binary.md 5.11
+class VerbInterface : public InterfaceClass, public UnknownObjectWatchClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	VerbInterface(UIViewClass *view, const LayerClass &layer, UIMeshClass *mesh, int arg);	// 0x6580B0  // NAME 1 [view, layer, mesh, arg]: what it does with them

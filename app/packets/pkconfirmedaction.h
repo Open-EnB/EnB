@@ -24,7 +24,7 @@ enum ConfirmedActionEnum  // NAME 1: neutral placeholder (D10)
 };
 
 // opcode 190 (0x00BE, CONFIRMED_ACTION_OFFER): vtable 0xB0989C, constructor 0x870650, 0x24 bytes
-class ConfirmedActionOfferPacket : public PacketClass  // NAME 5: thunk order, binary.md 5.11
+class ConfirmedActionOfferPacket : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	ConfirmedActionOfferPacket(int id, const std::string &message, ConfirmedActionEnum type);	// 0x8703D0
@@ -40,7 +40,7 @@ public:
 };
 
 // opcode 191 (0x00BF, ?): vtable 0xB098CC, constructor 0x8709E0, 0x14 bytes
-class ConfirmedActionTimeoutPacket : public PacketClass  // NAME 5: thunk order, binary.md 5.11
+class ConfirmedActionTimeoutPacket : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	ConfirmedActionTimeoutPacket(ConfirmedActionEnum type, int id);	// 0x870940
@@ -55,7 +55,7 @@ public:
 };
 
 // opcode 192 (0x00C0, CONFIRMED_ACTION_RESPONSE): vtable 0xB098FC, constructor 0x870C50, 0x18 bytes
-class ConfirmedActionResponsePacket : public PacketClass  // NAME 5: thunk order, binary.md 5.11
+class ConfirmedActionResponsePacket : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	ConfirmedActionResponsePacket(int avatar_id, int id, bool response);	// 0x870BD0

@@ -18,7 +18,7 @@
 #include "pk.h"
 
 // opcode 221 (0x00DD, GPS_REQUEST): vtable 0xB0A6D4, constructor 0x888020, 0x20 bytes
-class GPSRequestPacketClass : public PacketClass  // NAME 5: thunk order, binary.md 5.11
+class GPSRequestPacketClass : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	GPSRequestPacketClass(char *unknown0c, char *unknown10, char *unknown14, char *unknown18, int unknown1c);	// 0x887F20
@@ -37,7 +37,7 @@ public:
 };
 
 // opcode 222 (0x00DE, ?): vtable 0xB0A704, constructor 0x8883C0, 0x24 bytes
-class GPSResponsePacketClass : public PacketClass  // NAME 5: thunk order, binary.md 5.11
+class GPSResponsePacketClass : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	GPSResponsePacketClass(char *unknown0c, char *unknown10, char *unknown14, char *unknown18, int unknown1c, int unknown20);	// 0x8882C0

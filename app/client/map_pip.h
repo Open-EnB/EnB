@@ -41,7 +41,7 @@ class StarmapPipSupportClass;
 
 
 
-class MapPIPClass : public PIPSceneClass  // NAME 5: thunk order, binary.md 5.11
+class MapPIPClass : public PIPSceneClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	MapPIPClass(SpaceClientClass *client, bool arg);				// 0x6927C0 (arg: the two 0x118-byte objects at +0x48 / +0x4C)  // NAME 1 [client, arg]: neutral

@@ -21,7 +21,7 @@
 char *Sector_Type_Name(int sector_type);	// 0x84A3B0 (app/common/sector_types.h; declared here too: pk_classes.h is pad-sensitive)  // NAME 2: what it returns
 
 // opcode 78 (0x004E, STARBASE_REQUEST): vtable 0xB0B868, constructor 0x8A2DF0, 0x18 bytes
-class StarbaseReqPacketClass : public PacketClass  // NAME 5: thunk order, binary.md 5.11
+class StarbaseReqPacketClass : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	StarbaseReqPacketClass(int player_id, unsigned char action, int starbase_id);	// 0x8A2D70 (ui_avatar_cust.cpp's 0x551C80: the client's Unknown1138, 10, 0)  // NAME 1 [player_id, action, starbase_id]: after the members they set

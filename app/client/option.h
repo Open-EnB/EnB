@@ -88,7 +88,7 @@ struct StringOptionStruct  // NAME 2: what it holds (0x30 bytes)
 	std::string Default;									// +0x20  // NAME 2: what it holds
 };
 
-class OptionManagerClass  // NAME 5: thunk order, binary.md 5.11
+class OptionManagerClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	OptionManagerClass();											// 0x7F0F60

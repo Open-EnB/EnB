@@ -18,7 +18,7 @@
 #include "pk.h"
 
 // opcode 77 (0x004D, ?): vtable 0xB08DC8, constructor 0x85D570, 0x60 bytes
-class RegistrationResultPacketClass : public PacketClass  // NAME 5: thunk order, binary.md 5.11
+class RegistrationResultPacketClass : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	RegistrationResultPacketClass(int unknown0c, const char *unknown10, __int64 unknown58);	// 0x85D4B0

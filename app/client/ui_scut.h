@@ -70,7 +70,7 @@ public:
 };
 
 // ui_scut.cpp's interface (0xB8 bytes, constructor 0x610570, tables 0xAF73D8 / 0xAF73CC / 0xAF73C0)
-class ShortcutInterface : public Unknown5BB320Class  // NAME 5: thunk order, binary.md 5.11
+class ShortcutInterface : public Unknown5BB320Class  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	ShortcutInterface(UIViewClass *view, LayerClass *layer);	// 0x610570 (0x57DD20 passes the view and the cockpit's layer)  // NAME 1 [view, layer]: what 0x57DD20 passes

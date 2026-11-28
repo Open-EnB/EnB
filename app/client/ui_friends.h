@@ -17,7 +17,7 @@ class CheckBoxGadgetClass;	// ui_manu.cpp's check button (0x7E8030: checked or n
 class UIPTradeCreditsClass;	// sclient.h's: the text entry (ui_ptrade.cpp's credits entry; here 'Friend Player')
 
 // One player of the list (0x20 bytes; the window's list +0xC4 and PlayersInfo hold them)
-class FriendsInfoClass  // NAME 5: thunk order, binary.md 5.11
+class FriendsInfoClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	FriendsInfoClass(std::string name, std::string location);	// 0x58F0F0 (0x5908B0)  // NAME 1 [name, location]: the members they set

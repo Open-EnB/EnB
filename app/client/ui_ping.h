@@ -16,7 +16,7 @@ class ButtonGadgetClass;	// unknown_675120.h's
 // ui_ping.cpp's ping window (0xC0 bytes; the cockpit's 0x693230 makes it, tables 0xAF5768 / 0xAF575C / 0xAF5750):
 // the 'TSI05C' mesh with its 'color' button lit by the round trip time, the efficiency text, and a dialog box of
 // three rows (latency, data volume, efficiency) shown by key 1
-class PingInterface : public InterfaceClass  // NAME 5: thunk order, binary.md 5.11
+class PingInterface : public InterfaceClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	PingInterface(LineDisplayClientClass *client);		// 0x5D7630 (0xC0 bytes)  // NAME 1 [client]: InterfaceClass's

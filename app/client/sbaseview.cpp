@@ -48,7 +48,7 @@ float Unknown_77B7D0(float t);	// 0x77B7D0: an easing of 0..1 (0x69ED80)  // NAM
 #include "texture.h"	// the texture totals (0x6A1180)
 // 0x94B910 (the textures' 'Frame: %d') is texture.h's TextureBaseClass::Unknown_Get_Textures_Applied_Last_Frame
 // ui_talkt_space.cpp's talk tree (sclient.cpp declares it so); 0x69CDE0 resets SpaceClientClass's to it
-class SpaceTalkTreeInterface : public InterfaceClass  // NAME 5: thunk order, binary.md 5.11
+class SpaceTalkTreeInterface : public InterfaceClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	char Unknown84[0x184 - 0x84];

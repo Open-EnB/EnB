@@ -19,7 +19,7 @@
 #include "matrix3d.h"
 
 // opcode 30021 (0x7545, ?): vtable 0xB08E58, constructor 0x85DFB0, 0x48 bytes
-class GameEditorClonePacketClass : public PacketClass  // NAME 5: thunk order, binary.md 5.11
+class GameEditorClonePacketClass : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	GameEditorClonePacketClass(int game_id, const char *new_name, const Matrix3D &transform);	// 0x85DE30
@@ -36,7 +36,7 @@ public:
 };
 
 // 0x7546 (30022, not in the packet switch: sent only): vtable 0xB08E88, constructor 0x85E2D0, 0x20 bytes
-class GameEditorCloneResponsePacketClass : public PacketClass  // NAME 5: thunk order, binary.md 5.11
+class GameEditorCloneResponsePacketClass : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	GameEditorCloneResponsePacketClass(int original_game_id, int clone_game_id, const char *error_msg);	// 0x85E1D0

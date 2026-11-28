@@ -19,7 +19,7 @@
 #include "pk.h"
 
 // opcode 106 (0x006A, CLIENT_SOUND): vtable 0xB0BAA8, constructor 0x8A5050, 0x1C bytes
-class SoundPacketClass : public PacketClass  // NAME 5: thunk order, binary.md 5.11
+class SoundPacketClass : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	SoundPacketClass(const char *sound_name, int channel, bool queue);	// 0x8A4F20

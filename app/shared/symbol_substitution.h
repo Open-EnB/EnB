@@ -21,7 +21,7 @@
 #include <string>
 #include <hash_map.h>
 
-class SymbolTableClass  // NAME 5: thunk order, binary.md 5.11
+class SymbolTableClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	SymbolTableClass();														// 0x4FCBD0

@@ -25,7 +25,7 @@ struct KernelEventClass;
 // std::string, declared only: <string> would change the code of textgadg.cpp, which includes this one; stredit.cpp includes it itself
 namespace std { template<class _E> struct char_traits; template<class _Ty> class allocator; template<class _E, class _Tr, class _A> class basic_string; }
 
-class StringEditClass  // NAME 5: thunk order, binary.md 5.11
+class StringEditClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	StringEditClass(int maxlen, const char *string, unsigned int flags, const char *chars);	// 0x84AA10 (String gets maxlen + 2 bytes)  // NAME 3 [maxlen]: the asserts' MaxLen; NAME 1 [string, flags, chars]: neutral

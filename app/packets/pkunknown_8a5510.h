@@ -19,7 +19,7 @@
 #include "pk.h"
 
 // opcode 232 (0x00E8, ?): vtable 0xB0BB08, constructor 0x8A55A0, 0x14 bytes
-class SpendReferralPointPacketClass : public PacketClass  // NAME 5: thunk order, binary.md 5.11
+class SpendReferralPointPacketClass : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	SpendReferralPointPacketClass(int unknown0_c);	// 0x8A5510

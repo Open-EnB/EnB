@@ -81,7 +81,7 @@ public:
 #define MAX_VISIBLE_GROUP_MEMBERS	5	// the client's FAIL_IF 'Members.size() >= MAX_VISIBLE_GROUP_MEMBERS' compares with 5 (0x596130)
 
 // ui_group.cpp's group window (the main view's +0x1D8; 0xF4 bytes, table 0xAF1C34)
-class GroupInterface : public Unknown5BB320Class  // NAME 5: thunk order, binary.md 5.11
+class GroupInterface : public Unknown5BB320Class  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	GroupInterface(SpaceClientClass *client);						// 0x593BD0 (0xF4 bytes; the main view's 0x50C690)  // NAME 1 [client]: what 0x50C690 passes

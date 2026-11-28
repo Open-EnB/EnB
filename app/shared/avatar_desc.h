@@ -26,7 +26,7 @@
 // vtables 0xAEB9D0 (wire: six slots) / 0xAEB9CC (key/value); constructors 0x4BEB50, 0x4BEBF0, 0x4BECC0.
 // The destructor is the implicit one (inline in 0x7683F0, out of line at 0x53BB50).
 class INIClass;
-class AvatarDescriptionClass : public Unknown_PacketDataClass, public DeltaInterfaceClass  // NAME 5: thunk order, binary.md 5.11
+class AvatarDescriptionClass : public Unknown_PacketDataClass, public DeltaInterfaceClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	static INIClass AvatarDefinitions;					// 0xBE55D8: avatardef.ini (Load_Defaults loads it)  // NAME 2: what it holds

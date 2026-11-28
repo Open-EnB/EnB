@@ -17,7 +17,7 @@
 #ifndef CIRCBUFF_H  // NAME 3 [circbuff.h]: header name assumed from the client's circbuff.cpp
 #define CIRCBUFF_H
 
-class CircularBufferClass  // NAME 5: thunk order, binary.md 5.11
+class CircularBufferClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	CircularBufferClass(int size, void *buffer = 0);	// 0x830BF0 (no buffer: its own, new'd)

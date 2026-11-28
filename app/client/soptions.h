@@ -35,7 +35,7 @@ struct CameraModeStruct		// NAME 2: what it holds
 	bool operator!=(const CameraModeStruct &that) const { return(!(*this == that)); }	// VectorClass's operator== 0x75A790
 };
 
-class SpaceClientOptionsClass  // NAME 5: thunk order, binary.md 5.11
+class SpaceClientOptionsClass  // NAME 5: thunk order C, binary.md 5.11
 {
 public:
 	SpaceClientOptionsClass();									// 0x75A280

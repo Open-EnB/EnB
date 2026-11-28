@@ -19,7 +19,7 @@
 #include "pk.h"
 
 // opcode 115 (0x0073, ?): vtable 0xB094C0, constructor 0x865150, 0x68 bytes
-class GlobalHelloPacketClass : public PacketClass  // NAME 5: thunk order, binary.md 5.11
+class GlobalHelloPacketClass : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	GlobalHelloPacketClass(int unknown0c, int unknown10, int unknown14, const char *unknown18, int unknown60, int unknown5c, bool unknown64);	// 0x865020  // NAME 2: the stores (no caller left)

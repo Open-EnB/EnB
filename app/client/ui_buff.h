@@ -11,7 +11,7 @@ struct BuffDataClass;		// gd_buffgadg.h's buff values
 
 // The buff display (0xEC bytes, tables 0xAEFDD0 / 0xAEFDC4 / 0xAEFDB8; the main view's +0x1D4, 0x50C690 makes it, and
 // 0x69B5E0): a 'TSI02A' mesh, the strings of 'fc_buff.ini' and a gadget per slot of the ship's BuffArray
-class BuffInterface : public Unknown5BB320Class  // NAME 5: thunk order, binary.md 5.11
+class BuffInterface : public Unknown5BB320Class  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	enum { MAX_BUFFS = 15 };	// NAME 1: the ship's BuffArray's count (the loops' 15)

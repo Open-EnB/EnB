@@ -97,7 +97,7 @@ public:
 };
 
 // vtable 0xAEABE4, size 0x9C
-class DeltaContainer : public DeltaClass  // NAME 5: thunk order, binary.md 5.11
+class DeltaContainer : public DeltaClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	DeltaContainer(const char *name) : DeltaClass(name), Lookup(0), Unknown98(0)

@@ -19,7 +19,7 @@
 #include "pk.h"
 
 // opcode 61 (0x003D, ?): vtable 0xB0BBD0, constructor 0x8A64C0, 0xC bytes
-class ServerStopPacketClass : public PacketClass  // NAME 5: thunk order, binary.md 5.11
+class ServerStopPacketClass : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	ServerStopPacketClass();	// 0x8A6430

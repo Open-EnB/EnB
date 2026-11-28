@@ -34,7 +34,7 @@ public:
 };
 
 // opcode 135 (0x0087, MISSION_DISMISSAL): vtable 0xB0B2B4, constructor 0x89C900, 0x14 bytes
-class MissionDismissPacketClass : public PacketClass  // NAME 5: thunk order, binary.md 5.11
+class MissionDismissPacketClass : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	MissionDismissPacketClass(int playerid, int id);	// 0x89C880

@@ -50,7 +50,7 @@ public:
 };
 #endif
 
-class EffectClass : public UnknownAF0DD0Class  // NAME 5: thunk order, binary.md 5.11
+class EffectClass : public UnknownAF0DD0Class  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	EffectClass(ClientClass *client, unsigned id, unsigned start_time, unsigned duration, unsigned cycle_time);	// 0x6E6710  // NAME 1 [client .. cycle_time]: the members they set
@@ -145,7 +145,7 @@ public:
 // The unary end (vtable 0xB00060, 12 slots, 0xD8 bytes, constructor 0x6E7540; its destructor is the implicit one,
 // first emitted in eff_attach.cpp at 0x6E4970): an effect on one object or point. The object is SourceObject,
 // watched through SourceNode (slot +0x04 is the object's notice that it goes); Transform is where it plays.
-class UnaryEffectClass : public EffectClass  // NAME 5: thunk order, binary.md 5.11
+class UnaryEffectClass : public EffectClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	UnaryEffectClass(ClientClass *client, unsigned id, unsigned start_time, unsigned duration, unsigned cycle_time);	// 0x6E7540  // NAME 1 [client .. cycle_time]: the base's
@@ -169,7 +169,7 @@ public:
 // The binary end (vtable 0xB0009C, 16 slots, 0xE0 bytes, constructor 0x6E7D70; its destructor is the implicit one,
 // first emitted in eff_line.cpp at 0x6E5510): an effect from SourceObject (or SourcePosition) to TargetObject
 // (TargetPosition, TargetOffset from the target's position). Slot +0x04 is an object's notice that it goes.
-class BinaryEffectClass : public EffectClass  // NAME 5: thunk order, binary.md 5.11
+class BinaryEffectClass : public EffectClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	BinaryEffectClass(ClientClass *client, unsigned id, unsigned start_time, unsigned duration, unsigned cycle_time);	// 0x6E7D70  // NAME 1 [client .. cycle_time]: the base's

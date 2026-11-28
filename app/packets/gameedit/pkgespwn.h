@@ -18,7 +18,7 @@
 #include "..\pk.h"
 
 // opcode 30017 (0x7541, ?): vtable 0xB09308, constructor 0x862440, 0x18 bytes
-class GameEditorRequestSpawnDefaultsPacketClass : public PacketClass  // NAME 5: thunk order, binary.md 5.11
+class GameEditorRequestSpawnDefaultsPacketClass : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	GameEditorRequestSpawnDefaultsPacketClass(char *s);	// 0x862350 (Data is the caller's text, not copied)
@@ -35,7 +35,7 @@ public:
 };
 
 // 0x7542 (30018, not in the packet switch: sent only): vtable 0xB09338, constructor 0x862700, 0x18 bytes
-class GameEditorSpawnDefaultsPacketClass : public PacketClass  // NAME 5: thunk order, binary.md 5.11
+class GameEditorSpawnDefaultsPacketClass : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	GameEditorSpawnDefaultsPacketClass(char *data, int size);	// 0x862680 (Data is the caller's, not copied)

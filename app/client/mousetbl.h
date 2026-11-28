@@ -12,7 +12,7 @@ enum
 };
 
 // One cursor: its texture and hot spot (smouse.cpp's software mouse reads them)
-struct MouseCursorEntry  // NAME 5: thunk order, binary.md 5.11
+struct MouseCursorEntry  // NAME 5: thunk order A, binary.md 5.11
 {
 	MouseCursorEntry(int idx, const char *name, float hot_x, float hot_y);			// 0x722770  // NAME 1 [name, hot_x, hot_y]: what it does with them
 	MouseCursorEntry(int idx, RenderObjClass *robj, float hot_x, float hot_y);	// 0x7227F0  // NAME 1 [robj, hot_x, hot_y]: as above

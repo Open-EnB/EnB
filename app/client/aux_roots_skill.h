@@ -15,7 +15,7 @@
 #include "aux_roots_types.h"
 
 // vtable 0xB03638 (e.g. Player.RPGInfo.Skills.N)
-// NAME 5: thunk order, binary.md 5.11; before the rename NAME 4: Net-7 AuxSkill confirmed by structure (C# fields = ours (same names, same order); Net-7 Construct 7 children = ours); C# Skill
+// NAME 5: thunk order A, binary.md 5.11; before the rename NAME 4: Net-7 AuxSkill confirmed by structure (C# fields = ours (same names, same order); Net-7 Construct 7 children = ours); C# Skill
 class DeltaSkill : public DeltaContainer
 {
 public:
@@ -31,7 +31,7 @@ public:
 };
 
 // vtable 0xB036EC (e.g. Player.RPGInfo.SkillAbilities.N)
-// NAME 5: thunk order, binary.md 5.11; before the rename NAME 4: Net-7 AuxSkillAbility confirmed by structure (C# fields = ours (same names, same order); Net-7 Construct 7 children = ours); C# SkillAbility
+// NAME 5: thunk order A, binary.md 5.11; before the rename NAME 4: Net-7 AuxSkillAbility confirmed by structure (C# fields = ours (same names, same order); Net-7 Construct 7 children = ours); C# SkillAbility
 class DeltaSkillAbility : public DeltaContainer
 {
 public:

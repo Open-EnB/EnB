@@ -8,7 +8,7 @@
 
 // The camera manager's eighth controller (state 7; vtable 0xB04EA8, 0x18 bytes): the landing on a planet, from
 // landingpattern.ini, with effect 0x16A on the avatar; after four seconds request 14
-class PLandCameraControllerClass : public CameraControllerClass  // NAME 5: thunk order, binary.md 5.11
+class PLandCameraControllerClass : public CameraControllerClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	PLandCameraControllerClass(SpaceClientClass *client);			// 0x7946D0

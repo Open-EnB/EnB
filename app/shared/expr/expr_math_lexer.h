@@ -15,7 +15,7 @@
 
 #include <string>
 
-class ExprLexerToken  // NAME 5: thunk order, binary.md 5.11; NAME 3 [ExprLexerToken]: 0x14 bytes, a type and its text
+class ExprLexerToken  // NAME 5: thunk order A, binary.md 5.11; NAME 3 [ExprLexerToken]: 0x14 bytes, a type and its text
 {
 public:
 	ExprLexerToken();										// 0x4C7620: type -1, the text from a global
@@ -33,7 +33,7 @@ public:
 };
 
 // The lexer's interface: 4 bytes, vtable 0xAEBB00 (destructor 0x4C4AE0, six pure slots).
-class ExprLexer  // NAME 5: thunk order, binary.md 5.11; NAME 3 [ExprLexer]
+class ExprLexer  // NAME 5: thunk order A, binary.md 5.11; NAME 3 [ExprLexer]
 {
 public:
 	virtual ~ExprLexer() {}

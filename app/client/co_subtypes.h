@@ -16,7 +16,7 @@
 
 // type 24's base (constructor 0x70DBC0, vtables 0xB02084 / 0xB0206C / 0xB020E4; 0x20C bytes): a ClientObjectClass that
 // is also a proximity object, with two transforms indexed by the frame toggle 0xBE350C
-class ClientProximityObjectClass : public ClientObjectClass, public DynamicObjectClass  // NAME 5: thunk order, binary.md 5.11
+class ClientProximityObjectClass : public ClientObjectClass, public DynamicObjectClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	ClientProximityObjectClass(ClientClass *client, int type, unsigned id);	// 0x70DBC0  // NAME 1 [client, type, id]: as the base's

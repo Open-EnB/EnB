@@ -17,7 +17,7 @@ class UIPTradeCreditsClass;	// sclient.h's: the text entry (ui_ptrade.cpp's cred
 
 // ui_playeropt.cpp's player options window: the ignore list (0x114 bytes; constructor 0x5D8C40 over
 // ui_chat_panel_base.cpp's 0x56D280, destructor 0x5D8E90, tables 0xAF58B0 / 0xAF58A4 / 0xAF5898)
-class PlayerOptionsInterface : public ChatPanelUIBase  // NAME 5: thunk order, binary.md 5.11
+class PlayerOptionsInterface : public ChatPanelUIBase  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	PlayerOptionsInterface(SpaceClientClass *client);					// 0x5D8C40  // NAME 1 [client]: ChatPanelUIBase's

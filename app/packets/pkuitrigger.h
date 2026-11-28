@@ -19,7 +19,7 @@
 #include "pk.h"
 
 // opcode 101 (0x0065, UI_TRIGGER): vtable 0xB0C078, constructor 0x8AB880, 0x14 bytes
-class UITriggerPacketClass : public PacketClass  // NAME 5: thunk order, binary.md 5.11
+class UITriggerPacketClass : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	UITriggerPacketClass(int id, int action);	// 0x8AB800

@@ -17,5 +17,5 @@ static void Not_In_Replay(const char *what)
 class TimedLogConnectionClass { public: TimedLogConnectionClass(ConnectionClass *connection, const char *name); };
 TimedLogConnectionClass::TimedLogConnectionClass(ConnectionClass *, const char *) { Not_In_Replay("TimedLogConnectionClass"); }
 
-class PacketStatsConnection { public: PacketStatsConnection(ConnectionClass *connection); };  // NAME 5: thunk order, binary.md 5.11
+class PacketStatsConnection { public: PacketStatsConnection(ConnectionClass *connection); };  // NAME 5: thunk order A, binary.md 5.11
 PacketStatsConnection::PacketStatsConnection(ConnectionClass *) { Not_In_Replay("StatsConnectionClass"); }

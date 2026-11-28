@@ -18,7 +18,7 @@
 #include "pk.h"
 
 // 0x7534 (30004, not in the packet switch: sent only): vtable 0xB09278, constructor 0x861BC0, 0x10 bytes
-class GameEditorRemovePacketClass : public PacketClass  // NAME 5: thunk order, binary.md 5.11
+class GameEditorRemovePacketClass : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	GameEditorRemovePacketClass(int game_id);	// 0x861B30

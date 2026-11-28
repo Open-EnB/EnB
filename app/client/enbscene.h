@@ -23,7 +23,7 @@ class OBBoxClass;
 class Vector3;
 struct CastResultStruct;
 
-class ENBSceneClass : public ProjectionSceneClass  // NAME 5: thunk order, binary.md 5.11
+class ENBSceneClass : public ProjectionSceneClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	ENBSceneClass(void);												// 0x75ECF0

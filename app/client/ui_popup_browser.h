@@ -8,7 +8,7 @@
 
 // The pop-up browser panel ('fc_jweb01.ini', 'JWEB01'; 0xCC bytes, table 0xAF59F8): the chat panel's request 11
 // ('Credits', id 5) and its slot +0x68's key 16 ('Online Manual', id 6)
-class PopupBrowserInterface : public ChatPanelUIBase  // NAME 5: thunk order, binary.md 5.11
+class PopupBrowserInterface : public ChatPanelUIBase  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	PopupBrowserInterface(SpaceClientClass *client, int browser_id, const char *title, const char *url = NULL);	// 0x5DAE90  // NAME 1 [client, browser_id, title, url]: neutral

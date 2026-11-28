@@ -18,7 +18,7 @@
 #ifndef __LINEARBU_H  // NAME 3 [linearbu.h]: header name assumed from the client's linearbu.cpp
 #define __LINEARBU_H
 
-class LinearBuffer  // NAME 5: thunk order, binary.md 5.11
+class LinearBuffer  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	LinearBuffer(int capacity, int grow_by);								// 0x4AAB60

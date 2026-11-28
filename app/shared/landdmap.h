@@ -23,7 +23,7 @@ struct LandUnknown466BE0CellStruct
 // NAME 1: unknown; the object Unknown_466E70 makes (0x90 bytes, vtable 0xAE8974, ctor 0x466BE0): the land's displacement-mapped
 // variant, on only for a Matrox adapter (vendor 0x102B) with pixel shader 1.3 and the registry's DisplacementMappingEnabled
 // (Software\Westwood Studios\Earth and Beyond\Render\DMap, 0x468120); Update_Patches and Render use it while its +0x11 is set
-class DisplacementMapLandClass  // NAME 5: thunk order, binary.md 5.11
+class DisplacementMapLandClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	DisplacementMapLandClass(HeightMapClass *field, float detail_u, float detail_v);

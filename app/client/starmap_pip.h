@@ -61,7 +61,7 @@ public:
 	std::string Name;									// +0x0C (shown for an object named "Unknown")  // NAME 2: what it holds
 };
 
-class StarmapPIPClass : public MapPIPClass  // NAME 5: thunk order, binary.md 5.11
+class StarmapPIPClass : public MapPIPClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	StarmapPIPClass(SpaceClientClass *client);					// 0x7BF930  // NAME 1 [client]: neutral

@@ -19,7 +19,7 @@
 #include "pk.h"
 
 // opcode 30000 (0x7530, ?): vtable 0xB08F78, constructor 0x85F2C0, 0x10 bytes
-class GameEditorLoginPacketClass : public PacketClass  // NAME 5: thunk order, binary.md 5.11
+class GameEditorLoginPacketClass : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	GameEditorLoginPacketClass(int editor_protocol_version);	// 0x85F250
@@ -33,7 +33,7 @@ public:
 };
 
 // opcode 30001 (0x7531, ?): vtable 0xB08FA8, constructor 0x85F480, 0xC bytes
-class GameEditorLogoutPacketClass : public PacketClass  // NAME 5: thunk order, binary.md 5.11
+class GameEditorLogoutPacketClass : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	GameEditorLogoutPacketClass(RawPacketClass *raw);	// 0x85F480
@@ -44,7 +44,7 @@ public:
 
 };
 // 0x7543 (30019, not in the packet switch: sent only): vtable 0xB08FD8, constructor 0x85F660, 0x10 bytes
-class GameEditorProtocolVersionPacketClass : public PacketClass  // NAME 5: thunk order, binary.md 5.11
+class GameEditorProtocolVersionPacketClass : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	GameEditorProtocolVersionPacketClass(unsigned int server_protocol_version);	// 0x85F5F0

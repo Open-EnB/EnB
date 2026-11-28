@@ -59,7 +59,7 @@ struct UIMFDValueStruct	// NAME 1: neutral (D10)
 
 // The multi-function display (0x188 bytes, tables 0xAF3544 / 0xAF3538 / 0xAF352C / 0xAF3518; constructor 0x5BB720, destructor
 // 0x5BC2E0; 'fc_mfd.ini'): watches the target object through its second base; slot +0x90 is pure (0xAF35D4 _purecall)
-class MFDInterface : public InterfaceClass, public UnknownObjectWatchClass  // NAME 5: thunk order, binary.md 5.11
+class MFDInterface : public InterfaceClass, public UnknownObjectWatchClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	// One of the two value lines (0x48 bytes, the constructor's loop)

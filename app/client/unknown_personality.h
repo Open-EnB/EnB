@@ -17,7 +17,7 @@
 #include <vector>
 
 // A personality's data (0x1030 bytes, vtable 0xB04A40), loaded from personalities\PersonalityNN.ini
-class PersonalityClass  // NAME 5: thunk order, binary.md 5.11
+class PersonalityClass  // NAME 5: thunk order B, binary.md 5.11
 {
 public:
 	struct MoodStruct		// 8 bytes, destructor 0x78F970  // NAME 2: the INI section 'MOOD-%d'

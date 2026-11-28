@@ -20,7 +20,7 @@
 #include "..\shared\avatar_desc.h"
 
 // opcode 141 (0x008D, INCAPACITANCE_REQUEST): vtable 0xB099F4, constructor 0x871FE0, 0x10 bytes
-class IncapacitanceDetailsRequestPacket : public PacketClass  // NAME 5: thunk order, binary.md 5.11
+class IncapacitanceDetailsRequestPacket : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	IncapacitanceDetailsRequestPacket(int game_id);	// 0x871F70
@@ -34,7 +34,7 @@ public:
 };
 
 // opcode 142 (0x008E, ?): vtable 0xB09A24, constructor 0x872200, 0x14 bytes
-class IncapacitanceDistressBeaconPacket : public PacketClass  // NAME 5: thunk order, binary.md 5.11
+class IncapacitanceDistressBeaconPacket : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	IncapacitanceDistressBeaconPacket(int game_id, bool on);	// 0x872180

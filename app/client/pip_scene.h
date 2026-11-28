@@ -27,7 +27,7 @@ class CameraClass;
 class RenderObjClass;
 class UIViewClass;
 
-class PIPSceneClass  // NAME 5: thunk order, binary.md 5.11
+class PIPSceneClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	PIPSceneClass(SpaceClientClass *client);						// 0x7BA9C0  // NAME 1 [client]: what it stores

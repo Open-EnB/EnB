@@ -23,7 +23,7 @@
 #define MAX_NAME_LENGTH	10
 
 // size 0x34 (DeltaClass's Name at +0x08, FullName at +0x3C)
-class AuxDataName  // NAME 5: thunk order, binary.md 5.11
+class AuxDataName  // NAME 5: thunk order B, binary.md 5.11
 {
 public:
 	AuxDataName(const char *name);											// 0x4AD380

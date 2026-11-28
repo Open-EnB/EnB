@@ -22,7 +22,7 @@
 #include "..\g_assert.h"
 
 // vtable 0xAEAE54, size 0x250
-class DeltaInterpolator : public DeltaContainer  // NAME 5: thunk order, binary.md 5.11
+class DeltaInterpolator : public DeltaContainer  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	DeltaInterpolator(const char *name);											// 0x4A6110

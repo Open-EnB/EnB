@@ -24,7 +24,7 @@
 extern FontManagerClass *Unknown_BE67C4;	// NAME 1: neutral (D10)
 
 // What the avatar pip's +0x2C holds (a render object), as far as 0x563C50 reads it
-class AvatarClass : public RenderObjClass  // NAME 5: thunk order, binary.md 5.11; avatar.h's (avatar_pip.h's +0x2C), as far as this file uses it
+class AvatarClass : public RenderObjClass  // NAME 5: thunk order A, binary.md 5.11; avatar.h's (avatar_pip.h's +0x2C), as far as this file uses it
 {
 public:
 	void Unknown_77E3D0(int arg); void Unknown_781760(const char *text); class Unknown_ChatStreamClass *Unknown_7817E0();	// 0x77E3D0 (avatar.cpp; 0x563910 passes 1 or 2); 0x781760, 0x7817E0 (avatar.h's: 0x569A00's emotes)  // NAME 1 [arg, text]: neutral

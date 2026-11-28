@@ -38,7 +38,7 @@ public:
 };
 
 // ui_talkt_space.cpp's talk tree window (SpaceClientClass +0x1298), as far as this file reads it
-class SpaceTalkTreeInterface : public InterfaceClass  // NAME 5: thunk order, binary.md 5.11
+class SpaceTalkTreeInterface : public InterfaceClass  // NAME 5: thunk order A, binary.md 5.11
 {
 };
 

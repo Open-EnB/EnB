@@ -437,19 +437,21 @@ def retail_names(text):
     import collections
     sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), 'thunknames'))
     import classrename
-    global _RETAIL
+    global _RETAIL, _CONFIDENCE
     if _RETAIL is None:
         # only the generator's own classes: its comments also name classes the rename left for later (SpaceClientClass)
         _RETAIL = {r['ours']: r['retail'] for r in classrename.load_rows()
                    if r['ours'].startswith('Delta') and r['split_suspect'] in ('0', '')}
+        _CONFIDENCE = {r['retail']: r['confidence'] for r in classrename.load_rows()}
     counts = collections.Counter()
     out = classrename.rename_text(text, _RETAIL, counts)
     if counts:
-        out = classrename.tag_definitions(out, {_RETAIL[k] for k in counts}, collections.Counter())
+        out = classrename.tag_definitions(out, {_RETAIL[k]: _CONFIDENCE[_RETAIL[k]] for k in counts},
+                                          collections.Counter())
     return out
 
 
-_RETAIL = None
+_RETAIL = _CONFIDENCE = None
 
 class Gen:
     def __init__(self, doc):

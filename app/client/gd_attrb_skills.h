@@ -27,7 +27,7 @@ class AttributeSkillsInterface;
 class SkillDataClass;
 class SlotDataGadget;
 
-class AttributeSkillsGadget : public ButtonGadgetClass  // NAME 5: thunk order, binary.md 5.11
+class AttributeSkillsGadget : public ButtonGadgetClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	AttributeSkillsGadget();									// 0x662DC0 (0x114 bytes; ui_attrb_skills.cpp's 0x54ACE0 makes it)

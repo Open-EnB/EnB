@@ -18,7 +18,7 @@
 #include "pk.h"
 
 // opcode 230 (0x00E6, ?): vtable 0xB093C8, constructor 0x863940, 0x38 bytes
-class GlobalContainerRequestPacketClass : public PacketClass  // NAME 5: thunk order, binary.md 5.11
+class GlobalContainerRequestPacketClass : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	GlobalContainerRequestPacketClass(__int64 unknown18, const char *string, __int64 unknown28, int unknown30, PacketClass *packet);	// 0x863720 (Data: the packet's Build, header and payload)
@@ -40,7 +40,7 @@ public:
 };
 
 // opcode 231 (0x00E7, ?): vtable 0xB093FC, constructor 0x863DC0, 0x38 bytes
-class GlobalContainerResponsePacketClass : public PacketClass  // NAME 5: thunk order, binary.md 5.11
+class GlobalContainerResponsePacketClass : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	GlobalContainerResponsePacketClass(__int64 unknown18, const char *string, __int64 unknown28, int unknown30, PacketClass *packet);	// 0x863BE0 (Data: the packet's Build, header and payload)

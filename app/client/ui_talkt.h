@@ -13,7 +13,7 @@ class FontSplitStringClass;
 class AudibleSoundClass;
 class UITradeClass;
 class DynamicWindowClass;
-class TalkTreeInterface : public Unknown5BB320Class  // NAME 5: thunk order, binary.md 5.11
+class TalkTreeInterface : public Unknown5BB320Class  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	TalkTreeInterface(SpaceClientClass *client, int mode);	// 0x64B6E0 (the starbase view's 0x69F8F0 passes its client and 1; ui_talkt_space.cpp's 0x64F310 its client and 0)  // NAME 1 [client]: neutral; NAME 2 [mode]: indexes the meshes 'TLI00A' / 'TLI02A'

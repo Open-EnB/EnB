@@ -66,7 +66,7 @@
 
 
 // vtable 0xB03B14 (e.g. Player.Reputation.Faction.N)
-// NAME 5: thunk order, binary.md 5.11; before the rename NAME 4: Net-7 AuxFaction confirmed by structure (C# fields = ours (same names, same order); Net-7 Construct 3 children = ours); C# FactionStanding
+// NAME 5: thunk order C, binary.md 5.11; before the rename NAME 4: Net-7 AuxFaction confirmed by structure (C# fields = ours (same names, same order); Net-7 Construct 3 children = ours); C# FactionStanding
 class DeltaFaction : public DeltaContainer
 {
 public:

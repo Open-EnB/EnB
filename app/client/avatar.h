@@ -40,7 +40,7 @@ struct Unknown_AvatarQueueStruct	// NAME 1: neutral (D10)
 };
 
 // avatar.cpp's model (the view's +0x194, +0x198 and +0x1A4)
-class AvatarClass : public CompositeRenderObjClass  // NAME 5: thunk order, binary.md 5.11
+class AvatarClass : public CompositeRenderObjClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	AvatarClass(AvatarDescriptionClass *desc, bool a, bool b, EnvironmentMapManagerClass *env_maps);	// 0x77B870 (0x384 bytes)

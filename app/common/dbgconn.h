@@ -99,7 +99,7 @@ public:
 };
 
 // The statistics wrapper (vtable 0xB08794, constructor 0x8250B0, 0x0C bytes): with -PACKET_STATS
-class PacketStatsConnection : public ForwardingConnectionClass  // NAME 5: thunk order, binary.md 5.11
+class PacketStatsConnection : public ForwardingConnectionClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	PacketStatsConnection(ConnectionClass *connection);					// 0x8250B0

@@ -20,7 +20,7 @@
 #include "matrix3d.h"
 
 // opcode 30016 (0x7540, ?): vtable 0xB09008, constructor 0x85F8F0, 0x18 bytes
-class GameEditorCreateFinalPacketClass : public PacketClass  // NAME 5: thunk order, binary.md 5.11
+class GameEditorCreateFinalPacketClass : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	GameEditorCreateFinalPacketClass(char *data, int size);	// 0x85F870 (Data is the caller's, not copied)
@@ -37,7 +37,7 @@ public:
 };
 
 // opcode 30014 (0x753E, ?): vtable 0xB09038, constructor 0x85FBB0, 0x18 bytes
-class GameEditorCreateEmptyPacketClass : public PacketClass  // NAME 5: thunk order, binary.md 5.11
+class GameEditorCreateEmptyPacketClass : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	GameEditorCreateEmptyPacketClass(char *data, int size);	// 0x85FB30 (Data is the caller's, not copied)
@@ -54,7 +54,7 @@ public:
 };
 
 // opcode 30015 (0x753F, ?): vtable 0xB09068, constructor 0x85FE60, 0xC bytes
-class GameEditorCreateCancelPacketClass : public PacketClass  // NAME 5: thunk order, binary.md 5.11
+class GameEditorCreateCancelPacketClass : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	GameEditorCreateCancelPacketClass();	// 0x85FDF0
@@ -67,7 +67,7 @@ public:
 };
 
 // opcode 30009 (0x7539, ?): vtable 0xB09098, constructor 0x860030, 0x10 bytes
-class GameEditorDeletePacketClass : public PacketClass  // NAME 5: thunk order, binary.md 5.11
+class GameEditorDeletePacketClass : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	GameEditorDeletePacketClass(int game_id);	// 0x85FFA0
@@ -81,7 +81,7 @@ public:
 };
 
 // opcode 30010 (0x753A, ?): vtable 0xB090C8, constructor 0x8602C0, 0x40 bytes
-class GameEditorMovePacketClass : public PacketClass  // NAME 5: thunk order, binary.md 5.11
+class GameEditorMovePacketClass : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	GameEditorMovePacketClass(int game_id, const Matrix3D &transform);	// 0x8601D0  // NAME 2 [transform]: what it is
@@ -96,7 +96,7 @@ public:
 };
 
 // 0x753B (30011, not in the packet switch: sent only): vtable 0xB090F8, constructor 0x860500, 0x18 bytes
-class GameEditorTemplateCategoriesPacketClass : public PacketClass  // NAME 5: thunk order, binary.md 5.11
+class GameEditorTemplateCategoriesPacketClass : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	GameEditorTemplateCategoriesPacketClass(char *data, int size);	// 0x860480 (Data is the caller's, not copied)
@@ -113,7 +113,7 @@ public:
 };
 
 // opcode 30012 (0x753C, ?): vtable 0xB09128, constructor 0x8607E0, 0x18 bytes
-class GameEditorRequestTemplateListPacketClass : public PacketClass  // NAME 5: thunk order, binary.md 5.11
+class GameEditorRequestTemplateListPacketClass : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	GameEditorRequestTemplateListPacketClass(char *data, int size);	// 0x860760 (Data is the caller's, not copied)
@@ -130,7 +130,7 @@ public:
 };
 
 // 0x753D (30013, not in the packet switch: sent only): vtable 0xB09158, constructor 0x860AA0, 0x18 bytes
-class GameEditorTemplateListPacketClass : public PacketClass  // NAME 5: thunk order, binary.md 5.11
+class GameEditorTemplateListPacketClass : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	GameEditorTemplateListPacketClass(char *data, int size);	// 0x860A20 (Data is the caller's, not copied)

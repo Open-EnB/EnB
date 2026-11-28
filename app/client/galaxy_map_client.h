@@ -23,7 +23,7 @@ class LinearBuffer;
 class BitSet;
 
 // vtable 0xB057E8 (the deleting destructor 0x7A4970, GalaxyMapClass::Clear), 0xCC bytes
-class GalaxyMapClient : public GalaxyMapClass  // NAME 5: thunk order, binary.md 5.11
+class GalaxyMapClient : public GalaxyMapClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	GalaxyMapClient();																// 0x7A4830

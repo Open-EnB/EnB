@@ -50,7 +50,7 @@ struct KernelEventClass		// NAME 1: describes what it holds; the input code's na
 
 // The task base class (constructor 0x443050, destructor 0x4430A0). No string names it; the tasks
 // call themselves ClientTask, LoginTask, MenuTask and LoginTaskClass.
-class KernelTaskClass  // NAME 5: thunk order, binary.md 5.11
+class KernelTaskClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	KernelTaskClass();										// 0x443050

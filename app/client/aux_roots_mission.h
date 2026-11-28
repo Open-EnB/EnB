@@ -15,7 +15,7 @@
 #include "aux_roots_types.h"
 
 // vtable 0xB037A4 (e.g. Player.Missions.N.Stages.N)
-// NAME 5: thunk order, binary.md 5.11; before the rename NAME 4: Net-7 AuxMissionStage confirmed by structure (C# fields = ours (same names, same order); Net-7 Construct 2 children = ours); C# MissionStage
+// NAME 5: thunk order A, binary.md 5.11; before the rename NAME 4: Net-7 AuxMissionStage confirmed by structure (C# fields = ours (same names, same order); Net-7 Construct 2 children = ours); C# MissionStage
 class DeltaMissionStage : public DeltaContainer
 {
 public:
@@ -37,7 +37,7 @@ public:
 };
 
 // vtable 0xB03748 (e.g. Player.Missions.N)
-// NAME 5: thunk order, binary.md 5.11; before the rename NAME 4: Net-7 AuxMission confirmed by structure (C# fields = ours (same names, same order); Net-7 Construct 19 children = ours); C# Mission
+// NAME 5: thunk order A, binary.md 5.11; before the rename NAME 4: Net-7 AuxMission confirmed by structure (C# fields = ours (same names, same order); Net-7 Construct 19 children = ours); C# Mission
 class DeltaMission : public DeltaContainer
 {
 public:

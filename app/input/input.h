@@ -75,7 +75,7 @@ public:
 };
 
 // The keyboard handler's base (vtable 0xAE7190, 4 bytes)
-class KeyboardHandlerClass  // NAME 5: thunk order, binary.md 5.11; NAME 1 [KeyboardHandlerClass]: neutral (D10)
+class KeyboardHandlerClass  // NAME 5: thunk order A, binary.md 5.11; NAME 1 [KeyboardHandlerClass]: neutral (D10)
 {
 public:
 	KeyboardHandlerClass(KeyQueueClass *queue) { Queue = queue; }
@@ -100,7 +100,7 @@ public:
 };
 
 // The mouse handler's base (vtable 0xAE71A8, 4 bytes)
-class MouseHandlerClass  // NAME 5: thunk order, binary.md 5.11; NAME 1 [MouseHandlerClass]: neutral (D10)
+class MouseHandlerClass  // NAME 5: thunk order A, binary.md 5.11; NAME 1 [MouseHandlerClass]: neutral (D10)
 {
 public:
 	MouseHandlerClass(KeyQueueClass *queue) { Queue = queue; }

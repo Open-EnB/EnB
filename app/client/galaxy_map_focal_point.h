@@ -23,7 +23,7 @@
 
 class CameraClass;
 
-class GalaxyMapFocalPoint  // NAME 5: thunk order, binary.md 5.11
+class GalaxyMapFocalPoint  // NAME 5: thunk order C, binary.md 5.11
 {
 public:
 	GalaxyMapFocalPoint();							// 0x7A5730 (identity, +0x34 2, +0x38 500)

@@ -23,7 +23,7 @@ class PxWrapper;
 // vtable 0xAE796C, 42 slots; 0x24 bytes. The slots defined here are the client's inline ones (after Update_Avoidance,
 // in vtable order). Slot names are neutral except +0x34 / +0x40, which share ClientObjectClass's names: one function
 // overrides both in type 24's base (0x70DD40 through the thunk 0x70E2C0, 0x70DDE0 through 0x70E2D0).
-class DynamicObjectClass  // NAME 5: thunk order, binary.md 5.11; its Get_Name text is 'Unnamed ProximityObject' (0x44B310)
+class DynamicObjectClass  // NAME 5: thunk order A, binary.md 5.11; its Get_Name text is 'Unnamed ProximityObject' (0x44B310)
 {
 public:
 	DynamicObjectClass();											// 0x44AC70

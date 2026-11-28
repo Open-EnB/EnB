@@ -41,7 +41,7 @@ public:
 };
 
 // Type=continuous: Values=v0,v1,...; Lookup(i) is Values[(int)i] (vtable 0xAEC788, 0x18 bytes)
-class ContinuousLookupTable : public LookupTableClass  // NAME 5: thunk order, binary.md 5.11
+class ContinuousLookupTable : public LookupTableClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	virtual ~ContinuousLookupTable() {}												// 0x4EDA70
@@ -74,7 +74,7 @@ protected:
 };
 
 // Type=floor: the sample at or below the index (vtable 0xAEC7A8)
-class FloorLookupTable : public SampledLookupTableClass  // NAME 5: thunk order, binary.md 5.11
+class FloorLookupTable : public SampledLookupTableClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	FloorLookupTable(INISection *section) : SampledLookupTableClass(section) {}
@@ -84,7 +84,7 @@ public:
 };
 
 // Type=ceiling: the sample at or above the index (vtable 0xAEC7C8)
-class CeilingLookupTable : public SampledLookupTableClass  // NAME 5: thunk order, binary.md 5.11
+class CeilingLookupTable : public SampledLookupTableClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	CeilingLookupTable(INISection *section) : SampledLookupTableClass(section) {}
@@ -94,7 +94,7 @@ public:
 };
 
 // Type=closest: the sample nearest to the index (vtable 0xAEC7D8)
-class ClosestValueLookupTable : public SampledLookupTableClass  // NAME 5: thunk order, binary.md 5.11
+class ClosestValueLookupTable : public SampledLookupTableClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	ClosestValueLookupTable(INISection *section) : SampledLookupTableClass(section) {}

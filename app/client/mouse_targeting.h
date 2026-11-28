@@ -23,7 +23,7 @@
 class ClientObjectClass;
 class RadarIconDataClass;
 
-class MouseTargeting  // NAME 5: thunk order, binary.md 5.11
+class MouseTargeting  // NAME 5: thunk order C, binary.md 5.11
 {
 public:
 	MouseTargeting(ClientObjectClass *self);					// 0x7B77C0 (radar_system.cpp's 0x7BCA70)  // NAME 2 [self]: 0x7B7880 keeps its result apart

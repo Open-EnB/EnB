@@ -26,7 +26,7 @@ class StringEditClass;
 class FontSysCursor;
 
 // The multi-line text editor (0xBC bytes, table 0xAFB3D4): ui_log's 'UI_LOG' and the petition window's 'UI_PETITION_ENTRY'
-class TextEditorGadget : public RenderObjGadgetClass  // NAME 5: thunk order, binary.md 5.11
+class TextEditorGadget : public RenderObjGadgetClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	TextEditorGadget(InterfaceClass *iface, const RefCountPtr<RenderObjClass> &model, const char *font, GadgetSlider *slider, int maxlen, const char *text);	// 0x671790  // NAME 1 [iface, model, font, maxlen, text]: what the windows pass; NAME 3 [slider]: the FAIL_IF's

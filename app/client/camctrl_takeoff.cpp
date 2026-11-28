@@ -17,7 +17,7 @@
 #include "..\shared\auth_product.h"
 extern Random4Class Unknown_BDB1C0;				// NAME 1 [Unknown_BDB1C0]: 0xBDB1C0, the camera controllers' generator outside this file
 
-class ENBSceneClass : public SimpleSceneClass  // NAME 5: thunk order, binary.md 5.11
+class ENBSceneClass : public SimpleSceneClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	void Unknown_75FB00(const OBBoxClass &to, const OBBoxClass &from, const Vector3 &move, CastResultStruct *result, RenderObjClass *ignore, bool ship);

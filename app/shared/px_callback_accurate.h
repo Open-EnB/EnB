@@ -50,7 +50,7 @@ struct PxAccurateActiveStruct  // NAME 2: Active's element (8 bytes; the FAIL_IF
 ** 0x40 bytes; vtables 0xAE7B10 (node: the deleting destructor 0x44E1A0, Process, the pure Test, Enter, Exit) and
 ** 0xAE7AF4 (callback, +0x0C: all pure).
 */
-class PxCallbackAccurate : public PxProcessNode, public PxCallback  // NAME 5: thunk order, binary.md 5.11
+class PxCallbackAccurate : public PxProcessNode, public PxCallback  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	PxCallbackAccurate(PxObject *object, PxCallbackFunction callback);		// 0x44E020  // NAME 2 [object, callback]: what it stores

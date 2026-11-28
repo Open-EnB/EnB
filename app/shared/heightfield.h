@@ -37,7 +37,7 @@ class AABoxCollisionTestClass;
 class OBBoxCollisionTestClass;
 class OBBoxClass;
 
-// NAME 5: thunk order, binary.md 5.11; before the rename NAME 2: after land.ini's [HEIGHTMAP] / HEIGHT_MAP; the client names no class
+// NAME 5: thunk order A, binary.md 5.11; before the rename NAME 2: after land.ini's [HEIGHTMAP] / HEIGHT_MAP; the client names no class
 class HeightMapClass
 {
 public:

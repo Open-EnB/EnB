@@ -19,7 +19,7 @@
 class CameraClass;
 class RenderObjClass;
 
-class ProjectionSceneClass : public SimpleSceneClass  // NAME 5: thunk order, binary.md 5.11
+class ProjectionSceneClass : public SimpleSceneClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	ProjectionSceneClass(void);														// 0x494EE0

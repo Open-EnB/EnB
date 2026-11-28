@@ -19,7 +19,7 @@
 #include "pk.h"
 
 // opcode 167 (0x00A7, ?): vtable 0xB09F00, constructor 0x87A9E0, 0x30 bytes
-class ChatBasicRequestPacketClass : public PacketClass  // NAME 5: thunk order, binary.md 5.11
+class ChatBasicRequestPacketClass : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	ChatBasicRequestPacketClass();	// 0x87A940

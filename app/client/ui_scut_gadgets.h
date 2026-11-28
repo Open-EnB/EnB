@@ -29,7 +29,7 @@ struct ShortcutDataStruct	// NAME 2: what it holds
 
 // The gadgets on the shortcut bars and their saving in shortcut.ini (0x48 bytes, table 0xAF75DC, abstract: ui_slot_scut.cpp's
 // 0x630490 derives from it). Slots +0x0C, +0x10, +0x14 are the base's _purecall (0x9CCD10).
-class ShortcutGadgetsInterface  // NAME 5: thunk order, binary.md 5.11
+class ShortcutGadgetsInterface  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	enum {

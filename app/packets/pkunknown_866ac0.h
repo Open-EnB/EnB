@@ -19,7 +19,7 @@
 #include <string>
 
 // opcode 119 (0x0077, ?): vtable 0xB04170, constructor 0x866C20, 0x20 bytes
-class GlobalSetReferrerPacketClass : public PacketClass  // NAME 5: thunk order, binary.md 5.11
+class GlobalSetReferrerPacketClass : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	GlobalSetReferrerPacketClass(const char *name);	// 0x866AC0 (LoginTaskClass::Send_Referrer)
@@ -35,7 +35,7 @@ public:
 };
 
 // opcode 120 (0x0078, ?): vtable 0xB09628, constructor 0x866DF0, 0x10 bytes
-class GlobalSetReferrerResponsePacketClass : public PacketClass  // NAME 5: thunk order, binary.md 5.11
+class GlobalSetReferrerResponsePacketClass : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	GlobalSetReferrerResponsePacketClass(RawPacketClass *raw);	// 0x866DF0

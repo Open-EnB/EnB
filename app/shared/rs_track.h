@@ -90,7 +90,7 @@ extern Unknown45C430Class Unknown_BDC0A0;							// 0xBDC0A0 (rs_list.cpp; its in
 // rs_robj.cpp's render-object state (vtable 0xAE8138, 0x44 bytes): a state that shows a model (made by name from
 // the asset manager or handed in), and after Unknown34 seconds moves on to the state NextID names
 // (interim, D137: rs_robj.cpp's header is not in the tree yet)
-class RenderStateRenderObjClass : public RenderStateClass  // NAME 5: thunk order, binary.md 5.11
+class RenderStateRenderObjClass : public RenderStateClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	RenderStateRenderObjClass(RenderStateListClass *list, int id, int link_id, unsigned int flags, const char *name, int next_id, float duration);	// 0x45E5F0  // NAME 1 [name, next_id, duration]: the members they set
@@ -118,7 +118,7 @@ public:
 
 // rs.cpp's render-object state on a bone path (vtable 0xAE7D58, 0x4C bytes): its model goes onto the
 // owner's bone path while it is active
-class RenderStateBoneClass : public RenderStateRenderObjClass  // NAME 5: thunk order, binary.md 5.11
+class RenderStateBoneClass : public RenderStateRenderObjClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	RenderStateBoneClass(RenderStateListClass *list, int id, int link_id, unsigned int flags, const char *name, int next_id, float duration, const char *bone_path, int arg);	// 0x458710  // NAME 1 [bone_path, arg]: what 0x458B20 passes on

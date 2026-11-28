@@ -17,7 +17,7 @@ class HAnimComboDataClass;
 
 // One process on a mesh (table 0xAF3278, 0x20 bytes): it sits in the mesh's list through Node (+0x04, a DataNode
 // pointing back at it, table 0xAF3274), on channel Slot (-1: the mesh's main list) under Id
-class UIProcessClass  // NAME 5: thunk order, binary.md 5.11
+class UIProcessClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	UIProcessClass(UIMeshClass *uimesh) : UIMesh(uimesh) { Node.Set(this); Slot = -1; Id = -1; }	// NAME 3 [uimesh]: the FAIL_IFs' '!uimesh' (0x5DCD20 l.36)
@@ -44,7 +44,7 @@ struct UIProcEventStruct	// NAME 1: neutral (D10)
 
 // The animation process (0x30 bytes, table 0xAF5D94; constructors 0x5DCD20 by name and 0x5DCF00 by animation, the
 // destructor 0x5DD2E0): an animation played on the mesh's combo from StartFrame to EndFrame
-class UIAnimProcessClass : public UIProcessClass  // NAME 5: thunk order, binary.md 5.11
+class UIAnimProcessClass : public UIProcessClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	UIAnimProcessClass(UIMeshClass *uimesh, const char *anim_name, bool cycle, bool delete_self, bool reverse, int start_frame, int end_frame);	// 0x5DCD20  // NAME 3 [uimesh, anim_name]: the FAIL_IFs'; NAME 2 [cycle, delete_self, start_frame, end_frame]: the members'; NAME 1 [reverse]: neutral

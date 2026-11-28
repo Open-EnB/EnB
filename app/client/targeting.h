@@ -17,7 +17,7 @@
 
 #include "target_find.h"
 
-class TargetSelectClass : public TargetFindClass  // NAME 5: thunk order, binary.md 5.11
+class TargetSelectClass : public TargetFindClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	TargetSelectClass(SpaceClientClass *client);								// 0x7C6120

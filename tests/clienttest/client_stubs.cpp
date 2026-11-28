@@ -113,7 +113,7 @@ static struct Clienttest_Sound_Manager { Clienttest_Sound_Manager() { SoundManag
 // ui_line_display.h declares them (non-virtual: same mangling); clienttest.cpp points LineDisplay at a fake. The
 // constructor Init calls stands in here too: from app.lib it would pull ui_line_display.obj (LNK2005 on these)
 class LineDisplayClientClass;
-class LineDisplayInterface  // NAME 5: thunk order, binary.md 5.11
+class LineDisplayInterface  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	LineDisplayInterface(LineDisplayClientClass *client);

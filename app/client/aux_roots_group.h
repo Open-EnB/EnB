@@ -18,7 +18,7 @@
 #include "aux_formation.h"
 
 // vtable 0xB039C8 (e.g. Player.GroupInfo.Members.N)
-// NAME 5: thunk order, binary.md 5.11; before the rename NAME 4: Net-7 AuxGroupMember confirmed by structure (C# fields = ours (same names, same order); Net-7 Construct 4 children = ours); C# GroupMember
+// NAME 5: thunk order A, binary.md 5.11; before the rename NAME 4: Net-7 AuxGroupMember confirmed by structure (C# fields = ours (same names, same order); Net-7 Construct 4 children = ours); C# GroupMember
 class DeltaGroupMember : public DeltaContainer
 {
 public:

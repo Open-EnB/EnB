@@ -317,7 +317,7 @@ public:
 
 // The 0x50-byte view at SpaceClientClass +0x1358 (SpaceClientClass::Init; constructor 0x514CC0, table 0xAED114): its functions follow
 // mainview.cpp's, with no static initializer of their own before them, so they are kept at mainview.cpp's end
-class MenuViewClass : public UIViewClass  // NAME 5: thunk order, binary.md 5.11
+class MenuViewClass : public UIViewClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	MenuViewClass(ClientTaskClass *task);		// 0x514CC0 (the base with 1)  // NAME 1 [task]: what SpaceClientClass::Init passes
@@ -480,7 +480,7 @@ class AvatarPipClass;		// avatar_pip.cpp's (+0xCC, +0xD0: 0x3C bytes each)
 // The credits entry the trade window holds at +0xB4: ui_stringentry.cpp's text entry (0xD0 bytes, constructor 0x649890, 'TRADE01A')
 #include "ui_stringentry.h"
 
-class PlayerTradeInterface : public Unknown5BB320Class  // NAME 5: thunk order, binary.md 5.11
+class PlayerTradeInterface : public Unknown5BB320Class  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	PlayerTradeInterface(SpaceClientClass *client);			// 0x5E1BE0 (0xE8 bytes; the main view's 0x50C690 and the starbase view's 0x69B5E0)  // NAME 1 [client]: what both pass
@@ -897,7 +897,7 @@ public:
 
 #pragma pack(push, 4)		// as ClientClass (client.h)
 class CameraModuleClass; class CameraModuleSignal;	// the client's RTTI (the camera manager's callback, 0xB9AC18)
-class SpaceClientClass : public ClientClass, public SpaceClientOptionsClass  // NAME 5: thunk order, binary.md 5.11
+class SpaceClientClass : public ClientClass, public SpaceClientOptionsClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	SpaceClientClass(ClientTaskClass *task);						// 0x7405E0  // NAME 1 [task]: ClientTaskClass::Init passes this

@@ -19,7 +19,7 @@
 #include "pk.h"
 
 // opcode 69 (0x0045, ?): vtable 0xB0B838, constructor 0x8A2C20, 0xC bytes
-class RequestVersionPacketClass : public PacketClass  // NAME 5: thunk order, binary.md 5.11
+class RequestVersionPacketClass : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	RequestVersionPacketClass();	// 0x8A2B70

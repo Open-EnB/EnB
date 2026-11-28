@@ -53,7 +53,7 @@ public:
 };
 class Unknown6A90A0Interface; SlotDataRenderClass *Unknown_6A90A0(int kind, Unknown6A90A0Interface *iface, RenderObjClass *robj);	// 0x6A90A0 (slot_data_render.cpp; FAIL_IF '!iface')
 // gd_slot_data.cpp's gadget, as far as this file calls it
-class SlotDataGadget : public RenderObjGadgetClass  // NAME 5: thunk order, binary.md 5.11
+class SlotDataGadget : public RenderObjGadgetClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	virtual SlotDataGadget *Unknown_A4();			// +0xA4 (0x6309F0: 'scut_gadg')
@@ -65,7 +65,7 @@ public:
 };
 
 // The 0x70-byte gadget of a shortcut (table 0xAFB1A4)
-class SlotDataShortcutGadget : public SlotDataGadget  // NAME 5: thunk order, binary.md 5.11
+class SlotDataShortcutGadget : public SlotDataGadget  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	SlotDataShortcutGadget(SlotDataIFaceClass *slot_iface, SlotDataRenderClass *slot_render, LayerClass *layer);	// 0x670E30 (gd_slot_data.h's, which this declaration must match)

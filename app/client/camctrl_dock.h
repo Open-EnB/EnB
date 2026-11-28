@@ -8,7 +8,7 @@
 
 // The camera manager's seventh controller (state 6; vtable 0xB04B1C, 0x1C bytes): docking (flag 0) and undocking
 // (flag 1) at the target SpaceClientClass +0x13AC, laid out from dock.ini's section for the target's render object
-class DockCameraControllerClass : public CameraControllerClass  // NAME 5: thunk order, binary.md 5.11
+class DockCameraControllerClass : public CameraControllerClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	DockCameraControllerClass(SpaceClientClass *client);			// 0x792320

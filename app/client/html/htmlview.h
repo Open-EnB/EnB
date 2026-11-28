@@ -15,7 +15,7 @@ struct HtmlLinkStruct  // NAME 1: element of the view's +0x14 list
 	char MimeType[257];  // +0x10D  // NAME 2: 0x770860's second argument copied in (0x76E9D0 passes Get_Mime_Type's result; Parse compares it with "image/gif") (257: the copy in 0x7789F0 moves 0x40 dwords and a byte)
 };
 
-class HTMLViewer  // NAME 5: thunk order, binary.md 5.11
+class HTMLViewer  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	HTMLViewer(void);  // 0x76FFD0

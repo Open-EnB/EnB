@@ -18,7 +18,7 @@
 #include "pk.h"
 
 // opcode 188 (0x00BC, CTA_REQUEST): vtable 0xB097DC, constructor 0x86F0F0, 0x18 bytes
-class CTARequestPacketClass : public PacketClass  // NAME 5: thunk order, binary.md 5.11
+class CTARequestPacketClass : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	CTARequestPacketClass(int avatar_id, int target_id, int request_type);	// 0x86F070

@@ -221,7 +221,7 @@ Vector3 StarmapDataClass::Get_Position()
 	return(Get_Icon_RObj()->Get_Position());
 }
 
-class StarmapRenderObject : public DynamicMeshClass  // NAME 5: thunk order, binary.md 5.11
+class StarmapRenderObject : public DynamicMeshClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	StarmapRenderObject(int max_polys, int max_verts) : DynamicMeshClass(max_polys, max_verts) {}

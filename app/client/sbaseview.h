@@ -228,7 +228,7 @@ public:
 };
 
 // ui_starbase.cpp's starbase interface (the starbase view's +0x60), declared as far as the starbase avatar packets call it
-class StarbaseInterface : public Unknown5BB320Class  // NAME 5: thunk order, binary.md 5.11
+class StarbaseInterface : public Unknown5BB320Class  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	StarbaseInterface(UIViewClass *view, LayerClass *layer, int index, const char *name);	// 0x6333E0 (0x224 bytes; the starbase view's 0x69D030: itself, its +0x80 layer, the index 0..3, 0x6A2120's name)  // NAME 1 [view, layer, index, name]: what 0x69D030 passes
@@ -373,7 +373,7 @@ struct SBaseViewChannelStruct	// NAME 1: neutral (D10)
 
 
 
-class StarbaseViewClass : public Unknown65B810ViewClass  // NAME 5: thunk order, binary.md 5.11
+class StarbaseViewClass : public Unknown65B810ViewClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	StarbaseViewClass(ClientTaskClass *task, int arg);	// 0x69AD30 (table 0xAFD2FC; SpaceClientClass 0x74B680 passes its +0x1384 task and +0x1324)  // NAME 1 [task, arg]: what the base / +0x1F4 get

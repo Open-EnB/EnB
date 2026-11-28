@@ -21,7 +21,7 @@
 #include <stdio.h>
 bool Unknown_C404F8;			// NAME 1: neutral (D10): the client's 0xC404F8, 0x514480 copies 'Doppler_Enabled' to it (its home file is unknown)
 #include "enbscene.h"	// the +0x10C scene (0x75ECF0, 0xF4 bytes)
-class StarmapInterface { public: StarmapPIPClass *Unknown_7C8DB0(bool on); };  // NAME 5: thunk order, binary.md 5.11; ui_starmap.h's, as far as 0x512A00 calls it (the PDA's +0xA8 object)
+class StarmapInterface { public: StarmapPIPClass *Unknown_7C8DB0(bool on); };  // NAME 5: thunk order A, binary.md 5.11; ui_starmap.h's, as far as 0x512A00 calls it (the PDA's +0xA8 object)
 #include "..\shared\auth_product.h"
 
 

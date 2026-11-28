@@ -18,7 +18,7 @@
 #include "pk.h"
 
 // opcode 99 (0x0063, ?): vtable 0xB09D7C, constructor 0x877D70, 0x18 bytes
-class BroadcastPacketClass : public PacketClass  // NAME 5: thunk order, binary.md 5.11
+class BroadcastPacketClass : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	BroadcastPacketClass(char *text, int unknown14);	// 0x877C80

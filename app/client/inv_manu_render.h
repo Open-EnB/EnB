@@ -20,7 +20,7 @@
 class FontSys;
 class InvDataClass;
 
-class InventoryManuRenderClass : public SlotDataRenderClass  // NAME 5: thunk order, binary.md 5.11
+class InventoryManuRenderClass : public SlotDataRenderClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	InventoryManuRenderClass();													// 0x68B370

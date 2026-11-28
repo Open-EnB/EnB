@@ -35,7 +35,7 @@ public:
 };
 
 // opcode 24 (0x0018, REQUEST_TARGETS_TARGET): vtable 0xB0BD20, constructor 0x8A81B0, 0x14 bytes
-class RequestTargetTargetPacketClass : public PacketClass  // NAME 5: thunk order, binary.md 5.11
+class RequestTargetTargetPacketClass : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	RequestTargetTargetPacketClass(int game_id, int target_id);	// 0x8A8110

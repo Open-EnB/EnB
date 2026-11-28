@@ -5,7 +5,7 @@
 #include "..\shared\g_assert.h"
 
 // local_interface_sort.cpp's sort object (8 bytes; constructor 0x6E0E80 over an interface, destructor 0x6E18B0), as intrface.cpp's
-class LocalInterfaceSort  // NAME 5: thunk order, binary.md 5.11
+class LocalInterfaceSort  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	LocalInterfaceSort(InterfaceClass *iface);		// 0x6E0E80  // NAME 1 [iface]: neutral

@@ -26,7 +26,7 @@ class SceneClass;
 class UIViewClass;
 class RenderObjClass;
 
-class LocalInterfaceSort  // NAME 5: thunk order, binary.md 5.11
+class LocalInterfaceSort  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	LocalInterfaceSort(InterfaceClass *ui);					// 0x6E0E80 (FAIL_IF '!ui')  // NAME 2 [ui]: the FAIL_IF's

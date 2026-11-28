@@ -653,7 +653,7 @@ typedef enum KeyNumType {
 */
 
 //lint -esym(1725,KeyboardHandlerClass::MouseQX,KeyboardHandlerClass::MouseQY)
-struct KeyboardHandlerClass : public WWKeyboardClass  // NAME 5: thunk order, binary.md 5.11
+struct KeyboardHandlerClass : public WWKeyboardClass  // NAME 5: thunk order A, binary.md 5.11
 {
 	/*
 	**	This flag is used to indicate whether the WW library has taken over

@@ -21,7 +21,7 @@
 #include "expr_math_lexer.h"
 
 // 0x3C bytes, vtable 0xAEBADC.
-class ExprLexerImpl : public ExprLexer  // NAME 5: thunk order, binary.md 5.11; NAME 3 [ExprLexerImpl]: class-from-file (D24)
+class ExprLexerImpl : public ExprLexer  // NAME 5: thunk order A, binary.md 5.11; NAME 3 [ExprLexerImpl]: class-from-file (D24)
 {
 public:
 	ExprLexerImpl();										// 0x4C4980

@@ -271,13 +271,13 @@ bool CreatePacketClass::Process_Packet(void *instance)
 //
 //
 //
-class SpaceTalkTreeInterface : public TalkTreeInterface  // NAME 5: thunk order, binary.md 5.11
+class SpaceTalkTreeInterface : public TalkTreeInterface  // NAME 5: thunk order A, binary.md 5.11
 {
 };
 
 // galaxy_map_client.cpp's map (SpaceClientClass +0x12A0), declared as far as GALAXY_MAP 151 calls it (each reads
 // the packet's data from the buffer)
-class GalaxyMapClient  // NAME 5: thunk order, binary.md 5.11
+class GalaxyMapClient  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	void Unknown_7A4C50(SpaceClientClass *sclient, LinearBuffer &buffer);	// 0x7A4C50 (type 4)  // NAME 1 [sclient, buffer]: what the handler passes

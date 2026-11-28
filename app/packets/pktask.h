@@ -48,7 +48,7 @@ struct Unknown1389Struct : public Unknown1388Struct  // NAME 1: neutral (D10): o
 };
 
 // opcode 5000 (0x1388, ?): vtable 0xB0BD80, constructor 0x8A8B20, 0x21C bytes
-class TaskHelloPacketClass : public PacketClass  // NAME 5: thunk order, binary.md 5.11
+class TaskHelloPacketClass : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	TaskHelloPacketClass(const Unknown1388Struct &data);	// 0x8A8A10
@@ -63,7 +63,7 @@ public:
 };
 
 // opcode 5001 (0x1389, ?): vtable 0xB0BDB4, constructor 0x8A8E30, 0x224 bytes
-class SectorHelloPacketClass : public PacketClass  // NAME 5: thunk order, binary.md 5.11
+class SectorHelloPacketClass : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	SectorHelloPacketClass(const Unknown1389Struct &data);	// 0x8A8D00
@@ -78,7 +78,7 @@ public:
 };
 
 // opcode 5002 (0x138A, ?): vtable 0xB0BDE8, constructor 0x8A90D0, 0x14 bytes
-class TaskStartPacketClass : public PacketClass  // NAME 5: thunk order, binary.md 5.11
+class TaskStartPacketClass : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	TaskStartPacketClass(int type, int num);	// 0x8A9030
@@ -94,7 +94,7 @@ public:
 };
 
 // opcode 5003 (0x138B, ?): vtable 0xB0BE1C, constructor 0x8A9360, 0x14 bytes
-class TaskStopPacketClass : public PacketClass  // NAME 5: thunk order, binary.md 5.11
+class TaskStopPacketClass : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	TaskStopPacketClass(int type, int num);	// 0x8A92C0
@@ -110,7 +110,7 @@ public:
 };
 
 // opcode 5004 (0x138C, ?): vtable 0xB0BE50, constructor 0x8A95F0, 0x18 bytes
-class TaskRequestPacketClass : public TaskStartPacketClass  // NAME 5: thunk order, binary.md 5.11
+class TaskRequestPacketClass : public TaskStartPacketClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	TaskRequestPacketClass(int type, int num);	// 0x8A9550 (TaskStartPacketClass's inlined)
@@ -123,7 +123,7 @@ public:
 };
 
 // opcode 5005 (0x138D, ?): vtable 0xB0BE84, constructor 0x8A9800, 0x1C bytes
-class TaskPingPacketClass : public PacketClass  // NAME 5: thunk order, binary.md 5.11
+class TaskPingPacketClass : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	TaskPingPacketClass(int ip, unsigned short port, char *string);	// 0x8A9710
@@ -142,7 +142,7 @@ public:
 };
 
 // opcode 5006 (0x138E, ?): vtable 0xB0BEB8, constructor 0x8A9BB0, 0x1C bytes
-class TaskPongPacketClass : public TaskPingPacketClass  // NAME 5: thunk order, binary.md 5.11
+class TaskPongPacketClass : public TaskPingPacketClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	TaskPongPacketClass(int ip, unsigned short port);	// 0x8A9A80 (TaskPingPacketClass's with "" inlined)
@@ -153,7 +153,7 @@ public:
 };
 
 // opcode 5009 (0x1391, ?): vtable 0xB0BEEC, constructor 0x8A9E80, 0x40 bytes
-class PlayerStatusPacketClass : public PacketClass  // NAME 5: thunk order, binary.md 5.11
+class PlayerStatusPacketClass : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	PlayerStatusPacketClass(char *name, __int64 character_object_id, char *account, __int64 account_id, int ip, unsigned short port, int sector, int status, __int64 unknown38);	// 0x8A9CF0
@@ -177,7 +177,7 @@ public:
 };
 
 // opcode 5010 (0x1392, ?): vtable 0xB0BF20, constructor 0x8AA490, 0x18 bytes
-class SectorListPacketClass : public PacketClass  // NAME 5: thunk order, binary.md 5.11
+class SectorListPacketClass : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	SectorListPacketClass(const std::list<Unknown1389Struct> &list);	// 0x8AA280
@@ -192,7 +192,7 @@ public:
 };
 
 // opcode 5011 (0x1393, ?): vtable 0xB0BF54, constructor 0x8AA870, 0xC bytes
-class RequestSectorListPacket : public PacketClass  // NAME 5: thunk order, binary.md 5.11
+class RequestSectorListPacket : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	RequestSectorListPacket();	// 0x8AA7E0

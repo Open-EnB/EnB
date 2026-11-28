@@ -19,7 +19,7 @@
 #include "pk.h"
 
 // opcode 116 (0x0074, ?): vtable 0xB095F4, constructor 0x866870, 0x68 bytes
-class GlobalPlayerStatusPacketClass : public PacketClass  // NAME 5: thunk order, binary.md 5.11
+class GlobalPlayerStatusPacketClass : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	GlobalPlayerStatusPacketClass(int unknown0c, const char *unknown10, __int64 unknown58, int unknown60, int unknown64);	// 0x8667A0  // NAME 2: the stores (no caller left)

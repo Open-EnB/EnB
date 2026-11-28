@@ -18,7 +18,7 @@
 class ExprLexer;
 class ExprMathTreeNode;
 
-class ExprMathParser  // NAME 5: thunk order, binary.md 5.11; NAME 3 [ExprMathParser]: base of ExprMathParserImplClass
+class ExprMathParser  // NAME 5: thunk order A, binary.md 5.11; NAME 3 [ExprMathParser]: base of ExprMathParserImplClass
 {
 public:
 	virtual ~ExprMathParser() {}											// 0x4D0A20, deleting 0x4D0A40

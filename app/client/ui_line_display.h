@@ -73,7 +73,7 @@ struct LineDisplayLineStruct  // NAME 2: what it holds
 
 // the UI kit's base classes: intrface.h
 
-class LineDisplayInterface : public InterfaceClass  // NAME 5: thunk order, binary.md 5.11
+class LineDisplayInterface : public InterfaceClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	LineDisplayInterface(LineDisplayClientClass *client);										// 0x5A5410

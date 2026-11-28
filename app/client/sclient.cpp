@@ -163,7 +163,7 @@ public:
 	// 0x84 bytes: no members of its own here
 };
 
-class SpaceTalkTreeInterface : public TalkTreeInterface  // NAME 5: thunk order, binary.md 5.11
+class SpaceTalkTreeInterface : public TalkTreeInterface  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	SpaceTalkTreeInterface(SpaceClientClass *client);				// 0x64F310
@@ -183,7 +183,7 @@ public:
 
 
 
-class GalaxyMapClient  // NAME 5: thunk order, binary.md 5.11
+class GalaxyMapClient  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	GalaxyMapClient();								// 0x7A4830

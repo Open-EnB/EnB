@@ -33,7 +33,7 @@ enum Unknown_GuildPermissionsEnum  // NAME 1: neutral placeholder (D10)
 };
 
 // opcode 193 (0x00C1, ?): vtable 0xB0AA64, constructor 0x88EE20, 0x30 bytes
-class GuildPlayerOnlineSectorPacket : public PacketClass  // NAME 5: thunk order, binary.md 5.11
+class GuildPlayerOnlineSectorPacket : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	GuildPlayerOnlineSectorPacket(__int64 player_id, const char *player_name, __int64 account_id);	// 0x88EC70
@@ -50,7 +50,7 @@ public:
 };
 
 // opcode 195 (0x00C3, ?): vtable 0xB0AC14, constructor 0x891A20, 0x58 bytes
-class GuildStatusUpdatePacket : public PacketClass  // NAME 5: thunk order, binary.md 5.11
+class GuildStatusUpdatePacket : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	GuildStatusUpdatePacket(__int64 player_id, int unknown18, const char *rank_name, Vector3 same_guild_tag_color, Vector3 other_guild_tag_color, const char *new_guild_name);	// 0x8917D0
@@ -70,7 +70,7 @@ public:
 };
 
 // opcode 203 (0x00CB, ?): vtable 0xB0AA94, constructor 0x88F280, 0x28 bytes
-class GuildSimpleGuildSectorPacket : public PacketClass  // NAME 5: thunk order, binary.md 5.11
+class GuildSimpleGuildSectorPacket : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	GuildSimpleGuildSectorPacket(int type, __int64 player_id, const char *optional_param);	// 0x88F0E0
@@ -87,7 +87,7 @@ public:
 };
 
 // opcode 206 (0x00CE, ?): vtable 0xB0AAC4, constructor 0x88F6C0, 0x28 bytes
-class GuildSimpleSectorGuildPacket : public PacketClass  // NAME 5: thunk order, binary.md 5.11
+class GuildSimpleSectorGuildPacket : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	GuildSimpleSectorGuildPacket(int type, __int64 player_id, const char *optional_param);	// 0x88F520
@@ -104,7 +104,7 @@ public:
 };
 
 // opcode 194 (0x00C2, ?): vtable 0xB0AAF4, constructor 0x88FA00, 0x20 bytes
-class GuildAdjustContribPacket : public PacketClass  // NAME 5: thunk order, binary.md 5.11
+class GuildAdjustContribPacket : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	GuildAdjustContribPacket(__int64 player_id, int contrib, float amount);	// 0x88F960
@@ -120,7 +120,7 @@ public:
 };
 
 // opcode 196 (0x00C4, ?): vtable 0xB0AB24, constructor 0x88FE40, 0x38 bytes
-class GuildBeginCreationPacket : public PacketClass  // NAME 5: thunk order, binary.md 5.11
+class GuildBeginCreationPacket : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	GuildBeginCreationPacket(__int64 leader, const std::vector<__int64> &founders, const char *guild_name);	// 0x88FC30
@@ -137,7 +137,7 @@ public:
 };
 
 // opcode 198 (0x00C6, ?): vtable 0xB0AB54, constructor 0x890540, 0x30 bytes
-class GuildLeaderAcceptSectorPacket : public PacketClass  // NAME 5: thunk order, binary.md 5.11
+class GuildLeaderAcceptSectorPacket : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	GuildLeaderAcceptSectorPacket(__int64 player_id, const char *guild_name, bool accept);	// 0x8903A0
@@ -154,7 +154,7 @@ public:
 };
 
 // opcode 199 (0x00C7, ?): vtable 0xB0AB84, constructor 0x890A00, 0x38 bytes
-class GuildRecruitConfirmGuildPacket : public PacketClass  // NAME 5: thunk order, binary.md 5.11
+class GuildRecruitConfirmGuildPacket : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	GuildRecruitConfirmGuildPacket(__int64 player_id, const char *inviter_name, const char *guild_name);	// 0x8907F0
@@ -171,7 +171,7 @@ public:
 };
 
 // opcode 202 (0x00CA, ?): vtable 0xB0ABB4, constructor 0x890F30, 0x40 bytes
-class GuildRecruitAcceptSectorPacket : public PacketClass  // NAME 5: thunk order, binary.md 5.11
+class GuildRecruitAcceptSectorPacket : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	GuildRecruitAcceptSectorPacket(__int64 player_id, const char *inviter_name, const char *guild_name, bool accept);	// 0x890D00
@@ -189,7 +189,7 @@ public:
 };
 
 // opcode 207 (0x00CF, ?): vtable 0xB0ABE4, constructor 0x8914A0, 0x40 bytes
-class GuildMessageGuildPacket : public PacketClass  // NAME 5: thunk order, binary.md 5.11
+class GuildMessageGuildPacket : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	GuildMessageGuildPacket(__int64 player_id, int message_type, const char *other_name, const char *guild_name);	// 0x891270
@@ -207,7 +207,7 @@ public:
 };
 
 // opcode 209 (0x00D1, ?): vtable 0xB0AC44, constructor 0x891E90, 0x28 bytes
-class GuildPermissionsPacket : public PacketClass  // NAME 5: thunk order, binary.md 5.11
+class GuildPermissionsPacket : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	GuildPermissionsPacket(__int64 player_id, Unknown_GuildPermissionsEnum unknown18, int unknown1c, int unknown20, int unknown24);	// 0x891DE0
@@ -225,7 +225,7 @@ public:
 };
 
 // opcode 213 (0x00D5, GUILD_RANK_NAMES_GUILD): vtable 0xB0ACA4, constructor 0x892670, 0x28 bytes
-class GuildRankNamesGuildPacket : public PacketClass  // NAME 5: thunk order, binary.md 5.11
+class GuildRankNamesGuildPacket : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	GuildRankNamesGuildPacket(__int64 player_id, const std::vector<GuildRankNameStruct> &ranks);	// 0x892340  // NAME 1 [player_id, ranks]: the members'
@@ -242,7 +242,7 @@ public:
 };
 
 // opcode 214 (0x00D6, ?): vtable 0xB0AC74, constructor 0x892180, 0x18 bytes
-class GuildRankNamesRequestSectorPacket : public PacketClass  // NAME 5: thunk order, binary.md 5.11
+class GuildRankNamesRequestSectorPacket : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	GuildRankNamesRequestSectorPacket(__int64 player_id);	// 0x8920E0
@@ -256,7 +256,7 @@ public:
 };
 
 // opcode 215 (0x00D7, ?): vtable 0xB0ACD4, constructor 0x892E10, 0x38 bytes
-class GuildGMRenameConfirmGuildPacket : public PacketClass  // NAME 5: thunk order, binary.md 5.11
+class GuildGMRenameConfirmGuildPacket : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	GuildGMRenameConfirmGuildPacket(__int64 player_id, const char *old_guild_name, const char *new_guild_name);	// 0x892C00
@@ -273,7 +273,7 @@ public:
 };
 
 // opcode 217 (0x00D9, ?): vtable 0xB0AD04, constructor 0x893320, 0x38 bytes
-class GuildGMRenameAcceptSectorPacket : public PacketClass  // NAME 5: thunk order, binary.md 5.11
+class GuildGMRenameAcceptSectorPacket : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	GuildGMRenameAcceptSectorPacket(__int64 player_id, const char *old_guild_name, const char *new_guild_name);	// 0x893110
@@ -290,7 +290,7 @@ public:
 };
 
 // opcode 218 (0x00DA, ?): vtable 0xB0AD34, constructor 0x893710, 0x68 bytes
-class GuildDeletePlayerPacket : public PacketClass  // NAME 5: thunk order, binary.md 5.11
+class GuildDeletePlayerPacket : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	GuildDeletePlayerPacket(__int64 player_id, int slot, const char *account_name, __int64 account_id);	// 0x893620
@@ -307,7 +307,7 @@ public:
 };
 
 // opcode 219 (0x00DB, ?): vtable 0xB0AD64, constructor 0x893A70, 0x70 bytes
-class GuildPlayerInfoDeletedPacket : public PacketClass  // NAME 5: thunk order, binary.md 5.11
+class GuildPlayerInfoDeletedPacket : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	GuildPlayerInfoDeletedPacket(__int64 player_id, int slot, const char *account_name, __int64 account_id);	// 0x893970
@@ -326,7 +326,7 @@ public:
 };
 
 // opcode 220 (0x00DC, ?): vtable 0xB0AD94, constructor 0x893E80, 0x30 bytes
-class GuildDeductFeePacket : public PacketClass  // NAME 5: thunk order, binary.md 5.11
+class GuildDeductFeePacket : public PacketClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	GuildDeductFeePacket(__int64 player_id, const MoneyClass &num_credits, const char *description);	// 0x893CD0

@@ -22,7 +22,7 @@ GadgetClass *Unknown_51A9C0(UIDynamicWindowClass *window);									// 0x51A9C0 (
 
 // The item examination window (0xDC bytes; tables 0xAEE2C8 / 0xAEE2BC / 0xAEE2B0 / 0xAEE298; ui_slot_info.cpp's
 // 0x630280 makes it)
-class ItemExaminationInterface : public UISlotInfoClass  // NAME 5: thunk order, binary.md 5.11
+class ItemExaminationInterface : public UISlotInfoClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	ItemExaminationInterface(LineDisplayClientClass *client, const RefCountPtr<InvDataClass> &item);	// 0x531660  // NAME 1 [client, item]: neutral

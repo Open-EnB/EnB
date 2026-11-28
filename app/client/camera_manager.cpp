@@ -17,7 +17,7 @@
 #include "scene.h"
 #include "emote_data.h"
 // the main view's scene (mainview.cpp's 0x75ECF0, its +0x10C), as far as 0x7998B0 calls it
-class ENBSceneClass : public SimpleSceneClass  // NAME 5: thunk order, binary.md 5.11
+class ENBSceneClass : public SimpleSceneClass  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	void Unknown_75FB00(const OBBoxClass &to, const OBBoxClass &from, const Vector3 &move, CastResultStruct *result, RenderObjClass *ignore, bool ship);	// 0x75FB00 (sweeps the box through the scene; camctrl 0x796920 calls it too)  // NAME 1 [to, from, move, result, ignore, ship]: what 0x7998B0 passes

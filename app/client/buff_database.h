@@ -21,7 +21,7 @@
 #include <string>
 #include <hash_map.h>
 
-struct BuffInfoClass  // NAME 5: thunk order, binary.md 5.11
+struct BuffInfoClass  // NAME 5: thunk order C, binary.md 5.11
 {
 	BuffInfoClass(const char *type, const char *asset, const char *tool_tip, const char *alt_tool_tip, bool is_good);	// 0x676CD0
 	~BuffInfoClass();																		// 0x676D40

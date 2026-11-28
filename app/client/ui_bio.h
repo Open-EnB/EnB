@@ -11,7 +11,7 @@ class GadgetSlider;	// gd_slider.cpp's slider (+0xAC)
 
 // The bio tab (0xB0 bytes, tables 0xAEFC84 / 0xAEFC78 / 0xAEFC6C; 0x5738B0 makes it, the fourth of the character info
 // window's tabs): a 'TSI10A' mesh, the strings of 'fa_bio.ini', a slider (gadget 1) and a 0x674260 gadget (2)
-class BioInterface : public Unknown5BB320Class  // NAME 5: thunk order, binary.md 5.11
+class BioInterface : public Unknown5BB320Class  // NAME 5: thunk order A, binary.md 5.11
 {
 public:
 	BioInterface(SpaceClientClass *client);						// 0x5603E0 (0xB0 bytes; slot 0x560630)  // NAME 1 [client]: what the base's 0x5BB320 takes
