@@ -38,7 +38,7 @@ FpTTClass::~FpTTClass()
 }
 
 // 0x449540
-// NOT EXACT: 0.44, frame (sub esp 0x48 against 0x44): the client shares stack slots between the target delta, the climb vector and the new axes
+// NOT EXACT: 0.82, frame (sub esp 0x48 against 0x44): the client shares stack slots between the target delta, the climb vector and the new axes; it keeps the pitch cos / sin on the FPU and the climb pair in memory
 int FpTTClass::Unknown_04(const Vector3 &target, Matrix3D *transforms, float dist, float &yaw, float &pitch)
 {
 	Unknown2C = NULL;
@@ -133,23 +133,23 @@ int FpTTClass::Unknown_04(const Vector3 &target, Matrix3D *transforms, float dis
 		pitch = 0.0f;
 		Unknown44 = 0.0f;
 	} else {
+		float pitch_cos = MaxPitchCos; float pitch_sin = MaxPitchSin;
 		climb_c = WWMath::Inv_Sqrt(slope * slope + 1.0f);
 		climb_s = climb_c * slope;
-		if (climb_c * xy_len + climb_s * x_axis.Z < MaxPitchCos) {
-			if (climb_s * xy_len - climb_c * x_axis.Z <= 0.0f) {
-				climb_s = MaxPitchCos * x_axis.Z + -MaxPitchSin * xy_len;
-				climb_c = MaxPitchCos * xy_len - -MaxPitchSin * x_axis.Z;
-				pitch = -MaxPitch;
-				Unknown44 = slope;
-			} else {
-				climb_s = MaxPitchSin * xy_len + MaxPitchCos * x_axis.Z;
+		bool up = climb_s * xy_len - climb_c * x_axis.Z > 0.0f;
+		if (climb_c * xy_len + climb_s * x_axis.Z < pitch_cos) {
+			if (up) {
+				climb_s = pitch_cos * x_axis.Z + pitch_sin * xy_len;
 				pitch = MaxPitch;
-				climb_c = MaxPitchCos * xy_len - MaxPitchSin * x_axis.Z;
-				Unknown44 = slope;
-			}
+				climb_c = pitch_cos * xy_len - pitch_sin * x_axis.Z;
+			} else {
+				pitch_sin = -pitch_sin;
+				climb_s = pitch_sin * xy_len + pitch_cos * x_axis.Z;
+				climb_c = pitch_cos * xy_len - pitch_sin * x_axis.Z;
+				pitch = -MaxPitch;
+			} Unknown44 = slope;
 		} else {
-			pitch = 0.0f;
-			Unknown44 = slope;
+			pitch = 0.0f; Unknown44 = slope;
 		}
 	}
 

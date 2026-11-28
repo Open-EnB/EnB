@@ -585,7 +585,7 @@ ShipCustomizeInterface::ShipCustomizeInterface(UIViewClass *view, LayerClass *la
 	Unknown22C->Unknown_80C540(size, position, 0x1C);
 	Unknown64.Unknown_6870E0(Unknown22C, 0x34, Get_View(), 1, 0);
 	CharacterView->Unknown_67A8D0(true);
-	Unknown268 = new SClientUnknown1334Class;
+	Unknown268 = new SClientUnknown1334Class; Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size();	// dead reads (D272): they spend VC6's inline budget so the decal library's inlined constructor calls SwatchArray's vector constructor 0x61FB60 out of line, as the client's (9 more after the tutorial block, with 4 max_size() reads, also send ShipCustPartClass::operator= 0x619320 out of line: over D272's six)
 	Unknown268->Load("decal_textures.ini", "decal_swatches.ini", "secret_decal_textures.ini");
 	((ControlKeyListClass *)&Unknown4C)->Add(KernelEventClass(0x1B), (void *)0x1C);
 	Unknown_621790(CharacterView->Unknown3A4, Unknown264, Unknown268);
