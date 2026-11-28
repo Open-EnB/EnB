@@ -54,12 +54,12 @@ UIMeshClass::UIMeshClass(const char *name, ClientClass *client) : ObserverSubjec
 	}
 }
 
-UIMeshClass::~UIMeshClass()
-{
-	Unknown_5B8850(NULL, 0);
-}
 
-// NOT EXACT: 0x5B8850 (0.79): the client's FAIL_IF path jumps to the shared epilogue, ours repeats it
+
+
+
+
+// @0x5B8850: exact with the destructor defined after it (the shared FAIL_IF epilogue; claim259 stash)
 void UIMeshClass::Unknown_5B8850(const char *name, int count)
 {
 	if (InterfaceMesh != NULL) {
@@ -111,7 +111,7 @@ void UIMeshClass::Unknown_5B8850(const char *name, int count)
 		}
 	}
 }
-
+UIMeshClass::~UIMeshClass() { Unknown_5B8850(NULL, 0); }
 RenderObjClass *UIMeshClass::Peek_Object()
 {
 	return(InterfaceMesh);
