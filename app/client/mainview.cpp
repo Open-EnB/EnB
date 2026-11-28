@@ -1405,7 +1405,7 @@ void MainViewClass::Set_Camera(CameraClass *camera)
 }
 
 
-// NOT EXACT: masked residue 68, the client's call string (all five finds through Unknown_Find_Set_Field / Find_Field out of line as the client's 0x514B60 / 0x514BD0: its `t && t->Unknown70` tests; Get_Game_ID and DeltaString::Get spend the budget with four dead ChatPanel.Peek() reads at the end, cutting the string constructors' assigns as the client); left: the first operator= assign inline (the client calls it: seven reads give it, res 29), registers; attempts.csv 0x512400
+// NOT EXACT: masked residue 29, the client's call string (all five finds through Unknown_Find_Set_Field, Find_Field out of line as the client's 0x514B60 / 0x514BD0: its `t && t->Unknown70` tests; Get_Game_ID and DeltaString::Get with seven dead ChatPanel.Peek() reads at the end (D272) cut the string constructors' and the first operator='s assigns as the client); left: the set's extra != 0 test, one AuxDataName slot too many (frame 0x13C / 0x108); attempts.csv 0x512400
 void MainViewClass::Unknown_512400()
 {
 	if (!Cpit || !Cpit->Scan) return;
@@ -1465,7 +1465,7 @@ void MainViewClass::Unknown_512400()
 		}
 	}
 	if (Radar) Radar->Unknown_7BD6E0(co);
-	if (Cpit) Cpit->Scan->Unknown_60E540(co, assessment, sound, level); client->ChatPanel.Peek(); client->ChatPanel.Peek(); client->ChatPanel.Peek(); client->ChatPanel.Peek();
+	if (Cpit) Cpit->Scan->Unknown_60E540(co, assessment, sound, level); client->ChatPanel.Peek(); client->ChatPanel.Peek(); client->ChatPanel.Peek(); client->ChatPanel.Peek(); client->ChatPanel.Peek(); client->ChatPanel.Peek(); client->ChatPanel.Peek();
 }
 
 
