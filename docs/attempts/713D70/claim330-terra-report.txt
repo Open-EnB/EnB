@@ -1,0 +1,101 @@
+# 0x713D70 first pass
+
+Baseline: 272 bytes and 81 instructions on each side, two masked difference rows,
+one moved instruction: the saved EH-link load. The original loads it just after
+`pop edi`; the baseline loads it before the final `ImpartedDecay`, `TractorID`
+and `Client` stores. Historical row reports one member-order form; its actual
+patch is absent. `git stash list` is empty. No build or edit has run yet.
+
+## Proposed first hypothesis batch
+
+The existing Vector3 `operator*` returns a constructed value, with Y/Z rounded
+via stack temporaries in the emitted body. A named real product or references to
+its input/output might alter lifetime and scheduling of the unrelated EH-link
+load without changing the value or timing of field reads and assignments. Test
+forms separately and inspect the actual body and x87 rounding, not just residue.
+Use the same placement as the current product, and reject any form that changes
+observable memory access order or the temporary's float rounding. The source
+contains no evidence for new helpers, fake destructor lifetime, or padding.
+
+Result: named product, input reference, output reference and scalar-first
+operator overload all compile to the same raw and relocation-masked function
+hash as baseline, 2 masked rows and 267 pairs without losses. No gain.
+
+## Second hypothesis batch
+
+The misplaced EH-link load appears amid the last three assignments. Real locals
+and member references at each assignment may change VC6's scheduling constraints
+while retaining the sequence and float conversion. Each form changes only one
+assignment and will be checked for full pair losses and emitted read/store order.
+
+Result: all 267 pairs retained, no gains. Decay local/reference, ID local and
+client local yield baseline code. ID and client destination references yield
+the same different 272-byte raw/masked group: seven masked rows, placing
+`pop edi` before both final stores while retaining the early EH-link load.
+The ID reference's full disassembly is in its run directory; neither form is a
+cut or a candidate.
+
+## Third hypothesis batch
+
+The earlier `Build_Matrix3D` call produces a real Matrix3D temporary, and the
+packet's orientation and output transform are real objects. Naming the temporary
+or references at that expression might change the optimizer's full-function
+schedule without changing value, read order, or lifetimes in any observable way.
+Try these individually and inspect raw groups and pair sets.
+
+Result: orientation and output references compile byte-for-byte to baseline.
+Named Matrix3D produces 285 bytes and 25 masked rows (shape); it adds a copy
+sequence while leaving the EH-link load early. All three preserve 267 pairs,
+zero gains and zero losses. Stopped after three consecutive no-cut batches.
+Two precompile anchor assertions failed while preparing batch 3 because the
+original expression and then its two-line context also occur elsewhere; neither
+failure invoked the compiler. The final unique constructor anchor was used.
+
+## Reproducibility and groups
+
+`records.json` contains each run's input SHA-256, base revision, exact character
+offset edits with old and new text, full raw and relocation-masked target hashes,
+and all pair deltas. The generation script verifies replay against every saved
+`runs/first_713D70_*/input.cpp`; each runner directory includes compile flags,
+input, compiler log, real object, and full results. `batch1.py`, `batch2.py`,
+`batch3.py` preserve the compiled input generation and canonical invocation.
+Each evidence record is under 64 KB. All raw hash groups equal their masked hash
+groups here; see `records.json` for full digests and membership. Group A is
+baseline hash 2ae0a9b24364… (10 variants, 272 bytes, 2 rows); group B is
+64bb9702474b… (ID/client references, 272 bytes, 7 rows); group C is
+29e92177dafe… (named matrix, 285 bytes, 25 rows). Complete actual instruction
+diffs are `baseline/713D70-objdiff.txt`,
+`runs/first_713D70_b2_idref/713D70-objdiff.txt`, and
+`runs/first_713D70_b3_namedmatrix/713D70-objdiff.txt` under claim-330. The
+result files contain every pair, not just counts; all deltas are empty. Baseline
+and group B/C explain JSON live next to those diffs; group A explain is also
+present for every batch 1 input. No candidate requires a final behavior audit.
+
+The output-reference variants preserve the source assignment statements' order,
+but generated code sinks stores past `pop edi`; they are diagnostic failures,
+not proposed fixes. No semantic-invalid form was compiled. The initialiser-list
+idea was not tested: member declaration order would perform packet reads and
+member construction before the transform body, conflicting with the client's
+demonstrated read/store order. No source changes, shared headers, flags, padding,
+or fabricated temporary destructors were used.
+
+Related exact context inspected: empty `Unknown710030Class` default constructor
+at 0x710030, extrap.cpp:451, and exact `Unknown713D70Class` copy constructor at
+0x713F30, extrap.cpp:1841 (baseline matcher confirms exact), plus `Vector3`
+assignment, construction, and multiplication in wwmath/vector3.h:98-103 and
+203-210. These provide real type/helper evidence, but no exact sibling with the
+same EH-link scheduling. Reopen only with evidence of an actual source-level
+construction/helper/lifetime that both preserves packet/this alias and x87
+rounding behavior and measurably delays the EH-link load without moving the
+preceding stores, or a proven same-TU compiler scheduling lever retaining every
+pair. A fresh final object must be audited with an explicit object path against
+the retail function, including every instruction, branch, relocation target and
+addend, literals, call receiver and EH/unwind cleanup graph before acceptance.
+
+## Untested leads
+
+Initializer-list construction is lower priority: declaration-order construction
+could move packet reads ahead of the transform, so only test if generated order
+and semantics remain faithful. Reference locals for final stores are another
+potential scheduling lever, but must not move their reads or writes across one
+another. No code form from the historical summary is assumed.

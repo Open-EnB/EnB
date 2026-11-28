@@ -1,0 +1,466 @@
+{
+  "run": "sol_60D8D0_sort_conditional",
+  "unit": "app/client/ui_scan.cpp",
+  "base_revision": "8045b1b026a984c2970d8bddd5d05980f1c9ba5b",
+  "phase": "retained1",
+  "base_sha256": "0a7c082ab52215f12baf4a8d3141f1630e27823f160ba780d5c7cffb897fa1f0",
+  "input_sha256": "25d6f1195f1705257d1dd9c0bee290e2f6e4cf407704d13e0911ec6d15453d23",
+  "edits": [
+    {
+      "start": 3214,
+      "end": 3214,
+      "text": "U"
+    },
+    {
+      "start": 3215,
+      "end": 3215,
+      "text": "ScanThreatClass *i"
+    },
+    {
+      "start": 3223,
+      "end": 3227,
+      "text": ""
+    },
+    {
+      "start": 3289,
+      "end": 3289,
+      "text": "\tInterruptInfo = interrupt;"
+    },
+    {
+      "start": 3495,
+      "end": 3509,
+      "text": ""
+    },
+    {
+      "start": 3685,
+      "end": 3686,
+      "text": "nt sort ="
+    },
+    {
+      "start": 3713,
+      "end": 3723,
+      "text": "?"
+    },
+    {
+      "start": 3733,
+      "end": 3733,
+      "text": " : 8"
+    },
+    {
+      "start": 3735,
+      "end": 3737,
+      "text": "\n"
+    }
+  ],
+  "edit_offsets": "zero-based Python character offsets; apply in descending order",
+  "replay_verified": true,
+  "classification": "changed_compiled",
+  "pair_deltas": {
+    "pairs": {
+      "before": 91,
+      "after": 91,
+      "gained": [],
+      "lost": [],
+      "before_set_sha256": "499c2dfba98c4d03af276c610c471ffcca713340212bb126beac84430b8dbeaf",
+      "after_set_sha256": "499c2dfba98c4d03af276c610c471ffcca713340212bb126beac84430b8dbeaf"
+    },
+    "symbol_pairs": {
+      "before": 92,
+      "after": 92,
+      "gained": [],
+      "lost": [],
+      "before_set_sha256": "e1484f9edee9079094b5be157855b91a1f9b8fafe6a4fcd0ba16c1627ff20414",
+      "after_set_sha256": "e1484f9edee9079094b5be157855b91a1f9b8fafe6a4fcd0ba16c1627ff20414"
+    },
+    "all_pairs": {
+      "before": 232,
+      "after": 232,
+      "gained": [],
+      "lost": [],
+      "before_set_sha256": "4053247b903dc21e8684e95ec24486c81b61649e1a9fa299c63927c14967748e",
+      "after_set_sha256": "4053247b903dc21e8684e95ec24486c81b61649e1a9fa299c63927c14967748e"
+    },
+    "all_symbol_pairs": {
+      "before": 233,
+      "after": 233,
+      "gained": [],
+      "lost": [],
+      "before_set_sha256": "f11458f94988748072e79488e651a7bd2afd988f4d313d90d16cb3b997d4795d",
+      "after_set_sha256": "f11458f94988748072e79488e651a7bd2afd988f4d313d90d16cb3b997d4795d"
+    }
+  },
+  "targets": {
+    "60D8D0": {
+      "symbol": "?Unknown_54@ScannerInterface@@UAEXXZ",
+      "length": 1177,
+      "raw_sha256": "23cea511acd4cff917910dc3a297c31f930f2bef568c6f8703fb2f1f2bfec5d9",
+      "masked_sha256": "80bc0111c78274976ea1dc32e0ecc832c9416a4b43d138cd7198e51aa4fcc778",
+      "relocations": [
+        [
+          2,
+          4,
+          6,
+          "__except_list",
+          "00000000"
+        ],
+        [
+          9,
+          4,
+          6,
+          "$L114048",
+          "00000000"
+        ],
+        [
+          17,
+          4,
+          6,
+          "__except_list",
+          "00000000"
+        ],
+        [
+          46,
+          4,
+          6,
+          "??_C@_0CH@OHMB@e?3?2build?2beta?2G?2app?2client?2ui_sc@",
+          "00000000"
+        ],
+        [
+          51,
+          4,
+          6,
+          "??_C@_07DLFE@?$CBUIMesh?$AA@",
+          "00000000"
+        ],
+        [
+          56,
+          4,
+          20,
+          "?G_Assert_Report@@YAXPBD0H@Z",
+          "00000000"
+        ],
+        [
+          66,
+          4,
+          20,
+          "??2@YAPAXI@Z",
+          "00000000"
+        ],
+        [
+          92,
+          4,
+          6,
+          "??_C@_06LCOF@TSI08A?$AA@",
+          "00000000"
+        ],
+        [
+          99,
+          4,
+          20,
+          "??0UIMeshClass@@QAE@PBDH@Z",
+          "00000000"
+        ],
+        [
+          168,
+          4,
+          20,
+          "?Set_RObj@UIMFDClass@@QAEXPAVRenderObjClass@@@Z",
+          "00000000"
+        ],
+        [
+          188,
+          4,
+          6,
+          "??_C@_0CH@OHMB@e?3?2build?2beta?2G?2app?2client?2ui_sc@",
+          "00000000"
+        ],
+        [
+          193,
+          4,
+          6,
+          "??_C@_06MHHF@UIMesh?$AA@",
+          "00000000"
+        ],
+        [
+          198,
+          4,
+          20,
+          "?G_Assert_Report@@YAXPBD0H@Z",
+          "00000000"
+        ],
+        [
+          220,
+          4,
+          6,
+          "_UIScanButtonNames",
+          "00000000"
+        ],
+        [
+          254,
+          4,
+          6,
+          "??_C@_0CH@OHMB@e?3?2build?2beta?2G?2app?2client?2ui_sc@",
+          "00000000"
+        ],
+        [
+          259,
+          4,
+          6,
+          "??_C@_04KMPN@robj?$AA@",
+          "00000000"
+        ],
+        [
+          264,
+          4,
+          20,
+          "?G_Assert_Report@@YAXPBD0H@Z",
+          "00000000"
+        ],
+        [
+          274,
+          4,
+          20,
+          "??2@YAPAXI@Z",
+          "00000000"
+        ],
+        [
+          312,
+          4,
+          20,
+          "??0ButtonGadgetClass@@QAE@PAVRenderObjClass@@ABVLayerClass@@II@Z",
+          "00000000"
+        ],
+        [
+          340,
+          4,
+          6,
+          "??_C@_07ENEO@UI_SCAN?$AA@",
+          "00000000"
+        ],
+        [
+          346,
+          4,
+          20,
+          "?Set_Tooltip@GadgetClass@@SAXPAV1@PBD1ZZ",
+          "00000000"
+        ],
+        [
+          390,
+          4,
+          20,
+          "?Unknown_6870E0@InterfaceUnknown64Class@@QAEXPAVGadgetClass@@HPAVUIViewClass@@_N2@Z",
+          "00000000"
+        ],
+        [
+          407,
+          4,
+          6,
+          "_UIScanButtonNames",
+          "08000000"
+        ],
+        [
+          450,
+          4,
+          20,
+          "??2@YAPAXI@Z",
+          "00000000"
+        ],
+        [
+          503,
+          4,
+          20,
+          "??0UIVerbClass@@QAE@PAVUIViewClass@@ABVLayerClass@@PAVUIMeshClass@@H@Z",
+          "00000000"
+        ],
+        [
+          542,
+          4,
+          20,
+          "?Unknown_6B4940@ViewClass@@QAEXPAVInterfaceClass@@@Z",
+          "00000000"
+        ],
+        [
+          549,
+          4,
+          20,
+          "??2@YAPAXI@Z",
+          "00000000"
+        ],
+        [
+          591,
+          4,
+          20,
+          "?_Tidy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEX_N@Z",
+          "00000000"
+        ],
+        [
+          596,
+          4,
+          6,
+          "??_C@_00A@?$AA@",
+          "00000000"
+        ],
+        [
+          612,
+          4,
+          6,
+          "??_C@_00A@?$AA@",
+          "00000000"
+        ],
+        [
+          619,
+          4,
+          20,
+          "?assign@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAEAAV12@PBDI@Z",
+          "00000000"
+        ],
+        [
+          679,
+          4,
+          6,
+          "??_C@_0CH@OHMB@e?3?2build?2beta?2G?2app?2client?2ui_sc@",
+          "00000000"
+        ],
+        [
+          684,
+          4,
+          6,
+          "??_C@_04KMPN@robj?$AA@",
+          "00000000"
+        ],
+        [
+          689,
+          4,
+          20,
+          "?G_Assert_Report@@YAXPBD0H@Z",
+          "00000000"
+        ],
+        [
+          702,
+          4,
+          20,
+          "??2@YAPAXI@Z",
+          "00000000"
+        ],
+        [
+          729,
+          4,
+          6,
+          "??_C@_07LLL@MFD_CON?$AA@",
+          "00000000"
+        ],
+        [
+          736,
+          4,
+          20,
+          "??0FontSys@@QAE@PBDPAVRenderObjClass@@0@Z",
+          "00000000"
+        ],
+        [
+          755,
+          4,
+          20,
+          "?Create_Get@@YA?AV?$RefCountPtr@VFontSys@@@@PAVFontSys@@@Z",
+          "00000000"
+        ],
+        [
+          854,
+          4,
+          20,
+          "??2@YAPAXI@Z",
+          "00000000"
+        ],
+        [
+          881,
+          4,
+          6,
+          "??_C@_0M@DJDH@MFD_FACTION?$AA@",
+          "00000000"
+        ],
+        [
+          888,
+          4,
+          20,
+          "??0FontSys@@QAE@PBDPAVRenderObjClass@@0@Z",
+          "00000000"
+        ],
+        [
+          907,
+          4,
+          20,
+          "?Create_Get@@YA?AV?$RefCountPtr@VFontSys@@@@PAVFontSys@@@Z",
+          "00000000"
+        ],
+        [
+          1016,
+          4,
+          6,
+          "??_C@_0N@IIPJ@FRAME_SELECT?$AA@",
+          "00000000"
+        ],
+        [
+          1032,
+          4,
+          20,
+          "?Create_Get@@YA?AV?$RefCountPtr@VRenderObjClass@@@@PAVRenderObjClass@@@Z",
+          "00000000"
+        ],
+        [
+          1154,
+          4,
+          20,
+          "?Unknown_54@Unknown5BE980Class@@UAEXXZ",
+          "00000000"
+        ],
+        [
+          1169,
+          4,
+          6,
+          "__except_list",
+          "00000000"
+        ]
+      ],
+      "unwind": [
+        9,
+        75,
+        [
+          [
+            0,
+            11
+          ],
+          [
+            11,
+            22
+          ],
+          [
+            22,
+            33
+          ],
+          [
+            33,
+            44
+          ],
+          [
+            44,
+            55
+          ],
+          [
+            55,
+            63
+          ],
+          [
+            63,
+            74
+          ],
+          [
+            74,
+            82
+          ],
+          [
+            82,
+            90
+          ]
+        ]
+      ]
+    }
+  }
+}

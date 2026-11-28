@@ -1,0 +1,634 @@
+{
+  "run": "sol_717430_flat_fixed",
+  "base_revision": "fb6e641d1bb82397154e0899d774567959bd73f1",
+  "unit": "app/client/postate.cpp",
+  "base_sha256": "de1e5065d730a72a4ba42c2cc9d83faeb61a575e84d1720171bf806ae9a95286",
+  "input_sha256": "9dcbd09237e9c5f4037e5589f95dbde23889219a0d27ed1472bf532e8c8be609",
+  "edits": [
+    {
+      "start": 15444,
+      "end": 15448,
+      "text": ""
+    },
+    {
+      "start": 15506,
+      "end": 15506,
+      "text": " && t->Unknown70"
+    },
+    {
+      "start": 15707,
+      "end": 15711,
+      "text": ""
+    },
+    {
+      "start": 15769,
+      "end": 15769,
+      "text": " && t->Unknown70"
+    },
+    {
+      "start": 15901,
+      "end": 15919,
+      "text": ""
+    },
+    {
+      "start": 15957,
+      "end": 15958,
+      "text": ""
+    },
+    {
+      "start": 15970,
+      "end": 15970,
+      "text": " {\n\t\t\t\tspeed_value = 10.0f; speed = &speed_value;\n\t\t\t} else"
+    },
+    {
+      "start": 16053,
+      "end": 16057,
+      "text": ""
+    },
+    {
+      "start": 16117,
+      "end": 16117,
+      "text": " && t->Unknown70"
+    },
+    {
+      "start": 16158,
+      "end": 16158,
+      "text": " speed = &speed_value;"
+    },
+    {
+      "start": 16177,
+      "end": 16191,
+      "text": ""
+    },
+    {
+      "start": 16197,
+      "end": 16234,
+      "text": ""
+    },
+    {
+      "start": 16285,
+      "end": 16286,
+      "text": ""
+    },
+    {
+      "start": 16298,
+      "end": 16298,
+      "text": " {\n\t\t\t\tspeed_value = -10.0f; speed = &speed_value;\n\t\t\t} else"
+    },
+    {
+      "start": 16381,
+      "end": 16385,
+      "text": ""
+    },
+    {
+      "start": 16445,
+      "end": 16445,
+      "text": " && t->Unknown70"
+    },
+    {
+      "start": 16486,
+      "end": 16486,
+      "text": " speed = &speed_value;"
+    },
+    {
+      "start": 16505,
+      "end": 16519,
+      "text": ""
+    },
+    {
+      "start": 16525,
+      "end": 16563,
+      "text": ""
+    },
+    {
+      "start": 16637,
+      "end": 16646,
+      "text": ""
+    },
+    {
+      "start": 16647,
+      "end": 16660,
+      "text": ""
+    },
+    {
+      "start": 16681,
+      "end": 16681,
+      "text": "\n\t\t}\n\t\tif (speed) {\n\t\t\t"
+    },
+    {
+      "start": 16764,
+      "end": 16768,
+      "text": ""
+    },
+    {
+      "start": 16827,
+      "end": 16827,
+      "text": " && t->Unknown70"
+    }
+  ],
+  "replay_verified": true,
+  "changed": true,
+  "classification": "changed_compiled",
+  "pair_deltas": {
+    "pairs": {
+      "baseline_count": 267,
+      "after_count": 265,
+      "gained": [],
+      "lost": [
+        [
+          "app/client/postate.cpp",
+          "0x719640"
+        ],
+        [
+          "app/client/postate.cpp",
+          "0x719670"
+        ]
+      ],
+      "baseline_set_sha256": "c6a015d1b95f32e47fda6d1df546f2e7b407f568c71296a93932db2af3474498",
+      "after_set_sha256": "782c879fb6af5b8df81708ac41a4fb2325417cd1cfe83f7d2602993101973dc3"
+    },
+    "symbol_pairs": {
+      "baseline_count": 267,
+      "after_count": 265,
+      "gained": [],
+      "lost": [
+        [
+          "app/client/postate.cpp",
+          "_$E153",
+          "0x719640"
+        ],
+        [
+          "app/client/postate.cpp",
+          "_$E157",
+          "0x719670"
+        ]
+      ],
+      "baseline_set_sha256": "2abef374e880caa4cf11fb6a43bce1da7c30013962efe607271d1154c3b826d1",
+      "after_set_sha256": "07af8628f8ad10d7e22bb7b80b07d3111ad289940bacf48efb06ec77514936b0"
+    }
+  },
+  "targets": {
+    "717430": {
+      "length": 1038,
+      "raw_sha256": "7970e7cc30d6efab4c860fa6ee7fe323f290d7ee27525c03a712a85d4f851285",
+      "masked_sha256": "7970e7cc30d6efab4c860fa6ee7fe323f290d7ee27525c03a712a85d4f851285",
+      "relocations": [
+        [
+          3,
+          4,
+          6,
+          "$L61302",
+          "00000000"
+        ],
+        [
+          9,
+          4,
+          6,
+          "__except_list",
+          "00000000"
+        ],
+        [
+          17,
+          4,
+          6,
+          "__except_list",
+          "00000000"
+        ],
+        [
+          86,
+          4,
+          6,
+          "??_C@_0M@HJGL@MaxTurnRate?$AA@",
+          "00000000"
+        ],
+        [
+          95,
+          4,
+          20,
+          "??0NameClass@@QAE@PBD@Z",
+          "00000000"
+        ],
+        [
+          106,
+          4,
+          20,
+          "?Get_Lookup@DeltaCompoundClass@@QAEPAVLookupClass@@XZ",
+          "00000000"
+        ],
+        [
+          118,
+          4,
+          20,
+          "?Find@LookupClass@@QAEPAVDeltaClass@@ABVNameClass@@@Z",
+          "00000000"
+        ],
+        [
+          131,
+          4,
+          6,
+          "?UnknownGlobal@?$DeltaTemplateClass@M@@2HA",
+          "00000000"
+        ],
+        [
+          145,
+          4,
+          6,
+          "??_C@_0DH@BNDJ@e?3?2build?2beta?2G?2app?2client?2?4?4?2sh@",
+          "00000000"
+        ],
+        [
+          150,
+          4,
+          6,
+          "??_C@_01PEAM@t?$AA@",
+          "00000000"
+        ],
+        [
+          155,
+          4,
+          20,
+          "?G_Assert_Report@@YAXPBD0H@Z",
+          "00000000"
+        ],
+        [
+          197,
+          4,
+          6,
+          "__real@4@bff583126f0000000000",
+          "00000000"
+        ],
+        [
+          217,
+          4,
+          6,
+          "??_C@_0M@JHDM@MaxTiltRate?$AA@",
+          "00000000"
+        ],
+        [
+          226,
+          4,
+          20,
+          "??0NameClass@@QAE@PBD@Z",
+          "00000000"
+        ],
+        [
+          237,
+          4,
+          20,
+          "?Get_Lookup@DeltaCompoundClass@@QAEPAVLookupClass@@XZ",
+          "00000000"
+        ],
+        [
+          249,
+          4,
+          20,
+          "?Find@LookupClass@@QAEPAVDeltaClass@@ABVNameClass@@@Z",
+          "00000000"
+        ],
+        [
+          262,
+          4,
+          6,
+          "?UnknownGlobal@?$DeltaTemplateClass@M@@2HA",
+          "00000000"
+        ],
+        [
+          276,
+          4,
+          6,
+          "??_C@_0DH@BNDJ@e?3?2build?2beta?2G?2app?2client?2?4?4?2sh@",
+          "00000000"
+        ],
+        [
+          281,
+          4,
+          6,
+          "??_C@_01PEAM@t?$AA@",
+          "00000000"
+        ],
+        [
+          286,
+          4,
+          20,
+          "?G_Assert_Report@@YAXPBD0H@Z",
+          "00000000"
+        ],
+        [
+          324,
+          4,
+          6,
+          "__real@4@bff583126f0000000000",
+          "00000000"
+        ],
+        [
+          384,
+          4,
+          6,
+          "??_C@_08KDDC@MaxSpeed?$AA@",
+          "00000000"
+        ],
+        [
+          393,
+          4,
+          20,
+          "??0NameClass@@QAE@PBD@Z",
+          "00000000"
+        ],
+        [
+          408,
+          4,
+          20,
+          "?Get_Lookup@DeltaCompoundClass@@QAEPAVLookupClass@@XZ",
+          "00000000"
+        ],
+        [
+          452,
+          4,
+          6,
+          "??_C@_08PAFN@MinSpeed?$AA@",
+          "00000000"
+        ],
+        [
+          461,
+          4,
+          20,
+          "??0NameClass@@QAE@PBD@Z",
+          "00000000"
+        ],
+        [
+          476,
+          4,
+          20,
+          "?Get_Lookup@DeltaCompoundClass@@QAEPAVLookupClass@@XZ",
+          "00000000"
+        ],
+        [
+          488,
+          4,
+          20,
+          "?Find@LookupClass@@QAEPAVDeltaClass@@ABVNameClass@@@Z",
+          "00000000"
+        ],
+        [
+          505,
+          4,
+          6,
+          "?UnknownGlobal@?$DeltaTemplateClass@M@@2HA",
+          "00000000"
+        ],
+        [
+          519,
+          4,
+          6,
+          "??_C@_0DH@BNDJ@e?3?2build?2beta?2G?2app?2client?2?4?4?2sh@",
+          "00000000"
+        ],
+        [
+          524,
+          4,
+          6,
+          "??_C@_01PEAM@t?$AA@",
+          "00000000"
+        ],
+        [
+          529,
+          4,
+          20,
+          "?G_Assert_Report@@YAXPBD0H@Z",
+          "00000000"
+        ],
+        [
+          560,
+          4,
+          6,
+          "__real@4@3ff583126f0000000000",
+          "00000000"
+        ],
+        [
+          580,
+          4,
+          6,
+          "??_C@_0CH@IBN@e?3?2build?2beta?2G?2app?2client?2posta@",
+          "00000000"
+        ],
+        [
+          585,
+          4,
+          6,
+          "??_C@_0BF@NLJI@?$CKmove_direction?5?$DN?$DN?50?$AA@",
+          "00000000"
+        ],
+        [
+          590,
+          4,
+          20,
+          "?G_Assert_Report@@YAXPBD0H@Z",
+          "00000000"
+        ],
+        [
+          618,
+          4,
+          6,
+          "??_C@_0N@BCHG@Acceleration?$AA@",
+          "00000000"
+        ],
+        [
+          627,
+          4,
+          20,
+          "??0NameClass@@QAE@PBD@Z",
+          "00000000"
+        ],
+        [
+          638,
+          4,
+          20,
+          "?Get_Lookup@DeltaCompoundClass@@QAEPAVLookupClass@@XZ",
+          "00000000"
+        ],
+        [
+          650,
+          4,
+          20,
+          "?Find@LookupClass@@QAEPAVDeltaClass@@ABVNameClass@@@Z",
+          "00000000"
+        ],
+        [
+          663,
+          4,
+          6,
+          "?UnknownGlobal@?$DeltaTemplateClass@M@@2HA",
+          "00000000"
+        ],
+        [
+          677,
+          4,
+          6,
+          "??_C@_0DH@BNDJ@e?3?2build?2beta?2G?2app?2client?2?4?4?2sh@",
+          "00000000"
+        ],
+        [
+          682,
+          4,
+          6,
+          "??_C@_01PEAM@t?$AA@",
+          "00000000"
+        ],
+        [
+          687,
+          4,
+          20,
+          "?G_Assert_Report@@YAXPBD0H@Z",
+          "00000000"
+        ],
+        [
+          711,
+          4,
+          6,
+          "__real@4@3feb8637bd0000000000",
+          "00000000"
+        ],
+        [
+          752,
+          4,
+          6,
+          "?Unknown_B948A0@@3_NA",
+          "00000000"
+        ],
+        [
+          776,
+          4,
+          20,
+          "?Unknown_710260@Unknown710110Class@@QAEPAVStateNode@@XZ",
+          "00000000"
+        ],
+        [
+          807,
+          4,
+          6,
+          "?Unknown_BE71D4@@3IA",
+          "00000000"
+        ],
+        [
+          824,
+          4,
+          6,
+          "?Unknown_B948A1@@3_NA",
+          "00000000"
+        ],
+        [
+          838,
+          4,
+          20,
+          "??2@YAPAXI@Z",
+          "00000000"
+        ],
+        [
+          866,
+          4,
+          6,
+          "?Unknown_BE71D4@@3IA",
+          "00000000"
+        ],
+        [
+          882,
+          4,
+          20,
+          "??0Unknown712DB0Class@@QAE@PAVStateNode@@0II@Z",
+          "00000000"
+        ],
+        [
+          897,
+          4,
+          20,
+          "??2@YAPAXI@Z",
+          "00000000"
+        ],
+        [
+          925,
+          4,
+          6,
+          "?Unknown_BE71D4@@3IA",
+          "00000000"
+        ],
+        [
+          941,
+          4,
+          20,
+          "??0Unknown7125F0Class@@QAE@PAVStateNode@@0II@Z",
+          "00000000"
+        ],
+        [
+          1025,
+          4,
+          6,
+          "__except_list",
+          "00000000"
+        ]
+      ]
+    },
+    "718830": {
+      "length": 830,
+      "raw_sha256": "b91d217cfb393c0c066db784fe6b9dab65c3e8b32d250787ab07345542a40add",
+      "masked_sha256": "b91d217cfb393c0c066db784fe6b9dab65c3e8b32d250787ab07345542a40add",
+      "relocations": [
+        [
+          79,
+          4,
+          6,
+          "__real@4@00000000000000000000",
+          "00000000"
+        ],
+        [
+          121,
+          4,
+          20,
+          "?Inv_Sqrt@WWMath@@SIMM@Z",
+          "00000000"
+        ],
+        [
+          187,
+          4,
+          6,
+          "__real@4@3fff8000000000000000",
+          "00000000"
+        ],
+        [
+          300,
+          4,
+          20,
+          "?Slerp@@YAXAAVQuaternion@@ABV1@1M@Z",
+          "00000000"
+        ],
+        [
+          407,
+          4,
+          6,
+          "__real@4@00000000000000000000",
+          "00000000"
+        ],
+        [
+          449,
+          4,
+          20,
+          "?Inv_Sqrt@WWMath@@SIMM@Z",
+          "00000000"
+        ],
+        [
+          585,
+          4,
+          6,
+          "__real@4@00000000000000000000",
+          "00000000"
+        ],
+        [
+          625,
+          4,
+          20,
+          "?Inv_Sqrt@WWMath@@SIMM@Z",
+          "00000000"
+        ]
+      ]
+    }
+  }
+}

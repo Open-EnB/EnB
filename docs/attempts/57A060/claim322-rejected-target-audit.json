@@ -1,0 +1,516 @@
+{
+  "source_sha256": "ca7932973b6777aff79eb1bdcf02afd9762735b0a4d42ce67db8d8a898acb300",
+  "object_sha256": "8bd3c83fa5caa4414ec292b25d6e26a9966b7ac45523d1896675b84da80fbf6f",
+  "address": "0x57a060",
+  "executable_bytes": 512,
+  "switch_table_bytes": 32,
+  "resolved_span_bytes": 544,
+  "instructions": 146,
+  "references": [
+    {
+      "offset": "0x74",
+      "symbol": "?size@?$vector@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@V?$allocator@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@@std@@QBEIXZ",
+      "width": 4,
+      "type": 20,
+      "addend": "00000000",
+      "referent": {
+        "kind": "call",
+        "target_body": "0x47d640",
+        "encoded_target": "0x409822"
+      }
+    },
+    {
+      "offset": "0x8f",
+      "symbol": "?_C@?1??_Nullstr@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@CAPBDXZ@4DB",
+      "width": 4,
+      "type": 6,
+      "addend": "00000000",
+      "referent": {
+        "kind": "one_byte_zero_character",
+        "address": "0xae70a4",
+        "source_section": ".rdata"
+      }
+    },
+    {
+      "offset": "0x96",
+      "symbol": "??_C@_00A@?$AA@",
+      "width": 4,
+      "type": 6,
+      "addend": "00000000",
+      "referent": {
+        "kind": "one_byte_zero_character",
+        "address": "0xbda908",
+        "source_section": ".bss"
+      }
+    },
+    {
+      "offset": "0xa7",
+      "symbol": "?Change_Text@FontSys@@QAEXPBDH@Z",
+      "width": 4,
+      "type": 20,
+      "addend": "00000000",
+      "referent": {
+        "kind": "call",
+        "target_body": "0x6cdbc0",
+        "encoded_target": "0x4139ad"
+      }
+    },
+    {
+      "offset": "0xbf",
+      "symbol": "?Unknown_BE5BC4@@3PAVUIComboBoxClass@@A",
+      "width": 4,
+      "type": 6,
+      "addend": "00000000",
+      "referent": {
+        "kind": "zero_initialized_open_box_pointer",
+        "address": "0xbe5bc4"
+      }
+    },
+    {
+      "offset": "0xf5",
+      "symbol": "?Update_Drop_Down@UIComboBoxClass@@QAEXXZ",
+      "width": 4,
+      "type": 20,
+      "addend": "00000000",
+      "referent": {
+        "kind": "call",
+        "target_body": "0x57a330",
+        "encoded_target": "0x40ed13"
+      }
+    },
+    {
+      "offset": "0xfb",
+      "symbol": "?Unknown_BE5BC4@@3PAVUIComboBoxClass@@A",
+      "width": 4,
+      "type": 6,
+      "addend": "00000000",
+      "referent": {
+        "kind": "zero_initialized_open_box_pointer",
+        "address": "0xbe5bc4"
+      }
+    },
+    {
+      "offset": "0x115",
+      "symbol": "$L104125",
+      "width": 4,
+      "type": 6,
+      "addend": "00000000",
+      "referent": {
+        "kind": "local_code_or_switch_table",
+        "target_offset": "0x200"
+      }
+    },
+    {
+      "offset": "0x147",
+      "symbol": "__ftol",
+      "width": 4,
+      "type": 20,
+      "addend": "00000000",
+      "referent": {
+        "kind": "call",
+        "target_body": "0xa264ec",
+        "encoded_target": "0xa264ec"
+      }
+    },
+    {
+      "offset": "0x154",
+      "symbol": "?Update_Rows@UIComboBoxClass@@QAEXXZ",
+      "width": 4,
+      "type": 20,
+      "addend": "00000000",
+      "referent": {
+        "kind": "call",
+        "target_body": "0x57aab0",
+        "encoded_target": "0x40c77f"
+      }
+    },
+    {
+      "offset": "0x162",
+      "symbol": "?Unknown_BE5BC4@@3PAVUIComboBoxClass@@A",
+      "width": 4,
+      "type": 6,
+      "addend": "00000000",
+      "referent": {
+        "kind": "zero_initialized_open_box_pointer",
+        "address": "0xbe5bc4"
+      }
+    },
+    {
+      "offset": "0x198",
+      "symbol": "?Update_Drop_Down@UIComboBoxClass@@QAEXXZ",
+      "width": 4,
+      "type": 20,
+      "addend": "00000000",
+      "referent": {
+        "kind": "call",
+        "target_body": "0x57a330",
+        "encoded_target": "0x40ed13"
+      }
+    },
+    {
+      "offset": "0x19e",
+      "symbol": "?Unknown_BE5BC4@@3PAVUIComboBoxClass@@A",
+      "width": 4,
+      "type": 6,
+      "addend": "00000000",
+      "referent": {
+        "kind": "zero_initialized_open_box_pointer",
+        "address": "0xbe5bc4"
+      }
+    },
+    {
+      "offset": "0x1b4",
+      "symbol": "$L104126",
+      "width": 4,
+      "type": 6,
+      "addend": "00000000",
+      "referent": {
+        "kind": "local_code_or_switch_table",
+        "target_offset": "0x210"
+      }
+    },
+    {
+      "offset": "0x1d5",
+      "symbol": "?Scroll_To_Selected@UIComboBoxClass@@QAEXXZ",
+      "width": 4,
+      "type": 20,
+      "addend": "00000000",
+      "referent": {
+        "kind": "call",
+        "target_body": "0x57b2f0",
+        "encoded_target": "0x414e9d"
+      }
+    },
+    {
+      "offset": "0x1dc",
+      "symbol": "?Update_Rows@UIComboBoxClass@@QAEXXZ",
+      "width": 4,
+      "type": 20,
+      "addend": "00000000",
+      "referent": {
+        "kind": "call",
+        "target_body": "0x57aab0",
+        "encoded_target": "0x40c77f"
+      }
+    },
+    {
+      "offset": "0x200",
+      "symbol": "$L104085",
+      "width": 4,
+      "type": 6,
+      "addend": "00000000",
+      "referent": {
+        "kind": "local_code_or_switch_table",
+        "target_offset": "0x119"
+      }
+    },
+    {
+      "offset": "0x204",
+      "symbol": "$L104088",
+      "width": 4,
+      "type": 6,
+      "addend": "00000000",
+      "referent": {
+        "kind": "local_code_or_switch_table",
+        "target_offset": "0x1f2"
+      }
+    },
+    {
+      "offset": "0x208",
+      "symbol": "$L104087",
+      "width": 4,
+      "type": 6,
+      "addend": "00000000",
+      "referent": {
+        "kind": "local_code_or_switch_table",
+        "target_offset": "0x1e0"
+      }
+    },
+    {
+      "offset": "0x20c",
+      "symbol": "$L104088",
+      "width": 4,
+      "type": 6,
+      "addend": "00000000",
+      "referent": {
+        "kind": "local_code_or_switch_table",
+        "target_offset": "0x1f2"
+      }
+    },
+    {
+      "offset": "0x210",
+      "symbol": "$L104120",
+      "width": 4,
+      "type": 6,
+      "addend": "00000000",
+      "referent": {
+        "kind": "local_code_or_switch_table",
+        "target_offset": "0x1b8"
+      }
+    },
+    {
+      "offset": "0x214",
+      "symbol": "$L104088",
+      "width": 4,
+      "type": 6,
+      "addend": "00000000",
+      "referent": {
+        "kind": "local_code_or_switch_table",
+        "target_offset": "0x1f2"
+      }
+    },
+    {
+      "offset": "0x218",
+      "symbol": "$L104087",
+      "width": 4,
+      "type": 6,
+      "addend": "00000000",
+      "referent": {
+        "kind": "local_code_or_switch_table",
+        "target_offset": "0x1e0"
+      }
+    },
+    {
+      "offset": "0x21c",
+      "symbol": "$L104088",
+      "width": 4,
+      "type": 6,
+      "addend": "00000000",
+      "referent": {
+        "kind": "local_code_or_switch_table",
+        "target_offset": "0x1f2"
+      }
+    }
+  ],
+  "branches": [
+    [
+      "0xc",
+      "0x160"
+    ],
+    [
+      "0x13",
+      "0x13a"
+    ],
+    [
+      "0x1c",
+      "0x1f8"
+    ],
+    [
+      "0x37",
+      "0x3d"
+    ],
+    [
+      "0x3b",
+      "0x45"
+    ],
+    [
+      "0x47",
+      "0x5f"
+    ],
+    [
+      "0x4e",
+      "0x54"
+    ],
+    [
+      "0x52",
+      "0x5c"
+    ],
+    [
+      "0x6d",
+      "0xab"
+    ],
+    [
+      "0x7a",
+      "0x95"
+    ],
+    [
+      "0x8c",
+      "0x9a"
+    ],
+    [
+      "0x93",
+      "0x9a"
+    ],
+    [
+      "0xca",
+      "0x103"
+    ],
+    [
+      "0xce",
+      "0x103"
+    ],
+    [
+      "0xd9",
+      "0xe4"
+    ],
+    [
+      "0xde",
+      "0xe4"
+    ],
+    [
+      "0xe2",
+      "0xf9"
+    ],
+    [
+      "0x10c",
+      "0x1f8"
+    ],
+    [
+      "0x11e",
+      "0x1f8"
+    ],
+    [
+      "0x12f",
+      "0x1f8"
+    ],
+    [
+      "0x135",
+      "0x1d2"
+    ],
+    [
+      "0x16d",
+      "0x1a6"
+    ],
+    [
+      "0x171",
+      "0x1a6"
+    ],
+    [
+      "0x17c",
+      "0x187"
+    ],
+    [
+      "0x181",
+      "0x187"
+    ],
+    [
+      "0x185",
+      "0x19c"
+    ],
+    [
+      "0x1af",
+      "0x1f8"
+    ],
+    [
+      "0x1c0",
+      "0x1f8"
+    ],
+    [
+      "0x1d0",
+      "0x1f8"
+    ]
+  ],
+  "calls_and_receiver_contexts": [
+    {
+      "offset": "0x73",
+      "instruction": "call 0x409822",
+      "preceding": [
+        "test eax, eax",
+        "jne 0x57a10b",
+        "mov ecx, ebx",
+        "mov edi, edx"
+      ]
+    },
+    {
+      "offset": "0xa6",
+      "instruction": "call 0x4139ad",
+      "preceding": [
+        "mov edx, dword ptr [esi + 0xd4]",
+        "push 0",
+        "push eax",
+        "mov ecx, dword ptr [edx + 0x68]"
+      ]
+    },
+    {
+      "offset": "0xba",
+      "instruction": "call dword ptr [eax + 0x68]",
+      "preceding": [
+        "mov ecx, dword ptr [esi + 0xbc]",
+        "mov edx, dword ptr [esi + 0xc0]",
+        "push edx",
+        "mov eax, dword ptr [ecx]"
+      ]
+    },
+    {
+      "offset": "0xf4",
+      "instruction": "call 0x40ed13",
+      "preceding": [
+        "cmp eax, edi",
+        "jne 0x57a159",
+        "mov dword ptr [ecx + 0xc8], edi",
+        "mov dword ptr [ecx + 0xcc], 0xbf800000"
+      ]
+    },
+    {
+      "offset": "0x146",
+      "instruction": "call 0xa264ec",
+      "preceding": [
+        "je 0x57a258",
+        "jmp 0x57a232",
+        "mov edx, dword ptr [esi + 0xd8]",
+        "fld dword ptr [edx + 0xd4]"
+      ]
+    },
+    {
+      "offset": "0x153",
+      "instruction": "call 0x40c77f",
+      "preceding": [
+        "fld dword ptr [edx + 0xd4]",
+        "call 0xa264ec",
+        "mov ecx, esi",
+        "mov dword ptr [esi + 0xdc], eax"
+      ]
+    },
+    {
+      "offset": "0x197",
+      "instruction": "call 0x40ed13",
+      "preceding": [
+        "cmp eax, edi",
+        "jne 0x57a1fc",
+        "mov dword ptr [ecx + 0xc8], edi",
+        "mov dword ptr [ecx + 0xcc], 0xbf800000"
+      ]
+    },
+    {
+      "offset": "0x1d4",
+      "instruction": "call 0x414e9d",
+      "preceding": [
+        "sub ecx, eax",
+        "test ecx, 0xfffffff0",
+        "je 0x57a258",
+        "mov ecx, esi"
+      ]
+    },
+    {
+      "offset": "0x1db",
+      "instruction": "call 0x40c77f",
+      "preceding": [
+        "je 0x57a258",
+        "mov ecx, esi",
+        "call 0x414e9d",
+        "mov ecx, esi"
+      ]
+    }
+  ],
+  "table_target_offsets": [
+    "0x119",
+    "0x1f2",
+    "0x1e0",
+    "0x1f2",
+    "0x1b8",
+    "0x1f2",
+    "0x1e0",
+    "0x1f2"
+  ],
+  "eh": null,
+  "entire_resolved_code_and_table_equal": true,
+  "full_linked_image_parity": false,
+  "scope": "target-body proof only; prior-pair/context preservation must be verified separately",
+  "eligible_for_retention": false,
+  "prior_file_pairs_lost": [
+    "0x579DC0",
+    "0x57AE70",
+    "0x57B2F0",
+    "0x57BA10"
+  ]
+}

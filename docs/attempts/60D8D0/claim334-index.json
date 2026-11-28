@@ -1,0 +1,41 @@
+{
+  "claim": 334,
+  "address": "0x60D8D0",
+  "status": "parked",
+  "changed_successful_inputs": 9,
+  "compiler_invalid_inputs": 1,
+  "prepared_uncompiled_proposals": 1,
+  "astra_compiled_forms": 0,
+  "base_revisions": [
+    "54282a8ae7b8da85142a15f03a81d194f2ef6904",
+    "8045b1b026a984c2970d8bddd5d05980f1c9ba5b"
+  ],
+  "baseline_groups": 36,
+  "best_groups": 10,
+  "partial_source_not_kept": true,
+  "parking": "Meaningful leads exhausted after actual progress; zero-form reviews are not compiled rounds. First-pass progress must not be treated as a stall.",
+  "evidence": [
+    "docs/attempts/60D8D0/claim334-first_60D8D0_construction_font_new.json",
+    "docs/attempts/60D8D0/claim334-first_60D8D0_construction_frame_local.json",
+    "docs/attempts/60D8D0/claim334-first_60D8D0_construction_local.json",
+    "docs/attempts/60D8D0/claim334-first_60D8D0_construction_sort_lifetime.json",
+    "docs/attempts/60D8D0/claim334-first_60D8D0_group_null_left.json",
+    "docs/attempts/60D8D0/claim334-first_60D8D0_group_null_left_include.json",
+    "docs/attempts/60D8D0/claim334-sol_60D8D0_font_results.json",
+    "docs/attempts/60D8D0/claim334-sol_60D8D0_frame_reference.json",
+    "docs/attempts/60D8D0/claim334-sol_60D8D0_sort_conditional.json",
+    "docs/attempts/60D8D0/claim334-sol_60D8D0_sort_join.json",
+    "docs/attempts/60D8D0/claim334-original-history.json",
+    "docs/attempts/60D8D0/claim334-terra-report.txt",
+    "docs/attempts/60D8D0/claim334-group-test-report.txt",
+    "docs/attempts/60D8D0/claim334-sol-report.txt",
+    "docs/attempts/60D8D0/claim334-group-review.txt",
+    "docs/attempts/60D8D0/claim334-group-lead.txt",
+    "docs/attempts/60D8D0/claim334-astra-review.txt",
+    "docs/attempts/60D8D0/claim334-uncompiled-font-wrapper.json"
+  ],
+  "group_review": "docs/attempts/60D8D0/claim334-group-review.txt",
+  "astra_review": "docs/attempts/60D8D0/claim334-astra-review.txt",
+  "key_verified_gain": "docs/attempts/60E300/claim334-key-verification.json",
+  "replay": "git show base_revision:unit, then apply zero-based Python-character edits from last to first and verify input_sha256; baseline configs use exact canonical libdefs flags/defines/include order."
+}

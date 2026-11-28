@@ -1,0 +1,204 @@
+CLASS	UIMFDClass	MFDInterface
+CLASS	UIMFDClass	MFDClass
+CLASS	UIMFDClass	MultiFunctionDisplayClass
+CLASS	UIMFDClass	TargetMFDInterface
+CLASS	UIMFDClass	MFDDisplayClass
+CLASS	UIMFDClass	TargetInfoInterface
+CLASS	UIMFDClass	MfdInterface
+CLASS	UIMFDClass	MultiFunctionDisplayInterface
+CLASS	UIMFDClass	MFDInterfaceClass
+CLASS	UIMFDClass	UIMFDClass
+METHOD	UIMFDClass	?Unknown_54@UIMFDClass@@UAEXXZ	Init
+METHOD	UIMFDClass	?Unknown_54@UIMFDClass@@UAEXXZ	Show
+METHOD	UIMFDClass	?Unknown_54@UIMFDClass@@UAEXXZ	Open
+METHOD	UIMFDClass	?Unknown_58@UIMFDClass@@UAEXXZ	Hide
+METHOD	UIMFDClass	?Unknown_58@UIMFDClass@@UAEXXZ	Close
+METHOD	UIMFDClass	?Unknown_58@UIMFDClass@@UAEXXZ	Shutdown
+METHOD	UIMFDClass	?Unknown_5C@UIMFDClass@@UAEXXZ	Update
+METHOD	UIMFDClass	?Unknown_5C@UIMFDClass@@UAEXXZ	Hide
+METHOD	UIMFDClass	?Unknown_5C@UIMFDClass@@UAEXXZ	Close
+METHOD	UIMFDClass	?Unknown_60@UIMFDClass@@UAEXXZ	Update
+METHOD	UIMFDClass	?Unknown_60@UIMFDClass@@UAEXXZ	Render
+METHOD	UIMFDClass	?Unknown_60@UIMFDClass@@UAEXXZ	Refresh
+METHOD	UIMFDClass	?Unknown_68@UIMFDClass@@UAE_NH@Z	Handle_Key
+METHOD	UIMFDClass	?Unknown_68@UIMFDClass@@UAE_NH@Z	On_Key
+METHOD	UIMFDClass	?Unknown_68@UIMFDClass@@UAE_NH@Z	Process_Key
+METHOD	UIMFDClass	?Unknown_88@UIMFDClass@@UAEXPAVClientObjectClass@@@Z	Set_Target
+METHOD	UIMFDClass	?Unknown_88@UIMFDClass@@UAEXPAVClientObjectClass@@@Z	Set_Object
+METHOD	UIMFDClass	?Unknown_88@UIMFDClass@@UAEXPAVClientObjectClass@@@Z	Set_Selection
+METHOD	UIMFDClass	?Unknown_8C@UIMFDClass@@UAEHXZ	Get_Type
+METHOD	UIMFDClass	?Unknown_8C@UIMFDClass@@UAEHXZ	Get_Mode
+METHOD	UIMFDClass	?Unknown_8C@UIMFDClass@@UAEHXZ	Get_Item_Count
+METHOD	UIMFDClass	?Unknown_5BCB00@UIMFDClass@@QAE_NXZ	Is_Visible
+METHOD	UIMFDClass	?Unknown_5BCB00@UIMFDClass@@QAE_NXZ	Is_Valid
+METHOD	UIMFDClass	?Unknown_5BCB00@UIMFDClass@@QAE_NXZ	Has_Target
+METHOD	UIMFDClass	?Unknown_5BCB30@UIMFDClass@@QAEXXZ	Clear
+METHOD	UIMFDClass	?Unknown_5BCB30@UIMFDClass@@QAEXXZ	Reset
+METHOD	UIMFDClass	?Unknown_5BCB30@UIMFDClass@@QAEXXZ	Clear_Items
+METHOD	UIMFDClass	?Unknown_5BD500@UIMFDClass@@QAEPAVClientObjectClass@@XZ	Get_Target
+METHOD	UIMFDClass	?Unknown_5BD500@UIMFDClass@@QAEPAVClientObjectClass@@XZ	Get_Object
+METHOD	UIMFDClass	?Unknown_5BD500@UIMFDClass@@QAEPAVClientObjectClass@@XZ	Get_Selected
+METHOD	UIMFDClass	?Unknown_5BD520@UIMFDClass@@QAEPAVClientObjectClass@@XZ	Get_Target
+METHOD	UIMFDClass	?Unknown_5BD520@UIMFDClass@@QAEPAVClientObjectClass@@XZ	Get_Owner
+METHOD	UIMFDClass	?Unknown_5BD520@UIMFDClass@@QAEPAVClientObjectClass@@XZ	Get_Client_Object
+METHOD	UIMFDClass	?Unknown_0C@UIMFDClass@@UAEXXZ	Update
+CLASS	UITalkTreeClass	TalkTreeInterface
+CLASS	UITalkTreeClass	TalkTreeClass
+CLASS	UITalkTreeClass	ConversationInterface
+CLASS	UITalkTreeClass	NPCTalkInterface
+CLASS	UITalkTreeClass	TalkInterface
+CLASS	UITalkTreeClass	DialogueInterface
+CLASS	UITalkTreeClass	NPCConversationInterface
+CLASS	UITalkTreeClass	TalkTreeWindowClass
+CLASS	UITalkTreeClass	TalkTreeInterfaceClass
+CLASS	UITalkTreeClass	UITalkTreeClass
+METHOD	UITalkTreeClass	?Unknown_64CF90@UITalkTreeClass@@QAEPBDXZ	Get_NPC_Name
+METHOD	UITalkTreeClass	?Unknown_64CF90@UITalkTreeClass@@QAEPBDXZ	Get_Name
+METHOD	UITalkTreeClass	?Unknown_64CF90@UITalkTreeClass@@QAEPBDXZ	Get_Speech_Handle
+METHOD	UITalkTreeClass	?Unknown_64CFC0@UITalkTreeClass@@QAEPBDXZ	Get_NPC_Name
+METHOD	UITalkTreeClass	?Unknown_64CFC0@UITalkTreeClass@@QAEPBDXZ	Get_Speech_Handle
+METHOD	UITalkTreeClass	?Unknown_64CFC0@UITalkTreeClass@@QAEPBDXZ	Get_Text
+METHOD	UITalkTreeClass	?Unknown_64CFF0@UITalkTreeClass@@QAEXXZ	Clear
+METHOD	UITalkTreeClass	?Unknown_64CFF0@UITalkTreeClass@@QAEXXZ	Reset
+METHOD	UITalkTreeClass	?Unknown_64CFF0@UITalkTreeClass@@QAEXXZ	Clear_Text
+METHOD	UITalkTreeClass	?Unknown_64C7B0@UITalkTreeClass@@QAEXABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z	Set_NPC_Name
+METHOD	UITalkTreeClass	?Unknown_64C7B0@UITalkTreeClass@@QAEXABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z	Set_Name
+METHOD	UITalkTreeClass	?Unknown_64C7B0@UITalkTreeClass@@QAEXABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z	Set_Speech
+METHOD	UITalkTreeClass	?Unknown_64D100@UITalkTreeClass@@QAEXXZ	Update_Buttons
+METHOD	UITalkTreeClass	?Unknown_64D100@UITalkTreeClass@@QAEXXZ	Refresh
+METHOD	UITalkTreeClass	?Unknown_64D100@UITalkTreeClass@@QAEXXZ	Show_Answers
+METHOD	UITalkTreeClass	?Unknown_64D230@UITalkTreeClass@@QAEXH@Z	Select_Answer
+METHOD	UITalkTreeClass	?Unknown_64D230@UITalkTreeClass@@QAEXH@Z	On_Button
+METHOD	UITalkTreeClass	?Unknown_64D230@UITalkTreeClass@@QAEXH@Z	Set_Page
+METHOD	UITalkTreeClass	?Unknown_64D360@UITalkTreeClass@@QAEXPAD@Z	Set_Speech_Handle
+METHOD	UITalkTreeClass	?Unknown_64D360@UITalkTreeClass@@QAEXPAD@Z	Set_Text
+METHOD	UITalkTreeClass	?Unknown_64D360@UITalkTreeClass@@QAEXPAD@Z	Set_NPC_Name
+METHOD	UITalkTreeClass	?Unknown_64D3E0@UITalkTreeClass@@QAE_NXZ	Is_Active
+METHOD	UITalkTreeClass	?Unknown_64D3E0@UITalkTreeClass@@QAE_NXZ	Is_Talking
+METHOD	UITalkTreeClass	?Unknown_64D3E0@UITalkTreeClass@@QAE_NXZ	Is_Finished
+METHOD	UITalkTreeClass	?Unknown_64DB20@UITalkTreeClass@@QAEX_N@Z	Show_More_Button
+METHOD	UITalkTreeClass	?Unknown_64DB20@UITalkTreeClass@@QAEX_N@Z	Enable_Buttons
+METHOD	UITalkTreeClass	?Unknown_64DB20@UITalkTreeClass@@QAEX_N@Z	Set_More
+METHOD	UITalkTreeClass	?Unknown_64DD50@UITalkTreeClass@@QAE_NXZ	Has_More
+METHOD	UITalkTreeClass	?Unknown_64DD50@UITalkTreeClass@@QAE_NXZ	Is_Speech_Playing
+METHOD	UITalkTreeClass	?Unknown_64DD50@UITalkTreeClass@@QAE_NXZ	Next_Page
+METHOD	UITalkTreeClass	?Unknown_64DF80@UITalkTreeClass@@QAE_N_N@Z	Quit_Talk_Tree
+METHOD	UITalkTreeClass	?Unknown_64DF80@UITalkTreeClass@@QAE_N_N@Z	Close_Talk_Tree
+METHOD	UITalkTreeClass	?Unknown_64DF80@UITalkTreeClass@@QAE_N_N@Z	End_Talk
+METHOD	UITalkTreeClass	?Unknown_64E640@UITalkTreeClass@@QAEXXZ	Stop_Speech
+METHOD	UITalkTreeClass	?Unknown_64E640@UITalkTreeClass@@QAEXXZ	Start_Speech
+METHOD	UITalkTreeClass	?Unknown_64E640@UITalkTreeClass@@QAEXXZ	Process_Packet
+METHOD	UITalkTreeClass	?Unknown_90@UITalkTreeClass@@UAEXPAVTalkTreePacketClass@@@Z	Process_Packet
+METHOD	UITalkTreeClass	?Unknown_90@UITalkTreeClass@@UAEXPAVTalkTreePacketClass@@@Z	Handle_Packet
+METHOD	UITalkTreeClass	?Unknown_90@UITalkTreeClass@@UAEXPAVTalkTreePacketClass@@@Z	Set_Packet
+METHOD	UITalkTreeClass	?Unknown_5C@UITalkTreeClass@@UAEXXZ	Close
+METHOD	UITalkTreeClass	?Unknown_5C@UITalkTreeClass@@UAEXXZ	Hide
+METHOD	UITalkTreeClass	?Unknown_5C@UITalkTreeClass@@UAEXXZ	Shutdown
+CLASS	Unknown615A50InterfaceClass	ShardInterface
+CLASS	Unknown615A50InterfaceClass	CharacterNameInterface
+CLASS	Unknown615A50InterfaceClass	AvatarNameInterface
+CLASS	Unknown615A50InterfaceClass	NameAvatarInterface
+CLASS	Unknown615A50InterfaceClass	ShardSelectInterface
+CLASS	Unknown615A50InterfaceClass	AvatarNamingInterface
+CLASS	Unknown615A50InterfaceClass	TutorialChoiceInterface
+CLASS	Unknown615A50InterfaceClass	CharacterCreationNameInterface
+CLASS	Unknown615A50InterfaceClass	CharacterNamingInterface
+CLASS	Unknown615A50InterfaceClass	NameCharacterInterface
+METHOD	Unknown615A50InterfaceClass	?Unknown_60@Unknown615A50InterfaceClass@@UAEXXZ	Update
+METHOD	Unknown615A50InterfaceClass	?Unknown_60@Unknown615A50InterfaceClass@@UAEXXZ	Render
+METHOD	Unknown615A50InterfaceClass	?Unknown_60@Unknown615A50InterfaceClass@@UAEXXZ	Refresh
+METHOD	Unknown615A50InterfaceClass	?Unknown_68@Unknown615A50InterfaceClass@@UAE_NH@Z	Handle_Key
+METHOD	Unknown615A50InterfaceClass	?Unknown_68@Unknown615A50InterfaceClass@@UAE_NH@Z	On_Key
+METHOD	Unknown615A50InterfaceClass	?Unknown_68@Unknown615A50InterfaceClass@@UAE_NH@Z	Process_Key
+METHOD	Unknown615A50InterfaceClass	?Unknown_616A10@Unknown615A50InterfaceClass@@QAEXXZ	Init
+METHOD	Unknown615A50InterfaceClass	?Unknown_616A10@Unknown615A50InterfaceClass@@QAEXXZ	Accept
+METHOD	Unknown615A50InterfaceClass	?Unknown_616A10@Unknown615A50InterfaceClass@@QAEXXZ	Create_Gadgets
+METHOD	Unknown615A50InterfaceClass	?Unknown_616DA0@Unknown615A50InterfaceClass@@QAEXXZ	Accept_Name
+METHOD	Unknown615A50InterfaceClass	?Unknown_616DA0@Unknown615A50InterfaceClass@@QAEXXZ	On_Accept
+METHOD	Unknown615A50InterfaceClass	?Unknown_616DA0@Unknown615A50InterfaceClass@@QAEXXZ	Validate_Name
+METHOD	Unknown615A50InterfaceClass	?Unknown_617190@Unknown615A50InterfaceClass@@QAEXXZ	Skip_Tutorial
+METHOD	Unknown615A50InterfaceClass	?Unknown_617190@Unknown615A50InterfaceClass@@QAEXXZ	On_Skip
+METHOD	Unknown615A50InterfaceClass	?Unknown_617190@Unknown615A50InterfaceClass@@QAEXXZ	Play_Tutorial
+METHOD	Unknown615A50InterfaceClass	?Unknown_617270@Unknown615A50InterfaceClass@@QAEXXZ	Show_Name_Error
+METHOD	Unknown615A50InterfaceClass	?Unknown_617270@Unknown615A50InterfaceClass@@QAEXXZ	Clear_Error
+METHOD	Unknown615A50InterfaceClass	?Unknown_617270@Unknown615A50InterfaceClass@@QAEXXZ	Reset
+METHOD	Unknown615A50InterfaceClass	?Unknown_6172A0@Unknown615A50InterfaceClass@@QAEXXZ	Clear
+METHOD	Unknown615A50InterfaceClass	?Unknown_6172A0@Unknown615A50InterfaceClass@@QAEXXZ	Hide
+METHOD	Unknown615A50InterfaceClass	?Unknown_6172A0@Unknown615A50InterfaceClass@@QAEXXZ	Show
+METHOD	Unknown615A50InterfaceClass	?Unknown_617310@Unknown615A50InterfaceClass@@QAEXXZ	Update_Buttons
+METHOD	Unknown615A50InterfaceClass	?Unknown_617310@Unknown615A50InterfaceClass@@QAEXXZ	Refresh
+METHOD	Unknown615A50InterfaceClass	?Unknown_617310@Unknown615A50InterfaceClass@@QAEXXZ	Update
+METHOD	Unknown615A50InterfaceClass	?Unknown_617540@Unknown615A50InterfaceClass@@QAEXXZ	Close
+METHOD	Unknown615A50InterfaceClass	?Unknown_617540@Unknown615A50InterfaceClass@@QAEXXZ	Cancel
+METHOD	Unknown615A50InterfaceClass	?Unknown_617540@Unknown615A50InterfaceClass@@QAEXXZ	Done
+METHOD	Unknown615A50InterfaceClass	?Unknown_617660@Unknown615A50InterfaceClass@@QAEX_N@Z	Enable
+METHOD	Unknown615A50InterfaceClass	?Unknown_617660@Unknown615A50InterfaceClass@@QAEX_N@Z	Show
+METHOD	Unknown615A50InterfaceClass	?Unknown_617660@Unknown615A50InterfaceClass@@QAEX_N@Z	Set_Visible
+METHOD	Unknown615A50InterfaceClass	?Unknown_6176F0@Unknown615A50InterfaceClass@@QAEXXZ	Send_Name
+METHOD	Unknown615A50InterfaceClass	?Unknown_6176F0@Unknown615A50InterfaceClass@@QAEXXZ	Submit
+METHOD	Unknown615A50InterfaceClass	?Unknown_6176F0@Unknown615A50InterfaceClass@@QAEXXZ	Finish
+CLASS	Unknown664500Class	SkillGadgetClass
+CLASS	Unknown664500Class	AttrbSkillsGadgetClass
+CLASS	Unknown664500Class	SkillIconGadgetClass
+CLASS	Unknown664500Class	AbilityIconGadgetClass
+CLASS	Unknown664500Class	SkillsGadgetClass
+CLASS	Unknown664500Class	AttributesSkillsGadgetClass
+CLASS	Unknown664500Class	SkillRenderGadgetClass
+CLASS	Unknown664500Class	AbilityGadgetClass
+CLASS	Unknown664500Class	SkillIconClass
+CLASS	Unknown664500Class	SkillRenderClass
+METHOD	Unknown664500Class	?Unknown_24@Unknown664500Class@@UAEPAVRenderObjClass@@PAVVector3@@PAM_N@Z	Pick
+METHOD	Unknown664500Class	?Unknown_24@Unknown664500Class@@UAEPAVRenderObjClass@@PAVVector3@@PAM_N@Z	Intersect
+METHOD	Unknown664500Class	?Unknown_24@Unknown664500Class@@UAEPAVRenderObjClass@@PAVVector3@@PAM_N@Z	Hit_Test
+METHOD	Unknown664500Class	?Unknown_28@Unknown664500Class@@UAEXPAVLayerClass@@@Z	Set_Layer
+METHOD	Unknown664500Class	?Unknown_28@Unknown664500Class@@UAEXPAVLayerClass@@@Z	Attach
+METHOD	Unknown664500Class	?Unknown_28@Unknown664500Class@@UAEXPAVLayerClass@@@Z	Add_To_Layer
+METHOD	Unknown664500Class	?Unknown_30@Unknown664500Class@@UAE_NMM@Z	Mouse_Move
+METHOD	Unknown664500Class	?Unknown_30@Unknown664500Class@@UAE_NMM@Z	Is_Over
+METHOD	Unknown664500Class	?Unknown_30@Unknown664500Class@@UAE_NMM@Z	Contains_Point
+METHOD	Unknown664500Class	?Unknown_A4@Unknown664500Class@@UAEX_N@Z	Set_Visible
+METHOD	Unknown664500Class	?Unknown_A4@Unknown664500Class@@UAEX_N@Z	Show
+METHOD	Unknown664500Class	?Unknown_A4@Unknown664500Class@@UAEX_N@Z	Enable
+METHOD	Unknown664500Class	?Unknown_664430@Unknown664500Class@@QAEXXZ	Clear
+METHOD	Unknown664500Class	?Unknown_664430@Unknown664500Class@@QAEXXZ	Release
+METHOD	Unknown664500Class	?Unknown_664430@Unknown664500Class@@QAEXXZ	Reset
+METHOD	Unknown664500Class	?Unknown_664500@Unknown664500Class@@QAEXXZ	Init
+METHOD	Unknown664500Class	?Unknown_664500@Unknown664500Class@@QAEXXZ	Initialize
+METHOD	Unknown664500Class	?Unknown_664500@Unknown664500Class@@QAEXXZ	Load_Icons
+METHOD	Unknown664500Class	?Unknown_6645A0@Unknown664500Class@@QAEHH_N@Z	Get_Icon
+METHOD	Unknown664500Class	?Unknown_6645A0@Unknown664500Class@@QAEHH_N@Z	Find_Icon
+METHOD	Unknown664500Class	?Unknown_6645A0@Unknown664500Class@@QAEHH_N@Z	Get_Skill_Index
+METHOD	Unknown664500Class	?Unknown_6647F0@Unknown664500Class@@QAEXXZ	Update
+METHOD	Unknown664500Class	?Unknown_6647F0@Unknown664500Class@@QAEXXZ	Refresh
+METHOD	Unknown664500Class	?Unknown_6647F0@Unknown664500Class@@QAEXXZ	Update_Icons
+METHOD	Unknown664500Class	?Unknown_664890@Unknown664500Class@@QAEX_N@Z	Show
+METHOD	Unknown664500Class	?Unknown_664890@Unknown664500Class@@QAEX_N@Z	Set_Visible
+METHOD	Unknown664500Class	?Unknown_664890@Unknown664500Class@@QAEX_N@Z	Show_Icons
+METHOD	Unknown664500Class	?Unknown_6649F0@Unknown664500Class@@QAEXXZ	Render
+METHOD	Unknown664500Class	?Unknown_6649F0@Unknown664500Class@@QAEXXZ	Draw
+METHOD	Unknown664500Class	?Unknown_6649F0@Unknown664500Class@@QAEXXZ	Render_Icons
+METHOD	Unknown664500Class	?Unknown_664AE0@Unknown664500Class@@QAEXHH@Z	Set_Position
+METHOD	Unknown664500Class	?Unknown_664AE0@Unknown664500Class@@QAEXHH@Z	Set_Size
+METHOD	Unknown664500Class	?Unknown_664AE0@Unknown664500Class@@QAEXHH@Z	Set_Origin
+METHOD	Unknown664500Class	?Unknown_664C60@Unknown664500Class@@QAEXXZ	Update_Tooltip
+METHOD	Unknown664500Class	?Unknown_664C60@Unknown664500Class@@QAEXXZ	Clear_Tooltip
+METHOD	Unknown664500Class	?Unknown_664C60@Unknown664500Class@@QAEXXZ	Shutdown
+METHOD	Unknown664500Class	?Unknown_663DF0@Unknown664500Class@@QAEHPAVUIAttrbSkillsClass@@HH@Z	Set_Skill
+METHOD	Unknown664500Class	?Unknown_663DF0@Unknown664500Class@@QAEHPAVUIAttrbSkillsClass@@HH@Z	Build_Description
+METHOD	Unknown664500Class	?Unknown_663DF0@Unknown664500Class@@QAEHPAVUIAttrbSkillsClass@@HH@Z	Setup
+CLASS	ProxyRObj	ProxyRObjClass
+CLASS	ProxyRObj	ProxyRenderObjClass
+CLASS	ProxyRObj	ProxyRenderObj
+CLASS	ProxyRObj	ProxyROClass
+CLASS	ProxyRObj	ProxyRO
+CLASS	ProxyRObj	ProxyObjClass
+CLASS	ProxyRObj	ProxyRenderClass
+CLASS	ProxyRObj	RenderProxyClass
+CLASS	ProxyRObj	ProxyRObject
+CLASS	ProxyRObj	ProxyRObjectClass
+METHOD	ProxyRObj	?Unknown_480810@ProxyRObj@@UAEXM@Z	Set_Alpha
+METHOD	ProxyRObj	?Unknown_480810@ProxyRObj@@UAEXM@Z	Set_Scale
+METHOD	ProxyRObj	?Unknown_480810@ProxyRObj@@UAEXM@Z	Set_Opacity
+METHOD	ProxyRObj	?Unknown_47FF70@ProxyRObj@@QAE_NPAVRenderObjClass@@@Z	Set_Proxied
+METHOD	ProxyRObj	?Unknown_47FF70@ProxyRObj@@QAE_NPAVRenderObjClass@@@Z	Set_Object
+METHOD	ProxyRObj	?Unknown_47FF70@ProxyRObj@@QAE_NPAVRenderObjClass@@@Z	Set_Render_Obj

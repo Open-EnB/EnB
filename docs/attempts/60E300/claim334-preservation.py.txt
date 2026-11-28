@@ -1,0 +1,93 @@
+"""Compare preexisting exact bodies and relocation identities between explicit objects."""
+from pathlib import Path
+import argparse
+import hashlib
+import json
+import re
+import struct
+import sys
+
+ROOT = Path('/home/dev/Projects/EnB')
+sys.path.insert(0, str(ROOT / 'tools/re'))
+from objmatch import CoffObject, object_unwind
+
+
+def signature(obj, sec, start, length):
+    info = obj.sections[sec]
+    body = bytearray(obj.data[info['raw'] + start:info['raw'] + start + length])
+    rels = []
+    for off, width, kind, sym, addend in obj.reloc_targets(sec, start, length):
+        name = sym['name']
+        if sym['section'] - 1 == sec:
+            target = ['self', sym['value'] - start]
+        elif obj.literal(sym) is not None:
+            target = ['literal', obj.literal(sym).hex()]
+        elif name.startswith('$') or name.startswith('__eh'):
+            target = ['local', obj.sections[sym['section'] - 1]['name'], sym['value']]
+        else:
+            target = ['symbol', name]
+        rels.append([off, width, kind, target, addend.hex()])
+        body[off:off + width] = bytes(width)
+    return body.hex(), rels
+
+
+def eh_metadata(obj, sec, start, length, unwind):
+    if unwind is None:
+        return None
+    handler = next(r[3] for r in obj.reloc_targets(sec, start, length) if r[0] == unwind[0])
+    hs, ho = handler['section'] - 1, handler['value']
+    fi = next(r for r in obj.reloc_targets(hs, ho, 10) if r[0] == 1)
+    fs, fo = fi[3]['section'] - 1, fi[3]['value'] + int.from_bytes(fi[4], 'little')
+    mr = next(r for r in obj.reloc_targets(fs, fo, 28) if r[0] == 8)
+    ms, mo = mr[3]['section'] - 1, mr[3]['value'] + int.from_bytes(mr[4], 'little')
+    return (signature(obj, hs, ho, 10), signature(obj, fs, fo, 28),
+            signature(obj, ms, mo, 8 * len(unwind[2])))
+
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('before')
+    parser.add_argument('after')
+    parser.add_argument('before_matches')
+    parser.add_argument('--out', required=True)
+    args = parser.parse_args()
+    before, after = CoffObject(args.before), CoffObject(args.after)
+    fa = {f[0]: f for f in before.functions()}
+    fb = {f[0]: f for f in after.functions()}
+    rows = json.loads(Path(args.before_matches).read_text())
+    checked, changes, eh_changes = [], [], []
+    for row in rows:
+        if row['status'] != 'exact':
+            continue
+        symbol, length = row['symbol'], row['length']
+        _, sa, oa, _ = fa[symbol]
+        _, sb, ob, _ = fb[symbol]
+        if signature(before, sa, oa, length) != signature(after, sb, ob, length):
+            changes.append(symbol)
+        ua, ub = object_unwind(before, sa, oa, length), object_unwind(after, sb, ob, length)
+        if bool(ua) != bool(ub):
+            eh_changes.append(symbol)
+        elif ua:
+            if eh_metadata(before, sa, oa, length, ua) != eh_metadata(after, sb, ob, length, ub):
+                eh_changes.append(symbol)
+            if len(ua[2]) != len(ub[2]):
+                eh_changes.append(symbol)
+            else:
+                for left, right in zip(ua[2], ub[2]):
+                    if bool(left) != bool(right):
+                        eh_changes.append(symbol)
+                    elif left and signature(before, ua[1], left[0], left[1] - left[0]) != signature(after, ub[1], right[0], right[1] - right[0]):
+                        eh_changes.append(symbol)
+        checked.append(symbol)
+    result = dict(before_object_sha256=hashlib.sha256(Path(args.before).read_bytes()).hexdigest(),
+                  after_object_sha256=hashlib.sha256(Path(args.after).read_bytes()).hexdigest(),
+                  checked_symbols=len(checked), body_or_relocation_changes=changes,
+                  eh_funclet_changes=sorted(set(eh_changes)))
+    Path(args.out).write_text(json.dumps(result, indent=2) + '\n')
+    print(json.dumps(result))
+    if changes or eh_changes:
+        raise SystemExit(1)
+
+
+if __name__ == '__main__':
+    main()

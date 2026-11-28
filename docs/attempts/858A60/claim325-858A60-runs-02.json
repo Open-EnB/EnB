@@ -1,0 +1,131 @@
+{
+  "claim": 325,
+  "address": "0x858A60",
+  "records": [
+    {
+      "name": "root_pumpconn_clean",
+      "base_revision": "86654fa59d61c928c256f577d7c417872f3c13a9",
+      "base_path": "app/wwudp/cordmgr.cpp",
+      "base_sha256": "14ab66cc73e70d56aff32ff743c267352976b2681ef5613b4b8bd4d968d24832",
+      "source_sha256": "593979273563e91df9080f64c60bca1c048dd4be28b3a87d35141673d97dfe70",
+      "patch": "--- app/wwudp/cordmgr.cpp\n+++ app/wwudp/cordmgr.cpp\n@@ -194,9 +194,9 @@\n \n \n \n-// NOT EXACT: 0x858A60. SYN1 (0, protocol, session) while waiting for ACK1, SYN2 (2, protocol, session, ACK1's two\n-// words, 0x4000, the key's length, the encrypted key) while waiting for ACK2, each again a second after the last; a\n-// connection 60 s old becomes a CordCon without a socket (the caller finds it, closed) and leaves the list.\n+\n+// 0x858A60: resend handshake packets once per second; timeouts become closed connections.\n+// The connection pointer ends its scope before removing the pending record.\n bool CordMgr::Pump_Connections()\n {\n \tWWPROFILE(\"CordMgr::Pump_Connections\");\n@@ -213,8 +213,8 @@\n \tfor (int k = 0; k < count; k++) {\n \t\tPending_.get(c, i);\n \t\tif (c->Created < timeout) {\n-\t\t\tCordCon *con = new CordCon(c->Ip, c->Port, c->Session, 0, false, NULL, 0, c->Key);\n-\t\t\tAdd_Connection(con, c, i);\n+\t\t\tAdd_Connection(c, i);\n+\n \n \n \t\t\ti--;\n@@ -223,18 +223,18 @@\n \t\t\tif (resend > c->LastSend) {\n \t\t\t\tbuf[0] = 0;\n \t\t\t\tbuf[1] = Protocol_;\n-\t\t\t\t*(unsigned short *)(buf + 2) = htons((unsigned short)c->Session);\n-\t\t\t\tc->Socket->Write(buf, 4, c->Ip, c->Port);\n+\t\t\t\tunsigned short session = (unsigned short)c->Session; session = htons(session); *(unsigned short *)(buf + 2) = session;\n+\t\t\t\tunsigned short port = c->Port; c->Socket->Write(buf, 4, c->Ip, port);\n \t\t\t\tc->LastSend = now;\n \t\t\t}\n \t\t} else if (c->State == 3 && resend > c->LastSend) {\n \t\t\tbuf[0] = 2;\n-\t\t\tbuf[1] = Protocol_;\n-\t\t\t*(unsigned short *)(buf + 2) = htons((unsigned short)c->Session);\n-\t\t\t*(unsigned long *)(buf + 4) = htonl(c->Ack1Word1);\n-\t\t\t*(unsigned long *)(buf + 8) = htonl(c->Ack1Word2);\n+\t\t\tunsigned char protocol = Protocol_; buf[1] = protocol;\n+\t\t\tunsigned short session = (unsigned short)c->Session; session = htons(session); *(unsigned short *)(buf + 2) = session;\n+\t\t\tunsigned long word = c->Ack1Word1; word = htonl(word); *(unsigned long *)(buf + 4) = word;\n+\t\t\tword = c->Ack1Word2; word = htonl(word); *(unsigned long *)(buf + 8) = word;\n \t\t\t*(unsigned long *)(buf + 12) = htonl(0x4000);\n-\t\t\tunsigned int n = XMP_Encode(key, c->EncryptedKey, 0x40);\n+\t\t\tconst digit *encrypted = c->EncryptedKey; unsigned int n = XMP_Encode(key, encrypted, 0x40);\n \t\t\t*(unsigned long *)(buf + 16) = htonl(n);\n \t\t\tmemcpy(buf + 20, key, n);\n \t\t\tc->Socket->Write(buf, n + 20, c->Ip, c->Port);\n",
+      "replay_verified": true,
+      "completed": true,
+      "classification": "coordinator_validation",
+      "model": "Codex coordinator",
+      "proof_scope": "Exploratory target TU plus immutable cordcon context only; all-consumer controls required before retention.",
+      "headers": [
+        {
+          "unit": "app/wwudp/cordmgr.h",
+          "base_sha256": "d18001af2f35cded0edee3e91ac2e32b324f326f0df3a69b7caf436b33c3b2a1",
+          "source_sha256": "12e0dc74710320fc81810d94469a1270b4d3f46b63effca82886cd8d631274e2",
+          "patch": "--- app/wwudp/cordmgr.h\n+++ app/wwudp/cordmgr.h\n@@ -139,9 +139,9 @@\n \tbool Cancel_Connect(int session);\t// NAME 2: what it does\n \t// Frees the released connections whose time has come. 0x859940\n \tbool Pump_Releases();\n-\t// A timed-out handshake's CordCon into both lists, its record freed and taken out (inlined in Pump_Connections, as\n-\t// one block: ACK2 0x85ABB0 has the same code inline but matches better without it)\n-\tvoid Add_Connection(CordCon *con, CordConnectingClass *c, int i) { AllConnections_.addTail(con); Connections_.addTail(con); delete c; Pending_.remove(i); }\t// NAME 2: what it does\n+\t// A timed-out handshake becomes a closed CordCon in both lists, then its record is removed.\n+\t// Keep the connection pointer's scope before deletion (same lifetime as ACK2, 0x85ABB0).\n+\tvoid Add_Connection(CordConnectingClass *c, int i) { { CordCon *con = new CordCon(c->Ip, c->Port, c->Session, 0, false, NULL, 0, c->Key); AllConnections_.addTail(con); Connections_.addTail(con); } delete c; Pending_.remove(i); }\t// NAME 2: what it does\n \t// A hash of the six values and Unknown04 (WWOnline's SHA-1, the digest's words xored). 0x85A220 (no caller)\n \tunsigned int Compute_Ticks(unsigned short port1, unsigned int ip1, unsigned int ip2, unsigned short port2,\n \t\tunsigned int ip3, unsigned short port3);\t// NAME 2: the parameters (the name is the client's profile string)\n",
+          "replay_verified": true
+        }
+      ],
+      "compile_log_sha256": "f76f47a93cbaa306c3fbfa908775b7491d49e66219e04e5f0254846f195e48ee",
+      "object_sha256": "751676863910187dfd74e963d6ca1afc3b53d26fe3af00178a256a3c1636ebc8",
+      "body": {
+        "symbol": "?Pump_Connections@CordMgr@@QAE_NXZ",
+        "length": 894,
+        "raw_sha256": "0472e0f4198e86d5e9c61aa83f7e01be86a89b92ff03b76283f74e9e04e3c54b",
+        "masked_sha256": "0472e0f4198e86d5e9c61aa83f7e01be86a89b92ff03b76283f74e9e04e3c54b",
+        "relocations_sha256": "61249c8315dc6958231fdd60b0db9cf248899fc66d42c4f0a8de511747c27e46"
+      },
+      "pair_sets": {
+        "pairs": {
+          "count": 125,
+          "sha256": "aa0f08174305a7d65eec5e6780bcb262990652a779c432b87cdc40f62ac67ede",
+          "original": {
+            "gained": [
+              [
+                "app/wwudp/cordmgr.cpp",
+                "0x858A60"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "0x85A430"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "0x85ABB0"
+              ]
+            ],
+            "lost": []
+          },
+          "retained_ack1": {
+            "gained": [
+              [
+                "app/wwudp/cordmgr.cpp",
+                "0x858A60"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "0x85ABB0"
+              ]
+            ],
+            "lost": []
+          },
+          "input_snapshot": {
+            "gained": [
+              [
+                "app/wwudp/cordmgr.cpp",
+                "0x858A60"
+              ]
+            ],
+            "lost": []
+          }
+        },
+        "symbol_pairs": {
+          "count": 125,
+          "sha256": "40b350a229a1a93335ade304a5ea002b588618cc69afe43bfd2fc469f6c722f2",
+          "original": {
+            "gained": [
+              [
+                "app/wwudp/cordmgr.cpp",
+                "?Process_ACK1_Packet@CordMgr@@QAE_NPAEHPAUsockaddr_in@@PAVUDP@@H@Z",
+                "0x85A430"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "?Process_ACK2_Packet@CordMgr@@QAE_NPAEHPAUsockaddr_in@@PAVUDP@@H@Z",
+                "0x85ABB0"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "?Pump_Connections@CordMgr@@QAE_NXZ",
+                "0x858A60"
+              ]
+            ],
+            "lost": []
+          },
+          "retained_ack1": {
+            "gained": [
+              [
+                "app/wwudp/cordmgr.cpp",
+                "?Process_ACK2_Packet@CordMgr@@QAE_NPAEHPAUsockaddr_in@@PAVUDP@@H@Z",
+                "0x85ABB0"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "?Pump_Connections@CordMgr@@QAE_NXZ",
+                "0x858A60"
+              ]
+            ],
+            "lost": []
+          },
+          "input_snapshot": {
+            "gained": [
+              [
+                "app/wwudp/cordmgr.cpp",
+                "?Pump_Connections@CordMgr@@QAE_NXZ",
+                "0x858A60"
+              ]
+            ],
+            "lost": []
+          }
+        }
+      }
+    }
+  ]
+}

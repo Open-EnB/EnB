@@ -1,0 +1,141 @@
+Historical read-only proposal; its subsequently authorized test is recorded in claim322-nested-guard-test.txt/json.
+
+# Astra read-only review: UIComboBoxClass::Unknown_68, 0x57A060
+
+One distinct, evidence-backed hypothesis survives this review: split Scroll_To_Selected's compound eligibility guard into nested conditionals, keeping its min and Unknown_Clamp operations unchanged. This is a documented source-cost mechanism that none of the 43 current inputs exercised. I recommend one bounded initial experiment if root accepts the cited reopening lever and separately opens the compiler gate. I do not recommend reopening the exhausted wrapper, explicit-bound, or target-tail-factoring families.
+
+This review did not compile anything. The proposed form is untested, and no target gain or helper preservation is claimed. The target remains LIMIT REACHED until the coordinator applies the existing attempt procedure. Init 0x578350 was not investigated.
+
+## Evidence inspected and independently checked
+
+Repository base b0f0f58d369b09aa14939bf2baac3ef5685507e6, evidence branch HEAD a27086a5b827f64dd20f6fb4476fa5eab5abd2f4. The production ui_combobox.cpp SHA-256 remains 369e5cf801184870da323dfbc16297f34da8b4bbaaab4e575241b7c50cf75e00. A final git status --short was empty before writing this ignored review report.
+
+Read AGENTS.md, CLAUDE.md, the supplied fresh-session prompt, relevant startup and workflow sections, the review/claim/Sol briefs, the first/group/Sol reports, baseline coverage, attempt status and the complete `python -B tools/re/attempts.py show 0x57A060` history. The historical November 11 row has two forms but only one surviving source; it does not supply evidence of an unrecorded nested-guard test.
+
+The actual sources and lossless replay records were read from:
+
+- /home/dev/Projects/EnB/.work/claim-322/57A060/prep/*/{ui_combobox.cpp,replay.json,record.json}
+- /home/dev/Projects/EnB/.work/claim-322/57A060/group_{predicate,bounds,combined}/
+- /home/dev/Projects/EnB/.work/claim-322/57A060/sol/*/
+- /home/dev/Projects/EnB/.work/claim-322/runs/*/{input.cpp,ui_combobox.obj}
+
+I independently replayed all 43 changed inputs in memory against the original source, checked their recorded source hashes, and compared each replay with the actual run input. I opened all 43 actual COFF objects and inspected their target Scroll/predicate/bounds relocation identities. The current analysis contains 43 changed entries and 32 raw target groups including the original body. There are 23 distinct textual Scroll bodies. In 41 inputs its outer guard is still the original compound expression. The other two, group_predicate and group_combined, call Can_Scroll_Selection, whose body still uses that compound expression. None splits this guard into nested conditionals.
+
+Read actual generated-source definitions, relevant target objdiffs, group hypotheses, Sol hypotheses, and the parent/default/diagnostic/group/Sol source changes. The first-pass generator and Sol generator confirm the boundaries of the prior experiments; the replay checks bind those descriptions to actual compiled inputs.
+
+Using existing objects, I independently inspected standalone Scroll disassembly and helper spans/references for baseline, default_accessor, best_both_branches, both_one_limit, min_value_clamp, the three group tests, and all five Sol forms. Generated local symbol spellings must be normalized to their local offsets: a changed `$L...` name alone is not a changed jump-table destination. After that normalization, default_accessor's Toggle and Unknown_60 are unchanged, as are group_bounds' two bodies and the checked Sol row-action bodies.
+
+I also rechecked the rejected diagnostic's source/object hashes against key-diagnostic-audit.json; its 24 actual COFF reference records and local destinations; the complete resolved 544-byte retail span; and absence of object EH. This confirms the target-only result, not preservation of the four lost helpers. The existing audit supplies the full call/global/literal identity proof; I did not rebuild it or claim a new full-image proof.
+
+Related source inspected: UIComboBoxClass Select, Select_Text, Show_Selected, Get_Item_Text, Get_Selected_Text, Get_Selected, Toggle_Drop_Down, Scroll_To_Selected, Unknown_60, Update_Drop_Down and Add_Item; GadgetClass::Is_Enabled; the real global min template in wwlib/always.h; and the exact GM inventory-window helper/callers in unknown_6af220.cpp. The latter's ledger is /home/dev/Projects/EnB/docs/data/imports/app/unknown_6af220.json, not the retired aggregate imports.json.
+
+The reverse-engineer-anything skill's evidence discipline was used. Existing source, COFF objects, saved audit and local retail reads answered the questions; no REA session, import or database was opened.
+
+## What the existing evidence actually constrains
+
+1. The useful parent is runs/key_default_accessor/input.cpp, SHA-256 2cc6b7f7108b532340206806994f0558610886d7d31d393ded6ed204cc751332. It has the retail selection prefix, with EDX then EDI and the actual vector-size call. Its actual trimmed target pattern is 692 bytes; the objdiff heading prints the padded symbol span as 704. It contains an actual Scroll relocation at +0x138 and another expanded Scroll region. Do not confuse the padded heading with the pattern length.
+2. Retail and the rejected target solution contain two distinct Toggle prefixes/tables, followed by one common real Scroll call. The rejected solution's Scroll relocation is +0x1D5. This is not a case where a new helper can be relabeled as Scroll.
+3. Baseline standalone Scroll is 157 bytes. Its signed size comparison branches at +0x22 to the zero-store block at +0x91; its virtual Is_Enabled result branches at +0x31 to the same block. The success path has the two original bound stores. This already demonstrates a shared machine-code failure block compatible with nested source conditions.
+4. best_both_branches preserves the target but changes standalone Scroll to 235 bytes, Toggle to 172 and Unknown_60 to 360; unsigned Clamp is absent. The Scroll disassembly contains repeated size calculations in assignment arms. both_one_limit still changes standalone Scroll to 165. These are structural regressions, not attribution noise.
+5. min_value_clamp demonstrates that source changes can preserve the 157-byte standalone Scroll while changing an inlined consumer: Unknown_60 is lost. Thus preserving Scroll alone cannot validate the proposed mechanism.
+6. group_predicate, group_bounds and group_combined change nested helper depth. Actual target references respectively retain one Scroll, call Bound_Selected_Top_Item twice, and call Can_Scroll_Selection plus Bound_Selected_Top_Item. Their failure does not establish the result of changing the source cost of Scroll itself without adding a helper layer.
+7. Sol's five forms alter caller action boundaries or CFG factoring. None alters Scroll's outer conditional structure. Their observed outlining of Show_Selected, Close_Drop_Down or Toggle itself gives a concrete warning against moving the proposed change into another caller wrapper.
+
+## Rank 1: nested eligibility inside the real Scroll body
+
+### Proposed operation
+
+Start from default_accessor. Change only Scroll_To_Selected's outer guard, retaining the original two assignments verbatim:
+
+```cpp
+void UIComboBoxClass::Scroll_To_Selected()
+{
+    if ((int)Items.size() > NumRows) {
+        if (Slider->Is_Enabled()) {
+            TopItem = min((unsigned)Selected, Items.size() - NumRows);
+            TopItem = Unknown_Clamp(TopItem, 0u, Items.size() - NumRows);
+        } else {
+            TopItem = 0;
+        }
+    } else {
+        TopItem = 0;
+    }
+}
+```
+
+This is an uncompiled sketch. The matching source draft should preserve physical/effective assertion lines by putting the necessary additional braces/false arm on existing lines, not by shifting later source. An exact same-line-count replacement is supplied separately in nested-eligibility.cpp.txt. No new name, parameter, state, type, function declaration or header edit is needed.
+
+### Existing reopening lever and its strength
+
+/home/dev/Projects/EnB/docs/workflow.md:307, section 3.1.2, explicitly records:
+
+> `if (a && b)` against two nested `if`s: the same bytes, but callers inline differently
+
+Its stated lever is source-structure cost, with unknown_6af220.cpp as the proven example. In that actual current source, Unknown_6B0940 ends with `if (on) { if (Selected < 0) ... }` at lines 268-272. Its end-of-file note at lines 327-328 says the compound form made four callers expand it when retail calls it. The original reconstruction commit c0ed1fc10 already includes the same explicit note; this is not a hypothesis invented during the present review. The current ledger includes 0x6B0940 and its surrounding rebuilt functions as exact.
+
+That is a demonstrated compiler lever elsewhere, applicable to the observed symptom and absent from this target's saved forms. It supports a narrow reopening proposal under the existing section 3.1.2 rule. It is not evidence that Scroll will cross the required threshold, nor evidence that Toggle and Unknown_60 will survive. I did not recover or rerun an old compound-form object from the GM-window investigation, so the comparative historical result is supported by the repository's explicit recorded precedent and exact landed source, not a new A/B measurement made here.
+
+Suggested coordinator lever description: `workflow.md 3.1.2 line 307: split Scroll_To_Selected's existing compound eligibility into nested ifs; unknown_6af220.cpp 0x6B0940 documents changed caller inlining with unchanged helper bytes; all 43 claim322 inputs retain the compound predicate or wrap it unchanged.`
+
+I have not run attempts.py check --lever and have not treated this report as permission to compile.
+
+### Why this differs from every relevant tested family
+
+- Explicit bounds variants change min/Clamp implementation, size-query duplication and template emission. This retains those operations and their evaluation counts exactly.
+- Local-limit/min-result variants change data-flow temporaries and bounds. This introduces no temporary and changes no bound.
+- Last-row, predicate, bounds, Scroll and open-row wrappers introduce an additional function expansion level. This introduces none. Can_Scroll_Selection used the unchanged compound predicate; it did not exercise the documented nested-if cost mechanism.
+- Toggle fallthrough and positive-empty forms change Toggle's state-zero handling. Sol's row actions, direct toggles, common tail and outer fallthrough change caller structure. This leaves both the parent target and Toggle text alone.
+- Existing Get_Selected_Text use stays as in the useful parent. There is no getter substitution or dead read to confound the result.
+
+The two source zero assignments are mutually exclusive failure arms, not two runtime stores. The relevant difference is source structure presented to the inliner; the desired machine representation is the existing shared zero-store block.
+
+### Causal prediction and how to falsify it
+
+The documented precedent suggests that nesting can increase a callee's source cost enough to stop its expansion while its standalone optimized code remains unchanged. Applied here, the desired threshold is Scroll inside the already-expanded Toggle copies. If this happens, normal identical-tail merging may produce the same common actual Scroll call already observed in best_both_branches, without changing min/Clamp's standalone implementation.
+
+This is a conditional prediction, not a claim that both outcomes follow. A useful distinguishing observation is an actual Scroll reference replacing the remaining expanded region, together with unchanged standalone helpers. A smaller target, fewer objdiff rows, two unmerged Scroll calls, or an out-of-line Is_Enabled/vector operation is not the predicted result. Selection must still preserve the exact prefix and its actual size call. Both switch tables must remain.
+
+For an exact outcome, expect the existing target audit's complete 512 executable +32 table bytes, the shared Scroll call with the proper receiver and relocation +0x1D5, and every audited branch/table/global/literal referent. Do not use that expected offset as a proxy for the full audit.
+
+Falsification/stop conditions for the first form:
+
+- Identical target to default_accessor: the proposed source-cost change did not affect this nested expansion. Do not follow with a sweep of braces, parentheses or equivalent boolean spellings.
+- Scroll/Toggle/Unknown_60/Clamp loses a pair or changes its required body: the preservation hypothesis failed, even if the target becomes exact. Do not label this a new solve or repeat the already exhausted explicit-bound regain family.
+- A different smaller helper is outlined, or Toggle itself goes out of line: the required expansion boundary was not obtained. Do not infer success from reduced size.
+- Distinct target with the desired real boundary but a concrete new residue and all helpers preserved: return the actual source/object/evidence to root before deciding whether that observation supplies a justified follow-up. No advance authorization for a new spelling series is implied.
+
+Recommend one initial candidate from default_accessor, not a Cartesian batch with the previous bounds/predicate wrappers. An early-return version could express the same semantics, but it also changes exit structure and is not a second independently supported hypothesis. Do not prequeue it merely because the first candidate fails.
+
+### Semantics and reentrancy obligations
+
+The first size query and signed comparison remain first. Slider is read and its virtual slot +0x60 is called only when that comparison succeeds. It is virtual even though the base Is_Enabled body is a simple bit read: do not assume it is pure or incapable of reentrancy.
+
+If the virtual call succeeds, read Selected, Items and NumRows for the original min operation afterward, perform the intermediate TopItem store, then perform the separate original size query and Clamp/store. If it fails, store zero afterward, exactly as before. The outer failed-size path performs one zero store without calling the slider. No cached size, precomputed bounds or field read may be moved across the virtual call.
+
+In particular, `TopItem = 0; if (...) ...` is not this proposal: it exposes a new zero value to the virtual callback and changes the store order. Likewise, caching Items.size(), NumRows, Selected, Slider or the open-combo global before callbacks is not an equivalent implementation for this review.
+
+The target's Owner->Unknown_68(SelectKey) call remains before every Toggle global/state read. Neither nested guard nor any source-line accommodation may change that ordering. No new object lifetime, exception cleanup or EH state is introduced.
+
+### Consumers and preservation gates
+
+The public non-inline Scroll body is in this .cpp; a repository source search finds its one direct call in Toggle_Drop_Down. The important inlined contexts are Toggle and its Unknown_60/Unknown_68 callers. Update_Drop_Down contains repeated equivalent arithmetic but is not to be rewritten in the first candidate.
+
+Minimum direct body checks: Scroll 0x57B2F0, Toggle 0x57AE70, Unknown_60 0x579DC0, unsigned Clamp 0x57BA10. Preserve their actual instruction bodies, normalized references and local destinations, not only lengths. Keep Clamp's real use and emission. Also preserve every original isolated 100 file/address and 101 symbol/address pair.
+
+Because default_accessor changes Show_Selected, the final comparison must include Select 0x57AC70, Select_Text 0x57AD50, Add_Item 0x57B000 and their real relocation/EH/cleanup graphs. A changed generated EH label name must be resolved to the underlying graph, not silently normalized away. Preserve Update_Drop_Down and all other existing functions in the TU. Retention requires the original authoritative 102/102 full-context comparison with all 139 unchanged holder objects and the normal independent final-source rebuild/audits. The final-preservation.json unchanged-source audit is a baseline only.
+
+No shared header edit is proposed, so this first experiment has no new all-header-consumer compilation obligation. Any later proposal to move or alter an inline declaration would require separate scope review and all-consumer evidence.
+
+## Leads considered but not promoted
+
+- Replace the real Selected read in Scroll with existing Get_Selected(): it is a legitimate accessor, but the present evidence gives no distinct reason for that tiny nested expansion to suppress Scroll rather than move a deeper operation. The getter/accessor cost family and smaller-operation outlining are already well represented. It does not independently justify reopening here.
+- Split Toggle's open-global conjunction instead: the same documented cost lever, but it acts on Toggle's cost, risking the already observed failure of outlining the whole Toggle. It is not a second distinct mechanism, and there is no reason to prefer it over changing Scroll directly.
+- Make a second Scroll clone or put a different implementation in another holder: this would avoid proving the actual helper/body relationship and would not satisfy the required call identity or source reconstruction. No such workaround is proposed.
+- Change min to a macro, force an out-of-line boundary with flags/pragmas, add dead reads, or manufacture state/lifetime work: the real min is a global template, and these routes are contradicted by evidence or excluded by the task.
+- Combine the nested guard with earlier wrappers in advance: untested interaction is not itself evidence. Establish the one clean mechanism first, or stop if it fails.
+
+## Final scope and status
+
+There is one concrete, uncompiled, source-mechanism hypothesis and no claimed successful result. The documented nested-if precedent is a genuine candidate reopening lever; its application to this target remains speculative until a separately authorized experiment proves the required threshold and preservation. Root owns that decision and any attempts.py check, compiler gate, recorded attempt, integration or publication.
+
+Only this report and the uncompiled sketch under /home/dev/Projects/EnB/.work/claim-322/57A060/astra-review were written. No compiler, runner, staging, production source, snapshot, tracked metadata, commit, external message or service operation was performed. No new jobs, runtime sessions, VM leases or agents were created.

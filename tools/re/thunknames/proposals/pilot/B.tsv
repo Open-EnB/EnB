@@ -1,0 +1,219 @@
+CLASS	DynObj	DynamicObjectClass
+CLASS	DynObj	DynamicObjClass
+CLASS	DynObj	DynObjClass
+CLASS	DynObj	DynamicObject
+CLASS	DynObj	DynObject
+CLASS	DynObj	PhysicalObjectClass
+CLASS	DynObj	MovingObjectClass
+CLASS	DynObj	ProximityObjectClass
+METHOD	DynObj	?Unknown_Dyn44@DynObj@@UAEMXZ	Get_Radius
+METHOD	DynObj	?Unknown_Dyn44@DynObj@@UAEMXZ	Get_Bounding_Radius
+METHOD	DynObj	?Unknown_Dyn44@DynObj@@UAEMXZ	Get_Proximity_Radius
+METHOD	DynObj	?Unknown_Dyn80@DynObj@@UAEHXZ	Get_Type
+METHOD	DynObj	?Unknown_Dyn80@DynObj@@UAEHXZ	Get_Object_Type
+METHOD	DynObj	?Unknown_Dyn80@DynObj@@UAEHXZ	Get_Class_ID
+METHOD	DynObj	?Unknown_Dyn7C@DynObj@@UAE?AVAABoxClass@@XZ	Get_Bounds
+METHOD	DynObj	?Unknown_Dyn7C@DynObj@@UAE?AVAABoxClass@@XZ	Get_Bounding_Box
+METHOD	DynObj	?Unknown_Dyn7C@DynObj@@UAE?AVAABoxClass@@XZ	Get_AABox
+METHOD	DynObj	?Unknown_2C@DynObj@@UAE?AVVector3@@XZ	Get_Position
+METHOD	DynObj	?Unknown_2C@DynObj@@UAE?AVVector3@@XZ	Get_Location
+METHOD	DynObj	?Unknown_2C@DynObj@@UAE?AVVector3@@XZ	Get_Center
+METHOD	DynObj	?Unknown_Dyn94@DynObj@@UAEMXZ	Get_Mass
+METHOD	DynObj	?Unknown_Dyn94@DynObj@@UAEMXZ	Get_Max_Speed
+METHOD	DynObj	?Unknown_Dyn94@DynObj@@UAEMXZ	Get_Speed
+METHOD	DynObj	?Unknown_Dyn04@DynObj@@UAEPAV1@XZ	Get_Parent
+METHOD	DynObj	?Unknown_Dyn04@DynObj@@UAEPAV1@XZ	Get_Next
+METHOD	DynObj	?Unknown_Dyn04@DynObj@@UAEPAV1@XZ	Get_Owner
+METHOD	DynObj	?Unknown_Dyn4C@DynObj@@UAE?AVVector3@@XZ	Get_Velocity
+METHOD	DynObj	?Unknown_Dyn4C@DynObj@@UAE?AVVector3@@XZ	Get_Heading
+METHOD	DynObj	?Unknown_Dyn4C@DynObj@@UAE?AVVector3@@XZ	Get_Forward
+METHOD	DynObj	?Unknown_Dyn5C@DynObj@@UAEMXZ	Get_Speed
+METHOD	DynObj	?Unknown_Dyn5C@DynObj@@UAEMXZ	Get_Max_Speed
+METHOD	DynObj	?Unknown_Dyn5C@DynObj@@UAEMXZ	Get_Turn_Rate
+METHOD	DynObj	?Unknown_DynA4@DynObj@@UAE_NH@Z	Is_Enabled
+METHOD	DynObj	?Unknown_DynA4@DynObj@@UAE_NH@Z	Has_Flag
+METHOD	DynObj	?Unknown_DynA4@DynObj@@UAE_NH@Z	Is_Visible
+METHOD	DynObj	?Unknown_Dyn74@DynObj@@UAEXHHHH@Z	Set_Cell
+METHOD	DynObj	?Unknown_Dyn74@DynObj@@UAEXHHHH@Z	Set_Grid_Position
+METHOD	DynObj	?Unknown_Dyn74@DynObj@@UAEXHHHH@Z	Set_Position
+METHOD	DynObj	?Unknown_Dyn3C@DynObj@@UAE?AVMatrix3D@@XZ	Get_Transform
+METHOD	DynObj	?Unknown_Dyn3C@DynObj@@UAE?AVMatrix3D@@XZ	Get_Matrix
+METHOD	DynObj	?Unknown_Dyn3C@DynObj@@UAE?AVMatrix3D@@XZ	Get_Orientation
+METHOD	DynObj	?Unknown_Dyn54@DynObj@@UAE?AVVector3@@XZ	Get_Acceleration
+METHOD	DynObj	?Unknown_Dyn54@DynObj@@UAE?AVVector3@@XZ	Get_Velocity
+METHOD	DynObj	?Unknown_Dyn54@DynObj@@UAE?AVVector3@@XZ	Get_Force
+METHOD	DynObj	?Unknown_DynA0@DynObj@@UAE_NPAV1@ABVVector3@@1_N@Z	Check_Avoidance
+METHOD	DynObj	?Unknown_DynA0@DynObj@@UAE_NPAV1@ABVVector3@@1_N@Z	Test_Proximity
+METHOD	DynObj	?Unknown_DynA0@DynObj@@UAE_NPAV1@ABVVector3@@1_N@Z	Avoid
+METHOD	DynObj	?Unknown_Dyn78@DynObj@@UAEXHHH@Z	Set_Cell
+METHOD	DynObj	?Unknown_Dyn78@DynObj@@UAEXHHH@Z	Set_Sector
+METHOD	DynObj	?Unknown_Dyn78@DynObj@@UAEXHHH@Z	Set_Grid
+METHOD	DynObj	?Unknown_Dyn90@DynObj@@UAEMM@Z	Compute_Proximity
+METHOD	DynObj	?Unknown_Dyn90@DynObj@@UAEMM@Z	Get_Range
+METHOD	DynObj	?Unknown_Dyn90@DynObj@@UAEMM@Z	Scale_Radius
+CLASS	DynamicWindowMultiLineTextClass	DynamicWindowMultiLineTextClass
+CLASS	DynamicWindowMultiLineTextClass	DynamicWindowMultiLineTextBoxClass
+CLASS	DynamicWindowMultiLineTextClass	DynamicWindowMultiLineTextElementClass
+CLASS	DynamicWindowMultiLineTextClass	DynamicWindowTextBoxClass
+CLASS	DynamicWindowMultiLineTextClass	DynamicWindowScrollTextClass
+CLASS	DynamicWindowMultiLineTextClass	DynamicWindowMultiTextClass
+CLASS	DynamicWindowMultiLineTextClass	DynamicWindowTextClass
+CLASS	RObjGadgetClass	RObjGadgetClass
+CLASS	RObjGadgetClass	RenderObjGadgetClass
+CLASS	RObjGadgetClass	RenderObjGadget
+CLASS	RObjGadgetClass	RObjGadget
+CLASS	RObjGadgetClass	RenderObjectGadgetClass
+CLASS	RObjGadgetClass	RenderGadgetClass
+CLASS	RObjGadgetClass	GadgetRenderObjClass
+METHOD	RObjGadgetClass	?Unknown_66C2D0@RObjGadgetClass@@QAEXXZ	Update_Transform
+METHOD	RObjGadgetClass	?Unknown_66C2D0@RObjGadgetClass@@QAEXXZ	Refresh_Matrix
+METHOD	RObjGadgetClass	?Unknown_66C2D0@RObjGadgetClass@@QAEXXZ	Update
+METHOD	RObjGadgetClass	?Unknown_28@RObjGadgetClass@@UAEXPAVLayerClass@@@Z	Add_To_Layer
+METHOD	RObjGadgetClass	?Unknown_28@RObjGadgetClass@@UAEXPAVLayerClass@@@Z	Set_Layer
+METHOD	RObjGadgetClass	?Unknown_28@RObjGadgetClass@@UAEXPAVLayerClass@@@Z	Remove_From_Layer
+METHOD	RObjGadgetClass	?Unknown_66C6C0@RObjGadgetClass@@QAEABVMatrix3D@@XZ	Get_Transform
+METHOD	RObjGadgetClass	?Unknown_66C6C0@RObjGadgetClass@@QAEABVMatrix3D@@XZ	Get_Matrix
+METHOD	RObjGadgetClass	?Unknown_66C6C0@RObjGadgetClass@@QAEABVMatrix3D@@XZ	Get_Transformation
+METHOD	RObjGadgetClass	?Unknown_58@RObjGadgetClass@@UAEXPAVGadgetListManagerClass@@@Z	Add_To_Manager
+METHOD	RObjGadgetClass	?Unknown_58@RObjGadgetClass@@UAEXPAVGadgetListManagerClass@@@Z	Init
+METHOD	RObjGadgetClass	?Unknown_58@RObjGadgetClass@@UAEXPAVGadgetListManagerClass@@@Z	Register
+METHOD	RObjGadgetClass	?Unknown_78@RObjGadgetClass@@UAEXXZ	Remove_From_Layer
+METHOD	RObjGadgetClass	?Unknown_78@RObjGadgetClass@@UAEXXZ	Reset
+METHOD	RObjGadgetClass	?Unknown_78@RObjGadgetClass@@UAEXXZ	Shutdown
+METHOD	RObjGadgetClass	?Unknown_A0@RObjGadgetClass@@UAE?AVVector3@@XZ	Get_Position
+METHOD	RObjGadgetClass	?Unknown_A0@RObjGadgetClass@@UAE?AVVector3@@XZ	Get_Center
+METHOD	RObjGadgetClass	?Unknown_A0@RObjGadgetClass@@UAE?AVVector3@@XZ	Get_Location
+METHOD	RObjGadgetClass	?Unknown_54@RObjGadgetClass@@UAEXPAVGadgetListManagerClass@@PAVInterfaceClass@@@Z	Add_To_Interface
+METHOD	RObjGadgetClass	?Unknown_54@RObjGadgetClass@@UAEXPAVGadgetListManagerClass@@PAVInterfaceClass@@@Z	Attach
+METHOD	RObjGadgetClass	?Unknown_54@RObjGadgetClass@@UAEXPAVGadgetListManagerClass@@PAVInterfaceClass@@@Z	Init
+METHOD	RObjGadgetClass	?Unknown_84@RObjGadgetClass@@UAEXH@Z	Set_Visibility
+METHOD	RObjGadgetClass	?Unknown_84@RObjGadgetClass@@UAEXH@Z	Set_Level
+METHOD	RObjGadgetClass	?Unknown_84@RObjGadgetClass@@UAEXH@Z	Set_Layer
+METHOD	RObjGadgetClass	?Unknown_90@RObjGadgetClass@@UAEXPAVTextureClass@@@Z	Set_Texture
+METHOD	RObjGadgetClass	?Unknown_90@RObjGadgetClass@@UAEXPAVTextureClass@@@Z	Set_Skin
+METHOD	RObjGadgetClass	?Unknown_90@RObjGadgetClass@@UAEXPAVTextureClass@@@Z	Set_Icon
+METHOD	RObjGadgetClass	?Unknown_80@RObjGadgetClass@@UAEXH@Z	Set_State
+METHOD	RObjGadgetClass	?Unknown_80@RObjGadgetClass@@UAEXH@Z	Set_Mode
+METHOD	RObjGadgetClass	?Unknown_80@RObjGadgetClass@@UAEXH@Z	Set_Index
+METHOD	RObjGadgetClass	?Unknown_66C360@RObjGadgetClass@@QAEXXZ	Update_Render_Obj
+METHOD	RObjGadgetClass	?Unknown_66C360@RObjGadgetClass@@QAEXXZ	Refresh
+METHOD	RObjGadgetClass	?Unknown_66C360@RObjGadgetClass@@QAEXXZ	Update_Visual
+METHOD	RObjGadgetClass	?Unknown_66C260@RObjGadgetClass@@QAEXABVVector3@@@Z	Set_Position
+METHOD	RObjGadgetClass	?Unknown_66C260@RObjGadgetClass@@QAEXABVVector3@@@Z	Set_Center
+METHOD	RObjGadgetClass	?Unknown_66C260@RObjGadgetClass@@QAEXABVVector3@@@Z	Set_Location
+METHOD	RObjGadgetClass	?Unknown_66C220@RObjGadgetClass@@QAEXMMM@Z	Set_Scale
+METHOD	RObjGadgetClass	?Unknown_66C220@RObjGadgetClass@@QAEXMMM@Z	Set_Size
+METHOD	RObjGadgetClass	?Unknown_66C220@RObjGadgetClass@@QAEXMMM@Z	Set_Position
+METHOD	RObjGadgetClass	?Unknown_66C2A0@RObjGadgetClass@@QAEXM@Z	Set_Scale
+METHOD	RObjGadgetClass	?Unknown_66C2A0@RObjGadgetClass@@QAEXM@Z	Set_Alpha
+METHOD	RObjGadgetClass	?Unknown_66C2A0@RObjGadgetClass@@QAEXM@Z	Set_Range
+METHOD	RObjGadgetClass	?Unknown_98@RObjGadgetClass@@UAEXPAVFontSys@@@Z	Set_Font
+METHOD	RObjGadgetClass	?Unknown_98@RObjGadgetClass@@UAEXPAVFontSys@@@Z	Set_Text_Font
+METHOD	RObjGadgetClass	?Unknown_98@RObjGadgetClass@@UAEXPAVFontSys@@@Z	Set_Font_Sys
+CLASS	EffectObjectClass	EffectObjectClass
+CLASS	EffectObjectClass	EffectObjClass
+CLASS	EffectObjectClass	EffectInstanceClass
+CLASS	EffectObjectClass	EffectObjectInstanceClass
+CLASS	EffectObjectClass	ClientEffectClass
+CLASS	EffectObjectClass	ClientEffectObjectClass
+CLASS	EffectObjectClass	EffectInstance
+CLASS	EffectObjectClass	EffectObject
+METHOD	EffectObjectClass	?Unknown_1C@EffectObjectClass@@UAEXXZ	Update
+METHOD	EffectObjectClass	?Unknown_1C@EffectObjectClass@@UAEXXZ	Process
+METHOD	EffectObjectClass	?Unknown_1C@EffectObjectClass@@UAEXXZ	Run_One_Cycle
+METHOD	EffectObjectClass	?Unknown_6E70F0@EffectObjectClass@@QAEXXZ	Start
+METHOD	EffectObjectClass	?Unknown_6E70F0@EffectObjectClass@@QAEXXZ	Activate
+METHOD	EffectObjectClass	?Unknown_6E70F0@EffectObjectClass@@QAEXXZ	Init
+METHOD	EffectObjectClass	?Unknown_6E7330@EffectObjectClass@@QAEXXZ	Stop
+METHOD	EffectObjectClass	?Unknown_6E7330@EffectObjectClass@@QAEXXZ	Deactivate
+METHOD	EffectObjectClass	?Unknown_6E7330@EffectObjectClass@@QAEXXZ	Shutdown
+METHOD	EffectObjectClass	?Unknown_18@EffectObjectClass@@UAEXXZ	Render
+METHOD	EffectObjectClass	?Unknown_18@EffectObjectClass@@UAEXXZ	Draw
+METHOD	EffectObjectClass	?Unknown_18@EffectObjectClass@@UAEXXZ	Update
+METHOD	EffectObjectClass	?Unknown_20@EffectObjectClass@@UAEXXZ	Reset
+METHOD	EffectObjectClass	?Unknown_20@EffectObjectClass@@UAEXXZ	Init
+METHOD	EffectObjectClass	?Unknown_20@EffectObjectClass@@UAEXXZ	Restart
+METHOD	EffectObjectClass	?Unknown_6E6ED0@EffectObjectClass@@QAEXH@Z	Set_Duration
+METHOD	EffectObjectClass	?Unknown_6E6ED0@EffectObjectClass@@QAEXH@Z	Set_Lifetime
+METHOD	EffectObjectClass	?Unknown_6E6ED0@EffectObjectClass@@QAEXH@Z	Set_Time
+METHOD	EffectObjectClass	?Unknown_04@EffectObjectClass@@UAEXH@Z	Set_Level
+METHOD	EffectObjectClass	?Unknown_04@EffectObjectClass@@UAEXH@Z	Set_Priority
+METHOD	EffectObjectClass	?Unknown_04@EffectObjectClass@@UAEXH@Z	Set_Layer
+METHOD	EffectObjectClass	?Unknown_6E74B0@EffectObjectClass@@QAEXH@Z	Set_Type
+METHOD	EffectObjectClass	?Unknown_6E74B0@EffectObjectClass@@QAEXH@Z	Set_Mode
+METHOD	EffectObjectClass	?Unknown_6E74B0@EffectObjectClass@@QAEXH@Z	Set_State
+METHOD	EffectObjectClass	?Unknown_6E6AD0@EffectObjectClass@@QAE_NXZ	Is_Active
+METHOD	EffectObjectClass	?Unknown_6E6AD0@EffectObjectClass@@QAE_NXZ	Is_Finished
+METHOD	EffectObjectClass	?Unknown_6E6AD0@EffectObjectClass@@QAE_NXZ	Is_Done
+METHOD	EffectObjectClass	?Unknown_6E7260@EffectObjectClass@@QAEXXZ	Kill
+METHOD	EffectObjectClass	?Unknown_6E7260@EffectObjectClass@@QAEXXZ	Destroy
+METHOD	EffectObjectClass	?Unknown_6E7260@EffectObjectClass@@QAEXXZ	Expire
+METHOD	EffectObjectClass	?Unknown_14@EffectObjectClass@@UAEPAVUnknownB0009CEffectClass@@XZ	Get_Effect
+METHOD	EffectObjectClass	?Unknown_14@EffectObjectClass@@UAEPAVUnknownB0009CEffectClass@@XZ	Get_Effect_Class
+METHOD	EffectObjectClass	?Unknown_14@EffectObjectClass@@UAEPAVUnknownB0009CEffectClass@@XZ	Get_Sub_Effect
+METHOD	EffectObjectClass	?Unknown_10@EffectObjectClass@@UAEPAVUnknownB00060EffectClass@@XZ	Get_Effect
+METHOD	EffectObjectClass	?Unknown_10@EffectObjectClass@@UAEPAVUnknownB00060EffectClass@@XZ	Get_Effect_Class
+METHOD	EffectObjectClass	?Unknown_10@EffectObjectClass@@UAEPAVUnknownB00060EffectClass@@XZ	Get_Renderer
+METHOD	EffectObjectClass	?Unknown_6E73F0@EffectObjectClass@@QAEXPBD_NMHH@Z	Load_Effect
+METHOD	EffectObjectClass	?Unknown_6E73F0@EffectObjectClass@@QAEXPBD_NMHH@Z	Create_Effect
+METHOD	EffectObjectClass	?Unknown_6E73F0@EffectObjectClass@@QAEXPBD_NMHH@Z	Init
+METHOD	EffectObjectClass	?Unknown_08@EffectObjectClass@@UAE?AVVector3@@ABV2@@Z	Get_Position
+METHOD	EffectObjectClass	?Unknown_08@EffectObjectClass@@UAE?AVVector3@@ABV2@@Z	Get_Offset
+METHOD	EffectObjectClass	?Unknown_08@EffectObjectClass@@UAE?AVVector3@@ABV2@@Z	Get_Location
+METHOD	EffectObjectClass	?Unknown_6E6FE0@EffectObjectClass@@QAEXXZ	Start
+METHOD	EffectObjectClass	?Unknown_6E6FE0@EffectObjectClass@@QAEXXZ	Play
+METHOD	EffectObjectClass	?Unknown_6E6FE0@EffectObjectClass@@QAEXXZ	Trigger
+CLASS	UICpitClass	UICpitClass
+CLASS	UICpitClass	CockpitInterface
+CLASS	UICpitClass	CockpitClass
+CLASS	UICpitClass	UICockpitClass
+CLASS	UICpitClass	CockpitInterfaceClass
+CLASS	UICpitClass	CockpitViewClass
+CLASS	UICpitClass	CockpitManagerClass
+CLASS	UICpitClass	ShipCockpitInterface
+CLASS	UICpitClass	CpitInterface
+METHOD	UICpitClass	?Unknown_583250@UICpitClass@@QAEXXZ	Update_Displays
+METHOD	UICpitClass	?Unknown_583250@UICpitClass@@QAEXXZ	Refresh_Displays
+METHOD	UICpitClass	?Unknown_583250@UICpitClass@@QAEXXZ	Update_Radar
+METHOD	UICpitClass	?Unknown_60@UICpitClass@@UAEXXZ	Update
+METHOD	UICpitClass	?Unknown_60@UICpitClass@@UAEXXZ	Render
+METHOD	UICpitClass	?Unknown_60@UICpitClass@@UAEXXZ	Process
+METHOD	UICpitClass	?Unknown_7C@UICpitClass@@UAEXPAVUIViewClass@@_N@Z	Set_View
+METHOD	UICpitClass	?Unknown_7C@UICpitClass@@UAEXPAVUIViewClass@@_N@Z	Attach_View
+METHOD	UICpitClass	?Unknown_7C@UICpitClass@@UAEXPAVUIViewClass@@_N@Z	Init
+METHOD	UICpitClass	?Unknown_581E60@UICpitClass@@QAEXXZ	Init_Controls
+METHOD	UICpitClass	?Unknown_581E60@UICpitClass@@QAEXXZ	Create_Gauges
+METHOD	UICpitClass	?Unknown_581E60@UICpitClass@@QAEXXZ	Init_Displays
+METHOD	UICpitClass	?Unknown_68@UICpitClass@@UAE_NH@Z	Handle_Key
+METHOD	UICpitClass	?Unknown_68@UICpitClass@@UAE_NH@Z	Process_Key
+METHOD	UICpitClass	?Unknown_68@UICpitClass@@UAE_NH@Z	Is_Key_Enabled
+METHOD	UICpitClass	?Unknown_583F70@UICpitClass@@QAEXXZ	Update_Gauges
+METHOD	UICpitClass	?Unknown_583F70@UICpitClass@@QAEXXZ	Refresh_Gauges
+METHOD	UICpitClass	?Unknown_583F70@UICpitClass@@QAEXXZ	Update_Warp
+METHOD	UICpitClass	?Unknown_5820C0@UICpitClass@@QAEX_N@Z	Show
+METHOD	UICpitClass	?Unknown_5820C0@UICpitClass@@QAEX_N@Z	Set_Visible
+METHOD	UICpitClass	?Unknown_5820C0@UICpitClass@@QAEX_N@Z	Enable
+METHOD	UICpitClass	?Unknown_584A60@UICpitClass@@QAEXXZ	Render_Radar
+METHOD	UICpitClass	?Unknown_584A60@UICpitClass@@QAEXXZ	Update_Radar
+METHOD	UICpitClass	?Unknown_584A60@UICpitClass@@QAEXXZ	Draw_Radar
+METHOD	UICpitClass	?Unknown_70@UICpitClass@@UAEXPAVControlKeysManager@@@Z	Set_Control_Keys
+METHOD	UICpitClass	?Unknown_70@UICpitClass@@UAEXPAVControlKeysManager@@@Z	Bind_Keys
+METHOD	UICpitClass	?Unknown_70@UICpitClass@@UAEXPAVControlKeysManager@@@Z	Set_Keys_Manager
+METHOD	UICpitClass	?Unknown_58@UICpitClass@@UAEXXZ	Update
+METHOD	UICpitClass	?Unknown_58@UICpitClass@@UAEXXZ	Draw
+METHOD	UICpitClass	?Unknown_58@UICpitClass@@UAEXXZ	Render
+METHOD	UICpitClass	?Unknown_582070@UICpitClass@@QAEXXZ	Init_Radar
+METHOD	UICpitClass	?Unknown_582070@UICpitClass@@QAEXXZ	Create_Controls
+METHOD	UICpitClass	?Unknown_582070@UICpitClass@@QAEXXZ	Shutdown
+METHOD	UICpitClass	?Unknown_581CE0@UICpitClass@@QAEXPAVInterfaceClass@@@Z	Set_Interface
+METHOD	UICpitClass	?Unknown_581CE0@UICpitClass@@QAEXPAVInterfaceClass@@@Z	Attach_Interface
+METHOD	UICpitClass	?Unknown_581CE0@UICpitClass@@QAEXPAVInterfaceClass@@@Z	Set_Parent
+METHOD	UICpitClass	?Unknown_581F90@UICpitClass@@QAEXPAVClientObjectClass@@@Z	Set_Target
+METHOD	UICpitClass	?Unknown_581F90@UICpitClass@@QAEXPAVClientObjectClass@@@Z	Set_Current_Target
+METHOD	UICpitClass	?Unknown_581F90@UICpitClass@@QAEXPAVClientObjectClass@@@Z	Set_Target_Object
+METHOD	UICpitClass	?Unknown_584000@UICpitClass@@QAE_N_N@Z	Handle_Input
+METHOD	UICpitClass	?Unknown_584000@UICpitClass@@QAE_N_N@Z	Is_Enabled
+METHOD	UICpitClass	?Unknown_584000@UICpitClass@@QAE_N_N@Z	Set_Enabled
+METHOD	UICpitClass	?Unknown_582190@UICpitClass@@QAEXPAVClientObjectClass@@H@Z	Select_Target
+METHOD	UICpitClass	?Unknown_582190@UICpitClass@@QAEXPAVClientObjectClass@@H@Z	Set_Target
+METHOD	UICpitClass	?Unknown_582190@UICpitClass@@QAEXPAVClientObjectClass@@H@Z	Set_Current_Target

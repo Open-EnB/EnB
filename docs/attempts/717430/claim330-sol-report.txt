@@ -1,0 +1,128 @@
+# 0x717430 fresh Sol individual escalation
+
+Result: partial diagnostic improvement **47 -> 45 masked groups**, no exact target,
+no production retention. All compiler work ran under root's exclusive gate,
+which is released. No headers/includes, production files, GitHub, commits, or
+compiler flags changed. Four inputs compiled in three written hypothesis batches.
+
+Read the full brief, original history text/JSON and current attempts row, first
+report and all three actual run inputs/diffs, group review/lead, all five group
+inputs/diffs/hashes, original source/output and actual best 47-group source/output.
+Historical source for the lone 2026-10-28 attempt is absent; no source was inferred
+from its prose. All eight prior inputs match their saved source, metadata SHA-256
+and exact original-bound unified patch. `collect.py` repeats input/hash checks and
+captures both full pair-set deltas, including symbol names, for every prior and
+new input. `evidence/` has separate replay records below 64 KiB each;
+`evidence-index.json` groups them. Every canonical runner assertion/text/line guard
+passed. Complete object, source/hash, compile response/log, pairs, diff and explain
+remain in `runs/RUN/`. No invalid input or failed compile occurred.
+
+Original: `tree/app/client/postate.cpp`, 1027 executable bytes / 245 masked groups,
+raw/masked group `1c7124e8c7db548ee668f99113b5b0a4396ca5d76bbf89dcdb579d08d5edfd94`.
+Prior best actual input: `runs/group_717430_path_fixed/input.cpp`, SHA-256
+`53a5303be9c7fed042fc8b8a2db956e3415aff587901c7c60c58a1586da2f68b`,
+1038 bytes / 47 groups, raw/masked
+`7970e7cc30d6efab4c860fa6ee7fe323f290d7ee27525c03a712a85d4f851285`.
+Both preserve the 267 baseline file pairs and 267 symbol pairs. Client executable
+body is 1101 bytes. Numbers are aligned masked groups, not changed instructions.
+
+## Batches and actual outcomes
+
+1. **Existing Find_Field with caller Unknown70 gate.** The target's client has
+   all five validity gates; `Unknown_Find_Set_Field` is an inferred NAME 1 layer.
+   co.cpp 0x6F5ED0 and mainview.cpp demonstrate direct `Unknown_Find_Field` followed
+   by the same short-circuit check. Replace all five calls and conditions in this
+   function only, preserving NameClass scopes and Find_Field's existing G_ASSERT.
+   Two source contexts were deliberate controls, original and actual path_fixed.
+   `sol_717430_flat_original`: 1006 bytes / 239 groups, a six-group original-context
+   cut caused by merging Acceleration's RTTI failure into the preceding speed
+   assert block. The client has separate assert code, so this is no convergence
+   lead. `sol_717430_flat_fixed`: 1038 / 47, **target raw/masked duplicate of
+   path_fixed**, with no recovery of the first three Cast calls. Both are rejected:
+   265 file and symbol pairs, no gains, lost `(postate.cpp,0x719640)` and
+   `(postate.cpp,0x719670)`; exact baseline symbols lost are `_$E153` and `_$E157`.
+   No claim is made that a generated-name change excuses the missing file pairs.
+
+2. **Natural two-stage rate assignment.** On intact path_fixed, independently of
+   the rejected direct-helper family, write `rate = -(field * input); rate *=
+   0.001f;` for both rate values. This is the workflow's own-statement arithmetic
+   lever, with an explicit intermediate-rounding rejection gate written before
+   compiling. `sol_717430_staged_fixed`: **1042 / 45**, all 267 file and 267 symbol
+   pairs survive, zero gains/losses. Both actual arithmetic traces match client:
+   `fld [eax+0x84]; fmul [esi]; fchs; fmul +0.001f; fstp [local]`.
+   Integer local instructions occur between these operations, but there is no
+   intermediate float store/reload, operand reread, extra multiplication or call.
+   Constant bytes are `6f12833a` on object and client, positive float
+   0.0010000000474974513, at client 0xAEDC40. The potential abstract float-assignment
+   rounding is elided by this actual VC6 compilation; this evidence does not
+   license the form on another compiler. Prior `-1.0f` multiplication emitted two
+   multiplies and did not supply this trace; it was not replayed.
+
+3. **Real NameClass converting temporary lifetime.** The existing constructor is
+   non-explicit and galaxy_map_pip.cpp:166 uses this conversion directly in the
+   Find_Field family. Replace the five block locals with the same conversions at
+   the existing Set_Field calls, on the proven staged_fixed source. Preserve the
+   Set_Field helper to isolate the lifetime change from the flat-family losses.
+   NameClass/PermString destructors are trivial, lookup does not retain the name,
+   and lookup/field-read order is unchanged. `sol_717430_temporary_staged`: 1042 /
+   45, all 267 pairs in both sets survive with no deltas, **raw/masked duplicate
+   of staged_fixed**. The shorter real lifetime canonicalizes away.
+
+Input and output identities (full replay patches are also in each form directory):
+
+| Input | Source SHA-256 | Raw and masked output SHA-256 |
+| --- | --- | --- |
+| flat_original | 7453f78054a46256c5338e45e005aa32ec7b605790bd46975a99e6f597493868 | ea3dd5329922be1edfb55aae4fe2d204ce4136c2723725884a046a19d64206b3 |
+| flat_fixed | 9dcbd09237e9c5f4037e5589f95dbde23889219a0d27ed1472bf532e8c8be609 | 7970e7cc30d6efab4c860fa6ee7fe323f290d7ee27525c03a712a85d4f851285 |
+| staged_fixed | ea2c96222e37398a8cfd145fe4f9516af9feea1b852f226231293d26e4c81927 | a3343fd7a45cc38b66f394f70d046e9e274f4a4d5bf8d11896f2efb61ee4745f |
+| temporary_staged | 21d57766d3763640cb26543191194391470bfc48c589e208cd22ef5f9dd44db9 | a3343fd7a45cc38b66f394f70d046e9e274f4a4d5bf8d11896f2efb61ee4745f |
+
+Best current source is `717430/sol/staged_fixed/postate.cpp`, with the source hash
+above; actual object is `runs/sol_717430_staged_fixed/postate.obj`, SHA-256
+`1289564c5eaf78ee9877c6c071d1227b356c34f698bb123fb9def63d879b5161`.
+It remains unfinished scratch, not a candidate to land.
+
+## Residue, rejection, reopening
+
+Every new form still inlines **all five** float Cast sites. Client calls Cast
+0x546970 at MaxTurnRate, MaxTiltRate and MaxSpeed, and inlines only MinSpeed and
+Acceleration. Startup value/pointer slots and initialization order still differ;
+Max/Min lookup tails still merge. Acceleration failure still bypasses the client's
+shared pointer load/test at 0x717746: in staged_fixed its root/lookup/type/Unknown70
+failure branches go to 0x2E7, past its success-only pointer test at 0x2E1. The
+successful-path float store is at 0x2DD, speed remains EBX and count [esp+0x14].
+trybatch.py's read-only regions measure on this exact object is 45 masked / 35
+register-masked / 64 raw groups, frame 0x88/0x88, 297/314 rows. Major remaining
+regions are first two Casts (5 each), merged MaxSpeed/MinSpeed (15), tilt slot/
+integer schedule (6), MinSpeed coloring (3+3), speed LEA/test register (2), and
+Acceleration pointer-test flow (4). Source-level local declaration reordering
+alone previously changed startup stores without a cut; no new evidence supports
+replaying it or sweeping counts, helper depths, padding, dead reads or spellings.
+
+This round made progress; it does not count as a stalled parking round. I stop
+because the actual helper, arithmetic and real-lifetime leads are exhausted,
+not because three no-cut batches occurred: batch 2 improved, batch 3 duplicated.
+The direct-helper original-context cut is recorded honestly despite its losses
+and adverse region shape. Combining failed helper/lifetime variants has no
+demonstrated cause for removing the first three Cast expansions. Reopening needs
+client or exact-sibling evidence for a real operation/helper/lifetime that causes
+those three cuts or the surviving Acceleration convergence while preserving all
+267 pairs and the arithmetic trace. Existing exact 0x7179A0 dead reads supply no
+permission to insert new reads here.
+
+Prior wrapper correction: `first_717430_wrapper` has no target change but its
+actual file/symbol pair sets swap bool Cast from 0x584FF0 to 0x546970: +546970,
+-584FF0. Its old prose saying zero gains omitted the swap. It remains rejected;
+the swap is not a new target win. This is captured losslessly in the new evidence.
+
+Focused proof is replayable with `arithmetic_audit.py OBJECT CLIENT`; it checks
+actual object instructions and constant payloads against the verified client and
+emits `arithmetic-audit.json`. It is explicitly **not a full-body candidate
+audit**. No exact candidate exists, so whole-body/branches, relocation targets
+and addends, all literal payloads/call receivers and EH cleanup still need audit
+before acceptance, followed by independent fresh full-pair proof. The known
+D283 payload exception remains: auxdata.h's object `__FILE__` is the absolute
+`e:\build\beta\G\app\client\..\shared\auxdata\auxdata.h`, while client
+uses `..\shared/auxdata/auxdata.h` at 0xB767DC. It is an actual string-payload
+difference, not silently equal through relocation masking; no include or header
+change was attempted.

@@ -1,0 +1,195 @@
+{
+  "object": "/home/dev/Projects/EnB/.work/claim-334/runs/root_key_final/ui_scan.obj",
+  "object_sha256": "ac62a95eb38667ddae2e084b9d3f99ad8220dda366c2b573f6310a889fb16c14",
+  "source": "/home/dev/Projects/EnB/app/client/ui_scan.cpp",
+  "source_sha256": "0a7c082ab52215f12baf4a8d3141f1630e27823f160ba780d5c7cffb897fa1f0",
+  "client_sha256": "249f852496f341c00361be95b66e7c0becc2c39e7cba026f9227e38b602651c4",
+  "function": "?Unknown_68@ScannerInterface@@UAE_NH@Z",
+  "body_length": 293,
+  "masked_body_equal": true,
+  "masked_sha256": "2124cbc5ad370c75c4d3c1b1031df7f894f592ccfb265514b134cc99b97ced5f",
+  "relocations": [
+    {
+      "offset": "0x1",
+      "kind": 6,
+      "symbol": "?Unknown_BE5F34@@3IA",
+      "stored_addend": "00000000",
+      "retail_target": "0xbe5f34"
+    },
+    {
+      "offset": "0x21",
+      "kind": 6,
+      "symbol": "?Unknown_BE5EB0@@3UKernelEventClass@@A",
+      "stored_addend": "00000000",
+      "retail_target": "0xbe5eb0"
+    },
+    {
+      "offset": "0x47",
+      "kind": 20,
+      "symbol": "?Unknown_68@UIMFDClass@@UAE_NH@Z",
+      "stored_addend": "00000000",
+      "retail_target": "0x418994"
+    },
+    {
+      "offset": "0x6e",
+      "kind": 6,
+      "symbol": "??_C@_0CH@OHMB@e?3?2build?2beta?2G?2app?2client?2ui_sc@",
+      "stored_addend": "00000000",
+      "retail_target": "0xb8899c",
+      "object_literal": "e:\\build\\beta\\G\\app\\client\\ui_scan.cpp",
+      "retail_literal": "e:\\build\\beta\\G\\app\\Client\\ui_scan.cpp"
+    },
+    {
+      "offset": "0x73",
+      "kind": 6,
+      "symbol": "??_C@_07MDOP@?$CBClient?$AA@",
+      "stored_addend": "00000000",
+      "retail_target": "0xb7c16c",
+      "object_literal": "!Client",
+      "retail_literal": "!Client"
+    },
+    {
+      "offset": "0x78",
+      "kind": 20,
+      "symbol": "?Fail_If_Report@@YAXPBD0H@Z",
+      "stored_addend": "00000000",
+      "retail_target": "0x402c3e"
+    },
+    {
+      "offset": "0x85",
+      "kind": 6,
+      "symbol": "??_C@_0CH@OHMB@e?3?2build?2beta?2G?2app?2client?2ui_sc@",
+      "stored_addend": "00000000",
+      "retail_target": "0xb8899c",
+      "object_literal": "e:\\build\\beta\\G\\app\\client\\ui_scan.cpp",
+      "retail_literal": "e:\\build\\beta\\G\\app\\Client\\ui_scan.cpp"
+    },
+    {
+      "offset": "0x8a",
+      "kind": 6,
+      "symbol": "??_C@_05NAGO@false?$AA@",
+      "stored_addend": "00000000",
+      "retail_target": "0xb6f5e0",
+      "object_literal": "false",
+      "retail_literal": "false"
+    },
+    {
+      "offset": "0x8f",
+      "kind": 20,
+      "symbol": "?G_Assert_Report@@YAXPBD0H@Z",
+      "stored_addend": "00000000",
+      "retail_target": "0x40aa51"
+    },
+    {
+      "offset": "0xac",
+      "kind": 6,
+      "symbol": "??_C@_0CH@OHMB@e?3?2build?2beta?2G?2app?2client?2ui_sc@",
+      "stored_addend": "00000000",
+      "retail_target": "0xb8899c",
+      "object_literal": "e:\\build\\beta\\G\\app\\client\\ui_scan.cpp",
+      "retail_literal": "e:\\build\\beta\\G\\app\\Client\\ui_scan.cpp"
+    },
+    {
+      "offset": "0xb1",
+      "kind": 6,
+      "symbol": "??_C@_08CLAO@?$CBsclient?$AA@",
+      "stored_addend": "00000000",
+      "retail_target": "0xb766b4",
+      "object_literal": "!sclient",
+      "retail_literal": "!sclient"
+    },
+    {
+      "offset": "0xc7",
+      "kind": 6,
+      "symbol": "??_C@_0CH@OHMB@e?3?2build?2beta?2G?2app?2client?2ui_sc@",
+      "stored_addend": "00000000",
+      "retail_target": "0xb8899c",
+      "object_literal": "e:\\build\\beta\\G\\app\\client\\ui_scan.cpp",
+      "retail_literal": "e:\\build\\beta\\G\\app\\Client\\ui_scan.cpp"
+    },
+    {
+      "offset": "0xcc",
+      "kind": 6,
+      "symbol": "??_C@_03PONO@?$CBts?$AA@",
+      "stored_addend": "00000000",
+      "retail_target": "0xb889d8",
+      "object_literal": "!ts",
+      "retail_literal": "!ts"
+    },
+    {
+      "offset": "0xd5",
+      "kind": 6,
+      "symbol": "??_C@_0BC@MEAI@ButtonClick02?4wav?$AA@",
+      "stored_addend": "00000000",
+      "retail_target": "0xb7aa68",
+      "object_literal": "ButtonClick02.wav",
+      "retail_literal": "ButtonClick02.wav"
+    },
+    {
+      "offset": "0xda",
+      "kind": 20,
+      "symbol": "?Play_2D_Sound@SoundLibraryClass@@SAPAVAudibleSoundClass@@PBDH@Z",
+      "stored_addend": "00000000",
+      "retail_target": "0x411b99"
+    },
+    {
+      "offset": "0xf0",
+      "kind": 20,
+      "symbol": "?Select_Next_Target_Filtered@TargetingClass@@QAEPAVClientObjectClass@@XZ",
+      "stored_addend": "00000000",
+      "retail_target": "0x40f97f"
+    },
+    {
+      "offset": "0xfc",
+      "kind": 20,
+      "symbol": "?Select_Next_Target@TargetingClass@@QAEPAVClientObjectClass@@XZ",
+      "stored_addend": "00000000",
+      "retail_target": "0x404674"
+    },
+    {
+      "offset": "0x10e",
+      "kind": 20,
+      "symbol": "?Select_Prev_Target_Filtered@TargetingClass@@QAEPAVClientObjectClass@@XZ",
+      "stored_addend": "00000000",
+      "retail_target": "0x405736"
+    },
+    {
+      "offset": "0x11a",
+      "kind": 20,
+      "symbol": "?Select_Prev_Target@TargetingClass@@QAEPAVClientObjectClass@@XZ",
+      "stored_addend": "00000000",
+      "retail_target": "0x418656"
+    }
+  ],
+  "literal_exceptions": [
+    {
+      "offset": "0x6e",
+      "object": "e:\\build\\beta\\G\\app\\client\\ui_scan.cpp",
+      "retail": "e:\\build\\beta\\G\\app\\Client\\ui_scan.cpp",
+      "reason": "source path case; D283"
+    },
+    {
+      "offset": "0x85",
+      "object": "e:\\build\\beta\\G\\app\\client\\ui_scan.cpp",
+      "retail": "e:\\build\\beta\\G\\app\\Client\\ui_scan.cpp",
+      "reason": "source path case; D283"
+    },
+    {
+      "offset": "0xac",
+      "object": "e:\\build\\beta\\G\\app\\client\\ui_scan.cpp",
+      "retail": "e:\\build\\beta\\G\\app\\Client\\ui_scan.cpp",
+      "reason": "source path case; D283"
+    },
+    {
+      "offset": "0xc7",
+      "object": "e:\\build\\beta\\G\\app\\client\\ui_scan.cpp",
+      "retail": "e:\\build\\beta\\G\\app\\Client\\ui_scan.cpp",
+      "reason": "source path case; D283"
+    }
+  ],
+  "eh": "none",
+  "tables": "none",
+  "receivers": "fallback ECX=this; client accessor virtual [vtable+0x18]; target calls ECX=TargetingClass*",
+  "control_flow": "unrelocated instruction and branch bytes equal across whole 293-byte body, including all returns; no switch table",
+  "selector": "unsigned key-5 modulo 2^32 selects 1 and 2 exactly for key 6 and 7; all other paths retain original key for fallback"
+}

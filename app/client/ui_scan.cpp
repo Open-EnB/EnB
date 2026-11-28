@@ -302,39 +302,39 @@ void ScannerInterface::Unknown_5C()
 	}
 }
 
-// NOT EXACT: register (TL1; similarity 0.54, WE9's 0.51): the client keeps the key's slot for next and this in ecx, tests the key as -5 then dec, dec
+
 // @0x60E300
 bool ScannerInterface::Unknown_68(int key)
 {
 	bool modifier = (Unknown_BE5F34 & 0x70) != 0;
 	bool control = (Unknown_BE5F34 & 0x800) != 0;
 	bool next;
-	bool shifted;
-	switch (key) {
-		case 6: next = false; shifted = modifier; break;
-		case 7: next = true; shifted = modifier; break;
+	bool plain;
+	switch ((unsigned)key - 5u) {
+		case 1: next = false; plain = !modifier; break;
+		case 2: next = true; plain = !modifier; break;
 		default:
-			if (Unknown_BE5EB0.Key == 0x101) { next = true; shifted = control; }
-			else if (Unknown_BE5EB0.Key == 0x102) { next = false; shifted = control; }
+			if (Unknown_BE5EB0.Key == 0x101) { next = true; plain = !control; }
+			else if (Unknown_BE5EB0.Key == 0x102) { next = false; plain = !control; }
 			else return(UIMFDClass::Unknown_68(key));
 	}
-	bool plain = !shifted;
+
 
 
 	TargetingClass *ts = Get_Targeting();
 	if (ts != NULL) {
 		SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
-		if (!next) {
-			if (!plain) {
-				ts->Select_Prev_Target();
+		if (next) {
+			if (plain) {
+				ts->Select_Next_Target_Filtered();
 			} else {
-				ts->Select_Prev_Target_Filtered();
+				ts->Select_Next_Target();
 			}
 		} else {
-			if (!plain) {
-				ts->Select_Next_Target();
+			if (plain) {
+				ts->Select_Prev_Target_Filtered();
 			} else {
-				ts->Select_Next_Target_Filtered();
+				ts->Select_Prev_Target();
 			}
 		}
 		return(true);

@@ -1,0 +1,9 @@
+{
+ "ambiguous": [],
+ "copy": "reconstructed",
+ "description": "Skeleton translation unit (D286): average.h alone, as Westwood kept beside a header-only class; compiles to an empty object (no section but its directives), one of the rich header's 47 code-less C++ objects; name PROVISIONAL (D137)",
+ "expected": {},
+ "in_tree": [],
+ "merged": [],
+ "name": "common/average.cpp"
+}

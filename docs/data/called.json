@@ -507,6 +507,9 @@
 "??MXtime@@QBEDABV0@@Z": [
 "0x8BB3E0"
 ],
+"??OXtime@@QBEDABV0@@Z": [
+"0x8BB430"
+],
 "??RRandom2Class@@QAEHHH@Z": [
 "0x9D0180"
 ],
@@ -2044,6 +2047,9 @@
 ],
 "?set@Wstring@@QAEDPBD@Z": [
 "0x8B7570"
+],
+"?set@Xtime@@QAEXJJ@Z": [
+"0x8BA890"
 ],
 "?setBufferedWrites@TCPMgr@@QAEDPAVTCPCon@@D@Z": [
 "0x8BCEF0"

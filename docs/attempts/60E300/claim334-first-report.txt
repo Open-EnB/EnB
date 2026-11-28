@@ -1,0 +1,33 @@
+# 0x60E300 first pass
+
+Candidate `first_60E300_biased_switch`: 293 bytes, 0 masked groups, +1
+file/address and symbol/address pair, no losses against primary 90/91 and
+context 231/232. Input SHA256
+`fa2bb9510e7bb20b7e976defed62f6994ac9ebb4a7baa31a543aa64baf25c0c9`.
+Full runner input, object, response, log and result in that run directory.
+`biased_switch.json` records replay-verified edits, full primary/context set
+deltas, target hashes/relocations/unwind; actual objdiff is in run folder and
+baseline-to-run objdiff in `biased_switch-actual-diff.txt`.
+
+`audit.py` takes explicit object, source, expected source SHA and output paths;
+`audit-result.json` records 19 expected relocation targets/addends and literals.
+The full body including internal relative branch displacements and returns is
+identical when those fields are masked. Call relocation targets, 0x18 virtual
+slot, Targeting receiver, lack of switch table and absence of unwind information
+are checked or evident from the verified body. Four occurrences of source
+`__FILE__` differ only in `client` vs retail `Client` case, the known D283
+exception; all other literals and all zero stored addends agree. Retail and
+source select keys 6/7 and consult global key for all other 32-bit values;
+fallback receives original key, including key 5 and negative values. The
+unsigned subtract is defined modulo 2^32 and is supported by retail LEA/DEC/DEC,
+not a claim of recovered original source spelling. Coordinator must independently
+rebuild and rerun audit on final object/source after marker edits.
+
+Ten builds total: positive 30 groups; path_plain 4; decl_order 9;
+case_modifier 7; if_flow 31; shared_keys 14; default_first 4; flag_local 4;
+reverse_if 31; biased_switch 0. Every input's replay/deltas/hashes are in its
+named JSON, with full actual diff against baseline and run objdiff; no pair or
+context losses. default_first and flag_local emit identical bytes to path_plain.
+Per-batch causal hypotheses and notes appear in hypotheses.md. No malformed
+compiled inputs or semantically invalid candidates. No source/header, commit,
+ledger, or GitHub writes. All runner/analyzer jobs finished; no VM leases.

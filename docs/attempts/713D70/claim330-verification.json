@@ -1,0 +1,288 @@
+{
+  "claim": 330,
+  "base_revision": "fb6e641d1bb82397154e0899d774567959bd73f1",
+  "source_hashes": {
+    "app/client/extrap.cpp": "b5b3c1f2b03a3db911e3dd48c5bef0bafb5c8281c2521c6f7b9fc97d4090e1b2",
+    "app/client/postate.cpp": "de1e5065d730a72a4ba42c2cc9d83faeb61a575e84d1720171bf806ae9a95286"
+  },
+  "production_sources_unchanged": true,
+  "new_exact_targets": [],
+  "file_pairs_before": 267,
+  "symbol_pairs_before": 267,
+  "file_pairs_gained": [],
+  "file_pairs_lost": [],
+  "symbol_pairs_gained": [],
+  "symbol_pairs_lost": [],
+  "counts": {
+    "changed_compiled": 46,
+    "unchanged_control": 2
+  },
+  "all_input_replays_verified": [
+    "astra_718830_last_scale",
+    "first_713D70_b1_inref",
+    "first_713D70_b1_named",
+    "first_713D70_b1_outref",
+    "first_713D70_b1_scalarfirst",
+    "first_713D70_b2_clientlocal",
+    "first_713D70_b2_clientref",
+    "first_713D70_b2_decaylocal",
+    "first_713D70_b2_decayref",
+    "first_713D70_b2_idlocal",
+    "first_713D70_b2_idref",
+    "first_713D70_b3_matrixref",
+    "first_713D70_b3_namedmatrix",
+    "first_713D70_b3_orientref",
+    "first_7140E0_matrix_false",
+    "first_7140E0_matrix_temporary",
+    "first_7140E0_speed_local",
+    "first_7140E0_translation_components",
+    "first_7140E0_translation_outparam",
+    "first_7140E0_vector_local",
+    "first_717430_branch",
+    "first_717430_neg",
+    "first_717430_wrapper",
+    "first_718830_components",
+    "first_718830_normalize",
+    "group_717430_known_gate",
+    "group_717430_path_accelscope",
+    "group_717430_path_fixed",
+    "group_717430_path_fixed_init",
+    "group_717430_path_gate",
+    "root_extrap_control",
+    "root_postate_control",
+    "sol_713D70_b1_client_init",
+    "sol_713D70_b1_id_client_init",
+    "sol_713D70_b1_id_init",
+    "sol_713D70_b2_transform_init",
+    "sol_713D70_b3_velocity_set",
+    "sol_7140E0_b1_scoped_position",
+    "sol_7140E0_b1_scoped_position_ref",
+    "sol_7140E0_b2_pull_ref",
+    "sol_717430_flat_fixed",
+    "sol_717430_flat_original",
+    "sol_717430_staged_fixed",
+    "sol_717430_temporary_staged",
+    "sol_718830_both_output",
+    "sol_718830_cross_output",
+    "sol_718830_elapsed",
+    "sol_718830_z_output"
+  ],
+  "immutable_baseline_object_hashes": {
+    "extrap": "879b7bc7eb299542c024cef47e9396ba49377c40e5c14555efdaa3770eb4f4d3",
+    "postate": "8e96ef6b05c28631f5191d496ade12c69f55168268a7162387f05dfa18f14f6d"
+  },
+  "both_unchanged_controls_preserve_both_pair_sets": true,
+  "orientation_partial": {
+    "baseline_ordered_instruction_differences": 16,
+    "best_ordered_instruction_differences": 8,
+    "instruction_count": 243,
+    "executable_bytes": 830,
+    "calls_and_branches_unchanged": true,
+    "no_new_differing_positions": true,
+    "object_sha256": "9b2a8d0493cdd0299605c410d5de7aac6af16f7f35031359daac0ecdf243dbdb",
+    "source_sha256": "4d3c457e70bc4edaddbe11c6d206e537c2591d1ffe2caa6f401ca9e02fe3c27f",
+    "not_an_exact_match": true
+  },
+  "movement_partial": {
+    "original_masked_groups": 245,
+    "best_masked_groups": 45,
+    "focused_arithmetic_audit_passed": true,
+    "object_sha256": "1289564c5eaf78ee9877c6c071d1227b356c34f698bb123fb9def63d879b5161",
+    "source_sha256": "ea2c96222e37398a8cfd145fe4f9516af9feea1b852f226231293d26e4c81927",
+    "not_an_exact_match": true
+  },
+  "rejected_diagnostic_pair_deltas": [
+    {
+      "run": "first_717430_wrapper",
+      "deltas": {
+        "pairs": {
+          "baseline_count": 267,
+          "after_count": 267,
+          "gained": [
+            [
+              "app/client/postate.cpp",
+              "0x546970"
+            ]
+          ],
+          "lost": [
+            [
+              "app/client/postate.cpp",
+              "0x584FF0"
+            ]
+          ],
+          "baseline_set_sha256": "c6a015d1b95f32e47fda6d1df546f2e7b407f568c71296a93932db2af3474498",
+          "after_set_sha256": "5777f5fcfb46f4f7430dc559dc83eeded0de27665dd89317a3fef30d5c5533c3"
+        },
+        "symbol_pairs": {
+          "baseline_count": 267,
+          "after_count": 267,
+          "gained": [
+            [
+              "app/client/postate.cpp",
+              "?Cast@?$UnknownRTTIClass@V?$DeltaTemplateClass@_N@@@@SAPAV?$DeltaTemplateClass@_N@@PAVDeltaClass@@@Z",
+              "0x546970"
+            ]
+          ],
+          "lost": [
+            [
+              "app/client/postate.cpp",
+              "?Cast@?$UnknownRTTIClass@V?$DeltaTemplateClass@_N@@@@SAPAV?$DeltaTemplateClass@_N@@PAVDeltaClass@@@Z",
+              "0x584FF0"
+            ]
+          ],
+          "baseline_set_sha256": "2abef374e880caa4cf11fb6a43bce1da7c30013962efe607271d1154c3b826d1",
+          "after_set_sha256": "6398e064c4f3a0481a26bedd7b98e031b564aca7c731a1c0c8475f41d566c4c3"
+        }
+      }
+    },
+    {
+      "run": "sol_7140E0_b1_scoped_position_ref",
+      "deltas": {
+        "pairs": {
+          "baseline_count": 267,
+          "after_count": 267,
+          "gained": [],
+          "lost": [],
+          "baseline_set_sha256": "c6a015d1b95f32e47fda6d1df546f2e7b407f568c71296a93932db2af3474498",
+          "after_set_sha256": "c6a015d1b95f32e47fda6d1df546f2e7b407f568c71296a93932db2af3474498"
+        },
+        "symbol_pairs": {
+          "baseline_count": 267,
+          "after_count": 267,
+          "gained": [
+            [
+              "app/client/extrap.cpp",
+              "_$E94",
+              "0x7147F0"
+            ]
+          ],
+          "lost": [
+            [
+              "app/client/extrap.cpp",
+              "_$E93",
+              "0x7147F0"
+            ]
+          ],
+          "baseline_set_sha256": "2abef374e880caa4cf11fb6a43bce1da7c30013962efe607271d1154c3b826d1",
+          "after_set_sha256": "9f106c2e0429cc00de5698ccf4b10d3a9d787886613e706d8c129c7d5b6def64"
+        }
+      }
+    },
+    {
+      "run": "sol_7140E0_b2_pull_ref",
+      "deltas": {
+        "pairs": {
+          "baseline_count": 267,
+          "after_count": 267,
+          "gained": [],
+          "lost": [],
+          "baseline_set_sha256": "c6a015d1b95f32e47fda6d1df546f2e7b407f568c71296a93932db2af3474498",
+          "after_set_sha256": "c6a015d1b95f32e47fda6d1df546f2e7b407f568c71296a93932db2af3474498"
+        },
+        "symbol_pairs": {
+          "baseline_count": 267,
+          "after_count": 267,
+          "gained": [
+            [
+              "app/client/extrap.cpp",
+              "_$E94",
+              "0x7147F0"
+            ]
+          ],
+          "lost": [
+            [
+              "app/client/extrap.cpp",
+              "_$E93",
+              "0x7147F0"
+            ]
+          ],
+          "baseline_set_sha256": "2abef374e880caa4cf11fb6a43bce1da7c30013962efe607271d1154c3b826d1",
+          "after_set_sha256": "9f106c2e0429cc00de5698ccf4b10d3a9d787886613e706d8c129c7d5b6def64"
+        }
+      }
+    },
+    {
+      "run": "sol_717430_flat_fixed",
+      "deltas": {
+        "pairs": {
+          "baseline_count": 267,
+          "after_count": 265,
+          "gained": [],
+          "lost": [
+            [
+              "app/client/postate.cpp",
+              "0x719640"
+            ],
+            [
+              "app/client/postate.cpp",
+              "0x719670"
+            ]
+          ],
+          "baseline_set_sha256": "c6a015d1b95f32e47fda6d1df546f2e7b407f568c71296a93932db2af3474498",
+          "after_set_sha256": "782c879fb6af5b8df81708ac41a4fb2325417cd1cfe83f7d2602993101973dc3"
+        },
+        "symbol_pairs": {
+          "baseline_count": 267,
+          "after_count": 265,
+          "gained": [],
+          "lost": [
+            [
+              "app/client/postate.cpp",
+              "_$E153",
+              "0x719640"
+            ],
+            [
+              "app/client/postate.cpp",
+              "_$E157",
+              "0x719670"
+            ]
+          ],
+          "baseline_set_sha256": "2abef374e880caa4cf11fb6a43bce1da7c30013962efe607271d1154c3b826d1",
+          "after_set_sha256": "07af8628f8ad10d7e22bb7b80b07d3111ad289940bacf48efb06ec77514936b0"
+        }
+      }
+    },
+    {
+      "run": "sol_717430_flat_original",
+      "deltas": {
+        "pairs": {
+          "baseline_count": 267,
+          "after_count": 265,
+          "gained": [],
+          "lost": [
+            [
+              "app/client/postate.cpp",
+              "0x719640"
+            ],
+            [
+              "app/client/postate.cpp",
+              "0x719670"
+            ]
+          ],
+          "baseline_set_sha256": "c6a015d1b95f32e47fda6d1df546f2e7b407f568c71296a93932db2af3474498",
+          "after_set_sha256": "782c879fb6af5b8df81708ac41a4fb2325417cd1cfe83f7d2602993101973dc3"
+        },
+        "symbol_pairs": {
+          "baseline_count": 267,
+          "after_count": 265,
+          "gained": [],
+          "lost": [
+            [
+              "app/client/postate.cpp",
+              "_$E153",
+              "0x719640"
+            ],
+            [
+              "app/client/postate.cpp",
+              "_$E157",
+              "0x719670"
+            ]
+          ],
+          "baseline_set_sha256": "2abef374e880caa4cf11fb6a43bce1da7c30013962efe607271d1154c3b826d1",
+          "after_set_sha256": "07af8628f8ad10d7e22bb7b80b07d3111ad289940bacf48efb06ec77514936b0"
+        }
+      }
+    }
+  ],
+  "limitation": "No partial C++ form kept. Whole-function relocation/EH exactness is not asserted for unmatched scratch forms. Header assertion path differences follow existing D283 policy. Controls cover the two affected translation units, not a new whole-repository compilation."
+}

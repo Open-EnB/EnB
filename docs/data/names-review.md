@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1971 |
 | 2 | describes what the code does | 5023 |
-| 1 | neutral placeholder | 25242 |
+| 1 | neutral placeholder | 25302 |
 
 ## For review (score 3 and below)
 
@@ -25240,6 +25240,66 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_0C` | `tests/movietest/movietest.cpp:76` | untagged neutral name (D10) |
 | 1 | `Unknown_10` | `tests/movietest/movietest.cpp:77` | untagged neutral name (D10) |
 | 1 | `Unknown_BFAEE0` | `tests/movietest/movietest.cpp:80` | untagged neutral name (D10) |
+| 1 | `Unknown0C` | `tests/pklayout/pk_layout.cpp:17` | untagged neutral name (D10) |
+| 1 | `UnknownA4` | `tests/pklayout/pk_layout.cpp:22` | untagged neutral name (D10) |
+| 1 | `UnknownA8` | `tests/pklayout/pk_layout.cpp:23` | untagged neutral name (D10) |
+| 1 | `UnknownAC` | `tests/pklayout/pk_layout.cpp:24` | untagged neutral name (D10) |
+| 1 | `UnknownB0` | `tests/pklayout/pk_layout.cpp:25` | untagged neutral name (D10) |
+| 1 | `UnknownB4` | `tests/pklayout/pk_layout.cpp:26` | untagged neutral name (D10) |
+| 1 | `Unknown17` | `tests/pklayout/pk_layout.cpp:34` | untagged neutral name (D10) |
+| 1 | `Unknown24` | `tests/pklayout/pk_layout.cpp:36` | untagged neutral name (D10) |
+| 1 | `Unknown10` | `tests/pklayout/pk_layout.cpp:42` | untagged neutral name (D10) |
+| 1 | `Unknown34` | `tests/pklayout/pk_layout.cpp:76` | untagged neutral name (D10) |
+| 1 | `Unknown36` | `tests/pklayout/pk_layout.cpp:77` | untagged neutral name (D10) |
+| 1 | `Unknown14` | `tests/pklayout/pk_layout.cpp:145` | untagged neutral name (D10) |
+| 1 | `Unknown11` | `tests/pklayout/pk_layout.cpp:167` | untagged neutral name (D10) |
+| 1 | `Unknown30` | `tests/pklayout/pk_layout.cpp:181` | untagged neutral name (D10) |
+| 1 | `Unknown40` | `tests/pklayout/pk_layout.cpp:182` | untagged neutral name (D10) |
+| 1 | `Unknown18` | `tests/pklayout/pk_layout.cpp:213` | untagged neutral name (D10) |
+| 1 | `Unknown58` | `tests/pklayout/pk_layout.cpp:235` | untagged neutral name (D10) |
+| 1 | `Unknown5C` | `tests/pklayout/pk_layout.cpp:236` | untagged neutral name (D10) |
+| 1 | `Unknown1C` | `tests/pklayout/pk_layout.cpp:292` | untagged neutral name (D10) |
+| 1 | `Unknown2C` | `tests/pklayout/pk_layout.cpp:293` | untagged neutral name (D10) |
+| 1 | `Unknown60` | `tests/pklayout/pk_layout.cpp:335` | untagged neutral name (D10) |
+| 1 | `Unknown2D4` | `tests/pklayout/pk_layout.cpp:338` | untagged neutral name (D10) |
+| 1 | `Unknown2D8` | `tests/pklayout/pk_layout.cpp:339` | untagged neutral name (D10) |
+| 1 | `Unknown2DC` | `tests/pklayout/pk_layout.cpp:340` | untagged neutral name (D10) |
+| 1 | `Unknown5D` | `tests/pklayout/pk_layout.cpp:346` | untagged neutral name (D10) |
+| 1 | `Unknown0D` | `tests/pklayout/pk_layout.cpp:451` | untagged neutral name (D10) |
+| 1 | `Unknown20` | `tests/pklayout/pk_layout.cpp:464` | untagged neutral name (D10) |
+| 1 | `Unknown59` | `tests/pklayout/pk_layout.cpp:488` | untagged neutral name (D10) |
+| 1 | `Unknown64` | `tests/pklayout/pk_layout.cpp:491` | untagged neutral name (D10) |
+| 1 | `Unknown66` | `tests/pklayout/pk_layout.cpp:492` | untagged neutral name (D10) |
+| 1 | `Unknown51` | `tests/pklayout/pk_layout.cpp:496` | untagged neutral name (D10) |
+| 1 | `Unknown0BC` | `tests/pklayout/pk_layout.cpp:510` | untagged neutral name (D10) |
+| 1 | `Unknown0E` | `tests/pklayout/pk_layout.cpp:516` | untagged neutral name (D10) |
+| 1 | `Unknown1A0` | `tests/pklayout/pk_layout.cpp:532` | untagged neutral name (D10) |
+| 1 | `Unknown1A4` | `tests/pklayout/pk_layout.cpp:533` | untagged neutral name (D10) |
+| 1 | `Unknown1A8` | `tests/pklayout/pk_layout.cpp:534` | untagged neutral name (D10) |
+| 1 | `Unknown1AC` | `tests/pklayout/pk_layout.cpp:535` | untagged neutral name (D10) |
+| 1 | `Unknown1B0` | `tests/pklayout/pk_layout.cpp:536` | untagged neutral name (D10) |
+| 1 | `Unknown16C` | `tests/pklayout/pk_layout.cpp:539` | untagged neutral name (D10) |
+| 1 | `Unknown48` | `tests/pklayout/pk_layout.cpp:542` | untagged neutral name (D10) |
+| 1 | `Unknown118` | `tests/pklayout/pk_layout.cpp:545` | untagged neutral name (D10) |
+| 1 | `Unknown128` | `tests/pklayout/pk_layout.cpp:580` | untagged neutral name (D10) |
+| 1 | `Unknown138` | `tests/pklayout/pk_layout.cpp:581` | untagged neutral name (D10) |
+| 1 | `Unknown148` | `tests/pklayout/pk_layout.cpp:582` | untagged neutral name (D10) |
+| 1 | `Unknown158` | `tests/pklayout/pk_layout.cpp:583` | untagged neutral name (D10) |
+| 1 | `Unknown168` | `tests/pklayout/pk_layout.cpp:584` | untagged neutral name (D10) |
+| 1 | `Unknown178` | `tests/pklayout/pk_layout.cpp:585` | untagged neutral name (D10) |
+| 1 | `Unknown188` | `tests/pklayout/pk_layout.cpp:586` | untagged neutral name (D10) |
+| 1 | `Unknown44` | `tests/pklayout/pk_layout.cpp:664` | untagged neutral name (D10) |
+| 1 | `Unknown54` | `tests/pklayout/pk_layout.cpp:665` | untagged neutral name (D10) |
+| 1 | `Unknown74` | `tests/pklayout/pk_layout.cpp:667` | untagged neutral name (D10) |
+| 1 | `Unknown78` | `tests/pklayout/pk_layout.cpp:668` | untagged neutral name (D10) |
+| 1 | `Unknown7C` | `tests/pklayout/pk_layout.cpp:669` | untagged neutral name (D10) |
+| 1 | `Unknown38` | `tests/pklayout/pk_layout.cpp:686` | untagged neutral name (D10) |
+| 1 | `Unknown50` | `tests/pklayout/pk_layout.cpp:717` | untagged neutral name (D10) |
+| 1 | `Unknown70` | `tests/pklayout/pk_layout.cpp:719` | untagged neutral name (D10) |
+| 1 | `Unknown28` | `tests/pklayout/pk_layout.cpp:737` | untagged neutral name (D10) |
+| 1 | `Unknown3C` | `tests/pklayout/pk_layout.cpp:739` | untagged neutral name (D10) |
+| 1 | `Unknown68` | `tests/pklayout/pk_layout.cpp:896` | untagged neutral name (D10) |
+| 1 | `Unknown6C` | `tests/pklayout/pk_layout.cpp:897` | untagged neutral name (D10) |
 | 1 | `Unknown_4BE9D0` | `tests/udpreplay/avatar_desc_stubs.cpp:13` | untagged neutral name (D10) |
 | 1 | `Unknown_RateClass` | `tests/udpreplay/conn_replay.cpp:39` | untagged neutral name (D10) |
 | 1 | `Unknown_Get_Ticks` | `tests/udpreplay/conn_replay.cpp:62` | untagged neutral name (D10) |
@@ -30255,8 +30315,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `CloseState_` | `app/wwudp/cordcon.h:516` | +0xB0 0 open, 1 close asked, 2 CLOSE sent, 3 peer closing, 4 closed |
 | 2 | `CloseSeq_` | `app/wwudp/cordcon.h:517` | +0xB4 |
 | 2 | `IsServer_` | `app/wwudp/cordcon.h:518` | +0xB8 |
-| 2 | `Cord_Put_Short` | `app/wwudp/cordmgr.cpp:1580` | what it does |
-| 2 | `Cord_Put_Long` | `app/wwudp/cordmgr.cpp:1581` | what it does |
+| 2 | `Cord_Put_Short` | `app/wwudp/cordmgr.cpp:1582` | what it does |
+| 2 | `Cord_Put_Long` | `app/wwudp/cordmgr.cpp:1583` | what it does |
 | 2 | `CordDataSocketClass` | `app/wwudp/cordmgr.h:40` | a data socket's record (the +0x40 list, 16 bytes) |
 | 2 | `CordListenSocketClass` | `app/wwudp/cordmgr.h:48` | a listening socket's record (the +0x4C list, 12 bytes) |
 | 2 | `CordReleaseClass` | `app/wwudp/cordmgr.h:56` | describes what it holds (the +0x1C list, 8 bytes) |

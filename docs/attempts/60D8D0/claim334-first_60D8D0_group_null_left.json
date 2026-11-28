@@ -1,0 +1,42 @@
+{
+  "run": "first_60D8D0_group_null_left",
+  "unit": "app/client/ui_scan.cpp",
+  "base_revision": "8045b1b026a984c2970d8bddd5d05980f1c9ba5b",
+  "phase": "retained1",
+  "base_sha256": "0a7c082ab52215f12baf4a8d3141f1630e27823f160ba780d5c7cffb897fa1f0",
+  "input_sha256": "43111bb6557ca1dc045b36f5cdf6403d213c7e39f950f11db4de62899cf0c637",
+  "edits": [
+    {
+      "start": 3214,
+      "end": 3214,
+      "text": "U"
+    },
+    {
+      "start": 3215,
+      "end": 3215,
+      "text": "ScanThreatClass *i"
+    },
+    {
+      "start": 3223,
+      "end": 3227,
+      "text": ""
+    },
+    {
+      "start": 3289,
+      "end": 3289,
+      "text": "\tInterruptInfo = interrupt;"
+    },
+    {
+      "start": 3631,
+      "end": 3631,
+      "text": "0 != "
+    }
+  ],
+  "edit_offsets": "zero-based Python character offsets; apply in descending order",
+  "replay_verified": true,
+  "classification": "compiler_invalid",
+  "error_codes": [
+    "C2065",
+    "C2143"
+  ]
+}

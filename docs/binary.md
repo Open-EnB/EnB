@@ -1,11 +1,15 @@
 # client.exe: facts about the binary
 
-The target is the retail client as installed (Net-7 era install):
+The target is the retail client. **"Retail" is either of two images (D287), and both are accepted**: the copy in
+the Net-7-era install (the tools' default) and EA's shipped client. Net-7 changed only 11 URL / host strings in
+`.data`; the code, headers, `.rdata` and `.rsrc` are the same bytes, so every address in these docs holds in both.
+A comparison that reaches those strings (imagediff) masks them, so its result is the same for either.
 
 | | |
 |---|---|
-| Path | `C:\Program Files (x86)\EA GAMES\Earth & Beyond\release\client.exe` |
-| SHA-256 | `249f852496f341c00361be95b66e7c0becc2c39e7cba026f9227e38b602651c4` (the same client the earlier protocol research used) |
+| Path | `C:\Program Files (x86)\EA GAMES\Earth & Beyond\release\client.exe` (Net-7-era install); `C:\EnBDevelopment\ClientPOC_EA\release\client.exe` (EA's) |
+| SHA-256 | `249f852496f341c00361be95b66e7c0becc2c39e7cba026f9227e38b602651c4` (Net-7-era install; the same client the earlier protocol research used); `82663b2f99f639f4e49d43083b0e2bc0d7ed8b76a95eeb22dd9cc9d6079f7562` (EA's) |
+| Their differences | 11 ranges, 732 bytes (720 of them differ), all `.data`: 0xB84710 +17, 0xB84734 +60, 0xB8478C +74 (EA's web and store links), 0xB9C300 +15 (`auth.east.ea.co` -> `play.net-7.org`), 0xB9FE5B +41, 0xB9FE9C +47, 0xB9FEF0 +53, 0xB9FF3F +40, 0xB9FF7F +49, 0xB9FFC3 +116, 0xBA0063 +220 (earthandbeyond.ea.com's embedded pages -> net-7.org / enb-emulator.com); `tools/re/clientimage.py` `RETAIL_DIFFERENCES`. Our source holds Net-7's strings |
 | Size | 8,642,625 bytes (the file date is the install's, not the build's) |
 | PE timestamp | 0x4057AE00 = **2004-03-17 01:46:40 UTC** (the file header; the debug directory and the PDB record carry 0x4021A831 = 2004-02-05 02:19:29 UTC, age 2: §5) |
 | PDB | `e:\build\beta\G\app\main\client_release\main.pdb` (not available) |
@@ -969,3 +973,100 @@ changes but for the displacement of `.data` operands; the two readers keep readi
 change). The one client build has `.data` at another RVA, so the imagediff figure moves ~0 there, as for §5.8.
 Aside: cpacket's two unreferenced 0.01f floats after the tables (0xB95308) are another file static of a header or
 of cpacket.cpp, not looked for.
+
+### 5.11 Name recovery from the thunk order (2026-11-26)
+
+Measured 2026-11-26 on a Mac (interactive session with the user, branch names/2026-11-26) with
+`tools/re/thunknames/` ([README](../tools/re/thunknames/README.md)), starting from IM3's table (§5.2: 2,797 slots on the
+order). The table is used as an oracle: a proposed decorated name for a slot is right only if it hashes into the
+window between the slot's anchors, and almost always into its **near part** (+/- 3 buckets of the bucket
+interpolated by slot position, 188 of round 1's 193 renames; a wrong name lands there with about 7 / 15,048).
+Every step tests whole decorated names, accepts by a chance figure checked against a null, and cascades: each
+accepted name becomes an anchor and narrows its neighbours' windows.
+
+| Step | Anchors after | Evidence |
+|---|---|---|
+| IM3 (§5.2) | 2,797 | |
+| round 1: token search over a 291k-word dictionary (class qualifiers, method names), `_Construct` -> `ProxyArrayClassManagerClass` reverted | 2,990 | 39 tokens at modelled chance < 1e-4; a random-name null gave 2 false under 1e-4: the model is ~10x optimistic |
+| tier 1: vtable relatives, `Class::Method` strings (right on 104 of 110 anchors), convention variants (class +/- Class / Struct 191 near hits against a null of 4.7; access 46 / 5.3, int 20 / 2.2, const 17 / 1.4) | 3,288 | no model |
+| tier 2: Sonnet / Haiku class-name proposals (pilot 20 classes, then 298) | 3,413 | 24 + 1 classes; a cross-class null (300 other classes' candidates per class) at 0 under 1e-4 |
+| a confirmed rename + one edit, propagation | 3,503 | |
+| **bug 1 fixed**: renames never reached `??0` / `??1` / `??_G` / `??_E` names (the class follows an identifier character); the saved proposals rescored | 3,953 | 92 classes, 450 slots: the UI screens' `UI<X>Class` are retail's `<X>Interface` (about 25), the GameEditor packets 0x7530-0x754A |
+| `??_G` / `??_E` spelling (72 near hits against 0.2), int / pointer cv / const, two more classes | 4,100 | |
+| **bug 2 fixed**: renames never reached parameter / return types (`PAVFoo@@`: the class follows its type code) | 4,495 | 290 slots of known classes, 105 global / std functions |
+| Sonnet round 3 (414 classes, destructor slots marked, names already tried, confirmed relatives) | 4,720 | 42 classes, 168 slots |
+
+The result against symbols.json's names: 1,925 slots on the order carry a different name than ours, 1,883 of
+them `exact` (our source declarations): 257 class renames (1,503 slots; `docs/data/class-renames.tsv`) and 422
+other corrections (signatures, method names, parameter types). Retail's spelling patterns: `<X>Interface` for the
+UI screens, `Class` dropped in many app classes (`DynamicWindowElement`, `TextEditorGadget`, `LinearBuffer`,
+`BitSet`), abbreviations spelled out (`ProxyRenderObjClass`, `CircularBufferClass`, `InventoryRenderClass`) or
+upper-cased (`GPS`, `PIP`, `MFD`). Not yet confirmed: 451 of 1,074 class qualifiers; open: 3,494 `Unknown_XX`
+method names, 5,700 unnamed slots. Costs: the dictionary searches stay at chance; Haiku about 0; Sonnet about
+4.7k-6.5k tokens per anchor; the two tool fixes gave more than every model round together.
+
+What it does not settle: names of functions without a thunk slot, and the order inside a bucket
+(first sight, §5.1). The acceptance threshold (1e-4 against the cross-class null) was not reviewed when this was
+written: `tools/re/thunknames/HANDOFF.md` brief A.
+
+**The review (2026-11-26 evening) and the rules it left in the tools.**
+
+| Finding | Figure | Rule now |
+|---|---|---|
+| The buckets are not even: linear hashing leaves [6856, 8192) unsplit | 2.45 slots per bucket there, 1.20 below, 1.23 above; a random name lands in one of them with 2 / 16384, elsewhere 1 / 16384 | widths and interpolation on the mass axis (`gapguess.prob`, `near_part`): +/- 3 mass units, the old +/- 3 buckets where split, about 3 buckets where not; leave-one-out coverage 99.7 % / 98.8 % at the same chance |
+| Names became anchors by lying in their window | 2,791 base names, 479 propagated ones; 5 `Unknown` names on the run; 82 base anchors beyond 3 buckets of their interpolated place (7 of 1,450 tested hits); the 8 anchors lost during the session were all base names | `Unknown` names take no part in the run; an untested name outside its near part is probable |
+| The hits' `chance` is after selection | sum 0.6 over 1,450 hits; tier1c's single-slot kinds have nulls of 8-27 % of their hits (access 46 / 5.3, int 20 / 2.2, const 17 / 1.4, pointer cv 4 / 1.1) | a single-slot hit of those kinds is probable unless the same kind hit another slot of the class |
+| The cross-class null is a search | its hits are siblings' true names (StringValueClass / KVStringAccessorClass) | the salted null (`permnull.py`): each candidate + two salt characters, 1,000 salts; the modelled class chance is 0.06-0.21x the nominal rate (conservative: the forms factor), expected false classes per run 0.008 at 1e-4 |
+| Renames were judged once, with their siblings' anchors in place | re-scored with the class's own slots left out and the candidates tried counted (`rescore.py`) | 248 of 257 keep (expected false 6e-4), 9 weak (class-renames.tsv `verdict`) |
+
+Anchors after the review: 4,716 on the order, **4,519 confirmed** (they bound the windows) and 197 probable (102
+untested names outside their near part, 73 single-slot hits, 21 anchors of weak renames, 1 one-anchor rename).
+A probable name is still the best name its slot has; it is not evidence for a source rename by itself.
+
+### 5.12 The four questions answered, and what the one client build would need
+
+Written 2026-11-27 (image builder IM14, week plan 2026-11-24 §2 D) from §5.1-§5.10 and the exact build (D286,
+`build.py link --program client-exact`). Figures: imagediff on wt/IM14 (run/2026-11-27 de6acd990 plus c18, the
+emote tables of §5.10: 9 copies with retail's neighbours in the exact build, `.work/im14/copies.py`).
+
+| Build | de6acd990 | + c18 (wt/IM14 2586e218c) |
+|---|---|---|
+| the one client build | 118,731 of 8,642,625 (1.37 %) | 118,764 (1.37 %) |
+| the exact build | 1,363,979 (15.78 %), masked 1,363,840 | 1,360,257 (15.74 %), masked 1,360,110 |
+
+c18 in the exact build: `.data` 512 bytes nearer retail's size (vsize 0xD59AC -> 0xD5BAC, retail 0xD6F14),
+89,167 -> 89,705 bytes equal by section offset, but 97,419 -> 93,553 at the same RVA: our `.data` starts 0x1000
+late (`.rdata` 0x668 bytes longer), so its in-place bytes are coincidences of the displacement; `.text` -44 (the
+`.data` operands). The 08:55 figure (1,296,330 at 6464ec6d2) rose with the run's code.
+
+1. **Full incremental link or update?** Both: a full incremental link (2004-02-05) updated once (2004-03-17; §5).
+   The exact build reproduces the full link (15.74 %). Open: the update's marks (48 slots, 22 guests, 7 thunks,
+   under 30 KB of `.text`); reproducing them needs stand-ins of the old objects at their old sizes and names
+   (the DirLock constructors' old signatures unknown): a documented residue unless the user wants it.
+2. **Object order, thunk order, padding?** Objects: the project's source folders, alphabetical inside (§5.6),
+   taken by the exact build; the one client build's order is LINK's breadth-first pull from `_WinMain@16`
+   (651 / 651, §5.7). Thunks: LINK's linear hash table (every slot of a whole trial on the order), retail's split
+   pointer p = 6,856 against ours ~6,765: about 273 more external symbols, so the table (99,994 bytes) and the
+   81,747 rel32 that reach it are 0 in place. Padding: up16(S + S/4) per app function (99.65 %), library members
+   packed, `.data` contributions S + S/5 (§5.7-§5.8). Open: ~95 externals (§5.9: the update's old names, out of
+   reach) and the names themselves (§5.2).
+3. **The missing pieces?** All reproducible but the three link stamps (12 bytes, masked): `.rsrc` 8,156 of 8,156
+   at retail's RVA, the debug record 60 of 65 with `/pdb:`, the DOS stub 128 once `e_lfanew` is 0x128, the entry
+   point with `.text`'s size. Open: `e_lfanew` 0x130 (the rich header's C++ count, §5.4's 47 code-less objects),
+   `.text` 0x558 longer, `.rdata` 0x668 longer, `.data` 0x1368 shorter than retail's.
+4. **The library members?** Retail links every app object (94 the one client build never pulls, with 78 static
+   initialisers that never run there) and wlib's, wnet's and rawfile.obj as app objects; library order, VC6
+   DDRAW.LIB and a long-format mss32.lib are retail's (all in the exact build); ours only: wwlib's stimer.obj;
+   35 of 585 library members unpaired (9,546 bytes), 239 gaps (103,866 bytes) in retail's library region. Open:
+   the CRT / STL tail's unnamed starts (§5.9).
+
+**Proposal for the user (the one client build's options; nothing changed).** The one client build comes close to
+retail's layout only as the exact build: (a) make `--program client` the exact build's recipe (every app object
+on the line in retail's order, `/debug /incremental:yes /fixed:no`, retail's library order and import libraries,
+`client.res`, the PDB path): 1.37 % -> 15.74 % now, rising with every exact function and name. Cost: the 94
+objects' code and their 78 initialisers then run in every client test, as in retail (a behaviour change of the
+test image: the e2e baselines and clienttest's expectations to re-take once), the E: subst and LIB /CONVERT step in
+each link VM (both already in `build.py`), a 8.6 MB image and an `.ilk`. (b) §5.7's order alone (`/include:` or
+the line order with `/incremental:no`): +1,133 bytes (~0.01 %), cheap but of little worth, since retail's layout
+is the incremental link's. (c) Keep both builds (D286 as now): the one client build for tests, the exact build for
+the figure. Recommended: (c) until the user takes the test image's behaviour change, then (a).

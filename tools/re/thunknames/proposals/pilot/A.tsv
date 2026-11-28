@@ -1,0 +1,248 @@
+CLASS	UIManuClass	ManufactureInterfaceClass
+CLASS	UIManuClass	ManufacturingInterfaceClass
+CLASS	UIManuClass	ManufactureInterface
+CLASS	UIManuClass	ManufacturingInterface
+CLASS	UIManuClass	ManufactureScreenClass
+CLASS	UIManuClass	ManufactureWindowClass
+CLASS	UIManuClass	ManufactureUIClass
+CLASS	UIManuClass	ManufactureManagerClass
+CLASS	UIManuClass	ManufactureViewClass
+CLASS	UIManuClass	ManuInterfaceClass
+METHOD	UIManuClass	?Unknown_5B3580@UIManuClass@@QAEX_N@Z	Set_Visible
+METHOD	UIManuClass	?Unknown_5B3580@UIManuClass@@QAEX_N@Z	Set_Active
+METHOD	UIManuClass	?Unknown_5B3580@UIManuClass@@QAEX_N@Z	Show
+METHOD	UIManuClass	?Unknown_5B2990@UIManuClass@@QAEXXZ	Refresh
+METHOD	UIManuClass	?Unknown_5B2990@UIManuClass@@QAEXXZ	Update_Display
+METHOD	UIManuClass	?Unknown_5B2990@UIManuClass@@QAEXXZ	Rebuild
+METHOD	UIManuClass	?Unknown_5B42F0@UIManuClass@@QAEXH@Z	Set_Icon
+METHOD	UIManuClass	?Unknown_5B42F0@UIManuClass@@QAEXH@Z	Update_Icon
+METHOD	UIManuClass	?Unknown_5B42F0@UIManuClass@@QAEXH@Z	Display_Icon
+METHOD	UIManuClass	?Unknown_5B6410@UIManuClass@@QAEPAVCheckBoxGadgetClass@@HPBDH_N@Z	Create_Check_Box
+METHOD	UIManuClass	?Unknown_5B6410@UIManuClass@@QAEPAVCheckBoxGadgetClass@@HPBDH_N@Z	Add_Check_Box
+METHOD	UIManuClass	?Unknown_5B6410@UIManuClass@@QAEPAVCheckBoxGadgetClass@@HPBDH_N@Z	Create_CheckBox
+METHOD	UIManuClass	?Unknown_5B3CA0@UIManuClass@@QAE_NPAVUIManuNodeClass@@HH@Z	Check_Validity
+METHOD	UIManuClass	?Unknown_5B3CA0@UIManuClass@@QAE_NPAVUIManuNodeClass@@HH@Z	Is_Valid_Component
+METHOD	UIManuClass	?Unknown_5B3CA0@UIManuClass@@QAE_NPAVUIManuNodeClass@@HH@Z	Can_Manufacture
+METHOD	UIManuClass	?Unknown_5B3B90@UIManuClass@@QAE_NPAVUIManuNodeClass@@H@Z	Is_Component_Valid
+METHOD	UIManuClass	?Unknown_5B3B90@UIManuClass@@QAE_NPAVUIManuNodeClass@@H@Z	Has_Component
+METHOD	UIManuClass	?Unknown_5B3B90@UIManuClass@@QAE_NPAVUIManuNodeClass@@H@Z	Check_Node
+METHOD	UIManuClass	?Unknown_5B3260@UIManuClass@@QAEXPAVUIManuListClass@@@Z	Set_List
+METHOD	UIManuClass	?Unknown_5B3260@UIManuClass@@QAEXPAVUIManuListClass@@@Z	Attach_List
+METHOD	UIManuClass	?Unknown_5B3260@UIManuClass@@QAEXPAVUIManuListClass@@@Z	Set_Node_List
+METHOD	UIManuClass	?Unknown_5B3D70@UIManuClass@@QAE_NPAVUIManuNodeClass@@HHH@Z	Add_Component
+METHOD	UIManuClass	?Unknown_5B3D70@UIManuClass@@QAE_NPAVUIManuNodeClass@@HHH@Z	Set_Component
+METHOD	UIManuClass	?Unknown_5B3D70@UIManuClass@@QAE_NPAVUIManuNodeClass@@HHH@Z	Select_Component
+METHOD	UIManuClass	?Unknown_5B2060@UIManuClass@@QAEXH@Z	Set_Category
+METHOD	UIManuClass	?Unknown_5B2060@UIManuClass@@QAEXH@Z	Set_Page
+METHOD	UIManuClass	?Unknown_5B2060@UIManuClass@@QAEXH@Z	Select_Tab
+METHOD	UIManuClass	?Unknown_5B2A80@UIManuClass@@QAEXPAD0H@Z	Set_Description
+METHOD	UIManuClass	?Unknown_5B2A80@UIManuClass@@QAEXPAD0H@Z	Set_Item_Text
+METHOD	UIManuClass	?Unknown_5B2A80@UIManuClass@@QAEXPAD0H@Z	Show_Description
+METHOD	UIManuClass	?Unknown_54@UIManuClass@@UAEXXZ	Init
+METHOD	UIManuClass	?Unknown_54@UIManuClass@@UAEXXZ	Create_Gadgets
+METHOD	UIManuClass	?Unknown_54@UIManuClass@@UAEXXZ	Build
+METHOD	UIManuClass	?Unknown_5C@UIManuClass@@UAEXXZ	Shutdown
+METHOD	UIManuClass	?Unknown_5C@UIManuClass@@UAEXXZ	Release
+METHOD	UIManuClass	?Unknown_5C@UIManuClass@@UAEXXZ	Destroy
+METHOD	UIManuClass	?Unknown_60@UIManuClass@@UAEXXZ	Update
+METHOD	UIManuClass	?Unknown_60@UIManuClass@@UAEXXZ	Process
+METHOD	UIManuClass	?Unknown_60@UIManuClass@@UAEXXZ	Run_One_Cycle
+METHOD	UIManuClass	?Unknown_68@UIManuClass@@UAE_NH@Z	On_Key
+METHOD	UIManuClass	?Unknown_68@UIManuClass@@UAE_NH@Z	Handle_Input
+METHOD	UIManuClass	?Unknown_68@UIManuClass@@UAE_NH@Z	Process_Event
+METHOD	UIManuClass	?Unknown_7C@UIManuClass@@UAEXPAVUIViewClass@@_N@Z	Set_Parent
+METHOD	UIManuClass	?Unknown_7C@UIManuClass@@UAEXPAVUIViewClass@@_N@Z	Attach_View
+METHOD	UIManuClass	?Unknown_7C@UIManuClass@@UAEXPAVUIViewClass@@_N@Z	On_Child_Changed
+CLASS	UIPlayerOptClass	PlayerOptionsInterface
+CLASS	UIPlayerOptClass	PlayerOptionsInterfaceClass
+CLASS	UIPlayerOptClass	PlayerOptionsClass
+CLASS	UIPlayerOptClass	PlayerOptionInterfaceClass
+CLASS	UIPlayerOptClass	PlayerOptionsWindowClass
+CLASS	UIPlayerOptClass	PlayerContextMenuClass
+CLASS	UIPlayerOptClass	PlayerOptionsUIClass
+CLASS	UIPlayerOptClass	PlayerOptionsPanelClass
+CLASS	UIPlayerOptClass	ChatPlayerOptionsClass
+CLASS	UIPlayerOptClass	PlayerMenuInterfaceClass
+METHOD	UIPlayerOptClass	?Unknown_5DA0D0@UIPlayerOptClass@@QAEXXZ	Init
+METHOD	UIPlayerOptClass	?Unknown_5DA0D0@UIPlayerOptClass@@QAEXXZ	Show
+METHOD	UIPlayerOptClass	?Unknown_5DA0D0@UIPlayerOptClass@@QAEXXZ	Refresh
+METHOD	UIPlayerOptClass	?Unknown_5D9FD0@UIPlayerOptClass@@QAEXXZ	Update
+METHOD	UIPlayerOptClass	?Unknown_5D9FD0@UIPlayerOptClass@@QAEXXZ	Reset
+METHOD	UIPlayerOptClass	?Unknown_5D9FD0@UIPlayerOptClass@@QAEXXZ	Refresh
+METHOD	UIPlayerOptClass	?Unknown_5DAAD0@UIPlayerOptClass@@QAEXXZ	Hide
+METHOD	UIPlayerOptClass	?Unknown_5DAAD0@UIPlayerOptClass@@QAEXXZ	Close
+METHOD	UIPlayerOptClass	?Unknown_5DAAD0@UIPlayerOptClass@@QAEXXZ	Release
+METHOD	UIPlayerOptClass	?Unknown_5D9B10@UIPlayerOptClass@@QAEXXZ	Create_Gadgets
+METHOD	UIPlayerOptClass	?Unknown_5D9B10@UIPlayerOptClass@@QAEXXZ	Build
+METHOD	UIPlayerOptClass	?Unknown_5D9B10@UIPlayerOptClass@@QAEXXZ	Init
+METHOD	UIPlayerOptClass	?Unknown_5DA600@UIPlayerOptClass@@QAEXV?$vector@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@V?$allocator@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@2@@std@@@Z	Set_Ignore_List
+METHOD	UIPlayerOptClass	?Unknown_5DA600@UIPlayerOptClass@@QAEXV?$vector@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@V?$allocator@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@2@@std@@@Z	Set_Player_Names
+METHOD	UIPlayerOptClass	?Unknown_5DA600@UIPlayerOptClass@@QAEXV?$vector@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@V?$allocator@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@2@@std@@@Z	Update_Name_List
+METHOD	UIPlayerOptClass	?Unknown_5D9A40@UIPlayerOptClass@@QAEXH@Z	Select_Player
+METHOD	UIPlayerOptClass	?Unknown_5D9A40@UIPlayerOptClass@@QAEXH@Z	Set_Selection
+METHOD	UIPlayerOptClass	?Unknown_5D9A40@UIPlayerOptClass@@QAEXH@Z	Set_Index
+METHOD	UIPlayerOptClass	?Unknown_5DA2B0@UIPlayerOptClass@@QAEX_N@Z	Set_Ignore
+METHOD	UIPlayerOptClass	?Unknown_5DA2B0@UIPlayerOptClass@@QAEX_N@Z	Set_Enabled
+METHOD	UIPlayerOptClass	?Unknown_5DA2B0@UIPlayerOptClass@@QAEX_N@Z	Show
+METHOD	UIPlayerOptClass	?Unknown_5DA8C0@UIPlayerOptClass@@QAEXV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z	Add_Name
+METHOD	UIPlayerOptClass	?Unknown_5DA8C0@UIPlayerOptClass@@QAEXV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z	Set_Name
+METHOD	UIPlayerOptClass	?Unknown_5DA8C0@UIPlayerOptClass@@QAEXV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z	Ignore_Player
+METHOD	UIPlayerOptClass	?Unknown_5DA780@UIPlayerOptClass@@QAEXV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z	Set_Player_Name
+METHOD	UIPlayerOptClass	?Unknown_5DA780@UIPlayerOptClass@@QAEXV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z	Select_Player
+METHOD	UIPlayerOptClass	?Unknown_5DA780@UIPlayerOptClass@@QAEXV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z	Set_Target
+METHOD	UIPlayerOptClass	?Unknown_5DAD50@UIPlayerOptClass@@QAEPAVClientObjectClass@@XZ	Get_Client_Object
+METHOD	UIPlayerOptClass	?Unknown_5DAD50@UIPlayerOptClass@@QAEPAVClientObjectClass@@XZ	Get_Target_Object
+METHOD	UIPlayerOptClass	?Unknown_5DAD50@UIPlayerOptClass@@QAEPAVClientObjectClass@@XZ	Get_Player
+METHOD	UIPlayerOptClass	?Unknown_5DA060@UIPlayerOptClass@@QAEXH@Z	Set_Selection
+METHOD	UIPlayerOptClass	?Unknown_5DA060@UIPlayerOptClass@@QAEXH@Z	Select_Option
+METHOD	UIPlayerOptClass	?Unknown_5DA060@UIPlayerOptClass@@QAEXH@Z	Set_Page
+METHOD	UIPlayerOptClass	?Unknown_5DA570@UIPlayerOptClass@@QAEXXZ	Refresh
+METHOD	UIPlayerOptClass	?Unknown_5DA570@UIPlayerOptClass@@QAEXXZ	Update_Display
+METHOD	UIPlayerOptClass	?Unknown_5DA570@UIPlayerOptClass@@QAEXXZ	Rebuild
+METHOD	UIPlayerOptClass	?Unknown_5DA340@UIPlayerOptClass@@QAEXXZ	Update
+METHOD	UIPlayerOptClass	?Unknown_5DA340@UIPlayerOptClass@@QAEXXZ	Process
+METHOD	UIPlayerOptClass	?Unknown_5DA340@UIPlayerOptClass@@QAEXXZ	Run_One_Cycle
+METHOD	UIPlayerOptClass	?Unknown_5DAB50@UIPlayerOptClass@@QAEXXZ	Shutdown
+METHOD	UIPlayerOptClass	?Unknown_5DAB50@UIPlayerOptClass@@QAEXXZ	Release
+METHOD	UIPlayerOptClass	?Unknown_5DAB50@UIPlayerOptClass@@QAEXXZ	Close
+METHOD	UIPlayerOptClass	?Unknown_5D9C70@UIPlayerOptClass@@QAEXXZ	Render
+METHOD	UIPlayerOptClass	?Unknown_5D9C70@UIPlayerOptClass@@QAEXXZ	Draw
+METHOD	UIPlayerOptClass	?Unknown_5D9C70@UIPlayerOptClass@@QAEXXZ	On_Enter
+CLASS	Unknown715EF0Class	FormationPositionalUpdateClass
+CLASS	Unknown715EF0Class	FormationMemberClass
+CLASS	Unknown715EF0Class	FormationPositionalClass
+CLASS	Unknown715EF0Class	FormationObjectClass
+CLASS	Unknown715EF0Class	FormationSlotClass
+CLASS	Unknown715EF0Class	FormationNodeClass
+CLASS	Unknown715EF0Class	AdvancedPositionalUpdateClass
+CLASS	Unknown715EF0Class	FormationPositionClass
+CLASS	Unknown715EF0Class	PositionalUpdateObjectClass
+CLASS	Unknown715EF0Class	FormationUnitClass
+METHOD	Unknown715EF0Class	?Unknown_1C@Unknown715EF0Class@@UAE?AVVector3@@H@Z	Get_Position
+METHOD	Unknown715EF0Class	?Unknown_1C@Unknown715EF0Class@@UAE?AVVector3@@H@Z	Get_Target_Position
+METHOD	Unknown715EF0Class	?Unknown_1C@Unknown715EF0Class@@UAE?AVVector3@@H@Z	Get_Location
+METHOD	Unknown715EF0Class	?Unknown_08@Unknown715EF0Class@@UAE?AVMatrix3D@@H@Z	Get_Transform
+METHOD	Unknown715EF0Class	?Unknown_08@Unknown715EF0Class@@UAE?AVMatrix3D@@H@Z	Get_Matrix
+METHOD	Unknown715EF0Class	?Unknown_08@Unknown715EF0Class@@UAE?AVMatrix3D@@H@Z	Get_Orientation
+METHOD	Unknown715EF0Class	?Unknown_14@Unknown715EF0Class@@UAE?AVVector3@@H@Z	Get_Velocity
+METHOD	Unknown715EF0Class	?Unknown_14@Unknown715EF0Class@@UAE?AVVector3@@H@Z	Get_Offset
+METHOD	Unknown715EF0Class	?Unknown_14@Unknown715EF0Class@@UAE?AVVector3@@H@Z	Get_Position
+METHOD	Unknown715EF0Class	?Unknown_0C@Unknown715EF0Class@@UAE?AVVector3@@H@Z	Get_Position
+METHOD	Unknown715EF0Class	?Unknown_0C@Unknown715EF0Class@@UAE?AVVector3@@H@Z	Get_Location
+METHOD	Unknown715EF0Class	?Unknown_0C@Unknown715EF0Class@@UAE?AVVector3@@H@Z	Get_Offset
+METHOD	Unknown715EF0Class	?Unknown_20@Unknown715EF0Class@@UAE?AVMatrix3D@@H@Z	Get_Orientation
+METHOD	Unknown715EF0Class	?Unknown_20@Unknown715EF0Class@@UAE?AVMatrix3D@@H@Z	Get_Transform
+METHOD	Unknown715EF0Class	?Unknown_20@Unknown715EF0Class@@UAE?AVMatrix3D@@H@Z	Get_Rotation
+METHOD	Unknown715EF0Class	?Unknown_10@Unknown715EF0Class@@UAE?AVVector3@@H@Z	Get_Velocity
+METHOD	Unknown715EF0Class	?Unknown_10@Unknown715EF0Class@@UAE?AVVector3@@H@Z	Get_Offset
+METHOD	Unknown715EF0Class	?Unknown_10@Unknown715EF0Class@@UAE?AVVector3@@H@Z	Get_Scale
+METHOD	Unknown715EF0Class	?Unknown_716400@Unknown715EF0Class@@QAE_NPAVStateNode@@HH@Z	Update_State
+METHOD	Unknown715EF0Class	?Unknown_716400@Unknown715EF0Class@@QAE_NPAVStateNode@@HH@Z	Process_State
+METHOD	Unknown715EF0Class	?Unknown_716400@Unknown715EF0Class@@QAE_NPAVStateNode@@HH@Z	Apply_State
+METHOD	Unknown715EF0Class	?Unknown_716220@Unknown715EF0Class@@QAEXPAVSClient@@PAVFormationPositionalUpdatePacketClass@@@Z	Process_Packet
+METHOD	Unknown715EF0Class	?Unknown_716220@Unknown715EF0Class@@QAEXPAVSClient@@PAVFormationPositionalUpdatePacketClass@@@Z	Update_From_Packet
+METHOD	Unknown715EF0Class	?Unknown_716220@Unknown715EF0Class@@QAEXPAVSClient@@PAVFormationPositionalUpdatePacketClass@@@Z	Apply_Update
+METHOD	Unknown715EF0Class	?Unknown_716140@Unknown715EF0Class@@QAEXHPAVAdvancedPositionalUpdatePacketClass@@@Z	Process_Advanced_Update
+METHOD	Unknown715EF0Class	?Unknown_716140@Unknown715EF0Class@@QAEXHPAVAdvancedPositionalUpdatePacketClass@@@Z	Apply_Advanced_Update
+METHOD	Unknown715EF0Class	?Unknown_716140@Unknown715EF0Class@@QAEXHPAVAdvancedPositionalUpdatePacketClass@@@Z	Update_From_Packet
+METHOD	Unknown715EF0Class	?Unknown_7165D0@Unknown715EF0Class@@QAE_NPAVAdvancedPositionalUpdatePacketClass@@PAVStateNode@@II@Z	Update_Position
+METHOD	Unknown715EF0Class	?Unknown_7165D0@Unknown715EF0Class@@QAE_NPAVAdvancedPositionalUpdatePacketClass@@PAVStateNode@@II@Z	Process_Update
+METHOD	Unknown715EF0Class	?Unknown_7165D0@Unknown715EF0Class@@QAE_NPAVAdvancedPositionalUpdatePacketClass@@PAVStateNode@@II@Z	Apply_Update
+METHOD	Unknown715EF0Class	?Unknown_716390@Unknown715EF0Class@@QAE_NPAVAdvancedPositionalUpdatePacketClass@@PAVStateNode@@HH@Z	Apply_Update
+METHOD	Unknown715EF0Class	?Unknown_716390@Unknown715EF0Class@@QAE_NPAVAdvancedPositionalUpdatePacketClass@@PAVStateNode@@HH@Z	Process_Update
+METHOD	Unknown715EF0Class	?Unknown_716390@Unknown715EF0Class@@QAE_NPAVAdvancedPositionalUpdatePacketClass@@PAVStateNode@@HH@Z	Update_Position
+METHOD	Unknown715EF0Class	?Unknown_7166A0@Unknown715EF0Class@@QAE_NPAVStateNode@@HH@Z	Is_State_Valid
+METHOD	Unknown715EF0Class	?Unknown_7166A0@Unknown715EF0Class@@QAE_NPAVStateNode@@HH@Z	Check_State
+METHOD	Unknown715EF0Class	?Unknown_7166A0@Unknown715EF0Class@@QAE_NPAVStateNode@@HH@Z	Validate_State
+METHOD	Unknown715EF0Class	?Unknown_34@Unknown715EF0Class@@UAEXHPAVAdvancedPositionalUpdatePacketClass@@I@Z	Process_Update
+METHOD	Unknown715EF0Class	?Unknown_34@Unknown715EF0Class@@UAEXHPAVAdvancedPositionalUpdatePacketClass@@I@Z	Set_Update
+METHOD	Unknown715EF0Class	?Unknown_34@Unknown715EF0Class@@UAEXHPAVAdvancedPositionalUpdatePacketClass@@I@Z	Update_Member
+METHOD	Unknown715EF0Class	?Unknown_30@Unknown715EF0Class@@UAEXHPAVAdvancedPositionalUpdatePacketClass@@@Z	Set_Update
+METHOD	Unknown715EF0Class	?Unknown_30@Unknown715EF0Class@@UAEXHPAVAdvancedPositionalUpdatePacketClass@@@Z	Process_Update
+METHOD	Unknown715EF0Class	?Unknown_30@Unknown715EF0Class@@UAEXHPAVAdvancedPositionalUpdatePacketClass@@@Z	Update_Member
+METHOD	Unknown715EF0Class	?Unknown_38@Unknown715EF0Class@@UAEIH@Z	Get_Flags
+METHOD	Unknown715EF0Class	?Unknown_38@Unknown715EF0Class@@UAEIH@Z	Get_State
+METHOD	Unknown715EF0Class	?Unknown_38@Unknown715EF0Class@@UAEIH@Z	Get_Status
+CLASS	LandUnknown466BE0Class	LandRenderClass
+CLASS	LandUnknown466BE0Class	LandDisplacementClass
+CLASS	LandUnknown466BE0Class	LandDisplacementMapClass
+CLASS	LandUnknown466BE0Class	LandTerrainClass
+CLASS	LandUnknown466BE0Class	LandRendererClass
+CLASS	LandUnknown466BE0Class	LandTessellationClass
+CLASS	LandUnknown466BE0Class	TerrainDisplacementClass
+CLASS	LandUnknown466BE0Class	LandDMapClass
+CLASS	LandUnknown466BE0Class	LandPatchClass
+CLASS	LandUnknown466BE0Class	LandShaderClass
+METHOD	LandUnknown466BE0Class	?Unknown_467A50@LandUnknown466BE0Class@@QAEXMM@Z	Set_Tessellation_Rate
+METHOD	LandUnknown466BE0Class	?Unknown_467A50@LandUnknown466BE0Class@@QAEXMM@Z	Set_Displacement_Scale
+METHOD	LandUnknown466BE0Class	?Unknown_467A50@LandUnknown466BE0Class@@QAEXMM@Z	Set_Scale
+METHOD	LandUnknown466BE0Class	?Unknown_4677B0@LandUnknown466BE0Class@@QAEXPAVHeightFieldClass@@@Z	Set_Height_Field
+METHOD	LandUnknown466BE0Class	?Unknown_4677B0@LandUnknown466BE0Class@@QAEXPAVHeightFieldClass@@@Z	Attach_Height_Field
+METHOD	LandUnknown466BE0Class	?Unknown_4677B0@LandUnknown466BE0Class@@QAEXPAVHeightFieldClass@@@Z	Initialize
+METHOD	LandUnknown466BE0Class	?Unknown_467910@LandUnknown466BE0Class@@QAEXXZ	Create_Cells
+METHOD	LandUnknown466BE0Class	?Unknown_467910@LandUnknown466BE0Class@@QAEXXZ	Build_Cells
+METHOD	LandUnknown466BE0Class	?Unknown_467910@LandUnknown466BE0Class@@QAEXXZ	Init_Cells
+METHOD	LandUnknown466BE0Class	?Unknown_468BE0@LandUnknown466BE0Class@@QAEXAAVAABoxClass@@PBVVector3@@@Z	Compute_Bounds
+METHOD	LandUnknown466BE0Class	?Unknown_468BE0@LandUnknown466BE0Class@@QAEXAAVAABoxClass@@PBVVector3@@@Z	Compute_Bounding_Box
+METHOD	LandUnknown466BE0Class	?Unknown_468BE0@LandUnknown466BE0Class@@QAEXAAVAABoxClass@@PBVVector3@@@Z	Generate_Cells
+METHOD	LandUnknown466BE0Class	?Unknown_468D50@LandUnknown466BE0Class@@QAEXXZ	Render
+METHOD	LandUnknown466BE0Class	?Unknown_468D50@LandUnknown466BE0Class@@QAEXXZ	Update
+METHOD	LandUnknown466BE0Class	?Unknown_468D50@LandUnknown466BE0Class@@QAEXXZ	Prepare
+METHOD	LandUnknown466BE0Class	?Unknown_467E40@LandUnknown466BE0Class@@QAEXXZ	Release_Cells
+METHOD	LandUnknown466BE0Class	?Unknown_467E40@LandUnknown466BE0Class@@QAEXXZ	Release_All
+METHOD	LandUnknown466BE0Class	?Unknown_467E40@LandUnknown466BE0Class@@QAEXXZ	Reset
+CLASS	SBaseViewClass	StarbaseViewClass
+CLASS	SBaseViewClass	StarbaseViewerClass
+CLASS	SBaseViewClass	StarbaseViewInterface
+CLASS	SBaseViewClass	StarbaseRenderViewClass
+CLASS	SBaseViewClass	StarbaseSceneViewClass
+CLASS	SBaseViewClass	StarbaseViewportClass
+CLASS	SBaseViewClass	StarbaseInteriorViewClass
+CLASS	SBaseViewClass	StarbaseLoungeViewClass
+CLASS	SBaseViewClass	StarbaseSceneClass
+CLASS	SBaseViewClass	StarbaseSceneViewerClass
+METHOD	SBaseViewClass	?Unknown_69D930@SBaseViewClass@@QAEXH@Z	Set_View_Mode
+METHOD	SBaseViewClass	?Unknown_69D930@SBaseViewClass@@QAEXH@Z	Set_Room
+METHOD	SBaseViewClass	?Unknown_69D930@SBaseViewClass@@QAEXH@Z	Set_Mode
+METHOD	SBaseViewClass	?Unknown_69E260@SBaseViewClass@@QAEXPBD@Z	Set_Mouse_Text
+METHOD	SBaseViewClass	?Unknown_69E260@SBaseViewClass@@QAEXPBD@Z	Set_Text
+METHOD	SBaseViewClass	?Unknown_69E260@SBaseViewClass@@QAEXPBD@Z	Show_Text
+METHOD	SBaseViewClass	?Unknown_18@SBaseViewClass@@UAEX_N@Z	Set_Visible
+METHOD	SBaseViewClass	?Unknown_18@SBaseViewClass@@UAEX_N@Z	Show
+METHOD	SBaseViewClass	?Unknown_18@SBaseViewClass@@UAEX_N@Z	Set_Active
+METHOD	SBaseViewClass	?Unknown_69E510@SBaseViewClass@@QAEXVMatrix3D@@@Z	Set_Transform
+METHOD	SBaseViewClass	?Unknown_69E510@SBaseViewClass@@QAEXVMatrix3D@@@Z	Set_Matrix
+METHOD	SBaseViewClass	?Unknown_69E510@SBaseViewClass@@QAEXVMatrix3D@@@Z	Set_Position
+METHOD	SBaseViewClass	?Unknown_69DBA0@SBaseViewClass@@QAEXHABV?$RefCountPtr@VRenderObjClass@@@@@Z	Set_Render_Object
+METHOD	SBaseViewClass	?Unknown_69DBA0@SBaseViewClass@@QAEXHABV?$RefCountPtr@VRenderObjClass@@@@@Z	Set_Object
+METHOD	SBaseViewClass	?Unknown_69DBA0@SBaseViewClass@@QAEXHABV?$RefCountPtr@VRenderObjClass@@@@@Z	Set_Model
+METHOD	SBaseViewClass	?Unknown_69EF00@SBaseViewClass@@QAEXHM@Z	Set_Scale
+METHOD	SBaseViewClass	?Unknown_69EF00@SBaseViewClass@@QAEXHM@Z	Set_Alpha
+METHOD	SBaseViewClass	?Unknown_69EF00@SBaseViewClass@@QAEXHM@Z	Set_Opacity
+METHOD	SBaseViewClass	?Unknown_69DFC0@SBaseViewClass@@QAEXV?$RefCountPtr@VCharacterViewAvatarClass@@@@ABVMatrix3D@@_N@Z	Add_Avatar
+METHOD	SBaseViewClass	?Unknown_69DFC0@SBaseViewClass@@QAEXV?$RefCountPtr@VCharacterViewAvatarClass@@@@ABVMatrix3D@@_N@Z	Set_Avatar
+METHOD	SBaseViewClass	?Unknown_69DFC0@SBaseViewClass@@QAEXV?$RefCountPtr@VCharacterViewAvatarClass@@@@ABVMatrix3D@@_N@Z	Create_Avatar
+METHOD	SBaseViewClass	?Unknown_6A0FD0@SBaseViewClass@@QAEXPAVLoungeNPCPacketClass@@@Z	Process_NPC_Packet
+METHOD	SBaseViewClass	?Unknown_6A0FD0@SBaseViewClass@@QAEXPAVLoungeNPCPacketClass@@@Z	Add_NPC
+METHOD	SBaseViewClass	?Unknown_6A0FD0@SBaseViewClass@@QAEXPAVLoungeNPCPacketClass@@@Z	Update_NPC
+METHOD	SBaseViewClass	?Unknown_69E6E0@SBaseViewClass@@QAEXPBDH_NM@Z	Show_Text
+METHOD	SBaseViewClass	?Unknown_69E6E0@SBaseViewClass@@QAEXPBDH_NM@Z	Add_Text
+METHOD	SBaseViewClass	?Unknown_69E6E0@SBaseViewClass@@QAEXPBDH_NM@Z	Set_Text
+METHOD	SBaseViewClass	?Unknown_69F8F0@SBaseViewClass@@QAEXHH@Z	On_Mouse_Move
+METHOD	SBaseViewClass	?Unknown_69F8F0@SBaseViewClass@@QAEXHH@Z	Set_Mouse_Position
+METHOD	SBaseViewClass	?Unknown_69F8F0@SBaseViewClass@@QAEXHH@Z	Set_Cursor_Position
+METHOD	SBaseViewClass	?Unknown_69F850@SBaseViewClass@@QAE_NH@Z	Is_Visible
+METHOD	SBaseViewClass	?Unknown_69F850@SBaseViewClass@@QAE_NH@Z	Is_Active
+METHOD	SBaseViewClass	?Unknown_69F850@SBaseViewClass@@QAE_NH@Z	Is_Valid
+METHOD	SBaseViewClass	?Unknown_69DC80@SBaseViewClass@@QAEXV?$RefCountPtr@VCharacterViewAvatarClass@@@@PBD_N@Z	Set_Avatar_Animation
+METHOD	SBaseViewClass	?Unknown_69DC80@SBaseViewClass@@QAEXV?$RefCountPtr@VCharacterViewAvatarClass@@@@PBD_N@Z	Set_Avatar_State
+METHOD	SBaseViewClass	?Unknown_69DC80@SBaseViewClass@@QAEXV?$RefCountPtr@VCharacterViewAvatarClass@@@@PBD_N@Z	Play_Avatar_Animation
+METHOD	SBaseViewClass	?Unknown_69F540@SBaseViewClass@@QAEXABV?$RefCountPtr@VRenderObjClass@@@@PBDH_N2@Z	Add_Render_Object
+METHOD	SBaseViewClass	?Unknown_69F540@SBaseViewClass@@QAEXABV?$RefCountPtr@VRenderObjClass@@@@PBDH_N2@Z	Add_Model
+METHOD	SBaseViewClass	?Unknown_69F540@SBaseViewClass@@QAEXABV?$RefCountPtr@VRenderObjClass@@@@PBDH_N2@Z	Add_Object
+METHOD	SBaseViewClass	?Unknown_69CBE0@SBaseViewClass@@QAE_NXZ	Is_Loaded
+METHOD	SBaseViewClass	?Unknown_69CBE0@SBaseViewClass@@QAE_NXZ	Is_Ready
+METHOD	SBaseViewClass	?Unknown_69CBE0@SBaseViewClass@@QAE_NXZ	Is_Initialized
+METHOD	SBaseViewClass	?Unknown_69F480@SBaseViewClass@@QAEXH@Z	Set_Active_Room
+METHOD	SBaseViewClass	?Unknown_69F480@SBaseViewClass@@QAEXH@Z	Set_Room
+METHOD	SBaseViewClass	?Unknown_69F480@SBaseViewClass@@QAEXH@Z	Select_Room
