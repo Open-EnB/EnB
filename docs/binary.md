@@ -381,7 +381,8 @@ our libraries' blocks are under 1,700 bytes each (statics; the large ones are LI
 and of retail's 940 app initialisers one (0x46C710) lies outside our objects' runs. So the 47 are translation
 units with no function and no initialiser of their own: data-only files (tables, strings, constants) or files
 whose code is all COMDATs another object supplies first, whose data our tree defines in other objects. Their
-data placement in `.data` / `.rdata` (object order) is the next measure.
+data placement in `.data` / `.rdata` (object order) is the next measure (§5.5: they have no data run either; its
+last part, of 2026-11-27, narrows the kinds to two and names 13 candidates).
 
 What it implies (proposals, nothing of the one client build changed): (1) wt/IM5B's three functions out of
 ww3d2 / wwlib (1,232 bytes of `.text`); (2) the `ctype<unsigned short>` instantiations: find the header that makes
@@ -390,11 +391,11 @@ objects from `.data` / `.rdata` (each data-only object of retail is a run of glo
 
 ### 5.5 The extra initialisers' causes, and the 47 code-less objects in the data sections
 
-Measured 2026-11-25 (image builder IM6, week plan 2026-11-24 Â§2 D) on run/2026-11-25 (wt/IM6A, every library
+Measured 2026-11-25 (image builder IM6, week plan 2026-11-24 §2 D) on run/2026-11-25 (wt/IM6A, every library
 rebuilt there) with the scripts in `.work/im6/` (`seg.py`, `incall2.py` / `pp.py`, `datamap2.py`, `datalayout.py`,
 `dataspan.py`, `spanref.py`).
 
-**The initialisers (Â§5.4's 40).** Retail's table is read per object with two rules the code shows: an object's
+**The initialisers (§5.4's 40).** Retail's table is read per object with two rules the code shows: an object's
 `.CRT$XCU` entries are contiguous, `<string>`'s guarded `ctype<unsigned short>::id` initialiser is its last
 (workflow 3.3), and an initialiser's code lies in its object's code, a header static's (permstr.h's
 PermStringInit) at the object's start, the ctype guard at its end; so a PermStringInit right after an object's
@@ -478,13 +479,92 @@ for pooled literals and floats, from objects anywhere: none is data that no obje
 `__FILE__` strings name 437 `.cpp` files: every one is a file of ours (wnet's tcpqueue.cpp in libs/), so no file
 with an assert was merged into another.
 
-**What the 47 are.** No code of their own (Â§5.4), no initialiser, no data run of their own that the relocations of
+**What the 47 are.** No code of their own (§5.4), no initialiser, no data run of their own that the relocations of
 our exact functions reach, and no assert: translation units whose release build compiles to nothing linkable
 (files under `#ifdef` of a debug or tool build, declaration-only files; E&B's objects are on the command line, so
 LINK keeps an empty object and counts it in the rich header), or data read only by functions not yet exact
 (those spans are listed above). They cost the image only the rich header's C++ count (and through the key,
-`e_lfanew`, Â§5.4); 47 empty C++ objects on the trial's link line would raise its count to retail's (not tried: the C and cvtomf
-counts differ too).
+`e_lfanew`, §5.4); 47 empty C++ objects on the trial's link line raise its count to retail's 1,054 and move nothing
+else (§5.7's `emp47`; `e_lfanew` stays off, the C and cvtomf counts differ too).
+
+**The 47 against Westwood's source, and the first 13 candidates.** Worked out 2026-11-27 on PR #329's branch
+(`tools/2026-11-27-exact`, wt/EX; scripts in `.work/exact/`: `ea_empty.py`, `skel_candidates.py`, `add_files.py`,
+`objempty.py`, `richcount.py`, `dialogs.py`), merged; progress.md's log entry of that day has the calls.
+
+*What Westwood's projects leave empty* (EA's Renegade, Generals and Zero Hour through a textual release
+preprocessor pass; nothing compiled, nothing checked against client.exe): 1.5-2.5 % of a project's .cpp files,
+of two kinds only. (a) A whole file under `#ifdef WWDEBUG` / `_DEBUG` / `#ifndef NDEBUG` / `#if 0`. (b) A skeleton
+.cpp that only includes its own header, beside a template or inline class.
+
+| Project | Release .cpp | Empty in release |
+|---|---|---|
+| Renegade `Commando\commando.dsp` (the exe) | 234 | 3: WOLDiags, netgraphs (`WWDEBUG`), dlgmpwolgoodies (`#if 0`) |
+| `Combat.dsp` | 128 | 1: statemachine (skeleton) |
+| `Scripts.dsp` | 45 | 2: DPrint (`_DEBUG`), Test_JDG_EVA (includes only) |
+| `launcher.dsp` | 18 | 1: DebugPrint |
+| wwphys | 93 | 7: bin_aabox, bin_axes, bin_obbox, bin_point, bin_vector (`WWDEBUG`), bpt, rbody_obsolete (`#if 0`) |
+| ww3d2 | 103 | 2: meshdam (`#if 0`), prim_anim (includes only) |
+| wwlib | 85 | 1: refcount (`#ifndef NDEBUG`) |
+| Generals `GameEngine.dsp` | 543 | 6: PreRTS (`/Yc`), INIModel, DrawableManager, NetMessageStream, Directory, MiniLog |
+| Generals `GameEngineDevice.dsp` | 91 | 2: W3DGameLogic, W3DDebugIcons |
+
+Zero Hour adds crc.cpp (`_DEBUG`). Not the origin: precompiled-header sources (no `/Yc` or stdafx in Renegade's
+game projects, none in our app), `Exclude_From_Build` files (never compiled, so never counted), `/OPT:REF`
+(retail is `/OPT:NOREF`), and VC6's class wizard (its GUID `_INCLUDED_` guards and "Construction/Destruction"
+banners: 0 / 0 in Commando, Combat, wwlib, wwphys, WWOnline and Zero Hour's GameEngine, 240 / 2 in the tools,
+in ww3d2 only three MFC test apps' headers and framgrab.cpp / intersec.cpp; and a wizard .cpp keeps an out-of-line
+constructor and destructor, so it is not empty). Westwood's rate gives 12-20 empties for the app's ~794 files;
+47 is 5.9 %, so skeletons carry most of it, if the rate holds for E&B.
+
+*Only objects on the link line count.* An empty library member defines no external, so LINK never pulls it and
+the rich header never sees it: the 47 are app (or wlib / wnet) objects, not members of the Westwood libraries.
+The EA library files empty in release in Renegade and in Generals / Zero Hour, whose headers the tree holds
+(wwlib refcount.cpp and surface.cpp, ww3d2 meshdam.cpp and prim_anim.cpp, Renegade's copies; Zero Hour's
+tgatodxt.cpp left out, in one tree only), build empty and are in the tree for the source's sake; they cannot
+move the count.
+
+*The test for a candidate* (`objempty.py OBJ...`): empty means no section with raw data but `.drectve` and
+`.debug$S|T|F`, and no symbol but `@comp.id` and the section and file records. A skeleton passes only when its
+header's whole include closure is free of statics: one that reaches `<string>` gets the wide-ctype guard (a
+`.CRT$XCU` entry and the external `?id@?$ctype@G@std@@$E`), one that reaches permstr.h gets PermStringInit, and
+the 47 have no initialiser (§5.4). So the form of a skeleton's header is constrained by the same include facts as
+this section's first part, and a template header that needs `std::string` is not one of the 47 in that form.
+
+*The candidates.* 74 app headers have no .cpp of the same name (`skel_candidates.py`); 34 are generated
+(`aux_*`, `aux_roots*`), and of the rest 28 with real names (not `unknown_*`, not provisional) got an include-only
+skeleton (`add_files.py`):
+
+| Result | Files |
+|---|---|
+| 13 empty, kept | common: average, network_ini; shared: duration, graphics_settings, kv_accessor, land_lighting, string_value; shared/expr: expr_lexer_match, expr_math_parser; client: gadget_collection_interface, ui_mfd_extended_context_base; packets: packet_data, relationship |
+| 12 dropped: `.CRT$XCU` and the ctype guard | auxdata, client_object_events, data_binder, definition_auto_ptr, definition_manager, delta_array, delta_template, expr_math_builder, expr_math_eval_impl, expr_math_lexer, kv_acc_array, kv_string_encoder |
+| 2 dropped: `.CRT$XCU`, another static | delta_item_array, rtti |
+| 1 dropped: code | fontstring (48 bytes of `.text`, a vector constructor iterator) |
+
+The 13 are candidates by form only: nothing in client.exe names any of them (an empty object leaves no string,
+no symbol, no byte), so each name is provisional (D137, said in its ledger description) and the only measure is
+the count. With them `verify.py --lib app,wwlib,ww3d2` has 0 errors and `pairs_cmp.py` against the commit before
+gains and loses nothing.
+
+*The count* (`rich.py --diff` on the exact build; `richcount.py` lists the objects on the line with their
+@comp.id): C++ 11/8799 **1,008 -> 1,021** of retail's 1,054 with wlib / wnet on the line, so **33 are unnamed**;
+C 204 against 201 and cvtomf 10 against 11 are separate differences. A first reading of 1,020 (12 for 13) was
+no property of the skeletons: wt/EX held only copies of wlib's and wnet's `.lib` files, `exact_objects` silently
+skipped their 13 objects (wlib configfile, critsec, monod, unknown_8b45b0, streamer, wdebug, wstring, wtime,
+xtime; wnet tcpcon, tcpmgr, tcpqueue, udp), LINK pulled 12 of them as members and one unreferenced wlib member
+stayed out. `exact_objects` now stops on a missing object. The lesson for any count taken from a worktree: an
+object reached as a library member is counted only if something references it, so check with `richcount.py`
+that every expected object is on the line before reading a difference of one.
+
+*The dialogs.* Of `.rsrc`'s 9 DIALOGs retail opens three (106 the options dialog, `DialogBoxParamA` at 0x846CA7;
+its one page 111 "Account", `CreateDialogParamA` at 0x847427 through the page table 0xBAF730; 112 the license,
+`DialogBoxParamA` at 0x847EAA), all reconstructed (optdlg.cpp, unknown_847d20.cpp). 104, 105 and 107-110 (a
+developer launcher's character list and create, the server / client / debug tabs, an empty host) have no code
+in retail: compiled out, or a shared `.rc`. Their dialog procedures' files may be some of kind (a)'s share of
+the 47; the image cannot name them.
+
+Open: the 33; kind (a)'s files (whole-file debug or tool code) leave nothing in the image to test, so beyond the
+headers without a .cpp the count is the only evidence, and a file added to reach it stays provisional.
 
 ### 5.6 The last initialisers: WinMain's object; the object order rule; the trials at the run's head
 
