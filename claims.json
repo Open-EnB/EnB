@@ -1,0 +1,443 @@
+{
+ "claims": [
+  {
+   "funcs": [
+    "0x4CB260",
+    "0x4CFB00"
+   ],
+   "granted": "2026-11-28T02:06:22Z",
+   "head": "bfa468c6743a58c02733921bf8dfeaed3570f8f5",
+   "holder": "vessellaj",
+   "inactive_used": 0.0,
+   "kind": "issue",
+   "last_tick": "2026-11-28T13:49:00Z",
+   "nopr_used": 586.0,
+   "number": 342,
+   "pr": 344,
+   "renewals": 0,
+   "seen": 0,
+   "state": "granted",
+   "total_used": 586.0,
+   "unit": "0x4CB260-0x4CFB01",
+   "updated_at": "2026-11-28T13:46:28Z",
+   "v": 1
+  },
+  {
+   "funcs": [
+    "0x4BB0E0"
+   ],
+   "granted": "2026-11-28T03:29:56Z",
+   "head": "57eee770beee5aea6a865702a3dbb4ce0ac82c1e",
+   "holder": "vessellaj",
+   "inactive_used": 0.0,
+   "kind": "issue",
+   "last_tick": "2026-11-28T13:49:00Z",
+   "nopr_used": 521.0,
+   "number": 345,
+   "pr": 347,
+   "renewals": 0,
+   "seen": 0,
+   "state": "granted",
+   "total_used": 521.0,
+   "unit": "0x4BB0E0-0x4BB0E1",
+   "updated_at": "2026-11-28T13:46:29Z",
+   "v": 1
+  },
+  {
+   "funcs": [
+    "0x4479F0",
+    "0x447B30"
+   ],
+   "granted": "2026-11-28T04:51:04Z",
+   "head": "281312ab396eee00a6b8c629e8ed1a08f8d12780",
+   "holder": "vessellaj",
+   "inactive_used": 0.0,
+   "kind": "issue",
+   "last_tick": "2026-11-28T13:49:00Z",
+   "nopr_used": 0.0,
+   "number": 348,
+   "pr": 349,
+   "renewals": 0,
+   "seen": 0,
+   "state": "granted",
+   "total_used": 0.0,
+   "unit": "0x4479F0-0x447B31",
+   "updated_at": "2026-11-28T13:46:31Z",
+   "v": 1
+  },
+  {
+   "builder": "B1",
+   "funcs": [
+    "0x6CA0C0"
+   ],
+   "holder": "dan51588",
+   "kind": "pr",
+   "model": "opus",
+   "pr": 346,
+   "unit": "0x6CA0C0-0x6CC5DC",
+   "updated_at": "2026-11-28T13:48:51Z"
+  },
+  {
+   "builder": "B2",
+   "funcs": [
+    "0x851AE0"
+   ],
+   "holder": "dan51588",
+   "kind": "pr",
+   "model": "opus",
+   "pr": 346,
+   "unit": "0x851AE0-0x853027",
+   "updated_at": "2026-11-28T13:48:51Z"
+  },
+  {
+   "builder": "B3",
+   "funcs": [
+    "0x75DEE0"
+   ],
+   "holder": "dan51588",
+   "kind": "pr",
+   "model": "opus",
+   "pr": 346,
+   "unit": "0x75DEE0-0x75E6D0",
+   "updated_at": "2026-11-28T13:48:51Z"
+  },
+  {
+   "builder": "B3",
+   "funcs": [
+    "0x497700"
+   ],
+   "holder": "dan51588",
+   "kind": "pr",
+   "model": "opus",
+   "pr": 346,
+   "unit": "0x497700-0x497F06",
+   "updated_at": "2026-11-28T13:48:51Z"
+  },
+  {
+   "builder": "B3",
+   "funcs": [
+    "0x7E3A20"
+   ],
+   "holder": "dan51588",
+   "kind": "pr",
+   "model": "opus",
+   "pr": 346,
+   "unit": "0x7E3A20-0x7E4169",
+   "updated_at": "2026-11-28T13:48:51Z"
+  },
+  {
+   "builder": "B4",
+   "funcs": [
+    "0x6B6900"
+   ],
+   "holder": "dan51588",
+   "kind": "pr",
+   "model": "opus",
+   "pr": 346,
+   "unit": "0x6B6900-0x6B700A",
+   "updated_at": "2026-11-28T13:48:51Z"
+  },
+  {
+   "builder": "B4",
+   "funcs": [
+    "0x466F60"
+   ],
+   "holder": "dan51588",
+   "kind": "pr",
+   "model": "opus",
+   "pr": 346,
+   "unit": "0x466F60-0x4676B1",
+   "updated_at": "2026-11-28T13:48:51Z"
+  },
+  {
+   "builder": "B4",
+   "funcs": [
+    "0x4647C0"
+   ],
+   "holder": "dan51588",
+   "kind": "pr",
+   "model": "opus",
+   "pr": 346,
+   "unit": "0x4647C0-0x464E7F",
+   "updated_at": "2026-11-28T13:48:51Z"
+  },
+  {
+   "builder": "B5",
+   "funcs": [
+    "0x741BB0"
+   ],
+   "holder": "dan51588",
+   "kind": "pr",
+   "model": "opus",
+   "pr": 346,
+   "unit": "0x741BB0-0x74233E",
+   "updated_at": "2026-11-28T13:48:51Z"
+  },
+  {
+   "builder": "B5",
+   "funcs": [
+    "0x68E360"
+   ],
+   "holder": "dan51588",
+   "kind": "pr",
+   "model": "opus",
+   "pr": 346,
+   "unit": "0x68E360-0x68EAC1",
+   "updated_at": "2026-11-28T13:48:51Z"
+  },
+  {
+   "builder": "B6",
+   "funcs": [
+    "0x622180"
+   ],
+   "holder": "dan51588",
+   "kind": "pr",
+   "model": "opus",
+   "pr": 346,
+   "unit": "0x622180-0x62286E",
+   "updated_at": "2026-11-28T13:48:51Z"
+  },
+  {
+   "builder": "B6",
+   "funcs": [
+    "0x449540"
+   ],
+   "holder": "dan51588",
+   "kind": "pr",
+   "model": "opus",
+   "pr": 346,
+   "unit": "0x449540-0x449CBF",
+   "updated_at": "2026-11-28T13:48:51Z"
+  },
+  {
+   "builder": "B6",
+   "funcs": [
+    "0x80D5E0"
+   ],
+   "holder": "dan51588",
+   "kind": "pr",
+   "model": "opus",
+   "pr": 346,
+   "unit": "0x80D5E0-0x80DE0E",
+   "updated_at": "2026-11-28T13:48:51Z"
+  },
+  {
+   "builder": "B7",
+   "funcs": [
+    "0x6FCB70"
+   ],
+   "holder": "dan51588",
+   "kind": "pr",
+   "model": "opus",
+   "pr": 346,
+   "unit": "0x6FCB70-0x6FD112",
+   "updated_at": "2026-11-28T13:48:51Z"
+  },
+  {
+   "builder": "B7",
+   "funcs": [
+    "0x7A8B70"
+   ],
+   "holder": "dan51588",
+   "kind": "pr",
+   "model": "opus",
+   "pr": 346,
+   "unit": "0x7A8B70-0x7A91CC",
+   "updated_at": "2026-11-28T13:48:51Z"
+  },
+  {
+   "builder": "B7",
+   "funcs": [
+    "0x6A34E0"
+   ],
+   "holder": "dan51588",
+   "kind": "pr",
+   "model": "opus",
+   "pr": 346,
+   "unit": "0x6A34E0-0x6A3A9A",
+   "updated_at": "2026-11-28T13:48:51Z"
+  },
+  {
+   "builder": "B8",
+   "funcs": [
+    "0x53EB00"
+   ],
+   "holder": "dan51588",
+   "kind": "pr",
+   "model": "opus",
+   "pr": 346,
+   "unit": "0x53EB00-0x53F05C",
+   "updated_at": "2026-11-28T13:48:51Z"
+  },
+  {
+   "builder": "B8",
+   "funcs": [
+    "0x50E090"
+   ],
+   "holder": "dan51588",
+   "kind": "pr",
+   "model": "opus",
+   "pr": 346,
+   "unit": "0x50E090-0x50E55E",
+   "updated_at": "2026-11-28T13:48:51Z"
+  },
+  {
+   "builder": "B8",
+   "funcs": [
+    "0x6E6030"
+   ],
+   "holder": "dan51588",
+   "kind": "pr",
+   "model": "opus",
+   "pr": 346,
+   "unit": "0x6E6030-0x6E6573",
+   "updated_at": "2026-11-28T13:48:51Z"
+  },
+  {
+   "builder": "B9",
+   "funcs": [
+    "0x5B4B10"
+   ],
+   "holder": "dan51588",
+   "kind": "pr",
+   "model": "opus",
+   "pr": 346,
+   "unit": "0x5B4B10-0x5B5175",
+   "updated_at": "2026-11-28T13:48:51Z"
+  },
+  {
+   "builder": "B9",
+   "funcs": [
+    "0x70E850"
+   ],
+   "holder": "dan51588",
+   "kind": "pr",
+   "model": "opus",
+   "pr": 346,
+   "unit": "0x70E850-0x70EE69",
+   "updated_at": "2026-11-28T13:48:51Z"
+  },
+  {
+   "builder": "B9",
+   "funcs": [
+    "0x453F10"
+   ],
+   "holder": "dan51588",
+   "kind": "pr",
+   "model": "opus",
+   "pr": 346,
+   "unit": "0x453F10-0x454584",
+   "updated_at": "2026-11-28T13:48:51Z"
+  },
+  {
+   "builder": "B10",
+   "funcs": [
+    "0x7EDCB0"
+   ],
+   "holder": "dan51588",
+   "kind": "pr",
+   "model": "opus",
+   "pr": 346,
+   "unit": "0x7EDCB0-0x7EE1F0",
+   "updated_at": "2026-11-28T13:48:51Z"
+  },
+  {
+   "builder": "B10",
+   "funcs": [
+    "0x7767A0"
+   ],
+   "holder": "dan51588",
+   "kind": "pr",
+   "model": "opus",
+   "pr": 346,
+   "unit": "0x7767A0-0x776E17",
+   "updated_at": "2026-11-28T13:48:51Z"
+  },
+  {
+   "builder": "B10",
+   "funcs": [
+    "0x46B3C0"
+   ],
+   "holder": "dan51588",
+   "kind": "pr",
+   "model": "opus",
+   "pr": 346,
+   "unit": "0x46B3C0-0x46B979",
+   "updated_at": "2026-11-28T13:48:51Z"
+  },
+  {
+   "builder": "B11",
+   "funcs": [
+    "0x50DB20"
+   ],
+   "holder": "dan51588",
+   "kind": "pr",
+   "model": "opus",
+   "pr": 346,
+   "unit": "0x50DB20-0x50DF68",
+   "updated_at": "2026-11-28T13:48:51Z"
+  },
+  {
+   "builder": "B11",
+   "funcs": [
+    "0x50E6E0"
+   ],
+   "holder": "dan51588",
+   "kind": "pr",
+   "model": "opus",
+   "pr": 346,
+   "unit": "0x50E6E0-0x50ECDD",
+   "updated_at": "2026-11-28T13:48:51Z"
+  },
+  {
+   "builder": "B11",
+   "funcs": [
+    "0x512400"
+   ],
+   "holder": "dan51588",
+   "kind": "pr",
+   "model": "opus",
+   "pr": 346,
+   "unit": "0x512400-0x512896",
+   "updated_at": "2026-11-28T13:48:51Z"
+  },
+  {
+   "builder": "B12",
+   "funcs": [
+    "0x6F4610"
+   ],
+   "holder": "dan51588",
+   "kind": "pr",
+   "model": "opus",
+   "pr": 346,
+   "unit": "0x6F4610-0x6F4ADC",
+   "updated_at": "2026-11-28T13:48:51Z"
+  },
+  {
+   "builder": "B12",
+   "funcs": [
+    "0x788F90"
+   ],
+   "holder": "dan51588",
+   "kind": "pr",
+   "model": "opus",
+   "pr": 346,
+   "unit": "0x788F90-0x789534",
+   "updated_at": "2026-11-28T13:48:51Z"
+  },
+  {
+   "builder": "B12",
+   "funcs": [
+    "0x76D990"
+   ],
+   "holder": "dan51588",
+   "kind": "pr",
+   "model": "opus",
+   "pr": 346,
+   "unit": "0x76D990-0x76DE25",
+   "updated_at": "2026-11-28T13:48:51Z"
+  }
+ ],
+ "generated": "2026-11-28T13:49:00Z",
+ "v": 1
+}
