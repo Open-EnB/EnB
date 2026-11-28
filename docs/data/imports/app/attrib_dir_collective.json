@@ -1,7 +1,7 @@
 {
  "ambiguous": [],
  "copy": "reconstructed",
- "description": "the collective, client 0x4DA7F0-0x4DD110 with the tables' instances: the asserts on the client's lines 54-401 (D25), DestinationStruct's constructor / destructor 0x4DCFF0 / 0x4DD110 defined last (out of line, no caller); NOT EXACT: the destructor 0x4DBFD0, Add_Destination 0x4DC310, Add_Member 0x4DC720",
+ "description": "the collective, client 0x4DA7F0-0x4DD110 with the tables' instances: the asserts on the client's lines 54-401 (D25), DestinationStruct's constructor / destructor 0x4DCFF0 / 0x4DD110 defined last (out of line, no caller); every function exact (Add_Destination 0x4DC310 and Add_Member 0x4DC720 by run 2026-11-27's block-scoped find, the iterator init form and two dead Members.size() reads after new MemberStruct: provisional D272)",
  "expected": {},
  "in_tree": [
   "0x42A6C0",
