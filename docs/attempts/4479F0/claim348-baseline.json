@@ -1,0 +1,664 @@
+{
+  "revision": "64e8e4f55296d83901759bb53b0d0d8a641f7352",
+  "unit": "app/shared/unknown_445740.cpp",
+  "source_sha256": "88579ca0b51bf49802213e8365145f62620e5863ea93d88e638e0dd6c044b8b0",
+  "object_sha256": "f96b424622f6090643874120077250e623aaf60416e7e7862977c12364e6870c",
+  "response": "/nologo /c /MT /W3 /O2 /Ob2 /GX\n/DWIN32\n/D_WINDOWS\n/DWIN32_LEAN_AND_MEAN\n/DWINVER=0x400\n/DNDEBUG\n/DENABLE_WWPROFILE\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-348\\tree\\wwdebug\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-348\\tree\\wwlib\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-348\\tree\\wwmath\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-348\\tree\\wwsaveload\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-348\\tree\\wwaudio\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-348\\tree\\ww3d2\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-348\\tree\\wwshade\"\n/I\"C:\\EnBDevelopment\\SDK\\directx8\\include\"\n/I\"C:\\EnBDevelopment\\SDK\\radtools\\include_enb\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-348\\tree\\libs\\wwonline\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-348\\tree\\libs\\sgistl\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-348\\tree\"\n\"e:\\build\\beta\\G\\app\\shared\\unknown_445740.cpp\"",
+  "file_pairs": [
+    [
+      "app/shared/unknown_445740.cpp",
+      "0x42B320"
+    ],
+    [
+      "app/shared/unknown_445740.cpp",
+      "0x42F250"
+    ],
+    [
+      "app/shared/unknown_445740.cpp",
+      "0x445260"
+    ],
+    [
+      "app/shared/unknown_445740.cpp",
+      "0x445300"
+    ],
+    [
+      "app/shared/unknown_445740.cpp",
+      "0x445740"
+    ],
+    [
+      "app/shared/unknown_445740.cpp",
+      "0x445860"
+    ],
+    [
+      "app/shared/unknown_445740.cpp",
+      "0x445980"
+    ],
+    [
+      "app/shared/unknown_445740.cpp",
+      "0x445A50"
+    ],
+    [
+      "app/shared/unknown_445740.cpp",
+      "0x445B30"
+    ],
+    [
+      "app/shared/unknown_445740.cpp",
+      "0x445C60"
+    ],
+    [
+      "app/shared/unknown_445740.cpp",
+      "0x445D90"
+    ],
+    [
+      "app/shared/unknown_445740.cpp",
+      "0x4463B0"
+    ],
+    [
+      "app/shared/unknown_445740.cpp",
+      "0x446810"
+    ],
+    [
+      "app/shared/unknown_445740.cpp",
+      "0x4469A0"
+    ],
+    [
+      "app/shared/unknown_445740.cpp",
+      "0x446E60"
+    ],
+    [
+      "app/shared/unknown_445740.cpp",
+      "0x447070"
+    ],
+    [
+      "app/shared/unknown_445740.cpp",
+      "0x447180"
+    ],
+    [
+      "app/shared/unknown_445740.cpp",
+      "0x447690"
+    ],
+    [
+      "app/shared/unknown_445740.cpp",
+      "0x447C40"
+    ],
+    [
+      "app/shared/unknown_445740.cpp",
+      "0x447CC0"
+    ],
+    [
+      "app/shared/unknown_445740.cpp",
+      "0x447DD0"
+    ],
+    [
+      "app/shared/unknown_445740.cpp",
+      "0x447E20"
+    ],
+    [
+      "app/shared/unknown_445740.cpp",
+      "0x4481E0"
+    ],
+    [
+      "app/shared/unknown_445740.cpp",
+      "0x448260"
+    ],
+    [
+      "app/shared/unknown_445740.cpp",
+      "0x448390"
+    ],
+    [
+      "app/shared/unknown_445740.cpp",
+      "0x4484C0"
+    ],
+    [
+      "app/shared/unknown_445740.cpp",
+      "0x448580"
+    ],
+    [
+      "app/shared/unknown_445740.cpp",
+      "0x4485A0"
+    ],
+    [
+      "app/shared/unknown_445740.cpp",
+      "0x4485D0"
+    ],
+    [
+      "app/shared/unknown_445740.cpp",
+      "0x448610"
+    ],
+    [
+      "app/shared/unknown_445740.cpp",
+      "0x448640"
+    ],
+    [
+      "app/shared/unknown_445740.cpp",
+      "0x448660"
+    ],
+    [
+      "app/shared/unknown_445740.cpp",
+      "0x448680"
+    ],
+    [
+      "app/shared/unknown_445740.cpp",
+      "0x4486C0"
+    ],
+    [
+      "app/shared/unknown_445740.cpp",
+      "0x448780"
+    ],
+    [
+      "app/shared/unknown_445740.cpp",
+      "0x4487A0"
+    ],
+    [
+      "app/shared/unknown_445740.cpp",
+      "0x4487D0"
+    ],
+    [
+      "app/shared/unknown_445740.cpp",
+      "0x448800"
+    ],
+    [
+      "app/shared/unknown_445740.cpp",
+      "0x448830"
+    ],
+    [
+      "app/shared/unknown_445740.cpp",
+      "0x448850"
+    ],
+    [
+      "app/shared/unknown_445740.cpp",
+      "0x448870"
+    ],
+    [
+      "app/shared/unknown_445740.cpp",
+      "0x4488B0"
+    ],
+    [
+      "app/shared/unknown_445740.cpp",
+      "0x4488E0"
+    ],
+    [
+      "app/shared/unknown_445740.cpp",
+      "0x448960"
+    ],
+    [
+      "app/shared/unknown_445740.cpp",
+      "0x448990"
+    ],
+    [
+      "app/shared/unknown_445740.cpp",
+      "0x4489C0"
+    ],
+    [
+      "app/shared/unknown_445740.cpp",
+      "0x448A40"
+    ],
+    [
+      "app/shared/unknown_445740.cpp",
+      "0x448A70"
+    ],
+    [
+      "app/shared/unknown_445740.cpp",
+      "0x448A90"
+    ],
+    [
+      "app/shared/unknown_445740.cpp",
+      "0x448AC0"
+    ],
+    [
+      "app/shared/unknown_445740.cpp",
+      "0x448AE0"
+    ],
+    [
+      "app/shared/unknown_445740.cpp",
+      "0x448B10"
+    ],
+    [
+      "app/shared/unknown_445740.cpp",
+      "0x448B60"
+    ],
+    [
+      "app/shared/unknown_445740.cpp",
+      "0x448BB0"
+    ]
+  ],
+  "symbol_pairs": [
+    [
+      "app/shared/unknown_445740.cpp",
+      "??0SteeringTurnClass@@QAE@MMM@Z",
+      "0x447DD0"
+    ],
+    [
+      "app/shared/unknown_445740.cpp",
+      "??1?$KVPairTemplateClass@M@@UAE@XZ",
+      "0x4488E0"
+    ],
+    [
+      "app/shared/unknown_445740.cpp",
+      "??1?$KVPairTemplateClass@_N@@UAE@XZ",
+      "0x4489C0"
+    ],
+    [
+      "app/shared/unknown_445740.cpp",
+      "??1?$KVPointerAccessorClass@M@@UAE@XZ",
+      "0x448A70"
+    ],
+    [
+      "app/shared/unknown_445740.cpp",
+      "??1?$KVPointerAccessorClass@_N@@UAE@XZ",
+      "0x448AC0"
+    ],
+    [
+      "app/shared/unknown_445740.cpp",
+      "??_G?$KVAccessorClass@M@@UAEPAXI@Z",
+      "0x448A90"
+    ],
+    [
+      "app/shared/unknown_445740.cpp",
+      "??_G?$KVAccessorClass@_N@@UAEPAXI@Z",
+      "0x448AE0"
+    ],
+    [
+      "app/shared/unknown_445740.cpp",
+      "??_G?$KVPairTemplateClass@M@@UAEPAXI@Z",
+      "0x4488B0"
+    ],
+    [
+      "app/shared/unknown_445740.cpp",
+      "??_G?$KVPairTemplateClass@_N@@UAEPAXI@Z",
+      "0x448990"
+    ],
+    [
+      "app/shared/unknown_445740.cpp",
+      "??_G?$KVPointerAccessorClass@M@@UAEPAXI@Z",
+      "0x448960"
+    ],
+    [
+      "app/shared/unknown_445740.cpp",
+      "??_G?$KVPointerAccessorClass@_N@@UAEPAXI@Z",
+      "0x448A40"
+    ],
+    [
+      "app/shared/unknown_445740.cpp",
+      "??_H@YGXPAXIHP6EX0@Z@Z",
+      "0x42F250"
+    ],
+    [
+      "app/shared/unknown_445740.cpp",
+      "?Add@KVEncoderBaseClass@@QAEXHPBDPAM@Z",
+      "0x448260"
+    ],
+    [
+      "app/shared/unknown_445740.cpp",
+      "?Add_Typed@KVEncoderBaseClass@@QAEXHPBDPA_N@Z",
+      "0x448390"
+    ],
+    [
+      "app/shared/unknown_445740.cpp",
+      "?Arrive@SteeringClass@@QAE?AVVector3@@ABUSteeringVehicleStruct@@ABV2@@Z",
+      "0x445980"
+    ],
+    [
+      "app/shared/unknown_445740.cpp",
+      "?Arrive@SteeringClass@@QAE?AVVector3@@ABUSteeringVehicleStruct@@ABV2@M@Z",
+      "0x445A50"
+    ],
+    [
+      "app/shared/unknown_445740.cpp",
+      "?Avoid_Collisions@SteeringClass@@QAE?AVVector3@@ABUSteeringVehicleStruct@@PAVPxWrapper@@@Z",
+      "0x4463B0"
+    ],
+    [
+      "app/shared/unknown_445740.cpp",
+      "?Clone@?$KVPairTemplateClass@M@@UBEPAVKVPairClass@@XZ",
+      "0x4484C0"
+    ],
+    [
+      "app/shared/unknown_445740.cpp",
+      "?Clone@?$KVPairTemplateClass@_N@@UBEPAVKVPairClass@@XZ",
+      "0x4486C0"
+    ],
+    [
+      "app/shared/unknown_445740.cpp",
+      "?Clone@?$KVPointerAccessorClass@M@@UBEPAV?$KVAccessorClass@M@@XZ",
+      "0x448680"
+    ],
+    [
+      "app/shared/unknown_445740.cpp",
+      "?Clone@?$KVPointerAccessorClass@_N@@UBEPAV?$KVAccessorClass@_N@@XZ",
+      "0x448870"
+    ],
+    [
+      "app/shared/unknown_445740.cpp",
+      "?Closing_Speed@SteeringClass@@QAEMABUSteeringVehicleStruct@@ABUSteeringTargetStruct@@@Z",
+      "0x447070"
+    ],
+    [
+      "app/shared/unknown_445740.cpp",
+      "?Cohesion@SteeringClass@@QAE?AVVector3@@ABUSteeringVehicleStruct@@PAVPxWrapper@@@Z",
+      "0x4469A0"
+    ],
+    [
+      "app/shared/unknown_445740.cpp",
+      "?Encode@SteeringClass@@SAXPAVKVEncoderBaseClass@@@Z",
+      "0x447CC0"
+    ],
+    [
+      "app/shared/unknown_445740.cpp",
+      "?Evade@SteeringClass@@QAE?AVVector3@@ABUSteeringVehicleStruct@@ABUSteeringTargetStruct@@@Z",
+      "0x445C60"
+    ],
+    [
+      "app/shared/unknown_445740.cpp",
+      "?Evade@SteeringClass@@QAE?AVVector3@@ABUSteeringVehicleStruct@@ABUSteeringTargetStruct@@M@Z",
+      "0x445D90"
+    ],
+    [
+      "app/shared/unknown_445740.cpp",
+      "?Evade@SteeringClass@@QAE?AVVector3@@ABUSteeringVehicleStruct@@ABUSteeringTargetStruct@@PAVPxWrapper@@@Z",
+      "0x447690"
+    ],
+    [
+      "app/shared/unknown_445740.cpp",
+      "?Flee@SteeringClass@@QAE?AVVector3@@ABUSteeringVehicleStruct@@ABV2@@Z",
+      "0x445860"
+    ],
+    [
+      "app/shared/unknown_445740.cpp",
+      "?Follow@SteeringClass@@QAE?AVVector3@@ABUSteeringVehicleStruct@@ABUSteeringTargetStruct@@PAVPxWrapper@@@Z",
+      "0x447180"
+    ],
+    [
+      "app/shared/unknown_445740.cpp",
+      "?Get@?$KVPointerAccessorClass@M@@UAEABMXZ",
+      "0x448640"
+    ],
+    [
+      "app/shared/unknown_445740.cpp",
+      "?Get@?$KVPointerAccessorClass@_N@@UAEAB_NXZ",
+      "0x448830"
+    ],
+    [
+      "app/shared/unknown_445740.cpp",
+      "?Get_Type_Name@?$KVPairTemplateClass@M@@UBEPBDXZ",
+      "0x448580"
+    ],
+    [
+      "app/shared/unknown_445740.cpp",
+      "?Get_Type_Name@?$KVPairTemplateClass@_N@@UBEPBDXZ",
+      "0x448780"
+    ],
+    [
+      "app/shared/unknown_445740.cpp",
+      "?Get_Value_String@?$KVPairTemplateClass@M@@UBEPADPADH@Z",
+      "0x4485A0"
+    ],
+    [
+      "app/shared/unknown_445740.cpp",
+      "?Get_Value_String@?$KVPairTemplateClass@_N@@UBEPADPADH@Z",
+      "0x4487A0"
+    ],
+    [
+      "app/shared/unknown_445740.cpp",
+      "?Inv_Sqrt@WWMath@@SIMM@Z",
+      "0x447C40"
+    ],
+    [
+      "app/shared/unknown_445740.cpp",
+      "?Is_Changed@?$KVPairTemplateClass@M@@UBE_NXZ",
+      "0x4485D0"
+    ],
+    [
+      "app/shared/unknown_445740.cpp",
+      "?Is_Changed@?$KVPairTemplateClass@_N@@UBE_NXZ",
+      "0x4487D0"
+    ],
+    [
+      "app/shared/unknown_445740.cpp",
+      "?Normalize@Vector3@@QAEXXZ",
+      "0x4481E0"
+    ],
+    [
+      "app/shared/unknown_445740.cpp",
+      "?Predict@SteeringClass@@QAE?AVVector3@@ABUSteeringVehicleStruct@@ABUSteeringTargetStruct@@@Z",
+      "0x446E60"
+    ],
+    [
+      "app/shared/unknown_445740.cpp",
+      "?Pursue@SteeringClass@@QAE?AVVector3@@ABUSteeringVehicleStruct@@ABUSteeringTargetStruct@@@Z",
+      "0x445B30"
+    ],
+    [
+      "app/shared/unknown_445740.cpp",
+      "?Seek@SteeringClass@@QAE?AVVector3@@ABUSteeringVehicleStruct@@ABV2@@Z",
+      "0x445740"
+    ],
+    [
+      "app/shared/unknown_445740.cpp",
+      "?Separation@SteeringClass@@QAE?AVVector3@@ABUSteeringVehicleStruct@@PAVPxWrapper@@@Z",
+      "0x446810"
+    ],
+    [
+      "app/shared/unknown_445740.cpp",
+      "?Set@?$KVPointerAccessorClass@M@@UAEXABM@Z",
+      "0x448660"
+    ],
+    [
+      "app/shared/unknown_445740.cpp",
+      "?Set@?$KVPointerAccessorClass@_N@@UAEXAB_N@Z",
+      "0x448850"
+    ],
+    [
+      "app/shared/unknown_445740.cpp",
+      "?Set_Value_String@?$KVPairTemplateClass@M@@UAE_NPBD@Z",
+      "0x448B10"
+    ],
+    [
+      "app/shared/unknown_445740.cpp",
+      "?Set_Value_String@?$KVPairTemplateClass@_N@@UAE_NPBD@Z",
+      "0x448B60"
+    ],
+    [
+      "app/shared/unknown_445740.cpp",
+      "?Turn@SteeringTurnClass@@QAE?AUSteeringTurnOutputStruct@@ABVVector3@@ABUSteeringVehicleStruct@@@Z",
+      "0x447E20"
+    ],
+    [
+      "app/shared/unknown_445740.cpp",
+      "?Update_Saved@?$KVPairTemplateClass@M@@UAEXXZ",
+      "0x448610"
+    ],
+    [
+      "app/shared/unknown_445740.cpp",
+      "?Update_Saved@?$KVPairTemplateClass@_N@@UAEXXZ",
+      "0x448800"
+    ],
+    [
+      "app/shared/unknown_445740.cpp",
+      "?id@?$ctype@G@std@@$E",
+      "0x42B320"
+    ],
+    [
+      "app/shared/unknown_445740.cpp",
+      "_$E27",
+      "0x445300"
+    ],
+    [
+      "app/shared/unknown_445740.cpp",
+      "_$E29",
+      "0x445260"
+    ],
+    [
+      "app/shared/unknown_445740.cpp",
+      "_$E36",
+      "0x448BB0"
+    ]
+  ],
+  "recorded_pairs": [
+    "0x42B320",
+    "0x42F250",
+    "0x445740",
+    "0x445860",
+    "0x445980",
+    "0x445A50",
+    "0x445B30",
+    "0x445C60",
+    "0x445D90",
+    "0x4463B0",
+    "0x446810",
+    "0x4469A0",
+    "0x446E60",
+    "0x447070",
+    "0x447180",
+    "0x447690",
+    "0x447C40",
+    "0x447CC0",
+    "0x447DD0",
+    "0x447E20",
+    "0x4481E0",
+    "0x448260",
+    "0x448390",
+    "0x4484C0",
+    "0x448580",
+    "0x4485A0",
+    "0x4485D0",
+    "0x448610",
+    "0x448640",
+    "0x448660",
+    "0x448680",
+    "0x4486C0",
+    "0x448780",
+    "0x4487A0",
+    "0x4487D0",
+    "0x448800",
+    "0x448830",
+    "0x448850",
+    "0x448870",
+    "0x4488B0",
+    "0x4488E0",
+    "0x448960",
+    "0x448990",
+    "0x4489C0",
+    "0x448A40",
+    "0x448A70",
+    "0x448A90",
+    "0x448AC0",
+    "0x448AE0",
+    "0x448B10",
+    "0x448B60",
+    "0x448BB0"
+  ],
+  "missing_recorded": [],
+  "preexisting_extra": [
+    "0x445260",
+    "0x445300"
+  ],
+  "analysis": {
+    "4479F0": {
+      "symbol": "?Pursue@SteeringClass@@QAE?AVVector3@@ABUSteeringVehicleStruct@@ABUSteeringTargetStruct@@PAVPxWrapper@@@Z",
+      "address": "0x4479F0",
+      "length": 239,
+      "raw_sha256": "60ee6bba2636590984bd0af58abbe7838a65141ee01a67d13a7dc452a222b892",
+      "masked_sha256": "60ee6bba2636590984bd0af58abbe7838a65141ee01a67d13a7dc452a222b892",
+      "relocations": [
+        {
+          "offset": 25,
+          "width": 4,
+          "kind": 20,
+          "symbol": "?Predict@SteeringClass@@QAE?AVVector3@@ABUSteeringVehicleStruct@@ABUSteeringTargetStruct@@@Z",
+          "addend": "00000000"
+        },
+        {
+          "offset": 92,
+          "width": 4,
+          "kind": 6,
+          "symbol": "__real@4@00000000000000000000",
+          "addend": "00000000"
+        },
+        {
+          "offset": 132,
+          "width": 4,
+          "kind": 20,
+          "symbol": "?Inv_Sqrt@WWMath@@SIMM@Z",
+          "addend": "00000000"
+        }
+      ],
+      "unwind": null,
+      "explain": {
+        "symbol": "SteeringClass::Pursue",
+        "mangled": "?Pursue@SteeringClass@@QAE?AVVector3@@ABUSteeringVehicleStruct@@ABUSteeringTargetStruct@@PAVPxWrapper@@@Z",
+        "address": "0x4479F0",
+        "ours": 81,
+        "client": 84,
+        "residue": 15,
+        "residue_regs": 14,
+        "tables": [],
+        "branch": {
+          "bytes": [
+            239,
+            247
+          ],
+          "size": 0,
+          "target": 0
+        },
+        "class": "shape",
+        "reason": "15 masked rows differ; no simpler class fits"
+      },
+      "exact": false,
+      "diagnostic_similarity": "similarity 0.85"
+    },
+    "447B30": {
+      "symbol": "?Arrive@SteeringClass@@QAE?AVVector3@@ABUSteeringVehicleStruct@@ABV2@PAVPxWrapper@@M@Z",
+      "address": "0x447B30",
+      "length": 185,
+      "raw_sha256": "1f5b1df2374436c342d05d6e6e56612c9725e89c42d04dce78f5d493482c3258",
+      "masked_sha256": "1f5b1df2374436c342d05d6e6e56612c9725e89c42d04dce78f5d493482c3258",
+      "relocations": [
+        {
+          "offset": 76,
+          "width": 4,
+          "kind": 6,
+          "symbol": "__real@4@00000000000000000000",
+          "addend": "00000000"
+        },
+        {
+          "offset": 91,
+          "width": 4,
+          "kind": 6,
+          "symbol": "__real@4@00000000000000000000",
+          "addend": "00000000"
+        },
+        {
+          "offset": 99,
+          "width": 4,
+          "kind": 6,
+          "symbol": "_SlowDist",
+          "addend": "00000000"
+        }
+      ],
+      "unwind": null,
+      "explain": {
+        "symbol": "SteeringClass::Arrive",
+        "mangled": "?Arrive@SteeringClass@@QAE?AVVector3@@ABUSteeringVehicleStruct@@ABV2@PAVPxWrapper@@M@Z",
+        "address": "0x447B30",
+        "ours": 67,
+        "client": 71,
+        "residue": 9,
+        "residue_regs": 9,
+        "tables": [],
+        "branch": {
+          "bytes": [
+            185,
+            196
+          ],
+          "size": 0,
+          "target": 0
+        },
+        "class": "shape",
+        "reason": "9 masked rows differ; no simpler class fits"
+      },
+      "exact": false,
+      "diagnostic_similarity": "similarity 0.75"
+    }
+  }
+}

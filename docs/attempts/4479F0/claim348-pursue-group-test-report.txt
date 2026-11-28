@@ -1,0 +1,19 @@
+# Pursue whole-group lead test
+
+Three changed inputs, pg01–pg03, compiled successfully through canonical runner, and both claimed functions were analyzed. Complete captured source, source edits, hashes, pair deltas, and object comparisons are in `.work/claim-348/runs/pg01` through `pg03`; generator and overlays are in this directory. Only the Pursue three-argument body changed; Arrive was untouched. No production source was changed.
+
+| Run | Source SHA-256 | Body hypothesis |
+| --- | --- | --- |
+| pg01 | c63c0c164b7f76eb88f8a18278ba234129211deb1d866d814a0527d1898d6ee5 | `Vector3 result; return result = Pursue(vehicle, target);` consumes real assignment lvalue |
+| pg02 | 6b0277788df82cd7a78fcbfa2b9d3acfbe6ea6199843c47a8cc7a4bb39fe7d2a | bind `Vector3 &assigned` to assignment lvalue, return it |
+| pg03 | fcf184a874065c6b08f3a74a7eed11ad579d15ad684ebb401bf761ea33a503bc | `result.Set(Pursue(vehicle, target)); return result;`, using real vector copy helper |
+
+All three Pursue raw and masked hashes equal baseline and pf03/pf04/pf09/pf10/pf12: `60ee6bba2636590984bd0af58abbe7838a65141ee01a67d13a7dc452a222b892`. The object diffs are byte-identical to the baseline diff: 239 executable bytes, 15 differing rows against 247 retail bytes. Unlike pf02, the x87 stack duplicates and squares Z before loading/squaring Y; the retail ordering loads Y before duplicating Z and squares Y before Z on the second length calculation. The addition association and stored X square are unchanged, and neither input alters source arithmetic or runtime reads; these are scheduling differences rather than evidence of a source-level reassociation. Their final copy tail is also baseline, missing retail's Z stack store/reload and delayed hidden-output copies. The hypothesized lvalue lifetime and Set helper produce no new code shape or normalization improvement.
+
+All four tracked pair sets (including all 54 original file/address and symbol/address pairs) have zero gains and zero losses for each input, so initializer identities are preserved; no initializer-name exception was used. Arrive remains baseline 185 bytes, 9 rows. No target reached masked zero, so no full audit was applicable. There were no failed launches or semantically rejected variants. The three tested concrete leads are exhausted by identical output; no further backed body-only lead emerged from them. Any real shared-helper expansion requires coordinator review.
+
+Compiler gate released after confirming staging source equals immutable tree via `cmp`; no compiler process remains. Root must independently repeat any eventual candidate proof.
+
+## Focused follow-up pg04
+
+Hypothesis: initializing a temporary from Pursue might preserve pf02's normalization schedule, while `Set` supplies the real extra copy retail appears to perform. `Vector3 tmp = Pursue(vehicle, target); Vector3 result; result.Set(tmp); return result;` was compiled and both targets analyzed. Source SHA-256 `fcbc8aca876ba770a4a4fb1a533a421a3d9df056f685c6c28bdeea4d48c8243b`; exact input and artifacts are in `runs/pg04`, overlay in `pursue-group-test/pg04`. It produced the same raw/masked `60ee6bba2636590984bd0af58abbe7838a65141ee01a67d13a7dc452a222b892` baseline code and identical object diff, 239 bytes and 15 rows. Thus normalization regressed from pf02 and the tail remains baseline; this combination is falsified. Arrive remains baseline 185 bytes and 9 rows. All four pair sets preserve all 54 pairs without gains or losses, including initializer symbols; no full audit applies. No semantic reassociation or new read was introduced. Staging source again equals immutable tree, and the gate is released.

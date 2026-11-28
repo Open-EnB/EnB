@@ -1,0 +1,14 @@
+{
+  "run": "sp01",
+  "current_status": "compiled_and_rejected",
+  "preparation_record_is_historical": true,
+  "sp01-proposal.json": {
+    "run": "sp01",
+    "forms": 1,
+    "source_sha256": "8ff18641443093f460f68112731746ba01640cff1a815652a88c71503cf1f137",
+    "mechanism": "existing real Vector3::Subtract output pointer arithmetic versus constructor-built operator- return",
+    "lever": "docs/workflow.md \u00a73.1.2: constructor-built versus member-store vector math load-order (eff_line0x6E6030); existing Vector3::Subtract output parameter",
+    "expected_falsifier": "duplicate/regression, wrong upstream math or tail, or any prior pair/graph loss"
+  },
+  "sp01.patch": "--- a/app/shared/unknown_445740.cpp\n+++ b/app/shared/unknown_445740.cpp\n@@ -352,2 +352,5 @@ // 0x4479F0 SteeringClass::Pursue\n-\tVector3 result;\n-\tresult = Pursue(vehicle, target);\n+\tVector3 desired = Predict(vehicle, target) - vehicle.Position;\n+\tdesired.Normalize();\n+\tdesired *= MaxSpeed;\n+\tVector3 result;\n+\tVector3::Subtract(desired, vehicle.Velocity, &result);\n"
+}

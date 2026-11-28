@@ -1,0 +1,67 @@
+# Arrive 0x447B30 fresh Sol investigation
+
+Initial read-only research at the D89/D271 limit. Root later separately
+approved two new levers and exclusive compiler gates. Both inputs are now
+compiled and falsified; see report.md for final results and receipts. No
+production, Git, metadata or GitHub changes. Compiled forms total: two.
+
+The existing output residue is concrete: baseline's Z subtraction is stored
+with `fst` and retained at excess precision for squaring, whereas retail pops
+it and reloads the float. Both use (X squared + Z squared) + Y squared.
+Retail's final X subtraction remains on x87 while Y is stored and reloaded;
+Z passes through a float slot, integer register, same slot and second integer
+load. Baseline instead rounds X and forwards the other components differently.
+The source-level Length2 spelling X*X + Y*Y + Z*Z therefore cannot by itself
+establish the emitted association. Every future input needs actual disassembly.
+
+Critical review of the actual existing source and reported test families found
+no missed eligible improvement. af01/af07 change the actual sum association;
+af02-06 and af09-10 also change association. af08 and all ag/ah inputs duplicate
+baseline. Named scaled vectors inside base445A50 have already been tested at
+both initialization and default/assignment lifetimes. Repeating these with a
+new model would not constitute a new lever.
+
+## Proposed new mechanism, sent to root for gate review
+
+docs/workflow.md section3.1.2, line413 explicitly describes a second copy of the
+same subtraction (a temporary or Distance) merged with a named vector across
+Length/Length2. The real Vector3::Distance at wwmath/vector3.h:868 constructs
+its own default temporary, assigns p1-p2, then returns temp.Length(). Actual
+app usages include app/client/meshsnd.cpp:218, galaxy_map_render.cpp:1989,
+and camctrl_stargate.cpp:75.
+
+One proposed change in the specifically scope-approved exact base445A50:
+keep `Vector3 offset = target - vehicle.Position;` for the real scaled direction;
+replace `distance = offset.Length() - distance;` with
+`distance = Vector3::Distance(target, vehicle.Position) - distance;`.
+The Distance result and direction vector have distinct meaningful uses. This
+does not add an unused arithmetic operation or invent a helper/interface.
+The full af/ag/ah source generators have not tested Distance or a second
+consumed subtraction at this location. The proposed mechanism is CSE across
+different real vector lifetimes, rather than another scaled-result copy.
+
+Root approved the Distance mechanism for preparation. sa01 was prepared
+under arrive-sol/sa01, full TU hash d8ecf3351dd0004ee54d6222924226b76eb555b1d2a826b09a3d8084ffd7e3eb.
+Its focused patch tags both helper445A50 and target447B30. Its later actual
+compilation is rejected as described in report.md.
+
+Read-only baseline objdiff additionally confirms that exact out-of-line445A50
+has its own distinct (Z squared + Y squared) + X squared association and retains
+Z at excess x87 precision through `fst`. Any helper candidate must preserve
+that old exact body, even though the claimed wrapper's retail copy instead
+requires (X squared + Z squared) + Y squared with a float reload.
+
+Falsifiers: baseline or known-output duplication, extra runtime source reads,
+wrong emitted association/rounding, loss of exact base445A50 or another old
+file/symbol pair, or no useful target change. All54 graphs and both targets
+must be checked if it becomes a useful candidate. The actual input failed
+these criteria; no CSE occurred, and the helper lost its old exact pair.
+
+A weaker independent proposal uses real Vector3::Subtract at vector3.h:586
+for the initial offset, replacing constructor-return subtraction with explicit
+member stores through the real out parameter. The applicable documented lever
+is section3.1.2 line348, constructor-built vectors versus member stores changing
+x87 load order. Real examples include wwmath/colmathobbobb.cpp:129 and
+colmathaabtri.cpp:139, but no app usage was found. Root separately approved
+the one actual sa02 test, which reproduced baseline and preserved all54 graphs;
+the mechanism is falsified in this form. See report.md for hashes and evidence.

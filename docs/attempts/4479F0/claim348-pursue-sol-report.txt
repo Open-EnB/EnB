@@ -1,0 +1,38 @@
+# Pursue 0x4479F0 fresh Sol high result
+
+No source retained, no claimed gain. One approved new-mechanism form compiled:
+sp01, existing Vector3::Subtract output-pointer arithmetic in the claimed body.
+No production, header, exact-helper, Git, metadata or external writes; no children.
+
+Full investigation and rejected/uncompiled directions: pursue-sol/research.md.
+Read both briefs/history/first/group/focused/helper reports and generators,
+actual Vector3/header/exact-sibling source, canonical baseline and all 36 actual
+captured inputs; independently verified their source hashes and lossless replay.
+Read all unique Pursue output residues plus full pf02/pf07/pf13/native sp01 diffs.
+The missing three Nov13 patches remain missing, and their stalled round counts.
+
+Root admitted exactly one new lever after the reached limit: workflow.md §3.1.2
+row348 constructor-built versus member-store vector math load-order, grounded in
+the existing Subtract API at vector3.h:586 and actual uses. The out-parameter row
+410 was only analogous evidence. The focused U0 sp01.patch checker command with
+the explicit lever returned OK; no false positives, waiver or counter reset.
+Source generator/proposal/patch/overlay are under pursue-sol/; native artifacts,
+complete captured source, edits, hashes and both analyses are under runs/sp01/.
+
+sp01 input SHA256 8ff18641443093f460f68112731746ba01640cff1a815652a88c71503cf1f137.
+Pursue raw=masked 9ae4fc93139e507873ab72cbd4807c1f9ebb823704d25216c98129044715b730:
+245 executable bytes/21 shape rows versus retail247, baseline239/15, bestpf02
+239/9. Distinct from pf07's245/27: some upstream x87 scheduling changed, but the
+final tail stayed wrong (X/Z spills, Y live, missing retail Z integer copy/store).
+This falsifies the proposed final out-parameter subtraction mechanism here.
+Arrive stays baseline185/9, raw=masked1f5b1df2374436c342d05d6e6e56612c9725e89c42d04dce78f5d493482c3258.
+All four pair sets preserve54, zero gains/losses. No zero-mask candidate or full
+target-audit claim. No launch/compiler-invalid/control or semantic-rejected input.
+
+No further backed direction emerged. Free Normalize computes Length2 only once
+where retail computes twice; another copy spelling, dummy layer, accumulator or
+invented array interface does not justify reopening. Need new actual helper/API,
+caller or lifetime evidence that explains retail's precise final route while
+preserving the prefix and all54old pairs/graphs. Best valid remains pf02, unkept.
+Staging compared byte-equal to immutable tree; sp01 compiler/analyzer finished;
+exclusive gate released to root. Model gpt-6.1-sol high, approximately15k tokens.

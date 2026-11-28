@@ -1,0 +1,105 @@
+# Claim348 final fresh Astra high result
+
+No claimed gain and no C++/header change kept. Two changed inputs compiled,
+one per target, after coordinator review admitted a genuinely new documented
+mechanism under the reached D89/D271 limit. There were zero controls, compiler
+failures, failed launches, or uncompiled prepared overlays. No production,
+header, Git, metadata, game-install or external writes; no child agents.
+
+Research and rejected directions: /home/dev/Projects/EnB/.work/claim-348/astra/research.md.
+Structured outcomes: /home/dev/Projects/EnB/.work/claim-348/astra/results.json.
+Generator: /home/dev/Projects/EnB/.work/claim-348/astra/prepare.py.
+Both exact proposal receipts and focused U0 patches preceded compilation.
+Both attempts.py check commands cited the admitted section 3.1.2 compound-
+assignment row 346 and returned OK. Row 413 supported slot reuse secondarily;
+it was not a counter reset or a reason to repeat old copy forms.
+
+The full briefs, original histories and all first/group/focused/helper/Sol
+reports were read, together with actual source, native baseline object and
+relevant diffs. All 39 prior captured source inputs were independently hash-
+checked and losslessly replayed; inspect_inputs.py and inspected-inputs.json
+record that review. The absent Nov13 patches remain absent. The then-current
+21 Pursue-owner / 18 Arrive-owner inputs were not counted as 78 forms merely
+because both targets were observed. This stage brings totals to 22 / 19,
+41 actual changed source inputs in total. No prepared untested source remains.
+
+## Admitted mechanism
+
+Retail reuses the scaled-vector Y/Z slots during final subtraction, so the
+old marker's "second local" is a hypothesis, not a uniquely determined fact.
+The actual Vector3::operator-= at wwmath/vector3.h:130 mutates the input vector;
+all prior binary, Set-copy, and static Subtract-to-separate-result forms have a
+different storage relationship. workflow.md section 3.1.2 row 346 documents the
+compound-operator codegen lever; solved app/client/galaxy_map_render.cpp:476-477
+(0x7A7560, exact attempt row 3847 and current ledger) provides a real compound
+addition counterpart. That supports the mechanism, not identical subtraction
+codegen. No new type, helper, arithmetic, dead read, flag or qualifier was used.
+
+## ap01: Pursue final in-place subtraction
+
+Overlay: /home/dev/Projects/EnB/.work/claim-348/astra/ap01.
+Actual input/object/analyses: /home/dev/Projects/EnB/.work/claim-348/runs/ap01.
+Source SHA256: a76404ae2da2e1a5f6492278f9e5482eddeb59301de3b4fe21167c5a3853ec9d.
+Only the claimed wrapper changed. It uses pf07's meaningful Predict/Normalize/
+scale prefix, then `desired -= vehicle.Velocity; return desired;`.
+
+Pursue emits 245 executable bytes / 21 rows versus retail 247, original 239/15,
+best-valid pf02 239/9. Raw and masked SHA256 are both
+88ac46b4e37025bd0698ef6c264484e6689323cb31ddab9dd5eaf02c13a02bc5.
+This is a new output group, distinct from sp01 despite the same length/score.
+The final Z uses the expected scaled-vector slot, but X still spills rather
+than Y, and retail's extra integer Z copy/store is absent. Earlier normalization
+scheduling and the X-square spill slot remain unlike retail; the sums still
+combine Y²/Z² before X², with the original source arithmetic. The final float
+rounding route is still not retail-identical. It does not improve the valid best.
+
+All four pair sets preserve the original 54 with no gains or losses.
+ap01-preservation.json independently compares all 54 old body/ref/literal/EH
+graphs with no changes. Arrive remains its original 185/9 and baseline digest.
+No zero-mask candidate or full target audit is claimed.
+
+## aa01: Arrive scaled-vector compound subtraction
+
+Overlay: /home/dev/Projects/EnB/.work/claim-348/astra/aa01.
+Actual input/object/analyses: /home/dev/Projects/EnB/.work/claim-348/runs/aa01.
+Source SHA256: f5a56bbbcb1ccf5c32bba479f29956203fc2148c2064dd45e0129bcc42acf9da.
+Only the previously scope-approved exact base 445A50 changed; the wrapper and
+Pursue stay original. The existing prefix ends with `Vector3 scaled = offset *
+(speed / distance); scaled -= vehicle.Velocity; return scaled;`.
+
+Arrive emits 185 executable bytes / 9 rows versus retail 196. Raw and masked SHA256
+are both 6e7f70a02a7fa12c80519d659d8dc32328416c8b32bf6ee04260bf32eee37070.
+This is a new output group, NOT a baseline duplicate despite equal length/rows.
+Final Z now uses the scaled-vector slot, but X still spills, Y stays live, and
+the retail extra integer Z copy/store is absent. Initial offset.Z still uses
+fst/retained excess precision instead of the required float reload; the sum
+remains (X²+Z²)+Y². _SlowDist keeps its zero-addend relocation and the existing
+proven identity 0xB704BC. No unrelated 100.0f substitution was used. The target
+does not qualify; no full target audit is claimed.
+
+All four pair sets lose exactly old 445A50, with no gains. aa01-preservation.json
+checks all 54 prior graphs and finds only that helper changed. Its prefix retains
+its own original (Z²+Y²)+X² computation, but its final Z/Y/X subtraction and
+direct x87 return became X/Y/Z subtraction with X/Z spills and an integer Z
+copy. This out-of-line loss independently rejects the input; wrapper copy
+combinations cannot repair the changed helper body. Pursue stays 239/15 baseline.
+
+## Disposition
+
+Both admitted forms are falsified, and no further distinct backed mechanism
+emerged. Correct Z-slot reuse alone does not establish the required live X,
+rounded/reloaded Y, and redundant integer Z copy route. Combining old copies
+with these failures or trying the same operator at arbitrary other sites is
+not new evidence. Need an actual additional helper/lifetime/caller constraint
+explaining that route (and Arrive's initial Z reload), while preserving all 54
+old pairs/graphs. This does not assert exhaustion of all equivalent C++ programs.
+Best valid diagnostics remain pf02 Pursue 239/9 and original Arrive 185/9; af01's
+seven rows remain semantically ineligible, and no diagnostic source is kept.
+
+The exclusive compiler gate was released after both runner/analyzer jobs ended.
+No runner, analyzer, compiler or Wine process remained. Production and staging
+CPP equal the immutable original SHA 88579ca0b51bf49802213e8365145f62620e5863ea93d88e638e0dd6c044b8b0.
+No VMs or client instances were leased. Coordinator owns public attempt records,
+final checks/Git and any later independent candidate proof. Model: fresh Astra
+at high effort, approximately31k tokens including the substantial supplied and
+read evidence; no token-budget goal was created.

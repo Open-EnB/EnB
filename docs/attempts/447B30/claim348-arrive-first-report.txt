@@ -1,0 +1,33 @@
+# Arrive 0x447B30 first pass
+
+Scratch inputs: `.work/claim-348/arrive-first/{form}/app/shared/unknown_445740.cpp`;
+lossless captured inputs, result, deltas, and both target analyses under
+`.work/claim-348/runs/af01` through `af10`. Original base is the immutable tree.
+Ten changed inputs compiled; no launch failures, invalid compilations, or control
+builds. Analyzer ran for both claimed targets on every input. All four pair sets
+preserved all 54 old pairs, with no gains or losses. No production code changed.
+
+Raw and masked hash groups (the two hashes coincide in every group):
+
+* af01 wrapper initialization: `b53d7644638c664cda35f65156848efaf302871a4e97f232db678d24936b3013`, 7 rows.
+* af02–af06 five expanded-body named/assigned/copy forms: `9b49438e6e888b94933775db6ba08ad18934490b1351539b7e9b8ac2d5d647d9`, 11 rows.
+* af07 direct return: `f700b2145e02b48ecdf65e38b38ff3bc734a4bea8f324a5f7a275606fcb7f092`, 14 rows.
+* af08 result copy construction: baseline `1f5b1df2374436c342d05d6e6e56612c9725e89c42d04dce78f5d493482c3258`, 9 rows.
+* af09–af10 explicit component construction: `06eb047ea78651e8992f455853d88aa78a99cc6bc9ecb2bee493ab994da6ccc0`, 15 rows.
+
+Retail stores and reloads offset.Z before computing `(X²+Z²)+Y²`, then stores
+Y and Z of an intermediate result before copying to the return buffer. Baseline
+retains Z on the x87 stack (different precision) and misses the result-copy
+shape. af01 and af07 do store Z but associate `(X²+Y²)+Z²`; af02–06 and af09–10
+associate `(Z²+Y²)+X²`. These cannot be accepted as equivalent to retail based
+on the row count. af08 reproduces the baseline exactly. No target matched, so
+there was no candidate for a full literal/relocation/EH preservation audit.
+
+The explicit vector-construction family is exhausted by duplicate outputs and
+the two component forms regress. A return-assignment lvalue-reference idea was
+identified independently by the coordinator and remains untested for group
+review. Shared Vector3 helper or exact Arrive helper investigation requires
+coordinator scope review and all-consumer proof; a demonstrated helper/lifetime
+lever with the correct x87 association and result copy would justify reopening.
+Exclusive gate released; `build-tree/app/shared/unknown_445740.cpp` compared
+equal to immutable source on release. No compiler process was left running.

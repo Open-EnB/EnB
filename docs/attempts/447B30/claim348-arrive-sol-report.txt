@@ -1,0 +1,103 @@
+# Arrive 0x447B30 fresh Sol pass
+
+The complete prior histories, first/group/focused/helper reports, generators,
+actual relevant source inputs and baseline/representative diffs were inspected.
+The D89/D271 limit was already reached; root separately approved two new
+documented levers. attempts.py check passed on each focused patch before its
+exclusive compiler gate was used. No production, header, Git, metadata or
+GitHub changes were made.
+
+## sa01: real Distance temporary, rejected
+
+Hypothesis before compilation: docs/workflow.md section3.1.2 line413 describes
+second subtraction/Distance CSE across Length/Length2 vector copies. Replace
+only the existing exact base 445A50's `distance = offset.Length() - distance;`
+with `distance = Vector3::Distance(target, vehicle.Position) - distance;`.
+The existing offset remains consumed by scaling, and the Distance result is
+consumed as distance. Vector3::Distance's actual default/assigned temporary is
+at wwmath/vector3.h:868; real application uses are recorded in research.md.
+The expected float reload/CSE mechanism was distinct from all 36 prior inputs.
+
+Source overlay: /home/dev/Projects/EnB/.work/claim-348/arrive-sol/sa01.
+Generator: arrive-sol/prepare.py. Focused patch: arrive-sol/sa01-focused.patch.
+Full source SHA256: d8ecf3351dd0004ee54d6222924226b76eb555b1d2a826b09a3d8084ffd7e3eb.
+Captured input, lossless edits, full source, canonical compiler output, deltas
+and both target analyses are in /home/dev/Projects/EnB/.work/claim-348/runs/sa01.
+
+One changed input compiled successfully; zero control builds, compiler-invalid
+inputs or failed launches. Arrive became 205 executable bytes/22 differing rows,
+raw=masked SHA256 9d79714b573eb024e8b85aaa29453354d3f86cdf19dbd770a7c12736f5edc727,
+versus baseline 185/9 and retail 196. This is a new output group, not progress.
+
+Actual disassembly falsifies the intended CSE mechanism: after computing and
+storing offset, the compiler rereads target and vehicle X/Y/Z and subtracts all
+three again for Distance. The second values remain on x87 for squaring, with
+(Z squared + Y squared) + X squared, whereas target retail requires rounded
+offset components and (X squared + Z squared) + Y squared. The final-copy
+residue remains baseline. These extra runtime reads and actual precision/sum
+differences make this an ineligible semantic diagnostic independently of its
+failed exactness. _SlowDist remains the same zero-addend relocation symbol;
+no full target audit is claimed for this nonmatching input.
+
+All four pair sets lose only existing exact base 445A50, with no gains. The
+independent preservation.py comparison checked all 54 prior body, relocation,
+literal and EH graphs and found exactly that helper changed; receipt is
+arrive-sol/sa01-preservation.json. The helper itself retains the second
+subtraction rather than CSE, changing its original exact math and instruction
+sequence. Pursue remains original 239 bytes/15 rows and baseline hash 60ee6bba...
+No candidate qualifies for retention or a full target proof.
+
+The exact helper loss alone rejects this input; combining it with wrapper
+copy forms cannot justify retaining its independently wrong out-of-line body.
+No source is kept. Staging source compared equal to immutable tree after the
+runner completed, and the exclusive compiler gate was released to root.
+
+## sa02: real initial Subtract out parameter, duplicate
+
+Root separately approved exactly one initial-subtraction test under
+docs/workflow.md section3.1.2 line348: constructor-built versus member-store
+vectors change x87 operand order. In exact base 445A50 only, replace the initial
+constructor-return subtraction with `Vector3 offset;` followed by the real
+`Vector3::Subtract(target, vehicle.Position, &offset);`. This genuine helper
+at vector3.h:586 writes X/Y/Z in sequence and is used for real offsets in EA
+math source (research.md). It adds no second subtraction/read sequence.
+The original source was used afresh; sa01 was not combined with this input.
+
+Overlay: /home/dev/Projects/EnB/.work/claim-348/arrive-sol/sa02.
+Generator: arrive-sol/prepare-sa02.py. Patch: arrive-sol/sa02-focused.patch.
+Full source SHA256: cbfb94b6ca8a42ba54603b6ffbcc2970840b7fef057cc16d93c0a1efe7e7ec3a.
+Captured input, canonical object and both diagnostics are in runs/sa02.
+The exact attempts.py check with the separately approved line348 lever passed
+before compilation. One changed input compiled successfully; no launch or
+compiler failures and no controls.
+
+Arrive is the exact baseline raw/masked output group
+1f5b1df2374436c342d05d6e6e56612c9725e89c42d04dce78f5d493482c3258,
+185 executable bytes/9 rows. The entire objdiff text compares byte-identical to
+baseline: (X squared + Z squared) + Y squared remains, but Z is still retained
+through `fst` rather than retail's float reload, and the final copy still
+differs. This falsifies the constructor/member-store mechanism in this form.
+_SlowDist remains the baseline zero-addend relocation; no full target proof
+is claimed. Pursue remains its original 239-byte/15-row baseline output.
+
+All four pair sets preserve all 54 original matches, with no gains or losses.
+sa02-preservation.json independently checks all 54 original graphs with no
+changes, including base 445A50's distinct original math. No source qualifies
+for retention. Staging compared equal to immutable tree, no compiler/runner/
+analyzer process remained, and the exclusive gate was released to root.
+
+## Disposition
+
+The current best eligible Arrive remains baseline 185/9 (also reproduced by
+af08/ag/ah); af01's apparent 7 rows are still ineligible. The Distance mechanism
+in sa01 is falsified by extra reads, wrong actual math and old-helper loss;
+the Subtract member-store mechanism in sa02 is falsified by baseline duplication.
+Totals: two changed compiler inputs, two raw/masked output groups (one existing
+baseline group), no controls or launch/compiler failures, one semantic and
+pair-loss diagnostic, no claimed gains and no production source kept.
+No further distinct backed mechanism emerged from the actual-code investigation;
+this does not exhaust all equivalent C++ programs. Reopening another family
+needs genuinely new source/runtime evidence explaining both the Z reload and
+final-copy chain while preserving all 54 original pairs and graphs. Ordinary
+copy/in-place spellings after these results are not a new lever. The final
+fresh Astra stage is root's.

@@ -1,0 +1,24 @@
+Coordinator hypothesis for mandatory fresh group review (not compiled):
+
+Vector3's actual user-written operator= (wwmath/vector3.h:102) returns Vector3&.
+The Pursue first pass tried standalone assignment followed by return, initialization,
+second copies, const-reference temporary binding and component construction, but
+its generator/report contains no return of the actual assignment expression.
+Consider `Vector3 result; return result = Pursue(vehicle,target);`: the return
+consumes the real lvalue reference produced by assignment rather than separately
+reading the named object. This is ordinary assignment/return behavior, no fake
+type, padding, volatile or new dead operation. It might change the final copy
+without discarding the real intermediate store. A variant binding a reference
+to the assignment's result has the same genuine ownership/lifetime motivation.
+
+The retail tail in pf02's diff stores/reloads result.Z and does mov ecx,edx plus
+the intermediate stack store, where the best current candidate forwards it to
+the hidden return buffer. Initialization gets the normalization ordering right.
+Assess this interaction with the final result copy and group sibling evidence;
+do not assume the assignment expression preserves the good x87 sequence.
+
+Parked Seek447480 previously tried return-assignment with no improvement in its
+different multi-return avoidance context. That is comparison evidence, not a
+reason to retry Seek and not proof this two-function context must behave alike.
+Any concrete group lead goes to a fresh Terra high worker after the complete
+initial passes. Preserve full arithmetic/read order and both54pair sets.

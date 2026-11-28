@@ -1,0 +1,526 @@
+{
+  "counts": {
+    "primary_inputs": 42,
+    "translation_unit_compiles": 42,
+    "coordinator_controls": 1,
+    "changed_target_forms": 41,
+    "by_owner": {
+      "4479F0": 22,
+      "447B30": 19
+    },
+    "classifications": {
+      "changed_compiled_input": 26,
+      "rejected_original_pair_loss": 6,
+      "semantically_ineligible_x87_reassociation": 9,
+      "unchanged_coordinator_control": 1
+    }
+  },
+  "groups": {
+    "4479F0": {
+      "raw": {
+        "60ee6bba2636590984bd0af58abbe7838a65141ee01a67d13a7dc452a222b892": [
+          "aa01",
+          "af01",
+          "af02",
+          "af03",
+          "af04",
+          "af05",
+          "af06",
+          "af07",
+          "af08",
+          "af09",
+          "af10",
+          "ag01",
+          "ag02",
+          "ag03",
+          "ag04",
+          "ah01",
+          "ah02",
+          "pf03",
+          "pf04",
+          "pf09",
+          "pf10",
+          "pf12",
+          "pg01",
+          "pg02",
+          "pg03",
+          "pg04",
+          "root_original",
+          "sa01",
+          "sa02"
+        ],
+        "88ac46b4e37025bd0698ef6c264484e6689323cb31ddab9dd5eaf02c13a02bc5": [
+          "ap01"
+        ],
+        "7464641c4463f3a8b5797d84190ba5360786d6c81cca3762b8fbefcf6ea014b6": [
+          "pf01"
+        ],
+        "6c697b7001948f160457006b797bb30c4188041fea4852fe533f7b5a8803bd09": [
+          "pf02",
+          "pf11",
+          "pf14"
+        ],
+        "ab35d2f4dd6e5b2b44abeed6d9f1f823e3bb650e5414e005b6d9ad3f89e38d28": [
+          "pf05",
+          "pf08"
+        ],
+        "bb8dc3c88d09daf1a00a88e938019877770d92a0e5c9106de4be255a34da7a09": [
+          "pf06"
+        ],
+        "019b180c4d33da0f16661d58c7cd0e00d530567c8d7546e57fb6942adf3fef2e": [
+          "pf07"
+        ],
+        "e3c05a743865ba9d7dc61b4aa9f1dbabf7f3e913184015e1e9cacabe20a9ef0f": [
+          "pf13"
+        ],
+        "470cfb84184bf07f97a13034054d6c81ba368dc939cb5a907744795455b2a6f5": [
+          "ph01"
+        ],
+        "4900ca2230a44b55f0770c9e1f1267b61b891063ca9a85b2b84c9459d1afefc5": [
+          "ph02"
+        ],
+        "9ae4fc93139e507873ab72cbd4807c1f9ebb823704d25216c98129044715b730": [
+          "sp01"
+        ]
+      },
+      "masked": {
+        "60ee6bba2636590984bd0af58abbe7838a65141ee01a67d13a7dc452a222b892": [
+          "aa01",
+          "af01",
+          "af02",
+          "af03",
+          "af04",
+          "af05",
+          "af06",
+          "af07",
+          "af08",
+          "af09",
+          "af10",
+          "ag01",
+          "ag02",
+          "ag03",
+          "ag04",
+          "ah01",
+          "ah02",
+          "pf03",
+          "pf04",
+          "pf09",
+          "pf10",
+          "pf12",
+          "pg01",
+          "pg02",
+          "pg03",
+          "pg04",
+          "root_original",
+          "sa01",
+          "sa02"
+        ],
+        "88ac46b4e37025bd0698ef6c264484e6689323cb31ddab9dd5eaf02c13a02bc5": [
+          "ap01"
+        ],
+        "7464641c4463f3a8b5797d84190ba5360786d6c81cca3762b8fbefcf6ea014b6": [
+          "pf01"
+        ],
+        "6c697b7001948f160457006b797bb30c4188041fea4852fe533f7b5a8803bd09": [
+          "pf02",
+          "pf11",
+          "pf14"
+        ],
+        "ab35d2f4dd6e5b2b44abeed6d9f1f823e3bb650e5414e005b6d9ad3f89e38d28": [
+          "pf05",
+          "pf08"
+        ],
+        "bb8dc3c88d09daf1a00a88e938019877770d92a0e5c9106de4be255a34da7a09": [
+          "pf06"
+        ],
+        "019b180c4d33da0f16661d58c7cd0e00d530567c8d7546e57fb6942adf3fef2e": [
+          "pf07"
+        ],
+        "e3c05a743865ba9d7dc61b4aa9f1dbabf7f3e913184015e1e9cacabe20a9ef0f": [
+          "pf13"
+        ],
+        "470cfb84184bf07f97a13034054d6c81ba368dc939cb5a907744795455b2a6f5": [
+          "ph01"
+        ],
+        "4900ca2230a44b55f0770c9e1f1267b61b891063ca9a85b2b84c9459d1afefc5": [
+          "ph02"
+        ],
+        "9ae4fc93139e507873ab72cbd4807c1f9ebb823704d25216c98129044715b730": [
+          "sp01"
+        ]
+      }
+    },
+    "447B30": {
+      "raw": {
+        "6e7f70a02a7fa12c80519d659d8dc32328416c8b32bf6ee04260bf32eee37070": [
+          "aa01"
+        ],
+        "b53d7644638c664cda35f65156848efaf302871a4e97f232db678d24936b3013": [
+          "af01"
+        ],
+        "9b49438e6e888b94933775db6ba08ad18934490b1351539b7e9b8ac2d5d647d9": [
+          "af02",
+          "af03",
+          "af04",
+          "af05",
+          "af06"
+        ],
+        "f700b2145e02b48ecdf65e38b38ff3bc734a4bea8f324a5f7a275606fcb7f092": [
+          "af07"
+        ],
+        "1f5b1df2374436c342d05d6e6e56612c9725e89c42d04dce78f5d493482c3258": [
+          "af08",
+          "ag01",
+          "ag02",
+          "ag03",
+          "ag04",
+          "ah01",
+          "ah02",
+          "ap01",
+          "pf01",
+          "pf02",
+          "pf03",
+          "pf04",
+          "pf05",
+          "pf06",
+          "pf07",
+          "pf08",
+          "pf09",
+          "pf10",
+          "pf11",
+          "pf12",
+          "pf13",
+          "pf14",
+          "pg01",
+          "pg02",
+          "pg03",
+          "pg04",
+          "ph01",
+          "ph02",
+          "root_original",
+          "sa02",
+          "sp01"
+        ],
+        "06eb047ea78651e8992f455853d88aa78a99cc6bc9ecb2bee493ab994da6ccc0": [
+          "af09",
+          "af10"
+        ],
+        "9d79714b573eb024e8b85aaa29453354d3f86cdf19dbd770a7c12736f5edc727": [
+          "sa01"
+        ]
+      },
+      "masked": {
+        "6e7f70a02a7fa12c80519d659d8dc32328416c8b32bf6ee04260bf32eee37070": [
+          "aa01"
+        ],
+        "b53d7644638c664cda35f65156848efaf302871a4e97f232db678d24936b3013": [
+          "af01"
+        ],
+        "9b49438e6e888b94933775db6ba08ad18934490b1351539b7e9b8ac2d5d647d9": [
+          "af02",
+          "af03",
+          "af04",
+          "af05",
+          "af06"
+        ],
+        "f700b2145e02b48ecdf65e38b38ff3bc734a4bea8f324a5f7a275606fcb7f092": [
+          "af07"
+        ],
+        "1f5b1df2374436c342d05d6e6e56612c9725e89c42d04dce78f5d493482c3258": [
+          "af08",
+          "ag01",
+          "ag02",
+          "ag03",
+          "ag04",
+          "ah01",
+          "ah02",
+          "ap01",
+          "pf01",
+          "pf02",
+          "pf03",
+          "pf04",
+          "pf05",
+          "pf06",
+          "pf07",
+          "pf08",
+          "pf09",
+          "pf10",
+          "pf11",
+          "pf12",
+          "pf13",
+          "pf14",
+          "pg01",
+          "pg02",
+          "pg03",
+          "pg04",
+          "ph01",
+          "ph02",
+          "root_original",
+          "sa02",
+          "sp01"
+        ],
+        "06eb047ea78651e8992f455853d88aa78a99cc6bc9ecb2bee493ab994da6ccc0": [
+          "af09",
+          "af10"
+        ],
+        "9d79714b573eb024e8b85aaa29453354d3f86cdf19dbd770a7c12736f5edc727": [
+          "sa01"
+        ]
+      }
+    }
+  },
+  "inputs": [
+    {
+      "run": "aa01",
+      "owner": "0x447B30",
+      "classification": "rejected_original_pair_loss",
+      "record": "docs/attempts/447B30/claim348-aa01.json"
+    },
+    {
+      "run": "af01",
+      "owner": "0x447B30",
+      "classification": "semantically_ineligible_x87_reassociation",
+      "record": "docs/attempts/447B30/claim348-af01.json"
+    },
+    {
+      "run": "af02",
+      "owner": "0x447B30",
+      "classification": "semantically_ineligible_x87_reassociation",
+      "record": "docs/attempts/447B30/claim348-af02.json"
+    },
+    {
+      "run": "af03",
+      "owner": "0x447B30",
+      "classification": "semantically_ineligible_x87_reassociation",
+      "record": "docs/attempts/447B30/claim348-af03.json"
+    },
+    {
+      "run": "af04",
+      "owner": "0x447B30",
+      "classification": "semantically_ineligible_x87_reassociation",
+      "record": "docs/attempts/447B30/claim348-af04.json"
+    },
+    {
+      "run": "af05",
+      "owner": "0x447B30",
+      "classification": "semantically_ineligible_x87_reassociation",
+      "record": "docs/attempts/447B30/claim348-af05.json"
+    },
+    {
+      "run": "af06",
+      "owner": "0x447B30",
+      "classification": "semantically_ineligible_x87_reassociation",
+      "record": "docs/attempts/447B30/claim348-af06.json"
+    },
+    {
+      "run": "af07",
+      "owner": "0x447B30",
+      "classification": "semantically_ineligible_x87_reassociation",
+      "record": "docs/attempts/447B30/claim348-af07.json"
+    },
+    {
+      "run": "af08",
+      "owner": "0x447B30",
+      "classification": "changed_compiled_input",
+      "record": "docs/attempts/447B30/claim348-af08.json"
+    },
+    {
+      "run": "af09",
+      "owner": "0x447B30",
+      "classification": "semantically_ineligible_x87_reassociation",
+      "record": "docs/attempts/447B30/claim348-af09.json"
+    },
+    {
+      "run": "af10",
+      "owner": "0x447B30",
+      "classification": "semantically_ineligible_x87_reassociation",
+      "record": "docs/attempts/447B30/claim348-af10.json"
+    },
+    {
+      "run": "ag01",
+      "owner": "0x447B30",
+      "classification": "changed_compiled_input",
+      "record": "docs/attempts/447B30/claim348-ag01.json"
+    },
+    {
+      "run": "ag02",
+      "owner": "0x447B30",
+      "classification": "changed_compiled_input",
+      "record": "docs/attempts/447B30/claim348-ag02.json"
+    },
+    {
+      "run": "ag03",
+      "owner": "0x447B30",
+      "classification": "changed_compiled_input",
+      "record": "docs/attempts/447B30/claim348-ag03.json"
+    },
+    {
+      "run": "ag04",
+      "owner": "0x447B30",
+      "classification": "changed_compiled_input",
+      "record": "docs/attempts/447B30/claim348-ag04.json"
+    },
+    {
+      "run": "ah01",
+      "owner": "0x447B30",
+      "classification": "changed_compiled_input",
+      "record": "docs/attempts/447B30/claim348-ah01.json"
+    },
+    {
+      "run": "ah02",
+      "owner": "0x447B30",
+      "classification": "changed_compiled_input",
+      "record": "docs/attempts/447B30/claim348-ah02.json"
+    },
+    {
+      "run": "ap01",
+      "owner": "0x4479F0",
+      "classification": "changed_compiled_input",
+      "record": "docs/attempts/4479F0/claim348-ap01.json"
+    },
+    {
+      "run": "pf01",
+      "owner": "0x4479F0",
+      "classification": "changed_compiled_input",
+      "record": "docs/attempts/4479F0/claim348-pf01.json"
+    },
+    {
+      "run": "pf02",
+      "owner": "0x4479F0",
+      "classification": "changed_compiled_input",
+      "record": "docs/attempts/4479F0/claim348-pf02.json"
+    },
+    {
+      "run": "pf03",
+      "owner": "0x4479F0",
+      "classification": "changed_compiled_input",
+      "record": "docs/attempts/4479F0/claim348-pf03.json"
+    },
+    {
+      "run": "pf04",
+      "owner": "0x4479F0",
+      "classification": "changed_compiled_input",
+      "record": "docs/attempts/4479F0/claim348-pf04.json"
+    },
+    {
+      "run": "pf05",
+      "owner": "0x4479F0",
+      "classification": "changed_compiled_input",
+      "record": "docs/attempts/4479F0/claim348-pf05.json"
+    },
+    {
+      "run": "pf06",
+      "owner": "0x4479F0",
+      "classification": "changed_compiled_input",
+      "record": "docs/attempts/4479F0/claim348-pf06.json"
+    },
+    {
+      "run": "pf07",
+      "owner": "0x4479F0",
+      "classification": "changed_compiled_input",
+      "record": "docs/attempts/4479F0/claim348-pf07.json"
+    },
+    {
+      "run": "pf08",
+      "owner": "0x4479F0",
+      "classification": "changed_compiled_input",
+      "record": "docs/attempts/4479F0/claim348-pf08.json"
+    },
+    {
+      "run": "pf09",
+      "owner": "0x4479F0",
+      "classification": "changed_compiled_input",
+      "record": "docs/attempts/4479F0/claim348-pf09.json"
+    },
+    {
+      "run": "pf10",
+      "owner": "0x4479F0",
+      "classification": "changed_compiled_input",
+      "record": "docs/attempts/4479F0/claim348-pf10.json"
+    },
+    {
+      "run": "pf11",
+      "owner": "0x4479F0",
+      "classification": "rejected_original_pair_loss",
+      "record": "docs/attempts/4479F0/claim348-pf11.json"
+    },
+    {
+      "run": "pf12",
+      "owner": "0x4479F0",
+      "classification": "rejected_original_pair_loss",
+      "record": "docs/attempts/4479F0/claim348-pf12.json"
+    },
+    {
+      "run": "pf13",
+      "owner": "0x4479F0",
+      "classification": "changed_compiled_input",
+      "record": "docs/attempts/4479F0/claim348-pf13.json"
+    },
+    {
+      "run": "pf14",
+      "owner": "0x4479F0",
+      "classification": "changed_compiled_input",
+      "record": "docs/attempts/4479F0/claim348-pf14.json"
+    },
+    {
+      "run": "pg01",
+      "owner": "0x4479F0",
+      "classification": "changed_compiled_input",
+      "record": "docs/attempts/4479F0/claim348-pg01.json"
+    },
+    {
+      "run": "pg02",
+      "owner": "0x4479F0",
+      "classification": "changed_compiled_input",
+      "record": "docs/attempts/4479F0/claim348-pg02.json"
+    },
+    {
+      "run": "pg03",
+      "owner": "0x4479F0",
+      "classification": "changed_compiled_input",
+      "record": "docs/attempts/4479F0/claim348-pg03.json"
+    },
+    {
+      "run": "pg04",
+      "owner": "0x4479F0",
+      "classification": "changed_compiled_input",
+      "record": "docs/attempts/4479F0/claim348-pg04.json"
+    },
+    {
+      "run": "ph01",
+      "owner": "0x4479F0",
+      "classification": "rejected_original_pair_loss",
+      "record": "docs/attempts/4479F0/claim348-ph01.json"
+    },
+    {
+      "run": "ph02",
+      "owner": "0x4479F0",
+      "classification": "rejected_original_pair_loss",
+      "record": "docs/attempts/4479F0/claim348-ph02.json"
+    },
+    {
+      "run": "root_original",
+      "owner": "control",
+      "classification": "unchanged_coordinator_control",
+      "record": "docs/attempts/4479F0/claim348-root_original.json"
+    },
+    {
+      "run": "sa01",
+      "owner": "0x447B30",
+      "classification": "rejected_original_pair_loss",
+      "record": "docs/attempts/447B30/claim348-sa01.json"
+    },
+    {
+      "run": "sa02",
+      "owner": "0x447B30",
+      "classification": "changed_compiled_input",
+      "record": "docs/attempts/447B30/claim348-sa02.json"
+    },
+    {
+      "run": "sp01",
+      "owner": "0x4479F0",
+      "classification": "changed_compiled_input",
+      "record": "docs/attempts/4479F0/claim348-sp01.json"
+    }
+  ]
+}

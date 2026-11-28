@@ -1,0 +1,87 @@
+{
+  "object_sha256": "f96b424622f6090643874120077250e623aaf60416e7e7862977c12364e6870c",
+  "settings": [
+    {
+      "symbol": "_ObstacleTicks",
+      "encoder_relocation_offset": 6,
+      "retail_address": "0xb704c0",
+      "type": "float",
+      "initial_value": 180.0,
+      "payload_sha256": "21b9ff9cf99927e92d16d0fcc3190c14680a24c02dad89f9777d5107fdeb5db1",
+      "initializer_payload_equal": true
+    },
+    {
+      "symbol": "_ObstacleComfort",
+      "encoder_relocation_offset": 28,
+      "retail_address": "0xb704c4",
+      "type": "float",
+      "initial_value": 1.399999976158142,
+      "payload_sha256": "55bcbd6097be4e6dbb2e3a87d63d96cb17ed13c4483b7f9a79c7cb115111b3ce",
+      "initializer_payload_equal": true
+    },
+    {
+      "symbol": "_SeparationRadius",
+      "encoder_relocation_offset": 50,
+      "retail_address": "0xb704d0",
+      "type": "float",
+      "initial_value": 100.0,
+      "payload_sha256": "2238f30df488055daf5e8f362cf904e370011a172d20df193c1b7ae8e5db8e01",
+      "initializer_payload_equal": true
+    },
+    {
+      "symbol": "_CollisionTicks",
+      "encoder_relocation_offset": 72,
+      "retail_address": "0xb704c8",
+      "type": "float",
+      "initial_value": 120.0,
+      "payload_sha256": "814e223b91cb65a962256b15f351f22ac7bcbb3c2b82d2a4b3ecf174db8de764",
+      "initializer_payload_equal": true
+    },
+    {
+      "symbol": "_CollisionComfort",
+      "encoder_relocation_offset": 94,
+      "retail_address": "0xb704cc",
+      "type": "float",
+      "initial_value": 1.399999976158142,
+      "payload_sha256": "55bcbd6097be4e6dbb2e3a87d63d96cb17ed13c4483b7f9a79c7cb115111b3ce",
+      "initializer_payload_equal": true
+    },
+    {
+      "symbol": "_UseTerrainAvoid",
+      "encoder_relocation_offset": 116,
+      "retail_address": "0xb704d5",
+      "type": "bool",
+      "initial_value": true,
+      "payload_sha256": "4bf5122f344554c53bde2ebb8cd2b7e3d1600ad631c385a5d7cce23c7785459a",
+      "initializer_payload_equal": true
+    },
+    {
+      "symbol": "_SlowDist",
+      "encoder_relocation_offset": 138,
+      "retail_address": "0xb704bc",
+      "type": "float",
+      "initial_value": 100.0,
+      "payload_sha256": "2238f30df488055daf5e8f362cf904e370011a172d20df193c1b7ae8e5db8e01",
+      "initializer_payload_equal": true
+    },
+    {
+      "symbol": "_FollowUsesPursue",
+      "encoder_relocation_offset": 160,
+      "retail_address": "0xbdc065",
+      "type": "bool",
+      "initial_value": false,
+      "payload_sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d",
+      "initializer_payload_equal": true
+    },
+    {
+      "symbol": "_FollowPredictArrival",
+      "encoder_relocation_offset": 182,
+      "retail_address": "0xb704d4",
+      "type": "bool",
+      "initial_value": true,
+      "payload_sha256": "4bf5122f344554c53bde2ebb8cd2b7e3d1600ad631c385a5d7cce23c7785459a",
+      "initializer_payload_equal": true
+    }
+  ],
+  "derivation": "Retail pointers at exact existing Encode offsets, checked against source global initializer payloads. Full Encode call/literal audit below independently binds each data pointer to its name and float/bool Add operation."
+}

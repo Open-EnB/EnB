@@ -1,0 +1,29 @@
+{
+  "_ObstacleTicks": [
+    "0xB704C0"
+  ],
+  "_ObstacleComfort": [
+    "0xB704C4"
+  ],
+  "_SeparationRadius": [
+    "0xB704D0"
+  ],
+  "_CollisionTicks": [
+    "0xB704C8"
+  ],
+  "_CollisionComfort": [
+    "0xB704CC"
+  ],
+  "_UseTerrainAvoid": [
+    "0xB704D5"
+  ],
+  "_SlowDist": [
+    "0xB704BC"
+  ],
+  "_FollowUsesPursue": [
+    "0xBDC065"
+  ],
+  "_FollowPredictArrival": [
+    "0xB704D4"
+  ]
+}

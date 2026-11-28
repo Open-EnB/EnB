@@ -1,0 +1,28 @@
+{
+  "run": "aa01",
+  "current_status": "compiled_and_rejected",
+  "preparation_record_is_historical": true,
+  "aa01-proposal.json": {
+    "run": "aa01",
+    "status": "prepared_not_compiled",
+    "target": "0x447B30",
+    "edited_exact_helper": "0x445A50",
+    "base_sha256": "88579ca0b51bf49802213e8365145f62620e5863ea93d88e638e0dd6c044b8b0",
+    "source_sha256": "f5a56bbbcb1ccf5c32bba479f29956203fc2148c2064dd45e0129bcc42acf9da",
+    "patch_sha256": "52c88ff9f4f81b189aa2ba46121809ad05cad17b656ae7e82284446277417b28",
+    "lever": "docs/workflow.md \u00a73.1.2: copy then compound assignment versus binary vector arithmetic (0x7A7560), retail final Y/Z slot reuse; actual Vector3::operator-=",
+    "hypothesis": "Final arithmetic updates the scaled vector in place, matching retail Y/Z slot reuse rather than producing a distinct result vector.",
+    "falsifiers": "Known duplicate; no useful tail change; wrong reads/precision/association; any old pair/graph loss"
+  },
+  "aa01-preservation.json": {
+    "before_sha256": "f96b424622f6090643874120077250e623aaf60416e7e7862977c12364e6870c",
+    "after_sha256": "946e7a655bdc4100f4c15a1d09c5c4902e37c5a82217a08d580995a947b5d4fb",
+    "checked": 54,
+    "changes": [
+      "?Arrive@SteeringClass@@QAE?AVVector3@@ABUSteeringVehicleStruct@@ABV2@M@Z"
+    ],
+    "proven_data_aliases": {},
+    "normalization": "Followed EH handler/table placement and explicitly audited shared-buffer symbol aliases; body fixed bytes, all other relocations/addends/literal payloads, handler, FuncInfo fixed fields, predecessor states and cleanup graphs compared"
+  },
+  "aa01-focused.patch": "# Claimed target 0x447B30; supporting exact helper 0x445A50.\n--- app/shared/unknown_445740.cpp\n+++ app/shared/unknown_445740.cpp\n@@ -62 +62,3 @@\n-\treturn offset * (speed / distance) - vehicle.Velocity;\n+\tVector3 scaled = offset * (speed / distance);\n+\tscaled -= vehicle.Velocity;\n+\treturn scaled;\n"
+}

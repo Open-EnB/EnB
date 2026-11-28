@@ -1,0 +1,25 @@
+{
+  "run": "sa02",
+  "current_status": "compiled_and_rejected",
+  "preparation_record_is_historical": true,
+  "sa02-proposal.json": {
+    "run": "sa02",
+    "status": "prepared_not_compiled",
+    "target": "0x447B30",
+    "edited_exact_helper": "0x445A50",
+    "base_sha256": "88579ca0b51bf49802213e8365145f62620e5863ea93d88e638e0dd6c044b8b0",
+    "source_sha256": "cbfb94b6ca8a42ba54603b6ffbcc2970840b7fef057cc16d93c0a1efe7e7ec3a",
+    "patch_sha256": "4140a7d7f869eec21522e91136ee7ea3b0dde0ea66525d47de25c2c3385c52e8",
+    "lever": "docs/workflow.md section3.1.2 line348: constructor-built versus member-store vectors change x87 operand order",
+    "hypothesis": "Use the real Subtract output helper for initial offset so sequential component member stores replace constructor-return subtraction, without a second arithmetic/read sequence."
+  },
+  "sa02-preservation.json": {
+    "before_sha256": "f96b424622f6090643874120077250e623aaf60416e7e7862977c12364e6870c",
+    "after_sha256": "ef551f450367274671033dd885e0825da99c104191adb09e2c2cf59b6e5f5f5b",
+    "checked": 54,
+    "changes": [],
+    "proven_data_aliases": {},
+    "normalization": "Followed EH handler/table placement and explicitly audited shared-buffer symbol aliases; body fixed bytes, all other relocations/addends/literal payloads, handler, FuncInfo fixed fields, predecessor states and cleanup graphs compared"
+  },
+  "sa02-focused.patch": "# Claimed target 0x447B30; supporting exact helper 0x445A50 only.\n--- app/shared/unknown_445740.cpp\n+++ app/shared/unknown_445740.cpp\n@@ -53 +53,2 @@\n-\tVector3 offset = target - vehicle.Position;\n+\tVector3 offset;\n+\tVector3::Subtract(target, vehicle.Position, &offset);\n"
+}

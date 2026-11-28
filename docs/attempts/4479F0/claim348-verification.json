@@ -1,0 +1,85 @@
+{
+  "claim": 348,
+  "base_revision": "64e8e4f55296d83901759bb53b0d0d8a641f7352",
+  "unit": "app/shared/unknown_445740.cpp",
+  "source_sha256": "88579ca0b51bf49802213e8365145f62620e5863ea93d88e638e0dd6c044b8b0",
+  "source_and_headers_unchanged": true,
+  "newly_exact": [],
+  "remaining_claimed_not_exact": [
+    "0x4479F0",
+    "0x447B30"
+  ],
+  "file_address_pairs_before": 54,
+  "file_address_pairs_after": 54,
+  "symbol_address_pairs_before": 54,
+  "symbol_address_pairs_after": 54,
+  "gained": 0,
+  "lost": 0,
+  "recorded_pairs_reproduced": 52,
+  "preexisting_extras": [
+    "0x445260",
+    "0x445300"
+  ],
+  "old_graphs_independently_checked": 54,
+  "old_graph_changes": [],
+  "best_valid_pursue_diagnostic": {
+    "run": "pf02",
+    "bytes": 239,
+    "retail_bytes": 247,
+    "residue": 9,
+    "normalization_prefix_matches": true,
+    "final_copy_mismatch": true,
+    "old_graphs_checked": 54,
+    "code_not_kept": true
+  },
+  "best_valid_arrive_diagnostic": {
+    "run": "baseline",
+    "bytes": 185,
+    "retail_bytes": 196,
+    "residue": 9,
+    "z_rounding_and_final_copy_mismatch": true
+  },
+  "trial_counts": {
+    "primary_inputs": 42,
+    "translation_unit_compiles": 42,
+    "coordinator_controls": 1,
+    "changed_target_forms": 41,
+    "by_owner": {
+      "4479F0": 22,
+      "447B30": 19
+    },
+    "classifications": {
+      "changed_compiled_input": 26,
+      "rejected_original_pair_loss": 6,
+      "semantically_ineligible_x87_reassociation": 9,
+      "unchanged_coordinator_control": 1
+    }
+  },
+  "distinct_pursue_raw_and_masked_groups": 11,
+  "distinct_arrive_raw_and_masked_groups": 7,
+  "semantic_exclusions": "Nine first-pass Arrive sources reassociate arithmetic; Distance sa01 additionally duplicates input arithmetic/reads and fails old helper. A lower raw row count is not eligible progress. Six source inputs lose original file and/or symbol pairs; all rejected.",
+  "new_lever_tests": [
+    "sp01:constructor versus real output-pointer arithmetic, \u00a73.1.2:348/410",
+    "sa01:second-subtraction/Distance CSE across length, \u00a73.1.2:413",
+    "sa02:initial member-store subtraction, \u00a73.1.2:348",
+    "ap01/aa01:real final compound subtraction and observed slot reuse, \u00a73.1.2:346/413"
+  ],
+  "research_reviews_are_not_compilation_rounds": true,
+  "prepared_but_untested_source_inputs": [],
+  "considered_not_prepared": "Zero-one-force accumulator and float-pointer constructor without interface were rejected by group; conditional pf02+failed-base-helper combination was not prepared because old helper failed. No invented source hashes.",
+  "final_control_object_sha256": "f45873e82b2be0c1a8f8c03d801ca18d68049e3ceefcc7573f438fa0b8c84657",
+  "final_control_source_sha256": "88579ca0b51bf49802213e8365145f62620e5863ea93d88e638e0dd6c044b8b0",
+  "current_limits": {
+    "4479F0": "LIMIT REACHED (D89, D271): 4 rounds without progress (best score 0.88); no retry without a new section 3.1 lever cited with `attempts.py check --lever`",
+    "447B30": "LIMIT REACHED (D89, D271): 4 rounds without progress (best score 0.75); no retry without a new section 3.1 lever cited with `attempts.py check --lever`"
+  },
+  "proof_limits": "Neither target reached masked zero or whole-function exactness; no new-target relocation/EH exactness claim or retained-header consumer proof. Existing settings Encode205bytes/27refs and9global initializer roles independently checked; original source54body/ref/literal/EH graphs preserved. Final committed preflight is required separately, evidence-only C/C++scope0.",
+  "models": [
+    "gpt-6.1-terra high",
+    "gpt-6.1-terra xhigh",
+    "gpt-6.1-sol high",
+    "gpt-6-astra high",
+    "Codex coordinator"
+  ],
+  "compiler_gate": "All workers released, final unchanged-source control completed, staging original; no VM leases or client runtime instances created."
+}
