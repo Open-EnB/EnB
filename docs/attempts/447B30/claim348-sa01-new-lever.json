@@ -1,0 +1,27 @@
+{
+  "run": "sa01",
+  "current_status": "compiled_and_rejected",
+  "preparation_record_is_historical": true,
+  "sa01-proposal.json": {
+    "run": "sa01",
+    "status": "prepared_not_compiled",
+    "target": "0x447B30",
+    "edited_exact_helper": "0x445A50",
+    "base_sha256": "88579ca0b51bf49802213e8365145f62620e5863ea93d88e638e0dd6c044b8b0",
+    "source_sha256": "d8ecf3351dd0004ee54d6222924226b76eb555b1d2a826b09a3d8084ffd7e3eb",
+    "patch_sha256": "99db06555655a77b46c681a4d7f917fe51b12e74cd3b75661f4fd7ec75999f34",
+    "lever": "docs/workflow.md section3.1.2 line413: second subtraction/Distance CSE across Length/Length2 vector copies",
+    "hypothesis": "The real Distance temporary supplies a separately consumed subtraction for length while offset is consumed by scaling; cross-inline CSE/lifetime may produce retail float reload and copy shape."
+  },
+  "sa01-preservation.json": {
+    "before_sha256": "f96b424622f6090643874120077250e623aaf60416e7e7862977c12364e6870c",
+    "after_sha256": "374282345ff4e1aeea4b80f6185d96e0101cf32e069ff2c0d436ba4f4f3f379e",
+    "checked": 54,
+    "changes": [
+      "?Arrive@SteeringClass@@QAE?AVVector3@@ABUSteeringVehicleStruct@@ABV2@M@Z"
+    ],
+    "proven_data_aliases": {},
+    "normalization": "Followed EH handler/table placement and explicitly audited shared-buffer symbol aliases; body fixed bytes, all other relocations/addends/literal payloads, handler, FuncInfo fixed fields, predecessor states and cleanup graphs compared"
+  },
+  "sa01-focused.patch": "# Claimed target 0x447B30; supporting exact helper 0x445A50 only.\n--- app/shared/unknown_445740.cpp\n+++ app/shared/unknown_445740.cpp\n@@ -54 +54 @@\n-\tdistance = offset.Length() - distance;\n+\tdistance = Vector3::Distance(target, vehicle.Position) - distance;\n"
+}

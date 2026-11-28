@@ -1,0 +1,235 @@
+{
+  "object_sha256": "f96b424622f6090643874120077250e623aaf60416e7e7862977c12364e6870c",
+  "source_sha256": "88579ca0b51bf49802213e8365145f62620e5863ea93d88e638e0dd6c044b8b0",
+  "functions": [
+    {
+      "symbol": "?Encode@SteeringClass@@SAXPAVKVEncoderBaseClass@@@Z",
+      "va": "0x447cc0",
+      "length": 205,
+      "relocations": [
+        {
+          "offset": "0x6",
+          "symbol": "_ObstacleTicks",
+          "kind": 6,
+          "addend": "0x0",
+          "linked": "0xb704c0",
+          "resolved": "0xb704c0"
+        },
+        {
+          "offset": "0xb",
+          "symbol": "??_C@_0O@KGIJ@ObstacleTicks?$AA@",
+          "kind": 6,
+          "addend": "0x0",
+          "linked": "0xb7057c",
+          "resolved": "0xb7057c"
+        },
+        {
+          "offset": "0x17",
+          "symbol": "?Add@KVEncoderBaseClass@@QAEXHPBDPAM@Z",
+          "kind": 20,
+          "addend": "0x0",
+          "linked": "0x40dd4b",
+          "resolved": "0x448260"
+        },
+        {
+          "offset": "0x1c",
+          "symbol": "_ObstacleComfort",
+          "kind": 6,
+          "addend": "0x0",
+          "linked": "0xb704c4",
+          "resolved": "0xb704c4"
+        },
+        {
+          "offset": "0x21",
+          "symbol": "??_C@_0BA@NCDD@ObstacleComfort?$AA@",
+          "kind": 6,
+          "addend": "0x0",
+          "linked": "0xb70568",
+          "resolved": "0xb70568"
+        },
+        {
+          "offset": "0x2d",
+          "symbol": "?Add@KVEncoderBaseClass@@QAEXHPBDPAM@Z",
+          "kind": 20,
+          "addend": "0x0",
+          "linked": "0x40dd4b",
+          "resolved": "0x448260"
+        },
+        {
+          "offset": "0x32",
+          "symbol": "_SeparationRadius",
+          "kind": 6,
+          "addend": "0x0",
+          "linked": "0xb704d0",
+          "resolved": "0xb704d0"
+        },
+        {
+          "offset": "0x37",
+          "symbol": "??_C@_0BB@GNHL@SeparationRadius?$AA@",
+          "kind": 6,
+          "addend": "0x0",
+          "linked": "0xb70554",
+          "resolved": "0xb70554"
+        },
+        {
+          "offset": "0x43",
+          "symbol": "?Add@KVEncoderBaseClass@@QAEXHPBDPAM@Z",
+          "kind": 20,
+          "addend": "0x0",
+          "linked": "0x40dd4b",
+          "resolved": "0x448260"
+        },
+        {
+          "offset": "0x48",
+          "symbol": "_CollisionTicks",
+          "kind": 6,
+          "addend": "0x0",
+          "linked": "0xb704c8",
+          "resolved": "0xb704c8"
+        },
+        {
+          "offset": "0x4d",
+          "symbol": "??_C@_0P@DGAD@CollisionTicks?$AA@",
+          "kind": 6,
+          "addend": "0x0",
+          "linked": "0xb70540",
+          "resolved": "0xb70540"
+        },
+        {
+          "offset": "0x59",
+          "symbol": "?Add@KVEncoderBaseClass@@QAEXHPBDPAM@Z",
+          "kind": 20,
+          "addend": "0x0",
+          "linked": "0x40dd4b",
+          "resolved": "0x448260"
+        },
+        {
+          "offset": "0x5e",
+          "symbol": "_CollisionComfort",
+          "kind": 6,
+          "addend": "0x0",
+          "linked": "0xb704cc",
+          "resolved": "0xb704cc"
+        },
+        {
+          "offset": "0x63",
+          "symbol": "??_C@_0BB@NEBM@CollisionComfort?$AA@",
+          "kind": 6,
+          "addend": "0x0",
+          "linked": "0xb7052c",
+          "resolved": "0xb7052c"
+        },
+        {
+          "offset": "0x6f",
+          "symbol": "?Add@KVEncoderBaseClass@@QAEXHPBDPAM@Z",
+          "kind": 20,
+          "addend": "0x0",
+          "linked": "0x40dd4b",
+          "resolved": "0x448260"
+        },
+        {
+          "offset": "0x74",
+          "symbol": "_UseTerrainAvoid",
+          "kind": 6,
+          "addend": "0x0",
+          "linked": "0xb704d5",
+          "resolved": "0xb704d5"
+        },
+        {
+          "offset": "0x79",
+          "symbol": "??_C@_0BA@DABE@UseTerrainAvoid?$AA@",
+          "kind": 6,
+          "addend": "0x0",
+          "linked": "0xb70518",
+          "resolved": "0xb70518"
+        },
+        {
+          "offset": "0x85",
+          "symbol": "?Add_Typed@KVEncoderBaseClass@@QAEXHPBDPA_N@Z",
+          "kind": 20,
+          "addend": "0x0",
+          "linked": "0x416108",
+          "resolved": "0x448390"
+        },
+        {
+          "offset": "0x8a",
+          "symbol": "_SlowDist",
+          "kind": 6,
+          "addend": "0x0",
+          "linked": "0xb704bc",
+          "resolved": "0xb704bc"
+        },
+        {
+          "offset": "0x8f",
+          "symbol": "??_C@_08JJ@SlowDist?$AA@",
+          "kind": 6,
+          "addend": "0x0",
+          "linked": "0xb7050c",
+          "resolved": "0xb7050c"
+        },
+        {
+          "offset": "0x9b",
+          "symbol": "?Add@KVEncoderBaseClass@@QAEXHPBDPAM@Z",
+          "kind": 20,
+          "addend": "0x0",
+          "linked": "0x40dd4b",
+          "resolved": "0x448260"
+        },
+        {
+          "offset": "0xa0",
+          "symbol": "_FollowUsesPursue",
+          "kind": 6,
+          "addend": "0x0",
+          "linked": "0xbdc065",
+          "resolved": "0xbdc065"
+        },
+        {
+          "offset": "0xa5",
+          "symbol": "??_C@_0BB@JPKO@FollowUsesPursue?$AA@",
+          "kind": 6,
+          "addend": "0x0",
+          "linked": "0xb704f8",
+          "resolved": "0xb704f8"
+        },
+        {
+          "offset": "0xb1",
+          "symbol": "?Add_Typed@KVEncoderBaseClass@@QAEXHPBDPA_N@Z",
+          "kind": 20,
+          "addend": "0x0",
+          "linked": "0x416108",
+          "resolved": "0x448390"
+        },
+        {
+          "offset": "0xb6",
+          "symbol": "_FollowPredictArrival",
+          "kind": 6,
+          "addend": "0x0",
+          "linked": "0xb704d4",
+          "resolved": "0xb704d4"
+        },
+        {
+          "offset": "0xbb",
+          "symbol": "??_C@_0BF@GIDI@FollowPredictArrival?$AA@",
+          "kind": 6,
+          "addend": "0x0",
+          "linked": "0xb704dc",
+          "resolved": "0xb704dc"
+        },
+        {
+          "offset": "0xc7",
+          "symbol": "?Add_Typed@KVEncoderBaseClass@@QAEXHPBDPA_N@Z",
+          "kind": 20,
+          "addend": "0x0",
+          "linked": "0x416108",
+          "resolved": "0x448390"
+        }
+      ],
+      "handler": null,
+      "states": [],
+      "predecessors": []
+    }
+  ],
+  "semantic_graph_pass": true,
+  "full_literal_payload_parity": true,
+  "exceptions": []
+}

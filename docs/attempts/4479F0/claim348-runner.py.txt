@@ -1,0 +1,71 @@
+"""Canonical multi-overlay KV writer trials; root serializes Wine ownership."""
+from pathlib import Path
+import difflib,hashlib,json,re,subprocess,sys
+R=Path('/home/dev/Projects/EnB');W=R/'.work/claim-348';P=W/'tree';T=W/'build-tree';A=R/'.git/local-vc6-preflight/drive-e/build/beta/G'
+ALLOWED=['app/shared/unknown_445740.cpp']
+UNITS=['app/shared/unknown_445740.cpp'];CC='/home/dev/Toolchains/enb-vc6-sp4/bin/vc6-cl'
+CLIENT='/home/dev/Games/earth-and-beyond/prefix/drive_c/Program Files (x86)/EA GAMES/Earth & Beyond/release/client.exe'
+sys.path[:0]=[str(T/'tools/vc6'),str(T/'tools/re')]
+import libdefs
+from objmatch import match_objects
+from clientimage import ClientImage
+def sha(b):return hashlib.sha256(b).hexdigest()
+def win(p):return 'Z:'+str(p).replace('/','\\')
+def guard(s):return [[i,l.strip()] for i,l in enumerate(s.splitlines(),1) if re.search(r'\b(?:FAIL_IF|G_ASSERT|WWASSERT|INFMSG|WWDEBUG_SAY)\s*\(|__LINE__',l)]
+def match(paths,out):
+ external={}
+ for lib,values in json.loads((P/'docs/data/called.json').read_text()).items():
+  if lib!='app':
+   for n,addresses in values.items():external.setdefault(n,set()).update(int(a,16) for a in addresses)
+ rows=match_objects(ClientImage(CLIENT),[str(p) for p in paths.values()],region=libdefs.APP_LIBS['app'].get('region'),callers=True,extern_called=external)
+ (out/'app-matches.json').write_text(json.dumps(rows,indent=2)+'\n');mapping={p.name:u for u,p in paths.items()}
+ pairs=sorted({(mapping[r['object']],a) for r in rows if r['status']=='exact' for a in r['addresses']});symbols=sorted({(mapping[r['object']],r['symbol'],a) for r in rows if r['status']=='exact' for a in r['addresses']})
+ result=dict(pairs=[p for p in pairs if p[0] in UNITS],symbol_pairs=[p for p in symbols if p[0] in UNITS],all_pairs=pairs,all_symbol_pairs=symbols)
+ (out/'result.json').write_text(json.dumps(result,indent=2)+'\n');return result
+def scope(source):
+ for addr in ['4479F0','447B30','445B30','445A50']:
+  marker=source.index('// 0x'+addr);begin=source.index('{',marker);depth=1;end=begin+1
+  while depth:
+   if source[end]=='{':depth+=1
+   elif source[end]=='}':depth-=1
+   end+=1
+  source=source[:begin]+'{CLAIMED_BODY}'+source[end:]
+ source=re.sub(r'//[^\n]*|/\*[\s\S]*?\*/','',source)
+ return re.sub(r'\s+','',source)
+def main():
+ name=sys.argv[1];folder=Path(sys.argv[2]).resolve();assert re.fullmatch('[A-Za-z0-9_-]+',name) and folder.is_relative_to(W)
+ out=W/'runs'/name;out.mkdir(parents=True,exist_ok=False);original={p:(P/p).read_bytes() if (P/p).exists() else b'' for p in ALLOWED};inputs={p:(folder/p).read_bytes() for p in ALLOWED if (folder/p).is_file()}
+ assert 'app/shared/unknown_445740.cpp' in inputs
+ unknown=[str(p.relative_to(folder)) for p in folder.rglob('*') if p.is_file() and str(p.relative_to(folder)) not in ALLOWED];assert not unknown,unknown
+ meta=dict(run=name,base_revision=(W/'revision.txt').read_text().strip(),inputs=[],replay_verified=True)
+ for p,b in inputs.items():
+  old=original[p].decode();new=b.decode();edits=[dict(start=i,end=j,text=new[k:l]) for tag,i,j,k,l in difflib.SequenceMatcher(None,old,new,autojunk=False).get_opcodes() if tag!='equal'];s=old
+  for e in reversed(edits):s=s[:e['start']]+e['text']+s[e['end']:]
+  assert s==new;meta['inputs'].append(dict(unit=p,base_sha256=sha(original[p]),input_sha256=sha(b),edits=edits));copy=out/'inputs'/p;copy.parent.mkdir(parents=True,exist_ok=True);copy.write_bytes(b)
+ (out/'input.json').write_text(json.dumps(meta,indent=2)+'\n')
+ try:
+  for p,h in json.loads((W/'snapshot.json').read_text()).items():assert sha((P/p).read_bytes())==h and sha((T/p).read_bytes())==h,p
+  for p,b in inputs.items():
+   assert scope(original[p].decode())==scope(b.decode()),'Code change outside claimed function bodies'
+   before=guard(original[p].decode());after=guard(b.decode())
+   assert all(x in after for x in before),'old assertion/log moved or changed:'+p
+   additions=[x for x in after if x not in before]
+   allowed={'app/shared/kv_list.h':{73},'app/shared/kv_util.cpp':{45,46,47,188}}
+   assert all(x[0] in allowed.get(p,set()) for x in additions),('unreviewed new assertion',p,additions)
+  assert A.is_symlink();A.unlink();A.symlink_to(T,target_is_directory=True)
+  for p,b in inputs.items():(T/p).write_bytes(b)
+  paths={}
+  for unit in UNITS:
+   build=out/Path(unit).stem;build.mkdir();app=libdefs.APP_LIBS['app'];args=[libdefs.flags_of(T/unit)]+['/D'+x for x in app['defines']]+['/I"'+win(x)+'"' for x in libdefs.tree_includes()]+['"'+app['file_root']+'\\'+unit.replace('/','\\')+'"'];rsp=build/'compile.rsp';rsp.write_text('\n'.join(args))
+   with (build/'compile.log').open('w') as log:r=subprocess.run([CC,'@'+win(rsp)],cwd=build,stdout=log,stderr=log,timeout=300)
+   log=(build/'compile.log').read_text(errors='replace')
+   if r.returncode or re.search(r'\b(?:fatal )?error\s+[A-Z]+\d+',log,re.I):raise RuntimeError('compile failed:'+log[-2000:])
+   paths[unit]=build/(Path(unit).stem+'.obj')
+  contexts=json.loads((W/'context.json').read_text()) if (W/'context.json').exists() else {};paths.update({u:Path(p) for u,p in contexts.items()});result=match(paths,out)
+  base=json.loads((W/'primary-baseline/result.json').read_text());delta={k:dict(gained=sorted(set(map(tuple,result[k]))-set(map(tuple,base[k]))),lost=sorted(set(map(tuple,base[k]))-set(map(tuple,result[k])))) for k in ['pairs','symbol_pairs','all_pairs','all_symbol_pairs']};(out/'deltas.json').write_text(json.dumps(delta,indent=2)+'\n');print(json.dumps(dict(run=name,pairs=len(result['pairs']),delta=delta)))
+ except Exception as e:(out/'failure.json').write_text(json.dumps(dict(error=str(e)),indent=2)+'\n');raise
+ finally:
+  for p,b in original.items():
+   if (P/p).exists():(T/p).write_bytes(b)
+   elif (T/p).exists():(T/p).unlink()
+if __name__=='__main__':main()

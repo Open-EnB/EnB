@@ -1,0 +1,8 @@
+{
+  "before_sha256": "f96b424622f6090643874120077250e623aaf60416e7e7862977c12364e6870c",
+  "after_sha256": "f45873e82b2be0c1a8f8c03d801ca18d68049e3ceefcc7573f438fa0b8c84657",
+  "checked": 54,
+  "changes": [],
+  "proven_data_aliases": {},
+  "normalization": "Followed EH handler/table placement and explicitly audited shared-buffer symbol aliases; body fixed bytes, all other relocations/addends/literal payloads, handler, FuncInfo fixed fields, predecessor states and cleanup graphs compared"
+}

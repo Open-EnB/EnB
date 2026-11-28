@@ -1,0 +1,99 @@
+# Final fresh Astra investigation, claim 348
+
+Initial read-only phase, 2026-11-28; the coordinator subsequently admitted the
+precise compound-subtraction mechanism and granted two serialized tests. Both
+actual tests failed; see report.md and results.json. The coordinator owns production, compiler/staging,
+Git and public evidence. No compiler gate was inferred from the user model
+escalation or the existence of toolchain capacity. No child agents or external
+writes. Both current attempts.py show results explicitly say LIMIT REACHED.
+
+Read the full fresh-session prompt, AGENTS, both briefs, original history.json,
+both first-pass generators/reports, complete group/reassessment and lead reports,
+all focused/helper reports, both Sol research/result reports, and relevant
+bounded workflow/builders/contribution/source conventions. The missing original
+Nov13 source patches remain missing: three Pursue and two Arrive forms are
+historical reports, not replayable new evidence.
+
+Independently hash/replay-verified every one of the 39 actual new captured inputs
+against immutable tree/app/shared/unknown_445740.cpp; see inspect_inputs.py and
+inspected-inputs.json. The latter contains reconstructed source diffs only, no
+retail or object listing. Actual counts before this stage are 21 Pursue-owner
+and 18 Arrive-owner inputs; peer target observations are not independent forms.
+
+Inspected actual original CPP/header and Vector3 implementations; native
+baseline/1/unknown_445740.obj through repo objdiff for exact Seek445740 and
+Arrive445A50; baseline claimed-target diffs; full pf02 and af01 diffs, pf13 and
+sp01 tails, captured sa01/sa02 sources and deltas. The source edits of all
+39 inputs were inspected after replay rather than trusting the prose summaries.
+The exact base Arrive has its own (Z²+Y²)+X² and retained-Z x87 behavior, so an
+explicit length expansion cannot be declared universally correct from the
+wrapper's different requirements. No current source/header modification is kept.
+
+## Independent residue interpretation
+
+The retail tails do not uniquely prove the old marker's claim of "a second
+local." Optimized stack-slot identity permits another meaningful interpretation:
+the final subtraction updates the existing scaled vector in place. Pursue's
+retail Y store goes back to the scaled Y slot; its Z store goes back to the
+scaled Z slot after accounting for the intervening pop esi. Arrive's retail Y
+and Z stores similarly use the scaled vector's slots (-0x14 and -0x10). The
+baseline/copy variants instead store the final X/Z in the other vector's area.
+This is evidence for testing an actual compound arithmetic operator, not proof
+that its spelling is original. Normal slot coalescing could also explain it.
+
+Pursue pf02 still has the best valid whole prefix and nine-row final residue;
+pf13's nine rows represent another route, not a gain. Arrive af01's seven rows
+remain invalid due to changed association. All nine changed-output af forms
+remain semantic diagnostics. Nothing in this review rescues them.
+
+## New mechanism submitted to coordinator
+
+Vector3::operator-= (wwmath/vector3.h:130) mutates and returns the same vector;
+it is not binary operator- and not Subtract into a separate object. No one of
+the 39 recorded inputs uses this operator at the final velocity subtraction.
+The applicable existing documented lever is docs/workflow.md section3.1.2,
+row346: copy then compound assignment changes x87/order relative to a binary
+expression. Row413 also distinguishes in-place math from by-value temporaries.
+Actual solved source evidence is galaxy_map_render.cpp:476-477 at 0x7A7560:
+`Vector3 to = from; to += (Point - from) * 2.0f;`. Its exact attempts row credits
+this compound form and the current ledger lists 0x7A7560. That is supporting
+evidence for the mechanism, not a claim that += and -= compile identically.
+Actual px_collision.cpp:148 uses Vector3 -= but that containing function is NOT
+exact, so it is API-use evidence only. ship_equip_pip.cpp:169 also uses -= before
+Length, but is not relied upon as an exact counterpart.
+
+Two narrow proposals, neither prepared nor compiled when submitted (both later
+admitted and actually tested as ap01 and aa01):
+
+* Pursue claimed wrapper only: the pf07 live prefix, followed by
+  `desired -= vehicle.Velocity; return desired;`. The same real prediction,
+  normalization, scaling and subtraction remain. Unlike sp01, the subtraction
+  mutates its input and introduces no distinct result vector.
+* Arrive existing exact base445A50 only: retain prefix, replace final return
+  with `Vector3 scaled = offset * (speed / distance);`
+  `scaled -= vehicle.Velocity; return scaled;`. The claimed wrapper stays
+  original. Unlike ah01/02, final arithmetic itself is in place; unlike sa02,
+  it targets the final scaled-result lifetime, not the initial offset creation.
+
+No header or extra exact helper scope expansion is requested. Root decides
+whether this meets the new-lever gate. Expected falsifiers: known output
+duplication, no useful retail-tail change, wrong actual read/precision/sum
+sequence, or any old helper/file/symbol pair loss. For Arrive, 445A50's own
+distinct original arithmetic must remain exact. A plausible target still needs
+all 54 old body/ref/literal/EH graphs and full target proof. A lower row count
+alone cannot justify further combinations.
+
+## Directions not promoted
+
+No further arbitrary constructor/copy/reference/Set spelling is new after the
+actual recorded duplicate families. A scalar length local or another flattened
+Length/Sqrt expression alone supplies no independent mechanism after those
+depth/lifetime tests. Header return qualifiers, component accessor inventions,
+dummy helpers/types and unused operations would lack evidence. No change to
+Normalize, vector sum association, flags, ABI or proxim behavior is proposed.
+The array constructor, zero accumulator and free Normalize objections remain;
+finding those APIs in the header does not make them evidence for this site.
+
+The admitted in-place tests failed without any claimed gain. Reopening needs additional
+actual helper/lifetime/caller evidence tied to the surviving Z reload and final
+copy route. No claim is made that every equivalent C++ program was tried.

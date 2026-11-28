@@ -1,0 +1,22 @@
+"""Anchor steering settings by named Encode arguments and exact initializer payloads."""
+from pathlib import Path
+import hashlib,json,struct,subprocess,sys
+R=Path('/home/dev/Projects/EnB');W=R/'.work/claim-348';sys.path.insert(0,str(R/'tools/re'));from objmatch import CoffObject;from clientimage import ClientImage
+OBJ=W/'baseline/1/unknown_445740.obj';o=CoffObject(str(OBJ));img=ClientImage('/home/dev/Games/earth-and-beyond/prefix/drive_c/Program Files (x86)/EA GAMES/Earth & Beyond/release/client.exe');fn=next(f for f in o.functions() if f[0].startswith('?Encode@SteeringClass@@'));name,sc,start,end=fn;_,_,length=o.pattern(sc,start,end)
+types={n:'float' for n in ['SlowDist','ObstacleTicks','ObstacleComfort','SeparationRadius','CollisionTicks','CollisionComfort']};types.update({n:'bool' for n in ['UseTerrainAvoid','FollowUsesPursue','FollowPredictArrival']});maps={};rows=[]
+for off,width,kind,sym,add in o.reloc_targets(sc,start,length):
+ n=sym['name'];key=n[1:]
+ if key not in types:continue
+ assert width==4 and kind==6 and struct.unpack('<I',add)[0]==0
+ va=img.u32(0x447CC0+off);count=4 if types[key]=='float' else 1;section=o.sections[sym['section']-1]
+ payload=o.data[section['raw']+sym['value']:section['raw']+sym['value']+count] if section['raw'] else bytes(count);offset=img.offset(va)
+ if offset is None:
+  assert any(start+raw_size<=va and va+count<=start+virtual_size for start,virtual_size,raw,raw_size in img.sections.values()),hex(va)
+  retail=bytes(count)
+ else:retail=img.data[offset:offset+count]
+ assert payload==retail,(key,payload.hex(),retail.hex(),hex(va))
+ maps[n]=[f'0x{va:X}'];rows.append(dict(symbol=n,encoder_relocation_offset=off,retail_address=hex(va),type=types[key],initial_value=struct.unpack('<f',payload)[0] if count==4 else bool(payload[0]),payload_sha256=hashlib.sha256(payload).hexdigest(),initializer_payload_equal=True))
+assert len(rows)==9,rows
+(W/'known-globals.json').write_text(json.dumps(maps,indent=2)+'\n');(W/'globals-audit.json').write_text(json.dumps(dict(object_sha256=hashlib.sha256(OBJ.read_bytes()).hexdigest(),settings=rows,derivation='Retail pointers at exact existing Encode offsets, checked against source global initializer payloads. Full Encode call/literal audit below independently binds each data pointer to its name and float/bool Add operation.'),indent=2)+'\n')
+subprocess.run([sys.executable,str(W/'audit.py'),str(OBJ),'--source',str(W/'tree/app/shared/unknown_445740.cpp'),'--matches',str(W/'baseline/app-matches.json'),'--prefix',name,'--address','0x447CC0','--known-map',str(W/'known-globals.json'),'--out',str(W/'encode-audit.json')],cwd=R,check=True)
+print(json.dumps(dict(globals=len(rows),known=maps)))

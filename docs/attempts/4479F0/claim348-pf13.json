@@ -1,0 +1,164 @@
+{
+  "run": "pf13",
+  "base_revision": "64e8e4f55296d83901759bb53b0d0d8a641f7352",
+  "inputs": [
+    {
+      "unit": "app/shared/unknown_445740.cpp",
+      "base_sha256": "88579ca0b51bf49802213e8365145f62620e5863ea93d88e638e0dd6c044b8b0",
+      "input_sha256": "538d71b9112d3124d79616eccbe95b6049f6b542472204cefeb576c5345d5baf",
+      "edits": [
+        {
+          "start": 10567,
+          "end": 10576,
+          "text": ""
+        },
+        {
+          "start": 10612,
+          "end": 10612,
+          "text": "Vector3("
+        },
+        {
+          "start": 10618,
+          "end": 10618,
+          "text": ".X, result.Y, result.Z)"
+        }
+      ]
+    }
+  ],
+  "replay_verified": true,
+  "target_actually_investigated": "0x4479F0",
+  "other_target_compiled_as_unchanged_context": true,
+  "scope": "claimed body only",
+  "classification": "changed_compiled_input",
+  "targets": {
+    "4479F0": {
+      "symbol": "?Pursue@SteeringClass@@QAE?AVVector3@@ABUSteeringVehicleStruct@@ABUSteeringTargetStruct@@PAVPxWrapper@@@Z",
+      "address": "0x4479F0",
+      "length": 237,
+      "raw_sha256": "e3c05a743865ba9d7dc61b4aa9f1dbabf7f3e913184015e1e9cacabe20a9ef0f",
+      "masked_sha256": "e3c05a743865ba9d7dc61b4aa9f1dbabf7f3e913184015e1e9cacabe20a9ef0f",
+      "relocations": [
+        {
+          "offset": 25,
+          "width": 4,
+          "kind": 20,
+          "symbol": "?Predict@SteeringClass@@QAE?AVVector3@@ABUSteeringVehicleStruct@@ABUSteeringTargetStruct@@@Z",
+          "addend": "00000000"
+        },
+        {
+          "offset": 92,
+          "width": 4,
+          "kind": 6,
+          "symbol": "__real@4@00000000000000000000",
+          "addend": "00000000"
+        },
+        {
+          "offset": 132,
+          "width": 4,
+          "kind": 20,
+          "symbol": "?Inv_Sqrt@WWMath@@SIMM@Z",
+          "addend": "00000000"
+        }
+      ],
+      "unwind": null,
+      "explain": {
+        "symbol": "SteeringClass::Pursue",
+        "mangled": "?Pursue@SteeringClass@@QAE?AVVector3@@ABUSteeringVehicleStruct@@ABUSteeringTargetStruct@@PAVPxWrapper@@@Z",
+        "address": "0x4479F0",
+        "ours": 80,
+        "client": 84,
+        "residue": 9,
+        "residue_regs": 9,
+        "tables": [],
+        "branch": {
+          "bytes": [
+            237,
+            247
+          ],
+          "size": 0,
+          "target": 0
+        },
+        "class": "shape",
+        "reason": "9 masked rows differ; no simpler class fits"
+      },
+      "exact": false,
+      "diagnostic_similarity": "similarity 0.86"
+    },
+    "447B30": {
+      "symbol": "?Arrive@SteeringClass@@QAE?AVVector3@@ABUSteeringVehicleStruct@@ABV2@PAVPxWrapper@@M@Z",
+      "address": "0x447B30",
+      "length": 185,
+      "raw_sha256": "1f5b1df2374436c342d05d6e6e56612c9725e89c42d04dce78f5d493482c3258",
+      "masked_sha256": "1f5b1df2374436c342d05d6e6e56612c9725e89c42d04dce78f5d493482c3258",
+      "relocations": [
+        {
+          "offset": 76,
+          "width": 4,
+          "kind": 6,
+          "symbol": "__real@4@00000000000000000000",
+          "addend": "00000000"
+        },
+        {
+          "offset": 91,
+          "width": 4,
+          "kind": 6,
+          "symbol": "__real@4@00000000000000000000",
+          "addend": "00000000"
+        },
+        {
+          "offset": 99,
+          "width": 4,
+          "kind": 6,
+          "symbol": "_SlowDist",
+          "addend": "00000000"
+        }
+      ],
+      "unwind": null,
+      "explain": {
+        "symbol": "SteeringClass::Arrive",
+        "mangled": "?Arrive@SteeringClass@@QAE?AVVector3@@ABUSteeringVehicleStruct@@ABV2@PAVPxWrapper@@M@Z",
+        "address": "0x447B30",
+        "ours": 67,
+        "client": 71,
+        "residue": 9,
+        "residue_regs": 9,
+        "tables": [],
+        "branch": {
+          "bytes": [
+            185,
+            196
+          ],
+          "size": 0,
+          "target": 0
+        },
+        "class": "shape",
+        "reason": "9 masked rows differ; no simpler class fits"
+      },
+      "exact": false,
+      "diagnostic_similarity": "similarity 0.75"
+    }
+  },
+  "deltas": {
+    "pairs": {
+      "gained": [],
+      "lost": []
+    },
+    "symbol_pairs": {
+      "gained": [],
+      "lost": []
+    },
+    "all_pairs": {
+      "gained": [],
+      "lost": []
+    },
+    "all_symbol_pairs": {
+      "gained": [],
+      "lost": []
+    }
+  },
+  "compiler": {
+    "object_sha256": "ea0281c766d49a7cca867d4cd7fe302560b23527e285f4e3e3e1c7d917c8c2c7",
+    "response": "/nologo /c /MT /W3 /O2 /Ob2 /GX\n/DWIN32\n/D_WINDOWS\n/DWIN32_LEAN_AND_MEAN\n/DWINVER=0x400\n/DNDEBUG\n/DENABLE_WWPROFILE\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-348\\build-tree\\wwdebug\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-348\\build-tree\\wwlib\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-348\\build-tree\\wwmath\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-348\\build-tree\\wwsaveload\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-348\\build-tree\\wwaudio\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-348\\build-tree\\ww3d2\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-348\\build-tree\\wwshade\"\n/I\"Z:C:\\EnBDevelopment\\SDK\\directx8\\include\"\n/I\"Z:C:\\EnBDevelopment\\SDK\\radtools\\include_enb\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-348\\build-tree\\libs\\wwonline\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-348\\build-tree\\libs\\sgistl\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-348\\build-tree\"\n\"e:\\build\\beta\\G\\app\\shared\\unknown_445740.cpp\"",
+    "translation_unit_compiles": 1
+  }
+}

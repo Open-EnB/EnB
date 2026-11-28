@@ -1,0 +1,229 @@
+{
+  "run": "aa01",
+  "base_revision": "64e8e4f55296d83901759bb53b0d0d8a641f7352",
+  "inputs": [
+    {
+      "unit": "app/shared/unknown_445740.cpp",
+      "base_sha256": "88579ca0b51bf49802213e8365145f62620e5863ea93d88e638e0dd6c044b8b0",
+      "input_sha256": "f5a56bbbcb1ccf5c32bba479f29956203fc2148c2064dd45e0129bcc42acf9da",
+      "edits": [
+        {
+          "start": 1840,
+          "end": 1840,
+          "text": "Vecto"
+        },
+        {
+          "start": 1841,
+          "end": 1841,
+          "text": "3 scal"
+        },
+        {
+          "start": 1842,
+          "end": 1846,
+          "text": "d ="
+        },
+        {
+          "start": 1874,
+          "end": 1874,
+          "text": ";\n\tscaled"
+        },
+        {
+          "start": 1876,
+          "end": 1876,
+          "text": "="
+        },
+        {
+          "start": 1893,
+          "end": 1893,
+          "text": ";\n\treturn scaled"
+        }
+      ]
+    }
+  ],
+  "replay_verified": true,
+  "target_actually_investigated": "0x447B30",
+  "other_target_compiled_as_unchanged_context": true,
+  "scope": "claimed body plus specifically approved existing exact base helper",
+  "classification": "rejected_original_pair_loss",
+  "targets": {
+    "4479F0": {
+      "symbol": "?Pursue@SteeringClass@@QAE?AVVector3@@ABUSteeringVehicleStruct@@ABUSteeringTargetStruct@@PAVPxWrapper@@@Z",
+      "address": "0x4479F0",
+      "length": 239,
+      "raw_sha256": "60ee6bba2636590984bd0af58abbe7838a65141ee01a67d13a7dc452a222b892",
+      "masked_sha256": "60ee6bba2636590984bd0af58abbe7838a65141ee01a67d13a7dc452a222b892",
+      "relocations": [
+        {
+          "offset": 25,
+          "width": 4,
+          "kind": 20,
+          "symbol": "?Predict@SteeringClass@@QAE?AVVector3@@ABUSteeringVehicleStruct@@ABUSteeringTargetStruct@@@Z",
+          "addend": "00000000"
+        },
+        {
+          "offset": 92,
+          "width": 4,
+          "kind": 6,
+          "symbol": "__real@4@00000000000000000000",
+          "addend": "00000000"
+        },
+        {
+          "offset": 132,
+          "width": 4,
+          "kind": 20,
+          "symbol": "?Inv_Sqrt@WWMath@@SIMM@Z",
+          "addend": "00000000"
+        }
+      ],
+      "unwind": null,
+      "explain": {
+        "symbol": "SteeringClass::Pursue",
+        "mangled": "?Pursue@SteeringClass@@QAE?AVVector3@@ABUSteeringVehicleStruct@@ABUSteeringTargetStruct@@PAVPxWrapper@@@Z",
+        "address": "0x4479F0",
+        "ours": 81,
+        "client": 84,
+        "residue": 15,
+        "residue_regs": 14,
+        "tables": [],
+        "branch": {
+          "bytes": [
+            239,
+            247
+          ],
+          "size": 0,
+          "target": 0
+        },
+        "class": "shape",
+        "reason": "15 masked rows differ; no simpler class fits"
+      },
+      "exact": false,
+      "diagnostic_similarity": "similarity 0.85"
+    },
+    "447B30": {
+      "symbol": "?Arrive@SteeringClass@@QAE?AVVector3@@ABUSteeringVehicleStruct@@ABV2@PAVPxWrapper@@M@Z",
+      "address": "0x447B30",
+      "length": 185,
+      "raw_sha256": "6e7f70a02a7fa12c80519d659d8dc32328416c8b32bf6ee04260bf32eee37070",
+      "masked_sha256": "6e7f70a02a7fa12c80519d659d8dc32328416c8b32bf6ee04260bf32eee37070",
+      "relocations": [
+        {
+          "offset": 76,
+          "width": 4,
+          "kind": 6,
+          "symbol": "__real@4@00000000000000000000",
+          "addend": "00000000"
+        },
+        {
+          "offset": 91,
+          "width": 4,
+          "kind": 6,
+          "symbol": "__real@4@00000000000000000000",
+          "addend": "00000000"
+        },
+        {
+          "offset": 99,
+          "width": 4,
+          "kind": 6,
+          "symbol": "_SlowDist",
+          "addend": "00000000"
+        }
+      ],
+      "unwind": null,
+      "explain": {
+        "symbol": "SteeringClass::Arrive",
+        "mangled": "?Arrive@SteeringClass@@QAE?AVVector3@@ABUSteeringVehicleStruct@@ABV2@PAVPxWrapper@@M@Z",
+        "address": "0x447B30",
+        "ours": 67,
+        "client": 71,
+        "residue": 9,
+        "residue_regs": 9,
+        "tables": [],
+        "branch": {
+          "bytes": [
+            185,
+            196
+          ],
+          "size": 0,
+          "target": 0
+        },
+        "class": "shape",
+        "reason": "9 masked rows differ; no simpler class fits"
+      },
+      "exact": false,
+      "diagnostic_similarity": "similarity 0.78"
+    }
+  },
+  "deltas": {
+    "pairs": {
+      "gained": [],
+      "lost": [
+        [
+          "app/shared/unknown_445740.cpp",
+          "0x445A50"
+        ]
+      ]
+    },
+    "symbol_pairs": {
+      "gained": [],
+      "lost": [
+        [
+          "app/shared/unknown_445740.cpp",
+          "?Arrive@SteeringClass@@QAE?AVVector3@@ABUSteeringVehicleStruct@@ABV2@M@Z",
+          "0x445A50"
+        ]
+      ]
+    },
+    "all_pairs": {
+      "gained": [],
+      "lost": [
+        [
+          "app/shared/unknown_445740.cpp",
+          "0x445A50"
+        ]
+      ]
+    },
+    "all_symbol_pairs": {
+      "gained": [],
+      "lost": [
+        [
+          "app/shared/unknown_445740.cpp",
+          "?Arrive@SteeringClass@@QAE?AVVector3@@ABUSteeringVehicleStruct@@ABV2@M@Z",
+          "0x445A50"
+        ]
+      ]
+    }
+  },
+  "losses": {
+    "pairs": [
+      [
+        "app/shared/unknown_445740.cpp",
+        "0x445A50"
+      ]
+    ],
+    "symbol_pairs": [
+      [
+        "app/shared/unknown_445740.cpp",
+        "?Arrive@SteeringClass@@QAE?AVVector3@@ABUSteeringVehicleStruct@@ABV2@M@Z",
+        "0x445A50"
+      ]
+    ],
+    "all_pairs": [
+      [
+        "app/shared/unknown_445740.cpp",
+        "0x445A50"
+      ]
+    ],
+    "all_symbol_pairs": [
+      [
+        "app/shared/unknown_445740.cpp",
+        "?Arrive@SteeringClass@@QAE?AVVector3@@ABUSteeringVehicleStruct@@ABV2@M@Z",
+        "0x445A50"
+      ]
+    ]
+  },
+  "compiler": {
+    "object_sha256": "946e7a655bdc4100f4c15a1d09c5c4902e37c5a82217a08d580995a947b5d4fb",
+    "response": "/nologo /c /MT /W3 /O2 /Ob2 /GX\n/DWIN32\n/D_WINDOWS\n/DWIN32_LEAN_AND_MEAN\n/DWINVER=0x400\n/DNDEBUG\n/DENABLE_WWPROFILE\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-348\\build-tree\\wwdebug\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-348\\build-tree\\wwlib\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-348\\build-tree\\wwmath\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-348\\build-tree\\wwsaveload\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-348\\build-tree\\wwaudio\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-348\\build-tree\\ww3d2\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-348\\build-tree\\wwshade\"\n/I\"Z:C:\\EnBDevelopment\\SDK\\directx8\\include\"\n/I\"Z:C:\\EnBDevelopment\\SDK\\radtools\\include_enb\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-348\\build-tree\\libs\\wwonline\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-348\\build-tree\\libs\\sgistl\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-348\\build-tree\"\n\"e:\\build\\beta\\G\\app\\shared\\unknown_445740.cpp\"",
+    "translation_unit_compiles": 1
+  }
+}

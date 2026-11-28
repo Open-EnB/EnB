@@ -1,0 +1,26 @@
+{
+  "run": "ap01",
+  "current_status": "compiled_and_rejected",
+  "preparation_record_is_historical": true,
+  "ap01-proposal.json": {
+    "run": "ap01",
+    "status": "prepared_not_compiled",
+    "target": "0x4479F0",
+    "edited_exact_helper": null,
+    "base_sha256": "88579ca0b51bf49802213e8365145f62620e5863ea93d88e638e0dd6c044b8b0",
+    "source_sha256": "a76404ae2da2e1a5f6492278f9e5482eddeb59301de3b4fe21167c5a3853ec9d",
+    "patch_sha256": "ea71f5d6cf93d61f8f15fc87605d473e46671a8d2e888b01b472d9939cb3e5d2",
+    "lever": "docs/workflow.md \u00a73.1.2: copy then compound assignment versus binary vector arithmetic (0x7A7560), retail final Y/Z slot reuse; actual Vector3::operator-=",
+    "hypothesis": "Final arithmetic updates the scaled vector in place, matching retail Y/Z slot reuse rather than producing a distinct result vector.",
+    "falsifiers": "Known duplicate; no useful tail change; wrong reads/precision/association; any old pair/graph loss"
+  },
+  "ap01-preservation.json": {
+    "before_sha256": "f96b424622f6090643874120077250e623aaf60416e7e7862977c12364e6870c",
+    "after_sha256": "dfb7e51ba45166406210455ebc64a6d5f0de8bd6f29be7c3471874361642eaf5",
+    "checked": 54,
+    "changes": [],
+    "proven_data_aliases": {},
+    "normalization": "Followed EH handler/table placement and explicitly audited shared-buffer symbol aliases; body fixed bytes, all other relocations/addends/literal payloads, handler, FuncInfo fixed fields, predecessor states and cleanup graphs compared"
+  },
+  "ap01-focused.patch": "# Claimed target 0x4479F0; supporting exact helper None.\n--- app/shared/unknown_445740.cpp\n+++ app/shared/unknown_445740.cpp\n@@ -352,3 +352,5 @@\n-\tVector3 result;\n-\tresult = Pursue(vehicle, target);\n-\treturn result;\n+\tVector3 desired = Predict(vehicle, target) - vehicle.Position;\n+\tdesired.Normalize();\n+\tdesired *= MaxSpeed;\n+\tdesired -= vehicle.Velocity;\n+\treturn desired;\n"
+}

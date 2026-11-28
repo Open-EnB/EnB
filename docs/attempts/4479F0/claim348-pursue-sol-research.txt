@@ -1,0 +1,103 @@
+# Pursue 0x4479F0 fresh Sol investigation
+
+Initial status: lead discovery under the reached D89/D271 limit. The initial
+review prepared/compiled zero forms. Root subsequently approved the one existing
+Subtract mechanism below; its actual failed sp01 outcome is in report.md. No
+production, immutable-tree, Git, metadata or external changes; no child agents.
+
+Read both complete briefs, fresh-session prompt, AGENTS, bounded startup/rules,
+full original history, both first-pass generators/reports, group report and
+leads, all focused/helper reports, canonical baseline source/plan/analysis/diff,
+actual Vector3/header/sibling source, published index/output groups. Independently
+read and hash/replay-verified all 36 captured input sources against the immutable
+base using their actual input.json edits. Read all Pursue unique-output diff
+residues, complete pf02/pf07/pf13 diffs and applicable target analyses.
+
+Original history has three unavailable Nov13 source forms; their missing source
+is not reconstructed. New owner history is 14 first-pass plus four group plus
+two helper inputs. These 20 owner inputs produce nine Pursue output groups;
+16 peer Arrive inputs leave Pursue baseline, not 16 new Pursue attempts.
+The productive first pass 15->9 is not a stall. Old Nov13 and failed group
+round nevertheless reach two stalled rounds; a fresh model does not reset this.
+
+## Independent observations
+
+The complete pf02 prefix through scaling matches retail's actual instructions;
+its residue is final-result routing. Retail keeps final X on x87 while spilling
+Y and Z, then returns X/Y through x87 and Z through integer moves including an
+extra stack write. pf02 spills X and Z while retaining Y. pf13 uses x87 for Z
+instead of the retail integer copy, and its nine rows are a different shape,
+not a second improvement. Ordinary second copies and real Set-copy helpers
+return to baseline and its earlier normalization-order differences. The existing
+copy/lvalue/Set/helper results therefore provide real negative evidence, not
+merely absence of a guessed original spelling.
+
+Exact Follow/Evade default-and-assign patterns have preceding real calls/branches.
+Their results do not prove that all callers need this spelling. Named prediction
+inside exact base Pursue was already tested at its actual inline depth; both
+forms lose 445B30 and 447180 and are not legitimate combinations with pf02.
+No bypass of these consumer losses is proposed. pf11/12's generated-symbol swap
+also prevents using them despite unchanged file-pair counts.
+
+## Concrete new candidate sent to coordinator, not yet admitted
+
+Existing Vector3::Subtract(a,b,&out) performs real component subtraction through
+an output pointer (wwmath/vector3.h:586), rather than constructing an operator-
+return value from float arguments. Real uses include wwmath/tcbspline.cpp:135
+and wwmath/colmathobbtri.cpp:156. A narrowly isolated claimed-wrapper hypothesis:
+
+```cpp
+Vector3 desired = Predict(vehicle, target) - vehicle.Position;
+desired.Normalize();
+desired *= MaxSpeed;
+Vector3 result;
+Vector3::Subtract(desired, vehicle.Velocity, &result);
+return result;
+```
+
+pf07 has exactly that prefix but ends with `Vector3 result = desired -
+vehicle.Velocity; return result;`. No prior input uses static Subtract. pg03/04
+use void Set to copy an already-computed result, so they do not isolate an
+output-pointer arithmetic helper or its explicit member stores. This candidate
+introduces no new arithmetic, synthetic type, helper, read, flag or padding;
+its existing assert has a provably nonnull local output argument.
+
+Potential existing section 3.1 levers: workflow.md:348 constructor-built versus
+member-store vector math changes x87 load order; :410 gives a real 12-byte
+Vector3 out-parameter local; :413 distinguishes by-value and in-place vector
+copies. The exact first row is the strongest applicable mechanism. The out-
+parameter translation row is analogous, not proof this API occurred here.
+attempts.csv:1130 records Subtract/Add changing operand scheduling in 468760;
+its actual generators are docs/attempts/468760/v468760{,b}.py. This is supporting
+codegen evidence, not an exact solved counterpart.
+
+Expected evidence: the output-pointer subtraction's sequenced component stores
+could account for the final retail spill/copy route, which differs from the
+float-argument operator- constructor. Falsifiers: duplicate known output, wrong
+tail, degraded upstream precision/read/length-sum sequence, or any old pair or
+graph loss. pf07's existing upstream schedule regression makes success uncertain.
+Root must determine whether this is genuinely a new backed mechanism under
+attempts.py check --lever; nothing was prepared or compiled before that review.
+
+## Other directions rejected without preparation
+
+* Free Normalize(v), vector3.h:412, computes Length2 once and reuses len2;
+  retail visibly calculates it again for Inv_Sqrt. It is incompatible with this
+  target's known operation sequence despite being a real source helper.
+* Unary plus, scalar Set-copy, chained assignments, scopes, names or another
+  return-copy spelling do not supply independent evidence or a new mechanism
+  after the existing constructor/assignment/lvalue/copy-helper tests.
+* A zero-plus accumulator changes arithmetic and lacks single-force caller
+  evidence. Looped neighbour sums do not support it.
+* Vector3(&tmp.X) has no actual float-array API here; constructor existence alone
+  does not establish such an interface. No new evidence reopens it.
+* Avoidance calls would violate proxim being unread. The parked Seek and
+  Avoid_Obstacles are comparison evidence only and were untouched.
+* Header copy/Normalize changes have no new client evidence and would require
+  broad consumer proof; the exact local helper tests already reject their
+  particular named-prediction family.
+
+Best valid diagnostic remains pf02 239 bytes/9 rows versus retail 247. No gain
+and no source qualifies for retention. Existing 54 file/address and symbol/
+address pairs, including the two preexisting extras, remain mandatory. This
+zero-form research does not claim new object or full target audit evidence.

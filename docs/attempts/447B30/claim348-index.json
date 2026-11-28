@@ -1,0 +1,251 @@
+{
+  "claim": 348,
+  "address": "0x447B30",
+  "base_revision": "64e8e4f55296d83901759bb53b0d0d8a641f7352",
+  "outcome": "PARKED: no claimed exact gain after full Terra/group/Sol/Astra investigation and specifically admitted new-mechanism tests. Production C++/headers unchanged.",
+  "original_history": [
+    {
+      "date": "2026-11-13 01:53",
+      "address": "0x447B30",
+      "symbol": "",
+      "file": "app/shared/unknown_445740.cpp",
+      "library": "app",
+      "status": "partial",
+      "score": "",
+      "forms": "2",
+      "blocker": "shape",
+      "evidence": "Arrive(vehicle, target, proxim, distance), proxim unread: as 0x4479F0, 0.77",
+      "stash": "",
+      "model": "claude-opus-5-5"
+    }
+  ],
+  "missing_artifacts": "No Nov13 patches/specs/source hashes survive; not reconstructed or counted as replayable inputs.",
+  "counts": {
+    "primary_inputs": 42,
+    "translation_unit_compiles": 42,
+    "coordinator_controls": 1,
+    "changed_target_forms": 41,
+    "by_owner": {
+      "4479F0": 22,
+      "447B30": 19
+    },
+    "classifications": {
+      "changed_compiled_input": 26,
+      "rejected_original_pair_loss": 6,
+      "semantically_ineligible_x87_reassociation": 9,
+      "unchanged_coordinator_control": 1
+    }
+  },
+  "own_target_inputs": [
+    {
+      "run": "aa01",
+      "owner": "0x447B30",
+      "classification": "rejected_original_pair_loss",
+      "record": "docs/attempts/447B30/claim348-aa01.json"
+    },
+    {
+      "run": "af01",
+      "owner": "0x447B30",
+      "classification": "semantically_ineligible_x87_reassociation",
+      "record": "docs/attempts/447B30/claim348-af01.json"
+    },
+    {
+      "run": "af02",
+      "owner": "0x447B30",
+      "classification": "semantically_ineligible_x87_reassociation",
+      "record": "docs/attempts/447B30/claim348-af02.json"
+    },
+    {
+      "run": "af03",
+      "owner": "0x447B30",
+      "classification": "semantically_ineligible_x87_reassociation",
+      "record": "docs/attempts/447B30/claim348-af03.json"
+    },
+    {
+      "run": "af04",
+      "owner": "0x447B30",
+      "classification": "semantically_ineligible_x87_reassociation",
+      "record": "docs/attempts/447B30/claim348-af04.json"
+    },
+    {
+      "run": "af05",
+      "owner": "0x447B30",
+      "classification": "semantically_ineligible_x87_reassociation",
+      "record": "docs/attempts/447B30/claim348-af05.json"
+    },
+    {
+      "run": "af06",
+      "owner": "0x447B30",
+      "classification": "semantically_ineligible_x87_reassociation",
+      "record": "docs/attempts/447B30/claim348-af06.json"
+    },
+    {
+      "run": "af07",
+      "owner": "0x447B30",
+      "classification": "semantically_ineligible_x87_reassociation",
+      "record": "docs/attempts/447B30/claim348-af07.json"
+    },
+    {
+      "run": "af08",
+      "owner": "0x447B30",
+      "classification": "changed_compiled_input",
+      "record": "docs/attempts/447B30/claim348-af08.json"
+    },
+    {
+      "run": "af09",
+      "owner": "0x447B30",
+      "classification": "semantically_ineligible_x87_reassociation",
+      "record": "docs/attempts/447B30/claim348-af09.json"
+    },
+    {
+      "run": "af10",
+      "owner": "0x447B30",
+      "classification": "semantically_ineligible_x87_reassociation",
+      "record": "docs/attempts/447B30/claim348-af10.json"
+    },
+    {
+      "run": "ag01",
+      "owner": "0x447B30",
+      "classification": "changed_compiled_input",
+      "record": "docs/attempts/447B30/claim348-ag01.json"
+    },
+    {
+      "run": "ag02",
+      "owner": "0x447B30",
+      "classification": "changed_compiled_input",
+      "record": "docs/attempts/447B30/claim348-ag02.json"
+    },
+    {
+      "run": "ag03",
+      "owner": "0x447B30",
+      "classification": "changed_compiled_input",
+      "record": "docs/attempts/447B30/claim348-ag03.json"
+    },
+    {
+      "run": "ag04",
+      "owner": "0x447B30",
+      "classification": "changed_compiled_input",
+      "record": "docs/attempts/447B30/claim348-ag04.json"
+    },
+    {
+      "run": "ah01",
+      "owner": "0x447B30",
+      "classification": "changed_compiled_input",
+      "record": "docs/attempts/447B30/claim348-ah01.json"
+    },
+    {
+      "run": "ah02",
+      "owner": "0x447B30",
+      "classification": "changed_compiled_input",
+      "record": "docs/attempts/447B30/claim348-ah02.json"
+    },
+    {
+      "run": "sa01",
+      "owner": "0x447B30",
+      "classification": "rejected_original_pair_loss",
+      "record": "docs/attempts/447B30/claim348-sa01.json"
+    },
+    {
+      "run": "sa02",
+      "owner": "0x447B30",
+      "classification": "changed_compiled_input",
+      "record": "docs/attempts/447B30/claim348-sa02.json"
+    }
+  ],
+  "all_output_groups": "docs/attempts/4479F0/claim348-output-groups.json",
+  "baseline": "docs/attempts/4479F0/claim348-baseline.json",
+  "replay": "Read base_revision:unit as UTF-8, verify base_sha256, apply character edits from last to first, verify input_sha256. Every captured input round-trips; compile with saved canonical response configuration, remapping unchanged root/SDK paths and preserving client app alias. Both targets emitted in each TU but only the designated owner was a target form.",
+  "best_valid": {
+    "run": "baseline",
+    "residue": 9,
+    "length": 185,
+    "retail_bytes": 196
+  },
+  "scope": "Claimed targets only; group helper tests separately approved exact base helpers445B30/445A50, with old pair loss rejection. Parked functions untouched.",
+  "group_compiled_forms": 0,
+  "limits": "First Pursue round productive15\u21929; no eligible Arrive improvement. Invalid arithmetic row7 excluded, raw resemblance is not exactness. Group focused/header-depth tests are actual inputs, not invented new data from a zero-form review.",
+  "proof": "docs/attempts/4479F0/claim348-verification.json",
+  "current_limit": "LIMIT REACHED (D89, D271): 4 rounds without progress (best score 0.75); no retry without a new section 3.1 lever cited with `attempts.py check --lever`",
+  "current_history": [
+    {
+      "date": "2026-11-13 01:53",
+      "address": "0x447B30",
+      "symbol": "",
+      "file": "app/shared/unknown_445740.cpp",
+      "library": "app",
+      "status": "partial",
+      "score": "",
+      "forms": "2",
+      "blocker": "shape",
+      "evidence": "Arrive(vehicle, target, proxim, distance), proxim unread: as 0x4479F0, 0.77",
+      "stash": "",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "date": "2026-11-28 00:16",
+      "address": "0x447B30",
+      "symbol": "SteeringClass::Arrive",
+      "file": "app/shared/unknown_445740.cpp",
+      "library": "app",
+      "status": "partial",
+      "score": "0.75",
+      "forms": "10",
+      "blocker": "shape",
+      "evidence": "Claim348 Firstpass residue 9 unchanged (185vs196bytes): af08validsource compilesbaselineidentically. Af01apparent7rows and8otherforms alter actualx87association/rounding,9semanticallyineligible diagnostics explicitlyexcludedfromvalidbest. Ten compiled target-owner forms in8+2purposefulrounds;54file/symbolpairs preserved, no claimedgain. This is first scored bookkeeping for legacyunscored history, NOT an eligible source improvement. Actualdifferences/replay/IEEEclassification in claim348-index.json.",
+      "stash": "docs/attempts/447B30/claim348-index.json",
+      "model": "gpt-6.1-terra high"
+    },
+    {
+      "date": "2026-11-28 00:16:47",
+      "address": "0x447B30",
+      "symbol": "SteeringClass::Arrive",
+      "file": "app/shared/unknown_445740.cpp",
+      "library": "app",
+      "status": "partial",
+      "score": "0.75",
+      "forms": "6",
+      "blocker": "shape",
+      "evidence": "Claim348 Groupfocused residue 9 unchanged: ag01returnassignment,ag02assignmentlvalueref,ag03realSet,ag04initTmp+Set,ah01/02realconsumedscaledlocals inexistingexactbase445A50 ALLduplicatebaseline185bytes. All54file/symbolpairs preserved, bothah54oldbody/ref/EHgraphs checkedunchanged; no gain. Six target-owner compiler inputs, groupreview0forms, actualIEEEretail(X2+Z2)+Y2checked. Zeroaccumulation and pointerarrayCtor rejected asunsupportedwithoutcaller/interfaceevidence, neverprepared/compiled. FreshSolnextwithinlimits; completeactualreplay in index.",
+      "stash": "docs/attempts/447B30/claim348-index.json",
+      "model": "gpt-6.1-terra xhigh; gpt-6.1-terra high"
+    },
+    {
+      "date": "2026-11-28 00:37",
+      "address": "0x447B30",
+      "symbol": "SteeringClass::Arrive",
+      "file": "app/shared/unknown_445740.cpp",
+      "library": "app",
+      "status": "partial",
+      "score": "0.75",
+      "forms": "2",
+      "blocker": "shape",
+      "evidence": "Claim348 Sol separately admitted documented levers: row413Distance/second-subtraction CSE sa01 doesNOTCSE, extraactualreads,wrongtargetmath,205bytes22rows,losesold445A50anditsgraph; rejected. Row348realinitialVector3::Subtract member-store sa02duplicatesvalidbaseline185bytes,residue 9,54oldgraphsunchanged. Two inputs,0gains; oldbestunchanged. Rootleverchecks passed beforeeachcompile; no new header/flag/type. Fullreplay/classifications/reports: docs/attempts/447B30/claim348-index.json.",
+      "stash": "docs/attempts/447B30/claim348-index.json",
+      "model": "gpt-6.1-sol high"
+    },
+    {
+      "date": "2026-11-28 00:37:36",
+      "address": "0x447B30",
+      "symbol": "SteeringClass::Arrive",
+      "file": "app/shared/unknown_445740.cpp",
+      "library": "app",
+      "status": "parked",
+      "score": "",
+      "forms": "1",
+      "blocker": "shape",
+      "evidence": "Claim348 FinalAstra newcompoundarithmetic/storagealiaslever346/413 admitted by actualretailY/Zslotreuse,notanotherSetcopy. Oneaa01 residue 9,185bytes DISTINCTgroupbutlosesold445A50file/symbolpairandgraph;rawsimilarity0.78isNOTeligibleprogress. Zslotpartlycorrect,butX/Yliveness,initialZroundingandZintegercopyremainwrong. All19newAownerforms+2legacy accounted,0gain/nocodekept,noconcretebackedcontinuationunderlimit. Zero-formresearchnotnewattempt. Reopenonlyonactualcaller/source/helper/lifetimeevidence/newdocumentedmechanism;validbaseline185/9remains. Fullreplay/classifications/reports: docs/attempts/447B30/claim348-index.json.",
+      "stash": "docs/attempts/447B30/claim348-index.json",
+      "model": "gpt-6-astra high"
+    }
+  ],
+  "reopening": "A genuine new \u00a73.1 mechanism supported by retail/caller/helper/alias/lifetime evidence is required. No old local-copy, component-constructor, Set, flat expansion, named-helper, Distance, output-Subtract or in-place arithmetic spelling retry without new evidence.",
+  "models": [
+    "gpt-6.1-terra high",
+    "gpt-6.1-terra xhigh",
+    "gpt-6.1-sol high",
+    "gpt-6-astra high",
+    "Codex coordinator"
+  ],
+  "no_prepared_untested_sources": true,
+  "zero_form_research_not_attempt": true
+}

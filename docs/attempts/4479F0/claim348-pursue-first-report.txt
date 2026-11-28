@@ -1,0 +1,26 @@
+# Pursue 0x4479F0: individual first pass
+
+Canonical runner pf01–pf14 compiled and analyzed both targets; all runs completed, no failures. Each run has a replayable, hash-bound complete source input and character edits in `runs/pfNN/input.json`, source in `runs/pfNN/inputs/`, and target code hashes and full diagnostics in `runs/pfNN/*-analysis.json`. Source generation is `pursue-first/make.py`. No production source edited; compiler gate released, staging source confirmed byte-equal to immutable baseline.
+
+Round 1 tested result construction/copy and explicit inlined Predict/Seek lifetime. Best pf02 cuts shape residue 15 to 9 and matches normalization instruction ordering; final result-copy tail remains different. All four pair sets preserve all original 54; no claimed gain. Round 2 tests result initialized then copied or assigned, const-reference temporary lifetime, component constructor or copy constructor return. No further residue cut. pf11 and pf12 preserve file pairs but swap compiler-generated symbol pair _$E36 for _$E37 at 0x448BB0; the other forms preserve all four pair sets. Arrive remains at length 185 and residue 9 throughout.
+
+Per input, abbreviated source SHA, raw/masked code SHA (identical within each row), code length, residue. Full hashes are in the structured files named above.
+
+| run | source | raw/masked | bytes | residue | hypothesis |
+|---|---|---|---:|---:|---|
+| pf01 | 5807e6cb500dc043 | 7464641c4463f3a8 | 221 | 13 | direct return |
+| pf02 | 73788c4cb9efada2 | 6c697b7001948f16 | 239 | 9 | initialize result from Pursue |
+| pf03 | 83d66bd4ee511bef | 60ee6bba26365909 | 239 | 15 | assigned result then copy construct |
+| pf04 | 94eaf083693828d9 | 60ee6bba26365909 | 239 | 15 | assigned result then assign copy |
+| pf05 | adb968f4f08dd075 | ab35d2f4dd6e5b2b | 249 | 26 | named prediction, Seek result initialized |
+| pf06 | 2600272bf44ed157 | bb8dc3c88d09daf1 | 261 | 28 | assigned prediction, Seek result initialized |
+| pf07 | 3ce6677acf9284e3 | 019b180c4d33da0f | 245 | 27 | explicit nested Seek operations |
+| pf08 | cf720671afb04dd7 | ab35d2f4dd6e5b2b | 249 | 26 | named prediction and explicit Seek operations |
+| pf09 | 8c97b82c035735d9 | 60ee6bba26365909 | 239 | 15 | initialized result then copy construct |
+| pf10 | 69ab45f14d25c084 | 60ee6bba26365909 | 239 | 15 | initialized result then assign copy |
+| pf11 | 7e1d98c6e1ca8184 | 6c697b7001948f16 | 239 | 9 | const-reference temporary return; symbol swap |
+| pf12 | 44df073484d3bbc6 | 60ee6bba26365909 | 239 | 15 | const-reference temporary then assigned copy; symbol swap |
+| pf13 | 538d71b9112d3124 | e3c05a743865ba9d | 237 | 9 | initialized result, component constructor return |
+| pf14 | 0d78f3e4a35943ea | 6c697b7001948f16 | 239 | 9 | initialized result, copy constructor return |
+
+The direct result initialization produces correct normalization scheduling; adding a second local changes scheduling back to baseline, and component-wise construction changes code without reducing the tail residue. Ordinary local copies, temporary binding and manually expanded inlined Seek are exhausted for this pass. No test changed arithmetic, runtime reads, or intentionally introduced dead operations. A useful reopening lead would be evidence of an actual helper or other meaningful vector lifetime affecting the result tail; any shared helper/header change requires coordinator scope review and full consumer preservation. Retail output is not an exact match and no source was selected for retention.

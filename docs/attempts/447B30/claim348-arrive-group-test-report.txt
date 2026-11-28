@@ -1,0 +1,18 @@
+# Arrive whole-group focused tests
+
+Four changed inputs compiled successfully using the canonical runner; both claimed targets were analyzed after every input. No production file changed. The precise captured source and replayable edits are in `runs/ag01` through `runs/ag04`; generator and overlays are in this directory. The immutable baseline was used for each, so Pursue stayed original.
+
+| Run | Full source SHA-256 | Hypothesis |
+| --- | --- | --- |
+| ag01 | 0413cdb0f79eb5fb0348deffb6e6a1ba3434e1c9d0f055cc7cfd67d218f9cf11 | Return the actual assignment lvalue: `Vector3 result; return result = Arrive(vehicle, target, distance);` |
+| ag02 | 97295ba2f5ae6be2e31376a7d03dadabb2993b30a00c12b2812d9b52ac08be21 | Bind a real reference to the assignment lvalue, then return it |
+| ag03 | ba59b1e4b4ae97c1447dfa5691e27e8dbd3c4a41d50c3b4f4c646aa07a2c7006 | Copy the call temporary using the existing `result.Set(...)` helper |
+| ag04 | d130a366746b85d6e7454dd1d83e4a1c293c1dcd1984e288fd82f8181ef6a4d6 | Initialize `tmp` from the overload, then use `result.Set(tmp)` and return result |
+
+The first batch tested whether consuming the returned assignment reference or using the void Set helper changes the hidden-result copying and its inlining context. The second tested whether initialization plus the real helper could combine the intermediate store with the result copy. All four emitted Arrive raw and masked SHA-256 `1f5b1df2374436c342d05d6e6e56612c9725e89c42d04dce78f5d493482c3258`, identical to baseline and af08: 185 executable bytes, nine masked difference rows versus 196 retail bytes. Every Arrive objdiff is identical. This duplicate family falsifies both hypotheses in these forms. Pursue also stays baseline raw and masked `60ee6bba2636590984bd0af58abbe7838a65141ee01a67d13a7dc452a222b892`, 239 bytes, 15 rows.
+
+The actual Arrive diff retains the retail `(X²+Z²)+Y²` association and original source reads, but baseline retains offset Z on the x87 stack after its float store while retail pops and reloads that float before multiplication. This precision distinction remains. The return-copy tail still lacks retail's stored Y and Z intermediates and Z copy/reload sequence. No result is a zero-mask candidate; full literal, relocation and EH audits therefore were not applicable. There were no failed launches, compiler-invalid forms, or new semantic rejections in this batch; these four valid source inputs are duplicate-output forms, not four distinct code shapes. The af01 seven-row form remains ineligible due to its different association, as detailed in `arrive-first/report.md`.
+
+Each run reports zero gains and losses in all four tracked pair sets, preserving all 54 original file/address and symbol/address pairs including the two preexisting extras. No source is selected for retention. A demonstrated real helper or lifetime that produces retail's Z float reload and result copy without reassociation would justify further work; no such body-only lead emerged from these tests. Header/shared-helper changes require coordinator review and consumer proof.
+
+Staging `build-tree/app/shared/unknown_445740.cpp` compared equal to immutable `tree/` at release; no compiler/runner/analyzer process remained. Exclusive compiler gate is released. Root must independently prove any later candidate.

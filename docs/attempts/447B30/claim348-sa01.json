@@ -1,0 +1,230 @@
+{
+  "run": "sa01",
+  "base_revision": "64e8e4f55296d83901759bb53b0d0d8a641f7352",
+  "inputs": [
+    {
+      "unit": "app/shared/unknown_445740.cpp",
+      "base_sha256": "88579ca0b51bf49802213e8365145f62620e5863ea93d88e638e0dd6c044b8b0",
+      "input_sha256": "d8ecf3351dd0004ee54d6222924226b76eb555b1d2a826b09a3d8084ffd7e3eb",
+      "edits": [
+        {
+          "start": 1667,
+          "end": 1667,
+          "text": "Vect"
+        },
+        {
+          "start": 1668,
+          "end": 1670,
+          "text": "r3::Di"
+        },
+        {
+          "start": 1671,
+          "end": 1671,
+          "text": "tance(targ"
+        },
+        {
+          "start": 1673,
+          "end": 1673,
+          "text": ", vehicle"
+        },
+        {
+          "start": 1674,
+          "end": 1676,
+          "text": "Positio"
+        },
+        {
+          "start": 1677,
+          "end": 1681,
+          "text": ""
+        }
+      ]
+    }
+  ],
+  "replay_verified": true,
+  "target_actually_investigated": "0x447B30",
+  "other_target_compiled_as_unchanged_context": true,
+  "scope": "claimed body plus specifically approved existing exact base helper",
+  "classification": "rejected_original_pair_loss",
+  "semantic_rejection": "Distance subtraction did not CSE: extra actual input reads/subtractions, wrong target association/rounding; also old helper pair/graph lost.",
+  "targets": {
+    "4479F0": {
+      "symbol": "?Pursue@SteeringClass@@QAE?AVVector3@@ABUSteeringVehicleStruct@@ABUSteeringTargetStruct@@PAVPxWrapper@@@Z",
+      "address": "0x4479F0",
+      "length": 239,
+      "raw_sha256": "60ee6bba2636590984bd0af58abbe7838a65141ee01a67d13a7dc452a222b892",
+      "masked_sha256": "60ee6bba2636590984bd0af58abbe7838a65141ee01a67d13a7dc452a222b892",
+      "relocations": [
+        {
+          "offset": 25,
+          "width": 4,
+          "kind": 20,
+          "symbol": "?Predict@SteeringClass@@QAE?AVVector3@@ABUSteeringVehicleStruct@@ABUSteeringTargetStruct@@@Z",
+          "addend": "00000000"
+        },
+        {
+          "offset": 92,
+          "width": 4,
+          "kind": 6,
+          "symbol": "__real@4@00000000000000000000",
+          "addend": "00000000"
+        },
+        {
+          "offset": 132,
+          "width": 4,
+          "kind": 20,
+          "symbol": "?Inv_Sqrt@WWMath@@SIMM@Z",
+          "addend": "00000000"
+        }
+      ],
+      "unwind": null,
+      "explain": {
+        "symbol": "SteeringClass::Pursue",
+        "mangled": "?Pursue@SteeringClass@@QAE?AVVector3@@ABUSteeringVehicleStruct@@ABUSteeringTargetStruct@@PAVPxWrapper@@@Z",
+        "address": "0x4479F0",
+        "ours": 81,
+        "client": 84,
+        "residue": 15,
+        "residue_regs": 14,
+        "tables": [],
+        "branch": {
+          "bytes": [
+            239,
+            247
+          ],
+          "size": 0,
+          "target": 0
+        },
+        "class": "shape",
+        "reason": "15 masked rows differ; no simpler class fits"
+      },
+      "exact": false,
+      "diagnostic_similarity": "similarity 0.85"
+    },
+    "447B30": {
+      "symbol": "?Arrive@SteeringClass@@QAE?AVVector3@@ABUSteeringVehicleStruct@@ABV2@PAVPxWrapper@@M@Z",
+      "address": "0x447B30",
+      "length": 205,
+      "raw_sha256": "9d79714b573eb024e8b85aaa29453354d3f86cdf19dbd770a7c12736f5edc727",
+      "masked_sha256": "9d79714b573eb024e8b85aaa29453354d3f86cdf19dbd770a7c12736f5edc727",
+      "relocations": [
+        {
+          "offset": 96,
+          "width": 4,
+          "kind": 6,
+          "symbol": "__real@4@00000000000000000000",
+          "addend": "00000000"
+        },
+        {
+          "offset": 111,
+          "width": 4,
+          "kind": 6,
+          "symbol": "__real@4@00000000000000000000",
+          "addend": "00000000"
+        },
+        {
+          "offset": 119,
+          "width": 4,
+          "kind": 6,
+          "symbol": "_SlowDist",
+          "addend": "00000000"
+        }
+      ],
+      "unwind": null,
+      "explain": {
+        "symbol": "SteeringClass::Arrive",
+        "mangled": "?Arrive@SteeringClass@@QAE?AVVector3@@ABUSteeringVehicleStruct@@ABV2@PAVPxWrapper@@M@Z",
+        "address": "0x447B30",
+        "ours": 77,
+        "client": 71,
+        "residue": 22,
+        "residue_regs": 22,
+        "tables": [],
+        "branch": {
+          "bytes": [
+            205,
+            196
+          ],
+          "size": 0,
+          "target": 0
+        },
+        "class": "shape",
+        "reason": "22 masked rows differ; no simpler class fits"
+      },
+      "exact": false,
+      "diagnostic_similarity": "similarity 0.67"
+    }
+  },
+  "deltas": {
+    "pairs": {
+      "gained": [],
+      "lost": [
+        [
+          "app/shared/unknown_445740.cpp",
+          "0x445A50"
+        ]
+      ]
+    },
+    "symbol_pairs": {
+      "gained": [],
+      "lost": [
+        [
+          "app/shared/unknown_445740.cpp",
+          "?Arrive@SteeringClass@@QAE?AVVector3@@ABUSteeringVehicleStruct@@ABV2@M@Z",
+          "0x445A50"
+        ]
+      ]
+    },
+    "all_pairs": {
+      "gained": [],
+      "lost": [
+        [
+          "app/shared/unknown_445740.cpp",
+          "0x445A50"
+        ]
+      ]
+    },
+    "all_symbol_pairs": {
+      "gained": [],
+      "lost": [
+        [
+          "app/shared/unknown_445740.cpp",
+          "?Arrive@SteeringClass@@QAE?AVVector3@@ABUSteeringVehicleStruct@@ABV2@M@Z",
+          "0x445A50"
+        ]
+      ]
+    }
+  },
+  "losses": {
+    "pairs": [
+      [
+        "app/shared/unknown_445740.cpp",
+        "0x445A50"
+      ]
+    ],
+    "symbol_pairs": [
+      [
+        "app/shared/unknown_445740.cpp",
+        "?Arrive@SteeringClass@@QAE?AVVector3@@ABUSteeringVehicleStruct@@ABV2@M@Z",
+        "0x445A50"
+      ]
+    ],
+    "all_pairs": [
+      [
+        "app/shared/unknown_445740.cpp",
+        "0x445A50"
+      ]
+    ],
+    "all_symbol_pairs": [
+      [
+        "app/shared/unknown_445740.cpp",
+        "?Arrive@SteeringClass@@QAE?AVVector3@@ABUSteeringVehicleStruct@@ABV2@M@Z",
+        "0x445A50"
+      ]
+    ]
+  },
+  "compiler": {
+    "object_sha256": "374282345ff4e1aeea4b80f6185d96e0101cf32e069ff2c0d436ba4f4f3f379e",
+    "response": "/nologo /c /MT /W3 /O2 /Ob2 /GX\n/DWIN32\n/D_WINDOWS\n/DWIN32_LEAN_AND_MEAN\n/DWINVER=0x400\n/DNDEBUG\n/DENABLE_WWPROFILE\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-348\\build-tree\\wwdebug\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-348\\build-tree\\wwlib\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-348\\build-tree\\wwmath\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-348\\build-tree\\wwsaveload\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-348\\build-tree\\wwaudio\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-348\\build-tree\\ww3d2\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-348\\build-tree\\wwshade\"\n/I\"Z:C:\\EnBDevelopment\\SDK\\directx8\\include\"\n/I\"Z:C:\\EnBDevelopment\\SDK\\radtools\\include_enb\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-348\\build-tree\\libs\\wwonline\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-348\\build-tree\\libs\\sgistl\"\n/I\"Z:\\home\\dev\\Projects\\EnB\\.work\\claim-348\\build-tree\"\n\"e:\\build\\beta\\G\\app\\shared\\unknown_445740.cpp\"",
+    "translation_unit_compiles": 1
+  }
+}

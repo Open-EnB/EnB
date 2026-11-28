@@ -1,0 +1,720 @@
+[
+  {
+    "run": "af01",
+    "sha256": "05f9b16b3c50ab85fceb6fc85a9e0ebc3d3b25b1b91582eec8ffc27b7347c997",
+    "diff": [
+      "--- \n",
+      "+++ \n",
+      "@@ -359,6 +359,5 @@\n",
+      " Vector3 SteeringClass::Arrive(const SteeringVehicleStruct &vehicle, const Vector3 &target, PxWrapper *proxim, float distance)",
+      " {",
+      "-\tVector3 result;",
+      "-\tresult = Arrive(vehicle, target, distance);",
+      "+\tVector3 result = Arrive(vehicle, target, distance);",
+      " \treturn result;",
+      " }"
+    ]
+  },
+  {
+    "run": "af02",
+    "sha256": "a2e34f44ea9af4c83cda7370403c78ffc2390181aeb018f012aaace485427501",
+    "diff": [
+      "--- \n",
+      "+++ \n",
+      "@@ -359,6 +359,15 @@\n",
+      " Vector3 SteeringClass::Arrive(const SteeringVehicleStruct &vehicle, const Vector3 &target, PxWrapper *proxim, float distance)",
+      " {",
+      "-\tVector3 result;",
+      "-\tresult = Arrive(vehicle, target, distance);",
+      "+\tVector3 offset = target - vehicle.Position;",
+      "+\tdistance = offset.Length() - distance;",
+      "+\tif (distance < 0.0f) {",
+      "+\t\tdistance = 0.0f;",
+      "+\t}",
+      "+\tfloat speed = (distance / SlowDist) * MaxSpeed;",
+      "+\tif (speed >= MaxSpeed) {",
+      "+\t\tspeed = MaxSpeed;",
+      "+\t}",
+      "+\tVector3 result;",
+      "+\tresult = offset * (speed / distance) - vehicle.Velocity;",
+      " \treturn result;",
+      " }"
+    ]
+  },
+  {
+    "run": "af03",
+    "sha256": "737cf62117ae980964be99f5e8edceb0fc4ade531da399ed511650fa8caad605",
+    "diff": [
+      "--- \n",
+      "+++ \n",
+      "@@ -359,6 +359,16 @@\n",
+      " Vector3 SteeringClass::Arrive(const SteeringVehicleStruct &vehicle, const Vector3 &target, PxWrapper *proxim, float distance)",
+      " {",
+      "-\tVector3 result;",
+      "-\tresult = Arrive(vehicle, target, distance);",
+      "+\tVector3 offset;",
+      "+\toffset = target - vehicle.Position;",
+      "+\tdistance = offset.Length() - distance;",
+      "+\tif (distance < 0.0f) {",
+      "+\t\tdistance = 0.0f;",
+      "+\t}",
+      "+\tfloat speed = (distance / SlowDist) * MaxSpeed;",
+      "+\tif (speed >= MaxSpeed) {",
+      "+\t\tspeed = MaxSpeed;",
+      "+\t}",
+      "+\tVector3 result;",
+      "+\tresult = offset * (speed / distance) - vehicle.Velocity;",
+      " \treturn result;",
+      " }"
+    ]
+  },
+  {
+    "run": "af04",
+    "sha256": "4c98de677d5c16b1b312914e9c126fcaa57d9e6ecc2dcdf06c8c36d31a46eff6",
+    "diff": [
+      "--- \n",
+      "+++ \n",
+      "@@ -359,6 +359,16 @@\n",
+      " Vector3 SteeringClass::Arrive(const SteeringVehicleStruct &vehicle, const Vector3 &target, PxWrapper *proxim, float distance)",
+      " {",
+      "-\tVector3 result;",
+      "-\tresult = Arrive(vehicle, target, distance);",
+      "+\tVector3 offset = target - vehicle.Position;",
+      "+\tdistance = offset.Length() - distance;",
+      "+\tif (distance < 0.0f) {",
+      "+\t\tdistance = 0.0f;",
+      "+\t}",
+      "+\tfloat speed = (distance / SlowDist) * MaxSpeed;",
+      "+\tif (speed >= MaxSpeed) {",
+      "+\t\tspeed = MaxSpeed;",
+      "+\t}",
+      "+\tVector3 desired = offset * (speed / distance);",
+      "+\tVector3 result;",
+      "+\tresult = desired - vehicle.Velocity;",
+      " \treturn result;",
+      " }"
+    ]
+  },
+  {
+    "run": "af05",
+    "sha256": "c1e2983e54bc040cc7b76932608f5b20ae362797a77556e81754e34456c019fe",
+    "diff": [
+      "--- \n",
+      "+++ \n",
+      "@@ -359,6 +359,16 @@\n",
+      " Vector3 SteeringClass::Arrive(const SteeringVehicleStruct &vehicle, const Vector3 &target, PxWrapper *proxim, float distance)",
+      " {",
+      "-\tVector3 result;",
+      "-\tresult = Arrive(vehicle, target, distance);",
+      "+\tVector3 offset = target - vehicle.Position;",
+      "+\tdistance = offset.Length() - distance;",
+      "+\tif (distance < 0.0f) {",
+      "+\t\tdistance = 0.0f;",
+      "+\t}",
+      "+\tfloat speed = (distance / SlowDist) * MaxSpeed;",
+      "+\tif (speed >= MaxSpeed) {",
+      "+\t\tspeed = MaxSpeed;",
+      "+\t}",
+      "+\tVector3 desired = offset * (speed / distance) - vehicle.Velocity;",
+      "+\tVector3 result;",
+      "+\tresult = desired;",
+      " \treturn result;",
+      " }"
+    ]
+  },
+  {
+    "run": "af06",
+    "sha256": "7c17ba6bc3a28b36113f64672483950569c43939909e089024d3ce87c6ce0890",
+    "diff": [
+      "--- \n",
+      "+++ \n",
+      "@@ -359,6 +359,15 @@\n",
+      " Vector3 SteeringClass::Arrive(const SteeringVehicleStruct &vehicle, const Vector3 &target, PxWrapper *proxim, float distance)",
+      " {",
+      "-\tVector3 result;",
+      "-\tresult = Arrive(vehicle, target, distance);",
+      "+\tVector3 offset = target - vehicle.Position;",
+      "+\tdistance = offset.Length() - distance;",
+      "+\tif (distance < 0.0f) {",
+      "+\t\tdistance = 0.0f;",
+      "+\t}",
+      "+\tfloat speed = (distance / SlowDist) * MaxSpeed;",
+      "+\tif (speed >= MaxSpeed) {",
+      "+\t\tspeed = MaxSpeed;",
+      "+\t}",
+      "+\tVector3 desired = offset * (speed / distance) - vehicle.Velocity;",
+      "+\tVector3 result(desired);",
+      " \treturn result;",
+      " }"
+    ]
+  },
+  {
+    "run": "af07",
+    "sha256": "06d9f65c151658e1d78edc5f0ca89b43ce93a9439dded467c762e1bd0de49993",
+    "diff": [
+      "--- \n",
+      "+++ \n",
+      "@@ -359,7 +359,5 @@\n",
+      " Vector3 SteeringClass::Arrive(const SteeringVehicleStruct &vehicle, const Vector3 &target, PxWrapper *proxim, float distance)",
+      " {",
+      "-\tVector3 result;",
+      "-\tresult = Arrive(vehicle, target, distance);",
+      "-\treturn result;",
+      "+\treturn Arrive(vehicle, target, distance);",
+      " }",
+      " "
+    ]
+  },
+  {
+    "run": "af08",
+    "sha256": "7c6cdf10e222b3ebccd5e099b33cf24b7fa06bca0223671c86913ef3adfd3ca4",
+    "diff": [
+      "--- \n",
+      "+++ \n",
+      "@@ -359,7 +359,7 @@\n",
+      " Vector3 SteeringClass::Arrive(const SteeringVehicleStruct &vehicle, const Vector3 &target, PxWrapper *proxim, float distance)",
+      " {",
+      "-\tVector3 result;",
+      "-\tresult = Arrive(vehicle, target, distance);",
+      "-\treturn result;",
+      "+\tVector3 result = Arrive(vehicle, target, distance);",
+      "+\tVector3 copy(result);",
+      "+\treturn copy;",
+      " }",
+      " "
+    ]
+  },
+  {
+    "run": "af09",
+    "sha256": "97685ed0a359654c0526079ca429a7b4368e78053d9f17f7dabd4487c2a67010",
+    "diff": [
+      "--- \n",
+      "+++ \n",
+      "@@ -361,5 +361,5 @@\n",
+      " \tVector3 result;",
+      " \tresult = Arrive(vehicle, target, distance);",
+      "-\treturn result;",
+      "+\treturn Vector3(result.X, result.Y, result.Z);",
+      " }",
+      " "
+    ]
+  },
+  {
+    "run": "af10",
+    "sha256": "c6684da0a29948fcb0eb68589d49523ccc1feede19d45b94373e0303ad3af11f",
+    "diff": [
+      "--- \n",
+      "+++ \n",
+      "@@ -359,7 +359,6 @@\n",
+      " Vector3 SteeringClass::Arrive(const SteeringVehicleStruct &vehicle, const Vector3 &target, PxWrapper *proxim, float distance)",
+      " {",
+      "-\tVector3 result;",
+      "-\tresult = Arrive(vehicle, target, distance);",
+      "-\treturn result;",
+      "+\tVector3 result = Arrive(vehicle, target, distance);",
+      "+\treturn Vector3(result.X, result.Y, result.Z);",
+      " }",
+      " "
+    ]
+  },
+  {
+    "run": "ag01",
+    "sha256": "0413cdb0f79eb5fb0348deffb6e6a1ba3434e1c9d0f055cc7cfd67d218f9cf11",
+    "diff": [
+      "--- \n",
+      "+++ \n",
+      "@@ -360,6 +360,5 @@\n",
+      " {",
+      " \tVector3 result;",
+      "-\tresult = Arrive(vehicle, target, distance);",
+      "-\treturn result;",
+      "+\treturn result = Arrive(vehicle, target, distance);",
+      " }",
+      " "
+    ]
+  },
+  {
+    "run": "ag02",
+    "sha256": "97295ba2f5ae6be2e31376a7d03dadabb2993b30a00c12b2812d9b52ac08be21",
+    "diff": [
+      "--- \n",
+      "+++ \n",
+      "@@ -360,6 +360,6 @@\n",
+      " {",
+      " \tVector3 result;",
+      "-\tresult = Arrive(vehicle, target, distance);",
+      "-\treturn result;",
+      "+\tVector3 &assigned = (result = Arrive(vehicle, target, distance));",
+      "+\treturn assigned;",
+      " }",
+      " "
+    ]
+  },
+  {
+    "run": "ag03",
+    "sha256": "ba59b1e4b4ae97c1447dfa5691e27e8dbd3c4a41d50c3b4f4c646aa07a2c7006",
+    "diff": [
+      "--- \n",
+      "+++ \n",
+      "@@ -360,5 +360,5 @@\n",
+      " {",
+      " \tVector3 result;",
+      "-\tresult = Arrive(vehicle, target, distance);",
+      "+\tresult.Set(Arrive(vehicle, target, distance));",
+      " \treturn result;",
+      " }"
+    ]
+  },
+  {
+    "run": "ag04",
+    "sha256": "d130a366746b85d6e7454dd1d83e4a1c293c1dcd1984e288fd82f8181ef6a4d6",
+    "diff": [
+      "--- \n",
+      "+++ \n",
+      "@@ -359,6 +359,7 @@\n",
+      " Vector3 SteeringClass::Arrive(const SteeringVehicleStruct &vehicle, const Vector3 &target, PxWrapper *proxim, float distance)",
+      " {",
+      "-\tVector3 result;",
+      "-\tresult = Arrive(vehicle, target, distance);",
+      "+\tVector3 tmp = Arrive(vehicle, target, distance);",
+      "+\tVector3 result;",
+      "+\tresult.Set(tmp);",
+      " \treturn result;",
+      " }"
+    ]
+  },
+  {
+    "run": "ah01",
+    "sha256": "da27082693fb0d2bfdcbb5574d4cb7ea518129ab3a3ba1f6f5e88bf7dbcfa53c",
+    "diff": [
+      "--- \n",
+      "+++ \n",
+      "@@ -60,5 +60,6 @@\n",
+      " \t\tspeed = MaxSpeed;",
+      " \t}",
+      "-\treturn offset * (speed / distance) - vehicle.Velocity;",
+      "+\tVector3 scaled = offset * (speed / distance);",
+      "+\treturn scaled - vehicle.Velocity;",
+      " }",
+      " "
+    ]
+  },
+  {
+    "run": "ah02",
+    "sha256": "dfd508b9e34b701f03719a0ec7d403e371580702aa5fd591c74a31dba47a067b",
+    "diff": [
+      "--- \n",
+      "+++ \n",
+      "@@ -60,5 +60,7 @@\n",
+      " \t\tspeed = MaxSpeed;",
+      " \t}",
+      "-\treturn offset * (speed / distance) - vehicle.Velocity;",
+      "+\tVector3 scaled;",
+      "+\tscaled = offset * (speed / distance);",
+      "+\treturn scaled - vehicle.Velocity;",
+      " }",
+      " "
+    ]
+  },
+  {
+    "run": "pf01",
+    "sha256": "5807e6cb500dc04379b72a355450272d8c27b8ffc008b9ae8c7bd086ae3f16dd",
+    "diff": [
+      "--- \n",
+      "+++ \n",
+      "@@ -350,7 +350,5 @@\n",
+      " Vector3 SteeringClass::Pursue(const SteeringVehicleStruct &vehicle, const SteeringTargetStruct &target, PxWrapper *proxim)",
+      " {",
+      "-\tVector3 result;",
+      "-\tresult = Pursue(vehicle, target);",
+      "-\treturn result;",
+      "+\treturn Pursue(vehicle, target);",
+      " }",
+      " "
+    ]
+  },
+  {
+    "run": "pf02",
+    "sha256": "73788c4cb9efada2a85a3b0cdb1ea18b860ccc40aa1fc86a04e736b64fdc8310",
+    "diff": [
+      "--- \n",
+      "+++ \n",
+      "@@ -350,6 +350,5 @@\n",
+      " Vector3 SteeringClass::Pursue(const SteeringVehicleStruct &vehicle, const SteeringTargetStruct &target, PxWrapper *proxim)",
+      " {",
+      "-\tVector3 result;",
+      "-\tresult = Pursue(vehicle, target);",
+      "+\tVector3 result = Pursue(vehicle, target);",
+      " \treturn result;",
+      " }"
+    ]
+  },
+  {
+    "run": "pf03",
+    "sha256": "83d66bd4ee511bef3b12262a0c590603f95612beef3937c014bbdf1cc1d3e5ba",
+    "diff": [
+      "--- \n",
+      "+++ \n",
+      "@@ -352,5 +352,6 @@\n",
+      " \tVector3 result;",
+      " \tresult = Pursue(vehicle, target);",
+      "-\treturn result;",
+      "+\tVector3 copy = result;",
+      "+\treturn copy;",
+      " }",
+      " "
+    ]
+  },
+  {
+    "run": "pf04",
+    "sha256": "94eaf083693828d9ccf78be0a1336885aa3cb896dd64dae39bbae60567a4ae1d",
+    "diff": [
+      "--- \n",
+      "+++ \n",
+      "@@ -352,5 +352,7 @@\n",
+      " \tVector3 result;",
+      " \tresult = Pursue(vehicle, target);",
+      "-\treturn result;",
+      "+\tVector3 copy;",
+      "+\tcopy = result;",
+      "+\treturn copy;",
+      " }",
+      " "
+    ]
+  },
+  {
+    "run": "pf05",
+    "sha256": "adb968f4f08dd0754719bc92c0512f8bf7f17b1faa536e0d55242915dd19fd65",
+    "diff": [
+      "--- \n",
+      "+++ \n",
+      "@@ -350,6 +350,6 @@\n",
+      " Vector3 SteeringClass::Pursue(const SteeringVehicleStruct &vehicle, const SteeringTargetStruct &target, PxWrapper *proxim)",
+      " {",
+      "-\tVector3 result;",
+      "-\tresult = Pursue(vehicle, target);",
+      "+\tVector3 predicted = Predict(vehicle, target);",
+      "+\tVector3 result = Seek(vehicle, predicted);",
+      " \treturn result;",
+      " }"
+    ]
+  },
+  {
+    "run": "pf06",
+    "sha256": "2600272bf44ed157668fddd52ff659b33d086a3ddfde8d79a18fac242e1b95df",
+    "diff": [
+      "--- \n",
+      "+++ \n",
+      "@@ -350,6 +350,7 @@\n",
+      " Vector3 SteeringClass::Pursue(const SteeringVehicleStruct &vehicle, const SteeringTargetStruct &target, PxWrapper *proxim)",
+      " {",
+      "-\tVector3 result;",
+      "-\tresult = Pursue(vehicle, target);",
+      "+\tVector3 predicted;",
+      "+\tpredicted = Predict(vehicle, target);",
+      "+\tVector3 result = Seek(vehicle, predicted);",
+      " \treturn result;",
+      " }"
+    ]
+  },
+  {
+    "run": "pf07",
+    "sha256": "3ce6677acf9284e369f0a6b8b965b9fe170ddd0ace22d48839f71b48f4213754",
+    "diff": [
+      "--- \n",
+      "+++ \n",
+      "@@ -350,6 +350,8 @@\n",
+      " Vector3 SteeringClass::Pursue(const SteeringVehicleStruct &vehicle, const SteeringTargetStruct &target, PxWrapper *proxim)",
+      " {",
+      "-\tVector3 result;",
+      "-\tresult = Pursue(vehicle, target);",
+      "+\tVector3 desired = Predict(vehicle, target) - vehicle.Position;",
+      "+\tdesired.Normalize();",
+      "+\tdesired *= MaxSpeed;",
+      "+\tVector3 result = desired - vehicle.Velocity;",
+      " \treturn result;",
+      " }"
+    ]
+  },
+  {
+    "run": "pf08",
+    "sha256": "cf720671afb04dd77919fec67abe2c3a0bf91425cfe2da2154841b7cb4e8d694",
+    "diff": [
+      "--- \n",
+      "+++ \n",
+      "@@ -350,6 +350,9 @@\n",
+      " Vector3 SteeringClass::Pursue(const SteeringVehicleStruct &vehicle, const SteeringTargetStruct &target, PxWrapper *proxim)",
+      " {",
+      "-\tVector3 result;",
+      "-\tresult = Pursue(vehicle, target);",
+      "+\tVector3 predicted = Predict(vehicle, target);",
+      "+\tVector3 desired = predicted - vehicle.Position;",
+      "+\tdesired.Normalize();",
+      "+\tdesired *= MaxSpeed;",
+      "+\tVector3 result = desired - vehicle.Velocity;",
+      " \treturn result;",
+      " }"
+    ]
+  },
+  {
+    "run": "pf09",
+    "sha256": "8c97b82c035735d999d6da25d1e24cfac889623fd220b7a58f1ec6a22e18bc55",
+    "diff": [
+      "--- \n",
+      "+++ \n",
+      "@@ -350,7 +350,7 @@\n",
+      " Vector3 SteeringClass::Pursue(const SteeringVehicleStruct &vehicle, const SteeringTargetStruct &target, PxWrapper *proxim)",
+      " {",
+      "-\tVector3 result;",
+      "-\tresult = Pursue(vehicle, target);",
+      "-\treturn result;",
+      "+\tVector3 result = Pursue(vehicle, target);",
+      "+\tVector3 copy(result);",
+      "+\treturn copy;",
+      " }",
+      " "
+    ]
+  },
+  {
+    "run": "pf10",
+    "sha256": "69ab45f14d25c0841558bd1f4007a79b89815b1f2a204a0e527308a103357e69",
+    "diff": [
+      "--- \n",
+      "+++ \n",
+      "@@ -350,7 +350,8 @@\n",
+      " Vector3 SteeringClass::Pursue(const SteeringVehicleStruct &vehicle, const SteeringTargetStruct &target, PxWrapper *proxim)",
+      " {",
+      "-\tVector3 result;",
+      "-\tresult = Pursue(vehicle, target);",
+      "-\treturn result;",
+      "+\tVector3 result = Pursue(vehicle, target);",
+      "+\tVector3 copy;",
+      "+\tcopy = result;",
+      "+\treturn copy;",
+      " }",
+      " "
+    ]
+  },
+  {
+    "run": "pf11",
+    "sha256": "7e1d98c6e1ca818460a3a17d0de59ea8891ec016705d0858750925144133ef19",
+    "diff": [
+      "--- \n",
+      "+++ \n",
+      "@@ -350,6 +350,5 @@\n",
+      " Vector3 SteeringClass::Pursue(const SteeringVehicleStruct &vehicle, const SteeringTargetStruct &target, PxWrapper *proxim)",
+      " {",
+      "-\tVector3 result;",
+      "-\tresult = Pursue(vehicle, target);",
+      "+\tconst Vector3 &result = Pursue(vehicle, target);",
+      " \treturn result;",
+      " }"
+    ]
+  },
+  {
+    "run": "pf12",
+    "sha256": "44df073484d3bbc6fd744903e58ec17e6e0733b551dfe153e3f246d04c78609c",
+    "diff": [
+      "--- \n",
+      "+++ \n",
+      "@@ -350,7 +350,8 @@\n",
+      " Vector3 SteeringClass::Pursue(const SteeringVehicleStruct &vehicle, const SteeringTargetStruct &target, PxWrapper *proxim)",
+      " {",
+      "-\tVector3 result;",
+      "-\tresult = Pursue(vehicle, target);",
+      "-\treturn result;",
+      "+\tconst Vector3 &result = Pursue(vehicle, target);",
+      "+\tVector3 copy;",
+      "+\tcopy = result;",
+      "+\treturn copy;",
+      " }",
+      " "
+    ]
+  },
+  {
+    "run": "pf13",
+    "sha256": "538d71b9112d3124d79616eccbe95b6049f6b542472204cefeb576c5345d5baf",
+    "diff": [
+      "--- \n",
+      "+++ \n",
+      "@@ -350,7 +350,6 @@\n",
+      " Vector3 SteeringClass::Pursue(const SteeringVehicleStruct &vehicle, const SteeringTargetStruct &target, PxWrapper *proxim)",
+      " {",
+      "-\tVector3 result;",
+      "-\tresult = Pursue(vehicle, target);",
+      "-\treturn result;",
+      "+\tVector3 result = Pursue(vehicle, target);",
+      "+\treturn Vector3(result.X, result.Y, result.Z);",
+      " }",
+      " "
+    ]
+  },
+  {
+    "run": "pf14",
+    "sha256": "0d78f3e4a35943ea77fb9541ba16fa8a271c287c1aba8375baa370e945ac71c0",
+    "diff": [
+      "--- \n",
+      "+++ \n",
+      "@@ -350,7 +350,6 @@\n",
+      " Vector3 SteeringClass::Pursue(const SteeringVehicleStruct &vehicle, const SteeringTargetStruct &target, PxWrapper *proxim)",
+      " {",
+      "-\tVector3 result;",
+      "-\tresult = Pursue(vehicle, target);",
+      "-\treturn result;",
+      "+\tVector3 result = Pursue(vehicle, target);",
+      "+\treturn Vector3(result);",
+      " }",
+      " "
+    ]
+  },
+  {
+    "run": "pg01",
+    "sha256": "c63c0c164b7f76eb88f8a18278ba234129211deb1d866d814a0527d1898d6ee5",
+    "diff": [
+      "--- \n",
+      "+++ \n",
+      "@@ -351,6 +351,5 @@\n",
+      " {",
+      " \tVector3 result;",
+      "-\tresult = Pursue(vehicle, target);",
+      "-\treturn result;",
+      "+\treturn result = Pursue(vehicle, target);",
+      " }",
+      " "
+    ]
+  },
+  {
+    "run": "pg02",
+    "sha256": "6b0277788df82cd7a78fcbfa2b9d3acfbe6ea6199843c47a8cc7a4bb39fe7d2a",
+    "diff": [
+      "--- \n",
+      "+++ \n",
+      "@@ -351,6 +351,6 @@\n",
+      " {",
+      " \tVector3 result;",
+      "-\tresult = Pursue(vehicle, target);",
+      "-\treturn result;",
+      "+\tVector3 &assigned = (result = Pursue(vehicle, target));",
+      "+\treturn assigned;",
+      " }",
+      " "
+    ]
+  },
+  {
+    "run": "pg03",
+    "sha256": "fcf184a874065c6b08f3a74a7eed11ad579d15ad684ebb401bf761ea33a503bc",
+    "diff": [
+      "--- \n",
+      "+++ \n",
+      "@@ -351,5 +351,5 @@\n",
+      " {",
+      " \tVector3 result;",
+      "-\tresult = Pursue(vehicle, target);",
+      "+\tresult.Set(Pursue(vehicle, target));",
+      " \treturn result;",
+      " }"
+    ]
+  },
+  {
+    "run": "pg04",
+    "sha256": "fcbc8aca876ba770a4a4fb1a533a421a3d9df056f685c6c28bdeea4d48c8243b",
+    "diff": [
+      "--- \n",
+      "+++ \n",
+      "@@ -350,6 +350,7 @@\n",
+      " Vector3 SteeringClass::Pursue(const SteeringVehicleStruct &vehicle, const SteeringTargetStruct &target, PxWrapper *proxim)",
+      " {",
+      "-\tVector3 result;",
+      "-\tresult = Pursue(vehicle, target);",
+      "+\tVector3 tmp = Pursue(vehicle, target);",
+      "+\tVector3 result;",
+      "+\tresult.Set(tmp);",
+      " \treturn result;",
+      " }"
+    ]
+  },
+  {
+    "run": "ph01",
+    "sha256": "9135ab40ea755018a879c298a35b327c7199bc89d328ad77cddc658341bffe1a",
+    "diff": [
+      "--- \n",
+      "+++ \n",
+      "@@ -66,5 +66,6 @@\n",
+      " Vector3 SteeringClass::Pursue(const SteeringVehicleStruct &vehicle, const SteeringTargetStruct &target)",
+      " {",
+      "-\treturn Seek(vehicle, Predict(vehicle, target));",
+      "+\tVector3 predicted = Predict(vehicle, target);",
+      "+\treturn Seek(vehicle, predicted);",
+      " }",
+      " "
+    ]
+  },
+  {
+    "run": "ph02",
+    "sha256": "5695ed4cd948536837fc0f7e3cd228dd2755ffb07b0a0bb595a2e395bc47307e",
+    "diff": [
+      "--- \n",
+      "+++ \n",
+      "@@ -66,5 +66,7 @@\n",
+      " Vector3 SteeringClass::Pursue(const SteeringVehicleStruct &vehicle, const SteeringTargetStruct &target)",
+      " {",
+      "-\treturn Seek(vehicle, Predict(vehicle, target));",
+      "+\tVector3 predicted;",
+      "+\tpredicted = Predict(vehicle, target);",
+      "+\treturn Seek(vehicle, predicted);",
+      " }",
+      " "
+    ]
+  },
+  {
+    "run": "sa01",
+    "sha256": "d8ecf3351dd0004ee54d6222924226b76eb555b1d2a826b09a3d8084ffd7e3eb",
+    "diff": [
+      "--- \n",
+      "+++ \n",
+      "@@ -52,5 +52,5 @@\n",
+      " {",
+      " \tVector3 offset = target - vehicle.Position;",
+      "-\tdistance = offset.Length() - distance;",
+      "+\tdistance = Vector3::Distance(target, vehicle.Position) - distance;",
+      " \tif (distance < 0.0f) {",
+      " \t\tdistance = 0.0f;"
+    ]
+  },
+  {
+    "run": "sa02",
+    "sha256": "cbfb94b6ca8a42ba54603b6ffbcc2970840b7fef057cc16d93c0a1efe7e7ec3a",
+    "diff": [
+      "--- \n",
+      "+++ \n",
+      "@@ -51,5 +51,6 @@\n",
+      " Vector3 SteeringClass::Arrive(const SteeringVehicleStruct &vehicle, const Vector3 &target, float distance)",
+      " {",
+      "-\tVector3 offset = target - vehicle.Position;",
+      "+\tVector3 offset;",
+      "+\tVector3::Subtract(target, vehicle.Position, &offset);",
+      " \tdistance = offset.Length() - distance;",
+      " \tif (distance < 0.0f) {"
+    ]
+  },
+  {
+    "run": "sp01",
+    "sha256": "8ff18641443093f460f68112731746ba01640cff1a815652a88c71503cf1f137",
+    "diff": [
+      "--- \n",
+      "+++ \n",
+      "@@ -350,6 +350,9 @@\n",
+      " Vector3 SteeringClass::Pursue(const SteeringVehicleStruct &vehicle, const SteeringTargetStruct &target, PxWrapper *proxim)",
+      " {",
+      "-\tVector3 result;",
+      "-\tresult = Pursue(vehicle, target);",
+      "+\tVector3 desired = Predict(vehicle, target) - vehicle.Position;",
+      "+\tdesired.Normalize();",
+      "+\tdesired *= MaxSpeed;",
+      "+\tVector3 result;",
+      "+\tVector3::Subtract(desired, vehicle.Velocity, &result);",
+      " \treturn result;",
+      " }"
+    ]
+  }
+]
