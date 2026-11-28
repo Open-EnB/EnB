@@ -266,7 +266,7 @@ void UIRefineryClass::Unknown_60()
 			if (Is_Validity_Attempt((UnknownB01394Enum)value)) {
 				Unknown0AF0 = 0;
 				Unknown_5ECBB0(4, true, Unknown_B85C60[1]);
-				SoundLibraryClass::Play_2D_Sound("success_1.wav", 2);
+				SoundLibrary::Play_2D_Sound("success_1.wav", 2);
 				Unknown_5ED530(Unknown0B00);
 				goto refresh;
 			}
@@ -292,7 +292,7 @@ bool UIRefineryClass::Unknown_68(int key)
 	Unknown0B05 = false;
 	switch (key) {
 		case 1:
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			Unknown0AC->Unknown_69F440();
 			return(true);
 		case 5:
@@ -305,16 +305,16 @@ bool UIRefineryClass::Unknown_68(int key)
 		case 12:
 		case 13:
 		case 14:
-			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+			SoundLibrary::Play_2D_Sound("fontclick.wav", 2);
 			Unknown_5ECCE0(key - 5);
 			return(true);
 		case 2:
-			SoundLibraryClass::Play_2D_Sound("manufacture_1.wav", 2);
+			SoundLibrary::Play_2D_Sound("manufacture_1.wav", 2);
 			Unknown0B05 = true;
 			Unknown_5ED5F0();
 			return(true);
 		case 3:
-			SoundLibraryClass::Play_2D_Sound("manufacture_1.wav", 2);
+			SoundLibrary::Play_2D_Sound("manufacture_1.wav", 2);
 			Unknown0B05 = true;
 			Unknown_5ED800();
 			return(true);

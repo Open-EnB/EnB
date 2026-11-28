@@ -871,7 +871,7 @@ int Update_Blood_Particles(RenderObjClass *robj, int hull_level, int number, uns
 	char name[256];
 	_BloodDatabase.Get_String(section, "Sound", "NONE", name, 256);
 	if (strcmp(name, "NONE") != 0) {
-		SoundLibraryClass::Play_3D_Sound(name, robj->Get_Transform(), 2, 1.0f);
+		SoundLibrary::Play_3D_Sound(name, robj->Get_Transform(), 2, 1.0f);
 	}
 	_BloodDatabase.Get_String(section, "LoopingSound", "NONE", name, 256);
 	if (strcmp(name, "NONE") != 0) {

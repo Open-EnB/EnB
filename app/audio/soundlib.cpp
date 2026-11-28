@@ -158,10 +158,10 @@ public:
 SoundDefClass::SoundDefClass(INIClass &ini, const char *section) :
 	TotalWeight(0),
 	LoopCount(1),
-	DropOffRadius(SoundLibraryClass::_DefaultDropOffRadius),
-	MaxVolRadius(SoundLibraryClass::_DefaultMaxVolRadius),
-	Priority(SoundLibraryClass::_DefaultPriority),
-	Volume(SoundLibraryClass::_DefaultVolume),
+	DropOffRadius(SoundLibrary::_DefaultDropOffRadius),
+	MaxVolRadius(SoundLibrary::_DefaultMaxVolRadius),
+	Priority(SoundLibrary::_DefaultPriority),
+	Volume(SoundLibrary::_DefaultVolume),
 	MinVolumeShift(0),
 	MaxVolumeShift(0),
 	MinPitchShift(0),
@@ -170,7 +170,7 @@ SoundDefClass::SoundDefClass(INIClass &ini, const char *section) :
 	MaxDopplerShift(1.0F),
 	DopplerTweak(0.1F),
 	Type(AudibleSoundClass::TYPE_SOUND_EFFECT),
-	MaxInstances(SoundLibraryClass::_DefaultMaxInstances),
+	MaxInstances(SoundLibrary::_DefaultMaxInstances),
 	Pitch(1.0F),
 	SecsBetweenCalls(0),
 	NextCallTime(0)
@@ -241,10 +241,10 @@ SoundDefClass::SoundDefClass(INIClass &ini, const char *section) :
 SoundDefClass::SoundDefClass(const char *filename) :
 	TotalWeight(0),
 	LoopCount(1),
-	DropOffRadius(SoundLibraryClass::_DefaultDropOffRadius),
-	MaxVolRadius(SoundLibraryClass::_DefaultMaxVolRadius),
-	Priority(SoundLibraryClass::_DefaultPriority),
-	Volume(SoundLibraryClass::_DefaultVolume),
+	DropOffRadius(SoundLibrary::_DefaultDropOffRadius),
+	MaxVolRadius(SoundLibrary::_DefaultMaxVolRadius),
+	Priority(SoundLibrary::_DefaultPriority),
+	Volume(SoundLibrary::_DefaultVolume),
 	MinVolumeShift(0),
 	MaxVolumeShift(0),
 	MinPitchShift(0),
@@ -253,7 +253,7 @@ SoundDefClass::SoundDefClass(const char *filename) :
 	MaxDopplerShift(1.0F),
 	DopplerTweak(0.1F),
 	Type(AudibleSoundClass::TYPE_SOUND_EFFECT),
-	MaxInstances(SoundLibraryClass::_DefaultMaxInstances),
+	MaxInstances(SoundLibrary::_DefaultMaxInstances),
 	Pitch(1.0F),
 	SecsBetweenCalls(0),
 	NextCallTime(0)
@@ -393,25 +393,25 @@ Sound3DClass *SoundDefClass::Create_3D_Sound(const Matrix3D &tm, int mode, float
 	return sound;
 }
 
-std::hash_map<std::string, SoundDefClass *> SoundLibraryClass::_SoundDefs;
+std::hash_map<std::string, SoundDefClass *> SoundLibrary::_SoundDefs;
 
 class SoundLibBridgeClass : public SoundLibraryBridgeClass	// NAME 2: what it does (vtable 0xAE74EC)
 {
 public:
-	virtual void Play_3D_Audio(const char *name, const Matrix3D &tm) { SoundLibraryClass::Play_3D_Sound(name, tm, 2, 1.0F); }	// 0x440280
-	virtual void Play_2D_Audio(const char *name) { SoundLibraryClass::Play_2D_Sound(name, 2); }	// 0x4402B0
+	virtual void Play_3D_Audio(const char *name, const Matrix3D &tm) { SoundLibrary::Play_3D_Sound(name, tm, 2, 1.0F); }	// 0x440280
+	virtual void Play_2D_Audio(const char *name) { SoundLibrary::Play_2D_Sound(name, 2); }	// 0x4402B0
 	virtual void Stop_Playing_Audio(const char *name) {}	// not in the client's vtable (two slots)
 };
 static SoundLibBridgeClass _Bridge;		// 0xBDAC40  // NAME 2: what it holds
 
-WWAudioClass *SoundLibraryClass::_Audio;
-AudibleSoundClass *SoundLibraryClass::_CurrentDialog;
-SoundDefClass *SoundLibraryClass::_NextDialogDef;
-char *SoundLibraryClass::_NextDialogName;
-bool SoundLibraryClass::_PlayUndefined;
+WWAudioClass *SoundLibrary::_Audio;
+AudibleSoundClass *SoundLibrary::_CurrentDialog;
+SoundDefClass *SoundLibrary::_NextDialogDef;
+char *SoundLibrary::_NextDialogName;
+bool SoundLibrary::_PlayUndefined;
 
 
-void SoundLibraryClass::Init()
+void SoundLibrary::Init()
 {
 	_Audio = new WWAudioClass;
 	_Audio->Initialize("Software\\Westwood Studios\\Earth and Beyond\\Sound");
@@ -421,7 +421,7 @@ void SoundLibraryClass::Init()
 }
 
 
-void SoundLibraryClass::Init_Definitions()
+void SoundLibrary::Init_Definitions()
 {
 	Load("sounds.ini");
 	Unknown_442650();
@@ -431,7 +431,7 @@ void SoundLibraryClass::Init_Definitions()
 }
 
 
-void SoundLibraryClass::Shutdown()
+void SoundLibrary::Shutdown()
 {
 	delete _Audio;
 	_Audio = NULL;
@@ -439,7 +439,7 @@ void SoundLibraryClass::Shutdown()
 }
 
 
-void SoundLibraryClass::Free_Definitions()
+void SoundLibrary::Free_Definitions()
 {
 	for (std::hash_map<std::string, SoundDefClass *>::iterator it = _SoundDefs.begin(); it != _SoundDefs.end(); ++it) {
 		delete (*it).second;
@@ -459,14 +459,14 @@ void SoundLibraryClass::Free_Definitions()
 }
 
 
-void SoundLibraryClass::Reload()
+void SoundLibrary::Reload()
 {
 	Free_Definitions();
 	Init_Definitions();
 }
 
 
-SoundDefClass *SoundLibraryClass::Find(const std::string &name)
+SoundDefClass *SoundLibrary::Find(const std::string &name)
 {
 	char upper[64];
 	strncpy(upper, name.c_str(), sizeof(upper) - 1);
@@ -479,7 +479,7 @@ SoundDefClass *SoundLibraryClass::Find(const std::string &name)
 
 
 // The dialog test reads Type through the inline Get_Type: its budget leaves the name's assign out of line as the client's (HL2, 2026-10-29)
-AudibleSoundClass *SoundLibraryClass::Play_2D_Sound(const char *name, int mode)
+AudibleSoundClass *SoundLibrary::Play_2D_Sound(const char *name, int mode)
 {
 	SoundDefClass *def = Find(std::string(name));
 	if (def != NULL && def->Get_Type() == AudibleSoundClass::TYPE_DIALOG) {
@@ -496,7 +496,7 @@ AudibleSoundClass *SoundLibraryClass::Play_2D_Sound(const char *name, int mode)
 }
 
 
-Sound3DClass *SoundLibraryClass::Play_3D_Sound(const char *name, const Matrix3D &tm, int mode, float scale)
+Sound3DClass *SoundLibrary::Play_3D_Sound(const char *name, const Matrix3D &tm, int mode, float scale)
 {
 	SoundDefClass *def = Find(std::string(name));
 	if (def == NULL) {
@@ -510,13 +510,13 @@ Sound3DClass *SoundLibraryClass::Play_3D_Sound(const char *name, const Matrix3D 
 }
 
 
-AudibleSoundClass *SoundLibraryClass::Play_Dialog(const char *name, int mode)
+AudibleSoundClass *SoundLibrary::Play_Dialog(const char *name, int mode)
 {
 	return Play_Dialog(NULL, mode, name);
 }
 
 
-AudibleSoundClass *SoundLibraryClass::Play_Dialog(SoundDefClass *def, int mode, const char *name)
+AudibleSoundClass *SoundLibrary::Play_Dialog(SoundDefClass *def, int mode, const char *name)
 {
 	AudibleSoundClass *sound = NULL;
 	if (name == NULL) return NULL;
@@ -663,7 +663,7 @@ AudibleSoundClass *SoundLibraryClass::Play_Dialog(SoundDefClass *def, int mode, 
 
 
 
-void SoundLibraryClass::Update_Dialog()
+void SoundLibrary::Update_Dialog()
 {
 	if (_CurrentDialog == NULL) {
 		G_ASSERT((_NextDialogDef == NULL) && (_NextDialogName == NULL));
@@ -694,7 +694,7 @@ void SoundLibraryClass::Update_Dialog()
 }
 
 
-void SoundLibraryClass::Stop_Dialog()
+void SoundLibrary::Stop_Dialog()
 {
 	if (_CurrentDialog != NULL) {
 		_CurrentDialog->Stop();
@@ -708,43 +708,43 @@ void SoundLibraryClass::Stop_Dialog()
 }
 
 
-bool SoundLibraryClass::Is_Dialog_Playing()
+bool SoundLibrary::Is_Dialog_Playing()
 {
 	return (_CurrentDialog != NULL);
 }
 
 
-void SoundLibraryClass::Set_Listener_Position(const Vector3 &pos)
+void SoundLibrary::Set_Listener_Position(const Vector3 &pos)
 {
 	WWAudioClass::Get_Instance()->Get_Sound_Scene()->Set_Listener_Position(pos);
 }
 
 
-Vector3 SoundLibraryClass::Get_Listener_Position()
+Vector3 SoundLibrary::Get_Listener_Position()
 {
 	return WWAudioClass::Get_Instance()->Get_Sound_Scene()->Get_Listener_Position();
 }
 
 
-void SoundLibraryClass::Set_Listener_Transform(const Matrix3D &tm)
+void SoundLibrary::Set_Listener_Transform(const Matrix3D &tm)
 {
 	WWAudioClass::Get_Instance()->Get_Sound_Scene()->Set_Listener_Transform(tm);
 }
 
 
-Matrix3D SoundLibraryClass::Get_Listener_Transform()
+Matrix3D SoundLibrary::Get_Listener_Transform()
 {
 	return WWAudioClass::Get_Instance()->Get_Sound_Scene()->Get_Listener_Transform();
 }
 
 
-void SoundLibraryClass::Flush_Playlist()
+void SoundLibrary::Flush_Playlist()
 {
 	WWAudioClass::Get_Instance()->Flush_Playlist();
 }
 
 
-void SoundLibraryClass::Update()
+void SoundLibrary::Update()
 {
 	float volume = WWAudioClass::Get_Instance()->Get_Sound_Effects_Volume();
 	float target = OptionManagerClass::Instance->Get_Float("Sound_SFX") * 0.01F;
@@ -787,7 +787,7 @@ void SoundLibraryClass::Update()
 }
 
 
-void SoundLibraryClass::Apply_Volumes()
+void SoundLibrary::Apply_Volumes()
 {
 	float volume = OptionManagerClass::Instance->Get_Float("Sound_SFX") * 0.01F;
 	WWAudioClass::Get_Instance()->Set_Sound_Effects_Volume(volume);
@@ -818,7 +818,7 @@ public:
 
 
 
-void SoundLibraryClass::Load(const char *filename)
+void SoundLibrary::Load(const char *filename)
 {
 	file_auto_ptr file(_TheFileFactory, filename);
 	INIClass *ini = new SoundINIClass(*file);
@@ -846,12 +846,12 @@ void SoundLibraryClass::Load(const char *filename)
 	delete ini;
 }
 
-float SoundLibraryClass::_DefaultDropOffRadius = 1200.0F;
-float SoundLibraryClass::_DefaultMaxVolRadius = 400.0F;
-float SoundLibraryClass::_DefaultPriority = 0.9F;
-float SoundLibraryClass::_DefaultVolume = 0.8F;
-float SoundLibraryClass::_DefaultDialogVolume = 0.8F;
-int SoundLibraryClass::_DefaultMaxInstances = 4;
+float SoundLibrary::_DefaultDropOffRadius = 1200.0F;
+float SoundLibrary::_DefaultMaxVolRadius = 400.0F;
+float SoundLibrary::_DefaultPriority = 0.9F;
+float SoundLibrary::_DefaultVolume = 0.8F;
+float SoundLibrary::_DefaultDialogVolume = 0.8F;
+int SoundLibrary::_DefaultMaxInstances = 4;
 
 /*
 **	Reconstruction notes
@@ -866,7 +866,7 @@ int SoundLibraryClass::_DefaultMaxInstances = 4;
 **	through the aux-data clock). _SoundDefs's initializer 0x43E780 / destructor 0x43E7B0 and the
 **	table's destructor 0x43E7E0 follow, then the bridge object's initializer 0x43E8B0 (vtable
 **	0xAE74EC, handed to AnimatedSoundMgrClass::Set_Sound_Library 0x90A0A0 by Init). Then
-**	SoundLibraryClass: Init 0x43E8D0 (WWAudio from the registry key 'Software\Westwood
+**	SoundLibrary: Init 0x43E8D0 (WWAudio from the registry key 'Software\Westwood
 **	Studios\Earth and Beyond\Sound', D69: the code only reads it), Init_Definitions 0x43E9A0 (inlined
 **	into Init and Reload), Shutdown 0x43E9E0, Free_Definitions 0x43EA10, Reload 0x43EB90, Find
 **	0x43EBD0 (upper-case key), Play_2D_Sound 0x43ED30, Play_3D_Sound 0x43EFE0, the dialog channel

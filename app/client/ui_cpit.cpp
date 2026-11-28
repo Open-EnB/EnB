@@ -1603,7 +1603,7 @@ void CockpitInterface::Unknown_583250()
 	if (Unknown0B4->Is_Enabled()) {
 		if (!Client) return;
 		if (Unknown0B4->Unknown64) {
-			SoundLibraryClass::Play_2D_Sound("ButtonClick01.wav", 2);
+			SoundLibrary::Play_2D_Sound("ButtonClick01.wav", 2);
 			SpaceClientClass *sclient = (SpaceClientClass *)Client;
 			if (Unknown13D) {
 				if (!Unknown13F && !Unknown0E4) {
@@ -1704,20 +1704,20 @@ void CockpitInterface::Unknown_583510()
 	SpaceClientClass *sclient = (SpaceClientClass *)Client;
 	if (!sclient) return;
 	if (Unknown0C0->Unknown66 || Unknown0C4->Unknown66) {
-		SoundLibraryClass::Play_2D_Sound("ButtonClick01.wav", 2);
+		SoundLibrary::Play_2D_Sound("ButtonClick01.wav", 2);
 		Unknown134 = 0;
 		((ClientClass *)Client)->Send_Packet(&TurnPacketClass(Unknown_Avatar_ID(Client), 0.0f));
 		sclient->Unknown_745B90(0.0f);
 		Unknown0C0->Unknown_671740(false, 0.0f);
 		Unknown0C4->Unknown_671740(false, 0.0f);
 	} else if (Unknown0C0->Unknown64) {
-		SoundLibraryClass::Play_2D_Sound("ButtonClick01.wav", 2);
+		SoundLibrary::Play_2D_Sound("ButtonClick01.wav", 2);
 		Unknown134 = -1;
 		((ClientClass *)Client)->Send_Packet(&TurnPacketClass(Unknown_Avatar_ID(Client), -1.0f));
 		sclient->Unknown_745B90(-1.0f);
 		Unknown0C0->Unknown_671740(true, 1.0f);
 	} else if (Unknown0C4->Unknown64) {
-		SoundLibraryClass::Play_2D_Sound("ButtonClick01.wav", 2);
+		SoundLibrary::Play_2D_Sound("ButtonClick01.wav", 2);
 		Unknown134 = 1;
 		((ClientClass *)Client)->Send_Packet(&TurnPacketClass(Unknown_Avatar_ID(Client), 1.0f));
 		sclient->Unknown_745B90(1.0f);
@@ -1752,7 +1752,7 @@ void CockpitInterface::Unknown_583790()
 	if (Unknown0B8->Unknown66 || Unknown0BC->Unknown66
 		|| (Unknown0B8->Unknown64 && (Unknown0B8->Unknown80 == 2 || Unknown0BC->Unknown80 == 2))
 		|| (Unknown0BC->Unknown64 && (Unknown0B8->Unknown80 == 2 || Unknown0BC->Unknown80 == 2))) {
-		SoundLibraryClass::Play_2D_Sound("ButtonClick01.wav", 2);
+		SoundLibrary::Play_2D_Sound("ButtonClick01.wav", 2);
 		((ClientClass *)Client)->Send_Packet(&MovementPacketClass(Unknown_Avatar_ID(Client), 4));
 		sclient->Unknown_745E40(0, false);
 		Unknown144 = 0;
@@ -1761,7 +1761,7 @@ void CockpitInterface::Unknown_583790()
 		Unknown0B8->Unknown_674160(0);
 		Unknown0BC->Unknown_674160(0);
 	} else if (Unknown0B8->Unknown64) {
-		SoundLibraryClass::Play_2D_Sound("ButtonClick01.wav", 2);
+		SoundLibrary::Play_2D_Sound("ButtonClick01.wav", 2);
 		if (Unknown13C) {
 			((ClientClass *)Client)->Send_Packet(&MovementPacketClass(Unknown_Avatar_ID(Client), 2));
 			sclient->Unknown_745E40(1, false);
@@ -1776,7 +1776,7 @@ void CockpitInterface::Unknown_583790()
 			Unknown0B8->Unknown_671740(true, 1.0f);
 		}
 	} else if (Unknown0BC->Unknown64) {
-		SoundLibraryClass::Play_2D_Sound("ButtonClick01.wav", 2);
+		SoundLibrary::Play_2D_Sound("ButtonClick01.wav", 2);
 		if (Unknown13C) {
 			((ClientClass *)Client)->Send_Packet(&MovementPacketClass(Unknown_Avatar_ID(Client), 3));
 			sclient->Unknown_745E40(-1, false);
@@ -1791,13 +1791,13 @@ void CockpitInterface::Unknown_583790()
 			Unknown0BC->Unknown_671740(true, 1.0f);
 		}
 	} else if (Unknown0B8->Unknown_6740E0(1.0f)) {
-		if (!Unknown13C) SoundLibraryClass::Play_2D_Sound("talk_auto_thrust_engaged.wav", 2);
+		if (!Unknown13C) SoundLibrary::Play_2D_Sound("talk_auto_thrust_engaged.wav", 2);
 		Unknown0B8->Unknown_674160(1);
 		Unknown0BC->Unknown_674160(0);
 		Unknown0B8->Unknown_671740(true, 2.0f);
 		Unknown144 = 3;
 	} else if (Unknown0BC->Unknown_6740E0(1.0f)) {
-		if (Unknown13C) SoundLibraryClass::Play_2D_Sound("talk_auto_thrust_engaged.wav", 2);
+		if (Unknown13C) SoundLibrary::Play_2D_Sound("talk_auto_thrust_engaged.wav", 2);
 		Unknown0B8->Unknown_674160(0);
 		Unknown0BC->Unknown_674160(1);
 		Unknown0BC->Unknown_671740(true, 2.0f);

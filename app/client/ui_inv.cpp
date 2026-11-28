@@ -494,7 +494,7 @@ bool UIInvClass::Unknown_98(SlotDataGadget *slot_gadget, KernelEventClass *event
 		if (slot < 0) return(true);
 		if (Is_Busy()) {
 			Client->As_Space_Client()->Unknown_74D990(0x11, "Unable to tractor.  Dialog open.", 0);
-			SoundLibraryClass::Play_2D_Sound("On_Fail", 2);
+			SoundLibrary::Play_2D_Sound("On_Fail", 2);
 			return(true);
 		}
 		InvTransaction->Unknown_690AA0(InvType, slot, -1, true, 0, -1);
@@ -658,7 +658,7 @@ void UIInvClass::Unknown_5A05B0(SlotDataGadget *gadget, KernelEventClass *event,
 			if (id == -1 || id == -2) return;
 			UnknownB4 = slot;
 			Unknown_C8();
-			SoundLibraryClass::Play_2D_Sound("TextClick03.wav", 2);
+			SoundLibrary::Play_2D_Sound("TextClick03.wav", 2);
 		}
 		if (UnknownB8_2) {
 			int mode = 2;

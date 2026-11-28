@@ -796,7 +796,7 @@ int SpaceClientClass::Do_Frame(bool focused)
 		if (Unknown1198) {
 			return(1);
 		}
-		SoundLibraryClass::Play_2D_Sound("Lost_Connection", 2);
+		SoundLibrary::Play_2D_Sound("Lost_Connection", 2);
 		if (CurrentView && CurrentView == Unknown135C) {
 			Unknown135C->Get_Unknown34()->Unknown_588A70("OK", 0, "Lost connection to server.", 0x140, 0, 0);
 		} else {
@@ -4585,9 +4585,9 @@ void SpaceClientClass::Unknown_74D990(int color, char *text, int a)
 {
 	if (!text || !*text) return;
 	switch (color) {
-		case 17: if (OptionManagerClass::Instance->Get_Bool("Chat_Errors_IC")) SoundLibraryClass::Play_2D_Sound("Text_Error", 2); break;
-		case 19: if (OptionManagerClass::Instance->Get_Bool("Chat_Errors_System")) SoundLibraryClass::Play_2D_Sound("Text_Error", 2); break;
-		case 21: if (!OptionManagerClass::Instance->Get_Bool("Chat_Warnings")) SoundLibraryClass::Play_2D_Sound("Text_Warning", 2); break;
+		case 17: if (OptionManagerClass::Instance->Get_Bool("Chat_Errors_IC")) SoundLibrary::Play_2D_Sound("Text_Error", 2); break;
+		case 19: if (OptionManagerClass::Instance->Get_Bool("Chat_Errors_System")) SoundLibrary::Play_2D_Sound("Text_Error", 2); break;
+		case 21: if (!OptionManagerClass::Instance->Get_Bool("Chat_Warnings")) SoundLibrary::Play_2D_Sound("Text_Warning", 2); break;
 	}
 	ChatPanelInterface *chatpanel = ChatPanel.Peek();
 	FAIL_IF(!chatpanel) return;
@@ -5758,7 +5758,7 @@ void SpaceClientClass::Unknown_64()
 		LoadingView->Unknown_0C(true);
 		if (MusicManager) {
 			MusicManager->Update(MusicManagerClass::MUSIC_THEME_WANDER, 0, 0, 8);
-			SoundLibraryClass::Update();
+			SoundLibrary::Update();
 		}
 		if (SectorSound) {
 			delete SectorSound;
@@ -5811,13 +5811,13 @@ void SpaceClientClass::Unknown_64()
 		tm.Rotate_X(-1.5707964f);
 		tm.Rotate_Z(1.5707964f);
 	}
-	SoundLibraryClass::Set_Listener_Transform(tm);
+	SoundLibrary::Set_Listener_Transform(tm);
 	Unknown_74BFB0();
 	if (SectorSound) {
 		float z = tm[2][3];
 		SectorSound->Update(Unknown10BC, z);
 	}
-	SoundLibraryClass::Update();
+	SoundLibrary::Update();
 }
 
 #include "..\packets\pkstarbasetow.h"	// StarbaseRequestPacketClass (0x8A2D70): 0x74B680, 0x74BA30

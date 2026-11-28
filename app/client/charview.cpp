@@ -238,7 +238,7 @@ void CharacterViewClass::Unknown_04()
 		Unknown224->Stop(true);
 		Unknown224->Release_Ref(); Unknown224 = NULL;
 	}
-	Unknown224 = SoundLibraryClass::Play_2D_Sound("fe_music.mp3", 1);
+	Unknown224 = SoundLibrary::Play_2D_Sound("fe_music.mp3", 1);
 	if (Unknown224) {
 		Unknown224->Set_Loop_Count(0);
 	}
@@ -368,7 +368,7 @@ int CharacterViewClass::Unknown_0C(bool on)
 	Matrix3D tm = Unknown068->Get_Transform();
 	tm.Rotate_X(-WWMATH_PI / 2.0f);
 	tm.Rotate_Z(WWMATH_PI / 2.0f);
-	SoundLibraryClass::Set_Listener_Transform(tm);
+	SoundLibrary::Set_Listener_Transform(tm);
 	WWAudioClass::Get_Instance()->On_Frame_Update(0);
 
 	float time = (float)WW3D::Get_Frame_Time() * 0.001f;
@@ -845,7 +845,7 @@ void CharacterViewClass::Unknown_67B1A0(const char *name)
 		Unknown224->Stop(true);
 		Unknown224->Release_Ref(); Unknown224 = NULL;
 	}
-	Unknown224 = SoundLibraryClass::Play_2D_Sound(name, 1);
+	Unknown224 = SoundLibrary::Play_2D_Sound(name, 1);
 	if (Unknown224) {
 		Unknown224->Set_Loop_Count(0);
 	}
@@ -1315,7 +1315,7 @@ void CharacterViewClass::Unknown_67C380(const Vector3 *in, int index)
 // 0x67C7B0
 void CharacterViewClass::Unknown_67C7B0()
 {
-	SoundLibraryClass::Stop_Dialog();
+	SoundLibrary::Stop_Dialog();
 	while (Unknown4E0.size() != 0) {
 		Unknown4E0.pop_front();
 	}
@@ -1348,14 +1348,14 @@ static inline void Unknown_Inline_Pop(std::deque<std::string> &queue)
 // 0x67CBD0
 void CharacterViewClass::Unknown_67CBD0()
 {
-	SoundLibraryClass::Update_Dialog();
-	if (SoundLibraryClass::Is_Dialog_Playing() || Unknown4E0.size() == 0) {
+	SoundLibrary::Update_Dialog();
+	if (SoundLibrary::Is_Dialog_Playing() || Unknown4E0.size() == 0) {
 		return;
 	}
 	std::string name = Unknown4E0.front();
 	Unknown_Inline_Pop(Unknown4E0);
 	if (name.length()) {
-		SoundLibraryClass::Play_Dialog(name.c_str(), 1);
+		SoundLibrary::Play_Dialog(name.c_str(), 1);
 	}
 }
 

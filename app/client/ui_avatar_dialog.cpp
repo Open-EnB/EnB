@@ -164,7 +164,7 @@ void UIAvatarDialogClass::Unknown_58()
 		Pip->Unknown_7E3A20(Text.c_str(), 0, AvatarRObj.Peek());
 		Unknown0E0 = false;
 		Answer = -1;
-		SoundLibraryClass::Play_2D_Sound("message_1.wav", 2);
+		SoundLibrary::Play_2D_Sound("message_1.wav", 2);
 		Buttons[1]->Unknown_40(false);
 		Buttons[1]->Unknown_8C(true);
 		Unknown5BB320Class::Unknown_58();
@@ -198,7 +198,7 @@ bool UIAvatarDialogClass::Unknown_68(int key)
 	switch (key) {
 		case 1:
 		case 4:
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			Unknown_5C();
 			return(true);
 		case 5:
@@ -206,7 +206,7 @@ bool UIAvatarDialogClass::Unknown_68(int key)
 		case 7:
 		case 8:
 		case 9:
-			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+			SoundLibrary::Play_2D_Sound("fontclick.wav", 2);
 			Unknown_552D90(key - 5);
 			return(true);
 	}

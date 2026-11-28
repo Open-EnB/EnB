@@ -207,12 +207,12 @@ bool UIGroupOptClass::Unknown_68(int key)
 {
 	int game_id; switch (key) {	// NAME 1 [game_id]: neutral (D10)
 		case 1:
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			Unknown_5C();
 			Closed = 1;
 			return(true);
 		case 2:
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			Unknown0A0 = !Unknown0A0;
 			((ClientClass *)Client)->Send_Packet(&OptionPacketClass(game_id = ((ClientClass *)Client)->AvatarID, 0, Unknown0A0));
 			((RenderObjGadgetClass *)Unknown0AC[1])->Unknown34->Change_Text(Unknown_B7FDAC[Unknown0A0], 0);
@@ -223,7 +223,7 @@ bool UIGroupOptClass::Unknown_68(int key)
 			}
 			return(true);
 		case 3:
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			if (FindUI->Is_Active()) {
 				FindUI->Unknown_5C();
 			} else {
@@ -234,23 +234,23 @@ bool UIGroupOptClass::Unknown_68(int key)
 			}
 			return(true);
 		case 4:
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			((ClientClass *)Client)->Send_Packet(&ActionPacketClass(((ClientClass *)Client)->AvatarID, 14, ((ClientClass *)Client)->AvatarID, 0));
 			return(true);
 		case 5:
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			((ClientClass *)Client)->Send_Packet(&ActionPacketClass(((ClientClass *)Client)->AvatarID, 13, ((ClientClass *)Client)->AvatarID, 0));
 			return(true);
 		case 7:
-			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+			SoundLibrary::Play_2D_Sound("fontclick.wav", 2);
 			((ClientClass *)Client)->Send_Packet(&OptionPacketClass(game_id = ((ClientClass *)Client)->AvatarID, 1, Unknown_Group_Checked(Unknown0C0[0])));
 			return(true);
 		case 8:
-			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+			SoundLibrary::Play_2D_Sound("fontclick.wav", 2);
 			((ClientClass *)Client)->Send_Packet(&OptionPacketClass(game_id = ((ClientClass *)Client)->AvatarID, 3, Unknown_Group_Checked(Unknown0C0[1])));
 			return(true);
 		case 9: {
-			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+			SoundLibrary::Play_2D_Sound("fontclick.wav", 2);
 			bool checked = Unknown_Group_Checked(Unknown0C0[2]);
 			((ClientClass *)Client)->Send_Packet(&OptionPacketClass(game_id = ((ClientClass *)Client)->AvatarID, 4, checked));
 			if (checked) {
@@ -259,7 +259,7 @@ bool UIGroupOptClass::Unknown_68(int key)
 			return(true);
 		}
 		case 10: {
-			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+			SoundLibrary::Play_2D_Sound("fontclick.wav", 2);
 			bool checked = Unknown_Group_Checked(Unknown0C0[3]);
 			((ClientClass *)Client)->Send_Packet(&OptionPacketClass(game_id = ((ClientClass *)Client)->AvatarID, 5, checked));
 			if (checked) {

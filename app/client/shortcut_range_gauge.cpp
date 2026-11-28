@@ -116,7 +116,7 @@ void ShortcutRangeGaugeClass::Unknown_6A43D0(int mode)
 	if (SoundMode != mode) {
 		Unknown_6A4500();
 		if (mode != 1) {
-			Sound = Create_Get(SoundLibraryClass::Play_2D_Sound("weapon_range_green_1.wav", 1));
+			Sound = Create_Get(SoundLibrary::Play_2D_Sound("weapon_range_green_1.wav", 1));
 		}
 		SoundMode = mode;
 	}

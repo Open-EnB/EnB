@@ -323,7 +323,7 @@ void StarbaseLightInterface::Unknown_60()
 bool StarbaseLightInterface::Unknown_68(int key)
 {
 	((LineDisplayClientClass *)Client)->As_Space_Client();
-	SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+	SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 	switch (key) {
 		case 1:
 			Unknown_5C();

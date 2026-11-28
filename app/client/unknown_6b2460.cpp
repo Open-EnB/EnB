@@ -123,16 +123,16 @@ bool Unknown6B2460Class::Unknown_68(int key)
 {
 	switch (key) {
 		case 1:
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			Unknown_5C();
 			Closed = 1;
 			return(true);
 		case 2:
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			Unknown_6B35F0();
 			return(true);
 		case 3:
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			Unknown_6B3810();
 			return(true);
 		case 6:
@@ -142,7 +142,7 @@ bool Unknown6B2460Class::Unknown_68(int key)
 		case 10:
 		case 11:
 		case 12:
-			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+			SoundLibrary::Play_2D_Sound("fontclick.wav", 2);
 			Unknown_6B3240(key - 6);
 			return(true);
 	}

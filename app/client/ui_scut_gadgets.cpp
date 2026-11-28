@@ -196,7 +196,7 @@ RenderObjGadgetClass *ShortcutGadgetsInterface::Create_Shortcut(int slot, UIScut
 		}
 	}
 	if (Get_State() == STATE_RESTORED) {
-		SoundLibraryClass::Play_2D_Sound("shortcut_created_sn_1.wav", 2);
+		SoundLibrary::Play_2D_Sound("shortcut_created_sn_1.wav", 2);
 	}
 	ShortcutGadgets.push_back(gadget);
 	ShortcutBeenCreated = true;

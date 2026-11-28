@@ -249,7 +249,7 @@ ScriptedMovieViewClass::ScriptedMovieViewClass(ClientTaskClass *task, int arg, S
 	Unknown15C->Set_Coordinate_Range(Render2DClass::Get_Screen_Resolution());
 	Unknown15C->Enable_Alpha(true);
 	Unknown15C->Reset();
-	SoundLibraryClass::_PlayUndefined = true;
+	SoundLibrary::_PlayUndefined = true;
 }
 
 void Unknown_7FF3A0();	// 0x7FF3A0 (the file before this one: the screen fade and the letterbox), the destructor calls it
@@ -328,7 +328,7 @@ ScriptedMovieViewClass::~ScriptedMovieViewClass()
 		delete *itor3;
 	}
 	UnknownF0.clear();
-	SoundLibraryClass::Flush_Playlist();
+	SoundLibrary::Flush_Playlist();
 	if (Unknown174) {
 		delete Unknown174;
 		Unknown174 = NULL;
@@ -382,7 +382,7 @@ ScriptedMovieViewClass::~ScriptedMovieViewClass()
 	Unknown_802D30();
 	WW3D::Set_Thumbnail_Enabled(true);
 	TextureLoader::_UnknownInvalidationTime = 0;
-	SoundLibraryClass::_PlayUndefined = false;
+	SoundLibrary::_PlayUndefined = false;
 }
 
 
@@ -744,7 +744,7 @@ void ScriptedMovieViewClass::Unknown_14()
 	Unknown_802B20();
 	if (!Unknown172) {
 		if (Unknown174) {
-			SoundLibraryClass::Play_2D_Sound(Unknown174, 2);
+			SoundLibrary::Play_2D_Sound(Unknown174, 2);
 			delete Unknown174;
 			Unknown174 = NULL;
 		}
@@ -2363,7 +2363,7 @@ bool ScriptedMovieViewClass::Play_Audio(ScriptedMovieLineClass *params)
 		volume = atof(param);
 	}
 	if (slot == -1 || bone_name == NULL) {
-		AudibleSoundClass *sound2d = SoundLibraryClass::Play_2D_Sound(audio_name, 1);
+		AudibleSoundClass *sound2d = SoundLibrary::Play_2D_Sound(audio_name, 1);
 
 
 

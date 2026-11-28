@@ -127,17 +127,17 @@ bool UIPTradeCreditsClass::Unknown_68(int key)
 	switch (key) {
 		case 1:
 		case 2:
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			Unknown0AC->Unknown_74(false);
 			Unknown0C0 = 1;
 			return(true);
 		case 3:
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			Unknown0AC->Unknown_74(false);
 			Unknown0C0 = 2;
 			return(true);
 		case 4:
-			SoundLibraryClass::Play_2D_Sound("message_1.wav", 2);
+			SoundLibrary::Play_2D_Sound("message_1.wav", 2);
 			Unknown0AC->Unknown_74(true);
 			Unknown0AC->Set_Text("", 0);
 			Unknown0CC = true;

@@ -131,7 +131,7 @@ bool UIOptionSliderClass::Unknown_68(int key)
 	ChatPanelInterface *chat = sclient->ChatPanel.Peek();	// NAME 1: neutral (D10)
 	switch (key) {
 		case 1:
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			Unknown_5CF880(true);
 			((SpaceClientClass *)((ClientClass *)Client)->As_Space_Client())->MainView->Unknown_514480();
 			((SpaceClientClass *)((ClientClass *)Client)->As_Space_Client())->MainView->Unknown_5146D0();
@@ -139,7 +139,7 @@ bool UIOptionSliderClass::Unknown_68(int key)
 			Closed = 1;
 			return(true);
 		case 2:
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			if (!Mode) {
 				chat->Unknown_565F30(1);
 			}
@@ -150,7 +150,7 @@ bool UIOptionSliderClass::Unknown_68(int key)
 			Closed = 1;
 			return(true);
 		case 3:
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			if (!Mode) {
 				chat->Unknown_565F30(1);
 			}
@@ -161,13 +161,13 @@ bool UIOptionSliderClass::Unknown_68(int key)
 			Closed = 1;
 			return(true);
 		case 4:
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			chat->Unknown_565F30(10);
 			Unknown_5C();
 			Closed = 1;
 			return(true);
 		case 12:
-			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+			SoundLibrary::Play_2D_Sound("fontclick.wav", 2);
 			Unknown_5CF580();
 			((SpaceClientClass *)((ClientClass *)Client)->As_Space_Client())->MainView->Unknown_514480();
 			((SpaceClientClass *)((ClientClass *)Client)->As_Space_Client())->MainView->Unknown_5146D0();

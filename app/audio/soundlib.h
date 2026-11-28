@@ -68,7 +68,7 @@ public:
 	unsigned int NextCallTime;													// +0x64  // NAME 2: what it holds
 };
 
-class SoundLibraryClass  // NAME 3: from the client's soundlib.cpp ('sound library' in the start-up messages)
+class SoundLibrary  // NAME 5: thunk order, binary.md 5.11
 {
 public:
 	static void Init();															// 0x43E8D0  // NAME 2: what it does

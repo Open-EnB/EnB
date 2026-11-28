@@ -220,24 +220,24 @@ bool UIVaultClass::Unknown_68(int key)
 			Unknown_5C();
 			return(true);
 		case 38:
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			Unknown_657DA0(false);
 			Buttons3[1]->Unknown_6607D0();
 			return(true);
 		case 39:
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			Unknown_657DA0(true);
 			Buttons3[2]->Unknown_6607D0();
 			return(true);
 		case 42:
-			SoundLibraryClass::Play_2D_Sound("TextClick03.wav", 2);
+			SoundLibrary::Play_2D_Sound("TextClick03.wav", 2);
 			return(true);
 		case 43:
 			break;
 		default:
 			return(UIInvClass::Unknown_68(key));
 	}
-	SoundLibraryClass::Play_2D_Sound("TextClick03.wav", 2);
+	SoundLibrary::Play_2D_Sound("TextClick03.wav", 2);
 	FilterName = Filter->Get_Selected_Text();
 	if (FilterName.size() != 0) {
 		StringOptionStruct *option = OptionManagerClass::Instance->Find_String("Inv_Filter_Vault");

@@ -143,11 +143,11 @@ bool CharacterInfoInterface::Unknown_68(int key)
 	case 1:
 	case 2:
 	case 3:
-		SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+		SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 		Unknown_573E80(key);
 		return(true);
 	case 4:
-		SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+		SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 		{
 			SpaceClientClass *client = Client->As_Space_Client();
 			client->PDAInterface->Unknown_695A00(2, 1);

@@ -309,14 +309,14 @@ bool ClassSelectInterface::Unknown_68(int key)
 	GadgetClass *skill = NULL;
 	switch (key) {
 		case 1:
-			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
+			SoundLibrary::Play_2D_Sound("Login_Mouse_Click", 2);
 			CharacterView->Unknown1CC[1] = true;
 			Unknown_575D50();
 			LoginTask->Go_Next_Step();
 			CharacterView->Unknown_67C7B0();
 			return(true);
 		case 2:
-			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
+			SoundLibrary::Play_2D_Sound("Login_Mouse_Click", 2);
 			if (LoginTask->Previous_Step == 1) {
 				LoginTask->Set_Step(1, false);
 			} else {
@@ -329,7 +329,7 @@ bool ClassSelectInterface::Unknown_68(int key)
 			CharacterView->Unknown_67C7B0();
 			return(true);
 		case 3: {
-			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
+			SoundLibrary::Play_2D_Sound("Login_Mouse_Click", 2);
 			int next = Unknown8C - 1;
 			if (next < 0) next = 8;
 			if (Unknown_B7DC98[next]) next = Unknown_5746C0(next, false);
@@ -338,7 +338,7 @@ bool ClassSelectInterface::Unknown_68(int key)
 			return(true);
 		}
 		case 4: {
-			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
+			SoundLibrary::Play_2D_Sound("Login_Mouse_Click", 2);
 			int next = (Unknown8C + 1) % 9;
 			Unknown8C = Unknown_B7DC98[next] ? Unknown_5746C0(next, true) : next;
 			Unknown_5779D0();
@@ -347,13 +347,13 @@ bool ClassSelectInterface::Unknown_68(int key)
 		case 5:
 			break;
 		case 16:
-			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
+			SoundLibrary::Play_2D_Sound("Login_Mouse_Click", 2);
 			CharacterView->Unknown_67B270();
 			Flags.Unknown13D = true;
 			CharacterView->Unknown_67C7B0();
 			return(true);
 		case 6:
-			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
+			SoundLibrary::Play_2D_Sound("Login_Mouse_Click", 2);
 			if (Unknown8C == 0) {
 				break;
 			}
@@ -361,7 +361,7 @@ bool ClassSelectInterface::Unknown_68(int key)
 			Unknown_5779D0();
 			return(true);
 		case 7:
-			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
+			SoundLibrary::Play_2D_Sound("Login_Mouse_Click", 2);
 			if (Unknown8C != 1) {
 				Unknown8C = 1;
 				Unknown_5779D0();
@@ -369,7 +369,7 @@ bool ClassSelectInterface::Unknown_68(int key)
 			return(true);
 
 		case 8:
-			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
+			SoundLibrary::Play_2D_Sound("Login_Mouse_Click", 2);
 			if (Unknown8C == 2) {
 				break;
 			}
@@ -377,7 +377,7 @@ bool ClassSelectInterface::Unknown_68(int key)
 			Unknown_5779D0();
 			return(true);
 		case 9:
-			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
+			SoundLibrary::Play_2D_Sound("Login_Mouse_Click", 2);
 			if (Unknown8C == 3) {
 				break;
 			}
@@ -385,7 +385,7 @@ bool ClassSelectInterface::Unknown_68(int key)
 			Unknown_5779D0();
 			return(true);
 		case 10:
-			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
+			SoundLibrary::Play_2D_Sound("Login_Mouse_Click", 2);
 			if (Unknown8C == 4) {
 				break;
 			}
@@ -393,7 +393,7 @@ bool ClassSelectInterface::Unknown_68(int key)
 			Unknown_5779D0();
 			return(true);
 		case 11:
-			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
+			SoundLibrary::Play_2D_Sound("Login_Mouse_Click", 2);
 			if (Unknown8C == 5) {
 				break;
 			}
@@ -401,7 +401,7 @@ bool ClassSelectInterface::Unknown_68(int key)
 			Unknown_5779D0();
 			return(true);
 		case 12:
-			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
+			SoundLibrary::Play_2D_Sound("Login_Mouse_Click", 2);
 			if (Unknown8C == 6) {
 				break;
 			}
@@ -409,7 +409,7 @@ bool ClassSelectInterface::Unknown_68(int key)
 			Unknown_5779D0();
 			return(true);
 		case 13:
-			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
+			SoundLibrary::Play_2D_Sound("Login_Mouse_Click", 2);
 			if (Unknown8C == 7) {
 				break;
 			}
@@ -417,7 +417,7 @@ bool ClassSelectInterface::Unknown_68(int key)
 			Unknown_5779D0();
 			return(true);
 		case 14:
-			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
+			SoundLibrary::Play_2D_Sound("Login_Mouse_Click", 2);
 			if (Unknown8C == 8) {
 				break;
 			}
@@ -425,35 +425,35 @@ bool ClassSelectInterface::Unknown_68(int key)
 			Unknown_5779D0();
 			return(true);
 		case 17:
-			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
+			SoundLibrary::Play_2D_Sound("Login_Mouse_Click", 2);
 			skill = SkillGadgets[0];
 			break;
 		case 18:
-			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
+			SoundLibrary::Play_2D_Sound("Login_Mouse_Click", 2);
 			skill = SkillGadgets[1];
 			break;
 		case 19:
-			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
+			SoundLibrary::Play_2D_Sound("Login_Mouse_Click", 2);
 			skill = SkillGadgets[2];
 			break;
 		case 20:
-			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
+			SoundLibrary::Play_2D_Sound("Login_Mouse_Click", 2);
 			skill = SkillGadgets[3];
 			break;
 		case 21:
-			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
+			SoundLibrary::Play_2D_Sound("Login_Mouse_Click", 2);
 			skill = SkillGadgets[4];
 			break;
 		case 22:
-			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
+			SoundLibrary::Play_2D_Sound("Login_Mouse_Click", 2);
 			skill = SkillGadgets[5];
 			break;
 		case 23:
-			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
+			SoundLibrary::Play_2D_Sound("Login_Mouse_Click", 2);
 			skill = SkillGadgets[6];
 			break;
 		case 24:
-			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
+			SoundLibrary::Play_2D_Sound("Login_Mouse_Click", 2);
 			skill = SkillGadgets[7];
 			break;
 		default:
@@ -574,7 +574,7 @@ void ClassSelectInterface::Unknown_5779D0()
 		}
 		UnknownEC = 1.0f;
 		UnknownE8 = (float)delta + UnknownE4;
-		SoundLibraryClass::Play_2D_Sound("planet_spin.wav", 2);
+		SoundLibrary::Play_2D_Sound("planet_spin.wav", 2);
 	}
 	CharacterView->Unknown_67C7B0();
 }
@@ -977,7 +977,7 @@ void ClassSelectInterface::Unknown_577DA0(FlashingGadgetEvent *event, GadgetClas
 		// the client's last test compares the gadget with +0x8C itself (cmp eax, [ecx+0x8C]), not a button
 		if (gadget == Buttons[0] || gadget == Buttons[1] || gadget == Buttons[2] ||
 		    gadget == Buttons[3] || gadget == Buttons[4] || gadget == (GadgetClass *)Unknown8C) {
-			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Over_Buttons", 2);
+			SoundLibrary::Play_2D_Sound("Login_Mouse_Over_Buttons", 2);
 		}
 	}
 }

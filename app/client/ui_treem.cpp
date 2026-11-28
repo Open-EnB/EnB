@@ -217,7 +217,7 @@ bool UITreeMClass::Unknown_68(int key)
 						}
 					}
 					Toggle(item);
-					SoundLibraryClass::Play_2D_Sound("TextClick01.wav", 2);
+					SoundLibrary::Play_2D_Sound("TextClick01.wav", 2);
 					return(true);
 				}
 			}

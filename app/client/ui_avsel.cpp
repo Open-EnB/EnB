@@ -448,7 +448,7 @@ bool AvatarSelectionInterface::Unknown_68(int key)
 				Unknown_55F760();
 				return false;
 			case 1: case 2: case 3: case 4: case 5:
-				SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
+				SoundLibrary::Play_2D_Sound("ButtonClick02.wav", 2);
 				if (Unknown096) {
 					Unknown0BC[Unknown090]->Unknown_784A50("/normal", 0, 0);
 				}
@@ -457,7 +457,7 @@ bool AvatarSelectionInterface::Unknown_68(int key)
 				Unknown_55ED20();
 				if (Unknown090 != previous) Unknown_55E8E0(); return true;
 			case 11: case 12: case 13: case 14: case 15:
-				SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
+				SoundLibrary::Play_2D_Sound("ButtonClick02.wav", 2);
 				if (Unknown096) {
 					Unknown0BC[Unknown090]->Unknown_784A50("/normal", 0, 0);
 				}
@@ -466,7 +466,7 @@ bool AvatarSelectionInterface::Unknown_68(int key)
 				Unknown_55ED20();
 				if (Unknown090 != previous) Unknown_55E8E0(); return true;
 			case 6:
-				SoundLibraryClass::Play_2D_Sound("Avatar_Delete_Character", 2);
+				SoundLibrary::Play_2D_Sound("Avatar_Delete_Character", 2);
 				if (Unknown090 >= 0) {
 					Unknown0BC[Unknown090]->Unknown_784A50("/angry please no", 1, 0);
 					Unknown084->Get_Unknown034()->Unknown_588A70("YES_NO", 0, "Confirm deletion of the character?", 0x140, 0, 0);
@@ -476,7 +476,7 @@ bool AvatarSelectionInterface::Unknown_68(int key)
 				}
 				return true;
 			case 7:
-				SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
+				SoundLibrary::Play_2D_Sound("Login_Mouse_Click", 2);
 				if (Unknown090 >= 0) {
 					Unknown08C = 7;
 					Unknown088->Selected = Unknown090;
@@ -503,7 +503,7 @@ bool AvatarSelectionInterface::Unknown_68(int key)
 				}
 				return true;
 			case 8:
-				SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
+				SoundLibrary::Play_2D_Sound("Login_Mouse_Click", 2);
 				if (Unknown096) {
 					if (Unknown0BC[Unknown090]) {
 						Unknown0BC[Unknown090]->Unknown_784A50("/normal", 0, 0);
@@ -521,7 +521,7 @@ bool AvatarSelectionInterface::Unknown_68(int key)
 				return true;
 
 			case 10:
-				SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
+				SoundLibrary::Play_2D_Sound("Login_Mouse_Click", 2);
 				Unknown084->Unknown_67B270();
 				Unknown0F9 = true;
 				Unknown_55EF90();
@@ -533,7 +533,7 @@ bool AvatarSelectionInterface::Unknown_68(int key)
 
 
 	} else {
-		SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
+		SoundLibrary::Play_2D_Sound("ButtonClick02.wav", 2);
 		switch (key) {
 			case 1: case 8:
 				Unknown11C = "";
@@ -758,7 +758,7 @@ void AvatarSelectionInterface::Unknown_55E070()
 		}
 	} else if (Unknown100 != highlight) {
 		Unknown100 = highlight;
-		SoundLibraryClass::Play_2D_Sound("Avatar_Highlight", 2);
+		SoundLibrary::Play_2D_Sound("Avatar_Highlight", 2);
 	}
 }
 
@@ -1135,7 +1135,7 @@ void AvatarSelectionInterface::Unknown_55F6D0(FlashingGadgetEvent *event, Gadget
 	FAIL_IF(!gadget)
 		return;
 	if (gadget->Flash && gadget->Is_Unknown2C_02()) {
-		SoundLibraryClass::Play_2D_Sound("Login_Mouse_Over_Buttons", 2);
+		SoundLibrary::Play_2D_Sound("Login_Mouse_Over_Buttons", 2);
 	}
 }
 

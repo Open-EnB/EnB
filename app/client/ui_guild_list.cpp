@@ -103,7 +103,7 @@ void UIGuildListClass::Unknown_60()
 bool UIGuildListClass::Unknown_68(int key)
 {
 	if (key > 0 && key <= 2) {
-		SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+		SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 		Unknown0A8 = 1;
 		return(true);
 	}

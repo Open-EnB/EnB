@@ -385,10 +385,10 @@ void RadarSystemClass::Unknown_7BD6E0(ClientObjectClass *target)
 			int mode = Client->Get_Mode();
 			if (mode == 1) {
 				if (!WarpPath->Unknown_7B7C80(Client->Get_Avatar(), Target)) {
-					SoundLibraryClass::Play_2D_Sound("starmap_path_statement_1.wav", 2);
+					SoundLibrary::Play_2D_Sound("starmap_path_statement_1.wav", 2);
 				}
 			} else if (!WarpPath->Unknown_7B7EF0(ScanRange, Client->Get_Avatar(), Target)) {
-				SoundLibraryClass::Play_2D_Sound("starmap_path_statement_1.wav", 2);
+				SoundLibrary::Play_2D_Sound("starmap_path_statement_1.wav", 2);
 			}
 		}
 	}
@@ -433,7 +433,7 @@ void RadarSystemClass::Unknown_7BD860(ClientObjectClass *hover)
 // @0x7BD920
 void RadarSystemClass::Unknown_7BD920(int index)
 {
-	SoundLibraryClass::Play_2D_Sound("starmap_pass_buoy_1.wav", 2);
+	SoundLibrary::Play_2D_Sound("starmap_pass_buoy_1.wav", 2);
 	if (!TargetPath->Set_Index(index)) {
 		TargetPath->Clear();
 	}

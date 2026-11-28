@@ -64,7 +64,7 @@ bool ClientTaskClass::Init(KernelClass *kernel, TicketClass *ticket, const std::
 	Ticket = Client->Ticket = *ticket;
 	OptionManagerClass::Instance->Load(ticket->Character_ID, Client);
 	fontDatabase->Unknown_6C47B0();
-	SoundLibraryClass::Apply_Volumes();
+	SoundLibrary::Apply_Volumes();
 	Client->Kernel = kernel;
 	Client->Init();
 	Address = address;

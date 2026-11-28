@@ -236,7 +236,7 @@ bool ViewButtonClass::Unknown_2C(KernelEventClass *event, float x, float y, unsi
 				TargetSelectClass *targeting = sclient->Targeting;
 				FAIL_IF(!targeting) return(true);
 				targeting->Select_And_Set_Filter(hover);
-				SoundLibraryClass::Play_2D_Sound("TextClick01.wav", 2);
+				SoundLibrary::Play_2D_Sound("TextClick01.wav", 2);
 			}
 		} else {
 			mouse->Unknown_515120(2);

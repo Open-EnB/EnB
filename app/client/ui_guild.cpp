@@ -258,13 +258,13 @@ bool UIGuildClass::Unknown_68(int key)
 {
 	switch (key) {
 		case 1:
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			Unknown_5C();
 			Closed = 1;
 			return(true);
 		case 2:
 			Unknown0C8 = 2;
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			Unknown0C4->Unknown_64A270("Recruit Member");
 			Unknown0C4->Unknown_58();
 			Unknown0C4->Unknown_64A2B0("");
@@ -272,7 +272,7 @@ bool UIGuildClass::Unknown_68(int key)
 			return(true);
 		case 8:
 			Unknown0C8 = 8;
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			Unknown0C0->Unknown_64A270("Enter Guild Message");
 			Unknown0C0->Unknown_58();
 			Unknown0C0->Unknown_64A2B0("");
@@ -280,7 +280,7 @@ bool UIGuildClass::Unknown_68(int key)
 			return(true);
 		case 13:
 			Unknown0C8 = 13;
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			Unknown0C0->Unknown_64A270("Enter Guild Name");
 			Unknown0C0->Unknown_58();
 			Unknown0C0->Unknown_64A2B0("");
@@ -288,7 +288,7 @@ bool UIGuildClass::Unknown_68(int key)
 			return(true);
 		case 7:
 			Unknown0C8 = 7;
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			Unknown0C4->Unknown_64A270("Set Member Tag");
 			Unknown0C4->Unknown_58();
 			Unknown0C4->Unknown_64A2B0("");
@@ -298,23 +298,23 @@ bool UIGuildClass::Unknown_68(int key)
 		case 4:
 		case 5:
 		case 12:
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			Unknown_81B610(key);
 			return(true);
 		case 11:
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			((ClientClass *)Client)->Send_Packet(&ClientChatPacketClass(((ClientClass *)Client)->Get_Avatar_ID(), "/gc leave", 3, NULL));
 			return(true);
 		case 6:
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			((ClientClass *)Client)->Send_Packet(&ClientChatPacketClass(((ClientClass *)Client)->Get_Avatar_ID(), "/gc disband", 3, NULL));
 			return(true);
 		case 9:
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			((ClientClass *)Client)->Send_Packet(&ClientChatPacketClass(((ClientClass *)Client)->Get_Avatar_ID(), "/gc publicstats on", 3, NULL));
 			return(true);
 		case 10:
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			((ClientClass *)Client)->Send_Packet(&ClientChatPacketClass(((ClientClass *)Client)->Get_Avatar_ID(), "/gc publicstats off", 3, NULL));
 			return(true);
 		case 15:
@@ -324,7 +324,7 @@ bool UIGuildClass::Unknown_68(int key)
 		case 19:
 		case 20:
 		case 21:
-			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+			SoundLibrary::Play_2D_Sound("fontclick.wav", 2);
 			Unknown_81B3F0(key - 15); Unknown0CC.size();	// dead read (D130)
 			return(true);
 	}

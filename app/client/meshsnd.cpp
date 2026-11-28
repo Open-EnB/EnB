@@ -132,9 +132,9 @@ void MeshSoundClass::Unknown_7ED410(RenderObjClass *mesh)
 		if (BoneName != NULL) {
 			BoneIndex = Model->Get_Bone_Index(BoneName);
 			Matrix3D tm = Model->Get_Bone_Transform(BoneIndex);
-			Sound = SoundLibraryClass::Play_3D_Sound(Name, tm, 0, 1.0f);
+			Sound = SoundLibrary::Play_3D_Sound(Name, tm, 0, 1.0f);
 		} else {
-			Sound = (Sound3DClass *)SoundLibraryClass::Play_2D_Sound(Name, 0);
+			Sound = (Sound3DClass *)SoundLibrary::Play_2D_Sound(Name, 0);
 		}
 	}
 	if (Sound != NULL) {

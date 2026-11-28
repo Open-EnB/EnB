@@ -276,7 +276,7 @@ void TalkTreeInterface::Unknown_58()
 		if (ActiveUI) {
 			Unknown_64DF80(false);
 		} else {
-			SoundLibraryClass::Play_2D_Sound("message_1.wav", 2);
+			SoundLibrary::Play_2D_Sound("message_1.wav", 2);
 			Unknown_64EDC0(true);
 		}
 		Unknown158 = 0;
@@ -538,7 +538,7 @@ bool TalkTreeInterface::Unknown_68(int event_id)
 	switch (event_id) {
 		case 6:
 		case 11:
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			Unknown154 = TALK_TREE_QUIT;
 			Unknown150 = true;
 			return(true);
@@ -546,12 +546,12 @@ bool TalkTreeInterface::Unknown_68(int event_id)
 			if (!Buttons[BTTN_MORE]->Is_Enabled()) {
 				return(true);
 			}
-			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+			SoundLibrary::Play_2D_Sound("fontclick.wav", 2);
 			Buttons[BTTN_MORE]->Unknown_40(false);
 			Unknown_64DB20(false);
 			return(true);
 		case 9:
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			Unknown_64E430(false);
 			return(true);
 		case 12:
@@ -610,7 +610,7 @@ bool TalkTreeInterface::Unknown_68(int event_id)
 	Unknown_64D100();
 	PlayerText += Responses[event_id].Text;
 	Unknown_Append(PlayerText, " "); Responses.size();	// dead read (D130)
-	SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+	SoundLibrary::Play_2D_Sound("fontclick.wav", 2);
 	Unknown150 = true;
 	return(true);
 }
@@ -629,7 +629,7 @@ void TalkTreeInterface::Unknown_60()
 		Unknown_5C();
 	}
 	if (!SpeechFile.empty() && !NPCSpeechHandle) {
-		NPCSpeechHandle = Create_Get(SoundLibraryClass::Play_Dialog(SpeechFile.c_str(), 1));
+		NPCSpeechHandle = Create_Get(SoundLibrary::Play_Dialog(SpeechFile.c_str(), 1));
 		if (!NPCSpeechHandle) {
 			SpeechFile.max_size(); SpeechFile.max_size(); SpeechFile.erase();	// two dead reads (D272)
 		}

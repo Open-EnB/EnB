@@ -88,7 +88,7 @@ bool UIPetitionClass::Unknown_68(int key)
 {
 	switch (key) {
 		case 1:
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			if (Page) {
 				Page->Unknown_94();
 			} else {
@@ -102,7 +102,7 @@ bool UIPetitionClass::Unknown_68(int key)
 				Page = Create_Get(new PopupBrowserInterface((SpaceClientClass *)((ClientClass *)Client)->As_Space_Client(), 0, "Knowledgebase", NULL));
 				Page->Unknown_54();
 				Page->Unknown_7C(View, 1);
-				SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+				SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			}
 			break;
 		case 3:
@@ -111,7 +111,7 @@ bool UIPetitionClass::Unknown_68(int key)
 				Page = Create_Get(new PopupBrowserInterface((SpaceClientClass *)((ClientClass *)Client)->As_Space_Client(), 2, "Bug Submission", NULL));
 				Page->Unknown_54();
 				Page->Unknown_7C(View, 1);
-				SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+				SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			}
 			break;
 		case 4:
@@ -120,7 +120,7 @@ bool UIPetitionClass::Unknown_68(int key)
 				Page = Create_Get(new PopupBrowserInterface((SpaceClientClass *)((ClientClass *)Client)->As_Space_Client(), 1, "Tech Support", NULL));
 				Page->Unknown_54();
 				Page->Unknown_7C(View, 1);
-				SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+				SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			}
 			break;
 		case 5:
@@ -136,7 +136,7 @@ bool UIPetitionClass::Unknown_68(int key)
 			Page->Unknown_54();
 			Page->Unknown_88(InterfaceMesh, "TRANS_BONE");
 			Page->Unknown_7C(View, 1);
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			Unknown_5D4070(key);
 			return(true);
 		case 7:
@@ -148,7 +148,7 @@ bool UIPetitionClass::Unknown_68(int key)
 			Page->Unknown_5417D0(this);
 			Page->Unknown_54();
 			Page->Unknown_7C(View, 1);
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			break;
 		default:
 			return(false);

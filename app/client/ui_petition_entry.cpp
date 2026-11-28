@@ -213,11 +213,11 @@ bool UIPetitionEntryClass::Unknown_68(int key)
 			Closed = 1;
 			return(true);
 		case 1:
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			Unknown_94();
 			return(true);
 		case 3:
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			if (Has_Text(true) && Unknown_A0()) {
 				Unknown_5C();
 				Closed = 2;

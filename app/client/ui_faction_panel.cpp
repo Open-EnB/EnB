@@ -88,7 +88,7 @@ bool UIFactionPanelClass::Unknown_68(int key)
 {
 	switch (key) {
 		case 1:
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			Unknown_5C();
 			return(true);
 	}

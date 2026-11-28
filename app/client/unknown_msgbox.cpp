@@ -282,7 +282,7 @@ bool ViewUnknown34Class::Unknown_68(int key)
 		} else {
 			Button = key;
 		}
-		SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+		SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 		return(true);
 	}
 	return(false);
@@ -322,7 +322,7 @@ void ViewUnknown34Class::Unknown_588A70(const char *type, bool follow_mouse, con
 	Queue.front();
 	FollowMouse = follow_mouse;
 	Unknown_58();
-	SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+	SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 	if (Active) {
 		HideOnKey = hide_on_key;
 	}

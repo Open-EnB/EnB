@@ -126,7 +126,7 @@ void UISpaceLightsClass::Unknown_60()
 bool UISpaceLightsClass::Unknown_68(int key)
 {
 	((ClientClass *)Client)->As_Space_Client();
-	SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+	SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 	switch (key) {
 		case 1:
 			Unknown_586AA0();

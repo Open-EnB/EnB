@@ -280,9 +280,9 @@ void EffectClass::Unknown_6E70F0()
 	Unknown_6E7330();
 	if (Unknown34 && *Unknown34) {
 		if (!(bool)Flag.Unknown4) {
-			Unknown38 = SoundLibraryClass::Play_3D_Sound(Unknown34, Matrix3D(true), 0, 1.0f);
+			Unknown38 = SoundLibrary::Play_3D_Sound(Unknown34, Matrix3D(true), 0, 1.0f);
 		} else {
-			Unknown38 = SoundLibraryClass::Play_2D_Sound(Unknown34, 0);
+			Unknown38 = SoundLibrary::Play_2D_Sound(Unknown34, 0);
 		}
 	}
 	if (Unknown38) {

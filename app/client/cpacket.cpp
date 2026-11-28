@@ -1120,7 +1120,7 @@ bool CameraControlPacketClass::Process_Packet(void *instance)
 			{ int id = GameID; sclient->Unknown13AC = id; }
 			sclient->Get_Ship()->Unknown_6FC950(true);
 			sclient->Get_Ship()->Unknown_6FC880();
-			SoundLibraryClass::Play_2D_Sound("Docking_Init", 2);
+			SoundLibrary::Play_2D_Sound("Docking_Init", 2);
 			if (sclient->MusicManager) {
 				sclient->MusicManager->Fade_Out();
 			}
@@ -2590,7 +2590,7 @@ bool ClientChatEventPacketClass::Process_Packet(void *instance)
 				}
 				sclient->Unknown_74D990(3, buffer, 0);
 				sclient->Unknown_750F70(name, 3);
-				SoundLibraryClass::Play_2D_Sound("private_message_beep", 2);
+				SoundLibrary::Play_2D_Sound("private_message_beep", 2);
 				if (sclient->ChatPanel) {
 					sclient->ChatPanel->Unknown_565D80(name);
 				}
@@ -2803,7 +2803,7 @@ bool MessageChatstreamPacketClass::Process_Packet(void *instance)
 				avatar->Unknown_7817E0()->Unknown_4C48C0(text);
 				sclient->Unknown_74D990(Color, text, 0);
 				delete [] text;
-				SoundLibraryClass::Play_2D_Sound("private_message_beep", 2);
+				SoundLibrary::Play_2D_Sound("private_message_beep", 2);
 			}
 		}
 	}
@@ -3041,7 +3041,7 @@ bool ClientChatErrorPacketClass::Process_Packet(void *instance)
 			case 21: _snprintf(buffer, sizeof(buffer), "Set channel %s access to %s.", channel, other); break;
 			case 22:
 				_snprintf(buffer, sizeof(buffer), "A password has been set for channel %s.", channel);
-				SoundLibraryClass::Play_2D_Sound("success_1.wav", 2);
+				SoundLibrary::Play_2D_Sound("success_1.wav", 2);
 				break;
 			case 20: _snprintf(buffer, sizeof(buffer), "Kicked %s from channel %s.", name, channel); break;
 		}
@@ -3312,7 +3312,7 @@ bool GuildMessageSectorPacket::Process_Packet(void *instance)
 	Substitute_Symbols(text, symbols);
 	sclient->Unknown_74DFF0(8, text.c_str(), MessageType, 0);
 	if (Unknown_83D970(MessageType)) {
-		SoundLibraryClass::Play_2D_Sound(Unknown_83D970(MessageType), 2);
+		SoundLibrary::Play_2D_Sound(Unknown_83D970(MessageType), 2);
 	}
 	return(true);
 }

@@ -476,10 +476,10 @@ bool LoginInterface::Unknown_68(int key)
 			default:
 				return(false);
 		}
-		SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
+		SoundLibrary::Play_2D_Sound("Login_Mouse_Click", 2);
 		return(true);
 	}
-	SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
+	SoundLibrary::Play_2D_Sound("ButtonClick02.wav", 2);
 	switch (key) {
 		case 4:
 		case 5:
@@ -865,7 +865,7 @@ void LoginInterface::Unknown_5AE9D0(FlashingGadgetEvent *event, GadgetClass *sen
 
 	FAIL_IF(!gadget) return;
 	if (gadget->Flash && gadget->Is_Unknown2C_02()) {
-		SoundLibraryClass::Play_2D_Sound("Login_Mouse_Over_Buttons", 2);
+		SoundLibrary::Play_2D_Sound("Login_Mouse_Over_Buttons", 2);
 	}
 }
 

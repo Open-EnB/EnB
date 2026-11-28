@@ -521,7 +521,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		Unknown_6832C0();
 
 		Unknown_Debug_Begin_Step("initializing sound library");
-		SoundLibraryClass::Init();
+		SoundLibrary::Init();
 		Unknown_Debug_End_Step("ok");
 
 		Unknown_Debug_Begin_Step("initializing sound manager");
@@ -632,7 +632,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		Unknown_Debug_End_Step("ok");
 
 		Unknown_Debug_Begin_Step("shutting down sound library");
-		SoundLibraryClass::Shutdown();
+		SoundLibrary::Shutdown();
 		Unknown_Debug_End_Step("ok");
 		Unknown_683940();
 

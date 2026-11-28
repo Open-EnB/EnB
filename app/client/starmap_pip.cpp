@@ -686,7 +686,7 @@ bool StarmapPIPClass::Unknown_7C0FA0()
 
 			FAIL_IF(!targeting) return(false);
 			targeting->Select_And_Set_Filter(hover);
-			SoundLibraryClass::Play_2D_Sound("TextClick01.wav", 2);
+			SoundLibrary::Play_2D_Sound("TextClick01.wav", 2);
 			return(true);
 		}
 	}

@@ -112,7 +112,7 @@ bool UIRadioAdminClass::Unknown_68(int key)
 	switch (key) {
 		case 1:
 		case 7:
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			Unknown_5C();
 			Closed = 1;
 			return(true);
@@ -121,7 +121,7 @@ bool UIRadioAdminClass::Unknown_68(int key)
 		case 4:
 		case 5:
 		case 6:
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			Unknown_5E5360(key);
 			return(true);
 		case 9:
@@ -131,7 +131,7 @@ bool UIRadioAdminClass::Unknown_68(int key)
 		case 13:
 		case 14:
 		case 15:
-			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+			SoundLibrary::Play_2D_Sound("fontclick.wav", 2);
 			Unknown_5E5290(key - 9);
 			return(true);
 	}

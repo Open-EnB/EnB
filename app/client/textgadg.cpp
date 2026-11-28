@@ -80,7 +80,7 @@ bool TextBaseGadgetClass::Unknown_2C(KernelEventClass *event, float x, float y, 
 		if (!event->Is_Up()) {
 			switch (event->Key) {
 				case 9:
-					SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+					SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 					Unknown_74(false);
 					if (Next != NULL) {
 						Next->Unknown_74(true);
@@ -89,16 +89,16 @@ bool TextBaseGadgetClass::Unknown_2C(KernelEventClass *event, float x, float y, 
 					}
 					break;
 				case 0x0D:
-					SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+					SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 					Unknown_74(false);
 					break;
 				case 0x1B:
-					SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+					SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 					Unknown_74(false);
 					Unknown3A = true;
 					break;
 				default:
-					SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+					SoundLibrary::Play_2D_Sound("fontclick.wav", 2);
 					if (Edit->Process_Key(event)) {
 						Unknown3B = true;
 						Changed = true;

@@ -100,7 +100,7 @@ bool UICommandsClass::Unknown_68(int key)
 	switch (key) {
 		case 1:
 		case 2:
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			Unknown_5C();
 			Closed = 1;
 			return(true);
@@ -111,7 +111,7 @@ bool UICommandsClass::Unknown_68(int key)
 		case 8:
 		case 9:
 		case 10:
-			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+			SoundLibrary::Play_2D_Sound("fontclick.wav", 2);
 			Unknown_57CB60(key - 4);
 			return(true);
 	}

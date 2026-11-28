@@ -72,7 +72,7 @@ void SoundManagerClass::Unknown_75B0D0(const char *name, int channel)
 		Sounds[channel]->Stop(true);
 		Sounds[channel]->Release_Ref(); Sounds[channel] = NULL;
 	}
-	Sounds[channel] = SoundLibraryClass::Play_2D_Sound(name, 1);
+	Sounds[channel] = SoundLibrary::Play_2D_Sound(name, 1);
 }
 
 // 0x75B170
@@ -102,7 +102,7 @@ void SoundManagerClass::Unknown_75B320()
 		}
 		if (Sounds[i] == NULL && !Queues[i].empty()) {
 			SoundManagerQueueEntryStruct *entry = Queues[i].front();
-			Sounds[i] = SoundLibraryClass::Play_2D_Sound(entry->Name, 1);
+			Sounds[i] = SoundLibrary::Play_2D_Sound(entry->Name, 1);
 			delete entry;
 			Queues[i].pop_front();
 		}

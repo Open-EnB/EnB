@@ -619,7 +619,7 @@ void GadgetSlider::Unknown_A4(float val, bool arg2)
 		int index = (int)floor(val);
 		if (UnknownD8 != index) {
 			UnknownD8 = index;
-			SoundLibraryClass::Play_2D_Sound("slider_bar_1.wav", 2);
+			SoundLibrary::Play_2D_Sound("slider_bar_1.wav", 2);
 			Get_Signal_Map().emit(this, GadgetSliderEvent(UnknownD8));
 		}
 		Value = val;

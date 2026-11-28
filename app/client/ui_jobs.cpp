@@ -216,7 +216,7 @@ bool UIJobsClass::Unknown_68(int key)
 	if (!Unknown0C4) {
 		switch (key) {
 			case 2:
-				SoundLibraryClass::Play_2D_Sound("INTERFACE_MenuSlide01C.wav", 2);
+				SoundLibrary::Play_2D_Sound("INTERFACE_MenuSlide01C.wav", 2);
 				((StarbaseViewClass *)View->Unknown_30())->Unknown_69F440();
 				return(true);
 			case 3:

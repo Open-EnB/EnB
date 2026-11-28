@@ -209,29 +209,29 @@ bool UIFriendsClass::Unknown_68(int key)
 {
 	switch (key) {
 		case 1:
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			Unknown_5C();
 			Closed = 1;
 			return(true);
 		case 2:
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			Unknown0B0->Unknown_58();
 			Unknown0B0->Unknown_64A2B0("");
 			return(true);
 		case 3:
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			Unknown_5910D0();
 			return(true);
 		case 4:
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			Unknown_591A30();
 			return(true);
 		case 5:
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			Unknown_591EE0();
 			return(true);
 		case 10:
-			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+			SoundLibrary::Play_2D_Sound("fontclick.wav", 2);
 			Unknown10C[0]->Unknown_7E8030(true);
 			Unknown10C[1]->Unknown_7E8030(false);
 			if (Unknown0AD) {
@@ -240,7 +240,7 @@ bool UIFriendsClass::Unknown_68(int key)
 			}
 			return(true);
 		case 11:
-			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+			SoundLibrary::Play_2D_Sound("fontclick.wav", 2);
 			Unknown10C[0]->Unknown_7E8030(false);
 			Unknown10C[1]->Unknown_7E8030(true);
 			if (!Unknown0AD) {
@@ -249,19 +249,19 @@ bool UIFriendsClass::Unknown_68(int key)
 			}
 			return(true);
 		case 6:
-			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+			SoundLibrary::Play_2D_Sound("fontclick.wav", 2);
 			Unknown0AC = false;
 			Unknown_5908B0();
 			Unknown_590550();
 			return(true);
 		case 7:
-			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+			SoundLibrary::Play_2D_Sound("fontclick.wav", 2);
 			Unknown0AC = true;
 			Unknown_5908B0();
 			Unknown_590550();
 			return(true);
 		case 8:
-			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+			SoundLibrary::Play_2D_Sound("fontclick.wav", 2);
 			Unknown_591C30();
 			return(true);
 		case 13:
@@ -271,7 +271,7 @@ bool UIFriendsClass::Unknown_68(int key)
 		case 17:
 		case 18:
 		case 19:
-			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+			SoundLibrary::Play_2D_Sound("fontclick.wav", 2);
 			Unknown_590DB0(key - 13);
 			return(true);
 	}

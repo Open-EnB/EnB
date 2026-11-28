@@ -46,15 +46,15 @@ bool Unknown5DD960Class::Unknown_68(int key)
 	SpaceClientClass *sclient = (SpaceClientClass *)Client;
 	switch (key - 5) {
 		case 1:
-			SoundLibraryClass::Play_2D_Sound("ButtonClick01.wav", 2);
+			SoundLibrary::Play_2D_Sound("ButtonClick01.wav", 2);
 			sclient->Unknown_74D990(0x13, "Facing not implemented.", 0);
 			return(true);
 		case 2:
-			SoundLibraryClass::Play_2D_Sound("ButtonClick01.wav", 2);
+			SoundLibrary::Play_2D_Sound("ButtonClick01.wav", 2);
 			sclient->Unknown_74D990(0x13, "Tracking not implemented.", 0);
 			return(true);
 		case 3:
-			SoundLibraryClass::Play_2D_Sound("ButtonClick01.wav", 2);
+			SoundLibrary::Play_2D_Sound("ButtonClick01.wav", 2);
 			sclient->Unknown_74D990(0x13, "Orient not implemented.", 0);
 			return(true);
 	}

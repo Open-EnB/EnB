@@ -143,7 +143,7 @@ bool ChatGadgetClass::Unknown_2C(KernelEventClass *event, float x, float y, unsi
 				break;
 			default:
 				if (Edit->Process_Key(event)) {
-					SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+					SoundLibrary::Play_2D_Sound("fontclick.wav", 2);
 					Changed = true;
 				} else {
 					Unknown_65DE90(event);
@@ -551,7 +551,7 @@ bool ChatGadgetClass::Unknown_65DE90(KernelEventClass *event)
 			break;
 	}
 	if (!Active) {
-		SoundLibraryClass::Play_2D_Sound("message_1.wav", 2);
+		SoundLibrary::Play_2D_Sound("message_1.wav", 2);
 		Unknown_74(true);
 	}
 	Changed = true;

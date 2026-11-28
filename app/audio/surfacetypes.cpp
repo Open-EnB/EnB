@@ -108,7 +108,7 @@ void Unknown_4428E0(int surfacetype, const Matrix3D &tm)	// NAME 1 [Unknown_4428
 		surfacetype = 0;
 	}
 	if (SoundRunning[surfacetype] != NULL) {
-		SoundLibraryClass::Play_3D_Sound(SoundRunning[surfacetype], tm, 2, 1.0f);
+		SoundLibrary::Play_3D_Sound(SoundRunning[surfacetype], tm, 2, 1.0f);
 	}
 }
 
@@ -123,7 +123,7 @@ void Unknown_442930(int surfacetype, const Matrix3D &tm)	// NAME 1 [Unknown_4429
 		surfacetype = 0;
 	}
 	if (SoundWalking[surfacetype] != NULL) {
-		SoundLibraryClass::Play_3D_Sound(SoundWalking[surfacetype], tm, 2, 1.0f);
+		SoundLibrary::Play_3D_Sound(SoundWalking[surfacetype], tm, 2, 1.0f);
 	}
 }
 

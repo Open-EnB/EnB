@@ -717,7 +717,7 @@ void UIScutBarClass::Unknown_611F60(int group)
 	if (Group != group) {
 		Group = group;
 		Bank->Unknown_612820(group);
-		SoundLibraryClass::Play_2D_Sound(Group != 0 ? "bank_toggle_a_sn_1.wav" : "bank_toggle_b_sn_1.wav", 2);
+		SoundLibrary::Play_2D_Sound(Group != 0 ? "bank_toggle_a_sn_1.wav" : "bank_toggle_b_sn_1.wav", 2);
 		Mesh->Peek_Object()->Set_Sub_Object_Transforms_Dirty(true);
 		for (lp = 0; lp < NUM_SHORTCUT_BUTTONS; lp++) {
 			ProxyButtons[lp]->Set_Target((RenderObjGadgetClass *)Shortcuts[Group][lp]);
@@ -790,7 +790,7 @@ void UIScutBarClass::Unknown_611F60(int group)
 bool UIScutBarClass::Unknown_6120E0(int key)
 {
 	if (Bank->Unknown1C == key) {
-		SoundLibraryClass::Play_2D_Sound("SR_generalclick04.wav", 2);
+		SoundLibrary::Play_2D_Sound("SR_generalclick04.wav", 2);
 		Unknown_611F60(Group + 1);
 		return(true);
 	}

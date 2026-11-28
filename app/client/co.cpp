@@ -1482,11 +1482,11 @@ void ClientObjectClass::Unknown_6FBEF0()
 			switch (UnknownF8) {
 				case 5:
 					((SpaceClientClass *)Client->As_Space_Client())->Unknown_74D990(0x11, "Engine unavailable. Please wait.", 0);
-					SoundLibraryClass::Play_2D_Sound("On_Fail", 2);
+					SoundLibrary::Play_2D_Sound("On_Fail", 2);
 					break;
 				case 6:
 					if (Type == 1) {
-						SoundLibraryClass::Play_2D_Sound("On_Fail", 2);
+						SoundLibrary::Play_2D_Sound("On_Fail", 2);
 						((SpaceClientClass *)Client->As_Space_Client())->Unknown_74D990(0x11, "Warp failed - local gravity interference.", 0);
 					}
 					break;
@@ -1537,9 +1537,9 @@ void ClientObjectClass::Unknown_6FBEF0()
 			_snprintf(loop, sizeof(loop), "engine_loop_%d", trail_id);
 			_snprintf(sound, sizeof(sound), "warp_start_%d", level);
 			if (player) {
-				SoundLibraryClass::Play_2D_Sound(sound, 2);
+				SoundLibrary::Play_2D_Sound(sound, 2);
 			} else {
-				SoundLibraryClass::Play_3D_Sound(sound, Unknown_28(true), 2, 1.0f);
+				SoundLibrary::Play_3D_Sound(sound, Unknown_28(true), 2, 1.0f);
 			}
 			if (Unknown118) {
 				Unknown118->Stop(true);
@@ -1551,8 +1551,8 @@ void ClientObjectClass::Unknown_6FBEF0()
 				Unknown11C->Remove_From_Scene();
 				Unknown11C->Release_Ref();
 			}
-			if (player) { static const float v25 = 2.5f; Unknown118 = SoundLibraryClass::Play_3D_Sound(loop, Unknown_28(true), 0, v25); } else { Unknown118 = SoundLibraryClass::Play_3D_Sound(loop, Unknown_28(true), 0, 1.0f); }	// two calls, as the client pushes 2.5f and 1.0f separately (F8)
-			Unknown11C = SoundLibraryClass::Play_3D_Sound("Warp_Secondary", Unknown_28(true), 0, 1.0f);
+			if (player) { static const float v25 = 2.5f; Unknown118 = SoundLibrary::Play_3D_Sound(loop, Unknown_28(true), 0, v25); } else { Unknown118 = SoundLibrary::Play_3D_Sound(loop, Unknown_28(true), 0, 1.0f); }	// two calls, as the client pushes 2.5f and 1.0f separately (F8)
+			Unknown11C = SoundLibrary::Play_3D_Sound("Warp_Secondary", Unknown_28(true), 0, 1.0f);
 			if (Unknown118) {
 				Unknown118->Attach_To_Object(RenderObject, -1);
 			}
@@ -1591,9 +1591,9 @@ void ClientObjectClass::Unknown_6FBEF0()
 			_snprintf(sound, sizeof(sound), "warp_enter_%d", level);
 			if (player) {
 				((SpaceClientClass *)Client)->CameraManager->Unknown_79B2B0(3);
-				SoundLibraryClass::Play_2D_Sound(sound, 2);
+				SoundLibrary::Play_2D_Sound(sound, 2);
 			} else {
-				SoundLibraryClass::Play_3D_Sound(sound, Unknown_28(true), 2, 1.0f);
+				SoundLibrary::Play_3D_Sound(sound, Unknown_28(true), 2, 1.0f);
 			}
 			if (Unknown118) {
 				Unknown118->Add_To_Scene(true);
@@ -1626,9 +1626,9 @@ void ClientObjectClass::Unknown_6FBEF0()
 		case 3: case 7: case 8: case 9: case 11:	// (the lines after l.1620 are short: 0x6FC880 follows)
 			_snprintf(sound, sizeof(sound), "warp_exit_%d", level);
 			if (player) {
-				((SpaceClientClass *)Client)->CameraManager->Unknown_79B2B0(4); SoundLibraryClass::Play_2D_Sound(sound, 2);
+				((SpaceClientClass *)Client)->CameraManager->Unknown_79B2B0(4); SoundLibrary::Play_2D_Sound(sound, 2);
 			} else {
-				SoundLibraryClass::Play_3D_Sound(sound, Unknown_28(true), 2, 1.0f);
+				SoundLibrary::Play_3D_Sound(sound, Unknown_28(true), 2, 1.0f);
 			}
 			if (Unknown_6F5A40() && Unknown184 != true) {
 				Play_State_Animation(RenderObject, 2, 0); Unknown184 = true;
@@ -1964,9 +1964,9 @@ void ClientObjectClass::Unknown_6FDBD0()
 			} else {
 				_snprintf(sound, sizeof(sound), "npc_engine_loop_%d", BaseAsset % 6);
 			}
-			Unknown120 = SoundLibraryClass::Play_3D_Sound(sound, Unknown_28(false), 0, 1.0f);
+			Unknown120 = SoundLibrary::Play_3D_Sound(sound, Unknown_28(false), 0, 1.0f);
 			if (!Unknown120) {
-				Unknown120 = SoundLibraryClass::Play_3D_Sound("engine_loop_1", Unknown_28(false), 0, 1.0f);
+				Unknown120 = SoundLibrary::Play_3D_Sound("engine_loop_1", Unknown_28(false), 0, 1.0f);
 			}
 			if (Unknown120) {
 				Unknown120->Attach_To_Object(RenderObject, -1);
@@ -1982,9 +1982,9 @@ void ClientObjectClass::Unknown_6FDBD0()
 			} else {
 				_snprintf(sound, sizeof(sound), "npc_thrust_loop_%d", BaseAsset % 6);
 			}
-			Unknown124 = SoundLibraryClass::Play_3D_Sound(sound, Unknown_28(false), 0, 1.0f);
+			Unknown124 = SoundLibrary::Play_3D_Sound(sound, Unknown_28(false), 0, 1.0f);
 			if (!Unknown124) {
-				Unknown124 = SoundLibraryClass::Play_3D_Sound("imploop1.wav", Unknown_28(false), 0, 1.0f);
+				Unknown124 = SoundLibrary::Play_3D_Sound("imploop1.wav", Unknown_28(false), 0, 1.0f);
 			}
 			if (Unknown124) {
 				Unknown124->Attach_To_Object(RenderObject, -1);
@@ -2124,13 +2124,13 @@ void ClientObjectClass::Unknown_6FE1E0()
 		unsigned now = Client->Unknown10BC;
 		if ((unsigned)Unknown154 < now) {
 			if (Unknown104[0] == 4 || Unknown104[1] == 4 || Unknown104[2] == 4 || Unknown104[3] == 4 || Unknown104[4] == 4) {
-				SoundLibraryClass::Play_3D_Sound("Level_3_Ship_Damage", Unknown_28(true), 2, 1.0f);
+				SoundLibrary::Play_3D_Sound("Level_3_Ship_Damage", Unknown_28(true), 2, 1.0f);
 				Unknown154 = now + 4000;
 			} else if (Unknown104[0] == 3 || Unknown104[1] == 3 || Unknown104[2] == 3 || Unknown104[3] == 3 || Unknown104[4] == 3) {
-				SoundLibraryClass::Play_3D_Sound("Level_2_Ship_Damage", Unknown_28(true), 2, 1.0f);
+				SoundLibrary::Play_3D_Sound("Level_2_Ship_Damage", Unknown_28(true), 2, 1.0f);
 				Unknown154 = now + 5000;
 			} else if (Unknown104[0] == 2 || Unknown104[1] == 2 || Unknown104[2] == 2 || Unknown104[3] == 2 || Unknown104[4] == 2) {
-				SoundLibraryClass::Play_3D_Sound("Level_1_Ship_Damage", Unknown_28(true), 2, 1.0f);
+				SoundLibrary::Play_3D_Sound("Level_1_Ship_Damage", Unknown_28(true), 2, 1.0f);
 				Unknown154 = now + 6000;
 			}
 		}

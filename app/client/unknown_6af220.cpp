@@ -127,16 +127,16 @@ bool Unknown6AF220Class::Unknown_68(int key)
 {
 	switch (key) {
 		case 1:
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			Unknown_5C();
 			Closed = 1;
 			return(true);
 		case 2:
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			Unknown_6B0C80();
 			return(true);
 		case 3:
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			Unknown_6B0E90();
 			return(true);
 		case 6:
@@ -146,7 +146,7 @@ bool Unknown6AF220Class::Unknown_68(int key)
 		case 10:
 		case 11:
 		case 12:
-			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+			SoundLibrary::Play_2D_Sound("fontclick.wav", 2);
 			Unknown_6B0820(key - 6);
 			Items.size();	// dead read (D130, not the client's code): spends the inline budget so the expanded 0x6B0820 calls the map's lower_bound 0x6B18E0 out of line as the client does
 			return(true);

@@ -3509,7 +3509,7 @@
 "data:?_AllSkills@SkillNamesDatabase@@0V?$vector@PAVSkillNameClass@@V?$allocator@PAVSkillNameClass@@@std@@@std@@A": [
 "0xBE8E28"
 ],
-"data:?_Audio@SoundLibraryClass@@2PAVWWAudioClass@@A": [
+"data:?_Audio@SoundLibrary@@2PAVWWAudioClass@@A": [
 "0xBDAC68"
 ],
 "data:?_C@?1??_Nullstr@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@CAPBDXZ@4DB": [
@@ -3518,25 +3518,25 @@
 "data:?_Cltab@?$ctype@D@std@@0PBFB": [
 "0xC40F70"
 ],
-"data:?_CurrentDialog@SoundLibraryClass@@2PAVAudibleSoundClass@@A": [
+"data:?_CurrentDialog@SoundLibrary@@2PAVAudibleSoundClass@@A": [
 "0xBDAC6C"
 ],
-"data:?_DefaultDialogVolume@SoundLibraryClass@@2MA": [
+"data:?_DefaultDialogVolume@SoundLibrary@@2MA": [
 "0xB6F40C"
 ],
-"data:?_DefaultDropOffRadius@SoundLibraryClass@@2MA": [
+"data:?_DefaultDropOffRadius@SoundLibrary@@2MA": [
 "0xB6F3FC"
 ],
-"data:?_DefaultMaxInstances@SoundLibraryClass@@2HA": [
+"data:?_DefaultMaxInstances@SoundLibrary@@2HA": [
 "0xB6F410"
 ],
-"data:?_DefaultMaxVolRadius@SoundLibraryClass@@2MA": [
+"data:?_DefaultMaxVolRadius@SoundLibrary@@2MA": [
 "0xB6F400"
 ],
 "data:?_DefaultPSW@ControlKeysManager@@2V?$vector@UKeyMappingStruct@@V?$allocator@UKeyMappingStruct@@@std@@@std@@A": [
 "0xBE7BB8"
 ],
-"data:?_DefaultPriority@SoundLibraryClass@@2MA": [
+"data:?_DefaultPriority@SoundLibrary@@2MA": [
 "0xB6F404"
 ],
 "data:?_DefaultSIM@ControlKeysManager@@2V?$vector@UKeyMappingStruct@@V?$allocator@UKeyMappingStruct@@@std@@@std@@A": [
@@ -3545,7 +3545,7 @@
 "data:?_DefaultUser@ControlKeysManager@@2V?$vector@UKeyMappingStruct@@V?$allocator@UKeyMappingStruct@@@std@@@std@@A": [
 "0xBE7BF8"
 ],
-"data:?_DefaultVolume@SoundLibraryClass@@2MA": [
+"data:?_DefaultVolume@SoundLibrary@@2MA": [
 "0xB6F408"
 ],
 "data:?_DirtyList@GClass@@2V?$DynamicVectorClass@PAVGClass@@@@A": [
@@ -3593,10 +3593,10 @@
 "data:?_Module@@3VCComModule@ATL@@A": [
 "0xBE87E8"
 ],
-"data:?_NextDialogDef@SoundLibraryClass@@2PAVSoundDefClass@@A": [
+"data:?_NextDialogDef@SoundLibrary@@2PAVSoundDefClass@@A": [
 "0xBDAC70"
 ],
-"data:?_NextDialogName@SoundLibraryClass@@2PADA": [
+"data:?_NextDialogName@SoundLibrary@@2PADA": [
 "0xBDAC74"
 ],
 "data:?_Nil@?$_Tree@DU?$pair@$$CBDPAVChatFilterNodeClass@@@std@@U_Kfn@?$map@DPAVChatFilterNodeClass@@U?$less@D@std@@V?$allocator@PAVChatFilterNodeClass@@@3@@2@U?$less@D@2@V?$allocator@PAVChatFilterNodeClass@@@2@@std@@1PAU_Node@12@A": [
@@ -3701,7 +3701,7 @@
 "data:?_ParticleEmitterLoader@@3VParticleEmitterLoaderClass@@A": [
 "0xBFAE1C"
 ],
-"data:?_PlayUndefined@SoundLibraryClass@@2_NA": [
+"data:?_PlayUndefined@SoundLibrary@@2_NA": [
 "0xBDAC78"
 ],
 "data:?_PresetATestBlendSpriteShader@ShaderClass@@2V1@A": [
@@ -3770,7 +3770,7 @@
 "data:?_SkillIndex@SkillNamesDatabase@@0V?$hash_map@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@HU?$hash@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@U?$equal_to@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@V?$allocator@H@2@@std@@A": [
 "0xBE8E38"
 ],
-"data:?_SoundDefs@SoundLibraryClass@@2V?$hash_map@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@PAVSoundDefClass@@U?$hash@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@U?$equal_to@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@V?$allocator@PAVSoundDefClass@@@2@@std@@A": [
+"data:?_SoundDefs@SoundLibrary@@2V?$hash_map@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@PAVSoundDefClass@@U?$hash@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@U?$equal_to@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@V?$allocator@PAVSoundDefClass@@@2@@std@@A": [
 "0xBDAC48"
 ],
 "data:?_SphereLoader@@3VSphereLoaderClass@@A": [

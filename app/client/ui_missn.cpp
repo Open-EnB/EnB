@@ -264,14 +264,14 @@ bool MissionInterface::Unknown_68(int key)
 		if (index == CurrentMission) {
 			Unknown_5C5DB0(-1);
 		} else {
-			SoundLibraryClass::Play_2D_Sound("TextClick03.wav", 2);
+			SoundLibrary::Play_2D_Sound("TextClick03.wav", 2);
 			Unknown_5C5DB0(index);
 		}
 		return(true);
 	}
 	switch (key) {
 		case 4:
-			SoundLibraryClass::Play_2D_Sound("TextClick03.wav", 2);
+			SoundLibrary::Play_2D_Sound("TextClick03.wav", 2);
 			if (UnknownC0 && UnknownC4) {
 				UnknownC4->Unknown_588A70("UI_MISSN", true, NULL, 0, false, false);
 				return(true);
@@ -693,7 +693,7 @@ void MissionInterface::Unknown_5C66D0()
 	int playerid = ((ClientClass *)Client)->Unknown1138;
 	if (UnknownC0) {
 		((ClientClass *)Client)->Send_Packet(&MissionForfeitPacketClass(playerid, id));
-		SoundLibraryClass::Play_2D_Sound("Mission_Forfeited", 2);
+		SoundLibrary::Play_2D_Sound("Mission_Forfeited", 2);
 	} else {
 		((ClientClass *)Client)->Send_Packet(&MissionDismissPacketClass(playerid, id));
 	}

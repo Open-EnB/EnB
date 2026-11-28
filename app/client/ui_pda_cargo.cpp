@@ -219,36 +219,36 @@ bool UIPdaCargoClass::Unknown_68(int key)
 {
 	switch (key) {
 		case 14:
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			PDA->Unknown_695D70(1);
 			return(true);
 		case 13:
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			PDA->Unknown_695D70(3);
 			return(true);
 		case 15:
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			Unknown_5D0D20(false);
 			Buttons5[2]->Unknown_6607D0();
 			return(true);
 		case 16:
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			Unknown_5D0D20(true);
 			Buttons5[3]->Unknown_6607D0();
 			return(true);
 		case 17:
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			PDA->Unknown_695A00(0, true);
 			return(true);
 		case 20:
-			SoundLibraryClass::Play_2D_Sound("TextClick03.wav", 2);
+			SoundLibrary::Play_2D_Sound("TextClick03.wav", 2);
 			return(true);
 		case 21:
 			break;
 		default:
 			return(UIInvClass::Unknown_68(key));
 	}
-	SoundLibraryClass::Play_2D_Sound("TextClick03.wav", 2);
+	SoundLibrary::Play_2D_Sound("TextClick03.wav", 2);
 	FilterName = Filter->Get_Selected_Text();
 	if (FilterName.size() != 0) {
 		StringOptionStruct *option = OptionManagerClass::Instance->Find_String("Inv_Filter_Cargo");

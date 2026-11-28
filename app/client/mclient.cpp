@@ -270,7 +270,7 @@ void MovieClientClass::Render()
 				tm.Rotate_X(-1.5707964f);
 				tm.Rotate_Z(1.5707964f);
 			}
-			SoundLibraryClass::Set_Listener_Transform(tm);
+			SoundLibrary::Set_Listener_Transform(tm);
 			WWAudioClass::Get_Instance()->On_Frame_Update(0);
 		}
 	}

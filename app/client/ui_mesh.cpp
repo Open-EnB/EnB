@@ -487,7 +487,7 @@ void UIMeshClass::Unknown_5BA0B0(int slot, const char *name)
 
 void UIMeshClass::Unknown_5BA270(const char *name)
 {
-	SoundLibraryClass::Play_2D_Sound(name, 2);
+	SoundLibrary::Play_2D_Sound(name, 2);
 }
 
 bool UIMeshClass::Unknown_5BA2A0(int slot)

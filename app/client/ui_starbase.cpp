@@ -1294,7 +1294,7 @@ void StarbaseInterface::Unknown_63C590()
 				char anim[64];
 				_snprintf(anim, sizeof(anim), "%sbar06.%sbar06-1", Unknown_B8A950[column], Unknown_B8A950[column]);
 				UnknownB0->Unknown_69F540(Unknown128[i], anim, i + 2, false, !open);
-				if (open) SoundLibraryClass::Play_2D_Sound(Unknown_B8A900[column], 2); else SoundLibraryClass::Play_2D_Sound(Unknown_B8A928[column], 2);
+				if (open) SoundLibrary::Play_2D_Sound(Unknown_B8A900[column], 2); else SoundLibrary::Play_2D_Sound(Unknown_B8A928[column], 2);
 				Unknown138[i] = open;
 			}
 		}
@@ -1486,7 +1486,7 @@ bool StarbaseInterface::Unknown_68(int key)
 		case 0x12:
 		case 0x13:
 		case 0x14:
-			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
+			SoundLibrary::Play_2D_Sound("ButtonClick02.wav", 2);
 			Unknown_63B630(0x11, key - 0x11);
 			return(true);
 		case 2:
@@ -1503,7 +1503,7 @@ bool StarbaseInterface::Unknown_68(int key)
 		case 13:
 		case 14:
 		case 15:
-			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
+			SoundLibrary::Play_2D_Sound("ButtonClick02.wav", 2);
 			Unknown_63B630(2, key - 2);
 			return(true);
 		case 1:
@@ -1519,7 +1519,7 @@ bool StarbaseInterface::Unknown_68(int key)
 					_snprintf(anim, sizeof(anim), "%sa.%sa-out", Unknown_B8A978[column], Unknown_B8A978[column]);
 				}
 				InterfaceMesh->Unknown_5B8EE0(0, 0, anim, false, 0, 0, 0, -1);
-				SoundLibraryClass::Play_2D_Sound(Unknown_B8A8D8[column], 2);
+				SoundLibrary::Play_2D_Sound(Unknown_B8A8D8[column], 2);
 				UnknownC0.D->Avatar->Unknown_7896B0(3);
 				UnknownB0->Unknown_69CBE0();
 				UnknownC0.E = 4;
@@ -3180,7 +3180,7 @@ void StarbaseInterface::Unknown_6415B0()
 		} else {
 			_snprintf(anim, sizeof(anim), "%sa.%sa-in", Unknown_B8A978[column], Unknown_B8A978[column]);
 		}
-		SoundLibraryClass::Play_2D_Sound(Unknown_B8A8B0[column], 2);
+		SoundLibrary::Play_2D_Sound(Unknown_B8A8B0[column], 2);
 	}
 	InterfaceMesh->Unknown_5B8EE0(0, 0, anim, false, 0, 0, 0, -1);
 	InterfaceMesh->Unknown_5B9410();

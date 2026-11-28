@@ -465,7 +465,7 @@ bool AttributeSkillsInterface::Unknown_68(int key)
 			break;
 		default:
 			if (key >= 5005) {
-				SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+				SoundLibrary::Play_2D_Sound("fontclick.wav", 2);
 				UnknownEC = key - 5005;
 				Unknown_54B400();
 

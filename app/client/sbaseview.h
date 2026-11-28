@@ -392,7 +392,7 @@ public:
 	static unsigned Fast_Allocation_Count(class FastAllocatorGeneral *allocator);	// inlined in 0x6A1180 (frameint.cpp's 0x53F250)  // NAME 2: as FastAllocatorGeneral::Get_Fast_Allocation_Count
 	void Unknown_6A1180();	// 0x6A1180: the frame rate and the client's debug pages, its text rendered (0x69C5E0 calls it before End_Render)
 	void Unknown_6A1B80();	// 0x6A1B80: the GROUP_INVITE box's answer sent (0x69C8F0 calls it every frame; as ui_group.cpp's 0x597650)
-	void Unknown_6A1000(const char *name);	// 0x6A1000: the sound +0x1C0, looped  // NAME 1 [name]: what SoundLibraryClass::Play_2D_Sound gets
+	void Unknown_6A1000(const char *name);	// 0x6A1000: the sound +0x1C0, looped  // NAME 1 [name]: what SoundLibrary::Play_2D_Sound gets
 	void Unknown_6A1130();	// 0x6A1130: the sound +0x1C0 stopped
 	void Unknown_6A2480();	// 0x6A2480 (FAIL_IF 'Client == NULL', l.1667)
 	void Unknown_6A0FD0(LoungeNPCPacketClass *packet);	// 0x6A0FD0 (LOUNGE_NPC 82)  // NAME 1 [packet]: the handler's packet

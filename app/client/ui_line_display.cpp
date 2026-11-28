@@ -743,7 +743,7 @@ void LineDisplayInterface::Unknown_5A8350()
 						}
 					}
 					if (sound) {
-						SoundLibraryClass::Play_2D_Sound(sound, 2);
+						SoundLibrary::Play_2D_Sound(sound, 2);
 					}
 				}
 			}

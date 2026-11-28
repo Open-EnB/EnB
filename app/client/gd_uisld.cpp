@@ -314,7 +314,7 @@ void UISliderGadget::Unknown_675CF0(int count, int a, int b)
 void UISliderGadget::Unknown_A4(int top)
 {
 	if (Unknown0B4 != top) {
-		SoundLibraryClass::Play_2D_Sound("SR_rollover14b.wav", 2);
+		SoundLibrary::Play_2D_Sound("SR_rollover14b.wav", 2);
 	}
 	Unknown0B4 = top;
 	int range = abs(Unknown0B0 - Unknown0AC);

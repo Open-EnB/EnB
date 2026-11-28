@@ -160,13 +160,13 @@ bool UIGroupFindClass::Unknown_68(int key)
 {
 	switch (key) {
 		case 1:
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			Unknown_5C();
 			return(true);
 		case 2:
 		case 3:
 		case 4:
-			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+			SoundLibrary::Play_2D_Sound("fontclick.wav", 2);
 			Unknown_599F30(key - 2);
 			return(true);
 		case 6:
@@ -177,7 +177,7 @@ bool UIGroupFindClass::Unknown_68(int key)
 		case 11:
 		case 12:
 		case 13:
-			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+			SoundLibrary::Play_2D_Sound("fontclick.wav", 2);
 			Unknown_59A290(key - 6);
 			return(true);
 	}

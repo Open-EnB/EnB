@@ -239,7 +239,7 @@ play40:
 			else {
 				Character->Unknown_5742B0(0);
 				sound = "SR_scifielectronic42.wav";
-				{ AudibleSoundClass *audible = SoundLibraryClass::Play_2D_Sound(sound, 0);
+				{ AudibleSoundClass *audible = SoundLibrary::Play_2D_Sound(sound, 0);
 				if (audible) {
 					audible->Set_Pan(0.5f);
 					audible->Play(true);
@@ -351,7 +351,7 @@ play40:
 	}
 	sound = "SR_scifielectronic42.wav";
 play:
-	AudibleSoundClass *audible = SoundLibraryClass::Play_2D_Sound(sound, 0);
+	AudibleSoundClass *audible = SoundLibrary::Play_2D_Sound(sound, 0);
 	if (audible) {
 		audible->Set_Pan(0.5f);
 		audible->Play(true);

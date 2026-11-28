@@ -195,7 +195,7 @@ void NavListLineDrawClass::Unknown_7B9DC0(int index)
 				if (Unknown20 >= 1.0f) {
 					CurLine++;
 					Unknown20 = 0.0f;
-					SoundLibraryClass::Play_2D_Sound(CurLine >= count ? "starmap_build_destination_1.wav" : "starmap_build_1.wav", 2);
+					SoundLibrary::Play_2D_Sound(CurLine >= count ? "starmap_build_destination_1.wav" : "starmap_build_1.wav", 2);
 				} else {
 					end = (end - start) * Unknown20 + start;
 				}

@@ -98,13 +98,13 @@ bool UIRadioJoinClass::Unknown_68(int key)
 	ChatPanelInterface *chat = sclient->ChatPanel.Peek();	// NAME 1: neutral (D10)
 	switch (key) {
 		case 1:
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			Entry->Unknown_74(false);
 			Unknown_5C();
 			Closed = 1;
 			return(true);
 		case 2:
-			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+			SoundLibrary::Play_2D_Sound("fontclick.wav", 2);
 			if (Entry) {
 				Entry->Unknown_74(true);
 				Entry->Set_Text("", 0);
@@ -112,7 +112,7 @@ bool UIRadioJoinClass::Unknown_68(int key)
 			}
 			return(true);
 		case 3:
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			Entry->Unknown_74(false);
 			Unknown_5C();
 			Closed = 1;
@@ -121,7 +121,7 @@ bool UIRadioJoinClass::Unknown_68(int key)
 			}
 			return(true);
 		case 4:
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			Entry->Unknown_74(false);
 			Unknown_5C();
 			Closed = 1;

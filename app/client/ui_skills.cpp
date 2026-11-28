@@ -102,7 +102,7 @@ bool UISkillsClass::Unknown_98(SlotDataGadget *gadget, KernelEventClass *event, 
 	bool up = event->Up;
 	bool right = (mask & 0xF0) != 0;
 	if (!up) {
-		SoundLibraryClass::Play_2D_Sound("TextClick03.wav", 2);
+		SoundLibrary::Play_2D_Sound("TextClick03.wav", 2);
 	}
 	UISkillInfoClass *info = Unknown9C->Unknown_8C();
 	if (info && info->UnknownB0) {

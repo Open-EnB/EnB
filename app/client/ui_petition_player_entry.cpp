@@ -316,7 +316,7 @@ bool UIPetitionPlayerNameClass::Unknown_68(int key)
 				FAIL_IF(!sclient) return(true);
 				ClientObjectClass *target = sclient->Get_Target();	// NAME 1: neutral (D10)
 				if (target && target->Type == 1) {
-					SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+					SoundLibrary::Play_2D_Sound("fontclick.wav", 2);
 					AuxDataName owner("Owner");
 					DeltaString *t = Unknown_Find_Set_Field<DeltaString>((DeltaContainer *)target->AuxData, owner);	// NAME 1: neutral (D10)
 					if (!t) {
@@ -333,7 +333,7 @@ bool UIPetitionPlayerNameClass::Unknown_68(int key)
 					return(true);
 				}
 				sclient->Unknown_74D990(0x13, "Player target must be selected!", 0);
-				SoundLibraryClass::Play_2D_Sound("failure_1.wav", 2);
+				SoundLibrary::Play_2D_Sound("failure_1.wav", 2);
 			}
 			return(true);
 	}

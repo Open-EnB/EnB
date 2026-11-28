@@ -691,17 +691,17 @@ bool AvatarCreationInterface::Unknown_68(int key)
 		case 4:
 			Unknown_557290();
 			Unknown094->Unknown_84(desc);
-			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
+			SoundLibrary::Play_2D_Sound("Login_Mouse_Click", 2);
 			return(true);
 		case 1:
 			Unknown_5582A0();
 			Unknown_556B20(0);
-			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
+			SoundLibrary::Play_2D_Sound("Login_Mouse_Click", 2);
 			return(true);
 		case 2:
 			Unknown_556B20(1);
 			Unknown_55B650();
-			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
+			SoundLibrary::Play_2D_Sound("Login_Mouse_Click", 2);
 			Unknown08C->Unknown_67C7B0();
 			if (!TutorialManagerClass::Instance->Is_Completed("AvatarCreationHead")) {
 				Unknown08C->Unknown_67C920("1492_00_351se.mp3");
@@ -713,7 +713,7 @@ bool AvatarCreationInterface::Unknown_68(int key)
 		case 3:
 			Unknown_556B20(2);
 			Unknown_55B650();
-			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
+			SoundLibrary::Play_2D_Sound("Login_Mouse_Click", 2);
 			Unknown08C->Unknown_67C7B0();
 			if (!TutorialManagerClass::Instance->Is_Completed("AvatarCreationBody")) {
 				Unknown08C->Unknown_67C920("1492_00_355se.mp3");
@@ -728,7 +728,7 @@ bool AvatarCreationInterface::Unknown_68(int key)
 			Unknown08C->Unknown_67ACE0(1);
 			Unknown08C->Set_Unknown1CD(true);
 			Unknown090->Go_Next_Step();
-			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
+			SoundLibrary::Play_2D_Sound("Login_Mouse_Click", 2);
 			Unknown08C->Unknown_67C7B0();
 			return(true);
 		case 0x10:
@@ -738,116 +738,116 @@ bool AvatarCreationInterface::Unknown_68(int key)
 			Unknown08C->Unknown_67A670();
 			Unknown08C->Set_Unknown1CD(true);
 			Unknown090->Go_Back_Step();
-			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
+			SoundLibrary::Play_2D_Sound("Login_Mouse_Click", 2);
 			Unknown08C->Unknown_67C7B0();
 			return(true);
 		case 0x3A:
 			Unknown08C->Unknown_67B270();
 			Unknown1C5 = true;
 			Unknown08C->Unknown_67C7B0();
-			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
+			SoundLibrary::Play_2D_Sound("Login_Mouse_Click", 2);
 			return(true);
 		case 5:
 			Unknown094->Unknown_8C();
-			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2); return(true);
+			SoundLibrary::Play_2D_Sound("ButtonClick02.wav", 2); return(true);
 		case 0xA:
 			Unknown094->Unknown_88();
-			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2); return(true);
+			SoundLibrary::Play_2D_Sound("ButtonClick02.wav", 2); return(true);
 		case 0x12:
 			Unknown_559010(1);
-			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2); return(true);
+			SoundLibrary::Play_2D_Sound("ButtonClick02.wav", 2); return(true);
 		case 0x13:
 			Unknown_559010(2);
-			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2); return(true);
+			SoundLibrary::Play_2D_Sound("ButtonClick02.wav", 2); return(true);
 		case 0x14:
 			Unknown_5591E0(1);
-			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2); return(true);
+			SoundLibrary::Play_2D_Sound("ButtonClick02.wav", 2); return(true);
 		case 0x15:
 			Unknown_5591E0(2);
-			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2); return(true);
+			SoundLibrary::Play_2D_Sound("ButtonClick02.wav", 2); return(true);
 		case 0x16:
 			Unknown2DC->Unknown_585CC0(); desc->Unknown_77F000(Unknown2DC->Get_Unknown18()); desc->Unknown_780810(Unknown08C->Peek_Unknown3A4());
-			Unknown094->Unknown_84(desc); SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2); return(true);
+			Unknown094->Unknown_84(desc); SoundLibrary::Play_2D_Sound("ButtonClick02.wav", 2); return(true);
 		case 0x17:
 			Unknown2DC->Unknown_585C90(); desc->Unknown_77F000(Unknown2DC->Get_Unknown18()); desc->Unknown_780810(Unknown08C->Peek_Unknown3A4());
-			Unknown094->Unknown_84(desc); SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2); return(true);
+			Unknown094->Unknown_84(desc); SoundLibrary::Play_2D_Sound("ButtonClick02.wav", 2); return(true);
 		case 0x18:
 			Unknown2E8->Unknown_585CC0(); desc->Unknown_7857D0(Unknown2E8->Get_Unknown18());
-			Unknown094->Unknown_84(desc); SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2); return(true);
+			Unknown094->Unknown_84(desc); SoundLibrary::Play_2D_Sound("ButtonClick02.wav", 2); return(true);
 		case 0x19:
 			Unknown2E8->Unknown_585C90(); desc->Unknown_7857D0(Unknown2E8->Get_Unknown18());
-			Unknown094->Unknown_84(desc); SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2); return(true);
+			Unknown094->Unknown_84(desc); SoundLibrary::Play_2D_Sound("ButtonClick02.wav", 2); return(true);
 		case 0x1A:
 			Unknown2EC->Unknown_585CC0(); desc->Unknown_7859F0(Unknown2EC->Get_Unknown18()); Unknown_55B2D0();
-			Unknown094->Unknown_84(desc); SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2); return(true);
+			Unknown094->Unknown_84(desc); SoundLibrary::Play_2D_Sound("ButtonClick02.wav", 2); return(true);
 		case 0x1B:
 			Unknown2EC->Unknown_585C90(); desc->Unknown_7859F0(Unknown2EC->Get_Unknown18()); Unknown_55B2D0();
-			Unknown094->Unknown_84(desc); SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2); return(true);
+			Unknown094->Unknown_84(desc); SoundLibrary::Play_2D_Sound("ButtonClick02.wav", 2); return(true);
 		case 0x1C:
 			Unknown2F0->Unknown_585CC0(); desc->Unknown_77FCE0(Unknown2F0->Get_Unknown18(), 1); TheDX8MeshRenderer.Invalidate();
-			desc->Unknown_780810(Unknown08C->Peek_Unknown3A4()); Unknown094->Unknown_84(desc); SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2); return(true);
+			desc->Unknown_780810(Unknown08C->Peek_Unknown3A4()); Unknown094->Unknown_84(desc); SoundLibrary::Play_2D_Sound("ButtonClick02.wav", 2); return(true);
 		case 0x1D:
 			Unknown2F0->Unknown_585C90(); desc->Unknown_77FCE0(Unknown2F0->Get_Unknown18(), 1); TheDX8MeshRenderer.Invalidate();
-			desc->Unknown_780810(Unknown08C->Peek_Unknown3A4()); Unknown094->Unknown_84(desc); SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2); return(true);
+			desc->Unknown_780810(Unknown08C->Peek_Unknown3A4()); Unknown094->Unknown_84(desc); SoundLibrary::Play_2D_Sound("ButtonClick02.wav", 2); return(true);
 		case 0x1E:
 			Unknown2F4->Unknown_585CC0(); desc->Unknown_77FC90(Unknown2F4->Get_Unknown18(), 1); TheDX8MeshRenderer.Invalidate();
-			desc->Unknown_780810(Unknown08C->Peek_Unknown3A4()); Unknown094->Unknown_84(desc); SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2); return(true);
+			desc->Unknown_780810(Unknown08C->Peek_Unknown3A4()); Unknown094->Unknown_84(desc); SoundLibrary::Play_2D_Sound("ButtonClick02.wav", 2); return(true);
 		case 0x1F:
 			Unknown2F4->Unknown_585C90(); desc->Unknown_77FC90(Unknown2F4->Get_Unknown18(), 1); TheDX8MeshRenderer.Invalidate();
-			desc->Unknown_780810(Unknown08C->Peek_Unknown3A4()); Unknown094->Unknown_84(desc); SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2); return(true);
+			desc->Unknown_780810(Unknown08C->Peek_Unknown3A4()); Unknown094->Unknown_84(desc); SoundLibrary::Play_2D_Sound("ButtonClick02.wav", 2); return(true);
 		case 0x20:
 		case 0x21:
 			Unknown_Set_Palette("fa_avatar_color.tga");
 			Unknown_55B110(key);
-			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2); return(true);
+			SoundLibrary::Play_2D_Sound("ButtonClick02.wav", 2); return(true);
 		case 0x22:
 			Unknown_Set_Palette("fa_skin_color.tga"); Unknown08C->Peek_Model(); Unknown08C->Peek_Model();
 			Unknown_55B110(key);
-			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2); return(true);
+			SoundLibrary::Play_2D_Sound("ButtonClick02.wav", 2); return(true);
 		case 0x26:
 			Unknown_558D30(1);
-			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2); return(true);
+			SoundLibrary::Play_2D_Sound("ButtonClick02.wav", 2); return(true);
 		case 0x27:
 			Unknown_558D30(2);
-			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2); return(true);
+			SoundLibrary::Play_2D_Sound("ButtonClick02.wav", 2); return(true);
 		case 0x28:
 			Unknown_558EA0(1);
-			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2); return(true);
+			SoundLibrary::Play_2D_Sound("ButtonClick02.wav", 2); return(true);
 		case 0x29:
 			Unknown_558EA0(2);
-			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2); return(true);
+			SoundLibrary::Play_2D_Sound("ButtonClick02.wav", 2); return(true);
 		case 0x2A:
 		case 0x2B:
 		case 0x2C:
 		case 0x2D:
 			Unknown_55B110(key);
-			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2); return(true);
+			SoundLibrary::Play_2D_Sound("ButtonClick02.wav", 2); return(true);
 		case 0x2E:
 			Unknown_55A550(0, false, 0.0f, 0.05f);
-			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2); return(true);
+			SoundLibrary::Play_2D_Sound("ButtonClick02.wav", 2); return(true);
 		case 0x2F:
 			Unknown_55A550(0, false, 0.0f, -0.05f);
-			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2); return(true);
+			SoundLibrary::Play_2D_Sound("ButtonClick02.wav", 2); return(true);
 		case 0x30:
 			Unknown_55A550(0, false, -0.05f, 0.0f);
-			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2); return(true);
+			SoundLibrary::Play_2D_Sound("ButtonClick02.wav", 2); return(true);
 		case 0x31:
 			Unknown_55A550(0, false, 0.05f, 0.0f);
-			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2); return(true);
+			SoundLibrary::Play_2D_Sound("ButtonClick02.wav", 2); return(true);
 		case 0x32:
 			Unknown_55B9A0(0);
-			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2); return(true);
+			SoundLibrary::Play_2D_Sound("ButtonClick02.wav", 2); return(true);
 		case 0x33:
 			Unknown_55B9A0(1);
-			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
+			SoundLibrary::Play_2D_Sound("ButtonClick02.wav", 2);
 			return(true);
 		case 0x34:
 			Unknown_55B9A0(2);
-			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2); return(true);
+			SoundLibrary::Play_2D_Sound("ButtonClick02.wav", 2); return(true);
 		default:
 			return(false);
 	}
-	SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
+	SoundLibrary::Play_2D_Sound("ButtonClick02.wav", 2);
 	return(true);
 }
 
@@ -2212,7 +2212,7 @@ void AvatarCreationInterface::Unknown_55C280(FlashingGadgetEvent *event, GadgetC
 		return;
 	if (gadget->Flash && gadget->Is_Unknown2C_02()) {
 		if (gadget == Unknown098[0] || gadget == Unknown098[1] || gadget == Unknown098[2] || gadget == Unknown098[3] || gadget == Unknown098[14] || gadget == Unknown098[15]) {
-			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Over_Buttons", 2);
+			SoundLibrary::Play_2D_Sound("Login_Mouse_Over_Buttons", 2);
 		}
 	}
 }

@@ -752,7 +752,7 @@ bool GroupInterface::Unknown_68(int key)
 				targeting->Select_Group_Member(k);
 				Unknown0E8->Unknown_593180(Members[k]->Unknown18);
 			} }
-			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2); if (SymbolChatUI) { SymbolChatUI->Unknown_5C(); } break;
+			SoundLibrary::Play_2D_Sound("fontclick.wav", 2); if (SymbolChatUI) { SymbolChatUI->Unknown_5C(); } break;
 		default:
 			return(false);
 		case 17:
@@ -761,7 +761,7 @@ bool GroupInterface::Unknown_68(int key)
 		case 20:
 		case 21:
 			SymbolChatUI->Unknown_58();
-			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+			SoundLibrary::Play_2D_Sound("fontclick.wav", 2);
 			return(true);
 		case 23:
 		case 24:
@@ -773,7 +773,7 @@ bool GroupInterface::Unknown_68(int key)
 
 				((ClientClass *)Client)->Send_Packet(&RequestTargetTargetPacketClass(((ClientClass *)Client)->Get_Avatar_ID(), Members[key - 23]->ID));
 			} }
-			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+			SoundLibrary::Play_2D_Sound("fontclick.wav", 2);
 			if (!SymbolChatUI) return(true);
 			SymbolChatUI->Unknown_5C();
 			return(true);
@@ -795,7 +795,7 @@ bool GroupInterface::Unknown_68(int key)
 					Members[key - 41]->Unknown20 = 0;
 				}
 			}
-			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2); } if (SymbolChatUI) { SymbolChatUI->Unknown_5C(); } break;
+			SoundLibrary::Play_2D_Sound("fontclick.wav", 2); } if (SymbolChatUI) { SymbolChatUI->Unknown_5C(); } break;
 		case 29:
 		case 30:
 		case 31:
@@ -806,7 +806,7 @@ bool GroupInterface::Unknown_68(int key)
 
 				((ClientClass *)Client)->Send_Packet(&CTARequestPacketClass(((ClientClass *)Client)->Get_Avatar_ID(), Members[key - 29]->ID, 12));
 			}
-			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2); } if (SymbolChatUI) { SymbolChatUI->Unknown_5C(); } break;
+			SoundLibrary::Play_2D_Sound("fontclick.wav", 2); } if (SymbolChatUI) { SymbolChatUI->Unknown_5C(); } break;
 		case 35:
 		case 36:
 		case 37:
@@ -822,7 +822,7 @@ bool GroupInterface::Unknown_68(int key)
 					((ClientClass *)Client)->Send_Packet(&Action2PacketClass(((ClientClass *)Client)->Get_Avatar_ID(), 15, Members[key - 35]->Name.c_str(), 0));
 				}
 			}
-			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2); } if (SymbolChatUI) { SymbolChatUI->Unknown_5C(); } break;
+			SoundLibrary::Play_2D_Sound("fontclick.wav", 2); } if (SymbolChatUI) { SymbolChatUI->Unknown_5C(); } break;
 		case 1:
 			if (modifier) return(true);
 			if (!Unknown0F1 && Unknown0C0[0]) {
@@ -832,13 +832,13 @@ bool GroupInterface::Unknown_68(int key)
 			}
 			Unknown_598370();
 			Unknown_597E40(!Unknown0F0);
-			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+			SoundLibrary::Play_2D_Sound("fontclick.wav", 2);
 			return(true);
 		case 2:
 			if (!modifier) {
 
 			((ClientClass *)Client)->Send_Packet(&CTARequestPacketClass(((ClientClass *)Client)->Get_Avatar_ID(), -1, 12));
-			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+			SoundLibrary::Play_2D_Sound("fontclick.wav", 2);
 			}	return(true);
 		case 3:
 			if (!modifier) {
@@ -854,42 +854,42 @@ bool GroupInterface::Unknown_68(int key)
 			Unknown_597E40(false);
 
 			((ClientClass *)Client)->Send_Packet(&CTARequestPacketClass(((ClientClass *)Client)->Get_Avatar_ID(), 0, 9));
-			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+			SoundLibrary::Play_2D_Sound("fontclick.wav", 2);
 			return(true);
 		case 4:
 			if (modifier || sclient->Unknown_74D690()) return(true);
 			Unknown_597E40(false);
 
 			((ClientClass *)Client)->Send_Packet(&CTARequestPacketClass(((ClientClass *)Client)->Get_Avatar_ID(), 0, 7));
-			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+			SoundLibrary::Play_2D_Sound("fontclick.wav", 2);
 			return(true);
 		case 5:
 			if (modifier || sclient->Unknown_74D690()) return(true);
 			Unknown_597E40(false);
 
 			((ClientClass *)Client)->Send_Packet(&CTARequestPacketClass(((ClientClass *)Client)->Get_Avatar_ID(), 0, 8));
-			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+			SoundLibrary::Play_2D_Sound("fontclick.wav", 2);
 			return(true);
 		case 7:
 			if (modifier || !sclient->Unknown_74D690()) return(true);
 			Unknown_597E40(false);
 
 			((ClientClass *)Client)->Send_Packet(&CTARequestPacketClass(((ClientClass *)Client)->Get_Avatar_ID(), 0, 4));
-			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+			SoundLibrary::Play_2D_Sound("fontclick.wav", 2);
 			return(true);
 		case 9:
 			if (modifier || !sclient->Unknown_74D690()) return(true);
 			Unknown_597E40(false);
 
 			((ClientClass *)Client)->Send_Packet(&CTARequestPacketClass(((ClientClass *)Client)->Get_Avatar_ID(), 0, 5));
-			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+			SoundLibrary::Play_2D_Sound("fontclick.wav", 2);
 			return(true);
 		case 8:
 			if (modifier || !sclient->Unknown_74D690()) return(true);
 			Unknown_597E40(false);
 
 			((ClientClass *)Client)->Send_Packet(&CTARequestPacketClass(((ClientClass *)Client)->Get_Avatar_ID(), 0, 6));
-			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+			SoundLibrary::Play_2D_Sound("fontclick.wav", 2);
 			return(true);
 		case 47:
 			if (modifier || !sclient->Unknown_74D570() || sclient->Unknown_74D690()) return(true);
@@ -903,7 +903,7 @@ bool GroupInterface::Unknown_68(int key)
 
 				((ClientClass *)Client)->Send_Packet(&CTARequestPacketClass(((ClientClass *)Client)->Get_Avatar_ID(), 0, 8));
 			} else return(true);
-			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+			SoundLibrary::Play_2D_Sound("fontclick.wav", 2);
 			break;
 	}
 	return(true);
@@ -1114,7 +1114,7 @@ void GroupInterface::Unknown_595530()
 			index++;
 		}
 	}
-	SoundLibraryClass::Play_2D_Sound("SR_ziprollover02.wav", 2);
+	SoundLibrary::Play_2D_Sound("SR_ziprollover02.wav", 2);
 	Unknown_84();
 }
 // 0x596040
@@ -1308,13 +1308,13 @@ void GroupInterface::Unknown_596770(bool arg)
 		int count = Members.size();
 		if (old_count != count) {
 			if (count == MAX_VISIBLE_GROUP_MEMBERS) {
-				SoundLibraryClass::Play_2D_Sound("Group_Max", 2);
+				SoundLibrary::Play_2D_Sound("Group_Max", 2);
 			} else if (count == 0) {
-				SoundLibraryClass::Play_2D_Sound("Group_Empty", 2);
+				SoundLibrary::Play_2D_Sound("Group_Empty", 2);
 			} else if (old_count > count) {
-				SoundLibraryClass::Play_2D_Sound("Group_Decrease", 2);
+				SoundLibrary::Play_2D_Sound("Group_Decrease", 2);
 			} else {
-				SoundLibraryClass::Play_2D_Sound("Group_Increase", 2);
+				SoundLibrary::Play_2D_Sound("Group_Increase", 2);
 			}
 		}
 		Unknown_595530();
@@ -1445,7 +1445,7 @@ void GroupInterface::Unknown_597080(const char *text, const char *name, int inde
 					Unknown_5BB4F0(member->Unknown3C);
 				}
 				InterfaceClass::Unknown_58();
-				SoundLibraryClass::Play_2D_Sound("symbol_chat_1.wav", 2);
+				SoundLibrary::Play_2D_Sound("symbol_chat_1.wav", 2);
 				return;
 			}
 		}
@@ -1547,7 +1547,7 @@ void GroupInterface::Unknown_597650()
 			} else {
 				((ClientClass *)Client)->Send_Packet(&ActionPacketClass(((ClientClass *)Client)->AvatarID, 14, ((ClientClass *)Client)->AvatarID, 0));
 			}
-			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+			SoundLibrary::Play_2D_Sound("fontclick.wav", 2);
 		}
 		Get_View()->Unknown34->Unknown_5C();
 	}

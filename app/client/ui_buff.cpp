@@ -273,9 +273,9 @@ void BuffInterface::Unknown_561030()
 void BuffInterface::Unknown_561B40(bool good)
 {
 	if (good) {
-		SoundLibraryClass::Play_2D_Sound("click1c.wav", 2);
+		SoundLibrary::Play_2D_Sound("click1c.wav", 2);
 	} else {
-		SoundLibraryClass::Play_2D_Sound("cost.wav", 2);
+		SoundLibrary::Play_2D_Sound("cost.wav", 2);
 	}
 }
 

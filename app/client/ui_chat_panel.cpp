@@ -606,7 +606,7 @@ bool ChatPanelInterface::Unknown_68(int key)
 			Unknown_5698F0(key);
 			return(true);
 		case 15:
-			SoundLibraryClass::Play_2D_Sound("TextClick03.wav", 2);
+			SoundLibrary::Play_2D_Sound("TextClick03.wav", 2);
 			Unknown_569A00();
 			if (UnknownD4) UnknownD4 = NULL;
 			return(true);
@@ -746,8 +746,8 @@ void ChatPanelInterface::Unknown_564030(bool on)
 		Unknown_564150(false);
 		Unknown_564400(true);
 	}
-	SoundLibraryClass::Play_2D_Sound("TextClick01.wav", 2);
-	SoundLibraryClass::Play_2D_Sound("vidscreen_1.wav", 2);
+	SoundLibrary::Play_2D_Sound("TextClick01.wav", 2);
+	SoundLibrary::Play_2D_Sound("vidscreen_1.wav", 2);
 }
 
 
@@ -911,7 +911,7 @@ show:
 			}
 		}
 	}
-	SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+	SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 	return(true);
 }
 
@@ -1007,7 +1007,7 @@ found:
 			Unknown_5689D0(0);
 		}
 	}
-	SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+	SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 }
 
 // 0x5658B0
@@ -1058,7 +1058,7 @@ void ChatPanelInterface::Unknown_565C40(int index)
 		char buffer[64];
 		_snprintf(buffer, sizeof(buffer), "To %s:", Unknown_565C00());
 		ChatInt->Unknown_B4(buffer);
-		SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+		SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 	}
 }
 
@@ -1248,7 +1248,7 @@ void ChatPanelInterface::Unknown_567760()
 					char buffer[64];
 					_snprintf(buffer, sizeof(buffer), "To %s:", Unknown_565C00());
 					ChatInt->Unknown_B4(buffer);
-					SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+					SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 				}
 				Client->As_Space_Client()->Unknown_744E70(true);
 			}
@@ -1290,14 +1290,14 @@ void ChatPanelInterface::Unknown_5679A0(int event, const std::string &channel, c
 		case 9:
 			Unknown_5680B0(channel);
 			UnknownFC = 8;
-			SoundLibraryClass::Play_2D_Sound("success_1.wav", 2);
+			SoundLibrary::Play_2D_Sound("success_1.wav", 2);
 			Unknown224 = true;
 			Unknown225 = false;
 			break;
 		case 7:
 			if (strcmp(Unknown214.c_str(), channel.c_str()) != 0) Unknown224 = false;
 			if (flag) {
-				SoundLibraryClass::Play_2D_Sound("success_1.wav", 2);
+				SoundLibrary::Play_2D_Sound("success_1.wav", 2);
 				Unknown225 = false;
 			}
 			break;
@@ -1305,7 +1305,7 @@ void ChatPanelInterface::Unknown_5679A0(int event, const std::string &channel, c
 			if (strcmp(Unknown214.c_str(), channel.c_str()) == 0 && flag) {
 				Unknown_5680B0(std::string(""));
 				Unknown224 = false;
-				SoundLibraryClass::Play_2D_Sound("success_1.wav", 2);
+				SoundLibrary::Play_2D_Sound("success_1.wav", 2);
 			}
 			break;
 		case 23:
@@ -1340,7 +1340,7 @@ void ChatPanelInterface::Unknown_567DF0(int code)
 		default:
 			return;
 	}
-	SoundLibraryClass::Play_2D_Sound("cost.wav", 2);
+	SoundLibrary::Play_2D_Sound("cost.wav", 2);
 	Unknown225 = false;
 }
 
@@ -1978,7 +1978,7 @@ void ChatPanelInterface::Unknown_5698F0(int id)
 {
 	int index = id - 8;
 	FAIL_IF((index < 0) || (index >= NUM_COMBO)) return;
-	SoundLibraryClass::Play_2D_Sound("SR_scifielectronic42.wav", 2);
+	SoundLibrary::Play_2D_Sound("SR_scifielectronic42.wav", 2);
 	Unknown_568910();
 	UnknownD4 = Combo[index];
 	if (id == 8) UnknownD4->Select_Text(Unknown1F4.c_str());
@@ -2440,7 +2440,7 @@ void ChatPanelInterface::Unknown_56C730(ChatWindowInterfaceEvent *event, ChatWin
 {
 	FAIL_IF(chat_int != ChatInt.Peek()) return;
 	if (event->Unknown00 == 1) {
-		SoundLibraryClass::Play_2D_Sound("TextClick03.wav", 2);
+		SoundLibrary::Play_2D_Sound("TextClick03.wav", 2);
 		Unknown_565120();
 		Unknown_565390(0);
 	}

@@ -191,7 +191,7 @@ bool UIPowerGaugeClass::Set_Value(float value)
 		if (Current.Value < 2.0f && old >= 2.0f) {
 			char name[256];
 			sprintf(name, "TALK_%s_ENERGY_LOW_1.wav", Sound);
-			SoundLibraryClass::Play_2D_Sound(name, 2);
+			SoundLibrary::Play_2D_Sound(name, 2);
 		}
 		return(false);
 	}

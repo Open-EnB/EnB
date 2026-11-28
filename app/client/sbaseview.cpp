@@ -474,7 +474,7 @@ void StarbaseViewClass::Unknown_69D030(int index)
 		Matrix3D tm = Unknown6C->Get_Transform();
 		tm.Rotate_X(-WWMATH_PI / 2.0f);
 		tm.Rotate_Z(WWMATH_PI / 2.0f);
-		SoundLibraryClass::Set_Listener_Transform(tm);
+		SoundLibrary::Set_Listener_Transform(tm);
 	}
 	StarbaseSound.Set_Room(index);
 done:
@@ -1365,7 +1365,7 @@ void StarbaseViewClass::Unknown_6A1000(const char *name)
 		Unknown1C0->Stop();
 		Unknown1C0 = NULL;
 	}
-	Unknown1C0 = Create_Get(SoundLibraryClass::Play_2D_Sound(name, 1));
+	Unknown1C0 = Create_Get(SoundLibrary::Play_2D_Sound(name, 1));
 	if (Unknown1C0) {
 		Unknown1C0->Set_Loop_Count(0);
 	}

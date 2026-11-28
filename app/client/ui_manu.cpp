@@ -512,7 +512,7 @@ void UIManuClass::Unknown_60()
 			if (Is_Validity_Attempt(validity->Value)) {
 				Unknown0BA4 = 0;
 				Unknown_5B1AF0(4, true, Unknown_B81880[1]);
-				SoundLibraryClass::Play_2D_Sound("success_1.wav", 2);
+				SoundLibrary::Play_2D_Sound("success_1.wav", 2);
 				if (Unknown0BAD) {
 					Unknown_5B3640(false);
 				}
@@ -551,13 +551,13 @@ bool UIManuClass::Unknown_68(int key)
 	Unknown0BB4 = false;
 	switch (key) {
 		case 1:
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			Unknown0AC->Unknown_69F440();
 			return(true);
 		case 2:
 		case 3:
 		case 4:
-			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+			SoundLibrary::Play_2D_Sound("fontclick.wav", 2);
 			Unknown_5B1C20(key - 2);
 			return(true);
 		case 8:
@@ -570,7 +570,7 @@ bool UIManuClass::Unknown_68(int key)
 		case 15:
 		case 16:
 		case 17:
-			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+			SoundLibrary::Play_2D_Sound("fontclick.wav", 2);
 			Unknown_5B1ED0(key - 8);
 			return(true);
 		case 18:
@@ -578,7 +578,7 @@ bool UIManuClass::Unknown_68(int key)
 		case 20:
 		case 21:
 		case 22:
-			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+			SoundLibrary::Play_2D_Sound("fontclick.wav", 2);
 			Unknown_5B2060(key - 18);
 			return(true);
 		case 23:
@@ -586,7 +586,7 @@ bool UIManuClass::Unknown_68(int key)
 		case 25:
 		case 26:
 		case 27:
-			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+			SoundLibrary::Play_2D_Sound("fontclick.wav", 2);
 			Unknown_5B2060(key - 23);
 			return(true);
 		case 28:
@@ -594,17 +594,17 @@ bool UIManuClass::Unknown_68(int key)
 		case 30:
 		case 31:
 		case 32:
-			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+			SoundLibrary::Play_2D_Sound("fontclick.wav", 2);
 			Unknown_5B2060(key - 28);
 			return(true);
 		case 5:
-			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+			SoundLibrary::Play_2D_Sound("fontclick.wav", 2);
 			if (!Unknown0BAD) {
 				Unknown_5B3640(true);
 			}
 			return(true);
 		case 6:
-			SoundLibraryClass::Play_2D_Sound("manufacture_1.wav", 2);
+			SoundLibrary::Play_2D_Sound("manufacture_1.wav", 2);
 			Unknown0BB4 = true;
 			Unknown_5B3A70();
 			return(true);

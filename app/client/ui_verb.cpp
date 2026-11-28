@@ -158,40 +158,40 @@ bool VerbInterface::Unknown_68(int event)
 		switch (event) {
 			case VERB_SCAN:
 				client->Send_Packet(&ActionPacketClass(client->Get_Avatar_ID(), 0x1E, client->Get_Avatar_ID(), 0));
-				SoundLibraryClass::Play_2D_Sound("SR_scifielectronic40.wav", 2);
+				SoundLibrary::Play_2D_Sound("SR_scifielectronic40.wav", 2);
 				break;
 			case VERB_LAND:
 				client->Send_Packet(&ActionPacketClass(client->Get_Avatar_ID(), 0x1D, Get_Target()->Get_Game_ID(), 0));
 				client->CameraManager->Unknown_79B2B0(8);
 				client->Unknown13B8 = Get_Target()->Get_Game_ID();
-				SoundLibraryClass::Play_2D_Sound("Landing_Init", 2);
+				SoundLibrary::Play_2D_Sound("Landing_Init", 2);
 				client->Get_Ship()->Unknown_6FC950(true);
 				client->Get_Ship()->Unknown_6FC880();
 				break;
 			case VERB_LOOT:
 				main_view->Cpit->Unknown_581E60();
-				SoundLibraryClass::Play_2D_Sound("SR_scifielectronic40.wav", 2);
+				SoundLibrary::Play_2D_Sound("SR_scifielectronic40.wav", 2);
 				break;
 			case VERB_GROUP:
 				client->Send_Packet(&ActionPacketClass(client->Get_Avatar_ID(), 10, Get_Target()->Get_Game_ID(), 0));
-				SoundLibraryClass::Play_2D_Sound("SR_scifielectronic40.wav", 2);
+				SoundLibrary::Play_2D_Sound("SR_scifielectronic40.wav", 2);
 				break;
 			case VERB_MESSAGE:
 				client->Unknown_744E70(false);
-				SoundLibraryClass::Play_2D_Sound("message_1.wav", 2);
+				SoundLibrary::Play_2D_Sound("message_1.wav", 2);
 				break;
 			case VERB_TRADE:
 				if (client->Get_Avatar_ID() == Get_Target()->Get_Game_ID()) {
 					client->Unknown_74D990(0x11, "Cannot trade with yourself.", 0);
-					SoundLibraryClass::Play_2D_Sound("SR_scifielectronic40.wav", 2);
+					SoundLibrary::Play_2D_Sound("SR_scifielectronic40.wav", 2);
 				} else if (!client->Unknown_744B60() && client->MainView != NULL && client->MainView->Unknown1E4 != NULL && !client->MainView->Unknown1E4->Is_Active()) {
 					client->Send_Packet(&ActionPacketClass(client->Get_Avatar_ID(), 0x14, Get_Target()->Get_Game_ID(), 0));
-					SoundLibraryClass::Play_2D_Sound("SR_scifielectronic40.wav", 2);
+					SoundLibrary::Play_2D_Sound("SR_scifielectronic40.wav", 2);
 				}
 				break;
 			case VERB_TRACTOR:
 				client->Send_Packet(&ActionPacketClass(client->Get_Avatar_ID(), 1, client->Get_Avatar_ID(), 0));
-				SoundLibraryClass::Play_2D_Sound("SR_scifielectronic40.wav", 2);
+				SoundLibrary::Play_2D_Sound("SR_scifielectronic40.wav", 2);
 				break;
 			case VERB_DOCK:
 				client->Send_Packet(&ActionPacketClass(client->Get_Avatar_ID(), 0x1C, Get_Target()->Get_Game_ID(), 0));
@@ -199,30 +199,30 @@ bool VerbInterface::Unknown_68(int event)
 				break;
 			case VERB_PROSPECT:
 				client->Send_Packet(&ActionPacketClass(client->Get_Avatar_ID(), 0x11, Get_Target()->Get_Game_ID(), 0));
-				SoundLibraryClass::Play_2D_Sound("SR_scifielectronic40.wav", 2);
+				SoundLibrary::Play_2D_Sound("SR_scifielectronic40.wav", 2);
 				break;
 			case VERB_GATE:
 				{
 					bool on = !client->CameraManager->Unknown_79B4F0(3);
 					client->Send_Packet(&ActionPacketClass(client->Get_Avatar_ID(), 0x12, Get_Target()->Get_Game_ID(), on));
 				}
-				SoundLibraryClass::Play_2D_Sound("SR_scifielectronic40.wav", 2);
+				SoundLibrary::Play_2D_Sound("SR_scifielectronic40.wav", 2);
 				client->Get_Ship()->Unknown_6FC880();
 				break;
 			case VERB_REGISTER:
 				client->Send_Packet(&ActionPacketClass(client->Get_Avatar_ID(), 0x19, Get_Target()->Get_Game_ID(), 0));
-				SoundLibraryClass::Play_2D_Sound("SR_scifielectronic40.wav", 2);
+				SoundLibrary::Play_2D_Sound("SR_scifielectronic40.wav", 2);
 				break;
 			case VERB_JUMPSTART:
 				client->Send_Packet(&ActionPacketClass(client->Get_Avatar_ID(), 0x1A, Get_Target()->Get_Game_ID(), 0));
-				SoundLibraryClass::Play_2D_Sound("SR_scifielectronic40.wav", 2);
+				SoundLibrary::Play_2D_Sound("SR_scifielectronic40.wav", 2);
 				break;
 			case VERB_FOLLOW:
 				if (Get_Target() != NULL && Get_Target()->Get_Game_ID() == client->Get_Avatar_ID()) {
 					client->Unknown_74D990(0x11, "Cannot autofollow self.", 0);
 				} else {
 					client->Send_Packet(&MovementPacketClass(client->Get_Avatar_ID(), 0xC));
-					SoundLibraryClass::Play_2D_Sound("SR_scifielectronic40.wav", 2);
+					SoundLibrary::Play_2D_Sound("SR_scifielectronic40.wav", 2);
 				}
 				break;
 			default:

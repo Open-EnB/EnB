@@ -99,7 +99,7 @@ bool DragSlotDataClass::Update(float x, float y)
 	FAIL_IF(!SlotRender) return(moved);
 	if (State == 2) {
 		if (moved) {
-			SoundLibraryClass::Play_2D_Sound("SR_ziprollover02.wav", 2);
+			SoundLibrary::Play_2D_Sound("SR_ziprollover02.wav", 2);
 			UIViewClass *view = Client->CurrentView;
 			SceneClass *scene = NULL;
 			if (view) {
@@ -160,7 +160,7 @@ void DragSlotDataClass::Unknown_685500(int slot, int mode, bool arg)
 bool DragSlotDataClass::Drop()
 {
 	if (SMouseDragClass::Drop()) {
-		SoundLibraryClass::Play_2D_Sound("TextClick02.wav", 2);
+		SoundLibrary::Play_2D_Sound("TextClick02.wav", 2);
 		return(true);
 	}
 	return(false);

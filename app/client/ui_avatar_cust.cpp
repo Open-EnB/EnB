@@ -584,15 +584,15 @@ bool StarbaseAvatarCreationInterface::Unknown_68(int key)
 		case 2:
 			Unknown_54DFE0(2);
 			Unknown_550670();
-			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
+			SoundLibrary::Play_2D_Sound("Login_Mouse_Click", 2);
 			return(true);
 		case 0xD:
 			Unknown_551900();
-			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
+			SoundLibrary::Play_2D_Sound("Login_Mouse_Click", 2);
 			return(true);
 		case 0xE:
 			Unknown0B4->Unknown_69F440();
-			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
+			SoundLibrary::Play_2D_Sound("Login_Mouse_Click", 2);
 			return(true);
 		case 3:
 			Unknown0B8->Unknown_8C();
@@ -615,27 +615,27 @@ bool StarbaseAvatarCreationInterface::Unknown_68(int key)
 		case 0x14:
 			Unknown370->Unknown_585CC0(); Unknown0BC->Unknown_7859F0(Unknown370->Get_Unknown18()); Unknown_5502F0();
 			Unknown0B8->Unknown_84(Unknown0BC);
-			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2); Unknown_551BF0(); goto done;
+			SoundLibrary::Play_2D_Sound("ButtonClick02.wav", 2); Unknown_551BF0(); goto done;
 		case 0x15:
 			Unknown370->Unknown_585C90(); Unknown0BC->Unknown_7859F0(Unknown370->Get_Unknown18()); Unknown_5502F0();
 			Unknown0B8->Unknown_84(Unknown0BC);
-			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2); Unknown_551BF0(); goto done;
+			SoundLibrary::Play_2D_Sound("ButtonClick02.wav", 2); Unknown_551BF0(); goto done;
 		case 0x16:
 			Unknown374->Unknown_585CC0(); Unknown0BC->Unknown_77FCE0(Unknown374->Get_Unknown18(), true); TheDX8MeshRenderer.Invalidate();
 			Unknown0BC->Unknown_780810(client->Peek_Environment_Map_Manager()); Unknown0B8->Unknown_84(Unknown0BC);
-			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2); Unknown_551BF0(); goto done;
+			SoundLibrary::Play_2D_Sound("ButtonClick02.wav", 2); Unknown_551BF0(); goto done;
 		case 0x17:
 			Unknown374->Unknown_585C90(); Unknown0BC->Unknown_77FCE0(Unknown374->Get_Unknown18(), true); TheDX8MeshRenderer.Invalidate();
 			Unknown0BC->Unknown_780810(client->Peek_Environment_Map_Manager()); Unknown0B8->Unknown_84(Unknown0BC);
-			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2); Unknown_551BF0(); goto done;
+			SoundLibrary::Play_2D_Sound("ButtonClick02.wav", 2); Unknown_551BF0(); goto done;
 		case 0x18:
 			Unknown378->Unknown_585CC0(); Unknown0BC->Unknown_77FC90(Unknown378->Get_Unknown18(), true); TheDX8MeshRenderer.Invalidate();
 			Unknown0BC->Unknown_780810(client->Peek_Environment_Map_Manager()); Unknown0B8->Unknown_84(Unknown0BC);
-			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2); Unknown_551BF0(); goto done;
+			SoundLibrary::Play_2D_Sound("ButtonClick02.wav", 2); Unknown_551BF0(); goto done;
 		case 0x19:
 			Unknown378->Unknown_585C90(); Unknown0BC->Unknown_77FC90(Unknown378->Get_Unknown18(), true); TheDX8MeshRenderer.Invalidate();
 			Unknown0BC->Unknown_780810(client->Peek_Environment_Map_Manager()); Unknown0B8->Unknown_84(Unknown0BC);
-			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2); Unknown_551BF0(); goto done;
+			SoundLibrary::Play_2D_Sound("ButtonClick02.wav", 2); Unknown_551BF0(); goto done;
 		case 0x1A:
 		case 0x1B:
 			Unknown_5513E0("fa_avatar_color.tga");
@@ -675,9 +675,9 @@ bool StarbaseAvatarCreationInterface::Unknown_68(int key)
 		default:
 			return(false);
 	}
-	SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
+	SoundLibrary::Play_2D_Sound("ButtonClick02.wav", 2);
 done:	return(true);
-login:	SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2); return(true);
+login:	SoundLibrary::Play_2D_Sound("Login_Mouse_Click", 2); return(true);
 }
 
 // 0x54D720
@@ -2215,7 +2215,7 @@ void StarbaseAvatarCreationInterface::Unknown_551320(FlashingGadgetEvent *event,
 		return;
 	if (gadget->Flash && gadget->Is_Unknown2C_02()) {
 		if (gadget == Unknown1CC[0] || gadget == Unknown1CC[1] || gadget == Unknown1CC[12] || gadget == Unknown1CC[13]) {
-			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Over_Buttons", 2);
+			SoundLibrary::Play_2D_Sound("Login_Mouse_Over_Buttons", 2);
 		}
 	}
 }

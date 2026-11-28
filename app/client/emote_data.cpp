@@ -103,9 +103,9 @@ void EmoteDataClass::Unknown_7E6860()
 		Queue.pop_front();
 		StartTime = Get_Client()->Unknown10BC;
 		if (Peek_Client_Object() != 0 && Peek_Client_Object()->Unknown_6F5A40()) {
-			SoundLibraryClass::Play_2D_Sound(EmoteSounds[Emote], 2);
+			SoundLibrary::Play_2D_Sound(EmoteSounds[Emote], 2);
 		} else {
-			Sound = Create_Get(SoundLibraryClass::Play_3D_Sound(EmoteSounds[Emote], Matrix3D(true), 1, 1.0f));
+			Sound = Create_Get(SoundLibrary::Play_3D_Sound(EmoteSounds[Emote], Matrix3D(true), 1, 1.0f));
 		}
 	}
 	unsigned int elapsed = Get_Client()->Unknown10BC - StartTime;

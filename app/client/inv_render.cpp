@@ -769,11 +769,11 @@ have:
 			case 15:
 			case 16:
 			case 17:
-				SoundLibraryClass::Play_2D_Sound(on ? "shortcut_activate_weapon.wav" : "shortcut_deactivate_weapon.wav", 2);
+				SoundLibrary::Play_2D_Sound(on ? "shortcut_activate_weapon.wav" : "shortcut_deactivate_weapon.wav", 2);
 				break;
 			case 0:
 			case 12:
-				SoundLibraryClass::Play_2D_Sound(on ? "shortcut_activate_ability_sn_1.wav" : "shortcut_deactivate_ability.wav", 2);
+				SoundLibrary::Play_2D_Sound(on ? "shortcut_activate_ability_sn_1.wav" : "shortcut_deactivate_ability.wav", 2);
 				break;
 		}
 	}

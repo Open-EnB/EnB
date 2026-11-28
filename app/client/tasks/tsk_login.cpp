@@ -73,7 +73,7 @@ LoginTaskClass::LoginTaskClass(int mode) :
 	Load_Login();
 	EATicket[0] = 0;
 	Unknown_7228C0();
-	SoundLibraryClass::Flush_Playlist();
+	SoundLibrary::Flush_Playlist();
 	Unknown0018 = new LoginUnknown18Class(0);
 	Unknown0018->Unknown_515120(1);
 	Create_Character_View();

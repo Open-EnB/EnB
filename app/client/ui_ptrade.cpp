@@ -243,16 +243,16 @@ bool PlayerTradeInterface::Unknown_68(int key)
 	switch (key) {
 		case 1:
 		case 2:
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			sclient->Send_Packet(&ActionPacketClass(avatar = sclient->AvatarID, 0x16, id = ((ClientClass *)Client)->Unknown1134, 0));
 			return(true);
 		case 3:
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			sclient->Send_Packet(&ActionPacketClass(avatar = sclient->AvatarID, 0x15, id = ((ClientClass *)Client)->Unknown1134, 0));
 			return(true);
 		case 4:
 		{
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			Unknown0B4->Unknown_58();
 			char text[0x14];
 			if (Unknown0E0 > MoneyClass()) {

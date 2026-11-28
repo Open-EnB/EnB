@@ -410,45 +410,45 @@ bool UITradeClass::Unknown_68(int key)
 			return(true);
 		case 12:
 			if (Unknown0D4[6]->Is_Enabled()) {
-				SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+				SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 				Close_Box();
 				Unknown_5A02E0(false);
 			}
 			return(true);
 		case 13:
 			if (Unknown0D4[7]->Is_Enabled()) {
-				SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+				SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 				Close_Box();
 				Unknown_652890();
 			}
 			return(true);
 		case 14:
 			if (Unknown0D4[8]->Is_Enabled()) {
-				SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+				SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 				Close_Box();
 				Unknown_6531F0(false);
 			}
 			return(true);
 		case 15:
 			if (Unknown0D4[9]->Is_Enabled()) {
-				SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+				SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 				Close_Box();
 				Unknown_652C60();
 			}
 			return(true);
 		case 16:
-			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+			SoundLibrary::Play_2D_Sound("fontclick.wav", 2);
 			Unknown_652030();
 			Close_Box();
 			return(true);
 		case 17:
-			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+			SoundLibrary::Play_2D_Sound("fontclick.wav", 2);
 			Unknown_6539A0();
 			Unknown17C.size();
 			Close_Box();
 			return(true);
 		case 18:
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			Close_Box();
 			Unknown_5C();
 			return(true);
@@ -456,7 +456,7 @@ bool UITradeClass::Unknown_68(int key)
 			if (key >= 6 && key <= 11) {
 				Close_Box();
 				Unknown_651F60(key - 6);
-				SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+				SoundLibrary::Play_2D_Sound("fontclick.wav", 2);
 				return(true);
 			} else if (key >= 20 && key <= 24) {
 

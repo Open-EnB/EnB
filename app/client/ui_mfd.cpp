@@ -274,7 +274,7 @@ bool MFDInterface::Unknown_68(int key)
 	switch (key) {
 		case 1:
 			if (object) {
-				SoundLibraryClass::Play_2D_Sound("TextClick01.wav", 2);
+				SoundLibrary::Play_2D_Sound("TextClick01.wav", 2);
 				if (shift) {
 					if (Unknown9C == 1) {
 						SpaceClientClass *sclient = (SpaceClientClass *)((ClientClass *)Client)->As_Space_Client();
@@ -334,7 +334,7 @@ bool MFDInterface::Unknown_68(int key)
 			return(true);
 		case 2:
 			if (object) {
-				SoundLibraryClass::Play_2D_Sound("TextClick01.wav", 2);
+				SoundLibrary::Play_2D_Sound("TextClick01.wav", 2);
 				if (shift) {
 					Previous_Type(Lines[0]);
 				} else {
@@ -344,7 +344,7 @@ bool MFDInterface::Unknown_68(int key)
 			return(true);
 		case 3:
 			if (object) {
-				SoundLibraryClass::Play_2D_Sound("TextClick01.wav", 2);
+				SoundLibrary::Play_2D_Sound("TextClick01.wav", 2);
 				if (shift) {
 					Previous_Type(Lines[1]);
 				} else {
@@ -376,7 +376,7 @@ void MFDInterface::Unknown_88(ClientObjectClass *object)
 		if (object == (ClientObjectClass *)-1) {
 			object = NULL;
 		} else if (object != NULL) {
-			SoundLibraryClass::Play_2D_Sound("targety1.wav", 2);
+			SoundLibrary::Play_2D_Sound("targety1.wav", 2);
 		}
 		if (Is_Active()) {
 			Items[Current]->Unknown_0C();

@@ -387,7 +387,7 @@ void UIAnalyzeClass::Unknown_60()
 					if (analyze && success) {
 						Unknown_545E40();
 					}
-					SoundLibraryClass::Play_2D_Sound(sound, 2);
+					SoundLibrary::Play_2D_Sound(sound, 2);
 				}
 			}
 		}
@@ -406,15 +406,15 @@ bool UIAnalyzeClass::Unknown_68(int key)
 	if (!Unknown110) {
 		switch (key) {
 			case 1:
-				SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+				SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 				Unknown0D0->Unknown_69F440();
 				return(true);
 			case 5:
-				SoundLibraryClass::Play_2D_Sound("analyze_1.wav", 2);
+				SoundLibrary::Play_2D_Sound("analyze_1.wav", 2);
 				Unknown_5458B0();
 				return(true);
 			case 6:
-				SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+				SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 				Unknown_545D30();
 				return(true);
 		}

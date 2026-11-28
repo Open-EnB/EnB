@@ -323,7 +323,7 @@ bool ScannerInterface::Unknown_68(int key)
 
 	TargetSelectClass *ts = Get_Targeting();
 	if (ts != NULL) {
-		SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
+		SoundLibrary::Play_2D_Sound("ButtonClick02.wav", 2);
 		if (next) {
 			if (plain) {
 				ts->Select_Next_Target_Filtered();
@@ -700,7 +700,7 @@ void ScannerInterface::Unknown_60ED60(ClientObjectClass *target, const std::stri
 	}
 	ConFont->Change_Text(text.c_str(), 0);
 	if (!sound.empty()) {
-		SoundLibraryClass::Play_2D_Sound(sound.c_str(), 2);
+		SoundLibrary::Play_2D_Sound(sound.c_str(), 2);
 	}
 }
 

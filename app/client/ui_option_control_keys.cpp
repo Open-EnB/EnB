@@ -211,7 +211,7 @@ bool UIOptionControlKeysClass::Unknown_68(int key)
 	ControlKeysManager *key_manager = ControlKeysManager::Get((SpaceClientClass *)((ClientClass *)Client)->As_Space_Client());
 	FAIL_IF(!key_manager) return(true);
 	if (key != 13) {
-		SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+		SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 	}
 	switch (key) {
 		case 1:

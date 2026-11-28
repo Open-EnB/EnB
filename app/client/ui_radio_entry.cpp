@@ -127,7 +127,7 @@ bool UIRadioEntryClass::Unknown_68(int key)
 {
 	switch (key) {
 		case 1:
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			if (PasswordGadget) {
 				PasswordGadget->Unknown_74(false);
 			}
@@ -138,7 +138,7 @@ bool UIRadioEntryClass::Unknown_68(int key)
 			Closed = 1;
 			return(true);
 		case 2:
-			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+			SoundLibrary::Play_2D_Sound("fontclick.wav", 2);
 			if (PasswordGadget) {
 				PasswordGadget->Unknown_74(true);
 			}
@@ -153,7 +153,7 @@ bool UIRadioEntryClass::Unknown_68(int key)
 			}
 			return(true);
 		case 3:
-			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+			SoundLibrary::Play_2D_Sound("fontclick.wav", 2);
 			if (PasswordGadget) {
 				PasswordGadget->Unknown_74(false);
 			}
@@ -165,7 +165,7 @@ bool UIRadioEntryClass::Unknown_68(int key)
 			return(true);
 		case 4:
 		case 5:
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			if (PasswordGadget) {
 				PasswordGadget->Unknown_74(false);
 			}
@@ -322,7 +322,7 @@ void UIRadioEntryClass::Unknown_5E70A0()
 	}
 	PasswordGadget->Set_Text("", 0);
 	ConfirmGadget->Set_Text("", 0);
-	SoundLibraryClass::Play_2D_Sound("cost.wav", 2);
+	SoundLibrary::Play_2D_Sound("cost.wav", 2);
 }
 
 /*

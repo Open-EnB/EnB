@@ -227,7 +227,7 @@ bool TextEditorGadget::Unknown_2C(KernelEventClass *event, float x, float y, uns
 			return true;
 		}
 		if (!event->Is_Up()) {
-			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+			SoundLibrary::Play_2D_Sound("fontclick.wav", 2);
 		}
 		if (mask & 0x100) {
 			if (!event->Is_Up()) {
@@ -275,7 +275,7 @@ bool TextEditorGadget::Unknown_2C(KernelEventClass *event, float x, float y, uns
 	}
 	if (mask & 1) {
 		GadgetClass::Unknown_2C(event, x, y, mask);
-		SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+		SoundLibrary::Play_2D_Sound("fontclick.wav", 2);
 		Unknown_6732F0(x, y);
 		Lines.size();		// dead read: spends the inline budget so 0x672A60 stays out of line, as in the client
 		Take_Focus();

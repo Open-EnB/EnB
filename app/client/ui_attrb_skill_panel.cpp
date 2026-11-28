@@ -130,11 +130,11 @@ bool Unknown548D60Class::Unknown_68(int key)
 {
 	switch (key) {
 		case 1:
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			Unknown_5C();
 			return(true);
 		case 2:
-			SoundLibraryClass::Play_2D_Sound("skill_train_1.wav", 2);
+			SoundLibrary::Play_2D_Sound("skill_train_1.wav", 2);
 			{
 				int id = ((ClientClass *)Client)->AvatarID;
 				((ClientClass *)Client)->Send_Packet(&SkillPacketClass(id, 1, UnknownAC));

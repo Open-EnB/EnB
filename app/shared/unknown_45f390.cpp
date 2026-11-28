@@ -116,7 +116,7 @@ void RenderStateSoundClass::Unknown_45FB40()
 			return;
 		}
 		Matrix3D tm(true);
-		Sound = SoundLibraryClass::Play_3D_Sound(SoundName, tm, 0, 1.0f);
+		Sound = SoundLibrary::Play_3D_Sound(SoundName, tm, 0, 1.0f);
 		if (Sound != NULL) {
 			if (Test_Flag(18)) {
 				Sound->Set_Loop_Count(1);

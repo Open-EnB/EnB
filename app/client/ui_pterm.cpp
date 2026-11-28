@@ -84,7 +84,7 @@ void UIPTermClass::Unknown_58()
 		InterfaceSortScopeClass scope(this);
 		Unknown0D4 = false;
 		Unknown_BE67C4->Add(InterfaceMesh->Peek_Mesh_Object());
-		SoundLibraryClass::Play_2D_Sound("SN_SCIFI_BEEP_6.wav", 2);
+		SoundLibrary::Play_2D_Sound("SN_SCIFI_BEEP_6.wav", 2);
 		Unknown0D0 = new Unknown5DE6E0Class("icl01a", Layer.Scene);
 		Unknown0D0->Unknown_5DE7F0();
 		Unknown_5DE500(1);
@@ -103,7 +103,7 @@ void UIPTermClass::Unknown_5C()
 			Unknown5BB320Class::Unknown_5C();
 		}
 		Unknown_BE67C4->Remove(InterfaceMesh->Peek_Mesh_Object());
-		SoundLibraryClass::Play_2D_Sound("SN_SCIFI_TEXT_CLICK_2.wav", 2);
+		SoundLibrary::Play_2D_Sound("SN_SCIFI_TEXT_CLICK_2.wav", 2);
 		Unknown0D0->Unknown_5DE830();
 		delete Unknown0D0;
 		Unknown0D0 = NULL;

@@ -89,7 +89,7 @@ bool UIPetitionPlayerClass::Unknown_68(int key)
 	int type;	// NAME 1: neutral (D10)
 	switch (key) {
 		case 1:
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			if (Page) {
 				Page->Unknown_94();
 			} else {

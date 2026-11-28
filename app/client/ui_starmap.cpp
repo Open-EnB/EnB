@@ -353,20 +353,20 @@ bool StarmapInterface::Unknown_68(int key)
 	bool modified = (Unknown_BE5F34 & 0x70) != 0;
 	switch (key) {
 	case 2:
-		SoundLibraryClass::Play_2D_Sound("TextClick03.wav", 2);
+		SoundLibrary::Play_2D_Sound("TextClick03.wav", 2);
 		{
 			Unknown_7C8C20(Unknown_7C8BA0(0) ? 1 : 0);
 		}
 		return(true);
 	case 1:
-		SoundLibraryClass::Play_2D_Sound("TextClick03.wav", 2);
+		SoundLibrary::Play_2D_Sound("TextClick03.wav", 2);
 		{
 			SpaceClientClass *sclient = (SpaceClientClass *)((ClientClass *)Client)->As_Space_Client();
 			sclient->PDAInterface->Unknown_695A00(4, 1);
 		}
 		return(true);
 	case 3:
-		SoundLibraryClass::Play_2D_Sound("TextClick03.wav", 2);
+		SoundLibrary::Play_2D_Sound("TextClick03.wav", 2);
 		HowToStarmap->Unknown_5C();
 		HowToGalaxyMap->Unknown_5C();
 		if (Maximized) {
@@ -379,7 +379,7 @@ bool StarmapInterface::Unknown_68(int key)
 		ResizeDown->Set_Hidden(!Maximized);
 		return(true);
 	case 4:
-		SoundLibraryClass::Play_2D_Sound("TextClick03.wav", 2);
+		SoundLibrary::Play_2D_Sound("TextClick03.wav", 2);
 		if (HowToStarmap->Active) {
 			HowToStarmap->Unknown_5C();
 			return(true);
@@ -399,15 +399,15 @@ bool StarmapInterface::Unknown_68(int key)
 		}
 		return(true);
 	case 5:
-		SoundLibraryClass::Play_2D_Sound("TextClick03.wav", 2);
+		SoundLibrary::Play_2D_Sound("TextClick03.wav", 2);
 		((UIStarmapPipViewClass *)CurrentPip)->Unknown_20(modified);
 		return(true);
 	case 6:
-		SoundLibraryClass::Play_2D_Sound("TextClick03.wav", 2);
+		SoundLibrary::Play_2D_Sound("TextClick03.wav", 2);
 		((UIStarmapPipViewClass *)CurrentPip)->Unknown_1C(modified);
 		return(true);
 	case 7:
-		SoundLibraryClass::Play_2D_Sound("TextClick03.wav", 2);
+		SoundLibrary::Play_2D_Sound("TextClick03.wav", 2);
 		((UIStarmapPipViewClass *)CurrentPip)->Unknown_24(modified);
 		return(true);
 	case 9:

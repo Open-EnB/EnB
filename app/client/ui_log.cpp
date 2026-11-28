@@ -179,7 +179,7 @@ bool UILogClass::Unknown_68(int key)
 	switch (key) {
 		case 1:
 		{
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			Save_Page();
 			Unknown_5C();
 			Closed = 1;
@@ -191,15 +191,15 @@ bool UILogClass::Unknown_68(int key)
 			return(true);
 		}
 		case 2:
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			Previous_Page();
 			return(true);
 		case 3:
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			Next_Page();
 			return(true);
 		case 4:
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			SoundLibrary::Play_2D_Sound("Roll_Select02b.wav", 2);
 			Insert_Date();
 			return(true);
 		case 5:

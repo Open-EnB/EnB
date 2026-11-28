@@ -3146,7 +3146,7 @@ bool AvatarClass::Unknown_7860C0()
 void AvatarClass::Unknown_7861B0(const char *speech)
 {
 	Unknown_7862D0();
-	SpeechSound = Create_Get(SoundLibraryClass::Play_2D_Sound(speech, 1));
+	SpeechSound = Create_Get(SoundLibrary::Play_2D_Sound(speech, 1));
 }
 
 // 0x7862D0

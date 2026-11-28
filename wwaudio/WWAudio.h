@@ -745,5 +745,5 @@ public: bool m_Unknown19A5; private:	// E&B: sounds started while set are queued
 //       (0x9F1048)
 // EnB: class WWAudioClass (line 733 at the freeze): WWAudioClass: two bools after m_ForceDisable (+0x19A4): +0x19A5
 //       read by AudibleSoundClass::Play 0x9FD419 and cleared by 0x9F4720; +0x19A6 tested by the volume setters
-//       (0x9F2244, 0x9F22F4, 0x9F23A4, 0x9F2484) and set by Temp_Disable_Audio 0x9F4C50; +0x19A5 public, as SClient
+//       (0x9F2244, 0x9F22F4, 0x9F23A4, 0x9F2484) and set by Temp_Disable_Audio 0x9F4C50; +0x19A5 public, as SpaceClientClass
 //       code writes it directly (WE1)

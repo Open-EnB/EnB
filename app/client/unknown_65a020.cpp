@@ -96,7 +96,7 @@ void Unknown65A020Class::Unknown_60()
 bool Unknown65A020Class::Unknown_68(int key)
 {
 	if (key > 0 && key <= 2) {
-		SoundLibraryClass::Play_2D_Sound("INTERFACE_MenuSlide01C.wav", 2);
+		SoundLibrary::Play_2D_Sound("INTERFACE_MenuSlide01C.wav", 2);
 		((StarbaseViewClass *)View->Unknown_30())->Unknown_69F440();
 		return(true);
 	}

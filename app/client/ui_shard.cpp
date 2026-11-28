@@ -127,7 +127,7 @@ ShardInterface::ShardInterface(UIViewClass *view, LayerClass *layer) :
 	if (CharacterView->Unknown_67AD30(0, "FE02A.FE02A-1")) {
 		CharacterView->Unknown_67AE20(0);
 	}
-	SoundLibraryClass::Play_2D_Sound("fontshoosh.wav", 2);
+	SoundLibrary::Play_2D_Sound("fontshoosh.wav", 2);
 	UnknownD2 = true;
 	Unknown_617540();
 	LoginTaskClass *task = LoginTask;
@@ -200,7 +200,7 @@ bool ShardInterface::Unknown_68(int key)
 	if (UnknownD0 || UnknownD1 || UnknownD2 || UnknownD3 || UnknownD4 || UnknownD5 || UnknownE8) {
 		return false;
 	}
-	SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
+	SoundLibrary::Play_2D_Sound("ButtonClick02.wav", 2);
 	switch (key) {
 		case 8:
 			NameGadget->Unknown_74(true);
@@ -279,7 +279,7 @@ void ShardInterface::Unknown_616A10()
 		if (CharacterView->Unknown_67AD30(0, "FE02A.FE02A-2")) {
 			CharacterView->Unknown_67AE20(0);
 		}
-		SoundLibraryClass::Play_2D_Sound("fontshoosh.wav", 2);
+		SoundLibrary::Play_2D_Sound("fontshoosh.wav", 2);
 		UnknownD3 = true;
 		CharacterView->Unknown_67A8D0(1);
 	}
