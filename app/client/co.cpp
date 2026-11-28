@@ -480,7 +480,7 @@ static inline bool Clamp_Changed(float &value, float min, float max)
 	}
 	return(false);
 }
-// NOT EXACT: register (eax / edx swapped for the vtable loads from the thrust sound on), the one-case switch 0x6F5A40 at done (movsx / dec where the client compares the byte) and 'x || y' (the client ORs the bools); the find is out of line as the client's since Unknown_Find_Aux (IB1)
+// NOT EXACT: register (eax / edx swapped for the vtable loads from the thrust sound on to the first Get_Type triple; the second triple matches, so the Z clamp's temp count is the suspect) and the client's 'test al, al' after 'or al, cl'; the find is out of line as the client's since Unknown_Find_Aux (IB1); 'Type == 1' at done (cmp byte, not the switch 0x6F5A40) and 'x | y' (or al, cl) are the client's (B12)
 // 0x6F4610
 Matrix3D ClientObjectClass::Unknown_28(bool thrust)
 {
@@ -543,7 +543,7 @@ Matrix3D ClientObjectClass::Unknown_28(bool thrust)
 		}
 	}
 done:
-	if (Unknown_6F5A40()) {
+	if (Type == 1) {
 		Vector3 pos = tm.Get_Translation();
 		if (PositionalState->Get_Type() != 12 && PositionalState->Get_Type() != 13 && PositionalState->Get_Type() != PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
 			if (Clamp_Changed(pos.Z, Client->Unknown10D4.X, Client->Unknown10D4.Y)) {
@@ -553,7 +553,7 @@ done:
 		if (PositionalState->Get_Type() != 12 && PositionalState->Get_Type() != 13 && PositionalState->Get_Type() != PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
 			bool x = Clamp_Changed(pos.X, Client->Unknown10DC.X, Client->Unknown10E4.X);
 			bool y = Clamp_Changed(pos.Y, Client->Unknown10DC.Y, Client->Unknown10E4.Y);
-			if (x || y) {
+			if (x | y) {
 				tm.Set_Translation(pos);
 			}
 		}
