@@ -4472,10 +4472,10 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 
 Only what D246 (d) leaves to the user: a new input from outside the app tree, safety, `master`, a hard rule, or
 a branch the loss valve stopped. Anything else a builder proposes is the coordinator's to settle and record
-(D246 (e)); only the coordinator adds an item here. The old rule's twenty items were settled by run 2026-11-12's coordinator (section 4 item 1); P-EA1-1 (a POC input) stays the user's.
+(D246 (e)); only the coordinator adds an item here. The old rule's twenty items were settled by run 2026-11-12's coordinator (section 4 item 1). P-IM14-1 (the one client build's link recipe) and P-EA1-1 (`ClientPOC_EA` as the POC's default) were answered by the user in PR #329 (2026-11-27): both builds stay, the exact build beside the unchanged one client build (D286, P-IM14-1's (c)); both client.exe images are retail and the Net-7-era install's stays the tools' default copy (D287).
 
-* **P-EA1-1** (2026-11-06, EA1; recommend not yet, after more POC paths have run on it): make `ClientPOC_EA` (D200) the POC's default instead of `--ea`? One replay reached the class screen and shows EA's six; `ClientPOC` still has what antprox's Net-7 sessions may need, including 401 installed files outside EA's set. If it becomes a project input, the scripts in `.work/eadata/` move to `tools/` (never the data).
-* **P-IM14-1** (2026-11-27, IM14, binary.md 5.11; recommend (c) now, (a) once you accept the test image's change): the one client build's link recipe. (a) make `build.py link --program client` the exact recipe (D286's `client-exact`: retail's object order, every app object, the EA libraries as projects, DDRAW.LIB, the long-format mss32.lib): imagediff 1.37 % -> 15.74 %; the 94 objects the breadth-first pull leaves out then link, and their 78 static initialisers run in every client test as in retail, so the e2e and clienttest baselines are retaken once, and each link VM needs the E: subst and LIB /CONVERT. (b) the order alone (an `/include:` list or main.obj's `.drectve` lines: +1,133 bytes in place). (c) keep both builds as now (D286).
+
+None open.
 
 ## 4. Next steps
 
