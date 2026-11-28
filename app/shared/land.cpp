@@ -515,14 +515,14 @@ bool LandClass::Cast_OBBox(OBBoxCollisionTestClass &boxtest)
 	return Field->Cast_OBBox(boxtest);
 }
 
-// NOT EXACT: shape (141 masked rows with RT1's variant v0: the camera position copied, the patch floats in locals, level defaulting to 4; the client's frame is 0xC larger, it copies the camera position and keeps the spacing on the x87 stack past its use (fild qword PatchSize, fmul st(1), fstp st(0)); attempts.csv 0x46B3C0)
+// NOT EXACT: shape (20 masked rows, B10 2026-11-28: the distance written out under WWMath::Sqrt, the field scale read by value per expression (Get_Scale), the size scaled by it, the corner copied into min after the size and added to it for the MinMax box's max corner, set member by member; left: the matrix's address pushed first, the box sums, the prologue's cell products; attempts.csv 0x46B3C0)
 void LandClass::Update_Patches(CameraClass &camera, int lod)
 {
 	Vector3 campos = camera.Get_Position(); Vector3 pos = campos;
-	float extent = Field->Get_Spacing() * (float)(unsigned int)PatchSize;
+	float extent = Field->Get_Scale().X * (float)(unsigned int)PatchSize;
 	float half = extent * 0.5f;
 	float inv_extent = 1.0f / extent;
-	float inv_spacing = 1.0f / Field->Get_Spacing();
+	float inv_spacing = 1.0f / Field->Get_Scale().X;
 	int cell_x = (int)(inv_extent * campos.X);
 	int cell_y = (int)(inv_extent * campos.Y);
 	int cell_z = (int)(inv_extent * campos.Z);
@@ -544,7 +544,7 @@ void LandClass::Update_Patches(CameraClass &camera, int lod)
 				patch->Y = py;
 				patch->Z = 0.0f;
 				Vector3 delta(pos.X - (px + half), pos.Y - (py + half), pos.Z - Field->Get_VScale() * patch->MidHeight);
-				float distance = delta.Length();
+				float distance = WWMath::Sqrt(delta.X * delta.X + delta.Y * delta.Y + delta.Z * delta.Z);
 				int cells = (int)(distance * inv_spacing);
 				int threshold = LandLodDistances[lod];
 				int level = 4;
@@ -589,11 +589,11 @@ void LandClass::Update_Patches(CameraClass &camera, int lod)
 			int index = j * GridWidth + i;
 			LandPatchClass *patch = Patches[index];
 			LandPatchRecordClass *record = &PatchRecords[index];
-			Vector3 min(patch->X, patch->Y, patch->Z);
-			Vector3 size((float)(unsigned int)PatchSize * Field->Get_Spacing(), (float)(unsigned int)PatchSize * Field->Get_YSpacing(),
-				(float)Field->Get_Max_Value() * Field->Get_VScale());
-			Vector3 max = min + size;
-			AABoxClass box(MinMaxAABoxClass(min, max));
+			Vector3 size((float)(unsigned int)PatchSize, (float)(unsigned int)PatchSize,
+				(float)Field->Get_Max_Value()); size.Scale(Field->Get_Scale());
+			Vector3 min = *(const Vector3 *)&patch->X;
+			MinMaxAABoxClass minmax; minmax.MinCorner = min;
+			minmax.MaxCorner = *(const Vector3 *)&patch->X + size; AABoxClass box(minmax);
 			bool visible = !camera.Cull_Box(box);
 			patch->Visible = visible;
 			record->Visible = visible;
