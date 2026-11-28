@@ -25,9 +25,7 @@ struct-retail	timeval	2	2	retail struct
 spelled	GalaxyInfoClass	3	3	ours LoginGalaxyClass
 spelled	OrbitalObjectClass	2	2	ours OrbitalObject
 spelled	Subscription	1	1	ours MessageFilterClass
-spelled	RawPacketClass	1	1	ours PacketClass
 spelled	PacketClass	1	1	ours UnknownPacketBaseClass
 lacking	GalaxyInfoClass	3	0	no symbol of ours spells it
 lacking	OrbitalObjectClass	1	0	no symbol of ours spells it
-lacking	RawPacketClass	1	0	no symbol of ours spells it
 lacking	Subscription	1	0	no symbol of ours spells it
