@@ -553,7 +553,7 @@ ShipCustomizeInterface::ShipCustomizeInterface(UIViewClass *view, LayerClass *la
 	Unknown264(0),
 	Unknown268(NULL)
 {
-	for (int k = 0; k < 3; k++) {
+	for (int k = 2; k >= 0; k--) {
 		Unknown220[k] = NULL;
 	}
 	CharacterView = (CharacterViewClass *)Get_View()->Unknown_28();
