@@ -2159,7 +2159,7 @@ Base copy: reconstructed. Headers: 692 from reconstructed.
 | main/unknown_445560.cpp | reconstructed | 16 | 0 | - | - | - |  |
 | shared/unknown_445740.cpp | reconstructed | 52 | 0 | - | - | - |  |
 | shared/unknown_458710.cpp | reconstructed | 21 | 0 | - | - | - |  |
-| shared/unknown_45a090.cpp | reconstructed | 21 | 0 | - | - | - |  |
+| shared/unknown_45a090.cpp | reconstructed | 22 | 0 | - | - | - |  |
 | shared/unknown_45d840.cpp | reconstructed | 21 | 0 | - | - | - |  |
 | shared/unknown_45e3f0.cpp | reconstructed | 4 | 0 | - | - | - |  |
 | shared/unknown_466920.cpp | reconstructed | 89 | 0 | - | - | - |  |
