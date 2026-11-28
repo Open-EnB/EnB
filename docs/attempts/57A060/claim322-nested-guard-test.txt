@@ -1,0 +1,34 @@
+Astra-proposed nested Scroll eligibility: one authorized bounded test
+
+The live claim was rechecked before compiling. A fresh snapshot of committed
+revision a27086a5b reproduced the isolated100/101 baseline. The proposal cites
+workflow.md section3.1.2 line307, compound && versus nested ifs with unchanged
+callee bytes but different caller inlining; exact precedent0x6B0940.
+
+Parent key_default_accessor SHA256
+2cc6b7f7108b532340206806994f0558610886d7d31d393ded6ed204cc751332.
+Candidate SHA25611f7e3bd1949f3da44ed7a1a42e24ed708477832200ac75540c5ab4a59ea3639.
+Only Scroll's guard was split, with mutually exclusive zero-result arms and
+unchanged min/Clamp reads/stores. Same line count and assertion guard preserved.
+No caching or stores moved across the virtual slider query. Astra supplied
+the read-only hypothesis/sketch; the coordinator performed the compilation.
+
+Result: valid compiler input, no gain or loss. Key handler is exactly the same
+692-byte raw/masked target group and normalized reference graph as its parent,
+including the unchanged wrong Scroll inlining boundary. Explain:44 masked rows,
+shape,.43 similarity. Standalone Scroll 157, Toggle 320, Unknown_60 496 and Clamp 23 bytes
+have identical body/reference signatures to parent; all102 original unique
+symbols preserve full bodies/referents/addends/EH graphs. Both the new baseline
+control and candidate reproduce authoritative102 file/address and102 symbol/
+address pairs using the139 unchanged, hash-checked holder objects. No new target
+code groups, no invalid/guard/launch failures, no generated untested variants.
+
+The exact-duplicate falsification condition was reached. No early-return,
+brace/boolean spelling sweep or further compiler round follows. This result
+does not disprove the documented lever generally; its one supported application
+here failed. Key remains parked, now three stalled rounds; Init was not retried.
+
+Actual replay is appended to claim322-forms-04.json. result.json binds input/
+object hashes, the comparison, preservation and cited lever. Production C++ is
+unchanged; only evidence and one attempts row are retained. No code candidate
+or shared-header change is proposed. Compiler/staging gate released; no leases.
