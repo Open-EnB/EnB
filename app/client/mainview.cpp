@@ -644,7 +644,7 @@ WW3DErrorType MainViewClass::Render_Gas_Giant_Mode(float znear, float zfar)
 	return(WW3D_ERROR_OK);
 }
 
-// NOT EXACT: similarity 0.75 (as Render_Gas_Giant_Mode, and the inline choices of 0x50D1E0 / 0x50E6A0); attempts.csv 0x50E090
+// NOT EXACT: masked residue 64 (the Unknown10FA-set branch first gives the client's 0x50D1E0 / 0x50E6A0 inlining; left: the inlined 0x50CCF0 copies Unknown54 by an early integer mov, scheduling); attempts.csv 0x50E090
 WW3DErrorType MainViewClass::Render_Space_Mode(float znear, float zfar)
 {
 	WWPROFILE("MainView::Render_Space_Mode");
@@ -668,14 +668,14 @@ WW3DErrorType MainViewClass::Render_Space_Mode(float znear, float zfar)
 	float budget = (float)PolyBudget - cost;
 	if (budget <= 0.0f) budget = 0.0f;
 	PredictiveLODOptimizerClass::Optimize_LODs(budget);
-	if (!Client->Unknown10FA) {
-		Unknown_50D060();
+	if (Client->Unknown10FA) {
 		Unknown_50D1E0();
 		Unknown_50CE00(near2, far2);
+		Unknown_50D060();
 	} else {
+		Unknown_50D060();
 		Unknown_50D1E0();
 		Unknown_50CE00(near2, far2);
-		Unknown_50D060();
 	}
 	Unknown_50D310(znear, zfar);
 	Unknown_50D430(near2, far2);
